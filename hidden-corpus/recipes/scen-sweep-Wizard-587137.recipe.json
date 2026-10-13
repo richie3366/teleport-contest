@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      #levelchange\n6\n\u0017spellbook of polymorph\nroy.l\u0017blessed spellbook of cone of cold\nrp 20s +a\nZa\nZa\n\u0007kobold\nZa\nFh Zb\nZb\nZa\n#pray\ny y   nyjj\u0017magic portal\nlh20ssb\u0017#terrain\n"
+ },
+ "segments": [
+  {
+   "seed": 587137,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      #levelchange\n6\n\u0017spellbook of polymorph\nroy.l\u0017blessed spellbook of cone of cold\nrp 20s +a\nZa\nZa\n\u0007kobold\nZa\nFh Zb\nZb\nZa\n#pray\ny y   nyjj\u0017magic portal\nlh20ssb\u0017#terrain\n"
+  }
+ ]
+}

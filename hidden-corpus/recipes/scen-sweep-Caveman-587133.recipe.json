@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n           #levelchange\n30\n                  \u0017Giantslayer\nwfss.#invoke\nf\u0007long worm\nFkFkFk\u0007ki-rin\n#chat\nkFhFh    i\u001bwa    Fk  FjFj   Xlu  \\ i\u001b20s    n    oh#conduct\n \\ i\u001bwaFh          n Fu   Fh          \u0006\u001b:\u00168\n#levelchange\n20\n   \u0017blessed spellbook of polymorph\nrg  n    sm. \u0017blessed spellbook of create familiar\nrh  sm. \u0017blessed spellbook of sleep\nri    n    sm.         \u0017blessed spellbook of charm monster\n rj    n     sm.       +ZZZZZFl   n          \u0007gnome lord\nZ#pray\ny y                #enhance\nn\u001b\u00168\n\u0006_>,    n             Fh       _,   n      Fu                 >Fk          Fy   n               _>.      Fy  n        _,     Fl>Fk   n            s   n    _>,   _,  >\u0006_>>.   n     _,       >_>>.         n_.   >_>>. _,  n     >\u0006_>,  n    Fu          _,              Fk>Fy     Fn_>.    yny   y nnn  F"
+ },
+ "segments": [
+  {
+   "seed": 587133,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n           #levelchange\n30\n                  \u0017Giantslayer\nwfss.#invoke\nf\u0007long worm\nFkFkFk\u0007ki-rin\n#chat\nkFhFh    i\u001bwa    Fk  FjFj   Xlu  \\ i\u001b20s    n    oh#conduct\n \\ i\u001bwaFh          n Fu   Fh          \u0006\u001b:\u00168\n#levelchange\n20\n   \u0017blessed spellbook of polymorph\nrg  n    sm. \u0017blessed spellbook of create familiar\nrh  sm. \u0017blessed spellbook of sleep\nri    n    sm.         \u0017blessed spellbook of charm monster\n rj    n     sm.       +ZZZZZFl   n          \u0007gnome lord\nZ#pray\ny y                #enhance\nn\u001b\u00168\n\u0006_>,    n             Fh       _,   n      Fu                 >Fk          Fy   n               _>.      Fy  n        _,     Fl>Fk   n            s   n    _>,   _,  >\u0006_>>.   n     _,       >_>>.         n_.   >_>>. _,  n     >\u0006_>,  n    Fu          _,              Fk>Fy     Fn_>.    yny   y nnn  F"
+  }
+ ]
+}

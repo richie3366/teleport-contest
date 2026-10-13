@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n30\n         \u0017silver dagger\nwfFu ssX\u0007wumpus\nFlFlFlFlFlFl\u0007green slime\n20s 20s.y.20ssm.sss#levelchange\n14\n     \u0017blessed spellbook of teleport away\nrg 20s\u0017spellbook of clairvoyance\nrh     n  s\u0017spellbook of cause fear\nri20s +ZZ\u0007jackal\nZZZZ#turn\n#enhance\nye\na\n\u001b\u001613\n\u0017gray dragon scale mail\nWss20sT\u0007Nazgul\n;>. \u001bm.ss20s\u0007Yeenoghu\nny#chat\ns Fl #levelchange\n20\n       #wizintrinsic\nnhs\n  20ssksm.sm.sys20s 20s.jsm..m.             sm.  .m.  .hsn  sm. 20s  sm.  n  sj  sm. .n20s  .jsm.  .h20s  20s  .m. sm. sm. .m.   n20s  \u0017potion of hallucination\nqk   z#force\n10s  #ride\nuydi  ;u,20s  sm. sb.m. .m.  n sm. \u000f\u001b\u00168\n\u0016?\n>Dl kFb l\u0017scroll of earth\nrl \u0017wand of striking\nzmh         b \u0017scroll of earth\nrn  Fk bn\u0017scroll of earth\nro   n  \u0017wand of striking\nzp> Fk 10s Fk 10s \u0017wand of digging\nzqk Fk h\u0017wand of digging\nzr>    nFb  n  nh  n  n\u0017wand of striking\nzsh Fj Fj   nFj \u0017wand of striking\nztj  Fj  n  nFj Fj  n  n\u0017wand of striking\nzuj k\u0017wand of striking\nzvkn  h  n  nFj Fj Fj  yny  y y y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 587205,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n30\n         \u0017silver dagger\nwfFu ssX\u0007wumpus\nFlFlFlFlFlFl\u0007green slime\n20s 20s.y.20ssm.sss#levelchange\n14\n     \u0017blessed spellbook of teleport away\nrg 20s\u0017spellbook of clairvoyance\nrh     n  s\u0017spellbook of cause fear\nri20s +ZZ\u0007jackal\nZZZZ#turn\n#enhance\nye\na\n\u001b\u001613\n\u0017gray dragon scale mail\nWss20sT\u0007Nazgul\n;>. \u001bm.ss20s\u0007Yeenoghu\nny#chat\ns Fl #levelchange\n20\n       #wizintrinsic\nnhs\n  20ssksm.sm.sys20s 20s.jsm..m.             sm.  .m.  .hsn  sm. 20s  sm.  n  sj  sm. .n20s  .jsm.  .h20s  20s  .m. sm. sm. .m.   n20s  \u0017potion of hallucination\nqk   z#force\n10s  #ride\nuydi  ;u,20s  sm. sb.m. .m.  n sm. \u000f\u001b\u00168\n\u0016?\n>Dl kFb l\u0017scroll of earth\nrl \u0017wand of striking\nzmh         b \u0017scroll of earth\nrn  Fk bn\u0017scroll of earth\nro   n  \u0017wand of striking\nzp> Fk 10s Fk 10s \u0017wand of digging\nzqk Fk h\u0017wand of digging\nzr>    nFb  n  nh  n  n\u0017wand of striking\nzsh Fj Fj   nFj \u0017wand of striking\nztj  Fj  n  nFj Fj  n  n\u0017wand of striking\nzuj k\u0017wand of striking\nzvkn  h  n  nFj Fj Fj  yny  y y y\u001b  \u0017"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed Mjollnir\n wj\u0016?\ng _ \u001b@.>20ss\u001632\n   \u0017the Staff of Aesculapius\n \u0007black light\n;u;sm.ss\u0007tengu\nFl    Fl    Fu  Fu  Fu  \u0007shrieker\nFu Fh  Fl \u00167\n#chat\nk;>.\u0016?\np lhll:\u001633\n#levelchange\n20\n      \u0017uncursed +0 ring of cold resistance\n\u0007salamander\nPkr20s 20s  20s    n  R   Fn   Fn \u0017blessed wand of make invisible\n\u0007gnome lord\nzln\u00173 Sting\nwms.s#invoke\nms.\u00173 frost horn\nan h an h   n ss\u0017blessed gray dragon scale mail\n\u0007pony\nW\u001bsm.s20s Fl Fl  \u0017blessed potion of polymorph\n\u0007blue jelly\nqp winter wolf\n     20s su \u00161\n\u0016?\n>x\u0014,\u001639\n\u0006_>,20s20s\u0016?\n>C#levelchange\n30\n         \u0007dwarf lord\nFy FyFy Fy  FyFy\u0007ape\nFy  Fb   Fb Fy     nFb   \u0007guard\nyFy   Fy Fb   Fb   Fy Fy    \u0007stalker\n;b;20s   n   20s sm.\u00169\n\u0016?\n>y  _{.<\u0016?\n>t _{.20s\u0016?\n>E\u0014@.ss\u001629\n\u0004j\u0016?\nr \u0006_>,_,<.sss  n\u0016?\nq_>.\u0016?\ns__.\u001639\n\u0017the Mitre of Holiness\n \u0007killer bee\nwj Fl    20sFk  X\u0017scroll of remove curse\nrr  \u001b \u0017cursed wooden flute\nasy      nasy     Fl    Fy  n    \u0017spellbook of chain lightning\nrt   sj 20s  n    Za\ns    20s    n\u00167\n\u001632\n   _>.>2"
+ },
+ "segments": [
+  {
+   "seed": 587309,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed Mjollnir\n wj\u0016?\ng _ \u001b@.>20ss\u001632\n   \u0017the Staff of Aesculapius\n \u0007black light\n;u;sm.ss\u0007tengu\nFl    Fl    Fu  Fu  Fu  \u0007shrieker\nFu Fh  Fl \u00167\n#chat\nk;>.\u0016?\np lhll:\u001633\n#levelchange\n20\n      \u0017uncursed +0 ring of cold resistance\n\u0007salamander\nPkr20s 20s  20s    n  R   Fn   Fn \u0017blessed wand of make invisible\n\u0007gnome lord\nzln\u00173 Sting\nwms.s#invoke\nms.\u00173 frost horn\nan h an h   n ss\u0017blessed gray dragon scale mail\n\u0007pony\nW\u001bsm.s20s Fl Fl  \u0017blessed potion of polymorph\n\u0007blue jelly\nqp winter wolf\n     20s su \u00161\n\u0016?\n>x\u0014,\u001639\n\u0006_>,20s20s\u0016?\n>C#levelchange\n30\n         \u0007dwarf lord\nFy FyFy Fy  FyFy\u0007ape\nFy  Fb   Fb Fy     nFb   \u0007guard\nyFy   Fy Fb   Fb   Fy Fy    \u0007stalker\n;b;20s   n   20s sm.\u00169\n\u0016?\n>y  _{.<\u0016?\n>t _{.20s\u0016?\n>E\u0014@.ss\u001629\n\u0004j\u0016?\nr \u0006_>,_,<.sss  n\u0016?\nq_>.\u0016?\ns__.\u001639\n\u0017the Mitre of Holiness\n \u0007killer bee\nwj Fl    20sFk  X\u0017scroll of remove curse\nrr  \u001b \u0017cursed wooden flute\nasy      nasy     Fl    Fy  n    \u0017spellbook of chain lightning\nrt   sj 20s  n    Za\ns    20s    n\u00167\n\u001632\n   _>.>2"
+  }
+ ]
+}

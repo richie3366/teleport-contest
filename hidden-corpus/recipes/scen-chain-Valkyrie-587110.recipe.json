@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "20s dc20s .s#name\ni\n10s#name\no\n10skkFuFuFuFu FuFuFuFujkkjknuhjynh#name\nf\n @.10s10s#chat\nluFjFjFjFjFjFjFjFjFl FlFl FlFlFlFlFlJUNH_>.><#conduct\n HYHU_>,><#name\nf\nNYNJ_>yjlhbbyjHKUJ_>Fu#quit\nyy\u001by  y y y\u001b K HJK_ \u001b,>Fk .s#offer\n#terrain\nc\n>.NYJH_>.>\u000f\u001b\u0004lNHKH_>.>,KNUYK_>,>YKNU_>.>UBUH_>.>NUBL_>.>sZKLKH_>,>\\ #offer\n\u000f\u001blhl100s100s150sFlFlFlFl.20s100sZlllFlFlshlh50s100sFlFl#quit\nyy\u001by  y y y\u001b #quit\nyy  nhynFkFkFkFkFkFkFkFk20shy#chat\nh20s10slnlknlhkFk FkFkFkFkFkFkFklllb10s#name\nd\n20sddsssuk50sFlFlFlFlFlFl#pray\ny   y\u001by  y y y\u001b  _ FjFjFj i\u001b100sFj20s.150sFjss#dip\na;>. b nn50s50sFhs20s150s50sykl50s100sFbs20shjubkjFhss100s150sFhs.150s100s50sujh100sklh150s\\  _ \u001b@.>f \u001b50sFhs20snbu\u0018\u001b150s\\  kjbkjuhj10suy#chat\nkdc.s.#name\nf\nbnjj100slbl100sbkuWbju100seg10#quit\nyy\u001by  y y y\u001b #wizintrinsic\na\n 20s s20s20s20s20s20s20s s.20s..s..20sssss.s20s...s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 587110,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:cat\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "20s dc20s .s#name\ni\n10s#name\no\n10skkFuFuFuFu FuFuFuFujkkjknuhjynh#name\nf\n @.10s10s#chat\nluFjFjFjFjFjFjFjFjFl FlFl FlFlFlFlFlJUNH_>.><#conduct\n HYHU_>,><#name\nf\nNYNJ_>yjlhbbyjHKUJ_>Fu#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 687110,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=msg_window:reversed\n",
+   "moves": "K HJK_ \u001b,>Fk .s#offer\n#terrain\nc\n>.NYJH_>.>\u000f\u001b\u0004lNHKH_>.>,KNUYK_>,>YKNU_>.>UBUH_>.>NUBL_>.>sZKLKH_>,>\\ #offer\n\u000f\u001blhl100s100s150sFlFlFlFl.20s100sZlllFlFlshlh50s100sFlFl#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 787110,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 887110,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=msg_window:reversed\n",
+   "moves": "  nhynFkFkFkFkFkFkFkFk20shy#chat\nh20s10slnlknlhkFk FkFkFkFkFkFkFklllb10s#name\nd\n20sddsssuk50sFlFlFlFlFlFl#pray\ny   y\u001by  y y y\u001b  _"
+  },
+  {
+   "seed": 987110,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:lychee\n",
+   "moves": " FjFjFj i\u001b100sFj20s.150sFjss#dip\na;>. b nn50s50sFhs20s150s50sykl50s100sFbs20shjubkjFhss100s150sFhs.150s100s50sujh100sklh150s\\  _ \u001b@.>f \u001b50sFhs20snbu\u0018\u001b150s\\  kjbkjuhj10suy#chat\nkdc.s.#name\nf\nbnjj100slbl100sbkuWbju100seg10#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1087110,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\na\n 20s s20s20s20s20s20s20s s.20s..s..20sssss.s20s...s"
+  }
+ ]
+}

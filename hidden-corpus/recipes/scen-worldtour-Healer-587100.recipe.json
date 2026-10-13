@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed amulet of reflection\nPm\u001645\n   \u0017ring of cold resistance\nPnlssm. 20s  Rn  Fh   Fk   \u0017uncursed spellbook of restore ability\nro     .m. \u001b \u001b    sk  Za\n  Zc\n   n  Fb          Fl        \u0017bag of holding\napr\n  n     apr\n#tip\np\u001b        Fl   Fh     \u0017ring of warning\n\u0007jackal\nPqr  n     .m.                n    20s      .m.  n        \u0017uncursed oil lamp\nar      #rub\nr     n   Fb        Fh    .k    n sm.   \u00169\n\u001645\n   yuk :\u001644\n #levelchange\n20\n      \u0017red dragon scale mail\nWs20s sm.20sTs             \u0007gold golem\n#chat\nu    n  Fh      Fu  \u0007cockatrice\n#chat\nu  n  Fu   Fu    n \u0007djinni\nFu  Fu   Fh  Fh    n Fu  \u0007vampire lord\n#chat\nh     n \u001bFu  Fh   sm.  n .nsh   \u001b  \u00162\n\u0016?\n>>Q\u0006_\u0016lj\u0016yj\u0016lu\u0016hk\u0016yy\u0016lk\u0016hk\u0016uk\u0016kk\u0016lj\u0016jy\u0016ny\u0016kl\u0016nk\u0016yh\u0016nn\u0016uk\u0016kl\u0016ny\u0016bl\u0016ll\u0016yy\u0016bl\u0016kn\u0016hn\u0016ly\u0016kk\u0016yj\u0016bn\u0016kn\u0016nj\u0016bj\u0016jk\u0016uj\u0016jn\u0016yh\u0016bu\u0016bj\u0016hk\u0016bh\u0016nl\u0016kn\u0016hy\u0016ju\u0016nu\u0016ln\u0016hl\u0016ul\u0016bj\u0016lk\u0016yu\u0016hu\u0016yj\u0016kl\u0016uu\u0016un\u0016bb\u0016by\u0016hb\u0016bh\u0016nu\u0016ky\u0016kl\u0016jj\u0016uj\u0016kk\u0016jh\u0016lb\u0016kh\u0016kk\u0016bk\u0016hk\u0016yb\u0016yk\u0016lb\u0016jl"
+ },
+ "segments": [
+  {
+   "seed": 587100,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed amulet of reflection\nPm\u001645\n   \u0017ring of cold resistance\nPnlssm. 20s  Rn  Fh   Fk   \u0017uncursed spellbook of restore ability\nro     .m. \u001b \u001b    sk  Za\n  Zc\n   n  Fb          Fl        \u0017bag of holding\napr\n  n     apr\n#tip\np\u001b        Fl   Fh     \u0017ring of warning\n\u0007jackal\nPqr  n     .m.                n    20s      .m.  n        \u0017uncursed oil lamp\nar      #rub\nr     n   Fb        Fh    .k    n sm.   \u00169\n\u001645\n   yuk :\u001644\n #levelchange\n20\n      \u0017red dragon scale mail\nWs20s sm.20sTs             \u0007gold golem\n#chat\nu    n  Fh      Fu  \u0007cockatrice\n#chat\nu  n  Fu   Fu    n \u0007djinni\nFu  Fu   Fh  Fh    n Fu  \u0007vampire lord\n#chat\nh     n \u001bFu  Fh   sm.  n .nsh   \u001b  \u00162\n\u0016?\n>>Q\u0006_\u0016lj\u0016yj\u0016lu\u0016hk\u0016yy\u0016lk\u0016hk\u0016uk\u0016kk\u0016lj\u0016jy\u0016ny\u0016kl\u0016nk\u0016yh\u0016nn\u0016uk\u0016kl\u0016ny\u0016bl\u0016ll\u0016yy\u0016bl\u0016kn\u0016hn\u0016ly\u0016kk\u0016yj\u0016bn\u0016kn\u0016nj\u0016bj\u0016jk\u0016uj\u0016jn\u0016yh\u0016bu\u0016bj\u0016hk\u0016bh\u0016nl\u0016kn\u0016hy\u0016ju\u0016nu\u0016ln\u0016hl\u0016ul\u0016bj\u0016lk\u0016yu\u0016hu\u0016yj\u0016kl\u0016uu\u0016un\u0016bb\u0016by\u0016hb\u0016bh\u0016nu\u0016ky\u0016kl\u0016jj\u0016uj\u0016kk\u0016jh\u0016lb\u0016kh\u0016kk\u0016bk\u0016hk\u0016yb\u0016yk\u0016lb\u0016jl"
+  }
+ ]
+}

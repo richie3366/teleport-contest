@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\n>>M      wand of light\n\u0014 \u001b<.\u00161\n#levelchange\n12\n   \u001720 shuriken\nQqfu    fu        n fb       Fk   Fj  \u0017javelin\n\u0007tengu\nwr   n  Fk   Fj    Fk   n Fl      Fk  \u0017blessed the Staff of Aesculapius\n Fj      n Fh       \u0017wand of cold\nzsh   n   20s     . \u00169\n\u001641\n#levelchange\n8\n \u0007piranha\nFk  n    Fk    Fk    Fk      n   Fk   n  \u0007nurse\nFu    Fj\u0007silver dragon\n20s  s        n  20s  20s   n sm.      s     n  \u001610\n\u001615\n#levelchange\n20\n            \u0017Grimtooth\nwt  Fj  Fk    n  Fu       #invoke\ntk X\u0007earth elemental\n20s  s   20s      n sn              n           n  \u0007lieutenant\nFl      Fk   Fj       Fk   y\u001b      F"
+ },
+ "segments": [
+  {
+   "seed": 587140,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0016?\n>>M      wand of light\n\u0014 \u001b<.\u00161\n#levelchange\n12\n   \u001720 shuriken\nQqfu    fu        n fb       Fk   Fj  \u0017javelin\n\u0007tengu\nwr   n  Fk   Fj    Fk   n Fl      Fk  \u0017blessed the Staff of Aesculapius\n Fj      n Fh       \u0017wand of cold\nzsh   n   20s     . \u00169\n\u001641\n#levelchange\n8\n \u0007piranha\nFk  n    Fk    Fk    Fk      n   Fk   n  \u0007nurse\nFu    Fj\u0007silver dragon\n20s  s        n  20s  20s   n sm.      s     n  \u001610\n\u001615\n#levelchange\n20\n            \u0017Grimtooth\nwt  Fj  Fk    n  Fu       #invoke\ntk X\u0007earth elemental\n20s  s   20s      n sn              n           n  \u0007lieutenant\nFl      Fk   Fj       Fk   y\u001b      F"
+  }
+ ]
+}

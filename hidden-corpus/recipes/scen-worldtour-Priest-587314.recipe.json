@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                              \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWk\u001623\n#levelchange\n14\n     \u0017sling\nwl\u001720 flint stones\nQm\u0007grid bug\nkfl  fj  fnFn  20s\u0017potion of restore ability\ntmh \u0007yellow mold\nufh fh   n fh    n \u0017ranseur\nwo\u0007newt\nk aox    n #twoweapon\nFj Fb   n j   nby   n ,#enhance\nyg\nj\n\u001b\u00164\n\u001623\n_ \u001bm.   n>\u0016?\n>>K      ring of warning\n\u0014m,sm.  .m.    n  \u001644\n#chat\nl      n  ;j:  20s     n   .b \u00166\n\u0016?\n\u001bhu   \u0016?\n\u001bj     b    n  \u001612\n\u0017spellbook of detect food\nrr     su       n   \u0017blessed spellbook of charm monster\nrs   sm.   \u0017blessed spellbook of light\nrt y   sm.   n  +\u001b\u0007sewer rat\nZ\u001bZ\u001bFn     n  nZ\u001bFh      yy\u001by   y y y\u001b  Z"
+ },
+ "segments": [
+  {
+   "seed": 587314,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                              \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWk\u001623\n#levelchange\n14\n     \u0017sling\nwl\u001720 flint stones\nQm\u0007grid bug\nkfl  fj  fnFn  20s\u0017potion of restore ability\ntmh \u0007yellow mold\nufh fh   n fh    n \u0017ranseur\nwo\u0007newt\nk aox    n #twoweapon\nFj Fb   n j   nby   n ,#enhance\nyg\nj\n\u001b\u00164\n\u001623\n_ \u001bm.   n>\u0016?\n>>K      ring of warning\n\u0014m,sm.  .m.    n  \u001644\n#chat\nl      n  ;j:  20s     n   .b \u00166\n\u0016?\n\u001bhu   \u0016?\n\u001bj     b    n  \u001612\n\u0017spellbook of detect food\nrr     su       n   \u0017blessed spellbook of charm monster\nrs   sm.   \u0017blessed spellbook of light\nrt y   sm.   n  +\u001b\u0007sewer rat\nZ\u001bZ\u001bFn     n  nZ\u001bFh      yy\u001by   y y y\u001b  Z"
+  }
+ ]
+}

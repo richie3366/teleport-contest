@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed amulet of life saving\nPe\u0017blessed amulet of reflection\nPf\u0016?\n>G_ \u001bm,<\u0016?\nh\u00173 bag of tricks\nagag #tip\ng\u001bFkFk\u0017cursed -1 black dragon scale mail\n\u0007vampire lord\nWh       20s  . sFu Fh \u0017cursed mirror\naih Fj Fj  n s 20s  \u0016?\nd\u0006_<.Fk_.\u001629\n   \u00173 wand of slow monster\nzjlzjl\u00173 scroll of blank paper\n\u0007brown mold\nrk\u0017bag of tricks\nalal#tip\nl\u001b . 20s    s  n      n \u00166\n\u001629\n   _{,\u0016?\n>A  n     ny hk   j    k   n     :\u00168\n\u0016?\n\u001bb   n  l n  \u00161\n \u0016?\n\u001blh  \u0016?\n>w_{,\u001625\nhbyn h lh   n :  \u001625\n\u0017sling\nwm \u001720 flint stones\nQn\u0007gnome\nby fh  n fufu\u0017potion of gain level\ntnh  \u0007hill orc\nbfhfu  fhl  n jy ,#enhance\nyo\ne\n\u001b\u00162\n\u0016?\n>I\u0006_>.Fu  _.   20s  n   \u001637\nnnunh yu: \u0016?\n>Gh h  n ylu: \u0016?\n>xh   n nn:  \u001637\n#chat\nh;l,\u0016?\n>zhl : \u0016?\n>C  #chat\ny;<.\u0016?\n>>M     water walking boots\nj n    n     l                n n  "
+ },
+ "segments": [
+  {
+   "seed": 587104,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed amulet of life saving\nPe\u0017blessed amulet of reflection\nPf\u0016?\n>G_ \u001bm,<\u0016?\nh\u00173 bag of tricks\nagag #tip\ng\u001bFkFk\u0017cursed -1 black dragon scale mail\n\u0007vampire lord\nWh       20s  . sFu Fh \u0017cursed mirror\naih Fj Fj  n s 20s  \u0016?\nd\u0006_<.Fk_.\u001629\n   \u00173 wand of slow monster\nzjlzjl\u00173 scroll of blank paper\n\u0007brown mold\nrk\u0017bag of tricks\nalal#tip\nl\u001b . 20s    s  n      n \u00166\n\u001629\n   _{,\u0016?\n>A  n     ny hk   j    k   n     :\u00168\n\u0016?\n\u001bb   n  l n  \u00161\n \u0016?\n\u001blh  \u0016?\n>w_{,\u001625\nhbyn h lh   n :  \u001625\n\u0017sling\nwm \u001720 flint stones\nQn\u0007gnome\nby fh  n fufu\u0017potion of gain level\ntnh  \u0007hill orc\nbfhfu  fhl  n jy ,#enhance\nyo\ne\n\u001b\u00162\n\u0016?\n>I\u0006_>.Fu  _.   20s  n   \u001637\nnnunh yu: \u0016?\n>Gh h  n ylu: \u0016?\n>xh   n nn:  \u001637\n#chat\nh;l,\u0016?\n>zhl : \u0016?\n>C  #chat\ny;<.\u0016?\n>>M     water walking boots\nj n    n     l                n n  "
+  }
+ ]
+}

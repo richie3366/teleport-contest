@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  FbFb 20s100sjhk_ \u001bm.>_>,>#twoweapon\n50s50shlbyubjkj50s\\   \\   150sFh..100s150s\u0018\u001b100sFhFhFh100s100sybhkuh_>.>nujyjki\u001b_>.>100s150sf by n\u000f\u001b150sFbFj FjFhFhs50s\\   hjn#enhance\n\u001bWaKJKH_>,>#twoweapon\n#sit\n\u001bBYUJ_>.>LBKB_>.>KNNK_>.>JLKY_>.>JKLU_>,>\u000f\u001b#name\no\n\\   r\u001bBJBB_>,><BJJU_>.>#tip\n\u001bi\u001bLBJN_>.>da\u000f\u001b#offer\nHJJY_>.>JNUY_>.>#name\ni\n#jump\n<BYBL_>,>#pray\ny t\u001bKHUN_>,>YNBH_>.>#turn\n#ride\nyed100s50sFu.20s_>.>150s 100s#force\n\u000f\u001b150sFhFhs_>,>_>.>\u000f\u001bluu_>.>150s150sFhss100s100sFh.20s150sbnyi\u001b100s100s_m.20sFhs20soh100s eeeeeeeeech#monster\n#sit\n\u001bJUNN_>,>FyssNLH U _>,><YBU N_>.>j#loot\nLYBH_>.>Fjss#tip\n\u001b;m.UYUU_>.><NYNB_>.>#rub\n#untrap\njYJYH_>.>UNKL_>,>UBLL_>,>JKJB_>.>10saLBUL_>.>FhFh.H BYK_>,>N YJJ_>,><JKHU_>,>\\   JJNHN_>,>#force\n,BYNN_>,>KLNH_>.>#sit\n\u001bae#pray\ny  150sFkFksi\u001bfy\u000f\u001bnjk100s100sFhFhsi\u001b_>,>50s_>,>50s Fy ss100s\u0018\u001bbllFy20ss50s  Fyss100skbh15"
+ },
+ "segments": [
+  {
+   "seed": 587107,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=runmode:run\n",
+   "moves": "  FbFb 20s100sjhk_ \u001bm.>_>,>#twoweapon\n50s50shlbyubjkj50s\\   \\   150sFh..100s150s\u0018\u001b100sFhFhFh100s100sybhkuh_>.>nujyjki\u001b_>.>100s150sf by n\u000f\u001b150sFbFj FjFhFhs50s\\   hjn#enhance\n\u001bWaKJKH_>,>#twoweapon\n#sit\n\u001bBYUJ_>.>LBKB_>.>KNNK_>.>JLKY_>.>JKLU_>,>\u000f\u001b#name\no\n\\   r\u001bBJBB_>,><BJJU_>.>#tip\n\u001bi\u001bLBJN_>.>da\u000f\u001b#offer\nHJJY_>.>JNUY_>.>#name\ni\n#jump\n<BYBL_>,>#pray\ny t\u001bKHUN_>,>YNBH_>.>#turn\n#ride\nyed100s50sFu.20s_>.>150s 100s#force\n\u000f\u001b150sFhFhs_>,>_>.>\u000f\u001bluu_>.>150s150sFhss100s100sFh.20s150sbnyi\u001b100s100s_m.20sFhs20soh100s eeeeeeeeech#monster\n#sit\n\u001bJUNN_>,>FyssNLH U _>,><YBU N_>.>j#loot\nLYBH_>.>Fjss#tip\n\u001b;m.UYUU_>.><NYNB_>.>#rub\n#untrap\njYJYH_>.>UNKL_>,>UBLL_>,>JKJB_>.>10saLBUL_>.>FhFh.H BYK_>,>N YJJ_>,><JKHU_>,>\\   JJNHN_>,>#force\n,BYNN_>,>KLNH_>.>#sit\n\u001bae#pray\ny  150sFkFksi\u001bfy\u000f\u001bnjk100s100sFhFhsi\u001b_>,>50s_>,>50s Fy ss100s\u0018\u001bbllFy20ss50s  Fyss100skbh15"
+  }
+ ]
+}

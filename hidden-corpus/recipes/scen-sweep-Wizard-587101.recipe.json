@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n16\n               #levelchange\n14\n\u0016?\n>y  _ \u001bm.#chat\nn_mmm,#chat\nj;m._mmmm,#chat\nn_m.#chat\nl;<.\u0006_>.Fl  _. Fn     >Fl   Fl   _>.        Fj    n    _.      Fh     >Fu    Fn  n     _>,            Fb    n    _.     Fb      >Fy  n    Fy      \u0018\u001be>i\u001b\u001611\ni\u001bw-     Fj       n   Fj      Fl    dc      n    :w-#sit\n        ol#name\n\u001bdm     u    n   i\u001b\u001610\n\u0016?\n>CFh nFy Fk           n\u0017wand of striking\nzoh b10sFkFu\u0017wand of digging\nzp> jFhbFkFu Fu\u0017wand of striking\nzqlyyFnkFj uFb  nhbFjyFjh10sFnFnFnlFj10sFjFj10sFjFjFjFjFjFjbbybbbbbbk\u0017scroll of earth\nrr   jbk\u00161\n\u0006\u00165\n#levelchange\n8\n  #wizintrinsic\nkcm\n  sy.m.su20ssm.20s20s  n20s.k20ssm.s20ssm.20ssnsm.sm.s20s.m.sbzqk   \u001bK     \u001boj  #rub\n#dip\ngf #tip\n\u001b20s snsm.  20ssm.    n  s  \u001630\n   \u00168\n#levelchange\n12\n  \u0017Sting\nws20sFjFjX\u0007Juiblex\ny#chat\nnFnFn\u0007rabid rat\n20ssm..bsm.sm.sl\u0007gecko\n;j:  sks20s\u0007killer bee\nFj Fb  n\u0017blessed ring of warning\n\u0007ice devil\nPtr20s .m..m.\u0017uncursed spellbook of turn undead\nruy sm.  sm.  n Za\nZa\n \u0017uncursed +0 cloak of invisibility\nWv 20ssm.sm.\u0017cursed -1 unicorn horn\n\u0007aligned cleric\nyww FhFj   Fh     nX\u0017blessed +3 ring of polymorph control\nPx.m.    n20s       .j      yny   ny y\u001bn  R"
+ },
+ "segments": [
+  {
+   "seed": 587101,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n16\n               #levelchange\n14\n\u0016?\n>y  _ \u001bm.#chat\nn_mmm,#chat\nj;m._mmmm,#chat\nn_m.#chat\nl;<.\u0006_>.Fl  _. Fn     >Fl   Fl   _>.        Fj    n    _.      Fh     >Fu    Fn  n     _>,            Fb    n    _.     Fb      >Fy  n    Fy      \u0018\u001be>i\u001b\u001611\ni\u001bw-     Fj       n   Fj      Fl    dc      n    :w-#sit\n        ol#name\n\u001bdm     u    n   i\u001b\u001610\n\u0016?\n>CFh nFy Fk           n\u0017wand of striking\nzoh b10sFkFu\u0017wand of digging\nzp> jFhbFkFu Fu\u0017wand of striking\nzqlyyFnkFj uFb  nhbFjyFjh10sFnFnFnlFj10sFjFj10sFjFjFjFjFjFjbbybbbbbbk\u0017scroll of earth\nrr   jbk\u00161\n\u0006\u00165\n#levelchange\n8\n  #wizintrinsic\nkcm\n  sy.m.su20ssm.20s20s  n20s.k20ssm.s20ssm.20ssnsm.sm.s20s.m.sbzqk   \u001bK     \u001boj  #rub\n#dip\ngf #tip\n\u001b20s snsm.  20ssm.    n  s  \u001630\n   \u00168\n#levelchange\n12\n  \u0017Sting\nws20sFjFjX\u0007Juiblex\ny#chat\nnFnFn\u0007rabid rat\n20ssm..bsm.sm.sl\u0007gecko\n;j:  sks20s\u0007killer bee\nFj Fb  n\u0017blessed ring of warning\n\u0007ice devil\nPtr20s .m..m.\u0017uncursed spellbook of turn undead\nruy sm.  sm.  n Za\nZa\n \u0017uncursed +0 cloak of invisibility\nWv 20ssm.sm.\u0017cursed -1 unicorn horn\n\u0007aligned cleric\nyww FhFj   Fh     nX\u0017blessed +3 ring of polymorph control\nPx.m.    n20s       .j      yny   ny y\u001bn  R"
+  }
+ ]
+}

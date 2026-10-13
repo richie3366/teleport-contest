@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u0017sack\n\u0017locked large box\n\u0017ring of polymorph\n#tip\nqr\naraqr\ndr#loot\n y,i\u001b\u0017spellbook of identify\nrt  .b\u0017blessed spellbook of polymorph\n ru   sm.  \u0017spellbook of detect food\nrv s\u0017spellbook of stone to flesh\nrw 20s+b\nZa\n\u001b@.Zb\nFlZa\nsZa\n20s Za\nZb\n\u0007grid bug\nZb\n#enhance\nyf\no\n\u001b\u001614\n#levelchange\n20\n            \u0007soldier\nFhFhFl   Fh\u0007troll\n20s sm.   sm..m. .m.  n   .m. \u0007jellyfish\n#chat\nh Fj    n  Fh  \u0006\u00162\n\u0017large box\n\u0017bag of tricks\n\u0017potion of gain level\n\u0017wand of fire\ndx   #loot\n y  ,    n  dx     u \u0004b \u0017credit card\ndc      n aB.   20s   sh       nsm.  #loot\nb\u0017skeleton key\ndq   aC.    .j   n sm. sk #loot\nb#tip\nr\u001b i\u001b\u00167\n\u0016?\n>EFh Fh    n Fh b Fk  nyl   nFy k   u10s kFh Fh   n     kFl    Fl      n\u0017wand of digging\nzDu    \u0017wand of striking\nzEu     b    n Fk    n\u0017wand of striking\nzFh     Fu   n    u    u    n   Fu    bFk     n  k     \u0017wand of striking\nzG>    k   n    jFl    k    y  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 587211,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u0017sack\n\u0017locked large box\n\u0017ring of polymorph\n#tip\nqr\naraqr\ndr#loot\n y,i\u001b\u0017spellbook of identify\nrt  .b\u0017blessed spellbook of polymorph\n ru   sm.  \u0017spellbook of detect food\nrv s\u0017spellbook of stone to flesh\nrw 20s+b\nZa\n\u001b@.Zb\nFlZa\nsZa\n20s Za\nZb\n\u0007grid bug\nZb\n#enhance\nyf\no\n\u001b\u001614\n#levelchange\n20\n            \u0007soldier\nFhFhFl   Fh\u0007troll\n20s sm.   sm..m. .m.  n   .m. \u0007jellyfish\n#chat\nh Fj    n  Fh  \u0006\u00162\n\u0017large box\n\u0017bag of tricks\n\u0017potion of gain level\n\u0017wand of fire\ndx   #loot\n y  ,    n  dx     u \u0004b \u0017credit card\ndc      n aB.   20s   sh       nsm.  #loot\nb\u0017skeleton key\ndq   aC.    .j   n sm. sk #loot\nb#tip\nr\u001b i\u001b\u00167\n\u0016?\n>EFh Fh    n Fh b Fk  nyl   nFy k   u10s kFh Fh   n     kFl    Fl      n\u0017wand of digging\nzDu    \u0017wand of striking\nzEu     b    n Fk    n\u0017wand of striking\nzFh     Fu   n    u    u    n   Fu    bFk     n  k     \u0017wand of striking\nzG>    k   n    jFl    k    y  \u0017"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017blessed +3 speed boots\nWo\u0016?\n>x_ \u001b,\u001629\nhlh:\u0016?\najkjjh:\u0016?\n>Dyj\u0017wand of light\nEp  Elbereth Elbereth\n: \u0017wand of polymorph\nEq :  \u0017wand of nothing\nErn  X marks the spot\n: k\u0017wand of secret door detection\nEs  Vlad was here\n\u0017wand of opening\nEty Elbereth\n: \u0016?\nq \u0017ring of slow digestion\nPurs.20s\u0017wand of fire\n\u0007little dog\nzvjzvnss\u0017blessed spellbook of turn undead\n\u0007dwarf\nrwssZa\nZb\n \u0017bag of tricks\naxax #tip\nx\u001b \u0017fortune cookie\n\u0007xorn\ney    20s  sm.Fl  Flsm.  n sm. sm.  20s \u0016?\nn_{.s20s \u001610\nubk:\u0016?\no \u0004n\u001610\nh kbj\u0017web\nj^kks.ll \u0017magic portal\nkj y\u001by   y y  y\u001b ."
+ },
+ "segments": [
+  {
+   "seed": 587302,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017blessed +3 speed boots\nWo\u0016?\n>x_ \u001b,\u001629\nhlh:\u0016?\najkjjh:\u0016?\n>Dyj\u0017wand of light\nEp  Elbereth Elbereth\n: \u0017wand of polymorph\nEq :  \u0017wand of nothing\nErn  X marks the spot\n: k\u0017wand of secret door detection\nEs  Vlad was here\n\u0017wand of opening\nEty Elbereth\n: \u0016?\nq \u0017ring of slow digestion\nPurs.20s\u0017wand of fire\n\u0007little dog\nzvjzvnss\u0017blessed spellbook of turn undead\n\u0007dwarf\nrwssZa\nZb\n \u0017bag of tricks\naxax #tip\nx\u001b \u0017fortune cookie\n\u0007xorn\ney    20s  sm.Fl  Flsm.  n sm. sm.  20s \u0016?\nn_{.s20s \u001610\nubk:\u0016?\no \u0004n\u001610\nh kbj\u0017web\nj^kks.ll \u0017magic portal\nkj y\u001by   y y  y\u001b ."
+  }
+ ]
+}

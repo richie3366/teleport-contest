@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nWf\u001617\n \u0006_ \u001b.\u001634\n   \u0014m,\u0016?\n>z  ulkjkj:\u001634\n  uju n:\u0016?\nd__.s.20s\u0016?\nq \u0007fire giant\n.20s     20s sm.s\u0007leprechaun\n.hsm.  sm.s\u0007stalker\n#chat\nlFjFl   \u0007killer bee\n20s    20ssm.    n  20s   20s.m.   \u0016?\n>>L   elven leather helm\n_{.>sm.sm.\u001617\njkuh : \u001619\n_{,s 20s 20s  n \u001617\n#levelchange\n30\n         \u0017uncursed potion of speed\nqi  #dip\nc\u0017cursed spellbook of jumping\n\u0007jackal\nrj y.  \u001b       su     20s   n   ZFj  Fk   \u0017uncursed the Magic Mirror of Merlin\n wb  Fl     n   Fj Fj#invoke\nk ss\u00164\n\u0016?\nb #chat\ny;k,\u0016?\n\u001bn j\u0016?\n\u001bk    b\u001634\n_>.<\u001644\n\u0017bow\nwl\u001720 arrows\nQay\u0007lichen\nu     n bfk    f c j\u0017potion of acid\ntck    \u00074 gnome lord\ny    n   l      n fk   fl fl     nu  jb     ,#enhance\nyj\nk\n\u001b\u00164\n\u0016?\n\u001bbh     n     \u001619\n#chat\nj;b. \u0016?\n\u001bb        n u\u0016?\n\u001bl     \u001b l\u001639\n\u0004y       n   20s    sk   n      \u00167\n\u0016?\n\u001bnh        n  \u0016?\n\u001bu      l\u001637\nn  k:.y   n    \u0016?\n\u001bl    b\u0016?\n\u001bh k\u0016?\n\u001bj  y\u001637\n\u0004b     n sm.  .m.   yny   y ny n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 587132,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=autodig\nOPTIONS=sortloot:none\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nWf\u001617\n \u0006_ \u001b.\u001634\n   \u0014m,\u0016?\n>z  ulkjkj:\u001634\n  uju n:\u0016?\nd__.s.20s\u0016?\nq \u0007fire giant\n.20s     20s sm.s\u0007leprechaun\n.hsm.  sm.s\u0007stalker\n#chat\nlFjFl   \u0007killer bee\n20s    20ssm.    n  20s   20s.m.   \u0016?\n>>L   elven leather helm\n_{.>sm.sm.\u001617\njkuh : \u001619\n_{,s 20s 20s  n \u001617\n#levelchange\n30\n         \u0017uncursed potion of speed\nqi  #dip\nc\u0017cursed spellbook of jumping\n\u0007jackal\nrj y.  \u001b       su     20s   n   ZFj  Fk   \u0017uncursed the Magic Mirror of Merlin\n wb  Fl     n   Fj Fj#invoke\nk ss\u00164\n\u0016?\nb #chat\ny;k,\u0016?\n\u001bn j\u0016?\n\u001bk    b\u001634\n_>.<\u001644\n\u0017bow\nwl\u001720 arrows\nQay\u0007lichen\nu     n bfk    f c j\u0017potion of acid\ntck    \u00074 gnome lord\ny    n   l      n fk   fl fl     nu  jb     ,#enhance\nyj\nk\n\u001b\u00164\n\u0016?\n\u001bbh     n     \u001619\n#chat\nj;b. \u0016?\n\u001bb        n u\u0016?\n\u001bl     \u001b l\u001639\n\u0004y       n   20s    sk   n      \u00167\n\u0016?\n\u001bnh        n  \u0016?\n\u001bu      l\u001637\nn  k:.y   n    \u0016?\n\u001bl    b\u0016?\n\u001bh k\u0016?\n\u001bj  y\u001637\n\u0004b     n sm.  .m.   yny   y ny n  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0016?\n>Bj10sFk \u0017wand of digging\nzillhhhl\u0017wand of striking\nzj>hhl10syb\u0017wand of digging\nzkb\u0017wand of striking\nzlb\u0017wand of striking\nzmk\u0017scroll of earth\nrn bhynbylnyh\u0017wand of digging\nzonjkkl\u0017scroll of earth\nrp hluyk10suhlyhh10suhjyllh\u0017scroll of earth\nrq yuk\u001628\n\u0018\u001b#levelchange\n8\n  #wizintrinsic\nqkp\n  ss..sssss...20s s20s20s .20s s. ss\u0017scroll of genocide\nrr  couatl\n  dwarf lord\nL _>, \u001bm.s#chat\nbey ,#offer\ns20ssss.#levelchange\n20\n            #wizintrinsic\nrd\n sm.sysj20s20ssm.ss.m..u\u0017scroll of remove curse\nrt  \u001b10s#pray\ny y   #rub\nt\u001bZb\nW20s.u.sm.sl.m.\u001615\n#levelchange\n30\n         \u0007tame saddled titanothere\n\u0017lance\nwu#ride\nhy\u0007pony\n\u0017scroll of taming\nrv  \u001b\u0017saddle\nawy  #ride\nyyy\u0007horse\n\u0017scroll of taming\nrx  \u0017saddle\nayy#ride\n     lllh    #ride\nhy20s  #ride\nnysslln\u0004unnn\u00163\n#levelchange\n10\n       \u0016?\nk   \u0006__. _.#chat\nu.l 20s .m._<..m.#dip\nld es  y \u00166\ni\u001bzknzklzmkef su20sW.l20s.kWsm.sm.sm.Tcee .m..>tah#name\nf\ncf#twoweapon\nb#loot\ni\u001bqd#dip\nddWcsssTczjnzl.  nzllwu..szi> #levelchange\n20\n         \u0016?\ns di#tip\n\u001b\\ ss\u0016?\n>D,#tip\n\u001b,;m...\u0016?\n>t #dip\ngd10s#terrain\nb\n\u0006 sm.20s \u001623\n\u0006#levelchange\n14\n  \u0017blessed spellbook of knock\nrz .\u0017spellbook of detect treasure\nrA \u001b \u001b \u001b  s+b\nZa\nZc\n\u0007newt\nZa\nZc\nZc\n#turn\n #pray\ny y #enhance\nyh\nq\n\u001bykny\u0017teleportation trap\nny,ssnl\u0017arrow trap\nhlssy\u0017web\njks20slj\u0017magic portal\nyn y\u001by  y acid blob\ny\u001b s"
+ },
+ "segments": [
+  {
+   "seed": 587210,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0016?\n>Bj10sFk \u0017wand of digging\nzillhhhl\u0017wand of striking\nzj>hhl10syb\u0017wand of digging\nzkb\u0017wand of striking\nzlb\u0017wand of striking\nzmk\u0017scroll of earth\nrn bhynbylnyh\u0017wand of digging\nzonjkkl\u0017scroll of earth\nrp hluyk10suhlyhh10suhjyllh\u0017scroll of earth\nrq yuk\u001628\n\u0018\u001b#levelchange\n8\n  #wizintrinsic\nqkp\n  ss..sssss...20s s20s20s .20s s. ss\u0017scroll of genocide\nrr  couatl\n  dwarf lord\nL _>, \u001bm.s#chat\nbey ,#offer\ns20ssss.#levelchange\n20\n            #wizintrinsic\nrd\n sm.sysj20s20ssm.ss.m..u\u0017scroll of remove curse\nrt  \u001b10s#pray\ny y   #rub\nt\u001bZb\nW20s.u.sm.sl.m.\u001615\n#levelchange\n30\n         \u0007tame saddled titanothere\n\u0017lance\nwu#ride\nhy\u0007pony\n\u0017scroll of taming\nrv  \u001b\u0017saddle\nawy  #ride\nyyy\u0007horse\n\u0017scroll of taming\nrx  \u0017saddle\nayy#ride\n     lllh    #ride\nhy20s  #ride\nnysslln\u0004unnn\u00163\n#levelchange\n10\n       \u0016?\nk   \u0006__. _.#chat\nu.l 20s .m._<..m.#dip\nld es  y \u00166\ni\u001bzknzklzmkef su20sW.l20s.kWsm.sm.sm.Tcee .m..>tah#name\nf\ncf#twoweapon\nb#loot\ni\u001bqd#dip\nddWcsssTczjnzl.  nzllwu..szi> #levelchange\n20\n         \u0016?\ns di#tip\n\u001b\\ ss\u0016?\n>D,#tip\n\u001b,;m...\u0016?\n>t #dip\ngd10s#terrain\nb\n\u0006 sm.20s \u001623\n\u0006#levelchange\n14\n  \u0017blessed spellbook of knock\nrz .\u0017spellbook of detect treasure\nrA \u001b \u001b \u001b  s+b\nZa\nZc\n\u0007newt\nZa\nZc\nZc\n#turn\n #pray\ny y #enhance\nyh\nq\n\u001bykny\u0017teleportation trap\nny,ssnl\u0017arrow trap\nhlssy\u0017web\njks20slj\u0017magic portal\nyn y\u001by  y acid blob\ny\u001b s"
+  }
+ ]
+}

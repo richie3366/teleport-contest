@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   #wizintrinsic\nck\n sm.sss.u.sls20ssm.sm.s.m.sl.nsm.sss20s 20s 20s#dip\ne\\   tbj#name\no\nfoo\n\u001b\u001b\u0014 \u001bm,\\   sm. 20s    n s20s20s20s#levelchange\n6\n       \u0017blessed spellbook of jumping\nris\u0017blessed spellbook of create familiar\nrj  .\u0017blessed spellbook of identify\nrk .\u0017spellbook of cone of cold\nrl: s+b\nZa\n\u0007ZZ\u0007ZZZ#pray\n#enhance\n\u0016#levelchange\n\u0007.sssss20s.20s\u0007energy vortex\nFbFb  Fk   n     \u0007blue jelly\n;j..m. 20s    sm.  \u0007little dog\n#chat\nhFh    Fk     n \u0006\u00169\n#levelchange\n20\n              \u0017sling\nwm\u001720 flint stones\nQn\u0007grid bug\nukfhfy\u0017potion of healing\ntnb\u0017ranseur\nwp\u0007jackal\nbapx#twoweapon\nFk.jhk,#enhance\nys\nm\n\u001b\u00169\n#levelchange\n20\n\u0016?\nn_>,s#rub\nnp#pray\ny y     ;m.ss\u001629\ns#turn\n:\u0006s    nsm.     n \u001632\n20s   ni\u001b#terrain\nf\n20s s    n\u0016?\nq;n:  tnj   n#wipe\n    n  ;y;.m.   n  sm.   n   \u001619\n \u0006\u00169\n#levelchange\n8\n     \u0017spellbook of wizard lock\n\u0007jellyfish\nrq  n   n20s   20sZc\n     n Zc\n    nFy     n Fy    yy\u001by   y y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 587109,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   #wizintrinsic\nck\n sm.sss.u.sls20ssm.sm.s.m.sl.nsm.sss20s 20s 20s#dip\ne\\   tbj#name\no\nfoo\n\u001b\u001b\u0014 \u001bm,\\   sm. 20s    n s20s20s20s#levelchange\n6\n       \u0017blessed spellbook of jumping\nris\u0017blessed spellbook of create familiar\nrj  .\u0017blessed spellbook of identify\nrk .\u0017spellbook of cone of cold\nrl: s+b\nZa\n\u0007ZZ\u0007ZZZ#pray\n#enhance\n\u0016#levelchange\n\u0007.sssss20s.20s\u0007energy vortex\nFbFb  Fk   n     \u0007blue jelly\n;j..m. 20s    sm.  \u0007little dog\n#chat\nhFh    Fk     n \u0006\u00169\n#levelchange\n20\n              \u0017sling\nwm\u001720 flint stones\nQn\u0007grid bug\nukfhfy\u0017potion of healing\ntnb\u0017ranseur\nwp\u0007jackal\nbapx#twoweapon\nFk.jhk,#enhance\nys\nm\n\u001b\u00169\n#levelchange\n20\n\u0016?\nn_>,s#rub\nnp#pray\ny y     ;m.ss\u001629\ns#turn\n:\u0006s    nsm.     n \u001632\n20s   ni\u001b#terrain\nf\n20s s    n\u0016?\nq;n:  tnj   n#wipe\n    n  ;y;.m.   n  sm.   n   \u001619\n \u0006\u00169\n#levelchange\n8\n     \u0017spellbook of wizard lock\n\u0007jellyfish\nrq  n   n20s   20sZc\n     n Zc\n    nFy     n Fy    yy\u001by   y y y\u001by  \u0017"
+  }
+ ]
+}

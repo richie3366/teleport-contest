@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0017cursed potion of polymorph\nqi  \u0017blessed plate mail\n\u0007Kop Kaptain\nW\u001bsm.  20ssm.\u00173 wand of stasis\n\u0007elf-lord\nzk  \u001b;    zk m.\u0017blessed potion of paralysis\nql#dip\nj20s20s\u0017blessed wand of fire\n\u0007elf-lord\nzml   zml   ss\u00173 amulet versus poison\n\u0007pit fiend\nPn.m..sm.    .m.  20s  sn   \u0018\u001b\u0017blessed +3 unicorn horn\nwoFl  FlFl    n \u0017blessed +3 cloak of displacement\nWp    sm.  shsm.T     Fh   n  Fl  \u001b  \u0017uncursed +0 ring of cold resistance\n\u0007newt\nPqr      sm.   n .m.  sm.\u0017uncursed wand of cold\nzrl \u0017cursed cream pie\n\u0007Famine\nnes .l  n sm.  n \u0017uncursed spellbook of finger of death\n\u0007ogre king\nrt  \u001b  n.u20s ZFh  n Fl   n 20s   nsm.  n \u001616\n\u0006\u001612\n#levelchange\n16\n   \u0016?\n>z  _m.Fb_,#chat\nb_mm.#chat\nb;b:  _mmmmm.Fj_.#chat\nh_mm,#chat\nl#dip\nd#enhance\nyc\nf\n\u001b#sit\n i\u001br\u001bef  \u000f\u001b#turn\n#terrain\n\u001b#rub\nao \u0004y \u0007lich\nFl  n  Fl  Fj  Fl  Fl   n20s 20s \u0017leather gloves\nWv\u0017cockatrice corpse\nwa \u0007newt\nFk FhFl\u0007green mold\nFk  FuFhFjFu  sm..m.\u00161\n\u0007horse\n\u0017scroll of taming\nrx  \u001b  \u0017saddle\n ayk     n \u0017lance\nwz#ride\nhy\u0007tame saddled pony\n#ride\nuy\u0007tame saddled warhorse\n#ride\nlyjl   kl    #ride\nkysm.#ride\nky\u0007kobold\nFn  Fy    nFb     l  nh  h\u0007giant rat\nFk  Fh         Fb  i\u001b\u00165\n\u0007quantum mechanic\nFn        .      Fb  m. s s.ss..\u0007cobra\nFhFh Fh Fh   n.j.\u0007yellow light\nFh FhFhFh.s  yy\u001by   nny\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 587207,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0017cursed potion of polymorph\nqi  \u0017blessed plate mail\n\u0007Kop Kaptain\nW\u001bsm.  20ssm.\u00173 wand of stasis\n\u0007elf-lord\nzk  \u001b;    zk m.\u0017blessed potion of paralysis\nql#dip\nj20s20s\u0017blessed wand of fire\n\u0007elf-lord\nzml   zml   ss\u00173 amulet versus poison\n\u0007pit fiend\nPn.m..sm.    .m.  20s  sn   \u0018\u001b\u0017blessed +3 unicorn horn\nwoFl  FlFl    n \u0017blessed +3 cloak of displacement\nWp    sm.  shsm.T     Fh   n  Fl  \u001b  \u0017uncursed +0 ring of cold resistance\n\u0007newt\nPqr      sm.   n .m.  sm.\u0017uncursed wand of cold\nzrl \u0017cursed cream pie\n\u0007Famine\nnes .l  n sm.  n \u0017uncursed spellbook of finger of death\n\u0007ogre king\nrt  \u001b  n.u20s ZFh  n Fl   n 20s   nsm.  n \u001616\n\u0006\u001612\n#levelchange\n16\n   \u0016?\n>z  _m.Fb_,#chat\nb_mm.#chat\nb;b:  _mmmmm.Fj_.#chat\nh_mm,#chat\nl#dip\nd#enhance\nyc\nf\n\u001b#sit\n i\u001br\u001bef  \u000f\u001b#turn\n#terrain\n\u001b#rub\nao \u0004y \u0007lich\nFl  n  Fl  Fj  Fl  Fl   n20s 20s \u0017leather gloves\nWv\u0017cockatrice corpse\nwa \u0007newt\nFk FhFl\u0007green mold\nFk  FuFhFjFu  sm..m.\u00161\n\u0007horse\n\u0017scroll of taming\nrx  \u001b  \u0017saddle\n ayk     n \u0017lance\nwz#ride\nhy\u0007tame saddled pony\n#ride\nuy\u0007tame saddled warhorse\n#ride\nlyjl   kl    #ride\nkysm.#ride\nky\u0007kobold\nFn  Fy    nFb     l  nh  h\u0007giant rat\nFk  Fh         Fb  i\u001b\u00165\n\u0007quantum mechanic\nFn        .      Fb  m. s s.ss..\u0007cobra\nFhFh Fh Fh   n.j.\u0007yellow light\nFh FhFhFh.s  yy\u001by   nny\u001b  \u0017"
+  }
+ ]
+}

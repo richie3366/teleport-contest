@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  \u0007Pestilence\nn;n, \u001b<.20s sm.  nsk \u0007large mimic\n#chat\nl  nFl Fl   n\u0007purple worm\nshsm.  n .  n  20s  n   n\u001628\n\u00166\n#wizintrinsic\nio\n  .s20sss..sss20sssss20s20sss.s.\u0017potion of gain energy\n qg#dip\ngh eH>db#force\n>.s20s.s20s#levelchange\n30\n                              \u0007crocodile\nFuFkFu FuFk Fu\u0007pit fiend\nFjFuFjFj   \u001bFj   n \u0007black light\n#chat\nj  Fj    Fji\u001bW\u001b.jsm..n rj Pel  .m.  n  20ssm.R an\u001bao rk  #enhance\nyl\nd\n\u001b#chat\nn#ride\nby#sit\n\u0014.zch  ne#pray\ny y  i\u001brls .Za\nZb\nri eW\u001b20s s  n .rm20s .Za\n qg   n qf\u00162\n   jnj\u0017tree\nnu\u0017moat\nu     \u0017sink\nqy :u\u0017lawful altar\ndd  \u0017gnome corpse\n #offer\nq      n #pray\ny y :#invoke\n\u001bcj#sit\n\u001623\njk\u0017wand of teleportation\nEr Elbereth Elbereth\nj\u0017wand of slow monster\nEs  :\u0017wand of digging\nEt  Elbereth\n:\u0017athame\nEu\u000f\u001b#levelchange\n30\n\u0007kobold shaman\ns  n s . s 20s   n 20s s20s \u0007gas spore\ns s  n  20s s.  yy\u001bny y nn  h"
+ },
+ "segments": [
+  {
+   "seed": 587219,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007Pestilence\nn;n, \u001b<.20s sm.  nsk \u0007large mimic\n#chat\nl  nFl Fl   n\u0007purple worm\nshsm.  n .  n  20s  n   n\u001628\n\u00166\n#wizintrinsic\nio\n  .s20sss..sss20sssss20s20sss.s.\u0017potion of gain energy\n qg#dip\ngh eH>db#force\n>.s20s.s20s#levelchange\n30\n                              \u0007crocodile\nFuFkFu FuFk Fu\u0007pit fiend\nFjFuFjFj   \u001bFj   n \u0007black light\n#chat\nj  Fj    Fji\u001bW\u001b.jsm..n rj Pel  .m.  n  20ssm.R an\u001bao rk  #enhance\nyl\nd\n\u001b#chat\nn#ride\nby#sit\n\u0014.zch  ne#pray\ny y  i\u001brls .Za\nZb\nri eW\u001b20s s  n .rm20s .Za\n qg   n qf\u00162\n   jnj\u0017tree\nnu\u0017moat\nu     \u0017sink\nqy :u\u0017lawful altar\ndd  \u0017gnome corpse\n #offer\nq      n #pray\ny y :#invoke\n\u001bcj#sit\n\u001623\njk\u0017wand of teleportation\nEr Elbereth Elbereth\nj\u0017wand of slow monster\nEs  :\u0017wand of digging\nEt  Elbereth\n:\u0017athame\nEu\u000f\u001b#levelchange\n30\n\u0007kobold shaman\ns  n s . s 20s   n 20s s20s \u0007gas spore\ns s  n  20s s.  yy\u001bny y nn  h"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  \u0016?\n>w\u0006\u0017blessed potion of object detection\nqh \u001b<._m.Fk _.#chat\nn_oo._.Fu ,dc_ooooo.Fl_,Fn,$_ooooo, _.,$_dddd. _.Fn  n\u0004h   n_oo. Fn   n_, Fj _oo.Fn   n_. Fj   n,db\u0018\u001bt\u001bW\u001b\u001610\n#levelchange\n30\n                             \u0017cursed credit card\naij\u00173 tin of spinach\nej 20ssm.\u0017scroll of teleportation\nrk m.ss\u0017the Book of the Dead\n\u0007guardian naga\nwaFlFl   Fl #invoke\nl Xsm.     sm.           n  \u0007djinni\nFj Fj                   n  Fl             n    Fj   Fj    Fl \u0007umber hulk\n#chat\nj Fl  n  Fl \u00168\n\u001610\n\u0007mountain nymph\nFjFjFjFb   20ssk#pray\ny y      \u0007water nymph\nFjFh  Fk    n Fksksm.\u0006\u0017sling\nwm \u001720 flint stones\nQn\u00072 kobold\nk fj fkfk fh   n fk \u0017potion of healing\ntnk \u0017bardiche\nwp   \u0007lichen\nu apm.h  n  bj  ,#enhance\nyf\nh\n\u001b\u00165\n i\u001bw-Fb FjFjXwa Fj  nFbFlXwmFb Fj Fj ana wmFj  n FjFj Xqo#conduct\n #force\n\u0004n#twoweapon\n\\  #dip\ncqi\u001banf wa FjFbFbXwmFb   nFlFb   X#levelchange\n8\n       \u0007cobra\nsm.ss.k20s  sm.sm.  n  20s   \u0007Nazgul\n#chat\nl  FlFh  \u0007giant rat\n#chat\nn   n Fh  Fn   \u0007giant mimic\n;j:  sm.   yy\u001by  y y y\u001bn  2"
+ },
+ "segments": [
+  {
+   "seed": 587216,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0016?\n>w\u0006\u0017blessed potion of object detection\nqh \u001b<._m.Fk _.#chat\nn_oo._.Fu ,dc_ooooo.Fl_,Fn,$_ooooo, _.,$_dddd. _.Fn  n\u0004h   n_oo. Fn   n_, Fj _oo.Fn   n_. Fj   n,db\u0018\u001bt\u001bW\u001b\u001610\n#levelchange\n30\n                             \u0017cursed credit card\naij\u00173 tin of spinach\nej 20ssm.\u0017scroll of teleportation\nrk m.ss\u0017the Book of the Dead\n\u0007guardian naga\nwaFlFl   Fl #invoke\nl Xsm.     sm.           n  \u0007djinni\nFj Fj                   n  Fl             n    Fj   Fj    Fl \u0007umber hulk\n#chat\nj Fl  n  Fl \u00168\n\u001610\n\u0007mountain nymph\nFjFjFjFb   20ssk#pray\ny y      \u0007water nymph\nFjFh  Fk    n Fksksm.\u0006\u0017sling\nwm \u001720 flint stones\nQn\u00072 kobold\nk fj fkfk fh   n fk \u0017potion of healing\ntnk \u0017bardiche\nwp   \u0007lichen\nu apm.h  n  bj  ,#enhance\nyf\nh\n\u001b\u00165\n i\u001bw-Fb FjFjXwa Fj  nFbFlXwmFb Fj Fj ana wmFj  n FjFj Xqo#conduct\n #force\n\u0004n#twoweapon\n\\  #dip\ncqi\u001banf wa FjFbFbXwmFb   nFlFb   X#levelchange\n8\n       \u0007cobra\nsm.ss.k20s  sm.sm.  n  20s   \u0007Nazgul\n#chat\nl  FlFh  \u0007giant rat\n#chat\nn   n Fh  Fn   \u0007giant mimic\n;j:  sm.   yy\u001by  y y y\u001bn  2"
+  }
+ ]
+}

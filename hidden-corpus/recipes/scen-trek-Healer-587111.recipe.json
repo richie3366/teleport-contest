@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "K BLH_ \u001bm,>FhFk.KYKJ_>,>FlFlsYNBY_>.>E- Elbereth\n\u0004kKYNB_>,>#terrain\nb\n_s NLYL_>.>Fj20ssHBBJ_>.>Fl20ss,l  Fl Fu  FuFl20ssFu20ss100s#ride\n.50s100s\u000f\u001byhuFlss\u000f\u001bhnkFuss100s     FbFjFj\\ ubjuynbyn100s   FjFbFbFjFn.150sFkFk  y\u001by  y y y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 587111,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "K BLH_ \u001bm,>FhFk.KYKJ_>,>FlFlsYNBY_>.>E- Elbereth\n\u0004kKYNB_>,>#terrain\nb\n_s NLYL_>.>Fj20ssHBBJ_>.>Fl20ss,l  Fl Fu  FuFl20ssFu20ss100s#ride\n.50s100s\u000f\u001byhuFlss\u000f\u001bhnkFuss100s     FbFjFj\\ ubjuynbyn100s   FjFbFbFjFn.150sFkFk  y\u001by  y y y\u001b  2"
+  }
+ ]
+}

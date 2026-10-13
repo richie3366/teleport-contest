@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          #levelchange\n6\n \u0017blessed spellbook of finger of death\nrk        s\u0017spellbook of remove curse\nrls\u0017spellbook of levitation\nrms\u0017blessed spellbook of charm monster\nrn20s+c\nZd\n\u0007hill orc\nZc\nZa\nZc\n\u0007ghoul\nZb\nZc\nsZd\nFl#turn\n#pray\ny y #enhance\nn\u001b\u0017glob of green slime\n\u0007energy vortex\neo          .m.  sn\u0017wand of slow monster\nzpk  n  \u0017blessed crystal ball\n \u0007baluchitherium\naq      20s     n    .       \u001610\nbu\u0017magic marker\nEr Elbereth\n: \u0017wand of nothing\nEs Elbereth\n: \u0017wand of death\nEt Elbereth\n: b   n E- Vlad was here\n  n   :E-\u0007soldier ant\ns  n   n  20s  n   n    n     n    n s  n    n   n  Fu   n    yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 587121,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n          #levelchange\n6\n \u0017blessed spellbook of finger of death\nrk        s\u0017spellbook of remove curse\nrls\u0017spellbook of levitation\nrms\u0017blessed spellbook of charm monster\nrn20s+c\nZd\n\u0007hill orc\nZc\nZa\nZc\n\u0007ghoul\nZb\nZc\nsZd\nFl#turn\n#pray\ny y #enhance\nn\u001b\u0017glob of green slime\n\u0007energy vortex\neo          .m.  sn\u0017wand of slow monster\nzpk  n  \u0017blessed crystal ball\n \u0007baluchitherium\naq      20s     n    .       \u001610\nbu\u0017magic marker\nEr Elbereth\n: \u0017wand of nothing\nEs Elbereth\n: \u0017wand of death\nEt Elbereth\n: b   n E- Vlad was here\n  n   :E-\u0007soldier ant\ns  n   n  20s  n   n    n     n    n s  n    n   n  Fu   n    yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

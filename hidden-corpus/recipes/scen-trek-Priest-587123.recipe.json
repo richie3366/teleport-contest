@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  FyFy s f \u001b150s_ \u001b:>#tip\n\u001b50sFl.sFl20ss50sz100s\u0014100sFls20s150si\u001bukjFnFn20s100s100s100sFk.Fk50sFnFnFn150s 150sFh20sskkk50sjkjjkkFj Fjskjk100skkknkj100sFk20sshlh_>,>20slht\u001b#name\no\ndhss20s\u0018\u001b,#terrain\nc\n:100sFkFk.100s_>.>100s \\  _>,>P150si\u001bjjj50sef100si\u001b50sFkFk.Fks20sy100see100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee_m,.i\u001b\\  YBYL_>.>J UHJ_>,>K BUY_>,>JK LB_>.>#chat\nn\u0014ULJK _>,>UBK N_>.>: \u000f\u001b<\u000f\u001b,a\n,b\n#chat\nbey eljkk100s  y\u001by  ny y\u001b  5"
+ },
+ "segments": [
+  {
+   "seed": 587123,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=sortloot:full\n",
+   "moves": "  FyFy s f \u001b150s_ \u001b:>#tip\n\u001b50sFl.sFl20ss50sz100s\u0014100sFls20s150si\u001bukjFnFn20s100s100s100sFk.Fk50sFnFnFn150s 150sFh20sskkk50sjkjjkkFj Fjskjk100skkknkj100sFk20sshlh_>,>20slht\u001b#name\no\ndhss20s\u0018\u001b,#terrain\nc\n:100sFkFk.100s_>.>100s \\  _>,>P150si\u001bjjj50sef100si\u001b50sFkFk.Fks20sy100see100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee_m,.i\u001b\\  YBYL_>.>J UHJ_>,>K BUY_>,>JK LB_>.>#chat\nn\u0014ULJK _>,>UBK N_>.>: \u000f\u001b<\u000f\u001b,a\n,b\n#chat\nbey eljkk100s  y\u001by  ny y\u001b  5"
+  }
+ ]
+}

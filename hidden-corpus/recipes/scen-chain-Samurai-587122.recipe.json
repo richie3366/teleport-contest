@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  Fl Fy.100sknbFkFk20s\u0018\u001bhlu50s100s100sFyFys_ \u001b;>100sFlFls100s;.100s 100s100si\u001b20sFlFlFlFl..\u000f\u001b50s150s100sFy..150s100s 100si\u001b50s50seeeeeeeHHUN_>,>LULJ _>,>LLNH_>.>NYKN_>.>L UHU_>.>nbuldba20s.20stcl#chat\nhyhnhkh20snjklkjkb#name\nf\nttdhjkknkhnheeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b FuFuFuFuFuFuFuFuFhFhFhFhFhFhFhFhFh FhFhFhFhFhFhFhhubjYJBU_ \u001b:>FhssNJYH_>.>UNNL_>.>JYJJ_>._,> JBKY_>.>\u000f\u001bbnnhJJLN_>.>UNUJ_>.>NKKJ_>,>YYBK_>,>UJBY_>,>\u000f\u001bHLJK_>.>#loot\nddHJHN_>.>LJKU_>,>oj;.KLBJ_>,>HLBK_>.>BLHN#quit\nyy\u001by  y y y\u001b  #wizintrinsic\nb\n 20ssm.sm.20ssm.sm..m.snss.m.sksn20s20ssm.20s20s.m.20s20ssksm.s.m..sm.ss20s  sm.  yny  ny ny  .",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 587122,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=runmode:run\n",
+   "moves": "  Fl Fy.100sknbFkFk20s\u0018\u001bhlu50s100s100sFyFys_ \u001b;>100sFlFls100s;.100s 100s100si\u001b20sFlFlFlFl..\u000f\u001b50s150s100sFy..150s100s 100si\u001b50s50seeeeeeeHHUN_>,>LULJ _>,>LLNH_>.>NYKN_>.>L UHU_>.>nbuldba20s.20stcl#chat\nhyhnhkh20snjklkjkb#name\nf\nttdhjkknkhnheeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 687122,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "FuFuFuFuFuFuFuFuFhFhFhFhFhFhFhFhFh FhFhFhFhFhFhFhhubjYJBU_ \u001b:>FhssNJYH_>.>UNNL_>.>JYJJ_>._,> JBKY_>.>\u000f\u001bbnnhJJLN_>.>UNUJ_>.>NKKJ_>,>YYBK_>,>UJBY_>,>\u000f\u001bHLJK_>.>#loot\nddHJHN_>.>LJKU_>,>oj;.KLBJ_>,>HLBK_>.>BLHN#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 787122,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:lychee\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nb\n 20ssm.sm.20ssm.sm..m.snss.m.sksn20s20ssm.20s20s.m.20s20ssksm.s.m..sm.ss20s  sm.  yny  ny ny  ."
+  }
+ ]
+}

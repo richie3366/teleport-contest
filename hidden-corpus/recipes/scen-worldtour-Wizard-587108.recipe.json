@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed amulet of reflection\nPp\u0017blessed +3 cloak of magic resistance\nW\u001b\u001630\n   llh:\u0016?\n>>Q\u0017wand of undead turning\nza.\u00173 magic lamp\nab#rub\nb\u0017scroll of food detection\nrc  \u001b20s20s..20s\u001630\n_ \u001b,>\u0016?\nc \u0004u\u001630\n   __,>20s s\u001635\n \u0004hny20s\u001630\n\u0017cursed potion of paralysis\nqr            n \u00173 spellbook of magic mapping\nrsy   .m.  n .lZb\n Zb\n  n \u0017magic lamp\nat   n #rub\nt  \u0017scroll of create monster\nru vampire bat\n    n  sk   n   20s    n  \u00163\n\u00163\nuu:20ss\u0016?\ne__.\u00163\nhjk:20ssm.20s\u0016?\n>t _>.\u00161\n\u0006_<._.\u00162\njyl\u0017statue trap\ny\u0007giant rat\nsm.s20s.blh\u0017sleeping gas trap\nlh sm.20s ju\u0017arrow trap\nn^y\u0007lichen\nsm.  n.h sm.sh bl\u0017level teleporter\nj ^kky 9\n ss#terrain\ne\nqg\u001b#ride\njye\u00162\n\u0007yellow light\nFlFl Fn 20ssss20s\u0007incubus\n20s  n20ss20ss20s20s s\u0016?\n>t #chat\nb;>.\u001624\n\u0004 s20ss\u001610\n\u0004 \u001610\n\u0006_>,_,20s\u001610\n#levelchange\n30\n                \u0017Hawaiian shirt\nW\u001b20s.20s\u0007floating eye\nFk 20s.Fk\u0007Pestilence\nyn#chat\nkFk.\u0016?\nh \u0017bow\nww   \u001720 arrows\nQx\u0007owlbear\nlfh   fb fh \u0017potion of oil\ntaj  \u0007dwarf\nj    n   fj      f"
+ },
+ "segments": [
+  {
+   "seed": 587108,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed amulet of reflection\nPp\u0017blessed +3 cloak of magic resistance\nW\u001b\u001630\n   llh:\u0016?\n>>Q\u0017wand of undead turning\nza.\u00173 magic lamp\nab#rub\nb\u0017scroll of food detection\nrc  \u001b20s20s..20s\u001630\n_ \u001b,>\u0016?\nc \u0004u\u001630\n   __,>20s s\u001635\n \u0004hny20s\u001630\n\u0017cursed potion of paralysis\nqr            n \u00173 spellbook of magic mapping\nrsy   .m.  n .lZb\n Zb\n  n \u0017magic lamp\nat   n #rub\nt  \u0017scroll of create monster\nru vampire bat\n    n  sk   n   20s    n  \u00163\n\u00163\nuu:20ss\u0016?\ne__.\u00163\nhjk:20ssm.20s\u0016?\n>t _>.\u00161\n\u0006_<._.\u00162\njyl\u0017statue trap\ny\u0007giant rat\nsm.s20s.blh\u0017sleeping gas trap\nlh sm.20s ju\u0017arrow trap\nn^y\u0007lichen\nsm.  n.h sm.sh bl\u0017level teleporter\nj ^kky 9\n ss#terrain\ne\nqg\u001b#ride\njye\u00162\n\u0007yellow light\nFlFl Fn 20ssss20s\u0007incubus\n20s  n20ss20ss20s20s s\u0016?\n>t #chat\nb;>.\u001624\n\u0004 s20ss\u001610\n\u0004 \u001610\n\u0006_>,_,20s\u001610\n#levelchange\n30\n                \u0017Hawaiian shirt\nW\u001b20s.20s\u0007floating eye\nFk 20s.Fk\u0007Pestilence\nyn#chat\nkFk.\u0016?\nh \u0017bow\nww   \u001720 arrows\nQx\u0007owlbear\nlfh   fb fh \u0017potion of oil\ntaj  \u0007dwarf\nj    n   fj      f"
+  }
+ ]
+}

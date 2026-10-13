@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwo\u0017blessed amulet of life saving\nPp\u0016?\nr hnnu:\u001645\n\u0017blessed spellbook of protection\nrq s\u0017blessed spellbook of fireball\nrr s+\u001bZb\nZd\n             Fk  Zc\n\u0007hill orc\nZd\n  Za\n#turn\n\u001645\n#chat\ny;>. \u001bm,\u0016?\n>t\u0014m,\u0016?\n>C hu:\u0016?\n>>N       Grimtooth\n_<,>\u0016?\nd_{,\u0016?\n\u001bkk         \u0016?\n\u001bn                     n n     \u001643\ny   u u    k     n  h       :\u0016?\n\u001bn    n       k          n            \u00167\n\u001645\nl  j : \u0016?\na  yn  n    \u0017wand of light\nEu  Elbereth Elbereth\n  \u0017wand of stasis\nEvn  Vlad was here\n   n   k  \u0017wand of secret door detection\nEw n  I am a fish\n   n \u0017wand of opening\nExn  I am a fish\n    lE- Elbereth\n   n   \u0007hill orc\ns     s   n   s    n \u00168\n\u0016?\nd\u0006,_<.\u0016?\n\u001bu    u      n  \u0016?\n\u001bu   u      n  \u001643\nu      b   k      n  :    n \u00163\n\u0016?\n\u001bnh     \u001643\n\u0006;_<.\u001631\ny    n  y        yy\u001bnnny\u001b  k"
+ },
+ "segments": [
+  {
+   "seed": 587303,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwo\u0017blessed amulet of life saving\nPp\u0016?\nr hnnu:\u001645\n\u0017blessed spellbook of protection\nrq s\u0017blessed spellbook of fireball\nrr s+\u001bZb\nZd\n             Fk  Zc\n\u0007hill orc\nZd\n  Za\n#turn\n\u001645\n#chat\ny;>. \u001bm,\u0016?\n>t\u0014m,\u0016?\n>C hu:\u0016?\n>>N       Grimtooth\n_<,>\u0016?\nd_{,\u0016?\n\u001bkk         \u0016?\n\u001bn                     n n     \u001643\ny   u u    k     n  h       :\u0016?\n\u001bn    n       k          n            \u00167\n\u001645\nl  j : \u0016?\na  yn  n    \u0017wand of light\nEu  Elbereth Elbereth\n  \u0017wand of stasis\nEvn  Vlad was here\n   n   k  \u0017wand of secret door detection\nEw n  I am a fish\n   n \u0017wand of opening\nExn  I am a fish\n    lE- Elbereth\n   n   \u0007hill orc\ns     s   n   s    n \u00168\n\u0016?\nd\u0006,_<.\u0016?\n\u001bu    u      n  \u0016?\n\u001bu   u      n  \u001643\nu      b   k      n  :    n \u00163\n\u0016?\n\u001bnh     \u001643\n\u0006;_<.\u001631\ny    n  y        yy\u001bnnny\u001b  k"
+  }
+ ]
+}

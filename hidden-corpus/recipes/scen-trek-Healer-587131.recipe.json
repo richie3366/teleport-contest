@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "H BUJ_ \u001b@.>Fh..YUHY_>,>JKBN_>,>Fu 20ss\u000f\u001b#invoke\n\u001b#terrain\nc\nm.zgl#chat\nhyybu#name\nd\n#chat\nhdb20s..t$bdgss20skyny#name\nm\nbk20snyt\u001b#terrain\nb\n20s s\\ 150slykkyki\u001b150snjynjj_>.>\u0018\u001b150snyk_>.>jkj100sjkn150sek50sek100sekFjss_>.>150s\u0018\u001bi\u001b100s ek50s ek ekjkj\u000f\u001b50seeeeeYLUK_>.>YYHyyB_>.>FlFlFlULNH_>,>KHnyLK_>,>wa\u000f\u001b_>.sKYKL_>,>FkssKYUY_>.>BHNK_>,>HyNYJ _>.>FjFjFk_>.s\u001b\u0014yBL BK_>,>qe#tip\n\u001bHKYH_>.>dfKLH BL_>.>\u000f\u001bKBNY_>,>BNBH_>.>#turn\n#dip\ncdJKUK_>,>HN YY_>.>\u000f\u001b<\u000f\u001brh y    #chat\nll   y\u001by  y y y\u001b   t"
+ },
+ "segments": [
+  {
+   "seed": 587131,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=sortloot:full\n",
+   "moves": "H BUJ_ \u001b@.>Fh..YUHY_>,>JKBN_>,>Fu 20ss\u000f\u001b#invoke\n\u001b#terrain\nc\nm.zgl#chat\nhyybu#name\nd\n#chat\nhdb20s..t$bdgss20skyny#name\nm\nbk20snyt\u001b#terrain\nb\n20s s\\ 150slykkyki\u001b150snjynjj_>.>\u0018\u001b150snyk_>.>jkj100sjkn150sek50sek100sekFjss_>.>150s\u0018\u001bi\u001b100s ek50s ek ekjkj\u000f\u001b50seeeeeYLUK_>.>YYHyyB_>.>FlFlFlULNH_>,>KHnyLK_>,>wa\u000f\u001b_>.sKYKL_>,>FkssKYUY_>.>BHNK_>,>HyNYJ _>.>FjFjFk_>.s\u001b\u0014yBL BK_>,>qe#tip\n\u001bHKYH_>.>dfKLH BL_>.>\u000f\u001bKBNY_>,>BNBH_>.>#turn\n#dip\ncdJKUK_>,>HN YY_>.>\u000f\u001b<\u000f\u001brh y    #chat\nll   y\u001by  y y y\u001b   t"
+  }
+ ]
+}

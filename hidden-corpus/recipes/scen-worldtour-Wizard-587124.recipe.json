@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\nj\u0004k\u0016?\n>>P  \u0014 \u001b>.  \u0016?\n>>P_<.s.s\u0016?\nq  #levelchange\n14\n  \u0017axe\nwoss20s\u0007owlbear\nFjFj Fj 20s sk\u0007disenchanter\nFk Fk   n Fj Fk sm.   n sm. \u0007quantum mechanic\nFk  Fu  @. Fk   y@.  n Fu  ; Fj  .m.   ym..#pray\ny y  n  \u001612\n\u0016?\no hynn:.s\u0016?\nn\u0006_>.Fl  _,  n  Fl  n \u00167\n\u0016?\n>v hly:\u0016?\nb  _>.>\u001611\n    \u0017Magicbane\nwpsss\u0007wererat\nFjFjFj \u0007stalker\n;_..20ss\u0007umber hulk\nFbFb  Fb   n Fb FbFb\u0007purple worm\n#chat\nbFl  Fb    n   \u00166\n\u0016?\n>E\u0014,\u001611\n#chat\nu;<.\u001633\n\u0014;\u001633\n__.>\u0016?\n>x#levelchange\n20\n     jhuy\u0017ice\nhhlhhk  n   \u0017cloud\nhlllnqg#wipe\n\u001611\n\u0017speed boots\nWq .m.  nsn.u \u0007quantum mechanic\nsbsm.20s  .l\u0007yellow light\nFuFuFl Fu  \u0007red naga\n20s sm.20s  n 20s20s.bsj.m.sksk\u00168\n\u0016?\n>>N      trident\n#chat\nh   ;n;\u001619\njh                n  j      bnb: s\u001bs\u0016?\na  h   lh  n    l  jb:\u0016?\nen    kl    n l     bl     :su20s     n  \u00168\n_{,>.m.           n  sm.     sy\u0016?\na__,\u001619\nju     h    yy\u001by   ny  y\u001b  :"
+ },
+ "segments": [
+  {
+   "seed": 587124,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\nj\u0004k\u0016?\n>>P  \u0014 \u001b>.  \u0016?\n>>P_<.s.s\u0016?\nq  #levelchange\n14\n  \u0017axe\nwoss20s\u0007owlbear\nFjFj Fj 20s sk\u0007disenchanter\nFk Fk   n Fj Fk sm.   n sm. \u0007quantum mechanic\nFk  Fu  @. Fk   y@.  n Fu  ; Fj  .m.   ym..#pray\ny y  n  \u001612\n\u0016?\no hynn:.s\u0016?\nn\u0006_>.Fl  _,  n  Fl  n \u00167\n\u0016?\n>v hly:\u0016?\nb  _>.>\u001611\n    \u0017Magicbane\nwpsss\u0007wererat\nFjFjFj \u0007stalker\n;_..20ss\u0007umber hulk\nFbFb  Fb   n Fb FbFb\u0007purple worm\n#chat\nbFl  Fb    n   \u00166\n\u0016?\n>E\u0014,\u001611\n#chat\nu;<.\u001633\n\u0014;\u001633\n__.>\u0016?\n>x#levelchange\n20\n     jhuy\u0017ice\nhhlhhk  n   \u0017cloud\nhlllnqg#wipe\n\u001611\n\u0017speed boots\nWq .m.  nsn.u \u0007quantum mechanic\nsbsm.20s  .l\u0007yellow light\nFuFuFl Fu  \u0007red naga\n20s sm.20s  n 20s20s.bsj.m.sksk\u00168\n\u0016?\n>>N      trident\n#chat\nh   ;n;\u001619\njh                n  j      bnb: s\u001bs\u0016?\na  h   lh  n    l  jb:\u0016?\nen    kl    n l     bl     :su20s     n  \u00168\n_{,>.m.           n  sm.     sy\u0016?\na__,\u001619\nju     h    yy\u001by   ny  y\u001b  :"
+  }
+ ]
+}

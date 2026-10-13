@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n      i\u001bW20ss.Ws 20ssTcee.sef20s20sqd rh y  slsZb\nZa\n #ride\nyy#sit\n eeE- Elbereth\n#ride\nky#monster\n#chat\nuefi\u001brg y  ssZa\nZb\nWc.20s .TcWcs.m.sm.qdwaFhssrh y  ..Za\n\u0018\u001b#levelchange\n10\n \u0007dust vortex\n.ysm. FkFjFj20s  Fj FyFn#pray\ny y#pray\ny ys\u001720 arrows\nQ\u001bf \u001bf \u001bf \u001bFls\u0017wand of create monster\n\u0007scorpion\nzlPestilence\nyn    n zllichen\n   n  \u0017uncursed +0 javelin\nwm    n Fy   n Fy   n Fk   n X\u0017wand of nothing\nzn   n  \u00173 blindfold\nao    n \u0017cursed Sting\n\u0007Kop Kaptain\nwp    n Fy    n Fk   n Fh    n #invoke\np    n Xsm.    n20s    n \u000f\u001b\u0017wand of digging\n_ \u001b>.zq>    yy\u001by   ny y\u001b  z"
+ },
+ "segments": [
+  {
+   "seed": 587218,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n      i\u001bW20ss.Ws 20ssTcee.sef20s20sqd rh y  slsZb\nZa\n #ride\nyy#sit\n eeE- Elbereth\n#ride\nky#monster\n#chat\nuefi\u001brg y  ssZa\nZb\nWc.20s .TcWcs.m.sm.qdwaFhssrh y  ..Za\n\u0018\u001b#levelchange\n10\n \u0007dust vortex\n.ysm. FkFjFj20s  Fj FyFn#pray\ny y#pray\ny ys\u001720 arrows\nQ\u001bf \u001bf \u001bf \u001bFls\u0017wand of create monster\n\u0007scorpion\nzlPestilence\nyn    n zllichen\n   n  \u0017uncursed +0 javelin\nwm    n Fy   n Fy   n Fk   n X\u0017wand of nothing\nzn   n  \u00173 blindfold\nao    n \u0017cursed Sting\n\u0007Kop Kaptain\nwp    n Fy    n Fk   n Fh    n #invoke\np    n Xsm.    n20s    n \u000f\u001b\u0017wand of digging\n_ \u001b>.zq>    yy\u001by   ny y\u001b  z"
+  }
+ ]
+}

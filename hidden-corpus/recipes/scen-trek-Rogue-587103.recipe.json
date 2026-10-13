@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "Y KUU_ \u001b:>YBBY_>,>i\u001bw-HBKH_>,>#name\na\nkNULH_>.>KB JL_>.Fh _.Fj>\u0004hkYHYY_>.Fl_.,> BKYU_>.>#monster\ntanKBLB_>,>BHNH_>.><\u000f\u001bYBBN_>.>BKHJ_>.>YHYY_>.>UNHY_>,>FhFn   y\u001by  y y y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 587103,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\n",
+   "moves": "Y KUU_ \u001b:>YBBY_>,>i\u001bw-HBKH_>,>#name\na\nkNULH_>.>KB JL_>.Fh _.Fj>\u0004hkYHYY_>.Fl_.,> BKYU_>.>#monster\ntanKBLB_>,>BHNH_>.><\u000f\u001bYBBN_>.>BKHJ_>.>YHYY_>.>UNHY_>,>FhFn   y\u001by  y y y\u001b  2"
+  }
+ ]
+}

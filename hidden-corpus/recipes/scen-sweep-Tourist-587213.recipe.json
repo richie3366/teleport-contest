@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0017Fire Brand\nwnFh s.#invoke\nn \u001b;X\u0017mummy wrapping\nWoo.sssT\u0017Mjollnir\nwp20sFuFk#invoke\np..#levelchange\n12\n\u0016?\n>>\u001b\u001624\n#dip\noiK#jump\n;m.\u0006ss\u0016?\nlcj#untrap\nbk.m.sm.\u00165\nKWorj .20s\u001627\n    #polyself\ntrapper\n #monster\n20s  .\u0007jackal\n20s Fh  Fh      Fh    \u0007lichen\nFl  Fh    Fh  n    Fl  \u0017wand of digging\n\u00165\n\u0006_ooo.zq> khzqjjzq<\u001615\n\u0007lich\nFnFn FnFnsm.s\u0007disenchanter\nFuFuFuFuFuFuFu  n20s.m.#levelchange\n30\n                 \u0007hostile ice vortex\nFuFu .FkFjFk Fu  Fj Fu  .m.  Fn s  \u00168\n#wizintrinsic\nd\n 20s.n.20ssm.20ssnsss#sit\n\u001b\u0018\u001b#ride\nky#wipe\ncj#wipe\n.kshsm.s20s.knkhn\u0017magic portal\nk#untrap\njn\u0017anti-magic field\nny20sskl\u0017#terrain\n"
+ },
+ "segments": [
+  {
+   "seed": 587213,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0017Fire Brand\nwnFh s.#invoke\nn \u001b;X\u0017mummy wrapping\nWoo.sssT\u0017Mjollnir\nwp20sFuFk#invoke\np..#levelchange\n12\n\u0016?\n>>\u001b\u001624\n#dip\noiK#jump\n;m.\u0006ss\u0016?\nlcj#untrap\nbk.m.sm.\u00165\nKWorj .20s\u001627\n    #polyself\ntrapper\n #monster\n20s  .\u0007jackal\n20s Fh  Fh      Fh    \u0007lichen\nFl  Fh    Fh  n    Fl  \u0017wand of digging\n\u00165\n\u0006_ooo.zq> khzqjjzq<\u001615\n\u0007lich\nFnFn FnFnsm.s\u0007disenchanter\nFuFuFuFuFuFuFu  n20s.m.#levelchange\n30\n                 \u0007hostile ice vortex\nFuFu .FkFjFk Fu  Fj Fu  .m.  Fn s  \u00168\n#wizintrinsic\nd\n 20s.n.20ssm.20ssnsss#sit\n\u001b\u0018\u001b#ride\nky#wipe\ncj#wipe\n.kshsm.s20s.knkhn\u0017magic portal\nk#untrap\njn\u0017anti-magic field\nny20sskl\u0017#terrain\n"
+  }
+ ]
+}

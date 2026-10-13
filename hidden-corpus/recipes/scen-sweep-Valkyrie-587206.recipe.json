@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n8\n \u0016?\nk   20ss#rub\ne.m. .h\u0016?\n>Di\u001bdc#twoweapon\nsm.20s\u0016?\n>B#offer\nZw-;>. \u001b.20s.y\u001615\ni\u001bwasssW20ss.Ted .swb ss.Xae#rub\ne#enhance\nya\nq\n\u001b\u000f\u001b#monster\n>H,b#loot\ni\u001bae#rub\newbs..XW\u001b20s.m.20sTwa FlFl .\u00165\n  \u000f\u001b#levelchange\n30\n                    \u0017Giantslayer\n\u0007giant eel\nwfsss#invoke\nf\u0017cursed -1 kicking boots\nWgss.Tss\u0017blessed +3 ring of see invisible\nPhr20s ssR20s.\u0017blessed bell\naiaiss\u00173 magic harp\n\u0007little dog\najyajys20s   \u00164\n#wizintrinsic\nmi\n \u0017potion of acid\nqk\u0017blessed wand of undead turning\nzlnzll\u0017scroll of earth\nrm\u0017blessed scroll of create monster\nrnsss#levelchange\n16\n   \u0016?\n>y  _m.#chat\nh_mmm.#chat\nl;>._m.#chat\nn_mmmmm.#chat\nn\u0006_>._.>_>._,>_>._,>e#turn\nzlk\u001623\n\u0006\u0017water walking boots\nWcsss\u0007werewolf\nFlFlFlFl..\u0007soldier ant\nFlFlFj FjFl  n FlFks    ns \u001612\n#levelchange\n12\n#wizintrinsic\nqec\n  20s sm.  n 20s .k  n sm. 20s  n sm. 20s  n .m. .m. 20s  nsj 20s   n 20s _>,.m. ck:#invoke\nf #tip\n\u001b#loot\nk.u  n  .m..m.  n  .hsm.20s  n \u00168\n\u00161\ni\u001bwb  #name\n\u001bW\u001b_<.  n sm.Phr#name\n\u001b\u0004 #conduct\n #levelchange\n30\n                 \u0007tame saddled black unicorn\n#ride\njy\u0007tame saddled warhorse\n#ride\nny\u0007pony\n\u0017scroll of taming\nrp\u0017saddle\naqj #ride\nnysm.  .m.  n #ride\nlysm.  #ride\nlysm. sm.   n   \u0006_>>. Fk   n    n       _,  Fj    >Fj   y  F"
+ },
+ "segments": [
+  {
+   "seed": 587206,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:durian\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n8\n \u0016?\nk   20ss#rub\ne.m. .h\u0016?\n>Di\u001bdc#twoweapon\nsm.20s\u0016?\n>B#offer\nZw-;>. \u001b.20s.y\u001615\ni\u001bwasssW20ss.Ted .swb ss.Xae#rub\ne#enhance\nya\nq\n\u001b\u000f\u001b#monster\n>H,b#loot\ni\u001bae#rub\newbs..XW\u001b20s.m.20sTwa FlFl .\u00165\n  \u000f\u001b#levelchange\n30\n                    \u0017Giantslayer\n\u0007giant eel\nwfsss#invoke\nf\u0017cursed -1 kicking boots\nWgss.Tss\u0017blessed +3 ring of see invisible\nPhr20s ssR20s.\u0017blessed bell\naiaiss\u00173 magic harp\n\u0007little dog\najyajys20s   \u00164\n#wizintrinsic\nmi\n \u0017potion of acid\nqk\u0017blessed wand of undead turning\nzlnzll\u0017scroll of earth\nrm\u0017blessed scroll of create monster\nrnsss#levelchange\n16\n   \u0016?\n>y  _m.#chat\nh_mmm.#chat\nl;>._m.#chat\nn_mmmmm.#chat\nn\u0006_>._.>_>._,>_>._,>e#turn\nzlk\u001623\n\u0006\u0017water walking boots\nWcsss\u0007werewolf\nFlFlFlFl..\u0007soldier ant\nFlFlFj FjFl  n FlFks    ns \u001612\n#levelchange\n12\n#wizintrinsic\nqec\n  20s sm.  n 20s .k  n sm. 20s  n sm. 20s  n .m. .m. 20s  nsj 20s   n 20s _>,.m. ck:#invoke\nf #tip\n\u001b#loot\nk.u  n  .m..m.  n  .hsm.20s  n \u00168\n\u00161\ni\u001bwb  #name\n\u001bW\u001b_<.  n sm.Phr#name\n\u001b\u0004 #conduct\n #levelchange\n30\n                 \u0007tame saddled black unicorn\n#ride\njy\u0007tame saddled warhorse\n#ride\nny\u0007pony\n\u0017scroll of taming\nrp\u0017saddle\naqj #ride\nnysm.  .m.  n #ride\nlysm.  #ride\nlysm. sm.   n   \u0006_>>. Fk   n    n       _,  Fj    >Fj   y  F"
+  }
+ ]
+}

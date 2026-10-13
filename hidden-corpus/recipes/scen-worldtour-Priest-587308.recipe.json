@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                              \u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed Mjollnir\nwk\u0017blessed amulet of life saving\nPl\u001621\nhy\u0017wand of nothing\nEm ad aerarium\n: \u0017wand of create monster\nEnelectric eel\n y Elbereth Elbereth\n: l\u0017diamond\nEo I am a fish\n\u0017wand of opening\nEp: j\u0017wand of cold\nEq X marks the spot\n   : \u001615\nhjkynjk:\u0016?\n>uhnu \u001bh \u001b     :sj  \u0016?\n>>O       spellbook of teleport away\n_ \u001b@.>\u001644\nh l      h          b   n:sm. 20s     n \u0016?\nc l  h    n h       l              n u u l            n      n   :\u00162\n\u0016?\n\u001bl   y \u0016?\ne\u0006_>.\u001624\n__,>sns.m.       n         n     n \u00161\n\u001621\n__.20s      n   20s     n  \u001611\n\u0016?\n\u001blh     n     n         n     n \u001610\n\u001634\n\u0014:     n    n   .m.     yny   nnn  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 587308,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                              \u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed Mjollnir\nwk\u0017blessed amulet of life saving\nPl\u001621\nhy\u0017wand of nothing\nEm ad aerarium\n: \u0017wand of create monster\nEnelectric eel\n y Elbereth Elbereth\n: l\u0017diamond\nEo I am a fish\n\u0017wand of opening\nEp: j\u0017wand of cold\nEq X marks the spot\n   : \u001615\nhjkynjk:\u0016?\n>uhnu \u001bh \u001b     :sj  \u0016?\n>>O       spellbook of teleport away\n_ \u001b@.>\u001644\nh l      h          b   n:sm. 20s     n \u0016?\nc l  h    n h       l              n u u l            n      n   :\u00162\n\u0016?\n\u001bl   y \u0016?\ne\u0006_>.\u001624\n__,>sns.m.       n         n     n \u00161\n\u001621\n__.20s      n   20s     n  \u001611\n\u0016?\n\u001blh     n     n         n     n \u001610\n\u001634\n\u0014:     n    n   .m.     yny   nnn  \u0016"
+  }
+ ]
+}

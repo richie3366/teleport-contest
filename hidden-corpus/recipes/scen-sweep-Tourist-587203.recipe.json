@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "luu\u0017cloud\nuuubhl\u0017lawful altar\ndb\u0017elf corpse\n #offer\no   #pray\ny y bn\u0017tree\nl\u0004hlh\u0017melting ice\nlhhhcl<#dip\nmj#levelchange\n20\n                   #wizintrinsic\nsbm\n  sm..m. .m.20ssyy   sm.ss.j20s  .m.  ns ;l. \u001b.s#enhance\nyg\ni\n\u001b\u0004bch#sit\n20ss.ss.#levelchange\n8\n   \u0017Demonbane\nwp FjFlFh\u0007piranha\n;k;20sss\u0007Aleax\n#chat\njFjFk \u0007fog cloud\n;h:  .y  20s    n sk  \u0007shade\nsm.  20s   n  sb20s 20s         n   20s    sm.   s\u001b20s\u001bi\u001b\u00167\n\u0017dwarvish mattock\n\u0016?\nc\u0006_ooo.    n    Fy      n _.   Fy       n  aq  k      nk   k\u0017grave\naq>         n  sm.    .m.    n   h           n  b aqb  b\u001623\n\u0006\u00169\n#levelchange\n30\n                     #wizintrinsic\nk\n 20s          n sm.sm. sm.       20s  sm.  n  .m.sm..m.  sm.sbs20s        n  20s  20s            n   sm. sm. 20s  .nsm.  sm.  yy\u001by  y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 587203,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "luu\u0017cloud\nuuubhl\u0017lawful altar\ndb\u0017elf corpse\n #offer\no   #pray\ny y bn\u0017tree\nl\u0004hlh\u0017melting ice\nlhhhcl<#dip\nmj#levelchange\n20\n                   #wizintrinsic\nsbm\n  sm..m. .m.20ssyy   sm.ss.j20s  .m.  ns ;l. \u001b.s#enhance\nyg\ni\n\u001b\u0004bch#sit\n20ss.ss.#levelchange\n8\n   \u0017Demonbane\nwp FjFlFh\u0007piranha\n;k;20sss\u0007Aleax\n#chat\njFjFk \u0007fog cloud\n;h:  .y  20s    n sk  \u0007shade\nsm.  20s   n  sb20s 20s         n   20s    sm.   s\u001b20s\u001bi\u001b\u00167\n\u0017dwarvish mattock\n\u0016?\nc\u0006_ooo.    n    Fy      n _.   Fy       n  aq  k      nk   k\u0017grave\naq>         n  sm.    .m.    n   h           n  b aqb  b\u001623\n\u0006\u00169\n#levelchange\n30\n                     #wizintrinsic\nk\n 20s          n sm.sm. sm.       20s  sm.  n  .m.sm..m.  sm.sbs20s        n  20s  20s            n   sm. sm. 20s  .nsm.  sm.  yy\u001by  y y y\u001by  s"
+  }
+ ]
+}

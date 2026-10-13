@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u00168\n_ \u001bm,\u0016?\n>u _>.\u0016?\ne     \u0006_<. Fu       \u001b _.        \u00168\n ylu:s\u00168\n\u0014,s20ss\u00168\nbyjlyhl :.y20s \u0016?\n>>N       potion of paralysis\nnh  j      n  l    h    n  y   h:.m.    20s     .h\u001611\n\u00168\n\u0006_<.\u0016?\na  j     l    n     n  :sm.       n     sls\u00163\n\u001631\n\u0017blessed spellbook of force bolt\nrq y      n       20s  n  n     \u0017blessed spellbook of finger of death\nrr     n         n sm.    n     n              n\u0017spellbook of detect unseen\nrs       n   n        y\u001b       2"
+ },
+ "segments": [
+  {
+   "seed": 587318,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u00168\n_ \u001bm,\u0016?\n>u _>.\u0016?\ne     \u0006_<. Fu       \u001b _.        \u00168\n ylu:s\u00168\n\u0014,s20ss\u00168\nbyjlyhl :.y20s \u0016?\n>>N       potion of paralysis\nnh  j      n  l    h    n  y   h:.m.    20s     .h\u001611\n\u00168\n\u0006_<.\u0016?\na  j     l    n     n  :sm.       n     sls\u00163\n\u001631\n\u0017blessed spellbook of force bolt\nrq y      n       20s  n  n     \u0017blessed spellbook of finger of death\nrr     n         n sm.    n     n              n\u0017spellbook of detect unseen\nrs       n   n        y\u001b       2"
+  }
+ ]
+}

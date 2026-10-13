@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 silver dragon scale mail\nW\u001b\u001627\n\u0004y\u0016?\n>J     spellbook of identify\nkl \u001b :\u0016?\nd#chat\nk;m, \u001b;..\u001627\nyybb      :\u001627\n\u0014m.\u001627\n_>.\u0016?\n\u001bh     b  \u001639\n\u0004l    \u0016?\n\u001bn l  \u001627\n#levelchange\n20\n\u0017blessed aklys\n\u0007giant spider\nwr  Fk Fk  n      Fb   X\u00173 touchstone\ntrb   \u0017uncursed figurine of a newt\natFk   Fj  \u0017scroll of punishment\nru   Fy      Fy   \u0017heavy iron ball\ns   n     w-  \u00173 spellbook of polymorph\nrwy     sh  s Za\nj   Zb\n      Fk Fk20s\u001bs\u00162\n\u0016?\nc   j  u  hu  n                h    : .n      n   s \u001610\n\u001635\n\u0017potion of extra healing\n\u0007quasit\nqx Fj Fk \u0017uncursed spellbook of clairvoyance\nry .           n   .m.       Z\u001bZ\u001b\u0017blessed +3 ring of gain strength\nPzl       s   sm.    n           .m.  n             Fj  n            n   Fk               n     \u0017cursed wand of magic missile\nzAh         n     zAjFj Fk \u00173 wand of striking\nzBk zBj  n    \u0017blessed spellbook of stone to flesh\n\u0007doppelganger\nrC        n    .. Zb\n  FjFk  n           n        sn           yy\u001by   y ny\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 587307,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 silver dragon scale mail\nW\u001b\u001627\n\u0004y\u0016?\n>J     spellbook of identify\nkl \u001b :\u0016?\nd#chat\nk;m, \u001b;..\u001627\nyybb      :\u001627\n\u0014m.\u001627\n_>.\u0016?\n\u001bh     b  \u001639\n\u0004l    \u0016?\n\u001bn l  \u001627\n#levelchange\n20\n\u0017blessed aklys\n\u0007giant spider\nwr  Fk Fk  n      Fb   X\u00173 touchstone\ntrb   \u0017uncursed figurine of a newt\natFk   Fj  \u0017scroll of punishment\nru   Fy      Fy   \u0017heavy iron ball\ns   n     w-  \u00173 spellbook of polymorph\nrwy     sh  s Za\nj   Zb\n      Fk Fk20s\u001bs\u00162\n\u0016?\nc   j  u  hu  n                h    : .n      n   s \u001610\n\u001635\n\u0017potion of extra healing\n\u0007quasit\nqx Fj Fk \u0017uncursed spellbook of clairvoyance\nry .           n   .m.       Z\u001bZ\u001b\u0017blessed +3 ring of gain strength\nPzl       s   sm.    n           .m.  n             Fj  n            n   Fk               n     \u0017cursed wand of magic missile\nzAh         n     zAjFj Fk \u00173 wand of striking\nzBk zBj  n    \u0017blessed spellbook of stone to flesh\n\u0007doppelganger\nrC        n    .. Zb\n  FjFk  n           n        sn           yy\u001by   y ny\u001b  2"
+  }
+ ]
+}

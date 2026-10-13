@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u0007grid bug\nFhFl 20ssss\u0007umber hulk\nFhFhFh\u0007vampire\n.m. 20s20s    .h  i\u001baf  ai  n  #rub\ni  tay    nahr\nahi\n#tip\nh\u001bae  aeh  W.m.   n  sm.20sTb   nWb #tip\nh\u001b;k, \u001bm.#dip\nd#loot\n #untrap\nh20s  n  :i\u001bag\u001bahr\nahs\n#tip\nh\u001b  n  W20s  n .m.snai#rub\ni    n  Wsm.sm.  n   n  20s    naf   n   n\u00161\n#levelchange\n12\n           \u0007yellow mold\nFh   Fy Fy  \u0007Oracle\ny#chat\ny    n Fh  Fy\u0007scorpion\nFy   Fl   n  Fy    Fk   n Fl   \u0007rock piercer\n;l,.m.20s sm. \u001619\n \u0006\u0007hostile fire vortex\nFjFj  yy\u001bnny y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 587208,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u0007grid bug\nFhFl 20ssss\u0007umber hulk\nFhFhFh\u0007vampire\n.m. 20s20s    .h  i\u001baf  ai  n  #rub\ni  tay    nahr\nahi\n#tip\nh\u001bae  aeh  W.m.   n  sm.20sTb   nWb #tip\nh\u001b;k, \u001bm.#dip\nd#loot\n #untrap\nh20s  n  :i\u001bag\u001bahr\nahs\n#tip\nh\u001b  n  W20s  n .m.snai#rub\ni    n  Wsm.sm.  n   n  20s    naf   n   n\u00161\n#levelchange\n12\n           \u0007yellow mold\nFh   Fy Fy  \u0007Oracle\ny#chat\ny    n Fh  Fy\u0007scorpion\nFy   Fl   n  Fy    Fk   n Fl   \u0007rock piercer\n;l,.m.20s sm. \u001619\n \u0006\u0007hostile fire vortex\nFjFj  yy\u001bnny y\u001by  F"
+  }
+ ]
+}

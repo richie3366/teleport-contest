@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "FkFkFk FkFkFkFkFkunyj#name\ni\nlhkjknkhde...ykkbhhll50sFlFl.150s_ \u001bm.>#loot\ni\u001bwauny\u0018\u001b50sknli\u001b50s;m.100s FjFjFj150sFjFjFjFjFjFjFjFjFj150s150sFjFjFjFjFjs#pray\ny b  y\u001by  y y y\u001b  j  FnFns100s   Fl 20s  s150s50sFls20s150s\u000f\u001b50s 100s 150s150s150skknFn20s20s_ \u001b;>100s100sFlFlFl150sklj150sFlFlFl50s\\ #loot\nbbuyyh50s_>.>100s50s100s FkFks150sedlhl100s50s100sFyFyFyFyFyFyFyFynuhhhlhlnynuhj#chat\nbt\u001b#chat\njkjyn10s#name\ni\nt\u001b10sde..sylt\u001b#chat\nh#name\no\n#name\nm\nluklhhll100sFhsFhFh.20s\u000f\u001b150s\u000f\u001b50st\u001b100slnhlbuFnFnsunu100sjbbuyh100s\u000f\u001blkb50sFls20s150sFls.100s50sFlFls50s_>.>100sbkk50sed100shnl150sFl.s;m,150s100s100sFlFlFlFlFlFlFlFlUUNJ_>.>Fk20ss<JNUN_>.>Fns.JLHY_>.>HNHH_>,>FhFhslhhh#name#quit\n10s  da.ss#chat\njlukbdes..u NNJ  Y _ \u001b.>Fl sFlLUNL_>.><J HUU_>,>Fj20s   Fb#dip\nbc NYJU_>.>Fj .20sHKL K_>.>NLYY_>.>UNNL_>.>JKKJ_>,>ULNN_>.>FjFjFn         H #enhance\n\u001bUYKH_>.>Fn  Fn  Fn  <<UYHN_>.>Fn  ssLBHK_>.>NYUY_>.>L NUU_>.>FuFnFl  <zNNBL_>.>FnFuFlLNBB_>,>FbFhFyFyFyFyFyFyFyFyFyLNBB_>.>FjFnFjJJH Y_>.>FbFyFhJYUY_>.>FyFy  FyKKNY_>.>FyFyFk  cjqFkFkFkFkFkFkFkFkJUKU_>.>FnFuFyBNU Y_>.>FuFhFu#turn\n#enhance\n\u001bHKLH_>,>FhFbFb__.s#loot\nHNLY _>.>FkFuFuBLKK_>.>FnFlFlhhlbd\u001bs20ssd\u001b.20s20s  b#name\nf\n#chat\n>.20sbd\u001b20s  20s.FbFhFbFhFyFhFyFbFyFbFhFyFyFyFyFbFhFyFyFhFhFhFyFhFyFhFbFhFbFhFbFhFbFhFyFyFhFbFyFhFbFbFhFbFhFhFhFhFk  FbFyFhFbFbFbFyFbFbFhFhFbFyFyFyFyFyFbFyFyFyFyFhFbFbFbFhFyFhFbFb  FbFbFyFyFbFyFbFyFyFbFhFhFyFbFbFyFbFhFyFbFhFb#pray\ny       h",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 587138,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\n",
+   "moves": "FkFkFk FkFkFkFkFkunyj#name\ni\nlhkjknkhde...ykkbhhll50sFlFl.150s_ \u001bm.>#loot\ni\u001bwauny\u0018\u001b50sknli\u001b50s;m.100s FjFjFj150sFjFjFjFjFjFjFjFjFj150s150sFjFjFjFjFjs#pray\ny b  y\u001by  y y y\u001b  j"
+  },
+  {
+   "seed": 687138,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "  FnFns100s   Fl 20s  s150s50sFls20s150s\u000f\u001b50s 100s 150s150s150skknFn20s20s_ \u001b;>100s100sFlFlFl150sklj150sFlFlFl50s\\ #loot\nbbuyyh50s_>.>100s50s100s FkFks150sedlhl100s50s100sFyFyFyFyFyFyFyFynuhhhlhlnynuhj#chat\nbt\u001b#chat\njkjyn10s#name\ni\nt\u001b10sde..sylt\u001b#chat\nh#name\no\n#name\nm\nluklhhll100sFhsFhFh.20s\u000f\u001b150s\u000f\u001b50st\u001b100slnhlbuFnFnsunu100sjbbuyh100s\u000f\u001blkb50sFls20s150sFls.100s50sFlFls50s_>.>100sbkk50sed100shnl150sFl.s;m,150s100s100sFlFlFlFlFlFlFlFlUUNJ_>.>Fk20ss<JNUN_>.>Fns.JLHY_>.>HNHH_>,>FhFhslhhh#name#quit\n"
+  },
+  {
+   "seed": 787138,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=sortloot:none\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\n",
+   "moves": "10s  da.ss#chat\njlukbdes..u NNJ  Y _ \u001b.>Fl sFlLUNL_>.><J HUU_>,>Fj20s   Fb#dip\nbc NYJU_>.>Fj .20sHKL K_>.>NLYY_>.>UNNL_>.>JKKJ_>,>ULNN_>.>FjFjFn         H #enhance\n\u001bUYKH_>.>Fn  Fn  Fn  <<UYHN_>.>Fn  ssLBHK_>.>NYUY_>.>L NUU_>.>FuFnFl  <zNNBL_>.>FnFuFlLNBB_>,>FbFhFyFyFyFyFyFyFyFyFyLNBB_>.>FjFnFjJJH Y_>.>FbFyFhJYUY_>.>FyFy  FyKKNY_>.>FyFyFk  cjqFkFkFkFkFkFkFkFkJUKU_>.>FnFuFyBNU Y_>.>FuFhFu#turn\n#enhance\n\u001bHKLH_>,>FhFbFb__.s#loot\nHNLY _>.>FkFuFuBLKK_>.>FnFlFlhhlbd\u001bs20ssd\u001b.20s20s  b#name\nf\n#chat\n>.20sbd\u001b20s  20s.FbFhFbFhFyFhFyFbFyFbFhFyFyFyFyFbFhFyFyFhFhFhFyFhFyFhFbFhFbFhFbFhFbFhFyFyFhFbFyFhFbFbFhFbFhFhFhFhFk  FbFyFhFbFbFbFyFbFbFhFhFbFyFyFyFyFyFbFyFyFyFyFhFbFbFbFhFyFhFbFb  FbFbFyFyFbFyFbFyFyFbFhFhFyFbFbFyFbFhFyFbFhFb#pray\ny       h"
+  }
+ ]
+}

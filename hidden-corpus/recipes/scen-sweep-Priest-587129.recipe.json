@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   #levelchange\n10\n   \u0007tame saddled black unicorn\n#ride\nhy\u0007tame saddled pony\n#ride\nny\u0007tame saddled warhorse\n#ride\njyy  \u0007giant rat\nFh FhFh\u0006_ \u001b.>Fn  Fh_>>.Fk_.m,Fk>FjFj_>>,_.> \u0004nn\u0007jackal\nFys.\u0017gauntlets of dexterity\nWi.ssTi\u0007ape\nFhFhFhFh.s\u0007gelatinous cube\nFk FkFk Fk Fk20sss#levelchange\n20\n         \u0017the Sceptre of Might\n \u0007gelatinous cube\nFk  Fk     Fk Fk\u0007dust vortex\nFy Fk  #levelchange\n20\n\u0017blessed ring of polymorph control\nPjl#polyself\nrope golem\n s\u001bs   s s     s    #polyself\nghoul\n #monster\ns s     \u0007wumpus\nFk          20s Fk20s   s 20s\u001b#levelchange\n20\n\u0016?\n>A  ag <,s.  n \u001619\n:    Za\n K\u0006s .\u0016?\nk   #pray\ny y   n  #untrap\nj#conduct\n ;m..s \u0016?\n>wi\u001b#terrain\ne\n,s.\u001631\n10s#enhance\nyg\nj\n\u001b#twoweapon\n;m.20s 20s \u0018\u001b\u00161\n#polyself\nair elemental\n .20s\u0007newt\nsFh ss\u0007grid bug\nsss20s #levelchange\n30\n            #polyself\ntrapper\n.   20s   \u0007gnome\nFl Fj FnFn\u0007gnome\nFj  nFb FhFh #levelchange\n30\n\u0017the Candelabrum of Invocation\nw\u001bFjFbFb#invoke\nkX\u0007marilith\nFbFl    Fn    n  Fb    Fl    \u0007water demon\n;b:  .j   n   sn     sh     n   \u0007human mummy\nsm.    20s      n sm.         sm.    20s    n   20s     sm.         n     .m.       \u001614\n\u00165\n#levelchange\n14\n     \u0017blessed spellbook of detect treasure\nrl  n .b\u0017blessed spellbook of magic mapping\nrm 20s \u0017spellbook of slow monster\nrn  sm.    n +\u001bZb\n     Za\n     n Za\n    Zb\n    n   Za\n    Za\n   n   #enhance\nyo\no\n\u001b\u001612\n    \u0017locked chest\n\u0017potion of confusion\ndo   #loot\n,  "
+ },
+ "segments": [
+  {
+   "seed": 587129,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:durian\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   #levelchange\n10\n   \u0007tame saddled black unicorn\n#ride\nhy\u0007tame saddled pony\n#ride\nny\u0007tame saddled warhorse\n#ride\njyy  \u0007giant rat\nFh FhFh\u0006_ \u001b.>Fn  Fh_>>.Fk_.m,Fk>FjFj_>>,_.> \u0004nn\u0007jackal\nFys.\u0017gauntlets of dexterity\nWi.ssTi\u0007ape\nFhFhFhFh.s\u0007gelatinous cube\nFk FkFk Fk Fk20sss#levelchange\n20\n         \u0017the Sceptre of Might\n \u0007gelatinous cube\nFk  Fk     Fk Fk\u0007dust vortex\nFy Fk  #levelchange\n20\n\u0017blessed ring of polymorph control\nPjl#polyself\nrope golem\n s\u001bs   s s     s    #polyself\nghoul\n #monster\ns s     \u0007wumpus\nFk          20s Fk20s   s 20s\u001b#levelchange\n20\n\u0016?\n>A  ag <,s.  n \u001619\n:    Za\n K\u0006s .\u0016?\nk   #pray\ny y   n  #untrap\nj#conduct\n ;m..s \u0016?\n>wi\u001b#terrain\ne\n,s.\u001631\n10s#enhance\nyg\nj\n\u001b#twoweapon\n;m.20s 20s \u0018\u001b\u00161\n#polyself\nair elemental\n .20s\u0007newt\nsFh ss\u0007grid bug\nsss20s #levelchange\n30\n            #polyself\ntrapper\n.   20s   \u0007gnome\nFl Fj FnFn\u0007gnome\nFj  nFb FhFh #levelchange\n30\n\u0017the Candelabrum of Invocation\nw\u001bFjFbFb#invoke\nkX\u0007marilith\nFbFl    Fn    n  Fb    Fl    \u0007water demon\n;b:  .j   n   sn     sh     n   \u0007human mummy\nsm.    20s      n sm.         sm.    20s    n   20s     sm.         n     .m.       \u001614\n\u00165\n#levelchange\n14\n     \u0017blessed spellbook of detect treasure\nrl  n .b\u0017blessed spellbook of magic mapping\nrm 20s \u0017spellbook of slow monster\nrn  sm.    n +\u001bZb\n     Za\n     n Za\n    Zb\n    n   Za\n    Za\n   n   #enhance\nyo\no\n\u001b\u001612\n    \u0017locked chest\n\u0017potion of confusion\ndo   #loot\n,  "
+  }
+ ]
+}

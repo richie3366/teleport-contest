@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\n>w\u0006\u0017blessed potion of object detection\nqh \u001b,_{,Fh_.Flqd  _ddd.Fn _. Fl  \u0004l_ooooooo. Fl    _. Fl  ,p_ooooo,   Fn  n       _.    Fn    ,$_{.     n Fb                _,   Fl   n q_oooo,   Fl  _.     Fn   n ,  $_oooo.    Fl   _.     n Fj  _o.  Fn _.   Fn     n,$ohPj  \u001611\n#levelchange\n6\n    \u0017blessed spellbook of jumping\nrj  sm.\u0017blessed spellbook of cure sickness\nrk    n .m. +ZZZZFn   \u0007ghoul\nZZZZ#levelchange\n20\n              \u0017the Magic Mirror of Merlin\n \u0007vampire bat\n20s  .bsm.   .k    n 20s  20s  sb.y  \u0007baby purple worm\nFj  Fj   n Fn  \u00168\n\u0017pick-axe\n_>.al  al< _<,al>    byal<  #levelchange\n10\n   \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqm;  n_ooooo.Fk  _,Fy _ooo.Fh _,Fy ,#chat\ny _ddd.Fn  _.Fu   n \u0004l _{,Fl _. Fk  q#dip\nb_mmm.#chat\nb_ooooo,Fk _. Fk ,\u001b#chat\nk#ride\nky\u0004k   n;k;\u00168\n#levelchange\n8\n \u0017blessed ring of polymorph control\nPnl   \u0017cloak of displacement\nWo sm. .m. .m.T   #polyself\nfire vortex\n #monster\ns 20s \u0007sandestin\nFk Fk   nFl .hsm.20s #polyself\nvampire bat\n #monster\nsm.20s \u0007ettin\nFlFu  Fl   nsm.  sm. 20s  n  #polyself\nmarilith\n#monster\n20ssm.  \u0007gold golem\nFl  Fy    Fy   yy\u001by   y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 587200,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0016?\n>w\u0006\u0017blessed potion of object detection\nqh \u001b,_{,Fh_.Flqd  _ddd.Fn _. Fl  \u0004l_ooooooo. Fl    _. Fl  ,p_ooooo,   Fn  n       _.    Fn    ,$_{.     n Fb                _,   Fl   n q_oooo,   Fl  _.     Fn   n ,  $_oooo.    Fl   _.     n Fj  _o.  Fn _.   Fn     n,$ohPj  \u001611\n#levelchange\n6\n    \u0017blessed spellbook of jumping\nrj  sm.\u0017blessed spellbook of cure sickness\nrk    n .m. +ZZZZFn   \u0007ghoul\nZZZZ#levelchange\n20\n              \u0017the Magic Mirror of Merlin\n \u0007vampire bat\n20s  .bsm.   .k    n 20s  20s  sb.y  \u0007baby purple worm\nFj  Fj   n Fn  \u00168\n\u0017pick-axe\n_>.al  al< _<,al>    byal<  #levelchange\n10\n   \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqm;  n_ooooo.Fk  _,Fy _ooo.Fh _,Fy ,#chat\ny _ddd.Fn  _.Fu   n \u0004l _{,Fl _. Fk  q#dip\nb_mmm.#chat\nb_ooooo,Fk _. Fk ,\u001b#chat\nk#ride\nky\u0004k   n;k;\u00168\n#levelchange\n8\n \u0017blessed ring of polymorph control\nPnl   \u0017cloak of displacement\nWo sm. .m. .m.T   #polyself\nfire vortex\n #monster\ns 20s \u0007sandestin\nFk Fk   nFl .hsm.20s #polyself\nvampire bat\n #monster\nsm.20s \u0007ettin\nFlFu  Fl   nsm.  sm. 20s  n  #polyself\nmarilith\n#monster\n20ssm.  \u0007gold golem\nFl  Fy    Fy   yy\u001by   y y y\u001by  s"
+  }
+ ]
+}

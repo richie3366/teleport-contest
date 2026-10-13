@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed amulet of life saving\nPo\u0017blessed Mjollnir\nwp\u0017blessed amulet of reflection\nPq\u00169\n_ \u001bm,<s\u001632\n   #levelchange\n30\n                \u0007rust monster\nFu Fh          Fu  \u0007mumak\n.m.sh20s .b\u0007human mummy\n20s sm.    .m.   n  sm.  \u001632\n #levelchange\n8\n       \u0017blessed potion of speed\nqr   nFj  Fj\u0017the Eyes of the Overworld\n ,     n    Fj    n Fn \u0017uncursed scroll of gold detection\n rh <.  n   sy   n  sm. \u00164\n\u0016?\n>>Q#levelchange\n8\n\u0007Archon\n#chat\njFj      n Fy  n  \u0007human mummy\nFy  n    Fj  n    n Fy    n  Fb  n   n Fh        n \u0016?\n>>N      amulet of restful sleep\n_{,<s  n    yny   nny\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 587313,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed amulet of life saving\nPo\u0017blessed Mjollnir\nwp\u0017blessed amulet of reflection\nPq\u00169\n_ \u001bm,<s\u001632\n   #levelchange\n30\n                \u0007rust monster\nFu Fh          Fu  \u0007mumak\n.m.sh20s .b\u0007human mummy\n20s sm.    .m.   n  sm.  \u001632\n #levelchange\n8\n       \u0017blessed potion of speed\nqr   nFj  Fj\u0017the Eyes of the Overworld\n ,     n    Fj    n Fn \u0017uncursed scroll of gold detection\n rh <.  n   sy   n  sm. \u00164\n\u0016?\n>>Q#levelchange\n8\n\u0007Archon\n#chat\njFj      n Fy  n  \u0007human mummy\nFy  n    Fj  n    n Fy    n  Fb  n   n Fh        n \u0016?\n>>N      amulet of restful sleep\n_{,<s  n    yny   nny\u001b  \u0016"
+  }
+ ]
+}

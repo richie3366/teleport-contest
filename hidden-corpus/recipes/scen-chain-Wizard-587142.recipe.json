@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of lightning\nzo.  y y\u001by   ny\u001by  s  FkFk shulFhss100s100sllb100sFus._ \u001b:>150s Fus.150sFuFuFu_>.>100s100s150si\u001b150s_>.>syjlFhFh.150sedFuFu.100sFuss150sFu20s.khh100s100sFls.byjyjl150sFbFbs100s_>.>tbuk jknubhlubhlubhlhhYHJB_>,>JUKY_>.>LHBK_>,>BKNK_>,><YUYL_>.>Fls20sdcqKKKY_>.>\u000f\u001b#chat\nh#name\nd\nnu#name\na\n10sFhFhFhFhFhFhFhFhjklFls20s\u0018\u001b150s\u000f\u001b100s\\   100sFh.s150snyb50s100s\\   100sFl20ssubu\\   hbui\u001bi\u001b50s150seeeeeeeeeeeeeeeee#name\nd\nt\u001bh ln#chat\nbdcsssubynlkbydc20s20ssm.bhhy#chat\nyNLHL _>,>KLNK_>,>Fh20s.KUKK_>,>UH KN_>.>NBLL_>,>JJNY _>.>10shhbu#name\na\nbu#chat\nbbl20s20sunlkjh#name\nd\nt\u001bUNBN_>,>H BNN_>.>KKBK_>,>jkbhU UNB_>.>BHKK_>,>L  BYJ_>.>knkb#pray\ny  100sFns.\u0018\u001b100s50s100s150sFl.s50skjklnhkbk150s100sFl.snllkbl_>,>ubk50sjubFlFl.kln100sublFk20ss\\   ch_>.>kbl100skbu100s100sFh.s_>,>byb100suhlBUUY_>.>FnFnsKH HJ_>.>HBHH_>.>u#invoke\n\u001bdas20ssjllkjhlubu20sFhFhFhFhFhFhFhFhNJLH_>,>JYH K_>.>#loot\nPKUYL _>.>\u0018\u001b#n#quit\n uynl100s#terrain\nb\n\u001b>.100sFn FnFnFn.20s#rub\ng\u001b_>.>150s     Fh.FhFh FhFh100s FhFnFnFnFnFnFhFh20shllFhFjshhhFkssFhs.100sFj.FjlFbFb s100sFlFls50s\\ 100shbu100s100sFhssE- Elbereth Elbereth\n\\ 100s_>.>50sed150sFhssHKUK_>.>\u0014;m.HNLU_>.><UJBH_>.><UKHB_>,>YNJL_>.>HUBN_>.>\\ sLBJK _>.>t\u001bs<yny  y y y\u001b 1",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 587142,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of lightning\nzo.  y y\u001by   ny\u001by  s"
+  },
+  {
+   "seed": 687142,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=fruit:lychee\n",
+   "moves": "  FkFk shulFhss100s100sllb100sFus._ \u001b:>150s Fus.150sFuFuFu_>.>100s100s150si\u001b150s_>.>syjlFhFh.150sedFuFu.100sFuss150sFu20s.khh100s100sFls.byjyjl150sFbFbs100s_>.>tbuk jknubhlubhlubhlhhYHJB_>,>JUKY_>.>LHBK_>,>BKNK_>,><YUYL_>.>Fls20sdcqKKKY_>.>\u000f\u001b#chat\nh#name\nd\nnu#name\na\n10sFhFhFhFhFhFhFhFhjklFls20s\u0018\u001b150s\u000f\u001b100s\\   100sFh.s150snyb50s100s\\   100sFl20ssubu\\   hbui\u001bi\u001b50s150seeeeeeeeeeeeeeeee#name\nd\nt\u001bh ln#chat\nbdcsssubynlkbydc20s20ssm.bhhy#chat\nyNLHL _>,>KLNK_>,>Fh20s.KUKK_>,>UH KN_>.>NBLL_>,>JJNY _>.>10shhbu#name\na\nbu#chat\nbbl20s20sunlkjh#name\nd\nt\u001bUNBN_>,>H BNN_>.>KKBK_>,>jkbhU UNB_>.>BHKK_>,>L  BYJ_>.>knkb#pray\ny  100sFns.\u0018\u001b100s50s100s150sFl.s50skjklnhkbk150s100sFl.snllkbl_>,>ubk50sjubFlFl.kln100sublFk20ss\\   ch_>.>kbl100skbu100s100sFh.s_>,>byb100suhlBUUY_>.>FnFnsKH HJ_>.>HBHH_>.>u#invoke\n\u001bdas20ssjllkjhlubu20sFhFhFhFhFhFhFhFhNJLH_>,>JYH K_>.>#loot\nPKUYL _>.>\u0018\u001b#n#quit\n"
+  },
+  {
+   "seed": 787142,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=sortloot:full\nOPTIONS=msg_window:reversed\n",
+   "moves": " uynl100s#terrain\nb\n\u001b>.100sFn FnFnFn.20s#rub\ng\u001b_>.>150s     Fh.FhFh FhFh100s FhFnFnFnFnFnFhFh20shllFhFjshhhFkssFhs.100sFj.FjlFbFb s100sFlFls50s\\ 100shbu100s100sFhssE- Elbereth Elbereth\n\\ 100s_>.>50sed150sFhssHKUK_>.>\u0014;m.HNLU_>.><UJBH_>.><UKHB_>,>YNJL_>.>HUBN_>.>\\ sLBJK _>.>t\u001bs<yny  y y y\u001b 1"
+  }
+ ]
+}

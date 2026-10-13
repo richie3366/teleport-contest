@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " FhFh snlk_ \u001b,>100s#invoke\n\u001b\u001blby#turn\nbubf   u50sFlFlFlFl20s.,_>.>100s150sFlFlFlFlFlFlFlFlFlFlFlFl100s\u0018\u001b100si\u001b\u000f\u001blub_>,>100s100sFlFlFl100s50s50s100sFlFl20s50sFlFlFl<\\    100s#wipe\nr\u001b\u001bLyljhkn#chat\nuhkhnu10stbuBJHY_>,>KUBB_>,>HUBJ_>.>r\u001b\u001b#sit\n\u001bHJLH_>.>Fu.sstahNHBL_>,>NLHL_>,>\u000f\u001b_>.>fl100sunk50s50s50s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKNLJ_>,_.><JUBN_>.>JHJH_>,>e\u0018\u001bYNNY_>,>E- Vlad was here\n: BLHB_>.>LLKN_>,>UUJH_>,>NUNK_>.>JLBB_>,>NKHL_>.>LULH_>.><BNNY_>,_,>NKHU_>,>#pray\ny   ,KNLB_>.>"
+ },
+ "segments": [
+  {
+   "seed": 587143,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=!verbose\nOPTIONS=mention_walls\n",
+   "moves": " FhFh snlk_ \u001b,>100s#invoke\n\u001b\u001blby#turn\nbubf   u50sFlFlFlFl20s.,_>.>100s150sFlFlFlFlFlFlFlFlFlFlFlFl100s\u0018\u001b100si\u001b\u000f\u001blub_>,>100s100sFlFlFl100s50s50s100sFlFl20s50sFlFlFl<\\    100s#wipe\nr\u001b\u001bLyljhkn#chat\nuhkhnu10stbuBJHY_>,>KUBB_>,>HUBJ_>.>r\u001b\u001b#sit\n\u001bHJLH_>.>Fu.sstahNHBL_>,>NLHL_>,>\u000f\u001b_>.>fl100sunk50s50s50s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKNLJ_>,_.><JUBN_>.>JHJH_>,>e\u0018\u001bYNNY_>,>E- Vlad was here\n: BLHB_>.>LLKN_>,>UUJH_>,>NUNK_>.>JLBB_>,>NKHL_>.>LULH_>.><BNNY_>,_,>NKHU_>,>#pray\ny   ,KNLB_>.>"
+  }
+ ]
+}

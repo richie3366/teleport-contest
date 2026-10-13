@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "l#name\ni\n20s20s10s#chat\nlJYUJ_ \u001bm.>Fh .sLHBK_>,>\u0004yri nyKJKL_>,>LJBB_>.>JKUH_>.>\u000f\u001b50s150s150s Jkny150s50s\u000f\u001bkkk\u0018\u001bnulhnb50s50s100s_>,>100s bbl#offer\n100s  100s100seg150s 100s#chat\nj100sFu FlFk150s50sFlss50syubFls20s100sjklFls.100s\u0018\u001bynhLHNJ_>,>FkssP#loot\n<HBUJ_>.>KHLN_>.><YBYH_>.>BLHJ_>.>JJJU _>.>\u000f\u001bey lll50see100sFlFl20s150s_>.>i\u001blny_>,_.> i\u001bnhn_>,>100s100sri y kkb\u0018\u001b#ride\nh100s100s\u0004b50s150s150s50s50s\\  50sjlh100s eg50s_>.>100seh  100sef150sKKLU_>,>KYJU_>.>JKHJ_>,>YHLN_>,>#name\nm\nEUJJU_>.>JNNN_>,>#jump\n#ride\n.zeh  100seh  #invoke\n\u001bkyj50s#pray\ny  jjkee150s\u0018\u001bqd100s50s100s50s150sFj.suhy#monster\n100s100s100si\u001b:100shbuhjk\\  150s150s50s50s100sjjkFnFnFuFlFnFl\u0018\u001b\\  kjkFlFls100sjjk_>.>ri y50sFl20sFlF"
+ },
+ "segments": [
+  {
+   "seed": 587135,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=msg_window:reversed\n",
+   "moves": "l#name\ni\n20s20s10s#chat\nlJYUJ_ \u001bm.>Fh .sLHBK_>,>\u0004yri nyKJKL_>,>LJBB_>.>JKUH_>.>\u000f\u001b50s150s150s Jkny150s50s\u000f\u001bkkk\u0018\u001bnulhnb50s50s100s_>,>100s bbl#offer\n100s  100s100seg150s 100s#chat\nj100sFu FlFk150s50sFlss50syubFls20s100sjklFls.100s\u0018\u001bynhLHNJ_>,>FkssP#loot\n<HBUJ_>.>KHLN_>.><YBYH_>.>BLHJ_>.>JJJU _>.>\u000f\u001bey lll50see100sFlFl20s150s_>.>i\u001blny_>,_.> i\u001bnhn_>,>100s100sri y kkb\u0018\u001b#ride\nh100s100s\u0004b50s150s150s50s50s\\  50sjlh100s eg50s_>.>100seh  100sef150sKKLU_>,>KYJU_>.>JKHJ_>,>YHLN_>,>#name\nm\nEUJJU_>.>JNNN_>,>#jump\n#ride\n.zeh  100seh  #invoke\n\u001bkyj50s#pray\ny  jjkee150s\u0018\u001bqd100s50s100s50s150sFj.suhy#monster\n100s100s100si\u001b:100shbuhjk\\  150s150s50s50s100sjjkFnFnFuFlFnFl\u0018\u001b\\  kjkFlFls100sjjk_>.>ri y50sFl20sFlF"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0016?\n>y  _ \u001bm.>s\u001642\n\u0006_<.\u0016?\n>>N       scroll of taming\n #levelchange\n8\n \u0017silver saber\n\u0007captain\nwkFuFu         Fy     n   Fu        n   Fl      n \u0017blessed Dragonbane\n\u0007ape\nwlFl     n Fu        nFy       n          n #invoke\nl        n      n X\u0017spellbook of clairvoyance\n\u0007iron golem\nrm      n           20s        n   n sm.       nZZ\u0017cursed -1 dunce cap\nW\u001b20s         n .m.         n     sjT     yny   y y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 587120,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0016?\n>y  _ \u001bm.>s\u001642\n\u0006_<.\u0016?\n>>N       scroll of taming\n #levelchange\n8\n \u0017silver saber\n\u0007captain\nwkFuFu         Fy     n   Fu        n   Fl      n \u0017blessed Dragonbane\n\u0007ape\nwlFl     n Fu        nFy       n          n #invoke\nl        n      n X\u0017spellbook of clairvoyance\n\u0007iron golem\nrm      n           20s        n   n sm.       nZZ\u0017cursed -1 dunce cap\nW\u001b20s         n .m.         n     sjT     yny   y y\u001b  \u0017"
+  }
+ ]
+}

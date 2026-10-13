@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               #levelchange\n20\n   \u0016?\n>y  _ \u001b<.#chat\nb;b,_m,Fl _.#chat\nn_m,#chat\ny_m,#chat\nb;>.\u0006_>,_,,>_>,_.>.>_>._.;;>#name\n\u001btbb#loot\n\u001627\n\u0017cursed bell\nag ag     \u0017uncursed tin whistle\nahah\u0017potion of healing\nqis.\u0017blessed spellbook of detect monsters\nrj   ssZ\u001bs20s     \u0017cursed wand of secret door detection\n\u0007umber hulk\nzk20s sm. \u00163\ni\u001bby    \u0017wand of teleportation\nEl ad aerarium\n: \u0017wand of cold\nEmn  ad aerarium\n  : \u0017wand of stasis\nEny ad aerarium\n  n \u0017wand of undead turning\nEon  X marks the spot\n : \u0017ruby\nEp  X marks the spot\n E-  \u0007minotaur\nsm. 20s  n   sl    n  \u000f\u001b\u00167\n#levelchange\n12\n  \u0007werewolf\n;l.20s    n .m.   n  sm. \u0007green slime\n;h.sm.  n  20s   n   20s    n   \u00164\n#levelchange\n20\n       \u00176 javelins\nQq\u0007kobold\nb fn   n  fb  fl   n   fn   n Fb    n  Fj  \u0017glaive\nwr   n \u0007yellow mold\nl     n   arm,x      #twoweapon\nFj   n      yy\u001by   y y y\u001b   F"
+ },
+ "segments": [
+  {
+   "seed": 587204,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n16\n               #levelchange\n20\n   \u0016?\n>y  _ \u001b<.#chat\nb;b,_m,Fl _.#chat\nn_m,#chat\ny_m,#chat\nb;>.\u0006_>,_,,>_>,_.>.>_>._.;;>#name\n\u001btbb#loot\n\u001627\n\u0017cursed bell\nag ag     \u0017uncursed tin whistle\nahah\u0017potion of healing\nqis.\u0017blessed spellbook of detect monsters\nrj   ssZ\u001bs20s     \u0017cursed wand of secret door detection\n\u0007umber hulk\nzk20s sm. \u00163\ni\u001bby    \u0017wand of teleportation\nEl ad aerarium\n: \u0017wand of cold\nEmn  ad aerarium\n  : \u0017wand of stasis\nEny ad aerarium\n  n \u0017wand of undead turning\nEon  X marks the spot\n : \u0017ruby\nEp  X marks the spot\n E-  \u0007minotaur\nsm. 20s  n   sl    n  \u000f\u001b\u00167\n#levelchange\n12\n  \u0007werewolf\n;l.20s    n .m.   n  sm. \u0007green slime\n;h.sm.  n  20s   n   20s    n   \u00164\n#levelchange\n20\n       \u00176 javelins\nQq\u0007kobold\nb fn   n  fb  fl   n   fn   n Fb    n  Fj  \u0017glaive\nwr   n \u0007yellow mold\nl     n   arm,x      #twoweapon\nFj   n      yy\u001by   y y y\u001b   F"
+  }
+ ]
+}

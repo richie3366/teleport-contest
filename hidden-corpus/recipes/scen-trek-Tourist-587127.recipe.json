@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "K KNK_ \u001b:>zamlBHLY_>.>FlFlFlNJYH_>,>FuFuFu>#ride\njBLJY_>.>#chat\nutalE- Vlad was here\nNY JL_>,>NJJL_>.>:\u0018\u001b<YL HU_>,>YYBJ_>.><nyBLLB_>.>#chat\nuqi\u000f\u001b150sFuFusyhl_>,>bhl_>.>100s150s100sFlFl.100s_>.>100sFhFhFhFhFhs\u000f\u001byub_>,>hbhlkl<50sFy.s#pray\ny  i\u001b150s150s50sFyFys100s 100sFlFlFl150s_>.>ulljhy150s#chat\nk100s bhlBHJU_>,>LN UL_>.>KLKN_>,Fh_.  nny y n  >"
+ },
+ "segments": [
+  {
+   "seed": 587127,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=pettype:none\n",
+   "moves": "K KNK_ \u001b:>zamlBHLY_>.>FlFlFlNJYH_>,>FuFuFu>#ride\njBLJY_>.>#chat\nutalE- Vlad was here\nNY JL_>,>NJJL_>.>:\u0018\u001b<YL HU_>,>YYBJ_>.><nyBLLB_>.>#chat\nuqi\u000f\u001b150sFuFusyhl_>,>bhl_>.>100s150s100sFlFl.100s_>.>100sFhFhFhFhFhs\u000f\u001byub_>,>hbhlkl<50sFy.s#pray\ny  i\u001b150s150s50sFyFys100s 100sFlFlFl150s_>.>ulljhy150s#chat\nk100s bhlBHJU_>,>LN UL_>.>KLKN_>,Fh_.  nny y n  >"
+  }
+ ]
+}

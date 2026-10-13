@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed Mjollnir\nwm\u0017blessed +3 helm of telepathy\nWn\u0017blessed amulet of life saving\nPo\u0016?\ns #levelchange\n8\n    \u00173 the Sceptre of Might\n ,b\n\u0017blessed fumble boots\n\u0007lurker above\nWq 20s20ssm.\u0017blessed scroll of create monster\n\u0007Kop Kaptain\n,a\n \u0017blessed +3 ring of teleport control\n,c\n  20s     20s  \u0016?\n>>M       mirror\nkk     j  y   n  y      : 20s   n  .y      \u001611\n\u0016?\nd_ \u001b:s  s  n   . \u0016?\nd#chat\n;j.. s  n   \u0016?\ncy    l      n      n      u k h : \u00169\n_>,20s \u001b\u0016?\ndl        j kj : \u0016?\na  k   n       k        n     y         b    n      yb       n        \u001b:\u00169\n\u00169\n__.20s        n           sm.    n     n        \u00164\n\u0016?\n\u001bk  n           n     u    n       \u001b  \u0016?\nb\u0014<.      n  \u0016?\n\u001bh       yy\u001by  y y y\u001b  n"
+ },
+ "segments": [
+  {
+   "seed": 587300,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed Mjollnir\nwm\u0017blessed +3 helm of telepathy\nWn\u0017blessed amulet of life saving\nPo\u0016?\ns #levelchange\n8\n    \u00173 the Sceptre of Might\n ,b\n\u0017blessed fumble boots\n\u0007lurker above\nWq 20s20ssm.\u0017blessed scroll of create monster\n\u0007Kop Kaptain\n,a\n \u0017blessed +3 ring of teleport control\n,c\n  20s     20s  \u0016?\n>>M       mirror\nkk     j  y   n  y      : 20s   n  .y      \u001611\n\u0016?\nd_ \u001b:s  s  n   . \u0016?\nd#chat\n;j.. s  n   \u0016?\ncy    l      n      n      u k h : \u00169\n_>,20s \u001b\u0016?\ndl        j kj : \u0016?\na  k   n       k        n     y         b    n      yb       n        \u001b:\u00169\n\u00169\n__.20s        n           sm.    n     n        \u00164\n\u0016?\n\u001bk  n           n     u    n       \u001b  \u0016?\nb\u0014<.      n  \u0016?\n\u001bh       yy\u001by  y y y\u001b  n"
+  }
+ ]
+}
