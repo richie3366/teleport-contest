@@ -7,8 +7,8 @@
 {"fn":"restshk","c":"290-305","status":"ported","js":["js/shk.js:restshk"],"d":["D-3066"],"at":"2026-09-28@35b79b1f1","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"clear_unpaid_obj","c":"309-315","status":"ported","js":["js/shk.js:clear_unpaid_obj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"clear_unpaid","c":"319-325","status":"ported","js":["js/shk.js:clear_unpaid"],"at":"2026-10-03@bbe63333a"}
-{"fn":"clear_no_charge_obj","c":"329-373","status":"ported","js":["js/shk.js:clear_no_charge_obj"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38"}
-{"fn":"clear_no_charge","c":"377-385","status":"ported","js":["js/shk.js:clear_no_charge"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
+{"fn":"clear_no_charge_obj","c":"329-373","status":"ported","js":["js/shk.js:clear_no_charge_obj"],"d":["D-3934","D-3406"],"at":"2026-10-13@cef7a4808"}
+{"fn":"clear_no_charge","c":"377-385","status":"ported","js":["js/shk.js:clear_no_charge"],"d":["D-3934","D-3406"],"at":"2026-10-13@cef7a4808","note":"audited D-3406: whole vs C"}
 {"fn":"clear_no_charge_pets","c":"389-396","status":"ported","js":["js/shk.js:clear_no_charge_pets"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"setpaid","c":"400-434","status":"ported","js":["js/shk.js:setpaid"],"at":"2026-10-03@bbe63333a"}
 {"fn":"addupbill","c":"496-507","status":"ported","js":["js/shk.js:addupbill"],"at":"2026-10-03@bbe63333a"}
