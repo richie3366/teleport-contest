@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — Grow #5: fresh 140/158 (88.6 %), +527 sessions, calibration probes (zapfest 90 % rejected, shop 75 % + 100 authored) — board 2116/2296
+**Fresh:** 49950000 ×158 @45bdd980f → 140/158 (88.6 %), RNG 94.9 %, screens 95.5 %; worst worldtour 18/24, sweep/trek 20/24, chain 22/24. Gap to held-out 50 % still 38.6 pts.
+**Authored:** 249 weighted to fresh fails (worldtour 79 @49955000, sweep 70 @49956000, trek 50 @49957000, chain 30 @49958000, options 10, wish 10) + 120 calibration (20 zapfest probe + 20 shop probe + 80 shop @49959600). Families at 100 % got none.
+**Calibration:** zapfest probe 18/20 (90 %) — NOT held-out-like, recorded in HIDDEN-PROXY §5c, kept in WAVE3. Shop probe 15/20 (75 %) — marginally held-out-like, 100 sessions in WAVE3 (73/100 PASS on board). Neither hit ≤ 60 %; questtour/options remain.
+**Board:** 2116/2296 full @d6efb0a28 (92.2 %; RNG 97.81 %, screens 97.5 %); new rows 435 PASS / 92 FAIL. Worst families shop 73/100, sweep 273/332, worldtour 253/301, options 31/36, zapfest 18/20.
+**Must-fix:** 1 PASS→FAIL — scen-sweep-Priest-582706 (known D-3885 recorder flake; re-record completed to s1238 this run, screen div at s1166 owner nhl_gamestate, map row 12). Park stands; no hand row filed.
+**New multi-session owners:** unattributed 15x, do_statusline2 9x (shop), makemon 6x, randomize_gem_colors 4x, goto_level 4x, glibr 3x. Cliffs regen heads with js-throw scen-sweep-Samurai-49956004 (new sweep session throws).
+**Next:** port slot pops the regen'd cliffs head (js-throw 49956004, then randomize_gem_colors ×5 with 3 new shop/sweep writers).
 ## 2026-10-13 — D-3932 cliffs-head `randomize_gem_colors` writer: mhitm_ad_drin mhitu arm fell through fatal mdamageu into eat_brains+tail — gameover gate (Monk-610158 FULL PASS)
 
 **C locus:** `uhitm.c` mhitm_ad_drin mhitu arm `:3244` mdamageu → `:3249` eat_brains → `:3263` adjattrib → `:3264`/`:3268` rn2(5) gates; `mhitu.c` mdamageu `:1919–1925` (uhp<1 → done_in_by → done(DIED), NORETURN extern.h:997). A fatal `:3244` never reaches `:3249`.

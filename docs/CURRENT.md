@@ -33,8 +33,8 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Metric | Value |
 |--------|------:|
 | **Held-out (judge 2026-10-13 13:24Z)** | **22 / 44**, 9,012 / 11,265 pts, RNG **51.8 %**, rngSteps 93.7 %, screens **80.0 %** |
-| **Fresh cohort (§10.20, scored on arrival)** | 620000 mixed ×160 @`aa6355704`: **141/160 (88 %)**, RNG 97.9 %, screens 96.8 % — sweep 14/24 worst |
-| **Corpus board (worked, regression fortress)** | **1680 / 1769** @`aa6355704` full, RNG 99.00 %, screens 98.2 % |
+| **Fresh cohort (§10.20, scored on arrival)** | 49950000 ×158 @`45bdd980f`: **140/158 (88.6 %)**, RNG 94.9 %, screens 95.5 % — worldtour 18/24 worst |
+| **Corpus board (worked, regression fortress)** | **2116 / 2296** @`d6efb0a28` full, RNG 97.81 %, screens 97.5 % |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
@@ -49,19 +49,20 @@ the board rose 1326 → 1408: the §10.19 falsifier fired (Constitution
 §10.20). **Three lines, read together:** held-out (judge), fresh cohort
 (`fresh-cohort.mjs`, the local generalization estimate), board (the
 fortress — it rises by construction). Fresh history: 610000 marathon ×160
-→ 126/160 (79 %), RNG 96.0 % (before D-3930); 620000 mixed ×160 → 141/160
-(88 %) (after). Gap to held-out (50 %): the generator's calibration error.
-**Corpus (2026-10-13, `aa6355704`, 1769/1769 entries, `full: true`):**
-1680 PASS; worst families `scen-sweep` 202/238 (RNG 96.5 %),
-`scen-worldtour` 173/198, `scen-chain` 142/148, `scen-trek` 124/128,
-`scen-dig` 22/23; rest 100 %. 0 PASS→FAIL. `scen-sweep-Priest-582706`
-reads PASS only because its re-recorded C run aborted at s1166 (recorder
-flake; the D-3885 park stands).
+→ 126/160 (79 %); 620000 mixed ×160 → 141/160 (88 %); 49950000 ×158 →
+140/158 (88.6 %, Grow #5). Gap to held-out (50 %): the generator's
+calibration error.
+**Corpus (2026-10-13, `d6efb0a28`, 2296/2296 entries, `full: true`):**
+2116 PASS; worst families `scen-shop` 73/100, `scen-sweep` 273/332,
+`scen-worldtour` 253/301, `scen-options` 31/36, `scen-zapfest` 18/20;
+rest ≥ 91 %. 1 PASS→FAIL: `scen-sweep-Priest-582706` (known recorder
+flake, D-3885 park stands — re-record completed to s1238 this run,
+diverging at s1166 on a map row).
 Reviews 1225–2781 (index; no row 1618): 1384 ACCEPT, 61 WITH-DEBT, 111 QUALITY-RISK (2773–2781: 9A/0D/0Q, 0 Must-fix queued).
 Live debts: `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows; 52
 unit tests in `scripts/*.test.mjs` fail on HEAD (stale after rewires —
 same set before and after D-3930).
-Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈5 min for 1769), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
+Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈25 min for 2296), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 
 **PASS (44):** every session in `sessions/`.
 
