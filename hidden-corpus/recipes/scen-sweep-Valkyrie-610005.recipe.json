@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n20\n   kny\u0017hole\nl^h\u0007yellow mold\n20s   s20ssk\u0017falling rock trap\nu^b\u0007newt\n20s 20ssu.nh\u0017arrow trap\nh\u0007gnome\ns.s20sby\u0017trap door\nlh s.m.#terrain\nc\n\u001bm,, z;l,\u001618\n\u0017wand of digging\n\u0006_o.zf> zf<zf> 20szf> sy\u0017grave\nzf> ..\u0016?\ne\u0006FlFl20s  .FnFnjk byda;k.\\   \u001621\n#levelchange\n20\n\u0016?\n>z  _mmmmm.Fb     _.     Fb#chat\ny       _mmm,      Fy        _,#chat\nh;h;_mmmmm,      n   Fb   :_.;@.#chat\nb_mmm,Fl   _.   Fy      n  #chat\ny;h,_mm.     Fh     _.#chat\nl\u0016?\n>B#monster\ni\u001bde      n\u00163\n\u0017blessed ring of polymorph control\nPgr        \u0017gray dragon scale mail\nWh            n   sh    20s     sk #polyself\nmind flayer\n #monster\n       sm.       sm.       20s     20s     20s  #polyself\nwarhorse\n #monster\n20s         .l       n     .m.         sm.  n          sk#polyself\ndwarf\n#monster\nsm.       n  .m.     \u0007black dragon\nFh      Fn      n    Fn      sm.  n       sys#polyself\nenergy vortex\n#monster\n20s       .k\u0007flesh golem\nFl      Fj  n      Fn        nsm.   sm.20s    \u00163\n\u0017oilskin sack\n\u0017chest\n\u0017cursed bag of holding\n\u0017scroll of teleportation\n\u0017potion of levitation\n\u0017ring of protection\naj\u0017long sword\nwo   n     dj      #force\ny   n      .m.   20s sm.         n  \u0017skeleton key\ndp    ak\u001b20s      nsh   sm.   #loot\ndo#loot\n,\u001bai\u001bi\u001b\u0017katana\nwqFl   Fh  yy\u001b y   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 610005,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n20\n   kny\u0017hole\nl^h\u0007yellow mold\n20s   s20ssk\u0017falling rock trap\nu^b\u0007newt\n20s 20ssu.nh\u0017arrow trap\nh\u0007gnome\ns.s20sby\u0017trap door\nlh s.m.#terrain\nc\n\u001bm,, z;l,\u001618\n\u0017wand of digging\n\u0006_o.zf> zf<zf> 20szf> sy\u0017grave\nzf> ..\u0016?\ne\u0006FlFl20s  .FnFnjk byda;k.\\   \u001621\n#levelchange\n20\n\u0016?\n>z  _mmmmm.Fb     _.     Fb#chat\ny       _mmm,      Fy        _,#chat\nh;h;_mmmmm,      n   Fb   :_.;@.#chat\nb_mmm,Fl   _.   Fy      n  #chat\ny;h,_mm.     Fh     _.#chat\nl\u0016?\n>B#monster\ni\u001bde      n\u00163\n\u0017blessed ring of polymorph control\nPgr        \u0017gray dragon scale mail\nWh            n   sh    20s     sk #polyself\nmind flayer\n #monster\n       sm.       sm.       20s     20s     20s  #polyself\nwarhorse\n #monster\n20s         .l       n     .m.         sm.  n          sk#polyself\ndwarf\n#monster\nsm.       n  .m.     \u0007black dragon\nFh      Fn      n    Fn      sm.  n       sys#polyself\nenergy vortex\n#monster\n20s       .k\u0007flesh golem\nFl      Fj  n      Fn        nsm.   sm.20s    \u00163\n\u0017oilskin sack\n\u0017chest\n\u0017cursed bag of holding\n\u0017scroll of teleportation\n\u0017potion of levitation\n\u0017ring of protection\naj\u0017long sword\nwo   n     dj      #force\ny   n      .m.   20s sm.         n  \u0017skeleton key\ndp    ak\u001b20s      nsh   sm.   #loot\ndo#loot\n,\u001bai\u001bi\u001b\u0017katana\nwqFl   Fh  yy\u001b y   y y y\u001b  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed Mjollnir\nwm\u0017blessed +3 speed boots\nWn\u001630\n   \u0014 \u001b;s.\u001630\njynjjuj:\u0016?\n>x#levelchange\n20\n      \u0017blessed spellbook of magic mapping\nro20s\u0017spellbook of detect treasure\nrp sm.\u0017blessed spellbook of wizard lock\nrq  20s+Z\u0007jackal\nZFl ZZFj Z#enhance\nyc\nm\n\u001b\u0016?\n>t \u0014:\u001630\n \u0004h   \u001b      \u001b\u0016?\n>C\u0004h\u0016?\n>>K      potion of object detection\n__.\u0016?\n\u001bju\u0016?\n\u001bn  b\u001641\nh     b:\u001644\n\u0006@._<,\u001630\nu         n u  :\u0016?\n\u001bjy    \u001615\nnu    n     l           n\u0017grave\n:\u0017pick-axe\n at   sm.               sy   n        h    n            n      y      n       \u0017altar\ndh     n       dl     n    \u0017floating eye corpse\n#offer\n#pray\ny y                     j \u0017throne\n#sit\n   n #sit\n      n: #terrain\n\u001bL#terrain\n\u001b#offer\n\u00163\n\u001644\n\u0014@.   \u001641\n_<,>\u0016?\n\u001bkk  n  \u00162\n\u0004n sm.s\u001641\n_>.\u001630\nln jlbuj: \u0016?\n\u001bl  nu\u001619\n#chat\nl;l;20s.m.\u0016?\n\u001bu y\u0016?\n\u001bku\u001630\nhl  nbjl jy   n : 20s    yy\u001by  y nn  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 620064,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed Mjollnir\nwm\u0017blessed +3 speed boots\nWn\u001630\n   \u0014 \u001b;s.\u001630\njynjjuj:\u0016?\n>x#levelchange\n20\n      \u0017blessed spellbook of magic mapping\nro20s\u0017spellbook of detect treasure\nrp sm.\u0017blessed spellbook of wizard lock\nrq  20s+Z\u0007jackal\nZFl ZZFj Z#enhance\nyc\nm\n\u001b\u0016?\n>t \u0014:\u001630\n \u0004h   \u001b      \u001b\u0016?\n>C\u0004h\u0016?\n>>K      potion of object detection\n__.\u0016?\n\u001bju\u0016?\n\u001bn  b\u001641\nh     b:\u001644\n\u0006@._<,\u001630\nu         n u  :\u0016?\n\u001bjy    \u001615\nnu    n     l           n\u0017grave\n:\u0017pick-axe\n at   sm.               sy   n        h    n            n      y      n       \u0017altar\ndh     n       dl     n    \u0017floating eye corpse\n#offer\n#pray\ny y                     j \u0017throne\n#sit\n   n #sit\n      n: #terrain\n\u001bL#terrain\n\u001b#offer\n\u00163\n\u001644\n\u0014@.   \u001641\n_<,>\u0016?\n\u001bkk  n  \u00162\n\u0004n sm.s\u001641\n_>.\u001630\nln jlbuj: \u0016?\n\u001bl  nu\u001619\n#chat\nl;l;20s.m.\u0016?\n\u001bu y\u0016?\n\u001bku\u001630\nhl  nbjl jy   n : 20s    yy\u001by  y nn  \u0016"
+  }
+ ]
+}

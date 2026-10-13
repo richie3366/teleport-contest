@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "N YBK_ \u001b.>K   YBH_>,>FlFhFk KNUU_>.>#dip\nbr\u001b\u001bLLLH_>.>BHNL_>,><HJBB_>,>,:#turn\nKYNN_>,>NYYK_>,>HNJU_>,>Fn20ssNNKH_>.>UUUK_>,>10s#chat\nnYUJJ_>,>\u000f\u001btblnjjh10s20sFuFuFlFuFlFl#pray\ny       FlFuFlhyj#terrain\nb\nbku,\u0014\u0018\u001b100s150sFkss\\   \u000f\u001b#invoke\n\u001b\u001b100s100sFkFk20slhl100s100sFl.s100s\u000f\u001bhlh#invoke\n\u001b\u001b150s \u000f\u001b150s150sFl.._>.>50sllh150s Fl..lll100si\u001b10sdedddaas20s.#name\na\nuhkunh10s10snyjl20skulhlljkkubunknhK#enhance\n\u001b#loot\nJUHB_>,>FussBBNB_>.>KJLN_>.>:aJLBK_>.>,w\u001b\u001bBHKN_>,>#turn\naNKLB_>.>\u000f\u001b#pray\ny e#pray\ny eeee#pray\ny   #pray\ny  eee#pray\ny  #pray\ny   \u001b      1"
+ },
+ "segments": [
+  {
+   "seed": 610079,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=runmode:walk\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\n",
+   "moves": "N YBK_ \u001b.>K   YBH_>,>FlFhFk KNUU_>.>#dip\nbr\u001b\u001bLLLH_>.>BHNL_>,><HJBB_>,>,:#turn\nKYNN_>,>NYYK_>,>HNJU_>,>Fn20ssNNKH_>.>UUUK_>,>10s#chat\nnYUJJ_>,>\u000f\u001btblnjjh10s20sFuFuFlFuFlFl#pray\ny       FlFuFlhyj#terrain\nb\nbku,\u0014\u0018\u001b100s150sFkss\\   \u000f\u001b#invoke\n\u001b\u001b100s100sFkFk20slhl100s100sFl.s100s\u000f\u001bhlh#invoke\n\u001b\u001b150s \u000f\u001b150s150sFl.._>.>50sllh150s Fl..lll100si\u001b10sdedddaas20s.#name\na\nuhkunh10s10snyjl20skulhlljkkubunknhK#enhance\n\u001b#loot\nJUHB_>,>FussBBNB_>.>KJLN_>.>:aJLBK_>.>,w\u001b\u001bBHKN_>,>#turn\naNKLB_>.>\u000f\u001b#pray\ny e#pray\ny eeee#pray\ny   #pray\ny  eee#pray\ny  #pray\ny   \u001b      1"
+  }
+ ]
+}

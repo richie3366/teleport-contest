@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                              \u0017blessed Mjollnir\n wj \u0017blessed +3 gray dragon scale mail\nW\u001b\u00168\n#levelchange\n8\n       \u0007sergeant\n;h; \u001b;20s20s20s\u0007fire giant\nFh   nFb FbFh  n Fb  \u0007dwarf\nFh  n  Fn   Fh   n\u0007large mimic\nFh  Fn   nFb  Fj    nFh    Fb   n \u00166\n\u00168\n_<,Fl _,Fh <\u0016?\n>>K      scroll of food detection\n#levelchange\n12\n  \u0007iron golem\n;j;sjsn   sm.    \u0007nurse\nFb    n  Fh    Fb      n     \u0007green mold\nFh      n     Fj      n\u0007mind flayer\n#chat\nj   Fb          n    Fb        nsm.       \u00169\n\u00162\n\u0006:_<.\u0016?\n\u001bn   l      n   \u00162\n#levelchange\n12\n\u0017lenses\nan \u0017cursed spellbook of magic mapping\n \u0007Juiblex\nnro , \u001b      n     .n    yy\u001bnny n  s"
+ },
+ "segments": [
+  {
+   "seed": 620036,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  #levelchange\n30\n                              \u0017blessed Mjollnir\n wj \u0017blessed +3 gray dragon scale mail\nW\u001b\u00168\n#levelchange\n8\n       \u0007sergeant\n;h; \u001b;20s20s20s\u0007fire giant\nFh   nFb FbFh  n Fb  \u0007dwarf\nFh  n  Fn   Fh   n\u0007large mimic\nFh  Fn   nFb  Fj    nFh    Fb   n \u00166\n\u00168\n_<,Fl _,Fh <\u0016?\n>>K      scroll of food detection\n#levelchange\n12\n  \u0007iron golem\n;j;sjsn   sm.    \u0007nurse\nFb    n  Fh    Fb      n     \u0007green mold\nFh      n     Fj      n\u0007mind flayer\n#chat\nj   Fb          n    Fb        nsm.       \u00169\n\u00162\n\u0006:_<.\u0016?\n\u001bn   l      n   \u00162\n#levelchange\n12\n\u0017lenses\nan \u0017cursed spellbook of magic mapping\n \u0007Juiblex\nnro , \u001b      n     .n    yy\u001bnny n  s"
+  }
+ ]
+}

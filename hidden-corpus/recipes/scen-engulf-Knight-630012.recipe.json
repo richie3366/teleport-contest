@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #polyself\nair elemental\n  ss\u0007gnome\nFhFl.s\u0007lichen\nFj 20sFnFlSy\u001b yy,\u001bH#sit\n\u001bEZi\u001b#force\n\u0014 \u001b;#conduct\n \u0018\u001bwlhlh\u0017dart trap\nl\u0007giant rat\n20s.s.hl\u0017magic portal\nhl20s.lj\u0017s\u0014e",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 630012,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #polyself\nair elemental\n  ss\u0007gnome\nFhFl.s\u0007lichen\nFj 20sFnFlSy\u001b"
+  },
+  {
+   "seed": 1130012,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " yy,\u001bH#sit\n\u001bEZi\u001b#force\n\u0014 \u001b;#conduct\n \u0018\u001bwlhlh\u0017dart trap\nl\u0007giant rat\n20s.s.hl\u0017magic portal\nhl20s.lj\u0017s\u0014e"
+  }
+ ]
+}

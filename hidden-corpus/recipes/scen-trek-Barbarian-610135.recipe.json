@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " Fj 20sshbl100s 100s_ \u001b:>lhhFh..100s\u0004n\u0018\u001b100sFh.20s50sFhFh.;<.100s_>,>_>,>_>.>100sFk.s50s\u0018\u001b50s100s_>,>100s100s50s#ride\nu100sed50s#jump\n\\   100s\u000f\u001blkuFhss100sJHYB_>.><KBBK_>.>#offer\n#turn\nKYNN_>.>NHKY_>.>YJUL_>,>#wipe\nWUNBY_>,>NLYH_>,>FkFk20s#rub\nE- X marks the spot\nUKBK_>.>FbFbFbNNKH_>.>FjFyFhNNKJ_>,>UHYU_>,>FjFj20sUYBY_>,>KHNL_>.>NYUK_>.>:afy \u0018\u001b#sit\n\u001b#jump\ni\u001b50s150s\u0018\u001b100s100sbynnnyaab150s#terrain\n\u001b50suun_>.>150s ee  \u000f\u001b50s50sFbs20sed100s\\   _>,>100s Fn20ss100sFn20s.100slhn100s\\   100sFnsslhlyhn100si\u001b50s150slytbljyyjlhy#name\nm\nuk100s50shlj150sFlFl20s150sW100sFlFl.100s150s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeNNKB_>.>UBLB_>,>UJLY_>.>BUYN_>.>YBHL_>.>UNKJ_>,>\u000f\u001b#force\n#rub\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedbaau#pray\ny :hk#name\nm\n20s10sjkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet$udcs20s20s20s#name\nm\nlk#name\n>.Zoj#wipe\n#pray\ny  _>.>100s150si\u001b150shbbFlss100shlhFlFlFlFlssdcl_>.>100s50sFl20sFl#ride\nl150s150s Fl.s50s100sFlFl20sr\u001b\u001b100s 50s 150sFls20s>i\u001bcj150sFls20shlh#wipe\nuynbkji\u001bNHH"
+ },
+ "segments": [
+  {
+   "seed": 610135,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=!verbose\nOPTIONS=playmode:explore\n",
+   "moves": " Fj 20sshbl100s 100s_ \u001b:>lhhFh..100s\u0004n\u0018\u001b100sFh.20s50sFhFh.;<.100s_>,>_>,>_>.>100sFk.s50s\u0018\u001b50s100s_>,>100s100s50s#ride\nu100sed50s#jump\n\\   100s\u000f\u001blkuFhss100sJHYB_>.><KBBK_>.>#offer\n#turn\nKYNN_>.>NHKY_>.>YJUL_>,>#wipe\nWUNBY_>,>NLYH_>,>FkFk20s#rub\nE- X marks the spot\nUKBK_>.>FbFbFbNNKH_>.>FjFyFhNNKJ_>,>UHYU_>,>FjFj20sUYBY_>,>KHNL_>.>NYUK_>.>:afy \u0018\u001b#sit\n\u001b#jump\ni\u001b50s150s\u0018\u001b100s100sbynnnyaab150s#terrain\n\u001b50suun_>.>150s ee  \u000f\u001b50s50sFbs20sed100s\\   _>,>100s Fn20ss100sFn20s.100slhn100s\\   100sFnsslhlyhn100si\u001b50s150slytbljyyjlhy#name\nm\nuk100s50shlj150sFlFl20s150sW100sFlFl.100s150s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeNNKB_>.>UBLB_>,>UJLY_>.>BUYN_>.>YBHL_>.>UNKJ_>,>\u000f\u001b#force\n#rub\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedbaau#pray\ny :hk#name\nm\n20s10sjkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet$udcs20s20s20s#name\nm\nlk#name\n>.Zoj#wipe\n#pray\ny  _>.>100s150si\u001b150shbbFlss100shlhFlFlFlFlssdcl_>.>100s50sFl20sFl#ride\nl150s150s Fl.s50s100sFlFl20sr\u001b\u001b100s 50s 150sFls20s>i\u001bcj150sFls20shlh#wipe\nuynbkji\u001bNHH"
+  }
+ ]
+}

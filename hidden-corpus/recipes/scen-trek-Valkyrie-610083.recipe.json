@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " FjFj 20s150s150s100s 100s150sFjFbFbFjFjFjFj20s20sFjFj20s100si\u001bkby#offer\n150s Fn Fn Fn Fj FnFj150sFj..150sjnk100sk150sFjs._ \u001bm,>Fjss\\   150sFjFjsnkhFnFnFnFnFnFnnlj100slhbjll150s\u000f\u001bi\u001blhtby10s10st\u001bt\u001bllt\u001b#name\n\u001b#chat\nj#name\n\u001b#name\n\u001bcl_>.sm.UHJH_>.Fj_.>.><NHJU_>.>HNLB_>.>BJKU_>,>LJHH_>.>BKJU_>,>BJKY_>,><\u000f\u001bnnyh10s#name\n\u001bdcs.s#chat\njt\u001bt\u001bujda#offer\n<ed Fuss150sokylyuln150s_>.>jyb50sed \u000f\u001b50suybi\u001blubFl20sFl 100s\\   i\u001b\u0018\u001b\u000f\u001bynunjuFh..150s150sFhss100s#turn\nbjb150s#offer\n:\u0018\u001b100sFlFl20sFl20s.r\u001b100s_>.>50sFl..uyh100s150sFls.q100s\u000f\u001b50s150sFlFl.bkl100s\\   100s   Fl20ss50s150sFj20ss150sFj..khj100s\u000f\u001b150sFkss_>,>lbk50slyl100s50sFl.s_>.>100s eee#chat\nndc..20syj#name\n\u001bjj#chat\nbzE\u001b\u0018\u001bkklb20sju"
+ },
+ "segments": [
+  {
+   "seed": 610083,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": " FjFj 20s150s150s100s 100s150sFjFbFbFjFjFjFj20s20sFjFj20s100si\u001bkby#offer\n150s Fn Fn Fn Fj FnFj150sFj..150sjnk100sk150sFjs._ \u001bm,>Fjss\\   150sFjFjsnkhFnFnFnFnFnFnnlj100slhbjll150s\u000f\u001bi\u001blhtby10s10st\u001bt\u001bllt\u001b#name\n\u001b#chat\nj#name\n\u001b#name\n\u001bcl_>.sm.UHJH_>.Fj_.>.><NHJU_>.>HNLB_>.>BJKU_>,>LJHH_>.>BKJU_>,>BJKY_>,><\u000f\u001bnnyh10s#name\n\u001bdcs.s#chat\njt\u001bt\u001bujda#offer\n<ed Fuss150sokylyuln150s_>.>jyb50sed \u000f\u001b50suybi\u001blubFl20sFl 100s\\   i\u001b\u0018\u001b\u000f\u001bynunjuFh..150s150sFhss100s#turn\nbjb150s#offer\n:\u0018\u001b100sFlFl20sFl20s.r\u001b100s_>.>50sFl..uyh100s150sFls.q100s\u000f\u001b50s150sFlFl.bkl100s\\   100s   Fl20ss50s150sFj20ss150sFj..khj100s\u000f\u001b150sFkss_>,>lbk50slyl100s50sFl.s_>.>100s eee#chat\nndc..20syj#name\n\u001bjj#chat\nbzE\u001b\u0018\u001bkklb20sju"
+  }
+ ]
+}

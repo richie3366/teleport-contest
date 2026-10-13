@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed ring of free action\nPnl\u0017blessed +3 silver dragon scale mail\nW\u001b\u00165\nunyk:\u0016?\n>>Q\u0014 \u001b:20ss.\u0016?\n>J     ring of teleport control\n_{.\u0016?\ne \u0004b\u0016?\ne\u0006_<.\u0016?\n\u001bh l\u00165\n__,<20s   n sm. \u00165\n#chat\ny  n ;y,20s  \u001638\nuy  n :\u0016?\n\u001bnb  n \u00162\n\u0007shrieker\nFh Fh   n  Fh   n Fk Fk  n sm.   n.m. #pray\ny y       \u0007mountain nymph\nFh  n  Fy     n Fh   n  Fh  n  Fk   n 20s    n 20s    n \u0007succubus\nFy    n Fk Fk  n   Fh  yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 620028,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed ring of free action\nPnl\u0017blessed +3 silver dragon scale mail\nW\u001b\u00165\nunyk:\u0016?\n>>Q\u0014 \u001b:20ss.\u0016?\n>J     ring of teleport control\n_{.\u0016?\ne \u0004b\u0016?\ne\u0006_<.\u0016?\n\u001bh l\u00165\n__,<20s   n sm. \u00165\n#chat\ny  n ;y,20s  \u001638\nuy  n :\u0016?\n\u001bnb  n \u00162\n\u0007shrieker\nFh Fh   n  Fh   n Fk Fk  n sm.   n.m. #pray\ny y       \u0007mountain nymph\nFh  n  Fy     n Fh   n  Fh  n  Fk   n 20s    n 20s    n \u0007succubus\nFy    n Fk Fk  n   Fh  yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

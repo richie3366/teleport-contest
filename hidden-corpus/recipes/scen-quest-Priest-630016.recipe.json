@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>y  _ \u001b:#chat\nb_mmmmm,_.#chat\nh_mmmmm,_,#chat\nn;>._mmm.Fh _.;.Fh#chat\nh;h:  _m.Fh   n_.#chat\nh\u0006_>>.Fl   yy\u001by   y y y\u001b   _"
+ },
+ "segments": [
+  {
+   "seed": 630016,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>y  _ \u001b:#chat\nb_mmmmm,_.#chat\nh_mmmmm,_,#chat\nn;>._mmm.Fh _.;.Fh#chat\nh;h:  _m.Fh   n_.#chat\nh\u0006_>>.Fl   yy\u001by   y y y\u001b   _"
+  }
+ ]
+}

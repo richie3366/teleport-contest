@@ -1,0 +1,70 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nc\n .m.sm.s20ssm.s20ssm.20s      yy\u001bny y\u001b y  s  jbuhFlFlFlFlFlFlFlFl150sFlFu.i\u001b\u000f\u001b_ \u001b>.>100s  FlFlFuFn.FjFn .20s_>,>100s\\  knb_>.>uhj\u0018\u001bi\u001bkkk100s100s#sit\n\u001b150sFlFl.jjli\u001b100s\\  jkl100sFkFk.hlk50s50s_>.>50s100sFkFk 20su#terrain\nb\n100s 100s150sFyFys_>.>\u000f\u001b50s50s\u0018\u001b50s Fk.s#wipe\n\\  \\  100seeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b    un l y     Y  Fj ..i\u001b\u0004uhby_ \u001b@.>50s50snyl100s100s150sFhFhFh\\ lhnljhuhhi\u001b150s#loot\n50s100sFhss\u0018\u001b150s#turn\n50s 150sFh..50s150s100sFhFhstbl100s50s100seeeeJYNY_>.>#force\nPNYHY_>.>20s#enhance\n\u001bKJLU_>,>FuFuFl;m,#enhance\n\u001bkuhjKKYN_>.>\u0014#wipe\nULKJ_>.>LLUN_>,>#pray\ny #untrap\nlLBLB_>.>#rub\neYHH#quit\nyy\u001by  y y y\u001b tay10s20skknu20st$hLKJJ_ \u001b.>FhFhFhKLLK  nny n  _ #wizintrinsic\nc\n sm.ssssssss20s20s sm..m.sh20s   yny   nn y  s  nujlUJJN_ \u001b@.>Fjss#monster\n;<.BLUB_>.>oh#untrap\nnYKBL_>,>Fk sskjdms..10s#chat\njkl#chat\nkhlkyHUHK_>.>FjFjFhKUHJ_>.>FyFyFlY N UH_>.>FbFbFh\u000f\u001b#name\ni\n#name\ni\ndhssst\u001bljkldl20s..dgsss>50s100s FjFj FjFjFj Fj150s50s100s\u0018\u001bbkbFhFhFlFlFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhF#quit\nfN UUB_ \u001bm.  >Fy  Fh   y\u001by  y y\u001b  2",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 610006,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nc\n .m.sm.s20ssm.s20ssm.20s      yy\u001bny y\u001b y  s"
+  },
+  {
+   "seed": 710006,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\n",
+   "moves": "  jbuhFlFlFlFlFlFlFlFl150sFlFu.i\u001b\u000f\u001b_ \u001b>.>100s  FlFlFuFn.FjFn .20s_>,>100s\\  knb_>.>uhj\u0018\u001bi\u001bkkk100s100s#sit\n\u001b150sFlFl.jjli\u001b100s\\  jkl100sFkFk.hlk50s50s_>.>50s100sFkFk 20su#terrain\nb\n100s 100s150sFyFys_>.>\u000f\u001b50s50s\u0018\u001b50s Fk.s#wipe\n\\  \\  100seeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 810006,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "   un l y     Y"
+  },
+  {
+   "seed": 910006,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\n",
+   "moves": "  Fj ..i\u001b\u0004uhby_ \u001b@.>50s50snyl100s100s150sFhFhFh\\ lhnljhuhhi\u001b150s#loot\n50s100sFhss\u0018\u001b150s#turn\n50s 150sFh..50s150s100sFhFhstbl100s50s100seeeeJYNY_>.>#force\nPNYHY_>.>20s#enhance\n\u001bKJLU_>,>FuFuFl;m,#enhance\n\u001bkuhjKKYN_>.>\u0014#wipe\nULKJ_>.>LLUN_>,>#pray\ny #untrap\nlLBLB_>.>#rub\neYHH#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1010006,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=pettype:none\n",
+   "moves": "tay10s20skknu20st$hLKJJ_ \u001b.>FhFhFhKLLK  nny n  _"
+  },
+  {
+   "seed": 1110006,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nc\n sm.ssssssss20s20s sm..m.sh20s   yny   nn y  s"
+  },
+  {
+   "seed": 1210006,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "  nujlUJJN_ \u001b@.>Fjss#monster\n;<.BLUB_>.>oh#untrap\nnYKBL_>,>Fk sskjdms..10s#chat\njkl#chat\nkhlkyHUHK_>.>FjFjFhKUHJ_>.>FyFyFlY N UH_>.>FbFbFh\u000f\u001b#name\ni\n#name\ni\ndhssst\u001bljkldl20s..dgsss>50s100s FjFj FjFjFj Fj150s50s100s\u0018\u001bbkbFhFhFlFlFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhF#quit\nf"
+  },
+  {
+   "seed": 1310006,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\n",
+   "moves": "N UUB_ \u001bm.  >Fy  Fh   y\u001by  y y\u001b  2"
+  }
+ ]
+}

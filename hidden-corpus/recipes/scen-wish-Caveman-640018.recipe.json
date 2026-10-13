@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed tripe ration\n\u0007ghoul\nef20s 20s \u0017scroll of blank paper\nrgFlFk\u0017wand of light\nzh.20s.s"
+ },
+ "segments": [
+  {
+   "seed": 640018,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed tripe ration\n\u0007ghoul\nef20s 20s \u0017scroll of blank paper\nrgFlFk\u0017wand of light\nzh.20s.s"
+  }
+ ]
+}

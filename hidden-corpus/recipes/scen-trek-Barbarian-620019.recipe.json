@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " 100s100s 100sFlFl20sP100s150sFj20ss100shhl150s50sFlss100s#dip\nb100s50sFnFn20s_ \u001b.>100sFnFnshlh#conduct\n 150s50s50s\u000f\u001b\\  hhh\u000f\u001bhlh\u0018\u001b100s50sFlFls_>.>100s50sFlFl.150sBLJB_>.>ULBJ_>,>L JBU_>.><ULNN_>.>\u000f\u001b100sed50sbbjkkl50s100s\u000f\u001b100sFh.._>.>i\u001b100s;m.100sjuy100sFhs20s50sFhss150sFhFhFh\u0018\u001blbljyknhy100sllhnhn100s#enhance\n\u001b100s50s50sFyFhFh50s 150sck#force\n\u0018\u001bkktbn20sjjbyddsb..m.hhkbda20ssm..nl dcsm.20s.m.k#name\nf\nnbJNNK_>JHJU_>YJBN_>UBBB_>KBYB_>#offer\n.10sULNN_>,>E\u001bZ\u000f\u001bi\u001b\u0018\u001b_>.>_>.>50s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#tip\n\u001bw\u001bKeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0014#pray\ny #force\nUHBK_>.>FkFkFk#offer\n#tip\n\u001bYBUK_>.>FjFj20sa<NHUU_>.><LNKH _>,>FhFhsNHHU _>.>H HHU_>.>FlFlFlNBKK_>,>UNHL_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\ni\ndc.ss#name\nm\nm.10s10s20s20s\u0004k#enhance\n\u001b#wipe\n#pray\ny   #pray\ny    #pray\ny       1"
+ },
+ "segments": [
+  {
+   "seed": 620019,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\n",
+   "moves": " 100s100s 100sFlFl20sP100s150sFj20ss100shhl150s50sFlss100s#dip\nb100s50sFnFn20s_ \u001b.>100sFnFnshlh#conduct\n 150s50s50s\u000f\u001b\\  hhh\u000f\u001bhlh\u0018\u001b100s50sFlFls_>.>100s50sFlFl.150sBLJB_>.>ULBJ_>,>L JBU_>.><ULNN_>.>\u000f\u001b100sed50sbbjkkl50s100s\u000f\u001b100sFh.._>.>i\u001b100s;m.100sjuy100sFhs20s50sFhss150sFhFhFh\u0018\u001blbljyknhy100sllhnhn100s#enhance\n\u001b100s50s50sFyFhFh50s 150sck#force\n\u0018\u001bkktbn20sjjbyddsb..m.hhkbda20ssm..nl dcsm.20s.m.k#name\nf\nnbJNNK_>JHJU_>YJBN_>UBBB_>KBYB_>#offer\n.10sULNN_>,>E\u001bZ\u000f\u001bi\u001b\u0018\u001b_>.>_>.>50s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#tip\n\u001bw\u001bKeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0014#pray\ny #force\nUHBK_>.>FkFkFk#offer\n#tip\n\u001bYBUK_>.>FjFj20sa<NHUU_>.><LNKH _>,>FhFhsNHHU _>.>H HHU_>.>FlFlFlNBKK_>,>UNHL_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\ni\ndc.ss#name\nm\nm.10s10s20s20s\u0004k#enhance\n\u001b#wipe\n#pray\ny   #pray\ny    #pray\ny       1"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " FlFl FlFl20ss#loot\n100s150s Fjss_ \u001bm,>Fl..k50s150s_>.>50sFnFn.100s100s100sFnFnFn150s100sFn20sFkFkFks100sFnFnFnFnssbly50s150s_>.>50sFlFuFlFl.si\u001b100s150sFuFuFuFuss100s100sFuFus#enhance\n\u001bqd#wipe\nbll100shnykjkeli\u001bjhlFl20s.100s50s100sFkFks50sel150s\\ hlb#sit\n\u001bFlFlFlnnkhuyhlb150seluly150selbln150s100sybkFbFjsFbss100sel150seeee\u000f\u001b#chat\nb#chat\nneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJHHJ_>.>,f $ uLLKU_>.><UKH N_>,>KLUB_>,>BK JL_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUNUK_>.>\u0004kdaY N BH_>.>t$k#jump\nHKUH_>,>JNNJ_>.>#rub\n#turn\nLNUH_>,>Fh FhsLBB B_>.>FyFyFkBUBJ_>,>FksFn#pray\ny ee#pray\ny    #pray\ny   #pray\ny   y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 610075,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:dog\n",
+   "moves": " FlFl FlFl20ss#loot\n100s150s Fjss_ \u001bm,>Fl..k50s150s_>.>50sFnFn.100s100s100sFnFnFn150s100sFn20sFkFkFks100sFnFnFnFnssbly50s150s_>.>50sFlFuFlFl.si\u001b100s150sFuFuFuFuss100s100sFuFus#enhance\n\u001bqd#wipe\nbll100shnykjkeli\u001bjhlFl20s.100s50s100sFkFks50sel150s\\ hlb#sit\n\u001bFlFlFlnnkhuyhlb150seluly150selbln150s100sybkFbFjsFbss100sel150seeee\u000f\u001b#chat\nb#chat\nneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJHHJ_>.>,f $ uLLKU_>.><UKH N_>,>KLUB_>,>BK JL_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUNUK_>.>\u0004kdaY N BH_>.>t$k#jump\nHKUH_>,>JNNJ_>.>#rub\n#turn\nLNUH_>,>Fh FhsLBB B_>.>FyFyFkBUBJ_>,>FksFn#pray\ny ee#pray\ny    #pray\ny   #pray\ny   y\u001by  y y y\u001b  1"
+  }
+ ]
+}

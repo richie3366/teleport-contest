@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                    \u0017blessed +3 speed boots\nWj  \u0017blessed Mjollnir\n wk\u0017blessed amulet of life saving\nPl\u001620\n_ \u001b,<\u0016?\na\u0014@.\u0016?\n>>M       Stormbringer\n__,>.ysm.      20s    \u001620\nybjb:\u001620\n\u0014.        \u001625\nb kh    l j k     :sm.sm.        n  \u0016?\na   #levelchange\n8\n    \u0007sandestin\nFu  Fk Fn      n   Fn             n  Fl           n       \u0007pony\nFj     n           Fj   n         n     Fj        n           n          \u0007prisoner\n#chat\njFj          n        Fb   n           n           n          \u00166\n\u001611\n__.<sm.  n          n      ynnny y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 620084,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                    \u0017blessed +3 speed boots\nWj  \u0017blessed Mjollnir\n wk\u0017blessed amulet of life saving\nPl\u001620\n_ \u001b,<\u0016?\na\u0014@.\u0016?\n>>M       Stormbringer\n__,>.ysm.      20s    \u001620\nybjb:\u001620\n\u0014.        \u001625\nb kh    l j k     :sm.sm.        n  \u0016?\na   #levelchange\n8\n    \u0007sandestin\nFu  Fk Fn      n   Fn             n  Fl           n       \u0007pony\nFj     n           Fj   n         n     Fj        n           n          \u0007prisoner\n#chat\njFj          n        Fb   n           n           n          \u00166\n\u001611\n__.<sm.  n          n      ynnny y\u001b  2"
+  }
+ ]
+}

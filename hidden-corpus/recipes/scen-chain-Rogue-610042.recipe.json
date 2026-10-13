@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " Fn Fn  stbl100s bjlhblllyw-\u0004l_ \u001b.>jkj\u000f\u001b\u0018\u001bhunhkj100si\u001b100sFl Fl20sFlFlFlqd#twoweapon\n50s \\ #loot\n,hkhukj\u000f\u001b100s_>,>\u0018\u001bhub\u000f\u001b150slhnFk.s100s100syjk100s#chat\nynk10sdasss#chat\nudbssst\u001bHNJY_>.>KN JN_>.>YJHH_>,>#invoke\n\u001bw\u001b20skk#name\nd\n#name\nf\n20snblublkjknhh#name\no\nuu#name\nf\nJNJJ_>NJBJ_>YNYY_>YKUJ_>BYUU_>#dip\n@.zlkkkeeeee#quit\nyy\u001by  y y y\u001b  \u0017wand of fire\nzg.  y y  .UHKJ_ \u001b<.>FlssYBLJ_>.>NUUL_>.>rc _<.20sKLYL_>.Fk_.>knknbhjkynjykububklht\u001bjk#name\nm\n#name\nm,shiny\njkjjjuHJYH_>,>t\u001b\u0014NJHB_>.><LJYJ_>,>\u0018\u001b:<YJHU_>.><bjubFkFkFkFkFkFkFkFkkk20s 10st\u001bjylh#chat\nl20shjnyunt\u001bunjnbllyhlFb.20s_>,>\u000f\u001bnknuuu150sFns.efFb .s100sFns20sFnFn20sbbu100s#tip\n\u001b100slhkri y i\u001b100s150sjhklnhFlFlsE- X marks the spot\n100s_>.>bykllh50slny50s100s100sFl20s.:_>.>#tw#quit\nyy   \u0007master mind flayer\nFkFl    Fn      Fl  yy\u001by  y y y\u001by  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 610042,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\n",
+   "moves": " Fn Fn  stbl100s bjlhblllyw-\u0004l_ \u001b.>jkj\u000f\u001b\u0018\u001bhunhkj100si\u001b100sFl Fl20sFlFlFlqd#twoweapon\n50s \\ #loot\n,hkhukj\u000f\u001b100s_>,>\u0018\u001bhub\u000f\u001b150slhnFk.s100s100syjk100s#chat\nynk10sdasss#chat\nudbssst\u001bHNJY_>.>KN JN_>.>YJHH_>,>#invoke\n\u001bw\u001b20skk#name\nd\n#name\nf\n20snblublkjknhh#name\no\nuu#name\nf\nJNJJ_>NJBJ_>YNYY_>YKUJ_>BYUU_>#dip\n@.zlkkkeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 710042,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of fire\nzg.  y y  ."
+  },
+  {
+   "seed": 810042,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=fruit:kumquat\n",
+   "moves": "UHKJ_ \u001b<.>FlssYBLJ_>.>NUUL_>.>rc _<.20sKLYL_>.Fk_.>knknbhjkynjykububklht\u001bjk#name\nm\n#name\nm,shiny\njkjjjuHJYH_>,>t\u001b\u0014NJHB_>.><LJYJ_>,>\u0018\u001b:<YJHU_>.><bjubFkFkFkFkFkFkFkFkkk20s 10st\u001bjylh#chat\nl20shjnyunt\u001bunjnbllyhlFb.20s_>,>\u000f\u001bnknuuu150sFns.efFb .s100sFns20sFnFn20sbbu100s#tip\n\u001b100slhkri y i\u001b100s150sjhklnhFlFlsE- X marks the spot\n100s_>.>bykllh50slny50s100s100sFl20s.:_>.>#tw#quit\n"
+  },
+  {
+   "seed": 910042,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "yy   \u0007master mind flayer\nFkFl    Fn      Fl  yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

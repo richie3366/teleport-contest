@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0007long worm\n#chat\nuFuFu\u0007brown pudding\nFhFkFhFhFhFu \u0007crocodile\nsusn20s  n  20s  n 20s  n  nsm.  n .m.  n   20s  n   \u0007minotaur\nFu  n Fl  n  n  Fk   n   \u00168\n\u0017wand of slow monster\n\u0007master lich\nzh.zhk\u0017blessed crystal ball\nai \u001b Fn    n Fn\u0017ring of sustain ability\n\u0007guard\nnPjr   n .k20s  n   n    20s   yy\u001bnny\u001b y  F"
+ },
+ "segments": [
+  {
+   "seed": 610129,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0007long worm\n#chat\nuFuFu\u0007brown pudding\nFhFkFhFhFhFu \u0007crocodile\nsusn20s  n  20s  n 20s  n  nsm.  n .m.  n   20s  n   \u0007minotaur\nFu  n Fl  n  n  Fk   n   \u00168\n\u0017wand of slow monster\n\u0007master lich\nzh.zhk\u0017blessed crystal ball\nai \u001b Fn    n Fn\u0017ring of sustain ability\n\u0007guard\nnPjr   n .k20s  n   n    20s   yy\u001bnny\u001b y  F"
+  }
+ ]
+}

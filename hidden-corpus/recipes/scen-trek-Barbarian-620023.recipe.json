@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "   FyFy Fkk50s_ \u001bm.>kjb150sFh.s_>,>150stbnFh20s20si\u001byub\u000f\u001b_>,>150sylu100s_>,>\u000f\u001b150s100sljb100s50s ed100s#dip\nf150s100s_>.>lku\u0018\u001b\\   bhknbb150sFhFhFhFhss50s#offer\n#twoweapon\n#force\nJHBB_>.>KHNB_>.><BYKN_>,>HNKK_>,><J KNL_>.>#loot\n20sHNLH_>.>KYHH_>.>i\u001b#tip\n\u001blLJNK_>,><qNUYJ_>,>E- Elbereth Elbereth\n,UJKJ_>.>JHLJ_>,><JNLB_>.>JKJY_>,>#wipe\n#dip\ne#conduct\n #conduct\n >JYKN_>.>BUHK_>,>YLYN_>.>#loot\nHUJBJ_>.>FhFk.;>.#monster\nr\u001b\\   yhb\u0018\u001b_>.>juy50slnl100s100s100sFb20sseeeeeeeeeeeeeeeeeeeeeeeeeeeeJH KH_>.>KN BB_>,>JYKN_>,>NLKJ_>.>oj#pray\ny NNHU_>.><YKLL_>.>t\u001b>NUKN_>.>#rub\nef a u<HHHB_>.>#rub\ne#ride\nuLBKU_>.>BYKN_>,>KJYY_>.>#untrap\nh#chat\nkbunn#chat\nlykjknb#chat\nk#pray\ny #pray\ny  ee#pray\ny  #pray\ny  #pray\ny e#pray\ny   yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 620023,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:explore\n",
+   "moves": "   FyFy Fkk50s_ \u001bm.>kjb150sFh.s_>,>150stbnFh20s20si\u001byub\u000f\u001b_>,>150sylu100s_>,>\u000f\u001b150s100sljb100s50s ed100s#dip\nf150s100s_>.>lku\u0018\u001b\\   bhknbb150sFhFhFhFhss50s#offer\n#twoweapon\n#force\nJHBB_>.>KHNB_>.><BYKN_>,>HNKK_>,><J KNL_>.>#loot\n20sHNLH_>.>KYHH_>.>i\u001b#tip\n\u001blLJNK_>,><qNUYJ_>,>E- Elbereth Elbereth\n,UJKJ_>.>JHLJ_>,><JNLB_>.>JKJY_>,>#wipe\n#dip\ne#conduct\n #conduct\n >JYKN_>.>BUHK_>,>YLYN_>.>#loot\nHUJBJ_>.>FhFk.;>.#monster\nr\u001b\\   yhb\u0018\u001b_>.>juy50slnl100s100s100sFb20sseeeeeeeeeeeeeeeeeeeeeeeeeeeeJH KH_>.>KN BB_>,>JYKN_>,>NLKJ_>.>oj#pray\ny NNHU_>.><YKLL_>.>t\u001b>NUKN_>.>#rub\nef a u<HHHB_>.>#rub\ne#ride\nuLBKU_>.>BYKN_>,>KJYY_>.>#untrap\nh#chat\nkbunn#chat\nlykjknb#chat\nk#pray\ny #pray\ny  ee#pray\ny  #pray\ny  #pray\ny e#pray\ny   yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

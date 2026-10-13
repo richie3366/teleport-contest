@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  O>mf\nl\n#untrap\nnOdgc\no\nd\n#dip\nb\u0014Oen\n:ckOgf\nb\nk\nPOf\n#force\ns20sO>pgk\nd\n\\   Ol\ncl\\   O>p\n#force\nmO>>>>>b\nmango\ni\u001br\u001bmOa\n#chat\nls.."
+ },
+ "segments": [
+  {
+   "seed": 630031,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:explore\n",
+   "moves": "  O>mf\nl\n#untrap\nnOdgc\no\nd\n#dip\nb\u0014Oen\n:ckOgf\nb\nk\nPOf\n#force\ns20sO>pgk\nd\n\\   Ol\ncl\\   O>p\n#force\nmO>>>>>b\nmango\ni\u001br\u001bmOa\n#chat\nls.."
+  }
+ ]
+}

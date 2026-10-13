@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "mO>a\n#ride\nuywamO>>>>>>eon\nyes\n f\n10sO>phl\nf \u001bO>ckf\nPerhO>cjg\np\n\u000f\u001b..mO>>>>>h\non\n\u0014 \u001bm.O>ane\nwaOgkf\nf\n\\  #chat\nbOpi\ne\nE- Vlad was here\n,mO>>>>b\nW\u001b\u001bmO>>onj\n #invoke\n\u001b\u001b#name\nf\ns20s"
+ },
+ "segments": [
+  {
+   "seed": 630011,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "mO>a\n#ride\nuywamO>>>>>>eon\nyes\n f\n10sO>phl\nf \u001bO>ckf\nPerhO>cjg\np\n\u000f\u001b..mO>>>>>h\non\n\u0014 \u001bm.O>ane\nwaOgkf\nf\n\\  #chat\nbOpi\ne\nE- Vlad was here\n,mO>>>>b\nW\u001b\u001bmO>>onj\n #invoke\n\u001b\u001b#name\nf\ns20s"
+  }
+ ]
+}

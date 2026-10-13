@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  \u0006_ \u001b>.>FlFk_>,Fb_.> ,\u0018\u001b\u0006_>.Fh_.Fh>FhFh_>,Fh_,Fh>_>._.> \u0006_>._.> \u0006_>,_.>.>_>,Fb_.> \u0006_>._.Fh>FhFh_>,Fh_,  nFh>FlFl_>.Fb_,Fk  n>FkFyFkFl   nFl\u0006_>.Fk  n _.  nFy>FyFl   n _>.Fb _.  n Fh >Fk  n Fb   n_>. Fl  n _.Fk  n >Fk Fk   nFk  Fk  nFl\u000f\u001b\u0006\u001612\n#wizintrinsic\ne\n sm.s.m.sm.s20s .m..nsm.20s.u20s20s n .m.#jump\n#monster\n\\ #pray\ny y  hE- Elbereth\n.s20ss.s\u0007titanothere\nFbFbFb\u0007stalker\n;b..m.  n.u20s  n \u0007Nazgul\nFjFb Fy   yy\u001by  y y y\u001b y  F"
+ },
+ "segments": [
+  {
+   "seed": 620041,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0006_ \u001b>.>FlFk_>,Fb_.> ,\u0018\u001b\u0006_>.Fh_.Fh>FhFh_>,Fh_,Fh>_>._.> \u0006_>._.> \u0006_>,_.>.>_>,Fb_.> \u0006_>._.Fh>FhFh_>,Fh_,  nFh>FlFl_>.Fb_,Fk  n>FkFyFkFl   nFl\u0006_>.Fk  n _.  nFy>FyFl   n _>.Fb _.  n Fh >Fk  n Fb   n_>. Fl  n _.Fk  n >Fk Fk   nFk  Fk  nFl\u000f\u001b\u0006\u001612\n#wizintrinsic\ne\n sm.s.m.sm.s20s .m..nsm.20s.u20s20s n .m.#jump\n#monster\n\\ #pray\ny y  hE- Elbereth\n.s20ss.s\u0007titanothere\nFbFbFb\u0007stalker\n;b..m.  n.u20s  n \u0007Nazgul\nFjFb Fy   yy\u001by  y y y\u001b y  F"
+  }
+ ]
+}

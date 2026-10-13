@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "lubydd20s.s#chat\nj#chat\njbnbE- I am a fish\nzi\u001bknkFh .s50s100sFls20s_ \u001b@.>100sulh<150suhj150s150s FyFyFyFyFys_>,>100s100sFn20ss150s50sFkss50snkl100sFh.s100sjjheeeeeeeeeeeeLLJB_>.>LHLH_>.>#loot\nWJYNB_>.>BBYN_>,>YYUU_>.>_m,s#twoweapon\nH UUN_>.>JLNY_>.>NJJB_>.>i\u001b#ride\nyBLKH_>,>\u000f\u001bJH HY_>,>,#loot\nHLNB_>.>YN   KB_>.>Fu20s .\u000f\u001b#pray\ny  \u0018\u001b150snyj\\   50sFk20s.nkh100s50s150sFuss150s #terrain\nb\n\u000f \u000f\u001b_>.>100sFkFksnlu100s_>,>150sFkss\u000f\u001b#wipe\nFkFkFkFyFyskuh100s100s_>,>i\u001b100s\u000f\u001bhkh\u0018\u001b100s50sFlFl.JKBN_>.>HYNK_>,>>#tip\n\u001bBBNY_>,>W#name\nd\n20s\u000f\u001b150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef by b,#tip\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHJLY_>,><BHYN_>.>#turn\n#pray\ny HYJN_>.>UKLK_>.>i\u001bjBHNN_>.>#sit\n>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNYNK_>.>\u0018\u001b#sit\n\u001bLNNK_>.>q,UBNJ_>,>H HJH_>.>LYU"
+ },
+ "segments": [
+  {
+   "seed": 610147,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=fruit:lychee\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "lubydd20s.s#chat\nj#chat\njbnbE- I am a fish\nzi\u001bknkFh .s50s100sFls20s_ \u001b@.>100sulh<150suhj150s150s FyFyFyFyFys_>,>100s100sFn20ss150s50sFkss50snkl100sFh.s100sjjheeeeeeeeeeeeLLJB_>.>LHLH_>.>#loot\nWJYNB_>.>BBYN_>,>YYUU_>.>_m,s#twoweapon\nH UUN_>.>JLNY_>.>NJJB_>.>i\u001b#ride\nyBLKH_>,>\u000f\u001bJH HY_>,>,#loot\nHLNB_>.>YN   KB_>.>Fu20s .\u000f\u001b#pray\ny  \u0018\u001b150snyj\\   50sFk20s.nkh100s50s150sFuss150s #terrain\nb\n\u000f \u000f\u001b_>.>100sFkFksnlu100s_>,>150sFkss\u000f\u001b#wipe\nFkFkFkFyFyskuh100s100s_>,>i\u001b100s\u000f\u001bhkh\u0018\u001b100s50sFlFl.JKBN_>.>HYNK_>,>>#tip\n\u001bBBNY_>,>W#name\nd\n20s\u000f\u001b150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef by b,#tip\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHJLY_>,><BHYN_>.>#turn\n#pray\ny HYJN_>.>UKLK_>.>i\u001bjBHNN_>.>#sit\n>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNYNK_>.>\u0018\u001b#sit\n\u001bLNNK_>.>q,UBNJ_>,>H HJH_>.>LYU"
+  }
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0007master mind flayer\nFyFy          Fy  yy\u001by  y y\u001by  Fyy  \u0007Demogorgon\nnFlFu   yy\u001by  y y\u001by  FY   BUK       ny  y n  _kklnkbnh20s10sdl 20s20ssm.20sdn20s.n20sFkFkFkFkFkFkFkFkKYYH_ \u001b.>BBLN_>,>JJHY_>.>\u000f\u001bjlnulhlyhbkh#chat\nj#chat\nydcsssdh .ssdg20s ..df s.m.20s#chat\nj    j tah20s #name\ni\nt$jdgs20s sj 20s 10s Fh Fh Fh FhFhFhFhFhFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkYJHN_ \u001b;>:qJJJB_>,>NNYL _>.>Fk 20s20sHHJN_>,>FkFk FkBNJU_>.><\u000f\u001b#chat\nl20s j djss20s bhknu  FhFhFhFhFhFhFhFhbhlhlyu50s   50s    150s 150sFbFbFbFbs.FlFjFnFlssjjh100s_>.>i\u001b150s  FlFuFl 50s      FyFyFyFyFy.150s_>,>lhl100s150sFhFuFk\\ 50s    Fu.20s  50s   50s   50sFu FyFyFyFyFyFy.s100s    100s Fu    y\u001by  y y y\u001b  s #wizintrinsic\nb\n .m...sm.s20s.m.sm.sm..m.20s s.ksm..m.sh.l  yy\u001bnnnny  .",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 610030,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007master mind flayer\nFyFy          Fy  yy\u001by  y y\u001by  F"
+  },
+  {
+   "seed": 710030,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "yy  \u0007Demogorgon\nnFlFu   yy\u001by  y y\u001by  F"
+  },
+  {
+   "seed": 810030,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "Y   BUK       ny  y n  _"
+  },
+  {
+   "seed": 910030,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\n",
+   "moves": "kklnkbnh20s10sdl 20s20ssm.20sdn20s.n20sFkFkFkFkFkFkFkFkKYYH_ \u001b.>BBLN_>,>JJHY_>.>\u000f\u001bjlnulhlyhbkh#chat\nj#chat\nydcsssdh .ssdg20s ..df s.m.20s#chat\nj    j"
+  },
+  {
+   "seed": 1010030,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\n",
+   "moves": " tah20s #name\ni\nt$jdgs20s sj 20s 10s Fh Fh Fh FhFhFhFhFhFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkYJHN_ \u001b;>:qJJJB_>,>NNYL _>.>Fk 20s20sHHJN_>,>FkFk FkBNJU_>.><\u000f\u001b#chat\nl20s j djss20s bhknu  FhFhFhFhFhFhFhFhbhlhlyu50s   50s    150s 150sFbFbFbFbs.FlFjFnFlssjjh100s_>.>i\u001b150s  FlFuFl 50s      FyFyFyFyFy.150s_>,>lhl100s150sFhFuFk\\ 50s    Fu.20s  50s   50s   50sFu FyFyFyFyFyFy.s100s    100s Fu    y\u001by  y y y\u001b  s"
+  },
+  {
+   "seed": 1110030,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nb\n .m...sm.s20s.m.sm.sm..m.20s s.ksm..m.sh.l  yy\u001bnnnny  ."
+  }
+ ]
+}

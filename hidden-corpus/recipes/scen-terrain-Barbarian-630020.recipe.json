@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  bhub\u0017fountain\nqy yq:yj\u0017melting ice\nkjjjy\u0017tree\nl\u0004h \u0004h\u0017axe\nae h h\u0017cloud\nyyyn#ride\nny:f a jSy\u001b yn10sE- ad aerarium\n#tip\n\u001b#wipe\n#wipe\nE-n  ad aerarium\n\u000f\u001bb#chat\nndcn",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 630020,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "  bhub\u0017fountain\nqy yq:yj\u0017melting ice\nkjjjy\u0017tree\nl\u0004h \u0004h\u0017axe\nae h h\u0017cloud\nyyyn#ride\nny:f a jSy\u001b"
+  },
+  {
+   "seed": 1130020,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " yn10sE- ad aerarium\n#tip\n\u001b#wipe\n#wipe\nE-n  ad aerarium\n\u000f\u001bb#chat\nndcn"
+  }
+ ]
+}

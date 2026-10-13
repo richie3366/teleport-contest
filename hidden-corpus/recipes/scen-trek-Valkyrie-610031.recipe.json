@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "10s  #name\ni\n10s10s20stbjhnjlt\u001bdc.s.#name\nm\n m,foo\n#name\no\n#chat\nnt\u001byyjn150s    50s FkFkFhFl 20s20s100s100sFyFyFyFyssubh50s50s10suyn100s50sujkjhj\u0018\u001b10s100s_>.>100sed100s150sFkFkshuy100snblFuFkskynlhj100s100sFysskub:ynbubl_>.>#pray\ny #monster\n<LUBY_>.>LUNU_>,>LJBK_>,>YLYN_>.>LNYK_>.>P;_.BULY_>,>\u000f\u001bNNJU_>.>JJLB_>.>YJJN_>,>BJNJ_>.>YLKK_>.>10s,UNUN_>,>JULY_>.>NUNN_>.>#ride\ny#untrap\ny<UBKY_>,>JBHJ_>,>UJNH_>.>HNJU_>.>:#ride\nkHHUB_>.>nju150sFu20ss100s150sFh..50sbhl50sklbFkss100s100sFy.s100shlu100skjbFu20ss50sFk.s\u0018\u001bubhi\u001b_>.>#invoke\n\u001b100seeeeeeeeeeeee#monster\n20s\u000f\u001bNBNB_>,>UNUU_>,>#terrain\nb\n\\YNYY_>e eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYBNL_>.>KKYN_>.>FlssUKKU_>.>t\u001b#ride\nuKJBU_>,>\u000f\u001bJNNU_>,>KJNJ_>.>YUYY_>.>JJKL_>.>BHLK_>,>LUYN_>.>Fbss<JUJN_>.><LBHJ_>.>r\u001b#tip\n\u001bHBYN_>,>LKHH_>,>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#tip\n\u001bq#offer\nYUHJ_>.>FjssBKKK_>.>Fk"
+ },
+ "segments": [
+  {
+   "seed": 610031,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": "10s  #name\ni\n10s10s20stbjhnjlt\u001bdc.s.#name\nm\n m,foo\n#name\no\n#chat\nnt\u001byyjn150s    50s FkFkFhFl 20s20s100s100sFyFyFyFyssubh50s50s10suyn100s50sujkjhj\u0018\u001b10s100s_>.>100sed100s150sFkFkshuy100snblFuFkskynlhj100s100sFysskub:ynbubl_>.>#pray\ny #monster\n<LUBY_>.>LUNU_>,>LJBK_>,>YLYN_>.>LNYK_>.>P;_.BULY_>,>\u000f\u001bNNJU_>.>JJLB_>.>YJJN_>,>BJNJ_>.>YLKK_>.>10s,UNUN_>,>JULY_>.>NUNN_>.>#ride\ny#untrap\ny<UBKY_>,>JBHJ_>,>UJNH_>.>HNJU_>.>:#ride\nkHHUB_>.>nju150sFu20ss100s150sFh..50sbhl50sklbFkss100s100sFy.s100shlu100skjbFu20ss50sFk.s\u0018\u001bubhi\u001b_>.>#invoke\n\u001b100seeeeeeeeeeeee#monster\n20s\u000f\u001bNBNB_>,>UNUU_>,>#terrain\nb\n\\YNYY_>e eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYBNL_>.>KKYN_>.>FlssUKKU_>.>t\u001b#ride\nuKJBU_>,>\u000f\u001bJNNU_>,>KJNJ_>.>YUYY_>.>JJKL_>.>BHLK_>,>LUYN_>.>Fbss<JUJN_>.><LBHJ_>.>r\u001b#tip\n\u001bHBYN_>,>LKHH_>,>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#tip\n\u001bq#offer\nYUHJ_>.>FjssBKKK_>.>Fk"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " FbFb 20sknl150s\u0018\u001b50sFhs20s\u000f\u001b50s50s100snul,\u0018\u001b#chat\ny150s50s100sFhFhFh100s100sFh20ssyhb100sklkjjj\\    150s100sFjssFhFj.50sFj.s100sFjs.lub150sFbsslhyulu100sYBLL_ \u001b<.>FhssUJUU_>.>JNBL_>.>BYLK_>.>#conduct\n #offer\n\u0004uKNKK_>.>BHYK_>.>UUUY_>.>#untrap\nhPUYJN_>.>FlFls<eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLHUK_>.>#loot\n#pray\ny  NHJB_>,>JLNN_>.>BLUL_>,>NUHY_>.>BNLU_>.>NNYY_>,>#untrap\nueKUKN_>,>#ride\nk10sLUKJ_>,>YNHN_>.><KHJU_>.>l_>,.<KKJH_>,>\u000f\u001b#turn\n\u000f\u001b#untrap\nj#jump\n#enhance\n\u001b#pray\ny   #pray\ny    FlFls_>,>s100s\u0018\u001b100s\u0018\u001b150sFk20ss50skukFh.si\u001b100s150s150sFl..#dip\nf#sit\n\u001b50s_>.>\u0018\u001b\\    50sFlFl.\\    150s100snnynhh_>.>50s\u0018\u001b50s_>,>50sFkFyFkFy.20sUNLY_>.>HJLK_>,>H#pray\ny UYHL_>.><\u000f\u001bHBJK_>.>YBBK_>.>YKNN_>.>HHYJ_>.>FlFlFk#sit\n #untrap\nkYKHK_>.>Fks.LNUL_>.>FlFls#pray\ny  ,\\    #twoweapon\n#untrap\nnULJU_>.>20s#invoke\n\u001bBLHY_>,>usBKKL_>,>FlFlFl10s_>,20sHYHJ_>.>FhFh20sYLUY_>,>FlFlFlj#loot\nlHHUY_>.><\u000f\u001b#conduct\n \u0018\u001b#terrain\n\u001b50sFnFnFnFn20sFnFnFnFnFnFnFnFn.sjkk_>.>_>.>150s100sFjFjFjFj.s100sknh100sFjFjsFjFjFjFjFjFjFjFjFjFjFjFjji\u001b_>,>kunFjFjFj50sFjFjsheeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 610159,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:explore\n",
+   "moves": " FbFb 20sknl150s\u0018\u001b50sFhs20s\u000f\u001b50s50s100snul,\u0018\u001b#chat\ny150s50s100sFhFhFh100s100sFh20ssyhb100sklkjjj\\    150s100sFjssFhFj.50sFj.s100sFjs.lub150sFbsslhyulu100sYBLL_ \u001b<.>FhssUJUU_>.>JNBL_>.>BYLK_>.>#conduct\n #offer\n\u0004uKNKK_>.>BHYK_>.>UUUY_>.>#untrap\nhPUYJN_>.>FlFls<eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLHUK_>.>#loot\n#pray\ny  NHJB_>,>JLNN_>.>BLUL_>,>NUHY_>.>BNLU_>.>NNYY_>,>#untrap\nueKUKN_>,>#ride\nk10sLUKJ_>,>YNHN_>.><KHJU_>.>l_>,.<KKJH_>,>\u000f\u001b#turn\n\u000f\u001b#untrap\nj#jump\n#enhance\n\u001b#pray\ny   #pray\ny    FlFls_>,>s100s\u0018\u001b100s\u0018\u001b150sFk20ss50skukFh.si\u001b100s150s150sFl..#dip\nf#sit\n\u001b50s_>.>\u0018\u001b\\    50sFlFl.\\    150s100snnynhh_>.>50s\u0018\u001b50s_>,>50sFkFyFkFy.20sUNLY_>.>HJLK_>,>H#pray\ny UYHL_>.><\u000f\u001bHBJK_>.>YBBK_>.>YKNN_>.>HHYJ_>.>FlFlFk#sit\n #untrap\nkYKHK_>.>Fks.LNUL_>.>FlFls#pray\ny  ,\\    #twoweapon\n#untrap\nnULJU_>.>20s#invoke\n\u001bBLHY_>,>usBKKL_>,>FlFlFl10s_>,20sHYHJ_>.>FhFh20sYLUY_>,>FlFlFlj#loot\nlHHUY_>.><\u000f\u001b#conduct\n \u0018\u001b#terrain\n\u001b50sFnFnFnFn20sFnFnFnFnFnFnFnFn.sjkk_>.>_>.>150s100sFjFjFjFj.s100sknh100sFjFjsFjFjFjFjFjFjFjFjFjFjFjFjji\u001b_>,>kunFjFjFj50sFjFjsheeeeeeeeeeeeeee"
+  }
+ ]
+}

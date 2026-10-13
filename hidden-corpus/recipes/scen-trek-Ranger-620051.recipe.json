@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  nuda20s s.l h #chat\nhdesm.sjsFhFjFl150s        FjFnFl50s     bujFkFks100s        FlsskjyFl20s s50s   50s100sFlFyFyFyFyFyFy..100s FhFjFkFu s.hjy100s150s100sef\\  i\u001b150s100sef50si\u001b150s  egtchi\u001b150s150sFkFk.i\u001b50s#wipe\n50sFkFksljy150s100sFkFks100s#twoweapon\nkhuFjFb.bukjbu150s100sjnyjyuFjFjFj FnFjFj Fn FjFnFnFnFn150sbnlFuFus150sFkFk20sefhlj_ \u001b<.>100s150s FlFls150s ey eg100s   yy\u001by   y y n  F"
+ },
+ "segments": [
+  {
+   "seed": 620051,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\n",
+   "moves": "  nuda20s s.l h #chat\nhdesm.sjsFhFjFl150s        FjFnFl50s     bujFkFks100s        FlsskjyFl20s s50s   50s100sFlFyFyFyFyFyFy..100s FhFjFkFu s.hjy100s150s100sef\\  i\u001b150s100sef50si\u001b150s  egtchi\u001b150s150sFkFk.i\u001b50s#wipe\n50sFkFksljy150s100sFkFks100s#twoweapon\nkhuFjFb.bukjbu150s100sjnyjyuFjFjFj FnFjFj Fn FjFnFnFnFn150sbnlFuFus150sFkFk20sefhlj_ \u001b<.>100s150s FlFls150s ey eg100s   yy\u001by   y y n  F"
+  }
+ ]
+}

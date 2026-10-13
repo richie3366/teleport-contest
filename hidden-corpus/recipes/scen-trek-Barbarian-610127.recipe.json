@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "H HNH_ \u001b@.>FksFl ;<.WJKLL_>.>HNLL_>,>LHBU_>,>aanr\u001bHNNK_>,>\u000f\u001bY NNB_>,><UKNY_>.>FhFhFhHKHU_>.>FhFhsNLLU_>.>>20sKKNK_>,><NUBU_>.>YNNY_>.>NHHL_>.>150sFhs20s100sFhFhs50s \\  llhlhl100s150s100sFhFhs150sed100shlh_>.>lhh100s50sFhFls100sFhFh.100s150s100sFhs20s_>.>100sFhs.150s Fhss150s FhFhs100s50sFhss150s  eeKJNY_>.>#wipe\nchHYHH_>,>FyFhFhJUHJ _>.> FhFkFk\u0014,neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNBUJ_>,>KKKN_>,>#conduct\n #monster\nHJKH_>.>JYHL_>.>Fl.sBJUK_>,>lqKYNL_>.>#rub\n#monster\nLBHL_>,>JNHL_>,>Fh20sFhKBKL_>.>JYKU_>.>HKLJ_>.>KUYL_>.>YBLN_>.>\u0014>#pray\ny  100s100sFl20ss#jump\nynu150sFbFbFb150s100sFbs.\\   150s50sFbFbs150sblk50sFl20s.kln50sFus20s150sknb100sFkFkFkeeeeeeeeeeeeeetbk20skynykde20s..jh#chat\njeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHL  YJ_>.>JU BU _>,>NJNU_>.>Fy20s20sNLY J_>.>LBLN_>.>JNJL_>.>HHNH_>.>FhssLKUB_>.>w-#force\nYJBL_>.>LJLJ_>.>#rub\nsY NBY _>.>#chat\njtahnlbhkj#chat\njyj#chat\nnnknkyjyhbuln#chat\nb\u000f\u001b#monster\nWLNY"
+ },
+ "segments": [
+  {
+   "seed": 610127,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=runmode:run\n",
+   "moves": "H HNH_ \u001b@.>FksFl ;<.WJKLL_>.>HNLL_>,>LHBU_>,>aanr\u001bHNNK_>,>\u000f\u001bY NNB_>,><UKNY_>.>FhFhFhHKHU_>.>FhFhsNLLU_>.>>20sKKNK_>,><NUBU_>.>YNNY_>.>NHHL_>.>150sFhs20s100sFhFhs50s \\  llhlhl100s150s100sFhFhs150sed100shlh_>.>lhh100s50sFhFls100sFhFh.100s150s100sFhs20s_>.>100sFhs.150s Fhss150s FhFhs100s50sFhss150s  eeKJNY_>.>#wipe\nchHYHH_>,>FyFhFhJUHJ _>.> FhFkFk\u0014,neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNBUJ_>,>KKKN_>,>#conduct\n #monster\nHJKH_>.>JYHL_>.>Fl.sBJUK_>,>lqKYNL_>.>#rub\n#monster\nLBHL_>,>JNHL_>,>Fh20sFhKBKL_>.>JYKU_>.>HKLJ_>.>KUYL_>.>YBLN_>.>\u0014>#pray\ny  100s100sFl20ss#jump\nynu150sFbFbFb150s100sFbs.\\   150s50sFbFbs150sblk50sFl20s.kln50sFus20s150sknb100sFkFkFkeeeeeeeeeeeeeetbk20skynykde20s..jh#chat\njeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHL  YJ_>.>JU BU _>,>NJNU_>.>Fy20s20sNLY J_>.>LBLN_>.>JNJL_>.>HHNH_>.>FhssLKUB_>.>w-#force\nYJBL_>.>LJLJ_>.>#rub\nsY NBY _>.>#chat\njtahnlbhkj#chat\njyj#chat\nnnknkyjyhbuln#chat\nb\u000f\u001b#monster\nWLNY"
+  }
+ ]
+}

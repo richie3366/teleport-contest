@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "U YBB_ \u001bm,>LJYY_>,>FlssNBNB_>.>BBHL_>.>FlFlFhJLYN_>.>FjFj20sUNKJ_>,>FjsFj JKHH_>,>#ride\nj;_.KJUJ_>.>UJKL_>.>UHLU_>.>JYL B_>.>YNLB_>,><\u000f\u001b100s50skjh100s50s150s 150sFyFy20s100s100s 150s hluylyFhFhFjFhFhFhFhs20sFhFhFh50s100sFhss50slhl100sed150s50s_>,>i\u001b_>.>jyb_>.>50sFhFys100slkn150sFh20sFh150sr\u001b100s#chat\nh#chat\nh#name\na\n20st\u001bhjyub20sW#jump\n_>.>\\ \\ kny100sFhFh.150snyn150shnb100s100sFh.s100swa150s100sFhFh.50synl100sFhFhs100si\u001b#turn\nkblhuk100s  100sed150sFhFhFhjjh150s100sFy.20shlh\u000f\u001b150sFhs.t\u001bdasssyht\u001b20skljy#pray\ny  \u0004b#dip\nf100s\\ hhj150sFhFhFhFhFhFh100s_>,>100s#sit\n\u001b100sFhFhFhFy FhFhFy20sFhFhFhFh\u0018\u001bkjk_>.>150sFhFhFhFhFh.50sFhFhFyFhFyFyFy  y\u001by  y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 620059,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\n",
+   "moves": "U YBB_ \u001bm,>LJYY_>,>FlssNBNB_>.>BBHL_>.>FlFlFhJLYN_>.>FjFj20sUNKJ_>,>FjsFj JKHH_>,>#ride\nj;_.KJUJ_>.>UJKL_>.>UHLU_>.>JYL B_>.>YNLB_>,><\u000f\u001b100s50skjh100s50s150s 150sFyFy20s100s100s 150s hluylyFhFhFjFhFhFhFhs20sFhFhFh50s100sFhss50slhl100sed150s50s_>,>i\u001b_>.>jyb_>.>50sFhFys100slkn150sFh20sFh150sr\u001b100s#chat\nh#chat\nh#name\na\n20st\u001bhjyub20sW#jump\n_>.>\\ \\ kny100sFhFh.150snyn150shnb100s100sFh.s100swa150s100sFhFh.50synl100sFhFhs100si\u001b#turn\nkblhuk100s  100sed150sFhFhFhjjh150s100sFy.20shlh\u000f\u001b150sFhs.t\u001bdasssyht\u001b20skljy#pray\ny  \u0004b#dip\nf100s\\ hhj150sFhFhFhFhFhFh100s_>,>100s#sit\n\u001b100sFhFhFhFy FhFhFy20sFhFhFhFh\u0018\u001bkjk_>.>150sFhFhFhFhFh.50sFhFhFyFhFyFyFy  y\u001by  y y y\u001b  s"
+  }
+ ]
+}

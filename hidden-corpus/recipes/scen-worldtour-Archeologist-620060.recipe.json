@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 speed boots\nWj \u001645\n    #levelchange\n20\n\u0017spellbook of extra healing\nrksysZ\u0017elven mithril-coat\n\u0007orc shaman\nW\u001bsm. 20s .m.\u0017cursed potion of extra healing\n\u0007grey-elf\nqm   Fh   Fh  sm.   sn  sys\u00166\n#chat\nl;>. \u001b@.\u0016?\n>>L      the Orb of Fate\n  n  k  b           : \u001642\n\u0014;\u0016?\n\u001bhl  n   \u001642\n_<.>\u0016?\na    ll          y   n       n          n  l     n       :    n      n    n    \u00169\n\u0016?\ne jy    n u    n   n b    n b  n    n y    yny   y nn  :"
+ },
+ "segments": [
+  {
+   "seed": 620060,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 speed boots\nWj \u001645\n    #levelchange\n20\n\u0017spellbook of extra healing\nrksysZ\u0017elven mithril-coat\n\u0007orc shaman\nW\u001bsm. 20s .m.\u0017cursed potion of extra healing\n\u0007grey-elf\nqm   Fh   Fh  sm.   sn  sys\u00166\n#chat\nl;>. \u001b@.\u0016?\n>>L      the Orb of Fate\n  n  k  b           : \u001642\n\u0014;\u0016?\n\u001bhl  n   \u001642\n_<.>\u0016?\na    ll          y   n       n          n  l     n       :    n      n    n    \u00169\n\u0016?\ne jy    n u    n   n b    n b  n    n y    yny   y nn  :"
+  }
+ ]
+}

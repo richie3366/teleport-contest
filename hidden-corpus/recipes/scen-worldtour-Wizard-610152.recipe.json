@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\nh#chat\nn;k: \u001b,\u0016?\n>w hluhj:sl\u00164\njhyk:20s20ssm.\u0016?\nd#chat\nj;h;.s.\u0016?\n>C\u0014,:\u00164\n#chat\nl;_.\u001639\n  byblkjy:\u0016?\nh\u0014.:\u0016?\n>>K     amulet of flying\n#chat\nu;j.\u0016?\n\u001bl  h\u0016?\n\u001by h\u001639\nj  nh :\u0016?\n\u001bb  b  n    \u001636\njy    \u0017wand of undead turning\nEk   n  \u0017wand of striking\nE\u0017wand of create monster\nE:E\u0007soldier ant\nsm.  20s       .m.  n  Fj     n           n  nFl          n     \u00166\n\u0016?\n\u001bj      n  u    \u001619\n\u0006_\u0016 h           n   \u001bk\u0016?\n\u001bu   n    h   n    n\u00165\n\u001634\n_{.>\u0016?\n\u001bj    n j \u001b  \u001b  \u001b\u0016?\n\u001bk      n   h  \u001644\nl u y  n     :      n  \u0016?\n\u001bu    l     y  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 610152,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0016?\nh#chat\nn;k: \u001b,\u0016?\n>w hluhj:sl\u00164\njhyk:20s20ssm.\u0016?\nd#chat\nj;h;.s.\u0016?\n>C\u0014,:\u00164\n#chat\nl;_.\u001639\n  byblkjy:\u0016?\nh\u0014.:\u0016?\n>>K     amulet of flying\n#chat\nu;j.\u0016?\n\u001bl  h\u0016?\n\u001by h\u001639\nj  nh :\u0016?\n\u001bb  b  n    \u001636\njy    \u0017wand of undead turning\nEk   n  \u0017wand of striking\nE\u0017wand of create monster\nE:E\u0007soldier ant\nsm.  20s       .m.  n  Fj     n           n  nFl          n     \u00166\n\u0016?\n\u001bj      n  u    \u001619\n\u0006_\u0016 h           n   \u001bk\u0016?\n\u001bu   n    h   n    n\u00165\n\u001634\n_{.>\u0016?\n\u001bj    n j \u001b  \u001b  \u001b\u0016?\n\u001bk      n   h  \u001644\nl u y  n     :      n  \u0016?\n\u001bu    l     y  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017mace\nwgFkFksX\u0007succubus\nFkFkFkFkFk  n sy 20s \u0007lich\nFl Fy  nFl  Fy  Fy   n sm.  .b\u0007gas spore\nFhFl   n FhFl    n Fl  Fl   Fl   n  sm.   n .m.  #pray\ny y       \u00161\n#levelchange\n30\n                             \u0017the Orb of Detection\n \u0007rock piercer\nFy   FkFl  FhFh   Fh       \u0007Wizard of Yendor\nn#chat\nl  Fk    Fy      \u0007vampire\n;h, \u001b:   sl      n sm.        sk     \u0007iron golem\nFy     n Fl      Fu      \u00165\n#wizintrinsic\nf\n \u0017blindfold\nah \u0017scroll of teleportation\nri\u0017cursed scroll of stinking cloud\nrjZ;n;\u0017cursed scroll of create monster\nrk.s.\u0007tame jackal\n\u0017magic whistle\nykjal\u0017apple\ntdl \u0017food ration\ntcl \u0017tripe ration\ntcl l\u0006_>.Fh_. Fh>FhFh_>, Fj  n _, Fh>Fh Fh_>.Fh_,Fb  n >FbFb\u0007sewer rat\n.s 20ss  n20ss\u001622\n\u00162\n#levelchange\n20\n   \u0017spellbook of extra healing\nrps\u0017blessed spellbook of healing\nrq.+\u0007jackal\nZZFu\u0007gnome lord\nZFu\u0007zombie\nZFu#turn\n#enhance\nyf\nq\n\u001b\u001612\n\\ #levelchange\n12\n  \u0017Vorpal Blade\nwr.  nFyFh\u0017cursed spellbook of protection\nrss.Z\u0017uncursed potion of monster detection\n\u0007Wizard of Yendor\nnnqt>.\u0017tripe ration\n\u0007Uruk-hai\neo  s   n20s s  . \u00164\n#levelchange\n10\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqv:_ddd, Fb_, Fb\u0004l_ooooo,  nFb_.Fb,$_oooooooo. Fb_,Fb,:  __.Fj_,Fn#chat\nndu_m.#chat\nn_oooooooo.Fn  y\u001b    y  _"
+ },
+ "segments": [
+  {
+   "seed": 610153,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017mace\nwgFkFksX\u0007succubus\nFkFkFkFkFk  n sy 20s \u0007lich\nFl Fy  nFl  Fy  Fy   n sm.  .b\u0007gas spore\nFhFl   n FhFl    n Fl  Fl   Fl   n  sm.   n .m.  #pray\ny y       \u00161\n#levelchange\n30\n                             \u0017the Orb of Detection\n \u0007rock piercer\nFy   FkFl  FhFh   Fh       \u0007Wizard of Yendor\nn#chat\nl  Fk    Fy      \u0007vampire\n;h, \u001b:   sl      n sm.        sk     \u0007iron golem\nFy     n Fl      Fu      \u00165\n#wizintrinsic\nf\n \u0017blindfold\nah \u0017scroll of teleportation\nri\u0017cursed scroll of stinking cloud\nrjZ;n;\u0017cursed scroll of create monster\nrk.s.\u0007tame jackal\n\u0017magic whistle\nykjal\u0017apple\ntdl \u0017food ration\ntcl \u0017tripe ration\ntcl l\u0006_>.Fh_. Fh>FhFh_>, Fj  n _, Fh>Fh Fh_>.Fh_,Fb  n >FbFb\u0007sewer rat\n.s 20ss  n20ss\u001622\n\u00162\n#levelchange\n20\n   \u0017spellbook of extra healing\nrps\u0017blessed spellbook of healing\nrq.+\u0007jackal\nZZFu\u0007gnome lord\nZFu\u0007zombie\nZFu#turn\n#enhance\nyf\nq\n\u001b\u001612\n\\ #levelchange\n12\n  \u0017Vorpal Blade\nwr.  nFyFh\u0017cursed spellbook of protection\nrss.Z\u0017uncursed potion of monster detection\n\u0007Wizard of Yendor\nnnqt>.\u0017tripe ration\n\u0007Uruk-hai\neo  s   n20s s  . \u00164\n#levelchange\n10\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqv:_ddd, Fb_, Fb\u0004l_ooooo,  nFb_.Fb,$_oooooooo. Fb_,Fb,:  __.Fj_,Fn#chat\nndu_m.#chat\nn_oooooooo.Fn  y\u001b    y  _"
+  }
+ ]
+}

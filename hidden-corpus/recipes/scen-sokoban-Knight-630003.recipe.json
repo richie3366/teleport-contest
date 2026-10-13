@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>Db\u0017scroll of earth\nri jul10skll\u0017scroll of earth\nrj lh yhjkhhybhukkunlFkjuFkFlhyull10suuuu10sy\u0017wand of digging\nzkl\u0017wand of digging\nzlhFn\u0017wand of digging\nzmj\u0017scroll of earth\nrn ukybkblyjjy"
+ },
+ "segments": [
+  {
+   "seed": 630003,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>Db\u0017scroll of earth\nri jul10skll\u0017scroll of earth\nrj lh yhjkhhybhukkunlFkjuFkFlhyull10suuuu10sy\u0017wand of digging\nzkl\u0017wand of digging\nzlhFn\u0017wand of digging\nzmj\u0017scroll of earth\nrn ukybkblyjjy"
+  }
+ ]
+}

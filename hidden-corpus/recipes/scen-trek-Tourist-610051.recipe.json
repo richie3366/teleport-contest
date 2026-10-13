@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "Y YJK_ \u001bm,>FjFlFnHJKH_>.>#sit\n\u001b\u0018\u001bHJBL_>.>FlFuFlHKHK_>._,> UUUB_>,>way#sit\n\u001b<\u000f\u001bkju100s100sFh FhFhFhFhs100s_>,>100sFhFh20synb#invoke\n\u001b\u000f\u001b100sb\\ ukh150s100si\u001b#loot\n_>,>150s150sec_>,>_>.>100slhb\\ w-100sFyFyFyFys20s100sFys.ank100sFyFyFyFyFyFy#pray\ny      BULH_>.>FhFhFh< JNJU_>._,> KKHY_>.>BLNK_>.>\u000f\u001btal#name\nm\ndsss10s10sLKLU_>,>NHYH_>.>KYLN_>.>HYBU_>,>NBJB_>.>UYYJ_>.>\u000f\u001banbdlULKH_>.>Fh20ssJKLB_>.>FkFkFkKKUJ_>.>\u0018\u001bt$y20stajtauhh10shFhFhshlhylj_>,>100s100s 100s 100sFlFlFl_>,>150s50s50s#loot\n150sFkFuFkFk FkFl#pray\ny      FlFlFlFlFlFlFlFlFlFls20s50s150sFhFh20sL 100s100sFkFuFkFuFlFk150s100s\u000f\u001bkll#name\no\n100s FkFkFk Fk20ss100seh100s100sFhFh.100s 100si\u001bjubukjFyFy.100s50s50sbhyFjFjFji\u001b100sH50s_>.>50sFlFlFl  FlFlFlFl.sllh#force\n#rub\nlhh_>.>llhhul10"
+ },
+ "segments": [
+  {
+   "seed": 610051,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=sortloot:none\n",
+   "moves": "Y YJK_ \u001bm,>FjFlFnHJKH_>.>#sit\n\u001b\u0018\u001bHJBL_>.>FlFuFlHKHK_>._,> UUUB_>,>way#sit\n\u001b<\u000f\u001bkju100s100sFh FhFhFhFhs100s_>,>100sFhFh20synb#invoke\n\u001b\u000f\u001b100sb\\ ukh150s100si\u001b#loot\n_>,>150s150sec_>,>_>.>100slhb\\ w-100sFyFyFyFys20s100sFys.ank100sFyFyFyFyFyFy#pray\ny      BULH_>.>FhFhFh< JNJU_>._,> KKHY_>.>BLNK_>.>\u000f\u001btal#name\nm\ndsss10s10sLKLU_>,>NHYH_>.>KYLN_>.>HYBU_>,>NBJB_>.>UYYJ_>.>\u000f\u001banbdlULKH_>.>Fh20ssJKLB_>.>FkFkFkKKUJ_>.>\u0018\u001bt$y20stajtauhh10shFhFhshlhylj_>,>100s100s 100s 100sFlFlFl_>,>150s50s50s#loot\n150sFkFuFkFk FkFl#pray\ny      FlFlFlFlFlFlFlFlFlFls20s50s150sFhFh20sL 100s100sFkFuFkFuFlFk150s100s\u000f\u001bkll#name\no\n100s FkFkFk Fk20ss100seh100s100sFhFh.100s 100si\u001bjubukjFyFy.100s50s50sbhyFjFjFji\u001b100sH50s_>.>50sFlFlFl  FlFlFlFl.sllh#force\n#rub\nlhh_>.>llhhul10"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u0017uncursed scroll of create monster\n\u0007green slime\nrj Wizard of Yendor\ny\u0017uncursed magic lamp\n.m.   \u0017blessed Werebane\nwl    Fu    n Fk      Fk    #invoke\nl   n    Fk  Fu   \u0017wand of cold\nzm.   n  zmk           n      20s   .m.  \\  \u00169\n#levelchange\n30\n                        \u0017blessed potion of invisibility\nqn \u0017uncursed lembas wafer\neo .m..n\u0017blessed +3 ring of levitation\n\u0007trapper\nPpl sm.20s s\u001b.s\u001612\n\\  lk \u0017wand of undead turning\nEq l\u0017wand of striking\nEr :\u0017wand of teleportation\nEs :\u0017wand of polymorph\nEt   :\u0017athame\nEu\u0006#levelchange\n8\n       \u0017blessed ring of polymorph control\nPv\u0017dwarvish mithril-coat\nWw.s.#polyself\nlich\n#monster\n.s\u0007Kop Kaptain\nFb  Fb  Fb   s\u001bs.#polyself\nmaster mind flayer\n #monster\ns\u001b20s  20s\u001b.s#polyself\npiranha\n #monster\n.20s\u001bs20s 20s\u00169\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqx \u001b. _{.Fj_.Fjqd#dip\np_ , d_d.\u0004l_ooooooo.,  n \u0014. _ddd.Fl  _, \u0004l\u0018\u001b#loot\ndf#wizintrinsic\npb\n sm.s.m.sm..m..sm.20s20s  20s20s         sysm.  n.m.sm.20s.m.sm.ss20s20s LZa\n\u0014m.y10s\u0014@.s.ss.s\u001610\n\u0017T-shirt\nWys..h     T       \u0007raven\nsl20s   20s 20ss20s  \u0007chickatrice\nFh   nFhFh Fh Fh#levelchange\n8\n\u001630\nrg nyi\u001b<;h,\u0006sm.20s \u0016?\n>H\u0004u20s#rub\nk\u000620s20s\u0016?\n>Ej\\   ah ;. ss\u001623\n\u0017bag of tricks\n\u0017oi"
+ },
+ "segments": [
+  {
+   "seed": 610061,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u0017uncursed scroll of create monster\n\u0007green slime\nrj Wizard of Yendor\ny\u0017uncursed magic lamp\n.m.   \u0017blessed Werebane\nwl    Fu    n Fk      Fk    #invoke\nl   n    Fk  Fu   \u0017wand of cold\nzm.   n  zmk           n      20s   .m.  \\  \u00169\n#levelchange\n30\n                        \u0017blessed potion of invisibility\nqn \u0017uncursed lembas wafer\neo .m..n\u0017blessed +3 ring of levitation\n\u0007trapper\nPpl sm.20s s\u001b.s\u001612\n\\  lk \u0017wand of undead turning\nEq l\u0017wand of striking\nEr :\u0017wand of teleportation\nEs :\u0017wand of polymorph\nEt   :\u0017athame\nEu\u0006#levelchange\n8\n       \u0017blessed ring of polymorph control\nPv\u0017dwarvish mithril-coat\nWw.s.#polyself\nlich\n#monster\n.s\u0007Kop Kaptain\nFb  Fb  Fb   s\u001bs.#polyself\nmaster mind flayer\n #monster\ns\u001b20s  20s\u001b.s#polyself\npiranha\n #monster\n.20s\u001bs20s 20s\u00169\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqx \u001b. _{.Fj_.Fjqd#dip\np_ , d_d.\u0004l_ooooooo.,  n \u0014. _ddd.Fl  _, \u0004l\u0018\u001b#loot\ndf#wizintrinsic\npb\n sm.s.m.sm..m..sm.20s20s  20s20s         sysm.  n.m.sm.20s.m.sm.ss20s20s LZa\n\u0014m.y10s\u0014@.s.ss.s\u001610\n\u0017T-shirt\nWys..h     T       \u0007raven\nsl20s   20s 20ss20s  \u0007chickatrice\nFh   nFhFh Fh Fh#levelchange\n8\n\u001630\nrg nyi\u001b<;h,\u0006sm.20s \u0016?\n>H\u0004u20s#rub\nk\u000620s20s\u0016?\n>Ej\\   ah ;. ss\u001623\n\u0017bag of tricks\n\u0017oi"
+  }
+ ]
+}

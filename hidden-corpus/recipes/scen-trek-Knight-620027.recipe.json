@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "   FuFu s50sFu.shhl>50s150s  _ \u001b<.>hbu100shjj\\   luuFjFjs#chat\nj50s150s100sFksslnk100sFj20s20s_>.>100sFjFjFjFjFjFbFbFjs100s100s\\   100sFjs.50s 50shbh\\   ,nhuehnyuu100seg50s100sFjFjFjFj..150s150sFjFjsbbhnyn150s ehs100sehhhy\u0018\u001b100seg100seh150s150sFlFls100seh100seg#jump\nm.,50seh100s100sFjs.ubui\u001b100sUNBB_>.>KULK_>.>ULHH_>,>HJ HL _>,>Fy20sFn#jump\n<.#chat\nkeg\\   100s\u000f\u001b_>,>\u000f\u001b#untrap\nyf  150sehkkk50s150s Fj.._>.>150seh100sFkFk20s100seh100seh\\   \u0018\u001b50si\u001b150sFkFk20s50segi\u001b50s eg150segybuuyn150seg ez150segubj150s\\   150sFkFksjyb100segubk\u0004njuk_>.>150s100seg100sbuk150sFjFjFjFjFjFj150s150sFnFjFjeeeeeeeeeeeeeeKNUL_>,>NJHN_>,>KHLH_>.>k#twoweapon\nJBUJ_>.><ZHJ"
+ },
+ "segments": [
+  {
+   "seed": 620027,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:explore\n",
+   "moves": "   FuFu s50sFu.shhl>50s150s  _ \u001b<.>hbu100shjj\\   luuFjFjs#chat\nj50s150s100sFksslnk100sFj20s20s_>.>100sFjFjFjFjFjFbFbFjs100s100s\\   100sFjs.50s 50shbh\\   ,nhuehnyuu100seg50s100sFjFjFjFj..150s150sFjFjsbbhnyn150s ehs100sehhhy\u0018\u001b100seg100seh150s150sFlFls100seh100seg#jump\nm.,50seh100s100sFjs.ubui\u001b100sUNBB_>.>KULK_>.>ULHH_>,>HJ HL _>,>Fy20sFn#jump\n<.#chat\nkeg\\   100s\u000f\u001b_>,>\u000f\u001b#untrap\nyf  150sehkkk50s150s Fj.._>.>150seh100sFkFk20s100seh100seh\\   \u0018\u001b50si\u001b150sFkFk20s50segi\u001b50s eg150segybuuyn150seg ez150segubj150s\\   150sFkFksjyb100segubk\u0004njuk_>.>150s100seg100sbuk150sFjFjFjFjFjFj150s150sFnFjFjeeeeeeeeeeeeeeKNUL_>,>NJHN_>,>KHLH_>.>k#twoweapon\nJBUJ_>.><ZHJ"
+  }
+ ]
+}

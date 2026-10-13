@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " FhFhFh \\  \u0018\u001bE- I am a fish\n\\  E-n  Elbereth Elbereth\njhh150shlybkhFkFyFhFh.snyy\u0018\u001b150sylhFy.20s100sFy.slylynjluj50s\u000f\u001b50s50s#terrain\nc\n\u001b>.cklluFjFjFj150s50sFl20ss50s_>,>bnkzjuu_>,>50s"
+ },
+ "segments": [
+  {
+   "seed": 630014,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " FhFhFh \\  \u0018\u001bE- I am a fish\n\\  E-n  Elbereth Elbereth\njhh150shlybkhFkFyFhFh.snyy\u0018\u001b150sylhFy.20s100sFy.slylynjluj50s\u000f\u001b50s50s#terrain\nc\n\u001b>.cklluFjFjFj150s50sFl20ss50s_>,>bnkzjuu_>,>50s"
+  }
+ ]
+}

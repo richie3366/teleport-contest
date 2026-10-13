@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n30\n              \u0017blindfold\nPo\u0016?\nh\u0006FlFlFlFlFl Flbkhl10s  #loot\nb#untrap\nj\u0007tame saddled red dragon\n#ride\nby\u0007pony\n\u0017scroll of taming\nrp\u0017saddle\naqh #ride\nky\u0007horse\n\u0017scroll of taming\nrr\u0017saddle\n asb  n    #ride\nhy,,20s  20s   n  s     s   n ul\u00161\n\u0017wand of digging\n\u0006_ \u001b@.zt> kjzt<\u0006_oo.zt>  zt> .zt20s  \u0006_>>._,Fy>_>>._.>_>>.  n _.>\u0006_>._. >_>,_,  n >_>. _. >\u0006_>. _.  n  >_>, _. >_>.   n _, >#chat\nudp \u000f\u001b\u00166\n#levelchange\n30\n\u0007prisoner\nsFb.20s20s\u0007tengu\n20s.\u001610\n\u0018\u001b#levelchange\n30\nhlhy\u0017chaotic altar\ndgdf\u0017jackal corpse\n#offer\nu  :  n\u0017grave\n:   \u0017pick-axe\nav..:     nk \u0017throne\n#sit\n y#sit\nny\u0017neutral altar\ndlm\u0017\u001b#pray\ny y #rub\nzcl#chat\ny#levelchange\n30\n\u0017oilskin sack\naxo\n axi\n#tip\nx\u001b\u0017potion of gain level\nqy#dip\nxh\u0017cursed -1 alchemy smock\nW\u001bss20sT ss\u0017blessed Magicbane\nwAsss#invoke\nAssss#levelchange\n20\n   \u0017lizard corpse\neB  n 20s20s\u00173 wand of stasis\nzC\u001720 arrows\nQafkf \u001bf \u001b.s\u0017spellbook of knock\nrE20ssZb\n Zb\n\u0017scroll of confuse monster\nrF.s..#levelchange\n6\n     lh  jj\u0017falling rock trap\nnb\u0017web\nn\u0017hole\nj  n #untrap\nk #terrain\nf\nkyE- Vlad was here\n\u0018\u001b\u0006\u0017cloak of invisibility\nWGss  ns\u0017Excalibur\nwH FhFlFh  n#invoke\nH FhFh\u0017blessed potion of object detection\n\u0007Yeenoghu\nny  n   n   nqI;FhFl\u0017blessed scroll of amnesia\nrJFh  n Fl.  ns#levelchange\n30\n                        \u0007umber hulk\n#chat\nk.s  \u0007mail daemon\n.20s     y  s"
+ },
+ "segments": [
+  {
+   "seed": 620057,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n30\n              \u0017blindfold\nPo\u0016?\nh\u0006FlFlFlFlFl Flbkhl10s  #loot\nb#untrap\nj\u0007tame saddled red dragon\n#ride\nby\u0007pony\n\u0017scroll of taming\nrp\u0017saddle\naqh #ride\nky\u0007horse\n\u0017scroll of taming\nrr\u0017saddle\n asb  n    #ride\nhy,,20s  20s   n  s     s   n ul\u00161\n\u0017wand of digging\n\u0006_ \u001b@.zt> kjzt<\u0006_oo.zt>  zt> .zt20s  \u0006_>>._,Fy>_>>._.>_>>.  n _.>\u0006_>._. >_>,_,  n >_>. _. >\u0006_>. _.  n  >_>, _. >_>.   n _, >#chat\nudp \u000f\u001b\u00166\n#levelchange\n30\n\u0007prisoner\nsFb.20s20s\u0007tengu\n20s.\u001610\n\u0018\u001b#levelchange\n30\nhlhy\u0017chaotic altar\ndgdf\u0017jackal corpse\n#offer\nu  :  n\u0017grave\n:   \u0017pick-axe\nav..:     nk \u0017throne\n#sit\n y#sit\nny\u0017neutral altar\ndlm\u0017\u001b#pray\ny y #rub\nzcl#chat\ny#levelchange\n30\n\u0017oilskin sack\naxo\n axi\n#tip\nx\u001b\u0017potion of gain level\nqy#dip\nxh\u0017cursed -1 alchemy smock\nW\u001bss20sT ss\u0017blessed Magicbane\nwAsss#invoke\nAssss#levelchange\n20\n   \u0017lizard corpse\neB  n 20s20s\u00173 wand of stasis\nzC\u001720 arrows\nQafkf \u001bf \u001b.s\u0017spellbook of knock\nrE20ssZb\n Zb\n\u0017scroll of confuse monster\nrF.s..#levelchange\n6\n     lh  jj\u0017falling rock trap\nnb\u0017web\nn\u0017hole\nj  n #untrap\nk #terrain\nf\nkyE- Vlad was here\n\u0018\u001b\u0006\u0017cloak of invisibility\nWGss  ns\u0017Excalibur\nwH FhFlFh  n#invoke\nH FhFh\u0017blessed potion of object detection\n\u0007Yeenoghu\nny  n   n   nqI;FhFl\u0017blessed scroll of amnesia\nrJFh  n Fl.  ns#levelchange\n30\n                        \u0007umber hulk\n#chat\nk.s  \u0007mail daemon\n.20s     y  s"
+  }
+ ]
+}

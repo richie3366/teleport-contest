@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " llu100s_ \u001b@.>hhlFbFb._>.>50snnynyl#sit\n\u001b50sW#offer\n100s100sFbFbshjl\u000f\u001b\\ 100shyyFjFjs100snnu100s50sFbFbFb150s100s150s150sFhFhFhFhFhFhFhs.i\u001b#pray\ny  150sjyk#twoweapon\n\\ J#monster\n_>.s#name\nf\nlu#name\nm.\u001b#chat\nl10s20s150s _>,>100sFbFbFb100s 100s FbFb20s100skujyhl100seh  #twoweapon\n100seg100s 50s\u0018\u001b50sljn100s  ojnkj50sFhFhFh100s100secj150sFh20sFh150sFh20ss#wipe\n100s\\ _>,>100sFhFhFh150sFhFhs100sFhFhskhn100s\u0018\u001boh150sFhFhsi\u001b\\ 150s\u000f\u001bkhl100s150sFbFb20skhl50s150sFjFj20s50s150s FjFj20sed  y 100s\\ 100seb eo100s100sFjFjs100s eb100s#offer\n\u000f\u001b100s150s #chat\nj__,sm.PJ LHK_>.>LLUY_>.>FlFl .#loot\n\u0014BLUB_>.>olamlHJLB_>.>NUKL_>.>YJLL_>,>NYNN_>.>LBKJ_>.>FhFk FyYNLN_>,>FyFhFyBJHU_>,>Fy  nnnnn  s"
+ },
+ "segments": [
+  {
+   "seed": 620079,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=pettype:none\n",
+   "moves": " llu100s_ \u001b@.>hhlFbFb._>.>50snnynyl#sit\n\u001b50sW#offer\n100s100sFbFbshjl\u000f\u001b\\ 100shyyFjFjs100snnu100s50sFbFbFb150s100s150s150sFhFhFhFhFhFhFhs.i\u001b#pray\ny  150sjyk#twoweapon\n\\ J#monster\n_>.s#name\nf\nlu#name\nm.\u001b#chat\nl10s20s150s _>,>100sFbFbFb100s 100s FbFb20s100skujyhl100seh  #twoweapon\n100seg100s 50s\u0018\u001b50sljn100s  ojnkj50sFhFhFh100s100secj150sFh20sFh150sFh20ss#wipe\n100s\\ _>,>100sFhFhFh150sFhFhs100sFhFhskhn100s\u0018\u001boh150sFhFhsi\u001b\\ 150s\u000f\u001bkhl100s150sFbFb20skhl50s150sFjFj20s50s150s FjFj20sed  y 100s\\ 100seb eo100s100sFjFjs100s eb100s#offer\n\u000f\u001b100s150s #chat\nj__,sm.PJ LHK_>.>LLUY_>.>FlFl .#loot\n\u0014BLUB_>.>olamlHJLB_>.>NUKL_>.>YJLL_>,>NYNN_>.>LBKJ_>.>FhFk FyYNLN_>,>FyFhFyBJHU_>,>Fy  nnnnn  s"
+  }
+ ]
+}

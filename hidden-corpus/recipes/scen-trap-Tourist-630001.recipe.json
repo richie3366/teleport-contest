@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " jbu\u0017pit\njky.20sy\u0017falling rock trap\nhls20syu\u0017statue trap\nb\u0007kobold\n.ny   yy\u001by  y y y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 630001,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " jbu\u0017pit\njky.20sy\u0017falling rock trap\nhls20syu\u0017statue trap\nb\u0007kobold\n.ny   yy\u001by  y y y\u001by  ."
+  }
+ ]
+}

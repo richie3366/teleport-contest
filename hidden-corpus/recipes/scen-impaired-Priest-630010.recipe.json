@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nih\n  \u0017towel\nak\u0017cursed scroll of fire\nrl;. \u001b@.\u0017wand of make invisible\nzmbzmus.20s     #wizintrinsic\nih\n\u0017scroll of food detection\nrn\u0017scroll of scare monster\nroE- Elbereth Elbereth\n\u0017wand of make invisible\nzplE- Vlad was here\nZb\ns.20s  "
+ },
+ "segments": [
+  {
+   "seed": 630010,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nih\n  \u0017towel\nak\u0017cursed scroll of fire\nrl;. \u001b@.\u0017wand of make invisible\nzmbzmus.20s     #wizintrinsic\nih\n\u0017scroll of food detection\nrn\u0017scroll of scare monster\nroE- Elbereth Elbereth\n\u0017wand of make invisible\nzplE- Vlad was here\nZb\ns.20s  "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                              \u0017blessed +3 gauntlets of power\nWp\u001638\n   _ \u001b@.<\u0016?\n>u ynu:s.\u0016?\nb\u0017spellbook of force bolt\nrq y 20s \u0017blessed spellbook of chain lightning\nrr  s\u0017spellbook of invisibility\nrs s+\u001bZb\n\u0007giant rat\nZa\n Zd\nZb\nZc\n#pray\ny y \u0016?\nihn :\u001638\n   \u0006_<. Fb  _.  Fh  \u001638\n kk   k\u0017squeaky board\nk\u0007acid blob\n.  20ssm.sbku\u0017spiked pit\nlk\u0017falling rock trap\nb  \u0017pit\n\u0017land mine\natb ysW\u001b#wipe\n \u001641\nublkj:.\u0016?\n>>M       scroll of gold detection\n\u0014>.sy    .m.  sm.     \u0016?\nd\u0004 s  n   sm. s \u0016?\nc u h   j :20s    sm.  n       \u001618\n\u0006_>.20s     \u0016?\n\u001bb     n  k \u00164\n__.\u0016?\na   \u00173 potion of gain ability\nqw  \u0017uncursed wand of cancellation\n\u0007Angel\nnzxj       n    Fj            n Fb              \u0017cursed oil lamp\n\u0007piranha\nay   n       #rub\ny        n  \u0017cloak of displacement\nW\u001b20s               n .b                su  n                Fh     n                    n   20s       s   n      .   n         \u00162\n\u001641\nh   n    l     "
+ },
+ "segments": [
+  {
+   "seed": 610092,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                              \u0017blessed +3 gauntlets of power\nWp\u001638\n   _ \u001b@.<\u0016?\n>u ynu:s.\u0016?\nb\u0017spellbook of force bolt\nrq y 20s \u0017blessed spellbook of chain lightning\nrr  s\u0017spellbook of invisibility\nrs s+\u001bZb\n\u0007giant rat\nZa\n Zd\nZb\nZc\n#pray\ny y \u0016?\nihn :\u001638\n   \u0006_<. Fb  _.  Fh  \u001638\n kk   k\u0017squeaky board\nk\u0007acid blob\n.  20ssm.sbku\u0017spiked pit\nlk\u0017falling rock trap\nb  \u0017pit\n\u0017land mine\natb ysW\u001b#wipe\n \u001641\nublkj:.\u0016?\n>>M       scroll of gold detection\n\u0014>.sy    .m.  sm.     \u0016?\nd\u0004 s  n   sm. s \u0016?\nc u h   j :20s    sm.  n       \u001618\n\u0006_>.20s     \u0016?\n\u001bb     n  k \u00164\n__.\u0016?\na   \u00173 potion of gain ability\nqw  \u0017uncursed wand of cancellation\n\u0007Angel\nnzxj       n    Fj            n Fb              \u0017cursed oil lamp\n\u0007piranha\nay   n       #rub\ny        n  \u0017cloak of displacement\nW\u001b20s               n .b                su  n                Fh     n                    n   20s       s   n      .   n         \u00162\n\u001641\nh   n    l     "
+  }
+ ]
+}

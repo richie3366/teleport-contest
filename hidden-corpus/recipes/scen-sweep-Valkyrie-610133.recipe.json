@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           #levelchange\n30\n                 \u0007tame pony\n\u0017saddle\naeu#ride\nhy\u0007horse\n\u0017scroll of taming\nrf \u0017saddle\nagl#ride\nky\u0007tame saddled pony\n#ride\nlyhykly,#ride\nby20s#ride\njy.20s     #wizintrinsic\nn\n .ss20s   s..20s 20s  .20s.s20s  s . .20s      ssssss.s..sss._m. \u001b>..E-#chat\nj\u0004y #monster\nWs..ss.\u001629\n   \\   #levelchange\n12\n    \u0017blessed ring of polymorph control\nPhr#polyself\nminotaur\n #monster\ns20sss20s #polyself\ndisenchanter\n .l .sm.20s.b#polyself\nfire vortex\n  #monster\nss20s s  s\u0017potion of polymorph\nqi xan\n#dip\nb #wizintrinsic\nef\n sls20ssm.sk .m..sm.20s sm..m.sm. sm. .y\u0017potion of gain level\nqj<W#dip\ng#sit\n\u001b#pray\ny y   #conduct\n .m..m.sm.20ssu.m.#levelchange\n12\n\u0017cursed wand of stasis\n\u0007doppelganger\nzk\u0017tin of lizard meat\nel    sm.s\u0017Excalibur\nwmFbFb  Fb #invoke\nm\u0017potion of monster detection\nqn .  \u001b  n  #dip\ne\u0017statue of a newt\n\u0007Orcus\nn20s   \u0017cursed mirror\n\u0007giant beetle\napb     n  \u001b Fk     Fu \u001b   n20s  sm.    \u0006\u001612\n#levelchange\n12\n\u0016?\nf    #jump\nP#invoke\nm  ;h; 20ssm.\u0016?\nk   \u0018\u001bP#untrap\nl;l.20s   sl\u0016?\n>A  #terrain\nd\n#pray\n>.ed   ;n;.m. sy\u0016?\n>v ,>\\   20s  .m.\u0018\u001bjl  n\u0017unaligned altar\ndkde \u0017dwarf corpse\n #offer\nq       n   #pray\ny     kl  \u0017iron bars\n#rub\ncl#loot\nl\u00163\n#levelchange\n20\n       \u001618\n ;<.#rub\n#loot\nh;m,\u000620ssb\u0016?\n>x\u0018\u001b\u0014<.tbl\u0006.m."
+ },
+ "segments": [
+  {
+   "seed": 610133,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           #levelchange\n30\n                 \u0007tame pony\n\u0017saddle\naeu#ride\nhy\u0007horse\n\u0017scroll of taming\nrf \u0017saddle\nagl#ride\nky\u0007tame saddled pony\n#ride\nlyhykly,#ride\nby20s#ride\njy.20s     #wizintrinsic\nn\n .ss20s   s..20s 20s  .20s.s20s  s . .20s      ssssss.s..sss._m. \u001b>..E-#chat\nj\u0004y #monster\nWs..ss.\u001629\n   \\   #levelchange\n12\n    \u0017blessed ring of polymorph control\nPhr#polyself\nminotaur\n #monster\ns20sss20s #polyself\ndisenchanter\n .l .sm.20s.b#polyself\nfire vortex\n  #monster\nss20s s  s\u0017potion of polymorph\nqi xan\n#dip\nb #wizintrinsic\nef\n sls20ssm.sk .m..sm.20s sm..m.sm. sm. .y\u0017potion of gain level\nqj<W#dip\ng#sit\n\u001b#pray\ny y   #conduct\n .m..m.sm.20ssu.m.#levelchange\n12\n\u0017cursed wand of stasis\n\u0007doppelganger\nzk\u0017tin of lizard meat\nel    sm.s\u0017Excalibur\nwmFbFb  Fb #invoke\nm\u0017potion of monster detection\nqn .  \u001b  n  #dip\ne\u0017statue of a newt\n\u0007Orcus\nn20s   \u0017cursed mirror\n\u0007giant beetle\napb     n  \u001b Fk     Fu \u001b   n20s  sm.    \u0006\u001612\n#levelchange\n12\n\u0016?\nf    #jump\nP#invoke\nm  ;h; 20ssm.\u0016?\nk   \u0018\u001bP#untrap\nl;l.20s   sl\u0016?\n>A  #terrain\nd\n#pray\n>.ed   ;n;.m. sy\u0016?\n>v ,>\\   20s  .m.\u0018\u001bjl  n\u0017unaligned altar\ndkde \u0017dwarf corpse\n #offer\nq       n   #pray\ny     kl  \u0017iron bars\n#rub\ncl#loot\nl\u00163\n#levelchange\n20\n       \u001618\n ;<.#rub\n#loot\nh;m,\u000620ssb\u0016?\n>x\u0018\u001b\u0014<.tbl\u0006.m."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "L NNN_ \u001b,>FnFbFh#sit\nf   hUJBJ_>.>FhFyFl__.20s#loot\nBHBK _>.>FuFuFuYHJH_>.>tan10sLLKH_>.>Fn.FjKBHY_>._,>efb20sde.sslu#name\nm\n10s100s100s 100s100sFhss_>,>150slhl100s_>.>kby\u0018\u001bbbu\u0018\u001bJuyh100sllb50s#enhance\n\u001bbuh50s#conduct\n 100skny50s_>.>50s_>,>150s  100seeeeeeeee#conduct\n >#chat\nheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJHYJ_>.>JNNB_>.>NLYB_>,>Fj20ssKHJB_>.>\u000f\u001bYYKJ_>.>HKHY_>.>ddb\u0004uJBUK_>.>BYN K_>.>L ULL_>,>e\u0014<\u000f\u001bHLKJ_>,>FusFuHUBY_>.>W\u001b\u001bsKYHJ_>.>FlFlsBLBU_>,>i\u001b#tip\n\u001b\u001bZju20s10shlhde.20s20sde20s .s10s dbcy..s#name\nm\nuuuy#chat\n,#jump\nW\u001b\u001bt\u001b\u001bUKLL _>.><BYLJ_>,><E- Elbereth Elbereth\nBHBU_>,>YLLL _>.>YHJY_>.>KNHY_>.>je50s 150s #pray\ny   _>.>_>.>\\    100s150s100shubhbn100sFkFkFk50sPf150sFks._>,>\u000f\u001b100s50s50s150s _>.>100s100s eeeeeeeeeeeeeeJNKH _>.>NJJJ_>.><LLUN_>.>HLHY_>.>ULUK_>,>oleKLJY_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeq#enhance\n\u001bafeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUJYB_>.>#turn\n;.LLBK_>,>L NNU_>.>#rub\nt\u001b\u001bNBBU_>.>JUNB_>,>dgchLBYJY_>,>W\u001b\u001b#dip\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nyt\u001b\u001bdfch20s..kkjb#nam"
+ },
+ "segments": [
+  {
+   "seed": 610091,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:explore\n",
+   "moves": "L NNN_ \u001b,>FnFbFh#sit\nf   hUJBJ_>.>FhFyFl__.20s#loot\nBHBK _>.>FuFuFuYHJH_>.>tan10sLLKH_>.>Fn.FjKBHY_>._,>efb20sde.sslu#name\nm\n10s100s100s 100s100sFhss_>,>150slhl100s_>.>kby\u0018\u001bbbu\u0018\u001bJuyh100sllb50s#enhance\n\u001bbuh50s#conduct\n 100skny50s_>.>50s_>,>150s  100seeeeeeeee#conduct\n >#chat\nheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJHYJ_>.>JNNB_>.>NLYB_>,>Fj20ssKHJB_>.>\u000f\u001bYYKJ_>.>HKHY_>.>ddb\u0004uJBUK_>.>BYN K_>.>L ULL_>,>e\u0014<\u000f\u001bHLKJ_>,>FusFuHUBY_>.>W\u001b\u001bsKYHJ_>.>FlFlsBLBU_>,>i\u001b#tip\n\u001b\u001bZju20s10shlhde.20s20sde20s .s10s dbcy..s#name\nm\nuuuy#chat\n,#jump\nW\u001b\u001bt\u001b\u001bUKLL _>.><BYLJ_>,><E- Elbereth Elbereth\nBHBU_>,>YLLL _>.>YHJY_>.>KNHY_>.>je50s 150s #pray\ny   _>.>_>.>\\    100s150s100shubhbn100sFkFkFk50sPf150sFks._>,>\u000f\u001b100s50s50s150s _>.>100s100s eeeeeeeeeeeeeeJNKH _>.>NJJJ_>.><LLUN_>.>HLHY_>.>ULUK_>,>oleKLJY_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeq#enhance\n\u001bafeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUJYB_>.>#turn\n;.LLBK_>,>L NNU_>.>#rub\nt\u001b\u001bNBBU_>.>JUNB_>,>dgchLBYJY_>,>W\u001b\u001b#dip\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nyt\u001b\u001bdfch20s..kkjb#nam"
+  }
+ ]
+}

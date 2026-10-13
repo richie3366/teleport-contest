@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "H YUJ_ \u001b;>FbFbFbJJKL_>.>UKNN_>.>E- Elbereth Elbereth\n\u0014H NHN_>.>FyFkFyYKnyJL_>,>FyFyFl YHBH_>.><NYNH_>,>#name\na\nkBUKN_>,>NYHB_>.>NKLY_>,>LBJN_>.>NUJU_>.>UKBL_>,>L;.KJHK_>.>YKYK_>.>dd,\u0018\u001b<k#name\ni\n10s20snjtdktbn#name\no\nPE- Vlad was here\n_>.>\\    150s100sFhss50si\u001bklu\u0018\u001b100s100s_>,>150sFhFhFh100s_>.>50sFhFh20s20shllbhnlyb100s kkjFy20ss50s100sFh.s_>.>#sit\n\u001b100s100sFhFh.150swc50s50si\u001bnyn_>,>NJBB_>.>KBBY_>,>LHNJ_>,><\u000f\u001b#conduct\n i\u001byyu_>.>nby_>.>150s100sFhs20s150sFhFhFh50sFhFhFh150sFhFhseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0004y#terrain\nd\n\u0014 eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee;>.q,BHBN_>,>KHKK_>.>KKNY_>,>KKJU_>"
+ },
+ "segments": [
+  {
+   "seed": 610027,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:explore\n",
+   "moves": "H YUJ_ \u001b;>FbFbFbJJKL_>.>UKNN_>.>E- Elbereth Elbereth\n\u0014H NHN_>.>FyFkFyYKnyJL_>,>FyFyFl YHBH_>.><NYNH_>,>#name\na\nkBUKN_>,>NYHB_>.>NKLY_>,>LBJN_>.>NUJU_>.>UKBL_>,>L;.KJHK_>.>YKYK_>.>dd,\u0018\u001b<k#name\ni\n10s20snjtdktbn#name\no\nPE- Vlad was here\n_>.>\\    150s100sFhss50si\u001bklu\u0018\u001b100s100s_>,>150sFhFhFh100s_>.>50sFhFh20s20shllbhnlyb100s kkjFy20ss50s100sFh.s_>.>#sit\n\u001b100s100sFhFh.150swc50s50si\u001bnyn_>,>NJBB_>.>KBBY_>,>LHNJ_>,><\u000f\u001b#conduct\n i\u001byyu_>.>nby_>.>150s100sFhs20s150sFhFhFh50sFhFhFh150sFhFhseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0004y#terrain\nd\n\u0014 eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee;>.q,BHBN_>,>KHKK_>.>KKNY_>,>KKJU_>"
+  }
+ ]
+}

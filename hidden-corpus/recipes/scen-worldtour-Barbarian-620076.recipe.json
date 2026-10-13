@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed +3 speed boots\nWf \u0016?\n>>M      15 crossbow bolts\n\u0014 nn\u0016?\n\u001bu   k    \u0016?\n\u001bhh\u001637\nkk     n  n   : s  n   \u00161\n\u001628\nbk     n y  :  \u0016?\na    k j:    n    \u0016?\nd_ \u001b;<\u00165\nl   lb  :   . \u0016?\n\u001bh      n   y   \u001614\n\u0014. \u001614\n#chat\nh;_.\u001629\n#chat\nh;m,\u0016?\n\u001bkh      n \u0016?\n\u001bj            n        n    l\u00166\n\u00165\n#levelchange\n6\n  \u0007rust monster\nFj  n   s          n 20s      n  20s          n           n     n  s      n     n  \u0007disenchanter\ns      yy\u001bnny y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 620076,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n14\n             \u0017blessed +3 speed boots\nWf \u0016?\n>>M      15 crossbow bolts\n\u0014 nn\u0016?\n\u001bu   k    \u0016?\n\u001bhh\u001637\nkk     n  n   : s  n   \u00161\n\u001628\nbk     n y  :  \u0016?\na    k j:    n    \u0016?\nd_ \u001b;<\u00165\nl   lb  :   . \u0016?\n\u001bh      n   y   \u001614\n\u0014. \u001614\n#chat\nh;_.\u001629\n#chat\nh;m,\u0016?\n\u001bkh      n \u0016?\n\u001bj            n        n    l\u00166\n\u00165\n#levelchange\n6\n  \u0007rust monster\nFj  n   s          n 20s      n  20s          n           n     n  s      n     n  \u0007disenchanter\ns      yy\u001bnny y\u001b  F"
+  }
+ ]
+}

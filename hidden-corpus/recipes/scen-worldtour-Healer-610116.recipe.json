@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017blessed +3 speed boots\nWk\u00163\n\u0014 \u001b;20s20s\u0016?\n>>P  _>.\u00167\n\u0004n\u00165\nubhly:\u001627\nyl:ss20s\u0016?\nk    #chat\nh;m.20s.m.\u0016?\n>G#chat\nl;l;\u00163\n  lkljl:sm.ss\u001630\n   llunk:\u001627\n\u0014.sm.sm.\u001618\nykb\u0017level teleporter\nl^hh 5\n .sb\u0017sleeping gas trap\nu^bb.s#terrain\nb\n#enhance\n<.df\\ s\u001611\n\u0017ring of aggravate monster\nPfr.ssm. \u0017cursed the Master Key of Thievery\n ,    \u0017blessed kelp frond\n\u0007Famine\nyel  20s  n    sk  n    Fl   n    Fj    n  \u00173 scroll of earth\n\u0007dwarf lord\nrm     n  20s     n  sj       n  20s        n  .n       n  \u00166\n\u0016?\ns uk:sksm.  n \u0016?\n>>K       clove of garlic\n\u0006;_<,\u001618\n#chat\nh;h,\u0016?\n\u001bk     j      n \u0016?\n\u001bb          nn      \u001614\nu        n   h      :\u0016?\n\u001bh     n    j        n\u00163\nl    l  yy\u001by   nn  h"
+ },
+ "segments": [
+  {
+   "seed": 610116,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017blessed +3 speed boots\nWk\u00163\n\u0014 \u001b;20s20s\u0016?\n>>P  _>.\u00167\n\u0004n\u00165\nubhly:\u001627\nyl:ss20s\u0016?\nk    #chat\nh;m.20s.m.\u0016?\n>G#chat\nl;l;\u00163\n  lkljl:sm.ss\u001630\n   llunk:\u001627\n\u0014.sm.sm.\u001618\nykb\u0017level teleporter\nl^hh 5\n .sb\u0017sleeping gas trap\nu^bb.s#terrain\nb\n#enhance\n<.df\\ s\u001611\n\u0017ring of aggravate monster\nPfr.ssm. \u0017cursed the Master Key of Thievery\n ,    \u0017blessed kelp frond\n\u0007Famine\nyel  20s  n    sk  n    Fl   n    Fj    n  \u00173 scroll of earth\n\u0007dwarf lord\nrm     n  20s     n  sj       n  20s        n  .n       n  \u00166\n\u0016?\ns uk:sksm.  n \u0016?\n>>K       clove of garlic\n\u0006;_<,\u001618\n#chat\nh;h,\u0016?\n\u001bk     j      n \u0016?\n\u001bb          nn      \u001614\nu        n   h      :\u0016?\n\u001bh     n    j        n\u00163\nl    l  yy\u001by   nn  h"
+  }
+ ]
+}

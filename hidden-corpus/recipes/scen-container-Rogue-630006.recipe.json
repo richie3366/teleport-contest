@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017locked large box\n \u0017oilskin sack\n\u0017chest\n\u0017potion of full healing\n\u0017scroll of remove curse\nahr\n#tip\ngf\n\u0017dagger\n wb dh#force\n.ssdg l\u0004h \u0017locked large box\n\u0017chest\n\u0017potion of sickness\n \u0017ring of increase damage\n\u0017touchstone\nalaldl #loot\na\n y ,b\n alo\n#tip\nyi\ni\u001b"
+ },
+ "segments": [
+  {
+   "seed": 630006,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017locked large box\n \u0017oilskin sack\n\u0017chest\n\u0017potion of full healing\n\u0017scroll of remove curse\nahr\n#tip\ngf\n\u0017dagger\n wb dh#force\n.ssdg l\u0004h \u0017locked large box\n\u0017chest\n\u0017potion of sickness\n \u0017ring of increase damage\n\u0017touchstone\nalaldl #loot\na\n y ,b\n alo\n#tip\nyi\ni\u001b"
+  }
+ ]
+}

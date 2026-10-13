@@ -1,0 +1,70 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "unjyFlFlFlFlFlFlFlFl150sFuFuFn 50s Fk Fj.50sFysFuFk  20s.150s1#quit\nyy\u001by  y y y\u001b  uunk20s#chat\nl#name\nm\n ,20s yjyuhn100s    lju100s  njyFlssjhy150s        FjFl 20s\u000f\u001b100s50s150sjnh50s ef 100s#sit\n150s_>.>hbh100sFuFkFkFkFksFkss100s_>.>#quit\nyy\u001by  y y y\u001b   jjy k Fn FnFnFnFnFnFnFnFjFjFjFjFjFjFjFj#name\na\nbu#chat\njdhss.#chat\nh#chat\nlhjhlFnFnFnFnFnFnFnFnjbhl#chat\nh#chat\ny20s#chat\nlkbKUUJ_ \u001b>.>KNHH_>,>#force\n>JYJL_>.>#pray\nnn#quit\ny\u001b    nhubHLUU_ \u001b<.>FlFhFnLJUN_>,>YULH_>.>f \u001b,BBKN_>.>FhFb sLUNB_>.>#rub\nqhm.NLLU_>.>YLJK_>.>t\u001bejkykjylyjn150s100s\u0018\u001b150s50s100s50s100sFkFk.FyFk.FkFkFkFk..#twoweapon\nbun100sFhFh20s Fy20s.50sFy#quit\nyy\u001by  y y y\u001b  FyFy s\\  100s100sFh.20shbnhyu150s50sFl20ss100sFb..j\\  100s100s_ \u001bm,>kkj100s\\  _>.>blh_>,>100sFhFhs100sFhFhs100s100sFhs.100s100sFl20s.#enhance\n\u001b100s150sFh20s.50seeukjLKYN_>.>HHNU_>.>JBKL_>.>LJNH_>.>#quit\nyy\u001by   y y y\u001b nljyFn FnFnFnFnFnFnFnJYHJ_ \u001b:>LNBK_>,>#offer\n#force\nUJUY_>.>\u000f\u001bhbnuujbyhnyu#name\nf\njhuyluyhjFuFuFuFuFuFuFuFujbt\u001b#name\na\nkk20s20s#name\ni\n#name\nd\nlnun\u0018\u001b_>.>100sjhk_>,>\\  50sujh100s10#quit\nyy\u001by  y y y\u001b B  NJU_ \u001b:>FkFhsYY NU_>.>UNUN_>.>\u000f\u001bKNYU_>,>YBBJ_>,>FyFk sBKBL_>.>:,BNKN_>.>#untrap\nu:BHYL_>.>LHJB_>,>\u000f\u001b_>.>100s50skkn100s#rub\nnlk#quit\nyy\u001by  y y y\u001b bynkFls20s  100s         50s  jkh<100sFhFh FhbhuFjFjFbFb s#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 610070,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "unjyFlFlFlFlFlFlFlFl150sFuFuFn 50s Fk Fj.50sFysFuFk  20s.150s1#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 710070,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": " uunk20s#chat\nl#name\nm\n ,20s yjyuhn100s    lju100s  njyFlssjhy150s        FjFl 20s\u000f\u001b100s50s150sjnh50s ef 100s#sit\n150s_>.>hbh100sFuFkFkFkFksFkss100s_>.>#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 810070,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "  jjy k Fn FnFnFnFnFnFnFnFjFjFjFjFjFjFjFj#name\na\nbu#chat\njdhss.#chat\nh#chat\nlhjhlFnFnFnFnFnFnFnFnjbhl#chat\nh#chat\ny20s#chat\nlkbKUUJ_ \u001b>.>KNHH_>,>#force\n>JYJL_>.>#pray\nnn#quit\ny\u001b    "
+  },
+  {
+   "seed": 910070,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\n",
+   "moves": "nhubHLUU_ \u001b<.>FlFhFnLJUN_>,>YULH_>.>f \u001b,BBKN_>.>FhFb sLUNB_>.>#rub\nqhm.NLLU_>.>YLJK_>.>t\u001bejkykjylyjn150s100s\u0018\u001b150s50s100s50s100sFkFk.FyFk.FkFkFkFk..#twoweapon\nbun100sFhFh20s Fy20s.50sFy#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1010070,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": " FyFy s\\  100s100sFh.20shbnhyu150s50sFl20ss100sFb..j\\  100s100s_ \u001bm,>kkj100s\\  _>.>blh_>,>100sFhFhs100sFhFhs100s100sFhs.100s100sFl20s.#enhance\n\u001b100s150sFh20s.50seeukjLKYN_>.>HHNU_>.>JBKL_>.>LJNH_>.>#quit\nyy\u001by   y y y\u001b "
+  },
+  {
+   "seed": 1110070,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\n",
+   "moves": "nljyFn FnFnFnFnFnFnFnJYHJ_ \u001b:>LNBK_>,>#offer\n#force\nUJUY_>.>\u000f\u001bhbnuujbyhnyu#name\nf\njhuyluyhjFuFuFuFuFuFuFuFujbt\u001b#name\na\nkk20s20s#name\ni\n#name\nd\nlnun\u0018\u001b_>.>100sjhk_>,>\\  50sujh100s10#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1210070,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "B  NJU_ \u001b:>FkFhsYY NU_>.>UNUN_>.>\u000f\u001bKNYU_>,>YBBJ_>,>FyFk sBKBL_>.>:,BNKN_>.>#untrap\nu:BHYL_>.>LHJB_>,>\u000f\u001b_>.>100s50skkn100s#rub\nnlk#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1310070,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=fruit:kumquat\n",
+   "moves": "bynkFls20s  100s         50s  jkh<100sFhFh FhbhuFjFjFbFb s#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

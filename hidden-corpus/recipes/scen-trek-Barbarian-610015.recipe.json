@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#chat\nkk20stbl ub10sub20s10s10s20sklhuNNHH_ \u001bm.>UHYK_>.>Zed NHNB_>,>#rub\n#loot\nBBLJ_>.>q#loot\nLUNL_>.>daZNKJK_>,>Fk FkFkBNJB_>.>FussHBNK_>.>NJUH_>.>w\u001bJNNKU_>,>zbUHJB_>.>JKYK_>.>#terrain\nc\n@.#rub\n\u000f\u001b10s#name\nm\n10s#name\nf\nt#chat\njBKBJ_>,>__.s\u0004hYHHB_>,>BYHB_>.>de150slynynyFl.snyu\u000f\u001b50s100sFk..hlb#terrain\nc\nm.100s50s50sklh100sjnyW100s50s\u000f\u001bklhFuFuFuFu20s20slbu_>.>100sFkFk.100ssbny#dip\ndubu150sFks.FkFk.150sFkFkFkbkjUKNN_>.>UJUU_>.>JNBK_>.>#pray\ny #name\nf\nLJHJ_>\u000f>#force\n_m.sB JBH_>.>JHHH_>.>s#conduct\n LKYL_>.>BHKU_>,>YLBK_>,>LLYL_>.>#sit\n\u001bclYYHB_>,>UJUB _>.>LH BY_>.>JKUK_>.>UYBB_>.>KLJJ_>.>KJYB_>.>bk10s#chat\ny10sdc20s20s20shhljyn100s_>.>#monster\nlky100sFh20ss\u0018\u001b50s150s150sFjFjFjFj20ssbhn#wipe\nFuFk.50si\u001buny_>.>150s100s150s100s_>,>100sFbFhFy Fh Fh Fk  y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 610015,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:walk\n",
+   "moves": "#chat\nkk20stbl ub10sub20s10s10s20sklhuNNHH_ \u001bm.>UHYK_>.>Zed NHNB_>,>#rub\n#loot\nBBLJ_>.>q#loot\nLUNL_>.>daZNKJK_>,>Fk FkFkBNJB_>.>FussHBNK_>.>NJUH_>.>w\u001bJNNKU_>,>zbUHJB_>.>JKYK_>.>#terrain\nc\n@.#rub\n\u000f\u001b10s#name\nm\n10s#name\nf\nt#chat\njBKBJ_>,>__.s\u0004hYHHB_>,>BYHB_>.>de150slynynyFl.snyu\u000f\u001b50s100sFk..hlb#terrain\nc\nm.100s50s50sklh100sjnyW100s50s\u000f\u001bklhFuFuFuFu20s20slbu_>.>100sFkFk.100ssbny#dip\ndubu150sFks.FkFk.150sFkFkFkbkjUKNN_>.>UJUU_>.>JNBK_>.>#pray\ny #name\nf\nLJHJ_>\u000f>#force\n_m.sB JBH_>.>JHHH_>.>s#conduct\n LKYL_>.>BHKU_>,>YLBK_>,>LLYL_>.>#sit\n\u001bclYYHB_>,>UJUB _>.>LH BY_>.>JKUK_>.>UYBB_>.>KLJJ_>.>KJYB_>.>bk10s#chat\ny10sdc20s20s20shhljyn100s_>.>#monster\nlky100sFh20ss\u0018\u001b50s150s150sFjFjFjFj20ssbhn#wipe\nFuFk.50si\u001buny_>.>150s100s150s100s_>,>100sFbFhFy Fh Fh Fk  y\u001by  y y y\u001b  1"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  Fy 20ss100s50sFjsFjFj20ss100s 150sFj20ss150s100sFjsshuy\u000f\u001b100s150sFbss100s100shhl100sFhFhs100s\u0004ni\u001bbbk50s100s_ \u001b;>i\u001b50sFnFnFnFnFnFn150s100s\u0018\u001b50s#monster\n100sFbs20sedi\u001bcj#untrap\nndbssm..m.20s20s#name\nm\nuhhnhjKJBY_>LJJN_>LLKY_>Fbs.#dip\nc20s\u000f\u001b#dip\ne#tip\n\u001b:nlljhlbl10sy10s#chat\nnHYYJ_>,>FuFlFlHLJB_>,>LNK H_>.>KLJ Y_>,>Zq#untrap\nnbny100s150s  ef ed  i\u001bnbl100s ny  y ny\u001b  5"
+ },
+ "segments": [
+  {
+   "seed": 610087,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "  Fy 20ss100s50sFjsFjFj20ss100s 150sFj20ss150s100sFjsshuy\u000f\u001b100s150sFbss100s100shhl100sFhFhs100s\u0004ni\u001bbbk50s100s_ \u001b;>i\u001b50sFnFnFnFnFnFn150s100s\u0018\u001b50s#monster\n100sFbs20sedi\u001bcj#untrap\nndbssm..m.20s20s#name\nm\nuhhnhjKJBY_>LJJN_>LLKY_>Fbs.#dip\nc20s\u000f\u001b#dip\ne#tip\n\u001b:nlljhlbl10sy10s#chat\nnHYYJ_>,>FuFlFlHLJB_>,>LNK H_>.>KLJ Y_>,>Zq#untrap\nnbny100s150s  ef ed  i\u001bnbl100s ny  y ny\u001b  5"
+  }
+ ]
+}

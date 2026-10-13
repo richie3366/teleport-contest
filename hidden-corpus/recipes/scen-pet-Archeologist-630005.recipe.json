@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  hhhh#name\na\nlynlhy20s20s10snlhlht\u001b#chat\nh"
+ },
+ "segments": [
+  {
+   "seed": 630005,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=sortloot:loot\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\n",
+   "moves": "  hhhh#name\na\nlynlhy20s20s10snlhlht\u001b#chat\nh"
+  }
+ ]
+}

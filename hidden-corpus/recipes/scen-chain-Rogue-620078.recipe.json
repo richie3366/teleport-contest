@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  jlnkhhhhlhllhhhhllhlhlhlhhlhhllh#name\nd\ntbn10sdcs.s#chat\nl#chat\nllllhllhh_ \u001b;>#jump\nhlllllhnj50s150sE- X marks the spot\nFl.Fk100sP100sFnFlFk100sFlss100s     100sFl20s.FnFlFn  >100sFkssnljeeeeeeeeeeeeeeeeeyjhueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10stbhunjlyutbhjl#name\nm\nyukht#name\na\nbhhu#name\nd\nlbyleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYUYL_>,>Fys.HUKH_>.>JUUN_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellhydddbf \u001b\u001bs.shubjlh#chat\nbkblknueeeeeeeeeeee#quit\nyy\u001by  y y y\u001b   hybnFkFkFkFk FkFkFkFkYJLN_ \u001b;>BNJN_>.>NNBB_>,>qdojYNJK_>.>LLHY_>.>qyokJJBU_>,>f \u001b#force\nBULB_>,>\u000f\u001bunulKKUJ_>,><UHUU_>,>Zb\n#twoweapon\nNKNY_>,>BYBH_>.>#tip\n\u001b;m,\u000f\u001bLYUY_>,>NNUN_>.>FnFnsBJNH_>.>\u000f\u001b100sukl150s150s_>.>i\u001b100s\u0018\u001b100s_>.>\u000f\u001bubhFys20s150sFhFh20s_>.>50s100sFlssZb\n#wipe\n50s100s100see100sefylh\u000f\u001b150seeeeeeeeeeknbkkyhjUHLN_>,>LY NN_>.>UBHJ_>.>JBNU_>.><UBHH_>.>FlFlsYJJH_>,>\u0014#name\nm\nBKBN_>#loot\nm.\u0004j\u000f\u001bkkljHBBB_>,><ckUUBK _>.>ah eLH UY_>#quit\nlbun100sFy20sFy\\   50sFyFysknk\u0004h100si\u001b100shll_ \u001b,>_>.>150s100sFhFhs100sFhs20s150sFhFhFhFhFhFhFh.slhb,100s\u0018\u001b#force\n50s150sFhFhslkn100shuh100s \u0018\u001b#monster\n#chat\nn\\   150sFhFhFhFhFhFhFhFhFhFhFhllnh#chat\njjujn#name\na\n10sdd20s20ssbFyFyFyFyFyFyFyFy150skkj50sull100sFhss150s100s150sFhFhFh100seh150seg50seh 50sFhFh20seg\\   50sFhFhFhFh.s\u000f\u001b100seg50seg_>.>50s eg150sFhs.50seh100seghll\u000f\u001b50sFhFhFhFhFhFhF#quit\nFk FkFkFkFkFkFkFkFnFnFnFnFnFnFnFn#name\n\u001bujtbk20snlyktcu20s#chat\nbdassstdj#chat\nujl20sFj FjFjFjFjFjFjFjjlnjynybyukb20s#chat\nkhbluybtduKYLU_ \u001b:>Fu.sKH JU_>,>Fu20s20sLKLJ_>,>KNBB_>.>KUHU_>.>NHJH_>.>\u000f\u001bulbu100s100sFjFj._>,>jkl50suny50s50s 150s\\    150sFjFj.hbki\u001b_>,>#dip\nci\u001b_>.>ynj50shub\u000f\u001b150s ujl50s\u0018\u001bnyhr\u001buub100si\u001b_>.>100si\u001b\\    \\    100s50s100s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeejbkhdc20s20s20s#chat\nu#chat\nltdu20s#chat\nunubklbtdbtdkkuuntdkynkjyl#chat\nh10sjjjkjkkkjyhhnhyllhJBHL_>.>HHHL_>.>_>,s#ride\nlKYJY_>.>YKLH_>.>#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 620078,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=pettype:horse\n",
+   "moves": "  jlnkhhhhlhllhhhhllhlhlhlhhlhhllh#name\nd\ntbn10sdcs.s#chat\nl#chat\nllllhllhh_ \u001b;>#jump\nhlllllhnj50s150sE- X marks the spot\nFl.Fk100sP100sFnFlFk100sFlss100s     100sFl20s.FnFlFn  >100sFkssnljeeeeeeeeeeeeeeeeeyjhueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10stbhunjlyutbhjl#name\nm\nyukht#name\na\nbhhu#name\nd\nlbyleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYUYL_>,>Fys.HUKH_>.>JUUN_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellhydddbf \u001b\u001bs.shubjlh#chat\nbkblknueeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 720078,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=sortloot:none\nOPTIONS=pettype:cat\n",
+   "moves": "  hybnFkFkFkFk FkFkFkFkYJLN_ \u001b;>BNJN_>.>NNBB_>,>qdojYNJK_>.>LLHY_>.>qyokJJBU_>,>f \u001b#force\nBULB_>,>\u000f\u001bunulKKUJ_>,><UHUU_>,>Zb\n#twoweapon\nNKNY_>,>BYBH_>.>#tip\n\u001b;m,\u000f\u001bLYUY_>,>NNUN_>.>FnFnsBJNH_>.>\u000f\u001b100sukl150s150s_>.>i\u001b100s\u0018\u001b100s_>.>\u000f\u001bubhFys20s150sFhFh20s_>.>50s100sFlssZb\n#wipe\n50s100s100see100sefylh\u000f\u001b150seeeeeeeeeeknbkkyhjUHLN_>,>LY NN_>.>UBHJ_>.>JBNU_>.><UBHH_>.>FlFlsYJJH_>,>\u0014#name\nm\nBKBN_>#loot\nm.\u0004j\u000f\u001bkkljHBBB_>,><ckUUBK _>.>ah eLH UY_>#quit\n"
+  },
+  {
+   "seed": 820078,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=runmode:teleport\nOPTIONS=pettype:none\n",
+   "moves": "lbun100sFy20sFy\\   50sFyFysknk\u0004h100si\u001b100shll_ \u001b,>_>.>150s100sFhFhs100sFhs20s150sFhFhFhFhFhFhFh.slhb,100s\u0018\u001b#force\n50s150sFhFhslkn100shuh100s \u0018\u001b#monster\n#chat\nn\\   150sFhFhFhFhFhFhFhFhFhFhFhllnh#chat\njjujn#name\na\n10sdd20s20ssbFyFyFyFyFyFyFyFy150skkj50sull100sFhss150s100s150sFhFhFh100seh150seg50seh 50sFhFh20seg\\   50sFhFhFhFh.s\u000f\u001b100seg50seg_>.>50s eg150sFhs.50seh100seghll\u000f\u001b50sFhFhFhFhFhFhF#quit\n"
+  },
+  {
+   "seed": 920078,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "Fk FkFkFkFkFkFkFkFnFnFnFnFnFnFnFn#name\n\u001bujtbk20snlyktcu20s#chat\nbdassstdj#chat\nujl20sFj FjFjFjFjFjFjFjjlnjynybyukb20s#chat\nkhbluybtduKYLU_ \u001b:>Fu.sKH JU_>,>Fu20s20sLKLJ_>,>KNBB_>.>KUHU_>.>NHJH_>.>\u000f\u001bulbu100s100sFjFj._>,>jkl50suny50s50s 150s\\    150sFjFj.hbki\u001b_>,>#dip\nci\u001b_>.>ynj50shub\u000f\u001b150s ujl50s\u0018\u001bnyhr\u001buub100si\u001b_>.>100si\u001b\\    \\    100s50s100s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeejbkhdc20s20s20s#chat\nu#chat\nltdu20s#chat\nunubklbtdbtdkkuuntdkynkjyl#chat\nh10sjjjkjkkkjyhhnhyllhJBHL_>.>HHHL_>.>_>,s#ride\nlKYJY_>.>YKLH_>.>#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

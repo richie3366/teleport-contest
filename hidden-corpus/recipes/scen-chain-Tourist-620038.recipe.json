@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  jlkyJBJJ_ \u001b,>i\u001bWUBYJ_>.>FkFu s<HULK_>.>LKNH_>.>FuFuFuHKNB_>,>FlFl.\u000f\u001blbkjFu  y\u001by  ny y\u001b  ##wizintrinsic\nb\n sm.s20s20s  20s  20s  yy\u001bny y y\u001bn  2  t\u001b\u001b#chat\nhh#name\nd\n10sjlubFjFjFjFjFjFjFjFjFn FnFnFnFnFnFnFn100si\u001b\u0018\u001b\u000f\u001b100s50s\\  150s#monster\n_ \u001b>.>ujh150s\\  lky_>.>100snyh_>,>100seeeeeeeeeeeeeeeeeeeeekllbnjkjky#chat\nkkldgdel.ss10sHBHN_>.>JKBJ_>.><BNHN_>.><UBYY_>.>\u000f\u001bNKU K_>,>YLUK_>,#quit\ny\u001b    #quit\nyy  #wizintrinsic\na\n sm.20s  20s20s20s20s20s20s  20s .n.sm.20s .m.20ss.sss.s.20ss.ss #wizintrinsic\nc\n .m.sn20s suss20s  20s20s        yy\u001bny n y  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 620038,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\n",
+   "moves": "  jlkyJBJJ_ \u001b,>i\u001bWUBYJ_>.>FkFu s<HULK_>.>LKNH_>.>FuFuFuHKNB_>,>FlFl.\u000f\u001blbkjFu  y\u001by  ny y\u001b  #"
+  },
+  {
+   "seed": 720038,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#wizintrinsic\nb\n sm.s20s20s  20s  20s  yy\u001bny y y\u001bn  2"
+  },
+  {
+   "seed": 820038,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\n",
+   "moves": "  t\u001b\u001b#chat\nhh#name\nd\n10sjlubFjFjFjFjFjFjFjFjFn FnFnFnFnFnFnFn100si\u001b\u0018\u001b\u000f\u001b100s50s\\  150s#monster\n_ \u001b>.>ujh150s\\  lky_>.>100snyh_>,>100seeeeeeeeeeeeeeeeeeeeekllbnjkjky#chat\nkkldgdel.ss10sHBHN_>.>JKBJ_>.><BNHN_>.><UBYY_>.>\u000f\u001bNKU K_>,>YLUK_>,#quit\ny\u001b    "
+  },
+  {
+   "seed": 920038,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=fruit:kumquat\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 1020038,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\na\n sm.20s  20s20s20s20s20s20s  20s .n.sm.20s .m.20ss.sss.s.20ss.ss"
+  },
+  {
+   "seed": 1120038,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nc\n .m.sn20s suss20s  20s20s        yy\u001bny n y  s"
+  }
+ ]
+}

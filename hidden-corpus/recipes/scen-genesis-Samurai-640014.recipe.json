@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0007nurse\n#chat\njFjFj\u0007gelatinous cube\n#chat\nnFn Fj\u0007nurse\nsusssss20s.m.  n .m.  yny  nny  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 640014,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007nurse\n#chat\njFjFj\u0007gelatinous cube\n#chat\nnFn Fj\u0007nurse\nsusssss20s.m.  n .m.  yny  nny  \u0007"
+  }
+ ]
+}

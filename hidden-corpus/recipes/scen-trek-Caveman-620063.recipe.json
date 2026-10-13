@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "20s  20sbyu#name\ni\ndass.LLLJ_ \u001b,>20s\u0004lYBNU_>.>FhFj FhHYKK_>.>YUBY_>,>NBJU _>.>FyFyFyb_m,.<100s\u000f\u001b100sFkss100s100s150s    \u001bFk20ssi\u001b_>.>jjjr\u001bzjkk_>,>50s\\ i\u001b100s100sFks20s\u0018\u001bkjj100sjkj100s_>,>100s100seeeeeeeeeeekr\u001b__.sJHYY_>,><JUBL_>.>YYKN_>,><sHHKB_>.>HJKU_>,>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeePqf  jeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYLLN_>.>Fn 20s FnKYLK _>.>FkFkFkUHKN_>,>NJKB_>.>;m,#twoweapon\nUBYH_>.>HBLY_>.>YL  NN_>.>Fkss#sit\n\u001b:\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKKH  K_>,>HYNK_>.>NJYK_>.>BHYK_>,>qaUYL  K_>,>YJBN_>,>#dip\nc#pray\ny  KJBK_>,>YLBL_>,>,\u000f\u001bJKBL_>.>JYUL_>,>Fn20ssYJYU_>.><LYLY_>.>20sr\u001bb#rub\ncezJKKL_>.>YYYY_>,>HBUY_>.>#monster\n\u000f\u001bBBLB _>.>FkFkFkYBLJ_>,>FyFyFy BYBL_>,>YJKB_>.>NHK K_>.>BJ HB_>.>FkFkFk#name\nm\n#jump\n.10sFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkF"
+ },
+ "segments": [
+  {
+   "seed": 620063,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=runmode:walk\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\n",
+   "moves": "20s  20sbyu#name\ni\ndass.LLLJ_ \u001b,>20s\u0004lYBNU_>.>FhFj FhHYKK_>.>YUBY_>,>NBJU _>.>FyFyFyb_m,.<100s\u000f\u001b100sFkss100s100s150s    \u001bFk20ssi\u001b_>.>jjjr\u001bzjkk_>,>50s\\ i\u001b100s100sFks20s\u0018\u001bkjj100sjkj100s_>,>100s100seeeeeeeeeeekr\u001b__.sJHYY_>,><JUBL_>.>YYKN_>,><sHHKB_>.>HJKU_>,>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeePqf  jeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYLLN_>.>Fn 20s FnKYLK _>.>FkFkFkUHKN_>,>NJKB_>.>;m,#twoweapon\nUBYH_>.>HBLY_>.>YL  NN_>.>Fkss#sit\n\u001b:\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKKH  K_>,>HYNK_>.>NJYK_>.>BHYK_>,>qaUYL  K_>,>YJBN_>,>#dip\nc#pray\ny  KJBK_>,>YLBL_>,>,\u000f\u001bJKBL_>.>JYUL_>,>Fn20ssYJYU_>.><LYLY_>.>20sr\u001bb#rub\ncezJKKL_>.>YYYY_>,>HBUY_>.>#monster\n\u000f\u001bBBLB _>.>FkFkFkYBLJ_>,>FyFyFy BYBL_>,>YJKB_>.>NHK K_>.>BJ HB_>.>FkFkFk#name\nm\n#jump\n.10sFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkF"
+  }
+ ]
+}

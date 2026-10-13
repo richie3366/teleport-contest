@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "U JUH_ \u001bm.>Fn20sFlZohKYYL_>.>l#invoke\n\u001bJKBH_>.>Fl  Fl20s\u000f\u001b#chat\nu#invoke\n\u001b\\ HUJK_>,>\u0014dfLJHK_>.>FjsFj  KLJY_>,>YHNJ_>.>Fh20sFhqd  #name\nm\nNUKB_>KrYBNJ_>.>YUUJ_>.>\u000f\u001b\u0018\u001blbj50s50sFy20sFj\u0018\u001b100s#untrap\nhuul100s100sununjn_>.>i\u001b100s150s  skhh50seg150s 50s_>.>150s_>.>tbb150s50sFh.sjyu100s _>,>#offer\njkn50s100s_>,>100sFhFh.100s Fhs.100s50sFhFhFhz150sbll50sFhs20s100s _>,>\u000f\u001b50seg100s100sFhFh.100sFhFhFh \u000f\u001b150skyk150sFjFhFh150s_>,>s100s#ride\njnnkblh100sFhFhFh50snkk150s100s150sFhsFh100sFhssbnh150s_>.>50s>_>,>\u0014;<.<yby100syny#offer\n_>,>_>.>buy100s\u000f\u001bljk150s_>.>100sFhssFhFhs100s50sFb.sjnh_>.>100s100sklyFbFb20sFb.s50s100s ee10sJ_<,20sLLUJ_>.>\u0004jE- Vlad was here\nNHBH_>.>nsUHYK_>.>HBUY_>.>YBYY_>,>f by yP\u000f\u001bey eyFn20sshhlFhs20s50s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#untrap"
+ },
+ "segments": [
+  {
+   "seed": 610055,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\n",
+   "moves": "U JUH_ \u001bm.>Fn20sFlZohKYYL_>.>l#invoke\n\u001bJKBH_>.>Fl  Fl20s\u000f\u001b#chat\nu#invoke\n\u001b\\ HUJK_>,>\u0014dfLJHK_>.>FjsFj  KLJY_>,>YHNJ_>.>Fh20sFhqd  #name\nm\nNUKB_>KrYBNJ_>.>YUUJ_>.>\u000f\u001b\u0018\u001blbj50s50sFy20sFj\u0018\u001b100s#untrap\nhuul100s100sununjn_>.>i\u001b100s150s  skhh50seg150s 50s_>.>150s_>.>tbb150s50sFh.sjyu100s _>,>#offer\njkn50s100s_>,>100sFhFh.100s Fhs.100s50sFhFhFhz150sbll50sFhs20s100s _>,>\u000f\u001b50seg100s100sFhFh.100sFhFhFh \u000f\u001b150skyk150sFjFhFh150s_>,>s100s#ride\njnnkblh100sFhFhFh50snkk150s100s150sFhsFh100sFhssbnh150s_>.>50s>_>,>\u0014;<.<yby100syny#offer\n_>,>_>.>buy100s\u000f\u001bljk150s_>.>100sFhssFhFhs100s50sFb.sjnh_>.>100s100sklyFbFb20sFb.s50s100s ee10sJ_<,20sLLUJ_>.>\u0004jE- Vlad was here\nNHBH_>.>nsUHYK_>.>HBUY_>.>YBYY_>,>f by yP\u000f\u001bey eyFn20sshhlFhs20s50s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#untrap"
+  }
+ ]
+}

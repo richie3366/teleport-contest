@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0007earth elemental\n#chat\nbFh Fb\u0007soldier ant\nFbFb  Fb Fb    n Fn  Fn #levelchange\n20\n    \u0017blessed spellbook of jumping\nrp   n sl\u0017blessed spellbook of create monster\nrq sm. \u0017spellbook of cure sickness\nrr sm.   n \u0017blessed spellbook of magic missile\nrs  .m.   n +a\n\u0007sewer rat\nZa\nFnZb\n Zb\nZb\n#pray\ny y  #enhance\nym\no\n\u001b\u001614\n\u001612\n#levelchange\n20\n\u0016?\n>>Qf#name\na\n\\   \u0006ss\u0016?\n>G K#twoweapon\n#terrain\nc\n\u001b<.;<.s.\u001636\nas #tip\n\u001b#terrain\nc\n<.;m.ss\u0018\u001b#levelchange\n10\n   \u0007tame saddled mumak\n#ride\nuy\u0007tame saddled horse\n#ride\n.y\u0007horse\n\u0017scroll of taming\nrt \u001b\u0017saddle\n auh#ride\nyy,s20s  sm.   nsm.          n \u0004b     n,\u001612\n\u00162\n\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqv;_ooooooooo.Fl   n_. Fl _oo.Fl   n_,<.Fu ,\u0014; _mmmm,#chat\nu_{.Fk   n  _.m.Fu   nqg     #dip\nuf   _dd.  n  Fu   _,Fu\u0004k  n__,Fl_.>.Fu #chat\nlda_oooooooo,Fl  _.Fl   n _oo.Fl _.Fl,#chat\nh   nL10s#chat\nhi\u001bnb\u0017wand of probing\nEw Elbereth Elbereth\n: \u0017wand of create monster\nExAleax\n y Elbereth Elbereth\nh\u0017wand of locking\nEy I am a fish\n    h\u0017wand of opening\nEz Elbereth\n\u0017wand of digging\nEA   X marks the spot\n    hE- Elbereth\n\u0007jackal\ns  20s20si\u001b\u0016?\nk   \u0006__._.#chat\nksm.ss#enhance\nyn\nf\n\u001bE- X marks the spot\n\u0004h   #levelchange\n20\n         \u0017blessed splash of acid venom\n\u0007sandestin\n.m.    n\u0017uncursed spellbook of restore ability\nrC  .m..Z\u001b\u0017bl"
+ },
+ "segments": [
+  {
+   "seed": 610137,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0007earth elemental\n#chat\nbFh Fb\u0007soldier ant\nFbFb  Fb Fb    n Fn  Fn #levelchange\n20\n    \u0017blessed spellbook of jumping\nrp   n sl\u0017blessed spellbook of create monster\nrq sm. \u0017spellbook of cure sickness\nrr sm.   n \u0017blessed spellbook of magic missile\nrs  .m.   n +a\n\u0007sewer rat\nZa\nFnZb\n Zb\nZb\n#pray\ny y  #enhance\nym\no\n\u001b\u001614\n\u001612\n#levelchange\n20\n\u0016?\n>>Qf#name\na\n\\   \u0006ss\u0016?\n>G K#twoweapon\n#terrain\nc\n\u001b<.;<.s.\u001636\nas #tip\n\u001b#terrain\nc\n<.;m.ss\u0018\u001b#levelchange\n10\n   \u0007tame saddled mumak\n#ride\nuy\u0007tame saddled horse\n#ride\n.y\u0007horse\n\u0017scroll of taming\nrt \u001b\u0017saddle\n auh#ride\nyy,s20s  sm.   nsm.          n \u0004b     n,\u001612\n\u00162\n\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqv;_ooooooooo.Fl   n_. Fl _oo.Fl   n_,<.Fu ,\u0014; _mmmm,#chat\nu_{.Fk   n  _.m.Fu   nqg     #dip\nuf   _dd.  n  Fu   _,Fu\u0004k  n__,Fl_.>.Fu #chat\nlda_oooooooo,Fl  _.Fl   n _oo.Fl _.Fl,#chat\nh   nL10s#chat\nhi\u001bnb\u0017wand of probing\nEw Elbereth Elbereth\n: \u0017wand of create monster\nExAleax\n y Elbereth Elbereth\nh\u0017wand of locking\nEy I am a fish\n    h\u0017wand of opening\nEz Elbereth\n\u0017wand of digging\nEA   X marks the spot\n    hE- Elbereth\n\u0007jackal\ns  20s20si\u001b\u0016?\nk   \u0006__._.#chat\nksm.ss#enhance\nyn\nf\n\u001bE- X marks the spot\n\u0004h   #levelchange\n20\n         \u0017blessed splash of acid venom\n\u0007sandestin\n.m.    n\u0017uncursed spellbook of restore ability\nrC  .m..Z\u001b\u0017bl"
+  }
+ ]
+}

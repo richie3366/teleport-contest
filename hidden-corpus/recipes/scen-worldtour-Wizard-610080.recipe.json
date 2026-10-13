@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed amulet of reflection\nPn\u0017blessed amulet of life saving\nPo\u0016?\ns ub:\u0016?\n>>Q\u0006_ \u001b;\u0016?\n>A  #levelchange\n20\n   nbuk 4\n \u0017iron bars\nkjjk:ju \u0017throne\n#sit\n #sit\n :\u001bk\u0017:\u001bk\u0017qqP#chat\n#wipe\n .m.\u0016?\n>>P  \u0017quarterstaff\nwp FhFh.\u0007yellow light\nFnFn s.ss\u0007gray ooze\n20s  s20s      s..s20s  .s\u001612\n   \u0017uncursed wand of slow monster\nzqks20s\u00173 wand of lightning\nzr.  zrl\u0017ring of gain strength\nPsls.20s\u0017ring of adornment\nPts.20sRt.s\u0016?\nf    ujh\u0017moat\nyn b\u0017sink\nqy\u0017ring of sustain ability\ndu \u001bl\u0004h\u0004h:jh\u0017melting ice\nn ny  nn#terrain\nc\n<.20s#rub\n20s\u001612\nnkn         n   : \u001631\n   \u0004l\u001631\nkuknu:\u0016?\nm#levelchange\n20\n\u0007gold golem\n;l,sm.20s20s\u0007shade\nFl Fl  n  Fl  Fl  Fl \u0007baby red dragon\nFb Fl  Fb   nFb            n  sl .m.     .m.\u00164\n\u0016?\nh#chat\nk  n ;k:  \u0016?\n>Bbu    luyyy:\u001631\n_>.    n Fj     _. Fj  n \u001612\n\u0016?\nd\u0014;        n \u0016?\n>w_>,>.m. \u001631\n_{.\u0016?\nn \u0004l   20s   n \u0016?\n>>K       potion of booze\nu j    b       h    n    k    :\u001631\n_{.\u001612\n\u0006._>,\u00162\nj  n    h       u   n   u         n :20s   sm.     n \u00169\n\u0016?\n\u001by   u        n  \u001618\nh       y\u001b       n"
+ },
+ "segments": [
+  {
+   "seed": 610080,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed amulet of reflection\nPn\u0017blessed amulet of life saving\nPo\u0016?\ns ub:\u0016?\n>>Q\u0006_ \u001b;\u0016?\n>A  #levelchange\n20\n   nbuk 4\n \u0017iron bars\nkjjk:ju \u0017throne\n#sit\n #sit\n :\u001bk\u0017:\u001bk\u0017qqP#chat\n#wipe\n .m.\u0016?\n>>P  \u0017quarterstaff\nwp FhFh.\u0007yellow light\nFnFn s.ss\u0007gray ooze\n20s  s20s      s..s20s  .s\u001612\n   \u0017uncursed wand of slow monster\nzqks20s\u00173 wand of lightning\nzr.  zrl\u0017ring of gain strength\nPsls.20s\u0017ring of adornment\nPts.20sRt.s\u0016?\nf    ujh\u0017moat\nyn b\u0017sink\nqy\u0017ring of sustain ability\ndu \u001bl\u0004h\u0004h:jh\u0017melting ice\nn ny  nn#terrain\nc\n<.20s#rub\n20s\u001612\nnkn         n   : \u001631\n   \u0004l\u001631\nkuknu:\u0016?\nm#levelchange\n20\n\u0007gold golem\n;l,sm.20s20s\u0007shade\nFl Fl  n  Fl  Fl  Fl \u0007baby red dragon\nFb Fl  Fb   nFb            n  sl .m.     .m.\u00164\n\u0016?\nh#chat\nk  n ;k:  \u0016?\n>Bbu    luyyy:\u001631\n_>.    n Fj     _. Fj  n \u001612\n\u0016?\nd\u0014;        n \u0016?\n>w_>,>.m. \u001631\n_{.\u0016?\nn \u0004l   20s   n \u0016?\n>>K       potion of booze\nu j    b       h    n    k    :\u001631\n_{.\u001612\n\u0006._>,\u00162\nj  n    h       u   n   u         n :20s   sm.     n \u00169\n\u0016?\n\u001by   u        n  \u001618\nh       y\u001b       n"
+  }
+ ]
+}

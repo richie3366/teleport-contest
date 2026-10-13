@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "Fj s.kyj50s\u000f\u001b\\ 100sFu.s\\ 50skkn150sP100s150sFhssFh.s100s_ \u001bm.>uhj150s_>.>100s50sFhs.FhFh20s100s\\ 150s\\ \u000f\u001b#rub\nca100s FhFu FuFy FhFhFhFhs#pray\ny  #pray\ny  #pray\ny   y\u001by  y y y\u001b  n"
+ },
+ "segments": [
+  {
+   "seed": 620035,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\n",
+   "moves": "Fj s.kyj50s\u000f\u001b\\ 100sFu.s\\ 50skkn150sP100s150sFhssFh.s100s_ \u001bm.>uhj150s_>.>100s50sFhs.FhFh20s100s\\ 150s\\ \u000f\u001b#rub\nca100s FhFu FuFy FhFhFhFhs#pray\ny  #pray\ny  #pray\ny   y\u001by  y y y\u001b  n"
+  }
+ ]
+}

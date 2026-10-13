@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "ltbh20sydcsssJYJK_ \u001b,>BNBH_>.>JJUY_>,>#wipe\n#invoke\n\u001bNLJJ_>.>BLJH_>.>FkFls#tip\n\u001baNJLY_>,>NLJK_>.>20s#name\nm\nt#name\ni\nt\u001bbh100s  ,lblFl Fl FjFlFjFnunl\u000f\u001b_>,>50sFh20s.hyj\\   hukFjFjsi\u001b_>.>100s Fj20s Fb150s  Fj sFjjybubj50s 50sFbFb20slyubljFhFh s#sit\n\u001buhy100s100s150sed\u0018\u001b_>,>100s100s100sFl20s20sKYKL_>.>\\   ey NKLY_>.>Fh.sKLUN_>.>HJJY_>.><HJJL_>.>:#twoweapon\n<\u000f\u001bllhllhl20sdcs.20s10s10shkuluh10shyNHJJ_>.>i\u001bw-JBBJ_>.>E- Elbereth Elbereth\n#monster\nYLYL_>,>HUBL_>,>JJKK_>,>KJYH_>,>KLJH_>.>10shLBUL_>.><NUYL_>.>BHUJ_>.>BUKY_>.>daw\u001bNJJK_>.>\u000f\u001byl20st\u001b#chat\nk10sbuyj50s50shbblkb100sujhFlFlFlFuFuFl_>.>ublhlh100s_>,>ujk50s  150s 100sFuFuFu150sFk ss100s,\u001byjn150sFlFkFk100s150sFlFlFlFl.s\u000f\u001b100s100seeeeeeeeHNKJ_>.>HUHB_>.>E\u001bw\u001bYKYY_>,>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\n\u001b20s1"
+ },
+ "segments": [
+  {
+   "seed": 620091,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "ltbh20sydcsssJYJK_ \u001b,>BNBH_>.>JJUY_>,>#wipe\n#invoke\n\u001bNLJJ_>.>BLJH_>.>FkFls#tip\n\u001baNJLY_>,>NLJK_>.>20s#name\nm\nt#name\ni\nt\u001bbh100s  ,lblFl Fl FjFlFjFnunl\u000f\u001b_>,>50sFh20s.hyj\\   hukFjFjsi\u001b_>.>100s Fj20s Fb150s  Fj sFjjybubj50s 50sFbFb20slyubljFhFh s#sit\n\u001buhy100s100s150sed\u0018\u001b_>,>100s100s100sFl20s20sKYKL_>.>\\   ey NKLY_>.>Fh.sKLUN_>.>HJJY_>.><HJJL_>.>:#twoweapon\n<\u000f\u001bllhllhl20sdcs.20s10s10shkuluh10shyNHJJ_>.>i\u001bw-JBBJ_>.>E- Elbereth Elbereth\n#monster\nYLYL_>,>HUBL_>,>JJKK_>,>KJYH_>,>KLJH_>.>10shLBUL_>.><NUYL_>.>BHUJ_>.>BUKY_>.>daw\u001bNJJK_>.>\u000f\u001byl20st\u001b#chat\nk10sbuyj50s50shbblkb100sujhFlFlFlFuFuFl_>.>ublhlh100s_>,>ujk50s  150s 100sFuFuFu150sFk ss100s,\u001byjn150sFlFkFk100s150sFlFlFlFl.s\u000f\u001b100s100seeeeeeeeHNKJ_>.>HUHB_>.>E\u001bw\u001bYKYY_>,>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\n\u001b20s1"
+  }
+ ]
+}

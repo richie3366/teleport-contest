@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "L  NBY_ \u001bm.>r\u001b\u0004yNKUL_>,>YNYK_>.>LHNJ_>.>,#force\nHYYH_>.>UNNU_>.>Fh Fj.LKUL_>.>#dip\nb tbhNUHU_>.>\u0018\u001b,KYBL_>.>JBUN_>.>KJYL_>.>LUUU_>.>#sit\n\u001b#monster\n\u000f\u001b#conduct\n #name\ni\n,jk10s20s20skjnbda20s20s20st\u001b#name\no\n:#offer\n:HBLL_>,>Fh FhFhNYNK_>.>Fb FbFbLJH H_>,>Fkss\u000f\u001b#twoweapon\n#sit\n\u001b#turn\n#chat\nl#name\nd\n20st\u001b20s10s20skuhlln#chat\nydc.s.20sHBHJ_>.>#loot\n\u000f\u001bLLJN_>.>KBL L_>.>LYHH_>.>NKYL_>.>KYLJ_>.>BH YY_>,>\u000f\u001b100s 150sFhFhFh100s150s150sFhFhFh150s100s50sFhFh20snblubu\u000f\u001bhubynk100sFhs.50synlbbu_>.>150s100sFh.s50s50sed ed150sFhFhFhi\u001b100slbhyjhi\u001b150s 100slynyhlBYKN_>,>YJBL _>,>YH KK_>,>BL LL_>,>\\   sUUYY_>.>YYNB_>,>NNJH _>.>YYYK_>,>NNBH _>.>LKYU_>,>YJJJ_>.>BLBU_>,>cjZH BJJ_>.>\\   \u0018\u001b100sFhs20s_>.>\\   kly\\   \u0018\u001b50sFh..hhb50s\u0014\u0018\u001b150s#invoke\n\u001b\\   nyh50sFh20ss50sFh..150sFh.s100s "
+ },
+ "segments": [
+  {
+   "seed": 620067,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\n",
+   "moves": "L  NBY_ \u001bm.>r\u001b\u0004yNKUL_>,>YNYK_>.>LHNJ_>.>,#force\nHYYH_>.>UNNU_>.>Fh Fj.LKUL_>.>#dip\nb tbhNUHU_>.>\u0018\u001b,KYBL_>.>JBUN_>.>KJYL_>.>LUUU_>.>#sit\n\u001b#monster\n\u000f\u001b#conduct\n #name\ni\n,jk10s20s20skjnbda20s20s20st\u001b#name\no\n:#offer\n:HBLL_>,>Fh FhFhNYNK_>.>Fb FbFbLJH H_>,>Fkss\u000f\u001b#twoweapon\n#sit\n\u001b#turn\n#chat\nl#name\nd\n20st\u001b20s10s20skuhlln#chat\nydc.s.20sHBHJ_>.>#loot\n\u000f\u001bLLJN_>.>KBL L_>.>LYHH_>.>NKYL_>.>KYLJ_>.>BH YY_>,>\u000f\u001b100s 150sFhFhFh100s150s150sFhFhFh150s100s50sFhFh20snblubu\u000f\u001bhubynk100sFhs.50synlbbu_>.>150s100sFh.s50s50sed ed150sFhFhFhi\u001b100slbhyjhi\u001b150s 100slynyhlBYKN_>,>YJBL _>,>YH KK_>,>BL LL_>,>\\   sUUYY_>.>YYNB_>,>NNJH _>.>YYYK_>,>NNBH _>.>LKYU_>,>YJJJ_>.>BLBU_>,>cjZH BJJ_>.>\\   \u0018\u001b100sFhs20s_>.>\\   kly\\   \u0018\u001b50sFh..hhb50s\u0014\u0018\u001b150s#invoke\n\u001b\\   nyh50sFh20ss50sFh..150sFh.s100s "
+  }
+ ]
+}

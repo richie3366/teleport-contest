@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>y  _ \u001b:#chat\ny_mm,Fh_.Fl#chat\nu;u;_mmmm.Fu  n_, Fl#chat\nu;u,\u0006_>,  nFy   n _.Fh   n >Fk    n Fy  n  n _>,  n    nFl  n   n_,  n   nFb   n >Fk   n Fb   n   n  _>.  yy\u001by  y y n  F"
+ },
+ "segments": [
+  {
+   "seed": 610125,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>y  _ \u001b:#chat\ny_mm,Fh_.Fl#chat\nu;u;_mmmm.Fu  n_, Fl#chat\nu;u,\u0006_>,  nFy   n _.Fh   n >Fk    n Fy  n  n _>,  n    nFl  n   n_,  n   nFb   n >Fk   n Fb   n   n  _>.  yy\u001by  y y n  F"
+  }
+ ]
+}

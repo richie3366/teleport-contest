@@ -1,0 +1,77 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "hkjh100s150shynFhFh.#loot\nlhj50s\u0018\u001b\\ \u0018\u001b_ \u001b.>100s\\ 100sFjFjFj100sFjFjFjt\u001blhhubk#offer\n\u0018\u001b150skjkj100s100snyj#quit\nyy\u001by  y y y\u001b FuFuFuFuFuFuFuFujulnFu FuFuFuFuFuFuFuylyjjhluuhly100shlb\u0018\u001bnhb\\ _ \u001b:>#jump\n50s150s50s100s\u0018\u001b150s100s100see\u000f\u001b100sefhul\\ #jump\nhnhhul>100seeeeeeeeeeeeeeKJBH_>,><UYHH_>.>KYNJ_>.>BLKY_>,>JYB#quit\nyy\u001by  y y y\u001b  #chat\nbdes20s   sm. t\u001bbjbbt\u001bhuhu#name\na\njynynjujFk FkFkFkFkFkFkFkuut\u001bdis.20s20sky20snht\u001bt\u001byl20snbjk#chat\nhdf.ss#name\no\njnyynnkbuj#chat\nl#name\ni\nyy20s#chat\nubhjknyu#quit\nyy\u001by   y y y\u001b H  YUB_ \u001b,>HNHL_>.>Fl ssKLKN_>,>s#monster\n<JBLB_>,>\u000f\u001byjly#chat\nn10s10sljkj20shudhsssbktbjdes..H#quit\nyy\u001by  y y y\u001b FbFbFbFbFbFbFb Fbuhhbt\u001b#chat\nh10s#chat\nl#chat\ny#chat\nhJNNN_ \u001b;>UJLN_>.>ckah UK yJN_>.>FjFbsHBJ#quit\nyy\u001by  y y\u001b #wizintrinsic\na\n 20ss20s20s20s20s20s20ssm..b.sm.sns.m...20s .s20ss.s20s  .s.  yllnFy FyFyFyFyFyFyFybhulYLKK_ \u001b,>NKBJ_>.>LKKL_>,><hljb100shlknkyFjFjFj  y\u001by  y y y\u001b  1 #wizintrinsic\nb\n snsu  .m.sm..m.sm.20s.m.sm.  nss20s20ssss.ssss20s.sss20s20ss.s.20s20sssss20ss  #wizintrinsic\nc\n 20s  sm.sm.sssssss.l.ysm.20ssm.20s .n.m..sm..m.sm.sm.s.m.sm.s20s     yy\u001bny y y\u001b n  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 610126,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=mention_walls\nOPTIONS=sortloot:none\nOPTIONS=fruit:mango\nOPTIONS=pettype:none\n",
+   "moves": "hkjh100s150shynFhFh.#loot\nlhj50s\u0018\u001b\\ \u0018\u001b_ \u001b.>100s\\ 100sFjFjFj100sFjFjFjt\u001blhhubk#offer\n\u0018\u001b150skjkj100s100snyj#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 710126,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=pettype:dog\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "FuFuFuFuFuFuFuFujulnFu FuFuFuFuFuFuFuylyjjhluuhly100shlb\u0018\u001bnhb\\ _ \u001b:>#jump\n50s150s50s100s\u0018\u001b150s100s100see\u000f\u001b100sefhul\\ #jump\nhnhhul>100seeeeeeeeeeeeeeKJBH_>,><UYHH_>.>KYNJ_>.>BLKY_>,>JYB#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 810126,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\n",
+   "moves": " #chat\nbdes20s   sm. t\u001bbjbbt\u001bhuhu#name\na\njynynjujFk FkFkFkFkFkFkFkuut\u001bdis.20s20sky20snht\u001bt\u001byl20snbjk#chat\nhdf.ss#name\no\njnyynnkbuj#chat\nl#name\ni\nyy20s#chat\nubhjknyu#quit\nyy\u001by   y y y\u001b "
+  },
+  {
+   "seed": 910126,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "H  YUB_ \u001b,>HNHL_>.>Fl ssKLKN_>,>s#monster\n<JBLB_>,>\u000f\u001byjly#chat\nn10s10sljkj20shudhsssbktbjdes..H#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1010126,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:mango\nOPTIONS=pettype:dog\n",
+   "moves": "FbFbFbFbFbFbFb Fbuhhbt\u001b#chat\nh10s#chat\nl#chat\ny#chat\nhJNNN_ \u001b;>UJLN_>.>ckah UK yJN_>.>FjFbsHBJ#quit\nyy\u001by  y y\u001b "
+  },
+  {
+   "seed": 1110126,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\na\n 20ss20s20s20s20s20s20ssm..b.sm.sns.m...20s .s20ss.s20s  .s."
+  },
+  {
+   "seed": 1210126,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=pettype:cat\n",
+   "moves": "  yllnFy FyFyFyFyFyFyFybhulYLKK_ \u001b,>NKBJ_>.>LKKL_>,><hljb100shlknkyFjFjFj  y\u001by  y y y\u001b  1"
+  },
+  {
+   "seed": 1310126,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nb\n snsu  .m.sm..m.sm.20s.m.sm.  nss20s20ssss.ssss20s.sss20s20ss.s.20s20sssss20ss"
+  },
+  {
+   "seed": 1410126,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nc\n 20s  sm.sm.sssssss.l.ysm.20ssm.20s .n.m..sm..m.sm.sm.s.m.sm.s20s     yy\u001bny y y\u001b n  s"
+  }
+ ]
+}

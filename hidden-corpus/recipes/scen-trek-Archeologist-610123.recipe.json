@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  FlFl.Flss_ \u001b.>kly150sjukullFlFjs150s                  bkb100s       Fn.shbu150s           50s     \u000f\u001b_>.>ed FhFkFhFyFkFu150s            klblnjFns20s _>,>LFlFks_>.>bhj100s    ulnFu FkFuFus.Fu 20s20sFuFusFksFu<100s150sFu20s20si\u001byuyjkl_>.>50s50s_>.>100sK150shbn150s\\ \\ 100sFls20s100s50sFlFl20s50s150sFlssybu100s100sed_>.>njkuunyjnjub100sFuss150sFuFuFu100skbn100s100sFkFk20s50sFkFksFkFk20sck50sFks20sybhuku100s FjFj20s150sFlFlFluhjkbu100s#jump\n100s_>.>50sFnssnjynky\u0018\u001bnynnyj_>.>100s\u0018\u001blln\\ i\u001byhyjyh50s50s_>.>150s50sbyh100sBKLY_>,>FhFh20sLLJB_>.>Fb20s.YLBK_>.>LNYU_>.>#jump\ni\u001bJUKB_>,>10s#ride\nb10s50s Fnss50s100sFjs.100s150s100sFls.100si\u001b150sFl FlseyuhjFlFl.uhl50s_>.>#turn\n100shlb100s50s100sFlFl.ed100s100sFjss\\ 50sFl .s\u000f\u001bfl150sFnFnFnFnsslkh100s:#rub\ng$#tip\nh\u001b100s\u000f\u001b_>,>\u000f\u001b\\ 100sFjFjFj150s150s50sFjssjub100s100s FnFnFn_>.>\\ huhi\u001bnklE- Elbereth Elbereth\n20s50s#rub\ng$Fj Fj FjFj Fj.100seeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 610123,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:explore\n",
+   "moves": "  FlFl.Flss_ \u001b.>kly150sjukullFlFjs150s                  bkb100s       Fn.shbu150s           50s     \u000f\u001b_>.>ed FhFkFhFyFkFu150s            klblnjFns20s _>,>LFlFks_>.>bhj100s    ulnFu FkFuFus.Fu 20s20sFuFusFksFu<100s150sFu20s20si\u001byuyjkl_>.>50s50s_>.>100sK150shbn150s\\ \\ 100sFls20s100s50sFlFl20s50s150sFlssybu100s100sed_>.>njkuunyjnjub100sFuss150sFuFuFu100skbn100s100sFkFk20s50sFkFksFkFk20sck50sFks20sybhuku100s FjFj20s150sFlFlFluhjkbu100s#jump\n100s_>.>50sFnssnjynky\u0018\u001bnynnyj_>.>100s\u0018\u001blln\\ i\u001byhyjyh50s50s_>.>150s50sbyh100sBKLY_>,>FhFh20sLLJB_>.>Fb20s.YLBK_>.>LNYU_>.>#jump\ni\u001bJUKB_>,>10s#ride\nb10s50s Fnss50s100sFjs.100s150s100sFls.100si\u001b150sFl FlseyuhjFlFl.uhl50s_>.>#turn\n100shlb100s50s100sFlFl.ed100s100sFjss\\ 50sFl .s\u000f\u001bfl150sFnFnFnFnsslkh100s:#rub\ng$#tip\nh\u001b100s\u000f\u001b_>,>\u000f\u001b\\ 100sFjFjFj150s150s50sFjssjub100s100s FnFnFn_>.>\\ huhi\u001bnklE- Elbereth Elbereth\n20s50s#rub\ng$Fj Fj FjFj Fj.100seeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

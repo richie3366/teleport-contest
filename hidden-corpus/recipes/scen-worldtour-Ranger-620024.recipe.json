@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed amulet of reflection\nPh\u0017blessed +3 gray dragon scale mail\nW\u001b\u001632\n   \u0014 \u001b;\u0016?\nl \u0006_>.Fh_..\u0016?\n>J       potion of acid\nknk:\u0016?\ne #chat\nk;m.\u0016?\nc \u001720 darts\nQl\u0007hill orc\nyfl   fj  fu \u0017grappling hook\nwm   n \u0007kobold\nl  am<.n  u  b, 20s     s   n s   n  \u00168\n\u00167\nynb     \u001b h  n  j: \u0016?\nabubkunl: \u001611\nhlykhnb:.s\u0016?\ne_<.\u0016?\na__,>sm.   sb      \u001620\n#levelchange\n6\n        y         n       n    n   n       \u0017rolling boulder trap\nj  n   n    \u0017magic trap\ny\u0017squeaky board\n\u000f\u001b#invoke\nj   n     i\u001b\u00163\n\u001623\n_<,\u001642\n\u0006_>,\u001641\nj   n  n       h\u0017wand of lightning\nEn  ad aerarium\n  n   n           n :       n       \u0017wand of light\nEo      n  n      n j  yy\u001bny y  y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 620024,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:crawl\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed amulet of reflection\nPh\u0017blessed +3 gray dragon scale mail\nW\u001b\u001632\n   \u0014 \u001b;\u0016?\nl \u0006_>.Fh_..\u0016?\n>J       potion of acid\nknk:\u0016?\ne #chat\nk;m.\u0016?\nc \u001720 darts\nQl\u0007hill orc\nyfl   fj  fu \u0017grappling hook\nwm   n \u0007kobold\nl  am<.n  u  b, 20s     s   n s   n  \u00168\n\u00167\nynb     \u001b h  n  j: \u0016?\nabubkunl: \u001611\nhlykhnb:.s\u0016?\ne_<.\u0016?\na__,>sm.   sb      \u001620\n#levelchange\n6\n        y         n       n    n   n       \u0017rolling boulder trap\nj  n   n    \u0017magic trap\ny\u0017squeaky board\n\u000f\u001b#invoke\nj   n     i\u001b\u00163\n\u001623\n_<,\u001642\n\u0006_>,\u001641\nj   n  n       h\u0017wand of lightning\nEn  ad aerarium\n  n   n           n :       n       \u0017wand of light\nEo      n  n      n j  yy\u001bny y  y\u001b  \u0017"
+  }
+ ]
+}

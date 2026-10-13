@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0017jumping boots\nWk.ss\u0007giant rat\nFh FhFbFbFj Fb\u0007soldier ant\nFnFn Fb Fb    yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 640010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0017jumping boots\nWk.ss\u0007giant rat\nFh FhFbFbFj Fb\u0007soldier ant\nFnFn Fb Fb    yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

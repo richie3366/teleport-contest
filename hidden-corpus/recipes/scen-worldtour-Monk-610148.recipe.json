@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n               \u0017blessed Mjollnir\n wl\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 helm of telepathy\nWn\u00166\nhlh:\u0016?\ng bblh:\u00166\n#chat\ny;m. \u001b@.\u00166\n\u0017shield of reflection\nWo20s...s\u00173 magic flute\napyapyss\u00173 wand of slow monster\n\u0007large mimic\nzqj\u00173 huge chunk of meat\n er .m.sm.\u0017blessed potion of acid\n\u0007ghost\nqt \u001bFj Fj .m.20s\u001641\n   #chat\nk;>.\u00166\n\u0007vampire lord\nFjFj  Fj      Fj    n Fj   20s  sm.  n \u0007black pudding\nFb   Fj  Fb      n 20ssk 20s sn   n   sy\u00169\n\u001641\n   hh   n:\u0016?\n>>Q\u0006_>.\u0016?\n>>Q\u0006_>,.jsm. \u0016?\np  k j k kjkk:\u001620\n\u0006_>.Fh _.\u0016?\n>>M     potion of booze\n\u0006:_>,\u0016?\n\u001bn   nu \u0016?\n\u001by   h    n   \u0016?\nd\u0017red dragon scale mail\nW\u001bs   n   .20s  \u0007killer bee\n#chat\nFk Fj   \u0007iron golem\nFk   n  Fj       n      n 20s   n     n   Fk    n  \u0007warg\n.  20s   n   20s    ynnny n  s"
+ },
+ "segments": [
+  {
+   "seed": 610148,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n               \u0017blessed Mjollnir\n wl\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 helm of telepathy\nWn\u00166\nhlh:\u0016?\ng bblh:\u00166\n#chat\ny;m. \u001b@.\u00166\n\u0017shield of reflection\nWo20s...s\u00173 magic flute\napyapyss\u00173 wand of slow monster\n\u0007large mimic\nzqj\u00173 huge chunk of meat\n er .m.sm.\u0017blessed potion of acid\n\u0007ghost\nqt \u001bFj Fj .m.20s\u001641\n   #chat\nk;>.\u00166\n\u0007vampire lord\nFjFj  Fj      Fj    n Fj   20s  sm.  n \u0007black pudding\nFb   Fj  Fb      n 20ssk 20s sn   n   sy\u00169\n\u001641\n   hh   n:\u0016?\n>>Q\u0006_>.\u0016?\n>>Q\u0006_>,.jsm. \u0016?\np  k j k kjkk:\u001620\n\u0006_>.Fh _.\u0016?\n>>M     potion of booze\n\u0006:_>,\u0016?\n\u001bn   nu \u0016?\n\u001by   h    n   \u0016?\nd\u0017red dragon scale mail\nW\u001bs   n   .20s  \u0007killer bee\n#chat\nFk Fj   \u0007iron golem\nFk   n  Fj       n      n 20s   n     n   Fk    n  \u0007warg\n.  20s   n   20s    ynnny n  s"
+  }
+ ]
+}

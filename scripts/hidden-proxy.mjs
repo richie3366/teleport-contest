@@ -23,10 +23,11 @@
  *       board is marked `full: true` (the audit's mandatory rescore; any
  *       later partial write — verify, --ids, --owner — clears the mark).
  *       `entries` / `unrecorded` say how much of the corpus it covers.
- *   node scripts/hidden-proxy.mjs queue [--limit 12] [--by rng|sessions] [--committed] [--write]
- *       LOOP-QUEUE cliff rows: C-function owners ranked by RNG lost after
- *       the first divergence (the held-out metric that lags most), then by
- *       sessions blocked. `--write` regenerates the `<!-- cliffs:begin -->`
+ *   node scripts/hidden-proxy.mjs queue [--limit 12] [--by sessions|rng] [--committed] [--write]
+ *       LOOP-QUEUE cliff rows: C-function owners ranked by sessions blocked
+ *       (frequency in independent seeds estimates how likely a held-out
+ *       session walks into the same bug — Constitution §10.20), then by RNG
+ *       lost after the first divergence. `--write` regenerates the `<!-- cliffs:begin -->`
  *       block of docs/LOOP-QUEUE.md from the COMMITTED scoreboard (same rows
  *       on every machine; `check-hot-docs --fix` runs it). A tag on a row is
  *       history (`archived D-…`, `ledger: ported`) or a park class — never
@@ -351,9 +352,10 @@ function aggregate(rows, order = 'rng') {
     }
     const out = [...by.values()];
     /* A JS throw forfeits every screen of its sessions (Constitution §10.14):
-       always first. Then the held-out metric that lags most — RNG calls lost
-       after the first divergence (held-out RNG 34.8 % vs rngSteps 87.7 % on
-       2026-10-06: a few early cliffs in long sessions, not many small ones). */
+       always first. `sessions` (the queue default since §10.20): owners that
+       block several independently seeded sessions first — on a board worked
+       down to singletons, RNG lost only says where one session happened to
+       diverge. `rng`: RNG calls lost after the first divergence. */
     const throwFirst = (a, b) => Number(b.owner.startsWith('js-throw')) - Number(a.owner.startsWith('js-throw'));
     if (order === 'sessions') out.sort((a, b) => throwFirst(a, b) || b.sessions.length - a.sessions.length || b.blockedRng - a.blockedRng);
     else out.sort((a, b) => throwFirst(a, b) || b.blockedRng - a.blockedRng || b.sessions.length - a.sessions.length);
@@ -541,7 +543,7 @@ function writeCliffsBlock(lines) {
 
 function cmdQueue() {
     const limit = Number(val('limit', 12));
-    const order = val('by', 'rng');
+    const order = val('by', 'sessions');
     const write = flag('write');
     const src = write || flag('committed') ? committedRows() : null;
     if ((write || flag('committed')) && !src) { console.error('queue: no committed scoreboard (hidden-corpus/scoreboard.json)'); process.exit(2); }

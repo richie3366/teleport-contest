@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nWe\u0016?\n>u #levelchange\n30\n         \u0017cursed the Sceptre of Might\n \u0007electric eel\n, \u00173 grappling hook\naf \u001b;20s  Fb \u0017uncursed spellbook of charm monster\n\u0007gecko\nrg  sm.          sm.ZFb       Fb               sh            .m.20s             \u001bsk\u001644\nnnnbh  jk:\u0016?\n>>N        grappling hook\n_>,\u0016?\ndhk    u    n  :    sm. \u0016?\nb#levelchange\n8\n       \u0017blessed scroll of fire\n\u0007gnomish wizard\nrj\u0017the Longbow of Diana\n  n,     \u0017cursed -1 ring of warning\nPkr       n sm.     20s   sl \u0017uncursed +0 kicking boots\n\u0007yeti\nWl  n   sm.         20s  .m.  nTl    Fy       n Fk  \u0017food ration\n\u0007master lich\nem    n sm.   sj         \u0017spellbook of polymorph\nrn20s     sm.  n       ZZsn        .m.  n           n    \u001612\n\u001644\n__.\u001644\n#chat\nb;_..    n    \u001610\nby    y  n    n  l   l      n   hb:  n   \u0016?\n\u001bn      y     yy\u001by   ny  y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 610052,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=fruit:durian\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nWe\u0016?\n>u #levelchange\n30\n         \u0017cursed the Sceptre of Might\n \u0007electric eel\n, \u00173 grappling hook\naf \u001b;20s  Fb \u0017uncursed spellbook of charm monster\n\u0007gecko\nrg  sm.          sm.ZFb       Fb               sh            .m.20s             \u001bsk\u001644\nnnnbh  jk:\u0016?\n>>N        grappling hook\n_>,\u0016?\ndhk    u    n  :    sm. \u0016?\nb#levelchange\n8\n       \u0017blessed scroll of fire\n\u0007gnomish wizard\nrj\u0017the Longbow of Diana\n  n,     \u0017cursed -1 ring of warning\nPkr       n sm.     20s   sl \u0017uncursed +0 kicking boots\n\u0007yeti\nWl  n   sm.         20s  .m.  nTl    Fy       n Fk  \u0017food ration\n\u0007master lich\nem    n sm.   sj         \u0017spellbook of polymorph\nrn20s     sm.  n       ZZsn        .m.  n           n    \u001612\n\u001644\n__.\u001644\n#chat\nb;_..    n    \u001610\nby    y  n    n  l   l      n   hb:  n   \u0016?\n\u001bn      y     yy\u001by   ny  y\u001b  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                      i\u001beh  s.m.ef 20s .ee .src W.s20sTari y ssZa\nZa\nKz\u0014 \u001b.#rub\n>#force\n\u000f\u001bE- Elbereth\n\u001622\ni\u001bee y  n 20s.Wass20sTaWa.ssTbaj\u001bqdegss#jump\n<Wb,#dip\nid#loot\nlddi\u001bi\u001baj\u001bri y .sZa\nW20s20s sef.ysuen  sm.sW20s sm.sm.Ta  n\u00168\n\u0017pick-axe\nb\u0017grave\naq > ..l\u0017grave\naq>  20s.aqjj#levelchange\n8\n     \u0016?\n>G ojef#rub\n;m.ss\u0016?\n>>M      spellbook of levitation\n>\u0004hz;y;\u0006.y         20s      \u001b\u00164\nf \u001bf \u001b#enhance\ny\u001b\u000620s     n   sm.        n    \u0016?\n\u001b\u0016?\n\u001b\u00163\n\u0007horse\n\u0017scroll of taming\nru            \u0017saddle\nav#ride\nky\u0007warhorse\n\u0017scroll of taming\nrw  \u0017saddle\nax#ride\njy\u0007tame saddled horse\n#ride\nkyj  n                  n          n   u \u0004l\u0007giant rat\nFk Fk Fj  n    \u0004lny            \u0004unn  n       \u001627\n\u00166\n#levelchange\n20\n              \u0016?\n\u001b\u00167\n\u0006\u0017blessed potion of object detection\nqym,      _oooooo,_ooo.,: _{.q#dip\nb_{.q_mm.#chat\n#offer\naj,\\   #wizintrinsic\nh\n E\u0017blessed potion of fruit juice\nqz E\u0017blessed scroll of food detection\nrA  :.ss#levelchange\n20\n\u0017the Eyes of the Overworld\n w-FjFkFk#invoke\nB\u001b \u0007rothe\nFn      Fj      n      FkFj  Fj              Fb          \u0007paper golem\n;n,sm.      sm.su   n      \u001610\n\u0007steam vortex\nsm.             Fb           n             Fb             #pray\ny y                                   Fb      n          Fu               Fj  Fn       n                              n Fl                     Fb    n    Fj     Fb   yy\u001by   y ny\u001b  \u0018"
+ },
+ "segments": [
+  {
+   "seed": 610013,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n20\n                      i\u001beh  s.m.ef 20s .ee .src W.s20sTari y ssZa\nZa\nKz\u0014 \u001b.#rub\n>#force\n\u000f\u001bE- Elbereth\n\u001622\ni\u001bee y  n 20s.Wass20sTaWa.ssTbaj\u001bqdegss#jump\n<Wb,#dip\nid#loot\nlddi\u001bi\u001baj\u001bri y .sZa\nW20s20s sef.ysuen  sm.sW20s sm.sm.Ta  n\u00168\n\u0017pick-axe\nb\u0017grave\naq > ..l\u0017grave\naq>  20s.aqjj#levelchange\n8\n     \u0016?\n>G ojef#rub\n;m.ss\u0016?\n>>M      spellbook of levitation\n>\u0004hz;y;\u0006.y         20s      \u001b\u00164\nf \u001bf \u001b#enhance\ny\u001b\u000620s     n   sm.        n    \u0016?\n\u001b\u0016?\n\u001b\u00163\n\u0007horse\n\u0017scroll of taming\nru            \u0017saddle\nav#ride\nky\u0007warhorse\n\u0017scroll of taming\nrw  \u0017saddle\nax#ride\njy\u0007tame saddled horse\n#ride\nkyj  n                  n          n   u \u0004l\u0007giant rat\nFk Fk Fj  n    \u0004lny            \u0004unn  n       \u001627\n\u00166\n#levelchange\n20\n              \u0016?\n\u001b\u00167\n\u0006\u0017blessed potion of object detection\nqym,      _oooooo,_ooo.,: _{.q#dip\nb_{.q_mm.#chat\n#offer\naj,\\   #wizintrinsic\nh\n E\u0017blessed potion of fruit juice\nqz E\u0017blessed scroll of food detection\nrA  :.ss#levelchange\n20\n\u0017the Eyes of the Overworld\n w-FjFkFk#invoke\nB\u001b \u0007rothe\nFn      Fj      n      FkFj  Fj              Fb          \u0007paper golem\n;n,sm.      sm.su   n      \u001610\n\u0007steam vortex\nsm.             Fb           n             Fb             #pray\ny y                                   Fb      n          Fu               Fj  Fn       n                              n Fl                     Fb    n    Fj     Fb   yy\u001by   y ny\u001b  \u0018"
+  }
+ ]
+}

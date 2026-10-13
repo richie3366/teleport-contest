@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "FjFjFj  FjFjFjFjFjFlFlFlFlFlFlFlFldbsss20suh10st\u001bbhuhLJNH_ \u001b.>NJKL_>.>JBLK_>.>LKHH_>,>Fhss#force\n#ride\nllhh50s hhl100s FhFhs\u0018\u001b150s150sFlFl20s10#quit\nyy\u001by  y y y\u001b   kkjkFlFl FlFlFlFlFlFlkhlbjblk10st\u001blnyndfssst\u001byl20sdj.s.20shk10s#chat\nl#chat\nnklbk##quit\nJ  JHU_ \u001b,>FjFnsKKJN_>.>f $ hqfBJNK_>.>#conduct\n #terrain\nc\n;UHLJ_>,>FhFkFh <KHKL_>.>YJYJ_>.>#force\n#terrain\nb\nLJBJ_>KH#quit\n,  llyk50s  FusFuFl 20sFhbnyynn50s50suhyFu20s.\u0018\u001b100sFhs.#offer\n150s50s100s150sFhFhFh150s100sFhs.50sz150s100sFhFhs#name\nf\n ,_>,>100s100sFkFk20s50sFhs20s_>.>100s50seeeeFuFuFuFuFuFuFuFuljlyynujeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b U NBJ_ \u001b.>UJLL_>.>FksFk #pray\ny  #rub\nHLKY_>.>nylh150scki\u001bnbj<\\   150sFkFkFuFk Fl#quit\nyy\u001by  y y y\u001b  Fj 20ssi\u001b\u000f\u001beg#tip\n\u001bkyb_ \u001b@.>lbj150s#sit\n\u001b50s100sFls.lhl100s150sFls.i\u001bkkh#pray\ny   150s#offer\n\u0018\u001b150sFls20s100s_>.>150sFlFlsubkE- Elbereth Elbereth\nkln100s_>.>150sFnFn20s_>,>100sFn20s.100syhllbl#quit\nyy\u001by   y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 610058,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=pettype:dog\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "FjFjFj  FjFjFjFjFjFlFlFlFlFlFlFlFldbsss20suh10st\u001bbhuhLJNH_ \u001b.>NJKL_>.>JBLK_>.>LKHH_>,>Fhss#force\n#ride\nllhh50s hhl100s FhFhs\u0018\u001b150s150sFlFl20s10#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 710058,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\n",
+   "moves": "  kkjkFlFl FlFlFlFlFlFlkhlbjblk10st\u001blnyndfssst\u001byl20sdj.s.20shk10s#chat\nl#chat\nnklbk##quit\n"
+  },
+  {
+   "seed": 810058,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=pettype:horse\n",
+   "moves": "J  JHU_ \u001b,>FjFnsKKJN_>.>f $ hqfBJNK_>.>#conduct\n #terrain\nc\n;UHLJ_>,>FhFkFh <KHKL_>.>YJYJ_>.>#force\n#terrain\nb\nLJBJ_>KH#quit\n,"
+  },
+  {
+   "seed": 910058,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=pettype:cat\n",
+   "moves": "  llyk50s  FusFuFl 20sFhbnyynn50s50suhyFu20s.\u0018\u001b100sFhs.#offer\n150s50s100s150sFhFhFh150s100sFhs.50sz150s100sFhFhs#name\nf\n ,_>,>100s100sFkFk20s50sFhs20s_>.>100s50seeeeFuFuFuFuFuFuFuFuljlyynujeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1010058,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "U NBJ_ \u001b.>UJLL_>.>FksFk #pray\ny  #rub\nHLKY_>.>nylh150scki\u001bnbj<\\   150sFkFkFuFk Fl#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1110058,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\n",
+   "moves": " Fj 20ssi\u001b\u000f\u001beg#tip\n\u001bkyb_ \u001b@.>lbj150s#sit\n\u001b50s100sFls.lhl100s150sFls.i\u001bkkh#pray\ny   150s#offer\n\u0018\u001b150sFls20s100s_>.>150sFlFlsubkE- Elbereth Elbereth\nkln100s_>.>150sFnFn20s_>,>100sFn20s.100syhllbl#quit\nyy\u001by   y y y\u001b "
+  }
+ ]
+}

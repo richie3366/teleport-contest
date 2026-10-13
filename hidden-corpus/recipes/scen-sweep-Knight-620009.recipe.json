@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017pick-axe\nai k kaik kai>.ujaiuuj\u0017grave\nai>20ssjj#levelchange\n14\n  \u0017crossbow\n wj\u001715 crossbow bolts\nQk\u0007grid bug\njbfj fj  fnfn\u0017potion of hallucination\ntbjjnj,\u001619\nhb\u0017wand of secret door detection\nEm  Elbereth\n\u0017wand of slow monster\nEnn  Elbereth Elbereth\n: \u0017wand of make invisible\nEo  X marks the spot\nE-n  Elbereth\n\u0007soldier ant\n20s 20s s\u0018\u001b#levelchange\n10\n \u0007hostile dust vortex\nFn Fh s\u001bFjFj. Fl FkFj#pray\ny y.s #levelchange\n20\n         \u0017blessed ring of polymorph control\nPpr#polyself\nlizard\n   #monster\ns s\u001b20s  s  s\u001b#polyself\nlong worm\n    #monster\n20s s    s\u001bs20s\u001b#polyself\nimp\ns\u001bs20s   s s\u001b#polyself\nwater elemental\n   #monster\n.  20s  \u0007bugbear\nFuFn  Fks\u001bs.   #levelchange\n8\n     \u0016?\n>>K     scroll of blank paper\n#chat\nl\\   ;l. \u001b,;l;s    s   n\u0016?\n\u001b\u001615\n20s        #pray\ny y     zm      ;h,s    n  s   n   \u0016?\n\u0018\u001b\u00164\n#levelchange\n8\n\u0017cursed -1 levitation boots\nWs   n      20s   n   n   .m.   n   n    .u   n   n         T\u0017uncursed potion of blindness\n\u0007dust vortex\nqt   n    n      \u0017uncursed tinning kit\nau    n FjFj\u00173 tin whistle\navav\u0017potion of blindness\n\u0007iron golem\nqw     n       n #dip\nhFl  n   n   n  Fk  y  s"
+ },
+ "segments": [
+  {
+   "seed": 620009,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017pick-axe\nai k kaik kai>.ujaiuuj\u0017grave\nai>20ssjj#levelchange\n14\n  \u0017crossbow\n wj\u001715 crossbow bolts\nQk\u0007grid bug\njbfj fj  fnfn\u0017potion of hallucination\ntbjjnj,\u001619\nhb\u0017wand of secret door detection\nEm  Elbereth\n\u0017wand of slow monster\nEnn  Elbereth Elbereth\n: \u0017wand of make invisible\nEo  X marks the spot\nE-n  Elbereth\n\u0007soldier ant\n20s 20s s\u0018\u001b#levelchange\n10\n \u0007hostile dust vortex\nFn Fh s\u001bFjFj. Fl FkFj#pray\ny y.s #levelchange\n20\n         \u0017blessed ring of polymorph control\nPpr#polyself\nlizard\n   #monster\ns s\u001b20s  s  s\u001b#polyself\nlong worm\n    #monster\n20s s    s\u001bs20s\u001b#polyself\nimp\ns\u001bs20s   s s\u001b#polyself\nwater elemental\n   #monster\n.  20s  \u0007bugbear\nFuFn  Fks\u001bs.   #levelchange\n8\n     \u0016?\n>>K     scroll of blank paper\n#chat\nl\\   ;l. \u001b,;l;s    s   n\u0016?\n\u001b\u001615\n20s        #pray\ny y     zm      ;h,s    n  s   n   \u0016?\n\u0018\u001b\u00164\n#levelchange\n8\n\u0017cursed -1 levitation boots\nWs   n      20s   n   n   .m.   n   n    .u   n   n         T\u0017uncursed potion of blindness\n\u0007dust vortex\nqt   n    n      \u0017uncursed tinning kit\nau    n FjFj\u00173 tin whistle\navav\u0017potion of blindness\n\u0007iron golem\nqw     n       n #dip\nhFl  n   n   n  Fk  y  s"
+  }
+ ]
+}

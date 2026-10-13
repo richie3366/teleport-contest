@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>E\u0017blessed ring of levitation\nPmr jFkh\u0017wand of striking\nznj\u0017wand of striking\nzo>\u0017wand of striking\nzph10s\u0017wand of striking\nzqhu\u0017wand of digging\nzrnulFy llbhu\u0017scroll of earth\nrs yjnjnhlkhbn10suyybjnjkubjhhjlllynhykbn10sbulnSy\u001b yycj#invoke\n\u001b\u001b#offer\n#twoweapon\n>j<10s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 630023,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>E\u0017blessed ring of levitation\nPmr jFkh\u0017wand of striking\nznj\u0017wand of striking\nzo>\u0017wand of striking\nzph10s\u0017wand of striking\nzqhu\u0017wand of digging\nzrnulFy llbhu\u0017scroll of earth\nrs yjnjnhlkhbn10suyybjnjkubjhhjlllynhykbn10sbulnSy\u001b"
+  },
+  {
+   "seed": 1130023,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " yycj#invoke\n\u001b\u001b#offer\n#twoweapon\n>j<10s"
+  }
+ ]
+}

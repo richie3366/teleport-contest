@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  \u0007tame warhorse\n\u0017saddle\n aij #ride\njyy\u0007tame saddled horse\n#ride\n\u0007tame saddled pony\n#ride\nuyy,\u0006_ \u001b.>FlFj _>, _.>\u0006_>>,_.>_>>,_. >_>>,_.>#ride\ns#ride\nly\u0017saddle\najb#ride\n \u0007tame saddled pony\n#ride\nly \u0007tame saddled warhorse\n#ride\n \u0007giakobold shaman\n h"
+ },
+ "segments": [
+  {
+   "seed": 630024,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007tame warhorse\n\u0017saddle\n aij #ride\njyy\u0007tame saddled horse\n#ride\n\u0007tame saddled pony\n#ride\nuyy,\u0006_ \u001b.>FlFj _>, _.>\u0006_>>,_.>_>>,_. >_>>,_.>#ride\ns#ride\nly\u0017saddle\najb#ride\n \u0007tame saddled pony\n#ride\nly \u0007tame saddled warhorse\n#ride\n \u0007giakobold shaman\n h"
+  }
+ ]
+}

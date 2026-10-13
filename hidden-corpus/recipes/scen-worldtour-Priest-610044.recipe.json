@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed +3 speed boots\nWj\u0017blessed Mjollnir\nwk \u0017blessed amulet of life saving\nPl\u0016?\n>A hjbuhub:\u0016?\nl#chat\nh;>. \u001b:   .20s  su\u0016?\n>z_>.<\u0016?\n>C_>.Fu_,m,Fu<\u0016?\ni\u0006_>.\u001644\n   _<.<\u001634\n\u0014.\u0016?\n>wjbunnl:\u0016?\n>>N      wand of speed monster\n\u0004j\u001642\n\u0014@.\u0016?\ne\u0006_<.\u0016?\na  \u0006_<,\u001642\nl  b:\u001642\n\u0006_<.\u001635\n#levelchange\n12\n\u0017speed boots\nW\u001b\u001b.m.         \u001b      sm.    sm.Tc      \u0007baluchitherium\n#chat\nysm..m.  n    \u0007pit viper\nFy    n     Fy   n      \u00164\n\u0016?\n\u001bl   n      n       n n   n    n     \u001610\n\u001621\n\u0017blessed drum of earthquake\n\u0007djinni\nap    n  ap   n   n    \u0017blessed ring of teleportation\nPqr   n   .m.  n   n      n    sk  yy\u001by   y ny\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 610044,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed +3 speed boots\nWj\u0017blessed Mjollnir\nwk \u0017blessed amulet of life saving\nPl\u0016?\n>A hjbuhub:\u0016?\nl#chat\nh;>. \u001b:   .20s  su\u0016?\n>z_>.<\u0016?\n>C_>.Fu_,m,Fu<\u0016?\ni\u0006_>.\u001644\n   _<.<\u001634\n\u0014.\u0016?\n>wjbunnl:\u0016?\n>>N      wand of speed monster\n\u0004j\u001642\n\u0014@.\u0016?\ne\u0006_<.\u0016?\na  \u0006_<,\u001642\nl  b:\u001642\n\u0006_<.\u001635\n#levelchange\n12\n\u0017speed boots\nW\u001b\u001b.m.         \u001b      sm.    sm.Tc      \u0007baluchitherium\n#chat\nysm..m.  n    \u0007pit viper\nFy    n     Fy   n      \u00164\n\u0016?\n\u001bl   n      n       n n   n    n     \u001610\n\u001621\n\u0017blessed drum of earthquake\n\u0007djinni\nap    n  ap   n   n    \u0017blessed ring of teleportation\nPqr   n   .m.  n   n      n    sk  yy\u001by   y ny\u001b  s"
+  }
+ ]
+}

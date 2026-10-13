@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPkl\u0016?\n>>N       Ogresmasher\n\u0017quarterstaff\nwnFnFn   Fj    \u0007gnomish wizard\n;l: \u001b;20s     n        nsm.    sm.  \u0007red dragon\n;n:  syss\u00165\n\u001633\n\u0017cursed spellbook of jumping\nro :      n  .m.     sm.Z\u0017wand of locking\nzpj     n zpl    \u0017cursed -1 gauntlets of power\n\u0007flesh golem\nWq   n    .m.       n      20s     n     .\u0017apple\ner     n s  s  n     . Fj   \u0017cursed spellbook of detect treasure\nrs.     s  n      ZZs  Fj  s  n     sm.   \u001b     sus.m.     n    \u00161\n\u0016?\na    b     n ny:\u001633\n_<.20s   n   \u0016?\nc\u0004j \u0016?\n\u001bju \u0016?\n\u001bky  n    \u001619\nb  n   b n  y  h"
+ },
+ "segments": [
+  {
+   "seed": 610024,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPkl\u0016?\n>>N       Ogresmasher\n\u0017quarterstaff\nwnFnFn   Fj    \u0007gnomish wizard\n;l: \u001b;20s     n        nsm.    sm.  \u0007red dragon\n;n:  syss\u00165\n\u001633\n\u0017cursed spellbook of jumping\nro :      n  .m.     sm.Z\u0017wand of locking\nzpj     n zpl    \u0017cursed -1 gauntlets of power\n\u0007flesh golem\nWq   n    .m.       n      20s     n     .\u0017apple\ner     n s  s  n     . Fj   \u0017cursed spellbook of detect treasure\nrs.     s  n      ZZs  Fj  s  n     sm.   \u001b     sus.m.     n    \u00161\n\u0016?\na    b     n ny:\u001633\n_<.20s   n   \u0016?\nc\u0004j \u0016?\n\u001bju \u0016?\n\u001bky  n    \u001619\nb  n   b n  y  h"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00178 spears\nQf\u0007troll\nbhflfl\u0017potion of blindness\ntbl   n \u0007lichen\nufl   yy\u001by  y y y\u001by  f"
+ },
+ "segments": [
+  {
+   "seed": 630008,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178 spears\nQf\u0007troll\nbhflfl\u0017potion of blindness\ntbl   n \u0007lichen\nufl   yy\u001by  y y y\u001by  f"
+  }
+ ]
+}

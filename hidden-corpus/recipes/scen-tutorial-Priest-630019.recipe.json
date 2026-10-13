@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  n#conduct\n jynynj<:w- _ \u001b;#wipe\nnkk>hhlnny>ef#untrap\nj__,yujZb\n#offer\nee:lyk<uhbnub_d._,yyjhjk<jnh:_>,hll<#dip\nid <#tip\n\u001b#monster\n:#untrap\nkly b:llhhhl:>::_>.\\ ><_<,Fj _.lbhknh#monster\n"
+ },
+ "segments": [
+  {
+   "seed": 630019,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\n",
+   "moves": "  n#conduct\n jynynj<:w- _ \u001b;#wipe\nnkk>hhlnny>ef#untrap\nj__,yujZb\n#offer\nee:lyk<uhbnub_d._,yyjhjk<jnh:_>,hll<#dip\nid <#tip\n\u001b#monster\n:#untrap\nkly b:llhhhl:>::_>.\\ ><_<,Fj _.lbhknh#monster\n"
+  }
+ ]
+}

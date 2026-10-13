@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n             \u0017blessed +3 speed boots\nWi \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\ne    hhh:\u001636\n  \u0007kobold shaman\nFhFh\u0007skeleton\n#chat\ny      FuFy\u0007orc shaman\n.m.  20s sm.sm.  .n20s sm. .k   \u001610\n#levelchange\n6\n  jhl\u0017unaligned altar\ndjdd\u0017dwarf corpse\n#offer\nk   #pray\ny y\u0017pool\n#dip\nfy  kjnk\u0017grave\n:\u0017pick-axe\nal >sskk\u0017sink\nqyk\u0004j\u0004jw-olP\u0016?\n>y \u0004hsss\u0016?\n>>N      ring of regeneration\n\u0006_ \u001b;\u0016?\nb#chat\nb;b,\u001615\nby   n l  :\u001610\nyy    n\u0017wand of magic missile\nE:l   \u0017wand of nothing\nEb\u0017wand of fire\nEh\u0017wand of secret door detection\nE:20s  nsb\u00164\n\u00164\n\u0006_\u0016 jn\u0016?\n\u001bln     n \u001628\n#chat\ny;y.\u001615\n_<.\u0016?\n\u001by  nb\u001639\nbly  nyny     n n :\u00164\n\u0016?\n\u001bnj\u0016?\n\u001bk   nl\u001621\nj k  n l  n  y  n  bh  n h  n :\u00166\n\u001643\nk  n y  n  l   nb   yny   y n  l"
+ },
+ "segments": [
+  {
+   "seed": 610028,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n             \u0017blessed +3 speed boots\nWi \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\ne    hhh:\u001636\n  \u0007kobold shaman\nFhFh\u0007skeleton\n#chat\ny      FuFy\u0007orc shaman\n.m.  20s sm.sm.  .n20s sm. .k   \u001610\n#levelchange\n6\n  jhl\u0017unaligned altar\ndjdd\u0017dwarf corpse\n#offer\nk   #pray\ny y\u0017pool\n#dip\nfy  kjnk\u0017grave\n:\u0017pick-axe\nal >sskk\u0017sink\nqyk\u0004j\u0004jw-olP\u0016?\n>y \u0004hsss\u0016?\n>>N      ring of regeneration\n\u0006_ \u001b;\u0016?\nb#chat\nb;b,\u001615\nby   n l  :\u001610\nyy    n\u0017wand of magic missile\nE:l   \u0017wand of nothing\nEb\u0017wand of fire\nEh\u0017wand of secret door detection\nE:20s  nsb\u00164\n\u00164\n\u0006_\u0016 jn\u0016?\n\u001bln     n \u001628\n#chat\ny;y.\u001615\n_<.\u0016?\n\u001by  nb\u001639\nbly  nyny     n n :\u00164\n\u0016?\n\u001bnj\u0016?\n\u001bk   nl\u001621\nj k  n l  n  y  n  bh  n h  n :\u00166\n\u001643\nk  n y  n  l   nb   yny   y n  l"
+  }
+ ]
+}

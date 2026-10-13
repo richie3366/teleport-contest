@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "K KBL_ \u001b;>UYHL_>.>#twoweapon\n#name\no\nYYNH_>.>KJLH_>.>,#force\n\u000f\u001bYYKU_>,>qi,KJBN_>.>JNKN_>.>JBJJ_>,>YNLK_>.>JLNL_>.>KBJH_>.>\u000f\u001bW\u000f\u001b#terrain\nb\nJHYU_>NJBL_>UJLH_>\u0018 #enhance\n\u001bYLKY_>.>NLBB_>.>100s100s#sit\n\u001b100s50s100skhh100sFy20s20s>100sed nhk\u000f\u001b150si\u001b50s _>,>nlh_>.>#wipe\n100s150seb ujy\u0018\u001b50slju150s100sjhu#untrap\nn50sblk100sFhFhFhFhFhsi\u001bi\u001b100srj#chat\nh>150s\\ blyFhFh.y150sFhFhFhFhFhFh#pray\ny  100s50sFhss50s\\ nyl100sFhFhFh#turn\nblk\u0018\u001b\u0018\u001b150s100sjkj\u000f\u001b\u0018\u001b100shlk\\ cji\u001b#loot\n\\ #jump\n_>.Fh_.Fh>FhFhFh100sFhss50sFhs20s,  Pzn banana\nbhl_>.Fk_,Fu>nkb150sFhFks_>,Fh_,Fh>#pray\ny   FhFh  yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 620095,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:explore\n",
+   "moves": "K KBL_ \u001b;>UYHL_>.>#twoweapon\n#name\no\nYYNH_>.>KJLH_>.>,#force\n\u000f\u001bYYKU_>,>qi,KJBN_>.>JNKN_>.>JBJJ_>,>YNLK_>.>JLNL_>.>KBJH_>.>\u000f\u001bW\u000f\u001b#terrain\nb\nJHYU_>NJBL_>UJLH_>\u0018 #enhance\n\u001bYLKY_>.>NLBB_>.>100s100s#sit\n\u001b100s50s100skhh100sFy20s20s>100sed nhk\u000f\u001b150si\u001b50s _>,>nlh_>.>#wipe\n100s150seb ujy\u0018\u001b50slju150s100sjhu#untrap\nn50sblk100sFhFhFhFhFhsi\u001bi\u001b100srj#chat\nh>150s\\ blyFhFh.y150sFhFhFhFhFhFh#pray\ny  100s50sFhss50s\\ nyl100sFhFhFh#turn\nblk\u0018\u001b\u0018\u001b150s100sjkj\u000f\u001b\u0018\u001b100shlk\\ cji\u001b#loot\n\\ #jump\n_>.Fh_.Fh>FhFhFh100sFhss50sFhs20s,  Pzn banana\nbhl_>.Fk_,Fu>nkb150sFhFks_>,Fh_,Fh>#pray\ny   FhFh  yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

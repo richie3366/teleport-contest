@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u0017blessed +3 cloak of magic resistance\nW\u001b\u001615\n\u0007lich\nFk Fj  FjFj20s  sm.\u0007mind flayer\nFj Fl Fj   Fj Fj      Fj    20s    sm.     #pray\ny y   \u0007floating eye\nFj  n    Fj  n Fj   n Fu    n Fu    n 20s   n s    n s  n s  n \u00163\n\u001644\n   \u0014 \u001b:\u0016?\n>u \u0017scroll of genocide\nrq  Oracle\n           n\u0017cursed potion of blindness\nqr\u0017uncursed +0 axe\n\u0007rabid rat\nws  Fk   . Fk   Fj     Fk    \u0017scroll of teleportation\nrt\u0017uncursed wand of speed monster\n\u0007water demon\nzu.  s    n  .\u00167\n\u001614\n\u00173 potion of healing\nqv\u0017cursed -1 levitation boots\nWwss.\u0017cursed the Orb of Detection\n \u0007succubus\n\u0017blessed tin opener\nax\u0017blessed +3 speed boots\nW\u001b.m.sm.sFl  y       .\u0017cursed touchstone\ntals20s20ssb20ssm..m.\u0016?\n>>P  #chat\nu;<.\u0016?\n>E #chat\nn;m.20ss\u001634\n\u0014<. \u001624\n__.< \u001637\nkynynkh:\u0016?\n>>K      mummy wrapping\nkl y   :\u0016?\n\u001bkn\u0016?\n\u001bkb   \u001615\n\u001715 shuriken\nQg\u00074 yellow mold\nh fyfy   fyfbFjFb  \u0007hill orc\nufnfb fyfn fy\u0007newt\nh    n l       fj fk   fn    nflfu  .s\u0017potion of gain ability\ntgk  n   \u0017spetum\nwr \u0007grid bug\nuar.x  #twoweapon\nFj     nFjl hl ,\u001b\u001634\n\u0006m,_<.\u0016?\n\u001bnu\u001612\n__.sm.\u0016?\n\u001bbl\u0016?\n\u001bkl\u001624\n\u0006m,_>.\u0016?\n\u001bul\u0016?\n\u001bkj   yy\u001by   y master lich\nn  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 620072,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u0017blessed +3 cloak of magic resistance\nW\u001b\u001615\n\u0007lich\nFk Fj  FjFj20s  sm.\u0007mind flayer\nFj Fl Fj   Fj Fj      Fj    20s    sm.     #pray\ny y   \u0007floating eye\nFj  n    Fj  n Fj   n Fu    n Fu    n 20s   n s    n s  n s  n \u00163\n\u001644\n   \u0014 \u001b:\u0016?\n>u \u0017scroll of genocide\nrq  Oracle\n           n\u0017cursed potion of blindness\nqr\u0017uncursed +0 axe\n\u0007rabid rat\nws  Fk   . Fk   Fj     Fk    \u0017scroll of teleportation\nrt\u0017uncursed wand of speed monster\n\u0007water demon\nzu.  s    n  .\u00167\n\u001614\n\u00173 potion of healing\nqv\u0017cursed -1 levitation boots\nWwss.\u0017cursed the Orb of Detection\n \u0007succubus\n\u0017blessed tin opener\nax\u0017blessed +3 speed boots\nW\u001b.m.sm.sFl  y       .\u0017cursed touchstone\ntals20s20ssb20ssm..m.\u0016?\n>>P  #chat\nu;<.\u0016?\n>E #chat\nn;m.20ss\u001634\n\u0014<. \u001624\n__.< \u001637\nkynynkh:\u0016?\n>>K      mummy wrapping\nkl y   :\u0016?\n\u001bkn\u0016?\n\u001bkb   \u001615\n\u001715 shuriken\nQg\u00074 yellow mold\nh fyfy   fyfbFjFb  \u0007hill orc\nufnfb fyfn fy\u0007newt\nh    n l       fj fk   fn    nflfu  .s\u0017potion of gain ability\ntgk  n   \u0017spetum\nwr \u0007grid bug\nuar.x  #twoweapon\nFj     nFjl hl ,\u001b\u001634\n\u0006m,_<.\u0016?\n\u001bnu\u001612\n__.sm.\u0016?\n\u001bbl\u0016?\n\u001bkl\u001624\n\u0006m,_>.\u0016?\n\u001bul\u0016?\n\u001bkj   yy\u001by   y master lich\nn  \u0016"
+  }
+ ]
+}

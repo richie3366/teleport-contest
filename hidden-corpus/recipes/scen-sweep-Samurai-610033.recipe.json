@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u0007erinys\nFj FjFl  \u0007purple worm\nFjFj  FkFjFjFk  n \u0006#levelchange\n20\n            \u0007tame saddled titanothere\n#ride\nny\u0007tame saddled pony\n#ride\njy\u0007tame saddled horse\n#ride\nnyuyyb j       #ride\njys#ride\njynjkyn lnb#levelchange\n6\n    \u0017blessed spellbook of create familiar\nrf   s\u0017spellbook of clairvoyance\nrg    s+\u001bZ\u001bZ\u001b\u0007jackal\nZ\u001bFj Z\u001bZ\u001bZ\u001b#turn\n#enhance\nn\u001b\u001622\ni\u001bk     u\u0017wand of create monster\nEhgreen slime\n  ad aerarium\n : \u0017magic marker\nEi  Elbereth\n\u0017diamond\nEj  I am a fish\n: u\u0017wand of nothing\nEk X marks the spot\ny\u0006#levelchange\n14\n      \u0007ice vortex\nFhFj Fj#pray\ny y s.FkFk    Fh 20s  Fb 20s#levelchange\n20\n      j kk\u0017hole\nb\u0017squeaky board\n#loot\nby  e#rub\n\u0006_ \u001bm,  >Fj   Fj_>>.        n      Fj   _,    Fb     >Fb     Fh    _>>.       Fb     _.   Fb      n >Fj Fh FbFjFh \u0006_>>,  Fy_,Fh >Fh  Fy  _>>. Fj_.  Fb  >_>>,   n Fy _.Fh        >Fb   n                   Fn     n     n     Fn       n      n       Fh    n         n     Fj       n      n        E- ad aerarium\n      n       n        i\u001b\u0006_>,     yy\u001bnnny\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 610033,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u0007erinys\nFj FjFl  \u0007purple worm\nFjFj  FkFjFjFk  n \u0006#levelchange\n20\n            \u0007tame saddled titanothere\n#ride\nny\u0007tame saddled pony\n#ride\njy\u0007tame saddled horse\n#ride\nnyuyyb j       #ride\njys#ride\njynjkyn lnb#levelchange\n6\n    \u0017blessed spellbook of create familiar\nrf   s\u0017spellbook of clairvoyance\nrg    s+\u001bZ\u001bZ\u001b\u0007jackal\nZ\u001bFj Z\u001bZ\u001bZ\u001b#turn\n#enhance\nn\u001b\u001622\ni\u001bk     u\u0017wand of create monster\nEhgreen slime\n  ad aerarium\n : \u0017magic marker\nEi  Elbereth\n\u0017diamond\nEj  I am a fish\n: u\u0017wand of nothing\nEk X marks the spot\ny\u0006#levelchange\n14\n      \u0007ice vortex\nFhFj Fj#pray\ny y s.FkFk    Fh 20s  Fb 20s#levelchange\n20\n      j kk\u0017hole\nb\u0017squeaky board\n#loot\nby  e#rub\n\u0006_ \u001bm,  >Fj   Fj_>>.        n      Fj   _,    Fb     >Fb     Fh    _>>.       Fb     _.   Fb      n >Fj Fh FbFjFh \u0006_>>,  Fy_,Fh >Fh  Fy  _>>. Fj_.  Fb  >_>>,   n Fy _.Fh        >Fb   n                   Fn     n     n     Fn       n      n       Fh    n         n     Fj       n      n        E- ad aerarium\n      n       n        i\u001b\u0006_>,     yy\u001bnnny\u001b  F"
+  }
+ ]
+}

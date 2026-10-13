@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #name\nm\n m.blessed\ndbs20s.j 20sbuJBLN_>.>FyFkFhKNJL_>,>LJNL_>.>Ww-LYYL_>,>KLNL_>.>UKKB_>,>#turn\nz#chat\nuojr\u001bKUKL_>.>Fh .FhYLLN_>,>Fh.sJHUK_>,>YKBY_>.>\u0018\u001bi\u001bNHKH_>,>qdqNHNN_>.>Fls20s#name\no\nt$jj#name\nf\n10s150s50sFkFu20sFksFk150s     _>.>150s          FkFkFuFuFu20s   FuFuFuFuFu sFus.FkFkFkFksFuubjjjhFuFlFlFuFuFuFlFlFlFuFlFh#pray\ny     FhFu FhFhFhFhFh20ss_>.>\u000f\u001blhl150s100sFh20s20s150sFhFhFhFhFhFhFhsseeeeeePWZNBNJ_>.><HLLY_>.>BLHB_>.><BHUK_>.>Z,JBHU_>.>H UJH_>.>BBLN_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJok,YBJY_>.>HBBJ_>.>LBLJ_>.>HHBU_>,>dc#conduct\n H UNL_>,>FbFbFb<;b.#terrain\nb\nNNJK_>YUNN_>l#twoweapon\n@.NLHY_>.>FhFhFhHKLN_>,>FjFhFyYKUK_>.>LNLL_>.>JHL"
+ },
+ "segments": [
+  {
+   "seed": 620039,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=fruit:lychee\n",
+   "moves": " #name\nm\n m.blessed\ndbs20s.j 20sbuJBLN_>.>FyFkFhKNJL_>,>LJNL_>.>Ww-LYYL_>,>KLNL_>.>UKKB_>,>#turn\nz#chat\nuojr\u001bKUKL_>.>Fh .FhYLLN_>,>Fh.sJHUK_>,>YKBY_>.>\u0018\u001bi\u001bNHKH_>,>qdqNHNN_>.>Fls20s#name\no\nt$jj#name\nf\n10s150s50sFkFu20sFksFk150s     _>.>150s          FkFkFuFuFu20s   FuFuFuFuFu sFus.FkFkFkFksFuubjjjhFuFlFlFuFuFuFlFlFlFuFlFh#pray\ny     FhFu FhFhFhFhFh20ss_>.>\u000f\u001blhl150s100sFh20s20s150sFhFhFhFhFhFhFhsseeeeeePWZNBNJ_>.><HLLY_>.>BLHB_>.><BHUK_>.>Z,JBHU_>.>H UJH_>.>BBLN_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJok,YBJY_>.>HBBJ_>.>LBLJ_>.>HHBU_>,>dc#conduct\n H UNL_>,>FbFbFb<;b.#terrain\nb\nNNJK_>YUNN_>l#twoweapon\n@.NLHY_>.>FhFhFhHKLN_>,>FjFhFyYKUK_>.>LNLL_>.>JHL"
+  }
+ ]
+}

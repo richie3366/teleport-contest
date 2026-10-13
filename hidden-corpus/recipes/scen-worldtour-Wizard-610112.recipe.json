@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPp\u0016?\no \u0014 \u001b@.\u001611\n\u0017morning star\nwqs20ss\u0007brown pudding\nFjFb  Fj Fb Fh Fn20s   sm.\u0007chameleon\nFjFl  Fb Fb  Fj20s.m.\u0007green slime\nFb Fj   FhFn  FbFh Flsm.sm.\u0016?\n>Ekuuhh:\u0016?\n>A  llb        n     y h h  l:\u0016?\n>>Qkhljynh:s\u001616\n\u0014:ss20s\u0016?\n>A  lu  n l l    k    n     n   :\u0016?\n>Iu b l \u0017rolling boulder trap\nb #untrap\nul     l  \u0017level teleporter\nl     n   ^hh  .m.sm. \u0017land mine\nab luohei\u001b\u0016?\n>t l   uyuk:\u001611\n#levelchange\n10\n \u0017blessed spellbook of magic mapping\nrq        20s\u0017spellbook of confuse monster\nrr .m. \u0017spellbook of cure sickness\nrs     n sk +a\nZb\n\u0007ZFyZ\u0007Zs\u0016nl\u0016lh\u0016ub\u0016kb\u0016jk\u0016bl\u0016yj\u0016ly\u0016ju\u0016jh\u0016kn\u0016hu\u0016lb\u0016yl\u0016un\u0016hk\u0016ju\u0016jh\u0016ju\u0016hb\u0016yj\u0016uu\u0016ly\u0016yn\u0016lh\u0016nj\u0016hj\u0016yj\u0016hk\u0016lb\u0016kn\u0016kj\u0016uu\u0016bj\u0016uy\u0016nh\u0016hb\u0016ll\u0016yu\u0016lh\u0016kn\u0016kh\u0016lh\u0016yb\u0016un\u0016ju\u0016jh\u0016jk\u0016ju\u0016jk\u0016bh\u0016lb\u0016kl\u0016kb\u0016ll\u0016yu\u0016bk\u0016jj\u0016lh\u0016hn\u0016kl\u0016yn\u0016kj\u0016bh\u0016lu\u0016kh\u0016lh\u0016ly\u0016nk\u0016hl"
+ },
+ "segments": [
+  {
+   "seed": 610112,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=mention_walls\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPp\u0016?\no \u0014 \u001b@.\u001611\n\u0017morning star\nwqs20ss\u0007brown pudding\nFjFb  Fj Fb Fh Fn20s   sm.\u0007chameleon\nFjFl  Fb Fb  Fj20s.m.\u0007green slime\nFb Fj   FhFn  FbFh Flsm.sm.\u0016?\n>Ekuuhh:\u0016?\n>A  llb        n     y h h  l:\u0016?\n>>Qkhljynh:s\u001616\n\u0014:ss20s\u0016?\n>A  lu  n l l    k    n     n   :\u0016?\n>Iu b l \u0017rolling boulder trap\nb #untrap\nul     l  \u0017level teleporter\nl     n   ^hh  .m.sm. \u0017land mine\nab luohei\u001b\u0016?\n>t l   uyuk:\u001611\n#levelchange\n10\n \u0017blessed spellbook of magic mapping\nrq        20s\u0017spellbook of confuse monster\nrr .m. \u0017spellbook of cure sickness\nrs     n sk +a\nZb\n\u0007ZFyZ\u0007Zs\u0016nl\u0016lh\u0016ub\u0016kb\u0016jk\u0016bl\u0016yj\u0016ly\u0016ju\u0016jh\u0016kn\u0016hu\u0016lb\u0016yl\u0016un\u0016hk\u0016ju\u0016jh\u0016ju\u0016hb\u0016yj\u0016uu\u0016ly\u0016yn\u0016lh\u0016nj\u0016hj\u0016yj\u0016hk\u0016lb\u0016kn\u0016kj\u0016uu\u0016bj\u0016uy\u0016nh\u0016hb\u0016ll\u0016yu\u0016lh\u0016kn\u0016kh\u0016lh\u0016yb\u0016un\u0016ju\u0016jh\u0016jk\u0016ju\u0016jk\u0016bh\u0016lb\u0016kl\u0016kb\u0016ll\u0016yu\u0016bk\u0016jj\u0016lh\u0016hn\u0016kl\u0016yn\u0016kj\u0016bh\u0016lu\u0016kh\u0016lh\u0016ly\u0016nk\u0016hl"
+  }
+ ]
+}

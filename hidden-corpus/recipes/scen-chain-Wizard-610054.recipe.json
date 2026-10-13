@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Fn FnFnFnFnFnFnFn150s:100s50sjuj50shlk100s100sFls.100s>150sFlFlsH100s100sFlFlFl100s\u0018\u001bujk150s100shnj150sFuFls50s 100sukj_ \u001bm,>_>,>bhl50seeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b FlFlFlFlFlFlFlFlFjFjFjFjFjFjFjFjHKUB_ \u001b;>LBNB_>.>Fl ..HBKJ_>.>#twoweapo#quit\nFh FhFhFhFhFhFhFhnhyb100sFbFb.100s100s100sFnFlsFls20s150s100sFlFlFlwa\\ 100s100sFbFbs100sFbFbs150s#terrain\nb\n\u001b.50s50s100s150s eeeeeeeeeeeeeeeeehlunlhbkkjljhu10#quit\ny  FhFhFjFkFhFj100s_ \u001b;>_>.>100s Fh FhFk FkFks\u0018\u001bi\u001b100sjnnykbykbnblk50sFlFlFl100s yubuhj100s FhFhFhllni\u001bukl#pray\ny hll150s150sFhFh20sE- ad aerarium\n_>.>_>,>bkb_>,>hhb\\ 100s100sLJHB_>,><JYKH_,#quit\nyy\u001by  y y y\u001b  jyukFjFjFjFjFjFjFjFjhb#chat\nklh20slu10sFjFjFjFjFjFjFjFjbhkb50s100s\u0018\u001b100s Fh20ssjuu100s100shlbuhj100snyh\u0018\u001b50sFhs#quit\nyy\u001by  y y y\u001b #wizintrinsic\nb\n 20s20s20s  sm.  yy\u001by  y y y\u001bn  2",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 610054,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=pettype:dog\n",
+   "moves": "Fn FnFnFnFnFnFnFn150s:100s50sjuj50shlk100s100sFls.100s>150sFlFlsH100s100sFlFlFl100s\u0018\u001bujk150s100shnj150sFuFls50s 100sukj_ \u001bm,>_>,>bhl50seeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 710054,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:run\n",
+   "moves": "FlFlFlFlFlFlFlFlFjFjFjFjFjFjFjFjHKUB_ \u001b;>LBNB_>.>Fl ..HBKJ_>.>#twoweapo#quit\n"
+  },
+  {
+   "seed": 810054,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "Fh FhFhFhFhFhFhFhnhyb100sFbFb.100s100s100sFnFlsFls20s150s100sFlFlFlwa\\ 100s100sFbFbs100sFbFbs150s#terrain\nb\n\u001b.50s50s100s150s eeeeeeeeeeeeeeeeehlunlhbkkjljhu10#quit\ny "
+  },
+  {
+   "seed": 910054,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\n",
+   "moves": " FhFhFjFkFhFj100s_ \u001b;>_>.>100s Fh FhFk FkFks\u0018\u001bi\u001b100sjnnykbykbnblk50sFlFlFl100s yubuhj100s FhFhFhllni\u001bukl#pray\ny hll150s150sFhFh20sE- ad aerarium\n_>.>_>,>bkb_>,>hhb\\ 100s100sLJHB_>,><JYKH_,#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1010054,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=pettype:horse\n",
+   "moves": " jyukFjFjFjFjFjFjFjFjhb#chat\nklh20slu10sFjFjFjFjFjFjFjFjbhkb50s100s\u0018\u001b100s Fh20ssjuu100s100shlbuhj100snyh\u0018\u001b50sFhs#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1110054,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=fruit:lychee\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n 20s20s20s  sm.  yy\u001by  y y y\u001bn  2"
+  }
+ ]
+}

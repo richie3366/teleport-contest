@@ -1,0 +1,63 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  yh20sj   t$k  k  FkFk FkFkFkFkFkFk100sFksFl 100sFl.20sFhFhFhFhss100s50s\\   _ \u001bm,>_>.Fl_.@.Fl>Fl20ssukyi\u001b100sFb#quit\nyy\u001by  y y y\u001b   hh#name\nf\n ;#name\ni\n#name\na\ntdl 10shbBLHN_>,>UKUK_>.>HUHB_>.>YJKH_>,>FyFyFy\u000f\u001bulbu#name\nf\n20stdk#chat\nh10sh20sdc20s20ssjjynylbltbh#name\nm\nttdyunhynhulb50sFyss100s \\ #name\ni\n50s   100s50s   150#quit\nyy\u001by  y y y\u001b 10s #chat\nndbssm.20s 10shnlt\u001bFhFh FhFhFhFhFhFhnhl_ \u001b:>hll50s#chat\nnhhh100s100s150sFls.hly100s50sFls.yjb100s100s150s_>.>150s50sFlFls100s ed100s100s50sFh.20sFyFhFh100s\u000f\u001b_>,>;>.150s;m.uyjFhFhFh150sol1#quit\nyy\u001by  y y y\u001b  \u0017wand of digging\nzj> szj> .m.zj> sm.zj>   yy\u001bny y\u001bn  s jnunFyFyFyFyFyFyFyFyUYBH_ \u001b:>HHJH_>,>JJNU_>,>KJJH_>.>FyFyFk #chat\nk\u0004nBYLN_>.>\u000f\u001bBUNU_>.>#terrain\nb\n\u0014 YLUU_>.><BBJY_>.>BYNJ_>.>#terrain\nb\n#untrap\n@.BJBH_>,>20s#untrap\nj\u000f\u001bFjFjFjFjFjFjFjFjLNJ Y_>.><JK NB_>,>20sqg<LUBN_>.>LLKB_>.>U#quit\nyy\u001by  y y y\u001b NUBB_ \u001b;>Fl .s#jump\n#chat\nu<UBNN_>,>KUHB_>.><KHNY_>.>BHYL_>.><BKUK_>.>\u000f\u001bbbbnyubnjkjFu20ss100s50s\u0018\u001b#untrap\ny100sFuFuFuFuFuFu100skjk100si\u001b150sFlsFy50sFyss50s_>,>100s100sFyss100sFy.s150stbh150sFy20s.eeeeeeeeeeeetdk20s10s20stcll#chat\nneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeejk jyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeetdktdhu n10sjj#name\nm\ndss20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeda.ss#chat\nykkub#name\nm\n10stdytdn20sulhhkn10s#name\nm>.#quit\nyy\u001by  y y y\u001b htbl 20s10s20sFhFhFhFhFhFhFhFhku#name\no\n10s20s10s20sykjyyhnuFhFhFhFhFhFhFhFhljlyUNHN_ \u001b;>LLBH_>,>Fus.<aeJYKY_>.>#rub\nePBYHH_>.>K,BJUB_>.>BHNJ_>.>FyFhs#offer\n#tip\n\u001bKHYN_>.>ol#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 620026,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\n",
+   "moves": "  yh20sj   t$k  k  FkFk FkFkFkFkFkFk100sFksFl 100sFl.20sFhFhFhFhss100s50s\\   _ \u001bm,>_>.Fl_.@.Fl>Fl20ssukyi\u001b100sFb#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 720026,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\n",
+   "moves": "  hh#name\nf\n ;#name\ni\n#name\na\ntdl 10shbBLHN_>,>UKUK_>.>HUHB_>.>YJKH_>,>FyFyFy\u000f\u001bulbu#name\nf\n20stdk#chat\nh10sh20sdc20s20ssjjynylbltbh#name\nm\nttdyunhynhulb50sFyss100s \\ #name\ni\n50s   100s50s   150#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 820026,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "10s #chat\nndbssm.20s 10shnlt\u001bFhFh FhFhFhFhFhFhnhl_ \u001b:>hll50s#chat\nnhhh100s100s150sFls.hly100s50sFls.yjb100s100s150s_>.>150s50sFlFls100s ed100s100s50sFh.20sFyFhFh100s\u000f\u001b_>,>;>.150s;m.uyjFhFhFh150sol1#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 920026,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of digging\nzj> szj> .m.zj> sm.zj>   yy\u001bny y\u001bn  s"
+  },
+  {
+   "seed": 1020026,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\n",
+   "moves": " jnunFyFyFyFyFyFyFyFyUYBH_ \u001b:>HHJH_>,>JJNU_>,>KJJH_>.>FyFyFk #chat\nk\u0004nBYLN_>.>\u000f\u001bBUNU_>.>#terrain\nb\n\u0014 YLUU_>.><BBJY_>.>BYNJ_>.>#terrain\nb\n#untrap\n@.BJBH_>,>20s#untrap\nj\u000f\u001bFjFjFjFjFjFjFjFjLNJ Y_>.><JK NB_>,>20sqg<LUBN_>.>LLKB_>.>U#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1120026,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:crawl\n",
+   "moves": "NUBB_ \u001b;>Fl .s#jump\n#chat\nu<UBNN_>,>KUHB_>.><KHNY_>.>BHYL_>.><BKUK_>.>\u000f\u001bbbbnyubnjkjFu20ss100s50s\u0018\u001b#untrap\ny100sFuFuFuFuFuFu100skjk100si\u001b150sFlsFy50sFyss50s_>,>100s100sFyss100sFy.s150stbh150sFy20s.eeeeeeeeeeeetdk20s10s20stcll#chat\nneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeejk jyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeetdktdhu n10sjj#name\nm\ndss20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeda.ss#chat\nykkub#name\nm\n10stdytdn20sulhhkn10s#name\nm>.#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1220026,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\n",
+   "moves": "htbl 20s10s20sFhFhFhFhFhFhFhFhku#name\no\n10s20s10s20sykjyyhnuFhFhFhFhFhFhFhFhljlyUNHN_ \u001b;>LLBH_>,>Fus.<aeJYKY_>.>#rub\nePBYHH_>.>K,BJUB_>.>BHNJ_>.>FyFhs#offer\n#tip\n\u001bKHYN_>.>ol#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

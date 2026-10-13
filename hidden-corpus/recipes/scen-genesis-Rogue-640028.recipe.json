@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017mummy wrapping\nWg.ss\u0007pit viper\n;h, \u001b<..m..sm.   yy\u001bny y\u001bn  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 640028,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017mummy wrapping\nWg.ss\u0007pit viper\n;h, \u001b<..m..sm.   yy\u001bny y\u001bn  \u0007"
+  }
+ ]
+}

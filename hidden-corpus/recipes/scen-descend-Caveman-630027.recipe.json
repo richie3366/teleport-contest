@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b@.>FyFy_>.Fl_.@.Fn> #conduct\n #rub\nce\u0006_>. Fk _.> \u0006_>._.>_>._,>_>._.>\u0006_>._,>_>._.>_>,_,>\u0006_>>,_.>_>>._.>_>>,_.>\u0006_>._.>_>._,>_>._,>\u0006_>,_.>_>._,>_>._.><\u0006_>,_.>_>._.>_>,_.><\u0006_>._.>_>._.>_>,_,>#monster\n#rub\nceSy\u001b ny#monster\n#wipe\n#ride\nny><q#monster\n,",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 630027,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0006_ \u001b@.>FyFy_>.Fl_.@.Fn> #conduct\n #rub\nce\u0006_>. Fk _.> \u0006_>._.>_>._,>_>._.>\u0006_>._,>_>._.>_>,_,>\u0006_>>,_.>_>>._.>_>>,_.>\u0006_>._.>_>._,>_>._,>\u0006_>,_.>_>._,>_>._.><\u0006_>,_.>_>._.>_>,_.><\u0006_>._.>_>._.>_>,_,>#monster\n#rub\nceSy\u001b"
+  },
+  {
+   "seed": 1130027,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " ny#monster\n#wipe\n#ride\nny><q#monster\n,"
+  }
+ ]
+}

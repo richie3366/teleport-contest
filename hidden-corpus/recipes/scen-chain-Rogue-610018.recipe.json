@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "Y NJB_ \u001bm.>FhFb .JUUN_>.>JKJY_>,><NHNU_>.>NBJK_>,>#name\nf\nt<UYJY_>,>\u000f\u001bhby_>,>100s100sFlss100s:_>.>\\ 150sjlj100sFlFlFlkjbkjl_>.>ylkuny150s_>.>ljy\u000f\u001b150s150s100sFl20s20s100seg\u000f\u001bf by j\u0018\u001b100s150seheeeeeeHKLK_>.>NHHU_>,>UJNB_>.>##quit\n#wizintrinsic\nc\n 20s sm.20ssm.20s  yy\u001by  y ny  .  nnbkFkFkFkFkFkFkFkFkyjjuyjjnlh10slkj ynyubykjk Fl Fl FlFl FlFl FlFl LLLL_ \u001b<.>UHNN_>.>,;_.LNHN_>,><UHJB_>,>llhhllllhlhllllllllllhll#chat\nk20sll10s20s#name\na\n20slhhllhda20ssm..m.llkjtcjhbkj10sJBYN_>.>E- ad aerarium\n#rub\n<LLNH_>.>KHUL_>,>HKNB_>.>\u000f\u001b50s100skul\\    _>.>50s100s50s\\    _>.>ljl50s50s150s100sllhFy F#quit\n  #wizintrinsic\nb\n sksss20s 20s  sm.  nssss.s20sssm.20s.hs.ss.20sssss20s20s   sm. sn ..s20sss.20sFb FbFbFbFbFbFbFb100s_ \u001b<.>100sFh.20s100s_>,>50s150s_>.>ljjFy.s150s \u0018\u001b50s  FyFy20s_>.>150s50s100sFhs.150s50s50s150sFhssFh20ss50sed50s100skkjkjkjkjFhFhskjk100s 50sFhs.100sFh20sFhjbhytbk20s#name\nf\n#chat\n@.ubFhFhFhFhFhFhFhFhKULJ_>.>NNHB_>.>#twoweapon\n#dip\nffJKNL_>,>NHBH_>.>KHNY_>.>bku\\   50s\u000f\u001buuj50shujFh.._>.>50s100sFhFhsnjkjky100sFh 20ss150sFh20ss150sFhssi\u001bi\u001b#tip\n\u001b100sFhFhFh100si\u001b50s\u0018\u001b100sFh20ss150sFh.#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 610018,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=runmode:walk\n",
+   "moves": "Y NJB_ \u001bm.>FhFb .JUUN_>.>JKJY_>,><NHNU_>.>NBJK_>,>#name\nf\nt<UYJY_>,>\u000f\u001bhby_>,>100s100sFlss100s:_>.>\\ 150sjlj100sFlFlFlkjbkjl_>.>ylkuny150s_>.>ljy\u000f\u001b150s150s100sFl20s20s100seg\u000f\u001bf by j\u0018\u001b100s150seheeeeeeHKLK_>.>NHHU_>,>UJNB_>.>##quit\n"
+  },
+  {
+   "seed": 710018,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nc\n 20s sm.20ssm.20s  yy\u001by  y ny  ."
+  },
+  {
+   "seed": 810018,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\n",
+   "moves": "  nnbkFkFkFkFkFkFkFkFkyjjuyjjnlh10slkj ynyubykjk Fl Fl FlFl FlFl FlFl LLLL_ \u001b<.>UHNN_>.>,;_.LNHN_>,><UHJB_>,>llhhllllhlhllllllllllhll#chat\nk20sll10s20s#name\na\n20slhhllhda20ssm..m.llkjtcjhbkj10sJBYN_>.>E- ad aerarium\n#rub\n<LLNH_>.>KHUL_>,>HKNB_>.>\u000f\u001b50s100skul\\    _>.>50s100s50s\\    _>.>ljl50s50s150s100sllhFy F#quit\n"
+  },
+  {
+   "seed": 910018,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nb\n sksss20s 20s  sm.  nssss.s20sssm.20s.hs.ss.20sssss20s20s   sm. sn ..s20sss.20s"
+  },
+  {
+   "seed": 1010018,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=autodig\n",
+   "moves": "Fb FbFbFbFbFbFbFb100s_ \u001b<.>100sFh.20s100s_>,>50s150s_>.>ljjFy.s150s \u0018\u001b50s  FyFy20s_>.>150s50s100sFhs.150s50s50s150sFhssFh20ss50sed50s100skkjkjkjkjFhFhskjk100s 50sFhs.100sFh20sFhjbhytbk20s#name\nf\n#chat\n@.ubFhFhFhFhFhFhFhFhKULJ_>.>NNHB_>.>#twoweapon\n#dip\nffJKNL_>,>NHBH_>.>KHNY_>.>bku\\   50s\u000f\u001buuj50shujFh.._>.>50s100sFhFhsnjkjky100sFh 20ss150sFh20ss150sFhssi\u001bi\u001b#tip\n\u001b100sFhFhFh100si\u001b50s\u0018\u001b100sFh20ss150sFh.#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

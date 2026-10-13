@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #name\n\u001b10s10s#chat\nk#name\n\u001bt\u001b10s#force\n#enhance\n\u001bldc.20ssl#name\n\u001bt\u001b10s100s100s  Fl Fl  Fj100s\u000f\u001brk ny150s150s\u000f\u001b_ \u001b:>lhlFj20ss50shhl100s_>.>hbyhllJ100sFhss_>,>\\  50shhbdb\\  jjh50s150s50sFuFu20s50shbk_>,>i\u001b50s50sFl20s20sjkl_>.>50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#conduct\n 20s\u0014eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedl20ss.20st\u001bbjt\u001bkj#name\n\u001bHLHJ_>.>FhFh20sHBYU_>,>LHJU_>.>di\u000f\u001bf \u001b#loot\ndj#pray\ny #pray\ny   #pray\ny  ey \u000f\u001b100s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKLJ J_>,>KNYN_>.>t\u001buKLYY_>,>Fh.s#loot\n\u0014JYB K_>,>cj#loot\nE- I am a fish\n\u0004k#monster\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef \u001b#offer\n#ride\nneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeey#terrain\n\u001b#terrain\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee20s#tip\n\u001b#twoweapon\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 610039,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "  #name\n\u001b10s10s#chat\nk#name\n\u001bt\u001b10s#force\n#enhance\n\u001bldc.20ssl#name\n\u001bt\u001b10s100s100s  Fl Fl  Fj100s\u000f\u001brk ny150s150s\u000f\u001b_ \u001b:>lhlFj20ss50shhl100s_>.>hbyhllJ100sFhss_>,>\\  50shhbdb\\  jjh50s150s50sFuFu20s50shbk_>,>i\u001b50s50sFl20s20sjkl_>.>50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#conduct\n 20s\u0014eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedl20ss.20st\u001bbjt\u001bkj#name\n\u001bHLHJ_>.>FhFh20sHBYU_>,>LHJU_>.>di\u000f\u001bf \u001b#loot\ndj#pray\ny #pray\ny   #pray\ny  ey \u000f\u001b100s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKLJ J_>,>KNYN_>.>t\u001buKLYY_>,>Fh.s#loot\n\u0014JYB K_>,>cj#loot\nE- I am a fish\n\u0004k#monster\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef \u001b#offer\n#ride\nneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeey#terrain\n\u001b#terrain\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee20s#tip\n\u001b#twoweapon\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 gauntlets of power\nWo\u0016?\n>y  nb            nk llu:   n \u001617\nnh \u0017wand of probing\nEp X marks the spot\n :  u \u0017wand of locking\nEq Elbereth\n :    n  k \u0017wand of make invisible\nEr X marks the spot\n  \u0017wand of speed monster\nEs I am a fish\n   n \u0017wand of cancellation\nEt X marks the spot\n  :   \u00167\n\u001638\n#levelchange\n12\n\u0007baluchitherium\ns    n 20s       sm.  n     sm.    sh    n     \u0007gas spore\n#chat\nh         n Fj       Fh   n      \u0007Nazgul\nFn     n   Fl         n  \u00164\n\u0016?\n>>Q_ \u001b>.>sj   sm.  \u0016?\nr  \u0006_>,_,;,\u001644\nhkjkkl      h :\u001630\n\u0014@.\u0016?\nb\u0006_>. _..20s.m.20s\u0016?\nb_>.Fj_.<.Fh<\u001644\n   \u0006_>,Fh_,;@.Fh\u0016?\n>I#levelchange\n30\n                      \u0017yumi\nwg\u001720 ya\nQh\u0007jackal\nkfk  fjfj \u0007kobold\nyk   fk  fkfk \u0017potion of invisibility\ntaj  \u0007yellow mold\nbufkfkFkFj\u0017potion of fruit juice\nthj\u0017halberd\nww\u0007kobold\nbawm,lny,b\n#enhance\nn\u001b.m..\u001642\n_>.20s.m.\u001620\n\u0014>.20sss\u001638\n   #chat\nk;_.\u0016?\n>Jjy : \u001638\n #chat\nn;.\u00163\n\u0004b\u0016?\nh_{,sss\u0016?\nl   \u0007Yeenoghu\nyFn Fn  \u0007dust vortex\n;h,20ssm. 20s\u001b\u0016?\nn_{.>s\u0016?\nikjkj: ss20s\u0016?\nn#levelchange\n20\n   \u0017spellbook of haste self\nrx    20s\u0017spellbook of cancellation\nr"
+ },
+ "segments": [
+  {
+   "seed": 610008,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 gauntlets of power\nWo\u0016?\n>y  nb            nk llu:   n \u001617\nnh \u0017wand of probing\nEp X marks the spot\n :  u \u0017wand of locking\nEq Elbereth\n :    n  k \u0017wand of make invisible\nEr X marks the spot\n  \u0017wand of speed monster\nEs I am a fish\n   n \u0017wand of cancellation\nEt X marks the spot\n  :   \u00167\n\u001638\n#levelchange\n12\n\u0007baluchitherium\ns    n 20s       sm.  n     sm.    sh    n     \u0007gas spore\n#chat\nh         n Fj       Fh   n      \u0007Nazgul\nFn     n   Fl         n  \u00164\n\u0016?\n>>Q_ \u001b>.>sj   sm.  \u0016?\nr  \u0006_>,_,;,\u001644\nhkjkkl      h :\u001630\n\u0014@.\u0016?\nb\u0006_>. _..20s.m.20s\u0016?\nb_>.Fj_.<.Fh<\u001644\n   \u0006_>,Fh_,;@.Fh\u0016?\n>I#levelchange\n30\n                      \u0017yumi\nwg\u001720 ya\nQh\u0007jackal\nkfk  fjfj \u0007kobold\nyk   fk  fkfk \u0017potion of invisibility\ntaj  \u0007yellow mold\nbufkfkFkFj\u0017potion of fruit juice\nthj\u0017halberd\nww\u0007kobold\nbawm,lny,b\n#enhance\nn\u001b.m..\u001642\n_>.20s.m.\u001620\n\u0014>.20sss\u001638\n   #chat\nk;_.\u0016?\n>Jjy : \u001638\n #chat\nn;.\u00163\n\u0004b\u0016?\nh_{,sss\u0016?\nl   \u0007Yeenoghu\nyFn Fn  \u0007dust vortex\n;h,20ssm. 20s\u001b\u0016?\nn_{.>s\u0016?\nikjkj: ss20s\u0016?\nn#levelchange\n20\n   \u0017spellbook of haste self\nrx    20s\u0017spellbook of cancellation\nr"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nWm\u001636\n   uuhllbk:20s.m.sm.\u001615\n     \u0017ring of conflict\n\u0007nurse\nPnlsm.20ssm.\u0017cursed chest\naoao#tip\no\u001bFyFy\u0017the Orb of Detection\n ,  Fy Fy\u0017unicorn horn\napap    \u0017blessed gauntlets of power\nWq   sm.sm..m.   \u0017uncursed scroll of enchant weapon\n\u0007guard\nyrr  \u001bFyFy sm.su\u001615\nj y:\u0016?\n>D\u0017T-shirt\nW\u001b.ss\u0007prisoner\ns20s   .s\u0007mail daemon\nFj FjFnFnFn\u0007rabid rat\n#chat\nh FhFn\u0007purple worm\nFn   Fn  FjFj Fj\u001636\nby:.\u001639\nnbb:\u0016?\n>>P  #chat\nl;>. \u001b:   20sss\u0016?\n>>N       spellbook of chain lightning\nuy    n j     k        nj     :\u00167\n\u001644\nl    h     n\u0017wand of stasis\nEc Elbereth Elbereth\n   \u0017wand of create monster\nEdlittle dog\n n  Elbereth\n     n\u0017wand of polymorph\nEe    : \u0017wand of speed monster\nEf   n    k\u0017wand of digging\nEg   Elbereth Elbereth\n      n: sm. \u00162\n\u001625\n\u0014 n\u0016?\na  \u0014 n    20s           sm.       n sm.       \u001640\nb   j  n       k    n    :.u     n    sm.       n    sm.    \u001612\n\u001630\n_<.<\u0016?\ndy      k   n           u   n        h   u   n          j    n      : s    20s           yy\u001bnnny\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 620032,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nWm\u001636\n   uuhllbk:20s.m.sm.\u001615\n     \u0017ring of conflict\n\u0007nurse\nPnlsm.20ssm.\u0017cursed chest\naoao#tip\no\u001bFyFy\u0017the Orb of Detection\n ,  Fy Fy\u0017unicorn horn\napap    \u0017blessed gauntlets of power\nWq   sm.sm..m.   \u0017uncursed scroll of enchant weapon\n\u0007guard\nyrr  \u001bFyFy sm.su\u001615\nj y:\u0016?\n>D\u0017T-shirt\nW\u001b.ss\u0007prisoner\ns20s   .s\u0007mail daemon\nFj FjFnFnFn\u0007rabid rat\n#chat\nh FhFn\u0007purple worm\nFn   Fn  FjFj Fj\u001636\nby:.\u001639\nnbb:\u0016?\n>>P  #chat\nl;>. \u001b:   20sss\u0016?\n>>N       spellbook of chain lightning\nuy    n j     k        nj     :\u00167\n\u001644\nl    h     n\u0017wand of stasis\nEc Elbereth Elbereth\n   \u0017wand of create monster\nEdlittle dog\n n  Elbereth\n     n\u0017wand of polymorph\nEe    : \u0017wand of speed monster\nEf   n    k\u0017wand of digging\nEg   Elbereth Elbereth\n      n: sm. \u00162\n\u001625\n\u0014 n\u0016?\na  \u0014 n    20s           sm.       n sm.       \u001640\nb   j  n       k    n    :.u     n    sm.       n    sm.    \u001612\n\u001630\n_<.<\u0016?\ndy      k   n           u   n        h   u   n          j    n      : s    20s           yy\u001bnnny\u001b  ."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed +3 cloak of magic resistance\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwh \u00162\n\u0014 \u001bm,\u0016?\nc\u0006_>.Fb _,Fl \u0016?\nc\u0004k\u0016?\n>E__.<\u00162\n__.\u001638\n\u0017the Orb of Detection\n \u0007werewolf\nFlFlFl 20s20ss\u0007titanothere\nFyFy Fy .\u001632\n__.>\u0016?\n>I__,>ss\u0016?\n>>M      helm of telepathy\njkn   h    j:  \u0016?\n\u001bkl  \u0016?\n\u001bb  n j       \u001615\ny   n    b   n    :     n  \u001611\n\u001615\n_>,s      n s       n  \u00166\n\u0016?\n\u001bj      n   k       n   \u00161\n\u001632\n\u0017sling\nwk        n  \u001720 flint stones\nQl\u00074 sewer rat\nj     n        n   fk       n  fk      n  fb        n b      n  y     yy\u001by   y y y\u001b  h"
+ },
+ "segments": [
+  {
+   "seed": 610056,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed +3 cloak of magic resistance\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwh \u00162\n\u0014 \u001bm,\u0016?\nc\u0006_>.Fb _,Fl \u0016?\nc\u0004k\u0016?\n>E__.<\u00162\n__.\u001638\n\u0017the Orb of Detection\n \u0007werewolf\nFlFlFl 20s20ss\u0007titanothere\nFyFy Fy .\u001632\n__.>\u0016?\n>I__,>ss\u0016?\n>>M      helm of telepathy\njkn   h    j:  \u0016?\n\u001bkl  \u0016?\n\u001bb  n j       \u001615\ny   n    b   n    :     n  \u001611\n\u001615\n_>,s      n s       n  \u00166\n\u0016?\n\u001bj      n   k       n   \u00161\n\u001632\n\u0017sling\nwk        n  \u001720 flint stones\nQl\u00074 sewer rat\nj     n        n   fk       n  fk      n  fb        n b      n  y     yy\u001by   y y y\u001b  h"
+  }
+ ]
+}

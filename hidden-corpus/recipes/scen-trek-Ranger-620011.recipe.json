@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "K UYK_ \u001bm,>Fk ..KULK_>.>#name\no\nr\u001bYBNN_>.>Hi\u001bKKBY_>.>LBLN_>.>KYKU_>,>HUHN_>.>Fh20ss<dg.s20stch 10s20shtch 10s20s20s20shll#chat\nk#untrap\n.u<UJKU_>,>NUHK_>,>_>..#ride\nb<JBLU_>.>NYKN_>.>UHUU_>,>FhFh.#name\nd\n#loot\nNUBB_>,>\u000f\u001b50s150sFhFh20s100slll100s100s<ulhhFhssFh.s150s\\  \\  100s_>,s50sFhFhFh#ride\nu\\  y50s100s#jump\ni\u001bllh150slhlhhl50s#chat\nl\u000f\u001b<hll\u000f\u001b100s ef_>,>#monster\n#monster\nE- X marks the spot\nYLBJ_>.>UYUH_>,>\u0004n,NKLL_>,>BLYJ_>,>YLJH_>.>LJKK_>,>#twoweapon\nwcny\u000f\u001bLHJH_>.>Fh Fh20sYBHN_>.>H YN Y_>.><BHUL _>.>s#monster\n<LL YJ_>.>;m,\\  BLKY_>,>\u000f\u001bhlbFhFhFh150s50sFhFhFh_>.>100sFhFh.#dip\nd\u0018\u001b50sFhss150sFhs20s#wipe\n_>.>100s\u000f\u001b150sFhFh20s\u0018\u001bkju150sFhFhsjnn#name\nf\n\u000f100s\u0018\u001b150shlh100slhh100s50s_>.>50s_>,>100s\u0018\u001bP\u0004hz150s50sFh..150sllhFhFhFh_>,>hhlllh50s Fh20s20s 100sFhFhsE- I am a fish\n50s  Fh.20s100s100sFhFh.100sFhFhFhFhFhFh50s\\  100s50s20sslh"
+ },
+ "segments": [
+  {
+   "seed": 620011,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:explore\n",
+   "moves": "K UYK_ \u001bm,>Fk ..KULK_>.>#name\no\nr\u001bYBNN_>.>Hi\u001bKKBY_>.>LBLN_>.>KYKU_>,>HUHN_>.>Fh20ss<dg.s20stch 10s20shtch 10s20s20s20shll#chat\nk#untrap\n.u<UJKU_>,>NUHK_>,>_>..#ride\nb<JBLU_>.>NYKN_>.>UHUU_>,>FhFh.#name\nd\n#loot\nNUBB_>,>\u000f\u001b50s150sFhFh20s100slll100s100s<ulhhFhssFh.s150s\\  \\  100s_>,s50sFhFhFh#ride\nu\\  y50s100s#jump\ni\u001bllh150slhlhhl50s#chat\nl\u000f\u001b<hll\u000f\u001b100s ef_>,>#monster\n#monster\nE- X marks the spot\nYLBJ_>.>UYUH_>,>\u0004n,NKLL_>,>BLYJ_>,>YLJH_>.>LJKK_>,>#twoweapon\nwcny\u000f\u001bLHJH_>.>Fh Fh20sYBHN_>.>H YN Y_>.><BHUL _>.>s#monster\n<LL YJ_>.>;m,\\  BLKY_>,>\u000f\u001bhlbFhFhFh150s50sFhFhFh_>.>100sFhFh.#dip\nd\u0018\u001b50sFhss150sFhs20s#wipe\n_>.>100s\u000f\u001b150sFhFh20s\u0018\u001bkju150sFhFhsjnn#name\nf\n\u000f100s\u0018\u001b150shlh100slhh100s50s_>.>50s_>,>100s\u0018\u001bP\u0004hz150s50sFh..150sllhFhFhFh_>,>hhlllh50s Fh20s20s 100sFhFhsE- I am a fish\n50s  Fh.20s100s100sFhFh.100sFhFhFhFhFhFh50s\\  100s50s20sslh"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   lkl\u0017throne\n#sit\n #sit\n brown pudding\n yl\u0017melting ice\nhhll#conduct\n y#untrap\nj#levelchange\n30\n         \u0017Sunsword\n\u0007Croesus\ny.m..sm.sm.sm.20s .m.  nsm.\u0007pit viper\n#chat\nb Fh Fb    n\u0007pit viper\n;h, \u001b:   sj  sm.  sm.    n\u00165\nku \u0017athame\nEh ad aerarium\n   n\u0017ruby\nEiy I am a fish\n \u0017wand of make invisible\nEj  I am a fish\n : \u000f\u001b\u0017scroll of enchant weapon\nrk    n \u0017blessed 5 boomerangs\n\u0007red mold\nQlfj fj    nfh  Fh Fj\u0017blessed the Magic Mirror of Merlin\n  n \u0007marilith\n,a\n  Fj   Fk    n  .n   .h   \u0018\u001b\u00163\nk  n     j     n\u0017wand of digging\nEm  I am a fish\n    n\u0017athame\nEhy X marks the spot\n     n    \u0017wand of nothing\nEn       n : E-        n\u0007minotaur\nsm.       n20s      sm.  n     i\u001bamy              yy\u001bnngreen mold\nnn  e"
+ },
+ "segments": [
+  {
+   "seed": 610037,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   lkl\u0017throne\n#sit\n #sit\n brown pudding\n yl\u0017melting ice\nhhll#conduct\n y#untrap\nj#levelchange\n30\n         \u0017Sunsword\n\u0007Croesus\ny.m..sm.sm.sm.20s .m.  nsm.\u0007pit viper\n#chat\nb Fh Fb    n\u0007pit viper\n;h, \u001b:   sj  sm.  sm.    n\u00165\nku \u0017athame\nEh ad aerarium\n   n\u0017ruby\nEiy I am a fish\n \u0017wand of make invisible\nEj  I am a fish\n : \u000f\u001b\u0017scroll of enchant weapon\nrk    n \u0017blessed 5 boomerangs\n\u0007red mold\nQlfj fj    nfh  Fh Fj\u0017blessed the Magic Mirror of Merlin\n  n \u0007marilith\n,a\n  Fj   Fk    n  .n   .h   \u0018\u001b\u00163\nk  n     j     n\u0017wand of digging\nEm  I am a fish\n    n\u0017athame\nEhy X marks the spot\n     n    \u0017wand of nothing\nEn       n : E-        n\u0007minotaur\nsm.       n20s      sm.  n     i\u001bamy              yy\u001bnngreen mold\nnn  e"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  lnj\u0017dart trap\nj^kky  s20skk\u0017spiked pit\ny^n#untrap\nnuh\u0017falling rock trap\nny20ssjn \u0017web\nkjshsu#terrain\n\u001bE- I am a fish\n#terrain\n\u001b\u0017blessed the Mitre of Holiness\n  n \u0007sandestin\n\u0017potion of confusion\n\u0007red dragon\nqn\u0017cursed spellbook of charm monster\nro         n    nsm.  n  sm.  n   n ZZ\u0017cursed amulet of unchanging\n\u0007water nymph\nPp  n   n .m.  n   n  n .m.  n    n 20s  n   n  n   yy\u001by   y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 620049,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:debug\n",
+   "moves": "  lnj\u0017dart trap\nj^kky  s20skk\u0017spiked pit\ny^n#untrap\nnuh\u0017falling rock trap\nny20ssjn \u0017web\nkjshsu#terrain\n\u001bE- I am a fish\n#terrain\n\u001b\u0017blessed the Mitre of Holiness\n  n \u0007sandestin\n\u0017potion of confusion\n\u0007red dragon\nqn\u0017cursed spellbook of charm monster\nro         n    nsm.  n  sm.  n   n ZZ\u0017cursed amulet of unchanging\n\u0007water nymph\nPp  n   n .m.  n   n  n .m.  n    n 20s  n   n  n   yy\u001by   y y y\u001by  s"
+  }
+ ]
+}

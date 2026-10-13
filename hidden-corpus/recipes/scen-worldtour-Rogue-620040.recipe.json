@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u001625\n#levelchange\n20\n   \u0017the Orb of Fate\n \u0007gnome lord\nFb  Fy\u0007gelatinous cube\nsu.m.20s20ssk20s20s.lsm.   \u0007energy vortex\n;b; \u001b@.sls.b \u001625\n\u0007erinys\nFj  FkFk  n      Fj       \u0007xan\nFj    FbFb   Fh Fj       \u001634\n   #levelchange\n6\n     \u0017blessed spellbook of clairvoyance\nrg sm.  n  \u0017blessed spellbook of stone to flesh\n rh    20s   \u0017blessed spellbook of haste self\nri  sm.  n     +Z\u0007giant rat\nZFb    ZZFk   #turn\n#pray\ny y   n         n       n #enhance\nyq\np\n\u001b20s        n      20s  n            n        n sm.       n        n        n   \u001611\n\u001634\n   __.<\u001634\n n  b  n    \u0017wand of undead turning\nEu   \u0017wand of lightning\nE: \u0017wand of cancellation\nE: \u0017wand of light\nEE\u0007hill orc\ns   n   20s s\u001b\u0016?\nh  bnkn:\u0016?\n>Dnh:\u0016?\n>>R\u0004j\u0016?\nj _<.>.m.\u001625\nkj:\u0016?\nf    hj   yy\u001by  ny y\u001b  b"
+ },
+ "segments": [
+  {
+   "seed": 620040,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u001625\n#levelchange\n20\n   \u0017the Orb of Fate\n \u0007gnome lord\nFb  Fy\u0007gelatinous cube\nsu.m.20s20ssk20s20s.lsm.   \u0007energy vortex\n;b; \u001b@.sls.b \u001625\n\u0007erinys\nFj  FkFk  n      Fj       \u0007xan\nFj    FbFb   Fh Fj       \u001634\n   #levelchange\n6\n     \u0017blessed spellbook of clairvoyance\nrg sm.  n  \u0017blessed spellbook of stone to flesh\n rh    20s   \u0017blessed spellbook of haste self\nri  sm.  n     +Z\u0007giant rat\nZFb    ZZFk   #turn\n#pray\ny y   n         n       n #enhance\nyq\np\n\u001b20s        n      20s  n            n        n sm.       n        n        n   \u001611\n\u001634\n   __.<\u001634\n n  b  n    \u0017wand of undead turning\nEu   \u0017wand of lightning\nE: \u0017wand of cancellation\nE: \u0017wand of light\nEE\u0007hill orc\ns   n   20s s\u001b\u0016?\nh  bnkn:\u0016?\n>Dnh:\u0016?\n>>R\u0004j\u0016?\nj _<.>.m.\u001625\nkj:\u0016?\nf    hj   yy\u001by  ny y\u001b  b"
+  }
+ ]
+}

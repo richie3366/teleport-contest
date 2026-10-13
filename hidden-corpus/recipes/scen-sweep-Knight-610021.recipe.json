@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0017bag of holding\n\u0017wand of probing\n\u0017dilithium crystal\ndi#loot\n\u001b,ai\u001b\u0017mace\nwldi#force\n20s  s.dl#loot\n\u001b,\u001b#levelchange\n20\n           \u0007plains centaur\nFn Fn  Fn  Fn  Fn \u0007Demogorgon\nnFn Fj   n   Fj FnFn        \u0016?\n>B\u0017scroll of earth\nrm b\u0017wand of striking\nznl\u0017wand of striking\nzoh           \u0017scroll of earth\nrp  h h \u0017scroll of earth\nrq h h h j\u0017scroll of earth\nrr h \u0017wand of striking\nzsh  Fh   FhllFh  Fh\u0017wand of striking\nztj Fh\u0017scroll of earth\nru     kFh   n Fh n\u0017wand of digging\nzvk  \u0017scroll of earth\nrw  bh h h kh lh h h h \u0017wand of striking\nzxh \u0017wand of striking\nzy>  \u0017wand of striking\nzzk\u0017scroll of earth\nrA Fh Fh \u0017wand of digging\nzBll\u0017wand of striking\nzCh \u0017scroll of earth\nrD      n\u0017wand of striking\nzEh Fh Fh Fh FhFh \u0017wand of digging\nzFk 10s u\\    \u001612\n\u0017fumble boots\nWGsssTG\u0007couatl\n;b, \u001b>.s20ss\u0007owlbear\nFuFuFu FuFu Fb \u0007sandestin\nFu Fj Fu \u0007little dog\n\u0017scroll of taming\n\u0017saddle\n#ride\nuy\u0007tame saddled pony\n#ride\nny\u0007tame saddled horse\n#ride\nby#ride\nuy.h  n  #ride\njy.n        .m.       \u0007kobold\nFn      Fu     n Fu   \u0006_>>,    Fl  _.Fj >Fl Fj    n _>>,Fu _, Fn>FjFn_>>.  n Fb _. Fj >Fb  nFj#ride\njysh  #ride\njy\u0004n\u00167\n\u00169\n\u0017javelin\n\u0007soldier\n;k;.m.sm. .m.   n \u0007grid bug\nFh  Fh    n \u0007rothe\nFj        n Fh      Fh  n \u0007red mold\n#chat\nh   Fy   n   Fk    \u00168\n#levelchange\n20\n\u0016?\n>y  _mmmmm,Fn   n  _.    Fl      #chat\nn_m,   n     Fb     _.#chat\nn_m,Fh        yy\u001by  y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 610021,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0017bag of holding\n\u0017wand of probing\n\u0017dilithium crystal\ndi#loot\n\u001b,ai\u001b\u0017mace\nwldi#force\n20s  s.dl#loot\n\u001b,\u001b#levelchange\n20\n           \u0007plains centaur\nFn Fn  Fn  Fn  Fn \u0007Demogorgon\nnFn Fj   n   Fj FnFn        \u0016?\n>B\u0017scroll of earth\nrm b\u0017wand of striking\nznl\u0017wand of striking\nzoh           \u0017scroll of earth\nrp  h h \u0017scroll of earth\nrq h h h j\u0017scroll of earth\nrr h \u0017wand of striking\nzsh  Fh   FhllFh  Fh\u0017wand of striking\nztj Fh\u0017scroll of earth\nru     kFh   n Fh n\u0017wand of digging\nzvk  \u0017scroll of earth\nrw  bh h h kh lh h h h \u0017wand of striking\nzxh \u0017wand of striking\nzy>  \u0017wand of striking\nzzk\u0017scroll of earth\nrA Fh Fh \u0017wand of digging\nzBll\u0017wand of striking\nzCh \u0017scroll of earth\nrD      n\u0017wand of striking\nzEh Fh Fh Fh FhFh \u0017wand of digging\nzFk 10s u\\    \u001612\n\u0017fumble boots\nWGsssTG\u0007couatl\n;b, \u001b>.s20ss\u0007owlbear\nFuFuFu FuFu Fb \u0007sandestin\nFu Fj Fu \u0007little dog\n\u0017scroll of taming\n\u0017saddle\n#ride\nuy\u0007tame saddled pony\n#ride\nny\u0007tame saddled horse\n#ride\nby#ride\nuy.h  n  #ride\njy.n        .m.       \u0007kobold\nFn      Fu     n Fu   \u0006_>>,    Fl  _.Fj >Fl Fj    n _>>,Fu _, Fn>FjFn_>>.  n Fb _. Fj >Fb  nFj#ride\njysh  #ride\njy\u0004n\u00167\n\u00169\n\u0017javelin\n\u0007soldier\n;k;.m.sm. .m.   n \u0007grid bug\nFh  Fh    n \u0007rothe\nFj        n Fh      Fh  n \u0007red mold\n#chat\nh   Fy   n   Fk    \u00168\n#levelchange\n20\n\u0016?\n>y  _mmmmm,Fn   n  _.    Fl      #chat\nn_m,   n     Fb     _.#chat\nn_m,Fh        yy\u001by  y y y\u001b  _"
+  }
+ ]
+}

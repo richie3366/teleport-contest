@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n10\n \u0017bow\nwq\u001720 arrows\nQr\u0007newt\nbfl fk \u0017potion of gain ability\ntak \u0007gnome lord\nbkfn flfl  \u0017potion of object detection\ntrl  u jh,#levelchange\n6\n \u00174 cream pies\nQr\u0007giant rat\nlnfhfy   nfhfy Fh  Fy \u0017potion of monster detection\ntrh \u0007lichen\nnfy fhfyfh   nfyFyFy h lu,#enhance\nyj\np\n\u001b\u001611\n#levelchange\n12\n    \u0016?\nbn#pray\ny y ch;m, \u001b@.20s.\u0016?\n>u #ride\njy#chat\nk#offer\n;m.20s  \u001b  s\u0016?\nlokchb\u0006s20s#wizintrinsic\ni\n \u0017blindfold\naw\u0017wand of enlightenment\nzx \u001bZ\u001b\u0017huge chunk of meat\n ey  \u0017cursed wand of locking\nzz.jyns20ss\u001611\n\u0017wand of digging\nzA> .ubzA< \u0006_oooo.zA> zAll hhzAjjkhzAb#levelchange\n30\n                  \u0017blessed ring of polymorph control\nPBl#polyself\nincubus\n#monster\n.s \u0007leprechaun\n.  n s s s .  n 20s #polyself\nlurker above\n  #monster\n   .m. .m. \u0007umber hulk\nFk    n Fh   Fb sb   n sm.   20s    n  #polyself\nkitten\n #monster\nsm. .b    \u0007jellyfish\nFh Fh  Fh sm.  n  sns#polyself\ncobra\n  #monster\nl  sm.   sm. sh 20s  .k\u00165\n  \u00166\n#levelchange\n14\n     n  n nh\u0017unaligned altar\ndg \u0017elf corpse\n #pray\ny   : hj\u0017neutral altar\ndj \u0017dwarf corpse\n : yh\u0017pool\n#dip\nmy     ub:#turn\nrl #terrain\nd\n\u0017 \u0007green slime\nFlFu FlFh FlFl sm. sm.   n\u0007yellow light\nFh Fy  Fl FlFh   n Fl .  s \u0007quantum mechanic\nFu  ; Fh :Fl m,Fu <. Fk m. 20s m. 20s :   n\u001611\n\u001612\n\u0017blessed ring of polymorph control\nPEr #polyself\ngold golem\n #monster\n.y sm.\u0007mind flayer\nFh   n      Fy     Fy  s    s    s  n  #polyself\niron golem\n #monster\nb    s   n    .  n     yy\u001bnnnn  ."
+ },
+ "segments": [
+  {
+   "seed": 620045,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n10\n \u0017bow\nwq\u001720 arrows\nQr\u0007newt\nbfl fk \u0017potion of gain ability\ntak \u0007gnome lord\nbkfn flfl  \u0017potion of object detection\ntrl  u jh,#levelchange\n6\n \u00174 cream pies\nQr\u0007giant rat\nlnfhfy   nfhfy Fh  Fy \u0017potion of monster detection\ntrh \u0007lichen\nnfy fhfyfh   nfyFyFy h lu,#enhance\nyj\np\n\u001b\u001611\n#levelchange\n12\n    \u0016?\nbn#pray\ny y ch;m, \u001b@.20s.\u0016?\n>u #ride\njy#chat\nk#offer\n;m.20s  \u001b  s\u0016?\nlokchb\u0006s20s#wizintrinsic\ni\n \u0017blindfold\naw\u0017wand of enlightenment\nzx \u001bZ\u001b\u0017huge chunk of meat\n ey  \u0017cursed wand of locking\nzz.jyns20ss\u001611\n\u0017wand of digging\nzA> .ubzA< \u0006_oooo.zA> zAll hhzAjjkhzAb#levelchange\n30\n                  \u0017blessed ring of polymorph control\nPBl#polyself\nincubus\n#monster\n.s \u0007leprechaun\n.  n s s s .  n 20s #polyself\nlurker above\n  #monster\n   .m. .m. \u0007umber hulk\nFk    n Fh   Fb sb   n sm.   20s    n  #polyself\nkitten\n #monster\nsm. .b    \u0007jellyfish\nFh Fh  Fh sm.  n  sns#polyself\ncobra\n  #monster\nl  sm.   sm. sh 20s  .k\u00165\n  \u00166\n#levelchange\n14\n     n  n nh\u0017unaligned altar\ndg \u0017elf corpse\n #pray\ny   : hj\u0017neutral altar\ndj \u0017dwarf corpse\n : yh\u0017pool\n#dip\nmy     ub:#turn\nrl #terrain\nd\n\u0017 \u0007green slime\nFlFu FlFh FlFl sm. sm.   n\u0007yellow light\nFh Fy  Fl FlFh   n Fl .  s \u0007quantum mechanic\nFu  ; Fh :Fl m,Fu <. Fk m. 20s m. 20s :   n\u001611\n\u001612\n\u0017blessed ring of polymorph control\nPEr #polyself\ngold golem\n #monster\n.y sm.\u0007mind flayer\nFh   n      Fy     Fy  s    s    s  n  #polyself\niron golem\n #monster\nb    s   n    .  n     yy\u001bnnnn  ."
+  }
+ ]
+}

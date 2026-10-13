@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "   de20s20ssm.dbs20s20s des20s.dfssst\u001bh20s   10s20st\u001buubujhnkk20s t\u001bkjkjkuukjdes.20sFk .skjkjkj\\ 150s50sFjss100s50si\u001b\\ kjbFjFjFj150s100s100s150snyb50sFjFj.150s100seeeeeeeeeeeeeeeeeet\u001b#untrap\nkKlb#name\no\n20s20sjkub#name\no\nKN JY_ \u001b.>#invoke\n\u001b\u0018\u001bYL LK _>,>#rub\nca#enhance\n\u001bJH YH_>.><N HYJ_>.>Fl.20sNLLU_>.>Fh.sBHYU_>.>NK HH_>.><BHBH_>.>J#invoke\n\u001bJUNN_>.>qddJUKU_>.>HUUK _>.>r\u001b#name\ni\n\u000f\u001b#jump\nt\u001bt\u001bJNUJ_>.>Fj20sFj#sit\nfyJHKN_>.>Fj.20sBHLH_>.>BYUY_>.>#rub\ncafbK YL K _>.>Fj..\u000f\u001b#pray\ny 100s #pray\ny   50s#pray\ny   #pray\ny   yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 610131,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": "   de20s20ssm.dbs20s20s des20s.dfssst\u001bh20s   10s20st\u001buubujhnkk20s t\u001bkjkjkuukjdes.20sFk .skjkjkj\\ 150s50sFjss100s50si\u001b\\ kjbFjFjFj150s100s100s150snyb50sFjFj.150s100seeeeeeeeeeeeeeeeeet\u001b#untrap\nkKlb#name\no\n20s20sjkub#name\no\nKN JY_ \u001b.>#invoke\n\u001b\u0018\u001bYL LK _>,>#rub\nca#enhance\n\u001bJH YH_>.><N HYJ_>.>Fl.20sNLLU_>.>Fh.sBHYU_>.>NK HH_>.><BHBH_>.>J#invoke\n\u001bJUNN_>.>qddJUKU_>.>HUUK _>.>r\u001b#name\ni\n\u000f\u001b#jump\nt\u001bt\u001bJNUJ_>.>Fj20sFj#sit\nfyJHKN_>.>Fj.20sBHLH_>.>BYUY_>.>#rub\ncafbK YL K _>.>Fj..\u000f\u001b#pray\ny 100s #pray\ny   50s#pray\ny   #pray\ny   yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0007steam vortex\nFhFb   FkFjFj s\u001bsFjFk    Fj Fk #pray\ny y     #levelchange\n20\n\u0007tame saddled red dragon\n\u0017lance\nwg#ride\nky\u0007horse\n\u0017scroll of taming\nrh  \u001b    \u0017saddle\naik   #ride\nky\u0007warhorse\n\u0017scroll of taming\nrj   \u0017saddle\n akb#ride\nbyhjbjjs.,\u0006_ \u001b;>_>,Fn_,<.Fh>Fh  Fh_>. Fh_.  Fh> ,\u001710 daggers\nQl\u0007owlbear\nyufj fj \u0007lichen\nb b    fh fj   n fhFjFj\u0007acid blob\nnlfyfyfyfyx #twoweapon\n.sbkk,#enhance\nn\u001b\u001627\n   \u000f\u001b\u0007little dog\n\u0017scroll of taming\nrm \u0017saddle\n anb#ride\n           \u0007tame saddled warhorse\n#ride\nby\u0007tame saddled pony\n#ride\n   ,s slkb yn           y               n #ride\nuy.m.       #ride\nhy#levelchange\n8\n   \u0017flail\nwo    FyFlFnX\u0007succubus\nFhFl FhFj    Fl Fl \u0007couatl\nsh 20s      n   sm.  20s    \u0007hill orc\nFj    Fb      n   Fl   Fj      \u0007scorpion\nFj  Fj Fj    n        Fn     Fj    n Fl  \u00163\n\u0017blessed bag of holding\n\u0017cursed bag of holding\n\u0017scroll of remove curse\n aqb\ne\n\u001bapo\n dq  k\u0004j\u0017mace\nws dg #force\nsss\u0017skeleton key\ndpat.s20s  20s #loot\ns\ni\u001b\u0006\u0017pick-axe\nau > sau>   sm.  \u0006_o,_.au>aun nyj\\  #wizintrinsic\ngm\n \u0017clove of garlic\ney ;m,\u0017blessed scroll of genocide\nrw  little dog\n       ..s\u0017Demonbane\nwx  Fh20sFj#invoke\nx\u0007Medusa\ny;b:  .m..sm. n     n \u0007pony\nFj n Fl  n Fl  n    n Fl  n \u0007yeti\n;j,su  n  sl   n    yy\u001by   y  wererat\ny ny  s"
+ },
+ "segments": [
+  {
+   "seed": 610049,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0007steam vortex\nFhFb   FkFjFj s\u001bsFjFk    Fj Fk #pray\ny y     #levelchange\n20\n\u0007tame saddled red dragon\n\u0017lance\nwg#ride\nky\u0007horse\n\u0017scroll of taming\nrh  \u001b    \u0017saddle\naik   #ride\nky\u0007warhorse\n\u0017scroll of taming\nrj   \u0017saddle\n akb#ride\nbyhjbjjs.,\u0006_ \u001b;>_>,Fn_,<.Fh>Fh  Fh_>. Fh_.  Fh> ,\u001710 daggers\nQl\u0007owlbear\nyufj fj \u0007lichen\nb b    fh fj   n fhFjFj\u0007acid blob\nnlfyfyfyfyx #twoweapon\n.sbkk,#enhance\nn\u001b\u001627\n   \u000f\u001b\u0007little dog\n\u0017scroll of taming\nrm \u0017saddle\n anb#ride\n           \u0007tame saddled warhorse\n#ride\nby\u0007tame saddled pony\n#ride\n   ,s slkb yn           y               n #ride\nuy.m.       #ride\nhy#levelchange\n8\n   \u0017flail\nwo    FyFlFnX\u0007succubus\nFhFl FhFj    Fl Fl \u0007couatl\nsh 20s      n   sm.  20s    \u0007hill orc\nFj    Fb      n   Fl   Fj      \u0007scorpion\nFj  Fj Fj    n        Fn     Fj    n Fl  \u00163\n\u0017blessed bag of holding\n\u0017cursed bag of holding\n\u0017scroll of remove curse\n aqb\ne\n\u001bapo\n dq  k\u0004j\u0017mace\nws dg #force\nsss\u0017skeleton key\ndpat.s20s  20s #loot\ns\ni\u001b\u0006\u0017pick-axe\nau > sau>   sm.  \u0006_o,_.au>aun nyj\\  #wizintrinsic\ngm\n \u0017clove of garlic\ney ;m,\u0017blessed scroll of genocide\nrw  little dog\n       ..s\u0017Demonbane\nwx  Fh20sFj#invoke\nx\u0007Medusa\ny;b:  .m..sm. n     n \u0007pony\nFj n Fl  n Fl  n    n Fl  n \u0007yeti\n;j,su  n  sl   n    yy\u001by   y  wererat\ny ny  s"
+  }
+ ]
+}

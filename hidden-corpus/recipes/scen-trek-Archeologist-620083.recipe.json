@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "N  BNY_ \u001b<.>Fj 20s20s#turn\n,UKNL_>.>#untrap\nj#jump\nNKUU_>.>ULKN_>,>Zt\u001b\u000f\u001bUKKH_>.>BYNJ_>.>FhFhFh:,JKJY_>.>J#terrain\nc\n;r\u001bch\\ 20snujhjkldcs20ssdcsssda20sssFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFb FbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFh FhFbFbFhFbFhFb  y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 620083,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=fruit:mango\n",
+   "moves": "N  BNY_ \u001b<.>Fj 20s20s#turn\n,UKNL_>.>#untrap\nj#jump\nNKUU_>.>ULKN_>,>Zt\u001b\u000f\u001bUKKH_>.>BYNJ_>.>FhFhFh:,JKJY_>.>J#terrain\nc\n;r\u001bch\\ 20snujhjkldcs20ssdcsssda20sssFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFb FbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFh FhFbFbFhFbFhFb  y\u001by  y y y\u001b  1"
+  }
+ ]
+}

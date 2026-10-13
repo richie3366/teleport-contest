@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nd\n sm.s.m...sm.s.b20ssm.sssss.m.sb20s20s.m.sm. n20s20ss20ssss.sss.s....ss#quit\nyy  hkl kFjFjFjFjFjFjFjFj150s100s #turn\n100s            Fb.FlFjss50shlh100s     FbFlFkFjFjskhh \u000f\u001blyb100s           100s        FuFn.100s      jkbFnFu Fu_ \u001b:>_>.>ubu150sFbsFn FnFn  .bub50subu100segbub\u0018\u001b\u000f\u001b100sFuss150s10sFu20ss150sFuFuFuFuFuFuFuFuLyYUB_>,>BKNU_>,>#quit\nyy\u001by  y y y\u001b  ylkhFb FbFbFbFbFbFbFbljynFks20s150shlhFuFkFkFkFk.\u000f\u001blby_ \u001b>.>100s100snuhlbh\u0018\u001b100s50s\u0018\u001b_>.>50slyh\u000f\u001byjl100s_>,>_>,>100s50s#conduct\n cl50snlyoljuh100seeeeee#quit\nyy\u001by  y y y\u001b  #name\nm\n :uhly#name\ni\ndossst\u001bdkss.YKUJ _>.>w-\\  JNYL_>.>NNNH_>.>Fk.Fk\u000f\u001bFk FkFkFkFkFkFkFkukyljk_>.>100snlj100sFhFhFhbbknbk150s#quit\nyy\u001by  y y y\u001b \u0017wand of digging\nzm> .zm> szm> szm>   yy\u001by  y ny  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 620046,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nd\n sm.s.m...sm.s.b20ssm.sssss.m.sb20s20s.m.sm. n20s20ss20ssss.sss.s....ss"
+  },
+  {
+   "seed": 720046,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 820046,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=sortloot:loot\nOPTIONS=msg_window:reversed\n",
+   "moves": "  hkl kFjFjFjFjFjFjFjFj150s100s #turn\n100s            Fb.FlFjss50shlh100s     FbFlFkFjFjskhh \u000f\u001blyb100s           100s        FuFn.100s      jkbFnFu Fu_ \u001b:>_>.>ubu150sFbsFn FnFn  .bub50subu100segbub\u0018\u001b\u000f\u001b100sFuss150s10sFu20ss150sFuFuFuFuFuFuFuFuLyYUB_>,>BKNU_>,>#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 920046,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=fruit:mango\n",
+   "moves": " ylkhFb FbFbFbFbFbFbFbljynFks20s150shlhFuFkFkFkFk.\u000f\u001blby_ \u001b>.>100s100snuhlbh\u0018\u001b100s50s\u0018\u001b_>.>50slyh\u000f\u001byjl100s_>,>_>,>100s50s#conduct\n cl50snlyoljuh100seeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1020046,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\n",
+   "moves": " #name\nm\n :uhly#name\ni\ndossst\u001bdkss.YKUJ _>.>w-\\  JNYL_>.>NNNH_>.>Fk.Fk\u000f\u001bFk FkFkFkFkFkFkFkukyljk_>.>100snlj100sFhFhFhbbknbk150s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 1120046,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\nzm> .zm> szm> szm>   yy\u001by  y ny  s"
+  }
+ ]
+}

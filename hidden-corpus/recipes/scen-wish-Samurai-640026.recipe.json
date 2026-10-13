@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed dagger\n\u0007little dog\nwfFhFhFh\u0017uncursed scroll of amnesia\nrg \u0017cursed ice box\n,y    \u0017cursed potion of gain level\nqi \u001b #dip\nd\u00173 spellbook of healing\nrj   yy\u001b y  y y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 640026,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed dagger\n\u0007little dog\nwfFhFhFh\u0017uncursed scroll of amnesia\nrg \u0017cursed ice box\n,y    \u0017cursed potion of gain level\nqi \u001b #dip\nd\u00173 spellbook of healing\nrj   yy\u001b y  y y\u001by  ."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0007jackal\n\u0017scroll of taming\nrf \u0017saddle\nagj#ride\njy\u0007warhorse\n\u0017scroll of taming\nrh \u0017saddle\n aih #ride\nbyy\u0007tame saddled horse\n#ride\n\u0007giant rat\nFl Fl  Fl     u hh\u0004b,\u0004h\u0007gnome\nFjFjs#levelchange\n30\n                             \u0007salamander\nFlFj    \u0007Famine\nyFhFl    Fl \u0007Oracle\nnFn     nFj    Fl   n   Fh    n    Fl     n  \u0007Croesus\nnFn     Fn Fn   n   Fj     n    Fn    n      \u0018\u001b\u00162\n#levelchange\n16\n    \u0016?\n>y  _ \u001b,#chat\nj_mmmmm.   n    Fj    n   _,     n  Fk      n  #chat\nl     _mmm.  n      n      Fl         _,#chat\nb_m.   n      Fj    n       _.#chat\nk#monster\n#rub\n\u0018\u001b\u00163\n\u0018\u001b#levelchange\n20\n   #wizintrinsic\nre\n sb 20s     yy\u001by   y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 610141,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007jackal\n\u0017scroll of taming\nrf \u0017saddle\nagj#ride\njy\u0007warhorse\n\u0017scroll of taming\nrh \u0017saddle\n aih #ride\nbyy\u0007tame saddled horse\n#ride\n\u0007giant rat\nFl Fl  Fl     u hh\u0004b,\u0004h\u0007gnome\nFjFjs#levelchange\n30\n                             \u0007salamander\nFlFj    \u0007Famine\nyFhFl    Fl \u0007Oracle\nnFn     nFj    Fl   n   Fh    n    Fl     n  \u0007Croesus\nnFn     Fn Fn   n   Fj     n    Fn    n      \u0018\u001b\u00162\n#levelchange\n16\n    \u0016?\n>y  _ \u001b,#chat\nj_mmmmm.   n    Fj    n   _,     n  Fk      n  #chat\nl     _mmm.  n      n      Fl         _,#chat\nb_m.   n      Fj    n       _.#chat\nk#monster\n#rub\n\u0018\u001b\u00163\n\u0018\u001b#levelchange\n20\n   #wizintrinsic\nre\n sb 20s     yy\u001by   y y y\u001b  s"
+  }
+ ]
+}

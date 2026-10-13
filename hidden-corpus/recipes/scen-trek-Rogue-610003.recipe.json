@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "Fh .20slyuhyl#name\nf\n ;_>,>\u0018\u001bok100sFnFns150sFyFys150sFn20ss_>,>tbybyj#monster\nbkj50s\u000f\u001bklbok_>,>_>.>jll50sFuFus100s150shlh_>.>50sFk.s_>.>100s50s#jump\n100syny100sf by l#chat\nltgy150sFls20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#tip\nf\u001br\u001bseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHKHJ_>.>L 20sJYL K_>.>s#dip\nbY Y L Y _ > i , L L H H _ > N B K L _ > < H B N H _ > U L J Y _ > Y B J Y _ > U J J K _ > N L N Y _ > < J B B J _ > K Y K K _ > \\ #conduct\nB L U K _ > B N U Y _ > #tip\n#conduct\n#force\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee20shj#chat\nnlkjl#chat\nb#name\no\nN BJL_>.>HKL N_>.><LYKN_>.>fk#tip\nf\u001bNJUJ_>.>wb ddK KKN_>.>w-ol<HHJ K_>.>Fk FkFkey eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKUK B_>.>JK NH_>.>LBLU_>.>JHLH_>,>Fl.m.sm. y\u001by  nny\u001b  K"
+ },
+ "segments": [
+  {
+   "seed": 610003,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\n",
+   "moves": "Fh .20slyuhyl#name\nf\n ;_>,>\u0018\u001bok100sFnFns150sFyFys150sFn20ss_>,>tbybyj#monster\nbkj50s\u000f\u001bklbok_>,>_>.>jll50sFuFus100s150shlh_>.>50sFk.s_>.>100s50s#jump\n100syny100sf by l#chat\nltgy150sFls20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#tip\nf\u001br\u001bseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHKHJ_>.>L 20sJYL K_>.>s#dip\nbY Y L Y _ > i , L L H H _ > N B K L _ > < H B N H _ > U L J Y _ > Y B J Y _ > U J J K _ > N L N Y _ > < J B B J _ > K Y K K _ > \\ #conduct\nB L U K _ > B N U Y _ > #tip\n#conduct\n#force\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee20shj#chat\nnlkjl#chat\nb#name\no\nN BJL_>.>HKL N_>.><LYKN_>.>fk#tip\nf\u001bNJUJ_>.>wb ddK KKN_>.>w-ol<HHJ K_>.>Fk FkFkey eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKUK B_>.>JK NH_>.>LBLU_>.>JHLH_>,>Fl.m.sm. y\u001by  nny\u001b  K"
+  }
+ ]
+}

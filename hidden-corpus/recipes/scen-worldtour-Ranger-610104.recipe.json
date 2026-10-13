@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017blessed amulet of reflection\nPg\u001620\n#levelchange\n14\n     \u0017unicorn horn\nwh20sss\u0007nurse\nFuFuFu.ys\u0007black pudding\nFnFjFjFj20ssk#pray\ny y     \u001627\n  #levelchange\n30\n               \u0017cursed bag of tricks\n\u0007yellow mold\naiai#tip\ni\u001b\u0017uncursed potion of restore ability\n\u0007black dragon\nqj \u001b#dip\ndFl  Fu    n   \u0017uncursed spellbook of finger of death\n\u0007flesh golem\nrk     20s      sj   Z\u0017uncursed scroll of food detection\nrl  \u001b,  n   \u0017uncursed +0 ring of teleport control\nPmr      .m.    20s    n    .m.     Rm      Fy    Fk  n          \u0017blessed potion of paralysis\nqn                  n   #dip\nesn         20s     \u001611\n   \u0016?\n>w#chat\nl;>..m..l\u001640\n_>.>\u001610\nkbj\u0017ice\nn yy  y:jb\u0017tree\nk\u0004j \u0004j   n :k \u0017sink\nqy   j  \u0004 \u0004 \u0004 #loot\nkPmr  ol\u001620\n\u0014,\u0016?\nh_>.<s\u001627\n  _{.\u0016?\npjjkjkub:.\u0016?\no\u0014m.\u0016?\n>>L    scroll of punishment\n\u0014.;,.m.    n  \u0016?\n\u001bk  n   \u0016?\ne _>,>\u0016?\ne_{.>\u0016?\nc y   b    b  n      nuh: \u001640\n__.> s  s.\u001627\n\u0017spellbook of stone to flesh\nrq .\u0017blessed spellbook of fireball\nrr       n  20s \u0017spellbook of chain lightning\nrs s \u0017blessed spellbook of create monster\n rt "
+ },
+ "segments": [
+  {
+   "seed": 610104,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017blessed amulet of reflection\nPg\u001620\n#levelchange\n14\n     \u0017unicorn horn\nwh20sss\u0007nurse\nFuFuFu.ys\u0007black pudding\nFnFjFjFj20ssk#pray\ny y     \u001627\n  #levelchange\n30\n               \u0017cursed bag of tricks\n\u0007yellow mold\naiai#tip\ni\u001b\u0017uncursed potion of restore ability\n\u0007black dragon\nqj \u001b#dip\ndFl  Fu    n   \u0017uncursed spellbook of finger of death\n\u0007flesh golem\nrk     20s      sj   Z\u0017uncursed scroll of food detection\nrl  \u001b,  n   \u0017uncursed +0 ring of teleport control\nPmr      .m.    20s    n    .m.     Rm      Fy    Fk  n          \u0017blessed potion of paralysis\nqn                  n   #dip\nesn         20s     \u001611\n   \u0016?\n>w#chat\nl;>..m..l\u001640\n_>.>\u001610\nkbj\u0017ice\nn yy  y:jb\u0017tree\nk\u0004j \u0004j   n :k \u0017sink\nqy   j  \u0004 \u0004 \u0004 #loot\nkPmr  ol\u001620\n\u0014,\u0016?\nh_>.<s\u001627\n  _{.\u0016?\npjjkjkub:.\u0016?\no\u0014m.\u0016?\n>>L    scroll of punishment\n\u0014.;,.m.    n  \u0016?\n\u001bk  n   \u0016?\ne _>,>\u0016?\ne_{.>\u0016?\nc y   b    b  n      nuh: \u001640\n__.> s  s.\u001627\n\u0017spellbook of stone to flesh\nrq .\u0017blessed spellbook of fireball\nrr       n  20s \u0017spellbook of chain lightning\nrs s \u0017blessed spellbook of create monster\n rt "
+  }
+ ]
+}

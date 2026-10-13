@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "HLHH_ \u001b@.>KHNJ_>.>Fk s20sHBKH_>.>#jump\n#invoke\n\u001bYJUB_>,>#enhance\n\u001b\u0004u\u000f\u001b20s10synyl20s:f by h\u0018\u001bUYJN_>.>BJNY_>.>NBJU_>.><JBBY_>.>#tip\nf\u001b#name\nm\nJJYB_>JLUY_>e#name\ni\nJLJH_>.>#name\nf\n;_.\u000f\u001bHUUN_>,>ULYK_>.>#twoweapon\n#name\nm\nJNLY_>BNBU_>BUBK_>UYLK_><BUJK_>BNYB_>UYBU_>\u000fdg#chat\nn20sHJYB_>.>HBNL_>.>LUNY_>.>HULY_>,>YUUK_>.>fhtiyNKNU_>.>E- Vlad was here\n,Z_>,>fnhhb100s150sFb Fb FbFbFb.100s100s50s50sFbFbFb_>.>100s 50subu\u0018\u001baeu#terrain\nc\n,100sehbubFbFbFb#terrain\nb\nnly100s 100s100seeeeeeeeeeeeLBYY_>.>U LJJ_>.>NKLY_>.>\u0018\u001bZi\u001b#rub\nfjJHL Y_>,><KLKL_>.>tin\u0014UNLU_>.>HJHH_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNHJJ_>.>JKLY_>.>KNLU_>.>HUJ L_>.>UJJN_>.>#loot\n\u0018\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBUNB_>,>KUBL_>.>UKUU_>.>#jump\n#offer\n#conduct\n 20s#chat\nh#name\nf\nljdsssdbs..dfs20s .dcs..#pr"
+ },
+ "segments": [
+  {
+   "seed": 610103,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\n",
+   "moves": "HLHH_ \u001b@.>KHNJ_>.>Fk s20sHBKH_>.>#jump\n#invoke\n\u001bYJUB_>,>#enhance\n\u001b\u0004u\u000f\u001b20s10synyl20s:f by h\u0018\u001bUYJN_>.>BJNY_>.>NBJU_>.><JBBY_>.>#tip\nf\u001b#name\nm\nJJYB_>JLUY_>e#name\ni\nJLJH_>.>#name\nf\n;_.\u000f\u001bHUUN_>,>ULYK_>.>#twoweapon\n#name\nm\nJNLY_>BNBU_>BUBK_>UYLK_><BUJK_>BNYB_>UYBU_>\u000fdg#chat\nn20sHJYB_>.>HBNL_>.>LUNY_>.>HULY_>,>YUUK_>.>fhtiyNKNU_>.>E- Vlad was here\n,Z_>,>fnhhb100s150sFb Fb FbFbFb.100s100s50s50sFbFbFb_>.>100s 50subu\u0018\u001baeu#terrain\nc\n,100sehbubFbFbFb#terrain\nb\nnly100s 100s100seeeeeeeeeeeeLBYY_>.>U LJJ_>.>NKLY_>.>\u0018\u001bZi\u001b#rub\nfjJHL Y_>,><KLKL_>.>tin\u0014UNLU_>.>HJHH_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNHJJ_>.>JKLY_>.>KNLU_>.>HUJ L_>.>UJJN_>.>#loot\n\u0018\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBUNB_>,>KUBL_>.>UKUU_>.>#jump\n#offer\n#conduct\n 20s#chat\nh#name\nf\nljdsssdbs..dfs20s .dcs..#pr"
+  }
+ ]
+}

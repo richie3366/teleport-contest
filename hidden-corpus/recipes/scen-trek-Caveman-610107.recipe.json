@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " dd.20ssjjdb.ss#chat\nlukjj#chat\nk#chat\nkNYNN_ \u001bm,><BLJJ_>.>\u0014t\u001bNBKU_>,>;<.#ride\nlJBYK _>.>\u000f\u001bKJ NN_>.>Fy ssLHJB_>.>#offer\n>HLUJ_>.>#twoweapon\n<<JNNK_>.>\u000f\u001b\\ JJJB_>.>KJLU_>.>oj#force\nHNK U_>.>#conduct\n Ww-#terrain\nc\n:#enhance\n\u001bJYJL_>.>cjeUYLH_>.>JKJU_>.>KYBJ_>,>YBHL_>.><#twoweapon\n#terrain\nb\n20s 100s150sFb FbFbkbkkyl50s150sFjFjs150s_>,>100s#sit\n\u001b100skbn50sFj s20s\u000f\u001b150s 100sFjFj.ukk_m..m.FjsFj100skhb#ride\nn100s\\ 100seeeeeeeeeee#chat\nu#conduct\n #offer\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNBNN_>,>YYHB_>.>J KNY_>.>FjssE- X marks the spot\nwaZnllk10s#name\nm\nuhkkd.20ssyjjn#chat\nu#name\nm\nyhnjnbs20ssKLBJ_>.>ok\\ LJLN_>,>#force\n\u000f\u001bJHBY_>.>YLNN_>.>HBJY_>."
+ },
+ "segments": [
+  {
+   "seed": 610107,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": " dd.20ssjjdb.ss#chat\nlukjj#chat\nk#chat\nkNYNN_ \u001bm,><BLJJ_>.>\u0014t\u001bNBKU_>,>;<.#ride\nlJBYK _>.>\u000f\u001bKJ NN_>.>Fy ssLHJB_>.>#offer\n>HLUJ_>.>#twoweapon\n<<JNNK_>.>\u000f\u001b\\ JJJB_>.>KJLU_>.>oj#force\nHNK U_>.>#conduct\n Ww-#terrain\nc\n:#enhance\n\u001bJYJL_>.>cjeUYLH_>.>JKJU_>.>KYBJ_>,>YBHL_>.><#twoweapon\n#terrain\nb\n20s 100s150sFb FbFbkbkkyl50s150sFjFjs150s_>,>100s#sit\n\u001b100skbn50sFj s20s\u000f\u001b150s 100sFjFj.ukk_m..m.FjsFj100skhb#ride\nn100s\\ 100seeeeeeeeeee#chat\nu#conduct\n #offer\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNBNN_>,>YYHB_>.>J KNY_>.>FjssE- X marks the spot\nwaZnllk10s#name\nm\nuhkkd.20ssyjjn#chat\nu#name\nm\nyhnjnbs20ssKLBJ_>.>ok\\ LJLN_>,>#force\n\u000f\u001bJHBY_>.>YLNN_>.>HBJY_>."
+  }
+ ]
+}

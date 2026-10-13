@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 cloak of magic resistance\nWg\u0017blessed +3 helm of telepathy\nWh\u0016?\nekbnby:\u0016?\n>>K      tallow candle\nlu  nh   j  :sy     .u   20s    \u001613\nnu    l ulh      l:\u0016?\n\u001bnh   n               \u0016?\n\u001bh     b  n    \u00161\n\u0004k \u0016?\n\u001bb y    \u00161\nln                       \u001b        n   k       n                  y    n   j          :\u00163\n\u0016?\n\u001bh    n   n \u0016?\n\u001bhh    \u001613\ny  nh                 n   :\u00166\n\u001641\nl         j           :sm.s20s     n     \u001619\n\u0017spellbook of cure sickness\nrk            sm.  n            \u0017blessed spellbook of confuse monster\nrl             n   20s                 \u001b\u0017blessed spellbook of haste self\nrm       n           sm.          n   \u0017spellbook of levitation\nrn           20s+Z\u0007newt\nZZZZFk         n    \u00161\n\u00161\nyn         n    u                  j      n       n  \u001b    h   h  yny   ny n  :"
+ },
+ "segments": [
+  {
+   "seed": 620016,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:teleport\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 cloak of magic resistance\nWg\u0017blessed +3 helm of telepathy\nWh\u0016?\nekbnby:\u0016?\n>>K      tallow candle\nlu  nh   j  :sy     .u   20s    \u001613\nnu    l ulh      l:\u0016?\n\u001bnh   n               \u0016?\n\u001bh     b  n    \u00161\n\u0004k \u0016?\n\u001bb y    \u00161\nln                       \u001b        n   k       n                  y    n   j          :\u00163\n\u0016?\n\u001bh    n   n \u0016?\n\u001bhh    \u001613\ny  nh                 n   :\u00166\n\u001641\nl         j           :sm.s20s     n     \u001619\n\u0017spellbook of cure sickness\nrk            sm.  n            \u0017blessed spellbook of confuse monster\nrl             n   20s                 \u001b\u0017blessed spellbook of haste self\nrm       n           sm.          n   \u0017spellbook of levitation\nrn           20s+Z\u0007newt\nZZZZFk         n    \u00161\n\u00161\nyn         n    u                  j      n       n  \u001b    h   h  yny   ny n  :"
+  }
+ ]
+}

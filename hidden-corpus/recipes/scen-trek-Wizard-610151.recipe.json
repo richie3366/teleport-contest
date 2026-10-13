@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "UUNU_ \u001b@.>FhFhFh LKHJ_>.>#turn\nPdlULNB_>,>LYBY_>,>e#offer\nNNNB_>,>UNNK_>.>JLKH_>,>#name\nm\n#chat\n.#name\ni\n10s#chat\nh20st\u001b10sUKJU_>.>Fh20s20s<NBUK_>.>sZb\nJKNU_>.>ULYH_>,>BYNN_>,>llh_>.>_>.>_>.>100s 100sFhFhs#pray\ny i\u001b100s\u000f\u001b#pray\ny   y\u001by  y y y\u001b  \u0018"
+ },
+ "segments": [
+  {
+   "seed": 610151,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\n",
+   "moves": "UUNU_ \u001b@.>FhFhFh LKHJ_>.>#turn\nPdlULNB_>,>LYBY_>,>e#offer\nNNNB_>,>UNNK_>.>JLKH_>,>#name\nm\n#chat\n.#name\ni\n10s#chat\nh20st\u001b10sUKJU_>.>Fh20s20s<NBUK_>.>sZb\nJKNU_>.>ULYH_>,>BYNN_>,>llh_>.>_>.>_>.>100s 100sFhFhs#pray\ny i\u001b100s\u000f\u001b#pray\ny   y\u001by  y y y\u001b  \u0018"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Za\n,50s_ \u001b.>E- ad aerarium\nuyl_>,>i\u001b100s\u000f\u001b50s150s#dip\neg50sFkFkslkj#turn\n100s150sFnssybuFuFus100s i\u001b_<,.50sFk20s._>.>klk100slhylhlFuss_>.>\\  100s50s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehnub10sujkhhl20s10s10s#untrap\nh#wipe\n20sHULJ_>,>#jump\n>NJLB_>.>NBBK _>.>\u000f\u001bNLBU _>,>#ride\ny#name\nf\nUBYJ_>JHJB_>#tip\n:s<UKJ N_>,>#offer\n<YJLH_>.>LYNN_>.>UUUK _>.>#pray\ny  s\u000f\u001bJYLB_>.>NUYH_>.>KLLK _>.>\u000f\u001b#conduct\n \\  >50sFuFus\u0018\u001b100s150s150skll50s100s50s50s_>.>50sFu..150sFuFu20s100seeeeeeeeeeeeeeeeeeeeeeeH KBJ _>.>LJJB_>,><LNBL_>.>BHBY_>.>10sE-y Elbereth\n<nyBJLY_>.>FlFlFleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUUB N_>.>HBHB_>.>ULNK _>.>#enhance\n\u001b#turn\nUBKJ_>.>J JLJ_>.>#enhance\n\u001b20sBBKK_>.>#name\na\n#name\nm\nNJBL_>KJLL_>KKJN_>#pray\n#ride\nkYKUU_"
+ },
+ "segments": [
+  {
+   "seed": 610043,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:none\n",
+   "moves": "Za\n,50s_ \u001b.>E- ad aerarium\nuyl_>,>i\u001b100s\u000f\u001b50s150s#dip\neg50sFkFkslkj#turn\n100s150sFnssybuFuFus100s i\u001b_<,.50sFk20s._>.>klk100slhylhlFuss_>.>\\  100s50s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehnub10sujkhhl20s10s10s#untrap\nh#wipe\n20sHULJ_>,>#jump\n>NJLB_>.>NBBK _>.>\u000f\u001bNLBU _>,>#ride\ny#name\nf\nUBYJ_>JHJB_>#tip\n:s<UKJ N_>,>#offer\n<YJLH_>.>LYNN_>.>UUUK _>.>#pray\ny  s\u000f\u001bJYLB_>.>NUYH_>.>KLLK _>.>\u000f\u001b#conduct\n \\  >50sFuFus\u0018\u001b100s150s150skll50s100s50s50s_>.>50sFu..150sFuFu20s100seeeeeeeeeeeeeeeeeeeeeeeH KBJ _>.>LJJB_>,><LNBL_>.>BHBY_>.>10sE-y Elbereth\n<nyBJLY_>.>FlFlFleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUUB N_>.>HBHB_>.>ULNK _>.>#enhance\n\u001b#turn\nUBKJ_>.>J JLJ_>.>#enhance\n\u001b20sBBKK_>.>#name\na\n#name\nm\nNJBL_>KJLL_>KKJN_>#pray\n#ride\nkYKUU_"
+  }
+ ]
+}

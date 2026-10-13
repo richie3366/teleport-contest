@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n       kh\u0017wand of death\nEi Elbereth Elbereth\n\u0017wand of slow monster\nEjn  Vlad was here\n: j\u0017wand of speed monster\nEk Vlad was here\n\u00167\n\u0007hostile purple worm\nFysm.#pray\ny y    Fl #pray\ny y   Fu  FjFks\u001bFj  n Fh.n\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nql \u001b<._ooooooo,_,;.,p_ooooooo._,@._ooo._.m.,#chat\nk__,_,.#chat\ny_oooooooo,_.>.,:_{._.;.q#dip\nf __._.:#chat\ny#pray\ny y __._,m,#chat\nl#pray\ny y  Zsn#levelchange\n8\n\u0017blessed ring of polymorph control\nPml  \u0017black dragon scale mail\nW\u001bsh .ysuTc       #polyself\nlizard\n  #monster\nsk  .m. sk   .m.   nsm. #polyself\nminotaur\n#monster\n.l.sm.ss#polyself\ndjinni\n cobra\n  20ssm. \u0007Medusa\nyFk  FbFk  n   sm. n   .m. n   .m. n i\u001b\u001612\n#levelchange\n14\n     \u0017blessed spellbook of restore ability\nr.\u0017spellbook of create familiar\nrs\u0017spellbook of turn undead\nr.m.\u0017blessed spellbook of healing\nr.m.+\u0007grid bug\nZ\u0007giant rat\nZZFlZZZ#turn\n    #pray\ny y            \u0017scroll of light\n\u0007black pudding\nrs \u0017amulet of magical breathing\n \u0007human mummy\nPt   sm.  sm.  sm. sm.    nRt   \u0017chest\nsh    \u0017blessed oilskin cloak\nWv          nsj    .m.        .b     n  T   Fb   Fk \u0017T-shirt\nWw   n    sh.m. 20s    Fn   Fn        nsm.    20s   \u00169\n#levelchange\n12\n\u0007acid blob\nFkFk .\u0007horned devil\n;k,20s        sm.   n sm.    \u0017blessed ring of polymorph control\nPx     \u0017elven mithril-coat\n#polyself\nsuccubus\n#monster\nsm.        sn\u0007soldier ant\nFb    n    Fh          n  Fb             n  sm.      sm.   n    .m.           yy\u001b y   nny\u001by  #"
+ },
+ "segments": [
+  {
+   "seed": 620025,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n       kh\u0017wand of death\nEi Elbereth Elbereth\n\u0017wand of slow monster\nEjn  Vlad was here\n: j\u0017wand of speed monster\nEk Vlad was here\n\u00167\n\u0007hostile purple worm\nFysm.#pray\ny y    Fl #pray\ny y   Fu  FjFks\u001bFj  n Fh.n\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nql \u001b<._ooooooo,_,;.,p_ooooooo._,@._ooo._.m.,#chat\nk__,_,.#chat\ny_oooooooo,_.>.,:_{._.;.q#dip\nf __._.:#chat\ny#pray\ny y __._,m,#chat\nl#pray\ny y  Zsn#levelchange\n8\n\u0017blessed ring of polymorph control\nPml  \u0017black dragon scale mail\nW\u001bsh .ysuTc       #polyself\nlizard\n  #monster\nsk  .m. sk   .m.   nsm. #polyself\nminotaur\n#monster\n.l.sm.ss#polyself\ndjinni\n cobra\n  20ssm. \u0007Medusa\nyFk  FbFk  n   sm. n   .m. n   .m. n i\u001b\u001612\n#levelchange\n14\n     \u0017blessed spellbook of restore ability\nr.\u0017spellbook of create familiar\nrs\u0017spellbook of turn undead\nr.m.\u0017blessed spellbook of healing\nr.m.+\u0007grid bug\nZ\u0007giant rat\nZZFlZZZ#turn\n    #pray\ny y            \u0017scroll of light\n\u0007black pudding\nrs \u0017amulet of magical breathing\n \u0007human mummy\nPt   sm.  sm.  sm. sm.    nRt   \u0017chest\nsh    \u0017blessed oilskin cloak\nWv          nsj    .m.        .b     n  T   Fb   Fk \u0017T-shirt\nWw   n    sh.m. 20s    Fn   Fn        nsm.    20s   \u00169\n#levelchange\n12\n\u0007acid blob\nFkFk .\u0007horned devil\n;k,20s        sm.   n sm.    \u0017blessed ring of polymorph control\nPx     \u0017elven mithril-coat\n#polyself\nsuccubus\n#monster\nsm.        sn\u0007soldier ant\nFb    n    Fh          n  Fb             n  sm.      sm.   n    .m.           yy\u001b y   nny\u001by  #"
+  }
+ ]
+}

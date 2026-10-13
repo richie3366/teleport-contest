@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0007warg\nsm..m.sjsm.sm..m..m.20s 20s \u0007imp\nFuFu Fu   nFy Fy Fh \u0007gelatinous cube\n;k, \u001b<.20s20s       n.u    \u0007long worm\nFk    Fk   nFu Fl   \u00161\n\u00164\n#levelchange\n30\n                 \u0017amulet of restful sleep\nPisu20ssm.     20s \u0017ring of teleportation\nPjr.m.sm.  .m.FjFj \u0017cursed ice box\n\u0007water elemental\n20ssm.  n #wizintrinsic\ng\n sm.sm. sj20s 20s  20s sm.sm.20s  n  20s _m, sm.P#turn\naab \u000f\u001b#invoke\n\u001b.j sm..m.sn sm..m.  \u001620\n#wizintrinsic\ncge\n  sm..u20s  n20s .m.sm.20ssm.  sm..ysl20ssns,s,Zed #pray\ny y      sm.  .m..sm.sm..l \u00163\n #levelchange\n12\n     \u0007crocodile\nFb  nFb Fj Fj\u0007kobold shaman\nFh Fl   n  Fb  Fl Fj    ni\u001b\u001610\n #levelchange\n20\n       \u0016?\n>w\u0006\u0017blessed potion of object detection\nqm._oooooooo.Fh  _.  Fh m.,db_ooooooooo. _.,:__._, #chat\nn#pray\ny y da_ooooooo._,,db_ooooo._._ooo,_.,p_ddd,_.Fn  \u0004k_dd.Fj _.Fb \u0004 ,P#pray\ny y      i\u001b\u0007little dog\n\u0017scroll of taming\n rn \u0017saddle\n aou  #ride\nuy\u0007tame saddled pony\n#ride\nly\u0007horse\n\u0017scroll of taming\nrp \u0017saddle\naqh#ride\n ybbk#ride\njy20s#ride\n \u0004jhhl\u00161\n#levelchange\n30\n         \u0016?\n>w  \u0006\u0017blessed potion of object detection\nqr@._mmm. Fn_,>.Fn   #chat\nn  _oooooo, Fb _,      Fu ,p_ooooooo._,,:__.   Fb_,   Fh#chat\nkdj_ooooooooo.  Fl _.     Fy,#chat\ny #chat\ny #monster\n20s \u000f\u001b#levelchange\n20\n   \u0007piranha\n#chat\nhFh Fy\u0007fire "
+ },
+ "segments": [
+  {
+   "seed": 620005,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0007warg\nsm..m.sjsm.sm..m..m.20s 20s \u0007imp\nFuFu Fu   nFy Fy Fh \u0007gelatinous cube\n;k, \u001b<.20s20s       n.u    \u0007long worm\nFk    Fk   nFu Fl   \u00161\n\u00164\n#levelchange\n30\n                 \u0017amulet of restful sleep\nPisu20ssm.     20s \u0017ring of teleportation\nPjr.m.sm.  .m.FjFj \u0017cursed ice box\n\u0007water elemental\n20ssm.  n #wizintrinsic\ng\n sm.sm. sj20s 20s  20s sm.sm.20s  n  20s _m, sm.P#turn\naab \u000f\u001b#invoke\n\u001b.j sm..m.sn sm..m.  \u001620\n#wizintrinsic\ncge\n  sm..u20s  n20s .m.sm.20ssm.  sm..ysl20ssns,s,Zed #pray\ny y      sm.  .m..sm.sm..l \u00163\n #levelchange\n12\n     \u0007crocodile\nFb  nFb Fj Fj\u0007kobold shaman\nFh Fl   n  Fb  Fl Fj    ni\u001b\u001610\n #levelchange\n20\n       \u0016?\n>w\u0006\u0017blessed potion of object detection\nqm._oooooooo.Fh  _.  Fh m.,db_ooooooooo. _.,:__._, #chat\nn#pray\ny y da_ooooooo._,,db_ooooo._._ooo,_.,p_ddd,_.Fn  \u0004k_dd.Fj _.Fb \u0004 ,P#pray\ny y      i\u001b\u0007little dog\n\u0017scroll of taming\n rn \u0017saddle\n aou  #ride\nuy\u0007tame saddled pony\n#ride\nly\u0007horse\n\u0017scroll of taming\nrp \u0017saddle\naqh#ride\n ybbk#ride\njy20s#ride\n \u0004jhhl\u00161\n#levelchange\n30\n         \u0016?\n>w  \u0006\u0017blessed potion of object detection\nqr@._mmm. Fn_,>.Fn   #chat\nn  _oooooo, Fb _,      Fu ,p_ooooooo._,,:__.   Fb_,   Fh#chat\nkdj_ooooooooo.  Fl _.     Fy,#chat\ny #chat\ny #monster\n20s \u000f\u001b#levelchange\n20\n   \u0007piranha\n#chat\nhFh Fy\u0007fire "
+  }
+ ]
+}

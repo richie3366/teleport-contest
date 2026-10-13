@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " FyFyFh100s  FhFkFyFhFuFhFh20ss50s150sFhFhs100sFhFk FyFk..50s150s  FuFksFus.150s  FhFhFhkbhFl s20s100s100sFkFksykji\u001b150s100sFus.50s150s ej\u000f\u001b150s#offer\n50s100sFuFuFuFussej\u000f\u001b_ \u001b;>UHYU_>,>YHBL_>,>FuFlFlE- ad aerarium\ndg HBHL_>.>FlssBYKU_>,>HJHY_>.>HJL    J_>.>Fk  n FkFyUJLU_>.>_<,sm.dhFhFhFh100s150s  FhFh.150s150sFhFhFhFhFhs\u000f\u001b\u000f\u001b100s50s50sFh.20s100sylkFhFhs50s\u000f\u001b100s 20s FhFbFhFbFbFb100s50si\u001b100s 150s_>.>FbFbFb150s150s Fy Fyshyb100subh\u000f\u001b50s_>.>50sl #rub\nb20sdksns.m.t$yy#chat\ny#name\no\nJJJK_>.>Fb.sH  HYY_>.>YL JU_>,>NHNY _>.>i\u001bw-<BBJH_>,>KHJH_>.><sLY KJ_>,>HUUN _>.>10sey KKBU_>,>P#name\nd\nLJBL_>.>KB LK_>.>HNYU_>.>\u000f\u001b;_.Za\n#conduct\n J BKH _>.>BJBB_>.>i\u001b#rub\nKNNU _>.>BU K K_>,>J BNU _>.>JYUY_>.>Fk ..YNUU_>,>i\u001bs<\u0018\u001bf a hE- Vlad was here\n50s\\  100sbbuFhFhFyFyFbFhFh      yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 620071,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:explore\n",
+   "moves": " FyFyFh100s  FhFkFyFhFuFhFh20ss50s150sFhFhs100sFhFk FyFk..50s150s  FuFksFus.150s  FhFhFhkbhFl s20s100s100sFkFksykji\u001b150s100sFus.50s150s ej\u000f\u001b150s#offer\n50s100sFuFuFuFussej\u000f\u001b_ \u001b;>UHYU_>,>YHBL_>,>FuFlFlE- ad aerarium\ndg HBHL_>.>FlssBYKU_>,>HJHY_>.>HJL    J_>.>Fk  n FkFyUJLU_>.>_<,sm.dhFhFhFh100s150s  FhFh.150s150sFhFhFhFhFhs\u000f\u001b\u000f\u001b100s50s50sFh.20s100sylkFhFhs50s\u000f\u001b100s 20s FhFbFhFbFbFb100s50si\u001b100s 150s_>.>FbFbFb150s150s Fy Fyshyb100subh\u000f\u001b50s_>.>50sl #rub\nb20sdksns.m.t$yy#chat\ny#name\no\nJJJK_>.>Fb.sH  HYY_>.>YL JU_>,>NHNY _>.>i\u001bw-<BBJH_>,>KHJH_>.><sLY KJ_>,>HUUN _>.>10sey KKBU_>,>P#name\nd\nLJBL_>.>KB LK_>.>HNYU_>.>\u000f\u001b;_.Za\n#conduct\n J BKH _>.>BJBB_>.>i\u001b#rub\nKNNU _>.>BU K K_>,>J BNU _>.>JYUY_>.>Fk ..YNUU_>,>i\u001bs<\u0018\u001bf a hE- Vlad was here\n50s\\  100sbbuFhFhFyFyFbFhFh      yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

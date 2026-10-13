@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n30\n         \u0007white unicorn\n\u0017scroll of taming\nrf  \u001b\u0017saddle\nagj  \u0017lance\nwh #ride\njy\u0007pony\n\u0017scroll of taming\nri  \u0017saddle\najn#ride\nny\u0007tame saddled horse\n#ride\n  \u0007jackal\nFb   FuFh\u0007jackal\nFyFkFlnuhuu,ylh\u0017pool\n#dip\nhy  bubb\u0017grave\n: \u0017wand of digging\nzk> .sjn\u0017melting ice\nuubun\u0017sink\nqy\u0017ring of adornment\ndl  \u001b k\u0004j\u0004j#terrain\ne\n\u000f\u001boh;m. \u001bm. #levelchange\n20\n   \u0007rust monster\n.ys   20s       sm.    \u0007jackal\nsm.          sm.     20s   sm.          .j   . \u0007killer bee\n;h,20ssj sm.\u001611\n \u0017bag of holding\n\u0017ice box\n\u0017locked chest\n\u0017ring of shock resistance\n\u0017diamond\n\u0017skeleton key\ndmar.y  20s sm.    20s      n  #loot\nk    ah.dd    #loot\nl,     nah:   i\u001b\u00161\n\u0016?\n>EbbbbhFn\u0017wand of digging\nzsjFnhjFunFuFuFuFujjFuFujjlbb\u0017wand of digging\nztblhjjjjjjjbjjjj\u0017wand of striking\nzuj\u0017scroll of earth\nrv kjulukkuj10snhkubukn#levelchange\n8\n    \u0017amulet of magical breathing\n\u0007xorn\nPwsm.  n sjsm. su\u00173 wand of undead turning\nzxk  Fk   n Fk \u0017blessed potion of levitation\nqy\u0017uncursed 20 elven arrows\nQafk      n ff\u0017uncursed scroll of amnesia\nrA  \u0017Frost Brand\n\u0007ogre king\nwBFk  Fk   n Fk  #invoke\nB:      XFk   n Fk sm.20s \u001613\n\u0006\u001610\n#levelchange\n14\n     \u0016?\n>y  _mmm, \u001b       nFb   _. Fh    #chat\nh    n       ;b._mmm,      nFh      _.#chat\nk    n     _m.    n Fy    _.#chat\nn     n ;l._mmmmm.          n  Fy            n   _,#chat\nk    _mmmmm,   yy\u001bny ny\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 610077,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n30\n         \u0007white unicorn\n\u0017scroll of taming\nrf  \u001b\u0017saddle\nagj  \u0017lance\nwh #ride\njy\u0007pony\n\u0017scroll of taming\nri  \u0017saddle\najn#ride\nny\u0007tame saddled horse\n#ride\n  \u0007jackal\nFb   FuFh\u0007jackal\nFyFkFlnuhuu,ylh\u0017pool\n#dip\nhy  bubb\u0017grave\n: \u0017wand of digging\nzk> .sjn\u0017melting ice\nuubun\u0017sink\nqy\u0017ring of adornment\ndl  \u001b k\u0004j\u0004j#terrain\ne\n\u000f\u001boh;m. \u001bm. #levelchange\n20\n   \u0007rust monster\n.ys   20s       sm.    \u0007jackal\nsm.          sm.     20s   sm.          .j   . \u0007killer bee\n;h,20ssj sm.\u001611\n \u0017bag of holding\n\u0017ice box\n\u0017locked chest\n\u0017ring of shock resistance\n\u0017diamond\n\u0017skeleton key\ndmar.y  20s sm.    20s      n  #loot\nk    ah.dd    #loot\nl,     nah:   i\u001b\u00161\n\u0016?\n>EbbbbhFn\u0017wand of digging\nzsjFnhjFunFuFuFuFujjFuFujjlbb\u0017wand of digging\nztblhjjjjjjjbjjjj\u0017wand of striking\nzuj\u0017scroll of earth\nrv kjulukkuj10snhkubukn#levelchange\n8\n    \u0017amulet of magical breathing\n\u0007xorn\nPwsm.  n sjsm. su\u00173 wand of undead turning\nzxk  Fk   n Fk \u0017blessed potion of levitation\nqy\u0017uncursed 20 elven arrows\nQafk      n ff\u0017uncursed scroll of amnesia\nrA  \u0017Frost Brand\n\u0007ogre king\nwBFk  Fk   n Fk  #invoke\nB:      XFk   n Fk sm.20s \u001613\n\u0006\u001610\n#levelchange\n14\n     \u0016?\n>y  _mmm, \u001b       nFb   _. Fh    #chat\nh    n       ;b._mmm,      nFh      _.#chat\nk    n     _m.    n Fy    _.#chat\nn     n ;l._mmmmm.          n  Fy            n   _,#chat\nk    _mmmmm,   yy\u001bny ny\u001b  F"
+  }
+ ]
+}

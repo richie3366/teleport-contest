@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nWe\u0016?\n>w_ \u001b>.<20s.u\u001640\nhl:\u0016?\n>xhlhlyh:sss\u0016?\n>E#chat\nk;.\u001639\n\u00173 10 daggers\n \u001b\u0007werewolf\n,FhFh\u0017cursed bugle\nagy agy \u0017silver saber\n\u0007Keystone Kop\nwhFh Fh.\u0017uncursed potion of extra healing\nqi20ssssm.\u0016?\no \u0007guardian naga\nFjFj       Fj  Fj       Fj              \u0007pit fiend\n#chat\nj Fj  Fj \u001611\n _>.>\u001640\n      \u0007water nymph\nFjFj sss20s   .m.  n\u0007rust monster\nFh  Fn  Fh.m.    20s  \u0007chameleon\nFb  FbFb     Fb      Fn    sm.    20s   #pray\ny y             \u0016?\ng\u0014m,\u001640\n   \u0014.\u0016?\n>>P  \u0014>.  20s.20s\u0016?\n>J     scroll of scare monster\n#chat\nh;>.\u001639\n\u0014 nn\u0016?\nb\u0004n\u0016?\n\u001bl j\u0016?\n\u001bhh\u0016?\n\u001bhb\u0016?\n\u001bhn\u0016?\n\u001bbu\u0016?\n\u001bln\u0016?\n\u001bhk\u0016?\n\u001bbl\u0016?\n\u001bbh \u0016?\n\u001bjy\u0016?\n\u001bj y\u0016?\n\u001buk\u001611\n\u0014 n  n \u001636\nlylb\u0017web\njj\u0017statue trap\nk\u0017level teleporter\n#terrain\n\u001bw\u001bz\u001618\nun:\u001636\n#chat\nk;_.20s\u001640\n__,.\u0016?\n\u001bhl\u0016?\n\u001bky \u001618\n#chat\nj;j;\u0016?\n\u001bny\u0016?\n\u001bn  n  n\u001618\n#chat\nk;_.\u0016?\n\u001bnh\u0016"
+ },
+ "segments": [
+  {
+   "seed": 620048,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nWe\u0016?\n>w_ \u001b>.<20s.u\u001640\nhl:\u0016?\n>xhlhlyh:sss\u0016?\n>E#chat\nk;.\u001639\n\u00173 10 daggers\n \u001b\u0007werewolf\n,FhFh\u0017cursed bugle\nagy agy \u0017silver saber\n\u0007Keystone Kop\nwhFh Fh.\u0017uncursed potion of extra healing\nqi20ssssm.\u0016?\no \u0007guardian naga\nFjFj       Fj  Fj       Fj              \u0007pit fiend\n#chat\nj Fj  Fj \u001611\n _>.>\u001640\n      \u0007water nymph\nFjFj sss20s   .m.  n\u0007rust monster\nFh  Fn  Fh.m.    20s  \u0007chameleon\nFb  FbFb     Fb      Fn    sm.    20s   #pray\ny y             \u0016?\ng\u0014m,\u001640\n   \u0014.\u0016?\n>>P  \u0014>.  20s.20s\u0016?\n>J     scroll of scare monster\n#chat\nh;>.\u001639\n\u0014 nn\u0016?\nb\u0004n\u0016?\n\u001bl j\u0016?\n\u001bhh\u0016?\n\u001bhb\u0016?\n\u001bhn\u0016?\n\u001bbu\u0016?\n\u001bln\u0016?\n\u001bhk\u0016?\n\u001bbl\u0016?\n\u001bbh \u0016?\n\u001bjy\u0016?\n\u001bj y\u0016?\n\u001buk\u001611\n\u0014 n  n \u001636\nlylb\u0017web\njj\u0017statue trap\nk\u0017level teleporter\n#terrain\n\u001bw\u001bz\u001618\nun:\u001636\n#chat\nk;_.20s\u001640\n__,.\u0016?\n\u001bhl\u0016?\n\u001bky \u001618\n#chat\nj;j;\u0016?\n\u001bny\u0016?\n\u001bn  n  n\u001618\n#chat\nk;_.\u0016?\n\u001bnh\u0016"
+  }
+ ]
+}

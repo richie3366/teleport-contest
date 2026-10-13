@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017blessed +3 speed boots\nWo  \u0017blessed +3 gauntlets of power\nWp \u0016?\n>I\u0004j\u001617\n \u0004ny \u001617\n#chat\nh;m, \u001bm,..s\u001638\n   nju:\u001638\n \u0014 n20s.m.\u0016?\n>Chknly:\u0016?\n>x\u0006_<,_,Fh\u001638\n\u0004k\u001617\n#chat\nh;h,\u0016?\n>>Qkk\u0017wand of nothing\nEa ad aerarium\nk\u0017wand of secret door detection\nEb  X marks the spot\n\u0017ruby\nEc  X marks the spot\n: bE- Elbereth Elbereth\n\u0007hill orc\nsm.sy.y\u001645\nkbub:\u0016?\nn hky \u0017anti-magic field\nj\u0017rolling boulder trap\n\u0017beartrap\naqhy20s   ,<\u0016?\ndjbl:.k\u0016?\nq ukunl:\u0016?\n>Iubhu :sb\u0016?\n>>K     wand of secret door detection\n\u0014:sm.    nsm.   \u0016?\n\u001by y\u0016?\n\u001byh\u001643\nbh  n \u0017wand of undead turning\nE:y\u0017wand of sleep\nEh\u0017ruby\nE:y\u0017wand of lightning\nE:\u0016?\n\u001bj  n   y\u001643\nb  n   jn  n              n  n:\u00164\n\u001636\n_{.\u001610\n_>.<su20s  20s  n      \u0016?\n\u001by         n  y     n   n   \u00162\n\u001638\n#chat\nb;>.\u001638\n__.>.   n.    n\u00165\n\u0016?\n\u001bjj\u0016?\n\u001bl  n  n  n  \u001610\n\u0016?\n\u001bj    n h\u0016?\n\u001bhn\u001610\n_>,<\u001640\nknnb     yy\u001by   ny  y\u001b  l"
+ },
+ "segments": [
+  {
+   "seed": 610012,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017blessed +3 speed boots\nWo  \u0017blessed +3 gauntlets of power\nWp \u0016?\n>I\u0004j\u001617\n \u0004ny \u001617\n#chat\nh;m, \u001bm,..s\u001638\n   nju:\u001638\n \u0014 n20s.m.\u0016?\n>Chknly:\u0016?\n>x\u0006_<,_,Fh\u001638\n\u0004k\u001617\n#chat\nh;h,\u0016?\n>>Qkk\u0017wand of nothing\nEa ad aerarium\nk\u0017wand of secret door detection\nEb  X marks the spot\n\u0017ruby\nEc  X marks the spot\n: bE- Elbereth Elbereth\n\u0007hill orc\nsm.sy.y\u001645\nkbub:\u0016?\nn hky \u0017anti-magic field\nj\u0017rolling boulder trap\n\u0017beartrap\naqhy20s   ,<\u0016?\ndjbl:.k\u0016?\nq ukunl:\u0016?\n>Iubhu :sb\u0016?\n>>K     wand of secret door detection\n\u0014:sm.    nsm.   \u0016?\n\u001by y\u0016?\n\u001byh\u001643\nbh  n \u0017wand of undead turning\nE:y\u0017wand of sleep\nEh\u0017ruby\nE:y\u0017wand of lightning\nE:\u0016?\n\u001bj  n   y\u001643\nb  n   jn  n              n  n:\u00164\n\u001636\n_{.\u001610\n_>.<su20s  20s  n      \u0016?\n\u001by         n  y     n   n   \u00162\n\u001638\n#chat\nb;>.\u001638\n__.>.   n.    n\u00165\n\u0016?\n\u001bjj\u0016?\n\u001bl  n  n  n  \u001610\n\u0016?\n\u001bj    n h\u0016?\n\u001bhn\u001610\n_>,<\u001640\nknnb     yy\u001by   ny  y\u001b  l"
+  }
+ ]
+}

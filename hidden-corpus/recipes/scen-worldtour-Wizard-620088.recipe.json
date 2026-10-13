@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPp\u001610\n\u0007flesh golem\n;b. \u001b.sm..nsh\u0007chameleon\nsm.ssssss\u0016?\n>>K      scroll of gold detection\n#levelchange\n6\n        \u0017blessed spellbook of cure sickness\nrs    .m.      n  \u0017blessed spellbook of levitation\nrt     n    sk     \u0017spellbook of magic mapping\nruy .     n      n sb      \u0017blessed spellbook of detect treasure\nrv        n    n sn       n  +\u001b\u0007gnome lord\nZ\u001bFn          nZ\u001b\u0007grid bug\nZ\u001b\u0007yellow mold\nZ\u001bZ\u001bFj    Zb\n #turn\n\u00163\n\u00164\n_>.\u0016?\ne \u0004y        n \u001614\nn    nb   n         n       n  nub  n   nu:\u00168\n\u0016?\nd\u0017yumi\nww   \u001720 ya\nQx\u00074 gnome lord\nh   n y    fj   yy\u001by   y y  y\u001b  f"
+ },
+ "segments": [
+  {
+   "seed": 620088,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPp\u001610\n\u0007flesh golem\n;b. \u001b.sm..nsh\u0007chameleon\nsm.ssssss\u0016?\n>>K      scroll of gold detection\n#levelchange\n6\n        \u0017blessed spellbook of cure sickness\nrs    .m.      n  \u0017blessed spellbook of levitation\nrt     n    sk     \u0017spellbook of magic mapping\nruy .     n      n sb      \u0017blessed spellbook of detect treasure\nrv        n    n sn       n  +\u001b\u0007gnome lord\nZ\u001bFn          nZ\u001b\u0007grid bug\nZ\u001b\u0007yellow mold\nZ\u001bZ\u001bFj    Zb\n #turn\n\u00163\n\u00164\n_>.\u0016?\ne \u0004y        n \u001614\nn    nb   n         n       n  nub  n   nu:\u00168\n\u0016?\nd\u0017yumi\nww   \u001720 ya\nQx\u00074 gnome lord\nh   n y    fj   yy\u001by   y y  y\u001b  f"
+  }
+ ]
+}

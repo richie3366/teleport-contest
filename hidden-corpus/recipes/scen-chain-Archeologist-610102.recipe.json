@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " FuFu s150s\\ 100sFyFyFyFyFyFyyju50s\u0018\u001bi\u001br\u001bkjhFl..jjl_ \u001bm.>\\ #monster\njbk#untrap\ny\u000f\u001b100s50s100s150s 150sFk20ssyjn150sFk     \u001b     2  #wizintrinsic\nb\n sm.s.m.20s20s  .m.  ynny nn  . FnFnFlFl  s.\\ 50sw-Fls20s100sbhy20s100s50s150sFuFlFu  y\u001by  y y y\u001b  1#wizintrinsic\nd\n 20s    sm.ss20ssm.sj20s.n.b20s yy\u001by  ny y\u001by  2",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 610102,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": " FuFu s150s\\ 100sFyFyFyFyFyFyyju50s\u0018\u001bi\u001br\u001bkjhFl..jjl_ \u001bm.>\\ #monster\njbk#untrap\ny\u000f\u001b100s50s100s150s 150sFk20ssyjn150sFk     \u001b     2"
+  },
+  {
+   "seed": 710102,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nb\n sm.s.m.20s20s  .m.  ynny nn  ."
+  },
+  {
+   "seed": 810102,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\n",
+   "moves": " FnFnFlFl  s.\\ 50sw-Fls20s100sbhy20s100s50s150sFuFlFu  y\u001by  y y y\u001b  1"
+  },
+  {
+   "seed": 910102,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#wizintrinsic\nd\n 20s    sm.ss20ssm.sj20s.n.b20s yy\u001by  ny y\u001by  2"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n       \u0007gray unicorn\n\u0017scroll of taming\nre  \u001b\u0017saddle\nafy  \u0017lance\nwg #ride\nyy\u0007tame saddled horse\n#ride\nyy\u0007tame saddled pony\n#ride\nyy\u0007yellow mold\nFnFl Fns.\u0007yellow mold\nFb FjFj#ride\nnys   #ride\n   \u0004hy  \\   #levelchange\n8\n\u0016?\ngWZE- Vlad was here\n;m, \u001b@.20s20s\u001634\n  20sW<.usm.    n \u0016?\n>C#loot\ny#loot\nuch;<.sl20s\u0016?\nm#twoweapon\n#sit\n#rub\nsm.s#levelchange\n10\n \u0016?\n>Bjjjkuub Fbl FbFbFblkFb\u0017wand of digging\nzhu Fbl\u0017wand of digging\nziu  n FbnbkyFjkjy\u0017scroll of earth\nrj lynbbuuujujylljlju\u0017wand of striking\nzkyululnk \u0017wand of striking\nzluhkkkj\u000f\u001b#levelchange\n20\n         #wizintrinsic\nj\n s20s20s.bsysysm.s20s20s\u0017tooled horn\namy amy i\u001bch#sit\n\u001b#sit\n\u001b#twoweapon\nP.m.sm.20s.m.sm..m.#levelchange\n20\n\u0016?\ne\u000620sshFjFj Fl Fl h   b  by#tip\n\u001b\u001b#enhance\nym\nm\n\u001b#invoke\n\u001b\u001b\\   #levelchange\n30\n         \u0016?\n>BFjlFjFjyFjFjFjnFhjh10skby FhkFhFhFhbbb10skykk10s \u001bjbbbkyjbbb\u0017scroll of earth\nrn h 10sn10sjlnlnbulyyklk\u0017wand of digging\nzonu\u0018\u001b#levelchange\n10\n    nkj\u0017hole\nl\u0017squeaky board\n#terrain\nb\n<#conduct\n#conduct\n  i\u001b#levelchange\n30\n                   #wizintrinsic\ndo\n sm.ssss20ssm.20ssm..m.sysm..m.20ssh20s n.20s20s..s\u0017leather drum\napap#enhance\nye\nn\n\u001br\u001b\u001b\u0004k\u0014<.ck#sit\n\u001b20ss20sss20s\\   #levelchange\n20\n  \u0017helm of brilliance\nWq..sTq\u0007Death\nnFkFkFk   Fk   n  \u0007marilith\nFk    nFh     n  Fk  n      Fh   n     n   nFk   n   n   n\u0007air elemental\nsm.   n    n   yy\u001by   y nn  s"
+ },
+ "segments": [
+  {
+   "seed": 620033,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=fruit:durian\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n       \u0007gray unicorn\n\u0017scroll of taming\nre  \u001b\u0017saddle\nafy  \u0017lance\nwg #ride\nyy\u0007tame saddled horse\n#ride\nyy\u0007tame saddled pony\n#ride\nyy\u0007yellow mold\nFnFl Fns.\u0007yellow mold\nFb FjFj#ride\nnys   #ride\n   \u0004hy  \\   #levelchange\n8\n\u0016?\ngWZE- Vlad was here\n;m, \u001b@.20s20s\u001634\n  20sW<.usm.    n \u0016?\n>C#loot\ny#loot\nuch;<.sl20s\u0016?\nm#twoweapon\n#sit\n#rub\nsm.s#levelchange\n10\n \u0016?\n>Bjjjkuub Fbl FbFbFblkFb\u0017wand of digging\nzhu Fbl\u0017wand of digging\nziu  n FbnbkyFjkjy\u0017scroll of earth\nrj lynbbuuujujylljlju\u0017wand of striking\nzkyululnk \u0017wand of striking\nzluhkkkj\u000f\u001b#levelchange\n20\n         #wizintrinsic\nj\n s20s20s.bsysysm.s20s20s\u0017tooled horn\namy amy i\u001bch#sit\n\u001b#sit\n\u001b#twoweapon\nP.m.sm.20s.m.sm..m.#levelchange\n20\n\u0016?\ne\u000620sshFjFj Fl Fl h   b  by#tip\n\u001b\u001b#enhance\nym\nm\n\u001b#invoke\n\u001b\u001b\\   #levelchange\n30\n         \u0016?\n>BFjlFjFjyFjFjFjnFhjh10skby FhkFhFhFhbbb10skykk10s \u001bjbbbkyjbbb\u0017scroll of earth\nrn h 10sn10sjlnlnbulyyklk\u0017wand of digging\nzonu\u0018\u001b#levelchange\n10\n    nkj\u0017hole\nl\u0017squeaky board\n#terrain\nb\n<#conduct\n#conduct\n  i\u001b#levelchange\n30\n                   #wizintrinsic\ndo\n sm.ssss20ssm.20ssm..m.sysm..m.20ssh20s n.20s20s..s\u0017leather drum\napap#enhance\nye\nn\n\u001br\u001b\u001b\u0004k\u0014<.ck#sit\n\u001b20ss20sss20s\\   #levelchange\n20\n  \u0017helm of brilliance\nWq..sTq\u0007Death\nnFkFkFk   Fk   n  \u0007marilith\nFk    nFh     n  Fk  n      Fh   n     n   nFk   n   n   n\u0007air elemental\nsm.   n    n   yy\u001by   y nn  s"
+  }
+ ]
+}

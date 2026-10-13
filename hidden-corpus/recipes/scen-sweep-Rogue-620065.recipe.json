@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed ring of polymorph control\nPil\u0017cloak of protection\nWj20sss#polyself\ndwarf\n#monster\ns.\u0007dust vortex\nFl FjFj . 20s s\u001b#polyself\nblack light\n   s20s\u0007xorn\nFn  Fk Fk  s . s\u001b\u0017wand of polymorph\nzkj zkn\u0006_ \u001b.>Fn   nFu_>>,Fu_,Fu>FlFu  n_>>.Fu_. Fl>Fu Fu Fu   nFuFu \u0006_>.Fu _,;@.Fu >FuFl  _>.   nFl_. Fl  >Fn    nFk  _>, Fk _,  n  Fl   >Fl Fl Fl  n    Fk Fl \u0006_>,   n Fj  _. Fn   n>Fn Fj_>._.:> \u0006_>._,>_>._.>_>,_.>\u0006_>,_.>_>._.>_>._.>\u0006_>>._,>_>>._.>_>>,_,>\u0006_>.Fb _.Fb  >Fb Fb _>. Fb  n _,Fb   >Fb  Fb   _>,Fh   n _.Fh  >Fh Fy Fh   n  Fy Fy  aky      rabid rat\n o\u00162\nl  lh\u0017arrow trap\nl\u0007sewer rat\n.m..sm.  n   .b   n\u0017magic trap\nk\u0017fire trap\n#terrain\n\u001b\\  b,#levelchange\n12\n     #wizintrinsic\np\n sm. 20s     n20s sm. .h  sm.sjs20s  n  20ssm.20s 20s20s      yny   y y y\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 620065,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed ring of polymorph control\nPil\u0017cloak of protection\nWj20sss#polyself\ndwarf\n#monster\ns.\u0007dust vortex\nFl FjFj . 20s s\u001b#polyself\nblack light\n   s20s\u0007xorn\nFn  Fk Fk  s . s\u001b\u0017wand of polymorph\nzkj zkn\u0006_ \u001b.>Fn   nFu_>>,Fu_,Fu>FlFu  n_>>.Fu_. Fl>Fu Fu Fu   nFuFu \u0006_>.Fu _,;@.Fu >FuFl  _>.   nFl_. Fl  >Fn    nFk  _>, Fk _,  n  Fl   >Fl Fl Fl  n    Fk Fl \u0006_>,   n Fj  _. Fn   n>Fn Fj_>._.:> \u0006_>._,>_>._.>_>,_.>\u0006_>,_.>_>._.>_>._.>\u0006_>>._,>_>>._.>_>>,_,>\u0006_>.Fb _.Fb  >Fb Fb _>. Fb  n _,Fb   >Fb  Fb   _>,Fh   n _.Fh  >Fh Fy Fh   n  Fy Fy  aky      rabid rat\n o\u00162\nl  lh\u0017arrow trap\nl\u0007sewer rat\n.m..sm.  n   .b   n\u0017magic trap\nk\u0017fire trap\n#terrain\n\u001b\\  b,#levelchange\n12\n     #wizintrinsic\np\n sm. 20s     n20s sm. .h  sm.sjs20s  n  20ssm.20s 20s20s      yny   y y y\u001b  ."
+  }
+ ]
+}

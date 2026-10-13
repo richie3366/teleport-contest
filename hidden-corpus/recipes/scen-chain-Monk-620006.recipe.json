@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "L  HYL _ \u001b@.>Fj .sBUYU_>.>HUHY_>,>HULH_>.><KLLN_>,>\u000f\u001b\u0018\u001b#monster\n100s100s100s_>,>50s_>.>#conduct\n 100s150s100s100s_>.>50s50s100s eg_>,>50s_>.>50s100sef50s150sef\u001450shjkjuh100s100sef100sefi\u001bblb100sefjnkkkjl100s egri ny#conduct\n 100see 150s,#wipe\n100s100sFjs.byn_>,>i\u001b_>.>_>.>t\u001b50s50skju100suby_>.>100s hjl100s egjyu100s100seh  50slbj150seh  _>,>kyjkln10s#chat\nykhhbde20sss#name\n\u001bbyjjda.ssdfss.#name\n\u001blkkj#quit\nyy\u001by  y y y\u001b Fy FyFyFyFyFyFyFykykjFjFjst\u001b50s 100s_ \u001b<.>\\ f \u001b100s    FkFk Fk100sykj\\ _>.>hhj#wipe\n_>,>100s\u0018\u001bi\u001b_>,>;<.hbk100s150s100sFks.50s100sjll50sFkFks100s\u000f\u001bkubnuyFlFlFl150s100s50s50skkll10sjk20sblHKUK_>,>NJLB_>,>LNHY_>.>20s#chat\nlt\u001bundiss.eeef150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeelujhukyyJUNH_>,>LJYB_>.>JLJH_>,>UBJU_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b \u0007pit fiend\nFkFkFkFkFkFk   yy\u001by  y y\u001by  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 620006,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "L  HYL _ \u001b@.>Fj .sBUYU_>.>HUHY_>,>HULH_>.><KLLN_>,>\u000f\u001b\u0018\u001b#monster\n100s100s100s_>,>50s_>.>#conduct\n 100s150s100s100s_>.>50s50s100s eg_>,>50s_>.>50s100sef50s150sef\u001450shjkjuh100s100sef100sefi\u001bblb100sefjnkkkjl100s egri ny#conduct\n 100see 150s,#wipe\n100s100sFjs.byn_>,>i\u001b_>.>_>.>t\u001b50s50skju100suby_>.>100s hjl100s egjyu100s100seh  50slbj150seh  _>,>kyjkln10s#chat\nykhhbde20sss#name\n\u001bbyjjda.ssdfss.#name\n\u001blkkj#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 720006,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=fruit:slime mold\n",
+   "moves": "Fy FyFyFyFyFyFyFykykjFjFjst\u001b50s 100s_ \u001b<.>\\ f \u001b100s    FkFk Fk100sykj\\ _>.>hhj#wipe\n_>,>100s\u0018\u001bi\u001b_>,>;<.hbk100s150s100sFks.50s100sjll50sFkFks100s\u000f\u001bkubnuyFlFlFl150s100s50s50skkll10sjk20sblHKUK_>,>NJLB_>,>LNHY_>.>20s#chat\nlt\u001bundiss.eeef150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeelujhukyyJUNH_>,>LJYB_>.>JLJH_>,>UBJU_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 820006,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007pit fiend\nFkFkFkFkFkFk   yy\u001by  y y\u001by  F"
+  }
+ ]
+}

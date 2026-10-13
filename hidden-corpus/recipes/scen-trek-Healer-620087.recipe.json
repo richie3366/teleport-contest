@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "U JU  H_ \u001b.>FlFjFl BUBU_>,>:#name\nm\nUUUB_>\u000fyBYHU_>.>UBYB_>.>\u000f\u001bnhk100sjlyljk_>,>\u0004y50s100sL150sFls.50s50shjhknyljh\\ 100s50s150s100s150sej150sej_>.>i\u001b_>.>\u000f\u001b150suhl100sejhju100sFlFlFl\\ hnkjyns20s10s#force\nej100sej100s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#ride\n.#untrap\nu,HUHL _>.>BKNY_>,>NLJB_>,>#untrap\ny#tip\n\u001b\u0004n#invoke\n\u001b;m.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee,#invoke\n\u001bsLLLJ_>.>NNLN_>.>JY LN_>.>BKJB_>,>UYJK_>,>\u0018\u001b<JH LK_>,>\u000f\u001blhbu#name\na\n20s#name\na\n20sdfss20sL wa<kkyl10s10s#chat\nnhnjkt$u20s#pray\ny khh_>,>#pray\ny #pray\ny   150s _>,>#pray\ny    y  F"
+ },
+ "segments": [
+  {
+   "seed": 620087,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:explore\n",
+   "moves": "U JU  H_ \u001b.>FlFjFl BUBU_>,>:#name\nm\nUUUB_>\u000fyBYHU_>.>UBYB_>.>\u000f\u001bnhk100sjlyljk_>,>\u0004y50s100sL150sFls.50s50shjhknyljh\\ 100s50s150s100s150sej150sej_>.>i\u001b_>.>\u000f\u001b150suhl100sejhju100sFlFlFl\\ hnkjyns20s10s#force\nej100sej100s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#ride\n.#untrap\nu,HUHL _>.>BKNY_>,>NLJB_>,>#untrap\ny#tip\n\u001b\u0004n#invoke\n\u001b;m.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee,#invoke\n\u001bsLLLJ_>.>NNLN_>.>JY LN_>.>BKJB_>,>UYJK_>,>\u0018\u001b<JH LK_>,>\u000f\u001blhbu#name\na\n20s#name\na\n20sdfss20sL wa<kkyl10s10s#chat\nnhnjkt$u20s#pray\ny khh_>,>#pray\ny #pray\ny   150s _>,>#pray\ny    y  F"
+  }
+ ]
+}

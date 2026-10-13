@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nWo\u0017blessed amulet of reflection\nPp\u0017blessed +3 speed boots\nWq\u0016?\nq #levelchange\n20\n   \u0017luckstone\n\u0007acid blob\narlFk Fy\u00173 potion of water\n \u0007baby red dragon\nqg\u0017uncursed potion of invisibility\nqs sn.y\u001630\n_ \u001b,s.s\u001630\nlnynl:\u001630\n#levelchange\n20\n\u0017cursed -1 water walking boots\n\u0007nalfeshnee\nW\u001bsm..m.20s    \u0017scroll of blank paper\nruFk Fk\u0017flint stone\navn\u0017athame\nwwFjFk Fu XFk     Fk  n   \u0017cursed -1 dagger\nwx  FkFk Fk\u0017potion of fruit juice\nqy \u001bs\u001b20s \u00163\n #levelchange\n8\n    \u0007giant eel\nFjFj\u0007hobbit\nFbFbFb  n  FnFn\u0007titanothere\nFlFl   Fl  FbFb   \u0016?\n>>M      potion of polymorph\n_<.\u0016?\n\u001buu   \u0016?\n\u001bn      n\u001642\n\u0006;_>.\u0016?\n\u001bn   n     l   n \u001610\n\u0016?\n\u001bn    n        n  \u00164\n#levelchange\n20\n           n          b j   n       u      \u0017ice\nhu  n \u0017fountain\nqy \u001b      qh \u0017long sword\n#dip\nBf: k   n \u0017sink\nqy       #tip\n\u001b#twoweapon\nPz\u00162\n\u0016?\nb#levelchange\n14\n  u   nn   b \u0017moat\nl\u0017tree\n:h \u0017melting ice\n:k       l  \u0017ice\n#pray\ny y   H\u0004n \u00163\nn  n     n  ll   "
+ },
+ "segments": [
+  {
+   "seed": 620052,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nWo\u0017blessed amulet of reflection\nPp\u0017blessed +3 speed boots\nWq\u0016?\nq #levelchange\n20\n   \u0017luckstone\n\u0007acid blob\narlFk Fy\u00173 potion of water\n \u0007baby red dragon\nqg\u0017uncursed potion of invisibility\nqs sn.y\u001630\n_ \u001b,s.s\u001630\nlnynl:\u001630\n#levelchange\n20\n\u0017cursed -1 water walking boots\n\u0007nalfeshnee\nW\u001bsm..m.20s    \u0017scroll of blank paper\nruFk Fk\u0017flint stone\navn\u0017athame\nwwFjFk Fu XFk     Fk  n   \u0017cursed -1 dagger\nwx  FkFk Fk\u0017potion of fruit juice\nqy \u001bs\u001b20s \u00163\n #levelchange\n8\n    \u0007giant eel\nFjFj\u0007hobbit\nFbFbFb  n  FnFn\u0007titanothere\nFlFl   Fl  FbFb   \u0016?\n>>M      potion of polymorph\n_<.\u0016?\n\u001buu   \u0016?\n\u001bn      n\u001642\n\u0006;_>.\u0016?\n\u001bn   n     l   n \u001610\n\u0016?\n\u001bn    n        n  \u00164\n#levelchange\n20\n           n          b j   n       u      \u0017ice\nhu  n \u0017fountain\nqy \u001b      qh \u0017long sword\n#dip\nBf: k   n \u0017sink\nqy       #tip\n\u001b#twoweapon\nPz\u00162\n\u0016?\nb#levelchange\n14\n  u   nn   b \u0017moat\nl\u0017tree\n:h \u0017melting ice\n:k       l  \u0017ice\n#pray\ny y   H\u0004n \u00163\nn  n     n  ll   "
+  }
+ ]
+}

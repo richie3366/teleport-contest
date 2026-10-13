@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n12\n   \u0017leather armor\nWesssTe\u0007blue jelly\ns..20s..\u0007ape\n#chat\nhFyFk jyk\u0017teleportation trap\nh^ll \u001b.ssn\u0017hole\nk^jjy s20sl\u0017web\nb^u#untrap\nu#jump\n#loot\n#offer\n\u0017blessed potion of water\n\u0007ki-rin\nqf \u001b\u0017the Orb of Detection\n \u0007ghost\nwaFb  Fb Fb \u00173 scroll of gold detection\n\u0007Pestilence\nnrh ;   \u0017speed boots\nWi   n       sm.   n    .m.   sm.  n TiFn     Fn  sk   20s  n  \u00165\n#levelchange\n20\n       \u0017bow\nwj  Fh  Fh   Fh  \u0007lichen\n#chat\nhFh   Fl    \u0007gnomish wizard\nFh   n Fy  Fh Fh  \u0007vampire bat\n#chat\nh  Fh      Fy      n  \u0018\u001b\u001611\n    \u0007mail daemon\nFj    Fj \u0007purple worm\n.l20s  .m. 20s  20s  \u0007Croesus\nynFjFjFkFj  n    \u0007ettin\n#chat\nnFl   Fj\u000f\u001b\u0016?\nj\u0006\u0017tooled horn\naknnECFEtEAnnBCFEnGDAGGeneetBEtsFAGECBCGABFCAF\n nh   aknGnFGGtAsGAtBGCetsDsDFBGFFAGGoDDtsnnBDEBGEFC\n   n       b    n  k\u0017wand of opening\nzlk     n #loot\nb10s    n s\\   \u00164\n#levelchange\n20\n\u0017cursed potion of booze\nqm \u001b       n  FhFh\u0017two-handed sword\nwnFhFh Fh\u0017blessed glob of green slime\n\u0007ogre king\neo  n   .m.   sm. FhFj   n  sm.  20s  \u001611\n#levelchange\n30\n         \u001637\n   _m. 20s #tip\n\u001b>.m.sm.\u0016?\n \u0016?\nb#pray\ny y   10s  n \u000f\u001b;b:  \u000620s sm.\u0016?\nq ,#turn\nwa ;l.20s   sm.\\   yn  yny   y ny y\u001b  b"
+ },
+ "segments": [
+  {
+   "seed": 610121,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n12\n   \u0017leather armor\nWesssTe\u0007blue jelly\ns..20s..\u0007ape\n#chat\nhFyFk jyk\u0017teleportation trap\nh^ll \u001b.ssn\u0017hole\nk^jjy s20sl\u0017web\nb^u#untrap\nu#jump\n#loot\n#offer\n\u0017blessed potion of water\n\u0007ki-rin\nqf \u001b\u0017the Orb of Detection\n \u0007ghost\nwaFb  Fb Fb \u00173 scroll of gold detection\n\u0007Pestilence\nnrh ;   \u0017speed boots\nWi   n       sm.   n    .m.   sm.  n TiFn     Fn  sk   20s  n  \u00165\n#levelchange\n20\n       \u0017bow\nwj  Fh  Fh   Fh  \u0007lichen\n#chat\nhFh   Fl    \u0007gnomish wizard\nFh   n Fy  Fh Fh  \u0007vampire bat\n#chat\nh  Fh      Fy      n  \u0018\u001b\u001611\n    \u0007mail daemon\nFj    Fj \u0007purple worm\n.l20s  .m. 20s  20s  \u0007Croesus\nynFjFjFkFj  n    \u0007ettin\n#chat\nnFl   Fj\u000f\u001b\u0016?\nj\u0006\u0017tooled horn\naknnECFEtEAnnBCFEnGDAGGeneetBEtsFAGECBCGABFCAF\n nh   aknGnFGGtAsGAtBGCetsDsDFBGFFAGGoDDtsnnBDEBGEFC\n   n       b    n  k\u0017wand of opening\nzlk     n #loot\nb10s    n s\\   \u00164\n#levelchange\n20\n\u0017cursed potion of booze\nqm \u001b       n  FhFh\u0017two-handed sword\nwnFhFh Fh\u0017blessed glob of green slime\n\u0007ogre king\neo  n   .m.   sm. FhFj   n  sm.  20s  \u001611\n#levelchange\n30\n         \u001637\n   _m. 20s #tip\n\u001b>.m.sm.\u0016?\n \u0016?\nb#pray\ny y   10s  n \u000f\u001b;b:  \u000620s sm.\u0016?\nq ,#turn\nwa ;l.20s   sm.\\   yn  yny   y ny y\u001b  b"
+  }
+ ]
+}

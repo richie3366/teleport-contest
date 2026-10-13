@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0007tame dingo\n\u0017newt corpse\ntdb \u0017lichen corpse\ntbb\u0006_ \u001b>.>FjFh  _>,Fu_.Fu>_>._.>\u0007acid blob\n\u0017scroll of taming\nri \u0006_>,Fh_.Fh>FlFh _>.Fn_,Fl>_>.Fl_.>\u0007tame housecat\n\u0007lichen\nsm. .s.s20s20s\u0017leash\naj.jjunajk\u0017carrot\ntdh #name\n\u001b\u0006_>>.Fy_.Fk>FkFk_>>,Fy_.Fk>Fk   Fk_>>.Fk _.>"
+ },
+ "segments": [
+  {
+   "seed": 630025,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007tame dingo\n\u0017newt corpse\ntdb \u0017lichen corpse\ntbb\u0006_ \u001b>.>FjFh  _>,Fu_.Fu>_>._.>\u0007acid blob\n\u0017scroll of taming\nri \u0006_>,Fh_.Fh>FlFh _>.Fn_,Fl>_>.Fl_.>\u0007tame housecat\n\u0007lichen\nsm. .s.s20s20s\u0017leash\naj.jjunajk\u0017carrot\ntdh #name\n\u001b\u0006_>>.Fy_.Fk>FkFk_>>,Fy_.Fk>Fk   Fk_>>.Fk _.>"
+  }
+ ]
+}

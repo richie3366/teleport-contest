@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n            \u0016?\n>xyu\u0017wand of speed monster\nEo Elbereth\n j\u0017wand of fire\nEp  Elbereth\n : \u0017wand of magic missile\nEq  : \u0017wand of lightning\nEr n  X marks the spot\n :   bs\u0016?\n>x\u0014 \u001b<.20s \u0016?\n>>L    ring of increase accuracy\n\u0014 n\u0016?\na   k  b  jk      n l  u   :   \u001b     n  \u001610\n\u001635\nl     n u j   n  :   \u00164\n\u0016?\nd_{,\u0016?\n\u001bb  n   b  \u001635\n__.\u001618\ny  n  y:  \u001637\ny   l  n   n h y     n  j    :   \u001611\n\u0016?\na#levelchange\n14\n\u0007soldier ant\n20s  n   Fb     n  Fk    n       nFy             n Fn         n              n       n sm.                n  sy                ynny y y\u001b  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 610048,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n            \u0016?\n>xyu\u0017wand of speed monster\nEo Elbereth\n j\u0017wand of fire\nEp  Elbereth\n : \u0017wand of magic missile\nEq  : \u0017wand of lightning\nEr n  X marks the spot\n :   bs\u0016?\n>x\u0014 \u001b<.20s \u0016?\n>>L    ring of increase accuracy\n\u0014 n\u0016?\na   k  b  jk      n l  u   :   \u001b     n  \u001610\n\u001635\nl     n u j   n  :   \u00164\n\u0016?\nd_{,\u0016?\n\u001bb  n   b  \u001635\n__.\u001618\ny  n  y:  \u001637\ny   l  n   n h y     n  j    :   \u001611\n\u0016?\na#levelchange\n14\n\u0007soldier ant\n20s  n   Fb     n  Fk    n       nFy             n Fn         n              n       n sm.                n  sy                ynny y y\u001b  \u0007"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  FjFjs#force\n100sFlFls100sFhFh20s_ \u001b@.>jny50sFh..FlFl 20s\\ 150s50sFl20sFlFls.100s50s150s#monster\ni\u001b150sFlFlFlFl20s20s150si\u001bhlu50s#force\n\u0018\u001b\u0018\u001blh n150s 50si\u001b_>.>100sFhss\u0018\u001bdeE- Elbereth Elbereth\nahi\nPBU KJ  _>,>FhFyFhB  nYYH_>.>FlFlFl<NHJU_>,>FuFuFuUKJH_>,>KUNJ_>.>HNKH_>.>YLJB_>.>#enhance\n\u001b\u000f\u001b\u000f\u001bBHJJ_>.>Z#conduct\n YHHL_>.>KHKH _>.>FbssKJBL_>.>HJBN_>.>#twoweapon\n#wipe\nLLJU_>,>ZsW#name\no\ndj.20s.t\u001b20st\u001bUYYH_>,>E- ad aerarium\nohUYUU_>.>UJJN_>.>JLJU_>.>#terrain\nc\nm.ed NLNY_>.>\u000f\u001b;m.\u0004ur\u001bhljl#chat\nbylkkhh20s20sji\u001b#terrain\nc\n@.kjdbsss10skjt\u001b10sdgsssr\u001b\u0018\u001b>KN HB_>,>FlssBBBY_>,>BBHL_>.>fulHKYU_>.><BYNJ_>,>ljjlbb#loot\n100s50s150s100s100s100s100sllk50s100sFhs20s100s 100s150sjkh50sFh20ss100s100sFk20s20sFhss#name\nd\n150s\\ 100sFhFhFh"
+ },
+ "segments": [
+  {
+   "seed": 620047,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:explore\n",
+   "moves": "  FjFjs#force\n100sFlFls100sFhFh20s_ \u001b@.>jny50sFh..FlFl 20s\\ 150s50sFl20sFlFls.100s50s150s#monster\ni\u001b150sFlFlFlFl20s20s150si\u001bhlu50s#force\n\u0018\u001b\u0018\u001blh n150s 50si\u001b_>.>100sFhss\u0018\u001bdeE- Elbereth Elbereth\nahi\nPBU KJ  _>,>FhFyFhB  nYYH_>.>FlFlFl<NHJU_>,>FuFuFuUKJH_>,>KUNJ_>.>HNKH_>.>YLJB_>.>#enhance\n\u001b\u000f\u001b\u000f\u001bBHJJ_>.>Z#conduct\n YHHL_>.>KHKH _>.>FbssKJBL_>.>HJBN_>.>#twoweapon\n#wipe\nLLJU_>,>ZsW#name\no\ndj.20s.t\u001b20st\u001bUYYH_>,>E- ad aerarium\nohUYUU_>.>UJJN_>.>JLJU_>.>#terrain\nc\nm.ed NLNY_>.>\u000f\u001b;m.\u0004ur\u001bhljl#chat\nbylkkhh20s20sji\u001b#terrain\nc\n@.kjdbsss10skjt\u001b10sdgsssr\u001b\u0018\u001b>KN HB_>,>FlssBBBY_>,>BBHL_>.>fulHKYU_>.><BYNJ_>,>ljjlbb#loot\n100s50s150s100s100s100s100sllk50s100sFhs20s100s 100s150sjkh50sFh20ss100s100sFk20s20sFhss#name\nd\n150s\\ 100sFhFhFh"
+  }
+ ]
+}

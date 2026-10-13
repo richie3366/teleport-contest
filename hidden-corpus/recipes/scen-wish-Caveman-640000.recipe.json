@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n           \u0017blessed floating eye corpse\nef  20s20s\u0017potion of blindness\n\u0007trapper\nqg#dip\nb\u0017uncursed large box\n ahah#tip\nh\u001b FkFk\u00173 scroll of remove curse\nri.20s "
+ },
+ "segments": [
+  {
+   "seed": 640000,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n           \u0017blessed floating eye corpse\nef  20s20s\u0017potion of blindness\n\u0007trapper\nqg#dip\nb\u0017uncursed large box\n ahah#tip\nh\u001b FkFk\u00173 scroll of remove curse\nri.20s "
+  }
+ ]
+}
