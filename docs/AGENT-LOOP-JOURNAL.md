@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — D-3921 cliffs-head `uhitm.c` mhitm_ad_curs writer: `sit.c` attrcurse flat-only strip → slot-kept intrinsic re-cursed (Knight-587209 561→PASS)
+
+**C locus:** sit.c attrcurse `:644–762` (all 11 `H* & INTRINSIC` fallthrough arms; each H* ≡ u.uprops[*].intrinsic single storage, youprop.h). C callers `:283` sit.c (throne), eat.c:1274 (disenchanter), pray.c:757 (rndcurse gate), uhitm.c:3057 (mhitu arm `:3037–3058`, stands whole in js/mhitu.js:2762).
+**JS:** 1 file (sit.js attrcurse restart, export name/signature unchanged) + 1 test (`scripts/sit-attrcurse-uprops-mirror.test.mjs`, 5 its: both-mirrors strip, slot-only OR-read, silent-0 control, STEALTH sibling arm, TIMEOUT preservation; seeds 7/11 pin rnd(11)=8/9 as the first draw).
+**Change:** js/sit.js only — `has_intr` OR-read + `clear_intr` dual-write helpers, all 11 arms in C order with unchanged messages/ret/extra blocks (telepat see_monsters, see_invis newsym); strip clears INTRINSIC bits only (TIMEOUT kept, C `&= ~INTRINSIC`); absent slot ≡ 0, never created. No new imports (all consts already imported); no DIAG/FORCE/seed gates.
+**Verify:** new test 1/5 pre-fix (silent control green = staging sound; 4 mirror cases red) → 5/5 post-fix. `node scripts/verify.mjs --fn mhitm_ad_curs,attrcurse` → PASS syntax (1 changed js file: js/sit.js) · PASS rule2 · PASS hidden `verify mhitm_ad_curs: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-sweep-Knight-587209: PASS) · PASS reach mhitm_ad_curs 13/13 → REACH-OK · note hidden attrcurse (none blocked at baseline) · PASS reach attrcurse 16/16 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) → VERIFY: PASS. Movement: `verify mhitm_ad_curs: 1 PASS, 0 moved, 0 no-movement`.
+**Named:** none new — attrcurse now whole vs C `:644–762` (all 11 arms incl. telepat/see_invis extras + fallthrough-to-default ret 0).
+**Next:** same-family flat-only HFast writers in other C files (out of scope, not ridden along): eat.c quantum-mechanic toggle (js/eat.js:1987–1991) + pray.c speed gift (js/pray.js:1622–1623) — brief-verified rows of their own if a session blocks there. Do not re-port mhitm_ad_curs (owner whole) or attrcurse.
 ## 2026-10-13 — D-3920 cliffs-head `hack.c` u_maybe_impaired writer: Val goal_next quest text missing → pager retry double-shuffle; C hides the text via ESC-at-More WIN_STOP (Valk-587104 464→634)
 
 **C locus:** quest.c on_goal `:62–86` (revisit `qt_pager(qarti ? "goal_next" : "goal_alt")` `:83`); questpgr.c qt_pager `:629–634` + com_pager_core `:468–621`; dat/quest.lua Val goal_next `:2732–2734`; win/tty/topl.c more() `:230–235` (ESC→WIN_STOP) + update_topl `:257` skip (pre-existing JS, verified swallowing).
