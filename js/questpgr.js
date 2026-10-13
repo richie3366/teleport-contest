@@ -588,7 +588,7 @@ surrounded with a moat of bubbling lava.  You remember the description
 from something that %l said.  This is the lair of %n.`,
 };
 
-/** C ref: dat/quest.lua goal_next (Arc + Bar + Pri + Kni + Ran). */
+/** C ref: dat/quest.lua goal_next (Arc + Bar + Pri + Kni + Ran + Val). */
 const QUEST_GOAL_NEXT = {
     Arc: `The familiar presence of %o is in the ether.`,
     Bar: `Yet again you feel the air around you heavy with malevolent magical energy.`,
@@ -597,6 +597,8 @@ const QUEST_GOAL_NEXT = {
     Kni: `Again, you stand at the entrance to %ns lair.`,
     // C ref: dat/quest.lua Ran goal_next (no output/synopsis keys: pline)
     Ran: `Once again, you enter the distorted castle of %n.`,
+    // C ref: dat/quest.lua Val goal_next (no output/synopsis keys: pline) — quest.lua:2732-2734
+    Val: `Once again, you stand in sight of %ns lair.`,
 };
 
 /** C ref: dat/quest.lua goal_alt (Arc; Bar falls back to goal_next in C). */
