@@ -22,11 +22,11 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-12** — full `sessions` on `eebbf9bbf`
-(audit **2742–2749**, 2026-10-12T20:00:39Z).
+Score last measured: **2026-10-13** — full `sessions` on `7e420439e`
+(audit **2750–2757**, 2026-10-13T00:24:06Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`349+1.60/turn` (R² 0.77).
+`351+1.58/turn` (R² 0.77).
 
 ## Score
 
@@ -36,14 +36,14 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `349+1.60/turn` (R² 0.77) |
+| Speed label | `351+1.58/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (9,011 vs lockwo 8,549; their RNG 84.3 % vs our 51.7 %: our loss is early cliffs in long sessions). 22/44 held (±0), pts **9,011** (±0), RNG **51.7 %** (±0), rngSteps 93.6 %, screens **80.0 %** (±0) at judge 2026-10-12 19:12Z — fresh judge signal (was 2026-10-12 13:38Z), rates flat; through D-3885..D-3892's window the corpus went 1242/1281 → 1251/1281 (marathons 284/308 → 292/308); the falsifier watch (§10.19) stays open.
-**Corpus — picker and proxy (2026-10-12 22:38Z, `2bb11f6b7`; 1365/1365 entries, 0 unrecorded):**
-**1326 / 1365** PASS, RNG 31531614/31778520 (**99.22 %**), screens 548702/556749 (98.6 %); `full: true`. Marathons 348/372. Worst families: `scen-sweep` 127/143 (RNG 96.7 %), `scen-chain` 72/73 (99.3 %), `scen-trek` 52/53 (99.4 %), `scen-worldtour` 97/103 (100.0 % RNG); `scen-options` 21/22, `scen-tour` 28/29; rest 100 %. 0 PASS→FAIL. Audits record this line and the families table next to held-out: the board must rise **with** it.
-Reviews 1225–2749 (index; no row 1618): 1352 ACCEPT, 61 WITH-DEBT, 111 QUALITY-RISK (2742–2749: 8A/0D/0Q, 0 Must-fix queued).
+every audit). Rank 5 by pts (9,011 vs lockwo 8,549; their RNG 84.3 % vs our 51.7 %: our loss is early cliffs in long sessions). 22/44 held (±0), pts **9,011** (±0), RNG **51.7 %** (±0), rngSteps 93.6 %, screens **80.0 %** (±0) at judge 2026-10-12 19:12Z — no fresh judge signal; through D-3893..D-3901's window the corpus went 1326/1365 → 1329/1365 (marathons 348/372 → 351/372); the falsifier watch (§10.19) stays open.
+**Corpus — picker and proxy (2026-10-13 00:49Z, `7e420439e`; 1365/1365 entries, 0 unrecorded):**
+**1329 / 1365** PASS, RNG 31643659/31778520 (**99.58 %**), screens 550608/556749 (98.9 %); `full: true`. Marathons 351/372. Worst families: `scen-sweep` 129/143 (RNG 98.0 %), `scen-trek` 52/53 (99.4 %), `scen-worldtour` 97/103 (100.0 % RNG); `scen-options` 21/22, `scen-tour` 28/29; rest 100 %. 0 PASS→FAIL (first rescore showed a `worker: `-empty flake on Caveman-585518; direct replay PASS 47067/47067 + 1369/1369, cleared on re-rescore). Audits record this line and the families table next to held-out: the board must rise **with** it.
+Reviews 1225–2757 (index; no row 1618): 1360 ACCEPT, 61 WITH-DEBT, 111 QUALITY-RISK (2750–2757: 8A/0D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows.
 Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈140 s for 1113), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 
@@ -140,8 +140,8 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** regen cliffs (zappable row leaves via D-3901; 585441 now distfleeck@566; head UNPORTABLE).
-**This iter:** row-2 `zap.c` zappable (head nhl_gamestate UNPORTABLE-terminal D-3895, override precedent continues; Barb-585441 s352: C «wrest one last charge»+More vs JS «In what direction?» — JS dropped the spe==0 You() arm).
+**Next:** cliffs head `nhlua.c` nhl_gamestate UNPORTABLE-terminal (D-3895; never a port row) → row-2 `teleport.c` level_tele (Healer-585512 s669) under the override precedent.
+**This iter:** audit 2750–2757 (D-3893..D-3901: 8A/0D/0Q, 0 Must-fix) + full rescore 1329/1365 (0 flips; 1 worker flake cleared).
 
 ## Parked (diagnose only — do not implement)
 

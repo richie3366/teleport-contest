@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — audit 2750–2757 @7e420439e: review D-3893..D-3901 (8A/0D/0Q, 0 Must-fix) + full rescore 1329/1365 (0 flips)
+
+8 cliff SHAs, each ≤10 functions, whole-Method review + `verify --reach-all` re-measure: all movement claims confirmed verbatim (6 PASS, 2 moved; full reaches 1326/1326 + 1311/1311 on the two `--reach-all` heavies), Rule #2 clean, no C-wrongs. No Must-fix queued; Next cluster unchanged (head UNPORTABLE → row-2 level_tele). Public 44/44 (Scr 11405/11405, RNG 792838/792838). Corpus 1326→1329/1365, RNG 99.58 %, marathons 351/372. Held-out flat at 22/44 (no fresh judge signal). Process note: first full rescore showed a `worker: `-empty error on Caveman-585518; direct `ps_test_runner` replay PASSed on identical code (flake under parallel load) — re-ran the sanctioned full `score` (2nd run clean, `full: true`). Ledger snapshot appended; 5 seeded-`ported` rows sampled via jsonl fallback (`ledger.mjs sql` needs node:sqlite, absent on Node v20.12.2) — all 5 correct incl. visctrl (measured PARTIAL is a line-count artifact; body is branch-exact).
 ## 2026-10-12 — D-3901 `zap.c` zappable dropped the spe==0 wrest You(): worn-out wand zap showed the direction prompt where C prints wrest+More (Barb-585441 s352 → distfleeck@s566)
 
 **C locus:** `zap.c` zappable `:2514–2522` (`spe<0 ‖ (spe==0 && rn2(WAND_WREST_CHANCE))` → 0; spe==0 → You("wrest…") + spe-- → 1; WAND_WREST_CHANCE=121 hack.h:1411) + `zap.c` dozap `:2644–2653` (zappable before the cursed-backfire check and getdir) + `engrave.c` doengrave `:784–792` (charge removed before the text prompt; the player "will have potentially seen 'You wrest ..'") + `apply.c` do_break_wand `:3954–3967` (charge put back + rnd(3) refill on wrest).

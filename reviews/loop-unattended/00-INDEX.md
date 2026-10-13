@@ -2759,3 +2759,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2747-a7b741138-cursetxt-invis.md](./2747-a7b741138-cursetxt-invis.md) | `a7b741138` | D-3890 cursetxt live Invis (1 PASS) | **ACCEPT** |
 | [2748-2870ffe67-armor-on-no-find-ac.md](./2748-2870ffe67-armor-on-no-find-ac.md) | `2870ffe67` | D-3891 do_statusline2-row writer Armor_on deletes find_ac (1 PASS) | **ACCEPT** |
 | [2749-eebbf9bbf-reveal-terrain-zero.md](./2749-eebbf9bbf-reveal-terrain-zero.md) | `eebbf9bbf` | D-3892 getpos-row writer reveal_terrain_getglyph zero arm (1 PASS) | **ACCEPT** |
+| [2750-5d931f606-moverock-blind-mapped.md](./2750-5d931f606-moverock-blind-mapped.md) | `5d931f606` | D-3893 moverock Blind arm integer glyph fallback (1 PASS) | **ACCEPT** |
+| [2751-d15d3e9e5-save-currentstate-visited.md](./2751-d15d3e9e5-save-currentstate-visited.md) | `d15d3e9e5` | D-3894 save_currentstate ships savelev VISITED (1 PASS) | **ACCEPT** |
+| [2752-eb63dce18-knox-walls-yellow.md](./2752-eb63dce18-knox-walls-yellow.md) | `eb63dce18` | D-3896 level_tele-row writer Knox yellow walls (1 PASS) | **ACCEPT** |
+| [2753-e953653d7-eat-brains-gameover.md](./2753-e953653d7-eat-brains-gameover.md) | `e953653d7` | D-3897 randomize_gem_colors-row writer eat_brains gameover gates (1 PASS) | **ACCEPT** |
+| [2754-f80be88fd-resists-cold-elem.md](./2754-f80be88fd-resists-cold-elem.md) | `f80be88fd` | D-3898 gethungry-row writer resists_cold Resists_Elem (1 PASS) | **ACCEPT** |
+| [2755-96bd880b4-venom-blind-splash.md](./2755-96bd880b4-venom-blind-splash.md) | `96bd880b4` | D-3899 use_pick_axe2-row writer venom live Blind (1 PASS) | **ACCEPT** |
+| [2756-85f437996-zap-dig-wail.md](./2756-85f437996-zap-dig-wail.md) | `85f437996` | D-3900 zap_dig drains losehp wail (1 moved) | **ACCEPT** |
+| [2757-7e420439e-zappable-wrest.md](./2757-7e420439e-zappable-wrest.md) | `7e420439e` | D-3901 zappable spe==0 wrest message (1 moved) | **ACCEPT** |
