@@ -2782,3 +2782,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2770-1651cae7f-arc-gotit.md](./2770-1651cae7f-arc-gotit.md) | `1651cae7f` | D-3917 wishymatch-row writer Arc gotit quest text (1 PASS) | **ACCEPT** |
 | [2771-aebed1065-hurtle-punished.md](./2771-aebed1065-hurtle-punished.md) | `aebed1065` | D-3918 background_enlightenment-row writer hurtle live-uball guard (1 PASS) | **ACCEPT** |
 | [2772-6311ff904-feel-hugs-gate.md](./2772-6311ff904-feel-hugs-gate.md) | `6311ff904` | D-3919 mfind0-row writer feel_can_reach_floor ustuck-hugs term (1 moved) | **ACCEPT** |
+| [2773-b0a771ec2-val-goal-next.md](./2773-b0a771ec2-val-goal-next.md) | `b0a771ec2` | D-3920 u_maybe_impaired-row writer Val goal_next quest text (1 moved) | **ACCEPT** |
+| [2774-2446743ec-attrcurse-mirror.md](./2774-2446743ec-attrcurse-mirror.md) | `2446743ec` | D-3921 mhitm_ad_curs-row writer attrcurse uprops-mirror strip (1 PASS) | **ACCEPT** |
+| [2775-8989b03a3-bar-pri-gotit.md](./2775-8989b03a3-bar-pri-gotit.md) | `8989b03a3` | D-3922 look_here-row writer Bar+Pri gotit quest text (2 PASS) | **ACCEPT** |
+| [2776-19053ccda-lich-cold-subst.md](./2776-19053ccda-lich-cold-subst.md) | `19053ccda` | D-3923 hitmu-row writer getmattk lich-arm Cold_resistance OR-read (1 PASS) | **ACCEPT** |
+| [2777-1075d6578-antimagic-or-read.md](./2777-1075d6578-antimagic-or-read.md) | `1075d6578` | D-3924 dosounds-row writer passive AD_MAGM Antimagic OR-read (1 moved) | **ACCEPT** |
+| [2778-f8fd1f07d-acid-erosion.md](./2778-f8fd1f07d-acid-erosion.md) | `f8fd1f07d` | D-3925 erode_obj-row writer passiveum AD_ACID erosion wiring (1 PASS) | **ACCEPT** |
+| [2779-6a5624c64-dochug-demontalk.md](./2779-6a5624c64-dochug-demontalk.md) | `6a5624c64` | D-3926 demon_talk-row writer dochug mux-match arm wiring (1 PASS) | **ACCEPT** |
+| [2780-975054982-crawl-goodpos.md](./2780-975054982-crawl-goodpos.md) | `975054982` | D-3927 readobjnam-row writer crawl_destination live-goodpos gate (1 PASS) | **ACCEPT** |
+| [2781-51d3b17bc-cav-firsttime.md](./2781-51d3b17bc-cav-firsttime.md) | `51d3b17bc` | D-3928 level_tele-row writer Cav firsttime quest text (1 moved) | **ACCEPT** |

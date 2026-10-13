@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — audit 2773–2781 @51d3b17bc: review D-3920..D-3928 (9A/0D/0Q, 0 Must-fix) + full rescore 1408/1449 (0 flips)
+
+9 cliff SHAs, each ≤10 functions, whole-Method review + `verify --reach-all` re-measure: all movement claims confirmed exactly (7 PASS, 3 moved; hitmu/dosounds reach re-run at full 897/897 and 1141/1141), Rule #2 clean, no C-wrongs. No Must-fix queued; Next cluster unchanged. Findings (doc-only, not queued): D-3922's Bar/Pri gotit lua cites stop at the last text line (:508-513/:1622-1631 vs stanza closes :514/:1633) — content byte-exact; sit.js Blind_telepat clone carries a redundant `|| u.Blind_telepat` disjunct (pre-existing, session PASSES through it). Public 44/44 (Scr 11405/11405, RNG 792838/792838, `352+1.57/turn`). Corpus 1401→1408/1449, RNG 99.16→99.53 %, screens 98.4→98.9 %, marathons 422→429/456, 0 flips, 0 row drift. Held-out flat at 22/44 (same judge 07:43Z timestamp, no fresh signal). Ledger snapshot appended; 5 seeded-`ported` rows sampled via `ledger.mjs sql` under Node v22.23.3 — all 5 correct, no `set` needed.
 ## 2026-10-13 — D-3928 cliffs-head `teleport.c` level_tele writer: Cav firsttime quest text behind the arrival More (sweep-587113 614→775)
 
 **C locus:** `quest.c on_start` `:26–37` (first home visit `qt_pager("firsttime")` `:29`) ← `onquest` `:92–103` ← `goto_level` do.c → questpgr.c qt_pager/com_pager_core → `dat/quest.lua` Cav firsttime `:720–729` (output=text + synopsis `[You arrive back at %H, but something is wrong here.]`).
