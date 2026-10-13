@@ -7,6 +7,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — D-3911 `invent.c` display_minventory PICK_NONE: sortloot rank + INCLUDE_HERO engulfed row (Ranger-585420 s308 → PASS)
+
+**C locus:** `invent.c` display_minventory `:5340–5386` (PICK_NONE analog of the query_objlist call `:5364–5368`: INVORDER_SORT|INCLUDE_HERO, have_any `:5354`) + `pickup.c` query_objlist `:1024–1216` (sortflags `:1075–1082`, sortloot rank `:1080–1081`, sorted class loop `:1105–1139`, INCLUDE_HERO arm `:1146–1164` with `sorted && n > 1` heading gate `:1150` and CONTAINED_SYM fake row `:1155–1163`) + `invent.c` sortloot `:592–643` / sortloot_cmp `:402–547` / loot_classify `:147–305` (FOOD subclass: default 2, CORPSE 5 — decides [rations, corpse]). Full C bodies read (display_minventory, query_objlist, sortloot, sortloot_cmp, loot_classify FOOD arm).
+**JS:** `js/invent.js` display_minventory (+~70/−25) + `scripts/minventory-picknone-sort-hero.test.mjs` (new: Ranger-585420@308 pins C's rows 3–6; FAIL pre-fix at row 3 → PASS post-fix).
+**Change:** PICK_NONE analog now mirrors query_objlist in C order: sortflags computation (query_objlist `:822–832` shape; sortloot 'l' default, sortpack, PETRIFY terms; AUTOSELECT unset) → live `sortloot(mon.minvent, sortflags, false, allowFn)` → ranked scan per `inv_order_classes()` (no venom slot — a VENOM_CLASS item is skipped, as in C) with per-item allow re-check (`:1122`), class headings, obj_glyph burn in menu order, first-gold `# Agent loop journal
+
+Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
+Each agent process should add a short dated entry **at the top** (after
+this header) before exiting. Keep entries tight; detailed hypothesis
+lives in `NOTES.md` / `CURRENT.md`.
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+ → INCLUDE_HERO row (heading iff n>1 with `digests(u.ustuck)` Swallowed/Engulfed gate, `an(self_lookat())` text, CONTAINED_SYM preset selector riding the existing letter assignment). have_any now counts incl_hero. Imports: `digests` joins the existing mhitu.js edge (imports.mjs ALREADY), FEEL_COCKATRICE joins the const.js block, self_lookat via dynamic pager.js import (house idiom). No new cross-module edge.
+**Verify:** focused test FAIL pre-fix (`+ 'a - an elf corpse' - 'a - 4 uncursed cram rations'`) → PASS post-fix. `node scripts/verify.mjs --fn look_here,display_minventory` → PASS syntax (1 changed js file: js/invent.js) · PASS rule2 · PASS hidden `verify look_here: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-worldtour-Ranger-585420: PASS) · PASS reach look_here smoke 24/24 REACH-OK · note hidden display_minventory vacuous (nothing blocked) · PASS reach display_minventory smoke 24/24 REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS. Movement: `verify look_here: 1 PASS, 0 moved, 0 no-movement`.
+**Named:** engulfer mon_to_glyph burn (C `:1157–1158`, Hallu-only — shared with the live query_objlist named omit, pickup.js doc); invdisp_nothing NHW_MENU polish (pre-existing). No new omit.
+**Next:** regen cliffs (look_here row leaves via this PASS; nhl_gamestate UNPORTABLE park stands — never a port row). Do not re-port look_here (symptom, whole, fortress guard) or query_objlist/sortloot (live reference paths).
 ## 2026-10-13 — D-3910 `restore.c` find_lev_obj `:70–107`: level load rebuilt piles by naive prepend, leaving corpse over boulder (Healer-585512 s781 → PASS)
 
 **C locus:** `restore.c` find_lev_obj `:70–107` (zero grid `:77–79`; reverse fobj + OBJ_FREE `:86–91`; re-place oldest-first `:95–98`; hero-level ball/chain setworn fixup `:101–105`) + `mkobj.c` place_object `:2336–2344` (non-boulder goes under the last consecutive boulder) + sole caller getlev `:1168` (ungated — runs for ghostly bones loads too).

@@ -23,25 +23,26 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** all shipped incl. D-3891 Armor_on house-find_ac (Priest-582714 s1376 AC → PASS).
 - **Shipped writers — do not re-pop/re-check:** mfndpos W2 (D-3560→D-3561, m_search_items MZ_HUMAN); disclose tour-Priest (D-3626→D-3627, erase_menu_or_text corner; wish pair = separate Hallu display-RNG class); toss_up→chwepon (D-3640, HCOLORS 74/74); read_engr_at Knight-94259 (D-3671, tut-1.lua:83-85 gate at mklev.js:20276, paint path audited whole, D-3670 witness retired); magic_map_background DARKROOMSYM-rogue (D-3682, stone-glyph/floor-paint split); gulpmu engulf vision_off ungate (D-3863, stale-'I' unmap).
 - **nhl_gamestate (D-3885 UNPORTABLE, park supersedes D-3884):** steed-impossible needs malloc reuse (restore.c:1193 sole site; gmst-restored u.usteed vs fresh Sfi mon); pristine recorder flaky at s1166 (glibc heap abort vs byte-identical 1238 — ASLR). JS flush gates all open (hook-probed); vpline never fired. Never a port row; session can never PASS faithfully. D-3905 re-derived fresh, park stands (painter live display.js:9620; zero churn in steed/do.js since D-3895; falsifiers unfired).
-- **mbodypart (D-3904 MEASURED, writer named):** C skipped the (36,17) amulet as soko-prize (soko_oid=950, amu_soko=1 → gg=(32,14) ration → (33,17)); JS achieveo null wanted it (gg=(36,17) → (34,18)). Port: sp_lev.c:2406 prize recording + achieveo init. Never re-port mbodypart/m_move/mfndpos/searches (exonerated).
+- **mbodypart (writer shipped D-3906):** never re-port mbodypart/m_move/mfndpos/searches (exonerated; soko-prize linkage live).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-3910 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
-- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3910) reached no session — no pole-lava row.
+- D-1790…D-3911 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3911) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3910.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3910 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3911.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3911 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3911: PICK_NONE analog now mirrors query_objlist in C order: sortflags computation (query_objlist `:822–832` shape; sortloot 'l' default, sortpack, PETRIFY  Named: engulfer mon_to_glyph burn (C `:1157–1158`, Hallu-only — shared with the live query_objlis
 - D-3910: all three restarted as the C body in C order: zero map, reverse fobj into placement order with OBJ_FREE each, `game.fobj = null`, re-place oldest-firs Named: none new — find_lev_obj now whole vs C `:70–107` (zero, reverse+FREE, re-place, gated fixu
 - D-3909: deleted the trailing `newsym(ox, oy)` + its doc claim (exact C behavior: no paint here); updated the turns.md #tip row note; added focused test `scrip Named: none (deletion only; tipcontainer stays whole vs C `:3688–3841`).
 - D-3908: js/options.js only — the `finally` now writes `game.give_opt_msg = true` (C `:8733` cite); the `prevGive` save removed (dead); entry FALSE (`:8722`) a Named: none new.
@@ -56,5 +57,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3899: both sites: deleted the shadowing const, `if (Blind())` with C-cite comments (uhitm.c:1273 + youprop.h:103 + do.js:3797 snapshot note). Named: none new — hmon_hitmon_misc_obj stays whole vs C (predicate now C-exact); hmon_hitmon inli
 - D-3898: zap.js export now `return Resists_Elem(mon, COLD_RES)` (COLD_RES import + doc; D-2802 poison pattern). mhitm/explode locals deleted, both now import t Named: resists_fire/elec/acid/disint/sleep/ston still use the bit test (D-2802 list minus cold; g
 - D-3897: js/eat.js only — `if (game.program_state?.gameover) return M_ATTK_MISS;` immediately after each of the three done(DIED) calls (C-cited comments; lifes Named: none new in the gated arms.
-- D-3896: Knox arm `else if (Is_knox(uz) && use_decgraphics()) color = CLR_YELLOW;` in C bank order (mines → hell → knox → soko → main); DEC gate mirrors C (ASC Named: none new.
 <!-- landmarks:end -->
