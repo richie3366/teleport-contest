@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0007dwarf\nsm..m.sm.sh    20s.m.sm.sm.sn\u0007water demon\n#chat\nyFk Fy "
+ },
+ "segments": [
+  {
+   "seed": 49952000,
+   "datetime": "20070310031234",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0007dwarf\nsm..m.sm.sh    20s.m.sm.sm.sn\u0007water demon\n#chat\nyFk Fy "
+  }
+ ]
+}

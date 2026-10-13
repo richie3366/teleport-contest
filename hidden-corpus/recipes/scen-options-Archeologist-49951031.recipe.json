@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " mO>lko\n  #ride\nhyO>m\nn\nK#loot\nbO>mba\ng\nl\n\u000f\u001b#wipe\nOfe\n#twoweapon\nO>pcj\nP\\ O>gk\nW:s."
+ },
+ "segments": [
+  {
+   "seed": 49951031,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": " mO>lko\n  #ride\nhyO>m\nn\nK#loot\nbO>mba\ng\nl\n\u000f\u001b#wipe\nOfe\n#twoweapon\nO>pcj\nP\\ O>gk\nW:s."
+  }
+ ]
+}

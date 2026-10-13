@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0017blessed gauntlets of fumbling\nWj.s20s    \u0017blessed wand of death\n,Fj .\u0017ring of teleportation\n\u0007chickatrice\n,\u0017blessed wand of stasis\nsm. sm.\u0017uncursed scroll of fire\n\u0017ice box\nFlFb\u0017two-handed sword\n\u0007gnomish wizard\n,a\n  \u00173 credit card\n,a\n  \u0017cursed potion of full healing\n,a\n     nFh  Fb  sk      n20s \u00165\n\u0007red dragon\n\u0017scroll of taming\n\u0017saddle\n\u0017lance\n#ride\nly\u0007pony\n\u0017scroll of taming\n\u0017saddle\n#ride\njy\u0007pony\n\u0017scroll of taming\n\u0017saddle\n#ride\nnyjy l n  hhl   n  y\u0004k  \u0004y  n   20s 20s   n   \u001612\n\u0007tame white unicorn\n\u0017saddle\n#ride\nyy y\u0007tame saddled horse\n#ride\nnyy\u0007tame saddled pony\n#ride\n    ,\u0006_ \u001bm. >Fb   Fk  _>>.  n Fk     _.   n Fy   \u001b  >Fb   n     Fy           n   _>>.       Fu      n      _,     n         n Fk       >Fn   n    Fu         n    \u0007sewer rat\nFh       Fj       n           yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 49956012,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=runmode:walk\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0017blessed gauntlets of fumbling\nWj.s20s    \u0017blessed wand of death\n,Fj .\u0017ring of teleportation\n\u0007chickatrice\n,\u0017blessed wand of stasis\nsm. sm.\u0017uncursed scroll of fire\n\u0017ice box\nFlFb\u0017two-handed sword\n\u0007gnomish wizard\n,a\n  \u00173 credit card\n,a\n  \u0017cursed potion of full healing\n,a\n     nFh  Fb  sk      n20s \u00165\n\u0007red dragon\n\u0017scroll of taming\n\u0017saddle\n\u0017lance\n#ride\nly\u0007pony\n\u0017scroll of taming\n\u0017saddle\n#ride\njy\u0007pony\n\u0017scroll of taming\n\u0017saddle\n#ride\nnyjy l n  hhl   n  y\u0004k  \u0004y  n   20s 20s   n   \u001612\n\u0007tame white unicorn\n\u0017saddle\n#ride\nyy y\u0007tame saddled horse\n#ride\nnyy\u0007tame saddled pony\n#ride\n    ,\u0006_ \u001bm. >Fb   Fk  _>>.  n Fk     _.   n Fy   \u001b  >Fb   n     Fy           n   _>>.       Fu      n      _,     n         n Fk       >Fn   n    Fu         n    \u0007sewer rat\nFh       Fj       n           yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

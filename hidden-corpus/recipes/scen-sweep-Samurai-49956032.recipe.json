@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u0007tame gnome lord\n\u0007horse\n\u0017huge chunk of meat\ntcu\u0017magic whistle\nkh  bah    \u0007jackal\n20ssl.y20s .m.sm.\u0007giant rat\n20s sb sm.  n  sm.20s su20s 10s\u0017newt corpse\ntbn\u0006\u0017speed boots\nWj  sl20s.m.\u0007mountain nymph\nFlFnFn              ss#pray\ny y \u0017cockatrice corpse\n\u0007kobold\nFl   Fn Fj\u000f\u001b#levelchange\n12\n   \u001632\n   \u0004h#sit\n\u001b#untrap\nn;>. \u001b;ss  \u0016?\n>>P  \u0014<.  #twoweapon\nol20ss\u0016?\n>x #tip\n\u001b,,20s  sm.\u0016?\n>C#force\n\u000f\u001bt\u001b;>.ss\u001635\nu#turn\nl;m,20ss\u000f\u001bi\u001bWesssTPar20s.20s<da#pray\ny y Zoh\u000f\u001bs20si\u001bP\u001b...RWe20s..\u0018\u001b#levelchange\n8\n \u0017blessed ring of polymorph control\nPb\u0017dunce cap\nWcsssTc#polyself\nimp\n #monster\nss\u0007water elemental\nFhFh Fh s.s#polyself\nwerewolf\n kobold shaman\n#monster\ns.ss20s#polyself\nlurker above\n#monster\n.s\u0007giant spider\nFh Fhsss  s\u0017wand of polymorph\nzhbj\u0017ice\njk j k:b \u0017iron bars\nj\u0017grave\n:\u0017pick-axe\nae sb20s:#terrain\nc\n;#turn\nPL#levelchange\n16\n       \u0016?\n>y  _m.   _.    \u001b      #chat\nu;>._mmm.Fl _.  Fu#chat\nu  ;l._m.   nFu       _.#chat\nu    _mmm.Fu  _,   nFu  #chat\nu  ;u:  \u0016?\n>z#wipe\n#invoke\n\u001bwe\\    \u00165\n\u0017wand of digging\nzfj  jybzf>.m. y  \u0017grave\nzf>   n 20s  .m.zf<  y  y\u0017wand of sleep\nEg Elbereth Elbereth\n  \u0017wand of fire\nEh   I am a fish\n: \u0017wand of striking\nEi   n : #levelchange\n20\n   \u0016?\nk   ahnnr\u001b#offer\n;m,\u0006s.\u001617\n#dip\nh#dip\ng\u0018\u001bs20s\u001625\ny#conduct\n #terrain\ne\nss\u001622\nj\\    \u0004u20s20s\u0016?\n>B>#enh"
+ },
+ "segments": [
+  {
+   "seed": 49956032,
+   "datetime": "20020426084540",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=runmode:run\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u0007tame gnome lord\n\u0007horse\n\u0017huge chunk of meat\ntcu\u0017magic whistle\nkh  bah    \u0007jackal\n20ssl.y20s .m.sm.\u0007giant rat\n20s sb sm.  n  sm.20s su20s 10s\u0017newt corpse\ntbn\u0006\u0017speed boots\nWj  sl20s.m.\u0007mountain nymph\nFlFnFn              ss#pray\ny y \u0017cockatrice corpse\n\u0007kobold\nFl   Fn Fj\u000f\u001b#levelchange\n12\n   \u001632\n   \u0004h#sit\n\u001b#untrap\nn;>. \u001b;ss  \u0016?\n>>P  \u0014<.  #twoweapon\nol20ss\u0016?\n>x #tip\n\u001b,,20s  sm.\u0016?\n>C#force\n\u000f\u001bt\u001b;>.ss\u001635\nu#turn\nl;m,20ss\u000f\u001bi\u001bWesssTPar20s.20s<da#pray\ny y Zoh\u000f\u001bs20si\u001bP\u001b...RWe20s..\u0018\u001b#levelchange\n8\n \u0017blessed ring of polymorph control\nPb\u0017dunce cap\nWcsssTc#polyself\nimp\n #monster\nss\u0007water elemental\nFhFh Fh s.s#polyself\nwerewolf\n kobold shaman\n#monster\ns.ss20s#polyself\nlurker above\n#monster\n.s\u0007giant spider\nFh Fhsss  s\u0017wand of polymorph\nzhbj\u0017ice\njk j k:b \u0017iron bars\nj\u0017grave\n:\u0017pick-axe\nae sb20s:#terrain\nc\n;#turn\nPL#levelchange\n16\n       \u0016?\n>y  _m.   _.    \u001b      #chat\nu;>._mmm.Fl _.  Fu#chat\nu  ;l._m.   nFu       _.#chat\nu    _mmm.Fu  _,   nFu  #chat\nu  ;u:  \u0016?\n>z#wipe\n#invoke\n\u001bwe\\    \u00165\n\u0017wand of digging\nzfj  jybzf>.m. y  \u0017grave\nzf>   n 20s  .m.zf<  y  y\u0017wand of sleep\nEg Elbereth Elbereth\n  \u0017wand of fire\nEh   I am a fish\n: \u0017wand of striking\nEi   n : #levelchange\n20\n   \u0016?\nk   ahnnr\u001b#offer\n;m,\u0006s.\u001617\n#dip\nh#dip\ng\u0018\u001bs20s\u001625\ny#conduct\n #terrain\ne\nss\u001622\nj\\    \u0004u20s20s\u0016?\n>B>#enh"
+  }
+ ]
+}

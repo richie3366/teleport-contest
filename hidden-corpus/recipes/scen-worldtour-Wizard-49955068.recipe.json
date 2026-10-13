@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0016?\ns \u0004j\u001632\n\u0006_ \u001b,\u001632\n\u0004 \u0016?\n>>N        20 flint stones\n\u0017blessed spellbook of cure sickness\nrq   sm.   \u0017spellbook of wizard lock\nrr   n 20s       n \u0017blessed spellbook of stone to flesh\nrs    .b\u0017spellbook of finger of death\nrt   n   sm.      n +\u001b\u0007yellow mold\nZa\n       \u0007yellow mold\nZa\n     n   Zb\nZ#pray\nm.       n #enhance\nye\nj\n\u001b\u001610\n\u0016?\nc \u0014>.\u0016?\nc\u0006_<,\u001626\n#chat\nl;l;.m.  20s \u0016?\na   #levelchange\n20\n   \u0017tin opener\nauFlFl \u0017blessed lenses\nav    Fb      n .            n         \u00173 potion of healing\n \u0007dust vortex\nqw  \u001b            n                n   n    \u0017bugle\n\u0007nalfeshnee\nax              n     ax        n      n         n \u0017uncursed wand of polymorph\nzy.          n         20s     yy\u001by  y y  y\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 49955068,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0016?\ns \u0004j\u001632\n\u0006_ \u001b,\u001632\n\u0004 \u0016?\n>>N        20 flint stones\n\u0017blessed spellbook of cure sickness\nrq   sm.   \u0017spellbook of wizard lock\nrr   n 20s       n \u0017blessed spellbook of stone to flesh\nrs    .b\u0017spellbook of finger of death\nrt   n   sm.      n +\u001b\u0007yellow mold\nZa\n       \u0007yellow mold\nZa\n     n   Zb\nZ#pray\nm.       n #enhance\nye\nj\n\u001b\u001610\n\u0016?\nc \u0014>.\u0016?\nc\u0006_<,\u001626\n#chat\nl;l;.m.  20s \u0016?\na   #levelchange\n20\n   \u0017tin opener\nauFlFl \u0017blessed lenses\nav    Fb      n .            n         \u00173 potion of healing\n \u0007dust vortex\nqw  \u001b            n                n   n    \u0017bugle\n\u0007nalfeshnee\nax              n     ax        n      n         n \u0017uncursed wand of polymorph\nzy.          n         20s     yy\u001by  y y  y\u001b  ."
+  }
+ ]
+}

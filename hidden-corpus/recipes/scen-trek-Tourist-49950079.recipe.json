@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "L YYB_ \u001bm,>NLH  N_>,>\u000f\u001b#tip\n\u001bUNUY_>,>FhFj sYYUU_>.>JBJN_>.>\u000f\u001blkjFk 20ss_>.>yhk100s \\ _>.>_>,>150sFyFyFy 50s100s  FyFhFhFhFhFhFhFyFhFhFhFhFh.s,100sllh#dip\nik\\ lhh50sFys.100s\u000f\u001b_>.>100sjhuFyFyFy50sjub100s ebZylb\u000f\u001bnlh_>,>\u000f\u001b#monster\nj#name\nd\ndd.ssky#chat\nhnkLKNH_>.>ol#monster\nYUKL_>.>JYKU_>.>YHNK_>.><YJBL_>.>FkFhFk   y\u001by  y y y\u001b  Y"
+ },
+ "segments": [
+  {
+   "seed": 49950079,
+   "datetime": "20140621202306",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\n",
+   "moves": "L YYB_ \u001bm,>NLH  N_>,>\u000f\u001b#tip\n\u001bUNUY_>,>FhFj sYYUU_>.>JBJN_>.>\u000f\u001blkjFk 20ss_>.>yhk100s \\ _>.>_>,>150sFyFyFy 50s100s  FyFhFhFhFhFhFhFyFhFhFhFhFh.s,100sllh#dip\nik\\ lhh50sFys.100s\u000f\u001b_>.>100sjhuFyFyFy50sjub100s ebZylb\u000f\u001bnlh_>,>\u000f\u001b#monster\nj#name\nd\ndd.ssky#chat\nhnkLKNH_>.>ol#monster\nYUKL_>.>JYKU_>.>YHNK_>.><YJBL_>.>FkFhFk   y\u001by  y y y\u001b  Y"
+  }
+ ]
+}

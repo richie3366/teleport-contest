@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "B UNK_ \u001b@.>FlFlFls:BNBL_>.>FlFlFl<NNUL_>.>Fl s.UUUH_>.><JJLB_>.>NHUB_>.>#ride\nyae  n \u000f\u001b100sljki\u001b50s#name\nm\n100s_>,>\u0004j#turn\nlkbjyl\u000f\u001b50slubWbuy#turn\n50s150s#monster\n50s50s150sZ150sedlhb100snyh50s\\ wa hlh50s<\\ \u000f\u001b_>.>i\u001b150s100s150s\u000f\u001b100slhbFlFhshhhlhh150s\\ _>.>lhh100si\u001b100sed 100s100s100s100sFlss100sed_>.>50s150s50sdf100s;m.50s100s#name\no\ni\u001b_>.>100s150sahr\n_>.>llhKBKY_>,>#ride\nh#pray\ny KKLB_>.>HHHN_>.>UJKY_>.>H BUL_>.>PE- ad aerarium\n<#tip\nh\u001b>E-n  Elbereth Elbereth\nhhh\u0018\u001b100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeees#wipe\ndceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeol#ride\nl#offer\nNHYL _>,>bPHHNL_>.>Fls.JBJB_>.>\u000f\u001b<t\u001b#wipe\nNNYU_>,>YKHK_>.>LHKB_>.>eyi\u001b100s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nb#sit\n\u001bwe 10s#chat\ny10slllh"
+ },
+ "segments": [
+  {
+   "seed": 49957018,
+   "datetime": "20100502202312",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=fruit:lychee\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": "B UNK_ \u001b@.>FlFlFls:BNBL_>.>FlFlFl<NNUL_>.>Fl s.UUUH_>.><JJLB_>.>NHUB_>.>#ride\nyae  n \u000f\u001b100sljki\u001b50s#name\nm\n100s_>,>\u0004j#turn\nlkbjyl\u000f\u001b50slubWbuy#turn\n50s150s#monster\n50s50s150sZ150sedlhb100snyh50s\\ wa hlh50s<\\ \u000f\u001b_>.>i\u001b150s100s150s\u000f\u001b100slhbFlFhshhhlhh150s\\ _>.>lhh100si\u001b100sed 100s100s100s100sFlss100sed_>.>50s150s50sdf100s;m.50s100s#name\no\ni\u001b_>.>100s150sahr\n_>.>llhKBKY_>,>#ride\nh#pray\ny KKLB_>.>HHHN_>.>UJKY_>.>H BUL_>.>PE- ad aerarium\n<#tip\nh\u001b>E-n  Elbereth Elbereth\nhhh\u0018\u001b100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeees#wipe\ndceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeol#ride\nl#offer\nNHYL _>,>bPHHNL_>.>Fls.JBJB_>.>\u000f\u001b<t\u001b#wipe\nNNYU_>,>YKHK_>.>LHKB_>.>eyi\u001b100s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nb#sit\n\u001bwe 10s#chat\ny10slllh"
+  }
+ ]
+}

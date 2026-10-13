@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWg \u0016?\n>w\u0006_ \u001bm,#chat\nj_ooooooooo.Fh _,, pjl   nh#chat\nn_{.Fn_,Fnq_oooooo,,\u0017amulet of reflection\ndi__.Fn  n_. Fk   n #chat\nb \u00167\n_oooooo,,:hky#chat\nlkhu#chat\ny_{.q__.#chat\ny\u0016?\n>Byjy\u0016?\n>w\u0006_oooooooo.,p_ooooo._.,:_oooooooo.,\u0014@.20s20s    n _oooo., \u0017amulet of ESP\ndk__.Fl_,Fy#chat\nh#pray\ny y Fh   Fh  Fh   n Fh    nFh   Fh    n\u00162\n  _{,qFl Fl  Fl   nFl  Fl   nFl  \u00166\nFy   n  Fy    n Fy    nFyFy  Fy   n \u00169\n_oooooo.,$_oooooooo.,:\u00163\nlb  n \u0016?\n>w\u0006__,  Fy   n   n    _.Fh  #chat\nh    n#pray\ny y       \u0016?\ncl yk\u0016?\n>w\u0006_{,   yy\u001bnny y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 49959671,
+   "datetime": "20201118174556",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWg \u0016?\n>w\u0006_ \u001bm,#chat\nj_ooooooooo.Fh _,, pjl   nh#chat\nn_{.Fn_,Fnq_oooooo,,\u0017amulet of reflection\ndi__.Fn  n_. Fk   n #chat\nb \u00167\n_oooooo,,:hky#chat\nlkhu#chat\ny_{.q__.#chat\ny\u0016?\n>Byjy\u0016?\n>w\u0006_oooooooo.,p_ooooo._.,:_oooooooo.,\u0014@.20s20s    n _oooo., \u0017amulet of ESP\ndk__.Fl_,Fy#chat\nh#pray\ny y Fh   Fh  Fh   n Fh    nFh   Fh    n\u00162\n  _{,qFl Fl  Fl   nFl  Fl   nFl  \u00166\nFy   n  Fy    n Fy    nFyFy  Fy   n \u00169\n_oooooo.,$_oooooooo.,:\u00163\nlb  n \u0016?\n>w\u0006__,  Fy   n   n    _.Fh  #chat\nh    n#pray\ny y       \u0016?\ncl yk\u0016?\n>w\u0006_{,   yy\u001bnny y\u001by  F"
+  }
+ ]
+}

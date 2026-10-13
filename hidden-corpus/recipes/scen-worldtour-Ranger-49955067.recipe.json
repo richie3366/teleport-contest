@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWg\u0017blessed +3 helm of telepathy\nWh\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>Cybnyykb:\u0016?\n>>K      potion of restore ability\n\u0017blessed spellbook of fireball\nrl     20s     \u0017spellbook of polymorph\nrm     su +Z\u0007lichen\nZ\u0007sewer rat\nZ\u0007kobold\nZ\u0016?\n\u001byk\u0016?\n\u001bbj\u0016?\n\u001bly\u00164\n_ \u001b.\u00164\nkkyu:.  .m..m. \u0016?\n\u001by        n  k        \u0016?\n\u001bu           k     \u00164\n_<.>\u0016?\n\u001bb     n         u       n\u00169\n\u0016?\n\u001bu        k         \u0016?\n\u001bu   n       k      n            \u00169\n\u0016?\n\u001bu n      k     \u0016?\n\u001bjy\u0016?\n\u001byl  n\u001622\n\u0017sling\nwn    \u001720 flint stones\nQo\u0007acid blob\njkfn fu     n  fh      \u0017potion of sickness\ntoh        \u0007yellow mold\nkkfh   fn      n  Fh    Fb     \u0007soldier\nylfh      fb     x        #twoweapon\nFn       n   Fl     l      n        n   bl     n    ,#enhance\nyi\nb\n\u001b\u00165\n\u001619\n__.\u00164\n_{.\u0016?\n\u001byb\u0016?\n\u001bl  j\u0016?\n\u001bhy\u0016?\n\u001bjj\u0016?\n\u001bhn\u0016?\n\u001bbl     n  \u0016?\n\u001byj      n  \u001638\n__.>sk   \u0016?\n\u001bby   \u0016?\n\u001bhn\u0016?\n\u001bj    yy\u001by   ny  y\u001b  b"
+ },
+ "segments": [
+  {
+   "seed": 49955067,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWg\u0017blessed +3 helm of telepathy\nWh\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>Cybnyykb:\u0016?\n>>K      potion of restore ability\n\u0017blessed spellbook of fireball\nrl     20s     \u0017spellbook of polymorph\nrm     su +Z\u0007lichen\nZ\u0007sewer rat\nZ\u0007kobold\nZ\u0016?\n\u001byk\u0016?\n\u001bbj\u0016?\n\u001bly\u00164\n_ \u001b.\u00164\nkkyu:.  .m..m. \u0016?\n\u001by        n  k        \u0016?\n\u001bu           k     \u00164\n_<.>\u0016?\n\u001bb     n         u       n\u00169\n\u0016?\n\u001bu        k         \u0016?\n\u001bu   n       k      n            \u00169\n\u0016?\n\u001bu n      k     \u0016?\n\u001bjy\u0016?\n\u001byl  n\u001622\n\u0017sling\nwn    \u001720 flint stones\nQo\u0007acid blob\njkfn fu     n  fh      \u0017potion of sickness\ntoh        \u0007yellow mold\nkkfh   fn      n  Fh    Fb     \u0007soldier\nylfh      fb     x        #twoweapon\nFn       n   Fl     l      n        n   bl     n    ,#enhance\nyi\nb\n\u001b\u00165\n\u001619\n__.\u00164\n_{.\u0016?\n\u001byb\u0016?\n\u001bl  j\u0016?\n\u001bhy\u0016?\n\u001bjj\u0016?\n\u001bhn\u0016?\n\u001bbl     n  \u0016?\n\u001byj      n  \u001638\n__.>sk   \u0016?\n\u001bby   \u0016?\n\u001bhn\u0016?\n\u001bj    yy\u001by   ny  y\u001b  b"
+  }
+ ]
+}

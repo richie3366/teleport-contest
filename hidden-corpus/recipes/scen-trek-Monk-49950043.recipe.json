@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "B YLY_ \u001b:>Fj 20s .UUKY_>,>UUJL_>,>HJYKnn_>,>UUHL_>,>YNBY_>.>#untrap\nh#twoweapon\nZ\u001bai \\  nhlujh\\  _>.>50s150s Fnss50suyl150shnh150s100s150sFjFjsknb150sFnss100s\u000f\u001b150s hlljnnjky100s ef50sef<\u000f\u001b100sFnFns100see hllhlji\u001b100s20s#chat\njkhny10snyjknlh\u0018\u001bj#monster\n\u000f\u001b100shlyt\u001b150s 50s150s50s100s  yhu100sklh100s 100sFjFj.jjk100si\u001b100sFj20ss100s50sFjFj20s100seh  150sef#chat\nb_>.>b100see150suubFl20s.LYJN_>.>#tip\n\u001bqdNKUH_>.>#pray\ny  LNLUL_>.>Fn..E\u001b#untrap\nyLBKY_>,>KYBL_>,><\u000f\u001b\u000f\u001bjyl\u0004l50s50s100s100si\u001bkhn100sFjs20s100skjh100s 150s50s50shlk100sok_>.>150sFjss50s100s_>,>150seg100slhbFl.s#jump\n150s eh  _>.>150seg150s ee100sYJKU_>,>10sri nyKJNJ_>.>UHBB_>.>JL BH_>,>UNYL_>,>FyFys<jhbn10st\u001b20skb100s\u000f\u001bhuujynFl20ss\\  kbj100s150sFl20s.150s50sFk20ss150s100sFlFl.50si\u001b50s_>,>_>.>khlknkjjhi\u001b50skun50syhu100s100shnu100s100s_>.>\\  150seg\u0018\u001bi\u001b50s\u0018\u001b\u000f\u001bshjy<100sefi\u001b100seh  100seh  hll\\ "
+ },
+ "segments": [
+  {
+   "seed": 49950043,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\n",
+   "moves": "B YLY_ \u001b:>Fj 20s .UUKY_>,>UUJL_>,>HJYKnn_>,>UUHL_>,>YNBY_>.>#untrap\nh#twoweapon\nZ\u001bai \\  nhlujh\\  _>.>50s150s Fnss50suyl150shnh150s100s150sFjFjsknb150sFnss100s\u000f\u001b150s hlljnnjky100s ef50sef<\u000f\u001b100sFnFns100see hllhlji\u001b100s20s#chat\njkhny10snyjknlh\u0018\u001bj#monster\n\u000f\u001b100shlyt\u001b150s 50s150s50s100s  yhu100sklh100s 100sFjFj.jjk100si\u001b100sFj20ss100s50sFjFj20s100seh  150sef#chat\nb_>.>b100see150suubFl20s.LYJN_>.>#tip\n\u001bqdNKUH_>.>#pray\ny  LNLUL_>.>Fn..E\u001b#untrap\nyLBKY_>,>KYBL_>,><\u000f\u001b\u000f\u001bjyl\u0004l50s50s100s100si\u001bkhn100sFjs20s100skjh100s 150s50s50shlk100sok_>.>150sFjss50s100s_>,>150seg100slhbFl.s#jump\n150s eh  _>.>150seg150s ee100sYJKU_>,>10sri nyKJNJ_>.>UHBB_>.>JL BH_>,>UNYL_>,>FyFys<jhbn10st\u001b20skb100s\u000f\u001bhuujynFl20ss\\  kbj100s150sFl20s.150s50sFk20ss150s100sFlFl.50si\u001b50s_>,>_>.>khlknkjjhi\u001b50skun50syhu100s100shnu100s100s_>.>\\  150seg\u0018\u001bi\u001b50s\u0018\u001b\u000f\u001bshjy<100sefi\u001b100seh  100seh  hll\\ "
+  }
+ ]
+}

@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Fk FkFkFkFkFkFkFknuk100s_ \u001b;>100s150s150sjyj150s\u000f\u001b150sef\\  150s50see\u000f\u001bnyn\\  100s#tip\n\u001b100s100sFhFhFhFh20s.150s edy\u000f\u001b_>.>150s\u0018\u001b150slbk,uyl_>.>50sFbs20s100sjbbi\u001b150s50sf by jyjk\u000f\u001b_>,>_>.>ylh\\  100slubFyFh FkFhF#quit\n khjj20shkt\u001blnjbFkFkFkFkFkFkFkFk\\ #loot\nuhk50s100si\u001bylu_ \u001b:>\u000f\u001bcjlhl\u000f\u001b100s_>,>H100s100snkh100sFl20ssjlhi\u001bjln150s50s150s 150s50sFls20s100sed100s 100sljjFkFks,50si\u001bjkj50snjyllkjbFkFkFkFkFkFkFkFkbj10s20sdgs20ssdd..20sFkFkFkFkFkFkFkFkljjk#quit\nyy\u001by  y y y\u001b FbFb FbFbFbFbFbFbyhhjtbudd20sss#name\n\u001b#name\n\u001b#chat\nlda..s#name\n\u001b10sln#name\n\u001b20st\u001bt\u001bUNKN_ \u001b,>HNLN_>,>KUJY_>.>i\u001b#untrap\nb\u000f\u001bujbbFb FbFbFbFbFbFbFbBYJN_>.>KBNH_>.>KJLN_>.>UHBK _>.>NLBL_>.>JLUH_>,>\u000f\u001bdc20s20ssllhut\u001blnllhyju100s100sFj20s.lkh100skbjFhFh20snhknuh100s50sFjss50s50s100sFhFhs50sFhs.150s150sFhFh20s150s\\   _>.>knnFhssyuk50s150seeeeeeeeeeeujnhNYUY_>,>JH KY_>.>HLKB _>.>#tip\n\u001b#force\nHUKN _>.><JJUL_>.>yjbhKBNN_>.>#pray\ny eLLNU_>.>ULBY_>,>H NY B_>,>LKJH_>.>Fhs.,\u000f\u001byukynnubhb#name\n\u001bt\u001bnh#name\n\u001bhhhldc20s..#chat\nu20se#pray\ny e#pray\ny   y\u001by  y y y\u001b  h\u0007Demogorgon\nnFbFb  yy\u001by  y y\u001by  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49950070,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\n",
+   "moves": "Fk FkFkFkFkFkFkFknuk100s_ \u001b;>100s150s150sjyj150s\u000f\u001b150sef\\  150s50see\u000f\u001bnyn\\  100s#tip\n\u001b100s100sFhFhFhFh20s.150s edy\u000f\u001b_>.>150s\u0018\u001b150slbk,uyl_>.>50sFbs20s100sjbbi\u001b150s50sf by jyjk\u000f\u001b_>,>_>.>ylh\\  100slubFyFh FkFhF#quit\n"
+  },
+  {
+   "seed": 50050070,
+   "datetime": "20000717125626",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:none\n",
+   "moves": " khjj20shkt\u001blnjbFkFkFkFkFkFkFkFk\\ #loot\nuhk50s100si\u001bylu_ \u001b:>\u000f\u001bcjlhl\u000f\u001b100s_>,>H100s100snkh100sFl20ssjlhi\u001bjln150s50s150s 150s50sFls20s100sed100s 100sljjFkFks,50si\u001bjkj50snjyllkjbFkFkFkFkFkFkFkFkbj10s20sdgs20ssdd..20sFkFkFkFkFkFkFkFkljjk#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50150070,
+   "datetime": "20200807161539",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "FbFb FbFbFbFbFbFbyhhjtbudd20sss#name\n\u001b#name\n\u001b#chat\nlda..s#name\n\u001b10sln#name\n\u001b20st\u001bt\u001bUNKN_ \u001b,>HNLN_>,>KUJY_>.>i\u001b#untrap\nb\u000f\u001bujbbFb FbFbFbFbFbFbFbBYJN_>.>KBNH_>.>KJLN_>.>UHBK _>.>NLBL_>.>JLUH_>,>\u000f\u001bdc20s20ssllhut\u001blnllhyju100s100sFj20s.lkh100skbjFhFh20snhknuh100s50sFjss50s50s100sFhFhs50sFhs.150s150sFhFh20s150s\\   _>.>knnFhssyuk50s150seeeeeeeeeeeujnhNYUY_>,>JH KY_>.>HLKB _>.>#tip\n\u001b#force\nHUKN _>.><JJUL_>.>yjbhKBNN_>.>#pray\ny eLLNU_>.>ULBY_>,>H NY B_>,>LKJH_>.>Fhs.,\u000f\u001byukynnubhb#name\n\u001bt\u001bnh#name\n\u001bhhhldc20s..#chat\nu20se#pray\ny e#pray\ny   y\u001by  y y y\u001b  h"
+  },
+  {
+   "seed": 50250070,
+   "datetime": "20020722140152",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007Demogorgon\nnFbFb  yy\u001by  y y\u001by  F"
+  }
+ ]
+}

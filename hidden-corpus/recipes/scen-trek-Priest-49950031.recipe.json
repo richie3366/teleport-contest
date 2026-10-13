@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "YBUH_ \u001b<.>FhFl20s:#ride\nhBUNN_>,_.>#monster\nPNBJB_>.>HKUK_>.>f \u001bi\u001b<#loot\nf \u001bwa100s  100sFlFhFlFl.20s \u000f\u001bi\u001b100s  FhFhs150s#enhance\n\u001bi\u001bH _>.>100s    Fls.FlFl.50sFlssFlFlshuhFl 20s20s#ride\ny50si\u001bPjkk\\ 50sFhFhshhy100s uhk_>.>150sjkyFnFl Fl_>.>i\u001b50s150s knhlt\u001b10sdg20s20sskde20ssm..m.#chat\njjYHUY_>,>FlFlFl   \u001bUN    \u001bBB_>.>Fb  \u001b      2"
+ },
+ "segments": [
+  {
+   "seed": 49950031,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\n",
+   "moves": "YBUH_ \u001b<.>FhFl20s:#ride\nhBUNN_>,_.>#monster\nPNBJB_>.>HKUK_>.>f \u001bi\u001b<#loot\nf \u001bwa100s  100sFlFhFlFl.20s \u000f\u001bi\u001b100s  FhFhs150s#enhance\n\u001bi\u001bH _>.>100s    Fls.FlFl.50sFlssFlFlshuhFl 20s20s#ride\ny50si\u001bPjkk\\ 50sFhFhshhy100s uhk_>.>150sjkyFnFl Fl_>.>i\u001b50s150s knhlt\u001b10sdg20s20sskde20ssm..m.#chat\njjYHUY_>,>FlFlFl   \u001bUN    \u001bBB_>.>Fb  \u001b      2"
+  }
+ ]
+}

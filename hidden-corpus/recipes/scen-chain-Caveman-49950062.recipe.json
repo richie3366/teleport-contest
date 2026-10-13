@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of cold\nzf.  y ny  y nn  .  \u0007electric eel\nFyFy Fl  FlFl.20s .20s 20s  FlFk s20s20sss20s20ss.ss..  #quit\nyyi\u001byhjkun100sFus.i\u001b150s  _ \u001bm.>FbFbFbFb.Fbhly100sujui\u001b\u0018\u001blllw-#monster\n100s100sFl s.150s100s50sFlFlFlFlFlFlhhh50sFlFls\\ 100sef#tip\n\u001b100s150s150sFlFlFlFl.20shlh100sjyhl20stabdb.s.njt\u001bkkhjnhkn#quit\nyy\u001by  y y y\u001b  \u0007soldier ant\nFlFj  Fj FjFjFjFj..s.s.ss.20ss20sssss.20s yhhjbukhbnykjjknhknuBKLH_ \u001b@.>BUUN_>.>\u0004n#jump\nBBNL_>.>Fh20s FhLYHU_>.>Fk.20s<10sUNKK_>.>BBUK_>,>Fl.Fl hkjlhkbl100s100s150s100s50sFl.20s\u0004b150sFlFlFlhyy100sbjh_>,>100sFl.s150sFlsss#force\n100s100s_>.>i\u001b100shku_>.>100s150s  FlFls150s Fl..#ride\nnjyl100s150sFlFlFlFlFl20s100s150sFlFl.khnynynnbuulnbujKBBB_>.>#tip\n\u001bzYJJL_>,>NL YJ_>,>#name\n\u001buu#name\n\u001bkybj100s_>.>100sFls20s50sFlssybn150s_>.>hhuef_>,>150sFjFj20sjly150snknyhu100s_>.>\\ 150s__,.150sFlFuFlFus20s_>.>50s_>,>_>.>150skllnhjFkFks\u000f\u001b100s150sFu20s20sbuj150sNHKH_>.>HNKJ_>.>ULLY_>.>FjFbFh#monster\n\u0004yUHJL_>.>wa;>.\u000f\u001byhu#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49950062,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of cold\nzf.  y ny  y nn  ."
+  },
+  {
+   "seed": 50050062,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007electric eel\nFyFy Fl  FlFl.20s .20s 20s  FlFk s20s20sss20s20ss.ss.."
+  },
+  {
+   "seed": 50150062,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  #quit\nyy"
+  },
+  {
+   "seed": 50250062,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\n",
+   "moves": "i\u001byhjkun100sFus.i\u001b150s  _ \u001bm.>FbFbFbFb.Fbhly100sujui\u001b\u0018\u001blllw-#monster\n100s100sFl s.150s100s50sFlFlFlFlFlFlhhh50sFlFls\\ 100sef#tip\n\u001b100s150s150sFlFlFlFl.20shlh100sjyhl20stabdb.s.njt\u001bkkhjnhkn#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50350062,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007soldier ant\nFlFj  Fj FjFjFjFj..s.s.ss.20ss20sssss.20s"
+  },
+  {
+   "seed": 50450062,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:dog\n",
+   "moves": " yhhjbukhbnykjjknhknuBKLH_ \u001b@.>BUUN_>.>\u0004n#jump\nBBNL_>.>Fh20s FhLYHU_>.>Fk.20s<10sUNKK_>.>BBUK_>,>Fl.Fl hkjlhkbl100s100s150s100s50sFl.20s\u0004b150sFlFlFlhyy100sbjh_>,>100sFl.s150sFlsss#force\n100s100s_>.>i\u001b100shku_>.>100s150s  FlFls150s Fl..#ride\nnjyl100s150sFlFlFlFlFl20s100s150sFlFl.khnynynnbuulnbujKBBB_>.>#tip\n\u001bzYJJL_>,>NL YJ_>,>#name\n\u001buu#name\n\u001bkybj100s_>.>100sFls20s50sFlssybn150s_>.>hhuef_>,>150sFjFj20sjly150snknyhu100s_>.>\\ 150s__,.150sFlFuFlFus20s_>.>50s_>,>_>.>150skllnhjFkFks\u000f\u001b100s150sFu20s20sbuj150sNHKH_>.>HNKJ_>.>ULLY_>.>FjFbFh#monster\n\u0004yUHJL_>.>wa;>.\u000f\u001byhu#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

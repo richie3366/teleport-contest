@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "J YYU_ \u001b:>Fj .sKKYJ_>,>KNHN_>.>W#turn\nHBBN_>.>KBYK_>,>LHLK_>.><BHUK_>.>\u0004uE- Elbereth Elbereth\nkJBHK_>.>JYHB_>.>Fn.20sN BHK_>.>\\   tbyBLKB_>.>kun50si\u001b100sbylnku#sit\n\u001b100sFls20sZi\u001b100sFlsFl\u000f\u001b_>.>byyknk150s\u000f\u001blnl\\   \\   50s100s\\   jky100s   hjjnky,100s50s50sllyFjssljb150sFhss100s100sFl.._>.>50sbnu_>,>50s ed\u0018\u001b150shlybjkuuk50s_>,>jyn100s50sFjss:50s Fhssn150s50s_>.>\\   100s yhh100sbju\\   kbyljnyyl100sFb..100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeULLB_>.>HKUN_>.>YLKJ_>,>YNBY_>.>#wipe\n,KKUN_>.>JBLN_>.>sckKUBLL_>.>ze ruby\nLYYUK_>,>#chat\ny#monster\nHKHN_>,>LNNJ_>,>#pray\ny #monster\n\u0004kegi\u001b\u0018\u001b150s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10shuby#chat\nytbn#name\nm\n"
+ },
+ "segments": [
+  {
+   "seed": 49957007,
+   "datetime": "20241007060301",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:explore\n",
+   "moves": "J YYU_ \u001b:>Fj .sKKYJ_>,>KNHN_>.>W#turn\nHBBN_>.>KBYK_>,>LHLK_>.><BHUK_>.>\u0004uE- Elbereth Elbereth\nkJBHK_>.>JYHB_>.>Fn.20sN BHK_>.>\\   tbyBLKB_>.>kun50si\u001b100sbylnku#sit\n\u001b100sFls20sZi\u001b100sFlsFl\u000f\u001b_>.>byyknk150s\u000f\u001blnl\\   \\   50s100s\\   jky100s   hjjnky,100s50s50sllyFjssljb150sFhss100s100sFl.._>.>50sbnu_>,>50s ed\u0018\u001b150shlybjkuuk50s_>,>jyn100s50sFjss:50s Fhssn150s50s_>.>\\   100s yhh100sbju\\   kbyljnyyl100sFb..100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeULLB_>.>HKUN_>.>YLKJ_>,>YNBY_>.>#wipe\n,KKUN_>.>JBLN_>.>sckKUBLL_>.>ze ruby\nLYYUK_>,>#chat\ny#monster\nHKHN_>,>LNNJ_>,>#pray\ny #monster\n\u0004kegi\u001b\u0018\u001b150s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10shuby#chat\nytbn#name\nm\n"
+  }
+ ]
+}

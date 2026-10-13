@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "u20s dd ss.10s #chat\nk#name\nd\n>#enhance\n\u001b\u000f\u001b10s20s 20st\u001bhkyknjul JUBJ_ \u001b;>JHKL_>.>Fk .20sLYKB_>.>rh #ride\nbLUHY_>,>Fj.sBUYB_>,>am\u001b#pray\ny 150s150sFl Fls100srk y \\  150s50sFlss_>.>100sFhFhs50s100sFhs.jju150s\u0018\u001b#terrain\nc\n:50sFyFyFy100s50sluh10s150s_>.>\u000f\u001bjnu_>.>100sFhFhs150s100sFhFh20s\u000f\u001bblk50sbbkFhssLLHK_>,>FkFkFkJJJY_>.>HKKY_>,>FlFlFl\u000f\u001b\u0014#wipe\nykjnhljkjt\u001b10skuJLYH_>,><YJYK_>.>KJNH_>,>BHHH_>.>KKBB_>.>YL  LB_>.>#rub\nwa\u000f\u001beojyu100s150s\u0018\u001b150s\\  150sFbFjFjFj20s20s50si\u001b\\  nybFlFlshln\\  150s en eeeeeeeeeeeeeeeeeeeeePel#loot\n#enhance\n\u001bKKBU_>,>zcy\u0014LH YJ_>,>LYUH _>.>YJJK _>.>KJBK _>,>JYYH_>.>#invoke\n\u001bWUJHU _>,><KUNN_>.>FussU YUU_>.>JKKU_>.>\u000f\u001bLUNU_>.>BNNK_>.>YJJB_>,>eq  #pray\ny 150s      #"
+ },
+ "segments": [
+  {
+   "seed": 49957048,
+   "datetime": "20100422214527",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=runmode:crawl\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "u20s dd ss.10s #chat\nk#name\nd\n>#enhance\n\u001b\u000f\u001b10s20s 20st\u001bhkyknjul JUBJ_ \u001b;>JHKL_>.>Fk .20sLYKB_>.>rh #ride\nbLUHY_>,>Fj.sBUYB_>,>am\u001b#pray\ny 150s150sFl Fls100srk y \\  150s50sFlss_>.>100sFhFhs50s100sFhs.jju150s\u0018\u001b#terrain\nc\n:50sFyFyFy100s50sluh10s150s_>.>\u000f\u001bjnu_>.>100sFhFhs150s100sFhFh20s\u000f\u001bblk50sbbkFhssLLHK_>,>FkFkFkJJJY_>.>HKKY_>,>FlFlFl\u000f\u001b\u0014#wipe\nykjnhljkjt\u001b10skuJLYH_>,><YJYK_>.>KJNH_>,>BHHH_>.>KKBB_>.>YL  LB_>.>#rub\nwa\u000f\u001beojyu100s150s\u0018\u001b150s\\  150sFbFjFjFj20s20s50si\u001b\\  nybFlFlshln\\  150s en eeeeeeeeeeeeeeeeeeeeePel#loot\n#enhance\n\u001bKKBU_>,>zcy\u0014LH YJ_>,>LYUH _>.>YJJK _>.>KJBK _>,>JYYH_>.>#invoke\n\u001bWUJHU _>,><KUNN_>.>FussU YUU_>.>JKKU_>.>\u000f\u001bLUNU_>.>BNNK_>.>YJJB_>,>eq  #pray\ny 150s      #"
+  }
+ ]
+}

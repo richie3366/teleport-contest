@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  FhFh s100s100sFlss\u0018\u001b_ \u001b<.>100si\u001b\u0018\u001b100s100s\u000f\u001bi\u001b50sFnFnFn150s #wipe\n:50s\\ ,Z150skyknlhFjFjsbul100s  FjFjFjFjFj.hjkohulhblu100s150sFj.s\\ 100sjjb100s_>.>150s100sFlFlFlFlFlFluujae.\u000f\u001b50s150sFb.s150suyhPjun_>.>_>.>50sFl.20seeeeeeeeeeeeeeeeeeeeuj#name\na\n10sdd..20s#name\no\n10s10s#chat\nj20snnjkyhhy#name\na\n#chat\nutbl,E- Elbereth\n#chat\nh10sjnuy10sulde20s20ssm.e#pray\ny     FlFlFl50s150s  FbFb20sFbs.#name\ni\n\u000f\u001bi\u001b100s100s 100s 150sFh20s.FbsshhlbklFbFbs\u0018\u001b_>,>20s100sFj20s20shhhhljkhn50s_>.>ylh100sFl20ss#turn\n\u0018\u001b100sP100sFlsFlFl.s100sHJLL_>,><NUKK_>.>ULUB_>.>LLBU_>.>,#rub\nUBKK_>,>FbFb.<NNLJ_>.>FlFl.10s#force\nUUJB_>,>\u0004u,\u001420skjkj10sdfsss20syhhheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeqyHeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKBNL_>,>FhFhFhB"
+ },
+ "segments": [
+  {
+   "seed": 49957011,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:explore\n",
+   "moves": "  FhFh s100s100sFlss\u0018\u001b_ \u001b<.>100si\u001b\u0018\u001b100s100s\u000f\u001bi\u001b50sFnFnFn150s #wipe\n:50s\\ ,Z150skyknlhFjFjsbul100s  FjFjFjFjFj.hjkohulhblu100s150sFj.s\\ 100sjjb100s_>.>150s100sFlFlFlFlFlFluujae.\u000f\u001b50s150sFb.s150suyhPjun_>.>_>.>50sFl.20seeeeeeeeeeeeeeeeeeeeuj#name\na\n10sdd..20s#name\no\n10s10s#chat\nj20snnjkyhhy#name\na\n#chat\nutbl,E- Elbereth\n#chat\nh10sjnuy10sulde20s20ssm.e#pray\ny     FlFlFl50s150s  FbFb20sFbs.#name\ni\n\u000f\u001bi\u001b100s100s 100s 150sFh20s.FbsshhlbklFbFbs\u0018\u001b_>,>20s100sFj20s20shhhhljkhn50s_>.>ylh100sFl20ss#turn\n\u0018\u001b100sP100sFlsFlFl.s100sHJLL_>,><NUKK_>.>ULUB_>.>LLBU_>.>,#rub\nUBKK_>,>FbFb.<NNLJ_>.>FlFl.10s#force\nUUJB_>,>\u0004u,\u001420skjkj10sdfsss20syhhheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeqyHeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKBNL_>,>FhFhFhB"
+  }
+ ]
+}

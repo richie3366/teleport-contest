@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\ne\n sm.s20s20ssm..m.sn20ssm.sssss.m.20s.usm.s.m.sm.s20s.m..jsm..m.sn.m.20ssm..m.sm.sm.sm..y20s   ynnny ny  s"
+ },
+ "segments": [
+  {
+   "seed": 49952027,
+   "datetime": "20171208090117",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\ne\n sm.s20s20ssm..m.sn20ssm.sssss.m.20s.usm.s.m.sm.s20s.m..jsm..m.sn.m.20ssm..m.sm.sm.sm..y20s   ynnny ny  s"
+  }
+ ]
+}

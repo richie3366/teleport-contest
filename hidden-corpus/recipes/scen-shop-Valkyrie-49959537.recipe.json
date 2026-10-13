@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nWe  \u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001bm.,:_oooo._oo.,pFj   FjFjFjFjFj   \u0016?\ncnhk\u0016?\n>w\u0006_{,Fj   n_.Fj   nq\u001612\n_oo._oo.,p_oo,,$_ooo,_ooo.,\u0017amulet versus poison\ndg \u00163\nlnj  n\u0016?\n>w\u0006_oooooooo.,#chat\nb _ooooooo. Fh   n _, Fy ,\u0017gray stone\ndh_{. Fn _.Fy q_{.Fh _.Fh q_oooooo._ooo.Fl _.Fh   n  ,    n p\u00164\n__,#chat\nh     n#pray\ny y       \u0016?\ncbll\u0016?\n>w\u0006_ooo,_ooo.,$_ooooo. Fj   _.>.Fh   n  ,$_oooooooo.Fb     n_,m,Fy ,$_oooo.Fh _.<.Fh ,p_oo.,p_ooo._,Fl  ,$Fh   n  Fh   Fh   n  Fh     n  Fh   Fh      n \u00163\n_{,q\u0016?\n>Bb  u k\u0016?\n>w\u0006Fh     n Fh     Fh      n Fh    Fh   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 49959537,
+   "datetime": "20220622061248",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nWe  \u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001bm.,:_oooo._oo.,pFj   FjFjFjFjFj   \u0016?\ncnhk\u0016?\n>w\u0006_{,Fj   n_.Fj   nq\u001612\n_oo._oo.,p_oo,,$_ooo,_ooo.,\u0017amulet versus poison\ndg \u00163\nlnj  n\u0016?\n>w\u0006_oooooooo.,#chat\nb _ooooooo. Fh   n _, Fy ,\u0017gray stone\ndh_{. Fn _.Fy q_{.Fh _.Fh q_oooooo._ooo.Fl _.Fh   n  ,    n p\u00164\n__,#chat\nh     n#pray\ny y       \u0016?\ncbll\u0016?\n>w\u0006_ooo,_ooo.,$_ooooo. Fj   _.>.Fh   n  ,$_oooooooo.Fb     n_,m,Fy ,$_oooo.Fh _.<.Fh ,p_oo.,p_ooo._,Fl  ,$Fh   n  Fh   Fh   n  Fh     n  Fh   Fh      n \u00163\n_{,q\u0016?\n>Bb  u k\u0016?\n>w\u0006Fh     n Fh     Fh      n Fh    Fh   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

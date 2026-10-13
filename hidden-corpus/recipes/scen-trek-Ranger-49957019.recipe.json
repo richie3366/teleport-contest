@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " FuFu s\u0018\u001b100s50sFnsskbbyub50si\u001b100sjlu150s150s50s100s50shjl100sFl20s20s100sFls20s>#rub\ni\u001b\\ 150s50s50sFlsFu150s100sef\u000f\u001b100s100syljyuh50sbul_ \u001b:>#invoke\n\u001b#chat\nl#ride\nb10s20s20s10sdf.h20s.#chat\nyjbklf  k#terrain\n\u001bnFl FlFl#pray\ny  100syynhnu100si\u001b100sFn.s_>,>150se100sFlFls100s100s 50s100sFlFlFl100seeeeeeeeeeeeeeeeeeee#name\na\ntdk#name\na\n#name\na\n#name\na\nhlububjhynbtandcsssdesssuyjlyn#chat\nyU J U U_>.>FnFnsNNKH _>,>zPJ JJN_>.>__..#ride\nh\u0018\u001bhy10sny#name\na\n10sknhljubkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeL J H K _>.><N LJL_>.>hf d uH LBK_>.>#dip\ndWBLBK_>.>LNLN_>.> < YYNY_>.> YUJK_>.>#pray\ny  ;<.#turn\n\u0018\u001b#jump\nKULN_>.>HUHB_>,>UKUL_>,><LUYJ_>,>#monster\nq#sit\n\u001btdn#chat\nndds.sdb.ssjb;<.#conduct\n f \u001bUHJH_>.>Fj ..UNHJ_>.>J HHY _>.>#ride\nk\\  <LNUU_>.>LYJL_>,>#invoke\n\u001bcjNBUN_>.>UHUJ_>.>\u000f\u001b:z#offer\n100sFns20s100sFhFhFhFhss100sllunkh100sFhFhFh"
+ },
+ "segments": [
+  {
+   "seed": 49957019,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\n",
+   "moves": " FuFu s\u0018\u001b100s50sFnsskbbyub50si\u001b100sjlu150s150s50s100s50shjl100sFl20s20s100sFls20s>#rub\ni\u001b\\ 150s50s50sFlsFu150s100sef\u000f\u001b100s100syljyuh50sbul_ \u001b:>#invoke\n\u001b#chat\nl#ride\nb10s20s20s10sdf.h20s.#chat\nyjbklf  k#terrain\n\u001bnFl FlFl#pray\ny  100syynhnu100si\u001b100sFn.s_>,>150se100sFlFls100s100s 50s100sFlFlFl100seeeeeeeeeeeeeeeeeeee#name\na\ntdk#name\na\n#name\na\n#name\na\nhlububjhynbtandcsssdesssuyjlyn#chat\nyU J U U_>.>FnFnsNNKH _>,>zPJ JJN_>.>__..#ride\nh\u0018\u001bhy10sny#name\na\n10sknhljubkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeL J H K _>.><N LJL_>.>hf d uH LBK_>.>#dip\ndWBLBK_>.>LNLN_>.> < YYNY_>.> YUJK_>.>#pray\ny  ;<.#turn\n\u0018\u001b#jump\nKULN_>.>HUHB_>,>UKUL_>,><LUYJ_>,>#monster\nq#sit\n\u001btdn#chat\nndds.sdb.ssjb;<.#conduct\n f \u001bUHJH_>.>Fj ..UNHJ_>.>J HHY _>.>#ride\nk\\  <LNUU_>.>LYJL_>,>#invoke\n\u001bcjNBUN_>.>UHUJ_>.>\u000f\u001b:z#offer\n100sFns20s100sFhFhFhFhss100sllunkh100sFhFhFh"
+  }
+ ]
+}

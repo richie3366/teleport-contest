@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "nu k    \u0017tree\nb\u0004ul\u0017magic fountain\nqy qy y:nb\u0017unaligned altar\nde\u0017floating eye corpse\n#offer\ni  :y\u0017fountain\nqy yqq#dip\nf r\u001br\u001b_>, \u001b;20s\u0017saddle\n ajk \u0017lance\nwk#ride\njy\u0007tame saddled warhorse\n#ride\njy\u0007horse\n\u0017scroll of taming\nrl \u0017saddle\namu  #ride\nly #ride\n 20s       #ride\nky\u0007yellow mold\nFl     FnFh .s\u0006_>.     Fl _, Fl  >Fn Fl _>.Fl_, Fl >FnFj_>.Fj  _,   Fl>FkFk\u0007sewer rat\nFk  FlFn\u0007kobold\nFk Fj Fl\u0007giant rat\nFk FkFj \u001614\n\u0016?\n>y  _mmm.#chat\nu  _m. Fu_,#chat\nk_mmm.Fu_.#chat\nl_mmm.  Fl           n       _.    n    n   n Fk  n   n  n #chat\nk   n  n   n  n _mmmmm.#chat\nl  n  n  n  n   n  yny  y y n  #"
+ },
+ "segments": [
+  {
+   "seed": 49950021,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "nu k    \u0017tree\nb\u0004ul\u0017magic fountain\nqy qy y:nb\u0017unaligned altar\nde\u0017floating eye corpse\n#offer\ni  :y\u0017fountain\nqy yqq#dip\nf r\u001br\u001b_>, \u001b;20s\u0017saddle\n ajk \u0017lance\nwk#ride\njy\u0007tame saddled warhorse\n#ride\njy\u0007horse\n\u0017scroll of taming\nrl \u0017saddle\namu  #ride\nly #ride\n 20s       #ride\nky\u0007yellow mold\nFl     FnFh .s\u0006_>.     Fl _, Fl  >Fn Fl _>.Fl_, Fl >FnFj_>.Fj  _,   Fl>FkFk\u0007sewer rat\nFk  FlFn\u0007kobold\nFk Fj Fl\u0007giant rat\nFk FkFj \u001614\n\u0016?\n>y  _mmm.#chat\nu  _m. Fu_,#chat\nk_mmm.Fu_.#chat\nl_mmm.  Fl           n       _.    n    n   n Fk  n   n  n #chat\nk   n  n   n  n _mmmmm.#chat\nl  n  n  n  n   n  yny  y y n  #"
+  }
+ ]
+}

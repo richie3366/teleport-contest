@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " blhlun20s10s dasm.20s  y\u001by  y n  s#wizintrinsic\ne\n sm.s20s20s   yy\u001bnny\u001by  sFkFk .Fks.i\u001b150s50sFhFhFhFhFhFh\u0018\u001bjyn\\  50s100s100sFyFy.50s50sFnFnFn#pray\ny    1",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49958013,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": " blhlun20s10s dasm.20s  y\u001by  y n  s"
+  },
+  {
+   "seed": 50058013,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\ne\n sm.s20s20s   yy\u001bnny\u001by  s"
+  },
+  {
+   "seed": 50158013,
+   "datetime": "20180702100859",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\n",
+   "moves": "FkFk .Fks.i\u001b150s50sFhFhFhFhFhFh\u0018\u001bjyn\\  50s100s100sFyFy.50s50sFnFnFn#pray\ny    1"
+  }
+ ]
+}

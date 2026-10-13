@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                      #levelchange\n14\n  hu  lh\u0017neutral altar\ndbdh\u0017gnome corpse\n #offer\nj   l\u0017tree\nj\u0004k#terrain\nb\n\u001bm,_>.s#untrap\nh#twoweapon\n#levelchange\n30\n                \u0007owlbear\n.m.sm.20ssm..n sm..m.su .m.  n \u0007sandestin\nFy  Fb  Fb  FjFj  Fj  n \u0007centipede\nsm. sk.m. sm.s\u000f\u001b\u00167\n#levelchange\n20\n   \u0017helm of opposite alignment\nWk 20ssm.   20s  Tk\u0007scorpion\nFlFj   n    Fu  Fu    Fj  Fj  \u0007ettin\nFjFn   n \u000f\u001b\u00165\n#levelchange\n20\n\u0017trident\nwlFlFlFl\u0017blessed the Orb of Detection\n ,  Fl  Fl    n\u0017wand of death\n\u0007doppelganger\nzmj  n zml  n Fh Fl\u0017dunce cap\nW\u001b20s 20s  20s   Tb.ksm.\u001612\ni\u001b\u00168\n#levelchange\n12\n   \u0017blessed ring of polymorph control\nPor  n#polyself\nshrieker\n     #monster\ns .bshs.b#polyself\ngas spore\n#monster\n.m. sj\u0007disenchanter\nFl FlFl sbs20s\u0018\u001b\u0017cloak of magic resistance\nWpsy.m.  n syT \u0007winter wolf\nFlFlFh     nFh\u0007Croesus\nnyFl  FhFh\u00162\n#levelchange\n12\n\u0016?\nm #ride\nky#chat\nk\u0004h\u000620s .m.\u0016?\n>>N        potion of paralysis\nqr     n  \u001b  n #enhance\nyj\nl\n\u001br\u001b20s  n  n  sy  n     yy\u001by   y ny n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 49956024,
+   "datetime": "20151111214452",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                      #levelchange\n14\n  hu  lh\u0017neutral altar\ndbdh\u0017gnome corpse\n #offer\nj   l\u0017tree\nj\u0004k#terrain\nb\n\u001bm,_>.s#untrap\nh#twoweapon\n#levelchange\n30\n                \u0007owlbear\n.m.sm.20ssm..n sm..m.su .m.  n \u0007sandestin\nFy  Fb  Fb  FjFj  Fj  n \u0007centipede\nsm. sk.m. sm.s\u000f\u001b\u00167\n#levelchange\n20\n   \u0017helm of opposite alignment\nWk 20ssm.   20s  Tk\u0007scorpion\nFlFj   n    Fu  Fu    Fj  Fj  \u0007ettin\nFjFn   n \u000f\u001b\u00165\n#levelchange\n20\n\u0017trident\nwlFlFlFl\u0017blessed the Orb of Detection\n ,  Fl  Fl    n\u0017wand of death\n\u0007doppelganger\nzmj  n zml  n Fh Fl\u0017dunce cap\nW\u001b20s 20s  20s   Tb.ksm.\u001612\ni\u001b\u00168\n#levelchange\n12\n   \u0017blessed ring of polymorph control\nPor  n#polyself\nshrieker\n     #monster\ns .bshs.b#polyself\ngas spore\n#monster\n.m. sj\u0007disenchanter\nFl FlFl sbs20s\u0018\u001b\u0017cloak of magic resistance\nWpsy.m.  n syT \u0007winter wolf\nFlFlFh     nFh\u0007Croesus\nnyFl  FhFh\u00162\n#levelchange\n12\n\u0016?\nm #ride\nky#chat\nk\u0004h\u000620s .m.\u0016?\n>>N        potion of paralysis\nqr     n  \u001b  n #enhance\nyj\nl\n\u001br\u001b20s  n  n  sy  n     yy\u001by   y ny n  \u0016"
+  }
+ ]
+}

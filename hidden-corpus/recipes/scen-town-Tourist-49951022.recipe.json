@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>w\u0006\u0017blessed potion of object detection\nqm \u001b:_oooooo.  _.Fk ,#chat\ny_mmmm.#chat\nh_ooooooooo._._o._.;:   ,\u0014;__.Fk_.Fy#chat\nk  yny  ny\u001by  #"
+ },
+ "segments": [
+  {
+   "seed": 49951022,
+   "datetime": "20210929024630",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0016?\n>w\u0006\u0017blessed potion of object detection\nqm \u001b:_oooooo.  _.Fk ,#chat\ny_mmmm.#chat\nh_ooooooooo._._o._.;:   ,\u0014;__.Fk_.Fy#chat\nk  yny  ny\u001by  #"
+  }
+ ]
+}

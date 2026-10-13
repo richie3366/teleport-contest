@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u001615\n_ \u001b,.\u0016?\n>>N      saddle\nhb      :\u0016?\nb_>,\u001621\nu  h       n  k :\u0016?\n\u001bj     u   \u0016?\n\u001bl      n  l   \u0016?\n\u001bh  nl \u001615\n#chat\ny;y;\u0016?\n\u001bk  k     n\u001615\n#levelchange\n20\n      \u0007elf-lord\n#chat\nh   Fh            nFh     n\u0007wood nymph\nFh   Fb   n Fu        n \u0007balrog\nFy            n      Fj           n Fn  Fl    n   Fu       \u001610\n\u001621\n#chat\nb  n     \u001b        ;b:  \u001615\n_<.>sm.  n      .b   n     \u001611\n\u0016?\n\u001bb    n                 h   yy\u001by  y y y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 49955000,
+   "datetime": "20070810194600",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u001615\n_ \u001b,.\u0016?\n>>N      saddle\nhb      :\u0016?\nb_>,\u001621\nu  h       n  k :\u0016?\n\u001bj     u   \u0016?\n\u001bl      n  l   \u0016?\n\u001bh  nl \u001615\n#chat\ny;y;\u0016?\n\u001bk  k     n\u001615\n#levelchange\n20\n      \u0007elf-lord\n#chat\nh   Fh            nFh     n\u0007wood nymph\nFh   Fb   n Fu        n \u0007balrog\nFy            n      Fj           n Fn  Fl    n   Fu       \u001610\n\u001621\n#chat\nb  n     \u001b        ;b:  \u001615\n_<.>sm.  n      .b   n     \u001611\n\u0016?\n\u001bb    n                 h   yy\u001by  y y y\u001b  \u0016"
+  }
+ ]
+}

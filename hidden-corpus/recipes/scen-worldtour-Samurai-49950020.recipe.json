@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWg\u0017blessed +3 speed boots\nWh \u00161\nlbbjkly:20s\u0016?\n>x\u0014 \u001b.\u001619\n__.ss.\u0016?\ni \u0014: \u00161\n#levelchange\n10\n      \u00176 eggs\nQby\u00073 grid bug\nhlflf \u001bf \u001bf \u001bFkFh\u0007jackal\nhf \u001bf \u001b\u0017lance\nwj\u0007grid bug\nkaj.x#twoweapon\nFn Fljkh,\u0016?\n>>N       wand of stasis\n#chat\nb;b;\u001619\nj    \u001bbk  :\u00161\njbbk    n     l        b  n    b:\u00169\n\u001619\n__.\u001619\nbbbbbbb:\u0016?\na    _{.<\u00161\ny  n      j    hb    ny         :20s 20s              n \u00161\n\u001643\n_{.>\u0016?\nbj jl         h:\u0016?\n\u001by  u  \u001643\n\u0006;_<..b   n  \u0016?\n\u001bl    h\u0016?\n\u001byy\u001643\n#chat\nl   ;u;\u0016?\n\u001bln       \u001643\n#chat\nu;n:  \u001620\nu      jyk       n    j   n          :sm.  20s      n      sm.       \u00164\n\u001621\n#levelchange\n20\n         \u0017orcish bow\nwm\u001720 orcish arrows\nQa\u0007kobold\nh fy       fFl        Fu     n     \u0007sewer rat\nb           fff\u0007newt\nbl   \u001b         n    ffFy         nFk           jj          n     h           n  ,               sm.  n  \u00168\n\u0016?\n\u001by       \u001b               n        u     n            \u0016?\n\u001bn       yy\u001by   ny  y\u001b  j"
+ },
+ "segments": [
+  {
+   "seed": 49950020,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWg\u0017blessed +3 speed boots\nWh \u00161\nlbbjkly:20s\u0016?\n>x\u0014 \u001b.\u001619\n__.ss.\u0016?\ni \u0014: \u00161\n#levelchange\n10\n      \u00176 eggs\nQby\u00073 grid bug\nhlflf \u001bf \u001bf \u001bFkFh\u0007jackal\nhf \u001bf \u001b\u0017lance\nwj\u0007grid bug\nkaj.x#twoweapon\nFn Fljkh,\u0016?\n>>N       wand of stasis\n#chat\nb;b;\u001619\nj    \u001bbk  :\u00161\njbbk    n     l        b  n    b:\u00169\n\u001619\n__.\u001619\nbbbbbbb:\u0016?\na    _{.<\u00161\ny  n      j    hb    ny         :20s 20s              n \u00161\n\u001643\n_{.>\u0016?\nbj jl         h:\u0016?\n\u001by  u  \u001643\n\u0006;_<..b   n  \u0016?\n\u001bl    h\u0016?\n\u001byy\u001643\n#chat\nl   ;u;\u0016?\n\u001bln       \u001643\n#chat\nu;n:  \u001620\nu      jyk       n    j   n          :sm.  20s      n      sm.       \u00164\n\u001621\n#levelchange\n20\n         \u0017orcish bow\nwm\u001720 orcish arrows\nQa\u0007kobold\nh fy       fFl        Fu     n     \u0007sewer rat\nb           fff\u0007newt\nbl   \u001b         n    ffFy         nFk           jj          n     h           n  ,               sm.  n  \u00168\n\u0016?\n\u001by       \u001b               n        u     n            \u0016?\n\u001bn       yy\u001by   ny  y\u001b  j"
+  }
+ ]
+}

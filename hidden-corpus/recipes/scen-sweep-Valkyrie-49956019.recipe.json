@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           #levelchange\n12\n#wizintrinsic\ne\n .m..sm.20s 20s 20s 20s 20s sm.sn20s   nssstbnW,dccjdb20sss.20s.\u0006\u0017blessed spellbook of restore ability\nre 20s\u0017blessed spellbook of polymorph\nrf   20s+\u001b\u0007kobold\nZ\u001b\u0007yellow mold\nZ\u001b\u0007ghoul\nZ\u001bFy Z\u001bZ\u001bZ\u001bZ\u001bFy Z\u001bFl    \u00164\ni\u001bed snswaFkFk  nFkWsb.sTrf y .m.sm.Za\nre y sy.m.  n Zb\nZb\nchden#conduct\n #enhance\nyo\ng\n\u001b#tip\n\u001bn#turn\n\u001617\n\u001610\n#levelchange\n30\n                 jhk\u0017throne\n#sit\n:hb\u0017fountain\nqy#dip\ndy yt\u001bdf>#levelchange\n8\n     \u0007pit viper\n.m.sm. .m. sh\u0007master mind flayer\n#chat\nhFk     Fk       n   \u0007ogre king\n#chat\nu   n   Fk     n  Fu    n   \u0007doppelganger\n#chat\nu       Fk  n    n  Fu     n   \u00166\n\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqg \u001b<._oo._.,p_ooooo,_,,dd __._.#chat\nn_oo,_.,\u0014m.K>,#levelchange\n8\n#wizintrinsic\nb\n sn.m..m.20sys20s s.n20s s;>.<q:Zb\n,sn20s sm.20s  sm.   n.\u0017sack\n\u0017oilskin sack\n\u0017potion of acid\ndih\u0004ldh#loot\n\u001b,ah\u001b#tip\nh\u001b  dh  u\u0004ba\u001bi\u001bnj\u0017wand of undead turning\nEk Elbereth Elbereth\n: \u0017wand of lightning\nEl   ad aerarium\n\u0017wand of slow monster\nEm:   y\u0017wand of teleportation\nEn Elbereth Elbereth\n: E- ad aerarium\n\u0007hill orc\n20s s 20sFyFl\u000f\u001bi\u001b>#force\n#jump\n#chat\nyw-#offer\n#conduct\n \u0014: \u0018\u001b#levelchange\n30\n                     \u0017crossbow\nwoFlFyFl\u0007gecko\n;y:sss\u0007elf-lord\nFyFkFlFlFl  n\u0007pit viper\nFyFlFb FlFl  n Fb\u0007Juiblex\nyn FkFk \u00168\n\u0007wood nymph\n"
+ },
+ "segments": [
+  {
+   "seed": 49956019,
+   "datetime": "20090222141307",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=sortloot:none\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n12\n           #levelchange\n12\n#wizintrinsic\ne\n .m..sm.20s 20s 20s 20s 20s sm.sn20s   nssstbnW,dccjdb20sss.20s.\u0006\u0017blessed spellbook of restore ability\nre 20s\u0017blessed spellbook of polymorph\nrf   20s+\u001b\u0007kobold\nZ\u001b\u0007yellow mold\nZ\u001b\u0007ghoul\nZ\u001bFy Z\u001bZ\u001bZ\u001bZ\u001bFy Z\u001bFl    \u00164\ni\u001bed snswaFkFk  nFkWsb.sTrf y .m.sm.Za\nre y sy.m.  n Zb\nZb\nchden#conduct\n #enhance\nyo\ng\n\u001b#tip\n\u001bn#turn\n\u001617\n\u001610\n#levelchange\n30\n                 jhk\u0017throne\n#sit\n:hb\u0017fountain\nqy#dip\ndy yt\u001bdf>#levelchange\n8\n     \u0007pit viper\n.m.sm. .m. sh\u0007master mind flayer\n#chat\nhFk     Fk       n   \u0007ogre king\n#chat\nu   n   Fk     n  Fu    n   \u0007doppelganger\n#chat\nu       Fk  n    n  Fu     n   \u00166\n\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqg \u001b<._oo._.,p_ooooo,_,,dd __._.#chat\nn_oo,_.,\u0014m.K>,#levelchange\n8\n#wizintrinsic\nb\n sn.m..m.20sys20s s.n20s s;>.<q:Zb\n,sn20s sm.20s  sm.   n.\u0017sack\n\u0017oilskin sack\n\u0017potion of acid\ndih\u0004ldh#loot\n\u001b,ah\u001b#tip\nh\u001b  dh  u\u0004ba\u001bi\u001bnj\u0017wand of undead turning\nEk Elbereth Elbereth\n: \u0017wand of lightning\nEl   ad aerarium\n\u0017wand of slow monster\nEm:   y\u0017wand of teleportation\nEn Elbereth Elbereth\n: E- ad aerarium\n\u0007hill orc\n20s s 20sFyFl\u000f\u001bi\u001b>#force\n#jump\n#chat\nyw-#offer\n#conduct\n \u0014: \u0018\u001b#levelchange\n30\n                     \u0017crossbow\nwoFlFyFl\u0007gecko\n;y:sss\u0007elf-lord\nFyFkFlFlFl  n\u0007pit viper\nFyFlFb FlFl  n Fb\u0007Juiblex\nyn FkFk \u00168\n\u0007wood nymph\n"
+  }
+ ]
+}

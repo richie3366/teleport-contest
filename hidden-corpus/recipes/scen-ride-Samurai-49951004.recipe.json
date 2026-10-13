@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017saddle\nafu#ride\nuy\u0007tame saddled warhorse\n#ride\nuy\u0007horse\n\u0017scroll of taming\nrg \u0017saddle\n ahl  #ride\nky\u0004h#ride\nky y.#ride\nly\u0006_ \u001b.>Fl Fl_>._,>_>._.Fj >,#levelchange\n14\n            \u0017saddle\nai.#ride\n.y\u0007warhorse\n\u0017scroll of taming\nrj \u0017saddunce cap\n gaunt"
+ },
+ "segments": [
+  {
+   "seed": 49951004,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017saddle\nafu#ride\nuy\u0007tame saddled warhorse\n#ride\nuy\u0007horse\n\u0017scroll of taming\nrg \u0017saddle\n ahl  #ride\nky\u0004h#ride\nky y.#ride\nly\u0006_ \u001b.>Fl Fl_>._,>_>._.Fj >,#levelchange\n14\n            \u0017saddle\nai.#ride\n.y\u0007warhorse\n\u0017scroll of taming\nrj \u0017saddunce cap\n gaunt"
+  }
+ ]
+}

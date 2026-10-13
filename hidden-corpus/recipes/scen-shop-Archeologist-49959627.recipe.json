@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed Mjollnir\nwi\u0017blessed amulet of reflection\nPj\u0016?\n>w\u0006_ \u001b@.,:_ooo,_.,\u0014s20s__,pnhu#chat\nkFjFjFjFjFjFj_ooooo._.,pklk#chat\nykn#chat\nk_ooooooooo,_.,p\u0016y ub\u0016?\n>w\u0006FkFkFkFkFk Fk_oo.,$_oooooo,,\u0017worthless piece of red glass\ndl Fy     n   Fy   n     n  Fy    n     n  Fy     n   Fy  n     n   Fy   n     n  \u0016?\n>B k      n       n      n        n  l     n      n     yy\u001by  y y\u001b  y"
+ },
+ "segments": [
+  {
+   "seed": 49959627,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed Mjollnir\nwi\u0017blessed amulet of reflection\nPj\u0016?\n>w\u0006_ \u001b@.,:_ooo,_.,\u0014s20s__,pnhu#chat\nkFjFjFjFjFjFj_ooooo._.,pklk#chat\nykn#chat\nk_ooooooooo,_.,p\u0016y ub\u0016?\n>w\u0006FkFkFkFkFk Fk_oo.,$_oooooo,,\u0017worthless piece of red glass\ndl Fy     n   Fy   n     n  Fy    n     n  Fy     n   Fy  n     n   Fy   n     n  \u0016?\n>B k      n       n      n        n  l     n      n     yy\u001by  y y\u001b  y"
+  }
+ ]
+}

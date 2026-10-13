@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "N  KL L_ \u001bm.><KUYK_>,>NUKK_>.>;_.#name\ni\nJYUB_>.>20s10s#chat\nhdcs20ss#chat\nhtbh ukbunjyl#name\ni\n#chat\nyyuYKLY_>.>#name\na\nlJYYY_>.>daaey BKLN_>.>BNNN_>.>NKKN_>.>\u000f\u001bi\u001b#rub\n\\   jlk100s100sFl s.150sFhFhFh150sFhFhs50s100s50s100sFhFhs100sFhs20sFh20s20sFhss150s\u0018\u001bi\u001bE\u001bhhb100sed i\u001b#enhance\n\u001bubbi\u001b100s100sFbFbs150sFbs20sr\u001b100sFb20s.150sFb20sFbFbss100s50sFbFbs\u0018\u001b\u000f\u001b_>.>100s50s\u000f\u001b#enhance\n\u001b100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeer\u001b#loot\n#turn\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeees#loot\n#jump\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#invoke\n\u001b#rub\naklklt\u001b10sdcsss#chat\ny#name\ni\n<#sit\n\u001b#terrain\nd\nHLNJ_>HBBJ_>HUNH_>JHBY_>\u000f JBKK_>.>t\u001b#force\nKLHJ_>.>JBLH_>.><HBUB_>.>\u000f\u001b10sdc..20s20sbllkblt\u001bkj#name\na\nBBUK_>.>Fj.sKJJL_>,>Fh20s s#twoweapon\nWYNBU_>.>YJHB_>.><BHNY_>.>YLBJ_>,>BLJB_>.>#terrain\nc\n>.#offer\nYLNK_>,>KKYK_>,_. Fn  >Fn   Fn  Fn \u000f\u001b20s z#twoweapon\nBULN_>._.>N JNJ_>._. > KNU J_>.>\u000f\u001b#"
+ },
+ "segments": [
+  {
+   "seed": 49950091,
+   "datetime": "20250825012351",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=runmode:walk\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": "N  KL L_ \u001bm.><KUYK_>,>NUKK_>.>;_.#name\ni\nJYUB_>.>20s10s#chat\nhdcs20ss#chat\nhtbh ukbunjyl#name\ni\n#chat\nyyuYKLY_>.>#name\na\nlJYYY_>.>daaey BKLN_>.>BNNN_>.>NKKN_>.>\u000f\u001bi\u001b#rub\n\\   jlk100s100sFl s.150sFhFhFh150sFhFhs50s100s50s100sFhFhs100sFhs20sFh20s20sFhss150s\u0018\u001bi\u001bE\u001bhhb100sed i\u001b#enhance\n\u001bubbi\u001b100s100sFbFbs150sFbs20sr\u001b100sFb20s.150sFb20sFbFbss100s50sFbFbs\u0018\u001b\u000f\u001b_>.>100s50s\u000f\u001b#enhance\n\u001b100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeer\u001b#loot\n#turn\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeees#loot\n#jump\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#invoke\n\u001b#rub\naklklt\u001b10sdcsss#chat\ny#name\ni\n<#sit\n\u001b#terrain\nd\nHLNJ_>HBBJ_>HUNH_>JHBY_>\u000f JBKK_>.>t\u001b#force\nKLHJ_>.>JBLH_>.><HBUB_>.>\u000f\u001b10sdc..20s20sbllkblt\u001bkj#name\na\nBBUK_>.>Fj.sKJJL_>,>Fh20s s#twoweapon\nWYNBU_>.>YJHB_>.><BHNY_>.>YLBJ_>,>BLJB_>.>#terrain\nc\n>.#offer\nYLNK_>,>KKYK_>,_. Fn  >Fn   Fn  Fn \u000f\u001b20s z#twoweapon\nBULN_>._.>N JNJ_>._. > KNU J_>.>\u000f\u001b#"
+  }
+ ]
+}

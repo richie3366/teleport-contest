@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0006_ \u001bm.>Fks_>>,Fk_.>_>>._.Fk >\u0006_>,_.>_>._,>_>._.>\u0006_>>,_.>_>>._.>_>>._.>#rub\n#ride\nky\u0006_>>._.>_>>._,>_>>._.>dbW\u0017ice box\n\u0017scroll of enchant weapon\n\u0017wand of sleep\n\u0017wand of cancellation\ni\u001b\u0018\u001b#levelchange\n14\n     \u0016?\n>y  _mmmmm,#chat\nn;_._mmm.#chat\nu_m,#chat\nk;>._mm.#chat\nl,#twoweapon\n#pray\ny y i\u001b\u0016?\n>Ebb10sb\u0017wand of digging\nzqbbyl\u0017wand of striking\nzr>\u0017wand of digging\nzsl\u0017wand of striking\nztj10s\u0017wand of striking\nzuh\u0017wand of striking\nzvk\u0017wand of digging\nzwl\u0017scroll of earth\nrx bbhhuhkbllllbbblbl10sj10suunhh10shhhbykh10s10sk10slllllu\u0017cursed bag of holding\n\u0017ice box\n\u0017potion of oil\n\u0017potion of gain energy\n\u0017wand of locking\n\u0017long sword\nwDdy#force\n.s20saoahdBh\u0004l  \u001b#tip\n\u001bai #levelchange\n20\n      \u0016?\nl,l #rub\n;_...\u0016?\ng     rj y :#pray\ny y ;<.\u000620ss\u001629\n   tabE- I am a fish\n#conduct\n \u000620ssm.\u0016?\nn #chat\nnahf $ bsm..m.\u0018\u001b\u0017wand of digging\n\u0006_ooo.zE>   hnzEjjnl_>,zE> zE<zE<\u001612\ni\u001b#levelchange\n10\n   \u00172000 gold pieces\n\u0016?\n>x\u0006\u0017blessed potion of object detection\nqFm._ooooooooo._._oo,_.,$_mmmm,#chat\ny_oooo._.,dp__, Fj _.  Fb #chat\nb do ,_ooooooo.Fk      n_,Fu ,:    n Jdbh   \u001627\n \u00161\n #wizintrinsic\nes\n 20s 20s : sm.s.m.20s .m.sm..ysm..m.  n  20s  20s s#force\n#sit\n#tip\n\u001b: u#rub\nsl sbsy 20s  .m..m.#levelchange\n20\n          #wizintrinsic\na\n .m.  n  20s 20s ss20s  20s .\u0004u#conduct\n awlchqA20s  s s20s 20s  n s \u00164\n#l"
+ },
+ "segments": [
+  {
+   "seed": 49956018,
+   "datetime": "20110430122915",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0006_ \u001bm.>Fks_>>,Fk_.>_>>._.Fk >\u0006_>,_.>_>._,>_>._.>\u0006_>>,_.>_>>._.>_>>._.>#rub\n#ride\nky\u0006_>>._.>_>>._,>_>>._.>dbW\u0017ice box\n\u0017scroll of enchant weapon\n\u0017wand of sleep\n\u0017wand of cancellation\ni\u001b\u0018\u001b#levelchange\n14\n     \u0016?\n>y  _mmmmm,#chat\nn;_._mmm.#chat\nu_m,#chat\nk;>._mm.#chat\nl,#twoweapon\n#pray\ny y i\u001b\u0016?\n>Ebb10sb\u0017wand of digging\nzqbbyl\u0017wand of striking\nzr>\u0017wand of digging\nzsl\u0017wand of striking\nztj10s\u0017wand of striking\nzuh\u0017wand of striking\nzvk\u0017wand of digging\nzwl\u0017scroll of earth\nrx bbhhuhkbllllbbblbl10sj10suunhh10shhhbykh10s10sk10slllllu\u0017cursed bag of holding\n\u0017ice box\n\u0017potion of oil\n\u0017potion of gain energy\n\u0017wand of locking\n\u0017long sword\nwDdy#force\n.s20saoahdBh\u0004l  \u001b#tip\n\u001bai #levelchange\n20\n      \u0016?\nl,l #rub\n;_...\u0016?\ng     rj y :#pray\ny y ;<.\u000620ss\u001629\n   tabE- I am a fish\n#conduct\n \u000620ssm.\u0016?\nn #chat\nnahf $ bsm..m.\u0018\u001b\u0017wand of digging\n\u0006_ooo.zE>   hnzEjjnl_>,zE> zE<zE<\u001612\ni\u001b#levelchange\n10\n   \u00172000 gold pieces\n\u0016?\n>x\u0006\u0017blessed potion of object detection\nqFm._ooooooooo._._oo,_.,$_mmmm,#chat\ny_oooo._.,dp__, Fj _.  Fb #chat\nb do ,_ooooooo.Fk      n_,Fu ,:    n Jdbh   \u001627\n \u00161\n #wizintrinsic\nes\n 20s 20s : sm.s.m.20s .m.sm..ysm..m.  n  20s  20s s#force\n#sit\n#tip\n\u001b: u#rub\nsl sbsy 20s  .m..m.#levelchange\n20\n          #wizintrinsic\na\n .m.  n  20s 20s ss20s  20s .\u0004u#conduct\n awlchqA20s  s s20s 20s  n s \u00164\n#l"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "H YHN _ \u001b>.>Fk Fh.YJy UJ_>,>UUNY_>.>BHnnYK_>,>UBNJ_>,>BNHK_>.>LBBU_>.>\u000f\u001bjbjjll#chat\nu#name\nm\ntdhss.150si\u001b100sFlFls150s100s i\u001b100sFyFy.100s50s;m.hhkyllhlkzg potion of acid\n50sFyFy.100sFbss50s50sFkFk.100s100sFjFjFj50sck100sFb20ss50s150si\u001b100s100sFjFbFj50syny100s\u000f\u001b\u0014yr\u001b\\  #offer\n150sFnFnFn150sef100s50s100sFnss_>.>100s100sFh.Fn150s,hllFh20ss\u0018\u001b100s100s Fj Fj   yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 49957017,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:explore\n",
+   "moves": "H YHN _ \u001b>.>Fk Fh.YJy UJ_>,>UUNY_>.>BHnnYK_>,>UBNJ_>,>BNHK_>.>LBBU_>.>\u000f\u001bjbjjll#chat\nu#name\nm\ntdhss.150si\u001b100sFlFls150s100s i\u001b100sFyFy.100s50s;m.hhkyllhlkzg potion of acid\n50sFyFy.100sFbss50s50sFkFk.100s100sFjFjFj50sck100sFb20ss50s150si\u001b100s100sFjFbFj50syny100s\u000f\u001b\u0014yr\u001b\\  #offer\n150sFnFnFn150sef100s50s100sFnss_>.>100s100sFh.Fn150s,hllFh20ss\u0018\u001b100s100s Fj Fj   yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

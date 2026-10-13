@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " hnlk\u0017web\nj^k#untrap\nkk\u0017squeaky board\njkys.y\u0017pit\ny^nn.shh\u0017spiked pit\nbu20s s,a#sit\nSy\u001b yf  ufn_m. \u001bm.sde#chat\nlok>,20s#force\nW#levelchange\n10\n         \u00176 eggs\nQc\u0007dwarf\ny yfj   fj   fnbbu,#enhance\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49951021,
+   "datetime": "20050706095549",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " hnlk\u0017web\nj^k#untrap\nkk\u0017squeaky board\njkys.y\u0017pit\ny^nn.shh\u0017spiked pit\nbu20s s,a#sit\nSy\u001b"
+  },
+  {
+   "seed": 50451021,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " yf  ufn_m. \u001bm.sde#chat\nlok>,20s#force\nW#levelchange\n10\n         \u00176 eggs\nQc\u0007dwarf\ny yfj   fj   fnbbu,#enhance\n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPkr\u0016?\n>w\u0006_ \u001b.,\u0014...Fl FlFlFlFlFl__. Fu_,.Fk #chat\nk Fk FkFk FkFk Fk_ooooooooo,_oo.,$__.Fy  _,Fk #chat\nk#pray\ny y    _ooooo._oo.,pFk Fk Fk  Fk Fk Fk _{,_,qd_oooooooo.,:jkj#chat\nj\u00167\nkub\u0016?\n>w\u0006buj#chat\nykyl#chat\nk_ooooooooo.,#chat\njblb#chat\nl_ooooo.,p_ooooooo._ooo.,:_{,_.;m.FbqdFbFb  FbFbFbFb_oooo.,p_oooooooo,,p__.  _, Fy     n     n   n#chat\ny  n #pray\ny y  \u00169\nyyl#chat\nj_{.qd_oo.Fh _,,p_oo._,@.Fu,pFk  FkFkFkFkFk__.#chat\nl_ooooooooo.,:__.#chat\nh#pray\ny y   _oooo._oo,,p_{,q_ooo,Fu_,  nFh_ooo.Fl_.,b\n\u0017loadstone\n dn_{,q_{,q_ooooooooo.Fn  n _.Fn,y pFn  n Fn   n Fn Fn  n Fn     "
+ },
+ "segments": [
+  {
+   "seed": 49959642,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=fruit:lychee\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPkr\u0016?\n>w\u0006_ \u001b.,\u0014...Fl FlFlFlFlFl__. Fu_,.Fk #chat\nk Fk FkFk FkFk Fk_ooooooooo,_oo.,$__.Fy  _,Fk #chat\nk#pray\ny y    _ooooo._oo.,pFk Fk Fk  Fk Fk Fk _{,_,qd_oooooooo.,:jkj#chat\nj\u00167\nkub\u0016?\n>w\u0006buj#chat\nykyl#chat\nk_ooooooooo.,#chat\njblb#chat\nl_ooooo.,p_ooooooo._ooo.,:_{,_.;m.FbqdFbFb  FbFbFbFb_oooo.,p_oooooooo,,p__.  _, Fy     n     n   n#chat\ny  n #pray\ny y  \u00169\nyyl#chat\nj_{.qd_oo.Fh _,,p_oo._,@.Fu,pFk  FkFkFkFkFk__.#chat\nl_ooooooooo.,:__.#chat\nh#pray\ny y   _oooo._oo,,p_{,q_ooo,Fu_,  nFh_ooo.Fl_.,b\n\u0017loadstone\n dn_{,q_{,q_ooooooooo.Fn  n _.Fn,y pFn  n Fn   n Fn Fn  n Fn     "
+  }
+ ]
+}

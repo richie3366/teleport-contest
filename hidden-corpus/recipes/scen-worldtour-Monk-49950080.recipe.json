@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                      \u0017blessed +3 speed boots\nWk \u0016?\n>>N       dwarvish mattock\n#chat\nk;k, \u001b<.\u0016?\nd\u0004k                    \u0016?\n\u001bj j  n   \u00169\n_>.\u00169\n_>.<\u0016?\n\u001bk      u  \u0016?\n\u001bnj     n  \u00169\nl b   n              j  n     l          n    l : \u001611\n\u0016?\nc\u0004y   n \u001637\n\u0006_>,sm.   \u0016?\n\u001bnj         \u001645\n_>.<\u0016?\nd\u0007quasit\ns     s  ..  n      n \u0007umber hulk\n.  Fk Fjs \u00161\n\u0016?\ndh  n   n         uj   n  b    h   n  b   :  s   s   n   .\u00169\n\u0016?\nb_>,>s\u001612\n#chat\ny;_.\u00169\n\u0006<._>.\u0016?\n\u001bnj\u001612\n_{.<\u0016?\n\u001bnl \u0016?\n\u001bhu  \u0016?\n\u001bhk    \u0016?\n\u001bhn \u001637\nknk    n: \u001637\n\u0014@.  \u0016?\n\u001bh  n  b\u001637\n#chat\nn;m.\u0016?\n\u001bn  k\u0016?\n\u001bh k\u0016?\n\u001bl  n b \u0016?\n\u001bhb \u0016?\n\u001bkl\u00162\nn  yny   y y y\u001b  u"
+ },
+ "segments": [
+  {
+   "seed": 49950080,
+   "datetime": "20151022055446",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                      \u0017blessed +3 speed boots\nWk \u0016?\n>>N       dwarvish mattock\n#chat\nk;k, \u001b<.\u0016?\nd\u0004k                    \u0016?\n\u001bj j  n   \u00169\n_>.\u00169\n_>.<\u0016?\n\u001bk      u  \u0016?\n\u001bnj     n  \u00169\nl b   n              j  n     l          n    l : \u001611\n\u0016?\nc\u0004y   n \u001637\n\u0006_>,sm.   \u0016?\n\u001bnj         \u001645\n_>.<\u0016?\nd\u0007quasit\ns     s  ..  n      n \u0007umber hulk\n.  Fk Fjs \u00161\n\u0016?\ndh  n   n         uj   n  b    h   n  b   :  s   s   n   .\u00169\n\u0016?\nb_>,>s\u001612\n#chat\ny;_.\u00169\n\u0006<._>.\u0016?\n\u001bnj\u001612\n_{.<\u0016?\n\u001bnl \u0016?\n\u001bhu  \u0016?\n\u001bhk    \u0016?\n\u001bhn \u001637\nknk    n: \u001637\n\u0014@.  \u0016?\n\u001bh  n  b\u001637\n#chat\nn;m.\u0016?\n\u001bn  k\u0016?\n\u001bh k\u0016?\n\u001bl  n b \u0016?\n\u001bhb \u0016?\n\u001bkl\u00162\nn  yny   y y y\u001b  u"
+  }
+ ]
+}

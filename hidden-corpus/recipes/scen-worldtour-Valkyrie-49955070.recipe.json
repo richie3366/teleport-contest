@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed +3 cloak of magic resistance\nWf\u0017blessed +3 helm of telepathy\nWg \u0016?\n>>K      the Staff of Aesculapius\n \u0014 \u001b: 20s  .m.   \u0016?\n\u001bu     j\u001625\ny   u b      n j      y:\u0016?\n\u001bh     h   \u0016?\n\u001bnl  \u0016?\n\u001bb      n  h   \u001625\n__.<.m.\u001613\nl    n h   y\u0017sink\nqy k   nn     \u0017throne\n#sit\n    #sit\n   n   #sit\n    by    \u0017cloud\ntbkok\\   \u00161\n\u001613\n_>.<\u0016?\n\u001bj      n   j   \u0016?\n\u001bj      h        n     \u001635\n_<,<\u001644\nu   ky      n  :.m.        \u0016?\n\u001by       n h     \u0016?\n\u001bj         nh          \u001644\njn          n k         l      n   \u001b          :\u001611\n\u0016?\n\u001bn      \u001b k      n        \u0016?\n\u001bk         n             n \u0016?\n\u001bu      u\u001613\nn           n  k             l             yny   ny y\u001b  y"
+ },
+ "segments": [
+  {
+   "seed": 49955070,
+   "datetime": "20151126210610",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed +3 cloak of magic resistance\nWf\u0017blessed +3 helm of telepathy\nWg \u0016?\n>>K      the Staff of Aesculapius\n \u0014 \u001b: 20s  .m.   \u0016?\n\u001bu     j\u001625\ny   u b      n j      y:\u0016?\n\u001bh     h   \u0016?\n\u001bnl  \u0016?\n\u001bb      n  h   \u001625\n__.<.m.\u001613\nl    n h   y\u0017sink\nqy k   nn     \u0017throne\n#sit\n    #sit\n   n   #sit\n    by    \u0017cloud\ntbkok\\   \u00161\n\u001613\n_>.<\u0016?\n\u001bj      n   j   \u0016?\n\u001bj      h        n     \u001635\n_<,<\u001644\nu   ky      n  :.m.        \u0016?\n\u001by       n h     \u0016?\n\u001bj         nh          \u001644\njn          n k         l      n   \u001b          :\u001611\n\u0016?\n\u001bn      \u001b k      n        \u0016?\n\u001bk         n             n \u0016?\n\u001bu      u\u001613\nn           n  k             l             yny   ny y\u001b  y"
+  }
+ ]
+}

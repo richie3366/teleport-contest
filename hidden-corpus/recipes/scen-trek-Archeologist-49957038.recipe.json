@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " Fb 20sFl Fl..nlk150s 100s_ \u001bm.>150s nyn150shly\\ _>.>100s100s nhu100sFyFyFyFyss150sFh.s150sFhs20s50s buj100s100s150s50shFk.FkFksshhlFkFk.Fu20s20s#wipe\n100sFkFk.ed150sFk.sU NBN_>.>KKJJ_>.>BHJU_>.><#chat\nnHKYB_>,>KBUJ_>.>#enhance\n\u001b#wipe\n<HHKJ_>.><LHHN_>.>KJYN_>.>L\u0004jYBNB_>,>k#pray\ny  \u000f\u001b150s#wipe\n_>.>bkk150s150sFl20ss50s100s      100s 100s 50s50si\u001b50sFlFls\u000f\u001bi\u001b50s50s100sFls.#jump\njju_>,>i\u001bnhu50sbku\u0018\u001b100s150sFls20sFlssnyj100s\u0018\u001b50sFlFls\u000f\u001bbknyt\u001b20st\u001bt\u001b20st\u001b#enhance\n\u001bt\u001bdfKKBB_>,>20sojBJBJ_>.>K BBK_>.>UUUJ_>,>NK JH_>.>Fk.sJLHN_>.>HK KB_>.>#sit\n#chat\nb\u000f\u001b50sed100s#name\nm\nuyb\u001850s 150s jjl\u000f\u001bdgFl Flshkj\u000f\u001b100sdi50s\\ 150s #force\n50sfj100s 50s 100s100s FlFls150s50s  FlFlFlFlFlFl100s100sFlFlFlFl .20s100s#dip\nb100s150sK KBL _>.>H BKB_>.>,d\nzHJ UU_>.>FbFb20swl#chat\nk\u000f\u001b50si\u001b\u0018\u001b150sFl FlFlFlFlFlFls._>.>#jump\n100sej 50s150sFlFlFl#pray\ny      FlFlFlFl  y\u001by  y y y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 49957038,
+   "datetime": "20211104074136",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=pettype:cat\n",
+   "moves": " Fb 20sFl Fl..nlk150s 100s_ \u001bm.>150s nyn150shly\\ _>.>100s100s nhu100sFyFyFyFyss150sFh.s150sFhs20s50s buj100s100s150s50shFk.FkFksshhlFkFk.Fu20s20s#wipe\n100sFkFk.ed150sFk.sU NBN_>.>KKJJ_>.>BHJU_>.><#chat\nnHKYB_>,>KBUJ_>.>#enhance\n\u001b#wipe\n<HHKJ_>.><LHHN_>.>KJYN_>.>L\u0004jYBNB_>,>k#pray\ny  \u000f\u001b150s#wipe\n_>.>bkk150s150sFl20ss50s100s      100s 100s 50s50si\u001b50sFlFls\u000f\u001bi\u001b50s50s100sFls.#jump\njju_>,>i\u001bnhu50sbku\u0018\u001b100s150sFls20sFlssnyj100s\u0018\u001b50sFlFls\u000f\u001bbknyt\u001b20st\u001bt\u001b20st\u001b#enhance\n\u001bt\u001bdfKKBB_>,>20sojBJBJ_>.>K BBK_>.>UUUJ_>,>NK JH_>.>Fk.sJLHN_>.>HK KB_>.>#sit\n#chat\nb\u000f\u001b50sed100s#name\nm\nuyb\u001850s 150s jjl\u000f\u001bdgFl Flshkj\u000f\u001b100sdi50s\\ 150s #force\n50sfj100s 50s 100s100s FlFls150s50s  FlFlFlFlFlFl100s100sFlFlFlFl .20s100s#dip\nb100s150sK KBL _>.>H BKB_>.>,d\nzHJ UU_>.>FbFb20swl#chat\nk\u000f\u001b50si\u001b\u0018\u001b150sFl FlFlFlFlFlFls._>.>#jump\n100sej 50s150sFlFlFl#pray\ny      FlFlFlFl  y\u001by  y y y\u001b  2"
+  }
+ ]
+}

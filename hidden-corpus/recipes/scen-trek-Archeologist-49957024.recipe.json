@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "   FnFnsFlFl.Fh.s#ride\n.lbh50sFn ssblk50sjhn100s_ \u001b@.>100sed100s100sFlFlFl50s50sylk50sW\\ s100s100sFlFlsybk100s#tip\nh\u001b100slhh150sFjFjsbjk_>,>snyu_>,>_>.>>;_.\u0018\u001boh#chat\nunyn150s100sl100s50s100slnb100s100sFlsshyl>_>,>lbh150s50sedFhFh20suuk100s100sFl.s100s100sFlFl20shnh100s100sFl.s100s50s\u000f\u001b150s_>,>hyn150sFhFh20s#name\n\u001bs>NUBB_>,>UHHK_>,>JUL J_>.>K NJJ_>.>BKLB_>.>LBNH_>,>LYJJ_>.><KBNH_>.>JBBK_>.>FkFksYNLU_>.>LUUB_>.>#pray\ny  #sit\n\u001bUHJH_>.>NUYH_>,>i\u001bfbLUBK_>,>FyFyFyi\u001b\u000f\u001bLYJB_>.>FkFkFk:#monster\nJJHJ_>.>FkFk.\u000f\u001bNBYH_>.>\u0018\u001b:YNYB_>.>#chat\nh#conduct\n JJKU_>.>FkFkFk\u000f\u001bjnyjdas20s.lynyt\u001bkj20s20skjkjkjt\u001b#chat\nbdl20s ssYKHY_>.>FkssZ#wipe\nK LYH_>,>KHYB_>,>#tip\nh\u001bw-KL BL  _>,>Fh   Fh   nFh#monster\nnKHBU_>,>FlFlFlLJU B_>.>\u000f\u001b\\ ed #dip\ne JU HU_>.>UHUY_>.>cl#t"
+ },
+ "segments": [
+  {
+   "seed": 49957024,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\nOPTIONS=playmode:explore\n",
+   "moves": "   FnFnsFlFl.Fh.s#ride\n.lbh50sFn ssblk50sjhn100s_ \u001b@.>100sed100s100sFlFlFl50s50sylk50sW\\ s100s100sFlFlsybk100s#tip\nh\u001b100slhh150sFjFjsbjk_>,>snyu_>,>_>.>>;_.\u0018\u001boh#chat\nunyn150s100sl100s50s100slnb100s100sFlsshyl>_>,>lbh150s50sedFhFh20suuk100s100sFl.s100s100sFlFl20shnh100s100sFl.s100s50s\u000f\u001b150s_>,>hyn150sFhFh20s#name\n\u001bs>NUBB_>,>UHHK_>,>JUL J_>.>K NJJ_>.>BKLB_>.>LBNH_>,>LYJJ_>.><KBNH_>.>JBBK_>.>FkFksYNLU_>.>LUUB_>.>#pray\ny  #sit\n\u001bUHJH_>.>NUYH_>,>i\u001bfbLUBK_>,>FyFyFyi\u001b\u000f\u001bLYJB_>.>FkFkFk:#monster\nJJHJ_>.>FkFk.\u000f\u001bNBYH_>.>\u0018\u001b:YNYB_>.>#chat\nh#conduct\n JJKU_>.>FkFkFk\u000f\u001bjnyjdas20s.lynyt\u001bkj20s20skjkjkjt\u001b#chat\nbdl20s ssYKHY_>.>FkssZ#wipe\nK LYH_>,>KHYB_>,>#tip\nh\u001bw-KL BL  _>,>Fh   Fh   nFh#monster\nnKHBU_>,>FlFlFlLJU B_>.>\u000f\u001b\\ ed #dip\ne JU HU_>.>UHUY_>.>cl#t"
+  }
+ ]
+}

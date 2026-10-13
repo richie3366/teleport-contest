@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n         \u001720 darts\nQg\u0007newt\nulfnfhfhFjs\u0017potion of restore ability\ntgk\u0007yellow mold\njfu fu  fk fu nky,\u0017crossbow\nwi\u001715 crossbow bolts\n Qd\u0007kobold\nh lfh fhs.\u00073 acid blob\nbbfu fyfu\u0017potion of gain energy\ntbk\u0017bullwhip\nwk\u0007newt\nbakuhkk,"
+ },
+ "segments": [
+  {
+   "seed": 49951028,
+   "datetime": "20010301195630",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n         \u001720 darts\nQg\u0007newt\nulfnfhfhFjs\u0017potion of restore ability\ntgk\u0007yellow mold\njfu fu  fk fu nky,\u0017crossbow\nwi\u001715 crossbow bolts\n Qd\u0007kobold\nh lfh fhs.\u00073 acid blob\nbbfu fyfu\u0017potion of gain energy\ntbk\u0017bullwhip\nwk\u0007newt\nbakuhkk,"
+  }
+ ]
+}

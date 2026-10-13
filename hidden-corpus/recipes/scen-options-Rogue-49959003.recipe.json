@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " Ogo\nb\np\n#rub\nOhcn\n#invoke\n\u001bOo\nn\n#ride\nhyO>bp\n\u0014 \u001b,mO>>>>l\n__,s20s 20s  O>p\nE- Elbereth\n#tip\nf\u001bOk\nE-n  Elbereth\ndcmO>>>ws\n#wipe\n O>le\nwb #conduct\n s20s      "
+ },
+ "segments": [
+  {
+   "seed": 49959003,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " Ogo\nb\np\n#rub\nOhcn\n#invoke\n\u001bOo\nn\n#ride\nhyO>bp\n\u0014 \u001b,mO>>>>l\n__,s20s 20s  O>p\nE- Elbereth\n#tip\nf\u001bOk\nE-n  Elbereth\ndcmO>>>ws\n#wipe\n O>le\nwb #conduct\n s20s      "
+  }
+ ]
+}

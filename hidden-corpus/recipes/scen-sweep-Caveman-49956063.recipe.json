@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017pick-axe\naf <byaf>saf>sm.afhh_ \u001b.af>    nkafll\u0006_>,Fh _.Fy >FyFy _>,Fh _,Fn>FnFn_>.Fj_,Fb>Fb.:\u0014:\u0006_>,_.> \u0006_>>,_.>_>>,_,>_>>._.>\u0006_>._.>_>,_.>_>,_,>w-_>,.\u0006_>>._.>_>>,_.>_>>._,>,af .\u0006_>,_.>_>,_,>_>._.>\u0004l<#levelchange\n8\n    \u0017helm of brilliance\nWgsssTg\u0007aligned cleric\nnFh Fh\u0007purple worm\nsm.20ssm.sm.s.m. \u0007lieutenant\n;k.s\u001bss#levelchange\n12\n   \u0016?\nm\u000f\u001b#offer\n#dip\nd;b,.m. .m.\u0016?\nq i\u001b20s  #rub\nca   n  \u0006.m.  20s\u001613\n#ride\njy__,sm. >;h,sm.  20s  n \u0016?\n>>Q_m, s\u0014@.  q;k;.m. sm.\u001629\n#rub\nWr\u001b20s  sm.\u00168\n\u0017500 gold pieces\n\u0016?\n>w \u0006\u0017blessed potion of object detection\nqhm._m.Fk _,#chat\nk _m.Fk _.#chat\nk _{.Fy _, Fy q_oooo.Fy _,Fy,p\\  #force\nf   \\  \u0006_>. Fy_,>_>._.>_>._.>#enhance\nyo\nn\n\u001b#chat\nb\u0006_>._.>_>._.>_>._.>#loot\n#chat\ny\u0006_>._.>_>._.>_>._,>\u0016?\nk   \u0006__.Fk_. Fl    n #chat\nl 20s  sm. .m. #dip\ng#loot\nl#jump\n\u001610\n\u0006\u0007little dog\n\u0017scroll of taming\nri  \u001b\u0017saddle\najj#ride\njy\u0007tame saddled horse\n#ride\nky\u0007tame saddled horse\n#ride\n    ub          u         n     n      #ride\nhy20s                             \u001b#ride\nyy y          n\u0006_>,     Fj         n _,      Fl     n  >Fy   Fl_>.    n    Fk      n _,    Fl>Fh          n     Fh       n   _>,     Fh   n      _.      n    Fj          n   >Fy       n Fn      ,\u001b\u0004u    yny  y nny  #"
+ },
+ "segments": [
+  {
+   "seed": 49956063,
+   "datetime": "20010201003106",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017pick-axe\naf <byaf>saf>sm.afhh_ \u001b.af>    nkafll\u0006_>,Fh _.Fy >FyFy _>,Fh _,Fn>FnFn_>.Fj_,Fb>Fb.:\u0014:\u0006_>,_.> \u0006_>>,_.>_>>,_,>_>>._.>\u0006_>._.>_>,_.>_>,_,>w-_>,.\u0006_>>._.>_>>,_.>_>>._,>,af .\u0006_>,_.>_>,_,>_>._.>\u0004l<#levelchange\n8\n    \u0017helm of brilliance\nWgsssTg\u0007aligned cleric\nnFh Fh\u0007purple worm\nsm.20ssm.sm.s.m. \u0007lieutenant\n;k.s\u001bss#levelchange\n12\n   \u0016?\nm\u000f\u001b#offer\n#dip\nd;b,.m. .m.\u0016?\nq i\u001b20s  #rub\nca   n  \u0006.m.  20s\u001613\n#ride\njy__,sm. >;h,sm.  20s  n \u0016?\n>>Q_m, s\u0014@.  q;k;.m. sm.\u001629\n#rub\nWr\u001b20s  sm.\u00168\n\u0017500 gold pieces\n\u0016?\n>w \u0006\u0017blessed potion of object detection\nqhm._m.Fk _,#chat\nk _m.Fk _.#chat\nk _{.Fy _, Fy q_oooo.Fy _,Fy,p\\  #force\nf   \\  \u0006_>. Fy_,>_>._.>_>._.>#enhance\nyo\nn\n\u001b#chat\nb\u0006_>._.>_>._.>_>._.>#loot\n#chat\ny\u0006_>._.>_>._.>_>._,>\u0016?\nk   \u0006__.Fk_. Fl    n #chat\nl 20s  sm. .m. #dip\ng#loot\nl#jump\n\u001610\n\u0006\u0007little dog\n\u0017scroll of taming\nri  \u001b\u0017saddle\najj#ride\njy\u0007tame saddled horse\n#ride\nky\u0007tame saddled horse\n#ride\n    ub          u         n     n      #ride\nhy20s                             \u001b#ride\nyy y          n\u0006_>,     Fj         n _,      Fl     n  >Fy   Fl_>.    n    Fk      n _,    Fl>Fh          n     Fh       n   _>,     Fh   n      _.      n    Fj          n   >Fy       n Fn      ,\u001b\u0004u    yny  y nny  #"
+  }
+ ]
+}

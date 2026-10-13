@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "JHHK_ \u001bm,>Fhs.#untrap\nl#conduct\n HLLJ_>.>FhFh .NNLN_>.>LLNK_>.><yy\u001bny y y\u001b J ljknFhFh FhFhFhFhFhFh100s 100sFh20ss,150sFhFhs100s150skjy100snyk100sFhFh.100s#enhance\n\u001bnyni\u001b100shnh\\ lkjfh100si\u001bkbhFhFhsubhllhcklkk\u000f\u001b100s100s100s \\ 150sFhFh._ \u001bm,>i\u001b150syubbyuhl100sububnubuhFbFb.hyh100s_>,>\u0018\u001b100sed100s\u0018\u001b150s100sFh  \u001bFh.100s i\u001bcljbyFbssnjl150s 150sFk20ss50sbny100skjn_>.>luy100s100sFy.suykFh.20s\\ #turn\n50s100sjubkjllynnuj10sy20sbhnjhll100s_<.#quit\ny\u001b    FbFbFbFbFbFbFbFbhb#chat\nk10s#name\nm\n m,shiny\ndds.20sdhsssFjFjFjFjFjFjFjFjjubhFuFuFuFuFuFuFuFu100s50sFhss50skjh100s#enhance\n\u001b100syhunbknkk50s#rub\n100s_>,>150s\\   \u000f\u001b50segbubnkkhll100seg100seg_>.>#enhance\n\u001b150s_>.>150sFhFh.100seg150seg100segjjbbhkljyjuunlnFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFk#quit\ny\u001b    FuFuFuFuFuFuFuFunknhkjukbny100sFl Fl Fl Fu Fl s_ \u001b.>50sFlFlFu FlFuFui\u001b100s150s FkFkFuFl 20ssi\u001b100sFkFu20sFlFlFjFl FlFl  nnnnn  o #wizintrinsic\ne\n sn20s .m..ksm.20s .m.sm.20s   ns.s..s20ss20s20s20ss20s.20sss.s...20s20s20sss20s..20sssm..jsm.s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49958011,
+   "datetime": "20090402191856",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\n",
+   "moves": "JHHK_ \u001bm,>Fhs.#untrap\nl#conduct\n HLLJ_>.>FhFh .NNLN_>.>LLNK_>.><yy\u001bny y y\u001b J"
+  },
+  {
+   "seed": 50058011,
+   "datetime": "20071223043814",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": " ljknFhFh FhFhFhFhFhFh100s 100sFh20ss,150sFhFhs100s150skjy100snyk100sFhFh.100s#enhance\n\u001bnyni\u001b100shnh\\ lkjfh100si\u001bkbhFhFhsubhllhcklkk\u000f\u001b100s100s100s \\ 150sFhFh._ \u001bm,>i\u001b150syubbyuhl100sububnubuhFbFb.hyh100s_>,>\u0018\u001b100sed100s\u0018\u001b150s100sFh  \u001bFh.100s i\u001bcljbyFbssnjl150s 150sFk20ss50sbny100skjn_>.>luy100s100sFy.suykFh.20s\\ #turn\n50s100sjubkjllynnuj10sy20sbhnjhll100s_<.#quit\ny\u001b    "
+  },
+  {
+   "seed": 50158011,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\n",
+   "moves": "FbFbFbFbFbFbFbFbhb#chat\nk10s#name\nm\n m,shiny\ndds.20sdhsssFjFjFjFjFjFjFjFjjubhFuFuFuFuFuFuFuFu100s50sFhss50skjh100s#enhance\n\u001b100syhunbknkk50s#rub\n100s_>,>150s\\   \u000f\u001b50segbubnkkhll100seg100seg_>.>#enhance\n\u001b150s_>.>150sFhFh.100seg150seg100segjjbbhkljyjuunlnFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFk#quit\ny\u001b    "
+  },
+  {
+   "seed": 50258011,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\nOPTIONS=pettype:horse\n",
+   "moves": "FuFuFuFuFuFuFuFunknhkjukbny100sFl Fl Fl Fu Fl s_ \u001b.>50sFlFlFu FlFuFui\u001b100s150s FkFkFuFl 20ssi\u001b100sFkFu20sFlFlFjFl FlFl  nnnnn  o"
+  },
+  {
+   "seed": 50358011,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\ne\n sn20s .m..ksm.20s .m.sm.20s   ns.s..s20ss20s20s20ss20s.20sss.s...20s20s20sss20s..20sssm..jsm.s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0016?\n>>K      axe\n\u0014 nn \u001632\nb   ny\u0017magic trap\nn\u0017teleportation trap\nb    u\u0017hole\nu\u0017falling rock trap\n#terrain\n\u001bK#force\ni\u001bsm.   s    \u001632\n#levelchange\n12\n     \u0007ogre king\nFj  Fb     n      Fk     Fl    n    n \u0007skeleton\nFu  n          n    n Fb  n   n    n   n Fk   n    n   \u0007winter wolf\nFn  n    n     Fl  n  n   n  Fu  n     n  \u0007small mimic\n#chat\nu  yny  y  y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 49955022,
+   "datetime": "20181109023239",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0016?\n>>K      axe\n\u0014 nn \u001632\nb   ny\u0017magic trap\nn\u0017teleportation trap\nb    u\u0017hole\nu\u0017falling rock trap\n#terrain\n\u001bK#force\ni\u001bsm.   s    \u001632\n#levelchange\n12\n     \u0007ogre king\nFj  Fb     n      Fk     Fl    n    n \u0007skeleton\nFu  n          n    n Fb  n   n    n   n Fk   n    n   \u0007winter wolf\nFn  n    n     Fl  n  n   n  Fu  n     n  \u0007small mimic\n#chat\nu  yny  y  y\u001b  F"
+  }
+ ]
+}

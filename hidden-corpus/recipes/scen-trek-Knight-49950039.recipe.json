@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  FhFhskkhhub#terrain\nc\n\u001bm,100s \u0018\u001bjk k100s 50s   FhFjFj 100sf  100s50sFh FhFhFhss_>.>100s100s150s150sFhFhFhFhFhFhFhFhFhFhFhFh#pray\ny #pray\ny _>.>_>.>\\   _<.s150s_>.>#wipe\n50sFhFh.kkbck#pray\ny  150sBKUH_>,>NKKN_>.>#twoweapon\n,HJYN_>.>#offer\n#pray\ny  JKN L _>.><B  y\u001by  y y n  B"
+ },
+ "segments": [
+  {
+   "seed": 49950039,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=fruit:slime mold\n",
+   "moves": "  FhFhskkhhub#terrain\nc\n\u001bm,100s \u0018\u001bjk k100s 50s   FhFjFj 100sf  100s50sFh FhFhFhss_>.>100s100s150s150sFhFhFhFhFhFhFhFhFhFhFhFh#pray\ny #pray\ny _>.>_>.>\\   _<.s150s_>.>#wipe\n50sFhFh.kkbck#pray\ny  150sBKUH_>,>NKKN_>.>#twoweapon\n,HJYN_>.>#offer\n#pray\ny  JKN L _>.><B  y\u001by  y y n  B"
+  }
+ ]
+}

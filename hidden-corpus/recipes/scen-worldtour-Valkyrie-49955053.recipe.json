@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 speed boots\nWe \u001639\n   \u0014 \u001b;\u001639\n\u0007iron golem\n#chat\nkFyFy \u0007vampire\nFkFhFkFh\u0007giant eel\nFh  Fh Fk Fk\u0016?\n>w_{,Fj_,Fb<\u0016?\niyhkj :\u001638\n    \u0017shield of reflection\nW\u001bsn.m.sj\u0007kitten\nFuFu Fk \u0007pit viper\nFlFl  Fu  Fu FkFl \u0007balrog\n;u:  sm.20s .m.\u0007ogre king\n#chat\nu Fh   Fh \u0016?\n>>Q\u0017spellbook of extra healing\nras\u0017blessed spellbook of drain life\nrb20s\u0017blessed spellbook of clairvoyance\nrcs+ZZFu ZFu\u0007grid bug\nZ\u0007sewer rat\nZ#turn\n.m.   n sm. 20s \u001641\n\u0007kitten\n#chat\nuFh Fl\u0007trapper\nFk Fy    FlFy Fu\u0007gecko\n;y..m.sk20s     n \u001641\ny   y   jjjbh :\u001639\n\u0004b \u0016?\n>>Q#chat\nl ;u.\u0016?\n>>P  _>.>sm.  n.m. s\u001b\u001625\n\u001715 shuriken\nQd\u0007gnome\nnnfyfhfyfyFy  Fy \u0007newt\nhhfkfl fj\u0017lance\nwe\u0007jackal\ny aelyy,#enhance\nyn\ng\n\u001b\u00164\n\u0017two-handed sword\nwfFkFkFkX\u0007wererat\nFkFkFjFk FyFy \u0007human mummy\n;l;20ssm. 20s \u0007floating eye\nsu  n  20s     sm. sn.m..sy  sm. .m.\u001627\n#levelchange\n12\n   \u0017cloak of invisibility\nWg   n 20s 20s     20s  \u0007frost giant\nFu   FyFu        n  \u0007owlbear\nFh Fy \u0007winter wolf\n;u;sh .y  sm. \u0007mail daemon\n20s 20s    n  .y sh  20s  20s  .m.  n \u00162\n\u001627\n\u0017the Orb of Fate\n w- Fk Fy  Fu#invoke\nh7\n   \u0007couatl\nFuFu Fl \u0007jellyfish\n;u;20s   .m.  sl\u0007couatl\nFyFu   n Fy\u0007jellyfish\n#chat\nkFkFk  \u0016?\n>>Qll\u0017athame\nEi I am a fish\n: l\u0017wand of polymorph\nEj I am a fish\n  :"
+ },
+ "segments": [
+  {
+   "seed": 49955053,
+   "datetime": "20100322111152",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 speed boots\nWe \u001639\n   \u0014 \u001b;\u001639\n\u0007iron golem\n#chat\nkFyFy \u0007vampire\nFkFhFkFh\u0007giant eel\nFh  Fh Fk Fk\u0016?\n>w_{,Fj_,Fb<\u0016?\niyhkj :\u001638\n    \u0017shield of reflection\nW\u001bsn.m.sj\u0007kitten\nFuFu Fk \u0007pit viper\nFlFl  Fu  Fu FkFl \u0007balrog\n;u:  sm.20s .m.\u0007ogre king\n#chat\nu Fh   Fh \u0016?\n>>Q\u0017spellbook of extra healing\nras\u0017blessed spellbook of drain life\nrb20s\u0017blessed spellbook of clairvoyance\nrcs+ZZFu ZFu\u0007grid bug\nZ\u0007sewer rat\nZ#turn\n.m.   n sm. 20s \u001641\n\u0007kitten\n#chat\nuFh Fl\u0007trapper\nFk Fy    FlFy Fu\u0007gecko\n;y..m.sk20s     n \u001641\ny   y   jjjbh :\u001639\n\u0004b \u0016?\n>>Q#chat\nl ;u.\u0016?\n>>P  _>.>sm.  n.m. s\u001b\u001625\n\u001715 shuriken\nQd\u0007gnome\nnnfyfhfyfyFy  Fy \u0007newt\nhhfkfl fj\u0017lance\nwe\u0007jackal\ny aelyy,#enhance\nyn\ng\n\u001b\u00164\n\u0017two-handed sword\nwfFkFkFkX\u0007wererat\nFkFkFjFk FyFy \u0007human mummy\n;l;20ssm. 20s \u0007floating eye\nsu  n  20s     sm. sn.m..sy  sm. .m.\u001627\n#levelchange\n12\n   \u0017cloak of invisibility\nWg   n 20s 20s     20s  \u0007frost giant\nFu   FyFu        n  \u0007owlbear\nFh Fy \u0007winter wolf\n;u;sh .y  sm. \u0007mail daemon\n20s 20s    n  .y sh  20s  20s  .m.  n \u00162\n\u001627\n\u0017the Orb of Fate\n w- Fk Fy  Fu#invoke\nh7\n   \u0007couatl\nFuFu Fl \u0007jellyfish\n;u;20s   .m.  sl\u0007couatl\nFyFu   n Fy\u0007jellyfish\n#chat\nkFkFk  \u0016?\n>>Qll\u0017athame\nEi I am a fish\n: l\u0017wand of polymorph\nEj I am a fish\n  :"
+  }
+ ]
+}

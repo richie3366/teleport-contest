@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n30\n         \u0017blessed ring of polymorph control\nPfr\u0017fumble boots\nWg20s  s.#polyself\nghost\n gecko\n  .ssss#polyself\nfire vortex\n#monster\ns.20s    ss\u0007ice vortex\n#pray\ny y    Fh  Fj   Fn .m. FjFj .FjFkFk  Fj #levelchange\n14\n     nllh\u0017sleeping gas trap\nu#untrap\nbh\u0017pit\nn^yy20ssll\u0017trap door\nny 20ss\u0017land mine\nah uk#dip\nb b#wipe\n\u000f\u001b#levelchange\n12\n\u0007chickatrice\n#chat\njFj n Fj n\u0007barrow wight\nFlFl              \u001b                       nFj n    Fj n   \u001622\n\u00167\n #levelchange\n10\n\u0007black pudding\nFj   Fj    Fh    Fh    Fh    Fh    Fh    n su.m.   \u0007lich\nFj    Fj    Fj    n   sm.    .m.     \u001610\nn  j   lb     n \u0017trap door\nj   n  \u0007kobold\n20s.h  20s   n sky  n y h   n \u0017squeaky board\nu   b  sm.    n   sm.   n #terrain\nb\n\u001b<.10s   #untrap\nk,\u001612\n#levelchange\n14\n           \u0016?\n>z  _mmmmm._.#chat\nk;m._mmmmm,#chat\nb_mmmmm,#chat\ny_mm,Fh   _,#chat\nh_mm.   Fj   _.#chat\nl    ;b;\u0016?\n>>\u001b,#force\n#tip\n\u001b\u000f\u001b#levelchange\n20\n      y uh\u0017cloud\nh    hl  n    l     n:h  \u0017moat\n#terrain\nb\nP tbn      yy\u001by   nny\u001b  i"
+ },
+ "segments": [
+  {
+   "seed": 49956016,
+   "datetime": "20120215172503",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n30\n         \u0017blessed ring of polymorph control\nPfr\u0017fumble boots\nWg20s  s.#polyself\nghost\n gecko\n  .ssss#polyself\nfire vortex\n#monster\ns.20s    ss\u0007ice vortex\n#pray\ny y    Fh  Fj   Fn .m. FjFj .FjFkFk  Fj #levelchange\n14\n     nllh\u0017sleeping gas trap\nu#untrap\nbh\u0017pit\nn^yy20ssll\u0017trap door\nny 20ss\u0017land mine\nah uk#dip\nb b#wipe\n\u000f\u001b#levelchange\n12\n\u0007chickatrice\n#chat\njFj n Fj n\u0007barrow wight\nFlFl              \u001b                       nFj n    Fj n   \u001622\n\u00167\n #levelchange\n10\n\u0007black pudding\nFj   Fj    Fh    Fh    Fh    Fh    Fh    n su.m.   \u0007lich\nFj    Fj    Fj    n   sm.    .m.     \u001610\nn  j   lb     n \u0017trap door\nj   n  \u0007kobold\n20s.h  20s   n sky  n y h   n \u0017squeaky board\nu   b  sm.    n   sm.   n #terrain\nb\n\u001b<.10s   #untrap\nk,\u001612\n#levelchange\n14\n           \u0016?\n>z  _mmmmm._.#chat\nk;m._mmmmm,#chat\nb_mmmmm,#chat\ny_mm,Fh   _,#chat\nh_mm.   Fj   _.#chat\nl    ;b;\u0016?\n>>\u001b,#force\n#tip\n\u001b\u000f\u001b#levelchange\n20\n      y uh\u0017cloud\nh    hl  n    l     n:h  \u0017moat\n#terrain\nb\nP tbn      yy\u001by   nny\u001b  i"
+  }
+ ]
+}

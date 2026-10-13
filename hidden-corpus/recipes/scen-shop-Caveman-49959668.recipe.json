@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed ring of free action\nPfr\u0017blessed amulet of reflection\nPg\u0016?\n>w\u0006_ \u001b<.,#chat\nj _ooooooo,_ooo.,$_ooooooo.,\u0014<.20ss_oo,_oo.,phyb#chat\nn_{,Fh_.Fh q_oooo.,#chat\nh_{,Fh_.q_ooooooo,,:_ooooooooo,,$_{.Fh   _,qy _ooooooo.,p__.Fb  _,Fb #chat\nb  n#pray\ny y      _oo._oo.,p__.Fh _.Fh #chat\ny    n  __.   n Fl   n _,   nFl    n#chat\nh    n#pray\ny y      \u00166\n_oooooo.,p_{.    nFh    n_.Fl   n  q\u00166\n_oo.,pFh FhFh   nFh  Fh   nFh  \u00167\n_{,q_ooooooo.   nFb  _,Fl  n   ,p\u0016?\ncn  n hy\u0016?\n>w\u0006_{.Fk   n_.Fy qFyFy Fy   yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 49959668,
+   "datetime": "20040616222655",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed ring of free action\nPfr\u0017blessed amulet of reflection\nPg\u0016?\n>w\u0006_ \u001b<.,#chat\nj _ooooooo,_ooo.,$_ooooooo.,\u0014<.20ss_oo,_oo.,phyb#chat\nn_{,Fh_.Fh q_oooo.,#chat\nh_{,Fh_.q_ooooooo,,:_ooooooooo,,$_{.Fh   _,qy _ooooooo.,p__.Fb  _,Fb #chat\nb  n#pray\ny y      _oo._oo.,p__.Fh _.Fh #chat\ny    n  __.   n Fl   n _,   nFl    n#chat\nh    n#pray\ny y      \u00166\n_oooooo.,p_{.    nFh    n_.Fl   n  q\u00166\n_oo.,pFh FhFh   nFh  Fh   nFh  \u00167\n_{,q_ooooooo.   nFb  _,Fl  n   ,p\u0016?\ncn  n hy\u0016?\n>w\u0006_{.Fk   n_.Fy qFyFy Fy   yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

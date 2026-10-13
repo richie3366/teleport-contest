@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWo\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\nc\u0004hys\u001637\n   \u0014 \u001b:s\u001616\n \u0006_>.Fl_.Flss\u0016?\nn \u0014.\u0016?\n>>L     katana\n#chat\nu;u:  \u0016?\nd \u0006<._<.sb   .m.\u001616\n#chat\nn   n     ;h:  .u        n  sm.          n     n   s \u00169\n\u001616\n\u0014.    \u001637\n\u0006,_>.\u0016?\n\u001bnl    \u0016?\n\u001buj   n \u001623\n#chat\nj;k,\u00167\n\u0006,_>.\u001637\nu         h: .     n   s  n       n      n \u00167\n\u00167\n__.s s s\u001b\u00167\nb  n          n l       n      n   b     n    n: \u00162\n\u001643\n\u0004ns   n      n      n sm.     yy\u001by  y y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 49955034,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWo\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\nc\u0004hys\u001637\n   \u0014 \u001b:s\u001616\n \u0006_>.Fl_.Flss\u0016?\nn \u0014.\u0016?\n>>L     katana\n#chat\nu;u:  \u0016?\nd \u0006<._<.sb   .m.\u001616\n#chat\nn   n     ;h:  .u        n  sm.          n     n   s \u00169\n\u001616\n\u0014.    \u001637\n\u0006,_>.\u0016?\n\u001bnl    \u0016?\n\u001buj   n \u001623\n#chat\nj;k,\u00167\n\u0006,_>.\u001637\nu         h: .     n   s  n       n      n \u00167\n\u00167\n__.s s s\u001b\u00167\nb  n          n l       n      n   b     n    n: \u00162\n\u001643\n\u0004ns   n      n      n sm.     yy\u001by  y y\u001b  \u0016"
+  }
+ ]
+}

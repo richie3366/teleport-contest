@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWi\u0017blessed ring of free action\nPjr\u0017blessed spellbook of cone of cold\nrks\u0017blessed spellbook of fireball\nrl s\u0007mind flayer\nZb\n.m..Zb\n.m. 20s    Za\nZb\n20s     n  s     Za\ns20s  n  Zb\n      ZZ#turn\n\u00162\n \u0017wand of magic missile\n\u0017wand of striking\n\u0017wand of slow monster\n\u0007gnome lord\n\u0007soldier\n\u0007giant rat\nzoj  sbznn  zmn   n  .m.zonzon   n  sm. zob  n  \u0018\u001b\u00166\n \u0017blessed spellbook of drain life\nrp  \u001b  nsn\u0017blessed spellbook of finger of death\nrq  \u001b   nsm.\u0007master mind flayer\nZb\nZb\n   n            n sl            n   n sy      n        n ZZ20s        n        n.m.            y\u001b     n  Z"
+ },
+ "segments": [
+  {
+   "seed": 49959503,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWi\u0017blessed ring of free action\nPjr\u0017blessed spellbook of cone of cold\nrks\u0017blessed spellbook of fireball\nrl s\u0007mind flayer\nZb\n.m..Zb\n.m. 20s    Za\nZb\n20s     n  s     Za\ns20s  n  Zb\n      ZZ#turn\n\u00162\n \u0017wand of magic missile\n\u0017wand of striking\n\u0017wand of slow monster\n\u0007gnome lord\n\u0007soldier\n\u0007giant rat\nzoj  sbznn  zmn   n  .m.zonzon   n  sm. zob  n  \u0018\u001b\u00166\n \u0017blessed spellbook of drain life\nrp  \u001b  nsn\u0017blessed spellbook of finger of death\nrq  \u001b   nsm.\u0007master mind flayer\nZb\nZb\n   n            n sl            n   n sy      n        n ZZ20s        n        n.m.            y\u001b     n  Z"
+  }
+ ]
+}

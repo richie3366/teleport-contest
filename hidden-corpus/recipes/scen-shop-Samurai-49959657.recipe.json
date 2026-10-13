@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed Mjollnir\nwg \u0016?\n>w\u0006_ \u001b@.,pFjFjFj FjFjFj_ooooooooo.,p_ooooooo.,:Fl FlFlFl  FlFl_{.  Fy _. Fhq_oo._ooo.,p>.Fh FhFhFhFhFh_{,_.qy _ooooooooo.,p,\u0016?\ncykn\u0016?\n>w\u0006_{.Fb _.<.qy_{._,.Fyq_oooooooo.Fy_.Fu   ,p_ooo._., $ _ooooooo,,#chat\nl_oo._., \u0017loadstone\n dk_oooo,Fn _.,   \u0014@. sm.  .l     n_{,   Fj  _,  n  Fj  n qi   n \u00164\n   Fl  n   nFl FlFl  nFl Fl   n\u001611\n_{,q\u00163\nbh  nb  n\u0016?\n>w\u0006\u001610\n_oooooo._oo,,#chat\nl _ooo.Fj  n   n  _,  n Fj  n ,p   \u001611\n_oooooooo.,$_ooooooooo,_,m,,$ukb#chat\nb_oooo._o,,plyj#chat\ny_ooo.,p_oo.,p_{,qluh#chat\nn_ooooooooo.,$_oooooooo._o,,pjbl#chat\nk__.#chat\nj_oooooooo,,    \u001bpbkl#chat\nl_ooooo.,p__.#chat\nunul#chat\nlFl Fl F"
+ },
+ "segments": [
+  {
+   "seed": 49959657,
+   "datetime": "20020803162620",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed Mjollnir\nwg \u0016?\n>w\u0006_ \u001b@.,pFjFjFj FjFjFj_ooooooooo.,p_ooooooo.,:Fl FlFlFl  FlFl_{.  Fy _. Fhq_oo._ooo.,p>.Fh FhFhFhFhFh_{,_.qy _ooooooooo.,p,\u0016?\ncykn\u0016?\n>w\u0006_{.Fb _.<.qy_{._,.Fyq_oooooooo.Fy_.Fu   ,p_ooo._., $ _ooooooo,,#chat\nl_oo._., \u0017loadstone\n dk_oooo,Fn _.,   \u0014@. sm.  .l     n_{,   Fj  _,  n  Fj  n qi   n \u00164\n   Fl  n   nFl FlFl  nFl Fl   n\u001611\n_{,q\u00163\nbh  nb  n\u0016?\n>w\u0006\u001610\n_oooooo._oo,,#chat\nl _ooo.Fj  n   n  _,  n Fj  n ,p   \u001611\n_oooooooo.,$_ooooooooo,_,m,,$ukb#chat\nb_oooo._o,,plyj#chat\ny_ooo.,p_oo.,p_{,qluh#chat\nn_ooooooooo.,$_oooooooo._o,,pjbl#chat\nk__.#chat\nj_oooooooo,,    \u001bpbkl#chat\nl_ooooo.,p__.#chat\nunul#chat\nlFl Fl F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "N LNB_ \u001b@.>#force\nzg leather armor\nKJBH_>,>__.s\u0018\u001bBBYH_>.>LNLJ_>,>\u000f\u001bKFj ..\\ w-50skbk#terrain\nd\n50s ubb50sFh Fh.nkblnj_>.>kjkjkbW\u001bhuj150s100s50shun\\ hybFk20ssyll100s#tip\n\u001b\\ ubb100slub150sFhFhFh100s50sFh20ss_>.>_>.>100s100swa #sit\n\u001b#ride\nyujhyb10s#chat\nbda20s20s20sdfsm.sm..m.#chat\nb#name\ni\nlkjk#name\nm\n20sdcsm.20ssldgsm..m..nNBBY_>.>Fls20s<E- Vlad was here\nKYBH_>.>cjeBYNJ_>.>\u000f\u001bW\u001b>>U KNH_>.>JBHL_>,>FjFj20sBULK_>.>q#terrain\nc\n:YNYU_>,>YYBL_>.><YJBU_>.>KBNB_>.>YYHL_>,>:_<.20sJLHU_>,>\u0018\u001bw-#rub\nULYB_>.>YYJ H_>.>#terrain\nc\n<.aHL JY_>.>NJHN_>.>20shunyuu20s#name\ni\n#chat\nn10sbudh.20s20suknylblbtdj#name\ni\nK\u0018\u001b#chat\nytbhny20s20slb#chat\nleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuhlhdd20s.s#name\nf\nt#chat\ny20sjujh#chat\nklh20s20sub10s HLKH_>.>FbFhFbUHYK_>,>N KN   B_>.>Fk   nFkFkLK N U_>.>LUUN_>,>UBUK_>.>FbFbFb#enhance\n\u001bt\u001bBL Y B_>.>20sdesm.20s.n20s10st\u001b#chat\nl  n20skuun#name\no\n#chat\nht\u001b20sde.m.20s.k20sFbssi\u001b150se\\  50s\u000f\u001b100sFh.20s100s Fhs20s100sFhFh20s_>.>jky100sFhs20sulb_>,>100s100s50sFhFh20sFh"
+ },
+ "segments": [
+  {
+   "seed": 49950007,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:explore\n",
+   "moves": "N LNB_ \u001b@.>#force\nzg leather armor\nKJBH_>,>__.s\u0018\u001bBBYH_>.>LNLJ_>,>\u000f\u001bKFj ..\\ w-50skbk#terrain\nd\n50s ubb50sFh Fh.nkblnj_>.>kjkjkbW\u001bhuj150s100s50shun\\ hybFk20ssyll100s#tip\n\u001b\\ ubb100slub150sFhFhFh100s50sFh20ss_>.>_>.>100s100swa #sit\n\u001b#ride\nyujhyb10s#chat\nbda20s20s20sdfsm.sm..m.#chat\nb#name\ni\nlkjk#name\nm\n20sdcsm.20ssldgsm..m..nNBBY_>.>Fls20s<E- Vlad was here\nKYBH_>.>cjeBYNJ_>.>\u000f\u001bW\u001b>>U KNH_>.>JBHL_>,>FjFj20sBULK_>.>q#terrain\nc\n:YNYU_>,>YYBL_>.><YJBU_>.>KBNB_>.>YYHL_>,>:_<.20sJLHU_>,>\u0018\u001bw-#rub\nULYB_>.>YYJ H_>.>#terrain\nc\n<.aHL JY_>.>NJHN_>.>20shunyuu20s#name\ni\n#chat\nn10sbudh.20s20suknylblbtdj#name\ni\nK\u0018\u001b#chat\nytbhny20s20slb#chat\nleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuhlhdd20s.s#name\nf\nt#chat\ny20sjujh#chat\nklh20s20sub10s HLKH_>.>FbFhFbUHYK_>,>N KN   B_>.>Fk   nFkFkLK N U_>.>LUUN_>,>UBUK_>.>FbFbFb#enhance\n\u001bt\u001bBL Y B_>.>20sdesm.20s.n20s10st\u001b#chat\nl  n20skuun#name\no\n#chat\nht\u001b20sde.m.20s.k20sFbssi\u001b150se\\  50s\u000f\u001b100sFh.20s100s Fhs20s100sFhFh20s_>.>jky100sFhs20sulb_>,>100s100s50sFhFh20sFh"
+  }
+ ]
+}

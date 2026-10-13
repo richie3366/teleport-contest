@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n             \u0016?\n>x\u0017wand of probing\nzen   \u001bFn  s\u00173 figurine of a newt\nafk\u0017blessed spellbook of chain lightning\n\u0007ice devil\nrg.m.slZZFjFh\u0017uncursed scroll of earth\n\u0007red mold\nrh     \u0017blessed +3 sling\nwiFh   Fn  Fh.m.sm.\u001613\n_ \u001bm.>\u0016?\ns \u0006_<,  Fu_.  Fk    \u001624\nllnkjbn:\u0016?\ns #levelchange\n8\n \u0017helm of opposite alignment\nWj20s .   ns\u0007green-elf\ns   20sss 20ss...\u0007human mummy\nFkFk Fk FkFk \u0016?\ng  \u0004n\u0016?\n>B\u0006_<,\u0016?\np jjllhl:\u001640\n\u0014<.\u0016?\nsnb   :\u001613\nlk   j:\u001624\n \u0006_<,Fj_.s20ssm.\u001624\n_{,>\u001611\nyyl:\u0016?\n>y  #levelchange\n12\n   \u0017gauntlets of fumbling\nWk20s   sm. .m. \u0007straw golem\nFl     n Fk     Fl     Fl      n  Fu      Fl        \u0007erinys\nFy    n  Fk     Fk      Fn   n     Fh         \u001610\n\u00166\n_{..m.    n     \u0016?\n>>M     the Sceptre of Might\n #levelchange\n10\n\u0017blessed spellbook of stone to flesh\n\u0017blessed spellbook of knock\n\u0017blessed spellbook of detect monsters\n+Z\u0007jackal\nZZ\u0007acid blob\nZFn       \u0007gnome\nZ\u0007grid bug\nZZsm.    n          \u0016?\n\u001bj      n      n \u0016?\nb#chat\nu       ;y; \u001611\n\u0014@.   n       \u001624\n#chat\nh;h.\u0016?\n\u001bb n\u001635\n\u0014;        \u0016?\n\u001bh   n     h      \u001611\nh      n  b   b:\u0016?\n\u001by         n\u001632\nbnj:\u001614\n#chat\nl;l,\u0016?\n\u001by   j   n    \u001613\n\u0004b    \u0016?\n\u001bh     y        n \u0016?\n\u001by       j\u001640\nl      k       n      y   :\u0016?\n\u001bu         n       j\u001626\n#levelchange\n30\n                   \u0017blessed spellbook of cancellation\n\u0017blessed spellbook of clairvoyance\n\u0017bl"
+ },
+ "segments": [
+  {
+   "seed": 49955025,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n             \u0016?\n>x\u0017wand of probing\nzen   \u001bFn  s\u00173 figurine of a newt\nafk\u0017blessed spellbook of chain lightning\n\u0007ice devil\nrg.m.slZZFjFh\u0017uncursed scroll of earth\n\u0007red mold\nrh     \u0017blessed +3 sling\nwiFh   Fn  Fh.m.sm.\u001613\n_ \u001bm.>\u0016?\ns \u0006_<,  Fu_.  Fk    \u001624\nllnkjbn:\u0016?\ns #levelchange\n8\n \u0017helm of opposite alignment\nWj20s .   ns\u0007green-elf\ns   20sss 20ss...\u0007human mummy\nFkFk Fk FkFk \u0016?\ng  \u0004n\u0016?\n>B\u0006_<,\u0016?\np jjllhl:\u001640\n\u0014<.\u0016?\nsnb   :\u001613\nlk   j:\u001624\n \u0006_<,Fj_.s20ssm.\u001624\n_{,>\u001611\nyyl:\u0016?\n>y  #levelchange\n12\n   \u0017gauntlets of fumbling\nWk20s   sm. .m. \u0007straw golem\nFl     n Fk     Fl     Fl      n  Fu      Fl        \u0007erinys\nFy    n  Fk     Fk      Fn   n     Fh         \u001610\n\u00166\n_{..m.    n     \u0016?\n>>M     the Sceptre of Might\n #levelchange\n10\n\u0017blessed spellbook of stone to flesh\n\u0017blessed spellbook of knock\n\u0017blessed spellbook of detect monsters\n+Z\u0007jackal\nZZ\u0007acid blob\nZFn       \u0007gnome\nZ\u0007grid bug\nZZsm.    n          \u0016?\n\u001bj      n      n \u0016?\nb#chat\nu       ;y; \u001611\n\u0014@.   n       \u001624\n#chat\nh;h.\u0016?\n\u001bb n\u001635\n\u0014;        \u0016?\n\u001bh   n     h      \u001611\nh      n  b   b:\u0016?\n\u001by         n\u001632\nbnj:\u001614\n#chat\nl;l,\u0016?\n\u001by   j   n    \u001613\n\u0004b    \u0016?\n\u001bh     y        n \u0016?\n\u001by       j\u001640\nl      k       n      y   :\u0016?\n\u001bu         n       j\u001626\n#levelchange\n30\n                   \u0017blessed spellbook of cancellation\n\u0017blessed spellbook of clairvoyance\n\u0017bl"
+  }
+ ]
+}

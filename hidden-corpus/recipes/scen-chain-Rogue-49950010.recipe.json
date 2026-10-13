@@ -1,0 +1,77 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nc\n 20s 20s 20s20s    yny   ny\u001b y  .yy   #wizintrinsic\ne\n sm..m.  yny   y y\u001by  2FyFyFyFyFyFyFyFyFlFlFl  y\u001by  y y\u001b  F   yj yn  ny  y y\u001b  lFk FkFkFkFkFkFkFk10s20s20sjhyb20sdgh.sst\u001b\u001bluhk10sdai\u001b20s20ssm.10s10sjjFn  y\u001by  y y y\u001b   F hynkFj FjFjFjFjFjFjFjNKJH_ \u001b;>NUHL_>.>UKJnyH_>.>JYUK_>.>YKLY_>,>JyLYH_>.>BLJyN_>.><150skbh100sFhFhs\\ 100s50s150s100s100s50s150sFbFh._>,>100see50sef_>,>150sFhss\u000f\u001bZa\n#te#quit\n jhlybuhjyl10shltbu#chat\nnjlblhlkjKJNY_ \u001b:>HHKL_>,>NUYJ_>.>HJBU_>.>Fj 20sFh#enhance\n\u001b#turn\nNYLY_>.>\u000f\u001b50sFhFhFhFhFhFhnkj150sFh.s100s150sFuFus50sz100sFhFhs50s100si\u001byhj\\ uhj100si\u001bjll50s50s50shyna100s\\ hlh#tip\n\u001b150seeeeeeeekjkh#name\na\n20s20shhyhde20s20s20slnhbNHYH_>.>,#tip\n\u001bNULU_>,>LNKH     y\u001by  ny y\u001b  _LKHN_ \u001b:><YBL K_>.>UUKH_>.>UYJB_>.>BJJY_>.>utbhljnn50sjyh50sjnl_>.>hlh150s_>.>yub100sZ50snkl150sbyu_>,>ubj100s\u0018\u001b#enhance\n\u001b100sFks20s50s50s150s150sFkFkFkkuj150s 100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbuljkkheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHLJH_>.>#sit\n\u001b#rid#quit\n bykhFjFjFjFjFjFjFjFjFj FjFjFjFjFjFjFj20sddsss#name\nm\n ;20stbnuhtckt\u001bdfs.s20st\u001bt\u001bt\u001b#name\nm\nd..sdesss#chat\nhnbubuujuhh#name\nm\njnkkhbuuujubljuyjjhbnn50s150s\u000f\u001b50snhuhjb50s20s_>.>100s100s150s100s_<.._>.>100sjjb150see#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49950010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nc\n 20s 20s 20s20s    yny   ny\u001b y  ."
+  },
+  {
+   "seed": 50050010,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "yy   #wizintrinsic\ne\n sm..m.  yny   y y\u001by  2"
+  },
+  {
+   "seed": 50150010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\n",
+   "moves": "FyFyFyFyFyFyFyFyFlFlFl  y\u001by  y y\u001b  F"
+  },
+  {
+   "seed": 50250010,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\n",
+   "moves": "   yj yn  ny  y y\u001b  l"
+  },
+  {
+   "seed": 50350010,
+   "datetime": "20050427102927",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=runmode:run\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\n",
+   "moves": "Fk FkFkFkFkFkFkFk10s20s20sjhyb20sdgh.sst\u001b\u001bluhk10sdai\u001b20s20ssm.10s10sjjFn  y\u001by  y y y\u001b   F"
+  },
+  {
+   "seed": 50450010,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=runmode:run\nOPTIONS=pettype:cat\n",
+   "moves": " hynkFj FjFjFjFjFjFjFjNKJH_ \u001b;>NUHL_>.>UKJnyH_>.>JYUK_>.>YKLY_>,>JyLYH_>.>BLJyN_>.><150skbh100sFhFhs\\ 100s50s150s100s100s50s150sFbFh._>,>100see50sef_>,>150sFhss\u000f\u001bZa\n#te#quit\n"
+  },
+  {
+   "seed": 50550010,
+   "datetime": "20011118232644",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\n",
+   "moves": " jhlybuhjyl10shltbu#chat\nnjlblhlkjKJNY_ \u001b:>HHKL_>,>NUYJ_>.>HJBU_>.>Fj 20sFh#enhance\n\u001b#turn\nNYLY_>.>\u000f\u001b50sFhFhFhFhFhFhnkj150sFh.s100s150sFuFus50sz100sFhFhs50s100si\u001byhj\\ uhj100si\u001bjll50s50s50shyna100s\\ hlh#tip\n\u001b150seeeeeeeekjkh#name\na\n20s20shhyhde20s20s20slnhbNHYH_>.>,#tip\n\u001bNULU_>,>LNKH     y\u001by  ny y\u001b  _"
+  },
+  {
+   "seed": 50650010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=sortloot:none\nOPTIONS=pettype:none\n",
+   "moves": "LKHN_ \u001b:><YBL K_>.>UUKH_>.>UYJB_>.>BJJY_>.>utbhljnn50sjyh50sjnl_>.>hlh150s_>.>yub100sZ50snkl150sbyu_>,>ubj100s\u0018\u001b#enhance\n\u001b100sFks20s50s50s150s150sFkFkFkkuj150s 100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbuljkkheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHLJH_>.>#sit\n\u001b#rid#quit\n"
+  },
+  {
+   "seed": 50750010,
+   "datetime": "20110218192809",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\n",
+   "moves": " bykhFjFjFjFjFjFjFjFjFj FjFjFjFjFjFjFj20sddsss#name\nm\n ;20stbnuhtckt\u001bdfs.s20st\u001bt\u001bt\u001b#name\nm\nd..sdesss#chat\nhnbubuujuhh#name\nm\njnkkhbuuujubljuyjjhbnn50s150s\u000f\u001b50snhuhjb50s20s_>.>100s100s150s100s_<.._>.>100sjjb150see#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWg\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b:,p_ooo.,p__. _,#chat\nh_ooo.,p_ooo.,\u0014,ss_oooooo,_ooo.,$lyh#chat\nj_ooooooo.,:_{._.qy\u00167\nujj\u0016?\n>w\u0006_ooo.Fj_.,$FjFjFjFjFjFj _oooooooo,_ooo.,pm._oooooooo.,:_{._.qy_ooooo.,p,_oo._o,,#chat\ny_ooooooooo._oo.,pm,_oooooo,,$_{,Fl_,:qujy#chat\nh_ooooooo.,$_oo.,pm,_{._,,qy_oo._o.,p:_oooooooo.,:ljh#chat\nnljk#chat\nb_oo,,p._ooooooooo.,p,_ooooo.,#chat\nb_oo.,$jhl#chat\nyhyl#chat\nu\u00167\nyhb\u0016?\n>w\u0006hhu#chat\nh \u00167\nkny\u0016?\n>w\u0006j lb#chat\nk_ooooooooo.,:_ooooo.,pm.\u00167\nyul\u0016?\n>w\u0006_ooooooooo,,:__, _.#chat\nbyhj#chat\ny_oooooooo,,\u0017diamond\ndj_oooooooo._ooo"
+ },
+ "segments": [
+  {
+   "seed": 49959520,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=runmode:walk\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWg\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b:,p_ooo.,p__. _,#chat\nh_ooo.,p_ooo.,\u0014,ss_oooooo,_ooo.,$lyh#chat\nj_ooooooo.,:_{._.qy\u00167\nujj\u0016?\n>w\u0006_ooo.Fj_.,$FjFjFjFjFjFj _oooooooo,_ooo.,pm._oooooooo.,:_{._.qy_ooooo.,p,_oo._o,,#chat\ny_ooooooooo._oo.,pm,_oooooo,,$_{,Fl_,:qujy#chat\nh_ooooooo.,$_oo.,pm,_{._,,qy_oo._o.,p:_oooooooo.,:ljh#chat\nnljk#chat\nb_oo,,p._ooooooooo.,p,_ooooo.,#chat\nb_oo.,$jhl#chat\nyhyl#chat\nu\u00167\nyhb\u0016?\n>w\u0006hhu#chat\nh \u00167\nkny\u0016?\n>w\u0006j lb#chat\nk_ooooooooo.,:_ooooo.,pm.\u00167\nyul\u0016?\n>w\u0006_ooooooooo,,:__, _.#chat\nbyhj#chat\ny_oooooooo,,\u0017diamond\ndj_oooooooo._ooo"
+  }
+ ]
+}

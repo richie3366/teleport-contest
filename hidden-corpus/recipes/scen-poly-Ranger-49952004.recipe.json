@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of polymorph control\nPgr#polyself\nvampire lord\n #monster\ny    ss\u0007Uruk-hai\nFkFlFksm. sm..h#polyself\nlurker above\n #monster\n20s  s\u0007ogre king\nFlFuFl  sm.  yny   y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 49952004,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of polymorph control\nPgr#polyself\nvampire lord\n #monster\ny    ss\u0007Uruk-hai\nFkFlFksm. sm..h#polyself\nlurker above\n #monster\n20s  s\u0007ogre king\nFlFuFl  sm.  yny   y y\u001by  s"
+  }
+ ]
+}

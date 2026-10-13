@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017blessed Mjollnir\nwp\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWr\u00164\n\u0006_ \u001bm.\u00164\njn:\u0016?\n>Hlllny:\u0016?\n>>P  _{.\u0016?\n>>L      wax candle\n\u0017flail\nwcFj   Fl      Fj  n       X\u0007lich\nFj     n    Fb          Fj Fj Fj  n          Fn   n             n .b          s\u001b#pray\ny y  \u0007nurse\nFk Fk  Fk Fk Fk    sm.  n         n .m.         n  \u0007floating eye\nFu          n   Fb      n   Fl    n        n  Fk        n  Fn       n   Fk          n        20s   ynnny y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 49955023,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017blessed Mjollnir\nwp\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWr\u00164\n\u0006_ \u001bm.\u00164\njn:\u0016?\n>Hlllny:\u0016?\n>>P  _{.\u0016?\n>>L      wax candle\n\u0017flail\nwcFj   Fl      Fj  n       X\u0007lich\nFj     n    Fb          Fj Fj Fj  n          Fn   n             n .b          s\u001b#pray\ny y  \u0007nurse\nFk Fk  Fk Fk Fk    sm.  n         n .m.         n  \u0007floating eye\nFu          n   Fb      n   Fl    n        n  Fk        n  Fn       n   Fk          n        20s   ynnny y\u001b  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed amulet of reflection\nPi\u0017blessed +3 speed boots\nWj\u0016?\n>w\u0006_ \u001b:,\u0014@.ss_ooo,_o.,\u0017amulet of magical breathing\ndk_oooooooo.,$_{. _.qlhl#chat\nj_oooooooo.,p_ooooooooo._ooo,,p\u0016?\n>Bhbl\u0016?\n>w\u0006_ooooooo.,:_{._.qnyl#chat\ny_ooooo,_ooo.,p_{,_.q_ooooo._oo.,pljh#chat\nb_oo,_oo.,:kjk#chat\nl_ooo.,$ljk#chat\nl_{,_.q_{._.qlhl#chat\nyjyl#chat\nh_oooooo,,p__._.#chat\nk_ooooo._ooo.,\u0017ruby\ndl_ooooooooo,,$\u0016?\nclbb\u0016?\n>w  \u0006_{.Fl    _.m.  nFj q\u00163\nbbu\u0016?\n>w\u0006_ooooooo. _.,Fj _o,_,,p_{.Fj _,    nFj    n  q\u001612\n_{,q\u00163\nk    nj    nn\u0016?\n>w\u0006\u00161\n_oo.Fk_.m,Fy_ooo,_.@.,:kjk#chat\nh__,#chat\ny#pray\ny y    \u0016?\n>Bbub \u0016?\n>w\u0006_{. _.q_oo._, \u001b,$_{._,q\u0016?\ncknn\u0016?\n>w\u0006bul#chat\nujkh#chat\nn_ooooo.Fy_.m.Fh,p_oooooo.  nFb _.Fl,$\u0016?\ncunb  n\u0016?\n>w\u0006\u00168\n_{.q_ooooo.Fn_.@.Fn ,p_oo. Fn_. Fj,#chat\nkhhn#chat\nj_oooooo,,$_oooooooo.Fb_._ooo.Fl  _..Fu ,\u0017cheap plastic imitation of the Amulet of Yendor\ndoju b#chat\nb_{.Fn_,qbnl#chat\ny_ooooo._, Fy,#chat\ny _oooooo. _.,#chat\nn_ooo.Fy_,_oo._., p_{,q_oooo._.:Fy_o,_,,:_{.q_oooooo.Fk"
+ },
+ "segments": [
+  {
+   "seed": 49959629,
+   "datetime": "20040204132932",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed amulet of reflection\nPi\u0017blessed +3 speed boots\nWj\u0016?\n>w\u0006_ \u001b:,\u0014@.ss_ooo,_o.,\u0017amulet of magical breathing\ndk_oooooooo.,$_{. _.qlhl#chat\nj_oooooooo.,p_ooooooooo._ooo,,p\u0016?\n>Bhbl\u0016?\n>w\u0006_ooooooo.,:_{._.qnyl#chat\ny_ooooo,_ooo.,p_{,_.q_ooooo._oo.,pljh#chat\nb_oo,_oo.,:kjk#chat\nl_ooo.,$ljk#chat\nl_{,_.q_{._.qlhl#chat\nyjyl#chat\nh_oooooo,,p__._.#chat\nk_ooooo._ooo.,\u0017ruby\ndl_ooooooooo,,$\u0016?\nclbb\u0016?\n>w  \u0006_{.Fl    _.m.  nFj q\u00163\nbbu\u0016?\n>w\u0006_ooooooo. _.,Fj _o,_,,p_{.Fj _,    nFj    n  q\u001612\n_{,q\u00163\nk    nj    nn\u0016?\n>w\u0006\u00161\n_oo.Fk_.m,Fy_ooo,_.@.,:kjk#chat\nh__,#chat\ny#pray\ny y    \u0016?\n>Bbub \u0016?\n>w\u0006_{. _.q_oo._, \u001b,$_{._,q\u0016?\ncknn\u0016?\n>w\u0006bul#chat\nujkh#chat\nn_ooooo.Fy_.m.Fh,p_oooooo.  nFb _.Fl,$\u0016?\ncunb  n\u0016?\n>w\u0006\u00168\n_{.q_ooooo.Fn_.@.Fn ,p_oo. Fn_. Fj,#chat\nkhhn#chat\nj_oooooo,,$_oooooooo.Fb_._ooo.Fl  _..Fu ,\u0017cheap plastic imitation of the Amulet of Yendor\ndoju b#chat\nb_{.Fn_,qbnl#chat\ny_ooooo._, Fy,#chat\ny _oooooo. _.,#chat\nn_ooo.Fy_,_oo._., p_{,q_oooo._.:Fy_o,_,,:_{.q_oooooo.Fk"
+  }
+ ]
+}

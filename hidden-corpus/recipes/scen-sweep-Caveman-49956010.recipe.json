@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "i\u001bawaFkFkFk wb s.sXaW20s20ssz#ride\nkyfyPi\u001b,k #monster\nkh\u0017wand of death\nEf Elbereth Elbereth\n\u0017wand of light\nEg y Elbereth\n\u0017wand of opening\nEhn  I am a fish\n\u0017wand of enlightenment\nEi \u001b y ad aerarium\n: \u0017500 gold pieces\n\u0016?\n>w\u0006_ \u001b.,de_oo._ooo.,p_ooooo.,:__._.#chat\nuahnn#turn\n,\u001610\n\u0018\u001b#levelchange\n30\n                             \u00173 wand of sleep\nzj. Fh Fk \u0017spellbook of cause fear\nrk  sm.20s ZZFy Fh \u0017cursed potion of booze\nql \u001b  n \u00173 spellbook of wizard lock\n\u0007water elemental\nrm     sj sm. Z\u0017newt corpse\n\u0007flesh golem\nen20s  n 20s \u0017blessed wand of fire\nzok     zoh  Fy  n  Fy  sm. .m.\u00166\ni\u001baiy     n zjy   zg  zgwbFh FyFy   n Xtcy wa  FhFb FbX#pray\ny y    #offer\n;b:  #wipe\n#enhance\nyr\np\n\u001bwb #force\n#loot\nhi\u001bWsm.20s   nsnT    zjl  rm  sm..m.  nZzgzgzoh   zol    zfh \u001630\n\u00163\n\u0017800 gold pieces\n\u0016?\nc\u0006_m,Fl_,Fj#chat\nj_mmm.Fj_.#chat\nj_mm.#chat\nj_{.Fn_..Flqtdkfbzf.  n#levelchange\n12\n      \u0017blessed scroll of stinking cloud\nrp  m. 20s  20s  \u0017uncursed flint stone\naqg   n\u0017uncursed +0 ring of gain constitution\nPrr ss s R. s\u0017cursed -1 rubber hose\nwssssssss\u00169\n#levelchange\n8\n \u0017blessed potion of see invisible\nqt \u001b.20s\u0017uncursed tin of lizard meat\n\u0007aligned cleric\nyeu  y .20sFuFu    \u0017blessed +3 gauntlets of fumbling\n\u0007silver dragon\nWe       n .y         n sj        n sm.       n    T          n    Fb         n  Fl        n  \u0017cursed -1 aklys\n\u0007stalker\nwwFk     Fb    yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 49956010,
+   "datetime": "20261122153518",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "i\u001bawaFkFkFk wb s.sXaW20s20ssz#ride\nkyfyPi\u001b,k #monster\nkh\u0017wand of death\nEf Elbereth Elbereth\n\u0017wand of light\nEg y Elbereth\n\u0017wand of opening\nEhn  I am a fish\n\u0017wand of enlightenment\nEi \u001b y ad aerarium\n: \u0017500 gold pieces\n\u0016?\n>w\u0006_ \u001b.,de_oo._ooo.,p_ooooo.,:__._.#chat\nuahnn#turn\n,\u001610\n\u0018\u001b#levelchange\n30\n                             \u00173 wand of sleep\nzj. Fh Fk \u0017spellbook of cause fear\nrk  sm.20s ZZFy Fh \u0017cursed potion of booze\nql \u001b  n \u00173 spellbook of wizard lock\n\u0007water elemental\nrm     sj sm. Z\u0017newt corpse\n\u0007flesh golem\nen20s  n 20s \u0017blessed wand of fire\nzok     zoh  Fy  n  Fy  sm. .m.\u00166\ni\u001baiy     n zjy   zg  zgwbFh FyFy   n Xtcy wa  FhFb FbX#pray\ny y    #offer\n;b:  #wipe\n#enhance\nyr\np\n\u001bwb #force\n#loot\nhi\u001bWsm.20s   nsnT    zjl  rm  sm..m.  nZzgzgzoh   zol    zfh \u001630\n\u00163\n\u0017800 gold pieces\n\u0016?\nc\u0006_m,Fl_,Fj#chat\nj_mmm.Fj_.#chat\nj_mm.#chat\nj_{.Fn_..Flqtdkfbzf.  n#levelchange\n12\n      \u0017blessed scroll of stinking cloud\nrp  m. 20s  20s  \u0017uncursed flint stone\naqg   n\u0017uncursed +0 ring of gain constitution\nPrr ss s R. s\u0017cursed -1 rubber hose\nwssssssss\u00169\n#levelchange\n8\n \u0017blessed potion of see invisible\nqt \u001b.20s\u0017uncursed tin of lizard meat\n\u0007aligned cleric\nyeu  y .20sFuFu    \u0017blessed +3 gauntlets of fumbling\n\u0007silver dragon\nWe       n .y         n sj        n sm.       n    T          n    Fb         n  Fl        n  \u0017cursed -1 aklys\n\u0007stalker\nwwFk     Fb    yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

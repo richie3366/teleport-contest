@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0007tame saddled baby red dragon\n#ride\nkyy\u0007horse\n\u0017scroll of taming\nrf \u0017saddle\nagb#ride\n\u0007tame saddled pony\n#ride\nyy\u0004y\u0006_ \u001b,>FlFj_>,Fh_, Fb >FbFb _>,Fb_. Fb  >FbFb #ride\n . #ride\nhy,\u0004ny,"
+ },
+ "segments": [
+  {
+   "seed": 49951024,
+   "datetime": "20251022125823",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007tame saddled baby red dragon\n#ride\nkyy\u0007horse\n\u0017scroll of taming\nrf \u0017saddle\nagb#ride\n\u0007tame saddled pony\n#ride\nyy\u0004y\u0006_ \u001b,>FlFj_>,Fh_, Fb >FbFb _>,Fb_. Fb  >FbFb #ride\n . #ride\nhy,\u0004ny,"
+  }
+ ]
+}

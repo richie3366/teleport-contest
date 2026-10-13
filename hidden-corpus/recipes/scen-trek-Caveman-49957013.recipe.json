@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "10sdds20sslbyk#name\ni\n10stbuzszFl ss150s\\ 150sFhFhFhbkb100s\\ 100s\\ 50s100sFhFyFhFh20ss150s\\ 50sFh20ss50s50s100sFhFyFyFyss,\u0004l100s150s#name\nm\n :150s50sFhFhFhFhFhFh150s150s kjkFhssK150s100sFlFlFl10se_m.sNKJY_>.>NBNH_>.>FyFhsLYBH_>.>wa\u000f\u001bHKBL _>.>b;m.YJBH_>.>UHUN_>,>#turn\nZUUNB_>.>K LLJ_>,>\u000f\u001bYKBH_>.>KULY_>.>qt\u001bN YJN_>.>_m.20s#wipe\nKKN L_>.>LYHH_>.>LLBH_>,>JBBJ_>.>NJUL_>,><HLKY_>,>FkFks>#ride\nuYKUL_>.>\u000f\u001b#name\ni\ns#loot\nBYLN_>,>LLYH_>.>UJNK_>.>YJNL_>,>BJHJ_>.>#offer\nE- Vlad was here\nWL10s#name\no\n#name\ni\nyj10s20s t\u001b20s20s hh 10sh#chat\nhda20s.m.sm.     y\u001by  ny y\u001b  n"
+ },
+ "segments": [
+  {
+   "seed": 49957013,
+   "datetime": "20130830063202",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\n",
+   "moves": "10sdds20sslbyk#name\ni\n10stbuzszFl ss150s\\ 150sFhFhFhbkb100s\\ 100s\\ 50s100sFhFyFhFh20ss150s\\ 50sFh20ss50s50s100sFhFyFyFyss,\u0004l100s150s#name\nm\n :150s50sFhFhFhFhFhFh150s150s kjkFhssK150s100sFlFlFl10se_m.sNKJY_>.>NBNH_>.>FyFhsLYBH_>.>wa\u000f\u001bHKBL _>.>b;m.YJBH_>.>UHUN_>,>#turn\nZUUNB_>.>K LLJ_>,>\u000f\u001bYKBH_>.>KULY_>.>qt\u001bN YJN_>.>_m.20s#wipe\nKKN L_>.>LYHH_>.>LLBH_>,>JBBJ_>.>NJUL_>,><HLKY_>,>FkFks>#ride\nuYKUL_>.>\u000f\u001b#name\ni\ns#loot\nBYLN_>,>LLYH_>.>UJNK_>.>YJNL_>,>BJHJ_>.>#offer\nE- Vlad was here\nWL10s#name\no\n#name\ni\nyj10s20s t\u001b20s20s hh 10sh#chat\nhda20s.m.sm.     y\u001by  ny y\u001b  n"
+  }
+ ]
+}

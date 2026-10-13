@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed Mjollnir\nwn\u0017blessed +3 speed boots\nWo\u0016?\n>w\u0006_ \u001b>._ooo,,#chat\nh_{,Fl  _.,Fn qh_ooooo,_.,\u001b$_{.  Fk_.,FhqhFhFhFhFhFh Fh_ooooooo.Fb_,Fb,\u0014m.s._ooooooooo,Fy _.m.Fb,#chat\ny\u00163\nblu\u0016?\n>w\u0006_ooooo. Fy  _.m. Fk_oo.Fy _,  Fu       n, p_ooooo,Fu _.Fk,p_ooo.  Fb    n _.  Fk   n   _oo,  n    nFk_,<.Fb   ,\u001bp\u001611\n__.#chat\nu#pray\ny y      Fn      n  Fn     Fn   n   Fn    n   Fn   n    Fn   n  \u00163\n__.#chat\nh  #pray\ny y    Fh  FhFh    nFh  FhFh    n\u00163\n_oooooooo.  Fh_.Fj   ,#chat\nn   n _oooo.,:__.#chat\nn    n_ooooooooo.  Fl_,,b\n    np__.#chat\nlFl FlFlFlFlFlujb#chat\nh_ooooooo._.,#chat\nb__,_.#chat\ny__,_.#chat\nn\u00167\nkhl\u0016?\n>w\u0006ubu#chat\ny__._.#chat\nj\u0016?\ncjlj\u0016?\n>w\u0006_{.   Fj   n _.>.Fn  qFnFnFn   yy\u001by"
+ },
+ "segments": [
+  {
+   "seed": 49959647,
+   "datetime": "20230811231959",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed Mjollnir\nwn\u0017blessed +3 speed boots\nWo\u0016?\n>w\u0006_ \u001b>._ooo,,#chat\nh_{,Fl  _.,Fn qh_ooooo,_.,\u001b$_{.  Fk_.,FhqhFhFhFhFhFh Fh_ooooooo.Fb_,Fb,\u0014m.s._ooooooooo,Fy _.m.Fb,#chat\ny\u00163\nblu\u0016?\n>w\u0006_ooooo. Fy  _.m. Fk_oo.Fy _,  Fu       n, p_ooooo,Fu _.Fk,p_ooo.  Fb    n _.  Fk   n   _oo,  n    nFk_,<.Fb   ,\u001bp\u001611\n__.#chat\nu#pray\ny y      Fn      n  Fn     Fn   n   Fn    n   Fn   n    Fn   n  \u00163\n__.#chat\nh  #pray\ny y    Fh  FhFh    nFh  FhFh    n\u00163\n_oooooooo.  Fh_.Fj   ,#chat\nn   n _oooo.,:__.#chat\nn    n_ooooooooo.  Fl_,,b\n    np__.#chat\nlFl FlFlFlFlFlujb#chat\nh_ooooooo._.,#chat\nb__,_.#chat\ny__,_.#chat\nn\u00167\nkhl\u0016?\n>w\u0006ubu#chat\ny__._.#chat\nj\u0016?\ncjlj\u0016?\n>w\u0006_{.   Fj   n _.>.Fn  qFnFnFn   yy\u001by"
+  }
+ ]
+}

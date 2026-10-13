@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u00173 spellbook of charm monster\nri20s20sZa\n\u0017scroll of light\nrj\u0017blessed potion of healing\nqk#dip\ng20sFh .m.."
+ },
+ "segments": [
+  {
+   "seed": 49952015,
+   "datetime": "20221122102942",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u00173 spellbook of charm monster\nri20s20sZa\n\u0017scroll of light\nrj\u0017blessed potion of healing\nqk#dip\ng20sFh .m.."
+  }
+ ]
+}

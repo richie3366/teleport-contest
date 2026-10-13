@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017blessed Mjollnir\nwo\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nW\u001b\u001630\n   \u0006_ \u001b,\u001630\n _{.<\u001610\n\u0017ring of increase damage\n\u0007gray ooze\nPrr20s  20ssm. \u0017potion of water\n \u0007mind flayer\nqf\u0017cursed -1 ring of slow digestion\n\u0007grid bug\nPs    .m.    sm. sm.     RsFu       n Fj       n   sbs\u00164\n\u0016?\n>>Q#levelchange\n10\n       \u0017spellbook of restore ability\nray \u001bs\u0017blessed spellbook of protection\nrb.\u0017blessed spellbook of cancellation\nrcs\u0017blessed spellbook of magic mapping\nrds+ZZZZ\u0007newt\nZZ20sZ\u001619\n\u0014,\u0016?\n>>P  _{.>\u001636\n\u0014,s.\u0016?\n>>Q#chat\nl;<.\u0016?\n>t  _{.>\u0016?\n>>L     amulet of guarding\n\u0006_<.\u001644\n_{.>\u001632\nhl   \u0017wand of locking\nEv Vlad was here\n  : l \u0017wand of striking\nE\u001b: \u0017wand of sleep\nE\u001b: \u0017wand of cancellation\nE\u001b: E\u001b\u0007soldier ant\n20s  .  n      sFk Fj.\u001610\n#chat\n;j,s.\u0016?\na   uu     l     n    : \u0016?\na#chat\n;j..20s s \u0016?\nc  #chat\ny;b:  \u001623\n_{.sm.          n   \u0016?\n\u001bn              b    n           \u001610\n__.\u001616\n#levelchange\n30\n\u0017kicking boots\nWz   n    .  s  .  n            Tz\u0007giant mimic\ns    n        .    \u0007rust monster\nFj   n             s       n         .        n        s        n   Fj    "
+ },
+ "segments": [
+  {
+   "seed": 49955013,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017blessed Mjollnir\nwo\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nW\u001b\u001630\n   \u0006_ \u001b,\u001630\n _{.<\u001610\n\u0017ring of increase damage\n\u0007gray ooze\nPrr20s  20ssm. \u0017potion of water\n \u0007mind flayer\nqf\u0017cursed -1 ring of slow digestion\n\u0007grid bug\nPs    .m.    sm. sm.     RsFu       n Fj       n   sbs\u00164\n\u0016?\n>>Q#levelchange\n10\n       \u0017spellbook of restore ability\nray \u001bs\u0017blessed spellbook of protection\nrb.\u0017blessed spellbook of cancellation\nrcs\u0017blessed spellbook of magic mapping\nrds+ZZZZ\u0007newt\nZZ20sZ\u001619\n\u0014,\u0016?\n>>P  _{.>\u001636\n\u0014,s.\u0016?\n>>Q#chat\nl;<.\u0016?\n>t  _{.>\u0016?\n>>L     amulet of guarding\n\u0006_<.\u001644\n_{.>\u001632\nhl   \u0017wand of locking\nEv Vlad was here\n  : l \u0017wand of striking\nE\u001b: \u0017wand of sleep\nE\u001b: \u0017wand of cancellation\nE\u001b: E\u001b\u0007soldier ant\n20s  .  n      sFk Fj.\u001610\n#chat\n;j,s.\u0016?\na   uu     l     n    : \u0016?\na#chat\n;j..20s s \u0016?\nc  #chat\ny;b:  \u001623\n_{.sm.          n   \u0016?\n\u001bn              b    n           \u001610\n__.\u001616\n#levelchange\n30\n\u0017kicking boots\nWz   n    .  s  .  n            Tz\u0007giant mimic\ns    n        .    \u0007rust monster\nFj   n             s       n         .        n        s        n   Fj    "
+  }
+ ]
+}

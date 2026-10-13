@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>w\u0006Fl FlFlFlFlFl_ \u001b:,\u0014m.s._ooooooooo.Fh_.: _oo,,\u001b$\u0016?\n>Bhjk\u0016?\n>w\u0006_ooo,_.,\u001b$_oooooooo.,\u001b: hhl#chat\nj__. Fb  _, Fj #chat\nj \u00163\njnj\u0016?\n>w  \u0006_ooooooooo,Fk   @.  _.  n  n Fu  n,p  \u00161\n_oooooo.,p_oooo.,#chat\nj_ooooooo._.,\u0017amulet of ESP\ndr_ooooooo._oo.,p_ooooooooo,,pnuh#chat\nl_ooooooooo,,#chat\nn_oooo.,p__,#chat\nn_ooo,,p\u00163\nyby\u0016?\n>w\u0006khy#chat\njFj Fj FjFj Fj   nFj__.Fj   n_. #chat\nj__, _. Fj    n   n #chat\nj  n \u001610\n_oooooo._o.,\u0017gray stone\ndsnhl#chat\nb_ooooo,_,,p\u00163\nlny \u001b\u0016?\n>w \u0006Fh  n Fh  n Fh  n Fh   n  n  n Fh  n  yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 49959614,
+   "datetime": "20171003041317",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=fruit:lychee\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>w\u0006Fl FlFlFlFlFl_ \u001b:,\u0014m.s._ooooooooo.Fh_.: _oo,,\u001b$\u0016?\n>Bhjk\u0016?\n>w\u0006_ooo,_.,\u001b$_oooooooo.,\u001b: hhl#chat\nj__. Fb  _, Fj #chat\nj \u00163\njnj\u0016?\n>w  \u0006_ooooooooo,Fk   @.  _.  n  n Fu  n,p  \u00161\n_oooooo.,p_oooo.,#chat\nj_ooooooo._.,\u0017amulet of ESP\ndr_ooooooo._oo.,p_ooooooooo,,pnuh#chat\nl_ooooooooo,,#chat\nn_oooo.,p__,#chat\nn_ooo,,p\u00163\nyby\u0016?\n>w\u0006khy#chat\njFj Fj FjFj Fj   nFj__.Fj   n_. #chat\nj__, _. Fj    n   n #chat\nj  n \u001610\n_oooooo._o.,\u0017gray stone\ndsnhl#chat\nb_ooooo,_,,p\u00163\nlny \u001b\u0016?\n>w \u0006Fh  n Fh  n Fh  n Fh   n  n  n Fh  n  yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

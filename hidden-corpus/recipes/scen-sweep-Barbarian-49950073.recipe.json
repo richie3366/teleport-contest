@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqf \u001b,_oooooo._.m._ooo,_,,,$_ooooo,_..,#chat\ny__.Fn _.#chat\nl#pray\ny y _{,_.;.q#dip\nd_mmm.Fk _,;m, Fk#chat\nl_{._.>.q#dip\naq#monster\n;m.i\u001b\u0006_>._.<.>_>._.@.>_>._.>.><\u0006_>>,_,m.>_>>,_.>.>_>>._.<.>\u0006_>._.m.>_>._.m,>_>,_,,>\u0006_>._.:>_>._,;@.>_>,_,m.>\u0006_>._,:>_>._.<.>_>,_.;:   >\u0006_>._.@.>_>._.m,>_>._.;<.><\u001625\n\u0007baby red dragon\n\u0017scroll of taming\nrg \u0017saddle\nahl\u0017lance\nwi#ride\nkyy\u0007pony\n\u0017scroll of taming\nrj \u0017saddle\naku#ride\n \u0007warhorse\n\u0017scroll of taming\nrl \u0017saddle\n amu #ride\nuy by,,\u0006_>,>_>.>_>.>\u0004y nl   kj   \u0006_>.>FlFu _>.>FkFk _>.>FuFu i\u001b#levelchange\n8\n    #wizintrinsic\nri\n ..20s  s20s   s.sss20s  s\u0017ice box\n20s#enhance\nyi\nb\n\u001bz20s#ride\n#tip\n\u001b..20s  s.20s  \u00167\n\\   \u0017blessed bag of holding\n\u0017ring of increase damage\nao\u001bao\u001bdo#loot\n\u001b,ao\u001b\u0017skeleton key\ndoaq.s..#loot\n\u001b\u001615\n\u0017blessed wand of nothing\nzrl\u0017cursed -1 ring of polymorph control\nPsrsss\u0017blessed +3 speed boots\n\u0007Juiblex\nyWt sm.20s20s Fj Fj\u0017lizard corpse\neu  sm.s\u0017uncursed potion of booze\n\u0007Archon\nqv \u001b#dip\nq20s    s#levelchange\n10\n \u0016?\n \u0006__.#chat\nl20s     n  20ss;h:  ,#enhance\nyn\ni\n\u001b#levelchange\n30\n                    \u0007pony\n\u0017scroll of taming\nrw        \u0017saddle\n ax\u0017lance\nwy#ride\nky\u0007pony\n\u0017scroll of t"
+ },
+ "segments": [
+  {
+   "seed": 49950073,
+   "datetime": "20100301173636",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqf \u001b,_oooooo._.m._ooo,_,,,$_ooooo,_..,#chat\ny__.Fn _.#chat\nl#pray\ny y _{,_.;.q#dip\nd_mmm.Fk _,;m, Fk#chat\nl_{._.>.q#dip\naq#monster\n;m.i\u001b\u0006_>._.<.>_>._.@.>_>._.>.><\u0006_>>,_,m.>_>>,_.>.>_>>._.<.>\u0006_>._.m.>_>._.m,>_>,_,,>\u0006_>._.:>_>._,;@.>_>,_,m.>\u0006_>._,:>_>._.<.>_>,_.;:   >\u0006_>._.@.>_>._.m,>_>._.;<.><\u001625\n\u0007baby red dragon\n\u0017scroll of taming\nrg \u0017saddle\nahl\u0017lance\nwi#ride\nkyy\u0007pony\n\u0017scroll of taming\nrj \u0017saddle\naku#ride\n \u0007warhorse\n\u0017scroll of taming\nrl \u0017saddle\n amu #ride\nuy by,,\u0006_>,>_>.>_>.>\u0004y nl   kj   \u0006_>.>FlFu _>.>FkFk _>.>FuFu i\u001b#levelchange\n8\n    #wizintrinsic\nri\n ..20s  s20s   s.sss20s  s\u0017ice box\n20s#enhance\nyi\nb\n\u001bz20s#ride\n#tip\n\u001b..20s  s.20s  \u00167\n\\   \u0017blessed bag of holding\n\u0017ring of increase damage\nao\u001bao\u001bdo#loot\n\u001b,ao\u001b\u0017skeleton key\ndoaq.s..#loot\n\u001b\u001615\n\u0017blessed wand of nothing\nzrl\u0017cursed -1 ring of polymorph control\nPsrsss\u0017blessed +3 speed boots\n\u0007Juiblex\nyWt sm.20s20s Fj Fj\u0017lizard corpse\neu  sm.s\u0017uncursed potion of booze\n\u0007Archon\nqv \u001b#dip\nq20s    s#levelchange\n10\n \u0016?\n \u0006__.#chat\nl20s     n  20ss;h:  ,#enhance\nyn\ni\n\u001b#levelchange\n30\n                    \u0007pony\n\u0017scroll of taming\nrw        \u0017saddle\n ax\u0017lance\nwy#ride\nky\u0007pony\n\u0017scroll of t"
+  }
+ ]
+}

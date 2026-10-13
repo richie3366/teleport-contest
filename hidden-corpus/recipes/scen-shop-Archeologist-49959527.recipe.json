@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  \u00175000 gold pieces\n\u0017blessed amulet of life saving\nPi\u0017blessed +3 gauntlets of power\nWj\u0016?\n>w\u0006_ \u001b<.#chat\nh _oooo,_ooo.,#chat\nk_ooooooooo.,p_ooooo.,\u0014<.20ss__,   _,  #chat\nu#pray\ny y \u00167\nljy\u0016?\n>w\u0006__,_,Fh  #chat\nh  #pray\ny y    _ooooooooo. Fh_. Fh_ooo.Fh    _. Fh  ,\u001bpFl Fl   Fl  n  Fl Fl  n  Fl \u00161\n_oooo.,p__.#chat\nj#pray\ny y     _oooo.,:__,#chat\nj#pray\ny y    _{,q__.#chat\nj#pray\ny y    _oooo,_o,Fn_,>.Fl  n,$_{.q_ooooo.Fl_._oo.,$_ooooooooo.,\u0017loadstone\ndl_ooooo,,p_ooo._oo,,p_oooo,,:_ooo.,p_{.q__.#chat\nl  n #pray\ny y    _oooooooo,_ooo.,#chat\nl  n \u00163\nkk  n b\u0016?\n>w\u0006\u00169\nFh    n  Fh    nFh   n  Fh  n    n Fh   n    n Fh  n     n  _oooooo.,\u0017amulet of ESP\ndm  yy\u001by  y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 49959527,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00175000 gold pieces\n\u0017blessed amulet of life saving\nPi\u0017blessed +3 gauntlets of power\nWj\u0016?\n>w\u0006_ \u001b<.#chat\nh _oooo,_ooo.,#chat\nk_ooooooooo.,p_ooooo.,\u0014<.20ss__,   _,  #chat\nu#pray\ny y \u00167\nljy\u0016?\n>w\u0006__,_,Fh  #chat\nh  #pray\ny y    _ooooooooo. Fh_. Fh_ooo.Fh    _. Fh  ,\u001bpFl Fl   Fl  n  Fl Fl  n  Fl \u00161\n_oooo.,p__.#chat\nj#pray\ny y     _oooo.,:__,#chat\nj#pray\ny y    _{,q__.#chat\nj#pray\ny y    _oooo,_o,Fn_,>.Fl  n,$_{.q_ooooo.Fl_._oo.,$_ooooooooo.,\u0017loadstone\ndl_ooooo,,p_ooo._oo,,p_oooo,,:_ooo.,p_{.q__.#chat\nl  n #pray\ny y    _oooooooo,_ooo.,#chat\nl  n \u00163\nkk  n b\u0016?\n>w\u0006\u00169\nFh    n  Fh    nFh   n  Fh  n    n Fh   n    n Fh  n     n  _oooooo.,\u0017amulet of ESP\ndm  yy\u001by  y y y\u001by  _"
+  }
+ ]
+}

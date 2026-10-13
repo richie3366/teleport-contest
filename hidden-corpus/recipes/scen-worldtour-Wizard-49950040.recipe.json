@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u001627\nbbnl:\u0016?\nd\u0017sling\nwp\u001720 flint stones\nQq\u0007owlbear\nhfj fn fn fj Fj Fj \u0007newt\nh h   n fn  fb \u0007troll\nhfj fn \u0017bardiche\nwr    n \u0007kobold\nhar \u001bm,bk h,20s\u00167\n\u0016?\n>E_{,.\u0016?\n>Dnhyhkny:\u0016?\n>J     athame\n_{.\u0016?\nclk bbb   k : \u0016?\ne nhb:\u001627\n#chat\ny   n  ;y.\u0016?\ndnjh  :\u001627\n#levelchange\n30\n                \u0017blessed worthless piece of red glass\ntab\u0017cursed spellbook of cancellation\n\u0007elf-lord\nrv.sZ\u001bs Fk  \u0017blessed +3 ring of cold resistance\n\u0007sewer rat\nPwl . s   n 20s    \u00173 20 darts\n \u001b\u0007quasit\n.  Fj  n     s   20s    n  \u00166\n\u0016?\nb\u0017spellbook of knock\n\u0007ki-rin\nrys s   ZZ20s  s   \u0017cockatrice egg\n\u0007red naga\nez   n sm.  20s       n  n .  s  \u0017uncursed spellbook of polymorph\nrA20s .ZZ\u0017Orcrist\n\u0007giant eel\nwB.    n s  \u001b          n.    #invoke\nB   n \u00173 cockatrice egg\neC  .m.       n         n n20s      \u0017cursed potion of monster detection\n\u0007giant rat\nqE.  n    #dip\nlf 20s     n   .   yy\u001bny y  n  s"
+ },
+ "segments": [
+  {
+   "seed": 49950040,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u001627\nbbnl:\u0016?\nd\u0017sling\nwp\u001720 flint stones\nQq\u0007owlbear\nhfj fn fn fj Fj Fj \u0007newt\nh h   n fn  fb \u0007troll\nhfj fn \u0017bardiche\nwr    n \u0007kobold\nhar \u001bm,bk h,20s\u00167\n\u0016?\n>E_{,.\u0016?\n>Dnhyhkny:\u0016?\n>J     athame\n_{.\u0016?\nclk bbb   k : \u0016?\ne nhb:\u001627\n#chat\ny   n  ;y.\u0016?\ndnjh  :\u001627\n#levelchange\n30\n                \u0017blessed worthless piece of red glass\ntab\u0017cursed spellbook of cancellation\n\u0007elf-lord\nrv.sZ\u001bs Fk  \u0017blessed +3 ring of cold resistance\n\u0007sewer rat\nPwl . s   n 20s    \u00173 20 darts\n \u001b\u0007quasit\n.  Fj  n     s   20s    n  \u00166\n\u0016?\nb\u0017spellbook of knock\n\u0007ki-rin\nrys s   ZZ20s  s   \u0017cockatrice egg\n\u0007red naga\nez   n sm.  20s       n  n .  s  \u0017uncursed spellbook of polymorph\nrA20s .ZZ\u0017Orcrist\n\u0007giant eel\nwB.    n s  \u001b          n.    #invoke\nB   n \u00173 cockatrice egg\neC  .m.       n         n n20s      \u0017cursed potion of monster detection\n\u0007giant rat\nqE.  n    #dip\nlf 20s     n   .   yy\u001bny y  n  s"
+  }
+ ]
+}

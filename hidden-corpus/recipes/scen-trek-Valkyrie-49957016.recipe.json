@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "L HBN_ \u001bm,>Fk s._<..<nnBKUJ_>,>HJBL_>,><NBBJ_>.>UNKY_>.>i\u001b#rub\n<YBHJ_>,><KUJB_>.><\u000f\u001bH__..wa_>.>lnkjly150sFnss50s100sFns20shhlFlss50sFls.hlnyny150snyh100slhl50sFls.nyni\u001b100s150sPllnFlFls100s50s Fjsslyjbuu100s150s150sFb.20s100s50s FjFjFj100sYLLY_>,>FlFlsJHHY_>,>BLNU_>.>\u0014#loot\nLYHU_>.>LKNH_>.>#rub\n\u0018\u001bLNKB_>.>LYBK_>,>FlFlsKJLJ_>.>sPYYJY_>.>BNJB_>,><\u000f\u001b_>.>150s i\u001bkjkFk 20s.100sFk.20s100sed150s_>,>i\u001bjkjFk.si\u001b_>,>\\   \u000f\u001b100s100sFk.s100sFkssyuk 100sFks.50sFk.skkj#wipe\n50s100sFk..50s100sFk20sFk150s_>.>\\   \u000f\u001bey\u000f\u001bKBKB_>.>UJYJ_>.>UJBB_>.>\u000f\u001bbkk\u0018\u001bykk_>,>yhh\u000f\u001br\u001b\u001b100s#dip\nb50sFl20s20s150s50s_>.>100seeeeeeeeeeeeeeeeeeeeeeeeee#invoke\n\u001b\u001btbjKNUL_>,>qojUYLB_>.>#force\naJYNN_>,>NBBN_>.>dacb#sit\nLUNN_>.>w\u001b\u001b#pray\ny YKYY_>.>YYUK_>,>BUHK_>.>LHBH_>,>cklLN LH_>."
+ },
+ "segments": [
+  {
+   "seed": 49957016,
+   "datetime": "20180613190751",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "L HBN_ \u001bm,>Fk s._<..<nnBKUJ_>,>HJBL_>,><NBBJ_>.>UNKY_>.>i\u001b#rub\n<YBHJ_>,><KUJB_>.><\u000f\u001bH__..wa_>.>lnkjly150sFnss50s100sFns20shhlFlss50sFls.hlnyny150snyh100slhl50sFls.nyni\u001b100s150sPllnFlFls100s50s Fjsslyjbuu100s150s150sFb.20s100s50s FjFjFj100sYLLY_>,>FlFlsJHHY_>,>BLNU_>.>\u0014#loot\nLYHU_>.>LKNH_>.>#rub\n\u0018\u001bLNKB_>.>LYBK_>,>FlFlsKJLJ_>.>sPYYJY_>.>BNJB_>,><\u000f\u001b_>.>150s i\u001bkjkFk 20s.100sFk.20s100sed150s_>,>i\u001bjkjFk.si\u001b_>,>\\   \u000f\u001b100s100sFk.s100sFkssyuk 100sFks.50sFk.skkj#wipe\n50s100sFk..50s100sFk20sFk150s_>.>\\   \u000f\u001bey\u000f\u001bKBKB_>.>UJYJ_>.>UJBB_>.>\u000f\u001bbkk\u0018\u001bykk_>,>yhh\u000f\u001br\u001b\u001b100s#dip\nb50sFl20s20s150s50s_>.>100seeeeeeeeeeeeeeeeeeeeeeeeee#invoke\n\u001b\u001btbjKNUL_>,>qojUYLB_>.>#force\naJYNN_>,>NBBN_>.>dacb#sit\nLUNN_>.>w\u001b\u001b#pray\ny YKYY_>.>YYUK_>,>BUHK_>.>LHBH_>,>cklLN LH_>."
+  }
+ ]
+}

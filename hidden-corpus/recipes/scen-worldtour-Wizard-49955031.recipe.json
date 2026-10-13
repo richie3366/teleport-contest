@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 gauntlets of power\nWp\u0017blessed amulet of life saving\nPq\u001628\n   \u0004u\u001628\n ju  bj:\u00163\n_ \u001b<.\u001618\n#chat\ny;>.20s\u00167\nuhyjj:20sss\u001613\n    #chat\nk;k:  \u001612\n#chat\nk;k,20s\u0016?\n>u #chat\nu;>.s\u0016?\nb\u0004j\u0016?\nd#chat\nu;m,\u0016?\nf _>,>\u00167\n\u0006_>,_.;<.\u00169\n_>.>\u0016?\n>>O       cloak of invisibility\n#chat\nj;j;\u0016?\neb   u   j     k  b :\u0016?\na  \u0017blessed ring of searching\nPtlsk   sm.      \u001b   n          20s               n    Fj                  n Fu             \u0017uncursed spellbook of drain life\n\u0007minotaur\nru   n               sm.     n          sj    n              Za\nl      n                Zb\nu   n                    n \u0017Orcrist\nwv                  n Fy               n    Fk           n           Fl    \u001b   \u001b \u001b        n            XFh               n           Fb               n            sm.    n              sm.    ynnny n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 49955031,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 gauntlets of power\nWp\u0017blessed amulet of life saving\nPq\u001628\n   \u0004u\u001628\n ju  bj:\u00163\n_ \u001b<.\u001618\n#chat\ny;>.20s\u00167\nuhyjj:20sss\u001613\n    #chat\nk;k:  \u001612\n#chat\nk;k,20s\u0016?\n>u #chat\nu;>.s\u0016?\nb\u0004j\u0016?\nd#chat\nu;m,\u0016?\nf _>,>\u00167\n\u0006_>,_.;<.\u00169\n_>.>\u0016?\n>>O       cloak of invisibility\n#chat\nj;j;\u0016?\neb   u   j     k  b :\u0016?\na  \u0017blessed ring of searching\nPtlsk   sm.      \u001b   n          20s               n    Fj                  n Fu             \u0017uncursed spellbook of drain life\n\u0007minotaur\nru   n               sm.     n          sj    n              Za\nl      n                Zb\nu   n                    n \u0017Orcrist\nwv                  n Fy               n    Fk           n           Fl    \u001b   \u001b \u001b        n            XFh               n           Fb               n            sm.    n              sm.    ynnny n  \u0016"
+  }
+ ]
+}

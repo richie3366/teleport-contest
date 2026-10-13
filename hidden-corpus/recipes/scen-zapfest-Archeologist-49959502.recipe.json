@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nWk#levelchange\n10\n         \u0007silver dragon\nsm.20s 20s 20s #polyself\nblack dragon\n   #monster\nb     sm.20s  #monster\nb    #monster\nb  #monster\n#monster\nFb Fj \u0018\u001b\u0017spellbook of knock\nrl \u001b<.   sm. \u0017blessed spellbook of slow monster\nrm  .m.\u0007mind flayer\nZZsm. .m. Z.m.     sm.  n       ZZsm.       .Zsm.  20s      Z.m.      n  n  syZZ\u00163\n\u0017wand of slow monster\n\u0017wand of striking\n\u0007soldier\n\u0007acid blob\nznyznhznhznhznhznzoyzoh zoy zoy znzn\u0017yumi\nwp \u001720 ya\nQq\u0007soldier\nfyfltqltqlfl flfl   n\u0017potion of fruit juice\ntql \u001612\n\u001720 darts\nQs\u0007soldier\n\u0007dwarf\ntsk tsufk fk fk  tsk"
+ },
+ "segments": [
+  {
+   "seed": 49959502,
+   "datetime": "20111010034929",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nWk#levelchange\n10\n         \u0007silver dragon\nsm.20s 20s 20s #polyself\nblack dragon\n   #monster\nb     sm.20s  #monster\nb    #monster\nb  #monster\n#monster\nFb Fj \u0018\u001b\u0017spellbook of knock\nrl \u001b<.   sm. \u0017blessed spellbook of slow monster\nrm  .m.\u0007mind flayer\nZZsm. .m. Z.m.     sm.  n       ZZsm.       .Zsm.  20s      Z.m.      n  n  syZZ\u00163\n\u0017wand of slow monster\n\u0017wand of striking\n\u0007soldier\n\u0007acid blob\nznyznhznhznhznhznzoyzoh zoy zoy znzn\u0017yumi\nwp \u001720 ya\nQq\u0007soldier\nfyfltqltqlfl flfl   n\u0017potion of fruit juice\ntql \u001612\n\u001720 darts\nQs\u0007soldier\n\u0007dwarf\ntsk tsufk fk fk  tsk"
+  }
+ ]
+}

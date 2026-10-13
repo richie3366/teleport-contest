@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\ng\n \u0017potion of blindness\nqi#dip\ne\u0017cockatrice corpse\nej y\u001b   y  E"
+ },
+ "segments": [
+  {
+   "seed": 49951030,
+   "datetime": "20080714183041",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\ng\n \u0017potion of blindness\nqi#dip\ne\u0017cockatrice corpse\nej y\u001b   y  E"
+  }
+ ]
+}

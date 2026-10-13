@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed +3 gauntlets of power\nWn\u0017blessed Mjollnir\nwo\u0017blessed +3 cloak of magic resistance\nWp\u00161\nlnk:\u0016?\n>Bnnnnnn:20s20s\u0016?\n>z  _ \u001b>.\u00161\n  uy b:\u001635\n\u0014;      \u0016?\n>>M      potion of gain level\n\u0004u.j   s\u0016?\n\u001bhk\u0016?\n\u001bb    j    \u001635\n\u0004l     n \u001627\nh    nh  uk  n       j    n :\u00162\n\u0016?\n\u001bh         n n      n \u00162\n\u0016?\n\u001bj       k    n \u0016?\n\u001bl     n      n   \u001613\n#chat\n;j;\u001635\nj    n l         n l           n  :\u00161\n\u0016?\n\u001blnn       h   n   \u0016?\n\u001by       n b    \u0016?\ndk    n  y         n            u  n           y   y"
+ },
+ "segments": [
+  {
+   "seed": 49950060,
+   "datetime": "20130402234730",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed +3 gauntlets of power\nWn\u0017blessed Mjollnir\nwo\u0017blessed +3 cloak of magic resistance\nWp\u00161\nlnk:\u0016?\n>Bnnnnnn:20s20s\u0016?\n>z  _ \u001b>.\u00161\n  uy b:\u001635\n\u0014;      \u0016?\n>>M      potion of gain level\n\u0004u.j   s\u0016?\n\u001bhk\u0016?\n\u001bb    j    \u001635\n\u0004l     n \u001627\nh    nh  uk  n       j    n :\u00162\n\u0016?\n\u001bh         n n      n \u00162\n\u0016?\n\u001bj       k    n \u0016?\n\u001bl     n      n   \u001613\n#chat\n;j;\u001635\nj    n l         n l           n  :\u00161\n\u0016?\n\u001blnn       h   n   \u0016?\n\u001by       n b    \u0016?\ndk    n  y         n            u  n           y   y"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWk\u0016?\n>w\u0006_ \u001b<.    q_ooooooo._oo,,:_ooooooooo.,p_oooooo._o.,\u0017amulet of change\ndl_ooooooo,,\u0017dilithium crystal\ndm__,Fj_.>.Fj#chat\nn#pray\ny y __._.:Fl #chat\nl_oooooo.,:\u00163\njyj\u0016?\n>w\u0006_ooo,_._ooo._.,p_oo._._ooo,_,,plhl#chat\nh_ooooooooo,Fu_._o,Fl_.@.Fh ,:_oooo.,\u0017amulet of flying\ndn\u00167\nllh\u0016?\n>w\u0006_ooo.Fh_.Fh,\u0014m,sm.s_oo._._o,Fb  n_.Fj,pFjFjFjFjFjFj\u0016?\ncukk\u0016?\n>w\u0006_oooooooo.Fh_.;;Fh ,:_oooo.Fh_,  Fk ,:_ooooooooo.Fh  _,  nFk,:FkFkFkFkFkFkhny#chat\nn__,_. #chat\nn\u00163\nulh\u0016?\n>w\u0006yyh#chat\nu\u0016?\nchhj\u0016?\n>w\u0006_oooooo,  _. ,\u0017amulet of life saving\ndo  _{.  nFn _.Fj qFj  FjFj FjFj  Fj_ooooo.Fj   _. Fh,p__.  nFh_,Fl #chat\nl_oooooo.Fh_.@.Fn_o, Fl_, Fj,p_ooo.Fl_. Fl,   n p_ooo. Fj    n_.  Fn   ,:Fn    n Fn   n Fn     nFn  FnFn   n  \u00163\n_oooo."
+ },
+ "segments": [
+  {
+   "seed": 49959655,
+   "datetime": "20010606091907",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWk\u0016?\n>w\u0006_ \u001b<.    q_ooooooo._oo,,:_ooooooooo.,p_oooooo._o.,\u0017amulet of change\ndl_ooooooo,,\u0017dilithium crystal\ndm__,Fj_.>.Fj#chat\nn#pray\ny y __._.:Fl #chat\nl_oooooo.,:\u00163\njyj\u0016?\n>w\u0006_ooo,_._ooo._.,p_oo._._ooo,_,,plhl#chat\nh_ooooooooo,Fu_._o,Fl_.@.Fh ,:_oooo.,\u0017amulet of flying\ndn\u00167\nllh\u0016?\n>w\u0006_ooo.Fh_.Fh,\u0014m,sm.s_oo._._o,Fb  n_.Fj,pFjFjFjFjFjFj\u0016?\ncukk\u0016?\n>w\u0006_oooooooo.Fh_.;;Fh ,:_oooo.Fh_,  Fk ,:_ooooooooo.Fh  _,  nFk,:FkFkFkFkFkFkhny#chat\nn__,_. #chat\nn\u00163\nulh\u0016?\n>w\u0006yyh#chat\nu\u0016?\nchhj\u0016?\n>w\u0006_oooooo,  _. ,\u0017amulet of life saving\ndo  _{.  nFn _.Fj qFj  FjFj FjFj  Fj_ooooo.Fj   _. Fh,p__.  nFh_,Fl #chat\nl_oooooo.Fh_.@.Fn_o, Fl_, Fj,p_ooo.Fl_. Fl,   n p_ooo. Fj    n_.  Fn   ,:Fn    n Fn   n Fn     nFn  FnFn   n  \u00163\n_oooo."
+  }
+ ]
+}

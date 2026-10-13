@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b<.>FhFh_>.Fk _,>_>,_,>\u0006_>>._,>_>>._.>_>>,_.>\u0006_>._.>_>._.>_>,_,>\u0006_>._.>_>._.>_>,_.>\u0006_>,_,>_>,_,>_>,_,>\u0006_>._.>_>,_,>_>,_.>#jump\n\u0014@.\u0006_>._.>_>,_.Fl>_>._.>E- Vlad was here\nq\u0006_>,_.>_>._,>_>._,>"
+ },
+ "segments": [
+  {
+   "seed": 49951027,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0006_ \u001b<.>FhFh_>.Fk _,>_>,_,>\u0006_>>._,>_>>._.>_>>,_.>\u0006_>._.>_>._.>_>,_,>\u0006_>._.>_>._.>_>,_.>\u0006_>,_,>_>,_,>_>,_,>\u0006_>._.>_>,_,>_>,_.>#jump\n\u0014@.\u0006_>._.>_>,_.Fl>_>._.>E- Vlad was here\nq\u0006_>,_.>_>._,>_>._,>"
+  }
+ ]
+}

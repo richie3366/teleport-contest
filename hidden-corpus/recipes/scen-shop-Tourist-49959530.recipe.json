@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nWn \u0017blessed +3 speed boots\nWo\u0016?\n>w\u0006_ \u001b<. qi _oooooo.,#chat\nj_ooo.,:_oo.,p_ooooooo.,\u0014.ss_ooo.,p__._.Fh#chat\nh_oooooo.,:__,_,Fk #chat\nn_oooooo,_ooo.,:_ooooooooo,_ooo.,:_oooooo.,:__,_.@.Fk#chat\ny#pray\ny y _ooooooooo. _,_ooo.Fl_.,#chat\nh_oo.,#chat\nb_ooooooo.Fn_.,:_oooooo.,#chat\nk\u0016?\n>Byky\u0016?\n>w\u0006uhn#chat\ny\u0016?\n>Bukh\u0016?\n>w\u0006_{.Fu _.:Flqh_ooooo._o.,\u0017luckstone\ndr_ooooo.,#chat\nkFl   FlFl   FlFl FlFj   nFj Fj FjFjFj _oo._oo,,p_ooooooooo.,pFj  n Fj FjFj FjFj  _{.Fy_.,Fl   n    q_oooooooo.,\u0017amulet of change\nds   n  _ooooooo.,     $_oooooooo,,p\u00163\nbul\u0016?\n>w\u0006__, Fh  _.    n Fl   #chat\nl_oo,_oo,,:_oooooooo,_ooo.    n Fh_.Fh  ,p_ooooooo.Fh    n _.  Fh  _o,_,,a\n$__. Fl_.  n Fl  #chat\nl#pray\ny y     "
+ },
+ "segments": [
+  {
+   "seed": 49959530,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nWn \u0017blessed +3 speed boots\nWo\u0016?\n>w\u0006_ \u001b<. qi _oooooo.,#chat\nj_ooo.,:_oo.,p_ooooooo.,\u0014.ss_ooo.,p__._.Fh#chat\nh_oooooo.,:__,_,Fk #chat\nn_oooooo,_ooo.,:_ooooooooo,_ooo.,:_oooooo.,:__,_.@.Fk#chat\ny#pray\ny y _ooooooooo. _,_ooo.Fl_.,#chat\nh_oo.,#chat\nb_ooooooo.Fn_.,:_oooooo.,#chat\nk\u0016?\n>Byky\u0016?\n>w\u0006uhn#chat\ny\u0016?\n>Bukh\u0016?\n>w\u0006_{.Fu _.:Flqh_ooooo._o.,\u0017luckstone\ndr_ooooo.,#chat\nkFl   FlFl   FlFl FlFj   nFj Fj FjFjFj _oo._oo,,p_ooooooooo.,pFj  n Fj FjFj FjFj  _{.Fy_.,Fl   n    q_oooooooo.,\u0017amulet of change\nds   n  _ooooooo.,     $_oooooooo,,p\u00163\nbul\u0016?\n>w\u0006__, Fh  _.    n Fl   #chat\nl_oo,_oo,,:_oooooooo,_ooo.    n Fh_.Fh  ,p_ooooooo.Fh    n _.  Fh  _o,_,,a\n$__. Fl_.  n Fl  #chat\nl#pray\ny y     "
+  }
+ ]
+}

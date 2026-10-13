@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "KUYL_ \u001b.><JYYN_>.>Fy 20sFhJLJB_>,>NHUJ_>.><\u000f\u001bKNNJ_>,>\u0014\u0004u<KLBJ_>.>i\u001b#loot\nKKUL_>.>#force\nbHKHL_>.>_<.sZJNNB_>,>JBBB_>,>dbssst\u001byybbkybkdd20sss#name\ni\n#invoke\n\u001b_>.>100s50slju\u0018\u001b50s #tip\n\u001b\\  i\u001bi\u001bjyj100sFl20s20s\\  150s50sFlFls\u0018\u001b\u000f\u001b_>.>kjbhhl100s50shlh100s#twoweapon\n50s50s\\  150sFlFl20s100s100s50sFlFl20s150seehl20s20s#name\nf\n#chat\n>.dcss.lulhjhhhll#name\nd\n20slunueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee,<#sit\n\u001bLBYK_>,>BJK Y_>.>LLJH_>,>s#terrain\nc\nm,BJYL_>.>#ride\nlnLHLH_>.>Z#name\nf\n@.\u0004n#pray\ny  50sFkFksuhuylh150s100s100sFhss\u0018\u001b_>.>100si\u001b100s100sZnjj\u0018\u001bi\u001b100seeeeeeeeeeeeeeeeeeeeYJBY_>,>KJYU_>.>J LYN_>.>#tip\n\u001b#twoweapon\n<BJYK_>.>YKUL_>.>JLUL_>.>HJNK_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 49957022,
+   "datetime": "20140217235052",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\n",
+   "moves": "KUYL_ \u001b.><JYYN_>.>Fy 20sFhJLJB_>,>NHUJ_>.><\u000f\u001bKNNJ_>,>\u0014\u0004u<KLBJ_>.>i\u001b#loot\nKKUL_>.>#force\nbHKHL_>.>_<.sZJNNB_>,>JBBB_>,>dbssst\u001byybbkybkdd20sss#name\ni\n#invoke\n\u001b_>.>100s50slju\u0018\u001b50s #tip\n\u001b\\  i\u001bi\u001bjyj100sFl20s20s\\  150s50sFlFls\u0018\u001b\u000f\u001b_>.>kjbhhl100s50shlh100s#twoweapon\n50s50s\\  150sFlFl20s100s100s50sFlFl20s150seehl20s20s#name\nf\n#chat\n>.dcss.lulhjhhhll#name\nd\n20slunueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee,<#sit\n\u001bLBYK_>,>BJK Y_>.>LLJH_>,>s#terrain\nc\nm,BJYL_>.>#ride\nlnLHLH_>.>Z#name\nf\n@.\u0004n#pray\ny  50sFkFksuhuylh150s100s100sFhss\u0018\u001b_>.>100si\u001b100s100sZnjj\u0018\u001bi\u001b100seeeeeeeeeeeeeeeeeeeeYJBY_>,>KJYU_>.>J LYN_>.>#tip\n\u001b#twoweapon\n<BJYK_>.>YKUL_>.>JLUL_>.>HJNK_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

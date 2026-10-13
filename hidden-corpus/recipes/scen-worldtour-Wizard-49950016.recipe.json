@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u0017blessed +3 gauntlets of power\nWq\u001637\n   hhlhl:sh.m.\u001637\n _ \u001b:>\u0016?\n>y  \u0017long sword\nwr.s20sX\u0007quasit\nFjFj  FjFh\u0007little dog\nsm. .m.  .m..m.   . s  s   \u0007aligned cleric\nyy  n ;k;.    20s    20s  n    \u00162\n\u00166\n_<.\u00168\nj   l  n     y    l  n    :    \u00164\n\u0016?\n>v bu:  \u0016?\ncjj  n   y:  \u00166\nblh: \u0016?\n>>L    slime mold\n_<,>\u0016?\ne _>,\u0016?\nejk u:    \u0016?\na    \u0017blessed spellbook of confuse monster\nrus  \u0017blessed spellbook of cure sickness\nrv20s   \u001b \u0017blessed spellbook of stone to flesh\nrws     n +\u001b\u0007yellow mold\nZb\n  \u0007hill orc\nZa\n         n Zb\n           n20s        n     Zb\n  n     \u0007gnome\nZa\n        n   ZZZ#turn\n#pray\ny y                   \u001b #enhance\nn\u001bs    .  n     20s   n   \u00161\n\u0016?\nc __,<s  n 20s   \u0016?\nd \u0006>._<,\u0016?\n\u001bbn\u001611\n#chat\nk;_..20s    \u00166\n\u0006m,_<.\u0016?\n\u001bk  n  n   \u0016?\nc n y   n y  n  :     \u0016?\nc\u0014@.     "
+ },
+ "segments": [
+  {
+   "seed": 49950016,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u0017blessed +3 gauntlets of power\nWq\u001637\n   hhlhl:sh.m.\u001637\n _ \u001b:>\u0016?\n>y  \u0017long sword\nwr.s20sX\u0007quasit\nFjFj  FjFh\u0007little dog\nsm. .m.  .m..m.   . s  s   \u0007aligned cleric\nyy  n ;k;.    20s    20s  n    \u00162\n\u00166\n_<.\u00168\nj   l  n     y    l  n    :    \u00164\n\u0016?\n>v bu:  \u0016?\ncjj  n   y:  \u00166\nblh: \u0016?\n>>L    slime mold\n_<,>\u0016?\ne _>,\u0016?\nejk u:    \u0016?\na    \u0017blessed spellbook of confuse monster\nrus  \u0017blessed spellbook of cure sickness\nrv20s   \u001b \u0017blessed spellbook of stone to flesh\nrws     n +\u001b\u0007yellow mold\nZb\n  \u0007hill orc\nZa\n         n Zb\n           n20s        n     Zb\n  n     \u0007gnome\nZa\n        n   ZZZ#turn\n#pray\ny y                   \u001b #enhance\nn\u001bs    .  n     20s   n   \u00161\n\u0016?\nc __,<s  n 20s   \u0016?\nd \u0006>._<,\u0016?\n\u001bbn\u001611\n#chat\nk;_..20s    \u00166\n\u0006m,_<.\u0016?\n\u001bk  n  n   \u0016?\nc n y   n y  n  :     \u0016?\nc\u0014@.     "
+  }
+ ]
+}

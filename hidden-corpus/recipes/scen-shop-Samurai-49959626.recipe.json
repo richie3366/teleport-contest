@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 speed boots\nWf \u0017blessed +3 gauntlets of power\nWg\u0016?\n>w\u0006_ \u001b>.q_ooooo,,:_ooo.,\u0014m, ss_oooooooo.,:_oooooooo._ooo.,pnln#chat\ny_oooooooo._oo,,p_{._,qy _ooooooooo.,\u0017amulet of magical breathing\ndh_{,Fn  _.qy _oooooooo.Fn_,:Fu,:_ooooooo.Fk _,,Fj,\u0017amulet of change\ndi\u0016?\ncjjk  n\u0016?\n>w\u0006_oooo.Fb _,Fn,pbju#chat\nl__,Fk_.#chat\nj#pray\ny y kkk#chat\ny\u0016?\ncnbj\u0016?\n>w\u0006__.  Fb_.,Fb   n #chat\nh  __._,#chat\ny_ooooooooo.Fy_,:Fy  _ooo.Fy _.:Fy ,:Fh  FhFh  FhFh    nFh  FyFyFy   FyFyFy     nFy  FyFy  FyFy    nFy  __._.#chat\nl__._.#chat\nh_ooooooooo. Fy   _.Fy_oo.Fj_.>.,\u001b\u0017amulet of life saving\ndk_ooooooo.Fu     n_. Fu,$FuFu FuFuFuFuyny#chat\nn__._.#chat\nh_ooooooooo._.>.Fl ,p__,Fh_,@.Fh#chat\nh _ooooo,Fu _,@.Fu _ooo.Fu_. Fu ,$\u00163\nhh l\u0016?\n>w\u0006_{._,qy  y_ooooooo.Fj _.m.Fh_oo,_,, #chat\nn__._,#chat\nj#pray\ny y kky#chat\nu_{._.qy yyll#chat\ny\u00167\nykl\u0016?\n>w  \u0006__.Fk  _."
+ },
+ "segments": [
+  {
+   "seed": 49959626,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 speed boots\nWf \u0017blessed +3 gauntlets of power\nWg\u0016?\n>w\u0006_ \u001b>.q_ooooo,,:_ooo.,\u0014m, ss_oooooooo.,:_oooooooo._ooo.,pnln#chat\ny_oooooooo._oo,,p_{._,qy _ooooooooo.,\u0017amulet of magical breathing\ndh_{,Fn  _.qy _oooooooo.Fn_,:Fu,:_ooooooo.Fk _,,Fj,\u0017amulet of change\ndi\u0016?\ncjjk  n\u0016?\n>w\u0006_oooo.Fb _,Fn,pbju#chat\nl__,Fk_.#chat\nj#pray\ny y kkk#chat\ny\u0016?\ncnbj\u0016?\n>w\u0006__.  Fb_.,Fb   n #chat\nh  __._,#chat\ny_ooooooooo.Fy_,:Fy  _ooo.Fy _.:Fy ,:Fh  FhFh  FhFh    nFh  FyFyFy   FyFyFy     nFy  FyFy  FyFy    nFy  __._.#chat\nl__._.#chat\nh_ooooooooo. Fy   _.Fy_oo.Fj_.>.,\u001b\u0017amulet of life saving\ndk_ooooooo.Fu     n_. Fu,$FuFu FuFuFuFuyny#chat\nn__._.#chat\nh_ooooooooo._.>.Fl ,p__,Fh_,@.Fh#chat\nh _ooooo,Fu _,@.Fu _ooo.Fu_. Fu ,$\u00163\nhh l\u0016?\n>w\u0006_{._,qy  y_ooooooo.Fj _.m.Fh_oo,_,, #chat\nn__._,#chat\nj#pray\ny y kky#chat\nu_{._.qy yyll#chat\ny\u00167\nykl\u0016?\n>w  \u0006__.Fk  _."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed amulet of life saving\nPj\u0017blessed ring of free action\nPkr\u0016?\n>w\u0006_ \u001b<. qd_oooooo.,#chat\nlFlFlFlFlFlFl__._,#chat\nl#pray\ny y  _ooooooo,Fl_.m,Fl   ,:\u0016?\nclky\u0016?\n>w\u0006_ooooooo. Fy_.Fh,p_ooooo,Fl  n   _,  nFl,#chat\nl\u00161\n_oooooo.,\u0014;s.nuk#chat\nj_oooooo.,p__.#chat\nj#pray\ny y    FjFjFjFjFjFjFhFhFhFhFhFh\u00163\nyuh\u0016?\n>w\u0006_oooo._o,Fu_..Fk,\u0017amulet of guarding\ndm Fy Fy FyFy Fy Fy_ooooooooo.Fk_,@.Fy, #chat\nbjul#chat\ny_ooo._,,\u001bp_oooooo.,\u001b$_oooo._.m.Fu_ooo._.,\u001bp_{._.qy_ooooooooo.,$_oo.Fh_. Fh_oo,Fh _.<.Fh ,p_{.Fl_.<.Flqd__._.#chat\nn__,_.#chat\nl\u00163\nlhu\u0016?\n>w\u0006_oooooooo.Fl_.,\u001b: _{,_,qy_oooooo._.;;Fy    , p_{._.Fu   qd _oooooo,Fh   _.Fn_ooo.  n Fj _. Fh    n, :\u00161\n_ooooooo.Fj  "
+ },
+ "segments": [
+  {
+   "seed": 49959632,
+   "datetime": "20251122122154",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed amulet of life saving\nPj\u0017blessed ring of free action\nPkr\u0016?\n>w\u0006_ \u001b<. qd_oooooo.,#chat\nlFlFlFlFlFlFl__._,#chat\nl#pray\ny y  _ooooooo,Fl_.m,Fl   ,:\u0016?\nclky\u0016?\n>w\u0006_ooooooo. Fy_.Fh,p_ooooo,Fl  n   _,  nFl,#chat\nl\u00161\n_oooooo.,\u0014;s.nuk#chat\nj_oooooo.,p__.#chat\nj#pray\ny y    FjFjFjFjFjFjFhFhFhFhFhFh\u00163\nyuh\u0016?\n>w\u0006_oooo._o,Fu_..Fk,\u0017amulet of guarding\ndm Fy Fy FyFy Fy Fy_ooooooooo.Fk_,@.Fy, #chat\nbjul#chat\ny_ooo._,,\u001bp_oooooo.,\u001b$_oooo._.m.Fu_ooo._.,\u001bp_{._.qy_ooooooooo.,$_oo.Fh_. Fh_oo,Fh _.<.Fh ,p_{.Fl_.<.Flqd__._.#chat\nn__,_.#chat\nl\u00163\nlhu\u0016?\n>w\u0006_oooooooo.Fl_.,\u001b: _{,_,qy_oooooo._.;;Fy    , p_{._.Fu   qd _oooooo,Fh   _.Fn_ooo.  n Fj _. Fh    n, :\u00161\n_ooooooo.Fj  "
+  }
+ ]
+}

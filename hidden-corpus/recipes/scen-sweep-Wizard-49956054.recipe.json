@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nk\n 20s.sm..m. ..ssss20s .20s20ss20ss20s.s20ss\u0017potion of water\n qh#dip\nhg #tip\n\u001b;l; \u001b.20s<yy\u001by  y y n #"
+ },
+ "segments": [
+  {
+   "seed": 49956054,
+   "datetime": "20160320180836",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nk\n 20s.sm..m. ..ssss20s .20s20ss20ss20s.s20ss\u0017potion of water\n qh#dip\nhg #tip\n\u001b;l; \u001b.20s<yy\u001by  y y n #"
+  }
+ ]
+}

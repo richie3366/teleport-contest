@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed ring of free action\nPqr\u0017blessed amulet of reflection\nPr\u0016?\n>>L      potion of gain energy\nuh     b     :sh .m.      20s       n \u00167\n#chat\ny      ;j; \u001b>.\u0016?\ne __,>\u0016?\na  n      y      n   \u001b  \u001b             k  \u001b              n   b                :\u001612\n\u0016?\nbl   n       j       u   \u0017ice\n:j         n   j\u0017unaligned altar\ndg       \u0017human corpse\n\u0018\u001b\u0014 y<.    zcgreen slime\n   sm.   n   20s       sm. \u00169\n\u00167\n__.\u0016?\n\u001by       n k\u0016?\n\u001buy\u00163\n\u0004k      \u00167\nyu:\u0016?\n\u001bh j  n      \u001627\n\u0017jumping boots\nWv              n .u        nsn             n             n      sm.      n      \u0007chameleon\nFk    n       n  \u001b            Fb  n                     Fb                        20s              n       .m.     yy\u001by   y y n  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 49955060,
+   "datetime": "20100417022212",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                    \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed ring of free action\nPqr\u0017blessed amulet of reflection\nPr\u0016?\n>>L      potion of gain energy\nuh     b     :sh .m.      20s       n \u00167\n#chat\ny      ;j; \u001b>.\u0016?\ne __,>\u0016?\na  n      y      n   \u001b  \u001b             k  \u001b              n   b                :\u001612\n\u0016?\nbl   n       j       u   \u0017ice\n:j         n   j\u0017unaligned altar\ndg       \u0017human corpse\n\u0018\u001b\u0014 y<.    zcgreen slime\n   sm.   n   20s       sm. \u00169\n\u00167\n__.\u0016?\n\u001by       n k\u0016?\n\u001buy\u00163\n\u0004k      \u00167\nyu:\u0016?\n\u001bh j  n      \u001627\n\u0017jumping boots\nWv              n .u        nsn             n             n      sm.      n      \u0007chameleon\nFk    n       n  \u001b            Fb  n                     Fb                        20s              n       .m.     yy\u001by   y y n  \u0007"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWo\u00163\n\u0006_ \u001b;s\u0016?\nbbl:\u0016?\ns \u0017two-handed sword\nwpssFl \u0007quantum mechanic\nFhFh Fh  <.Fh  @.Fh20s\u0007nalfeshnee\n#chat\nlFlFl   \u0007vampire lord\nFn Fl   \u0007ogre king\nsm.  .m.  sm.  sm. sm.  .k..\u0016?\ni_>.<\u0016?\ne_<. _,   Fh \u0016?\n>>L    Cleaver\n \u0006_<.ss  n   .  \u0016?\na   \u0006_<.s     n20s  \u0016?\nc#levelchange\n30\n\u0017blessed spellbook of cure blindness\nrss   \u0017blessed spellbook of confuse monster\nrt20s   n   \u0017spellbook of cure sickness\nrus      n   \u0017blessed spellbook of healing\nrvs     n   +\u001bZ.       n  ZZZ\u0007grid bug\nZ20s      .  n     \u00169\n\u00164\n\u0014:    n          \u001644\n#levelchange\n14\n     u    n             n h              y             n        k      n           \u0017hole\ny      n           l     n            \u0017anti-magic field\n<20s    \u001b       n          #invoke\nr        yy\u001by  y y  y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 49955044,
+   "datetime": "20121226094737",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWo\u00163\n\u0006_ \u001b;s\u0016?\nbbl:\u0016?\ns \u0017two-handed sword\nwpssFl \u0007quantum mechanic\nFhFh Fh  <.Fh  @.Fh20s\u0007nalfeshnee\n#chat\nlFlFl   \u0007vampire lord\nFn Fl   \u0007ogre king\nsm.  .m.  sm.  sm. sm.  .k..\u0016?\ni_>.<\u0016?\ne_<. _,   Fh \u0016?\n>>L    Cleaver\n \u0006_<.ss  n   .  \u0016?\na   \u0006_<.s     n20s  \u0016?\nc#levelchange\n30\n\u0017blessed spellbook of cure blindness\nrss   \u0017blessed spellbook of confuse monster\nrt20s   n   \u0017spellbook of cure sickness\nrus      n   \u0017blessed spellbook of healing\nrvs     n   +\u001bZ.       n  ZZZ\u0007grid bug\nZ20s      .  n     \u00169\n\u00164\n\u0014:    n          \u001644\n#levelchange\n14\n     u    n             n h              y             n        k      n           \u0017hole\ny      n           l     n            \u0017anti-magic field\n<20s    \u001b       n          #invoke\nr        yy\u001by  y y  y\u001b  \u0016"
+  }
+ ]
+}

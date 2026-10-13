@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 speed boots\nWp\u0017blessed Mjollnir\nwq\u0016?\n>Euuuuu:\u0016?\nr lb\u0017wand of stasis\nEr Elbereth\n: \u0017wand of create monster\nEsCroesus\nn ice devil\n mind flayer\n shopkeeper\nnwater nymph\n kobold shaman\n incubus\n bone devil\nn  Elbereth Elbereth\n: \u0017ruby\nEt  Elbereth\n: \u0017diamond\nEun  Elbereth\n           : \u0017wand of nothing\nEv          n : E-       \u0007soldier ant\n.m.    sls\u0016?\n>>K       bullwhip\nn y\u0017wand of slow monster\nE\u0017magic marker\nE:\u0017wand of enlightenment\nE:\u0017athame\nE:\u0017wand of secret door detection\nE:E\u0007jackal\n20s     sm.sFb     n   Fk          n\u00166\n\u00166\n\u0017blessed spellbook of cure sickness\nrD     sm.      n    \u0017spellbook of sleep\nrEy \u001b.    n  sj   \u0017blessed spellbook of detect food\nrF        nsm.     +\u001b\u0007acid blob\nZ\u001bZ\u001bZ\u001bZ\u001b\u0007jackal\nZ\u001bFj    n  \u0007yellow mold\nZ\u001b\u0007newt\nZ\u001b#pray\ny y               #enhance\nyg\ng\n\u001b\u001612\n\u0016?\n\u001bj    y\u0016?\n\u001bl    b\u0016?\n\u001bn       n u       n\u001612\n\u00166\nb    k yu  k:\u0016?\n\u001bku\u001632\nb        nj b uh           n    l   n :    n  \u00164\n\u001632\n\u0007chickatrice\n20s  n   .  n  20s  yy\u001by   y y y\u001b  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 49955050,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 speed boots\nWp\u0017blessed Mjollnir\nwq\u0016?\n>Euuuuu:\u0016?\nr lb\u0017wand of stasis\nEr Elbereth\n: \u0017wand of create monster\nEsCroesus\nn ice devil\n mind flayer\n shopkeeper\nnwater nymph\n kobold shaman\n incubus\n bone devil\nn  Elbereth Elbereth\n: \u0017ruby\nEt  Elbereth\n: \u0017diamond\nEun  Elbereth\n           : \u0017wand of nothing\nEv          n : E-       \u0007soldier ant\n.m.    sls\u0016?\n>>K       bullwhip\nn y\u0017wand of slow monster\nE\u0017magic marker\nE:\u0017wand of enlightenment\nE:\u0017athame\nE:\u0017wand of secret door detection\nE:E\u0007jackal\n20s     sm.sFb     n   Fk          n\u00166\n\u00166\n\u0017blessed spellbook of cure sickness\nrD     sm.      n    \u0017spellbook of sleep\nrEy \u001b.    n  sj   \u0017blessed spellbook of detect food\nrF        nsm.     +\u001b\u0007acid blob\nZ\u001bZ\u001bZ\u001bZ\u001b\u0007jackal\nZ\u001bFj    n  \u0007yellow mold\nZ\u001b\u0007newt\nZ\u001b#pray\ny y               #enhance\nyg\ng\n\u001b\u001612\n\u0016?\n\u001bj    y\u0016?\n\u001bl    b\u0016?\n\u001bn       n u       n\u001612\n\u00166\nb    k yu  k:\u0016?\n\u001bku\u001632\nb        nj b uh           n    l   n :    n  \u00164\n\u001632\n\u0007chickatrice\n20s  n   .  n  20s  yy\u001by   y y y\u001b  \u0007"
+  }
+ ]
+}

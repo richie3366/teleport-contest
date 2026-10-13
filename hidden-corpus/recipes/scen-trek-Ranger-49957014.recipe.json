@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "   tbuu#chat\nj#name\no\nktdj ly#name\na\nkkjjtdy\u0004b#dip\ng#monster\nFj .20s_ \u001b,>50s\\  100snlh_>.>\u000f\u001b100s\u0014_>,>150s#untrap\nh\\  lhl100sZ100shlhlhlFjs.100s150sef100s100shlhFjss150s50s100slhli\u001b150shlh#tip\n\u001b50s#tip\n\u001b100sE- Vlad was here\n\u0004jfkZBJKJ_>,>E- I am a fish\n: HLYU_>.>tcj>L BU N_>.>r\u001b\u000f\u001b<KB YJ_>,>L JKJ _>,>\u000f\u001bs#turn\nH#untrap\nk\u0018\u001b#untrap\n.50s150s100sef_>,>_>.>100s100s100s  150s   100s100s100s#twoweapon\n\u000f\u001bkkj100s50sef150s\u000f\u001bkjk100s50s\u0018\u001bi\u001b150s\\  jkj150s150skjk#dip\najkj#loot\nkjk#ride\nlBJHK_>,>UJUJ_>.>#loot\nHHKLU_>.>#invoke\n\u001b\\  #offer\nNJYH_>.>#untrap\ny#monster\nYHLJ_>.>KYHU_>.>LJJU _>,>BKNL_>.>KULJ_>.><#rub\n<#invoke\n\u001b#jump\n#"
+ },
+ "segments": [
+  {
+   "seed": 49957014,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:full\nOPTIONS=playmode:explore\n",
+   "moves": "   tbuu#chat\nj#name\no\nktdj ly#name\na\nkkjjtdy\u0004b#dip\ng#monster\nFj .20s_ \u001b,>50s\\  100snlh_>.>\u000f\u001b100s\u0014_>,>150s#untrap\nh\\  lhl100sZ100shlhlhlFjs.100s150sef100s100shlhFjss150s50s100slhli\u001b150shlh#tip\n\u001b50s#tip\n\u001b100sE- Vlad was here\n\u0004jfkZBJKJ_>,>E- I am a fish\n: HLYU_>.>tcj>L BU N_>.>r\u001b\u000f\u001b<KB YJ_>,>L JKJ _>,>\u000f\u001bs#turn\nH#untrap\nk\u0018\u001b#untrap\n.50s150s100sef_>,>_>.>100s100s100s  150s   100s100s100s#twoweapon\n\u000f\u001bkkj100s50sef150s\u000f\u001bkjk100s50s\u0018\u001bi\u001b150s\\  jkj150s150skjk#dip\najkj#loot\nkjk#ride\nlBJHK_>,>UJUJ_>.>#loot\nHHKLU_>.>#invoke\n\u001b\\  #offer\nNJYH_>.>#untrap\ny#monster\nYHLJ_>.>KYHU_>.>LJJU _>,>BKNL_>.>KULJ_>.><#rub\n<#invoke\n\u001b#jump\n#"
+  }
+ ]
+}

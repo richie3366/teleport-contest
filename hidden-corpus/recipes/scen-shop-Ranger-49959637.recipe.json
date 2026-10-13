@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed amulet of reflection\nPi\u0017blessed +3 speed boots\nWj\u0016?\n>w\u0006_ \u001b,#chat\nl\u0016?\n>Bllj\u0016?\n>w\u0006_ooo,,\u0014@.s20s__,Fn_.:Fh#chat\nh _ooooooo.,p_ooooooo,,:_ooooooooo.,p_oooo._ooo.,p_oooooooo,,p_oo._ooo.,\u0017amulet of magical breathing\ndk _ooooo.,#chat\nh  _{, Fy _.  q_oooo,,$_{._.qykly#chat\nbjkn#chat\nj\u00167\nyh l\u0016?\n>w\u0006_ooooo._o.,:\u0016?\nchnj\u0016?\n>w\u0006_oooooo._ooo,,p_ooooo,,#chat\nu _{,_,>.Flq_ooo._oo.,\u0017amulet of guarding\ndl_oooooooo.,p_ooooooo.,$FlFl Fl  FlFl FlFnFnFn  FnFn Fn_oooooooo,, p_{.Fy _.Fy q_oooooooo.,$__. Fy_,  Fy#chat\nn #pray\ny y   \u0016?\ncuub\u0016?\n>w\u0006_oooooo.,\u0017gray stone\ndni\u001b_oooooo.,phlh#chat\nllhl#chat\nhlhh#chat\nh_oo"
+ },
+ "segments": [
+  {
+   "seed": 49959637,
+   "datetime": "20170427100606",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed amulet of reflection\nPi\u0017blessed +3 speed boots\nWj\u0016?\n>w\u0006_ \u001b,#chat\nl\u0016?\n>Bllj\u0016?\n>w\u0006_ooo,,\u0014@.s20s__,Fn_.:Fh#chat\nh _ooooooo.,p_ooooooo,,:_ooooooooo.,p_oooo._ooo.,p_oooooooo,,p_oo._ooo.,\u0017amulet of magical breathing\ndk _ooooo.,#chat\nh  _{, Fy _.  q_oooo,,$_{._.qykly#chat\nbjkn#chat\nj\u00167\nyh l\u0016?\n>w\u0006_ooooo._o.,:\u0016?\nchnj\u0016?\n>w\u0006_oooooo._ooo,,p_ooooo,,#chat\nu _{,_,>.Flq_ooo._oo.,\u0017amulet of guarding\ndl_oooooooo.,p_ooooooo.,$FlFl Fl  FlFl FlFnFnFn  FnFn Fn_oooooooo,, p_{.Fy _.Fy q_oooooooo.,$__. Fy_,  Fy#chat\nn #pray\ny y   \u0016?\ncuub\u0016?\n>w\u0006_oooooo.,\u0017gray stone\ndni\u001b_oooooo.,phlh#chat\nllhl#chat\nhlhh#chat\nh_oo"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0016?\n>C\u0017blessed ring of levitation\nPir FyFh \u0017scroll of earth\nrj ulllbhujn10shyklyknhllbnyllnbyjjkhhykbknnujnnnlkyuklbublynhi\u001b#wizintrinsic\no\n .ss20s20ss20s.s20ssssss.s..sssehZ\u0018\u001b#sit\n#name\ni\n#offer\n.sss.20s#levelchange\n8\n   \u0016?\ndtbkwab;>. \u001bm,s.\u0016?\nf    sPZ\u0006s .\u0016?\n>GZ\u0014@.#untrap\nb20ss\u0016?\n>H#pray\ny y #chat\nyE-;>.\u000620s20s\u0016?\ng ur\u001bh20s20s\u001625\n\u0007fire vortex\nFuFu Fk Fj  n   Fj  Fk Fu#pray\ny y   Fusb20ssb\u001610\n\u0017pick-axe\n\u0016?\neal <   \u0006_oo.     Fu        _,  Fk       al>       al<    u  ual>20s        n      uual>        20s      #levelchange\n12\n  \u0017blessed ring of polymorph control\nPm          \u0017cloak of protection\nWn       n     sl       .m.sl       Tn        n   #polyself\nhomunculus\n  #monster\nsb      .m.     n    20s      20s    n      sm.    #polyself\nfire vortex\n#monster\nss    \u0007nurse\nFy Fb     Fy..  s\u0017amulet of unchanging\nPo  n  s  .20s   .\u001619\n\u0018\u001b\u00167\ni\u001bw20s FjFj n XP\u001b20s.20sP\u001b.s20s.RoWsssT\u001beg..eh.s#sit\nlr\u001b\u0014.10s#turn\nn#pray\ny y i\u001bPos20ssRmP\u001b20s20s.w20s20s.eg20ssP\u001bs20ss20sW..sT\u001b\u00162\n\u0006#levelchange\n20\n       \u0017the Candelabrum of Invocation\nw20s.20sX\u0007killer bee\nsFk\u0007cobra\n#chat\nsFk \u0007ogre king\nFk.\u0007shade\nsss  n s  n . 20s.s\u00163\n\u00163\n\u0017saddle\na\u0017lance\nw#ride\nhy\u0007horse\n\u0017scroll of taming\nrv\u0017saddle\na#ride\nhy\u0007tame saddled pony\n#ride\nky\u0007lichen\n..Fl \u0004 \u0006_>,_,>bk\u0004 ,\u0017cursed oil lamp\n\u0007guardian naga\na#rub\n\u0017horn of plenty\naa.20s   \u0017c"
+ },
+ "segments": [
+  {
+   "seed": 49956064,
+   "datetime": "20230209043950",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0016?\n>C\u0017blessed ring of levitation\nPir FyFh \u0017scroll of earth\nrj ulllbhujn10shyklyknhllbnyllnbyjjkhhykbknnujnnnlkyuklbublynhi\u001b#wizintrinsic\no\n .ss20s20ss20s.s20ssssss.s..sssehZ\u0018\u001b#sit\n#name\ni\n#offer\n.sss.20s#levelchange\n8\n   \u0016?\ndtbkwab;>. \u001bm,s.\u0016?\nf    sPZ\u0006s .\u0016?\n>GZ\u0014@.#untrap\nb20ss\u0016?\n>H#pray\ny y #chat\nyE-;>.\u000620s20s\u0016?\ng ur\u001bh20s20s\u001625\n\u0007fire vortex\nFuFu Fk Fj  n   Fj  Fk Fu#pray\ny y   Fusb20ssb\u001610\n\u0017pick-axe\n\u0016?\neal <   \u0006_oo.     Fu        _,  Fk       al>       al<    u  ual>20s        n      uual>        20s      #levelchange\n12\n  \u0017blessed ring of polymorph control\nPm          \u0017cloak of protection\nWn       n     sl       .m.sl       Tn        n   #polyself\nhomunculus\n  #monster\nsb      .m.     n    20s      20s    n      sm.    #polyself\nfire vortex\n#monster\nss    \u0007nurse\nFy Fb     Fy..  s\u0017amulet of unchanging\nPo  n  s  .20s   .\u001619\n\u0018\u001b\u00167\ni\u001bw20s FjFj n XP\u001b20s.20sP\u001b.s20s.RoWsssT\u001beg..eh.s#sit\nlr\u001b\u0014.10s#turn\nn#pray\ny y i\u001bPos20ssRmP\u001b20s20s.w20s20s.eg20ssP\u001bs20ss20sW..sT\u001b\u00162\n\u0006#levelchange\n20\n       \u0017the Candelabrum of Invocation\nw20s.20sX\u0007killer bee\nsFk\u0007cobra\n#chat\nsFk \u0007ogre king\nFk.\u0007shade\nsss  n s  n . 20s.s\u00163\n\u00163\n\u0017saddle\na\u0017lance\nw#ride\nhy\u0007horse\n\u0017scroll of taming\nrv\u0017saddle\na#ride\nhy\u0007tame saddled pony\n#ride\nky\u0007lichen\n..Fl \u0004 \u0006_>,_,>bk\u0004 ,\u0017cursed oil lamp\n\u0007guardian naga\na#rub\n\u0017horn of plenty\naa.20s   \u0017c"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u0017blessed morning star\n\u0007gelatinous cube\nwlFu Fl FlX\u0017blessed the Heart of Ahriman\n wlFu   Fu  Fk     n#invoke\nm XFuFu   \u00173 20 elven arrows\n \u001b,\u0017blessed wand of create monster\n\u0007Wizard of Yendor\nyzobaby purple worm\n Fu  n    Fy    \u0017cursed potion of levitation\nqpn    Fl     nFl    \u00173 wand of opening\nzqu  zqk      n    Fl   Fy   n  .m.    n.m.  n   n  \u00165\n#levelchange\n12\n    \u0017dagger\nwr  Fn  n   Fn   nFn  \u0007quasit\nFn  n  Fn   n  \u001bFl   n \u0007gas spore\nFl   n   n Fl   yy     \u0007"
+ },
+ "segments": [
+  {
+   "seed": 49956023,
+   "datetime": "20240818143547",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:none\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u0017blessed morning star\n\u0007gelatinous cube\nwlFu Fl FlX\u0017blessed the Heart of Ahriman\n wlFu   Fu  Fk     n#invoke\nm XFuFu   \u00173 20 elven arrows\n \u001b,\u0017blessed wand of create monster\n\u0007Wizard of Yendor\nyzobaby purple worm\n Fu  n    Fy    \u0017cursed potion of levitation\nqpn    Fl     nFl    \u00173 wand of opening\nzqu  zqk      n    Fl   Fy   n  .m.    n.m.  n   n  \u00165\n#levelchange\n12\n    \u0017dagger\nwr  Fn  n   Fn   nFn  \u0007quasit\nFn  n  Fn   n  \u001bFl   n \u0007gas spore\nFl   n   n Fl   yy     \u0007"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " FuFuFkFlFkFuFl..#terrain\nb\n\u001b,,50s    FlFhFhFhFhs100sFl ss_>.>nhh150sFy..,l_>.>i\u001bluuFj20s20sFbs.150sFbFb.50skjk_>.>_m..100sFjs20s100sFj..100s\u000f\u001b#chat\nb50sFj.s\u0018\u001bkjkjkkjkjNNBN_>.>KYKJ_>.>FlFbFbYNNU_>.>Fb20s.KKUY_>.>\u000f\u001b,10ssFh.shbyFlFlFlFlFbFlFlFhFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlegFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlNLUB_>.>KYUH_>,>FlFlFlNYHB_>.>#offer\n#invoke\n\u001bYNUL_>.>BHJN_>.>\u000f\u001b#monster\ns#name\ni\nNUJH_>.>, #sit\n\u001bNHKK_>.>zJBJYN_>.>KUBB_>,>BLUY_>,><\u000f\u001bhbklbubutbht\u001b#name\n"
+ },
+ "segments": [
+  {
+   "seed": 49957004,
+   "datetime": "20230420144209",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\n",
+   "moves": " FuFuFkFlFkFuFl..#terrain\nb\n\u001b,,50s    FlFhFhFhFhs100sFl ss_>.>nhh150sFy..,l_>.>i\u001bluuFj20s20sFbs.150sFbFb.50skjk_>.>_m..100sFjs20s100sFj..100s\u000f\u001b#chat\nb50sFj.s\u0018\u001bkjkjkkjkjNNBN_>.>KYKJ_>.>FlFbFbYNNU_>.>Fb20s.KKUY_>.>\u000f\u001b,10ssFh.shbyFlFlFlFlFbFlFlFhFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlegFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlNLUB_>.>KYUH_>,>FlFlFlNYHB_>.>#offer\n#invoke\n\u001bYNUL_>.>BHJN_>.>\u000f\u001b#monster\ns#name\ni\nNUJH_>.>, #sit\n\u001bNHKK_>.>zJBJYN_>.>KUBB_>,>BLUY_>,><\u000f\u001bhbklbubutbht\u001b#name\n"
+  }
+ ]
+}

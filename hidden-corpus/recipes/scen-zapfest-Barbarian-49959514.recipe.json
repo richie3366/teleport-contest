@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed shield of reflection\nW\u001b\u0017blessed ring of free action\nPfl#levelchange\n20\n                   \u0007red dragon\n\u0007baby red dragon\nsm..m. sm.\u0017wand of magic missile\nagy     Fh Fh\u0007aligned cleric\ny\u0007gnomish wizard\n\u0017wand of fire\nzhl     zhn \u0017wand of sleep\n\u0017wand of cancellation\n\u0017wand of striking\n\u0007hill orc\nzib      n  zil zkhzih    zib   zkb     n20s  \u0018\u001b\u00168\n\u001720 darts\nQl\u0007grid bug\n\u0007lichen\ntbhflfytlktlyfu\u0017potion of polymorph\ntlk\u001710 daggers\nQn\u0007hill orc\n\u0007hill orc\nflfj  tnjtlb\u0017potion of healing\ntnbi\u001b\u0017spellbook of cone of cold\nrp20s\u0017blessed spellbook of drain life\nrqs\u0007aligned cleric\nny\u0007succubus\nZZZZZ20s sm.  Z\u0017blessed spellbook of cause fear\nrr   .m.\u0017blessed spellbook of cone of cold\nrs    n20s \u0007lich\n\u0007gnomish wizard\nZsu.m.  ZZ.l  sm.ZZZ#turn\n\u0017blessed spellbook of f"
+ },
+ "segments": [
+  {
+   "seed": 49959514,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed shield of reflection\nW\u001b\u0017blessed ring of free action\nPfl#levelchange\n20\n                   \u0007red dragon\n\u0007baby red dragon\nsm..m. sm.\u0017wand of magic missile\nagy     Fh Fh\u0007aligned cleric\ny\u0007gnomish wizard\n\u0017wand of fire\nzhl     zhn \u0017wand of sleep\n\u0017wand of cancellation\n\u0017wand of striking\n\u0007hill orc\nzib      n  zil zkhzih    zib   zkb     n20s  \u0018\u001b\u00168\n\u001720 darts\nQl\u0007grid bug\n\u0007lichen\ntbhflfytlktlyfu\u0017potion of polymorph\ntlk\u001710 daggers\nQn\u0007hill orc\n\u0007hill orc\nflfj  tnjtlb\u0017potion of healing\ntnbi\u001b\u0017spellbook of cone of cold\nrp20s\u0017blessed spellbook of drain life\nrqs\u0007aligned cleric\nny\u0007succubus\nZZZZZ20s sm.  Z\u0017blessed spellbook of cause fear\nrr   .m.\u0017blessed spellbook of cone of cold\nrs    n20s \u0007lich\n\u0007gnomish wizard\nZsu.m.  ZZ.l  sm.ZZZ#turn\n\u0017blessed spellbook of f"
+  }
+ ]
+}

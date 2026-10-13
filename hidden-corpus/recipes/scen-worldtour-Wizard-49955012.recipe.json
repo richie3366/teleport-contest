@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u001619\nyyhhj:s\u0016?\n>H_ \u001b:\u0016?\n>v jhbu hju:\u001622\n__,>\u0016?\n>>O       silver dagger\nny    \u001b:sm.    \u0016?\nbu   n  n k    lluy     :\u0016?\n\u001bul\u00168\n\u0017dwarvish mattock\nwr       Fh   n        Fy        nFy         X\u0007bugbear\nFb     n  Fj          n   Fk       n \u0007warg\n#chat\nyFk       Fy          n        \u001610\n\u00166\nh   n    nl      n  unn         n  :20s                \u00168\n\u0016?\n\u001bj     n          n  u              \u00165\n\u001619\nu  n            u    n         k        n     y        yy\u001bny ny\u001b  :"
+ },
+ "segments": [
+  {
+   "seed": 49955012,
+   "datetime": "20020209201024",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u001619\nyyhhj:s\u0016?\n>H_ \u001b:\u0016?\n>v jhbu hju:\u001622\n__,>\u0016?\n>>O       silver dagger\nny    \u001b:sm.    \u0016?\nbu   n  n k    lluy     :\u0016?\n\u001bul\u00168\n\u0017dwarvish mattock\nwr       Fh   n        Fy        nFy         X\u0007bugbear\nFb     n  Fj          n   Fk       n \u0007warg\n#chat\nyFk       Fy          n        \u001610\n\u00166\nh   n    nl      n  unn         n  :20s                \u00168\n\u0016?\n\u001bj     n          n  u              \u00165\n\u001619\nu  n            u    n         k        n     y        yy\u001bny ny\u001b  :"
+  }
+ ]
+}

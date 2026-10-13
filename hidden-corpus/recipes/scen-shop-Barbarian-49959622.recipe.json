@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWf\u0017blessed ring of free action\nPgl\u0016?\n>w\u0006_ \u001bm.,\u0017gray stone\ndh_oooooo._oo.,p_{.   Fk_,m,Fuq_{.Fl_, Fnq_{.  Fl  _. Fk     q__.  Fj_.,Fh#chat\nu#pray\ny y _oooooo.,p\u00163\nkyh\u0016?\n>w\u0006ybb#chat\nh_ooooooo.Fl _,,Fl,p_{.Fu_.Flq_oooooo,Fu_,,$_oooooooo._,_o._.,a\n:_ooooooo._._oo,_.,p_ooooooooo._._ooo.,  $_oo._.,:jkh#chat\nb\u00163\nyhb\u0016?\n>w\u0006__,   Fj    n   _,#chat\nj   n #pray\ny y   \u0016?\n>Byjh\u0016?\n>w  \u0006\u00168\n_ooooo._oo.,p_oooo,,#chat\ny_ooo.,\u0014>.ss\u00167\nhyn\u0016?\n>w\u0006lyk  #chat\nl_{.  Fb         _. Fl      q_ooooooooo. Fn  _.   n Fl     ,a\n    p_oo,Fy  _.,        \u0017ruby\ndo     _{.   Fh     _.  Fh     n      q_{,  Fb   _. Fh    q_oooooooo.Fb   n _. Fb_oo.Fn _.  Fn   n      ,   n       n p\u00161\n__.#chat\nn  _oooo,,:__.#chat\nb   n  Fn     n  Fn     n  Fn   Fn   n    Fn     n Fn  \u00166\n_{.q\u00167\nkl    nj    \u0016?\n>w\u0006_ooooooooo.    n   Fl     n   _.     yy\u001bny y nn  F"
+ },
+ "segments": [
+  {
+   "seed": 49959622,
+   "datetime": "20250126120416",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWf\u0017blessed ring of free action\nPgl\u0016?\n>w\u0006_ \u001bm.,\u0017gray stone\ndh_oooooo._oo.,p_{.   Fk_,m,Fuq_{.Fl_, Fnq_{.  Fl  _. Fk     q__.  Fj_.,Fh#chat\nu#pray\ny y _oooooo.,p\u00163\nkyh\u0016?\n>w\u0006ybb#chat\nh_ooooooo.Fl _,,Fl,p_{.Fu_.Flq_oooooo,Fu_,,$_oooooooo._,_o._.,a\n:_ooooooo._._oo,_.,p_ooooooooo._._ooo.,  $_oo._.,:jkh#chat\nb\u00163\nyhb\u0016?\n>w\u0006__,   Fj    n   _,#chat\nj   n #pray\ny y   \u0016?\n>Byjh\u0016?\n>w  \u0006\u00168\n_ooooo._oo.,p_oooo,,#chat\ny_ooo.,\u0014>.ss\u00167\nhyn\u0016?\n>w\u0006lyk  #chat\nl_{.  Fb         _. Fl      q_ooooooooo. Fn  _.   n Fl     ,a\n    p_oo,Fy  _.,        \u0017ruby\ndo     _{.   Fh     _.  Fh     n      q_{,  Fb   _. Fh    q_oooooooo.Fb   n _. Fb_oo.Fn _.  Fn   n      ,   n       n p\u00161\n__.#chat\nn  _oooo,,:__.#chat\nb   n  Fn     n  Fn     n  Fn   Fn   n    Fn     n Fn  \u00166\n_{.q\u00167\nkl    nj    \u0016?\n>w\u0006_ooooooooo.    n   Fl     n   _.     yy\u001bny y nn  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed amulet of life saving\nPe\u0017blessed +3 silver dragon scale mail\nWf\u0016?\n>w\u0006_ \u001bm.,\u0014m,.s__,Fu _.@.#chat\nh_oooo,_o._.,p_oooooo,,p_oooooo.,:jub#chat\njyjl#chat\nk__._.#chat\nl#pray\ny y _ooo.,:_ooooooooo.,\u0017amulet of magical breathing\ndh_oooooo.,#chat\nblul#chat\nl_oooo,_oo.,#chat\nyjbk#chat\nh_ooooo.,p_oooooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndi_oooooo.,p_ooo,,#chat\njhnu#chat\nhbyl#chat\nyubj#chat\nn_oooo.,p__._,.#chat\nj#pray\ny y _oooooooo.,puhn#chat\nlknu#chat\ny_oooo.,#chat\nj_ooooo._oo,,#chat\nb_oooo.,:\u0016?\n>Byky\u0016?\n>w\u0006_{,_..q_oooo,,\u0017amulet of restful sleep\ndjnjy#chat\ny_{,  _..quyn#chat\nj__,_.m,#chat\nk#pray\ny y _ooooo.   _.>.,p_ooooooo._.@.,p\u00167\nkbu\u0016?\n>w\u0006_ooo,,$_oooo.,$__, _.,#chat\nl_oooooooo.  _.Fh,p_ooooo.  Fh_,_ooo._.,y  p_ooooooooo._,,$hlh#chat\nl_ooooooo,  _,,\u001b$hhh#chat\nh__._,@.#chat\nl#pray\ny y _ooo._ooo.,p_ooo,,p_ooooo,_._ooo,_.,p_oooooooo,,\u0017amulet of restful sleep\ndn__,_..#chat\nh_{._.:q__._,;,#chat\nb_oo._,,\u001b\u0017ruby\ndo_ooooooo._.,:lhh#chat\nh\u0016?\n"
+ },
+ "segments": [
+  {
+   "seed": 49959667,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed amulet of life saving\nPe\u0017blessed +3 silver dragon scale mail\nWf\u0016?\n>w\u0006_ \u001bm.,\u0014m,.s__,Fu _.@.#chat\nh_oooo,_o._.,p_oooooo,,p_oooooo.,:jub#chat\njyjl#chat\nk__._.#chat\nl#pray\ny y _ooo.,:_ooooooooo.,\u0017amulet of magical breathing\ndh_oooooo.,#chat\nblul#chat\nl_oooo,_oo.,#chat\nyjbk#chat\nh_ooooo.,p_oooooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndi_oooooo.,p_ooo,,#chat\njhnu#chat\nhbyl#chat\nyubj#chat\nn_oooo.,p__._,.#chat\nj#pray\ny y _oooooooo.,puhn#chat\nlknu#chat\ny_oooo.,#chat\nj_ooooo._oo,,#chat\nb_oooo.,:\u0016?\n>Byky\u0016?\n>w\u0006_{,_..q_oooo,,\u0017amulet of restful sleep\ndjnjy#chat\ny_{,  _..quyn#chat\nj__,_.m,#chat\nk#pray\ny y _ooooo.   _.>.,p_ooooooo._.@.,p\u00167\nkbu\u0016?\n>w\u0006_ooo,,$_oooo.,$__, _.,#chat\nl_oooooooo.  _.Fh,p_ooooo.  Fh_,_ooo._.,y  p_ooooooooo._,,$hlh#chat\nl_ooooooo,  _,,\u001b$hhh#chat\nh__._,@.#chat\nl#pray\ny y _ooo._ooo.,p_ooo,,p_ooooo,_._ooo,_.,p_oooooooo,,\u0017amulet of restful sleep\ndn__,_..#chat\nh_{._.:q__._,;,#chat\nb_oo._,,\u001b\u0017ruby\ndo_ooooooo._.,:lhh#chat\nh\u0016?\n"
+  }
+ ]
+}

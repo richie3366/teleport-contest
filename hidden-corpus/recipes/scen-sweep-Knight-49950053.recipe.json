@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n30\n                     \u0017cursed potion of extra healing\nqi#dip\neFns\u0017uncursed Grayswandir\nwjss20s#invoke\njXsFh \u0017uncursed cream pie\n\u0007watchman\nek sh 20s 20s .n#levelchange\n30\n\u00175000 gold pieces\n\u0016?\n>w  \u0006_ \u001b:q#dip\nd_{.Fk  _.Fh  q#dip\ne_ooooooo._o,,\u0014m,_ooo,,$:;>.\u0014;#levelchange\n6\n           b ujl\u0017grave\n: \u0017pick-axe\n al    n    sm.  .m.  : k    n  \u0017sink\nqy   l \u0004h  \u0004h    n \u0004h  j    l  \u0017cloud\nh  \u0017iron bars\n#terrain\n\u001b20s  n       #invoke\nj  n \u0018\u001b\u001617\n\u00163\n#levelchange\n14\n      \u0016?\n>y  _mm.#chat\nb _mmmmm.  Fu  _,#chat\nj  n   _m.  Fj    _.#chat\nb     n_mmmm,#chat\nj  ;j._mmm.Fu  _,#chat\nb  \u0006_>,   n Fu _. Fu  >Fj    nFu  _>, Fu_. Fu  >Fb     nFj    _>.    Fh     n    _.    Fk   n       >Fy      Fy   n      f           n       i\u001b<\u00162\n#levelchange\n30\n               \u0007gas spore\n;k:  sm.         sm.       n     .m.         \u0007shade\nFl     y  F"
+ },
+ "segments": [
+  {
+   "seed": 49950053,
+   "datetime": "20200723093928",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=runmode:crawl\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n30\n                     \u0017cursed potion of extra healing\nqi#dip\neFns\u0017uncursed Grayswandir\nwjss20s#invoke\njXsFh \u0017uncursed cream pie\n\u0007watchman\nek sh 20s 20s .n#levelchange\n30\n\u00175000 gold pieces\n\u0016?\n>w  \u0006_ \u001b:q#dip\nd_{.Fk  _.Fh  q#dip\ne_ooooooo._o,,\u0014m,_ooo,,$:;>.\u0014;#levelchange\n6\n           b ujl\u0017grave\n: \u0017pick-axe\n al    n    sm.  .m.  : k    n  \u0017sink\nqy   l \u0004h  \u0004h    n \u0004h  j    l  \u0017cloud\nh  \u0017iron bars\n#terrain\n\u001b20s  n       #invoke\nj  n \u0018\u001b\u001617\n\u00163\n#levelchange\n14\n      \u0016?\n>y  _mm.#chat\nb _mmmmm.  Fu  _,#chat\nj  n   _m.  Fj    _.#chat\nb     n_mmmm,#chat\nj  ;j._mmm.Fu  _,#chat\nb  \u0006_>,   n Fu _. Fu  >Fj    nFu  _>, Fu_. Fu  >Fb     nFj    _>.    Fh     n    _.    Fk   n       >Fy      Fy   n      f           n       i\u001b<\u00162\n#levelchange\n30\n               \u0007gas spore\n;k:  sm.         sm.       n     .m.         \u0007shade\nFl     y  F"
+  }
+ ]
+}

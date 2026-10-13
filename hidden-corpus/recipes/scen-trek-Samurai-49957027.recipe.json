@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " FjFjFh \u000f\u001b100sFyFhFh_ \u001b;>j150s_>.>150s50s150s100s150sFh20s20sFhFyFyFh20ss,100s50s\u000f\u001b50syhy150sFhs20s_>,>khl100s_>.>_>,>150s100sFhFh.#tip\n\u001b\u001b150s\u0004h100sFh..hhj100s100sljblydaddsm.sm.sm.#name\ni\nblessed\nekuky20s:#turn\nJdbsusm.20sykyjdce20ssn .m.de.j.20st\u001b\u001bnuhjULBY_>.>Fj20sFnNNUL_>,>UJH H_>.>#sit\n#rub\nBUYH_>.><#turn\nHNL N_>.><#name\ni\nFido\ne20s#chat\nkkhlh#chat\nhKNNH_>.>Zh<NYUY_>.>UKHU_>.>JUYJ_>.>JKYJ_>.>#name\ni\nFido\neyhjlykll10sdes.s#name\nm\ndssst\u001b\u001bt\u001b\u001bbhnukb#chat\nnhy#chat\nk20sukjj10s10sHLKY_>.>NBKY_>.>UJ UN_>.>ZP<nnKJB J_>.>\u0018\u001b\u0018\u001bNJLN_>,>_m,.#chat\nn\u000f\u001b20s #monster\n#wipe\nybk#pray\ny   50slyu\\    #chat\nhljylkh\\    ubujbjFkFyFy50s100s#jump\n\\    \\    100sFhss\u0018\u001b50s_>,>_>.>\u0018\u001bhkk100s\\    ,150sFbFbs50s100s100sFhs.\u0018\u001b100sFh.s50s100sFh20ssKKKB_>.>N LUK_>.>"
+ },
+ "segments": [
+  {
+   "seed": 49957027,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=runmode:teleport\n",
+   "moves": " FjFjFh \u000f\u001b100sFyFhFh_ \u001b;>j150s_>.>150s50s150s100s150sFh20s20sFhFyFyFh20ss,100s50s\u000f\u001b50syhy150sFhs20s_>,>khl100s_>.>_>,>150s100sFhFh.#tip\n\u001b\u001b150s\u0004h100sFh..hhj100s100sljblydaddsm.sm.sm.#name\ni\nblessed\nekuky20s:#turn\nJdbsusm.20sykyjdce20ssn .m.de.j.20st\u001b\u001bnuhjULBY_>.>Fj20sFnNNUL_>,>UJH H_>.>#sit\n#rub\nBUYH_>.><#turn\nHNL N_>.><#name\ni\nFido\ne20s#chat\nkkhlh#chat\nhKNNH_>.>Zh<NYUY_>.>UKHU_>.>JUYJ_>.>JKYJ_>.>#name\ni\nFido\neyhjlykll10sdes.s#name\nm\ndssst\u001b\u001bt\u001b\u001bbhnukb#chat\nnhy#chat\nk20sukjj10s10sHLKY_>.>NBKY_>.>UJ UN_>.>ZP<nnKJB J_>.>\u0018\u001b\u0018\u001bNJLN_>,>_m,.#chat\nn\u000f\u001b20s #monster\n#wipe\nybk#pray\ny   50slyu\\    #chat\nhljylkh\\    ubujbjFkFyFy50s100s#jump\n\\    \\    100sFhss\u0018\u001b50s_>,>_>.>\u0018\u001bhkk100s\\    ,150sFbFbs50s100s100sFhs.\u0018\u001b100sFh.s50s100sFh20ssKKKB_>.>N LUK_>.>"
+  }
+ ]
+}

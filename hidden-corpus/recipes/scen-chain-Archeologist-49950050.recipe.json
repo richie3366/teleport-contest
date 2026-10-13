@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " FbFb s\u000f\u001b50sjlhlhy150sFks20sFks.100s100sFls.jkb100s50s_ \u001bm,>100s\\ 150s100s100sFlFlFlFl20s.lly50sbkjunyhlb50s100s_>.>100sFk.Fu150sed100s100s 100sFu.s50s100sLUYY_>.>HNKJ_>.>LHNH_>.>JHLN_>.>#chat\nuqHYYU_>.>r\u001b10sYYKY_>.>hjjlt\u001bdas20s.#chat\ny10s#chat\nnuulnyj50s150s  lbyFl Fu FuFu FlFn   nnnnn  \\  #wizintrinsic\ne\n sm..m.sm.s20s.m.20s  ynnny\u001bn  s da.20s .m.20s#chat\njjtdk  jblyHNBL _ \u001b<.>FlssH  y\u001by  y nn  YFhFhFh FhFhFhFhFhBLHK_ \u001b.>#ride\nnw-JHLN_>.>JLKN_>.>YNLK_>.>\u000f\u001bjjkj20sh dhsm.sm.sm.dd20s20s.n#chat\nhhFhFhFhFhFhFhFhFhylkjhyjkHLHH_>.>UBNB_>,>KJJY_>,>\\ zNKHU_>.>UJHK_>.>#turn\n  qUJHY_>,>ULYY_>.>JUJH_>,>YLBB_>,>FlFls#enhance\n\u001bE- Elbereth\nNLJN_>,>LUUJ_>,>#untrap\nb#terrain\nb\nHLBH_>UUUY_>YHNH_>KLLN_>\\\u0018 <BJHH_>,><#enhance\n\u001b#chat\njdgs20s.m.tay#name\no\n#chat\nyFyFyFyFyFyFyFyFyNJJL_>.><LLHH_>.>LBKY_>.>BULK_>,>i\u001b#loot\nLKLY_>,>UHLB_>.>KKUY_>.>50s\\ \\ _>.>_>.>i\u001b#ride\nk\u0018\u001bbnl_>.>H_>.>150sFyFyFyFyFyFy100sFyFyFyFyss150sFyFyFyFyFyFyFyFys100sFyss50s Fys.\\ kln50suhh100suhn50s \u000f\u001b150s150sFhFhFhFh20s20s\u0018\u001bri LNKH_>,>FnFnFnLKJB_>.>FlFlFlU  nny ny\u001b   Y",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49950050,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:crawl\nOPTIONS=fruit:lychee\n",
+   "moves": " FbFb s\u000f\u001b50sjlhlhy150sFks20sFks.100s100sFls.jkb100s50s_ \u001bm,>100s\\ 150s100s100sFlFlFlFl20s.lly50sbkjunyhlb50s100s_>.>100sFk.Fu150sed100s100s 100sFu.s50s100sLUYY_>.>HNKJ_>.>LHNH_>.>JHLN_>.>#chat\nuqHYYU_>.>r\u001b10sYYKY_>.>hjjlt\u001bdas20s.#chat\ny10s#chat\nnuulnyj50s150s  lbyFl Fu FuFu FlFn   nnnnn  \\"
+  },
+  {
+   "seed": 50050050,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\ne\n sm..m.sm.s20s.m.20s  ynnny\u001bn  s"
+  },
+  {
+   "seed": 50150050,
+   "datetime": "20100213123808",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\n",
+   "moves": " da.20s .m.20s#chat\njjtdk  jblyHNBL _ \u001b<.>FlssH  y\u001by  y nn  Y"
+  },
+  {
+   "seed": 50250050,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\n",
+   "moves": "FhFhFh FhFhFhFhFhBLHK_ \u001b.>#ride\nnw-JHLN_>.>JLKN_>.>YNLK_>.>\u000f\u001bjjkj20sh dhsm.sm.sm.dd20s20s.n#chat\nhhFhFhFhFhFhFhFhFhylkjhyjkHLHH_>.>UBNB_>,>KJJY_>,>\\ zNKHU_>.>UJHK_>.>#turn\n  qUJHY_>,>ULYY_>.>JUJH_>,>YLBB_>,>FlFls#enhance\n\u001bE- Elbereth\nNLJN_>,>LUUJ_>,>#untrap\nb#terrain\nb\nHLBH_>UUUY_>YHNH_>KLLN_>\\\u0018 <BJHH_>,><#enhance\n\u001b#chat\njdgs20s.m.tay#name\no\n#chat\nyFyFyFyFyFyFyFyFyNJJL_>.><LLHH_>.>LBKY_>.>BULK_>,>i\u001b#loot\nLKLY_>,>UHLB_>.>KKUY_>.>50s\\ \\ _>.>_>.>i\u001b#ride\nk\u0018\u001bbnl_>.>H_>.>150sFyFyFyFyFyFy100sFyFyFyFyss150sFyFyFyFyFyFyFyFys100sFyss50s Fys.\\ kln50suhh100suhn50s \u000f\u001b150s150sFhFhFhFh20s20s\u0018\u001bri LNKH_>,>FnFnFnLKJB_>.>FlFlFlU  nny ny\u001b   Y"
+  }
+ ]
+}

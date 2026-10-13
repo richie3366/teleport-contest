@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      #wizintrinsic\ncp\n sm.ss20s20s sm..m..sm.sm.s20s   n ss20ss20sssss.\u0017stethoscope\naPEdfu_m. \u001b..#monster\n20s ..sss"
+ },
+ "segments": [
+  {
+   "seed": 49952020,
+   "datetime": "20050116113640",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      #wizintrinsic\ncp\n sm.ss20s20s sm..m..sm.sm.s20s   n ss20ss20sssss.\u0017stethoscope\naPEdfu_m. \u001b..#monster\n20s ..sss"
+  }
+ ]
+}

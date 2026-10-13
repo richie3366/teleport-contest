@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "FkFk20s150sFbFjFh\u000f\u001bkkh100s100s\u0018\u001b150sFyFh20slkbi\u001b100sojkjb50s100sek100s ekFu.FyFbs20sFk.Fh50sekFls20s100sekFkFk.100s  ekFlss_ \u001bm.>Fbs.#pray\ny  i\u001bkyhlbnFjFh .100st$ydbsssnht\u001bkydk.ss10sh20sht\u001b10s  y\u001by  y n  B"
+ },
+ "segments": [
+  {
+   "seed": 49957040,
+   "datetime": "20220702000023",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=fruit:lychee\n",
+   "moves": "FkFk20s150sFbFjFh\u000f\u001bkkh100s100s\u0018\u001b150sFyFh20slkbi\u001b100sojkjb50s100sek100s ekFu.FyFbs20sFk.Fh50sekFls20s100sekFkFk.100s  ekFlss_ \u001bm.>Fbs.#pray\ny  i\u001bkyhlbnFjFh .100st$ydbsssnht\u001bkydk.ss10sh20sht\u001b10s  y\u001by  y n  B"
+  }
+ ]
+}

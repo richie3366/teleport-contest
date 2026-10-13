@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017wand of light\nzkzkFlFl\u00173 scroll of identify\nrl \u00173 lenses\n\u0007incubus\namsm.  n    20s"
+ },
+ "segments": [
+  {
+   "seed": 49952003,
+   "datetime": "20241228033814",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017wand of light\nzkzkFlFl\u00173 scroll of identify\nrl \u00173 lenses\n\u0007incubus\namsm.  n    20s"
+  }
+ ]
+}

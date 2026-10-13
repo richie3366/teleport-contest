@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "N  YUL_ \u001b<.>LYYY_>,>_<.20sPerJLLB_>.>KUHB_>._.> JULJ_>.>#name\nf\ndsss10snn20suhuk50s 150s100sFjFn20s150skkl50s50sFbFbFbujh100s150si\u001b100sFbFbsluhlbu100s100shjhhjk150sFj.s\\  150s_>,>i\u001b50sFjFjs100slulFhFh20s150seeeeeee#untrap\nk,\u0014bht\u001blhludk.s20s#name\ni\n10s20sE- Elbereth Elbereth\nqf;m.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeoh;.: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeoks#invoke\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHL UN_>.>20s10sJJLK_>.>Fks.#turn\n#dip\nigHHNU_>.>FkFkFkJ BKN_>,>FlFjFlHUNH_>.>FlFl.KLKB_>.>Fu FjFjLHYH_>.>FjFj.<JN YN _>.>W\u001b#dip\ne\u001bLBJJ_>,>\u0004bam K KUN_>.>FkFkFk<LHUK_>.>#monster\n#pray\ny  UHBy  K_>.>Fh.20s#loot\n100s100s100s\\  50s150snhy100s Fl Fn   y\u001by  y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 49950063,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": "N  YUL_ \u001b<.>LYYY_>,>_<.20sPerJLLB_>.>KUHB_>._.> JULJ_>.>#name\nf\ndsss10snn20suhuk50s 150s100sFjFn20s150skkl50s50sFbFbFbujh100s150si\u001b100sFbFbsluhlbu100s100shjhhjk150sFj.s\\  150s_>,>i\u001b50sFjFjs100slulFhFh20s150seeeeeee#untrap\nk,\u0014bht\u001blhludk.s20s#name\ni\n10s20sE- Elbereth Elbereth\nqf;m.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeoh;.: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeoks#invoke\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHL UN_>.>20s10sJJLK_>.>Fks.#turn\n#dip\nigHHNU_>.>FkFkFkJ BKN_>,>FlFjFlHUNH_>.>FlFl.KLKB_>.>Fu FjFjLHYH_>.>FjFj.<JN YN _>.>W\u001b#dip\ne\u001bLBJJ_>,>\u0004bam K KUN_>.>FkFkFk<LHUK_>.>#monster\n#pray\ny  UHBy  K_>.>Fh.20s#loot\n100s100s100s\\  50s150snhy100s Fl Fn   y\u001by  y y y\u001b  s"
+  }
+ ]
+}

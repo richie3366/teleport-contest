@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  FhFhFh yuu\u0004ki\u001b100s100sFb.s100s50si\u001b50s50s\u0018\u001b100s100s>100s150sFhs20s\\   _ \u001b:>kbhFjFj.100s50slbu50s_>,>50snub100sFhs.100s edi\u001b50s100s \u001b50s150seLLLN_>,>L#wipe\nNH KU_>.>J KKU_>,>J HYY_>.>_<.20s#monster\n<yny  y y y\u001b J"
+ },
+ "segments": [
+  {
+   "seed": 49957031,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:explore\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  FhFhFh yuu\u0004ki\u001b100s100sFb.s100s50si\u001b50s50s\u0018\u001b100s100s>100s150sFhs20s\\   _ \u001b:>kbhFjFj.100s50slbu50s_>,>50snub100sFhs.100s edi\u001b50s100s \u001b50s150seLLLN_>,>L#wipe\nNH KU_>.>J KKU_>,>J HYY_>.>_<.20s#monster\n<yny  y y y\u001b J"
+  }
+ ]
+}

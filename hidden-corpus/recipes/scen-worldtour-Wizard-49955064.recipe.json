@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 helm of telepathy\nWp\u0016?\nl\u0004ks\u001613\n_ \u001bm.<\u0016?\n>A  \u0014m,ssm.\u0016?\n>>N       wand of fire\n\u0007elf-lord\n;l.sm.ss\u0007sandestin\n20s      20s     sm.      n  sm.    .m.      n sj       n   .n       su   n       n 20s       n     20s     \u001b  n    \u00164\n\u0016?\ne\u0004j \u001b       n       \u0016?\ne_{.<\u0016?\ne\u0014 n     n     \u0016?\neu       n   n       n  :\u00161\n\u001644\n\u0004k        n     \u0016?\ne#levelchange\n30\n                j     l   n     u     \u0017sleeping gas trap\ny      \u0017teleportation trap\nn #untrap\nylj\u0017magic portal\n#loot\nyf \u001b#chat\ny   n     \u00166\n\u001613\nlk\u0017wand of lightning\nEs  ad aerarium\n   \u0017wand of digging\nEt   Elbereth Elbereth\n    \u001b  :        \u0017wand of death\nEu    n n   :       yy\u001bny y  n  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 49955064,
+   "datetime": "20130903110008",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 helm of telepathy\nWp\u0016?\nl\u0004ks\u001613\n_ \u001bm.<\u0016?\n>A  \u0014m,ssm.\u0016?\n>>N       wand of fire\n\u0007elf-lord\n;l.sm.ss\u0007sandestin\n20s      20s     sm.      n  sm.    .m.      n sj       n   .n       su   n       n 20s       n     20s     \u001b  n    \u00164\n\u0016?\ne\u0004j \u001b       n       \u0016?\ne_{.<\u0016?\ne\u0014 n     n     \u0016?\neu       n   n       n  :\u00161\n\u001644\n\u0004k        n     \u0016?\ne#levelchange\n30\n                j     l   n     u     \u0017sleeping gas trap\ny      \u0017teleportation trap\nn #untrap\nylj\u0017magic portal\n#loot\nyf \u001b#chat\ny   n     \u00166\n\u001613\nlk\u0017wand of lightning\nEs  ad aerarium\n   \u0017wand of digging\nEt   Elbereth Elbereth\n    \u001b  :        \u0017wand of death\nEu    n n   :       yy\u001bny y  n  \u0017"
+  }
+ ]
+}

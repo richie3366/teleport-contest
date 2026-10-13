@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed spellbook of haste self\nrm s\u0017blessed spellbook of detect food\nrn 20s \u0017blessed spellbook of dig\nro20s  \u0017spellbook of drain life\nrp           .  +e\n\u0007lichen\nZa\n Fy   Zb\nZe\n\u001b,\u0007ghoul\nZa\nZd\n  Fy    #enhance\nn\u001b\u0017sling\nwq  \u001720 flint stones\n Qr\u0007acid blob\nk                    fk   fh \u0017potion of object detection\ntrh   \u0007yellow mold\nh    u fk       fl  h  n     b                         h,\u0017blessed ring of polymorph control\nPtr\u0017elven leather helm\nWu        sm.            s    20s  #polyself\nkitten\n  sm. .m.       sm.    s      sl   n    #polyself\nshrieker\n  .             sm.  \u0007cave spider\nFb  Fj        Fl  ..     sy#polyself\nblue jelly\n #monster\ns                                        .  \u0007pit viper\nFl  n     Fj      Fl   . .       .m.    \u0017amulet of unchanging\nPv 20s     sm.                  s   20s  n    \u00166\n\u0017cursed boulder\n\u00173 potion of gain level\nqx  \u0017scroll of food detection\nry m, \u0017potion of confusion\nqz #dip\nrd     \u0017uncursed meatball\neA  .  .m.     n   \u0017cursed spellbook of detect treasure\n\u0007pit fiend\nrB               n  20s    .   Ze\nFy         n  Fu.  20s      \u00161\n #levelchange\n20\n\u0017alchemy smock\nWCss .\u0017blessed Fire Brand\nwD.20s   n .\u0017blessed potion of gain energy\nqE20s 20s #levelchange\n6\n    \u0017blessed spellbook of cause fear\nrF.  n \u0017spellbook of clairvoyance\nrGs  n+e\nZe\n\u0007lichen\nZb\nZa\nFyZb\n   n Za\nFy   n Za\nFy Ze\n#pray\ny y      n \u00163\n\u0006\u00162\n#wizintrinsic\nbhs\n  sm.sm.s20s  n .m. 20s  n .m.sm.sm.  ynnny y\u001bn  2"
+ },
+ "segments": [
+  {
+   "seed": 49956027,
+   "datetime": "20150719093636",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed spellbook of haste self\nrm s\u0017blessed spellbook of detect food\nrn 20s \u0017blessed spellbook of dig\nro20s  \u0017spellbook of drain life\nrp           .  +e\n\u0007lichen\nZa\n Fy   Zb\nZe\n\u001b,\u0007ghoul\nZa\nZd\n  Fy    #enhance\nn\u001b\u0017sling\nwq  \u001720 flint stones\n Qr\u0007acid blob\nk                    fk   fh \u0017potion of object detection\ntrh   \u0007yellow mold\nh    u fk       fl  h  n     b                         h,\u0017blessed ring of polymorph control\nPtr\u0017elven leather helm\nWu        sm.            s    20s  #polyself\nkitten\n  sm. .m.       sm.    s      sl   n    #polyself\nshrieker\n  .             sm.  \u0007cave spider\nFb  Fj        Fl  ..     sy#polyself\nblue jelly\n #monster\ns                                        .  \u0007pit viper\nFl  n     Fj      Fl   . .       .m.    \u0017amulet of unchanging\nPv 20s     sm.                  s   20s  n    \u00166\n\u0017cursed boulder\n\u00173 potion of gain level\nqx  \u0017scroll of food detection\nry m, \u0017potion of confusion\nqz #dip\nrd     \u0017uncursed meatball\neA  .  .m.     n   \u0017cursed spellbook of detect treasure\n\u0007pit fiend\nrB               n  20s    .   Ze\nFy         n  Fu.  20s      \u00161\n #levelchange\n20\n\u0017alchemy smock\nWCss .\u0017blessed Fire Brand\nwD.20s   n .\u0017blessed potion of gain energy\nqE20s 20s #levelchange\n6\n    \u0017blessed spellbook of cause fear\nrF.  n \u0017spellbook of clairvoyance\nrGs  n+e\nZe\n\u0007lichen\nZb\nZa\nFyZb\n   n Za\nFy   n Za\nFy Ze\n#pray\ny y      n \u00163\n\u0006\u00162\n#wizintrinsic\nbhs\n  sm.sm.s20s  n .m. 20s  n .m.sm.sm.  ynnny y\u001bn  2"
+  }
+ ]
+}

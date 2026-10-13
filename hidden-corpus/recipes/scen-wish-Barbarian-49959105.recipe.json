@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0017amulet of reflection\nPess..20sFl\u0017cursed crystal ball\n\u0007marilith\nafFk  Fk\u0017uncursed splash of acid venom\n20s  \u0017uncursed +0 levitation boots\nWh    n    .m.  .m.20s  Fk.ss"
+ },
+ "segments": [
+  {
+   "seed": 49959105,
+   "datetime": "20041023031159",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0017amulet of reflection\nPess..20sFl\u0017cursed crystal ball\n\u0007marilith\nafFk  Fk\u0017uncursed splash of acid venom\n20s  \u0017uncursed +0 levitation boots\nWh    n    .m.  .m.20s  Fk.ss"
+  }
+ ]
+}

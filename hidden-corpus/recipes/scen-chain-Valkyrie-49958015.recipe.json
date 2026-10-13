@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " jhhyFj FjFjFjFjFjFjFjkjkjkjkjFkFkFkFkFkFkFkFknyjk50sFkFkFk\\   kjn#conduct\n 100sFlss50s\u000f\u001bi\u001b50sFyFy.100s150sFlFlshlh100slhhFlss_ \u001b;>50slhlhlhlhl\u000f\u001b150slhh150sFl.20s100skny50sFnFn.jllhlh#ter#quit\n kkl  hbulbFhFhFhFhFhFhFhFhFy FyFyFyFyFyFyFynjkjYNHJ_ \u001b,>LBNB_>.>BNHL_>,>UUYJ_>,>BUUY_>.>JLUN_>.>UBLU_>.>\u000f\u001bykblBUBK_>.>BJLJ_>.>BBHY_>.>Fjss#name\no\nkBYNH_>.>Fk.s#untrap\nh#jump\nNKJL_>,>Fj20ssKYYL_>,>FjFjFjNHYU_>.>FjFjskkhlt\u001b#name\nm\nyj#chat\n;jy#chat\nkbh20snhkbFlFlFlFlFlFlFlFlyujhNHHN_>.>JKBN_>,>NBYN_>,><WL KBU_>.>KUNH_>.>\u000f\u001b#chat\nut\u001bnkyj20st\u001bnhujyklhNL UK_>,>KNKB _>,>NLNU_>.>LUJY_>.>r\u001b10sHJL N_>.>#quit\ny  \u0017wand of lightning\nzi.  y ny   y y\u001bn  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49958015,
+   "datetime": "20131119122652",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " jhhyFj FjFjFjFjFjFjFjkjkjkjkjFkFkFkFkFkFkFkFknyjk50sFkFkFk\\   kjn#conduct\n 100sFlss50s\u000f\u001bi\u001b50sFyFy.100s150sFlFlshlh100slhhFlss_ \u001b;>50slhlhlhlhl\u000f\u001b150slhh150sFl.20s100skny50sFnFn.jllhlh#ter#quit\n"
+  },
+  {
+   "seed": 50058015,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\n",
+   "moves": " kkl  hbulbFhFhFhFhFhFhFhFhFy FyFyFyFyFyFyFynjkjYNHJ_ \u001b,>LBNB_>.>BNHL_>,>UUYJ_>,>BUUY_>.>JLUN_>.>UBLU_>.>\u000f\u001bykblBUBK_>.>BJLJ_>.>BBHY_>.>Fjss#name\no\nkBYNH_>.>Fk.s#untrap\nh#jump\nNKJL_>,>Fj20ssKYYL_>,>FjFjFjNHYU_>.>FjFjskkhlt\u001b#name\nm\nyj#chat\n;jy#chat\nkbh20snhkbFlFlFlFlFlFlFlFlyujhNHHN_>.>JKBN_>,>NBYN_>,><WL KBU_>.>KUNH_>.>\u000f\u001b#chat\nut\u001bnkyj20st\u001bnhujyklhNL UK_>,>KNKB _>,>NLNU_>.>LUJY_>.>r\u001b10sHJL N_>.>#quit\ny "
+  },
+  {
+   "seed": 50158015,
+   "datetime": "20011202001646",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=runmode:teleport\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of lightning\nzi.  y ny   y y\u001bn  s"
+  }
+ ]
+}

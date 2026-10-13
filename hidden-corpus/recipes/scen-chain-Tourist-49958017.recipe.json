@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " bhlyFhFhFhFhFhFh FhFhnlhlJBHK_ \u001b,>NYYU_>,>BUHL_>,>YUUB_>.>\u0004u_<.sBULJ_>,>JKNU_>,>LULU_>,>UYUY_>,>FbFhsNBYN_>,>\u0018\u001briBYYH_>._,>.>JYUU_>,_,.>BLYU_>._.m.>NJLJ_>,_.m,>20s:LUJB_>._,;@.>#conduct\n #force\n\u000f\u001buuhhjnyulbbunyyj50s50s  _>,_..>\u000f\u001b#name\nm\n\\P50s50s100s150slbk100seb\u0018\u001b100suby#loot\n100s100slnu50sFbFbFbFbFbslhb100s100s 100s100sFnFnFnFns.100sFnFnFn100sull50sFhFhFh100sFhFhFhlhlhujh\u0018\u001b#quit\nyy\u001by  y y y\u001b FlFlFlFlFlFlFlFl10s  tbl t\u001blk20s t\u001blhjkFlFlFlFlFlFlFlFlju20s #chat\nn#chat\nljl10s FkFkFkFkFkFkFkFkBHUY_ \u001b@.>KH y  LY _>.>FnFlFj<ULJYy  _>.>ljubklhldg20s20s 20shjkj10s      FuFu FuFuFuFuFuFukjkjH NHU_>,>L Ky  BJ _>.>Ky  KB L _>.>BKB Y_>.>NYJH_>.>L LJU_>.>W#enhance\n\u001b\u000f\u001bnnhlknynlhlknnukyUYUY_>,>JNYLnn#quit\nyy\u001by  y y y\u001b #quit\nyy \u0007soldier ant\nFjFj   nFj  n Fj   n Fn  n Fn   yy\u001by  y y y\u001by  Fyy   \u0017wand of death\nzk.  y y\u001by  y ny  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49958017,
+   "datetime": "20200208170550",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\n",
+   "moves": " bhlyFhFhFhFhFhFh FhFhnlhlJBHK_ \u001b,>NYYU_>,>BUHL_>,>YUUB_>.>\u0004u_<.sBULJ_>,>JKNU_>,>LULU_>,>UYUY_>,>FbFhsNBYN_>,>\u0018\u001briBYYH_>._,>.>JYUU_>,_,.>BLYU_>._.m.>NJLJ_>,_.m,>20s:LUJB_>._,;@.>#conduct\n #force\n\u000f\u001buuhhjnyulbbunyyj50s50s  _>,_..>\u000f\u001b#name\nm\n\\P50s50s100s150slbk100seb\u0018\u001b100suby#loot\n100s100slnu50sFbFbFbFbFbslhb100s100s 100s100sFnFnFnFns.100sFnFnFn100sull50sFhFhFh100sFhFhFhlhlhujh\u0018\u001b#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50058017,
+   "datetime": "20220922135255",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:kumquat\n",
+   "moves": "FlFlFlFlFlFlFlFl10s  tbl t\u001blk20s t\u001blhjkFlFlFlFlFlFlFlFlju20s #chat\nn#chat\nljl10s FkFkFkFkFkFkFkFkBHUY_ \u001b@.>KH y  LY _>.>FnFlFj<ULJYy  _>.>ljubklhldg20s20s 20shjkj10s      FuFu FuFuFuFuFuFukjkjH NHU_>,>L Ky  BJ _>.>Ky  KB L _>.>BKB Y_>.>NYJH_>.>L LJU_>.>W#enhance\n\u001b\u000f\u001bnnhlknynlhlknnukyUYUY_>,>JNYLnn#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50158017,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 50258017,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007soldier ant\nFjFj   nFj  n Fj   n Fn  n Fn   yy\u001by  y y y\u001by  F"
+  },
+  {
+   "seed": 50358017,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "yy   \u0017wand of death\nzk.  y y\u001by  y ny  s"
+  }
+ ]
+}

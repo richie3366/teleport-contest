@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nWk\u0017blessed ring of free action\nPlr\u0017blessed +3 speed boots\nWm#levelchange\n20\n                   \u0007baby red dragon\nsu.m.#polyself\nblack dragon\n   #monster\nj   .m.sm.#monster\nn  #monster\nb20ss\u001620\ni\u001b\u0007baby red dragon\nsysm.20s#polyself\nsilver dragon\n  #monster\nl   sm..n#monster\nk #monster\nl  20ss\u0017spellbook of finger of death\nrn \u001b    s\u0007gnomish wizard\nZa\n. .Zc\n  nZc\ns20sZb\nZa\nZb\n  n.20s i\u001b\u00162\n   \u0017blessed spellbook of light\nro.\u0017spellbook of force bolt\nrps\u0007succubus\nZb\nssZc\n  Zc\nZc\nZa\n\u0017blessed spellbook of light\nrq20s \u0017blessed spellbook of drain life\nrr.\u0007gnomish wizard\nZc\nZa\nZb\nss Za\nZb\n#turn\ni\u001b\u0017blessed spellbook of cone of cold\nrs20s  n \u0017spellbook of magic missile\nrt2"
+ },
+ "segments": [
+  {
+   "seed": 49959506,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nWk\u0017blessed ring of free action\nPlr\u0017blessed +3 speed boots\nWm#levelchange\n20\n                   \u0007baby red dragon\nsu.m.#polyself\nblack dragon\n   #monster\nj   .m.sm.#monster\nn  #monster\nb20ss\u001620\ni\u001b\u0007baby red dragon\nsysm.20s#polyself\nsilver dragon\n  #monster\nl   sm..n#monster\nk #monster\nl  20ss\u0017spellbook of finger of death\nrn \u001b    s\u0007gnomish wizard\nZa\n. .Zc\n  nZc\ns20sZb\nZa\nZb\n  n.20s i\u001b\u00162\n   \u0017blessed spellbook of light\nro.\u0017spellbook of force bolt\nrps\u0007succubus\nZb\nssZc\n  Zc\nZc\nZa\n\u0017blessed spellbook of light\nrq20s \u0017blessed spellbook of drain life\nrr.\u0007gnomish wizard\nZc\nZa\nZb\nss Za\nZb\n#turn\ni\u001b\u0017blessed spellbook of cone of cold\nrs20s  n \u0017spellbook of magic missile\nrt2"
+  }
+ ]
+}

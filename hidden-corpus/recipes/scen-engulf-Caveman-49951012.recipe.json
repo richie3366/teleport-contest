@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n6\n    \u0007fire vortex\nFbFb    Fb  Fj Fj  yy\u001by   ny n  F"
+ },
+ "segments": [
+  {
+   "seed": 49951012,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n6\n    \u0007fire vortex\nFbFb    Fb  Fj Fj  yy\u001by   ny n  F"
+  }
+ ]
+}

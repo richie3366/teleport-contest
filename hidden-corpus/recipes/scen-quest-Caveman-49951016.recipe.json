@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0016?\n>y  _ \u001b,#chat\nj_mmmmm.Fj _.#chat\nn_mmm.#chat\ny_mmm,#chat\nuH #conduct\n #conduct\n Sy\u001b y\\ #wipe\n#jump\nE- X marks the spot\n\\ #loot\ny\u0007nurse\nFyFyFy.hsm.\u0007gas spore\nFnFnFk  FkFnFnFysm..m.#pray\ny y     ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49951016,
+   "datetime": "20071129111959",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0016?\n>y  _ \u001b,#chat\nj_mmmmm.Fj _.#chat\nn_mmm.#chat\ny_mmm,#chat\nuH #conduct\n #conduct\n Sy\u001b"
+  },
+  {
+   "seed": 50451016,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " y\\ #wipe\n#jump\nE- X marks the spot\n\\ #loot\ny\u0007nurse\nFyFyFy.hsm.\u0007gas spore\nFnFnFk  FkFnFnFysm..m.#pray\ny y     "
+  }
+ ]
+}

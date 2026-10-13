@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0016?\nj\u0006\u0017leather drum\nai k  haibk\u0017wand of striking\nzjk#chat\nyr\u001b\u001b_m, \u001b;s\u0016?\nk \u0006__,Fy_.Fk#chat\nksm.sm.20s#offer\n\u0004jPSy\u001b yyf  Hols#invoke\n\u001b\u001bf",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49951017,
+   "datetime": "20021119104759",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0016?\nj\u0006\u0017leather drum\nai k  haibk\u0017wand of striking\nzjk#chat\nyr\u001b\u001b_m, \u001b;s\u0016?\nk \u0006__,Fy_.Fk#chat\nksm.sm.20s#offer\n\u0004jPSy\u001b"
+  },
+  {
+   "seed": 50451017,
+   "datetime": "20220212145120",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " yyf  Hols#invoke\n\u001b\u001bf"
+  }
+ ]
+}

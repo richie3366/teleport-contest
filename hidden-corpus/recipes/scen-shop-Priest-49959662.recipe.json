@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed Mjollnir\nwj\u0017blessed amulet of reflection\nPk\u0016?\n>w\u0006_ \u001b<.,\u0014@.s._ooooo.,$_ooooooo.,p_oooooooo.,#chat\ny_{.Fj _.Fk  nqdFn Fn Fn Fn Fn Fn  n_{.Fy _,@.qynbl#chat\nh _oo.,#chat\nh _ooo.Fj _.>.Fn ,p_oo._,_oo., pllb#chat\nb_oo,,:hlu#chat\nk__.Fn   n_..Fn #chat\ny __,  nFj_.   n Fn#chat\nj\u00163\nujy\u0016?\n>w\u0006\u00166\nb yh#chat\nj \u0016?\n>Bnnb\u0016?\n>w  \u0006_ooo,Fj _.,    n  :__,   nFj   _.   nFj#chat\nj  n #pray\ny y      \u00161\n    _ooooooo,Fh  n _.>.Fh  n ,p   \u00168\n_ooo._.,#chat\nk_ooooooo._oo.,$lyu#chat\nu__.#chat\nl_oooooooo.,#chat\nu_oooooooo.,#chat\nb_oooooooo,,pklh#chat\ny_ooooooooo.,#chat\nhkkj#chat\nl\u00163\njkj\u0016?\n>w\u0006_oooooooo. Fj_._o._. Fk  n,$__.Fh_.#chat\nn\u0016?\n>B   lkj\u0016?\n>w \u0006_ooooo,Fy_.Fy  ,$_ooooooooo.Fj _,@.Fb ,#chat\nl__.Fu        n _.#chat\nu    n#pray\ny y  \u00162\n_{,qd_oooooooo"
+ },
+ "segments": [
+  {
+   "seed": 49959662,
+   "datetime": "20110704211038",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed Mjollnir\nwj\u0017blessed amulet of reflection\nPk\u0016?\n>w\u0006_ \u001b<.,\u0014@.s._ooooo.,$_ooooooo.,p_oooooooo.,#chat\ny_{.Fj _.Fk  nqdFn Fn Fn Fn Fn Fn  n_{.Fy _,@.qynbl#chat\nh _oo.,#chat\nh _ooo.Fj _.>.Fn ,p_oo._,_oo., pllb#chat\nb_oo,,:hlu#chat\nk__.Fn   n_..Fn #chat\ny __,  nFj_.   n Fn#chat\nj\u00163\nujy\u0016?\n>w\u0006\u00166\nb yh#chat\nj \u0016?\n>Bnnb\u0016?\n>w  \u0006_ooo,Fj _.,    n  :__,   nFj   _.   nFj#chat\nj  n #pray\ny y      \u00161\n    _ooooooo,Fh  n _.>.Fh  n ,p   \u00168\n_ooo._.,#chat\nk_ooooooo._oo.,$lyu#chat\nu__.#chat\nl_oooooooo.,#chat\nu_oooooooo.,#chat\nb_oooooooo,,pklh#chat\ny_ooooooooo.,#chat\nhkkj#chat\nl\u00163\njkj\u0016?\n>w\u0006_oooooooo. Fj_._o._. Fk  n,$__.Fh_.#chat\nn\u0016?\n>B   lkj\u0016?\n>w \u0006_ooooo,Fy_.Fy  ,$_ooooooooo.Fj _,@.Fb ,#chat\nl__.Fu        n _.#chat\nu    n#pray\ny y  \u00162\n_{,qd_oooooooo"
+  }
+ ]
+}

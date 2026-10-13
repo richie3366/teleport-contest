@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nWm\u0017blessed +3 cloak of magic resistance\nWn\u0016?\n>w\u0006FnFnFnFn Fn Fn _ \u001b<._oo,,p_{.Fl _,   n  Fb  qh  _{. Fb _.   nFlqh  _ooooooo.,   \u0014,  sm. sk\u00163\nubj\u0016?\n>w\u0006_oooooo.,p_oooooo,,:Fl Fl Fl Fl Fl Fl Fl Fl Fl Fl Fl   nFl_{. Fl _. Fl q_ooooooo.,p_{,  Fl _,  nFl qFlFlFl FlFl Fl _oo.,  n #chat\nl Fl Fl Fl Fl   n Fl Fl Fu Fu Fu Fu   n Fu Fu _ooooo._ooo.,\u0017touchstone\ndq _oooo._oo.,   n p_{.Fu _. Fl qFuFuFu   nFu Fu Fu _oooooo._oo.,\u0017worthless piece of red glass\ndr _{, Fn   n _, Fu q_ooo,, #chat\nn_ooo._ooo.,:_ooooo,,#chat\nn   n _{, Fl_.Fn qFu Fu Fu   nFu FuFu __. Fn _.Fl #chat\nu   #pray\ny y     _{.Fu _. FlqFu FuFu Fu FuFu   n __,Fl _.Fn #chat\nl _{,Fn _.Fnq\u00167\njjj\u0016?\n>w\u0006_oooooo.Fk_,@.Fu_o.Fu _.m,Fu,:_ooo,Fu_. Fu,:_oooooo.Fu_.:Fu  _ooo,Fu  n_. Fu,p__.Fl_,@.Fl  #chat\nl__.Fj_. Fn#chat\nj_oooooo.Fk_.  Fb   _ooo.Fj  _.  n Fb ,  y y\u001by  y y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 49959649,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nWm\u0017blessed +3 cloak of magic resistance\nWn\u0016?\n>w\u0006FnFnFnFn Fn Fn _ \u001b<._oo,,p_{.Fl _,   n  Fb  qh  _{. Fb _.   nFlqh  _ooooooo.,   \u0014,  sm. sk\u00163\nubj\u0016?\n>w\u0006_oooooo.,p_oooooo,,:Fl Fl Fl Fl Fl Fl Fl Fl Fl Fl Fl   nFl_{. Fl _. Fl q_ooooooo.,p_{,  Fl _,  nFl qFlFlFl FlFl Fl _oo.,  n #chat\nl Fl Fl Fl Fl   n Fl Fl Fu Fu Fu Fu   n Fu Fu _ooooo._ooo.,\u0017touchstone\ndq _oooo._oo.,   n p_{.Fu _. Fl qFuFuFu   nFu Fu Fu _oooooo._oo.,\u0017worthless piece of red glass\ndr _{, Fn   n _, Fu q_ooo,, #chat\nn_ooo._ooo.,:_ooooo,,#chat\nn   n _{, Fl_.Fn qFu Fu Fu   nFu FuFu __. Fn _.Fl #chat\nu   #pray\ny y     _{.Fu _. FlqFu FuFu Fu FuFu   n __,Fl _.Fn #chat\nl _{,Fn _.Fnq\u00167\njjj\u0016?\n>w\u0006_oooooo.Fk_,@.Fu_o.Fu _.m,Fu,:_ooo,Fu_. Fu,:_oooooo.Fu_.:Fu  _ooo,Fu  n_. Fu,p__.Fl_,@.Fl  #chat\nl__.Fj_. Fn#chat\nj_oooooo.Fk_.  Fb   _ooo.Fj  _.  n Fb ,  y y\u001by  y y y\u001by  \u0017"
+  }
+ ]
+}

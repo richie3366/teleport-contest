@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " FhFh.\u0018\u001b50s#twoweapon\nybl100s50sFlFk Fh Fh20s Fk\u0018\u001byyj100sFbFbFlFlFlFn100sFbFbs150s FjFlFlFls20s50s 150sFbFb FbFbFb.150s FjFls\\ bhl150s Fy.20s  Fl.FuFlsFlFlssFlss150s  FlFyFys150s        FyFyFl\\ 150s          Fy20sFyFh20s      FlFlFlFuFl.Fl100s         Fl FlFl  y\u001b     F"
+ },
+ "segments": [
+  {
+   "seed": 49957034,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:mango\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:explore\n",
+   "moves": " FhFh.\u0018\u001b50s#twoweapon\nybl100s50sFlFk Fh Fh20s Fk\u0018\u001byyj100sFbFbFlFlFlFn100sFbFbs150s FjFlFlFls20s50s 150sFbFb FbFbFb.150s FjFls\\ bhl150s Fy.20s  Fl.FuFlsFlFlssFlss150s  FlFyFys150s        FyFyFl\\ 150s          Fy20sFyFh20s      FlFlFlFuFl.Fl100s         Fl FlFl  y\u001b     F"
+  }
+ ]
+}

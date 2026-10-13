@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      #levelchange\n10\n \u0017spellbook of identify\nrk   s\u0017blessed spellbook of create familiar\nrl .\u0017blessed spellbook of sleep\nrm 20s   +b\nZe\nZc\nZd\n\u0007yellow mold\nZa\n \u0007newt\nZc\n Fk  #turn\n\u0006#levelchange\n12\n #wizintrinsic\nrfp\n  sss20ss20sss20s 20s20s.s.s.s....s#rub\nqe\\ zflzfl20sss.20s.s\u001615\n\u0017dwarvish mattock\nan hhanjjunan>  .  an>  sj   an>an<   k \u0017grave\nan>  20s 20s \u0018\u001b\u0007tame large dog\n\u0017meatball\ntaj  k\u0007acid blob\n\u0017scroll of taming\nrp \u0017tin whistle\nyy yaqj#levelchange\n30\n                  \u0017blessed ring of polymorph control\nPrl#polyself\nstraw golem\n #monster\n20s     20s  .m.    20s    sj #polyself\nrope golem\n #monster\nsm.    sb\u0007Medusa\nyFl     Fl Fy   sm. sm. n      sm. n    \u0017amulet of unchanging\nPs  n      .m. n    .m. n       20s n    20s n \u00162\n\u00165\n#levelchange\n30\n \u0017blessed +3 alchemy smock\n\u0007floating eye\nWtsus20sTt\u0017blessed potion of levitation\nqu#dip\ntdFh                    nFk \u0017wand of teleportation\nzv. \u001bm.zvh\u0017cursed spellbook of dig\n\u0007mumak\nrw  \u001b   n .m.sm.Zb\nZe\n\u0017blessed two-handed sword\n\u0007dwarf lord\nwx  n FuFuFn  Fu    n Fu   .hsl  \u00166\nynn\u0017tree\n h  \u0004l\u0017axe\nay  :u\u0017lawful altar\ndbdj\u0017floating eye corpse\n#offer\nz    #pray\ny y    b  n \u0017melting ice\nhl hl #terrain\nc\n:#wipe\n #enhance\nyo\ni\n\u001b#sit\n\u0016?\n>z  _mm.            n  Fh _.m. Fn#chat\nn_mmmm. Fn _, #chat\ny;m,_mmmm, Fj_.m.Fj #chat\nl  "
+ },
+ "segments": [
+  {
+   "seed": 49950029,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      #levelchange\n10\n \u0017spellbook of identify\nrk   s\u0017blessed spellbook of create familiar\nrl .\u0017blessed spellbook of sleep\nrm 20s   +b\nZe\nZc\nZd\n\u0007yellow mold\nZa\n \u0007newt\nZc\n Fk  #turn\n\u0006#levelchange\n12\n #wizintrinsic\nrfp\n  sss20ss20sss20s 20s20s.s.s.s....s#rub\nqe\\ zflzfl20sss.20s.s\u001615\n\u0017dwarvish mattock\nan hhanjjunan>  .  an>  sj   an>an<   k \u0017grave\nan>  20s 20s \u0018\u001b\u0007tame large dog\n\u0017meatball\ntaj  k\u0007acid blob\n\u0017scroll of taming\nrp \u0017tin whistle\nyy yaqj#levelchange\n30\n                  \u0017blessed ring of polymorph control\nPrl#polyself\nstraw golem\n #monster\n20s     20s  .m.    20s    sj #polyself\nrope golem\n #monster\nsm.    sb\u0007Medusa\nyFl     Fl Fy   sm. sm. n      sm. n    \u0017amulet of unchanging\nPs  n      .m. n    .m. n       20s n    20s n \u00162\n\u00165\n#levelchange\n30\n \u0017blessed +3 alchemy smock\n\u0007floating eye\nWtsus20sTt\u0017blessed potion of levitation\nqu#dip\ntdFh                    nFk \u0017wand of teleportation\nzv. \u001bm.zvh\u0017cursed spellbook of dig\n\u0007mumak\nrw  \u001b   n .m.sm.Zb\nZe\n\u0017blessed two-handed sword\n\u0007dwarf lord\nwx  n FuFuFn  Fu    n Fu   .hsl  \u00166\nynn\u0017tree\n h  \u0004l\u0017axe\nay  :u\u0017lawful altar\ndbdj\u0017floating eye corpse\n#offer\nz    #pray\ny y    b  n \u0017melting ice\nhl hl #terrain\nc\n:#wipe\n #enhance\nyo\ni\n\u001b#sit\n\u0016?\n>z  _mm.            n  Fh _.m. Fn#chat\nn_mmmm. Fn _, #chat\ny;m,_mmmm, Fj_.m.Fj #chat\nl  "
+  }
+ ]
+}

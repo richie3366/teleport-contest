@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " y   _ \u001b:w\u001b#dip\n\u001buybbbu20sE\u001bok\u0018\u001b_d.hkjknjZ\\  #force\n_>.lyn_d.jll>\\  kjy,#monster\nnul_>._<,>"
+ },
+ "segments": [
+  {
+   "seed": 49951019,
+   "datetime": "20110821035448",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " y   _ \u001b:w\u001b#dip\n\u001buybbbu20sE\u001bok\u0018\u001b_d.hkjknjZ\\  #force\n_>.lyn_d.jll>\\  kjy,#monster\nnul_>._<,>"
+  }
+ ]
+}

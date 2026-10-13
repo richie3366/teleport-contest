@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " Ogmp\na\nc\n\u0014#enhance\n\u001bOack\nh\nJOep\n>O>j\nojPmO>>>lk\n#untrap\njOfp\nze potion of full healing\n.20s mO>>>>>>kd\nf\n\\   _>. \u001b:.mO>>>>>>il\na\na\na\n\u001b\u001b#offer\n\\   Oaeg\nk\ni\u001bOmf\n<,Op\n\\   mOa\n#tip\n\u001bO>n\nl\n#turn\nE- Vlad was here\n sy20s "
+ },
+ "segments": [
+  {
+   "seed": 49959008,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:explore\n",
+   "moves": " Ogmp\na\nc\n\u0014#enhance\n\u001bOack\nh\nJOep\n>O>j\nojPmO>>>lk\n#untrap\njOfp\nze potion of full healing\n.20s mO>>>>>>kd\nf\n\\   _>. \u001b:.mO>>>>>>il\na\na\na\n\u001b\u001b#offer\n\\   Oaeg\nk\ni\u001bOmf\n<,Op\n\\   mOa\n#tip\n\u001bO>n\nl\n#turn\nE- Vlad was here\n sy20s "
+  }
+ ]
+}

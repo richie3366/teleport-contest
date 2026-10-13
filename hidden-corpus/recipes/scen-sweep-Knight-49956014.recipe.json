@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               #levelchange\n30\n             #polyself\ntrapper\n  ss\u0007kobold\nFnFlsFh\u0007jackal\n.Fn20s  Fl \u001623\n#levelchange\n8\n           \u0017Stormbringer\n wi s20s s#invoke\ni  n \u0007black dragon\n;h: \u001bm,sm.ss\u0007plains centaur\n#chat\nh         n Fl        n Fb      n \u0007mind flayer\nFy     Fh\u0007ice devil\nFy   n       n Fb   n        n Fl    n        n  Fl          n \u00165\n\u0017the Book of the Dead\nwi. Fk FkX\u0007ettin\nFkFkFy     n Fy  FkFy \u0007xorn\n#chat\nkFj   n  Fk  \u0007red naga\nFy    n Fk  Fk   n  Fy    yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 49956014,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               #levelchange\n30\n             #polyself\ntrapper\n  ss\u0007kobold\nFnFlsFh\u0007jackal\n.Fn20s  Fl \u001623\n#levelchange\n8\n           \u0017Stormbringer\n wi s20s s#invoke\ni  n \u0007black dragon\n;h: \u001bm,sm.ss\u0007plains centaur\n#chat\nh         n Fl        n Fb      n \u0007mind flayer\nFy     Fh\u0007ice devil\nFy   n       n Fb   n        n Fl    n        n  Fl          n \u00165\n\u0017the Book of the Dead\nwi. Fk FkX\u0007ettin\nFkFkFy     n Fy  FkFy \u0007xorn\n#chat\nkFj   n  Fk  \u0007red naga\nFy    n Fk  Fk   n  Fy    yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0016?\nfnul   k :\u0016?\n>>M     tinning kit\n#chat\ny;y: \u001b,\u0016?\n\u001bn   h    \u001633\n\u0006_\u0016 k   k \u001633\nb   l       :\u0016?\n\u001bb     n         nh  \u00162\n\u0016?\n\u001bl  y \u0016?\n\u001by   n u\u0016?\n\u001bl  b\u0016?\n\u001bjn\u00162\n__.>\u0016?\n\u001byu\u001620\nhj  n  :     n  \u00163\n\u001620\n#chat\nn;<.\u0016?\n\u001by    n    k\u0016?\nc__,sm.\u0016?\na    kj lh:  \u001623\nlhlh  n lk: \u001628\n\u0017bow\nw\u001720 arrows\n Qby\u0007soldier\nnkffffh lu,.ss\u001617\n_>..\u0016?\ne un   ubu   n n:   n s  n \u00166\n\u001618\n\u0014.  n 20s20s  n s  n \u00165\n\u0016?\ne#chat\nk;l;\u001620\n\u0017mummy wrapping\nWj  n s  n s  yy\u001bny y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 49955014,
+   "datetime": "20230427214755",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0016?\nfnul   k :\u0016?\n>>M     tinning kit\n#chat\ny;y: \u001b,\u0016?\n\u001bn   h    \u001633\n\u0006_\u0016 k   k \u001633\nb   l       :\u0016?\n\u001bb     n         nh  \u00162\n\u0016?\n\u001bl  y \u0016?\n\u001by   n u\u0016?\n\u001bl  b\u0016?\n\u001bjn\u00162\n__.>\u0016?\n\u001byu\u001620\nhj  n  :     n  \u00163\n\u001620\n#chat\nn;<.\u0016?\n\u001by    n    k\u0016?\nc__,sm.\u0016?\na    kj lh:  \u001623\nlhlh  n lk: \u001628\n\u0017bow\nw\u001720 arrows\n Qby\u0007soldier\nnkffffh lu,.ss\u001617\n_>..\u0016?\ne un   ubu   n n:   n s  n \u00166\n\u001618\n\u0014.  n 20s20s  n s  n \u00165\n\u0016?\ne#chat\nk;l;\u001620\n\u0017mummy wrapping\nWj  n s  n s  yy\u001bny y y\u001b  s"
+  }
+ ]
+}

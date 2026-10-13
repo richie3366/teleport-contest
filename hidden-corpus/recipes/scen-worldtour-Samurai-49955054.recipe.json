@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nWf\u00163\nlj:\u0016?\n>>K      helm of opposite alignment\n\u0004u\u00163\n\u0007brown pudding\nFj    Fn   Fksm.20s   \u0007werewolf\nFj Fj    FjFk  FnFl  sm.   sb     \u0016?\n\u001bh  n    \u00163\nl   n  y   h:sm.         sm.\u0016?\n\u001bj          nl        \u0016?\n\u001bk       n  n          n   \u00167\n\u0016?\n\u001bh       y        \u0016?\n\u001bb      n    k       \u00165\n\u0006\u001b,_>,20s            n   .m.           \u001640\nu        b\u0017wand of cancellation\nE:l    n             \u0017wand of make invisible\nE\u0017wand of cold\nE\u0017wand of slow monster\nE:b           \u001b  n   \u0017wand of probing\nE\u001610\n\u0016?\n\u001bu       l   \u0016?\n\u001bj   n             y    n        \u00166\n\u001610\n#levelchange\n6\n        \u001715 shuriken\nQn\u0007owlbear\nb   n     n          n  j     n    fn   n    yy\u001by   y y y\u001b  f"
+ },
+ "segments": [
+  {
+   "seed": 49955054,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nWf\u00163\nlj:\u0016?\n>>K      helm of opposite alignment\n\u0004u\u00163\n\u0007brown pudding\nFj    Fn   Fksm.20s   \u0007werewolf\nFj Fj    FjFk  FnFl  sm.   sb     \u0016?\n\u001bh  n    \u00163\nl   n  y   h:sm.         sm.\u0016?\n\u001bj          nl        \u0016?\n\u001bk       n  n          n   \u00167\n\u0016?\n\u001bh       y        \u0016?\n\u001bb      n    k       \u00165\n\u0006\u001b,_>,20s            n   .m.           \u001640\nu        b\u0017wand of cancellation\nE:l    n             \u0017wand of make invisible\nE\u0017wand of cold\nE\u0017wand of slow monster\nE:b           \u001b  n   \u0017wand of probing\nE\u001610\n\u0016?\n\u001bu       l   \u0016?\n\u001bj   n             y    n        \u00166\n\u001610\n#levelchange\n6\n        \u001715 shuriken\nQn\u0007owlbear\nb   n     n          n  j     n    fn   n    yy\u001by   y y y\u001b  f"
+  }
+ ]
+}

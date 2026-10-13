@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nWn\u0017blessed +3 speed boots\nWo\u0017blessed amulet of reflection\nPp\u0016?\n>t \u0006_ \u001b:\u0016?\n>>M       wand of cold\nhh    lb       b hb : \u00165\nulubnl: s\u001b.     \u001632\n\u0014;    \u0016?\n\u001bbj      n    \u0016?\n\u001bh     j \u0016?\nb_{,<\u0016?\n\u001bn     nh    \u0016?\n\u001bky     \u0016?\n\u001byh      n      \u00165\n\u0007gremlin\nFh     n       Fb      n          Fh      n    Fh       FyFb   n       Fk    n            sm.    n             sm.   n              n \u0007wererat\n.   20s  n    n 20s    n s   s  n    yny   y y  n  F"
+ },
+ "segments": [
+  {
+   "seed": 49955058,
+   "datetime": "20110205212321",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:slime mold\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nWn\u0017blessed +3 speed boots\nWo\u0017blessed amulet of reflection\nPp\u0016?\n>t \u0006_ \u001b:\u0016?\n>>M       wand of cold\nhh    lb       b hb : \u00165\nulubnl: s\u001b.     \u001632\n\u0014;    \u0016?\n\u001bbj      n    \u0016?\n\u001bh     j \u0016?\nb_{,<\u0016?\n\u001bn     nh    \u0016?\n\u001bky     \u0016?\n\u001byh      n      \u00165\n\u0007gremlin\nFh     n       Fb      n          Fh      n    Fh       FyFb   n       Fk    n            sm.    n             sm.   n              n \u0007wererat\n.   20s  n    n 20s    n s   s  n    yny   y y  n  F"
+  }
+ ]
+}

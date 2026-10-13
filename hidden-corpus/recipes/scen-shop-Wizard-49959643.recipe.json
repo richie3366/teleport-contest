@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed amulet of reflection\nPp\u0017blessed +3 helm of telepathy\nWq\u0016?\n>w\u0006_ \u001bm,,\u0014<..20sbbj#chat\nnuhk#chat\nh\u0016?\n>Bnkj\u0016?\n>w\u0006_ooooooo,,pnhk#chat\nukuj#chat\nh_{._.qy _ooooooo.,p__._, Fh #chat\nh   nFhFhFh FhFh      Fh   n_oooooooo,,\u001bpFlFlFlFlFlFl_ooo,_oo._.,\u001b#chat\nj_{,Fu_..Fk qy y_oooooooo.Fl _. Fh _ooo._,,\u001b: \u0016?\ncblh\u0016?\n>w\u0006_oo.   _.@.,\u001b\u0017amulet of restful sleep\ndr_ooo.,\u001b\u0017amulet versus poison\nds   n_oooooo,,\u001bp_oooo,Fl   n_.  nFh   n   n_ooo.,\u001b#chat\nl   n   n   n \u00161\nFy   n Fy   n   nFy     nFy   n Fy   yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 49959643,
+   "datetime": "20220216141751",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed amulet of reflection\nPp\u0017blessed +3 helm of telepathy\nWq\u0016?\n>w\u0006_ \u001bm,,\u0014<..20sbbj#chat\nnuhk#chat\nh\u0016?\n>Bnkj\u0016?\n>w\u0006_ooooooo,,pnhk#chat\nukuj#chat\nh_{._.qy _ooooooo.,p__._, Fh #chat\nh   nFhFhFh FhFh      Fh   n_oooooooo,,\u001bpFlFlFlFlFlFl_ooo,_oo._.,\u001b#chat\nj_{,Fu_..Fk qy y_oooooooo.Fl _. Fh _ooo._,,\u001b: \u0016?\ncblh\u0016?\n>w\u0006_oo.   _.@.,\u001b\u0017amulet of restful sleep\ndr_ooo.,\u001b\u0017amulet versus poison\nds   n_oooooo,,\u001bp_oooo,Fl   n_.  nFh   n   n_ooo.,\u001b#chat\nl   n   n   n \u00161\nFy   n Fy   n   nFy     nFy   n Fy   yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

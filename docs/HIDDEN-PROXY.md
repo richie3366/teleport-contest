@@ -233,13 +233,27 @@ here). Candidates — public shapes the generator does not copy:
 | candidate | public shape | what it would exercise | status |
 |---|---|---|---|
 | `questtour` | seed0361 / 0367 / 0373 quest tours | all 13 roles: `^V` home, `#chat` leader at low XL (badlevel) then after `#levelchange 14` (assignquest), locate/goal, nemesis fight with a wished kit, artifact pickup, return (offeredit, leader_last) | proposed |
-| `zapfest` | held-out has 2,959 animation frames vs public 1,483 | wand/spell/breath duels, thrown stacks, boomerangs, explosions, ranged monsters | proposed |
+| `zapfest` | held-out has 2,959 animation frames vs public 1,483 | wand/spell/breath duels, thrown stacks, boomerangs, explosions, ranged monsters | **probed 2026-10-13: 18/20 (90 %) — NOT held-out-like** (≥ 85 %); kept in WAVE3 (2 fails folded) |
 | `options` | seed2600 binds, seed0200 `msg_window:reversed`, 7 public rc without DECgraphics | non-DEC symsets (14 in `dat/symbols`), `number_pad`, BIND, MSGTYPE / MENUCOLOR / status hilites | proposed |
-| `shop` | seed0116 wizard-wear-shop | `^V minetn`, buy / sell / price-id / #chat / steal / Kops / pay | proposed |
+| `shop` | seed0116 wizard-wear-shop | `^V minetn`, buy / sell / price-id / #chat / steal / Kops / pay | **added 2026-10-13: probe 15/20 (75 %)**, 100 sessions (20 probe + 80 @49959600); in WAVE3 |
 | `human` | seed0002/0004/0006/0007/0009/0012/0014 | minimal rc, interactive chargen, legacy + tutorial prompt, wall-clock datetimes, 300–700 normal steps | start regime **measured fine** (68/68 probe); long tail ≈ `trek` (100 %) — low prior |
 
 Since 2026-10-13 `scenario-gen` also draws half its datetimes from any
 second of 2000–2026 (it had five fixed values).
+
+**First calibration probes (grow 2026-10-13, seeds 49959500+).**
+`zapfest` (wave-3, 600–1200 keys: wand barrages, spell duels, thrown
+frenzies, dragon breath both ways via `#monster`, mcastu gauntlets)
+scored 18/20 (90 %) on arrival — above the 88 % fresh baseline, so not a
+held-out shape; its 20 probe sessions (fails: Healer-49959506,
+Valkyrie-49959504) are folded but no more were authored. `shop` (wave-3,
+500–1000 keys: minetn marathon — every shop visited, bills paid, gems
+sold, one robbery so the Kops come, Kop fights; `town` covers the short
+shape at 100 %) scored 15/20 (75 %) — below baseline, marginally
+held-out-like; 20 probe + 80 authored (fails in probe: Caveman-49959531,
+Priest-49959522/49959525, Valkyrie-49959539, Wizard-49959521). Neither
+hit ≤ 60 %; `questtour` and `options` remain for the next calibration
+grow.
 
 ## 6. Why not a state-dump patch or a fntrace build (yet)
 

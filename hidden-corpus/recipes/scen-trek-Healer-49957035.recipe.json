@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "HLYJ_ \u001b,>Fk FuFuBYYH_>.>FussKsJJYN_>,>;>.#tip\n\u001b<\u000f\u001b#name\nm\n10sdbs20s.#name\nf\n10sluhnybBBJJ_>,>JNHB_>.>JNNB_>.>HUYJ_>.>KKHY_>.><\u000f\u001bLKJB_>,>#enhance\n\u001b#turn\nLHUH_>.>UJUU_>.>YJNH_>.>LKJY_>,>\\ #invoke\n\u001b\u000f\u001bah dfok_>.>100s#force\n50sjbl\u000f\u001b100s50s100s100s_>,>100s150sej150sej_>.>\\ 100s ej<uhj100sej_>.>100sej\u0018\u001b50seeeeeeeeeee20s#chat\nu#chat\nlluybjkdhsss20s20snlkb#chat\ny#chat\nblkhbt$jeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNHLJ_>.>UBBY_>,>KKUY_>,>YKJY_>.>__..#name\na\nKJHN_>.>qdde<HJLU_>.>20sbl10s#chat\njkb#name\no\n20sUKKN_>,>dc#tip\n\u001bBLHK_>.>HYNY_>.>YBHL_>.>NNYB_>.>#loot\n#conduct\n KN UN _>.>UKUY_>.><\u000f\u001bNNHN_>.>\u0004ui\u001bJUJN_>.>UKJL_>.>BBNK_>.>#offer\n>BBLN_>,>ew-UULL_>,><\u000f\u001b#invoke\n\u001b#pray\ny njh#pray\ny  50s #pray\ny    y\u001by  y y y\u001b  y"
+ },
+ "segments": [
+  {
+   "seed": 49957035,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\n",
+   "moves": "HLYJ_ \u001b,>Fk FuFuBYYH_>.>FussKsJJYN_>,>;>.#tip\n\u001b<\u000f\u001b#name\nm\n10sdbs20s.#name\nf\n10sluhnybBBJJ_>,>JNHB_>.>JNNB_>.>HUYJ_>.>KKHY_>.><\u000f\u001bLKJB_>,>#enhance\n\u001b#turn\nLHUH_>.>UJUU_>.>YJNH_>.>LKJY_>,>\\ #invoke\n\u001b\u000f\u001bah dfok_>.>100s#force\n50sjbl\u000f\u001b100s50s100s100s_>,>100s150sej150sej_>.>\\ 100s ej<uhj100sej_>.>100sej\u0018\u001b50seeeeeeeeeee20s#chat\nu#chat\nlluybjkdhsss20s20snlkb#chat\ny#chat\nblkhbt$jeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNHLJ_>.>UBBY_>,>KKUY_>,>YKJY_>.>__..#name\na\nKJHN_>.>qdde<HJLU_>.>20sbl10s#chat\njkb#name\no\n20sUKKN_>,>dc#tip\n\u001bBLHK_>.>HYNY_>.>YBHL_>.>NNYB_>.>#loot\n#conduct\n KN UN _>.>UKUY_>.><\u000f\u001bNNHN_>.>\u0004ui\u001bJUJN_>.>UKJL_>.>BBNK_>.>#offer\n>BBLN_>,>ew-UULL_>,><\u000f\u001b#invoke\n\u001b#pray\ny njh#pray\ny  50s #pray\ny    y\u001by  y y y\u001b  y"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPfl\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0016?\n>w\u0006_ \u001b.,\u0017touchstone\ndhcy_oo.,#chat\nb_oooooooo.,p__._.:#chat\nn_{._.m.q_{._.@.q_ooooooooo.,\u0017worthless piece of red glass\ndib_ooooo,_.,#chat\nb__._,,#chat\nn_ooooo.,#chat\nl_oo._o.,#chat\nu_ooooo.,$\u0016?\ncbny\u0016?\n>w\u0006_{,_.<.q_ooooooooo.,$_ooo,,p_oo.,p_ooo,,#chat\nu_ooo,,\u0014,m,20ss_ooo.,$_ooo._o.,:bkj#chat\nn_ooooo.,p_oo,,#chat\ny_ooo,,p_oo.,$ykn#chat\nyyhj#chat\nh_ooooo.,$yyn#chat\nb_oooooooo,,\u0017flint stone\ndj$byl#chat\nj_ooo,_.,\u0017luckstone\ndki\u001b\u0016?\n>Buuy\u0016?\n>w\u0006_ooooooo._,;<._o._,@.,\u0017amulet of change\ndlf   k_ooo._..,\u001b#chat\nhllh#chat\nk__._.,\u001b#chat\nl#pray\ny y _{,_.: qllh#chat\nj_oooooooo._.<._oo,,\u001b$llh#chat\nllhl#chat\nk_ooo.,:\u00167\njyj\u0016?\n>w\u0006_oooooo.,\u0017gray stone\ndjh_ooo,_ooo.,\u0017touchstone\ndhj\u0016?\n>Bjkk\u0016?\n>w\u0006_oooo._o._.,p_ooo.,$_ooooooo._.,puhu#chat\nj_oooo,,p_ooooooooo.Fu_,;;Fu,p\u0016?\n>Bjll\u0016?\n>w\u0006_ooooo.Fb_.<.Fb,\u0017diamond\ndmfk__,_.m,#chat\nj#pray\ny y _oooooooo,_.,\u001b#chat\nh__,_,,#chat\nunnk#chat\nl\u0016?\n>Bjbk\u0016?\n>w\u0006_ooo.Fk_,Fh,#chat\nh_ooo"
+ },
+ "segments": [
+  {
+   "seed": 49959606,
+   "datetime": "20090218023345",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPfl\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0016?\n>w\u0006_ \u001b.,\u0017touchstone\ndhcy_oo.,#chat\nb_oooooooo.,p__._.:#chat\nn_{._.m.q_{._.@.q_ooooooooo.,\u0017worthless piece of red glass\ndib_ooooo,_.,#chat\nb__._,,#chat\nn_ooooo.,#chat\nl_oo._o.,#chat\nu_ooooo.,$\u0016?\ncbny\u0016?\n>w\u0006_{,_.<.q_ooooooooo.,$_ooo,,p_oo.,p_ooo,,#chat\nu_ooo,,\u0014,m,20ss_ooo.,$_ooo._o.,:bkj#chat\nn_ooooo.,p_oo,,#chat\ny_ooo,,p_oo.,$ykn#chat\nyyhj#chat\nh_ooooo.,$yyn#chat\nb_oooooooo,,\u0017flint stone\ndj$byl#chat\nj_ooo,_.,\u0017luckstone\ndki\u001b\u0016?\n>Buuy\u0016?\n>w\u0006_ooooooo._,;<._o._,@.,\u0017amulet of change\ndlf   k_ooo._..,\u001b#chat\nhllh#chat\nk__._.,\u001b#chat\nl#pray\ny y _{,_.: qllh#chat\nj_oooooooo._.<._oo,,\u001b$llh#chat\nllhl#chat\nk_ooo.,:\u00167\njyj\u0016?\n>w\u0006_oooooo.,\u0017gray stone\ndjh_ooo,_ooo.,\u0017touchstone\ndhj\u0016?\n>Bjkk\u0016?\n>w\u0006_oooo._o._.,p_ooo.,$_ooooooo._.,puhu#chat\nj_oooo,,p_ooooooooo.Fu_,;;Fu,p\u0016?\n>Bjll\u0016?\n>w\u0006_ooooo.Fb_.<.Fb,\u0017diamond\ndmfk__,_.m,#chat\nj#pray\ny y _oooooooo,_.,\u001b#chat\nh__,_,,#chat\nunnk#chat\nl\u0016?\n>Bjbk\u0016?\n>w\u0006_ooo.Fk_,Fh,#chat\nh_ooo"
+  }
+ ]
+}

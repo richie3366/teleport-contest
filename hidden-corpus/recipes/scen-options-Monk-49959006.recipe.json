@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  mO>>>>>tf\nyes\nf\nw\u001b\\  O>m\ne\n#pray\ny kmO>arq\n ckmO>>>>fg\nyes\noff\n#untrap\njO>f\n#ride\nj#name\nf\n m.s.O>l\n,\u0018\u001bOhpi\no\no\nj\n<yy\u001by   y n \\"
+ },
+ "segments": [
+  {
+   "seed": 49959006,
+   "datetime": "20251023124519",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\nOPTIONS=playmode:explore\n",
+   "moves": "  mO>>>>>tf\nyes\nf\nw\u001b\\  O>m\ne\n#pray\ny kmO>arq\n ckmO>>>>fg\nyes\noff\n#untrap\njO>f\n#ride\nj#name\nf\n m.s.O>l\n,\u0018\u001bOhpi\no\no\nj\n<yy\u001by   y n \\"
+  }
+ ]
+}

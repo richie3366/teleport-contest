@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n         jbl\u0017pit\ny^n\u0007yellow mold\n.j s.sjk\u0017fire trap\nj^k#untrap\nkr\u001bdg  #offer\n\u0006\u0007housecat\n\u0017carrot\nt\u001b\u0007little dog\n\u0017fortune cookie\nt\u001b\u0017leash\naknllnkakh10s\u0006_ \u001bm.>Fh Fy  _>,Fj _,Fn >FnFn _>,Fn_.Fn>Fn s\u0017carrot\nt\u001b#chat\nk#name\nm\ni\u0017locked chest\n\u0017potion of gain level\ndly\u0004n\u0017skeleton key\ndfan.  nsm.sk.m.#loot\nnddh\u0004l anh\u00163\n\u0007steam vortex\nFkFkFk s\u001bFj  .m.#pray\ny y       20s FkFjFjFk\u00164\n\u0017blessed ring of polymorph control\nPor\u0017kicking boots\nWp20s20ss#polyself\ngnome\n20sss..m.#polyself\nair elemental\n sssss\u001619\n   \u0018\u001bi\u001baa#tip\nh\u001baaej  s.ei20ssqm #rub\neio#force\nt<#wipe\n\u000f\u001bi\u001bP..20sRaaaa#tip\nh\u001baa\u0007earth elemental\nFuFu FnFuFu\u0007leprechaun\nFnFuFnFnFnFn\u0007green slime\nFnFn \u0007vampire\nsm..m.sh   20s   n  sm.    \u00163\n\u0016?\n>z  _mmmm.#chat\nn_mmm, Fl  _.  n Fu#chat\n_mm.#chat\n_m.#chat\n_mmmmm,#chat\n\u0006_>.Fu _, Fl>Fl  Fu_>. Fu_. Fu >FuFl  _>.Fu _.Fl >Fu  Fu\u0016?\n>A,\u000f\u001b\u0004j #levelchange\n12\n\u001623\nah\u001b#conduct\n #force\n20ssn \u0016?\n>v E- X marks the spot\n   n   #chat\n\\ 20s \u001b20s  \u0016?\n>t#turn\n#invoke\n\u001bos20s \u001635\nEc#dip\nk;>..20s  \u0016?\n>A>#invoke\n\u001b\u0014:;m.20s.\u001619\n  i\u001b#levelchange\n30\n                 lh   l\u0017magic portal\nhl y\u001by   y y y\u001b ."
+ },
+ "segments": [
+  {
+   "seed": 49956066,
+   "datetime": "20120112171845",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n         jbl\u0017pit\ny^n\u0007yellow mold\n.j s.sjk\u0017fire trap\nj^k#untrap\nkr\u001bdg  #offer\n\u0006\u0007housecat\n\u0017carrot\nt\u001b\u0007little dog\n\u0017fortune cookie\nt\u001b\u0017leash\naknllnkakh10s\u0006_ \u001bm.>Fh Fy  _>,Fj _,Fn >FnFn _>,Fn_.Fn>Fn s\u0017carrot\nt\u001b#chat\nk#name\nm\ni\u0017locked chest\n\u0017potion of gain level\ndly\u0004n\u0017skeleton key\ndfan.  nsm.sk.m.#loot\nnddh\u0004l anh\u00163\n\u0007steam vortex\nFkFkFk s\u001bFj  .m.#pray\ny y       20s FkFjFjFk\u00164\n\u0017blessed ring of polymorph control\nPor\u0017kicking boots\nWp20s20ss#polyself\ngnome\n20sss..m.#polyself\nair elemental\n sssss\u001619\n   \u0018\u001bi\u001baa#tip\nh\u001baaej  s.ei20ssqm #rub\neio#force\nt<#wipe\n\u000f\u001bi\u001bP..20sRaaaa#tip\nh\u001baa\u0007earth elemental\nFuFu FnFuFu\u0007leprechaun\nFnFuFnFnFnFn\u0007green slime\nFnFn \u0007vampire\nsm..m.sh   20s   n  sm.    \u00163\n\u0016?\n>z  _mmmm.#chat\nn_mmm, Fl  _.  n Fu#chat\n_mm.#chat\n_m.#chat\n_mmmmm,#chat\n\u0006_>.Fu _, Fl>Fl  Fu_>. Fu_. Fu >FuFl  _>.Fu _.Fl >Fu  Fu\u0016?\n>A,\u000f\u001b\u0004j #levelchange\n12\n\u001623\nah\u001b#conduct\n #force\n20ssn \u0016?\n>v E- X marks the spot\n   n   #chat\n\\ 20s \u001b20s  \u0016?\n>t#turn\n#invoke\n\u001bos20s \u001635\nEc#dip\nk;>..20s  \u0016?\n>A>#invoke\n\u001b\u0014:;m.20s.\u001619\n  i\u001b#levelchange\n30\n                 lh   l\u0017magic portal\nhl y\u001by   y y y\u001b ."
+  }
+ ]
+}

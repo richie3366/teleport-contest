@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \u00178000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWf\u0017blessed amulet of life saving\nPg\u0016?\n>w\u0006_ \u001b<.,\u0014. ss_ooooo.Fh _._oo,,p_oooooooo.,\u0017amulet versus poison\ndi_ooooooooo._oo.,p_oooo.,p_ooooooooo,_ooo,,p_oooooooo,,p_{._.q_{,_.qjub#chat\nn_ooo.,p\u00167\njhl\u0016?\n>w\u0006_oooooo.,:_ooooooo,,\u0017amulet versus poison\ndj_oooooo.,p_ooooooooo.,$_ooo,,$_ooo.,p_ooooooo._ooo,,p_ooooo._o.,$_oooooo._o.,p_ooooo.,p_{,Fh_.Fhq__. Fk   _,.Fk #chat\nk_oooo._o.,p_oo.,pFk    Fk FkFk FkFk _ooooooo.,:_oo.,p_ooooooo.,p_ooooo.,\u0017touchstone\ndk   n_{. Fk _,    n Fj    n q\u00162\n  _{.q__.#chat\n   n  #pray\ny y       _ooooo.  Fb   n    n_.    n Fb  , $ \u00163\n   u  nb    n b  n   n\u0016?\n>w\u0006\u00163\nFk FkFk   n Fk Fk   nFk \u00163\n_oooooo.Fh_.@.Fh ,p_oo.Fh   n_.>.Fh _oo,_.m,,#chat\nh_{.qnyn#chat\nl_{.q\u0016?\ncbbk\u0016?\n>w\u0006_oooooo.,p\u0016?\ncylj\u0016?\n>w  \u0006_{.Fk   _,Fy   n q_ooooo.  y y\u001bnny ny  F"
+ },
+ "segments": [
+  {
+   "seed": 49959610,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00178000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWf\u0017blessed amulet of life saving\nPg\u0016?\n>w\u0006_ \u001b<.,\u0014. ss_ooooo.Fh _._oo,,p_oooooooo.,\u0017amulet versus poison\ndi_ooooooooo._oo.,p_oooo.,p_ooooooooo,_ooo,,p_oooooooo,,p_{._.q_{,_.qjub#chat\nn_ooo.,p\u00167\njhl\u0016?\n>w\u0006_oooooo.,:_ooooooo,,\u0017amulet versus poison\ndj_oooooo.,p_ooooooooo.,$_ooo,,$_ooo.,p_ooooooo._ooo,,p_ooooo._o.,$_oooooo._o.,p_ooooo.,p_{,Fh_.Fhq__. Fk   _,.Fk #chat\nk_oooo._o.,p_oo.,pFk    Fk FkFk FkFk _ooooooo.,:_oo.,p_ooooooo.,p_ooooo.,\u0017touchstone\ndk   n_{. Fk _,    n Fj    n q\u00162\n  _{.q__.#chat\n   n  #pray\ny y       _ooooo.  Fb   n    n_.    n Fb  , $ \u00163\n   u  nb    n b  n   n\u0016?\n>w\u0006\u00163\nFk FkFk   n Fk Fk   nFk \u00163\n_oooooo.Fh_.@.Fh ,p_oo.Fh   n_.>.Fh _oo,_.m,,#chat\nh_{.qnyn#chat\nl_{.q\u0016?\ncbbk\u0016?\n>w\u0006_oooooo.,p\u0016?\ncylj\u0016?\n>w  \u0006_{.Fk   _,Fy   n q_ooooo.  y y\u001bnny ny  F"
+  }
+ ]
+}

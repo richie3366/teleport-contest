@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  FlFl  FjFjs20s50sFhFhsbbl50s100s100s150s100s150s50skhubklhjkljy150seeeeeeeeeeeeeeeeeeeeeee#offer\nck#rub\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#pray\ny #chat\njZdess.tbbjlhudd.s20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeekcjE- Elbereth\nNHK N_ \u001b:>NY NU_>.>UYJH_>.>FhssKJJB_>,>;m.#loot\n\u000f\u001bUBNH_>,>#invoke\n\u001b,LKKL_>.>#dip\nf#sit\n\u001b<HHNH_>.>wa>YJHL_>.>NBNH_>,>JLUH_>,>HUNL_>.>#pray\ny  ;<.\u000f\u001bKHKK_>.>YLUN_>.>JYJJ_>.>cjjBKBL_>,>UHUU_>.>\u0018\u001bf by yKBLB_>.>HHNK _>,>KBBH_>,><JHUJ_>.>FjFjFjKKKU_>.>KBNL_>,>NULU_>.>\u000f\u001bHJY H_>.>s:L YHU_>.><YBUL_>.>Fj.Fj#conduct\n z#untrap\nuJBUN_>._,> BJKK_>.>#twoweapon\n,<HKLJ_>.>Fk"
+ },
+ "segments": [
+  {
+   "seed": 49957025,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=showrace\n",
+   "moves": "  FlFl  FjFjs20s50sFhFhsbbl50s100s100s150s100s150s50skhubklhjkljy150seeeeeeeeeeeeeeeeeeeeeee#offer\nck#rub\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#pray\ny #chat\njZdess.tbbjlhudd.s20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeekcjE- Elbereth\nNHK N_ \u001b:>NY NU_>.>UYJH_>.>FhssKJJB_>,>;m.#loot\n\u000f\u001bUBNH_>,>#invoke\n\u001b,LKKL_>.>#dip\nf#sit\n\u001b<HHNH_>.>wa>YJHL_>.>NBNH_>,>JLUH_>,>HUNL_>.>#pray\ny  ;<.\u000f\u001bKHKK_>.>YLUN_>.>JYJJ_>.>cjjBKBL_>,>UHUU_>.>\u0018\u001bf by yKBLB_>.>HHNK _>,>KBBH_>,><JHUJ_>.>FjFjFjKKKU_>.>KBNL_>,>NULU_>.>\u000f\u001bHJY H_>.>s:L YHU_>.><YBUL_>.>Fj.Fj#conduct\n z#untrap\nuJBUN_>._,> BJKK_>.>#twoweapon\n,<HKLJ_>.>Fk"
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "Fu FuFuFuFuFuFuFuFyFyFyFyFyFyFyFyllhlYYKY_ \u001b@.>YHUU_>.>BLHN_>.>JKHN_>.>LYJH_>.>BJKU_>.>#turn\n#sit\n\u001b\u000f\u001bnblkubjh100s50s50s50s\u0018\u001b150sFlss100s_>.>_>.>,_>,>slynhuj50skkl100sFhsslhl100sjuhjlj50syny100s150s50seeeeeeeeeeeeHKJY_>.>UULH_>.>KJHY_>.>i\u001b#wipe\n#chat\nh10slh10stbnuhynnkjyyn10slj#name\ni\n10syyny20s10seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeda.20s 20s#chat\nn#nam#quit\n#wizintrinsic\nd\n sm.s.m.sb20s sm.sysb.m.sm.sh20s.m.  yy  .  jujnFyFyFyFyFyFyFyFyyhnynly50s          \\ _ \u001b.>100s100s  100s #terrain\nb\n#pray\n:#pray\ny     y\u001by  y y y\u001b   h",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49958012,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\n",
+   "moves": "Fu FuFuFuFuFuFuFuFyFyFyFyFyFyFyFyllhlYYKY_ \u001b@.>YHUU_>.>BLHN_>.>JKHN_>.>LYJH_>.>BJKU_>.>#turn\n#sit\n\u001b\u000f\u001bnblkubjh100s50s50s50s\u0018\u001b150sFlss100s_>.>_>.>,_>,>slynhuj50skkl100sFhsslhl100sjuhjlj50syny100s150s50seeeeeeeeeeeeHKJY_>.>UULH_>.>KJHY_>.>i\u001b#wipe\n#chat\nh10slh10stbnuhynnkjyyn10slj#name\ni\n10syyny20s10seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeda.20s 20s#chat\nn#nam#quit\n"
+  },
+  {
+   "seed": 50058012,
+   "datetime": "20191023004543",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nd\n sm.s.m.sb20s sm.sysb.m.sm.sh20s.m.  yy  ."
+  },
+  {
+   "seed": 50158012,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=msg_window:reversed\n",
+   "moves": "  jujnFyFyFyFyFyFyFyFyyhnynly50s          \\ _ \u001b.>100s100s  100s #terrain\nb\n#pray\n:#pray\ny     y\u001by  y y y\u001b   h"
+  }
+ ]
+}

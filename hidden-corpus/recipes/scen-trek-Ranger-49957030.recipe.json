@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " FlFl20snbjFuFk 20sFuFuFu50s#dip\ncjky\u000f\u001bynyFl20ss150sFlFlFlFls.nyn100s100s50sFlFlFuFuFuFuykh_ \u001b;>\u000f\u001b_>,>150slbu_m.s100s100s100sFjFjFj100sFjFjshhl100s150s50sFnFns_>.>50s50sy10s\u0018\u001b100s150s100sefbnu FnFn FnFlFnFnjhk50s150sylbknb50sFls20s50s100sFlFls\u0018\u001b100s50slujhlhhllhhukbllhklhb#ride\n.150s\u000f\u001blnh100s100s#chat\nbuhjFlFlsFuFus100s100s100s#force\nu\\ ef100s100sFn..hhu\u0018\u001bi\u001b150s50s50sFnFjs#force\n50slhjkhl#pray\ny 100s \u000f\u001bjhj_>,>50s150slly:50s100sFnss50sFlFnFnbkl100shlj150s\u0018\u001b20sFl20s20s100s_>.>100sFl..50swa150sefylj100s50sFlFl20s50shuk150shju100s150sFnFlFlFls.50s \u000f\u001b#offer\n\u000f\u001b_>.>\\ \u000f\u001b\u0018\u001b_>.>100s#untrap\n.100s\u000f\u001b150sFnFn20s150sFnFnFnFnFl  sFlFlFl#pray\ny  Fl  nnnnn  2"
+ },
+ "segments": [
+  {
+   "seed": 49957030,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\n",
+   "moves": " FlFl20snbjFuFk 20sFuFuFu50s#dip\ncjky\u000f\u001bynyFl20ss150sFlFlFlFls.nyn100s100s50sFlFlFuFuFuFuykh_ \u001b;>\u000f\u001b_>,>150slbu_m.s100s100s100sFjFjFj100sFjFjshhl100s150s50sFnFns_>.>50s50sy10s\u0018\u001b100s150s100sefbnu FnFn FnFlFnFnjhk50s150sylbknb50sFls20s50s100sFlFls\u0018\u001b100s50slujhlhhllhhukbllhklhb#ride\n.150s\u000f\u001blnh100s100s#chat\nbuhjFlFlsFuFus100s100s100s#force\nu\\ ef100s100sFn..hhu\u0018\u001bi\u001b150s50s50sFnFjs#force\n50slhjkhl#pray\ny 100s \u000f\u001bjhj_>,>50s150slly:50s100sFnss50sFlFnFnbkl100shlj150s\u0018\u001b20sFl20s20s100s_>.>100sFl..50swa150sefylj100s50sFlFl20s50shuk150shju100s150sFnFlFlFls.50s \u000f\u001b#offer\n\u000f\u001b_>.>\\ \u000f\u001b\u0018\u001b_>.>100s#untrap\n.100s\u000f\u001b150sFnFn20s150sFnFnFnFnFl  sFlFlFl#pray\ny  Fl  nnnnn  2"
+  }
+ ]
+}

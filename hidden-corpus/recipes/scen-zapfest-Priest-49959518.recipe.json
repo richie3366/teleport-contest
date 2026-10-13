@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPkr\u0017blessed +3 speed boots\nWl#levelchange\n20\n                    \u0017wand of cancellation\n\u0017wand of sleep\n\u0017wand of slow monster\n\u0007giant rat\nzmysm.zny   zolzokzny zok\u0017blessed spellbook of fireball\nrp .\u0017spellbook of finger of death\nrq \u001b<. \u001b20s\u0007vampire\nZa\nZa\nZc\n        Zc\nZa\nZc\n    #turn\n \u0017blessed spellbook of magic missile\nrr 20s\u0007gnomish wizard\nZa\nZc\n   ssZc\ns.Zc\nZb\nZa\n20ssZb\nZb\ni\u001b\u0017wand of digging\n\u0017wand of death\n\u0007owlbear\nzs> ztlzs> szs> ztuztj n nztbzs> sztlztk n\u00168\n\u0007black dragon\n\u0007silver dragon\n20s20s    sus#polyself\ngold dragon\n     .j   20s   #monster\nj      #monster\n#monster\nFj   Fh    n \u0017bow\nwu         n\u001720 arrows\nQv\u0007acid blob\ntvl    fj     nfl     tvl      n fb         nfj    "
+ },
+ "segments": [
+  {
+   "seed": 49959518,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPkr\u0017blessed +3 speed boots\nWl#levelchange\n20\n                    \u0017wand of cancellation\n\u0017wand of sleep\n\u0017wand of slow monster\n\u0007giant rat\nzmysm.zny   zolzokzny zok\u0017blessed spellbook of fireball\nrp .\u0017spellbook of finger of death\nrq \u001b<. \u001b20s\u0007vampire\nZa\nZa\nZc\n        Zc\nZa\nZc\n    #turn\n \u0017blessed spellbook of magic missile\nrr 20s\u0007gnomish wizard\nZa\nZc\n   ssZc\ns.Zc\nZb\nZa\n20ssZb\nZb\ni\u001b\u0017wand of digging\n\u0017wand of death\n\u0007owlbear\nzs> ztlzs> szs> ztuztj n nztbzs> sztlztk n\u00168\n\u0007black dragon\n\u0007silver dragon\n20s20s    sus#polyself\ngold dragon\n     .j   20s   #monster\nj      #monster\n#monster\nFj   Fh    n \u0017bow\nwu         n\u001720 arrows\nQv\u0007acid blob\ntvl    fj     nfl     tvl      n fb         nfj    "
+  }
+ ]
+}

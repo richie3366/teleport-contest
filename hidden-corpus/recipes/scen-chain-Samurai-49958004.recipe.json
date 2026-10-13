@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of digging\nzf> szf>  szf>  szf>   yy\u001by  y y nn  s  jbjn\u0018\u001b\\    100s_ \u001b>.>i\u001b\\    150s FkFk 20sybbkjl150s50slhl_>.>lyk150s100s _>.>100s100shnlkjbFk20sFk_>.>i\u001b100s  Fk.si\u001b\u0018\u001bybl\u000f\u001b100sFk20ss\u000f\u001bllk\u000f\u001b50s 150s100sFyFyFyHJNJ_>.>KKYU_>.>FhFjs#force\n,HYLB_>.>UBLJ_>,>20s#force\nLYBB_>,>Fy20s.UNBL_>,>BHHH_>.>FlFkFklhlhuynu20sdes.20s#name\no\nhjhl10s#name\nf\nHUKL_>#name\nm,\u0004h<HYHB_>,>FuFuFkJHUN_>.>FhFhsJKNB_>.><YNBK_>.>ULJN_>.>jhhlUBNY_>.><U KUN_>,>NLKL_>.>a#offer\nbjkk20snb#name\nd\ndcs20ss10shbdass20s_>,>100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeelykbKN UY_>,>NHYU_>.><LYUB_>,>#for#quit\ntbk 10s    njhuh nFkFuFu #terrain\nc\n\u001b.100shkh100s100s\\ 100s FyFysr\u001b50si\u001b\u000f\u001b100sFhFhs150sw-150sljunhl150seh_>,>hyjyll_>.>50sblyqd  100s100s\\ _>.>nly#ride\nh100seg100s 100sjbk 50s jjl100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehynhyhlhjkdc20ssslhbj10seeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b   #wizintrinsic\ne\n .m.sm..m..uskss20s.y20s  .m.sls20s   y\u001b    y  s  jbbk#name\n\u001blbdd.ss#name\n\u001b20s t\u001bt\u001bFuFuFu FuFuFuFuFuKKKY_ \u001b:>\u0004u20sHKUH_>.>FjFjs#wipe\nw\u001bJNBK_>.>FlFl.KHBB_>,>uuljJBBU_>,>LJUB_>.>#conduct\n #force\nHJLN_>,>#pray\ny 10sKULB_>.>#jump\nef100s_>.>\u000f\u001b100s100s_>.>100s50suby100snynyykluj100s50s50s_>.>100s150sFjFjFj100s100sFjFjFj50sFjFj.50seh  #pray\ny 50sFjFj20segFj20ss100sFj20ssFjFjs100seg100sFjss\\  #name\n\u001bkbjk20s#name\n\u001bjkblde.20s.20s#name\n\u001b10shnnybudf.ss#name\n\u001b#name\n\u001bKKJH_>.>NKHN _>.>#tip\n\u001b>UKYK_>,>u,di..st\u001b10st\u001bda20s20ss20sbbhbuFjFjFjFjFjFjFjFjNUJ N_>.>HNK K_>.>KJ YH_>.>KUHH_>.>#ride\nl#conduct\n JJUY_>,>UHYL_>,>#chat\nj__.20sUBJN_>.>\u000f\u001blubuY NJN_>.>BNJN_>.>YLKK_>.>#force\najhhbJBHH_>.>Fus.K YYH_>,>BU NH_>,><KYBN_>.>i\u001bjJHHJ_>.>a#tip\n\u001bNHNB_>.>UYLN_>.>KNKK_>.>\u000f\u001bdc.20s.t\u001b#quit\nyy\u001by   y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49958004,
+   "datetime": "20200623094947",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\nzf> szf>  szf>  szf>   yy\u001by  y y nn  s"
+  },
+  {
+   "seed": 50058004,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\n",
+   "moves": "  jbjn\u0018\u001b\\    100s_ \u001b>.>i\u001b\\    150s FkFk 20sybbkjl150s50slhl_>.>lyk150s100s _>.>100s100shnlkjbFk20sFk_>.>i\u001b100s  Fk.si\u001b\u0018\u001bybl\u000f\u001b100sFk20ss\u000f\u001bllk\u000f\u001b50s 150s100sFyFyFyHJNJ_>.>KKYU_>.>FhFjs#force\n,HYLB_>.>UBLJ_>,>20s#force\nLYBB_>,>Fy20s.UNBL_>,>BHHH_>.>FlFkFklhlhuynu20sdes.20s#name\no\nhjhl10s#name\nf\nHUKL_>#name\nm,\u0004h<HYHB_>,>FuFuFkJHUN_>.>FhFhsJKNB_>.><YNBK_>.>ULJN_>.>jhhlUBNY_>.><U KUN_>,>NLKL_>.>a#offer\nbjkk20snb#name\nd\ndcs20ss10shbdass20s_>,>100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeelykbKN UY_>,>NHYU_>.><LYUB_>,>#for#quit\n"
+  },
+  {
+   "seed": 50158004,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\n",
+   "moves": "tbk 10s    njhuh nFkFuFu #terrain\nc\n\u001b.100shkh100s100s\\ 100s FyFysr\u001b50si\u001b\u000f\u001b100sFhFhs150sw-150sljunhl150seh_>,>hyjyll_>.>50sblyqd  100s100s\\ _>.>nly#ride\nh100seg100s 100sjbk 50s jjl100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehynhyhlhjkdc20ssslhbj10seeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50258004,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  #wizintrinsic\ne\n .m.sm..m..uskss20s.y20s  .m.sls20s   y\u001b    y  s"
+  },
+  {
+   "seed": 50358004,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\n",
+   "moves": "  jbbk#name\n\u001blbdd.ss#name\n\u001b20s t\u001bt\u001bFuFuFu FuFuFuFuFuKKKY_ \u001b:>\u0004u20sHKUH_>.>FjFjs#wipe\nw\u001bJNBK_>.>FlFl.KHBB_>,>uuljJBBU_>,>LJUB_>.>#conduct\n #force\nHJLN_>,>#pray\ny 10sKULB_>.>#jump\nef100s_>.>\u000f\u001b100s100s_>.>100s50suby100snynyykluj100s50s50s_>.>100s150sFjFjFj100s100sFjFjFj50sFjFj.50seh  #pray\ny 50sFjFj20segFj20ss100sFj20ssFjFjs100seg100sFjss\\  #name\n\u001bkbjk20s#name\n\u001bjkblde.20s.20s#name\n\u001b10shnnybudf.ss#name\n\u001b#name\n\u001bKKJH_>.>NKHN _>.>#tip\n\u001b>UKYK_>,>u,di..st\u001b10st\u001bda20s20ss20sbbhbuFjFjFjFjFjFjFjFjNUJ N_>.>HNK K_>.>KJ YH_>.>KUHH_>.>#ride\nl#conduct\n JJUY_>,>UHYL_>,>#chat\nj__.20sUBJN_>.>\u000f\u001blubuY NJN_>.>BNJN_>.>YLKK_>.>#force\najhhbJBHH_>.>Fus.K YYH_>,>BU NH_>,><KYBN_>.>i\u001bjJHHJ_>.>a#tip\n\u001bNHNB_>.>UYLN_>.>KNKK_>.>\u000f\u001bdc.20s.t\u001b#quit\nyy\u001by   y y y\u001b "
+  }
+ ]
+}

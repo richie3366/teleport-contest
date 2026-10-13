@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWp\u0017blessed +3 helm of telepathy\nWq\u0016?\n>>L      spellbook of clairvoyance\nnkb     l   : \u0016?\n\u001buy uy\u0016?\n\u001bb    k                 n          \u0016?\n\u001bn      n                     h     n              \u001612\n\u001639\n\u0014 n    n                      \u001639\n\u0006_ \u001b@.\u0016?\n\u001bk   n        n                 k         n                   \u00161\n\u0016?\n\u001bj       n                    b   n          n       \u00161\n\u0016?\n\u001bh        n          b        n            \u00168\n\u0016?\n\u001bn               n              h       n                  n  \u0016?\n\u001bu         \u001b       n       l             yy\u001by   ny  y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 49955021,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWp\u0017blessed +3 helm of telepathy\nWq\u0016?\n>>L      spellbook of clairvoyance\nnkb     l   : \u0016?\n\u001buy uy\u0016?\n\u001bb    k                 n          \u0016?\n\u001bn      n                     h     n              \u001612\n\u001639\n\u0014 n    n                      \u001639\n\u0006_ \u001b@.\u0016?\n\u001bk   n        n                 k         n                   \u00161\n\u0016?\n\u001bj       n                    b   n          n       \u00161\n\u0016?\n\u001bh        n          b        n            \u00168\n\u0016?\n\u001bn               n              h       n                  n  \u0016?\n\u001bu         \u001b       n       l             yy\u001by   ny  y\u001b  \u0016"
+  }
+ ]
+}

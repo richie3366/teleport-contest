@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWk\u0017blessed +3 speed boots\nWl \u0016?\n>w\u0006_ \u001b.qd_ooooooo.,$_ooo,,plyh#chat\nh_ooo.,#chat\nb_ooo.,p_ooooo.,$_ooooo.,\u0017amulet of guarding\ndm_ooooooo.,#chat\nh\u00163\nujk\u0016?\n>w\u0006_oooooooo.,\u0014..._ooo._ooo.,p_ooooooooo._oo.,$_oooooooo.,\u0017dilithium crystal\ndn_{,_.m.qy__. Fj_.#chat\nk#pray\ny y _oo,Fb_,@.Fb_oo, _.,#chat\nlbkj#chat\nn_{,_.qy hbn#chat\nk_oooooo.Fh_.Fh,p_oo,Fh_..Fh_oo,_,,$byn#chat\nl_{,_.qd_ooooo.,:_oooooo.Fk _._o. Fy  _,.Fh ,p_ooooooo,Fh _.Fh  ,p_ooooooo,Fb  _..Fh ,pFh FhFhFh FhFh_oooooooo, Fj_._oo, Fb_.Fu,p__, Fu _,  Fb #chat\nu__.Fu_,   n  Fh    #chat\nh#pray\ny y        Fh   FhFh  FhFh   n Fh  FnFn FnFnFnFn _ooo.Fb_,_oo._,,y   p__.  Fu      n  _.      n  Fu        n   #chat\nu      n      \u00162\nFb   n    Fb  Fb   n   Fb  Fb   n     Fb   n      n\u001610\n_ooooo._oo,,$Fh  Fh        n  Fh        n   Fh        n       Fh    Fh    n  _ooooooooo.      Fu   n    _.,y      yy\u001b y   y y y\u001by  :"
+ },
+ "segments": [
+  {
+   "seed": 49959672,
+   "datetime": "20141027124628",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWk\u0017blessed +3 speed boots\nWl \u0016?\n>w\u0006_ \u001b.qd_ooooooo.,$_ooo,,plyh#chat\nh_ooo.,#chat\nb_ooo.,p_ooooo.,$_ooooo.,\u0017amulet of guarding\ndm_ooooooo.,#chat\nh\u00163\nujk\u0016?\n>w\u0006_oooooooo.,\u0014..._ooo._ooo.,p_ooooooooo._oo.,$_oooooooo.,\u0017dilithium crystal\ndn_{,_.m.qy__. Fj_.#chat\nk#pray\ny y _oo,Fb_,@.Fb_oo, _.,#chat\nlbkj#chat\nn_{,_.qy hbn#chat\nk_oooooo.Fh_.Fh,p_oo,Fh_..Fh_oo,_,,$byn#chat\nl_{,_.qd_ooooo.,:_oooooo.Fk _._o. Fy  _,.Fh ,p_ooooooo,Fh _.Fh  ,p_ooooooo,Fb  _..Fh ,pFh FhFhFh FhFh_oooooooo, Fj_._oo, Fb_.Fu,p__, Fu _,  Fb #chat\nu__.Fu_,   n  Fh    #chat\nh#pray\ny y        Fh   FhFh  FhFh   n Fh  FnFn FnFnFnFn _ooo.Fb_,_oo._,,y   p__.  Fu      n  _.      n  Fu        n   #chat\nu      n      \u00162\nFb   n    Fb  Fb   n   Fb  Fb   n     Fb   n      n\u001610\n_ooooo._oo,,$Fh  Fh        n  Fh        n   Fh        n       Fh    Fh    n  _ooooooooo.      Fu   n    _.,y      yy\u001b y   y y y\u001by  :"
+  }
+ ]
+}

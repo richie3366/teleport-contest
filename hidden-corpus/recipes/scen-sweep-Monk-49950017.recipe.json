@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n                  \u0016?\n>y  _ \u001b,#chat\nh;h;_mmmmm.#chat\nh_mmm,Fn_.:Fl #chat\nl;u,_m,  Fl_,#chat\nl;n:  _mmmmm.#chat\nk;u;#conduct\n __,.m.u  \u001629\n#wizintrinsic\naf\n syss20ssm.   n sm. sm..k.ysm. \u0017blindfold\naj_<.20s   nz#terrain\nb\n;m.#sit\n#twoweapon\n20s .s.  n  20s    n 20s \u001617\n\\  \u00167\n#levelchange\n14\n\u0016?\n>w\u0006_mmm.#chat\nk_ooo,,p_{,_.qd_dddd._,@.\u0004k_oooooo._o,,p_oooooo.,#chat\nn<#name\n\u001b#chat\nk#wizintrinsic\ngh\n E\u001b\u0017scroll of confuse monster\nrk\u0017scroll of food detection\nrl..si\u001bW20s20s.TbWb20ss.#pray\ny yJ#wipe\n#rub\nee  eh   #jump\n#offer\n\u0017large box\n\u0017wand of light\n\u0017gray stone\n\u0017wand of cancellation\nao\u001bao\u001bdo#loot\n\u001b,#tip\no\u001b\u001623\ni\u001b#wizintrinsic\nn\n 20s.ss.s  n ..20s 20s  n ....s .  n 20s .20s   n 20s 20s ss.  nss ss 20s s  n .s dg #conduct\n \u0018\u001b#untrap\nhf \u001b#untrap\nhs  n ss s  n.s \u00168\n\u0016?\n>D\u0017wand of striking\nzskFhy\u0017wand of striking\nztl\u0017wand of digging\nzul\u0017wand of striking\nzvlu\u0017scroll of earth\nrwh\u0017scroll of earth\nrw\u0017scroll of earth\nrw\u0017wand of digging\nzxj\u0017scroll of earth\nrw\u0017wand of digging\nzyh\u0017scroll of earth\nrw\u0017wand of striking\nzz>y\u0017wand of striking\nzAll\u0017scroll of earth\nrw\u0017wand of digging\nzBj\u0017scroll of earth\nrw10s\u0017wand of striking\nzCk\u0017wand of striking\nzDj\u0017scroll of earth\nrw\u0017wand of digging\nzEll\u0017wand of digging\nzF> \u0017wand of digging\nzGh\u0017wand of striking\nzHj\u0017scroll of earth\nrIlbnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnny\u0017wand of str"
+ },
+ "segments": [
+  {
+   "seed": 49950017,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n                  \u0016?\n>y  _ \u001b,#chat\nh;h;_mmmmm.#chat\nh_mmm,Fn_.:Fl #chat\nl;u,_m,  Fl_,#chat\nl;n:  _mmmmm.#chat\nk;u;#conduct\n __,.m.u  \u001629\n#wizintrinsic\naf\n syss20ssm.   n sm. sm..k.ysm. \u0017blindfold\naj_<.20s   nz#terrain\nb\n;m.#sit\n#twoweapon\n20s .s.  n  20s    n 20s \u001617\n\\  \u00167\n#levelchange\n14\n\u0016?\n>w\u0006_mmm.#chat\nk_ooo,,p_{,_.qd_dddd._,@.\u0004k_oooooo._o,,p_oooooo.,#chat\nn<#name\n\u001b#chat\nk#wizintrinsic\ngh\n E\u001b\u0017scroll of confuse monster\nrk\u0017scroll of food detection\nrl..si\u001bW20s20s.TbWb20ss.#pray\ny yJ#wipe\n#rub\nee  eh   #jump\n#offer\n\u0017large box\n\u0017wand of light\n\u0017gray stone\n\u0017wand of cancellation\nao\u001bao\u001bdo#loot\n\u001b,#tip\no\u001b\u001623\ni\u001b#wizintrinsic\nn\n 20s.ss.s  n ..20s 20s  n ....s .  n 20s .20s   n 20s 20s ss.  nss ss 20s s  n .s dg #conduct\n \u0018\u001b#untrap\nhf \u001b#untrap\nhs  n ss s  n.s \u00168\n\u0016?\n>D\u0017wand of striking\nzskFhy\u0017wand of striking\nztl\u0017wand of digging\nzul\u0017wand of striking\nzvlu\u0017scroll of earth\nrwh\u0017scroll of earth\nrw\u0017scroll of earth\nrw\u0017wand of digging\nzxj\u0017scroll of earth\nrw\u0017wand of digging\nzyh\u0017scroll of earth\nrw\u0017wand of striking\nzz>y\u0017wand of striking\nzAll\u0017scroll of earth\nrw\u0017wand of digging\nzBj\u0017scroll of earth\nrw10s\u0017wand of striking\nzCk\u0017wand of striking\nzDj\u0017scroll of earth\nrw\u0017wand of digging\nzEll\u0017wand of digging\nzF> \u0017wand of digging\nzGh\u0017wand of striking\nzHj\u0017scroll of earth\nrIlbnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnny\u0017wand of str"
+  }
+ ]
+}

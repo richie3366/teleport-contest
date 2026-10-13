@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed +3 gauntlets of power\nWk\u0017blessed amulet of life saving\nPl \u00167\njhkb:s.s\u0016?\n>>Qukbjy:\u001634\nny:\u0016?\n>>P  _ \u001b,\u001642\n#levelchange\n12\n\u0017trident\nwass.X\u0007black light\n#chat\nj20s  s\u0007kitten\nsm.ssss\u0007leprechaun\n#chat\njFn Fj \u0016?\nr  \u0006_<._,\u0016?\nm__,>\u0016?\nl jj:ssm.\u001642\n_>._. <s\u0016?\n>>K       sling\n\u0006@._>,\u0016?\n\u001byu \u001642\nblky   :\u001643\njbbbj:\u0016?\n\u001buu\u0016?\n\u001bjj\u001642\n_{.\u0016?\n\u001byb\u0016?\n\u001bhy\u001611\n#chat\nl;<.s    n \u001629\n__,>\u0016?\n\u001bby\u001642\nj       nky:\u0016?\n\u001bju    n\u00169\n\u0006<._>,\u0016?\n\u001bj   b    n \u0016?\n\u001bl     h   n   n \u00167\n\u0016?\n\u001byb      n   \u0016?\n\u001by  n  j\u0016?\n\u001bk   n  nu    n   n\u00169\n\u0016?\n\u001bbn\u0016?\n\u001bl   n y\u001611\nk    n  n  nh    ynny y y\u001b  j"
+ },
+ "segments": [
+  {
+   "seed": 49955035,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed +3 gauntlets of power\nWk\u0017blessed amulet of life saving\nPl \u00167\njhkb:s.s\u0016?\n>>Qukbjy:\u001634\nny:\u0016?\n>>P  _ \u001b,\u001642\n#levelchange\n12\n\u0017trident\nwass.X\u0007black light\n#chat\nj20s  s\u0007kitten\nsm.ssss\u0007leprechaun\n#chat\njFn Fj \u0016?\nr  \u0006_<._,\u0016?\nm__,>\u0016?\nl jj:ssm.\u001642\n_>._. <s\u0016?\n>>K       sling\n\u0006@._>,\u0016?\n\u001byu \u001642\nblky   :\u001643\njbbbj:\u0016?\n\u001buu\u0016?\n\u001bjj\u001642\n_{.\u0016?\n\u001byb\u0016?\n\u001bhy\u001611\n#chat\nl;<.s    n \u001629\n__,>\u0016?\n\u001bby\u001642\nj       nky:\u0016?\n\u001bju    n\u00169\n\u0006<._>,\u0016?\n\u001bj   b    n \u0016?\n\u001bl     h   n   n \u00167\n\u0016?\n\u001byb      n   \u0016?\n\u001by  n  j\u0016?\n\u001bk   n  nu    n   n\u00169\n\u0016?\n\u001bbn\u0016?\n\u001bl   n y\u001611\nk    n  n  nh    ynny y y\u001b  j"
+  }
+ ]
+}

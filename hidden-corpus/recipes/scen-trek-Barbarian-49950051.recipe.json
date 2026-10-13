@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " Fn ss\u0018\u001b100s150sFlFlshnbuhy150s\\   150s150sFhFhFhFh20ss>100sFl.20snblhklhkn\\   byl100sjhuknnFks20s_ \u001b<.>50sbby100s\u000f\u001b150s100sed150s100sFl20s20s50skjbuyj\u0018\u001btbhnkyhlhhj10skj10s10sBKUK_>.>#terrain\nc\n<.#chat\nbBBUU_>,>UHHL_>,>LJLK_>.>ze spellbook of identify\n10s\u000f\u001bP#ride\nnrf  FhFhFhFhFh  yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 49950051,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": " Fn ss\u0018\u001b100s150sFlFlshnbuhy150s\\   150s150sFhFhFhFh20ss>100sFl.20snblhklhkn\\   byl100sjhuknnFks20s_ \u001b<.>50sbby100s\u000f\u001b150s100sed150s100sFl20s20s50skjbuyj\u0018\u001btbhnkyhlhhj10skj10s10sBKUK_>.>#terrain\nc\n<.#chat\nbBBUU_>,>UHHL_>,>LJLK_>.>ze spellbook of identify\n10s\u000f\u001bP#ride\nnrf  FhFhFhFhFh  yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " scl_>. \u001b>.20s       #ride\njag\u001b#loot\nj#pray\ny  \u0018\u001bE- X marks the spot\n10sy: ;j:  #offer\nK_>.20s: we #tip\nh\u001bojed    "
+ },
+ "segments": [
+  {
+   "seed": 49952029,
+   "datetime": "20211218130319",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": " scl_>. \u001b>.20s       #ride\njag\u001b#loot\nj#pray\ny  \u0018\u001bE- X marks the spot\n10sy: ;j:  #offer\nK_>.20s: we #tip\nh\u001bojed    "
+  }
+ ]
+}

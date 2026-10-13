@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "J   NBL_ \u001b;>Fl.sBBBY_>,>YNLB_>.>JBUY_>.>HJHN_>.>#loot\ncjNKNL_>.>:#name\nd\nULBK_>.>#conduct\n E- X marks the spot\n\u000f\u001b#ride\nhdn\u0014t\u001bdo...blhk#name\nd\nkFh ssi\u001b\u0018\u001bbln100syjy50s50s100s 50s50s100slny100sukj150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#rub\n_>.sLYNJ _>.>KUJ U_>,>\\  #rub\nBNKH_>.>LKYN_>.>J JLU_>.>BK UB_>.>#conduct\n #force\nJLJJ_>.>\u000f\u001b,W\u001bokdm..s#chat\nnjh20s10s10shkkheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#ride\nyf \u001b\u000f\u001b20slynh#name\na\nt\u001bdf20ss.#name\ni\n#pray\ny #pray\ny  #pray\ny  e#pray\ny   yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 49957020,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:explore\n",
+   "moves": "J   NBL_ \u001b;>Fl.sBBBY_>,>YNLB_>.>JBUY_>.>HJHN_>.>#loot\ncjNKNL_>.>:#name\nd\nULBK_>.>#conduct\n E- X marks the spot\n\u000f\u001b#ride\nhdn\u0014t\u001bdo...blhk#name\nd\nkFh ssi\u001b\u0018\u001bbln100syjy50s50s100s 50s50s100slny100sukj150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#rub\n_>.sLYNJ _>.>KUJ U_>,>\\  #rub\nBNKH_>.>LKYN_>.>J JLU_>.>BK UB_>.>#conduct\n #force\nJLJJ_>.>\u000f\u001b,W\u001bokdm..s#chat\nnjh20s10s10shkkheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#ride\nyf \u001b\u000f\u001b20slynh#name\na\nt\u001bdf20ss.#name\ni\n#pray\ny #pray\ny  #pray\ny  e#pray\ny   yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

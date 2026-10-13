@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #chat\nk#chat\ny20sbkjjj#name\nm\n;W#conduct\n #tip\n\u001b\u001bFh.._>,>100s\\   #invoke\n\u001b\u001b50s50s_>.>_>.>\u0018\u001b100s50s#chat\nb\\   lyn50sFhsFh 100s100s100s_>.>hynFkFkshybFls20sedylhnhl100s\\   100sFlFls100sFuFlFuFuFuFu#pray\ny     FuFu.#enhance\n\u001bkynjhk_>,>\u000f\u001b100sbkj100s100soluuu100sFbss100sunjFu.20s\u000f\u001b150s100s_>.>100s50sFlss50s\u000f\u001br\u001b\u001byjk\u0018\u001bck_>.>150s#invoke\n\u001b\u001b_>,>100sFlFlFlFlss150snhk_>,>100si\u001b50suhjL ey edecksm.s20s   y\u001bnny y\u001b  b"
+ },
+ "segments": [
+  {
+   "seed": 49950019,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=pettype:cat\n",
+   "moves": " #chat\nk#chat\ny20sbkjjj#name\nm\n;W#conduct\n #tip\n\u001b\u001bFh.._>,>100s\\   #invoke\n\u001b\u001b50s50s_>.>_>.>\u0018\u001b100s50s#chat\nb\\   lyn50sFhsFh 100s100s100s_>.>hynFkFkshybFls20sedylhnhl100s\\   100sFlFls100sFuFlFuFuFuFu#pray\ny     FuFu.#enhance\n\u001bkynjhk_>,>\u000f\u001b100sbkj100s100soluuu100sFbss100sunjFu.20s\u000f\u001b150s100s_>.>100s50sFlss50s\u000f\u001br\u001b\u001byjk\u0018\u001bck_>.>150s#invoke\n\u001b\u001b_>,>100sFlFlFlFlss150snhk_>,>100si\u001b50suhjL ey edecksm.s20s   y\u001bnny y\u001b  b"
+  }
+ ]
+}

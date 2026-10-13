@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0016?\n>>N       kicking boots\n\u0017cursed potion of gain energy\nqkFk     \u001bFl \u001b \u001b  n    \u0017blessed potion of polymorph\n\u0007plains centaur\nql water elemental\n         n     n#dip\njd    \u001b   n  Fu          n  Fl         \u001b   n     \u0017scroll of scare monster\n\u0007captain\nrm  \u001b   n     n      nFl          n     Fl    n         n  \u0017blessed scroll of enchant weapon\nrn  \u001b         n      sm.   n      .m.   n sm.   \u0016?\ne#chat\ny     y  ;"
+ },
+ "segments": [
+  {
+   "seed": 49955004,
+   "datetime": "20150207175452",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0016?\n>>N       kicking boots\n\u0017cursed potion of gain energy\nqkFk     \u001bFl \u001b \u001b  n    \u0017blessed potion of polymorph\n\u0007plains centaur\nql water elemental\n         n     n#dip\njd    \u001b   n  Fu          n  Fl         \u001b   n     \u0017scroll of scare monster\n\u0007captain\nrm  \u001b   n     n      nFl          n     Fl    n         n  \u0017blessed scroll of enchant weapon\nrn  \u001b         n      sm.   n      .m.   n sm.   \u0016?\ne#chat\ny     y  ;"
+  }
+ ]
+}

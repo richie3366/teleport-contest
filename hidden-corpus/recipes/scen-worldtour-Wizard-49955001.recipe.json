@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 speed boots\nWo\u0016?\n>>K      ring of fire resistance\njj\u0017wand of locking\nE:\u0017wand of create monster\nE:\u0017wand of teleportation\nEy  \u0017athame\nE:E\u0007gnome lord\nsm.    sb.m.   \u0016?\n\u001byy \u0016?\n\u001bu    nn   \u0016?\n\u001byb    \u0016?\n\u001bju\u001627\nykk:\u001627\n#levelchange\n12\n   \u0007guard\nnFlFlFn  FlFy   n\u0007acid blob\n#chat\nnFn  Fh\u0007Famine\ny;y, \u001b<.20s     n  sj20s   n        n \u0007gnomish wizard\n;h.20s   n     n   20s   n     n   .m.       n   sj\u001610\n\u0016?\n\u001bl   n     n   l      n   \u00165\n\u0016?\n\u001bj    n     n n   yny   ny n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 49955001,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 speed boots\nWo\u0016?\n>>K      ring of fire resistance\njj\u0017wand of locking\nE:\u0017wand of create monster\nE:\u0017wand of teleportation\nEy  \u0017athame\nE:E\u0007gnome lord\nsm.    sb.m.   \u0016?\n\u001byy \u0016?\n\u001bu    nn   \u0016?\n\u001byb    \u0016?\n\u001bju\u001627\nykk:\u001627\n#levelchange\n12\n   \u0007guard\nnFlFlFn  FlFy   n\u0007acid blob\n#chat\nnFn  Fh\u0007Famine\ny;y, \u001b<.20s     n  sj20s   n        n \u0007gnomish wizard\n;h.20s   n     n   20s   n     n   .m.       n   sj\u001610\n\u0016?\n\u001bl   n     n   l      n   \u00165\n\u0016?\n\u001bj    n     n n   yny   ny n  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "hlkyhdd20ss20sH  \u000f\u001bi\u001bUL BN_ \u001b.>ojE- ad aerarium\nBLHN_>.>w-r\u001bHLKK_>.>10s#turn\nKHYJ_>.>KJNU_>.>HKLN_>,>Fl s20se#conduct\n #pray\ny  ZWFl.Fl_>,>hllFlsFlFl FlFlFl20sFlFlFlFl100s100s150s_>,>100sFlFlFlFlFlFlFlss100s100s50s\\   lhl50s\\   50s100s 50sFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl#pray\ny  y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 49957041,
+   "datetime": "20021227131249",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=sortloot:none\n",
+   "moves": "hlkyhdd20ss20sH  \u000f\u001bi\u001bUL BN_ \u001b.>ojE- ad aerarium\nBLHN_>.>w-r\u001bHLKK_>.>10s#turn\nKHYJ_>.>KJNU_>.>HKLN_>,>Fl s20se#conduct\n #pray\ny  ZWFl.Fl_>,>hllFlsFlFl FlFlFl20sFlFlFlFl100s100s150s_>,>100sFlFlFlFlFlFlFlss100s100s50s\\   lhl50s\\   50s100s 50sFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl#pray\ny  y\u001by  y y y\u001b  1"
+  }
+ ]
+}

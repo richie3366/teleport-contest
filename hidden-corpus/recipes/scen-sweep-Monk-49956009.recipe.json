@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u00173 loadstone\n \u0007hobbit\nt\u001b\u0017potion of oil\n\u0007Croesus\nnql  Fj   n Fj \u0017athame\nwm  n Fj   nFy Fk   n  \u0017uncursed amulet of flying\n\u0007killer bee\nPn   n  sm.  n    n 20s   n  sm.  n    n    n .m.  n    n  \u0017spellbook of cause fear\nro   n    n  sm.    n .m.   yny   y y y\u001bn  Z"
+ },
+ "segments": [
+  {
+   "seed": 49956009,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u00173 loadstone\n \u0007hobbit\nt\u001b\u0017potion of oil\n\u0007Croesus\nnql  Fj   n Fj \u0017athame\nwm  n Fj   nFy Fk   n  \u0017uncursed amulet of flying\n\u0007killer bee\nPn   n  sm.  n    n 20s   n  sm.  n    n    n .m.  n    n  \u0017spellbook of cause fear\nro   n    n  sm.    n .m.   yny   y y y\u001bn  Z"
+  }
+ ]
+}

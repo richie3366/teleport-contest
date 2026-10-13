@@ -1,0 +1,70 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "FnFn FnFnFnFnFnFnLUHH_ \u001bm,>Fls.#loot\nPBBUL_>,>BKLY_>,>LBBH_>.><NJBL_>.>BBBL_>,>\u000f\u001bJNKJ_>,>UKHJ_>,>KLLH_>.>Fk..rh nn20sJLJH_>,>FuFuFulyyl#chat\nkjbujlk#chat\njdacus20s20s100sFkFk._>.>bky150sFhF#quit\ndN NY L  _ \u001b,><HUYU_>.>FhFh s<BBBY_>.>\u000f\u001b\u0018\u001b100s_>,>#loot\n100sFhs.\u0018\u001b150slhb50sujyP\\  jnl100s\\  100s_>.>100s150sed150s50si\u001bkbk100s150s50s100s150s50sed\u0018\u001b100s100skbu150s50sjyl150sda..slnnu#name\ni\n#name\na\n#chat\ny#chat\nnhbkkbj#chat\nj#quit\nyy\u001by  y y y\u001b  jjjhFhFhFhFhFhFhFhFhFlFlFlFlFlFlFlFlFj FjFjFjFjFjFjFjJ LKK_ \u001b@.>KUHY_>.>FhFhFhBBBY_>._,> ssBJBN_>.>< NBYH_>,_.> ;m,okKUBY_>.>NYYH_>.>FhFhsjjkl_>,>byh100s50s100s Fh Fn#quit\nyy\u001by  y y y\u001b Fj FjFjFjFjFjFjFjFkFkFkFkFkFkFkFkjyt\u001b\u001bkjhnykjudfb.ss100s150s\\  \u000f\u001b150sFbFbFjFb..ljy#dip\nadjlyljk50s_ \u001bm,>100s_>,>buuFh#quit\nyy\u001by  y y y\u001b #wizintrinsic\nd\n .y20s.m..sm..m.20s.nsm.s20s20ssm.20s.m. yy\u001by  ny y\u001bn  s njkbFuFuFuFu FuFuFuFu dbykh\u0018\u001bjhu50s_ \u001bm.>FhFhs;>.\u000f\u001b100s100s100sljyFj.sdgbkh50s100s Fl20ss100sFbs20suny100s100sFlFl20s150s100s#wipe\nbnuFk.20s150sFk.20s_>.>150shlh1#quit\nyy\u001by  y y y\u001b  \u0017wand of cold\nzl.     y y\u001bny nn  sFjFj FjFjFjFjFjFjnhln_ \u001b<.>\u0018\u001bjunFjsFj50sE- Vlad was here\n50s    Fb Fb.50s  _>,>100s150s150sFl  Fj   Fj  Fh20s.hhbknhulbklb10s50s_>,>hny100s#conduct\n 150s\\   _>,>50s_>.>uul50sFbFhFhFhFhs\u000f\u001b150s100s50s50snlj#name\nd\n20s#name\ni\ntbh#chat\nht\u001bFyFyFyFyFyFyFyFyFhFhFhFhFhFhFhFh10s10syk20shhlbljFkFkFkFkFkFkFkFkyyljklbyeg#pray\ny  lhb100seh100sehhyhlbu50s#wipe\n100sFhFhs_>,>100seh#dip\ne50s_>,>100seghnblybi\u001b20s\u0018\u001b50seh\\   \\   100snublun_>.>100s100segFhFhFhFhss100shkkujuhbjjllbb#name\ni\n20segknlhkuhhb100s eh50scjhjkFbss_>,>nykFnFnFn50sFlFls50sehi\u001bull150sbkjFhFhFh5#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49958028,
+   "datetime": "20220309134233",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=runmode:crawl\n",
+   "moves": "FnFn FnFnFnFnFnFnLUHH_ \u001bm,>Fls.#loot\nPBBUL_>,>BKLY_>,>LBBH_>.><NJBL_>.>BBBL_>,>\u000f\u001bJNKJ_>,>UKHJ_>,>KLLH_>.>Fk..rh nn20sJLJH_>,>FuFuFulyyl#chat\nkjbujlk#chat\njdacus20s20s100sFkFk._>.>bky150sFhF#quit\nd"
+  },
+  {
+   "seed": 50058028,
+   "datetime": "20110105174727",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "N NY L  _ \u001b,><HUYU_>.>FhFh s<BBBY_>.>\u000f\u001b\u0018\u001b100s_>,>#loot\n100sFhs.\u0018\u001b150slhb50sujyP\\  jnl100s\\  100s_>.>100s150sed150s50si\u001bkbk100s150s50s100s150s50sed\u0018\u001b100s100skbu150s50sjyl150sda..slnnu#name\ni\n#name\na\n#chat\ny#chat\nnhbkkbj#chat\nj#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50158028,
+   "datetime": "20030228125035",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=mention_walls\n",
+   "moves": " jjjhFhFhFhFhFhFhFhFhFlFlFlFlFlFlFlFlFj FjFjFjFjFjFjFjJ LKK_ \u001b@.>KUHY_>.>FhFhFhBBBY_>._,> ssBJBN_>.>< NBYH_>,_.> ;m,okKUBY_>.>NYYH_>.>FhFhsjjkl_>,>byh100s50s100s Fh Fn#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50258028,
+   "datetime": "20030526025047",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\n",
+   "moves": "Fj FjFjFjFjFjFjFjFkFkFkFkFkFkFkFkjyt\u001b\u001bkjhnykjudfb.ss100s150s\\  \u000f\u001b150sFbFbFjFb..ljy#dip\nadjlyljk50s_ \u001bm,>100s_>,>buuFh#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50358028,
+   "datetime": "20130719164012",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nd\n .y20s.m..sm..m.20s.nsm.s20s20ssm.20s.m. yy\u001by  ny y\u001bn  s"
+  },
+  {
+   "seed": 50458028,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\n",
+   "moves": " njkbFuFuFuFu FuFuFuFu dbykh\u0018\u001bjhu50s_ \u001bm.>FhFhs;>.\u000f\u001b100s100s100sljyFj.sdgbkh50s100s Fl20ss100sFbs20suny100s100sFlFl20s150s100s#wipe\nbnuFk.20s150sFk.20s_>.>150shlh1#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50558028,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of cold\nzl.     y y\u001bny nn  s"
+  },
+  {
+   "seed": 50658028,
+   "datetime": "20060318113535",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=fruit:lychee\n",
+   "moves": "FjFj FjFjFjFjFjFjnhln_ \u001b<.>\u0018\u001bjunFjsFj50sE- Vlad was here\n50s    Fb Fb.50s  _>,>100s150s150sFl  Fj   Fj  Fh20s.hhbknhulbklb10s50s_>,>hny100s#conduct\n 150s\\   _>,>50s_>.>uul50sFbFhFhFhFhs\u000f\u001b150s100s50s50snlj#name\nd\n20s#name\ni\ntbh#chat\nht\u001bFyFyFyFyFyFyFyFyFhFhFhFhFhFhFhFh10s10syk20shhlbljFkFkFkFkFkFkFkFkyyljklbyeg#pray\ny  lhb100seh100sehhyhlbu50s#wipe\n100sFhFhs_>,>100seh#dip\ne50s_>,>100seghnblybi\u001b20s\u0018\u001b50seh\\   \\   100snublun_>.>100s100segFhFhFhFhss100shkkujuhbjjllbb#name\ni\n20segknlhkuhhb100s eh50scjhjkFbss_>,>nykFnFnFn50sFlFls50sehi\u001bull150sbkjFhFhFh5#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

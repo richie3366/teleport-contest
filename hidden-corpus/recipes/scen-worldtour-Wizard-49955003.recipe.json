@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nWo\u0017blessed +3 helm of telepathy\nWp\u0016?\nr _ \u001b,\u0016?\n>Hkklbk:\u001618\nubl:\u001625\n\u0006_>._, \u001625\nkbhuu:  \u001622\n\u0014m,\u001622\n#levelchange\n12\n   \u0007energy vortex\nsFj Fk  Fj \u0007Croesus\ny#chat\njFj  nFj\u0007giant mimic\nFjFjFj  n FhFh  n \u0007watchman\nFh  nFk \u00167\n\u0016?\n>>K     tin whistle\nkj     n    k     b       n   l   k      :   n         \u00169\n\u0016?\nc\u0006_<.\u0016?\n\u001byn  n  \u001622\nnl n    n j    bh  j  n :  \u00163\n\u0016?\na\u0004k     n    .m.         n  20s   n     \u001610\n\u0016?\n\u001buk\u0016?\n\u001byl\u001636\nyh   n             \u0017wand of sleep\nEs I am a fish\n  n      :    y  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 49955003,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nWo\u0017blessed +3 helm of telepathy\nWp\u0016?\nr _ \u001b,\u0016?\n>Hkklbk:\u001618\nubl:\u001625\n\u0006_>._, \u001625\nkbhuu:  \u001622\n\u0014m,\u001622\n#levelchange\n12\n   \u0007energy vortex\nsFj Fk  Fj \u0007Croesus\ny#chat\njFj  nFj\u0007giant mimic\nFjFjFj  n FhFh  n \u0007watchman\nFh  nFk \u00167\n\u0016?\n>>K     tin whistle\nkj     n    k     b       n   l   k      :   n         \u00169\n\u0016?\nc\u0006_<.\u0016?\n\u001byn  n  \u001622\nnl n    n j    bh  j  n :  \u00163\n\u0016?\na\u0004k     n    .m.         n  20s   n     \u001610\n\u0016?\n\u001buk\u0016?\n\u001byl\u001636\nyh   n             \u0017wand of sleep\nEs I am a fish\n  n      :    y  \u0017"
+  }
+ ]
+}

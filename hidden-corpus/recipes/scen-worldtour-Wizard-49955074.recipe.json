@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed amulet of reflection\nPo\u0017blessed +3 gray dragon scale mail\nW\u001b\u00167\n kkluybl:\u00167\n\u0017dwarvish mithril-coat\nW\u001b.20s20s  \u0007black pudding\nFuFu        nFu Fb sm. 20s  \u0007gas spore\nFb    nFh    Fb Fu Fu Fb  .m.sm.#pray\ny y   \u0007cobra\nFbFj    n Fl    Fu   Fj      n nFb  Fb   sm.        n n20s\u00166\n\u001630\n   _ \u001b;<\u00164\nbuby:\u00164\n#chat\nl;u,\u0016?\n>u __.>\u0016?\nsh  h  y   l         n           \u001b\u0017dart trap\nl        n       ^h\u0007grid bug\n20s    \u001b  n      n nsm.     n    .m.     n      n   .m.   yny   ny y\u001b  b"
+ },
+ "segments": [
+  {
+   "seed": 49955074,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed amulet of reflection\nPo\u0017blessed +3 gray dragon scale mail\nW\u001b\u00167\n kkluybl:\u00167\n\u0017dwarvish mithril-coat\nW\u001b.20s20s  \u0007black pudding\nFuFu        nFu Fb sm. 20s  \u0007gas spore\nFb    nFh    Fb Fu Fu Fb  .m.sm.#pray\ny y   \u0007cobra\nFbFj    n Fl    Fu   Fj      n nFb  Fb   sm.        n n20s\u00166\n\u001630\n   _ \u001b;<\u00164\nbuby:\u00164\n#chat\nl;u,\u0016?\n>u __.>\u0016?\nsh  h  y   l         n           \u001b\u0017dart trap\nl        n       ^h\u0007grid bug\n20s    \u001b  n      n nsm.     n    .m.     n      n   .m.   yny   ny y\u001b  b"
+  }
+ ]
+}

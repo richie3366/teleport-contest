@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n30\n         \u0017uncursed wand of digging\n\u0007lichen\nzeyFkFy\u0017blessed potion of oil\nqfFk .\u0017uncursed spellbook of detect monsters\nrg 20s20sZ\u001b\u0017cursed potion of object detection\n\u0007wumpus\nqh \u001b:FkFh\u0017uncursed +0 ring of teleport control\nPil20s20ssm.\u0017blessed spellbook of invisibility\n\u0007mail daemon\nrj 20s20sZ\u001bsm.20s\u001614\n#levelchange\n8\n       \u0017the Tsurugi of Muramasa\n \u0007green slime\n#chat\nhFhFh\u0007vrock\n;h,20s    n  20s sm.\u0007vampire\nFh Fh   Fu   n  Fh    \u0007small mimic\nFu    Fh    n \u0007quasit\nFh Fk  Fu   Fy\u00165\n\u0017blessed ring of polymorph control\nPk   \u0017leather armor\nW\u001b20s  sm.  20s   #polyself\npaper golem\n #monster\nsm.    .m.      n.m.  20s    .m. #polyself\nleprechaun\n #monster\nsm.  20s    n \u0007kraken\nFu   Fk    n Fl    n20s   .jsj#polyself\nquasit\n #monster\n.l   20s  n sm.      nsm. sm.  n    n  n#polyself\nrock piercer\n  #monster\n        sm.   n20s \u0007water elemental\nFu  n   Fy  n   Fu   yy\u001by  y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 49956059,
+   "datetime": "20150201161413",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n30\n         \u0017uncursed wand of digging\n\u0007lichen\nzeyFkFy\u0017blessed potion of oil\nqfFk .\u0017uncursed spellbook of detect monsters\nrg 20s20sZ\u001b\u0017cursed potion of object detection\n\u0007wumpus\nqh \u001b:FkFh\u0017uncursed +0 ring of teleport control\nPil20s20ssm.\u0017blessed spellbook of invisibility\n\u0007mail daemon\nrj 20s20sZ\u001bsm.20s\u001614\n#levelchange\n8\n       \u0017the Tsurugi of Muramasa\n \u0007green slime\n#chat\nhFhFh\u0007vrock\n;h,20s    n  20s sm.\u0007vampire\nFh Fh   Fu   n  Fh    \u0007small mimic\nFu    Fh    n \u0007quasit\nFh Fk  Fu   Fy\u00165\n\u0017blessed ring of polymorph control\nPk   \u0017leather armor\nW\u001b20s  sm.  20s   #polyself\npaper golem\n #monster\nsm.    .m.      n.m.  20s    .m. #polyself\nleprechaun\n #monster\nsm.  20s    n \u0007kraken\nFu   Fk    n Fl    n20s   .jsj#polyself\nquasit\n #monster\n.l   20s  n sm.      nsm. sm.  n    n  n#polyself\nrock piercer\n  #monster\n        sm.   n20s \u0007water elemental\nFu  n   Fy  n   Fu   yy\u001by  y y y\u001by  s"
+  }
+ ]
+}

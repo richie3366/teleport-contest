@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPr\u001615\n#chat\nk;>. \u001bm.s.hsn\u001638\n   hkbljy:.m.\u0016?\ns \u0006_<.Fk_.   Fk     \u0016?\n>E_<,_.@.<\u0016?\n>A  __,<\u0016?\n>>P  _>.<\u0016?\n>I hh:20ssksm.\u001617\n_<,>sss\u001615\njjh:\u0016?\n>>P     \u0006_>._.>.\u0016?\n>>N       tallow candle\nny    n   y     n   h:\u001638\n#levelchange\n30\n                \u0017blessed wand of teleportation\nzhk          nzhu      \u0017blessed long sword\nwt   Fn       nFn       Fk      XFy  n     Fn     \u0017wand of cancellation\nzun    n     zun       \u0017wand of stasis\n\u0007blue jelly\nzv  n       zv     n  sb       sm.  n         \u001610\n\u001631\n\u0014<.  \u001b          n\u0016?\nd\u0007mind flayer\n;y:  sm.   sj   \u001b  20s    \u0007red dragon\n#chat\nyFy           Fj  \u00169\n#levelchange\n12\n      \u0007mail daemon\n20s  n         s   n sm.        n     20s  .  n \u0007genetic engineer\nsm.      n     20s   20s   .  n   s s   yy\u001by   y y y  n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 49955077,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPr\u001615\n#chat\nk;>. \u001bm.s.hsn\u001638\n   hkbljy:.m.\u0016?\ns \u0006_<.Fk_.   Fk     \u0016?\n>E_<,_.@.<\u0016?\n>A  __,<\u0016?\n>>P  _>.<\u0016?\n>I hh:20ssksm.\u001617\n_<,>sss\u001615\njjh:\u0016?\n>>P     \u0006_>._.>.\u0016?\n>>N       tallow candle\nny    n   y     n   h:\u001638\n#levelchange\n30\n                \u0017blessed wand of teleportation\nzhk          nzhu      \u0017blessed long sword\nwt   Fn       nFn       Fk      XFy  n     Fn     \u0017wand of cancellation\nzun    n     zun       \u0017wand of stasis\n\u0007blue jelly\nzv  n       zv     n  sb       sm.  n         \u001610\n\u001631\n\u0014<.  \u001b          n\u0016?\nd\u0007mind flayer\n;y:  sm.   sj   \u001b  20s    \u0007red dragon\n#chat\nyFy           Fj  \u00169\n#levelchange\n12\n      \u0007mail daemon\n20s  n         s   n sm.        n     20s  .  n \u0007genetic engineer\nsm.      n     20s   20s   .  n   s s   yy\u001by   y y y  n  \u0016"
+  }
+ ]
+}

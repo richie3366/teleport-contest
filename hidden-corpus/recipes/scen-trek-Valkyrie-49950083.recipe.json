@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "NNYB_ \u001b>.>FbFh sKBHB_>.>LBNN_>.>UHUU_>,>UHYK_>.>YLLN_>.>_m.s#conduct\n YUUB_>,>\u0004h#ride\ny_m..W:YYBN_>.>NYBU _>.>\u0014#sit\n <BNLB_>.>NNLJ_>,>P<LKUJ_>.>YULU_>.><YJUK_>.>\u000f\u001b#force\ned ,UNKL_>.>UKJN_>.>HKHY_>.><YHJKny_>,>ULyLH y_>,>#enhance\n\u001bl<LBUK_>,>HyP#monster\nq,KYKL_>,>,:KJKU_>.>JHUJ_>.>#sit\n\u001bjHJJN_>.><LULL_>,>FlFl20sNYJJ_>,><\u000f\u001b,\u0018\u001bdcss.hl20s#chat\nkdcsm..m.skk150sFhs.100skjk100sFjFjs_>.>\u0018\u001b100s50s150sFj.s150s#monster\nynu150s50sFbs20s100sFh.s50s50sFh20ss150s100s100s50sFh20s.100sFbFbFb\u0018\u001bluk100s#enhance\n\u001b_>.>100sFhFhFhFhs.\u000f\u001byjuJ#force\nq50s50s\\   \\   jujuylFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuLNKH_>.><UHHU_>,>i\u001b<YYKN_>.><NHJN_>,>HBHN_>,>#twoweapon\n#terrain\nc\n>.JYBL_>,>\u000f\u001b50s#tip\n\u001byyyhny\u0018\u001b100s100s"
+ },
+ "segments": [
+  {
+   "seed": 49950083,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\n",
+   "moves": "NNYB_ \u001b>.>FbFh sKBHB_>.>LBNN_>.>UHUU_>,>UHYK_>.>YLLN_>.>_m.s#conduct\n YUUB_>,>\u0004h#ride\ny_m..W:YYBN_>.>NYBU _>.>\u0014#sit\n <BNLB_>.>NNLJ_>,>P<LKUJ_>.>YULU_>.><YJUK_>.>\u000f\u001b#force\ned ,UNKL_>.>UKJN_>.>HKHY_>.><YHJKny_>,>ULyLH y_>,>#enhance\n\u001bl<LBUK_>,>HyP#monster\nq,KYKL_>,>,:KJKU_>.>JHUJ_>.>#sit\n\u001bjHJJN_>.><LULL_>,>FlFl20sNYJJ_>,><\u000f\u001b,\u0018\u001bdcss.hl20s#chat\nkdcsm..m.skk150sFhs.100skjk100sFjFjs_>.>\u0018\u001b100s50s150sFj.s150s#monster\nynu150s50sFbs20s100sFh.s50s50sFh20ss150s100s100s50sFh20s.100sFbFbFb\u0018\u001bluk100s#enhance\n\u001b_>.>100sFhFhFhFhs.\u000f\u001byjuJ#force\nq50s50s\\   \\   jujuylFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuLNKH_>.><UHHU_>,>i\u001b<YYKN_>.><NHJN_>,>HBHN_>,>#twoweapon\n#terrain\nc\n>.JYBL_>,>\u000f\u001b50s#tip\n\u001byyyhny\u0018\u001b100s100s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       #levelchange\n30\n                      \u0007little dog\n\u0017scroll of taming\n rj \u0017saddle\nakk #ride\nyy\u0007warhorse\n\u0017scroll of taming\nrl \u0017saddle\n amk   #ride\nly\u0007horse\n\u0017scroll of taming\nrn \u0017saddle\naoh#ride\njy\u0006_ \u001bm.>FlFl _>.     _.Fl>FnFn_>.Fn_.Fn>FnFl\u0007jackal\nFlFnFnnn,\u0004n\u0007newt\nFyFyFy\u0017bag of holding\n\u0017scroll of light\n \u0017wand of slow monster\n\u0017credit card\ndpas..ss#loot\n\u001b\u0017skeleton key\ndaat.s..#loot\n\u001b\u0017lock pick\nduak..20s   .#loot\n\u001basl doy\u0004nyi\u001b\u0006_>.Fl_.Fl>FnFn  _>.    Fn_.Fl >Fls_>.Fn_,Fl >FlFl  FlFnFn \u0006_>.Fl _. Fl  >FnFn _>. Fl_,Fl >Fl  Fn_>,    Fl     n      _. Fl >Fn  FnFl  Fl Fl\u0006_>.Fn _,   Fn >FnFn  _>.  n Fn _.Fn >Fn Fn_>.Fn  _.Fn>Fn  Fn  FnFn Fn \u0006_>. Fn      _.Fn>FnFn _>.Fh _.Fh   n>Fh Fh _>.Fh  _,  Fn  >FnFn   n  Fh           n  Fl            n Fl   \u0006_>.  Fh       n  _.             n    Fn  >Fl        n  Fh  _>, Fl     _.  n  Fn  >Fh  Fn _>.     nFn  _, Fh  >Fh Fh Fh  Fh Fh#name\n\u001bdf <\u0006_>>,Fh_.Fh   n>Fh Fh  _>>,  Fh    n_.  Fn>Fn  Fh   n _>>.  Fn  _.    nFh  >Fn  Fh  FnFh   n  Fn  <i\u001b#levelchange\n8\n       \u0017uncursed spellbook of knock\n rv   yy\u001by  y y y\u001by   ."
+ },
+ "segments": [
+  {
+   "seed": 49956056,
+   "datetime": "20180331013220",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       #levelchange\n30\n                      \u0007little dog\n\u0017scroll of taming\n rj \u0017saddle\nakk #ride\nyy\u0007warhorse\n\u0017scroll of taming\nrl \u0017saddle\n amk   #ride\nly\u0007horse\n\u0017scroll of taming\nrn \u0017saddle\naoh#ride\njy\u0006_ \u001bm.>FlFl _>.     _.Fl>FnFn_>.Fn_.Fn>FnFl\u0007jackal\nFlFnFnnn,\u0004n\u0007newt\nFyFyFy\u0017bag of holding\n\u0017scroll of light\n \u0017wand of slow monster\n\u0017credit card\ndpas..ss#loot\n\u001b\u0017skeleton key\ndaat.s..#loot\n\u001b\u0017lock pick\nduak..20s   .#loot\n\u001basl doy\u0004nyi\u001b\u0006_>.Fl_.Fl>FnFn  _>.    Fn_.Fl >Fls_>.Fn_,Fl >FlFl  FlFnFn \u0006_>.Fl _. Fl  >FnFn _>. Fl_,Fl >Fl  Fn_>,    Fl     n      _. Fl >Fn  FnFl  Fl Fl\u0006_>.Fn _,   Fn >FnFn  _>.  n Fn _.Fn >Fn Fn_>.Fn  _.Fn>Fn  Fn  FnFn Fn \u0006_>. Fn      _.Fn>FnFn _>.Fh _.Fh   n>Fh Fh _>.Fh  _,  Fn  >FnFn   n  Fh           n  Fl            n Fl   \u0006_>.  Fh       n  _.             n    Fn  >Fl        n  Fh  _>, Fl     _.  n  Fn  >Fh  Fn _>.     nFn  _, Fh  >Fh Fh Fh  Fh Fh#name\n\u001bdf <\u0006_>>,Fh_.Fh   n>Fh Fh  _>>,  Fh    n_.  Fn>Fn  Fh   n _>>.  Fn  _.    nFh  >Fn  Fh  FnFh   n  Fn  <i\u001b#levelchange\n8\n       \u0017uncursed spellbook of knock\n rv   yy\u001by  y y y\u001by   ."
+  }
+ ]
+}

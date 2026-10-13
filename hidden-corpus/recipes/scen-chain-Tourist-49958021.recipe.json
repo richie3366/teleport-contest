@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of lightning\nzn.  n.20s    s Fl s20sFls20snunybj_ \u001b,>bnh100s\\ hkkFbs.50syjy_>.>100s100s50snlk100s50s>100sFb..\u0018\u001b150si\u001blnu150s100s\\ 100s#conduct\n \u0018\u001b_>.>150sFh20s.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeejljjJYKJ_>.>LYKN_>,><YBKU_>.>JKLJ_>.>JBLB_>.>\u000f\u001bkhbklhyj#name\no\n#name\nf\nkklkyyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeenhlluhjknykleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeFbFbFbFbFbFbFbFbLNYN_>.>#loot\nE- Elbereth\nBKUU_>.>JHNK_>,>\u000f\u001b20#quit\nyy\u001by  y y y\u001b Fh FhFhFhFhFhFhFhkybhJNLY_ \u001b<.>KUUH_>.>NBUH_>,>JUBB_>,><JHKN_>.>NYUB_>.>HKHB_>.>\u000f\u001bJBUU_>.>HHHK_>.>HKJY_>.>kunljunlKBUY_>.>KHHB_>.>>#sit\n\u001bBNUL_>,>bklhjblhcl150s#sit\n\u001b50sFkFkFkFks._>,>_>.>#ride\n.100s100s100s \\ kbh150s Fl.s\\ 100s150s50syyh50s FlFl FlFlFls100s Fl20s20s100s100sFl20ss50sjlb100s_>,>100seeeeeek#quit\ny\u001b    #wizintrinsic\nb\n 20ssm.sss.m.20s  .m.  yy\u001bnnnn  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49958021,
+   "datetime": "20091222064626",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of lightning\nzn.  n.20s    s"
+  },
+  {
+   "seed": 50058021,
+   "datetime": "20230124213437",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " Fl s20sFls20snunybj_ \u001b,>bnh100s\\ hkkFbs.50syjy_>.>100s100s50snlk100s50s>100sFb..\u0018\u001b150si\u001blnu150s100s\\ 100s#conduct\n \u0018\u001b_>.>150sFh20s.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeejljjJYKJ_>.>LYKN_>,><YBKU_>.>JKLJ_>.>JBLB_>.>\u000f\u001bkhbklhyj#name\no\n#name\nf\nkklkyyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeenhlluhjknykleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeFbFbFbFbFbFbFbFbLNYN_>.>#loot\nE- Elbereth\nBKUU_>.>JHNK_>,>\u000f\u001b20#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50158021,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "Fh FhFhFhFhFhFhFhkybhJNLY_ \u001b<.>KUUH_>.>NBUH_>,>JUBB_>,><JHKN_>.>NYUB_>.>HKHB_>.>\u000f\u001bJBUU_>.>HHHK_>.>HKJY_>.>kunljunlKBUY_>.>KHHB_>.>>#sit\n\u001bBNUL_>,>bklhjblhcl150s#sit\n\u001b50sFkFkFkFks._>,>_>.>#ride\n.100s100s100s \\ kbh150s Fl.s\\ 100s150s50syyh50s FlFl FlFlFls100s Fl20s20s100s100sFl20ss50sjlb100s_>,>100seeeeeek#quit\ny\u001b    "
+  },
+  {
+   "seed": 50258021,
+   "datetime": "20080229053629",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n 20ssm.sss.m.20s  .m.  yy\u001bnnnn  s"
+  }
+ ]
+}

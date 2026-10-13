@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed Mjollnir\nwm\u0016?\nm_ \u001b.\u0016?\n>I\u0006_<,  Fh    _.\u0016?\n>A yl:\u00167\n#chat\nn;m,20ssm..j   \u0016?\n>A#levelchange\n30\n\u0017cursed 20 shuriken\nQnfb  fb   fb   Fh Fh  \u0017potion of gain energy\nqo \u0017the Heart of Ahriman\n \u0007cobra\n\u0017cursed potion of gain ability\nqp \u001b   n \u00173 leash\naqh   Fb    Fb  sm.   n   sm.  \u001610\n\u00167\nl njj bnh  n  :\u00168\n\u0014m,   \u001641\n_<. Fu     _. Fl   <\u001636\nl    n h h  l :\u001610\nlk:.m. .m. 20s \u001624\nby k:\u001641\n_>.Fl   n_. Fl <sm. .m.sm.\u0016?\n>D__,\u00168\n#chat\nb ;b:  \u0016?\n>>N       elven mithril-coat\nlh      nb  bu :\u0016?\ne\u0014, 20s 20s20s\u001620\n\u0014 n\u001630\n#levelchange\n6\n        \u0007brown pudding\nFu   nFuFu    n Fu   n .m.  n              .m.  n     n\u0007nurse\nFu   nFu    n Fu  Fusm.20s#pray\ny y     \u00162\n\u001641\n\u0017orcish bow\nwt \u001720 orcish arrows\nQu\u00074 newt\nynfu   nfu Fu    yy\u001by  y y  y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 49955066,
+   "datetime": "20080602184350",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed Mjollnir\nwm\u0016?\nm_ \u001b.\u0016?\n>I\u0006_<,  Fh    _.\u0016?\n>A yl:\u00167\n#chat\nn;m,20ssm..j   \u0016?\n>A#levelchange\n30\n\u0017cursed 20 shuriken\nQnfb  fb   fb   Fh Fh  \u0017potion of gain energy\nqo \u0017the Heart of Ahriman\n \u0007cobra\n\u0017cursed potion of gain ability\nqp \u001b   n \u00173 leash\naqh   Fb    Fb  sm.   n   sm.  \u001610\n\u00167\nl njj bnh  n  :\u00168\n\u0014m,   \u001641\n_<. Fu     _. Fl   <\u001636\nl    n h h  l :\u001610\nlk:.m. .m. 20s \u001624\nby k:\u001641\n_>.Fl   n_. Fl <sm. .m.sm.\u0016?\n>D__,\u00168\n#chat\nb ;b:  \u0016?\n>>N       elven mithril-coat\nlh      nb  bu :\u0016?\ne\u0014, 20s 20s20s\u001620\n\u0014 n\u001630\n#levelchange\n6\n        \u0007brown pudding\nFu   nFuFu    n Fu   n .m.  n              .m.  n     n\u0007nurse\nFu   nFu    n Fu  Fusm.20s#pray\ny y     \u00162\n\u001641\n\u0017orcish bow\nwt \u001720 orcish arrows\nQu\u00074 newt\nynfu   nfu Fu    yy\u001by  y y  y\u001b  F"
+  }
+ ]
+}

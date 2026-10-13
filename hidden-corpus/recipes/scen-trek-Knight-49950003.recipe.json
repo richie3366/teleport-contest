@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "FlFl Fl Fl 20sFl\u0018\u001b;_. \u001b,kkj150sFyFys100sFy.s150s100s100sFyFyFyFyss_>.>\u000f\u001b\\   50s100s50s150sFyFysFyFyFy100s150s50s150segkll_>.>hhlljn150sFuFus\\   100seh hly\u0018\u001b100sab  >.#loot\n,nlkj10s#chat\nkkj20sKJHK_>.>ULHB_>.>HJKB_>,>LLNU_>,>#sit\n\u001b#monster\nHKYY_>.>#sit\n\u001b>UKBY_>.>#sit\n\u001b20sBBNL_>.>\u000f\u001begehehuul100seh100sehhjyy100sehi\u001bzf100seg50seh50slllFb FbFbFbsFlehFlFls\u0018\u001b;>.150seg100s150seghbl\\   150sFuFuFuFuFuFu100s100s egtak\u0004n qBLBN_>,>FhFhFhLYLL_>,>UNNU_>.>t\u001b;<.NLKN_>,>#enhance\n\u001b#loot\n#conduct\n eg50sFkFkFkFyFkFkFyFyFyFk20sseh  buj100s150seh100sFkFkFkFks.\u000f\u001b100sehknhWkjh\u000f\u001b\u0018\u001b\u000f\u001b50seg100seg150seg eB100seg100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefE- I am a fish\n"
+ },
+ "segments": [
+  {
+   "seed": 49950003,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\n",
+   "moves": "FlFl Fl Fl 20sFl\u0018\u001b;_. \u001b,kkj150sFyFys100sFy.s150s100s100sFyFyFyFyss_>.>\u000f\u001b\\   50s100s50s150sFyFysFyFyFy100s150s50s150segkll_>.>hhlljn150sFuFus\\   100seh hly\u0018\u001b100sab  >.#loot\n,nlkj10s#chat\nkkj20sKJHK_>.>ULHB_>.>HJKB_>,>LLNU_>,>#sit\n\u001b#monster\nHKYY_>.>#sit\n\u001b>UKBY_>.>#sit\n\u001b20sBBNL_>.>\u000f\u001begehehuul100seh100sehhjyy100sehi\u001bzf100seg50seh50slllFb FbFbFbsFlehFlFls\u0018\u001b;>.150seg100s150seghbl\\   150sFuFuFuFuFuFu100s100s egtak\u0004n qBLBN_>,>FhFhFhLYLL_>,>UNNU_>.>t\u001b;<.NLKN_>,>#enhance\n\u001b#loot\n#conduct\n eg50sFkFkFkFyFkFkFyFyFyFk20sseh  buj100s150seh100sFkFkFkFks.\u000f\u001b100sehknhWkjh\u000f\u001b\u0018\u001b\u000f\u001b50seg100seg150seg eB100seg100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefE- I am a fish\n"
+  }
+ ]
+}

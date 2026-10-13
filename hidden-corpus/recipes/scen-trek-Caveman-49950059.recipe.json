@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "llb50si\u001bJ100s_ \u001b>.>kybFlFlFlFl20ss100s150s50sFhFy.lyk100shbhblk\u000f\u001b150si\u001b150s100sFlFuFuFlFus100s100s_>,>\u000f\u001b150s50s150s    eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBUUY_>,>#name\nd\n#rub\ncaYHUY_>,>a#loot\nLUJL_>.>JKKB_>.>JKUY_>.>NYUN_>,>#conduct\n #enhance\n\u001bLJUY_>.>YUKK_>,>BNJB_>.>YKBN_>,>NKYL_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee:#monster\n#jump\nKYHN_>.>Z\u0014JNKU_>,>KNJH_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#rub\nces,BBHN_>.>Z#chat\nkNHHU_>.>\u0014#monster\n<NYLU_>.>\u000f\u001b,UBJN_>,>#conduct\n \u000f\u001bKLKH_>,>UUUY_>.>#monster\n#force\n\u000f\u001b_<,s#rub\ncc,#chat\nhllbl20sdc..sdds20ss20s<: #loot\nda20s20s .jybybktbu20s j lde20s 20s 20s #invoke\n\u001bw\u001bWde20s .b20s20s#chat\nh20sh hynYKNB_>.>BLHY_>.>LJBN_>,><UN HU_>,>LLYN_>.>NBUJ _>.>NHL K_>.>UJ HK_>.>UHJJ_>.>#monster\n#pr"
+ },
+ "segments": [
+  {
+   "seed": 49950059,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=runmode:crawl\nOPTIONS=pettype:none\n",
+   "moves": "llb50si\u001bJ100s_ \u001b>.>kybFlFlFlFl20ss100s150s50sFhFy.lyk100shbhblk\u000f\u001b150si\u001b150s100sFlFuFuFlFus100s100s_>,>\u000f\u001b150s50s150s    eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBUUY_>,>#name\nd\n#rub\ncaYHUY_>,>a#loot\nLUJL_>.>JKKB_>.>JKUY_>.>NYUN_>,>#conduct\n #enhance\n\u001bLJUY_>.>YUKK_>,>BNJB_>.>YKBN_>,>NKYL_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee:#monster\n#jump\nKYHN_>.>Z\u0014JNKU_>,>KNJH_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#rub\nces,BBHN_>.>Z#chat\nkNHHU_>.>\u0014#monster\n<NYLU_>.>\u000f\u001b,UBJN_>,>#conduct\n \u000f\u001bKLKH_>,>UUUY_>.>#monster\n#force\n\u000f\u001b_<,s#rub\ncc,#chat\nhllbl20sdc..sdds20ss20s<: #loot\nda20s20s .jybybktbu20s j lde20s 20s 20s #invoke\n\u001bw\u001bWde20s .b20s20s#chat\nh20sh hynYKNB_>.>BLHY_>.>LJBN_>,><UN HU_>,>LLYN_>.>NBUJ _>.>NHL K_>.>UJ HK_>.>UHJJ_>.>#monster\n#pr"
+  }
+ ]
+}

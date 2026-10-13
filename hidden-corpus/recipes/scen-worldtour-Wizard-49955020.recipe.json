@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 helm of telepathy\nWo\u0017blessed amulet of life saving\nPp\u0017blessed ring of free action\nPql\u0016?\n>J     scroll of charging\n_ \u001bm,s\u0016?\ne \u0004k\u001633\nl  u       :\u001633\n_<.\u0016?\nbbuhh:\u0016?\n\u001blk \u0016?\n\u001bbh\u00165\n_<.\u0016?\n\u001bbu\u0016?\n\u001bub\u0016?\n\u001bh k \u001639\nkbjhnl :\u0016?\n\u001bny  n  \u0016?\n\u001by k  n\u0016?\n\u001buh\u0016?\n\u001bnu\u0016?\n\u001bub  n \u0016?\n\u001bu   nb\u0016?\n\u001bl h  n \u0016?\n\u001bj  n l\u00165\n#levelchange\n20\n      \u0017cursed potion of booze\nqt \u001b  n  #dip\nmf \u0017blessed ring of poison resistance\n\u0007Orcus\nnPusb   sm.           n  sm.    n  \u0017blessed oilskin cloak\n\u0007ghoul\nW\u001b20s   .m.       s         nFlFl   \u0017blessed magic lamp\n\u0007chameleon\nsm.\u0017ring of see invisible\nPx.m.    20s 20s su    n  .l \u00161\n\u0016?\n\u001bu  j\u0016?\n\u001bjb \u001615\n\u0006m,_>.\u0016?\n\u001blu \u0016?\n\u001byh  n  \u0016?\n\u001bbk \u0016?\n\u001by k\u001615\n#levelchange\n20\n\u00173 wax candle\nay  n #rub\nw\u0017blessed ring of hunger\n\u0007giant spider\nPz.m.    n sjsuRu  \u0017huge chunk of meat\n \u0007ice devil\neA   sj   sj  n\u0017wand of cold\n\u0007Nazgul\nzBl    \u0017blessed potion of gain level\n\u0007vampire\nqC   #dip\nyh \u001b       y\u001b      s"
+ },
+ "segments": [
+  {
+   "seed": 49955020,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:run\nOPTIONS=fruit:durian\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 helm of telepathy\nWo\u0017blessed amulet of life saving\nPp\u0017blessed ring of free action\nPql\u0016?\n>J     scroll of charging\n_ \u001bm,s\u0016?\ne \u0004k\u001633\nl  u       :\u001633\n_<.\u0016?\nbbuhh:\u0016?\n\u001blk \u0016?\n\u001bbh\u00165\n_<.\u0016?\n\u001bbu\u0016?\n\u001bub\u0016?\n\u001bh k \u001639\nkbjhnl :\u0016?\n\u001bny  n  \u0016?\n\u001by k  n\u0016?\n\u001buh\u0016?\n\u001bnu\u0016?\n\u001bub  n \u0016?\n\u001bu   nb\u0016?\n\u001bl h  n \u0016?\n\u001bj  n l\u00165\n#levelchange\n20\n      \u0017cursed potion of booze\nqt \u001b  n  #dip\nmf \u0017blessed ring of poison resistance\n\u0007Orcus\nnPusb   sm.           n  sm.    n  \u0017blessed oilskin cloak\n\u0007ghoul\nW\u001b20s   .m.       s         nFlFl   \u0017blessed magic lamp\n\u0007chameleon\nsm.\u0017ring of see invisible\nPx.m.    20s 20s su    n  .l \u00161\n\u0016?\n\u001bu  j\u0016?\n\u001bjb \u001615\n\u0006m,_>.\u0016?\n\u001blu \u0016?\n\u001byh  n  \u0016?\n\u001bbk \u0016?\n\u001by k\u001615\n#levelchange\n20\n\u00173 wax candle\nay  n #rub\nw\u0017blessed ring of hunger\n\u0007giant spider\nPz.m.    n sjsuRu  \u0017huge chunk of meat\n \u0007ice devil\neA   sj   sj  n\u0017wand of cold\n\u0007Nazgul\nzBl    \u0017blessed potion of gain level\n\u0007vampire\nqC   #dip\nyh \u001b       y\u001b      s"
+  }
+ ]
+}

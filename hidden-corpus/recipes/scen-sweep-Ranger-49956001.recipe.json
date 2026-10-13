@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #wizintrinsic\nfm\n .20ss20s20s20s sm.sm.20s   sm.  kwb   #terrain\nd\n\u001b<.10stal#twoweapon\ns20s20s20sss\u0017blessed ring of polymorph control\nPgl#polyself\nAngel\n marilith\nss\u0007violet fungus\nFj   Fh ss.20s#polyself\nowlbear\n..\u0007homunculus\nFj 20ss20s.ls\u0017amulet of unchanging\nPh.s20ssm.\\  nl\u0017wand of opening\nEi Vlad was here\n n : \u0017wand of lightning\nEj   ad aerarium\n :   \u0017wand of secret door detection\nEk  :   \u0017wand of speed monster\nEl lE- Vlad was here\n n \u0007jackal\n20s.20s\u001610\n\u0007orc shaman\ns.sm.20s  20s  .m.sy\u0007Medusa\nysm.sss.y20s n  n .m. n 20s n  \u0007Aleax\nsm. n  20s   n  sk20s  n  n \u0007djinni\nFj  n   n Fl      n Fb  n   n  Fn  yy\u001by   y y y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 49956001,
+   "datetime": "20260111061807",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #wizintrinsic\nfm\n .20ss20s20s20s sm.sm.20s   sm.  kwb   #terrain\nd\n\u001b<.10stal#twoweapon\ns20s20s20sss\u0017blessed ring of polymorph control\nPgl#polyself\nAngel\n marilith\nss\u0007violet fungus\nFj   Fh ss.20s#polyself\nowlbear\n..\u0007homunculus\nFj 20ss20s.ls\u0017amulet of unchanging\nPh.s20ssm.\\  nl\u0017wand of opening\nEi Vlad was here\n n : \u0017wand of lightning\nEj   ad aerarium\n :   \u0017wand of secret door detection\nEk  :   \u0017wand of speed monster\nEl lE- Vlad was here\n n \u0007jackal\n20s.20s\u001610\n\u0007orc shaman\ns.sm.20s  20s  .m.sy\u0007Medusa\nysm.sss.y20s n  n .m. n 20s n  \u0007Aleax\nsm. n  20s   n  sk20s  n  n \u0007djinni\nFj  n   n Fl      n Fb  n   n  Fn  yy\u001by   y y y\u001b  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " jb20s20s yhbhlkn20sq_ \u001b>.>s\\    \u0018\u001b50s_>,s50sFkFkFh_>,>_>.>lll100shhk100sFyFj  FkFhFks150s50s\\    100s100s 100#quit\nyy\u001by  y y y\u001b bhllhhlyt$btaj20sdisssFjFjFjFj  Fj Fj Fj Fj Fn Fn Fn Fn   y\u001by  y y\u001b  F#wizintrinsic\nc\n sm.s.m..sbss20s20ssm. sm.sm.sss.hsm..ksb.m.sm.20s sm.sm.20s    yy\u001bny y n y  2 Fh ss_ \u001b,>llhulni\u001b>100s150sylnhknFy..FyFh.50s\\   150s\\   #sit\n\u001b50s100syhbFkFks150s150sr\u001b\u000f\u001bunl_>.>50shlyblyFb.20s100sFhs20see  yi\u001bjlyjun100s100shyj_>,>ujy_>.>150s50sFhs20s\\   y100s50sFhFh20s10#quit\nyy\u001by  y y y\u001b FnFnFnFnFnFnFnFnBJHB_ \u001b,>YKNL_>.>Fl ssJUKU_>,>HHUY_>,>\u000f\u001b#conduct\n 100s lnknkh100sFlFlFlFlFlFlFl20s20s50sjkj50synb\u000f\u001b#terrain\nb\n100s 100s100s FuFuFuFuss100s 100s#turn\n150s100shuu100sFjs20sFlFl20s_>.>\u0018\u001b100s_>.>100s150sFl20s20s100sFlFlFlFlFlFlljy20staj20s nk20s20sFlFlFlFlFlFlFlFltaj#chat\nk#n#quit\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49950078,
+   "datetime": "20151112165016",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:horse\n",
+   "moves": " jb20s20s yhbhlkn20sq_ \u001b>.>s\\    \u0018\u001b50s_>,s50sFkFkFh_>,>_>.>lll100shhk100sFyFj  FkFhFks150s50s\\    100s100s 100#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50050078,
+   "datetime": "20120906023805",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=pettype:dog\n",
+   "moves": "bhllhhlyt$btaj20sdisssFjFjFjFj  Fj Fj Fj Fj Fn Fn Fn Fn   y\u001by  y y\u001b  F"
+  },
+  {
+   "seed": 50150078,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nc\n sm.s.m..sbss20s20ssm. sm.sm.sss.hsm..ksb.m.sm.20s sm.sm.20s    yy\u001bny y n y  2"
+  },
+  {
+   "seed": 50250078,
+   "datetime": "20131204192928",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": " Fh ss_ \u001b,>llhulni\u001b>100s150sylnhknFy..FyFh.50s\\   150s\\   #sit\n\u001b50s100syhbFkFks150s150sr\u001b\u000f\u001bunl_>.>50shlyblyFb.20s100sFhs20see  yi\u001bjlyjun100s100shyj_>,>ujy_>.>150s50sFhs20s\\   y100s50sFhFh20s10#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50350078,
+   "datetime": "20150402083443",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "FnFnFnFnFnFnFnFnBJHB_ \u001b,>YKNL_>.>Fl ssJUKU_>,>HHUY_>,>\u000f\u001b#conduct\n 100s lnknkh100sFlFlFlFlFlFlFl20s20s50sjkj50synb\u000f\u001b#terrain\nb\n100s 100s100s FuFuFuFuss100s 100s#turn\n150s100shuu100sFjs20sFlFl20s_>.>\u0018\u001b100s_>.>100s150sFl20s20s100sFlFlFlFlFlFlljy20staj20s nk20s20sFlFlFlFlFlFlFlFltaj#chat\nk#n#quit\n"
+  }
+ ]
+}

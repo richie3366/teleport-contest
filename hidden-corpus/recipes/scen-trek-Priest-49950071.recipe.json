@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#name\ni\n10s #chat\nkldhs20ssHNUB_ \u001b;>Fk20sFkHLNJ_>.>JBBU_>.><JNLY_>.>#ride\n.#conduct\n UHBL_>.>FksFk#tip\n\u001b\u000f\u001b<HNKY_>.>NBJN_>.>i\u001b#monster\n\u000f\u001bHBUN_>.>Fb .sBLNU_>.>;>.Zb\nYUJU_>.>#terrain\nb\n#enhance\nm.\u000f\u001b100sFh20ss\u0018\u001bybj100s100s#wipe\n150s100sFhsslbj150s Fh20ssbkynlu_>.>50s_>.>_>,>\u000f\u001b_>.>100s ef100see50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNLUJ_>,>#untrap\nb#tip\n\u001bHUKY_>.>UHHB_>.>Fh.20s\u0004l\\ JYKK_>.>JNNY_>,><KLYB_>.>YNYL_>.>20seokJHKH_>,>UYHY_>,>Fh20ssHHJJ_>,>#jump\nw-ku20skhuynndbsss#chat\nlJJYB_>.>Fy FyFy<NULY_>.>\u0004n,JJKL   _>.>Fy   y\u001by  y y y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 49950071,
+   "datetime": "20230724144700",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "#name\ni\n10s #chat\nkldhs20ssHNUB_ \u001b;>Fk20sFkHLNJ_>.>JBBU_>.><JNLY_>.>#ride\n.#conduct\n UHBL_>.>FksFk#tip\n\u001b\u000f\u001b<HNKY_>.>NBJN_>.>i\u001b#monster\n\u000f\u001bHBUN_>.>Fb .sBLNU_>.>;>.Zb\nYUJU_>.>#terrain\nb\n#enhance\nm.\u000f\u001b100sFh20ss\u0018\u001bybj100s100s#wipe\n150s100sFhsslbj150s Fh20ssbkynlu_>.>50s_>.>_>,>\u000f\u001b_>.>100s ef100see50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNLUJ_>,>#untrap\nb#tip\n\u001bHUKY_>.>UHHB_>.>Fh.20s\u0004l\\ JYKK_>.>JNNY_>,><KLYB_>.>YNYL_>.>20seokJHKH_>,>UYHY_>,>Fh20ssHHJJ_>,>#jump\nw-ku20skhuynndbsss#chat\nlJJYB_>.>Fy FyFy<NULY_>.>\u0004n,JJKL   _>.>Fy   y\u001by  y y y\u001b  2"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPjr\u0017spellbook of magic missile\nrk s\u0007incubus\nZc\nsy.m.  y     Zb\nZa\nZb\ns20s Zb\n20s sm. Za\nsm.  n sl  Zb\nZb\n#turn\n        ni\u001b\u00162\n\u001715 shuriken\nQl\u0007dwarf\nfk  tlk  tlu  tlu    ntlu   fu   n  \u00163\n\u0007black dragon\n\u0007baby red dragon\n.m. 20s  n  n      n   #polyself\nred dragon\n  #monster\n.m.    20s  #monster\n#monster\n#monster\nFj     Fu    \u00165\n\u00166\n\u0017wand of cancellation\n\u0017wand of teleportation\n\u0007acid blob\n\u0007kobold\nznkznyznyznkznjzmu.zmb\u0007vampire\n\u0007master mind flayer\n\u0007orc shaman\n\u0017wand of cold\nsk20s  \u0017wand of death\n\u0017wand of striking\n\u0017wand of cancellation\n\u0007gnome lord\nzpj   n  sj    zpu  n   sh   zqy   zpy    n zrh zphzph\u001611\n\u00168\n \u0017wand of sleep\n\u0017wand of cold\n\u0007kobold\nztk            zsl      n    sm.    zsy        n  zsl zsk     ztk zsu     n 20s    zsztl \u001611\n\u0017wand of lightning\n\u0017wand of sleep\n\u0017wand of digging\n\u0007sewer rat\n\u0007bugbear\nzvl .m.zvk  zw>   n zulzvk      20szvlzul   nzvlzul slzvl\u0017blessed spellbook of drain life\nrx 20s  yy\u001by  ny y\u001b y  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 49959510,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPjr\u0017spellbook of magic missile\nrk s\u0007incubus\nZc\nsy.m.  y     Zb\nZa\nZb\ns20s Zb\n20s sm. Za\nsm.  n sl  Zb\nZb\n#turn\n        ni\u001b\u00162\n\u001715 shuriken\nQl\u0007dwarf\nfk  tlk  tlu  tlu    ntlu   fu   n  \u00163\n\u0007black dragon\n\u0007baby red dragon\n.m. 20s  n  n      n   #polyself\nred dragon\n  #monster\n.m.    20s  #monster\n#monster\n#monster\nFj     Fu    \u00165\n\u00166\n\u0017wand of cancellation\n\u0017wand of teleportation\n\u0007acid blob\n\u0007kobold\nznkznyznyznkznjzmu.zmb\u0007vampire\n\u0007master mind flayer\n\u0007orc shaman\n\u0017wand of cold\nsk20s  \u0017wand of death\n\u0017wand of striking\n\u0017wand of cancellation\n\u0007gnome lord\nzpj   n  sj    zpu  n   sh   zqy   zpy    n zrh zphzph\u001611\n\u00168\n \u0017wand of sleep\n\u0017wand of cold\n\u0007kobold\nztk            zsl      n    sm.    zsy        n  zsl zsk     ztk zsu     n 20s    zsztl \u001611\n\u0017wand of lightning\n\u0017wand of sleep\n\u0017wand of digging\n\u0007sewer rat\n\u0007bugbear\nzvl .m.zvk  zw>   n zulzvk      20szvlzul   nzvlzul slzvl\u0017blessed spellbook of drain life\nrx 20s  yy\u001by  ny y\u001b y  \u0007"
+  }
+ ]
+}

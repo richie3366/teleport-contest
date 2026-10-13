@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0006_ \u001b,>FkFk _>.Fl_,>_>,_.>#turn\n#ride\nny\u0006_>._.>_>._.>_>,_.>\u0018\u001b#invoke\n\u001b\u0006_>,_.>_>,_.>_>._.>\u0006_>._.>_>._,>_>,_,>\u0006_>>._,>_>>,_.>_>>._.>\u000f\u001b\u001621\n#levelchange\n20\n\u0017dagger\nwfss20s\u0007Elvenking\n#chat\nhFh  Fk  \u0007hill orc\n;k:  20s  .m.  20s  \u0007barrow wight\nFkFh   n Fy  #levelchange\n8\n    \u0007fog cloud\nFhFk    nFy  Fy  Fy   n \u0007green slime\n;h:  .h  .m.20s  \u0007grey-elf\n#chat\nyFh  n  Fh  \u0007shrieker\nFh    nFy   Fk FkFj \u0006\u00166\n#levelchange\n8\n\u0017blessed ring of polymorph control\nPgl#polyself\nrust monster\n #monster\n20sssss#polyself\nyellow light\n#monster\ns.20sss#polyself\nowlbear\n20s.ss20s\u0017wand of digging\n\u0006_o,zh>  zhjjzh> szhyyzh\\ #levelchange\n20\n            \u0017blessed ring of polymorph control\nPi#polyself\nshade\n Uruk-hai\n#monster\n..s.s#polyself\nfire elemental\n#monster\n.s20s  s20s#polyself\nvampire bat\n 20s.\u0007Famine\nyFnFn  Fn   nsm..n   nsm.\u000f\u001b\u00168\n\u0017scroll of teleportation\n\u0007green slime\nrj 2\n   nFj Fj\u0017mummy wrapping\nWk   n sm.  nsm.sm.  nT \u0017uncursed banana\n\u0007elf-lord\nel  n sk  .m.    n Fb     nFb   .y    n .l     yy\u001by   y y y\u001bn  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 49956060,
+   "datetime": "20140228125045",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n20\n                   \u0006_ \u001b,>FkFk _>.Fl_,>_>,_.>#turn\n#ride\nny\u0006_>._.>_>._.>_>,_.>\u0018\u001b#invoke\n\u001b\u0006_>,_.>_>,_.>_>._.>\u0006_>._.>_>._,>_>,_,>\u0006_>>._,>_>>,_.>_>>._.>\u000f\u001b\u001621\n#levelchange\n20\n\u0017dagger\nwfss20s\u0007Elvenking\n#chat\nhFh  Fk  \u0007hill orc\n;k:  20s  .m.  20s  \u0007barrow wight\nFkFh   n Fy  #levelchange\n8\n    \u0007fog cloud\nFhFk    nFy  Fy  Fy   n \u0007green slime\n;h:  .h  .m.20s  \u0007grey-elf\n#chat\nyFh  n  Fh  \u0007shrieker\nFh    nFy   Fk FkFj \u0006\u00166\n#levelchange\n8\n\u0017blessed ring of polymorph control\nPgl#polyself\nrust monster\n #monster\n20sssss#polyself\nyellow light\n#monster\ns.20sss#polyself\nowlbear\n20s.ss20s\u0017wand of digging\n\u0006_o,zh>  zhjjzh> szhyyzh\\ #levelchange\n20\n            \u0017blessed ring of polymorph control\nPi#polyself\nshade\n Uruk-hai\n#monster\n..s.s#polyself\nfire elemental\n#monster\n.s20s  s20s#polyself\nvampire bat\n 20s.\u0007Famine\nyFnFn  Fn   nsm..n   nsm.\u000f\u001b\u00168\n\u0017scroll of teleportation\n\u0007green slime\nrj 2\n   nFj Fj\u0017mummy wrapping\nWk   n sm.  nsm.sm.  nT \u0017uncursed banana\n\u0007elf-lord\nel  n sk  .m.    n Fb     nFb   .y    n .l     yy\u001by   y y y\u001bn  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed +3 helm of telepathy\nWl\u0017blessed +3 gauntlets of power\nWm\u0016?\n>w\u0006FlFlFl FlFlFl_ \u001b.#chat\nk_oooo,_oo,,#chat\nl_oooo,,\u0014>.20ssm._ooo._oo.,:FjFjFjFjFjFj__,_,#chat\nj_ooo, _,Fl_ooo._,,\u0017amulet versus poison\ndo_oo.,$lhh#chat\nb_ooooooo,_oo.,$lhl#chat\nh_ooo.,p_oooo,_ooo,,:_ooooo.,:__.Fj_..Fb #chat\nb #pray\ny y    _oooooooo,_o.Fb _.Fb ,$Fb  Fb FbFbFbFb_oooooooo,_,,\u001b#chat\nj_ooooooooo._.Fl _oo.,\u001bpFh  Fh Fh FhFh Fh_ooo.,\u001bp__.Fj_. Fu #chat\nj  #pray\ny y       Fj Fj Fj Fj  FjFj Fu Fu Fu FuFuFukjb#chat\ny\u0016?\n>Bkkk\u0016?\n>w\u0006__._..Fh   #chat\nh #pray\ny y      \u00167\nh    n l  h\u0016?\n>w\u0006_oooooooo.  n Fj     n_.   Fj    n ,#chat\nl   \u00166\nFk   n  Fk Fk   Fk    n Fk   Fk   n \u0016?\ncn  bu  n \u0016?\n>w\u0006\u00169\n_oooooooo._o,,:\u00163\nj  jy    n\u0016?\n>w\u0006Fj  Fj   n  Fj  Fj    nFj  Fj  \u00167\n_{,qg  _{,qg   Fl    nFlFl  Fl    n   Fl    n Fl      nFn   Fn    yy\u001by  y y y\u001by "
+ },
+ "segments": [
+  {
+   "seed": 49959625,
+   "datetime": "20200311053202",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed +3 helm of telepathy\nWl\u0017blessed +3 gauntlets of power\nWm\u0016?\n>w\u0006FlFlFl FlFlFl_ \u001b.#chat\nk_oooo,_oo,,#chat\nl_oooo,,\u0014>.20ssm._ooo._oo.,:FjFjFjFjFjFj__,_,#chat\nj_ooo, _,Fl_ooo._,,\u0017amulet versus poison\ndo_oo.,$lhh#chat\nb_ooooooo,_oo.,$lhl#chat\nh_ooo.,p_oooo,_ooo,,:_ooooo.,:__.Fj_..Fb #chat\nb #pray\ny y    _oooooooo,_o.Fb _.Fb ,$Fb  Fb FbFbFbFb_oooooooo,_,,\u001b#chat\nj_ooooooooo._.Fl _oo.,\u001bpFh  Fh Fh FhFh Fh_ooo.,\u001bp__.Fj_. Fu #chat\nj  #pray\ny y       Fj Fj Fj Fj  FjFj Fu Fu Fu FuFuFukjb#chat\ny\u0016?\n>Bkkk\u0016?\n>w\u0006__._..Fh   #chat\nh #pray\ny y      \u00167\nh    n l  h\u0016?\n>w\u0006_oooooooo.  n Fj     n_.   Fj    n ,#chat\nl   \u00166\nFk   n  Fk Fk   Fk    n Fk   Fk   n \u0016?\ncn  bu  n \u0016?\n>w\u0006\u00169\n_oooooooo._o,,:\u00163\nj  jy    n\u0016?\n>w\u0006Fj  Fj   n  Fj  Fj    nFj  Fj  \u00167\n_{,qg  _{,qg   Fl    nFlFl  Fl    n   Fl    n Fl      nFn   Fn    yy\u001by  y y y\u001by "
+  }
+ ]
+}

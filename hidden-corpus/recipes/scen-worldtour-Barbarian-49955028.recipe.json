@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nWe\u0017blessed +3 helm of telepathy\nWf\u001633\n   hjubyn:20ssm..m.\u001628\nlhlu j kb:\u001627\n\u0004u\u0016?\n>A  _ \u001b>.>\u001631\nly    \u001buk  :\u0016?\n>>N       figurine of a newt\n_{,<\u00164\nhu  k   n   y    n:sn20s   n    \u001631\n\u0017spellbook of levitation\nri     20s  n \u0017spellbook of create familiar\nrj          20s     n  \u0017blessed spellbook of detect monsters\nrk      .m. \u001b   n   \u0017blessed spellbook of light\nrl       .m.  n   +\u0007lichen\nZZZZFb       nZ\u0007lichen\nZZ#turn\n#enhance\nys\ng\n\u001bsh    .m.     \u00164\n\u0016?\nekh  n ujb     \u001b  \u001b  y:\u0016?\na    jkh  y\u0017altar\ndb                       n                  \u0017jackal corpse\n #offer\n\u001b#pray\ny y                     l           nu    \u0017lawful altar\ndi   dm    n \u0017dwarf corpse\n#offer\nn\u001b:       j     \u0017sink\nql  \u0004 b           n  \u0017pool\nn  y      :10s    n #force\n       #conduct\n 20s   sk  n                20s  \u00162\n\u001639\n\u0006_<.\u0016?\n\u001bh          n  y       \u001632\n_<,\u0016?\n\u001bly                     \u0016?\n\u001bk   n     u\u0016?\n\u001bk    k      n          yy\u001by   nny\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 49955028,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nWe\u0017blessed +3 helm of telepathy\nWf\u001633\n   hjubyn:20ssm..m.\u001628\nlhlu j kb:\u001627\n\u0004u\u0016?\n>A  _ \u001b>.>\u001631\nly    \u001buk  :\u0016?\n>>N       figurine of a newt\n_{,<\u00164\nhu  k   n   y    n:sn20s   n    \u001631\n\u0017spellbook of levitation\nri     20s  n \u0017spellbook of create familiar\nrj          20s     n  \u0017blessed spellbook of detect monsters\nrk      .m. \u001b   n   \u0017blessed spellbook of light\nrl       .m.  n   +\u0007lichen\nZZZZFb       nZ\u0007lichen\nZZ#turn\n#enhance\nys\ng\n\u001bsh    .m.     \u00164\n\u0016?\nekh  n ujb     \u001b  \u001b  y:\u0016?\na    jkh  y\u0017altar\ndb                       n                  \u0017jackal corpse\n #offer\n\u001b#pray\ny y                     l           nu    \u0017lawful altar\ndi   dm    n \u0017dwarf corpse\n#offer\nn\u001b:       j     \u0017sink\nql  \u0004 b           n  \u0017pool\nn  y      :10s    n #force\n       #conduct\n 20s   sk  n                20s  \u00162\n\u001639\n\u0006_<.\u0016?\n\u001bh          n  y       \u001632\n_<,\u0016?\n\u001bly                     \u0016?\n\u001bk   n     u\u0016?\n\u001bk    k      n          yy\u001by   nny\u001b  \u0016"
+  }
+ ]
+}

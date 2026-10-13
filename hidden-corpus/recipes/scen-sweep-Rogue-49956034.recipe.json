@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u0007tame lichen\n\u0007tame winter wolf cub\n\u0007giant rat\nsm.ss.m. sm.   sh\u0017leash\nagn   nbllagh\u0007grid bug\n\u0017scroll of taming\nrh \u0017banana\ntbh\u0017newt corpse\ntby   \u0017leash\nakykynjaky\u0017meatball\ntbk\u0007grid bug\n\u0017scroll of taming\nrm \u0017cursed bag of holding\n\u0017oilskin sack\n\u0017bag of tricks\n\u0017wand of secret door detection\n\u0017potion of paralysis\naoo\nano\ndo#tip\ny\u001b\u0017credit card\ndnas.20ss s #loot\nb\ni\nafi\ni\u001b#levelchange\n12\n    \u0016?\n>>L      gauntlets of dexterity\noj20s    s;l: \u001b:   .m.  20s  \u0016?\n\u001b\u001622\nqr   n   #conduct\n ok    .s\u0016?\n\u001b\u001627\n#rub\nr\u001boj20s 20s  \u001629\n\u0017sling\nwv\u001720 flint stones\nQw\u0007soldier\ny   n      j           fk   fk fk  n   Fb     n     Fj   n   h n h  ,i\u001b\u00163\n\u0007sergeant\n;k;20s   n     s s \u0007ki-rin\nFkFk \u0007floating eye\nFj  n           n   Fk \u001612\n#levelchange\n6\n  \u0007owlbear\nFj  n       n      n  Fj     n  \u001b     Fj  n     n   Fu  n     yy\u001by  y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 49956034,
+   "datetime": "20070615013721",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:mango\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u0007tame lichen\n\u0007tame winter wolf cub\n\u0007giant rat\nsm.ss.m. sm.   sh\u0017leash\nagn   nbllagh\u0007grid bug\n\u0017scroll of taming\nrh \u0017banana\ntbh\u0017newt corpse\ntby   \u0017leash\nakykynjaky\u0017meatball\ntbk\u0007grid bug\n\u0017scroll of taming\nrm \u0017cursed bag of holding\n\u0017oilskin sack\n\u0017bag of tricks\n\u0017wand of secret door detection\n\u0017potion of paralysis\naoo\nano\ndo#tip\ny\u001b\u0017credit card\ndnas.20ss s #loot\nb\ni\nafi\ni\u001b#levelchange\n12\n    \u0016?\n>>L      gauntlets of dexterity\noj20s    s;l: \u001b:   .m.  20s  \u0016?\n\u001b\u001622\nqr   n   #conduct\n ok    .s\u0016?\n\u001b\u001627\n#rub\nr\u001boj20s 20s  \u001629\n\u0017sling\nwv\u001720 flint stones\nQw\u0007soldier\ny   n      j           fk   fk fk  n   Fb     n     Fj   n   h n h  ,i\u001b\u00163\n\u0007sergeant\n;k;20s   n     s s \u0007ki-rin\nFkFk \u0007floating eye\nFj  n           n   Fk \u001612\n#levelchange\n6\n  \u0007owlbear\nFj  n       n      n  Fj     n  \u001b     Fj  n     n   Fu  n     yy\u001by  y y y\u001b  s"
+  }
+ ]
+}

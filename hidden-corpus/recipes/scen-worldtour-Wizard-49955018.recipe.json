@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0016?\nb_ \u001b>.\u0016?\nn __.>\u0016?\nc \u0014>.\u001623\n__.<\u0016?\n>t #levelchange\n14\n\u0017blessed spellbook of protection\nro     sb\u0017blessed spellbook of wizard lock\nrpsm.   \u0017blessed spellbook of polymorph\nrq             n       sb+a\nZa\nZa\n      \u0007zombie\nZa\n   n      Za\n     #enhance\nyi\nk\n\u001b\u001612\n\u001639\n   #chat\nh;h:  \u00166\njub  :\u001627\nuukj   :\u0016?\n>>O       tin opener\n\u0007leprechaun\nFuFk      n    Fl    Fu       \u0007baluchitherium\nFl      n     Fh     Fh       n   Fu           nFh        \u0007vampire lord\nsm.    n  sm.         n   sm.          n  20s      n    .m.          n sn\u00161\n\u00169\n\u0004l           n   \u00168\njh        n nk            n k           nh      :\u0016?\nc #levelchange\n30\n                \u0017uncursed potion of sleeping\n\u0007long worm\nqt        n    #dip\nj\u0017uncursed +0 cloak of protection\n\u0007piranha\nW\u001b. s  20s   T   \u0017uncursed 20 shuriken\n\u0007chameleon\nQvfk  fk     yy\u001bny y  n  f"
+ },
+ "segments": [
+  {
+   "seed": 49955018,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0016?\nb_ \u001b>.\u0016?\nn __.>\u0016?\nc \u0014>.\u001623\n__.<\u0016?\n>t #levelchange\n14\n\u0017blessed spellbook of protection\nro     sb\u0017blessed spellbook of wizard lock\nrpsm.   \u0017blessed spellbook of polymorph\nrq             n       sb+a\nZa\nZa\n      \u0007zombie\nZa\n   n      Za\n     #enhance\nyi\nk\n\u001b\u001612\n\u001639\n   #chat\nh;h:  \u00166\njub  :\u001627\nuukj   :\u0016?\n>>O       tin opener\n\u0007leprechaun\nFuFk      n    Fl    Fu       \u0007baluchitherium\nFl      n     Fh     Fh       n   Fu           nFh        \u0007vampire lord\nsm.    n  sm.         n   sm.          n  20s      n    .m.          n sn\u00161\n\u00169\n\u0004l           n   \u00168\njh        n nk            n k           nh      :\u0016?\nc #levelchange\n30\n                \u0017uncursed potion of sleeping\n\u0007long worm\nqt        n    #dip\nj\u0017uncursed +0 cloak of protection\n\u0007piranha\nW\u001b. s  20s   T   \u0017uncursed 20 shuriken\n\u0007chameleon\nQvfk  fk     yy\u001bny y  n  f"
+  }
+ ]
+}

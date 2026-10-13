@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                    \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 speed boots\nWq\u0016?\n>>M      ring of increase accuracy\nyhh     l b: \u00168\n_ \u001b<.<.s  \u001641\n#levelchange\n30\n         \u00176 javelins\nQt\u0007troll\nl  fj fj  fk        \u00072 gnome\nj  fjfj    fk   f \u001bf \u001b\u0017halberd\nwu \u0007sewer rat\nh  au;u k  n n,\u00165\nk  b j: \u001b.s 20s     \u001612\n_<.\u001621\n\u0014m.     ..s  n   \u0016?\nc hlhl   \u001b: \u0016?\ne \u0006_<,20s     n s        n \u00166\n\u001641\nbbbn\u0017fountain\nqy \u001b y     n qf         n h\u0017chaotic altar\ndk         n de         n \u0017human corpse\n : y        n y        n \u0017sink\nqy          n \u0017ring of teleportation\ndw \u001b          n #pray\ny y               i\u001bW\u001b\u001610\n\u0016?\na  l bb         n u       \u001b:\u001621\n\u0007piranha\nFb                     FhFh   n                 Fb     n        \u0007mumak\n;k:  sm.       yy\u001by   y y  y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 49955061,
+   "datetime": "20170807080003",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                    \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 speed boots\nWq\u0016?\n>>M      ring of increase accuracy\nyhh     l b: \u00168\n_ \u001b<.<.s  \u001641\n#levelchange\n30\n         \u00176 javelins\nQt\u0007troll\nl  fj fj  fk        \u00072 gnome\nj  fjfj    fk   f \u001bf \u001b\u0017halberd\nwu \u0007sewer rat\nh  au;u k  n n,\u00165\nk  b j: \u001b.s 20s     \u001612\n_<.\u001621\n\u0014m.     ..s  n   \u0016?\nc hlhl   \u001b: \u0016?\ne \u0006_<,20s     n s        n \u00166\n\u001641\nbbbn\u0017fountain\nqy \u001b y     n qf         n h\u0017chaotic altar\ndk         n de         n \u0017human corpse\n : y        n y        n \u0017sink\nqy          n \u0017ring of teleportation\ndw \u001b          n #pray\ny y               i\u001bW\u001b\u001610\n\u0016?\na  l bb         n u       \u001b:\u001621\n\u0007piranha\nFb                     FhFh   n                 Fb     n        \u0007mumak\n;k:  sm.       yy\u001by   y y  y\u001b  2"
+  }
+ ]
+}

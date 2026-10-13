@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWh\u0016?\n>w\u0006_ \u001b@._ooo.,$_oooooo.,\u0017luckstone\ndi_ooooooo.,p_ooooo.,\u0014:.s_oo,_oo,,pFnFnFnFnFnFn_oooooo._ooo.,p_oooooo,,p_oooooo._oo.,p__,Fn_,Fl #chat\nl \u00167\nb nu\u0016?\n>w\u0006_{,   _,qy_oooooo,,#chat\nb_ooooo,  Fh _.Fy,pFk    nFk  Fk  Fk  n Fk   n Fk   n \u00168\n__.#chat\nhjkb#chat\nlujb#chat\nb_ooooo._,,p_oo.,p\u00167\nhnu\u0016?\n>w\u0006_ooooooo, Fy_, Fh   n _ooo, Fh_.,$_ooooooooo,,p_{, Fl _,;:   Fh qFh Fh   nFh FhFh Fh  n \u001611\n_oooo,Fl_,,p_{.q_ooooo.Fj_.>._ooo.Fj_.,p__,#chat\nj#pray\ny y   _ooooooo._.,\u0017gray stone\ndn_oo,_o.,p__.#chat\nn#pray\ny y  __,#chat\nb#pray\ny y  _oooooo.,\u0017amulet of unchanging\ndo_{,qFbFb Fb Fb     nFb Fb   n\u00168\n__.#chat\nk#pray\ny y _oo."
+ },
+ "segments": [
+  {
+   "seed": 49959624,
+   "datetime": "20210411124739",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWh\u0016?\n>w\u0006_ \u001b@._ooo.,$_oooooo.,\u0017luckstone\ndi_ooooooo.,p_ooooo.,\u0014:.s_oo,_oo,,pFnFnFnFnFnFn_oooooo._ooo.,p_oooooo,,p_oooooo._oo.,p__,Fn_,Fl #chat\nl \u00167\nb nu\u0016?\n>w\u0006_{,   _,qy_oooooo,,#chat\nb_ooooo,  Fh _.Fy,pFk    nFk  Fk  Fk  n Fk   n Fk   n \u00168\n__.#chat\nhjkb#chat\nlujb#chat\nb_ooooo._,,p_oo.,p\u00167\nhnu\u0016?\n>w\u0006_ooooooo, Fy_, Fh   n _ooo, Fh_.,$_ooooooooo,,p_{, Fl _,;:   Fh qFh Fh   nFh FhFh Fh  n \u001611\n_oooo,Fl_,,p_{.q_ooooo.Fj_.>._ooo.Fj_.,p__,#chat\nj#pray\ny y   _ooooooo._.,\u0017gray stone\ndn_oo,_o.,p__.#chat\nn#pray\ny y  __,#chat\nb#pray\ny y  _oooooo.,\u0017amulet of unchanging\ndo_{,qFbFb Fb Fb     nFb Fb   n\u00168\n__.#chat\nk#pray\ny y _oo."
+  }
+ ]
+}

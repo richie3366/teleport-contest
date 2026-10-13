@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 helm of telepathy\nWo\u0016?\n>>N       potion of confusion\n\u0017Frost Brand\nwrFy    Fy       Fh      n   #invoke\nr \u001b@.                                     \u0007balrog\nFu     Fu    n    Fh     \u0007nurse\n20s       n   20s     sm.      .m.  n       20s  n       sm.   n    sm.    \u0007baby long worm\nFy    n    Fk    Fk   n      Fk   n        Fu  n     20s   n     20s     \u00166\n\u0016?\nc_>.\u00163\nj  n     n  k          :\u0016?\n\u001bn h       \u0016?\n\u001bh    n                  n  y   \u001b  n            ynny y y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 49955024,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 helm of telepathy\nWo\u0016?\n>>N       potion of confusion\n\u0017Frost Brand\nwrFy    Fy       Fh      n   #invoke\nr \u001b@.                                     \u0007balrog\nFu     Fu    n    Fh     \u0007nurse\n20s       n   20s     sm.      .m.  n       20s  n       sm.   n    sm.    \u0007baby long worm\nFy    n    Fk    Fk   n      Fk   n        Fu  n     20s   n     20s     \u00166\n\u0016?\nc_>.\u00163\nj  n     n  k          :\u0016?\n\u001bn h       \u0016?\n\u001bh    n                  n  y   \u001b  n            ynny y y\u001b  \u0016"
+  }
+ ]
+}

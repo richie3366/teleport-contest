@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " O>akm\nh#name\nm\n ,O>ch\n\u000f\u001b#invoke\n\u001bO>ndp\nf\nd\nk\n\u001b\u001beg  yO>km\nb\ng\nf\neealjmO>>rk\n#turn\n#tip\n\u001bO>jhp\n#chat\nkssmO>ak\nPmO>>pr\n\u0014O>h\nch,mO>>>>>>ca\nc\na\np\n#wipe\n#monster\nOai\nm\n#tip\n\u001b.20s"
+ },
+ "segments": [
+  {
+   "seed": 49959002,
+   "datetime": "20230207033839",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\n",
+   "moves": " O>akm\nh#name\nm\n ,O>ch\n\u000f\u001b#invoke\n\u001bO>ndp\nf\nd\nk\n\u001b\u001beg  yO>km\nb\ng\nf\neealjmO>>rk\n#turn\n#tip\n\u001bO>jhp\n#chat\nkssmO>ak\nPmO>>pr\n\u0014O>h\nch,mO>>>>>>ca\nc\na\np\n#wipe\n#monster\nOai\nm\n#tip\n\u001b.20s"
+  }
+ ]
+}

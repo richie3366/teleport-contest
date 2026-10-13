@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      #levelchange\n20\n            \u0016?\n>D\u0017wand of striking\nzmlFu\u0017wand of striking\nznk\u0017wand of striking\nzoh10snn\u0017scroll of earth\nrp lj\u0017scroll of earth\nrq y\u0017wand of striking\nzrklFk yybnbbjjybnbbjnjyuyjunhjun\u0017scroll of earth\nrs jjnnbk jujkhbbybbyj#levelchange\n6\n    bbbb\u0017spiked pit\nb^uu.20sb\u0017polymorph trap\nbu..b\u0017anti-magic field\nb#untrap\nubb\u0017trap door\nb^u\u0007giant rat\n20ssm.snsm.#terrain\nd\n\u001bm,#sit\n ;k;#chat\nk\u0017pick-axe\n auby uau<jy_>._.au>\u001618\n#levelchange\n20\n              \u0017dwarvish mattock\nwvsss\u0007water demon\n#chat\nu Fu Fu \u0007quantum mechanic\nFl     m.s20s.\u0007Yeenoghu\nnFb Fb        Fb    n    Fb                  n      Fu                 n   Fb                    n       \u0018\u001b\u001611\n\u0017sack\n\u0017oilskin sack\n\u0017scroll of amnesia\ndx     #loot\ni\n,            n                        n    \u0017credit card\ndw        az.       20s     n   sm.             sl     n    #loot\nydx          n#loot\ni\n,             n     dx        n    aj      ak       n               ni\u001b\u001610\n#levelchange\n12\n  #wizintrinsic\np\n .m.        n 20s     .m.          n       20s       yy\u001bny y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 49956007,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      #levelchange\n20\n            \u0016?\n>D\u0017wand of striking\nzmlFu\u0017wand of striking\nznk\u0017wand of striking\nzoh10snn\u0017scroll of earth\nrp lj\u0017scroll of earth\nrq y\u0017wand of striking\nzrklFk yybnbbjjybnbbjnjyuyjunhjun\u0017scroll of earth\nrs jjnnbk jujkhbbybbyj#levelchange\n6\n    bbbb\u0017spiked pit\nb^uu.20sb\u0017polymorph trap\nbu..b\u0017anti-magic field\nb#untrap\nubb\u0017trap door\nb^u\u0007giant rat\n20ssm.snsm.#terrain\nd\n\u001bm,#sit\n ;k;#chat\nk\u0017pick-axe\n auby uau<jy_>._.au>\u001618\n#levelchange\n20\n              \u0017dwarvish mattock\nwvsss\u0007water demon\n#chat\nu Fu Fu \u0007quantum mechanic\nFl     m.s20s.\u0007Yeenoghu\nnFb Fb        Fb    n    Fb                  n      Fu                 n   Fb                    n       \u0018\u001b\u001611\n\u0017sack\n\u0017oilskin sack\n\u0017scroll of amnesia\ndx     #loot\ni\n,            n                        n    \u0017credit card\ndw        az.       20s     n   sm.             sl     n    #loot\nydx          n#loot\ni\n,             n     dx        n    aj      ak       n               ni\u001b\u001610\n#levelchange\n12\n  #wizintrinsic\np\n .m.        n 20s     .m.          n       20s       yy\u001bny y y\u001b  s"
+  }
+ ]
+}

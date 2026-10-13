@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " FhFh s50sjhk100s150s150suuh\u0018\u001be\\ jluhjk100sFbFbFb100s50s50s50s>lln50sok150s_ \u001b<.>100suujFuFus100s100si\u001b50seeeeeeeee>#conduct\n #wipe\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#force\nwa#sit\n\u001bLJYB_>.><\u0018\u001bYJJB_>.>UYKU_>,>LYLL_>.>e#enhance\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUBBK_>,>#twoweapon\ni\u001bYKHB_>.>r\u001b\u001bZYYNH_>.>BJUK_>.>FkFkFkcj\u0014\u000f\u001bHUNH_>.>FuFuFuHNBL_>,>NHNH_>.>JBUJ_>,>UNUJ_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedde20s.20shkkjbuyu10sjknh#chat\nntbhi\u001b\u0014E- Elbereth Elbereth\n#pray\ny #pray\ny _>.>#pray\ny  Fb       y\u001by  y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 49957042,
+   "datetime": "20241213191800",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:horse\n",
+   "moves": " FhFh s50sjhk100s150s150suuh\u0018\u001be\\ jluhjk100sFbFbFb100s50s50s50s>lln50sok150s_ \u001b<.>100suujFuFus100s100si\u001b50seeeeeeeee>#conduct\n #wipe\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#force\nwa#sit\n\u001bLJYB_>.><\u0018\u001bYJJB_>.>UYKU_>,>LYLL_>.>e#enhance\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUBBK_>,>#twoweapon\ni\u001bYKHB_>.>r\u001b\u001bZYYNH_>.>BJUK_>.>FkFkFkcj\u0014\u000f\u001bHUNH_>.>FuFuFuHNBL_>,>NHNH_>.>JBUJ_>,>UNUJ_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedde20s.20shkkjbuyu10sjknh#chat\nntbhi\u001b\u0014E- Elbereth Elbereth\n#pray\ny #pray\ny _>.>#pray\ny  Fb       y\u001by  y y y\u001b  s"
+  }
+ ]
+}

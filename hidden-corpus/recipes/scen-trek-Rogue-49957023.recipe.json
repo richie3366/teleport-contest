@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  FkFkFu  50s 100s150s150s100sljk_ \u001b>.>100sFhss50s100s\u0018\u001b100s_>.>_>.>100sFhFhFhFhFh.:jkki\u001b50seg150s_>.s100s100s100sFh20sseh_>.>150seeeeeee#chat\nbHtblLKKY_>.>>#pray\ny UUNY_>,>#monster\n#jump\nBYKK_>.>\u000f\u001b\u0018\u001bs#pray\ny  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10s#name\ni\nhhtbh#chat\nk#untrap\nbs#name\nd\n20sjjlndds20ss#name\nf\n#chat\n,10suyyltbhtbn10s#chat\nuE- Vlad was here\n#dip\nbtbkjj#name\nm\n>.tbudcss20s hlE- Vlad was here\n,P#chat\nh#name\nf\n.#name\na\nlkhljk#name\na\nNYHY_>.><JHLL _>.>ULNK_>,>ULHY_>,>BBNK_>.>BLLH_>.>\u0018\u001bol\u000f\u001bohr\u001b\u0014JNK N  _>,>Fh   yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 49957023,
+   "datetime": "20081031122216",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=playmode:explore\n",
+   "moves": "  FkFkFu  50s 100s150s150s100sljk_ \u001b>.>100sFhss50s100s\u0018\u001b100s_>.>_>.>100sFhFhFhFhFh.:jkki\u001b50seg150s_>.s100s100s100sFh20sseh_>.>150seeeeeee#chat\nbHtblLKKY_>.>>#pray\ny UUNY_>,>#monster\n#jump\nBYKK_>.>\u000f\u001b\u0018\u001bs#pray\ny  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10s#name\ni\nhhtbh#chat\nk#untrap\nbs#name\nd\n20sjjlndds20ss#name\nf\n#chat\n,10suyyltbhtbn10s#chat\nuE- Vlad was here\n#dip\nbtbkjj#name\nm\n>.tbudcss20s hlE- Vlad was here\n,P#chat\nh#name\nf\n.#name\na\nlkhljk#name\na\nNYHY_>.><JHLL _>.>ULNK_>,>ULHY_>,>BBNK_>.>BLLH_>.>\u0018\u001bol\u000f\u001bohr\u001b\u0014JNK N  _>,>Fh   yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

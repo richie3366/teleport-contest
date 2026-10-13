@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u001640\n   jkukkul:sk   20s  sm.  \u0016?\nf    \u0017potion of extra healing\nqrs20s\u00173 frost horn\nasy lasy l20ss\u0017frost horn\naty b aty y .20s\u0016?\nh#chat\nj;<. \u001b@.\u0016?\na\u0014;\u00166\n_{.>\u001637\n   \u0004j  \u001b\u00166\nkllk:.20s\u0016?\np \u0014,s20s\u001637\n#chat\nb;m,.s\u00166\nynbu:.s.\u0016?\n>Ghlhhlhl:\u001640\n\u0014,sm. \u0016?\nb_<.\u0016?\n>v hjujhj:sm..m.\u0016?\na_<, _.Fu\u0016?\n>w\u0006_<,_.ss\u001616\n_<,ss\u0016?\n>E\u0014<.\u0016?\ng __,>.20ss\u0016?\n>H#levelchange\n8\n       \u0017the Eyes of the Overworld\n wa20sss#invoke\nu \u001b\u0007owlbear\n20s sy   n su.m.sm.20s .m.  n  \u0007scorpion\nFl Fh  Fl   n  Fh Fh   n \u0007dwarf lord\nFl  Fh   n Fh  Fh  \u00164\n\u001637\n   _{.>\u001622\n__.<20ss\u0016?\n>Gll:\u0016?\njllhhl:\u00166\n\u00174 cream pies\nQ\u001b\u0007kobold\nhf \u001bf \u001bf \u001bf \u001b\u0007grid bug\nljf \u001bf \u001bf \u001bFlFh\u0017potion of water\nt\u001bx #twoweapon\ns20sull,\u0016?\n>>M      tripe ration\n\u0006>._<,\u00162\njl   n  n     u      n    u   n  : \u00161\n\u001615\n\u0014m,        n \u0016?\n\u001bb        l        n  \u0016?\n\u001bu   u     n  \u001629\n\u0006m,_>.\u00161\nb   n  y  n     :   n  \u00164\n\u001615\nh    n  u k  n      n     yy\u001by   ny  y\u001b  y"
+ },
+ "segments": [
+  {
+   "seed": 49955057,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u001640\n   jkukkul:sk   20s  sm.  \u0016?\nf    \u0017potion of extra healing\nqrs20s\u00173 frost horn\nasy lasy l20ss\u0017frost horn\naty b aty y .20s\u0016?\nh#chat\nj;<. \u001b@.\u0016?\na\u0014;\u00166\n_{.>\u001637\n   \u0004j  \u001b\u00166\nkllk:.20s\u0016?\np \u0014,s20s\u001637\n#chat\nb;m,.s\u00166\nynbu:.s.\u0016?\n>Ghlhhlhl:\u001640\n\u0014,sm. \u0016?\nb_<.\u0016?\n>v hjujhj:sm..m.\u0016?\na_<, _.Fu\u0016?\n>w\u0006_<,_.ss\u001616\n_<,ss\u0016?\n>E\u0014<.\u0016?\ng __,>.20ss\u0016?\n>H#levelchange\n8\n       \u0017the Eyes of the Overworld\n wa20sss#invoke\nu \u001b\u0007owlbear\n20s sy   n su.m.sm.20s .m.  n  \u0007scorpion\nFl Fh  Fl   n  Fh Fh   n \u0007dwarf lord\nFl  Fh   n Fh  Fh  \u00164\n\u001637\n   _{.>\u001622\n__.<20ss\u0016?\n>Gll:\u0016?\njllhhl:\u00166\n\u00174 cream pies\nQ\u001b\u0007kobold\nhf \u001bf \u001bf \u001bf \u001b\u0007grid bug\nljf \u001bf \u001bf \u001bFlFh\u0017potion of water\nt\u001bx #twoweapon\ns20sull,\u0016?\n>>M      tripe ration\n\u0006>._<,\u00162\njl   n  n     u      n    u   n  : \u00161\n\u001615\n\u0014m,        n \u0016?\n\u001bb        l        n  \u0016?\n\u001bu   u     n  \u001629\n\u0006m,_>.\u00161\nb   n  y  n     :   n  \u00164\n\u001615\nh    n  u k  n      n     yy\u001by   ny  y\u001b  y"
+  }
+ ]
+}

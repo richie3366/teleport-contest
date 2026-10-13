@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "O>l\n,Olcd\n>ohmO>>>>>>kgc\n\u001b \u001b\u001b:_>. \u001b,.Oj\n#wipe\nO>mdk\nn\n#force\n20ssOcko\ng\ni\ne\n,#name\na\nmO>d\nLlmO>>>>>u\n\u001b>20smO>>cgw\n Z#turn\nO>dmf\n\\ _m,.m..m.sy"
+ },
+ "segments": [
+  {
+   "seed": 49959000,
+   "datetime": "20140917120331",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:durian\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "O>l\n,Olcd\n>ohmO>>>>>>kgc\n\u001b \u001b\u001b:_>. \u001b,.Oj\n#wipe\nO>mdk\nn\n#force\n20ssOcko\ng\ni\ne\n,#name\na\nmO>d\nLlmO>>>>>u\n\u001b>20smO>>cgw\n Z#turn\nO>dmf\n\\ _m,.m..m.sy"
+  }
+ ]
+}

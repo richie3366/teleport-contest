@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed Mjollnir\nwk\u0016?\n>w\u0006_ \u001b:,#chat\nk__. Fl  _,m.Fj#chat\nj\u0016?\nclnk\u0016?\n>w \u0006_ooo,Fb_., \u0014>.  sm..n Fy Fy  n Fy  nFyFyFy  n \u00169\n_ooooooo.,p_ooooooooo.,p\u0016?\n>Blbk\u0016?\n>w\u0006_{._.qd_oooo._._o._.,$nhu#chat\ny_ooo._._o._,,\u0017diamond\ndmg\u0016nkj\u0016?\n>w\u0006_ooooooooo.Fy  n_.Fy _o, Fh_,,\u001bp__,Fh _.Fh  #chat\nh  Fh  nFhFhFh  nFhFh\u001611\n_oooo.,$_oooooooo,_o.,: \u00167\n  ky k\u0016?\n>w\u0006_ooooo,   n  Fl_,   n Fj  ,:   n   n \u0016?\nc jyh  n\u0016?\n>w\u0006\u001610\n_ooooo.,:FnFnFnFn  FnFn_oooooooo.,p_oo._oo.,p_ooo._.,a\n$_ooooo.,c\n$_{.qd_ooooo,_oo.,e\n: _oooooo.,f\npnjk#chat\nb_"
+ },
+ "segments": [
+  {
+   "seed": 49959628,
+   "datetime": "20220219202435",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed Mjollnir\nwk\u0016?\n>w\u0006_ \u001b:,#chat\nk__. Fl  _,m.Fj#chat\nj\u0016?\nclnk\u0016?\n>w \u0006_ooo,Fb_., \u0014>.  sm..n Fy Fy  n Fy  nFyFyFy  n \u00169\n_ooooooo.,p_ooooooooo.,p\u0016?\n>Blbk\u0016?\n>w\u0006_{._.qd_oooo._._o._.,$nhu#chat\ny_ooo._._o._,,\u0017diamond\ndmg\u0016nkj\u0016?\n>w\u0006_ooooooooo.Fy  n_.Fy _o, Fh_,,\u001bp__,Fh _.Fh  #chat\nh  Fh  nFhFhFh  nFhFh\u001611\n_oooo.,$_oooooooo,_o.,: \u00167\n  ky k\u0016?\n>w\u0006_ooooo,   n  Fl_,   n Fj  ,:   n   n \u0016?\nc jyh  n\u0016?\n>w\u0006\u001610\n_ooooo.,:FnFnFnFn  FnFn_oooooooo.,p_oo._oo.,p_ooo._.,a\n$_ooooo.,c\n$_{.qd_ooooo,_oo.,e\n: _oooooo.,f\npnjk#chat\nb_"
+  }
+ ]
+}

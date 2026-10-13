@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed +3 gauntlets of power\nWe\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\n>w\u0006_ \u001b:,:Fb FbFbFbFbFb_{,_,,qy _{. Fj   n  _.   n Fj   qy y  \u00169\n_ooooooo,,\u0014;;,s.FuFuFuFuFuFu_{,q_ooooo,_.,b\np_{.q_oooooo.,:hjk#chat\nknkj#chat\nhjyn#chat\nb_ooooooooo,,p_oooooooo,_oo,,$\u00163\nlyk\u0016?\n>w\u0006_oo.,\u0017touchstone\ndib_oooo,_ooo._,,p__.Fl_,Fu   #chat\nu#pray\ny y   _oooooo.,\u0017amulet of magical breathing\ndj __,          n   Fu_.  nFk#chat\nl\u00164\n__,#chat\ny  n_{,qFuFu FuFuFuFu_ooo.,p_{,q_ooooo.  nFl_,,pFlFlFlFl  n FlFl__,#chat\nk_oo.Fh _.,\u001b,b\n: kkj#chat\ny_ooooo,_._o,_.,b\n$_oooooooo._oo,,g\n\u0017amulet of flying\ndok_oo._.,f\np\u00167\ny    nnl\u0016?\n>w\u0006__.Fh _,  nFb #chat\nb  #pray\ny y           "
+ },
+ "segments": [
+  {
+   "seed": 49959646,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=sortloot:loot\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed +3 gauntlets of power\nWe\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\n>w\u0006_ \u001b:,:Fb FbFbFbFbFb_{,_,,qy _{. Fj   n  _.   n Fj   qy y  \u00169\n_ooooooo,,\u0014;;,s.FuFuFuFuFuFu_{,q_ooooo,_.,b\np_{.q_oooooo.,:hjk#chat\nknkj#chat\nhjyn#chat\nb_ooooooooo,,p_oooooooo,_oo,,$\u00163\nlyk\u0016?\n>w\u0006_oo.,\u0017touchstone\ndib_oooo,_ooo._,,p__.Fl_,Fu   #chat\nu#pray\ny y   _oooooo.,\u0017amulet of magical breathing\ndj __,          n   Fu_.  nFk#chat\nl\u00164\n__,#chat\ny  n_{,qFuFu FuFuFuFu_ooo.,p_{,q_ooooo.  nFl_,,pFlFlFlFl  n FlFl__,#chat\nk_oo.Fh _.,\u001b,b\n: kkj#chat\ny_ooooo,_._o,_.,b\n$_oooooooo._oo,,g\n\u0017amulet of flying\ndok_oo._.,f\np\u00167\ny    nnl\u0016?\n>w\u0006__.Fh _,  nFb #chat\nb  #pray\ny y           "
+  }
+ ]
+}

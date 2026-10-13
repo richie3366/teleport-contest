@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPir\u0017blessed shield of reflection\nW\u001b\u0017blessed amulet of life saving\nPk\u0017spellbook of finger of death\nrl \u001b<.       sj\u0017blessed spellbook of magic missile\n rm  sm. \u0007orc shaman\nZZZZsm.  .m.       ZZZZ\u00178 spears\nQn\u0007troll\nfh  fy  n    fk  n       n    tnk   fh  n    \u001613\n\u0018\u001b\u00169\n\u0017wand of lightning\n\u0017wand of cold\n\u0017wand of cancellation\n\u0007troll\n\u0007giant rat\n\u0007hobbit\nzqk  n         n sm.    n zpj     n  zql  n    zoy  zql  n zqn   n    zqn   n zq    n zq    n  20s   n zq   y\u001b      \u0016"
+ },
+ "segments": [
+  {
+   "seed": 49959505,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=sortloot:full\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPir\u0017blessed shield of reflection\nW\u001b\u0017blessed amulet of life saving\nPk\u0017spellbook of finger of death\nrl \u001b<.       sj\u0017blessed spellbook of magic missile\n rm  sm. \u0007orc shaman\nZZZZsm.  .m.       ZZZZ\u00178 spears\nQn\u0007troll\nfh  fy  n    fk  n       n    tnk   fh  n    \u001613\n\u0018\u001b\u00169\n\u0017wand of lightning\n\u0017wand of cold\n\u0017wand of cancellation\n\u0007troll\n\u0007giant rat\n\u0007hobbit\nzqk  n         n sm.    n zpj     n  zql  n    zoy  zql  n zqn   n    zqn   n zq    n zq    n  20s   n zq   y\u001b      \u0016"
+  }
+ ]
+}

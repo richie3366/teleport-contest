@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u001623\n \u0017war hammer\nwiFjFj .\u0007gelatinous cube\nFn  Fn  Fn Fn 20s    .h\u0007black pudding\nFn  Fl Fn Fu    Fn   nFu   20s   sm.    #pray\ny y      \u0007mind flayer\nFu    Fl    n      Fj        Fk      sm.    n 20s  20s   n       sm.  n        sb\u00165\n \u001623\njln:.s.\u001623\n#levelchange\n6\n    \u0007soldier ant\nFkFk Fk  n Fk Fk    nFk sm..m.   n\u0007vampire lord\nFy Fy   n Fk sjs\u0007green slime\nFk   n Fl Fy  Fy   n Fk .m.    n sm.    #pray\ny y          \u00165\n\u001623\njuukyk:20s s20s \u001623\n\u0004y\u001623\n\u0014 \u001b<.\u001623\nyh bkl  n :\u001629\n   _{.\u001629\nln:\u0016?\ne    kl  h h  \u0017magic trap\nlh 20s 20s n\u0017fire trap\nu^b\u0007gnome\nsu sm.    sm.     n  sl    k u  \u0017level teleporter\n\u0017beartrap\naj y ntbn  Pw-\u0016?\nq _>.>\u0016?\nclbnku:\u001635\n   \u0004u.\u001635\nubk  n :\u0016?\n>>K     scroll of taming\n\u0017clove of garlic\nem.m.sm.FkFl\u0017spellbook of create familiar\n\u0007red mold\nrn  yy\u001by   y y y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 49955036,
+   "datetime": "20130105191414",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u001623\n \u0017war hammer\nwiFjFj .\u0007gelatinous cube\nFn  Fn  Fn Fn 20s    .h\u0007black pudding\nFn  Fl Fn Fu    Fn   nFu   20s   sm.    #pray\ny y      \u0007mind flayer\nFu    Fl    n      Fj        Fk      sm.    n 20s  20s   n       sm.  n        sb\u00165\n \u001623\njln:.s.\u001623\n#levelchange\n6\n    \u0007soldier ant\nFkFk Fk  n Fk Fk    nFk sm..m.   n\u0007vampire lord\nFy Fy   n Fk sjs\u0007green slime\nFk   n Fl Fy  Fy   n Fk .m.    n sm.    #pray\ny y          \u00165\n\u001623\njuukyk:20s s20s \u001623\n\u0004y\u001623\n\u0014 \u001b<.\u001623\nyh bkl  n :\u001629\n   _{.\u001629\nln:\u0016?\ne    kl  h h  \u0017magic trap\nlh 20s 20s n\u0017fire trap\nu^b\u0007gnome\nsu sm.    sm.     n  sl    k u  \u0017level teleporter\n\u0017beartrap\naj y ntbn  Pw-\u0016?\nq _>.>\u0016?\nclbnku:\u001635\n   \u0004u.\u001635\nubk  n :\u0016?\n>>K     scroll of taming\n\u0017clove of garlic\nem.m.sm.FkFl\u0017spellbook of create familiar\n\u0007red mold\nrn  yy\u001by   y y y\u001b  2"
+  }
+ ]
+}

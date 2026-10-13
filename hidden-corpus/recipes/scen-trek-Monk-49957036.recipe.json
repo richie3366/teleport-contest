@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "FbFbFj 100s100sFh.20s100s100sFhs20s100s150sFh..njk100shyn150s150sFkFks\u0018\u001b150s\u0018\u001bybyi\u001bbkj150s#rub\n\\  100sFjFj.ylj100s100s100s100s150segkjb100sef100sFns.150st\u001bn10st\u001bt\u001b#chat\nu10s10s#name\ni\n#name\nd\n#chat\nyyy_ \u001bm,>100s50s\u0014150s\\  \\  \u000f\u001b100sFls.100s_>._.>.>\\  #twoweapon\n100s100s hhjkjjhlk100sFuFu.#invoke\n\u001bj50s150sFhs20s100sFjFjs150sFhss150sFjsskkjqejjh150sFhFh20s100sFks.150s__.s<olyhkFy FhsK100s\u0018\u001b50sFy20ss50s100sbujjlu\u0018\u001bbyl50sehi\u001b\u0018\u001b150sFyss100seh100sblk100seg150s egFyss100s ef#dip\na_ > 100s 50s #dip\nl b h_>._,> 50s100sFlss_>.>#tip\n\u001bukh150sFl..150s150s150s jkj\u000f\u001buju\u000f\u001b50sFls20s100s150sFlss\\  100s150sFl20s.150s50sFnFls_>.>\u0018\u001bbhulhn100s100sFl.20sFl ss150sFlss100s_>.>ybn150seh_>.>50s#loot\nkjy150sFl.s_>.>100sef es_>,>100snbui\u001b\u000f\u001b50s_>,>100s100s FlFl.jkynyk\u000f\u001b50s100s50s100s50s 100sjuj Fl20sskjj100s>nhh100s_>.>100slllukyFj20ss#sit\n\u001b#sit\n\u001b#tip\n\u001b10s10s#chat\nndas20s20s #name\ni\nw\u001b#monster\nH lllhn10st\u001b20st\u001b#chat\nbdb.s20sdiss20sh"
+ },
+ "segments": [
+  {
+   "seed": 49957036,
+   "datetime": "20010618001541",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "FbFbFj 100s100sFh.20s100s100sFhs20s100s150sFh..njk100shyn150s150sFkFks\u0018\u001b150s\u0018\u001bybyi\u001bbkj150s#rub\n\\  100sFjFj.ylj100s100s100s100s150segkjb100sef100sFns.150st\u001bn10st\u001bt\u001b#chat\nu10s10s#name\ni\n#name\nd\n#chat\nyyy_ \u001bm,>100s50s\u0014150s\\  \\  \u000f\u001b100sFls.100s_>._.>.>\\  #twoweapon\n100s100s hhjkjjhlk100sFuFu.#invoke\n\u001bj50s150sFhs20s100sFjFjs150sFhss150sFjsskkjqejjh150sFhFh20s100sFks.150s__.s<olyhkFy FhsK100s\u0018\u001b50sFy20ss50s100sbujjlu\u0018\u001bbyl50sehi\u001b\u0018\u001b150sFyss100seh100sblk100seg150s egFyss100s ef#dip\na_ > 100s 50s #dip\nl b h_>._,> 50s100sFlss_>.>#tip\n\u001bukh150sFl..150s150s150s jkj\u000f\u001buju\u000f\u001b50sFls20s100s150sFlss\\  100s150sFl20s.150s50sFnFls_>.>\u0018\u001bbhulhn100s100sFl.20sFl ss150sFlss100s_>.>ybn150seh_>.>50s#loot\nkjy150sFl.s_>.>100sef es_>,>100snbui\u001b\u000f\u001b50s_>,>100s100s FlFl.jkynyk\u000f\u001b50s100s50s100s50s 100sjuj Fl20sskjj100s>nhh100s_>.>100slllukyFj20ss#sit\n\u001b#sit\n\u001b#tip\n\u001b10s10s#chat\nndas20s20s #name\ni\nw\u001b#monster\nH lllhn10st\u001b20st\u001b#chat\nbdb.s20sdiss20sh"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n      #wizintrinsic\nr\n 20s.ss.sss.s\u0017potion of invisibility\nqlah #jump\n\\ __. \u001b;20s#loot\n#loot\n.20s.s.s"
+ },
+ "segments": [
+  {
+   "seed": 49952018,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n      #wizintrinsic\nr\n 20s.ss.sss.s\u0017potion of invisibility\nqlah #jump\n\\ __. \u001b;20s#loot\n#loot\n.20s.s.s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          \u0007hezrou\nFj FlFn\u0007yellow light\n;b, \u001b@.sm..m.20s \u0007mumak\n#chat\nnFnFn   n\u001619\ni\u001b#wizintrinsic\nf\n s.s.20ssss.s\u0017crystal ball\nan#rub\n,: #monster\nZe..20sss.#levelchange\n30\n                  \u0017mace\nwo s.  ns \u0007Medusa\nnn 20s 20s 20s   n . s \u0007yellow mold\n20s   n 20s s s .\u0007air elemental\n.  n s  Fj \u0007couatl\nFj Fk Fk  \u0018\u001b\u00167\nhylu  n \u0017throne\n#sit\n #sit\n lk\u0017cloud\n:h k\u0017magic fountain\nqhqf   n #dip\nny w- #twoweapon\nf o k\u001610\n #levelchange\n30\n\u0017blessed ring of polymorph control\nPpr\u0017kicking boots\nWq  n s 20s s #polyself\nvampire bat\n  #monster\n20s .    n.s  20s    n #polyself\nvampire lord\n20s s \u0007fire vortex\ns . Fk20s .s\u001b#polyself\nchameleon\n baby long worm\n s        20s  n      \u0007pony\n20s s Fk      n  s  s 20s      n   \u0017wand of polymorph\nzr.succubus\n \u001616\n\u001610\n\u0006_>>. _,>_>>,_.>_>>, _,>\u0006_>, _,  n >_>. _.>_>,_.>\u0006_>. _,>_>. _, >_>._,   n >\u0006_>>,_. > \u0006_>, _.  n >_>, _. >_>. _. >\u0006_>,   yy\u001by   y y ny  F"
+ },
+ "segments": [
+  {
+   "seed": 49950041,
+   "datetime": "20001207060810",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=!verbose\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n          \u0007hezrou\nFj FlFn\u0007yellow light\n;b, \u001b@.sm..m.20s \u0007mumak\n#chat\nnFnFn   n\u001619\ni\u001b#wizintrinsic\nf\n s.s.20ssss.s\u0017crystal ball\nan#rub\n,: #monster\nZe..20sss.#levelchange\n30\n                  \u0017mace\nwo s.  ns \u0007Medusa\nnn 20s 20s 20s   n . s \u0007yellow mold\n20s   n 20s s s .\u0007air elemental\n.  n s  Fj \u0007couatl\nFj Fk Fk  \u0018\u001b\u00167\nhylu  n \u0017throne\n#sit\n #sit\n lk\u0017cloud\n:h k\u0017magic fountain\nqhqf   n #dip\nny w- #twoweapon\nf o k\u001610\n #levelchange\n30\n\u0017blessed ring of polymorph control\nPpr\u0017kicking boots\nWq  n s 20s s #polyself\nvampire bat\n  #monster\n20s .    n.s  20s    n #polyself\nvampire lord\n20s s \u0007fire vortex\ns . Fk20s .s\u001b#polyself\nchameleon\n baby long worm\n s        20s  n      \u0007pony\n20s s Fk      n  s  s 20s      n   \u0017wand of polymorph\nzr.succubus\n \u001616\n\u001610\n\u0006_>>. _,>_>>,_.>_>>, _,>\u0006_>, _,  n >_>. _.>_>,_.>\u0006_>. _,>_>. _, >_>._,   n >\u0006_>>,_. > \u0006_>, _.  n >_>, _. >_>. _. >\u0006_>,   yy\u001by   y y ny  F"
+  }
+ ]
+}

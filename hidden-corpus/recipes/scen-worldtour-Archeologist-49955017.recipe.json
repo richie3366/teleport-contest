@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPj\u0017blessed amulet of reflection\nPk\u0016?\n>G_ \u001b<.<s20s \u0016?\n>B_{.\u001629\njk:\u0016?\n>B  \u0004bs \u001b s  \u001b\u0016?\n>>P  \u0006_>._.m,\u0016?\n>A   \u0006_<.Fl  _,;@.Fl20s\u00161\n  nu:20s\u0016?\n>A#levelchange\n6\n  \u0007ape\nFhFhFhFhFh.n20s #pray\ny y        \u0007gas spore\nFy Fh Fh  n Fy Fh Fh   nFy 20s .m. #pray\ny y           .m.  20s  \u00167\n\u00161\n\u00173 20 flint stones\nQ\u001bfy    n fk   fy     nFb  Fh  \u0017uncursed +0 ring of aggravate monster\n\u0007elf-lord\nPml   n  sb     n .b     20s    n  \u0017potion of acid\nqn \u001b    n  \u0017spellbook of force bolt\nro       nsu    .k            n  ZZ\u0017leash\napu    Fy    n  Fu   \u0017potion of fruit juice\n\u0007long worm\nqq \u001b  n   20s      nsm.   sm.    n \u00161\n\u0016?\nb  #levelchange\n20\n             \u0017bullwhip\nwrFj    \u001bs Fj \u0007wood nymph\n.m.sm.  sm.  20s 20s.m.\u0007gecko\nFb  n Fj Fj Fj  y y\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 49955017,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPj\u0017blessed amulet of reflection\nPk\u0016?\n>G_ \u001b<.<s20s \u0016?\n>B_{.\u001629\njk:\u0016?\n>B  \u0004bs \u001b s  \u001b\u0016?\n>>P  \u0006_>._.m,\u0016?\n>A   \u0006_<.Fl  _,;@.Fl20s\u00161\n  nu:20s\u0016?\n>A#levelchange\n6\n  \u0007ape\nFhFhFhFhFh.n20s #pray\ny y        \u0007gas spore\nFy Fh Fh  n Fy Fh Fh   nFy 20s .m. #pray\ny y           .m.  20s  \u00167\n\u00161\n\u00173 20 flint stones\nQ\u001bfy    n fk   fy     nFb  Fh  \u0017uncursed +0 ring of aggravate monster\n\u0007elf-lord\nPml   n  sb     n .b     20s    n  \u0017potion of acid\nqn \u001b    n  \u0017spellbook of force bolt\nro       nsu    .k            n  ZZ\u0017leash\napu    Fy    n  Fu   \u0017potion of fruit juice\n\u0007long worm\nqq \u001b  n   20s      nsm.   sm.    n \u00161\n\u0016?\nb  #levelchange\n20\n             \u0017bullwhip\nwrFj    \u001bs Fj \u0007wood nymph\n.m.sm.  sm.  20s 20s.m.\u0007gecko\nFb  n Fj Fj Fj  y y\u001by   y y y\u001b  F"
+  }
+ ]
+}

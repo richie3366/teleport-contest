@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  ;<. \u001b,:ae#tip\n\u001bed _m,s#rub\ne>z#offer\n\u0018\u001b\u0004j#enhance\n\u001b\u0014\\   Kzf by ji\u001bWsssae#rub\newa20ss20s#terrain\nc\n<.\u0014#turn\n;m,#invoke\n\u001b#ride\n."
+ },
+ "segments": [
+  {
+   "seed": 49952024,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "  ;<. \u001b,:ae#tip\n\u001bed _m,s#rub\ne>z#offer\n\u0018\u001b\u0004j#enhance\n\u001b\u0014\\   Kzf by ji\u001bWsssae#rub\newa20ss20s#terrain\nc\n<.\u0014#turn\n;m,#invoke\n\u001b#ride\n."
+  }
+ ]
+}

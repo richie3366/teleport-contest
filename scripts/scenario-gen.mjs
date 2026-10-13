@@ -15,7 +15,7 @@
  *        [--family mixed|wish|genesis|poly|intrinsic|death|kit|tour|normal]
  *        [--family broad|terrain|trap|town|sokoban|ride|pet|container|descend|
  *                  ranged|caster|impaired|options|engulf|hazard|longrun|dig]
- *        [--family marathon|worldtour|sweep|chain|trek]
+ *        [--family marathon|worldtour|sweep|chain|trek|zapfest|shop]
  *        [--out hidden-corpus/recipes] [--probe [--index i]]
  *
  * `broad` rotates evenly through the second-wave families (terrain … dig);
@@ -1261,8 +1261,20 @@ async function levelportTune(g, rng, target) {
    scen-* session above ran past 344 steps. These four families play that
    long. Debug games answer «Die?» with n, so a death mid-marathon costs one
    prompt, not the rest of the session. */
-const WAVE3 = ['worldtour', 'sweep', 'chain', 'trek'];
-const WAVE3_KEYS = { worldtour: [800, 1500], sweep: [1200, 2000], chain: [900, 1900], trek: [600, 1100] };
+const WAVE3 = ['worldtour', 'sweep', 'chain', 'trek', 'zapfest', 'shop'];
+const WAVE3_KEYS = { worldtour: [800, 1500], sweep: [1200, 2000], chain: [900, 1900], trek: [600, 1100], zapfest: [600, 1200], shop: [500, 1000] };
+/* zapfest (2026-10-13, §10.20 calibration): held-out runs 2,959 animation
+   frames vs public 1,483 — wand/spell/breath duels the marathon families
+   under-sample. One debug game of duels: wand barrages, spell slinging,
+   thrown frenzies, dragon breath (both ways), and mcastu gauntlets where
+   the hero waits so the casters act. */
+const ZAP_KIT = ['blessed shield of reflection', 'blessed amulet of life saving', 'blessed +3 speed boots', 'blessed +3 gray dragon scale mail', 'blessed ring of free action'];
+const ZAP_WANDS = ['fire', 'cold', 'lightning', 'magic missile', 'striking', 'sleep', 'death', 'polymorph', 'teleportation', 'cancellation', 'slow monster', 'digging'];
+const ZAP_SPELLS = ['spellbook of fireball', 'spellbook of cone of cold', 'spellbook of finger of death', 'spellbook of magic missile', 'spellbook of force bolt', 'spellbook of sleep', 'spellbook of slow monster', 'spellbook of cause fear', 'spellbook of drain life', 'spellbook of light', 'spellbook of knock'];
+const ZAP_FODDER = [...PREY, 'hill orc', 'soldier', 'gnome lord', 'dwarf', 'owlbear', 'troll', 'bugbear', 'hobbit', 'kobold shaman'];
+const ZAP_CASTERS = ['lich', 'master lich', 'gnomish wizard', 'orc shaman', 'kobold shaman', 'mind flayer', 'master mind flayer', 'succubus', 'incubus', 'vampire', 'aligned cleric'];
+const ZAP_BREATHERS = ['red dragon', 'black dragon', 'silver dragon', 'baby red dragon'];
+const ZAP_POLY_BREATH = ['red dragon', 'black dragon', 'silver dragon', 'gold dragon'];
 const SWEEP_W1 = ['wish', 'wish', 'genesis', 'genesis', 'poly', 'intrinsic', 'kit', 'tour'];
 const SWEEP_W2 = ['terrain', 'trap', 'town', 'sokoban', 'ride', 'pet', 'container', 'descend', 'ranged', 'caster', 'impaired', 'engulf', 'hazard', 'dig', 'quest', 'special', 'engrave'];
 const TOUR_KIT = ['blessed +3 gray dragon scale mail', 'blessed +3 silver dragon scale mail', 'blessed +3 speed boots', 'blessed amulet of life saving', 'blessed amulet of reflection', 'blessed ring of free action', 'blessed +3 cloak of magic resistance', 'blessed +3 gauntlets of power', 'blessed Mjollnir', 'blessed +3 helm of telepathy'];
@@ -1341,6 +1353,139 @@ async function runWave3Game(g, rng, family, { debug }) {
         await untilFull(g, rng, async () => {
             await runWave2(g, rng, pick(rng, ['longrun', 'longrun', 'descend', 'descend', 'pet']), { debug });
             if (chance(rng, 0.3)) await ordinary(g, rng, 3);
+        });
+        break;
+    }
+    case 'zapfest': {
+        g.immortal = true;
+        for (const w of shuffle(rng, ZAP_KIT).slice(0, 2 + Math.floor(rng() * 2))) {
+            const l = await wish(g, rng, w);
+            if (l) await typeCmd(g, rng, /amulet|ring/.test(w) ? 'P' : 'W', { letter: l });
+        }
+        if (chance(rng, 0.6)) await ext(g, rng, 'levelchange', { level: String(pick(rng, [10, 14, 20])) });
+        await untilFull(g, rng, async () => {
+            const r = rng();
+            if (r < 0.3) {
+                const wands = [];
+                for (const wn of shuffle(rng, ZAP_WANDS).slice(0, 2 + Math.floor(rng() * 2))) {
+                    const l = await wish(g, rng, `wand of ${wn}`);
+                    if (l) wands.push([l, wn]);
+                }
+                for (let k = 0; k < 1 + Math.floor(rng() * 3); k++) await genesis(g, rng, pick(rng, ZAP_FODDER));
+                for (let i = 0; i < 6 + Math.floor(rng() * 8) && !g.full && wands.length; i++) {
+                    const [l, wn] = pick(rng, wands);
+                    const dir = /digging/.test(wn) ? pick(rng, ['>', '>']) : monsterDir(g.s, rng) || pick(rng, 'hjklyubn.');
+                    await typeCmd(g, rng, 'z', { letter: l, dir });
+                    if (chance(rng, 0.25)) await wait(g, rng, 1);
+                }
+            } else if (r < 0.55) {
+                for (const book of shuffle(rng, ZAP_SPELLS).slice(0, 1 + Math.floor(rng() * 2))) {
+                    const l = await wish(g, rng, (chance(rng, 0.7) ? 'blessed ' : '') + book);
+                    if (l) { await typeCmd(g, rng, 'r', { letter: l, yn: 'y' }); await wait(g, rng, 1); }
+                }
+                for (let k = 0; k < 1 + Math.floor(rng() * 2); k++) await genesis(g, rng, pick(rng, ZAP_CASTERS));
+                for (let i = 0; i < 5 + Math.floor(rng() * 7) && !g.full; i++) {
+                    await typeCmd(g, rng, 'Z', { menuPick: true, dir: monsterDir(g.s, rng) || pick(rng, 'hjklyubn.'), yn: 'y' });
+                    if (chance(rng, 0.3)) await wait(g, rng, 2);
+                }
+                if (chance(rng, 0.3)) await ext(g, rng, 'turn', { yn: 'y' });
+            } else if (r < 0.7) {
+                const [launcher, ammo] = pick(rng, LAUNCH);
+                if (launcher) { const l = await wish(g, rng, launcher); if (l) await typeCmd(g, rng, 'w', { letter: l, yn: 'y' }); }
+                const a = await wish(g, rng, ammo);
+                if (a) await typeCmd(g, rng, 'Q', { letter: a, yn: 'y' });
+                for (let k = 0; k < 1 + Math.floor(rng() * 2); k++) await genesis(g, rng, pick(rng, ZAP_FODDER));
+                for (let i = 0; i < 4 + Math.floor(rng() * 6) && !g.full; i++) await shoot(g, rng, chance(rng, 0.7) ? 'f' : 't', { yn: 'y' });
+                if (chance(rng, 0.3)) { const [p] = pick(rng, POTIONS); const l = await wish(g, rng, p); if (l) await shoot(g, rng, 't', { letter: l }); }
+            } else if (r < 0.85) {
+                for (let k = 0; k < 1 + Math.floor(rng() * 2); k++) await genesis(g, rng, pick(rng, ZAP_BREATHERS));
+                await wait(g, rng, 2 + Math.floor(rng() * 3));
+                if (chance(rng, 0.5)) {
+                    await polyself(g, rng, pick(rng, ZAP_POLY_BREATH));
+                    for (let i = 0; i < 2 + Math.floor(rng() * 3) && !g.full; i++) {
+                        await ext(g, rng, 'monster', { dir: monsterDir(g.s, rng) || pick(rng, 'hjklyubn') });
+                    }
+                }
+                if (chance(rng, 0.4)) {
+                    const l = await wish(g, rng, `wand of ${pick(rng, ['fire', 'cold', 'lightning', 'magic missile'])}`);
+                    if (l) await typeCmd(g, rng, 'a', { letter: l, yn: 'y' });
+                }
+                await fight(g, rng, 2);
+            } else {
+                for (let k = 0; k < 2 + Math.floor(rng() * 2); k++) await genesis(g, rng, pick(rng, ZAP_CASTERS));
+                const wl = await wish(g, rng, `wand of ${pick(rng, ['striking', 'magic missile', 'fire', 'cold', 'sleep'])}`);
+                for (let i = 0; i < 6 + Math.floor(rng() * 6) && !g.full; i++) {
+                    if (chance(rng, 0.4)) await wait(g, rng, 1 + Math.floor(rng() * 2));
+                    else if (wl) await typeCmd(g, rng, 'z', { letter: wl, dir: monsterDir(g.s, rng) || pick(rng, 'hjklyubn.') });
+                    else await fight(g, rng, 1);
+                    if (lowHp(g)) break;
+                }
+            }
+            if (chance(rng, 0.15)) await levelport(g, rng, 1 + Math.floor(rng() * 20));
+            if (chance(rng, 0.2)) await typeCmd(g, rng, pick(rng, [CTRL('x'), 'i']));
+        });
+        break;
+    }
+    case 'shop': {
+        /* shop (2026-10-13, §10.20 calibration): minetn buy/sell/steal/Kops
+           like public seed0116 wizard-wear-shop, but a full marathon: every
+           shop visited, bills run up and paid, goods sold, and at least one
+           robbery so the Kops come. Town already covers the short shape at
+           100 %; the long shape with robbery and Kop fights is unprobed. */
+        g.immortal = true;
+        await wish(g, rng, pick(rng, ['5000 gold pieces', '2000 gold pieces', '8000 gold pieces']));
+        for (const w of shuffle(rng, TOUR_KIT).slice(0, 2)) {
+            const l = await wish(g, rng, w);
+            if (l) await typeCmd(g, rng, /amulet|ring/.test(w) ? 'P' : /Mjollnir/.test(w) ? 'w' : 'W', { letter: l });
+        }
+        if (!(await levelport(g, rng, 'minetn'))) await levelport(g, rng, 5 + Math.floor(rng() * 4));
+        await mapLevel(g, rng);
+        let robbed = false;
+        await untilFull(g, rng, async () => {
+            const what = pick(rng, ['shop', 'shop', 'shop', 'shop', 'temple', 'fountain', 'steal', 'kops']);
+            if (what === 'shop') {
+                await travelTo(g, rng, 'o'.repeat(2 + Math.floor(rng() * 8)));
+                if (chance(rng, 0.3)) await travelTo(g, rng, 'o'.repeat(1 + Math.floor(rng() * 3)));
+                await typeCmd(g, rng, ',', { menuPick: true, yn: 'y' });
+                const after = pick(rng, ['pay', 'pay', 'sell', 'chat', 'look', 'price', 'pay']);
+                if (after === 'pay') await typeCmd(g, rng, 'p', { yn: 'y' });
+                else if (after === 'sell') {
+                    const [jn] = pick(rng, [...GEMS, ...AMULETS]);
+                    const l = await wish(g, rng, jn);
+                    if (l) await typeCmd(g, rng, 'd', { letter: l, yn: pick(rng, 'yn') });
+                    else await typeCmd(g, rng, 'd', { yn: pick(rng, 'yn') });
+                }
+                else if (after === 'chat') await chat(g, rng);
+                else if (after === 'look') await typeCmd(g, rng, ':');
+                else await typeCmd(g, rng, '$');
+            } else if (what === 'temple') {
+                await travelTo(g, rng, '_');
+                await chat(g, rng);
+                if (chance(rng, 0.4)) await ext(g, rng, 'pray', { yn: 'y' });
+            } else if (what === 'fountain') {
+                await travelTo(g, rng, '{');
+                await typeCmd(g, rng, 'q', { yn: 'y' });
+            } else if (what === 'steal' && !robbed) {
+                await travelTo(g, rng, 'o'.repeat(3 + Math.floor(rng() * 6)));
+                await typeCmd(g, rng, ',', { menuPick: true, yn: 'y' });
+                await typeCmd(g, rng, K_TELE, { yn: 'n' });
+                robbed = true;
+                await wait(g, rng, 2);
+            } else {
+                const kop = monsterDir(g.s, rng);
+                if (kop) {
+                    for (let k = 0; k < 6 && !g.full; k++) { await g.send('F' + kop); await answer(g, rng, { yn: 'y' }); }
+                } else {
+                    await steps(g, rng, 3);
+                    await chat(g, rng);
+                }
+            }
+            if (chance(rng, 0.1)) {
+                await levelport(g, rng, pick(rng, ['soko1', 'oracle', 3, 7]));
+                await steps(g, rng, 3);
+                await levelport(g, rng, 'minetn');
+                await mapLevel(g, rng);
+            }
         });
         break;
     }

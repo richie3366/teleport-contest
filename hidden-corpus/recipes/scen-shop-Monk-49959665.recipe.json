@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed amulet of reflection\nPl\u0017blessed amulet of life saving\nPm\u0016?\n>w\u0006_ \u001bm.qd _oooooo.,p\u0016?\nc yuk\u0016?\n>w\u0006_ooooo.,$_{. Fk_.Fj   qd  _oooooooo., \u0014>.20ss  _oooooo.,\u0017gray stone\ndou hh#chat\nb_{.Fl _.Fl qeFnFnFn FnFnFn_ooooo._.,\u0017amulet of flying\ndq_oo.Fn_._o,_.,#chat\nl_{.Fy_.Fh    qp_ooo.Fb_,>.Fb_ooo, Fh _,,,p_oooooo,Fb_.,Fh,#chat\nn_ooooooo.Fn _.    Fy_oo, Fy_. Fy  ,p_ooooo,,pFh  FhFh     Fh  FhFh  _ooooooo.Fh  _.m. Fh ,p\u00167\nkkk\u0016?\n>w\u0006_ooo._,,p_ooooooooo._,_oo._.:,$huh#chat\nu_oo,_.,,p\u0016?\n>Bykj\u0016?\n>w\u0006jhb#chat\nnllk#chat\nb__.Fk_, Fu#chat\nj#pray\ny y knh#chat\nb_{._.qy__,Fj_,   Fu  #chat\nu_ooooooooo.,p__.Fk      n _.#chat\nk _{,  nFl  n _,  n Fl  n  n   q\u00167\nj   nbk\u0016?\n>w\u0006\u00167\nyyj#chat\nll  n ky#chat\nb_ooooo,  n Fj_.  n Fb  n_oo.,\u0017flint stone\nds  n\u00164\n__.#chat\nh_ooooo._oo.,p\u0016?\n>Bhb k\u0016?\n>w\u0006_ooooooooo.,p_ooooo,_,;:    ,: __._.#chat\ny#pray\ny y_oooooooo. Fh_.Fh,p_oo"
+ },
+ "segments": [
+  {
+   "seed": 49959665,
+   "datetime": "20020924085613",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed amulet of reflection\nPl\u0017blessed amulet of life saving\nPm\u0016?\n>w\u0006_ \u001bm.qd _oooooo.,p\u0016?\nc yuk\u0016?\n>w\u0006_ooooo.,$_{. Fk_.Fj   qd  _oooooooo., \u0014>.20ss  _oooooo.,\u0017gray stone\ndou hh#chat\nb_{.Fl _.Fl qeFnFnFn FnFnFn_ooooo._.,\u0017amulet of flying\ndq_oo.Fn_._o,_.,#chat\nl_{.Fy_.Fh    qp_ooo.Fb_,>.Fb_ooo, Fh _,,,p_oooooo,Fb_.,Fh,#chat\nn_ooooooo.Fn _.    Fy_oo, Fy_. Fy  ,p_ooooo,,pFh  FhFh     Fh  FhFh  _ooooooo.Fh  _.m. Fh ,p\u00167\nkkk\u0016?\n>w\u0006_ooo._,,p_ooooooooo._,_oo._.:,$huh#chat\nu_oo,_.,,p\u0016?\n>Bykj\u0016?\n>w\u0006jhb#chat\nnllk#chat\nb__.Fk_, Fu#chat\nj#pray\ny y knh#chat\nb_{._.qy__,Fj_,   Fu  #chat\nu_ooooooooo.,p__.Fk      n _.#chat\nk _{,  nFl  n _,  n Fl  n  n   q\u00167\nj   nbk\u0016?\n>w\u0006\u00167\nyyj#chat\nll  n ky#chat\nb_ooooo,  n Fj_.  n Fb  n_oo.,\u0017flint stone\nds  n\u00164\n__.#chat\nh_ooooo._oo.,p\u0016?\n>Bhb k\u0016?\n>w\u0006_ooooooooo.,p_ooooo,_,;:    ,: __._.#chat\ny#pray\ny y_oooooooo. Fh_.Fh,p_oo"
+  }
+ ]
+}

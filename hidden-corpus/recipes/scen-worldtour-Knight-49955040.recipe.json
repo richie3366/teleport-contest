@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0016?\nn \u0006_ \u001bm.\u0016?\nr\u0004l\u001626\n#levelchange\n6\n           lllk\u0017lawful altar\ndedb\u0017gnome corpse\n#offer\ni  #pray\ny y    bh\u0017neutral altar\ndh\u0017jackal corpse\n#offer\nj  : hh\u0017ice\nl hh   \u001b lll  \u0017melting ice\nl h   h   h  #terrain\ne\nK\u0004b   n wa\u0016?\n>v ulh:\u0016?\n>>N        potion of monster detection\n_{,<\u001626\n\u0017lance\nwmFk     Fy  n   Fh  n   \u0007vampire lord\nFy  n   Fh    n    Fy   n     n  Fh  n      n   Fu   n    n 20s    n      n 20s    n    #pray\ny y              \u0007mountain nymph\nFh    n     yy\u001by  y y  y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 49955040,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=runmode:walk\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0016?\nn \u0006_ \u001bm.\u0016?\nr\u0004l\u001626\n#levelchange\n6\n           lllk\u0017lawful altar\ndedb\u0017gnome corpse\n#offer\ni  #pray\ny y    bh\u0017neutral altar\ndh\u0017jackal corpse\n#offer\nj  : hh\u0017ice\nl hh   \u001b lll  \u0017melting ice\nl h   h   h  #terrain\ne\nK\u0004b   n wa\u0016?\n>v ulh:\u0016?\n>>N        potion of monster detection\n_{,<\u001626\n\u0017lance\nwmFk     Fy  n   Fh  n   \u0007vampire lord\nFy  n   Fh    n    Fy   n     n  Fh  n      n   Fu   n    n 20s    n      n 20s    n    #pray\ny y              \u0007mountain nymph\nFh    n     yy\u001by  y y  y\u001b  F"
+  }
+ ]
+}

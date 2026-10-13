@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed Mjollnir\nwp\u0017blessed +3 speed boots\nWq\u001636\n   \u0004u.m.\u001628\n\u0004 \u0016?\n>Ebn\u0017wand of make invisible\nEr I am a fish\n\u0017wand of cold\nEsy I am a fish\n  : y\u0017wand of teleportation\nEt ad aerarium\n: \u0017wand of opening\nEuy Elbereth\n: E-n  Elbereth Elbereth\n\u0007hill orc\nsm.s20ssm.sm.\u0016?\nhhu :\u0016?\no jkkjjjj:\u001627\nyn:\u0016?\n>>K      Dragonbane\n_ \u001b;\u0016?\n\u001bnn \u0016?\n\u001bh  y  \u0016?\n\u001bl   b\u0016?\n\u001bhy  \u0016?\n\u001bu   y\u0016?\n\u001buk\u0016?\n\u001bj    n\u0016?\n\u001bn    n u\u0016?\n\u001bj     h\u0016?\n\u001bnh\u001627\n_>..y\u0016?\n\u001bn    k\u0016?\n\u001bb        j    \u001628\n\u0006m,_>.\u0016?\n\u001bkb    n    \u001633\n#levelchange\n30\n\u0007vampire lord\nFj      n     Fn            FbFl   Fl    snsm.        n     \u0007wererat\n.       ns     20s        n       s     n     20s    n        n    20s     #pray\ny y           \u0007yellow light\ns  n   Fj        n   20s       n  s     n   .   n     n20s     s    n\u00165\ny  y n  yny   y ny\u001b  u"
+ },
+ "segments": [
+  {
+   "seed": 49955069,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=runmode:crawl\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed Mjollnir\nwp\u0017blessed +3 speed boots\nWq\u001636\n   \u0004u.m.\u001628\n\u0004 \u0016?\n>Ebn\u0017wand of make invisible\nEr I am a fish\n\u0017wand of cold\nEsy I am a fish\n  : y\u0017wand of teleportation\nEt ad aerarium\n: \u0017wand of opening\nEuy Elbereth\n: E-n  Elbereth Elbereth\n\u0007hill orc\nsm.s20ssm.sm.\u0016?\nhhu :\u0016?\no jkkjjjj:\u001627\nyn:\u0016?\n>>K      Dragonbane\n_ \u001b;\u0016?\n\u001bnn \u0016?\n\u001bh  y  \u0016?\n\u001bl   b\u0016?\n\u001bhy  \u0016?\n\u001bu   y\u0016?\n\u001buk\u0016?\n\u001bj    n\u0016?\n\u001bn    n u\u0016?\n\u001bj     h\u0016?\n\u001bnh\u001627\n_>..y\u0016?\n\u001bn    k\u0016?\n\u001bb        j    \u001628\n\u0006m,_>.\u0016?\n\u001bkb    n    \u001633\n#levelchange\n30\n\u0007vampire lord\nFj      n     Fn            FbFl   Fl    snsm.        n     \u0007wererat\n.       ns     20s        n       s     n     20s    n        n    20s     #pray\ny y           \u0007yellow light\ns  n   Fj        n   20s       n  s     n   .   n     n20s     s    n\u00165\ny  y n  yny   y ny\u001b  u"
+  }
+ ]
+}

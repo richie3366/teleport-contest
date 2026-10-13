@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u0017blessed Mjollnir\nwp\u00168\nuyhhh:\u00168\n_ \u001bm.>20s s\u0016?\n>>L      scroll of genocide\n\u0014 n\u00164\n_{.20s     20s         \u0016?\ne h      k         \u001b  n :\u0016?\na  \u0004b       sm.              s  n             n\u00162\n\u0016?\nd__,>\u00164\n__.<\u0016?\n\u001bu    l     \u0016?\nb_>.>sm.   .m.     n        sm.        n    \u00163\n\u00164\n\u0014@.     n     20s        \u0016?\n\u001bk     n          n    \u0016?\ndb b b    j  n  :\u0016?\n\u001bk     n          n       n   u     n       n    \u00161\n\u0016?\n\u001bn   n     n  u  \u0016?\nbb  n  l   l  n u   y\u001b       u"
+ },
+ "segments": [
+  {
+   "seed": 49955051,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u0017blessed Mjollnir\nwp\u00168\nuyhhh:\u00168\n_ \u001bm.>20s s\u0016?\n>>L      scroll of genocide\n\u0014 n\u00164\n_{.20s     20s         \u0016?\ne h      k         \u001b  n :\u0016?\na  \u0004b       sm.              s  n             n\u00162\n\u0016?\nd__,>\u00164\n__.<\u0016?\n\u001bu    l     \u0016?\nb_>.>sm.   .m.     n        sm.        n    \u00163\n\u00164\n\u0014@.     n     20s        \u0016?\n\u001bk     n          n    \u0016?\ndb b b    j  n  :\u0016?\n\u001bk     n          n       n   u     n       n    \u00161\n\u0016?\n\u001bn   n     n  u  \u0016?\nbb  n  l   l  n u   y\u001b       u"
+  }
+ ]
+}

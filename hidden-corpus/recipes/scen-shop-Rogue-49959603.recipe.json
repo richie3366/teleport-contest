@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed Mjollnir\nwi\u0017blessed +3 cloak of magic resistance\nWj\u0016?\n>w\u0006_ \u001b<.  ,p_oooooo,,$_oo.,p__. _,#chat\nl_ooo.,\u0014>.sn.m.Fh FhFhFhFhFh__,Fl _.Fl   #chat\nk#pray\ny y  _ooooooooo,,#chat\nk_oo._,,:_ooooo._.,a\np\u0016?\nclyn\u0016?\n>w\u0006hlu#chat\nk_ooooooo, _.Fl  ,   np_ooooooo.Fl   n_.Fl   n,p\u001611\nFb Fb   nFb Fb  Fb  Fb_ooooo,Fl _._o,,i\n#chat\nl  n __,#chat\nl#pray\ny y        Fl  Fl Fl  Fl  Fl   FlFk  Fk   n FkFk FkFkFhFh FhFhFhFh_ooo._o._., \u0017amulet of ESP\ndo_oooo,_,,j\n\u0017ruby\ndquuy#chat\nbllb#chat\nl_oooooo,_oo,Fj _.: ,h\n#ch"
+ },
+ "segments": [
+  {
+   "seed": 49959603,
+   "datetime": "20190912204649",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed Mjollnir\nwi\u0017blessed +3 cloak of magic resistance\nWj\u0016?\n>w\u0006_ \u001b<.  ,p_oooooo,,$_oo.,p__. _,#chat\nl_ooo.,\u0014>.sn.m.Fh FhFhFhFhFh__,Fl _.Fl   #chat\nk#pray\ny y  _ooooooooo,,#chat\nk_oo._,,:_ooooo._.,a\np\u0016?\nclyn\u0016?\n>w\u0006hlu#chat\nk_ooooooo, _.Fl  ,   np_ooooooo.Fl   n_.Fl   n,p\u001611\nFb Fb   nFb Fb  Fb  Fb_ooooo,Fl _._o,,i\n#chat\nl  n __,#chat\nl#pray\ny y        Fl  Fl Fl  Fl  Fl   FlFk  Fk   n FkFk FkFkFhFh FhFhFhFh_ooo._o._., \u0017amulet of ESP\ndo_oooo,_,,j\n\u0017ruby\ndquuy#chat\nbllb#chat\nl_oooooo,_oo,Fj _.: ,h\n#ch"
+  }
+ ]
+}

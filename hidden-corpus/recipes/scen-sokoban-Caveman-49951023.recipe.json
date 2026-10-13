@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>E10sFujFkFkjFkbnl\u0017scroll of earth\nrf yuylklhkjl jnn\u0017wand of digging\nzgkjununnnknkunjljjnkknlnlkjnnkjnjlnk\u0017wand of digging\nzhu\u0016?\n>Cllhlllknuujnlljuyjjjjjlblnl\u0017wand of striking\nzilnnjknnk\u0017scroll of earth\nrj   nbjhhjjyulj\u0017scroll of earth\nrk jjh10shjkjhluFhFh"
+ },
+ "segments": [
+  {
+   "seed": 49951023,
+   "datetime": "20070531125339",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>E10sFujFkFkjFkbnl\u0017scroll of earth\nrf yuylklhkjl jnn\u0017wand of digging\nzgkjununnnknkunjljjnkknlnlkjnnkjnjlnk\u0017wand of digging\nzhu\u0016?\n>Cllhlllknuujnlljuyjjjjjlblnl\u0017wand of striking\nzilnnjknnk\u0017scroll of earth\nrj   nbjhhjjyulj\u0017scroll of earth\nrk jjh10shjkjhluFhFh"
+  }
+ ]
+}

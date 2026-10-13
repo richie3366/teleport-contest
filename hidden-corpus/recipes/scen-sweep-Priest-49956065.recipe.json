@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                    #wizintrinsic\nok\n 20s.20sssssssss..20sss.s20ss20s.\u0004jt\u001b#ride\nlyJ\u0014 \u001b<.s20ss.ss.\u0018\u001b\u0017chest\n\u0017wand of teleportation\n\u0017credit card\ndkam.y.s.#loot\no\n\u0017long sword\nwndl#force\n sss\u0017dagger\nwodo#force\nsssai\u001bamhai\u001b#wizintrinsic\np\n 20ss...s20ss.20ss20s20s20s.sss..s.#offer\nwa#monster\n>10sJ...20sss\u0017pick-axe\nap >20s_<._,ap>lb\u0006_oo.ap>ap>  .ap>lhap<yk#levelchange\n12\n   #wizintrinsic\nd\n .m.20ssm.ss20s.bsm.sm..m. n\u0017expensive camera\naqbW#terrain\nb\n\u0014 #untrap\nl#pray\ny y i\u001bsss20s20s20s\u000f\u001bkhb\u0017polymorph trap\nkj    s20sul\u0017statue trap\nb^uu.sk\u0017squeaky board\nn#untrap\nnu\u0017sleeping gas trap\ny#untrap\n#terrain\nb\n#invoke\nm,qdW\u000f\u001b\u0017dwarvish mattock\najkb_<,ahnajah#levelchange\n10\n\u0007hostile dust vortex\nFjsm. FjFj    Fj Fj 20s\u001bFkFj    Fj     Fy#pray\ny y  \u0017locked chest\n\u0017locked large box\n\u0017ice box\n\u0017wand of slow monster\n\u0017scroll of enchant armor\nasds    #loot\na\n y,f\n   \u0017credit card\ndaax.y 20s\u001b20s   .#loot\nb\no\n\u0017lock pick\ndf ay.s  s#loot\nb\no\ni\u001b#levelchange\n20\n          \u0007gas spore\ns Fj   Fy . FjFk20s   s\u0007vampire lord\n20s Fk   Fu s .20s  n s #levelchange\n12\n   \u0017blessed spellbook of stone to flesh\nrzs 20sZb\nZb\n\u0017diamond\nag  \u0017blessed the Candelabrum of Invocation\nwn Fn  n FlFl #invoke\nBXFn  Fl  \u00173 scroll of earth\nrC      Fn Fn sm.20s   n\u00165\n \\  \u00166\n#levelcha"
+ },
+ "segments": [
+  {
+   "seed": 49956065,
+   "datetime": "20090326170527",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=fruit:durian\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                    #wizintrinsic\nok\n 20s.20sssssssss..20sss.s20ss20s.\u0004jt\u001b#ride\nlyJ\u0014 \u001b<.s20ss.ss.\u0018\u001b\u0017chest\n\u0017wand of teleportation\n\u0017credit card\ndkam.y.s.#loot\no\n\u0017long sword\nwndl#force\n sss\u0017dagger\nwodo#force\nsssai\u001bamhai\u001b#wizintrinsic\np\n 20ss...s20ss.20ss20s20s20s.sss..s.#offer\nwa#monster\n>10sJ...20sss\u0017pick-axe\nap >20s_<._,ap>lb\u0006_oo.ap>ap>  .ap>lhap<yk#levelchange\n12\n   #wizintrinsic\nd\n .m.20ssm.ss20s.bsm.sm..m. n\u0017expensive camera\naqbW#terrain\nb\n\u0014 #untrap\nl#pray\ny y i\u001bsss20s20s20s\u000f\u001bkhb\u0017polymorph trap\nkj    s20sul\u0017statue trap\nb^uu.sk\u0017squeaky board\nn#untrap\nnu\u0017sleeping gas trap\ny#untrap\n#terrain\nb\n#invoke\nm,qdW\u000f\u001b\u0017dwarvish mattock\najkb_<,ahnajah#levelchange\n10\n\u0007hostile dust vortex\nFjsm. FjFj    Fj Fj 20s\u001bFkFj    Fj     Fy#pray\ny y  \u0017locked chest\n\u0017locked large box\n\u0017ice box\n\u0017wand of slow monster\n\u0017scroll of enchant armor\nasds    #loot\na\n y,f\n   \u0017credit card\ndaax.y 20s\u001b20s   .#loot\nb\no\n\u0017lock pick\ndf ay.s  s#loot\nb\no\ni\u001b#levelchange\n20\n          \u0007gas spore\ns Fj   Fy . FjFk20s   s\u0007vampire lord\n20s Fk   Fu s .20s  n s #levelchange\n12\n   \u0017blessed spellbook of stone to flesh\nrzs 20sZb\nZb\n\u0017diamond\nag  \u0017blessed the Candelabrum of Invocation\nwn Fn  n FlFl #invoke\nBXFn  Fl  \u00173 scroll of earth\nrC      Fn Fn sm.20s   n\u00165\n \\  \u00166\n#levelcha"
+  }
+ ]
+}

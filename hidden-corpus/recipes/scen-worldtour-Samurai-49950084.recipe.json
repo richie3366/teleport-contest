@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed ring of free action\nPfl\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWh\u0016?\n>>P  \u0004j\u00168\njy:\u001611\n_ \u001b;>\u0016?\n>>N       potion of hallucination\n\u0006_<,\u0016?\n\u001bhl\u001630\n\u0004y   \u0016?\n\u001bub\u0016?\n\u001bub \u001626\n\u0014 n \u0016?\n\u001by  n j\u001630\n#levelchange\n10\n      lb  n   y  \u001b  n   \u0017throne\n#sit\n y   n   #sit\n    n   b    n   \u0017tree\nu\u0017chaotic altar\ndb    n   \u0017elf corpse\n#offer\nc       n   uu\u0017unaligned altar\nda   n     n \u0017jackal corpse\n#offer\nd      n     n #pray\ny y           s\u0014@.       n  \u0018\u001b\u00164\n\u0016?\n\u001buy    n   \u001630\nnkkl: .m.   n   20s    yny n  s"
+ },
+ "segments": [
+  {
+   "seed": 49950084,
+   "datetime": "20050720115808",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed ring of free action\nPfl\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWh\u0016?\n>>P  \u0004j\u00168\njy:\u001611\n_ \u001b;>\u0016?\n>>N       potion of hallucination\n\u0006_<,\u0016?\n\u001bhl\u001630\n\u0004y   \u0016?\n\u001bub\u0016?\n\u001bub \u001626\n\u0014 n \u0016?\n\u001by  n j\u001630\n#levelchange\n10\n      lb  n   y  \u001b  n   \u0017throne\n#sit\n y   n   #sit\n    n   b    n   \u0017tree\nu\u0017chaotic altar\ndb    n   \u0017elf corpse\n#offer\nc       n   uu\u0017unaligned altar\nda   n     n \u0017jackal corpse\n#offer\nd      n     n #pray\ny y           s\u0014@.       n  \u0018\u001b\u00164\n\u0016?\n\u001buy    n   \u001630\nnkkl: .m.   n   20s    yny n  s"
+  }
+ ]
+}

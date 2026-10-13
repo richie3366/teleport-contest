@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017spear\nwiFjFh  Fh \u0007marilith\n#chat\nbFb   n  Fb  n  \u0007giant spider\nFb  n   nFy   n  \u001610\n#levelchange\n12\n           \u0007Nazgul\n;k, \u001b@.20s  sk  sl   n \u0007chickatrice\nFb   Fu    n  Fu   Fy     n  Fy    \u0007air elemental\n#chat\nnFb     Fu \u0007quasit\nFj  Fh  n   Fk \u00169\n\u0017pick-axe\n _>,aj      n     aju     n   uj      n      n j          n      _<.aj>     n     aj>  yy\u001by  y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 49950049,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017spear\nwiFjFh  Fh \u0007marilith\n#chat\nbFb   n  Fb  n  \u0007giant spider\nFb  n   nFy   n  \u001610\n#levelchange\n12\n           \u0007Nazgul\n;k, \u001b@.20s  sk  sl   n \u0007chickatrice\nFb   Fu    n  Fu   Fy     n  Fy    \u0007air elemental\n#chat\nnFb     Fu \u0007quasit\nFj  Fh  n   Fk \u00169\n\u0017pick-axe\n _>,aj      n     aju     n   uj      n      n j          n      _<.aj>     n     aj>  yy\u001by  y y y\u001by  s"
+  }
+ ]
+}

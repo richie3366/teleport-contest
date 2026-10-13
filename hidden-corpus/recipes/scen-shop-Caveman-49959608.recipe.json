@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPgl\u0016?\n>w\u0006_ \u001b,q_ooo.,p_oooooo,_ooo.,pFyFy FyFyFyFy  _ooo,,#chat\nh \u0016?\ncluh\u0016?\n>w\u0006__.Fj_.#chat\nl#pray\ny y _oooooo.,p\u0016?\ncbyu\u0016?\n>w\u0006_ooo.,$ljy#chat\nj\u00163\nknk\u0016?\n>w\u0006_oooo.Fh_. Fj,\u0014m.s._ooooo,Fl_,, ,$_ooooo._._o.Fl _,   nFl ,$_ooo.Fl   n_.Fl _o._,,\u001b$hkj#chat\nk_oooooooo._oo,Fn_.Fl,#chat\nl_oooooo.Fb  n_.Fj_o.Fj_,,\u001b: __.Fh _,Fh   n #chat\nh #pray\ny y    _ooooooooo.Fh_. Fb  n,\u001b\u0017touchstone\ndj _ooooo.Fy_.:Fk,#chat\nu_ooo._,,\u001bp_oooo,Fn_,Fn_ooo,_.,\u001bp_{._.qy \u001bbjy#chat\nb__.Fn _, Fj #chat\nj  _oooo.  Fb _,Fb   _oo, Fu  _.   nFu ,pFu Fu FuFuFu  "
+ },
+ "segments": [
+  {
+   "seed": 49959608,
+   "datetime": "20210806100725",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPgl\u0016?\n>w\u0006_ \u001b,q_ooo.,p_oooooo,_ooo.,pFyFy FyFyFyFy  _ooo,,#chat\nh \u0016?\ncluh\u0016?\n>w\u0006__.Fj_.#chat\nl#pray\ny y _oooooo.,p\u0016?\ncbyu\u0016?\n>w\u0006_ooo.,$ljy#chat\nj\u00163\nknk\u0016?\n>w\u0006_oooo.Fh_. Fj,\u0014m.s._ooooo,Fl_,, ,$_ooooo._._o.Fl _,   nFl ,$_ooo.Fl   n_.Fl _o._,,\u001b$hkj#chat\nk_oooooooo._oo,Fn_.Fl,#chat\nl_oooooo.Fb  n_.Fj_o.Fj_,,\u001b: __.Fh _,Fh   n #chat\nh #pray\ny y    _ooooooooo.Fh_. Fb  n,\u001b\u0017touchstone\ndj _ooooo.Fy_.:Fk,#chat\nu_ooo._,,\u001bp_oooo,Fn_,Fn_ooo,_.,\u001bp_{._.qy \u001bbjy#chat\nb__.Fn _, Fj #chat\nj  _oooo.  Fb _,Fb   _oo, Fu  _.   nFu ,pFu Fu FuFuFu  "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed scroll of scare monster\nrk  \u001bss\u0017scroll of scare monster\nrl  \u001b\u0017cursed the Staff of Aesculapius\n  yy\u001bny y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 49952016,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed scroll of scare monster\nrk  \u001bss\u0017scroll of scare monster\nrl  \u001b\u0017cursed the Staff of Aesculapius\n  yy\u001bny y\u001by  ."
+  }
+ ]
+}

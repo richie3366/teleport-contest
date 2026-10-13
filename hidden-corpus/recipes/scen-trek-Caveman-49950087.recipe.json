@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " Fj s20slbjuuu_ \u001b<.>,hbh_>.>_>.>nun100s 50s150slyl100s100sFus.100s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBLKJ_>.>KKKU_>.>BHUJ_>.>NBNK_>.>HNUN_>,>#enhance\n\u001b\u0004j\u000f\u001bBLBH_>,>LJLU_>.>BUBB_>.>b,<HLKJ_>.>FhFhs\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNHBN_>.>UUHJ_>.>\u0014:UNLN_>,>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeej#invoke\n\u001bzf ring of protection from shape changers\nYKLN_>,Fl_.;;Fl>Fjss#twoweapon\nPglLLUJ_>._.> < KLUU_>._.> LBYL_>,>FkFk20sqr\u001bYL KB_>.>\u0004bLY LKU_>.><UJLH_>,>FlFl   yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 49950087,
+   "datetime": "20100708023756",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=sortloot:none\nOPTIONS=runmode:teleport\nOPTIONS=playmode:explore\n",
+   "moves": " Fj s20slbjuuu_ \u001b<.>,hbh_>.>_>.>nun100s 50s150slyl100s100sFus.100s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBLKJ_>.>KKKU_>.>BHUJ_>.>NBNK_>.>HNUN_>,>#enhance\n\u001b\u0004j\u000f\u001bBLBH_>,>LJLU_>.>BUBB_>.>b,<HLKJ_>.>FhFhs\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNHBN_>.>UUHJ_>.>\u0014:UNLN_>,>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeej#invoke\n\u001bzf ring of protection from shape changers\nYKLN_>,Fl_.;;Fl>Fjss#twoweapon\nPglLLUJ_>._.> < KLUU_>._.> LBYL_>,>FkFk20sqr\u001bYL KB_>.>\u0004bLY LKU_>.><UJLH_>,>FlFl   yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

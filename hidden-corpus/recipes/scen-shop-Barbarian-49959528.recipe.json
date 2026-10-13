@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b,,$_ooooooo,,#chat\nkn \u001buk#chat\nj_ooooooo.,p@.bju#chat\nk\u00167\nbku\u0016?\n>w\u0006_oooo.,#chat\ny_{,_.qy \u001b _oo,_o,,pm.__,_.:Fl#chat\nl#pray\ny y    _{,Fu_,,Fkqy y   n_{.Fu _. Fh  q__,_.Fl#chat\nl #pray\ny y     Fu Fu  n Fu  Fu  n Fu  Fu  \u00168\n_ooooo.,   n$_oo,Fl_,Fl ,\u001bp>._ooooooo.Fl_., #chat\nl Fu    nFu Fu Fu    nFu  Fu   n\u00167\n_ooo._o.,#chat\nl  Fk   nFk FkFk Fk Fk   n\u001612\nFnFnFnFnFnFnhkj#chat\nh_ooooo,_,_oo.,e\np_ooooooo._o.,e\n: _ooooooo.,h\np__,#chat\nk_{.q_ooo._o.,h\np\u00167\nlyh\u0016?\n>w\u0006_ooooo.Fn_,  Fj    n,:Fj  Fj   n  Fj    nFj FjFj\u00166\n_ooo. Fk_.Fl,p_oo,Fk_..Fb,:_{,q_{.q_ooooo.Fh_,.,a\n\u0014>. .s\u00163\nyjy\u0016?\n>w\u0006_oooooooo.,:_oooooo.Fh_.Fy,p_{. _. q\u00167\nlbj\u0016?\n>w\u0006_{._.m.Fh qFh FhFhFhFhFh_oooooo,Fy_.Fb ,#chat\nl  n  Fb Fb Fb Fb FbFb Fu Fu  "
+ },
+ "segments": [
+  {
+   "seed": 49959528,
+   "datetime": "20081123141903",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b,,$_ooooooo,,#chat\nkn \u001buk#chat\nj_ooooooo.,p@.bju#chat\nk\u00167\nbku\u0016?\n>w\u0006_oooo.,#chat\ny_{,_.qy \u001b _oo,_o,,pm.__,_.:Fl#chat\nl#pray\ny y    _{,Fu_,,Fkqy y   n_{.Fu _. Fh  q__,_.Fl#chat\nl #pray\ny y     Fu Fu  n Fu  Fu  n Fu  Fu  \u00168\n_ooooo.,   n$_oo,Fl_,Fl ,\u001bp>._ooooooo.Fl_., #chat\nl Fu    nFu Fu Fu    nFu  Fu   n\u00167\n_ooo._o.,#chat\nl  Fk   nFk FkFk Fk Fk   n\u001612\nFnFnFnFnFnFnhkj#chat\nh_ooooo,_,_oo.,e\np_ooooooo._o.,e\n: _ooooooo.,h\np__,#chat\nk_{.q_ooo._o.,h\np\u00167\nlyh\u0016?\n>w\u0006_ooooo.Fn_,  Fj    n,:Fj  Fj   n  Fj    nFj FjFj\u00166\n_ooo. Fk_.Fl,p_oo,Fk_..Fb,:_{,q_{.q_ooooo.Fh_,.,a\n\u0014>. .s\u00163\nyjy\u0016?\n>w\u0006_oooooooo.,:_oooooo.Fh_.Fy,p_{. _. q\u00167\nlbj\u0016?\n>w\u0006_{._.m.Fh qFh FhFhFhFhFh_oooooo,Fy_.Fb ,#chat\nl  n  Fb Fb Fb Fb FbFb Fu Fu  "
+  }
+ ]
+}

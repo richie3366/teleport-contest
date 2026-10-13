@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0007cobra\nFlFb FbFu 20s  sn\u0007gremlin\nFk Fl Fl Fl 20s  sn\u0007mind flayer\nFl Fl   Fl   20s     sm.    yy\u001by  y y\u001by  #"
+ },
+ "segments": [
+  {
+   "seed": 49951013,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0007cobra\nFlFb FbFu 20s  sn\u0007gremlin\nFk Fl Fl Fl 20s  sn\u0007mind flayer\nFl Fl   Fl   20s     sm.    yy\u001by  y y\u001by  #"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               #levelchange\n20\n   jny\u0017grave\n: \u0017wand of digging\nzi> ssjy\u0017magic fountain\nqy de#jump\nf by j#levelchange\n20\n\u0007lurker above\nFj Fy  FjFkFj20s FkFjFjFjFjFki\u001b\u0007marilith\nFjFkFkFk    Fb  \u0007vampire lord\n#chat\nl   n Fl    Fl     \u0007fire vortex\n#chat\nl    n   Fl Fj\u0007water nymph\n.ss.ss   y       n       20s                 \u00162\n\u0017the Master Key of Thievery\n wjy  n         Fj      n    Fl                n  Fl         n           \u001b          #invoke\nlnX\u0007chickatrice\nFl   n                   n                    n         Fl       n                      n                  n              \u0007giant spider\n#chat\nl         n                   nFj                        n                  yy\u001by   y ny\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 49950033,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n16\n               #levelchange\n20\n   jny\u0017grave\n: \u0017wand of digging\nzi> ssjy\u0017magic fountain\nqy de#jump\nf by j#levelchange\n20\n\u0007lurker above\nFj Fy  FjFkFj20s FkFjFjFjFjFki\u001b\u0007marilith\nFjFkFkFk    Fb  \u0007vampire lord\n#chat\nl   n Fl    Fl     \u0007fire vortex\n#chat\nl    n   Fl Fj\u0007water nymph\n.ss.ss   y       n       20s                 \u00162\n\u0017the Master Key of Thievery\n wjy  n         Fj      n    Fl                n  Fl         n           \u001b          #invoke\nlnX\u0007chickatrice\nFl   n                   n                    n         Fl       n                      n                  n              \u0007giant spider\n#chat\nl         n                   nFj                        n                  yy\u001by   y ny\u001by  F"
+  }
+ ]
+}

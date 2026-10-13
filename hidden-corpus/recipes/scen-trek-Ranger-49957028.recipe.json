@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "N  JYU_ \u001bm,>\u0014;.BULB_>.>BNYK_>.>YBYL_>.>Fl20sFlKJKU_>,>#enhance\n\u001b<y L"
+ },
+ "segments": [
+  {
+   "seed": 49957028,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:explore\n",
+   "moves": "N  JYU_ \u001bm,>\u0014;.BULB_>.>BNYK_>.>YBYL_>.>Fl20sFlKJKU_>,>#enhance\n\u001b<y L"
+  }
+ ]
+}

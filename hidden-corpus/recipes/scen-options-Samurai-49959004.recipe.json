@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  O>c\n<y\u001b    \u000f"
+ },
+ "segments": [
+  {
+   "seed": 49959004,
+   "datetime": "20170623234205",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:explore\n",
+   "moves": "  O>c\n<y\u001b    \u000f"
+  }
+ ]
+}

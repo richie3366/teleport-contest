@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed amulet of reflection\nPo\u0017blessed +3 cloak of magic resistance\nWp\u0017blessed +3 gauntlets of power\nWq\u0016?\n>D#chat\nk;m, \u001b;\u001629\n#levelchange\n20\nkjk\u0017chaotic altar\ndqdm\u0017human corpse\n#offer\nr           n\u0017grave\n: \u0017pick-axe\nas        n   .m.   .m.           n  ll \u0017iron bars\n:oh#twoweapon\nE\u00169\n\u0016?\n>G_<,\u0016?\nf      \u0004y\u0016?\n>>M       water walking boots\nk j     : \u0016?\n\u001by    n       n  \u001627\n_>.>\u0016?\n\u001bn   u      n  \u001615\nk      k    n            n   j       n    j      n  b    u    n      n  k          n  : .m.        n  \u00163\n\u0016?\n\u001bb       n     u      n  \u00168\n\u001627\nj        n           yy\u001by   y y\u001b  j"
+ },
+ "segments": [
+  {
+   "seed": 49955073,
+   "datetime": "20140703070241",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed amulet of reflection\nPo\u0017blessed +3 cloak of magic resistance\nWp\u0017blessed +3 gauntlets of power\nWq\u0016?\n>D#chat\nk;m, \u001b;\u001629\n#levelchange\n20\nkjk\u0017chaotic altar\ndqdm\u0017human corpse\n#offer\nr           n\u0017grave\n: \u0017pick-axe\nas        n   .m.   .m.           n  ll \u0017iron bars\n:oh#twoweapon\nE\u00169\n\u0016?\n>G_<,\u0016?\nf      \u0004y\u0016?\n>>M       water walking boots\nk j     : \u0016?\n\u001by    n       n  \u001627\n_>.>\u0016?\n\u001bn   u      n  \u001615\nk      k    n            n   j       n    j      n  b    u    n      n  k          n  : .m.        n  \u00163\n\u0016?\n\u001bb       n     u      n  \u00168\n\u001627\nj        n           yy\u001by   y y\u001b  j"
+  }
+ ]
+}

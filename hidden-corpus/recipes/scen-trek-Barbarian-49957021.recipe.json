@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "N  YUK_ \u001b@.>FbFb sW#twoweapon\nLLLN_>.>KBLN_>.>ULBN_>.>_>.sw-\u000f\u001bHUJH_>,>JHJH_>.>#conduct\n \u000f\u001bBNJJ_>.>HHNN_>.>FkFkFklkyl20s ddsssb#name\nf\n#chat\n.10sKYHU_>.><KYBY_>.>BHLU_>,>UNBJ_>,>FyFyFyYJBUy _>,>\u000f\u001bJLBU_>,>HYBY_>.>FkFkFkBLNU_>.>ze magic lamp\ns100s 150s_>,>100sFl20ssyjl>_>.>lhl_>.>Hoj100sFlss_>.>_>.>100si\u001bhhu50s150sFnFns_>,>Pi\u001b_>,>kbbFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyeeeeeeeeeaey ;y, PeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUHy  JY_>.>FjFjFj<\u0014HNNB_>.>\u0014E- Elbereth Elbereth\nBYHH_>,>FjFjFjUKUL_>,>JBy KU_>,>YKH L_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 49957021,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:explore\n",
+   "moves": "N  YUK_ \u001b@.>FbFb sW#twoweapon\nLLLN_>.>KBLN_>.>ULBN_>.>_>.sw-\u000f\u001bHUJH_>,>JHJH_>.>#conduct\n \u000f\u001bBNJJ_>.>HHNN_>.>FkFkFklkyl20s ddsssb#name\nf\n#chat\n.10sKYHU_>.><KYBY_>.>BHLU_>,>UNBJ_>,>FyFyFyYJBUy _>,>\u000f\u001bJLBU_>,>HYBY_>.>FkFkFkBLNU_>.>ze magic lamp\ns100s 150s_>,>100sFl20ssyjl>_>.>lhl_>.>Hoj100sFlss_>.>_>.>100si\u001bhhu50s150sFnFns_>,>Pi\u001b_>,>kbbFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyeeeeeeeeeaey ;y, PeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUHy  JY_>.>FjFjFj<\u0014HNNB_>.>\u0014E- Elbereth Elbereth\nBYHH_>,>FjFjFjUKUL_>,>JBy KU_>,>YKH L_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

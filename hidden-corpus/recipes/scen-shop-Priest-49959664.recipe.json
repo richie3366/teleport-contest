@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed Mjollnir\nwk \u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b,qd  n  _ooooooo,,pFk Fk  Fk  FkFkFk_ooooo,   n Fb_,,\u0017ruby\ndn_oo,,  n p_ooo,,\u0017amulet of change\ndo _ooo.,   n \u0014,.m.sm.Fb    nFb Fb   nFb Fb Fb\u00161\n_oooooo._oo._.;.,:_{,qd  n _ooo.,#chat\nh_oooooo.,:_oooo.Fk_,Fu,$_ooooo.Fh_..,pjhu#chat\nh_{.Fh _.Fjqd_oooooooo,Fj_.<.,p_ooooooo._.,:_{,qd  n__.#chat\ny_ooo._,.,pjkj#chat\nl_{.qjbb#chat\nunlk#chat\nb_ooooo._.m.,pjyj#chat\nb_{.q_ooooooo._.@.,p_oo.,:\u0016?\ncnhk\u0016?\n>w\u0006kjk#chat\ny__. Fj   n_.>.Fj #chat\nl_oooooo.,p__,Fu_. Fn   #chat\ny __.Fu   n _.   Fu    n#chat\nb    n#pray\ny y        \u001610\nFj FjFj Fj   nFj Fj _oooooooo.,\u0017amulet of reflection\ndq   nFj Fj Fj Fj FjFj   n_ooooo.Fh _.Fh _o"
+ },
+ "segments": [
+  {
+   "seed": 49959664,
+   "datetime": "20100113115110",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed Mjollnir\nwk \u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b,qd  n  _ooooooo,,pFk Fk  Fk  FkFkFk_ooooo,   n Fb_,,\u0017ruby\ndn_oo,,  n p_ooo,,\u0017amulet of change\ndo _ooo.,   n \u0014,.m.sm.Fb    nFb Fb   nFb Fb Fb\u00161\n_oooooo._oo._.;.,:_{,qd  n _ooo.,#chat\nh_oooooo.,:_oooo.Fk_,Fu,$_ooooo.Fh_..,pjhu#chat\nh_{.Fh _.Fjqd_oooooooo,Fj_.<.,p_ooooooo._.,:_{,qd  n__.#chat\ny_ooo._,.,pjkj#chat\nl_{.qjbb#chat\nunlk#chat\nb_ooooo._.m.,pjyj#chat\nb_{.q_ooooooo._.@.,p_oo.,:\u0016?\ncnhk\u0016?\n>w\u0006kjk#chat\ny__. Fj   n_.>.Fj #chat\nl_oooooo.,p__,Fu_. Fn   #chat\ny __.Fu   n _.   Fu    n#chat\nb    n#pray\ny y        \u001610\nFj FjFj Fj   nFj Fj _oooooooo.,\u0017amulet of reflection\ndq   nFj Fj Fj Fj FjFj   n_ooooo.Fh _.Fh _o"
+  }
+ ]
+}

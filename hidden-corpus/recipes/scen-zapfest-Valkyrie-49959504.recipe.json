@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPel\u0017blessed shield of reflection\nW\u001b#levelchange\n20\n                   \u0017wand of digging\n\u0017wand of slow monster\n\u0017wand of death\n\u0007kobold shaman\n\u0007giant rat\nzg>  ziy  zik ziy 20szhkzh.zhh zhh20szg>  zhhzg>  \u0018\u001b\u0007black dragon\n\u0007baby red dragon\nsn20s#polyself\nblack dragon\n   #monster\nu      .m.  sm.     #monster\n#monster\n#monster\n#monster\n\u0017wand of cold\najy       Fu  Fu \u0007aligned cleric\ny\u0007vampire\n\u0017wand of magic missile\nzkn  20s      s  n s  .   n s  zkl \u001610\n\u0017wand of magic missile\n\u0017wand of cancellation\n\u0007kobold shaman\nzln    n  s  zln   zlu  n zmh   zlk   n .  zlu  s    n zln  zlu     n  s  \u00167\n\u0017spellbook of sleep\nrns\u0017spellbook of cause fear\nros\u0007kobold shaman\nZZZs20sZZ.20sZ\u0007orc shaman\n\u0007succubus\n\u0017wand of cold\nzphi\u001b\u001710 daggers\nQq\u0007troll\n\u0007kobold shaman\nfkfn  fn  n tqb fn \u0017blessed spellbook of knock\nrrs \u0007vampire\n\u0007master lich\nZZZZZs s     n Z20s   s \u0017wand of sleep\n\u0017wand of teleportation\n\u0017wand of polymorph\n\u0007hobbit\n\u0007lichen\nzth ztnzsbztjzuh20szulzulzubzu  nzui\u001b\u00178 rocks\nQby\u0007bugbear\n\u0007troll\ntqbfl  tql  f q n tqj    n tqn f \u001b\u0017elven"
+ },
+ "segments": [
+  {
+   "seed": 49959504,
+   "datetime": "20050518220351",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPel\u0017blessed shield of reflection\nW\u001b#levelchange\n20\n                   \u0017wand of digging\n\u0017wand of slow monster\n\u0017wand of death\n\u0007kobold shaman\n\u0007giant rat\nzg>  ziy  zik ziy 20szhkzh.zhh zhh20szg>  zhhzg>  \u0018\u001b\u0007black dragon\n\u0007baby red dragon\nsn20s#polyself\nblack dragon\n   #monster\nu      .m.  sm.     #monster\n#monster\n#monster\n#monster\n\u0017wand of cold\najy       Fu  Fu \u0007aligned cleric\ny\u0007vampire\n\u0017wand of magic missile\nzkn  20s      s  n s  .   n s  zkl \u001610\n\u0017wand of magic missile\n\u0017wand of cancellation\n\u0007kobold shaman\nzln    n  s  zln   zlu  n zmh   zlk   n .  zlu  s    n zln  zlu     n  s  \u00167\n\u0017spellbook of sleep\nrns\u0017spellbook of cause fear\nros\u0007kobold shaman\nZZZs20sZZ.20sZ\u0007orc shaman\n\u0007succubus\n\u0017wand of cold\nzphi\u001b\u001710 daggers\nQq\u0007troll\n\u0007kobold shaman\nfkfn  fn  n tqb fn \u0017blessed spellbook of knock\nrrs \u0007vampire\n\u0007master lich\nZZZZZs s     n Z20s   s \u0017wand of sleep\n\u0017wand of teleportation\n\u0017wand of polymorph\n\u0007hobbit\n\u0007lichen\nzth ztnzsbztjzuh20szulzulzubzu  nzui\u001b\u00178 rocks\nQby\u0007bugbear\n\u0007troll\ntqbfl  tql  f q n tqj    n tqn f \u001b\u0017elven"
+  }
+ ]
+}

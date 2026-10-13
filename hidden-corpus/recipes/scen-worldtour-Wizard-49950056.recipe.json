@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWp\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>y  \u0004h\u001631\n#levelchange\n12\n\u00173 cockatrice egg\n\u0007soldier\nersm.sm.    n\u0017sling\nwt Fy Fy Fh      \u0017cursed scroll of confuse monster\nru \u001b  \u0017uncursed potion of full healing\n\u0007tengu\nqv #dip\np\u0017 \u0007 . . \u0016 u k\u0016?\n\u001bl  k  \u0016?\n\u001bk    y \u001627\n\u0004k   \u001631\nh  n k h b:sy\u001619\n_ \u001b:<\u001627\nhb y j   n k b:\u001640\n\u0014m,\u001619\n\u0017spellbook of cause fear\nrw 20s\u0017blessed spellbook of protection\nrx 20s+b\nZc\nZa\nsZb\nFk Zb\nZa\n  \u0007ghoul\nZa\n   n \u0007grid bug\nZc\nFk#enhance\nyg\nk\n\u001b\u001627\nkj\u0017wand of enlightenment\nEy \u001b  I am a fish\n l\u0017magic marker\nEz I am a fish\n: \u0017wand of undead turning\nEA  Elbereth\n\u0017wand of cold\nEBn  Elbereth\n \u0016?\n>>N       sprig of wolfsbane\nbl         n l  n  l: \u001625\n#levelchange\n12\n\u0017Grimtooth\nwE   n   Fl       \u001bFh    Fk #invoke\nE k X\u0007ettin\nFjFk Fk   "
+ },
+ "segments": [
+  {
+   "seed": 49950056,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWp\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>y  \u0004h\u001631\n#levelchange\n12\n\u00173 cockatrice egg\n\u0007soldier\nersm.sm.    n\u0017sling\nwt Fy Fy Fh      \u0017cursed scroll of confuse monster\nru \u001b  \u0017uncursed potion of full healing\n\u0007tengu\nqv #dip\np\u0017 \u0007 . . \u0016 u k\u0016?\n\u001bl  k  \u0016?\n\u001bk    y \u001627\n\u0004k   \u001631\nh  n k h b:sy\u001619\n_ \u001b:<\u001627\nhb y j   n k b:\u001640\n\u0014m,\u001619\n\u0017spellbook of cause fear\nrw 20s\u0017blessed spellbook of protection\nrx 20s+b\nZc\nZa\nsZb\nFk Zb\nZa\n  \u0007ghoul\nZa\n   n \u0007grid bug\nZc\nFk#enhance\nyg\nk\n\u001b\u001627\nkj\u0017wand of enlightenment\nEy \u001b  I am a fish\n l\u0017magic marker\nEz I am a fish\n: \u0017wand of undead turning\nEA  Elbereth\n\u0017wand of cold\nEBn  Elbereth\n \u0016?\n>>N       sprig of wolfsbane\nbl         n l  n  l: \u001625\n#levelchange\n12\n\u0017Grimtooth\nwE   n   Fl       \u001bFh    Fk #invoke\nE k X\u0007ettin\nFjFk Fk   "
+  }
+ ]
+}

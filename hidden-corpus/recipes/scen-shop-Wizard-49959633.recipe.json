@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWp\u0016?\n>w\u0006_ \u001b@.qh\u001b_{.Fb_.Fh qf  _{. _,qy _oooooooo.,\u0014;20s20s_ooooooo._oo.,pFlFlFlFlFlFlbjk#chat\nh_{,_.qg\u00167\n jbj\u0016?\n>w \u0006_{.Fl _.Fk  n q__.  n   nFy  n _,  Fn    n#chat\nj 2500\n       n #pray\ny y    \u00166\n_{.q\u0016?\nch    n    nn   j  n \u0016?\n>w\u0006\u001610\n_ooo.  n Fy   n   n_.  Fh   n _ooo.  Fh    n_. Fh    n,p\u00163\njy    yy\u001by   y ny\u001by  n"
+ },
+ "segments": [
+  {
+   "seed": 49959633,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWp\u0016?\n>w\u0006_ \u001b@.qh\u001b_{.Fb_.Fh qf  _{. _,qy _oooooooo.,\u0014;20s20s_ooooooo._oo.,pFlFlFlFlFlFlbjk#chat\nh_{,_.qg\u00167\n jbj\u0016?\n>w \u0006_{.Fl _.Fk  n q__.  n   nFy  n _,  Fn    n#chat\nj 2500\n       n #pray\ny y    \u00166\n_{.q\u0016?\nch    n    nn   j  n \u0016?\n>w\u0006\u001610\n_ooo.  n Fy   n   n_.  Fh   n _ooo.  Fh    n_. Fh    n,p\u00163\njy    yy\u001by   y ny\u001by  n"
+  }
+ ]
+}

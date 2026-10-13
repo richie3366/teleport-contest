@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\na\n 20s .l20s20s20s20s20s20s .nsm.sss.20s..20sssss20s.20sss20sFjFjFjFjFjFj FjFjFbFbFbFbFbFbFbFbujjbJKLY_ \u001bm.>UHLY_>,>FjFj.NBKK_>,>20s#conduct\n hbllhkllLBUB_>.>NYYB_>.>#loot\n,UKNB_>,>:#wipe\n BNLH_>.>BUNL_>.>H YYU_>.>FbFhFhLUKN_>,>s\u0004ljjbn#name\ni\ndg..20s#chat\nyyj#name\ni\njhyjuklhkbkbtdl  #chat\nutcl  #chat\nu  y\u001by  y y y\u001b  #ylbuFlFlFlFlFlFlFlFl100s\\  hjjFl20sshhl100shhkdg20s50sFj20ss50s100sFj.Fnkkh100s#offer\nqd100s\\  50s\\  lyn100sFj20s20s150s 50s150sFj20sFj\u000f\u001bhkh\u0018\u001b150s eelhhlnkhlj\u000f\u001blhy#terrain\nc\n\u001bm,JKHN _>._.> < YHLH_>,Fl_,.Fn>YLNJ_>._.> hai HNYN_>.>\u000f\u001bNNKY_>.>HYKN_>.>#monster\n#enhance\n\u001bUUBK_>.>JNBK_>.>#chat\nj,YLHK_>.>#force\n20sUKBK_>.>Fus20s100s100s100sFhs.Fh.20s150s__,20suul100s150s100sFh20ss100s150s  50s_>.>100see_>.>100s\u0018\u001b100s_>,>cl150s hbn50sFkFksFhss100suynFh20s.100sFhFhslbl150s50sFh20s.150s150skynh #name\nd\nlhdb.s.dessst\u001bJUNU_>,>ULNY_>.>Fjs20sKKJ Uy_>,>UJY B_>.>YLy KU_>.>t\u001bjy#chat\nyny10shh20s20sdf.m.sn.#name\nm\nyuny150sFhFh20s150s100sFhss150sjnkFh ss50s\u000f\u001bi\u001b_>.>100s 150s\u000f\u001b\u000f\u001b_>.>#twoweapon\n50sFh.20sklhFh20s.150s150sFbs.100slhl50sFh20s.eh  P100seh  nbu100s100sFh20s.eh  #pray\ny  50syhlh20st\u001b#chat\nylhlhlhlnyhlhlhlnBYLB_>,>LNKy N_>.>UBNH_>,>#offer\nri y BHHH_>,>Fh20sFhNLHJ_>.>Fh.s#force\nqd\u000f\u001bllubhlhlhlhleeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49958024,
+   "datetime": "20231210083432",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=runmode:walk\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\na\n 20s .l20s20s20s20s20s20s .nsm.sss.20s..20sssss20s.20sss20s"
+  },
+  {
+   "seed": 50058024,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\n",
+   "moves": "FjFjFjFjFjFj FjFjFbFbFbFbFbFbFbFbujjbJKLY_ \u001bm.>UHLY_>,>FjFj.NBKK_>,>20s#conduct\n hbllhkllLBUB_>.>NYYB_>.>#loot\n,UKNB_>,>:#wipe\n BNLH_>.>BUNL_>.>H YYU_>.>FbFhFhLUKN_>,>s\u0004ljjbn#name\ni\ndg..20s#chat\nyyj#name\ni\njhyjuklhkbkbtdl  #chat\nutcl  #chat\nu  y\u001by  y y y\u001b  #"
+  },
+  {
+   "seed": 50158024,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=pettype:none\n",
+   "moves": "ylbuFlFlFlFlFlFlFlFl100s\\  hjjFl20sshhl100shhkdg20s50sFj20ss50s100sFj.Fnkkh100s#offer\nqd100s\\  50s\\  lyn100sFj20s20s150s 50s150sFj20sFj\u000f\u001bhkh\u0018\u001b150s eelhhlnkhlj\u000f\u001blhy#terrain\nc\n\u001bm,JKHN _>._.> < YHLH_>,Fl_,.Fn>YLNJ_>._.> hai HNYN_>.>\u000f\u001bNNKY_>.>HYKN_>.>#monster\n#enhance\n\u001bUUBK_>.>JNBK_>.>#chat\nj,YLHK_>.>#force\n20sUKBK_>.>Fus20s100s100s100sFhs.Fh.20s150s__,20suul100s150s100sFh20ss100s150s  50s_>.>100see_>.>100s\u0018\u001b100s_>,>cl150s hbn50sFkFksFhss100suynFh20s.100sFhFhslbl150s50sFh20s.150s150skynh #name\nd\nlhdb.s.dessst\u001bJUNU_>,>ULNY_>.>Fjs20sKKJ Uy_>,>UJY B_>.>YLy KU_>.>t\u001bjy#chat\nyny10shh20s20sdf.m.sn.#name\nm\nyuny150sFhFh20s150s100sFhss150sjnkFh ss50s\u000f\u001bi\u001b_>.>100s 150s\u000f\u001b\u000f\u001b_>.>#twoweapon\n50sFh.20sklhFh20s.150s150sFbs.100slhl50sFh20s.eh  P100seh  nbu100s100sFh20s.eh  #pray\ny  50syhlh20st\u001b#chat\nylhlhlhlnyhlhlhlnBYLB_>,>LNKy N_>.>UBNH_>,>#offer\nri y BHHH_>,>Fh20sFhNLHJ_>.>Fh.s#force\nqd\u000f\u001bllubhlhlhlhleeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0016?\n>Dblhl:\u0016?\nr #chat\nh;. \u001b.\u0016?\n>wujb:\u0016?\nj  jjkjn:sm. sj \u0016?\nb_{,_,>s\u001630\n   \u0006_<,Fn  _. Fh  n    \u0016?\ns __.>\u0016?\n>>M       scroll of create monster\n\u0006,_>.\u001625\n\u0017cloak of magic resistance\nW\u001b.k .m.  20s   \u0007marilith\nFb   Fl  n   Fl    n  \u0007gnomish wizard\n;n:   sm.   sm.   n     20s    \u00165\n\u0016?\n\u001by  n     y     n   \u00167\n\u001630\n\u0004n . s   n sh      \u001627\ny  n  l      n      j   n  y          n     n          n      n      u    n       n  y      n   :\u0016?\n\u001bh       yy\u001bny ny\u001b  h"
+ },
+ "segments": [
+  {
+   "seed": 49955072,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0016?\n>Dblhl:\u0016?\nr #chat\nh;. \u001b.\u0016?\n>wujb:\u0016?\nj  jjkjn:sm. sj \u0016?\nb_{,_,>s\u001630\n   \u0006_<,Fn  _. Fh  n    \u0016?\ns __.>\u0016?\n>>M       scroll of create monster\n\u0006,_>.\u001625\n\u0017cloak of magic resistance\nW\u001b.k .m.  20s   \u0007marilith\nFb   Fl  n   Fl    n  \u0007gnomish wizard\n;n:   sm.   sm.   n     20s    \u00165\n\u0016?\n\u001by  n     y     n   \u00167\n\u001630\n\u0004n . s   n sh      \u001627\ny  n  l      n      j   n  y          n     n          n      n      u    n       n  y      n   :\u0016?\n\u001bh       yy\u001bny ny\u001b  h"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed +3 gauntlets of power\nWo\u0017blessed Mjollnir\nwp\u0016?\n>>N       helm of brilliance\n#levelchange\n20\n      \u00173 wand of make invisible\nzsk\u0017potion of fruit juice\nqt \u001b  #dip\ngg\u0017blessed wand of secret door detection\n\u0007energy vortex\nzu    sk   s   \u00166\n\u0014 \u001bm.  \u00166\nb l hlhuj    n :\u00166\n\u0004b   \u001645\nnlb      nu:\u0016?\nellkj  b  \u001b   j      n:     20s  n n  20s    n  n s    n\u00168\n\u0016?\ne\u0004k\u0016?\ne\u00178 spears\nQv\u0007newt\nu    nkfu   fl  n fh  n .s   n \u0007grid bug\nlfh  n fb fk   n fb ssx    n #twoweapon\n20s    yny   ny y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 49955046,
+   "datetime": "20161228112001",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed +3 gauntlets of power\nWo\u0017blessed Mjollnir\nwp\u0016?\n>>N       helm of brilliance\n#levelchange\n20\n      \u00173 wand of make invisible\nzsk\u0017potion of fruit juice\nqt \u001b  #dip\ngg\u0017blessed wand of secret door detection\n\u0007energy vortex\nzu    sk   s   \u00166\n\u0014 \u001bm.  \u00166\nb l hlhuj    n :\u00166\n\u0004b   \u001645\nnlb      nu:\u0016?\nellkj  b  \u001b   j      n:     20s  n n  20s    n  n s    n\u00168\n\u0016?\ne\u0004k\u0016?\ne\u00178 spears\nQv\u0007newt\nu    nkfu   fl  n fh  n .s   n \u0007grid bug\nlfh  n fb fk   n fb ssx    n #twoweapon\n20s    yny   ny y\u001b  F"
+  }
+ ]
+}

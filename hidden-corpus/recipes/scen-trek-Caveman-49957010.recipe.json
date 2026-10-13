@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "Fk sshnu100sbukFlFl._ \u001b,>50s50sFlFlFl#pray\ny _>.>hbj_>.>150s#twoweapon\nykl150s50sFlFlFl#terrain\nc\n>.100s100slbuFlFl.lnh_>.>100sKnunE- I am a fish\n_>,>100stby150s50sFl..\\ \u000f\u001bhuluNNJH_>.>KYYN_>,>LBJN_>.>YBYY_>,>JHHJ_>.>#turn\nfbBHJN_>.>KKKU_>,>#loot\nPKNUJ_>.>FuFuFu#dip\ncb#offer\nt\u001b10sdds20s20sdc .y20s.h#chat\nleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNL YL_>,>FjFjFji\u001bqHHKN _>.>#sit\n#jump\nBUB J_>,>10s#jump\nHYNK_>.>HJUN_>.>FhFhs<\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#pray\ny   #conduct\n eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuukj#chat\nn10st\u001bdcsm.s20s#invoke\n\u001b#enhance\n\u001b#rub\nNUNL_>.>Fns.YKBJ_>,>ch_>,sYJKK_>.>NJBL_>.>,zUYUJ_>.>z#dip\na\u000f\u001be#pray\ny   #pray\ny  ee#pray\ny   #pray\ny  y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 49957010,
+   "datetime": "20020523055720",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=fruit:kumquat\n",
+   "moves": "Fk sshnu100sbukFlFl._ \u001b,>50s50sFlFlFl#pray\ny _>.>hbj_>.>150s#twoweapon\nykl150s50sFlFlFl#terrain\nc\n>.100s100slbuFlFl.lnh_>.>100sKnunE- I am a fish\n_>,>100stby150s50sFl..\\ \u000f\u001bhuluNNJH_>.>KYYN_>,>LBJN_>.>YBYY_>,>JHHJ_>.>#turn\nfbBHJN_>.>KKKU_>,>#loot\nPKNUJ_>.>FuFuFu#dip\ncb#offer\nt\u001b10sdds20s20sdc .y20s.h#chat\nleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNL YL_>,>FjFjFji\u001bqHHKN _>.>#sit\n#jump\nBUB J_>,>10s#jump\nHYNK_>.>HJUN_>.>FhFhs<\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#pray\ny   #conduct\n eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuukj#chat\nn10st\u001bdcsm.s20s#invoke\n\u001b#enhance\n\u001b#rub\nNUNL_>.>Fns.YKBJ_>,>ch_>,sYJKK_>.>NJBL_>.>,zUYUJ_>.>z#dip\na\u000f\u001be#pray\ny   #pray\ny  ee#pray\ny   #pray\ny  y\u001by  y y y\u001b  1"
+  }
+ ]
+}

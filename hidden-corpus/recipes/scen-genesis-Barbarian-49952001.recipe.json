@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017alchemy smock\nWes.sm.\u0007winter wolf\nFlFhFh \u0007quantum mechanic\n;u. \u001b,sm.sm.20s  >. \u0007dust vortex\n#chat\nh  :FyFy "
+ },
+ "segments": [
+  {
+   "seed": 49952001,
+   "datetime": "20030704193854",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017alchemy smock\nWes.sm.\u0007winter wolf\nFlFhFh \u0007quantum mechanic\n;u. \u001b,sm.sm.20s  >. \u0007dust vortex\n#chat\nh  :FyFy "
+  }
+ ]
+}

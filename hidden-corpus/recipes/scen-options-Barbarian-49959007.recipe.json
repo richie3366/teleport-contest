@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  mO>>>>>>q\na\na\na\n\u001bE- ad aerarium\nOcae\nl\n#twoweapon\nokO>k\nf\n#sit\n PmOa\n: #turn\nmO>>>>>i\noff\n,mO>>>thb\n #tip\n\u001b#sit\n ssOgl\na\na\na\n\u001b\u001b<nn#monster\nmO>>>>>>he\n yes\n \u001bZmO>>>>>>s\n a\na\n\u001b,f bnmO>>>>>j\n n\nsmO>>>c\nE- Elbereth\ni\u001bs."
+ },
+ "segments": [
+  {
+   "seed": 49959007,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  mO>>>>>>q\na\na\na\n\u001bE- ad aerarium\nOcae\nl\n#twoweapon\nokO>k\nf\n#sit\n PmOa\n: #turn\nmO>>>>>i\noff\n,mO>>>thb\n #tip\n\u001b#sit\n ssOgl\na\na\na\n\u001b\u001b<nn#monster\nmO>>>>>>he\n yes\n \u001bZmO>>>>>>s\n a\na\n\u001b,f bnmO>>>>>j\n n\nsmO>>>c\nE- Elbereth\ni\u001bs."
+  }
+ ]
+}

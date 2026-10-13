@@ -1,0 +1,77 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "FkFkFkFk FkFkFkFk FhFhFhFhFhFhFhFhkyjl#chat\nkubnybdgs.20s kulh#name\nf\n @.y#chat\nhnkjkbknhFlFlFlFlFlFlFlFlybhyFnFnFnFnFnFnFnFn  Flss100sFjs20s \\ 50s    #quit\nyy\u001by  y y y\u001b #wizintrinsic\nd\n .m..su20s  .m..20s.bsm.20ssm. yny  y y y\u001bn  2juuhFjFjFjFjFjFjFjFj100s FhFh Fhi\u001blkhjyn150s    Fus20sFlFhFh_ \u001bm.>FlFlFu50si\u001b50slujFyFuFuFu F#quit\nd  #wizintrinsic\na\n 20s s20s20s20s20s20s20s     s..20ssss.20ss.20s.sssss20ss FkFk s100s50s150s150sFhFhFh_ \u001b,>100sFhFhs50s100sbyki\u001b;>.50sFn.s50s100s50s\\    bbl>yny100suhh100s_>.>100sFlFl.i\u001bhjuhljlkj100saf\u0018\u001b150s,#ride\ny50sYNYJ_>.>P\u0004lJYNU_>.>JHLB_>.><YBJL_>,#quit\nyy\u001by  y y y\u001b 20s j#chat\nkllhk#name\ni\n20sde.ssyljkyylhhljuFy20s.W100s\u000f\u001b\u0018\u001b100s100s _ \u001bm.>100s100s50sFhFyFhFhFhFh50s100s100s\\    _>,>100sFhssi\u001b150s150s150s 50#quit\nyy\u001by  y y y\u001b   \u0017wand of digging\nzi> szi> 20s zi> .zi> 20szi>  20szi> sFlFk20s FyFl s20s.sFy\u0007minotaur\nFbFb   nFb  n  n  n  n Fb  yy\u001by  y y\u001by  Fyy  \u0017wand of digging\nzp>    y n  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49958009,
+   "datetime": "20071105110244",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "FkFkFkFk FkFkFkFk FhFhFhFhFhFhFhFhkyjl#chat\nkubnybdgs.20s kulh#name\nf\n @.y#chat\nhnkjkbknhFlFlFlFlFlFlFlFlybhyFnFnFnFnFnFnFnFn  Flss100sFjs20s \\ 50s    #quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50058009,
+   "datetime": "20150412121934",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nd\n .m..su20s  .m..20s.bsm.20ssm. yny  y y y\u001bn  2"
+  },
+  {
+   "seed": 50158009,
+   "datetime": "20000725103026",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "juuhFjFjFjFjFjFjFjFj100s FhFh Fhi\u001blkhjyn150s    Fus20sFlFhFh_ \u001bm.>FlFlFu50si\u001b50slujFyFuFuFu F#quit\nd  "
+  },
+  {
+   "seed": 50258009,
+   "datetime": "20090206113121",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\na\n 20s s20s20s20s20s20s20s     s..20ssss.20ss.20s.sssss20ss"
+  },
+  {
+   "seed": 50358009,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=msg_window:reversed\n",
+   "moves": " FkFk s100s50s150s150sFhFhFh_ \u001b,>100sFhFhs50s100sbyki\u001b;>.50sFn.s50s100s50s\\    bbl>yny100suhh100s_>.>100sFlFl.i\u001bhjuhljlkj100saf\u0018\u001b150s,#ride\ny50sYNYJ_>.>P\u0004lJYNU_>.>JHLB_>.><YBJL_>,#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50458009,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pettype:dog\n",
+   "moves": "20s j#chat\nkllhk#name\ni\n20sde.ssyljkyylhhljuFy20s.W100s\u000f\u001b\u0018\u001b100s100s _ \u001bm.>100s100s50sFhFyFhFhFhFh50s100s100s\\    _>,>100sFhssi\u001b150s150s150s 50#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50558009,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017wand of digging\nzi> szi> 20s zi> .zi> 20szi>  20szi> sFlFk20s FyFl s20s.sFy"
+  },
+  {
+   "seed": 50658009,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007minotaur\nFbFb   nFb  n  n  n  n Fb  yy\u001by  y y\u001by  F"
+  },
+  {
+   "seed": 50758009,
+   "datetime": "20180520120609",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "yy  \u0017wand of digging\nzp>    y n  s"
+  }
+ ]
+}

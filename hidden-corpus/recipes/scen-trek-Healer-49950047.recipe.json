@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "FhFhFh 150sFls20s100s\\ #chat\nj50s_ \u001b<.>100s100sFhFhFhFhFhs100sknl100s<100s150sFh.s100s100s\\ 50sulhnuhFhFhsFhFhFhFh..150sljblbnFbFbFb Fb Fbs_>.>150s 150sFbFbs100s150sejJYUU_>,>ch>NKBY_>,>NYKH_>.>Fj20s20sYULY_>.>LNJB_>.>KJYH_>,>\u0004hol10s10sbut$h#chat\nulu#chat\nlt\u001bbl20s10sejejejFhFhFhFhFhFhi\u001b\\ 100sejkjjkhb;m.W100s100s\u000f\u001b50sFhFhFhFbs.nyb100s50s\u000f\u001bi\u001bllhej100sFh Fhseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee,#monster\nrg nyll#name\nf\n#name\nm,de20s.20st\u001b#name\no\nnhujkkt\u001bjkjy#name\na\n#name\no\nyn10srg nyZa\nZa\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYBUJ_>,>HBUB_>.>KKUU_>.>#force\n>UNBJ_>,>JKUN_>.>FhFhFh#invoke\n\u001b#untrap\nlKNNL_>,>e#pray\ny #pray\ny   #pray\ny  eee#pray\ny   y\u001by  y y y\u001b  \u0018"
+ },
+ "segments": [
+  {
+   "seed": 49950047,
+   "datetime": "20031021205546",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=sortloot:none\n",
+   "moves": "FhFhFh 150sFls20s100s\\ #chat\nj50s_ \u001b<.>100s100sFhFhFhFhFhs100sknl100s<100s150sFh.s100s100s\\ 50sulhnuhFhFhsFhFhFhFh..150sljblbnFbFbFb Fb Fbs_>.>150s 150sFbFbs100s150sejJYUU_>,>ch>NKBY_>,>NYKH_>.>Fj20s20sYULY_>.>LNJB_>.>KJYH_>,>\u0004hol10s10sbut$h#chat\nulu#chat\nlt\u001bbl20s10sejejejFhFhFhFhFhFhi\u001b\\ 100sejkjjkhb;m.W100s100s\u000f\u001b50sFhFhFhFbs.nyb100s50s\u000f\u001bi\u001bllhej100sFh Fhseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee,#monster\nrg nyll#name\nf\n#name\nm,de20s.20st\u001b#name\no\nnhujkkt\u001bjkjy#name\na\n#name\no\nyn10srg nyZa\nZa\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYBUJ_>,>HBUB_>.>KKUU_>.>#force\n>UNBJ_>,>JKUN_>.>FhFhFh#invoke\n\u001b#untrap\nlKNNL_>,>e#pray\ny #pray\ny   #pray\ny  eee#pray\ny   y\u001by  y y y\u001b  \u0018"
+  }
+ ]
+}

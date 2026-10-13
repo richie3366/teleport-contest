@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 speed boots\nWj\u001620\n_ \u001bm,<sm. 20s  sm.  \u0016?\n>>M      lenses\n\u0014;\u0016?\n\u001bbk   n  \u0016?\n\u001bj    n    \u001638\n_>,\u001620\n\u0004y\u001638\n\u0004k      n     \u001620\nhk nj: \u001620\n_>,<\u001620\n_{.\u0016?\nd \u0004h     \u0016?\n\u001bk     n              y          n           \u00166\n\u001620\n\u0014<.       \u0016?\n\u001blh       n  n                n  n \u00161\n\u001638\n\u0006._<.\u0016?\n\u001bn   n           n   n n   n       n \u00166\n\u001640\nl     n    h      n         yy\u001bnnn  :"
+ },
+ "segments": [
+  {
+   "seed": 49955048,
+   "datetime": "20221020011522",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 speed boots\nWj\u001620\n_ \u001bm,<sm. 20s  sm.  \u0016?\n>>M      lenses\n\u0014;\u0016?\n\u001bbk   n  \u0016?\n\u001bj    n    \u001638\n_>,\u001620\n\u0004y\u001638\n\u0004k      n     \u001620\nhk nj: \u001620\n_>,<\u001620\n_{.\u0016?\nd \u0004h     \u0016?\n\u001bk     n              y          n           \u00166\n\u001620\n\u0014<.       \u0016?\n\u001blh       n  n                n  n \u00161\n\u001638\n\u0006._<.\u0016?\n\u001bn   n           n   n n   n       n \u00166\n\u001640\nl     n    h      n         yy\u001bnnn  :"
+  }
+ ]
+}

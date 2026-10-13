@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " Fh 20sFhFhss#force\n_ \u001b.>_>,>100sbjkkjyFbsslbubnl100s150skhk,_>.>100sFlFlFl100sjbl50s_>.>huh\u000f\u001blkbi\u001b100s50sFnFls100s50s150sFlFlFlFlFlFl100s100s50s 100sFlFlFltdbklhbkl_>,>hjk100s100slbu\u000f\u001b150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 49951014,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\n",
+   "moves": " Fh 20sFhFhss#force\n_ \u001b.>_>,>100sbjkkjyFbsslbubnl100s150skhk,_>.>100sFlFlFl100sjbl50s_>.>huh\u000f\u001blkbi\u001b100s50sFnFls100s50s150sFlFlFlFlFlFl100s100s50s 100sFlFlFltdbklhbkl_>,>hjk100s100slbu\u000f\u001b150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

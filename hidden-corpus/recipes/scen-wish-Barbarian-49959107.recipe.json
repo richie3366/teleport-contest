@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u00173 20 flint stones\nQbyfbf \u001bf \u001bsFh\u0017blessed potion of invisibility\nqf\u0017uncursed the Heart of Ahriman\n w-sss#invoke\ngs.\u0017uncursed Ogresmasher\n\u0007Famine\nywhFk Fk  n Fk   yy\u001by   y y y\u001by     #"
+ },
+ "segments": [
+  {
+   "seed": 49959107,
+   "datetime": "20020307160034",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u00173 20 flint stones\nQbyfbf \u001bf \u001bsFh\u0017blessed potion of invisibility\nqf\u0017uncursed the Heart of Ahriman\n w-sss#invoke\ngs.\u0017uncursed Ogresmasher\n\u0007Famine\nywhFk Fk  n Fk   yy\u001by   y y y\u001by     #"
+  }
+ ]
+}

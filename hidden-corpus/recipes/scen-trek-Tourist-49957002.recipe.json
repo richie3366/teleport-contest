@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "J KJB_ \u001b:>HLJJ _>.>FkFjFkHK  BK_>.>NBLB_>.>#twoweapon\n\\ kujkkyhj10skjUNNH  _>.>Fn FnFkKKLL _>.>UYUK_>.><#invoke\n\u001b#turn\nu#chat\nudl20ss.#name\nm\n#chat\n,j20sbjny20s ,#wipe\nZNHLH_>,>FjFuFjNNNJ_>.>FjFjsakbqhNNLL_>.>FkFkFkNUKY_>.>BHHN_>,>:#wipe\nLYUU_>.>#force\n,UYJ K_>.>Flss#dip\nkhJ<nyE- ad aerarium\n#jump\n\u0004h#monster\n100s 100s FlFlFllkjFkFu 20s150sZbjl150s100s\u0018\u001b\u000f\u001b100sFjFjs50sFussi\u001b50s100s100s\u0018\u001b\u0018\u001b\u000f\u001b150s_>.>lhh_>.>100sFns20sFlFlFlFlFlsi\u001b100scj50sFlFlFlFl s20sef kjkK UBN _>.>JU JH_>.>20s#untrap\nuNJUK_>.>_>,s#name\nm\nm,ukkhkjdmss20s10sknjjLYNU_>.>YY UJ_>.>\u0004h#chat\nuUUUY_>.>#jump\n:w-100sFn.20seghnjjkk,ynj150sFuFuFuFuFu.50sFuFuFuFuFuFuFus.#sit\n\u001b150s50sFuFuFuFuFuFu#pray\ny  yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 49957002,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=playmode:explore\n",
+   "moves": "J KJB_ \u001b:>HLJJ _>.>FkFjFkHK  BK_>.>NBLB_>.>#twoweapon\n\\ kujkkyhj10skjUNNH  _>.>Fn FnFkKKLL _>.>UYUK_>.><#invoke\n\u001b#turn\nu#chat\nudl20ss.#name\nm\n#chat\n,j20sbjny20s ,#wipe\nZNHLH_>,>FjFuFjNNNJ_>.>FjFjsakbqhNNLL_>.>FkFkFkNUKY_>.>BHHN_>,>:#wipe\nLYUU_>.>#force\n,UYJ K_>.>Flss#dip\nkhJ<nyE- ad aerarium\n#jump\n\u0004h#monster\n100s 100s FlFlFllkjFkFu 20s150sZbjl150s100s\u0018\u001b\u000f\u001b100sFjFjs50sFussi\u001b50s100s100s\u0018\u001b\u0018\u001b\u000f\u001b150s_>.>lhh_>.>100sFns20sFlFlFlFlFlsi\u001b100scj50sFlFlFlFl s20sef kjkK UBN _>.>JU JH_>.>20s#untrap\nuNJUK_>.>_>,s#name\nm\nm,ukkhkjdmss20s10sknjjLYNU_>.>YY UJ_>.>\u0004h#chat\nuUUUY_>.>#jump\n:w-100sFn.20seghnjjkk,ynj150sFuFuFuFuFu.50sFuFuFuFuFuFuFus.#sit\n\u001b150s50sFuFuFuFuFuFu#pray\ny  yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

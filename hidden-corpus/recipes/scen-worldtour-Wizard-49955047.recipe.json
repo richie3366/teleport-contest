@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWo\u0016?\n>C\u00173 scroll of amnesia\nrp \u0017tsurugi\nwqFu .s20ss\u0017cursed potion of water\n\u0007vrock\nqrFk Fk \u0017blessed credit card\nask  Fk Fk\u0017stethoscope\natk\u0017bow\nwu..sXss20ss\u0016?\n>>P #chat\ny;m, \u001b.\u0016?\nm \u0014,,\u0016?\n>>L      alchemy smock\nuy b   h   n  :20s        \u00166\n#levelchange\n30\n\u00173 tinning kit\n\u0007plains centaur\naw       \u0017cursed spellbook of create monster\n\u0007vampire bat\nrx@.  n       sj      sm.         n   ZZ\u00173 spellbook of invisibility\n\u0007gnome lord\nry           n   sl            .m.    n          n             n   Z\u0017blessed Fire Brand\n\u0007mind flayer\nwz        Fh           Fl        n          Fy                  Fn        n      Fb   n            \u0017cursed -1 ring of polymorph control\nPAl   n     n         20s        n         .m.  n          n        sm.            n     Rsj                 20s   y\u001b       \u0016"
+ },
+ "segments": [
+  {
+   "seed": 49955047,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWo\u0016?\n>C\u00173 scroll of amnesia\nrp \u0017tsurugi\nwqFu .s20ss\u0017cursed potion of water\n\u0007vrock\nqrFk Fk \u0017blessed credit card\nask  Fk Fk\u0017stethoscope\natk\u0017bow\nwu..sXss20ss\u0016?\n>>P #chat\ny;m, \u001b.\u0016?\nm \u0014,,\u0016?\n>>L      alchemy smock\nuy b   h   n  :20s        \u00166\n#levelchange\n30\n\u00173 tinning kit\n\u0007plains centaur\naw       \u0017cursed spellbook of create monster\n\u0007vampire bat\nrx@.  n       sj      sm.         n   ZZ\u00173 spellbook of invisibility\n\u0007gnome lord\nry           n   sl            .m.    n          n             n   Z\u0017blessed Fire Brand\n\u0007mind flayer\nwz        Fh           Fl        n          Fy                  Fn        n      Fb   n            \u0017cursed -1 ring of polymorph control\nPAl   n     n         20s        n         .m.  n          n        sm.            n     Rsj                 20s   y\u001b       \u0016"
+  }
+ ]
+}

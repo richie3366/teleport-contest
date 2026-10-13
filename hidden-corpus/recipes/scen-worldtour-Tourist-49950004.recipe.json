@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed amulet of life saving\nPm\u0017blessed +3 speed boots\nWn\u0017blessed +3 helm of telepathy\nWo\u0016?\n>H \u0004k\u00165\nlky:\u0016?\n>>Q_ \u001b;20s\u0016?\ng  \u0004k.\u0016?\n>C\u0004 \u0016?\n>z  ukkjkkj:\u0016?\n>H\u0014<.\u00165\n__.>\u00165\n\u0004ls\u001618\n\u0004y\u001636\n   \u0004 \u0016?\n>>Q   _>..\u0016?\nq hlhl l      \u001b nl :\u0016?\n>Dhhkbhl  k:\u0016?\n>u __,<\u00162\n\u0006_<,  Fu_.  Fusu  20s  \u001636\n   \u0014:   \u00165\n#chat\nk;k.\u0016?\ng\u0006_>.Fl_.\u00162\n\u00178 rocks\nQ$\u0007troll\nlfk fk fl  n Fk Fk \u0007acid blob\nufj fb  n fj fb Fh Fh nun,#enhance\nyr\nl\n\u001b\u001610\n\u001617\nju\u0017wand of cancellation\nEq Elbereth Elbereth\n  n : \u0017towel\nEr :l\u0017wand of enlightenment\nEs \u001b  Elbereth Elbereth\n : l\u0016?\nq hhky:20s \u001611\n\u0007cobra\nFkFy Fk  n Fy  Fy  .m.   20s  n  \u0007owlbear\nFh  Fk       n Fh   Fu    20s   n  20s   #pray\ny y                \u0007quantum mechanic\nFl    n Fh  m.ss20s\u00167\n  \u0016?\n>>L    5 boomerangs\n#chat\nk   ;b;\u001628\n_{,sm.   .n     \u0016?\ne #levelchange\n30\n\u00178 rocks\nQu\u0007jackal\nk  fy          n fk     \u0007troll\nh    n        nfu         n fy        n fk         n Fl        nFk        \u0007gnome\nn   n          yy\u001by  y y  y\u001b  n"
+ },
+ "segments": [
+  {
+   "seed": 49950004,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed amulet of life saving\nPm\u0017blessed +3 speed boots\nWn\u0017blessed +3 helm of telepathy\nWo\u0016?\n>H \u0004k\u00165\nlky:\u0016?\n>>Q_ \u001b;20s\u0016?\ng  \u0004k.\u0016?\n>C\u0004 \u0016?\n>z  ukkjkkj:\u0016?\n>H\u0014<.\u00165\n__.>\u00165\n\u0004ls\u001618\n\u0004y\u001636\n   \u0004 \u0016?\n>>Q   _>..\u0016?\nq hlhl l      \u001b nl :\u0016?\n>Dhhkbhl  k:\u0016?\n>u __,<\u00162\n\u0006_<,  Fu_.  Fusu  20s  \u001636\n   \u0014:   \u00165\n#chat\nk;k.\u0016?\ng\u0006_>.Fl_.\u00162\n\u00178 rocks\nQ$\u0007troll\nlfk fk fl  n Fk Fk \u0007acid blob\nufj fb  n fj fb Fh Fh nun,#enhance\nyr\nl\n\u001b\u001610\n\u001617\nju\u0017wand of cancellation\nEq Elbereth Elbereth\n  n : \u0017towel\nEr :l\u0017wand of enlightenment\nEs \u001b  Elbereth Elbereth\n : l\u0016?\nq hhky:20s \u001611\n\u0007cobra\nFkFy Fk  n Fy  Fy  .m.   20s  n  \u0007owlbear\nFh  Fk       n Fh   Fu    20s   n  20s   #pray\ny y                \u0007quantum mechanic\nFl    n Fh  m.ss20s\u00167\n  \u0016?\n>>L    5 boomerangs\n#chat\nk   ;b;\u001628\n_{,sm.   .n     \u0016?\ne #levelchange\n30\n\u00178 rocks\nQu\u0007jackal\nk  fy          n fk     \u0007troll\nh    n        nfu         n fy        n fk         n Fl        nFk        \u0007gnome\nn   n          yy\u001by  y y  y\u001b  n"
+  }
+ ]
+}

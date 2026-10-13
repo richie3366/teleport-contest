@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "FlFlFl 100sFu Fus150sFu20s.100s;. \u001b,100s100s150sFus.jhn150s50s    \\  \\  hkjFk20ss100sf \u001b100seeeeeeeeeeeeeeeeeeeU  HJK_>.><ynny ny\u001b H"
+ },
+ "segments": [
+  {
+   "seed": 49950015,
+   "datetime": "20110116105259",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "FlFlFl 100sFu Fus150sFu20s.100s;. \u001b,100s100s150sFus.jhn150s50s    \\  \\  hkjFk20ss100sf \u001b100seeeeeeeeeeeeeeeeeeeU  HJK_>.><ynny ny\u001b H"
+  }
+ ]
+}

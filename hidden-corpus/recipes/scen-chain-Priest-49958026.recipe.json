@@ -1,0 +1,70 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0007minotaur\nFnFn  yy\u001by  y y\u001by  F Fy s.50s\u000f\u001b_ \u001b,>100s#enhance\n\u001bykk100s_>,>50sK100s\\ 50s150s\\ nkb50sllk50s150sef100s100sFjs20shbu150s100s150s100sFjFjs#name\nf\nq150s100sbnb100s50s100#quit\nyy\u001by  y y y\u001b yn  \u0007Demogorgon\nyFjFj  yy\u001by  y y\u001byy  F  Fj  nnnn  . yuhbFk FkFkFkFkFkFkFk#name\na\nnynuyb#name\nf\n ;HYYU_>.>KWKLBL_>.>;<.\u0014ULJL_>,>Fkss<YNUJ_>.>>#terrain\nb\nJBKU_>UNKU_>\u0018 ,JYNH_>.>20slytbyt\u001b#name\nf\nkyylFlFlFlFlFlFlFlFlhkjnynyut\u001b10st\u001b#chat\nhkk10sdc20sss100s_>.>\u0018\u001bjyl_>.>ykkynj100s50sFyFkFk150s_>,>100s#quit\ny  \u0007purple worm\nFhFh Fh  FkFjFj  yy\u001by   y y y\u001b  FFlFlFl FlFlFlFlFlFhFhFhFhFhFhFhFhjjluHLKU_ \u001b>.>HUUB_>.>YUBB_>.>LBNU_>.>des.snjhhyl#name\no\nnuujt\u001b#name\na\nkh#chat\nb20s150sP100s150s\\ 150sFl.s150sFlFlFlFlsFli\u001bjjlFyFyFyFyFyFy  y\u001by  y y y\u001b  \\#name\na\nhjyutah 20sdb20s ..ndh.m.su20sljnnh l50snjb_ \u001b:>100s50s100s\u0018\u001b50sFlFlFl100synh150s50sFlFlFlFls20s100s_>.>150s50sFlFl20s#offer\n50s kjk50s150s100s Fl20ss100sedi\u001b100snhkFjFn FlFjFjFjFjFjFn#rub\n100s150s100sFjFjFj#name\na\nnhlhdms.sknde20s.sbFlFlFlFlFlFlFlFlUBHL_>,>E- I am a fish\n\u0018\u001bNHYL _>.>BNLL_>.>NJJU_>.>LKKL_>._,> jnnyt$jyltau20s10stajnulhbubyhjhjNYNB_>,>sriHUYJ_>._.>fn#force\nYYLN_>._.>#turn\n#rub\nyjlyLKHJ_>,_.>JHYN_>._.>ojE- X marks the spot\nUNLB_>._.>< LJYY_>,_.> HKNK_>,_.>B#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 49958026,
+   "datetime": "20080914054517",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0007minotaur\nFnFn  yy\u001by  y y\u001by  F"
+  },
+  {
+   "seed": 50058026,
+   "datetime": "20250626220122",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=pettype:cat\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " Fy s.50s\u000f\u001b_ \u001b,>100s#enhance\n\u001bykk100s_>,>50sK100s\\ 50s150s\\ nkb50sllk50s150sef100s100sFjs20shbu150s100s150s100sFjFjs#name\nf\nq150s100sbnb100s50s100#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50158026,
+   "datetime": "20040528074014",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "yn  \u0007Demogorgon\nyFjFj  yy\u001by  y y\u001byy  F"
+  },
+  {
+   "seed": 50258026,
+   "datetime": "20250706172822",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\n",
+   "moves": "  Fj  nnnn  ."
+  },
+  {
+   "seed": 50358026,
+   "datetime": "20251021112757",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\n",
+   "moves": " yuhbFk FkFkFkFkFkFkFk#name\na\nnynuyb#name\nf\n ;HYYU_>.>KWKLBL_>.>;<.\u0014ULJL_>,>Fkss<YNUJ_>.>>#terrain\nb\nJBKU_>UNKU_>\u0018 ,JYNH_>.>20slytbyt\u001b#name\nf\nkyylFlFlFlFlFlFlFlFlhkjnynyut\u001b10st\u001b#chat\nhkk10sdc20sss100s_>.>\u0018\u001bjyl_>.>ykkynj100s50sFyFkFk150s_>,>100s#quit\ny "
+  },
+  {
+   "seed": 50458026,
+   "datetime": "20140201052207",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007purple worm\nFhFh Fh  FkFjFj  yy\u001by   y y y\u001b  F"
+  },
+  {
+   "seed": 50558026,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\n",
+   "moves": "FlFlFl FlFlFlFlFlFhFhFhFhFhFhFhFhjjluHLKU_ \u001b>.>HUUB_>.>YUBB_>.>LBNU_>.>des.snjhhyl#name\no\nnuujt\u001b#name\na\nkh#chat\nb20s150sP100s150s\\ 150sFl.s150sFlFlFlFlsFli\u001bjjlFyFyFyFyFyFy  y\u001by  y y y\u001b  \\"
+  },
+  {
+   "seed": 50658026,
+   "datetime": "20210603093006",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=pettype:cat\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#name\na\nhjyutah 20sdb20s ..ndh.m.su20sljnnh l50snjb_ \u001b:>100s50s100s\u0018\u001b50sFlFlFl100synh150s50sFlFlFlFls20s100s_>.>150s50sFlFl20s#offer\n50s kjk50s150s100s Fl20ss100sedi\u001b100snhkFjFn FlFjFjFjFjFjFn#rub\n100s150s100sFjFjFj#name\na\nnhlhdms.sknde20s.sbFlFlFlFlFlFlFlFlUBHL_>,>E- I am a fish\n\u0018\u001bNHYL _>.>BNLL_>.>NJJU_>.>LKKL_>._,> jnnyt$jyltau20s10stajnulhbubyhjhjNYNB_>,>sriHUYJ_>._.>fn#force\nYYLN_>._.>#turn\n#rub\nyjlyLKHJ_>,_.>JHYN_>._.>ojE- X marks the spot\nUNLB_>._.>< LJYY_>,_.> HKNK_>,_.>B#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

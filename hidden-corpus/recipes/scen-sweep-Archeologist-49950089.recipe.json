@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017ice box\n\u0017locked chest\n\u0017locked large box\n\u0017touchstone\n \u0017wand of cancellation\nal#tip\nyk\n \u0017dagger\nwn   dk #force\ny  s20ssm.al\u0016?\n>w  \u0006\u0017blessed potion of object detection\nqo \u001bm._oo,Fl_.,  $ __,Fy _.   nFk #chat\ny   n  #pray\ny y      _dddd.  nFl   n_,  n Fl   n\u0004j  n_{.  nFn  n_.   n  nFy  n  nq_ooooooo.  nFy  n_.  nFl   y y\u001by  y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 49950089,
+   "datetime": "20200218081744",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017ice box\n\u0017locked chest\n\u0017locked large box\n\u0017touchstone\n \u0017wand of cancellation\nal#tip\nyk\n \u0017dagger\nwn   dk #force\ny  s20ssm.al\u0016?\n>w  \u0006\u0017blessed potion of object detection\nqo \u001bm._oo,Fl_.,  $ __,Fy _.   nFk #chat\ny   n  #pray\ny y      _dddd.  nFl   n_,  n Fl   n\u0004j  n_{.  nFn  n_.   n  nFy  n  nq_ooooooo.  nFy  n_.  nFl   y y\u001by  y y y\u001by  _"
+  }
+ ]
+}

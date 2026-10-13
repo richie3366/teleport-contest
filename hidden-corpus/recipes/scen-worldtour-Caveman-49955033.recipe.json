@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 speed boots\nWg \u0016?\nq \u0014 \u001bm.\u001636\nkju:.20ssm.\u0016?\na\u0017trident\nwh20ss20s\u0007Medusa\nyFbFb n Fb n Fb n 20s n sl n\u0007vampire lord\nFhFhFy n Fh n  Fh n sh n 20s n \u00162\n\u001636\n   jkbyyl:\u001612\n\u0017blessed spellbook of sleep\nri.m.\u0017blessed spellbook of detect treasure\nrj sm.\u0017blessed spellbook of haste self\nrk sm.+\u001bZa\n\u0007newt\nZa\n\u0007kobold\nZa\n\u0007jackal\nZa\nZa\n#enhance\nn\u001b\u0016?\n>Hhhhjj:\u001627\njkjkkjj:\u00161\n#chat\nn;m.\u00168\n_{.<\u0016?\n>Bunuuyuu:\u001627\n\u0004u\u0016?\n>>K      20 elven arrows\n_>.\u0016?\n\u001bn u\u001643\n_>,>sm.\u001632\nny  :\u0016?\n\u001bly\u0016?\n\u001buh\u001643\n__.<sm.   20s   \u001613\n\u0014:sm.   n      20s    n20s\u00168\n\u001636\njlbbnl:.m.\u0016?\n\u001bby    \u001613\n_{,<\u0016?\n\u001bbk    n\u0016?\n\u001bl j\u0016?\n\u001by  j\u001643\n#chat\nb;b,\u0016?\n\u001bh j\u0016?\n\u001bb   n   n\u0016?\n\u001bk  h\u0016?\n\u001bb   l   \u0016?\n\u001bhu\u001632\n\u0017blessed slime mold\n\u0007soldier\nen  .m.20s \u0017uncursed scroll of genocide\nrp  water elemental\n  ettin\n   Fy   n       Fh     yy\u001by   Juiblex\ny y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 49955033,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 speed boots\nWg \u0016?\nq \u0014 \u001bm.\u001636\nkju:.20ssm.\u0016?\na\u0017trident\nwh20ss20s\u0007Medusa\nyFbFb n Fb n Fb n 20s n sl n\u0007vampire lord\nFhFhFy n Fh n  Fh n sh n 20s n \u00162\n\u001636\n   jkbyyl:\u001612\n\u0017blessed spellbook of sleep\nri.m.\u0017blessed spellbook of detect treasure\nrj sm.\u0017blessed spellbook of haste self\nrk sm.+\u001bZa\n\u0007newt\nZa\n\u0007kobold\nZa\n\u0007jackal\nZa\nZa\n#enhance\nn\u001b\u0016?\n>Hhhhjj:\u001627\njkjkkjj:\u00161\n#chat\nn;m.\u00168\n_{.<\u0016?\n>Bunuuyuu:\u001627\n\u0004u\u0016?\n>>K      20 elven arrows\n_>.\u0016?\n\u001bn u\u001643\n_>,>sm.\u001632\nny  :\u0016?\n\u001bly\u0016?\n\u001buh\u001643\n__.<sm.   20s   \u001613\n\u0014:sm.   n      20s    n20s\u00168\n\u001636\njlbbnl:.m.\u0016?\n\u001bby    \u001613\n_{,<\u0016?\n\u001bbk    n\u0016?\n\u001bl j\u0016?\n\u001by  j\u001643\n#chat\nb;b,\u0016?\n\u001bh j\u0016?\n\u001bb   n   n\u0016?\n\u001bk  h\u0016?\n\u001bb   l   \u0016?\n\u001bhu\u001632\n\u0017blessed slime mold\n\u0007soldier\nen  .m.20s \u0017uncursed scroll of genocide\nrp  water elemental\n  ettin\n   Fy   n       Fh     yy\u001by   Juiblex\ny y\u001b  \u0017"
+  }
+ ]
+}

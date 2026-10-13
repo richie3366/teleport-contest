@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "UNHU_ \u001b:>NJJB_>.>WZNKUN_>.>NUJK _>.>:#offer\nBBHL_>.>JKYH_>.>FhFh s\u000f\u001bbju100s_>.>_>.>i\u001b100s150s50sFh.20sulh150sjuhFhFhs50s#monster\n50s50sPnub50s_>.>nhyFhFhFynykjknyjlnkb150s150sFkFk20s100sFhs20s20skju100s100s#tip\n\u001b50sFhss_>.>BBUU_>.>JYLY_>,>NHHK_>.>KBKU_>,>UHLU_>.>NJKJ_>.>r\u001b#chat\nnheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#terrain\n\u001b\u0004jzBKKB_>.>JHKN_>.>HUBL_>.>#conduct\n ,LJKB_>.>Fu.sNLLN_>,>NNUY_>,>YJUH_>.>ey150s_>,>50s_>.>100sFyFk Fh Fh FhFk150s\\ 50s150sef eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u000f\u001bi\u001bZJUHN_>,>LUH  ny  ny y\u001b  U"
+ },
+ "segments": [
+  {
+   "seed": 49957003,
+   "datetime": "20260604233157",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=runmode:teleport\nOPTIONS=msg_window:reversed\n",
+   "moves": "UNHU_ \u001b:>NJJB_>.>WZNKUN_>.>NUJK _>.>:#offer\nBBHL_>.>JKYH_>.>FhFh s\u000f\u001bbju100s_>.>_>.>i\u001b100s150s50sFh.20sulh150sjuhFhFhs50s#monster\n50s50sPnub50s_>.>nhyFhFhFynykjknyjlnkb150s150sFkFk20s100sFhs20s20skju100s100s#tip\n\u001b50sFhss_>.>BBUU_>.>JYLY_>,>NHHK_>.>KBKU_>,>UHLU_>.>NJKJ_>.>r\u001b#chat\nnheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#terrain\n\u001b\u0004jzBKKB_>.>JHKN_>.>HUBL_>.>#conduct\n ,LJKB_>.>Fu.sNLLN_>,>NNUY_>,>YJUH_>.>ey150s_>,>50s_>.>100sFyFk Fh Fh FhFk150s\\ 50s150sef eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u000f\u001bi\u001bZJUHN_>,>LUH  ny  ny y\u001b  U"
+  }
+ ]
+}
