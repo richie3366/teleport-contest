@@ -2767,3 +2767,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2755-96bd880b4-venom-blind-splash.md](./2755-96bd880b4-venom-blind-splash.md) | `96bd880b4` | D-3899 use_pick_axe2-row writer venom live Blind (1 PASS) | **ACCEPT** |
 | [2756-85f437996-zap-dig-wail.md](./2756-85f437996-zap-dig-wail.md) | `85f437996` | D-3900 zap_dig drains losehp wail (1 moved) | **ACCEPT** |
 | [2757-7e420439e-zappable-wrest.md](./2757-7e420439e-zappable-wrest.md) | `7e420439e` | D-3901 zappable spe==0 wrest message (1 moved) | **ACCEPT** |
+| [2758-ea3f0bb5e-sort-rooms-inplace.md](./2758-ea3f0bb5e-sort-rooms-inplace.md) | `ea3f0bb5e` | D-3902 level_tele-row writer sort_rooms in-place head (1 moved) | **ACCEPT** |
+| [2759-630119550-soko-prize-stamp.md](./2759-630119550-soko-prize-stamp.md) | `630119550` | D-3906 mbodypart-row writer soko prize-oid stamp (1 PASS) | **ACCEPT** |
+| [2760-cc8c66c0b-tin-display-roll.md](./2760-cc8c66c0b-tin-display-roll.md) | `cc8c66c0b` | D-3907 tin_variety display path rn2(15) draw (3 PASS) | **ACCEPT** |
+| [2761-54920355c-doset-simple-true.md](./2761-54920355c-doset-simple-true.md) | `54920355c` | D-3908 optfn_boolean-row writer doset_simple TRUE restore (1 PASS) | **ACCEPT** |
+| [2762-9eb4b5517-tipcontainer-newsym.md](./2762-9eb4b5517-tipcontainer-newsym.md) | `9eb4b5517` | D-3909 tipcontainer trailing newsym deleted (1 PASS) | **ACCEPT** |
+| [2763-6cd92781b-find-lev-obj.md](./2763-6cd92781b-find-lev-obj.md) | `6cd92781b` | D-3910 level_tele-row writer find_lev_obj trio restart (1 PASS) | **ACCEPT** |
+| [2764-95bb5cc8d-minventory-picknone.md](./2764-95bb5cc8d-minventory-picknone.md) | `95bb5cc8d` | D-3911 look_here-row writer display_minventory PICK_NONE sort+hero (1 PASS) | **ACCEPT** |

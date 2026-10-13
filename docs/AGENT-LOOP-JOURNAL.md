@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — audit 2758–2764 @95bb5cc8d: review D-3902..D-3911 (7A/0D/0Q, 0 Must-fix) + full rescore 1338/1365 (0 flips)
+
+7 cliff SHAs, each ≤10 functions, whole-Method review + `verify --reach-all` re-measure: all movement claims confirmed (7 PASS; D-3902's 669→781 move now reads PASS via D-3910), Rule #2 clean, no C-wrongs. No Must-fix queued; Next cluster unchanged (head UNPORTABLE → row-2 do_attack). Public 44/44 (Scr 11405/11405, RNG 792838/792838, `349+1.58/turn`). Corpus 1329→1338/1365, RNG 99.62 %, marathons 359/372; rescore confirms verify-written rows exactly (same failing-owner multiset). Held-out flat at 22/44 (fresh judge 01:33Z, unchanged). Ledger snapshot appended; 5 seeded-`ported` rows sampled with real `ledger.mjs sql` under Node v22.23.3 (`~/.nvm`, avoids the v20 jsonl fallback) — all 5 correct. Nit (doc-only): D-3911's `:822–832` sortflags cite points at a call site, true locus `:1075–1082`.
 ## 2026-10-13 — D-3911 `invent.c` display_minventory PICK_NONE: sortloot rank + INCLUDE_HERO engulfed row (Ranger-585420 s308 → PASS)
 
 **C locus:** `invent.c` display_minventory `:5340–5386` (PICK_NONE analog of the query_objlist call `:5364–5368`: INVORDER_SORT|INCLUDE_HERO, have_any `:5354`) + `pickup.c` query_objlist `:1024–1216` (sortflags `:1075–1082`, sortloot rank `:1080–1081`, sorted class loop `:1105–1139`, INCLUDE_HERO arm `:1146–1164` with `sorted && n > 1` heading gate `:1150` and CONTAINED_SYM fake row `:1155–1163`) + `invent.c` sortloot `:592–643` / sortloot_cmp `:402–547` / loot_classify `:147–305` (FOOD subclass: default 2, CORPSE 5 — decides [rations, corpse]). Full C bodies read (display_minventory, query_objlist, sortloot, sortloot_cmp, loot_classify FOOD arm).

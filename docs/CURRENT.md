@@ -22,28 +22,28 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-13** — full `sessions` on `7e420439e`
-(audit **2750–2757**, 2026-10-13T00:24:06Z).
+Score last measured: **2026-10-13** — full `sessions` on `95bb5cc8d`
+(audit **2758–2764**, 2026-10-13T05:23:21Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`351+1.58/turn` (R² 0.77).
+`349+1.58/turn` (R² 0.77).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-12 19:12Z)** | **22 / 44**, 9,011 / 11,265 pts, RNG **51.7 %**, rngSteps 93.6 %, screens **80.0 %** |
+| **Held-out (judge 2026-10-13 01:33Z)** | **22 / 44**, 9,011 / 11,265 pts, RNG **51.7 %**, rngSteps 93.6 %, screens **80.0 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `351+1.58/turn` (R² 0.77) |
+| Speed label | `349+1.58/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
-every audit). Rank 5 by pts (9,011 vs lockwo 8,549; their RNG 84.3 % vs our 51.7 %: our loss is early cliffs in long sessions). 22/44 held (±0), pts **9,011** (±0), RNG **51.7 %** (±0), rngSteps 93.6 %, screens **80.0 %** (±0) at judge 2026-10-12 19:12Z — no fresh judge signal; through D-3893..D-3901's window the corpus went 1326/1365 → 1329/1365 (marathons 348/372 → 351/372); the falsifier watch (§10.19) stays open.
-**Corpus — picker and proxy (2026-10-13 00:49Z, `7e420439e`; 1365/1365 entries, 0 unrecorded):**
-**1329 / 1365** PASS, RNG 31643659/31778520 (**99.58 %**), screens 550608/556749 (98.9 %); `full: true`. Marathons 351/372. Worst families: `scen-sweep` 129/143 (RNG 98.0 %), `scen-trek` 52/53 (99.4 %), `scen-worldtour` 97/103 (100.0 % RNG); `scen-options` 21/22, `scen-tour` 28/29; rest 100 %. 0 PASS→FAIL (first rescore showed a `worker: `-empty flake on Caveman-585518; direct replay PASS 47067/47067 + 1369/1369, cleared on re-rescore). Audits record this line and the families table next to held-out: the board must rise **with** it.
-Reviews 1225–2757 (index; no row 1618): 1360 ACCEPT, 61 WITH-DEBT, 111 QUALITY-RISK (2750–2757: 8A/0D/0Q, 0 Must-fix queued).
+every audit). Rank 5 by pts (9,011 vs lockwo 8,549; their RNG 84.3 % vs our 51.7 %: our loss is early cliffs in long sessions). 22/44 held (±0), pts **9,011** (±0), RNG **51.7 %** (±0), rngSteps 93.6 %, screens **80.0 %** (±0) at judge 2026-10-13 01:33Z — fresh judge signal, unchanged; through D-3902..D-3911's window the corpus went 1329/1365 → 1338/1365 (marathons 351/372 → 359/372); the falsifier watch (§10.19) stays open.
+**Corpus — picker and proxy (2026-10-13 05:35Z, `95bb5cc8d`; 1365/1365 entries, 0 unrecorded):**
+**1338 / 1365** PASS, RNG 31659248/31778520 (**99.62 %**), screens 552285/556749 (99.2 %); `full: true`. Marathons 359/372. Worst families: `scen-sweep` 136/143 (RNG 98.2 %), `scen-trek` 52/53 (99.4 %), `scen-worldtour` 98/103 (100.0 % RNG); `scen-tour` 28/29; rest 100 %. 0 PASS→FAIL (rescore confirms the verify-written rows exactly: same failing-owner multiset as the committed board). Audits record this line and the families table next to held-out: the board must rise **with** it.
+Reviews 1225–2764 (index; no row 1618): 1367 ACCEPT, 61 WITH-DEBT, 111 QUALITY-RISK (2758–2764: 7A/0D/0Q, 0 Must-fix queued).
 Live debts: unqueued review debt only — `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows.
 Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈140 s for 1113), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 
@@ -141,7 +141,7 @@ lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
 **Next:** row-2 `uhitm.c` do_attack (Rogue-578132 s984; C bashing+bullwhip msgs vs JS miss/hits; history D-2036); head UNPORTABLE-terminal, override stands.
-**This iter:** row-2 look_here → writer display_minventory PICK_NONE sort+hero (Ranger-585420 s308 → PASS, D-3911; head UNPORTABLE-terminal, override per precedent).
+**This iter:** audit 2758–2764 (review D-3902..D-3911: 7A/0D/0Q, 0 Must-fix) + full rescore 1338/1365 (0 flips).
 
 ## Parked (diagnose only — do not implement)
 
