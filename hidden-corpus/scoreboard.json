@@ -1,7 +1,7 @@
 {
- "commit": "45bdd980f",
- "at": "2026-10-13T17:10:48.033Z",
- "full": true,
+ "commit": "4b12e08cd",
+ "at": "2026-10-13T17:44:26.665Z",
+ "full": false,
  "fullCommit": "45bdd980f",
  "fullAt": "2026-10-13T17:10:48.033Z",
  "entries": 2296,
@@ -23827,8 +23827,19 @@
   "scen-sweep-Samurai-49956004": {
    "src": "corpus",
    "passed": false,
-   "loc": null,
-   "error": "worker: "
+   "rngM": 21216,
+   "rngT": 53062,
+   "scrM": 530,
+   "scrT": 1537,
+   "kind": "screen",
+   "step": 521,
+   "steps": 1537,
+   "owner": "mhitm_ad_elec",
+   "loc": "uhitm.c:2712",
+   "jsOwner": null,
+   "cTopline": "The gecko touches you! You get zapped! The zap doesn't shock you!--More--",
+   "jsTopline": "The gecko touches you! You get zapped! The sasquatch misses!--More--",
+   "error": null
   },
   "scen-sweep-Samurai-49956022": {
    "src": "corpus",
