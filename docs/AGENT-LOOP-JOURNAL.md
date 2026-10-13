@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — D-3909 `pickup.c` tipcontainer JS-only trailing newsym burned a display-RNG draw under Hallu, shifting every later hallu re-roll (Archeologist-585417 s451 → PASS)
+
+**C locus:** `pickup.c` tipcontainer `:3688–3841` (transfer arm `:3780–3805` moves no floor glyph and paints nothing; spill repaints via dropy→dropz per item, highdrop via hitfloor) + `display.h:187` random_object / `:963–967` obj_to_glyph Hallu→random_obj_to_glyph (`newsym_rn2` = `rn2_on_display_rng`, the unscored DISP stream) + `display.c:1558–1572` see_objects (newsym each `vobj_at` pile top).
+**JS:** `js/pickup.js` (tipcontainer tail −2/+7 comment, doc −3/+4); `docs/c-js-map/turns.md` (#tip row note); `scripts/tipcontainer-transfer-no-newsym.test.mjs` (new, 1 test).
+**Change:** deleted the trailing `newsym(ox, oy)` + its doc claim (exact C behavior: no paint here); updated the turns.md #tip row note; added focused test `scripts/tipcontainer-transfer-no-newsym.test.mjs` (prefix-451 pins C's `)`/6 at row 19 col 19; FAIL→PASS).
+**Verify:** focused test pre-fix FAIL (`=`), post-fix PASS (`)`/6, 1.7 s). `node scripts/verify.mjs --fn tipcontainer` → PASS syntax (1 file: js/pickup.js) · PASS rule2 · PASS hidden `verify tipcontainer: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-sweep-Archeologist-585417: PASS — 451→FULL PASS, all 502 shifted screens reconverged) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: PASS. Movement: `verify tipcontainer: 1 PASS, 0 moved, 0 no-movement`.
+**Named:** none (deletion only; tipcontainer stays whole vs C `:3688–3841`).
+**Next:** row-2 slot frees to the next generated cliff (board: Archeologist-585417 PASS; head nhl_gamestate stays UNPORTABLE-terminal per D-3905 — never a port row). Do not re-add a trailing newsym to tipcontainer (any pass, any gate — C paints nothing here; a Hallu-gated repaint would still be un-C).
 ## 2026-10-13 — D-3908 doset_simple `:8733` restored prevGive instead of C's unconditional TRUE: idlecheckpoint-poisoned give_opt_msg muted later full-doset toggle messages (Tourist-585611 s102 → PASS)
 
 **C locus:** `options.c` doset_simple `:8707–8735` (`:8722` FALSE around the pick loop, `:8733` unconditional TRUE restore) + optfn_boolean `:5438–5439` (`if (give_opt_msg)` toggle pline) + `:5314–5320` (`#ifndef IDLECHECKPOINT` arm: notice, force off, `give_opt_msg=FALSE`) + doset `:8773–8777` (menu_requested → doset_simple) + `cmd.c:1779–1784` (`O`→doset_simple, `#optionsfull`→doset, `m`-swapped). Full `doset()` never writes give_opt_msg (only `:5318`/`:8722`/`:8733` do) — `:8733` is the sole TRUE path.

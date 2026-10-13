@@ -62,7 +62,7 @@
 {"fn":"tip_ok","c":"3481-3497","status":"ported","js":["js/pickup.js:tip_ok"],"at":"2026-10-03@bbe63333a"}
 {"fn":"choose_tip_container_menu","c":"3505-3558","status":"ported","js":["js/pickup.js:choose_tip_container_menu"],"d":["D-1679"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dotip","c":"3562-3677","status":"ported","js":["js/pickup.js:dotip"],"d":["D-3135"],"at":"2026-09-29@f292ec32c"}
-{"fn":"tipcontainer","c":"3688-3841","status":"ported","js":["js/pickup.js:tipcontainer"],"d":["D-2612"],"at":"seed@a30a7de84"}
+{"fn":"tipcontainer","c":"3688-3841","status":"ported","js":["js/pickup.js:tipcontainer"],"d":["D-3909","D-2612"],"at":"2026-10-13@54920355c"}
 {"fn":"count_target_containers","c":"3849-3864","status":"by-design","d":["D-3135"],"at":"2026-09-29@f292ec32c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"tipcontainer_gettarget","c":"3871-3948","status":"ported","js":["js/pickup.js:tipcontainer_gettarget"],"d":["D-2082","D-2018"],"at":"2026-10-03@bbe63333a"}
 {"fn":"tipcontainer_checks","c":"3954-4055","status":"ported","js":["js/pickup.js:tipcontainer_checks"],"at":"2026-10-03@bbe63333a"}
