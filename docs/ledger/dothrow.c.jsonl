@@ -13,7 +13,7 @@
 {"fn":"hurtle_step","c":"773-972","status":"ported","js":["js/dothrow.js:hurtle_step"],"d":["D-3218","D-2188","D-1277","D-1165"],"at":"2026-10-01@cdbc41097"}
 {"fn":"will_hurtle","c":"977-989","status":"ported","js":["js/dothrow.js:will_hurtle"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mhurtle_step","c":"992-1068","status":"ported","js":["js/dothrow.js:mhurtle_step"],"d":["D-1176"],"at":"2026-10-03@bbe63333a"}
-{"fn":"hurtle","c":"1078-1126","status":"ported","js":["js/dothrow.js:hurtle"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hurtle","c":"1078-1126","status":"ported","js":["js/dothrow.js:hurtle"],"d":["D-3918"],"at":"2026-10-13@1651cae7f"}
 {"fn":"mhurtle","c":"1130-1178","status":"ported","js":["js/dothrow.js:mhurtle"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}
 {"fn":"check_shop_obj","c":"1181-1214","status":"ported","js":["js/shk.js:check_shop_obj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"harmless_missile","c":"1220-1248","status":"ported","js":["js/dothrow.js:harmless_missile"],"at":"2026-10-03@bbe63333a"}

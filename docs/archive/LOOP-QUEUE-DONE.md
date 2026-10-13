@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-13
 
-- [x] `objnam.c` wishymatch — blocks 1/1449 corpus sessions (first at step 377; RNG lost 34406, screens lost 262): C «The power of the Orb of Detection flows through your body! Y» vs JS «n - a glass orb named the Orb of Detection.». Probe: `node scripts/hidden-proxy.mjs verify wishymatch` (scen-worldtour-Archeologist-587315). @844401f85 **[history: archived D-2103 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3917
+- [x] `insight.c` background_enlightenment — blocks 1/1449 corpus sessions (first at step 365; RNG lost 26403, screens lost 630): C «The earth elemental knocks you backward with a powerful blow» vs JS «The earth elemental knocks you backward with a powerful blow». Probe: `node scripts/hidden-proxy.mjs verify background_enlightenment` (scen-worldtour-Wizard-587307). @6a87ce504 **[history: archived — read that D-entry once; the arm this divergence names is still open]**
+
+
+- [x] `objnam.c` wishymatch — blocks 1/1449 corpus sessions (first at step 377; RNG lost 34406, screens lost 262): C «The power of the Orb of Detection flows through your body! Y» vs JS «n - a glass orb named the Orb of Detection.». Probe: `node scripts/hidden-proxy.mjs verify wishymatch` (scen-worldtour-Archeologist-587315). @844401f85 **[history: archived D-2103 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3917 `1651cae7f`
 
 
 - [x] `monmove.c` dochug — blocks 1/1449 corpus sessions (first at step 1045; RNG lost 46620, screens lost 590): C draws `rn2(3)=0` in dochug, JS `rn2(330)=57` from select_newcham_random(makemon.js:1550). Probe: `node scripts/hidden-proxy.mjs verify dochug` (scen-sweep-Samurai-587214). @62b25e99c **[history: archived D-2430 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3916 `6a87ce504`
