@@ -1,5 +1,9 @@
 # Held-out coverage gaps — what to port next
 
+> **Historical (2026-09-18).** Tiers A/B are done and Tier C's lists are
+> stale (e.g. the `mcastu` spells now exist). Current picker and
+> completeness audit: `CURRENT.md` primary objective, Constitution §10.20.
+
 **Status 2026-09-18.** Tier A and Tier B are **done**: all 126 `dat/*.lua`
 level scripts have a `js/mklev.js` protofile loader (`rg -o "protofile ===
 '([A-Za-z0-9_-]+)'" js/mklev.js | sort -u` → 126; the 5 unmatched names —

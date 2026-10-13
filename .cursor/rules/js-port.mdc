@@ -49,5 +49,5 @@ alwaysApply: false
 
 ## Lua
 
-- Long-term: run upstream `dat/*.lua` via pure-JS Lua **5.4**-capable VM + `nhlua`-style bindings.
-- Do not make prebaked levels the production path.
+- As built (Constitution §7, 2026-10-13): hand-transcribed loaders for all 126 `dat/*.lua` scripts are the production path; each must be whole (every `des.*`, every random branch).
+- Pure data (quest text, tables) comes from checked-in extractors into `js/generated/`, never retyped per observed role or variant (§10.20).

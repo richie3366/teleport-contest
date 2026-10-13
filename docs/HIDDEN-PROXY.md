@@ -7,7 +7,10 @@ demoted to regression fortress 2026-09-18 (breadth phase, Constitution
 board, ranked by RNG lost; the breadth picker had run dry while 212/953
 sessions still failed); **marathon families + grow mode 2026-10-09**
 (§10.19, §5b below: the scenario corpus had saturated at 939/953, 100 %
-RNG, with no session past 344 steps). Companion to `PORT-GAP-HELDOUT.md` (what content is missing) and
+RNG, with no session past 344 steps); **calibrated proxy 2026-10-13**
+(§10.20, §5c below: fresh cohorts scored on arrival measure
+generalization; the queue ranks by screens lost × sessions and lists
+unattributed sessions). Companion to `PORT-GAP-HELDOUT.md` (what content is missing) and
 `LEDGER.md` / `ledger.mjs` (which functions are ported, and which are thin).
 This file is about **evidence**: where a hidden session's divergence
 comes from, how to find it locally, and how to prove a port moved it —
@@ -73,8 +76,9 @@ cell plus the mineralize-eligible diff (D-1849).
 | **reach** (breadth phase) | same call: `hidden-proxy verify <cfn>` re-runs every baseline-PASS session whose recorded C RNG log tags `@ <cfn>(` (spread ≤ 80; `--reach-all`; `--no-reach`), or a fixed 24-session smoke spread when none does. Any PASS→FAIL is `REACH-REGRESSION` (exit 1) | shipping a whole-function port on the public 44 alone and discovering the corpus break at the next audit |
 | handoff | `node scripts/finish-iteration.mjs --commit` | index row, journal crumb, CURRENT recent block and ranges, NOTES landmark, review stamp, hash backfill, archive, caps, commit message, push — all from the one hand-written D-log entry |
 | audit (mandatory) | `node scripts/hidden-proxy.mjs record` then `score` with no `--ids`/`--owner`, committed — writes `full: true`, `fullAt`, `entries`, `unrecorded`; the supervisor redoes it when an audit skips it (2026-09-28) | a scoreboard only ever rewritten row by row by port-time `verify`, so REACH baselines drifted; the committed board had shrunk to 12 private rows unnoticed |
-| **pick** (cliff phase) | `node scripts/hidden-proxy.mjs queue --write` (run by `check-hot-docs --fix` / `finish-iteration`): the top 12 owners of the **committed** board by RNG lost, JS throws first, written to the LOOP-QUEUE `Open — cliffs` block. Tags are context: `history: archived D-…` = read that D-entry once, the arm this divergence names is still open; `parked: SYMPTOM…` = the deliverable is the **writer** the divergence names or the owner's `[measure]` row; identical-topline screen rows print the differing screen row | hand refills; "do not re-enqueue" vetoes that locked out every top owner on 2026-10-06; map-walk order; 109 stale parks from map/debt copies (2026-09-09..15) |
-| grow (§10.19) | supervisor **grow** iteration when the cliffs block holds < 6 owners: `node scripts/scenario-gen.mjs --family marathon --n 80 --seed N` (+ the long family with the lowest RNG %), `record`, full `score`, commit; `hidden-proxy families` picks the mix | a saturated proxy that picked display singletons; growth left to audits that skipped it for 8 days (2026-10-01..09) |
+| **pick** (cliff phase) | `node scripts/hidden-proxy.mjs queue --write` (run by `check-hot-docs --fix` / `finish-iteration`): the top 12 owners of the **committed** board by **screens lost summed over their sessions** (since §10.20; `--by rng|sessions` for the old orders), JS throws first, unattributed sessions one per row (deliverable: measure, name the writer), written to the LOOP-QUEUE `Open — cliffs` block. Tags are context: `history: archived D-…` = read that D-entry once, the arm this divergence names is still open; `parked: SYMPTOM…` = the deliverable is the **writer** the divergence names or the owner's `[measure]` row; identical-topline screen rows print the differing screen row | hand refills; "do not re-enqueue" vetoes that locked out every top owner on 2026-10-06; map-walk order; 109 stale parks from map/debt copies (2026-09-09..15) |
+| **fresh** (§10.20) | `node scripts/fresh-cohort.mjs --seed <unused> --n 160 [--fold]`: authors on unseen seeds, scores with the frozen runner before any port, writes `.cache/hidden/fresh/<seed>.json` | reading the worked board's PASS rate as generalization (it rises by construction) |
+| grow (§10.19–20) | supervisor **grow** iteration on the periodic slot (n % 10 == 5) or when the cliffs block holds < 6 owners; starts with **fresh**, then `node scripts/scenario-gen.mjs --family marathon --n 80 --seed N` (+ the long family with the lowest RNG %), `record`, full `score`, commit; `hidden-proxy families` picks the mix | a saturated proxy that picked display singletons; growth left to audits that skipped it for 8 days (2026-10-01..09) |
 
 `verify <fn>` semantics: every session blocked on `<fn>` must **PASS** or
 **move to a later owner** (step strictly later, or a different owner at
@@ -200,6 +204,42 @@ tokens. Next families worth adding: shop / temple / vault interactions
 (`^V` to `minetn`, buy/sell/steal), Sokoban pushes, riding, engulfment
 and digging, save/restore prefixes on scenario games
 (`scripts/save-oracle.mjs`), and long searches so hunger and timeouts fire.
+
+### 5c. Fresh cohorts and calibration (2026-10-13, Constitution §10.20)
+
+**The measurement.** The worked corpus cannot estimate the judge: every
+session in it is fixed until it passes. `fresh-cohort.mjs` authors a
+cohort on seeds no recipe uses, scores it with the frozen runner, and only
+then (with `--fold`) adds it to the corpus. First readings, against
+held-out 22/44 (50 %), RNG 51.8 %, screens 80.0 %:
+
+| cohort | PASS | RNG | screens | worst |
+|---|--:|--:|--:|---|
+| 610000 marathon ×160 (before D-3930) | 126 (79 %) | 96.0 % | 93.2 % | sweep 23/40, worldtour 30/40 |
+| 620000 mixed ×160 (after D-3930) | 141 (88 %) | 97.9 % | 96.8 % | sweep 14/24, worldtour 20/24 |
+
+`chain` and `trek` pass ~100 % on arrival: they no longer find bugs.
+Ranked across both cohorts, the owners that recurred in independent seeds
+were `level_tele` arrival text (4), the `mcastu` cluster (3–4),
+`rndcurse` (3), quest-artifact `gotit` text (2, closed by D-3930),
+`hellfill` `get_location` (2), `getpos` gold-detect (2).
+
+**Calibration rule.** While fresh PASS exceeds held-out PASS by more than
+20 points, every second grow adds or reshapes one family. Probe a shape
+with ~20 C-recorded sessions replayed in JS before authoring at scale:
+≤ 60 % on arrival names a held-out shape; ≥ 85 % does not (record it
+here). Candidates — public shapes the generator does not copy:
+
+| candidate | public shape | what it would exercise | status |
+|---|---|---|---|
+| `questtour` | seed0361 / 0367 / 0373 quest tours | all 13 roles: `^V` home, `#chat` leader at low XL (badlevel) then after `#levelchange 14` (assignquest), locate/goal, nemesis fight with a wished kit, artifact pickup, return (offeredit, leader_last) | proposed |
+| `zapfest` | held-out has 2,959 animation frames vs public 1,483 | wand/spell/breath duels, thrown stacks, boomerangs, explosions, ranged monsters | proposed |
+| `options` | seed2600 binds, seed0200 `msg_window:reversed`, 7 public rc without DECgraphics | non-DEC symsets (14 in `dat/symbols`), `number_pad`, BIND, MSGTYPE / MENUCOLOR / status hilites | proposed |
+| `shop` | seed0116 wizard-wear-shop | `^V minetn`, buy / sell / price-id / #chat / steal / Kops / pay | proposed |
+| `human` | seed0002/0004/0006/0007/0009/0012/0014 | minimal rc, interactive chargen, legacy + tutorial prompt, wall-clock datetimes, 300–700 normal steps | start regime **measured fine** (68/68 probe); long tail ≈ `trek` (100 %) — low prior |
+
+Since 2026-10-13 `scenario-gen` also draws half its datetimes from any
+second of 2000–2026 (it had five fixed values).
 
 ## 6. Why not a state-dump patch or a fntrace build (yet)
 

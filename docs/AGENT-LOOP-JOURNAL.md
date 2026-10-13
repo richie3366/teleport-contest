@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — human-directed architecture review: Constitution §10.20 (calibrated proxy, complete data)
+
+**Finding:** §10.19 falsifier fired — held-out 22/44, RNG 51.7–51.8 % from 2026-10-11 through ~45 cliff iterations (D-3885…D-3929) while the board rose 1326 → 1408. Fresh cohorts scored on arrival: 610000 marathon ×160 → 79 % PASS, RNG 96.0 %; 620000 mixed ×160 → 88 %, RNG 97.9 % vs held-out 50 %. Quest text was 176/368 (D-3930 closed it). Start regime probe 68/68 (falsified as a cause). 13 unattributed failing sessions were never queued.
+**Change:** `fresh-cohort.mjs` (new); `hidden-proxy queue` ranks by screens lost summed over sessions and lists unattributed sessions; supervisor grow slot every n % 10 == 5 (`LOOP_GROW_EVERY`), seed base `iter*10000+1e6`; grow prompt starts with the fresh cohort and carries the calibration rule; `scenario-gen` datetimes vary; `c-literal-coverage.py` (116/4099 C message literals absent). Docs: Constitution §7/§8/§9 corrected + §10.20, CURRENT objective + completeness list, HIDDEN-PROXY §5c, Cursor rules, playbook, prompts.
+**Corpus:** +320 sessions → 1680/1769 @aa6355704 full, 0 PASS→FAIL.
+**Next:** port slot pops the regenerated cliffs head (get_location / hellfill); first grow slot measures fresh again and, while fresh − held-out > 20 pts, probes a `questtour` or `zapfest` family (HIDDEN-PROXY §5c).
 ## 2026-10-13 — D-3930 data completeness: every quest.lua role message extracted (192 of 368 entries were missing; 5 msgids absent for all 13 roles)
 
 **C locus:** questpgr.c com_pager_core `:468–621` reads `questtext[filecode][msgid]` from `dat/quest.lua`; every role table carries the same 28 msgids (+ `goal_alt` on five roles).

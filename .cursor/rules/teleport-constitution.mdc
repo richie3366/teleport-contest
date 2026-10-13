@@ -52,56 +52,45 @@ by default. Use `DIVERGENCE-INDEX.md` + one entry.
   the D-entry and declare it `partial` in the `Ledger:` bullet.
 - Do **not** edit frozen contracts for scoring: `js/isaac64.js`, `js/terminal.js`, `js/storage.js` (judge overlays them).
 
-## Cliff phase with marathons (Constitution §10.18 + §10.19, 2026-10-09)
+## Cliffs on a calibrated proxy (Constitution §10.18–20, 2026-10-13)
 
 Public 44/44 **and** the corpus PASS set are the **regression fortress**
-(REACH). Held-out (leaderboard) is the objective: **18/44, RNG 41.7 %,
-rngSteps 92.4 %, screens 75.4 %** on 2026-10-09, flat ~80 iterations while
-the corpus rose to 939/953 at 100 % RNG: every scenario stopped at 344
-steps, while half the public RNG sits in four 714–1953-step sessions. So
-the corpus now carries **marathons** (`scenario-gen --family marathon`:
-`worldtour`, `sweep`, `chain`, `trek`; 600–2000 steps; first cohort 50/160
-PASS, RNG 74.7 %). `hidden-proxy families` is the per-family table.
-**Growth is a supervisor mode:** a port slot with no Must-fix and < 6
-cliff rows is a **grow** iteration (`agent-port-loop.grow.prompt.md`:
-≥ 80 sessions, half marathon, record, full rescore, commit). With both
-blocks empty a port slot journals and stops — never "missing-arm" or
-idiom-sweep rows; a `js/` commit that moves no corpus session and is not
-Must-fix/cliffs head is QUALITY-RISK. **The corpus picks work**: `LOOP-QUEUE.md` Must-fix
-(strict: throw / hang / PASS→FAIL / review C-wrong) first, then the
-**generated** Open — cliffs block (`hidden-proxy.mjs queue --write` from
-the committed scoreboard, owners ranked by **RNG lost** after the first
-divergence; never pasted or padded). One iteration = **one cliff**: the
-owner — or the **writer** the first divergence names (`hidden-proxy show
-<probe>`: `cEntry`/`jsEntry`, `cMsgOwners`, differing row; a `parked:
-SYMPTOM` tag means writer, never a re-port of the symptom owner) — ported
-as a whole C function (every arm, every callee live or named, every C
-caller wired, one `Ledger:` entry), and `verify.mjs --fn` showing
-**movement** on the row's probe sessions (PASS or strictly later step)
-**and** REACH-OK. A row's `history: archived D-…` tag is context (read
-that one D-entry, do not re-port its arm), not a veto: the board listing
-blocked sessions is the measurement. NO MOVEMENT after one more fix →
-measure C (`geom-probe`, temp C dump) in the same iteration; the
-measurement names the writer or parks the owner with its `[measure]` row
-(`[measure]` rows are live, one per owner, no `js/`). Coverage (ledger
-gap) rows pop only when the cliffs block is empty or as a same-file
-companion; an `audited` partial leaves the block once. A ledger omit/note
-mismatch is one `ledger.mjs set` inside a real iteration — **never a
-queue row, never an iteration**; the queue has no floor. No-op iterations
-(ledger text only, re-audit, cite refresh, campaign step that moves no
-session) are QUALITY-RISK in review. Audits: full scoreboard rescore
-(`hidden-proxy record` + unfiltered `score`, committed), `leaderboard.mjs`
-and `hidden-proxy families` next to the board line (growth is the grow
-mode's job, not the audit's).
-Stale row (brief shows the body already complete) = one `ledger.mjs set
-<fn> ported --note "stale: …"`, then back to the writer question, same
-iteration. Fix the port, never the session. No `c-js-map`/`debt.md`/TOP30
-lines copied by hand (§10.15). Do not shop the fork dashboard for a peel.
+(REACH). Held-out (leaderboard, ranked by pts = matched screens) is the
+objective: **22/44, RNG 51.8 %, screens 80.0 %** on 2026-10-13, flat ~45
+iterations while the worked board rose to 1680/1769. The worked board
+rises by construction; the local generalization estimate is a **fresh
+cohort** scored on arrival (`scripts/fresh-cohort.mjs`: 79–88 % vs the
+judge's 50 % — the generator's calibration error). Three lines in
+`CURRENT.md`, read together: held-out, fresh, board.
+**The corpus picks work**: `LOOP-QUEUE.md` Must-fix (strict: throw / hang /
+PASS→FAIL / review C-wrong) first, then the **generated** Open — cliffs
+block (`hidden-proxy.mjs queue --write` from the committed scoreboard;
+owners ranked by **screens lost summed over their sessions**, unattributed
+sessions one per row — deliverable: measure, name the writer, port it;
+never pasted or padded). One iteration = **one cliff** (or every row one
+cause heals): the owner — or the **writer** the first divergence names
+(`hidden-proxy show <probe>`; a `parked: SYMPTOM` tag means writer) —
+ported as a whole C function (every arm, every callee live or named,
+every C caller wired, one `Ledger:` entry), and `verify.mjs --fn` showing
+**movement** (PASS or strictly later step) **and** REACH-OK. NO MOVEMENT
+after one more fix → measure C (`geom-probe`, temp C dump); the
+measurement names the writer or parks the owner with its `[measure]` row.
+**No data on demand:** a table transcribed from upstream data (`dat/*.lua`
+text/tables, `dat/*.txt`, symsets, role/race tables, level variants) is
+extracted by a checked-in generator or completed whole in one pass; a fix
+adding one role's/variant's entry ships the entire table (D-3930: quest
+text was 176/368). **Growth is a supervisor mode:** slot n % 10 == 5, or
+a port slot with < 6 cliff rows (`agent-port-loop.grow.prompt.md`:
+fresh cohort first, ≥ 400 sessions, calibration family while fresh −
+held-out > 20 pts). A ledger omit/note mismatch is one `ledger.mjs set`
+inside a real iteration — never a row. No-op iterations (ledger text,
+re-audit, campaign step moving no session) are QUALITY-RISK. Audits:
+review + full rescore + leaderboard + fresh line. Fix the port, never the
+session. No `c-js-map`/`debt.md`/TOP30 lines copied by hand (§10.15).
 This rule's constitution/playbook/runbook/prompt edits were one-shot
-process takes (2026-09-06, 2026-09-16, 2026-09-18, 2026-09-27 ledger,
-2026-09-28 clusters + full audit rescore, 2026-10-06 cliff phase,
-2026-10-09 marathons + grow mode); ordinary loop iters follow that text
-and must not rewrite it.
+process takes (2026-09-06 … 2026-10-09 marathons, 2026-10-13 calibrated
+proxy + complete data); ordinary loop iters follow that text and must
+not rewrite it.
 
 ## When fixing divergence
 

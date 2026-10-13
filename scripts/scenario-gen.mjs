@@ -84,6 +84,18 @@ const ROLES = [
     ['merlin', 'Wizard', ['human', 'elf', 'gnome', 'orc'], ['neutral', 'chaotic']],
 ];
 const DATETIMES = ['20000110090000', '20001013090000', '20000121000000', '20000206000000', '20000704150000'];
+/* Half the games keep the five calendar cases above (plain, Friday 13th,
+   full moon at midnight, new moon, holiday); the other half get any day of
+   2000–2026 at any second, like the public sessions recorded at wall-clock
+   time (seed0002 20260414095828, seed0007 20260503025436): moon phase,
+   Friday 13th and night()/midnight() then vary the way the judge's do. */
+function pickDatetime(rng) {
+    if (chance(rng, 0.5)) return pick(rng, DATETIMES);
+    const day = new Date(Date.UTC(2000, 0, 1) + Math.floor(rng() * 9862) * 86400000);
+    const p2 = (v) => String(v).padStart(2, '0');
+    const hh = Math.floor(rng() * 24), mm = Math.floor(rng() * 60), ss = Math.floor(rng() * 60);
+    return `${day.getUTCFullYear()}${p2(day.getUTCMonth() + 1)}${p2(day.getUTCDate())}${p2(hh)}${p2(mm)}${p2(ss)}`;
+}
 
 function makeRc(rng, role, { debug, pet }) {
     const [name, r, races, aligns] = role;
@@ -1369,7 +1381,7 @@ async function authorWave3({ seed, family, inst, trace }) {
                 : family === 'chain' ? pick(rng, ['normal', 'normal', 'debug']) : 'debug';
             const pet = chance(rng, 0.3) ? pick(rng, ['none', 'cat', 'dog', 'horse']) : null;
             const nethackrc = makeRc2(rng, role, { mode, pet });
-            const seg = { seed: seed + 100000 * k, datetime: pick(rng, DATETIMES), timezone: PIN_TZ, nethackrc, moves: '' };
+            const seg = { seed: seed + 100000 * k, datetime: pickDatetime(rng), timezone: PIN_TZ, nethackrc, moves: '' };
             const share = family === 'chain'
                 ? Math.max(60, Math.min(budget - used, Math.round((budget - used) / (games - k) * (0.6 + 0.8 * rng()))))
                 : budget;
@@ -1408,7 +1420,7 @@ async function authorWave2({ seed, family, inst, trace }) {
     if (fam === 'pet' && pet === 'none') pet = null;
     if (fam === 'ride' && chance(rng, 0.5)) pet = 'horse';
     const nethackrc = makeRc2(rng, role, { mode, pet, tutorial: fam === 'tutorial' });
-    const datetime = pick(rng, DATETIMES);
+    const datetime = pickDatetime(rng);
     const seg = { seed, datetime, timezone: PIN_TZ, nethackrc, moves: '' };
     const split = fam !== 'options' && chance(rng, 0.25);
     const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'nh-sg-'));
@@ -1436,7 +1448,7 @@ async function authorWave2({ seed, family, inst, trace }) {
     segs.push({ ...seg, moves: g.moves });
     let steps2 = 0;
     if (saved) {
-        const seg2 = { seed: seed + 500000, datetime: pick(rng, DATETIMES), timezone: PIN_TZ, nethackrc, moves: '' };
+        const seg2 = { seed: seed + 500000, datetime: pickDatetime(rng), timezone: PIN_TZ, nethackrc, moves: '' };
         const g2 = mk(seg2, { maxKeys: 110, wipeSave: false });
         try {
             await g2.start();
@@ -1462,7 +1474,7 @@ async function author({ seed, family, inst, trace }) {
     const debug = fam !== 'normal' && fam !== 'kit' ? true : chance(rng, 0.2);
     const role = pick(rng, ROLES);
     const nethackrc = makeRc(rng, role, { debug, pet: chance(rng, 0.55) ? 'none' : 'default' });
-    const datetime = pick(rng, DATETIMES);
+    const datetime = pickDatetime(rng);
     const seg = { seed, datetime, timezone: PIN_TZ, nethackrc, moves: '' };
     const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'nh-sg-'));
     const g = new Game({ seg, binary: inst.binary, installDir: inst.installDir, homeDir: path.join(tmp, 'home'), rngLogPath: path.join(tmp, 'rng.log'), tz: PIN_TZ, trace });

@@ -43,12 +43,13 @@ journal. `DIVERGENCE-INDEX.md` + **one** `## D-NNNN` entry (the row's
 
 ## 2. Objective priority (non-negotiable)
 
-1. **`CURRENT.md` → Primary objective** (chooses work): the **cliff
-   phase** (§10.18) on a corpus with **marathons** (§10.19, 600–2000-step
-   `scen-worldtour`/`sweep`/`chain`/`trek`). **The corpus picks work**:
-   Must-fix (strict), then the **Open — cliffs** head — owners ranked by
-   **RNG lost**, generated from the committed board. A short block makes
-   the next slot a supervisor **grow** iteration; nobody fills it by hand.
+1. **`CURRENT.md` → Primary objective** (chooses work): cliffs on a
+   **calibrated proxy** (§10.18–20). **The corpus picks work**: Must-fix
+   (strict), then the **Open — cliffs** head — owners ranked by **screens
+   lost × sessions** (the judge's unit), unattributed sessions one per row
+   (measure → writer → port). Growth is a supervisor slot; nobody fills
+   the block by hand. **No data on demand:** a fix adding one role's or
+   variant's entry ships the whole table (extractor preferred).
 2. **A row's tag is context, not a veto.** `history: archived D-…` = read
    that one D-entry, then port the arm *this* divergence names. `parked:
    SYMPTOM / MISATTRIBUTED` = port the **writer** the divergence names
@@ -77,7 +78,7 @@ Public 44/44 **and** the corpus PASS set are a **regression fortress**
 
 The held-out 44 are scripted scenarios (wishes, `^G`, `^V` tours,
 polyself, chained deaths, long runs): one early cliff forfeits every
-later screen — hence the ranking by RNG lost. Tagged restore: save-oracle probe.
+later screen — hence screens lost. Tagged restore: save-oracle probe.
 
 ### 2b. Iteration density (token vs quality)
 

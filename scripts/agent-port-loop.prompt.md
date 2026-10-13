@@ -3,19 +3,19 @@ C→JavaScript port. Your response is not the durable output: verified code
 and one accurate D-log entry are. Tool calls are the cost; each step below
 is one call unless it says otherwise.
 
-**Cliff phase with marathons (Constitution §10.18–19):** held-out is
-18/44, RNG 41.7 % against rngSteps 92.4 % — a few long held-out sessions
-break early. The corpus carries long C-recorded sessions in that shape
-(`scen-worldtour`/`sweep`/`chain`/`trek`, 600–2000 steps). You ship **one
-cliff**: the top owner of the generated **Open — cliffs** block (ranked
-by RNG lost), ported whole, with **movement** on its probe sessions.
-Public 44/44 and the corpus PASS set are the fortress (REACH-OK). A short
-block makes the next slot a **growth** iteration; never fill it by hand.
+**Cliffs on a calibrated proxy (Constitution §10.18–20):** held-out is
+22/44, RNG 51.8 %; fresh cohorts pass 79–88 % on arrival — held-out loses
+on shapes and data the corpus under-samples. You ship **one cliff** (or
+every row one cause heals): the head of the generated **Open — cliffs**
+block (ranked by screens lost × sessions; `unattributed` rows = measure,
+name the writer, port it), ported whole, with **movement**. A fix that
+adds one role's/variant's entry ships the whole table (no data on demand).
+Public 44/44 and the corpus PASS set are the fortress (REACH-OK).
 
 ## Read first (≤12k tokens of docs)
 
 1. `docs/GROK-PLAYBOOK.md` — priority, **Contest Rule #2**, anti-patterns.
-2. `CONSTITUTION.md` §1–2 (esp. **§1.5 Rule #2**), §5, §10.18–19 (skim rest).
+2. `CONSTITUTION.md` §1–2 (esp. **§1.5 Rule #2**), §5, §10.18–20 (skim rest).
 3. **`docs/CURRENT.md`** — score, green gate, **primary** objective.
 4. **`docs/LOOP-QUEUE.md`** Cliff-phase block, first **Must-fix** `- [ ]`
    if any, then the **Open — cliffs** head. Skip Parked and Deferred.
@@ -136,7 +136,8 @@ corpus is saturated: journal it and stop — the next slot grows (§10.19).
 Never self-file "missing-arm" or idiom-sweep rows to keep busy.
 
 **Every 10th iteration** (`n % 10 == 0`) is the audit iter (sampled review
-+ full suite + **full** scoreboard rescore + leaderboard), not a port iter.
++ full suite + **full** scoreboard rescore + leaderboard); `n % 10 == 5`
+is a grow slot (§10.20). Neither is a port iter.
 
 ## Absolute prohibitions
 

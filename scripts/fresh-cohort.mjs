@@ -50,9 +50,9 @@ const tmp = mkdtempSync(path.join(os.tmpdir(), 'nh-fresh-'));
 const recipeDir = path.join(tmp, 'recipes');
 mkdirSync(recipeDir, { recursive: true });
 
-/* 1. author: one scenario-gen run per family part, disjoint seed ranges */
+/* 1. author: one scenario-gen run per family part, seeds base+k*1000 (parts < 1000) */
 mix.forEach(([family, count], k) => {
-    const base = seed + k * 10000;
+    const base = seed + k * 1000;
     const r = spawnSync(process.execPath, [path.join(ROOT, 'scripts', 'scenario-gen.mjs'),
         '--family', family, '--n', String(count), '--seed', String(base), '--jobs', String(jobs), '--out', recipeDir],
     { cwd: ROOT, encoding: 'utf8' });

@@ -6,28 +6,28 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
-- **Marathons (architect, 2026-10-09 — §10.19):** held-out (18/44, RNG
-  41.7 %, rngSteps 92.4 %) loses RNG to early cliffs in *long* sessions the
-  344-step corpus never recorded; the marathon cohort finds them (50/160,
-  RNG 74.7 %). Falsifier: `hidden-proxy families` long-family RNG % rising
-  ~20 iters while `leaderboard.mjs` RNG % stays ~41.7 % ⇒ fix the generator
-  (diff against `seed0360`/`seed4500`/`seed0030` key streams). Falsified:
-  2026-10-06 "corpus already records the cliffs" (board +40, held-out flat).
-  The bullets below are live writer leads for parked cliff owners.
+- **Calibration (human, 2026-10-13 — §10.20):** held-out (22/44, RNG
+  51.8 %) loses on shapes the generator under-produces; fresh cohorts pass
+  79–88 % on arrival. Falsify: a new family whose fresh cohort passes
+  ≤ 60 % on arrival names a held-out shape; ≥ 85 % means it is not one.
+  Falsified 2026-10-13 (don't re-check): start regime (legacy, tutorial
+  prompt, default symset, interactive chargen — 68/68 C-recorded probe;
+  the only misses were the recorder's build-date banner on the version
+  screen, an env artifact).
+- **Recorder flake:** Priest-582706 re-recorded 2026-10-13 aborts at s1166 and reads PASS even on pre-D-3930 JS — not a port fix.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms. Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 
 - **Eval-order TDZ (D-2349):** no static polyself edge at eval; late-bind setters.
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **distfleeck residuals (D-2420 MEASURED):** W5/W6 shipped (D-2714/D-2717); W1/W4 shipped, W2/W3 parked with `[measure]` rows (Phase 2). Falsified — do not re-check: scared re-port, MAIL arm, seed/step/coords logic.
-- **do_statusline2 residuals (D-2425 MEASURED):** all shipped incl. D-3891 Armor_on house-find_ac (Priest-582714 s1376 AC → PASS).
 - **Shipped writers — do not re-pop/re-check:** toss_up→chwepon (D-3640, HCOLORS 74/74); read_engr_at Knight-94259 (D-3671, tut-1.lua gate, paint audited); magic_map_background DARKROOMSYM-rogue (D-3682, stone-glyph/floor-paint split); gulpmu engulf vision_off ungate (D-3863, stale-'I' unmap); mbodypart/m_move/mfndpos/searches (D-3906, soko-prize linkage live).
-- **nhl_gamestate (D-3885 UNPORTABLE, park supersedes D-3884):** steed-impossible needs malloc reuse (restore.c:1193 sole site; gmst-restored u.usteed vs fresh Sfi mon); pristine recorder flaky at s1166 (glibc heap abort vs byte-identical 1238 — ASLR). JS flush gates all open (hook-probed); vpline never fired. Never a port row; session can never PASS faithfully. D-3905 re-derived fresh, park stands (painter live display.js:9620; zero churn in steed/do.js since D-3895; falsifiers unfired).
+- **nhl_gamestate (D-3885 UNPORTABLE):** Priest-582706 s1166 steed-impossible needs C malloc reuse; recorder flaky there (ASLR). Never a port row (D-3895/D-3905).
 
 ## Don't re-check (≤15)
 
 - D-1790…D-3930 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
-- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3930) reached no session — no pole-lava row.
+- Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).

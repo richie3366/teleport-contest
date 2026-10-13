@@ -171,6 +171,16 @@ until the VM + bindings exist; do not fake entire `dungeon.lua`
 graphs with ad-hoc JS that will be thrown away *unless* that JS is
 clearly marked temporary and scheduled for deletion.
 
+**As built (human decision 2026-10-13).** No VM was built. All 126
+`dat/*.lua` level scripts have hand-transcribed loaders in
+`js/mklev.js`, and `dungeon.lua` / `quest.lua` data come through
+extractors into `js/generated/`. A VM restart is out of scope for the
+contest window; the transcribed loaders are the production path. The
+binding condition is completeness (§10.20): a script is transcribed whole
+(every `des.*` call, every random branch, every variant); pure data (text,
+tables) is extracted by a checked-in generator, never retyped per observed
+case.
+
 ---
 
 ## 8. Display and I/O
@@ -178,7 +188,10 @@ clearly marked temporary and scheduled for deletion.
 1. Drive the frozen `Terminal` / `GameDisplay`; judge reads
    `serialize()`.
 2. Implement NetHack’s **window_procs** semantics in JS — do not port
-   `win/tty` curses.
+   `win/tty` curses/termcap byte output. The tty window *logic* the judge
+   records (`topl.c` toplines and `--More--`, `wintty.c` menu/text window
+   geometry and dismissal) is ported faithfully; it lives in
+   `js/display.js` / `js/pager.js`.
 3. Cursor position is part of screen match — keep it honest.
 4. Persist save/bones/record only via frozen `storage.js` VFS.
 
@@ -187,8 +200,8 @@ clearly marked temporary and scheduled for deletion.
 ## 9. Datetime and options
 
 1. Honor `input.datetime` (`YYYYMMDDHHMMSS`) for moon phase, Friday
-   the 13th, hire dates, shopkeeper lines, etc. (skeleton stores it
-   but does not apply it yet — that is a real gap).
+   the 13th, night/midnight, hire dates, shopkeeper lines, etc.
+   (`js/calendar.js`; the scenario generator varies it since 2026-10-13).
 2. Honor `nethackrc` / OPTIONS for chargen and flags; no hardcoded
    Tourist-only success path once chargen is ported.
 
@@ -465,6 +478,70 @@ clearly marked temporary and scheduled for deletion.
       not the port. Held-out RNG % moving while passing count stays flat
       is progress, not a falsifier — positional RNG is what early
       cliffs cost.
+20. **Calibrated proxy and complete data (human decision 2026-10-13;
+    amends §10.18–19, whose whole-function, movement, REACH, Must-fix
+    and fortress rules stand).** The §10.19 falsifier fired. From
+    2026-10-11 to 2026-10-13 held-out stayed at **22/44, RNG 51.7–51.8 %,
+    screens 80.0 %** through ~45 cliff iterations (D-3885…D-3929) while
+    the board rose 1326 → 1408 and its RNG to 99.5 %. Three measurements
+    named the causes:
+    - **The corpus measures nothing once it is worked.** Every session in
+      it is fixed until it passes, so its PASS rate says how much of the
+      corpus was fixed, not how well the port generalizes. A cohort on
+      unseen seeds scored *on arrival* does: 2026-10-13, marathon ×160
+      → 79 % PASS, RNG 96.0 %; mixed ×160 → 88 %, RNG 97.9 % — against
+      held-out 50 %, RNG 51.8 %. The generator is far easier than the
+      judge's set; that gap is the calibration error.
+    - **Data was filled on demand.** `js/questpgr.js` held 176 of the 368
+      role entries of `dat/quest.lua` (`gotit` 4/13, `assignquest` 1/13,
+      five msgids absent for every role); five iterations had each added
+      one role's text when one corpus session reached it (D-3913…D-3928).
+      One extractor closed the whole table (D-3930) and moved 6 of 34
+      fresh failures.
+    - **The ranking ignored the judge's unit and dropped sessions.**
+      Points are matched screens, but the picker ranked by RNG lost on a
+      board of singletons, and unattributed first divergences never
+      reached the queue (`scen-sweep-Ranger-95308`, 955 screens, unworked
+      since 2026-10-09).
+
+    Until a human closes it in `CURRENT.md`:
+    - **The fresh cohort is the local generalization number.** Every grow
+      starts with `node scripts/fresh-cohort.mjs --seed <unused base>
+      --n 160 --fold`: it authors on new seeds, scores with the frozen
+      runner before any port, then folds the recipes in. Its line (PASS,
+      RNG, screens, worst families) goes into `CURRENT.md` next to the
+      held-out line and the board line; audits compare the three.
+    - **Growth is periodic and large.** Besides the < 6-rows trigger,
+      iteration *n* with *n* mod 10 = 5 is a grow slot when no Must-fix
+      is open (`LOOP_GROW_EVERY`). A grow adds ≥ 400 sessions (recording
+      costs ~0.5 s each; a full rescore of ~2000 sessions ~5 min), so
+      owners that block several independent seeds surface.
+    - **Rank by the judge's unit.** `hidden-proxy queue` ranks owners by
+      screens lost after the first divergence summed over their sessions
+      (frequency × impact), then sessions, then RNG lost. Unattributed
+      sessions enter the block one per row; the deliverable is the writer
+      named by a measurement at the printed step (§10.12), then its port.
+    - **No data on demand.** A table transcribed from upstream data
+      (`dat/*.lua` text and tables, `dat/*.txt`, role/race/deity/rank
+      tables, level variants, object and monster names) is generated by
+      a checked-in extractor or proven complete against its source in
+      one pass. A cliff whose fix is "add the entry for role/variant X"
+      ships the entire table, every key, in that iteration. The
+      completeness audit list lives in `CURRENT.md`.
+    - **One cause, many rows.** When one C function or one table heals
+      several cliff rows, the iteration ships them together: one D-entry,
+      `verify.mjs --fn` naming every owner it moves.
+    - **Calibrate the generator.** While the fresh PASS rate exceeds the
+      held-out PASS rate by more than 20 points, every second grow also
+      adds or reshapes one family (`scenario-gen.mjs`, a key policy that
+      reads only the screen) copying a named public shape the corpus
+      under-samples (`HIDDEN-PROXY.md` §5c lists the candidates). Probe a
+      shape hypothesis first with a small C-recorded batch replayed in
+      JS; a shape that passes on arrival is not where held-out loses.
+    - **Falsifier (human reads it):** ~30 iterations with the fresh PASS
+      rate rising and held-out flat → the generator still misses the
+      judge's shape; revisit the families, not the port. Held-out rising
+      with fresh → the proxy is calibrated enough; keep going.
 
 ---
 

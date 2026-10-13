@@ -516,6 +516,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `LOOP_QUEUE_MIN` | `1` | Regenerate the Open blocks (`check-hot-docs --fix`) when the live `- [ ]` count is below this. `8` until 2026-10-06: the floor was met with ~40 invented ledger-text Must-fix rows (Constitution §10.18) |
 | `LOOP_QUEUE_TARGET` | `12` | Refill up to about this many open rows |
 | `LOOP_GROWTH_MIN` | `6` | A port slot with no Must-fix and fewer generated cliff rows than this runs as a **grow** iteration (Constitution §10.19) |
+| `LOOP_GROW_EVERY` | `10` | Iteration n with n % this == this/2 runs as a **grow** iteration when no Must-fix is open (Constitution §10.20; `0` disables). Grow seed base: `iter*10000 + 1000000` |
 | `LOOP_PUSH` | `1` | Supervisor `git push origin HEAD` after gates |
 | `LOOP_FAIL_CLOSED` | `1` | `0` restores warn-and-continue (debug only) |
 | `LOOP_PREFLIGHT_ONLY` | `0` | Set `1` to test lock/model/green gates, then exit |
@@ -608,7 +609,7 @@ Halt reason is still `last-halt-reason.txt`.
 | Dirty tree at start | Loop refuses to launch, unless a continue latch is armed (`--continue-unfinished`, crash leftover, or dirty tree + `NEXT_AGENT_PROMPT.md`) |
 | QUALITY-RISK with no Must-fix | Review-debt overlay for the next iteration (any mode); continue |
 | Queue empty after port | Both generated blocks empty (`check-hot-docs --fix` runs `hidden-proxy queue --write` + `ledger.mjs rows --write`) — warn + next-iter overlay; never a hand refill |
-| Short cliffs block at a port slot | No Must-fix and fewer than `LOOP_GROWTH_MIN` (6) cliff rows → the slot runs as **grow** (`agent-port-loop.grow.prompt.md`, Constitution §10.19): author ≥ 80 sessions (half `--family marathon`), record, full rescore, commit. Supervisor commits leftover recipes, checks the board is a full rescore, and halts after 3 grow iterations in a row that add no recipe |
+| Short cliffs block or periodic grow slot | No Must-fix and fewer than `LOOP_GROWTH_MIN` (6) cliff rows, or n % `LOOP_GROW_EVERY` == 5 → the slot runs as **grow** (`agent-port-loop.grow.prompt.md`, Constitution §10.19–20): `fresh-cohort.mjs` first (scored on arrival, then folded), ≥ 240 more sessions, record, full rescore, commit. Supervisor commits leftover recipes, checks the board is a full rescore, and halts after 3 grow iterations in a row that add no recipe |
 
 The shell parses `__RESULTS_JSON__` (the frozen runner exits 0 on FAIL),
 enforces density, one-loop locking, protected-path hashes, finite

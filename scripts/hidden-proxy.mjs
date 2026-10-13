@@ -23,11 +23,12 @@
  *       board is marked `full: true` (the audit's mandatory rescore; any
  *       later partial write — verify, --ids, --owner — clears the mark).
  *       `entries` / `unrecorded` say how much of the corpus it covers.
- *   node scripts/hidden-proxy.mjs queue [--limit 12] [--by sessions|rng] [--committed] [--write]
- *       LOOP-QUEUE cliff rows: C-function owners ranked by sessions blocked
- *       (frequency in independent seeds estimates how likely a held-out
- *       session walks into the same bug — Constitution §10.20), then by RNG
- *       lost after the first divergence. `--write` regenerates the `<!-- cliffs:begin -->`
+ *   node scripts/hidden-proxy.mjs queue [--limit 12] [--by screens|sessions|rng] [--committed] [--write]
+ *       LOOP-QUEUE cliff rows: C-function owners ranked by screens lost after
+ *       the first divergence, summed over every session they block (the
+ *       judge's points are matched screens; the sum is frequency × impact —
+ *       Constitution §10.20), then sessions blocked, then RNG lost.
+ *       `--write` regenerates the `<!-- cliffs:begin -->`
  *       block of docs/LOOP-QUEUE.md from the COMMITTED scoreboard (same rows
  *       on every machine; `check-hot-docs --fix` runs it). A tag on a row is
  *       history (`archived D-…`, `ledger: ported`) or a park class — never
@@ -352,13 +353,40 @@ function aggregate(rows, order = 'rng') {
     }
     const out = [...by.values()];
     /* A JS throw forfeits every screen of its sessions (Constitution §10.14):
-       always first. `sessions` (the queue default since §10.20): owners that
-       block several independently seeded sessions first — on a board worked
-       down to singletons, RNG lost only says where one session happened to
-       diverge. `rng`: RNG calls lost after the first divergence. */
+       always first. `screens` (the queue default since §10.20): screens lost
+       after the first divergence, summed over the owner's sessions — the
+       judge ranks by points and a point is a matched screen, so the sum is
+       frequency × impact in the judge's own unit. `sessions`: owners that
+       block the most sessions. `rng`: RNG calls lost. */
+    return rankOwners(out, order);
+}
+
+function rankOwners(out, order) {
     const throwFirst = (a, b) => Number(b.owner.startsWith('js-throw')) - Number(a.owner.startsWith('js-throw'));
-    if (order === 'sessions') out.sort((a, b) => throwFirst(a, b) || b.sessions.length - a.sessions.length || b.blockedRng - a.blockedRng);
+    if (order === 'screens') out.sort((a, b) => throwFirst(a, b) || b.blockedScr - a.blockedScr || b.sessions.length - a.sessions.length || b.blockedRng - a.blockedRng);
+    else if (order === 'sessions') out.sort((a, b) => throwFirst(a, b) || b.sessions.length - a.sessions.length || b.blockedRng - a.blockedRng);
     else out.sort((a, b) => throwFirst(a, b) || b.blockedRng - a.blockedRng || b.sessions.length - a.sessions.length);
+    return out;
+}
+
+/* An unattributed first divergence (no RNG owner, no matching literal) has
+   no function to verify, and grouping by the C topline lumps unrelated
+   sessions together (most read an empty C topline). The queue lists each
+   such session on its own: the deliverable is naming the writer. Before
+   2026-10-13 the queue dropped them, and some sat unworked for days. */
+function splitUnattributed(agg, rows) {
+    const out = [];
+    for (const a of agg) {
+        if (!a.owner.startsWith('unattributed')) { out.push(a); continue; }
+        for (const id of a.sessions) {
+            const r = rows[id] || {};
+            out.push({
+                owner: 'unattributed', file: '?', sessions: [id], unattributed: true,
+                blockedRng: r.blockedRng || 0, blockedScr: r.blockedScr || 0, kinds: { [r.kind || 'error']: 1 },
+                examples: [{ id, step: r.step, c: r.cTopline, js: r.jsTopline, cEntry: r.cEntry, jsEntry: r.jsEntry, jsOwner: r.jsOwner, rowDiff: r.rowDiff, kind: r.kind }],
+            });
+        }
+    }
     return out;
 }
 
@@ -525,6 +553,9 @@ function cliffRow(a, total, known, sha) {
     else if (tag && /^parked/.test(tag)) mark = ` **[${tag} — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**`;
     else if (tag) mark = ` **[history: ${tag} — read that D-entry once; the arm this divergence names is still open]**`;
     const lost = `RNG lost ${a.blockedRng}, screens lost ${a.blockedScr}`;
+    if (a.unattributed) {
+        return `- [ ] \`?\` unattributed ${ex.id} — blocks 1/${total} corpus sessions (first at step ${ex.step}; ${lost}): ${what}. No C function printed or drew the differing value, so the deliverable is its writer: \`node scripts/hidden-proxy.mjs show ${ex.id}\`, then measure C at step ${ex.step} (\`geom-probe --step ${ex.step}\`, temp C dump) and port the function the measurement names; a \`[measure]\` commit if it takes the iteration. @${sha} **[unattributed — measure, then port the writer]**`;
+    }
     return `- [ ] \`${file}\` ${a.owner} — blocks ${a.sessions.length}/${total} corpus sessions (first at step ${ex.step}; ${lost}): ${what}. Probe: \`node scripts/hidden-proxy.mjs verify ${a.owner}\` (${a.examples.map((e) => e.id).join(', ')}). @${sha}${mark}`;
 }
 
@@ -543,7 +574,7 @@ function writeCliffsBlock(lines) {
 
 function cmdQueue() {
     const limit = Number(val('limit', 12));
-    const order = val('by', 'sessions');
+    const order = val('by', 'screens');
     const write = flag('write');
     const src = write || flag('committed') ? committedRows() : null;
     if ((write || flag('committed')) && !src) { console.error('queue: no committed scoreboard (hidden-corpus/scoreboard.json)'); process.exit(2); }
@@ -551,7 +582,7 @@ function cmdQueue() {
     const sha = src ? src.commit : gitHead();
     const total = Object.keys(rows).length;
     const known = queueKnowledge();
-    const agg = aggregate(rows, order).filter((a) => !a.owner.startsWith('unattributed') && !a.owner.startsWith('env:'));
+    const agg = rankOwners(splitUnattributed(aggregate(rows, order).filter((a) => !a.owner.startsWith('env:')), rows), order);
     /* The generated block never duplicates a live hand-written row (a
        Must-fix naming the same owner ships first and alone). */
     const eligible = agg.filter((a) => !/^open/.test(known.get(a.owner) || ''));
@@ -569,7 +600,7 @@ function cmdQueue() {
         for (const l of lines) console.log(l);
     }
     const failing = Object.values(rows).filter((r) => !r.passed).length;
-    console.error(`queue: ${lines.length} owners shown of ${eligible.length} (${failing}/${total} sessions failing; ranked by ${order === 'sessions' ? 'sessions blocked' : 'RNG lost'}); ${parked} parked (writer/[measure] deliverable), ${history} with a prior D-entry (still blocking — live), ${lines.length - parked - history} never worked`);
+    console.error(`queue: ${lines.length} owners shown of ${eligible.length} (${failing}/${total} sessions failing; ranked by ${order === 'screens' ? 'screens lost' : order === 'sessions' ? 'sessions blocked' : 'RNG lost'}); ${parked} parked (writer/[measure] deliverable), ${history} with a prior D-entry (still blocking — live), ${lines.length - parked - history} never worked`);
 }
 
 /* The committed scoreboard at a git rev: the rows the queue row and the

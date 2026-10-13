@@ -129,7 +129,10 @@ LOOP_QUEUE_TARGET 12 is the generated block size. Growth (Constitution
 fewer than LOOP_GROWTH_MIN (6) rows in the generated Open — cliffs block
 becomes a **grow** iteration (agent-port-loop.grow.prompt.md: author a
 marathon-led cohort, record, full rescore, commit); three grow
-iterations in a row that add no recipe halt. Agents commit and push; the script fail-closes and pushes
+iterations in a row that add no recipe halt. Since §10.20 (2026-10-13)
+growth is also periodic: iteration n with n % LOOP_GROW_EVERY (10) ==
+LOOP_GROW_EVERY/2 is a grow slot when no Must-fix is open (the fresh
+cohort it scores before folding is the local generalization number). Agents commit and push; the script fail-closes and pushes
 if they forgot. STOP_AGENT_LOOP.md is gitignored; only this script
 writes 0, at launch.
 See docs/AGENT-PORT-LOOP.md.
@@ -569,6 +572,7 @@ REVIEW_PROMPT_FILE="${REVIEW_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.review.p
 CADENCE_PROMPT_FILE="${CADENCE_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.cadence.prompt.md}"
 GROW_PROMPT_FILE="${GROW_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.grow.prompt.md}"
 LOOP_GROWTH_MIN="${LOOP_GROWTH_MIN:-6}"
+LOOP_GROW_EVERY="${LOOP_GROW_EVERY:-10}"
 grow_fail_streak=0
 QUEUE_FILE="${QUEUE_FILE:-$ROOT/docs/LOOP-QUEUE.md}"
 REQUIRE_PASS="$ROOT/scripts/loop-require-results-pass.mjs"
@@ -1351,6 +1355,15 @@ apply_iteration_overlays() {
     echo "$(date -Iseconds) === growth iteration: cliffs block holds $(cliff_open_count) < ${LOOP_GROWTH_MIN} owners, no Must-fix (Constitution §10.19) ===" \
       | tee -a "$MASTER_LOG"
   fi
+  # Constitution §10.20: periodic growth. The cliffs block no longer runs
+  # dry (frequency × screens ranking keeps it full), so growth — and the
+  # fresh-cohort measurement it starts with — gets its own slot.
+  if [[ "$mode" == "port" && "$resume_unfinished" != "1" ]] && (( LOOP_GROW_EVERY > 0 )) \
+     && (( iter % LOOP_GROW_EVERY == LOOP_GROW_EVERY / 2 )) && (( $(mustfix_open_count) == 0 )); then
+    mode=grow
+    echo "$(date -Iseconds) === growth iteration: periodic slot (iteration $iter % ${LOOP_GROW_EVERY} == $((LOOP_GROW_EVERY / 2)), Constitution §10.20) ===" \
+      | tee -a "$MASTER_LOG"
+  fi
   if [[ -f "$NEXT_ITER_PROMPT" ]]; then
     # Overlays carry a mode tag. A port-only overlay ("ship js/", "strip
     # banned hits") must never reach a review/audit iteration (#3120: it
@@ -1945,8 +1958,8 @@ while true; do
         ;;
       grow)
         prompt_body="$(cat "$GROW_PROMPT_FILE")"
-        prompt_body+=$'\n\n**Seed base for this iteration:** `'"$((iter * 100 + 100000))"$'` (use it and the next\n'
-        prompt_body+=$'few hundred integers; `scenario-gen` skips ids whose recipe already exists).\n'
+        prompt_body+=$'\n\n**Seed base for this iteration:** `'"$((iter * 10000 + 1000000))"$'` (yours: base … base+9999;\n'
+        prompt_body+=$'fresh-cohort takes base … base+2999, scenario-gen runs base+5000, base+6000, …).\n'
         echo "$(date -Iseconds) === grow iteration (author + record + full rescore, no js/) ===" \
           | tee -a "$MASTER_LOG"
         ;;
@@ -1954,7 +1967,7 @@ while true; do
         prompt_body="$(cat "$PROMPT_FILE")"
         prompt_body+=$'\n\n## This iteration\n'
         prompt_body+=$'Pop the first unchecked **Must-fix** item in `docs/LOOP-QUEUE.md` if any\n'
-        prompt_body+=$'(it ships alone), else the **Open — cliffs** head (Constitution §10.18–19):\n'
+        prompt_body+=$'(it ships alone), else the **Open — cliffs** head (Constitution §10.18–20):\n'
         prompt_body+=$'the owner or the writer its divergence names, ported whole, with movement on\n'
         prompt_body+=$'its probe sessions. One line in `docs/CURRENT.md` Next cluster before coding. If a Must-fix cites a review, read\n'
         prompt_body+=$'that review and stamp `**Addressed:** D-NNNN` (D-id only) when you ship.\n'

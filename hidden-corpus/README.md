@@ -19,6 +19,7 @@ node scripts/hidden-proxy.mjs show <id>       # one session's first diff
 node scripts/hidden-proxy.mjs gen --n 240     # more ordinary-play mutants (saturated family)
 node scripts/hidden-proxy.mjs gen --mode tour # debug ^V descents to deep levels
 node scripts/scenario-gen.mjs --n 120 --seed N  # scenario sessions (the held-out genre) — grow this one
+node scripts/fresh-cohort.mjs --seed N --n 160 [--fold]  # unseen seeds scored on arrival (generalization)
 ```
 
 `scoreboard.json` is the committed summary of the last `score` (per session:
@@ -41,12 +42,13 @@ scored alongside these.
 
 - These files are evidence, **never the specification**. The C source is
   the specification. A row in `LOOP-QUEUE.md` names the C function that
-  owns a divergence; the fix is that function's port. Since 2026-09-18
-  (breadth phase, Constitution §10.17) the corpus is a **regression
-  fortress**, not the work picker: `hidden-proxy verify <fn>` re-runs the
-  PASS sessions that execute `<fn>` (REACH) and a whole-function port must
-  keep them PASS. It reached 91.7 % while held-out sat at 11/44 — it no
-  longer predicts the judge; `port-coverage.mjs --rows` picks work.
+  owns a divergence; the fix is that function's port. The corpus is both
+  the work picker (generated cliffs block, ranked by screens lost ×
+  sessions — Constitution §10.18–20) and the regression fortress
+  (`hidden-proxy verify <fn>` re-runs the PASS sessions that execute
+  `<fn>`; a whole-function port must keep them PASS). Its PASS rate rises
+  by construction; the generalization estimate is a fresh cohort scored
+  on arrival (`scripts/fresh-cohort.mjs`, `docs/HIDDEN-PROXY.md` §5c).
 - Never write a seed, a step index, a recorded coordinate, or an RNG index
   into `js/` to make a corpus session pass. That is the same ban as for the
   public sessions (Constitution §1.2 / playbook §3).
