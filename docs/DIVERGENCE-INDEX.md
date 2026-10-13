@@ -5,6 +5,13 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-3904 | parked | monmove.c — [measure] TEMP-C executes the D-3903 trace: mbodypart writer = sp_lev.c:2406 soko_prize_oid (C amu | scen-sweep-Knight-585504 step 841/1131 kind=screen at polyself.c:1995 — toplines identical («The winged gargoyle hits again! The winged gargoyle bites!--More--»); single differing map cell (33,17): C `@` (bright-blue) vs JS `# Divergence index
+
+Lookup by ID, then open **one** matching `## D-NNNN` section in
+`DIVERGENCE-LOG.md`. Do **not** read the full log by default.
+
+| ID | Status | Area | Short result |
+ (gold).; fix: none (measurement iteration — the writer is named for the port slot; see Next).; verify: preflight `node scripts/verify.mjs --no-cohort` → PASS on a clean tree before diagnosis.; named: n/a. |
 | D-3903 | parked | polyself.c — [measure] `polyself.c` mbodypart Knight-585504 s841 is a monster-position symptom (C blue-@ at (3 | scen-sweep-Knight-585504 step 841/1131 kind=screen at polyself.c:1995 — toplines identical («The winged gargoyle hits again! The winged gargoyle bites!--More--»); first differing map cell (33,17): C `@` (bright-blue 94) vs JS `# Divergence index
 
 Lookup by ID, then open **one** matching `## D-NNNN` section in
