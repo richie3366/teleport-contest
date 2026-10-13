@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-13
 
+- [x] `monmove.c` m_move — blocks 1/1449 corpus sessions **Addressed:** D-3929 (first at step 775; RNG lost 14769, screens lost 786): C draws `rn2(3)=0` in m_move, JS `rn2(5)=4` from distfleeck(monmove.js:1180). Probe: `node scripts/hidden-proxy.mjs verify m_move` (scen-sweep-Caveman-587113). @51d3b17bc **[parked: RESOLVED — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+
+
 - [x] `insight.c` background_enlightenment — blocks 1/1449 corpus sessions (first at step 365; RNG lost 26403, screens lost 630): C «The earth elemental knocks you backward with a powerful blow» vs JS «The earth elemental knocks you backward with a powerful blow». Probe: `node scripts/hidden-proxy.mjs verify background_enlightenment` (scen-worldtour-Wizard-587307). @6a87ce504 **[history: archived — read that D-entry once; the arm this divergence names is still open]**
 
 

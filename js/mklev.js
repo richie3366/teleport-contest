@@ -13180,6 +13180,13 @@ function load_cav_strt() {
         inarea: { x1: mx + 71, y1: my + 9, x2: mx + 71, y2: my + 9 },
         delarea: { x1: -1, y1: -1, x2: -1, y2: -1 },
     });
+    // C load_special epilogue (sp_lev.c:6464-6466): link_doors_rooms →
+    // remove_boundary_syms → map_cleanup, before wallification. Cav-strt
+    // map chars are only ' ', '.', 'B', 'S' (no liquid) so map_cleanup is
+    // a no-op; link_doors_rooms is doors-only (Named omission: door
+    // registry). remove_boundary converts 'B'/CROSSWALL cells to ROOM
+    // before wallification can retype them as walls (D-3929).
+    remove_boundary_syms();
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
