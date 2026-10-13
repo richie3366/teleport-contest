@@ -686,8 +686,12 @@ Suddenly, %n grasps his head and screams in agony, then dies.`,
 Then, the body bursts into a cloud of choking dust, and blows away.`,
 };
 
-/** C ref: dat/quest.lua gotit (Rog exercised; remaining roles named omit). */
+/** C ref: dat/quest.lua gotit (Arc/Rog exercised; remaining roles named omit). */
 const QUEST_GOTIT = {
+    // C ref: dat/quest.lua Arc gotit (output=text) — quest.lua:283-289
+    Arc: `The power of %o flows through your body!  You feel
+as if you could now take on the Wizard of Yendor himself and win, but
+you know you must return %o to %l.`,
     // C ref: dat/quest.lua Rog gotit (output=text) — quest.lua:2060-2067
     Rog: `As you pick up %o, the hairs on the back of your
 neck fall out.  At once you realize why %n was
@@ -912,6 +916,10 @@ const QUEST_MSG_META = {
         },
     },
     gotit: {
+        Arc: {
+            output: 'text',
+            synopsis: '[The power of %o flows through your body!  You must return it to %l.]',
+        },
         Rog: {
             output: 'text',
             synopsis: '[You pick up %o and know that %l should not have it.]',

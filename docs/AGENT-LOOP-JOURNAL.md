@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — D-3917 cliffs-head `objnam.c` wishymatch writer: Arc gotit quest text behind the Orb wish (worldtour-Arch-587315 378 → PASS)
+
+**C locus:** `quest.c artitouch` `:125–136` (qt_pager("gotit") `:133`) ← `invent.c` addinv_core1 questart arm `:984–990` ← wish grant (`objnam.c` readobjnam `:4876` artifact-by-name + `:5360–5362` oname→oartifact) → questpgr.c qt_pager/com_pager_core → `dat/quest.lua` Arc gotit `:283–289` (output=text + synopsis `[The power of %o flows through your body!  You must return it to %l.]`).
+**JS:** 1 file (questpgr.js +10: 1 body + 1 meta + docs) + 1 test (`scripts/quest-gotit-archeologist-orb.test.mjs`, recipe-prefix pattern, single prefix per file — D-3762).
+**Change:** js/questpgr.js only (data): Arc gotit body verbatim from quest.lua (node byte-compare TEXT EQUAL + SYN EQUAL true incl. double space after «body!»; %o/%l conversions previously shipped) + QUEST_MSG_META `{output:'text', synopsis}` + table doc role list. No new imports/edges; no DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** new test 0/1 pre-fix (authentic red: guard wish-prompt passes, «Arc gotit head line» fails) → 1/1 post-fix; sibling Rog gotit test 1/1. `node scripts/verify.mjs --fn wishymatch` → PASS syntax (1 changed js file: js/questpgr.js) · PASS rule2 · PASS hidden `verify wishymatch: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-worldtour-Archeologist-587315: PASS) · PASS reach (no RNG-tagged reach; smoke spread 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) → VERIFY: PASS. Movement: `verify wishymatch: 1 PASS, 0 moved, 0 no-movement`.
+**Named:** remaining gotit role bodies no corpus session reaches (Bar/Cav/Hea/Kni/Mon/Pri/Ran/Sam/Tou/Val/Wiz; miss→silence path unchanged).
+**Next:** wishymatch row leaves via regen (probe PASS). Do not re-port wishymatch (symptom owner, whole), artitouch, or Arc gotit.
 ## 2026-10-13 — D-3916 cliffs-head `monmove.c` dochug writer: zap.c poly_obj orphaned minvent replacements (JS deleted the dwarf's iron shoes at s1033 → MUSE_POLY_TRAP cham at s1045); probe PASS
 
 **C locus:** zap.c poly_obj `:1702–1989` (`:1903` replace_object unconditional for all locations; `:1965–1986` shop billing unconditional; `:1710` boulder sokoban_guilt; `:1747–1753` SCR_MAIL (MAIL_STRUCTURES defined); `:1815–1825` leash transfer; `:1871–1880` spestudied degrade; `:1883–1890` gem backfire) + mkobj.c replace_object `:641–680` (`:665–669` minvent splice, `:658–663` contained splice) + trap.c trapeffect_poly monster arm `:2496–2515` (iron-shoes: unwear, poly_obj shoes IRON_SHOES↔KICKING_BOOTS, re-wear — silent, no RNG, no deltrap).
