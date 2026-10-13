@@ -1786,7 +1786,9 @@ async function query_objlist_pickup(objList, extraAllow = null, opts = null) {
                 }
                 const mark = it.selected ? '+' : '-';
                 entries.push({
-                    text: `${it.letch} ${mark} ${doname(it.obj)}`,
+                    // C query_objlist pickup.c:1137 — menu shows
+                    // doname_with_price (shop "(for sale…)"/"(no charge)").
+                    text: `${it.letch} ${mark} ${doname_with_price(it.obj)}`,
                     attr: 0,
                 });
             }
@@ -1794,7 +1796,8 @@ async function query_objlist_pickup(objList, extraAllow = null, opts = null) {
             for (const it of items) {
                 const mark = it.selected ? '+' : '-';
                 entries.push({
-                    text: `${it.letch} ${mark} ${doname(it.obj)}`,
+                    // C query_objlist pickup.c:1137 — doname_with_price.
+                    text: `${it.letch} ${mark} ${doname_with_price(it.obj)}`,
                     attr: 0,
                 });
             }
