@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — D-3926 cliffs-head `minion.c` demon_talk writer: dochug MS_BRIBE mux-match arm unwired at monmove.c:823 — Knight-587109 → PASS
+
+**C locus:** `monmove.c` dochug Demonic Blackmail `:802–825` (mux-mismatch `:805–822` pre-existing; `} else if (demon_talk(mtmp)) return 1;` `:823` wired here); demon_talk `minion.c:263–358` whole, unchanged (D-3250).
+**JS:** `js/monmove.js` (+9/−3), `scripts/dochug-demon-talk.test.mjs` (new, 91 lines). Far under the 15000/80 caps.
+**Change:** `js/monmove.js` only — else arm resolves the live `demon_talk` (dynamic `import('./minion.js')`, the sounds.js:1717 MS_BRIBE-site pattern; `imports.mjs --can monmove.js minion.js demon_talk`: SAFE, hoisted fn, same 101-module SCC, no new static edge) and `if (await demon_talk(mtmp)) return 1; /* you paid it off */` in C order. New `scripts/dochug-demon-talk.test.mjs` (kin-arm envelope: peaceful MS_BRIBE horned devil adjacent, mux==hero, S_DEMON hero, noteleport level → dochug returns 1, demon stays peaceful).
+**Verify:** `node scripts/verify.mjs --fn demon_talk` → VERIFY: PASS — syntax 1 file; rule2; hidden `verify demon_talk: 1 PASS, 0 moved, 0 no-movement` (scen-sweep-Knight-587109: full 934-step marathon PASS); reach smoke 24/24 REACH-OK (no RNG-tagged reach set); green 2/2; strict ×2; cohort 7/7; full 44/44 (auto: shared file). Plus `hidden-proxy.mjs verify dochug` → 0 blocked (vacuous, expected — dochug was never the owner); reach dochug 80/80 REACH-OK (856 in set, spread sample). Plus `node --test scripts/dochug-demon-talk.test.mjs` 1/1 (failed `0 !== 1` pre-fix).
+**Named:** none new — Demonic Blackmail now whole vs C `:802–825` (both arms live). demon_talk body untouched (whole per D-3250).
+**Next:** (1) Knight-587109 fully PASS — no follow-up owner. (2) Deferred `monmove.c` dochug demon/caster row updated (MS_BRIBE half shipped). (3) Next slot pops the regen'd cliffs head.
 ## 2026-10-13 — D-3925 cliffs-head `trap.c` erode_obj writer: passiveum AD_ACID drew the rn2(30)/rn2(6) gates but left both erosion calls deferred — Rogue-587201 → PASS
 
 **C locus:** `mhitu.c` passiveum AD_ACID `:2477–2480` (`if (!rn2(30)) erode_armor(mtmp, ERODE_CORRODE); if (!rn2(6)) acid_damage(MON_WEP(mtmp));`) + `trap.c` acid_damage `:4618–4654` (→ erode_obj CORRODE EF_GREASE|EF_VERBOSE) + erode_obj blessed check `:257`. Sole C caller mhitu.c:1262 (hitmu→passiveum).
