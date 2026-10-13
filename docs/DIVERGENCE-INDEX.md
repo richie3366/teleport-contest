@@ -5,6 +5,13 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-3906 | parked | sp_lev.c — `sp_lev.c` create_object soko prize-oid stamp: soko1 loaders placed the achievement prize without r | scen-sweep-Knight-585504 step 841/1131 kind=screen at polyself.c:1995 — toplines identical («The winged gargoyle hits again! The winged gargoyle bites!--More--»); single differing map cell (33,17): C `@` (bright-blue) vs JS `# Divergence index
+
+Lookup by ID, then open **one** matching `## D-NNNN` section in
+`DIVERGENCE-LOG.md`. Do **not** read the full log by default.
+
+| ID | Status | Area | Short result |
+ (gold).; fix: inline soko_prize_oid/otyp + nomerge=1 stamp in both loaders (minend house shape: lazy `game.context.achieveo`, `!ao.soko_prize_oid` guard), with C's else-`impossible('multiple prizes on %s level', 'sokoban end')` arm (`:2410–2412`); prize captured across the bag/amulet branches, `uncurse` kept before the stamp (C order: curse switch `:2239` precedes the achievement arm `:2391`). No new cross-module edge (`impossible` already in scope); no RNG/behavior change besides the linkage.; verify: focused test FAIL pre-fix (`want soko_prize_oid recorded, got undefined`) → PASS post-fix (`prize oid=950`, `@841` map row).; named: none new. Boundary (pre-existin |
 | D-3905 | open | nhlua.c — head nhl_gamestate re-derived fresh (supervisor-ordered): no portable writer — painter vpline whole+ | scen-sweep-Priest-582706 step 1166/1238 kind=screen at nhlua.c:1738 — toplines identical («Resetting time to move #167.--More--»); first differing row 12: C «│············│» vs JS «│··u·········│» (map (35,11)); cEntry/jsEntry/jsOwner all null; stepFns getlev+restrap (RNG matched through 1166); D-3882/D-3884 co-divergences stand (row-16 C-`u` at (67,15), row-23 C Dlvl:32/AC:7/Burdened status). Fresh show confirms the s1166 shape unchanged.; fix: none (no portable writer — see above; any `js/` painting floor at (35,11)@1166 without the C trigger would be trace-tailoring, banned per D-3885).; verify: preflight `node scripts/verify.mjs --no-cohort` → PASS on a clean tree before diagnosis.; named: n/a. |
 | D-3904 | parked | monmove.c — [measure] TEMP-C executes the D-3903 trace: mbodypart writer = sp_lev.c:2406 soko_prize_oid (C amu | scen-sweep-Knight-585504 step 841/1131 kind=screen at polyself.c:1995 — toplines identical («The winged gargoyle hits again! The winged gargoyle bites!--More--»); single differing map cell (33,17): C `@` (bright-blue) vs JS `# Divergence index
 
