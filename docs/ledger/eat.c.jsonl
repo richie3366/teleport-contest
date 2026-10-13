@@ -34,7 +34,7 @@
 {"fn":"tin_variety_txt","c":"1405-1421","status":"ported","js":["js/eat.js:tin_variety_txt"],"d":["D-1953"],"at":"2026-10-03@bbe63333a"}
 {"fn":"tin_details","c":"1428-1458","status":"ported","js":["js/objnam.js:tin_details"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local; C omndx===obj.corpsenm, display-mode variety"}
 {"fn":"set_tin_variety","c":"1461-1486","status":"ported","js":["js/eat.js:set_tin_variety"],"at":"2026-10-03@bbe63333a"}
-{"fn":"tin_variety","c":"1489-1512","status":"ported","js":["js/eat.js:tin_variety"],"at":"2026-10-03@bbe63333a"}
+{"fn":"tin_variety","c":"1489-1512","status":"ported","js":["js/eat.js:tin_variety"],"d":["D-3907"],"at":"2026-10-13@630119550"}
 {"fn":"use_up_tin","c":"1516-1525","status":"ported","js":["js/eat.js:use_up_tin"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"consume_tin","c":"1528-1699","status":"ported","js":["js/eat.js:consume_tin"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"opentin","c":"1703-1719","status":"ported","js":["js/eat.js:opentin"],"at":"2026-10-03@bbe63333a"}
