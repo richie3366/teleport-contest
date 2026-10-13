@@ -2791,3 +2791,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2779-6a5624c64-dochug-demontalk.md](./2779-6a5624c64-dochug-demontalk.md) | `6a5624c64` | D-3926 demon_talk-row writer dochug mux-match arm wiring (1 PASS) | **ACCEPT** |
 | [2780-975054982-crawl-goodpos.md](./2780-975054982-crawl-goodpos.md) | `975054982` | D-3927 readobjnam-row writer crawl_destination live-goodpos gate (1 PASS) | **ACCEPT** |
 | [2781-51d3b17bc-cav-firsttime.md](./2781-51d3b17bc-cav-firsttime.md) | `51d3b17bc` | D-3928 level_tele-row writer Cav firsttime quest text (1 moved) | **ACCEPT** |
+| [2782-cafc0e15b-strt-boundary-syms.md](./2782-cafc0e15b-strt-boundary-syms.md) | `cafc0e15b` | D-3929 m_move-row writer load_cav_strt remove_boundary_syms wiring (1 PASS) | **ACCEPT** |
+| [2783-aa6355704-quest-text-extractor.md](./2783-aa6355704-quest-text-extractor.md) | `aa6355704` | D-3930 com_pager_core-row quest.lua 368-entry extractor (0 flips) | **ACCEPT** |
+| [2784-c639bbbcb-hellfill-des-terrain.md](./2784-c639bbbcb-hellfill-des-terrain.md) | `c639bbbcb` | D-3931 get_location-row writer hellfill des.terrain routing (1 PASS, 1 moved) | **ACCEPT** |
+| [2785-45bdd980f-adrin-gameover-gate.md](./2785-45bdd980f-adrin-gameover-gate.md) | `45bdd980f` | D-3932 randomize_gem_colors-row writer AD_DRIN gameover gate (1 PASS) | **ACCEPT** |
+| [2786-cef7a4808-wield-ecmd-returns.md](./2786-cef7a4808-wield-ecmd-returns.md) | `cef7a4808` | D-3933 js-throw-row writer wield ECMD_FAIL/CANCEL returns (hang→completes) | **ACCEPT** |
+| [2787-ec0e2af9b-obj-buried-import.md](./2787-ec0e2af9b-obj-buried-import.md) | `ec0e2af9b` | D-3934 randomize_gem_colors-row writer OBJ_BURIED import (2 PASS, 1 moved) | **ACCEPT** |
+| [2788-b552183fe-gold-detect-flush.md](./2788-b552183fe-gold-detect-flush.md) | `b552183fe` | D-3935 getpos-row writer gold_detect flush deletion (3 PASS, 1 moved) | **ACCEPT** |
+| [2789-6f89ca4ec-inhishop-in-rooms.md](./2789-6f89ca4ec-inhishop-in-rooms.md) | `6f89ca4ec` | D-3936 m_move-row writer inhishop in_rooms walk (1 PASS, 1 unchanged) | **ACCEPT** |

@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — audit 2782–2789 @6f89ca4ec: review D-3929..D-3936 (8A/0D/0Q, 0 Must-fix) + full rescore 2122/2296 (0 flips)
+
+**Reviews:** 2782–2789 all ACCEPT, no Must-fix queued. Every Verify bullet re-measured (incl. `--reach-all` on m_move ×2, randomize_gem_colors ×2, get_location, com_pager_core, dowield/doswapweapon, getpos); the only reach regressions were the known 582706 oracle-side flake (board history proves the flip came from the Grow #5 no-`js/` re-record — oracle 1166→1238 steps — D-3885 UNPORTABLE park stands, not re-filed).
+**Score:** public 44/44 (Scr 11,405, RNG 792,838, `350+1.60/turn`, 0 throws); corpus 2122/2296 `full: true` (+6, every row matches the incremental boards); held-out 31/44 (+9 @judge 19:08Z, RNG 92.0 %) — first judge move since 2026-10-11, on the D-3929..D-3935 window.
+**Ledger sample:** 5/5 seeded-`ported` rows correct (query_category, disturb, end_burn, confused_book, candle_light_range — one `brief` each, no `set` needed). Env note: `ledger.mjs sql` is broken on node v20 (`node:sqlite` needs ≥22.5) — sampled via JSONL (`status=ported` + `at=seed@…`) instead; same predicate.
+**Next:** pop the regen'd cliffs head.
 ## 2026-10-13 — D-3936 shk.c inhishop dropped the in_rooms SHARED-walk, so a keeper in its shop doorway read as outside and Kops shopped (queue owner m_move)
 
 **C locus:** `shk.c:1039–1048` `inhishop` — `on_level(shoplevel, u.uz)` gate, then `strchr(in_rooms(mx,my,SHOPBASE), shoproom)`. Read via `costly_spot` (`shk.c:5358`), `monmove.c:266` (`isshk && inhishop`), `mpickstuff` (`mon.c:1853`, D-2085). Ground truth from ignored-recorder MAPLOG: `kpos=(51,7) inshop=1 shoproom=55 inrms=[55,0,0,0]`, roomno/typ map identical both sides.
