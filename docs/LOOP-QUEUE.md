@@ -217,6 +217,7 @@ rows now (`ledger.mjs set … --note "stale: …"`), not Parked lines.
 
 ### Diagnosed / misattributed / symptom owners (writer leads inside)
 
+- `do_statusline2` T+1 (12 shop) — DIAGNOSED D-3939 (C 2 rounds@553 moves 92 stale T:91; JS freshens@menu-open). Falsifier: gate menu-path freshen → verify do_statusline2 PASS; or C dump moves=91 re-queues round-trigger.
 - `do.c` flooreffects Healer s632 — SYMPTOM 2026-10-11 (D-3843). Temp-C fmon dump 14/14 identical; C holds paint+message behind --More--/gbuf, JS paints through (architectural). Falsifier: JS-633 flow topline (then canseemon ports) or a hold/buffer design moving `verify flooreffects`.
 - `zap.c` poly_obj dealloc_oextra — MISATTRIBUTED 2026-09-14. Falsifier: a rescore or fresh `verify poly_obj` showing a session blocked with poly_obj as owner (not mere stepFns presence), or a C-side polymorph-of-named-object trace showing otmp keeping oname…
 - `fountain.c` drinkfountain — MISATTRIBUTED 2026-09-14; [measure] D-3666 DONE, writer = `wintty.c` erase_menu_or_text docorner arm. Falsifier: that port moving `verify drinkfountain` (predict 227→229+).
