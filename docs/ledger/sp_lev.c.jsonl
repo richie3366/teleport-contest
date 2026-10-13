@@ -20,7 +20,7 @@
 {"fn":"flip_level_rnd","c":"967-982","status":"ported","js":["js/mklev.js:flip_level_rnd"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"sel_set_wall_property","c":"986-995","status":"ported","js":["js/mklev.js:sel_set_wall_property"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_wall_property","c":"1001-1013","status":"ported","js":["js/mklev.js:set_wall_property"],"at":"2026-10-03@bbe63333a"}
-{"fn":"remove_boundary_syms","c":"1016-1038","status":"ported","js":["js/mklev.js:remove_boundary_syms"],"at":"2026-10-03@bbe63333a"}
+{"fn":"remove_boundary_syms","c":"1016-1038","status":"ported","js":["js/mklev.js:remove_boundary_syms"],"d":["D-3913"],"at":"2026-10-13@c22b308a5"}
 {"fn":"set_door_orientation","c":"1042-1085","status":"ported","js":["js/mklev.js:set_door_orientation"],"at":"2026-10-03@bbe63333a"}
 {"fn":"shared_with_room","c":"1089-1106","status":"ported","js":["js/mklev.js:shared_with_room"],"at":"2026-10-03@bbe63333a"}
 {"fn":"maybe_add_door","c":"1110-1118","status":"ported","js":["js/mklev.js:maybe_add_door"],"at":"2026-10-03@bbe63333a"}

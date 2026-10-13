@@ -13319,7 +13319,14 @@ function load_cav_loca() {
         (g.splev_ystart | 0) + (g.splev_ysize | 0) + 1,
     );
 
-    // C load_special: wallification → flip_level_rnd → fixup_special
+    // C load_special: link_doors_rooms → remove_boundary_syms →
+    // map_cleanup → wallification → flip_level_rnd → fixup
+    // (sp_lev.c:6464-6466; Bar-loca pattern). remove_boundary_syms
+    // converts the 'B' CROSSWALL markers to ROOM — without it the B
+    // cells wallify to walls where C shows floors.
+    link_doors_rooms();
+    remove_boundary_syms();
+    map_cleanup();
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);

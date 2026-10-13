@@ -455,8 +455,15 @@ regain the Amulet of Yendor for %d?"`,
     Pri: `"Welcome back, %p.  How is your quest for the Amulet going?"`,
 };
 
-/** C ref: dat/quest.lua locate_first (Bar + Arc + Pri + Wiz + Ran exercised). */
+/** C ref: dat/quest.lua locate_first (Bar + Arc + Pri + Wiz + Ran + Cav exercised). */
 const QUEST_LOCATE_FIRST = {
+    // C ref: dat/quest.lua Cav locate_first (output=text) — quest.lua:811-820
+    Cav: `You %x many large claw marks on the ground.  The tunnels ahead
+of you are larger than most of those in any cave complex you have
+ever been in before.
+
+Your nose detects the smell of carrion from within, and bones litter
+the sides of the tunnels.`,
     Bar: `The scent of water comes to you in the desert breeze.  You know that
 you have located %i.`,
     Arc: `A plain opens before you.  Beyond the plain lies a foreboding edifice.
@@ -790,6 +797,10 @@ const QUEST_MSG_META = {
         },
     },
     locate_first: {
+        Cav: {
+            output: 'text',
+            synopsis: '[You %x many large claw marks, smell carrion, and notice bones.]',
+        },
         Arc: {
             output: 'text',
             synopsis: '[This foreboding edifice must hide the entrance to %i.]',
