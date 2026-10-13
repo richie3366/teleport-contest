@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-10-13
+
+- [x] `[measure]` `monmove.c` m_move / Knight-585504 C-268 dark-path + moves=132 decision trace (D-3903 park follow-up) — blocks 1/1365 (scen-sweep-Knight-585504 step 841/1131 kind=screen at polyself.c:1995; mbodypart parked SYMPTOM D-3903: pure-string owner whole in JS, divergence is C blue-@ at (33,17) = elf-noble-268's moves=132 m_move pick (JS: appr=1 gg=(36,17)-amulet → (34,18); C went hero-ward → (33,17)); paths agreed while lit-visible ((31,18) steps 643–729), split went dark 730–840). Deliverable: TEMP-C re-record with log-only stderr dump in the ignored recorder tree (D-3884 hygiene: /tmp probes only, revert + FULL `nethack-c/build-recorder.sh` rebuild + byte-identical re-record; never commit TEMP-C): (a) per-turn C-268 trail for moves 115–132 (pos + minvent otyps + pctload), (b) full C fmon (mndx,x,y) + objects at (36,17)/(33,18)/(34,18)/(33,17) + couldsee(33,18)/(33,17) at moves 131/132, (c) C m_move decision inputs for 268 at moves 132 (appr/gg/getitems/m_search_items-per-object-wants/mfndpos/pick/dest). Same-inputs result names a port bug (port the arm); differing inputs name the regress point (re-queue under that writer, never re-port mbodypart). No `js/` in the measure commit. **Addressed:** D-3903
+
 ## 2026-10-12
 
 - [x] `[measure]` `nhlua.c` nhl_gamestate Priest-582706 s1166 steed-trigger (a)-vs-(c) (D-3885 UNPORTABLE inferred malloc reuse without a pointer dump and left no falsifier; TEMP-C steed.c:909-920 ORE-PLACE dump): (a) stale-u.usteed malloc reuse (mon==usteed, m_id≠mid, alias 1) → park CONFIRMED terminal; (c) fmon aliasing (alias>1) → re-queue under the double-add writer. Result: (a) — mon=usteed=0x…1500, 927≠993, alias 1. **Addressed:** D-3895 `662c0c7ed`
