@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-3905 | open | nhlua.c — head nhl_gamestate re-derived fresh (supervisor-ordered): no portable writer — painter vpline whole+ | scen-sweep-Priest-582706 step 1166/1238 kind=screen at nhlua.c:1738 — toplines identical («Resetting time to move #167.--More--»); first differing row 12: C «│············│» vs JS «│··u·········│» (map (35,11)); cEntry/jsEntry/jsOwner all null; stepFns getlev+restrap (RNG matched through 1166); D-3882/D-3884 co-divergences stand (row-16 C-`u` at (67,15), row-23 C Dlvl:32/AC:7/Burdened status). Fresh show confirms the s1166 shape unchanged.; fix: none (no portable writer — see above; any `js/` painting floor at (35,11)@1166 without the C trigger would be trace-tailoring, banned per D-3885).; verify: preflight `node scripts/verify.mjs --no-cohort` → PASS on a clean tree before diagnosis.; named: n/a. |
 | D-3904 | parked | monmove.c — [measure] TEMP-C executes the D-3903 trace: mbodypart writer = sp_lev.c:2406 soko_prize_oid (C amu | scen-sweep-Knight-585504 step 841/1131 kind=screen at polyself.c:1995 — toplines identical («The winged gargoyle hits again! The winged gargoyle bites!--More--»); single differing map cell (33,17): C `@` (bright-blue) vs JS `# Divergence index
 
 Lookup by ID, then open **one** matching `## D-NNNN` section in

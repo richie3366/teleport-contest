@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — D-3905 head nhl_gamestate re-derived fresh (supervisor-ordered): no portable writer — painter vpline whole+live, trigger needs malloc reuse; park stands, falsifiers unfired, no `js/`
+
+**C locus:** `nhlua.c` nhl_gamestate `:1721–1802` (symptom — restore arm completes both sides, moves=167; never re-port) + `pline.c` vpline pre-flush `:277–278` (**painter** of the row-12 C value: the steed-impossible vpline's own flush at getlev-restmon paints map-(35,11)=254 floor-dot + bot uz=1:6 status + the restmon `u` — D-3884 TEMP-C V1+V2) + `steed.c:911–920` + `restore.c:1193` (**firing condition**: `mon == u.usteed` with the gmst-restored stale pointer — D-3895 TEMP-C ORE-PLACE: mon==usteed, m_id 927≠993, alias_n=1; pristine recorder ASLR-flaky at s1166 — D-3885).
+**JS:** none.
+**Change:** none (no portable writer — see above; any `js/` painting floor at (35,11)@1166 without the C trigger would be trace-tailoring, banned per D-3885).
+**Verify:** preflight `node scripts/verify.mjs --no-cohort` → PASS on a clean tree before diagnosis. `node scripts/verify.mjs --fn nhl_gamestate` → PASS syntax (0 changed js files) · PASS rule2 · FAIL hidden `verify nhl_gamestate: 0 PASS, 0 moved past, 1 unchanged, 0 worse → NO MOVEMENT` (582706 still nhl_gamestate@1166, by proof — no faithful port moves it) · PASS reach smoke 24/24 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: FAIL — expected for a no-js/ head iteration. Movement: `verify nhl_gamestate: 0 PASS, 0 moved, 1 no-movement`.
+**Named:** n/a.
+**Next:** head stays UNPORTABLE-terminal (park stands — never a port row; row-2 work continues per CURRENT Next). Reopen ONLY on the standing falsifiers below. Do not re-measure this trigger (D-3895).
 ## 2026-10-13 — D-3904 [measure] TEMP-C executes the D-3903 trace: mbodypart writer = sp_lev.c:2406 soko_prize_oid (C amu_soko=1 skip → gg=(32,14); JS achieveo null → gg=(36,17))
 
 **C locus:** `monmove.c` m_move `:1715–2075` (decision `:1850–2037`; ENTRY/APPR/SEARCH/MFP/PICK traced) + m_search_items `:1330–1450` (per-object wants traced; skip `:1417–1421` `is_mines_prize || is_soko_prize`, costly `:1405/:1420`) + `obj.h:435–436` (prize = o_id match vs `achieveo.{mines,soko}_prize_oid`) + `sp_lev.c:2406` (**writer**: records `soko_prize_oid = otmp->o_id` at Sokoban prize creation; clears at `cmd.c:1007`, `invent.c:1002`) + `shk.c:5350–5362` costly_spot (measured 0 — excluded).
