@@ -90,4 +90,10 @@ describe("no turn continuation after done() (extern.h NORETURN)", () => {
             `JS drew ${jsSeg.length - cSeg.length} post-done draws: ${jsSeg.slice(cSeg.length).join(", ")}`);
         assert.deepEqual(jsSeg, cSeg);
     });
+    it("Monk-610158 seg5: flayer mdamageu death draws no eat_brains call plus adjattrib tail after done", { timeout: 180000 }, async () => {
+        const { cSeg, jsSeg } = await replayDeathSegment("scen-chain-Monk-610158", 5);
+        assert.equal(jsSeg.length, cSeg.length,
+            `JS drew ${jsSeg.length - cSeg.length} post-done draws: ${jsSeg.slice(cSeg.length).join(", ")}`);
+        assert.deepEqual(jsSeg, cSeg);
+    });
 });
