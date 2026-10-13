@@ -1,9 +1,9 @@
 {
- "commit": "aebed1065",
- "at": "2026-10-13T08:46:06.892Z",
- "full": false,
- "fullCommit": "e5b9e4aea",
- "fullAt": "2026-10-13T05:57:34.898Z",
+ "commit": "6311ff904",
+ "at": "2026-10-13T09:34:52.273Z",
+ "full": true,
+ "fullCommit": "6311ff904",
+ "fullAt": "2026-10-13T09:34:52.273Z",
  "entries": 1449,
  "unrecorded": 0,
  "sessions": {
@@ -16101,7 +16101,7 @@
    "steps": 1654,
    "owner": null,
    "loc": null,
-   "jsOwner": "get_location_random(mklev.js:22034)",
+   "jsOwner": "get_location_random(mklev.js:22041)",
    "cTopline": "You materialize on a different level! It is hot here.--More--",
    "jsTopline": "You materialize on a different level! It is hot here.--More--",
    "error": null
@@ -16186,7 +16186,7 @@
    "steps": 1392,
    "owner": null,
    "loc": null,
-   "jsOwner": "themerooms_generate(mklev.js:32771)",
+   "jsOwner": "themerooms_generate(mklev.js:32778)",
    "cTopline": "You dig a hole through the floor. You fall through...--More--",
    "jsTopline": "You dig a hole through the floor. You fall through...--More--",
    "error": null
@@ -17318,7 +17318,7 @@
    "passed": false,
    "rngM": 36337,
    "rngT": 36337,
-   "scrM": 474,
+   "scrM": 532,
    "scrT": 835,
    "kind": "screen",
    "step": 363,

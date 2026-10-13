@@ -2774,3 +2774,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2762-9eb4b5517-tipcontainer-newsym.md](./2762-9eb4b5517-tipcontainer-newsym.md) | `9eb4b5517` | D-3909 tipcontainer trailing newsym deleted (1 PASS) | **ACCEPT** |
 | [2763-6cd92781b-find-lev-obj.md](./2763-6cd92781b-find-lev-obj.md) | `6cd92781b` | D-3910 level_tele-row writer find_lev_obj trio restart (1 PASS) | **ACCEPT** |
 | [2764-95bb5cc8d-minventory-picknone.md](./2764-95bb5cc8d-minventory-picknone.md) | `95bb5cc8d` | D-3911 look_here-row writer display_minventory PICK_NONE sort+hero (1 PASS) | **ACCEPT** |
+| [2765-c22b308a5-backfire-useupall.md](./2765-c22b308a5-backfire-useupall.md) | `c22b308a5` | D-3912 getobj-row writer backfire survived-fatal useupall (1 moved) | **ACCEPT** |
+| [2766-4eebfc7bf-cav-locate-first.md](./2766-4eebfc7bf-cav-locate-first.md) | `4eebfc7bf` | D-3913 level_tele-row writers Cav locate_first + loca epilogue (1 PASS, 1 moved) | **ACCEPT** |
+| [2767-62b25e99c-rog-gotit.md](./2767-62b25e99c-rog-gotit.md) | `62b25e99c` | D-3914 readobjnam-row writer Rog gotit quest text (1 moved, 1 separate writer) | **ACCEPT** |
+| [2768-844401f85-strangled-uprops.md](./2768-844401f85-strangled-uprops.md) | `844401f85` | D-3915 do_statusline2-row writer fix_worst_trouble Strangled mirror (1 moved) | **ACCEPT** |
+| [2769-6a87ce504-poly-obj-minvent.md](./2769-6a87ce504-poly-obj-minvent.md) | `6a87ce504` | D-3916 dochug-row writer poly_obj whole + replace_object minvent (1 PASS) | **ACCEPT** |
+| [2770-1651cae7f-arc-gotit.md](./2770-1651cae7f-arc-gotit.md) | `1651cae7f` | D-3917 wishymatch-row writer Arc gotit quest text (1 PASS) | **ACCEPT** |
+| [2771-aebed1065-hurtle-punished.md](./2771-aebed1065-hurtle-punished.md) | `aebed1065` | D-3918 background_enlightenment-row writer hurtle live-uball guard (1 PASS) | **ACCEPT** |
+| [2772-6311ff904-feel-hugs-gate.md](./2772-6311ff904-feel-hugs-gate.md) | `6311ff904` | D-3919 mfind0-row writer feel_can_reach_floor ustuck-hugs term (1 moved) | **ACCEPT** |
