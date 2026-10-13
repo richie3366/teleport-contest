@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — D-3936 shk.c inhishop dropped the in_rooms SHARED-walk, so a keeper in its shop doorway read as outside and Kops shopped (queue owner m_move)
+
+**C locus:** `shk.c:1039–1048` `inhishop` — `on_level(shoplevel, u.uz)` gate, then `strchr(in_rooms(mx,my,SHOPBASE), shoproom)`. Read via `costly_spot` (`shk.c:5358`), `monmove.c:266` (`isshk && inhishop`), `mpickstuff` (`mon.c:1853`, D-2085). Ground truth from ignored-recorder MAPLOG: `kpos=(51,7) inshop=1 shoproom=55 inrms=[55,0,0,0]`, roomno/typ map identical both sides.
+**JS:** 2 files (shk.js +13/−6, sounds.js +15/−6). No DIAG/seed/Rule-2 issues (`verify` rule2 PASS).
+**Change:** ported both deferred bodies to C order: ESHK null-guard (JS-necessary; C would deref), live `on_level` (`js/dungeon.js`) gate, live `in_rooms` (`js/hack.js`) + `includes(fromCharCode(shoproom))`. `sounds.js` adds `on_level` (`./dungeon.js`) + `in_rooms` (existing `./hack.js` line); `imports.mjs --can` IN-SCC, hoisted fn, call-time use only.
+**Verify:** `verify m_move`: `scen-shop-Monk-49959628: PASS`; `scen-sweep-Caveman-49956036: still m_move at step 505` (unchanged — proven different cause: zero `isshk` on level at 505, so inhishop is a no-op there). REACH `m_move`: 80/80 PASS, 0 regressed → REACH-OK. green 2/2 · strict ×2 · cohort 7/7 PASS. Sanity probe: JS@chars146 keeper inshop=true costly=true, kops move to C-exact (52,10)/(51,10)/(52,9) (was (50,8)/(49,8)/(51,9)).
+**Named:** strchr-NUL quirk (C `shoproom==0` → vacuously TRUE; JS FALSE — matches the ledgered teleport clone; unreachable for sane eshk). None else — whole body.
+**Next:** Caveman-49956036 step 505 (`rn2(20)=6` vs `distfleeck rn2(5)=1`, moves 56, no shk) needs its own writer diagnosis — same playbook (`/tmp/cave505_pre.recipe.json` prefix + save-oracle snapshot + C m_search trace); expect the regen to re-file it as a 1-session m_move row.
 ## 2026-10-13 — D-3935 `getpos.c` cliff writer: `gold_detect` spurious `flush_topl_more` before browse_map (3 PASS + 1 moved 309→972)
 
 **C locus:** `detect.c:471` (`You_feel("very greedy, and sense gold!")` → `exercise` → `browse_map(ter_typ, "gold")` — no flush/`more()` between the sense pline and `browse_map`); `getpos.c:843–846` (verbose pline appends on the same topline via the `topl.c` NEED_MORE + room two-space join). Sole C caller `read.c:2041` (`(confused || scursed) ? trap_detect(sobj) : gold_detect(sobj)`).

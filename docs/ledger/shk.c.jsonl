@@ -24,7 +24,7 @@
 {"fn":"same_price","c":"955-981","status":"ported","js":["js/shk.js:same_price"],"at":"2026-10-03@bbe63333a"}
 {"fn":"shop_debt","c":"990-999","status":"ported","js":["js/shk.js:shop_debt"],"at":"2026-10-03@bbe63333a"}
 {"fn":"shopper_financial_report","c":"1003-1035","status":"ported","js":["js/shk.js:shopper_financial_report"],"d":["D-1740"],"at":"2026-10-03@bbe63333a"}
-{"fn":"inhishop","c":"1039-1048","status":"ported","js":["js/teleport.js:inhishop"],"at":"2026-10-03@bbe63333a"}
+{"fn":"inhishop","c":"1039-1048","status":"ported","js":["js/shk.js:inhishop","js/sounds.js:inhishop","js/teleport.js:inhishop"],"d":["D-3936"],"at":"2026-10-13@b552183fe"}
 {"fn":"shop_keeper","c":"1052-1080","status":"ported","js":["js/shk.js:shop_keeper"],"d":["D-3406","D-2901"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"find_objowner","c":"1084-1115","status":"ported","js":["js/shk.js:find_objowner"],"at":"2026-10-03@bbe63333a"}
 {"fn":"tended_shop","c":"1118-1123","status":"ported","js":["js/sounds.js:tended_shop"],"at":"2026-10-03@bbe63333a"}

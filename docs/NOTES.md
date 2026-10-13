@@ -26,21 +26,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-3935 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3936 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3935.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3935 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3936.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3936 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3936: ported both deferred bodies to C order: ESHK null-guard (JS-necessary; C would deref), live `on_level` (`js/dungeon.js`) gate, live `in_rooms` (`js/ha Named: strchr-NUL quirk (C `shoproom==0` → vacuously TRUE; JS FALSE — matches the ledgered telepo
 - D-3935: deleted the flush call, replaced with the C cite (`detect.c:471` → `getpos.c:843–846`, two-space join, same-class-as-D-2081/D-2242/D-3769 note). Named: none new (gold_detect otherwise whole per the arm check above; the `have_coins` invent loo
 - D-3934: add `OBJ_BURIED` to the existing const.js import (shk.js:59; `imports.mjs --can` ALREADY — no new edge). Named: none new.
 - D-3933: wield.js returns C ECMD_* arm-for-arm: FAIL arms → ECMD_FAIL (dowield cantwield/already×2/welded/armor, doswapweapon cantwield/welded, ready_weapon sh Named: none in the ported arms.
@@ -55,5 +56,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3924: `js/uhitm.js` only — the passive `Antimagic` const now OR-reads `uprops[ANTIMAGIC]` intrinsic/extrinsic alongside the flats (Free_action `:3271` shape Named: sibling flat-only reads keep the per-site OR-read migration for their own cliffs (same C-w
 - D-3923: `js/mhitm.js` only — `Cold_resistance()` now OR-reads `uprops[COLD_RES]` intrinsic/extrinsic alongside the flats (sit.js `:580` shape, precedented for Named: sibling flat-only `Cold_resistance` clones keep the per-site OR-read migration for their o
 - D-3922: Bar + Pri gotit bodies verbatim (EQUAL ×6) + meta ×2. Named: remaining gotit roles no session reaches (Cav/Hea/Kni/Mon/Ran/Sam/Tou/Val/Wiz).
-- D-3921: js/sit.js only — `has_intr` OR-read + `clear_intr` dual-write helpers, all 11 arms in C order with unchanged messages/ret/extra blocks (telepat see_mo Named: none new — attrcurse now whole vs C `:644–762` (all 11 arms incl. telepat/see_invis extras
 <!-- landmarks:end -->
