@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-13
 
+- [x] `monmove.c` dochug — blocks 1/1449 corpus sessions (first at step 1045; RNG lost 46620, screens lost 590): C draws `rn2(3)=0` in dochug, JS `rn2(330)=57` from select_newcham_random(makemon.js:1550). Probe: `node scripts/hidden-proxy.mjs verify dochug` (scen-sweep-Samurai-587214). @62b25e99c **[history: archived D-2430 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3916
+
+
 - [x] `[measure]` `monmove.c` m_move / Knight-585504 C-268 dark-path + moves=132 decision trace (D-3903 park follow-up) — blocks 1/1365 (scen-sweep-Knight-585504 step 841/1131 kind=screen at polyself.c:1995; mbodypart parked SYMPTOM D-3903: pure-string owner whole in JS, divergence is C blue-@ at (33,17) = elf-noble-268's moves=132 m_move pick (JS: appr=1 gg=(36,17)-amulet → (34,18); C went hero-ward → (33,17)); paths agreed while lit-visible ((31,18) steps 643–729), split went dark 730–840). Deliverable: TEMP-C re-record with log-only stderr dump in the ignored recorder tree (D-3884 hygiene: /tmp probes only, revert + FULL `nethack-c/build-recorder.sh` rebuild + byte-identical re-record; never commit TEMP-C): (a) per-turn C-268 trail for moves 115–132 (pos + minvent otyps + pctload), (b) full C fmon (mndx,x,y) + objects at (36,17)/(33,18)/(34,18)/(33,17) + couldsee(33,18)/(33,17) at moves 131/132, (c) C m_move decision inputs for 268 at moves 132 (appr/gg/getitems/m_search_items-per-object-wants/mfndpos/pick/dest). Same-inputs result names a port bug (port the arm); differing inputs name the regress point (re-queue under that writer, never re-port mbodypart). No `js/` in the measure commit. **Addressed:** D-3903 `3b5a0e8e6`
 
 ## 2026-10-12

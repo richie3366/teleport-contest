@@ -22,7 +22,7 @@
 {"fn":"nextoid","c":"536-551","status":"ported","js":["js/mkobj.js:nextoid"],"d":["D-3008"],"at":"2026-09-28@fbf84a98f","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"unsplitobj","c":"556-622","status":"ported","js":["js/mkobj.js:unsplitobj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"clear_splitobjs","c":"626-629","status":"ported","js":["js/mkobj.js:clear_splitobjs"],"at":"2026-10-03@bbe63333a"}
-{"fn":"replace_object","c":"641-679","status":"ported","js":["js/mkobj.js:replace_object"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: MINVENT/CONTAINED splice arms degrade to FREE; unreachable, sole caller poly_obj passes only INVENT/FLOOR"}
+{"fn":"replace_object","c":"641-679","status":"ported","js":["js/mkobj.js:replace_object"],"d":["D-3916"],"at":"2026-10-13@844401f85","note":"audit 2026-10-03: MINVENT/CONTAINED splice arms degrade to FREE; unreachable, sole caller poly_obj passes only INVENT/FLOOR"}
 {"fn":"unknwn_contnr_contents","c":"684-695","status":"ported","js":["js/mkobj.js:unknwn_contnr_contents"],"at":"2026-10-03@bbe63333a"}
 {"fn":"bill_dummy_object","c":"712-741","status":"ported","js":["js/shk.js:bill_dummy_object"],"at":"2026-10-03@bbe63333a"}
 {"fn":"costly_alteration","c":"752-826","status":"ported","js":["js/shk.js:costly_alteration"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: INVENT arm assigns bknown directly (set_bknown display flag only, callers refresh); SetVoice no-op; impossible diagnostic dropped"}
