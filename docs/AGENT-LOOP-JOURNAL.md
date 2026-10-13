@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — D-3912 cliffs-head `invent.c` getobj Knight-587209 s79: writer backfire skipped useupall after survived fatal losehp — exploded wand survived a declined death and re-prompted; probe moved 79 → 561
+
+**C locus:** zap.c backfire `:2604–2614` (`:2613` useupall unconditional after losehp); end.c done `:1112–1123` (wizard Die?-decline → savelife, survive=TRUE, `return` — done is NOT noreturn on this path); hack.c losehp `:4279–4291` (fatal → urgent_pline + done(DIED) `:4287–4288`; maybe_wail only in the non-fatal else `:4289–4290`, so it never fires on the survived-fatal path). Sole C caller dozap `:2648` (exercise + ECMD_TIME after; skips update_inventory since useupall→freeinv did it — `:2650–2651`).
+**JS:** 1 scored file (zap.js +9/−2) + 1 test (scripts/backfire-survived-useupall.test.mjs: recipe-prefix pattern, pins C toplines s73–s79 — wish, first prompt, explosion, Die?, decline, nothing-to-zap).
+**Change:** js/zap.js only — after `finish_losehp_done()`, return only while `gameover` is still true; otherwise `useupall(otmp)` (live invent.js:5066 export, no new edge) with no wail drain (C else-arm never fires here); doc comment corrected to the end.c:1119–1123 survive-return. No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** new test red pre-fix (context s73–s78 pass; final assert actual «What do you want to zap? [k or ?*]» vs expected nothing-to-zap — the exact board divergence) → 1/1 post-fix. `node scripts/verify.mjs --fn getobj,backfire` → PASS syntax (1 changed js file: js/zap.js) · PASS rule2 · PASS hidden (`verify getobj: 0 PASS, 1 moved past, 0 unchanged, 0 worse`; Knight-587209: moved → mhitm_ad_curs at step 561, was 79) · PASS reach (getobj smoke 24/24 + backfire smoke 24/24, both no RNG-tagged reach → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (checker). Full public `sessions` forced: 44/44 PASS (`352+1.59/turn`, R² 0.74).
+**Named:** none new — backfire now whole vs C `:2604–2614` (in_use, explode pline, d(spe+2,6), losehp, useupall on every surviving path, gameover early return).
+**Next:** getobj row leaves via regen (probe now at mhitm_ad_curs s561). Do not re-port getobj/zap_ok (C-exact) or backfire's non-fatal arm (D-3795 wail drain stands).
 ## 2026-10-13 — Grow #4: 84 sessions (seeds 587100–587319), board 1397/1449, cliffs 5→12 owners
 
 **Mix:** 44 `--family marathon` (11 each worldtour/sweep/chain/trek) + 20 sweep (lowest-RNG long family at 98.2 %, still failing) + 20 worldtour (sibling depth — 4/5 cliff probes were worldtour; broad skipped since every second-wave family sits at 100 %); chain at 100 % got no direct extras. No `js/` edits, no D-entry, no ledger rows.
