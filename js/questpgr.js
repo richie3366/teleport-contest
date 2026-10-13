@@ -686,6 +686,15 @@ Suddenly, %n grasps his head and screams in agony, then dies.`,
 Then, the body bursts into a cloud of choking dust, and blows away.`,
 };
 
+/** C ref: dat/quest.lua gotit (Rog exercised; remaining roles named omit). */
+const QUEST_GOTIT = {
+    // C ref: dat/quest.lua Rog gotit (output=text) — quest.lua:2060-2067
+    Rog: `As you pick up %o, the hairs on the back of your
+neck fall out.  At once you realize why %n was
+willing to die to keep it out of %ls hands.  Somehow
+you know that you must do likewise.`,
+};
+
 /** C ref: quest.lua msg_fallbacks — used when the role table has no msgid. */
 const QUEST_MSG_FALLBACKS = {
     goal_alt: 'goal_next',
@@ -902,6 +911,12 @@ const QUEST_MSG_META = {
             synopsis: '[%nC curses you as %nh dies.]',
         },
     },
+    gotit: {
+        Rog: {
+            output: 'text',
+            synopsis: '[You pick up %o and know that %l should not have it.]',
+        },
+    },
 };
 
 /** C ref: dat/quest.lua common.legacy synopsis (output=menu). */
@@ -925,6 +940,7 @@ const QUEST_ROLE_TEXT = {
     goal_next: QUEST_GOAL_NEXT,
     goal_alt: QUEST_GOAL_ALT,
     killed_nemesis: QUEST_KILLED_NEMESIS,
+    gotit: QUEST_GOTIT,
     // C ref: dat/quest.lua role tables, all 13 filecodes (D-2853).
     // discourage is a string array (com_pager_core rn2 arm). nemesis_* are
     // {text, synopsis?, output?} so the first filecode lookup hits.

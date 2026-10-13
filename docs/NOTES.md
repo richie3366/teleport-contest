@@ -27,21 +27,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-3913 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
-- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3913) reached no session — no pole-lava row.
+- D-1790…D-3914 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3914) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3913.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3913 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3914.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3914 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3914: js/questpgr.js only (data): Rog gotit body verbatim from quest.lua (node byte-compare TEXT EQUAL true incl. double spaces after «out.»/«hands.»; %o/%n Named: remaining gotit role bodies no corpus session reaches (Arc/Bar/Cav/Hea/Kni/Mon/Pri/Ran/Sam
 - D-3913: js/questpgr.js only (data): Cav locate_first body verbatim from quest.lua (node byte-compare TEXT EQUAL true incl. double space after «ground.» and em Named: remaining locate_first role bodies no corpus session reaches (Hea/Kni/Mon/Rog/Sam/Tou/Val;
 - D-3912: js/zap.js only — after `finish_losehp_done()`, return only while `gameover` is still true; otherwise `useupall(otmp)` (live invent.js:5066 export, no  Named: none new — backfire now whole vs C `:2604–2614` (in_use, explode pline, d(spe+2,6), losehp
 - D-3911: PICK_NONE analog now mirrors query_objlist in C order: sortflags computation (query_objlist `:822–832` shape; sortloot 'l' default, sortpack, PETRIFY  Named: engulfer mon_to_glyph burn (C `:1157–1158`, Hallu-only — shared with the live query_objlis
@@ -56,5 +57,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3902: sort the head slice(0,n), write it back in place (`rooms[i] = head[i]`); dropped the non-C sentinel rewrite (C writes none — add_room/add_subroom's se Named: none new.
 - D-3901: `js/zap.js` only for the body — zappable is now async and awaits `You('wrest one last charge from the worn-out wand.')` in the spe==0 arm (C order: me Named: none new — zappable now whole vs C `:2514–2522` (fail-gate, wrest message, consume, return
 - D-3900: `js/dig.js` only — `await finish_maybe_wail()` after the fatal-drain block, before mksobj_at (C order: the wail prints inside losehp, before the rock  Named: none new — zap_dig stays whole vs C `:1548–1754`.
-- D-3899: both sites: deleted the shadowing const, `if (Blind())` with C-cite comments (uhitm.c:1273 + youprop.h:103 + do.js:3797 snapshot note). Named: none new — hmon_hitmon_misc_obj stays whole vs C (predicate now C-exact); hmon_hitmon inli
 <!-- landmarks:end -->
