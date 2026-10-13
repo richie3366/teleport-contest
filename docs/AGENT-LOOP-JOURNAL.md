@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-13 — D-3937 `makemon.c` cliff writer: themeroom buried-zombie corpses kept the mksobj gender roll, C zeroes spe via sp_lev des.object default (5 PASS + 1 moved 157→329)
+
+**C locus:** sp_lev.c lspo_object CORPSE/STATUE arm (~:3708–3715): param-table des.object sets tmpobj.spe=lflags (0 unless historic/male/female); create_object :2230–2231 applies o->spe (0≠-127), discarding the mksobj gender roll. themerms.lua "Buried zombies" passes id/montype/buried only → spe=0. Temp ignored-recorder dump in revive() proved all 17 Healer revives see spe=0/cgend=0 (reverted + rebuilt clean after).
+**JS:** 1 file (js/mklev.js +6/−0: 5 comment + 1 code) + scripts/themeroom-buried-zombie-spe.test.mjs (new, 1 it: Healer-49950011 draws 9561–9566 incl rn2(2)=0 + screens).
+**Change:** one line `otmp.spe = 0` after set_corpsenm with C cites (order-insensitive since set_corpsenm preserves; matches prior-art valley.lua placeCorpse mklev.js:25321). No import/signature change. Rule #2 clean.
+**Verify:** focused test 1/1 post-fix. `verify makemon: 5 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (Archeologist/Monk/Healer/Valkyrie-83/Valkyrie-57000 PASS; Rogue-49950027 → trapeffect_pit at step 329 (was 157)). REACH makemon 80/80 → REACH-OK. green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared file) → VERIFY: PASS.
+**Named:** create_object :2425 `stackobj(otmp)` before bury not mirrored (same-spot same-corpsenm themeroom corpses merge in C — with a latent C UAF burying the freed shell — stay separate in JS; unobserved in these 6 first-divergences). Medusa `des.object({id="statue",contents=0})` ×7 (mklev.js:5433) same lflags=0 default unmirrored (separate levels/sessions; see Next). lspo_object as a unit not ported (JS mirrors des.object inline per level; this fix covers the themeroom CORPSE arm only).
+**Next:** Rogue-49950027 now blocks on trapeffect_pit@329 (own future row). Do not re-port makemon gender (whole) or the themeroom spe=0. If a Medusa-level session blocks on statue spe (stone-to-flesh gender / revive draws), port the lflags default at mklev.js:5433 the same way (own iteration).
 ## 2026-10-13 — audit 2782–2789 @6f89ca4ec: review D-3929..D-3936 (8A/0D/0Q, 0 Must-fix) + full rescore 2122/2296 (0 flips)
 
 **Reviews:** 2782–2789 all ACCEPT, no Must-fix queued. Every Verify bullet re-measured (incl. `--reach-all` on m_move ×2, randomize_gem_colors ×2, get_location, com_pager_core, dowield/doswapweapon, getpos); the only reach regressions were the known 582706 oracle-side flake (board history proves the flip came from the Grow #5 no-`js/` re-record — oracle 1166→1238 steps — D-3885 UNPORTABLE park stands, not re-filed).

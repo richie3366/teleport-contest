@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-13
 
+- [x] `makemon.c` makemon — blocks 6/2296 corpus sessions (first at step 836; RNG lost 208623, screens lost 1490): C draws `rn2(2)=0` in makemon, JS `rn2(1000)=538` from start_corpse_timeout(mkobj.js:2388). Probe: `node scripts/hidden-proxy.mjs verify makemon` (scen-chain-Archeologist-49950030, scen-chain-Monk-49958020, scen-trek-Healer-49950011). @6f89ca4ec **[history: archived D-3285 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3937
+
+
 - [x] `monmove.c` m_move — blocks 2/2296 corpus sessions (first at step 150; RNG lost 95862, screens lost 1787): C draws `rn2(20)=2` in m_move, JS `rn2(5)=2` from distfleeck(monmove.js:1180). Probe: `node scripts/hidden-proxy.mjs verify m_move` (scen-shop-Monk-49959628, scen-sweep-Caveman-49956036). @ec0e2af9b **[parked: RESOLVED — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]** **Addressed:** D-3936 `6f89ca4ec`
 
 

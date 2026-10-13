@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-3937 — `makemon.c` cliff writer: themeroom buried-zombie corpses kept the mksobj gender roll, C zeroes spe via sp_lev des.object default (5 PASS + 1 moved 157→329)
+
+- **Status:** shipped (Open — cliffs head `makemon.c` makemon @6f89ca4ec, 6 corpus blocks; owner proven already-whole — makemon gender chain, is_male/is_female/is_neuter, MM_FEMALE/MM_MALE arms all C-exact, brief body complete; D-3285 read once per the row's history tag — different arm (ptr-arm GENOD veto, NO MOVEMENT there), not re-ported. No review stamp owed — row cites no review.)
+- **Symptom:** 6 sessions kind=rng at makemon.c:1279: C `rn2(2)` gender vs JS `start_corpse_timeout` (4×) / `gethungry` / `dosounds` (JS skipped the draw via MM_MALE/MM_FEMALE). All six are zombify revive→makemon: JS corpse spe∈{1,2,3} (preserved mksobj roll) → MM flag → no draw; C draws. Archeologist-49950030 s836 (kobold), Monk-49958020 s135, Healer-49950011 s154 (gnome), Rogue-49950027 s157, Valkyrie-49950083 s312, Valkyrie-49957000 s498.
+- **C locus:** sp_lev.c lspo_object CORPSE/STATUE arm (~:3708–3715): param-table des.object sets tmpobj.spe=lflags (0 unless historic/male/female); create_object :2230–2231 applies o->spe (0≠-127), discarding the mksobj gender roll. themerms.lua "Buried zombies" passes id/montype/buried only → spe=0. Temp ignored-recorder dump in revive() proved all 17 Healer revives see spe=0/cgend=0 (reverted + rebuilt clean after).
+- **JS was:** js/mklev.js themeroom_fill_buried_zombies did mksobj_at + set_corpsenm (preserves spe) with no spe reset → spe∈{1,2,3} → revive set MM_MALE/MM_FEMALE → makemon gender skipped.
+- **Fix:** one line `otmp.spe = 0` after set_corpsenm with C cites (order-insensitive since set_corpsenm preserves; matches prior-art valley.lua placeCorpse mklev.js:25321). No import/signature change. Rule #2 clean.
+- **JS:** 1 file (js/mklev.js +6/−0: 5 comment + 1 code) + scripts/themeroom-buried-zombie-spe.test.mjs (new, 1 it: Healer-49950011 draws 9561–9566 incl rn2(2)=0 + screens).
+- **Callers:** C themerms.lua des.object → JS themeroom_fill (filler_region mklev.js:32440→32395→32367 dispatch). No caller wiring changed (same function, same signature; behavior-only).
+- **Verify:** focused test 1/1 post-fix. `verify makemon: 5 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (Archeologist/Monk/Healer/Valkyrie-83/Valkyrie-57000 PASS; Rogue-49950027 → trapeffect_pit at step 329 (was 157)). REACH makemon 80/80 → REACH-OK. green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared file) → VERIFY: PASS. Movement: `verify makemon: 5 PASS, 1 moved, 0 no-movement`.
+- **Named omissions:** create_object :2425 `stackobj(otmp)` before bury not mirrored (same-spot same-corpsenm themeroom corpses merge in C — with a latent C UAF burying the freed shell — stay separate in JS; unobserved in these 6 first-divergences). Medusa `des.object({id="statue",contents=0})` ×7 (mklev.js:5433) same lflags=0 default unmirrored (separate levels/sessions; see Next). lspo_object as a unit not ported (JS mirrors des.object inline per level; this fix covers the themeroom CORPSE arm only).
+- **Ledger:** create_object split js=mklev.js:create_object+mklev.js:splev_create_object+mklev.js:themeroom_fill_buried_zombies
+- **Next:** Rogue-49950027 now blocks on trapeffect_pit@329 (own future row). Do not re-port makemon gender (whole) or the themeroom spe=0. If a Medusa-level session blocks on statue spe (stone-to-flesh gender / revive draws), port the lflags default at mklev.js:5433 the same way (own iteration).
+
 ## D-3936 — shk.c inhishop dropped the in_rooms SHARED-walk, so a keeper in its shop doorway read as outside and Kops shopped (queue owner m_move)
 
 - **Status:** fixed (Open cliff row `monmove.c` m_move — 1/2 probe sessions PASS; the other proven different-cause, see Next; `node scripts/verify.mjs --fn m_move` → 1 PASS, 0 moved past, 1 unchanged, 0 worse → PROGRESS; no review stamp owed — row cites no review)
