@@ -26,21 +26,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-3922 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
-- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3922) reached no session — no pole-lava row.
+- D-1790…D-3923 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- Corpus: 1113 entries; full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…D-3923) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3922.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3922 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3923.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3923 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3923: `js/mhitm.js` only — `Cold_resistance()` now OR-reads `uprops[COLD_RES]` intrinsic/extrinsic alongside the flats (sit.js `:580` shape, precedented for Named: sibling flat-only `Cold_resistance` clones keep the per-site OR-read migration for their o
 - D-3922: Bar + Pri gotit bodies verbatim (EQUAL ×6) + meta ×2. Named: remaining gotit roles no session reaches (Cav/Hea/Kni/Mon/Ran/Sam/Tou/Val/Wiz).
 - D-3921: js/sit.js only — `has_intr` OR-read + `clear_intr` dual-write helpers, all 11 arms in C order with unchanged messages/ret/extra blocks (telepat see_mo Named: none new — attrcurse now whole vs C `:644–762` (all 11 arms incl. telepat/see_invis extras
 - D-3920: js/questpgr.js only (data): Val goal_next body verbatim from quest.lua (TEXT EQUAL; `%ns` shipped) + doc role list. Named: remaining goal_next bodies no session reaches (7 roles: Cav/Hea/Mon/Rog/Sam/Tou/Wiz).
@@ -55,5 +56,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3911: PICK_NONE analog now mirrors query_objlist in C order: sortflags computation (query_objlist `:822–832` shape; sortloot 'l' default, sortpack, PETRIFY  Named: engulfer mon_to_glyph burn (C `:1157–1158`, Hallu-only — shared with the live query_objlis
 - D-3910: all three restarted as the C body in C order: zero map, reverse fobj into placement order with OBJ_FREE each, `game.fobj = null`, re-place oldest-firs Named: none new — find_lev_obj now whole vs C `:70–107` (zero, reverse+FREE, re-place, gated fixu
 - D-3909: deleted the trailing `newsym(ox, oy)` + its doc claim (exact C behavior: no paint here); updated the turns.md #tip row note; added focused test `scrip Named: none (deletion only; tipcontainer stays whole vs C `:3688–3841`).
-- D-3908: js/options.js only — the `finally` now writes `game.give_opt_msg = true` (C `:8733` cite); the `prevGive` save removed (dead); entry FALSE (`:8722`) a Named: none new.
 <!-- landmarks:end -->
