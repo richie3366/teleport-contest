@@ -28355,8 +28355,12 @@ function hellfill_style_cold_maze() {
         selection_filter_percent(icey, 5),
         (x, y) => sel_set_ter(x, y, POOL, SET_LIT_NOCHANGE),
     );
+    // C hellfill.lua:405-407 des.terrain(selection.match("w"), "W") — the
+    // lspo_terrain :5010-5012/:5024-5025 selection arm paints draw-free
+    // (selection_iterate + sel_set_ter); the replace_terrain helper burns a
+    // per-cell rn2(100) (C :5127/:5132) C never draws here.
     if (percent(25))
-        hellfill_replace_terrain_all(MATCH_WALL, WATER, 100);
+        lspo_terrain(selection_match_mapfrag('w'), 'W');
     if (cwid === 1 && percent(25)) {
         /* rnd_hell_prefab(true) deferred */
     }

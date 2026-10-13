@@ -110,7 +110,7 @@
 {"fn":"nhl_abs_coord","c":"4811-4836","status":"ported","js":["js/mklev.js:nhl_abs_coord"],"d":["D-3174","D-3168"],"at":"2026-09-30@b5e29a0ee","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_feature","c":"4844-4923","status":"ported","js":["js/mklev.js:lspo_feature"],"d":["D-2712"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lspo_gas_cloud","c":"4929-4965","status":"ported","js":["js/mklev.js:lspo_gas_cloud"],"d":["D-3190","D-3185"],"at":"2026-10-01@447ada6e3","note":"review 2145: Number(tx) before signed-16 narrowing loses full-width Lua integer low bits in array coord; exact coordinate transport Must-fix"}
-{"fn":"lspo_terrain","c":"4978-5038","status":"ported","js":["js/mklev.js:lspo_terrain"],"d":["D-3158"],"at":"2026-09-30@db34c42bb","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_terrain","c":"4978-5038","status":"ported","js":["js/mklev.js:lspo_terrain"],"d":["D-3158"],"at":"2026-10-13@e1f185743","note":"whole vs C (D-3158); hellfill.lua:406 des.terrain caller wired D-3931"}
 {"fn":"lspo_replace_terrain","c":"5051-5143","status":"ported","js":["js/mklev.js:lspo_replace_terrain"],"d":["D-1856"],"at":"2026-10-03@bbe63333a"}
 {"fn":"generate_way_out_method","c":"5146-5214","status":"ported","js":["js/mklev.js:generate_way_out_method"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ensure_way_out","c":"5217-5255","status":"ported","js":["js/mklev.js:ensure_way_out"],"d":["D-2101"],"at":"2026-10-03@bbe63333a"}
@@ -141,4 +141,4 @@
 {"fn":"sp_level_coder_init","c":"6336-6376","status":"ported","js":["js/mklev.js:sp_level_coder_init"],"d":["D-2643"],"at":"seed@a30a7de84"}
 {"fn":"l_register_des","c":"6435-6441","status":"by-design","d":["D-3304"],"at":"2026-10-02@c50c91230","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"create_des_coder","c":"6444-6448","status":"ported","js":["js/mklev.js:create_des_coder"],"at":"2026-10-03@bbe63333a"}
-{"fn":"load_special","c":"6454-6502","status":"partial","js":["js/mklev.js:load_cav_strt"],"omit":"link_doors_rooms (C:6464; doors-only orientation+registration — C doorct=1 vs JS 0 measured in v6, cosmetic here, next-cliff candidate); map_cleanup (C:6466; provable no-op — Cav-strt map chars {' ', '.', 'B', 'S'}, no liquid, by-design).","d":["D-3929","D-3587","D-3406","D-3007"],"at":"2026-10-13@4a24235a6","note":"audited D-3406: whole vs C"}
+{"fn":"load_special","c":"6454-6502","status":"partial","js":["js/mklev.js:load_cav_strt","js/mklev.js:load_hellfill"],"omit":"load_hellfill rnd_hell_prefab arms (hells[2]/[4]/[6] percent gates) + hells[4] horizontal iron-bar floor replace unported (pre-existing in-code omits); load_cav_strt link_doors_rooms/map_cleanup (D-3929) unchanged.","d":["D-3931","D-3929","D-3587","D-3406","D-3007"],"at":"2026-10-13@e1f185743","note":"audited D-3406: whole vs C"}
