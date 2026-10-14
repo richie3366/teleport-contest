@@ -7,6 +7,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — D-3948 `do_wear.c` Helmet_on ran a house find_ac C never calls: mid-turn helm-donning completion painted the new AC four steps early (Healer-49956027 s486 AC:8 → PASS)
+
+**C locus:** `do_wear.c` Helmet_on `:434–515` (helm switch + known tail — NO find_ac) + `accessory_or_armor_on` `:2376` (instant setworn) / `:2395–2399` (nomul(-oc_delay), nomovemsg) + `hack.c` unmul `:4177–4208` (nomovemsg first, then afternmv) + `allmain.c` `:380–388` (multi<0 completion inside time-passed) + `:453` (once-per-player-input find_ac — the sole uac authority on this path) + `objects.h` HELM elven (`delay 1`, `ac 9` → bonus 1: 8→7). find_ac itself is whole (`js/u_init.js:1428`); the writer is its house caller.
+**JS:** `js/do_wear.js` (2 deletions + comment/cites) + `scripts/helmet-on-no-early-findac.test.mjs` (new node:test: 49956027 prefix-491 pins the C-recorded s486 topline + `AC:8` row23 verbatim and s490 `AC:7` + uac=7; pre-fix 0/1, post-fix 1/1).
+**Change:** `js/do_wear.js` only — deleted both house `find_ac()` calls (normal-path tail + null arm, now a plain `return 0`); doc comment now cites `:434–515` + the D-0810 rule (uac refreshes at the allmain once-per-input find_ac; same stale-uac shape as the Cloak_on note) + the D-3891 class. Signature unchanged; `find_ac` import kept (Gloves/Amulet/Ring arms still use it). No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** focused test pre-fix 0/1 (exact corpus `AC:7`-at-486 row) → post-fix 1/1. `node scripts/verify.mjs --fn do_statusline2,Helmet_on` → PASS syntax (1 file: js/do_wear.js) · PASS rule2 · `verify do_statusline2: 1 PASS, 0 moved past, 17 unchanged, 1 worse → REGRESSION` (scen-sweep-Healer-49956027 486→PASS; the 1 worse is scen-symset-Healer-50058517, step-0 $‑glyph session, rngM 2412→2405 vs the 960003e5b baseline) · note hidden verify Helmet_on (0 blocked at baseline — NOT a corpus PASS) · REACH-OK ×2 (smoke 24/24 ×2) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: not shared). Movement: `verify do_statusline2: 1 PASS, 0 moved, 0 no-movement` on the probe.
+**Named:** none new — Helmet_on now whole vs C `:434–515`. Sibling find_ac calls in other `*_on` functions untouched, separate C functions no session names (D-3890 sibling rule): Gloves_on `js/do_wear.js:1636`, Amulet_on `:3215`, Amulet_off `:3373`, Ring_on `:3883`, Ring_off_or_gone `:3967`.
+**Next:** regen cliffs (do_statusline2 row sheds 49956027; residuals name other writers — HP/cond/`# Agent loop journal
+
+Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
+Each agent process should add a short dated entry **at the top** (after
+this header) before exiting. Keep entries tight; detailed hypothesis
+lives in `NOTES.md` / `CURRENT.md`.
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+-glyph diffs, not AC).
 ## 2026-10-14 — D-3947 cliffs-head `update_rest_on_space` writer: rhack num_pad dispatch whole (letters unbound, digits walk, tlist prefix gates, bad_command arm) + m-reject stop
 
 **C locus:** cmd.c commands_init `:2761–2772` (num_pad binds: h→help j→jump k→kick l→loot u→untrap N→name C-l→redraw C-n→annotate '5'→run M-'5'→rush '-'→fight) + reset_commands `:3430–3475` (num_pad: letters restored, ndir "47896321"→do_move_*, M(digit)→do_run_*, no C(digit)) + rhack `:3693–3716` (prefix gate: bound-only, PREFIXCMD/CMD_gGF_PREFIX; runwest/rushwest are MOVEMENTCMD|CMD_M_PREFIX only `:2025–2044`, so F/G/g + run key errors) + `:3713–3714`/`:3812–3816` (m-reject res=ECMD_FAIL → reset + return, command never runs) + `:3833–3841` (bad_command: custompline SUPPRESS_HISTORY Unknown, clear CANNED+REPEAT, sanity skip, move FALSE, multi 0) + cmd_from_func `:3036–3066` (newest printable wins: fight→'-', run→'5', rush→'g' under num_pad) + extcmdlist `:1818` (C-r→redraw IFBURIED|GENERALCMD|CMD_INSANE) + display.c doredraw `:1694–1699`.

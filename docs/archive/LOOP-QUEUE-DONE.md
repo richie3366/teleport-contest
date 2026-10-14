@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-14
 
-- [x] `cmd.c` update_rest_on_space — blocks 13/2815 corpus sessions (first at step 3; RNG lost 104443, screens lost 9008): C «Unknown command 'K'.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify update_rest_on_space` (scen-symset-Archeologist-50058510, scen-symset-Archeologist-50059047, scen-symset-Barbarian-50059021). @f3027aae9 **[history: ledger: ported — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3947
+- [x] `cmd.c` update_rest_on_space — blocks 13/2815 corpus sessions (first at step 3; RNG lost 104443, screens lost 9008): C «Unknown command 'K'.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify update_rest_on_space` (scen-symset-Archeologist-50058510, scen-symset-Archeologist-50059047, scen-symset-Barbarian-50059021). @f3027aae9 **[history: ledger: ported — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3947 `d0fed11a2`
 
 
 - [x] regression PASS→FAIL blocks 2/2815 (D-3941 js/ range 365667f22..96149d38f; 73801e55a docs-only): scen-sweep-Ranger-95303 screen@839 owner-null row 13 C«│y·» vs JS«│≤·» + scen-sweep-Barbarian-582719 screen@1000 owner-level_tele row 11 same y/≤ shape — committed board PASS, HEAD-js FAIL deterministic 3×; fails identically with and without the bones-lights install (stash test — single-segment, no bones load, change inert). Suspect D-3941 display.js symset render (monster-over-stairs visibility or S_upladder ≤ encoding). **Addressed:** D-3943 `3022efdd7`
