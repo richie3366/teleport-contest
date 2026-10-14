@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — D-3943 Must-fix y/≤ regression: D-3941 loaded-carrier arm overwrote the LADDER judge-flat y/z with dec:true (2 FULL PASS)
+
+**C locus:** `display.c` map_glyphinfo `:2653–2655` (ttychar = showsyms[symidx]); `wintty.c` g_putch `:3758–3763` (high bit → graph_on + ch^0x80); `dat/symbols` DECgraphics S_upladder 0xf9 / S_dnladder 0xfa (+ branch twins); the frozen comparison's DEC_MAP has no y/z entry — measured: C row-13 bytes show `y` inside a `\x0e..\x0f` DEC span, comparing as the raw letter.
+**JS:** js/display.js map_glyphinfo loaded arm (:4960 guard); scripts/symset-loader.test.mjs +1 test (DECgraphics ladders y/z dec:false, walls stay dec:true).
+**Change:** in the loaded arm, a render yielding DEC y/z forces dec:false — mirrors the LADDER base arm. Heals both Must-fix sessions (upladder cells) + the latent AmigaFont S_sw_bc/S_sw_br (0xf9/0xfa, H_UNK — no Handling: line) same-arm case. IBM-handling 0xfa sets (IBMgraphics S_room etc.) already render dec:false — untouched.
+**Verify:** symset-loader 14/14 (new test failed pre-fix: `true !== false` on dec). `score --ids` both: Ranger 839-step FAIL→FULL PASS (1593/1593 scr, 56465/56465 rng), Barbarian 1000-step FAIL→FULL PASS (1230/1230 scr, 74270/74270 rng). `verify --fn map_glyphinfo`: hidden note (both FAIL at baseline under owners null/level_tele, so no `--fn` attribution — movement shown by direct score), reach 24/24 smoke REACH-OK, green 2/2, strict ×2, cohort 7/7, full 44/44 (shared display.js):
+**Named:** none new. ov arm untouched (pre-D-3941 DEC-bit behavior, sessions pass); darkroom arm untouched (no DEC y/z source: IBM S_room renders dec:false, X_nothing is space).
+**Next:** Must-fix closed. D-3941's Next remainder stands as D-3942 left it (chain-814 healed by D-3942; Enhanced1/2 UTF8-blank parked recorder artifact — do not port blanks).
 ## 2026-10-14 — D-3942 cliffs-head `welcome` remainder: bones load dropped RANGE_LEVEL lights — lamp-lit corridors blank at chain seg4 step 0 (1 PASS)
 
 **C locus:** `restore.c` getlev `:1145` restore_light_sources + `:1300` relink_light_sources(ghostly); `light.c` restore_light_sources `:479–493` (whole, pre-ported js/mkobj.js:1347), relink `:517–563` (ported). The bones blob carries the dead hero's lamp light (LS_OBJECT range 3 at (57,6), measured in `vfs:bones/bonD0.1`); C installs + relinks it, do_light_sources TEMP_LITs both cells → IN_SIGHT → `#`.

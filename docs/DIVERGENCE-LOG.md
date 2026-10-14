@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-3943 — Must-fix y/≤ regression: D-3941 loaded-carrier arm overwrote the LADDER judge-flat y/z with dec:true (2 FULL PASS)
+
+- **Status:** shipped (Must-fix regression row, ships alone; D-3941 read once — its loader arm holds, this restores the LADDER exception it overwrote. No review stamp owed — row cites no review.)
+- **Symptom:** 2 corpus sessions PASS pre-D-3941 (@365667f22 board), FAIL at HEAD, deterministic: scen-sweep-Ranger-95303 screen@839 owner-null row 13 C«│y·» vs JS«│≤·»; scen-sweep-Barbarian-582719 screen@1000 owner-level_tele row 11 same y/≤ shape (both recorded FAIL in the HEAD board at exactly these steps). RNG 100 % synced both (56465/56465, 74270/74270) — pure paint divergence under `OPTIONS=symset:DECgraphics` (D-3941's own Next falsifier: "a DECgraphics fortress session painting a non-base char").
+- **C locus:** `display.c` map_glyphinfo `:2653–2655` (ttychar = showsyms[symidx]); `wintty.c` g_putch `:3758–3763` (high bit → graph_on + ch^0x80); `dat/symbols` DECgraphics S_upladder 0xf9 / S_dnladder 0xfa (+ branch twins); the frozen comparison's DEC_MAP has no y/z entry — measured: C row-13 bytes show `y` inside a `\x0e..\x0f` DEC span, comparing as the raw letter.
+- **JS was:** D-3941's loaded arm (`slot?.name != null`) rendered car[S_upladder]=0xf9 via symset_render_char → {ch:'y', dec:true} → terminal.js DEC_TO_UNICODE → ≤, overwriting the LADDER base arm's deliberate {ch:'y', dec:false} (display.js:4464).
+- **Fix:** in the loaded arm, a render yielding DEC y/z forces dec:false — mirrors the LADDER base arm. Heals both Must-fix sessions (upladder cells) + the latent AmigaFont S_sw_bc/S_sw_br (0xf9/0xfa, H_UNK — no Handling: line) same-arm case. IBM-handling 0xfa sets (IBMgraphics S_room etc.) already render dec:false — untouched.
+- **JS:** js/display.js map_glyphinfo loaded arm (:4960 guard); scripts/symset-loader.test.mjs +1 test (DECgraphics ladders y/z dec:false, walls stay dec:true).
+- **Callers:** no caller changes — the guard sits inside map_glyphinfo; C sites detect.c:2325 + display.c:2006/:2117/:2160 all flow through the single wired JS caller show_glyph_cell (display.js:4985, the C :2006 path), which inherits the fix.
+- **Verify:** symset-loader 14/14 (new test failed pre-fix: `true !== false` on dec). `score --ids` both: Ranger 839-step FAIL→FULL PASS (1593/1593 scr, 56465/56465 rng), Barbarian 1000-step FAIL→FULL PASS (1230/1230 scr, 74270/74270 rng). `verify --fn map_glyphinfo`: hidden note (both FAIL at baseline under owners null/level_tele, so no `--fn` attribution — movement shown by direct score), reach 24/24 smoke REACH-OK, green 2/2, strict ×2, cohort 7/7, full 44/44 (shared display.js):
+```
+PASS  syntax   1 changed js file(s): js/display.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify map_glyphinfo: no corpus session blocked on it at baseline
+PASS  reach    map_glyphinfo: no RNG-tagged reach; fixed smoke spread (24 run, 26.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+VERIFY: PASS
+```
+- **Named omissions:** none new. ov arm untouched (pre-D-3941 DEC-bit behavior, sessions pass); darkroom arm untouched (no DEC y/z source: IBM S_room renders dec:false, X_nothing is space).
+- **Ledger:** map_glyphinfo ported js=display.js:map_glyphinfo
+- **Next:** Must-fix closed. D-3941's Next remainder stands as D-3942 left it (chain-814 healed by D-3942; Enhanced1/2 UTF8-blank parked recorder artifact — do not port blanks).
+
 ## D-3942 — cliffs-head `welcome` remainder: bones load dropped RANGE_LEVEL lights — lamp-lit corridors blank at chain seg4 step 0 (1 PASS)
 
 - **Status:** shipped (Open — cliffs head `allmain.c` welcome @73801e55a, 21 corpus blocks; owner is the region heuristic — welcome itself whole per D-2725/D-3941, not re-ported. Writer = the bones-load lights install below. D-3941 read once per the row's history tag — its symset-loader arm holds; this ports the arm D-3941's Next named first ("chain-814 level/vision writer"). No review stamp owed — row cites no review.)

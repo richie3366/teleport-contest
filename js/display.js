@@ -4963,6 +4963,14 @@ export function map_glyphinfo(x, y, base, mgflags) {
             const rendered = symset_render_char(car[symidx], handling);
             out.ch = rendered.ch;
             out.dec = rendered.dec;
+            if (rendered.dec && (rendered.ch === 'y' || rendered.ch === 'z')) {
+                // LADDER-base exception (same arm's base comment): C sends
+                // these in a DEC span (DECgraphics ladders 0xf9/0xfa,
+                // AmigaFont S_sw_bc/S_sw_br) but the frozen comparison has
+                // no y/z DEC mapping, so C's cell is the raw letter —
+                // dec:true would paint ≤/≥ (Ranger-95303 s839).
+                out.dec = false;
+            }
         } else if (petArmFired) {
             // C's showsyms default for the mlet slot: the plain letter
             // (the base ch may carry a hallucination-mapped letter).

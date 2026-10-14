@@ -15,11 +15,12 @@ import {
     read_sym_file, parse_sym_line, optfn_symset, allopt_idx,
 } from "../js/options.js";
 import {
-    init_symbols, symset_slot, symset_render_char,
+    init_symbols, symset_slot, symset_render_char, map_glyphinfo, cmap_to_glyph,
 } from "../js/display.js";
 import {
     PRIMARYSET, ROGUESET, H_IBM, H_DEC, H_UTF8,
     S_vwall, S_hwall, S_tlcorn, S_trcorn, S_room, S_corr,
+    S_upladder, S_dnladder,
 } from "../js/const.js";
 import { fill_glyphid_cache, glyphid_cache_status, match_glyph } from "../js/glyphs.js";
 
@@ -171,6 +172,28 @@ describe("symset loader (files.c read_sym_file + symbols.c parse_sym_line)", () 
             symset_slot(ROGUESET).name = name;
             assert.equal(read_sym_file(ROGUESET), 1, `rogue load ${name}`);
         }
+    });
+
+    it("DECgraphics ladders keep the judge-flat y/z (Ranger-95303 s839)", () => {
+        // LADDER base arm (display.js) emits the raw letter with dec:false:
+        // C sends DEC y/z (0xf9/0xfa) but the frozen comparison has no y/z
+        // DEC mapping, so C's cell compares as the raw letter. The loaded
+        // carrier arm must preserve that — dec:true renders ≤/≥ via
+        // terminal.js DEC_TO_UNICODE (Must-fix y/≤ regression).
+        assert.equal(loadPrimary("DECgraphics"), 1);
+        const up = map_glyphinfo(1, 1,
+            { ch: "y", color: 0, dec: false, glyph: cmap_to_glyph(S_upladder) }, 0);
+        assert.equal(up.ch, "y");
+        assert.equal(up.dec, false);
+        const dn = map_glyphinfo(1, 1,
+            { ch: "z", color: 0, dec: false, glyph: cmap_to_glyph(S_dnladder) }, 0);
+        assert.equal(dn.ch, "z");
+        assert.equal(dn.dec, false);
+        // Non-ladder DEC cells still take the carrier render (walls stay dec).
+        const w = map_glyphinfo(1, 1,
+            { ch: "x", color: 0, dec: true, glyph: cmap_to_glyph(S_vwall) }, 0);
+        assert.equal(w.ch, "x");
+        assert.equal(w.dec, true);
     });
 
     it("parse_sym_line rejects unknown keywords, honors bare finish", () => {
