@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — Grow #9: fresh 138/160 (86.3 %) @50350000; +428 sessions; board 3560/4085 full, 0 PASS→FAIL
+
+**Fresh:** 50350000 ×160 @`f27bfc747` → 138/160 (86.3 %), RNG 96.0 %, screens 95.6 %; worst options 0/2, sokoban/town 1/2, worldtour 7/12, symset 8/12, shop/questtour 9/12, sweep 10/12; rest ≥91 %. Gap to held-out 13.6 pts — inside the §10.20 band, no calibration family.
+**Grew:** +268 weighted @50355000–50363011 (options/worldtour/symset 40, shop/questtour 32, sokoban/town/sweep 24, zapfest 12; 100 %-on-arrival families got none); rescore 3560/4085 (87.1 %), RNG 97.50 %, screens 96.54 %, 0 PASS→FAIL, 23 heals over 23 owners (first full rescore since ee1a1cebf; D-3885 582706 still FAIL@1166). `scenario-gen --help` runs a default 60-batch — removed that 45-recipe accident + 60 orphans pre-score (Grow #7/#8 precedent).
+**Next:** cliffs regen (12 owners, Must-fix empty): `do_statusline2` ×19 new head (+4 new), getdir 9→12; in: find_defensive / use_pick_axe / moveloop_core ×3; out: mhitm_knockback ×4, inuse_classify ×13, obj_resists ×1. New-arrival multis: do_symset ×4, extcmd_via_menu / cursetxt / show_gamelog ×3, unattributed ×18.
 ## 2026-10-14 — D-3965 cliffs-head distfleeck writer: confer_oc_oprop missed the FREE_ACTION E-flat mirror — ring of free action left JS unresisted where C resisted (3→PASS)
 
 **C locus:** `include/youprop.h:383` Free_action ≡ uprops[FREE_ACTION].extrinsic; `worn.c` setworn `:117–125` confers objects[].oc_oprop into uprops extrinsic on wear; readers `potion.c:903` peffect_sleeping, `potion.c:2054` potionbreathe POT_SLEEPING, `mcastu.c:506` mcast_stun_you.
