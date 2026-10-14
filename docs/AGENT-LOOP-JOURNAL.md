@@ -7,6 +7,38 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — D-3950 symset gold pipeline: RogueEpyx coin `\x0f` paints a space, JS hardcoded `# Agent loop journal
+
+Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
+Each agent process should add a short dated entry **at the top** (after
+this header) before exiting. Keep entries tight; detailed hypothesis
+lives in `NOTES.md` / `CURRENT.md`.
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+ (15 symset@0 sessions moved)
+
+**C locus:** `dat/symbols` RogueEpyx `S_coin: \x0f`; `options.c` optfn_symset `:4167–4201` loads it as PRIMARYSET (no restriction gate) so showsyms[COIN]=0x0f; `botl.c` check_gold_symbol `:39–44` fires only at S_-parse (`options.c:665`), doset-commit (`options.c:8998`, menu-only), goto_level (`do.c:1668`) — none before the step-0 paint (measured invis=FALSE both sides: else C would print `# Agent loop journal
+
+Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
+Each agent process should add a short dated entry **at the top** (after
+this header) before exiting. Keep entries tight; detailed hypothesis
+lives in `NOTES.md` / `CURRENT.md`.
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+) — so the do_statusline2 gold arm (`botl.c:130–138`) and the BL_GOLD field (`botl.c:1071`) take the encglyph path; `windows.c` decode_mixed `:1466–1490` yields raw `\x0f`; `wintty.c` tty_putstatusfield `:4803–4840` putchars it raw and advances (`:4824–4826`); the recorder drops ch<32 (`recorder/win/tty/termcap.c` nomux_putch `:755–756`), so the recorded cell keeps its cleared space.
+**JS:** 2 files (display.js +57/−18, botl.js +27/−15) + `scripts/rogueepyx-gold-status.test.mjs` (new, 2/2 PASS — C-recorded space row + default-`# Agent loop journal
+
+Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
+Each agent process should add a short dated entry **at the top** (after
+this header) before exiting. Keep entries tight; detailed hypothesis
+lives in `NOTES.md` / `CURRENT.md`.
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+ fallback on the same seed).
+**Change:** `js/display.js`: new exported `live_showsyms(symidx)` — the C `assign_graphics` `:224–239` / `switch_symbols` `:257–260` expression (ov ? ov : carrier for the current set; carrier when loaded, else the showsyms copy = C-identical at default config); `check_gold_symbol`, the `_statusLine2` gold arm and the mimic gold base read it; an unprintable coin renders space (capture parity); the `_goldsym` snapshot is deleted (all readers rewired). `js/botl.js`: `decode_mixed` reads it (raw byte, C-exact); `tty_putstatusfield` maps bytes <0x20 to the space cell (store + grid) and truncates at NUL (C `:4814` strlen); the `:1579` gold detector reads it.
+**Verify:** focused test 2/2 post-fix (1/2 pre-fix: `gold prefix cell: JS "$" vs C ' '`). `verify do_statusline2: 0 PASS, 15 moved, 8 still (distinct writers, unchanged steps)` — every symset@0 session to a strictly later step/owner (optfn_symset@2, there_cmd_menu_next2u@18, do_fight@28, do_screen_description@16, do_fight@27, were_change@55, optfn_symset@15, test_move@15, None@50 map row-3, mstrength@17, drown@74, do_screen_description@7, optfn_symset@3, were_change@16, optfn_symset@2; the verify-run "js-throw" label on Ranger-50059072 did not persist — board error null, direct replay error null, show error/jsPanic null, clean map rowDiff). REACH-OK ×5 (smoke 24/24 each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared files) → VERIFY: PASS.
+**Named:** - `do_statusline2`: vers/showvers arm, MAXCO-overflow panic arm, and in_dumplog gate unported (JS vers is empty, dumplog retired).
+**Next:** the 8 still-blocked sessions re-file under their writers (T-timing Tourist-50150002@106; mux-escape Ranger-49956043@397, likely tooling — harness marker bytes in the C row; AC-timing Ranger-50050043@1125, Gloves_on class; HP-amount Tourist-610081@944 and Wizard-620021@763; cap-word Valkyrie-610117@1012; Strngl-word Wizard-50050007@373; HP-amount worldtour-Valkyrie-49955041@543). The 15 moved sessions now ride live rows (optfn_symset, do_fight, do_screen_description, were_change, …). Do not re-port the gold pipeline (whole on both paint paths). Falsifier: a fresh `verify do_statusline2` blocking at a gold-prefix cell.
 ## 2026-10-14 — Grow #7: fresh 137/159 (86.2 %) @50150000; +418 sessions; board 2792/3233 full, 0 PASS→FAIL
 
 **Fresh:** 50150000 ×159 @`3535ccd78` → 137/159 (86.2 %), RNG 97.1 %, screens 93.5 %; worst symset 0/12, options 1/2, wish 7/9, questtour 10/12, sweep 10/12, chain/shop/zapfest 11/12; trek + worldtour 12/12. Fresh−held-out gap 13.5 pts (86.2 vs 72.7) — inside the §10.20 20-pt band, no calibration family.

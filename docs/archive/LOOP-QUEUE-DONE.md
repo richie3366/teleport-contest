@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-14
 
+- [x] `botl.c` do_statusline2 — blocks 23/3233 corpus sessions (first at step 106; RNG lost 99747, screens lost 12273): toplines identical; first differing screen row 23: C «Dlvl:1 $:0 HP:15(15) Pw:1(1) AC:9 Xp:1/0 T:12» vs JS «Dlvl:1 $:0 HP:15(15) Pw:1(1) AC:9 Xp:1/0 T:11» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-chain-Tourist-50150002, scen-sweep-Ranger-49956043, scen-sweep-Ranger-50050043). @3535ccd78 **[parked: RETIRED D- — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]** **Addressed:** D-3950
+
+
 - [x] `cmd.c` update_rest_on_space — blocks 13/2815 corpus sessions (first at step 3; RNG lost 104443, screens lost 9008): C «Unknown command 'K'.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify update_rest_on_space` (scen-symset-Archeologist-50058510, scen-symset-Archeologist-50059047, scen-symset-Barbarian-50059021). @f3027aae9 **[history: ledger: ported — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3947 `d0fed11a2`
 
 
