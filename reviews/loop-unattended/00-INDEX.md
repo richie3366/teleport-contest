@@ -2799,3 +2799,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [2787-ec0e2af9b-obj-buried-import.md](./2787-ec0e2af9b-obj-buried-import.md) | `ec0e2af9b` | D-3934 randomize_gem_colors-row writer OBJ_BURIED import (2 PASS, 1 moved) | **ACCEPT** |
 | [2788-b552183fe-gold-detect-flush.md](./2788-b552183fe-gold-detect-flush.md) | `b552183fe` | D-3935 getpos-row writer gold_detect flush deletion (3 PASS, 1 moved) | **ACCEPT** |
 | [2789-6f89ca4ec-inhishop-in-rooms.md](./2789-6f89ca4ec-inhishop-in-rooms.md) | `6f89ca4ec` | D-3936 m_move-row writer inhishop in_rooms walk (1 PASS, 1 unchanged) | **ACCEPT** |
+| [2790-ef431c1d1-buried-zombie-spe.md](./2790-ef431c1d1-buried-zombie-spe.md) | `ef431c1d1` | D-3937 makemon-row writer themeroom corpse spe=0 (5 PASS, 1 moved) | **ACCEPT** |
+| [2791-3c9f3b7f1-query-objlist-qsort.md](./2791-3c9f3b7f1-query-objlist-qsort.md) | `3c9f3b7f1` | D-3938 pickup-row writer price text + glibc qsort order (1 PASS, 1 moved) | **ACCEPT** |
+| [2792-9a0ca2a78-corner-dismiss-nobot.md](./2792-9a0ca2a78-corner-dismiss-nobot.md) | `9a0ca2a78` | D-3940 do_statusline2-row writer corner dismiss no-bot (5 PASS, 1 moved) | **ACCEPT** |
+| [2793-96149d38f-symset-loader.md](./2793-96149d38f-symset-loader.md) | `96149d38f` | D-3941 welcome-row writer symset loader whole (5 PASS, 70 moved; LADDER regression fixed by child) | **ACCEPT-WITH-DEBT** |
+| [2794-51f9b8f72-bones-lights.md](./2794-51f9b8f72-bones-lights.md) | `51f9b8f72` | D-3942 welcome-remainder writer bones RANGE_LEVEL lights (1 PASS; filed LADDER Must-fix) | **ACCEPT** |
+| [2795-3022efdd7-ladder-dec-guard.md](./2795-3022efdd7-ladder-dec-guard.md) | `3022efdd7` | D-3943 Must-fix LADDER dec guard in loaded arm (2 FULL PASS) | **ACCEPT** |
