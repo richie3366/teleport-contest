@@ -4895,6 +4895,17 @@ export function parseNethackrc(rc, defaultsInitialized = false) {
             continue;
         }
 
+        // C cfgfiles.c cnf_line_MENUCOLOR `:1164–1166` — top-level
+        // MENUCOLOR= (config_line_stmt CNFL_N(MENUCOLOR, 9) `:1365`: full
+        // name, case-insensitive match_optname, no abbreviation). bufp is
+        // the text after the first '=' (find_optparam `:588–598`); the live
+        // add_menu_coloring re-splits at its own '=' (`:626`).
+        const menucMatch = line.match(/^MENUCOLOR=(.+)/i);
+        if (menucMatch) {
+            add_menu_coloring(menucMatch[1]);
+            continue;
+        }
+
         // C cfgfiles.c cnf_line_ROGUESYMBOLS `:1190–1199` — top-level
         // ROGUESYMBOLS=. C TRUE→switch_symbols (named: no JS apply step,
         // ov_* tables are read lazily at render) / FALSE→config_error_add
