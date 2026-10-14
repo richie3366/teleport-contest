@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — D-3966 cliffs-head do_statusline2 writer: dip-clone getobj_dip omitted C getobj :2049 botl — run-stale T never repainted at the dip pick (2→PASS)
+
+**C locus:** `nethack-c/upstream/src/invent.c` getobj `:2049` (`disp.botl = TRUE`, "May have changed the amount of money") — every pick past the gold/throw gates, before the verify (bad letters repaint too) and before silly_thing `:2074`. Mechanism: allmain.c:244 (moves++), :262–263 (time_botl gated on !run), :473–479 (bot/timebot repaint), cmd.c:3810–3816 (CANCEL clears move).
+**JS:** js/potion.js (+29/−16); scripts/getobj-dip-botl.test.mjs (new: Samurai step-22 row 23 reads T:4, dip-fail topline pins alignment).
+**Change:** C-ordered `:2049` in both dip clones across 5 pick sites: gold gate (null-safe), then `if (game.flags) game.flags.botl = true`, then verify, then EXCLUDE/silly. No new imports (game global). Untouched pre-existing drift: letter-path 'You cannot dip that!' vs C 'You cannot dip gold.' (menu paths already match).
+**Verify:** focused test 0/1 pre-fix (stale "T:3") → 1/1 post-fix. `node scripts/verify.mjs --fn do_statusline2 --full` → PASS syntax · PASS rule2 · PASS hidden (`verify do_statusline2: 2 PASS, 0 moved past, 17 unchanged, 0 worse → PROGRESS`: Tourist full 1002 steps + Samurai full 36 PASS) · REACH-OK 24/24 smoke · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 → VERIFY: PASS. Also probed `verify getobj`: 0/4 (prompt-text rows — dip "them vs it" ×2, force_invmenu zap/read ×2 — different writers; botl cannot move row 0), own REACH-OK 24/24.
+**Named:** (1) getobj_dip letter-path gold-message drift (above) — no session evidence. (2) drop/wield/apply/takeoff getobj clones not audited for :2049 — no session evidence (D-3386 precedent: clone-scoped fixes). (3) the 17 unchanged do_statusline2 + 4 getobj sessions keep their own writers (Symptom).
+**Next:** do not re-port getobj:2049 for the dip clones (both PASS). Regenerated do_statusline2 row (17) needs per-session writers — versinfo/showvers and the digging-T pair first (shared shapes).
 ## 2026-10-14 — Grow #9: fresh 138/160 (86.3 %) @50350000; +428 sessions; board 3560/4085 full, 0 PASS→FAIL
 
 **Fresh:** 50350000 ×160 @`f27bfc747` → 138/160 (86.3 %), RNG 96.0 %, screens 95.6 %; worst options 0/2, sokoban/town 1/2, worldtour 7/12, symset 8/12, shop/questtour 9/12, sweep 10/12; rest ≥91 %. Gap to held-out 13.6 pts — inside the §10.20 band, no calibration family.
