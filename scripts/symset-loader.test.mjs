@@ -222,6 +222,36 @@ describe("symset loader (files.c read_sym_file + symbols.c parse_sym_line)", () 
         assert.equal(game.gc.chosen_symset_start, false);
         assert.equal(game.gc.chosen_symset_end, true);
     });
+
+    it("options menus show the live optfn_symset get_val (50058509 step-2 writer)", async () => {
+        // C doset_simple_menu `:8609–8620` and doset_add_menu `:9036–9043`
+        // both paint every compound row via the optfn get_val — the symset
+        // row is `RogueEpyx, active, handler=IBM` once read_sym_file sets
+        // handling=1. Both JS menus bypassed the live optfn (a hand-rolled
+        // name+active painter / a DECgraphics literal), dropping the tail.
+        const { runSegment } = await import("../js/jsmain.js");
+        const g = await runSegment({
+            seed: 50058509,
+            datetime: "20051121134334",
+            nethackrc: "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=symset:RogueEpyx\nOPTIONS=playmode:debug\n",
+            moves: "O>\x1b#optionsfull\n>>>>>>\x1b",
+            storage: undefined,
+        });
+        const rows = [];
+        for (const s of g.getScreens?.() || []) {
+            for (const line of decodeScreen(s)) {
+                const text = line.map((x) => renderCell(x)).join("");
+                if (text.includes("symset") && !text.includes("roguesymset"))
+                    rows.push(text);
+            }
+        }
+        assert.ok(rows.length >= 2,
+            `want simple + full symset rows, got ${rows.length}`);
+        for (const r of rows) {
+            assert.ok(r.includes("[RogueEpyx, active, handler=IBM]"),
+                `symset row drops the C handler tail: ${JSON.stringify(r)}`);
+        }
+    });
 });
 
 describe("symset step-0 screens (hidden-proxy probes)", () => {

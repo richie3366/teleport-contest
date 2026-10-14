@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-14
 
+- [x] `options.c` optfn_symset — blocks 35/3233 corpus sessions (first at step 2; RNG lost 145396, screens lost 7710): toplines identical; first differing screen row 10: C «i - symset                  [RogueEpyx, active, handler=IBM]» vs JS «i - symset                  [RogueEpyx, active]» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify optfn_symset` (scen-symset-Archeologist-50058509, scen-symset-Archeologist-50059023, scen-symset-Archeologist-50059035). @d8819cf04 **[history: archived — read that D-entry once; the arm this divergence names is still open]**
+
+
 - [x] `allmain.c` welcome — blocks 14/3233 corpus sessions (first at step 0; RNG lost 4134, screens lost 8338): toplines identical; first differing screen row 2: C «» vs JS «╔═══╗» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify welcome` (scen-symset-Archeologist-50155034, scen-symset-Barbarian-50155010, scen-symset-Barbarian-50155025). @59b839a0e **[history: archived D-3941 — read that D-entry once; the arm this divergence names is still open]**
 
 

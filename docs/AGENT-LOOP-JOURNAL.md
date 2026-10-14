@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — D-3952 cliffs-head optfn_symset: both O-menu symset rows bypassed the live get_val (hand-roll + DECgraphics literal) — wired to it, 8 PASS + 27 moved
+
+**C locus:** `options.c` doset_simple_menu `:8602–8620` (CompOpt/OthrOpt arm calls `(*allopt[k].optfn)(idx, get_val, …)` for every compound row; k-swap `:8603–8608` shows the roguesymset entry on rogue levels) + doset_add_menu `:9036–9043` (uniform get_val, buf2-or-"unknown") + optfn_symset get_val `:4205–4215` (name + ", active" `:4209–4210` + ", handler=%s" `:4211–4214`).
+**JS:** `js/options.js:9751` (simple symset arm → delegation + rogue swap), `js/options.js:11448` (full-doset symset row → `get_val`). Test: `scripts/symset-loader.test.mjs` +1 `it` (runSegment symset-rc, `O>` + `#optionsfull` pages, asserts every non-rogue symset row shows `[RogueEpyx, active, handler=IBM]`; failed pre-fix on the exact cliff row, 17/17 post).
+**Change:** both rows delegate to the live optfn via the sibling `doset_compopt_get_val` shape (C `:8612–8614` / `:9038–9040` call-for-call: `optfn(allopt_idx, get_val, FALSE, holder, EMPTY_OPTSTR)`). The simple arm replicates the C k-swap (`Is_rogue_level()` → `optfn_roguesymset`; the name half already at the call site `:10107`). Boolean-DECgraphics needs no fallback: its rc path runs `optfn_DECgraphics` do_set (`:5191/:5327`), which loads the gs slot the optfn reads.
+**Verify:** `verify optfn_symset: 8 PASS, 27 moved past (12 re-attributed at the same step), 0 unchanged, 0 worse` → PROGRESS — e.g. 50058509 2→5 (symset row fixed; next an owner-null map-cell diff), 50059023 4→34, 50058518 2→22; the 12 same-step re-attributions are same-screen next-row progress (→handler_menu_colors, the live next cliff). The `js-throw` labels are later-step owner-null screens (err/jsPanic null, D-3951 precedent), never earlier: 0 worse.
+**Named:** none new. The C `:9038`/`8618` buf2-or-"unknown" gate is behavior-dead for symset (get_val unconditionally returns optn_ok non-empty — sibling rows identical); `doset` keeps its pre-existing D-3457-audited partial.
+**Next:** regenerated cliffs head (likely `handler_menu_colors`, 12 same-screen re-attributions from this fix); owner-null later-step screens (e.g. 50058509@5 `:zzzfzzzN` vs `:zzzf zzN`) surface via the next queue write.
 ## 2026-10-14 — D-3951 welcome D-3946-redux: temp g_pututf8 nomux hook + re-record 12/12 new Enhanced (11 moved, 2 cell-proven fountain-fg join the park)
 
 **C locus:** 
