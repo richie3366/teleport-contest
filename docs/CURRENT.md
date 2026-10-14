@@ -33,8 +33,8 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Metric | Value |
 |--------|------:|
 | **Held-out (judge 2026-10-14 07:36Z)** | **32 / 44**, 9,920 / 11,265 pts, RNG **92.0 %**, rngSteps 95.8 %, screens **88.1 %** |
-| **Fresh cohort (§10.20, scored on arrival)** | 50150000 ×159 @`3535ccd78`: **137/159 (86.2 %)**, RNG 97.1 %, screens 93.5 % — symset 0/12 worst |
-| **Corpus board (worked, regression fortress)** | **2822 / 3233** @`2276f30eb` full, RNG 97.22 %, screens 95.68 % |
+| **Fresh cohort (§10.20, scored on arrival)** | 50250000 ×160 @`fe3b23998`: **140/160 (87.5 %)**, RNG 94.6 %, screens 92.1 % — symset 4/12 worst |
+| **Corpus board (worked, regression fortress)** | **3176 / 3657** @`2f574b1e2` full, RNG 97.32 %, screens 95.43 % |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
@@ -50,18 +50,18 @@ judge for the first time since 2026-10-11 — the §10.20 completeness
 line scores where cliffs alone did not. **Three lines, read
 together:** held-out (judge), fresh cohort (`fresh-cohort.mjs`, the local
 generalization estimate), board (the fortress — it rises by
-construction). Fresh history: 79–91.8 % across 5 cohorts (Grow #5–7: 140/158,
-146/159, 137/159). Fresh−held-out gap now 13.5 pts (86.2 % vs
+construction). Fresh history: 79–91.8 % across 6 cohorts (Grow #5–8: 140/158,
+146/159, 137/159, 140/160). Fresh−held-out gap now 14.8 pts (87.5 % vs
 72.7 %), inside the §10.20 20-pt band — no calibration family this grow
-(gap ≤ 20; Grow #6's `symset` wave-3 family now 16/172).
-**Corpus (2026-10-14 11:37Z, `2276f30eb`, 3233/3233 entries, `full: true`):**
-2822 PASS (+15 since the 2807 committed at HEAD — all scen-symset
-cross-fn healing from the D-3950/3952/3953 window; 0 PASS→FAIL);
-RNG 99307391/102151823 (97.22 %), screens 1824286/1906677
-(95.68 %). Worst families `scen-symset` 46/172,
-`scen-questtour` 51/62, `scen-sweep` 402/512, `scen-shop` 178/214,
-`scen-worldtour` 328/401, `scen-zapfest` 67/73, `scen-options` 49/59;
-rest ≥ 96 %.
+(gap ≤ 20; Grow #6's `symset` wave-3 family now 108/264).
+**Corpus (2026-10-14 14:25Z, `2f574b1e2`, 3657/3657 entries, `full: true`):**
+3176 PASS (+339 since the 2837 committed at HEAD — 330/424 new arrivals
+pass (77.8 %) plus 9 same-`js/` heals, 8 symset + 1 sweep; 0 PASS→FAIL);
+RNG 112640060/115743037 (97.32 %), screens 2099260/2199892
+(95.43 %). Worst families `scen-symset` 108/264,
+`scen-questtour` 87/104, `scen-sweep` 458/584, `scen-shop` 205/246,
+`scen-worldtour` 365/443, `scen-zapfest` 79/85, `scen-options` 59/73,
+`scen-descend` 42/44; rest ≥ 95 %.
 `scen-sweep-Priest-582706` still FAIL@1166 (known recorder flake, D-3885 park
 stands — unchanged since the Grow #6 re-record).
 Reviews 1225–2802 (index; no row 1618): 1403 ACCEPT, 63 WITH-DEBT, 111 QUALITY-RISK (2796–2802: 6A/1D/0Q, 0 Must-fix queued).

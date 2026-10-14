@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — Grow #8: fresh 140/160 (87.5 %) @50250000; +424 sessions; board 3176/3657 full, 0 PASS→FAIL
+
+**Fresh:** 50250000 ×160 @`fe3b23998` → 140/160 (87.5 %), RNG 94.6 %, screens 92.1 %; worst symset 4/12, descend 1/2, options 1/2, sweep 8/12, questtour/worldtour 10/12, chain/shop 11/12; trek/zapfest 12/12. Fresh−held-out gap 14.8 pts (87.5 vs 72.7) — inside the §10.20 20-pt band, no calibration family.
+**Grew:** +264 weighted @50255000–50255911 (symset 80, sweep 60, questtour 30, worldtour 30, chain 20, shop 20, descend 12, options 12; 100 %-on-arrival families got none); full rescore 3176/3657 (86.8 %), RNG 97.32 %, screens 95.43 %, 0 PASS→FAIL, 9 same-`js/` heals (8 symset + scen-sweep-Samurai-50055012; D-3885 582706 still FAIL@1166). Note: `scenario-gen --help` runs a default 60-recipe batch (no help text) — removed that out-of-range accident before scoring, same as Grow #7.
+**Next:** regen'd cliffs head (12 owners, Must-fix empty): `welcome` ×12 new head (9 new symset step-0), do_statusline2 9→12, x_monnam 2→4, do_screen_description 3→5, distfleeck 5→7; new multi-session owners glibr ×4, do_symset ×5 (all new); minimal_xname / inuse_classify / cprefx out.
 ## 2026-10-14 — D-3957 cliffs-head `pager.c` do_screen_description map cells: litcorr-white-iff-same-sym shipped (Arch PASS, Rogue narrowed 2→1) + C-measured the stale-vs-fresh trio (gold/hero repaint gating)
 
 **C locus:** 
