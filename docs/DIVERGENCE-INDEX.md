@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-3951 | open |  — welcome D-3946-redux: temp g_pututf8 nomux hook + re-record 12/12 new Enhanced (11 moved, 2 cell-proven fou | all 14 welcome@0 sessions are symset:Enhanced1/2 (8 Enhanced1 + 4 new Enhanced2 + 2 old Enhanced2; D-3945's falsifier — a non-Enhanced welcome block — does not fire). 12 are C-blank-vs-JS-box (Grow #7 stock recordings: e.g. Archeologist-50155034 row 2 C «» vs JS «╔═══╗»); 2 are the D-3946 fountain-fg residuals (still welcome@0, ⌠ fg-only). welcome itself whole (D-2725), the symset loader whole (D-3941), the JS utf8 arm landed (D-3945) — no `js/` writer exists; the writer is the recorder's missing g_pututf8 hook (D-3944 measured: C emits the UTF-8, stock nomux records zero hi-bytes).; verify: `verify welcome: 0 PASS, 11 moved past, 3 unchanged, 0 worse` → PROGRESS — dfeature_at@110, optfn_symset@4, handler_menu_colors@4, optfn_symset@3, null-owner Healer@26 (the :722 `js-throw` label — err null, jsPanic null, fountain park, never a Must-fix row), getdir@17, reveal_terrain@10, inuse_classi |
 | D-3950 | open | dat/symbols — symset gold pipeline: RogueEpyx coin `\x0f` paints a space, JS hardcoded `# Divergence index
 
 Lookup by ID, then open **one** matching `## D-NNNN` section in

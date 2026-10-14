@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — D-3951 welcome D-3946-redux: temp g_pututf8 nomux hook + re-record 12/12 new Enhanced (11 moved, 2 cell-proven fountain-fg join the park)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** `verify welcome: 0 PASS, 11 moved past, 3 unchanged, 0 worse` → PROGRESS — dfeature_at@110, optfn_symset@4, handler_menu_colors@4, optfn_symset@3, null-owner Healer@26 (the :722 `js-throw` label — err null, jsPanic null, fountain park, never a Must-fix row), getdir@17, reveal_terrain@10, inuse_classify@3, doclassdisco@269, optfn_symset@8, enlightenment@501; unchanged = the fountain park (Samurai-50058508@0 + Samurai-50059033@0 + Wizard-50155011@0). Board screens 1804606→1813019 (+8413), PASS 2792 unchanged. REACH-OK, green 2/2, strict ×2, cohort 7/7:
+**Named:** 007 landing (prohibited dir — supervisor/patches-capable; DURABILITY CAVEAT unchanged: until 007 lands, a from-patches full re-record reverts the 32 hooked sessions to blank); extracolor shadow+wire+decoder + JS customcolor reader (park falsifier, unchanged); nearest-color recording + default-fg painting (refused — fabrication / tooling-matching, D-3946 doctrine). No seed/step/coord/RNG reads; frozen untouched; no fastforward.js.
+**Next:** patches-capable slot: land 007 from the D-3946/D-3951 diff + full rebuild + full re-record + rescore (durable). Fountain park family is now 7 (D-3946's 5 + Wizard-50155011@0 + Healer-50150095@26); falsifier unchanged (extracolor-capable wire + JS reader). The welcome cliff row now carries only the 3 fountain@0 residuals. Do not re-port welcome, the symset loader, or the utf8 arm (all whole).
 ## 2026-10-14 — D-3950 symset gold pipeline: RogueEpyx coin `\x0f` paints a space, JS hardcoded `# Agent loop journal
 
 Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
