@@ -28,21 +28,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-3958 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3959 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3958.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3958 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3959.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3959 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3959: js/getpos.js only — deleted the shortcut; stairs now match via the typ+seenv+ladder terrain gate (C :1095–1103 seenv back_to_glyph arm) plus the pre-e Named: none new (getpos stays ledger-partial on its D-3556 audited note).
 - D-3958:  Named: 007 landing (prohibited dir — supervisor/patches-capable; DURABILITY CAVEAT unchanged: unt
 - D-3957:  Named: the :2935 has_rogue_color first-arm (ROGUESET+IBM, never active on contest tty — same stan
 - D-3956: `js/pager.js` — the looked path reads the live showsyms table throughout: sym via glyph_showsym_code→live_showsyms per bank (monsters via mlet+SYM_OFF Named: none new — closes the D-2447 `rogue_syms table` + `non-boulder go.ov_*_syms` omissions for
@@ -57,5 +58,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3947: js/cmd.js only — (1) classifiers num_pad-aware (NUMPAD_WALK digit→sdir map; M(digit)→run, M('5')→rush-prefix, '5'→run-prefix, '0'→Unknown); (2) F/g/G  Named: (1) getdir/movecmd digit acceptance under num_pad (different C function — Healer-50059030 
 - D-3946:  Named: 007 landing (prohibited dir — supervisor/patches-capable); extracolor shadow+wire+decoder 
 - D-3945: js/display.js show_glyph_cell: HUPSKIP early return (`:3867`, morc display-local per botl.js:801) + the `:3946` predicate/wincap/handling/u-gate with  Named: tty_print_glyph remainder (color/attr/tiles/menu paths — tty-port by-design; MSDOS tiles `
-- D-3944: none — measurement (this commit). Named: none — no port; docs-only entry, no Ledger bullet (D-3861 precedent) — tty_print_glyph/g_p
 <!-- landmarks:end -->

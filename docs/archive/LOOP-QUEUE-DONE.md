@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-14
 
+- [x] `do_name.c` x_monnam — blocks 4/3657 corpus sessions (first at step 6; RNG lost 45896, screens lost 2485): C «human healer called wizard» vs JS «wall (no travel path)». Probe: `node scripts/hidden-proxy.mjs verify x_monnam` (scen-symset-Healer-50155002, scen-symset-Tourist-50059020, scen-symset-Valkyrie-50255069). @2a0a249bd **[history: archived D-2092 — read that D-entry once; the arm this divergence names is still open]**
+
+
 - [x] `pager.c` do_screen_description — blocks 4/3233 corpus sessions (first at step 49; RNG lost 0, screens lost 2434): toplines identical; first differing screen row 8: C «0HMMMMMMMMM<   0 :.......: 0  :..........:                 :#» vs JS «0HMMMMMMMMM<   0 :.......: 0  :..........:                 :#» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify do_screen_description` (scen-symset-Archeologist-50059042, scen-symset-Caveman-50059032, scen-symset-Healer-50058517). @74fc44675 **[history: archived D-2449 — read that D-entry once; the arm this divergence names is still open]**
 
 

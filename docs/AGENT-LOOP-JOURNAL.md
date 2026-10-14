@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — D-3959 getpos.c symbol-scan: D-0408 `disp_ch === key` stairs shortcut matched RogueIBM wall corners (0xBC captures as `<`), so travel `<` jumped to a wall (queue owner x_monnam, 4 sessions)
+
+**C locus:** getpos.c symbol-scan else-branch — matching[] build :1044–1061 (walls/room/corr/door/ndoor skipped), two passes :1062–1112, per-cell checks :1073–1103 (visible glyph_at, memory glyph, `~` vibrating square, seenv back_to_glyph — all cmap-vs-matching[]; the rendered char is never consulted). detect.c show_map_spot :1372–1405 sets seenv=SVALL level-wide, arming the seenv arm everywhere after ^F. RogueIBM S_brcorn carrier 0xBC captures stripped as `<` (same bytes in the C recording) — the render is faithful; the scan must not read it.
+**JS:** 1 file (getpos.js +10/−4) + 1 test file, under the 600/10 caps.
+**Change:** js/getpos.js only — deleted the shortcut; stairs now match via the typ+seenv+ladder terrain gate (C :1095–1103 seenv back_to_glyph arm) plus the pre-existing C arms (matching_glyph on glyph_at/memory/back_to_glyph). No export or signature change. New focused test scripts/getpos-angle-skips-wallcorner.test.mjs (Healer-50155002 s6: topline + cursor [34,15,1]; getpos-brace-skips-altar template).
+**Verify:** `node scripts/verify.mjs --fn x_monnam` → PASS syntax (1 changed file) · PASS rule2 · PASS hidden `2 PASS, 2 moved past, 0 unchanged, 0 worse → PROGRESS` (Healer-50155002 PASS; Tourist-50059020 PASS; Valkyrie-50255069 step 12 → dotravel at step 43; Wizard-50255035 step 5 → unattributed screen at step 356, RNG 12731/12731 full match — the verify line prints `js-throw` there only as the owner-null fallback label, hidden-proxy.mjs:676; direct worker replay shows error:null, clean stderr) · PASS reach (7/7, REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS; plus focused test 1/1, getpos file suite 10/10, full fortress 44/44. Preflight `verify --no-cohort` green on a clean tree; final verify after the last js/ edit.
+**Named:** none new (getpos stays ledger-partial on its D-3556 audited note).
+**Next:** do not re-pop x_monnam for this arm (0 blocked in the working scoreboard). Valkyrie's dotravel@43 and Wizard's unattributed@356 flow through the regenerated queue.
 ## 2026-10-14 — D-3958 welcome D-3946-redux #3: temp g_pututf8 nomux hook + re-record 9/9 new Enhanced (8 moved, 3 cell-proven fountain-fg join the park)
 
 **C locus:** 
