@@ -5499,7 +5499,7 @@ async function parse() {
  * @param {number} key
  */
 async function rhack_unknown_command(key) {
-    if (game.context?.forcefight) game.context.forcefight = 0;
+    // C `:3833–3841`: no reset — forcefight survives Unknown (D-3953).
     if (game.context?.run || (game.multi || 0) > 0) end_running(true);
     if (game.context) game.context.command_count = 0;
     game._repeat_search = false;
@@ -5676,7 +5676,10 @@ export async function rhack(key) {
     // unbound key (NULL tlist) skips the gate and falls to Unknown below
     // (`:3829–3838`); movement binds carry CMD_gGF_PREFIX, F/-/m/g/G and
     // num_pad 5/M-5 carry PREFIXCMD, so they chain instead.
-    const afterFightTab = game.context?.forcefight
+    // C prefix_seen is call-local: Unknown returns with forcefight set,
+    // but the next call runs the key normally with the gate off — so the
+    // gate reads prefix_seen, not the persistent forcefight (D-3953).
+    const afterFightTab = prefix_seen?.txt === 'fight'
         ? cmdbind_get(key & 0xff) : null;
     if (afterFightTab && !(afterFightTab.flags & PREFIXCMD)
         && !(afterFightTab.flags & CMD_gGF_PREFIX)) {

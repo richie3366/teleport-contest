@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-3953 — cliffs-head do_fight writer: rhack Unknown cleared forcefight (C keeps it) + F gate read persistent forcefight (C prefix_seen is call-local)
+
+- **Status:** shipped (Open — cliffs head `cmd.c` do_fight @4436f7de6, 20 corpus blocks. No review stamp owed — row cites no review. D-0225 read once per the row's history tag — F binding + thin-air, a different arm, untouched.)
+- **Symptom:** 20 scen-symset sessions (all OPTIONS=number_pad) diverge where C prints «Double fight prefix, canceled.» and JS prints nothing (first at step 6: F, unbound letter, F — Archeologist-50155056 F/b/F/b). do_fight itself is whole and faithful (`js/cmd.js:712` = C `:1622–1634`); the writer is rhack's Unknown arm + F-prefix gate.
+- **C locus:** `cmd.c` rhack bad_command `:3833–3841` (Unknown pline, 2× cmdq_clear, sanity skip, move FALSE, multi 0 — no reset, forcefight survives) + `:3693–3700` prefix gate (fires on call-LOCAL prefix_seen; the next call after Unknown has prefix_seen NULL so a bound key runs normally) + do_fight `:1622–1634` (reads the surviving forcefight → double arm) + reset_cmd_vars `:3606–3624`.
+- **JS was:** `rhack_unknown_command` (D-3947) cleared forcefight (contradicting its own `:3833–3841` cite and the C recording), so F/b/F set silently. Removing only that line over-fired the F gate on the NEXT call (it read the persistent forcefight): Monk-50059064 step-32 '>' printed the '-' prefix error where C ran dodown («You can't go down here.»; C steps 30 F / 31 b / 32 '>' / 35 F-double measured from the recording).
+- **Fix:** `js/cmd.js` only — (1) the Unknown arm no longer clears forcefight (C verbatim); (2) the F-prefix gate reads call-local `prefix_seen?.txt === 'fight'` instead of the persistent forcefight (same-call F+k still errors via the bound-only gate; post-Unknown '>'/movement run normally; nested F,g,k now names 'g' per C as a side effect). No new module edges.
+- **JS:** `js/cmd.js:5501` (helper — 1 line replaced by a cite comment), `js/cmd.js:5679` (gate condition + locality comment). Tests: `scripts/numpad-fight-double-prefix.test.mjs` (Archeologist-50155056/7 → «Double fight prefix, canceled.»; failed pre-fix), `scripts/numpad-fight-unknown-stairs.test.mjs` (Monk-50059064/33 → dodown runs, no "other than up or down" in steps 0..32).
+- **Callers:** none rewired — arm-local change inside rhack (the brief's do_fight has zero C call sites; it is cmdlist-dispatched). C rhack callers unchanged and already wired (D-3947, standing): allmain.c:530/536 moveloop → js/allmain.js, cmd.c:1651 do_repeat → js/cmd.js. The F/- dispatch arm (`js/cmd.js:5915`) is unchanged.
+- **Verify:** focused 0/1 pre-fix → 5/5 post (2 new + 3 D-3947 numpad guards). `verify do_fight: 7 PASS, 13 moved past, 0 unchanged, 0 worse` → PROGRESS (Archeologist-50155056 → PASS; Monk-50059064 35→464 handler_menu_colors; Tourist-50059053 102→387 getpos; 4 land on later-step js-throws, e.g. Knight-50058500@754 — future rows, never earlier). `verify rhack: no corpus session blocked` (note). REACH-OK both (no RNG-tagged reach; smoke 24/24 ×2) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44:
+```
+PASS  syntax   1 changed js file(s): js/cmd.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+PASS  hidden   verify do_fight: 7 PASS, 13 moved past, 0 unchanged, 0 worse → PROGRESS
+PASS  reach    do_fight: no RNG-tagged reach; fixed smoke spread (24 run, 30.7s): 24 PASS, 0 regressed → REACH-OK
+note  hidden   verify rhack: no corpus session blocked on it at baseline
+PASS  reach    rhack: no RNG-tagged reach; fixed smoke spread (24 run, 31.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+full 44/44 passing (separately run; verify skips full: js/cmd.js not classed shared)
+```
+- **Named omissions:** (1) the Unknown arm keeps the D-3947 house run-stop (`end_running` when run/multi>0) and command_count/_repeat_search resets — C `:3833–3841` has none, but no session names them (the run-clear also keeps the g/G gate call-local; out of scope). (2) Nested m,F prefix naming (C keeps was_m_prefix across the F chain; JS F-gate fires — pre-existing, no session). No seed/step/coord/RNG reads; frozen untouched; no fastforward.js.
+- **Ledger:** rhack ported
+- **Next:** regen'd cliffs head (handler_menu_colors/getpos/do_screen_description surface behind the fight-prefix lifecycle; the 4 later-step js-throws arrive as Must-fix-shaped rows if the regen lists them).
+
 ## D-3952 — cliffs-head optfn_symset: both O-menu symset rows bypassed the live get_val (hand-roll + DECgraphics literal) — wired to it, 8 PASS + 27 moved
 
 - **Status:** shipped (Open — cliffs head `options.c` optfn_symset @d8819cf04, 35 corpus blocks. No review stamp owed — row cites no review.)

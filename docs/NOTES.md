@@ -28,21 +28,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-3952 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3953 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3952.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3952 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3953.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3953 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3953: `js/cmd.js` only — (1) the Unknown arm no longer clears forcefight (C verbatim); (2) the F-prefix gate reads call-local `prefix_seen?.txt === 'fight'` Named: (1) the Unknown arm keeps the D-3947 house run-stop (`end_running` when run/multi>0) and c
 - D-3952: both rows delegate to the live optfn via the sibling `doset_compopt_get_val` shape (C `:8612–8614` / `:9038–9040` call-for-call: `optfn(allopt_idx, ge Named: none new.
 - D-3951:  Named: 007 landing (prohibited dir — supervisor/patches-capable; DURABILITY CAVEAT unchanged: unt
 - D-3950: `js/display.js`: new exported `live_showsyms(symidx)` — the C `assign_graphics` `:224–239` / `switch_symbols` `:257–260` expression (ov ? ov : carrier Named: - `do_statusline2`: vers/showvers arm, MAXCO-overflow panic arm, and in_dumplog gate unpor
@@ -57,5 +58,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3941: `scripts/extract-symbols.py` embeds all 14 dat/symbols sets in `js/generated/symbols_text.js` (Rule #2); ported the loader family whole (fopen/read/pr Named: load_symset symbols.c:672–690 + do_symset browser :908–1099 (callers compiled-out/by-desig
 - D-3940: dismiss via the live `dismiss_nhw_menu({ keep_status: true })` (js/invent.js; corner → erase/docorner no-bot per C `:982–984`/`:3716–3720`; fullscreen Named: none in the ported arms.
 - D-3939: none in this commit (parked).
-- D-3938: `js/pickup.js` only + `js/invent.js` only, no new modules, no new module edges (doname_with_price already imported from shk.js). (a) Both menu-text si Named: query_objlist_pickup pre-existing (INCLUDE_VENOM, SKIPINVERT, page invert/search — untouch
 <!-- landmarks:end -->
