@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — D-3957 cliffs-head `pager.c` do_screen_description map cells: litcorr-white-iff-same-sym shipped (Arch PASS, Rogue narrowed 2→1) + C-measured the stale-vs-fresh trio (gold/hero repaint gating)
+
+**C locus:** 
+**JS:** js/display.js only — :3957 helper, :1946 S_LITCORR table, :4464 CORR terrain, :5241 + :6576 detectors, :500 doc.
+**Change:** 
+**Verify:** focused replays post-fix — Arch s49: 0 differing cells (was 1); Rogue s7: 1 differing cell (was 2 — R1 healed, R2 remains, same step+owner). `node scripts/verify.mjs --fn do_screen_description`: `verify do_screen_description: 1 PASS, 0 moved past, 3 unchanged, 0 worse → PROGRESS` (Arch PASS; Caveman s16, Healer s298, Rogue s7 unchanged — see Measure: different writer, needs C state, so no second patch was attempted rather than ship a guess); reach fixed-smoke 24/24 REACH-OK; syntax, rule2, green 2/2, strict ×2, cohort 7/7, full 44/44 (auto: shared file). No regressions.
+**Named:** the :2935 has_rogue_color first-arm (ROGUESET+IBM, never active on contest tty — same standing as the engrcorr :2934 twin); the :2941–2945 S_engrcorr MG_BW_ENGR arm (pre-existing engrcorr_map_attr twin, untouched); S_corr stays NO_COLOR (pre-existing, pixel-identical to gray on tty, untouched); the (A) writer ports above (next iteration).
+**Next:** the (A) writers under the re-filed row: (i) travel-arrival repaint gating — read C vision_recalc (vision.c) + domove post-step newsym (hack.c) for the skip rule behind Caveman (56,3) / Healer (49,10) / Rogue (20,8), port it whole, re-verify do_screen_description (predict Caveman+Healer+Rogue PASS); (ii) getpos cursor-restore / do_look-exit redraw if (i) doesn't cover the fork-(55,5) witness.
 ## 2026-10-14 — D-3956 cliffs-head `pager.c` do_screen_description live-showsyms arm — rogue/symset table (1 PASS + 1 moved)
 
 **C locus:** `pager.c` do_screen_description `:1246–1627` — looked sym `:1268–1271` (map_glyphinfo ttychar = gs.showsyms[symidx], display.c), match arms `:1332`/:1342`/:1359`/:1421`/:1432`/:1475`/:1524` all read gs.showsyms of the current set; `symbols.c` assign_graphics `:224–239` + init_rogue_symbols `:193–215` (rogue_syms: stairs '%', doors '+', def_r_oc_syms); `dat/symbols` RogueWindows S_upstair/S_dnstair/S_brupstair/S_brdnstair 0xF0; display.c `:2775`/:2779`/:3030` (nothing/unexplored/invisible glyphs → SYM_OFF_X slots); no S_warn names in defsym.h and init_rogue `:205–206` (W slots have no symset or rogue variance).

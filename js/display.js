@@ -498,8 +498,8 @@ function hero_map_attr() {
  * all inherit it, as in C. Default symbols all show '#', so the arm
  * fires unless SYMBOLS separates them (showsyms live, `:2653`).
  * Named omissions: the `:2934` has_rogue_color first-arm (ROGUESET +
- * IBM handling, never active on contest tty — same standing as the
- * S_litcorr CLR_WHITE sibling); the `:2897–2912` MG_BW_LAVA/ICE/SINK
+ * IBM handling, never active on contest tty — same standing as in
+ * litcorr_showsyms_white); the `:2897–2912` MG_BW_LAVA/ICE/SINK
  * chain (needs !use_color plus customized colliding symbols; no
  * corpus session reaches it).
  */
@@ -1944,7 +1944,17 @@ function cmap_idx_to_tty(cmap_idx) {
     case S_CORR:
         return { ch: '#', color: NO_COLOR, dec: false };
     case S_LITCORR:
-        return { ch: '#', color: CLR_WHITE, dec: false };
+        // C reset_glyphmap `:2938–2940` + cmap_color `:2684` (defsyms
+        // CLR_GRAY, defsym.h:117): WHITE only when the live litcorr
+        // byte equals the live corr byte; else the use_color-gated
+        // gray base (tty-default). RogueEpyx \xb2 vs \xb1 paints
+        // gray `2`, not white.
+        return {
+            ch: '#',
+            color: litcorr_showsyms_white() ? CLR_WHITE
+                : (game.iflags?.wc_color === false ? NO_COLOR : CLR_GRAY),
+            dec: false,
+        };
     case S_ENGRCORR:
         return { ch: '#', color: CLR_BRIGHT_BLUE, dec: false };
     case S_UPSTAIR:
@@ -3928,6 +3938,26 @@ export function cmap_to_roguecolor(cmap) {
     return color;
 }
 
+/**
+ * C ref: display.c reset_glyphmap `:2938–2940` (the engrcorr twin's
+ * "S_litcorr CLR_WHITE sibling"): lit corridor is CLR_WHITE only when
+ * its live showsyms byte equals the live S_corr byte ("provide a
+ * visible difference if normal and lit corridor use the same
+ * symbol"); otherwise it keeps the cmap_color `:2684` base (defsyms
+ * CLR_GRAY, defsym.h:116–117 — tty-default via tty_map_color, the
+ * termcap nilstring arms). The `:2935` has_rogue_color first-arm stays
+ * a named omission (never active on contest tty — same standing as
+ * the `:2934` note on engrcorr_map_attr). The white is ungated (C
+ * overwrites even on mono); the gray base keeps the macro's
+ * use_color gate at the call sites. Reads live_showsyms (D-3950):
+ * the static showsyms copy lacks loaded-symset carriers, and the
+ * divergence is exactly loaded sets whose corr/litcorr bytes differ
+ * (RogueEpyx \xb1 vs \xb2; MACgraphics \xb0 vs the #-fallback).
+ */
+function litcorr_showsyms_white() {
+    return live_showsyms(S_LITCORR) === live_showsyms(S_CORR);
+}
+
 function wall_glyph_table() {
     return use_decgraphics() ? WALL_GLYPH_DEC : WALL_GLYPH_ASCII;
 }
@@ -4433,12 +4463,17 @@ export function terrain_glyph(loc, x, y) {
         : { ch: '.', color: NO_COLOR, dec: false };
     case CORR: {
         // C ref: display.c back_to_glyph — S_litcorr if waslit||lit_corridor
-        // else S_corr. reset_glyphmap: S_litcorr + shared '#' → CLR_WHITE;
-        // S_corr is defsym CLR_GRAY, which tty records as NO_COLOR.
+        // else S_corr. reset_glyphmap `:2938–2940`: S_litcorr is CLR_WHITE
+        // only when its live byte equals the live S_corr byte (shared
+        // '#' under DEC/ASCII); else the `:2684` gray base (tty-default
+        // via tty_map_color). S_corr is defsym CLR_GRAY, which tty
+        // records as NO_COLOR.
         const litCorr = !!(loc.waslit || game.flags?.lit_corridor);
         return {
             ch: '#',
-            color: litCorr ? CLR_WHITE : NO_COLOR,
+            color: !litCorr ? NO_COLOR
+                : litcorr_showsyms_white() ? CLR_WHITE
+                : (game.iflags?.wc_color === false ? NO_COLOR : CLR_GRAY),
             dec: false,
         };
     }
@@ -5200,7 +5235,10 @@ function reveal_terrain_cmap_hack(g) {
             glyph: cmap_to_glyph(S_CORR),
         };
     }
-    if (g.ch === '#' && g.color === CLR_WHITE) {
+    // Gray-# joins white-# here: under symsets whose corr/litcorr bytes
+    // differ, a glyph-less litcorr memory carries the `:2684` gray base
+    // (S_corr memories stay NO_COLOR, so gray-# is unambiguous).
+    if (g.ch === '#' && (g.color === CLR_WHITE || g.color === CLR_GRAY)) {
         const fixed = { ch: '#', color: NO_COLOR, dec: false };
         if (typeof g.glyph === 'number') fixed.glyph = g.glyph | 0;
         return fixed;
@@ -6529,9 +6567,13 @@ export function newsym(x, y) {
         let mem = loc.remembered_glyph;
         const darkRoomColor = game.flags?.dark_room !== false
             && game.iflags?.wc_color !== false;
+        // Gray-# joins white-# in the glyph-less fallback: under symsets
+        // whose corr/litcorr bytes differ, litcorr memories carry the
+        // `:2684` gray base (S_corr memories stay NO_COLOR, so gray-# is
+        // unambiguous — typ is CORR here, never CLOUD).
         const isLitcorr = (loc.typ | 0) === CORR && (
             memory_is_cmap(mem, S_LITCORR)
-            || (mem.ch === '#' && mem.color === CLR_WHITE)
+            || (mem.ch === '#' && (mem.color === CLR_WHITE || mem.color === CLR_GRAY))
         );
         const isRoomFloor = (loc.typ | 0) === ROOM
             && memory_is_cmap(mem, S_ROOM_CMAP);
