@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-14
 
-- [x] `allmain.c` welcome — blocks 96/2815 corpus sessions (first at step 814; RNG lost 299068, screens lost 67437): toplines identical; first differing screen row 8: C «#·· ·······[···│» vs JS «·· ·······[···│» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify welcome` (scen-chain-Ranger-49950026, scen-symset-Archeologist-50058507, scen-symset-Archeologist-50058509). @9a0ca2a78 **[history: archived D-2725 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3941
+- [x] `allmain.c` welcome — blocks 96/2815 corpus sessions (first at step 814; RNG lost 299068, screens lost 67437): toplines identical; first differing screen row 8: C «#·· ·······[···│» vs JS «·· ·······[···│» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify welcome` (scen-chain-Ranger-49950026, scen-symset-Archeologist-50058507, scen-symset-Archeologist-50058509). @9a0ca2a78 **[history: archived D-2725 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3941 `96149d38f`
 
 ## 2026-10-13
 
