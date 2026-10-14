@@ -22,7 +22,7 @@ import {
     S_vwall, S_hwall, S_tlcorn, S_trcorn, S_room, S_corr,
     S_upladder, S_dnladder,
 } from "../js/const.js";
-import { fill_glyphid_cache, glyphid_cache_status, match_glyph } from "../js/glyphs.js";
+import { fill_glyphid_cache, glyphid_cache_status, match_glyph, apply_customizations, free_all_glyphmap_u } from "../js/glyphs.js";
 
 // options.js module-locals (not exported): REQ_DO_SET 2, EMPTY_OPTSTR '',
 // OPTN_OK 1, OPTN_ERR 0 (options.js:12514-12518).
@@ -119,6 +119,22 @@ describe("symset loader (files.c read_sym_file + symbols.c parse_sym_line)", () 
         assert.equal(slot.handling, H_UTF8);
         // H_UTF8 S_ lines route to glyphrep, not the carriers.
         assert.equal(game.gs.primary_syms[S_hwall], 0x2d); // default '-'
+    });
+
+    it("Enhanced1 stamps glyphmap u for walls+room (50059006 step-0 writer)", () => {
+        // C initoptions_finish `:7376–7381` (options.js:9299): after the
+        // load, apply_customizations stamps the filed urep rows onto
+        // glyphmap u under the H_UTF8 gate (glyphs.c `:552–560`).
+        assert.equal(loadPrimary("Enhanced1"), 1);
+        assert.equal(symset_slot(PRIMARYSET).handling, H_UTF8);
+        game.iflags.customsymbols = true; // optlist initval true (options.js:12133)
+        game.iflags.customcolors = true; // optlist initval true (options.js:12131)
+        apply_customizations(PRIMARYSET, 2 | 1); // do_custom_symbols | do_custom_colors
+        assert.equal(game.glyphmap?.[cmap_to_glyph(S_hwall)]?.u?.utf8str, "─"); // U+2500
+        assert.equal(game.glyphmap?.[cmap_to_glyph(S_vwall)]?.u?.utf8str, "│"); // U+2502
+        assert.equal(game.glyphmap?.[cmap_to_glyph(S_tlcorn)]?.u?.utf8str, "┌"); // U+250C
+        assert.equal(game.glyphmap?.[cmap_to_glyph(S_room)]?.u?.utf8str, "·"); // U+00B7
+        free_all_glyphmap_u(); // clear_symsetentry `:345` teardown; later tests start clean
     });
 
     it("G_ rows resolve through match_glyph with the startup cache", () => {
@@ -229,5 +245,39 @@ describe("symset step-0 screens (hidden-proxy probes)", () => {
                 `${id} row ${row}: want tail ${JSON.stringify(want)}, got ${JSON.stringify(text)}`);
         });
     }
+
+    it("scen-symset-Archeologist-50059006 step 0 paints C's UTF8 room (raw-terminal oracle)", async () => {
+        // Oracle is NOT the board payload (recorder blank — D-3944): it is
+        // C's measured raw terminal bytes for this exact seg-0 recipe
+        // (─ ×19, │ ×5, ┌┐└┘ ×1 each, · ×28 in the step-0 room).
+        const { runSegment } = await import("../js/jsmain.js");
+        const sess = JSON.parse(readFileSync(
+            new URL("../.cache/hidden/sessions/scen-symset-Archeologist-50059006.session.json", import.meta.url),
+            "utf8"));
+        const seg = sess.segments[0];
+        const g = await runSegment({
+            seed: seg.seed, datetime: seg.datetime,
+            nethackrc: seg.nethackrc, moves: seg.moves, storage: undefined,
+        });
+        const grid = decodeScreen((g.getScreens?.() || [])[0]);
+        const text = grid[15].map((x) => renderCell(x)).join("");
+        assert.ok(text.includes("─"),
+            `50059006 row 15: want C's U+2500 wall, got ${JSON.stringify(text)}`);
+        assert.ok(!text.includes("---------.--"),
+            `50059006 row 15: ASCII fallback must be gone, got ${JSON.stringify(text)}`);
+        // The recipe's O-menu toggles (customsymbols off at key 41, plus a
+        // later customcolors off) unstamp via the doset_simple `:8727`
+        // reset (C options.c:8994-8996): no custom data survives, so
+        // post-toggle paints fall back to the ASCII ttychar like C.
+        assert.equal(game.iflags?.customsymbols, false);
+        assert.equal(game.iflags?.customcolors, false);
+        let stamped = 0, colored = 0;
+        for (const cell of game.glyphmap || []) {
+            if (cell?.u?.utf8str != null) stamped++;
+            if (cell?.customcolor) colored++;
+        }
+        assert.equal(stamped, 0);
+        assert.equal(colored, 0);
+    });
 });
 console.log("PASS symset-loader");

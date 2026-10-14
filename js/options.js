@@ -9826,6 +9826,20 @@ function simple_bool_toggle(opt) {
         mark_opt_need_redraw();
         mark_opt_need_glyph_reset();
     }
+    // C doset_simple_menu `:8654–8656` parseoptions("!name") → optfn_boolean
+    // do_set `:5411–5416` (optfn_boolean_do_set mirror): custom-data
+    // toggles re-stamp at the doset_simple `:8727` reset_needed_visuals
+    // (wired) — without the marker a customsymbols off-toggle never
+    // unstamps and map cells keep painting UTF8 after C fell back to
+    // the ASCII ttychar (20 symset sessions).
+    if (opt.name === 'customcolors') { // C `:5411–5413`
+        if (!game.go) game.go = {};
+        game.go.opt_reset_customcolors = true;
+    }
+    if (opt.name === 'customsymbols') { // C `:5414–5416`
+        if (!game.go) game.go = {};
+        game.go.opt_reset_customsymbols = true;
+    }
 }
 
 async function format_simple_opt_line(opt, nameWidth, tabSep = false, dispName = null) {

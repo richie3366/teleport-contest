@@ -63,7 +63,7 @@
 {"fn":"docorner","c":"3650-3721","status":"ported","js":["js/display.js:docorner"],"d":["D-3441"],"at":"2026-10-05@9e1efbc82","note":"audit 2026-10-03: cl_end loop, CLIPPING row_refresh, status bot() tail ported; RESIZABLE/PERMINV arms N/A."}
 {"fn":"end_glyphout","c":"3724-3737","status":"unknown"}
 {"fn":"g_putch","c":"3740-3790","status":"unknown"}
-{"fn":"g_pututf8","c":"3795-3803","status":"unknown"}
+{"fn":"g_pututf8","c":"3795-3803","status":"ported","js":["js/display.js:show_glyph_cell"],"d":["D-3945"],"at":"2026-10-14@5018ae760"}
 {"fn":"setclipped","c":"3809-3815","status":"ported","js":["js/display.js:setclipped"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact: clipping on, origin pan, extents at screen size minus statuslines."}
 {"fn":"tty_cliparound","c":"3818-3842","status":"ported","js":["js/display.js:tty_cliparound"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact hysteresis both axes + redraw_map on origin move."}
 {"fn":"tty_print_glyph","c":"3855-3977","status":"unknown"}

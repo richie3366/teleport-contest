@@ -135,6 +135,7 @@ import {
     WC2_SUPPRESS_HIST,
     WC2_HILITE_STATUS,
     WC2_FLUSH_STATUS,
+    WC2_U_UTF8STR,
     TTY_WINCAP2,
     PLNMSG_UNKNOWN,
     BUFSZ,
@@ -5078,6 +5079,33 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
     // (reset_glyphmap `:2941–2946`) at every paint; OR it here so live,
     // memory, detection and wizard engrcorr paints all inherit, as in C.
     attr |= engrcorr_map_attr(gid);
+    // C tty_print_glyph `:3867` HUPSKIP (HANGUPHANDLING live,
+    // global.h:278; g_pututf8 `:3795` + g_putch `:3745` carry the same
+    // guard): under hangup the tty layer emits nothing (morc is
+    // display-local — botl.js:801 precedent), so skip the emission
+    // (stores) below. Core validation + the map_glyphinfo resolve above
+    // already ran, as in C.
+    if (game.program_state?.done_hup) return;
+    // C tty_print_glyph `:3945–3953` + g_pututf8 `:3795–3803`
+    // (ENHANCED_SYMBOLS live, config.h:368): with the port advertising
+    // WC2_U_UTF8STR (tty_procs `:120`, the installed TTY_WINCAP2 word),
+    // the active set handling UTF8 (SYMHANDLING(H_UTF8), sym.h:176),
+    // and a stamped unicode representation (apply_customizations →
+    // glyphmap u, glyphs.c `:552–560`), g_pututf8 emits the byte string
+    // instead of the ttychar, and glyphdone (`:3951`) skips g_putch.
+    // JS strings carry the decoded char (glyphs.js fromCodePoint), so
+    // emission is assignment; dec off (no graph_on in the utf8 path).
+    // The MSDOS tiles arm (`:3939–3944`) never compiles on unix (named).
+    // Cells without u data keep the `:2653` ttychar via g_putch (the
+    // symset_render_char H_UTF8 row) — dat/symbols says so explicitly.
+    const utf8set = ((game.currentgraphics | 0) === ROGUESET) ? ROGUESET : PRIMARYSET;
+    const utf8u = (gid >= 0 && gid < MAX_GLYPH) ? game.glyphmap?.[gid]?.u : null;
+    if ((install_tty_wincap2() & WC2_U_UTF8STR) !== 0
+            && (game.gs?.symset?.[utf8set]?.handling | 0) === H_UTF8
+            && utf8u?.utf8str != null) {
+        ch = utf8u.utf8str; // g_pututf8 `:3797–3800` putchar loop
+        decgfx = false;
+    }
     const announce = show_glyph_change_wanted(loc, x, y, ch, color, decgfx, attr);
     // C classifies the already-chosen glyph id; stamp JS kind the same way
     // (no mon_glyph / obj_glyph). Always store so later On sees real old kind.
