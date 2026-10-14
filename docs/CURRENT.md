@@ -22,30 +22,31 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-14** — full `sessions` on `ed99ac9db`
-(audit **2790–2795**, 2026-10-14T05:12:40Z).
+Score last measured: **2026-10-14** — full `sessions` on `2276f30eb`
+(audit **2796–2802**, 2026-10-14T11:39Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`386+1.88/turn` (R² 0.81).
+`388+1.77/turn` (R² 0.80).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-14 01:26Z)** | **32 / 44**, 9,920 / 11,265 pts, RNG **92.0 %**, rngSteps 95.8 %, screens **88.1 %** |
+| **Held-out (judge 2026-10-14 07:36Z)** | **32 / 44**, 9,920 / 11,265 pts, RNG **92.0 %**, rngSteps 95.8 %, screens **88.1 %** |
 | **Fresh cohort (§10.20, scored on arrival)** | 50150000 ×159 @`3535ccd78`: **137/159 (86.2 %)**, RNG 97.1 %, screens 93.5 % — symset 0/12 worst |
-| **Corpus board (worked, regression fortress)** | **2792 / 3233** @`3535ccd78` full, RNG 97.09 %, screens 94.65 % |
+| **Corpus board (worked, regression fortress)** | **2822 / 3233** @`2276f30eb` full, RNG 97.22 %, screens 95.68 % |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `350+1.60/turn` (R² 0.78) |
+| Speed label | `388+1.77/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
 pts = matched screens). Rank 5 (9,920; NoahBPeterson 11,264 at 43/44,
 rohitgandikota 10,499 at 35/44, serteal 10,424 at 43/44, jon-bell 10,419
-at 39/44, lockwo 8,715). 32/44 at judge 01:26Z 2026-10-14 (+1 session,
-+1 pt since the 19:08Z read; +10 sessions since 13:24Z): the D-3929..D-3935 window
+at 39/44, lockwo 8,715). 32/44 at judge 07:36Z 2026-10-14 (unchanged
+since 01:26Z; +1 session, +1 pt since the 19:08Z read; +10 sessions
+since 13:24Z): the D-3929..D-3935 window
 (quest-text completeness D-3930, wield ECMD hang fix, 3 cliff writers)
 moved the judge for the first time since 2026-10-11 — the §10.20
 completeness line scores where cliffs alone did not. **Three lines, read
@@ -57,16 +58,17 @@ Grow #5); 50050000 ×159 → 146/159 (91.8 %, Grow #6); 50150000 ×159 →
 137/159 (86.2 %, Grow #7). Fresh−held-out gap now 13.5 pts (86.2 % vs
 72.7 %), inside the §10.20 20-pt band — no calibration family this grow
 (gap ≤ 20; Grow #6's `symset` wave-3 family now 16/172).
-**Corpus (2026-10-14 09:16Z, `3535ccd78`, 3233/3233 entries, `full: true`):**
-2792 PASS (+313 since the Grow #6 board: +418 Grow #7 sessions — 159 fresh
-+ 259 weighted to symset/sweep/questtour/wish/shop/chain/zapfest/options;
-0 PASS→FAIL); RNG 99177366/102151823 (97.09 %), screens 1804606/1906677
-(94.65 %). Worst families `scen-symset` 16/172, `scen-sweep` 402/512,
-`scen-worldtour` 328/401, `scen-questtour` 51/62, `scen-options` 49/59,
-`scen-shop` 178/214, `scen-zapfest` 67/73; rest ≥ 95 %.
+**Corpus (2026-10-14 11:37Z, `2276f30eb`, 3233/3233 entries, `full: true`):**
+2822 PASS (+15 since the 2807 committed at HEAD — all scen-symset
+cross-fn healing from the D-3950/3952/3953 window; 0 PASS→FAIL);
+RNG 99307391/102151823 (97.22 %), screens 1824286/1906677
+(95.68 %). Worst families `scen-symset` 46/172,
+`scen-questtour` 51/62, `scen-sweep` 402/512, `scen-shop` 178/214,
+`scen-worldtour` 328/401, `scen-zapfest` 67/73, `scen-options` 49/59;
+rest ≥ 96 %.
 `scen-sweep-Priest-582706` still FAIL@1166 (known recorder flake, D-3885 park
 stands — unchanged since the Grow #6 re-record).
-Reviews 1225–2795 (index; no row 1618): 1397 ACCEPT, 62 WITH-DEBT, 111 QUALITY-RISK (2790–2795: 5A/1D/0Q, 0 Must-fix queued).
+Reviews 1225–2802 (index; no row 1618): 1403 ACCEPT, 63 WITH-DEBT, 111 QUALITY-RISK (2796–2802: 6A/1D/0Q, 0 Must-fix queued).
 Live debts: `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows; 52
 unit tests in `scripts/*.test.mjs` fail on HEAD (stale after rewires —
 same set before and after D-3930).
@@ -159,8 +161,8 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** cliffs-head do_fight writer = rhack bad_command arm (JS Unknown clears forcefight, C :3833–3841 keeps it — F/b/F never doubles).
-**This iter:** D-3950 RogueEpyx coin→space, 15 moved.
+**Next:** cliffs-head randomize_gem_colors (parked REFUTED — deliverable is the writer the first divergence names, or this owner's [measure] row).
+**This iter:** audit 2796–2802 (6A/1D/0Q, 0 Must-fix) + full rescore 2822/3233 (0 PASS→FAIL).
 
 ## Parked (diagnose only)
 
