@@ -33,8 +33,8 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Metric | Value |
 |--------|------:|
 | **Held-out (judge 2026-10-13 19:08Z)** | **31 / 44**, 9,919 / 11,265 pts, RNG **92.0 %**, rngSteps 95.8 %, screens **88.1 %** |
-| **Fresh cohort (§10.20, scored on arrival)** | 49950000 ×158 @`45bdd980f`: **140/158 (88.6 %)**, RNG 94.9 %, screens 95.5 % — worldtour 18/24 worst |
-| **Corpus board (worked, regression fortress)** | **2122 / 2296** @`6f89ca4ec` full, RNG 98.08 %, screens 97.8 % |
+| **Fresh cohort (§10.20, scored on arrival)** | 50050000 ×159 @`9a0ca2a78`: **146/159 (91.8 %)**, RNG 93.3 %, screens 96.4 % — sweep 10/16 worst |
+| **Corpus board (worked, regression fortress)** | **2469 / 2815** @`365667f22` full, RNG 97.22 %, screens 92.9 % |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
@@ -53,21 +53,22 @@ together:** held-out (judge), fresh cohort (`fresh-cohort.mjs`, the local
 generalization estimate), board (the fortress — it rises by
 construction). Fresh history: 610000 marathon ×160 → 126/160 (79 %);
 620000 mixed ×160 → 141/160 (88 %); 49950000 ×158 → 140/158 (88.6 %,
-Grow #5). Fresh−held-out gap now 18 pts (88.6 % vs 70.5 %), inside the
-§10.20 20-pt band.
-**Corpus (2026-10-13 21:53Z, `6f89ca4ec`, 2296/2296 entries, `full: true`):**
-2122 PASS (+6 = D-3933..D-3936 window 0+2+3+1; rescore matches every
-incremental-board row — 0 flips, 0 owner/step moves); RNG 70926957/72313012
-(98.08 %), screens 1214615/1241936 (97.80 %). Worst families `scen-shop`
-76/100, `scen-sweep` 275/332, `scen-worldtour` 254/301, `scen-options`
-31/36, `scen-zapfest` 18/20; rest ≥ 94 %. `scen-sweep-Priest-582706`
-still FAIL (known recorder flake, D-3885 park stands — unchanged since
-the Grow #5 re-record).
+Grow #5); 50050000 ×159 → 146/159 (91.8 %, Grow #6). Fresh−held-out gap
+now 21 pts (91.8 % vs 70.5 %), above the §10.20 20-pt band — triggered
+the Grow #6 calibration (new `symset` wave-3 family, 0/100 on arrival).
+**Corpus (2026-10-14 01:06Z, `365667f22`, 2815/2815 entries, `full: true`):**
+2469 PASS (+336 passing of +519 new; rescore matches every old-board row
+— 0 flips, 0 fixed, 0 gone); RNG 88199490/90725936
+(97.22 %), screens 1519101/1634784 (92.92 %). Worst families
+`scen-symset` 0/100, `scen-sweep` 359/460, `scen-worldtour` 316/389,
+`scen-shop` 142/172, `scen-options` 33/38; rest ≥ 94 %.
+`scen-sweep-Priest-582706` still FAIL (known recorder flake, D-3885 park
+stands — unchanged since the Grow #6 re-record).
 Reviews 1225–2789 (index; no row 1618): 1392 ACCEPT, 61 WITH-DEBT, 111 QUALITY-RISK (2782–2789: 8A/0D/0Q, 0 Must-fix queued).
 Live debts: `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows; 52
 unit tests in `scripts/*.test.mjs` fail on HEAD (stale after rewires —
 same set before and after D-3930).
-Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈25 min for 2296), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
+Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈35 min for 2815), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 
 **PASS (44):** every session in `sessions/`.
 

@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — Grow #6: fresh 146/159 (91.8 %) @50050000; +519 sessions; symset calibration family
+
+**Fresh:** 50050000 ×159 @`9a0ca2a78` → 146/159 (91.8 %), RNG 93.3 %, screens 96.4 %; worst sweep 10/16, worldtour 12/16, shop 13/16, rest 100 %. Gap 21 pts over held-out 70.5 % → calibration ran (Grow #5 did none).
+**Authored:** sweep 112 @50055000 + worldtour 72 @50056000 + shop 56 @50057000 (fresh-fail-weighted, 100 %-on-arrival families got none); calibration: questtour probe 20 @50058000 → 19/20 (95 %, NOT held-out-like, folded, kept in WAVE3) then symset probe 20 @50058500 → 0/20 (screens 3.7 %, no throws — display layer under exotic rc) → +80 @50059000. Board 2469/2815 `full: true` (+336 of +519), RNG 97.22 %, screens 92.92 %; 0 Must-fix (0 flips, 0 fixed, 0 gone vs HEAD).
+**New multi-session owners:** `allmain.c` welcome ×96 (95 symset + 1 chain — region heuristic on symset glyphs; the writer is the display layer), `botl.c` do_statusline1 ×4 (symset), unattributed ×42 (shop 12, sweep 16, worldtour 8); do_statusline2 ×9, glibr ×7, goto_level ×7, rndcurse ×6, one_characteristic ×6 (incl. the 1 questtour fail). Cliffs regen heads the queue with welcome 96/2815.
+**Next:** pop the welcome/symset cliff (display writer, not the region owner); questtour needs no follow-up (95 % ≈ saturated on arrival). No candidates left in HIDDEN-PROXY.md §5c — the next calibration grow mines a new public shape.
 ## 2026-10-14 — D-3940 `pickup.c` query_objlist_pickup dismissed corner menus with docrt+flush, freshening stale botl (T:92-for-T:91; 5 PASS + 1 moved 300→783)
 
 **C locus:** `win/tty/wintty.c` erase_menu_or_text `:965–984` (corner `:982–984` → docorner, which bots ONLY when the menu wrecked rows 22+, `:3716–3720`); select_menu `:1858–1863` (gb.bot_disabled scope); `botl.c` bot/timebot `:253–293` (disabled return preserves flags). A short corner-menu destroy repaints gbuf rows only; status stays stale.
