@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — D-3946 welcome acceptance bar: temp g_pututf8 nomux hook + re-record 20/20 (18 moved) + fountain-customcolor park for the 5 residuals
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** symset-loader 16/16 (D-3945, untouched). `verify welcome: 0 PASS, 18 moved past (steps 0→1..510), 2 unchanged, 0 worse` → PROGRESS — optfn_symset×6, update_rest_on_space×3, show_gamelog×2, getdir×2, null-owner×3 (Barbarian-50059022@34 scr 70/889, Ranger-50059009@1 scr 18/790, Samurai-50059037@2 scr 440/826 — display residuals, err null), dfeature_at, minimal_xname; stuck Samurai-50058508@0 (scr 0→826/941, RNG 100%) + Samurai-50059033@0 (scr 10/550, keeps its pre-existing RNG div 2005/12615). REACH-OK, green 2/2, strict ×2, cohort 7/7, full 44/44:
+**Named:** 007 landing (prohibited dir — supervisor/patches-capable); extracolor shadow+wire+decoder design (frozen decodeScreen is 16-color: sgrApply ignores `38;2` tokens and a `0` component would RESET state); JS customcolor reader + extended paint path (blocked on the wire format); raw-SGR capture (open detail above); nearest-color recording (refused — fabrication); default-fg painting (refused — tooling-matching, D-3941 doctrine). No seed/step/coord/RNG reads; frozen untouched; no fastforward.js.
+**Next:** patches-capable slot: land 007 from this diff + full rebuild + full re-record + rescore (durable). Fountain park falsifier: extracolor-capable wire format + JS customcolor reader moving the 5 (expect 50058508@0→PASS-or-later; 50059033's RNG div then surfaces its own writer). If the regen ever surfaces `js-throw`-labeled rows for the 3 null-owner sessions, they are this park (verify err null first), not throws — never file Must-fix rows for the :722 fallback.
 ## 2026-10-14 — D-3945 cliffs-head `welcome` writer: wintty utf8 arm + startup stamp + simple-menu unstamp markers (C-terminal parity; board still gated on the D-3944 recorder gap)
 
 **C locus:** `win/tty/wintty.c` tty_print_glyph `:3945–3953` utf8 arm + g_pututf8 `:3795–3803` (HUPSKIP `:79–85`, HANGUPHANDLING live global.h:278; entry `:3867` + g_putch `:3745` same guards); predicate needs WC2_U_UTF8STR (tty_procs `:120`) + SYMHANDLING(H_UTF8) (sym.h:176) + gm.u.utf8str (apply_customizations, glyphs.c `:552–560`, ENHANCED_SYMBOLS live). Stamp call: `options.c` initoptions_finish `:7376–7381` (free cache `:7379` + apply `:7380–7381`). Toggle markers: optfn_boolean `:5411–5416`, consumed by doset_simple `:8727` reset_needed_visuals → utf8map.c reset_customsymbols `:211–217` (pre-wired). Fallback contract: dat/symbols ("glyphs without utf8str use the ttychar as usual").
