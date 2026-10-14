@@ -3880,8 +3880,16 @@ export function symset_render_char(code, handling) {
     } else {
         out = { ch: String.fromCharCode(c), dec: false };
     }
-    if (out.ch.charCodeAt(0) < 32)
-        return { ch: ' ', dec: false }; // capture-ignore ≈ cleared cell
+    // C wintty.c g_putch `:3745–3790` emits the showsyms byte raw
+    // (IBM arm `:3753–3758` putchar(ch), no control mapping): RogueEpyx
+    // S_human 0x01 / S_coin 0x0f go out as C0 bytes. They paint nothing
+    // visible — real terminals ignore C0, and the nomux shadow drops
+    // ch < 32 (termcap.c nomux_putch, patch 006) so the capture keeps
+    // the previous cell content (stale), NOT a cleared cell. Return the
+    // raw byte (gbuf layer, C-exact); the grid-write gates below mirror
+    // the drop. The old ' ' mapping painted cleared cells where C and
+    // the capture show stale terrain (scen-symset-Caveman-50059032 s16:
+    // gold over floor, hero over stairs).
     return out;
 }
 
@@ -6616,11 +6624,18 @@ export function newsym(x, y) {
         const floorObj = objects_at(x, y);
         const livePile = !!(floorObj && !covers_objects(x, y)
             && obj_is_piletop(floorObj));
-        const attr = (livePile || mem.objpile)
-            ? obj_map_attr(floorObj, !livePile)
-            : 0;
         const gid = typeof mem.glyph === 'number' ? mem.glyph
             : (mem.invisible ? GLYPH_INVISIBLE : NO_GLYPH);
+        // C wintty.c tty_print_glyph `:3930–3936`: inverse needs a flag on
+        // the PAINTED id — MG_OBJPILE lives only on piletop-bank ids
+        // (reset_glyphmap `:2788–2821`), MG_FEMALE on statue banks
+        // (`:2828–2835`). A pile under a remembered non-pile glyph (trap
+        // over an unseen corpse pile) takes no inverse.
+        const inverseBank = gid >= GLYPH_STATUE_OFF
+            && gid < GLYPH_UNEXPLORED_OFF;
+        const attr = ((livePile || mem.objpile) && inverseBank)
+            ? obj_map_attr(floorObj, !livePile)
+            : 0;
         show_glyph_cell(x, y, mem.ch, mem.color, mem.decgfx, attr, gid);
     } else {
         // C: show_mem → show_glyph(x, y, lev->glyph); unexplored glyph
@@ -8070,6 +8085,13 @@ export function paint_gbuf_level_to_terminal(level) {
             let ch = loc.disp_ch ?? ' ';
             const color = loc.disp_color ?? NO_COLOR;
             const attr = loc.disp_attr ?? 0;
+            // Same C0 drop as _paint_gbuf_cell (nomux_putch ch < 32):
+            // control bytes leave the stale grid cell in place.
+            if (ch && ch.charCodeAt(0) < 32) {
+                loc.gnew = 0;
+                last = { x, y };
+                continue;
+            }
             if (loc.disp_decgfx && ch && ch !== ' ') {
                 const uni = DEC_TO_UNICODE[ch];
                 if (uni && ch !== '{' && ch !== '`' && ch !== 'g'
@@ -8102,6 +8124,11 @@ function _paint_gbuf_cell(mx, my, sc, sr) {
             || mx >= clipxmax || my >= clipymax)) return;
     if (loc.disp_ch == null || loc.disp_ch === '') return;
     let ch = loc.disp_ch;
+    // C0 control bytes paint nothing visible: C g_putch emits them raw
+    // (wintty.c `:3753–3758`), real terminals ignore C0, and nomux drops
+    // ch < 32 (termcap.c nomux_putch, patch 006) — the capture keeps the
+    // stale cell. Mirror the drop: leave the grid cell untouched.
+    if (ch.charCodeAt(0) < 32) return;
     if (loc.disp_decgfx) {
         const uni = DEC_TO_UNICODE[ch];
         if (uni && ch !== '{' && ch !== '`' && ch !== 'g'

@@ -25,25 +25,26 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **Shipped writers — do not re-pop/re-check:** toss_up→chwepon (D-3640, HCOLORS 74/74); read_engr_at Knight-94259 (D-3671, tut-1.lua gate, paint audited); magic_map_background DARKROOMSYM-rogue (D-3682, stone-glyph/floor-paint split); gulpmu engulf vision_off ungate (D-3863, stale-'I' unmap); mbodypart/m_move/mfndpos/searches (D-3906, soko-prize linkage live).
 - **nhl_gamestate (D-3885 UNPORTABLE):** Priest-582706 s1166 steed-impossible needs C malloc reuse; recorder flaky there (ASLR). Never a port row (D-3895/D-3905).
 - **welcome/Enhanced-blank (D-3944 MEASURED):** C emits 56 UTF-8 glyphs @50059006 s0, nomux records 0 hi-bytes — writer = g_pututf8 hook (contest tooling). JS arm ID'd, moveless until re-record — do not port/replicate.
-- **do_screen_description travel-flush (D-3960 MEASURED):** temp-C vizdump: C gbuf=GOLD(3886)+hero(716) moves 14/17, terminal=floor/stairs steps 16–19 — unflushed travel paints. Writer = map-flush mirror (wintty flush points + JS show_glyph_cell); falsifier in D-3960 Next.
+- **do_screen_description travel (D-3962 FIXED):** D-3960's paints stand but flush-timing refuted (temp-C: C emitted everything); D-3961's never-arrived refuted (C descends s21). Shipped C0 raw-store + grid-drop (nomux ch<32) + pile-inverse bank gate — 5/5 moved. Do not re-chase flush/pathing writers here.
 
 ## Don't re-check (≤15)
 
-- D-1790…D-3961 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3962 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3961.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3961 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3962.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3962 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3962: (1) temp-C flushtrace in the ignored recorder tree (log-only FLUSH/PAINT/RUNMODE/TRAVEL/BOTLSYNC/MAPSYNC to /tmp; incremental make + install + sysconf Named: (1) menu/topline/text paths rendering control bytes (separate render, no session evidence)
 - D-3961: none — measurement (this commit). Named: none — no port; docs-only entry, no Ledger bullet (D-3944/D-3960 precedent) — flush/runmod
 - D-3960: none — measurement (this commit). Named: none — no port; docs-only entry, no Ledger bullet (D-3944/D-3861 precedent) — flush-path l
 - D-3959: js/getpos.js only — deleted the shortcut; stairs now match via the typ+seenv+ladder terrain gate (C :1095–1103 seenv back_to_glyph arm) plus the pre-e Named: none new (getpos stays ledger-partial on its D-3556 audited note).
@@ -58,5 +59,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3950: `js/display.js`: new exported `live_showsyms(symidx)` — the C `assign_graphics` `:224–239` / `switch_symbols` `:257–260` expression (ov ? ov : carrier Named: - `do_statusline2`: vers/showvers arm, MAXCO-overflow panic arm, and in_dumplog gate unpor
 - D-3949: `js/dothrow.js` only — drain in C order inside the `if (why)` arm (dig.js falling-rock shape): after `losehp`, run the fatal done-gate first (`finish_ Named: none new — maybe_wail body whole (throttle + Wizard/Elf/Valkyrie + You_hear arms live in `
 - D-3948: `js/do_wear.js` only — deleted both house `find_ac()` calls (normal-path tail + null arm, now a plain `return 0`); doc comment now cites `:434–515` +  Named: none new — Helmet_on now whole vs C `:434–515`.
-- D-3947: js/cmd.js only — (1) classifiers num_pad-aware (NUMPAD_WALK digit→sdir map; M(digit)→run, M('5')→rush-prefix, '5'→run-prefix, '0'→Unknown); (2) F/g/G  Named: (1) getdir/movecmd digit acceptance under num_pad (different C function — Healer-50059030 
 <!-- landmarks:end -->

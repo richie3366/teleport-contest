@@ -23,7 +23,7 @@
 {"fn":"suppress_map_output","c":"715-718","status":"ported","js":["js/display.js:suppress_map_output"],"at":"2026-10-03@bbe63333a"}
 {"fn":"feel_newsym","c":"726-732","status":"ported","js":["js/display.js:feel_newsym"],"d":["D-3401","D-3268"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"feel_location","c":"746-909","status":"ported","js":["js/display.js:feel_location"],"d":["D-3919","D-3827","D-3400","D-2461","D-1749"],"at":"2026-10-13@aebed1065"}
-{"fn":"newsym","c":"917-1099","status":"ported","js":["js/display.js:newsym"],"d":["D-3393","D-1745","D-1737"],"at":"2026-10-03@4ea047f25"}
+{"fn":"newsym","c":"917-1099","status":"ported","js":["js/display.js:newsym"],"d":["D-3962","D-3393","D-1745","D-1737"],"at":"2026-10-14@3630e9b49"}
 {"fn":"shieldeff","c":"1110-1124","status":"ported","js":["js/display.js:shieldeff"],"at":"2026-10-03@bbe63333a"}
 {"fn":"tether_glyph","c":"1127-1133","status":"ported","js":["js/display.js:tether_glyph"],"at":"2026-10-03@bbe63333a"}
 {"fn":"tmp_at","c":"1174-1296","status":"ported","js":["js/display.js:tmp_at"],"at":"2026-10-03@bbe63333a"}
@@ -44,7 +44,7 @@
 {"fn":"redraw_map","c":"1778-1812","status":"ported","js":["js/display.js:redraw_map"],"d":["D-1974"],"at":"2026-10-01@250701173","note":"stale: js/display.js:6983 body whole, both callers wired (:5829,:7115), on_level imported"}
 {"fn":"reglyph_darkroom","c":"1818-1854","status":"ported","js":["js/display.js:reglyph_darkroom"],"d":["D-1975"],"at":"2026-10-03@bbe63333a"}
 {"fn":"newsym_force","c":"1863-1871","status":"ported","js":["js/display.js:newsym_force"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
-{"fn":"show_glyph","c":"1877-2072","status":"split","js":["js/display.js:show_glyph_cell","js/display.js:map_glyphinfo","js/display.js:show_memory_glyph","js/display.js:flush_screen"],"d":["D-3957","D-3674","D-3403","D-3402","D-3401","D-3013"],"at":"2026-10-14@5b7ec6f87","note":"audited D-3403: whole vs C"}
+{"fn":"show_glyph","c":"1877-2072","status":"split","js":["js/display.js:show_glyph_cell","js/display.js:map_glyphinfo","js/display.js:show_memory_glyph","js/display.js:flush_screen"],"d":["D-3962","D-3957","D-3674","D-3403","D-3402","D-3401"],"at":"2026-10-14@3630e9b49","note":"audited D-3403: whole vs C"}
 {"fn":"clear_glyph_buffer","c":"2107-2142","status":"ported","js":["js/display.js:clear_glyph_buffer"],"d":["D-1986"],"at":"2026-10-01@e45cb9654","note":"stale: js/display.js:7380 (D-0389/D-1986 gbuf->disp_* adaptation; spans + gnew; callers allmain.js:252 + cls:7419)"}
 {"fn":"row_refresh","c":"2147-2186","status":"ported","js":["js/display.js:row_refresh"],"d":["D-1964"],"at":"2026-10-01@e0549fe8b","note":"stale: js/display.js:6940 (shipped whole D-1964: export + docorner rewire + probe; force=false reduction + omits named there)"}
 {"fn":"cls","c":"2189-2202","status":"ported","js":["js/display.js:cls"],"at":"2026-10-03@bbe63333a"}
