@@ -1,0 +1,84 @@
+# Rotated from AGENT-LOOP-JOURNAL.md (6 crumbs; live kept 10)
+
+## 2026-10-14 — D-3950 symset gold pipeline: RogueEpyx coin `\x0f` paints a space, JS hardcoded `# Agent loop journal
+
+Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
+Each agent process should add a short dated entry **at the top** (after
+this header) before exiting. Keep entries tight; detailed hypothesis
+lives in `NOTES.md` / `CURRENT.md`.
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+ (15 symset@0 sessions moved)
+
+**C locus:** `dat/symbols` RogueEpyx `S_coin: \x0f`; `options.c` optfn_symset `:4167–4201` loads it as PRIMARYSET (no restriction gate) so showsyms[COIN]=0x0f; `botl.c` check_gold_symbol `:39–44` fires only at S_-parse (`options.c:665`), doset-commit (`options.c:8998`, menu-only), goto_level (`do.c:1668`) — none before the step-0 paint (measured invis=FALSE both sides: else C would print `# Agent loop journal
+
+Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
+Each agent process should add a short dated entry **at the top** (after
+this header) before exiting. Keep entries tight; detailed hypothesis
+lives in `NOTES.md` / `CURRENT.md`.
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+) — so the do_statusline2 gold arm (`botl.c:130–138`) and the BL_GOLD field (`botl.c:1071`) take the encglyph path; `windows.c` decode_mixed `:1466–1490` yields raw `\x0f`; `wintty.c` tty_putstatusfield `:4803–4840` putchars it raw and advances (`:4824–4826`); the recorder drops ch<32 (`recorder/win/tty/termcap.c` nomux_putch `:755–756`), so the recorded cell keeps its cleared space.
+**JS:** 2 files (display.js +57/−18, botl.js +27/−15) + `scripts/rogueepyx-gold-status.test.mjs` (new, 2/2 PASS — C-recorded space row + default-`# Agent loop journal
+
+Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
+Each agent process should add a short dated entry **at the top** (after
+this header) before exiting. Keep entries tight; detailed hypothesis
+lives in `NOTES.md` / `CURRENT.md`.
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+ fallback on the same seed).
+**Change:** `js/display.js`: new exported `live_showsyms(symidx)` — the C `assign_graphics` `:224–239` / `switch_symbols` `:257–260` expression (ov ? ov : carrier for the current set; carrier when loaded, else the showsyms copy = C-identical at default config); `check_gold_symbol`, the `_statusLine2` gold arm and the mimic gold base read it; an unprintable coin renders space (capture parity); the `_goldsym` snapshot is deleted (all readers rewired). `js/botl.js`: `decode_mixed` reads it (raw byte, C-exact); `tty_putstatusfield` maps bytes <0x20 to the space cell (store + grid) and truncates at NUL (C `:4814` strlen); the `:1579` gold detector reads it.
+**Verify:** focused test 2/2 post-fix (1/2 pre-fix: `gold prefix cell: JS "$" vs C ' '`). `verify do_statusline2: 0 PASS, 15 moved, 8 still (distinct writers, unchanged steps)` — every symset@0 session to a strictly later step/owner (optfn_symset@2, there_cmd_menu_next2u@18, do_fight@28, do_screen_description@16, do_fight@27, were_change@55, optfn_symset@15, test_move@15, None@50 map row-3, mstrength@17, drown@74, do_screen_description@7, optfn_symset@3, were_change@16, optfn_symset@2; the verify-run "js-throw" label on Ranger-50059072 did not persist — board error null, direct replay error null, show error/jsPanic null, clean map rowDiff). REACH-OK ×5 (smoke 24/24 each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared files) → VERIFY: PASS.
+**Named:** - `do_statusline2`: vers/showvers arm, MAXCO-overflow panic arm, and in_dumplog gate unported (JS vers is empty, dumplog retired).
+**Next:** the 8 still-blocked sessions re-file under their writers (T-timing Tourist-50150002@106; mux-escape Ranger-49956043@397, likely tooling — harness marker bytes in the C row; AC-timing Ranger-50050043@1125, Gloves_on class; HP-amount Tourist-610081@944 and Wizard-620021@763; cap-word Valkyrie-610117@1012; Strngl-word Wizard-50050007@373; HP-amount worldtour-Valkyrie-49955041@543). The 15 moved sessions now ride live rows (optfn_symset, do_fight, do_screen_description, were_change, …). Do not re-port the gold pipeline (whole on both paint paths). Falsifier: a fresh `verify do_statusline2` blocking at a gold-prefix cell.
+
+## 2026-10-14 — Grow #7: fresh 137/159 (86.2 %) @50150000; +418 sessions; board 2792/3233 full, 0 PASS→FAIL
+
+**Fresh:** 50150000 ×159 @`3535ccd78` → 137/159 (86.2 %), RNG 97.1 %, screens 93.5 %; worst symset 0/12, options 1/2, wish 7/9, questtour 10/12, sweep 10/12, chain/shop/zapfest 11/12; trek + worldtour 12/12. Fresh−held-out gap 13.5 pts (86.2 vs 72.7) — inside the §10.20 20-pt band, no calibration family.
+**Grew:** +259 weighted @50155000–50162000 (symset 60, sweep 40, questtour 30, wish 30, shop 30, chain 25, zapfest 25, options 19/20 — Valkyrie-50162014 too short); full rescore 2792/3233 (86.4 %), RNG 97.09 %, screens 94.65 %, 0 PASS→FAIL (D-3885 582706 still FAIL@1166). Note: `scenario-gen --help` runs a default 60-recipe batch (no help text) — removed that out-of-range accident before scoring.
+**Next:** regen'd cliffs head (12 owners, Must-fix empty): new multi-session owners handler_menu_colors ×11, optfn_IBMgraphics ×14, welcome ×14 re-entry (symset step-0); optfn_symset 18→28, do_fight 9→16; peace_minded / mhitm_knockback / cprefx out.
+
+## 2026-10-14 — D-3949 `dothrow.c` hurtle_step collision arm never drained the deferred low-HP wail: knockback hurtle skipped C's inline maybe_wail `--More--` wait, landing mdamageu one screen early (Healer-50055087 s577 HP:2→12, moved to s1028)
+
+**C locus:** `nethack-c/upstream/src/dothrow.c` hurtle_step `:834–839` (`dmg = rnd(2 + *range); losehp(...); wake_nearto(x, y, 10); return FALSE`) + `hack.c` losehp `:4289–4291` (`else if (n > 0 && u.uhp*10 < u.uhpmax) maybe_wail();`) + `hack.c` maybe_wail `:4210–4243` (staticfn, losehp's two elif arms only — `:4275`, `:4290` — verified by grep; 50-move `wailmsg` throttle). losehp(2) at 14→12 HP crossed the 1/10 threshold, so maybe_wail's You_hear printed inline and its `--More--` wait suspended the chain before the stun roll + mdamageu.
+**JS:** 1 file (`js/dothrow.js` +16/−1); new maintained test `scripts/hurtle-wail-drain.test.mjs` (node:test runSegment shape per armor-on-no-early-findac): s577 topline pinned, row23 `HP:12(140)`, s578 topline carries `howling of the CwnAnnwn`, row23 `HP:2(140)`, `_needs_maybe_wail` drained + `wailmsg` stamped. Fails pre-fix (`HP:2(140)` at s577), passes post-fix.
+**Change:** `js/dothrow.js` only — drain in C order inside the `if (why)` arm (dig.js falling-rock shape): after `losehp`, run the fatal done-gate first (`finish_losehp_done` via the existing lazy `./end.js` edge, return false only on true death — lifesave resumes), then `await finish_maybe_wail()` (showdamage + rehumanize + wail, no-ops when unset; import already present, no new module edge), then `wake_nearto`. Comment cites C `:836` + `:4289–4291` + D-3949.
+**Verify:** focused test fail→pass (above). `node scripts/verify.mjs --fn do_statusline2,hurtle_step` @HEAD: `verify do_statusline2: 0 PASS, 1 moved past, 17 unchanged, 0 worse → PROGRESS` (Healer-50055087 577→m_move@1028, +451 agreed screens, blockedScr 749→298; RNG untouched — rngM identical 69395, the s1028 gnome-identity divergence pre-existed behind the screen mask) · `--base d0fed11a2` run additionally showed D-3948's Healer-49956027 PASS + 1 stale-baseline WORSE (symset-Healer-50058517 s0 gold-glyph artifact) proven pre-existing by stash A/B (byte-identical rngM 2405/scrM 8/step/owner/rowDiff with and without the fix) · `REACH-OK` (smoke 24/24; hurtle_step reach 19/19) · green 2/2 + strict ×2 + cohort 7/7 + full 44/44 → `VERIFY: PASS`.
+**Named:** none new — maybe_wail body whole (throttle + Wizard/Elf/Valkyrie + You_hear arms live in `js/hack.js:1838`); hurtle_step otherwise whole per D-3218.
+**Next:** regen'd cliffs head (do_statusline2 persists with 17 different-writer sessions — symset s0 welcome/gold-glyph artifacts, Ranger-50050043 Gloves_on AC, etc.; Healer-50055087 now blocked on `m_move(monmove.c:1963)` @1028, gnome-vs-gnome-king web/pickup identity).
+
+## 2026-10-14 — D-3948 `do_wear.c` Helmet_on ran a house find_ac C never calls: mid-turn helm-donning completion painted the new AC four steps early (Healer-49956027 s486 AC:8 → PASS)
+
+**C locus:** `do_wear.c` Helmet_on `:434–515` (helm switch + known tail — NO find_ac) + `accessory_or_armor_on` `:2376` (instant setworn) / `:2395–2399` (nomul(-oc_delay), nomovemsg) + `hack.c` unmul `:4177–4208` (nomovemsg first, then afternmv) + `allmain.c` `:380–388` (multi<0 completion inside time-passed) + `:453` (once-per-player-input find_ac — the sole uac authority on this path) + `objects.h` HELM elven (`delay 1`, `ac 9` → bonus 1: 8→7). find_ac itself is whole (`js/u_init.js:1428`); the writer is its house caller.
+**JS:** `js/do_wear.js` (2 deletions + comment/cites) + `scripts/helmet-on-no-early-findac.test.mjs` (new node:test: 49956027 prefix-491 pins the C-recorded s486 topline + `AC:8` row23 verbatim and s490 `AC:7` + uac=7; pre-fix 0/1, post-fix 1/1).
+**Change:** `js/do_wear.js` only — deleted both house `find_ac()` calls (normal-path tail + null arm, now a plain `return 0`); doc comment now cites `:434–515` + the D-0810 rule (uac refreshes at the allmain once-per-input find_ac; same stale-uac shape as the Cloak_on note) + the D-3891 class. Signature unchanged; `find_ac` import kept (Gloves/Amulet/Ring arms still use it). No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** focused test pre-fix 0/1 (exact corpus `AC:7`-at-486 row) → post-fix 1/1. `node scripts/verify.mjs --fn do_statusline2,Helmet_on` → PASS syntax (1 file: js/do_wear.js) · PASS rule2 · `verify do_statusline2: 1 PASS, 0 moved past, 17 unchanged, 1 worse → REGRESSION` (scen-sweep-Healer-49956027 486→PASS; the 1 worse is scen-symset-Healer-50058517, step-0 $‑glyph session, rngM 2412→2405 vs the 960003e5b baseline) · note hidden verify Helmet_on (0 blocked at baseline — NOT a corpus PASS) · REACH-OK ×2 (smoke 24/24 ×2) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: not shared). Movement: `verify do_statusline2: 1 PASS, 0 moved, 0 no-movement` on the probe.
+**Named:** none new — Helmet_on now whole vs C `:434–515`. Sibling find_ac calls in other `*_on` functions untouched, separate C functions no session names (D-3890 sibling rule): Gloves_on `js/do_wear.js:1636`, Amulet_on `:3215`, Amulet_off `:3373`, Ring_on `:3883`, Ring_off_or_gone `:3967`.
+**Next:** regen cliffs (do_statusline2 row sheds 49956027; residuals name other writers — HP/cond/`# Agent loop journal
+
+Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
+Each agent process should add a short dated entry **at the top** (after
+this header) before exiting. Keep entries tight; detailed hypothesis
+lives in `NOTES.md` / `CURRENT.md`.
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+-glyph diffs, not AC).
+
+## 2026-10-14 — D-3947 cliffs-head `update_rest_on_space` writer: rhack num_pad dispatch whole (letters unbound, digits walk, tlist prefix gates, bad_command arm) + m-reject stop
+
+**C locus:** cmd.c commands_init `:2761–2772` (num_pad binds: h→help j→jump k→kick l→loot u→untrap N→name C-l→redraw C-n→annotate '5'→run M-'5'→rush '-'→fight) + reset_commands `:3430–3475` (num_pad: letters restored, ndir "47896321"→do_move_*, M(digit)→do_run_*, no C(digit)) + rhack `:3693–3716` (prefix gate: bound-only, PREFIXCMD/CMD_gGF_PREFIX; runwest/rushwest are MOVEMENTCMD|CMD_M_PREFIX only `:2025–2044`, so F/G/g + run key errors) + `:3713–3714`/`:3812–3816` (m-reject res=ECMD_FAIL → reset + return, command never runs) + `:3833–3841` (bad_command: custompline SUPPRESS_HISTORY Unknown, clear CANNED+REPEAT, sanity skip, move FALSE, multi 0) + cmd_from_func `:3036–3066` (newest printable wins: fight→'-', run→'5', rush→'g' under num_pad) + extcmdlist `:1818` (C-r→redraw IFBURIED|GENERALCMD|CMD_INSANE) + display.c doredraw `:1694–1699`.
+**JS:** js/cmd.js (+215/−~60: dispatch arms + helper + REPEAT rows + cites); scripts/numpad-unknown-command.test.mjs, scripts/numpad-fight-prefix.test.mjs, scripts/numpad-digit-walk.test.mjs (1 it each, C-recorded pins: 'K' Unknown @50058510/4, '-' reject @50059076/14, "It's a wall." + '0' Unknown + no Count: @50058507/3).
+**Change:** js/cmd.js only — (1) classifiers num_pad-aware (NUMPAD_WALK digit→sdir map; M(digit)→run, M('5')→rush-prefix, '5'→run-prefix, '0'→Unknown); (2) F/g/G pre-checks restructured to C's tlist gate (bound-only via overlay-aware cmdbind_get; unbound falls to Unknown; prefix names via cmd_from_func → '-'/‘5'/'g'); (3) m-reject does reset_cmd_vars(true) + return per the ECMD_FAIL tail; (4) shared rhack_unknown_command helper = C `:3833–3841` verbatim; (5) redraw arm (C-r both modes, C-l num_pad) with CMD_INSANE + ECMD_OK tail; (6) CQ_REPEAT func/txt rows for digits/M-digits/'5'/M-'5'/redraw (letters re-add via rhack_dispatch_bound; no ^A or meta bytes in these recipes). No new module edges (doredraw joins the existing display.js import — imports.mjs ALREADY).
+**Verify:** focused tests 0/3 pre-fix (stashed js/cmd.js) → 3/3 post-fix. `verify update_rest_on_space: 1 PASS, 12 moved past, 0 unchanged, 0 worse` (Priest-50059050 → PASS; 12 → later steps/owners incl. do_fight/getdir/optfn_symset/handler_menu_colors; Tourist-50059060 → js-throw@300 needs triage as its own row) · `verify rhack: 1 PASS, 7 moved past, 0 unchanged, 0 worse` (Valkyrie-50055068 → PASS via the m-reject stop; 7 → later owners) · REACH-OK both (no RNG-tagged reach; smoke 24/24) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44:
+**Named:** (1) getdir/movecmd digit acceptance under num_pad (different C function — Healer-50059030 already moved to getdir@56; its row ports it); (2) run-arm forcefight sub-arm is now C-unreachable via direct keys (run/rush binds lack CMD_gGF_PREFIX so F+runkey errors at the gate — kept, not deleted); (3) D-3690's can_do_extcmd ordering gap stands (if/else arms bypass the `:3689` gate); (4) m-reject for BIND=overlay keys rides the same arm (overlay-aware bindTab). No seed/step/coord/RNG reads; frozen untouched; no fastforward.js.
+**Next:** regen'd cliffs head (do_fight/getdir/optfn_symset writers now surface behind the numpad dispatch; Tourist-50059060 js-throw@300 and Archeologist-50059076 js-throw@120 arrive as Must-fix-shaped rows if the regen lists them — verify err first, they may be :722 null-owner fallbacks).
+
+## 2026-10-14 — D-3946 welcome acceptance bar: temp g_pututf8 nomux hook + re-record 20/20 (18 moved) + fountain-customcolor park for the 5 residuals
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** symset-loader 16/16 (D-3945, untouched). `verify welcome: 0 PASS, 18 moved past (steps 0→1..510), 2 unchanged, 0 worse` → PROGRESS — optfn_symset×6, update_rest_on_space×3, show_gamelog×2, getdir×2, null-owner×3 (Barbarian-50059022@34 scr 70/889, Ranger-50059009@1 scr 18/790, Samurai-50059037@2 scr 440/826 — display residuals, err null), dfeature_at, minimal_xname; stuck Samurai-50058508@0 (scr 0→826/941, RNG 100%) + Samurai-50059033@0 (scr 10/550, keeps its pre-existing RNG div 2005/12615). REACH-OK, green 2/2, strict ×2, cohort 7/7, full 44/44:
+**Named:** 007 landing (prohibited dir — supervisor/patches-capable); extracolor shadow+wire+decoder design (frozen decodeScreen is 16-color: sgrApply ignores `38;2` tokens and a `0` component would RESET state); JS customcolor reader + extended paint path (blocked on the wire format); raw-SGR capture (open detail above); nearest-color recording (refused — fabrication); default-fg painting (refused — tooling-matching, D-3941 doctrine). No seed/step/coord/RNG reads; frozen untouched; no fastforward.js.
+**Next:** patches-capable slot: land 007 from this diff + full rebuild + full re-record + rescore (durable). Fountain park falsifier: extracolor-capable wire format + JS customcolor reader moving the 5 (expect 50058508@0→PASS-or-later; 50059033's RNG div then surfaces its own writer). If the regen ever surfaces `js-throw`-labeled rows for the 3 null-owner sessions, they are this park (verify err null first), not throws — never file Must-fix rows for the :722 fallback.

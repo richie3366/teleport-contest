@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-3958 — welcome D-3946-redux #3: temp g_pututf8 nomux hook + re-record 9/9 new Enhanced (8 moved, 3 cell-proven fountain-fg join the park)
+
+- **Status:** shipped (tooling op + movement + park-grow; Open — cliffs head `allmain.c` welcome @2a0a249bd, 12 corpus blocks. No `js/` changed → no Ledger bullet per the D-3944/D-3946/D-3951 precedent. No review stamp owed — row cites no review.)
+- **Symptom:** all 12 welcome@0 sessions are symset:Enhanced1/2 (7 new Enhanced1 + 2 new Enhanced2 + 3 hooked residuals; D-3945's falsifier — a non-Enhanced welcome block — does not fire). 9 are Grow-#8 stock blanks (step-0 carries 0 hi-bytes; e.g. Caveman-50255074 row 2 C «» vs JS «╔════════╗»); 3 are the D-3951 fountain-fg residuals (hooked: 24–66 step-0 hi-bytes). welcome itself whole (D-2725), the symset loader whole (D-3941), the JS utf8 arm landed (D-3945) — no `js/` writer exists; the writer is the recorder's missing g_pututf8 hook (D-3944 measured: C emits the UTF-8, stock nomux records zero hi-bytes).
+- **C locus (hook):** recorder `win/tty/wintty.c` g_pututf8 :3856 (hook after HUPSKIP, before the pointer-consuming loop); `include/wintty.h` cell + decl; `win/tty/termcap.c` nomux fns (buf, putch, out, capture). Same three loci as D-3946/D-3951.
+- **JS was:** n/a — unchanged this iteration (the D-3945 arm renders C's terminal bytes; the 8 content-matches post re-record prove it on 8 fresh seeds).
+- **Fix (temp tooling, REVERTED):** nomux_cell + `utf8[5]`; `nomux_pututf8` (verbatim ≤4B copy, empty→skip like C's no-print, live fg/attr/decgfx); all clear/write paths (clear_screen, clear_to_eol, putch, raw_putch) null the slot; trim treats utf8 as non-blank; serialize emits the bytes; nomux_out 6144→65536 (worst case 25B/cell → 48.1K/screen, D-3946 bound). Rebuilt incrementally (`make` + `make install` + sysconf re-provision — the D-3946 gotcha fired again: install dropped sysconf, re-ran the build-script sed). Re-recorded the 9 via `hidden-proxy record --jobs 8` (originals staged to /tmp/utf8hook3/orig, restore-on-failure — none failed). Reverted byte-identical (`diff -q` ×3) + rebuilt + smoke OK (reverted binary reproduces the staged stock original EXACTLY — all 555 steps, blank step-0 included; recorder tree `git status` clean).
+- **Measurements (fresh, this iteration):** (1) re-record gate ×9: steps/moves/full-RNG-payload/cursors identical (hook is gameplay-neutral); new step-0 carries 31–101 hi-bytes vs 0 stock; decoded step-0 shows the Enhanced room matching JS's box exactly (Caveman row 2 `\x1b[68C╔════════╗`). (2) cell-level residuals, all D-3946 verbatim {⌠,fg8,attr0} vs JS {⌠,fg12,attr0} with identical neighbors: Caveman-50255074 (4,74) single cell (still welcome@0, scrM 142→379, RNG 100%); Healer-50255040@52 two cells (3,33)+(12,63); Ranger-50255076@90 single cell (15,15). The two `js-throw` labels (Healer@52, Ranger@90) are the :722 null-owner fallback (err null, jsPanic null, owner null — never Must-fix rows). Probes in /tmp/utf8hook3 (cellprobe*.mjs, kept out of tree).
+- **Callers:** n/a (no `js/`; the hook's call site is the single g_pututf8 body).
+- **Verify:** `verify welcome: 0 PASS, 8 moved past, 4 unchanged, 0 worse` → PROGRESS — getdir@23, null-owner(fountain)@52, getdir@55, do_symset@13, null-owner(fountain)@90, getdir@257, doclassdisco@294, getdir@28; unchanged = the fountain park (Caveman-50255074@0 + Samurai-50058508@0 + Samurai-50059033@0 + Wizard-50155011@0). Board screens 2099260→2102725 (+3465), PASS 3176 unchanged. REACH-OK, green 2/2, strict ×2, cohort 7/7:
+```
+PASS  syntax   0 changed js file(s)
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+PASS  hidden   verify welcome: 0 PASS, 8 moved past, 4 unchanged, 0 worse → PROGRESS
+PASS  reach    welcome: no RNG-tagged reach; fixed smoke spread (24 run, 25.3s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+```
+- **Named omissions:** 007 landing (prohibited dir — supervisor/patches-capable; DURABILITY CAVEAT unchanged: until 007 lands, a from-patches full re-record reverts the 41 hooked sessions to blank); extracolor shadow+wire+decoder + JS customcolor reader (park falsifier, unchanged); nearest-color recording + default-fg painting (refused — fabrication / tooling-matching, D-3946 doctrine). No seed/step/coord/RNG reads; frozen untouched; no fastforward.js.
+- **Next:** patches-capable slot: land 007 from the D-3946/D-3951 diff + full rebuild + full re-record + rescore (durable). Fountain park family is now 10 (D-3946's 5 + D-3951's 2 + Caveman@0 + Healer@52 + Ranger@90); falsifier unchanged (extracolor-capable wire + JS reader). The welcome cliff row now carries only the 4 fountain@0 residuals. Do not re-port welcome, the symset loader, or the utf8 arm (all whole).
+- (No Ledger bullet — no `js/` changed this iteration; D-3944/D-3946/D-3951 precedent. Movement to later owners is credited to the D-3945 port + this re-record jointly.)
+
 ## D-3957 — cliffs-head `pager.c` do_screen_description map cells: litcorr-white-iff-same-sym shipped (Arch PASS, Rogue narrowed 2→1) + C-measured the stale-vs-fresh trio (gold/hero repaint gating)
 
 - **Status:** shipped the litcorr-white arm + measured the remainder (Open — cliffs head `pager.c` do_screen_description @74fc44675, 4/3233 corpus blocks. D-2449 read once per the row's history tag — unlooked-Primary-byte arm, different arm, not re-ported. D-3956's Next anticipated these four as "own pops" — its Rogue read (warning-vs-boulder) is corrected below by measurement. No review stamp owed — row cites no review.)
