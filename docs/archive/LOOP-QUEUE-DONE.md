@@ -5,6 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-14
 
+- [x] `pager.c` do_screen_description — blocks 5/3657 corpus sessions (first at step 16; RNG lost 0, screens lost 2268): toplines identical; first differing screen row 4: C «IMMMMMMMM;                                :zzzN1» vs JS «IMMMMMMMM;                                :zz N1» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify do_screen_description` (scen-symset-Caveman-50059032, scen-symset-Healer-50058517, scen-symset-Healer-50255063). @e3ecddfb3 **[history: archived — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3960
+- [x] `[measure]` `pager.c` do_screen_description / Caveman-50059032 step-16 travel-flush (cliffs-head follow-up; D-3957 read, its litcorr arm holds) — blocks 5/3657 (first at step 16; row 4 (56,3)M C-floor vs JS-gold + (55,5)M C-stairs vs JS-hero + 176 C-gray/JS-white rooms; owner is the region heuristic). Deliverable: TEMP-C vizdump in the ignored recorder tree (W2-park recipe: `nethack-c/recorder/src/vision.c` update-loop viz-input log + `display.c` show_glyph paint log for (56,3)M/(55,5)M, incremental `make` + install + sysconf re-provision (NOT build-recorder.sh — wipes src edits), re-record one id, revert + rebuild + smoke after; probes in /tmp, never committed). Result D-3960: C painted GOLD (gbuf 3886, moves=14) + hero (716, moves=17) but steps 16–19 show floor/stairs → writer = map-output flush path (C gbuf buffering display.c:2031 + run-skipped flush allmain.c:548 vs JS eager emit); next iter ports the flush mirror. No `js/` in the measure commit. **Addressed:** D-3960
+
+
 - [x] `do_name.c` x_monnam — blocks 4/3657 corpus sessions (first at step 6; RNG lost 45896, screens lost 2485): C «human healer called wizard» vs JS «wall (no travel path)». Probe: `node scripts/hidden-proxy.mjs verify x_monnam` (scen-symset-Healer-50155002, scen-symset-Tourist-50059020, scen-symset-Valkyrie-50255069). @2a0a249bd **[history: archived D-2092 — read that D-entry once; the arm this divergence names is still open]**
 
 
