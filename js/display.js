@@ -4800,8 +4800,8 @@ export const MG_HERO = 0x00001;
 // gives SYM_OFF_O 105, SYM_OFF_M 123, SYM_OFF_W 184, SYM_OFF_X 190;
 // C sym.h `:111–119` MAXOTHER 6 gives SYM_MAX 196.
 export const SYM_OFF_O = 105;
-const SYM_OFF_M = 123;
-const SYM_OFF_W = 184;
+export const SYM_OFF_M = 123;
+export const SYM_OFF_W = 184;
 export const SYM_OFF_X = 190;
 export const SYM_MAX = 196;
 
