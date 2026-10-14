@@ -238,14 +238,26 @@ function recordOne(recipe, session, inst) {
     });
 }
 
+/* The contest capture (patch 006) stores one byte per cell, DEC graphics
+   as a flag: a canonical session file is pure ASCII (all 3705 cached and
+   all 44 public sessions on 2026-10-14). Any other byte means the session
+   was recorded by a modified recorder (D-3963: temp g_pututf8 hooks) and
+   is not what the judge would record. */
+function nonCanonical(entries) {
+    return entries.filter((e) => existsSync(e.session) && /[^\x00-\x7f]/.test(readFileSync(e.session, 'utf8')));
+}
+
 async function cmdRecord() {
     const jobs = Number(val('jobs', 6));
     /* --rerecord <regex>: also re-record present sessions whose recipe text
        matches — the way back to canonical recordings after a session was
        recorded by a modified recorder (D-3963: temp g_pututf8 hooks). */
     const rere = val('rerecord', null) ? new RegExp(val('rerecord', null)) : null;
-    const todo = corpusEntries().filter((e) => e.src === 'corpus'
-        && (!existsSync(e.session) || (rere && rere.test(readFileSync(e.recipe, 'utf8')))));
+    const corpus = corpusEntries().filter((e) => e.src === 'corpus');
+    const bad = new Set(nonCanonical(corpus).map((e) => e.id));
+    if (bad.size) console.log(`record: ${bad.size} non-canonical cached session(s) (non-ASCII bytes — modified recorder) will be re-recorded`);
+    const todo = corpus.filter((e) => !existsSync(e.session) || bad.has(e.id)
+        || (rere && rere.test(readFileSync(e.recipe, 'utf8'))));
     if (!todo.length) { console.log('all corpus sessions present'); return; }
     if (!existsSync(DEFAULT_INSTALL)) {
         console.error(`record: ${todo.length} corpus session(s) unrecorded and no C recorder at ${path.relative(ROOT, DEFAULT_INSTALL)} — build it with \`bash nethack-c/build-recorder.sh\` (needs clang, bison, flex, make)`);
@@ -297,6 +309,11 @@ async function cmdScore() {
     if (ids) { const set = new Set(ids.split(',')); entries = entries.filter((e) => set.has(e.id)); }
     if (owner) entries = entries.filter((e) => prev.rows[e.id]?.owner === owner);
     if (!entries.length) { console.log('nothing to score'); return; }
+    const bad = nonCanonical(entries.filter((e) => e.src === 'corpus'));
+    if (bad.length) {
+        console.error(`score: ${bad.length} cached session(s) were not recorded by the contest recorder (non-ASCII bytes), e.g. ${bad[0].id} — run \`node scripts/hidden-proxy.mjs record\` first (Constitution §1.1, D-3963)`);
+        process.exit(4);
+    }
     const t0 = Date.now();
     const res = await pool(entries, jobs, async (e) => ({ ...(await runWorker(e.session)), id: e.id, src: e.src }));
     const full = !ids && !owner;
