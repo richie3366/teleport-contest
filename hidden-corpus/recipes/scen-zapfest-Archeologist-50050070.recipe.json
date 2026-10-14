@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPjr\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n10\n         \u0007baby red dragon\n\u0007red dragon\n.j..20s \u0017wand of magic missile\naly      FhFh \u0017blessed spellbook of cause fear\nrm  n  20s \u0007lich\n\u0007master mind flayer\nZZZsm.                n  20s              Z.m.            n  sm.            Z\u00168\n\u0017yumi\nwn\u001720 ya\nQo\u0007soldier\ntaktokfktok fk\u0018\u001b\u00178 spears\n Qp\u0007bugbear\nfk   fk tobfb tpb tpk   nfb fbtpk \u0007baby red dragon\nsk .yFy Fb \u0017blessed spellbook of knock\nrq 20s\u0017blessed spellbook of drain life\nrr sm.\u0007aligned cleric\nyZZsm.  20s  Zsm..m.ZZ#turn\n\u00161\n\u0017blessed spellbook of sleep\n rssm.      n \u0017blessed spellbook of force bolt\n rt         sm.          \u0007mind flayer\n\u0007orc shaman\nZa\n                Za\n                n   Za\n                                       nZa\n                 Za\n           sm.                          sm.  n              n Za\n#turn\n\u00164\n\u0007orc shaman\n\u0007incubus\n\u0007master mind flayer\n\u0017wand of magic missile\nzuy    zub                       20s         n                          sm.               sn.m.     n             20s         zuy           sm.         n   \u00166\n\u0017blessed spellbook of cone of cold\nrv sm.\u0007vampire\nZa\n 20s  20s Z20s "
+ },
+ "segments": [
+  {
+   "seed": 50050070,
+   "datetime": "20100901001821",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPjr\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n10\n         \u0007baby red dragon\n\u0007red dragon\n.j..20s \u0017wand of magic missile\naly      FhFh \u0017blessed spellbook of cause fear\nrm  n  20s \u0007lich\n\u0007master mind flayer\nZZZsm.                n  20s              Z.m.            n  sm.            Z\u00168\n\u0017yumi\nwn\u001720 ya\nQo\u0007soldier\ntaktokfktok fk\u0018\u001b\u00178 spears\n Qp\u0007bugbear\nfk   fk tobfb tpb tpk   nfb fbtpk \u0007baby red dragon\nsk .yFy Fb \u0017blessed spellbook of knock\nrq 20s\u0017blessed spellbook of drain life\nrr sm.\u0007aligned cleric\nyZZsm.  20s  Zsm..m.ZZ#turn\n\u00161\n\u0017blessed spellbook of sleep\n rssm.      n \u0017blessed spellbook of force bolt\n rt         sm.          \u0007mind flayer\n\u0007orc shaman\nZa\n                Za\n                n   Za\n                                       nZa\n                 Za\n           sm.                          sm.  n              n Za\n#turn\n\u00164\n\u0007orc shaman\n\u0007incubus\n\u0007master mind flayer\n\u0017wand of magic missile\nzuy    zub                       20s         n                          sm.               sn.m.     n             20s         zuy           sm.         n   \u00166\n\u0017blessed spellbook of cone of cold\nrv sm.\u0007vampire\nZa\n 20s  20s Z20s "
+  }
+ ]
+}

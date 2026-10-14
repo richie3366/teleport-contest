@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  \u00172000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWi\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b<. ,\u0014@..m..m._ooooooooo,,:FkFk Fk  n \u001bFkFkFk\u0016?\n>B kky \u0016?\n>w\u0006_oooo._ooo,Fj_,  nFn    n,\u0017touchstone\n dg    n \u00163\n_ooooooooo._., p_{,q_{.qlkb#chat\nh__.#chat\nk#pray\ny y _ooooo.,\u0017diamond\ndl_{.q_ooooooo,,$ynh#chat\nhuhj#chat\nhlju#chat\nl_{.q__.#chat\nh\u00167\nbhu\u0016?\n>w\u0006__.Fl_.@.Fj#chat\nj#pray\ny y           _ooooooo.Fu  _.,#chat\nn\u0016?\ncylk\u0016?\n>w\u0006__,Fn    _. Fl#chat\nl   n#pray\ny y      _oooo, Fl   n_, Fn   n_o. Fn   n _, Fn ,  n  #chat\nh    n\u00161\n__,#chat"
+ },
+ "segments": [
+  {
+   "seed": 50057030,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00172000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWi\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b<. ,\u0014@..m..m._ooooooooo,,:FkFk Fk  n \u001bFkFkFk\u0016?\n>B kky \u0016?\n>w\u0006_oooo._ooo,Fj_,  nFn    n,\u0017touchstone\n dg    n \u00163\n_ooooooooo._., p_{,q_{.qlkb#chat\nh__.#chat\nk#pray\ny y _ooooo.,\u0017diamond\ndl_{.q_ooooooo,,$ynh#chat\nhuhj#chat\nhlju#chat\nl_{.q__.#chat\nh\u00167\nbhu\u0016?\n>w\u0006__.Fl_.@.Fj#chat\nj#pray\ny y           _ooooooo.Fu  _.,#chat\nn\u0016?\ncylk\u0016?\n>w\u0006__,Fn    _. Fl#chat\nl   n#pray\ny y      _oooo, Fl   n_, Fn   n_o. Fn   n _, Fn ,  n  #chat\nh    n\u00161\n__,#chat"
+  }
+ ]
+}

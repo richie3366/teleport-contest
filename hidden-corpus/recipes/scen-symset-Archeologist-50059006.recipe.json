@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "v i\u001bv i\u001bv i\u001bv i\u001bOp\u001b\nZjnE- I am a fish\nO>d\u001b\n\u00163\n\u0018\u001byyk100st\u001b\u001bag\u001b\u001b50sFhssyly\u000f\u001bs50s150s_ \u001b.>100synl150sFlFlFl100s#pray\ny y      FhFyFy100sbnb50si\u001b\\ 100skbhujjb150sed 100s50s100s;m,150sFhFh.100sjkh100s\u0004b#sit\n\u001b\u000f\u001b\u0007tame jackal\n\u0007little dog\n\u0017tripe ration\nt\u001b\u001b\u0017huge chunk of meat\n t\u001b\u001b\u0017tripe ration\nt\u001b\u001b\u0007jackal\n\u0017scroll of taming\n rm l\u0006_>.Fh_,Fb>FbFb_>.Fb_,  n Fj>FyFj_>,Fh_,Fh  n>FhFl#name\n\u001b\u001617\n\u001610\nO>c\u001b\n#ride\nkywa>:mOa\u001b\n#conduct\n \\ #invoke\n\u001b\u001bE- I am a fish\n\u001611\n,#untrap\nb__,ssZ#chat\nh\u0007tame gnome lord\n\u0007giant rat\n20s20s 20s20s ss\u0007yellow mold\n..20s sss#name\n\u001bdb..s\u0007lichen\n\u0017scroll of taming\nrn \u0007jackal\nsm.s20s  sksm.20s\u0007tame kitten\n\u0007tame wolf\n\u0017carrot\nt\u001b\u001b10s dib20s.20sdgcl..20s\u0017meatball\nt\u001b\u001b\u0017leash\naqknhhuaqj\u0007giant rat\n\u0017scro"
+ },
+ "segments": [
+  {
+   "seed": 50059006,
+   "datetime": "20060415140213",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=runmode:walk\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\nMSGTYPE=hide \"You kill\"\nMENUCOLOR=\"a scroll\"=red\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "v i\u001bv i\u001bv i\u001bv i\u001bOp\u001b\nZjnE- I am a fish\nO>d\u001b\n\u00163\n\u0018\u001byyk100st\u001b\u001bag\u001b\u001b50sFhssyly\u000f\u001bs50s150s_ \u001b.>100synl150sFlFlFl100s#pray\ny y      FhFyFy100sbnb50si\u001b\\ 100skbhujjb150sed 100s50s100s;m,150sFhFh.100sjkh100s\u0004b#sit\n\u001b\u000f\u001b\u0007tame jackal\n\u0007little dog\n\u0017tripe ration\nt\u001b\u001b\u0017huge chunk of meat\n t\u001b\u001b\u0017tripe ration\nt\u001b\u001b\u0007jackal\n\u0017scroll of taming\n rm l\u0006_>.Fh_,Fb>FbFb_>.Fb_,  n Fj>FyFj_>,Fh_,Fh  n>FhFl#name\n\u001b\u001617\n\u001610\nO>c\u001b\n#ride\nkywa>:mOa\u001b\n#conduct\n \\ #invoke\n\u001b\u001bE- I am a fish\n\u001611\n,#untrap\nb__,ssZ#chat\nh\u0007tame gnome lord\n\u0007giant rat\n20s20s 20s20s ss\u0007yellow mold\n..20s sss#name\n\u001bdb..s\u0007lichen\n\u0017scroll of taming\nrn \u0007jackal\nsm.s20s  sksm.20s\u0007tame kitten\n\u0007tame wolf\n\u0017carrot\nt\u001b\u001b10s dib20s.20sdgcl..20s\u0017meatball\nt\u001b\u001b\u0017leash\naqknhhuaqj\u0007giant rat\n\u0017scro"
+  }
+ ]
+}

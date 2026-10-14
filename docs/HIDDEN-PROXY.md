@@ -232,9 +232,9 @@ here). Candidates — public shapes the generator does not copy:
 
 | candidate | public shape | what it would exercise | status |
 |---|---|---|---|
-| `questtour` | seed0361 / 0367 / 0373 quest tours | all 13 roles: `^V` home, `#chat` leader at low XL (badlevel) then after `#levelchange 14` (assignquest), locate/goal, nemesis fight with a wished kit, artifact pickup, return (offeredit, leader_last) | proposed |
+| `questtour` | seed0361 / 0367 / 0373 quest tours | all 13 roles: `^V` home, `#chat` leader at low XL (badlevel) then after `#levelchange 14` (assignquest), locate/goal, nemesis fight with a wished kit, artifact pickup, return (offeredit, leader_last) | **probed 2026-10-14: 19/20 (95 %) — NOT held-out-like** (≥ 85 %); kept in WAVE3 (1 fail folded) |
 | `zapfest` | held-out has 2,959 animation frames vs public 1,483 | wand/spell/breath duels, thrown stacks, boomerangs, explosions, ranged monsters | **probed 2026-10-13: 18/20 (90 %) — NOT held-out-like** (≥ 85 %); kept in WAVE3 (2 fails folded) |
-| `options` | seed2600 binds, seed0200 `msg_window:reversed`, 7 public rc without DECgraphics | non-DEC symsets (14 in `dat/symbols`), `number_pad`, BIND, MSGTYPE / MENUCOLOR / status hilites | proposed |
+| `options` | seed2600 binds, seed0200 `msg_window:reversed`, 7 public rc without DECgraphics | non-DEC symsets (14 in `dat/symbols`), `number_pad`, BIND, MSGTYPE / MENUCOLOR / status hilites | **added 2026-10-14 as wave-3 `symset`** (wave-2 owns the `options` name): probe 0/20 (0 %), 100 sessions (20 probe + 80 @50059000); in WAVE3 |
 | `shop` | seed0116 wizard-wear-shop | `^V minetn`, buy / sell / price-id / #chat / steal / Kops / pay | **added 2026-10-13: probe 15/20 (75 %)**, 100 sessions (20 probe + 80 @49959600); in WAVE3 |
 | `human` | seed0002/0004/0006/0007/0009/0012/0014 | minimal rc, interactive chargen, legacy + tutorial prompt, wall-clock datetimes, 300–700 normal steps | start regime **measured fine** (68/68 probe); long tail ≈ `trek` (100 %) — low prior |
 
@@ -254,6 +254,21 @@ held-out-like; 20 probe + 80 authored (fails in probe: Caveman-49959531,
 Priest-49959522/49959525, Valkyrie-49959539, Wizard-49959521). Neither
 hit ≤ 60 %; `questtour` and `options` remain for the next calibration
 grow.
+
+**Second calibration probes (grow 2026-10-14, seeds 50058000+, fresh gap
+91.8 − 70.5 = 21.3 pts).** `questtour` (wave-3, 600–1200 keys: `^V` home
++ `#chat` leader at low XL, `#levelchange 14` + `#chat`, wished kit,
+locate/goal legs with nemesis fights and `,` artifact pickup, return home
+with `#offer`) scored 19/20 (95 %) on arrival — all 20 reached quest
+levels (Home/Quest markers), the one fail a single screen in
+Wizard-50058014 — so not a held-out shape; its 20 probe sessions are
+folded but no more were authored. `symset` (wave-3, 500–1000 keys: whole
+games under a non-DEC symset — 12 of `dat/symbols` minus Blank — plus
+sometimes `number_pad`, `msg_window:reversed`, MSGTYPE / MENUCOLOR /
+SYMBOLS / BIND rc lines, with O-menu flips mid-game) scored 0/20 (0 %,
+screens 3.7 %, no throws) — the display layer under exotic rc is the
+held-out shape; 20 probe + 80 authored @50059000. No candidates remain;
+the next calibration grow mines a new public shape.
 
 ## 6. Why not a state-dump patch or a fntrace build (yet)
 

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " mO>>>>g\u001b\nmO>>>>g\u001b\nFyFy.Fk s20sluj\u0018\u001b100shnk100s\u000f\u001bynh100s50s Fn Fns#pray\ny y \u0014 \u001bm.50s150s100sFnFns100sFnFns150s_>,>uhj100seh50s_>.>i\u001b50s_>,>100s50sFl20s.50s150sFlFlFl#invoke\n\u001b150s100s\u000f\u001b\u0007tame dingo\n\u0017newt corpse\ntbk\u0007yellow mold\n.20s      ss.s#name\na\n\u0017magic whistle\nukjaj \u0017food ration\ntbb dasss\u0006_>. Fl _,Fl>_>.Fu_.Fu>_>.Fl_.Fl>\u0006_>.Fl_.Fl>_>.Fn_.,Fj>_>._.> i\u001bcl< \u0006_>.> \u0004hcj< \u0006_>>,> \u0006_>._.>_>._,>_>,_.>\u0006_>,_,>_>,_.>_>._.>10sei \u0006_>>._.>_>>._.>_>>._.>\u0006_>,_.>_>,_.>_>._,>tbhi\u001b\u0006_>._.>_>._,>_>,_.>\u0006_>>,_.>_>>._,>_>>._.>\u0006_>>,_.>_>>,_.>_>>._,>\\  ,\u0006_>,_,>_>._,>_>,_.><\u0006_>._.>_>,_.>_>,_.>\u0006_>._.>_>._.>_>._,>saeh\u000f\u001b\u001620\n#force\n#turn\ntbbdkO>o8\n \u001b\nklhFy  nFhFhFh  nFkFk#pray\ny y FkFyFy  nFyFyFy  nFyFyFy  nFyFyFy  nFyFyFy  nFyFy  nFyFyFy  nFyFyFy  nFyFyFy  nFyFyFyFyuulnbu_>,>#pray\ny y   150sFhFh  nFhFh  nFhFhFh  nFhFhFyFy  nFyFyFy  yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50058511,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\n",
+   "moves": " mO>>>>g\u001b\nmO>>>>g\u001b\nFyFy.Fk s20sluj\u0018\u001b100shnk100s\u000f\u001bynh100s50s Fn Fns#pray\ny y \u0014 \u001bm.50s150s100sFnFns100sFnFns150s_>,>uhj100seh50s_>.>i\u001b50s_>,>100s50sFl20s.50s150sFlFlFl#invoke\n\u001b150s100s\u000f\u001b\u0007tame dingo\n\u0017newt corpse\ntbk\u0007yellow mold\n.20s      ss.s#name\na\n\u0017magic whistle\nukjaj \u0017food ration\ntbb dasss\u0006_>. Fl _,Fl>_>.Fu_.Fu>_>.Fl_.Fl>\u0006_>.Fl_.Fl>_>.Fn_.,Fj>_>._.> i\u001bcl< \u0006_>.> \u0004hcj< \u0006_>>,> \u0006_>._.>_>._,>_>,_.>\u0006_>,_,>_>,_.>_>._.>10sei \u0006_>>._.>_>>._.>_>>._.>\u0006_>,_.>_>,_.>_>._,>tbhi\u001b\u0006_>._.>_>._,>_>,_.>\u0006_>>,_.>_>>._,>_>>._.>\u0006_>>,_.>_>>,_.>_>>._,>\\  ,\u0006_>,_,>_>._,>_>,_.><\u0006_>._.>_>,_.>_>,_.>\u0006_>._.>_>._.>_>._,>saeh\u000f\u001b\u001620\n#force\n#turn\ntbbdkO>o8\n \u001b\nklhFy  nFhFhFh  nFkFk#pray\ny y FkFyFy  nFyFyFy  nFyFyFy  nFyFyFy  nFyFyFy  nFyFy  nFyFyFy  nFyFyFy  nFyFyFy  nFyFyFyFyuulnbu_>,>#pray\ny y   150sFhFh  nFhFh  nFhFhFh  nFhFhFyFy  nFyFyFy  yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017Ogresmasher\nwgss20s#invoke\ng\u0007mumak\n;y. \u001b<..ysm.  yny  y nn  2"
+ },
+ "segments": [
+  {
+   "seed": 50052015,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017Ogresmasher\nwgss20s#invoke\ng\u0007mumak\n;y. \u001b<..ysm.  yny  y nn  2"
+  }
+ ]
+}

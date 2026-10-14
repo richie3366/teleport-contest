@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed amulet of life saving\nPg\u0016?\n>y  #chat\nl;m. \u001bm, .\u001633\n\u0017blessed spellbook of wizard lock\nrh20s\u0017blessed spellbook of magic missile\nri .m.+\u0007grid bug\nZ\u0007zombie\nZ\u0007jackal\nZFk \u0007zombie\nZZ#pray\ny y   \u001b        #enhance\nyj\ng\n\u001b\u0016?\nd \u001715 shuriken\nQj\u0007dwarf\nkfnfnfn\u00073 gnome\nhflfjfn\u0017potion of polymorph\ntbj\u0017lance\nwl\u0007gnome\nkal;hkb,#enhance\nyb\nk\n\u001b\u0016?\n>w\u0004u\u0016?\n>xkjk\u0017unaligned altar\ndi dc\u0017newt corpse\n#offer\nm  j\u0017tree\nn\u0017sink\nqy\u0017ring of invisibility\ndn  \u001b:sah #name\na\n20s.m.sm.\u0016?\n>H _{.ss.\u001633\n _>.>\u0016?\n>Cjbuhuu:\u00169\n\u0006_>._,>.\u001628\nbuhh\u0017falling rock trap\nk\u0007acid blob\n.s.sln\u0017polymorph trap\nyn  ss#chat\nhi\u001bee\u0016?\n>J       amulet of flying\n\u0006_<.\u0016?\nc _>.>\u0016?\n\u001bbu  \u0016?\n\u001bu            n  \u0016?\n\u001bh  \u001b     u\u0016?\ne _>.<\u0016?\ne#chat\nl      ;l: 20s   \u0016?\nb_{.<\u001633\nuunl         :\u0016?\n\u001bh    k\u001628\n__,>sn     sh\u0016?\n\u001bn   u\u0016?\n\u001blh\u0016?\n\u001bu     l  n\u001633\n\u0014>..m.    .m.su      \u001633\n#chat\nh;h.\u00166\nkj   hk:\u0016?\n\u001bu b      \u0016?\n\u001by       n u \u0016?\n\u001bhj\u00167\n__.\u00166\nyyj:\u0016?\n\u001buu\u00169\n#chat\ny;y;\u001633\n\u0017uncursed potion of see invisible\n\u0007master mind flayer\nqr \u001b              \u0017candy bar\n\u0007chickatrice\nessm.        sm.Fl    Fl        \u00173 amulet of reflection\nPt      sm..m.        n 20s     sR\u0017uncursed spellbook of sleep\nru      .m..Z\u0017red dragon scale mail\n\u0007centipede\nWv     sm. sm.20s   TFnFksm. 20s20s "
+ },
+ "segments": [
+  {
+   "seed": 50056065,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed amulet of life saving\nPg\u0016?\n>y  #chat\nl;m. \u001bm, .\u001633\n\u0017blessed spellbook of wizard lock\nrh20s\u0017blessed spellbook of magic missile\nri .m.+\u0007grid bug\nZ\u0007zombie\nZ\u0007jackal\nZFk \u0007zombie\nZZ#pray\ny y   \u001b        #enhance\nyj\ng\n\u001b\u0016?\nd \u001715 shuriken\nQj\u0007dwarf\nkfnfnfn\u00073 gnome\nhflfjfn\u0017potion of polymorph\ntbj\u0017lance\nwl\u0007gnome\nkal;hkb,#enhance\nyb\nk\n\u001b\u0016?\n>w\u0004u\u0016?\n>xkjk\u0017unaligned altar\ndi dc\u0017newt corpse\n#offer\nm  j\u0017tree\nn\u0017sink\nqy\u0017ring of invisibility\ndn  \u001b:sah #name\na\n20s.m.sm.\u0016?\n>H _{.ss.\u001633\n _>.>\u0016?\n>Cjbuhuu:\u00169\n\u0006_>._,>.\u001628\nbuhh\u0017falling rock trap\nk\u0007acid blob\n.s.sln\u0017polymorph trap\nyn  ss#chat\nhi\u001bee\u0016?\n>J       amulet of flying\n\u0006_<.\u0016?\nc _>.>\u0016?\n\u001bbu  \u0016?\n\u001bu            n  \u0016?\n\u001bh  \u001b     u\u0016?\ne _>.<\u0016?\ne#chat\nl      ;l: 20s   \u0016?\nb_{.<\u001633\nuunl         :\u0016?\n\u001bh    k\u001628\n__,>sn     sh\u0016?\n\u001bn   u\u0016?\n\u001blh\u0016?\n\u001bu     l  n\u001633\n\u0014>..m.    .m.su      \u001633\n#chat\nh;h.\u00166\nkj   hk:\u0016?\n\u001bu b      \u0016?\n\u001by       n u \u0016?\n\u001bhj\u00167\n__.\u00166\nyyj:\u0016?\n\u001buu\u00169\n#chat\ny;y;\u001633\n\u0017uncursed potion of see invisible\n\u0007master mind flayer\nqr \u001b              \u0017candy bar\n\u0007chickatrice\nessm.        sm.Fl    Fl        \u00173 amulet of reflection\nPt      sm..m.        n 20s     sR\u0017uncursed spellbook of sleep\nru      .m..Z\u0017red dragon scale mail\n\u0007centipede\nWv     sm. sm.20s   TFnFksm. 20s20s "
+  }
+ ]
+}

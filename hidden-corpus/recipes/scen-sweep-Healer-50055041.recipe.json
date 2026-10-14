@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n14\n  \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqm \u001b>._oooooo. _.,p_d._,\u0004j__.Fh _.  #chat\nl#pray\ny y  __.Fh _,Fh  #chat\nh #pray\ny y    __.Fl _.  Fh   #chat\nh   _oooooo,  Fh    _,Fh ,:_oooooo.Fh  _,   Fy  ,\u001b$#pray\ny y     >Zb\n#levelchange\n8\n  \u0017blessed scroll of confuse monster\n\u0007black pudding\nrn  \u001b      \u0017cursed potion of invisibility\n\u0007captain\nqo   #dip\nhf  \u0017spellbook of dig\nrp \u001b  n .s  nZb\n\u0017blessed ring of hunger\nPql  n ss  n sFu Fh  n\u0017spellbook of invisibility\n\u0007Orcus\nny rr20s   20s   nZa\nFb Fh sbsm. \u000f\u001b\u00161\n#levelchange\n8\n\u0016?\n>C>\\  >.m.  n .m. \u0016?\n>>\u001b\u0016?\nm #terrain\ne\n10sn\u0006sm.sm.\u0016?\n>>\u001b#levelchange\n30\n                      blh\u0017anti-magic field\nl   n \u0007gnome\ns20sssl\u0017statue trap\nl ^hh s.l\u0017web\nkk\u0017squeaky board\n#terrain\n\u001b#untrap\nhi\u001bt$l\u001616\n  \\  \u0007tame winter wolf cub\n\u0007large dog\n\u0017banana\ntak\u0017lichen corpse\nt\u001b\u0017newt corpse\nt\u001b\u0007sewer rat\nss.20s       20s  s10s\u0017meatball\nt\u001bdjsssi\u001bel20s sqd  et              n  sm.             n   sm.           qe      n  zhn              n zhn    ev     n   20s     sn  n   #offer\n<ah\\  L#loot\nyah,i\u001bqg rr       n    sm.     yy\u001by   ny  ny  s"
+ },
+ "segments": [
+  {
+   "seed": 50055041,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n14\n  \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqm \u001b>._oooooo. _.,p_d._,\u0004j__.Fh _.  #chat\nl#pray\ny y  __.Fh _,Fh  #chat\nh #pray\ny y    __.Fl _.  Fh   #chat\nh   _oooooo,  Fh    _,Fh ,:_oooooo.Fh  _,   Fy  ,\u001b$#pray\ny y     >Zb\n#levelchange\n8\n  \u0017blessed scroll of confuse monster\n\u0007black pudding\nrn  \u001b      \u0017cursed potion of invisibility\n\u0007captain\nqo   #dip\nhf  \u0017spellbook of dig\nrp \u001b  n .s  nZb\n\u0017blessed ring of hunger\nPql  n ss  n sFu Fh  n\u0017spellbook of invisibility\n\u0007Orcus\nny rr20s   20s   nZa\nFb Fh sbsm. \u000f\u001b\u00161\n#levelchange\n8\n\u0016?\n>C>\\  >.m.  n .m. \u0016?\n>>\u001b\u0016?\nm #terrain\ne\n10sn\u0006sm.sm.\u0016?\n>>\u001b#levelchange\n30\n                      blh\u0017anti-magic field\nl   n \u0007gnome\ns20sssl\u0017statue trap\nl ^hh s.l\u0017web\nkk\u0017squeaky board\n#terrain\n\u001b#untrap\nhi\u001bt$l\u001616\n  \\  \u0007tame winter wolf cub\n\u0007large dog\n\u0017banana\ntak\u0017lichen corpse\nt\u001b\u0017newt corpse\nt\u001b\u0007sewer rat\nss.20s       20s  s10s\u0017meatball\nt\u001bdjsssi\u001bel20s sqd  et              n  sm.             n   sm.           qe      n  zhn              n zhn    ev     n   20s     sn  n   #offer\n<ah\\  L#loot\nyah,i\u001bqg rr       n    sm.     yy\u001by   ny  ny  s"
+  }
+ ]
+}

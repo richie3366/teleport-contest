@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  Oi\u001b\u001b\n\u00167\nO>>>d\u001b\nmO>>>>f\u001b\n\u00168\nmOa\u001b\nOh\u001b\nO>>>>g\u001b\nv\u001bi\u001bv\u001bi\u001b\u00164\nFlFyFly FyFyFyFll FyFyFlFlFyFyFyFly FyFyFlFlFyFyFlFlFyFyFlFlFlFlFlFyFll FlFyFyFlFyFll FyFyFlFlFlFlFlFlFlFyFll FyFll FyFll FlFyFyFyFyFyFyFyFyFyFly FlFyFll FlFyFyFyFyFlFyFly FyFyFyFll FlFlFlFyFyFyFyFlFyFly FlFlFyFly FlFlFyFll FyFly FlFyFyFlFyFll FlFyFyFyFyFyFll FlFyFyFyFll FyFyFl\u0006_ \u001b>.>FkFk_>,Fu_,>_>._.>wb #ride\nh \u0006_>>.Fl_.Fn>FnFnFn<\u0006_>._,m,>_>._.;>. >_>._.@.Fl>FlFlFlFlFl\u000f\u001b<nv\u001bi\u001b\u0007tame large dog\n\u0017leash\nafl h\u001bkl njafl #name\nm\n\u0017lichen corpse\ntdl \u0006_>.Fl_.>.Fl>FlFl_>. Fl_,Fl>FlFl_>.Fl_,   Fl>Fl"
+ },
+ "segments": [
+  {
+   "seed": 50059033,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nMSGTYPE=stop \"You see\"\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "  Oi\u001b\u001b\n\u00167\nO>>>d\u001b\nmO>>>>f\u001b\n\u00168\nmOa\u001b\nOh\u001b\nO>>>>g\u001b\nv\u001bi\u001bv\u001bi\u001b\u00164\nFlFyFly FyFyFyFll FyFyFlFlFyFyFyFly FyFyFlFlFyFyFlFlFyFyFlFlFlFlFlFyFll FlFyFyFlFyFll FyFyFlFlFlFlFlFlFlFyFll FyFll FyFll FlFyFyFyFyFyFyFyFyFyFly FlFyFll FlFyFyFyFyFlFyFly FyFyFyFll FlFlFlFyFyFyFyFlFyFly FlFlFyFly FlFlFyFll FyFly FlFyFyFlFyFll FlFyFyFyFyFyFll FlFyFyFyFll FyFyFl\u0006_ \u001b>.>FkFk_>,Fu_,>_>._.>wb #ride\nh \u0006_>>.Fl_.Fn>FnFnFn<\u0006_>._,m,>_>._.;>. >_>._.@.Fl>FlFlFlFlFl\u000f\u001b<nv\u001bi\u001b\u0007tame large dog\n\u0017leash\nafl h\u001bkl njafl #name\nm\n\u0017lichen corpse\ntdl \u0006_>.Fl_.>.Fl>FlFl_>. Fl_,Fl>FlFl_>.Fl_,   Fl>Fl"
+  }
+ ]
+}

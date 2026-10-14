@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0007tame dingo\n\u0017newt corpse\nt\u001b\u0017leash\naphubkyapk\u0017leash\naqhknnkaqb#name\nf\n ,\u0007gnome\n.m. sm. ss20s.#chat\nymOa\u001b\n v i\u001bOd\u001b\nmO>w\u001b\n\u0006_>.Fj _,Fj>FnFh_>,Fn_.Fn>FjFj_>,Fj_.Fj>FkFk FbFnFb\u0006_>.Fn_.Fj>FjFn_>.Fy _.Fn>FbFb_>.Fn_,Fj>FjFbFnFnFnPdl;j:<\u0006_>.Fn_,Fb>FbFb_>.Fn_.Fj>FhFb_>.Fj_,Fn>FnFjFjFnFj<Za\n\u0006_>>.Fj_,Fb>FbFn_>>,Fb_.Fb>FjFn_>>.Fb_,Fj>FjFnFjFjFn\u0006_>.Fb_,Fn>FbFj_>,Fb_.Fb>FbFj_>,Fj_,Fb>FbFjFnFbFbs\u0018\u001b\u0006_>,Fb_,Fb>FbFj_>.Fn_.Fn>FbFj_>,Fn_.Fn>FnFjFnFnFbPet\u001b<\u0006_>,Fb_.Fj>FbFj_>.Fj_,Fj>FnFn_>.Fn_.Fy>FjFnFnFhFj\u0006_>.Fb_.Fb>FhFn_>.Fn_,Fj>FbFn_>.Fj_,Fn>FjFbFbFbFj:,\u0006_>.Fj_.Fn>FnFb_>.Fb_.Fb>FbFn_>. Fj_,Fn>FhFnFjFbFb\u000f\u001b\u00167\nFbFnFjFbFhFj  n Fb   nFn Fn #pray\ny y         Fn Fh Fk Fj   nFh Fj #pray\ny y           Fh FkFnFyFnFnFbFbFbFbFnFbFbFnFjFbFbFjFjFjFnFjFjFjFbFnFbFbFjFjFjFjFjFjFjFjFjFnFjFjFnFnFnFnFjFbFnFbFnFjFjFnFjFjFnFbFbFnFbFbFnFbFnFnFbFjFbFbFjFjFbFjFnFnFbFjFjFjFnFjFnFnFjFjFbFbFnFjFjFjFnFnFbFjFbFnFjFbFb\u00163\n \u00167"
+ },
+ "segments": [
+  {
+   "seed": 50059000,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": " \u0007tame dingo\n\u0017newt corpse\nt\u001b\u0017leash\naphubkyapk\u0017leash\naqhknnkaqb#name\nf\n ,\u0007gnome\n.m. sm. ss20s.#chat\nymOa\u001b\n v i\u001bOd\u001b\nmO>w\u001b\n\u0006_>.Fj _,Fj>FnFh_>,Fn_.Fn>FjFj_>,Fj_.Fj>FkFk FbFnFb\u0006_>.Fn_.Fj>FjFn_>.Fy _.Fn>FbFb_>.Fn_,Fj>FjFbFnFnFnPdl;j:<\u0006_>.Fn_,Fb>FbFb_>.Fn_.Fj>FhFb_>.Fj_,Fn>FnFjFjFnFj<Za\n\u0006_>>.Fj_,Fb>FbFn_>>,Fb_.Fb>FjFn_>>.Fb_,Fj>FjFnFjFjFn\u0006_>.Fb_,Fn>FbFj_>,Fb_.Fb>FbFj_>,Fj_,Fb>FbFjFnFbFbs\u0018\u001b\u0006_>,Fb_,Fb>FbFj_>.Fn_.Fn>FbFj_>,Fn_.Fn>FnFjFnFnFbPet\u001b<\u0006_>,Fb_.Fj>FbFj_>.Fj_,Fj>FnFn_>.Fn_.Fy>FjFnFnFhFj\u0006_>.Fb_.Fb>FhFn_>.Fn_,Fj>FbFn_>.Fj_,Fn>FjFbFbFbFj:,\u0006_>.Fj_.Fn>FnFb_>.Fb_.Fb>FbFn_>. Fj_,Fn>FhFnFjFbFb\u000f\u001b\u00167\nFbFnFjFbFhFj  n Fb   nFn Fn #pray\ny y         Fn Fh Fk Fj   nFh Fj #pray\ny y           Fh FkFnFyFnFnFbFbFbFbFnFbFbFnFjFbFbFjFjFjFnFjFjFjFbFnFbFbFjFjFjFjFjFjFjFjFjFnFjFjFnFnFnFnFjFbFnFbFnFjFjFnFjFjFnFbFbFnFbFbFnFbFnFnFbFjFbFbFjFjFbFjFnFnFbFjFjFjFnFjFnFnFjFjFbFbFnFjFjFjFnFnFbFjFbFnFjFbFb\u00163\n \u00167"
+  }
+ ]
+}

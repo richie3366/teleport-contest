@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nWh \u0017blessed amulet of life saving\nPi\u0017spellbook of drain life\nrj \u001b20s\u0007lich\nZZ20ssm.Z20s    sm.ZZsj.m.Z\u00162\n\u0017wand of slow monster\n\u0017wand of teleportation\n\u0007gnome\nzljzklzluzku20szkkzkh20szln20s\u0018\u001b\u0017wand of cold\n\u0017wand of cancellation\n\u0017wand of digging\n\u0007owlbear\n\u0007acid blob\nzo> 20szo> zo>   znl20szo> zn.zm\u0007mind flayer\n\u0007aligned cleric\ny\u0017wand of sleep\nsm.20s         n    \u00164\n\u0007baby red dragon\nsm.20s  n .m.#polyself\nsilver dragon\n    sm.20s#monster\n#monster\nFn  Fn \u0017blessed spellbook of fireball\nrq 20s \u0007kobold shaman\n\u0007master lich\nZ.m.sm.Z.m.    .l    Z.b"
+ },
+ "segments": [
+  {
+   "seed": 50050016,
+   "datetime": "20080223121708",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=autodig\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nWh \u0017blessed amulet of life saving\nPi\u0017spellbook of drain life\nrj \u001b20s\u0007lich\nZZ20ssm.Z20s    sm.ZZsj.m.Z\u00162\n\u0017wand of slow monster\n\u0017wand of teleportation\n\u0007gnome\nzljzklzluzku20szkkzkh20szln20s\u0018\u001b\u0017wand of cold\n\u0017wand of cancellation\n\u0017wand of digging\n\u0007owlbear\n\u0007acid blob\nzo> 20szo> zo>   znl20szo> zn.zm\u0007mind flayer\n\u0007aligned cleric\ny\u0017wand of sleep\nsm.20s         n    \u00164\n\u0007baby red dragon\nsm.20s  n .m.#polyself\nsilver dragon\n    sm.20s#monster\n#monster\nFn  Fn \u0017blessed spellbook of fireball\nrq 20s \u0007kobold shaman\n\u0007master lich\nZ.m.sm.Z.m.    .l    Z.b"
+  }
+ ]
+}

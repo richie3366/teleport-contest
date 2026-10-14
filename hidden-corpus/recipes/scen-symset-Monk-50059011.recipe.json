@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  w\u001b#rub\nbFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlmO>n\u001b\nmO>>>>d\u001b\nO>>>>n\u001b\u001b\n\u00167\nO>>>k\u001b\u001b\nmO>>>p\u001b\n\u0007large dog\n\u0017lichen corpse\nt\u001b\u0017banana\nt\u001b\u0017huge chunk of meat\nt\u001b#name\nm\n >.\u0007lichen\nsysn.b20sub .m.sm.  n dd .m..sm.nlj ub kj \u0017ice\nb\u0017magic fountain\nqy: #terrain\nd\n ,rj y  n \u0004h O>>>e\u001b\nmO>>l\u001b\nFlFlFbFlb FlFbFbFlFbFlb FlFbFbFbFbFlFbFll FlFbFlb FbFlb FlFbFll FlFlFbFbFbFbFbFbFlFbFbFlFlFbFll FbFbFlFlFlFbFbFlFbFll FlFbFbFlFbFlb FbFll FlFbFbFlFlFbFbFbFll FbFll FbFbFbFlb FbFbFlFbFlb FbFbFbFbFbFlb FbFlb FbFbFbFbFbFbFbFlb FlFbFbFbFll FbFbFbFlb FbFbFlFlFlFbFll FbFbFlFbFll FlFbFll Fl#levelchange\n14\n               yjh\u001bll \u0017chaotic altar\nde \u0017elf corpse\n#offer\nn    #pray\ny y   "
+ },
+ "segments": [
+  {
+   "seed": 50059011,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nMSGTYPE=stop \"You see\"\nMENUCOLOR=\"a scroll\"=brown\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  w\u001b#rub\nbFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlmO>n\u001b\nmO>>>>d\u001b\nO>>>>n\u001b\u001b\n\u00167\nO>>>k\u001b\u001b\nmO>>>p\u001b\n\u0007large dog\n\u0017lichen corpse\nt\u001b\u0017banana\nt\u001b\u0017huge chunk of meat\nt\u001b#name\nm\n >.\u0007lichen\nsysn.b20sub .m.sm.  n dd .m..sm.nlj ub kj \u0017ice\nb\u0017magic fountain\nqy: #terrain\nd\n ,rj y  n \u0004h O>>>e\u001b\nmO>>l\u001b\nFlFlFbFlb FlFbFbFlFbFlb FlFbFbFbFbFlFbFll FlFbFlb FbFlb FlFbFll FlFlFbFbFbFbFbFbFlFbFbFlFlFbFll FbFbFlFlFlFbFbFlFbFll FlFbFbFlFbFlb FbFll FlFbFbFlFlFbFbFbFll FbFll FbFbFbFlb FbFbFlFbFlb FbFbFbFbFbFlb FbFlb FbFbFbFbFbFbFbFlb FlFbFbFbFll FbFbFbFlb FbFbFlFlFlFbFll FbFbFlFbFll FlFbFll Fl#levelchange\n14\n               yjh\u001bll \u0017chaotic altar\nde \u0017elf corpse\n#offer\nn    #pray\ny y   "
+  }
+ ]
+}

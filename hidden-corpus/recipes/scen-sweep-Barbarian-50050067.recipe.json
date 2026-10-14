@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n16\n        \u0016?\n>y  _ \u001b,#chat\nj;k,_mm.#chat\nk_mmm,Fj_.#chat\nk_m.Fk _.#chat\nj;j._mmmm,#chat\nj\u0006_>,  Fh _. Fl  >Fl  Fu   _>.    nFl    _.   Fu   n   >Fu    Fj    n  _>,   Fb      n _.   Fh >Fh      n Fb   \u0016?\n>>\u001b_m.      nsm.     P#turn\n\u00165\n\u0017bag of tricks\n\u0017oilskin sack\n\u0017ring of gain strength\n\u0017potion of restore ability\n\u0017wand of cancellation\n\u0017skeleton key\ndf   aj..m.  n   20s    sm.   n    #loot\n\u001bdh     #loot\n\u001b,\u001bae   n  #tip\ny\u001b    Fb   n   Fk     ae      n\u00163\n\u0006_>,   Fn     _.  n    Fh       n>Fj    Fn      n  _>.    Fy     n_.   Fj>Fu    Fb_>,   n  Fu     _.  y  F"
+ },
+ "segments": [
+  {
+   "seed": 50050067,
+   "datetime": "20250424151823",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n16\n        \u0016?\n>y  _ \u001b,#chat\nj;k,_mm.#chat\nk_mmm,Fj_.#chat\nk_m.Fk _.#chat\nj;j._mmmm,#chat\nj\u0006_>,  Fh _. Fl  >Fl  Fu   _>.    nFl    _.   Fu   n   >Fu    Fj    n  _>,   Fb      n _.   Fh >Fh      n Fb   \u0016?\n>>\u001b_m.      nsm.     P#turn\n\u00165\n\u0017bag of tricks\n\u0017oilskin sack\n\u0017ring of gain strength\n\u0017potion of restore ability\n\u0017wand of cancellation\n\u0017skeleton key\ndf   aj..m.  n   20s    sm.   n    #loot\n\u001bdh     #loot\n\u001b,\u001bae   n  #tip\ny\u001b    Fb   n   Fk     ae      n\u00163\n\u0006_>,   Fn     _.  n    Fh       n>Fj    Fn      n  _>.    Fy     n_.   Fj>Fu    Fb_>,   n  Fu     _.  y  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n       \u0017blessed ring of polymorph control\nPfl\u0017levitation boots\nWgs.s#polyself\nfire giant\n#monster\n..s.s#polyself\nhuman mummy\n#monster\n.20s\u0007cockatrice\nFlFl Fl sss#polyself\nstone golem\n20s.\u0007hell hound\nFnFnFn20s20s sn#levelchange\n14\n     \u0007black pudding\nFnFl Fl .l sm.\u0007owlbear\nFnFn  Fn.m. 20s  n  \u0007little dog\n\u0017food ration\ntbb   \u0007kitten\n\u0017banana\nt\u001b10s  \u0007lichen\n.m.20s   n  sm.  sn     n sm.  20s  \u0007yellow mold\n20ssl    n sm.  20s20s    n sm.  #name\na\n#name\nm\n ,#name\na\ni\u001b\u00164\n#wizintrinsic\nl\n jnhykh;m,\u0017wand of fire\nzjh20s20s.bhh\u0017teleportation trap\nl^hh,.20skj\u0017web\nlh20s.jl\u0017magic portal\nlh y\u001by   y y y\u001b s"
+ },
+ "segments": [
+  {
+   "seed": 50055031,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:walk\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n       \u0017blessed ring of polymorph control\nPfl\u0017levitation boots\nWgs.s#polyself\nfire giant\n#monster\n..s.s#polyself\nhuman mummy\n#monster\n.20s\u0007cockatrice\nFlFl Fl sss#polyself\nstone golem\n20s.\u0007hell hound\nFnFnFn20s20s sn#levelchange\n14\n     \u0007black pudding\nFnFl Fl .l sm.\u0007owlbear\nFnFn  Fn.m. 20s  n  \u0007little dog\n\u0017food ration\ntbb   \u0007kitten\n\u0017banana\nt\u001b10s  \u0007lichen\n.m.20s   n  sm.  sn     n sm.  20s  \u0007yellow mold\n20ssl    n sm.  20s20s    n sm.  #name\na\n#name\nm\n ,#name\na\ni\u001b\u00164\n#wizintrinsic\nl\n jnhykh;m,\u0017wand of fire\nzjh20s20s.bhh\u0017teleportation trap\nl^hh,.20skj\u0017web\nlh20s.jl\u0017magic portal\nlh y\u001by   y y y\u001b s"
+  }
+ ]
+}

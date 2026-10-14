@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed Mjollnir\nwj \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b@.,p\u00167\njkk\u0016?\n>w\u0006_ooooooooo.,\u0017touchstone\ndlFj  FjFjFjFjFj_oooooooo,,\u0014m,s._ooooooo.,\u0017diamond\ndmjhh#chat\nhFh FhFh FhFhFh_oooo._,,p\u00167\nlhn\u0016?\n>w\u0006_ooo,_o, _.,pjhl#chat\nl_ooooooooo.Fh _,>.,$hhh#chat\ny_oooo._.m.,\u001b$_{,  Fh _.Fh   nqd_oooo,_,,\u001b$hjn#chat\nh _oooooo._oo,Fh _.;,,p_oooooooo.,#chat\nk_ooooooo,_,_oo._,,\u001b,\u001bp_ooooooo,_,,\u001bp_oooooooo,_.:,y p_{._,m.qd_ooooooo.Fl _.Fl  _oo.  n Fl  _.Fl,p_{._.m.Flqd  n\u00163\nybj\u0016?\n>w\u0006_ooooooo.Fl _.>.,p_{,Fl_.Flqd_ooooo,Fl _,,\u0017amulet of magical breathing\ndo_{._,.q_oo._.,p_oo._._o,_,,\u001b: __._.m.#chat\nh#pray\ny y lll#chat\nn_ooo,Fl_.Fl  n_o,Fl_,Fl ,p__._,,#chat\nb__._,@.#chat\nl_oooooo.Fl_.Fl_oo.Fl_.Fl   n,p_{,_,@.q_oooo.Fl _.: _ooo,,\u001b: _ooooooo._.,\u001bp_oooo,_._oo._,,:lhh#chat\nn__._,m.#chat\nj#pray\ny y __._.,#chat\nj#pray\ny y _oooooo,_oo.Fl_.Fl  n ,:FlFlFlFl Fl  nFl _ooo._.,\u001b: hyn#chat\nbjl h#chat\nbjuu#chat\nj_{"
+ },
+ "segments": [
+  {
+   "seed": 50057041,
+   "datetime": "20070625014823",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed Mjollnir\nwj \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b@.,p\u00167\njkk\u0016?\n>w\u0006_ooooooooo.,\u0017touchstone\ndlFj  FjFjFjFjFj_oooooooo,,\u0014m,s._ooooooo.,\u0017diamond\ndmjhh#chat\nhFh FhFh FhFhFh_oooo._,,p\u00167\nlhn\u0016?\n>w\u0006_ooo,_o, _.,pjhl#chat\nl_ooooooooo.Fh _,>.,$hhh#chat\ny_oooo._.m.,\u001b$_{,  Fh _.Fh   nqd_oooo,_,,\u001b$hjn#chat\nh _oooooo._oo,Fh _.;,,p_oooooooo.,#chat\nk_ooooooo,_,_oo._,,\u001b,\u001bp_ooooooo,_,,\u001bp_oooooooo,_.:,y p_{._,m.qd_ooooooo.Fl _.Fl  _oo.  n Fl  _.Fl,p_{._.m.Flqd  n\u00163\nybj\u0016?\n>w\u0006_ooooooo.Fl _.>.,p_{,Fl_.Flqd_ooooo,Fl _,,\u0017amulet of magical breathing\ndo_{._,.q_oo._.,p_oo._._o,_,,\u001b: __._.m.#chat\nh#pray\ny y lll#chat\nn_ooo,Fl_.Fl  n_o,Fl_,Fl ,p__._,,#chat\nb__._,@.#chat\nl_oooooo.Fl_.Fl_oo.Fl_.Fl   n,p_{,_,@.q_oooo.Fl _.: _ooo,,\u001b: _ooooooo._.,\u001bp_oooo,_._oo._,,:lhh#chat\nn__._,m.#chat\nj#pray\ny y __._.,#chat\nj#pray\ny y _oooooo,_oo.Fl_.Fl  n ,:FlFlFlFl Fl  nFl _ooo._.,\u001b: hyn#chat\nbjl h#chat\nbjuu#chat\nj_{"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0006_>\u0006_>\u0006_><\u0006_>\u0006_>\u0006_>\u0006_>\u0016150s;>.150s50s150su150s150sujl100skhu50sjuj_>50s\\n100s50s#conduct\nuh byly uy j\u0018\u001b150s150sh\u001bnlh 150s50s#tip\n\u001b100s100s\u000f\u001bjh\u001bub #sit\n\u001b#ride\nl 150s50s50sjyun ZO>>>>n\u001b\u001b\nO>p\u001b\n\u0007tame winter wolf cub\n\u0017leash\naiy bkk uh baik 20s\u0006_ \u001bm,>_>>._.>_>>._.>di..s\u0017tin whistle\nkb uj naj#name\n\u001b\u0017apple\ntdy O>i\u001b\u001b\nO>>l\u001b\n_>,_.>50s50s100s 150s100s50sbbh\u001b\\  150s100slu h\u001bh\u001b100sjyku 50s_>. _.>100s100s150sll ky uh \\  \u000f\u001b100s50s50s100s150s100s\\  100s50s\u0004j ku bnh\u001bjh\u001b100s150s\\  150s150s100sO>i\u001b\u001b\n\u0006_>>._,>_>>._.>_>>._,>\u0006_>._.>_>,_.>_>._.>,W\u0006_>,_,>_>,_.>_>._.>\u0006_>>,_.>_>>._.>_>>,_.>\u0006_>>._.>_>"
+ },
+ "segments": [
+  {
+   "seed": 50059028,
+   "datetime": "20180207064527",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=sortloot:none\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"You feel\"\nBIND=v:inventory\n",
+   "moves": "\u0006_>\u0006_>\u0006_><\u0006_>\u0006_>\u0006_>\u0006_>\u0016150s;>.150s50s150su150s150sujl100skhu50sjuj_>50s\\n100s50s#conduct\nuh byly uy j\u0018\u001b150s150sh\u001bnlh 150s50s#tip\n\u001b100s100s\u000f\u001bjh\u001bub #sit\n\u001b#ride\nl 150s50s50sjyun ZO>>>>n\u001b\u001b\nO>p\u001b\n\u0007tame winter wolf cub\n\u0017leash\naiy bkk uh baik 20s\u0006_ \u001bm,>_>>._.>_>>._.>di..s\u0017tin whistle\nkb uj naj#name\n\u001b\u0017apple\ntdy O>i\u001b\u001b\nO>>l\u001b\n_>,_.>50s50s100s 150s100s50sbbh\u001b\\  150s100slu h\u001bh\u001b100sjyku 50s_>. _.>100s100s150sll ky uh \\  \u000f\u001b100s50s50s100s150s100s\\  100s50s\u0004j ku bnh\u001bjh\u001b100s150s\\  150s150s100sO>i\u001b\u001b\n\u0006_>>._,>_>>._.>_>>._,>\u0006_>._.>_>,_.>_>._.>,W\u0006_>,_,>_>,_.>_>._.>\u0006_>>,_.>_>>._.>_>>,_.>\u0006_>>._.>_>"
+  }
+ ]
+}

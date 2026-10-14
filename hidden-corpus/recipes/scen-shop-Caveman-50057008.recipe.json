@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 gauntlets of power\nWg\u0016?\n>w\u0006_ \u001b>.,p_ooooo. _,_o.Fl_.,p_ooooo._._o,Fh_.,,p_oooooooo,_o.Fh_,m,,p_oooooooo._oo.,p__._,#chat\nn#pray\ny y _ooooooo.,p\u001b\u0016?\n>Bbnk\u0016?\n>w\u0006_ooo.,p\u0016?\n>Bnnl\u0016?\n>w\u0006__. Fb _,Fb#chat\nk#pray\ny y \u00163\nlhh\u0016?\n>w\u0006_ooo,_,,\u0017amulet of flying\ndkc._oooooo.,\u0014>.ss_{._.Fh q_ooooo.Fh _,Fy,$_oo._ooo.Fk _.Fk,\u0017ruby\ndlej__.  _.Fh     #chat\nh   n #pray\ny y   Fh   n   Fh   n  Fh  n  Fh  nFh Fh  n \u001611\n _oooo.,$_oooooo,,p_ooooooooo.,: yyj#chat\nj_ooo,_o.,p_ooo.,$_oo.,p_ooo._o.,p_ooooooooo._o.,\u0017amulet of life saving\ndme_oooo,,: _oo.,pkjk#chat\nh__,#chat\nh#pray\ny y_ooooooooo._ooo.,$_oooooo.,p_{,q_oooooooo._oo.,p_oooo.,pjbu#chat\nu_ooooooo._ooo.,: __.#chat\nn#pray\ny y_oooo.,p_ooooooo,,$_oo.,#chat\nn_oooo.,$_oo.,phlk#chat\nh_ooooo,,#chat\nb_"
+ },
+ "segments": [
+  {
+   "seed": 50057008,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 gauntlets of power\nWg\u0016?\n>w\u0006_ \u001b>.,p_ooooo. _,_o.Fl_.,p_ooooo._._o,Fh_.,,p_oooooooo,_o.Fh_,m,,p_oooooooo._oo.,p__._,#chat\nn#pray\ny y _ooooooo.,p\u001b\u0016?\n>Bbnk\u0016?\n>w\u0006_ooo.,p\u0016?\n>Bnnl\u0016?\n>w\u0006__. Fb _,Fb#chat\nk#pray\ny y \u00163\nlhh\u0016?\n>w\u0006_ooo,_,,\u0017amulet of flying\ndkc._oooooo.,\u0014>.ss_{._.Fh q_ooooo.Fh _,Fy,$_oo._ooo.Fk _.Fk,\u0017ruby\ndlej__.  _.Fh     #chat\nh   n #pray\ny y   Fh   n   Fh   n  Fh  n  Fh  nFh Fh  n \u001611\n _oooo.,$_oooooo,,p_ooooooooo.,: yyj#chat\nj_ooo,_o.,p_ooo.,$_oo.,p_ooo._o.,p_ooooooooo._o.,\u0017amulet of life saving\ndme_oooo,,: _oo.,pkjk#chat\nh__,#chat\nh#pray\ny y_ooooooooo._ooo.,$_oooooo.,p_{,q_oooooooo._oo.,p_oooo.,pjbu#chat\nu_ooooooo._ooo.,: __.#chat\nn#pray\ny y_oooo.,p_ooooooo,,$_oo.,#chat\nn_oooo.,$_oo.,phlk#chat\nh_ooooo,,#chat\nb_"
+  }
+ ]
+}

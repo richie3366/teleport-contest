@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed amulet of life saving\nPg\u0017blessed Mjollnir\nwh\u0016?\n>w\u0006_ \u001b,,\u0014m.s20shku#chat\nh__._.#chat\nn#pray\ny y hh    h#chat\nllyl#chat\nb_{.Fb _.Fj qFj Fj Fj Fj  Fj Fj_ooo.,p_ooo.,:_oooooo.,:_ooooooo.,\u0017ruby\ndj _ooooo.,  n  :Fh    nFh  Fh    Fh  n Fh   nFh \u00167\n__.#chat\nb_{,qluy#chat\nb_oooo.,:__.#chat\nu#pray\ny y   _oooo.,\u0017amulet of change\ndk_ooooo._oo.,p_ooooooooo.,p_oooooo,,$_oooooo._ooo.,#chat\nh_oooooooo,_ooo.,p__.#chat\nh_ooooo._o.,$Fh FhFhFhFhFh_ooooooooo,_.,p_ooo.,pbuh#chat\nu\u00167\nknk\u0016?\n>w\u0006_ooooooo.Fu_.;>.Fu _oo.,p_oooooo,,#chat\nl__.Fl _.  n Fl #chat\nl   n #pray\ny y      \u00164\n_oooo,,:kuk#chat\nj_{.ql \u001b_ooo._ooo.,p\u0016?\ncjyb\u0016?\n>w\u0006Fy  Fy  Fy   n  FyFy Fy   n \u00163\nyyu\u0016?\n>w\u0006\u00168\n_ooo.,$\u0016?\nck  njy\u0016?\n>w  \u0006_oooo.Fh_,_oo.  nFb_., $ __,Fj _.Fk   #chat\nk   n _{. Fk _.  nFh  n q\u00168\n   _ooooooooo._o.,p   _oooooooo._ooo,,#chat\njuj  nl#chat\nk_ooooooooo,,\u0017amulet of guarding\ndn_oo.,$__.#chat\nk__,#chat\nk#pray\ny y    _ooo.,pF"
+ },
+ "segments": [
+  {
+   "seed": 50057040,
+   "datetime": "20111129225859",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed amulet of life saving\nPg\u0017blessed Mjollnir\nwh\u0016?\n>w\u0006_ \u001b,,\u0014m.s20shku#chat\nh__._.#chat\nn#pray\ny y hh    h#chat\nllyl#chat\nb_{.Fb _.Fj qFj Fj Fj Fj  Fj Fj_ooo.,p_ooo.,:_oooooo.,:_ooooooo.,\u0017ruby\ndj _ooooo.,  n  :Fh    nFh  Fh    Fh  n Fh   nFh \u00167\n__.#chat\nb_{,qluy#chat\nb_oooo.,:__.#chat\nu#pray\ny y   _oooo.,\u0017amulet of change\ndk_ooooo._oo.,p_ooooooooo.,p_oooooo,,$_oooooo._ooo.,#chat\nh_oooooooo,_ooo.,p__.#chat\nh_ooooo._o.,$Fh FhFhFhFhFh_ooooooooo,_.,p_ooo.,pbuh#chat\nu\u00167\nknk\u0016?\n>w\u0006_ooooooo.Fu_.;>.Fu _oo.,p_oooooo,,#chat\nl__.Fl _.  n Fl #chat\nl   n #pray\ny y      \u00164\n_oooo,,:kuk#chat\nj_{.ql \u001b_ooo._ooo.,p\u0016?\ncjyb\u0016?\n>w\u0006Fy  Fy  Fy   n  FyFy Fy   n \u00163\nyyu\u0016?\n>w\u0006\u00168\n_ooo.,$\u0016?\nck  njy\u0016?\n>w  \u0006_oooo.Fh_,_oo.  nFb_., $ __,Fj _.Fk   #chat\nk   n _{. Fk _.  nFh  n q\u00168\n   _ooooooooo._o.,p   _oooooooo._ooo,,#chat\njuj  nl#chat\nk_ooooooooo,,\u0017amulet of guarding\ndn_oo.,$__.#chat\nk__,#chat\nk#pray\ny y    _ooo.,pF"
+  }
+ ]
+}

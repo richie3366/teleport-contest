@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWj\u0016?\n>w\u0006FbFbFbFbFbFb_ \u001b,_ooo,,#chat\nh_ooo.,p_ooooooooo.,p_ooooooo.,:__. _. Fk  #chat\nk\u0016?\ncljh\u0016?\n>w\u0006jhh#chat\nylhh#chat\nh\u0016?\n>Bllj\u0016?\n>w\u0006jkb#chat\nl_oo.,$_{. Fk _,  nFk qd   _{,Fk_.:Fj     nq_oooo._o,  nFj   n_,Fj ,:\u00161\n_ooooooo,Fh   n_.,\u0014@..hsm.  n\u001611\n    _{,qFkFkFk Fk   nFk Fk _{,q\u0016?\ncljk  n\u0016?\n>w\u0006Fl Fl   nFlFl FlFl Fl FlFlFl FlFlFl   nFl FlFl Fl Fl_oooo.Fh  n_,,\u001b#chat\nh_oooooooo._ooo,Fy   n _.  n Fh   n ,\u001bp\u00169\n_{.q_oooo.,$\u00163\nhbj  n \u0016?\n>w\u0006Fj   yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50057017,
+   "datetime": "20001120203433",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWj\u0016?\n>w\u0006FbFbFbFbFbFb_ \u001b,_ooo,,#chat\nh_ooo.,p_ooooooooo.,p_ooooooo.,:__. _. Fk  #chat\nk\u0016?\ncljh\u0016?\n>w\u0006jhh#chat\nylhh#chat\nh\u0016?\n>Bllj\u0016?\n>w\u0006jkb#chat\nl_oo.,$_{. Fk _,  nFk qd   _{,Fk_.:Fj     nq_oooo._o,  nFj   n_,Fj ,:\u00161\n_ooooooo,Fh   n_.,\u0014@..hsm.  n\u001611\n    _{,qFkFkFk Fk   nFk Fk _{,q\u0016?\ncljk  n\u0016?\n>w\u0006Fl Fl   nFlFl FlFl Fl FlFlFl FlFlFl   nFl FlFl Fl Fl_oooo.Fh  n_,,\u001b#chat\nh_oooooooo._ooo,Fy   n _.  n Fh   n ,\u001bp\u00169\n_{.q_oooo.,$\u00163\nhbj  n \u0016?\n>w\u0006Fj   yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

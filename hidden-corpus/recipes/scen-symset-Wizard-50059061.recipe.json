@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\\  ;b, \u001bm.10s\u00162\n\u0007tame winter wolf cub\n\u0007tame little dog\n#chat\ny#name\nf\nljhn#name\n,10s O>>>m\u001b\u001b\nhub\u0017grave\n: \u0017pick-axe\nao >      ssl\u0017ice\nlhhly:kh\u0017melting ice\njkk k:ol#dip\neg#name\na\n\u0006_>._.>_>._.>_>._,>tayf \u001b\u0006_>._.>_>,_.>_>,_.Fl>#sit\n\u0018\u001b\u0006_>>._,>_>>.Fl_.Fl  >FlFl_>>,Fl_.Fl>\u0006_>._.Fl>Fl  Fl_>.Fl_.Fl>_>.Fl_.Fl>FlFlFl.Fl\u0006_>.Fl_.Fl>_>.Fl_,Fl>Fls_>.Fl_.>\u0006_>>._.Fl>FlFl_>>.Fl_.Fl>_>>._,>\u0006_>.Fl_.Fl>_>.Fl_.>_>.Fl_.Fl>FlsFlFl Fl,:\u0006_>,  nFl_,Fl  n>Fls_>,_,>_>._.>#name\n\u001bK\u0006_>>,_.>_>>._.>_>>,_.>\u0006_>>._,>_>>,_,>_>>,_.>\u0006_>>._.>_>>._.>_>>._.>tpyH\u0006_>._,>_>,_,>_>._,>\u000f\u001b\u00162\n\u00162\n_<..h kl100s100s   n _>._,>100snny\u000f\u001b_>._. >#pray\ny y   FlFlFlFlFlFl  nFl20s20s_>,_.>150s_>._.>150sFlFlFlFlssl uh_>._,>100s_>._.>100s\u0018\u001b50s#chat\nhkbbuln50s_>._.>#wipe\n100s eeeeeee\u00169\nmOa\u001b\nv i\u001b\u00169\n\u0007large dog\n\u0017food ration\ntau\u0007tame lichen\n\u0007kobold\n\u0017scroll of taming\nrr  \u0007lichen\n20ssm.20s 20s   20s      s 10s \u0006_>,            Fh_.Fh  n>FhFh_>.Fh_,  nFh>FhFh_>._,> dls20s.\u00163\n\u00166\n\\  jubzc100s100s100s50sFbs.i\u001b\\  _>.>\u0014m.#conduct\n "
+ },
+ "segments": [
+  {
+   "seed": 50059061,
+   "datetime": "20131003164205",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=showrace\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You kill\"\n",
+   "moves": "\\  ;b, \u001bm.10s\u00162\n\u0007tame winter wolf cub\n\u0007tame little dog\n#chat\ny#name\nf\nljhn#name\n,10s O>>>m\u001b\u001b\nhub\u0017grave\n: \u0017pick-axe\nao >      ssl\u0017ice\nlhhly:kh\u0017melting ice\njkk k:ol#dip\neg#name\na\n\u0006_>._.>_>._.>_>._,>tayf \u001b\u0006_>._.>_>,_.>_>,_.Fl>#sit\n\u0018\u001b\u0006_>>._,>_>>.Fl_.Fl  >FlFl_>>,Fl_.Fl>\u0006_>._.Fl>Fl  Fl_>.Fl_.Fl>_>.Fl_.Fl>FlFlFl.Fl\u0006_>.Fl_.Fl>_>.Fl_,Fl>Fls_>.Fl_.>\u0006_>>._.Fl>FlFl_>>.Fl_.Fl>_>>._,>\u0006_>.Fl_.Fl>_>.Fl_.>_>.Fl_.Fl>FlsFlFl Fl,:\u0006_>,  nFl_,Fl  n>Fls_>,_,>_>._.>#name\n\u001bK\u0006_>>,_.>_>>._.>_>>,_.>\u0006_>>._,>_>>,_,>_>>,_.>\u0006_>>._.>_>>._.>_>>._.>tpyH\u0006_>._,>_>,_,>_>._,>\u000f\u001b\u00162\n\u00162\n_<..h kl100s100s   n _>._,>100snny\u000f\u001b_>._. >#pray\ny y   FlFlFlFlFlFl  nFl20s20s_>,_.>150s_>._.>150sFlFlFlFlssl uh_>._,>100s_>._.>100s\u0018\u001b50s#chat\nhkbbuln50s_>._.>#wipe\n100s eeeeeee\u00169\nmOa\u001b\nv i\u001b\u00169\n\u0007large dog\n\u0017food ration\ntau\u0007tame lichen\n\u0007kobold\n\u0017scroll of taming\nrr  \u0007lichen\n20ssm.20s 20s   20s      s 10s \u0006_>,            Fh_.Fh  n>FhFh_>.Fh_,  nFh>FhFh_>._,> dls20s.\u00163\n\u00166\n\\  jubzc100s100s100s50sFbs.i\u001b\\  _>.>\u0014m.#conduct\n "
+  }
+ ]
+}

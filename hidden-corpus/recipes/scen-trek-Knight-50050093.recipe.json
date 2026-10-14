@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "BNJ H_ \u001b.>FysFk<YUKB_>.>FkFuFl f  #wipe\nNJJH_>,>NKBJ_>.>Fl FlFlUHLY_>.>Fl Fl Fh BHJY_>.>Fl  y\u001by  y y y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 50050093,
+   "datetime": "20101117183850",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\n",
+   "moves": "BNJ H_ \u001b.>FysFk<YUKB_>.>FkFuFl f  #wipe\nNJJH_>,>NKBJ_>.>Fl FlFlUHLY_>.>Fl Fl Fh BHJY_>.>Fl  y\u001by  y y y\u001b  2"
+  }
+ ]
+}

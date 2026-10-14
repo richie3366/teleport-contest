@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 helm of telepathy\nWo\u0016?\np #levelchange\n14\n\u0017blessed spellbook of fireball\nrp   s\u0017spellbook of magic missile\nrq .\u0017blessed spellbook of light\nrr ys\u0017blessed spellbook of detect treasure\nrs. +\u001bZd\nZa\n  Zc\n       Zc\nFk Zb\nZb\n FhZd\n .\u001639\nyu b:\u0016?\n>u\u00173 potion of paralysis\nqt          n  \u0017uncursed food ration\neu    20s   sm.  Fu  Fb  \u0017uncursed lembas wafer\nev  sn.m.  \u0017scroll of create monster\nrw werewolf\n   sm.     sm.  n    \u00164\n\u00168\nbubnb:\u0016?\n>>L     potion of polymorph\n\u0004n\u0016?\n\u001bu    y   \u0016?\ne h y  n   u :\u001620\n#levelchange\n8\n \u0017the Eye of the Aethiopica\n w-   n      Fj    n        n Fj        nFh         n#invoke\nza\n       n      n \u0007red mold\nFj       n     n Fb       n    Fj      n     n    Fl              n   Fb  yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50056005,
+   "datetime": "20090501234145",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 helm of telepathy\nWo\u0016?\np #levelchange\n14\n\u0017blessed spellbook of fireball\nrp   s\u0017spellbook of magic missile\nrq .\u0017blessed spellbook of light\nrr ys\u0017blessed spellbook of detect treasure\nrs. +\u001bZd\nZa\n  Zc\n       Zc\nFk Zb\nZb\n FhZd\n .\u001639\nyu b:\u0016?\n>u\u00173 potion of paralysis\nqt          n  \u0017uncursed food ration\neu    20s   sm.  Fu  Fb  \u0017uncursed lembas wafer\nev  sn.m.  \u0017scroll of create monster\nrw werewolf\n   sm.     sm.  n    \u00164\n\u00168\nbubnb:\u0016?\n>>L     potion of polymorph\n\u0004n\u0016?\n\u001bu    y   \u0016?\ne h y  n   u :\u001620\n#levelchange\n8\n \u0017the Eye of the Aethiopica\n w-   n      Fj    n        n Fj        nFh         n#invoke\nza\n       n      n \u0007red mold\nFj       n     n Fb       n    Fj      n     n    Fl              n   Fb  yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

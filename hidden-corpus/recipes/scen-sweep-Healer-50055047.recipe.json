@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017expensive camera\namh\u0017blessed Stormbringer\n  nwn  n   Fh Fh Fh#invoke\nn  n \u00173 potion of restore ability\nqo \u001b.s\u00165\ni\u001b\u001610\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqp \u001b,_ooooooooo.  Fl_.Fk ,#chat\nk_m.Fk   n_,#chat\nk _mmmm.Fj   _,#chat\nk _oooooooo.Fk  n _.  nFk_ooo.Fk_.m.Fl     ,dn_mm.Fy _.#chat\ny_ooooooooo.Fl   n_.>.Fj   n,\u0014m,_oooooo.  Fh  _. Fh_ooo,Fh _,   nFh ,p\u000f\u001b,\u0004j \u001626\n\u00167\ni\u001bqgacuqfamlW20s20s20s  qe  Z\u001b20s#pray\ny y  #force\n#twoweapon\n,#monster\nyi\u001b\u0017wraith corpse\neq sm. sm. \u0017spellbook of remove curse\nrr    nsm.  sm.  Z\u001bZ\u001bFj     Fb     n \u0017levitation boots\nWs    sm.   n  sn    20s    n   Fb   Fl  n  sm.    nsh#levelchange\n12\n         \u0017two-handed sword\nwt  Fu  Fk  Fl   \u0007vampire bat\n#chat\nn  Fj    yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50055047,
+   "datetime": "20141127181619",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017expensive camera\namh\u0017blessed Stormbringer\n  nwn  n   Fh Fh Fh#invoke\nn  n \u00173 potion of restore ability\nqo \u001b.s\u00165\ni\u001b\u001610\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqp \u001b,_ooooooooo.  Fl_.Fk ,#chat\nk_m.Fk   n_,#chat\nk _mmmm.Fj   _,#chat\nk _oooooooo.Fk  n _.  nFk_ooo.Fk_.m.Fl     ,dn_mm.Fy _.#chat\ny_ooooooooo.Fl   n_.>.Fj   n,\u0014m,_oooooo.  Fh  _. Fh_ooo,Fh _,   nFh ,p\u000f\u001b,\u0004j \u001626\n\u00167\ni\u001bqgacuqfamlW20s20s20s  qe  Z\u001b20s#pray\ny y  #force\n#twoweapon\n,#monster\nyi\u001b\u0017wraith corpse\neq sm. sm. \u0017spellbook of remove curse\nrr    nsm.  sm.  Z\u001bZ\u001bFj     Fb     n \u0017levitation boots\nWs    sm.   n  sn    20s    n   Fb   Fl  n  sm.    nsh#levelchange\n12\n         \u0017two-handed sword\nwt  Fu  Fk  Fl   \u0007vampire bat\n#chat\nn  Fj    yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

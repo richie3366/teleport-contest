@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0016?\ne\u0006Fy            n Fb FbFj   n Fn  nFb u  n k y u#twoweapon\n#offer\n#pray\ny y         \u00162\nlbby\u0017falling rock trap\ny^n\u0007lichen\nsm.sm..m.sm.n\u0017arrow trap\nb usl   n .jn b\u0017rust trap\ny^nn.m.sm.lj\u0017trap door\nj  n ^k#untrap\nk#terrain\nb\n\u001bm,#invoke\n\u001b#turn\n#enhance\nyi\nb\n\u001b\u00166\n#polyself\ndust vortex\n #monster\nss\u0007gnome\nFnFnFnFn\u0007sewer rat\nFnFnFnFni\u001b#levelchange\n8\n       \u0007minotaur\nFbFb  FnFl  n   n\u0007Pestilence\nyFl      n  n Fb    n   n\u0007captain\nsm.   n  .m.   n    n   yy\u001by   y y y\u001bn  s"
+ },
+ "segments": [
+  {
+   "seed": 50055000,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\ne\u0006Fy            n Fb FbFj   n Fn  nFb u  n k y u#twoweapon\n#offer\n#pray\ny y         \u00162\nlbby\u0017falling rock trap\ny^n\u0007lichen\nsm.sm..m.sm.n\u0017arrow trap\nb usl   n .jn b\u0017rust trap\ny^nn.m.sm.lj\u0017trap door\nj  n ^k#untrap\nk#terrain\nb\n\u001bm,#invoke\n\u001b#turn\n#enhance\nyi\nb\n\u001b\u00166\n#polyself\ndust vortex\n #monster\nss\u0007gnome\nFnFnFnFn\u0007sewer rat\nFnFnFnFni\u001b#levelchange\n8\n       \u0007minotaur\nFbFb  FnFl  n   n\u0007Pestilence\nyFl      n  n Fb    n   n\u0007captain\nsm.   n  .m.   n    n   yy\u001by   y y y\u001bn  s"
+  }
+ ]
+}

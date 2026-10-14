@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  \u0017cursed potion of healing\nqk\u0017ring of protection\nPlr 20s .m.20s\u00173 scroll of gold detection\nrm  \u001bm.ss\u001610\n\u0017large box\n \u0017potion of fruit juice\n\u0017scroll of charging\n#tip\nn\u001b\u0017dagger\nwqdn#force\n 20s20ssafy        acjag i\u001b\u0018\u001b#levelchange\n6\n    \u0007cockatrice\nFyFyFy Fy sj.\u0007yellow light\nFkFk s FkFkFkFks.\u000f\u001b\u0006_>.Fk_.Fk >FkFk   n_>,Fk_.Fk>FkFk_>. Fk_.Fk>FkFkFkFkFkk\u0014m.<\u0006_>. Fk_.Fk >FkFk   n_>. Fk_,Fk>FkFk_>.Fk_, Fk>FkFkFkFkFk\u0006_>>.Fk_,Fk>FkFk_>>.Fk_.Fk>FkFk_>>.Fk_. Fk><\u000f\u001b\u00163\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqrm,_{,_,qo \u001b#dip\nae_ooooooooo,_,_o._.,p_oo._._o._,,#chat\ny_mmmm,#chat\nj_oooooooo._._o._,,#chat\nh#force\n<W#levelchange\n10\n   \u0016?\ne\u0006ss. Fk  FkFkh j yy#twoweapon\n: qd \u0018\u001bk u l\u0017statue trap\ny\u0017falling rock trap\nj\u0017pit\n\u0017beartrap\n as    l  k#terrain\nd\n20s \u0014<.>\u000f\u001b#levelchange\n20\n          \u0007hostile dust vortex\nFu Fk#pray\ny yFkFjs . FkFjs\u001bFk Fh \u00167\n\u0007kitten\n\u0017banana\nt$y#name\nf\n\u0007..20s 20s .   n  .di .s .\u0007grid bug\n\u0017scroll of taming\nru\u0017tin whistle\nj j h  n av \u000f\u001b\u00163\n\u0017blessed ring of polymorph control\nPw\u0017cloak of displacement\nWx.ssTx#polyself\nenergy vortex\n#monster\ns.\u0007master mind flayer\nss    Fh    n  .m.   n sm.     n .l #polyself\nelf\n #monster\nsm.     n  sb\u0007mastodon\nFb     n  Fh    Fh    n  .m.    n  .m.     n  .m.    n #polyself\nincubus\n#monster\n.m.        n  20s    n  sk20s    n .m.      yy\u001bny y y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50055032,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017cursed potion of healing\nqk\u0017ring of protection\nPlr 20s .m.20s\u00173 scroll of gold detection\nrm  \u001bm.ss\u001610\n\u0017large box\n \u0017potion of fruit juice\n\u0017scroll of charging\n#tip\nn\u001b\u0017dagger\nwqdn#force\n 20s20ssafy        acjag i\u001b\u0018\u001b#levelchange\n6\n    \u0007cockatrice\nFyFyFy Fy sj.\u0007yellow light\nFkFk s FkFkFkFks.\u000f\u001b\u0006_>.Fk_.Fk >FkFk   n_>,Fk_.Fk>FkFk_>. Fk_.Fk>FkFkFkFkFkk\u0014m.<\u0006_>. Fk_.Fk >FkFk   n_>. Fk_,Fk>FkFk_>.Fk_, Fk>FkFkFkFkFk\u0006_>>.Fk_,Fk>FkFk_>>.Fk_.Fk>FkFk_>>.Fk_. Fk><\u000f\u001b\u00163\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqrm,_{,_,qo \u001b#dip\nae_ooooooooo,_,_o._.,p_oo._._o._,,#chat\ny_mmmm,#chat\nj_oooooooo._._o._,,#chat\nh#force\n<W#levelchange\n10\n   \u0016?\ne\u0006ss. Fk  FkFkh j yy#twoweapon\n: qd \u0018\u001bk u l\u0017statue trap\ny\u0017falling rock trap\nj\u0017pit\n\u0017beartrap\n as    l  k#terrain\nd\n20s \u0014<.>\u000f\u001b#levelchange\n20\n          \u0007hostile dust vortex\nFu Fk#pray\ny yFkFjs . FkFjs\u001bFk Fh \u00167\n\u0007kitten\n\u0017banana\nt$y#name\nf\n\u0007..20s 20s .   n  .di .s .\u0007grid bug\n\u0017scroll of taming\nru\u0017tin whistle\nj j h  n av \u000f\u001b\u00163\n\u0017blessed ring of polymorph control\nPw\u0017cloak of displacement\nWx.ssTx#polyself\nenergy vortex\n#monster\ns.\u0007master mind flayer\nss    Fh    n  .m.   n sm.     n .l #polyself\nelf\n #monster\nsm.     n  sb\u0007mastodon\nFb     n  Fh    Fh    n  .m.    n  .m.     n  .m.    n #polyself\nincubus\n#monster\n.m.        n  20s    n  sk20s    n .m.      yy\u001bny y y\u001b  \u0017"
+  }
+ ]
+}

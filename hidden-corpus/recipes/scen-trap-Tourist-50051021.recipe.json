@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "khll\u0017squeaky board\nyny.syl\u0017level teleporter\nh^lly 10\n 20s.l\u0017sleeping gas trap\nk\u0007newt\nsm..m..m.20s#terrain\nd\n\u001b<.#invoke\n\u001b#untrap\nhE- I am a fish\nSy\u001b y#offer\n#wipe\n_m,sn#turn\n#ride\nuy#force\n#tip\n\u001bH   n\u0018\u001b#sit\n ,",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50051021,
+   "datetime": "20080127141725",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "khll\u0017squeaky board\nyny.syl\u0017level teleporter\nh^lly 10\n 20s.l\u0017sleeping gas trap\nk\u0007newt\nsm..m..m.20s#terrain\nd\n\u001b<.#invoke\n\u001b#untrap\nhE- I am a fish\nSy\u001b"
+  },
+  {
+   "seed": 50551021,
+   "datetime": "20240501174158",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " y#offer\n#wipe\n_m,sn#turn\n#ride\nuy#force\n#tip\n\u001bH   n\u0018\u001b#sit\n ,"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed amulet of reflection\nPk\u0016?\n>w\u0006Fj FjFjFjFjFj_ \u001bm.qd_{.Fy _. Fk qd  __,Fn   \u001b_. Fl#chat\nu #pray\ny y      _ooooo,,:_ooooooo.,p_oo,,:_ooo.,p_oooooooo.,:_oooo.,$_{.Fl _. qd__. Fl _,    Fn         #chat\nn #pray\ny y  __.#chat\nn   n  n \u00164\n__,#chat\nh_ooooooo.,p_oooo,_o.,\u0017amulet of guarding\ndl_{.q_oooooo,,  np__,#chat\nl#pray\ny y  _oooooooo.,\u0017loadstone\ndm_oooooo.,#chat\nl _ooooooo,,\u0017amulet of guarding\n dn   n __.#chat\nl  n _oooo.,    n \u0014m. s  n 20s  n \u0016?\n>B  u kb\u0016?\n>w\u0006\u00163\n_oooooo.,$\u00167\nkjj  n \u0016?\n>w\u0006_ooooooooo,  nFh_,._o"
+ },
+ "segments": [
+  {
+   "seed": 50057010,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed amulet of reflection\nPk\u0016?\n>w\u0006Fj FjFjFjFjFj_ \u001bm.qd_{.Fy _. Fk qd  __,Fn   \u001b_. Fl#chat\nu #pray\ny y      _ooooo,,:_ooooooo.,p_oo,,:_ooo.,p_oooooooo.,:_oooo.,$_{.Fl _. qd__. Fl _,    Fn         #chat\nn #pray\ny y  __.#chat\nn   n  n \u00164\n__,#chat\nh_ooooooo.,p_oooo,_o.,\u0017amulet of guarding\ndl_{.q_oooooo,,  np__,#chat\nl#pray\ny y  _oooooooo.,\u0017loadstone\ndm_oooooo.,#chat\nl _ooooooo,,\u0017amulet of guarding\n dn   n __.#chat\nl  n _oooo.,    n \u0014m. s  n 20s  n \u0016?\n>B  u kb\u0016?\n>w\u0006\u00163\n_oooooo.,$\u00167\nkjj  n \u0016?\n>w\u0006_ooooooooo,  nFh_,._o"
+  }
+ ]
+}

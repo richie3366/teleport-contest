@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "FjFj Fn Fl FlFlFl20ssi\u001blljf  lkjy\u0018\u001bllni\u001b100s#name\no\n\u000f\u001b50s100sllli\u001b50sFh FhFhFhFyFyFyFy.50s150sybk150s,lnk\u000f\u001b\u0018\u001b100s#ride\n.100sFhFhFhFhFhs50sFhssjyb100skby\\ #name\no\nohr\u001b\u000f\u001bhlb100sFhFhFhFhs20s  FhFhFhFhFh20suhh#force\n50s100s\u000f\u001bE- I am a fish\nnknlkl50sFhFhFhFhFhFhFhFhstdh100s100s10sFhFhFhFhFhFbFjFhFhFhFhFhFhFhFh100s#pray\ny #pray\ny   #pray\ny   #pray\ny  FhFhFhFhFhFhFhFhs150s150s 100sFhFhFhhh#name\nf\n ,#chat\nhbyn  y\u001by  y y y\u001b  j"
+ },
+ "segments": [
+  {
+   "seed": 50050015,
+   "datetime": "20240802071914",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=fruit:durian\nOPTIONS=pettype:cat\n",
+   "moves": "FjFj Fn Fl FlFlFl20ssi\u001blljf  lkjy\u0018\u001bllni\u001b100s#name\no\n\u000f\u001b50s100sllli\u001b50sFh FhFhFhFyFyFyFy.50s150sybk150s,lnk\u000f\u001b\u0018\u001b100s#ride\n.100sFhFhFhFhFhs50sFhssjyb100skby\\ #name\no\nohr\u001b\u000f\u001bhlb100sFhFhFhFhs20s  FhFhFhFhFh20suhh#force\n50s100s\u000f\u001bE- I am a fish\nnknlkl50sFhFhFhFhFhFhFhFhstdh100s100s10sFhFhFhFhFhFbFjFhFhFhFhFhFhFhFh100s#pray\ny #pray\ny   #pray\ny   #pray\ny  FhFhFhFhFhFhFhFhs150s150s 100sFhFhFhhh#name\nf\n ,#chat\nhbyn  y\u001by  y y y\u001b  j"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWk\u0016?\n>w\u0006_ \u001b<._o.,\u0017cheap plastic imitation of the Amulet of Yendor\ndl_oooooo._o,,p_ooooo.,p_oo,_ooo,,\u0017worthless piece of red glass\ndm_oooooooo._o,,p_oooooo.,p_oooooooo,,#chat\nb_oo,_oo.,p_{,_,Fkqjjy#chat\njknh#chat\nn_{. _.FlqFl  FlFl FlFl  Fl_oooooo,,\u0014@.  .m.20s     _ooooooooo.Fl_.Fl,#chat\nl _{.Fj _,.FnqFb  FbFb FbFb Fb   n_ooooooo,Fu_.m.,#chat\nn_oooooo.,p_oo.,#chat\nn_oooooooo,,:_{,Fl_,<.FkqFkFk FkFkFkFk\u0016?\n>Bklh\u0016?\n>w\u0006__.Fl_..#chat\nn#pray\ny y  _oo.Fh  _.;.Fh,p_{.Fy_. Fyq_oooo,Fb_.    nFk   ,:_ooooooo.   n  Fh    n  _.    n  Fh      n     n,$\u00163\n_ooo.,#chat\nu _ooooooooo.Fu   n    n_.<.Fl,    n #chat\nu    n \u00161\n_{.    n Fy     n _,    n Fk    n q_{,    yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50057006,
+   "datetime": "20260525082303",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWk\u0016?\n>w\u0006_ \u001b<._o.,\u0017cheap plastic imitation of the Amulet of Yendor\ndl_oooooo._o,,p_ooooo.,p_oo,_ooo,,\u0017worthless piece of red glass\ndm_oooooooo._o,,p_oooooo.,p_oooooooo,,#chat\nb_oo,_oo.,p_{,_,Fkqjjy#chat\njknh#chat\nn_{. _.FlqFl  FlFl FlFl  Fl_oooooo,,\u0014@.  .m.20s     _ooooooooo.Fl_.Fl,#chat\nl _{.Fj _,.FnqFb  FbFb FbFb Fb   n_ooooooo,Fu_.m.,#chat\nn_oooooo.,p_oo.,#chat\nn_oooooooo,,:_{,Fl_,<.FkqFkFk FkFkFkFk\u0016?\n>Bklh\u0016?\n>w\u0006__.Fl_..#chat\nn#pray\ny y  _oo.Fh  _.;.Fh,p_{.Fy_. Fyq_oooo,Fb_.    nFk   ,:_ooooooo.   n  Fh    n  _.    n  Fh      n     n,$\u00163\n_ooo.,#chat\nu _ooooooooo.Fu   n    n_.<.Fl,    n #chat\nu    n \u00161\n_{.    n Fy     n _,    n Fk    n q_{,    yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

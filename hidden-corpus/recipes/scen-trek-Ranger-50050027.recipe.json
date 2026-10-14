@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "L BBB_ \u001b>.>FkFjFj;u:  \u000f\u001bBBKU_>,>FlFl.KKBN_>.>UHLH_>,>Fl s.YBHN_>.>wa#turn\n\u000f\u001bKKYK_>.>UHKH_>,>#ride\nn\u0018\u001bNN  KK_>.>FbFh20sUUYU_>.>JKBJ_>,>UKLU_>,>LYHN_>,>\u000f\u001bBLYU_>.>YNLK_>.>Fls20s20sa\u001bULBH_>,>s;_.egkkjujn#name\nd\n#name\no\ndb20s..#enhance\n\u001b#name\no\n20skub50s150sFlFl.150sbky100sFlFlFl100suuh50s100s150si\u001b\\ _>.>lnbkhlFl20s20s150s_>.>_>.>150s20sFls.100sFlss100s#offer\n100s100sFlFlFlFls20seh150s#loot\njll#enhance\n\u001b_>.>100snk#name\nm\n#name\n.#name\nm\nm,20stcujh#name\no\n20s20sukuh10slybj100sFyFyFyFy20sFlFlFlss_>.>\\ 50s100sFlFls100si\u001b100s50s50s100sFks20sq\u000f\u001b150sFuFlFuFuFus100shnb50s50s50shyb\u0004b150sFkss50s_>.>50s_>.>\u000f\u001b50sunyefynk150s#monster\n150s150sFu FkFk50s100sFlssbll_>.>\\  _>.>50s100sklnE- I am a fish\n150sFlFlFl_>,>_>.>byh_>.>_>.>_>.>\u000f\u001b50sulb\u000f\u001b\u000f\u001b#name\ni\nfbb_>.>150sFkFksuuluyj_>.>50s\u000f\u001b10suh#chat\nj#name\nf\n<.lntcbd$s..ef ef50sybl_>,>100s50sFlFlFl\u000f\u001bkbuFlFlFlbjbklhjnni\u001b50syyuhbuj"
+ },
+ "segments": [
+  {
+   "seed": 50050027,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "L BBB_ \u001b>.>FkFjFj;u:  \u000f\u001bBBKU_>,>FlFl.KKBN_>.>UHLH_>,>Fl s.YBHN_>.>wa#turn\n\u000f\u001bKKYK_>.>UHKH_>,>#ride\nn\u0018\u001bNN  KK_>.>FbFh20sUUYU_>.>JKBJ_>,>UKLU_>,>LYHN_>,>\u000f\u001bBLYU_>.>YNLK_>.>Fls20s20sa\u001bULBH_>,>s;_.egkkjujn#name\nd\n#name\no\ndb20s..#enhance\n\u001b#name\no\n20skub50s150sFlFl.150sbky100sFlFlFl100suuh50s100s150si\u001b\\ _>.>lnbkhlFl20s20s150s_>.>_>.>150s20sFls.100sFlss100s#offer\n100s100sFlFlFlFls20seh150s#loot\njll#enhance\n\u001b_>.>100snk#name\nm\n#name\n.#name\nm\nm,20stcujh#name\no\n20s20sukuh10slybj100sFyFyFyFy20sFlFlFlss_>.>\\ 50s100sFlFls100si\u001b100s50s50s100sFks20sq\u000f\u001b150sFuFlFuFuFus100shnb50s50s50shyb\u0004b150sFkss50s_>.>50s_>.>\u000f\u001b50sunyefynk150s#monster\n150s150sFu FkFk50s100sFlssbll_>.>\\  _>.>50s100sklnE- I am a fish\n150sFlFlFl_>,>_>.>byh_>.>_>.>_>.>\u000f\u001b50sulb\u000f\u001b\u000f\u001b#name\ni\nfbb_>.>150sFkFksuuluyj_>.>50s\u000f\u001b10suh#chat\nj#name\nf\n<.lntcbd$s..ef ef50sybl_>,>100s50sFlFlFl\u000f\u001bkbuFlFlFlbjbklhjnni\u001b50syyuhbuj"
+  }
+ ]
+}

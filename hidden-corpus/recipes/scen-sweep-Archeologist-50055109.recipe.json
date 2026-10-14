@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   hh\u0017wand of nothing\nEi Elbereth\n: \u0017wand of polymorph\nEj b\u0017magic marker\nEk X marks the spot\n\u0017diamond\nEl  Elbereth Elbereth\n: \u0017wand of stasis\nEmn\u0006#levelchange\n14\n \u0017gauntlets of dexterity\nWnsss\u0007vampire lord\nFnFnFnFnFb.m.sm.\u0007black pudding\nFjFn    Fn Fb  Fh     n Fn  Fn  .m.20s    n \u001612\n  \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo \u001b,_m,  Fl _,#chat\nl _ooooooooo._,m.,p_d. Fh   _.\u0004l   n __,Fy   _.,Fh     n#chat\nh   di    n _ddd.Fy   _,   n  Fy   \u0004j   n   20s   n ae     s\u00165\n\u001611\n\u0007giant beetle\n#chat\nkFj  Fk  n  \u0007acid blob\nFk    Fy   n   Fk   n   Fj    n Fb     \u0007water elemental\n.m.  n    20s  n  sm.    n sm.   yy  s"
+ },
+ "segments": [
+  {
+   "seed": 50055109,
+   "datetime": "20060830174238",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   hh\u0017wand of nothing\nEi Elbereth\n: \u0017wand of polymorph\nEj b\u0017magic marker\nEk X marks the spot\n\u0017diamond\nEl  Elbereth Elbereth\n: \u0017wand of stasis\nEmn\u0006#levelchange\n14\n \u0017gauntlets of dexterity\nWnsss\u0007vampire lord\nFnFnFnFnFb.m.sm.\u0007black pudding\nFjFn    Fn Fb  Fh     n Fn  Fn  .m.20s    n \u001612\n  \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo \u001b,_m,  Fl _,#chat\nl _ooooooooo._,m.,p_d. Fh   _.\u0004l   n __,Fy   _.,Fh     n#chat\nh   di    n _ddd.Fy   _,   n  Fy   \u0004j   n   20s   n ae     s\u00165\n\u001611\n\u0007giant beetle\n#chat\nkFj  Fk  n  \u0007acid blob\nFk    Fy   n   Fk   n   Fj    n Fb     \u0007water elemental\n.m.  n    20s  n  sm.    n sm.   yy  s"
+  }
+ ]
+}

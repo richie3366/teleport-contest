@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "O>>>>l\u001b\nO>>>c\u001b\n\u0007pony\n\u0017lichen corpse\ntdl  l  \u0017banana\ntdk \u0007gnome\n\u0017scroll of taming\nri #chat\ny\u0017tin whistle\nhjyajO>>>k\u001b\u001b\n\u0006_ \u001bm,>Fu  s_>.Fy_,@.Fh>_>._.>J10s\u0006_>.Fl_.Fl>_>.Fn_.Fn>_>._,>\u0006_>.Fl_,Fl>_>._,Fn>Fl20s_>._.Fl>\u0006_>.Fl_.>_>._,>_>._.>\u0006_>.Fl_.>_>._,Fn>Fl s_>._.>\u0006_>>._,>_>>._.>_>>._.>_>,.<\u000f\u001b\u0007tame little dog\n\u0007pony\n\u0017banana\ntdn \u0017lichen corpse\ntcl  \u0017leash\nakn uuynakn\u0017magic whistle\nl   n ljal  #chat\nnn\u0017carrot\ntdy O>>>k\u001b\u001b\n\u001612\n quWO>>>l\u001b\n\u00168\n\u0007tame kitten\n\u0007tame large dog\n\u0006_>.Fy   _,>_>.Fy_,m,Fk>FhFy_>.Fk_.;>. >\u0007sewer rat\n.m.s20s.ss\u0017leash\naojhhybaoy#name\nm\n#chat\n:\u0007giant rat\nsm. .m. 20s   .   s s\u0006_>>.  Fl _,  Fl >Fl Fh  _>>"
+ },
+ "segments": [
+  {
+   "seed": 50059001,
+   "datetime": "20200404172331",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=norep \"You miss\"\nMENUCOLOR=\"a scroll\"=magenta\nBIND=v:inventory\n",
+   "moves": "O>>>>l\u001b\nO>>>c\u001b\n\u0007pony\n\u0017lichen corpse\ntdl  l  \u0017banana\ntdk \u0007gnome\n\u0017scroll of taming\nri #chat\ny\u0017tin whistle\nhjyajO>>>k\u001b\u001b\n\u0006_ \u001bm,>Fu  s_>.Fy_,@.Fh>_>._.>J10s\u0006_>.Fl_.Fl>_>.Fn_.Fn>_>._,>\u0006_>.Fl_,Fl>_>._,Fn>Fl20s_>._.Fl>\u0006_>.Fl_.>_>._,>_>._.>\u0006_>.Fl_.>_>._,Fn>Fl s_>._.>\u0006_>>._,>_>>._.>_>>._.>_>,.<\u000f\u001b\u0007tame little dog\n\u0007pony\n\u0017banana\ntdn \u0017lichen corpse\ntcl  \u0017leash\nakn uuynakn\u0017magic whistle\nl   n ljal  #chat\nnn\u0017carrot\ntdy O>>>k\u001b\u001b\n\u001612\n quWO>>>l\u001b\n\u00168\n\u0007tame kitten\n\u0007tame large dog\n\u0006_>.Fy   _,>_>.Fy_,m,Fk>FhFy_>.Fk_.;>. >\u0007sewer rat\n.m.s20s.ss\u0017leash\naojhhybaoy#name\nm\n#chat\n:\u0007giant rat\nsm. .m. 20s   .   s s\u0006_>>.  Fl _,  Fl >Fl Fh  _>>"
+  }
+ ]
+}

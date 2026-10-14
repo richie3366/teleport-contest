@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       yjbk\u0017rolling boulder trap\nlh .m.20sj\u0017magic trap\nub sszckl#levelchange\n6\nlubh\u0017level teleporter\nn#untrap\nyy 9\n \u0017dart trap\nb\u0017rust trap\ny ^nn sm.stdkwb \\ \u0018\u001b\u0007tame pony\n\u0007yellow mold\n\u0017scroll of taming\nrg  \u001b#name\nf\n .\u0017huge chunk of meat\ntcu  \u0017magic whistle\nj l  u ai #chat\nk\u001621\n#levelchange\n20\n            \u0017blessed ring of polymorph control\nPjl#polyself\nrope golem\n  #monster\nss  \u0007vampire bat\nFl   Fl  Fl 20s  20s sm. #polyself\ngnome\n #monster\n20s       n20s  sm.  sm. 20s  #polyself\number hulk\n #monster\n      20s   sm. \u0007prisoner\nFl  Fj  n Fl   .m.   .m.  .n \u0018\u001b\u00168\nhk\u0017wand of undead turning\nEk ad aerarium\nj\u0017wand of stasis\nEl X marks the spot\n: \u0017wand of sleep\nEmn  Vlad was here\n\u0017wand of secret door detection\nEn y I am a fish\n: l\u0017wand of teleportation\nEo Elbereth\n: b\u001622\n\u0017wand of digging\nzpyy\u0006_oooo,zp> h yzpyyy\u0017grave\nzp>   sm.20s j j \\  \u0017the Platinum Yendorian Express Card\n  n   \u0017wand of opening\nzq.zql \u0017cursed wand of secret door detection\nzr zr    Fl   Fl  \u0017blessed ring of protection from shape changers\n\u0007black dragon\nPs sm.  n    .m.   sm.    n    n Rs  Fk n Fk n   \u0017cursed tin opener\natsm.sm. \u00163\n#levelchange\n20\n\u00173 scroll of teleportation\nru @.ss\u0017potion of restore ability\n\u0007newt\nqv \u001b#dip\nk\u0017amulet of life saving\n\u0007pony\nPwsm. .m.sm. 20s FkFh\u0017dilithium crystal\ntchsm.   20s#wizintrinsic\nmh\n  \u0017blindfold\nay \u0017blessed scroll of teleportation\nrzbhy\u0017potion of polymorph\nqA green slime\n    s  20ssm.\u001624\n\u0017Vorpal Blade\nwB"
+ },
+ "segments": [
+  {
+   "seed": 50055037,
+   "datetime": "20211025151032",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=fruit:durian\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       yjbk\u0017rolling boulder trap\nlh .m.20sj\u0017magic trap\nub sszckl#levelchange\n6\nlubh\u0017level teleporter\nn#untrap\nyy 9\n \u0017dart trap\nb\u0017rust trap\ny ^nn sm.stdkwb \\ \u0018\u001b\u0007tame pony\n\u0007yellow mold\n\u0017scroll of taming\nrg  \u001b#name\nf\n .\u0017huge chunk of meat\ntcu  \u0017magic whistle\nj l  u ai #chat\nk\u001621\n#levelchange\n20\n            \u0017blessed ring of polymorph control\nPjl#polyself\nrope golem\n  #monster\nss  \u0007vampire bat\nFl   Fl  Fl 20s  20s sm. #polyself\ngnome\n #monster\n20s       n20s  sm.  sm. 20s  #polyself\number hulk\n #monster\n      20s   sm. \u0007prisoner\nFl  Fj  n Fl   .m.   .m.  .n \u0018\u001b\u00168\nhk\u0017wand of undead turning\nEk ad aerarium\nj\u0017wand of stasis\nEl X marks the spot\n: \u0017wand of sleep\nEmn  Vlad was here\n\u0017wand of secret door detection\nEn y I am a fish\n: l\u0017wand of teleportation\nEo Elbereth\n: b\u001622\n\u0017wand of digging\nzpyy\u0006_oooo,zp> h yzpyyy\u0017grave\nzp>   sm.20s j j \\  \u0017the Platinum Yendorian Express Card\n  n   \u0017wand of opening\nzq.zql \u0017cursed wand of secret door detection\nzr zr    Fl   Fl  \u0017blessed ring of protection from shape changers\n\u0007black dragon\nPs sm.  n    .m.   sm.    n    n Rs  Fk n Fk n   \u0017cursed tin opener\natsm.sm. \u00163\n#levelchange\n20\n\u00173 scroll of teleportation\nru @.ss\u0017potion of restore ability\n\u0007newt\nqv \u001b#dip\nk\u0017amulet of life saving\n\u0007pony\nPwsm. .m.sm. 20s FkFh\u0017dilithium crystal\ntchsm.   20s#wizintrinsic\nmh\n  \u0017blindfold\nay \u0017blessed scroll of teleportation\nrzbhy\u0017potion of polymorph\nqA green slime\n    s  20ssm.\u001624\n\u0017Vorpal Blade\nwB"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u0017wand of digging\n\u0016?\nezf> sbkzfkkjl_ \u001b:zf>    hl#wizintrinsic\nbil\n  sm..m.sbs.m..sm.20ssm..bsu 20s  \u0017lenses\nag   n#twoweapon\n#turn\n\u000f\u001b#name\nd\n<;_.sss20ss.#levelchange\n20\n            \u0017spear\nwhsssX\u0007Croesus\ny;k.sm.20s  20s \u0007Angel\nnFu Fu  Fk   nFk \u0007balrog\nsy  sm.   n.k    20s    \u0007air elemental\n20s   n sm.  s . 20s  s      n sm. sm.  s \u00169\n#levelchange\n14\n  \u0017crossbow\nwi    n \u001715 crossbow bolts\nQj\u0007grid bug\nk fh fh     fb   fh fy  n Fb   nFb\u0007sewer rat\njfh  n fy   nfkfh\u0017potion of restore ability\ntjk  n byl,#enhance\nn\u001b\u00166\ni\u001bwc20s  n FjFjwjFhFhFk  @.wdFb  <.Fk  n Fb  >.XwhFh  m.Fb Fh  m,qk  n  <. #dip\niW20s 20s 20s   m,;k:cl#force\nyW#turn\n\u0018\u001bag  n  ; i\u001bwdFn Fn  <.Fj wjFn  :FlFj W\u001bss .20sT .    >. whFk  m.Fl  ;Fk  ,XwcFn  :Fn  @.Fn  @.ag  ,i\u001b\u0006_>,Fn ._.> \u0006_>>._,>_>>,_.>_>>._.>\u0006_>>._,>_>>,_.>_>>,_,>,#monster\n\u000f\u001b\u0006\u00175 boomerangs\nQl\u0007soldier\nuhflfuFlFl\u0007acid blob\nh  yny   y ny\u001b  f"
+ },
+ "segments": [
+  {
+   "seed": 50055051,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u0017wand of digging\n\u0016?\nezf> sbkzfkkjl_ \u001b:zf>    hl#wizintrinsic\nbil\n  sm..m.sbs.m..sm.20ssm..bsu 20s  \u0017lenses\nag   n#twoweapon\n#turn\n\u000f\u001b#name\nd\n<;_.sss20ss.#levelchange\n20\n            \u0017spear\nwhsssX\u0007Croesus\ny;k.sm.20s  20s \u0007Angel\nnFu Fu  Fk   nFk \u0007balrog\nsy  sm.   n.k    20s    \u0007air elemental\n20s   n sm.  s . 20s  s      n sm. sm.  s \u00169\n#levelchange\n14\n  \u0017crossbow\nwi    n \u001715 crossbow bolts\nQj\u0007grid bug\nk fh fh     fb   fh fy  n Fb   nFb\u0007sewer rat\njfh  n fy   nfkfh\u0017potion of restore ability\ntjk  n byl,#enhance\nn\u001b\u00166\ni\u001bwc20s  n FjFjwjFhFhFk  @.wdFb  <.Fk  n Fb  >.XwhFh  m.Fb Fh  m,qk  n  <. #dip\niW20s 20s 20s   m,;k:cl#force\nyW#turn\n\u0018\u001bag  n  ; i\u001bwdFn Fn  <.Fj wjFn  :FlFj W\u001bss .20sT .    >. whFk  m.Fl  ;Fk  ,XwcFn  :Fn  @.Fn  @.ag  ,i\u001b\u0006_>,Fn ._.> \u0006_>>._,>_>>,_.>_>>._.>\u0006_>>._,>_>>,_.>_>>,_,>,#monster\n\u000f\u001b\u0006\u00175 boomerangs\nQl\u0007soldier\nuhflfuFlFl\u0007acid blob\nh  yny   y ny\u001b  f"
+  }
+ ]
+}

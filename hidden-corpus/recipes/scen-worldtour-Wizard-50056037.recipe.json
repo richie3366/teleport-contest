@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u00166\nbjnyku:\u001627\n   njyu   l l:\u001626\nkun:\u00166\n#chat\nb;<. \u001bm,\u001629\n   \u0006_<.  Fl  _.    Fl  \u0016?\nc#levelchange\n20\n      \u0017Sting\nwo 20ss.#invoke\no\u0007bugbear\nsssm.sbss\u0007ettin\nsy.m. .k   n .m. 20s sm. sl\u0007Juiblex\nyFh   n Fy  Fk    Fk   n   Fb  sns\u00167\n\u0016?\naul:\u001622\nbnk:\u001644\n   _<.Fb   _,Fj   \u001640\n \u0006_>,     Fh    n _.   Fh\u0016?\ni \u0017crossbow\nwp\u001715 crossbow bolts\nQq\u00073 jackal\nlbfl fl  \u0017potion of confusion\ntoh \u0017bardiche\nws \u0007yellow mold\nbas:x#twoweapon\nFl   Fl l kn ,#enhance\nyc\no\n\u001b\u0016?\n>C\u0004hss\u0016?\n>>L      scroll of amnesia\n\u0014 nn    20s     n \u0016?\n\u001bu     \u001b u\u0016?\na   \u0017cursed large box\n avav#tip\nv\u001b         n               Fj         \u001b        Fh      n            \u0017uncursed potion of see invisible\n\u0007giant eel\nqw \u001b                             \u0017uncursed +0 two-handed sword\n \u0007grey-elf\nwxFb           n         Fn                 n                        Fk    n                               n                X\u0017war hammer\n\u0007vampire"
+ },
+ "segments": [
+  {
+   "seed": 50056037,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n14\n             \u00166\nbjnyku:\u001627\n   njyu   l l:\u001626\nkun:\u00166\n#chat\nb;<. \u001bm,\u001629\n   \u0006_<.  Fl  _.    Fl  \u0016?\nc#levelchange\n20\n      \u0017Sting\nwo 20ss.#invoke\no\u0007bugbear\nsssm.sbss\u0007ettin\nsy.m. .k   n .m. 20s sm. sl\u0007Juiblex\nyFh   n Fy  Fk    Fk   n   Fb  sns\u00167\n\u0016?\naul:\u001622\nbnk:\u001644\n   _<.Fb   _,Fj   \u001640\n \u0006_>,     Fh    n _.   Fh\u0016?\ni \u0017crossbow\nwp\u001715 crossbow bolts\nQq\u00073 jackal\nlbfl fl  \u0017potion of confusion\ntoh \u0017bardiche\nws \u0007yellow mold\nbas:x#twoweapon\nFl   Fl l kn ,#enhance\nyc\no\n\u001b\u0016?\n>C\u0004hss\u0016?\n>>L      scroll of amnesia\n\u0014 nn    20s     n \u0016?\n\u001bu     \u001b u\u0016?\na   \u0017cursed large box\n avav#tip\nv\u001b         n               Fj         \u001b        Fh      n            \u0017uncursed potion of see invisible\n\u0007giant eel\nqw \u001b                             \u0017uncursed +0 two-handed sword\n \u0007grey-elf\nwxFb           n         Fn                 n                        Fk    n                               n                X\u0017war hammer\n\u0007vampire"
+  }
+ ]
+}

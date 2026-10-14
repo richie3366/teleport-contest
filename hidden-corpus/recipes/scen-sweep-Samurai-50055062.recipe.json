@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      #levelchange\n20\n            \u0007black pudding\nFn Fl    Fn  sbs\u0007cobra\nFl Fk  Fn  FkFl    Fl20s20s   n\u00162\n\u0006i\u001bwb ..swdyssswc..swa .s20sX#rub\nf  yaskdd<Z#levelchange\n30\n         \u0007kraken\n;_. \u001bm,s..\u0007human mummy\nFbFb Fb Fb\u0007djinni\nFb FhFh Fh #levelchange\n8\n       \u0007Wizard of Yendor\nysm.  n .m.  sj20s  sm.20s   n    \u0007tengu\nFk     n Fy  Fy     n   \u00163\n#levelchange\n10\n \u0007dust vortex\nFk #pray\ny y                    Fh   FlsjFh FjFj#pray\ny y s Fn  Fu  i\u001b#wizintrinsic\nedf\n  20s sm.s.m.sk20s    n sm. 20s .m.sm.s.m.sm.s\u0017magic flute\nagagoh#conduct\n #ride\nky#enhance\nya\nl\n\u001b#monster\n\u000f\u001b.m.    n 20s 20s  sm..y sm.\u001610\n#wizintrinsic\nh\n \u0017potion of full healing\nq\u001b#dip\nhh\u0017wand of polymorph\nzi.\u0017cursed scroll of enchant armor\nrj\u0017cursed wand of teleportation\nzkh.m.20s .m.  n #wizintrinsic\ne\n sh   n sm.20s susl  n 20s  .m.   nsn  .m.  n sm.  20s     n 20s 20s   n nsm. f ay k \u0004k    >u    yy\u001by  y ny\u001by  Z"
+ },
+ "segments": [
+  {
+   "seed": 50055062,
+   "datetime": "20010910210629",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      #levelchange\n20\n            \u0007black pudding\nFn Fl    Fn  sbs\u0007cobra\nFl Fk  Fn  FkFl    Fl20s20s   n\u00162\n\u0006i\u001bwb ..swdyssswc..swa .s20sX#rub\nf  yaskdd<Z#levelchange\n30\n         \u0007kraken\n;_. \u001bm,s..\u0007human mummy\nFbFb Fb Fb\u0007djinni\nFb FhFh Fh #levelchange\n8\n       \u0007Wizard of Yendor\nysm.  n .m.  sj20s  sm.20s   n    \u0007tengu\nFk     n Fy  Fy     n   \u00163\n#levelchange\n10\n \u0007dust vortex\nFk #pray\ny y                    Fh   FlsjFh FjFj#pray\ny y s Fn  Fu  i\u001b#wizintrinsic\nedf\n  20s sm.s.m.sk20s    n sm. 20s .m.sm.s.m.sm.s\u0017magic flute\nagagoh#conduct\n #ride\nky#enhance\nya\nl\n\u001b#monster\n\u000f\u001b.m.    n 20s 20s  sm..y sm.\u001610\n#wizintrinsic\nh\n \u0017potion of full healing\nq\u001b#dip\nhh\u0017wand of polymorph\nzi.\u0017cursed scroll of enchant armor\nrj\u0017cursed wand of teleportation\nzkh.m.20s .m.  n #wizintrinsic\ne\n sh   n sm.20s susl  n 20s  .m.   nsn  .m.  n sm.  20s     n 20s 20s   n nsm. f ay k \u0004k    >u    yy\u001by  y ny\u001by  Z"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "jjlk\u0017throne\n#sit\n#sit\n#sit\nul\u0017melting ice\nnynyl \u0017magic fountain\nqy qy#dip\nhy#terrain\nb\n\u001b@.#turn\n#pray\ny y ,\u00162\nFy s20s150su50ss50sFl20s.150sbkl_>.>nhkFl.20sFlss\u0018\u001b\\  100syun150sFh..kjy\u000f\u001bljl100s50s_>,>100s100sFl20ss50slkl150s100s100sFh..50s100s50sFlsslhb50sO>>l\u001b\nkjk100s_>.>kjj100s_m.sm.Fl.Fl#turn\n100s_>,>Fuss150sey 100sFuFuFulyb100s\u000f\u001bWyhy50seeFn20s.ai _>,>ujy100sFn.20sjlb100s150sFl.20s100sukjylj50sFn.ss_>.>100s\u0006_>._.> #invoke\n\u001b\u0014m.< \u0006_>,> \u0006_>>._.> \u0006_>, _..Fk  >_>,_,> Fb Fb Fy\u0006_>>._.> Fb..\u0006_>.  _.m,Fu>Fus_>, _. Fh >Fh._>.  Fh _,> \u0006_>.Fy_, Fh>FhFh_>.Fj_,Fh>FhFj _>,Fh_,m,Fh>FjFjFjFjFj\u0007tame"
+ },
+ "segments": [
+  {
+   "seed": 50059012,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "jjlk\u0017throne\n#sit\n#sit\n#sit\nul\u0017melting ice\nnynyl \u0017magic fountain\nqy qy#dip\nhy#terrain\nb\n\u001b@.#turn\n#pray\ny y ,\u00162\nFy s20s150su50ss50sFl20s.150sbkl_>.>nhkFl.20sFlss\u0018\u001b\\  100syun150sFh..kjy\u000f\u001bljl100s50s_>,>100s100sFl20ss50slkl150s100s100sFh..50s100s50sFlsslhb50sO>>l\u001b\nkjk100s_>.>kjj100s_m.sm.Fl.Fl#turn\n100s_>,>Fuss150sey 100sFuFuFulyb100s\u000f\u001bWyhy50seeFn20s.ai _>,>ujy100sFn.20sjlb100s150sFl.20s100sukjylj50sFn.ss_>.>100s\u0006_>._.> #invoke\n\u001b\u0014m.< \u0006_>,> \u0006_>>._.> \u0006_>, _..Fk  >_>,_,> Fb Fb Fy\u0006_>>._.> Fb..\u0006_>.  _.m,Fu>Fus_>, _. Fh >Fh._>.  Fh _,> \u0006_>.Fy_, Fh>FhFh_>.Fj_,Fh>FhFj _>,Fh_,m,Fh>FjFjFjFjFj\u0007tame"
+  }
+ ]
+}

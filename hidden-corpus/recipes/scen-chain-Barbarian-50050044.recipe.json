@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Fu FuFuFuFuFuFuFunhuytbh10s10sdes.sn10sFhFhFhFhFhFhFhFhi\u001bi\u001b50s100sFj.s100s\u000f\u001bbujFjss_ \u001b@.>150s_>.>150s150sFjFjs100skkjFj.s_>,>50s50s100sFj.sFjs.150s\u0018\u001b50sFjFjFjkkh100s#turn\n_>.>100sFj..100sFn..100sFjs.50s\\   #dip\na50s50s100si\u001b;.nyh50sFjFjslljjbujkk50s100s150sFj20ss100sed_>.>150sjbu50sFjss150s100sFj20s20s150sFj20ss100s_>.>\u000f\u001b\u0018\u001b_>,>100s50sFjFjsi\u001bkuh150slbj#chat\nk#chat\nj10s#chat\njjt\u001bt\u001b#chat\nj20sda.s#quit\nyy\u001by  y y y\u001b  #wizintrinsic\nb\n shs20ssm.20s  20s  ynny y\u001by  syy#wizintrinsic\nb\n 20ssm.20ssm.  ynny y\u001bn  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50050044,
+   "datetime": "20021223165130",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pettype:horse\n",
+   "moves": "Fu FuFuFuFuFuFuFunhuytbh10s10sdes.sn10sFhFhFhFhFhFhFhFhi\u001bi\u001b50s100sFj.s100s\u000f\u001bbujFjss_ \u001b@.>150s_>.>150s150sFjFjs100skkjFj.s_>,>50s50s100sFj.sFjs.150s\u0018\u001b50sFjFjFjkkh100s#turn\n_>.>100sFj..100sFn..100sFjs.50s\\   #dip\na50s50s100si\u001b;.nyh50sFjFjslljjbujkk50s100s150sFj20ss100sed_>.>150sjbu50sFjss150s100sFj20s20s150sFj20ss100s_>.>\u000f\u001b\u0018\u001b_>,>100s50sFjFjsi\u001bkuh150slbj#chat\nk#chat\nj10s#chat\njjt\u001bt\u001b#chat\nj20sda.s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50150044,
+   "datetime": "20080222013346",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nb\n shs20ssm.20s  20s  ynny y\u001by  s"
+  },
+  {
+   "seed": 50250044,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=sortloot:full\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "yy#wizintrinsic\nb\n 20ssm.20ssm.  ynny y\u001bn  s"
+  }
+ ]
+}

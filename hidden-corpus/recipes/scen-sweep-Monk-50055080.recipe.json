@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                                \u0017blessed ring of polymorph control\nPkl\u0017cloak of displacement\nW\u001b\u001bs 20ssyTb#polyself\ncouatl\n#monster\n20s20ssm..m..#polyself\nvampire bat\n 20s20ssm.s.m.\u0017amulet of unchanging\nPmsm..m.sm..m.\u0017uncursed +0 ring of slow digestion\n\u0007baluchitherium\nPn.k20s n  sm. n \u00173 bell\naa\u0017scroll of scare monster\n\u0007baby long worm\nr\u0017dwarvish mattock\n\u0007violet fungus\nwFn  n Fh  n Fh  n \u0017uncursed 15 crossbow bolts\nQqfff\u0017cursed lump of royal jelly\n\u0007gelatinous cube\nes20s sm.20s n  sj   n \u0018\u001b\u00161\n\u0007tame red dragon\n\u0017saddle\na\u0017lance\nw#ride\nly\u0007horse\n\u0017scroll of taming\nr\u0017saddle\na#ride\nny\u0007tame saddled warhorse\n#ride\njy\u0007newt\nFh  n Fb    n Fj      n  n     n   u      n    k       n  \u0004 sm. 20s            n    #ride\nhy.m. n  yy\u001by   y y y\u001bn  #"
+ },
+ "segments": [
+  {
+   "seed": 50055080,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=runmode:crawl\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                                \u0017blessed ring of polymorph control\nPkl\u0017cloak of displacement\nW\u001b\u001bs 20ssyTb#polyself\ncouatl\n#monster\n20s20ssm..m..#polyself\nvampire bat\n 20s20ssm.s.m.\u0017amulet of unchanging\nPmsm..m.sm..m.\u0017uncursed +0 ring of slow digestion\n\u0007baluchitherium\nPn.k20s n  sm. n \u00173 bell\naa\u0017scroll of scare monster\n\u0007baby long worm\nr\u0017dwarvish mattock\n\u0007violet fungus\nwFn  n Fh  n Fh  n \u0017uncursed 15 crossbow bolts\nQqfff\u0017cursed lump of royal jelly\n\u0007gelatinous cube\nes20s sm.20s n  sj   n \u0018\u001b\u00161\n\u0007tame red dragon\n\u0017saddle\na\u0017lance\nw#ride\nly\u0007horse\n\u0017scroll of taming\nr\u0017saddle\na#ride\nny\u0007tame saddled warhorse\n#ride\njy\u0007newt\nFh  n Fb    n Fj      n  n     n   u      n    k       n  \u0004 sm. 20s            n    #ride\nhy.m. n  yy\u001by   y y y\u001bn  #"
+  }
+ ]
+}

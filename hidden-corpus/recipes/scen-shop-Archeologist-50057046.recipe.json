@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPk\u0016?\n>w\u0006_ \u001bm,,p_ooooooooo,,:__._.   #chat\nkylb#chat\nu_{.Fn  _. Fh     q__. Fh  _. Fn  #chat\nh#pray\ny y     _oooooooo._oo.,pFn Fn Fn Fn Fn Fn Fn Fn Fn  Fn  Fn  Fn __._.Fh        n #chat\nh   n #pray\ny y   \u00163\n  _ooo.,p_ooooooo.,: _ooooo.,$__.#chat\ny_oooooooo.,: \u00167\nlhl\u0016?\n \u0006_oo.,$hlh#chat\nl_ooooo,,$\u0016?\ncubu\u0016?\n>w\u0006__.  _, Fk   n  n#chat\ny   n \u00163\ny  nl\u0016?\n>w\u0006\u00169\n_oooooo,,p_ooo.,#chat\nu_ooooooooo.,plhl#chat\ny_oooooo.,\u0014@.s.huh#chat\nl\u00163\nl hl \u0016?\n>w\u0006_oooooo.,p_{,_,qy_ooooooooo. Fb _. Fj _oo.,pFj   nFj  Fj FjFjFj_oo._oo.,p__._. Fh#chat\nh#pray\ny y  \u00163\nlhl\u0016?\n>w\u0006_oooooooo.,p_oooooo,,$__,  Fh_.  nFy  n#chat"
+ },
+ "segments": [
+  {
+   "seed": 50057046,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPk\u0016?\n>w\u0006_ \u001bm,,p_ooooooooo,,:__._.   #chat\nkylb#chat\nu_{.Fn  _. Fh     q__. Fh  _. Fn  #chat\nh#pray\ny y     _oooooooo._oo.,pFn Fn Fn Fn Fn Fn Fn Fn Fn  Fn  Fn  Fn __._.Fh        n #chat\nh   n #pray\ny y   \u00163\n  _ooo.,p_ooooooo.,: _ooooo.,$__.#chat\ny_oooooooo.,: \u00167\nlhl\u0016?\n \u0006_oo.,$hlh#chat\nl_ooooo,,$\u0016?\ncubu\u0016?\n>w\u0006__.  _, Fk   n  n#chat\ny   n \u00163\ny  nl\u0016?\n>w\u0006\u00169\n_oooooo,,p_ooo.,#chat\nu_ooooooooo.,plhl#chat\ny_oooooo.,\u0014@.s.huh#chat\nl\u00163\nl hl \u0016?\n>w\u0006_oooooo.,p_{,_,qy_ooooooooo. Fb _. Fj _oo.,pFj   nFj  Fj FjFjFj_oo._oo.,p__._. Fh#chat\nh#pray\ny y  \u00163\nlhl\u0016?\n>w\u0006_oooooooo.,p_oooooo,,$__,  Fh_.  nFy  n#chat"
+  }
+ ]
+}

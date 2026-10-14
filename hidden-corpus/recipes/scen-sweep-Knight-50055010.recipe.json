@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n10\n    \u0016?\nj\u0006\u0017wooden harp\naineABEDsEFABDoFECDosGDBFBnDEtBoeGEsEonDDEGCBA\nhuainAsFFsFttBBoBDeBAenEBFFDntsAostEGnoCttGBACFD\n b  \u001bl\u0017wand of striking\nzjk  n   n Weg Z\u001627\n\u00166\n#levelchange\n14\n   \u0017sling\nwl\u001720 flint stones\n Qm\u0007hill orc\ny  n               fh  fhfbfhFbFh \u00073 troll\nlufb  n  fb fb \u0017potion of speed\ntmb x   n #twoweapon\nFb Fb jll,#enhance\nya\na\n\u001b\u00164\n\u0007master mind flayer\nsm.20s      n       sm.          sm.20s      \u0007brown pudding\nFy          Fy          Fk  n   n Fk           \u0007baluchitherium\nFh           Fh          Fy      Fy     n  \u0007Juiblex\nyy      n             ;k, \u001b<.sm.           sm.20s          \u00165\n#wizintrinsic\nj\n E- I am a fish\n\u0017blessed wand of probing\nzol zol \u0017cursed wand of fire\nzplZ\u0017scroll of fire\nrq  \u001bss.#levelchange\n20\n     \u0017spellbook of cancellation\nrr   \u001b    n .m.sm.ZZFyFy\u0017cursed bugle\nasy asy\u0017cursed potion of hallucination\n\u0007acid blob\nqt#dip\nfFy  Fy.20s#levelchange\n14\n  \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqu>._mmmm.Fl  _. Fu  #chat\nl_oo._,,:_ooooooo,_,,#chat\nh_ooooooooo,_,@.,p<\\    oj\u000f\u001bi\u001bamd#force\n\u0004kW,L>\u000f\u001b#twoweapon\ni\u001bam$\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqv>._ooooooo,Fh _. Fh   _o, Fh _..Fy   ,dg    n  _oooo.    Fy    n  _.   Fj   n    _o.   Fy   n    _.    Fh   n      ,    yy\u001by  y y y\u001by  :"
+ },
+ "segments": [
+  {
+   "seed": 50055010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n10\n    \u0016?\nj\u0006\u0017wooden harp\naineABEDsEFABDoFECDosGDBFBnDEtBoeGEsEonDDEGCBA\nhuainAsFFsFttBBoBDeBAenEBFFDntsAostEGnoCttGBACFD\n b  \u001bl\u0017wand of striking\nzjk  n   n Weg Z\u001627\n\u00166\n#levelchange\n14\n   \u0017sling\nwl\u001720 flint stones\n Qm\u0007hill orc\ny  n               fh  fhfbfhFbFh \u00073 troll\nlufb  n  fb fb \u0017potion of speed\ntmb x   n #twoweapon\nFb Fb jll,#enhance\nya\na\n\u001b\u00164\n\u0007master mind flayer\nsm.20s      n       sm.          sm.20s      \u0007brown pudding\nFy          Fy          Fk  n   n Fk           \u0007baluchitherium\nFh           Fh          Fy      Fy     n  \u0007Juiblex\nyy      n             ;k, \u001b<.sm.           sm.20s          \u00165\n#wizintrinsic\nj\n E- I am a fish\n\u0017blessed wand of probing\nzol zol \u0017cursed wand of fire\nzplZ\u0017scroll of fire\nrq  \u001bss.#levelchange\n20\n     \u0017spellbook of cancellation\nrr   \u001b    n .m.sm.ZZFyFy\u0017cursed bugle\nasy asy\u0017cursed potion of hallucination\n\u0007acid blob\nqt#dip\nfFy  Fy.20s#levelchange\n14\n  \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqu>._mmmm.Fl  _. Fu  #chat\nl_oo._,,:_ooooooo,_,,#chat\nh_ooooooooo,_,@.,p<\\    oj\u000f\u001bi\u001bamd#force\n\u0004kW,L>\u000f\u001b#twoweapon\ni\u001bam$\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqv>._ooooooo,Fh _. Fh   _o, Fh _..Fy   ,dg    n  _oooo.    Fy    n  _.   Fj   n    _o.   Fy   n    _.    Fh   n      ,    yy\u001by  y y y\u001by  :"
+  }
+ ]
+}

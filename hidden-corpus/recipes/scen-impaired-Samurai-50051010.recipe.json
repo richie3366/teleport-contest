@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nfh\n \u0017blessed scroll of food detection\nrf \u0017cursed scroll of taming\nrg \u0017scroll of scare monster\nrh  sb20ss#wizintrinsic\ni\n \u0017blessed scroll of punishment\nri\u0017cursed wand of magic missile\nzjuE- X marks the spot\n\u0017blessed scroll of food detection\nrk;m, \u001bm.ss."
+ },
+ "segments": [
+  {
+   "seed": 50051010,
+   "datetime": "20150705074851",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nfh\n \u0017blessed scroll of food detection\nrf \u0017cursed scroll of taming\nrg \u0017scroll of scare monster\nrh  sb20ss#wizintrinsic\ni\n \u0017blessed scroll of punishment\nri\u0017cursed wand of magic missile\nzjuE- X marks the spot\n\u0017blessed scroll of food detection\nrk;m, \u001bm.ss."
+  }
+ ]
+}

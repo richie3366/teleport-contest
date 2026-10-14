@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 speed boots\nWg\u0017blessed ring of free action\nPhl\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\n>Cbuyk:\u0016?\n>t#levelchange\n30\n\u0017frost horn\najy bajy h   FlFl \u0017scroll of earth\n\u0007red dragon\nrk \u0017blessed statue of a newt\nsuFnFn \u00173 wand of striking\nzmn   zmlFnFn\u0017potion of see invisible\n\u0007killer bee\nqn \u001b sm.  20s\u001640\n#levelchange\n8\n       \u0017trident\nwo.Fb  n Fb\u0007xan\nsm..m. 20s sh20s \u0007rothe\n#chat\ny FlFl\u001630\n\u0017blessed spellbook of identify\nrp sm.\u0017blessed spellbook of light\nrq   n sm.  \u0017spellbook of fireball\n rr   n  sm.  n   n    n+Z\u0007acid blob\nZ\u0007zombie\nZFn    n ZZ#turn\n#pray\ny y   n    #enhance\nyj\nh\n\u001b\u001611\n\u001622\nnyny  n: \u0016?\ni #levelchange\n30\n                       \u0017cloak of invisibility\nWsss20s\u0017blessed wand of secret door detection\nzt\u0017potion of restore ability\n\u0007baby red dragon\nqu#dip\ndd\u0017blessed wand of sleep\nzvj zvj\u0017heavy iron ball\n \u0007Famine\nyyswb\u0017cursed scroll of enchant armor\nrxs.\u0016?\n>D_ \u001b@.<\u0016?\ncbu   n :  \u0016?\n>G\u0006_>.  n  Fh   n _.   n Fhs  n s   n \u0016?\n>>N     potion of full healing\n#levelchange\n30\n\u0017Vorpal Blade\nwA Fn  n "
+ },
+ "segments": [
+  {
+   "seed": 50056017,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 speed boots\nWg\u0017blessed ring of free action\nPhl\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\n>Cbuyk:\u0016?\n>t#levelchange\n30\n\u0017frost horn\najy bajy h   FlFl \u0017scroll of earth\n\u0007red dragon\nrk \u0017blessed statue of a newt\nsuFnFn \u00173 wand of striking\nzmn   zmlFnFn\u0017potion of see invisible\n\u0007killer bee\nqn \u001b sm.  20s\u001640\n#levelchange\n8\n       \u0017trident\nwo.Fb  n Fb\u0007xan\nsm..m. 20s sh20s \u0007rothe\n#chat\ny FlFl\u001630\n\u0017blessed spellbook of identify\nrp sm.\u0017blessed spellbook of light\nrq   n sm.  \u0017spellbook of fireball\n rr   n  sm.  n   n    n+Z\u0007acid blob\nZ\u0007zombie\nZFn    n ZZ#turn\n#pray\ny y   n    #enhance\nyj\nh\n\u001b\u001611\n\u001622\nnyny  n: \u0016?\ni #levelchange\n30\n                       \u0017cloak of invisibility\nWsss20s\u0017blessed wand of secret door detection\nzt\u0017potion of restore ability\n\u0007baby red dragon\nqu#dip\ndd\u0017blessed wand of sleep\nzvj zvj\u0017heavy iron ball\n \u0007Famine\nyyswb\u0017cursed scroll of enchant armor\nrxs.\u0016?\n>D_ \u001b@.<\u0016?\ncbu   n :  \u0016?\n>G\u0006_>.  n  Fh   n _.   n Fhs  n s   n \u0016?\n>>N     potion of full healing\n#levelchange\n30\n\u0017Vorpal Blade\nwA Fn  n "
+  }
+ ]
+}

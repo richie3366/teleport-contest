@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u0017blessed +3 lance\nwoFkFlFl \u0017blessed Snickersnee\n wps.s#invoke\npX\u0017uncursed potion of extra healing\nqqs20s\u0017uncursed scroll of taming\nrr \u001b\u00173 glob of green slime\n\u0007black light\nes    sm..m.\u0017scroll of food detection\nrt  \u001b:20s      n 20s#levelchange\n8\n\u0007Nazgul\n#chat\nFk Fu  \u0007aligned cleric\nyFl Fl          n   \u0007kobold shaman\nFk       n Fl    n   \u0007wumpus\nsh20s    n   20s    n    20s   n       n   \u0018\u001b\u001611\ni\u001bwo Fj  Fj Fj rk  rm yy sn sjZa\nZa\n  nri  rj @.qh   dc al   n  n#dip\nng  n  nZb\n__,20s ,  n  n#invoke\n\u001bzc  n#levelchange\n30\n                             \u0017blessed spellbook of finger of death\nru .m.\u0017spellbook of cause fear\nrv 20s \u0017blessed spellbook of turn undead\nrw 20s +\u001b\u0007sewer rat\nZa\nZb\n Fu Zb\n  Za\n#enhance\nym\nj\n\u001b\u0006_>>.Fu _,>_>>._,m.>_>>._,@.><\u0006_>._.>.>_>._,m,>_>,_.@.>\u0006_>,_.,>_>,_,.>_>._..>\u0006_>._.: >_>._.m,>_>._..>fqg\u0006_>,_.>.>_>,_.m,>_>,_.@.>#terrain\n\u001bZ\u001b\u000f\u001b\\   #wizintrinsic\nl\n ss.20s ss  yy\u001by   y y nn  s"
+ },
+ "segments": [
+  {
+   "seed": 50055054,
+   "datetime": "20191125165154",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=runmode:run\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u0017blessed +3 lance\nwoFkFlFl \u0017blessed Snickersnee\n wps.s#invoke\npX\u0017uncursed potion of extra healing\nqqs20s\u0017uncursed scroll of taming\nrr \u001b\u00173 glob of green slime\n\u0007black light\nes    sm..m.\u0017scroll of food detection\nrt  \u001b:20s      n 20s#levelchange\n8\n\u0007Nazgul\n#chat\nFk Fu  \u0007aligned cleric\nyFl Fl          n   \u0007kobold shaman\nFk       n Fl    n   \u0007wumpus\nsh20s    n   20s    n    20s   n       n   \u0018\u001b\u001611\ni\u001bwo Fj  Fj Fj rk  rm yy sn sjZa\nZa\n  nri  rj @.qh   dc al   n  n#dip\nng  n  nZb\n__,20s ,  n  n#invoke\n\u001bzc  n#levelchange\n30\n                             \u0017blessed spellbook of finger of death\nru .m.\u0017spellbook of cause fear\nrv 20s \u0017blessed spellbook of turn undead\nrw 20s +\u001b\u0007sewer rat\nZa\nZb\n Fu Zb\n  Za\n#enhance\nym\nj\n\u001b\u0006_>>.Fu _,>_>>._,m.>_>>._,@.><\u0006_>._.>.>_>._,m,>_>,_.@.>\u0006_>,_.,>_>,_,.>_>._..>\u0006_>._.: >_>._.m,>_>._..>fqg\u0006_>,_.>.>_>,_.m,>_>,_.@.>#terrain\n\u001bZ\u001b\u000f\u001b\\   #wizintrinsic\nl\n ss.20s ss  yy\u001by   y y nn  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "O>n\u001b\u001b\n10s#dip\nde_m, \u001b;smO>>>i\u001b\nFjFbFnFbFjFbFbFnFlj FbFbFjFbFnFbFjFjFbFjFbFjFjFnFnFjFlFbFlj FjFjFjFnFjFnFbFlFjFnFln FjFlFlFnFbFbFlj FjFlFjFbFnFlFnFll FjFnFjFjFjFjFbFnFjFlFjFnFbFjFbFbFjFbFjFlFnFlj FnFjFlFjFjFlFbFjFlFnFbFnFlj FbFln FnFln FlFbFbFlFjFbFbFnFnFlFnFnFlFjFnFnFlFnFbFbFnFlFjFjFlFlFjO>>>>j\u001b\nFnFbFjFbFlb FbFbFnFlj FnFnFjFbFnFjFbFjFlFnFlb FnFjFlFjFbFjFlFnFlb FjFnFjFjFlFjFjFnFnFjFnFbFlFnFbFbFlb FnFjFbFbFjFbFjFnFjFjFbFnFjFjFlFnFbFjFlFbFlb FlFbFjFbFbFlFlFlFjFlFjFjFbFjFbFlb FlFlFbFlj FbFlb FlFjFnFjFbFln FlFlFjFnFbFbFnFnFjFjFbFnFbFnFjFlFnFlj FnFnFjFjFjFjFbO>>>b\u001b\n\u0006_>.Fh_.>_>,_.Fh>FhFh_>.Fh_.>P;>. \u0006_>,_,>_>,Fh_.Fh>FhFh_>,_.Fh>FhFhFhFhFh\u0006_>.Fh_.Fh>FhFh_>._.Fh>FhFh_>,_.Fh>FhFhFhFhFh<\u0006_>.Fh_.>_>.Fh_,>_>._.Fh>FhFhFhFhFh\u0006_>._.Fh>FhFh_>.Fh_,Fh>FhFh_>._.><\u0006_>,Fh_.Fh>FhFh_>.Fh_.>_>.Fh_,>20sE- ad aerariu"
+ },
+ "segments": [
+  {
+   "seed": 50059070,
+   "datetime": "20041021144635",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nBIND=v:inventory\n",
+   "moves": "O>n\u001b\u001b\n10s#dip\nde_m, \u001b;smO>>>i\u001b\nFjFbFnFbFjFbFbFnFlj FbFbFjFbFnFbFjFjFbFjFbFjFjFnFnFjFlFbFlj FjFjFjFnFjFnFbFlFjFnFln FjFlFlFnFbFbFlj FjFlFjFbFnFlFnFll FjFnFjFjFjFjFbFnFjFlFjFnFbFjFbFbFjFbFjFlFnFlj FnFjFlFjFjFlFbFjFlFnFbFnFlj FbFln FnFln FlFbFbFlFjFbFbFnFnFlFnFnFlFjFnFnFlFnFbFbFnFlFjFjFlFlFjO>>>>j\u001b\nFnFbFjFbFlb FbFbFnFlj FnFnFjFbFnFjFbFjFlFnFlb FnFjFlFjFbFjFlFnFlb FjFnFjFjFlFjFjFnFnFjFnFbFlFnFbFbFlb FnFjFbFbFjFbFjFnFjFjFbFnFjFjFlFnFbFjFlFbFlb FlFbFjFbFbFlFlFlFjFlFjFjFbFjFbFlb FlFlFbFlj FbFlb FlFjFnFjFbFln FlFlFjFnFbFbFnFnFjFjFbFnFbFnFjFlFnFlj FnFnFjFjFjFjFbO>>>b\u001b\n\u0006_>.Fh_.>_>,_.Fh>FhFh_>.Fh_.>P;>. \u0006_>,_,>_>,Fh_.Fh>FhFh_>,_.Fh>FhFhFhFhFh\u0006_>.Fh_.Fh>FhFh_>._.Fh>FhFh_>,_.Fh>FhFhFhFhFh<\u0006_>.Fh_.>_>.Fh_,>_>._.Fh>FhFhFhFhFh\u0006_>._.Fh>FhFh_>.Fh_,Fh>FhFh_>._.><\u0006_>,Fh_.Fh>FhFh_>.Fh_.>_>.Fh_,>20sE- ad aerariu"
+  }
+ ]
+}

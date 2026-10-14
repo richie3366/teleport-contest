@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 speed boots\nWg\u0016?\n>w\u0006_ \u001b:_oo.,$__, _.#chat\nu#pray\ny y _{._.qyuhl#chat\nu_oooooooo._o.,#chat\nnFu  FuFu  FuFu     nFu     n\u00169\n_{.q_oo,,p_oooooooo,,#chat\nl  _oooooooo,,$_ooooooo.,pFlFl    n Fl    n Fl   n   n Fl     nFl     n\u001611\n_oo.    n Fb    n_.    n Fb    n ,$\u001610\n_ooooooo._o.,pFj    n FjFjFj   n   nFj     yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50057054,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 speed boots\nWg\u0016?\n>w\u0006_ \u001b:_oo.,$__, _.#chat\nu#pray\ny y _{._.qyuhl#chat\nu_oooooooo._o.,#chat\nnFu  FuFu  FuFu     nFu     n\u00169\n_{.q_oo,,p_oooooooo,,#chat\nl  _oooooooo,,$_ooooooo.,pFlFl    n Fl    n Fl   n   n Fl     nFl     n\u001611\n_oo.    n Fb    n_.    n Fb    n ,$\u001610\n_ooooooo._o.,pFj    n FjFjFj   n   nFj     yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

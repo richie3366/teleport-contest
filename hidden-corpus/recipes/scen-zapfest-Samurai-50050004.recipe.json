@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nWg\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPi\u0017blessed spellbook of sleep\nrj20s\u0007orc shaman\nZa\nZa\n20s   .uZa\nZa\nZa\nZa\nZa\nZa\nZa\n\u00175 boomerangs\nQk\u0007kobold\n\u0007troll\ntbl fj    fl   n tkl   nfj   n\u0017potion of object detection\ntkl   n\u00169\n \u0017wand of striking\n\u0017wand of death\n\u0007owlbear\n\u0007kobold\nzmy  zmjsh  n zmn  zmuznu  znnzmjzmjzmi\u001b\u0007red dragon\n\u0007baby red dragon\n.m.sm.   n #polyself\nblack dragon\n    sj   sm. #monster\n#monster\n#monster\n#monster\n\u0017wand of cold\naFy   Fu     \u0018\u001b\u001710 daggers\nQp\u0007hobbit\n\u0007gnome lord\ntcl fk   n fl    ntpk  fh   n tph    n\u0017potion of levitation\ntpl \u00162\n\u0007black dragon\n20s   n 20s #polyself\nsilver dragon\n  #monster\n20s  sm.#monster\n#monster\n#monster\n\u0017wand of magic missile\naFk  Fk   \u0017blessed spellbook of finger of death\nrs    n sm.\u0017blessed spellbook of slow monster\nrt  n 20s   n \u0007master mind flayer\nZa\nZa\n20s   n  .l  Za\n     yy\u001by  y y y\u001by  Z"
+ },
+ "segments": [
+  {
+   "seed": 50050004,
+   "datetime": "20140326131043",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nWg\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPi\u0017blessed spellbook of sleep\nrj20s\u0007orc shaman\nZa\nZa\n20s   .uZa\nZa\nZa\nZa\nZa\nZa\nZa\n\u00175 boomerangs\nQk\u0007kobold\n\u0007troll\ntbl fj    fl   n tkl   nfj   n\u0017potion of object detection\ntkl   n\u00169\n \u0017wand of striking\n\u0017wand of death\n\u0007owlbear\n\u0007kobold\nzmy  zmjsh  n zmn  zmuznu  znnzmjzmjzmi\u001b\u0007red dragon\n\u0007baby red dragon\n.m.sm.   n #polyself\nblack dragon\n    sj   sm. #monster\n#monster\n#monster\n#monster\n\u0017wand of cold\naFy   Fu     \u0018\u001b\u001710 daggers\nQp\u0007hobbit\n\u0007gnome lord\ntcl fk   n fl    ntpk  fh   n tph    n\u0017potion of levitation\ntpl \u00162\n\u0007black dragon\n20s   n 20s #polyself\nsilver dragon\n  #monster\n20s  sm.#monster\n#monster\n#monster\n\u0017wand of magic missile\naFk  Fk   \u0017blessed spellbook of finger of death\nrs    n sm.\u0017blessed spellbook of slow monster\nrt  n 20s   n \u0007master mind flayer\nZa\nZa\n20s   n  .l  Za\n     yy\u001by  y y y\u001by  Z"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "f $ b wa\u0007tame little dog\n\u0006_ \u001b:>FkFu_>>.Fl_. Fl>FhFb_>>.  Fb_. Fj>FlFb\u0017huge chunk of meat\n t$h \u0006_>>.  Fh_,Fl>FjFh_>>.Fj_.Fl>FjFl_>>,Fh_.Fl>FlFjdesss\u0017apple\n t$j 20s\u0007gnome\n.  s.20s.s\u0007yellow mold\ns20sssssmO>>d\u001b\n\u0006_>.Fl_.Fj>FlFj_>,Fj_.Fl>FlFl_>,Fl_.Fh>FjFhFlFjFj<\u0006_>.Fj_.Fh>FlFh_>.Fh_.Fh>FlFj_>.Fl_,Fl>FlFhFjFlFl#rub\nk\\ \u0006_>._,Fj>FjFj_>,Fj_.Fj>FjFj_>,Fk_.@.Fj>FkFjFjFkFk\u0006_>.Fk_.:Fl>FjFj_>.Fk_.Fk>FhFh_>.Fj_.:Fh>FhFlFjFkFj\u0006_>.Fl_.Fj>FjFh_>,Fl_.:Fn>FkFhFjmOa\u001b\nmO>>n\u001b\n\u001620\nv\u001bi\u001bmO>>>c\u001b\n\u00164\nFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl\u00168\n  mO>>>s\u001b\nO>>>>k\u001b\u001b\n\u0006_>,Fh_,Fh>FhFh_>.Fh_.Fh>FhFh_>.Fh_.Fj>FjFjFjFhFh<\u0006_>.Fj_.Fh>FhFh_"
+ },
+ "segments": [
+  {
+   "seed": 50059005,
+   "datetime": "20210802222625",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=!autopickup\nOPTIONS=fruit:lychee\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=norep \"The door\"\nMENUCOLOR=\"a potion\"=red\nBIND=v:inventory\n",
+   "moves": "f $ b wa\u0007tame little dog\n\u0006_ \u001b:>FkFu_>>.Fl_. Fl>FhFb_>>.  Fb_. Fj>FlFb\u0017huge chunk of meat\n t$h \u0006_>>.  Fh_,Fl>FjFh_>>.Fj_.Fl>FjFl_>>,Fh_.Fl>FlFjdesss\u0017apple\n t$j 20s\u0007gnome\n.  s.20s.s\u0007yellow mold\ns20sssssmO>>d\u001b\n\u0006_>.Fl_.Fj>FlFj_>,Fj_.Fl>FlFl_>,Fl_.Fh>FjFhFlFjFj<\u0006_>.Fj_.Fh>FlFh_>.Fh_.Fh>FlFj_>.Fl_,Fl>FlFhFjFlFl#rub\nk\\ \u0006_>._,Fj>FjFj_>,Fj_.Fj>FjFj_>,Fk_.@.Fj>FkFjFjFkFk\u0006_>.Fk_.:Fl>FjFj_>.Fk_.Fk>FhFh_>.Fj_.:Fh>FhFlFjFkFj\u0006_>.Fl_.Fj>FjFh_>,Fl_.:Fn>FkFhFjmOa\u001b\nmO>>n\u001b\n\u001620\nv\u001bi\u001bmO>>>c\u001b\n\u00164\nFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl\u00168\n  mO>>>s\u001b\nO>>>>k\u001b\u001b\n\u0006_>,Fh_,Fh>FhFh_>.Fh_.Fh>FhFh_>.Fh_.Fj>FjFjFjFhFh<\u0006_>.Fj_.Fh>FhFh_"
+  }
+ ]
+}

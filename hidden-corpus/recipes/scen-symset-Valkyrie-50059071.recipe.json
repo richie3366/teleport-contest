@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u00167\nFlFbFkFbFjFk FbFbFbFuFkFbFlFkFbFnFl FkFnFlFlFuFuFuFkFjFlFbFkFkFkFlFjFnFnFkFnFbFjFbFkFbFbFkFbFbFbFbFuFnFkFnFbFnFkFkFbFuFkFlFjFuFkFkFjFkFkFuFuFuFkFlFuFbFnFlFjFjFnFbFjFuFkFkFlFjFbFnFkFbFkFuFlFuFuFlFbFkFkFnFnFkFlFuFuFnFbFkFnFbFlFuFkFlFuFuFnFkFbFlFuFlFkFbFlFbFnFlFlFjFuFnFuFjFjFuFnFlFuFlFlFkFjFjFbFuFbFlFnFlFnFkFuFlFlFkFjFjFuFkFjFlFjFuFlFnFjFuFuFjFbFuFuFnFbFuFlFlFlFbFuFlFkFbFjFbFuFnFbFlFnFlFbFlFuFnFbFbFjFlFkFuFjFjFkFjFlFjFnFjFkFuFlFuFlFuFuFlFnFnFkFuFuFkFlFbFlFbFkFnFuFnFlFnFuFkFbFjFjFnnybh\u0017lawful altar\ndbdc\u0017floating eye corpse\n#offer\ne   #pray\ny y y\u0017pool\njb\u0017altar\ndcdc\u0017elf corpse\n#offer\nf  ;l: \u001bm.k<mO>>>a\u001b\n\u0006_>>.Fn_.;m.Fj>FjFn_>>.Fu_."
+ },
+ "segments": [
+  {
+   "seed": 50059071,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=norep \"You see\"\nMENUCOLOR=\"uncursed\"=brown\n",
+   "moves": " \u00167\nFlFbFkFbFjFk FbFbFbFuFkFbFlFkFbFnFl FkFnFlFlFuFuFuFkFjFlFbFkFkFkFlFjFnFnFkFnFbFjFbFkFbFbFkFbFbFbFbFuFnFkFnFbFnFkFkFbFuFkFlFjFuFkFkFjFkFkFuFuFuFkFlFuFbFnFlFjFjFnFbFjFuFkFkFlFjFbFnFkFbFkFuFlFuFuFlFbFkFkFnFnFkFlFuFuFnFbFkFnFbFlFuFkFlFuFuFnFkFbFlFuFlFkFbFlFbFnFlFlFjFuFnFuFjFjFuFnFlFuFlFlFkFjFjFbFuFbFlFnFlFnFkFuFlFlFkFjFjFuFkFjFlFjFuFlFnFjFuFuFjFbFuFuFnFbFuFlFlFlFbFuFlFkFbFjFbFuFnFbFlFnFlFbFlFuFnFbFbFjFlFkFuFjFjFkFjFlFjFnFjFkFuFlFuFlFuFuFlFnFnFkFuFuFkFlFbFlFbFkFnFuFnFlFnFuFkFbFjFjFnnybh\u0017lawful altar\ndbdc\u0017floating eye corpse\n#offer\ne   #pray\ny y y\u0017pool\njb\u0017altar\ndcdc\u0017elf corpse\n#offer\nf  ;l: \u001bm.k<mO>>>a\u001b\n\u0006_>>.Fn_.;m.Fj>FjFn_>>.Fu_."
+  }
+ ]
+}

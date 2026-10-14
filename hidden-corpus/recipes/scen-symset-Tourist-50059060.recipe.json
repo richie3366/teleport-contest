@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " O>>p\u001b\nmO>>s\u001b\n#levelchange\n6\n    h\u001bnnb\u0017pool\nh\u001b\u0017grave\n:\u0017pick-axe\nan     snsZ\u0018\u001bcj \u0006_ \u001bm,>FnFn_>,  _.>_>._.>qh#turn\n<\u0006_>._.>_>,Fj_.>_>.Fh_.>taj \u0004h \u0006_>._.Fj>FjFj_>.Fh_,Fj>FjFj_>._.>\u000f\u001b\u001612\n#tip\n\u001bP#terrain\nc\n:>#levelchange\n6\njbn\u0017neutral altar\ndkdj\u0017jackal corpse\n#offer\no n\u0017magic fountain\nqy  qy y#terrain\nb\n r\u001b\u000f\u001bfy mOa\u001b\nmO>>p\u001b\nul ll h\u001bb\u0017pool\nyb\u0017moat\nkl \u0017ice\n:#terrain\nb\n kl 10s>\u0006_>,Fu_.Fk>FuFu_>, Fu_. Fu>FjFu_>, Fj_,   n Fl>FjFuFjFuFk\u0006_>. Fl_.  Fu>FnFln _>.   n  Fu_.    Fk>FuFj_>,   n  Fl_.   Fk>FuFnFnFjFj\u0006_>,   n  Fl_.   Fj>FnFj_>.   n        n Fl_,      nFj>FuFk_>,      Fl_,     n   Fk>FlFkFkFnFj\u0006_>>.    n Fl_. Fu>FkFu_>>. Fj_,  n       Fl>FnFuu _>>.    Fj_.      n         n    nFu>FuFlFjFlFl\u0006_>,      n    Fn_>      FjFnFn#loot\nl cl \u0006_>>.  n    Fu_.      yy\u001bny ny\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50059060,
+   "datetime": "20101208041121",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=mention_walls\nOPTIONS=sortloot:none\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad\n",
+   "moves": " O>>p\u001b\nmO>>s\u001b\n#levelchange\n6\n    h\u001bnnb\u0017pool\nh\u001b\u0017grave\n:\u0017pick-axe\nan     snsZ\u0018\u001bcj \u0006_ \u001bm,>FnFn_>,  _.>_>._.>qh#turn\n<\u0006_>._.>_>,Fj_.>_>.Fh_.>taj \u0004h \u0006_>._.Fj>FjFj_>.Fh_,Fj>FjFj_>._.>\u000f\u001b\u001612\n#tip\n\u001bP#terrain\nc\n:>#levelchange\n6\njbn\u0017neutral altar\ndkdj\u0017jackal corpse\n#offer\no n\u0017magic fountain\nqy  qy y#terrain\nb\n r\u001b\u000f\u001bfy mOa\u001b\nmO>>p\u001b\nul ll h\u001bb\u0017pool\nyb\u0017moat\nkl \u0017ice\n:#terrain\nb\n kl 10s>\u0006_>,Fu_.Fk>FuFu_>, Fu_. Fu>FjFu_>, Fj_,   n Fl>FjFuFjFuFk\u0006_>. Fl_.  Fu>FnFln _>.   n  Fu_.    Fk>FuFj_>,   n  Fl_.   Fk>FuFnFnFjFj\u0006_>,   n  Fl_.   Fj>FnFj_>.   n        n Fl_,      nFj>FuFk_>,      Fl_,     n   Fk>FlFkFkFnFj\u0006_>>.    n Fl_. Fu>FkFu_>>. Fj_,  n       Fl>FnFuu _>>.    Fj_.      n         n    nFu>FuFlFjFlFl\u0006_>,      n    Fn_>      FjFnFn#loot\nl cl \u0006_>>.  n    Fu_.      yy\u001bny ny\u001by  F"
+  }
+ ]
+}

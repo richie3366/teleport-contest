@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "by\u0017wand of speed monster\nEp Elbereth Elbereth\nh\u0017wand of cancellation\nEq Elbereth\n: k\u0017wand of secret door detection\nEr  ad aerarium\n: \u0017wand of lightning\nEs  Elbereth\n\u000f\u001b\u0017pick-axe\n\u0016?\neat > .  n  nat>   n  nn  ny   n  b  n \u0017grave\nat>  n   n  n 20s  n   n  n  ns  n u  yy\u001by   y ny\u001bn  h"
+ },
+ "segments": [
+  {
+   "seed": 50055003,
+   "datetime": "20200624012202",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "by\u0017wand of speed monster\nEp Elbereth Elbereth\nh\u0017wand of cancellation\nEq Elbereth\n: k\u0017wand of secret door detection\nEr  ad aerarium\n: \u0017wand of lightning\nEs  Elbereth\n\u000f\u001b\u0017pick-axe\n\u0016?\neat > .  n  nat>   n  nn  ny   n  b  n \u0017grave\nat>  n   n  n 20s  n   n  n  ns  n u  yy\u001by   y ny\u001bn  h"
+  }
+ ]
+}

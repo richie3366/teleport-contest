@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n30\n         \u0017silver saber\nwfFk ss\u0007chameleon\n.m...20s sm.20s  .y \u0007giant mimic\n.m.20s      n     sm.       n     .m.      20s  n        sn     n    \u0007stalker\n;n; \u001bm.sm.       n    sm.          n  sm.        n   \u0007soldier\n#chat\nj         n    Fb       n     Fh      n    \u00164\n\u0017cursed -1 two-handed sword\n\u0007giant beetle\nwgFl FjFj  FlFl\u0017the Orb of Detection\n \u0007captain\n\u0017uncursed +0 fumble boots\nWh 20s  n  .m..m.\u0017uncursed scroll of remove curse\n\u0007green slime\nsm.  20s   \u001629\n   \u0017cursed the Staff of Aesculapius\n  n \u0007ghost\n\u0017ring of slow digestion\n,b\n  FnFn  \u0017cursed -1 flail\nFnFn  \u00173 potion of sleeping\n\u0017cursed -1 bow\n\u0017uncursed Stormbringer\n .m.20s  n   \u00166\n\u001612\n    \u0017katana\n\u0007human mummy\n\u0017dilithium crystal\nFl  Fl    \u0017cursed the Staff of Aesculapius\n\u0007soldier ant\n,\u001bsm.sm.    n       n      \u00163\n\u0007incubus\nFk  Fu  Fu    y  F"
+ },
+ "segments": [
+  {
+   "seed": 50050073,
+   "datetime": "20030525112113",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n30\n         \u0017silver saber\nwfFk ss\u0007chameleon\n.m...20s sm.20s  .y \u0007giant mimic\n.m.20s      n     sm.       n     .m.      20s  n        sn     n    \u0007stalker\n;n; \u001bm.sm.       n    sm.          n  sm.        n   \u0007soldier\n#chat\nj         n    Fb       n     Fh      n    \u00164\n\u0017cursed -1 two-handed sword\n\u0007giant beetle\nwgFl FjFj  FlFl\u0017the Orb of Detection\n \u0007captain\n\u0017uncursed +0 fumble boots\nWh 20s  n  .m..m.\u0017uncursed scroll of remove curse\n\u0007green slime\nsm.  20s   \u001629\n   \u0017cursed the Staff of Aesculapius\n  n \u0007ghost\n\u0017ring of slow digestion\n,b\n  FnFn  \u0017cursed -1 flail\nFnFn  \u00173 potion of sleeping\n\u0017cursed -1 bow\n\u0017uncursed Stormbringer\n .m.20s  n   \u00166\n\u001612\n    \u0017katana\n\u0007human mummy\n\u0017dilithium crystal\nFl  Fl    \u0017cursed the Staff of Aesculapius\n\u0007soldier ant\n,\u001bsm.sm.    n       n      \u00163\n\u0007incubus\nFk  Fu  Fu    y  F"
+  }
+ ]
+}

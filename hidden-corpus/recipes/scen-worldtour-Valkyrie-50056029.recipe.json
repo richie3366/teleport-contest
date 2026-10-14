@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n             \u0016?\n>G_ \u001b,<\u0016?\n>>N       jumping boots\n#chat\nl;l,\u0016?\ne#chat\nn   ;j.\u0016?\nd#levelchange\n20\n     \u0017blessed spellbook of force bolt\nrh    .l         \u0017blessed spellbook of polymorph\nri      20s      n +\u0007newt\nZZZZZ#turn\n20s    \u001640\n\u0004h\u0016?\na  __,<\u00164\n#chat\nj;j.\u001622\n#chat\nl;j,\u001639\n#levelchange\n10\n  h  j     n   l    n    u \u0017magic fountain\nqy qy  n  :k\u0017altar\ndb         \u0017newt corpse\n#offer\n\u001b#pray\ny y               :u   n \u0017moat\n#dip\ndy      j  k #terrain\nf\n_m.   n  20s      n ri   #pray\ny y                    \u00166\n\u00169\nh       n   nl       bn:\u0016?\nbjnb bnu l:\u001640\n#chat\nh;m,\u0016?\n\u001byk    n\u0016?\n\u001byb\u0016?\n\u001bju\u001625\n_<.<20s  .m.\u0016?\n\u001bjb\u001626\n\u0006m._<,sm. sm.\u001642\n#chat\ny;u.\u001639\n#levelchange\n20\n         \u0017cursed amulet of ESP\nPk .m. sm..m.     n .m. \u0017cursed scroll of punishment\n\u0007kraken\nrl   Fy  Fu \u0017Werebane\nwmFk    n  Fk  Fj     n #invoke\nm    X\u0017cursed Grimtooth\n \u0007red naga\nwn      n  Fu   Fy  Fl#invoke\nnu    n Fl Fu  \u00173 scroll of teleportation\nro >.  \u0017uncursed scroll of enchant weapon\n\u0007fire giant\nrp  \u001b   FuFh       n "
+ },
+ "segments": [
+  {
+   "seed": 50056029,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n             \u0016?\n>G_ \u001b,<\u0016?\n>>N       jumping boots\n#chat\nl;l,\u0016?\ne#chat\nn   ;j.\u0016?\nd#levelchange\n20\n     \u0017blessed spellbook of force bolt\nrh    .l         \u0017blessed spellbook of polymorph\nri      20s      n +\u0007newt\nZZZZZ#turn\n20s    \u001640\n\u0004h\u0016?\na  __,<\u00164\n#chat\nj;j.\u001622\n#chat\nl;j,\u001639\n#levelchange\n10\n  h  j     n   l    n    u \u0017magic fountain\nqy qy  n  :k\u0017altar\ndb         \u0017newt corpse\n#offer\n\u001b#pray\ny y               :u   n \u0017moat\n#dip\ndy      j  k #terrain\nf\n_m.   n  20s      n ri   #pray\ny y                    \u00166\n\u00169\nh       n   nl       bn:\u0016?\nbjnb bnu l:\u001640\n#chat\nh;m,\u0016?\n\u001byk    n\u0016?\n\u001byb\u0016?\n\u001bju\u001625\n_<.<20s  .m.\u0016?\n\u001bjb\u001626\n\u0006m._<,sm. sm.\u001642\n#chat\ny;u.\u001639\n#levelchange\n20\n         \u0017cursed amulet of ESP\nPk .m. sm..m.     n .m. \u0017cursed scroll of punishment\n\u0007kraken\nrl   Fy  Fu \u0017Werebane\nwmFk    n  Fk  Fj     n #invoke\nm    X\u0017cursed Grimtooth\n \u0007red naga\nwn      n  Fu   Fy  Fl#invoke\nnu    n Fl Fu  \u00173 scroll of teleportation\nro >.  \u0017uncursed scroll of enchant weapon\n\u0007fire giant\nrp  \u001b   FuFh       n "
+  }
+ ]
+}

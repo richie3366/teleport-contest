@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " mO>a\u001b\n#levelchange\n30\n                             bnuh n\u0017moat\n:lh \u0017altar\nde\u0017human corpse\n #pray\ny y : y\u0017iron bars\n#terrain\nb\n\u001b>.ol \u0014;dg\u0006_>._.> \u0006_>>,_,> \u0006_>,_.>_>.Fn_>FnFn_>, Fn_>FhFhFhFhFh\u0006_>.Fj_,Fj>FjFj_>.Fj_.;,Fk>FkFk_>.Fk_.Fj>FkFkFkFjFk\u000f\u001bH\u0006_>,  Fj_. Fj>FkFk_>.  Fj_,  Fj>FjFk_>. Fj_.Fk>FkFkFjFjFj#enhance\nyp\nh\n\u001boh \u000f\u001b\u0007tame kitten\n\u0017newt corpse\nt$j kk y\u0017apple\n t$j \u0017magic whistle\nnkk kj an   n \u0007lichen\n\u0017scroll of taming\nro   \u0017magic whistle\njky uy ap mO>>o\u001b\n\u0006_>>. Fj_.  Fj>FkFk_>>,  n Fj_.  Fk>FjFj_>>. Fj_. Fy>FjFyFjFyFy\u0006_>>,Fj_,  n Fk>FjFj_>>.  Fj_.  Fk>FkFk_>>. Fk_,   n Fk>FyFjFkFkFy#enhance\nyf\nf\n\u001b#conduct\n \u0006_"
+ },
+ "segments": [
+  {
+   "seed": 50059030,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=runmode:run\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nMSGTYPE=hide \"You kill\"\nBIND=v:inventory\n",
+   "moves": " mO>a\u001b\n#levelchange\n30\n                             bnuh n\u0017moat\n:lh \u0017altar\nde\u0017human corpse\n #pray\ny y : y\u0017iron bars\n#terrain\nb\n\u001b>.ol \u0014;dg\u0006_>._.> \u0006_>>,_,> \u0006_>,_.>_>.Fn_>FnFn_>, Fn_>FhFhFhFhFh\u0006_>.Fj_,Fj>FjFj_>.Fj_.;,Fk>FkFk_>.Fk_.Fj>FkFkFkFjFk\u000f\u001bH\u0006_>,  Fj_. Fj>FkFk_>.  Fj_,  Fj>FjFk_>. Fj_.Fk>FkFkFjFjFj#enhance\nyp\nh\n\u001boh \u000f\u001b\u0007tame kitten\n\u0017newt corpse\nt$j kk y\u0017apple\n t$j \u0017magic whistle\nnkk kj an   n \u0007lichen\n\u0017scroll of taming\nro   \u0017magic whistle\njky uy ap mO>>o\u001b\n\u0006_>>. Fj_.  Fj>FkFk_>>,  n Fj_.  Fk>FjFj_>>. Fj_. Fy>FjFyFjFyFy\u0006_>>,Fj_,  n Fk>FjFj_>>.  Fj_.  Fk>FkFk_>>. Fk_,   n Fk>FyFjFkFkFy#enhance\nyf\nf\n\u001b#conduct\n \u0006_"
+  }
+ ]
+}

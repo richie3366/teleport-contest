@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed spellbook of detect food\nris\u0017blessed spellbook of sleep\nrj s+\u001bZa\n\u0007newt\nZb\nZa\nZa\n#turn\n  #pray\ny y #enhance\nyk\ni\n\u001bSy\u001b yyol#terrain\nb\n\u001bm,ek  y#terrain\nf\n#force\n#tip\n\u001bwa#force\nw-",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50051029,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed spellbook of detect food\nris\u0017blessed spellbook of sleep\nrj s+\u001bZa\n\u0007newt\nZb\nZa\nZa\n#turn\n  #pray\ny y #enhance\nyk\ni\n\u001bSy\u001b"
+  },
+  {
+   "seed": 50551029,
+   "datetime": "20220607113253",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=playmode:debug\n",
+   "moves": " yyol#terrain\nb\n\u001bm,ek  y#terrain\nf\n#force\n#tip\n\u001bwa#force\nw-"
+  }
+ ]
+}

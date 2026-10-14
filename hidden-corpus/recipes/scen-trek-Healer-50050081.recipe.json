@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "B JHN_ \u001b.>KHLK_>.>Fls.JBLL_>.><HJHL_>.>Fh ssBUNJ_>.>BKBJ_>.>FhFhFhHHLB_>.>Fhss100s100s 150s\u000f\u001b50skkb\u0018\u001b50sFhs20s150sFhFhFhFhs.150suhhbyljylFhFhFb FbFbFh#pray\ny   #pray\ny  y  F"
+ },
+ "segments": [
+  {
+   "seed": 50050081,
+   "datetime": "20230319155518",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:explore\n",
+   "moves": "B JHN_ \u001b.>KHLK_>.>Fls.JBLL_>.><HJHL_>.>Fh ssBUNJ_>.>BKBJ_>.>FhFhFhHHLB_>.>Fhss100s100s 150s\u000f\u001b50skkb\u0018\u001b50sFhs20s150sFhFhFhFhs.150suhhbyljylFhFhFb FbFbFh#pray\ny   #pray\ny  y  F"
+  }
+ ]
+}

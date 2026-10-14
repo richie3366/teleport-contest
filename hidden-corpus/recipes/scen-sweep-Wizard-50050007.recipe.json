@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       i\u001bqgPdlss20s  R rk rj ri  \u001bm.  qh ,20s  W\u001b#dip\ndf #dip\ncf   n#monster\n:    \\  i\u001brms.Zb\nZb\naoy aoy Per.ssW\u001b20ss20swas20s.zccjzccl\u001626\n   #polyself\ndust vortex\n #monster\ns.\u0007gnome\n20sFyFyFy\u0007acid blob\nFyFyFyFy\u0017cursed lock pick\n\u0007giant mimic\na\u0017uncursed wand of death\nzzFyFy\u0017uncursed wand of light\nz\u0017blessed silver dagger\nwFyFyFyX\u00173 amulet of strangulation\nPts20s  sm.20s \u0017scroll of light\nru Fh Fk  n .m.sm. \u0018\u001b#levelchange\n20\n            \u0017uncursed the Candelabrum of Invocation\nwsFkFyFy#invoke\nv\u0017potion of booze\nqw \u001bFyFh\u0017ring of increase damage\n\u0007raven\nPxsm.s  n sRxFy Fy \u0017blessed wand of digging\nzy>  \u001bzyy \u00173 figurine of a newt\n\u0007black light\nazu s   n 20s \u00164\n#levelchange\n10\n   \u001760 gold pieces\n\u0016?\nc\u0006_m.#chat\nn_mm,#chat\nu_m,#chat\nn_{.Fj_, Fnqf q>\\   \u0006#levelchange\n12\n \u0017magic harp\naAy aAyFbFl\u0017blessed +3 trident\nwBFhFjFlXFu  nFh\u0017potion of oil\n\u0007master lich\nqC \u0017silver dagger\nwD  Fk FhFhFn  n   Fh\u0017cursed Vorpal Blade\n\u0007Famine\nyn wE   n  Fy  n    Fy  n  Fb  n    #invoke\nE  n  XFb  n  Fh       n    \u0017uncursed chest\naFaF#tip\nF\u001b    n   20s      n    n          yy\u001b y   y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 50050007,
+   "datetime": "20191219080546",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       i\u001bqgPdlss20s  R rk rj ri  \u001bm.  qh ,20s  W\u001b#dip\ndf #dip\ncf   n#monster\n:    \\  i\u001brms.Zb\nZb\naoy aoy Per.ssW\u001b20ss20swas20s.zccjzccl\u001626\n   #polyself\ndust vortex\n #monster\ns.\u0007gnome\n20sFyFyFy\u0007acid blob\nFyFyFyFy\u0017cursed lock pick\n\u0007giant mimic\na\u0017uncursed wand of death\nzzFyFy\u0017uncursed wand of light\nz\u0017blessed silver dagger\nwFyFyFyX\u00173 amulet of strangulation\nPts20s  sm.20s \u0017scroll of light\nru Fh Fk  n .m.sm. \u0018\u001b#levelchange\n20\n            \u0017uncursed the Candelabrum of Invocation\nwsFkFyFy#invoke\nv\u0017potion of booze\nqw \u001bFyFh\u0017ring of increase damage\n\u0007raven\nPxsm.s  n sRxFy Fy \u0017blessed wand of digging\nzy>  \u001bzyy \u00173 figurine of a newt\n\u0007black light\nazu s   n 20s \u00164\n#levelchange\n10\n   \u001760 gold pieces\n\u0016?\nc\u0006_m.#chat\nn_mm,#chat\nu_m,#chat\nn_{.Fj_, Fnqf q>\\   \u0006#levelchange\n12\n \u0017magic harp\naAy aAyFbFl\u0017blessed +3 trident\nwBFhFjFlXFu  nFh\u0017potion of oil\n\u0007master lich\nqC \u0017silver dagger\nwD  Fk FhFhFn  n   Fh\u0017cursed Vorpal Blade\n\u0007Famine\nyn wE   n  Fy  n    Fy  n  Fb  n    #invoke\nE  n  XFb  n  Fh       n    \u0017uncursed chest\naFaF#tip\nF\u001b    n   20s      n    n          yy\u001b y   y y y\u001by  s"
+  }
+ ]
+}

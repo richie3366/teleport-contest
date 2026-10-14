@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017Excalibur\nwiFkFl.\u0007guard\nnFbFb\u0007red mold\nsss.20ss.s\u0007Death\nyFh Fb   yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50052010,
+   "datetime": "20090911235717",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017Excalibur\nwiFkFl.\u0007guard\nnFbFb\u0007red mold\nsss.20ss.s\u0007Death\nyFh Fb   yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

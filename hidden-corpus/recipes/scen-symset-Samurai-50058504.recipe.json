@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " FkFhFhFhFuFhFuFyFh\u001bFkFyFku FhFyFh\u001bFkFuFkFhFuFhFhFuFuFuFyFh\u001bFuFhFyFh\u001bFuFuFhFuFyFh\u001bFhFhFkFyFuy FkFuFuFkFuFuFhFkFyFku FyFkk FyFyFyFku FyFh\u001bFuFkFuFhFuFhFuFhFuFyFku FyFyFhFhFhFyFh\u001bFyFky FyFyFkFkFhFkFkFhFkFhFkFhFyFh\u001bFkFkFkFkFyFyFyFh\u001bFhFhFkFkFhFkFyFh\u001bFkFyFh\u001bFkFhFhFyFyFuFhmO>>p\u001b\nOk\u001b\n\u00162\nFbFnFhFlFnFjFhFlFnFbFnFh\u001bFyFnFyFyFlFhFjFhFlFyFh\u001bFjFbFbFnFyFnFjFnFjFyFll FhFhFlFjFjFhFlFnFyFyFjFhFbFh\u001bFhFyFbFlFlFyFh\u001bFyFlh FnFyFjFlFjFjFbFln FnFbFlFjFlFlFyFh\u001bFhFbFll FhFhFbFll FyFjFjFnFyFyFnFhFyFyFjFhFbFln FbFly FhFyFll FyFlj FnFbFlFhFjFjFjFyFbFbFjFjFyFyFyFh\u001bFhFbFy\u00167\n\u0006_ \u001b>.>FlFh_>.Fh_.Fh>FhFl_>,Fh_,<.Fl>FhFlFlFhFh<\u0006_>,Fh_.Fh>FhFh_>.Fh_,,Fl>FhFl_>,Fl_,,Fl>FlFhFlFhFl<\u0006_>.Fl_.Fh>FlFl_>.Fl_.@.Fl>FlFh_>.Fh_.@.Fh>FlFhFhFhFh\u0006_>.Fl_.>.Fh>FlFh_>,Fh_,  nFh>FhFh_>,Fl_.Fh>FhFlFlFhFh\u0006_>.Fh_.Fl>FhFl_>,Fl_.:Fh>FhFh_>,Fh_.Fh>FlFhFhFhFl#levelchange\n10\n        ul ynul \u0017moat\n#dip\ney  ul ul \u0017altar\ndadb\u0017elf corpse\n#offer\nf   kl \u0017grave\n: \u0017wand of digging\nzg>.skl kl \u0017lawful altar\ndd\u0017dwarf corpse\n#offer\nh #pray\n"
+ },
+ "segments": [
+  {
+   "seed": 50058504,
+   "datetime": "20000911073644",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nBIND=v:inventory\n",
+   "moves": " FkFhFhFhFuFhFuFyFh\u001bFkFyFku FhFyFh\u001bFkFuFkFhFuFhFhFuFuFuFyFh\u001bFuFhFyFh\u001bFuFuFhFuFyFh\u001bFhFhFkFyFuy FkFuFuFkFuFuFhFkFyFku FyFkk FyFyFyFku FyFh\u001bFuFkFuFhFuFhFuFhFuFyFku FyFyFhFhFhFyFh\u001bFyFky FyFyFkFkFhFkFkFhFkFhFkFhFyFh\u001bFkFkFkFkFyFyFyFh\u001bFhFhFkFkFhFkFyFh\u001bFkFyFh\u001bFkFhFhFyFyFuFhmO>>p\u001b\nOk\u001b\n\u00162\nFbFnFhFlFnFjFhFlFnFbFnFh\u001bFyFnFyFyFlFhFjFhFlFyFh\u001bFjFbFbFnFyFnFjFnFjFyFll FhFhFlFjFjFhFlFnFyFyFjFhFbFh\u001bFhFyFbFlFlFyFh\u001bFyFlh FnFyFjFlFjFjFbFln FnFbFlFjFlFlFyFh\u001bFhFbFll FhFhFbFll FyFjFjFnFyFyFnFhFyFyFjFhFbFln FbFly FhFyFll FyFlj FnFbFlFhFjFjFjFyFbFbFjFjFyFyFyFh\u001bFhFbFy\u00167\n\u0006_ \u001b>.>FlFh_>.Fh_.Fh>FhFl_>,Fh_,<.Fl>FhFlFlFhFh<\u0006_>,Fh_.Fh>FhFh_>.Fh_,,Fl>FhFl_>,Fl_,,Fl>FlFhFlFhFl<\u0006_>.Fl_.Fh>FlFl_>.Fl_.@.Fl>FlFh_>.Fh_.@.Fh>FlFhFhFhFh\u0006_>.Fl_.>.Fh>FlFh_>,Fh_,  nFh>FhFh_>,Fl_.Fh>FhFlFlFhFh\u0006_>.Fh_.Fl>FhFl_>,Fl_.:Fh>FhFh_>,Fh_.Fh>FlFhFhFhFl#levelchange\n10\n        ul ynul \u0017moat\n#dip\ney  ul ul \u0017altar\ndadb\u0017elf corpse\n#offer\nf   kl \u0017grave\n: \u0017wand of digging\nzg>.skl kl \u0017lawful altar\ndd\u0017dwarf corpse\n#offer\nh #pray\n"
+  }
+ ]
+}

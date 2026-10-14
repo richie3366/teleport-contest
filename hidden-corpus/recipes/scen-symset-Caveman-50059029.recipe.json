@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u0006_ \u001bm.>FhFk_>.Fu_,Fy>FnFn_>.Fy_.Fj>FjFuFuFyFj\u0006_>,Fn_>FuFn_>FuFy_>.Fuy _,Fj>FuFjFyFuj Fu\u0006_>>.Fu_,Fy>FhFu_>>,Fb_,Fj>FuFj_>>.Fh_,Fy>FuFyFul FyFy\u000f\u001bz\u0006_>,Fy_.Fy>FlFu_>.Fu_.Fu>FjFj_>,Fj_,Fu>FjFjFjFuFy\u0004j >\u00163\nFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuO>>>>h\u001b\nv i\u001b\u00165\nFnFkn FnFkk FnFnFkFnFnFkFnFnFnFnFnFkk FnFnFnFnFkFkFnFnFnFnFnFkk FkFkFkFkFnFnFkFnFnFnFkk FnFnFnFkn FnFnFnFkn FkFkFkFnFnFkFnFnFkFnFkn FkFnFnFkFkFkFkFkFkFnFkn FnFnFkFnFkk FnFnFnFnFkFkFkFnFkk FnFkk FnFkn FkFnFnFkFkFkF"
+ },
+ "segments": [
+  {
+   "seed": 50059029,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=runmode:teleport\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"blessed\"=red\n",
+   "moves": "  \u0006_ \u001bm.>FhFk_>.Fu_,Fy>FnFn_>.Fy_.Fj>FjFuFuFyFj\u0006_>,Fn_>FuFn_>FuFy_>.Fuy _,Fj>FuFjFyFuj Fu\u0006_>>.Fu_,Fy>FhFu_>>,Fb_,Fj>FuFj_>>.Fh_,Fy>FuFyFul FyFy\u000f\u001bz\u0006_>,Fy_.Fy>FlFu_>.Fu_.Fu>FjFj_>,Fj_,Fu>FjFjFjFuFy\u0004j >\u00163\nFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuO>>>>h\u001b\nv i\u001b\u00165\nFnFkn FnFkk FnFnFkFnFnFkFnFnFnFnFnFkk FnFnFnFnFkFkFnFnFnFnFnFkk FkFkFkFkFnFnFkFnFnFnFkk FnFnFnFkn FnFnFnFkn FkFkFkFnFnFkFnFnFkFnFkn FkFnFnFkFkFkFkFkFkFnFkn FnFnFkFnFkk FnFnFnFnFkFkFkFnFkk FnFkk FnFkn FkFnFnFkFkFkF"
+  }
+ ]
+}

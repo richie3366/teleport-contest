@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b>.#chat\nj_mm,     nFh  n _.  n    nFn  n     #chat\nk  n ;n,_m.   nFn  n_.#chat\nb#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mm. Fb_.#chat\nb;b,_mmmm. Fn _.  Fk #chat\nn\u0017blessed +3 gauntlets of power\nWo \u0017blessed ring of free action\nPpr  n \u0017blessed +3 helm of telepathy\nWq  \u0017wand of magic missile\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,  Fn _,   Fn FbFb    Fn  Fb  n    Fb  zrb   ,   n #chat\nb\u0016?\n>>\u001b\u0016?\n>y_m.    Fn _.#chat\nn \u001612\n\u0016?\n>A\u0006_mmmm. Fn  _.Fu   Fn  n Fn Fn Fn Fn Fn zrn ,\u0016?\n>A\u0006_mm.Fn_.  Fn Fn  FnFnFnzrn,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_m,Fn_.#chat\nn\u0016?\n>z\u0006_mmmm,Fn_,FnFn  nFn FnFnFnzrn ,#chat\nn  \u0016?\n>>\u001b\u0016?\n>y_mmmm, Fn _. Fn #chat\nn  \u0016?\n>>\u001b\u0016?\n>z\u0006_mm, Fn _,  Fn Fn   n Fn FnFn,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_m,Fb   _,   Fb #chat\nn\u0016?\n>A\u0006_mmmmm.  Fj  _.   n  Fj  Fj   Fl    yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50058004,
+   "datetime": "20260201184831",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=!verbose\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b>.#chat\nj_mm,     nFh  n _.  n    nFn  n     #chat\nk  n ;n,_m.   nFn  n_.#chat\nb#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mm. Fb_.#chat\nb;b,_mmmm. Fn _.  Fk #chat\nn\u0017blessed +3 gauntlets of power\nWo \u0017blessed ring of free action\nPpr  n \u0017blessed +3 helm of telepathy\nWq  \u0017wand of magic missile\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,  Fn _,   Fn FbFb    Fn  Fb  n    Fb  zrb   ,   n #chat\nb\u0016?\n>>\u001b\u0016?\n>y_m.    Fn _.#chat\nn \u001612\n\u0016?\n>A\u0006_mmmm. Fn  _.Fu   Fn  n Fn Fn Fn Fn Fn zrn ,\u0016?\n>A\u0006_mm.Fn_.  Fn Fn  FnFnFnzrn,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_m,Fn_.#chat\nn\u0016?\n>z\u0006_mmmm,Fn_,FnFn  nFn FnFnFnzrn ,#chat\nn  \u0016?\n>>\u001b\u0016?\n>y_mmmm, Fn _. Fn #chat\nn  \u0016?\n>>\u001b\u0016?\n>z\u0006_mm, Fn _,  Fn Fn   n Fn FnFn,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_m,Fb   _,   Fb #chat\nn\u0016?\n>A\u0006_mmmmm.  Fj  _.   n  Fj  Fj   Fl    yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

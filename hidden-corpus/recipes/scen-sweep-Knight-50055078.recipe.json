@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u00176 eggs\nQby\u0007acid blob\nhhfuf \u001bFuFu\u0007lichen\nkuf \u001bf \u001bf \u001bx #twoweapon\ns20shjj,#enhance\nyi\nc\n\u001b#wizintrinsic\nj\n 20s s.ss20s  s20s s20s \u0017potion of full healing\nqj\u0004uatah#offer\n#turn\n10s20s 20s .sss\u00173 spellbook of light\n\u0007brown mold\nrk \u001bm, 20ssZZ\u0017wand of nothing\nzlzll\u0017uncursed tinning kit\nam\u0017blessed spellbook of extra healing\nrns20sZa\nZa\n\u0017cursed lizard corpse\neo.m.20s\u0017cursed wand of sleep\nzphzphs20s\u0018\u001bi\u001beh20s.Ws..eo s20srk ..Za\nZa\nzlpW20s20s.#tip\n\u001b#enhance\nyp\nh\n\u001b#rub\nuohchPan i\u001bW20ssm.20sTezllWesm.sm..h TcWc sm.s20srk ysm.sZb\nZb\nW.lss\u0007little dog\n\u0017banana\nt\u001b\u0007lichen\n\u0017scroll of taming\nrs \u0017leash\natyhujjatjdtsl.20s\u0017leash\nauluyhbauk\u0017lichen corpse\nt\u001bdr20ss20s\u0017leash\nawkulhnawl\u0017leash\naxkjkknaxj\u0017cream pie\ney20s20sFn Fj   \u0017blessed fumble boots\nWz20s     ssFhFh\u0017ring of stealth\n,Fh Fh\u0017uncursed the Bell of Opening\n\u0007acid blob\n\u0017ring of levitation\n20s      .\u0007little dog\n\u0017meatball\n20s\u0017lichen corpse\n#name\na\n#chat\nj \u0007yellow mold\n\u0017scroll of taming\n\u0007giant rat\n\u0017scroll of taming\n#name\nd\n#levelchange\n8\n\u0007bugbear\nFk  Fy  \u0007mumak\nsk sm.  sm. sls.h  n   \u0007ape\n;y,sm.  n  20s  .m.\u00168\n\u00161\n\u0016?\n>y  _mmm,Fk _.#chat\nl_mmmm,#chat\nk_mm.#chat\nk;l._mmmm,#chat\nl;j;Za\n20s#pray\ny y \u0006#levelchange\n14\n     \u0016?\n>y_mm.Fk  _. Fk#chat\nk;j:  _mmmmm,  Fu   _,@.Fy     #chat\ny;l:  _mm,   n   Fk   _.#chat\nl_mm.   Fy  _"
+ },
+ "segments": [
+  {
+   "seed": 50055078,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u00176 eggs\nQby\u0007acid blob\nhhfuf \u001bFuFu\u0007lichen\nkuf \u001bf \u001bf \u001bx #twoweapon\ns20shjj,#enhance\nyi\nc\n\u001b#wizintrinsic\nj\n 20s s.ss20s  s20s s20s \u0017potion of full healing\nqj\u0004uatah#offer\n#turn\n10s20s 20s .sss\u00173 spellbook of light\n\u0007brown mold\nrk \u001bm, 20ssZZ\u0017wand of nothing\nzlzll\u0017uncursed tinning kit\nam\u0017blessed spellbook of extra healing\nrns20sZa\nZa\n\u0017cursed lizard corpse\neo.m.20s\u0017cursed wand of sleep\nzphzphs20s\u0018\u001bi\u001beh20s.Ws..eo s20srk ..Za\nZa\nzlpW20s20s.#tip\n\u001b#enhance\nyp\nh\n\u001b#rub\nuohchPan i\u001bW20ssm.20sTezllWesm.sm..h TcWc sm.s20srk ysm.sZb\nZb\nW.lss\u0007little dog\n\u0017banana\nt\u001b\u0007lichen\n\u0017scroll of taming\nrs \u0017leash\natyhujjatjdtsl.20s\u0017leash\nauluyhbauk\u0017lichen corpse\nt\u001bdr20ss20s\u0017leash\nawkulhnawl\u0017leash\naxkjkknaxj\u0017cream pie\ney20s20sFn Fj   \u0017blessed fumble boots\nWz20s     ssFhFh\u0017ring of stealth\n,Fh Fh\u0017uncursed the Bell of Opening\n\u0007acid blob\n\u0017ring of levitation\n20s      .\u0007little dog\n\u0017meatball\n20s\u0017lichen corpse\n#name\na\n#chat\nj \u0007yellow mold\n\u0017scroll of taming\n\u0007giant rat\n\u0017scroll of taming\n#name\nd\n#levelchange\n8\n\u0007bugbear\nFk  Fy  \u0007mumak\nsk sm.  sm. sls.h  n   \u0007ape\n;y,sm.  n  20s  .m.\u00168\n\u00161\n\u0016?\n>y  _mmm,Fk _.#chat\nl_mmmm,#chat\nk_mm.#chat\nk;l._mmmm,#chat\nl;j;Za\n20s#pray\ny y \u0006#levelchange\n14\n     \u0016?\n>y_mm.Fk  _. Fk#chat\nk;j:  _mmmmm,  Fu   _,@.Fy     #chat\ny;l:  _mm,   n   Fk   _.#chat\nl_mm.   Fy  _"
+  }
+ ]
+}

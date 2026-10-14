@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "10s:#name\no\nFido\nhb20sv\u001bi\u001b#sit\n#twoweapon\n#rub\ng\u001b\u001b,t\u001b\u001bae  h szOd\u001b\n\u0006_ \u001b,>FjFjFh\u0006_>.Fy_.   Fuy > FuFyFkh \u0006_>.Fu_,Fh> FkFjFj:#name\n\u001b\u0006_>>.Fl_,Fh> FbFnFn\u0004oj \u0006_>. Fk_.Fy>Fuk FkFk<\u0006_>>.Fu_.Fu>FuFyFk \u000f\u001b\u00163\n<#tip\nh\u001br\u001b\u001b50s150sFnFbFbFjFbFjFjFnFjFjFnFbFbFbFbFbFjFnFnFjFnFnFbFjFnFnFbFbFnFnFnFjFjFbFnFjFbFbFjFbFnFbFnFbFjFnFjFjFjFnFbFnFnFbFnFjFbFnFnFbFnFbFbFjFjFnFjFjFjFnFjFjFbFbFnFnFjFjFnFbFbFbFbFjFnFnFbFbFjFnFnFbFnFjFjFjFjFjFbFjFbFbFnFnFn\u0016O>>n\u001b\u001b\nO>>>a\u001b\n\u001614\n   \u0006_>._,m,>  n FnFnFn<\u0006_>.  n Fn_> FnFnFno#rub\ng\u001b\u001b\u0006_>>.  n Fn_> FnFnFn\u0006_>.  n Fn_>   n FnFnFn\u0006_>.Fn_>   n FnFnFn\u000f\u00161\n10sf ay l ;b.lOk\u001b\nv\u001bi\u001b#force\n\\ \u0007pony\n\u0017meatball\ntab \u0007little dog\n\u0017carrot\ntah \u0007giant rat\nsh\u001bs.lh slh sln sm.\u0017tin whistle\njh\u001bub ak    n\u0017tin whistle\nnyuk al dl  n sm.   n20sm.  n .un #name\n\u001b20s\u00169\nh\u001b"
+ },
+ "segments": [
+  {
+   "seed": 50058507,
+   "datetime": "20130528112252",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"uncursed\"=green\nBIND=v:inventory\n",
+   "moves": "10s:#name\no\nFido\nhb20sv\u001bi\u001b#sit\n#twoweapon\n#rub\ng\u001b\u001b,t\u001b\u001bae  h szOd\u001b\n\u0006_ \u001b,>FjFjFh\u0006_>.Fy_.   Fuy > FuFyFkh \u0006_>.Fu_,Fh> FkFjFj:#name\n\u001b\u0006_>>.Fl_,Fh> FbFnFn\u0004oj \u0006_>. Fk_.Fy>Fuk FkFk<\u0006_>>.Fu_.Fu>FuFyFk \u000f\u001b\u00163\n<#tip\nh\u001br\u001b\u001b50s150sFnFbFbFjFbFjFjFnFjFjFnFbFbFbFbFbFjFnFnFjFnFnFbFjFnFnFbFbFnFnFnFjFjFbFnFjFbFbFjFbFnFbFnFbFjFnFjFjFjFnFbFnFnFbFnFjFbFnFnFbFnFbFbFjFjFnFjFjFjFnFjFjFbFbFnFnFjFjFnFbFbFbFbFjFnFnFbFbFjFnFnFbFnFjFjFjFjFjFbFjFbFbFnFnFn\u0016O>>n\u001b\u001b\nO>>>a\u001b\n\u001614\n   \u0006_>._,m,>  n FnFnFn<\u0006_>.  n Fn_> FnFnFno#rub\ng\u001b\u001b\u0006_>>.  n Fn_> FnFnFn\u0006_>.  n Fn_>   n FnFnFn\u0006_>.Fn_>   n FnFnFn\u000f\u00161\n10sf ay l ;b.lOk\u001b\nv\u001bi\u001b#force\n\\ \u0007pony\n\u0017meatball\ntab \u0007little dog\n\u0017carrot\ntah \u0007giant rat\nsh\u001bs.lh slh sln sm.\u0017tin whistle\njh\u001bub ak    n\u0017tin whistle\nnyuk al dl  n sm.   n20sm.  n .un #name\n\u001b20s\u00169\nh\u001b"
+  }
+ ]
+}

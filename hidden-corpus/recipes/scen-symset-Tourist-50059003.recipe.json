@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00162\nFjFyFuj FyFh\u001bFhFyFh\u001bFhFuFnFnFyFuy FyFbFbFbFnFyFyFbFjFjFnFh\u001bFjFjFbFbFyFyFhFjFuFjFnFyFyFuh FuFyFjFjFyFyFhFnFuh FbFh\u001bFyFbFyFbFnFnFhFhFnFuh FyFbFhFjFyFjFuFjFyFyFhFjFhFbFuy FnFjFbFbFnFjFuFbFbFhFyFnFhFhFbFun FuFhFuFyFh\u001bFjFnFnFbFjFnFbFhFnFbFuFnFbFbFjFyFuy FyFbFnFuh FnFj\u001614\nv i\u001b\u0007tame winter wolf cub\nj\u0017leash\nanj lb lb lb nanl \u0007lichen\n20sysm.20sh\u001bsssdhskn sm.20sm.\u0007jackal\nsm. s.20ss.20s\u0007yellow mold\n20s s.s20s20s,#twoweapon\nrjmO>>d\u001b\nkl jh\u001b\u0017throne\n#sit\n#sit\n y #sit\n\u001bkn \u0017moat\nlj \u0017chaotic altar\ndmd$\u0017human corpse\n W#force\nWO>>>f\u001b\nmO>>u\u001b\n10scj \u0004n mO>>b\u001b\n\u0006_ \u001b;>FbFj_>.   Fb_.Fb>FbFy_>.Fh_.,Fb>FbFbFbFbFy\u0006_>.Fy_,Fj>FjFb_>.Fb_.m,Fj>FjFh_>,Fh_.>.Fy>FbFyFbFbFb\u0006_>.Fy_,Fb>FjFb_>,Fb_.:Fh>FyFy_>.Fy_,Fy>FhFhFbFh\u001bFy\u0006_>,Fy_.Fy>FbFh\u001b_>.Fj_.;@.Fb>FjFj_>,Fj_.:Fb>FbFh\u001bFbFh\u001bFhPz\u0006_>,Fy_.Fb>FyFb_>,Fb_,Fb>FbFy_>.Fh_..Fb>FyFyFhFhFh\u0006_>,Fb_,Fb>FbFy_>.Fj_,<.Fh>FyFy_>.Fj_.>.Fb>FjFjFjFbFb\u000f\u001b#conduct\n \u0006_>.Fy_.Fj>FyFy_>,Fb_.Fb>FjFj_>.Fh_.,Fy>FjFbFjFjFbdfz\u00161\nO>>>>l\u001b\n,i\u001bz#chat\nu \u001615"
+ },
+ "segments": [
+  {
+   "seed": 50059003,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=fruit:kumquat\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"You kill\"\n",
+   "moves": "\u00162\nFjFyFuj FyFh\u001bFhFyFh\u001bFhFuFnFnFyFuy FyFbFbFbFnFyFyFbFjFjFnFh\u001bFjFjFbFbFyFyFhFjFuFjFnFyFyFuh FuFyFjFjFyFyFhFnFuh FbFh\u001bFyFbFyFbFnFnFhFhFnFuh FyFbFhFjFyFjFuFjFyFyFhFjFhFbFuy FnFjFbFbFnFjFuFbFbFhFyFnFhFhFbFun FuFhFuFyFh\u001bFjFnFnFbFjFnFbFhFnFbFuFnFbFbFjFyFuy FyFbFnFuh FnFj\u001614\nv i\u001b\u0007tame winter wolf cub\nj\u0017leash\nanj lb lb lb nanl \u0007lichen\n20sysm.20sh\u001bsssdhskn sm.20sm.\u0007jackal\nsm. s.20ss.20s\u0007yellow mold\n20s s.s20s20s,#twoweapon\nrjmO>>d\u001b\nkl jh\u001b\u0017throne\n#sit\n#sit\n y #sit\n\u001bkn \u0017moat\nlj \u0017chaotic altar\ndmd$\u0017human corpse\n W#force\nWO>>>f\u001b\nmO>>u\u001b\n10scj \u0004n mO>>b\u001b\n\u0006_ \u001b;>FbFj_>.   Fb_.Fb>FbFy_>.Fh_.,Fb>FbFbFbFbFy\u0006_>.Fy_,Fj>FjFb_>.Fb_.m,Fj>FjFh_>,Fh_.>.Fy>FbFyFbFbFb\u0006_>.Fy_,Fb>FjFb_>,Fb_.:Fh>FyFy_>.Fy_,Fy>FhFhFbFh\u001bFy\u0006_>,Fy_.Fy>FbFh\u001b_>.Fj_.;@.Fb>FjFj_>,Fj_.:Fb>FbFh\u001bFbFh\u001bFhPz\u0006_>,Fy_.Fb>FyFb_>,Fb_,Fb>FbFy_>.Fh_..Fb>FyFyFhFhFh\u0006_>,Fb_,Fb>FbFy_>.Fj_,<.Fh>FyFy_>.Fj_.>.Fb>FjFjFjFbFb\u000f\u001b#conduct\n \u0006_>.Fy_.Fj>FyFy_>,Fb_.Fb>FjFj_>.Fh_.,Fy>FjFbFjFjFbdfz\u00161\nO>>>>l\u001b\n,i\u001bz#chat\nu \u001615"
+  }
+ ]
+}

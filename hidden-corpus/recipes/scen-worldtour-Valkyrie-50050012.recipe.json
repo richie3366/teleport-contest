@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed Mjollnir\nwf\u00164\njyyb:\u00164\n\u0006_ \u001b,20ss20s\u001615\n    #levelchange\n8\n \u0017Frost Brand\nwg Fb      FjFj\u0007water nymph\n;l.s..\u0007cave spider\n;y;20s.m.sb\u0007shrieker\nFuFusm.s\u0016?\n>I\u00173 slime mold\neh..h\u0017scroll of teleportation\nrj m. FnFk   \u00173 spellbook of detect unseen\nrk          n  .s  ZZ\u0017blessed ring of shock resistance\nPll .s   n 20s R FuFk s s  n\u00163\n\u001615\n bub ub:  .s\u001615\nub:   n20s..\u00162\nh l: 20s.\u00162\n\u0004l  ns\u001615\n #chat\nl;<.\u0016?\n>v \u0004h\u0016?\n>zhu:  ss  n  \u0016?\n>x\u0017uncursed +0 silver saber\nwmFlFlFlFlFu\u0017potion of object detection\n\u0007grid bug\nqn>.#dip\nbFuFu  n \u0017scroll of genocide\nroFl Fu\u0017uncursed crystal ball\nap FlFl   n \u0017scroll of create monster\n\u0007elf-lord\nrq\u0017sprig of wolfsbane\ner 20s .  n FkFl .s  n \u001610\n\u0016?\n>G\u0014..\u001615\n \u0006_>. _.Fu.s\u0016?\n>>N      the Mitre of Holiness\n  n  lul    n n   n :   n     n \u0016?\neb   y  l"
+ },
+ "segments": [
+  {
+   "seed": 50050012,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=sortloot:full\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed Mjollnir\nwf\u00164\njyyb:\u00164\n\u0006_ \u001b,20ss20s\u001615\n    #levelchange\n8\n \u0017Frost Brand\nwg Fb      FjFj\u0007water nymph\n;l.s..\u0007cave spider\n;y;20s.m.sb\u0007shrieker\nFuFusm.s\u0016?\n>I\u00173 slime mold\neh..h\u0017scroll of teleportation\nrj m. FnFk   \u00173 spellbook of detect unseen\nrk          n  .s  ZZ\u0017blessed ring of shock resistance\nPll .s   n 20s R FuFk s s  n\u00163\n\u001615\n bub ub:  .s\u001615\nub:   n20s..\u00162\nh l: 20s.\u00162\n\u0004l  ns\u001615\n #chat\nl;<.\u0016?\n>v \u0004h\u0016?\n>zhu:  ss  n  \u0016?\n>x\u0017uncursed +0 silver saber\nwmFlFlFlFlFu\u0017potion of object detection\n\u0007grid bug\nqn>.#dip\nbFuFu  n \u0017scroll of genocide\nroFl Fu\u0017uncursed crystal ball\nap FlFl   n \u0017scroll of create monster\n\u0007elf-lord\nrq\u0017sprig of wolfsbane\ner 20s .  n FkFl .s  n \u001610\n\u0016?\n>G\u0014..\u001615\n \u0006_>. _.Fu.s\u0016?\n>>N      the Mitre of Holiness\n  n  lul    n n   n :   n     n \u0016?\neb   y  l"
+  }
+ ]
+}

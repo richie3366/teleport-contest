@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n             \u0007bugbear\nFjFj Fn \u0007lichen\nFlFj#levelchange\n12\n\u0017blessed ring of polymorph control\nPjl#polyself\ngiant spider\n  #monster\n20sssss#polyself\nquasit\n 20s.\u0007gecko\nFlFls20s20ssm.#polyself\nmail daemon\n barrow wight\nsm..m.syss#polyself\nnurse\n.m.sm.\u0007hill orc\nFjFl   \u001bFl.l20ss\u0017amulet of unchanging\nPkss.sRk#levelchange\n12\n\u0017cursed spellbook of extra healing\n\u0007mind flayer\nrl \u001bm.  \u001b.20s Za\n\u00173 wand of make invisible\nzmn20s20s\u0017Stormbringer\n wn s.sXss\u0017scroll of scare monster\nro \u0017blessed ring of increase accuracy\nPpsssRp\u0017blessed cloak of protection\nWqssss.\u0018\u001bi\u001bPp20s  20s sRpW\u001bsssTWq20s.sTPks...qd#dip\nddzmnt\u001b\u000f\u001bsf \u001b#invoke\nn \u0004krc \\  #levelchange\n20\n         \u0017blessed ring of polymorph control\nPr#polyself\n#monster\n.s.ss#polyself\ns.\u0007gold golem\nFlFlFl .ss#polyself\n#monster\ns.\u0007cobra\nFhFh Fh sm. sm. .m.#polyself\n#monster\n.l.m.sm.s20s\u0017wand of polymorph\nzs.#levelchange\n14\n  \u0016?\n>y  _mm.Fk_..Fu#chat\nu   n_mmmmm. Fu    n_,#chat\nu _mmmm.Fk  _.;@.Fn #chat\nn\u0006_>.Fl _,  n Fn >Fl Fl_>.  n Fh  _.@.Fh  >FlFh   n   _>.Fh_.   Fh   n        n >Fy Fn    n  >#name\n\u001b20s   n \u00169\nj  n\u0017wand of sleep\nEt Elbereth Elbereth\n : \u0017wand of make invisible\nEu  ad aerarium\n: \u0017wand of fire\nEv   Elbereth Elbereth\n   n  : \u0017wand of lightning\nEw y X marks the spot\n    n:    \u0017wand of slow monster\nExlE- Elbereth Elbereth\n   n \u0007hill orc\n. s   n s    n\u001625\n\u000f\u001b\u00161\nh n\u0017athame\nEy X marks the spot\n \u0017wand of nothing\nEz   n :    j  yy\u001by   y y n  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50055015,
+   "datetime": "20210916185225",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n             \u0007bugbear\nFjFj Fn \u0007lichen\nFlFj#levelchange\n12\n\u0017blessed ring of polymorph control\nPjl#polyself\ngiant spider\n  #monster\n20sssss#polyself\nquasit\n 20s.\u0007gecko\nFlFls20s20ssm.#polyself\nmail daemon\n barrow wight\nsm..m.syss#polyself\nnurse\n.m.sm.\u0007hill orc\nFjFl   \u001bFl.l20ss\u0017amulet of unchanging\nPkss.sRk#levelchange\n12\n\u0017cursed spellbook of extra healing\n\u0007mind flayer\nrl \u001bm.  \u001b.20s Za\n\u00173 wand of make invisible\nzmn20s20s\u0017Stormbringer\n wn s.sXss\u0017scroll of scare monster\nro \u0017blessed ring of increase accuracy\nPpsssRp\u0017blessed cloak of protection\nWqssss.\u0018\u001bi\u001bPp20s  20s sRpW\u001bsssTWq20s.sTPks...qd#dip\nddzmnt\u001b\u000f\u001bsf \u001b#invoke\nn \u0004krc \\  #levelchange\n20\n         \u0017blessed ring of polymorph control\nPr#polyself\n#monster\n.s.ss#polyself\ns.\u0007gold golem\nFlFlFl .ss#polyself\n#monster\ns.\u0007cobra\nFhFh Fh sm. sm. .m.#polyself\n#monster\n.l.m.sm.s20s\u0017wand of polymorph\nzs.#levelchange\n14\n  \u0016?\n>y  _mm.Fk_..Fu#chat\nu   n_mmmmm. Fu    n_,#chat\nu _mmmm.Fk  _.;@.Fn #chat\nn\u0006_>.Fl _,  n Fn >Fl Fl_>.  n Fh  _.@.Fh  >FlFh   n   _>.Fh_.   Fh   n        n >Fy Fn    n  >#name\n\u001b20s   n \u00169\nj  n\u0017wand of sleep\nEt Elbereth Elbereth\n : \u0017wand of make invisible\nEu  ad aerarium\n: \u0017wand of fire\nEv   Elbereth Elbereth\n   n  : \u0017wand of lightning\nEw y X marks the spot\n    n:    \u0017wand of slow monster\nExlE- Elbereth Elbereth\n   n \u0007hill orc\n. s   n s    n\u001625\n\u000f\u001b\u00161\nh n\u0017athame\nEy X marks the spot\n \u0017wand of nothing\nEz   n :    j  yy\u001by   y y n  \u0017"
+  }
+ ]
+}

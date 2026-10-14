@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001bm.>FlFj _>>,_.Fb>Fj._>>,_.>\u0006_>._.>_>,_.Fh >_>._.><\u0006_>._.>_>,_,>_>,_.><\u0006_>>,_.>_>>._,>_>>._.>\u0006_>>,_.>_>>._.>_>>._.>;m,#pray\ny y \u0006_>._,>_>._.>_>._,>#rub\ng\u001b#offer\n\u0006_>._.>_>,_,>_>,_,>\u0006_>._.>_>._,>_>,_.>\u0006_>,_.>_>._.>_>._,>\u0006_>,_.>_>._.>_>._.>Oe\u001b\n\u00167\n#turn\n100sFkFk  n FkFkFk  n FkFkFkFk  nFkFkFk  nFkFkFk  nFkFk20s50s50s50skhy100shjh150s50s150s  hnlE- Elbereth Elbereth\n<20s50sed_>.>100syyu100sFh  nFhFh#pray\ny y       Fhs.kjuhjji\u001b50s50s50s20s100s FlFl  nFlFlFlFl  n\u00163\nmOa\u001b\n\u00167\n100sFh  nFh20s<i\u001bhnhkyn#sit\n\u001b50subk50s50s150s100s100s_>,>hjn100sed _>.>50skkb\u000f\u001b50sed e50s_>.>150s150s100sulhlhj_>,>uyli\u001b100sZ_>.>100s150sO>>n\u001b\u001b\n50s50s100s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u001619\nO>>>d\u001b\nmO>>>>e\u001b\nO>>>h\u001b\nmO>>>>l\u001b\nmOa\u001b\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0006_>,     Fn    n  _,  n Fl  n   n>Fu   nFl   n  _>,  yny   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50059035,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0006_ \u001bm.>FlFj _>>,_.Fb>Fj._>>,_.>\u0006_>._.>_>,_.Fh >_>._.><\u0006_>._.>_>,_,>_>,_.><\u0006_>>,_.>_>>._,>_>>._.>\u0006_>>,_.>_>>._.>_>>._.>;m,#pray\ny y \u0006_>._,>_>._.>_>._,>#rub\ng\u001b#offer\n\u0006_>._.>_>,_,>_>,_,>\u0006_>._.>_>._,>_>,_.>\u0006_>,_.>_>._.>_>._,>\u0006_>,_.>_>._.>_>._.>Oe\u001b\n\u00167\n#turn\n100sFkFk  n FkFkFk  n FkFkFkFk  nFkFkFk  nFkFkFk  nFkFk20s50s50s50skhy100shjh150s50s150s  hnlE- Elbereth Elbereth\n<20s50sed_>.>100syyu100sFh  nFhFh#pray\ny y       Fhs.kjuhjji\u001b50s50s50s20s100s FlFl  nFlFlFlFl  n\u00163\nmOa\u001b\n\u00167\n100sFh  nFh20s<i\u001bhnhkyn#sit\n\u001b50subk50s50s150s100s100s_>,>hjn100sed _>.>50skkb\u000f\u001b50sed e50s_>.>150s150s100sulhlhj_>,>uyli\u001b100sZ_>.>100s150sO>>n\u001b\u001b\n50s50s100s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u001619\nO>>>d\u001b\nmO>>>>e\u001b\nO>>>h\u001b\nmO>>>>l\u001b\nmOa\u001b\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0006_>,     Fn    n  _,  n Fl  n   n>Fu   nFl   n  _>,  yny   y y y\u001by  F"
+  }
+ ]
+}

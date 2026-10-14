@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "mO>>>>c\u001b\n\u001613\n    FyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFy\u00166\nFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFy"
+ },
+ "segments": [
+  {
+   "seed": 50059058,
+   "datetime": "20180619120819",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:Enhanced2\nOPTIONS=pushweapon\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"uncursed\"=brown\n",
+   "moves": "mO>>>>c\u001b\n\u001613\n    FyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFy\u00166\nFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFy"
+  }
+ ]
+}

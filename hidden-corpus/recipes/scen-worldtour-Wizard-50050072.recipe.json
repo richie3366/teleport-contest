@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwp \u0016?\nd  \u0014 \u001b, s    sm.\u0016?\nc_<._.20s    ss\u0016?\n>Bjjkjyb:\u0016?\n>w\u0006_>. _.\u0016?\n>C\u0014:20s  n  ns\u00166\n\u001643\n#levelchange\n30\nyjhh\u0017magic trap\nlh20s.ku\u0017falling rock trap\nhl.suu\u0017level teleporter\nny 7\n s.by\u0017hole\nnyy ss,Zb\nok\u001613\n\u0014.\u001613\nybhl:\u0016?\n>>P  _{.>\u0016?\n>I ynbh:\u001634\nhu\u0017wand of secret door detection\nEb  I am a fish\nE-y Elbereth\n  : \u0017wand of cold\nEqy ad aerarium\n \u0017wand of death\nErn  X marks the spot\n : E-y Vlad was here\n \u0007gnome lord\nsm.  n sm.sm. Fj Fn   n \u00169\n\u001643\n   l l l   llj :sm. .j  n  .m.         \u0016?\n>>L      Mjollnir\nby  k        u    n     u    n :         n  .      n   s    n  \u001611\n\u001634\n\u0014 n    n    \u0016?\n\u001bn       n      n  n    \u00164\n\u0016?\n\u001by    n        h    n           \u001617\nj j\u0017wand of probing\nEu Vlad was here\n    n           n :  k             ynny y  y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50050072,
+   "datetime": "20080403192747",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwp \u0016?\nd  \u0014 \u001b, s    sm.\u0016?\nc_<._.20s    ss\u0016?\n>Bjjkjyb:\u0016?\n>w\u0006_>. _.\u0016?\n>C\u0014:20s  n  ns\u00166\n\u001643\n#levelchange\n30\nyjhh\u0017magic trap\nlh20s.ku\u0017falling rock trap\nhl.suu\u0017level teleporter\nny 7\n s.by\u0017hole\nnyy ss,Zb\nok\u001613\n\u0014.\u001613\nybhl:\u0016?\n>>P  _{.>\u0016?\n>I ynbh:\u001634\nhu\u0017wand of secret door detection\nEb  I am a fish\nE-y Elbereth\n  : \u0017wand of cold\nEqy ad aerarium\n \u0017wand of death\nErn  X marks the spot\n : E-y Vlad was here\n \u0007gnome lord\nsm.  n sm.sm. Fj Fn   n \u00169\n\u001643\n   l l l   llj :sm. .j  n  .m.         \u0016?\n>>L      Mjollnir\nby  k        u    n     u    n :         n  .      n   s    n  \u001611\n\u001634\n\u0014 n    n    \u0016?\n\u001bn       n      n  n    \u00164\n\u0016?\n\u001by    n        h    n           \u001617\nj j\u0017wand of probing\nEu Vlad was here\n    n           n :  k             ynny y  y\u001b  \u0017"
+  }
+ ]
+}

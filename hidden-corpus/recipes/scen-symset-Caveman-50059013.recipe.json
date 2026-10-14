@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #chat\nh>v i\u001bv i\u001bO>>>d\u001b\nO>>>j\u001b\nOn\u001b\n\u001618\n\u00162\nFn FuFlFuFjFlFhFlFnFnFkFyFlFbFyFnFkFlFhFuFjFuFhFjFbFnFjFnFjFjFuFlFnFhFhFyFkFjFkFbFyFuFhFbFlFhFnFuFnFjFkFlFbFuFlFjFnFj FhFyFjFyFlFkFhFnFhFkFbFnFyFuFbFjFuFkFkFlFyFkFuFkFbFyFhFnFlFjFkFbFhFnFlFkFkFyFyFjFbFyFlFkFyFkFuFuFlFkFjFhFnFbFbFnFnFhFnFbFnFbmO>>>>l\u001b\nv i\u001b\u00162\nFuFkFbFnFbFkFyFkFyFnFyFbFyFjFkFuFyFlFhFbFhFjFnFyFuFnFbFhFhFkFjFkFkFyFjFkFjFuFlFhFnFkFkFuFhFkFjFhFbFyFuFlFhFyFjFhFbFuFjFuFuFbFuFjFhFlFbFkFlFlFuFjFuFyFhFyFhFlFjFuFuFhFyFbFnFnFkFkFyFhFkFkFyFbFjFkFjFbFuFuFhFjFnFnFlFbFjFkFlFbFyFnFkFlFbFkFyFjFbFuFbFyFjFjFkFuFjFlFuFbFkFuFhFbFlFjFyFjFyFhFuFbFyFuFbFyFhFyFnFbFlFjFuFnFhFyFnFjFnFhFjFhFhFyFnFlFbFlFhFbFhFnFjFlFjFuFlFhFnFnFlFyFuFjFhFhFjFuFhFjFnFkFnFlFhFuFnFyFbFuFkFjFbFhFkFbFhFhFhFlFlFjFkFjFyFjFkFbFbFuFnFhFkFuFyFkFuFkFlFbFlFyFkFkFnFjFkFjFjFj\u00165\n FjFjFjFjFjFjFjFjF"
+ },
+ "segments": [
+  {
+   "seed": 50059013,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " #chat\nh>v i\u001bv i\u001bO>>>d\u001b\nO>>>j\u001b\nOn\u001b\n\u001618\n\u00162\nFn FuFlFuFjFlFhFlFnFnFkFyFlFbFyFnFkFlFhFuFjFuFhFjFbFnFjFnFjFjFuFlFnFhFhFyFkFjFkFbFyFuFhFbFlFhFnFuFnFjFkFlFbFuFlFjFnFj FhFyFjFyFlFkFhFnFhFkFbFnFyFuFbFjFuFkFkFlFyFkFuFkFbFyFhFnFlFjFkFbFhFnFlFkFkFyFyFjFbFyFlFkFyFkFuFuFlFkFjFhFnFbFbFnFnFhFnFbFnFbmO>>>>l\u001b\nv i\u001b\u00162\nFuFkFbFnFbFkFyFkFyFnFyFbFyFjFkFuFyFlFhFbFhFjFnFyFuFnFbFhFhFkFjFkFkFyFjFkFjFuFlFhFnFkFkFuFhFkFjFhFbFyFuFlFhFyFjFhFbFuFjFuFuFbFuFjFhFlFbFkFlFlFuFjFuFyFhFyFhFlFjFuFuFhFyFbFnFnFkFkFyFhFkFkFyFbFjFkFjFbFuFuFhFjFnFnFlFbFjFkFlFbFyFnFkFlFbFkFyFjFbFuFbFyFjFjFkFuFjFlFuFbFkFuFhFbFlFjFyFjFyFhFuFbFyFuFbFyFhFyFnFbFlFjFuFnFhFyFnFjFnFhFjFhFhFyFnFlFbFlFhFbFhFnFjFlFjFuFlFhFnFnFlFyFuFjFhFhFjFuFhFjFnFkFnFlFhFuFnFyFbFuFkFjFbFhFkFbFhFhFhFlFlFjFkFjFyFjFkFbFbFuFnFhFkFuFyFkFuFkFlFbFlFyFkFkFnFjFkFjFjFj\u00165\n FjFjFjFjFjFjFjFjF"
+  }
+ ]
+}

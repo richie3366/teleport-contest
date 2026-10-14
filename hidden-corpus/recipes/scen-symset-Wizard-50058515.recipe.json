@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "O>o3\n\u001b\n\u00164\n\u0007tame pony\n\u0007tame large dog\nudh20sss\u0007jackal\n\u0017scroll of taming\nro \u0017fortune cookie\nt\u001b\u0007lichen\n\u0017scroll of taming\nrq \u0017tin whistle\nyjkar\u0006_ \u001b,>Fb Fh _>.  Fh _.Fu >FuFb _>, Fj_.Fu>FbFhFhFhFj\u0006_>.Fj _.Fk>Fy Fh_>,Fu_.Fk>FbFh_>.Fu _,Fy>Fj FuFbFy   Fu\u0006_>. Fj_.Fh >Fy  Fu_>, Fy_,Fh>FbFh_>.Fh_,Fy>FbFuFjFjFb\u000f\u001bqf ep  v i\u001bv i\u001bmOa\u001b\n\u0006_>,Fb_,  Fj>FbFy_>,Fu_.Fu>FuFb_>.Fh_,Fb>Fu FbFuFjFu<\u0006_>,Fb_, Fj>FuFu_>.Fj_.Fj>FjFu _>.Fj_,Fu>FbFuFyFyFb\u0006_>,Fu_,Fb>FuFj_>.Fb_,Fb>FjFy_>,Fb_.Fu>FbFuFjFbFbqg #terrain\n\u001b\u0006_>,Fj _.Fj>FyFj_>,Fj_.Fu>FuFb_>.Fy_,Fu>FyFyFuFyFu\u00165\n\u0007tame kitten\n\u0007large dog\n\u0017lichen corpse\nt\u001bdnsm.20s .m.#chat\njdksysm.20s  n #chat\nb\u0017magic whistle\nlnlat \u0006_>>.Fb_.Fb>Fy Fb_>>,  nFk _.Fl>FhFy_>>.  n Fl_.Fn  n  >FhFh\u00169\n\u00164\nFu FjFjFlFbFlFkFuFuFkFuFl  FbFjFkFhFhFkFlFkFbFkFlFnFnFjFjFjFnFjFkFbFuFlFjFnFkFkFnFbFbFbFbFhFhFhFlFuFuFlFjFjFjFbFnFjFkFhFbFbFjFbFkFhFhFbFjFlFlFnFhFbFyFhFyFjFbFbFjFuFkFyFuFbFyFbFjFuFyFu FyFyFnFlFh FjFhFbFyFjFyFyFhFkFnFuFuFj Fj"
+ },
+ "segments": [
+  {
+   "seed": 50058515,
+   "datetime": "20130804051828",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": "O>o3\n\u001b\n\u00164\n\u0007tame pony\n\u0007tame large dog\nudh20sss\u0007jackal\n\u0017scroll of taming\nro \u0017fortune cookie\nt\u001b\u0007lichen\n\u0017scroll of taming\nrq \u0017tin whistle\nyjkar\u0006_ \u001b,>Fb Fh _>.  Fh _.Fu >FuFb _>, Fj_.Fu>FbFhFhFhFj\u0006_>.Fj _.Fk>Fy Fh_>,Fu_.Fk>FbFh_>.Fu _,Fy>Fj FuFbFy   Fu\u0006_>. Fj_.Fh >Fy  Fu_>, Fy_,Fh>FbFh_>.Fh_,Fy>FbFuFjFjFb\u000f\u001bqf ep  v i\u001bv i\u001bmOa\u001b\n\u0006_>,Fb_,  Fj>FbFy_>,Fu_.Fu>FuFb_>.Fh_,Fb>Fu FbFuFjFu<\u0006_>,Fb_, Fj>FuFu_>.Fj_.Fj>FjFu _>.Fj_,Fu>FbFuFyFyFb\u0006_>,Fu_,Fb>FuFj_>.Fb_,Fb>FjFy_>,Fb_.Fu>FbFuFjFbFbqg #terrain\n\u001b\u0006_>,Fj _.Fj>FyFj_>,Fj_.Fu>FuFb_>.Fy_,Fu>FyFyFuFyFu\u00165\n\u0007tame kitten\n\u0007large dog\n\u0017lichen corpse\nt\u001bdnsm.20s .m.#chat\njdksysm.20s  n #chat\nb\u0017magic whistle\nlnlat \u0006_>>.Fb_.Fb>Fy Fb_>>,  nFk _.Fl>FhFy_>>.  n Fl_.Fn  n  >FhFh\u00169\n\u00164\nFu FjFjFlFbFlFkFuFuFkFuFl  FbFjFkFhFhFkFlFkFbFkFlFnFnFjFjFjFnFjFkFbFuFlFjFnFkFkFnFbFbFbFbFhFhFhFlFuFuFlFjFjFjFbFnFjFkFhFbFbFjFbFkFhFhFbFjFlFlFnFhFbFyFhFyFjFbFbFjFuFkFyFuFbFyFbFjFuFyFu FyFyFnFlFh FjFhFbFyFjFyFyFhFkFnFuFuFj Fj"
+  }
+ ]
+}

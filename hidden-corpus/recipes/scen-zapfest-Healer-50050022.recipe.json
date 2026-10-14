@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWl\u0017blessed shield of reflection\nWm \u0017blessed +3 gray dragon scale mail\nWn #levelchange\n10\n        \u0017wand of death\n\u0017wand of cancellation\n\u0007grid bug\nzpbzpbzphsm.zoj  zohzonzobzpuzpb\u0018\u001b\u0007silver dragon\n.m.sbs#polyself\nred dragon\n   .s#monster\nl   #monster\nh 20s   20s    \u0017spellbook of cone of cold\nrq           .m. \u0017blessed spellbook of light\nrr  20s   n\u0007lich\n\u0007kobold shaman\nZb\n Zc\n   Zc\n   Zb\n     n Zc\n .m.  sm.  Zb\nZa\nsh.m.    n Za\n20s  sj#turn\n\u001613\ni\u001b\u00164\n\u00175 boomerangs\nQs\u0007gnome\nfntsjt$jfltshtskf \u001bf \u001b\u001618\n i\u001b\u0017spellbook of drain life\nrt \u001b:.\u0017spellbook of finger of death\nrus\u0007succubus\nZc\nZa\nZb\nZc\nsm.      20sZa\ns20sZb\nZc\nZc\nZa\n\u0017orcish bow\nwv\u001720 orcish arrows\nQw\u0007owlbear\ntwhfh twh fh fh fh  n  i\u001b\u0017wand of teleportation\n\u0017wand of death\n\u0017wand of polymorph\n\u0007troll\nzzk zzk .k zyhzykzxnszxkzx.<..\u0017wand of magic missile\n\u0017wand of sleep\n\u0007sewer rat\n\u0007hobbit\n\u0007grid bug\nzAy20szAu  nzBhzAhszAlzAlzBbzAhzAb\u0017wand of cancellation\n\u0017wand of cold\n\u0017wand of slow monster\n\u0007bugbear\n\u0007yellow mold\n\u0007dwarf\nz"
+ },
+ "segments": [
+  {
+   "seed": 50050022,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWl\u0017blessed shield of reflection\nWm \u0017blessed +3 gray dragon scale mail\nWn #levelchange\n10\n        \u0017wand of death\n\u0017wand of cancellation\n\u0007grid bug\nzpbzpbzphsm.zoj  zohzonzobzpuzpb\u0018\u001b\u0007silver dragon\n.m.sbs#polyself\nred dragon\n   .s#monster\nl   #monster\nh 20s   20s    \u0017spellbook of cone of cold\nrq           .m. \u0017blessed spellbook of light\nrr  20s   n\u0007lich\n\u0007kobold shaman\nZb\n Zc\n   Zc\n   Zb\n     n Zc\n .m.  sm.  Zb\nZa\nsh.m.    n Za\n20s  sj#turn\n\u001613\ni\u001b\u00164\n\u00175 boomerangs\nQs\u0007gnome\nfntsjt$jfltshtskf \u001bf \u001b\u001618\n i\u001b\u0017spellbook of drain life\nrt \u001b:.\u0017spellbook of finger of death\nrus\u0007succubus\nZc\nZa\nZb\nZc\nsm.      20sZa\ns20sZb\nZc\nZc\nZa\n\u0017orcish bow\nwv\u001720 orcish arrows\nQw\u0007owlbear\ntwhfh twh fh fh fh  n  i\u001b\u0017wand of teleportation\n\u0017wand of death\n\u0017wand of polymorph\n\u0007troll\nzzk zzk .k zyhzykzxnszxkzx.<..\u0017wand of magic missile\n\u0017wand of sleep\n\u0007sewer rat\n\u0007hobbit\n\u0007grid bug\nzAy20szAu  nzBhzAhszAlzAlzBbzAhzAb\u0017wand of cancellation\n\u0017wand of cold\n\u0017wand of slow monster\n\u0007bugbear\n\u0007yellow mold\n\u0007dwarf\nz"
+  }
+ ]
+}

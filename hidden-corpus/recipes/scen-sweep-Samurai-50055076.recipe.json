@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqf \u001b:_{._. Fjq_mm.Fj_.Fj #chat\nj_oooooo.Fj_.Fj_o.Fj_.,$_m,Fj_.#chat\nj_dddd, _.:Fn  n\u0004h_dddd.Fl_.,\u0004l_{._.m.q#jump\n:#untrap\nhi\u001b#wipe\n\u0004jW\u000f\u001bi\u001b#conduct\n oj#ride\nhyi\u001bunu\u0017web\nh\u0007gnome\nsy 20s.m.20sj\u0017rolling boulder trap\nubsy  .\u0017land mine\n ah     jj#terrain\n\u001b#loot\n#untrap\nk_m,.\u0017wand of digging\nzihh _>,   _,zi> yjzijj_>,_.zi> #levelchange\n14\n           \u0017sling\nwj\u001720 flint stones\nQk\u0007grid bug\nhflfnfu\u0017potion of oil\nt$j\u0007jackal\nklfhfhfljjj,\u0017blessed potion of gain ability\n\u0007vampire\nqm  \u0017blessed lock pick\n\u0007baby red dragon\nank  \u0017uncursed spellbook of sleep\nro  20s  sm.  ZFk  Fk    \u00173 wand of death\nzpk  zpj   \u0017Vorpal Blade\nwq   Fj   Fj  Fj #invoke\nq    n  20s  sm.   \u0017crossbow\nwr \u001715 crossbow bolts\nQs\u0007kobold\nbnfj fk  nuh,#enhance\nyr\nn\n\u001b#levelchange\n6\n  #polyself\nfire vortex\n  #monster\n20s   .\u0007kobold\nFjFjFjFj\u0007newt\nFj  sFkFk#levelchange\n30\n                        \u0017blessed ring of polymorph control\nPt\u0017leather armor\nWs20s.#polyself\nwerewolf\n lurker above\n#monster\nss\u0007prisoner\nFksFj  s20s.#polyself\nwarhorse\n20s.j \u0007lurker above\nFkFjFjsy.m..#polyself\ngreen slime\n #monster\n20s  s\u001b\u0007mail daemon\nFkFkFjs\u001bss\u0017uncursed potion of enlightenment\n\u0007vampire bat\nqv \u001b\u0017blessed potion of healing\nqwFkFj\u0017potion of gain ability\nqx\u0017blessed spellbook of sleep\n\u0007skeleton\nr20ss\u001bZ. 20s\u001b\u000f\u001b\u0017elven bow\nwz\u001720 elven ar"
+ },
+ "segments": [
+  {
+   "seed": 50055076,
+   "datetime": "20060223071729",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqf \u001b:_{._. Fjq_mm.Fj_.Fj #chat\nj_oooooo.Fj_.Fj_o.Fj_.,$_m,Fj_.#chat\nj_dddd, _.:Fn  n\u0004h_dddd.Fl_.,\u0004l_{._.m.q#jump\n:#untrap\nhi\u001b#wipe\n\u0004jW\u000f\u001bi\u001b#conduct\n oj#ride\nhyi\u001bunu\u0017web\nh\u0007gnome\nsy 20s.m.20sj\u0017rolling boulder trap\nubsy  .\u0017land mine\n ah     jj#terrain\n\u001b#loot\n#untrap\nk_m,.\u0017wand of digging\nzihh _>,   _,zi> yjzijj_>,_.zi> #levelchange\n14\n           \u0017sling\nwj\u001720 flint stones\nQk\u0007grid bug\nhflfnfu\u0017potion of oil\nt$j\u0007jackal\nklfhfhfljjj,\u0017blessed potion of gain ability\n\u0007vampire\nqm  \u0017blessed lock pick\n\u0007baby red dragon\nank  \u0017uncursed spellbook of sleep\nro  20s  sm.  ZFk  Fk    \u00173 wand of death\nzpk  zpj   \u0017Vorpal Blade\nwq   Fj   Fj  Fj #invoke\nq    n  20s  sm.   \u0017crossbow\nwr \u001715 crossbow bolts\nQs\u0007kobold\nbnfj fk  nuh,#enhance\nyr\nn\n\u001b#levelchange\n6\n  #polyself\nfire vortex\n  #monster\n20s   .\u0007kobold\nFjFjFjFj\u0007newt\nFj  sFkFk#levelchange\n30\n                        \u0017blessed ring of polymorph control\nPt\u0017leather armor\nWs20s.#polyself\nwerewolf\n lurker above\n#monster\nss\u0007prisoner\nFksFj  s20s.#polyself\nwarhorse\n20s.j \u0007lurker above\nFkFjFjsy.m..#polyself\ngreen slime\n #monster\n20s  s\u001b\u0007mail daemon\nFkFkFjs\u001bss\u0017uncursed potion of enlightenment\n\u0007vampire bat\nqv \u001b\u0017blessed potion of healing\nqwFkFj\u0017potion of gain ability\nqx\u0017blessed spellbook of sleep\n\u0007skeleton\nr20ss\u001bZ. 20s\u001b\u000f\u001b\u0017elven bow\nwz\u001720 elven ar"
+  }
+ ]
+}

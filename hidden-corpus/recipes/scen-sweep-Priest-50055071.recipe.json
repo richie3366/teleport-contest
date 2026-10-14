@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0016?\n>y  _ \u001b>.#chat\ny_m,Fk _.#chat\nn_mm.Fl_.Fj#chat\nj;j.\u0006_>.Fy_.Fl>FlFl_>,Fl _.Fy >FuFh _>.Fl_,,Fk>FhFh \u0016?\n>A#turn\n  \u000f\u001bs#wizintrinsic\nrhg\n  .s.20ss.20ss20s .k20ssm.sm.20s;j,:#turn\n  w-#dip\ngd#wipe\ns.ssss\u001626\nbblk\u0017altar\ndg\u0017elf corpse\n#offer\ni   u\u0017sink\nqyl\u0004h\u0004h:j\u0017throne\n#sit\n #sit\n n#sit\n #sit\n  b\u0017moat\n#dip\ncy   jk #terrain\n\u001b\\ 20s  n \u0004n \u0006i\u001b#pray\ny y         sohs#loot\nl#ride\nyy yPE- Elbereth Elbereth\ni\u001b#wizintrinsic\nm\n hjb\u0017cursed scroll of destroy armor\nrj  \u0017blessed potion of invisibility\nqk sj  nsns\u001628\n#levelchange\n12\n \u0016?\ne#turn\n      #enhance\nyh\nm\n\u001bZb\n;y;\u0006sls\u001617\n#monster\nf a k\u0014.;<. \u000620ss\u0016?\nhsss..\u0016?\n>>K      magic marker\n#tip\n\u001b\u0018\u001brh\u0006<.20s    n  sm.   n  \u001630\nef      n  n \u0014.    n  \u0004h    n    n   n .y   n  sm.   n  \u00161\n\u0016?\n\u001b\u001614\n_m,  n_,  n#chat\nj_mmmm._.  n  yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50055071,
+   "datetime": "20161012121135",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0016?\n>y  _ \u001b>.#chat\ny_m,Fk _.#chat\nn_mm.Fl_.Fj#chat\nj;j.\u0006_>.Fy_.Fl>FlFl_>,Fl _.Fy >FuFh _>.Fl_,,Fk>FhFh \u0016?\n>A#turn\n  \u000f\u001bs#wizintrinsic\nrhg\n  .s.20ss.20ss20s .k20ssm.sm.20s;j,:#turn\n  w-#dip\ngd#wipe\ns.ssss\u001626\nbblk\u0017altar\ndg\u0017elf corpse\n#offer\ni   u\u0017sink\nqyl\u0004h\u0004h:j\u0017throne\n#sit\n #sit\n n#sit\n #sit\n  b\u0017moat\n#dip\ncy   jk #terrain\n\u001b\\ 20s  n \u0004n \u0006i\u001b#pray\ny y         sohs#loot\nl#ride\nyy yPE- Elbereth Elbereth\ni\u001b#wizintrinsic\nm\n hjb\u0017cursed scroll of destroy armor\nrj  \u0017blessed potion of invisibility\nqk sj  nsns\u001628\n#levelchange\n12\n \u0016?\ne#turn\n      #enhance\nyh\nm\n\u001bZb\n;y;\u0006sls\u001617\n#monster\nf a k\u0014.;<. \u000620ss\u0016?\nhsss..\u0016?\n>>K      magic marker\n#tip\n\u001b\u0018\u001brh\u0006<.20s    n  sm.   n  \u001630\nef      n  n \u0014.    n  \u0004h    n    n   n .y   n  sm.   n  \u00161\n\u0016?\n\u001b\u001614\n_m,  n_,  n#chat\nj_mmmm._.  n  yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

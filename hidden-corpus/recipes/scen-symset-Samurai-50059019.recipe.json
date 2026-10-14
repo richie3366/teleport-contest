@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00166\nFlFkFyFl FuFhFkFnFlFbFnFhFhFlFhFkFbFnFbFuFbFnFhFkFlFnFnFkFkFlFhFhFnFkFyFuFjFyFuFjFuFyFyFkFuFnFyFkFnFnFuFuFhFyFkFlFkFlFbFhFbFjFkFyFjFuFyFuFjFkFbFuFlFlFuFlFlFbFnFnFjFuFjFhFkFjFhFbFlFuFnFlFlFkFhFlFbFkFlFkFkFuFyFhFnFkFjFhFjFyFkFjFlFnFjFkFlFhFuFjmO>b\u001b\nmO>>>c\u001b\nv i\u001b\u00161\n\u00164\nFlFlFkFuFyFlFjFbFjFlFnFyFnFnFnFnFuFkFbFkFyFuFyFkFuFkFjFuFyFuFjFkFyFyFbFnFhFbFlFlFkFuFuFkFyFhFhFlFjFhFkFbFlFkFlFhFnFyFbFbFlFkFlFyFbFnFuFbFuFlFbFbFbFnFjFjFuFbFhFkFbFbFyFlFuFlFyFlFjFkFuFuFyFhFhFbFlFkFyFnFjFbFlFnFlFyFyFkFnFkFlFhFnFlFhFhFjFnFnFjv i\u001bO>>>b\u001b\n#turn\n<\\    \\    mO>>>>h\u001b\nFbFhFkFuFjFuFuFnFkFkFkFnFlFhFbFjFkFhFnFyFkFkFjFjFjFyFyFkFkFkFkFjFkFyFnFkFnFhFuFhFbFbFbFhFkFbFbFlFyFuFlFuFlFhFkFnFnFkFuFlFlFlFhFjFyFbFhFjFjFuFkFyFjFbFlFnFlFnFbFhFkFkFbFuFhFnFnFhFyFhFlFnFyFuFyFkFjFyFlFjFjFyFkFnFkFyFhFnFbFhFnFyFjFbFyFyFuFkFhFjO>>>>p\u001b\n\u0006_ \u001b.>FhFb_>.Fl_.>. Fh>FuFl_>.Fu  _,,Fu   >FuFjFyFlFu#"
+ },
+ "segments": [
+  {
+   "seed": 50059019,
+   "datetime": "20040926111431",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:crawl\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nMENUCOLOR=\"a scroll\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00166\nFlFkFyFl FuFhFkFnFlFbFnFhFhFlFhFkFbFnFbFuFbFnFhFkFlFnFnFkFkFlFhFhFnFkFyFuFjFyFuFjFuFyFyFkFuFnFyFkFnFnFuFuFhFyFkFlFkFlFbFhFbFjFkFyFjFuFyFuFjFkFbFuFlFlFuFlFlFbFnFnFjFuFjFhFkFjFhFbFlFuFnFlFlFkFhFlFbFkFlFkFkFuFyFhFnFkFjFhFjFyFkFjFlFnFjFkFlFhFuFjmO>b\u001b\nmO>>>c\u001b\nv i\u001b\u00161\n\u00164\nFlFlFkFuFyFlFjFbFjFlFnFyFnFnFnFnFuFkFbFkFyFuFyFkFuFkFjFuFyFuFjFkFyFyFbFnFhFbFlFlFkFuFuFkFyFhFhFlFjFhFkFbFlFkFlFhFnFyFbFbFlFkFlFyFbFnFuFbFuFlFbFbFbFnFjFjFuFbFhFkFbFbFyFlFuFlFyFlFjFkFuFuFyFhFhFbFlFkFyFnFjFbFlFnFlFyFyFkFnFkFlFhFnFlFhFhFjFnFnFjv i\u001bO>>>b\u001b\n#turn\n<\\    \\    mO>>>>h\u001b\nFbFhFkFuFjFuFuFnFkFkFkFnFlFhFbFjFkFhFnFyFkFkFjFjFjFyFyFkFkFkFkFjFkFyFnFkFnFhFuFhFbFbFbFhFkFbFbFlFyFuFlFuFlFhFkFnFnFkFuFlFlFlFhFjFyFbFhFjFjFuFkFyFjFbFlFnFlFnFbFhFkFkFbFuFhFnFnFhFyFhFlFnFyFuFyFkFjFyFlFjFjFyFkFnFkFyFhFnFbFhFnFyFjFbFyFyFuFkFhFjO>>>>p\u001b\n\u0006_ \u001b.>FhFb_>.Fl_.>. Fh>FuFl_>.Fu  _,,Fu   >FuFjFyFlFu#"
+  }
+ ]
+}

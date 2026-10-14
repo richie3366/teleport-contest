@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWh \u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>>P  nnlyyyn:\u0016?\n>>P\u0014 \u001b;\u001629\n\u0006_>.\u0016?\n>>P  nl:20s20s.\u00168\nhn:ss.\u0016?\n>w _{.\u0016?\nn _{.<\u0016?\n>v\u0004hs20s \u001b \u001b  sj\u0016?\n>Cnj\u0017wand of digging\nEj  X marks the spot\n : l\u0017athame\nEk X marks the spot\n: \u0017wand of undead turning\nEl: \u0017wand of magic missile\nEm: \u00168\n#chat\nk;..\u0016?\n>x#chat\nu;.\u0016?\n>w#levelchange\n8\n       \u0017Frost Brand\nwns..#invoke\nnm.    \u0007sandestin\nFk  Fk Fk Fk  Fk \u0007red mold\nFj  n Fk Fk Fj  FkFk\u0016?\n>>M      egg\nyy       n  yl \u0017pool\n#dip\nejkb\u0017qqq#dip\n : n  u \u0017neutral altar\ndd\u0017jackal corpse\n#offer\nj \u0017altar\ndf   n  \u0017elf corpse\n #offer\n#terrain\n\u001b#chat\nhoj,\u00169\n\u00168\n_{.<\u001642\nu   k y      n  j     n   :      n     n20s  n     n     n   \u00166\n\u0016?\n\u001bh  n      n      n  n  n    yny   y ny\u001b  u"
+ },
+ "segments": [
+  {
+   "seed": 50056063,
+   "datetime": "20110723153524",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWh \u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>>P  nnlyyyn:\u0016?\n>>P\u0014 \u001b;\u001629\n\u0006_>.\u0016?\n>>P  nl:20s20s.\u00168\nhn:ss.\u0016?\n>w _{.\u0016?\nn _{.<\u0016?\n>v\u0004hs20s \u001b \u001b  sj\u0016?\n>Cnj\u0017wand of digging\nEj  X marks the spot\n : l\u0017athame\nEk X marks the spot\n: \u0017wand of undead turning\nEl: \u0017wand of magic missile\nEm: \u00168\n#chat\nk;..\u0016?\n>x#chat\nu;.\u0016?\n>w#levelchange\n8\n       \u0017Frost Brand\nwns..#invoke\nnm.    \u0007sandestin\nFk  Fk Fk Fk  Fk \u0007red mold\nFj  n Fk Fk Fj  FkFk\u0016?\n>>M      egg\nyy       n  yl \u0017pool\n#dip\nejkb\u0017qqq#dip\n : n  u \u0017neutral altar\ndd\u0017jackal corpse\n#offer\nj \u0017altar\ndf   n  \u0017elf corpse\n #offer\n#terrain\n\u001b#chat\nhoj,\u00169\n\u00168\n_{.<\u001642\nu   k y      n  j     n   :      n     n20s  n     n     n   \u00166\n\u0016?\n\u001bh  n      n      n  n  n    yny   y ny\u001b  u"
+  }
+ ]
+}

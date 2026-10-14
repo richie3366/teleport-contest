@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0007tame black unicorn\n\u0017saddle\naib#ride\nhy\u0007tame saddled pony\n#ride\nnyy\u0007tame saddled pony\n#ride\n byh\u0004y\u0007yellow mold\nFn       FjFnhb\u0004l#levelchange\n12\n          #wizintrinsic\nkco\n  .m. .m. \u001b:sm.sm.20s          sk .hsm.sh 20s   .m.      n 20s      20s     s20s     s20s    ...ss#tip\n\u001b#wipe\n_<.s ot#enhance\nyl\ni\n\u001bs s   sm.sm.sm.sm.\u001629\n   #levelchange\n10\njh y  \u0017hole\nn y  20s     20s     n  b    \u0017rust trap\nj   k     sh   .j#terrain\nb\ne #sit\n   n    ;u:  \u001612\n    #levelchange\n12\n \u0017blessed ring of polymorph control\nPjr#polyself\ngrid bug\n #monster\n20sss20s.n#polyself\ngold golem\n #monster\nsks\u0007umber hulk\nFn        FnFh.m.sm.  sl#polyself\nvampire\n#monster\nn 20s   .m. \u0007titanothere\nFjFb  n   Fb sm.   sh.n#polyself\nstone golem\n#monster\n20s    su  \u0007horned devil\nFb   Fb     n Fj    20s      n  sm.   sk\u0017amulet of unchanging\nPk     n .m.20s    sm.    n sm.  Rk   n  \\ \u001612\n #wizintrinsic\nlj\n  \u0017cursed scroll of confuse monster\nrl  \u001b  \u0017potion of water\nqm   \u0017blessed scroll of destroy armor\nrn   \u001bZa\n  n  20s  20s  20s   \\ \u0017crossbow\nwo   n    \u001715 crossbow bolts\nQ\u001b\u00073 acid blob\nhf \u001bf \u001bf \u001bf \u001bf \u001b\u0017potion of extra healing\ntpj hj  h   ,#enhance\nn\u001b\\ #levelchange\n30\n                  \u001631\n #invoke\n\u001bi\u001bJ;l:  sm.  20s  \u001618\n cj  #force\n#enhance\nyd\ne\n\u001b20s  sm.  \u0016?\n \u0017pick-axe\n \u00169\n j   n \u0017g"
+ },
+ "segments": [
+  {
+   "seed": 50055040,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007tame black unicorn\n\u0017saddle\naib#ride\nhy\u0007tame saddled pony\n#ride\nnyy\u0007tame saddled pony\n#ride\n byh\u0004y\u0007yellow mold\nFn       FjFnhb\u0004l#levelchange\n12\n          #wizintrinsic\nkco\n  .m. .m. \u001b:sm.sm.20s          sk .hsm.sh 20s   .m.      n 20s      20s     s20s     s20s    ...ss#tip\n\u001b#wipe\n_<.s ot#enhance\nyl\ni\n\u001bs s   sm.sm.sm.sm.\u001629\n   #levelchange\n10\njh y  \u0017hole\nn y  20s     20s     n  b    \u0017rust trap\nj   k     sh   .j#terrain\nb\ne #sit\n   n    ;u:  \u001612\n    #levelchange\n12\n \u0017blessed ring of polymorph control\nPjr#polyself\ngrid bug\n #monster\n20sss20s.n#polyself\ngold golem\n #monster\nsks\u0007umber hulk\nFn        FnFh.m.sm.  sl#polyself\nvampire\n#monster\nn 20s   .m. \u0007titanothere\nFjFb  n   Fb sm.   sh.n#polyself\nstone golem\n#monster\n20s    su  \u0007horned devil\nFb   Fb     n Fj    20s      n  sm.   sk\u0017amulet of unchanging\nPk     n .m.20s    sm.    n sm.  Rk   n  \\ \u001612\n #wizintrinsic\nlj\n  \u0017cursed scroll of confuse monster\nrl  \u001b  \u0017potion of water\nqm   \u0017blessed scroll of destroy armor\nrn   \u001bZa\n  n  20s  20s  20s   \\ \u0017crossbow\nwo   n    \u001715 crossbow bolts\nQ\u001b\u00073 acid blob\nhf \u001bf \u001bf \u001bf \u001bf \u001b\u0017potion of extra healing\ntpj hj  h   ,#enhance\nn\u001b\\ #levelchange\n30\n                  \u001631\n #invoke\n\u001bi\u001bJ;l:  sm.  20s  \u001618\n cj  #force\n#enhance\nyd\ne\n\u001b20s  sm.  \u0016?\n \u0017pick-axe\n \u00169\n j   n \u0017g"
+  }
+ ]
+}

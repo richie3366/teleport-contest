@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWg\u0017blessed +3 cloak of magic resistance\nWh\u0016?\n>w\u0006_ \u001b@.,p@.\u00167\nkbk\u0016?\n>w\u0006_oo,,#chat\nl_ooooooooo.,p_{.   _,qd_ooo,,\u0014m,20s   sjlh#chat\nu_ooooooo.,p_{,Fk  n_.Fkq__,Fk_.>.Fk  n#chat\nk#pray\ny y    FkFkFkFkFkFk_oooooo,,$\u0016?\n>B jjk\u0016?\n>w\u0006_ooo.,$_{,_,Fhq__.Fl  _,Fh     #chat\nh   n _{,  Fk    _.    n Fk     q_oooooooo,,pFb  Fb  Fb  Fb   n  Fb   Fb  _ooooo,,p_ooooooo.,$__.Fy   _.Fy  #chat\nh   n  _ooo.,$_{. Fy  _, Fk q__,  Fu   _.  n  Fk   #chat\nu   __.  Fl   _.   Fy #chat\nk  _{.   n   Fy  _,Fk   qFk    nFk  Fk    Fk   Fk   n   Fk  \u001611\n_oooooo.,p_ooooooo,,p_{.qFh Fh Fh Fh Fh Fh__.#chat\nhFh Fh   nFh FhFhFhkkj#chat\nhuhl#chat\nb_oo,_ooo.Fb_.,e\np_ooo.,\u001bp__.#chat\nb\u0016?\ncyjl\u0016?\n>w\u0006_oooooo,,p_oooooooo._oo.,phkl#chat\ny_{,_,q_{._,q\u0016?\n>Bjkj\u0016?\n>w\u0006_oooooooo.,p_oooooooo.,p_ooooooooo._.<.Fl _ooo. Fn _. Fn  , $Fy  Fy  Fy  Fy  Fy  Fy  Fy   Fy "
+ },
+ "segments": [
+  {
+   "seed": 50057021,
+   "datetime": "20060814224513",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWg\u0017blessed +3 cloak of magic resistance\nWh\u0016?\n>w\u0006_ \u001b@.,p@.\u00167\nkbk\u0016?\n>w\u0006_oo,,#chat\nl_ooooooooo.,p_{.   _,qd_ooo,,\u0014m,20s   sjlh#chat\nu_ooooooo.,p_{,Fk  n_.Fkq__,Fk_.>.Fk  n#chat\nk#pray\ny y    FkFkFkFkFkFk_oooooo,,$\u0016?\n>B jjk\u0016?\n>w\u0006_ooo.,$_{,_,Fhq__.Fl  _,Fh     #chat\nh   n _{,  Fk    _.    n Fk     q_oooooooo,,pFb  Fb  Fb  Fb   n  Fb   Fb  _ooooo,,p_ooooooo.,$__.Fy   _.Fy  #chat\nh   n  _ooo.,$_{. Fy  _, Fk q__,  Fu   _.  n  Fk   #chat\nu   __.  Fl   _.   Fy #chat\nk  _{.   n   Fy  _,Fk   qFk    nFk  Fk    Fk   Fk   n   Fk  \u001611\n_oooooo.,p_ooooooo,,p_{.qFh Fh Fh Fh Fh Fh__.#chat\nhFh Fh   nFh FhFhFhkkj#chat\nhuhl#chat\nb_oo,_ooo.Fb_.,e\np_ooo.,\u001bp__.#chat\nb\u0016?\ncyjl\u0016?\n>w\u0006_oooooo,,p_oooooooo._oo.,phkl#chat\ny_{,_,q_{._,q\u0016?\n>Bjkj\u0016?\n>w\u0006_oooooooo.,p_oooooooo.,p_ooooooooo._.<.Fl _ooo. Fn _. Fn  , $Fy  Fy  Fy  Fy  Fy  Fy  Fy   Fy "
+  }
+ ]
+}

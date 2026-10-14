@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017unicorn horn\nagag\u00173 spellbook of invisibility\nrh \u001bssZ\u0017spellbook of drain life\n\u0007barrow wight\nri20s 20s Z\u0017potion of extra healing\nqj   \u0017blessed wand of make invisible\nzk.   Fy    Fy   sm.   20s   \u000f\u001b\u0017blessed ring of adornment\n\u0007grid bug\nPlr   .k  20s    sb   Fk  Fu   \u0017crystal plate mail\n W\u001bsm.      sn20s  20s   s\u0017scroll of create monster\nrn ape\n     \u0017uncursed amulet of unchanging\nPo    .m.    .n20s   n        20s    \u0017tsurugi\n\u0007green mold\nwp         Fl         Fj    Fj   Fu         n      Fu  sm.      .m.         \u00169\n#levelchange\n20\n   \u00173 potion of object detection\n\u0007jellyfish\nqq \u001b<.      #dip\nqq    Fu              n Fu        \u0017cursed spellbook of haste self\nrr                  nsj 20s ZZFu  Fu \u0017blessed newt corpse\nes  n 20s  sm.\u0017food ration\n\u0007Aleax\net 20s     n  20s   \u00173 potion of restore ability\n\u0007water demon\nqu  \u001bFj    n       Fj  n  \u0017cursed magic harp\n\u0007scorpion\navy         avy                Fk  Fj .m. .m.  \u001613\n\u00161\n\u00173 potion of levitation\nqw #dip\nwu      n  Fb Fh \u0017uncursed +0 dwarvish mattock\n\u0007Croesus\nnwx  Fy  n Fy Fy     nFy  Fb   \u001b\u0017the Eye of the Aethiopica\n  ,\u00173 Sting\nwy   n   Fy  Fb Fb   n   Fj  Fh    \u0017blessed spellbook of cone of cold\nrz    sm. .m.  n ZZFy    Fy  \u00173 tripe ration\neA  sm.    n  20s  sm.  20s   \u00173 potion of gain energy\nqC \u0017spellbook of magic mapping\nrD \u001b   y\u001b    y  ."
+ },
+ "segments": [
+  {
+   "seed": 50055102,
+   "datetime": "20090730140814",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:full\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017unicorn horn\nagag\u00173 spellbook of invisibility\nrh \u001bssZ\u0017spellbook of drain life\n\u0007barrow wight\nri20s 20s Z\u0017potion of extra healing\nqj   \u0017blessed wand of make invisible\nzk.   Fy    Fy   sm.   20s   \u000f\u001b\u0017blessed ring of adornment\n\u0007grid bug\nPlr   .k  20s    sb   Fk  Fu   \u0017crystal plate mail\n W\u001bsm.      sn20s  20s   s\u0017scroll of create monster\nrn ape\n     \u0017uncursed amulet of unchanging\nPo    .m.    .n20s   n        20s    \u0017tsurugi\n\u0007green mold\nwp         Fl         Fj    Fj   Fu         n      Fu  sm.      .m.         \u00169\n#levelchange\n20\n   \u00173 potion of object detection\n\u0007jellyfish\nqq \u001b<.      #dip\nqq    Fu              n Fu        \u0017cursed spellbook of haste self\nrr                  nsj 20s ZZFu  Fu \u0017blessed newt corpse\nes  n 20s  sm.\u0017food ration\n\u0007Aleax\net 20s     n  20s   \u00173 potion of restore ability\n\u0007water demon\nqu  \u001bFj    n       Fj  n  \u0017cursed magic harp\n\u0007scorpion\navy         avy                Fk  Fj .m. .m.  \u001613\n\u00161\n\u00173 potion of levitation\nqw #dip\nwu      n  Fb Fh \u0017uncursed +0 dwarvish mattock\n\u0007Croesus\nnwx  Fy  n Fy Fy     nFy  Fb   \u001b\u0017the Eye of the Aethiopica\n  ,\u00173 Sting\nwy   n   Fy  Fb Fb   n   Fj  Fh    \u0017blessed spellbook of cone of cold\nrz    sm. .m.  n ZZFy    Fy  \u00173 tripe ration\neA  sm.    n  20s  sm.  20s   \u00173 potion of gain energy\nqC \u0017spellbook of magic mapping\nrD \u001b   y\u001b    y  ."
+  }
+ ]
+}

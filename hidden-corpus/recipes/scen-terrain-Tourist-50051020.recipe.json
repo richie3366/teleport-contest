@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "kljk\u0017chaotic altar\nde\u0017elf corpse\n #offer\nm   #pray\ny y y\u0017cloud\nhllljk\u0017iron bars\nhhll:#force\n#ride\nhy#dip\njn jny\u0017grave\n: \u0017wand of digging\nzn> ss:h\u0017unaligned altar\ndddl\u0017gnome corpse\n #offer\nno   #pray\ny y :  n\u0017cloud\nbbuukcj#ride\njy"
+ },
+ "segments": [
+  {
+   "seed": 50051020,
+   "datetime": "20060218201121",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "kljk\u0017chaotic altar\nde\u0017elf corpse\n #offer\nm   #pray\ny y y\u0017cloud\nhllljk\u0017iron bars\nhhll:#force\n#ride\nhy#dip\njn jny\u0017grave\n: \u0017wand of digging\nzn> ss:h\u0017unaligned altar\ndddl\u0017gnome corpse\n #offer\nno   #pray\ny y :  n\u0017cloud\nbbuukcj#ride\njy"
+  }
+ ]
+}

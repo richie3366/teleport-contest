@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed Mjollnir\nwg \u0017blessed amulet of reflection\nPh\u0016?\n>w\u0006Fh  FhFh   Fh FhFh_ \u001bm.qd  n_ooooooooo._o,,   n\u0017amulet versus poison\ndj   n \u00166\n_{,qkny#chat\nu_ooooooooo.Fl _.,$jkj#chat\nn_oooo,,\u0014<.s.m._{.q_oo.,p_ooooooooo._ooo,,:Fu FuFuFuFu Fu__.#chat\nn_ooooooo,Fl _,_oo,,a\n$jlu#chat\nu_{,q\u00163\nbly\u0016?\n>w\u0006_oooooooo,,p_oooo,,pFy FyFyFyFy Fy_oooooo,_ooo.,\u0017dilithium crystal\ndmu   nh#chat\nbk    hk#chat\nh_oooooooo,,:_oooooo,          _.,p_{.    _. Fh   q\u0016?\ncbjj\u0016?\n>w\u0006__, Fn_,Fl #chat\nl    nFj   Fj Fj   Fj Fj   n  Fj  _ooooooo.  n    Fh   n  _, _oo. Fy _,;:   Fn   ,:\u00161\nnhu#chat\ny_ooooooooo._ooo.,p\u0016?\ncllk\u0016?\n>w\u0006__,Fk  _,    n Fh   #chat\nh#pray\ny y   _ooooooooo,Fy _,Fh ,#chat\nk_oooooooo.,:yh u #chat\ny  _ooooo. Fy_.Fy  ,    np_ooooo, Fn _.,\u001bp_oooooo. _. Fy,p_oooo,  _. Fy  ,plhl #chat\ny_ooooooo._,,\u001b\u0017worthless piece of red glass\ndouyn#chat\nn__._,#chat\nb#pray\ny y Fb FbFbFbFbFb_ooooooooo.Fn_. _ooo.Fy  "
+ },
+ "segments": [
+  {
+   "seed": 50057025,
+   "datetime": "20040518234359",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed Mjollnir\nwg \u0017blessed amulet of reflection\nPh\u0016?\n>w\u0006Fh  FhFh   Fh FhFh_ \u001bm.qd  n_ooooooooo._o,,   n\u0017amulet versus poison\ndj   n \u00166\n_{,qkny#chat\nu_ooooooooo.Fl _.,$jkj#chat\nn_oooo,,\u0014<.s.m._{.q_oo.,p_ooooooooo._ooo,,:Fu FuFuFuFu Fu__.#chat\nn_ooooooo,Fl _,_oo,,a\n$jlu#chat\nu_{,q\u00163\nbly\u0016?\n>w\u0006_oooooooo,,p_oooo,,pFy FyFyFyFy Fy_oooooo,_ooo.,\u0017dilithium crystal\ndmu   nh#chat\nbk    hk#chat\nh_oooooooo,,:_oooooo,          _.,p_{.    _. Fh   q\u0016?\ncbjj\u0016?\n>w\u0006__, Fn_,Fl #chat\nl    nFj   Fj Fj   Fj Fj   n  Fj  _ooooooo.  n    Fh   n  _, _oo. Fy _,;:   Fn   ,:\u00161\nnhu#chat\ny_ooooooooo._ooo.,p\u0016?\ncllk\u0016?\n>w\u0006__,Fk  _,    n Fh   #chat\nh#pray\ny y   _ooooooooo,Fy _,Fh ,#chat\nk_oooooooo.,:yh u #chat\ny  _ooooo. Fy_.Fy  ,    np_ooooo, Fn _.,\u001bp_oooooo. _. Fy,p_oooo,  _. Fy  ,plhl #chat\ny_ooooooo._,,\u001b\u0017worthless piece of red glass\ndouyn#chat\nn__._,#chat\nb#pray\ny y Fb FbFbFbFbFb_ooooooooo.Fn_. _ooo.Fy  "
+  }
+ ]
+}

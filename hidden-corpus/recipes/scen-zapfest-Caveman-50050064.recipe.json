@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg\u0007silver dragon\n\u0007black dragon\n20s   20s   nsm.   n    n20sFlFl \u00163\n  \u0017wand of cold\n\u0017wand of striking\n\u0017wand of slow monster\n\u0007hobbit\nzhb zj.szhj  nzijzjyzju20szib  \u001b\u0017wand of striking\n\u0017wand of slow monster\n\u0007troll\nzluzkusm.zku zkuzlusm.zku .zkh20s\u0017blessed spellbook of knock\nrm.\u0007kobold shaman\n\u0007aligned cleric\nyZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bsm.20s Z\u001b\u001618\n   \u0017wand of teleportation\n\u0017wand of fire\n\u0007hill orc\n\u0007bugbear\nzol znusznbzob znbzn. \u001b:sznh.znn\u0017bow\nwp\u001720 arrows\nQq\u0007dwarf\nfutbkfufufu fufufk\u0018\u001b\u00178 rocks\n Qa\u0007hill orc\nfu   nf q kfk tqk  tqkfk fk\u0017potion of restore ability\ntqu \u0017spellbook of sleep\nrs  20s  n  \u0017blessed spellbook of force bolt\nrt  sm.   n\u0007gnomish wizard\n\u0007kobold shaman\nZa\nZa\n  Za\nZa\nZa\n#turn\n\u001612\n    \u00165\n\u00178 spears\n Qu\u0007soldier\nfltultul    ntul  fl  \u0017potion of extra healing\n tqb\u0007master mind flayer\n\u0007gnomish wizard\n\u0017wand of cold\nsm..uzwn    zwn zwb   zwn        n     n zwn    sm.szw   n \u00168\n\u001710 daggers\nQx\u0007giant rat\n\u0007dwarf\nfltqltxl fu fu \u001615\n \u0017blessed spellbook of force bolt\nry s\u0007incubus\nZa\nZZZZ.m.sm.   y    Z.20sZb\nZb\ns20s\u0017wand of slow monster\n\u0017wand of teleportation\n\u0007sewer rat\n\u0007hill orc\nzzuzzu."
+ },
+ "segments": [
+  {
+   "seed": 50050064,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg\u0007silver dragon\n\u0007black dragon\n20s   20s   nsm.   n    n20sFlFl \u00163\n  \u0017wand of cold\n\u0017wand of striking\n\u0017wand of slow monster\n\u0007hobbit\nzhb zj.szhj  nzijzjyzju20szib  \u001b\u0017wand of striking\n\u0017wand of slow monster\n\u0007troll\nzluzkusm.zku zkuzlusm.zku .zkh20s\u0017blessed spellbook of knock\nrm.\u0007kobold shaman\n\u0007aligned cleric\nyZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bsm.20s Z\u001b\u001618\n   \u0017wand of teleportation\n\u0017wand of fire\n\u0007hill orc\n\u0007bugbear\nzol znusznbzob znbzn. \u001b:sznh.znn\u0017bow\nwp\u001720 arrows\nQq\u0007dwarf\nfutbkfufufu fufufk\u0018\u001b\u00178 rocks\n Qa\u0007hill orc\nfu   nf q kfk tqk  tqkfk fk\u0017potion of restore ability\ntqu \u0017spellbook of sleep\nrs  20s  n  \u0017blessed spellbook of force bolt\nrt  sm.   n\u0007gnomish wizard\n\u0007kobold shaman\nZa\nZa\n  Za\nZa\nZa\n#turn\n\u001612\n    \u00165\n\u00178 spears\n Qu\u0007soldier\nfltultul    ntul  fl  \u0017potion of extra healing\n tqb\u0007master mind flayer\n\u0007gnomish wizard\n\u0017wand of cold\nsm..uzwn    zwn zwb   zwn        n     n zwn    sm.szw   n \u00168\n\u001710 daggers\nQx\u0007giant rat\n\u0007dwarf\nfltqltxl fu fu \u001615\n \u0017blessed spellbook of force bolt\nry s\u0007incubus\nZa\nZZZZ.m.sm.   y    Z.20sZb\nZb\ns20s\u0017wand of slow monster\n\u0017wand of teleportation\n\u0007sewer rat\n\u0007hill orc\nzzuzzu."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001bm.>FjFb_>.Fj_.Fy>FyFy_>.Fu_,Fu>FuFyFuu FyFy\u0006_>.Fu_.Fy>FyFuu _>.Fu_.Fy>FyFy_>,Fy_.Fuy >FuFuFyFyFucl w-\u0006_>.Fu_.Fy>FuFy_>.Fuy _.Fy>FuFy_>,Fy_.Fu>FyFuu FuFyFuu \u0014.\u0004b #invoke\n\u001bw-#sit\n\u001b#jump\n\u0006_>.Fy_.Fuy >FuFu_>.Fu_,Fu>FuFy_>.Fuu _,Fy>FuFuFyFuy Fu\u0006_>.Fy_,Fuu >FyFuy _>.Fy_.Fy>FyFy_>.Fy_.Fuy >FuFyFuu FuFu\u0006_>.Fu_.Fy>FuFu_>,Fu_.Fu>FyFuu _>,Fy_,Fuu >FuFyFuu FuFu\u0006_>.Fy_.Fy>FuFu_>,Fy_.Fy>FyFy_>,Fu_,Fu>FyFuy FyFuu FyOc\u001b\n\u00166\n_>.>#loot\n100sFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFb\u0006_>>,Fh_,m.Fh>FhFh_>>.Fl_.Fk>"
+ },
+ "segments": [
+  {
+   "seed": 50059067,
+   "datetime": "20181013024404",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=number_pad\n",
+   "moves": "\u0006_ \u001bm.>FjFb_>.Fj_.Fy>FyFy_>.Fu_,Fu>FuFyFuu FyFy\u0006_>.Fu_.Fy>FyFuu _>.Fu_.Fy>FyFy_>,Fy_.Fuy >FuFuFyFyFucl w-\u0006_>.Fu_.Fy>FuFy_>.Fuy _.Fy>FuFy_>,Fy_.Fu>FyFuu FuFyFuu \u0014.\u0004b #invoke\n\u001bw-#sit\n\u001b#jump\n\u0006_>.Fy_.Fuy >FuFu_>.Fu_,Fu>FuFy_>.Fuu _,Fy>FuFuFyFuy Fu\u0006_>.Fy_,Fuu >FyFuy _>.Fy_.Fy>FyFy_>.Fy_.Fuy >FuFyFuu FuFu\u0006_>.Fu_.Fy>FuFu_>,Fu_.Fu>FyFuu _>,Fy_,Fuu >FuFyFuu FuFu\u0006_>.Fy_.Fy>FuFu_>,Fy_.Fy>FyFy_>,Fu_,Fu>FyFuy FyFuu FyOc\u001b\n\u00166\n_>.>#loot\n100sFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFb\u0006_>>,Fh_,m.Fh>FhFh_>>.Fl_.Fk>"
+  }
+ ]
+}

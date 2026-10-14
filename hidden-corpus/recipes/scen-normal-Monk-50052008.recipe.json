@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0004k#chat\nnl\\  t\u001b#name\ni\n:J#dip\na#invoke\nP r < #twoweapon\n#chat\n#ride\nq #ride\nE #invoke\n20s #enhance\ni "
+ },
+ "segments": [
+  {
+   "seed": 50052008,
+   "datetime": "20141217165036",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "\u0004k#chat\nnl\\  t\u001b#name\ni\n:J#dip\na#invoke\nP r < #twoweapon\n#chat\n#ride\nq #ride\nE #invoke\n20s #enhance\ni "
+  }
+ ]
+}

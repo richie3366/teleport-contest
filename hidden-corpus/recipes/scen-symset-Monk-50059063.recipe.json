@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001bm,>FbFb_>.Fj_.Fh>FhFh_>,Fh_.Fj>FjFjFjFjFj<\u0006_>,Fh_.>_>._.>_>,_.>\u0006_>._.>_>._,>_>._.>>qd<\u0006_>>,_.>_>>,_.>_>>.Fh_,Fh>FhFhFhFhFh\u0006_>.Fj_.Fb>FbFb_>,_.>_>.Fb_.>Pol \u0006_>.Fj_,Fj>FjFj_>._,>_>._.Fj>FjFjFjFjFj\u000f\u001b\u00167\n\\  #invoke\n\u001b\u00169\n\u00165\nFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbO>>>h\u001b\nO>d\u001b\n#invoke\n\u001b>mOa\u001b\n\u0007tame lichen\n\u0007grid bug\n\u0017scroll of taming\nrj \u0017banana\nt\u001b#name\nm\n\u0017magic whistle\nbbyal   \u0017carrot\nt\u001b\u0017leash\nanj bybyanj j#invoke\n\u001bbal \u00167\nFuFuFbFuu FbFub FbFbFuFbFuu FuFbFbFuFuFuFuFuFbFuu FuFuFbFbFbFub FuFuFuFuFbFbFuFuFuFbFbFbFuu FuFbFub FbFbFbFbFbFbFuFbFbFbFub FuFbFuu FuFuFuFbFbFbFbFbFbFuFbFuu FbFbFuFuFbFbFbFbFbFub FuFbFbFuFuFuFuFbFbFbFbFuFuFbFbFbFbFbFbFbFuu FbFbFbFuu FuFuFbFbFbFbFbFub FbFub FbFbFbFbFuFuFuFuFbFub FbFbFuFbFub FuFbFuu FbFbFu"
+ },
+ "segments": [
+  {
+   "seed": 50059063,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\n",
+   "moves": " \u0006_ \u001bm,>FbFb_>.Fj_.Fh>FhFh_>,Fh_.Fj>FjFjFjFjFj<\u0006_>,Fh_.>_>._.>_>,_.>\u0006_>._.>_>._,>_>._.>>qd<\u0006_>>,_.>_>>,_.>_>>.Fh_,Fh>FhFhFhFhFh\u0006_>.Fj_.Fb>FbFb_>,_.>_>.Fb_.>Pol \u0006_>.Fj_,Fj>FjFj_>._,>_>._.Fj>FjFjFjFjFj\u000f\u001b\u00167\n\\  #invoke\n\u001b\u00169\n\u00165\nFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbO>>>h\u001b\nO>d\u001b\n#invoke\n\u001b>mOa\u001b\n\u0007tame lichen\n\u0007grid bug\n\u0017scroll of taming\nrj \u0017banana\nt\u001b#name\nm\n\u0017magic whistle\nbbyal   \u0017carrot\nt\u001b\u0017leash\nanj bybyanj j#invoke\n\u001bbal \u00167\nFuFuFbFuu FbFub FbFbFuFbFuu FuFbFbFuFuFuFuFuFbFuu FuFuFbFbFbFub FuFuFuFuFbFbFuFuFuFbFbFbFuu FuFbFub FbFbFbFbFbFbFuFbFbFbFub FuFbFuu FuFuFuFbFbFbFbFbFbFuFbFuu FbFbFuFuFbFbFbFbFbFub FuFbFbFuFuFuFuFbFbFbFbFuFuFbFbFbFbFbFbFbFuu FbFbFbFuu FuFuFbFbFbFbFbFub FbFub FbFbFbFbFuFuFuFuFbFub FbFbFuFbFub FuFbFuu FbFbFu"
+  }
+ ]
+}

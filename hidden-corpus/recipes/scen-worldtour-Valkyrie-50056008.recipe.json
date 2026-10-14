@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u001613\n#chat\nn;n; \u001b:   ..\u0016?\n>I kkynj:sss\u0016?\n>F\u0017bow\nwf\u001720 arrows\nQg\u0007yellow mold\nlnfbfkfh20s.\u0017potion of sleeping\ntahynu,#enhance\nyr\nn\n\u001b\u0016?\n>>L      ring of cold resistance\n\u0004k.m.\u0016?\n\u001bh     k  \u0016?\n\u001blj   \u0016?\n\u001by   b\u0016?\n\u001bj    y     \u0016?\n\u001bb  y\u0016?\n\u001by      n   j       \u0016?\n\u001bb  n      k        n      n\u001611\n\u001613\n\u0014m.  .m.   sm.  \u001644\nbjjy:\u0016?\n\u001bky \u001613\nn  n       h:\u0016?\n\u001bkl\u0016?\n\u001bl  n  l\u0016?\n\u001bhn  \u001610\n#chat\nl;l.\u001644\n\u0014;\u0016?\n\u001bj  n    l\u0016?\n\u001bl k\u001639\n_{,>\u0016?\n\u001bk  j  n \u0016?\n\u001blu\u0016?\n\u001buh\u001618\nkby kll  b  :.m.  n       sm.   n  nsk   n    n  \u00165\n\u001639\n\u0006;_<.\u001639\n__.<.m.  n   n sm.  yny   y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50056008,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u001613\n#chat\nn;n; \u001b:   ..\u0016?\n>I kkynj:sss\u0016?\n>F\u0017bow\nwf\u001720 arrows\nQg\u0007yellow mold\nlnfbfkfh20s.\u0017potion of sleeping\ntahynu,#enhance\nyr\nn\n\u001b\u0016?\n>>L      ring of cold resistance\n\u0004k.m.\u0016?\n\u001bh     k  \u0016?\n\u001blj   \u0016?\n\u001by   b\u0016?\n\u001bj    y     \u0016?\n\u001bb  y\u0016?\n\u001by      n   j       \u0016?\n\u001bb  n      k        n      n\u001611\n\u001613\n\u0014m.  .m.   sm.  \u001644\nbjjy:\u0016?\n\u001bky \u001613\nn  n       h:\u0016?\n\u001bkl\u0016?\n\u001bl  n  l\u0016?\n\u001bhn  \u001610\n#chat\nl;l.\u001644\n\u0014;\u0016?\n\u001bj  n    l\u0016?\n\u001bl k\u001639\n_{,>\u0016?\n\u001bk  j  n \u0016?\n\u001blu\u0016?\n\u001buh\u001618\nkby kll  b  :.m.  n       sm.   n  nsk   n    n  \u00165\n\u001639\n\u0006;_<.\u001639\n__.<.m.  n   n sm.  yny   y y\u001b  s"
+  }
+ ]
+}

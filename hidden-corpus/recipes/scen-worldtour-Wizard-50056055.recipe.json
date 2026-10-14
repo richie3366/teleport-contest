@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n             \u0017blessed +3 helm of telepathy\nWo\u001636\n   #levelchange\n30\n                \u0017athame\nwpFjFb Fh   \u0007earth elemental\nFk     Fj  Fj Fj    \u0007fire elemental\nFy  n Fk  Fh        \u0007tengu\n;b; \u001bm,sn.m.  n  .u\u00165\n\u001619\n_<.>\u0016?\n>>Rjjlbj:s20ss\u0016ky\u0016uu\u0016kl\u0016yh\u0016ky\u0016hk\u0016hk\u0016kk\u0016hb\u0016lb\u0016yk\u0016hy\u0016bj\u0016ub\u0016kl\u0016lj\u0016yl\u0016ju\u0016lb\u0016ll\u0016ny\u0016uu\u0016un\u0016kk\u0016ln\u0016ul\u0016uk\u0016yk\u0016kk\u0016un\u0016kj\u0016hn\u0016yy\u0016yn\u0016yu\u0016nl\u0016jb\u0016kk\u0016lu\u0016yu\u0016by\u0016bk\u0016ln\u0016kh\u0016bj\u0016uy\u0016kb\u0016bu\u0016kl\u0016kb\u0016kl\u0016bh\u0016uy\u0016jn\u0016ll\u0016kn\u0016ly\u0016yn\u0016uh\u0016uu\u0016yh\u0016jn\u0016ju\u0016bh\u0016bk\u0016bl\u0016ll\u0016hk\u0016bl\u0016jy\u0016uy\u0016hl\u0016lk\u0016kn\u0016hb\u0016hb\u0016ll"
+ },
+ "segments": [
+  {
+   "seed": 50056055,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n             \u0017blessed +3 helm of telepathy\nWo\u001636\n   #levelchange\n30\n                \u0017athame\nwpFjFb Fh   \u0007earth elemental\nFk     Fj  Fj Fj    \u0007fire elemental\nFy  n Fk  Fh        \u0007tengu\n;b; \u001bm,sn.m.  n  .u\u00165\n\u001619\n_<.>\u0016?\n>>Rjjlbj:s20ss\u0016ky\u0016uu\u0016kl\u0016yh\u0016ky\u0016hk\u0016hk\u0016kk\u0016hb\u0016lb\u0016yk\u0016hy\u0016bj\u0016ub\u0016kl\u0016lj\u0016yl\u0016ju\u0016lb\u0016ll\u0016ny\u0016uu\u0016un\u0016kk\u0016ln\u0016ul\u0016uk\u0016yk\u0016kk\u0016un\u0016kj\u0016hn\u0016yy\u0016yn\u0016yu\u0016nl\u0016jb\u0016kk\u0016lu\u0016yu\u0016by\u0016bk\u0016ln\u0016kh\u0016bj\u0016uy\u0016kb\u0016bu\u0016kl\u0016kb\u0016kl\u0016bh\u0016uy\u0016jn\u0016ll\u0016kn\u0016ly\u0016yn\u0016uh\u0016uu\u0016yh\u0016jn\u0016ju\u0016bh\u0016bk\u0016bl\u0016ll\u0016hk\u0016bl\u0016jy\u0016uy\u0016hl\u0016lk\u0016kn\u0016hb\u0016hb\u0016ll"
+  }
+ ]
+}

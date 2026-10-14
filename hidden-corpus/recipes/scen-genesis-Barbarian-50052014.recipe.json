@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0017long sword\nwgFu ss\u0007watchman\n#chat\nlFl Fl \u0007nalfeshnee\n#chat\nlFl    Fl  \u0007scorpion\n.j..sj.m. 20s sm.s20s \u0007mastodon\nsm..j20s  n     .nsm.     20s  yny  y y nn  s"
+ },
+ "segments": [
+  {
+   "seed": 50052014,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0017long sword\nwgFu ss\u0007watchman\n#chat\nlFl Fl \u0007nalfeshnee\n#chat\nlFl    Fl  \u0007scorpion\n.j..sj.m. 20s sm.s20s \u0007mastodon\nsm..j20s  n     .nsm.     20s  yny  y y nn  s"
+  }
+ ]
+}

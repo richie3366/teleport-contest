@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed amulet of reflection\nPo\u0017blessed ring of free action\nPpr\u0016?\nb#chat\nn;<. \u001b...\u00164\n_<.\u0016?\n>x__.\u0016?\n>>N       Hawaiian shirt\nbk    n     h    n        n j      n u    :\u00162\n\u0016?\nd_{.\u0016?\n\u001bl      k         \u00164\nh  bb: \u00164\n\u0017scroll of fire\n\u0007nurse\nrs \u0017Mjollnir\n\u0007fog cloud\nwt Fk Fj   n         Fb  #invoke\nt   n        \u0017cursed the Eye of the Aethiopica\n w-     n  FjFkFj#invoke\nua\n  n         n sh   20s \u00164\n\u00164\n#levelchange\n30\n                uybl\u0017polymorph trap\nk\u0017hole\nkj\u0017arrow trap\nu\u0017magic portal\n\u0017beartrap\navyb#ride\njyf a n    L"
+ },
+ "segments": [
+  {
+   "seed": 50056042,
+   "datetime": "20100731014016",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed amulet of reflection\nPo\u0017blessed ring of free action\nPpr\u0016?\nb#chat\nn;<. \u001b...\u00164\n_<.\u0016?\n>x__.\u0016?\n>>N       Hawaiian shirt\nbk    n     h    n        n j      n u    :\u00162\n\u0016?\nd_{.\u0016?\n\u001bl      k         \u00164\nh  bb: \u00164\n\u0017scroll of fire\n\u0007nurse\nrs \u0017Mjollnir\n\u0007fog cloud\nwt Fk Fj   n         Fb  #invoke\nt   n        \u0017cursed the Eye of the Aethiopica\n w-     n  FjFkFj#invoke\nua\n  n         n sh   20s \u00164\n\u00164\n#levelchange\n30\n                uybl\u0017polymorph trap\nk\u0017hole\nkj\u0017arrow trap\nu\u0017magic portal\n\u0017beartrap\navyb#ride\njyf a n    L"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nh\n \u0017lump of royal jelly\nehZ\u0017cream pie\nei20s  20s.y"
+ },
+ "segments": [
+  {
+   "seed": 50051030,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nh\n \u0017lump of royal jelly\nehZ\u0017cream pie\nei20s  20s.y"
+  }
+ ]
+}

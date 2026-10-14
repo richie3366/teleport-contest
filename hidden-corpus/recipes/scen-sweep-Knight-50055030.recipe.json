@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0007Kop Kaptain\nFkFh  Fk FkFk20s\u0007Pestilence\nyFhFh  Fh\u0017bag of holding\n\u0017cursed bag of holding\n\u0017potion of invisibility\n\u0017potion of hallucination\ndj    n #loot\nb\nd\ng\n    n ,  aio\n n\u0017skeleton key\ndi  am..y..#loot\nj    n \u0017credit card\ndb    n an.    nsm. .m.   n sm.  #loot\nj    n \u0017lock pick\ndo    nam..lsm.20s #loot\nn#tip\nj\u001b   n \u001628\n\\    \u001612\n#levelchange\n14\n \u0007soldier ant\nFy  Fh  nFh    n Fy    nsh   sm.    n \u0007werewolf\nFk     nFh     nFh     yy\u001b y   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50055030,
+   "datetime": "20020329025054",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0007Kop Kaptain\nFkFh  Fk FkFk20s\u0007Pestilence\nyFhFh  Fh\u0017bag of holding\n\u0017cursed bag of holding\n\u0017potion of invisibility\n\u0017potion of hallucination\ndj    n #loot\nb\nd\ng\n    n ,  aio\n n\u0017skeleton key\ndi  am..y..#loot\nj    n \u0017credit card\ndb    n an.    nsm. .m.   n sm.  #loot\nj    n \u0017lock pick\ndo    nam..lsm.20s #loot\nn#tip\nj\u001b   n \u001628\n\\    \u001612\n#levelchange\n14\n \u0007soldier ant\nFy  Fh  nFh    n Fy    nsh   sm.    n \u0007werewolf\nFk     nFh     nFh     yy\u001b y   y y y\u001by  F"
+  }
+ ]
+}

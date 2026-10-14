@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0007chickatrice\nFlFl\u0007fire vortex\nFh  nFk Fk  n  Fl  n  Fl  n  \u00161\n#wizintrinsic\npc\n 20s sm. 20s\u001bss.  n  .m. s\u001b.20s\u001bs  n sm. ss\u001bss  n 20s  sm. sn.m. .s\u0017drum of earthquake\nak ak  ol\u0014 \u001b, <\u000f\u001beh  <.s20ssm. s  n .k \u001612\n\u001610\n\u0017cloak of protection\nW\u001bs20ss\u0007water nymph\nFu Fu   sFhFh FhFh  n  20s   n 20s    n   n \u0007rust monster\nFn   n  Fy      n  Fl       n .m.   yy\u001bny ny\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50050001,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007chickatrice\nFlFl\u0007fire vortex\nFh  nFk Fk  n  Fl  n  Fl  n  \u00161\n#wizintrinsic\npc\n 20s sm. 20s\u001bss.  n  .m. s\u001b.20s\u001bs  n sm. ss\u001bss  n 20s  sm. sn.m. .s\u0017drum of earthquake\nak ak  ol\u0014 \u001b, <\u000f\u001beh  <.s20ssm. s  n .k \u001612\n\u001610\n\u0017cloak of protection\nW\u001bs20ss\u0007water nymph\nFu Fu   sFhFh FhFh  n  20s   n 20s    n   n \u0007rust monster\nFn   n  Fy      n  Fl       n .m.   yy\u001bny ny\u001b  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " FbFyFbFbFyFj FhFyFyFbFyFhFyFbFyFyFyFhFyFhFbFhFbFbFbFbFbFyFhFhFbFhFyFbFyFhFbFyFbFhFyFbFhFbFbFhFyFhFbFbFyFbFbFhFbFyFbFbFhFyFbFyFbFyFbFbFyFhFhFhFbFyFbFbFbFbFyFhFyFbFbFbFyFb FyFyFhFbFjFhFbFyFbFyFbFhFhFhFyFyFhFyFbFyFyFhFbFyFbFhFhFhFyFyFyFhFyFbFyFhmO>>>e\u001b\nFnFnFbFjFhFbFnFbFyFnFnFnFhFhFbFbFyFbFbFyFyFnFnFhFjFbFhFhFhFnFyFyFbFjFyFjFhFjFbFbFnFbFnFjFhFhFjFjFyFbFnFhFnFnFnFhFhFjFjFhFjFbFhFnFyFnFjFyFyFjFnFjFbFjFyFyFjFjFbFbFnFhFnFjFhFyFyFjFbFnFjFnFyFhFjFyFjFbFyFbFbFjFbFnFbFbFjFjFhFnFyFjFnFjFhFbFnFjFyFy#levelchange\n10\n         bljy \u0017fountain\nqyy\u0017moat\n#dip\ndy  :ly\u0017sink\nqy:,\u000f\u001bz\u0006_ \u001b@.>FyFu_>>.Fl_.Fb>FbFy_>>.Fu_.Fu>FuFbFuFbFl\u0006_>.Fy_.Fu>FuFb_>.Fl_.Fy>FlFl_>,Fl_.Fb>FlFyFyFbFy<\u0006_>>.Fl_.Fb>FbFl_>>.Fu_.Fu>FuFy_>>,Fb_,Fu>FyFuFbFlFb\u0006_>.Fy_.Fy>FuFy_>.Fu_.Fy>FlFb_>.Fu_.Fb>FuFyFyFlFl\u0006_>>,Fb_.Fu>FbFl_>>,Fl_.Fy>FlFu_>>,Fl_.Fy>FuFlFyFuFy#monster\n:damO>w\u001b\n#invoke\n\u001bed\u0006_>.Fy_.Fl>FbFu_>.Fu_,Fl>FuFy_>.Fy_.Fy>FyFbFyFlFb\u0006_>>."
+ },
+ "segments": [
+  {
+   "seed": 50059034,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " FbFyFbFbFyFj FhFyFyFbFyFhFyFbFyFyFyFhFyFhFbFhFbFbFbFbFbFyFhFhFbFhFyFbFyFhFbFyFbFhFyFbFhFbFbFhFyFhFbFbFyFbFbFhFbFyFbFbFhFyFbFyFbFyFbFbFyFhFhFhFbFyFbFbFbFbFyFhFyFbFbFbFyFb FyFyFhFbFjFhFbFyFbFyFbFhFhFhFyFyFhFyFbFyFyFhFbFyFbFhFhFhFyFyFyFhFyFbFyFhmO>>>e\u001b\nFnFnFbFjFhFbFnFbFyFnFnFnFhFhFbFbFyFbFbFyFyFnFnFhFjFbFhFhFhFnFyFyFbFjFyFjFhFjFbFbFnFbFnFjFhFhFjFjFyFbFnFhFnFnFnFhFhFjFjFhFjFbFhFnFyFnFjFyFyFjFnFjFbFjFyFyFjFjFbFbFnFhFnFjFhFyFyFjFbFnFjFnFyFhFjFyFjFbFyFbFbFjFbFnFbFbFjFjFhFnFyFjFnFjFhFbFnFjFyFy#levelchange\n10\n         bljy \u0017fountain\nqyy\u0017moat\n#dip\ndy  :ly\u0017sink\nqy:,\u000f\u001bz\u0006_ \u001b@.>FyFu_>>.Fl_.Fb>FbFy_>>.Fu_.Fu>FuFbFuFbFl\u0006_>.Fy_.Fu>FuFb_>.Fl_.Fy>FlFl_>,Fl_.Fb>FlFyFyFbFy<\u0006_>>.Fl_.Fb>FbFl_>>.Fu_.Fu>FuFy_>>,Fb_,Fu>FyFuFbFlFb\u0006_>.Fy_.Fy>FuFy_>.Fu_.Fy>FlFb_>.Fu_.Fb>FuFyFyFlFl\u0006_>>,Fb_.Fu>FbFl_>>,Fl_.Fy>FlFu_>>,Fl_.Fy>FuFlFyFuFy#monster\n:damO>w\u001b\n#invoke\n\u001bed\u0006_>.Fy_.Fl>FbFu_>.Fu_,Fl>FuFy_>.Fy_.Fy>FyFbFyFlFb\u0006_>>."
+  }
+ ]
+}

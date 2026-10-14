@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWj\u0017blessed amulet of life saving\nPk\u0017blessed shield of reflection\nWl\u0007lich\n\u0007mind flayer\n\u0017wand of striking\nsl.m.zmh 20s       sm.         sbzmk      n   .m.     sm..m.     n   zmk    zmk\u00168\n\u0017wand of striking\n\u0017wand of cancellation\n\u0007gnome\n\u0007sewer rat\n\u0007kobold shaman\nzojzojsm. zojznj znhzonznnznnzo.zoy\u0017blessed spellbook of magic missile\nrp.\u0007incubus\n\u0007lich\nZa\nZa\n Za\nZa\nZa\nZa\nZa\nsm.s\u0007vampire\n\u0007mind flayer\n\u0007gnomish wizard\n\u0017wand of sleep\nzqk  \u0017blessed spellbook of magic missile\n rr y  n        sm.       n     \u0007mind flayer\n\u0007master mind flayer\nZa\nZa\nZa\nZa\n20s      n     sk      n      n Za\nZa\n20s        .m.   n               n \u001611\n\u0007baby red dragon\n\u0007baby red dragon\nsm.s\u0017wand of cold\nasFyFy \u0017wand of polymorph\n\u0017wand of death\n\u0007sewer rat\n\u0007lichen\nzub    n zuy  zuk   sm.zun  zulztyzu.  nztu.zuztni\u001b\u00163\n\u0007baby red dragon\n20s.jsl.m.\u0017wand of lightning\navFyFy\u00162\n\u00178 rocks\nQ\u001b\u0007gnome lord\n\u0007bugbear\nfb t\u001bt\u001bfb t\u001bfb  fj \u0007lich\n\u0007mind flayer\n\u0017wand of sleep\nzxb         \u001b  zxj      \u0017blessed spellbook of sleep\nry      n   .b       \u0017b"
+ },
+ "segments": [
+  {
+   "seed": 50050040,
+   "datetime": "20100718080537",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWj\u0017blessed amulet of life saving\nPk\u0017blessed shield of reflection\nWl\u0007lich\n\u0007mind flayer\n\u0017wand of striking\nsl.m.zmh 20s       sm.         sbzmk      n   .m.     sm..m.     n   zmk    zmk\u00168\n\u0017wand of striking\n\u0017wand of cancellation\n\u0007gnome\n\u0007sewer rat\n\u0007kobold shaman\nzojzojsm. zojznj znhzonznnznnzo.zoy\u0017blessed spellbook of magic missile\nrp.\u0007incubus\n\u0007lich\nZa\nZa\n Za\nZa\nZa\nZa\nZa\nsm.s\u0007vampire\n\u0007mind flayer\n\u0007gnomish wizard\n\u0017wand of sleep\nzqk  \u0017blessed spellbook of magic missile\n rr y  n        sm.       n     \u0007mind flayer\n\u0007master mind flayer\nZa\nZa\nZa\nZa\n20s      n     sk      n      n Za\nZa\n20s        .m.   n               n \u001611\n\u0007baby red dragon\n\u0007baby red dragon\nsm.s\u0017wand of cold\nasFyFy \u0017wand of polymorph\n\u0017wand of death\n\u0007sewer rat\n\u0007lichen\nzub    n zuy  zuk   sm.zun  zulztyzu.  nztu.zuztni\u001b\u00163\n\u0007baby red dragon\n20s.jsl.m.\u0017wand of lightning\navFyFy\u00162\n\u00178 rocks\nQ\u001b\u0007gnome lord\n\u0007bugbear\nfb t\u001bt\u001bfb t\u001bfb  fj \u0007lich\n\u0007mind flayer\n\u0017wand of sleep\nzxb         \u001b  zxj      \u0017blessed spellbook of sleep\nry      n   .b       \u0017b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPel\u0017blessed +3 speed boots\nWf \u0017blessed amulet of life saving\nPg#levelchange\n14\n             \u0007red dragon\n\u0007red dragon\nsm..m.  sm.20s \u0017wand of cold\nahy     Fb   s\u00163\n\u0017spellbook of cause fear\nri \u001b.\u0017blessed spellbook of light\nrj.\u0007vampire\n\u0007mind flayer\nZa\n.m.      sm.   Za\n  n   Za\n    n  Za\n   Za\nZa\n  n   Za\n  n  Za\n   n  20s   n   sn   n  Za\n   n   \u00166\n \u00167\n\u0017wand of cancellation\n\u0017wand of cold\n\u0017wand of striking\n\u0007gnome\n\u0007hill orc\nzlh 20szmj.hzllzmbzmnzly 20szlkzlu\u001613\n\u0007black dragon\n\u0007baby red dragon\nsm.s20s .m.  FlFy   n \u0018\u001b\u0017wand of polymorph\n\u0017wand of striking\n\u0017wand of magic missile\n\u0007troll\nzoy znuzou    zol      .m.  n   znu    zoush zonznn     n\u001610\n\u00167\n  \u0017spellbook of cone of "
+ },
+ "segments": [
+  {
+   "seed": 50050046,
+   "datetime": "20100630222459",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:durian\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPel\u0017blessed +3 speed boots\nWf \u0017blessed amulet of life saving\nPg#levelchange\n14\n             \u0007red dragon\n\u0007red dragon\nsm..m.  sm.20s \u0017wand of cold\nahy     Fb   s\u00163\n\u0017spellbook of cause fear\nri \u001b.\u0017blessed spellbook of light\nrj.\u0007vampire\n\u0007mind flayer\nZa\n.m.      sm.   Za\n  n   Za\n    n  Za\n   Za\nZa\n  n   Za\n  n  Za\n   n  20s   n   sn   n  Za\n   n   \u00166\n \u00167\n\u0017wand of cancellation\n\u0017wand of cold\n\u0017wand of striking\n\u0007gnome\n\u0007hill orc\nzlh 20szmj.hzllzmbzmnzly 20szlkzlu\u001613\n\u0007black dragon\n\u0007baby red dragon\nsm.s20s .m.  FlFy   n \u0018\u001b\u0017wand of polymorph\n\u0017wand of striking\n\u0017wand of magic missile\n\u0007troll\nzoy znuzou    zol      .m.  n   znu    zoush zonznn     n\u001610\n\u00167\n  \u0017spellbook of cone of "
+  }
+ ]
+}

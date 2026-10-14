@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u00164\nFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFy\u0006_ \u001b>.>_>,Fu_.Fl>FlFl_>,Fn_>FnFnFnFnFn\u0006_>,Fk_,Fl>FlFl_>,Fk_.>_>.Fj_.Fl>FlFlFlFlFl\u0006_>.Fk_.Fl>FlFl_>,Fn_>FnFn_>,Fj_.>\u0006_>._.Fl>FlFl_>,Fu_.Fu>FuFu_>._,>\u0006_>._.>_>,Fl_.>_>._,><\u0006_>.Fl_,>_>._.>_>._,>,#ride\ny \u0006_>>,_.Fl>FlFl_>>.Fl_,>_>>._.>\u000f\u001b\u0007pony\n\u0017newt corpse\nt\u001b\u0006_>,Fj_.Fj>FjFj_>.Fj_.  n Fj>FjFj_>.Fj_,  n Fj>FjFj\u0017lichen corpse\nt\u001b\u0017leash\nalj ykj h\u001bkj alj #name\n\u001b\u0007newt\n20suj "
+ },
+ "segments": [
+  {
+   "seed": 50058516,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:plain\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00164\nFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFy\u0006_ \u001b>.>_>,Fu_.Fl>FlFl_>,Fn_>FnFnFnFnFn\u0006_>,Fk_,Fl>FlFl_>,Fk_.>_>.Fj_.Fl>FlFlFlFlFl\u0006_>.Fk_.Fl>FlFl_>,Fn_>FnFn_>,Fj_.>\u0006_>._.Fl>FlFl_>,Fu_.Fu>FuFu_>._,>\u0006_>._.>_>,Fl_.>_>._,><\u0006_>.Fl_,>_>._.>_>._,>,#ride\ny \u0006_>>,_.Fl>FlFl_>>.Fl_,>_>>._.>\u000f\u001b\u0007pony\n\u0017newt corpse\nt\u001b\u0006_>,Fj_.Fj>FjFj_>.Fj_.  n Fj>FjFj_>.Fj_,  n Fj>FjFj\u0017lichen corpse\nt\u001b\u0017leash\nalj ykj h\u001bkj alj #name\n\u001b\u0007newt\n20suj "
+  }
+ ]
+}

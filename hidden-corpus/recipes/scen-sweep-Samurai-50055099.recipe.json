@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      #levelchange\n30\n                      nku\u0017squeaky board\nubss lu\u0017arrow trap\nlh20s.lb\u0017level teleporter\nbu 4\n 20ssuy\u0017polymorph trap\nl^h#untrap\nher\u001b\u001bs#levelchange\n20\n   lnl\u0017teleportation trap\nl^h\u0007lichen\nsm.sssy\u0017level teleporter\nj \u001b;^kkssl\u0017arrow trap\nhls20stbj#turn\n#name\no\n#levelchange\n30\n         \u0016?\n>>\u001b\u001618\n20s,,;_.ss\u0016?\n>xde#rub\n,\u0006s.\u0016?\n>>N      sprig of wolfsbane\n#enhance\nyl\na\n\u001bqsss\u0016?\n\u001bi\u001bwaFyFy  FlPf  sm. sm.  n20s   \u001b 20s    nWsy    \u001b  sm.   n       n sb    wdy   n      Fk \u001b  n  Fl     n   Fy    n  wc  \u001b     n Fu       n  Fy     n  Fk    \u001b   n Xeg    .m.  n    sm.    n    tak  n     s#pray\ny y                 tdn      #tip\n\u001b\u001b>#loot\nk,\u00168\nk   n   h\u0017wand of opening\nEi ad aerarium\n   n      nh\u0017wand of teleportation\nEj  Vlad was here\n     : b\u0017wand of sleep\nEky Elbereth Elbereth\n   n       n : E-y ad aerarium\n     \u0007minotaur\n20s  yny  nny\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50055099,
+   "datetime": "20021121172536",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      #levelchange\n30\n                      nku\u0017squeaky board\nubss lu\u0017arrow trap\nlh20s.lb\u0017level teleporter\nbu 4\n 20ssuy\u0017polymorph trap\nl^h#untrap\nher\u001b\u001bs#levelchange\n20\n   lnl\u0017teleportation trap\nl^h\u0007lichen\nsm.sssy\u0017level teleporter\nj \u001b;^kkssl\u0017arrow trap\nhls20stbj#turn\n#name\no\n#levelchange\n30\n         \u0016?\n>>\u001b\u001618\n20s,,;_.ss\u0016?\n>xde#rub\n,\u0006s.\u0016?\n>>N      sprig of wolfsbane\n#enhance\nyl\na\n\u001bqsss\u0016?\n\u001bi\u001bwaFyFy  FlPf  sm. sm.  n20s   \u001b 20s    nWsy    \u001b  sm.   n       n sb    wdy   n      Fk \u001b  n  Fl     n   Fy    n  wc  \u001b     n Fu       n  Fy     n  Fk    \u001b   n Xeg    .m.  n    sm.    n    tak  n     s#pray\ny y                 tdn      #tip\n\u001b\u001b>#loot\nk,\u00168\nk   n   h\u0017wand of opening\nEi ad aerarium\n   n      nh\u0017wand of teleportation\nEj  Vlad was here\n     : b\u0017wand of sleep\nEky Elbereth Elbereth\n   n       n : E-y ad aerarium\n     \u0007minotaur\n20s  yny  nny\u001b  s"
+  }
+ ]
+}

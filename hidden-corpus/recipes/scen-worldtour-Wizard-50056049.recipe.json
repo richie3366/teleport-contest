@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u001619\njkjl:20s.us\u0016?\n>y  ubhbnub:\u001619\n\u0014 \u001b:\u0016?\n>>K      wand of slow monster\n_<,<\u0016?\n\u001bk u\u001613\n#levelchange\n12\n      \u0007fire giant\n.m.sb       sm.  nsysy20s 20s \u0007Juiblex\ny;j,sy    n      sm.     n                     n   sj       \u0007red naga\nsu.m.      n         n   20s         n   sm.      n \u001612\n\u001624\n_>.>\u0016?\n\u001by           nu      \u0016?\n\u001bh   n             b   n       \u00169\n\u001635\n\u0006:_<.\u0016?\n\u001bjl         n \u001634\n\u0006m,_<,.m.           n  20s               n \u00168\n\u0016?\n\u001bu         n       l       yy\u001by   y y  y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50056049,
+   "datetime": "20041007135736",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n30\n                             \u001619\njkjl:20s.us\u0016?\n>y  ubhbnub:\u001619\n\u0014 \u001b:\u0016?\n>>K      wand of slow monster\n_<,<\u0016?\n\u001bk u\u001613\n#levelchange\n12\n      \u0007fire giant\n.m.sb       sm.  nsysy20s 20s \u0007Juiblex\ny;j,sy    n      sm.     n                     n   sj       \u0007red naga\nsu.m.      n         n   20s         n   sm.      n \u001612\n\u001624\n_>.>\u0016?\n\u001by           nu      \u0016?\n\u001bh   n             b   n       \u00169\n\u001635\n\u0006:_<.\u0016?\n\u001bjl         n \u001634\n\u0006m,_<,.m.           n  20s               n \u00168\n\u0016?\n\u001bu         n       l       yy\u001by   y y  y\u001b  \u0016"
+  }
+ ]
+}

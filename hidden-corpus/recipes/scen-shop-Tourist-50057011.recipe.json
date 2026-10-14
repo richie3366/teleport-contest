@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 speed boots\nWl\u0017blessed +3 silver dragon scale mail\nWm\u0016?\n>w\u0006_ \u001b>.,\u0017cheap plastic imitation of the Amulet of Yendor\ndn\u00163\nukl\u0016?\n>w\u0006_ooooooo.Fh _. Fh  ,\u0017dilithium crystal\ndo  _ooooo.Fh _.m,Fn,$_oooooo,Fn _.m.    nFh ,\u0017amulet of ESP\ndp\u0016?\ncnjk \u0016?\n>w\u0006__.Fy    n  _.    n  Fy     n    #chat\nh    n #pray\ny y        \u00162\n__.#chat\nn FlFl FlFl  Fl  Fl  Fn  FnFn   n   nFn   n   Fn   n   Fn    n  \u00162\n_{.qf      n_oooooooo,,$_{,qf    n  \u00163\nl    n u  y  n \u0016?\n>w\u0006\u00163\n__,#chat\nk   _{,q_oooo.,\u0017amulet of flying\ndq_{.q_oooooooo._oo,,a\n   n  :__.#chat\nk   _ooo.,    \u0014.sm.  yy  s"
+ },
+ "segments": [
+  {
+   "seed": 50057011,
+   "datetime": "20120204030048",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=fruit:lychee\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 speed boots\nWl\u0017blessed +3 silver dragon scale mail\nWm\u0016?\n>w\u0006_ \u001b>.,\u0017cheap plastic imitation of the Amulet of Yendor\ndn\u00163\nukl\u0016?\n>w\u0006_ooooooo.Fh _. Fh  ,\u0017dilithium crystal\ndo  _ooooo.Fh _.m,Fn,$_oooooo,Fn _.m.    nFh ,\u0017amulet of ESP\ndp\u0016?\ncnjk \u0016?\n>w\u0006__.Fy    n  _.    n  Fy     n    #chat\nh    n #pray\ny y        \u00162\n__.#chat\nn FlFl FlFl  Fl  Fl  Fn  FnFn   n   nFn   n   Fn   n   Fn    n  \u00162\n_{.qf      n_oooooooo,,$_{,qf    n  \u00163\nl    n u  y  n \u0016?\n>w\u0006\u00163\n__,#chat\nk   _{,q_oooo.,\u0017amulet of flying\ndq_{.q_oooooooo._oo,,a\n   n  :__.#chat\nk   _ooo.,    \u0014.sm.  yy  s"
+  }
+ ]
+}

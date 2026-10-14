@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWn\u0017blessed amulet of life saving\nPo\u0016?\n>w\u0006_ \u001bm.,p_oooooooo.,#chat\ny_ooo.,\u0014,sm.sk_{.Fy_.Fyqi_oooooo,,:__.Fy_,Fy#chat\nl\u00163\nubj\u0016?\n>w\u0006__.Fu _,Fl #chat\nl  _ooo.,#chat\nl _oooooo.,#chat\nl __.Fl  _.Fl #chat\nl #pray\ny y    \u0016?\n>Bnnn\u0016?\n>w\u0006njk#chat\nb_oooooooo._oo.,:_ooooo._o.,p\u00163\njbl\u0016?\n>w\u0006__.Fl_.:Fj#chat\nj _oooooo.,p_{,Fb_,Fl qi_{.Fl_.Fhq_{.   Fh_,  nFhq_oooooo.,#chat\nlFhFhFhFhFhFh_ooooooo,,#chat\nh_oooooo.,$_oooooooo._ooo,,\u0017dilithium crystal\ndq\u00163\njhl\u0016?\n>w\u0006_ooooo.Fj_.Fj,:_ooooo.Fj  n_.,Fj,p_ooooo.Fj_.Fj  n_o.Fj_.Fj,"
+ },
+ "segments": [
+  {
+   "seed": 50057036,
+   "datetime": "20150327203446",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWn\u0017blessed amulet of life saving\nPo\u0016?\n>w\u0006_ \u001bm.,p_oooooooo.,#chat\ny_ooo.,\u0014,sm.sk_{.Fy_.Fyqi_oooooo,,:__.Fy_,Fy#chat\nl\u00163\nubj\u0016?\n>w\u0006__.Fu _,Fl #chat\nl  _ooo.,#chat\nl _oooooo.,#chat\nl __.Fl  _.Fl #chat\nl #pray\ny y    \u0016?\n>Bnnn\u0016?\n>w\u0006njk#chat\nb_oooooooo._oo.,:_ooooo._o.,p\u00163\njbl\u0016?\n>w\u0006__.Fl_.:Fj#chat\nj _oooooo.,p_{,Fb_,Fl qi_{.Fl_.Fhq_{.   Fh_,  nFhq_oooooo.,#chat\nlFhFhFhFhFhFh_ooooooo,,#chat\nh_oooooo.,$_oooooooo._ooo,,\u0017dilithium crystal\ndq\u00163\njhl\u0016?\n>w\u0006_ooooo.Fj_.Fj,:_ooooo.Fj  n_.,Fj,p_ooooo.Fj_.Fj  n_o.Fj_.Fj,"
+  }
+ ]
+}

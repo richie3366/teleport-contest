@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "mO>>>>f\u001b\n\u0006_ \u001b.>FyFll _>>.Fu_.Fh>FnFun _>>,Fu_.Fn>FhFuFu\u0006_>,Fh_,Fh>FuFu_>.Fu_,Fn>FnFun Fu\u0006_>>,Fn_>FuFn_>FuFu_>>.Fu_.Fn>FuFnFuh \u000f\u001bmO>>>f\u001b\nO>i\u001b\u001b\nO>m\u001b\u001b\n#terrain\nc\n:i\u001b20sO>>>i\u001b\u001b\n\u0006_>.Fu_,Fu>FuFn_>FnFun _>.Fn_>FnFun FnFun Fuz#offer\n\u0006_>>.Fh_.Fh>FhFn_>FuFu_>>,Fh_.Fu>FnFh\u001bFhFnFun \u0006_>,Fu_.Fn>FuFuFn\u0006_>,Fu_.Fh>FhFn_>FhFn_>FnFnFnFnFn\u0006_>,Fh_,Fu>FuFn_>FnFun _>.Fu_,Fu>FuFnFuu FuFu\u0006_>>.Fn_>FuFu_>>.Fu_,Fu>FuFn_>FnFh\u001bFnFh\u001bFn>E- X marks the spot\n\u0006_>,Fu_.Fn>FuFnFn<mO>>>o\u001b\n\u0007horse\n\u0017fortune cookie\ntbu 20sh\u001b\u0017leash\najn nh\u001bylu aju dhsm.  nsm.  n sm.  n \u0017apple\ntbh \u0007yellow mold\n\u0017scroll of taming\nrl dg..20s\u001616\n\u00168\ncj >#ride\nu O>>>e\u001b\n\u0006_>.Fk_,<.Fk>FuFk_>,Fj_.;.Fl>FyFln _>,Fn_>FnFub FuFyFkb \u0006_>.Fy_,Fky >FuFj_>.Fl_.Fj>FuFu_>.Fl_,Fh>FnFly FkFhFn\u0006_>,Fj_.;:   Fk>FjFk_>.Fy_.Fy>FyFun _>,Fu_.<.Fh>FkFnFh\u001bFuFl#sit\naf\u001b\u0006_>>,Fk_,Fu>FyFuk _>>,Fj_.Fy>FnFy_>>.Fn_>FnFuu FnFnFh<\u0006_>.Fk_,m,Fn>FbFly Fy\u0006_>.Fn_>FlFy_>. "
+ },
+ "segments": [
+  {
+   "seed": 50059024,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nMSGTYPE=stop \"You kill\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "mO>>>>f\u001b\n\u0006_ \u001b.>FyFll _>>.Fu_.Fh>FnFun _>>,Fu_.Fn>FhFuFu\u0006_>,Fh_,Fh>FuFu_>.Fu_,Fn>FnFun Fu\u0006_>>,Fn_>FuFn_>FuFu_>>.Fu_.Fn>FuFnFuh \u000f\u001bmO>>>f\u001b\nO>i\u001b\u001b\nO>m\u001b\u001b\n#terrain\nc\n:i\u001b20sO>>>i\u001b\u001b\n\u0006_>.Fu_,Fu>FuFn_>FnFun _>.Fn_>FnFun FnFun Fuz#offer\n\u0006_>>.Fh_.Fh>FhFn_>FuFu_>>,Fh_.Fu>FnFh\u001bFhFnFun \u0006_>,Fu_.Fn>FuFuFn\u0006_>,Fu_.Fh>FhFn_>FhFn_>FnFnFnFnFn\u0006_>,Fh_,Fu>FuFn_>FnFun _>.Fu_,Fu>FuFnFuu FuFu\u0006_>>.Fn_>FuFu_>>.Fu_,Fu>FuFn_>FnFh\u001bFnFh\u001bFn>E- X marks the spot\n\u0006_>,Fu_.Fn>FuFnFn<mO>>>o\u001b\n\u0007horse\n\u0017fortune cookie\ntbu 20sh\u001b\u0017leash\najn nh\u001bylu aju dhsm.  nsm.  n sm.  n \u0017apple\ntbh \u0007yellow mold\n\u0017scroll of taming\nrl dg..20s\u001616\n\u00168\ncj >#ride\nu O>>>e\u001b\n\u0006_>.Fk_,<.Fk>FuFk_>,Fj_.;.Fl>FyFln _>,Fn_>FnFub FuFyFkb \u0006_>.Fy_,Fky >FuFj_>.Fl_.Fj>FuFu_>.Fl_,Fh>FnFly FkFhFn\u0006_>,Fj_.;:   Fk>FjFk_>.Fy_.Fy>FyFun _>,Fu_.<.Fh>FkFnFh\u001bFuFl#sit\naf\u001b\u0006_>>,Fk_,Fu>FyFuk _>>,Fj_.Fy>FnFy_>>.Fn_>FnFuu FnFnFh<\u0006_>.Fk_,m,Fn>FbFly Fy\u0006_>.Fn_>FlFy_>. "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "mO>>i\u001b\nmO>>s\u001b\nmO>>>>l\u001b\n\u0006_ \u001b<.>FlFl_>.Fh_.> FuFbFu\u0006_>.Fk_,> FuFuFy\u0006_>.Fy_.@.Fb>FbFy_>.Fy_.>.Fh>FbFy_>.Fy_.m.Fb>FyFbFyFbFyr\u001bE- ad aerarium\n\u0006_>,Fb_.m,Fy>FbFb_>.Fb_.m.Fb>FyFb_>,Fb_.<.Fb>FyFbFbFyFb\u0006_>>.Fb_.Fy>FbFb_>>,Fb_.>.Fb>FyFb_>>,Fb_.,Fb>FyFbFbFyFy\u0006_>>.Fy_.>.Fy>FyFb_>>.Fy_,@.Fy>FbFb_>>,Fy_.@.Fb>FyFbFyFbFb<de\u0006_>.Fb_.<.Fy>FbFy_>,Fb_,<.Fy>FyFb_>.Fb_,,Fy>FyFbFbFyFy\u000f\u001bO>>>e\u001b\n\u00168\n\u00165\nFlFlFlFlFuFuFuFlFlFlFlFlFuFuFuFuFlFlFuFlFuFlFlFlFuFlFlFlFlFlFuFuFuFuFlFlFlFlFuFlFlFlFuFuFlFuFlFlFlFuFuFlFuFuFlFuFlFuFuFuFlFlFlFlFuFuFlFlFuFuFlFuFuFuFuFlFlFuFuFuFuFuFlFlFuFlFuFlFhFlFlFuFlFuFuFuFlFuFuFuFlFlFlFlFuFuFlFuFlFlFlFlFlFlFlFuFlFuFuFl\u001611\nmO>l\u001b\n\\ z#conduct\n \u001617\n\u0006_>, Fu_.Fu>FlFl _>,  n Fu   n _.   nFn   n>Fl Fn  n  _>,  n Fy  n _.  n  nFn >Fl  n Fu Fl  n Fl   nFu <\u0006_>.  n Fl  n _.  n Fy >Fy  n Fl   n _>.   nFl   yy\u001by  y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50058505,
+   "datetime": "20150415210957",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": "mO>>i\u001b\nmO>>s\u001b\nmO>>>>l\u001b\n\u0006_ \u001b<.>FlFl_>.Fh_.> FuFbFu\u0006_>.Fk_,> FuFuFy\u0006_>.Fy_.@.Fb>FbFy_>.Fy_.>.Fh>FbFy_>.Fy_.m.Fb>FyFbFyFbFyr\u001bE- ad aerarium\n\u0006_>,Fb_.m,Fy>FbFb_>.Fb_.m.Fb>FyFb_>,Fb_.<.Fb>FyFbFbFyFb\u0006_>>.Fb_.Fy>FbFb_>>,Fb_.>.Fb>FyFb_>>,Fb_.,Fb>FyFbFbFyFy\u0006_>>.Fy_.>.Fy>FyFb_>>.Fy_,@.Fy>FbFb_>>,Fy_.@.Fb>FyFbFyFbFb<de\u0006_>.Fb_.<.Fy>FbFy_>,Fb_,<.Fy>FyFb_>.Fb_,,Fy>FyFbFbFyFy\u000f\u001bO>>>e\u001b\n\u00168\n\u00165\nFlFlFlFlFuFuFuFlFlFlFlFlFuFuFuFuFlFlFuFlFuFlFlFlFuFlFlFlFlFlFuFuFuFuFlFlFlFlFuFlFlFlFuFuFlFuFlFlFlFuFuFlFuFuFlFuFlFuFuFuFlFlFlFlFuFuFlFlFuFuFlFuFuFuFuFlFlFuFuFuFuFuFlFlFuFlFuFlFhFlFlFuFlFuFuFuFlFuFuFuFlFlFlFlFuFuFlFuFlFlFlFlFlFlFlFuFlFuFuFl\u001611\nmO>l\u001b\n\\ z#conduct\n \u001617\n\u0006_>, Fu_.Fu>FlFl _>,  n Fu   n _.   nFn   n>Fl Fn  n  _>,  n Fy  n _.  n  nFn >Fl  n Fu Fl  n Fl   nFu <\u0006_>.  n Fl  n _.  n Fy >Fy  n Fl   n _>.   nFl   yy\u001by  y y y\u001by  _"
+  }
+ ]
+}

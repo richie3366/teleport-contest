@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0016?\ne#levelchange\n10\n    hllh\u0017cloud\nbubbj\u0017melting ice\njkkk#ride\nny,#conduct\n \u0016?\n>w#levelchange\n30\n                   \u0007succubus\nFbFh   FjFjs.\u0007yellow light\nFjFb FjFj.s\u0007incubus\nFjFj.  y   Fbssss20s.\u00162\n\u0014 \u001bm..\u001629\n   \u0006_>. _, Fl 20s  \u001629\n hlhlh:  s s20s \u001645\nhlh: \u001618\n\u0006_>._.Fu.20s\u0016?\n>>L    gauntlets of power\n#levelchange\n8\n     \u0017gauntlets of fumbling\nWg.  n .  s    n     \u0007red naga\nFh   n    Fb   n Fk FkFkFj \u0007master mind flayer\n#chat\nFkFjs.  \u00162\n\u0016?\nd \u0014@.     n  \u0016?\n\u001bn   n  y      n\u001612\n\u001623\n#chat\nn;>.\u0016?\n\u001bb    n h  \u0016?\n\u001bk   b  n     n  \u00163\n\u0016?\n\u001bn   n        n  l\u001610\n\u0016?\na  \u0004j\u0016?\nbh   b  n h    n  y     n :    yny   y y  n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50056020,
+   "datetime": "20040409062711",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0016?\ne#levelchange\n10\n    hllh\u0017cloud\nbubbj\u0017melting ice\njkkk#ride\nny,#conduct\n \u0016?\n>w#levelchange\n30\n                   \u0007succubus\nFbFh   FjFjs.\u0007yellow light\nFjFb FjFj.s\u0007incubus\nFjFj.  y   Fbssss20s.\u00162\n\u0014 \u001bm..\u001629\n   \u0006_>. _, Fl 20s  \u001629\n hlhlh:  s s20s \u001645\nhlh: \u001618\n\u0006_>._.Fu.20s\u0016?\n>>L    gauntlets of power\n#levelchange\n8\n     \u0017gauntlets of fumbling\nWg.  n .  s    n     \u0007red naga\nFh   n    Fb   n Fk FkFkFj \u0007master mind flayer\n#chat\nFkFjs.  \u00162\n\u0016?\nd \u0014@.     n  \u0016?\n\u001bn   n  y      n\u001612\n\u001623\n#chat\nn;>.\u0016?\n\u001bb    n h  \u0016?\n\u001bk   b  n     n  \u00163\n\u0016?\n\u001bn   n        n  l\u001610\n\u0016?\na  \u0004j\u0016?\nbh   b  n h    n  y     n :    yny   y y  n  \u0016"
+  }
+ ]
+}

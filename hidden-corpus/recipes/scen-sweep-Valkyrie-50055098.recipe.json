@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0016?\n>y  _ \u001b>.#chat\nu_mmmm.Fn    _.#chat\nn     _mmmm,Fl      _.      n Fk        #chat\nk   n       #wipe\n     n      #loot\nued   \u001b       n   \u001630\n\u0018\u001b\u00163\n\u0017blessed ring of polymorph control\nPel             #polyself\nbrown mold\n   #monster\n.    n               n     sm.          n  sh20s        n     sm.        n     #polyself\nleprechaun\n#monster\n.k             n .h\u0007long worm\nFk         Fn   n         Fk        n       sk     n       20s     n       20s     n       #polyself\nbaby crocodile\n#monster\nsm.         yny   y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50055098,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0016?\n>y  _ \u001b>.#chat\nu_mmmm.Fn    _.#chat\nn     _mmmm,Fl      _.      n Fk        #chat\nk   n       #wipe\n     n      #loot\nued   \u001b       n   \u001630\n\u0018\u001b\u00163\n\u0017blessed ring of polymorph control\nPel             #polyself\nbrown mold\n   #monster\n.    n               n     sm.          n  sh20s        n     sm.        n     #polyself\nleprechaun\n#monster\n.k             n .h\u0007long worm\nFk         Fn   n         Fk        n       sk     n       20s     n       20s     n       #polyself\nbaby crocodile\n#monster\nsm.         yny   y y y\u001b  s"
+  }
+ ]
+}

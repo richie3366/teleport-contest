@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017blessed Mjollnir\nwo\u0017blessed ring of free action\nPpr\u0017blessed amulet of life saving\nPq\u0016?\n>u jk   nhj    :\u00168\n#chat\nk;_. \u001bm,\u00168\n\u0014m,\u001638\n   \u0014m.\u001623\n_<.\u0016?\n>E_<,_.m,<s20ss\u0016?\n>>L      helm of telepathy\n#levelchange\n20\n   \u0017the Longbow of Diana\n wt Fu           Fl     Fk #invoke\nt \u0007air elemental\nFj  Fb   n            Fl  n  Fj   \u0007gas spore\nFk Fk  n           Fj Fj   n     n   Fy     n Fk        n  \u0007jellyfish\nFb       n   Fj  Fk    n   Fk     Fj \u0007fog cloud\nFk  n     s  n     Fj  Fk  n      n  \u00164\n\u001610\n\u0004y    n    sm.   .s    n  \u0016?\n\u001bbny    ynnny  n  j"
+ },
+ "segments": [
+  {
+   "seed": 50056031,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:loot\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017blessed Mjollnir\nwo\u0017blessed ring of free action\nPpr\u0017blessed amulet of life saving\nPq\u0016?\n>u jk   nhj    :\u00168\n#chat\nk;_. \u001bm,\u00168\n\u0014m,\u001638\n   \u0014m.\u001623\n_<.\u0016?\n>E_<,_.m,<s20ss\u0016?\n>>L      helm of telepathy\n#levelchange\n20\n   \u0017the Longbow of Diana\n wt Fu           Fl     Fk #invoke\nt \u0007air elemental\nFj  Fb   n            Fl  n  Fj   \u0007gas spore\nFk Fk  n           Fj Fj   n     n   Fy     n Fk        n  \u0007jellyfish\nFb       n   Fj  Fk    n   Fk     Fj \u0007fog cloud\nFk  n     s  n     Fj  Fk  n      n  \u00164\n\u001610\n\u0004y    n    sm.   .s    n  \u0016?\n\u001bbny    ynnny  n  j"
+  }
+ ]
+}

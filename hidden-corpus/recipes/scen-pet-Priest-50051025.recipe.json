@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0007tame dingo\n\u0007large dog\n\u0017huge chunk of meat\nt\u001b\u0007lichen\n.jsjsss.m. df  .usm.  yny  y y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 50051025,
+   "datetime": "20210622004430",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007tame dingo\n\u0007large dog\n\u0017huge chunk of meat\nt\u001b\u0007lichen\n.jsjsss.m. df  .usm.  yny  y y\u001by  ."
+  }
+ ]
+}

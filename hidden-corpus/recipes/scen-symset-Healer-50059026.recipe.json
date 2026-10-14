@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0007housecat\n\u0017lichen corpse\nt$y\u0007housecat\n\u0017lichen corpse\nt\u001b\u001b\u0006_ \u001b@.>FyFh  n  _>.  n  Fy  n _,    n Fu >Fy   n  Fu  n  _>.  n  Fh   n  _.   n Fb >Fu  Fh  n  dd  sm.  n .m.sk  ndl.m.  n 20s  n sl  n#name\n\u001b\u0006_>.Fn   n_.Fl  n >Fj  n Fj _>. Fb  yy\u001by  y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50059026,
+   "datetime": "20260609150341",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007housecat\n\u0017lichen corpse\nt$y\u0007housecat\n\u0017lichen corpse\nt\u001b\u001b\u0006_ \u001b@.>FyFh  n  _>.  n  Fy  n _,    n Fu >Fy   n  Fu  n  _>.  n  Fh   n  _.   n Fb >Fu  Fh  n  dd  sm.  n .m.sk  ndl.m.  n 20s  n sl  n#name\n\u001b\u0006_>.Fn   n_.Fl  n >Fj  n Fj _>. Fb  yy\u001by  y y y\u001by  _"
+  }
+ ]
+}

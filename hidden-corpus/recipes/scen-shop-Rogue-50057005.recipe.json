@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\n>w\u0006_ \u001b:,p\u00163\nlhb\u0016?\n>w\u0006_ooo,,\u0017worthless piece of red glass\ndjaf\u001b\u0016?\nchly\u0016?\n>w\u0006_oooo.,\u0017amulet of strangulation\ndkg_qd_ooooooooo.  n_.,pluj#chat\ny__,_.#chat\nh#pray\ny y _oooooooo.Fl_.  nFl_ooo,, :_oooooo,,\u0014.m.20s._ooooo,_.,:_oo,,p_oooooooo._oo.,\u0017amulet of strangulation\ndli\u001buhy#chat\nh_oooooo.,#chat\ny_ooooooooo.,:lbh#chat\nh__.Fh_.Fh#chat\nu_oooooo.,\u0017amulet of strangulation\ndmck_oooo._.,\u0017luckstone\ndnn_ooooo,_,._o,Fu  n_.m,Fu,\u0017luckstone\ndppkkj#chat\nl_ooooo._,,p_{,Fh_,,Fhq__.Fh_.m.Fh#chat\nh_{,Fh_,@.qy_{._.qy_,\u0017luckstone\ndnn_{._..qy__.Fy    \u001b_,  Fy  n#chat\ny  n  n  \u00167\n_oo._oo.,#chat\nj  n   n\u0016?\n>Bny  n k  n \u0016?\n>w\u0006\u00162\n_oooo,,pFk  n  n Fk  n   nFk  n Fk  yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50057005,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\n>w\u0006_ \u001b:,p\u00163\nlhb\u0016?\n>w\u0006_ooo,,\u0017worthless piece of red glass\ndjaf\u001b\u0016?\nchly\u0016?\n>w\u0006_oooo.,\u0017amulet of strangulation\ndkg_qd_ooooooooo.  n_.,pluj#chat\ny__,_.#chat\nh#pray\ny y _oooooooo.Fl_.  nFl_ooo,, :_oooooo,,\u0014.m.20s._ooooo,_.,:_oo,,p_oooooooo._oo.,\u0017amulet of strangulation\ndli\u001buhy#chat\nh_oooooo.,#chat\ny_ooooooooo.,:lbh#chat\nh__.Fh_.Fh#chat\nu_oooooo.,\u0017amulet of strangulation\ndmck_oooo._.,\u0017luckstone\ndnn_ooooo,_,._o,Fu  n_.m,Fu,\u0017luckstone\ndppkkj#chat\nl_ooooo._,,p_{,Fh_,,Fhq__.Fh_.m.Fh#chat\nh_{,Fh_,@.qy_{._.qy_,\u0017luckstone\ndnn_{._..qy__.Fy    \u001b_,  Fy  n#chat\ny  n  n  \u00167\n_oo._oo.,#chat\nj  n   n\u0016?\n>Bny  n k  n \u0016?\n>w\u0006\u00162\n_oooo,,pFk  n  n Fk  n   nFk  n Fk  yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

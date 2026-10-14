@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                              \u0017blessed +3 helm of telepathy\nWp\u0017blessed Mjollnir\nwq \u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>>N       ring of shock resistance\nuy   n    :sm. \u0016?\nc j    u        k       n       k            n         n  l : \u00167\n\u001618\n#chat\n;j, \u001b;20s 20s s \u001618\nk   l         n    h h    n  b : s\u001b. \u00162\n\u0016?\nc#chat\n;j.\u0016?\nc_>.<\u0016?\nd \u0004l      .n      n                n             sy   n      sl       \u00169\n\u0016?\n\u001bu  n              k   n               \u00169\n\u0016?\n\u001bj    n            j     n       \u00169\n\u00168\nn      n   l        n        n  : .            n        \u001611\n\u001619\n\u0014<.       \u001619\n_<.sm.               n\u0016?\n\u001bn        l        n       \u001624\n#chat\nu;n,sm.     yy\u001by   nnn  2"
+ },
+ "segments": [
+  {
+   "seed": 50056035,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                              \u0017blessed +3 helm of telepathy\nWp\u0017blessed Mjollnir\nwq \u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>>N       ring of shock resistance\nuy   n    :sm. \u0016?\nc j    u        k       n       k            n         n  l : \u00167\n\u001618\n#chat\n;j, \u001b;20s 20s s \u001618\nk   l         n    h h    n  b : s\u001b. \u00162\n\u0016?\nc#chat\n;j.\u0016?\nc_>.<\u0016?\nd \u0004l      .n      n                n             sy   n      sl       \u00169\n\u0016?\n\u001bu  n              k   n               \u00169\n\u0016?\n\u001bj    n            j     n       \u00169\n\u00168\nn      n   l        n        n  : .            n        \u001611\n\u001619\n\u0014<.       \u001619\n_<.sm.               n\u0016?\n\u001bn        l        n       \u001624\n#chat\nu;n,sm.     yy\u001by   nnn  2"
+  }
+ ]
+}

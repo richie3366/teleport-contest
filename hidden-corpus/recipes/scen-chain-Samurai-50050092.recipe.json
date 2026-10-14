@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0007cockatrice\nFnFnFnFns20s20s20sssssss20ss...sss.20s20s knt\u001b20snjt\u001b#chat\nh#chat\nkNYUB_ \u001bm,>FlssUYLB_>.>YNYB_>.>\u0004bi\u001bBHHY_>,>\u0014#force\nJKKJ_>,>f \u001b\u000f\u001bUUUK_>,>\u000f\u001bblkhjjlklhdasssl10sFy Fh20s100s FlFjs50sFbs20sFuFl20s  FkFl.100s     100sFjFj Fj  y\u001by  y y y\u001b  1 \u0017wand of digging\nzp> szp> 20szp>  szp>   yy\u001by   ny\u001bn  sH N YK_ \u001b@.>FhFj sKYBK_>,>JYJB_>.>YULN_>.>ed \u0014KJ BL_>,>#conduct\n #loot\nYJHJ_>,>\u000f\u001bllhh_>,>100s100s100s100s50s100sllk\\ 50s100s 150s ubu\u000f\u001b100s50sFhs20s#force\nbubJ100s_>.>_>.>100sFy20s20s#enhance\n\u001b100s100shujFyFy.\\ 150sE- Vlad was here\n100s50sFyFysyjk100s50s\\ bujkblklubyjyykuhl20shjjjllnnYHHU_>.>FkFksUNYJ_>.>HKNB_>,>J#offer\nUBLN _>.>YHKH_>.>jjjkLNUH_>.><#monster\n<KNYY_>.>#untrap\nj_<.sKKBN_>,>20s#name\na\nUKJK_>,><yy\u001by  ny y\u001b U",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50050092,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007cockatrice\nFnFnFnFns20s20s20sssssss20ss...sss.20s20s"
+  },
+  {
+   "seed": 50150092,
+   "datetime": "20251206233910",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:mango\n",
+   "moves": " knt\u001b20snjt\u001b#chat\nh#chat\nkNYUB_ \u001bm,>FlssUYLB_>.>YNYB_>.>\u0004bi\u001bBHHY_>,>\u0014#force\nJKKJ_>,>f \u001b\u000f\u001bUUUK_>,>\u000f\u001bblkhjjlklhdasssl10sFy Fh20s100s FlFjs50sFbs20sFuFl20s  FkFl.100s     100sFjFj Fj  y\u001by  y y y\u001b  1"
+  },
+  {
+   "seed": 50250092,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of digging\nzp> szp> 20szp>  szp>   yy\u001by   ny\u001bn  s"
+  },
+  {
+   "seed": 50350092,
+   "datetime": "20240926183555",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\n",
+   "moves": "H N YK_ \u001b@.>FhFj sKYBK_>,>JYJB_>.>YULN_>.>ed \u0014KJ BL_>,>#conduct\n #loot\nYJHJ_>,>\u000f\u001bllhh_>,>100s100s100s100s50s100sllk\\ 50s100s 150s ubu\u000f\u001b100s50sFhs20s#force\nbubJ100s_>.>_>.>100sFy20s20s#enhance\n\u001b100s100shujFyFy.\\ 150sE- Vlad was here\n100s50sFyFysyjk100s50s\\ bujkblklubyjyykuhl20shjjjllnnYHHU_>.>FkFksUNYJ_>.>HKNB_>,>J#offer\nUBLN _>.>YHKH_>.>jjjkLNUH_>.><#monster\n<KNYY_>.>#untrap\nj_<.sKKBN_>,>20s#name\na\nUKJK_>,><yy\u001by  ny y\u001b U"
+  }
+ ]
+}

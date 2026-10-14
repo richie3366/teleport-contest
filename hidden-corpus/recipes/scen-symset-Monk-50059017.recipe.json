@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  O>j\u001b\n\u001611\n\u0007tame wolf\n\u0007acid blob\nss20s.20s.\u0017apple\n t\u001b\u0007giant rat\n\u0017scroll of taming\nrk \u0017lichen corpse\nt\u001b20s\u0007lichen\n.l.20s   sss#chat\nh\u001618\nv i\u001bv i\u001bFh Fj   Fh FbFbFjFhFbFjFj .20s100s100s100shkj100sFhFhFh50s50sFkFkFk  nFk20ss\\  100s150sFkFkFk#pray\ny y    Fk  nFkFk150s\u0018\u001b\u0018\u001blbu\u000f\u001b100s     Fy Fy FyFy FyFy  Fy 20ssn100s #pray\ny y    Fys.buh150s  Fksslhj100si\u001bL \u001610\n\u00163\nFls.kjujuk100s100s150sFhs20sFhs20s100s\u000f\u001b100snyl100s_ \u001b.>50sFhs20sbhh\u000f\u001bi\u001b\u000f\u001b50saj 150sei  jub100sehublkhj100subl150s100sFkFkFy100s100sFkFkFkFk.  .FkFk Fk  Fk FkFy <#loot\ny\u001619\nmO>>>j\u001b\nO>l\u001b\nf \u001b#conduct\n \\  #name\n\u001b#loot\n#jump\n\u00164\n\u00167\n100sef150si\u001b50s_>,_,> 50st\u001b150s100sFlFls\u0018\u001b#offer\n_>,>z50sFlFlFlbhl100s ynh150sFlFlFl150s_>.>100s150s100s150sFlFlFl\\  50sFlFlFlyjl150s150s   \u001b50s 100s uhk150s  \\  \u0006_>,Fj_.> \u0006_>,_.>_>._.>_>._.>\u0006_>._.>_>._.>_>._,>\u0007tame pony\n#chat\nn\u0017apple\n t\u001b#chat\nndes20ss\u0017leash\nap.hjnlapl\u0017leash\naqllhkkaqlv  i\u001b\u001612\nmOa\u001b\n  \u00168\nmO>>>i\u001b\nO>>>>f\u001b\n mO>>>f\u001b\n\u00164\n\u0007little dog\n\u0017food ration\n t\u001b\u0007kitten\n\u0017carrot\nt\u001b#name\nd\n\u0006_>>, Fu _.Fl >F"
+ },
+ "segments": [
+  {
+   "seed": 50059017,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nMSGTYPE=hide \"You hear\"\nMENUCOLOR=\"a scroll\"=green\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  O>j\u001b\n\u001611\n\u0007tame wolf\n\u0007acid blob\nss20s.20s.\u0017apple\n t\u001b\u0007giant rat\n\u0017scroll of taming\nrk \u0017lichen corpse\nt\u001b20s\u0007lichen\n.l.20s   sss#chat\nh\u001618\nv i\u001bv i\u001bFh Fj   Fh FbFbFjFhFbFjFj .20s100s100s100shkj100sFhFhFh50s50sFkFkFk  nFk20ss\\  100s150sFkFkFk#pray\ny y    Fk  nFkFk150s\u0018\u001b\u0018\u001blbu\u000f\u001b100s     Fy Fy FyFy FyFy  Fy 20ssn100s #pray\ny y    Fys.buh150s  Fksslhj100si\u001bL \u001610\n\u00163\nFls.kjujuk100s100s150sFhs20sFhs20s100s\u000f\u001b100snyl100s_ \u001b.>50sFhs20sbhh\u000f\u001bi\u001b\u000f\u001b50saj 150sei  jub100sehublkhj100subl150s100sFkFkFy100s100sFkFkFkFk.  .FkFk Fk  Fk FkFy <#loot\ny\u001619\nmO>>>j\u001b\nO>l\u001b\nf \u001b#conduct\n \\  #name\n\u001b#loot\n#jump\n\u00164\n\u00167\n100sef150si\u001b50s_>,_,> 50st\u001b150s100sFlFls\u0018\u001b#offer\n_>,>z50sFlFlFlbhl100s ynh150sFlFlFl150s_>.>100s150s100s150sFlFlFl\\  50sFlFlFlyjl150s150s   \u001b50s 100s uhk150s  \\  \u0006_>,Fj_.> \u0006_>,_.>_>._.>_>._.>\u0006_>._.>_>._.>_>._,>\u0007tame pony\n#chat\nn\u0017apple\n t\u001b#chat\nndes20ss\u0017leash\nap.hjnlapl\u0017leash\naqllhkkaqlv  i\u001b\u001612\nmOa\u001b\n  \u00168\nmO>>>i\u001b\nO>>>>f\u001b\n mO>>>f\u001b\n\u00164\n\u0007little dog\n\u0017food ration\n t\u001b\u0007kitten\n\u0017carrot\nt\u001b#name\nd\n\u0006_>>, Fu _.Fl >F"
+  }
+ ]
+}

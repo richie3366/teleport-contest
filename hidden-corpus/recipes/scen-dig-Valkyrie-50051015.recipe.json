@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  \u0017wand of digging\n\u0016?\ne\u0006_ \u001b.ze> lyze> .zekknbzejjzeny\u0017grave\nzess\u0017pick-axe\n\u00165\n\u0006_o.Fn_.:af >_>, _.af>af>   shaf>"
+ },
+ "segments": [
+  {
+   "seed": 50051015,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=runmode:walk\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017wand of digging\n\u0016?\ne\u0006_ \u001b.ze> lyze> .zekknbzejjzeny\u0017grave\nzess\u0017pick-axe\n\u00165\n\u0006_o.Fn_.:af >_>, _.af>af>   shaf>"
+  }
+ ]
+}

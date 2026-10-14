@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " t\u001bk#name\nd\n#name\nf\n ,yjhhNHNJ_>.>eZa\nYNLU_>.>FnFl s#terrain\nb\n\\UKNH_>JUYU_>HJJJ_>BJNH_>BJNH_>JLNK_>BJKY_>YYJL_>KHJY_>HJLJ_>\u000f #chat\nk10s#turn\nLLBY_>.><J LKN_>.>FhFhsUKBLy_>.>#turn\n\u0018\u001b\\  E- Vlad was here\n,JHLy  y\u001bny ny\u001b  B"
+ },
+ "segments": [
+  {
+   "seed": 50050063,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\n",
+   "moves": " t\u001bk#name\nd\n#name\nf\n ,yjhhNHNJ_>.>eZa\nYNLU_>.>FnFl s#terrain\nb\n\\UKNH_>JUYU_>HJJJ_>BJNH_>BJNH_>JLNK_>BJKY_>YYJL_>KHJY_>HJLJ_>\u000f #chat\nk10s#turn\nLLBY_>.><J LKN_>.>FhFhsUKBLy_>.>#turn\n\u0018\u001b\\  E- Vlad was here\n,JHLy  y\u001bny ny\u001b  B"
+  }
+ ]
+}

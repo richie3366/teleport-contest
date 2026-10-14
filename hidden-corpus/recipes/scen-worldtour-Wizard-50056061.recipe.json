@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0016?\n>z #levelchange\n20\n      \u001720 arrows\nQ\u001bf \u001bf \u001bf \u001bFkFk    \u0017scroll of taming\nrq   Fb   Fb         \u0017wand of death\nzrj        Fb       Fh        \u0017spellbook of invisibility\nrs          .m.    n         sm.             Z\u001bZ\u001b\u0017cursed spellbook of extra healing\n\u0007Oracle\nyrt               n          sk            sm.            Z\u001bZ\u001b\u0017cursed beartrap\nau       n      20s         sy      \u00168\n \u0016?\n>>Q#levelchange\n30\n         \u0017spellbook of create monster\n\u0007mastodon\nra .m.20s  nZZ\u0017cursed -1 aklys\nwb FbFbFb  n \u0017uncursed +0 shield of reflection\nWc sm.sls\u0017wand of create monster\n\u0007floating eye\nzddwarf lord\n \u0017cursed wand of create monster\nzeshrieker\n   nzepony\n 20s sm. \u00163\n\u0016?\n>>L      amulet of restful sleep\n\u0004n\u0016?\n\u001bn    nh  \u0016?\n\u001bk     j    \u001631\n#levelchange\n20\n   \u0017blessed the Platinum Yendorian Express Card\n  n \u0007red dragon\n\u0017uncursed potion of hallucination\n\u0007pyrolisk\nqh          n Fj        n   Fj\u0017blessed potion of speed\n\u0007floating eye\nqi  #dip\nf20ss\u00169\n\u0016?\na   lu           n           k   n        n          y        n          u     l:\u00167\n\u001611\nl           bj   n         l     yy\u001by   ny y\u001b  :"
+ },
+ "segments": [
+  {
+   "seed": 50056061,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n14\n             \u0016?\n>z #levelchange\n20\n      \u001720 arrows\nQ\u001bf \u001bf \u001bf \u001bFkFk    \u0017scroll of taming\nrq   Fb   Fb         \u0017wand of death\nzrj        Fb       Fh        \u0017spellbook of invisibility\nrs          .m.    n         sm.             Z\u001bZ\u001b\u0017cursed spellbook of extra healing\n\u0007Oracle\nyrt               n          sk            sm.            Z\u001bZ\u001b\u0017cursed beartrap\nau       n      20s         sy      \u00168\n \u0016?\n>>Q#levelchange\n30\n         \u0017spellbook of create monster\n\u0007mastodon\nra .m.20s  nZZ\u0017cursed -1 aklys\nwb FbFbFb  n \u0017uncursed +0 shield of reflection\nWc sm.sls\u0017wand of create monster\n\u0007floating eye\nzddwarf lord\n \u0017cursed wand of create monster\nzeshrieker\n   nzepony\n 20s sm. \u00163\n\u0016?\n>>L      amulet of restful sleep\n\u0004n\u0016?\n\u001bn    nh  \u0016?\n\u001bk     j    \u001631\n#levelchange\n20\n   \u0017blessed the Platinum Yendorian Express Card\n  n \u0007red dragon\n\u0017uncursed potion of hallucination\n\u0007pyrolisk\nqh          n Fj        n   Fj\u0017blessed potion of speed\n\u0007floating eye\nqi  #dip\nf20ss\u00169\n\u0016?\na   lu           n           k   n        n          y        n          u     l:\u00167\n\u001611\nl           bj   n         l     yy\u001by   ny y\u001b  :"
+  }
+ ]
+}

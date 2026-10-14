@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "O>>>>d\u001b\nO>l\u001b\nO>>d\u001b\nFjFjFjFnFbFbFnFbFh FnFnFbFbFjFnFjFnFnFjFjFbFbFjFjFjFnFjFbFnFjFbFnFjFjFjFnFjFjFbFnFbFbFnFjFjFbFnFbFbFbFjFnFnFbFjFnFbFbFnFnFbFnFjFnFnFbFjFjFnFnFbFnFnFnFjFbFbFbFjFbFnFjFbFnFbFnFjFnFbFbFnFnFnFnFjFbFnFnFbFbFbFnFnFnFbFnFjFbFjFjFnFnFjFnFbFnFbFnFbFnO>>p\u001b\n\u00163\nwa#offer\n:ch\u00165\nO>m\u001b\u001b\nWHs#jump\nO>c\u001b\nO>>>h\u001b\n\u00164\nFjFjFbFjFbFnFnFbFnFnFjFjFjFbFbFnFbFbFbFjFbFbFnFnFjFjFbFjFjFjFjFbFbFjFnFbFnFnFnFnFjFnFjFbFjFnFjFnFnFjFbFjFnFnFnFbFjFbFbFjFbFnFbFnFjFnFnFnFbFjFbFjFnFjFjFjFjFjFbFnFjFjFjFnFnFnFbFnFnFbFjFnFnFnFnFnFb"
+ },
+ "segments": [
+  {
+   "seed": 50058506,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=fruit:mango\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"cursed\"=brown\nBIND=v:inventory\n",
+   "moves": "O>>>>d\u001b\nO>l\u001b\nO>>d\u001b\nFjFjFjFnFbFbFnFbFh FnFnFbFbFjFnFjFnFnFjFjFbFbFjFjFjFnFjFbFnFjFbFnFjFjFjFnFjFjFbFnFbFbFnFjFjFbFnFbFbFbFjFnFnFbFjFnFbFbFnFnFbFnFjFnFnFbFjFjFnFnFbFnFnFnFjFbFbFbFjFbFnFjFbFnFbFnFjFnFbFbFnFnFnFnFjFbFnFnFbFbFbFnFnFnFbFnFjFbFjFjFnFnFjFnFbFnFbFnFbFnO>>p\u001b\n\u00163\nwa#offer\n:ch\u00165\nO>m\u001b\u001b\nWHs#jump\nO>c\u001b\nO>>>h\u001b\n\u00164\nFjFjFbFjFbFnFnFbFnFnFjFjFjFbFbFnFbFbFbFjFbFbFnFnFjFjFbFjFjFjFjFbFbFjFnFbFnFnFnFnFjFnFjFbFjFnFjFnFnFjFbFjFnFnFnFbFjFbFbFjFbFnFbFnFjFnFnFnFbFjFbFjFnFjFjFjFjFjFbFnFjFjFjFnFnFnFbFnFnFbFjFnFnFnFnFnFb"
+  }
+ ]
+}

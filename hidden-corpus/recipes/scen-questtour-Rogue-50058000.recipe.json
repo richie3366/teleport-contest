@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nh;m._m,#chat\nn_mmm.#chat\nn;_._mmmm.#chat\nn;m,#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm,#chat\nl_mmmm.#chat\nj;m,_mm.#chat\nk\u0017blessed ring of free action\nPgl\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWi  \u0017wand of lightning\n\u0016?\n>A\u0006_mmmmm.Fk_.Fk FuFuFu.FuFu z,\u0016?\n>z\u0006_mmmmmmm.Fl _.20s  Fl.  ns20s s,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nk\u0016?\n>A\u0006_mmm,..s.20s FbFb ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,FbFbs.,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nu;u,\u0016?\n>A\u0006_mm.FuFuFuFu,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nu;u:\u0016?\n>z\u0006_mmmmmmm.FuFuFu  n FuFuFuz,#chat\nb\u0016?\n>A\u0006_mmm,s.s.20s20sz,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,.20ss.sz,#chat\nj\u0016?\n>A\u0006_mmmm...s.20s \u001b,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nu;<.\u0016?\n>z\u0006_mmm.s.s..z,\u0016?\n>A\u0006_mmmm.s20s20ss20sssz,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.20s20sFlFl       Fl20s z,\u0016?\n>A\u0006_mmmmm,ss20s 20sz,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nb\u0016?\n>z\u0006_mmmmmmm.20s  sss..20sz,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nb;<.\u0016?\n>A\u0006_mmm.ssss.s.z,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nu;>.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.s..20ssz,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\ny\u0016?\n>A\u0006_mm.s.20s .20sFlF"
+ },
+ "segments": [
+  {
+   "seed": 50058000,
+   "datetime": "20140127110334",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=sortloot:loot\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nh;m._m,#chat\nn_mmm.#chat\nn;_._mmmm.#chat\nn;m,#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm,#chat\nl_mmmm.#chat\nj;m,_mm.#chat\nk\u0017blessed ring of free action\nPgl\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWi  \u0017wand of lightning\n\u0016?\n>A\u0006_mmmmm.Fk_.Fk FuFuFu.FuFu z,\u0016?\n>z\u0006_mmmmmmm.Fl _.20s  Fl.  ns20s s,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nk\u0016?\n>A\u0006_mmm,..s.20s FbFb ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,FbFbs.,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nu;u,\u0016?\n>A\u0006_mm.FuFuFuFu,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nu;u:\u0016?\n>z\u0006_mmmmmmm.FuFuFu  n FuFuFuz,#chat\nb\u0016?\n>A\u0006_mmm,s.s.20s20sz,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,.20ss.sz,#chat\nj\u0016?\n>A\u0006_mmmm...s.20s \u001b,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nu;<.\u0016?\n>z\u0006_mmm.s.s..z,\u0016?\n>A\u0006_mmmm.s20s20ss20sssz,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.20s20sFlFl       Fl20s z,\u0016?\n>A\u0006_mmmmm,ss20s 20sz,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nb\u0016?\n>z\u0006_mmmmmmm.20s  sss..20sz,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nb;<.\u0016?\n>A\u0006_mmm.ssss.s.z,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nu;>.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.s..20ssz,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\ny\u0016?\n>A\u0006_mm.s.20s .20sFlF"
+  }
+ ]
+}

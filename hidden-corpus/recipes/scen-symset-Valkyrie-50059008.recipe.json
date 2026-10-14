@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " O>>>l\u001b\n\u00167\n\u0007tame gnome lord\n\u0007housecat\n\u0017huge chunk of meat\ntby #name\no\n\u0017magic whistle\nkk kk h\u001baf  \u0017leash\nagk kn lul bagh \u0017tripe ration\ntby \u0017food ration\n tbk \u0006_ \u001b:>FlFu_>.   Fk_.;;Fu>FnFll _>,Fl_.@.Fu>FuFuFuFuFu\u0006_>.Fu_.Fh>FhFb_>.Fkk _,  nFy>FhFh_>,Fh_,Fh>FhFhFyFkk Fy\u0006_>.Fk_,Fy>FyFy_>.Fy_,Fky >FkFy_>,Fy_.  nFk>FyFky FyFyFy#wipe\nH\u0006_>,Fk_.Fy>FkFy_>.Fkk _,  nFk>FkFk_>.Fy_.Fkk >FyFky FyFyFk10sdg\u0006_>>,Fy_.  nFy>FkFy_>>.Fy_,Fy>FyFky _>>,Fy_,  nFky >FyFkk FyFyFk\u0006_>.Fk_.Fk>FkFy_>.Fy_,  n Fy>FkFk_>.Fk_,Fy>FkFyFyFkFy\u0006_>>,  nFy_, Fy>FkFy_>>.Fkk _.Fk>FkFk_>>.  nFk_.Fk>FyFyFyFkk Fy\u001611\n\u00164\nO>b\u001b\nmO>>>l\u001b\nv\u001bi\u001b\u00164\nFjFhFjFuFjFjFuFlFyFlFjFlFnFbFjFlFnFjFkFkFbFlFyFlFbFuj FkFnFyFlFyFlFyFbFhFyFul FjFhFjFbFjFlFbFyFlFbFkj FjFyFnFnFnFnFjFbFyFuFbFh\u001bFbFh\u001bFkFbFkj FkFnFh\u001bFlFlFjFbFkn FnFh\u001bFlFlFnFyFlFbFnFhFnFh\u001bFkFuFhFnFbFuFhFkFnFuk FjFlFhFlFbFun FhFlFlFlFnFbFlFbFbFbFyFjFhFnFjFkFuFuFh\u0007housecat\n\u0017carrot\ntbk \u0017leash\najh kj ynbajh #name\na\n\u0017banana\ntbk \u0017leash\nalh bkl"
+ },
+ "segments": [
+  {
+   "seed": 50059008,
+   "datetime": "20240919190242",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:run\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nBIND=v:inventory\n",
+   "moves": " O>>>l\u001b\n\u00167\n\u0007tame gnome lord\n\u0007housecat\n\u0017huge chunk of meat\ntby #name\no\n\u0017magic whistle\nkk kk h\u001baf  \u0017leash\nagk kn lul bagh \u0017tripe ration\ntby \u0017food ration\n tbk \u0006_ \u001b:>FlFu_>.   Fk_.;;Fu>FnFll _>,Fl_.@.Fu>FuFuFuFuFu\u0006_>.Fu_.Fh>FhFb_>.Fkk _,  nFy>FhFh_>,Fh_,Fh>FhFhFyFkk Fy\u0006_>.Fk_,Fy>FyFy_>.Fy_,Fky >FkFy_>,Fy_.  nFk>FyFky FyFyFy#wipe\nH\u0006_>,Fk_.Fy>FkFy_>.Fkk _,  nFk>FkFk_>.Fy_.Fkk >FyFky FyFyFk10sdg\u0006_>>,Fy_.  nFy>FkFy_>>.Fy_,Fy>FyFky _>>,Fy_,  nFky >FyFkk FyFyFk\u0006_>.Fk_.Fk>FkFy_>.Fy_,  n Fy>FkFk_>.Fk_,Fy>FkFyFyFkFy\u0006_>>,  nFy_, Fy>FkFy_>>.Fkk _.Fk>FkFk_>>.  nFk_.Fk>FyFyFyFkk Fy\u001611\n\u00164\nO>b\u001b\nmO>>>l\u001b\nv\u001bi\u001b\u00164\nFjFhFjFuFjFjFuFlFyFlFjFlFnFbFjFlFnFjFkFkFbFlFyFlFbFuj FkFnFyFlFyFlFyFbFhFyFul FjFhFjFbFjFlFbFyFlFbFkj FjFyFnFnFnFnFjFbFyFuFbFh\u001bFbFh\u001bFkFbFkj FkFnFh\u001bFlFlFjFbFkn FnFh\u001bFlFlFnFyFlFbFnFhFnFh\u001bFkFuFhFnFbFuFhFkFnFuk FjFlFhFlFbFun FhFlFlFlFnFbFlFbFbFbFyFjFhFnFjFkFuFuFh\u0007housecat\n\u0017carrot\ntbk \u0017leash\najh kj ynbajh #name\na\n\u0017banana\ntbk \u0017leash\nalh bkl"
+  }
+ ]
+}

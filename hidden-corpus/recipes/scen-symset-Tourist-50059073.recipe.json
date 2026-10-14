@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0007kitten\n\u0017lichen corpse\ntau#chat\nkkb \u0006_ \u001b;>FnFn_>>,Fk_.Fy>FyFj_>>,Fy_.Fy >Fy Fk  \u0006_>.Fy_,Fk>FyFy_>,Fy_,Fy>FjFy_>.Fk_,Fy>FyFkv i\u001b,akki\u001b#dip\nbgmO>t\u001b\nmO>>>>a\u001b\n\u0006_>>.Fk_.Fh>FyFy_>>,Fy_,Fy>FyFy_>>.Fk_.Fy>FyFkFhFkFk;k.n\u0006_>>.Fy_.Fk>FyFy_>>.Fy_,Fy>FyFh_>>,Fy_.Fk>FyFkFjFyFk\u0006_>>.Fy_.Fk>FkFk_>>.Fy_.Fk>FkFy_>>,Fk_,Fk>FkFjFkFyFy\u0006_>.Fk_.Fy>FyFj_>.Fy_.Fk>FyFy_>.Fk_,Fy>FkFhFbFjFy,\\ Z#untrap\nydi\u0006_>>.Fh_.Fk>FkFk_>>.Fh_.Fk>FyFy_>>.Fy_.Fk>FyFkFkFyFk,#conduct\n \u0006_>>.Fk_.Fy>FjFk_>>.Fk_.Fk>FkFk_>>.Fy_.Fy>FkFyFyFyFys<\u0006_>.Fk_.Fk>FyFy_>.Fk_.Fk>FyFy_>.Fy_.Fk>FkFkFjFkFy\u000f\u001bv i\u001b,\u000f\u001b20s\u001619\n  \u0007pony\n\u0017"
+ },
+ "segments": [
+  {
+   "seed": 50059073,
+   "datetime": "20260529085419",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007kitten\n\u0017lichen corpse\ntau#chat\nkkb \u0006_ \u001b;>FnFn_>>,Fk_.Fy>FyFj_>>,Fy_.Fy >Fy Fk  \u0006_>.Fy_,Fk>FyFy_>,Fy_,Fy>FjFy_>.Fk_,Fy>FyFkv i\u001b,akki\u001b#dip\nbgmO>t\u001b\nmO>>>>a\u001b\n\u0006_>>.Fk_.Fh>FyFy_>>,Fy_,Fy>FyFy_>>.Fk_.Fy>FyFkFhFkFk;k.n\u0006_>>.Fy_.Fk>FyFy_>>.Fy_,Fy>FyFh_>>,Fy_.Fk>FyFkFjFyFk\u0006_>>.Fy_.Fk>FkFk_>>.Fy_.Fk>FkFy_>>,Fk_,Fk>FkFjFkFyFy\u0006_>.Fk_.Fy>FyFj_>.Fy_.Fk>FyFy_>.Fk_,Fy>FkFhFbFjFy,\\ Z#untrap\nydi\u0006_>>.Fh_.Fk>FkFk_>>.Fh_.Fk>FyFy_>>.Fy_.Fk>FyFkFkFyFk,#conduct\n \u0006_>>.Fk_.Fy>FjFk_>>.Fk_.Fk>FkFk_>>.Fy_.Fy>FkFyFyFyFys<\u0006_>.Fk_.Fk>FyFy_>.Fk_.Fk>FyFy_>.Fy_.Fk>FkFkFjFkFy\u000f\u001bv i\u001b,\u000f\u001b20s\u001619\n  \u0007pony\n\u0017"
+  }
+ ]
+}

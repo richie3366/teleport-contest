@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  nb#chat\nb#name\nd\nt\u001bdfss.lh   10skn20sdd20s .s#chat\nyyu"
+ },
+ "segments": [
+  {
+   "seed": 50051005,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\n",
+   "moves": "  nb#chat\nb#name\nd\nt\u001bdfss.lh   10skn20sdd20s .s#chat\nyyu"
+  }
+ ]
+}

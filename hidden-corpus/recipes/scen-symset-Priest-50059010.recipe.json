@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "v\u001bi\u001bmO>>>f\u001b\nO>o5\n \u001b\n\u0006_ \u001bm.>FhFl_>.Fk_.Fl>FjFj_>.Fl_.Fk>FuFlFuFjFk\u0006_>,Fn_, Fh>FhFk_>,Fj_.> FbFlFb\u0006_>._,.Fj>_>.Fb_.> FyFlFb20srg y <. \u0007tame little dog\n\u0007horse\n\u0017fortune cookie\nt\u001b20s\u0017magic whistle\nul   n jak  #chat\nh  n #chat\nldc.m.  n sm.  n 20s\u0017tin whistle\nb  n nu    n al   n #name\n\u001b\u00166\nf \u001bL  #invoke\n\u001bO>>b\u001b\n O>>>i\u001b\u001b\nO>>>p\u001b\n v\u001bi\u001b#levelchange\n20\n                   nnk j \u0017magic fountain\nqy  qy yqd#dip\nbd:y h\u0017melting ice\nhk\u0017neutral altar\ndf \u0017dwarf corpse\n #offer\nm   bu\u0017throne\n#sit\n #sit\nLf \u001bdl\u0006_>>. Fu_.>.Fn>FnFn_>>.Fl_,<.Fl >FnFn_>>,Fn_.@.Fn>FnFnFnFnFn\u0006_>,Fn_.m,Fn>FnFn_>.Fn_.m.Fn>FnFn_>.Fn_,>.Fn>FnFnFnFnFn\u0006_>,Fn_.m,Fn>FnFn_>.Fn_.<.Fn>FnFn_>.Fn_.<.Fn>FnFnFnFnFn\u0006_>>.Fn_.@.Fn>FnFn_>>.Fn_,;:   Fn>FnFn_>>.Fn_.>.Fn>FnFnFnFnFn\u00165\nFyFuFkFnFlFyFnFbFbFlFkFjFlFhFkFnFyFuFnFyFjFhFhFyFhFlFkFlFlFyFjFuFnFuFlFjFjFjFuFuFhFbFbFhFlFhFuFnFkFuFlFbFuFkFhFkFnFuFkFyFkFuFjFjFlFhFhFbFnFuFbFyFnFhFuFuFjFuFnFuFuFkFhFhFuFhFnFbFjFjFhFlFuFlFnFbFuFnFuFy Fj FuFy Fh Fh #pray\ny y   Fy Fk  n Fk Fh Fk Fn #pray\ny y    #pray\ny"
+ },
+ "segments": [
+  {
+   "seed": 50059010,
+   "datetime": "20130417185905",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"cursed\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "v\u001bi\u001bmO>>>f\u001b\nO>o5\n \u001b\n\u0006_ \u001bm.>FhFl_>.Fk_.Fl>FjFj_>.Fl_.Fk>FuFlFuFjFk\u0006_>,Fn_, Fh>FhFk_>,Fj_.> FbFlFb\u0006_>._,.Fj>_>.Fb_.> FyFlFb20srg y <. \u0007tame little dog\n\u0007horse\n\u0017fortune cookie\nt\u001b20s\u0017magic whistle\nul   n jak  #chat\nh  n #chat\nldc.m.  n sm.  n 20s\u0017tin whistle\nb  n nu    n al   n #name\n\u001b\u00166\nf \u001bL  #invoke\n\u001bO>>b\u001b\n O>>>i\u001b\u001b\nO>>>p\u001b\n v\u001bi\u001b#levelchange\n20\n                   nnk j \u0017magic fountain\nqy  qy yqd#dip\nbd:y h\u0017melting ice\nhk\u0017neutral altar\ndf \u0017dwarf corpse\n #offer\nm   bu\u0017throne\n#sit\n #sit\nLf \u001bdl\u0006_>>. Fu_.>.Fn>FnFn_>>.Fl_,<.Fl >FnFn_>>,Fn_.@.Fn>FnFnFnFnFn\u0006_>,Fn_.m,Fn>FnFn_>.Fn_.m.Fn>FnFn_>.Fn_,>.Fn>FnFnFnFnFn\u0006_>,Fn_.m,Fn>FnFn_>.Fn_.<.Fn>FnFn_>.Fn_.<.Fn>FnFnFnFnFn\u0006_>>.Fn_.@.Fn>FnFn_>>.Fn_,;:   Fn>FnFn_>>.Fn_.>.Fn>FnFnFnFnFn\u00165\nFyFuFkFnFlFyFnFbFbFlFkFjFlFhFkFnFyFuFnFyFjFhFhFyFhFlFkFlFlFyFjFuFnFuFlFjFjFjFuFuFhFbFbFhFlFhFuFnFkFuFlFbFuFkFhFkFnFuFkFyFkFuFjFjFlFhFhFbFnFuFbFyFnFhFuFuFjFuFnFuFuFkFhFhFuFhFnFbFjFjFhFlFuFlFnFbFuFnFuFy Fj FuFy Fh Fh #pray\ny y   Fy Fk  n Fk Fh Fk Fn #pray\ny y    #pray\ny"
+  }
+ ]
+}

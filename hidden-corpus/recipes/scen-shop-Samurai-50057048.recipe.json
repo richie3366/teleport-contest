@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed amulet of reflection\nPg\u0017blessed ring of free action\nPhl\u0016?\n>w\u0006Fl FlFlFlFl  Fl_ \u001b:,:_ooooooooo._,,pyhl#chat\nb_{._,q_ooo,,p__._.#chat\nl#pray\ny y __,_.#chat\nk#pray\ny y _{._,q_ooo.,:\u0016?\ncykn\u0016?\n>w\u0006_ooooo,,#chat\nl_ooooo,,p_oooo,,pjyy#chat\nn_oooooo._oo.,p_ooooo.,#chat\nn\u00167\nhnl\u0016?\n>w\u0006__,_.Fh #chat\nh_oooo,,\u0017flint stone\ndj\u0016?\nclhl\u0016?\n>w\u0006_ooo.    Fb_.m,   Fy,\u0014<.20ssblu#chat\nu__.Fl_.  Fy  #chat\nj   _oo. Fj_.  Fk     n , #chat\nk_ooo.,p_{.Fk_.  Fj q_oooo.     n Fy  _. Fy ,\u0017ruby\ndl   n  \u00162\nFk Fk   n Fk    nFk    n Fk    n Fk \u001612\n_{.q__.#chat\nu__.#chat\nj   n   Fl   n    nFl     n Fl   n  Fl   n  Fl   nFl    n Fu    yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50057048,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed amulet of reflection\nPg\u0017blessed ring of free action\nPhl\u0016?\n>w\u0006Fl FlFlFlFl  Fl_ \u001b:,:_ooooooooo._,,pyhl#chat\nb_{._,q_ooo,,p__._.#chat\nl#pray\ny y __,_.#chat\nk#pray\ny y _{._,q_ooo.,:\u0016?\ncykn\u0016?\n>w\u0006_ooooo,,#chat\nl_ooooo,,p_oooo,,pjyy#chat\nn_oooooo._oo.,p_ooooo.,#chat\nn\u00167\nhnl\u0016?\n>w\u0006__,_.Fh #chat\nh_oooo,,\u0017flint stone\ndj\u0016?\nclhl\u0016?\n>w\u0006_ooo.    Fb_.m,   Fy,\u0014<.20ssblu#chat\nu__.Fl_.  Fy  #chat\nj   _oo. Fj_.  Fk     n , #chat\nk_ooo.,p_{.Fk_.  Fj q_oooo.     n Fy  _. Fy ,\u0017ruby\ndl   n  \u00162\nFk Fk   n Fk    nFk    n Fk    n Fk \u001612\n_{.q__.#chat\nu__.#chat\nj   n   Fl   n    nFl     n Fl   n  Fl   n  Fl   nFl    n Fu    yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

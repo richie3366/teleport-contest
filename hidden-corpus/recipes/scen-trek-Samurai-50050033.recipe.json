@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "FkFk si\u001be\\    50s100sFkss100sunkZ100si\u001bbll50s150sFkFk.hkk_ \u001b,>;.bylljhylj50s100sFk20ss\u0018\u001b100s  \u0014100sFlFls100shkj100sFkss100s\\    ubni\u001byul150sNLNK_>.>FhFhFhKLKL_>.>FhFhs#ride\nn__,.NJHJ_>.>W\u001b#ride\nbBLBB_>.>YYLK_>.>50s150sFy20ss<150s150s150sFy.s100s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYBLY_>.>JNLJ_>,>YBJL_>.>elNUKU_>.>FhssYKH B_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#pray\ny  #force\n,YLJH_>,>UJBK_>.>#twoweapon\n#wipe\nNHBY_>.>BBUU_>.>\u000f\u001bHBUL _>.>#conduct\n i\u001bYYYN_>.><YYYK_>.>KNHY_>.>20sr\u001bYUUL_>.>#chat\ny#name\na\nbktch#chat\nyjydes.seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10swb E- Elbereth\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeW\u001bJ\u000f\u001bJKNU_>.>w-"
+ },
+ "segments": [
+  {
+   "seed": 50050033,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\n",
+   "moves": "FkFk si\u001be\\    50s100sFkss100sunkZ100si\u001bbll50s150sFkFk.hkk_ \u001b,>;.bylljhylj50s100sFk20ss\u0018\u001b100s  \u0014100sFlFls100shkj100sFkss100s\\    ubni\u001byul150sNLNK_>.>FhFhFhKLKL_>.>FhFhs#ride\nn__,.NJHJ_>.>W\u001b#ride\nbBLBB_>.>YYLK_>.>50s150sFy20ss<150s150s150sFy.s100s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYBLY_>.>JNLJ_>,>YBJL_>.>elNUKU_>.>FhssYKH B_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#pray\ny  #force\n,YLJH_>,>UJBK_>.>#twoweapon\n#wipe\nNHBY_>.>BBUU_>.>\u000f\u001bHBUL _>.>#conduct\n i\u001bYYYN_>.><YYYK_>.>KNHY_>.>20sr\u001bYUUL_>.>#chat\ny#name\na\nbktch#chat\nyjydes.seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10swb E- Elbereth\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeW\u001bJ\u000f\u001bJKNU_>.>w-"
+  }
+ ]
+}

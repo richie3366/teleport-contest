@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0007cockatrice\nFjFk FkFj Fj \u0007balrog\nFhFh Fh FjFj i\u001baiai   nW.lsm.  n  sm.Tb     n  w\u001bFj  Fh     n   n  Fj n  nqdWb sm.20s sm.Tc   n   n rg y \u001b:     n   n .l.Zb\nZ,\u0014:   #monster\n#sit\n   n   n : \u0014@.   #twoweapon\nai   n   n \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqjm.  n   ynnny\u001bn  _"
+ },
+ "segments": [
+  {
+   "seed": 50055052,
+   "datetime": "20230311014305",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007cockatrice\nFjFk FkFj Fj \u0007balrog\nFhFh Fh FjFj i\u001baiai   nW.lsm.  n  sm.Tb     n  w\u001bFj  Fh     n   n  Fj n  nqdWb sm.20s sm.Tc   n   n rg y \u001b:     n   n .l.Zb\nZ,\u0014:   #monster\n#sit\n   n   n : \u0014@.   #twoweapon\nai   n   n \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqjm.  n   ynnny\u001bn  _"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n       #levelchange\n6\n\u0007trapper\n20s.m.#pray\ny y   FlFhFk  FhFhFh#pray\ny y Fh  Fl\u001628\n#levelchange\n14\n      \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqj \u001b; __.Fj_.Fk#chat\ndf__.Fk_,Fj#chat\ndc_{. _.  Fu qd_ddd.  Fk _,  Fj\u0004h    n#loot\nk#rub\n#name\n\u001b#wizintrinsic\nlj\n  \u0017cursed scroll of gold detection\nrk .\u001b \u0017blessed scroll of taming\nrl    \u0017cursed scroll of destroy armor\nrm E\u001b.s .    \u00168\n#wizintrinsic\ni\n \u0017fortune cookie\nen  E\u001bull\u0017blessed potion of sickness\nqo #dip\ncd;h:20s20s20s\u000f\u001b#wizintrinsic\nf\n \u0017blindfold\nap   n;y;\u0017scroll of teleportation\nrq\u0017blessed wand of create monster\nzrsuccubus\nlku\u0017scroll of genocide\nrs.      .s#levelchange\n20\n      u hn\u0017rust trap\nu^b\u0007lichen\ns  n s20s sk\u0017squeaky board\nu#untrap\nbu\u0017anti-magic field\nh^l#untrap\nl#jump\n#wipe\n 20sjj j\u0017rust trap\nj\u0007grid bug\ns    n20s s .y k\u0017magic portal\nj^ks.hh\u0017l\u0017\u0017#rub\n"
+ },
+ "segments": [
+  {
+   "seed": 50055066,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n       #levelchange\n6\n\u0007trapper\n20s.m.#pray\ny y   FlFhFk  FhFhFh#pray\ny y Fh  Fl\u001628\n#levelchange\n14\n      \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqj \u001b; __.Fj_.Fk#chat\ndf__.Fk_,Fj#chat\ndc_{. _.  Fu qd_ddd.  Fk _,  Fj\u0004h    n#loot\nk#rub\n#name\n\u001b#wizintrinsic\nlj\n  \u0017cursed scroll of gold detection\nrk .\u001b \u0017blessed scroll of taming\nrl    \u0017cursed scroll of destroy armor\nrm E\u001b.s .    \u00168\n#wizintrinsic\ni\n \u0017fortune cookie\nen  E\u001bull\u0017blessed potion of sickness\nqo #dip\ncd;h:20s20s20s\u000f\u001b#wizintrinsic\nf\n \u0017blindfold\nap   n;y;\u0017scroll of teleportation\nrq\u0017blessed wand of create monster\nzrsuccubus\nlku\u0017scroll of genocide\nrs.      .s#levelchange\n20\n      u hn\u0017rust trap\nu^b\u0007lichen\ns  n s20s sk\u0017squeaky board\nu#untrap\nbu\u0017anti-magic field\nh^l#untrap\nl#jump\n#wipe\n 20sjj j\u0017rust trap\nj\u0007grid bug\ns    n20s s .y k\u0017magic portal\nj^ks.hh\u0017l\u0017\u0017#rub\n"
+  }
+ ]
+}

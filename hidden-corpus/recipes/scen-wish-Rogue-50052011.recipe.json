@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0017blessed plate mail\n W\u001bsss\u00173 wand of polymorph\nzh.zhjFjFj\u0017spellbook of turn undead\nri sm.20sZ\u0017uncursed the Book of the Dead\nw-Fh FhFj#invoke\njX20s.m."
+ },
+ "segments": [
+  {
+   "seed": 50052011,
+   "datetime": "20130717200827",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0017blessed plate mail\n W\u001bsss\u00173 wand of polymorph\nzh.zhjFjFj\u0017spellbook of turn undead\nri sm.20sZ\u0017uncursed the Book of the Dead\nw-Fh FhFj#invoke\njX20s.m."
+  }
+ ]
+}

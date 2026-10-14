@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  \u0017aklys\nwjFjFhFjX \u0007watchman\nFh Fj Fj Fh   nFb \u0007barrow wight\nsm.  n.m.   20s  n    .m.     nsj   sm.  n.j20s \u00168\n\u0007purple worm\n.ysbFk   nFk   n Fj 20s Fj   n  Fl  n   nsh#pray\ny y      #pray\ny y     Fl \u00166\n#levelchange\n6\n     \u00172000 gold pieces\n\u0016?\n>w  \u0006_ \u001b<.,  p\u001b_ddddd,Fn   n _,Fn \u0004l _{,Fn   n_. Fn q_ooooo.Fn _.Fn _o.   n Fj  _.,#chat\nj_mmmm.#chat\nj__,Fn   n _.@.Fj #chat\nj#dip\nc,i\u001b\u00169\n    \u0017wand of digging\n\u0016?\nezlj jzlhhzl> sm.  nukj\u0017grave\nzl>   20s sm.zlhhyn jl\u0017ice\nb   yn  b"
+ },
+ "segments": [
+  {
+   "seed": 50055048,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:loot\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017aklys\nwjFjFhFjX \u0007watchman\nFh Fj Fj Fh   nFb \u0007barrow wight\nsm.  n.m.   20s  n    .m.     nsj   sm.  n.j20s \u00168\n\u0007purple worm\n.ysbFk   nFk   n Fj 20s Fj   n  Fl  n   nsh#pray\ny y      #pray\ny y     Fl \u00166\n#levelchange\n6\n     \u00172000 gold pieces\n\u0016?\n>w  \u0006_ \u001b<.,  p\u001b_ddddd,Fn   n _,Fn \u0004l _{,Fn   n_. Fn q_ooooo.Fn _.Fn _o.   n Fj  _.,#chat\nj_mmmm.#chat\nj__,Fn   n _.@.Fj #chat\nj#dip\nc,i\u001b\u00169\n    \u0017wand of digging\n\u0016?\nezlj jzlhhzl> sm.  nukj\u0017grave\nzl>   20s sm.zlhhyn jl\u0017ice\nb   yn  b"
+  }
+ ]
+}

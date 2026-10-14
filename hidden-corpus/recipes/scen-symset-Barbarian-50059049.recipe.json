@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u00167\nFbFkFnFbFyFjFhFlFbFnFhFjFkFjFbFyFuFuFbFhFkFlFnFbFyFkFbFhFjFhFyFjFkFuFyFkFuFjFlFuFuFkFlFhFyFyFlFkFkFl FyFbFbFlFlFyFhFhFjFuFjFbFlFbFkFkFlFkFlFhFuFnFnFjFuFyFjFkFkFnFjFjFkFlFkFnFhFuFhFnFbFhFlFlFkFhFkFlFhFhFyFnFhFlFuFjFuFhFuFlFhFhFuFbFjFhFkFuFhFlmO>>m\u001b\n\u001620\n\u00167\nFkFkFj  nFuFb  nFb   nFhFk  nFyFu Fk   nFnFl  n Fb  nFhFu  n Fn   nFnFk  nFu   nFk   nFb   nFu   nFb   nFl   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50059049,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You see\"\nMENUCOLOR=\"uncursed\"=red\n",
+   "moves": "\u00167\nFbFkFnFbFyFjFhFlFbFnFhFjFkFjFbFyFuFuFbFhFkFlFnFbFyFkFbFhFjFhFyFjFkFuFyFkFuFjFlFuFuFkFlFhFyFyFlFkFkFl FyFbFbFlFlFyFhFhFjFuFjFbFlFbFkFkFlFkFlFhFuFnFnFjFuFyFjFkFkFnFjFjFkFlFkFnFhFuFhFnFbFhFlFlFkFhFkFlFhFhFyFnFhFlFuFjFuFhFuFlFhFhFuFbFjFhFkFuFhFlmO>>m\u001b\n\u001620\n\u00167\nFkFkFj  nFuFb  nFb   nFhFk  nFyFu Fk   nFnFl  n Fb  nFhFu  n Fn   nFnFk  nFu   nFk   nFb   nFu   nFb   nFl   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n10\n         ljbu\u0017melting ice\nkl\u0017fountain\nqy\u0017long sword\n#dip\noy#dip\nny y#name\no\nolO>n\u001b\u001b\nmO>>>a\u001b\n\u001617\n\u00166\nFhFlFyFuFnFnFj Fy  Fl Fn  Fb Fl Fy  Fb Fk Fb  n  Fk Fb Fh  Fj Fu #pray\ny y                Fb Fj  Fy  #pray\ny y                   Fh Fy Fb Fj Fh Fu  #pray\ny y                #pray\ny y                 #pray\ny y                  #pray\ny y                  #pray\ny y                    #pray\ny y                    #pray\ny y                   Fl Fb  Fj Fh  n  Fn Fj Fu  Fn Fu  #pray\ny y                  Fn  Fu  Fb  Fn   Fy Fl Fj Fy Fh Fk   nFb Fb Fu Fy Fh Fn Fn Fj Fy Fu  Fb Fl   nFl Fu  Fj Fu Fn Fk Fy Fu Fu   Fu Fl  n Fn  Fl Fl  Fl Fb Fj Fj  Fn  n Fj Fl Fy Fu    Fb   Fb Fl  n   Fl Fj  Fh \u00162\nFyFbFkFuFnFbFnFkFhFkFkFbFhFhFhFjFhFjFlFlFyFhFkFlFuFkFjFn Fy     FhFhFhFuFbFlFuFn                 nFy Fu Fy FkFlFu FyFy #pray\ny y         FbFj   n Fn         nFl  Fb  Fn      n Fj Fl  Fj  #pray\ny y       #pray\ny y         Fb Fl  n  Fy  Fy  Fl "
+ },
+ "segments": [
+  {
+   "seed": 50058512,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=fruit:lychee\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You feel\"\nBIND=v:inventory\n",
+   "moves": " #levelchange\n10\n         ljbu\u0017melting ice\nkl\u0017fountain\nqy\u0017long sword\n#dip\noy#dip\nny y#name\no\nolO>n\u001b\u001b\nmO>>>a\u001b\n\u001617\n\u00166\nFhFlFyFuFnFnFj Fy  Fl Fn  Fb Fl Fy  Fb Fk Fb  n  Fk Fb Fh  Fj Fu #pray\ny y                Fb Fj  Fy  #pray\ny y                   Fh Fy Fb Fj Fh Fu  #pray\ny y                #pray\ny y                 #pray\ny y                  #pray\ny y                  #pray\ny y                    #pray\ny y                    #pray\ny y                   Fl Fb  Fj Fh  n  Fn Fj Fu  Fn Fu  #pray\ny y                  Fn  Fu  Fb  Fn   Fy Fl Fj Fy Fh Fk   nFb Fb Fu Fy Fh Fn Fn Fj Fy Fu  Fb Fl   nFl Fu  Fj Fu Fn Fk Fy Fu Fu   Fu Fl  n Fn  Fl Fl  Fl Fb Fj Fj  Fn  n Fj Fl Fy Fu    Fb   Fb Fl  n   Fl Fj  Fh \u00162\nFyFbFkFuFnFbFnFkFhFkFkFbFhFhFhFjFhFjFlFlFyFhFkFlFuFkFjFn Fy     FhFhFhFuFbFlFuFn                 nFy Fu Fy FkFlFu FyFy #pray\ny y         FbFj   n Fn         nFl  Fb  Fn      n Fj Fl  Fj  #pray\ny y       #pray\ny y         Fb Fl  n  Fy  Fy  Fl "
+  }
+ ]
+}

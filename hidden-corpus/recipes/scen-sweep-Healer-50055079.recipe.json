@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n10\n        \u0017tsurugi\nwlFb20s20s\u0007wood nymph\nFh Fh  Fl s20s\u0007green slime\nFnFn FnFnsm.20ssm.20s   n s\u0007yellow light\ns.20s20ss.sss\u001630\n   \u0006#levelchange\n12\n \u0016?\n>v #pray\ny y E,;>. \u001b;\u000620s 20s    \u0016?\ncah #enhance\nyc\nc\n\u001b#invoke\n\u001b;m,\u0006s20s  m. \u0016?\n>A  #twoweapon\n20s         _m.    n     .l;h:   sb     n    .m.     n     n \u001626\n10s    n     n #force\nek     n     n ;y.20s    n  n    n  n sm.    n  n    n  n \u0016?\n>E#terrain\nf\nZb\nl   yny  y y n  \u0006"
+ },
+ "segments": [
+  {
+   "seed": 50055079,
+   "datetime": "20200424012906",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n10\n        \u0017tsurugi\nwlFb20s20s\u0007wood nymph\nFh Fh  Fl s20s\u0007green slime\nFnFn FnFnsm.20ssm.20s   n s\u0007yellow light\ns.20s20ss.sss\u001630\n   \u0006#levelchange\n12\n \u0016?\n>v #pray\ny y E,;>. \u001b;\u000620s 20s    \u0016?\ncah #enhance\nyc\nc\n\u001b#invoke\n\u001b;m,\u0006s20s  m. \u0016?\n>A  #twoweapon\n20s         _m.    n     .l;h:   sb     n    .m.     n     n \u001626\n10s    n     n #force\nek     n     n ;y.20s    n  n    n  n sm.    n  n    n  n \u0016?\n>E#terrain\nf\nZb\nl   yny  y y n  \u0006"
+  }
+ ]
+}

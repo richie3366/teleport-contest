@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "mO>>>>j\u001b\nmO>v\u001b\nO>>f\u001b\n\u00163\n  FjFnFnFkFkFnFbFbFkl FjFlFnFj \u001b@.FbFj,FnFlk FnFj.FjFbFbFbFln FkFjFbFlb FlFlFjFbFlk FjFlFlFjFlFkFlFnFnFnFnFlFlFnFbFjFjFbFlb FjFnFj<.FkFbFj.FkFjFjFnFbFnFbFnFbFbFnFlFkFjFnFbFkFnFj>.FbFlk FnFkl FbFj;FjFjFjFkFlFjFlFlFjFjFjFnFnFjFlFjFnFkj FbFj>.FkFnFkl FnFbFlFbFlk FjFnFbFbFnFjFkFnFkn v\u001bi\u001b\u0007housecat\n\u0017tripe ration\ntbl ddsm..m.  20sm.  \u0007sewer rat\n\u0017scroll of taming\nrj \u0007sewer rat\n\u0017scroll of taming\nrk  \u0017apple\n tbl #name\na\n\u001610\n\u0006_>.  Fy_.Fh\u001b>FlFh_>,Fu_.Fh>FhFh_>.Fk_.Fk>FuFhFuFhFh\u0006_>>.  Fh_.  n  Fk>FuFu_>>. Fh_.Fu>FkFu_>>.Fu_.  Fu>FyFky FuFkFk\u0006_>, Fh_, Fb> Fh\u001bFnFy#force\n\u0014<.\u0006_>.Fl_,Fn"
+ },
+ "segments": [
+  {
+   "seed": 50059046,
+   "datetime": "20240526121715",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=autodig\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nBIND=v:inventory\n",
+   "moves": "mO>>>>j\u001b\nmO>v\u001b\nO>>f\u001b\n\u00163\n  FjFnFnFkFkFnFbFbFkl FjFlFnFj \u001b@.FbFj,FnFlk FnFj.FjFbFbFbFln FkFjFbFlb FlFlFjFbFlk FjFlFlFjFlFkFlFnFnFnFnFlFlFnFbFjFjFbFlb FjFnFj<.FkFbFj.FkFjFjFnFbFnFbFnFbFbFnFlFkFjFnFbFkFnFj>.FbFlk FnFkl FbFj;FjFjFjFkFlFjFlFlFjFjFjFnFnFjFlFjFnFkj FbFj>.FkFnFkl FnFbFlFbFlk FjFnFbFbFnFjFkFnFkn v\u001bi\u001b\u0007housecat\n\u0017tripe ration\ntbl ddsm..m.  20sm.  \u0007sewer rat\n\u0017scroll of taming\nrj \u0007sewer rat\n\u0017scroll of taming\nrk  \u0017apple\n tbl #name\na\n\u001610\n\u0006_>.  Fy_.Fh\u001b>FlFh_>,Fu_.Fh>FhFh_>.Fk_.Fk>FuFhFuFhFh\u0006_>>.  Fh_.  n  Fk>FuFu_>>. Fh_.Fu>FkFu_>>.Fu_.  Fu>FyFky FuFkFk\u0006_>, Fh_, Fb> Fh\u001bFnFy#force\n\u0014<.\u0006_>.Fl_,Fn"
+  }
+ ]
+}

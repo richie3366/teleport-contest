@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nl_mmmmm,Fl_,#chat\nn_mmmm.#chat\nu;>._mmmmm.#chat\nn#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nk_mmm,#chat\nu;>._mmmm.#chat\nj\u0017blessed Mjollnir\nwi \u0017blessed +3 cloak of magic resistance\nWj\u0017wand of cold\n\u0016?\n>A\u0006_mm.ss..s,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm..20s  .20sFl   zk.,\u0016?\n>A\u0006_mmmmmm.s20s \u001bssszkh,#chat\nl\u0016?\n>z\u0006_mmmm..20sFl  Fl  Fl ,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nk;.\u0016?\n>A\u0006_mmmmm.ssssssszku,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nl;<.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm..sssss.,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nj;<.\u0016?\n>A\u0006_mmmmmmm,s.s.zkb,\u0016?\n>z\u0006_mmm.s20s...s,\u0016?\n>A\u0006_mmm.20s     \u001b .Fl Fl  Fl Fl  \u001bzk \u001b,#chat\nh   \u0016?\n>>\u001b\u0016?\n>y_mmm. Fl_.#chat\nl  n   ;h.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.  Fh   _.FlFh   Fl   FhFh ,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nu;.\u0016?\n>A\u0006_mmmmm..sss,#chat\nu\u0016?\n>z\u0006_mmmmmm..sss20s      \u001bFl ,\u0016?\n\u0016?\n\u0016?\n_<.\u0006_mmmmmmm,ss20s20s FhFh  ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_m. Fh _.#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.20s.20sFl .zk,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nk\u0016?\n>A\u0006_mmmmmm."
+ },
+ "segments": [
+  {
+   "seed": 50058006,
+   "datetime": "20051031142405",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nl_mmmmm,Fl_,#chat\nn_mmmm.#chat\nu;>._mmmmm.#chat\nn#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nk_mmm,#chat\nu;>._mmmm.#chat\nj\u0017blessed Mjollnir\nwi \u0017blessed +3 cloak of magic resistance\nWj\u0017wand of cold\n\u0016?\n>A\u0006_mm.ss..s,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm..20s  .20sFl   zk.,\u0016?\n>A\u0006_mmmmmm.s20s \u001bssszkh,#chat\nl\u0016?\n>z\u0006_mmmm..20sFl  Fl  Fl ,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nk;.\u0016?\n>A\u0006_mmmmm.ssssssszku,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nl;<.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm..sssss.,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nj;<.\u0016?\n>A\u0006_mmmmmmm,s.s.zkb,\u0016?\n>z\u0006_mmm.s20s...s,\u0016?\n>A\u0006_mmm.20s     \u001b .Fl Fl  Fl Fl  \u001bzk \u001b,#chat\nh   \u0016?\n>>\u001b\u0016?\n>y_mmm. Fl_.#chat\nl  n   ;h.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.  Fh   _.FlFh   Fl   FhFh ,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nu;.\u0016?\n>A\u0006_mmmmm..sss,#chat\nu\u0016?\n>z\u0006_mmmmmm..sss20s      \u001bFl ,\u0016?\n\u0016?\n\u0016?\n_<.\u0006_mmmmmmm,ss20s20s FhFh  ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_m. Fh _.#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.20s.20sFl .zk,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nk\u0016?\n>A\u0006_mmmmmm."
+  }
+ ]
+}

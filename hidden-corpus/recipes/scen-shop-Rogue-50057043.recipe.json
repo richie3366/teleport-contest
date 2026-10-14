@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 speed boots\nWi\u0017blessed +3 helm of telepathy\nWj\u0016?\n>w\u0006_ \u001b@.,\u0017amulet of restful sleep\ndk__.Fu  _.@.Fu #chat\nu#pray\ny y     _ooooo.   nFh _.>.Fu   n_oo,Fy_.  nFy  ,:\u00161\n _ooooo._o.,p_oooooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndlFk FkFk   nFk FkFk _oo,_o,,   np_ooo.,\u0014; 20s sm._ooooooooo._oo.,p_oo,,:_oooooooo,,\u0017amulet of change\ndmFkFk FkFkFkFk_ooooo,_.,a\np_oo.,a\np_oo._ooo._.,$_oooooooo.,p_oooo.,p_ooooo,_,,a\np_ooooo.,a\np_ooo.,a\n\u0017amulet of ESP\nds _{.qd  _oooooo,,a\n#chat\nk_oooooo.,a\np_oooooo._oo.,a\n :__.#chat\nu_oo,,$_ooo._ooo.,$nkb#chat\nuknk#chat\nn_ooooooo.,p_oo.,\u0017amulet of restful sleep\ndw_ooooooooo,_oo.,p_{.q\u00163\nlkh\u0016?\n>w\u0006_oooo,Fn_,Fn_oo, Fn  n _.    nFl ,p\u00167\n_ooooo._oo.,pkyj#chat\nh_oo._o.,#chat\nh _ooooo.,pFh FhFhFhFhFhFyFy"
+ },
+ "segments": [
+  {
+   "seed": 50057043,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 speed boots\nWi\u0017blessed +3 helm of telepathy\nWj\u0016?\n>w\u0006_ \u001b@.,\u0017amulet of restful sleep\ndk__.Fu  _.@.Fu #chat\nu#pray\ny y     _ooooo.   nFh _.>.Fu   n_oo,Fy_.  nFy  ,:\u00161\n _ooooo._o.,p_oooooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndlFk FkFk   nFk FkFk _oo,_o,,   np_ooo.,\u0014; 20s sm._ooooooooo._oo.,p_oo,,:_oooooooo,,\u0017amulet of change\ndmFkFk FkFkFkFk_ooooo,_.,a\np_oo.,a\np_oo._ooo._.,$_oooooooo.,p_oooo.,p_ooooo,_,,a\np_ooooo.,a\np_ooo.,a\n\u0017amulet of ESP\nds _{.qd  _oooooo,,a\n#chat\nk_oooooo.,a\np_oooooo._oo.,a\n :__.#chat\nu_oo,,$_ooo._ooo.,$nkb#chat\nuknk#chat\nn_ooooooo.,p_oo.,\u0017amulet of restful sleep\ndw_ooooooooo,_oo.,p_{.q\u00163\nlkh\u0016?\n>w\u0006_oooo,Fn_,Fn_oo, Fn  n _.    nFl ,p\u00167\n_ooooo._oo.,pkyj#chat\nh_oo._o.,#chat\nh _ooooo.,pFh FhFhFhFhFhFyFy"
+  }
+ ]
+}

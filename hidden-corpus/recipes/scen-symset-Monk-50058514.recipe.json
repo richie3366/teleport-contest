@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b:>FlFk_>>,Fh_.Fb>FyFy_>>.Fh _.Fb>FkFkFkFuFb#tip\n\u001b#conduct\n \u0006_>.Fy_.Fu>FyFj_>,Fy_.Fu>FbFy_>.Fy_.Fy>FjFjFjFbFy#rub\n#conduct\n \u0006_>.Fj_.Fu>FbFb_>.Fu_.Fb>FyFj_>.Fb_,Fb>FyFjFjFuFb\u0006_>>.Fj_.Fb>FbFb_>>.Fb_,Fb>FyFu_>>.Fy_.Fu>FbFuFjFyFyb#name\no\n\u0006_>.Fu_,Fu>FjFy_>,Fy_,Fu>FyFb_>.Fj_.Fj>FjFbFbFuFb\u0006_>,Fu_.Fu>FbFy_>.Fu_.Fu>FyFb_>,Fj_,Fb>FuFuFuFbFj\u0006_>>,Fj_.Fb>FbFj_>>,Fy_,Fb>FuFy_>>,Fu_.Fy>FbFyFbFbFj\u0006_>>,Fb_.Fy>FyFy_>>.Fu_,Fy>FyFj_>>.Fb_,Fy>FjFbFbFjFb\u0006_>.Fu_,Fb>FjFb_>,Fj_.Fy>FjFj_>,Fy_.Fj>FjFuFuFbFjv i\u001b#name\nm\n#jump\nm.#monster\nO>>n\u001b\u001b\nO>>>>o2\n\u001b\nv i\u001bO>n\u001b\u001b\n20s#loot\n#ride\nuy#chat\nu\u001619\nmO>>>q\u001b\nO>>k\u001b\u001b\nt\u001b;h;;h;O>>k\u001b\u001b\nmO>>j\u001b\n#levelchange\n10\n          jbjy\u0017cloud\n:kj\u0017sink\nqylu\u0017melting ice\n#terrain\nb\n#conduct\n;#ride\nuyz\u0006_>.Fh_.Fb>FbFn_>."
+ },
+ "segments": [
+  {
+   "seed": 50058514,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " \u0006_ \u001b:>FlFk_>>,Fh_.Fb>FyFy_>>.Fh _.Fb>FkFkFkFuFb#tip\n\u001b#conduct\n \u0006_>.Fy_.Fu>FyFj_>,Fy_.Fu>FbFy_>.Fy_.Fy>FjFjFjFbFy#rub\n#conduct\n \u0006_>.Fj_.Fu>FbFb_>.Fu_.Fb>FyFj_>.Fb_,Fb>FyFjFjFuFb\u0006_>>.Fj_.Fb>FbFb_>>.Fb_,Fb>FyFu_>>.Fy_.Fu>FbFuFjFyFyb#name\no\n\u0006_>.Fu_,Fu>FjFy_>,Fy_,Fu>FyFb_>.Fj_.Fj>FjFbFbFuFb\u0006_>,Fu_.Fu>FbFy_>.Fu_.Fu>FyFb_>,Fj_,Fb>FuFuFuFbFj\u0006_>>,Fj_.Fb>FbFj_>>,Fy_,Fb>FuFy_>>,Fu_.Fy>FbFyFbFbFj\u0006_>>,Fb_.Fy>FyFy_>>.Fu_,Fy>FyFj_>>.Fb_,Fy>FjFbFbFjFb\u0006_>.Fu_,Fb>FjFb_>,Fj_.Fy>FjFj_>,Fy_.Fj>FjFuFuFbFjv i\u001b#name\nm\n#jump\nm.#monster\nO>>n\u001b\u001b\nO>>>>o2\n\u001b\nv i\u001bO>n\u001b\u001b\n20s#loot\n#ride\nuy#chat\nu\u001619\nmO>>>q\u001b\nO>>k\u001b\u001b\nt\u001b;h;;h;O>>k\u001b\u001b\nmO>>j\u001b\n#levelchange\n10\n          jbjy\u0017cloud\n:kj\u0017sink\nqylu\u0017melting ice\n#terrain\nb\n#conduct\n;#ride\nuyz\u0006_>.Fh_.Fb>FbFn_>."
+  }
+ ]
+}

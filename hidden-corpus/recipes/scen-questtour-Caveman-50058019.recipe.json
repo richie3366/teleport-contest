@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nb;_._mmmm.#chat\nj_mmmm.#chat\nj;m._m.#chat\nu_mmmmm.#chat\nh#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.#chat\nb;>._mmm.#chat\nb;<.\u0017blessed +3 cloak of magic resistance\nWf\u0017blessed ring of free action\nPgr\u0017wand of striking\n\u0016?\n>z\u0006_mmmmmm.20ss.20ss,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nj;<.\u0016?\n>A\u0006_mmmm,20sss.szh.,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,20s20sFhFhFhFhFhzhb,\u0016?\n>A\u0006_mm.20s..s,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nl\u0016?\n>z\u0006_mmm.s20ssss,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nk\u0016?\n>A\u0006_mmmmmmm...20sssszhl,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,s..20ss.zhb,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\ny\u0016?\n>A\u0006_mmm..ssssss,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nj\u0016?\n>z\u0006_mm.s20ssss20s20szhu,#chat\nj\u0016?\n>A\u0006_mmmmmmm.ss.s,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.ssssszh,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmm.Fh _,#chat\nh ;h:  \u0016?\n>A\u0006_mmmmmm,Fh Fh FhFh Fh ss,\u0016?\n>z\u0006_mm.s.sss,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nb\u0016?\n>A\u0006_mmmm,ssss.s,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,s.20s20ssss,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nu\u0016?\n>A\u0006_mmmm..ssss.s,\u0016?\n>z\u0006_mmm.20s.sss.20szh,\u0016?\n>A\u0006_mmmmmmm,20sFhFh20s,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.ss20sss,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nb;.\u0016?\n>A\u0006_mmmmmmm.2"
+ },
+ "segments": [
+  {
+   "seed": 50058019,
+   "datetime": "20040216205158",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=fruit:lychee\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nb;_._mmmm.#chat\nj_mmmm.#chat\nj;m._m.#chat\nu_mmmmm.#chat\nh#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.#chat\nb;>._mmm.#chat\nb;<.\u0017blessed +3 cloak of magic resistance\nWf\u0017blessed ring of free action\nPgr\u0017wand of striking\n\u0016?\n>z\u0006_mmmmmm.20ss.20ss,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nj;<.\u0016?\n>A\u0006_mmmm,20sss.szh.,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,20s20sFhFhFhFhFhzhb,\u0016?\n>A\u0006_mm.20s..s,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nl\u0016?\n>z\u0006_mmm.s20ssss,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nk\u0016?\n>A\u0006_mmmmmmm...20sssszhl,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,s..20ss.zhb,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\ny\u0016?\n>A\u0006_mmm..ssssss,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nj\u0016?\n>z\u0006_mm.s20ssss20s20szhu,#chat\nj\u0016?\n>A\u0006_mmmmmmm.ss.s,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.ssssszh,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmm.Fh _,#chat\nh ;h:  \u0016?\n>A\u0006_mmmmmm,Fh Fh FhFh Fh ss,\u0016?\n>z\u0006_mm.s.sss,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nb\u0016?\n>A\u0006_mmmm,ssss.s,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,s.20s20ssss,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nu\u0016?\n>A\u0006_mmmm..ssss.s,\u0016?\n>z\u0006_mmm.20s.sss.20szh,\u0016?\n>A\u0006_mmmmmmm,20sFhFh20s,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.ss20sss,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nb;.\u0016?\n>A\u0006_mmmmmmm.2"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#sit\n#rub\n10smO>>>w\u001b\n\u0006_ \u001bm,>FkFy_>,Fh\u001b_,>_>,_.>\u0006_>._.>_>._.>_>._.>\u0006_>._.>_>,_.>_>,_.>\u0006_>._.>_>,_.>_>._.>#monster\n#loot\n\u0006_>._,>_>._,>_>,_.>\u0006_>,_.>_>,_.>_>._,>\u000f\u001bv i\u001bO>>>>d\u001b\nO>>g\u001b\ni\u001b\u0004k E- I am a fish\n\u001614\n    \u00166\nFlFbFlb FkFlFkFbFjFlFkFuFnFuu FkFyFh\u001bFjFyFjFkFkFjFhFbFh\u001bFhFyFln FbFuu FhFuFlFuFjFlFhFnFkb FlFuFuFyFll FnFnFnFln FkFlFkFuFjFkFlFjFuFjFnFky FbFuj FkFlFlFkFyFbFlFjFuFyFbFuFnFkb FkFjFnFnFhFlFbFub FnFuu FuFuFlFnFnFlFhFjFlFjFkFjFjFnFuk FjFyFyFnFkb FlFkFyFll FuFlFbFh\u001bFuFkFkFhFbFj\u0006_>.Fy_.Fy>FuFu_>,Fy_.Fuu >FuFy_>.Fy_,Fu>FyFuy FyFuy Fu\u0018\u001b#dip\ne \u0006_>>.Fy_.Fuu >FuFy_>>,Fy_.Fu>FyFuu _>>.Fy_,Fuu >FuFuFuFuFu\u0006_>,Fy_,Fy>FyFuu _>.Fy_.Fy>FyFy_>.Fy_,Fuu >FyFyFuFyFy<;u;#force\nl#untrap\ny q\u0006_>.Fu_.Fy>FyFuy _>,Fu_.Fy>FyFy_>,Fu_.Fu>FuFuFyFyFu\u0006_>,Fy_.Fy>FuFy_>.Fy_.Fy>FuFy_>.Fuy _,Fu>FuFuFuFyFy#sit\n\u001b:\u0006_>.Fu_.Fy>FuFy_>.Fy_.Fu>FuFy_>,Fuu _.Fu>FuFuFuFuFy\u0006_>,Fy_.Fy>FyFy_>,Fu_.Fu>FyFy_>,Fy_,Fuu >FuFuFyFuu Fy\u0006_>,Fy_.Fuu >FuFy_>.Fy_,Fy>FyFy_>.Fy_.Fy>FuFuFuFuFu<\u000f\u001b\u00164\nFyFjFlF"
+ },
+ "segments": [
+  {
+   "seed": 50059041,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"a scroll\"=magenta\n",
+   "moves": "#sit\n#rub\n10smO>>>w\u001b\n\u0006_ \u001bm,>FkFy_>,Fh\u001b_,>_>,_.>\u0006_>._.>_>._.>_>._.>\u0006_>._.>_>,_.>_>,_.>\u0006_>._.>_>,_.>_>._.>#monster\n#loot\n\u0006_>._,>_>._,>_>,_.>\u0006_>,_.>_>,_.>_>._,>\u000f\u001bv i\u001bO>>>>d\u001b\nO>>g\u001b\ni\u001b\u0004k E- I am a fish\n\u001614\n    \u00166\nFlFbFlb FkFlFkFbFjFlFkFuFnFuu FkFyFh\u001bFjFyFjFkFkFjFhFbFh\u001bFhFyFln FbFuu FhFuFlFuFjFlFhFnFkb FlFuFuFyFll FnFnFnFln FkFlFkFuFjFkFlFjFuFjFnFky FbFuj FkFlFlFkFyFbFlFjFuFyFbFuFnFkb FkFjFnFnFhFlFbFub FnFuu FuFuFlFnFnFlFhFjFlFjFkFjFjFnFuk FjFyFyFnFkb FlFkFyFll FuFlFbFh\u001bFuFkFkFhFbFj\u0006_>.Fy_.Fy>FuFu_>,Fy_.Fuu >FuFy_>.Fy_,Fu>FyFuy FyFuy Fu\u0018\u001b#dip\ne \u0006_>>.Fy_.Fuu >FuFy_>>,Fy_.Fu>FyFuu _>>.Fy_,Fuu >FuFuFuFuFu\u0006_>,Fy_,Fy>FyFuu _>.Fy_.Fy>FyFy_>.Fy_,Fuu >FyFyFuFyFy<;u;#force\nl#untrap\ny q\u0006_>.Fu_.Fy>FyFuy _>,Fu_.Fy>FyFy_>,Fu_.Fu>FuFuFyFyFu\u0006_>,Fy_.Fy>FuFy_>.Fy_.Fy>FuFy_>.Fuy _,Fu>FuFuFuFyFy#sit\n\u001b:\u0006_>.Fu_.Fy>FuFy_>.Fy_.Fu>FuFy_>,Fuu _.Fu>FuFuFuFuFy\u0006_>,Fy_.Fy>FyFy_>,Fu_.Fu>FyFy_>,Fy_,Fuu >FuFuFyFuu Fy\u0006_>,Fy_.Fuu >FuFy_>.Fy_,Fy>FyFy_>.Fy_.Fy>FuFuFuFuFu<\u000f\u001b\u00164\nFyFjFlF"
+  }
+ ]
+}

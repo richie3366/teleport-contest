@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\ny;y,_mmmmm.#chat\ny_mmmmm.Fb_.Fb  n#chat\nb;j,_m,Fb_,#chat\nh  n;b._mm.Fb_.#chat\nb;b;#levelchange\n16\n                  \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fu_.Fh #chat\ny_m.Fy_.#chat\nb     n\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed Mjollnir\nwl  \u0017wand of magic missile\n\u0016?\n>A\u0006_mmmm. Fj  _,   n Fh   FlFhFnFn   n  Fh      nzmb    ,#chat\nu\u00165\n\u0016?\n>A\u0006_mmmmmm. Fb    n   _,Fh    n  Fh  FhFn    n zmy  ,#chat\nl\u00169\n\u0016?\n>z\u0006_mm,   n   Fu    n   _,Fn   n    Fl  n Fk   FkFy     n zmy  ,\u00165\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fk     n Fh   FhFn     yy\u001by   y y y\u001b  z"
+ },
+ "segments": [
+  {
+   "seed": 50058008,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\ny;y,_mmmmm.#chat\ny_mmmmm.Fb_.Fb  n#chat\nb;j,_m,Fb_,#chat\nh  n;b._mm.Fb_.#chat\nb;b;#levelchange\n16\n                  \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fu_.Fh #chat\ny_m.Fy_.#chat\nb     n\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed Mjollnir\nwl  \u0017wand of magic missile\n\u0016?\n>A\u0006_mmmm. Fj  _,   n Fh   FlFhFnFn   n  Fh      nzmb    ,#chat\nu\u00165\n\u0016?\n>A\u0006_mmmmmm. Fb    n   _,Fh    n  Fh  FhFn    n zmy  ,#chat\nl\u00169\n\u0016?\n>z\u0006_mm,   n   Fu    n   _,Fn   n    Fl  n Fk   FkFy     n zmy  ,\u00165\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fk     n Fh   FhFn     yy\u001by   y y y\u001b  z"
+  }
+ ]
+}

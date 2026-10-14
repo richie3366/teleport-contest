@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\nb\u0006_ \u001b;\u0016?\n>>N       floating eye corpse\n_<.>\u001644\n#levelchange\n8\n    \u0017blessed spellbook of stone to flesh\nrr     su   .bZa\nk     n      Zb\n       n   \u00173 15 crossbow bolts\n \u001b,\u0017uncursed wand of light\nzt         n   zt    n   20s       n   sm.      n   \u00163\n\u0016?\neu    j\u0017wand of create monster\nEuAleax\n Vlad was here\n       n    : \u0017wand of cancellation\nEv  Elbereth Elbereth\n     n   k\u0017wand of nothing\nEwn  X marks the spot\n    n     n : \u0017wand of stasis\nExn  ad aerarium\n         n     y   n  E- Vlad was here\n   n    :    n  E- Vlad was here\n  n   n   \u0007minotaur\nsm.    yy\u001bny y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50050030,
+   "datetime": "20210107021656",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\nb\u0006_ \u001b;\u0016?\n>>N       floating eye corpse\n_<.>\u001644\n#levelchange\n8\n    \u0017blessed spellbook of stone to flesh\nrr     su   .bZa\nk     n      Zb\n       n   \u00173 15 crossbow bolts\n \u001b,\u0017uncursed wand of light\nzt         n   zt    n   20s       n   sm.      n   \u00163\n\u0016?\neu    j\u0017wand of create monster\nEuAleax\n Vlad was here\n       n    : \u0017wand of cancellation\nEv  Elbereth Elbereth\n     n   k\u0017wand of nothing\nEwn  X marks the spot\n    n     n : \u0017wand of stasis\nExn  ad aerarium\n         n     y   n  E- Vlad was here\n   n    :    n  E- Vlad was here\n  n   n   \u0007minotaur\nsm.    yy\u001bny y y\u001b  s"
+  }
+ ]
+}

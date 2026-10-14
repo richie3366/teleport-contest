@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPll\u0016?\n>w\u0006_ \u001b:,\u0017amulet of change\ndm_oooooo._oo,,pFy FyFyFyFyFy_oooooo.,\u0014m,.20shlh#chat\nyFy FyFy FyFyFy_oo.,p_ooooo,_oo.,:ujy#chat\nn_oooo.,p__.Fh _.Fh #chat\nh #pray\ny y    _ooooooo.,$Fh  FhFhFhFhFh__.  _.;m,Fn#chat\nn_oo._ooo._,,\u0017amulet of flying\ndoyjb#chat\nkFkFkFkFk  n FkFk nhh#chat\nllhl#chat\nh_ooooooo.   _,,a\npykh#chat\nbn yh#chat\nh_oooo.   _.>.Fh  n_o.,$__.Fh_.,Fl #chat\ny\u00167\nnyb\u0016?\n>w\u0006_oooo,_oo.,#chat\nu_oo,,#chat\nk_ooo.Fl_,Fl,p_{.Fk  _. Fh  qeFl FlFl  Fl FlFl  n  _oo.,:\u00167\nklj\u0016?\n>w\u0006_ooo,Fn _.<.Fk _o.  n  Fu    _.  n    Fn  ,a\n #chat\nu\u00166\nFk   nFk  Fk  Fk  Fk Fk   n\u001612\n_ooooooooo,Fb_.<.Fb_oo,Fk   _,    n Fy ,p_ooooo.Fh _.m,Fh   ,#chat\nh__.#chat\nh#pray\ny y   \u00167\nybn\u0016?\n>w\u0006__.Fh_,  #chat\nu__,Fl_,Fl   n#chat\nb  Fb Fb  Fb   n Fb  Fb Fb\u0016?\n>B uh u\u0016?\n>w  \u0006_oooooo._._ooo._., #chat\nb_{.  nFl _.  Flqd _oooooooo.  n Fu _.  n Fu_o.  nFn _,,    np\u001bFn Fn  y y\u001by   y y"
+ },
+ "segments": [
+  {
+   "seed": 50057029,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPll\u0016?\n>w\u0006_ \u001b:,\u0017amulet of change\ndm_oooooo._oo,,pFy FyFyFyFyFy_oooooo.,\u0014m,.20shlh#chat\nyFy FyFy FyFyFy_oo.,p_ooooo,_oo.,:ujy#chat\nn_oooo.,p__.Fh _.Fh #chat\nh #pray\ny y    _ooooooo.,$Fh  FhFhFhFhFh__.  _.;m,Fn#chat\nn_oo._ooo._,,\u0017amulet of flying\ndoyjb#chat\nkFkFkFkFk  n FkFk nhh#chat\nllhl#chat\nh_ooooooo.   _,,a\npykh#chat\nbn yh#chat\nh_oooo.   _.>.Fh  n_o.,$__.Fh_.,Fl #chat\ny\u00167\nnyb\u0016?\n>w\u0006_oooo,_oo.,#chat\nu_oo,,#chat\nk_ooo.Fl_,Fl,p_{.Fk  _. Fh  qeFl FlFl  Fl FlFl  n  _oo.,:\u00167\nklj\u0016?\n>w\u0006_ooo,Fn _.<.Fk _o.  n  Fu    _.  n    Fn  ,a\n #chat\nu\u00166\nFk   nFk  Fk  Fk  Fk Fk   n\u001612\n_ooooooooo,Fb_.<.Fb_oo,Fk   _,    n Fy ,p_ooooo.Fh _.m,Fh   ,#chat\nh__.#chat\nh#pray\ny y   \u00167\nybn\u0016?\n>w\u0006__.Fh_,  #chat\nu__,Fl_,Fl   n#chat\nb  Fb Fb  Fb   n Fb  Fb Fb\u0016?\n>B uh u\u0016?\n>w  \u0006_oooooo._._ooo._., #chat\nb_{.  nFl _.  Flqd _oooooooo.  n Fu _.  n Fu_o.  nFn _,,    np\u001bFn Fn  y y\u001by   y y"
+  }
+ ]
+}

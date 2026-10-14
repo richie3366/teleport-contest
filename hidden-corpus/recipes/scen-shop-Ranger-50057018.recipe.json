@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWh\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b;q_oooooo,,p:_{, Fh_.;@.q_oo,_ooo.,p_ooo.,:_ooooooo.,p\u0016?\n>Bnlk\u0016?\n>w\u0006_ooooooo._oo.,$_oooooo.,\u0014m,20s20s _oo,,\u0017cheap plastic imitation of the Amulet of Yendor\ndk _{.Fl_.Fjq_{.Fb_. qhhl#chat\nllhh#chat\nlhl l#chat\nl_oo.,p:\u00167\nhbl\u0016?\n>w\u0006_ooooo,   _.    Fu _ooo,Fu _.@.Fu  n,   np;\u001611\n_oo. Fy _. Fk _o.,\u0017flint stone\ndlFlFl  Fl  n FlFl  nFl\u00167\n_ooooooooo,,pyhn#chat\nk\u00163\nbuj\u0016?\n>w\u0006nuj#chat\njknj#chat\nb_ooooooo._, Fl,:_{.Fl _.<.Flq_{,_,qy_oo. Fb _.Fj  _oo, Fk   _.  Fk  ,p>.__.  Fk  _,Fh  #chat\nb   _oo,   Fh  _.   Fh  ,\u0017touchstone\ndm _ooo.  Fh _.Fb _oo,Fj  _,  ,p<.l ul #chat\nb  _{.        _,qy_oooooooo.Fb_.<.Fl,#chat\nbFbFbFbFbFbFb_{.Fj _.qy \u0016?\n>Byuu\u0016?\n>w\u0006__,  Fk      n    n  n _.#chat\nk     n \u0016?\nckjk\u0016?\n>w\u0006\u001611\n_{,qbuj#chat\nh_{.q_{,q\u00167\njkj\u0016?\n>w\u0006_oooooo. Fj_.Fk_oo,Fu_. n n,p,\u00169\n_ooooooooo.,: ujk#chat\nbFbFbFbFbFbFb_ooooo,_oo.,p_ooooooo.,: _oooo.,: _ooooo.,pFjFj  n FjFjFjFj  n\u00163\nhub#chat\nj_oooo"
+ },
+ "segments": [
+  {
+   "seed": 50057018,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWh\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b;q_oooooo,,p:_{, Fh_.;@.q_oo,_ooo.,p_ooo.,:_ooooooo.,p\u0016?\n>Bnlk\u0016?\n>w\u0006_ooooooo._oo.,$_oooooo.,\u0014m,20s20s _oo,,\u0017cheap plastic imitation of the Amulet of Yendor\ndk _{.Fl_.Fjq_{.Fb_. qhhl#chat\nllhh#chat\nlhl l#chat\nl_oo.,p:\u00167\nhbl\u0016?\n>w\u0006_ooooo,   _.    Fu _ooo,Fu _.@.Fu  n,   np;\u001611\n_oo. Fy _. Fk _o.,\u0017flint stone\ndlFlFl  Fl  n FlFl  nFl\u00167\n_ooooooooo,,pyhn#chat\nk\u00163\nbuj\u0016?\n>w\u0006nuj#chat\njknj#chat\nb_ooooooo._, Fl,:_{.Fl _.<.Flq_{,_,qy_oo. Fb _.Fj  _oo, Fk   _.  Fk  ,p>.__.  Fk  _,Fh  #chat\nb   _oo,   Fh  _.   Fh  ,\u0017touchstone\ndm _ooo.  Fh _.Fb _oo,Fj  _,  ,p<.l ul #chat\nb  _{.        _,qy_oooooooo.Fb_.<.Fl,#chat\nbFbFbFbFbFbFb_{.Fj _.qy \u0016?\n>Byuu\u0016?\n>w\u0006__,  Fk      n    n  n _.#chat\nk     n \u0016?\nckjk\u0016?\n>w\u0006\u001611\n_{,qbuj#chat\nh_{.q_{,q\u00167\njkj\u0016?\n>w\u0006_oooooo. Fj_.Fk_oo,Fu_. n n,p,\u00169\n_ooooooooo.,: ujk#chat\nbFbFbFbFbFbFb_ooooo,_oo.,p_ooooooo.,: _oooo.,: _ooooo.,pFjFj  n FjFjFjFj  n\u00163\nhub#chat\nj_oooo"
+  }
+ ]
+}

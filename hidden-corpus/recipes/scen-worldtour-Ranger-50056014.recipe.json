@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed amulet of life saving\nPh\u0017blessed ring of free action\nPir\u001634\n   nk:\u001634\n #chat\nj;j, \u001b>.\u0016?\n>>K       bag of holding\n#levelchange\n12\n\u0017Fire Brand\nwlFl     Fl       Fb         \u0007Archon\nFh         n Fy      n   n \u0007red naga\n;m..   n  n s     n     n    .   n   n   \u0007energy vortex\ns   n     n20s  n   n   n  n  n \u001622\n#levelchange\n10\nk  n  n   yy\u001b y   ny y\u001b  n"
+ },
+ "segments": [
+  {
+   "seed": 50056014,
+   "datetime": "20030406090017",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed amulet of life saving\nPh\u0017blessed ring of free action\nPir\u001634\n   nk:\u001634\n #chat\nj;j, \u001b>.\u0016?\n>>K       bag of holding\n#levelchange\n12\n\u0017Fire Brand\nwlFl     Fl       Fb         \u0007Archon\nFh         n Fy      n   n \u0007red naga\n;m..   n  n s     n     n    .   n   n   \u0007energy vortex\ns   n     n20s  n   n   n  n  n \u001622\n#levelchange\n10\nk  n  n   yy\u001b y   ny y\u001b  n"
+  }
+ ]
+}

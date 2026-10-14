@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "mO\u0016\u0006_>\u0006_>\u0006_>\u0006_>#dip\n#offer\n\u0006_ \u001bm.>_>._.>_>. _.>agok<\u0006_>._.> \u000f\u001b\u0006_>._,> \u0006_>>._,> #chat\nkL\u0006_>._.>_>._.>_>,_,>: u\u0006_>._.>_>._.  n>_>._.>\u0006_>>,_,  n>_>>._.>_>>._,  n >\u00169\n\u001610\n#conduct\n >mO>>f\u001b\n\u00165\n100sluknlh  n100s100s _>.>\\ 100s  n_>,>100s100s  n 100s#pray\ny y    _>.>100si\u001b150s#pray\ny y    50s100s\u0018\u001b\u000f\u001b100s  n_>.>#turn\n_>.>huh 100s100syh  nhkbj#pray\ny y  100s \u000f\u001b150s  n s_>,>150s\u000f\u001b_>.>\u001612\n\\ h#ride\nnyOl\u001b\nO>>n\u001b\u001b\nmO>>>c\u001b\n\u001619\n\u00162\n150s _>,_.>150s100s150s llj150s 100s#pray\ny y  jyj#pray\ny y  100s50s50s\\ \u0018\u001b_>._,>lbu50si\u001b\u0018\u001b150s_>,_.>50s100s#name\nm\n100s\\ 150s100s100s150s50s150s100s150s150s100s150s100sv i\u001bO>>>n\u001b\u001b\nv i\u001b\u0006_>>._,>_>>._,>_>>,_.>\u0006_>._.>_>. _.>_>._.><\u0006_>>._.>_>>._.>_>>._.>\u0006_>,_.>_>._.>_>._.>\u0006_>._.>_>._.>_>._,>\u0006_>._.>_>,  n_,>_>._,>\u0006_>._.>_>. _.>_>,_, >\u000f\u001b\u0007tame housecat\n\u0017food ration\ntbh \u0006_>>, _.>_>>._,>_>>._.>#name\nm\n\u0007\u0017scroll of taming\nrk\u0007sewer rat\n20ss.s20ssnhjyOo\u001b\u001b\nO>>>>d\u001b\n\u0007tame housecat\n\u0007large dog\n\u0017fortune cookie\ntbb#name\nm\n\u0007\u0017scroll of taming\nrm\u0007grid bug\n\u0017scroll of taming\nrk\u0007grid"
+ },
+ "segments": [
+  {
+   "seed": 50059025,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"The door\"\nMENUCOLOR=\"cursed\"=brown\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "mO\u0016\u0006_>\u0006_>\u0006_>\u0006_>#dip\n#offer\n\u0006_ \u001bm.>_>._.>_>. _.>agok<\u0006_>._.> \u000f\u001b\u0006_>._,> \u0006_>>._,> #chat\nkL\u0006_>._.>_>._.>_>,_,>: u\u0006_>._.>_>._.  n>_>._.>\u0006_>>,_,  n>_>>._.>_>>._,  n >\u00169\n\u001610\n#conduct\n >mO>>f\u001b\n\u00165\n100sluknlh  n100s100s _>.>\\ 100s  n_>,>100s100s  n 100s#pray\ny y    _>.>100si\u001b150s#pray\ny y    50s100s\u0018\u001b\u000f\u001b100s  n_>.>#turn\n_>.>huh 100s100syh  nhkbj#pray\ny y  100s \u000f\u001b150s  n s_>,>150s\u000f\u001b_>.>\u001612\n\\ h#ride\nnyOl\u001b\nO>>n\u001b\u001b\nmO>>>c\u001b\n\u001619\n\u00162\n150s _>,_.>150s100s150s llj150s 100s#pray\ny y  jyj#pray\ny y  100s50s50s\\ \u0018\u001b_>._,>lbu50si\u001b\u0018\u001b150s_>,_.>50s100s#name\nm\n100s\\ 150s100s100s150s50s150s100s150s150s100s150s100sv i\u001bO>>>n\u001b\u001b\nv i\u001b\u0006_>>._,>_>>._,>_>>,_.>\u0006_>._.>_>. _.>_>._.><\u0006_>>._.>_>>._.>_>>._.>\u0006_>,_.>_>._.>_>._.>\u0006_>._.>_>._.>_>._,>\u0006_>._.>_>,  n_,>_>._,>\u0006_>._.>_>. _.>_>,_, >\u000f\u001b\u0007tame housecat\n\u0017food ration\ntbh \u0006_>>, _.>_>>._,>_>>._.>#name\nm\n\u0007\u0017scroll of taming\nrk\u0007sewer rat\n20ss.s20ssnhjyOo\u001b\u001b\nO>>>>d\u001b\n\u0007tame housecat\n\u0007large dog\n\u0017fortune cookie\ntbb#name\nm\n\u0007\u0017scroll of taming\nrm\u0007grid bug\n\u0017scroll of taming\nrk\u0007grid"
+  }
+ ]
+}

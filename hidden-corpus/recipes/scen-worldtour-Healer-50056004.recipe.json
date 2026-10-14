@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed Mjollnir\nwl\u00161\n#chat\nl;j, \u001b;\u00161\n\u0014>.\u001642\n   \u0004knn\u001619\nkkljl:\u001642\n   \u0006_<,Fn_.Fj  \u0016?\nm\u0006_<,"
+ },
+ "segments": [
+  {
+   "seed": 50056004,
+   "datetime": "20171119221134",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed Mjollnir\nwl\u00161\n#chat\nl;j, \u001b;\u00161\n\u0014>.\u001642\n   \u0004knn\u001619\nkkljl:\u001642\n   \u0006_<,Fn_.Fj  \u0016?\nm\u0006_<,"
+  }
+ ]
+}

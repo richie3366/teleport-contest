@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u0017blessed amulet of life saving\nPo\u0017blessed +3 helm of telepathy\nWp \u0016?\n>J     large box\n \u0006_ \u001b>.sm.    sk  \u0016?\najylb h:\u001628\nk k  :\u0016?\nc \u0014, \u0016?\n\u001bk          j   \u001b\u0016?\n\u001bk    n     j           n        \u00162\n\u001631\n#chat\nh;l, .m.          n    sm.      n  \u00166\n\u0016?\n\u001bb   uy     n   \u0016?\n\u001bylny\u0016?\n\u001bly\u001611\nl   n      n    n     n  b  j yn : \u001612\n\u001638\n_<.>s . \u0016?\ncjn   b :\u0016?\n\u001bu  n   k \u001631\n#chat\n;j..s\u0016?\ne #levelchange\n10\n  \u0017blessed spellbook of confuse monster\n rs    n       .m.     n  \u0017blessed spellbook of fireball\n rt     n .y\u0017blessed spellbook of restore ability\nru    \u001b  n.y+\u001bZa\nn     n \u0007sewer rat\nZa\nj     n        n  Za\nn     yy\u001b y   y y y\u001b  Z"
+ },
+ "segments": [
+  {
+   "seed": 50056046,
+   "datetime": "20091014022846",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                    \u0017blessed amulet of life saving\nPo\u0017blessed +3 helm of telepathy\nWp \u0016?\n>J     large box\n \u0006_ \u001b>.sm.    sk  \u0016?\najylb h:\u001628\nk k  :\u0016?\nc \u0014, \u0016?\n\u001bk          j   \u001b\u0016?\n\u001bk    n     j           n        \u00162\n\u001631\n#chat\nh;l, .m.          n    sm.      n  \u00166\n\u0016?\n\u001bb   uy     n   \u0016?\n\u001bylny\u0016?\n\u001bly\u001611\nl   n      n    n     n  b  j yn : \u001612\n\u001638\n_<.>s . \u0016?\ncjn   b :\u0016?\n\u001bu  n   k \u001631\n#chat\n;j..s\u0016?\ne #levelchange\n10\n  \u0017blessed spellbook of confuse monster\n rs    n       .m.     n  \u0017blessed spellbook of fireball\n rt     n .y\u0017blessed spellbook of restore ability\nru    \u001b  n.y+\u001bZa\nn     n \u0007sewer rat\nZa\nj     n        n  Za\nn     yy\u001b y   y y y\u001b  Z"
+  }
+ ]
+}

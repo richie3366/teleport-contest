@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0017wand of magic missile\nzik \u0017blessed wand of probing\nzjb\u00173 cream pie\neksm.su\u0017sprig of wolfsbane\nem20s.m.Fhs\u0017uncursed wand of polymorph\nznk.20s\u0017cursed potion of hallucination\n\u0007ghoul\nqoFy  Fy sm.20s"
+ },
+ "segments": [
+  {
+   "seed": 50052025,
+   "datetime": "20250519001709",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0017wand of magic missile\nzik \u0017blessed wand of probing\nzjb\u00173 cream pie\neksm.su\u0017sprig of wolfsbane\nem20s.m.Fhs\u0017uncursed wand of polymorph\nznk.20s\u0017cursed potion of hallucination\n\u0007ghoul\nqoFy  Fy sm.20s"
+  }
+ ]
+}

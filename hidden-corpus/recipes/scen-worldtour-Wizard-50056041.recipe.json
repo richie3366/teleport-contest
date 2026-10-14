@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u001642\n   yu b\u0017grave\n:   \u0017pick-axe\naos.hh\u0017ice\ny\u0017cloud\n: #terrain\nb\n\u001b@.#turn\n\u000f\u001b#rub\n\u0016?\n>D__,\u0016?\nj  _<.s20s \u0016?\n>xyu: 20s 20ssm.\u001612\n\u0004j\u0016?\n>>P\u0006_>.Fh _,Fh\u0016?\nm \u0014m.\u0016?\n>A  __.Fn   _..ysm.    \u0016?\ne\u0017orcish bow\nwp\u001720 orcish arrows\nQq\u0007gnome\nbfufu\u0007gnome lord\nn    fhfh  fj  n  \u0017potion of hallucination\ntah \u0007hill orc\nu  fj fk  fj   fb      n fh       l     n   n   l     ,    n  #enhance\nn\u001b\u00161\n\u0016?\n>>K     ring of polymorph\n_{.<sm.\u001619\nl   n   h   y  n   n    u      :sm.     \u001627\n#levelchange\n30\n \u0017fumble boots\nWu     sm.  n          n        sh    n            nsm. \u0007gas spore\nFb     n Fy   \u0007nalfeshnee\nFy   Fy     n Fu   Fu    \u00169\n\u0016?\n\u001bn       n u    \u001642\n_<.>.j \u0016?\n\u001by     n         n \u0016?\n\u001bny    \u001642\n_>,>.m.\u0016?\n\u001bh     n j      \u001627\n\u0006:_>,\u0016?\n\u001by     n   n            n\u0016?\n\u001by      n    y    n   \u0016?\n\u001bj       j  yy\u001by   y y  n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50056041,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u001642\n   yu b\u0017grave\n:   \u0017pick-axe\naos.hh\u0017ice\ny\u0017cloud\n: #terrain\nb\n\u001b@.#turn\n\u000f\u001b#rub\n\u0016?\n>D__,\u0016?\nj  _<.s20s \u0016?\n>xyu: 20s 20ssm.\u001612\n\u0004j\u0016?\n>>P\u0006_>.Fh _,Fh\u0016?\nm \u0014m.\u0016?\n>A  __.Fn   _..ysm.    \u0016?\ne\u0017orcish bow\nwp\u001720 orcish arrows\nQq\u0007gnome\nbfufu\u0007gnome lord\nn    fhfh  fj  n  \u0017potion of hallucination\ntah \u0007hill orc\nu  fj fk  fj   fb      n fh       l     n   n   l     ,    n  #enhance\nn\u001b\u00161\n\u0016?\n>>K     ring of polymorph\n_{.<sm.\u001619\nl   n   h   y  n   n    u      :sm.     \u001627\n#levelchange\n30\n \u0017fumble boots\nWu     sm.  n          n        sh    n            nsm. \u0007gas spore\nFb     n Fy   \u0007nalfeshnee\nFy   Fy     n Fu   Fu    \u00169\n\u0016?\n\u001bn       n u    \u001642\n_<.>.j \u0016?\n\u001by     n         n \u0016?\n\u001bny    \u001642\n_>,>.m.\u0016?\n\u001bh     n j      \u001627\n\u0006:_>,\u0016?\n\u001by     n   n            n\u0016?\n\u001by      n    y    n   \u0016?\n\u001bj       j  yy\u001by   y y  n  \u0016"
+  }
+ ]
+}

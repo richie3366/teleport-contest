@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\n>Cklhnynh:s20s20s\u0016?\n>>Q\u0017cursed wand of nothing\n\u0007homunculus\nzaaay \u0017uncursed scroll of enchant armor\n\u0007water nymph\nrb  \u001b\u0017blessed scroll of punishment\nrc sh  20s   \u0016?\n>>K      chest\n\u0007werewolf\nFlFl  Fu   Fn  \u0007mastodon\nsu     n  sm.     sm.  n       sm.    sn         n .l         20s  sm.  n   \u0007ogre king\nFu Fl     Fk     Fj    n   Fb      Fl         n   n       \u0007ape\nFj       Fj    n     Fl         n      Fu    Fl   n            n    \u00165\n\u0016?\n\u001bh k       n   \u0016?\n\u001bj      y\u0016?\n\u001bky\u001639\nkyy:\u0016?\n\u001bkn    n             n     \u00167\n\u0016?\n\u001bl  n      k  n        n\u0016?\n\u001bh         yy\u001b nny n  b"
+ },
+ "segments": [
+  {
+   "seed": 50056069,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0016?\n>Cklhnynh:s20s20s\u0016?\n>>Q\u0017cursed wand of nothing\n\u0007homunculus\nzaaay \u0017uncursed scroll of enchant armor\n\u0007water nymph\nrb  \u001b\u0017blessed scroll of punishment\nrc sh  20s   \u0016?\n>>K      chest\n\u0007werewolf\nFlFl  Fu   Fn  \u0007mastodon\nsu     n  sm.     sm.  n       sm.    sn         n .l         20s  sm.  n   \u0007ogre king\nFu Fl     Fk     Fj    n   Fb      Fl         n   n       \u0007ape\nFj       Fj    n     Fl         n      Fu    Fl   n            n    \u00165\n\u0016?\n\u001bh k       n   \u0016?\n\u001bj      y\u0016?\n\u001bky\u001639\nkyy:\u0016?\n\u001bkn    n             n     \u00167\n\u0016?\n\u001bl  n      k  n        n\u0016?\n\u001bh         yy\u001b nny n  b"
+  }
+ ]
+}

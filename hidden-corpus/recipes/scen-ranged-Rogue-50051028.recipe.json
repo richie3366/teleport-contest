@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00176 eggs\nQby\u0007giant rat\nklfh   fufjfjljk,\u0017elven bow\nwi\u001720 elven arrows\nQj\u0007acid blob\nlfjfjFu Fj \u0017potion of levitation\ntbj\u0007dwarf\nl  ynny y ny  f"
+ },
+ "segments": [
+  {
+   "seed": 50051028,
+   "datetime": "20010130094815",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u00176 eggs\nQby\u0007giant rat\nklfh   fufjfjljk,\u0017elven bow\nwi\u001720 elven arrows\nQj\u0007acid blob\nlfjfjFu Fj \u0017potion of levitation\ntbj\u0007dwarf\nl  ynny y ny  f"
+  }
+ ]
+}

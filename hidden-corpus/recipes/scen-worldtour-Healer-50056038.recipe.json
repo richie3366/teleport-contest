@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0016?\n>>Q\u0004n\u0016?\n>>Qyhjuj:\u0016?\nh #chat\nb;b, \u001b@.\u001626\n  kb \u0017wand of light\nEm  Elbereth\n: b\u0017wand of cold\nEn Elbereth\n: k\u0017wand of secret door detection\nEo  ad aerarium\n: \u0017wand of opening\nEpn  Elbereth\n   \u0017wand of probing\nEqn  Elbereth Elbereth\n  : \u001626\n\u0014,  \u0016?\n>>M      cockatrice corpse\n_<.>sh\u0016?\n\u001bk   k                n\u0016?\n\u001bn  k   \u0016?\ndh   y    l   n n     k   u  j     n  : \u00164\n\u001626\n\u0004j  \u0016?\n\u001bh     h \u001626\nh u  n   b   j b   n  : s . \u00167\n\u0016?\nd#levelchange\n10\n   n  n   y  u     \u0017sink\nqf      \u0017ring of invisibility\ndt  n    hn   \u0017pool\n#dip\ned               n l   h   n      j \u0017unaligned altar\nde        n   \u0017newt corpse\n#offer\n#pray\ny y : b h \u0017throne\n#sit\n#sit\n#sit\n: #terrain\ne\n#invoke\nr   n  h #dip\nif \u00163\n\u0016?\ne n    nll    n   :20s   n   n   20s   n    n    \u001627\n#chat\nl;n:  \u001635\nh byl  yy\u001bnny\u001b  :"
+ },
+ "segments": [
+  {
+   "seed": 50056038,
+   "datetime": "20200804073203",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=runmode:crawl\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0016?\n>>Q\u0004n\u0016?\n>>Qyhjuj:\u0016?\nh #chat\nb;b, \u001b@.\u001626\n  kb \u0017wand of light\nEm  Elbereth\n: b\u0017wand of cold\nEn Elbereth\n: k\u0017wand of secret door detection\nEo  ad aerarium\n: \u0017wand of opening\nEpn  Elbereth\n   \u0017wand of probing\nEqn  Elbereth Elbereth\n  : \u001626\n\u0014,  \u0016?\n>>M      cockatrice corpse\n_<.>sh\u0016?\n\u001bk   k                n\u0016?\n\u001bn  k   \u0016?\ndh   y    l   n n     k   u  j     n  : \u00164\n\u001626\n\u0004j  \u0016?\n\u001bh     h \u001626\nh u  n   b   j b   n  : s . \u00167\n\u0016?\nd#levelchange\n10\n   n  n   y  u     \u0017sink\nqf      \u0017ring of invisibility\ndt  n    hn   \u0017pool\n#dip\ned               n l   h   n      j \u0017unaligned altar\nde        n   \u0017newt corpse\n#offer\n#pray\ny y : b h \u0017throne\n#sit\n#sit\n#sit\n: #terrain\ne\n#invoke\nr   n  h #dip\nif \u00163\n\u0016?\ne n    nll    n   :20s   n   n   20s   n    n    \u001627\n#chat\nl;n:  \u001635\nh byl  yy\u001bnny\u001b  :"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " E- Vlad was here\nHWmO>>o\u001b\nmO>>j\u001b\n#terrain\nf\n\\ \u00165\n#terrain\nf\nP#jump\n#untrap\nyO>>c\u001b\nuhjj\u0017grave\n: \u0017pick-axe\nam >  ..:k\u0017tree\n:yk\u0017iron bars\n#terrain\nb\n\u001bm,dj \u0018\u001b#loot\nbmO>>h\u001b\n\u00161\n#tip\n\u001bckk#terrain\nd\n\u0007 \u0017tripe ration\nt$u\u0007tame pony\n#name\nf\ndsss#name\ni\n#chat\nj#chat\nk#chat\nu\u0006_>,  Fy _,Fy >Fh Fy_>.Fy_.  nFh >Fh Fh _>,Fh _.Fh  n >Fu Fh FyFyFytauE- I am a fish\n\u0006_>>._.> Fh Fj Fb \u0006_>>,Fl_,Fu>FlFk_>>.Fu_,  nFk >Fu Fk _>>.Fk _.Fh>FlFu Fu Fu Fu \u0006_>.Fu _,,Fy >Fk Fy  n _>.Fy_,<.Fy>_>,Fn _.m.> Fb Fj Fn \u0006_>.Fb_,.Fj>FjFh  n _>,Fb_.@.Fh>_>.Fu _.> #enhance\nyo\nk\n\u001b#loot\n\u0006_>>.Fb _.,Fy > Fy Fh Fh \u00165\nO>k\u001b\u001b\nv i\u001bO>>>>l\u001b\n\u001617\nFl  Fu Fl Fn ss150s \u000f\u001bojllyFu  Fu s50s FhFhFhFhFhFh100sknyFu Fy Fk  150s   el50s endh_>,>\u000f\u001bhun100s#loot\n100s Fh  n Fh  n Fh  n Fh  n Fh  n  Fh   nFh    nFy Fy  n  Fy  n  Fh  n   y\u001b     F"
+ },
+ "segments": [
+  {
+   "seed": 50059079,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nMENUCOLOR=\"cursed\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " E- Vlad was here\nHWmO>>o\u001b\nmO>>j\u001b\n#terrain\nf\n\\ \u00165\n#terrain\nf\nP#jump\n#untrap\nyO>>c\u001b\nuhjj\u0017grave\n: \u0017pick-axe\nam >  ..:k\u0017tree\n:yk\u0017iron bars\n#terrain\nb\n\u001bm,dj \u0018\u001b#loot\nbmO>>h\u001b\n\u00161\n#tip\n\u001bckk#terrain\nd\n\u0007 \u0017tripe ration\nt$u\u0007tame pony\n#name\nf\ndsss#name\ni\n#chat\nj#chat\nk#chat\nu\u0006_>,  Fy _,Fy >Fh Fy_>.Fy_.  nFh >Fh Fh _>,Fh _.Fh  n >Fu Fh FyFyFytauE- I am a fish\n\u0006_>>._.> Fh Fj Fb \u0006_>>,Fl_,Fu>FlFk_>>.Fu_,  nFk >Fu Fk _>>.Fk _.Fh>FlFu Fu Fu Fu \u0006_>.Fu _,,Fy >Fk Fy  n _>.Fy_,<.Fy>_>,Fn _.m.> Fb Fj Fn \u0006_>.Fb_,.Fj>FjFh  n _>,Fb_.@.Fh>_>.Fu _.> #enhance\nyo\nk\n\u001b#loot\n\u0006_>>.Fb _.,Fy > Fy Fh Fh \u00165\nO>k\u001b\u001b\nv i\u001bO>>>>l\u001b\n\u001617\nFl  Fu Fl Fn ss150s \u000f\u001bojllyFu  Fu s50s FhFhFhFhFhFh100sknyFu Fy Fk  150s   el50s endh_>,>\u000f\u001bhun100s#loot\n100s Fh  n Fh  n Fh  n Fh  n Fh  n  Fh   nFh    nFy Fy  n  Fy  n  Fh  n   y\u001b     F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " Olm\nsOco\nc\n;m, \u001bm.rg y  mO>o\n #wipe\n_>.sOj\n#loot\n#jump\nOh\n#sit\nOhl\n#dip\ngdyO>glk\n#jump\nrh y m.20ssmOfdc\n L,Om\n#enhance\nyr\np\n\u001bOk\n#pray\ny y  mO>>>>>hq\noff\nd\neemOdfe\n #tip\n\u001bs20s"
+ },
+ "segments": [
+  {
+   "seed": 50051011,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=sortloot:full\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " Olm\nsOco\nc\n;m, \u001bm.rg y  mO>o\n #wipe\n_>.sOj\n#loot\n#jump\nOh\n#sit\nOhl\n#dip\ngdyO>glk\n#jump\nrh y m.20ssmOfdc\n L,Om\n#enhance\nyr\np\n\u001bOk\n#pray\ny y  mO>>>>>hq\noff\nd\neemOdfe\n #tip\n\u001bs20s"
+  }
+ ]
+}

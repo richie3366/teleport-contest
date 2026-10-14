@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed ring of free action\nPgr\u0016?\nf    \u0006_ \u001bm,\u001641\n   #levelchange\n20\n   \u0017scroll of charging\nrh \u001bFk .\u0017levitation boots\nWi       20s       su  n  20s  \u0017the Book of the Dead\n\u0007guardian naga\nwb    Fj  Fk       Fk   #invoke\nj       n  Fj      Fh     sm.    n     .l   \u00162\n\u0016?\n>>Qkjk:\u0016?\nn  #chat\nj;<.\u0016?\n>>M      potion of monster detection\n\u0004h         n sm.      \u001641\n\u0006;_<.\u001641\n\u0006<._<,s \u001612\n#levelchange\n30\n        \u0017blessed +3 ring of increase accuracy\nPl  .  n  sm.       sl      Rl    n Fl     Fy       \u0017leather drum\n\u0007rabid rat\nam    n             n am          Fh      n    Fk   \u0017blessed long sword\n\u0007raven\nwnFk          n Fu   Fk .  n   .   20s   n \u00163\n\u001617\n_>.\u0016?\n\u001by  u\u0016?\nb\u0014 n    \u0016?\n\u001bk                                     y            n                              n   \u001b             \u001645\n\u0014 n           n      sn                                        20s    yy\u001by   ny  y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 50050006,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed ring of free action\nPgr\u0016?\nf    \u0006_ \u001bm,\u001641\n   #levelchange\n20\n   \u0017scroll of charging\nrh \u001bFk .\u0017levitation boots\nWi       20s       su  n  20s  \u0017the Book of the Dead\n\u0007guardian naga\nwb    Fj  Fk       Fk   #invoke\nj       n  Fj      Fh     sm.    n     .l   \u00162\n\u0016?\n>>Qkjk:\u0016?\nn  #chat\nj;<.\u0016?\n>>M      potion of monster detection\n\u0004h         n sm.      \u001641\n\u0006;_<.\u001641\n\u0006<._<,s \u001612\n#levelchange\n30\n        \u0017blessed +3 ring of increase accuracy\nPl  .  n  sm.       sl      Rl    n Fl     Fy       \u0017leather drum\n\u0007rabid rat\nam    n             n am          Fh      n    Fk   \u0017blessed long sword\n\u0007raven\nwnFk          n Fu   Fk .  n   .   20s   n \u00163\n\u001617\n_>.\u0016?\n\u001by  u\u0016?\nb\u0014 n    \u0016?\n\u001bk                                     y            n                              n   \u001b             \u001645\n\u0014 n           n      sn                                        20s    yy\u001by   ny  y\u001b  2"
+  }
+ ]
+}

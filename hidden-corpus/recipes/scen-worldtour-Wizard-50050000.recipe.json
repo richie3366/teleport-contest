@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 speed boots\nWo\u0016?\nl #levelchange\n20\n      \u0007rust monster\nFlFlFj     .m.sm.     \u0007gray ooze\nFlFj       FlFjFj.m.20s\u0007quantum mechanic\nFlFlFj   \u001b: sm.sm.\u001644\n\u0004j\u001611\n__,>\u001644\n   bynn:\u001611\nbj yl :\u001638\n   \u0014<.20ssm.s\u001611\nl  j       :\u0016?\n>>K      crossbow\nu jl   :\u0016?\n\u001bl k\u0016?\n\u001buj\u0016?\n\u001bjy\u0016?\n\u001bjl\u0016?\n\u001bb   j\u0016?\n\u001blh  \u0016?\n\u001bl    b\u001644\n#levelchange\n14\n  \u0017spellbook of identify\nrr        n  sm.      \u0017blessed spellbook of knock\nrs        20s        n  \u0017blessed spellbook of detect treasure\nrt      sm.     n     +\u001bZ\u001bFk         n Z\u001b\u0007hill orc\nZ\u001b\u0007giant rat\nZ\u001b#turn\n#pray\ny y              \u00165\n\u001611\n#chat\nn;n;sm.    20s      n\u0016?\n\u001by   j\u001617\n\u0014 nn\u0016?\n\u001bu    y\u0016?\n\u001bu  n  b   \u0016?\n\u001bh  n  u  \u0016?\n\u001bnk  \u00165\nhy    n\u0017wand of light\nEy \u0017wand of nothing\nE:l\u0017athame\nE:y       n \u0017wand of undead turning\nE\u0017wand of stasis\nE:E\u0007minotaur\n.l          .u      .m.    \u00169\n\u0016?\n\u001bn    n y\u0016?\n\u001bb     l   \u0016?\n\u001bl      nn       \u0016?\n\u001bj      y\u0016?\n\u001bh   n     j            n \u00165\n\u0016?\n\u001bnh          n\u0016?\n\u001bh \u001b      l\u0016?\n\u001buj\u001615\n\u0004u        n\u00164\nh   j:\u001611\n\u001715 shuriken\nQz\u0007lichen\nkfbfh      FbFh      n \u0017potion of water\n tzh      \u0007dwarf\nuh     yy\u001bny y y\u001b  f"
+ },
+ "segments": [
+  {
+   "seed": 50050000,
+   "datetime": "20000514053433",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 speed boots\nWo\u0016?\nl #levelchange\n20\n      \u0007rust monster\nFlFlFj     .m.sm.     \u0007gray ooze\nFlFj       FlFjFj.m.20s\u0007quantum mechanic\nFlFlFj   \u001b: sm.sm.\u001644\n\u0004j\u001611\n__,>\u001644\n   bynn:\u001611\nbj yl :\u001638\n   \u0014<.20ssm.s\u001611\nl  j       :\u0016?\n>>K      crossbow\nu jl   :\u0016?\n\u001bl k\u0016?\n\u001buj\u0016?\n\u001bjy\u0016?\n\u001bjl\u0016?\n\u001bb   j\u0016?\n\u001blh  \u0016?\n\u001bl    b\u001644\n#levelchange\n14\n  \u0017spellbook of identify\nrr        n  sm.      \u0017blessed spellbook of knock\nrs        20s        n  \u0017blessed spellbook of detect treasure\nrt      sm.     n     +\u001bZ\u001bFk         n Z\u001b\u0007hill orc\nZ\u001b\u0007giant rat\nZ\u001b#turn\n#pray\ny y              \u00165\n\u001611\n#chat\nn;n;sm.    20s      n\u0016?\n\u001by   j\u001617\n\u0014 nn\u0016?\n\u001bu    y\u0016?\n\u001bu  n  b   \u0016?\n\u001bh  n  u  \u0016?\n\u001bnk  \u00165\nhy    n\u0017wand of light\nEy \u0017wand of nothing\nE:l\u0017athame\nE:y       n \u0017wand of undead turning\nE\u0017wand of stasis\nE:E\u0007minotaur\n.l          .u      .m.    \u00169\n\u0016?\n\u001bn    n y\u0016?\n\u001bb     l   \u0016?\n\u001bl      nn       \u0016?\n\u001bj      y\u0016?\n\u001bh   n     j            n \u00165\n\u0016?\n\u001bnh          n\u0016?\n\u001bh \u001b      l\u0016?\n\u001buj\u001615\n\u0004u        n\u00164\nh   j:\u001611\n\u001715 shuriken\nQz\u0007lichen\nkfbfh      FbFh      n \u0017potion of water\n tzh      \u0007dwarf\nuh     yy\u001bny y y\u001b  f"
+  }
+ ]
+}

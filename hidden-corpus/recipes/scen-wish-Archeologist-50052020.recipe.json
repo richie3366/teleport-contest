@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed the Orb of Detection\n w-sssFu Fu\u0017uncursed the Candelabrum of Invocation\n\u0007Archon\nwaFkFk         Fk   Fk Fk\u0017scroll of stinking cloud\n\u0007shrieker\nrkFk  yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50052020,
+   "datetime": "20121103062810",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed the Orb of Detection\n w-sssFu Fu\u0017uncursed the Candelabrum of Invocation\n\u0007Archon\nwaFkFk         Fk   Fk Fk\u0017scroll of stinking cloud\n\u0007shrieker\nrkFk  yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

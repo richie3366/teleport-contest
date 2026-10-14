@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0016?\n>x\u0006_ \u001b>.\u001633\n\u0006_>.\u001639\nhkjbjh :sh20s.m.\u001633\n#chat\nl ;u.sm. sm.\u0016?\n>Dyhlh:20s20s\u001633\nbu:\u0016?\nn #levelchange\n8\n \u0017heavy iron ball\n \u0007energy vortex\nsuwann\u0017blessed +3 ring of regeneration\n\u0007leprechaun\nPnl  .  .bsnR   \u0017Magicbane\nwo      Fj   \u001b     Fk   n     Fj     XFjFk  \u0017blessed wand of locking\nzpk      n \u0017food ration\n \u0007kitten\nec   s .       sm. s  \u00167\n \u0016?\n>w\u0004j\u001626\n__.\u001633\njkl:\u0016?\n>>M      amulet of ESP\nhl   :\u001633\n\u0014m.  n   \u0016?\nc#levelchange\n6\n\u0017spellbook of charm monster\n rt   n sm.   n   \u0017blessed spellbook of chain lightning\nru      n     n   20s    n     n    \u0017blessed spellbook of healing\nrv  20s    \u0017blessed spellbook of turn undead\nrw s+ZZZZZ#turn\n#enhance\nn\u001b\u00165\n\u001633\n\u0014,    n        n         n  \u00168\n\u0016?\n\u001bn    n      n      n j  n      \u001639\n\u0017sack\n\u0007piranha\nax\u001bax\u001b#tip\nx\u001b  yy\u001bny y  y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50056015,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:mango\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0016?\n>x\u0006_ \u001b>.\u001633\n\u0006_>.\u001639\nhkjbjh :sh20s.m.\u001633\n#chat\nl ;u.sm. sm.\u0016?\n>Dyhlh:20s20s\u001633\nbu:\u0016?\nn #levelchange\n8\n \u0017heavy iron ball\n \u0007energy vortex\nsuwann\u0017blessed +3 ring of regeneration\n\u0007leprechaun\nPnl  .  .bsnR   \u0017Magicbane\nwo      Fj   \u001b     Fk   n     Fj     XFjFk  \u0017blessed wand of locking\nzpk      n \u0017food ration\n \u0007kitten\nec   s .       sm. s  \u00167\n \u0016?\n>w\u0004j\u001626\n__.\u001633\njkl:\u0016?\n>>M      amulet of ESP\nhl   :\u001633\n\u0014m.  n   \u0016?\nc#levelchange\n6\n\u0017spellbook of charm monster\n rt   n sm.   n   \u0017blessed spellbook of chain lightning\nru      n     n   20s    n     n    \u0017blessed spellbook of healing\nrv  20s    \u0017blessed spellbook of turn undead\nrw s+ZZZZZ#turn\n#enhance\nn\u001b\u00165\n\u001633\n\u0014,    n        n         n  \u00168\n\u0016?\n\u001bn    n      n      n j  n      \u001639\n\u0017sack\n\u0007piranha\nax\u001bax\u001b#tip\nx\u001b  yy\u001bny y  y\u001b  \u0017"
+  }
+ ]
+}

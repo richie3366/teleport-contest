@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed Mjollnir\nwi \u0017blessed amulet of reflection\nPj\u0016?\n>w\u0006_ \u001b,#chat\nk#pray\ny y \u00167\njjk \u0016?\n>w\u0006_oo.,\u0017worthless piece of red glass\ndkFnFn  FnFnFnFnkul#chat\ny_ooooooooo._o,Fn_.,:_ooooooo.,:Fn FnFnFnFnFn\u0016?\n>Bbuk\u0016?\n>w\u0006_oooo.,pjnb#chat\nh\u0016?\nchhk\u0016?\n>w\u0006_{,_..q_oooo.,#chat\nl_oooo.,:_{,_..q_oooo.,\u0014@.s.Fj FjFjFjFjFj_ooooo.Fl _.Fl,p_ooooooo,Fl _,.,p__.Fl _.<.Fl#chat\nlFlFlFlFl FlFl__._,Fl   n#chat\nl__.Fl _,m.#chat\nkhll#chat\nj\u0016?\nckkh\u0016?\n>w\u0006_{._..qjjj#chat\nl_{._.<.q_{,_.m.q__._.;,#chat\ny#pray\ny y  _oo.  _,,p\u00167\nhhl\u0016?\n>w\u0006_oooooo._ooo.,#chat\ny_oooooooo, Fk _.Fk  n ,$Fk FkFkFkFkFk_{._.;:   q_oooo._oo._.,\u001b\u0017cheap plastic imitation of the Amulet of Yendor\ndl_ooooooooo,,\u001b#"
+ },
+ "segments": [
+  {
+   "seed": 50050017,
+   "datetime": "20050211164623",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed Mjollnir\nwi \u0017blessed amulet of reflection\nPj\u0016?\n>w\u0006_ \u001b,#chat\nk#pray\ny y \u00167\njjk \u0016?\n>w\u0006_oo.,\u0017worthless piece of red glass\ndkFnFn  FnFnFnFnkul#chat\ny_ooooooooo._o,Fn_.,:_ooooooo.,:Fn FnFnFnFnFn\u0016?\n>Bbuk\u0016?\n>w\u0006_oooo.,pjnb#chat\nh\u0016?\nchhk\u0016?\n>w\u0006_{,_..q_oooo.,#chat\nl_oooo.,:_{,_..q_oooo.,\u0014@.s.Fj FjFjFjFjFj_ooooo.Fl _.Fl,p_ooooooo,Fl _,.,p__.Fl _.<.Fl#chat\nlFlFlFlFl FlFl__._,Fl   n#chat\nl__.Fl _,m.#chat\nkhll#chat\nj\u0016?\nckkh\u0016?\n>w\u0006_{._..qjjj#chat\nl_{._.<.q_{,_.m.q__._.;,#chat\ny#pray\ny y  _oo.  _,,p\u00167\nhhl\u0016?\n>w\u0006_oooooo._ooo.,#chat\ny_oooooooo, Fk _.Fk  n ,$Fk FkFkFkFkFk_{._.;:   q_oooo._oo._.,\u001b\u0017cheap plastic imitation of the Amulet of Yendor\ndl_ooooooooo,,\u001b#"
+  }
+ ]
+}

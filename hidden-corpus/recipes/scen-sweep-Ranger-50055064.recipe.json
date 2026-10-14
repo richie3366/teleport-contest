@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n30\n         \u00173 the Staff of Aesculapius\n wg Fl   20sFj #invoke\ng ss\u0017cursed Sting\n\u0007sewer rat\nwhFls.\u0017uncursed +0 oilskin cloak\n\u0007chickatrice\nW\u001b.m.20s20sT \u0017blessed loadstone\n\u0007owlbear\najcFn Fj   n \u0017cursed spellbook of finger of death\n rk            n nsu20s Z\u001720 elven arrows\n\u0007brown mold\nQgfl  f a j    f d 20s sm.\u001621\n\u0018\u001b\u00167\n\u0017cursed potion of sleeping\nqm.s\u0017cursed -1 helm of brilliance\nWns20s.ss\u00173 potion of speed\nqo #dip\noo\u0017blessed potion of restore ability\n\u0007wood nymph\nqp \u001b20s .#levelchange\n30\n\u00174 cream pies\nQd\u0007troll\nkfffffsFj \u00073 sewer rat\nkhffFn Fukl n,#enhance\nyd\no\n\u001b\u0017locked large box\n\u0017chest\n\u0017potion of confusion\nararardr   u\u0004bak    n   ajt    \u0006\u001710 daggers\n Qu\u0007jackal\nnfy fy Fh   nFb \u0007acid blob\nkfhfh fh \u00074 dwarf\nnfh  fh fhFk Fk   n \u0017potion of gain energy\n tuh    \u001b bu j,#enhance\nn\u001b\u00168\n#levelchange\n12\n     \u0017Orcrist\nwwFn   n   Fn FnX\u0007captain\nFl   n Fl   Fl   n    Fn    n  Fn     n Fl   \u0007mail daemon\n#chat\nlFl   n   Fl    n  \u0007scorpion\nFn     n Fl    Fu    n        yy\u001by   y y y\u001by  #"
+ },
+ "segments": [
+  {
+   "seed": 50055064,
+   "datetime": "20240207001647",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n30\n         \u00173 the Staff of Aesculapius\n wg Fl   20sFj #invoke\ng ss\u0017cursed Sting\n\u0007sewer rat\nwhFls.\u0017uncursed +0 oilskin cloak\n\u0007chickatrice\nW\u001b.m.20s20sT \u0017blessed loadstone\n\u0007owlbear\najcFn Fj   n \u0017cursed spellbook of finger of death\n rk            n nsu20s Z\u001720 elven arrows\n\u0007brown mold\nQgfl  f a j    f d 20s sm.\u001621\n\u0018\u001b\u00167\n\u0017cursed potion of sleeping\nqm.s\u0017cursed -1 helm of brilliance\nWns20s.ss\u00173 potion of speed\nqo #dip\noo\u0017blessed potion of restore ability\n\u0007wood nymph\nqp \u001b20s .#levelchange\n30\n\u00174 cream pies\nQd\u0007troll\nkfffffsFj \u00073 sewer rat\nkhffFn Fukl n,#enhance\nyd\no\n\u001b\u0017locked large box\n\u0017chest\n\u0017potion of confusion\nararardr   u\u0004bak    n   ajt    \u0006\u001710 daggers\n Qu\u0007jackal\nnfy fy Fh   nFb \u0007acid blob\nkfhfh fh \u00074 dwarf\nnfh  fh fhFk Fk   n \u0017potion of gain energy\n tuh    \u001b bu j,#enhance\nn\u001b\u00168\n#levelchange\n12\n     \u0017Orcrist\nwwFn   n   Fn FnX\u0007captain\nFl   n Fl   Fl   n    Fn    n  Fn     n Fl   \u0007mail daemon\n#chat\nlFl   n   Fl    n  \u0007scorpion\nFn     n Fl    Fu    n        yy\u001by   y y y\u001by  #"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPg\u0017blessed +3 speed boots\nWh  \u0017blessed shield of reflection\nW\u001b#levelchange\n14\n             \u0007aligned cleric\ny\u0007master mind flayer\n\u0007master mind flayer\n\u0017wand of magic missile\n.m..lzjb          .m.       n   sh   n    sm.     n  sk zjk        20s   n      n      sm.    n    n      \u001612\n\u0017blessed spellbook of light\nrk s   \u0007lich\nZa\n  Za\n Za\n Za\nZa\n  sm.sm.#turn\n\u0017blessed spellbook of drain life\nrl   .m.  \u0007master lich\nZa\nZa\n        Za\n  n    Za\n     sy .m.      Zsm.s#turn\n\u001720 darts\nQm\u0007grid bug\n\u0007acid blob\ntmn      fu        fn      tbu     fnfy       tmu i\u001b\u0017wand of death\n\u0017wand of magic missile\n\u0007giant rat\nzoy   n   zol      sm.      zok   \u001b.    sm.zol       n znk       \u001b    zob     \u00168\n\u0017wand of slow monster\n\u0017wand of teleportation\n\u0017wand of lightning\n\u0007newt\n\u0007jackal\nzqhzplzrlzquzruzquzr.       nzrj szrl\u00166\n\u0017wand of polymorph\n\u0017wand of teleportatio"
+ },
+ "segments": [
+  {
+   "seed": 50050010,
+   "datetime": "20211214233543",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPg\u0017blessed +3 speed boots\nWh  \u0017blessed shield of reflection\nW\u001b#levelchange\n14\n             \u0007aligned cleric\ny\u0007master mind flayer\n\u0007master mind flayer\n\u0017wand of magic missile\n.m..lzjb          .m.       n   sh   n    sm.     n  sk zjk        20s   n      n      sm.    n    n      \u001612\n\u0017blessed spellbook of light\nrk s   \u0007lich\nZa\n  Za\n Za\n Za\nZa\n  sm.sm.#turn\n\u0017blessed spellbook of drain life\nrl   .m.  \u0007master lich\nZa\nZa\n        Za\n  n    Za\n     sy .m.      Zsm.s#turn\n\u001720 darts\nQm\u0007grid bug\n\u0007acid blob\ntmn      fu        fn      tbu     fnfy       tmu i\u001b\u0017wand of death\n\u0017wand of magic missile\n\u0007giant rat\nzoy   n   zol      sm.      zok   \u001b.    sm.zol       n znk       \u001b    zob     \u00168\n\u0017wand of slow monster\n\u0017wand of teleportation\n\u0017wand of lightning\n\u0007newt\n\u0007jackal\nzqhzplzrlzquzruzquzr.       nzrj szrl\u00166\n\u0017wand of polymorph\n\u0017wand of teleportatio"
+  }
+ ]
+}

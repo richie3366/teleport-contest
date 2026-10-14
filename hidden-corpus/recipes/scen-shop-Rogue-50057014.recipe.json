@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed amulet of reflection\nPg\u0017blessed +3 helm of telepathy\nWh\u0016?\n>w\u0006_ \u001b,,\u0014>.20s sm.\u00167\nyny\u0016?\n>w\u0006_oo._ooo.,p:_oooooooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndiujk#chat\nu_oo._o._,,#chat\nknhy#chat\nl_{._,qy_ooooo.,p_oooooooo,,p_ooooo.,p_oooooooo,_ooo.,p_{,_.;m.qd_{._,Fl q_ooooooooo,_o.,p_ooooooooo.,$Fl Fl  Fl   Fl  n Fl Fl  FyFyFyFyFyFyFyFyFyFyFyFyFuFuFuFuFuFu_oooooooo.,\u0017amulet of strangulation\ndj\u0016?\n>Bkjk\u0016?\n>w\u0006_oooooo.,p;lkj#chat\nb__,Fh_. Fh #chat\nh  Fh Fh Fh Fh Fh  Fh \u0016?\n>Bbhu\u0016?\n>w\u0006ubj#chat\nk_ooo._.,p_oooo.,p_oo,_oo.,p\u0016?\n>Bjnh\u0016?\n>w \u0006_oooooo.Fb _.,  p\u001b\u0016?\n>B   l  nuj  n\u0016?\n>w\u0006\u00166\n_oo.Fn   n_. Fj  n    n  n  n,  n#chat\nj   n  n  n\u0016?\ncj  n  nj  nu\u0016?\n>w\u0006_oo.  nFb  n _.  nFb  y y\u001by  y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50057014,
+   "datetime": "20240719210951",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed amulet of reflection\nPg\u0017blessed +3 helm of telepathy\nWh\u0016?\n>w\u0006_ \u001b,,\u0014>.20s sm.\u00167\nyny\u0016?\n>w\u0006_oo._ooo.,p:_oooooooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndiujk#chat\nu_oo._o._,,#chat\nknhy#chat\nl_{._,qy_ooooo.,p_oooooooo,,p_ooooo.,p_oooooooo,_ooo.,p_{,_.;m.qd_{._,Fl q_ooooooooo,_o.,p_ooooooooo.,$Fl Fl  Fl   Fl  n Fl Fl  FyFyFyFyFyFyFyFyFyFyFyFyFuFuFuFuFuFu_oooooooo.,\u0017amulet of strangulation\ndj\u0016?\n>Bkjk\u0016?\n>w\u0006_oooooo.,p;lkj#chat\nb__,Fh_. Fh #chat\nh  Fh Fh Fh Fh Fh  Fh \u0016?\n>Bbhu\u0016?\n>w\u0006ubj#chat\nk_ooo._.,p_oooo.,p_oo,_oo.,p\u0016?\n>Bjnh\u0016?\n>w \u0006_oooooo.Fb _.,  p\u001b\u0016?\n>B   l  nuj  n\u0016?\n>w\u0006\u00166\n_oo.Fn   n_. Fj  n    n  n  n,  n#chat\nj   n  n  n\u0016?\ncj  n  nj  nu\u0016?\n>w\u0006_oo.  nFb  n _.  nFb  y y\u001by  y y y\u001by  _"
+  }
+ ]
+}

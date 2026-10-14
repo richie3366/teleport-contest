@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed Mjollnir\n wg  n  \u0016?\n>w\u0006_ \u001b<.  _o.,\u0017ruby\ndhFjFjFjFj  FjFj_oo.,$_ooo._,,a\n p_{.  _.  Fh q_ooooooooo,Fh_.Fb ,p_ooooooo,Fh _.Fh   ,p_ooooooooo.Fb _.:,#chat\nh_ooooooo.,:_oooo,,:_ooooooooo,_ooo,,#chat\ny_oooooooo.,\u0014:20s20s_oo.,p_{,Fh _.Fh  qj_{._.:Fh q_ooo,_.,p_{,Fh _, Fbq_ooooooo.Fh _,: _oo.,a\n\u0017touchstone\ndm_ooooooo._.,a\np:_oooooo.,a\n #chat\nn__.Fl _,Fl #chat\nl#pray\ny y __.Fy  _.  n Fy    n#chat\ny      n\u00168\n_ooo.,pFh     n Fh     n FhFh    nFh  Fh\u00163\n_ooooooo.     nFn  _. Fl   n   _oo,,p\u00164\nFj    nFjFj  Fj   n Fj  Fj   n \u00163\n_ooooooo.Fu    n_.m,Fk   ,#chat\nk     n \u00164\n_{.q_ooo.    n  Fk    yy\u001by  y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50057051,
+   "datetime": "20170104101145",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=mention_walls\nOPTIONS=runmode:crawl\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed Mjollnir\n wg  n  \u0016?\n>w\u0006_ \u001b<.  _o.,\u0017ruby\ndhFjFjFjFj  FjFj_oo.,$_ooo._,,a\n p_{.  _.  Fh q_ooooooooo,Fh_.Fb ,p_ooooooo,Fh _.Fh   ,p_ooooooooo.Fb _.:,#chat\nh_ooooooo.,:_oooo,,:_ooooooooo,_ooo,,#chat\ny_oooooooo.,\u0014:20s20s_oo.,p_{,Fh _.Fh  qj_{._.:Fh q_ooo,_.,p_{,Fh _, Fbq_ooooooo.Fh _,: _oo.,a\n\u0017touchstone\ndm_ooooooo._.,a\np:_oooooo.,a\n #chat\nn__.Fl _,Fl #chat\nl#pray\ny y __.Fy  _.  n Fy    n#chat\ny      n\u00168\n_ooo.,pFh     n Fh     n FhFh    nFh  Fh\u00163\n_ooooooo.     nFn  _. Fl   n   _oo,,p\u00164\nFj    nFjFj  Fj   n Fj  Fj   n \u00163\n_ooooooo.Fu    n_.m,Fk   ,#chat\nk     n \u00164\n_{.q_ooo.    n  Fk    yy\u001by  y y y\u001by  _"
+  }
+ ]
+}

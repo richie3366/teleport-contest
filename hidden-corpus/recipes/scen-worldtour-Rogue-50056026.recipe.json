@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\n>E#levelchange\n20\n\u0017Orcrist\nwi FkFk  20sX\u0007wraith\n;l, \u001b.sm.sm. sm. \u0007baby purple worm\nFy   n Fn  Fn Fy Fl \u0007lichen\nsm.   n sm. 20s sm.   n.m.  sm. .m.   n sh\u0007black dragon\nFk Fl  Fy Fu     Fj  n    .u   20s  n    \u00163\n\u00165\n uky kyuyy:\u00165\n#chat\nh;h,20ssm.\u00161\n__.\u0016?\n>>P  ykhbu  nlj:.l20s\u0016?\n>>N       tallow candle\n_<.\u0016?\na  #chat\nb;u,.m..j     \u001bsn\u001644\nk   ln   y  n :\u0016?\nc \u0006_>.\u0016?\n\u001bbu     \u0016?\n\u001bjk  n    \u0016?\n\u001bj  b \u0016?\n\u001bj    n   b   \u00163\n\u0004k      \u0016?\n\u001bl  n      n  n        n       \u001612\n\u0016?\n\u001bn       n    n  b\u0016?\nck l b n u  n       n    yy\u001by  y y n  h"
+ },
+ "segments": [
+  {
+   "seed": 50056026,
+   "datetime": "20080325125335",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0016?\n>E#levelchange\n20\n\u0017Orcrist\nwi FkFk  20sX\u0007wraith\n;l, \u001b.sm.sm. sm. \u0007baby purple worm\nFy   n Fn  Fn Fy Fl \u0007lichen\nsm.   n sm. 20s sm.   n.m.  sm. .m.   n sh\u0007black dragon\nFk Fl  Fy Fu     Fj  n    .u   20s  n    \u00163\n\u00165\n uky kyuyy:\u00165\n#chat\nh;h,20ssm.\u00161\n__.\u0016?\n>>P  ykhbu  nlj:.l20s\u0016?\n>>N       tallow candle\n_<.\u0016?\na  #chat\nb;u,.m..j     \u001bsn\u001644\nk   ln   y  n :\u0016?\nc \u0006_>.\u0016?\n\u001bbu     \u0016?\n\u001bjk  n    \u0016?\n\u001bj  b \u0016?\n\u001bj    n   b   \u00163\n\u0004k      \u0016?\n\u001bl  n      n  n        n       \u001612\n\u0016?\n\u001bn       n    n  b\u0016?\nck l b n u  n       n    yy\u001by  y y n  h"
+  }
+ ]
+}

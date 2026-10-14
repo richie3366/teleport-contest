@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "unyu\u0017lawful altar\ndfda\u0017lichen corpse\n#offer\ng  : nh\u0017grave\n: \u0017pick-axe\nah >  .m.sjj\u0017iron bars\nlb\u0017tree\n#rub\n;b. \u001b:  __, smO>g\u001b\n_>,.ahy<#twoweapon\n\u0006_>.Fj_.>.Fu >FjFk_>.>FbFj_>.>FjFl FuFbFy\u0006_>,Fy _,Fh>Fy Fb_>,Fh_.,Fn>Fk FhFj\u0006_>,Fl _.Fu >Fl Fh_>.Fy_. Fh >Fy  n Fj _>. Fn   n _. Fh >Fb   nFk Fl Fl   nFy \u0006_>. Fh _,  n Fy >Fl Fk _>.  n Fh _, Fl >Fu  n Fl _>. Fk  n_. Fy>Fl   nFl Fy Fu  n Fu ,E- ad aerarium\n  n \u00162\nO>>>>l\u001b\n\u001617\ne#pray\ny y   \u0018\u001bFkFks\u0018\u001b>_>.>uul100subn100suul100s50s100sFlFlFlFlFlFlFlFlFn  nFlFnFlFnFnFnFnFn20sljbnnu100se50s100s_>,>100s150sFhFhFhFhFh  nFhFhFhFh  nFhFhFhFh  nFhFhFh  yy\u001by  y y y\u001b y  F"
+ },
+ "segments": [
+  {
+   "seed": 50059072,
+   "datetime": "20230326185202",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "unyu\u0017lawful altar\ndfda\u0017lichen corpse\n#offer\ng  : nh\u0017grave\n: \u0017pick-axe\nah >  .m.sjj\u0017iron bars\nlb\u0017tree\n#rub\n;b. \u001b:  __, smO>g\u001b\n_>,.ahy<#twoweapon\n\u0006_>.Fj_.>.Fu >FjFk_>.>FbFj_>.>FjFl FuFbFy\u0006_>,Fy _,Fh>Fy Fb_>,Fh_.,Fn>Fk FhFj\u0006_>,Fl _.Fu >Fl Fh_>.Fy_. Fh >Fy  n Fj _>. Fn   n _. Fh >Fb   nFk Fl Fl   nFy \u0006_>. Fh _,  n Fy >Fl Fk _>.  n Fh _, Fl >Fu  n Fl _>. Fk  n_. Fy>Fl   nFl Fy Fu  n Fu ,E- ad aerarium\n  n \u00162\nO>>>>l\u001b\n\u001617\ne#pray\ny y   \u0018\u001bFkFks\u0018\u001b>_>.>uul100subn100suul100s50s100sFlFlFlFlFlFlFlFlFn  nFlFnFlFnFnFnFnFn20sljbnnu100se50s100s_>,>100s150sFhFhFhFhFh  nFhFhFhFh  nFhFhFhFh  nFhFhFh  yy\u001by  y y y\u001b y  F"
+  }
+ ]
+}

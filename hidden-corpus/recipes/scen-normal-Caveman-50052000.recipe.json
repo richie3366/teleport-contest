@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " ai\u001b#conduct\n a;j, \u001b@.#wipe\ns#pray\ny  tbj#monster\n#terrain\nc\n@.#ride\nj#wipe\n#monster\nw-dd#enhance\n\u001bP\u000f\u001b>qdc#untrap\njtaj,b\ni\u001bW20ssst\u001b_m,20s#offer\nE- ad aerarium\n#turn\n#force\n#enhance\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 50052000,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\n",
+   "moves": " ai\u001b#conduct\n a;j, \u001b@.#wipe\ns#pray\ny  tbj#monster\n#terrain\nc\n@.#ride\nj#wipe\n#monster\nw-dd#enhance\n\u001bP\u000f\u001b>qdc#untrap\njtaj,b\ni\u001bW20ssst\u001b_m,20s#offer\nE- ad aerarium\n#turn\n#force\n#enhance\n\u001b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  FyFyFy 150suuu\u0018\u001b100shkjFkFkFkFkFkFlFlFlFlFkFlFkFkFlFlFkFlFkFlFlFkFkFkFlFkFkFkFlFkFlFkFlFlFlFkFlFkFkFkFkFkFkFkFkFlFkFlFkFlFlFkFlFlFlFkFlFlFkFkFkFlFkFlFlFlFkFlFkFlFkFlFlFlFlFkFlFlFkFkFkFkFkFlFlFlFkFkFkFlFkFkFlFkFkFlFkFkFlFlFkFkFlv i\u001b\u001613\n  O>b\u001b\n100snlu100sFyFy  n FyFyFy.100skhuFuFuFuFuFuFuFu20s20s\u0018\u001b150sjnji\u001b50s\\    kybuyl100s150s150s#pray\ny y uhlknb\\    100s100s\\    50skyyi\u001b100s   Fls.\\    50s    FnFnFnFnFnFnFnFnFnFnFnFnFnFnFnmO>w\u001b\n\u0006_ \u001b,>_>.Fl   _.   n   Fn  >Fl    n Fn   n _>.   n Fj   n  _.  n  Fn   n  >Fl   n Fn   n Fn Fj  n  Fj   n \u0018\u001bq\u0006_>.   n Fl _.  n Fj  >   n  Fh    y \u001b     F"
+ },
+ "segments": [
+  {
+   "seed": 50059075,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nMENUCOLOR=\"cursed\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  FyFyFy 150suuu\u0018\u001b100shkjFkFkFkFkFkFlFlFlFlFkFlFkFkFlFlFkFlFkFlFlFkFkFkFlFkFkFkFlFkFlFkFlFlFlFkFlFkFkFkFkFkFkFkFkFlFkFlFkFlFlFkFlFlFlFkFlFlFkFkFkFlFkFlFlFlFkFlFkFlFkFlFlFlFlFkFlFlFkFkFkFkFkFlFlFlFkFkFkFlFkFkFlFkFkFlFkFkFlFlFkFkFlv i\u001b\u001613\n  O>b\u001b\n100snlu100sFyFy  n FyFyFy.100skhuFuFuFuFuFuFuFu20s20s\u0018\u001b150sjnji\u001b50s\\    kybuyl100s150s150s#pray\ny y uhlknb\\    100s100s\\    50skyyi\u001b100s   Fls.\\    50s    FnFnFnFnFnFnFnFnFnFnFnFnFnFnFnmO>w\u001b\n\u0006_ \u001b,>_>.Fl   _.   n   Fn  >Fl    n Fn   n _>.   n Fj   n  _.  n  Fn   n  >Fl   n Fn   n Fn Fj  n  Fj   n \u0018\u001bq\u0006_>.   n Fl _.  n Fj  >   n  Fh    y \u001b     F"
+  }
+ ]
+}

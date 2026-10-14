@@ -1,0 +1,77 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "FkFkFkFkFkFkFkFkhubuBHBU_ \u001b;>FkFjFy       \u000f\u001b,UBBL_>.>s#rub\ng\u001bHHNB_>,>Fh .Fh uuhl hkjk50s  #jump\n100s       150s  FjFj  sFnFn.Fj  Fl#quit\nyy\u001by  y y y\u001b  FuFu .50s150s_ \u001b.>50sFkFk20s100sFkFkFkjlh150s50s50s50s150sFlFls100s50s100sFkFkFkFkFkFkFkFkFk#pray\ny \u0018\u001b100shhl\\ 150sF#quit\ngK  KYK_ \u001b@.>FjFjFj WjYYUY_>.>#invoke\n\u001bL<YUBU_>.>HUHY_>.>KBKB_>.>nbnh#name\nm\nd.ssm.#chat\njlkkbtalku20shnkhnhub_>,>#tip\n\u001b100sFjFjFjFj#quit\nyy\u001by  y y y\u001b  t\u001bdhss20s#chat\nh#name\nm\n .20s #name\nd\n#name\no\nFh FhFhFhFhFhFhFh100sy150sFl20ss100s\u0018\u001b150s   100s 50sFlFls100s 100sFl20s.100s100s  #quit\nyy\u001by  y y y\u001b   \u0007nurse\nFnFn Fj FlFk  nFk  nFn  nFnFnFnFnFn  nFnFnFnFnFu   yy\u001by  y y y\u001by  FlullhhllJJBL_ \u001b,>HKJL_>,>FlFlFlJLKY_>.>FlssHLJB_>.>;m.lkuFjFjs100sslny100si\u001b#quit\nyy\u001by  y y y\u001b    Fy FnFn#pray\ny #pray\ny  y\u001by  y y y\u001b  _ llny100sljy100sFnFnFn100shllFjFjs50s100s100sFjFj.hhb150s100s Fus20s150sz100subyFlFlFl50s\u0004u100s100s100s150seeeeeeeeeeeeee20s#name\na\ntbknhhhynynhhhllut\u001b\u001bjyt\u001b\u001b20sblkln#quit\nyy\u001by  y y y\u001b  #wizintrinsic\nb\n sm.ss20s  .lslss.h sm..m.sm..m..h20s   yny  y y ny  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50050056,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:mango\n",
+   "moves": "FkFkFkFkFkFkFkFkhubuBHBU_ \u001b;>FkFjFy       \u000f\u001b,UBBL_>.>s#rub\ng\u001bHHNB_>,>Fh .Fh uuhl hkjk50s  #jump\n100s       150s  FjFj  sFnFn.Fj  Fl#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50150056,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=autodig\n",
+   "moves": " FuFu .50s150s_ \u001b.>50sFkFk20s100sFkFkFkjlh150s50s50s50s150sFlFls100s50s100sFkFkFkFkFkFkFkFkFk#pray\ny \u0018\u001b100shhl\\ 150sF#quit\ng"
+  },
+  {
+   "seed": 50250056,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\n",
+   "moves": "K  KYK_ \u001b@.>FjFjFj WjYYUY_>.>#invoke\n\u001bL<YUBU_>.>HUHY_>.>KBKB_>.>nbnh#name\nm\nd.ssm.#chat\njlkkbtalku20shnkhnhub_>,>#tip\n\u001b100sFjFjFjFj#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50350056,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\n",
+   "moves": " t\u001bdhss20s#chat\nh#name\nm\n .20s #name\nd\n#name\no\nFh FhFhFhFhFhFhFh100sy150sFl20ss100s\u0018\u001b150s   100s 50sFlFls100s 100sFl20s.100s100s  #quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50450056,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007nurse\nFnFn Fj FlFk  nFk  nFn  nFnFnFnFnFn  nFnFnFnFnFu   yy\u001by  y y y\u001by  F"
+  },
+  {
+   "seed": 50550056,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=sortloot:none\nOPTIONS=pettype:none\n",
+   "moves": "lullhhllJJBL_ \u001b,>HKJL_>,>FlFlFlJLKY_>.>FlssHLJB_>.>;m.lkuFjFjs100sslny100si\u001b#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50650056,
+   "datetime": "20150830200048",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=fruit:slime mold\n",
+   "moves": "   Fy FnFn#pray\ny #pray\ny  y\u001by  y y y\u001b  _"
+  },
+  {
+   "seed": 50750056,
+   "datetime": "20060809094426",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=pettype:none\n",
+   "moves": " llny100sljy100sFnFnFn100shllFjFjs50s100s100sFjFj.hhb150s100s Fus20s150sz100subyFlFlFl50s\u0004u100s100s100s150seeeeeeeeeeeeee20s#name\na\ntbknhhhynynhhhllut\u001b\u001bjyt\u001b\u001b20sblkln#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50850056,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nb\n sm.ss20s  .lslss.h sm..m.sm..m..h20s   yny  y y ny  s"
+  }
+ ]
+}

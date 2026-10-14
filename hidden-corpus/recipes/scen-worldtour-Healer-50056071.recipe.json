@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed Mjollnir\nwl\u0017blessed +3 helm of telepathy\nWm\u0016?\n>>K      lenses\n\u0004y\u0016?\n\u001bu l   \u0016?\n\u001bnn\u001614\ny      n  j  b  j        n   b   :\u00169\n\u00168\n\u0014 \u001b,   \u00168\nl  y   n            j   n                :\u00165\n\u0016?\n\u001bl  b  \u0016?\nb#chat\n;k:  20s  20s   n       \u001614\n#chat\nj      n  ;j,\u001626\n\u0007warg\nFk Fj  Fj     Fn            n      \u0007cockatrice\nFb                n   Fu            n     Fl          sm.   n        n sm.         n \u00166\n\u001631\n__.>.hshsm.        \u0016?\n\u001byh\u001614\nkk:\u001632\n\u0017spellbook of levitation\nrp      n     20s     n      \u0017blessed spellbook of haste self\nrq     20s   n            yy\u001by   y y y\u001b   \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50056071,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed Mjollnir\nwl\u0017blessed +3 helm of telepathy\nWm\u0016?\n>>K      lenses\n\u0004y\u0016?\n\u001bu l   \u0016?\n\u001bnn\u001614\ny      n  j  b  j        n   b   :\u00169\n\u00168\n\u0014 \u001b,   \u00168\nl  y   n            j   n                :\u00165\n\u0016?\n\u001bl  b  \u0016?\nb#chat\n;k:  20s  20s   n       \u001614\n#chat\nj      n  ;j,\u001626\n\u0007warg\nFk Fj  Fj     Fn            n      \u0007cockatrice\nFb                n   Fu            n     Fl          sm.   n        n sm.         n \u00166\n\u001631\n__.>.hshsm.        \u0016?\n\u001byh\u001614\nkk:\u001632\n\u0017spellbook of levitation\nrp      n     20s     n      \u0017blessed spellbook of haste self\nrq     20s   n            yy\u001by   y y y\u001b   \u0017"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0017gauntlets of fumbling\nWgsss\u0007fire vortex\nsj20s .s\u001b20s \u0007captain\n#chat\nFkFj \u0007Archon\nFyFy   \u001bFl     \u0007titanothere\nFyFk  n    Fy Fk  n Fu   n \u00164\n#levelchange\n20\n        \u0017helm of telepathy\n\u0007gnomish wizard\n;m, \u001b@.. .m.    20s   n \u0007homunculus\n;b;20s    s     n.   \u00163\n\u0017speed boots\n\u0007aligned cleric\nyy;u;.  n   sm.  n     20s      n \u0007mumak\nFj      Fu  n   Fj  n    Fu  n        Fu   n  Fy   n \u0007rock piercer\n;k:  sm.       n  .   n 20s    yy\u001bny y y\u001by  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 50055017,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0017gauntlets of fumbling\nWgsss\u0007fire vortex\nsj20s .s\u001b20s \u0007captain\n#chat\nFkFj \u0007Archon\nFyFy   \u001bFl     \u0007titanothere\nFyFk  n    Fy Fk  n Fu   n \u00164\n#levelchange\n20\n        \u0017helm of telepathy\n\u0007gnomish wizard\n;m, \u001b@.. .m.    20s   n \u0007homunculus\n;b;20s    s     n.   \u00163\n\u0017speed boots\n\u0007aligned cleric\nyy;u;.  n   sm.  n     20s      n \u0007mumak\nFj      Fu  n   Fj  n    Fu  n        Fu   n  Fy   n \u0007rock piercer\n;k:  sm.       n  .   n 20s    yy\u001bny y y\u001by  \u0007"
+  }
+ ]
+}

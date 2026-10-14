@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n            \u0017blessed ring of free action\nPol\u0017blessed +3 gray dragon scale mail\nW\u001b\u00163\n\u0006_ \u001b<.\u0016?\ng _>.>\u0016?\n>>L       the Master Key of Thievery\n bn  u   l n j j  n       :\u0016?\n\u001bh    y \u00163\n__.\u00167\n_<,.s s \u001640\n\u0004y \u001640\n\u0006@._>.\u001639\n#levelchange\n14\n\u0017blessed spellbook of clairvoyance\nrs  .n   \u0017spellbook of stone to flesh\nrt  n  20s    +\u001bZa\nj Zb\nkFj       n  Z\u001b\u0007gnome\nZ\u001bZ\u001b20s            \u00162\n\u0016?\n\u001bn      j  n           \u00167\nn     nnbbb:.m.sm.     s \u001640\njk  n          nnl      nb:\u0016?\n\u001bh       h        n \u0016?\n\u001bh   j\u00163\n#levelchange\n12\n\u0007wood nymph\n#chat\nhFu  n    Fy     n         \u0007disenchanter\nFh   n    Fl      Fk \u00161\n\u00163\nb  bnjl  n  u        n   :sm.    20s   n    .j\u00161\n\u0016?\n\u001by        n   u       n     \u00167\n\u00169\n\u0014,     \u0016?\n\u001by   n   u      y\u001b      \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50056051,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n            \u0017blessed ring of free action\nPol\u0017blessed +3 gray dragon scale mail\nW\u001b\u00163\n\u0006_ \u001b<.\u0016?\ng _>.>\u0016?\n>>L       the Master Key of Thievery\n bn  u   l n j j  n       :\u0016?\n\u001bh    y \u00163\n__.\u00167\n_<,.s s \u001640\n\u0004y \u001640\n\u0006@._>.\u001639\n#levelchange\n14\n\u0017blessed spellbook of clairvoyance\nrs  .n   \u0017spellbook of stone to flesh\nrt  n  20s    +\u001bZa\nj Zb\nkFj       n  Z\u001b\u0007gnome\nZ\u001bZ\u001b20s            \u00162\n\u0016?\n\u001bn      j  n           \u00167\nn     nnbbb:.m.sm.     s \u001640\njk  n          nnl      nb:\u0016?\n\u001bh       h        n \u0016?\n\u001bh   j\u00163\n#levelchange\n12\n\u0007wood nymph\n#chat\nhFu  n    Fy     n         \u0007disenchanter\nFh   n    Fl      Fk \u00161\n\u00163\nb  bnjl  n  u        n   :sm.    20s   n    .j\u00161\n\u0016?\n\u001by        n   u       n     \u00167\n\u00169\n\u0014,     \u0016?\n\u001by   n   u      y\u001b      \u0016"
+  }
+ ]
+}

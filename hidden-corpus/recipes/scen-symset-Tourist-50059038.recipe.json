@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0007tame dingo\n\u0007horse\n\u0017tripe ration\n tal#name\nm\n ;\u0017meatball\nt$h#name\nf\n\u0017\u0007lichen\n\u0017scroll of taming\nrm  \u0017magic whistle\nh l l  an     \u0017apple\ntau di20sss\u0007tame lichen\nn\u0006_>. Fn_.Fn>FjFy_>. Fk_,   Fj> \u0017tripe ration\n tau\u0007sewer rat\n\u0017scroll of taming\nrp b \u0017tin whistle\nbuj aq \u0017huge chunk of meat\ntaj \u0007acid blob\n\u0017scroll of taming\nrs mO>>e\u001b\nO>>e\u001b\nku lk\u0017throne\n#sit\n#sit\n#sit\nyy\u0017lawful altar\ndj da\u0017floating eye corpse\n#offer\nt  #pray\ny y : b\u0017ice\nkz:v i\u001bFyFu FkFyFhFyFkFyFbFjFuFyFnFyFkFy  FhFlFuFnFlFhFjFl  FkFbFjFbFhFyFkFjFbFbFkFbFnFjFhFhFbFlFbFjFbFbFyFk FhFnFnFjFnFuFnFjFu FyFyFnFyFj FlFkFbFjFjFbFjFbF"
+ },
+ "segments": [
+  {
+   "seed": 50059038,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007tame dingo\n\u0007horse\n\u0017tripe ration\n tal#name\nm\n ;\u0017meatball\nt$h#name\nf\n\u0017\u0007lichen\n\u0017scroll of taming\nrm  \u0017magic whistle\nh l l  an     \u0017apple\ntau di20sss\u0007tame lichen\nn\u0006_>. Fn_.Fn>FjFy_>. Fk_,   Fj> \u0017tripe ration\n tau\u0007sewer rat\n\u0017scroll of taming\nrp b \u0017tin whistle\nbuj aq \u0017huge chunk of meat\ntaj \u0007acid blob\n\u0017scroll of taming\nrs mO>>e\u001b\nO>>e\u001b\nku lk\u0017throne\n#sit\n#sit\n#sit\nyy\u0017lawful altar\ndj da\u0017floating eye corpse\n#offer\nt  #pray\ny y : b\u0017ice\nkz:v i\u001bFyFu FkFyFhFyFkFyFbFjFuFyFnFyFkFy  FhFlFuFnFlFhFjFl  FkFbFjFbFhFyFkFjFbFbFkFbFnFjFhFhFbFlFbFjFbFbFyFk FhFnFnFjFnFuFnFjFu FyFyFnFyFj FlFkFbFjFjFbFjFbF"
+  }
+ ]
+}

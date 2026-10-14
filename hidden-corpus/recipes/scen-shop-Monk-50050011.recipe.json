@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 speed boots\nWl \u0016?\n>w\u0006_ \u001b,,\u0014;20s s_oooooo.,p_{,_.:qy __.Fu_.#chat\nu#pray\ny y   _oooooo.,pFk Fk FkFk FkFk\u00163\nnhl\u0016?\n>w\u0006_ooo._._oo.,p_oooooooo,_o.,p_oooooooo,,phlh#chat\nl_{.Fl_,,Flqd_oooo.,p_{.Fl_.FlqdFuFu Fu FuFuFu_oooooooo,,p_{._.qy y_oooo._o.,p_ooo.,p_ooo,_ooo,,#chat\nj_oooooo._oo.,#chat\nk_ooooo,,p_oooooooo,,p\u0016?\ncllu\u0016?\n>w\u0006_ooo.,#chat\nn_ooooooo.,$_oooooo,_ooo,,$_{.Fh _.Fh qd_oo._o.,$Fh FhFh FhFhFh_ooo._,,\u001bp__. Fb_.Fk#chat\nk  #pray\ny y     _ooooooo.  Fh_.Fh,pFh   n Fh   Fh   n Fh     nFh    Fh"
+ },
+ "segments": [
+  {
+   "seed": 50050011,
+   "datetime": "20150530090223",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 speed boots\nWl \u0016?\n>w\u0006_ \u001b,,\u0014;20s s_oooooo.,p_{,_.:qy __.Fu_.#chat\nu#pray\ny y   _oooooo.,pFk Fk FkFk FkFk\u00163\nnhl\u0016?\n>w\u0006_ooo._._oo.,p_oooooooo,_o.,p_oooooooo,,phlh#chat\nl_{.Fl_,,Flqd_oooo.,p_{.Fl_.FlqdFuFu Fu FuFuFu_oooooooo,,p_{._.qy y_oooo._o.,p_ooo.,p_ooo,_ooo,,#chat\nj_oooooo._oo.,#chat\nk_ooooo,,p_oooooooo,,p\u0016?\ncllu\u0016?\n>w\u0006_ooo.,#chat\nn_ooooooo.,$_oooooo,_ooo,,$_{.Fh _.Fh qd_oo._o.,$Fh FhFh FhFhFh_ooo._,,\u001bp__. Fb_.Fk#chat\nk  #pray\ny y     _ooooooo.  Fh_.Fh,pFh   n Fh   Fh   n Fh     nFh    Fh"
+  }
+ ]
+}

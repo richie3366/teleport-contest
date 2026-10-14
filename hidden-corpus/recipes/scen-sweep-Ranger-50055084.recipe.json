@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n       #levelchange\n20\n           \u0017blessed ring of polymorph control\nPgl#polyself\nenergy vortex\n #monster\n20s     s..s#polyself\nki-rin\n succubus\n#monster\n20s s.20ss\u0017amulet of unchanging\nPhs.s.#levelchange\n10\n   n nlynu\u0017tree\nk\u0004j n \u0004j n \u0004j n h\u0017sink\nqyl\u0004h\u0004h#terrain\nd\n\u001b>.Laa\u00169\n#levelchange\n10\nknul\u0017neutral altar\ndhdb\u0017human corpse\n #pray\ny y  bh\u0017iron bars\nynnnj\u0017tree\ny\u0004n\u0004 \u0004 :k\u0017fountain\nqyqyqy#untrap\nh\\ #force\n\u001621\n#levelchange\n16\n     \u0016?\n>z  _mmmm.#chat\nj_m.#chat\nj_mm.#chat\nj;j,\u0006_>._, \u001bFb>FbFj_>.Fb_.>.Fj>FjFh_>.Fh_.m.Fh>Fb Fb  ef a#force\n#wizintrinsic\ng\n ;h,\u0017wand of slow monster\nzkb\u0017potion of invisibility\nql Z\u0017scroll of create monster\nrm  succubus\n red mold\n titanothere\n wererat\nlich\nfrost giant\n succubus\n ettin\n rothe\nbone devil\n iron golem\n soldier\ngreen-elf\n 20s                 sj20s    n \u0018\u001b\u0017wand of cold\nznh n      Fl          n    Fj     \u0017splash of acid venom\ns  n  Fb n  Fb  n  \u0017wand of teleportation\n\u0007horned devil\nzqj  zqb \u0017amulet of strangulation\n\u0007kobold shaman\nPrsm.  n  sm. sm.     n 20s   \u0017cursed frost horn\nas    as    n sm. 20s   n \u00163\nukj\u0017throne\n#sit\n    yny   y y n  #"
+ },
+ "segments": [
+  {
+   "seed": 50055084,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n       #levelchange\n20\n           \u0017blessed ring of polymorph control\nPgl#polyself\nenergy vortex\n #monster\n20s     s..s#polyself\nki-rin\n succubus\n#monster\n20s s.20ss\u0017amulet of unchanging\nPhs.s.#levelchange\n10\n   n nlynu\u0017tree\nk\u0004j n \u0004j n \u0004j n h\u0017sink\nqyl\u0004h\u0004h#terrain\nd\n\u001b>.Laa\u00169\n#levelchange\n10\nknul\u0017neutral altar\ndhdb\u0017human corpse\n #pray\ny y  bh\u0017iron bars\nynnnj\u0017tree\ny\u0004n\u0004 \u0004 :k\u0017fountain\nqyqyqy#untrap\nh\\ #force\n\u001621\n#levelchange\n16\n     \u0016?\n>z  _mmmm.#chat\nj_m.#chat\nj_mm.#chat\nj;j,\u0006_>._, \u001bFb>FbFj_>.Fb_.>.Fj>FjFh_>.Fh_.m.Fh>Fb Fb  ef a#force\n#wizintrinsic\ng\n ;h,\u0017wand of slow monster\nzkb\u0017potion of invisibility\nql Z\u0017scroll of create monster\nrm  succubus\n red mold\n titanothere\n wererat\nlich\nfrost giant\n succubus\n ettin\n rothe\nbone devil\n iron golem\n soldier\ngreen-elf\n 20s                 sj20s    n \u0018\u001b\u0017wand of cold\nznh n      Fl          n    Fj     \u0017splash of acid venom\ns  n  Fb n  Fb  n  \u0017wand of teleportation\n\u0007horned devil\nzqj  zqb \u0017amulet of strangulation\n\u0007kobold shaman\nPrsm.  n  sm. sm.     n 20s   \u0017cursed frost horn\nas    as    n sm. 20s   n \u00163\nukj\u0017throne\n#sit\n    yny   y y n  #"
+  }
+ ]
+}

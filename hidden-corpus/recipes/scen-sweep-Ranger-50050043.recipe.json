@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n6\n   \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqh \u001b>._oooo.Fh_. ,$_dddd.Fh_,  \u0004h   _oo, Fl _.Fu,#chat\nl_{.Fl_,   Fhq#dip\nd_ooo.Fh_.Fh_o,   \u001b_.@.Fl,:_ooo. Fu _.,p#offer\n#ride\nby#enhance\nyd\nh\n\u001b#levelchange\n20\n            \u0007white unicorn\n\u0017scroll of taming\nrj  \u001b\u0017saddle\nakk#ride\nky\u0007pony\n\u0017scroll of taming\nrl \u0017saddle\namk#ride\nky\u0007horse\n\u0017scroll of taming\nrn \u0017saddle\n aol#ride\nuykj yk k .ysm.j  n uny#ride\nky20s  #ride\nky\u0004y \\  #levelchange\n10\n   \u0007tame saddled pony\n#ride\nhy\u0007horse\n\u0017scroll of taming\nrp     \u0017saddle\naqh #ride\nhy\u0007tame saddled pony\n#ride\nhy\u0006_>.         nFj_.Fj     n>Fj Fj  _>.  n      nFj  _, Fj   n  >Fk  Fy  _>,  n   Fu _, Fu  n  >Fk Fy ,\u0004y    \u0006_>.Fy _.   n    Fj  >Fk  Fk  _>. Fy _.  n   Fy >Fk  Fu     _>.   n Fk    _.   Fy >Fu Fj      n\u00167\n#levelchange\n8\n\u0017blessed figurine of a newt\narn \u0017cursed -1 ring of warning\nPsr       sl        sy  sm.\u0017elven mithril-coat\n\u0007red naga\nW\u001b.u     .m..\u0017cursed wand of death\nzuj  zubsus\u0017blessed +3 ring of gain strength\n\u0007troll\nPv .m. .m.  n       nsk  \u0017scroll of remove curse\nrw  \u001b  n \u0017uncursed +0 gauntlets of fumbling\nWx    yy\u001by   y y y\u001bn  s"
+ },
+ "segments": [
+  {
+   "seed": 50050043,
+   "datetime": "20211228164929",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n6\n   \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqh \u001b>._oooo.Fh_. ,$_dddd.Fh_,  \u0004h   _oo, Fl _.Fu,#chat\nl_{.Fl_,   Fhq#dip\nd_ooo.Fh_.Fh_o,   \u001b_.@.Fl,:_ooo. Fu _.,p#offer\n#ride\nby#enhance\nyd\nh\n\u001b#levelchange\n20\n            \u0007white unicorn\n\u0017scroll of taming\nrj  \u001b\u0017saddle\nakk#ride\nky\u0007pony\n\u0017scroll of taming\nrl \u0017saddle\namk#ride\nky\u0007horse\n\u0017scroll of taming\nrn \u0017saddle\n aol#ride\nuykj yk k .ysm.j  n uny#ride\nky20s  #ride\nky\u0004y \\  #levelchange\n10\n   \u0007tame saddled pony\n#ride\nhy\u0007horse\n\u0017scroll of taming\nrp     \u0017saddle\naqh #ride\nhy\u0007tame saddled pony\n#ride\nhy\u0006_>.         nFj_.Fj     n>Fj Fj  _>.  n      nFj  _, Fj   n  >Fk  Fy  _>,  n   Fu _, Fu  n  >Fk Fy ,\u0004y    \u0006_>.Fy _.   n    Fj  >Fk  Fk  _>. Fy _.  n   Fy >Fk  Fu     _>.   n Fk    _.   Fy >Fu Fj      n\u00167\n#levelchange\n8\n\u0017blessed figurine of a newt\narn \u0017cursed -1 ring of warning\nPsr       sl        sy  sm.\u0017elven mithril-coat\n\u0007red naga\nW\u001b.u     .m..\u0017cursed wand of death\nzuj  zubsus\u0017blessed +3 ring of gain strength\n\u0007troll\nPv .m. .m.  n       nsk  \u0017scroll of remove curse\nrw  \u001b  n \u0017uncursed +0 gauntlets of fumbling\nWx    yy\u001by   y y y\u001bn  s"
+  }
+ ]
+}

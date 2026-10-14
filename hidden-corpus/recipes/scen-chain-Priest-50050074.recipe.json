@@ -1,0 +1,70 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0007master mind flayer\nFl Fb  Fb   yy\u001by  y y y\u001by  F  hnbydhs20sslj10s10s 20st\u001blkjhhu100s   Fl ssynk100sFnssi\u001b#terrain\nb\n\u001b>.100s\u0018\u001b#tip\n\u001bjnuFnss50s100s#chat\nl150s150sFjFns>ujlkhj100shjhlkbFls20s100slh#quit\nyy\u001by   y y y\u001b   ul hyFj      Fj  y\u001by  y y\u001b  2 \u0007electric eel\nFu FuFlFlFlss.ss..FkFkssFkFkss20s..20ss#wizintrinsic\nc\n sm.20s.ysm.sm.s20ssm..m..sbsm.ssssss20s.m.snsm.20s    yy\u001by   y y y\u001b y  syn #quit\nyyn\u0017wand of cold\nzg.  y y\u001bnny\u001bn  syn\u0017wand of digging\nzi>  sm.  zi>   yy\u001by  y y y\u001bn  2",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50050074,
+   "datetime": "20110709054159",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007master mind flayer\nFl Fb  Fb   yy\u001by  y y y\u001by  F"
+  },
+  {
+   "seed": 50150074,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=autodig\n",
+   "moves": "  hnbydhs20sslj10s10s 20st\u001blkjhhu100s   Fl ssynk100sFnssi\u001b#terrain\nb\n\u001b>.100s\u0018\u001b#tip\n\u001bjnuFnss50s100s#chat\nl150s150sFjFns>ujlkhj100shjhlkbFls20s100slh#quit\nyy\u001by   y y y\u001b "
+  },
+  {
+   "seed": 50250074,
+   "datetime": "20020608135828",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=fruit:durian\nOPTIONS=msg_window:reversed\n",
+   "moves": "  ul hyFj      Fj  y\u001by  y y\u001b  2"
+  },
+  {
+   "seed": 50350074,
+   "datetime": "20110502215842",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007electric eel\nFu FuFlFlFlss.ss..FkFkssFkFkss20s..20ss"
+  },
+  {
+   "seed": 50450074,
+   "datetime": "20100512225452",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:loot\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nc\n sm.20s.ysm.sm.s20ssm..m..sbsm.ssssss20s.m.snsm.20s    yy\u001by   y y y\u001b y  s"
+  },
+  {
+   "seed": 50550074,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "yn #quit\nyy"
+  },
+  {
+   "seed": 50650074,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=sortloot:loot\nOPTIONS=fruit:durian\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "n\u0017wand of cold\nzg.  y y\u001bnny\u001bn  s"
+  },
+  {
+   "seed": 50750074,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "yn\u0017wand of digging\nzi>  sm.  zi>   yy\u001by  y y y\u001bn  2"
+  }
+ ]
+}

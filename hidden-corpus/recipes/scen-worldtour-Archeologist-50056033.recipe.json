@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed ring of free action\nPjr\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>A  y b   u  hl :\u0016?\nc_ \u001b:<\u001617\n bk\u0017wand of magic missile\nEl I am a fish\n: \u0017wand of enlightenment\nEm \u001b n  I am a fish\n: \u0017wand of sleep\nEny X marks the spot\n\u0017wand of create monster\nEoblack dragon\n n  Elbereth Elbereth\nj E- ad aerarium\n\u0007hill orc\nsb20s 20s \u001614\n\u0017gray stone\n anny\u0017Trollsbane\n \u0007prisoner\nwqFk FkFk#invoke\nqX\u0017cursed -1 athame\nwr FkFkFk Fk  n Fk\u00173 potion of invisibility\nqs\u0017tin whistle\nat atFkFk\u0017spellbook of detect monsters\nru 20ssbZsl.m. sm.\u0016?\n>>M      amulet of magical breathing\n b     y   h   n h        n   n j   n k :20s  20s  20s      n    \u00166\n\u0016?\ne jh u\u0017unaligned altar\ndd    \u001b \u0017jackal corpse\n #pray\ny      n        n   : n   u     n\u0017fountain\nqy   qy         n   qy y        n#dip\nps   :ny \u0017chaotic altar\nde     n \u0017newt corpse\n#offer\ny     j \u001b    y  n     \u0017iron bars\n#terrain\nf\n;b;20s   ,\u001611\n\u001623\nn   j k     n b l ub:\u0016?\na  #chat\nb;_. \u0016?\ne   #levelchange\n8\n   \u0017blessed ring of fire resistance\n\u0007little dog\nPzrss20sR\u0017eucalyptus leaf\neA.m. 20s  n \u00173 the Orb of"
+ },
+ "segments": [
+  {
+   "seed": 50056033,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed ring of free action\nPjr\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>A  y b   u  hl :\u0016?\nc_ \u001b:<\u001617\n bk\u0017wand of magic missile\nEl I am a fish\n: \u0017wand of enlightenment\nEm \u001b n  I am a fish\n: \u0017wand of sleep\nEny X marks the spot\n\u0017wand of create monster\nEoblack dragon\n n  Elbereth Elbereth\nj E- ad aerarium\n\u0007hill orc\nsb20s 20s \u001614\n\u0017gray stone\n anny\u0017Trollsbane\n \u0007prisoner\nwqFk FkFk#invoke\nqX\u0017cursed -1 athame\nwr FkFkFk Fk  n Fk\u00173 potion of invisibility\nqs\u0017tin whistle\nat atFkFk\u0017spellbook of detect monsters\nru 20ssbZsl.m. sm.\u0016?\n>>M      amulet of magical breathing\n b     y   h   n h        n   n j   n k :20s  20s  20s      n    \u00166\n\u0016?\ne jh u\u0017unaligned altar\ndd    \u001b \u0017jackal corpse\n #pray\ny      n        n   : n   u     n\u0017fountain\nqy   qy         n   qy y        n#dip\nps   :ny \u0017chaotic altar\nde     n \u0017newt corpse\n#offer\ny     j \u001b    y  n     \u0017iron bars\n#terrain\nf\n;b;20s   ,\u001611\n\u001623\nn   j k     n b l ub:\u0016?\na  #chat\nb;_. \u0016?\ne   #levelchange\n8\n   \u0017blessed ring of fire resistance\n\u0007little dog\nPzrss20sR\u0017eucalyptus leaf\neA.m. 20s  n \u00173 the Orb of"
+  }
+ ]
+}

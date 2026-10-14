@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n      #wizintrinsic\nrbj\n  20ssm.20s.m.20s  20s  n20s.20ssrh #ride\nyyolacw-Pdlss20ss.s\\  i\u001bPnss20s   Rdqgrj  \u001b>.ri qf#dip\nggW\u001bsssje#turn\n\u0018\u001b;l:waqg#untrap\nl#levelchange\n12\n   \u0007wood nymph\nFlFl\u0007lichen\nFlsssFjs\u0007kraken\n.20s    ss\u0018\u001b\u0006_>._.>_>._.>_>._,><f \u001b<\u0006_>._,>_>._.>_>._.><\u0006_>,_.>_>._.>_>._,>\u000f\u001bi\u001bjjk\u0017tree\nj\u0004k\u0004 \u0004 : jl\u0017ice\n: h\u0017altar\ndlndn\u0017jackal corpse\n#offer\no   #pray\ny y#terrain\nb\n<#pray\n>.#tip\n\u001b#levelchange\n20\n        \u00175 boomerangs\nQp\u0007hill orc\nhfkfjfj fkFjFk\u0017spetum\nwq\u0007sewer rat\njaq>.x #twoweapon\nFkFkkku,\u001b#enhance\nn\u001b\u0017elven bow\nwr\u001720 elven arrows\nQs\u0007gnome\nbfkfjbuj,\u001b#enhance\nyb\nc\n\u001b\u001616\n \\  \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqt>._ooooo,_,,: _oooooo,_.,ds_d._.\u0004h_oo,_.,ds\u0014@.  \u0018\u001b#turn\n#wizintrinsic\njl\n  ;_.\u0017cursed potion of fruit juice\nqu\u0017cursed potion of gain energy\nqv#dip\nq ;m,ss20s\u0017potion of object detection\n\u0007crocodile\nqw>.\u0017cursed wand of secret door detection\n\u0007tengu\nzx zx  n \u0017uncursed scroll of light\n\u0007djinni\nry. s  n \u00166\n\u0007rust monster\ns s .  n ss s  n s \u0007orc shaman\n20s    n ..\u0006\u00167\n#levelchange\n14\n  \u00172000 gold pieces\n\u0016?\n>w \u0006\u0017blessed potion of object detection\nqz.  n _ooo.Fj _.Fj,dq_ooo.  n Fk_,m,Fk,p_oo,Fy_,Fh  n ,$_d,Fh_. Fk\u0004l  n _{.Fk_.Fhq#dip\ne_mmm.#chat\nh  n wa \u0018\u001b\u0004 \u00166\n#levelchange\n30\n                \u0016?\n>>K     scroll of amnesia\n#s"
+ },
+ "segments": [
+  {
+   "seed": 50055055,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n      #wizintrinsic\nrbj\n  20ssm.20s.m.20s  20s  n20s.20ssrh #ride\nyyolacw-Pdlss20ss.s\\  i\u001bPnss20s   Rdqgrj  \u001b>.ri qf#dip\nggW\u001bsssje#turn\n\u0018\u001b;l:waqg#untrap\nl#levelchange\n12\n   \u0007wood nymph\nFlFl\u0007lichen\nFlsssFjs\u0007kraken\n.20s    ss\u0018\u001b\u0006_>._.>_>._.>_>._,><f \u001b<\u0006_>._,>_>._.>_>._.><\u0006_>,_.>_>._.>_>._,>\u000f\u001bi\u001bjjk\u0017tree\nj\u0004k\u0004 \u0004 : jl\u0017ice\n: h\u0017altar\ndlndn\u0017jackal corpse\n#offer\no   #pray\ny y#terrain\nb\n<#pray\n>.#tip\n\u001b#levelchange\n20\n        \u00175 boomerangs\nQp\u0007hill orc\nhfkfjfj fkFjFk\u0017spetum\nwq\u0007sewer rat\njaq>.x #twoweapon\nFkFkkku,\u001b#enhance\nn\u001b\u0017elven bow\nwr\u001720 elven arrows\nQs\u0007gnome\nbfkfjbuj,\u001b#enhance\nyb\nc\n\u001b\u001616\n \\  \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqt>._ooooo,_,,: _oooooo,_.,ds_d._.\u0004h_oo,_.,ds\u0014@.  \u0018\u001b#turn\n#wizintrinsic\njl\n  ;_.\u0017cursed potion of fruit juice\nqu\u0017cursed potion of gain energy\nqv#dip\nq ;m,ss20s\u0017potion of object detection\n\u0007crocodile\nqw>.\u0017cursed wand of secret door detection\n\u0007tengu\nzx zx  n \u0017uncursed scroll of light\n\u0007djinni\nry. s  n \u00166\n\u0007rust monster\ns s .  n ss s  n s \u0007orc shaman\n20s    n ..\u0006\u00167\n#levelchange\n14\n  \u00172000 gold pieces\n\u0016?\n>w \u0006\u0017blessed potion of object detection\nqz.  n _ooo.Fj _.Fj,dq_ooo.  n Fk_,m,Fk,p_oo,Fy_,Fh  n ,$_d,Fh_. Fk\u0004l  n _{.Fk_.Fhq#dip\ne_mmm.#chat\nh  n wa \u0018\u001b\u0004 \u00166\n#levelchange\n30\n                \u0016?\n>>K     scroll of amnesia\n#s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b>.>_>>,_,>.>_>>._,,>waqd\u0006_>>,_.m.>_>>._.:>_>>,_,;.>\u0006_>,_.:>_>._..>_>._.;;>#name\n\u001b#sit\n\u001b\u000f\u001bO>>>>h\u001b\nOk\u001b\n:z10s\\ _>,_.m,>50s100s\u0018\u001b100sFhss_>,_.@.>W_>._,;;>knlFuFuFuFu20ss150s\\ _>.Fl_..>100s100s100s100sFhs.i\u001b150sFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFh\u0006_>.Fh_.m,Fh>FhFh_>.Fh_.m.Fh>FhFh_>.Fh_.,Fh>FhFhFhFhFh\u0006_>,Fh_.;,Fh>FhFh_>.Fh_.>.Fh>FhFh_>.Fh_.<.Fh>FhFhFhFhFh\u0006_>,Fh_.>.Fh>FhFh_>.Fh_.<.Fh>FhFh_>,Fh_,>.Fh>FhFhFhFhFh\u0006_>.Fh_.;m,Fh>FhFh_>.Fh_.;.Fh>FhFh_>,Fh_.m.Fh>FhFhFhFhFh\u0006_>.Fh_,;:   >_>._..>_>._,@.><\u000f\u001bv i\u001bO>h\u001b\n\u00167\n  kyk#pray\ny y    FnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFlFnFlFlFnFlFnFnFnFnFnFlFnFnFlFlFlFlFlFnFlFnFlFlFnFlFnFnFnFlFlFnFlFnFnmO>>>>i\u001b\nFlFl"
+ },
+ "segments": [
+  {
+   "seed": 50059048,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=runmode:teleport\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0006_ \u001b>.>_>>,_,>.>_>>._,,>waqd\u0006_>>,_.m.>_>>._.:>_>>,_,;.>\u0006_>,_.:>_>._..>_>._.;;>#name\n\u001b#sit\n\u001b\u000f\u001bO>>>>h\u001b\nOk\u001b\n:z10s\\ _>,_.m,>50s100s\u0018\u001b100sFhss_>,_.@.>W_>._,;;>knlFuFuFuFu20ss150s\\ _>.Fl_..>100s100s100s100sFhs.i\u001b150sFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFh\u0006_>.Fh_.m,Fh>FhFh_>.Fh_.m.Fh>FhFh_>.Fh_.,Fh>FhFhFhFhFh\u0006_>,Fh_.;,Fh>FhFh_>.Fh_.>.Fh>FhFh_>.Fh_.<.Fh>FhFhFhFhFh\u0006_>,Fh_.>.Fh>FhFh_>.Fh_.<.Fh>FhFh_>,Fh_,>.Fh>FhFhFhFhFh\u0006_>.Fh_.;m,Fh>FhFh_>.Fh_.;.Fh>FhFh_>,Fh_.m.Fh>FhFhFhFhFh\u0006_>.Fh_,;:   >_>._..>_>._,@.><\u000f\u001bv i\u001bO>h\u001b\n\u00167\n  kyk#pray\ny y    FnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFlFnFlFlFnFlFnFnFnFnFnFlFnFnFlFlFlFlFlFnFlFnFlFlFnFlFnFnFnFlFlFnFlFnFnmO>>>>i\u001b\nFlFl"
+  }
+ ]
+}

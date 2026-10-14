@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n30\n             #wizintrinsic\nm\n s.s20s  20s 20s ssss\u0017drum of earthquake\nah  ah   \u0014 \u001b;r\u001bdd#monster\n#enhance\nyc\ng\n\u001b;_.ssssss\\ \u0017the Orb of Fate\n \u0007wood nymph\n;l;20s 20ss\u0007gelatinous cube\nFuFu  FuFu  Fu \u0007earth elemental\n#chat\nuFnFu \u0007homunculus\nFl Fu    Fl Fu    n Fn    \\ yy\u0017wand of slow monster\nEi Elbereth Elbereth\n : \u0017ruby\nEj  Vlad was here\n   h\u0017magic marker\nEk I am a fish\n : \u0017wand of sleep\nEl  I am a fish\n    : \u0017wand of create monster\nEmair elemental\n Famine\nn winter wolf\n succubus\n n  ad aerarium\n     n       n  y    l h j   \u0017moat\nh       n    n  \u0017fountain\nqy y        qq\u0017long sword\n#dip\nn#terrain\nf\n#chat\n#monster\nzmDeath\ny i\u001b#levelchange\n10\n      \u0016?\nj\u0006\u0017magic flute\naonsAeAseoCDGenDeososesoDEtttAGseoFEtsoBsAFDGC\n    n  jbaonttnCEFBoDsEDGBFsABCBGoeEACtntoEoeeeeDFAAADD\n      n k     n n\u0017wand of striking\nzpk    n  n #terrain\n\u001bW\u001b#monster\n\u00164\n#wizintrinsic\nf\n h   n   n h   n   ny     n  ZZ\u0017potion of paralysis\nqq      n  sm. n   yny  y y y\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 50055014,
+   "datetime": "20100718124301",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n30\n             #wizintrinsic\nm\n s.s20s  20s 20s ssss\u0017drum of earthquake\nah  ah   \u0014 \u001b;r\u001bdd#monster\n#enhance\nyc\ng\n\u001b;_.ssssss\\ \u0017the Orb of Fate\n \u0007wood nymph\n;l;20s 20ss\u0007gelatinous cube\nFuFu  FuFu  Fu \u0007earth elemental\n#chat\nuFnFu \u0007homunculus\nFl Fu    Fl Fu    n Fn    \\ yy\u0017wand of slow monster\nEi Elbereth Elbereth\n : \u0017ruby\nEj  Vlad was here\n   h\u0017magic marker\nEk I am a fish\n : \u0017wand of sleep\nEl  I am a fish\n    : \u0017wand of create monster\nEmair elemental\n Famine\nn winter wolf\n succubus\n n  ad aerarium\n     n       n  y    l h j   \u0017moat\nh       n    n  \u0017fountain\nqy y        qq\u0017long sword\n#dip\nn#terrain\nf\n#chat\n#monster\nzmDeath\ny i\u001b#levelchange\n10\n      \u0016?\nj\u0006\u0017magic flute\naonsAeAseoCDGenDeososesoDEtttAGseoFEtsoBsAFDGC\n    n  jbaonttnCEFBoDsEDGBFsABCBGoeEACtntoEoeeeeDFAAADD\n      n k     n n\u0017wand of striking\nzpk    n  n #terrain\n\u001bW\u001b#monster\n\u00164\n#wizintrinsic\nf\n h   n   n h   n   ny     n  ZZ\u0017potion of paralysis\nqq      n  sm. n   yny  y y y\u001b  ."
+  }
+ ]
+}

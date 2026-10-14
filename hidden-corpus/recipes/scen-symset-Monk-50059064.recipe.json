@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001bm,>FkFk_>. Fn_>FnFn_>,_.Fb>FbFbFbFbFb<\u0006_>._.>_>.Fj_,Fb>FbFb_>.Fj_,Fj>FjFjFjFjFj\u0006_>.Fj_.>_>.Fb_.>_>,Fb_.Fb>FbFbFbFbFbdkL\u0006_>,Fh_.>_>.Fj_.>_>.Fb_,>\u0006_>>,_.Fb>FbFb_>>._.>_>>,_.>\u0006_>._.>_>.Fb_,>_>,_.>\u0006_>.Fy_,Fh\u001b>FhFh_>.Fb_.>_>.Fj_.Fj>FjFjFjFjFj\u0006_>.Fh_,Fy>FyFy_>,Fy_,>_>,Fh_,>#conduct\n ei  <\u0006_>,Fb_. >_>.Fb_.>_>.Fh_.Fb>FbFbFbFbFb,#force\n\u0006_>,_.>_>._.>_>.Fh_,Fy>FyFyFyFyFy\u0006_>>,Fy_,Fkk >FkFk_>>.Fk_,Fy>FyFy_>>,_.>\u0006_>>._.Fb>FbFb_>>.Fh_.>_>>,_.Fh>FhFhFhFhFhrj nyE\u001b\u000f\u001b\u001620\nO>d\u001b\nFlFlFuFlFyFyFlFyFuk FuFuFuFkFlFuFlFlFyFuk FlFlFyFuu FuFkFuFkFkFuFuFyFly FkFlFkFlFkFyFuy FkFkFuFyFlk FyFuy FyFkk FkFkFyFyFyFkl FyFuk FkFkFkFlFkFlFuFkFyFkk FlFkFlFkFyFlu FuFuFlFuFyFkl FlFlFlFkFuFyFyFlFyFyFlFyFul FyFyFlFkFkFkFuFkFkFlFyFll FlFyFyFuFlFyFyFkFkFlFlFuFlFyFku FuFy\u0006_>>.Fk_.> FjFkFkqd#wipe\n\u0006_>,_.>_>._.>_>,_.>dc#twoweapon\n\u0006_>.Fj_,Fj>FjFj_>.Fj_.>_>._,>#loot\nW\u0006_>,_,Fj>FjFj_>,Fj_,Fj>FjFj_>,_.Fj>FjFjFjFjFj\u0006_>._.F"
+ },
+ "segments": [
+  {
+   "seed": 50059064,
+   "datetime": "20180304075518",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"cursed\"=cyan\n",
+   "moves": " \u0006_ \u001bm,>FkFk_>. Fn_>FnFn_>,_.Fb>FbFbFbFbFb<\u0006_>._.>_>.Fj_,Fb>FbFb_>.Fj_,Fj>FjFjFjFjFj\u0006_>.Fj_.>_>.Fb_.>_>,Fb_.Fb>FbFbFbFbFbdkL\u0006_>,Fh_.>_>.Fj_.>_>.Fb_,>\u0006_>>,_.Fb>FbFb_>>._.>_>>,_.>\u0006_>._.>_>.Fb_,>_>,_.>\u0006_>.Fy_,Fh\u001b>FhFh_>.Fb_.>_>.Fj_.Fj>FjFjFjFjFj\u0006_>.Fh_,Fy>FyFy_>,Fy_,>_>,Fh_,>#conduct\n ei  <\u0006_>,Fb_. >_>.Fb_.>_>.Fh_.Fb>FbFbFbFbFb,#force\n\u0006_>,_.>_>._.>_>.Fh_,Fy>FyFyFyFyFy\u0006_>>,Fy_,Fkk >FkFk_>>.Fk_,Fy>FyFy_>>,_.>\u0006_>>._.Fb>FbFb_>>.Fh_.>_>>,_.Fh>FhFhFhFhFhrj nyE\u001b\u000f\u001b\u001620\nO>d\u001b\nFlFlFuFlFyFyFlFyFuk FuFuFuFkFlFuFlFlFyFuk FlFlFyFuu FuFkFuFkFkFuFuFyFly FkFlFkFlFkFyFuy FkFkFuFyFlk FyFuy FyFkk FkFkFyFyFyFkl FyFuk FkFkFkFlFkFlFuFkFyFkk FlFkFlFkFyFlu FuFuFlFuFyFkl FlFlFlFkFuFyFyFlFyFyFlFyFul FyFyFlFkFkFkFuFkFkFlFyFll FlFyFyFuFlFyFyFkFkFlFlFuFlFyFku FuFy\u0006_>>.Fk_.> FjFkFkqd#wipe\n\u0006_>,_.>_>._.>_>,_.>dc#twoweapon\n\u0006_>.Fj_,Fj>FjFj_>.Fj_.>_>._,>#loot\nW\u0006_>,_,Fj>FjFj_>,Fj_,Fj>FjFj_>,_.Fj>FjFjFjFjFj\u0006_>._.F"
+  }
+ ]
+}

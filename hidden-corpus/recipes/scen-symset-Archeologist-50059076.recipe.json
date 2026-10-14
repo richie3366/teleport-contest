@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b>.>FhFh_>.Fu_.m.Fu>FhFh_>,Fu_.Fu>FhFhFuFhFh\u0006_>>,Fu_.>.Fu>FhFh_>>.Fh_.Fh>FuFh_>>.  nFu_.Fh>FuFhFuFhFuahi\n#terrain\nb\n \u0006_>.Fu_.m.Fu>FhFu_>.Fh_.Fh>FuFu_>,  nFh_,Fh>FuFhFuFhFu\u00161\n\u0007tame jackal\n\u0007pony\n\u0017apple\nt\u001b\u0006_>.Fh_.Fh>FbFuu _>.  n Fl_.Fh>FuFh_>,  n Fh_,Fh>FhFj\u0017leash\najh h\u001bjbku ajj #chat\nu \u0017newt corpse\nt\u001b10s  n  \u00163\n\u00164\n\u00166\nFhFkFhFyFbFkFbFh\u001bFbFky FyFbFhFhFjFyFky FkFyFbFkFhFjFhFhFkFjFjFhFhFhFyFjFhFkFyFyFyFbFjFjFkFkFyFkb FyFbFhFbFjFkFyFjFhFkFjFjFkFbFyFjFkFbFkk FbFyFhFyFh\u001bFbFyFbFkh FhFkFyFh\u001bFbFyFkFjFyFh\u001bFbFyFyFyFjFjFkFkFhFhFbFjFyFbFjFyFbFjFyFbFjFbFyFhFkFkFbFjFyFky FkFkFkFyFyFjFj\u00167\n#loot\nk Z#name\nf\n#enhance\nyj\nd\n\u001b\u0006_>.Fk_.    Fu> FkFnFj\u0006_>>,Fl_,Fy>FuFu_>>.Fu_.Fu>FuFu_>>.Fy_.  nFy>FjFuFjFyFuj \u0006_>.Fu_.Fy>FjFu_>,Fj_,Fu>FjFu_>.Fu_,  nFy>FjFy"
+ },
+ "segments": [
+  {
+   "seed": 50059076,
+   "datetime": "20260913132539",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=fruit:durian\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a scroll\"=red\nBIND=v:inventory\n",
+   "moves": " \u0006_ \u001b>.>FhFh_>.Fu_.m.Fu>FhFh_>,Fu_.Fu>FhFhFuFhFh\u0006_>>,Fu_.>.Fu>FhFh_>>.Fh_.Fh>FuFh_>>.  nFu_.Fh>FuFhFuFhFuahi\n#terrain\nb\n \u0006_>.Fu_.m.Fu>FhFu_>.Fh_.Fh>FuFu_>,  nFh_,Fh>FuFhFuFhFu\u00161\n\u0007tame jackal\n\u0007pony\n\u0017apple\nt\u001b\u0006_>.Fh_.Fh>FbFuu _>.  n Fl_.Fh>FuFh_>,  n Fh_,Fh>FhFj\u0017leash\najh h\u001bjbku ajj #chat\nu \u0017newt corpse\nt\u001b10s  n  \u00163\n\u00164\n\u00166\nFhFkFhFyFbFkFbFh\u001bFbFky FyFbFhFhFjFyFky FkFyFbFkFhFjFhFhFkFjFjFhFhFhFyFjFhFkFyFyFyFbFjFjFkFkFyFkb FyFbFhFbFjFkFyFjFhFkFjFjFkFbFyFjFkFbFkk FbFyFhFyFh\u001bFbFyFbFkh FhFkFyFh\u001bFbFyFkFjFyFh\u001bFbFyFyFyFjFjFkFkFhFhFbFjFyFbFjFyFbFjFyFbFjFbFyFhFkFkFbFjFyFky FkFkFkFyFyFjFj\u00167\n#loot\nk Z#name\nf\n#enhance\nyj\nd\n\u001b\u0006_>.Fk_.    Fu> FkFnFj\u0006_>>,Fl_,Fy>FuFu_>>.Fu_.Fu>FuFu_>>.Fy_.  nFy>FjFuFjFyFuj \u0006_>.Fu_.Fy>FjFu_>,Fj_,Fu>FjFu_>.Fu_,  nFy>FjFy"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "yh\u0017wand of enlightenment\nEl \u001b  ad aerarium\n: h\u0017wand of lightning\nEm  Vlad was here\n :  \u0017wand of make invisible\nEn Elbereth\n: \u0017wand of create monster\nEochameleon\n Elbereth Elbereth\n  j\u0017wand of death\nEp Vlad was here\n  n  :   n E- Elbereth\n     \u0007hill orc\n.  n  n  s  n .  n  \u0006\u00167\nyn\u0017wand of slow monster\nEq X marks the spot\n \u0017wand of polymorph\nErp: \u0017wand of magic missile\nEs Elbereth Elbereth\n: \u0017ruby\nEt I am a fish\n:  \u0017wand of secret door detection\nEu E-\u0007gnome lord\n.20ssm.Fj Fj   ni\u001b\u0007green slime\nFj Fj   n Fk   n Fj20s .m.\u0007gremlin\nFy  n  Fk  n Fk   n   n Fk  n Fj  n     yy\u001by   y y y\u001b y  ."
+ },
+ "segments": [
+  {
+   "seed": 50055038,
+   "datetime": "20200517151512",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "yh\u0017wand of enlightenment\nEl \u001b  ad aerarium\n: h\u0017wand of lightning\nEm  Vlad was here\n :  \u0017wand of make invisible\nEn Elbereth\n: \u0017wand of create monster\nEochameleon\n Elbereth Elbereth\n  j\u0017wand of death\nEp Vlad was here\n  n  :   n E- Elbereth\n     \u0007hill orc\n.  n  n  s  n .  n  \u0006\u00167\nyn\u0017wand of slow monster\nEq X marks the spot\n \u0017wand of polymorph\nErp: \u0017wand of magic missile\nEs Elbereth Elbereth\n: \u0017ruby\nEt I am a fish\n:  \u0017wand of secret door detection\nEu E-\u0007gnome lord\n.20ssm.Fj Fj   ni\u001b\u0007green slime\nFj Fj   n Fk   n Fj20s .m.\u0007gremlin\nFy  n  Fk  n Fk   n   n Fk  n Fj  n     yy\u001by   y y y\u001b y  ."
+  }
+ ]
+}

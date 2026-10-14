@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0007tame dingo\n#name\no\n\u0017leash\nailkbyhail\u0017tin whistle\nnubaj\u0017leash\nakuyujlakj\u0017food ration\n t\u001b\u001627\n   \u0018\u001b\u0006_ \u001b<.>FhFl_>>.Fk _,:Fl >FlFk   n_>>.Fy   n_.Fy>Fy  nFk   nFy  n  nFyFk   n \u0006_>,  n  nFy   n _.Fh  n>Fy   n Fy  n_>,Fh_,Fh>Fh  n Fh_>.Fh_.Fh>Fh  nFhFhFh  nFh<\u0006_>.Fh_,Fh>_>._.m.>_>,_,>\u0006_>>,_,<.>_>>,_,>.>_>>._,@.>\u000f\u001b\u001618\n#levelchange\n12\n          \u0017blessed ring of polymorph control\nPll\u0017black dragon scale mail\nW\u001bsns20s#polyself\nearth elemental\n .s\u0007Medusa\nyn.sssss#polyself\nelf\n #monster\nsy  y\u001b    y  ."
+ },
+ "segments": [
+  {
+   "seed": 50055021,
+   "datetime": "20041219022258",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007tame dingo\n#name\no\n\u0017leash\nailkbyhail\u0017tin whistle\nnubaj\u0017leash\nakuyujlakj\u0017food ration\n t\u001b\u001627\n   \u0018\u001b\u0006_ \u001b<.>FhFl_>>.Fk _,:Fl >FlFk   n_>>.Fy   n_.Fy>Fy  nFk   nFy  n  nFyFk   n \u0006_>,  n  nFy   n _.Fh  n>Fy   n Fy  n_>,Fh_,Fh>Fh  n Fh_>.Fh_.Fh>Fh  nFhFhFh  nFh<\u0006_>.Fh_,Fh>_>._.m.>_>,_,>\u0006_>>,_,<.>_>>,_,>.>_>>._,@.>\u000f\u001b\u001618\n#levelchange\n12\n          \u0017blessed ring of polymorph control\nPll\u0017black dragon scale mail\nW\u001bsns20s#polyself\nearth elemental\n .s\u0007Medusa\nyn.sssss#polyself\nelf\n #monster\nsy  y\u001b    y  ."
+  }
+ ]
+}

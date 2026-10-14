@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017bow\nwf\u001720 arrows\nQg\u0007acid blob\nulfbfjflfj s20s\u0017potion of healing\ntcjbkl,#enhance\nn\u001b#levelchange\n14\n            \u00178 rocks\nQ-\u0007sewer rat\nhhf a nf by lf g lfu.s\u0017potion of monster detection\ntdhbhk,"
+ },
+ "segments": [
+  {
+   "seed": 50051008,
+   "datetime": "20151006153311",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017bow\nwf\u001720 arrows\nQg\u0007acid blob\nulfbfjflfj s20s\u0017potion of healing\ntcjbkl,#enhance\nn\u001b#levelchange\n14\n            \u00178 rocks\nQ-\u0007sewer rat\nhhf a nf by lf g lfu.s\u0017potion of monster detection\ntdhbhk,"
+  }
+ ]
+}

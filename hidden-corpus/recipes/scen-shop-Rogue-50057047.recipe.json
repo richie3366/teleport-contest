@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWi\u0016?\n>w\u0006_ \u001b;,p_oo._o.,p_oooooooo._o,,:_ooooooo,,p_ooooooo,,\u0014;s._{._.qd ujh#chat\nb_ooooo._ooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndj_ooooo.,#chat\ny_ooooooooo.,$_{,_.q_{._.qknh#chat\nu\u0016?\ncnyh\u0016?\n>w\u0006_ooooooo.,\u0017luckstone\ndk_oooooo,_oo.,$_ooooooooo,,p_ooooooo,,p__._,    Fj#chat\nk #pray\ny y   _ooooooo,_oo.,pFu FuFuFuFuFu_{.Fl_.:qyyl#chat\ny_ooo,,#chat\nb_oooo,,:hbk#chat\nh_{.Fl   n_. Fuq_oo.,#chat\nuFu FuFuFuFuFu__.Fu  _, Fk  #chat\nk _{,Fu _.    q_oooooooo.,p_{._,qy __.  n   Fy     _,m.  Fh#chat\ny   #pray\ny y          Fy    Fy      n Fy   FyFy   n   Fy    n \u00169\n_ooo.,#chat\nbFbFb Fb   nFbFbFb _oo.,pFb   nFb FbFb FbFbFhFhFhFhFhFh_ooooooooo,_._oo.,i\n\u0017amulet of life saving\n"
+ },
+ "segments": [
+  {
+   "seed": 50057047,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=sortloot:none\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWi\u0016?\n>w\u0006_ \u001b;,p_oo._o.,p_oooooooo._o,,:_ooooooo,,p_ooooooo,,\u0014;s._{._.qd ujh#chat\nb_ooooo._ooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndj_ooooo.,#chat\ny_ooooooooo.,$_{,_.q_{._.qknh#chat\nu\u0016?\ncnyh\u0016?\n>w\u0006_ooooooo.,\u0017luckstone\ndk_oooooo,_oo.,$_ooooooooo,,p_ooooooo,,p__._,    Fj#chat\nk #pray\ny y   _ooooooo,_oo.,pFu FuFuFuFuFu_{.Fl_.:qyyl#chat\ny_ooo,,#chat\nb_oooo,,:hbk#chat\nh_{.Fl   n_. Fuq_oo.,#chat\nuFu FuFuFuFuFu__.Fu  _, Fk  #chat\nk _{,Fu _.    q_oooooooo.,p_{._,qy __.  n   Fy     _,m.  Fh#chat\ny   #pray\ny y          Fy    Fy      n Fy   FyFy   n   Fy    n \u00169\n_ooo.,#chat\nbFbFb Fb   nFbFbFb _oo.,pFb   nFb FbFb FbFbFhFhFhFhFhFh_ooooooooo,_._oo.,i\n\u0017amulet of life saving\n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u00173 spellbook of confuse monster\n\u0007barrow wight\nrm        20s   sm.  Zc\n   Zc\n   \u0017cursed -1 ring of fire resistance\n\u0007Uruk-hai\nPnl   sy  shsRFl     nFj    \u0017blessed +3 sling\n\u0007elf-lord\nwo    Fn           n    Fj      Fb    n      X\u0017uncursed spellbook of light\nrp       n .m.     sm.   n    Zb\n        nFj       Fn    n    .m.      .m.  n     \u001629\n   \u00164\n#levelchange\n12\n     \u0016?\n>G#jump\n#sit\ns;l, \u001b>.sks\u0016?\nhcjPE- Elbereth\n;h:  . n sm.   n \u0016?\nd  #chat\n10srk y20s20s\u0016?\n>A  \u0018\u001bP#tip\n\u001b;m.ss  \u001624\n#offer\nf $ l #invoke\n\u001bss\u00168\n#levelchange\n8\n \u0016?\nfwa:#chat\nh;h:  sb  sm.\u0016?\nd  rj y #twoweapon\nzhy s.m.\u0016?\n>w\u0004hzhb        #ride\nly20s s\u0016?\n>H#jump\nqd#force\n;m.s.\u00162\n#levelchange\n8\n\u0007djinni\nFkFkFkFh  Fh  Fk  n  \u0007gnomish wizard\nFk  Fh    Fk FkFk  n\u0007flesh golem\n;y,.m.sm.sm.\u00165\n#levelchange\n30\n                      \u0016?\nj\u0006\u0017wooden harp\naqntnCGnoEnGEFGCAsGtBAtGsCsnEtEFBGsCAACeFGFBAG\nby \u001baqnosAsCtACBonCFEDoeoBAEenGFFstAEDBCsAFGoGFBAG\n   jn#chat\nk    nW#jump\n\u0016?\nh\u0006Fb   Fb  Fj  Fl   n  Fb  Fn  h  nhkk,tohqd \u001618\n \u0007killer bee\n;b,20ssbsb\u0007rust monster\n;u. 20ssu  sh\u0007disenchanter\nFu Fb   Fb  \u0007human mummy\n#chat\nu    yny   nny\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50055095,
+   "datetime": "20130314091258",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u00173 spellbook of confuse monster\n\u0007barrow wight\nrm        20s   sm.  Zc\n   Zc\n   \u0017cursed -1 ring of fire resistance\n\u0007Uruk-hai\nPnl   sy  shsRFl     nFj    \u0017blessed +3 sling\n\u0007elf-lord\nwo    Fn           n    Fj      Fb    n      X\u0017uncursed spellbook of light\nrp       n .m.     sm.   n    Zb\n        nFj       Fn    n    .m.      .m.  n     \u001629\n   \u00164\n#levelchange\n12\n     \u0016?\n>G#jump\n#sit\ns;l, \u001b>.sks\u0016?\nhcjPE- Elbereth\n;h:  . n sm.   n \u0016?\nd  #chat\n10srk y20s20s\u0016?\n>A  \u0018\u001bP#tip\n\u001b;m.ss  \u001624\n#offer\nf $ l #invoke\n\u001bss\u00168\n#levelchange\n8\n \u0016?\nfwa:#chat\nh;h:  sb  sm.\u0016?\nd  rj y #twoweapon\nzhy s.m.\u0016?\n>w\u0004hzhb        #ride\nly20s s\u0016?\n>H#jump\nqd#force\n;m.s.\u00162\n#levelchange\n8\n\u0007djinni\nFkFkFkFh  Fh  Fk  n  \u0007gnomish wizard\nFk  Fh    Fk FkFk  n\u0007flesh golem\n;y,.m.sm.sm.\u00165\n#levelchange\n30\n                      \u0016?\nj\u0006\u0017wooden harp\naqntnCGnoEnGEFGCAsGtBAtGsCsnEtEFBGsCAACeFGFBAG\nby \u001baqnosAsCtACBonCFEDoeoBAEenGFFstAEDBCsAFGoGFBAG\n   jn#chat\nk    nW#jump\n\u0016?\nh\u0006Fb   Fb  Fj  Fl   n  Fb  Fn  h  nhkk,tohqd \u001618\n \u0007killer bee\n;b,20ssbsb\u0007rust monster\n;u. 20ssu  sh\u0007disenchanter\nFu Fb   Fb  \u0007human mummy\n#chat\nu    yny   nny\u001by  F"
+  }
+ ]
+}

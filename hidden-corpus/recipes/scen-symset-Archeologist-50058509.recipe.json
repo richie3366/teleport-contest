@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "O>b\u001b\n\u0006_ \u001b<.>FkFu_>,Fk_,Fn>  FuFyFj \u0006_>.Fh_.> Fl FjFl \u0018\u001b,\u0006_>.Fj_.Fb>FjFl_>,Fh_,m.Fj>FjFj_>.Fn_.Fn>FuFuFuFnFui\u001b\u0004bv i\u001bOamango\n\u001b\nmO>w\u001b\nmO>>>>d\u001b\n\u00165\n#pray\ny y  FkFnFjFlFkFl   FnFlFk    nFjFlFj  FbFy   nFn     nFnFbFl     nFk     nFy   Fb     nFkFh     nFhFhFkFnFhFnFn    nFl  Fb Fl  Fh   n Fy Fj Fb   nFh Fk Fn  n Fj Fj #pray\ny y          Fj   n Fj Fj Fn  n FnFjFlFy Fb  n Fn Fh Fl Fn  n Fh Fy Fl  Fb  n Fh Fl   nFl Fl Fy Fj   yy\u001by   y y y\u001b y  F"
+ },
+ "segments": [
+  {
+   "seed": 50058509,
+   "datetime": "20051121134334",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "O>b\u001b\n\u0006_ \u001b<.>FkFu_>,Fk_,Fn>  FuFyFj \u0006_>.Fh_.> Fl FjFl \u0018\u001b,\u0006_>.Fj_.Fb>FjFl_>,Fh_,m.Fj>FjFj_>.Fn_.Fn>FuFuFuFnFui\u001b\u0004bv i\u001bOamango\n\u001b\nmO>w\u001b\nmO>>>>d\u001b\n\u00165\n#pray\ny y  FkFnFjFlFkFl   FnFlFk    nFjFlFj  FbFy   nFn     nFnFbFl     nFk     nFy   Fb     nFkFh     nFhFhFkFnFhFnFn    nFl  Fb Fl  Fh   n Fy Fj Fb   nFh Fk Fn  n Fj Fj #pray\ny y          Fj   n Fj Fj Fn  n FnFjFlFy Fb  n Fn Fh Fl Fn  n Fh Fy Fl  Fb  n Fh Fl   nFl Fl Fy Fj   yy\u001by   y y y\u001b y  F"
+  }
+ ]
+}

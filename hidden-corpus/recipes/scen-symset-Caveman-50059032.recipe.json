@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001bm.>Fj Fn_>>,Fb_.> FjFhFba#pray\ny y \u0006_>.Fy_,> FhFnFn#invoke\n\u001bs\u0006_>>.Fh_.Fh>FhFj_>>.Fj_.Fu>FkFh_>>.Fn_,Fn>FuFnFbFyFu\u000f\u001bO>>e\u001b\nOo\u001b\u001b\nO>>>>j\u001b\nOj\u001b\n#invoke\n\u001bZ\u0006_>,Fh_.Fb>FkFn_>.Fy_.Fj>FjFy_>.Fu_.Fn>FjFyFjFjFb\u0006_>,Fn_.Fh>FnFk_>.Fy_.Fn>FbFu_>,Fk_.Fy>FyFkFhFkFu\u0006_>.Fh_,Fn>FnFj_>.Fu_.Fy>FnFk_>.Fu_,Fy>FnFnFnFbFb\u0006_>.Fk_.Fk>FjFh_>.Fb_,Fk>FkFh_>,Fh_.Fy>FhFnFjFuFb\u000f\u001bO>>i\u001b\u001b\nFlFyFhFlFhFyFjFlFyFjFhFyFhFhFyFhFhFjFyFjFjFbFbFjFkFyFkFlFhFbFbFyFjFkFbFlFhFyFyFkFhFkFhFjFlFjFkFk  nFkFuFhFyFkFhFuFjFkFlFhFyFhFhFkFuFjFjFkFhFhFlFbFlFyFhFyFyFyFbFjFhFlFbFbFuFlFkFhFkFlFlFkFjFyFyFbFkFbFlFhFhFyFbFlFhFkFkFlFhFkFjFbFbFkFhFuFyFuFhFjFhO>>>m\u001b\u001b\n\u00162\nFjFlFyFbFkFnFnFnFbFyFlFlFbFlFjFhFbFyFyFyFyFyFyFnFkFnFjFbFjFyFnFuFuFkFlFbFyFkFhFlFyFnFbFyFhFbFyFkFyFhFnFkFkFjFhFkFuFlFlFkFkFnFhFhFyFhFuFnFlFuFhFyFhFnFyFyFbFjFyFl FhFyFyFkFlFkFuFbFbFlFuFbFbFuFyFbFyFyFyFyFlFbFnFhFyFhFjFbFlFyFuFbFnFlFyFyFuFbFlFn\u0007tame jackal\n\u0017leash\nafyuhhnafh#name\nm\n#name\n:#chat\nu\u0006_>.Fu_.> k\u0017leash\nagknhybagj\u0006_>.Fl_,"
+ },
+ "segments": [
+  {
+   "seed": 50059032,
+   "datetime": "20110506161745",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nMENUCOLOR=\"a scroll\"=green\n",
+   "moves": "\u0006_ \u001bm.>Fj Fn_>>,Fb_.> FjFhFba#pray\ny y \u0006_>.Fy_,> FhFnFn#invoke\n\u001bs\u0006_>>.Fh_.Fh>FhFj_>>.Fj_.Fu>FkFh_>>.Fn_,Fn>FuFnFbFyFu\u000f\u001bO>>e\u001b\nOo\u001b\u001b\nO>>>>j\u001b\nOj\u001b\n#invoke\n\u001bZ\u0006_>,Fh_.Fb>FkFn_>.Fy_.Fj>FjFy_>.Fu_.Fn>FjFyFjFjFb\u0006_>,Fn_.Fh>FnFk_>.Fy_.Fn>FbFu_>,Fk_.Fy>FyFkFhFkFu\u0006_>.Fh_,Fn>FnFj_>.Fu_.Fy>FnFk_>.Fu_,Fy>FnFnFnFbFb\u0006_>.Fk_.Fk>FjFh_>.Fb_,Fk>FkFh_>,Fh_.Fy>FhFnFjFuFb\u000f\u001bO>>i\u001b\u001b\nFlFyFhFlFhFyFjFlFyFjFhFyFhFhFyFhFhFjFyFjFjFbFbFjFkFyFkFlFhFbFbFyFjFkFbFlFhFyFyFkFhFkFhFjFlFjFkFk  nFkFuFhFyFkFhFuFjFkFlFhFyFhFhFkFuFjFjFkFhFhFlFbFlFyFhFyFyFyFbFjFhFlFbFbFuFlFkFhFkFlFlFkFjFyFyFbFkFbFlFhFhFyFbFlFhFkFkFlFhFkFjFbFbFkFhFuFyFuFhFjFhO>>>m\u001b\u001b\n\u00162\nFjFlFyFbFkFnFnFnFbFyFlFlFbFlFjFhFbFyFyFyFyFyFyFnFkFnFjFbFjFyFnFuFuFkFlFbFyFkFhFlFyFnFbFyFhFbFyFkFyFhFnFkFkFjFhFkFuFlFlFkFkFnFhFhFyFhFuFnFlFuFhFyFhFnFyFyFbFjFyFl FhFyFyFkFlFkFuFbFbFlFuFbFbFuFyFbFyFyFyFyFlFbFnFhFyFhFjFbFlFyFuFbFnFlFyFyFuFbFlFn\u0007tame jackal\n\u0017leash\nafyuhhnafh#name\nm\n#name\n:#chat\nu\u0006_>.Fu_.> k\u0017leash\nagknhybagj\u0006_>.Fl_,"
+  }
+ ]
+}

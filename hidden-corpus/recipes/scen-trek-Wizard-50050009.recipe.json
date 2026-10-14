@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "L UNH_ \u001b@.><LHKL_>.>;>.#jump\nLKNY_>,>LYKJ_>.>Fj.20s\u0018\u001b#sit\n\u001bHHNY_>.>Fl.20sqg\u000f\u001b#chat\nk50s   100s i\u001bbyb150s        hhyjukrj 100sjjl\u000f\u001bi\u001b_>.>_>,>\\  100sFl.20s\u000f\u001b\u000f\u001b100sFk.s100s100s100s150sFl20s.100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeun10suuybkl#chat\nn20s #chat\nlt\u001b#chat\ny20s  b#chat\nl#monster\nsE- X marks the spot\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYKKK_>,>YHUB_>,>E- ad aerarium\n#twoweapon\nUUJJ_>.><NHYJ_>.>HNUY_>,><UB UJ_>.>i\u001b\u000f\u001bqf \u001b#enhance\n\u001b#turn\nJLBK_>,>N YL J_>,>FusFlUYYU_>,>J   BBN_>.>rk w-HYNJ_>.>KJJH_>,>\u000f\u001b#pray\ny  klk_>.>ubb\\  50s\\  \u000f\u001bjuj\u0018\u001b50sllyhju100sbhk100sFk .20s_>,>100s50sFlFlFlFlFlFlFlFlFlFlFl.150s150s\\  jlu_>,>50sFlFlFl150sFlFlFlFl.20s\u000f\u001bykl150snhy50s 50sHJLN_>,>FlFl Fl U JNH_>.>,#monster\nNU"
+ },
+ "segments": [
+  {
+   "seed": 50050009,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=fruit:kumquat\n",
+   "moves": "L UNH_ \u001b@.><LHKL_>.>;>.#jump\nLKNY_>,>LYKJ_>.>Fj.20s\u0018\u001b#sit\n\u001bHHNY_>.>Fl.20sqg\u000f\u001b#chat\nk50s   100s i\u001bbyb150s        hhyjukrj 100sjjl\u000f\u001bi\u001b_>.>_>,>\\  100sFl.20s\u000f\u001b\u000f\u001b100sFk.s100s100s100s150sFl20s.100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeun10suuybkl#chat\nn20s #chat\nlt\u001b#chat\ny20s  b#chat\nl#monster\nsE- X marks the spot\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYKKK_>,>YHUB_>,>E- ad aerarium\n#twoweapon\nUUJJ_>.><NHYJ_>.>HNUY_>,><UB UJ_>.>i\u001b\u000f\u001bqf \u001b#enhance\n\u001b#turn\nJLBK_>,>N YL J_>,>FusFlUYYU_>,>J   BBN_>.>rk w-HYNJ_>.>KJJH_>,>\u000f\u001b#pray\ny  klk_>.>ubb\\  50s\\  \u000f\u001bjuj\u0018\u001b50sllyhju100sbhk100sFk .20s_>,>100s50sFlFlFlFlFlFlFlFlFlFlFl.150s150s\\  jlu_>,>50sFlFlFl150sFlFlFlFl.20s\u000f\u001bykl150snhy50s 50sHJLN_>,>FlFl Fl U JNH_>.>,#monster\nNU"
+  }
+ ]
+}

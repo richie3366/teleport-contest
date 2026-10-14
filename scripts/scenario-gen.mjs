@@ -15,7 +15,7 @@
  *        [--family mixed|wish|genesis|poly|intrinsic|death|kit|tour|normal]
  *        [--family broad|terrain|trap|town|sokoban|ride|pet|container|descend|
  *                  ranged|caster|impaired|options|engulf|hazard|longrun|dig]
- *        [--family marathon|worldtour|sweep|chain|trek|zapfest|shop]
+ *        [--family marathon|worldtour|sweep|chain|trek|zapfest|shop|questtour|symset]
  *        [--out hidden-corpus/recipes] [--probe [--index i]]
  *
  * `broad` rotates evenly through the second-wave families (terrain … dig);
@@ -1261,8 +1261,22 @@ async function levelportTune(g, rng, target) {
    scen-* session above ran past 344 steps. These four families play that
    long. Debug games answer «Die?» with n, so a death mid-marathon costs one
    prompt, not the rest of the session. */
-const WAVE3 = ['worldtour', 'sweep', 'chain', 'trek', 'zapfest', 'shop'];
-const WAVE3_KEYS = { worldtour: [800, 1500], sweep: [1200, 2000], chain: [900, 1900], trek: [600, 1100], zapfest: [600, 1200], shop: [500, 1000] };
+const WAVE3 = ['worldtour', 'sweep', 'chain', 'trek', 'zapfest', 'shop', 'questtour', 'symset'];
+const WAVE3_KEYS = { worldtour: [800, 1500], sweep: [1200, 2000], chain: [900, 1900], trek: [600, 1100], zapfest: [600, 1200], shop: [500, 1000], questtour: [600, 1200], symset: [500, 1000] };
+/* symset (2026-10-14, §10.20 calibration): non-DEC symset candidates from
+   dat/symbols, minus Blank (an invisible map is unplayable) */
+const SYMSET_ALT = ['curses', 'IBMgraphics', 'IBMGraphics_1', 'IBMGraphics_2', 'RogueIBM', 'RogueEpyx', 'RogueWindows', 'plain', 'MACgraphics', 'Enhanced1', 'Enhanced2', 'AmigaFont'];
+const SYMSET_BINDS = [['v', 'inventory']];
+function symsetRc(rng, base) {
+    const lines = [base.replace('OPTIONS=symset:DECgraphics', `OPTIONS=symset:${pick(rng, SYMSET_ALT)}`).trimEnd()];
+    if (chance(rng, 0.45)) lines.push(`OPTIONS=number_pad${chance(rng, 0.5) ? '' : ':' + pick(rng, [0, 1, 2, 3, 4])}`);
+    if (chance(rng, 0.3)) lines.push('OPTIONS=msg_window:reversed');
+    if (chance(rng, 0.35)) lines.push(`MSGTYPE=${pick(rng, ['stop', 'norep', 'hide'])} "${pick(rng, ['You hear', 'You see', 'You feel', 'The door', 'You kill', 'You miss'])}"`);
+    if (chance(rng, 0.4)) lines.push(`MENUCOLOR="${pick(rng, ['blessed', 'cursed', 'uncursed', 'a potion', 'a scroll'])}"=${pick(rng, ['green', 'red', 'cyan', 'magenta', 'brown'])}`);
+    if (chance(rng, 0.3)) lines.push('SYMBOLS=S_pool:~,S_fountain:{');
+    if (chance(rng, 0.35)) { const [k, cmd] = pick(rng, SYMSET_BINDS); lines.push(`BIND=${k}:${cmd}`); }
+    return lines.join('\n') + '\n';
+}
 /* zapfest (2026-10-13, §10.20 calibration): held-out runs 2,959 animation
    frames vs public 1,483 — wand/spell/breath duels the marathon families
    under-sample. One debug game of duels: wand barrages, spell slinging,
@@ -1489,6 +1503,93 @@ async function runWave3Game(g, rng, family, { debug }) {
         });
         break;
     }
+    case 'questtour': {
+        /* questtour (2026-10-14, §10.20 calibration): the full quest arc in
+           one debug game, like public seed0361/0367/0373 quest tours: ^V home
+           and #chat the leader at low XL (badlevel), #levelchange 14 and
+           #chat again (assignquest), then locate/goal legs with a nemesis
+           fight on a wished kit, artifact pickup, and the return home
+           (offer, leader farewell). The short `quest` shape passes 100 %;
+           the full arc is unprobed. */
+        g.immortal = true;
+        const qport = async (cands) => {
+            for (const c of cands) if (await levelport(g, rng, c)) return true;
+            return false;
+        };
+        const meetLeader = async (n) => {
+            for (let i = 0; i < n && !g.full; i++) {
+                await travelTo(g, rng, 'm'.repeat(1 + Math.floor(rng() * 5)));
+                await chat(g, rng);
+                if (chance(rng, 0.3)) await look(g, rng);
+            }
+        };
+        await qport(['home', '-strt']);
+        await mapLevel(g, rng);
+        await meetLeader(3 + Math.floor(rng() * 3));
+        await ext(g, rng, 'levelchange', { level: String(pick(rng, [14, 14, 16, 20])) });
+        await qport(['home', '-strt']);
+        await mapLevel(g, rng);
+        await meetLeader(2 + Math.floor(rng() * 2));
+        for (const w of shuffle(rng, TOUR_KIT).slice(0, 2 + Math.floor(rng() * 2))) {
+            const l = await wish(g, rng, w);
+            if (l) await typeCmd(g, rng, /amulet|ring/.test(w) ? 'P' : /Mjollnir/.test(w) ? 'w' : 'W', { letter: l });
+        }
+        const qw = await wish(g, rng, `wand of ${pick(rng, ['fire', 'cold', 'lightning', 'magic missile', 'striking', 'death'])}`);
+        const legs = shuffle(rng, ['-loca', '-goal', '-goal', '-fila']);
+        let li = 0;
+        await untilFull(g, rng, async () => {
+            const leg = legs[li++ % legs.length];
+            if (!(await qport([leg, '-loca', '-goal']))) await travelTo(g, rng, pick(rng, ['>', '<', '_']));
+            await mapLevel(g, rng);
+            await travelTo(g, rng, 'm'.repeat(2 + Math.floor(rng() * 6)));
+            await fight(g, rng, 4 + Math.floor(rng() * 4));
+            if (qw && chance(rng, 0.5)) await typeCmd(g, rng, 'z', { letter: qw, dir: monsterDir(g.s, rng) || pick(rng, 'hjklyubn.') });
+            await typeCmd(g, rng, ',', { menuPick: true, yn: 'y' });
+            if (chance(rng, 0.4)) await chat(g, rng);
+            if (chance(rng, 0.35)) { await qport(['home', '-strt']); await meetLeader(1); }
+        });
+        await qport(['home', '-strt']);
+        await mapLevel(g, rng);
+        await meetLeader(2);
+        if (chance(rng, 0.6)) await ext(g, rng, 'offer', { menuPick: true, yn: 'y' });
+        await meetLeader(1);
+        break;
+    }
+    case 'symset': {
+        /* symset (2026-10-14, §10.20 calibration): a whole game under an
+           exotic display rc — non-DEC symset, sometimes number_pad,
+           msg_window:reversed, MSGTYPE / MENUCOLOR / SYMBOLS / BIND lines —
+           like public seed2600 (binds), seed0200 (msg_window:reversed) and
+           the 7 public rc without DECgraphics. Wave-2 `options` toggles the
+           O menu but skips symset/number_pad/statuslines; here the game
+           starts exotic and the O menu flips more mid-game, between longrun
+           / descend / pet legs that play under the changed display. */
+        g.immortal = true;
+        const flipOptions = async () => {
+            await settle(g, rng);
+            await g.send(chance(rng, 0.4) ? 'mO' : 'O');
+            if (!g.s.menu) { await settle(g, rng); return; }
+            for (let p = Math.floor(rng() * 5); p > 0 && g.s.menu; p--) await g.send('>');
+            const items = g.s.menu ? menuItems(g.s).filter((it) => !/^\?/.test(it.text) && it.letter !== '?') : [];
+            for (const it of shuffle(rng, items).slice(0, 1 + Math.floor(rng() * 2))) {
+                await g.send(it.letter);
+                if (/[Ss]ymset/.test(g.s.top) && /what\?/.test(g.s.top)) await g.send(pick(rng, SYMSET_ALT) + '\n');
+                await settle(g, rng);
+                if (!g.s.menu) break;
+            }
+            await g.send('\n');
+            await answer(g, rng, { menuPick: true });
+        };
+        await untilFull(g, rng, async () => {
+            const r = rng();
+            if (r < 0.3) await flipOptions();
+            else if (r < 0.75) await runWave2(g, rng, pick(rng, ['longrun', 'longrun', 'descend', 'descend', 'pet', 'terrain']), { debug: true });
+            else if (r < 0.85) { await g.send('v'); await settle(g, rng); await typeCmd(g, rng, 'i'); }
+            else await ordinary(g, rng, 2 + Math.floor(rng() * 3));
+            if (chance(rng, 0.15)) await levelport(g, rng, 1 + Math.floor(rng() * 20));
+        });
+        break;
+    }
     case 'chain': default: {
         /* one game of the chain: played for its budget, then ended on purpose */
         if (debug) { g.immortal = false; await runScenario(g, rng, 'death'); break; }
@@ -1525,7 +1626,8 @@ async function authorWave3({ seed, family, inst, trace }) {
             const mode = family === 'trek' ? pick(rng, ['normal', 'normal', 'explore'])
                 : family === 'chain' ? pick(rng, ['normal', 'normal', 'debug']) : 'debug';
             const pet = chance(rng, 0.3) ? pick(rng, ['none', 'cat', 'dog', 'horse']) : null;
-            const nethackrc = makeRc2(rng, role, { mode, pet });
+            let nethackrc = makeRc2(rng, role, { mode, pet });
+            if (family === 'symset') nethackrc = symsetRc(rng, nethackrc);
             const seg = { seed: seed + 100000 * k, datetime: pickDatetime(rng), timezone: PIN_TZ, nethackrc, moves: '' };
             const share = family === 'chain'
                 ? Math.max(60, Math.min(budget - used, Math.round((budget - used) / (games - k) * (0.6 + 0.8 * rng()))))

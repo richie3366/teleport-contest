@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u001617\n\u0004n\u001617\nk  \u001bjnjhly:\u0016?\ng     kuk:\u001617\nhhkn:\u001614\n_ \u001b@.\u001628\n   knnl:\u001641\n #chat\nl;_.\u0016?\n>B_>,_.m,\u001641\n\u0017spellbook of restore ability\nro s\u0017blessed spellbook of identify\nrp s\u0017blessed spellbook of knock\nrq s\u0017blessed spellbook of slow monster\nrr .+\u001bZc\n\u0007hill orc\nZb\nZc\nZd\n o\n Za\n#turn\n#pray\ny y         #enhance\nyr\nq\n\u001b\u0016?\nckjllul:sm.20s.m.\u0016?\n>>Q_>.s20ss\u0016?\n>x _>.<\u001617\n\u0004b\u001614\n_{.ssm.sm. \u001628\nyj\u0017wand of fire\nEs  Vlad was here\n  nE-  \u0017wand of slow monster\nEt  k\u0016?\n>>N       potion of blindness\n\u0014,sm.    sm.     n      n\u00164\n\u0016?\ne\u0007baby purple worm\n#chat\nl     Fj      n Fj         \u0007quasit\nFl     n  Fb   n         Fl  n     \u0007bugbear\n.m.    n  \u001b20s   20s   n  20s   n \u0007Elvenking\nFb Fl  n  Fj   n \u001611\n\u0016?\ne#chat\nn ;j;.  n s    n s   n \u001628\n#levelchange\n20\n      \u0007air elemental\ns     n  .  s   n  Fl     yy\u001by   y  y\u001b  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 50056010,
+   "datetime": "20140609193139",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u001617\n\u0004n\u001617\nk  \u001bjnjhly:\u0016?\ng     kuk:\u001617\nhhkn:\u001614\n_ \u001b@.\u001628\n   knnl:\u001641\n #chat\nl;_.\u0016?\n>B_>,_.m,\u001641\n\u0017spellbook of restore ability\nro s\u0017blessed spellbook of identify\nrp s\u0017blessed spellbook of knock\nrq s\u0017blessed spellbook of slow monster\nrr .+\u001bZc\n\u0007hill orc\nZb\nZc\nZd\n o\n Za\n#turn\n#pray\ny y         #enhance\nyr\nq\n\u001b\u0016?\nckjllul:sm.20s.m.\u0016?\n>>Q_>.s20ss\u0016?\n>x _>.<\u001617\n\u0004b\u001614\n_{.ssm.sm. \u001628\nyj\u0017wand of fire\nEs  Vlad was here\n  nE-  \u0017wand of slow monster\nEt  k\u0016?\n>>N       potion of blindness\n\u0014,sm.    sm.     n      n\u00164\n\u0016?\ne\u0007baby purple worm\n#chat\nl     Fj      n Fj         \u0007quasit\nFl     n  Fb   n         Fl  n     \u0007bugbear\n.m.    n  \u001b20s   20s   n  20s   n \u0007Elvenking\nFb Fl  n  Fj   n \u001611\n\u0016?\ne#chat\nn ;j;.  n s    n s   n \u001628\n#levelchange\n20\n      \u0007air elemental\ns     n  .  s   n  Fl     yy\u001by   y  y\u001b  \u0007"
+  }
+ ]
+}

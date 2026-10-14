@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n8\n  \u0017cursed cream pie\n\u0007rock piercer\nefsn  sl\u0017uncursed +0 dwarvish mattock\nwgFuFuFuX\u00173 spellbook of stone to flesh\n\u0007energy vortex\nrh \u001b  .s  Z20s Fu\u0017spellbook of polymorph\nris 20s  ZFk Fj  \u0017bow\nwj Fk  Fn   FlFuFu  \u0017blessed scroll of enchant weapon\nrkFjFk ssi\u001bi\u001brissZZwdyFuFuswa20ss20sXwj.sswc.20sswb ss.X#dip\nb#turn\n#tip\n\u001b\u001b,#rub\n10s\u0004bei\u001bW20ssswls..wb20ssswg.ssrkri.20sZZ#levelchange\n12\n  \u00173 Stormbringer\n \u0007leprechaun\nwm .sFkX\u0017cursed potion of monster detection\nqn \u001b>.\u0017cursed bag of tricks\naoao#tip\no\u001b\u0017uncursed spellbook of light\nrp.sZZ\u0017uncursed the Tsurugi of Muramasa\n \u0007Orcus\nyywqFjFn  n Fn#invoke\nq  FnFk\u001720 arrows\n Qrf  fnfkFkFn    n  s   s\u001619\n\\    \u00169\ni\u001bwg  Fh   n Fh  FlXwlFhFl  n Fl  Xrps.ZZwb     n Fl Fj Fl  wc     n Fl   Fl Fh   n wq  Fj   Fh Fh XE- Elbereth\n  n #force\n;h;#enhance\nyp\nl\n\u001bP#jump\n,   #enhance\nyg\nk\n\u001bi\u001bwry    n Fu  Fh    n  Fh XwdFu    n    Fh   n  Fj     n   XwaFh    n Fu      n   Fy    n   Xris    n  s    y\u001b     Z"
+ },
+ "segments": [
+  {
+   "seed": 50055012,
+   "datetime": "20150922101306",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n8\n  \u0017cursed cream pie\n\u0007rock piercer\nefsn  sl\u0017uncursed +0 dwarvish mattock\nwgFuFuFuX\u00173 spellbook of stone to flesh\n\u0007energy vortex\nrh \u001b  .s  Z20s Fu\u0017spellbook of polymorph\nris 20s  ZFk Fj  \u0017bow\nwj Fk  Fn   FlFuFu  \u0017blessed scroll of enchant weapon\nrkFjFk ssi\u001bi\u001brissZZwdyFuFuswa20ss20sXwj.sswc.20sswb ss.X#dip\nb#turn\n#tip\n\u001b\u001b,#rub\n10s\u0004bei\u001bW20ssswls..wb20ssswg.ssrkri.20sZZ#levelchange\n12\n  \u00173 Stormbringer\n \u0007leprechaun\nwm .sFkX\u0017cursed potion of monster detection\nqn \u001b>.\u0017cursed bag of tricks\naoao#tip\no\u001b\u0017uncursed spellbook of light\nrp.sZZ\u0017uncursed the Tsurugi of Muramasa\n \u0007Orcus\nyywqFjFn  n Fn#invoke\nq  FnFk\u001720 arrows\n Qrf  fnfkFkFn    n  s   s\u001619\n\\    \u00169\ni\u001bwg  Fh   n Fh  FlXwlFhFl  n Fl  Xrps.ZZwb     n Fl Fj Fl  wc     n Fl   Fl Fh   n wq  Fj   Fh Fh XE- Elbereth\n  n #force\n;h;#enhance\nyp\nl\n\u001bP#jump\n,   #enhance\nyg\nk\n\u001bi\u001bwry    n Fu  Fh    n  Fh XwdFu    n    Fh   n  Fj     n   XwaFh    n Fu      n   Fy    n   Xris    n  s    y\u001b     Z"
+  }
+ ]
+}

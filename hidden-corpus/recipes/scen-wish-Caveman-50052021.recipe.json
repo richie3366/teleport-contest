@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0017cursed wand of sleep\n\u0007fog cloud\nzfnzfn\u0017scroll of punishment\n\u0007guard\nnrg  \u0017cursed scroll of light\nrh  FkFk.."
+ },
+ "segments": [
+  {
+   "seed": 50052021,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0017cursed wand of sleep\n\u0007fog cloud\nzfnzfn\u0017scroll of punishment\n\u0007guard\nnrg  \u0017cursed scroll of light\nrh  FkFk.."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b.,\u0017worthless piece of red glass\ndh_ooo._ooo,,p_oo.,$_oooooooo._oo.,p_ooo.,$_{,Fj _,qy __._.#chat\nk__,_,#chat\nh#pray\ny y llu#chat\nj__. _.#chat\nh_ooooo._.,\u001b\u0014m,20s._oooooooo.,p_ooooooo,_._o,_.,#chat\ny__,_.#chat\nb#pray\ny y _oo.,#chat\nlkhl#chat\nubjj#chat\nb_oo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndibkj#chat\nn__._.#chat\nj_oooooooo._,_ooo.,p_ooooooo._.,:nyh#chat\nj__,_,#chat\nj_ooooooo._._ooo._.,#chat\nhblk#chat\nb_oooooo.,$\u0016?\n>Bjjh\u0016?\n>w\u0006_{.Fl_,Fl q_ooo,Fl_. Fl,$_{,Fl_.FlqFl  nFlFlFlFlFlhhh#chat\nklhb#chat\ny_ooo.Fl_.Fl,p_oooooo.,\u0017amulet of restful sleep\ndj\u00163\nln  nu\u0016?\n>w\u0006_{,Fh _.Fhq__. Fk_,Fk#chat\nk _ooooo.Fk_.Fk,$FkFk  nFkFkFkFkFk FkFkFk  n FkFk FkFkFkFkFk   nFk __, Fk   n_. Fj   n #chat\nj \u001611\n_{.qFuF"
+ },
+ "segments": [
+  {
+   "seed": 50050089,
+   "datetime": "20221229014750",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b.,\u0017worthless piece of red glass\ndh_ooo._ooo,,p_oo.,$_oooooooo._oo.,p_ooo.,$_{,Fj _,qy __._.#chat\nk__,_,#chat\nh#pray\ny y llu#chat\nj__. _.#chat\nh_ooooo._.,\u001b\u0014m,20s._oooooooo.,p_ooooooo,_._o,_.,#chat\ny__,_.#chat\nb#pray\ny y _oo.,#chat\nlkhl#chat\nubjj#chat\nb_oo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndibkj#chat\nn__._.#chat\nj_oooooooo._,_ooo.,p_ooooooo._.,:nyh#chat\nj__,_,#chat\nj_ooooooo._._ooo._.,#chat\nhblk#chat\nb_oooooo.,$\u0016?\n>Bjjh\u0016?\n>w\u0006_{.Fl_,Fl q_ooo,Fl_. Fl,$_{,Fl_.FlqFl  nFlFlFlFlFlhhh#chat\nklhb#chat\ny_ooo.Fl_.Fl,p_oooooo.,\u0017amulet of restful sleep\ndj\u00163\nln  nu\u0016?\n>w\u0006_{,Fh _.Fhq__. Fk_,Fk#chat\nk _ooooo.Fk_.Fk,$FkFk  nFkFkFkFkFk FkFkFk  n FkFk FkFkFkFkFk   nFk __, Fk   n_. Fj   n #chat\nj \u001611\n_{.qFuF"
+  }
+ ]
+}

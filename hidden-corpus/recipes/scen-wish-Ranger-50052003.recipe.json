@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017crossbow\nwiFhFh.X\u0017blessed spear\nwj20s.sXs.\u0017uncursed +0 helm of brilliance\nWk.s20sTks.20s20s"
+ },
+ "segments": [
+  {
+   "seed": 50052003,
+   "datetime": "20131122132650",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017crossbow\nwiFhFh.X\u0017blessed spear\nwj20s.sXs.\u0017uncursed +0 helm of brilliance\nWk.s20sTks.20s20s"
+  }
+ ]
+}

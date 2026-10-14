@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nqi\n 20s     20s  .20s20s .s.20ss.s20s20s\u0017potion of sickness\nqp #dip\ndgt\u001bZb\n\u001b.20s\u0004bzcJs...ss"
+ },
+ "segments": [
+  {
+   "seed": 50052009,
+   "datetime": "20150112050202",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nqi\n 20s     20s  .20s20s .s.20ss.s20s20s\u0017potion of sickness\nqp #dip\ndgt\u001bZb\n\u001b.20s\u0004bzcJs...ss"
+  }
+ ]
+}

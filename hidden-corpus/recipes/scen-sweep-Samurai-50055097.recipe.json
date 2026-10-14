@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\n>w\u0006\u0017blessed potion of object detection\nqf \u001bm._ooooooooo. Fj_. Fj,p_oooo.Fj _,@.Fj  ,:_ooooooo,Fj   _.Fj_oo,Fb_,@.Fh,da_ooooo.Fh _.,p__.Fh _.>.Fh#chat\nk_oooo._._o._.,de\u0004jE- Elbereth\ns\u001612\n\u0007tame titanothere\n\u0017saddle\nagn\u0017lance\nwh#ride\nny\u0007tame saddled warhorse\n#ride\n \u0007pony\n\u0017scroll of taming\nri \u0017saddle\najh#ride\njy\u0006_>,>FnFy_>.>Fn  Fb _>.>FjFn \u0007gnome\nFn       Fb Fj\u0007giant rat\nFjFj Fn  \u0004y,i\u001bkjE-:b\u0017wand of teleportation\nEk :u\u0017wand of light\nEl  :\u0017wand of opening\nEm \u0017wand of slow monster\nEn :E-\u0007gnome lord\nsm..m..FjFj\u000f\u001b\u0016?\nj\u0006\u0017wooden flute\naonneCnECDotssFEnCoFDEAneAnEGEeEGeBACABeDBADGC\nkkaontoCtAsDCAGADCtGECFnCBDoDonEestEECGFoDGDGBEF\n  uy#invoke\n\u001be#sit\n\u001613\n\u0016?\ne\u0006sssFu .20s yyj       b #offer\n#invoke\n\u001b, #levelchange\n20\n\u0017shield of reflection\nWp \u0016?\ni\u0006.FyFyFhFyFh kb h  y<Kamy \u00169\n\u0017blessed ring of polymorph control\nPql#polyself\nblue jelly\n   #monster\ns s s20ss#polyself\nArchon\n gnomish wizard\n 20s..20s20s\u0006\u00173 spellbook of cause fear\nrr  20s .h  Za\nZa\nFhFh \u0017blessed +3 spear\nws  Fh    nFh  FhFh  Fh\u0017wand of teleportation\n\u0007captain\nztl  ztj  \u00173 glob of green slime\neu   sm.  sm. sl20s \u00172000 gold pieces\n\u0016?\nc\u0006_mmm.#chat\nj_mm,Fl_. #chat\nl_m,  n _,#chat\n_{._,Fbq\u0018\u001bch#monster\n\u001624\n\\     #levelchange\n20\n\u0017Vorpal Blade\nwvFk  20s            n    s  n #invoke\n"
+ },
+ "segments": [
+  {
+   "seed": 50055097,
+   "datetime": "20070626032503",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0016?\n>w\u0006\u0017blessed potion of object detection\nqf \u001bm._ooooooooo. Fj_. Fj,p_oooo.Fj _,@.Fj  ,:_ooooooo,Fj   _.Fj_oo,Fb_,@.Fh,da_ooooo.Fh _.,p__.Fh _.>.Fh#chat\nk_oooo._._o._.,de\u0004jE- Elbereth\ns\u001612\n\u0007tame titanothere\n\u0017saddle\nagn\u0017lance\nwh#ride\nny\u0007tame saddled warhorse\n#ride\n \u0007pony\n\u0017scroll of taming\nri \u0017saddle\najh#ride\njy\u0006_>,>FnFy_>.>Fn  Fb _>.>FjFn \u0007gnome\nFn       Fb Fj\u0007giant rat\nFjFj Fn  \u0004y,i\u001bkjE-:b\u0017wand of teleportation\nEk :u\u0017wand of light\nEl  :\u0017wand of opening\nEm \u0017wand of slow monster\nEn :E-\u0007gnome lord\nsm..m..FjFj\u000f\u001b\u0016?\nj\u0006\u0017wooden flute\naonneCnECDotssFEnCoFDEAneAnEGEeEGeBACABeDBADGC\nkkaontoCtAsDCAGADCtGECFnCBDoDonEestEECGFoDGDGBEF\n  uy#invoke\n\u001be#sit\n\u001613\n\u0016?\ne\u0006sssFu .20s yyj       b #offer\n#invoke\n\u001b, #levelchange\n20\n\u0017shield of reflection\nWp \u0016?\ni\u0006.FyFyFhFyFh kb h  y<Kamy \u00169\n\u0017blessed ring of polymorph control\nPql#polyself\nblue jelly\n   #monster\ns s s20ss#polyself\nArchon\n gnomish wizard\n 20s..20s20s\u0006\u00173 spellbook of cause fear\nrr  20s .h  Za\nZa\nFhFh \u0017blessed +3 spear\nws  Fh    nFh  FhFh  Fh\u0017wand of teleportation\n\u0007captain\nztl  ztj  \u00173 glob of green slime\neu   sm.  sm. sl20s \u00172000 gold pieces\n\u0016?\nc\u0006_mmm.#chat\nj_mm,Fl_. #chat\nl_m,  n _,#chat\n_{._,Fbq\u0018\u001bch#monster\n\u001624\n\\     #levelchange\n20\n\u0017Vorpal Blade\nwvFk  20s            n    s  n #invoke\n"
+  }
+ ]
+}

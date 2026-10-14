@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed shield of reflection\nWf\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n20\n                   \u0007master mind flayer\n\u0007aligned cleric\nn\u0007lich\n\u0017wand of striking\nsm.szhn       sm.szhl      su20s  zhn\u0018\u001b\u00178 rocks\nQby\u0007hill orc\n\u0007bugbear\nfh   n  tch     n   f \u001bf \u001bf \u001bf \u001bf \u001b\u0017potion of see invisible\ntdj       n    \u001611\n\u0017wand of sleep\n\u0017wand of death\n\u0017wand of teleportation\n\u0007kobold shaman\nzkl .zklszllzlnzknzlnzmnzkb zkl s\u0007master mind flayer\n\u0007vampire\n\u0017wand of cold\nznj .n   n znh        n  znh       n  znk     .y     n znl    n zn      n \u00161\n\u0007gnomish wizard\n\u0007vampire\n\u0007gnomish wizard\n\u0017wand of sleep\nzoh zoh   zoh  zoh    zoj  zobzo \u001619\n\u0017wand of fire\n\u0017wand of slow monster\n\u0017wand of cancellation\n\u0007acid blob\nzqkzrjzqjzphzrj zqhzph zqh zrh zpj   i\u001b\u0017wand of polymorph\n\u0017wand of slow monster\n\u0007hobbit\n\u0007sewer rat\n\u0007jackal\nztk .m.  n zsj  .m.ztb  ztb  zsbzsh ztb\u0017wand of fire\n\u0017wand of digging\n\u0007hobbit\n\u0007jackal\nzun  .m. zuh zuk zv> zv> zv>  zuj  zul  \u0017blessed spellbook of sleep\nrw sj  n \u0017spellbook of knock\n rx     .m.\u0007master lich\nZZsm.   s"
+ },
+ "segments": [
+  {
+   "seed": 50050028,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed shield of reflection\nWf\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n20\n                   \u0007master mind flayer\n\u0007aligned cleric\nn\u0007lich\n\u0017wand of striking\nsm.szhn       sm.szhl      su20s  zhn\u0018\u001b\u00178 rocks\nQby\u0007hill orc\n\u0007bugbear\nfh   n  tch     n   f \u001bf \u001bf \u001bf \u001bf \u001b\u0017potion of see invisible\ntdj       n    \u001611\n\u0017wand of sleep\n\u0017wand of death\n\u0017wand of teleportation\n\u0007kobold shaman\nzkl .zklszllzlnzknzlnzmnzkb zkl s\u0007master mind flayer\n\u0007vampire\n\u0017wand of cold\nznj .n   n znh        n  znh       n  znk     .y     n znl    n zn      n \u00161\n\u0007gnomish wizard\n\u0007vampire\n\u0007gnomish wizard\n\u0017wand of sleep\nzoh zoh   zoh  zoh    zoj  zobzo \u001619\n\u0017wand of fire\n\u0017wand of slow monster\n\u0017wand of cancellation\n\u0007acid blob\nzqkzrjzqjzphzrj zqhzph zqh zrh zpj   i\u001b\u0017wand of polymorph\n\u0017wand of slow monster\n\u0007hobbit\n\u0007sewer rat\n\u0007jackal\nztk .m.  n zsj  .m.ztb  ztb  zsbzsh ztb\u0017wand of fire\n\u0017wand of digging\n\u0007hobbit\n\u0007jackal\nzun  .m. zuh zuk zv> zv> zv>  zuj  zul  \u0017blessed spellbook of sleep\nrw sj  n \u0017spellbook of knock\n rx     .m.\u0007master lich\nZZsm.   s"
+  }
+ ]
+}

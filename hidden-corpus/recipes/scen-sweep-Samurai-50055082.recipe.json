@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          \u0017300 gold pieces\n\u0007leprechaun\nFh Fu  Fl ..s\u0007giant mimic\n20s FyFy.m.sm.\u0007black pudding\nFyFl     Fk   Fl   n Fl  Fh   .m..m.\u0017silver dragon scale mail\nW\u001b20s su      n  .m.  \u0007werewolf\nFhFh      Fk    n   sm.     20s  #pray\ny y            \u0007gelatinous cube\nFy    n  Fu   Fk  Fl       n Fk Fhsm.   sk    n  \u00161\n\u0007kitten\n\u0017newt corpse\ntdh \u0017leash\nahjh  n   l h  ahb\u0007jackal\nsm.  n  sks.m. sm.   sm.\u0017tin whistle\nb  j   n  n ai    \u0017magic whistle\nhyyaj   j   n 20s #name\ni\n\u001612\n    \\    \u00161\n#levelchange\n30\n                  \u0016?\ne\u0006FbFb20ss20s20s   nyky#force\n#tip\n\u001b#terrain\n\u001b\u00167\ni\u001b#levelchange\n8\n       \u00173 Snickersnee\n\u0007Wizard of Yendor\nywkFn  n  Fh    n   Fl     #invoke\nk    \u0017uncursed scroll of teleportation\n\u0007elf-lord\nrl  \u001b:    n  \u0017blessed unicorn horn\nam      n  am     FnFl      20s    n        sy  \u001624\n\u00168\n#levelchange\n20\n            \u0017800 gold pieces\n\u0016?\nc\u0006_m.  Fn_,#chat\nn_mm.#chat\nn_m.#chat\nn_{._,>.q#name\n\u001bE- Vlad was here\n10s    i\u001b20s #ride\njy#chat\nj#invoke\nk     n  j  #wipe\n   ,#offer\n\u00165\n\u0017unicorn horn\nwnFj.sX\u0007black pudding\nFh   Fj  Fj    Fh      \u001b   yy\u001by   y y y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 50055082,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n12\n          \u0017300 gold pieces\n\u0007leprechaun\nFh Fu  Fl ..s\u0007giant mimic\n20s FyFy.m.sm.\u0007black pudding\nFyFl     Fk   Fl   n Fl  Fh   .m..m.\u0017silver dragon scale mail\nW\u001b20s su      n  .m.  \u0007werewolf\nFhFh      Fk    n   sm.     20s  #pray\ny y            \u0007gelatinous cube\nFy    n  Fu   Fk  Fl       n Fk Fhsm.   sk    n  \u00161\n\u0007kitten\n\u0017newt corpse\ntdh \u0017leash\nahjh  n   l h  ahb\u0007jackal\nsm.  n  sks.m. sm.   sm.\u0017tin whistle\nb  j   n  n ai    \u0017magic whistle\nhyyaj   j   n 20s #name\ni\n\u001612\n    \\    \u00161\n#levelchange\n30\n                  \u0016?\ne\u0006FbFb20ss20s20s   nyky#force\n#tip\n\u001b#terrain\n\u001b\u00167\ni\u001b#levelchange\n8\n       \u00173 Snickersnee\n\u0007Wizard of Yendor\nywkFn  n  Fh    n   Fl     #invoke\nk    \u0017uncursed scroll of teleportation\n\u0007elf-lord\nrl  \u001b:    n  \u0017blessed unicorn horn\nam      n  am     FnFl      20s    n        sy  \u001624\n\u00168\n#levelchange\n20\n            \u0017800 gold pieces\n\u0016?\nc\u0006_m.  Fn_,#chat\nn_mm.#chat\nn_m.#chat\nn_{._,>.q#name\n\u001bE- Vlad was here\n10s    i\u001b20s #ride\njy#chat\nj#invoke\nk     n  j  #wipe\n   ,#offer\n\u00165\n\u0017unicorn horn\nwnFj.sX\u0007black pudding\nFh   Fj  Fj    Fh      \u001b   yy\u001by   y y y\u001by  2"
+  }
+ ]
+}

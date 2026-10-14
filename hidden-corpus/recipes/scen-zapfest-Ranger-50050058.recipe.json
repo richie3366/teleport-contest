@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPg\u0017blessed ring of free action\nPhr#levelchange\n20\n                   \u0017wand of death\n\u0017wand of lightning\n\u0007owlbear\nzjl zijzik   zjn zilzjn zik nzjh \u0017blessed spellbook of sleep\nrk.\u0007succubus\nZs20sZ20s  y   sZ20s.ZZ..Zss\u0007silver dragon\n\u0007baby red dragon\n.s.#polyself\nblack dragon\n #monster\nn s.#monster\nu#monster\nl  #monster\nFj Fl\u0017wand of striking\n\u0017wand of magic missile\n\u0007dwarf\nzll  n szmu zlu 20s zlj zlj  n  zlj zll zml s zlj  n  \u00161\n\u0017wand of magic missile\n\u0017wand of lightning\n\u0007kobold\n\u0007kobold shaman\nznj  znj  zol znl   n zoj.znl znk znl   n s \u0018\u001b\u00163\n\u0017wand of polymorph\n\u0017wand of cold\n\u0007giant rat\n\u0007hill orc\nzpyzpjzplzql zpyzpyzql   nzqk\u0017wand of sleep\n\u0017wand of digging\n\u0007kobold\nzs>  20szs> 20szs> zs> zs> zs> s\u0007black dragon\n.s s n 20s n FkFk\u00168\n\u0007kobold shaman\n\u0007vampire\n\u0017wand of striking\n..20szthss i\u001b\u0007silver dragon\ns s  n .    Fl Fh  n  \u00161\n\u00174 cream pies\nQd\u0007soldier\ntbjfufb tdl  \u0007red dragon\nss  s.#polyself\nblack dragon\n #monster\nl 20s 20s  #monster\n#monster\n\u0017wand of cold\navy    n..i\u001b\u0017wand of striking\n\u0017wand of polymorph\n\u0017wand of cancellation\n\u0007grid bug\nzxlszxuzxuzykzykzyu\u0017wand of slow monster\n\u0017wand of teleportation\n\u0017wand of lig"
+ },
+ "segments": [
+  {
+   "seed": 50050058,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:walk\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPg\u0017blessed ring of free action\nPhr#levelchange\n20\n                   \u0017wand of death\n\u0017wand of lightning\n\u0007owlbear\nzjl zijzik   zjn zilzjn zik nzjh \u0017blessed spellbook of sleep\nrk.\u0007succubus\nZs20sZ20s  y   sZ20s.ZZ..Zss\u0007silver dragon\n\u0007baby red dragon\n.s.#polyself\nblack dragon\n #monster\nn s.#monster\nu#monster\nl  #monster\nFj Fl\u0017wand of striking\n\u0017wand of magic missile\n\u0007dwarf\nzll  n szmu zlu 20s zlj zlj  n  zlj zll zml s zlj  n  \u00161\n\u0017wand of magic missile\n\u0017wand of lightning\n\u0007kobold\n\u0007kobold shaman\nznj  znj  zol znl   n zoj.znl znk znl   n s \u0018\u001b\u00163\n\u0017wand of polymorph\n\u0017wand of cold\n\u0007giant rat\n\u0007hill orc\nzpyzpjzplzql zpyzpyzql   nzqk\u0017wand of sleep\n\u0017wand of digging\n\u0007kobold\nzs>  20szs> 20szs> zs> zs> zs> s\u0007black dragon\n.s s n 20s n FkFk\u00168\n\u0007kobold shaman\n\u0007vampire\n\u0017wand of striking\n..20szthss i\u001b\u0007silver dragon\ns s  n .    Fl Fh  n  \u00161\n\u00174 cream pies\nQd\u0007soldier\ntbjfufb tdl  \u0007red dragon\nss  s.#polyself\nblack dragon\n #monster\nl 20s 20s  #monster\n#monster\n\u0017wand of cold\navy    n..i\u001b\u0017wand of striking\n\u0017wand of polymorph\n\u0017wand of cancellation\n\u0007grid bug\nzxlszxuzxuzykzykzyu\u0017wand of slow monster\n\u0017wand of teleportation\n\u0017wand of lig"
+  }
+ ]
+}

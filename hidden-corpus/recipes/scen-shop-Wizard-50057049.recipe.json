@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed ring of free action\nPol\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w  \u0006_ \u001b,_o.,:_oo._o.,:_oooooooo.,\u0014m,ss\u00167\nhjy\u0016?\n>w\u0006_oo,_oo.,p_oooo.,#chat\nl__,  Fl   _.Fy #chat\ny  n\u0016?\n>Buuj\u0016?\n>w\u0006_oooooooo,,p_ooooooo,,:_{.   _. qy  n l lh#chat\nbyb  u#chat\nn_oooooo.,\u0017amulet versus poison\ndq_oooooooo,,:_oooooo._ooo.Fh   _.,  p_{,_.  nqh                     n \u00164\nluj#chat\nn\u0016?\n>Bnbn\u0016?\n>w \u0006_oo,Fk _,,    n p\u001b_{. Fl  n_.  Fn  nqf  n  n\u001610\n    _oooooooo.,#chat\nh   n  n\u001611\n_oooooo,,p   _ooooooo._o.,pFjFjFj  nFjFjFjukn#chat\nb_oooooooo.,\u0017ruby\ndtbbh#chat\nh _{.qg\u00167\nkbn\u0016?\n>w\u0006"
+ },
+ "segments": [
+  {
+   "seed": 50057049,
+   "datetime": "20210921235006",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=fruit:lychee\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed ring of free action\nPol\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w  \u0006_ \u001b,_o.,:_oo._o.,:_oooooooo.,\u0014m,ss\u00167\nhjy\u0016?\n>w\u0006_oo,_oo.,p_oooo.,#chat\nl__,  Fl   _.Fy #chat\ny  n\u0016?\n>Buuj\u0016?\n>w\u0006_oooooooo,,p_ooooooo,,:_{.   _. qy  n l lh#chat\nbyb  u#chat\nn_oooooo.,\u0017amulet versus poison\ndq_oooooooo,,:_oooooo._ooo.Fh   _.,  p_{,_.  nqh                     n \u00164\nluj#chat\nn\u0016?\n>Bnbn\u0016?\n>w \u0006_oo,Fk _,,    n p\u001b_{. Fl  n_.  Fn  nqf  n  n\u001610\n    _oooooooo.,#chat\nh   n  n\u001611\n_oooooo,,p   _ooooooo._o.,pFjFjFj  nFjFjFjukn#chat\nb_oooooooo.,\u0017ruby\ndtbbh#chat\nh _{.qg\u00167\nkbn\u0016?\n>w\u0006"
+  }
+ ]
+}

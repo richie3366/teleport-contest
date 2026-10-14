@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0016?\n>y  _ \u001b;#chat\nj_mm,  \u001b Fj  _.#chat\nb ;b,_mmmmm,Fb_,#chat\nb;b,_mmm.Fb_.#chat\nb _mmmm.#chat\nbs>#monster\n\u001622\n\u000f\u001b#levelchange\n30\n         \u0017blessed ring of polymorph control\nPel\u0017cloak of displacement\nWf 20sssTf #polyself\nhomunculus\n   #monster\n.s\u0007captain\nFyFy   Fy  sks20s  #polyself\ngrid bug\n #monster\n20s   20s  .m...#polyself\nblack light\n#monster\n20s 20s  \u0007leprechaun\nFhFl Fl  20s  sm.20s  #polyself\nminotaur\n20s  20s  20s  20s  n  .m. \u0017potion of polymorph\nqg Uruk-hai\n#dip\nd\u001628\n   \u0017pick-axe\nah  uahu     uah> slah>     n    .un n ah<    \u00169\nny \u0017towel\nEi  :\u0017magic marker\nEj Vlad was here\n  : \u0017wand of secret door detection\nEk   X marks the spot\n   n : E-n  Elbereth\n \u0007soldier ant\nsm.s20s  \u00173 spellbook of cure sickness\nrl  20s  20s  n  Z\u00173 spellbook of cancellation\n\u0007cobra\nrm            nsu.uZFjFl \u0017scroll of identify\nrn e\n     Fj   Fl    n\u0017dwarvish mattock\nwo  Fj   .FjFjFj \u001b\u0017cursed eucalyptus leaf\n\u0007captain\nep..  nFjFn\u0017uncursed scroll of create monster\nrq20s.\u00163\n#levelchange\n12\n    \u0007wood nymph\n.  n Fb\u0007Elvenking\n.s20s 20s s  n20s s20s  sm.   n  \u0007dust vortex\n20s  20s s\u001bs.s20s  \u000f\u001b\u001610\n#levelchange\n12\n\u0017bullwhip\nwr  n FjFjFj\u0007trapper\nFjFjFj  Fk  n Fj\u0007gas spore\nFjFj  Fl    n\u0007Nazgul\nsk 20ssk20s  sm.   sm.20s 20s    sn     n  \\   \u00166\n#levelchange\n8\n\u0017levitation boots\nWs  sk.m.  sm.   \u0007Juiblex\nnFl     nFj   Fj   Fl\u0007Croesus\ny#chat\nlFl     nFj   \u0007iron golem\n#chat\nn        yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50055033,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0016?\n>y  _ \u001b;#chat\nj_mm,  \u001b Fj  _.#chat\nb ;b,_mmmmm,Fb_,#chat\nb;b,_mmm.Fb_.#chat\nb _mmmm.#chat\nbs>#monster\n\u001622\n\u000f\u001b#levelchange\n30\n         \u0017blessed ring of polymorph control\nPel\u0017cloak of displacement\nWf 20sssTf #polyself\nhomunculus\n   #monster\n.s\u0007captain\nFyFy   Fy  sks20s  #polyself\ngrid bug\n #monster\n20s   20s  .m...#polyself\nblack light\n#monster\n20s 20s  \u0007leprechaun\nFhFl Fl  20s  sm.20s  #polyself\nminotaur\n20s  20s  20s  20s  n  .m. \u0017potion of polymorph\nqg Uruk-hai\n#dip\nd\u001628\n   \u0017pick-axe\nah  uahu     uah> slah>     n    .un n ah<    \u00169\nny \u0017towel\nEi  :\u0017magic marker\nEj Vlad was here\n  : \u0017wand of secret door detection\nEk   X marks the spot\n   n : E-n  Elbereth\n \u0007soldier ant\nsm.s20s  \u00173 spellbook of cure sickness\nrl  20s  20s  n  Z\u00173 spellbook of cancellation\n\u0007cobra\nrm            nsu.uZFjFl \u0017scroll of identify\nrn e\n     Fj   Fl    n\u0017dwarvish mattock\nwo  Fj   .FjFjFj \u001b\u0017cursed eucalyptus leaf\n\u0007captain\nep..  nFjFn\u0017uncursed scroll of create monster\nrq20s.\u00163\n#levelchange\n12\n    \u0007wood nymph\n.  n Fb\u0007Elvenking\n.s20s 20s s  n20s s20s  sm.   n  \u0007dust vortex\n20s  20s s\u001bs.s20s  \u000f\u001b\u001610\n#levelchange\n12\n\u0017bullwhip\nwr  n FjFjFj\u0007trapper\nFjFjFj  Fk  n Fj\u0007gas spore\nFjFj  Fl    n\u0007Nazgul\nsk 20ssk20s  sm.   sm.20s 20s    sn     n  \\   \u00166\n#levelchange\n8\n\u0017levitation boots\nWs  sk.m.  sm.   \u0007Juiblex\nnFl     nFj   Fj   Fl\u0007Croesus\ny#chat\nlFl     nFj   \u0007iron golem\n#chat\nn        yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

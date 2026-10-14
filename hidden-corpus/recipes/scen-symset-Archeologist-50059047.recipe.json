@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "mO>t\u001b\n\u0007tame little dog\n20s\u0006_ \u001bm,>FbFy_>.Fy_.> \u0007giant rat\n\u0017scroll of taming\n rj  \u0007gnome\n20s..sss\u0017tin whistle\nuu ky h\u001bak\u0006_>>.Fj_.;@.Fl>FlFl_>>,Fl_,Fj>FlFl_>>.Fk_.Fk>FjFjFkFjFk\u0006_>,Fk_.Fk>FjFj_>.Fj_.<.Fk>FjFj_>.Fj_.Fk>FjFkFjFkFj<\u0006_>>.Fk_..Fj>FkFj_>>,Fj_,>.Fk>FkFk_>>,Fj_,Fk>FjFjFkFjFk\u0006_>,  nFk_.@.Fk>FkFj_>.Fk_.Fj>FjFj_>.Fj_.,Fj>FkFjFkFjFjv i\u001bv i\u001b\u0006_>.Fj_,Fj>FkFk_>.  nFk_..Fj>FjFk_>.Fk_.;:   Fk>FkFjFkFkFj\u0006_>.Fj_..Fk>FjFj_>.Fj_,Fj>FkFk_>.Fk_.@.Fj>FjFjFjFjFk\u0006_>.Fj_.:Fk>FjFj_>,Fk_,:Fk>FjFk_>.Fk_,.Fk>FjFjFjFjFj\u0006_>>.Fk_.>.Fk>FkFj_>>.Fk_.Fk>FkFk_>>.  nFk_,Fk>FjFjFkFkFk\u0006_>,Fk_,Fj>FkFj_>.Fj_.m,Fk>FkFk_>.Fk_,:Fj>FkFjFkFkFk,#terrain\nb\n \u0006_>>.Fj_.<.Fk>FkFj_>>.  nFj_,Fj>FkFk_>>.Fk_.Fj>FkFkFkFkFjh\u001bde\u00166\n\u0006_>. Fj_.:Fh>FhFh_>.Fh_,Fh>FlFh_>,Fh_,Fh>FlFhFhFhFl\u0006_>.Fh_,Fh>FhFl_>.Fh_,Fh>FlFl_>.Fh_,Fl>FhFhFlFhFl\u0006_>.Fh_,  nFl>FhFl_>.Fl_.Fh>FlFh_>.Fh_.Fl>FhFlFlFhFl\u0006_>>.Fl_.Fl>FlFh_>>,Fl_.Fl>FhFh_>>,Fl_,Fl>FhFlFhFlFl\u0006_>.Fh_.Fl>FlFh_>,Fh_,Fl>FhFl_>,Fh_,Fl>FhFlFhFhFl#conduct\n >\u0006_"
+ },
+ "segments": [
+  {
+   "seed": 50059047,
+   "datetime": "20090909074621",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nMSGTYPE=hide \"The door\"\n",
+   "moves": "mO>t\u001b\n\u0007tame little dog\n20s\u0006_ \u001bm,>FbFy_>.Fy_.> \u0007giant rat\n\u0017scroll of taming\n rj  \u0007gnome\n20s..sss\u0017tin whistle\nuu ky h\u001bak\u0006_>>.Fj_.;@.Fl>FlFl_>>,Fl_,Fj>FlFl_>>.Fk_.Fk>FjFjFkFjFk\u0006_>,Fk_.Fk>FjFj_>.Fj_.<.Fk>FjFj_>.Fj_.Fk>FjFkFjFkFj<\u0006_>>.Fk_..Fj>FkFj_>>,Fj_,>.Fk>FkFk_>>,Fj_,Fk>FjFjFkFjFk\u0006_>,  nFk_.@.Fk>FkFj_>.Fk_.Fj>FjFj_>.Fj_.,Fj>FkFjFkFjFjv i\u001bv i\u001b\u0006_>.Fj_,Fj>FkFk_>.  nFk_..Fj>FjFk_>.Fk_.;:   Fk>FkFjFkFkFj\u0006_>.Fj_..Fk>FjFj_>.Fj_,Fj>FkFk_>.Fk_.@.Fj>FjFjFjFjFk\u0006_>.Fj_.:Fk>FjFj_>,Fk_,:Fk>FjFk_>.Fk_,.Fk>FjFjFjFjFj\u0006_>>.Fk_.>.Fk>FkFj_>>.Fk_.Fk>FkFk_>>.  nFk_,Fk>FjFjFkFkFk\u0006_>,Fk_,Fj>FkFj_>.Fj_.m,Fk>FkFk_>.Fk_,:Fj>FkFjFkFkFk,#terrain\nb\n \u0006_>>.Fj_.<.Fk>FkFj_>>.  nFj_,Fj>FkFk_>>.Fk_.Fj>FkFkFkFkFjh\u001bde\u00166\n\u0006_>. Fj_.:Fh>FhFh_>.Fh_,Fh>FlFh_>,Fh_,Fh>FlFhFhFhFl\u0006_>.Fh_,Fh>FhFl_>.Fh_,Fh>FlFl_>.Fh_,Fl>FhFhFlFhFl\u0006_>.Fh_,  nFl>FhFl_>.Fl_.Fh>FlFh_>.Fh_.Fl>FhFlFlFhFl\u0006_>>.Fl_.Fl>FlFh_>>,Fl_.Fl>FhFh_>>,Fl_,Fl>FhFlFhFlFl\u0006_>.Fh_.Fl>FlFh_>,Fh_,Fl>FhFl_>,Fh_,Fl>FhFlFhFhFl#conduct\n >\u0006_"
+  }
+ ]
+}

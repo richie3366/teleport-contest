@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nih\n  \u0017scroll of confuse monster\nrg\u0017lizard corpse\neh \u0017scroll of taming\nri\u0017scroll of fire\nrjs..i\u001b#levelchange\n20\n                   \u0016?\n>E  nn\u0017wand of digging\nzkh\u0017wand of striking\nzlkhFhun\u0017wand of digging\nzmkhnn\u0017scroll of earth\nrn\u0017wand of striking\nzok\u0017wand of striking\nzp>hy\u0017scroll of earth\nrq\u0017wand of digging\nzrk\u0017wand of striking\nzs>\u0017wand of digging\nzt>\u0017wand of striking\nzuh\u0017wand of striking\nzvk\u0017wand of digging\nzw>\u0017scroll of earth\nrxhyhnnhy\u0017wand of digging\nzyl\u0017wand of striking\nzzl \u0017wand of striking\nzA>lnnhnnly   \u0017scroll of earth\nrn\u0017scroll of earth\nrn\u0017wand of digging\nzBl n\u0017wand of digging\nzCkhnn\u0017scroll of earth\nrD  hnl\u0017wand of digging\nzEkkn\u0017wand of striking\nzFhnb\u0017scroll of earth\nrG jukukbknuhhh\u0017silver dagger\nwHs.sX\u0007master lich\nFnFn   Fj         Fl       \u0007grid bug\n.m.       .m.                  n   n    n.m.     sm.    n   .j     n  sm.    n      \u0007Croesus\nyFl   n    Fb       n    Fb     n   Fj       n Fn         n      Fn  n    n   \u001611\n#levelchange\n10\n   \u0016?\n>CFj  nl yj Fh  n FhyFh  yy\u001by   nny\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50055018,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nih\n  \u0017scroll of confuse monster\nrg\u0017lizard corpse\neh \u0017scroll of taming\nri\u0017scroll of fire\nrjs..i\u001b#levelchange\n20\n                   \u0016?\n>E  nn\u0017wand of digging\nzkh\u0017wand of striking\nzlkhFhun\u0017wand of digging\nzmkhnn\u0017scroll of earth\nrn\u0017wand of striking\nzok\u0017wand of striking\nzp>hy\u0017scroll of earth\nrq\u0017wand of digging\nzrk\u0017wand of striking\nzs>\u0017wand of digging\nzt>\u0017wand of striking\nzuh\u0017wand of striking\nzvk\u0017wand of digging\nzw>\u0017scroll of earth\nrxhyhnnhy\u0017wand of digging\nzyl\u0017wand of striking\nzzl \u0017wand of striking\nzA>lnnhnnly   \u0017scroll of earth\nrn\u0017scroll of earth\nrn\u0017wand of digging\nzBl n\u0017wand of digging\nzCkhnn\u0017scroll of earth\nrD  hnl\u0017wand of digging\nzEkkn\u0017wand of striking\nzFhnb\u0017scroll of earth\nrG jukukbknuhhh\u0017silver dagger\nwHs.sX\u0007master lich\nFnFn   Fj         Fl       \u0007grid bug\n.m.       .m.                  n   n    n.m.     sm.    n   .j     n  sm.    n      \u0007Croesus\nyFl   n    Fb       n    Fb     n   Fj       n Fn         n      Fn  n    n   \u001611\n#levelchange\n10\n   \u0016?\n>CFj  nl yj Fh  n FhyFh  yy\u001by   nny\u001b  F"
+  }
+ ]
+}

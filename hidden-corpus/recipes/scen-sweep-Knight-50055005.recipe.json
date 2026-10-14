@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           i\u001bW20s.seh .m.sm. waFh s20sXegssWs20s20sW.ss#rub\n#offer\nJ#dip\ng#conduct\n f  \u0014 \u001b<.#name\nd\ni\u001bWss20swa .20sFlW20s.m..bTdeh.m.20seg       sswb FlssX#levelchange\n30\n                 \u0017blessed ring of polymorph control\nPmr#polyself\nwerewolf\n bone devil\n#monster\n20s20s\u0007black pudding\nFj Fj Fb  shss#polyself\nstalker\n#monster\nsh   20s\u0007giant beetle\nFj FkFk.m.20s.m. #polyself\nAngel\n shopkeeper\n#monster\nsm.s\u0007shrieker\nFn Fn   n Fusy.m.20s #polyself\nfog cloud\n s    n 20s \u0007baby long worm\nFl  Fn  Fn   n 20s .m.20s\u0017amulet of unchanging\nPn    n.m.sn.m.20sRn\u00166\n#levelchange\n30\n\u0017blessed ring of polymorph control\nPo#polyself\nrock piercer\n  #monster\nss.ss#polyself\nqueen bee\n  #monster\n.m..\u0007jellyfish\nFkFkFk.l20ssl\u001619\ni\u001bPn.20ss20sP\u001bs20s20sel20ssP\u001bs.sWs..eg20ss#tip\n\u001bi\u001b#untrap\ntoho\u0014m.\u00165\n\u0017pick-axe\na.aaabanhl\u0006_>>._.>_>>._,>_>>,_.>\u0006_>,_,>_>,_,>_>._,>\u0006_>,_.>_>,_,>_>._.>\u00166\n#levelchange\n20\n    \u00173 beartrap\na\u0017cursed -1 water walking boots\n\u0007quantum mechanic\nWsm.20s.j\u0017uncursed newt corpse\n\u0007incubus\nessm.sss\u00167\n#levelchange\n12\n  n n n n n n\u0017blessed ring of polymorph control\nPt\u0017leather armor\nW20s.l.h#polyself\n#monster\nsm.s.m.sysy#polyself\n#monster\n.n20s\u0007nurse\nFuFyFusm.20s20s#polyself\nsm.sss.m.\u0017amulet of unchanging\nPv20ssjsm.s\u001612\n\u0006\u00167\n#wizintrinsic\nmg\n \u0017towel\na\u0017blessed potion of water\nqx \u001b#dip\nlZjkyZ;b,\u0017scroll of teleportation\nrsm.20ssb\u00164\n \u0006\u0017large box\n\u0017bag of holding\n\u0017wand of cancellation\ndz#loot\n,adA#loot\n,a\nadl#loot\n,a\n\u0006"
+ },
+ "segments": [
+  {
+   "seed": 50055005,
+   "datetime": "20050506013014",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           i\u001bW20s.seh .m.sm. waFh s20sXegssWs20s20sW.ss#rub\n#offer\nJ#dip\ng#conduct\n f  \u0014 \u001b<.#name\nd\ni\u001bWss20swa .20sFlW20s.m..bTdeh.m.20seg       sswb FlssX#levelchange\n30\n                 \u0017blessed ring of polymorph control\nPmr#polyself\nwerewolf\n bone devil\n#monster\n20s20s\u0007black pudding\nFj Fj Fb  shss#polyself\nstalker\n#monster\nsh   20s\u0007giant beetle\nFj FkFk.m.20s.m. #polyself\nAngel\n shopkeeper\n#monster\nsm.s\u0007shrieker\nFn Fn   n Fusy.m.20s #polyself\nfog cloud\n s    n 20s \u0007baby long worm\nFl  Fn  Fn   n 20s .m.20s\u0017amulet of unchanging\nPn    n.m.sn.m.20sRn\u00166\n#levelchange\n30\n\u0017blessed ring of polymorph control\nPo#polyself\nrock piercer\n  #monster\nss.ss#polyself\nqueen bee\n  #monster\n.m..\u0007jellyfish\nFkFkFk.l20ssl\u001619\ni\u001bPn.20ss20sP\u001bs20s20sel20ssP\u001bs.sWs..eg20ss#tip\n\u001bi\u001b#untrap\ntoho\u0014m.\u00165\n\u0017pick-axe\na.aaabanhl\u0006_>>._.>_>>._,>_>>,_.>\u0006_>,_,>_>,_,>_>._,>\u0006_>,_.>_>,_,>_>._.>\u00166\n#levelchange\n20\n    \u00173 beartrap\na\u0017cursed -1 water walking boots\n\u0007quantum mechanic\nWsm.20s.j\u0017uncursed newt corpse\n\u0007incubus\nessm.sss\u00167\n#levelchange\n12\n  n n n n n n\u0017blessed ring of polymorph control\nPt\u0017leather armor\nW20s.l.h#polyself\n#monster\nsm.s.m.sysy#polyself\n#monster\n.n20s\u0007nurse\nFuFyFusm.20s20s#polyself\nsm.sss.m.\u0017amulet of unchanging\nPv20ssjsm.s\u001612\n\u0006\u00167\n#wizintrinsic\nmg\n \u0017towel\na\u0017blessed potion of water\nqx \u001b#dip\nlZjkyZ;b,\u0017scroll of teleportation\nrsm.20ssb\u00164\n \u0006\u0017large box\n\u0017bag of holding\n\u0017wand of cancellation\ndz#loot\n,adA#loot\n,a\nadl#loot\n,a\n\u0006"
+  }
+ ]
+}

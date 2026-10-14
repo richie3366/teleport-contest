@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "Y LHJ_ \u001b,>Fl20sFh#wipe\n#jump\nm.KYUY_>.>#offer\nr\u001bYBJB_>.>HHLK_>.>YKKN_>.>HKHK_>.>NLKL_>.>Fl 20s.\u000f\u001byyjyNUHH_>.>NHUL_>,>KLHK_>,>NHLU_>.><HYKJ_>.><#sit\n\u001b\u000f\u001buknbtby20s#name\nm\ntkubk100s50s#ride\nkllk150si\u001b_>,>150sFh..:\u000f\u001b100s_>,>150sFhFh.100sFhFh20s_>,>bjn100sFh#quit\nyy\u001by  y y y\u001b FyFy FyFyFyFyFyFykyubFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlNKUK_ \u001bm.>FhssLKJY_>.>BYHY_>.>UJKK_>,>NUUU_>.>#chat\ny:KKBJ_>,>Fn..ai E\u001bkknlJJLL_>,>;<.#loot\nJYBL_>.>KBBK_>.#quit\nyy\u001by  y y y\u001b \u0017wand of cold\nzj.  y nny y\u001by  2FkFkFkFkFkFkFkFk#name\nm\n ;das.st\u001b#chat\nh#name\nm\nuklltt\u001bnk#chat\nut\u001bdc20ss.lyhldbss20snkt\u001b#chat\nn10s #name\no\n#chat\nj20slbklbhnnlkuu50sFb s20sFuFjFu100s  Fj20s   20si\u001b100s50s   150s     FuFu FjFuFus100s  FbFns100s   Flss100sFl20s   FuFu Fns\u0018\u001bljuFjFnFnFl.20sFyFjFy150s 50s Fn Fn.Fls20s150sFyFy  y\u001by  y y y\u001b  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50050020,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "Y LHJ_ \u001b,>Fl20sFh#wipe\n#jump\nm.KYUY_>.>#offer\nr\u001bYBJB_>.>HHLK_>.>YKKN_>.>HKHK_>.>NLKL_>.>Fl 20s.\u000f\u001byyjyNUHH_>.>NHUL_>,>KLHK_>,>NHLU_>.><HYKJ_>.><#sit\n\u001b\u000f\u001buknbtby20s#name\nm\ntkubk100s50s#ride\nkllk150si\u001b_>,>150sFh..:\u000f\u001b100s_>,>150sFhFh.100sFhFh20s_>,>bjn100sFh#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50150020,
+   "datetime": "20140403215432",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\n",
+   "moves": "FyFy FyFyFyFyFyFykyubFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlNKUK_ \u001bm.>FhssLKJY_>.>BYHY_>.>UJKK_>,>NUUU_>.>#chat\ny:KKBJ_>,>Fn..ai E\u001bkknlJJLL_>,>;<.#loot\nJYBL_>.>KBBK_>.#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50250020,
+   "datetime": "20120425110029",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017wand of cold\nzj.  y nny y\u001by  2"
+  },
+  {
+   "seed": 50350020,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "FkFkFkFkFkFkFkFk#name\nm\n ;das.st\u001b#chat\nh#name\nm\nuklltt\u001bnk#chat\nut\u001bdc20ss.lyhldbss20snkt\u001b#chat\nn10s #name\no\n#chat\nj20slbklbhnnlkuu50sFb s20sFuFjFu100s  Fj20s   20si\u001b100s50s   150s     FuFu FjFuFus100s  FbFns100s   Flss100sFl20s   FuFu Fns\u0018\u001bljuFjFnFnFl.20sFyFjFy150s 50s Fn Fn.Fls20s150sFyFy  y\u001by  y y y\u001b  s"
+  }
+ ]
+}

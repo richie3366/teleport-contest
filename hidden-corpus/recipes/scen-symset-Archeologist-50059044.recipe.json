@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u00166\nFyFkFjFbFhFyFbFuFyFnFnFjFnFn FuFy FyFlFyFnFjFhFjFyFhFnFbFjFyFnFnFnFbFbFyFbFuFlFlFhFnFjFnFuFnFyFlFyFjFhFlFyFuFnFuFbFuFyFyFuFhFjFuFnFlFbFjFjFjFuFnFnFhFyFnFlFjFhFyFlFjFbFjFbFbFnFyFnFnFbFuFbFlFhFyFbFbFlFhFjFjFlFlFlFbFhFuFnFbFjFjFbFjFjFyFyFlFbFyFbv i\u001b\u00169\nr\u001b#ride\nhyw-\u0006_ \u001b>.>FbFh_>.Fj  n_,Fu>FbFb_>.  nFk _.Fh  n >FhFk  nFyFy  nFyZtal\u0006_>.  nFl_.Fl>Fk  nFy_>,  nFh_.  nFl >FbFl  n_>.Fj_.  nFy>FkFh  n Fn   n Fh  nFjz\\ \u0006_>,Fn  n_.Fl >Fj  yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50059044,
+   "datetime": "20110205064403",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u00166\nFyFkFjFbFhFyFbFuFyFnFnFjFnFn FuFy FyFlFyFnFjFhFjFyFhFnFbFjFyFnFnFnFbFbFyFbFuFlFlFhFnFjFnFuFnFyFlFyFjFhFlFyFuFnFuFbFuFyFyFuFhFjFuFnFlFbFjFjFjFuFnFnFhFyFnFlFjFhFyFlFjFbFjFbFbFnFyFnFnFbFuFbFlFhFyFbFbFlFhFjFjFlFlFlFbFhFuFnFbFjFjFbFjFjFyFyFlFbFyFbv i\u001b\u00169\nr\u001b#ride\nhyw-\u0006_ \u001b>.>FbFh_>.Fj  n_,Fu>FbFb_>.  nFk _.Fh  n >FhFk  nFyFy  nFyZtal\u0006_>.  nFl_.Fl>Fk  nFy_>,  nFh_.  nFl >FbFl  n_>.Fj_.  nFy>FkFh  n Fn   n Fh  nFjz\\ \u0006_>,Fn  n_.Fl >Fj  yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

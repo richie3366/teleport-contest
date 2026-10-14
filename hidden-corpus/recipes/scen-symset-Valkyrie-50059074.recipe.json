@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "v  i\u001bO>k\u001b\u001b\n\u001619\n\u0007kitten\n\u0017huge chunk of meat\ntbkk\u0017leash\nafkkhjbafk  n\u0007yellow mold\n.m.20ssm.  n.m.sm.sm.  n 10s\u0006_ \u001b>.>FkFk_>.Fl_.>_>._.>\u0007yellow mold\ns.20ss.20s\u00162\nO>>>>h\u001b\n\u00167\n#levelchange\n6\n     jjnj\u0017cloud\n:ju\u0017grave\n: \u0017wand of digging\nzg> .m.sbhu\u0017lawful altar\nda  \u0017human corpse\n #pray\ny y       l j\u0017magic fountain\nqy   n#dip\ney y:  #sit\n #untrap\nl#enhance\nyj\nq\n\u001bO>>h\u001b\n \u001616\nO>e\u001b\nmO>>>m\u001b\n#levelchange\n6\nby  h\u0017moat\n#dip\ndy :hb\u0017tree\nk\u0017chaotic altar\ndcdf\u0017jackal corpse\n#offer\ni   : #terrain\nd\n#turn\n:\\   #untrap\nlO>>>>n\u001b\u001b\n\u0006_>.Fk_,:Fy>  FnFn   nFnw\u001b#loot\nn\u0006_>.   Fl    _.Fl>_>._.>.>_>._,>.>i\u001b\u0004l\u0006_>>,_.m.>_>>,_,m,>_>>._.<.>\u0006_>,_,,>_>._.;;>_>,_,;.>\u0006_>>,_.@.>"
+ },
+ "segments": [
+  {
+   "seed": 50059074,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:durian\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nMENUCOLOR=\"a scroll\"=red\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "v  i\u001bO>k\u001b\u001b\n\u001619\n\u0007kitten\n\u0017huge chunk of meat\ntbkk\u0017leash\nafkkhjbafk  n\u0007yellow mold\n.m.20ssm.  n.m.sm.sm.  n 10s\u0006_ \u001b>.>FkFk_>.Fl_.>_>._.>\u0007yellow mold\ns.20ss.20s\u00162\nO>>>>h\u001b\n\u00167\n#levelchange\n6\n     jjnj\u0017cloud\n:ju\u0017grave\n: \u0017wand of digging\nzg> .m.sbhu\u0017lawful altar\nda  \u0017human corpse\n #pray\ny y       l j\u0017magic fountain\nqy   n#dip\ney y:  #sit\n #untrap\nl#enhance\nyj\nq\n\u001bO>>h\u001b\n \u001616\nO>e\u001b\nmO>>>m\u001b\n#levelchange\n6\nby  h\u0017moat\n#dip\ndy :hb\u0017tree\nk\u0017chaotic altar\ndcdf\u0017jackal corpse\n#offer\ni   : #terrain\nd\n#turn\n:\\   #untrap\nlO>>>>n\u001b\u001b\n\u0006_>.Fk_,:Fy>  FnFn   nFnw\u001b#loot\nn\u0006_>.   Fl    _.Fl>_>._.>.>_>._,>.>i\u001b\u0004l\u0006_>>,_.m.>_>>,_,m,>_>>._.<.>\u0006_>,_,,>_>._.;;>_>,_,;.>\u0006_>>,_.@.>"
+  }
+ ]
+}

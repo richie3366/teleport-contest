@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "O>l\u001b\n\u00165\nFh  FhFhFhFhFh  nFhFhFjFbFjFb#pray\ny y     FbFbFhFhFhFhFjFh   FhFhFbFjFbFjFbFhFhFhFhFjFhFhFbFbFbFhFhFjFbFhFjFbFhFhFhFjFjFhFjFhFhFhFhFhFhFbFbFbFjFhFjFjFjFhFjFhFbFhFhFjFjFbFbFhFbFbFbFbFbFjFjFbFjFhFjFhFhFbFbFbFbFjFjFhFbFbFbFhFjFhFhFbFbFjFhFbFbFbFhFbFjFhFhFjFh\u00169\nmOa\u001b\nFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFy FkFyFkFkFyFkFkFyFkFkFkFkFyFkFkFyFyFkO>n\u001b\u001b\nv\u001bi\u001b\u0006_ \u001bm.>_>>.Fl_.Fl>FlFl_>>.Fl_.Fl>FlFlFlFlFl\u0006_>.Fl _.Fl>FlFl_>.Fl_,Fl>FlFl _>.Fl_.Fl>FlFlFlFlFl\u0006_>.Fl_,Fl>FlFl_>.Fl_.Fl>FlFl_>,Fl_.Fl>FlFlFlFlFl\u0006_>,Fl_.Fl>FlFl_>,Fl_.Fl>FlFl_>.Fl_.Fl>F"
+ },
+ "segments": [
+  {
+   "seed": 50059018,
+   "datetime": "20060420221146",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You hear\"\nBIND=v:inventory\n",
+   "moves": "O>l\u001b\n\u00165\nFh  FhFhFhFhFh  nFhFhFjFbFjFb#pray\ny y     FbFbFhFhFhFhFjFh   FhFhFbFjFbFjFbFhFhFhFhFjFhFhFbFbFbFhFhFjFbFhFjFbFhFhFhFjFjFhFjFhFhFhFhFhFhFbFbFbFjFhFjFjFjFhFjFhFbFhFhFjFjFbFbFhFbFbFbFbFbFjFjFbFjFhFjFhFhFbFbFbFbFjFjFhFbFbFbFhFjFhFhFbFbFjFhFbFbFbFhFbFjFhFhFjFh\u00169\nmOa\u001b\nFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFy FkFyFkFkFyFkFkFyFkFkFkFkFyFkFkFyFyFkO>n\u001b\u001b\nv\u001bi\u001b\u0006_ \u001bm.>_>>.Fl_.Fl>FlFl_>>.Fl_.Fl>FlFlFlFlFl\u0006_>.Fl _.Fl>FlFl_>.Fl_,Fl>FlFl _>.Fl_.Fl>FlFlFlFlFl\u0006_>.Fl_,Fl>FlFl_>.Fl_.Fl>FlFl_>,Fl_.Fl>FlFlFlFlFl\u0006_>,Fl_.Fl>FlFl_>,Fl_.Fl>FlFl_>.Fl_.Fl>F"
+  }
+ ]
+}

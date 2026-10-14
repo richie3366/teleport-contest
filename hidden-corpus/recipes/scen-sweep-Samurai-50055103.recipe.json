@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqf \u001b>.__.     Fl   _. #chat\nyd$__._.Fb  #chat\nb  n__,Fb _.  nFl #chat\nl#pray\ny y        db _{.Fl  n _,Fbq_ddd,   nFb   n_, Fb \u0004l__,Fu_.Fj   #chat\nj  _oo,  nFj _. Fu_oo.Fu_.    n Fj ,\u001bp,\u001b#force\nu  i\u001b\u00167\n#levelchange\n8\n     #wizintrinsic\nn\n .m. sm.20s .m.20s sm.sl20s   sm. 20s .m. sls.m.  n  sj sm.sss20s    20s 20s sm. .jslss.h20s .ysy20s   #pray\ny y       \u000f\u001bq#force\n      n#tip\n\u001b#untrap\nl.l   .b.20s   sm..j\u00165\n#levelchange\n8\n#wizintrinsic\ns\n sh   20s  n   sm.   .u20s   20s  n   su20s  sm.   20s  n   sm.   .m.   \u0004y  n#turn\nE- Elbereth Elbereth\n   #ride\nly>clsm.20s   sm..m.     n20s   20s   \u00166\n\u0017kicking boots\nWg  sm.s.b\u0007wood nymph\nFk     nFk   Fh             yy\u001by  y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 50055103,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqf \u001b>.__.     Fl   _. #chat\nyd$__._.Fb  #chat\nb  n__,Fb _.  nFl #chat\nl#pray\ny y        db _{.Fl  n _,Fbq_ddd,   nFb   n_, Fb \u0004l__,Fu_.Fj   #chat\nj  _oo,  nFj _. Fu_oo.Fu_.    n Fj ,\u001bp,\u001b#force\nu  i\u001b\u00167\n#levelchange\n8\n     #wizintrinsic\nn\n .m. sm.20s .m.20s sm.sl20s   sm. 20s .m. sls.m.  n  sj sm.sss20s    20s 20s sm. .jslss.h20s .ysy20s   #pray\ny y       \u000f\u001bq#force\n      n#tip\n\u001b#untrap\nl.l   .b.20s   sm..j\u00165\n#levelchange\n8\n#wizintrinsic\ns\n sh   20s  n   sm.   .u20s   20s  n   su20s  sm.   20s  n   sm.   .m.   \u0004y  n#turn\nE- Elbereth Elbereth\n   #ride\nly>clsm.20s   sm..m.     n20s   20s   \u00166\n\u0017kicking boots\nWg  sm.s.b\u0007wood nymph\nFk     nFk   Fh             yy\u001by  y y y\u001by  s"
+  }
+ ]
+}

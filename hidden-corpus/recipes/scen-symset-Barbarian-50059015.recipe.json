@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "FkFyFyFyFyFhFhFyFyFhFkFuFkFlFlFuFlFyFuFkFlFyFuFyFuFyFlFyFuFkFyFuFhFyFl FhFyFkFkFlFkFhFyFyFyFlFuFhFh FlFlFlFhFhFuFlFkFkFyFkFlFhFkFyFyFhFyFlFhFyFhFyFhFlFlFlFhFlFyFyFlFkFyFhFyFhFlFlFlFkFkFyFhFhFyFlFyFlFlFhFlFhFlFlFkFkFhFhFlFyFyFyFlFyFyFyFlFyFkFyO>p\u001b\n_ \u001b>.>150s_>.>khjFuFkFkFkFkFkFkFkFkFkFkFkFkFkFlFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFk\u0006_>.Fh_.Fu>FuFhFhz#turn\n\u0006_>.Fu_.Fj>_>.Fl_.;@.Fh> \u0006_>>,Fh_,> \u00163\n#invoke\n\u001b_>.>ykkFjFjFhFjFhFhFhFhFhFjFhFjFhFjFhFhF"
+ },
+ "segments": [
+  {
+   "seed": 50059015,
+   "datetime": "20030810141713",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nBIND=v:inventory\n",
+   "moves": "FkFyFyFyFyFhFhFyFyFhFkFuFkFlFlFuFlFyFuFkFlFyFuFyFuFyFlFyFuFkFyFuFhFyFl FhFyFkFkFlFkFhFyFyFyFlFuFhFh FlFlFlFhFhFuFlFkFkFyFkFlFhFkFyFyFhFyFlFhFyFhFyFhFlFlFlFhFlFyFyFlFkFyFhFyFhFlFlFlFkFkFyFhFhFyFlFyFlFlFhFlFhFlFlFkFkFhFhFlFyFyFyFlFyFyFyFlFyFkFyO>p\u001b\n_ \u001b>.>150s_>.>khjFuFkFkFkFkFkFkFkFkFkFkFkFkFkFlFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFk\u0006_>.Fh_.Fu>FuFhFhz#turn\n\u0006_>.Fu_.Fj>_>.Fl_.;@.Fh> \u0006_>>,Fh_,> \u00163\n#invoke\n\u001b_>.>ykkFjFjFhFjFhFhFhFhFhFjFhFjFhFjFhFhF"
+  }
+ ]
+}

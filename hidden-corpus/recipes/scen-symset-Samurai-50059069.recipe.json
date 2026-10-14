@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b<.>FjFj_>.Fu_.> FkFyFyeP\u0006_>>,Fu _.:Fb>FlFn _>>.Fj_.> FkFyFn\u0006_>>,Fl_,Fu>FnFj_>>.Fj_.Fn>FnFk_>>,Fk_.Fn>FjFlFjFnFn\u0006_>.Fl_.Fj>FjFk_>.Fl_.Fj>FkFj_>.Fl_.Fj>FjFlFuFuFl#sit\n\u001bwc\u0006_>,Fl_,Fn>FnFj_>,Fu_.Fn>FjFn_>,Fu_.Fk>FuFnFuFlFjv\u001bi\u001b\u0006_>,Fl_.Fn>FjFn_>.Fu_.Fj>FkFn_>,Fk_.Fj>FlFjFkFkFl\u0006_>>.Fl_,Fn>FuFl_>>.Fu_.Fu>FkFk_>>.Fn_.Fn>FnFlFuFuFu\u0006_>.Fn_.Fu>FjFk_>,Fl_.Fj>FuFu_>.Fl_,Fj>FuFlFuFuFn\u0006_>,Fl_,Fj>FuFu_>.Fl_.Fn>FuFk_>,Fu_.Fl>FjFlFlFjFu\u00164\n#levelchange\n10\n        bbk\u0017ice\nn\u0017sink\nqy\u0017ring of invisibility\ndf  \u001b:jb\u0017magic fountain\nqy#dip\neybh\u0017chaotic altar\ndcdb\u0017lichen corpse\n#offer\ng   #pray\ny y : #terrain\nf\ns#ride\nhyPmO>>>>k\u001b\n\u001614\n    \u0006_>.Fn_,Fy >FbFn_>.Fy_.Fb>FbFb_>.Fu_.Fy>FlFyFkFkFu#offer\ns\u0006_>>.Fy_,Fl>FuFy_>>,Fn_.Fb>FuFu_>>.Fn_.Fk>FkFkFyFhFl\u0006_>>,Fh_.Fb>FkFl_>>.Fu_,Fl>FlFu_>>,Fn_.Fb>FuFlFkFhFn\u0006_>,Fy_,Fh>FhFy_>.Fu_.Fl>FkFb_>.Fu_.Fn>FhFkFlFbFn\u0006_>,Fk_.Fh>FbFu_>,Fk_.Fk>FbFb_>.Fl_.Fk>FbFhFhFhFjqW\u0006_>.Fb _.<.Fb>FlFu_>.Fk_,  nFk>FhFh_>. Fb_,Fu >FkFkFkFy Fn\u0006_>>.Fu_,Fn>FhFj  n_>>.Fu_,"
+ },
+ "segments": [
+  {
+   "seed": 50059069,
+   "datetime": "20260720233623",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You kill\"\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "\u0006_ \u001b<.>FjFj_>.Fu_.> FkFyFyeP\u0006_>>,Fu _.:Fb>FlFn _>>.Fj_.> FkFyFn\u0006_>>,Fl_,Fu>FnFj_>>.Fj_.Fn>FnFk_>>,Fk_.Fn>FjFlFjFnFn\u0006_>.Fl_.Fj>FjFk_>.Fl_.Fj>FkFj_>.Fl_.Fj>FjFlFuFuFl#sit\n\u001bwc\u0006_>,Fl_,Fn>FnFj_>,Fu_.Fn>FjFn_>,Fu_.Fk>FuFnFuFlFjv\u001bi\u001b\u0006_>,Fl_.Fn>FjFn_>.Fu_.Fj>FkFn_>,Fk_.Fj>FlFjFkFkFl\u0006_>>.Fl_,Fn>FuFl_>>.Fu_.Fu>FkFk_>>.Fn_.Fn>FnFlFuFuFu\u0006_>.Fn_.Fu>FjFk_>,Fl_.Fj>FuFu_>.Fl_,Fj>FuFlFuFuFn\u0006_>,Fl_,Fj>FuFu_>.Fl_.Fn>FuFk_>,Fu_.Fl>FjFlFlFjFu\u00164\n#levelchange\n10\n        bbk\u0017ice\nn\u0017sink\nqy\u0017ring of invisibility\ndf  \u001b:jb\u0017magic fountain\nqy#dip\neybh\u0017chaotic altar\ndcdb\u0017lichen corpse\n#offer\ng   #pray\ny y : #terrain\nf\ns#ride\nhyPmO>>>>k\u001b\n\u001614\n    \u0006_>.Fn_,Fy >FbFn_>.Fy_.Fb>FbFb_>.Fu_.Fy>FlFyFkFkFu#offer\ns\u0006_>>.Fy_,Fl>FuFy_>>,Fn_.Fb>FuFu_>>.Fn_.Fk>FkFkFyFhFl\u0006_>>,Fh_.Fb>FkFl_>>.Fu_,Fl>FlFu_>>,Fn_.Fb>FuFlFkFhFn\u0006_>,Fy_,Fh>FhFy_>.Fu_.Fl>FkFb_>.Fu_.Fn>FhFkFlFbFn\u0006_>,Fk_.Fh>FbFu_>,Fk_.Fk>FbFb_>.Fl_.Fk>FbFhFhFhFjqW\u0006_>.Fb _.<.Fb>FlFu_>.Fk_,  nFk>FhFh_>. Fb_,Fu >FkFkFkFy Fn\u0006_>>.Fu_,Fn>FhFj  n_>>.Fu_,"
+  }
+ ]
+}

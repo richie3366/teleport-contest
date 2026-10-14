@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n       #levelchange\n12\n   \u0016?\n>>N       frost horn\n20s      \u001b             n#terrain\nb\n\u001b;#name\nm\n;m.     n        n\u0006sb      .m.  n \u0016?\n\u001b\u0016?\n\u001b\\ \u001611\n#wizintrinsic\no\n 20s   sl  n   sl      n     .m.  n    sm.     n sm.       n  \u001b   20s   n     .m.   n       n .m.     n   sm.    n   20s      n    sm.    n    .m.     ynny y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50055111,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n       #levelchange\n12\n   \u0016?\n>>N       frost horn\n20s      \u001b             n#terrain\nb\n\u001b;#name\nm\n;m.     n        n\u0006sb      .m.  n \u0016?\n\u001b\u0016?\n\u001b\\ \u001611\n#wizintrinsic\no\n 20s   sl  n   sl      n     .m.  n    sm.     n sm.       n  \u001b   20s   n     .m.   n       n .m.     n   sm.    n   20s      n    sm.    n    .m.     ynny y\u001b  s"
+  }
+ ]
+}

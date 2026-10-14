@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "O>p\u001b\n\u001616\n 10sok \u0004y buj y\u0017melting ice\nkj n\u0017pool\n:j\u0017unaligned altar\ndadb\u0017jackal corpse\n#offer\nf  #pray\ny y : #terrain\ne\nPfb #ride\nh \u00162\neZmOa\u001b\nO>>>l\u001b\nmOa\u001b\n\u0007pony\n\u0017apple\nt\u001b\u0017newt corpse\nt\u001b\u0017newt corpse\nt\u001b20sdg 20sm.  n sm. sm.#name\nm\n >.10s10sv\u001bi\u001b\u0006_>, Fl_, Fl>FlFu_>,Fu_.  n Fu>FuFu_>,Fk_,Fn>FkFkFkch H\u0006_>>.Fu_.Fl>FlFl_>>.Fu_.Fu>FuFu_>>.Fk_.Fk>FkFkFkFkFk\u0006_>.Fk_,  n Fu>FuFu_>,Fn_>FkFy_>.Fkk _.Fl>FkFlFlFkFl\u00166\nmOa\u001b\n#ride\nu #terrain\nb\n \u0006_>>.Fn_>FnFj_>>.Fn_>FbFn_>>.Fj_.Fn>FbFnFn\u0006_>.Fj_,Fb>FbFb_>.Fj_.Fb>FnFn_>.Fj_.Fn>FbFjFb\u0004k n\u0006_>.Fn_>FnFn_>.Fn_>FjFn_>FbFjFbFjFnZ\u0014>.\u0006_>.> Z;>.20s\u000f\u001bO>j\u001b\n\u001619\ndc#pray\ny y 50s100sFuFyFkk FyFyFyFyFyFuk FuFuFuFyFuu FuFyFyFkFkFkFuFyFyFkFkFkFkFyFkk FkFyFuy FyFuy FyFku FkFyFuk FyFuk FkFkFkFkFuFkFkFuFyFyFuFkFyFku FuFkFuFyFyFkFyFuk FuFkFkFyFyFyFkk FuFyFuu FkFkFkFuFyFuk FyFuk F"
+ },
+ "segments": [
+  {
+   "seed": 50059055,
+   "datetime": "20190824085207",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=fruit:durian\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You kill\"\nBIND=v:inventory\n",
+   "moves": "O>p\u001b\n\u001616\n 10sok \u0004y buj y\u0017melting ice\nkj n\u0017pool\n:j\u0017unaligned altar\ndadb\u0017jackal corpse\n#offer\nf  #pray\ny y : #terrain\ne\nPfb #ride\nh \u00162\neZmOa\u001b\nO>>>l\u001b\nmOa\u001b\n\u0007pony\n\u0017apple\nt\u001b\u0017newt corpse\nt\u001b\u0017newt corpse\nt\u001b20sdg 20sm.  n sm. sm.#name\nm\n >.10s10sv\u001bi\u001b\u0006_>, Fl_, Fl>FlFu_>,Fu_.  n Fu>FuFu_>,Fk_,Fn>FkFkFkch H\u0006_>>.Fu_.Fl>FlFl_>>.Fu_.Fu>FuFu_>>.Fk_.Fk>FkFkFkFkFk\u0006_>.Fk_,  n Fu>FuFu_>,Fn_>FkFy_>.Fkk _.Fl>FkFlFlFkFl\u00166\nmOa\u001b\n#ride\nu #terrain\nb\n \u0006_>>.Fn_>FnFj_>>.Fn_>FbFn_>>.Fj_.Fn>FbFnFn\u0006_>.Fj_,Fb>FbFb_>.Fj_.Fb>FnFn_>.Fj_.Fn>FbFjFb\u0004k n\u0006_>.Fn_>FnFn_>.Fn_>FjFn_>FbFjFbFjFnZ\u0014>.\u0006_>.> Z;>.20s\u000f\u001bO>j\u001b\n\u001619\ndc#pray\ny y 50s100sFuFyFkk FyFyFyFyFyFuk FuFuFuFyFuu FuFyFyFkFkFkFuFyFyFkFkFkFkFyFkk FkFyFuy FyFuy FyFku FkFyFuk FyFuk FkFkFkFkFuFkFkFuFyFyFuFkFyFku FuFkFuFyFyFkFyFuk FuFkFkFyFyFyFkk FuFyFuu FkFkFkFuFyFuk FyFuk F"
+  }
+ ]
+}

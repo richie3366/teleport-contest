@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "K LUK_ \u001b:>Fh20ssKBL K_>.>#twoweapon\n#turn\nHKYL_>.>Fjs.#offer\nh#chat\nn10s  h  hlbu#chat\nj#chat\nj#conduct\n #jump\n#jump\n\\ 50sFn20ssbulFhsFh100sFj.sFlFjshnh_>.>knu50s150s FjFhs#wipe\n<150s100sFbs.50s 100su50s#dip\ncg50s FlFlsFjssi\u001b\u0018\u001b100sFnFnFl50sFhFh.150sFns.150s_>,>\u000f\u001b#dip\nb100s #name\n20s 10s 20s d.ss20s ri nyt$b_m,.t\u001bt\u001bdas.s10st\u001b10st\u001b20s100s  Fn 20sFh  FjFhFjFlFjs#sit\n50s ellyl100s    ellnh\u0018\u001b50s 100s  150s    Fh Fh FhFjFl FhFhFh20sFhFhFhFhs.:100sel   \u001b     5"
+ },
+ "segments": [
+  {
+   "seed": 50050051,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\n",
+   "moves": "K LUK_ \u001b:>Fh20ssKBL K_>.>#twoweapon\n#turn\nHKYL_>.>Fjs.#offer\nh#chat\nn10s  h  hlbu#chat\nj#chat\nj#conduct\n #jump\n#jump\n\\ 50sFn20ssbulFhsFh100sFj.sFlFjshnh_>.>knu50s150s FjFhs#wipe\n<150s100sFbs.50s 100su50s#dip\ncg50s FlFlsFjssi\u001b\u0018\u001b100sFnFnFl50sFhFh.150sFns.150s_>,>\u000f\u001b#dip\nb100s #name\n20s 10s 20s d.ss20s ri nyt$b_m,.t\u001bt\u001bdas.s10st\u001b10st\u001b20s100s  Fn 20sFh  FjFhFjFlFjs#sit\n50s ellyl100s    ellnh\u0018\u001b50s 100s  150s    Fh Fh FhFjFl FhFhFh20sFhFhFhFhs.:100sel   \u001b     5"
+  }
+ ]
+}

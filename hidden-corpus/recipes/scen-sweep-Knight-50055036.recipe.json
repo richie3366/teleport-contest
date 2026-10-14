@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " i\u001bwb ss20sXW.m...TeWe.m.sm.20sehsm.20sWsjs20sW20ssm.20s#offer\n#untrap\nlr\u001b<#chat\nhzbab \u001b,\u0006\u0017uncursed spellbook of detect treasure\nrj 20ssy Z\u00173 amulet of ESP\n\u0007little dog\nPk20s20ssm.  n 20sR  n \u00173 potion of polymorph\n ql wraith\n   \u0017blessed Ogresmasher\nwm  Fn  Fh Fu#invoke\nmFnFlsy.b\u00166\n#levelchange\n30\n                             nlj\u0017grave\n: \u0017pick-axe\nan  >.s: h\u0017iron bars\nhll l: k\u0017unaligned altar\ndnde\u0017lichen corpse\n#offer\no        n n    #terrain\n\u001b#offer\nwa #untrap\ny\u0007tame winter wolf cub\n#name\n\u001b\u0006_>.Fh_, > yk\u0007kobold\nsm..m.sm.20ssm.sl\u0017leash\naphljjbap.\u0017food ration\ntbnhyi\u001bwaFu  Fl FuWe .h.m. .m.eg .m.20s Wc    .m.sm.sm. W\u001b.jsm.sm.eq 20s.m.#name\na\n#monster\n#enhance\nyp\na\n\u001bZ:Zaj  tml\u001621\n\\   \u0017locked chest\n\u0017sack\n\u0017cursed bag of holding\n\u0017ring of poison resistance\naus\n\u0017dagger\nwwdt#force\ny sssdpl\u0004 auo\ndv#loot\n,#levelchange\n30\nklj\u0017web\ny^n#untrap\nnbl \u0017sleeping gas trap\nk^j\u0007newt\nss 20ss#terrain\ne\n__,saus\n#offer\n\u001628\n\u0017Cleaver\n wx...\u0007centipede\nFkFkFk \u0007mail daemon\n;y,20s 20s.m.\u0007energy vortex\nFy Fk    Fj  Fk  n     Fk \u0007shade\n#chat\nkFh    Fj    #levelchange\n14\n       \u0016?\nh\u0006sm.  n sm.  Fh    Fh  Fh     .m.jh  n ubeq  jaj  i\u001b\u00169\n\u0017speed boots\n\u0007Demogorgon\nyWy       .h    n  .m.20s Ty n   20s  Fk   \u0017uncursed Magicbane\n\u0007wood nymph\nwz FkFj Fk  #invoke\nz   n   \u0017expensive camera\naAj  n  Fl       n    n Fl    n \u0017blessed +3 cloak of displacement\nWB20s        n   20s   n  s\u001bFjFk     n     yy\u001by   y y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50055036,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " i\u001bwb ss20sXW.m...TeWe.m.sm.20sehsm.20sWsjs20sW20ssm.20s#offer\n#untrap\nlr\u001b<#chat\nhzbab \u001b,\u0006\u0017uncursed spellbook of detect treasure\nrj 20ssy Z\u00173 amulet of ESP\n\u0007little dog\nPk20s20ssm.  n 20sR  n \u00173 potion of polymorph\n ql wraith\n   \u0017blessed Ogresmasher\nwm  Fn  Fh Fu#invoke\nmFnFlsy.b\u00166\n#levelchange\n30\n                             nlj\u0017grave\n: \u0017pick-axe\nan  >.s: h\u0017iron bars\nhll l: k\u0017unaligned altar\ndnde\u0017lichen corpse\n#offer\no        n n    #terrain\n\u001b#offer\nwa #untrap\ny\u0007tame winter wolf cub\n#name\n\u001b\u0006_>.Fh_, > yk\u0007kobold\nsm..m.sm.20ssm.sl\u0017leash\naphljjbap.\u0017food ration\ntbnhyi\u001bwaFu  Fl FuWe .h.m. .m.eg .m.20s Wc    .m.sm.sm. W\u001b.jsm.sm.eq 20s.m.#name\na\n#monster\n#enhance\nyp\na\n\u001bZ:Zaj  tml\u001621\n\\   \u0017locked chest\n\u0017sack\n\u0017cursed bag of holding\n\u0017ring of poison resistance\naus\n\u0017dagger\nwwdt#force\ny sssdpl\u0004 auo\ndv#loot\n,#levelchange\n30\nklj\u0017web\ny^n#untrap\nnbl \u0017sleeping gas trap\nk^j\u0007newt\nss 20ss#terrain\ne\n__,saus\n#offer\n\u001628\n\u0017Cleaver\n wx...\u0007centipede\nFkFkFk \u0007mail daemon\n;y,20s 20s.m.\u0007energy vortex\nFy Fk    Fj  Fk  n     Fk \u0007shade\n#chat\nkFh    Fj    #levelchange\n14\n       \u0016?\nh\u0006sm.  n sm.  Fh    Fh  Fh     .m.jh  n ubeq  jaj  i\u001b\u00169\n\u0017speed boots\n\u0007Demogorgon\nyWy       .h    n  .m.20s Ty n   20s  Fk   \u0017uncursed Magicbane\n\u0007wood nymph\nwz FkFj Fk  #invoke\nz   n   \u0017expensive camera\naAj  n  Fl       n    n Fl    n \u0017blessed +3 cloak of displacement\nWB20s        n   20s   n  s\u001bFjFk     n     yy\u001by   y y y\u001by  \u0017"
+  }
+ ]
+}

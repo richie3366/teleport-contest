@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n          i\u001bri y  ssZb\nej..rg y s.Zb\nZa\nWsssTwaFjs s\u0018\u001buafnndh#rub\n><nn#pray\ny y i\u001bzfb  qd#dip\nddrg y ssZc\nZa\nWbss.qe#dip\ned \u0017pick-axe\n\u00169\nal y y_ \u001b>.al> bjb\u0017grave\nal>ssal>      sjl\u001627\n\u0016?\nj\u0006\u0017magic flute\namnGBsAFtteGoGeDEFsCFEsDAFeEBoGGAoCAetABsBGEFA\nnhamnDCADAeCECFnFeooDEsGeAeGttFneFEoECACtFeBGEFA\n  yh\u0017wand of locking\nznjj #loot\n#jump\n\u0017locked large box\n\u0017blessed bag of holding\n\u0017ring of sustain ability\n\u0017scroll of food detection\n\u0017gray stone\nap\u001b#tip\no\u001bap\u001bap\u001bdp#loot\n\u001b, \u001614\ni>\u001bri y 20s \u001b  20s   Zc\n    rg y   n   sm.   sm.   n  Za\n      n wa     Fy  n      Fy   n      Fk  n      znh  n       n zfu       n#monster\n\u000f\u001b#chat\nu>#sit\n     W\u001bJ  n      ej  n    \u0018\u001b\u00168\n\u0017pick-axe\n_>.au     n n h   aub     n by    n     naun    ny   \u0017grave\nau>   n   .m.   sm.     yy\u001b  y  nny\u001by  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50055088,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n          i\u001bri y  ssZb\nej..rg y s.Zb\nZa\nWsssTwaFjs s\u0018\u001buafnndh#rub\n><nn#pray\ny y i\u001bzfb  qd#dip\nddrg y ssZc\nZa\nWbss.qe#dip\ned \u0017pick-axe\n\u00169\nal y y_ \u001b>.al> bjb\u0017grave\nal>ssal>      sjl\u001627\n\u0016?\nj\u0006\u0017magic flute\namnGBsAFtteGoGeDEFsCFEsDAFeEBoGGAoCAetABsBGEFA\nnhamnDCADAeCECFnFeooDEsGeAeGttFneFEoECACtFeBGEFA\n  yh\u0017wand of locking\nznjj #loot\n#jump\n\u0017locked large box\n\u0017blessed bag of holding\n\u0017ring of sustain ability\n\u0017scroll of food detection\n\u0017gray stone\nap\u001b#tip\no\u001bap\u001bap\u001bdp#loot\n\u001b, \u001614\ni>\u001bri y 20s \u001b  20s   Zc\n    rg y   n   sm.   sm.   n  Za\n      n wa     Fy  n      Fy   n      Fk  n      znh  n       n zfu       n#monster\n\u000f\u001b#chat\nu>#sit\n     W\u001bJ  n      ej  n    \u0018\u001b\u00168\n\u0017pick-axe\n_>.au     n n h   aub     n by    n     naun    ny   \u0017grave\nau>   n   .m.   sm.     yy\u001b  y  nny\u001by  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\n>>P  #chat\nl;l: \u001bm..s\u00163\njn:s20ss\u00163\nykjn:\u001632\nbu:\u001631\n_>,\u0016?\n>>Q\u0006_>,\u001619\n\u0017the Platinum Yendorian Express Card\n \u0007succubus\nFhFh\u0017uncursed potion of gain ability\nqa#dip\n\u001bFhFh\u0017200 gold pieces\n20s\u0017uncursed beartrap\nab\u0017fire horn\n\u0007water nymph\nacy y acy ys20s\u0017,ss\u0016hh\u0016hk\u0016nb\u0016bl\u0016bb\u0016lb\u0016uk\u0016bl\u0016nk\u0016hk\u0016ln\u0016ub\u0016lb\u0016nk\u0016jb\u0016hy\u0016hk\u0016yl\u0016yn\u0016ub\u0016bb\u0016kj\u0016yj\u0016hj\u0016bk\u0016hh\u0016uy\u0016un\u0016uh\u0016hk\u0016hn\u0016ub\u0016ly\u0016yl\u0016nk\u0016kk\u0016hu\u0016jb\u0016ku\u0016ny\u0016yl\u0016nh\u0016ul\u0016lj\u0016bk\u0016kk\u0016bb\u0016hb\u0016nk\u0016yh\u0016yk\u0016ub\u0016nk\u0016kl\u0016yh\u0016bh\u0016nb\u0016uy\u0016ub\u0016hk\u0016nl\u0016bu\u0016yy\u0016hn\u0016nb\u0016ky\u0016hn\u0016ln\u0016bh\u0016ul\u0016nn\u0016bh\u0016nj"
+ },
+ "segments": [
+  {
+   "seed": 50056030,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0016?\n>>P  #chat\nl;l: \u001bm..s\u00163\njn:s20ss\u00163\nykjn:\u001632\nbu:\u001631\n_>,\u0016?\n>>Q\u0006_>,\u001619\n\u0017the Platinum Yendorian Express Card\n \u0007succubus\nFhFh\u0017uncursed potion of gain ability\nqa#dip\n\u001bFhFh\u0017200 gold pieces\n20s\u0017uncursed beartrap\nab\u0017fire horn\n\u0007water nymph\nacy y acy ys20s\u0017,ss\u0016hh\u0016hk\u0016nb\u0016bl\u0016bb\u0016lb\u0016uk\u0016bl\u0016nk\u0016hk\u0016ln\u0016ub\u0016lb\u0016nk\u0016jb\u0016hy\u0016hk\u0016yl\u0016yn\u0016ub\u0016bb\u0016kj\u0016yj\u0016hj\u0016bk\u0016hh\u0016uy\u0016un\u0016uh\u0016hk\u0016hn\u0016ub\u0016ly\u0016yl\u0016nk\u0016kk\u0016hu\u0016jb\u0016ku\u0016ny\u0016yl\u0016nh\u0016ul\u0016lj\u0016bk\u0016kk\u0016bb\u0016hb\u0016nk\u0016yh\u0016yk\u0016ub\u0016nk\u0016kl\u0016yh\u0016bh\u0016nb\u0016uy\u0016ub\u0016hk\u0016nl\u0016bu\u0016yy\u0016hn\u0016nb\u0016ky\u0016hn\u0016ln\u0016bh\u0016ul\u0016nn\u0016bh\u0016nj"
+  }
+ ]
+}

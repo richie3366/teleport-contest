@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "bj\u0017wand of probing\nEi Elbereth\n\u0017wand of light\nEj n  Elbereth\n: y\u0017wand of create monster\nEkgray ooze\n  ad aerarium\n\u0017wand of secret door detection\nEl n  ad aerarium\n : jE- ad aerarium\n  \u0007jackal\n.l sjsi\u001b\u0017blessed ring of polymorph control\nPmr   n  #polyself\nkitten\n    #monster\nsl   ss20s       20s    #polyself\nwraith\n#monster\nss\u0007marilith\nFuFk  Fy sm. .y 20s \u0017bag of holding\n\u0017bag of tricks\n\u0017locked chest\n\u0017ring of polymorph control\n\u0017scroll of stinking cloud\n\u0017potion of polymorph\n\u0017long sword\nwt do #force\n .m.    n    n   nsm.  n   nsm.  n   nFy   n    n   n Fy  n   n  #tip\ny\u001b  n   n dp   yny   y y y\u001by  #"
+ },
+ "segments": [
+  {
+   "seed": 50055023,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "bj\u0017wand of probing\nEi Elbereth\n\u0017wand of light\nEj n  Elbereth\n: y\u0017wand of create monster\nEkgray ooze\n  ad aerarium\n\u0017wand of secret door detection\nEl n  ad aerarium\n : jE- ad aerarium\n  \u0007jackal\n.l sjsi\u001b\u0017blessed ring of polymorph control\nPmr   n  #polyself\nkitten\n    #monster\nsl   ss20s       20s    #polyself\nwraith\n#monster\nss\u0007marilith\nFuFk  Fy sm. .y 20s \u0017bag of holding\n\u0017bag of tricks\n\u0017locked chest\n\u0017ring of polymorph control\n\u0017scroll of stinking cloud\n\u0017potion of polymorph\n\u0017long sword\nwt do #force\n .m.    n    n   nsm.  n   nsm.  n   nFy   n    n   n Fy  n   n  #tip\ny\u001b  n   n dp   yny   y y y\u001by  #"
+  }
+ ]
+}

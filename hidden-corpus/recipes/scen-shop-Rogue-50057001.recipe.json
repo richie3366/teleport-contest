@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  \u00175000 gold pieces\n\u0017blessed ring of free action\nPgr\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001bm,_oo,,:FnFnFnFnFnFn__,Fy _.#chat\nlhhl#chat\nu _ooooo.,\u0017amulet versus poison\ndi Fu Fu Fu Fu Fu Fu \u0016?\ncbln\u0016?\n>w\u0006_oo,_o,Fu_, , \u0017ruby\ndj__. Fu _, Fk #chat\nk Fk Fk  Fk  Fk Fk  Fk _oooooooo._ooo, Fu   _.m.Fl  ,\u0017amulet of life saving\ndk _ooooo.Fn _,m,Fn ,\u0014, sh 20s  _oo.Fn _.Fy,\u0017amulet versus poison\ndlbln#chat\nn_oo._._oo.Fh _.m,\u001bFh ,a\n  : \u00163\njky\u0016?\n>w  \u0006__.Fn_.  nFn#chat\n#pray\ny y  _ooooooo,Fu  _,_o. Fl _,,  $ _"
+ },
+ "segments": [
+  {
+   "seed": 50057001,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00175000 gold pieces\n\u0017blessed ring of free action\nPgr\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001bm,_oo,,:FnFnFnFnFnFn__,Fy _.#chat\nlhhl#chat\nu _ooooo.,\u0017amulet versus poison\ndi Fu Fu Fu Fu Fu Fu \u0016?\ncbln\u0016?\n>w\u0006_oo,_o,Fu_, , \u0017ruby\ndj__. Fu _, Fk #chat\nk Fk Fk  Fk  Fk Fk  Fk _oooooooo._ooo, Fu   _.m.Fl  ,\u0017amulet of life saving\ndk _ooooo.Fn _,m,Fn ,\u0014, sh 20s  _oo.Fn _.Fy,\u0017amulet versus poison\ndlbln#chat\nn_oo._._oo.Fh _.m,\u001bFh ,a\n  : \u00163\njky\u0016?\n>w  \u0006__.Fn_.  nFn#chat\n#pray\ny y  _ooooooo,Fu  _,_o. Fl _,,  $ _"
+  }
+ ]
+}

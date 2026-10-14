@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " mO>>>>f\u001b\n\u0007tame dingo\n\u0007housecat\n\u0017food ration\n tbb \u0017magic whistle\nnk j ae  \u0006_ \u001b.>Fb Fn _>.  n  Fb _.Fj>Fj._>.Fl_.Fb>FbFj#name\n\u001b\u0017lichen corpse\nt\u001b\u001b\u0017leash\nagjnbujagl \u0006_>,Fk_,>\u0006_>,Fl_.Fy>FlFl_>.Fl_.Fb>FlFb_>.Fb_.Fy>FyFyFbFlFyr\u001b\u001bwa\u0006_>.Fy_.Fy>FlFb_>.Fl_.Fb>FyFb_>.Fl_.Fl>FbFlFyFbFyt\u001b\u001br\u001b\u001b\u0006_>.Fb_.Fy>FlFy_>.Fl  _,Fl>FyFl_>.Fl_.Fb>FyFbFlFbFbf \u001b\u001b;y:\u000f\u001bOo\u001b\u001b\nv i\u001bO>>>b\u001b\n\u0006_>.Fl_.Fb>FbFb_>,Fl_.Fb>FyFy_>,Fb_.Fb>FlFyFbFyFl<\u0006_>.Fy_.Fb>FlFl_>,Fy_.Fb>FbFy_>,Fb_,Fy>FlFbFbFyFy\u0006_>>.Fb_.Fy>FyFb_>>.Fl_.Fb>FlFb_>>.Fy_.Fy>FyFyFyFyFl\u000f\u001bv i\u001boj#rub\n#rub\n#dip\na__.s#twoweapon\n#monster\n\u0006_>.Fl_.Fb>FlFy_>.Fl_.Fb>FyFl_>,Fy_.Fl>FlFlFyFbFb#tip\n\u001b\u001bZ\u0006_>>.Fl_,Fb>FbFb_>>,Fl_.Fb"
+ },
+ "segments": [
+  {
+   "seed": 50058502,
+   "datetime": "20240209064814",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\nMSGTYPE=hide \"The door\"\nMENUCOLOR=\"cursed\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " mO>>>>f\u001b\n\u0007tame dingo\n\u0007housecat\n\u0017food ration\n tbb \u0017magic whistle\nnk j ae  \u0006_ \u001b.>Fb Fn _>.  n  Fb _.Fj>Fj._>.Fl_.Fb>FbFj#name\n\u001b\u0017lichen corpse\nt\u001b\u001b\u0017leash\nagjnbujagl \u0006_>,Fk_,>\u0006_>,Fl_.Fy>FlFl_>.Fl_.Fb>FlFb_>.Fb_.Fy>FyFyFbFlFyr\u001b\u001bwa\u0006_>.Fy_.Fy>FlFb_>.Fl_.Fb>FyFb_>.Fl_.Fl>FbFlFyFbFyt\u001b\u001br\u001b\u001b\u0006_>.Fb_.Fy>FlFy_>.Fl  _,Fl>FyFl_>.Fl_.Fb>FyFbFlFbFbf \u001b\u001b;y:\u000f\u001bOo\u001b\u001b\nv i\u001bO>>>b\u001b\n\u0006_>.Fl_.Fb>FbFb_>,Fl_.Fb>FyFy_>,Fb_.Fb>FlFyFbFyFl<\u0006_>.Fy_.Fb>FlFl_>,Fy_.Fb>FbFy_>,Fb_,Fy>FlFbFbFyFy\u0006_>>.Fb_.Fy>FyFb_>>.Fl_.Fb>FlFb_>>.Fy_.Fy>FyFyFyFyFl\u000f\u001bv i\u001boj#rub\n#rub\n#dip\na__.s#twoweapon\n#monster\n\u0006_>.Fl_.Fb>FlFy_>.Fl_.Fb>FyFl_>,Fy_.Fl>FlFlFyFbFb#tip\n\u001b\u001bZ\u0006_>>.Fl_,Fb>FbFb_>>,Fl_.Fb"
+  }
+ ]
+}

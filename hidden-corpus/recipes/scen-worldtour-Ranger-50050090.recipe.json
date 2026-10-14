@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nWg\u001635\n   lh bhh:\u0016?\n>Ehhh:20s\u001635\nlhhl:\u0016?\n>Glhhl\u0017dart trap\nlh.20sll\u0017fire trap\nh\u0007giant rat\n20s  sm.20ssm.\u0017land mine\nah kj#terrain\nc\n\u001b:#sit\n#invoke\n\u001b\u000f\u001b\u001616\n_<,\u0016?\no \u0006_>._.m,\u001635\nky\u0017wand of lightning\nEi  Vlad was here\n \u0017wand of light\nEj\u0017wand of cold\nEk Vlad was here\nj\u0017magic marker\nEl Elbereth Elbereth\nE- ad aerarium\n\u0007jackal\nsm.    20s sm.   FkFk\u001616\nyb\u0017wand of striking\nEm ad aerarium\n: \u0017wand of locking\nEn Vlad was here\n\u0017wand of slow monster\nEo Elbereth Elbereth\n: \u0017wand of polymorph\nEpajy E- Elbereth Elbereth\n\u0007gnome lord\nsssssss.\u001616\n\u0014:\u0016?\n>B  \u00178 spears\nQq\u00072 troll\nkfl fl     n fl fn    n  fl  x    n #twoweapon\nFl  Fl   n  huy  ,\u00166\n\u0016?\nq _{.20s ..u\u001635\n\u0006_<. Fj  _. Fj    n \u0016?\nk\u0004h  sn\u001635\n   blh:\u001643\n_>.>\u001643\nkj k:\u001643\n\u0004l\u001616\n\u0006_<._.\u0016?\nl   yjkj:\u0016?\n>H\u0004y 20s  20s\u001616\n_>,_,.Fj\u001614\n_{.\u0016?\n>G #levelchange\n8\n   \u0017uncursed cockatrice egg\nersbs\u0017blessed +3 ring of increase accuracy\n\u0007silver dragon\nPsr .j    n 20s  n.m.   \u0017uncursed wand of polymorph\nztu   n Fu Fu    nsu.m. \u00167\n\u0016?\nn\u0006_<."
+ },
+ "segments": [
+  {
+   "seed": 50050090,
+   "datetime": "20091209135843",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nWg\u001635\n   lh bhh:\u0016?\n>Ehhh:20s\u001635\nlhhl:\u0016?\n>Glhhl\u0017dart trap\nlh.20sll\u0017fire trap\nh\u0007giant rat\n20s  sm.20ssm.\u0017land mine\nah kj#terrain\nc\n\u001b:#sit\n#invoke\n\u001b\u000f\u001b\u001616\n_<,\u0016?\no \u0006_>._.m,\u001635\nky\u0017wand of lightning\nEi  Vlad was here\n \u0017wand of light\nEj\u0017wand of cold\nEk Vlad was here\nj\u0017magic marker\nEl Elbereth Elbereth\nE- ad aerarium\n\u0007jackal\nsm.    20s sm.   FkFk\u001616\nyb\u0017wand of striking\nEm ad aerarium\n: \u0017wand of locking\nEn Vlad was here\n\u0017wand of slow monster\nEo Elbereth Elbereth\n: \u0017wand of polymorph\nEpajy E- Elbereth Elbereth\n\u0007gnome lord\nsssssss.\u001616\n\u0014:\u0016?\n>B  \u00178 spears\nQq\u00072 troll\nkfl fl     n fl fn    n  fl  x    n #twoweapon\nFl  Fl   n  huy  ,\u00166\n\u0016?\nq _{.20s ..u\u001635\n\u0006_<. Fj  _. Fj    n \u0016?\nk\u0004h  sn\u001635\n   blh:\u001643\n_>.>\u001643\nkj k:\u001643\n\u0004l\u001616\n\u0006_<._.\u0016?\nl   yjkj:\u0016?\n>H\u0004y 20s  20s\u001616\n_>,_,.Fj\u001614\n_{.\u0016?\n>G #levelchange\n8\n   \u0017uncursed cockatrice egg\nersbs\u0017blessed +3 ring of increase accuracy\n\u0007silver dragon\nPsr .j    n 20s  n.m.   \u0017uncursed wand of polymorph\nztu   n Fu Fu    nsu.m. \u00167\n\u0016?\nn\u0006_<."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u0017uncursed +0 ring of hunger\n\u0007black dragon\nPir20s .ysR\u00173 spellbook of clairvoyance\n\u0007bone devil\nrj sm.sZZ\u0017cursed -1 ring of invisibility\n\u0007nurse\nPkl  20s   n     sksR\u0017uncursed potion of polymorph\nql  Fn Fn \u0017spellbook of confuse monster\n\u0007giant mimic\nrm \u001b<. 20ssZZs20s#levelchange\n10\n \u0017blessed spellbook of cure sickness\nrns\u0017blessed spellbook of healing\nro s\u0017blessed spellbook of extra healing\nrp s+\u001bZ\u0007gnome\nZZ\u0007acid blob\nZFlZFuZ\u0007acid blob\nZ\u001618\n \u0006#levelchange\n30\n                   \u0017blessed ring of polymorph control\nPq\u0017oilskin cloak\nW\u001bs20ss#polyself\nkitten\n  #monster\ns.\u0007Demogorgon\nyFuFuFu   sm.      .m. sm.   n       #polyself\nAleax\n#monster\nsm.         nsm.         \u0007xorn\nFj     n Fl        n     Fk         n        sh    n        n 20s         n    .m.     n        n        n     \u0017potion of polymorph\nqs             n  \\    \u00165\n\u0006_>.   Fu  _, n>_>,_,Fy>Fy     Fy         n   _>,     Fn_,             yy\u001bnnny\u001bn  F"
+ },
+ "segments": [
+  {
+   "seed": 50055070,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=runmode:teleport\nOPTIONS=fruit:mango\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u0017uncursed +0 ring of hunger\n\u0007black dragon\nPir20s .ysR\u00173 spellbook of clairvoyance\n\u0007bone devil\nrj sm.sZZ\u0017cursed -1 ring of invisibility\n\u0007nurse\nPkl  20s   n     sksR\u0017uncursed potion of polymorph\nql  Fn Fn \u0017spellbook of confuse monster\n\u0007giant mimic\nrm \u001b<. 20ssZZs20s#levelchange\n10\n \u0017blessed spellbook of cure sickness\nrns\u0017blessed spellbook of healing\nro s\u0017blessed spellbook of extra healing\nrp s+\u001bZ\u0007gnome\nZZ\u0007acid blob\nZFlZFuZ\u0007acid blob\nZ\u001618\n \u0006#levelchange\n30\n                   \u0017blessed ring of polymorph control\nPq\u0017oilskin cloak\nW\u001bs20ss#polyself\nkitten\n  #monster\ns.\u0007Demogorgon\nyFuFuFu   sm.      .m. sm.   n       #polyself\nAleax\n#monster\nsm.         nsm.         \u0007xorn\nFj     n Fl        n     Fk         n        sh    n        n 20s         n    .m.     n        n        n     \u0017potion of polymorph\nqs             n  \\    \u00165\n\u0006_>.   Fu  _, n>_>,_,Fy>Fy     Fy         n   _>,     Fn_,             yy\u001bnnny\u001bn  F"
+  }
+ ]
+}

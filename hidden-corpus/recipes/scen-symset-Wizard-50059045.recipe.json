@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u0006_ \u001b;>FnFy_>,Fh_,> FjFjFb\u0006_>.Fk_.Fj>FhFh_>,Fj_.Fk>FyFyFy\u0006_>.Fk_.Fh>FjFjFy#loot\nde\u0006_>>,Fh_.Fk>FhFy_>>.Fk_.Fy>FkFh_>>.Fk_.Fh>FhFhFkFkFk\u0006_>>,Fy_,Fk>FyFh_>>.Fy_.Fy>FhFk_>>,Fk_,Fh>FkFkFyFkFhs#dip\nb\u000f mO>>>j\u001b\n\u0006_>.Fk_.Fh>FkFk_>.Fh_.Fh>FyFk_>.Fy_,Fk>FkFyFyFhFk\u0006_>,Fk_,Fk>FhFk_>,Fy_.Fk>FhFh_>.Fk_.Fk>FhFkFkFhFh\u0006_>.Fh_.Fy>FhFy_>,Fk_.Fh>FkFk_>.Fy_.Fy>FhFyFhFhFykoj\u0006_>.Fh_.Fk>FyFh_>.Fk_.Fk>FkFh_>.Fy_,Fk>FyFkFkFkFy\u0006_>.Fk_.Fk>FhFy_>,Fk_.Fy>FyFk_>,Fh_.Fy>FyFhFyFhFy#untrap\nh#jump\n\u0006_>.Fh_,Fy>FhFy_>.Fh_,Fk>FkFk_>.Fk_,Fh>FhFkFkFyFy\u0006_>.Fh_.Fk>FkFy_>.Fk_.Fy>FyFh_>,Fk_,Fy>FyFyFhFhFk#sit\n#monster\n\u000f\u001b\u0014m, f \u001bmO>>>o\u001b\n\u0006_>.Fy_.Fy>FyFh_>.Fk_.Fh>FhFy_>.Fk_.Fk>FkFkFhFyFh\u0006_>.Fk_,Fk>FhFk_>,Fk_,Fh>FhFk_>.Fh_,Fy>FhFhFkFkFy\u0006_>.Fh_,Fh>FyFy_>.Fk_.Fy>FyFh_>.Fh_.Fy>F"
+ },
+ "segments": [
+  {
+   "seed": 50059045,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "v i\u001b\u0006_ \u001b;>FnFy_>,Fh_,> FjFjFb\u0006_>.Fk_.Fj>FhFh_>,Fj_.Fk>FyFyFy\u0006_>.Fk_.Fh>FjFjFy#loot\nde\u0006_>>,Fh_.Fk>FhFy_>>.Fk_.Fy>FkFh_>>.Fk_.Fh>FhFhFkFkFk\u0006_>>,Fy_,Fk>FyFh_>>.Fy_.Fy>FhFk_>>,Fk_,Fh>FkFkFyFkFhs#dip\nb\u000f mO>>>j\u001b\n\u0006_>.Fk_.Fh>FkFk_>.Fh_.Fh>FyFk_>.Fy_,Fk>FkFyFyFhFk\u0006_>,Fk_,Fk>FhFk_>,Fy_.Fk>FhFh_>.Fk_.Fk>FhFkFkFhFh\u0006_>.Fh_.Fy>FhFy_>,Fk_.Fh>FkFk_>.Fy_.Fy>FhFyFhFhFykoj\u0006_>.Fh_.Fk>FyFh_>.Fk_.Fk>FkFh_>.Fy_,Fk>FyFkFkFkFy\u0006_>.Fk_.Fk>FhFy_>,Fk_.Fy>FyFk_>,Fh_.Fy>FyFhFyFhFy#untrap\nh#jump\n\u0006_>.Fh_,Fy>FhFy_>.Fh_,Fk>FkFk_>.Fk_,Fh>FhFkFkFyFy\u0006_>.Fh_.Fk>FkFy_>.Fk_.Fy>FyFh_>,Fk_,Fy>FyFyFhFhFk#sit\n#monster\n\u000f\u001b\u0014m, f \u001bmO>>>o\u001b\n\u0006_>.Fy_.Fy>FyFh_>.Fk_.Fh>FhFy_>.Fk_.Fk>FkFkFhFyFh\u0006_>.Fk_,Fk>FhFk_>,Fk_,Fh>FhFk_>.Fh_,Fy>FhFhFkFkFy\u0006_>.Fh_,Fh>FyFy_>.Fk_.Fy>FyFh_>.Fh_.Fy>F"
+  }
+ ]
+}

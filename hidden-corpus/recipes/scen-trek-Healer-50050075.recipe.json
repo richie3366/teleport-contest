@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "B BJN_ \u001bm.>FlFlsKNUN_>,>HJJL_>.>UKHB_>.>FlFl.<HBNJ_>,>UNJY_>,>JLBU_>.>i\u001bhnnbul100s_>.>_>.s50s150sFlFlFl100slll#dip\nidhhl_>,>150sFl20s20s50shlhhll\u0014#twoweapon\n150sFlFls100s50sFlFlFlFlFls\\ 150s100s#pray\ny     FlFlshhh150sw-hyu\u0018\u001b<\u0018\u001bhhjNBLK_>.>LBJL_>.>UBUN_>,>#untrap\nk#ride\n.NYBH_>.>UJNL_>.>FkFkFk<YHKJ_>,>Fl20s.Ji\u001bLLNJ_>.>50s50s50s_m,20s  FhFhFbFl  y\u001by  y y y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 50050075,
+   "datetime": "20140213234842",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=runmode:run\nOPTIONS=fruit:lychee\nOPTIONS=pettype:none\n",
+   "moves": "B BJN_ \u001bm.>FlFlsKNUN_>,>HJJL_>.>UKHB_>.>FlFl.<HBNJ_>,>UNJY_>,>JLBU_>.>i\u001bhnnbul100s_>.>_>.s50s150sFlFlFl100slll#dip\nidhhl_>,>150sFl20s20s50shlhhll\u0014#twoweapon\n150sFlFls100s50sFlFlFlFlFls\\ 150s100s#pray\ny     FlFlshhh150sw-hyu\u0018\u001b<\u0018\u001bhhjNBLK_>.>LBJL_>.>UBUN_>,>#untrap\nk#ride\n.NYBH_>.>UJNL_>.>FkFkFk<YHKJ_>,>Fl20s.Ji\u001bLLNJ_>.>50s50s50s_m,20s  FhFhFbFl  y\u001by  y y y\u001b  2"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          #levelchange\n8\n \u0017mummy wrapping\nWlsm. sy.u\u0007chameleon\nFk Fh  Fk Fh   Fk \u0007hell hound\nFj Fj \u0006_ \u001bm,  n>Fj Fj  _>>, Fj  _,   n Fk  >Fj   Fk_>>.Fj  n _.Fj >FkFk Fk  nFj  Fk f $ h   nck\u0006_>>.Fk _. Fj  n>FjFk_>>. Fk_.Fj  n>FjFk_>>.Fj_.Fj  n>FkFjFjFj Fjch_<.sm.  n \u0006_>,Fj _,Fj>Fk   nFj_>,Fj_.Fk>Fk  nFj_>.  _.m.Fb  n>FbFbFbFbFb\u0006_>.Fj_..Fn> ek20s\u0006_>._.> \u0006_>,Fl_. Fl>Fl  n Fl_>.Fl_,Fl >FlFl_>,Fl_, Fl>FlFlFlFl  nFl<\u0006_>,Fl_,Fl>Fl Fl_>,Fl_.Fl>_>._.> i\u001b\u00168\n#levelchange\n8\n\u0007black pudding\n;k:  20s20s20s\u0007doppelganger\nFnFl   Fn    n \u0017blessed amulet of magical breathing\nPn   sm.sl  n sm.  sm.  yy\u001bnnny\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50055069,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n          #levelchange\n8\n \u0017mummy wrapping\nWlsm. sy.u\u0007chameleon\nFk Fh  Fk Fh   Fk \u0007hell hound\nFj Fj \u0006_ \u001bm,  n>Fj Fj  _>>, Fj  _,   n Fk  >Fj   Fk_>>.Fj  n _.Fj >FkFk Fk  nFj  Fk f $ h   nck\u0006_>>.Fk _. Fj  n>FjFk_>>. Fk_.Fj  n>FjFk_>>.Fj_.Fj  n>FkFjFjFj Fjch_<.sm.  n \u0006_>,Fj _,Fj>Fk   nFj_>,Fj_.Fk>Fk  nFj_>.  _.m.Fb  n>FbFbFbFbFb\u0006_>.Fj_..Fn> ek20s\u0006_>._.> \u0006_>,Fl_. Fl>Fl  n Fl_>.Fl_,Fl >FlFl_>,Fl_, Fl>FlFlFlFl  nFl<\u0006_>,Fl_,Fl>Fl Fl_>,Fl_.Fl>_>._.> i\u001b\u00168\n#levelchange\n8\n\u0007black pudding\n;k:  20s20s20s\u0007doppelganger\nFnFl   Fn    n \u0017blessed amulet of magical breathing\nPn   sm.sl  n sm.  sm.  yy\u001bnnny\u001b  \u0017"
+  }
+ ]
+}

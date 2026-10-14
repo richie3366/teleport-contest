@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed Mjollnir\n wk\u0016?\n>w\u0006FbFb Fb FbFb Fb\u0016?\ncyhu\u0016?\n>w  \u0006_ \u001b@.qd_ooooooooo.Fk _,Fk  n_o. Fl_,,    n\u0017amulet of strangulation\ndm \u00168\n    _oooooooo,,\u0014m,20ssm.  n_oooo._,, p_ooo,_,_o._,, p_ooooooo.Fu_,;;Fu    n _o,  nFu  _.  n Fu  n  n,p    \u001612\n_ooooo._o.,p_oooo,,\u0017amulet of strangulation\ndo_ooooo,_ooo.,p_ooooooooo,,#chat\nj__.#chat\nh_{.qd_ooo,,\u0017loadstone\n dp_ooooooooo.,#chat\nh_oooooooo._ooo.,\u0017amulet of ESP\ndq_oooo.,p__.#chat\nk_oooooo.,:__.#chat\ny__,#chat\nl#pray\ny y \u0016?\n>Bnhh\u0016?\n>w\u0006_ooooo. _.<.,:_oo._,,p_ooo,_.,#chat\nn__,_,:#chat\nh_{.  Fy  _, Fh  n  qd  n     n  \u00164\n_oo,,#chat\n"
+ },
+ "segments": [
+  {
+   "seed": 50057031,
+   "datetime": "20010417054642",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed Mjollnir\n wk\u0016?\n>w\u0006FbFb Fb FbFb Fb\u0016?\ncyhu\u0016?\n>w  \u0006_ \u001b@.qd_ooooooooo.Fk _,Fk  n_o. Fl_,,    n\u0017amulet of strangulation\ndm \u00168\n    _oooooooo,,\u0014m,20ssm.  n_oooo._,, p_ooo,_,_o._,, p_ooooooo.Fu_,;;Fu    n _o,  nFu  _.  n Fu  n  n,p    \u001612\n_ooooo._o.,p_oooo,,\u0017amulet of strangulation\ndo_ooooo,_ooo.,p_ooooooooo,,#chat\nj__.#chat\nh_{.qd_ooo,,\u0017loadstone\n dp_ooooooooo.,#chat\nh_oooooooo._ooo.,\u0017amulet of ESP\ndq_oooo.,p__.#chat\nk_oooooo.,:__.#chat\ny__,#chat\nl#pray\ny y \u0016?\n>Bnhh\u0016?\n>w\u0006_ooooo. _.<.,:_oo._,,p_ooo,_.,#chat\nn__,_,:#chat\nh_{.  Fy  _, Fh  n  qd  n     n  \u00164\n_oo,,#chat\n"
+  }
+ ]
+}

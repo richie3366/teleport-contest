@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0007Angel\ny;u, \u001b,20sss\u0007small mimic\nsFlFu "
+ },
+ "segments": [
+  {
+   "seed": 50052028,
+   "datetime": "20200129012128",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0007Angel\ny;u, \u001b,20sss\u0007small mimic\nsFlFu "
+  }
+ ]
+}

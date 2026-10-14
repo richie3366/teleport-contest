@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " mO>>>>h\u001b\nek10s\u001611\n\u0006_ \u001b.>_>._.> \u0006_>, _.:Fk   n >Fy  Fh   n_>.Fy  n _,Fj>Fn   nFy _>.   nFn    _.  n Fj>Fj  n Fy   nFy  Fn    n Fn zgh    h    n\u0006_>.  Fj   n_. Fb   n  >Fy         n Fy    n_>.  Fy    n _.       n Fy    yy\u001by  y y y\u001by  >"
+ },
+ "segments": [
+  {
+   "seed": 50059004,
+   "datetime": "20040817230314",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\n",
+   "moves": " mO>>>>h\u001b\nek10s\u001611\n\u0006_ \u001b.>_>._.> \u0006_>, _.:Fk   n >Fy  Fh   n_>.Fy  n _,Fj>Fn   nFy _>.   nFn    _.  n Fj>Fj  n Fy   nFy  Fn    n Fn zgh    h    n\u0006_>.  Fj   n_. Fb   n  >Fy         n Fy    n_>.  Fy    n _.       n Fy    yy\u001by  y y y\u001by  >"
+  }
+ ]
+}

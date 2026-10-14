@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#polyself\nfire vortex\n #monster\ns20s    \u0007gnome\nFl20s Fls\u0007sewer rat\nFh Fh ..\u00166\n\u0016?\n>y _ \u001b;#chat\n_mmmmm,#chat\n;m._mm.#chat\n;m,\u0006_>, \u001b \u001bFl_.Fl >Fj \u001bFl _>,Fl_.: Fn>FlFj_>.Fn_,m.Fn>FnFn10sq#twoweapon\n#levelchange\n12\n          \u0017blessed ring of polymorph control\nPg#polyself\nbalrog\n20ssm.\u0007newt\nFbFh Fns.s#polyself\nlizard\n #monster\nsm.20s\u0007homunculus\nFlFnFnsm. 20s.k\u0018\u001b#levelchange\n6\n  \u0007tame saddled warhorse\n\u0017lance\nwh#ride\nbyy\u0007horse\n\u0017scroll of taming\nri \u0017saddle\najl#ride\n\u0007warhorse\n\u0017scroll of taming\nrk           \u0017saddle\n alu        #ride\nny20s      sss,#ride\nkys#ride\nky,jh\u000f\u001b#levelchange\n30\n                        \u0017blessed ring of polymorph control\nPml#polyself\nnewt\n #monster\ns 20s       \u0007djinni\nFh    Fl       Fy     20s .l   n   20s #polyself\ndjinni\n elf-lord\nsm..u  \u0007Aleax\nFbFl Fn sbsm.sm.#polyself\nred dragon\n#monster\nl   .m.sm. 20s 20ssm.#polyself\nrope golem\n #monster\nsj  sm. \u0007red naga\nFy  n Fb Fb 20s  n sm..j\u00169\n\u0006_>, Fl_.Fu>FnFn_>,Fl_,.Fn>Fl Fn_>.Fl_.:Fn>FlFlFlFnFl\u0006_>.Fl_,m. \u001bFn>FlFl_>.Fn_,:Fl>FlFl_>,Fl_.m.Fn>FlFlFlFlFl <\u0006_>.Fn_.Fl>Fn Fl _>,Fn_,Fn   n>Fl Fn _>.Fn _.Fn >FnFl Fn Fn  n Fli\u001b#tip\n\u001b\u001b\u0006_>>,Fl_,Fl>FlFl_>>.Fn _.Fn >FlFn_>>,Fl _.  nFl >FlFnFlFl Fn \u0006_>>.Fl _.Fl>FlFn_>>,Fl   n_.Fn>Fn Fl _>>.Fn_.Fn >Fn FlFnFl Fl   n\u0006_>,Fl _.Fn >FlFl _>.Fl_,"
+ },
+ "segments": [
+  {
+   "seed": 50055108,
+   "datetime": "20091023172349",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#polyself\nfire vortex\n #monster\ns20s    \u0007gnome\nFl20s Fls\u0007sewer rat\nFh Fh ..\u00166\n\u0016?\n>y _ \u001b;#chat\n_mmmmm,#chat\n;m._mm.#chat\n;m,\u0006_>, \u001b \u001bFl_.Fl >Fj \u001bFl _>,Fl_.: Fn>FlFj_>.Fn_,m.Fn>FnFn10sq#twoweapon\n#levelchange\n12\n          \u0017blessed ring of polymorph control\nPg#polyself\nbalrog\n20ssm.\u0007newt\nFbFh Fns.s#polyself\nlizard\n #monster\nsm.20s\u0007homunculus\nFlFnFnsm. 20s.k\u0018\u001b#levelchange\n6\n  \u0007tame saddled warhorse\n\u0017lance\nwh#ride\nbyy\u0007horse\n\u0017scroll of taming\nri \u0017saddle\najl#ride\n\u0007warhorse\n\u0017scroll of taming\nrk           \u0017saddle\n alu        #ride\nny20s      sss,#ride\nkys#ride\nky,jh\u000f\u001b#levelchange\n30\n                        \u0017blessed ring of polymorph control\nPml#polyself\nnewt\n #monster\ns 20s       \u0007djinni\nFh    Fl       Fy     20s .l   n   20s #polyself\ndjinni\n elf-lord\nsm..u  \u0007Aleax\nFbFl Fn sbsm.sm.#polyself\nred dragon\n#monster\nl   .m.sm. 20s 20ssm.#polyself\nrope golem\n #monster\nsj  sm. \u0007red naga\nFy  n Fb Fb 20s  n sm..j\u00169\n\u0006_>, Fl_.Fu>FnFn_>,Fl_,.Fn>Fl Fn_>.Fl_.:Fn>FlFlFlFnFl\u0006_>.Fl_,m. \u001bFn>FlFl_>.Fn_,:Fl>FlFl_>,Fl_.m.Fn>FlFlFlFlFl <\u0006_>.Fn_.Fl>Fn Fl _>,Fn_,Fn   n>Fl Fn _>.Fn _.Fn >FnFl Fn Fn  n Fli\u001b#tip\n\u001b\u001b\u0006_>>,Fl_,Fl>FlFl_>>.Fn _.Fn >FlFn_>>,Fl _.  nFl >FlFnFlFl Fn \u0006_>>.Fl _.Fl>FlFn_>>,Fl   n_.Fn>Fn Fl _>>.Fn_.Fn >Fn FlFnFl Fl   n\u0006_>,Fl _.Fn >FlFl _>.Fl_,"
+  }
+ ]
+}

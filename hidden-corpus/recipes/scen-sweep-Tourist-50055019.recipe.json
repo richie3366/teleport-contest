@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00173 Mjollnir\nwns.20sX20ss\u0017blessed +3 ring of gain strength\nPorsm.20s20sR \u0017katana\nwpFh20s20sXs.\u0017blessed +3 ring of teleport control\nPql.sm.s\u0017blessed ring of sustain ability\n\u0007rothe\nPrsm.  n sm..m.Fb   nFb\u0017blessed +3 gauntlets of dexterity\nWs.m.sm.sss\u001615\n \u00163\n#levelchange\n30\n                            \u001624\n\u0004yojn;_. \u001b,..\u001622\n#chat\nyqh#wipe\n;m,20s.\u0016?\n>J#wipe\n#wipe\n#terrain\nd\n\u0006 ss\u001620\nohktaj;k:  sm..m.\u0016?\n>yL>#sit\n\u001b;l,\u000620s20s\u0006\u0017blessed spellbook of detect food\nru .m.\u0017blessed spellbook of cure sickness\nrv sm.\u0017blessed spellbook of cancellation\nrw 20s+\u0007jackal\nZZ\u0007yellow mold\nZZFh\u0007ghoul\nZ\u0007acid blob\nZFh#turn\n#pray\ny y    #enhance\nyf\nr\n\u001b#wizintrinsic\nglc\n  20s \u001b   .m.20s    sm.sm.   sm.  n 20s sm.sm. sm..m.     \u001b  sm.ss\u0018\u001b#wipe\n       n  #pray\ny y      E- Elbereth\nol\\ .m.sm.s20s    sm.sj\\ \u00167\n#levelchange\n8\n      \u001639\n#untrap\nbck#sit\n\u001b;m,20ssm.\u0016?\nr \\ Po#untrap\nn;_..20s \u0016?\n>I\\ #sit\n\u001bdc;.ss\u0016?\n>>M    ring of conflict\n,10s   n   k   sm.   n     s \u001611\n#levelchange\n12\n   #wizintrinsic\nem\n sm.20s  20s  sm.sb      n     .j    sm.   n     sm.sm.sm.  n   sn sk  n       n .j sk  n          n   >\u0014:       n   ru \u0018\u001b;j,#rub\nsm.sm.  n   sm.s.y .m. \u0007hostile air elemental\nFk .b   Fk   Fj  n   Fj 20s   yy\u001by   nny\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 50055019,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00173 Mjollnir\nwns.20sX20ss\u0017blessed +3 ring of gain strength\nPorsm.20s20sR \u0017katana\nwpFh20s20sXs.\u0017blessed +3 ring of teleport control\nPql.sm.s\u0017blessed ring of sustain ability\n\u0007rothe\nPrsm.  n sm..m.Fb   nFb\u0017blessed +3 gauntlets of dexterity\nWs.m.sm.sss\u001615\n \u00163\n#levelchange\n30\n                            \u001624\n\u0004yojn;_. \u001b,..\u001622\n#chat\nyqh#wipe\n;m,20s.\u0016?\n>J#wipe\n#wipe\n#terrain\nd\n\u0006 ss\u001620\nohktaj;k:  sm..m.\u0016?\n>yL>#sit\n\u001b;l,\u000620s20s\u0006\u0017blessed spellbook of detect food\nru .m.\u0017blessed spellbook of cure sickness\nrv sm.\u0017blessed spellbook of cancellation\nrw 20s+\u0007jackal\nZZ\u0007yellow mold\nZZFh\u0007ghoul\nZ\u0007acid blob\nZFh#turn\n#pray\ny y    #enhance\nyf\nr\n\u001b#wizintrinsic\nglc\n  20s \u001b   .m.20s    sm.sm.   sm.  n 20s sm.sm. sm..m.     \u001b  sm.ss\u0018\u001b#wipe\n       n  #pray\ny y      E- Elbereth\nol\\ .m.sm.s20s    sm.sj\\ \u00167\n#levelchange\n8\n      \u001639\n#untrap\nbck#sit\n\u001b;m,20ssm.\u0016?\nr \\ Po#untrap\nn;_..20s \u0016?\n>I\\ #sit\n\u001bdc;.ss\u0016?\n>>M    ring of conflict\n,10s   n   k   sm.   n     s \u001611\n#levelchange\n12\n   #wizintrinsic\nem\n sm.20s  20s  sm.sb      n     .j    sm.   n     sm.sm.sm.  n   sn sk  n       n .j sk  n          n   >\u0014:       n   ru \u0018\u001b;j,#rub\nsm.sm.  n   sm.s.y .m. \u0007hostile air elemental\nFk .b   Fk   Fj  n   Fj 20s   yy\u001by   nny\u001b  ."
+  }
+ ]
+}

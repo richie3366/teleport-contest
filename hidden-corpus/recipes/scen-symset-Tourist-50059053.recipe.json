@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "v i\u001b#tip\n\u001b#loot\nl \\ \u0007little dog\n\u0017fortune cookie\n t$l #chat\nl \u0017meatball\nt$n \u0006_ \u001b;>FnFll _>,Fj_,@.Fb>FbFb_>.Fj_.Fj>FjFj#chat\nj jj\u0006_>.Fj_,m. Fu>FnFn_>.  nFl_.;,Fn>FjFnFj\u0006_>.Fb_.Fb>FbFb_>.Fb_.   n Fb>FbFb_>, Fy_,Fj>FyFjFkFkFy\u0006_>.Fk_.Fk>FkFy_>.Fj_,Fy>FkFk_>,Fh_.Fy>FkFyFh\u001bFhFy\u0006_>.Fk_.Fy>FyFkk _>.Fk_,Fk>FyFh\u001b_>,Fy_.Fj>FjFjFjFjFk\\ #wipe\n\u0006_>,Fh_.Fk>FyFky _>.Fj_.Fj>FjFy_>,Fy_.Fy>FhFkFkFkFkfl ;h;\u00163\njuj lj h\u001b\u0017sink\nqy :yy\u0017ice\n:uj uj \u0017grave\n:\u0017pick-axe\nao  >..#invoke\n\u001b#enhance\nys\nf\n\u001b#chat\nn O>g\u001b\n\u0007housecat\n\u0017newt corpse\ntah \u0007acid blob\nsm.20s  sm.sb20s 20sm. \u0007acid blob\n\u0017scroll of taming\nrq dp s.s\u0017leash\nary lk kk jjarj 10s#name\nm\n10sbbuh y\u0017cloud\njub \u0017throne\n#sit\n #sit\n #sit\n y\u0017chaotic altar\nd"
+ },
+ "segments": [
+  {
+   "seed": 50059053,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You hear\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "v i\u001b#tip\n\u001b#loot\nl \\ \u0007little dog\n\u0017fortune cookie\n t$l #chat\nl \u0017meatball\nt$n \u0006_ \u001b;>FnFll _>,Fj_,@.Fb>FbFb_>.Fj_.Fj>FjFj#chat\nj jj\u0006_>.Fj_,m. Fu>FnFn_>.  nFl_.;,Fn>FjFnFj\u0006_>.Fb_.Fb>FbFb_>.Fb_.   n Fb>FbFb_>, Fy_,Fj>FyFjFkFkFy\u0006_>.Fk_.Fk>FkFy_>.Fj_,Fy>FkFk_>,Fh_.Fy>FkFyFh\u001bFhFy\u0006_>.Fk_.Fy>FyFkk _>.Fk_,Fk>FyFh\u001b_>,Fy_.Fj>FjFjFjFjFk\\ #wipe\n\u0006_>,Fh_.Fk>FyFky _>.Fj_.Fj>FjFy_>,Fy_.Fy>FhFkFkFkFkfl ;h;\u00163\njuj lj h\u001b\u0017sink\nqy :yy\u0017ice\n:uj uj \u0017grave\n:\u0017pick-axe\nao  >..#invoke\n\u001b#enhance\nys\nf\n\u001b#chat\nn O>g\u001b\n\u0007housecat\n\u0017newt corpse\ntah \u0007acid blob\nsm.20s  sm.sb20s 20sm. \u0007acid blob\n\u0017scroll of taming\nrq dp s.s\u0017leash\nary lk kk jjarj 10s#name\nm\n10sbbuh y\u0017cloud\njub \u0017throne\n#sit\n #sit\n #sit\n y\u0017chaotic altar\nd"
+  }
+ ]
+}

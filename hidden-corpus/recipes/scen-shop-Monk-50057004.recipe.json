@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 speed boots\nWm \u0016?\n>w\u0006_ \u001b.,#chat\nh\u0016?\nclyn\u0016?\n>w\u0006_oooooo,,#chat\nl_oooooooo.,\u0014@.ss_oooooooo.,pFjFjFj FjFjFj_ooo,,\u0017luckstone\ndnuyn#chat\nj_{.Fu_,m,qeblh#chat\nu_oooooo.,\u0017amulet of flying\ndoku h#chat\nj_{.  _,qd_oo. _. ,p\u00167\nhun\u0016?\n>w\u0006_{, _.   nqd__.Fy_,@.#chat\ny#pray\ny y bkb#chat\nh__._,:#chat\nb__._,.#chat\nh#pray\ny y _oooooo._._ooo._,,$\u0016?\n>Bbbb\u0016?\n>w\u0006_oooo._ooo,_,,\u001b$_ooo.,\u001b\u0017amulet of life saving\ndpjjk#chat\nbhjk#chat\ny_ooo._,_o,_.,\u001b: bkk#chat\nnybn#chat\nb_oooo,,\u0017amulet of life saving\ndq_ooooo._,,\u001b#chat\nk_oooooooo._o._,,p_oo,_.,#chat\nn_oooooo.,p_{._..q_ooooo._.,\u001b$_{._,>.qyhl#chat\nu_ooooo,_.,\u001b\u0017flint stone\ndr_ooooooo._.,\u001b: _ooooo,_,_ooo._,,\u001bp\u00163\nnuh\u0016?\n>w\u0006_oooooo,,plnu#chat\njFj        nFjFjFjFjFj_{.Fu_.,Fyq_ooooooooo,Fh_,>.,p_{,_.,q__._,;;#chat\nu_ooooooooo,_._o._.;:    ,#chat\nn_oooo._ooo._.,y p_oooooooo. _..,$_oo._,<._o._.m.,p_ooooo._.>._o,_.m,,:_ooooooooo.,p\u00163\nlbu\u0016?\n>w\u0006_oooooo,_o"
+ },
+ "segments": [
+  {
+   "seed": 50057004,
+   "datetime": "20101225201001",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 speed boots\nWm \u0016?\n>w\u0006_ \u001b.,#chat\nh\u0016?\nclyn\u0016?\n>w\u0006_oooooo,,#chat\nl_oooooooo.,\u0014@.ss_oooooooo.,pFjFjFj FjFjFj_ooo,,\u0017luckstone\ndnuyn#chat\nj_{.Fu_,m,qeblh#chat\nu_oooooo.,\u0017amulet of flying\ndoku h#chat\nj_{.  _,qd_oo. _. ,p\u00167\nhun\u0016?\n>w\u0006_{, _.   nqd__.Fy_,@.#chat\ny#pray\ny y bkb#chat\nh__._,:#chat\nb__._,.#chat\nh#pray\ny y _oooooo._._ooo._,,$\u0016?\n>Bbbb\u0016?\n>w\u0006_oooo._ooo,_,,\u001b$_ooo.,\u001b\u0017amulet of life saving\ndpjjk#chat\nbhjk#chat\ny_ooo._,_o,_.,\u001b: bkk#chat\nnybn#chat\nb_oooo,,\u0017amulet of life saving\ndq_ooooo._,,\u001b#chat\nk_oooooooo._o._,,p_oo,_.,#chat\nn_oooooo.,p_{._..q_ooooo._.,\u001b$_{._,>.qyhl#chat\nu_ooooo,_.,\u001b\u0017flint stone\ndr_ooooooo._.,\u001b: _ooooo,_,_ooo._,,\u001bp\u00163\nnuh\u0016?\n>w\u0006_oooooo,,plnu#chat\njFj        nFjFjFjFjFj_{.Fu_.,Fyq_ooooooooo,Fh_,>.,p_{,_.,q__._,;;#chat\nu_ooooooooo,_._o._.;:    ,#chat\nn_oooo._ooo._.,y p_oooooooo. _..,$_oo._,<._o._.m.,p_ooooo._.>._o,_.m,,:_ooooooooo.,p\u00163\nlbu\u0016?\n>w\u0006_oooooo,_o"
+  }
+ ]
+}

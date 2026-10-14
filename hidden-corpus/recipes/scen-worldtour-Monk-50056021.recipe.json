@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n               \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>>M      wand of speed monster\n\u0014 nn.l   .b    n  20s   \u0016?\n\u001bhu   \u0016?\n\u001byh   \u001641\n_ \u001bm.>\u001635\nb       n b   h          n k         b     l  n :sm.   s\u001b\u00162\n\u00162\ny ly y  n         u        n k  : \u001611\n\u0016?\nd__.>s     n     20s  s    \u0016?\nd\u0004n ss   n  \u0016?\n\u001bh  b\u00167\nuby  n         n  n  k  j: ..\u00166\n\u0016?\nch     nk      n:sm.\u001641\nh   k   n   uu   n : \u0016?\na    #chat\nn    ;h.\u001628\n\u0004u   \u0016?\na\u0006_>,\u0016?\n\u001bb       b   \u0016?\n\u001bh       n l          \u0016?\n\u001bbh  \u0016?\n\u001blk  \u0016?\n\u001bn   k \u001635\nu   n      y          n          y    yy\u001bny y n  j"
+ },
+ "segments": [
+  {
+   "seed": 50056021,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n               \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>>M      wand of speed monster\n\u0014 nn.l   .b    n  20s   \u0016?\n\u001bhu   \u0016?\n\u001byh   \u001641\n_ \u001bm.>\u001635\nb       n b   h          n k         b     l  n :sm.   s\u001b\u00162\n\u00162\ny ly y  n         u        n k  : \u001611\n\u0016?\nd__.>s     n     20s  s    \u0016?\nd\u0004n ss   n  \u0016?\n\u001bh  b\u00167\nuby  n         n  n  k  j: ..\u00166\n\u0016?\nch     nk      n:sm.\u001641\nh   k   n   uu   n : \u0016?\na    #chat\nn    ;h.\u001628\n\u0004u   \u0016?\na\u0006_>,\u0016?\n\u001bb       b   \u0016?\n\u001bh       n l          \u0016?\n\u001bbh  \u0016?\n\u001blk  \u0016?\n\u001bn   k \u001635\nu   n      y          n          y    yy\u001bny y n  j"
+  }
+ ]
+}

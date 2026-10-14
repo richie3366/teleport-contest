@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " mO>>d\u001b\n\u0018\u001bwb Fk s.\\    ubk100s_ \u001bm,>Fl20s20s150sFl..150si\u001b100s100s100sFlFls100s50s Fl.20s50subu\u000f\u001b100s\u000f\u001bl   uyFl20ssbjnknlyhjFyFyFy\u000f\u001b100shjj150sFh20ssybl100s#chat\nh100s50sW\u001b10s;k.O>>o4\n \u001b\n\u0007pony\n\u0017huge chunk of meat\ntcl10s #chat\nk \u0007newt\n\u0017scroll of taming\nrk \u0017tin whistle\nuj   jal\u0017leash\namkjuuyamj #name\nf\nvi\u001bv\u001bi\u001bmO>>p\u001b\n\u001617\n v\u001bi\u001b\u001618\nOe\u001b\nv\u001bi\u001bv\u001bi\u001bjbuh\u0017grave\n: \u0017wand of digging\nzn> .shl\u0017fountain\nqy yqi \u001bqh\u0017long sword\n #dip\no:j\u0017sink\nqywdny#pray\ny y znu \u0007tame soldier ant\n\u0006_>._.> dms20ss#chat\nudb.ss#chat\nk\u0007giant rat\n\u0017scroll of taming\nrp \u0007acid blob\n\u0017scroll of taming\nrq \u0017leash\narkunub  arlFk FkFl FkFkFl  100shnb\\    100sFlFlFlFlFlFl  n FlFlFlFl  n FlFl  nFlFl.150s#terrain\nf\n100s FlFl FlFlFlFl#pray\ny y      Fl   FlFlFlFl Fl  nFl Fl Fl100sFnFnFn jyb#pray\ny y 150s _>.> #name\ni\nE- i\u001b100s 100s \\    #pray\ny y _>,> #pray\ny y uky #pray\ny y #pray\ny y 150s 150s \u00161\nFn  nFnFl100s150s100s#conduct\n 50s150sej   150s150s\u0018\u001blllnhu \u0018\u001b100s150sbkbi\u001b100s_>,>150shkn\u0014<._>,>100s\u0018\u001b150sFhFh.i"
+ },
+ "segments": [
+  {
+   "seed": 50059014,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": " mO>>d\u001b\n\u0018\u001bwb Fk s.\\    ubk100s_ \u001bm,>Fl20s20s150sFl..150si\u001b100s100s100sFlFls100s50s Fl.20s50subu\u000f\u001b100s\u000f\u001bl   uyFl20ssbjnknlyhjFyFyFy\u000f\u001b100shjj150sFh20ssybl100s#chat\nh100s50sW\u001b10s;k.O>>o4\n \u001b\n\u0007pony\n\u0017huge chunk of meat\ntcl10s #chat\nk \u0007newt\n\u0017scroll of taming\nrk \u0017tin whistle\nuj   jal\u0017leash\namkjuuyamj #name\nf\nvi\u001bv\u001bi\u001bmO>>p\u001b\n\u001617\n v\u001bi\u001b\u001618\nOe\u001b\nv\u001bi\u001bv\u001bi\u001bjbuh\u0017grave\n: \u0017wand of digging\nzn> .shl\u0017fountain\nqy yqi \u001bqh\u0017long sword\n #dip\no:j\u0017sink\nqywdny#pray\ny y znu \u0007tame soldier ant\n\u0006_>._.> dms20ss#chat\nudb.ss#chat\nk\u0007giant rat\n\u0017scroll of taming\nrp \u0007acid blob\n\u0017scroll of taming\nrq \u0017leash\narkunub  arlFk FkFl FkFkFl  100shnb\\    100sFlFlFlFlFlFl  n FlFlFlFl  n FlFl  nFlFl.150s#terrain\nf\n100s FlFl FlFlFlFl#pray\ny y      Fl   FlFlFlFl Fl  nFl Fl Fl100sFnFnFn jyb#pray\ny y 150s _>.> #name\ni\nE- i\u001b100s 100s \\    #pray\ny y _>,> #pray\ny y uky #pray\ny y #pray\ny y 150s 150s \u00161\nFn  nFnFl100s150s100s#conduct\n 50s150sej   150s150s\u0018\u001blllnhu \u0018\u001b100s150sbkbi\u001b100s_>,>150shkn\u0014<._>,>100s\u0018\u001b150sFhFh.i"
+  }
+ ]
+}

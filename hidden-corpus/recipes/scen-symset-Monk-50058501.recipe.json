@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "mO>>>i\u001b\nFb 20s 20sFbFb.50sbjjjjy100s 50s100sbkuubj150sFhFhFh50sFhssW100sFhs20sFh.st\u001b50sFh.s100s50sFhssnkyFjFjs_ \u001b;>lhlaj 50sFhFh.50s\u000f\u001b\u000f\u001bjkkjkj100s100s100sFk.20sO>>a\u001b\n#monster\n#force\n#dip\nfdOe\u001b\nO>>h\u001b\n\u0007large dog\n\u0017tripe ration\nt\u001b\u0007tame dingo\n\u0007kobold\n\u0017scroll of taming\nrl \u0017tripe ration\nt\u001b#chat\nj#chat\nk\u0017leash\namhnuhhamn\u001618\nmO>>t\u001b\nOg\u001b\u001b\nO>>>e\u001b\n\u0007horse\n\u0017meatball\nt\u001b\u0017magic whistle\nunlao   20s  #name\nf\n\u0017\u0006_>>.  n Fk_.  nFk >Fh  n  Fy   n _>>, Fk _.  n  Fk>Fks_>>.Fj_.Fn  >\u001611\nOh\u001b\nv i\u001b\u0007little dog\n\u0017apple\n t\u001b20sdo.m.20s sjdj .m.su20s  n 20s \u0007newt\n\u0017scroll of taming\nrp  b  n  \u00163\nknh\u0017tree\n:h\u0017pool\nlh:l \u0017iron bars\nlk\u0017unaligned altar\ndk dn\u0017floating eye corpse\n#offer\nq    n    n: #terrain\nf\n#wipe\nE\u001boj\u001611\nyyk\u0017chaotic altar\ndmdc  \u0017dwarf corpse\n#offer\nr   : y\u0017melting ice\nky\u0017ice\nuk\u0017lawful altar\ndddf\u0017human corpse\n #pray\ny y    : #terrain\n\u001bPa_m,sm.  nmO>g\u001b\nFjFjFjFj FjFjFjFj  n  FjFjFjFjFjFbFj FbFbFb   n FbFb.jhh\\  nlnFj Fj Fj Fj  Fj Fj Fj  Fj "
+ },
+ "segments": [
+  {
+   "seed": 50058501,
+   "datetime": "20170703162236",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:plain\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "mO>>>i\u001b\nFb 20s 20sFbFb.50sbjjjjy100s 50s100sbkuubj150sFhFhFh50sFhssW100sFhs20sFh.st\u001b50sFh.s100s50sFhssnkyFjFjs_ \u001b;>lhlaj 50sFhFh.50s\u000f\u001b\u000f\u001bjkkjkj100s100s100sFk.20sO>>a\u001b\n#monster\n#force\n#dip\nfdOe\u001b\nO>>h\u001b\n\u0007large dog\n\u0017tripe ration\nt\u001b\u0007tame dingo\n\u0007kobold\n\u0017scroll of taming\nrl \u0017tripe ration\nt\u001b#chat\nj#chat\nk\u0017leash\namhnuhhamn\u001618\nmO>>t\u001b\nOg\u001b\u001b\nO>>>e\u001b\n\u0007horse\n\u0017meatball\nt\u001b\u0017magic whistle\nunlao   20s  #name\nf\n\u0017\u0006_>>.  n Fk_.  nFk >Fh  n  Fy   n _>>, Fk _.  n  Fk>Fks_>>.Fj_.Fn  >\u001611\nOh\u001b\nv i\u001b\u0007little dog\n\u0017apple\n t\u001b20sdo.m.20s sjdj .m.su20s  n 20s \u0007newt\n\u0017scroll of taming\nrp  b  n  \u00163\nknh\u0017tree\n:h\u0017pool\nlh:l \u0017iron bars\nlk\u0017unaligned altar\ndk dn\u0017floating eye corpse\n#offer\nq    n    n: #terrain\nf\n#wipe\nE\u001boj\u001611\nyyk\u0017chaotic altar\ndmdc  \u0017dwarf corpse\n#offer\nr   : y\u0017melting ice\nky\u0017ice\nuk\u0017lawful altar\ndddf\u0017human corpse\n #pray\ny y    : #terrain\n\u001bPa_m,sm.  nmO>g\u001b\nFjFjFjFj FjFjFjFj  n  FjFjFjFjFjFbFj FbFbFb   n FbFb.jhh\\  nlnFj Fj Fj Fj  Fj Fj Fj  Fj "
+  }
+ ]
+}

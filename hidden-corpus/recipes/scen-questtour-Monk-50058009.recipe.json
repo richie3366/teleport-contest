@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\ny;k;_mmmmm.Fy_.#chat\nn;<._mmm.Fj  n_.   n  nFh   n#chat\nh   n #levelchange\n20\n                      \u0016?\n>>\u001b\u0016?\n>y\u0006_mm. Fl _.#chat\nj_mmm,#chat\nh;h,_mmmmm. Fh_.#chat\nh   n \u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 speed boots\nWl    \u0017wand of fire\n\u0016?\n>A\u0006_mm.Fh_,Fj    nFb FbFbFbFbzmj,\u0016?\n>z\u0006_mm.FjFjFjFjzmj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmm.Fj_,#chat\nj\u0016?\n>A\u0006_mmmm.Fj.s20ss20s,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fl_.;,FlFl FlFlFl,\u0016?\n>A\u0006_mmm,Fk_.;,FkFkFjFk   nFn  FkFl  Fkzmj   ,\u0016?\n>z\u0006_mm,  n   Fl  _.20sFl   n  Fn     20szml   ,\u00163\n\u0016?\n>A\u0006_mmmmm,FnFn FnFl  n Fj  Flzm ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.    n Fj   _,FjFn    nFj FlFjFlFlzm,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fn_,#chat\nn;n;\u00169\n\u0016?\n>A\u0006_mmmm.Fn.ss20ssszm,#chat\nk\u0016?\n>z\u0006_mmmmmm.20sFlFlFlFl,\u0016?\n>>\u001b\u0016?\n>y_mm.#c"
+ },
+ "segments": [
+  {
+   "seed": 50058009,
+   "datetime": "20000520030240",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\ny;k;_mmmmm.Fy_.#chat\nn;<._mmm.Fj  n_.   n  nFh   n#chat\nh   n #levelchange\n20\n                      \u0016?\n>>\u001b\u0016?\n>y\u0006_mm. Fl _.#chat\nj_mmm,#chat\nh;h,_mmmmm. Fh_.#chat\nh   n \u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 speed boots\nWl    \u0017wand of fire\n\u0016?\n>A\u0006_mm.Fh_,Fj    nFb FbFbFbFbzmj,\u0016?\n>z\u0006_mm.FjFjFjFjzmj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmm.Fj_,#chat\nj\u0016?\n>A\u0006_mmmm.Fj.s20ss20s,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fl_.;,FlFl FlFlFl,\u0016?\n>A\u0006_mmm,Fk_.;,FkFkFjFk   nFn  FkFl  Fkzmj   ,\u0016?\n>z\u0006_mm,  n   Fl  _.20sFl   n  Fn     20szml   ,\u00163\n\u0016?\n>A\u0006_mmmmm,FnFn FnFl  n Fj  Flzm ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.    n Fj   _,FjFn    nFj FlFjFlFlzm,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fn_,#chat\nn;n;\u00169\n\u0016?\n>A\u0006_mmmm.Fn.ss20ssszm,#chat\nk\u0016?\n>z\u0006_mmmmmm.20sFlFlFlFl,\u0016?\n>>\u001b\u0016?\n>y_mm.#c"
+  }
+ ]
+}

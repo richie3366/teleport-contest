@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed ring of free action\nPpl\u001635\n   \u0007pyrolisk\nsm.20s   sm.   sm.   sh    .m.   sm.    n    20s  .m.    \u0007floating eye\nFk  Fk   Fh   Fk     n    \u0007pony\nFh   Fn    Fb   \u00165\n\u0016?\nb\u0004uss\u0016?\ncku \u0017wand of sleep\nEq Vlad was here\n : n\u0017wand of probing\nEr ad aerarium\nk\u0017wand of lightning\nEs  I am a fish\n :   lE-   n \u0016?\n>>L    war hammer\nl k     j    l  n    k     n :    \u001612\n\u00168\n_ \u001bm,<\u00168\n#levelchange\n30\n                  \u0017Magicbane\nwv Fj FkFk  #invoke\nvX\u0007Croesus\nyy  n         #chat\nl          Fk  n       Fk         \u0007water demon\nFl  n    Fk  Fk Fk  n         Fk      n  \u0007raven\nFk Fj Fj   \u0007hell hound\n#chat\nyFu       Fk  n        20s s 20s   \u001611\n\u0016?\na   _>,sh \u0016?\nc_{,\u001614\n_{.<20s    n 20s           n    \u00168\n\u001614\n#levelchange\n6\n        \u0017spellbook of drain life\nrwy  n     n   .k    n    y\u001b       \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50056012,
+   "datetime": "20090801055507",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed ring of free action\nPpl\u001635\n   \u0007pyrolisk\nsm.20s   sm.   sm.   sh    .m.   sm.    n    20s  .m.    \u0007floating eye\nFk  Fk   Fh   Fk     n    \u0007pony\nFh   Fn    Fb   \u00165\n\u0016?\nb\u0004uss\u0016?\ncku \u0017wand of sleep\nEq Vlad was here\n : n\u0017wand of probing\nEr ad aerarium\nk\u0017wand of lightning\nEs  I am a fish\n :   lE-   n \u0016?\n>>L    war hammer\nl k     j    l  n    k     n :    \u001612\n\u00168\n_ \u001bm,<\u00168\n#levelchange\n30\n                  \u0017Magicbane\nwv Fj FkFk  #invoke\nvX\u0007Croesus\nyy  n         #chat\nl          Fk  n       Fk         \u0007water demon\nFl  n    Fk  Fk Fk  n         Fk      n  \u0007raven\nFk Fj Fj   \u0007hell hound\n#chat\nyFu       Fk  n        20s s 20s   \u001611\n\u0016?\na   _>,sh \u0016?\nc_{,\u001614\n_{.<20s    n 20s           n    \u00168\n\u001614\n#levelchange\n6\n        \u0017spellbook of drain life\nrwy  n     n   .k    n    y\u001b       \u0017"
+  }
+ ]
+}

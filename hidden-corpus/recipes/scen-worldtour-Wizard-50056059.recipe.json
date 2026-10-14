@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u001644\n   bkn j ll :sb20s  \u0016?\n>y  \u0006_ \u001b>.\u0016?\n>C_>,_.m,ss\u001644\n_{,.\u0016?\n>H\u0004u\u001644\nbknbb:ss\u0016?\n>D#chat\nj;_.s.s\u0016?\n>>Q\u0004 \u001617\n\u0017blessed +3 oilskin cloak\nWa s.s\u00173 wand of light\n\u0007fire elemental\nzb\u0017blessed scroll of gold detection\n\u0007skeleton\nrc \u0017uncursed potion of confusion\nqd#dip\na\u0017cursed wand of striking\nze.zej\u00173 wand of magic missile\n\u0007Angel\nyzf.zfl    sm.    n  sn    sm.    n   sm.      sm.  n     \u001610\n\u001639\n l    yb  ubln:\u0016?\n\u001bnh\u0016?\n\u001by h  \u0016?\nd _{.<s20s \u0016?\n>>M      wand of cold\n\u0014@.\u0016?\n\u001bh   h            \u0016?\n\u001bn     n       h  \u0016?\na  #levelchange\n10\n       \u0007wood nymph\nFn      Fy       n         FkFjFkFjFjs\u001b.\u0007green mold\nFkFjFkFk20s\u001bs\u0016?\nc y    u   n         :    n     \u00161\n\u001644\nj  n         n  u   n      u  n   n      n    y  :  \u00164\n\u0016?\ne \u0006_>..  sm.  n       sh   n      \u001b \u001612\n\u001621\n\u0017potion of extra healing\nqq    Fy   n     Fu     yy\u001by  y  y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50056059,
+   "datetime": "20060408004438",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u001644\n   bkn j ll :sb20s  \u0016?\n>y  \u0006_ \u001b>.\u0016?\n>C_>,_.m,ss\u001644\n_{,.\u0016?\n>H\u0004u\u001644\nbknbb:ss\u0016?\n>D#chat\nj;_.s.s\u0016?\n>>Q\u0004 \u001617\n\u0017blessed +3 oilskin cloak\nWa s.s\u00173 wand of light\n\u0007fire elemental\nzb\u0017blessed scroll of gold detection\n\u0007skeleton\nrc \u0017uncursed potion of confusion\nqd#dip\na\u0017cursed wand of striking\nze.zej\u00173 wand of magic missile\n\u0007Angel\nyzf.zfl    sm.    n  sn    sm.    n   sm.      sm.  n     \u001610\n\u001639\n l    yb  ubln:\u0016?\n\u001bnh\u0016?\n\u001by h  \u0016?\nd _{.<s20s \u0016?\n>>M      wand of cold\n\u0014@.\u0016?\n\u001bh   h            \u0016?\n\u001bn     n       h  \u0016?\na  #levelchange\n10\n       \u0007wood nymph\nFn      Fy       n         FkFjFkFjFjs\u001b.\u0007green mold\nFkFjFkFk20s\u001bs\u0016?\nc y    u   n         :    n     \u00161\n\u001644\nj  n         n  u   n      u  n   n      n    y  :  \u00164\n\u0016?\ne \u0006_>..  sm.  n       sh   n      \u001b \u001612\n\u001621\n\u0017potion of extra healing\nqq    Fy   n     Fu     yy\u001by  y  y\u001b  \u0017"
+  }
+ ]
+}

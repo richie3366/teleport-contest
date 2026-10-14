@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #terrain\nd\n\u001b;#force\n\u0004uPv i\u001bw-,\u0018\u001b#twoweapon\nmO>>o\u001b\njjjy\u0017neutral altar\ndj\u0017elf corpse\n#offer\nk : y\u0017fountain\nqyqy#dip\nayy\u0017altar\ndgdc\u0017gnome corpse\n#offer\nl   #pray\ny y  : hj\u0017tree\n:#terrain\ne\n#sit\n\u001bn#offer\nmO>t\u001b\n\u00166\nmO>>>>h\u001b\n\u001612\nmOa\u001b\n  \u0007large dog\n\u0017carrot\ntab   #name\no\nb   n    n#name\nm\n#name\n>.\u0007grid bug\n\u0017scroll of taming\nrn \u0017magic whistle\nu       k  y  n  ao\u0007newt\n\u0017scroll of taming\nrp\u00165\n  ,Za\n#sit\n\u001bmO>>>>d\u001b\n\u00165\nFjFjFnFbFnFjFbFjFjFbFbFbFbFbFjFuFyFjFyFnFkFhFyFhFhFjFhFjFjFbFnFnFnFjFnFjFbFnFuFbFjFnFjFbFnFnFbFjFhFnFuFnFjFkFbFjFnFkFnFnFjFbFbFjFbFbFhFbFjFnFhFyFuFjFnFbFjFnFnFbFyFnFbFkFjFbFjFnFjFn Fj FjFu  Fu  Fk  Fj   Fy    Fk  n    Fn   Fu Fj  nFj Fh  nFlFn   nFn  Fj  n Fj   Fj  n  FnFnFuFhFjFyFjFbFbFjFn\u001610\n\u0006_>.Fk_.> FlFlFy\u0006_>>,Fh_.Fu>FjFu_>>,Fk_,Fk  n>FuFl_>>.Fu_.Fl>FjFuFuFnFl\u0006_>,Fn  n_,Fj>FuFu_>.Fu_.Fl>FuFu_>.Fj_.Fj>Fu  nFnFnFlFk#chat\nl\u000f\u001b\u000f\u001b\u001611\nO>n\u001b\u001b\n\u0007tame hill orc\n20s         \u0017tin whistle\nbyyaq  #chat\nk\u0017newt corpse\nt$u#name\nm\n,#chat\nkdq.s.v i\u001b"
+ },
+ "segments": [
+  {
+   "seed": 50059043,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": " #terrain\nd\n\u001b;#force\n\u0004uPv i\u001bw-,\u0018\u001b#twoweapon\nmO>>o\u001b\njjjy\u0017neutral altar\ndj\u0017elf corpse\n#offer\nk : y\u0017fountain\nqyqy#dip\nayy\u0017altar\ndgdc\u0017gnome corpse\n#offer\nl   #pray\ny y  : hj\u0017tree\n:#terrain\ne\n#sit\n\u001bn#offer\nmO>t\u001b\n\u00166\nmO>>>>h\u001b\n\u001612\nmOa\u001b\n  \u0007large dog\n\u0017carrot\ntab   #name\no\nb   n    n#name\nm\n#name\n>.\u0007grid bug\n\u0017scroll of taming\nrn \u0017magic whistle\nu       k  y  n  ao\u0007newt\n\u0017scroll of taming\nrp\u00165\n  ,Za\n#sit\n\u001bmO>>>>d\u001b\n\u00165\nFjFjFnFbFnFjFbFjFjFbFbFbFbFbFjFuFyFjFyFnFkFhFyFhFhFjFhFjFjFbFnFnFnFjFnFjFbFnFuFbFjFnFjFbFnFnFbFjFhFnFuFnFjFkFbFjFnFkFnFnFjFbFbFjFbFbFhFbFjFnFhFyFuFjFnFbFjFnFnFbFyFnFbFkFjFbFjFnFjFn Fj FjFu  Fu  Fk  Fj   Fy    Fk  n    Fn   Fu Fj  nFj Fh  nFlFn   nFn  Fj  n Fj   Fj  n  FnFnFuFhFjFyFjFbFbFjFn\u001610\n\u0006_>.Fk_.> FlFlFy\u0006_>>,Fh_.Fu>FjFu_>>,Fk_,Fk  n>FuFl_>>.Fu_.Fl>FjFuFuFnFl\u0006_>,Fn  n_,Fj>FuFu_>.Fu_.Fl>FuFu_>.Fj_.Fj>Fu  nFnFnFlFk#chat\nl\u000f\u001b\u000f\u001b\u001611\nO>n\u001b\u001b\n\u0007tame hill orc\n20s         \u0017tin whistle\nbyyaq  #chat\nk\u0017newt corpse\nt$u#name\nm\n,#chat\nkdq.s.v i\u001b"
+  }
+ ]
+}

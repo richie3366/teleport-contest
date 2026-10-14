@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWk \u0017crossbow\nwl\u001715 crossbow bolts\nQm\u0007grid bug\n\u0007soldier\ntmjfn fh  fl \u0007red dragon\nsu.m.\u0017wand of fire\nany              n Fb   n Fb \u00165\n\u0017spellbook of cause fear\nro \u001bs\u0007aligned cleric\nyZa\nZa\n20s.Za\nZa\nZa\nZa\nZa\nZa\n#turn\ni\u001b\u0017wand of digging\n\u0017wand of cancellation\n\u0007sewer rat\n\u0007lichen\n\u0007kobold shaman\nzp> zp> zp> zp> zp> szqkszp> .\u00161\n\u0007master lich\n\u0007mind flayer\n\u0007vampire\n\u0017wand of sleep\nzrl\u00161\n\u0018\u001b\u0017wand of polymorph\n\u0017wand of lightning\n\u0007kobold shaman\nzsh     n   sn      n zsk     n       20s   n zsl   n        nzsk   n     ztk      n  zsu  ztu  nzthzsu\u0018\u001b\u00162\n   \u0007black dragon\n\u0007silver dragon\ns20s 20s  n  .  n FuFu\u00166\n  \u0007baby red dragon\nss  n20s.#polyself\ngold dragon\n   #monster\nss#monster\n#monster\n#monster\nFlFl\u0017elven bow\nw\u001720 elven arrows\nQ\u001b\u0007lichen\n\u0007kobold\nffffff\u0017potion of fruit juice\nt\u0017blessed spellbo"
+ },
+ "segments": [
+  {
+   "seed": 50050088,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWk \u0017crossbow\nwl\u001715 crossbow bolts\nQm\u0007grid bug\n\u0007soldier\ntmjfn fh  fl \u0007red dragon\nsu.m.\u0017wand of fire\nany              n Fb   n Fb \u00165\n\u0017spellbook of cause fear\nro \u001bs\u0007aligned cleric\nyZa\nZa\n20s.Za\nZa\nZa\nZa\nZa\nZa\n#turn\ni\u001b\u0017wand of digging\n\u0017wand of cancellation\n\u0007sewer rat\n\u0007lichen\n\u0007kobold shaman\nzp> zp> zp> zp> zp> szqkszp> .\u00161\n\u0007master lich\n\u0007mind flayer\n\u0007vampire\n\u0017wand of sleep\nzrl\u00161\n\u0018\u001b\u0017wand of polymorph\n\u0017wand of lightning\n\u0007kobold shaman\nzsh     n   sn      n zsk     n       20s   n zsl   n        nzsk   n     ztk      n  zsu  ztu  nzthzsu\u0018\u001b\u00162\n   \u0007black dragon\n\u0007silver dragon\ns20s 20s  n  .  n FuFu\u00166\n  \u0007baby red dragon\nss  n20s.#polyself\ngold dragon\n   #monster\nss#monster\n#monster\n#monster\nFlFl\u0017elven bow\nw\u001720 elven arrows\nQ\u001b\u0007lichen\n\u0007kobold\nffffff\u0017potion of fruit juice\nt\u0017blessed spellbo"
+  }
+ ]
+}

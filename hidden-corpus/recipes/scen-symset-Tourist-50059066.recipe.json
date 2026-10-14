@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0007horse\n\u0017tripe ration\n t$h \u0017meatball\nt$h \u0017carrot\nt$y \u0017leash\naoh ky ky h\u001bh\u001baoy #chat\ny \u0017tripe ration\n t$h \u0017leash\naph buy bnapy \u0017tin whistle\nbjkh aq\u0007kitten\n\u0017apple\n tah \u0007pony\n\u0017newt corpse\ntay 10sdb    n sm.  n 20sm.  n   n sm.  n #chat\ny #chat\nh dq   n   n.m.  n sbsm.  n   n \u001612\nmO>>>l\u001b\nck ck \u0006_ \u001b,>_>.  Fy_,Fy>FyFy_>,Fy_.  n Fy>FyFyFyFyFy\u0006_>. Fy_.Fy>FhFh_>,   n Fy_.Fy>FhFh_>.  nFy_.Fh\u001b>FyFh\u001bFyFyFh\u0006_>.Fy_.  n Fy>FhFh_>.  n Fy_,  yy\u001by  y y n  F"
+ },
+ "segments": [
+  {
+   "seed": 50059066,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You see\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0007horse\n\u0017tripe ration\n t$h \u0017meatball\nt$h \u0017carrot\nt$y \u0017leash\naoh ky ky h\u001bh\u001baoy #chat\ny \u0017tripe ration\n t$h \u0017leash\naph buy bnapy \u0017tin whistle\nbjkh aq\u0007kitten\n\u0017apple\n tah \u0007pony\n\u0017newt corpse\ntay 10sdb    n sm.  n 20sm.  n   n sm.  n #chat\ny #chat\nh dq   n   n.m.  n sbsm.  n   n \u001612\nmO>>>l\u001b\nck ck \u0006_ \u001b,>_>.  Fy_,Fy>FyFy_>,Fy_.  n Fy>FyFyFyFyFy\u0006_>. Fy_.Fy>FhFh_>,   n Fy_.Fy>FhFh_>.  nFy_.Fh\u001b>FyFh\u001bFyFyFh\u0006_>.Fy_.  n Fy>FhFh_>.  n Fy_,  yy\u001by  y y n  F"
+  }
+ ]
+}

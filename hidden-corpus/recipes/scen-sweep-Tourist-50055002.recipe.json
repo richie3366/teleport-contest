@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               i\u001bed 20sseh         y  s20s   ankees.ec .s:#sit\n#twoweapon\nK<\u0014 \u001b;#monster\nwanyi\u001beg ssqjamhei  n s.rk#levelchange\n14\n\u0016?\n>y  _mmmmm,Fh  _. Fn   #chat\nn      _mm,  n     Fl       n      _.#chat\nn      n _m.          Fu   n      _.#chat\nn    _mmm.    n     Fu      _.#chat\nn   n       ;k:  _mmm.       n   Fj       _,#chat\nn     n     \u0006_>.      n     Fk       n    _,         n    Fl        >Fk    n     Fb        _>.  n           Fl   n        _.      yy\u001bny y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50055002,
+   "datetime": "20150407131708",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:mango\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               i\u001bed 20sseh         y  s20s   ankees.ec .s:#sit\n#twoweapon\nK<\u0014 \u001b;#monster\nwanyi\u001beg ssqjamhei  n s.rk#levelchange\n14\n\u0016?\n>y  _mmmmm,Fh  _. Fn   #chat\nn      _mm,  n     Fl       n      _.#chat\nn      n _m.          Fu   n      _.#chat\nn    _mmm.    n     Fu      _.#chat\nn   n       ;k:  _mmm.       n   Fj       _,#chat\nn     n     \u0006_>.      n     Fk       n    _,         n    Fl        >Fk    n     Fb        _>.  n           Fl   n        _.      yy\u001bny y y\u001b  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "sq,sv i\u001bE- X marks the spot\n#tip\n\u001b#dip\ne #chat\nh \u0006_ \u001b<.>FbFn_>.Fy_.Fy>FyFy_>.Fh_,m,Fb>FbFuu FuFuFu#turn\n20s\u0006_>.Fn_>FuFn_>FbFub _>.Fu_.> FuFuFy\u0006_>>._.> FyFyFy< q\u0006_>.Fn_>FnFn_>.Fl_.Fl>FlFh_>.Fn_>FnFbFbFbFb\u0006_>.Fl_..Fn>FhFlFutdl #pray\ny y \u0006_>.Fh_.Fn>FnFbFn<\u000f\u001bmO>>>>f\u001b\n#levelchange\n10\n        h\u001bh\u001byl\u0017melting ice\n:kb h\u001b\u0017fountain\nqyqy yqkn \u0017tree\nj\u0017iron bars\n#turn\nz,;b:   #wipe\nmO>>j\u001b\nFnFbFbFbFnFnFbFnFnFbFnFnFbFbFbFnFnFnFnFbFnFnFnFbFnFbFbFnFnFbFnFnFnFnFnFbFbFbFnFnFnFnFnFbFnFnFnFbFbFnFbFnFnFnFbFnFbFbFbFnFbFbFnFnFnFnFbFnFbFbFnFnFbFbFnFbFbFnFbFnFbFnFbFbFbFnFbFnFbFnFbFbFbFbFbFnFbFnFnFnFnFnFnFbFnFbFbFnFbFbFnFnFnFbFbFbFnFbFbFbO>>>c\u001b\nv i\u001bmO>>j\u001b\n\u00166\nOl\u001b\nv i\u001b\u0006_>,Fy_.Fy>FhFk_>.Fu_.m,Fl>FlFu_>.Fj_.Fj>FlFnFnFuFn#conduct\n#dip\nb \u0006_>.Fu_.Fn>Fu"
+ },
+ "segments": [
+  {
+   "seed": 50059054,
+   "datetime": "20020615165936",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad\n",
+   "moves": "sq,sv i\u001bE- X marks the spot\n#tip\n\u001b#dip\ne #chat\nh \u0006_ \u001b<.>FbFn_>.Fy_.Fy>FyFy_>.Fh_,m,Fb>FbFuu FuFuFu#turn\n20s\u0006_>.Fn_>FuFn_>FbFub _>.Fu_.> FuFuFy\u0006_>>._.> FyFyFy< q\u0006_>.Fn_>FnFn_>.Fl_.Fl>FlFh_>.Fn_>FnFbFbFbFb\u0006_>.Fl_..Fn>FhFlFutdl #pray\ny y \u0006_>.Fh_.Fn>FnFbFn<\u000f\u001bmO>>>>f\u001b\n#levelchange\n10\n        h\u001bh\u001byl\u0017melting ice\n:kb h\u001b\u0017fountain\nqyqy yqkn \u0017tree\nj\u0017iron bars\n#turn\nz,;b:   #wipe\nmO>>j\u001b\nFnFbFbFbFnFnFbFnFnFbFnFnFbFbFbFnFnFnFnFbFnFnFnFbFnFbFbFnFnFbFnFnFnFnFnFbFbFbFnFnFnFnFnFbFnFnFnFbFbFnFbFnFnFnFbFnFbFbFbFnFbFbFnFnFnFnFbFnFbFbFnFnFbFbFnFbFbFnFbFnFbFnFbFbFbFnFbFnFbFnFbFbFbFbFbFnFbFnFnFnFnFnFnFbFnFbFbFnFbFbFnFnFnFbFbFbFnFbFbFbO>>>c\u001b\nv i\u001bmO>>j\u001b\n\u00166\nOl\u001b\nv i\u001b\u0006_>,Fy_.Fy>FhFk_>.Fu_.m,Fl>FlFu_>.Fj_.Fj>FlFnFnFuFn#conduct\n#dip\nb \u0006_>.Fu_.Fn>Fu"
+  }
+ ]
+}

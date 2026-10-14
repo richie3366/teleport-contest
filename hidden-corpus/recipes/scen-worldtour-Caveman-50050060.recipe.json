@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed Mjollnir\nwf\u0017blessed ring of free action\nPgl\u00165\n\u0017blessed ring of invisibility\nPh ..20s\u0017spellbook of invisibility\n\u0007iron golem\nrism.sZZ\u0017wand of probing\n\u0007hill orc\nzjl   zjk \u0017dagger\nwk  Fl Fk  FkFkFk20s.m..\u0016?\n>>Q#chat\ny;. \u001b,\u0016?\n>>M      alchemy smock\n\u0004h\u001622\nn         n    n u  j :\u0016?\n\u001bj      j\u00165\nu  k j   l     n  l     lj   n  :\u00164\n\u0016?\n\u001bk      b \u00162\n#chat\n;k..    .      n sm.         \u0016?\ne _{.sm.  \u001640\n#chat\nh;h.\u0016?\ncj   y h   n n u j:  \u0016?\n\u001bl    n n\u00162\n_{.>\u001612\n_{.\u001612\ny l    hhn: \u00161\n_<,<\u0016?\na   _{,<\u001635\n#chat\nb;m,\u0016?\nb\u0014 n\u0016?\n\u001bk  u\u001622\n_{,>s.\u0016?\n\u001bnk\u00164\n_>,\u00164\n\u0007xan\ns  n 20s 20s . s \u0007water elemental\ns 20s 20s .20s   n \u0007cave spider\n.20s sm.sm.s\u00163\n\u001628\n\u0004 sm. sm. sm.\u0016?\n\u001bl   j \u0016?\n\u001bu  h\u00165\n\u0004 \u00164\n\u0017blessed spellbook of detect food\nrc  n    sk     n  \u0017blessed spellbook of extra healing\nrd   sb       \u001b  n+\u0007zombie\nZZ\u0007lichen\nZFu     \u0007yellow mold\nZFh \u0007gnome lord\nZ\u0007acid blob\nZ20s           n sb            sm.\u00166\n\u0016?\n\u001bj                      n j           \u0016?\n\u001bk       n           b             n     \u00166\n\u001614\n_<.>\u0016?\n\u001bh            n   h               yy\u001by  nny\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50050060,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed Mjollnir\nwf\u0017blessed ring of free action\nPgl\u00165\n\u0017blessed ring of invisibility\nPh ..20s\u0017spellbook of invisibility\n\u0007iron golem\nrism.sZZ\u0017wand of probing\n\u0007hill orc\nzjl   zjk \u0017dagger\nwk  Fl Fk  FkFkFk20s.m..\u0016?\n>>Q#chat\ny;. \u001b,\u0016?\n>>M      alchemy smock\n\u0004h\u001622\nn         n    n u  j :\u0016?\n\u001bj      j\u00165\nu  k j   l     n  l     lj   n  :\u00164\n\u0016?\n\u001bk      b \u00162\n#chat\n;k..    .      n sm.         \u0016?\ne _{.sm.  \u001640\n#chat\nh;h.\u0016?\ncj   y h   n n u j:  \u0016?\n\u001bl    n n\u00162\n_{.>\u001612\n_{.\u001612\ny l    hhn: \u00161\n_<,<\u0016?\na   _{,<\u001635\n#chat\nb;m,\u0016?\nb\u0014 n\u0016?\n\u001bk  u\u001622\n_{,>s.\u0016?\n\u001bnk\u00164\n_>,\u00164\n\u0007xan\ns  n 20s 20s . s \u0007water elemental\ns 20s 20s .20s   n \u0007cave spider\n.20s sm.sm.s\u00163\n\u001628\n\u0004 sm. sm. sm.\u0016?\n\u001bl   j \u0016?\n\u001bu  h\u00165\n\u0004 \u00164\n\u0017blessed spellbook of detect food\nrc  n    sk     n  \u0017blessed spellbook of extra healing\nrd   sb       \u001b  n+\u0007zombie\nZZ\u0007lichen\nZFu     \u0007yellow mold\nZFh \u0007gnome lord\nZ\u0007acid blob\nZ20s           n sb            sm.\u00166\n\u0016?\n\u001bj                      n j           \u0016?\n\u001bk       n           b             n     \u00166\n\u001614\n_<.>\u0016?\n\u001bh            n   h               yy\u001by  nny\u001b  \u0016"
+  }
+ ]
+}

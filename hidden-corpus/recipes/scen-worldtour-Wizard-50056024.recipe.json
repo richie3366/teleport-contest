@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                              \u0017blessed ring of free action\nPpl\u00168\n\u0014 \u001b@.\u0016?\n>Ebjkj:.\u00168\n\u0004j\u00168\n#chat\nj;_.\u0016?\n>x\u0006_<._.>.20s.20s\u0016?\n>>Q__.>\u00168\nbljhkb:\u0016?\nb \u0006_>.Fh_..Fh\u00168\nhh\u0017wand of nothing\nEq I am a fish\n: \u0017wand of secret door detection\nEr y Elbereth\n\u0017wand of make invisible\nEs  X marks the spot\n: \u0017wand of stasis\nEtn  Elbereth\nE-n  Elbereth Elbereth\n\u0007minotaur\nsm.s20s sm. 20s  n  .y\u0016?\n>x\u0017blessed war hammer\nwu20sFkFkXFkFk\u0017uncursed wand of death\n\u0007gold golem\nzvk  n FkFk\u0017cursed sprig of wolfsbane\new sm..m.\u0017blessed brass lantern\nax #rub\nx\u0017cursed land mine\nay Fk Fksm.sm.\u0016?\nl \u0014>.\u0016?\nq_<.<\u00163\nhbjk:\u0016?\n>x\u0014.\u001645\n\u0006_<,_.,\u0016?\n>Bukyjb:\u001627\n\u0007blue jelly\nFhFh\u0007ape\n#chat\nhFhFl\u0007marilith\n#chat\nhFh Fh \u0007black dragon\nFh Fh   nFh  Fh  Fh Fh \u0016?\n>v lkjnhh :\u001627\n\u0007Aleax\nFk  Fk    n  Fk   Fk    \u0007pony\nFk   Fj   n    Fj    \u0007xan\nFk   Fk   n      Fk    Fk   \u001610\n\u00166\ny   n  h   :sb   sl      n   .m.    \u00165\n\u00168\n#levelchange\n30\nk   n     n   j     \u0017polymorph trap\nu       n  \u0007grid bug\n.m.       .m.     n   20s       20s    n       u        n   u           n \u0017anti-magic field\nl        j      n     \u0017rust trap\ny        y   yy\u001by   y y  y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50056024,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                              \u0017blessed ring of free action\nPpl\u00168\n\u0014 \u001b@.\u0016?\n>Ebjkj:.\u00168\n\u0004j\u00168\n#chat\nj;_.\u0016?\n>x\u0006_<._.>.20s.20s\u0016?\n>>Q__.>\u00168\nbljhkb:\u0016?\nb \u0006_>.Fh_..Fh\u00168\nhh\u0017wand of nothing\nEq I am a fish\n: \u0017wand of secret door detection\nEr y Elbereth\n\u0017wand of make invisible\nEs  X marks the spot\n: \u0017wand of stasis\nEtn  Elbereth\nE-n  Elbereth Elbereth\n\u0007minotaur\nsm.s20s sm. 20s  n  .y\u0016?\n>x\u0017blessed war hammer\nwu20sFkFkXFkFk\u0017uncursed wand of death\n\u0007gold golem\nzvk  n FkFk\u0017cursed sprig of wolfsbane\new sm..m.\u0017blessed brass lantern\nax #rub\nx\u0017cursed land mine\nay Fk Fksm.sm.\u0016?\nl \u0014>.\u0016?\nq_<.<\u00163\nhbjk:\u0016?\n>x\u0014.\u001645\n\u0006_<,_.,\u0016?\n>Bukyjb:\u001627\n\u0007blue jelly\nFhFh\u0007ape\n#chat\nhFhFl\u0007marilith\n#chat\nhFh Fh \u0007black dragon\nFh Fh   nFh  Fh  Fh Fh \u0016?\n>v lkjnhh :\u001627\n\u0007Aleax\nFk  Fk    n  Fk   Fk    \u0007pony\nFk   Fj   n    Fj    \u0007xan\nFk   Fk   n      Fk    Fk   \u001610\n\u00166\ny   n  h   :sb   sl      n   .m.    \u00165\n\u00168\n#levelchange\n30\nk   n     n   j     \u0017polymorph trap\nu       n  \u0007grid bug\n.m.       .m.     n   20s       20s    n       u        n   u           n \u0017anti-magic field\nl        j      n     \u0017rust trap\ny        y   yy\u001by   y y  y\u001by  \u0017"
+  }
+ ]
+}

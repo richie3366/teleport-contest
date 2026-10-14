@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed amulet of life saving\nPi\u0017blessed +3 gauntlets of power\nWj\u0016?\n>w\u0006_ \u001b<.,phlu#chat\nb\u00167\nbhh\u0016?\n>w\u0006_ooooo.,pllu#chat\ny_oooooooo.,p_oooooooo.,\u0014:ss_ooooooo.,p\u00163\nklb\u0016?\n>w\u0006__._.#chat\nb__._,#chat\nl\u0016?\ncuyu\u0016?\n>w \u0006_ooooooo.,\u0017amulet of restful sleep\ndk y_{.Fk _,   Fk q_oooo.Fh  _.Fb   n_oo.Fj  n_,,    n$ \u00165\n    _{.q_ooo,,\u0017amulet of strangulation\ndm  n  n\u00167\n_oooo.  n  Fj  n  _.  n   n Fj  n    n ,    n p    \u00165\n_oooo.Fy   _._ooo,Fy   n_,m,Fy  ,#chat\nh_oooooooo.Fj_.;@.,#chat\nb_ooooooo._._oo,,\u0017amulet of life saving\ndp\u0016?\ncjju\u0016?\n>w\u0006__._.  #chat\nl#pray\ny y _ooo. _,,:"
+ },
+ "segments": [
+  {
+   "seed": 50057038,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed amulet of life saving\nPi\u0017blessed +3 gauntlets of power\nWj\u0016?\n>w\u0006_ \u001b<.,phlu#chat\nb\u00167\nbhh\u0016?\n>w\u0006_ooooo.,pllu#chat\ny_oooooooo.,p_oooooooo.,\u0014:ss_ooooooo.,p\u00163\nklb\u0016?\n>w\u0006__._.#chat\nb__._,#chat\nl\u0016?\ncuyu\u0016?\n>w \u0006_ooooooo.,\u0017amulet of restful sleep\ndk y_{.Fk _,   Fk q_oooo.Fh  _.Fb   n_oo.Fj  n_,,    n$ \u00165\n    _{.q_ooo,,\u0017amulet of strangulation\ndm  n  n\u00167\n_oooo.  n  Fj  n  _.  n   n Fj  n    n ,    n p    \u00165\n_oooo.Fy   _._ooo,Fy   n_,m,Fy  ,#chat\nh_oooooooo.Fj_.;@.,#chat\nb_ooooooo._._oo,,\u0017amulet of life saving\ndp\u0016?\ncjju\u0016?\n>w\u0006__._.  #chat\nl#pray\ny y _ooo. _,,:"
+  }
+ ]
+}

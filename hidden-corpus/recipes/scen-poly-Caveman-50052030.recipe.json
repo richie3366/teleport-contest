@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0017blessed ring of polymorph control\nPfr\u0017Hawaiian shirt\nW\u001bsm.20ssl#polyself\nvampire bat\n  #monster\nss20s.j20s#polyself\npony\n#monster\nsm.s\u0007barrow wight\nFhFh   Fn20s  sh sm.  #polyself\nenergy vortex\n#monster\n20s  20s\u0007gelatinous cube\n20s     FjFj sm.20s.u#polyself\niron golem\n .m.sk.m..sl \u0017wand of polym"
+ },
+ "segments": [
+  {
+   "seed": 50052030,
+   "datetime": "20090101111523",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0017blessed ring of polymorph control\nPfr\u0017Hawaiian shirt\nW\u001bsm.20ssl#polyself\nvampire bat\n  #monster\nss20s.j20s#polyself\npony\n#monster\nsm.s\u0007barrow wight\nFhFh   Fn20s  sh sm.  #polyself\nenergy vortex\n#monster\n20s  20s\u0007gelatinous cube\n20s     FjFj sm.20s.u#polyself\niron golem\n .m.sk.m..sl \u0017wand of polym"
+  }
+ ]
+}

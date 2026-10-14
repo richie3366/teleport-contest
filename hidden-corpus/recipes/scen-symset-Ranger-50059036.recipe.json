@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b>.>FlFl_>.Fl_.;>. Fh>FlFl_>.Fl_.Fl>FlFhFlFhFhtcn z\u0006_>,Fl_,Fl>FlFh_>,Fh_.Fh>FhFl_>,Fh_.Fh>FhFlFlFhFh\u0006_>.Fl_.Fh>FlFl_>.Fh_,Fh>FhFh_>,Fh_.Fh>FhFhFlFhFl\u0006_>.Fl_.,Fl>FlFl_>.Fl_.<.Fl>FhFh_>.Fl_.Fl>FlFlFhFlFlq#loot\nh \u0006_>>.Fh_.m,Fh>FlFl_>>.Fl_.@.Fh>FlFl_>>,Fl_.Fh>FlFhFhFlFl\u0006_>.Fl_,  nFh>FlFl_>,Fh_.Fl>FhFh_>.Fh_.Fl>FhFlFlFhFh\u0006_>>.Fh_.,Fh>FlFl_>>.Fh_.Fl>FhFl_>>.  nFh_.Fh>FhFlFlFlFhE- Vlad was here\n#wipe\n\u00163\nO>>n\u001b\u001b\nFyFku FkFuFkFyFyFuFkFyFku FuFuFkFuFyFyFkFyFku FkFkFkFuFuFyFkk FuFuFyFuu FuFuFyFyFyFuk FuFkFuFuFyFku FuFkFuFuFuFyFku FkFuFuFkFuFyFuk FyFuk FkFkFkFuFkFuFyFuy FyFuy FyFky FyFuu FyFuk FkFkFuFuFkFkFuFyFuk FuFuFuFkFuFyFuu FkFuFyFkk FyFuy FuFyFkk FuFuFkFuFyFyFkFuFyFyFuFkFyFyFyFyFkFyFyFyO>i\u001b\u001b\nO>>>>"
+ },
+ "segments": [
+  {
+   "seed": 50059036,
+   "datetime": "20241202162433",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:mango\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a potion\"=cyan\n",
+   "moves": " \u0006_ \u001b>.>FlFl_>.Fl_.;>. Fh>FlFl_>.Fl_.Fl>FlFhFlFhFhtcn z\u0006_>,Fl_,Fl>FlFh_>,Fh_.Fh>FhFl_>,Fh_.Fh>FhFlFlFhFh\u0006_>.Fl_.Fh>FlFl_>.Fh_,Fh>FhFh_>,Fh_.Fh>FhFhFlFhFl\u0006_>.Fl_.,Fl>FlFl_>.Fl_.<.Fl>FhFh_>.Fl_.Fl>FlFlFhFlFlq#loot\nh \u0006_>>.Fh_.m,Fh>FlFl_>>.Fl_.@.Fh>FlFl_>>,Fl_.Fh>FlFhFhFlFl\u0006_>.Fl_,  nFh>FlFl_>,Fh_.Fl>FhFh_>.Fh_.Fl>FhFlFlFhFh\u0006_>>.Fh_.,Fh>FlFl_>>.Fh_.Fl>FhFl_>>.  nFh_.Fh>FhFlFlFlFhE- Vlad was here\n#wipe\n\u00163\nO>>n\u001b\u001b\nFyFku FkFuFkFyFyFuFkFyFku FuFuFkFuFyFyFkFyFku FkFkFkFuFuFyFkk FuFuFyFuu FuFuFyFyFyFuk FuFkFuFuFyFku FuFkFuFuFuFyFku FkFuFuFkFuFyFuk FyFuk FkFkFkFuFkFuFyFuy FyFuy FyFky FyFuu FyFuk FkFkFuFuFkFkFuFyFuk FuFuFuFkFuFyFuu FkFuFyFkk FyFuy FuFyFkk FuFuFkFuFyFyFkFuFyFyFuFkFyFyFyFyFkFyFyFyO>i\u001b\u001b\nO>>>>"
+  }
+ ]
+}

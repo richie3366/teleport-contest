@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0016?\n>B_ \u001b<.>\u0016?\n>Ebkj:\u0016?\n>I\u0004b\u0016?\n>>P  \u0007Demogorgon\ny;l,.m.slsm.\u0007floating eye\nFn       \u001b             n        Fk       n       Fk     n        \u00166\n\u0016?\n>>N       the Longbow of Diana\n u   nu:20s     \u001634\nnnj\u0017cloud\n:k\u0017iron bars\n#terrain\ne\nEet\u001b\u001634\n_{,\u001619\n\u0014 n\u0016?\neb    n y     nlln:\u0016?\nd\u0006m,_>,.l     \u00163\nk   n       h b   n y      k     j: \u00166\n\u001619\n\u0004h \u0016?\ne\u0017Orcrist\nwb    Fh   Fj    n       Fy       n  \u0007kobold shaman\n20s     n   .y         n .       s         n     20s   n      s     n      .      n   20s  \u0007air elemental\nFy          yy\u001by   y y  y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50056053,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0016?\n>B_ \u001b<.>\u0016?\n>Ebkj:\u0016?\n>I\u0004b\u0016?\n>>P  \u0007Demogorgon\ny;l,.m.slsm.\u0007floating eye\nFn       \u001b             n        Fk       n       Fk     n        \u00166\n\u0016?\n>>N       the Longbow of Diana\n u   nu:20s     \u001634\nnnj\u0017cloud\n:k\u0017iron bars\n#terrain\ne\nEet\u001b\u001634\n_{,\u001619\n\u0014 n\u0016?\neb    n y     nlln:\u0016?\nd\u0006m,_>,.l     \u00163\nk   n       h b   n y      k     j: \u00166\n\u001619\n\u0004h \u0016?\ne\u0017Orcrist\nwb    Fh   Fj    n       Fy       n  \u0007kobold shaman\n20s     n   .y         n .       s         n     20s   n      s     n      .      n   20s  \u0007air elemental\nFy          yy\u001by   y y  y\u001b  F"
+  }
+ ]
+}

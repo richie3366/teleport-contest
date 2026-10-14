@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWh\u0017blessed Mjollnir\nwi\u0016?\n>w\u0006_ \u001bm,#chat\nn#pray\ny y _ooooooooo.,p\u0016?\n>Bynl\u0016?\n>w\u0006_ooooooo.,\u0014<.s._oo,,\u0017amulet of magical breathing\ndj_ooooooooo.,p_{._.Fy qd _{.Fl _,<.Fl qFl Fl FlFlFlFl_oooo.,$_oooooo,Fl_.:Fl,pFl FlFlFlFlFl_ooooooooo,_.,\u001b#chat\nj_ooooooooo.,\u001b$_ooooooo._,_o.Fl_,,\u0017touchstone\ndl_ooooooooo.Fb _. ,p_ooo.Fh _.Fy _oo.Fu _.Fy ,#chat\nh_oo._._ooo.Fy _.,p_oooooo,Fh _.;,Fj _ooo._.,\u0017loadstone\n dolkk#chat\ny_ooooooooo._.,$_ooooooo.,p_oooooo.  _.,\u001bp_oo._.,\u001b: _oooo._.@.Fy,p_oooo.Fy _.m, ,#chat\nh_ooooo. _.,\u001b$_ooooooo._.,\u001b: ylh#chat\nn_oo._.,\u001bp_ooooooo,_.m,,p_ooooooo,_.;._ooo,_,,\u001bp_ooooooooo._,,\u001bp__.Fj _.Fb #chat\nb    #pray\ny y      _{,Fb _. Fb q_ooo._,<.,p_ooooooooo,Fh _,<.,\u001bp_ooooooooo,_.,\u001b: _oooooooo,_.m.,\u001bp__. _.#chat\nu#pray\ny y\u00163\nynn\u0016?\n>w\u0006_oo,  Fk_.._o,_,,\u001bp_oooo,Fk_.Fk,\u001bp_oooooooo.Fk  _.Fk,\u001b#chat\ny_{._.qhy  ny#chat\ny__.Fn_.Fn#chat\nn\u00167\nkbk\u0016?\n>w\u0006_ooooooo.Fn  n_.Fn,p_"
+ },
+ "segments": [
+  {
+   "seed": 50050083,
+   "datetime": "20020422140104",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWh\u0017blessed Mjollnir\nwi\u0016?\n>w\u0006_ \u001bm,#chat\nn#pray\ny y _ooooooooo.,p\u0016?\n>Bynl\u0016?\n>w\u0006_ooooooo.,\u0014<.s._oo,,\u0017amulet of magical breathing\ndj_ooooooooo.,p_{._.Fy qd _{.Fl _,<.Fl qFl Fl FlFlFlFl_oooo.,$_oooooo,Fl_.:Fl,pFl FlFlFlFlFl_ooooooooo,_.,\u001b#chat\nj_ooooooooo.,\u001b$_ooooooo._,_o.Fl_,,\u0017touchstone\ndl_ooooooooo.Fb _. ,p_ooo.Fh _.Fy _oo.Fu _.Fy ,#chat\nh_oo._._ooo.Fy _.,p_oooooo,Fh _.;,Fj _ooo._.,\u0017loadstone\n dolkk#chat\ny_ooooooooo._.,$_ooooooo.,p_oooooo.  _.,\u001bp_oo._.,\u001b: _oooo._.@.Fy,p_oooo.Fy _.m, ,#chat\nh_ooooo. _.,\u001b$_ooooooo._.,\u001b: ylh#chat\nn_oo._.,\u001bp_ooooooo,_.m,,p_ooooooo,_.;._ooo,_,,\u001bp_ooooooooo._,,\u001bp__.Fj _.Fb #chat\nb    #pray\ny y      _{,Fb _. Fb q_ooo._,<.,p_ooooooooo,Fh _,<.,\u001bp_ooooooooo,_.,\u001b: _oooooooo,_.m.,\u001bp__. _.#chat\nu#pray\ny y\u00163\nynn\u0016?\n>w\u0006_oo,  Fk_.._o,_,,\u001bp_oooo,Fk_.Fk,\u001bp_oooooooo.Fk  _.Fk,\u001b#chat\ny_{._.qhy  ny#chat\ny__.Fn_.Fn#chat\nn\u00167\nkbk\u0016?\n>w\u0006_ooooooo.Fn  n_.Fn,p_"
+  }
+ ]
+}

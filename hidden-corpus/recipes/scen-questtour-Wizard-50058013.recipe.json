@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nn ;l._mm.Fl_,Fb  n #chat\nj  n n  n_mmmm.#chat\nj n  n ;j;_mmmmm,#chat\nn_mmm.#chat\nb   n  n #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.#chat\nh  ;j._mmmmm,#chat\nj  \u0017blessed +3 helm of telepathy\nWo     \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPqr    \u0017wand of striking\n\u0016?\n>A\u0006_mmmmmm,   Fn     n   _.Fb    Fn   Fu   Fy   Fl      Fk        n  ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.  Fl   _.   Fk     #chat\nk     n    \u00161\n\u0016?\n>A\u0006_mm.       Fl      _,Fy    n   Fu    Fj     Fu          nFj        Fj      Fy     ,\u0016?\n>>\u001b\u0016?\n>y_mmmm,  n   Fj   _.#chat\nl  ;l. \u00167\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.  Fy _,Fu  n   Fk Fn  Fu  zrn ,\u0016?\n>z\u0006_mm.  Fu  _,Fn   Fu      nFu        Fj      ,#chat\nu    \u0016?\n>>\u001b\u0016?\n>y_mmmm.   Fu   yy\u001by   y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 50058013,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nn ;l._mm.Fl_,Fb  n #chat\nj  n n  n_mmmm.#chat\nj n  n ;j;_mmmmm,#chat\nn_mmm.#chat\nb   n  n #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.#chat\nh  ;j._mmmmm,#chat\nj  \u0017blessed +3 helm of telepathy\nWo     \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPqr    \u0017wand of striking\n\u0016?\n>A\u0006_mmmmmm,   Fn     n   _.Fb    Fn   Fu   Fy   Fl      Fk        n  ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.  Fl   _.   Fk     #chat\nk     n    \u00161\n\u0016?\n>A\u0006_mm.       Fl      _,Fy    n   Fu    Fj     Fu          nFj        Fj      Fy     ,\u0016?\n>>\u001b\u0016?\n>y_mmmm,  n   Fj   _.#chat\nl  ;l. \u00167\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.  Fy _,Fu  n   Fk Fn  Fu  zrn ,\u0016?\n>z\u0006_mm.  Fu  _,Fn   Fu      nFu        Fj      ,#chat\nu    \u0016?\n>>\u001b\u0016?\n>y_mmmm.   Fu   yy\u001by   y y y\u001b  _"
+  }
+ ]
+}
