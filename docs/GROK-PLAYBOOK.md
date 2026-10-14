@@ -95,13 +95,11 @@ here", multiple hypotheses.
 generated block head. A `[measure]` iteration (C-side measurement + the
 writer it names, no `js/`) is legitimate **once** per owner; a second
 no-`js/` iteration on the same owner parks it. Must-fix stays one item,
-alone. The legacy batch unit (§10.17, `ledger.mjs batch`) is used only
-when the cliffs block is empty and the ledger still has ≥ 5 functions.
+alone.
 
 **Campaigns.** `[campaign k/n]` steps each ship `js/`, keep 44/44 +
 REACH-OK, and move a probe session (or name the one the next step moves);
-a campaign that moves nothing on the board is closed (D-3536…D-3554
-`des.door` game-marks: 10 steps, 0 sessions moved).
+a campaign that moves nothing on the board is closed.
 
 ---
 
@@ -130,6 +128,7 @@ a campaign that moves nothing on the board is closed (D-3536…D-3554
 | Runtime `readFileSync` of `dat/*` | Embed via `js/generated/` (D-0477); VFS is storage only |
 | Grid snapshot/restore to emulate a tty side effect the C loop never draws | D-1831 broke 12 corpus sessions; port the C control flow instead |
 | Helper clone dropping a C predicate (`inside_shop` sans `edge`) | D-1849; `sym.mjs`: IMPORT the export |
+| Temp-hooking the recorder to re-record sessions; calling a capture gap "recorder artifact" | The judge records with patch 006 as is — port the capture (D-3963) |
 
 ### Busywork (not cheating — still a wasted iteration)
 

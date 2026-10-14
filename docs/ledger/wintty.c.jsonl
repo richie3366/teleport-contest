@@ -66,7 +66,7 @@
 {"fn":"g_pututf8","c":"3795-3803","status":"ported","js":["js/display.js:show_glyph_cell"],"d":["D-3945"],"at":"2026-10-14@5018ae760"}
 {"fn":"setclipped","c":"3809-3815","status":"ported","js":["js/display.js:setclipped"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact: clipping on, origin pan, extents at screen size minus statuslines."}
 {"fn":"tty_cliparound","c":"3818-3842","status":"ported","js":["js/display.js:tty_cliparound"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact hysteresis both axes + redraw_map on origin move."}
-{"fn":"tty_print_glyph","c":"3855-3977","status":"unknown"}
+{"fn":"tty_print_glyph","c":"3855-3977","status":"partial","js":["js/display.js:show_glyph_cell"],"omit":"topline residual — in Enhanced sessions C's capture loses the col-0 character of some toplines (« ogged events: », « mdassist: », « here is an altar ») while welcome toplines match; same capture class, mechanism not yet measured (the `getdir` cliffs row).","d":["D-3963"],"at":"2026-10-14@ffbaf451a"}
 {"fn":"term_start_bgcolor","c":"3982-3985","status":"unknown"}
 {"fn":"term_curs_set","c":"3987-3990","status":"unknown"}
 {"fn":"tty_change_color","c":"3995-3998","status":"unknown"}

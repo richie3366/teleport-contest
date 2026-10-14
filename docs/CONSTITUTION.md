@@ -13,6 +13,18 @@ Category: **agentic**. No shipping a transpiled C engine.
    **plus the complete contest patch set** (seed, datetime, stable sort, RNG
    logging/provenance, capture behavior, and any other observable delta).
    Do not rank unpatched C above a deliberate patch or “improve” NetHack.
+   **The capture is what is scored (human, 2026-10-14).** The judge
+   records with these same patches; a screen is the patch-006 shadow
+   buffer, not the terminal. Output the capture never records — C0 bytes
+   (`nomux_putch` drops `ch < 32`), `g_pututf8` (unhooked), anything else
+   006 misses — leaves the previous cell in the port's screen too; that
+   is the faithful port, not trace tailoring. Never patch, hook or rebuild
+   the recorder to re-record corpus sessions, and never propose a new
+   recorder patch: the judge does not have it. A temp-C build is for
+   measurement dumps only; afterwards `hidden-proxy record --rerecord
+   <recipe regex>` restores canonical recordings of anything it touched
+   (D-3963: three iterations re-recorded the Enhanced symset sessions with
+   a temp `g_pututf8` hook and painted UTF-8 the judge never sees).
 2. **Sessions are acceptance tests**, not specifications to memorize.
    Never hardcode public traces, screens, or RNG sequences into `js/`
    except while deleting existing `fastforward.js` chunks.

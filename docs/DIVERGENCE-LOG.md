@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-3963 — capture fidelity: g_pututf8 output is not in the scored screen (patch 006) — Enhanced symset map cells keep the prior cell; temp-hook re-records reverted to canonical
+- **Status:** shipped (human-directed review 2026-10-14; Constitution §1.1 clarified). Supersedes the D-3944/D-3945/D-3946/D-3951/D-3958 direction: those iterations treated the unhooked `g_pututf8` as a recorder artifact, painted UTF-8 in JS (D-3945) and re-recorded the Enhanced corpus sessions with a temporary `g_pututf8` nomux hook (tooling outside the contest patch set; the judge records without it).
+- **Symptom:** canonical recordings (pinned recorder, patches 001–006 only) of the 42 `symset:Enhanced1/2` corpus recipes carry no UTF-8 map cells (0 bytes ≥ 0x80 — D-3944's own measurement); JS painted `─│┌┐└┘·⌠`: 0/42 PASS, 3,023/28,534 screens.
+- **C locus:** `win/tty/wintty.c` tty_print_glyph `:4008–4011` → g_pututf8 `:3856` (putchar loop, no nomux call) vs g_putch → nomux_putch (`termcap.c:755`); patch 006 is part of ground truth (Constitution §1.1). tty_curs runs before every glyph, so the unrecorded cell keeps its previous capture content (same rule as the C0 drop, D-3962).
+- **JS was:** js/display.js show_glyph_cell utf8 arm set `ch = utf8str` and the grid writers painted it.
+- **Fix:** the utf8 arm keeps the C value in the gbuf and sets `loc.disp_capture_drop`; `_paint_gbuf_cell` and `paint_gbuf_level_to_terminal` skip such cells (as for C0). `scripts/symset-loader.test.mjs` 50059006 now asserts the capture (no `─`, no ASCII fallback, hero captured). `hidden-proxy record --rerecord <recipe regex>` re-records present sessions to restore canonical recordings.
+- **JS:** js/display.js (+12/−4).
+- **Callers:** unchanged (show_glyph_cell callers; both grid writers).
+- **Verify:** 42 Enhanced sessions re-recorded canonically: 0/42 → 4/42 PASS, screens 3,023 → 22,612 / 28,534, 42 improved, 0 worse. Public 44/44; green + strict; symset/glyph tests 26/30 (the 4 failures pre-exist on HEAD). Full corpus rescore @HEAD: 7 PASS→FAIL, all reproduced **without** this change — 6 AmigaFont sessions broken by D-3962 (`getpos`/`dotravel`, PASS at f0282c7f3; Must-fix row) and Tourist-50059018 (Enhanced2: PASS only on its hooked recording; canonical now moves 11 → 527).
+- **Named omissions:** topline residual — in Enhanced sessions C's capture loses the col-0 character of some toplines (« ogged events: », « mdassist: », « here is an altar ») while welcome toplines match; same capture class, mechanism not yet measured (the `getdir` cliffs row). Patch-006 `nomux_out[6144]` overflow (D-3684 park) is likewise ground truth, low priority.
+- **Ledger:** tty_print_glyph partial js=display.js:show_glyph_cell
+- **Next:** on the loop machine, `node scripts/hidden-proxy.mjs record --rerecord 'symset:Enhanced' --jobs 8` before any verify (its cache holds hook-recorded sessions); then the D-3962 Must-fix; then measure the topline col-0 drop (temp C dump of nomux_putch row 0, then `--rerecord`).
+
 ## D-3962 — `pager.c` do_screen_description cliffs head: C0 control-byte emit invisibility (raw gbuf store + grid-write drop) + newsym pile-inverse bank gate (5/5 moved)
 
 - **Status:** fixed (Open — cliffs head `pager.c` do_screen_description @f0282c7f3, 5 corpus blocks; D-3961 read once per the row's parked tag — its "C's hero never arrived" is REFUTED below by the committed recording (C descends s21 with no moves after s16); D-3960 read — its paint data (gold 3886@14, stairs 3999@15, hero 716@17) stands, its flush-timing theory refuted by the temp-C trace (C DID emit; the capture drops control bytes). No review stamp owed — row cites no review.)

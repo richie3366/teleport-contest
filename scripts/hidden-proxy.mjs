@@ -13,7 +13,7 @@
  *       keep the recipes in hidden-corpus/recipes/, sessions in .cache.
  *   node scripts/hidden-proxy.mjs import [batchDir]
  *       adopt an existing .cache/fuzz/batch-* (default: latest).
- *   node scripts/hidden-proxy.mjs record [--jobs 6]
+ *   node scripts/hidden-proxy.mjs record [--jobs 6] [--rerecord <recipe regex>]
  *       re-record every recipe whose session is missing from .cache
  *       (the cache is disposable; recipes + the recorder rebuild it).
  *   node scripts/hidden-proxy.mjs score [--jobs 6] [--ids a,b] [--owner fn]
@@ -240,7 +240,12 @@ function recordOne(recipe, session, inst) {
 
 async function cmdRecord() {
     const jobs = Number(val('jobs', 6));
-    const todo = corpusEntries().filter((e) => e.src === 'corpus' && !existsSync(e.session));
+    /* --rerecord <regex>: also re-record present sessions whose recipe text
+       matches — the way back to canonical recordings after a session was
+       recorded by a modified recorder (D-3963: temp g_pututf8 hooks). */
+    const rere = val('rerecord', null) ? new RegExp(val('rerecord', null)) : null;
+    const todo = corpusEntries().filter((e) => e.src === 'corpus'
+        && (!existsSync(e.session) || (rere && rere.test(readFileSync(e.recipe, 'utf8')))));
     if (!todo.length) { console.log('all corpus sessions present'); return; }
     if (!existsSync(DEFAULT_INSTALL)) {
         console.error(`record: ${todo.length} corpus session(s) unrecorded and no C recorder at ${path.relative(ROOT, DEFAULT_INSTALL)} — build it with \`bash nethack-c/build-recorder.sh\` (needs clang, bison, flex, make)`);

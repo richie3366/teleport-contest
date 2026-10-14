@@ -276,10 +276,11 @@ describe("symset step-0 screens (hidden-proxy probes)", () => {
         });
     }
 
-    it("scen-symset-Archeologist-50059006 step 0 paints C's UTF8 room (raw-terminal oracle)", async () => {
-        // Oracle is NOT the board payload (recorder blank — D-3944): it is
-        // C's measured raw terminal bytes for this exact seg-0 recipe
-        // (─ ×19, │ ×5, ┌┐└┘ ×1 each, · ×28 in the step-0 room).
+    it("scen-symset-Archeologist-50059006 step 0 keeps C's UTF8 room out of the capture", async () => {
+        // C's terminal gets the room as UTF-8 (─ ×19, │ ×5, ┌┐└┘, · ×28 —
+        // D-3944), but the contest capture (patch 006) never hooks
+        // g_pututf8, so the scored step-0 screen has those cells blank
+        // (Constitution §1.1: capture behavior is ground truth).
         const { runSegment } = await import("../js/jsmain.js");
         const sess = JSON.parse(readFileSync(
             new URL("../.cache/hidden/sessions/scen-symset-Archeologist-50059006.session.json", import.meta.url),
@@ -291,10 +292,12 @@ describe("symset step-0 screens (hidden-proxy probes)", () => {
         });
         const grid = decodeScreen((g.getScreens?.() || [])[0]);
         const text = grid[15].map((x) => renderCell(x)).join("");
-        assert.ok(text.includes("─"),
-            `50059006 row 15: want C's U+2500 wall, got ${JSON.stringify(text)}`);
+        assert.ok(!text.includes("─"),
+            `50059006 row 15: g_pututf8 output is not captured, got ${JSON.stringify(text)}`);
         assert.ok(!text.includes("---------.--"),
-            `50059006 row 15: ASCII fallback must be gone, got ${JSON.stringify(text)}`);
+            `50059006 row 15: no ASCII fallback either, got ${JSON.stringify(text)}`);
+        assert.ok(text.includes("@") || grid.some((r) => r.map((x) => renderCell(x)).join("").includes("@")),
+            "the hero (plain g_putch) is still captured");
         // The recipe's O-menu toggles (customsymbols off at key 41, plus a
         // later customcolors off) unstamp via the doset_simple `:8727`
         // reset (C options.c:8994-8996): no custom data survives, so
