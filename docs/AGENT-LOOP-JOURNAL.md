@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — audit 2803-2807 @f0282c7f3: review D-3954..D-3959 (5A/0D/0Q, 0 Must-fix) + full rescore 3183/3657 (0 PASS→FAIL)
+
+**C locus:** n/a (review iteration — no port, no `js/`).
+**JS:** none.
+**Change:** 5 review files (2803 bullwhip-freeinv, 2804 menucolor-rc, 2805 looked-showsyms, 2806 litcorr-white, 2807 getpos-shortcut), all ACCEPT; index updated; CURRENT Score/held-out/fortress rewritten; scoreboard rescored full.
+**Verify:** every D-log movement claim re-measured with `verify --base HASH~1 --reach-all` — 4 reproduce exactly, D-3956 ship-time boards prove 1+1+4 (HEAD re-run shows later-SHA improvement, 0 worse). 5 "js-throw" landing labels proven harness quirk (kind=screen, error:null on all 5 checked). Public 44/44 (RNG 792838/792838, Scr 11405/11405). Full rescore 3183/3657 (+5 symset heals, 0 PASS→FAIL). Held-out 32/44, 9921 pts (+1).
+**Named:** none — no Must-fix queued.
+**Next:** port-iter per CURRENT Next (D-3961 travel-blocking writer: C hero-pos at s16 + domove_bump_mon/findtravelpath read).
 ## 2026-10-14 — D-3961 [measure] `pager.c` do_screen_description travel: geom-probe refutes the D-3960 flush theory — C's hero never arrived, writer is travel-blocking/pathing (no js/)
 
 **C locus:** travel execution (`cmd.c` dotravel/getpos accept → `hack.c` domove_core travel steps + `domove_bump_mon` pet-blocking + `findtravelpath` BFS tie-break) — the hero's step-16 position is the writer's input; the flush path (`hack.c:2996–3017` runmode_delay_output, `allmain.c:473–479`, `cmd.c:5104` parse, `display.c:1687–1690` curs_on_u) is proven faithful (see JS was).

@@ -22,19 +22,19 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-14** — full `sessions` on `2276f30eb`
-(audit **2796–2802**, 2026-10-14T11:39Z).
+Score last measured: **2026-10-14** — full `sessions` on `f0282c7f3`
+(audit **2803–2807**, 2026-10-14T16:58Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`388+1.77/turn` (R² 0.80).
+`392+1.74/turn` (R² 0.80).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-14 07:36Z)** | **32 / 44**, 9,920 / 11,265 pts, RNG **92.0 %**, rngSteps 95.8 %, screens **88.1 %** |
+| **Held-out (judge 2026-10-14 13:45Z)** | **32 / 44**, 9,921 / 11,265 pts, RNG **92.0 %**, rngSteps 95.8 %, screens **88.1 %** |
 | **Fresh cohort (§10.20, scored on arrival)** | 50250000 ×160 @`fe3b23998`: **140/160 (87.5 %)**, RNG 94.6 %, screens 92.1 % — symset 4/12 worst |
-| **Corpus board (worked, regression fortress)** | **3176 / 3657** @`2f574b1e2` full, RNG 97.32 %, screens 95.43 % |
+| **Corpus board (worked, regression fortress)** | **3183 / 3657** @`f0282c7f3` full, RNG 97.46 %, screens 95.82 % |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
@@ -42,9 +42,9 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
-pts = matched screens). Rank 5 (9,920; NoahBPeterson 11,264 at 43/44,
+pts = matched screens). Rank 5 (9,921; NoahBPeterson 11,264 at 43/44,
 rohitgandikota 10,499 at 35/44, serteal 10,424 at 43/44, jon-bell 10,419
-at 39/44). 32/44 at judge 07:36Z 2026-10-14: the D-3929..D-3935
+at 39/44). 32/44 at judge 13:45Z 2026-10-14 (+1 pt since 07:36Z): the D-3929..D-3935
 window (quest-text D-3930, wield ECMD fix, 3 cliff writers) moved the
 judge for the first time since 2026-10-11 — the §10.20 completeness
 line scores where cliffs alone did not. **Three lines, read
@@ -54,17 +54,17 @@ construction). Fresh history: 79–91.8 % across 6 cohorts (Grow #5–8: 140/158
 146/159, 137/159, 140/160). Fresh−held-out gap now 14.8 pts (87.5 % vs
 72.7 %), inside the §10.20 20-pt band — no calibration family this grow
 (gap ≤ 20; Grow #6's `symset` wave-3 family now 108/264).
-**Corpus (2026-10-14 14:25Z, `2f574b1e2`, 3657/3657 entries, `full: true`):**
-3176 PASS (+339 since the 2837 committed at HEAD — 330/424 new arrivals
-pass (77.8 %) plus 9 same-`js/` heals, 8 symset + 1 sweep; 0 PASS→FAIL);
-RNG 112640060/115743037 (97.32 %), screens 2099260/2199892
-(95.43 %). Worst families `scen-symset` 108/264,
+**Corpus (2026-10-14 17:43Z, `f0282c7f3`, 3657/3657 entries, `full: true`):**
+3183 PASS (+5 since the 3178 committed at HEAD — 5 symset heals as the
+D-3955..D-3959 wave settled; 0 PASS→FAIL);
+RNG 112797861/115743037 (97.46 %), screens 2107940/2199892
+(95.82 %). Worst families `scen-symset` 115/264,
 `scen-questtour` 87/104, `scen-sweep` 458/584, `scen-shop` 205/246,
 `scen-worldtour` 365/443, `scen-zapfest` 79/85, `scen-options` 59/73,
 `scen-descend` 42/44; rest ≥ 95 %.
 `scen-sweep-Priest-582706` still FAIL@1166 (known recorder flake, D-3885 park
 stands — unchanged since the Grow #6 re-record).
-Reviews 1225–2802 (index; no row 1618): 1403 ACCEPT, 63 WITH-DEBT, 111 QUALITY-RISK (2796–2802: 6A/1D/0Q, 0 Must-fix queued).
+Reviews 1225–2807 (index; no row 1618): 1408 ACCEPT, 63 WITH-DEBT, 111 QUALITY-RISK (2803–2807: 5A/0D/0Q, 0 Must-fix queued).
 Live debts: `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows; 52
 unit tests in `scripts/*.test.mjs` fail on HEAD (stale after rewires —
 same set before and after D-3930).
