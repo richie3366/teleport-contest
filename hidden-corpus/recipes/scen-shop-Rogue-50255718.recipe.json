@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWi\u0017blessed +3 speed boots\nWj\u0016?\n>w\u0006_ \u001b,qd  FkFkFk Fk FkFk_oooooooo.,$_ooooo._,_oo.,p_oooooo.,\u0014>.  .s_{.Fy_,Fkq_oo._o,,$Fk FkFkFkFkFk_oooooooo.,:jjk#chat\nj_ooo,,$_ooooooooo._o,,#chat\nj  _oooo.,$__.Fb_.#chat\nubju#chat\nj_ooooooo._oo,,p_ooooooooo._o.,p_ooooo.,p_oo.,$juj#chat\nk_oo.,:\u00163\nnnl\u0016?\n>w\u0006_ooo.,p_{. Fl_, Flq_oooooooo._oo,,:__.Fk_,  Fy#chat\nh__.Fb_, Fb#chat\nk_{.Fk _.  n Fn    nq\u00164\n_oooooooo.,p\u00163\nk   kh\u0016?\n>w\u0006_oooooo.,p\u00163\nbjk\u0016?\n>w\u0006_ooooooooo,   nFj_.>.Fh,#chat\nn_ooo,,\u0017amulet versus poison\ndl  _ooooo. Fh_. Fh,#chat\nh  _ooooo,Fy_.<.Fj ,\u001b$\u0016?\ncjly\u0016?\n>w\u0006_ooooooooo.Fj_.;>.Fj,pFk FkFk FkFkFk__,_, #chat\nn_oooo,Fl  _,,Fl,#chat\nll  ll#chat\nbFbFbFb Fb Fb   nFb __. Fh_,Fb#chat\nb#pray\ny y    _ooooooo,,p_{.Fh_.Fy   nq\u00163\nkll\u0016?\n>w\u0006__. Fk"
+ },
+ "segments": [
+  {
+   "seed": 50255718,
+   "datetime": "20250905134621",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWi\u0017blessed +3 speed boots\nWj\u0016?\n>w\u0006_ \u001b,qd  FkFkFk Fk FkFk_oooooooo.,$_ooooo._,_oo.,p_oooooo.,\u0014>.  .s_{.Fy_,Fkq_oo._o,,$Fk FkFkFkFkFk_oooooooo.,:jjk#chat\nj_ooo,,$_ooooooooo._o,,#chat\nj  _oooo.,$__.Fb_.#chat\nubju#chat\nj_ooooooo._oo,,p_ooooooooo._o.,p_ooooo.,p_oo.,$juj#chat\nk_oo.,:\u00163\nnnl\u0016?\n>w\u0006_ooo.,p_{. Fl_, Flq_oooooooo._oo,,:__.Fk_,  Fy#chat\nh__.Fb_, Fb#chat\nk_{.Fk _.  n Fn    nq\u00164\n_oooooooo.,p\u00163\nk   kh\u0016?\n>w\u0006_oooooo.,p\u00163\nbjk\u0016?\n>w\u0006_ooooooooo,   nFj_.>.Fh,#chat\nn_ooo,,\u0017amulet versus poison\ndl  _ooooo. Fh_. Fh,#chat\nh  _ooooo,Fy_.<.Fj ,\u001b$\u0016?\ncjly\u0016?\n>w\u0006_ooooooooo.Fj_.;>.Fj,pFk FkFk FkFkFk__,_, #chat\nn_oooo,Fl  _,,Fl,#chat\nll  ll#chat\nbFbFbFb Fb Fb   nFb __. Fh_,Fb#chat\nb#pray\ny y    _ooooooo,,p_{.Fh_.Fy   nq\u00163\nkll\u0016?\n>w\u0006__. Fk"
+  }
+ ]
+}

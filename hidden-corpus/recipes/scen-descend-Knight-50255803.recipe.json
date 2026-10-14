@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "H KNY_ \u001b>.>>#monster\nNKJN_>.>LLNY_>.>w-sUYJL_>.>Fh FbFhJJNH_>,>Fj20sFj<UKYB   _>.>FjFj   Fj ,20s LULB_>,>Fk   Fh  Fh\u000f\u001bLUYY_>.>BUUY_>,>UJJB_>,>\u000f\u001bSy\u001b>:#invoke\n\u001b#jump\nm.nuwb#levelchange\n\u0007Fh FhFhs.s\u0007FhsFhFksFk ss20s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50255803,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=sortloot:full\nOPTIONS=fruit:kumquat\n",
+   "moves": "H KNY_ \u001b>.>>#monster\nNKJN_>.>LLNY_>.>w-sUYJL_>.>Fh FbFhJJNH_>,>Fj20sFj<UKYB   _>.>FjFj   Fj ,20s LULB_>,>Fk   Fh  Fh\u000f\u001bLUYY_>.>BUUY_>,>UJJB_>,>\u000f\u001bSy\u001b"
+  },
+  {
+   "seed": 50755803,
+   "datetime": "20041023140855",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=sortloot:full\nOPTIONS=fruit:kumquat\n",
+   "moves": ">:#invoke\n\u001b#jump\nm.nuwb#levelchange\n\u0007Fh FhFhs.s\u0007FhsFhFksFk ss20s"
+  }
+ ]
+}

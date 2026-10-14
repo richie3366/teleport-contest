@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0014 \u001b;#tip\n\u001b\u000f\u001b#terrain\nd\nt s#conduct\n #invoke\n\u001b#offer\nt\u001b#terrain\nf\ni\u001bs#jump\n\u0004n#invoke\n\u001b\u0004hnysi\u001bqdee 20s.W20s20s20sTarc   WasssTbeg s.i\u001b#chat\nj#twoweapon\n\u0018\u001bWb#name\na\n"
+ },
+ "segments": [
+  {
+   "seed": 50252004,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0014 \u001b;#tip\n\u001b\u000f\u001b#terrain\nd\nt s#conduct\n #invoke\n\u001b#offer\nt\u001b#terrain\nf\ni\u001bs#jump\n\u0004n#invoke\n\u001b\u0004hnysi\u001bqdee 20s.W20s20s20sTarc   WasssTbeg s.i\u001b#chat\nj#twoweapon\n\u0018\u001bWb#name\na\n"
+  }
+ ]
+}

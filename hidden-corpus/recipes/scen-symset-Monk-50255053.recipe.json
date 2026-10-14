@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u0007large dog\n\u0017carrot\nt\u001b\u0007kitten\n\u0017food ration\n t\u001b#name\n\u001bdc20s  20s  20s#name\n\u001b\u0007sewer rat\nsm.20sm.  n 20sm..m.sm.  n .m.\u0017meatball\nt\u001b\u0017banana\nt\u001b\u00163\n\u0007tame hill orc\nkk \u0007grid bug\n\u0017scroll of taming\nrm 20sdd20sm.ss20s\u0007pony\n\u0017lichen corpse\nt\u001b\u0006_ \u001b:>\u0017tripe ration\nt\u001b\u0017food ration\n t\u001blh \u0017magic whistle\nnh\u001buap   \u0017lichen corpse\nt\u001bFuFkFkFhFuFkFuFhFkFhFhFkFuFkFhFkFhFhFhFuFkFkFuFuFkFkFhFkFhFhFkFhFhFkFkFuFkFkFuFuFhFkFkFhFuFkFhFkFuFhFuFuFuFkFuFhFkFhFuFuFhFhFuFhFuFkFuFkFhFkFhFkFhFuFuFhFkFuFhFkFhFhFuFkFhFuFkFhFhFuFuFhFuFkFkFhFuFkFuFkFkFkFhFhFuFkFkFhFhFkFkFhFhFhFhFkFhFuFkFkO>o6\n \u001b\n\u00165\nFhFhFyFh\u001bFhFyFyFyFyFhFhFhFhFhFhFhFhFhFyFyFyFh\u001bFhFhFhFyFh\u001bFyFh\u001bFyFh\u001bFyFyFhFhFhFyFh\u001bFhFhFyFh\u001bFhFyFyFyFyFhFyFh\u001bFyFyFyFyFyFh\u001bFyFyFyFyFyFyFhFyFh\u001bFyFyFhFhFhFyFyFyFh\u001bFhFyFyFhFhFhFhFhFyFh\u001bFhFyFh\u001bFhFhFyFyFyFh\u001bFhFyFh\u001bFyFyFyFyFhFyFh\u001bFyFyFyFyFhFyFh\u001bFyFh\u001bFyFh\u001bFyFh\u001bFhFhFyFh\u001b\u0007little dog\n\u0017newt corpse\nt\u001b\u0017leash\nary "
+ },
+ "segments": [
+  {
+   "seed": 50255053,
+   "datetime": "20050627084500",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nOPTIONS=msg_window:reversed\nMSGTYPE=norep \"You hear\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "v i\u001b\u0007large dog\n\u0017carrot\nt\u001b\u0007kitten\n\u0017food ration\n t\u001b#name\n\u001bdc20s  20s  20s#name\n\u001b\u0007sewer rat\nsm.20sm.  n 20sm..m.sm.  n .m.\u0017meatball\nt\u001b\u0017banana\nt\u001b\u00163\n\u0007tame hill orc\nkk \u0007grid bug\n\u0017scroll of taming\nrm 20sdd20sm.ss20s\u0007pony\n\u0017lichen corpse\nt\u001b\u0006_ \u001b:>\u0017tripe ration\nt\u001b\u0017food ration\n t\u001blh \u0017magic whistle\nnh\u001buap   \u0017lichen corpse\nt\u001bFuFkFkFhFuFkFuFhFkFhFhFkFuFkFhFkFhFhFhFuFkFkFuFuFkFkFhFkFhFhFkFhFhFkFkFuFkFkFuFuFhFkFkFhFuFkFhFkFuFhFuFuFuFkFuFhFkFhFuFuFhFhFuFhFuFkFuFkFhFkFhFkFhFuFuFhFkFuFhFkFhFhFuFkFhFuFkFhFhFuFuFhFuFkFkFhFuFkFuFkFkFkFhFhFuFkFkFhFhFkFkFhFhFhFhFkFhFuFkFkO>o6\n \u001b\n\u00165\nFhFhFyFh\u001bFhFyFyFyFyFhFhFhFhFhFhFhFhFhFyFyFyFh\u001bFhFhFhFyFh\u001bFyFh\u001bFyFh\u001bFyFyFhFhFhFyFh\u001bFhFhFyFh\u001bFhFyFyFyFyFhFyFh\u001bFyFyFyFyFyFh\u001bFyFyFyFyFyFyFhFyFh\u001bFyFyFhFhFhFyFyFyFh\u001bFhFyFyFhFhFhFhFhFyFh\u001bFhFyFh\u001bFhFhFyFyFyFh\u001bFhFyFh\u001bFyFyFyFyFhFyFh\u001bFyFyFyFyFhFyFh\u001bFyFh\u001bFyFh\u001bFyFh\u001bFhFhFyFh\u001b\u0007little dog\n\u0017newt corpse\nt\u001b\u0017leash\nary "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017scroll of light\n\u0007captain\nrf\u0017cursed spellbook of sleep\nrg \u001b>. \u001b    n   n20s  n  .m.  n ZZFl    n   nFy\u0017potion of extra healing\nqh   n \u0017uncursed spellbook of healing\n\u0007lichen\nri :   n sm.  n 20s  n  ZZ\u0017cursed scroll of identify\nrj    n \u0017blessed +3 quarterstaff\nwk   n   nFyFy    nFy   n .m.  n sm.   yny  y y y\u001by  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50255219,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017scroll of light\n\u0007captain\nrf\u0017cursed spellbook of sleep\nrg \u001b>. \u001b    n   n20s  n  .m.  n ZZFl    n   nFy\u0017potion of extra healing\nqh   n \u0017uncursed spellbook of healing\n\u0007lichen\nri :   n sm.  n 20s  n  ZZ\u0017cursed scroll of identify\nrj    n \u0017blessed +3 quarterstaff\nwk   n   nFyFy    nFy   n .m.  n sm.   yny  y y y\u001by  \u0016"
+  }
+ ]
+}

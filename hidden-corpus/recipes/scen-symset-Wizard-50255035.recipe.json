@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b<.>FnFn_>.Fj_.Fu>FbFj_>.Fl_,Fj>FjFjFbFbFj\u0006_>.Fl_.Fb>FbFb_>.Fb_.Fuj >FjFu_>.Fl_.Fb>FjFbFub FuFbPer_>,.\u0006_>,Fu_,Fl>FuFj_>,Fl_,Fl>FjFj_>.Fb_,Fj>FbFbFjFuFb#invoke\n\u001b\u001bf \u001b\u001b\u0006_>,Fu_.Fb>FlFb_>.Fj_.Fu>FbFub _>.Fl_,Fb>FuFjFjFjFu<\u0006_>.Fu_.Fl>FuFu_>,Fj_.Fj>FlFj_>.Fb_.Flh >FjFlFjFhFj<\u0006_>,Fj_,Fb>FbFj_>.Fu_,Fl>FlFb_>.Fuu _.Fl>FjFuFbFjFl\u001618\n#jump\n#enhance\nyo\np\n\u001b#name\nf\nO>>>>p\u001b\n\u001620\nO>>h\u001b\nmO>>a\u001b\n#sit\n\u001b\u0004l yFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFy"
+ },
+ "segments": [
+  {
+   "seed": 50255035,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=runmode:teleport\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"cursed\"=green\n",
+   "moves": "\u0006_ \u001b<.>FnFn_>.Fj_.Fu>FbFj_>.Fl_,Fj>FjFjFbFbFj\u0006_>.Fl_.Fb>FbFb_>.Fb_.Fuj >FjFu_>.Fl_.Fb>FjFbFub FuFbPer_>,.\u0006_>,Fu_,Fl>FuFj_>,Fl_,Fl>FjFj_>.Fb_,Fj>FbFbFjFuFb#invoke\n\u001b\u001bf \u001b\u001b\u0006_>,Fu_.Fb>FlFb_>.Fj_.Fu>FbFub _>.Fl_,Fb>FuFjFjFjFu<\u0006_>.Fu_.Fl>FuFu_>,Fj_.Fj>FlFj_>.Fb_.Flh >FjFlFjFhFj<\u0006_>,Fj_,Fb>FbFj_>.Fu_,Fl>FlFb_>.Fuu _.Fl>FjFuFbFjFl\u001618\n#jump\n#enhance\nyo\np\n\u001b#name\nf\nO>>>>p\u001b\n\u001620\nO>>h\u001b\nmO>>a\u001b\n#sit\n\u001b\u0004l yFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFy"
+  }
+ ]
+}

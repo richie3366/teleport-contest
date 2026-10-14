@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0007tame kitten\n\u0007tame little dog\n\u0017leash\najjynl bajk\u0017leash\nakj  nbhbakjn\u0017banana\nt\u001b\u0007yellow mold\n\u0017scroll of taming\nrm \u0017leash\nanbnnjuanhv i\u001bv i\u001b\u001610\n\u0006_ \u001bm.>Fy ._>>. _.  Fn >Fl    nFu _>>,   nFl   n_.    nFl   n >Fu  n  Fn  n  Fh  n   Fk  n  Fn  n  \u0006_>.  n  Fy   n _.Fb >Fk   n   Fb   _>.Fh  _,   nFj   n   n>Fb    nFh     y\u001b   y  _"
+ },
+ "segments": [
+  {
+   "seed": 50255024,
+   "datetime": "20060903235503",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:durian\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nMENUCOLOR=\"a potion\"=red\n",
+   "moves": "\u0007tame kitten\n\u0007tame little dog\n\u0017leash\najjynl bajk\u0017leash\nakj  nbhbakjn\u0017banana\nt\u001b\u0007yellow mold\n\u0017scroll of taming\nrm \u0017leash\nanbnnjuanhv i\u001bv i\u001b\u001610\n\u0006_ \u001bm.>Fy ._>>. _.  Fn >Fl    nFu _>>,   nFl   n_.    nFl   n >Fu  n  Fn  n  Fh  n   Fk  n  Fn  n  \u0006_>.  n  Fy   n _.Fb >Fk   n   Fb   _>.Fh  _,   nFj   n   n>Fb    nFh     y\u001b   y  _"
+  }
+ ]
+}

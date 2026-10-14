@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "J L JJ_ \u001b.>Fk20sFlNLHL_>.>FkFksHYNB_>.>\u000f\u001bukn100sFh20sFkFhFkFyFkFy20s50s FbFnFnFnFbFnFy.sFb.Fh50si\u001b\\ 50s#tip\n\u001b\u001b100s Fnss50s\u0014100s#pray\ny  y\u001by  y y y\u001b  \\"
+ },
+ "segments": [
+  {
+   "seed": 50250083,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\n",
+   "moves": "J L JJ_ \u001b.>Fk20sFlNLHL_>.>FkFksHYNB_>.>\u000f\u001bukn100sFh20sFkFhFkFyFkFy20s50s FbFnFnFnFbFnFy.sFb.Fh50si\u001b\\ 50s#tip\n\u001b\u001b100s Fnss50s\u0014100s#pray\ny  y\u001by  y y y\u001b  \\"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 helm of telepathy\nWj\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w  \u0006_ \u001b:#chat\n#pray\ny y  _oooo., \u0014<.    ss \u001blbl#chat\nhuju#chat\ny_ooooooooo, Fy_.>.Fk  n ,pFk Fk  Fk  nFkFkFk_oooooo,Fb  n_._o.Fj _.Fh,pFh FhFhFhFhFh_ooooo.Fl_, Fl  n,:_ooooooo,Fl  _,Fh  ,\u0017amulet of unchanging\ndnFh  FhFhFh  n Fh Fh Fy   n  Fy   nFy    n FyFy     nFy    n\u00168\n__.#chat\nh    n\u0016?\n>Bylk    n \u0016?\n>w\u0006\u001612\n_ooooooooo.,#chat\nk_ooooooooo.,p__,#chat\nk#pray\ny y    Fu    n Fu Fu   n    Fu    n   FuFu_{,qd     yy\u001by   y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 50255711,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 helm of telepathy\nWj\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w  \u0006_ \u001b:#chat\n#pray\ny y  _oooo., \u0014<.    ss \u001blbl#chat\nhuju#chat\ny_ooooooooo, Fy_.>.Fk  n ,pFk Fk  Fk  nFkFkFk_oooooo,Fb  n_._o.Fj _.Fh,pFh FhFhFhFhFh_ooooo.Fl_, Fl  n,:_ooooooo,Fl  _,Fh  ,\u0017amulet of unchanging\ndnFh  FhFhFh  n Fh Fh Fy   n  Fy   nFy    n FyFy     nFy    n\u00168\n__.#chat\nh    n\u0016?\n>Bylk    n \u0016?\n>w\u0006\u001612\n_ooooooooo.,#chat\nk_ooooooooo.,p__,#chat\nk#pray\ny y    Fu    n Fu Fu   n    Fu    n   FuFu_{,qd     yy\u001by   y y y\u001b  _"
+  }
+ ]
+}

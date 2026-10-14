@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPmr\u0017blessed +3 speed boots\nWn \u0017blessed spellbook of sleep\nro20s\u0007incubus\nZ\u001bZ\u001b.m.sb Z\u001bZ\u001bZ\u001bZ\u001bZ\u001bZ\u001b\u0017wand of lightning\n\u0017wand of cancellation\n\u0007newt\n\u0007bugbear\n\u0007giant rat\nzqb20s   n zqj .m.  n zqj zqhzpb   n zpb zpj    n zqhzpk\u00165\n  \u0017blessed spellbook of light\nrr20s \u0007incubus\nZa\nZa\nZa\nZa\ns20sZa\nZa\nZa\nZa\nZa\n\u0017blessed spellbook of drain life\nrss\u0007incubus\nZa\ns20s  n Za\nZa\nZa\nZa\n20s 20s Za\nZa\nZa\ns  n20s \u00165\n\u0007silver dragon\n.s  n Fk   n Fh \u001611\n\u0017blessed spellbook of sleep\nrt20s   n \u0007lich\nZa\nZa\ns 20s Za\nZa\nZa\nssZa\nZa\nZa\nZa\n20s20s  n  i\u001b\u00163\n\u0007vampire\n\u0007orc shaman\n\u0007succubus\n\u0017wand of magic missile\nzuu zuh   y y      \u0018\u001b\u0017wand of digging\n\u0017wand of fire\n\u0017wand of striking\n\u0007giant rat\n\u0007dwarf\nzv>    n zv>   zxk zwk    n zv> zxhzv> \u00169\n\u0017spellbook of drain life\nry20s  n \u0017blessed spellbook of light\nrzs \u0007master lich\n\u0007lich\nZa\n20s   "
+ },
+ "segments": [
+  {
+   "seed": 50250004,
+   "datetime": "20230324090132",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPmr\u0017blessed +3 speed boots\nWn \u0017blessed spellbook of sleep\nro20s\u0007incubus\nZ\u001bZ\u001b.m.sb Z\u001bZ\u001bZ\u001bZ\u001bZ\u001bZ\u001b\u0017wand of lightning\n\u0017wand of cancellation\n\u0007newt\n\u0007bugbear\n\u0007giant rat\nzqb20s   n zqj .m.  n zqj zqhzpb   n zpb zpj    n zqhzpk\u00165\n  \u0017blessed spellbook of light\nrr20s \u0007incubus\nZa\nZa\nZa\nZa\ns20sZa\nZa\nZa\nZa\nZa\n\u0017blessed spellbook of drain life\nrss\u0007incubus\nZa\ns20s  n Za\nZa\nZa\nZa\n20s 20s Za\nZa\nZa\ns  n20s \u00165\n\u0007silver dragon\n.s  n Fk   n Fh \u001611\n\u0017blessed spellbook of sleep\nrt20s   n \u0007lich\nZa\nZa\ns 20s Za\nZa\nZa\nssZa\nZa\nZa\nZa\n20s20s  n  i\u001b\u00163\n\u0007vampire\n\u0007orc shaman\n\u0007succubus\n\u0017wand of magic missile\nzuu zuh   y y      \u0018\u001b\u0017wand of digging\n\u0017wand of fire\n\u0017wand of striking\n\u0007giant rat\n\u0007dwarf\nzv>    n zv>   zxk zwk    n zv> zxhzv> \u00169\n\u0017spellbook of drain life\nry20s  n \u0017blessed spellbook of light\nrzs \u0007master lich\n\u0007lich\nZa\n20s   "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  \u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b>.#chat\nu ;h,_mmmmm,#chat\nh;h,_mmmmm.#chat\nh_mmmmm.#chat\nh#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mm. Fk _. Fk#chat\nk_mm.  Fb   _.#chat\nj\u0017blessed +3 gauntlets of power\nWn  \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017wand of death\n\u0016?\n>z\u0006_mmmmmmm.Fj   n FkFk  Fh  Fl  Fl   Fl  ,    n \u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nn  ;h,\u00168\n\u0016?\n>A\u0006_mm.Fh  Fn Fn Fhs,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,Fks.ssFhzpy,#chat\nb\u0016?\n>A\u0006_mmmm.s.  Fy Fyzph,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nh;_.\u0016?\n>z\u0006_mmmmm,ss.20ssss,#chat\nu\u0016?\n>A\u0006_mm,.sssss.,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.s...,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\ny\u0016?\n>A\u0006_mmmmm.s.ss20sszp.  n,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nu\u0016?\n>z\u0006_mm,..s20s.,\u0016?\n>>\u001b\u0016?\n>y_m.Fh_,#chat\nh ;h.\u0016?\n>A\u0006_mmmmmm,FhFh Fh Fhzph   n,#chat\nh \u0016?\n>>\u001b\u0016?\n>z\u0006_mmm. Fh _.Fh   nFh20s20s.,#chat\nl\u0016?\n>A\u0006_mmmmm.ss.Fl,#chat\nl \u0016?\n>>\u001b\u0016?\n>y_mmm,Fl_.#chat\nk\u0016?\n>z\u0006_mmmm,ss.s.s20s,\u0016?\n>A\u0006_mmmm..ss20s20s  ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm, Fj_,Fjs.s20s.szpk,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nl\u0016?\n>A\u0006_mmmm.sss...szpu,\u0016?\n>z\u0006_mmmmmmm,20s.20s20ss.20szp,\u0016?\n>A\u0006_mmmmm,Fh_.:ss20ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,s..20sszp,#chat\nb\u0016?\n>A\u0006_mmmm,s.ss20s  Fhzp  ,\u0016?\n>>\u001b\u0016?\n>y_mmm. Fh  _.#chat\nh  \u0016?\n>z\u0006_mm."
+ },
+ "segments": [
+  {
+   "seed": 50255418,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b>.#chat\nu ;h,_mmmmm,#chat\nh;h,_mmmmm.#chat\nh_mmmmm.#chat\nh#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mm. Fk _. Fk#chat\nk_mm.  Fb   _.#chat\nj\u0017blessed +3 gauntlets of power\nWn  \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017wand of death\n\u0016?\n>z\u0006_mmmmmmm.Fj   n FkFk  Fh  Fl  Fl   Fl  ,    n \u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nn  ;h,\u00168\n\u0016?\n>A\u0006_mm.Fh  Fn Fn Fhs,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,Fks.ssFhzpy,#chat\nb\u0016?\n>A\u0006_mmmm.s.  Fy Fyzph,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nh;_.\u0016?\n>z\u0006_mmmmm,ss.20ssss,#chat\nu\u0016?\n>A\u0006_mm,.sssss.,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.s...,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\ny\u0016?\n>A\u0006_mmmmm.s.ss20sszp.  n,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nu\u0016?\n>z\u0006_mm,..s20s.,\u0016?\n>>\u001b\u0016?\n>y_m.Fh_,#chat\nh ;h.\u0016?\n>A\u0006_mmmmmm,FhFh Fh Fhzph   n,#chat\nh \u0016?\n>>\u001b\u0016?\n>z\u0006_mmm. Fh _.Fh   nFh20s20s.,#chat\nl\u0016?\n>A\u0006_mmmmm.ss.Fl,#chat\nl \u0016?\n>>\u001b\u0016?\n>y_mmm,Fl_.#chat\nk\u0016?\n>z\u0006_mmmm,ss.s.s20s,\u0016?\n>A\u0006_mmmm..ss20s20s  ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm, Fj_,Fjs.s20s.szpk,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nl\u0016?\n>A\u0006_mmmm.sss...szpu,\u0016?\n>z\u0006_mmmmmmm,20s.20s20ss.20szp,\u0016?\n>A\u0006_mmmmm,Fh_.:ss20ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,s..20sszp,#chat\nb\u0016?\n>A\u0006_mmmm,s.ss20s  Fhzp  ,\u0016?\n>>\u001b\u0016?\n>y_mmm. Fh  _.#chat\nh  \u0016?\n>z\u0006_mm."
+  }
+ ]
+}

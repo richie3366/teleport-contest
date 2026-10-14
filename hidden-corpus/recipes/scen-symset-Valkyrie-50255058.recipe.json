@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u00163\nFhFjFlFyFub FbFjFkFlFyFbFnFll FyFbFjFkFlFjFhFuFnFnFnFyFhFkFkFlFbFh\u001bFnFuj FhFbFlh FyFjFkFlFnFyFhFuFyFyFyFuu FnFh\u001bFuFnFbFjFbFyFbFbFkFuFjFjFbFbFbFjFlFjFlFuFkFuFnFul FnFnFjFuFlFuFkFlFkFyFbFkFyFub FbFyFlFyFbFnFyFbFh\u001bFuFuFkFlFkFuFkFuFbFuj FbFyFbFuk FuFbFh\u001bFbFbFnFkj FjFu\u001614\nv i\u001bFjFlFhFjFhFhFbFh\u001bFjFlFhFhFuFuFlFuFbFlk FnFnFnFnFjFbFh\u001bFnFbFkFhFnFbFnFuu FnFll FkFjFjFnFnFhFbFnFkFhFhFuFjFlFlFuFbFuu FhFjFhFkFnFh\u001bFkFjFbFun FuFjFuFkFnFln FnFh\u001bFuFbFbFlFbFjFlFnFbFjFjFjFkFjFlFnFnFjFjFuFkFjFlFnFjFhFkFbFuj FnFh\u001bFlFnFun FjFlFnFnFnFbFnFnFkFhFjFlFjFhFb\u001620\nuu h\u001bykh \u0017magic fountain\nqy qyun \u0017cloud\n:nul \u0017pool\n#dip\ndy  #terrain\nb\n\u001b<.#monster\n#monster\n>\u0006_>.Fy_.Fj>FyFj_>,Fk_.Fk>FkFl_>.Fy_.Fj>FnFjFjFbFkn \u0006_>.Fy_.Fl>FlFn_>FkFk_>.Fk_,Fb>FjFyFnFuFu\u0006_>.Fu_.Fk>FbFj_>,Fu_,Fn>FlFjFy<\u0006_>>.Fu_.Fn>FyFjFb\u0006_>.Fl_.Fj>FkFb_>,Fj_, Fk>FlFl_>. Fb_.  n  Fkl >FyFjFnFkj Fk\u00165\nFkFyFyFnFjFyFlFkFlFyFnFyFkn FhFnFh\u001bFlFbFyFuFuFhFhFjFkFlFlFuFbFlFuFuFlFyFku FhFbFjFyFkh FhFyFky FyFkb FkFjFlFyFnFjFjFbFkj FuFbFlFyFlFjFkFyFyFb"
+ },
+ "segments": [
+  {
+   "seed": 50255058,
+   "datetime": "20041112083805",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "v i\u001b\u00163\nFhFjFlFyFub FbFjFkFlFyFbFnFll FyFbFjFkFlFjFhFuFnFnFnFyFhFkFkFlFbFh\u001bFnFuj FhFbFlh FyFjFkFlFnFyFhFuFyFyFyFuu FnFh\u001bFuFnFbFjFbFyFbFbFkFuFjFjFbFbFbFjFlFjFlFuFkFuFnFul FnFnFjFuFlFuFkFlFkFyFbFkFyFub FbFyFlFyFbFnFyFbFh\u001bFuFuFkFlFkFuFkFuFbFuj FbFyFbFuk FuFbFh\u001bFbFbFnFkj FjFu\u001614\nv i\u001bFjFlFhFjFhFhFbFh\u001bFjFlFhFhFuFuFlFuFbFlk FnFnFnFnFjFbFh\u001bFnFbFkFhFnFbFnFuu FnFll FkFjFjFnFnFhFbFnFkFhFhFuFjFlFlFuFbFuu FhFjFhFkFnFh\u001bFkFjFbFun FuFjFuFkFnFln FnFh\u001bFuFbFbFlFbFjFlFnFbFjFjFjFkFjFlFnFnFjFjFuFkFjFlFnFjFhFkFbFuj FnFh\u001bFlFnFun FjFlFnFnFnFbFnFnFkFhFjFlFjFhFb\u001620\nuu h\u001bykh \u0017magic fountain\nqy qyun \u0017cloud\n:nul \u0017pool\n#dip\ndy  #terrain\nb\n\u001b<.#monster\n#monster\n>\u0006_>.Fy_.Fj>FyFj_>,Fk_.Fk>FkFl_>.Fy_.Fj>FnFjFjFbFkn \u0006_>.Fy_.Fl>FlFn_>FkFk_>.Fk_,Fb>FjFyFnFuFu\u0006_>.Fu_.Fk>FbFj_>,Fu_,Fn>FlFjFy<\u0006_>>.Fu_.Fn>FyFjFb\u0006_>.Fl_.Fj>FkFb_>,Fj_, Fk>FlFl_>. Fb_.  n  Fkl >FyFjFnFkj Fk\u00165\nFkFyFyFnFjFyFlFkFlFyFnFyFkn FhFnFh\u001bFlFbFyFuFuFhFhFjFkFlFlFuFbFlFuFuFlFyFku FhFbFjFyFkh FhFyFky FyFkb FkFjFlFyFnFjFjFbFkj FuFbFlFyFlFjFkFyFyFb"
+  }
+ ]
+}

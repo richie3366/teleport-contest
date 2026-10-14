@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nWl \u0017blessed shield of reflection\nWm\u0017sling\nwn\u001720 flint stones\nQo\u0007owlbear\nfnt$n ton fn ton \u0018\u001b\u0007gnomish wizard\n\u0007kobold shaman\n\u0017wand of striking\nzpl   n  sm.   n  20s  zpn    zpl  sm.  .m. zpl   20s      sj  sm. 20s    \u00161\n\u0017blessed spellbook of light\nrq    20s   \u0007master lich\n\u0007incubus\nZZ.m.sm.      n  ZZZsm.    20s Zi\u001b\u0017blessed spellbook of slow monster\nrr     sm.   n \u0017blessed spellbook of fireball\nrs     nsm.  \u0007incubus\n\u0007gnomish wizard\nZZ20s     n   sy    ZZ.l  20s ZZZ\u001618\n \u00161\n\u0017blessed spellbook of magic missile\nrt su\u0017blessed spellbook of slow monster\nru sm.\u0007master lich\n\u0007lich\nZZZsm.20s ZZZ20s 20s     Zsm.20s \u00169\n\u0017wand of sleep\n\u0017wand of digging\n\u0017wand of teleportation\n\u0007kobold\n\u0007owlbear\nzvb .yzxb zvl zw>    nzw> zxuzw>    szx. \u001b<. \u001615\n \u0017spellbook of drain life\n ry.\u0017spellbook of cone of cold\nrz s\u0007gnomish wizard\n\u0007master mind flayer\nZa\n       sh      20s   "
+ },
+ "segments": [
+  {
+   "seed": 50250060,
+   "datetime": "20220918043749",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nWl \u0017blessed shield of reflection\nWm\u0017sling\nwn\u001720 flint stones\nQo\u0007owlbear\nfnt$n ton fn ton \u0018\u001b\u0007gnomish wizard\n\u0007kobold shaman\n\u0017wand of striking\nzpl   n  sm.   n  20s  zpn    zpl  sm.  .m. zpl   20s      sj  sm. 20s    \u00161\n\u0017blessed spellbook of light\nrq    20s   \u0007master lich\n\u0007incubus\nZZ.m.sm.      n  ZZZsm.    20s Zi\u001b\u0017blessed spellbook of slow monster\nrr     sm.   n \u0017blessed spellbook of fireball\nrs     nsm.  \u0007incubus\n\u0007gnomish wizard\nZZ20s     n   sy    ZZ.l  20s ZZZ\u001618\n \u00161\n\u0017blessed spellbook of magic missile\nrt su\u0017blessed spellbook of slow monster\nru sm.\u0007master lich\n\u0007lich\nZZZsm.20s ZZZ20s 20s     Zsm.20s \u00169\n\u0017wand of sleep\n\u0017wand of digging\n\u0017wand of teleportation\n\u0007kobold\n\u0007owlbear\nzvb .yzxb zvl zw>    nzw> zxuzw>    szx. \u001b<. \u001615\n \u0017spellbook of drain life\n ry.\u0017spellbook of cone of cold\nrz s\u0007gnomish wizard\n\u0007master mind flayer\nZa\n       sh      20s   "
+  }
+ ]
+}

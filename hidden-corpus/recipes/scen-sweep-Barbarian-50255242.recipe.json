@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\n>y  _ \u001bm,#chat\nu_mmmm.#chat\nl_mmmm,#chat\nk;k,_mmmmm.Fl _.#chat\nb\u0006_>,_.m,>_>,_.@.>_>,_.<.>\u0014m.#turn\ncj\u0007elf-lord\nsm.sss20s.m.20s\u0007baby red dragon\nFyFyFyFy Fh\u001628\n\u0007kitten\n\u0017fortune cookie\ntbb \u0007tame wolf\n#chat\nj \u0017banana\nt\u001bdf sm.  .m.   n sy \u0006_>. Fh_. Fh >Fj Fh _>. Fh _.Fy>Fys_>,_,<.>\u0017magic whistle\njbuai   \u0007kobold\n20s sm.  n.b .m.susm.\u0006\u00162\n\u0017uncursed frost horn\najy h ajy j \u0017spellbook of extra healing\n\u0007giant mimic\nrk \u001b       sm..m.Z\u0017blessed scroll of magic mapping\n\u0007yeti\nrl \u0017blessed magic marker\namFhFh    n\u0017lizard corpse\n\u0007gecko\nen   sm. sm. .y  sm.   \u001623\n\u00176 javelins\nQo\u00074 owlbear\nj      nh    fy   fj\u0017grappling hook\nwp    \u0007sewer rat\ny ap@.   n   x     #twoweapon\nFh Fh    n h     n k    ,#enhance\nyf\ns\n\u001b\u00164\n\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqq<._ooooooo,Fk_,Fy ,#chat\ny _{,_.q_{, _.qy_ooooo. _._oo,Fk_.Fk,#chat\nn__,Fb _,Fb #chat\nbda #pray\ny y   #loot\nb#sit\n #levelchange\n8\n    \u0017Hawaiian shirt\nW\u001bskss\u0007Archon\n;b,sy20s     .  n \u0007fire giant\nFb    Fb Fb   \u0007gas spore\n;b,ss  n  .  n \u00165\n#levelchange\n30\n                      #wizintrinsic\nlgo\n   s  .     .     n     .       n  20s      n      s    n        n   n   ss\u001b.20s\u001bss.20s s\u001b20s s\u001bs20s\u001bsss\u0017scroll of scare monster\nrs   \u001b#name\ni\n#enhance\nyk\nq\n\u001bZ#loot\n#name\na\nZ20s\u001bs20s\u001b.20s    s\u0017tsurugi\nwtFj  Fk           n     Fu      yy\u001by   y y y\u001by  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 50255242,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0016?\n>y  _ \u001bm,#chat\nu_mmmm.#chat\nl_mmmm,#chat\nk;k,_mmmmm.Fl _.#chat\nb\u0006_>,_.m,>_>,_.@.>_>,_.<.>\u0014m.#turn\ncj\u0007elf-lord\nsm.sss20s.m.20s\u0007baby red dragon\nFyFyFyFy Fh\u001628\n\u0007kitten\n\u0017fortune cookie\ntbb \u0007tame wolf\n#chat\nj \u0017banana\nt\u001bdf sm.  .m.   n sy \u0006_>. Fh_. Fh >Fj Fh _>. Fh _.Fy>Fys_>,_,<.>\u0017magic whistle\njbuai   \u0007kobold\n20s sm.  n.b .m.susm.\u0006\u00162\n\u0017uncursed frost horn\najy h ajy j \u0017spellbook of extra healing\n\u0007giant mimic\nrk \u001b       sm..m.Z\u0017blessed scroll of magic mapping\n\u0007yeti\nrl \u0017blessed magic marker\namFhFh    n\u0017lizard corpse\n\u0007gecko\nen   sm. sm. .y  sm.   \u001623\n\u00176 javelins\nQo\u00074 owlbear\nj      nh    fy   fj\u0017grappling hook\nwp    \u0007sewer rat\ny ap@.   n   x     #twoweapon\nFh Fh    n h     n k    ,#enhance\nyf\ns\n\u001b\u00164\n\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqq<._ooooooo,Fk_,Fy ,#chat\ny _{,_.q_{, _.qy_ooooo. _._oo,Fk_.Fk,#chat\nn__,Fb _,Fb #chat\nbda #pray\ny y   #loot\nb#sit\n #levelchange\n8\n    \u0017Hawaiian shirt\nW\u001bskss\u0007Archon\n;b,sy20s     .  n \u0007fire giant\nFb    Fb Fb   \u0007gas spore\n;b,ss  n  .  n \u00165\n#levelchange\n30\n                      #wizintrinsic\nlgo\n   s  .     .     n     .       n  20s      n      s    n        n   n   ss\u001b.20s\u001bss.20s s\u001b20s s\u001bs20s\u001bsss\u0017scroll of scare monster\nrs   \u001b#name\ni\n#enhance\nyk\nq\n\u001bZ#loot\n#name\na\nZ20s\u001bs20s\u001b.20s    s\u0017tsurugi\nwtFj  Fk           n     Fu      yy\u001by   y y y\u001by  \u0007"
+  }
+ ]
+}

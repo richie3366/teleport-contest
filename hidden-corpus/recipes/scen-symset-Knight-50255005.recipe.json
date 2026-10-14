@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " mO>d\u001b\n\u0006_ \u001bm,>FyFk_>>.Fj_.> FuFjFu10s\u0004n\u0006_>.Fy_.Fy>FjFy_>.Fl_.Fl>FbFu_>,Fu_.Fl>FlFbFbFlFl#loot\n\u0014,\u0006_>>.Fb_.Fu>FlFy_>>,Fn_,Fl>FbFj_>>.Fj_,Fb>FyFlFyFnFy<\u0006_>,Fj_,Fn>FjFu_>.Fy_.Fu>FnFl_>,Fn_.Fy>FyFnFyFlFy\u0006_>.Fu_,Fk>FyFb_>.Fn_.Fu>FbFb_>,Fb_.Fl>FbFlFyFnFkeh\u000f\u001b<\u0006_>.Fk_.Fj>FyFk_>,Fn_,Fu>FkFj_>,Fl_,Fj>FlFkFjFlFk,E- I am a fish\n\u0006_>,Fb_.Fj>FyFb_>,Fj_,Fy>FlFn_>.Fl_.Fb>FlFnFuFjFl#turn\n  20sv\u001bi\u001b\u001616\n \u0006_>,_.> FlFuFn\u0006_>,Fb_,> FjFhFy\u0006_>.Fk_.Fk>FbFk_>.Fj_.Fn>FnFk_>.Fl_,Fu>FlFbFkFbFj\u0006_>,Fn_,Fk>FkFn_>,Fb_.Fn>FjFj_>.Fu_.Fb>FjFlFjFbFl\u0006_>.Fj_,Fj>FjFu_>.Fn_.Fj>FjFb_>.Fy_.Fu>FjFyFuFjFlOb\u001b\u001b\n\u00166\nFnFlFlFuFbFlFyFhFjFyFbFnFkFyFh#pray\ny y     FyFjFjFhFbFuFhFlFkFuFlFh#pray\ny y    FnFhFjFkFkFhFyFuFkFbFuFlFnFyFyFyFnFlFjFnFhFlFnFnFlFnFlFnFhFkFnFlFkFuFyFnFnFnFyFbFlFyFlFnFyFlFyFkFuFlFbFyFlFhFnFnFhFnFyFhFlFuFyFbFlFkFkFlFuFyFnFlFbFyFnFlFyFj  nFbFjFuFbFkFbFyFjFuFhFuFjFuFkFlFyFbFuFyFbFlFhFbFuFjFjFn#pray\ny y   FhFuFlFbFyFuFlFuFnFuFhFkFnFhFuFlFnFyFjFlFkFjFhFyFhFkFbFbFyFyFuFkFbFyFnFjFjFnFyFuFnFlFlFbFjFjF"
+ },
+ "segments": [
+  {
+   "seed": 50255005,
+   "datetime": "20221207040243",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"You miss\"\nBIND=v:inventory\n",
+   "moves": " mO>d\u001b\n\u0006_ \u001bm,>FyFk_>>.Fj_.> FuFjFu10s\u0004n\u0006_>.Fy_.Fy>FjFy_>.Fl_.Fl>FbFu_>,Fu_.Fl>FlFbFbFlFl#loot\n\u0014,\u0006_>>.Fb_.Fu>FlFy_>>,Fn_,Fl>FbFj_>>.Fj_,Fb>FyFlFyFnFy<\u0006_>,Fj_,Fn>FjFu_>.Fy_.Fu>FnFl_>,Fn_.Fy>FyFnFyFlFy\u0006_>.Fu_,Fk>FyFb_>.Fn_.Fu>FbFb_>,Fb_.Fl>FbFlFyFnFkeh\u000f\u001b<\u0006_>.Fk_.Fj>FyFk_>,Fn_,Fu>FkFj_>,Fl_,Fj>FlFkFjFlFk,E- I am a fish\n\u0006_>,Fb_.Fj>FyFb_>,Fj_,Fy>FlFn_>.Fl_.Fb>FlFnFuFjFl#turn\n  20sv\u001bi\u001b\u001616\n \u0006_>,_.> FlFuFn\u0006_>,Fb_,> FjFhFy\u0006_>.Fk_.Fk>FbFk_>.Fj_.Fn>FnFk_>.Fl_,Fu>FlFbFkFbFj\u0006_>,Fn_,Fk>FkFn_>,Fb_.Fn>FjFj_>.Fu_.Fb>FjFlFjFbFl\u0006_>.Fj_,Fj>FjFu_>.Fn_.Fj>FjFb_>.Fy_.Fu>FjFyFuFjFlOb\u001b\u001b\n\u00166\nFnFlFlFuFbFlFyFhFjFyFbFnFkFyFh#pray\ny y     FyFjFjFhFbFuFhFlFkFuFlFh#pray\ny y    FnFhFjFkFkFhFyFuFkFbFuFlFnFyFyFyFnFlFjFnFhFlFnFnFlFnFlFnFhFkFnFlFkFuFyFnFnFnFyFbFlFyFlFnFyFlFyFkFuFlFbFyFlFhFnFnFhFnFyFhFlFuFyFbFlFkFkFlFuFyFnFlFbFyFnFlFyFj  nFbFjFuFbFkFbFyFjFuFhFuFjFuFkFlFyFbFuFyFbFlFhFbFuFjFjFn#pray\ny y   FhFuFlFbFyFuFlFuFnFuFhFkFnFhFuFlFnFyFjFlFkFjFhFyFhFkFbFbFyFyFuFkFbFyFnFjFjFnFyFuFnFlFlFbFjFjF"
+  }
+ ]
+}

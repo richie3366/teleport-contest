@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.        #chat\nl;_._m.Fh_.#chat\nb_mmmmm,_.#chat\nk#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\ny;>._mmmm.#chat\nj\u0017blessed ring of free action\nPir\u0017blessed +3 speed boots\nWj\u0017blessed +3 silver dragon scale mail\nWk   \u0017wand of fire\n\u0016?\n>A\u0006_mmmm.FlFl20s .20s,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_m.Fl_.#chat\nl;l,\u0016?\n>A\u0006_mmmmmmm,Fl _,FlFl FlFl FlFl,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,Fl  n  Fl  Fl FlFlFhFh,\u0016?\n>z\u0006_mmmmm,.ss20sFlFl,\u0016?\n>A\u0006_mmmm.Fh  _.FlFlFl.,\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nb;m,\u0016?\n>A\u0006_mmmmmmm.sssssszll,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.20ss.20sss.,#chat\nu\u0016?\n>z\u0006_mmm.s20s.20ssszlh,#chat\nu\u0016?\n>A\u0006_mmmmmm.sss20s..,#chat\nk\u0016?\n>A\u0006_mmmmmmm,.s20sszlk  ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,20s..s20s.,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nk\u0016?\n>z\u0006_mmm.ss..sszln,\u0016?\n>A\u0006_mm....20ss,\u0016?\n>A\u0006_mmmm.s20ss20s 20s.zlj  ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm..sssszlu,#chat\nn\u0016?\n>z\u0006_mmmmmm..ssssFlFlzl,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nb\u0016?\n>A\u0006_mmmm"
+ },
+ "segments": [
+  {
+   "seed": 50255429,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.        #chat\nl;_._m.Fh_.#chat\nb_mmmmm,_.#chat\nk#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\ny;>._mmmm.#chat\nj\u0017blessed ring of free action\nPir\u0017blessed +3 speed boots\nWj\u0017blessed +3 silver dragon scale mail\nWk   \u0017wand of fire\n\u0016?\n>A\u0006_mmmm.FlFl20s .20s,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_m.Fl_.#chat\nl;l,\u0016?\n>A\u0006_mmmmmmm,Fl _,FlFl FlFl FlFl,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,Fl  n  Fl  Fl FlFlFhFh,\u0016?\n>z\u0006_mmmmm,.ss20sFlFl,\u0016?\n>A\u0006_mmmm.Fh  _.FlFlFl.,\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nb;m,\u0016?\n>A\u0006_mmmmmmm.sssssszll,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.20ss.20sss.,#chat\nu\u0016?\n>z\u0006_mmm.s20s.20ssszlh,#chat\nu\u0016?\n>A\u0006_mmmmmm.sss20s..,#chat\nk\u0016?\n>A\u0006_mmmmmmm,.s20sszlk  ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,20s..s20s.,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nk\u0016?\n>z\u0006_mmm.ss..sszln,\u0016?\n>A\u0006_mm....20ss,\u0016?\n>A\u0006_mmmm.s20ss20s 20s.zlj  ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm..sssszlu,#chat\nn\u0016?\n>z\u0006_mmmmmm..ssssFlFlzl,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nb\u0016?\n>A\u0006_mmmm"
+  }
+ ]
+}

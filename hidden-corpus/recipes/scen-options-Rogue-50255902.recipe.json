@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "Oegf\nc\nwb sOmc\n#terrain\nf\n#force\n mO>>>kw\n#loot\nyolO>gc\n#ride\nyy#twoweapon\nO>b\n>Om\negaeh.20sOfgp\na\nn\n#wipe\nOd\n#sit\nmO>>>>jkg\n  #monster\nmO>>>>hgk\n  #offer\n20ss"
+ },
+ "segments": [
+  {
+   "seed": 50255902,
+   "datetime": "20100226160622",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "Oegf\nc\nwb sOmc\n#terrain\nf\n#force\n mO>>>kw\n#loot\nyolO>gc\n#ride\nyy#twoweapon\nO>b\n>Om\negaeh.20sOfgp\na\nn\n#wipe\nOd\n#sit\nmO>>>>jkg\n  #monster\nmO>>>>hgk\n  #offer\n20ss"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b;>FkFj_>.Fb_.Fy>FjFj_>.Fj_.Fh>FyFh\u001bFnFnFn<\u0006_>.Fj_.Fh>FjFh_>.Fl_.Fh>FkFk_>.Fj_,Fh>FnFuu FuFhFui\u001bai \u0006_>>.Fn_>FjFy_>>,Fj_,Fn>FnFh\u001bFyE- I am a fish\n#pray\ny y \u0006_>.Fb_,Fn>FbFb_>,Fb_,Fb>FjFh_>.Fb_.Flb >FhFbFh\u001bFbFn>20s<\u0006_>.Fn_>FyFj_>.Fl_.Fj>FhFn_>FjFbFnFbFb#pray\ny y #invoke\n\u001bFnFh\u001bFkFyFbFnFky FnFnFyFjFyFh\u001bFjFnFyFnFyFyFh\u001bFjFhFnFjFbFjFhFbFyFhFyFjFnFky FyFh\u001bFnFjFyFkn FjFnFyFnFbFyFh\u001bFhFhFhFhFhFnFh\u001bFkFkFyFjFkFnFjFyFnFkFbFjFyFnFhFkFjFhFnFjFkFbFyFkFbFkn FkFhFnFyFjFyFyFnFky FyFnFyFh\u001bFyFnFhFkFjFyFyFhFkFyFbFkFyFh\u001bFjFkFjFhFyFkk FhFkFkFjFnFh\u001bFkO>>i\u001b\u001b\n\u0006_>>.Fh_,Fl>FnFb_>>.Fn_>FnFb_>>.Fy_.Fb>FbFbFhFyFn\u0006_>.Fn_>FyFn_>.Fh_,Fh>FnFy_>.Fh_,Fb>FjFlFjFn"
+ },
+ "segments": [
+  {
+   "seed": 50255023,
+   "datetime": "20250707090412",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nMSGTYPE=norep \"You miss\"\nBIND=v:inventory\n",
+   "moves": "\u0006_ \u001b;>FkFj_>.Fb_.Fy>FjFj_>.Fj_.Fh>FyFh\u001bFnFnFn<\u0006_>.Fj_.Fh>FjFh_>.Fl_.Fh>FkFk_>.Fj_,Fh>FnFuu FuFhFui\u001bai \u0006_>>.Fn_>FjFy_>>,Fj_,Fn>FnFh\u001bFyE- I am a fish\n#pray\ny y \u0006_>.Fb_,Fn>FbFb_>,Fb_,Fb>FjFh_>.Fb_.Flb >FhFbFh\u001bFbFn>20s<\u0006_>.Fn_>FyFj_>.Fl_.Fj>FhFn_>FjFbFnFbFb#pray\ny y #invoke\n\u001bFnFh\u001bFkFyFbFnFky FnFnFyFjFyFh\u001bFjFnFyFnFyFyFh\u001bFjFhFnFjFbFjFhFbFyFhFyFjFnFky FyFh\u001bFnFjFyFkn FjFnFyFnFbFyFh\u001bFhFhFhFhFhFnFh\u001bFkFkFyFjFkFnFjFyFnFkFbFjFyFnFhFkFjFhFnFjFkFbFyFkFbFkn FkFhFnFyFjFyFyFnFky FyFnFyFh\u001bFyFnFhFkFjFyFyFhFkFyFbFkFyFh\u001bFjFkFjFhFyFkk FhFkFkFjFnFh\u001bFkO>>i\u001b\u001b\n\u0006_>>.Fh_,Fl>FnFb_>>.Fn_>FnFb_>>.Fy_.Fb>FbFbFhFyFn\u0006_>.Fn_>FyFn_>.Fh_,Fh>FnFy_>.Fh_,Fb>FjFlFjFn"
+  }
+ ]
+}

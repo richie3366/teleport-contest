@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0007tame dingo\n#name\na\nk#name\nf\n @.\u0017leash\naijbykhaildf.ss\u0017fortune cookie\ntbl \u0017lichen corpse\nt\u001b\u001623\n\u0016?\nj\u0006\u0017wooden harp\nalnststACGGGFCBoFFGDAAFtestDCACDFEnoFtCtAFGDDA\njjalnoGGotsCtoAesoGGDAnFCoeoCBFBDnFBostGoEDFBAGE\n  b n\u0018\u001b#name\nm\n\u0004\u0017cheap plastic imitation of the Amulet of Yendor\n\u0007incubus\nPmsy  20s   n sls\u0017cursed wand of create monster\nznghoul\n   znmarilith\n     n \u0017blessed wand of create monster\nzoshade\n         n zoflesh golem\n       n Fj        n Fb    \u0017cursed -1 plate mail\n W\u001bsm.  n        20s  n       n sm.       n Fb     n       Fy    n    \u0017uncursed wand of locking\nzq.   n      sm.   n     sb  n   \\   \u00167\n\u0007tame baby red dragon\n\u0017saddle\narj     \u0017lance\n#ride\nhy\u0007pony\n\u0017scroll of taming\nrt         n      \u0017saddle\n#ride\nby\u0007tame saddled warhorse\n#ride\nby,a\ny    su20s                    yy\u001by   y y y\u001by  \u0004"
+ },
+ "segments": [
+  {
+   "seed": 50255223,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0007tame dingo\n#name\na\nk#name\nf\n @.\u0017leash\naijbykhaildf.ss\u0017fortune cookie\ntbl \u0017lichen corpse\nt\u001b\u001623\n\u0016?\nj\u0006\u0017wooden harp\nalnststACGGGFCBoFFGDAAFtestDCACDFEnoFtCtAFGDDA\njjalnoGGotsCtoAesoGGDAnFCoeoCBFBDnFBostGoEDFBAGE\n  b n\u0018\u001b#name\nm\n\u0004\u0017cheap plastic imitation of the Amulet of Yendor\n\u0007incubus\nPmsy  20s   n sls\u0017cursed wand of create monster\nznghoul\n   znmarilith\n     n \u0017blessed wand of create monster\nzoshade\n         n zoflesh golem\n       n Fj        n Fb    \u0017cursed -1 plate mail\n W\u001bsm.  n        20s  n       n sm.       n Fb     n       Fy    n    \u0017uncursed wand of locking\nzq.   n      sm.   n     sb  n   \\   \u00167\n\u0007tame baby red dragon\n\u0017saddle\narj     \u0017lance\n#ride\nhy\u0007pony\n\u0017scroll of taming\nrt         n      \u0017saddle\n#ride\nby\u0007tame saddled warhorse\n#ride\nby,a\ny    su20s                    yy\u001by   y y y\u001by  \u0004"
+  }
+ ]
+}

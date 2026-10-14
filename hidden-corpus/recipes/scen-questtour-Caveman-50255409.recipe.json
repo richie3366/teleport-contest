@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nu_mmmm.Fy  n _.Fu  n#chat\nh  n;l. _mmm.Fy  n _,#chat\nh  n_mmmm.Fh  n_,  nFh #chat\nh  n ;y,_mmmm,Fy  n_.Fy#chat\nh  n #levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.Fy _,#chat\nh_mmm.Fy_.m.Fh#chat\nk_mmmmm.#chat\ny;k:  \u0017blessed amulet of life saving\nPf\u0017blessed +3 helm of telepathy\nWg \u0017blessed +3 gauntlets of power\nWh \u0017wand of death\n\u0016?\n>A\u0006_mmmmm.Fh_,;m.FyFy Fy FyFh,#chat\nl\u0016?\n>z\u0006_mmmm,_.m,s20s20s.s20szin   ,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,_,:s20s.ss,#chat\nn\u0016?\n>A\u0006_mmmmm._.@..ss.,#chat\nk\u0016?\n>A\u0006_mmmm,_.m.sss.20s,#chat\nu\u0016?\n>z\u0006_mm._.<.20ssss,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm._.;@.s..ssssziy,#chat\nh\u0016?\n>A\u0006_mmmmmmm._..s20sss20szih,\u0016?\n>A\u0006_mm._.m.ss...ss,\u0016?\n>z\u0006_mmm._.m,sss.20sszik n,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,_,@.ss.ss.,#chat\nk\u0016?\n>A\u0006_mm._.m,s20s s20sFu20sszi.  n,#chat\nj\u0016?\n>A\u0006_mm,  _.20sFhFhFh,\u0016?\n>>\u001b\u0016?\n>y_mmmm.Fh_.Fh#chat\ny\u0016?\n>z\u0006_mmmm,_.s..s.,\u0016?\n>>\u001b\u0016?\n>y_mmmm._.#chat\ny;.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm._...sss20ss20s,#chat\nn\u0016?\n>A\u0006_mm,_.;m,ss.20sszi,#chat\nu\u0016?\n>A\u0006_mmmmmm,_.:ssss.zi,\u0016?\n>z\u0006_mmmmmm,_...20s..s20szi,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm._.:.s20s.s,\u0016?\n>>\u001b\u0016?\n>y_mmmm._,@.#chat\nh\u0016?\n>A\u0006_mmm._,m.20ss.s20szi,\u0016?\n>A\u0006_mmmm"
+ },
+ "segments": [
+  {
+   "seed": 50255409,
+   "datetime": "20141214211529",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:lychee\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nu_mmmm.Fy  n _.Fu  n#chat\nh  n;l. _mmm.Fy  n _,#chat\nh  n_mmmm.Fh  n_,  nFh #chat\nh  n ;y,_mmmm,Fy  n_.Fy#chat\nh  n #levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.Fy _,#chat\nh_mmm.Fy_.m.Fh#chat\nk_mmmmm.#chat\ny;k:  \u0017blessed amulet of life saving\nPf\u0017blessed +3 helm of telepathy\nWg \u0017blessed +3 gauntlets of power\nWh \u0017wand of death\n\u0016?\n>A\u0006_mmmmm.Fh_,;m.FyFy Fy FyFh,#chat\nl\u0016?\n>z\u0006_mmmm,_.m,s20s20s.s20szin   ,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,_,:s20s.ss,#chat\nn\u0016?\n>A\u0006_mmmmm._.@..ss.,#chat\nk\u0016?\n>A\u0006_mmmm,_.m.sss.20s,#chat\nu\u0016?\n>z\u0006_mm._.<.20ssss,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm._.;@.s..ssssziy,#chat\nh\u0016?\n>A\u0006_mmmmmmm._..s20sss20szih,\u0016?\n>A\u0006_mm._.m.ss...ss,\u0016?\n>z\u0006_mmm._.m,sss.20sszik n,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,_,@.ss.ss.,#chat\nk\u0016?\n>A\u0006_mm._.m,s20s s20sFu20sszi.  n,#chat\nj\u0016?\n>A\u0006_mm,  _.20sFhFhFh,\u0016?\n>>\u001b\u0016?\n>y_mmmm.Fh_.Fh#chat\ny\u0016?\n>z\u0006_mmmm,_.s..s.,\u0016?\n>>\u001b\u0016?\n>y_mmmm._.#chat\ny;.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm._...sss20ss20s,#chat\nn\u0016?\n>A\u0006_mm,_.;m,ss.20sszi,#chat\nu\u0016?\n>A\u0006_mmmmmm,_.:ssss.zi,\u0016?\n>z\u0006_mmmmmm,_...20s..s20szi,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm._.:.s20s.s,\u0016?\n>>\u001b\u0016?\n>y_mmmm._,@.#chat\nh\u0016?\n>A\u0006_mmm._,m.20ss.s20szi,\u0016?\n>A\u0006_mmmm"
+  }
+ ]
+}

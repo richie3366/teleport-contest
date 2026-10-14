@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u001614\nykb:.s.\u001610\n_ \u001bm,\u001629\n  __.<\u00165\n \u0014m.\u001640\n  __.>..\u0016?\n>>K     potion of see invisible\nln l   u     b     n :\u001640\nh     u       u   n       nb            n      :.u       n   .m.          n sn                      \u00167\n\u0016?\n\u001bn  n       j  n                 n          \u00166\n\u001617\nk    \u001b               n         u      n    j  n     u  l  n             h   : s \u00163\n\u001640\ny j u  h  n       k       n  :\u0016?\n\u001bh             n k    \u001b               yy\u001by   y  n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50255527,
+   "datetime": "20160819034013",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=runmode:run\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u001614\nykb:.s.\u001610\n_ \u001bm,\u001629\n  __.<\u00165\n \u0014m.\u001640\n  __.>..\u0016?\n>>K     potion of see invisible\nln l   u     b     n :\u001640\nh     u       u   n       nb            n      :.u       n   .m.          n sn                      \u00167\n\u0016?\n\u001bn  n       j  n                 n          \u00166\n\u001617\nk    \u001b               n         u      n    j  n     u  l  n             h   : s \u00163\n\u001640\ny j u  h  n       k       n  :\u0016?\n\u001bh             n k    \u001b               yy\u001by   y  n  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001bm.>Fk  Fh_>.Fy_.Fy>FyFy_>,Fy_,,Fl>#chat\nboj\u0006_>._.> \u0006_>,_,>_>,_,>_>,_.>\u0006_>._.>_>._,>_>,_.>#tip\n\u001b_m.20s\u0006_>>._,>_>>,_,>_>>._,>\u0006_>,_,>_>._,>_>._,>\u0006_>>._.>_>>._.>_>>,_.>\u0006_>,_.>_>,_,>_>._.>\u0006_>,_.>_>,_,>_>._,>\u0006_>>._,>_>>,_.>_>>,_.>\u0006_.Sy\u001b y dd#terrain\n\u001bi\u001b\u0014m,f by l,#jump\nE- Vlad was here\n\u0018\u001b#rub\n\u0004k",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50255805,
+   "datetime": "20040228010445",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=playmode:debug\n",
+   "moves": "\u0006_ \u001bm.>Fk  Fh_>.Fy_.Fy>FyFy_>,Fy_,,Fl>#chat\nboj\u0006_>._.> \u0006_>,_,>_>,_,>_>,_.>\u0006_>._.>_>._,>_>,_.>#tip\n\u001b_m.20s\u0006_>>._,>_>>,_,>_>>._,>\u0006_>,_,>_>._,>_>._,>\u0006_>>._.>_>>._.>_>>,_.>\u0006_>,_.>_>,_,>_>._.>\u0006_>,_.>_>,_,>_>._,>\u0006_>>._,>_>>,_.>_>>,_.>\u0006_.Sy\u001b"
+  },
+  {
+   "seed": 50755805,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=playmode:debug\n",
+   "moves": " y dd#terrain\n\u001bi\u001b\u0014m,f by l,#jump\nE- Vlad was here\n\u0018\u001b#rub\n\u0004k"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nj_mm,Fb  n _,Fn   n#chat\nn_mmm,Fh  n_.Fn   n#chat\nh_mm.Fh _.#chat\nn_m.  n Fh _.#chat\nj  n ;j,#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.Fh _.Fh#chat\nb_mmm.Fh _,#chat\nj   n _mm.Fh _,#chat\nn \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPkl\u0017blessed amulet of reflection\nPl\u0017wand of lightning\n\u0016?\n>A\u0006_mmmmm.Fl  n _.FbFy  Fb Fj Fl Fn Fb  n zmj  ,#chat\nn \u00161\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm. Fn    n_,Fn FyFl FhFy  zmh,\u0016?\n>>\u001b\u0016?\n>y_mm.Fk_.m.  n Fk#chat\nk;k;\u00168\n\u0016?\n>z\u0006_mmm.FkFk FkFks,\u0016?\n>A\u0006_mmm.Fj_,Fjssss,\u0016?\n>A\u0006_mmm.20ss20s.,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fk_.FuFu FkFkss.zm.  n,#chat\nl\u0016?\n>z\u0006_mmmmmm.sssszmn,\u0016?\n>A\u0006_mmmmmm.20sFkFkFuFuFk.zm,#chat\nk\u0016?\n>A\u0006_mmmmmmm.20ssFjFjFjzm,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fj20sssszm,\u0016?\n>z\u0006_mmmmm,_.s20s.szm,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nj;m,\u0016?\n>A\u0006_mm..s20s.zm,\u0016?\n>>\u001b\u0016?\n>y_mmm._.#chat\nu\u0016?\n>A\u0006_mmmm..ss.zm,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,.s20s20ss.,#chat\nj\u0016?\n>z\u0006_mmm.20s20ss20sFhFhzm,#chat\nh\u0016?\n"
+ },
+ "segments": [
+  {
+   "seed": 50255414,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nj_mm,Fb  n _,Fn   n#chat\nn_mmm,Fh  n_.Fn   n#chat\nh_mm.Fh _.#chat\nn_m.  n Fh _.#chat\nj  n ;j,#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.Fh _.Fh#chat\nb_mmm.Fh _,#chat\nj   n _mm.Fh _,#chat\nn \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPkl\u0017blessed amulet of reflection\nPl\u0017wand of lightning\n\u0016?\n>A\u0006_mmmmm.Fl  n _.FbFy  Fb Fj Fl Fn Fb  n zmj  ,#chat\nn \u00161\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm. Fn    n_,Fn FyFl FhFy  zmh,\u0016?\n>>\u001b\u0016?\n>y_mm.Fk_.m.  n Fk#chat\nk;k;\u00168\n\u0016?\n>z\u0006_mmm.FkFk FkFks,\u0016?\n>A\u0006_mmm.Fj_,Fjssss,\u0016?\n>A\u0006_mmm.20ss20s.,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fk_.FuFu FkFkss.zm.  n,#chat\nl\u0016?\n>z\u0006_mmmmmm.sssszmn,\u0016?\n>A\u0006_mmmmmm.20sFkFkFuFuFk.zm,#chat\nk\u0016?\n>A\u0006_mmmmmmm.20ssFjFjFjzm,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fj20sssszm,\u0016?\n>z\u0006_mmmmm,_.s20s.szm,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nj;m,\u0016?\n>A\u0006_mm..s20s.zm,\u0016?\n>>\u001b\u0016?\n>y_mmm._.#chat\nu\u0016?\n>A\u0006_mmmm..ss.zm,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,.s20s20ss.,#chat\nj\u0016?\n>z\u0006_mmm.20s20ss20sFhFhzm,#chat\nh\u0016?\n"
+  }
+ ]
+}

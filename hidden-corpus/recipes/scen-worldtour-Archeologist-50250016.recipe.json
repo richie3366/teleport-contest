@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n             \u0017blessed Mjollnir\n wi\u0017blessed +3 cloak of magic resistance\nWj\u0017blessed +3 gauntlets of power\nWk\u0016?\n>>N       potion of speed\nkl       \u001bkb    j  l        n      h       :\u0016?\ne_ \u001b@.<\u00168\n\u0017Frost Brand\nwn           n          nFk         Fb  n              \u001b  n Fy           n    \u001b  s    n     s  n     \u0017blessed spellbook of finger of death\nro.  n      n    20s    n     ZZ\u0017potion of hallucination\n\u0007green mold\nqp  n      n        n #dip\nhm      n   \u0017blessed elven leather helm\nW\u001b.   n       y  2"
+ },
+ "segments": [
+  {
+   "seed": 50250016,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  #levelchange\n14\n             \u0017blessed Mjollnir\n wi\u0017blessed +3 cloak of magic resistance\nWj\u0017blessed +3 gauntlets of power\nWk\u0016?\n>>N       potion of speed\nkl       \u001bkb    j  l        n      h       :\u0016?\ne_ \u001b@.<\u00168\n\u0017Frost Brand\nwn           n          nFk         Fb  n              \u001b  n Fy           n    \u001b  s    n     s  n     \u0017blessed spellbook of finger of death\nro.  n      n    20s    n     ZZ\u0017potion of hallucination\n\u0007green mold\nqp  n      n        n #dip\nhm      n   \u0017blessed elven leather helm\nW\u001b.   n       y  2"
+  }
+ ]
+}

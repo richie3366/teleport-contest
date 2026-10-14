@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0007little dog\n\u0017lichen corpse\ntbj\u0007large dog\n\u0017apple\n t\u001b\u0017carrot\n t\u001b10s\u0006_ \u001b.>Fh    nFb  _>>.Fl_.   nFu>Fu Fb_>>.  n Fu_.Fb  n>FyFn  #name\n\u001b\u0007jackal\n\u0017scroll of taming\nrj \u0017apple\n t\u001b\u001617\n\u00166\n ,\u000f\u001b#chat\nnO>d\u001b\n\u00168\nv\u001bi\u001b\u0006_>.         nFu_,Fn >Fy Fn _>.Fy_.> FuFuFj\u0006_>,  Fh_,Fh   >Fh   Fh_>,   Fh_.    Fh   >_>.    nFl_.Fh>Fh FhFhFhFhWr\u001b\u0006_>>, Fh_.m,Fb>FbFh_>>.Fb_.<.Fh>FhFb  n_>>.Fb_.>.Fb>FhFbFbFh Fy\u0006_>.Fh_.m.Fh>FhFh_>,  nFy_.m,Fh>FbFy_>.Fy _.<.Fb >FyFb FbFb   nFb s#conduct\n <\u0006_>.Fh _,Fh>Fl   nFy_>.Fy _,Fl>FlFy _>. Fl _. Fb >Fb   nFbFb FyFb \\   #invoke\n\u001b\u0006_>>, Fh_.Fy>FlFh _>>,Fb_.Fj   n>FjFh _>>, Fk   n_,Fh>FbFy Fh  n Fk Fy\u0006_>.Fk   n _,  Fh >FkFb _>.   n Fk  _.Fk  >Fy   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50255050,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You feel\"\nMENUCOLOR=\"a scroll\"=red\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": " \u0007little dog\n\u0017lichen corpse\ntbj\u0007large dog\n\u0017apple\n t\u001b\u0017carrot\n t\u001b10s\u0006_ \u001b.>Fh    nFb  _>>.Fl_.   nFu>Fu Fb_>>.  n Fu_.Fb  n>FyFn  #name\n\u001b\u0007jackal\n\u0017scroll of taming\nrj \u0017apple\n t\u001b\u001617\n\u00166\n ,\u000f\u001b#chat\nnO>d\u001b\n\u00168\nv\u001bi\u001b\u0006_>.         nFu_,Fn >Fy Fn _>.Fy_.> FuFuFj\u0006_>,  Fh_,Fh   >Fh   Fh_>,   Fh_.    Fh   >_>.    nFl_.Fh>Fh FhFhFhFhWr\u001b\u0006_>>, Fh_.m,Fb>FbFh_>>.Fb_.<.Fh>FhFb  n_>>.Fb_.>.Fb>FhFbFbFh Fy\u0006_>.Fh_.m.Fh>FhFh_>,  nFy_.m,Fh>FbFy_>.Fy _.<.Fb >FyFb FbFb   nFb s#conduct\n <\u0006_>.Fh _,Fh>Fl   nFy_>.Fy _,Fl>FlFy _>. Fl _. Fb >Fb   nFbFb FyFb \\   #invoke\n\u001b\u0006_>>, Fh_.Fy>FlFh _>>,Fb_.Fj   n>FjFh _>>, Fk   n_,Fh>FbFy Fh  n Fk Fy\u0006_>.Fk   n _,  Fh >FkFb _>.   n Fk  _.Fk  >Fy   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

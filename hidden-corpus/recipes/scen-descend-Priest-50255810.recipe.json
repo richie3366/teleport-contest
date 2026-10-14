@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b;>Fn ._>>,_.> \u0006_>.Fb_.>_>._.>_>._.>\u0006_>._.>_>,_,>_>,_,>\u0006_>._.>_>._.>_>,_.>\u0006_>>,_,>_>>,_,>_>>,_,>\u0006_>._,>_>._.>_>._,>\u0006_>._.>_>._.>_>._,><\u0006_>._.>_>._.>_>._.>\u0006_>._.>_>,_.>_>,_.>Z\u001bs\u0006_>._.>_>,_.>_>._.>\u0006_>>._.>_>>,_.>_>>._.>\u000f\u001bSy\u001b y ,i\u001b<P#untrap\nl\u0018\u001b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50255810,
+   "datetime": "20120223034406",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0006_ \u001b;>Fn ._>>,_.> \u0006_>.Fb_.>_>._.>_>._.>\u0006_>._.>_>,_,>_>,_,>\u0006_>._.>_>._.>_>,_.>\u0006_>>,_,>_>>,_,>_>>,_,>\u0006_>._,>_>._.>_>._,>\u0006_>._.>_>._.>_>._,><\u0006_>._.>_>._.>_>._.>\u0006_>._.>_>,_.>_>,_.>Z\u001bs\u0006_>._.>_>,_.>_>._.>\u0006_>>._.>_>>,_.>_>>._.>\u000f\u001bSy\u001b"
+  },
+  {
+   "seed": 50755810,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " y ,i\u001b<P#untrap\nl\u0018\u001b"
+  }
+ ]
+}

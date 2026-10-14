@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nW\u001b\u0017blessed amulet of life saving\nPj\u0017wand of teleportation\n\u0017wand of sleep\n\u0007bugbear\n\u0007bugbear\nzkhsm.zlj zlbzlbzkjzkbzlhzky20szlu     \u0017wand of fire\n\u0017wand of magic missile\n\u0017wand of digging\n\u0007newt\n\u0007acid blob\nzo>  zmbzmhzmjzn.  nznl20sznj  zmk     n zny20s\u00162\n\u0007red dragon\nsm.s#polyself\nred dragon\n  sm. su#monster\nk  #monster\n#monster\n#monster\n\u0017wand of lightning\naFh  Fh \u0017elven bow\nw\u001720 elven arrows\nQ\u001b\u0007newt\nfftff\u0007baby red dragon\n.m.  20s 20s sb  \u0017wand of fire\nasy       n  FlFl  n \u00169\n\u0007black dragon\n\u0007black dragon\n20s  n sm.   n sm. #polyself\nsilver dragon\n sm.    sm.#monster\n#monster\n#monster\n#monster\nFh         n Fl    n    \u001615\ni\u001b\u00168\n\u0017wand of sleep\n\u0017wand of polymorph\n\u0007soldier\n\u0007gnome lord\nzuj zty    n ztjzuysztjzuj   zuj\u0017blessed spellbook of light\nrv .\u0007incubus\nZa\n20s.m.Zc\nZb\nZc\nZa\nZb\nZb\nZc\nZc\n#turn\n     n \u0017wand of digging\n\u0017wand of polymorph\n\u0007yellow mold\n\u0007hill orc\nzxk zxl    n zxh   n  zw>  n zw>   n zxu                 n     yy\u001by  ny y\u001by  z"
+ },
+ "segments": [
+  {
+   "seed": 50250052,
+   "datetime": "20000711232046",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed shield of reflection\nW\u001b\u0017blessed amulet of life saving\nPj\u0017wand of teleportation\n\u0017wand of sleep\n\u0007bugbear\n\u0007bugbear\nzkhsm.zlj zlbzlbzkjzkbzlhzky20szlu     \u0017wand of fire\n\u0017wand of magic missile\n\u0017wand of digging\n\u0007newt\n\u0007acid blob\nzo>  zmbzmhzmjzn.  nznl20sznj  zmk     n zny20s\u00162\n\u0007red dragon\nsm.s#polyself\nred dragon\n  sm. su#monster\nk  #monster\n#monster\n#monster\n\u0017wand of lightning\naFh  Fh \u0017elven bow\nw\u001720 elven arrows\nQ\u001b\u0007newt\nfftff\u0007baby red dragon\n.m.  20s 20s sb  \u0017wand of fire\nasy       n  FlFl  n \u00169\n\u0007black dragon\n\u0007black dragon\n20s  n sm.   n sm. #polyself\nsilver dragon\n sm.    sm.#monster\n#monster\n#monster\n#monster\nFh         n Fl    n    \u001615\ni\u001b\u00168\n\u0017wand of sleep\n\u0017wand of polymorph\n\u0007soldier\n\u0007gnome lord\nzuj zty    n ztjzuysztjzuj   zuj\u0017blessed spellbook of light\nrv .\u0007incubus\nZa\n20s.m.Zc\nZb\nZc\nZa\nZb\nZb\nZc\nZc\n#turn\n     n \u0017wand of digging\n\u0017wand of polymorph\n\u0007yellow mold\n\u0007hill orc\nzxk zxl    n zxh   n  zw>  n zw>   n zxu                 n     yy\u001by  ny y\u001by  z"
+  }
+ ]
+}

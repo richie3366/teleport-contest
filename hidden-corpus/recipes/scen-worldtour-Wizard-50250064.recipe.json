@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPq\u0016?\nh\u0017blessed tsurugi\n\u0007human mummy\nwrFh Fh  Fb     \u0017uncursed beartrap\nas          \u0017ring of polymorph control\nPtr     sus20s    n R  \u0017scroll of enchant armor\nru     sm. sk  n      n     \u001612\n\u0016?\nk   _ \u001b,<\u0016?\nf    \u0004k\u0016?\nc_>.\u0016?\n>>L      Orcrist\n \u0017cursed -1 levitation boots\nWx          sn       sm.   n        sm.   n            n \u001720 darts\n\u0007Kop Kaptain\nQyfl           n fh                n fh          n \u0017blessed figurine of an Archon\n\u0007disenchanter\nsm.       n         \u0017spellbook of cause fear\nrA  n            n     .m.     n         sm.       n        Z\u001bZ\u001bFu       n        Fu        yy\u001by   y y  y\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 50250064,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPq\u0016?\nh\u0017blessed tsurugi\n\u0007human mummy\nwrFh Fh  Fb     \u0017uncursed beartrap\nas          \u0017ring of polymorph control\nPtr     sus20s    n R  \u0017scroll of enchant armor\nru     sm. sk  n      n     \u001612\n\u0016?\nk   _ \u001b,<\u0016?\nf    \u0004k\u0016?\nc_>.\u0016?\n>>L      Orcrist\n \u0017cursed -1 levitation boots\nWx          sn       sm.   n        sm.   n            n \u001720 darts\n\u0007Kop Kaptain\nQyfl           n fh                n fh          n \u0017blessed figurine of an Archon\n\u0007disenchanter\nsm.       n         \u0017spellbook of cause fear\nrA  n            n     .m.     n         sm.       n        Z\u001bZ\u001bFu       n        Fu        yy\u001by   y y  y\u001b  ."
+  }
+ ]
+}

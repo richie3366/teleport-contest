@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " O>>>>g\u001b\n\u0006_ \u001bm.>FbFn_>.Fb_,Fh>FbFb_>,Fb_,Fb>FbFnFkFnFb\u0006_>.Fn_.Fn>FnFb_>,Fn_.Fb>FhFn_>,Fn_.Fn>FnFh  FnFnFb,;b:\u0006_>.Fb_.Fn>FbFb_>.Fb_.Fb>FnFn_>,Fb_,Fb>FnFnFnFbFb#wipe\ntbb<\u0006_>.Fb_,Fb>FnFn_>.Fb_.Fn>FnFb_>.Fb_.Fn>FbFbFnFbFnj#force\n\u0006_>>,Fn_,Fn>FnFj_>>.Fn_.Fn >FjFu_>>.Fu_.,Fu>FuFuFbFbFn\u0006_>, _,> FkFkFy< \u0006_>.> FyFyFu< \u000f\u001bdf#untrap\n.\u000f\u001b\u00164\n\u0007housecat\n\u0017tripe ration\nt\u001b\u0007acid blob\n\u0017scroll of taming\nrj \u0006_>,Fb_.:Fk>FbFk_>,Fl_.m.Fl>Fhs_>,Fj_.> #chat\ny\u0017meatball\nt\u001b\u0017magic whistle\nbynal\u0017carrot\n t\u001bv i\u001b#invoke\n\u001b#untrap\nnL#jump\n:v i\u001b\u0006_>,Fj_,,Fj  >FkFu_>.Fh_.m,Fh>FkFk_>,Fk_.Fh  n>FuFlFkFyFy\u0006_>.Fy _,Fu>Fk   nFj  _>.Fu_,Fj>FnFj_>,Fh_. Fb>Fb FhFb  Fh Fb \u0006_>.Fb_,Fy>FhFb_>.  nFk _,Fb>Fj Fb_>,Fb_, >E- ad aerarium\n#rub\n\u0006_"
+ },
+ "segments": [
+  {
+   "seed": 50255010,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You hear\"\n",
+   "moves": " O>>>>g\u001b\n\u0006_ \u001bm.>FbFn_>.Fb_,Fh>FbFb_>,Fb_,Fb>FbFnFkFnFb\u0006_>.Fn_.Fn>FnFb_>,Fn_.Fb>FhFn_>,Fn_.Fn>FnFh  FnFnFb,;b:\u0006_>.Fb_.Fn>FbFb_>.Fb_.Fb>FnFn_>,Fb_,Fb>FnFnFnFbFb#wipe\ntbb<\u0006_>.Fb_,Fb>FnFn_>.Fb_.Fn>FnFb_>.Fb_.Fn>FbFbFnFbFnj#force\n\u0006_>>,Fn_,Fn>FnFj_>>.Fn_.Fn >FjFu_>>.Fu_.,Fu>FuFuFbFbFn\u0006_>, _,> FkFkFy< \u0006_>.> FyFyFu< \u000f\u001bdf#untrap\n.\u000f\u001b\u00164\n\u0007housecat\n\u0017tripe ration\nt\u001b\u0007acid blob\n\u0017scroll of taming\nrj \u0006_>,Fb_.:Fk>FbFk_>,Fl_.m.Fl>Fhs_>,Fj_.> #chat\ny\u0017meatball\nt\u001b\u0017magic whistle\nbynal\u0017carrot\n t\u001bv i\u001b#invoke\n\u001b#untrap\nnL#jump\n:v i\u001b\u0006_>,Fj_,,Fj  >FkFu_>.Fh_.m,Fh>FkFk_>,Fk_.Fh  n>FuFlFkFyFy\u0006_>.Fy _,Fu>Fk   nFj  _>.Fu_,Fj>FnFj_>,Fh_. Fb>Fb FhFb  Fh Fb \u0006_>.Fb_,Fy>FhFb_>.  nFk _,Fb>Fj Fb_>,Fb_, >E- ad aerarium\n#rub\n\u0006_"
+  }
+ ]
+}

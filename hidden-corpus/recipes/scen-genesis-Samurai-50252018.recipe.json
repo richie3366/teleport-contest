@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017alchemy smock\nWf.20ss\u0007flesh golem\n20s sm.20s sm. 20ssm.20s\u0007wererat\nFbFb FbFbFbFh\u0007Angel\ny#chat\nl  FjFh \u0007xan\nFjFn Fh FhFh Fj"
+ },
+ "segments": [
+  {
+   "seed": 50252018,
+   "datetime": "20150811020645",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017alchemy smock\nWf.20ss\u0007flesh golem\n20s sm.20s sm. 20ssm.20s\u0007wererat\nFbFb FbFbFbFh\u0007Angel\ny#chat\nl  FjFh \u0007xan\nFjFn Fh FhFh Fj"
+  }
+ ]
+}

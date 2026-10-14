@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00163\nFbFjFbFbFjFjFjFbFjFjFhFbFh\u001bFhFjFjFjFbFh\u001bFhFhFhFbFjFhFjFbFjFbFbFhFjFjFjFbFjFjFbFjFhFjFhFbFbFhFbFjFjFbFjFhFbFh\u001bFjFbFjFjFhFjFbFjFhFjFjFjFhFjFhFjFbFbFjFhFhFjFbFbFbFh\u001bFbFjFjFbFbFhFhFjFbFh\u001bFjFjFbFjFhFhFhFbFbFbFh\u001bFhFjFbFbFhFbFh\u001bFhFbFjFbFjFbFjFhFbFbFbFjFhmOa\u001b\n\u0006_ \u001b;>FhFh_>>.Fh_.>FhFh_>>.Fh_.>FjFhFbFjFb#terrain\n\u001b#invoke\n\u001b\u001b\u0006_>.Fl_.Fb>FyFj_>.Fj_,>FuFhFu\u0006_>.Fb_.Fy>FyFb_>.Fu_.Fb>FlFl_>.Fu_.Fy>FyFul FbFbFb\u0006_>.Fb_.Fy>FbFb_>.Fb_,Fuy >FuFy_>,Fb_.Fl>FyFbFbFyFl20sed\u0006_>.Fu_.Fu>FyFy_>.Fl_,Fb>FlFy_>,Fy_,Fl>FyFlb FuFlFl\u0006_>,Fb_.Fuy >FbFy_>.Fb_.Flb >FuFy_>,Fly _.Fu>FlFyFbFlFy\u00161\n10s#conduct\n :#levelchange\n6\n    jbnn\u0017melting ice\nh\u001bh\u001b\u0017iron bars\n#terrain\n\u001b10sZnO>>>>i\u001b\u001b\nmO>>>b\u001b\nmO>>>b\u001b\nO>>>d\u001b\nFlFlFjFnFnFjFlFbFnFbFlj FbFjFjFjFjFlFnFlb FlFjFnFnFbFjFnFbFjFjFjFnFln FlFlFjFjFnFbFnFlb FbFbFlFnFnFlFnFll FjFbFnFlFbFjFjFjFlFlFbFln FjFbFlb FnFln FbFnFjFnFnFjFjFlFlFlFnFbFjFjFlFlFnFnFlFjFlFjFnFjFbFbFnFjFnFlj FbFnFbFnFjFjFjFnFlb FlFlFbFbFlFlFnFjFjF"
+ },
+ "segments": [
+  {
+   "seed": 50255042,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=runmode:walk\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nMSGTYPE=norep \"You hear\"\nBIND=v:inventory\n",
+   "moves": "\u00163\nFbFjFbFbFjFjFjFbFjFjFhFbFh\u001bFhFjFjFjFbFh\u001bFhFhFhFbFjFhFjFbFjFbFbFhFjFjFjFbFjFjFbFjFhFjFhFbFbFhFbFjFjFbFjFhFbFh\u001bFjFbFjFjFhFjFbFjFhFjFjFjFhFjFhFjFbFbFjFhFhFjFbFbFbFh\u001bFbFjFjFbFbFhFhFjFbFh\u001bFjFjFbFjFhFhFhFbFbFbFh\u001bFhFjFbFbFhFbFh\u001bFhFbFjFbFjFbFjFhFbFbFbFjFhmOa\u001b\n\u0006_ \u001b;>FhFh_>>.Fh_.>FhFh_>>.Fh_.>FjFhFbFjFb#terrain\n\u001b#invoke\n\u001b\u001b\u0006_>.Fl_.Fb>FyFj_>.Fj_,>FuFhFu\u0006_>.Fb_.Fy>FyFb_>.Fu_.Fb>FlFl_>.Fu_.Fy>FyFul FbFbFb\u0006_>.Fb_.Fy>FbFb_>.Fb_,Fuy >FuFy_>,Fb_.Fl>FyFbFbFyFl20sed\u0006_>.Fu_.Fu>FyFy_>.Fl_,Fb>FlFy_>,Fy_,Fl>FyFlb FuFlFl\u0006_>,Fb_.Fuy >FbFy_>.Fb_.Flb >FuFy_>,Fly _.Fu>FlFyFbFlFy\u00161\n10s#conduct\n :#levelchange\n6\n    jbnn\u0017melting ice\nh\u001bh\u001b\u0017iron bars\n#terrain\n\u001b10sZnO>>>>i\u001b\u001b\nmO>>>b\u001b\nmO>>>b\u001b\nO>>>d\u001b\nFlFlFjFnFnFjFlFbFnFbFlj FbFjFjFjFjFlFnFlb FlFjFnFnFbFjFnFbFjFjFjFnFln FlFlFjFjFnFbFnFlb FbFbFlFnFnFlFnFll FjFbFnFlFbFjFjFjFlFlFbFln FjFbFlb FnFln FbFnFjFnFnFjFjFlFlFlFnFbFjFjFlFlFnFnFlFjFlFjFnFjFbFbFnFjFnFlj FbFnFbFnFjFjFjFnFlb FlFlFbFbFlFlFnFjFjF"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "LNJJ_ \u001b,>FyFk.:#invoke\n\u001bHKBN_>.>BLHB_>.>#offer\n#enhance\n\u001bJYBN_>.>LJUL_>,>chzUHJB_>.>a\u001b#pray\ny  \u000f\u001bUKJU_>.>UKYJ_>.>YUKU_>,>"
+ },
+ "segments": [
+  {
+   "seed": 50255811,
+   "datetime": "20170819083156",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "LNJJ_ \u001b,>FyFk.:#invoke\n\u001bHKBN_>.>BLHB_>.>#offer\n#enhance\n\u001bJYBN_>.>LJUL_>,>chzUHJB_>.>a\u001b#pray\ny  \u000f\u001bUKJU_>.>UKYJ_>.>YUKU_>,>"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0016?\nc\u0006_ \u001b:#chat\nl_mm,#chat\nl_mmm,Fl_,#chat\nk_{.Fh  n_,Fh  nqd#offer\n\\ \u000f\u001b\u00163\n#levelchange\n20\n                   \u0007tame titanothere\n\u0017saddle\naln\u0017lance\nwm#ride\nky\u0007pony\n\u0017scroll of taming\nrn \u0017saddle\naob#ride\nhyy\u0007pony\n\u0017scroll of taming\nrp \u0017saddle\naql#ride\n    \u0006_>,  _.> \u0004u20ssm.\u0004hy ,#ride\nhy20s#ride\nlyi\u001b#levelchange\n8\n    \u001710 daggers\n \u0007leprechaun\nQrfu    nfj  fh Fk   Fh  \u00173 spellbook of magic missile\n\u0007master lich\nrs m, ssZb\n      Za\n   n    \u0017blessed scroll of identify\nrt      Fn     Fn \u00173 wand of light\nzu    n   zu  Fj   Fb   \u0017blessed cheap plastic imitation of the Amulet of Yendor\nPv   20s  n  sm.   .m.  sk    n\u0017blessed Trollsbane\n ww  Fh  Fh   n    Fh   #invoke\nw    XFj   Fj sm.  .y\u000f\u001b\u00169\n\u0007Elvenking\nFl    nFl  Fl  \u0007balrog\nFl   n   Fj    nFj  Fj        n  Fl      Fj     n \u00162\n#levelchange\n10\n \u0017dagger\n wry  Fk   nFk  Fk\u0007mind flayer\nFkFb     nFb      Fk   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50250025,
+   "datetime": "20191112185658",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0016?\nc\u0006_ \u001b:#chat\nl_mm,#chat\nl_mmm,Fl_,#chat\nk_{.Fh  n_,Fh  nqd#offer\n\\ \u000f\u001b\u00163\n#levelchange\n20\n                   \u0007tame titanothere\n\u0017saddle\naln\u0017lance\nwm#ride\nky\u0007pony\n\u0017scroll of taming\nrn \u0017saddle\naob#ride\nhyy\u0007pony\n\u0017scroll of taming\nrp \u0017saddle\naql#ride\n    \u0006_>,  _.> \u0004u20ssm.\u0004hy ,#ride\nhy20s#ride\nlyi\u001b#levelchange\n8\n    \u001710 daggers\n \u0007leprechaun\nQrfu    nfj  fh Fk   Fh  \u00173 spellbook of magic missile\n\u0007master lich\nrs m, ssZb\n      Za\n   n    \u0017blessed scroll of identify\nrt      Fn     Fn \u00173 wand of light\nzu    n   zu  Fj   Fb   \u0017blessed cheap plastic imitation of the Amulet of Yendor\nPv   20s  n  sm.   .m.  sk    n\u0017blessed Trollsbane\n ww  Fh  Fh   n    Fh   #invoke\nw    XFj   Fj sm.  .y\u000f\u001b\u00169\n\u0007Elvenking\nFl    nFl  Fl  \u0007balrog\nFl   n   Fj    nFj  Fj        n  Fl      Fj     n \u00162\n#levelchange\n10\n \u0017dagger\n wry  Fk   nFk  Fk\u0007mind flayer\nFkFb     nFb      Fk   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

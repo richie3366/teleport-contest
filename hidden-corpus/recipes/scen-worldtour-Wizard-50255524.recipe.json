@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 gauntlets of power\nWn\u0016?\n>E_ \u001bm.<\u001611\n\u0014;.ss\u0016?\nlyb  lh :\u0016?\nn \u0006_>,  y      Fh   _,  Fh   \u001626\n\u0014;   \u0016?\n>>N       the Magic Mirror of Merlin\n  n    b  u       n    yl  \u001b    n :\u00169\n\u0016?\ne#levelchange\n12\n\u0007Famine\nnFu      n Fu     n   Fu    n Fl     n Fu      n Fu     n\u0007minotaur\n#chat\nl     Fn      n  Fu   n su sm.     n  \u001610\n\u0016?\ne\u0014.      n\u001626\nkkk:\u0016?\ne_{,<\u0016?\neu     n bj     n kl      nh:sm.    n \u001611\n\u0004u   \u0016?\nej    yy\u001by  y n  h"
+ },
+ "segments": [
+  {
+   "seed": 50255524,
+   "datetime": "20021114070725",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 gauntlets of power\nWn\u0016?\n>E_ \u001bm.<\u001611\n\u0014;.ss\u0016?\nlyb  lh :\u0016?\nn \u0006_>,  y      Fh   _,  Fh   \u001626\n\u0014;   \u0016?\n>>N       the Magic Mirror of Merlin\n  n    b  u       n    yl  \u001b    n :\u00169\n\u0016?\ne#levelchange\n12\n\u0007Famine\nnFu      n Fu     n   Fu    n Fl     n Fu      n Fu     n\u0007minotaur\n#chat\nl     Fn      n  Fu   n su sm.     n  \u001610\n\u0016?\ne\u0014.      n\u001626\nkkk:\u0016?\ne_{,<\u0016?\neu     n bj     n kl      nh:sm.    n \u001611\n\u0004u   \u0016?\nej    yy\u001by  y n  h"
+  }
+ ]
+}

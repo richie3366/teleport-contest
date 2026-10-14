@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": ">P#name\nm\n,#tip\nh\u001bO>>>k\u001b\u001b\n\u0006_>>.Fh_.Fk>FjFb_>>.Fh_.>FlFhFy\u0006_>>,Fu_.Fk>FbFh_>>.Fb_.Fh>FjFh_>>,Fb_.Fh>FyFyFuFjFb\u0006_>,Fk_.Fk>FjFj_>,Fj_,Fy>FkFn_>,Fy_,Fk>FhFuFkFuFu\u0006_>,Fh_,Fu>FyFh_>,Fj_,Fb>FuFb_>.Fk_.Fy>FhFbFkFnFj\u0006_>.Fh_,Fy>FjFy_>.Fu_.Fh>FbFb_>.Fh_.Fb>FhFnFnFjFy\u0006_>,Fk_.Fh>FhFb_>.Fn_.Fy>FbFy_>.Fb_,Fb>FyFuFyFuFn\u0014m.#chat\nn#loot\nedmO>>h\u001b\n\u0006_>.Fn_,Fn>FnFn_>.Fu_.Fn>FuFn_>,Fu_.Fu>FnFnFnFuFn\u0006_>.Fu_.Fn>FnFn_>,Fu_.Fn>FnFn_>,Fu_.Fn>FuFnFuFuFn#pray\ny y #untrap\nu\u0006_>.Fu_,Fu>FuFn_>.Fu_.Fu>FnFn_>,Fn_,Fn>FuFnFnFuFu\u0006_>.Fu_.Fu>FnFn_>,Fu_,Fu>FuFn_>,Fn_.Fn>FnFnFnFuFn\u00164\nOg\u001b\u001b\nlbuh\u0017chaotic altar\nddda\u0017floating eye corpse\n#offer\nj  #pray\ny y : b"
+ },
+ "segments": [
+  {
+   "seed": 50255031,
+   "datetime": "20150114101141",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\nMENUCOLOR=\"cursed\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": ">P#name\nm\n,#tip\nh\u001bO>>>k\u001b\u001b\n\u0006_>>.Fh_.Fk>FjFb_>>.Fh_.>FlFhFy\u0006_>>,Fu_.Fk>FbFh_>>.Fb_.Fh>FjFh_>>,Fb_.Fh>FyFyFuFjFb\u0006_>,Fk_.Fk>FjFj_>,Fj_,Fy>FkFn_>,Fy_,Fk>FhFuFkFuFu\u0006_>,Fh_,Fu>FyFh_>,Fj_,Fb>FuFb_>.Fk_.Fy>FhFbFkFnFj\u0006_>.Fh_,Fy>FjFy_>.Fu_.Fh>FbFb_>.Fh_.Fb>FhFnFnFjFy\u0006_>,Fk_.Fh>FhFb_>.Fn_.Fy>FbFy_>.Fb_,Fb>FyFuFyFuFn\u0014m.#chat\nn#loot\nedmO>>h\u001b\n\u0006_>.Fn_,Fn>FnFn_>.Fu_.Fn>FuFn_>,Fu_.Fu>FnFnFnFuFn\u0006_>.Fu_.Fn>FnFn_>,Fu_.Fn>FnFn_>,Fu_.Fn>FuFnFuFuFn#pray\ny y #untrap\nu\u0006_>.Fu_,Fu>FuFn_>.Fu_.Fu>FnFn_>,Fn_,Fn>FuFnFnFuFu\u0006_>.Fu_.Fu>FnFn_>,Fu_,Fu>FuFn_>,Fn_.Fn>FnFnFnFuFn\u00164\nOg\u001b\u001b\nlbuh\u0017chaotic altar\nddda\u0017floating eye corpse\n#offer\nj  #pray\ny y : b"
+  }
+ ]
+}

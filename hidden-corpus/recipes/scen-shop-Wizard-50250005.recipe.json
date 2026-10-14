@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWr\u0016?\n>w\u0006_ \u001b>.,#chat\nk_ooooo,,\u0014m.20s s\u00163\nykl\u0016?\n>w  \u0006Fn Fn  n  n Fn  n Fn  n  nFn  n  n  n Fn  n \u00161\nn  nkb#chat\nl_oooo.Fj_.Fb,p_oo.Fh_.m,Fh,p_oo.Fy_,m,,\u0017amulet of reflection\nds _oooo._ooo._,m.,p_oooooooo.,$_ooooo._._ooo.,p_ooooo._.>.  ,#chat\nn_oooooo.,$_{.qf \u001b_oo,,:\u00167\nlny\u0016?\n>w\u0006_oo._.,:_oooo._.,:_oooooooo._.,\u0017amulet of strangulation\ndu \u0016?\n>Bnll\u0016?\n>w\u0006_oo,_.,pnjy#chat\nj_{,_.qh_oooooooo._.,pubu#chat\nu_ooooooo._.,#chat\nl_ooooo._._ooo,_,,p__._.#chat\ny\u0016?\ncjkn\u0016?\n>w\u0006__._,#chat\nu#pray\ny y _ooooooo._.,#chat\nh_oooo._,,$_ooooo._._ooo,_,,pklb#chat\nj\u0016?\n>Bll h\u0016?\n>w\u0006Fj FjFjFjFjFjyul#chat\nk_{,Fl   n_.Flqg __.Fl _.;m,Fl #chat\nl _oooooo.Fl_. ,\u0017ruby\ndvll l#chat\nu_ooo,Fy _,Fy,pbuh#chat\nb_{.Fu_.qy<._{._,qy_{._,qy \u001b\u00163\nlh u\u0016?\n>w\u0006_ooooooo._.,$jkk#chat\nb\u0016?\nchll\u0016?\n>w\u0006lbk#chat\n"
+ },
+ "segments": [
+  {
+   "seed": 50250005,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWr\u0016?\n>w\u0006_ \u001b>.,#chat\nk_ooooo,,\u0014m.20s s\u00163\nykl\u0016?\n>w  \u0006Fn Fn  n  n Fn  n Fn  n  nFn  n  n  n Fn  n \u00161\nn  nkb#chat\nl_oooo.Fj_.Fb,p_oo.Fh_.m,Fh,p_oo.Fy_,m,,\u0017amulet of reflection\nds _oooo._ooo._,m.,p_oooooooo.,$_ooooo._._ooo.,p_ooooo._.>.  ,#chat\nn_oooooo.,$_{.qf \u001b_oo,,:\u00167\nlny\u0016?\n>w\u0006_oo._.,:_oooo._.,:_oooooooo._.,\u0017amulet of strangulation\ndu \u0016?\n>Bnll\u0016?\n>w\u0006_oo,_.,pnjy#chat\nj_{,_.qh_oooooooo._.,pubu#chat\nu_ooooooo._.,#chat\nl_ooooo._._ooo,_,,p__._.#chat\ny\u0016?\ncjkn\u0016?\n>w\u0006__._,#chat\nu#pray\ny y _ooooooo._.,#chat\nh_oooo._,,$_ooooo._._ooo,_,,pklb#chat\nj\u0016?\n>Bll h\u0016?\n>w\u0006Fj FjFjFjFjFjyul#chat\nk_{,Fl   n_.Flqg __.Fl _.;m,Fl #chat\nl _oooooo.Fl_. ,\u0017ruby\ndvll l#chat\nu_ooo,Fy _,Fy,pbuh#chat\nb_{.Fu_.qy<._{._,qy_{._,qy \u001b\u00163\nlh u\u0016?\n>w\u0006_ooooooo._.,$jkk#chat\nb\u0016?\nchll\u0016?\n>w\u0006lbk#chat\n"
+  }
+ ]
+}

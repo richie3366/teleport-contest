@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u00174 cream pies\nQ-\u0007gnome\njf by u f \u001bf \u001b\u0017potion of levitation\ntcl\u0017lance\nwh  \u0007acid blob\nuah \u001b@.j kb,#enhance\nn\u001b\u0017orcish bow\nwi \u001720 orcish arrows\nQj\u00072 dwarf\njfkfu  fuFu Fk  \u0017potion of extra healing\nthux #twoweapon\nFk  Fyyjl,"
+ },
+ "segments": [
+  {
+   "seed": 50251028,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u00174 cream pies\nQ-\u0007gnome\njf by u f \u001bf \u001b\u0017potion of levitation\ntcl\u0017lance\nwh  \u0007acid blob\nuah \u001b@.j kb,#enhance\nn\u001b\u0017orcish bow\nwi \u001720 orcish arrows\nQj\u00072 dwarf\njfkfu  fuFu Fk  \u0017potion of extra healing\nthux #twoweapon\nFk  Fyyjl,"
+  }
+ ]
+}

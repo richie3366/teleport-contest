@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nh_mm. \u001b \u001b Fh   _,   n  Fn#chat\nk;m._mmm.  Fj _.    n Fj #chat\nj;j.#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm, Fb_.,Fb#chat\nj_mmmmm,Fj _,@.Fj#chat\nl\u0017blessed +3 speed boots\nWf  \u0017blessed Mjollnir\nwg\u0017blessed +3 cloak of magic resistance\nWh\u0017wand of striking\n\u0016?\n>z\u0006_mmmmmmm._,;>.ss20ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm._,<.20s20sFbFb  Fh   Fh Fb    ,#chat\nb\u0016?\n>A\u0006_mmmmmm. Fb  _.;<.Fb Fh  FyFy  Fb Fh Fy,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmm.Fy  _.>.Fh   n  #chat\nh\u0016?\n>A\u0006_mmmmm.Fh _.m,Fb  Fh Fy   Fb Fy  zib,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_m,Fb  _.#chat\nh \u0016?\n>z\u0006_mmmm.Fy  _.Fy  Fh   Fh s20s Fb Fb    Fb,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.  Fh_.Fb   FhFh   n    Fh  Fb,#chat\nb \u0016?\n>>\u001b\u0016?\n>y_m. Fb_,#chat\nb ;b;\u0016?\n>A\u0006_mm. Fb _,Fh  n Fh Fh .sszik,\u0016?\n>A\u0006_mmmmm,Fh _.:Fh ss..zik,\u0016?\n>>\u001b\u0016?\n>y_mmm._,m.#chat\nb\u0016?\n>z\u0006_mmmmm,_.@.20sFbFb .sss,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm._,>.#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,_.@.20sss20s FhFh 20s,#chat\nb\u0016?\n>A\u0006_mm._,:ssss.zil,\u0016?\n>>\u001b\u0016?"
+ },
+ "segments": [
+  {
+   "seed": 50255416,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nh_mm. \u001b \u001b Fh   _,   n  Fn#chat\nk;m._mmm.  Fj _.    n Fj #chat\nj;j.#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm, Fb_.,Fb#chat\nj_mmmmm,Fj _,@.Fj#chat\nl\u0017blessed +3 speed boots\nWf  \u0017blessed Mjollnir\nwg\u0017blessed +3 cloak of magic resistance\nWh\u0017wand of striking\n\u0016?\n>z\u0006_mmmmmmm._,;>.ss20ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm._,<.20s20sFbFb  Fh   Fh Fb    ,#chat\nb\u0016?\n>A\u0006_mmmmmm. Fb  _.;<.Fb Fh  FyFy  Fb Fh Fy,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmm.Fy  _.>.Fh   n  #chat\nh\u0016?\n>A\u0006_mmmmm.Fh _.m,Fb  Fh Fy   Fb Fy  zib,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_m,Fb  _.#chat\nh \u0016?\n>z\u0006_mmmm.Fy  _.Fy  Fh   Fh s20s Fb Fb    Fb,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.  Fh_.Fb   FhFh   n    Fh  Fb,#chat\nb \u0016?\n>>\u001b\u0016?\n>y_m. Fb_,#chat\nb ;b;\u0016?\n>A\u0006_mm. Fb _,Fh  n Fh Fh .sszik,\u0016?\n>A\u0006_mmmmm,Fh _.:Fh ss..zik,\u0016?\n>>\u001b\u0016?\n>y_mmm._,m.#chat\nb\u0016?\n>z\u0006_mmmmm,_.@.20sFbFb .sss,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm._,>.#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,_.@.20sss20s FhFh 20s,#chat\nb\u0016?\n>A\u0006_mm._,:ssss.zil,\u0016?\n>>\u001b\u0016?"
+  }
+ ]
+}

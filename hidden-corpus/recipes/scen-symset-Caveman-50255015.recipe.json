@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "v\u001bi\u001b\u0006_ \u001b.>FyFb_>.Fj_,Fy>FjFj_>.Fj_.Fy>FjFjFyFyFj\u0006_>,Fk_.Fj>FyFj_>,Fj_.Fy>FjFy_>.Fy_,Fj>FyFjFjFjFj\u0006_>,Fk_.  nFj>FjFj_>,Fj_.Fj>FyFj_>,Fj_.Fj>FyFjFjFyFj\u0006_>>.Fj_,Fy>FyFy_>>.Fy_.Fy>FjFy_>>.Fj_.Fy>FyFyFkFyFj<\u000f\u001bO>e\u001b\n\u001617\n\u0006_>, Fk_.Fh>FyFh\u001b_>.Fy_.Fh\u001b>FyFh\u001b_>.Fk_.Fh>FyFh\u001bFhFhFh\u0006_>,Fh_.Fh>FhFh_>.Fy_,Fh\u001b>FhFy_>.Fh\u001b_,Fh>FyFkk FyFkh Fy#ride\nh #name\n\u001b\u0006_>.Fy_.Fh\u001b>FkFy_>,Fy_.Fh>FyFh\u001b_>.Fk_,Fh>FhFkFyFyFk\u0006_>.Fy_.Fh\u001b>FyFy_>.Fh_.Fh>FyFy_>,Fy_,  Fkh >FhFhFyFh\u001bFh\u0006_>>.  Fy_,  n   Fy>FhFy_>>.  Fy_.    nFh>FhFy_>>,     Fkh _,     n   Fh>FyFyFhFyFh\u001b<\u0006_>.  n  Fh_,  Fh>FhFy_>,     Fky _.  n     Fh>FyFh\u001b_>,     Fy_,   n Fy>FhFhFyFh\u001bFy\u0004n #name\n\u001b<\u0006_>>.  n     Fh_.     Fh>FyFh\u001b_>>.  n  Fh_.  n    n  Fy>FhFy_>>.    n     Fh\u001b_.      n Fy>FkFhFyFyFy\u00166\nv\u001bi\u001b\u0006_>.  Fy_,  Fy>FlFh_>,     Fn_>FyFy_>.    n Fh_. Fb>FbFbFyFyFn#jump\nK\u0006_>>, Fb_. Fb>FnFy_>>, Fn_>FyFn_>>.Fn_>Fb"
+ },
+ "segments": [
+  {
+   "seed": 50255015,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=norep \"You hear\"\nMENUCOLOR=\"a potion\"=cyan\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "v\u001bi\u001b\u0006_ \u001b.>FyFb_>.Fj_,Fy>FjFj_>.Fj_.Fy>FjFjFyFyFj\u0006_>,Fk_.Fj>FyFj_>,Fj_.Fy>FjFy_>.Fy_,Fj>FyFjFjFjFj\u0006_>,Fk_.  nFj>FjFj_>,Fj_.Fj>FyFj_>,Fj_.Fj>FyFjFjFyFj\u0006_>>.Fj_,Fy>FyFy_>>.Fy_.Fy>FjFy_>>.Fj_.Fy>FyFyFkFyFj<\u000f\u001bO>e\u001b\n\u001617\n\u0006_>, Fk_.Fh>FyFh\u001b_>.Fy_.Fh\u001b>FyFh\u001b_>.Fk_.Fh>FyFh\u001bFhFhFh\u0006_>,Fh_.Fh>FhFh_>.Fy_,Fh\u001b>FhFy_>.Fh\u001b_,Fh>FyFkk FyFkh Fy#ride\nh #name\n\u001b\u0006_>.Fy_.Fh\u001b>FkFy_>,Fy_.Fh>FyFh\u001b_>.Fk_,Fh>FhFkFyFyFk\u0006_>.Fy_.Fh\u001b>FyFy_>.Fh_.Fh>FyFy_>,Fy_,  Fkh >FhFhFyFh\u001bFh\u0006_>>.  Fy_,  n   Fy>FhFy_>>.  Fy_.    nFh>FhFy_>>,     Fkh _,     n   Fh>FyFyFhFyFh\u001b<\u0006_>.  n  Fh_,  Fh>FhFy_>,     Fky _.  n     Fh>FyFh\u001b_>,     Fy_,   n Fy>FhFhFyFh\u001bFy\u0004n #name\n\u001b<\u0006_>>.  n     Fh_.     Fh>FyFh\u001b_>>.  n  Fh_.  n    n  Fy>FhFy_>>.    n     Fh\u001b_.      n Fy>FkFhFyFyFy\u00166\nv\u001bi\u001b\u0006_>.  Fy_,  Fy>FlFh_>,     Fn_>FyFy_>.    n Fh_. Fb>FbFbFyFyFn#jump\nK\u0006_>>, Fb_. Fb>FnFy_>>, Fn_>FyFn_>>.Fn_>Fb"
+  }
+ ]
+}

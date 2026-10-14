@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "Og\nd\nck\u0014 \u001b.O>fh\n#tip\n\u001bO>lb\no\na\nd\nbmO>f\n#jump\nokmO>>>a\nJOo\nm\n#conduct\n Of\nPssmOa\n\u0014>.#wipe\nOoh\nf\n:O>h\nw-Of\n#loot\n#terrain\nb\nmOOs s"
+ },
+ "segments": [
+  {
+   "seed": 50255906,
+   "datetime": "20160731072906",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "Og\nd\nck\u0014 \u001b.O>fh\n#tip\n\u001bO>lb\no\na\nd\nbmO>f\n#jump\nokmO>>>a\nJOo\nm\n#conduct\n Of\nPssmOa\n\u0014>.#wipe\nOoh\nf\n:O>h\nw-Of\n#loot\n#terrain\nb\nmOOs s"
+  }
+ ]
+}

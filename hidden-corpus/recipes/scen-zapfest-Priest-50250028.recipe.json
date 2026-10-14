@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed shield of reflection\nW\u001b\u0017blessed +3 speed boots\nWk \u0017blessed amulet of life saving\nPl \u001715 shuriken\nQm\u0007troll\nfy fy      nfk   n   n tmk   n    \u00168\n\u0017blessed spellbook of force bolt\nrn   nsm.   n\u0007succubus\nZa\n\u001bm,  n Za\n    Za\nZb\nZb\nsy   n  sl Za\nZb\nsm.sZa\nsk   n.b#turn\n   n  n\u001611\n\u00176 eggs\nQ-\u0007acid blob\nf m y  fy  n   n fj   n  n fb   yy\u001by   y y y\u001by  \u0018"
+ },
+ "segments": [
+  {
+   "seed": 50250028,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed shield of reflection\nW\u001b\u0017blessed +3 speed boots\nWk \u0017blessed amulet of life saving\nPl \u001715 shuriken\nQm\u0007troll\nfy fy      nfk   n   n tmk   n    \u00168\n\u0017blessed spellbook of force bolt\nrn   nsm.   n\u0007succubus\nZa\n\u001bm,  n Za\n    Za\nZb\nZb\nsy   n  sl Za\nZb\nsm.sZa\nsk   n.b#turn\n   n  n\u001611\n\u00176 eggs\nQ-\u0007acid blob\nf m y  fy  n   n fj   n  n fb   yy\u001by   y y y\u001by  \u0018"
+  }
+ ]
+}

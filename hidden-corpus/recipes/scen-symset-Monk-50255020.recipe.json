@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "kb jb\u0017moat\n#dip\ncy   y\u0017neutral altar\nda\u0017human corpse\n jj\u0017lawful altar\ndedc\u0017human corpse\n #pray\ny y y\u0017pool\n10s  \u0018\u001bnmO>>>i\u001b\nmOa\u001b\n\u0006_ \u001b:>FnFn_>>.Fu_.Fy>FyFuu _>>.Fy_,Fy>FuFyFuk FyFy\u0006_>,Fy_.Fh\u001b>FuFy_>,Fy_.:Fb> FyFkFu\u0006_>.Fj_.:Fk>FkFj_>.Fu_.>.Fk>FkFu_>.Fu_.Fj>FuFkFkFjFji\u001b#ride\nj \u0006_>>.Fl_,.Fu>FuFu_>>.Fl_.Fu>FlFu_>>.Fl_,Fk>FjFjFjFlFl\u0007large dog\n\u0017huge chunk of meat\nt\u001b\u0007kitten\n\u0017apple\n t\u001b\u0007yellow mold\n.m.sm.  n sm.   nsbsm.20sm.\u0017leash\namk uh nlh uj aml jh\u001b#name\n\u001b\u001612\nv i\u001bv i\u001b\u0006_>,Fk_.  nFy>FyFy_>.Fy_.> FbFnFbw\u001b#terrain\n\u001b\u0006_>>.Fu_,Fu>FnFn_>>.Fu_.Fl>FnFuu _>>.Fu_,Fu>FuFlFuFyFly"
+ },
+ "segments": [
+  {
+   "seed": 50255020,
+   "datetime": "20240222173450",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nOPTIONS=number_pad\n",
+   "moves": "kb jb\u0017moat\n#dip\ncy   y\u0017neutral altar\nda\u0017human corpse\n jj\u0017lawful altar\ndedc\u0017human corpse\n #pray\ny y y\u0017pool\n10s  \u0018\u001bnmO>>>i\u001b\nmOa\u001b\n\u0006_ \u001b:>FnFn_>>.Fu_.Fy>FyFuu _>>.Fy_,Fy>FuFyFuk FyFy\u0006_>,Fy_.Fh\u001b>FuFy_>,Fy_.:Fb> FyFkFu\u0006_>.Fj_.:Fk>FkFj_>.Fu_.>.Fk>FkFu_>.Fu_.Fj>FuFkFkFjFji\u001b#ride\nj \u0006_>>.Fl_,.Fu>FuFu_>>.Fl_.Fu>FlFu_>>.Fl_,Fk>FjFjFjFlFl\u0007large dog\n\u0017huge chunk of meat\nt\u001b\u0007kitten\n\u0017apple\n t\u001b\u0007yellow mold\n.m.sm.  n sm.   nsbsm.20sm.\u0017leash\namk uh nlh uj aml jh\u001b#name\n\u001b\u001612\nv i\u001bv i\u001b\u0006_>,Fk_.  nFy>FyFy_>.Fy_.> FbFnFbw\u001b#terrain\n\u001b\u0006_>>.Fu_,Fu>FnFn_>>.Fu_.Fl>FnFuu _>>.Fu_,Fu>FuFlFuFyFly"
+  }
+ ]
+}

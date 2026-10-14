@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0007large dog\n\u0017lichen corpse\nt\u001bn#name\na\ndc20ssm.  n .m. \u0017leash\najl   n hnjy  n ajl   ndesysusb\u0017magic whistle\nhlhak #chat\nu  n\u00168\n\u0006_ \u001b:>FbFb_>>,_,.Fl>_>>._.,>\u0006_>.Fl_.<.>_>,_.@.>_>._,m.>i\u001b#untrap\nl<\u0006_>>,_.,>_>>,_.;@.>_>>._.m,>\u0006_>._,m,>_>._..>_>._.;:   >\u0007tame dingo\n\u0007giant rat\n\u0017scroll of taming\n rl #chat\nl\u0017newt corpse\nt\u001b\u0007newt\n.j s.s20ss\u0007yellow mold\n\u0017scroll of taming\nrn \u0017food ration\n t\u001b#name\na\n,#twoweapon\n\u00163\n#conduct\n #conduct\n #terrain\nf\n#conduct\n #invoke\n\u001bO>>>>p\u001b\n\u0006_>._,>_>,_.>_>._.>\u0006_>,_.>_>._,Fk>FkFk_>,Fk_,>\u0006_>>._.>_>>,_,>_>>._,>\u000f\u001bOg\u001b\u001b\n\u00166\n150s100s150sjju\u000f\u001bn_>.>#ride\nky#jump\n100s100s\u000f\u001b100s\\ 100s100sFhFhs150sedl_>.>yjjn100s100s ylkFlFls\u0018\u001b\u0018\u001b100s100sFl.s>50sFlFlFl100s100s100s FlFlFlFlFlFlv\u001bi\u001bO>>>p\u001b\nhbkl\u0017lawful altar\ndhdg\u0017lichen corpse\n#offer\ni#pray\ny y    : k\u0017altar\ndd  n\u0017human corpse\n : #terrain\nf\nsok#conduct\n \u00163\n\\ lun100s100s50s_>._.>_>,_.>150s100sFlsFlFlss_>.Fl_.Fk>i\u001b_>._.>_>._.>100s100"
+ },
+ "segments": [
+  {
+   "seed": 50255045,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"You kill\"\nBIND=v:inventory\n",
+   "moves": " \u0007large dog\n\u0017lichen corpse\nt\u001bn#name\na\ndc20ssm.  n .m. \u0017leash\najl   n hnjy  n ajl   ndesysusb\u0017magic whistle\nhlhak #chat\nu  n\u00168\n\u0006_ \u001b:>FbFb_>>,_,.Fl>_>>._.,>\u0006_>.Fl_.<.>_>,_.@.>_>._,m.>i\u001b#untrap\nl<\u0006_>>,_.,>_>>,_.;@.>_>>._.m,>\u0006_>._,m,>_>._..>_>._.;:   >\u0007tame dingo\n\u0007giant rat\n\u0017scroll of taming\n rl #chat\nl\u0017newt corpse\nt\u001b\u0007newt\n.j s.s20ss\u0007yellow mold\n\u0017scroll of taming\nrn \u0017food ration\n t\u001b#name\na\n,#twoweapon\n\u00163\n#conduct\n #conduct\n #terrain\nf\n#conduct\n #invoke\n\u001bO>>>>p\u001b\n\u0006_>._,>_>,_.>_>._.>\u0006_>,_.>_>._,Fk>FkFk_>,Fk_,>\u0006_>>._.>_>>,_,>_>>._,>\u000f\u001bOg\u001b\u001b\n\u00166\n150s100s150sjju\u000f\u001bn_>.>#ride\nky#jump\n100s100s\u000f\u001b100s\\ 100s100sFhFhs150sedl_>.>yjjn100s100s ylkFlFls\u0018\u001b\u0018\u001b100s100sFl.s>50sFlFlFl100s100s100s FlFlFlFlFlFlv\u001bi\u001bO>>>p\u001b\nhbkl\u0017lawful altar\ndhdg\u0017lichen corpse\n#offer\ni#pray\ny y    : k\u0017altar\ndd  n\u0017human corpse\n : #terrain\nf\nsok#conduct\n \u00163\n\\ lun100s100s50s_>._.>_>,_.>150s100sFlsFlFlss_>.Fl_.Fk>i\u001b_>._.>_>._.>100s100"
+  }
+ ]
+}

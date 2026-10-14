@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u00166\n #levelchange\n20\n\u001710 daggers\n\u0007ogre king\nQofufu fh Fh Fh \u0017scroll of blank paper\n\u0007sergeant\nrp \u00173 potion of polymorph\nqq    Fh  Fy    n .m. sm. \u00166\n\u0004u \u00166\n#levelchange\n30\n         \u0017the Heart of Ahriman\n \u0007chameleon\nFh  Fy    n Fy   \u0007ghost\nFh  Fh    n\u00169\n\u0016?\ng \u0014 \u001b<.  \u0016?\nd\u0017oil lamp\nar #rub\nr Fu  Fu \u0017cursed potion of object detection\nqsm,\u0017cursed -1 bullwhip\nwt Fu Fu Fu Fu Fu \u0017potion of hallucination\nqu \u0017blessed amulet of ESP\n\u0007Oracle\nyPv   n sn.m. sm.20sFk Fk\u0017scroll of remove curse\nrw sss20s   \u00166\nnj y:\u001633\n   __,<\u0016?\n>Glh\u0017towel\nEx:\u0017athame\nEy I am a fish\n: \u0017wand of make invisible\nEz  Elbereth Elbereth\n: \u0017wand of digging\nEA   ad aerarium\n.20ss\u00166\nhnu:s\u001611\n_<,<\u00166\n_{.>\u0016?\n>>Qlylju:\u0016nb\u0016ku\u0016hk\u0016yh\u0016bl\u0016lk\u0016ll\u0016hu\u0016nj\u0016bn\u0016jk\u0016un\u0016ln\u0016bl\u0016lb\u0016ub\u0016by\u0016ub\u0016ku\u0016uk\u0016hn\u0016ll\u0016lu\u0016yl\u0016uy\u0016lj\u0016hk\u0016ll\u0016uh\u0016nu\u0016kn\u0016yb\u0016bk\u0016yy\u0016lj\u0016ju\u0016yu\u0016jj\u0016ny\u0016kb\u0016lu\u0016uy\u0016jb\u0016jk\u0016ly\u0016hy\u0016uh\u0016bn\u0016jh\u0016hl\u0016bh\u0016kk\u0016ny\u0016bl\u0016jb\u0016ny\u0016hh\u0016bu\u0016hu\u0016jn\u0016lb\u0016nb\u0016kh\u0016kj\u0016lj\u0016yy\u0016bu\u0016uj"
+ },
+ "segments": [
+  {
+   "seed": 50255529,
+   "datetime": "20220904010557",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n20\n                    \u00166\n #levelchange\n20\n\u001710 daggers\n\u0007ogre king\nQofufu fh Fh Fh \u0017scroll of blank paper\n\u0007sergeant\nrp \u00173 potion of polymorph\nqq    Fh  Fy    n .m. sm. \u00166\n\u0004u \u00166\n#levelchange\n30\n         \u0017the Heart of Ahriman\n \u0007chameleon\nFh  Fy    n Fy   \u0007ghost\nFh  Fh    n\u00169\n\u0016?\ng \u0014 \u001b<.  \u0016?\nd\u0017oil lamp\nar #rub\nr Fu  Fu \u0017cursed potion of object detection\nqsm,\u0017cursed -1 bullwhip\nwt Fu Fu Fu Fu Fu \u0017potion of hallucination\nqu \u0017blessed amulet of ESP\n\u0007Oracle\nyPv   n sn.m. sm.20sFk Fk\u0017scroll of remove curse\nrw sss20s   \u00166\nnj y:\u001633\n   __,<\u0016?\n>Glh\u0017towel\nEx:\u0017athame\nEy I am a fish\n: \u0017wand of make invisible\nEz  Elbereth Elbereth\n: \u0017wand of digging\nEA   ad aerarium\n.20ss\u00166\nhnu:s\u001611\n_<,<\u00166\n_{.>\u0016?\n>>Qlylju:\u0016nb\u0016ku\u0016hk\u0016yh\u0016bl\u0016lk\u0016ll\u0016hu\u0016nj\u0016bn\u0016jk\u0016un\u0016ln\u0016bl\u0016lb\u0016ub\u0016by\u0016ub\u0016ku\u0016uk\u0016hn\u0016ll\u0016lu\u0016yl\u0016uy\u0016lj\u0016hk\u0016ll\u0016uh\u0016nu\u0016kn\u0016yb\u0016bk\u0016yy\u0016lj\u0016ju\u0016yu\u0016jj\u0016ny\u0016kb\u0016lu\u0016uy\u0016jb\u0016jk\u0016ly\u0016hy\u0016uh\u0016bn\u0016jh\u0016hl\u0016bh\u0016kk\u0016ny\u0016bl\u0016jb\u0016ny\u0016hh\u0016bu\u0016hu\u0016jn\u0016lb\u0016nb\u0016kh\u0016kj\u0016lj\u0016yy\u0016bu\u0016uj"
+  }
+ ]
+}

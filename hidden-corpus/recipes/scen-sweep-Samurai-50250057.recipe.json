@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>C\u0017scroll of earth\nrf   nkkk10sjjjkkjjkkklbkkkujjykhbk10sjjjkjjykk10sjj10sjjjkkkk10skkjbkkjjuj#levelchange\n30\n                             \u0017blessed alchemy smock\nWg.20ss\u0017uncursed food ration\neh 20s20s\u0017touchstone\n\u0007water nymph\ntdkss\u0017amulet of unchanging\nPjsss20s\u0017cursed the Eye of the Aethiopica\n \u0007black pudding\n,b\nFyFy20s20s\u0007orc shaman\n20s.bsm..y\u0007guard\nynFbFys20s\u00168\n\u0018\u001b#polyself\n20ss\u0007sewer rat\nFh20ss20s\u0007sewer rat\nFb20ss20s#wizintrinsic\nl\n \u0017blindfold\nak \u0017fortune cookie\nel   \u0017blessed scroll of destroy armor\nrm\u0017scroll of food detection\nrn\u0017blessed wand of cold\nzo.zohs20s.\u0018\u001b\u0016?\ne\u000620s   Fn   Fn     Fu  n   Fh  n    Fn   n   b bh    \u001b:  .   n  j  __,20s  _<,s   n Z\u001626\n\u001612\n#levelchange\n20\n   \u0017spellbook of healing\nrps\u0017spellbook of detect treasure\nrqs+ZZ\u0007kobold\nZFhZZsZ#pray\ny y  #enhance\nym\ne\n\u001b#levelchange\n20\n\u0007Nazgul\nFnFbFbFb\u0007water demon\nFbFjFjFj  n FnFj\u0007red dragon\nFnFj Fl     n  Fn Fh \u0007homunculus\nFn  n  Fj FnFl    n \u00169\n\u00166\n\u001715 shuriken\nQr\u0007gnome lord\nkfyflflfhFlFh\u0017potion of sleeping\ntbhhy n ,\u000f\u001b#levelchange\n20\n   \u0016?\n>v E- Vlad was here\n,E- Elbereth Elbereth\nss\u0016?\n>>\u001b\u0016?\n>D__,snes  n.\u0017scroll of charging\nrt\u0017trident\n\u0007lich\nwu FkFk FkX\u0017the Longbow of Diana\n, 20s   n 20s \u0017Hawaiian shirt\nW\u001b20sss \u0007horned devil\n#chat\nlFuFu  n\u0007watchman\n;u:"
+ },
+ "segments": [
+  {
+   "seed": 50250057,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:mango\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>C\u0017scroll of earth\nrf   nkkk10sjjjkkjjkkklbkkkujjykhbk10sjjjkjjykk10sjj10sjjjkkkk10skkjbkkjjuj#levelchange\n30\n                             \u0017blessed alchemy smock\nWg.20ss\u0017uncursed food ration\neh 20s20s\u0017touchstone\n\u0007water nymph\ntdkss\u0017amulet of unchanging\nPjsss20s\u0017cursed the Eye of the Aethiopica\n \u0007black pudding\n,b\nFyFy20s20s\u0007orc shaman\n20s.bsm..y\u0007guard\nynFbFys20s\u00168\n\u0018\u001b#polyself\n20ss\u0007sewer rat\nFh20ss20s\u0007sewer rat\nFb20ss20s#wizintrinsic\nl\n \u0017blindfold\nak \u0017fortune cookie\nel   \u0017blessed scroll of destroy armor\nrm\u0017scroll of food detection\nrn\u0017blessed wand of cold\nzo.zohs20s.\u0018\u001b\u0016?\ne\u000620s   Fn   Fn     Fu  n   Fh  n    Fn   n   b bh    \u001b:  .   n  j  __,20s  _<,s   n Z\u001626\n\u001612\n#levelchange\n20\n   \u0017spellbook of healing\nrps\u0017spellbook of detect treasure\nrqs+ZZ\u0007kobold\nZFhZZsZ#pray\ny y  #enhance\nym\ne\n\u001b#levelchange\n20\n\u0007Nazgul\nFnFbFbFb\u0007water demon\nFbFjFjFj  n FnFj\u0007red dragon\nFnFj Fl     n  Fn Fh \u0007homunculus\nFn  n  Fj FnFl    n \u00169\n\u00166\n\u001715 shuriken\nQr\u0007gnome lord\nkfyflflfhFlFh\u0017potion of sleeping\ntbhhy n ,\u000f\u001b#levelchange\n20\n   \u0016?\n>v E- Vlad was here\n,E- Elbereth Elbereth\nss\u0016?\n>>\u001b\u0016?\n>D__,snes  n.\u0017scroll of charging\nrt\u0017trident\n\u0007lich\nwu FkFk FkX\u0017the Longbow of Diana\n, 20s   n 20s \u0017Hawaiian shirt\nW\u001b20sss \u0007horned devil\n#chat\nlFuFu  n\u0007watchman\n;u:"
+  }
+ ]
+}

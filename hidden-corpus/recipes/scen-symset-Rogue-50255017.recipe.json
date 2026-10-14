@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00163\n  FkFk FkFkFbFjFkFhFbFlFbFjFjFlFkFuFuFlFbFuFlFkFkFlFhFlFhFuFbFjFjFlFbFuFbFkFhFjFkFlFbFlFbFuFbFbFhFuFlFbFuFkFhFlFhFkFuFjFbFjFuFlFlFuFlFbFkFkFuFkFjFbFjFuFbFbFbFlFhFkFkFjFhFhFlFbFlFbFkFkFhFbFuFkFhFuFbFjFlFhFbFbFbFjFbFhFbFbFjFkFuFuFlFhFkFjFbFhFkFumOa\u001b\n\u001619\nO>>d\u001b\n\u0006_ \u001b<.>FjFu_>>.Fu_,Fu  n>FbFu_>>.Fu  n_.Fu>FuFb  nFkFb Fu   n#twoweapon\n#jump\n\u0006_>,Fk  _.  nFu>Fk  Fb _>.  nFb  _.:Fu   n>Fk  Fb _>,Fu  _.   nFu >Fk    nFb Fu Fu    nFk \u0006_>.   nFb _. Fb    n>Fu  Fb_>. Fk   n _,Fu>Fk Fk   n  _>, Fb    n _.Fu  yy\u001by   y y y\u001b  >"
+ },
+ "segments": [
+  {
+   "seed": 50255017,
+   "datetime": "20100320084926",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nMSGTYPE=hide \"The door\"\nMENUCOLOR=\"a scroll\"=magenta\n",
+   "moves": "\u00163\n  FkFk FkFkFbFjFkFhFbFlFbFjFjFlFkFuFuFlFbFuFlFkFkFlFhFlFhFuFbFjFjFlFbFuFbFkFhFjFkFlFbFlFbFuFbFbFhFuFlFbFuFkFhFlFhFkFuFjFbFjFuFlFlFuFlFbFkFkFuFkFjFbFjFuFbFbFbFlFhFkFkFjFhFhFlFbFlFbFkFkFhFbFuFkFhFuFbFjFlFhFbFbFbFjFbFhFbFbFjFkFuFuFlFhFkFjFbFhFkFumOa\u001b\n\u001619\nO>>d\u001b\n\u0006_ \u001b<.>FjFu_>>.Fu_,Fu  n>FbFu_>>.Fu  n_.Fu>FuFb  nFkFb Fu   n#twoweapon\n#jump\n\u0006_>,Fk  _.  nFu>Fk  Fb _>.  nFb  _.:Fu   n>Fk  Fb _>,Fu  _.   nFu >Fk    nFb Fu Fu    nFk \u0006_>.   nFb _. Fb    n>Fu  Fb_>. Fk   n _,Fu>Fk Fk   n  _>, Fb    n _.Fu  yy\u001by   y y y\u001b  >"
+  }
+ ]
+}

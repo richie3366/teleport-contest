@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00162\nFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlO>g\u001b\n\u00166\nz,Ztbj #levelchange\n14\n             jlh h\u001b\u0017pool\n#dip\ncy   kj \u0017grave\n: \u0017pick-axe\nai >  .j.m.h\u001buu \u0017iron bars\n:lu uu \u0017moat\n:#enhance\nyl\nj\n\u001b_>, \u001b:sh\u001bz\u0006_>,    Fl_.     Fy>FyFy_>.Fy_.  Fy>FyFy_>, Fy_,  Fy>FyFyFyFyFy\u0006_>, _,>\u0006_>, Fh_,Fh>FyFyFy\u0006_>>, Fh_.Fh>FhFhFh#twoweapon\ndh\u0006_>.Fh_.Fh>FhFh_>,Fy_,Fh\u001b>FyFy_>.Fh_,Fy>Fh\u001bFyFy\u0006_>.Fh_. Fh>FhFy_>. Fh\u001b_.Fh>FhFy_>,Fy_.Fh>FyFh\u001bFhFhFy#terrain\ne\nr\u001b\u0006_>.Fy_,Fh\u001b>FyFy_>.Fy_,Fy>FyFh\u001b_>,Fh_"
+ },
+ "segments": [
+  {
+   "seed": 50255016,
+   "datetime": "20010315143150",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"blessed\"=green\nBIND=v:inventory\n",
+   "moves": "\u00162\nFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlO>g\u001b\n\u00166\nz,Ztbj #levelchange\n14\n             jlh h\u001b\u0017pool\n#dip\ncy   kj \u0017grave\n: \u0017pick-axe\nai >  .j.m.h\u001buu \u0017iron bars\n:lu uu \u0017moat\n:#enhance\nyl\nj\n\u001b_>, \u001b:sh\u001bz\u0006_>,    Fl_.     Fy>FyFy_>.Fy_.  Fy>FyFy_>, Fy_,  Fy>FyFyFyFyFy\u0006_>, _,>\u0006_>, Fh_,Fh>FyFyFy\u0006_>>, Fh_.Fh>FhFhFh#twoweapon\ndh\u0006_>.Fh_.Fh>FhFh_>,Fy_,Fh\u001b>FyFy_>.Fh_,Fy>Fh\u001bFyFy\u0006_>.Fh_. Fh>FhFy_>. Fh\u001b_.Fh>FhFy_>,Fy_.Fh>FyFh\u001bFhFhFy#terrain\ne\nr\u001b\u0006_>.Fy_,Fh\u001b>FyFy_>.Fy_,Fy>FyFh\u001b_>,Fh_"
+  }
+ ]
+}

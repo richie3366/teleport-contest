@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  O>>a\u001b\nFbFhFkFyFyFyFyFbFhFjFuFyFnFnFuFhFjFyFkFnFyFhFhFbFjFhFnFjFnFhFnFjFhFuFnFuFnFyFjFyFbFyFuFjFuFhFyFjFuFbFuFyFyFnFnFuFhFhFyFjFhFnFyFyFjFnFjFyFnFhFbFhFyFjFyFjFbFuFhFuFhFuFnFhFhFbFjFnFuFnFuFyFyFjFhFbFnFjFhFuFuFjFjFjFuFnFnFnFjFyFyFhFjFnFjFnFnFnFyFyv i\u001bza#conduct\n #force\n#twoweapon\nemO>p\u001b\n#jump\ndeO>h\u001b\nv i\u001bv i\u001b\u001616\n\u0006_ \u001bm.>FuFl_>,Fb_,Fu>FnFj_>,Fj_.Fb>FbFnFnFbFn#dip\nea\u0006_>.Fu_,Fn>FbFb_>.Fb_,Fb>FnFb_>.Fn_.Fu>FuFuFuFjFj<\u0006_>.Fb_.Fu>FnFn_>.Fj_.Fu>FjFj_>.Fu_.Fu>FbFnFuFjFn\u000f\u001bybl\u0017ice\n:kh\u0017cloud\n#terrain\n\u001b#terrain\n\u001bKe\u00166\nFjFlFlFjFjFnFuFjFnFlFbFuFjFuFnFbFuFlFjFbFjFlFlFlFnFnFjFlFjFjFnFbFuFuFbFlFnFuFuFnFnFbFnFjFbFjFbFuFjFuFjFbFlFuFjFbFlFbFuFlFuFuFnFjFjFjFuFnFbFlFjFjFlFjFlFlFjFuFnFjFjFlFuFjFuFjFlFlFnFnFbFjFlFbFnFlFlFbFbFnFlFbFnFnFbFbFbFnFjFjFnFbFbFnFnFjFjFbFlFlO>d\u001b\nmO>>i\u001b\nv i\u001bO>>>>l\u001b\n\u00167\nFbFyFnFkFlFyFuFuFjFjFuFbFyFlFuFbFbFyFlFkFuFlFnFj Fu   n Fb FyFu   nFl Fk F"
+ },
+ "segments": [
+  {
+   "seed": 50255041,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nMSGTYPE=hide \"You hear\"\n",
+   "moves": "  O>>a\u001b\nFbFhFkFyFyFyFyFbFhFjFuFyFnFnFuFhFjFyFkFnFyFhFhFbFjFhFnFjFnFhFnFjFhFuFnFuFnFyFjFyFbFyFuFjFuFhFyFjFuFbFuFyFyFnFnFuFhFhFyFjFhFnFyFyFjFnFjFyFnFhFbFhFyFjFyFjFbFuFhFuFhFuFnFhFhFbFjFnFuFnFuFyFyFjFhFbFnFjFhFuFuFjFjFjFuFnFnFnFjFyFyFhFjFnFjFnFnFnFyFyv i\u001bza#conduct\n #force\n#twoweapon\nemO>p\u001b\n#jump\ndeO>h\u001b\nv i\u001bv i\u001b\u001616\n\u0006_ \u001bm.>FuFl_>,Fb_,Fu>FnFj_>,Fj_.Fb>FbFnFnFbFn#dip\nea\u0006_>.Fu_,Fn>FbFb_>.Fb_,Fb>FnFb_>.Fn_.Fu>FuFuFuFjFj<\u0006_>.Fb_.Fu>FnFn_>.Fj_.Fu>FjFj_>.Fu_.Fu>FbFnFuFjFn\u000f\u001bybl\u0017ice\n:kh\u0017cloud\n#terrain\n\u001b#terrain\n\u001bKe\u00166\nFjFlFlFjFjFnFuFjFnFlFbFuFjFuFnFbFuFlFjFbFjFlFlFlFnFnFjFlFjFjFnFbFuFuFbFlFnFuFuFnFnFbFnFjFbFjFbFuFjFuFjFbFlFuFjFbFlFbFuFlFuFuFnFjFjFjFuFnFbFlFjFjFlFjFlFlFjFuFnFjFjFlFuFjFuFjFlFlFnFnFbFjFlFbFnFlFlFbFbFnFlFbFnFnFbFbFbFnFjFjFnFbFbFnFnFjFjFbFlFlO>d\u001b\nmO>>i\u001b\nv i\u001bO>>>>l\u001b\n\u00167\nFbFyFnFkFlFyFuFuFjFjFuFbFyFlFuFbFbFyFlFkFuFlFnFj Fu   n Fb FyFu   nFl Fk F"
+  }
+ ]
+}

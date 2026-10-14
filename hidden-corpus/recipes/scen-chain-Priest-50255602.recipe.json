@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "FkFkFk FkFkFkFkFkFjFjFjFj  \u001b     F jlujFhs20s50s100s   100s\u000f\u001b150s50s Fks20sFks.150slkk100sFj.Fj100s Fl FlFl FlFlFl 150s100s50sFhs.nnkyhu\\  #jump\nbyl50s50sFhFhFhFjsFl\\  W\u001b\u000f\u001b#quit\nyy\u001by  y y y\u001b \u0017wand of death\nzp.  y ny  ny\u001by  .yy  #wizintrinsic\nd\n .y20s .m..sm.20s.m.slsm. 20s  20s   sy su20s .m.20s   sh.m. sm..m. .m. su20s  yy\u001by  y y\u001by  syn  #quit\nyy tbjjynuk20s#chat\nhFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbtclde20ss20s10stdj 10s20s20skuunkjFyFyFyFyFyFyFyFyFy FyFyFyFyFyFyFyYNHY_ \u001b;>LKNJ_>,>LUJU_>,>NKLN_>.>Fy20s20sJHYJ_>.>HYKB_>._.> \u000f\u001buln150s100s\u000f\u001b50shuunkj_>,>50sFhFhFhFh.s100s_>,>\u0018\u001b50s100sulj150sFyFy20s_>.>50sFyFy.50s100s\u0018\u001b10sFyFyFy100s150seeeeeeeeeeekjjjeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLJNU_>.>BUK H_>.>BYUH_>._.> LLBJ_>,>FbFb  s#monster\n>ULHY_>.>FlFlFj\u000f\u001bykhnyk kk10s     nny y y\u001b  d",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50255602,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "FkFkFk FkFkFkFkFkFjFjFjFj  \u001b     F"
+  },
+  {
+   "seed": 50355602,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " jlujFhs20s50s100s   100s\u000f\u001b150s50s Fks20sFks.150slkk100sFj.Fj100s Fl FlFl FlFlFl 150s100s50sFhs.nnkyhu\\  #jump\nbyl50s50sFhFhFhFjsFl\\  W\u001b\u000f\u001b#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50455602,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of death\nzp.  y ny  ny\u001by  ."
+  },
+  {
+   "seed": 50555602,
+   "datetime": "20260109002554",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "yy  #wizintrinsic\nd\n .y20s .m..sm.20s.m.slsm. 20s  20s   sy su20s .m.20s   sh.m. sm..m. .m. su20s  yy\u001by  y y\u001by  s"
+  },
+  {
+   "seed": 50655602,
+   "datetime": "20081209030940",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "yn  #quit\nyy"
+  },
+  {
+   "seed": 50755602,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=msg_window:reversed\n",
+   "moves": " tbjjynuk20s#chat\nhFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbtclde20ss20s10stdj 10s20s20skuunkjFyFyFyFyFyFyFyFyFy FyFyFyFyFyFyFyYNHY_ \u001b;>LKNJ_>,>LUJU_>,>NKLN_>.>Fy20s20sJHYJ_>.>HYKB_>._.> \u000f\u001buln150s100s\u000f\u001b50shuunkj_>,>50sFhFhFhFh.s100s_>,>\u0018\u001b50s100sulj150sFyFy20s_>.>50sFyFy.50s100s\u0018\u001b10sFyFyFy100s150seeeeeeeeeeekjjjeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLJNU_>.>BUK H_>.>BYUH_>._.> LLBJ_>,>FbFb  s#monster\n>ULHY_>.>FlFlFj\u000f\u001bykhnyk kk10s     nny y y\u001b  d"
+  }
+ ]
+}

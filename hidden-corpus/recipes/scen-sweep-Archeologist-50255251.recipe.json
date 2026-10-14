@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0017dwarvish mattock\n\u0016?\ncaj > \u001b sm.  aj>  hl  ajk k  jnajj julk\u0017grave\naj>   ss\u0016?\n>Chu\u0017scroll of earth\n rk ybuklhbhnhbkylluj\u0017scroll of earth\nrl yhy10slj unbbyjkjuu\u0017wand of striking\nzmj uklb\u0017wand of striking\nznj\u0017scroll of earth\nro nkjllujj10skknl10sll\u0016?\n>y  _ \u001b@.#chat\nh_mm.  Fb       _.#chat\nh_mmm,   n   Fn    _.#chat\nh      n _m.    Fl    _.#chat\nl   n    ;k.\u0006_>.  n     Fj     _.   n   Fn    n  >Fl  n Fy   n _>.     n Fh  _.  n  Fb    n   >Fu   n  Fn   n _>,    n  Fh     n  _.       n    yny   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50255251,
+   "datetime": "20260714040541",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0017dwarvish mattock\n\u0016?\ncaj > \u001b sm.  aj>  hl  ajk k  jnajj julk\u0017grave\naj>   ss\u0016?\n>Chu\u0017scroll of earth\n rk ybuklhbhnhbkylluj\u0017scroll of earth\nrl yhy10slj unbbyjkjuu\u0017wand of striking\nzmj uklb\u0017wand of striking\nznj\u0017scroll of earth\nro nkjllujj10skknl10sll\u0016?\n>y  _ \u001b@.#chat\nh_mm.  Fb       _.#chat\nh_mmm,   n   Fn    _.#chat\nh      n _m.    Fl    _.#chat\nl   n    ;k.\u0006_>.  n     Fj     _.   n   Fn    n  >Fl  n Fy   n _>.     n Fh  _.  n  Fb    n   >Fu   n  Fn   n _>,    n  Fh     n  _.       n    yny   y y y\u001b  F"
+  }
+ ]
+}

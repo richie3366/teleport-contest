@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n             \u0017dagger\n\u0007lurker above\nwkFjFhFj\u0017uncursed amulet versus poison\nPlsnsssFjFj\u00173 wand of locking\n\u0007wumpus\nzmjzmh\u00173 potion of acid\nqn \u001b#dip\nnd  \u001b\u0017uncursed chest\naoao#tip\no\u001bFhFj\u0017cursed potion of healing\nqp  #dip\nas 20s "
+ },
+ "segments": [
+  {
+   "seed": 50252030,
+   "datetime": "20250620130549",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n             \u0017dagger\n\u0007lurker above\nwkFjFhFj\u0017uncursed amulet versus poison\nPlsnsssFjFj\u00173 wand of locking\n\u0007wumpus\nzmjzmh\u00173 potion of acid\nqn \u001b#dip\nnd  \u001b\u0017uncursed chest\naoao#tip\no\u001bFhFj\u0017cursed potion of healing\nqp  #dip\nas 20s "
+  }
+ ]
+}

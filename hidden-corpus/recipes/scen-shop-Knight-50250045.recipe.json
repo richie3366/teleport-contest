@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWj\u0016?\n>w\u0006_ \u001b@.,p_ooooo,_o,,p_ooooooo._ooo.,p_oooo.,:_{.Fb_,@.Fuq_oooo.,\u0014<.20s sjbn#chat\nkkhb#chat\nj_oooo,,$nuy#chat\nl_oo.,p_ooooo.Fh_.Fj_o.Fy_.:Fy ,p__.Fj_.@.Fy#chat\ny\u00167\nljn\u0016?\n>w\u0006_oo.Fk_, Fy,p_oooo,Fh_._oo.,     n   :Fh   n  Fh  Fh   n Fh    n Fh    n Fh   n  \u00169\n_ooooooooo.,p_{.q_oo.,:Fn   n Fn   n  Fn   n Fn   FnFn   n  \u00167\n__.#chat\nb  #pray\ny y    _ooooooo. Fj_.<.Fb,\u0017worthless piece of red glass\ndl     n Fh    nFh  FhFh    nFh    n Fh\u00164\n_oooooooo._o.    nFl  _.,   yy\u001bnnny\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50250045,
+   "datetime": "20050214190102",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWj\u0016?\n>w\u0006_ \u001b@.,p_ooooo,_o,,p_ooooooo._ooo.,p_oooo.,:_{.Fb_,@.Fuq_oooo.,\u0014<.20s sjbn#chat\nkkhb#chat\nj_oooo,,$nuy#chat\nl_oo.,p_ooooo.Fh_.Fj_o.Fy_.:Fy ,p__.Fj_.@.Fy#chat\ny\u00167\nljn\u0016?\n>w\u0006_oo.Fk_, Fy,p_oooo,Fh_._oo.,     n   :Fh   n  Fh  Fh   n Fh    n Fh    n Fh   n  \u00169\n_ooooooooo.,p_{.q_oo.,:Fn   n Fn   n  Fn   n Fn   FnFn   n  \u00167\n__.#chat\nb  #pray\ny y    _ooooooo. Fj_.<.Fb,\u0017worthless piece of red glass\ndl     n Fh    nFh  FhFh    nFh    n Fh\u00164\n_oooooooo._o.    nFl  _.,   yy\u001bnnny\u001b  F"
+  }
+ ]
+}

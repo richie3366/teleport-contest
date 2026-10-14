@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b@.>FkFk_>,_.>_>._.>\u0006_>,_.>_>._.>_>,_.>\u0006_>>,_.>_>>,_.>_>>._,>#dip\na:\u0006_>,_,Fj>FjFj_>._.Fj>FjFj_>._.Fj>FjFjFjFjFj\u0006_>,_,Fj>FjFj_>.Fj_,Fj>FjFj_>.Fj_.>\u000f\u001b#levelchange\n14\n            kj yh\u001bb\u0017sink\nqy\u0017ring of poison resistance\ndg \u001by\u0017tree\n#terrain\n\u001b_>,sEdd\u00165\n150s100s100skj ju.150si\u001b100s   \u001bi\u001bluk k.100s_>,Fu_,<.Fk>FkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFk\u0006_>.Fl_.Fu>FuFu_>,Fl_.Fu>FlFu_>,Fy_. Fll >FyFul FlFuFy#tip\n\u001b#sit\n\u001b\u0006_>.Fl_.Fu>FlFu_>,Fy_. Fy>FyFy_>, Fu_.Fy>FuFlFuFlFl\u0006_>>.Fy_.Fy>FlFu_>>.Fu_.m. Fl>FyFy_>>. Fl_.Fl>FuFuFuFyFy\u0006_>>. Fu_,Fk>F"
+ },
+ "segments": [
+  {
+   "seed": 50255021,
+   "datetime": "20070816160918",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=runmode:run\nOPTIONS=fruit:durian\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad\n",
+   "moves": "\u0006_ \u001b@.>FkFk_>,_.>_>._.>\u0006_>,_.>_>._.>_>,_.>\u0006_>>,_.>_>>,_.>_>>._,>#dip\na:\u0006_>,_,Fj>FjFj_>._.Fj>FjFj_>._.Fj>FjFjFjFjFj\u0006_>,_,Fj>FjFj_>.Fj_,Fj>FjFj_>.Fj_.>\u000f\u001b#levelchange\n14\n            kj yh\u001bb\u0017sink\nqy\u0017ring of poison resistance\ndg \u001by\u0017tree\n#terrain\n\u001b_>,sEdd\u00165\n150s100s100skj ju.150si\u001b100s   \u001bi\u001bluk k.100s_>,Fu_,<.Fk>FkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFk\u0006_>.Fl_.Fu>FuFu_>,Fl_.Fu>FlFu_>,Fy_. Fll >FyFul FlFuFy#tip\n\u001b#sit\n\u001b\u0006_>.Fl_.Fu>FlFu_>,Fy_. Fy>FyFy_>, Fu_.Fy>FuFlFuFlFl\u0006_>>.Fy_.Fy>FlFu_>>.Fu_.m. Fl>FyFy_>>. Fl_.Fl>FuFuFuFyFy\u0006_>>. Fu_,Fk>F"
+  }
+ ]
+}

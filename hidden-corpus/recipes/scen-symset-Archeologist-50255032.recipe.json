@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " O>b\u001b\nmO>>>>b\u001b\n\u00161\nO>>>k\u001b\u001b\nv\u001bi\u001bO>>>>l\u001b\n#levelchange\n14\n             uu byb\u0017sink\nqy:ku \u0017moat\nlu \u0017melting ice\naft\u001b#name\nm\n ,#ride\nl #sit\ni\u001b20s\u00162\n  Oh\u001b\nmO>p\u001b\n\u0006_>.Fl_,m, Fu>FuFu_>,Fu_.Fu>FlFu_>.Fl_.Fu>FuFuFuFuFu\u0006_>,Fu_.;@.Fu>FuFn_>FnFun _>.Fu_.Fl>FlFnFll FuFluu #rub\ng\u001b\u0006_>,Fu_,>.Fl>FlFu_>,Fl_.Fu>FuFu_>,Fu_.m.Fu>FuFuFuFuFu#invoke\n\u001bol \u0006_>.Fl_,Fu>FuFu_>.Fl_.:Fl>FlFl_>.Fu_,.Fu>FjFjFuFuFj\u0006_>.Fu_.@.Fn>FlFnFun \u0006_>>.Fu_.Fu>FuFu_>>.Fu_..Fu>FlFl_>>.Fu_,m.Fu>FuFuFuFuFu\u00161\n   v\u001bi\u001bmO>>g\u001b\n\u00165\n FlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl#pray\ny y FlFlFl#pray\ny y #pray\ny y FlFlFl#pr"
+ },
+ "segments": [
+  {
+   "seed": 50255032,
+   "datetime": "20030306084036",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=number_pad\nMENUCOLOR=\"uncursed\"=brown\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": " O>b\u001b\nmO>>>>b\u001b\n\u00161\nO>>>k\u001b\u001b\nv\u001bi\u001bO>>>>l\u001b\n#levelchange\n14\n             uu byb\u0017sink\nqy:ku \u0017moat\nlu \u0017melting ice\naft\u001b#name\nm\n ,#ride\nl #sit\ni\u001b20s\u00162\n  Oh\u001b\nmO>p\u001b\n\u0006_>.Fl_,m, Fu>FuFu_>,Fu_.Fu>FlFu_>.Fl_.Fu>FuFuFuFuFu\u0006_>,Fu_.;@.Fu>FuFn_>FnFun _>.Fu_.Fl>FlFnFll FuFluu #rub\ng\u001b\u0006_>,Fu_,>.Fl>FlFu_>,Fl_.Fu>FuFu_>,Fu_.m.Fu>FuFuFuFuFu#invoke\n\u001bol \u0006_>.Fl_,Fu>FuFu_>.Fl_.:Fl>FlFl_>.Fu_,.Fu>FjFjFuFuFj\u0006_>.Fu_.@.Fn>FlFnFun \u0006_>>.Fu_.Fu>FuFu_>>.Fu_..Fu>FlFl_>>.Fu_,m.Fu>FuFuFuFuFu\u00161\n   v\u001bi\u001bmO>>g\u001b\n\u00165\n FlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl#pray\ny y FlFlFl#pray\ny y #pray\ny y FlFlFl#pr"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u0007housecat\n\u0017huge chunk of meat\nt\u001b\u0017leash\naknh  k jyakn  ndj  sm.   n sl .m.20s  n disjs.m.\u0007gnome\nsl20s  n20s.m.sns\u00163\nOn\u001b\n\u00165\nFnFyFhFbFlFyFbFhFk#pray\ny y FkFhFyFnFyFkFkFlFyFnFkFbFyFuFhFhFuFyFbFbFbFbFbFuFkFhFkFkFyFhFyFhFlFnFuFyFlFuFuFkFyFlFkFhFk#pray\ny y    FkFuFnFlFnFbFuFyFnFlFkFh#pray\ny y        FkFnFhFlFh  nFbFlFlFhFlFhFhFyFuFh#pray\ny y     FhFlFyFbFlFbFnFy  nFnFnFkFnFnFyFyFbFuFlFnFyFy#pray\ny y     FkFlFl\u00167\nO>>>>o3\n\u001b\n \u00164\nFhFyFlFjFjFhFnFuFkFnFnFyFhFkFkFyFuFkFuFnFkFlFjFjFuFkFkFlFbFyFyFlFbFuFuFlFuFyFuFjFlFkFnFjFuFu"
+ },
+ "segments": [
+  {
+   "seed": 50250007,
+   "datetime": "20130708221952",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=norep \"You miss\"\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "v i\u001b\u0007housecat\n\u0017huge chunk of meat\nt\u001b\u0017leash\naknh  k jyakn  ndj  sm.   n sl .m.20s  n disjs.m.\u0007gnome\nsl20s  n20s.m.sns\u00163\nOn\u001b\n\u00165\nFnFyFhFbFlFyFbFhFk#pray\ny y FkFhFyFnFyFkFkFlFyFnFkFbFyFuFhFhFuFyFbFbFbFbFbFuFkFhFkFkFyFhFyFhFlFnFuFyFlFuFuFkFyFlFkFhFk#pray\ny y    FkFuFnFlFnFbFuFyFnFlFkFh#pray\ny y        FkFnFhFlFh  nFbFlFlFhFlFhFhFyFuFh#pray\ny y     FhFlFyFbFlFbFnFy  nFnFnFkFnFnFyFyFbFuFlFnFyFy#pray\ny y     FkFlFl\u00167\nO>>>>o3\n\u001b\n \u00164\nFhFyFlFjFjFhFnFuFkFnFnFyFhFkFkFyFuFkFuFnFkFlFjFjFuFkFkFlFbFyFyFlFbFuFuFlFuFyFuFjFlFkFnFjFuFu"
+  }
+ ]
+}

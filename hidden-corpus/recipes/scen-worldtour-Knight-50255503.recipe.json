@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 silver dragon scale mail\n W\u001b\u001642\n   #levelchange\n6\n      \u0017spellbook of cone of cold\nrl  20s \u001b  \u0017blessed spellbook of dig\nrm   20s  \u0017blessed spellbook of finger of death\nrn       n 20s   \u0017blessed spellbook of sleep\n ro  n     20s    n      +ZFb    n       n   ZFb      n       n  \u0007newt\nZZZ#turn\n        n       \u001b   n   #enhance\nyk\no\n\u001bsm.   n       n         n sm.  \u001b     n      n  \u001b     .m.  n       ynny y ny  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50255503,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=fruit:lychee\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 silver dragon scale mail\n W\u001b\u001642\n   #levelchange\n6\n      \u0017spellbook of cone of cold\nrl  20s \u001b  \u0017blessed spellbook of dig\nrm   20s  \u0017blessed spellbook of finger of death\nrn       n 20s   \u0017blessed spellbook of sleep\n ro  n     20s    n      +ZFb    n       n   ZFb      n       n  \u0007newt\nZZZ#turn\n        n       \u001b   n   #enhance\nyk\no\n\u001bsm.   n       n         n sm.  \u001b     n      n  \u001b     .m.  n       ynny y ny  \u0016"
+  }
+ ]
+}

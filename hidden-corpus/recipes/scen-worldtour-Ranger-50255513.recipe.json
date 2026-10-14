@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed amulet of reflection\nPi\u0017blessed amulet of life saving\nPj\u0016?\n>>L      axe\nkb    :\u001624\nu        h    k y h  n        uy     l  :   \u0016?\nc\u0017Snickersnee\n\u0007tengu\nwm   n  20s        Fn   n  Fj  #invoke\nm  Fj Fj \u0017spellbook of slow monster\nrn s s Z\u0017cursed worthless piece of red glass\n\u0007gnome lord\nam  \u001b;\u0017spellbook of stone to flesh\nrp    n          20s        n       s ZZ\u00173 dilithium crystal\nal   s    Fj s .  n     \u001611\n\u0016?\n\u001bb    n   j    n   \u00163\n\u0016?\nb _<.>\u001610\nl k         n  b        n      :\u001612\n\u001644\n\u0014:       n  sj         \u0016?\n\u001bn  n  y    \u0016?\n\u001bj   n  n    \u0016?\n\u001by      l \u0016?\n\u001bjy       n   \u0016?\n\u001bh   n     u       yy\u001by   y y n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50255513,
+   "datetime": "20060122002151",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed amulet of reflection\nPi\u0017blessed amulet of life saving\nPj\u0016?\n>>L      axe\nkb    :\u001624\nu        h    k y h  n        uy     l  :   \u0016?\nc\u0017Snickersnee\n\u0007tengu\nwm   n  20s        Fn   n  Fj  #invoke\nm  Fj Fj \u0017spellbook of slow monster\nrn s s Z\u0017cursed worthless piece of red glass\n\u0007gnome lord\nam  \u001b;\u0017spellbook of stone to flesh\nrp    n          20s        n       s ZZ\u00173 dilithium crystal\nal   s    Fj s .  n     \u001611\n\u0016?\n\u001bb    n   j    n   \u00163\n\u0016?\nb _<.>\u001610\nl k         n  b        n      :\u001612\n\u001644\n\u0014:       n  sj         \u0016?\n\u001bn  n  y    \u0016?\n\u001bj   n  n    \u0016?\n\u001by      l \u0016?\n\u001bjy       n   \u0016?\n\u001bh   n     u       yy\u001by   y y n  \u0016"
+  }
+ ]
+}

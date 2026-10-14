@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nl;l._mmm. Fh _,  n   n  Fk     n    n     n #chat\nh     n   n    n     n;h._mmmm.      n Fy     n   n_.    nFk    n    n #chat\nk;j,_m,     n   n    yny  ny n  F"
+ },
+ "segments": [
+  {
+   "seed": 50255427,
+   "datetime": "20210722032919",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nl;l._mmm. Fh _,  n   n  Fk     n    n     n #chat\nh     n   n    n     n;h._mmmm.      n Fy     n   n_.    nFk    n    n #chat\nk;j,_m,     n   n    yny  ny n  F"
+  }
+ ]
+}

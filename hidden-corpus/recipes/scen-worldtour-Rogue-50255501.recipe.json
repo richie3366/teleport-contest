@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0016?\n>>L      ring of regeneration\n\u0006_ \u001b>.\u0016?\n\u001buy   \u001b  \u001624\nl    n  n     :\u00167\n_{.>\u0016?\n\u001bk h\u001624\n#chat\n;k;ss \u001633\nn y : s  20s   \u0016?\nd #levelchange\n20\n   \u0007dwarf lord\nFb  nFh     Fh Fb   Fh    n\u0007djinni\nFhFb       nFh   Fh Fh   Fn    n  \u0007Famine\nnFl Fj    n \u0007dwarf lord\n#chat\nFjFj\u00167\n\u001633\nj  n    k     n  :\u00168\n\u0016?\n\u001bb     n  l        \u0016?\n\u001bk       nj   \u0016?\n\u001bh  h      n \u0016?\n\u001bk     h      \u0016?\n\u001bj         n            n     n  \u00168\n\u001619\n#chat\nj;m. \u0016?\n\u001bn     b    n  \u0016?\n\u001bh     j      n  \u00167\nb         n       yny   y y  y\u001b  n"
+ },
+ "segments": [
+  {
+   "seed": 50255501,
+   "datetime": "20140125051233",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0016?\n>>L      ring of regeneration\n\u0006_ \u001b>.\u0016?\n\u001buy   \u001b  \u001624\nl    n  n     :\u00167\n_{.>\u0016?\n\u001bk h\u001624\n#chat\n;k;ss \u001633\nn y : s  20s   \u0016?\nd #levelchange\n20\n   \u0007dwarf lord\nFb  nFh     Fh Fb   Fh    n\u0007djinni\nFhFb       nFh   Fh Fh   Fn    n  \u0007Famine\nnFl Fj    n \u0007dwarf lord\n#chat\nFjFj\u00167\n\u001633\nj  n    k     n  :\u00168\n\u0016?\n\u001bb     n  l        \u0016?\n\u001bk       nj   \u0016?\n\u001bh  h      n \u0016?\n\u001bk     h      \u0016?\n\u001bj         n            n     n  \u00168\n\u001619\n#chat\nj;m. \u0016?\n\u001bn     b    n  \u0016?\n\u001bh     j      n  \u00167\nb         n       yny   y y  y\u001b  n"
+  }
+ ]
+}

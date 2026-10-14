@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u0006_ \u001bm,>FyFy_>.Fh_.Fh>FhFh_>.Fh_.Fh>FnFnFhFnFh\u001b<20s\u0006_>.Fh_,Fh>FhFh_>,Fh_,Fh>FhFh_>.Fh_,  nFh>FnFnFhFnFn<\u0006_>,Fh_,Fh>FhFh_>.Fn_>FhFh_>.Fh_.Fl>FhFlFlFlFh<\u000f\u001b\u0006_>>,Fh_.Fl>FlFl_>>.Fh_,Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFh\u0006_>.Fh_.<.Fh>FhFh_>.  nFh_.Fn>FhFnFh\u001b\u0006_>,Fl_.Fl>FlFl_>.Fh_.,Fh>FhFh_>.Fh_.Fl>FhFhFhFlFh\u0006_>>,Fh_.>.Fh>FhFh_>>.  nFh_,Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFh\u0006_>>.Fh_.Fh>FhFh_>>.Fn_>FnFn_>>.  nFl_.Fh>FhFhFhFhFh\u0006_>>.Fh_,Fl>FhFl_>>.Fh_,Fh>FhFh_>>,Fh_,.Fh>FhFhFhFhFh\u000f\u001b\u00162\nf \u001bw\u001b,\u00166\nh\u001b#tip\n\u001b,#force\nmO>>>>h\u001b\n\u0007kitten\n\u0017carrot\nt\u001b10s20s20s  n\u0017apple\n t\u001b\u0007giant rat\n\u0017scroll of taming\nrm mOa\u001b\nO>>>>c\u001b\nlh byy\u0017pool\nynylk \u0017neutral altar\ndf\u0017jackal corpse\n#offer\nn  #pray\ny y : y\u0017grave\n: \u0017wand of digging\nzo>ss: lh #monster\n\u000f\u001b\u00165\nFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlh\u001bjh\u001bj"
+ },
+ "segments": [
+  {
+   "seed": 50255071,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nMENUCOLOR=\"cursed\"=brown\nBIND=v:inventory\n",
+   "moves": "v i\u001b\u0006_ \u001bm,>FyFy_>.Fh_.Fh>FhFh_>.Fh_.Fh>FnFnFhFnFh\u001b<20s\u0006_>.Fh_,Fh>FhFh_>,Fh_,Fh>FhFh_>.Fh_,  nFh>FnFnFhFnFn<\u0006_>,Fh_,Fh>FhFh_>.Fn_>FhFh_>.Fh_.Fl>FhFlFlFlFh<\u000f\u001b\u0006_>>,Fh_.Fl>FlFl_>>.Fh_,Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFh\u0006_>.Fh_.<.Fh>FhFh_>.  nFh_.Fn>FhFnFh\u001b\u0006_>,Fl_.Fl>FlFl_>.Fh_.,Fh>FhFh_>.Fh_.Fl>FhFhFhFlFh\u0006_>>,Fh_.>.Fh>FhFh_>>.  nFh_,Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFh\u0006_>>.Fh_.Fh>FhFh_>>.Fn_>FnFn_>>.  nFl_.Fh>FhFhFhFhFh\u0006_>>.Fh_,Fl>FhFl_>>.Fh_,Fh>FhFh_>>,Fh_,.Fh>FhFhFhFhFh\u000f\u001b\u00162\nf \u001bw\u001b,\u00166\nh\u001b#tip\n\u001b,#force\nmO>>>>h\u001b\n\u0007kitten\n\u0017carrot\nt\u001b10s20s20s  n\u0017apple\n t\u001b\u0007giant rat\n\u0017scroll of taming\nrm mOa\u001b\nO>>>>c\u001b\nlh byy\u0017pool\nynylk \u0017neutral altar\ndf\u0017jackal corpse\n#offer\nn  #pray\ny y : y\u0017grave\n: \u0017wand of digging\nzo>ss: lh #monster\n\u000f\u001b\u00165\nFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlh\u001bjh\u001bj"
+  }
+ ]
+}

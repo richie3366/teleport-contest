@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #invoke\n\u001b:\u0007tame gnome lord\n\u0007tame hill orc\n\u0007grid bug\n\u0017scroll of taming\nrf  \u001b\u0007jackal\nsm.     s20s ss20s       #chat\nyde.ss\u0017leash\nagukyjnagu \u0006_ \u001bm,>FlFk _>.Fj _..Fb>Fn Fj _>.  nFl_.<.Fl>FkFkFuFkFu\u0006_>.Fn_,Fu>FnFu_>.Fh_,Fn>FlFn_>.Fl_.Fn>FnFlFnFuFn\u0006_>.Fu_.Fn>FuFl_>.Fl_.Fl>FnFn_>.Fu_.Fu>FuFuFnFnFn\u000f\u001bmO>r\u001b\n\u001614\n    \u0006_>.Fn_,> FnFjFn#monster\ncl\u0006_>.Fn_,Fy>FyFy_>.Fb_,Fb>FjFh_>.Fh_.Fn>FhFnFbFjFj<\u0006_>>.Fy_.Fb>FhFh_>>.Fb_.Fn>FnFy_>>.Fj_,Fn>FyFjFyFhFb\u0006_>.Fb_.Fn>FjFn_>.Fj_,Fj>FhFn_>.Fh_,Fy>FbFnFhFjFb_>,ss\u0006_>>.Fl_.Fj>FbFj_>>.Fb  n_,Fn>FyFl_>>,Fn_.Fh  n>FnFlFyFyFn\u0006_>,Fy  n_.Fy>FhFb_>,Fj_,Fy>FnFh  n_>.Fj_.Fj>FbFnFhFlFy\u0006_>,Fy_.Fy>FyFh_>.Fh_.Fj>FnFh_>,Fn_.Fn>FjFnFhFhFj\u000f\u001b\u001611\n\u0007large dog\n\u0017meatball\ntbn\u0007little dog\n\u0017newt corpse\nt$y\u0007yellow mold\n20s20s  n sm.  n.m.20s  n sm.20s  n #chat\nb#name\na\n10s \u001613\n \u00166\n\u0006_>>,Fb_"
+ },
+ "segments": [
+  {
+   "seed": 50255038,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"uncursed\"=red\n",
+   "moves": " #invoke\n\u001b:\u0007tame gnome lord\n\u0007tame hill orc\n\u0007grid bug\n\u0017scroll of taming\nrf  \u001b\u0007jackal\nsm.     s20s ss20s       #chat\nyde.ss\u0017leash\nagukyjnagu \u0006_ \u001bm,>FlFk _>.Fj _..Fb>Fn Fj _>.  nFl_.<.Fl>FkFkFuFkFu\u0006_>.Fn_,Fu>FnFu_>.Fh_,Fn>FlFn_>.Fl_.Fn>FnFlFnFuFn\u0006_>.Fu_.Fn>FuFl_>.Fl_.Fl>FnFn_>.Fu_.Fu>FuFuFnFnFn\u000f\u001bmO>r\u001b\n\u001614\n    \u0006_>.Fn_,> FnFjFn#monster\ncl\u0006_>.Fn_,Fy>FyFy_>.Fb_,Fb>FjFh_>.Fh_.Fn>FhFnFbFjFj<\u0006_>>.Fy_.Fb>FhFh_>>.Fb_.Fn>FnFy_>>.Fj_,Fn>FyFjFyFhFb\u0006_>.Fb_.Fn>FjFn_>.Fj_,Fj>FhFn_>.Fh_,Fy>FbFnFhFjFb_>,ss\u0006_>>.Fl_.Fj>FbFj_>>.Fb  n_,Fn>FyFl_>>,Fn_.Fh  n>FnFlFyFyFn\u0006_>,Fy  n_.Fy>FhFb_>,Fj_,Fy>FnFh  n_>.Fj_.Fj>FbFnFhFlFy\u0006_>,Fy_.Fy>FyFh_>.Fh_.Fj>FnFh_>,Fn_.Fn>FjFnFhFhFj\u000f\u001b\u001611\n\u0007large dog\n\u0017meatball\ntbn\u0007little dog\n\u0017newt corpse\nt$y\u0007yellow mold\n20s20s  n sm.  n.m.20s  n sm.20s  n #chat\nb#name\na\n10s \u001613\n \u00166\n\u0006_>>,Fb_"
+  }
+ ]
+}

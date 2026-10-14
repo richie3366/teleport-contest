@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "mO>>>>>i\noff\n<nnOoe\nh\ned #loot\nhOgn\nj\nag\u001b\u001bi\u001bO>pg\nd\n#loot\nh20ssOh\n:Okef\n#conduct\n mO>>>>>>i\nf\nPmO>>>>age\n  ,#rub\ng\u001b\u001bOmpa\nj\n\u000f\u001br\u001b\u001bmO>gwf\n Wss"
+ },
+ "segments": [
+  {
+   "seed": 50255910,
+   "datetime": "20050912081206",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "mO>>>>>i\noff\n<nnOoe\nh\ned #loot\nhOgn\nj\nag\u001b\u001bi\u001bO>pg\nd\n#loot\nh20ssOh\n:Okef\n#conduct\n mO>>>>>>i\nf\nPmO>>>>age\n  ,#rub\ng\u001b\u001bOmpa\nj\n\u000f\u001br\u001b\u001bmO>gwf\n Wss"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nh_mmm.Fh_,#chat\nh;h._mmmm.#chat\nh;h,#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm._.#chat\nj_mm.#chat\nl\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed amulet of life saving\nPj\u0017wand of cold\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,.Fh s.sss,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nk\u0016?\n>z\u0006_mmmmmm.sss20s.,#chat\ny\u0016?\n>A\u0006_mmmm..sss.zku,\u0016?\n>A\u0006_mmm..s.s20szkk ,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20s20ss.s,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj;.\u0016?\n>z\u0006_mmmmmm,ssss20szkk ,\u0016?\n>A\u0006_mmmmmm.20s.s.zkh,#chat\nb\u0016?\n>A\u0006_mmmm.s...ss,#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.ssss,\u0016?\n>z\u0006_mm.20s20sssszkh,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nb\u0016?\n>A\u0006_mmmmmmm,20s20s \u001b.s.zkj ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nl;_.\u0016?\n>A\u0006_mmm.20s.s"
+ },
+ "segments": [
+  {
+   "seed": 50250022,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nh_mmm.Fh_,#chat\nh;h._mmmm.#chat\nh;h,#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm._.#chat\nj_mm.#chat\nl\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed amulet of life saving\nPj\u0017wand of cold\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,.Fh s.sss,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nk\u0016?\n>z\u0006_mmmmmm.sss20s.,#chat\ny\u0016?\n>A\u0006_mmmm..sss.zku,\u0016?\n>A\u0006_mmm..s.s20szkk ,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20s20ss.s,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj;.\u0016?\n>z\u0006_mmmmmm,ssss20szkk ,\u0016?\n>A\u0006_mmmmmm.20s.s.zkh,#chat\nb\u0016?\n>A\u0006_mmmm.s...ss,#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.ssss,\u0016?\n>z\u0006_mm.20s20sssszkh,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nb\u0016?\n>A\u0006_mmmmmmm,20s20s \u001b.s.zkj ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nl;_.\u0016?\n>A\u0006_mmm.20s.s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "lj\u0017towel\nEf:k\u0017wand of create monster\nEgviolet fungus\n  ad aerarium\n: \u0017wand of locking\nEhn  Elbereth\n  E-n  X marks the spot\n \u0007soldier ant\n20s   ynny y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 50251018,
+   "datetime": "20200307172339",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "lj\u0017towel\nEf:k\u0017wand of create monster\nEgviolet fungus\n  ad aerarium\n: \u0017wand of locking\nEhn  Elbereth\n  E-n  X marks the spot\n \u0007soldier ant\n20s   ynny y\u001by  ."
+  }
+ ]
+}

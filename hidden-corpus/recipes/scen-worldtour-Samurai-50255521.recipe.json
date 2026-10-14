@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u001624\nkj n :\u001624\nblkubjk:\u0016?\n>u _ \u001b<.>20s      n20s sm. \u001624\nhyku:\u0016?\no \u0014; \u001624\n#chat\nj;j,sl 20s sm.\u0016?\n>>R_{.sm. \u0016?\n>A   #chat\nl;_.\u0016?\no __.>\u001627\n  bk \u0017wand of sleep\nEf X marks the spot\n: \u0017wand of magic missile\nEgn  Elbereth Elbereth\n \u0017wand of enlightenment\nEh \u001b n  I am a fish\n  : h \u0017wand of cancellation\nEi Elbereth\n: \u0017wand of cold\nEjn  Elbereth Elbereth\n : \u001624\n\u0007gas spore\nFyFy ..s.#pray\ny y  \u0007giant mimic\n..s Fksm.sm.\u0007soldier ant\nFbFkFk sb sm.#pray\ny y    sm. sm.  n \u001624\n_>,Fk _.  Fh\u001623\n__.\u001644\n   nj:.\u0016?\n>G #levelchange\n12\n\u0007fire elemental\nFjFjFj  n  \u0007horned devil\nFb FbFj   Fh \u0007lieutenant\n;h;sm. 20s  sm.  n\u0007black pudding\n20s   sm.sm.20s   sm.   nsk.m.   .m.   \u001612\n\u0016?\ns nh   n l ny  h :sm.  20s    n  .m. \u00164\n\u001624\n_<._.>\u0016?\n>Dkb\u0017wand of probing\nEk X marks the spot\n: \u0017wand of light\nEl n  Elbereth\n: \u0017wand of enlightenment\nEm \u001b y X "
+ },
+ "segments": [
+  {
+   "seed": 50255521,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u001624\nkj n :\u001624\nblkubjk:\u0016?\n>u _ \u001b<.>20s      n20s sm. \u001624\nhyku:\u0016?\no \u0014; \u001624\n#chat\nj;j,sl 20s sm.\u0016?\n>>R_{.sm. \u0016?\n>A   #chat\nl;_.\u0016?\no __.>\u001627\n  bk \u0017wand of sleep\nEf X marks the spot\n: \u0017wand of magic missile\nEgn  Elbereth Elbereth\n \u0017wand of enlightenment\nEh \u001b n  I am a fish\n  : h \u0017wand of cancellation\nEi Elbereth\n: \u0017wand of cold\nEjn  Elbereth Elbereth\n : \u001624\n\u0007gas spore\nFyFy ..s.#pray\ny y  \u0007giant mimic\n..s Fksm.sm.\u0007soldier ant\nFbFkFk sb sm.#pray\ny y    sm. sm.  n \u001624\n_>,Fk _.  Fh\u001623\n__.\u001644\n   nj:.\u0016?\n>G #levelchange\n12\n\u0007fire elemental\nFjFjFj  n  \u0007horned devil\nFb FbFj   Fh \u0007lieutenant\n;h;sm. 20s  sm.  n\u0007black pudding\n20s   sm.sm.20s   sm.   nsk.m.   .m.   \u001612\n\u0016?\ns nh   n l ny  h :sm.  20s    n  .m. \u00164\n\u001624\n_<._.>\u0016?\n>Dkb\u0017wand of probing\nEk X marks the spot\n: \u0017wand of light\nEl n  Elbereth\n: \u0017wand of enlightenment\nEm \u001b y X "
+  }
+ ]
+}

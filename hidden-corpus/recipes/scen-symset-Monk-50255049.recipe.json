@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " FnFu FnFlFkFyFbFhFyFjFyFhFkFjFyFyFkFjFlFjFyFyFlFyFnFhFkFlFhFhFyFhFyFnFbFbFkFyFbFyFlFhFkFlFlFhFlFbFyFyFjFlFnFnFkFlFhFhFkFjFjFkFbFhFbFlFlFnFlFnFnFkFkFnFyFnFnFlFnFhFjFkFnFnFhFbFjFlFjFbFkFyFjFlFbFhFlFlFkFhFhFlFlFkFhFlFkFhFlFkFlFkFbFbFyFnFlFbFbFymO>>>r\u001b\n#levelchange\n30\n                                uhy\u0017magic fountain\nqy  yqdl\u0017iron bars\n:>#name\nm\n >.#twoweapon\nO>>>i\u001b\u001b\n\u0007tame soldier ant\nbkb\u0017lichen corpse\nt\u001b\u0017leash\nalbuuuualb\u00167\nFjFnFjFh    FyFyFhFbFyFhFhFbFjFbFnFnFkFbFnFyFjFlFhFu FnFkFhFuFjFbFhFn FjFh FuFlFkFjFhFkFjFlFuFnFbFbFjFbFkFjFlFlFyFkFkFhF"
+ },
+ "segments": [
+  {
+   "seed": 50255049,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": " FnFu FnFlFkFyFbFhFyFjFyFhFkFjFyFyFkFjFlFjFyFyFlFyFnFhFkFlFhFhFyFhFyFnFbFbFkFyFbFyFlFhFkFlFlFhFlFbFyFyFjFlFnFnFkFlFhFhFkFjFjFkFbFhFbFlFlFnFlFnFnFkFkFnFyFnFnFlFnFhFjFkFnFnFhFbFjFlFjFbFkFyFjFlFbFhFlFlFkFhFhFlFlFkFhFlFkFhFlFkFlFkFbFbFyFnFlFbFbFymO>>>r\u001b\n#levelchange\n30\n                                uhy\u0017magic fountain\nqy  yqdl\u0017iron bars\n:>#name\nm\n >.#twoweapon\nO>>>i\u001b\u001b\n\u0007tame soldier ant\nbkb\u0017lichen corpse\nt\u001b\u0017leash\nalbuuuualb\u00167\nFjFnFjFh    FyFyFhFbFyFhFhFbFjFbFnFnFkFbFnFyFjFlFhFu FnFkFhFuFjFbFhFn FjFh FuFlFkFjFhFkFjFlFuFnFbFbFjFbFkFjFlFlFyFkFkFhF"
+  }
+ ]
+}

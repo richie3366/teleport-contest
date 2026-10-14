@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017oilskin sack\n\u0017locked large box\n\u0017ice box\n\u0017ring of poison resistance\n\u0017wand of probing\n\u0017ring of gain constitution\ndqnk\u0004jdpk\u0004jny\u0017credit card\ndli\u001bav..s.#loot\ndaf \u001b\u001bh\u0004ldoub\u0004uam at\u001628\n\u0017uncursed +0 unicorn horn\nwwFbFl sX20sFh\u0017blessed cloak of displacement\nW\u001b\u001b.h  n.m.sb\u0017uncursed scroll of remove curse\nry  \u001b  n\u0017wand of create monster\n\u0007umber hulk\nzzmumak\nzzvampire lord\nFk  n  n  n   n Fk   n \u0017bugle\naA   aA \u00173 wand of speed monster\n\u0007Pestilence\nnzBksl   n  n20s   n  n\u0006\u001610\n \u0016?\n \u0006Fj   n  n Fj    n  nFn   yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50250089,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017oilskin sack\n\u0017locked large box\n\u0017ice box\n\u0017ring of poison resistance\n\u0017wand of probing\n\u0017ring of gain constitution\ndqnk\u0004jdpk\u0004jny\u0017credit card\ndli\u001bav..s.#loot\ndaf \u001b\u001bh\u0004ldoub\u0004uam at\u001628\n\u0017uncursed +0 unicorn horn\nwwFbFl sX20sFh\u0017blessed cloak of displacement\nW\u001b\u001b.h  n.m.sb\u0017uncursed scroll of remove curse\nry  \u001b  n\u0017wand of create monster\n\u0007umber hulk\nzzmumak\nzzvampire lord\nFk  n  n  n   n Fk   n \u0017bugle\naA   aA \u00173 wand of speed monster\n\u0007Pestilence\nnzBksl   n  n20s   n  n\u0006\u001610\n \u0016?\n \u0006Fj   n  n Fj    n  nFn   yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

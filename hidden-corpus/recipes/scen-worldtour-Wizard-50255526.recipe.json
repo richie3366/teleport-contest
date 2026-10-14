@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u001641\n   \u0006_ \u001bm.\u001632\n lny:\u001632\n#levelchange\n10\n       \u00176 eggs\nQ\u001b\u0007troll\nh n f \u001bf \u001bf \u001bf \u001b\u0007gnome lord\njl  f \u001bf \u001bf \u001bf \u001bFk Fy    n \u0017grappling hook\nwo  \u0007giant rat\nlao<.u   n     k    u  n      n ,#enhance\nn\u001bsm.      n   \u001611\n\u001632\n   jhu y:\u0016?\n>>L      silver dagger\n\u0017blessed spellbook of create familiar\n\u0007violet fungus\nrr    n       sm.       sl    n    Z\u001bZ\u001b\u00173 scroll of light\nrs      n            n     \u0017cursed -1 unicorn horn\nwtFj          Fk    n       Fj \u00173 wand of enlightenment\nzu \u001bFj Fk\u0017heavy iron ball\n \u0007wood nymph\n.       n          n w-Fj     n    Fj . s\u001610\n\u001641\nnn    n       :\u001615\nj    n   y b  j  n   \u0017fire trap\ny     n  \u0007kobold\nsss s   b    yy\u001by   nnn  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50255526,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u001641\n   \u0006_ \u001bm.\u001632\n lny:\u001632\n#levelchange\n10\n       \u00176 eggs\nQ\u001b\u0007troll\nh n f \u001bf \u001bf \u001bf \u001b\u0007gnome lord\njl  f \u001bf \u001bf \u001bf \u001bFk Fy    n \u0017grappling hook\nwo  \u0007giant rat\nlao<.u   n     k    u  n      n ,#enhance\nn\u001bsm.      n   \u001611\n\u001632\n   jhu y:\u0016?\n>>L      silver dagger\n\u0017blessed spellbook of create familiar\n\u0007violet fungus\nrr    n       sm.       sl    n    Z\u001bZ\u001b\u00173 scroll of light\nrs      n            n     \u0017cursed -1 unicorn horn\nwtFj          Fk    n       Fj \u00173 wand of enlightenment\nzu \u001bFj Fk\u0017heavy iron ball\n \u0007wood nymph\n.       n          n w-Fj     n    Fj . s\u001610\n\u001641\nnn    n       :\u001615\nj    n   y b  j  n   \u0017fire trap\ny     n  \u0007kobold\nsss s   b    yy\u001by   nnn  \u0017"
+  }
+ ]
+}

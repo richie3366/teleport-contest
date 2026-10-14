@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0017tsurugi\nwkFk ssX\u0007ghost\nsm.s.m.sm.ss\u0007Elvenking\nFyFy \u0007dust vortex\n#chat\ny  Fy Fk\u0007dwarf lord\nFjFj s . Fk\u000f\u001b#levelchange\n30\n             \u0016?\n>>Pz#monster\n#jump\nss\u0016?\nj s\u0018\u001b#wipe\n;m. \u001b,\u0006ss\u0016?\n>H  rh\\ #untrap\n\u0006ss\u0016?\n>G#jump\n#ride\nhy: ;>.ss\u0016?\n>>L      wand of lightning\n20s     \\ zmk    ;k,20s                   n .m.          #levelchange\n12\n      #wizintrinsic\nloi\n   s  n     n   s    n  s  n    n   s     n  s  n    n .     n .   n    n20s   n  s  n     n  s   yy\u001by   y ny\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 50255217,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0017tsurugi\nwkFk ssX\u0007ghost\nsm.s.m.sm.ss\u0007Elvenking\nFyFy \u0007dust vortex\n#chat\ny  Fy Fk\u0007dwarf lord\nFjFj s . Fk\u000f\u001b#levelchange\n30\n             \u0016?\n>>Pz#monster\n#jump\nss\u0016?\nj s\u0018\u001b#wipe\n;m. \u001b,\u0006ss\u0016?\n>H  rh\\ #untrap\n\u0006ss\u0016?\n>G#jump\n#ride\nhy: ;>.ss\u0016?\n>>L      wand of lightning\n20s     \\ zmk    ;k,20s                   n .m.          #levelchange\n12\n      #wizintrinsic\nloi\n   s  n     n   s    n  s  n    n   s     n  s  n    n .     n .   n    n20s   n  s  n     n  s   yy\u001by   y ny\u001b  2"
+  }
+ ]
+}

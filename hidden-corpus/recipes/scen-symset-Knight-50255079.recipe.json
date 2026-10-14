@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001bm.>Fh s_>>,Fu_,> FyFyFu\u0006_>.Fu_.Fy>FyFy_>._,>_>._,> FhFhFh\u000f\u001b\u0018\u001b< \u0006_>.Fh_.>_>,_.> FhFhFh< \u0006_>>,> Fh FhFh\u0006_>>,Fj_,Fj>FjFj _>>.Fj_,Fu  n>FjFu_>>.Fu _,<.Fy>Fk FjFy Fj     Fk \u0006_>.  nFl_.   Fn>Fh    Fh     _>,  Fk     _.>.Fh   >Fh    Fj_>.   Fj   n_.   >\u0004y  #ride\nly y\u001610\n\u0006_>.>FjFk_>.>FyFu_>,>FyFyFnFjFn#name\nm\n#wipe\n,\u0006_>,>FkFy_>.>FnFj_>.>FuFnFyFyFu#monster\nb\u0006_>.>FlFu_>,>FuFl_>,>FlFu  nFlFyFl#terrain\n\u001b\u0014<.\u0006_>.>_>,>_>.>\u0006_>.>_>,>_>.>:10s\u000f\u001b#turn\n#twoweapon\n\u0018\u001bmO>>>>f\u001b\nFy s.byu#pray\ny y 50s\u000f\u001b50sykhFkFkFkFkFkFyFkFyFuFkFuFkFuFuFuFkFuFuFkFuFuFyFkFuFkFkFkFuFuFyFkFuFuFyFkFuFkFuFuFuFyFyFkFuFuFyFuFuFuFkFkFyFyFyFyFyFuFkFkFkFuFyFkFkFkFyFuFkFyFyFkFyFyFuFyFkFkFyFyFyFyFyFkFuFyFyFkFyFuFyFkFkFyFkFkFkFuFuFy\u001619\n#turn\n,_>.sFkFyFyFuFkFuFyFuFyFuFkFkFuFyFkFuFkFyFkFyFyFuFyFuFuFuFuFuFyFkFkFyFkFkFkFuFuFkFuFkFyFuFuFuFuFkFuFkFkFyFuFuFuFkFkFkFuFyFkFkFuFuFkFkFkFkFyFkFuFuFuFuFkFyFyFyFyFyFyFuFuFkFuFyFkFyFkFuFuFkFyFuFuFuFyFyFuFyFkFkFuFkFyFkFyFyFkFkFkFyFkFuFyFyFyFuFkFuFyFyO>>>>h\u001b\nhlj\u0017ice\nu\u0017grave\n: "
+ },
+ "segments": [
+  {
+   "seed": 50255079,
+   "datetime": "20130103205858",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0006_ \u001bm.>Fh s_>>,Fu_,> FyFyFu\u0006_>.Fu_.Fy>FyFy_>._,>_>._,> FhFhFh\u000f\u001b\u0018\u001b< \u0006_>.Fh_.>_>,_.> FhFhFh< \u0006_>>,> Fh FhFh\u0006_>>,Fj_,Fj>FjFj _>>.Fj_,Fu  n>FjFu_>>.Fu _,<.Fy>Fk FjFy Fj     Fk \u0006_>.  nFl_.   Fn>Fh    Fh     _>,  Fk     _.>.Fh   >Fh    Fj_>.   Fj   n_.   >\u0004y  #ride\nly y\u001610\n\u0006_>.>FjFk_>.>FyFu_>,>FyFyFnFjFn#name\nm\n#wipe\n,\u0006_>,>FkFy_>.>FnFj_>.>FuFnFyFyFu#monster\nb\u0006_>.>FlFu_>,>FuFl_>,>FlFu  nFlFyFl#terrain\n\u001b\u0014<.\u0006_>.>_>,>_>.>\u0006_>.>_>,>_>.>:10s\u000f\u001b#turn\n#twoweapon\n\u0018\u001bmO>>>>f\u001b\nFy s.byu#pray\ny y 50s\u000f\u001b50sykhFkFkFkFkFkFyFkFyFuFkFuFkFuFuFuFkFuFuFkFuFuFyFkFuFkFkFkFuFuFyFkFuFuFyFkFuFkFuFuFuFyFyFkFuFuFyFuFuFuFkFkFyFyFyFyFyFuFkFkFkFuFyFkFkFkFyFuFkFyFyFkFyFyFuFyFkFkFyFyFyFyFyFkFuFyFyFkFyFuFyFkFkFyFkFkFkFuFuFy\u001619\n#turn\n,_>.sFkFyFyFuFkFuFyFuFyFuFkFkFuFyFkFuFkFyFkFyFyFuFyFuFuFuFuFuFyFkFkFyFkFkFkFuFuFkFuFkFyFuFuFuFuFkFuFkFkFyFuFuFuFkFkFkFuFyFkFkFuFuFkFkFkFkFyFkFuFuFuFuFkFyFyFyFyFyFyFuFuFkFuFyFkFyFkFuFuFkFyFuFuFuFyFyFuFyFkFkFuFkFyFkFyFyFkFkFkFyFkFuFyFyFyFuFkFuFyFyO>>>>h\u001b\nhlj\u0017ice\nu\u0017grave\n: "
+  }
+ ]
+}

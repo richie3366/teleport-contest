@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "O>>>>l\u001b\nO>>>>n\u001b\u001b\nO>>m\u001b\u001b\nOn\u001b\n#levelchange\n10\n        lkj\u0017fountain\nqyqy#dip\ndy  l\u0017sink\nqy jb\u0017unaligned altar\ndg  \u0017jackal corpse\n#offer\nl  #sit\nck#enhance\nyl\nm\n\u001b\u0006_ \u001b.>Fh20s_>>._,Fb>Fb 20s_>>._.>#chat\nk#jump\n\u0006_>._,>_>._.>_>._.>K#untrap\nh<\u0006_>.Fj_.Fj>_>.Fy_.m,Fl>Fl  ._>,_,>,j\u0006_>._,>_>._,>_>._.>\u0006_>._,>_>,_.>_>,_.Fy>FyFyFyFyFy#invoke\n\u001bb\u00164\nO>>>m\u001b\u001b\n\u00162\nFbFbFbFb FbFbFbFbFb#pray\ny y   Fbss#pray\ny y #pray\ny y #pray\ny y #pray\ny y  150s#pray\ny y   Fh .20s 100sFl Fu Fl#pray\ny y      #pray\ny y       Fu FuFlFu Fu FlFl  FlFl FlFl Fl#pra"
+ },
+ "segments": [
+  {
+   "seed": 50255012,
+   "datetime": "20230531103742",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\n",
+   "moves": "O>>>>l\u001b\nO>>>>n\u001b\u001b\nO>>m\u001b\u001b\nOn\u001b\n#levelchange\n10\n        lkj\u0017fountain\nqyqy#dip\ndy  l\u0017sink\nqy jb\u0017unaligned altar\ndg  \u0017jackal corpse\n#offer\nl  #sit\nck#enhance\nyl\nm\n\u001b\u0006_ \u001b.>Fh20s_>>._,Fb>Fb 20s_>>._.>#chat\nk#jump\n\u0006_>._,>_>._.>_>._.>K#untrap\nh<\u0006_>.Fj_.Fj>_>.Fy_.m,Fl>Fl  ._>,_,>,j\u0006_>._,>_>._,>_>._.>\u0006_>._,>_>,_.>_>,_.Fy>FyFyFyFyFy#invoke\n\u001bb\u00164\nO>>>m\u001b\u001b\n\u00162\nFbFbFbFb FbFbFbFbFb#pray\ny y   Fbss#pray\ny y #pray\ny y #pray\ny y #pray\ny y  150s#pray\ny y   Fh .20s 100sFl Fu Fl#pray\ny y      #pray\ny y       Fu FuFlFu Fu FlFl  FlFl FlFl Fl#pra"
+  }
+ ]
+}

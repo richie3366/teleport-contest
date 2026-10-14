@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 gauntlets of power\nWg\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>w\u0006_ \u001bm,_o.,pFuFuFuFuFuFu_ooo,_ooo.,p_{,Fk _.Flq_ooooooo.Fl_,,\u001bp_{. _.  q__. Fn  _.Fk#chat\nk_oooooooo.Fl_,Fh_oo,_., $__.  nFl_, #chat\nb\u0016?\n>Bnnb\u0016?\n>w\u0006_ooooooo,,\u0014:20ss_ooo.Fb_.,Fb,#chat\nnnll#chat\nh_{, Fj _. q_ooooooo._.,  :\u00163\nk yb \u0016?\n>w\u0006_oooooooo,Fh   _. Fh   n,p_ooooo. Fh  _.   n Fh,p_ooooooo, _. ,p_oo,_,_ooo. Fb_,Fk  ,  $_oo,Fh _.Fy   _o,     nFl  _.,    #chat\ny   n   \u001612\n_ooooo,,#chat\nuFu Fu  n Fu Fu Fu Fu   n  \u00166\n_oo,Fy _,  n    Fu    n  ,      n  #chat\nj    \u00164\n_ooooooooo.,#chat\nk   n  \u0016?\n>Bkkj    n\u0016?\n>w\u0006\u00165\nFj"
+ },
+ "segments": [
+  {
+   "seed": 50250037,
+   "datetime": "20230712014218",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 gauntlets of power\nWg\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>w\u0006_ \u001bm,_o.,pFuFuFuFuFuFu_ooo,_ooo.,p_{,Fk _.Flq_ooooooo.Fl_,,\u001bp_{. _.  q__. Fn  _.Fk#chat\nk_oooooooo.Fl_,Fh_oo,_., $__.  nFl_, #chat\nb\u0016?\n>Bnnb\u0016?\n>w\u0006_ooooooo,,\u0014:20ss_ooo.Fb_.,Fb,#chat\nnnll#chat\nh_{, Fj _. q_ooooooo._.,  :\u00163\nk yb \u0016?\n>w\u0006_oooooooo,Fh   _. Fh   n,p_ooooo. Fh  _.   n Fh,p_ooooooo, _. ,p_oo,_,_ooo. Fb_,Fk  ,  $_oo,Fh _.Fy   _o,     nFl  _.,    #chat\ny   n   \u001612\n_ooooo,,#chat\nuFu Fu  n Fu Fu Fu Fu   n  \u00166\n_oo,Fy _,  n    Fu    n  ,      n  #chat\nj    \u00164\n_ooooooooo.,#chat\nk   n  \u0016?\n>Bkkj    n\u0016?\n>w\u0006\u00165\nFj"
+  }
+ ]
+}

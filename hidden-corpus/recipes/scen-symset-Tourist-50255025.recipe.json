@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "v\u001bi\u001bck#invoke\n\u001b#name\na\nJ#force\n#levelchange\n6\n    yyk\u0017pool\nlk\u0017lawful altar\ndf\u0017human corpse\n : yn\u0017moat\n#turn\n\u000f\u001b\u0014 \u001b,\u001613\n\u0014;#tip\n\u001b20s\u0018\u001bv\u001bi\u001b\u001619\neg  y_<,sO>>>>i\u001b\u001b\nOp\u001b\nv\u001bi\u001b\u001612\nO>>>>c\u001b\nmO>h\u001b\n\u00162\nFlFkFbFhFkFjFhFyFhFlFbFlFhFbFhFjFbFyFuFyFjFkFlFuFlFbFkFjFjFlFhFyFjFlFhFhFhFjFkFhFkFyFjFhFuFyFyFhFlFyFbFjFlFbFbFlFhFkFhFyFuFjFjFhFhFyFjFjFyFhFjFkFuFjFlFhFjFbFjFkFkFlFkFhFkFlFjFjFlFjFbFhFhFkFhFjFhFjFlFkFlFkFbFyFlFyFyFlFbFyFkFuFhFyFjFhFkFjFlFjOg\u001b\u001b\nqh<ck#tip\n\u001bv\u001bi\u001bO>n\u001b\u001b\nqhwany#levelchange\n20\n              hnhu\u0017magic fountain\nqy qyh\u0017altar\nda\u0017elf corpse\n #offer\no   n\u0014@.q\u001611\n#ride\nby20s \u0006>._>, _.>\u0006@._>>, _, Fu    >Fb . _>>.Fl _. >#chat\n#twoweapon\n\u0006m,_>._. > \u00169\njyk\u0017lawful altar\ndi\u0017dwarf corpse\n #offer\np   l\u0017cloud\n#terrain\nf\n\\ \u000f\u001bP\u0014>.bO>>>m\u001b\u001b\n\u0006_>.   Fu_.Fl>FhFy_>,Fb_.Fb>FyFh_>.Fn_.Fh>FbFyFbFkFy#pray\ny y oj y\u0006_>.Fb_.Fn>FlFu_>.Fl_,"
+ },
+ "segments": [
+  {
+   "seed": 50255025,
+   "datetime": "20110717163820",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\nMENUCOLOR=\"uncursed\"=brown\nBIND=v:inventory\n",
+   "moves": "v\u001bi\u001bck#invoke\n\u001b#name\na\nJ#force\n#levelchange\n6\n    yyk\u0017pool\nlk\u0017lawful altar\ndf\u0017human corpse\n : yn\u0017moat\n#turn\n\u000f\u001b\u0014 \u001b,\u001613\n\u0014;#tip\n\u001b20s\u0018\u001bv\u001bi\u001b\u001619\neg  y_<,sO>>>>i\u001b\u001b\nOp\u001b\nv\u001bi\u001b\u001612\nO>>>>c\u001b\nmO>h\u001b\n\u00162\nFlFkFbFhFkFjFhFyFhFlFbFlFhFbFhFjFbFyFuFyFjFkFlFuFlFbFkFjFjFlFhFyFjFlFhFhFhFjFkFhFkFyFjFhFuFyFyFhFlFyFbFjFlFbFbFlFhFkFhFyFuFjFjFhFhFyFjFjFyFhFjFkFuFjFlFhFjFbFjFkFkFlFkFhFkFlFjFjFlFjFbFhFhFkFhFjFhFjFlFkFlFkFbFyFlFyFyFlFbFyFkFuFhFyFjFhFkFjFlFjOg\u001b\u001b\nqh<ck#tip\n\u001bv\u001bi\u001bO>n\u001b\u001b\nqhwany#levelchange\n20\n              hnhu\u0017magic fountain\nqy qyh\u0017altar\nda\u0017elf corpse\n #offer\no   n\u0014@.q\u001611\n#ride\nby20s \u0006>._>, _.>\u0006@._>>, _, Fu    >Fb . _>>.Fl _. >#chat\n#twoweapon\n\u0006m,_>._. > \u00169\njyk\u0017lawful altar\ndi\u0017dwarf corpse\n #offer\np   l\u0017cloud\n#terrain\nf\n\\ \u000f\u001bP\u0014>.bO>>>m\u001b\u001b\n\u0006_>.   Fu_.Fl>FhFy_>,Fb_.Fb>FyFh_>.Fn_.Fh>FbFyFbFkFy#pray\ny y oj y\u0006_>.Fb_.Fn>FlFu_>.Fl_,"
+  }
+ ]
+}

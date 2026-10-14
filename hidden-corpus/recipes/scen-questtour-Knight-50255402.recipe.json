@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.     n#chat\ny_mmm.  Fy   n   _.#chat\nk    n _mmmm,     n    Fh    n       _,#chat\ny#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm,     Fu      _.#chat\nh_mmm,    Fu      n       _,#chat\ny\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed ring of free action\nPjl      n  \u0017wand of fire\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.       Fb        \u001b   n  _.Fb        Fy     Fu  Fy  n        Fb    n   Fh     ,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmm.     Fk _.#chat\nb\u00163\n\u0016?\n>z\u0006_mmmm.  n       Fy      n    _.Fh     Fh Fk        n  Fb      Fk     Fb Fh       n  zky     ,#chat\nu\u00163\n\u0016?\n>A\u0006_mmmmmmm. Fb     n   _,     Fk   Fh      yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50255402,
+   "datetime": "20110319190453",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.     n#chat\ny_mmm.  Fy   n   _.#chat\nk    n _mmmm,     n    Fh    n       _,#chat\ny#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm,     Fu      _.#chat\nh_mmm,    Fu      n       _,#chat\ny\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed ring of free action\nPjl      n  \u0017wand of fire\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.       Fb        \u001b   n  _.Fb        Fy     Fu  Fy  n        Fb    n   Fh     ,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmm.     Fk _.#chat\nb\u00163\n\u0016?\n>z\u0006_mmmm.  n       Fy      n    _.Fh     Fh Fk        n  Fb      Fk     Fb Fh       n  zky     ,#chat\nu\u00163\n\u0016?\n>A\u0006_mmmmmmm. Fb     n   _,     Fk   Fh      yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

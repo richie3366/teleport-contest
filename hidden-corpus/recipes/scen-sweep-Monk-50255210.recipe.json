@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n        #levelchange\n14\n       \u0007trapper\nFnFnFn FkFk#pray\ny y Fj#pray\ny y Fk#pray\ny y Fj#pray\ny y #levelchange\n12\n#wizintrinsic\nq\n 20s .20s 20s 20s 20s20ssm.   n sm..ksm.s.m. s\u001b\u0017magic flute\najyajy#conduct\n 10s\u001b<#untrap\ni\u001b#force\ns\u001bss20s 20s  \u001b20s\u001bi\u001bi\u001bWs\u001bssef.20s\u001bqd#dip\nddajyajyee s\u001b.eg s\u001b20s\u001b#conduct\n ri y W#monster\ni\u001bP#pray\ny y zi\u001beh   20s\u001bsW20s\u001bssTbef s\u001b20s\u001bri y .20s\u001bZa\nZa\nqdajyajy\u00168\n\u0006\u0017wand of digging\nzphhzp> shkzpyy\u0018\u001b#levelchange\n16\n    \u0016?\n>y  _ \u001b>.#chat\nj_mm.Fj_.,Fb#chat\nb;b._m,Fb_.#chat\nb;h;_mmmm.  _, Fl#chat\nl \u0006_>>.Fk  n _.>.Fh>Fh Fh_>>,Fk _.m.  n  Fl  >Fh   n  Fk    n   _>>.Fb_. Fh>Fh Fh    n  \u0016?\n>>\u001b#jump\n\u0004k #turn\n\u00165\n\u00167\n#levelchange\n14\nbjh  n n\u0017throne\n#sit\n:nh  \u0017lawful altar\ndd   n  \u0017human corpse\n #pray\ny y         #terrain\n\u001b>chh \u0018\u001b\u00168\n#levelchange\n12\n\u0017speed boots\nWr    n   20s    n20s      nsu Tr   n   \u0007acid blob\nFu    nFu  Fy   n  Fy  Fy  n   Fn  n    \u0007red naga\nFu   yy\u001by   y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50255210,
+   "datetime": "20240503034720",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n        #levelchange\n14\n       \u0007trapper\nFnFnFn FkFk#pray\ny y Fj#pray\ny y Fk#pray\ny y Fj#pray\ny y #levelchange\n12\n#wizintrinsic\nq\n 20s .20s 20s 20s 20s20ssm.   n sm..ksm.s.m. s\u001b\u0017magic flute\najyajy#conduct\n 10s\u001b<#untrap\ni\u001b#force\ns\u001bss20s 20s  \u001b20s\u001bi\u001bi\u001bWs\u001bssef.20s\u001bqd#dip\nddajyajyee s\u001b.eg s\u001b20s\u001b#conduct\n ri y W#monster\ni\u001bP#pray\ny y zi\u001beh   20s\u001bsW20s\u001bssTbef s\u001b20s\u001bri y .20s\u001bZa\nZa\nqdajyajy\u00168\n\u0006\u0017wand of digging\nzphhzp> shkzpyy\u0018\u001b#levelchange\n16\n    \u0016?\n>y  _ \u001b>.#chat\nj_mm.Fj_.,Fb#chat\nb;b._m,Fb_.#chat\nb;h;_mmmm.  _, Fl#chat\nl \u0006_>>.Fk  n _.>.Fh>Fh Fh_>>,Fk _.m.  n  Fl  >Fh   n  Fk    n   _>>.Fb_. Fh>Fh Fh    n  \u0016?\n>>\u001b#jump\n\u0004k #turn\n\u00165\n\u00167\n#levelchange\n14\nbjh  n n\u0017throne\n#sit\n:nh  \u0017lawful altar\ndd   n  \u0017human corpse\n #pray\ny y         #terrain\n\u001b>chh \u0018\u001b\u00168\n#levelchange\n12\n\u0017speed boots\nWr    n   20s    n20s      nsu Tr   n   \u0007acid blob\nFu    nFu  Fy   n  Fy  Fy  n   Fn  n    \u0007red naga\nFu   yy\u001by   y y\u001b  F"
+  }
+ ]
+}

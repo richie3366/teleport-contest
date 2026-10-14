@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " O>jhg\ni\nf\n#force\nsmO>>>d\n,#enhance\n\u001bO>hmp\n#wipe\nojOid\nc\nejOom\nn\nE- I am a fish\nw-mO>>>qko\n f $ ns20smO>vmr\n l#twoweapon\nmO>>>>bcg\n k\n off\n\\ z\u001bmO>>>gh\n #terrain\nd\nzmO.."
+ },
+ "segments": [
+  {
+   "seed": 50255907,
+   "datetime": "20060203083833",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=pettype:none\nOPTIONS=playmode:explore\n",
+   "moves": " O>jhg\ni\nf\n#force\nsmO>>>d\n,#enhance\n\u001bO>hmp\n#wipe\nojOid\nc\nejOom\nn\nE- I am a fish\nw-mO>>>qko\n f $ ns20smO>vmr\n l#twoweapon\nmO>>>>bcg\n k\n off\n\\ z\u001bmO>>>gh\n #terrain\nd\nzmO.."
+  }
+ ]
+}

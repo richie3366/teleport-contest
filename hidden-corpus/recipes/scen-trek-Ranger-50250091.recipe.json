@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "FlFl 20sFlFls_ \u001b.>\u0018\u001b_>,>150s100sklkFlFlFlFlFlFlFlFlFlFlFlsjkni\u001b100slbynyl100s\\ ulnFj.sluh50s150sFjFjs150suhjlub100s50sFj20s.#conduct\n #wipe\n50s\u0018\u001b#force\n50s\u0018\u001b150s \u000f\u001b;m,r\u001b<NNHU_>.>BLYB_>.>FbssYUJJ_>.>FjFjFjKBKK_>.>LYUN_>,>KLB Y_>.>w-WKLUL_>.>nf j#dip\ne #turn\n\u000f\u001b20s20staj#chat\njbubyl ddsm.sm.sm.lhbjjtcykubku100s100sFjFj20s150s150sFjFjFnFb Fj Fl Fl   y\u001by  y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50250091,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\n",
+   "moves": "FlFl 20sFlFls_ \u001b.>\u0018\u001b_>,>150s100sklkFlFlFlFlFlFlFlFlFlFlFlsjkni\u001b100slbynyl100s\\ ulnFj.sluh50s150sFjFjs150suhjlub100s50sFj20s.#conduct\n #wipe\n50s\u0018\u001b#force\n50s\u0018\u001b150s \u000f\u001b;m,r\u001b<NNHU_>.>BLYB_>.>FbssYUJJ_>.>FjFjFjKBKK_>.>LYUN_>,>KLB Y_>.>w-WKLUL_>.>nf j#dip\ne #turn\n\u000f\u001b20s20staj#chat\njbubyl ddsm.sm.sm.lhbjjtcykubku100s100sFjFj20s150s150sFjFjFnFb Fj Fl Fl   y\u001by  y y y\u001b  s"
+  }
+ ]
+}

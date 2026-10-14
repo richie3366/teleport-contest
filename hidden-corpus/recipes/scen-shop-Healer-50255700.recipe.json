@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed Mjollnir\nwl\u0017blessed +3 gray dragon scale mail\nWm\u0016?\n>w\u0006_ \u001b<.   ,\u0014:ss _{._,qf_oo._oo.,p\u0016?\n>B  yjl\u0016?\n>w\u0006ylh#chat\nk\u00167\nubh\u0016?\n>w\u0006_ooooooo.,p__.  Fy_. Fu #chat\ny \u00167\nhkb\u0016?\n>w\u0006_ooo.,:_oooo.,p\u0016?\ncnbu\u0016?\n>w\u0006_ooooo._oo.,$_oooooooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndn\u00163\nuyb\u0016?\n>w\u0006_ooo,    _,,p\u0016?\nckjl\u0016?\n>w\u0006_oo._o.,phll#chat\ny_ooooo,,$hlh#chat\ny_ooo.,$_ooo,_ooo,,p__.    Fu  _.   n Fl    #chat\nu      n#pray\ny y    \u00166\n_ooo.,$FuFu FuFuFuFu  FlFl Fl    nFl  Fl Fl   _ooo, Fk  _,_ooo. Fh  _.,a\n   $Fh  Fh  FhFhFhFh _{,Fb   _.,Fh qf  _{.  Fy  _.Fj  qf _ooooooooo.Fk_,,a\n$Fk Fk  Fk Fk Fk Fk  \u0016?\ncjl y\u0016?\n>w\u0006_oo.  nFk _. Fl ,:_oooo.Fj _.Fb _oo.Fb  _,,a\n pFbFb Fb  Fb Fb  Fb _ooooooooo,_.,a\np_{._.qy_oooooooo.Fy _., p__.Fy _.Fy #chat\nj#pray\ny y _oo. _.,a\npk ul#chat\nj_oo,Fh_.>.Fk ,p__. Fj     n  _.#chat\nj   #pray\ny y          _oooooo,   n  Fb  n _.  Fu   n ,p\u00163\n_ooooooo.,p_ooooooooo._ooo,,py ly#ch"
+ },
+ "segments": [
+  {
+   "seed": 50255700,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed Mjollnir\nwl\u0017blessed +3 gray dragon scale mail\nWm\u0016?\n>w\u0006_ \u001b<.   ,\u0014:ss _{._,qf_oo._oo.,p\u0016?\n>B  yjl\u0016?\n>w\u0006ylh#chat\nk\u00167\nubh\u0016?\n>w\u0006_ooooooo.,p__.  Fy_. Fu #chat\ny \u00167\nhkb\u0016?\n>w\u0006_ooo.,:_oooo.,p\u0016?\ncnbu\u0016?\n>w\u0006_ooooo._oo.,$_oooooooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndn\u00163\nuyb\u0016?\n>w\u0006_ooo,    _,,p\u0016?\nckjl\u0016?\n>w\u0006_oo._o.,phll#chat\ny_ooooo,,$hlh#chat\ny_ooo.,$_ooo,_ooo,,p__.    Fu  _.   n Fl    #chat\nu      n#pray\ny y    \u00166\n_ooo.,$FuFu FuFuFuFu  FlFl Fl    nFl  Fl Fl   _ooo, Fk  _,_ooo. Fh  _.,a\n   $Fh  Fh  FhFhFhFh _{,Fb   _.,Fh qf  _{.  Fy  _.Fj  qf _ooooooooo.Fk_,,a\n$Fk Fk  Fk Fk Fk Fk  \u0016?\ncjl y\u0016?\n>w\u0006_oo.  nFk _. Fl ,:_oooo.Fj _.Fb _oo.Fb  _,,a\n pFbFb Fb  Fb Fb  Fb _ooooooooo,_.,a\np_{._.qy_oooooooo.Fy _., p__.Fy _.Fy #chat\nj#pray\ny y _oo. _.,a\npk ul#chat\nj_oo,Fh_.>.Fk ,p__. Fj     n  _.#chat\nj   #pray\ny y          _oooooo,   n  Fb  n _.  Fu   n ,p\u00163\n_ooooooo.,p_ooooooooo._ooo,,py ly#ch"
+  }
+ ]
+}

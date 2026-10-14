@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "H UYN_ \u001bm.><YNBB_>.>Fhs20s YULK_>.>FlFj 20sUNYB_>.>okWYBNY_>.>#sit\n\u001bokHYNK_>.>LYKN_>,>YYJL_>.>FhssKKLJ_>.><KNLB_>.>LUKU_>.>\u000f\u001bP#jump\n;>bujk#name\nd\ntbj20sbbubuububb#ride\nu#loot\n20s#name\na\nt\u001b#chat\nb#chat\nyt\u001bdgs20s20suhs#sit\n\u001b#force\n100sFjs._>,>100sFjFjslhl_>,>i\u001bhlu100s_>.>150s100sFbFb.hku_>.>lyjkbh150sFjFjs_>.>luueh ejujk50sehi\u001b100sehubuuuu100seh50seh100sFb.20sehhyuBLKL_>.>Fbssb \u0014UHHU_>.>NNJB_>.>YBBN_>,>20st\u001b#terrain\nc\n.ehkhl150sljknnn100seheh100sFbFbs_>,>hjk100sFbFbFb_>,>_>.>100seh100seh100seh150seeeeeeeeeeeeeeeeeNUJY_>.>,f b bYNUB_>.>LKNL_>.>20snnlnb u10s#name\ni\ndi20ss.#sit\nhokeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet\u001bE- Vlad was here\nclde20s20ssm.b20sb20sdf20ssst\u001b#chat\nb#pray\ny  100s#tip\n\u001b_>.>50s100sFb20s20skjj100s\\   bnh 50s\u0018\u001b_>.>hhb50s100sFjs.\\   l hn100sFjFjFjFjssj jh100s100s100sFhss100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYU YB_>.>H JLY _>.>E- Elbereth\n"
+ },
+ "segments": [
+  {
+   "seed": 50250003,
+   "datetime": "20241205221917",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=playmode:explore\n",
+   "moves": "H UYN_ \u001bm.><YNBB_>.>Fhs20s YULK_>.>FlFj 20sUNYB_>.>okWYBNY_>.>#sit\n\u001bokHYNK_>.>LYKN_>,>YYJL_>.>FhssKKLJ_>.><KNLB_>.>LUKU_>.>\u000f\u001bP#jump\n;>bujk#name\nd\ntbj20sbbubuububb#ride\nu#loot\n20s#name\na\nt\u001b#chat\nb#chat\nyt\u001bdgs20s20suhs#sit\n\u001b#force\n100sFjs._>,>100sFjFjslhl_>,>i\u001bhlu100s_>.>150s100sFbFb.hku_>.>lyjkbh150sFjFjs_>.>luueh ejujk50sehi\u001b100sehubuuuu100seh50seh100sFb.20sehhyuBLKL_>.>Fbssb \u0014UHHU_>.>NNJB_>.>YBBN_>,>20st\u001b#terrain\nc\n.ehkhl150sljknnn100seheh100sFbFbs_>,>hjk100sFbFbFb_>,>_>.>100seh100seh100seh150seeeeeeeeeeeeeeeeeNUJY_>.>,f b bYNUB_>.>LKNL_>.>20snnlnb u10s#name\ni\ndi20ss.#sit\nhokeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet\u001bE- Vlad was here\nclde20s20ssm.b20sb20sdf20ssst\u001b#chat\nb#pray\ny  100s#tip\n\u001b_>.>50s100sFb20s20skjj100s\\   bnh 50s\u0018\u001b_>.>hhb50s100sFjs.\\   l hn100sFjFjFjFjssj jh100s100s100sFhss100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYU YB_>.>H JLY _>.>E- Elbereth\n"
+  }
+ ]
+}

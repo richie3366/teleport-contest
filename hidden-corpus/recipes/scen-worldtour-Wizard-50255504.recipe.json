@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nWn\u0016?\nc_ \u001b:<20s\u0016?\n>wkbu:\u001641\nkl:\u0016?\no __.\u0016?\nk  __.Fk         _.\u0016?\n>G#chat\nk;m,\u0016?\nk   \u0006_>._.20s .\u001641\n #chat\nk;<.\u0016?\n>>K       20 darts\n\u0004u\u00167\nl  l   n n   j :  \u0016?\n\u001bn       u    n \u00167\n_<,<sm.  20s   sm. \u0016?\n\u001bu      n   k    \u00166\n#chat\ny;y:  .m.      20s   n  \u0016?\n\u001bj      j    n       \u0016?\n\u001bb            n     k         \u001612\nl        n          l         n      \u0017wand of undead turning\nE\u0017wand of striking\nEj   n     \u0017diamond\nE\u0017wand of locking\nE:             n  \u00161\n\u00162\n\u0014,   n      \u0016?\n\u001bh        n y         n\u00167\n\u001643\n\u00173 spellbook of fireball\n\u0007elf-lord\nru.m.    20s    n Z\u001bZ\u001b\u0017cursed scroll of earth\nrvFl     20s   n \u0017scroll of teleportation\nrw\u0017blessed elven mithril-coat\nWx  s      y  ."
+ },
+ "segments": [
+  {
+   "seed": 50255504,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=runmode:teleport\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nWn\u0016?\nc_ \u001b:<20s\u0016?\n>wkbu:\u001641\nkl:\u0016?\no __.\u0016?\nk  __.Fk         _.\u0016?\n>G#chat\nk;m,\u0016?\nk   \u0006_>._.20s .\u001641\n #chat\nk;<.\u0016?\n>>K       20 darts\n\u0004u\u00167\nl  l   n n   j :  \u0016?\n\u001bn       u    n \u00167\n_<,<sm.  20s   sm. \u0016?\n\u001bu      n   k    \u00166\n#chat\ny;y:  .m.      20s   n  \u0016?\n\u001bj      j    n       \u0016?\n\u001bb            n     k         \u001612\nl        n          l         n      \u0017wand of undead turning\nE\u0017wand of striking\nEj   n     \u0017diamond\nE\u0017wand of locking\nE:             n  \u00161\n\u00162\n\u0014,   n      \u0016?\n\u001bh        n y         n\u00167\n\u001643\n\u00173 spellbook of fireball\n\u0007elf-lord\nru.m.    20s    n Z\u001bZ\u001b\u0017cursed scroll of earth\nrvFl     20s   n \u0017scroll of teleportation\nrw\u0017blessed elven mithril-coat\nWx  s      y  ."
+  }
+ ]
+}

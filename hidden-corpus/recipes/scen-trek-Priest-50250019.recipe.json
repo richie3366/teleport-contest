@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "N JHK_ \u001b.>Fl 20s.P#terrain\nb\nUNBB_>LJKJ_>NYUL_>UHYH_><UBKY_>c i\u001bJ100sknu50s150snyjFu.20s_>,>100sFl20sFlFlFls50sFlFl.yhn\u0018\u001b#wipe\nFl20ss100s100sFlFls50s50sFls.kkjjuk100s\\ 100shhj100sE- I am a fish\n100sFlFlFlFlFuFljlu100s\u0018\u001b\u0018\u001b_>.>100s;m.\u0018\u001b\u0018\u001bbhl100s100s100s150sFlFlFlFls20s\\ #name\na\n50s:z150sees50sef_>,>hlh\u000f\u001b\\ 100seeeeeeeeeeeeeeeei\u001b20si\u001bLHKK_>.>NBHH_>.>HLLK_>.>NJHH_>,>JUUU_>.>NJYY_>.>#wipe\n10sNUNY_>.>FyFyFn<LNHL_>.>FlssU NJL_>,>10se#chat\nl#force\nrh nyyyljkj#chat\nkhjhb#chat\nye#pray\ny  i\u001bhkblluaibhkkun100sFn.sf \u001b\u0018\u001b50s50sFls20s150s100s100sFlFlFlFls.i\u001bubj50sFl20s.kkjknh50s#wipe\n_>,>yll\u000f\u001b100s50snujFjFhFj100s1"
+ },
+ "segments": [
+  {
+   "seed": 50250019,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\n",
+   "moves": "N JHK_ \u001b.>Fl 20s.P#terrain\nb\nUNBB_>LJKJ_>NYUL_>UHYH_><UBKY_>c i\u001bJ100sknu50s150snyjFu.20s_>,>100sFl20sFlFlFls50sFlFl.yhn\u0018\u001b#wipe\nFl20ss100s100sFlFls50s50sFls.kkjjuk100s\\ 100shhj100sE- I am a fish\n100sFlFlFlFlFuFljlu100s\u0018\u001b\u0018\u001b_>.>100s;m.\u0018\u001b\u0018\u001bbhl100s100s100s150sFlFlFlFls20s\\ #name\na\n50s:z150sees50sef_>,>hlh\u000f\u001b\\ 100seeeeeeeeeeeeeeeei\u001b20si\u001bLHKK_>.>NBHH_>.>HLLK_>.>NJHH_>,>JUUU_>.>NJYY_>.>#wipe\n10sNUNY_>.>FyFyFn<LNHL_>.>FlssU NJL_>,>10se#chat\nl#force\nrh nyyyljkj#chat\nkhjhb#chat\nye#pray\ny  i\u001bhkblluaibhkkun100sFn.sf \u001b\u0018\u001b50s50sFls20s150s100s100sFlFlFlFls.i\u001bubj50sFl20s.kkjknh50s#wipe\n_>,>yll\u000f\u001b100s50snujFjFhFj100s1"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " Of\n10sOklo\nk\n#enhance\nyf\nd\n\u001bmO>>>>f\n w\u001bOgn\ni\nm\n#wipe\n\u0004bOpm\nol..mO>jp\n #enhance\nyf\ne\n\u001bO>nb\nc\nn\nd\n\u001b\u001b#invoke\n\u001bs mO>>>>ce\nt\u001b#tip\n\u001bO>h\n#conduct\n ,Oi\nm\n;m, \u001b;#enhance\nyg\nd\n\u001bO>pa\ne\n,\u0004k.s"
+ },
+ "segments": [
+  {
+   "seed": 50255911,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": " Of\n10sOklo\nk\n#enhance\nyf\nd\n\u001bmO>>>>f\n w\u001bOgn\ni\nm\n#wipe\n\u0004bOpm\nol..mO>jp\n #enhance\nyf\ne\n\u001bO>nb\nc\nn\nd\n\u001b\u001b#invoke\n\u001bs mO>>>>ce\nt\u001b#tip\n\u001bO>h\n#conduct\n ,Oi\nm\n;m, \u001b;#enhance\nyg\nd\n\u001bO>pa\ne\n,\u0004k.s"
+  }
+ ]
+}

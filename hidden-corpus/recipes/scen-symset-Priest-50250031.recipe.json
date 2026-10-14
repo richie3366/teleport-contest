@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "khbu\u0017sink\nqy\u0017ring of protection\ndi  \u001b:h\u0017magic fountain\nqy qyqy\u0017long sword\n#dip\njyj\u0017altar\ndcdb\u0017newt corpse\n#offer\nk #terrain\nc\n\u001b>.#pray\ny y #enhance\nyh\nm\n\u001bs\u0006_>>,Fh_,Fu>FhFh_>>.Fb_..Fb>_>>.Fb_,Fn>Fl FuFuFhFy;u,#chat\ny\u0006_>,Fy_.Fu>FuFy_>.Fu_.Fy>FyFy_>,Fu_.Fy>FyFyFuFuFy\u0006_>.Fy_.Fy>FyFu_>.Fu_.Fu>FuFu_>.Fy_.Fy>FuFuFuFyFy<\u0006_>.Fu_.Fu>FuFu_>.Fu_.Fy>FuFu_>,Fu_.Fu>FuFuFyFuFu<\u0006_>.Fy_.<.Fk>FkFy_>.Fy_.,Fy>FuFu_>.Fy_.m.Fy>FyFy  nFyFyFy\u0006_>.Fk_.;.Fk>FuFy_>,_,> FjFnFb\u0006_>.Fj_.Fb>FjFn_>,Fj_.Fn>FbFb_>,Fn_.Fj>FbFnFjFjFj\u00166\nFkFkFjFyFkFyFyFjFjFuFjFkFuFuFuFkFuFkFu     nFkFj   Fj  nFyFjFkFuFyFyFyFkFuFkFyFkFkFuFyFkFkFyFuFuFyFkFkFkFyFuFkFuFyFkFuFkFkFuFyFkFkFuFyFyFuFkFyFuFuFkFkFuFuFyFyFkFyFkFuFkFyFuFkFuFuFkFuFyFyFyFuFyFkFkFkFkFyFuFjFyFkFyFuFyFuFkFyFyFkFuFuFyFuFuFyFyFuFuFyFuFkFu\u00165\n\u001612\n\u000f\u001b150s100s  Fj Fh  n Fh   n Fj  Fj  n Fj    n     nFh Fj   n Fh    nFl           n Fl    n   Fh     n  Fl     n  Fl   n    yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50250031,
+   "datetime": "20260424222910",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You hear\"\n",
+   "moves": "khbu\u0017sink\nqy\u0017ring of protection\ndi  \u001b:h\u0017magic fountain\nqy qyqy\u0017long sword\n#dip\njyj\u0017altar\ndcdb\u0017newt corpse\n#offer\nk #terrain\nc\n\u001b>.#pray\ny y #enhance\nyh\nm\n\u001bs\u0006_>>,Fh_,Fu>FhFh_>>.Fb_..Fb>_>>.Fb_,Fn>Fl FuFuFhFy;u,#chat\ny\u0006_>,Fy_.Fu>FuFy_>.Fu_.Fy>FyFy_>,Fu_.Fy>FyFyFuFuFy\u0006_>.Fy_.Fy>FyFu_>.Fu_.Fu>FuFu_>.Fy_.Fy>FuFuFuFyFy<\u0006_>.Fu_.Fu>FuFu_>.Fu_.Fy>FuFu_>,Fu_.Fu>FuFuFyFuFu<\u0006_>.Fy_.<.Fk>FkFy_>.Fy_.,Fy>FuFu_>.Fy_.m.Fy>FyFy  nFyFyFy\u0006_>.Fk_.;.Fk>FuFy_>,_,> FjFnFb\u0006_>.Fj_.Fb>FjFn_>,Fj_.Fn>FbFb_>,Fn_.Fj>FbFnFjFjFj\u00166\nFkFkFjFyFkFyFyFjFjFuFjFkFuFuFuFkFuFkFu     nFkFj   Fj  nFyFjFkFuFyFyFyFkFuFkFyFkFkFuFyFkFkFyFuFuFyFkFkFkFyFuFkFuFyFkFuFkFkFuFyFkFkFuFyFyFuFkFyFuFuFkFkFuFuFyFyFkFyFkFuFkFyFuFkFuFuFkFuFyFyFyFuFyFkFkFkFkFyFuFjFyFkFyFuFyFuFkFyFyFkFuFuFyFuFuFyFyFuFuFyFuFkFu\u00165\n\u001612\n\u000f\u001b150s100s  Fj Fh  n Fh   n Fj  Fj  n Fj    n     nFh Fj   n Fh    nFl           n Fl    n   Fh     n  Fl     n  Fl   n    yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

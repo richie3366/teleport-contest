@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0006_ \u001bm.>Fl ._>,Fl_.@.>_>,_,;<.> \u0006_>>, _,>_>>,_,>_>>._,>\u0006_>,_.>_>,_.>_>,_.>\u0006_>>,_.>_>>._.>_>>,_.>\u0006_>>._.>_>>,_,>_>>._.>#pray\ny y #name\n\u001b\u0006_>._.>_>._.>_>._,>\u0006_>._,>_>._.>_>,_.>_m.s#tip\n\u001b\u000f\u001b#levelchange\n20\n\u0017slime mold\negssss\u0017blessed spellbook of dig\nrh.20sZ\u001bZ\u001b\u0017blessed scroll of food detection\nri  \u001bFl Fl \u00173 potion of see invisible\nqj \u001bsm..m.\u00178 spears\nQk\u0007hill orc\nk  n yfj fj fn  fnfb\u0017potion of full healing\ntckhbh,\u0007skeleton\n;n,sm.s.m.\u0007balrog\nFnFl  Fl   n Fn  Fn  \u0007ghost\nFl   Fn     n FnFn  Fn \\  \u00165\n#wizintrinsic\nh\n .k.m.sm.sss20ssm.20s   n sm.sm.s20s  sm.  n  \u0017tin whistle\namam  qj \u001b#rub\n;k;#enhance\nyb\nf\n\u001b#conduct\n Psm.  n sm. sm.20ssjs\u001627\n\u00166\n#levelchange\n8\n   \u0017blessed ring of polymorph control\nPnr  n\u0017dwarvish mithril-coat\nW\u001b20s    n.m.sm.    n#polyself\ndust vortex\n#monster\ns. sm.    n sls#polyself\nnewt\n#monster\nsu      n     n .m. sm.   n  sb   n  su#polyself\nfog cloud\n#monster\n.   n sm. \u0007vampire bat\nFy Fk  yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50255230,
+   "datetime": "20111023011543",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0006_ \u001bm.>Fl ._>,Fl_.@.>_>,_,;<.> \u0006_>>, _,>_>>,_,>_>>._,>\u0006_>,_.>_>,_.>_>,_.>\u0006_>>,_.>_>>._.>_>>,_.>\u0006_>>._.>_>>,_,>_>>._.>#pray\ny y #name\n\u001b\u0006_>._.>_>._.>_>._,>\u0006_>._,>_>._.>_>,_.>_m.s#tip\n\u001b\u000f\u001b#levelchange\n20\n\u0017slime mold\negssss\u0017blessed spellbook of dig\nrh.20sZ\u001bZ\u001b\u0017blessed scroll of food detection\nri  \u001bFl Fl \u00173 potion of see invisible\nqj \u001bsm..m.\u00178 spears\nQk\u0007hill orc\nk  n yfj fj fn  fnfb\u0017potion of full healing\ntckhbh,\u0007skeleton\n;n,sm.s.m.\u0007balrog\nFnFl  Fl   n Fn  Fn  \u0007ghost\nFl   Fn     n FnFn  Fn \\  \u00165\n#wizintrinsic\nh\n .k.m.sm.sss20ssm.20s   n sm.sm.s20s  sm.  n  \u0017tin whistle\namam  qj \u001b#rub\n;k;#enhance\nyb\nf\n\u001b#conduct\n Psm.  n sm. sm.20ssjs\u001627\n\u00166\n#levelchange\n8\n   \u0017blessed ring of polymorph control\nPnr  n\u0017dwarvish mithril-coat\nW\u001b20s    n.m.sm.    n#polyself\ndust vortex\n#monster\ns. sm.    n sls#polyself\nnewt\n#monster\nsu      n     n .m. sm.   n  sb   n  su#polyself\nfog cloud\n#monster\n.   n sm. \u0007vampire bat\nFy Fk  yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

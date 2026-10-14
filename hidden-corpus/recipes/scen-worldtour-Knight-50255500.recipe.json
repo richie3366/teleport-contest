@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u001627\n_ \u001b:s\u00162\njuy l   \u0017neutral altar\nde\u0017newt corpse\n#offer\ni  #pray\ny y k\u0017altar\ndhda\u0017gnome corpse\n#offer\nj   #pray\ny y : uy\u0017fountain\nqyqy  l \u0017moat\n#dip\ndy  ny 10s zs\u00162\n_{.>.m. \u0016?\n>>M      wand of probing\ny k     k l b   n :\u0016?\n\u001by           y\u0016?\nb_{.\u0016?\n\u001bhb        n      \u0016?\n\u001bj l\u0016?\n\u001blb      \u0016?\n\u001bjl\u0016?\n\u001bnj\u001628\n_{,\u0016?\n\u001bjk\u0016?\n\u001bh l\u001620\nh  n          nl       n  h        h    n    b   n     h     :\u001612\n\u0016?\n\u001blh\u001628\n_{.<\u001619\nub  n    h        n         j        n   :   s              n  sm.       .y     n     \u001611\n\u001638\n\u0014:               n        \u001613\n\u0006>._>,20s        n    \u0016?\n\u001bj        l    n                  n \u001620\nh           n\u0017wand of polymorph\nE:h   yy\u001bnny y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50255500,
+   "datetime": "20000901113232",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u001627\n_ \u001b:s\u00162\njuy l   \u0017neutral altar\nde\u0017newt corpse\n#offer\ni  #pray\ny y k\u0017altar\ndhda\u0017gnome corpse\n#offer\nj   #pray\ny y : uy\u0017fountain\nqyqy  l \u0017moat\n#dip\ndy  ny 10s zs\u00162\n_{.>.m. \u0016?\n>>M      wand of probing\ny k     k l b   n :\u0016?\n\u001by           y\u0016?\nb_{.\u0016?\n\u001bhb        n      \u0016?\n\u001bj l\u0016?\n\u001blb      \u0016?\n\u001bjl\u0016?\n\u001bnj\u001628\n_{,\u0016?\n\u001bjk\u0016?\n\u001bh l\u001620\nh  n          nl       n  h        h    n    b   n     h     :\u001612\n\u0016?\n\u001blh\u001628\n_{.<\u001619\nub  n    h        n         j        n   :   s              n  sm.       .y     n     \u001611\n\u001638\n\u0014:               n        \u001613\n\u0006>._>,20s        n    \u0016?\n\u001bj        l    n                  n \u001620\nh           n\u0017wand of polymorph\nE:h   yy\u001bnny y\u001b  \u0017"
+  }
+ ]
+}

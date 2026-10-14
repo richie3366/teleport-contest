@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " _<. \u001bm..#conduct\n zOl\u001b\nOl\u001b\ndah\u001b10sab ;#chat\nb FbFnFjFuFyFj@.FjFbFyFyFkn FnFh\u001bFnFkn FbFyFyFnFbFj:FyFyFhFjFjFnFh\u001bFkFuFhFjFbFbFbFkb FlFyFku FjFbFjm,FbFjm.FbFh\u001bFkFyFj@.FnFh\u001bFhFjFbFnFyFuj FhFkFkFyFkn FkFhFbFj<.FkFnFkk FhFuFlFnFh\u001bFjFjFkFuFkFuFjFlFlFjFjFhFhFyFh\u001bFjFjFhFnFyFjFhFkFuFuFyFyFnFku FjFkFuFhFbFj>.FjFjFjFjFkFkFlFlFnFkn Fjnbb\u0017pool\nuu y\u0017fountain\nqy yqq\u0017long sword\n#dip\ni:#terrain\ne\nP\u000f\u001b#untrap\nl \u00161\n\u0006_>>.Fu_. Fh>FhFh_>>.Fy_.>FjFhFy\u0006_>,Fn_>FbFuk Fblu P\u0006_>>.Fn_>FjFn_>FjFn_>FyFh\u001bFyFuk Fy#loot\nh #name\n\u001b\u0006_>,Fh_.>.Fk>FkFk_>.Fk_,Fk>FkFk_>.Fk_.>.Fk>FkFkFkFkFk<\u0006_>,Fk_.<.Fk>FkFk_>,Fk_,Fk>FkFk_>.Fk_,Fk>FkFkFkFkFk\u0006_>>,Fk_.,Fk>FkFk_>>.Fk_.Fk>FkFk_>>,Fk_.Fk>FkFkFkFkFk\u0006_>,Fk_.@.Fk>FkFk_>.  nFk_.>.Fk>FkFk_>.Fk_.Fk>FkFkFkFkFk>#pray\ny y   \u00169\nO>>>>o6\n \u001b\n\u001620\n\u0006_>,Fb_.>FyFh\u001bFy#sit\n#sit\n\u0006_>>.  nFn_>FyFuu _>>.  nFy_.Fly >FuFl_>>,  n Fl_.  nFy>FuFuFuFlFy\u0006_>>.  nFu_,Fu>FuFl_>>,  n Fu_.  n Fy>FuFl_>>.  n Fu_.  n Fu>FlFnFnFlFu\u0006_>.  n Fn_>FuFy_>.  nFy_.  n   nFy>FnFn_>.  nFn_>FnFly FlFuFu20sh\u001b\u0006_>>.  yny  ny n y  F"
+ },
+ "segments": [
+  {
+   "seed": 50255055,
+   "datetime": "20190420120729",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=number_pad\n",
+   "moves": " _<. \u001bm..#conduct\n zOl\u001b\nOl\u001b\ndah\u001b10sab ;#chat\nb FbFnFjFuFyFj@.FjFbFyFyFkn FnFh\u001bFnFkn FbFyFyFnFbFj:FyFyFhFjFjFnFh\u001bFkFuFhFjFbFbFbFkb FlFyFku FjFbFjm,FbFjm.FbFh\u001bFkFyFj@.FnFh\u001bFhFjFbFnFyFuj FhFkFkFyFkn FkFhFbFj<.FkFnFkk FhFuFlFnFh\u001bFjFjFkFuFkFuFjFlFlFjFjFhFhFyFh\u001bFjFjFhFnFyFjFhFkFuFuFyFyFnFku FjFkFuFhFbFj>.FjFjFjFjFkFkFlFlFnFkn Fjnbb\u0017pool\nuu y\u0017fountain\nqy yqq\u0017long sword\n#dip\ni:#terrain\ne\nP\u000f\u001b#untrap\nl \u00161\n\u0006_>>.Fu_. Fh>FhFh_>>.Fy_.>FjFhFy\u0006_>,Fn_>FbFuk Fblu P\u0006_>>.Fn_>FjFn_>FjFn_>FyFh\u001bFyFuk Fy#loot\nh #name\n\u001b\u0006_>,Fh_.>.Fk>FkFk_>.Fk_,Fk>FkFk_>.Fk_.>.Fk>FkFkFkFkFk<\u0006_>,Fk_.<.Fk>FkFk_>,Fk_,Fk>FkFk_>.Fk_,Fk>FkFkFkFkFk\u0006_>>,Fk_.,Fk>FkFk_>>.Fk_.Fk>FkFk_>>,Fk_.Fk>FkFkFkFkFk\u0006_>,Fk_.@.Fk>FkFk_>.  nFk_.>.Fk>FkFk_>.Fk_.Fk>FkFkFkFkFk>#pray\ny y   \u00169\nO>>>>o6\n \u001b\n\u001620\n\u0006_>,Fb_.>FyFh\u001bFy#sit\n#sit\n\u0006_>>.  nFn_>FyFuu _>>.  nFy_.Fly >FuFl_>>,  n Fl_.  nFy>FuFuFuFlFy\u0006_>>.  nFu_,Fu>FuFl_>>,  n Fu_.  n Fy>FuFl_>>.  n Fu_.  n Fu>FlFnFnFlFu\u0006_>.  n Fn_>FuFy_>.  nFy_.  n   nFy>FnFn_>.  nFn_>FnFly FlFuFu20sh\u001b\u0006_>>.  yny  ny n y  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    bhhy\u0017throne\n#sit\n y#sit\n\u001bkj\u0017melting ice\noh;j, \u001bm,efOe\u001b\nv\u001bi\u001b\u001610\n\u0007tame pony\n20s   \u0006_>,   Fj _,  Fn  >Fn Fn _>, Fn_.Fj>FjFj_>.Fb  n_.Fb>FbFb#name\n\u001b\u0006_>.  nFb_.Fb>FbFk  n_>,Fb_.Fb>FkFb  n _>,Fb_.Fb>FkFu#name\n\u001b\u0017magic whistle\nyyjah \u00163\nv\u001bi\u001bHf  kv\u001bi\u001bef  yKj\u00167\nFnFjFnFjFjFnFjFjFn Fj FjFhFh  nFbFnFhFhFjFb FhFb Fb FnFnFj   nFhFnFnFhFb FhFjFh#pray\ny y      Fn Fb Fb  nFhFb Fb FhFbFjFbFjFbFnFjFjFbFbFjFnFnFjFnFn   FnFjFbFnFjFjFnFjFjFj#pray\ny y      FnFnFbFj    FhFb Fh Fb Fb Fn  FkFh  n Fn Fn Fb FhFj   Fj Fb Fh Fb  #pray\ny y            Fb Fj Fn Fy FyFn Fb Fn   nFk FyFn FyFj Fn Fy FyFb Fj FyFh Fk  n Fh Fk  Fb \u00169\nv\u001bi\u001bahef  n v\u001bi\u001bmO>v\u001b\n\u0007tame winter wolf cub\n\u0007kitten\n\u0017meatba"
+ },
+ "segments": [
+  {
+   "seed": 50255068,
+   "datetime": "20050505234841",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\nMSGTYPE=stop \"The door\"\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "#levelchange\n6\n    bhhy\u0017throne\n#sit\n y#sit\n\u001bkj\u0017melting ice\noh;j, \u001bm,efOe\u001b\nv\u001bi\u001b\u001610\n\u0007tame pony\n20s   \u0006_>,   Fj _,  Fn  >Fn Fn _>, Fn_.Fj>FjFj_>.Fb  n_.Fb>FbFb#name\n\u001b\u0006_>.  nFb_.Fb>FbFk  n_>,Fb_.Fb>FkFb  n _>,Fb_.Fb>FkFu#name\n\u001b\u0017magic whistle\nyyjah \u00163\nv\u001bi\u001bHf  kv\u001bi\u001bef  yKj\u00167\nFnFjFnFjFjFnFjFjFn Fj FjFhFh  nFbFnFhFhFjFb FhFb Fb FnFnFj   nFhFnFnFhFb FhFjFh#pray\ny y      Fn Fb Fb  nFhFb Fb FhFbFjFbFjFbFnFjFjFbFbFjFnFnFjFnFn   FnFjFbFnFjFjFnFjFjFj#pray\ny y      FnFnFbFj    FhFb Fh Fb Fb Fn  FkFh  n Fn Fn Fb FhFj   Fj Fb Fh Fb  #pray\ny y            Fb Fj Fn Fy FyFn Fb Fn   nFk FyFn FyFj Fn Fy FyFb Fj FyFh Fk  n Fh Fk  Fb \u00169\nv\u001bi\u001bahef  n v\u001bi\u001bmO>v\u001b\n\u0007tame winter wolf cub\n\u0007kitten\n\u0017meatba"
+  }
+ ]
+}

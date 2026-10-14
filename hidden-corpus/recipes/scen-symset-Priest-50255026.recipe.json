@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b<.>FlFl_>.Fu_.Fu>FuFu_>.Fb_.Fuu >FuFhFuFuFh\u0006_>,Fu_,Fu>FuFu_>,Fh_.Fb>FuFb_>.Fuu _.Fu>FuFhFhFuFu\u0006_>.Fu_.Fu>FuFb_>.Fuu _.Fu>FuFu_>.Fh_.Fu>FuFuFuFuFu\u0006_>.Fu_,  nFu>FuFu_>.Fu_.Fu>FuFu_>.Fu_.Fu>FuFuFuFuFu\u0006_>.Fu_.Fu>FuFu_>.Fh_,Fu>FbFub _>.Fb_.Fuu >FuFuFuFuFu\u0006_>.Fu_.Fu>FbFuu _>,Fb_,  nFub >FuFb_>.Fh\u001b_,Fu>FuFuFuFuFu<\u00169\n#monster\nP#chat\ny ,\u001610\n\u0006_>>,_,>_>>._.>_>>._.>\u0006_>>._.>_>>,_.>_>>._.>\u0006_>._.>_>.Fk_,Fk>FkFk_>.Fk_,Fk>FkFkFkFkFk\u0006_>>.Fk_.  nFk>FkFk_>>.Fk_.Fk>FkFk_>>,Fk_.Fk>FkFkFkFkFk\u0006_>.  nFk_.Fk>FkFk_>.Fk_.Fk>FkFk_>.Fk_,Fk>FkFkFkFkFk#name\n\u001b>\u0006_>.Fk_.Fk>FkFk_>,  nFk_,Fk>FkFk_>.Fk_,Fk>FkFkFkFkFk\u00166\nv i\u001bmO>>>>i\u001b\nOaslime mold\n\u001b\n\u00166\nmO>>>r\u001b\n\u0006_>._,>_>,_,>_>,_,>s\\ \u0006_>>.Fh_,Fh>FhFh_>>,Fh_.Fh>FhFh_>>.Fh_.  nFh>FhFhFhFhFh\u0006_>>.Fh_.Fh>FhFh_>>,Fh_.Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFh\u0006_>.Fh_.Fh>FhFh_>.Fh_.Fh>FhFh_>.Fh_.  nFh>"
+ },
+ "segments": [
+  {
+   "seed": 50255026,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nMSGTYPE=stop \"You feel\"\nMENUCOLOR=\"a scroll\"=brown\n",
+   "moves": "\u0006_ \u001b<.>FlFl_>.Fu_.Fu>FuFu_>.Fb_.Fuu >FuFhFuFuFh\u0006_>,Fu_,Fu>FuFu_>,Fh_.Fb>FuFb_>.Fuu _.Fu>FuFhFhFuFu\u0006_>.Fu_.Fu>FuFb_>.Fuu _.Fu>FuFu_>.Fh_.Fu>FuFuFuFuFu\u0006_>.Fu_,  nFu>FuFu_>.Fu_.Fu>FuFu_>.Fu_.Fu>FuFuFuFuFu\u0006_>.Fu_.Fu>FuFu_>.Fh_,Fu>FbFub _>.Fb_.Fuu >FuFuFuFuFu\u0006_>.Fu_.Fu>FbFuu _>,Fb_,  nFub >FuFb_>.Fh\u001b_,Fu>FuFuFuFuFu<\u00169\n#monster\nP#chat\ny ,\u001610\n\u0006_>>,_,>_>>._.>_>>._.>\u0006_>>._.>_>>,_.>_>>._.>\u0006_>._.>_>.Fk_,Fk>FkFk_>.Fk_,Fk>FkFkFkFkFk\u0006_>>.Fk_.  nFk>FkFk_>>.Fk_.Fk>FkFk_>>,Fk_.Fk>FkFkFkFkFk\u0006_>.  nFk_.Fk>FkFk_>.Fk_.Fk>FkFk_>.Fk_,Fk>FkFkFkFkFk#name\n\u001b>\u0006_>.Fk_.Fk>FkFk_>,  nFk_,Fk>FkFk_>.Fk_,Fk>FkFkFkFkFk\u00166\nv i\u001bmO>>>>i\u001b\nOaslime mold\n\u001b\n\u00166\nmO>>>r\u001b\n\u0006_>._,>_>,_,>_>,_,>s\\ \u0006_>>.Fh_,Fh>FhFh_>>,Fh_.Fh>FhFh_>>.Fh_.  nFh>FhFhFhFhFh\u0006_>>.Fh_.Fh>FhFh_>>,Fh_.Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFh\u0006_>.Fh_.Fh>FhFh_>.Fh_.Fh>FhFh_>.Fh_.  nFh>"
+  }
+ ]
+}

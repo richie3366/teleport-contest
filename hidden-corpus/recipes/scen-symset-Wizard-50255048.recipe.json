@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "100s50s_>bbu100s100shyj50s100sybynun150syhj100s\u000f#terrain\n 100snyl150s100snbkl 100sh\u001bbb150syjy150s_ \u001b;>h\u001bnni\u001b100s#dip\njh50s100s150s_>.>100sjlh kn yh\u001bbh\u001buj bh\u001bnymOa\u001b\nO>b\u001b\nmO>>>k\u001b\n20s#jump\nt\u001b\u00164\n100s100s\u000f\u001bljkk njl50s150s100sh\u001bkk kh 100slnn\\  20s50sh\u001bbljyun 50s100s\u0018\u001blh\u001bl150s150s150s100s_>,>100s50snjku \u0004b 150s100s150s#rub\n100s50s100s100suj kk jkk yub 150s\u0007tame lichen\n\u0017magic whistle\njkl jaq \u0017huge chunk of meat\n t\u001b\u0017huge chunk of meat\n t\u001b\u0017magic whistle\nbjbas10s\u0017lichen corpse\nt\u001bv\u001bi\u001bnbn100s150s_>.>100syby150s_>,>yub b\u0018\u001b100s#offer\n100s150s150s100s150sk k h\u001b100s"
+ },
+ "segments": [
+  {
+   "seed": 50255048,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueWindows\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:durian\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a scroll\"=brown\nBIND=v:inventory\n",
+   "moves": "100s50s_>bbu100s100shyj50s100sybynun150syhj100s\u000f#terrain\n 100snyl150s100snbkl 100sh\u001bbb150syjy150s_ \u001b;>h\u001bnni\u001b100s#dip\njh50s100s150s_>.>100sjlh kn yh\u001bbh\u001buj bh\u001bnymOa\u001b\nO>b\u001b\nmO>>>k\u001b\n20s#jump\nt\u001b\u00164\n100s100s\u000f\u001bljkk njl50s150s100sh\u001bkk kh 100slnn\\  20s50sh\u001bbljyun 50s100s\u0018\u001blh\u001bl150s150s150s100s_>,>100s50snjku \u0004b 150s100s150s#rub\n100s50s100s100suj kk jkk yub 150s\u0007tame lichen\n\u0017magic whistle\njkl jaq \u0017huge chunk of meat\n t\u001b\u0017huge chunk of meat\n t\u001b\u0017magic whistle\nbjbas10s\u0017lichen corpse\nt\u001bv\u001bi\u001bnbn100s150s_>.>100syby150s_>,>yub b\u0018\u001b100s#offer\n100s150s150s100s150sk k h\u001b100s"
+  }
+ ]
+}

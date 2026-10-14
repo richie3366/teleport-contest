@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      #levelchange\n14\n      \u0017500 gold pieces\n\u0016?\n>w \u0006\u0017blessed potion of object detection\nqq \u001b>._mm.  _.Fj    #chat\nj  _oooooo. Fj  _.   n Fj ,dd   _ooooo. Fl   n _.Fh ,  \u0014>.    _mmmm,Fk _.Fy  #chat\nh_mmm,  n Fy  _.#chat\ny    _ooo,  _.Fl _o._.Fh,p:  10s\u0004b \u00162\n\u00176 javelins\nQs\u0007yellow mold\nkhfj fj\u0017potion of oil\ntaj \u0017glaive\nwu \u0007yellow mold\nlau:jyl,i\u001b#levelchange\n10\n\u0016?\n>Bl  nFk  Fk yk Fn Fn Fn bkhjFnFn b10s Fn 10s FnFnFn Fn   nhk j10s y10s Fl FlFlybkuFn Fn jFl nh hhhFu lu  nFh Fh Fh Fh yhjykFn  Fn   n Fb  y\u00168\n\u0007tame saddled pony\n#ride\nyyy\u0007pony\n\u0017scroll of taming\nrv \u0017saddle\nawb#ride\n\u0007tame saddled warhorse\n#ride\nuyy\u0006_>, Fb_.<.>_>, Fb_.<.Fj>FjFj_>.Fb_,,Fb>FjFj20s20s        \u0004y #ride\ns#ride\nbyy\u00163\n#levelchange\n8\n \u0017dwarvish mithril-coat\nWxs20ss\u0007rock piercer\nFhFl   \u0007red dragon\nFl    Fh                      \u001bsFn Fl \u00172000 gold pieces\n \u0016?\n>w \u0006_oooooooo. Fb_,:Fb_ooo,Fh _.  Fh  n  ,:_oo. Fb   _.  Fk  n _o,Fy_.,    n $ _ooooooooo. Fk _,  n Fy ,\u0014:  n_ooo. Fh _.Fy  n ,p\u001bwsy j #sit\n     n\u001612\n   \u0016?\n>y  _mm.Fh_.  n Fh #chat\ny   y nny y y\u001b  ;"
+ },
+ "segments": [
+  {
+   "seed": 50255211,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      #levelchange\n14\n      \u0017500 gold pieces\n\u0016?\n>w \u0006\u0017blessed potion of object detection\nqq \u001b>._mm.  _.Fj    #chat\nj  _oooooo. Fj  _.   n Fj ,dd   _ooooo. Fl   n _.Fh ,  \u0014>.    _mmmm,Fk _.Fy  #chat\nh_mmm,  n Fy  _.#chat\ny    _ooo,  _.Fl _o._.Fh,p:  10s\u0004b \u00162\n\u00176 javelins\nQs\u0007yellow mold\nkhfj fj\u0017potion of oil\ntaj \u0017glaive\nwu \u0007yellow mold\nlau:jyl,i\u001b#levelchange\n10\n\u0016?\n>Bl  nFk  Fk yk Fn Fn Fn bkhjFnFn b10s Fn 10s FnFnFn Fn   nhk j10s y10s Fl FlFlybkuFn Fn jFl nh hhhFu lu  nFh Fh Fh Fh yhjykFn  Fn   n Fb  y\u00168\n\u0007tame saddled pony\n#ride\nyyy\u0007pony\n\u0017scroll of taming\nrv \u0017saddle\nawb#ride\n\u0007tame saddled warhorse\n#ride\nuyy\u0006_>, Fb_.<.>_>, Fb_.<.Fj>FjFj_>.Fb_,,Fb>FjFj20s20s        \u0004y #ride\ns#ride\nbyy\u00163\n#levelchange\n8\n \u0017dwarvish mithril-coat\nWxs20ss\u0007rock piercer\nFhFl   \u0007red dragon\nFl    Fh                      \u001bsFn Fl \u00172000 gold pieces\n \u0016?\n>w \u0006_oooooooo. Fb_,:Fb_ooo,Fh _.  Fh  n  ,:_oo. Fb   _.  Fk  n _o,Fy_.,    n $ _ooooooooo. Fk _,  n Fy ,\u0014:  n_ooo. Fh _.Fy  n ,p\u001bwsy j #sit\n     n\u001612\n   \u0016?\n>y  _mm.Fh_.  n Fh #chat\ny   y nny y y\u001b  ;"
+  }
+ ]
+}

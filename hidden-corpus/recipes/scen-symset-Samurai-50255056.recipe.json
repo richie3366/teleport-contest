@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \u00166\nFkFbFlFjFjFuFyFkFjFbFjFhFkFjFbFuFyFyFhFyFjFnFuFlFbFnFkFlFbFlFlFnFlFkFkFkFlFlFuFkFhFhFlFbFkFbFuFlFyFjFnFbFlFnFhFyFyFbFyFbFkFbFhFkFhFyFhFjFyFnFnFuFjFkFjFkFyFyFuFjFhFuFkFjFhFnFkFnFnFbFuFkFbFlFuFuFbFnFlFhFhFlFuFnFjFbFhFyFhFuFyFbFuFbFhFjFnFnFlFh#levelchange\n10\n        luy\u0017neutral altar\ndede\u0017newt corpse\n#offer\nf   y\u0017ice\n#terrain\nc\n\u001b:20s#wipe\nE- I am a fish\nZtdjO>>>>f\u001b\n ynjk\u0017grave\n: \u0017pick-axe\nag >  .m.sm.yh\u0017pool\n:agj   i\u001b#wipe\n\u0006_>>,Fj _.m.Fh >FnFk_>>,Fb _.Fj >FkFh_>>,Fl_,<.Fj >FbFj Fn Fu Fn \u0006_>>.Fj_.Fj >Fn Fu_>>.Fh _.<.Fb >Fj Fh_>>,Fl_.<.Fk>FbFhFkFuFn \u0006_>>,Fj _,Fj >FjFh _>>,Fy _,Fl>FbFk_>>,Fu_.Fn >FlFlFkFlFb <\u0006_>.Fy_.@.Fn >FlFh _>.Fj _,Fy >FkFy _>.  nFh _.Fn>Fj FkFkFn Fl\u0006_>.Fu_.Fb >FuFl_>,Fn _,.Fy >Fh Fh _>,Fk_.@.Fu>FhFk"
+ },
+ "segments": [
+  {
+   "seed": 50255056,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  \u00166\nFkFbFlFjFjFuFyFkFjFbFjFhFkFjFbFuFyFyFhFyFjFnFuFlFbFnFkFlFbFlFlFnFlFkFkFkFlFlFuFkFhFhFlFbFkFbFuFlFyFjFnFbFlFnFhFyFyFbFyFbFkFbFhFkFhFyFhFjFyFnFnFuFjFkFjFkFyFyFuFjFhFuFkFjFhFnFkFnFnFbFuFkFbFlFuFuFbFnFlFhFhFlFuFnFjFbFhFyFhFuFyFbFuFbFhFjFnFnFlFh#levelchange\n10\n        luy\u0017neutral altar\ndede\u0017newt corpse\n#offer\nf   y\u0017ice\n#terrain\nc\n\u001b:20s#wipe\nE- I am a fish\nZtdjO>>>>f\u001b\n ynjk\u0017grave\n: \u0017pick-axe\nag >  .m.sm.yh\u0017pool\n:agj   i\u001b#wipe\n\u0006_>>,Fj _.m.Fh >FnFk_>>,Fb _.Fj >FkFh_>>,Fl_,<.Fj >FbFj Fn Fu Fn \u0006_>>.Fj_.Fj >Fn Fu_>>.Fh _.<.Fb >Fj Fh_>>,Fl_.<.Fk>FbFhFkFuFn \u0006_>>,Fj _,Fj >FjFh _>>,Fy _,Fl>FbFk_>>,Fu_.Fn >FlFlFkFlFb <\u0006_>.Fy_.@.Fn >FlFh _>.Fj _,Fy >FkFy _>.  nFh _.Fn>Fj FkFkFn Fl\u0006_>.Fu_.Fb >FuFl_>,Fn _,.Fy >Fh Fh _>,Fk_.@.Fu>FhFk"
+  }
+ ]
+}

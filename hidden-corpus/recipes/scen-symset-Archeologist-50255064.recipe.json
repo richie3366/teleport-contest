@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n10\n         yynl\u0017throne\n#sit\n#sit\n#sit\n #sit\nhh\u0017tree\ny\u0017unaligned altar\ndd\u0017jackal corpse\n#offer\ni  n\u0017grave\n: \u0017pick-axe\naj > s.: #ride\nhy#twoweapon\n#turn\nv\u001bi\u001bO>j\u001b\nmO>>>n\u001b\n\u0006_ \u001b,>Fk  20s_>._.> #rub\ng\u001b,\u0006_>,Fk_,Fk>FkFk_>.Fh_.Fh>FhFh_>,Fu_.m,Fk>FkFkFk20ss\u0006_>,_,> \u0006_>, Fl_, Fl>_>.Fu_,@.Fu  >_>._.> \u0006_>,  _,> #turn\nE- Elbereth Elbereth\n\u000f\u001bOl\u001b\nukku\u0017fountain\nqyqy yq\u0017long sword\n#dip\nkll\u0017iron bars\nn\u0017grave\n:\u0017wand of digging\nzl> 20s20s:y\u0017cloud\n#terrain\nb\n#invoke\n:u#loot\nf k u#invoke\n\u001b#enhance\nyr\np\n\u001b#jump\nv\u001bi\u001b\u0006_>._.> \u0006_>>,_.m,Fn >Fn Fn _>>.Fj _.> \u0006_>.Fk_.<.Fy>FyFk  _>,Fy_.> < \u0006_>.> \u0006_>._.> \u0006_>.>_>,>_>.>\u0006_>.>_>,>_>,>\u0006_>>.>_>>.>_>>,>\u0006_>>,>_>>,>_>>,>\u0006_>,>_>.>_>.>:\u0014>.< Oh\u001b\nmO>l\u001b\nv\u001bi\u001bO>>a\u001b\nag\u001b100s100s100s   #untrap\ny\u000f\u001b100s FhFhFh FhFh Fhhhy#force\n50sFl FlFl FlFl Fl Fl FlFl Fl FlFl Fl Fl   nFl Fl FlFl FlFl Fl "
+ },
+ "segments": [
+  {
+   "seed": 50255064,
+   "datetime": "20110219164405",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a potion\"=red\nBIND=v:inventory\n",
+   "moves": " #levelchange\n10\n         yynl\u0017throne\n#sit\n#sit\n#sit\n #sit\nhh\u0017tree\ny\u0017unaligned altar\ndd\u0017jackal corpse\n#offer\ni  n\u0017grave\n: \u0017pick-axe\naj > s.: #ride\nhy#twoweapon\n#turn\nv\u001bi\u001bO>j\u001b\nmO>>>n\u001b\n\u0006_ \u001b,>Fk  20s_>._.> #rub\ng\u001b,\u0006_>,Fk_,Fk>FkFk_>.Fh_.Fh>FhFh_>,Fu_.m,Fk>FkFkFk20ss\u0006_>,_,> \u0006_>, Fl_, Fl>_>.Fu_,@.Fu  >_>._.> \u0006_>,  _,> #turn\nE- Elbereth Elbereth\n\u000f\u001bOl\u001b\nukku\u0017fountain\nqyqy yq\u0017long sword\n#dip\nkll\u0017iron bars\nn\u0017grave\n:\u0017wand of digging\nzl> 20s20s:y\u0017cloud\n#terrain\nb\n#invoke\n:u#loot\nf k u#invoke\n\u001b#enhance\nyr\np\n\u001b#jump\nv\u001bi\u001b\u0006_>._.> \u0006_>>,_.m,Fn >Fn Fn _>>.Fj _.> \u0006_>.Fk_.<.Fy>FyFk  _>,Fy_.> < \u0006_>.> \u0006_>._.> \u0006_>.>_>,>_>.>\u0006_>.>_>,>_>,>\u0006_>>.>_>>.>_>>,>\u0006_>>,>_>>,>_>>,>\u0006_>,>_>.>_>.>:\u0014>.< Oh\u001b\nmO>l\u001b\nv\u001bi\u001bO>>a\u001b\nag\u001b100s100s100s   #untrap\ny\u000f\u001b100s FhFhFh FhFh Fhhhy#force\n50sFl FlFl FlFl Fl Fl FlFl Fl FlFl Fl Fl   nFl Fl FlFl FlFl Fl "
+  }
+ ]
+}

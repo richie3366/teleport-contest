@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#ride\nh #loot\nn \u001619\n;b, \u001bm,#sit\n\u001bwdnnv i\u001bO>i\u001b\u001b\n\u0006_>.Fk_.> FnFkn Fn<\u0006_>>.Fu_.<.Fu>FuFu_>>,Fn_>FyFn_>>.Fk_,<.Fy>FjFkFkFhFu#ride\nj cj \u0006_>.Fu_.:Fu>FyFy_>.Fu_,@.Fu>FkFl_>.  n Fh_.  n Fk>FuFyFkk FlFl\u00168\n\u00167\nFuFkFlFyFnFnFnFlFkFyFyFyFlFlFnFuu FlFuFnFkk FyFky FkFuFuFyFkn FkFuFnFnFyFyFkFyFuu FuFlFnFlFlFnFkl FuFuFkFyFlFlFkFnFyFuFnFnFuFlFuFlFnFyFkFkFnFlFnFnFnFnFuFuFnFlFkFyFnFlFlFkFnFlFuFnFkl FyFkl FyFnFuFuFnFyFyFyFyFyFyFuu FlFkFnFlFnFuy FnFnFnFuu FyFyFyFlFlFnFyFkFyFnFuFyOf\u001b\n#untrap\nk #offer\n#conduct\n lO>>j\u001b\n\u00165\n  mO>>m\u001b\nmO>>>>l\u001b\n_>.><50s100s50si\u001bnun ybnn100s50s__,20s#dip\ne 100sFjFjFnFjFnFnFbFnFnFjFjFjFnFjFjFbFnFnFjFbFbFbFjFnFjFjFjFnFbFnFbFbFbFnFbFbFjFbFjFbFbFbFbFnFjFbFjFbFbFjFjFnFjFbFnFnFbFnFbFbFbFjFjFjFjFnFnFnFnFjFbFbFnFbFbFjFnFbFnFbFjub bub \u0017throne\n#sit\n: lh\u001b\u0017pool\n:ll\u0017ice\n: b\u0017magic fountain\nqy #wipe\n#chat\nw-mO>e\u001b\n\u00163\n100sFbFjFjFnFbFjFjFnFnFbFnFjFnFbFjFjFbFbFbFjFjFjFjFbFjFnFbFbFjFjFnFnFnFnFjFjFnFbFnFjFjFnFbFjFjFbFbFnFnFbFbFnFnFjFbFnFjFnFbFbFnFnFjFjFnFjFjFjFnFnFnFbFjFnFjFnFnFbFbFbFbFbFjFbFjFbFbF"
+ },
+ "segments": [
+  {
+   "seed": 50255075,
+   "datetime": "20020516103443",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nMENUCOLOR=\"a potion\"=green\n",
+   "moves": "#ride\nh #loot\nn \u001619\n;b, \u001bm,#sit\n\u001bwdnnv i\u001bO>i\u001b\u001b\n\u0006_>.Fk_.> FnFkn Fn<\u0006_>>.Fu_.<.Fu>FuFu_>>,Fn_>FyFn_>>.Fk_,<.Fy>FjFkFkFhFu#ride\nj cj \u0006_>.Fu_.:Fu>FyFy_>.Fu_,@.Fu>FkFl_>.  n Fh_.  n Fk>FuFyFkk FlFl\u00168\n\u00167\nFuFkFlFyFnFnFnFlFkFyFyFyFlFlFnFuu FlFuFnFkk FyFky FkFuFuFyFkn FkFuFnFnFyFyFkFyFuu FuFlFnFlFlFnFkl FuFuFkFyFlFlFkFnFyFuFnFnFuFlFuFlFnFyFkFkFnFlFnFnFnFnFuFuFnFlFkFyFnFlFlFkFnFlFuFnFkl FyFkl FyFnFuFuFnFyFyFyFyFyFyFuu FlFkFnFlFnFuy FnFnFnFuu FyFyFyFlFlFnFyFkFyFnFuFyOf\u001b\n#untrap\nk #offer\n#conduct\n lO>>j\u001b\n\u00165\n  mO>>m\u001b\nmO>>>>l\u001b\n_>.><50s100s50si\u001bnun ybnn100s50s__,20s#dip\ne 100sFjFjFnFjFnFnFbFnFnFjFjFjFnFjFjFbFnFnFjFbFbFbFjFnFjFjFjFnFbFnFbFbFbFnFbFbFjFbFjFbFbFbFbFnFjFbFjFbFbFjFjFnFjFbFnFnFbFnFbFbFbFjFjFjFjFnFnFnFnFjFbFbFnFbFbFjFnFbFnFbFjub bub \u0017throne\n#sit\n: lh\u001b\u0017pool\n:ll\u0017ice\n: b\u0017magic fountain\nqy #wipe\n#chat\nw-mO>e\u001b\n\u00163\n100sFbFjFjFnFbFjFjFnFnFbFnFjFnFbFjFjFbFbFbFjFjFjFjFbFjFnFbFbFjFjFnFnFnFnFjFjFnFbFnFjFjFnFbFjFjFbFbFnFnFbFbFnFnFjFbFnFjFnFbFbFnFnFjFjFnFjFjFjFnFnFnFbFjFnFjFnFnFbFbFbFbFbFjFbFjFbFbF"
+  }
+ ]
+}

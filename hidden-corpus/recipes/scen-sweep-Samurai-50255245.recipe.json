@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n30\n             \u0016?\n>Gn;h. \u001b@.z;h;ss   \u0016?\n>>L      luckstone\n:#loot\nlW\u001b.k.m.              \u0016?\n\u001b\u001637\n#wipe\n    Pf        fk      .m.su        n  \u001616\n#monster\n;j,\u0004l      ;b,20s          n sm.       \u00169\n\u001610\nj     n      y         n  E- Elbereth Elbereth\n       : \u0017wand of stasis\nEh      n  \u0017wand of sleep\nEin  I am a fish\n       : E-\u0007hill orc\nsb     n     sj     n      sm.    n     Fj       n    Fh       n       \u00162\n\u00167\n#levelchange\n20\n   \u0017blessed ring of polymorph control\nPjr#polyself\nsilver dragon\n  #monster\nb               n .m.             n sm.                n  \u0007kitten\nFu                  n          n         n Fj          n        Fj     n         n    .j   yny   nnn  s"
+ },
+ "segments": [
+  {
+   "seed": 50255245,
+   "datetime": "20221221180651",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n30\n             \u0016?\n>Gn;h. \u001b@.z;h;ss   \u0016?\n>>L      luckstone\n:#loot\nlW\u001b.k.m.              \u0016?\n\u001b\u001637\n#wipe\n    Pf        fk      .m.su        n  \u001616\n#monster\n;j,\u0004l      ;b,20s          n sm.       \u00169\n\u001610\nj     n      y         n  E- Elbereth Elbereth\n       : \u0017wand of stasis\nEh      n  \u0017wand of sleep\nEin  I am a fish\n       : E-\u0007hill orc\nsb     n     sj     n      sm.    n     Fj       n    Fh       n       \u00162\n\u00167\n#levelchange\n20\n   \u0017blessed ring of polymorph control\nPjr#polyself\nsilver dragon\n  #monster\nb               n .m.             n sm.                n  \u0007kitten\nFu                  n          n         n Fj          n        Fj     n         n    .j   yny   nnn  s"
+  }
+ ]
+}

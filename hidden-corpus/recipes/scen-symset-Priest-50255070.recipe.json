@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "FuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu\u0007housecat\n\u0017carrot\nt\u001b\u0017food ration\nt\u001b\u0007yellow mold\n.m.sbsm. 20s 20sm.  n20skb \u0007kobold\n\u0017scroll of taming\nrk da20s.20s\u0007kobold\nsm.sm.sm. 20sn.nsll #chat\nk \u0006_ \u001b<.  >FnFn_>>. Fl_.Fk>FkFk_>>,Fh_,> FjFjFn\u0006_>,>FkFb_>.>FnFn_>.>FjFhFjFhFh#twoweapon\n< <\u0006_>.> FjFbFub \u0006_>>,Fl_.Fh>FjFj_>>, Fn_>FjFb_>>, Fj_. Fb>FbFh\u001bFhFhFj\u000f\u001b\u0007horse\n\u0017food ration\nt\u001b\u0017leash\nalj ybnlb alj 10s\u0017leash\namn kh nyjamj dg 20sj20sm.  20sm.  n   \u0017food ration\nt\u001bnFnFnFkFjFnFh\u001bFkFhFbFkk FjFjFhFjFkFbFjFkFhFbFh\u001bFnFbFkFhFhFbFkj "
+ },
+ "segments": [
+  {
+   "seed": 50255070,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=runmode:crawl\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nMENUCOLOR=\"blessed\"=red\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "FuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu\u0007housecat\n\u0017carrot\nt\u001b\u0017food ration\nt\u001b\u0007yellow mold\n.m.sbsm. 20s 20sm.  n20skb \u0007kobold\n\u0017scroll of taming\nrk da20s.20s\u0007kobold\nsm.sm.sm. 20sn.nsll #chat\nk \u0006_ \u001b<.  >FnFn_>>. Fl_.Fk>FkFk_>>,Fh_,> FjFjFn\u0006_>,>FkFb_>.>FnFn_>.>FjFhFjFhFh#twoweapon\n< <\u0006_>.> FjFbFub \u0006_>>,Fl_.Fh>FjFj_>>, Fn_>FjFb_>>, Fj_. Fb>FbFh\u001bFhFhFj\u000f\u001b\u0007horse\n\u0017food ration\nt\u001b\u0017leash\nalj ybnlb alj 10s\u0017leash\namn kh nyjamj dg 20sj20sm.  20sm.  n   \u0017food ration\nt\u001bnFnFnFkFjFnFh\u001bFkFhFbFkk FjFjFhFjFkFbFjFkFhFbFh\u001bFnFbFkFhFhFbFkj "
+  }
+ ]
+}

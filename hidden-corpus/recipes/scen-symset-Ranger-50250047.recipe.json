@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " O>>>o8\n \u001b\n\u001615\n    mO>>j\u001b\nmO>>>>g\u001b\n\u001619\nOb\u001b\u001b\n\u00167\n#levelchange\n20\n                   nhhu\u0017iron bars\nn    y\u0017tree\ny\u0004n :yy\u0017ice\nyyn   nl \u0017throne\n#sit\n #sit\n y f   z#chat\nnv\u001bi\u001b\u0007tame wolf\n\u0007large dog\n\u0017lichen corpse\ntdl    n\u0017huge chunk of meat\ntcb \u0017leash\nail  bnnk aij  20s  di20s     n  .m.   sm.  \u0017apple\ntan    n\u001610\nmOa\u001b\n\u001616\n \u0006_ \u001bm,>Fn Fl_>>.Fn_.> FlFj Fn#jump\n#ride\nky\u0006_>.Fl_.@.Fu>FkFu_>.Fy_.Fy>FuFu_>.Fu_.Fy>FuFyFyFuFy<\u0006_>>.Fy_.Fy>FyFu_>>.Fy_.Fu>FuFu_>>.Fn_.Fn>FuFuFnFuFn\u0006_>>.Fn_,Fu>FuFu_>>,Fy_.Fu>FuFy_>>.Fu_.Fy>FuFyFuFyFu#wipe\n10s\u0006_>.Fu_. Fu>FyFu_>.Fu_.Fy>FyFu_>.Fy_,Fu>FyFuFyFyFu<\u000f\u001b\u00163\n\u000f\u001b100slnlFjFbFbFjFnFjFnFbFnFjFjFbFbFnFbFbFbFbFnFnFbFbFjFnFnFnFbFbFbFnFjFjFjFbFjFnFbFjFnFjFnFjFbFnFbFjFjFbFnFnFnFjFnFnFbFjFbFjFjFbFbFjFjFjFnFbFjFbFnFnFnFjFnFbFjFjFjFnFnFjFjFnFjFbFbFjFnFjFbFbFnFbFbFbFnFjFbFnFnFjFjFjFnFjFjFnFnFbFjFjFb\u001619\nO>>e\u001b\nv\u001bi\u001b\u00166\n\u00166\nFjFjFnFbFjFnFjFjFnFjFjFbFjFbFbFbFnFjFnFb FnFjFjFjFjFjFjFjFnFjFbFbFnFnFbFjFnFbFbFbFnFjFbFjFbFbFnFbFbFjFbFbFjFjFbFb"
+ },
+ "segments": [
+  {
+   "seed": 50250047,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": " O>>>o8\n \u001b\n\u001615\n    mO>>j\u001b\nmO>>>>g\u001b\n\u001619\nOb\u001b\u001b\n\u00167\n#levelchange\n20\n                   nhhu\u0017iron bars\nn    y\u0017tree\ny\u0004n :yy\u0017ice\nyyn   nl \u0017throne\n#sit\n #sit\n y f   z#chat\nnv\u001bi\u001b\u0007tame wolf\n\u0007large dog\n\u0017lichen corpse\ntdl    n\u0017huge chunk of meat\ntcb \u0017leash\nail  bnnk aij  20s  di20s     n  .m.   sm.  \u0017apple\ntan    n\u001610\nmOa\u001b\n\u001616\n \u0006_ \u001bm,>Fn Fl_>>.Fn_.> FlFj Fn#jump\n#ride\nky\u0006_>.Fl_.@.Fu>FkFu_>.Fy_.Fy>FuFu_>.Fu_.Fy>FuFyFyFuFy<\u0006_>>.Fy_.Fy>FyFu_>>.Fy_.Fu>FuFu_>>.Fn_.Fn>FuFuFnFuFn\u0006_>>.Fn_,Fu>FuFu_>>,Fy_.Fu>FuFy_>>.Fu_.Fy>FuFyFuFyFu#wipe\n10s\u0006_>.Fu_. Fu>FyFu_>.Fu_.Fy>FyFu_>.Fy_,Fu>FyFuFyFyFu<\u000f\u001b\u00163\n\u000f\u001b100slnlFjFbFbFjFnFjFnFbFnFjFjFbFbFnFbFbFbFbFnFnFbFbFjFnFnFnFbFbFbFnFjFjFjFbFjFnFbFjFnFjFnFjFbFnFbFjFjFbFnFnFnFjFnFnFbFjFbFjFjFbFbFjFjFjFnFbFjFbFnFnFnFjFnFbFjFjFjFnFnFjFjFnFjFbFbFjFnFjFbFbFnFbFbFbFnFjFbFnFnFjFjFjFnFjFjFnFnFbFjFjFb\u001619\nO>>e\u001b\nv\u001bi\u001b\u00166\n\u00166\nFjFjFnFbFjFnFjFjFnFjFjFbFjFbFbFbFnFjFnFb FnFjFjFjFjFjFjFjFnFjFbFbFnFnFbFjFnFbFbFbFnFjFbFjFbFbFnFbFbFjFbFbFjFjFbFb"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n10\n  \u0007hostile energy vortex\n20s Fj  Fj sFj FhFuFkFhFlFnFyyh\u0017wand of fire\nEg  Vlad was here\n: \u0017wand of lightning\nEh y Elbereth\n:  \u0017wand of slow monster\nEi\u0017wand of cancellation\nEj Elbereth\n: jE- Vlad was here\n\u0007hill orc\nsssFnFl\u001625\n#wizintrinsic\nmj\n \u0017blindfold\nak\u0017food ration\nel \u0017cursed potion of restore ability\nqm\u0017scroll of confuse monster\nrnhlh;j, \u001b;sss#levelchange\n30\n                   \u001626\nE- ad aerarium\n#jump\ns20s.\u001629\n  #jump\n#untrap\n.;<.s20s\u001617\ndn,#rub\ne;k.\u0006.20s\u0016?\n>G #force\n10sW\u0006s20s\u00165\n#enhance\nyc\np\n\u001b,wa..#levelchange\n10\n      \u0007hostile dust vortex\nFbFb .Fj #pray\ny y    Fj  Fl #pray\ny yFj sFhFk#wizintrinsic\nfhq\n  ss20s.s.20sss20s.20s s.\u0017scroll of identify\nro#rub\ne #untrap\nk#sit\n#invoke\n\u001bK#pray\ny ys.20s.20ss\u000f\u001b#polyself\nochre jelly\n   #monster\nss\u0007giant rat\n.FnFn s\u0007acid blob\nsFhFhFh#levelchange\n8\n\u0017Ogresmasher\nwFhFhFhX\u0007warg\nssss  .m.20ssb sm.\u0007rust monster\nFbFjFb Fh  Fb Fj \u0007hezrou\nFj  Fb Fb Fj \u0007cobra\n;l,.h .m.   n20s     \u00165\n\u000f\u001b#levelchange\n20\n           \u0017water walking boots\nWq      sm.     20s  .m.   \u0007gas spore\nFl   n    Fl   Fj Fb FnFh  Fj  .m.20s #pray\ny y         \u0007wererat\nFb   Fh  Fh  sj .m.   #pray\ny y                 \u0017towel\nPr \u0016?\ni\u0006FyFjFlFhFhFb n nbu \u0018\u001b<k  n #wizintrinsic\ni\n ;l.\u0017cockatrice corpse\n\u0017wand of opening\nztuztuZ\u0017blessed scroll of charging\nru20s  20s s\\   #levelchange\n14\n  \u0016?\n>z  _mmmm.#chat\nk_mm.#chat\nu;_._mmmmm.#c"
+ },
+ "segments": [
+  {
+   "seed": 50255237,
+   "datetime": "20171008172714",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n10\n  \u0007hostile energy vortex\n20s Fj  Fj sFj FhFuFkFhFlFnFyyh\u0017wand of fire\nEg  Vlad was here\n: \u0017wand of lightning\nEh y Elbereth\n:  \u0017wand of slow monster\nEi\u0017wand of cancellation\nEj Elbereth\n: jE- Vlad was here\n\u0007hill orc\nsssFnFl\u001625\n#wizintrinsic\nmj\n \u0017blindfold\nak\u0017food ration\nel \u0017cursed potion of restore ability\nqm\u0017scroll of confuse monster\nrnhlh;j, \u001b;sss#levelchange\n30\n                   \u001626\nE- ad aerarium\n#jump\ns20s.\u001629\n  #jump\n#untrap\n.;<.s20s\u001617\ndn,#rub\ne;k.\u0006.20s\u0016?\n>G #force\n10sW\u0006s20s\u00165\n#enhance\nyc\np\n\u001b,wa..#levelchange\n10\n      \u0007hostile dust vortex\nFbFb .Fj #pray\ny y    Fj  Fl #pray\ny yFj sFhFk#wizintrinsic\nfhq\n  ss20s.s.20sss20s.20s s.\u0017scroll of identify\nro#rub\ne #untrap\nk#sit\n#invoke\n\u001bK#pray\ny ys.20s.20ss\u000f\u001b#polyself\nochre jelly\n   #monster\nss\u0007giant rat\n.FnFn s\u0007acid blob\nsFhFhFh#levelchange\n8\n\u0017Ogresmasher\nwFhFhFhX\u0007warg\nssss  .m.20ssb sm.\u0007rust monster\nFbFjFb Fh  Fb Fj \u0007hezrou\nFj  Fb Fb Fj \u0007cobra\n;l,.h .m.   n20s     \u00165\n\u000f\u001b#levelchange\n20\n           \u0017water walking boots\nWq      sm.     20s  .m.   \u0007gas spore\nFl   n    Fl   Fj Fb FnFh  Fj  .m.20s #pray\ny y         \u0007wererat\nFb   Fh  Fh  sj .m.   #pray\ny y                 \u0017towel\nPr \u0016?\ni\u0006FyFjFlFhFhFb n nbu \u0018\u001b<k  n #wizintrinsic\ni\n ;l.\u0017cockatrice corpse\n\u0017wand of opening\nztuztuZ\u0017blessed scroll of charging\nru20s  20s s\\   #levelchange\n14\n  \u0016?\n>z  _mmmm.#chat\nk_mm.#chat\nu;_._mmmmm.#c"
+  }
+ ]
+}

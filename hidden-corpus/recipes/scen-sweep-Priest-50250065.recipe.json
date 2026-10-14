@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      #levelchange\n6\nhjhl\u0017rolling boulder trap\nhl s.yk\u0017arrow trap\nb#untrap\nunh\u0017squeaky board\nl\u0007lichen\n.u sm.20s .\\ E- Elbereth\n_<, \u001b>.s#levelchange\n30\n                        \u0016?\n>C#ride\nuyqdLss\u0016?\n>>L       luckstone\n#dip\nfd  \u0004h    ;l.\u0006sm. sm.    \u001624\nZ\u001b#terrain\n\u001bqd      20s     .    n \u0016?\n\u001b\u00166\ni\u001b\u0006_>>,>_>>.>_>>.>\u0006_>.>_>.>_>.>\u0006_>,>_>,>_>.><i\u001bk   l   y \u0017polymorph trap\ny n20s \u001b20s \u001bh \u0017trap door\ny  #untrap\nnjk \u0017pit\n\u0017beartrap\nalhl#terrain\nf\n#invoke\n\u001b#force\n#turn\n #levelchange\n8\n       \u0017dwarvish mithril-coat\nW\u001bs  .  n .  Tc\u0007hobbit\nFj       n Fj \u0007gelatinous cube\n;h:20s s  n   s   \u001b    n \u0007Aleax\nFn  n   Fj  \u001b  n  Fb  n     Fj  n  Fb  n   \u00161\n#levelchange\n8\n\u0017blessed ring of polymorph control\nPnr  n  #polyself\nsilver dragon\n  #monster\nj       n.   sm.  n      n .m.        n sm.      n  sm.    ynny y  n  #"
+ },
+ "segments": [
+  {
+   "seed": 50250065,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      #levelchange\n6\nhjhl\u0017rolling boulder trap\nhl s.yk\u0017arrow trap\nb#untrap\nunh\u0017squeaky board\nl\u0007lichen\n.u sm.20s .\\ E- Elbereth\n_<, \u001b>.s#levelchange\n30\n                        \u0016?\n>C#ride\nuyqdLss\u0016?\n>>L       luckstone\n#dip\nfd  \u0004h    ;l.\u0006sm. sm.    \u001624\nZ\u001b#terrain\n\u001bqd      20s     .    n \u0016?\n\u001b\u00166\ni\u001b\u0006_>>,>_>>.>_>>.>\u0006_>.>_>.>_>.>\u0006_>,>_>,>_>.><i\u001bk   l   y \u0017polymorph trap\ny n20s \u001b20s \u001bh \u0017trap door\ny  #untrap\nnjk \u0017pit\n\u0017beartrap\nalhl#terrain\nf\n#invoke\n\u001b#force\n#turn\n #levelchange\n8\n       \u0017dwarvish mithril-coat\nW\u001bs  .  n .  Tc\u0007hobbit\nFj       n Fj \u0007gelatinous cube\n;h:20s s  n   s   \u001b    n \u0007Aleax\nFn  n   Fj  \u001b  n  Fb  n     Fj  n  Fb  n   \u00161\n#levelchange\n8\n\u0017blessed ring of polymorph control\nPnr  n  #polyself\nsilver dragon\n  #monster\nj       n.   sm.  n      n .m.        n sm.      n  sm.    ynny y  n  #"
+  }
+ ]
+}

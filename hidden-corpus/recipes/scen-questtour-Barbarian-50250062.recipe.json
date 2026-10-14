@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nb;b._mmm.Fn   \u001b_.  n  Fn    n   n  n#chat\nn    n   n;u;_mmm.    n Fl    n   n _.#chat\nu  n    n ;n,#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.   Fn   _,#chat\nk   n      _mmmm.  Fu    n _,#chat\nj   _mm.Fn  _,#chat\nh\u0017blessed amulet of reflection\nPh   n    \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017wand of lightning\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.   Fh  _,Fj  n    Fu    Fj   yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50250062,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nb;b._mmm.Fn   \u001b_.  n  Fn    n   n  n#chat\nn    n   n;u;_mmm.    n Fl    n   n _.#chat\nu  n    n ;n,#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.   Fn   _,#chat\nk   n      _mmmm.  Fu    n _,#chat\nj   _mm.Fn  _,#chat\nh\u0017blessed amulet of reflection\nPh   n    \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017wand of lightning\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.   Fh  _,Fj  n    Fu    Fj   yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

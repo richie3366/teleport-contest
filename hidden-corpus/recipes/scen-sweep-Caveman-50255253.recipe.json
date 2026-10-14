@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017wand of digging\n_ \u001bm.zf> zf> sbnzf> szfhhzf> .#levelchange\n30\n         \u0017blessed ring of polymorph control\nPgr#polyself\npony\n #monster\ns.\u0007orc shaman\nFjFjFjsj20ss#polyself\nlurker above\n#monster\ns.\u0007black pudding\nsss.20s.#polyself\nwerewolf\n werewolf\n red mold\n #monster\ns  sy\u0007paper golem\nFhFjFh sm.ss\u0017potion of polymorph\nqh Elvenking\n#dip\nc\u0018\u001b#levelchange\n20\n   \u0017blessed ring of polymorph control\nPi #polyself\ndust vortex\nss\u0007pony\n20sss20s s sm.#polyself\nfire vortex\ns .20s s.#polyself\nhuman\n#monster\n.m.20s\u0007doppelganger\nFbFb     Fhsm.ss#polyself\ntitan\n#monster\nsj sm.\u0007djinni\nFyFy  \u001bFy20s.m.sb\u0017potion of polymorph\nqj homunculus\n #levelchange\n14\n    \u0017orcish bow\nwk\u001720 orcish arrows\nQl\u0007grid bug\nyflfkfnfn \u0017potion of restore ability\ntbl\u0007giant rat\nhfufl fu  n flfl\u0017potion of invisibility\ntlljkn, #enhance\nn\u001b#levelchange\n8\n  \u001623\nZ#name\nm\n#twoweapon\n@.\u0006s.\u001624\nJ;m.>;>.\u000620ss\u0016?\n>>K      ring of regeneration\n\\ W\u001bs;u:  sm.    sm.      n  \u0016?\n\u001b\u0016?\n\u001b#levelchange\n30\n                      \u0016?\n\u001b\u0016?\n\u001b\u0016?\n\u001b\u001627\n\u0018\u001b#levelchange\n8\n       \u0017cursed Vorpal Blade\nwr     n  Fu   Fl   n     n  Fy    n       n     n  #invoke\nr     n \u0017potion of sleeping\n\u0007green-elf\nqs   n   n#dip\nom     n     n \u0017cursed scroll of gold detection\nrt ,\u001b      n       n   \u0017uncursed scroll of food detection\nru  \u001b  \u001b  yy\u001b nny n  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50255253,
+   "datetime": "20240720064059",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017wand of digging\n_ \u001bm.zf> zf> sbnzf> szfhhzf> .#levelchange\n30\n         \u0017blessed ring of polymorph control\nPgr#polyself\npony\n #monster\ns.\u0007orc shaman\nFjFjFjsj20ss#polyself\nlurker above\n#monster\ns.\u0007black pudding\nsss.20s.#polyself\nwerewolf\n werewolf\n red mold\n #monster\ns  sy\u0007paper golem\nFhFjFh sm.ss\u0017potion of polymorph\nqh Elvenking\n#dip\nc\u0018\u001b#levelchange\n20\n   \u0017blessed ring of polymorph control\nPi #polyself\ndust vortex\nss\u0007pony\n20sss20s s sm.#polyself\nfire vortex\ns .20s s.#polyself\nhuman\n#monster\n.m.20s\u0007doppelganger\nFbFb     Fhsm.ss#polyself\ntitan\n#monster\nsj sm.\u0007djinni\nFyFy  \u001bFy20s.m.sb\u0017potion of polymorph\nqj homunculus\n #levelchange\n14\n    \u0017orcish bow\nwk\u001720 orcish arrows\nQl\u0007grid bug\nyflfkfnfn \u0017potion of restore ability\ntbl\u0007giant rat\nhfufl fu  n flfl\u0017potion of invisibility\ntlljkn, #enhance\nn\u001b#levelchange\n8\n  \u001623\nZ#name\nm\n#twoweapon\n@.\u0006s.\u001624\nJ;m.>;>.\u000620ss\u0016?\n>>K      ring of regeneration\n\\ W\u001bs;u:  sm.    sm.      n  \u0016?\n\u001b\u0016?\n\u001b#levelchange\n30\n                      \u0016?\n\u001b\u0016?\n\u001b\u0016?\n\u001b\u001627\n\u0018\u001b#levelchange\n8\n       \u0017cursed Vorpal Blade\nwr     n  Fu   Fl   n     n  Fy    n       n     n  #invoke\nr     n \u0017potion of sleeping\n\u0007green-elf\nqs   n   n#dip\nom     n     n \u0017cursed scroll of gold detection\nrt ,\u001b      n       n   \u0017uncursed scroll of food detection\nru  \u001b  \u001b  yy\u001b nny n  \u0017"
+  }
+ ]
+}

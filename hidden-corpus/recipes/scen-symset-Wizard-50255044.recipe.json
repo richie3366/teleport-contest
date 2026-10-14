@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "O>>>>g\u001b\ni\u001b50sFhFhFhFkFh.150sFk.s_<. \u001b;s50sbuy150s_>.>yhl\u000f\u001b100s50sFlFls\u0018\u001b100suhb\u0018\u001b150sujjhnnkjklbkk150s_>.>\\  150s   50sFks20s150s100sFlFlFlFlFlFlFlFlFl#pray\ny y     FlFlFhFhFhFh\u00167\nO>>>e\u001b\n\u00164\nykuhnu150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeejhb\u0017melting ice\nkkkj:j\u0017unaligned altar\ndndi\u0017human corpse\n #pray\ny : hn\u0017altar\ndedj\u0017newt corpse\n#offer\np  : hy\u0017sink\nqy\u0017ring of invisibility\ndq  \u001bl\u0004h\u0004h:#terrain\ne\n:\\  rl y O>>>>p\u001b\n\u001612\njlkj\u0017fountain\nqy yqg\u0017long sword\n#dip\nrhu\u0017throne\n#sit\n yuh\u0017altar\ndr\u0017jackal corpse\n#offer\ns  #pray\ny y  : b\u0017neutral altar\ndc\u0017lichen corpse\n#offer\nt : #force\n,,mO>b\u001b\nerm ny#tip\n\u001bmO>>m\u001b\nO>>>>j\u001b\nO>>>d\u001b\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0006_>,Fk  n_.Fy>FyFy_>.Fh_.:> 10s\u000f\u001b\u0006_>.Fh_.Fk    >Fk"
+ },
+ "segments": [
+  {
+   "seed": 50255044,
+   "datetime": "20130530110818",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nMENUCOLOR=\"a scroll\"=red\nBIND=v:inventory\n",
+   "moves": "O>>>>g\u001b\ni\u001b50sFhFhFhFkFh.150sFk.s_<. \u001b;s50sbuy150s_>.>yhl\u000f\u001b100s50sFlFls\u0018\u001b100suhb\u0018\u001b150sujjhnnkjklbkk150s_>.>\\  150s   50sFks20s150s100sFlFlFlFlFlFlFlFlFl#pray\ny y     FlFlFhFhFhFh\u00167\nO>>>e\u001b\n\u00164\nykuhnu150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeejhb\u0017melting ice\nkkkj:j\u0017unaligned altar\ndndi\u0017human corpse\n #pray\ny : hn\u0017altar\ndedj\u0017newt corpse\n#offer\np  : hy\u0017sink\nqy\u0017ring of invisibility\ndq  \u001bl\u0004h\u0004h:#terrain\ne\n:\\  rl y O>>>>p\u001b\n\u001612\njlkj\u0017fountain\nqy yqg\u0017long sword\n#dip\nrhu\u0017throne\n#sit\n yuh\u0017altar\ndr\u0017jackal corpse\n#offer\ns  #pray\ny y  : b\u0017neutral altar\ndc\u0017lichen corpse\n#offer\nt : #force\n,,mO>b\u001b\nerm ny#tip\n\u001bmO>>m\u001b\nO>>>>j\u001b\nO>>>d\u001b\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0006_>,Fk  n_.Fy>FyFy_>.Fh_.:> 10s\u000f\u001b\u0006_>.Fh_.Fk    >Fk"
+  }
+ ]
+}

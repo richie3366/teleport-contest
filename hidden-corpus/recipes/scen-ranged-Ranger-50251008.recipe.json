@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n         \u00178 spears\nQg\u0007dwarf\nlfbfb  fb  fb   \u0007giant rat\nnfk f c   k fh fyfh\u0017potion of full healing\ntdb\u0007troll\nubfh  yy\u001by   y y y\u001by  f"
+ },
+ "segments": [
+  {
+   "seed": 50251008,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n         \u00178 spears\nQg\u0007dwarf\nlfbfb  fb  fb   \u0007giant rat\nnfk f c   k fh fyfh\u0017potion of full healing\ntdb\u0007troll\nubfh  yy\u001by   y y y\u001by  f"
+  }
+ ]
+}

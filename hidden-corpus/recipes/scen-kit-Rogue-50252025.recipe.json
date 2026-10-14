@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " i\u001bafi\nafr\n#tip\nf\u001bqd wb   FnFj .XaeuW.s.wa .ss\\ \u0004j  y\u001by  ny y\u001b  #"
+ },
+ "segments": [
+  {
+   "seed": 50252025,
+   "datetime": "20191226112056",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": " i\u001bafi\nafr\n#tip\nf\u001bqd wb   FnFj .XaeuW.s.wa .ss\\ \u0004j  y\u001by  ny y\u001b  #"
+  }
+ ]
+}

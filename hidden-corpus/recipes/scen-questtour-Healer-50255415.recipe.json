@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nl_mmm._.m,#chat\nk;_._mm,_,@.    nFy#chat\ny  n _mmmm.Fl  n  n _.Fl  n       #chat\ny  n_mmm,  n Fl  n   n   n_.#chat\ny   n   n #levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.        Fh _.#chat\nh _mmmmm.     Fh_,  nFh  #chat\nh \u0017blessed ring of free action\nPll\u0017blessed +3 gauntlets of power\nW\u001b\u0017wand of fire\n\u0016?\n>A\u0006_mm.  Fh_,Fb    n        Fh    Fj   n   sFyFy,\u0016?\n>>\u001b\u0016?\n>y_mm.Fy  _,#chat\nk        \u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.   _.  Fk    yy\u001by  y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50255415,
+   "datetime": "20100219120124",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nl_mmm._.m,#chat\nk;_._mm,_,@.    nFy#chat\ny  n _mmmm.Fl  n  n _.Fl  n       #chat\ny  n_mmm,  n Fl  n   n   n_.#chat\ny   n   n #levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.        Fh _.#chat\nh _mmmmm.     Fh_,  nFh  #chat\nh \u0017blessed ring of free action\nPll\u0017blessed +3 gauntlets of power\nW\u001b\u0017wand of fire\n\u0016?\n>A\u0006_mm.  Fh_,Fb    n        Fh    Fj   n   sFyFy,\u0016?\n>>\u001b\u0016?\n>y_mm.Fy  _,#chat\nk        \u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.   _.  Fk    yy\u001by  y y\u001b  F"
+  }
+ ]
+}

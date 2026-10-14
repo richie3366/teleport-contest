@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u000f\u001bt\u001bO>>g\u001b\nO>i\u001b\u001b\nv i\u001b\u00167\nmO>>>q\u001b\nP#ride\nky#untrap\nl\u0006_ \u001b:>Fk  Fk_>.Fk_,Fh   n>Fy Fy_>,_,> \u0006_>._.>_>,_.>_>._.>\u0004bW\u0006_>,_,>_>,_.>_>,_.>\u0006_>._,>_>._,>_>,_.>#twoweapon\n\u000f\u001b\u0006_>,_,>_>,_.>_>._,>eh  Za\n\u0006_>>.Fj_.Fj>FjFj_>>.Fj_.Fj>FjFj_>>.Fj_.Fj>FjFjFjFjFj\u0007housecat\n\u0017huge chunk of meat\nt\u001b\u0007tame jackal\n#chat\nbdbsm. sj20s#name\nf\n20s#chat\nk10s\u00168\nmO>>u\u001b\nmO>>c\u001b\n\u00166\nFu FuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu"
+ },
+ "segments": [
+  {
+   "seed": 50255060,
+   "datetime": "20121012204025",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u000f\u001bt\u001bO>>g\u001b\nO>i\u001b\u001b\nv i\u001b\u00167\nmO>>>q\u001b\nP#ride\nky#untrap\nl\u0006_ \u001b:>Fk  Fk_>.Fk_,Fh   n>Fy Fy_>,_,> \u0006_>._.>_>,_.>_>._.>\u0004bW\u0006_>,_,>_>,_.>_>,_.>\u0006_>._,>_>._,>_>,_.>#twoweapon\n\u000f\u001b\u0006_>,_,>_>,_.>_>._,>eh  Za\n\u0006_>>.Fj_.Fj>FjFj_>>.Fj_.Fj>FjFj_>>.Fj_.Fj>FjFjFjFjFj\u0007housecat\n\u0017huge chunk of meat\nt\u001b\u0007tame jackal\n#chat\nbdbsm. sj20s#name\nf\n20s#chat\nk10s\u00168\nmO>>u\u001b\nmO>>c\u001b\n\u00166\nFu FuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu"
+  }
+ ]
+}

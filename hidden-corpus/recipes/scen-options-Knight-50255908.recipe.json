@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " O>p\nab   \u001bm.Ofgc\np\nq>Oak\nn\n#pray\ny    mO>>>>>h\nc\n:O>kda\na\na\na\n\u001b\u001b#conduct\n #chat\nkssmO>>>>>>hl\na\no\nd\n\u001b\u000f\u001bmO>>>>>u\nd\n #rub\n#dip\ncmO>>i\n #monster\n#enhance\n\u001bmOa\n#name\nm\n20sO>ckg\na\nk\ndcL  ss"
+ },
+ "segments": [
+  {
+   "seed": 50255908,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=fruit:durian\n",
+   "moves": " O>p\nab   \u001bm.Ofgc\np\nq>Oak\nn\n#pray\ny    mO>>>>>h\nc\n:O>kda\na\na\na\n\u001b\u001b#conduct\n #chat\nkssmO>>>>>>hl\na\no\nd\n\u001b\u000f\u001bmO>>>>>u\nd\n #rub\n#dip\ncmO>>i\n #monster\n#enhance\n\u001bmOa\n#name\nm\n20sO>ckg\na\nk\ndcL  ss"
+  }
+ ]
+}

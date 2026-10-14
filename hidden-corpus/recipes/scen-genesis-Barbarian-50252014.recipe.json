@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0007small mimic\n;m. \u001b,20ssb20s\u0007wood nymph\nFnFl         Fl FlFl\u0007blue jelly\n.n  yy  y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 50252014,
+   "datetime": "20221218021253",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007small mimic\n;m. \u001b,20ssb20s\u0007wood nymph\nFnFl         Fl FlFl\u0007blue jelly\n.n  yy  y y y\u001by  s"
+  }
+ ]
+}

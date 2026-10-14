@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  mO>>>t\u001b\nlhu\u0017magic fountain\nqy y\u0017throne\n#sit\nl\u0017neutral altar\ndedb\u0017floating eye corpse\n#offer\nf  #pray\ny y :#turn\n20s#offer\n\u001611\ni\u001bi\u001b#sit\n#monster\n\u0007pony\n\u0017apple\nt\u001b\u0007tame jackal\ndesm.20s  .b#chat\nh   y  n \u0017newt corpse\nt\u001b\u0007jackal\n\u0017scroll of taming\nri  y  l    nj n  \u0017altar\ndgde\u0017human corpse\n y    n  \u0017fountain\nqy      n qy \u0017long sword\n#dip\nky #invoke\n\u001bfl  qy\u00165\nv\u001bi\u001b\u001618\n v\u001bi\u001b\u0007little dog\n\u0017lichen corpse\ntkn \u0017leash\namn   nhl n  lamh  n    \u0007gnome\nsn20ssh  .m. sm. sm.l  n #chat\nh 20s#chat\nh   #name\no\n\u001611\nmO>>>i"
+ },
+ "segments": [
+  {
+   "seed": 50255074,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=!autopickup\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "  mO>>>t\u001b\nlhu\u0017magic fountain\nqy y\u0017throne\n#sit\nl\u0017neutral altar\ndedb\u0017floating eye corpse\n#offer\nf  #pray\ny y :#turn\n20s#offer\n\u001611\ni\u001bi\u001b#sit\n#monster\n\u0007pony\n\u0017apple\nt\u001b\u0007tame jackal\ndesm.20s  .b#chat\nh   y  n \u0017newt corpse\nt\u001b\u0007jackal\n\u0017scroll of taming\nri  y  l    nj n  \u0017altar\ndgde\u0017human corpse\n y    n  \u0017fountain\nqy      n qy \u0017long sword\n#dip\nky #invoke\n\u001bfl  qy\u00165\nv\u001bi\u001b\u001618\n v\u001bi\u001b\u0007little dog\n\u0017lichen corpse\ntkn \u0017leash\namn   nhl n  lamh  n    \u0007gnome\nsn20ssh  .m. sm. sm.l  n #chat\nh 20s#chat\nh   #name\no\n\u001611\nmO>>>i"
+  }
+ ]
+}

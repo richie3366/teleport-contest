@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n         \u0007baby red dragon\n\u0017scroll of taming\nrf \u0017saddle\nagl\u0017lance\nwh#ride\njy\u0007pony\n\u0017scroll of taming\nri \u0017saddle\najb#ride\nhy\u0007pony\n\u0017scroll of taming\nrk \u0017saddle\naln#ride\nby,\u0007jackal\nFnFh Fnljjbh#ride\nly20s#ride\nlylhukh"
+ },
+ "segments": [
+  {
+   "seed": 50251004,
+   "datetime": "20050921070124",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n         \u0007baby red dragon\n\u0017scroll of taming\nrf \u0017saddle\nagl\u0017lance\nwh#ride\njy\u0007pony\n\u0017scroll of taming\nri \u0017saddle\najb#ride\nhy\u0007pony\n\u0017scroll of taming\nrk \u0017saddle\naln#ride\nby,\u0007jackal\nFnFh Fnljjbh#ride\nly20s#ride\nlylhukh"
+  }
+ ]
+}

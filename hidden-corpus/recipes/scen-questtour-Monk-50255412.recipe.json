@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nu_m.Fl _,#chat\ny_mmm.#chat\ny_mmm,#chat\nl#levelchange\n20\n                      \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.#chat\nk_mmmmm.Fj _,Fh#chat\nj\u0017blessed amulet of reflection\nPk\u0017blessed ring of free action\nPlr  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of death\n\u0016?\n>A\u0006_mmmmmmm.Fb   n _.Fn Fn Fk Fk   nFh   Fb Fh   n  znk       n ,\u001612\n\u0016?\n>z\u0006_mmmm.Fy  Fh  Fh   n  Fh FyFn Fn,#chat\nb   n   \u00162\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,Fj  n  _.Fh FhFh Fy  nFbFbFy znj,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mm.  Fh   n _.#chat\nb;j,\u00167\n\u0016?\n>A\u0006_mmmm.Fy   Fl FhFh ,\u0016?\n>A\u0006_mmmmm.Fb_.Fb  nFl FhFh20szny ,\u0016?\n>z\u0006_mmmmm,sssssznl ,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm..ssssznl ,#chat\nj\u0016?\n>A\u0006_mmm,ss20s...20szny,\u0016?\n>A\u0006_mmmmmmm.  Fy _,    nFh  Fh  Fy   nFy  Fy  Fy Fh   nFh ,#chat\nh \u001610\n\u0016?\n>z\u0006_mmmmmmm. Fh_,s2"
+ },
+ "segments": [
+  {
+   "seed": 50255412,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nu_m.Fl _,#chat\ny_mmm.#chat\ny_mmm,#chat\nl#levelchange\n20\n                      \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.#chat\nk_mmmmm.Fj _,Fh#chat\nj\u0017blessed amulet of reflection\nPk\u0017blessed ring of free action\nPlr  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of death\n\u0016?\n>A\u0006_mmmmmmm.Fb   n _.Fn Fn Fk Fk   nFh   Fb Fh   n  znk       n ,\u001612\n\u0016?\n>z\u0006_mmmm.Fy  Fh  Fh   n  Fh FyFn Fn,#chat\nb   n   \u00162\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,Fj  n  _.Fh FhFh Fy  nFbFbFy znj,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mm.  Fh   n _.#chat\nb;j,\u00167\n\u0016?\n>A\u0006_mmmm.Fy   Fl FhFh ,\u0016?\n>A\u0006_mmmmm.Fb_.Fb  nFl FhFh20szny ,\u0016?\n>z\u0006_mmmmm,sssssznl ,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm..ssssznl ,#chat\nj\u0016?\n>A\u0006_mmm,ss20s...20szny,\u0016?\n>A\u0006_mmmmmmm.  Fy _,    nFh  Fh  Fy   nFy  Fy  Fy Fh   nFh ,#chat\nh \u001610\n\u0016?\n>z\u0006_mmmmmmm. Fh_,s2"
+  }
+ ]
+}

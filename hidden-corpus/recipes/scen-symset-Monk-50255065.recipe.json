@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "ckeet\u001bOf\u001b\nO>>o7\n \u001b\nFk FkFnFlFuFuFlFjFhFyFnFhFkFyFkFhFjFnFuFlFlFyFlFlFuFyFbFlFlFjFbFhFkFyFlFlFyFlFnFuFlFlFjFbFnFkFyFjFhFhFnFkFnFbFbFjFhFjFkFbFyFnFjFyFnFyFjFjFjFkFuFkFlFkFhFuFbFuFjFbFbFhFyFkFhFbFkFnFuFkFhFhFkFhFhFjFlFbFnFyFjFjFbFjFhFbFnFbFkFlFbFyFyFuFuFkFhFjFuFy\u001611\nO>>m\u001b\u001b\n\u0007tame dingo\n\u0006_ \u001b;>FjFn_>,   Fb  _,   \u001bFn   >FbFy   _>.  Fn_,   n Fb >\u0017leash\nalh   n  yb  b   n   nalk \u0007giant rat\n\u0017scroll of taming\nrm\u0007kobold\n.   ns  n  .   n20s    n20s   s   n #name\n\u001b\u0017magic whistle\nl   nu     nyan   \u00168\nmO>>a\u001b\n\u001613\n#pray\ny y FkFhFy#pray\ny y #pray\ny y FlFkFk#pray\ny y FjFkFn#pray\ny y #pray\ny y #pray\ny y FbFkFuFlFkFlFlFnFy#pray\ny y FkFbFyFuFkFnFbFnFnFjFuFl#pray\ny y #pray\ny y #pray\ny y FhFnFnFkFuFn#pray\ny y FhFjFuFlFkFn#pray\ny y #pray\ny y #pray\ny y #pray\ny y  FlFbFyFuFuFl#pray\ny y #pray\ny y FnFbFyFnFjFl#pray\ny y FnFbFbFjFjFy#pray\ny y \u001620\nmO>>t\u001b"
+ },
+ "segments": [
+  {
+   "seed": 50255065,
+   "datetime": "20110523140600",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\nMSGTYPE=stop \"The door\"\nMENUCOLOR=\"uncursed\"=red\n",
+   "moves": "ckeet\u001bOf\u001b\nO>>o7\n \u001b\nFk FkFnFlFuFuFlFjFhFyFnFhFkFyFkFhFjFnFuFlFlFyFlFlFuFyFbFlFlFjFbFhFkFyFlFlFyFlFnFuFlFlFjFbFnFkFyFjFhFhFnFkFnFbFbFjFhFjFkFbFyFnFjFyFnFyFjFjFjFkFuFkFlFkFhFuFbFuFjFbFbFhFyFkFhFbFkFnFuFkFhFhFkFhFhFjFlFbFnFyFjFjFbFjFhFbFnFbFkFlFbFyFyFuFuFkFhFjFuFy\u001611\nO>>m\u001b\u001b\n\u0007tame dingo\n\u0006_ \u001b;>FjFn_>,   Fb  _,   \u001bFn   >FbFy   _>.  Fn_,   n Fb >\u0017leash\nalh   n  yb  b   n   nalk \u0007giant rat\n\u0017scroll of taming\nrm\u0007kobold\n.   ns  n  .   n20s    n20s   s   n #name\n\u001b\u0017magic whistle\nl   nu     nyan   \u00168\nmO>>a\u001b\n\u001613\n#pray\ny y FkFhFy#pray\ny y #pray\ny y FlFkFk#pray\ny y FjFkFn#pray\ny y #pray\ny y #pray\ny y FbFkFuFlFkFlFlFnFy#pray\ny y FkFbFyFuFkFnFbFnFnFjFuFl#pray\ny y #pray\ny y #pray\ny y FhFnFnFkFuFn#pray\ny y FhFjFuFlFkFn#pray\ny y #pray\ny y #pray\ny y #pray\ny y  FlFbFyFuFuFl#pray\ny y #pray\ny y FnFbFyFnFjFl#pray\ny y FnFbFbFjFjFy#pray\ny y \u001620\nmO>>t\u001b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "O\u0006_>\u0006_>\u0006_>#enhance\n#turn\n\u0006_ \u001b<.>_>,_.>_>,_.>\u0006_>._.>_>._.>_>,_,>\u0006_>,_.>_>,_.>_>._,>v i\u001bO>>>>m\u001b\u001b\n\u00163\ns50s150s150s150s50sybj\\ 100s_>.>i\u001b_>.>100sbybybnkh ky kl 100s_>,>150seyu.j_>,>kk un ybjb50s\\ i\u001b100suy ku l\u0004u 50s\\ \u0018\u001b150s150s100syky j\u0018\u001bkb jykl ny\u0006_>.Fu_.Fn>FnFlFl\u0006_>,Fn_>FuFu_>,Fl_,Fn>FnFlFn<\u0006_>.Fn_>FlFu_>,Fn_>FnFl_>.Fn_>FuFnFun FuFl#terrain\n\u001bE- Vlad was here\n\u0006_>.Fl_.Fl>FlFn_>FuFu_>.Fu_.Fn>FnFlFn\u0006_>.Fn_>FnFl_>.Fu_.Fu>FnFn_>.Fn_>FlFlFlFlFl\u0006_>.Fl_,Fu>FuFl_>.Fl_.Fu>FuFl_>.Fu_.Fl>FuFuFuFnFul \u0006_>.Fn_>FuFn_>FnFl_>.Fu_,Fl>FuFuFlFnFln ok \u0004y \u0006_>,Fn_>FlFn_>FuFl_>.Fn_>FlFlFlFnFuu f $ h #conduct\n \u0006_>>.Fu_.Fn>FuFuFl\u0006_>.Fu_.Fn>FlFuFn#chat\n#invoke\n\u001b\u0006_>.Fl_.Fu>FlFl_>.Fn_>FnFuu _>.Fn_>FlFuFlFnFn20sch \u0006_>>.Fu_,Fu>FlFn_>FnFll _>>.Fu_.Fl>FnFnFuFuFnO\u001611\nmO>>>v\u001b\n20scj \u0006_>._.>_>._.>_>._,.>\u0006_>._,> \u0006_>,_,m.  n>_>,_.>_>"
+ },
+ "segments": [
+  {
+   "seed": 50250079,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nOPTIONS=msg_window:reversed\nMSGTYPE=norep \"You kill\"\nMENUCOLOR=\"a potion\"=magenta\n",
+   "moves": "O\u0006_>\u0006_>\u0006_>#enhance\n#turn\n\u0006_ \u001b<.>_>,_.>_>,_.>\u0006_>._.>_>._.>_>,_,>\u0006_>,_.>_>,_.>_>._,>v i\u001bO>>>>m\u001b\u001b\n\u00163\ns50s150s150s150s50sybj\\ 100s_>.>i\u001b_>.>100sbybybnkh ky kl 100s_>,>150seyu.j_>,>kk un ybjb50s\\ i\u001b100suy ku l\u0004u 50s\\ \u0018\u001b150s150s100syky j\u0018\u001bkb jykl ny\u0006_>.Fu_.Fn>FnFlFl\u0006_>,Fn_>FuFu_>,Fl_,Fn>FnFlFn<\u0006_>.Fn_>FlFu_>,Fn_>FnFl_>.Fn_>FuFnFun FuFl#terrain\n\u001bE- Vlad was here\n\u0006_>.Fl_.Fl>FlFn_>FuFu_>.Fu_.Fn>FnFlFn\u0006_>.Fn_>FnFl_>.Fu_.Fu>FnFn_>.Fn_>FlFlFlFlFl\u0006_>.Fl_,Fu>FuFl_>.Fl_.Fu>FuFl_>.Fu_.Fl>FuFuFuFnFul \u0006_>.Fn_>FuFn_>FnFl_>.Fu_,Fl>FuFuFlFnFln ok \u0004y \u0006_>,Fn_>FlFn_>FuFl_>.Fn_>FlFlFlFnFuu f $ h #conduct\n \u0006_>>.Fu_.Fn>FuFuFl\u0006_>.Fu_.Fn>FlFuFn#chat\n#invoke\n\u001b\u0006_>.Fl_.Fu>FlFl_>.Fn_>FnFuu _>.Fn_>FlFuFlFnFn20sch \u0006_>>.Fu_,Fu>FlFn_>FnFll _>>.Fu_.Fl>FnFnFuFuFnO\u001611\nmO>>>v\u001b\n20scj \u0006_>._.>_>._.>_>._,.>\u0006_>._,> \u0006_>,_,m.  n>_>,_.>_>"
+  }
+ ]
+}

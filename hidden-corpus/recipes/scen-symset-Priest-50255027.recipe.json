@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "mOa\u001b\nhhlFkFu shyyhbj150s100sFhFhs_ \u001b:>150s150sFh20s._>.>ulu100s50s_>.>\u000f\u001brh y jun_>.>50sFhFhs#tip\n\u001b150s150s#enhance\nye\nj\n\u001b100s100sFhFhs\\ 50snhk\u0018\u001b150s  \u0018\u001b100seejhyFhs._>,>\u0014,#turn\n \u00167\n eeef efeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeOe\u001b\n#untrap\nj:O>>>a\u001b\nv i\u001bv i\u001b\u001620\n\u0014,qdz#name\nm\njllb\u0017kjkjhu\u0017chaotic altar\ndbdb\u0017elf corpse\n#offer\nj     n#pray\ny y        #terrain\nd\n\\#turn\n<.qd  n  nah  \u00163\n\u0006_>._.>_>._.>_>,   n_,>\u0006_>>,Fh_.Fh>_>>._,>_>>._.>\u0006_>._.>_>._,>_>._.>zah \u0006_>._.>_>,_,>_>,_.>\u0006_>._,>_>._,>_>._,>\u00166\n50s50s50snuj150s  150sFj.s\\ 100sylhFn FnFnW100si\u001b50s Fj   nFj.100s50s   Fb Fb20slhh100s   Fn   nFn Fn FnFjFjFj.sf \u001b100sPbbj50s#untrap\n.bkjFkFk.#monster\n#ride\nky_>,>#name\nf\nbkuFlFlFlFlFl  .lyj\u00169\nwa#wipe\n#monster\nW\u00169\n\u0006_>,_,>_>,_.>_>._,>\u0006_>._,>_>,_.>_>._.>\u0006_>._.>_>._,>_>._,>\u0007tame dingo\n\u0007large dog\n\u0017food ration\nt\u001b\u0017meatball\nt\u001b20s  \u0006_>, Fh  _,  n  Fh>FyFh_>.Fy  n_.Fy>FyFy_>.Fy  n _.Fy>FyFjy\u0017apple\nt\u001b\u00168\n\u001611\nOp\u001b\nmOa\u001b\n\u0007pony\n\u0017carrot\nt\u001b\u0007tame housecat\n20s   n \u0017tin whi"
+ },
+ "segments": [
+  {
+   "seed": 50255027,
+   "datetime": "20090718161235",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "mOa\u001b\nhhlFkFu shyyhbj150s100sFhFhs_ \u001b:>150s150sFh20s._>.>ulu100s50s_>.>\u000f\u001brh y jun_>.>50sFhFhs#tip\n\u001b150s150s#enhance\nye\nj\n\u001b100s100sFhFhs\\ 50snhk\u0018\u001b150s  \u0018\u001b100seejhyFhs._>,>\u0014,#turn\n \u00167\n eeef efeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeOe\u001b\n#untrap\nj:O>>>a\u001b\nv i\u001bv i\u001b\u001620\n\u0014,qdz#name\nm\njllb\u0017kjkjhu\u0017chaotic altar\ndbdb\u0017elf corpse\n#offer\nj     n#pray\ny y        #terrain\nd\n\\#turn\n<.qd  n  nah  \u00163\n\u0006_>._.>_>._.>_>,   n_,>\u0006_>>,Fh_.Fh>_>>._,>_>>._.>\u0006_>._.>_>._,>_>._.>zah \u0006_>._.>_>,_,>_>,_.>\u0006_>._,>_>._,>_>._,>\u00166\n50s50s50snuj150s  150sFj.s\\ 100sylhFn FnFnW100si\u001b50s Fj   nFj.100s50s   Fb Fb20slhh100s   Fn   nFn Fn FnFjFjFj.sf \u001b100sPbbj50s#untrap\n.bkjFkFk.#monster\n#ride\nky_>,>#name\nf\nbkuFlFlFlFlFl  .lyj\u00169\nwa#wipe\n#monster\nW\u00169\n\u0006_>,_,>_>,_.>_>._,>\u0006_>._,>_>,_.>_>._.>\u0006_>._.>_>._,>_>._,>\u0007tame dingo\n\u0007large dog\n\u0017food ration\nt\u001b\u0017meatball\nt\u001b20s  \u0006_>, Fh  _,  n  Fh>FyFh_>.Fy  n_.Fy>FyFy_>.Fy  n _.Fy>FyFjy\u0017apple\nt\u001b\u00168\n\u001611\nOp\u001b\nmOa\u001b\n\u0007pony\n\u0017carrot\nt\u001b\u0007tame housecat\n20s   n \u0017tin whi"
+  }
+ ]
+}

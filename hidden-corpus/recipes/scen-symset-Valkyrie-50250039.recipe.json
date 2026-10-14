@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001bm.>FhFh_>,Fj_.> FlFlFloh #loot\nl \u0006_>.Fh_.Fh>FhFh_>.Fy_.Fy>FyFy_>.Fy_.Fy>FyFyFyFh\u001b20ss,\u0006_>.Fj_.Fj>FjFj_>.Fj_.Fb>FjFj_>,Fb_,Fb>FjFjFbFjFj\u0006_>,Fj_,Fj>FhFh_>,Fb_.Fb>FbFj_>.Fj_.Fj>FjFjFbFbFb<\u0006_>.Fj_.Fb>FhFh_>.Fb_.Fb>FhFb_>,Fh\u001b_.Fh>FhFhFhFhFhh\u001b__.s\u0006_>,Fh_.Fh>FhFh_>.Fy_.Fy>FhFy_>.Fy_,Fy>FbFh\u001bFbFbFbO>>c\u001b\nv i\u001b\u001616\n    E- Elbereth Elbereth\ni\u001b_<.sv i\u001bOp\u001b\nmO>>>s\u001b\nmOa\u001b\nOe\u001b\njh\u001bbkk \u0017fountain\nqy \u001b yqqh\u001bh\u001b\u0017pool\n#dip\ncy  kb \u0017altar\ndd  \u0017dwarf corpse\n #offer\ne  #wipe\n   n#force\n 10s \u001616\nmO>>>>i\u001b\n;b:   \\   #monster\n#rub\n\u0007large dog\n\u0017carrot\ntbh \u0017banana\ntbb \u0006_>,  nFh_.Fh>"
+ },
+ "segments": [
+  {
+   "seed": 50250039,
+   "datetime": "20010527144544",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"cursed\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0006_ \u001bm.>FhFh_>,Fj_.> FlFlFloh #loot\nl \u0006_>.Fh_.Fh>FhFh_>.Fy_.Fy>FyFy_>.Fy_.Fy>FyFyFyFh\u001b20ss,\u0006_>.Fj_.Fj>FjFj_>.Fj_.Fb>FjFj_>,Fb_,Fb>FjFjFbFjFj\u0006_>,Fj_,Fj>FhFh_>,Fb_.Fb>FbFj_>.Fj_.Fj>FjFjFbFbFb<\u0006_>.Fj_.Fb>FhFh_>.Fb_.Fb>FhFb_>,Fh\u001b_.Fh>FhFhFhFhFhh\u001b__.s\u0006_>,Fh_.Fh>FhFh_>.Fy_.Fy>FhFy_>.Fy_,Fy>FbFh\u001bFbFbFbO>>c\u001b\nv i\u001b\u001616\n    E- Elbereth Elbereth\ni\u001b_<.sv i\u001bOp\u001b\nmO>>>s\u001b\nmOa\u001b\nOe\u001b\njh\u001bbkk \u0017fountain\nqy \u001b yqqh\u001bh\u001b\u0017pool\n#dip\ncy  kb \u0017altar\ndd  \u0017dwarf corpse\n #offer\ne  #wipe\n   n#force\n 10s \u001616\nmO>>>>i\u001b\n;b:   \\   #monster\n#rub\n\u0007large dog\n\u0017carrot\ntbh \u0017banana\ntbb \u0006_>,  nFh_.Fh>"
+  }
+ ]
+}

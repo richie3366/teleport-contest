@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "FuFuFuFuFuFuFuFuuyjkFkFyFk 100sujj\u000f\u001bknnFk.s150sw-_ \u001b>.>100sybjFl20sFlFlFlFl50si\u001b100s\\  100s hbkFlFlFlFlFkFk#pray\ny #pray\ny  y\u001by  y y y\u001b  o kk lhFjFjFjFjFjFjFjFjlkblFj FjFjFjFjFjFjFjnn20suubl#chat\njuhllLLNB_ \u001b.>YJUH_>.>NYBL_>.>\u000f\u001b#loot\nUJBL_>,>yjyFb20sslnk100sFh20s._>.>_>.>\\   50skjh50sFhss100s#sit\n\u001b50skjn100s150s_>,>khuhjjklk150s  \u001b50s#pray\ny 100sFh.20s50s\u000f\u001b_>.>100sbuji\u001b50s\\   50s100sFhFy20s150sFhs.JNNY_>.>UJKK_>.>#pray\ny   WYLJK_>.>FhFhFhqE- X marks the spot\nBBNH_>,>LUNB_>,>K LJK _>,>FbFbs20s#name\no\n#name\na\n10s20stbhFhFhFhFhFhFhFhFhjbhyFlFlFlFlFlFlFlFlBLLY_>,>LLUN_>.>eg,BNJU_>,>NLJY_>.>BKHY_>,>BBBB_>,>Fbsswa#enhance\n\u001b<20s#chat\nkt\u001bt\u001b#cha#quit\nHJHU_ \u001b:>KLNN_>,>UHYH_>.>NYBK_>.>YBJK_>.>YJYU_>.>BYUL_>.>W#twoweapon\nhljrj nn100si\u001b\u0018\u001b50saj hkn50s#conduct\n 50sjyl100s\\ 50s_>.>100s150s150sFyFyFh#pray\ny        FyFhFhFhFhFh150shyb150s  zhuFlFl FlFkFkFk FkFkFkFlFls>100s_>.>ubjFuFkFk50s#twoweapon\n50sFks20sNYJL_>.><HHJK_>,>>E- Vlad was here\nLKYU _>,>FbFb.KHJ J_>.>#name\nm\nzULKH_>\u000flubh150s100syFbFbFbFb#quit\nyy\u001by  y y y\u001b #wizintrinsic\na\n .s20s20s20s20s20s20sss20ss.20ss20s.s20s20sss.s.sss",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50255609,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:slime mold\n",
+   "moves": "FuFuFuFuFuFuFuFuuyjkFkFyFk 100sujj\u000f\u001bknnFk.s150sw-_ \u001b>.>100sybjFl20sFlFlFlFl50si\u001b100s\\  100s hbkFlFlFlFlFkFk#pray\ny #pray\ny  y\u001by  y y y\u001b  o"
+  },
+  {
+   "seed": 50355609,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": " kk lhFjFjFjFjFjFjFjFjlkblFj FjFjFjFjFjFjFjnn20suubl#chat\njuhllLLNB_ \u001b.>YJUH_>.>NYBL_>.>\u000f\u001b#loot\nUJBL_>,>yjyFb20sslnk100sFh20s._>.>_>.>\\   50skjh50sFhss100s#sit\n\u001b50skjn100s150s_>,>khuhjjklk150s  \u001b50s#pray\ny 100sFh.20s50s\u000f\u001b_>.>100sbuji\u001b50s\\   50s100sFhFy20s150sFhs.JNNY_>.>UJKK_>.>#pray\ny   WYLJK_>.>FhFhFhqE- X marks the spot\nBBNH_>,>LUNB_>,>K LJK _>,>FbFbs20s#name\no\n#name\na\n10s20stbhFhFhFhFhFhFhFhFhjbhyFlFlFlFlFlFlFlFlBLLY_>,>LLUN_>.>eg,BNJU_>,>NLJY_>.>BKHY_>,>BBBB_>,>Fbsswa#enhance\n\u001b<20s#chat\nkt\u001bt\u001b#cha#quit\n"
+  },
+  {
+   "seed": 50455609,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": "HJHU_ \u001b:>KLNN_>,>UHYH_>.>NYBK_>.>YBJK_>.>YJYU_>.>BYUL_>.>W#twoweapon\nhljrj nn100si\u001b\u0018\u001b50saj hkn50s#conduct\n 50sjyl100s\\ 50s_>.>100s150s150sFyFyFh#pray\ny        FyFhFhFhFhFh150shyb150s  zhuFlFl FlFkFkFk FkFkFkFlFls>100s_>.>ubjFuFkFk50s#twoweapon\n50sFks20sNYJL_>.><HHJK_>,>>E- Vlad was here\nLKYU _>,>FbFb.KHJ J_>.>#name\nm\nzULKH_>\u000flubh150s100syFbFbFbFb#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50555609,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\na\n .s20s20s20s20s20s20sss20ss.20ss20s.s20s20sss.s.sss"
+  }
+ ]
+}

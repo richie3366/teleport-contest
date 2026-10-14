@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "FkFkFkFkFkFkFkFkFl FlFlFlFlFlFlFlkubybkl  y\u001bny y y\u001b  n#wizintrinsic\nc\n sm..b.20s shsn20ssbs20s.m.su.m.20s    n .s20s     .s.20s        20s.sss20s20s..s.20ssss...ss.20s .s  llllFhFhFhFhFhFhFhFhFjFjFj FjFjFjFjFjhlh100slhlFhFhFh20sujk100s#loot\n_ \u001b,>100s 100sFhFhFhklb100sFhs20s50sjkj_>.>100sFyss50s100sjlhFk..100sFk.s100sFkFk20s150safr\n_>.>100seh\u000f\u001b50s<100sFkssFkFkFkFkFkFktbk10sdc.n20s.m.10skl  y\u001bny ny\u001b  h",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50250090,
+   "datetime": "20020905031522",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:slime mold\nOPTIONS=msg_window:reversed\n",
+   "moves": "FkFkFkFkFkFkFkFkFl FlFlFlFlFlFlFlkubybkl  y\u001bny y y\u001b  n"
+  },
+  {
+   "seed": 50350090,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nc\n sm..b.20s shsn20ssbs20s.m.su.m.20s    n .s20s     .s.20s        20s.sss20s20s..s.20ssss...ss.20s .s"
+  },
+  {
+   "seed": 50450090,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  llllFhFhFhFhFhFhFhFhFjFjFj FjFjFjFjFjhlh100slhlFhFhFh20sujk100s#loot\n_ \u001b,>100s 100sFhFhFhklb100sFhs20s50sjkj_>.>100sFyss50s100sjlhFk..100sFk.s100sFkFk20s150safr\n_>.>100seh\u000f\u001b50s<100sFkssFkFkFkFkFkFktbk10sdc.n20s.m.10skl  y\u001bny ny\u001b  h"
+  }
+ ]
+}

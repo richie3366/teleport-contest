@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nj;u,_mm.#chat\nu  n _mmm.#chat\nu  n ;y,_mmm,#chat\nk;k.#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_m.#chat\ny_mmm,#chat\ny\u0017blessed +3 speed boots\nWo  \u0017blessed Mjollnir\nwp\u0017blessed amulet of life saving\nPq\u0017wand of magic missile\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,Fh 20s.20s 20s sFh,\u0016?\n>A\u0006_mmm.Fh20s 20s.,#chat\nh\u0016?\n>z\u0006_mm.Fhs s.   ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nb\u0016?\n>A\u0006_mmmmm.s Fu. s.,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nj;m,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.ss   n  Fu Fu.   n s  ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nu;u,\u00163\n\u0016?\n>A\u0006_mmmmm,Fu 20s  s   n Fy ss s,#chat\nh\u0016?\n>z\u0006_mmm..   n Fy  .s ,#chat\ny\u0016?\n>A\u0006_mmmmmmm.20s   n s  ss   n s zrj,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nl \u001610\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm..s .   n 20s szrh  ,\u0016?\n>A\u0006_mmm,.20s s   n s zrb,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nk \u0016?\n>z\u0006_mmm.20s20s s20s  n   Fy Fy,\u0016?\n>A\u0006_mmmmmm.Fn   s .s   n . ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,20s ss  FbFy   n Fy s,#chat\nu\u0016?\n>A\u0006_mmmmmm.s .s ss zrb  \u001b,\u0016?"
+ },
+ "segments": [
+  {
+   "seed": 50255425,
+   "datetime": "20100913191530",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nj;u,_mm.#chat\nu  n _mmm.#chat\nu  n ;y,_mmm,#chat\nk;k.#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_m.#chat\ny_mmm,#chat\ny\u0017blessed +3 speed boots\nWo  \u0017blessed Mjollnir\nwp\u0017blessed amulet of life saving\nPq\u0017wand of magic missile\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,Fh 20s.20s 20s sFh,\u0016?\n>A\u0006_mmm.Fh20s 20s.,#chat\nh\u0016?\n>z\u0006_mm.Fhs s.   ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nb\u0016?\n>A\u0006_mmmmm.s Fu. s.,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nj;m,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.ss   n  Fu Fu.   n s  ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nu;u,\u00163\n\u0016?\n>A\u0006_mmmmm,Fu 20s  s   n Fy ss s,#chat\nh\u0016?\n>z\u0006_mmm..   n Fy  .s ,#chat\ny\u0016?\n>A\u0006_mmmmmmm.20s   n s  ss   n s zrj,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nl \u001610\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm..s .   n 20s szrh  ,\u0016?\n>A\u0006_mmm,.20s s   n s zrb,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nk \u0016?\n>z\u0006_mmm.20s20s s20s  n   Fy Fy,\u0016?\n>A\u0006_mmmmmm.Fn   s .s   n . ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,20s ss  FbFy   n Fy s,#chat\nu\u0016?\n>A\u0006_mmmmmm.s .s ss zrb  \u001b,\u0016?"
+  }
+ ]
+}

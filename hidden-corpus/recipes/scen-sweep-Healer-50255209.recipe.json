@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      #levelchange\n8\n\u0017blessed ring of polymorph control\nPmr#polyself\nkiller bee\n . .\u0007pyrolisk\nFkFkFk sy   shs#polyself\nacid blob\n #monster\ns  sm. sm..m.sm.\u0017potion of polymorph\nqn shrieker\n    #dip\nhe  #levelchange\n30\n                      \u0017spellbook of remove curse\nro sm.\u0017spellbook of drain life\nrp  sh+\u001b\u0007kobold\nZc\n Za\nZb\nZb\nZb\n\u0007ghoul\nZa\n#turn\n\\ hl  \u0017wand of make invisible\nEq Vlad was here\n\u0017wand of undead turning\nErn  Vlad was here\nj\u0017wand of speed monster\nEs X marks the spot\n : E-n  I am a fish\n#levelchange\n8\n       \u0016?\n>>K      spellbook of turn undead\nqdy    n  n   n  sk   n      n    n.m.   n      n   n\u00168\n\u0018\u001bel  n  ;j; \u001bm.;j:  \u0006@.s    n     nsm.   n   n   n  n \u0016?\n\u001b\u0007vrock\n.j    yy\u001by   y ny\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 50255209,
+   "datetime": "20230424185604",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      #levelchange\n8\n\u0017blessed ring of polymorph control\nPmr#polyself\nkiller bee\n . .\u0007pyrolisk\nFkFkFk sy   shs#polyself\nacid blob\n #monster\ns  sm. sm..m.sm.\u0017potion of polymorph\nqn shrieker\n    #dip\nhe  #levelchange\n30\n                      \u0017spellbook of remove curse\nro sm.\u0017spellbook of drain life\nrp  sh+\u001b\u0007kobold\nZc\n Za\nZb\nZb\nZb\n\u0007ghoul\nZa\n#turn\n\\ hl  \u0017wand of make invisible\nEq Vlad was here\n\u0017wand of undead turning\nErn  Vlad was here\nj\u0017wand of speed monster\nEs X marks the spot\n : E-n  I am a fish\n#levelchange\n8\n       \u0016?\n>>K      spellbook of turn undead\nqdy    n  n   n  sk   n      n    n.m.   n      n   n\u00168\n\u0018\u001bel  n  ;j; \u001bm.;j:  \u0006@.s    n     nsm.   n   n   n  n \u0016?\n\u001b\u0007vrock\n.j    yy\u001by   y ny\u001b  2"
+  }
+ ]
+}

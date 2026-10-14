@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "FhFlFbFyFyFnFk FjFjFhFnFhFbFnFjFyFnFnFbFnFbFjFjFhFnFnFjFbFyFjFhFnFhFnFnFbFbFjFlFnFhFhFhFhFjFhFnFyFjFbFhFjFyFjFhFhFhFlFjFhFjFnFnFlFhFjFjFnFnFbFyFhFhFjFbFyFyFbFyFjFnFbFnFyFbFhFjFbFyFnFhFyFhFbFhFnFyFbFhFnFjFnFnFnFjFjFnFjFbFjFyFbFbFyFjFbFyFnFhFh\u0007large dog\n\u0017huge chunk of meat\n tbn\u0007tame dingo\n\u0007lichen\n\u0017scroll of taming\nrj \u0017tin whistle\nybbak#name\ni\n\u0017huge chunk of meat\n t\u001b#name\nm\n @.dis20s.\u0006_>.   Fj_,m.Fj>FhFu_>.Fj_.m,Fn> des\u0006_>. Fb_.Fn>FyFy_>,Fn_,Fb>FjFn_>,Fb_.Fy>FnFnFnFnFy\u0006_>>,Fy_,Fb>FjFy_>>.Fb_.Fy>FhFh_>>.Fj_.Fy>FhFhFnFhFy,q\u0006_>>.Fy_,Fj>FbFj_>>.Fj_,Fb>FhFn_>>,Fb_.Fj>FhFbFbFbFh\u0006_>,Fy_.Fb>FjFb_>.Fj_.Fy>FyFy_>,Fy_.Fn>FbFhFnFhFj<\u0006_>,Fh_,Fh>FnFh_>.Fn_.Fj>F"
+ },
+ "segments": [
+  {
+   "seed": 50255054,
+   "datetime": "20100808021120",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\nMSGTYPE=hide \"You feel\"\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "FhFlFbFyFyFnFk FjFjFhFnFhFbFnFjFyFnFnFbFnFbFjFjFhFnFnFjFbFyFjFhFnFhFnFnFbFbFjFlFnFhFhFhFhFjFhFnFyFjFbFhFjFyFjFhFhFhFlFjFhFjFnFnFlFhFjFjFnFnFbFyFhFhFjFbFyFyFbFyFjFnFbFnFyFbFhFjFbFyFnFhFyFhFbFhFnFyFbFhFnFjFnFnFnFjFjFnFjFbFjFyFbFbFyFjFbFyFnFhFh\u0007large dog\n\u0017huge chunk of meat\n tbn\u0007tame dingo\n\u0007lichen\n\u0017scroll of taming\nrj \u0017tin whistle\nybbak#name\ni\n\u0017huge chunk of meat\n t\u001b#name\nm\n @.dis20s.\u0006_>.   Fj_,m.Fj>FhFu_>.Fj_.m,Fn> des\u0006_>. Fb_.Fn>FyFy_>,Fn_,Fb>FjFn_>,Fb_.Fy>FnFnFnFnFy\u0006_>>,Fy_,Fb>FjFy_>>.Fb_.Fy>FhFh_>>.Fj_.Fy>FhFhFnFhFy,q\u0006_>>.Fy_,Fj>FbFj_>>.Fj_,Fb>FhFn_>>,Fb_.Fj>FhFbFbFbFh\u0006_>,Fy_.Fb>FjFb_>.Fj_.Fy>FyFy_>,Fy_.Fn>FbFhFnFhFj<\u0006_>,Fh_,Fh>FnFh_>.Fn_.Fj>F"
+  }
+ ]
+}

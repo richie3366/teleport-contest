@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "v i\u001bOj\u001b\n\u00165\nFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFymOa\u001b\n\u001616\nFbFllFbFlbFlFlFlFlFbFlbFlFbFlbFlFbFllFbFbFlFbFbFbFllFbFbFlFbFbFlFlFbFbFbFllFlFbFbFbFbFlFbFlbFbFbFbFlbFbFbFbFlbFbFlbFlFlFbFbFbFbFlFbFllFbFllFbFbFbFbFlFbFbFlFlFbFllFlFbFbFbFbFbFlbFlFbFbFbFllFbFbFlFlFlFbFbFbFbFbFbFbFbFbFbFbFbFlFlFbFbFlFbFbFbFbFbFbFbFlbFbFbFlFl\u0006_ \u001bm,>FbFb_>,Fj_.  n Fl>FlFl_>.Fl_,@.Fl>FlFlFlFlFl#dip\nh#sit\n   n\u0006_>.Fl_,> \u0006_>._.@.\u001b>_>,_..\u001b>_>,_.<.\u001bFh>FhFhFhFhFh<\u0006_>.Fh_.Fh>FhFh_>.Fh_.;@.Fh>FhFh_>,Fh_.Fh>FhFhFhFhFh\u0006_>.Fh_.:Fh>FhFh_>.Fh_,  nFh>FhFh_>.Fh_,Fh>FhFhFhFhFh#jump\n\\ \u0006_>,Fh_.  nFh>FhFh_>.Fh_.,Fh>FhFh_>.Fh_.Fh>FhFhFhFhFh\u00166\n\u0006_>.Fj_,m,Fj>FjFj_>.Fj_.Fj>FjFj_>.Fj_,Fj>FjFjFjFjFjwe #untrap\nj\u0006_>.Fj_.Fj>FjFj_>.  nFj_.Fj>FjFj_>.Fj_.  nFj>FjFjFjFjFj\u0006_>"
+ },
+ "segments": [
+  {
+   "seed": 50255059,
+   "datetime": "20080501233558",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nMSGTYPE=hide \"You miss\"\n",
+   "moves": "v i\u001bOj\u001b\n\u00165\nFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFymOa\u001b\n\u001616\nFbFllFbFlbFlFlFlFlFbFlbFlFbFlbFlFbFllFbFbFlFbFbFbFllFbFbFlFbFbFlFlFbFbFbFllFlFbFbFbFbFlFbFlbFbFbFbFlbFbFbFbFlbFbFlbFlFlFbFbFbFbFlFbFllFbFllFbFbFbFbFlFbFbFlFlFbFllFlFbFbFbFbFbFlbFlFbFbFbFllFbFbFlFlFlFbFbFbFbFbFbFbFbFbFbFbFbFlFlFbFbFlFbFbFbFbFbFbFbFlbFbFbFlFl\u0006_ \u001bm,>FbFb_>,Fj_.  n Fl>FlFl_>.Fl_,@.Fl>FlFlFlFlFl#dip\nh#sit\n   n\u0006_>.Fl_,> \u0006_>._.@.\u001b>_>,_..\u001b>_>,_.<.\u001bFh>FhFhFhFhFh<\u0006_>.Fh_.Fh>FhFh_>.Fh_.;@.Fh>FhFh_>,Fh_.Fh>FhFhFhFhFh\u0006_>.Fh_.:Fh>FhFh_>.Fh_,  nFh>FhFh_>.Fh_,Fh>FhFhFhFhFh#jump\n\\ \u0006_>,Fh_.  nFh>FhFh_>.Fh_.,Fh>FhFh_>.Fh_.Fh>FhFhFhFhFh\u00166\n\u0006_>.Fj_,m,Fj>FjFj_>.Fj_.Fj>FjFj_>.Fj_,Fj>FjFjFjFjFjwe #untrap\nj\u0006_>.Fj_.Fj>FjFj_>.  nFj_.Fj>FjFj_>.Fj_.  nFj>FjFjFjFjFj\u0006_>"
+  }
+ ]
+}

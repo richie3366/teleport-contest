@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  \u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b@.#chat\nl_mmmm,#chat\nl_mmmmm.Fh_,#chat\nk#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fl_.#chat\nn_mm,#chat\nh;.\u0017blessed +3 cloak of magic resistance\nWii\u001b\u0017blessed +3 gauntlets of power\nW\u001b\u001b\u0017blessed +3 helm of telepathy\nW\u001b\u001b\u0017wand of death\n\u0016?\n>z\u0006_mmmmm._.20sss20sFl FlFl,#chat\nl\u0016?\n>A\u0006_mm.Fu   _.Fl  Fn Fn Fu Fn zlu  ,\u0016?\n>>\u001b\u0016?\n>y_mm,Fl _,<.Fl#chat\nl\u0016?\n>A\u0006_mmmm.Fk    _.  Fu    Fh        n Fl       Fy      Fl       ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.       Fn     _.Fn   n  Fn      Fn     Fk      Fb      ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm.   n  Fl         _.#chat\ny\u00161\n\u0016?\n>z\u0006_mmmmmmm,      Fb_,        n  Fh      Fy  Fk       Fl  Fn      Fn Fu       n     ,\u00166\n\u0016?\n>A\u0006_mmm.       Fk       _,Fk       Fk         nFh       Fb zly      ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.    Fk_,#chat\nh;h:  \u0016?\n>A\u0006_mmm.    Fu       _.Fk    n    Fb     Fh     Fh    Fu    Fb   n    ,\u00169\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fb   FbFh   FjFb     zlj,#chat\nh\u0016?\n>z\u0006_mmmmm.    Fh  n    _,  Fk  FuFh     Fh   FuFu   n  Fh    ,#chat\nk    \u00169\n\u0016?\n>A\u0006_mm.    n  Fb   _.Fb  Fn     Fh   Fu    Fb   Fh    Fb    n  ,\u0016?\n>>\u001b\u0016?\n>y_m.    Fh  _.#chat\nu;b.\u00165\n\u0016?\n>A\u0006_mmm, Fb  _,;>.Fb Fb Fu  FuFb    n Fb   ,\u0016?\n>>\u001b\u0016?\n>"
+ },
+ "segments": [
+  {
+   "seed": 50255422,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  \u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b@.#chat\nl_mmmm,#chat\nl_mmmmm.Fh_,#chat\nk#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fl_.#chat\nn_mm,#chat\nh;.\u0017blessed +3 cloak of magic resistance\nWii\u001b\u0017blessed +3 gauntlets of power\nW\u001b\u001b\u0017blessed +3 helm of telepathy\nW\u001b\u001b\u0017wand of death\n\u0016?\n>z\u0006_mmmmm._.20sss20sFl FlFl,#chat\nl\u0016?\n>A\u0006_mm.Fu   _.Fl  Fn Fn Fu Fn zlu  ,\u0016?\n>>\u001b\u0016?\n>y_mm,Fl _,<.Fl#chat\nl\u0016?\n>A\u0006_mmmm.Fk    _.  Fu    Fh        n Fl       Fy      Fl       ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.       Fn     _.Fn   n  Fn      Fn     Fk      Fb      ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm.   n  Fl         _.#chat\ny\u00161\n\u0016?\n>z\u0006_mmmmmmm,      Fb_,        n  Fh      Fy  Fk       Fl  Fn      Fn Fu       n     ,\u00166\n\u0016?\n>A\u0006_mmm.       Fk       _,Fk       Fk         nFh       Fb zly      ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.    Fk_,#chat\nh;h:  \u0016?\n>A\u0006_mmm.    Fu       _.Fk    n    Fb     Fh     Fh    Fu    Fb   n    ,\u00169\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fb   FbFh   FjFb     zlj,#chat\nh\u0016?\n>z\u0006_mmmmm.    Fh  n    _,  Fk  FuFh     Fh   FuFu   n  Fh    ,#chat\nk    \u00169\n\u0016?\n>A\u0006_mm.    n  Fb   _.Fb  Fn     Fh   Fu    Fb   Fh    Fb    n  ,\u0016?\n>>\u001b\u0016?\n>y_m.    Fh  _.#chat\nu;b.\u00165\n\u0016?\n>A\u0006_mmm, Fb  _,;>.Fb Fb Fu  FuFb    n Fb   ,\u0016?\n>>\u001b\u0016?\n>"
+  }
+ ]
+}

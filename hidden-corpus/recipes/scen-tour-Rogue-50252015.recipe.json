@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0016?\n>v #enhance\nyq\no\n\u001bu,;h, \u001bm.20s   sm.   \u0016?\n>G#invoke\n\u001bE- X marks the spot\nf by n\u000620s20s\u001615\n    #name\nf\n\u000f#turn\n;>...\u0016?\nk   20s#wipe\n #offer\n;l,.hsm. "
+ },
+ "segments": [
+  {
+   "seed": 50252015,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0016?\n>v #enhance\nyq\no\n\u001bu,;h, \u001bm.20s   sm.   \u0016?\n>G#invoke\n\u001bE- X marks the spot\nf by n\u000620s20s\u001615\n    #name\nf\n\u000f#turn\n;>...\u0016?\nk   20s#wipe\n #offer\n;l,.hsm. "
+  }
+ ]
+}

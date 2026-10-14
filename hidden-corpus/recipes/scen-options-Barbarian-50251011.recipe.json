@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "mOa\nnsO>gk\n#rub\nO>jhf\nHOa\nn\n\u000f\u001b#monster\nOcgj\nd\n#name\na\n__, \u001b.s.sO>cpm\nJmO>>>>>q\nw\n#turn\nOjen\n#untrap\nksOle\n#sit\n\u001bs20s"
+ },
+ "segments": [
+  {
+   "seed": 50251011,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "mOa\nnsO>gk\n#rub\nO>jhf\nHOa\nn\n\u000f\u001b#monster\nOcgj\nd\n#name\na\n__, \u001b.s.sO>cpm\nJmO>>>>>q\nw\n#turn\nOjen\n#untrap\nksOle\n#sit\n\u001bs20s"
+  }
+ ]
+}

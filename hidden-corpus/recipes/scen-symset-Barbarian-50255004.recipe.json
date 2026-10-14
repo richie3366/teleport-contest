@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  \u00164\nFlFkFhFkFhFlFk FkFkFnFuFnFjFhFkFbFkFkFhFlFuFkFhFjFjFyFjFlFkFhFjFuFhFhFnFuFyFnFkFbFjFuFnFlFjFnFbFlFhFuFkFyFbFlFhFbFnFhFjFbFhFuFjFhFjFbFnFjFhFhFnFkFnFhFjFyFkFnFuFyFjFyFnFyFyFlFuFhFjFnFjFuFbFkFnFkFyFyFjFlFuFlFjFkFbFhFjFjFuFlFkFn FkFkFuFkFbFyFkFh\u0006_ \u001b;>FjFk_>>.Fh_.m,Fy>FkFj_>>.Fj_,m,Fj>FhFhFkFbFk\u0006_>,Fb_.> FkFhFn\u0006_>,Fu_.> FyFyFj #wipe\n #wipe\n\u0006_>.Fb_,Fk>FhFb_>, Fu_.Fu  n>FuFu_>.Fj_.>.Fu>FbFbFy FjFk\u000f\u001b\u00166\nFyFbFk#pray\ny y    FbFy Fh Fy   n Fh Fn Fb FuFlFuFu   nFhFkFlFkFnFyFjFjFyFhFnFyFjFnFyFy#pray\ny y Fy Fy   n Fu FnFy Fl#pray\ny y  #pray\ny y   FuFuFyFyFj  nFbFn FbFuFbFuFnFkFkFbFnFuFuFjFhFjFbFbFyFyFkFuFjFyFyFj FnFuFj Fj FuFuFb FuFy FbFuFn   nFnFnFbFuFn FnFjFk Fj Fn FuFkFkFn FyFjFy #pray\ny y    FkFyFhFyFbFjFjFjFh\u001612\nv i\u001b#untrap\nuW#offer\n#conduct\n O>>p\u001b\nv i\u001b#loot\nkE- Vlad was here\n#ride\nny20s\u00162\nFjFkFlFuFbFbFyF"
+ },
+ "segments": [
+  {
+   "seed": 50255004,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00164\nFlFkFhFkFhFlFk FkFkFnFuFnFjFhFkFbFkFkFhFlFuFkFhFjFjFyFjFlFkFhFjFuFhFhFnFuFyFnFkFbFjFuFnFlFjFnFbFlFhFuFkFyFbFlFhFbFnFhFjFbFhFuFjFhFjFbFnFjFhFhFnFkFnFhFjFyFkFnFuFyFjFyFnFyFyFlFuFhFjFnFjFuFbFkFnFkFyFyFjFlFuFlFjFkFbFhFjFjFuFlFkFn FkFkFuFkFbFyFkFh\u0006_ \u001b;>FjFk_>>.Fh_.m,Fy>FkFj_>>.Fj_,m,Fj>FhFhFkFbFk\u0006_>,Fb_.> FkFhFn\u0006_>,Fu_.> FyFyFj #wipe\n #wipe\n\u0006_>.Fb_,Fk>FhFb_>, Fu_.Fu  n>FuFu_>.Fj_.>.Fu>FbFbFy FjFk\u000f\u001b\u00166\nFyFbFk#pray\ny y    FbFy Fh Fy   n Fh Fn Fb FuFlFuFu   nFhFkFlFkFnFyFjFjFyFhFnFyFjFnFyFy#pray\ny y Fy Fy   n Fu FnFy Fl#pray\ny y  #pray\ny y   FuFuFyFyFj  nFbFn FbFuFbFuFnFkFkFbFnFuFuFjFhFjFbFbFyFyFkFuFjFyFyFj FnFuFj Fj FuFuFb FuFy FbFuFn   nFnFnFbFuFn FnFjFk Fj Fn FuFkFkFn FyFjFy #pray\ny y    FkFyFhFyFbFjFjFjFh\u001612\nv i\u001b#untrap\nuW#offer\n#conduct\n O>>p\u001b\nv i\u001b#loot\nkE- Vlad was here\n#ride\nny20s\u00162\nFjFkFlFuFbFbFyF"
+  }
+ ]
+}

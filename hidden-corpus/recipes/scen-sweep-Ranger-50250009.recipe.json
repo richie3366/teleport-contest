@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0006_ \u001b<.>Fh s_>>,_.>_>>,_,>\u0006_>._,>_>._,>_>,_,>\u0006_>._.>_>._.>_>._,><\\ \u0006_>,_,>_>._,>_>._,>#twoweapon\ntdy<\u0006_>._.>_>,_.>_>,_.>\u0006_>,_.>_>,_,>_>,_.>\u0006\u00176 javelins\nQi\u00074 kobold\nnlfl fn \u0017halberd\nwj \u0007gnome\nhaj.bjy, \u000f\u001b\u0017wand of digging\nzky  ybj   :_>.zk> zk< ljzkllbuzkhb\u001611\n    \u0006#levelchange\n14\n yu h\u0017unaligned altar\ndgdk \u0017gnome corpse\n #offer\nl    n     n   u   ny\u0017melting ice\nub  b b  n   h l  n \u0017cloud\nh     nl llk\u0017moat\nb    n u ,>#twoweapon\n\u0006\u00163\ni\u001bwas20sFnXwdFn  FnFnXef sjswjFl FlFlel .m.20sehsbs#enhance\nyi\nh\n\u001b#pray\ny y  #chat\nl,#terrain\nd\n#monster\n<.#monster\n_<.ski\u001bi\u001bwb  Fn .20swaFlFlFlem .m.sney.bsm.wdFk FkFkwiy  nFhFhFh\u000f\u001b#chat\nh#wipe\n:#monster\nr\u001b#offer\n\u0014>.\u0007Juiblex\ny.m.Fn  .m.20s   n  Fusm.#pray\ny y    FuFuFu  sm..m.\u0007yellow mold\n20s 20s  sbs.m.   n  sm.   n  .m.\u0007baby red dragon\nsm..m.sk shsm.sm. \u001616\n\u00162\nu l\u0017towel\nEo\u0017wand of enlightenment\nEp: \u001b\u0017wand of fire\nEq: \u001bE-\u0007hill orc\nsm.     n 20s .m.\u001625\n\u0006\u0017amulet of reflection\nPr20s20s sm.  n   20s\u0017blessed magic marker\nas\u00173 spellbook of identify\nrt  sm.   n  20s    ZFn    Fn     n    \u0017uncursed potion of invisibility\nqu     Fh          n      Fk    \u0017blessed unicorn horn\nwv     yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50250009,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0006_ \u001b<.>Fh s_>>,_.>_>>,_,>\u0006_>._,>_>._,>_>,_,>\u0006_>._.>_>._.>_>._,><\\ \u0006_>,_,>_>._,>_>._,>#twoweapon\ntdy<\u0006_>._.>_>,_.>_>,_.>\u0006_>,_.>_>,_,>_>,_.>\u0006\u00176 javelins\nQi\u00074 kobold\nnlfl fn \u0017halberd\nwj \u0007gnome\nhaj.bjy, \u000f\u001b\u0017wand of digging\nzky  ybj   :_>.zk> zk< ljzkllbuzkhb\u001611\n    \u0006#levelchange\n14\n yu h\u0017unaligned altar\ndgdk \u0017gnome corpse\n #offer\nl    n     n   u   ny\u0017melting ice\nub  b b  n   h l  n \u0017cloud\nh     nl llk\u0017moat\nb    n u ,>#twoweapon\n\u0006\u00163\ni\u001bwas20sFnXwdFn  FnFnXef sjswjFl FlFlel .m.20sehsbs#enhance\nyi\nh\n\u001b#pray\ny y  #chat\nl,#terrain\nd\n#monster\n<.#monster\n_<.ski\u001bi\u001bwb  Fn .20swaFlFlFlem .m.sney.bsm.wdFk FkFkwiy  nFhFhFh\u000f\u001b#chat\nh#wipe\n:#monster\nr\u001b#offer\n\u0014>.\u0007Juiblex\ny.m.Fn  .m.20s   n  Fusm.#pray\ny y    FuFuFu  sm..m.\u0007yellow mold\n20s 20s  sbs.m.   n  sm.   n  .m.\u0007baby red dragon\nsm..m.sk shsm.sm. \u001616\n\u00162\nu l\u0017towel\nEo\u0017wand of enlightenment\nEp: \u001b\u0017wand of fire\nEq: \u001bE-\u0007hill orc\nsm.     n 20s .m.\u001625\n\u0006\u0017amulet of reflection\nPr20s20s sm.  n   20s\u0017blessed magic marker\nas\u00173 spellbook of identify\nrt  sm.   n  20s    ZFn    Fn     n    \u0017uncursed potion of invisibility\nqu     Fh          n      Fk    \u0017blessed unicorn horn\nwv     yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

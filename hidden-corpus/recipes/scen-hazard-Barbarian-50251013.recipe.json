@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0007gas spore\nFnFn FjFj s20s..20s\u0007lich\nFuFu    FuFuFu ss  yy\u001by  y y y\u001b n  #"
+ },
+ "segments": [
+  {
+   "seed": 50251013,
+   "datetime": "20020126175943",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=sortloot:none\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007gas spore\nFnFn FjFj s20s..20s\u0007lich\nFuFu    FuFuFu ss  yy\u001by  y y y\u001b n  #"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "O>afc\nckO>p\n#jump\nOi\no\nd\n#monster\n#name\na\nmO>>>>>>q\n\u001bwaO>cj\n#enhance\nyn\ng\n\u001b>O>n\nh\n#sit\n.m..m.Ol\n20s#rub\nOekl\n#offer\nqdmO>>>>b\nhmO>mt\n\u0018\u001b#monster\nmO>>>>dhg\n \u001b#ride\nly20ssm."
+ },
+ "segments": [
+  {
+   "seed": 50255905,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "O>afc\nckO>p\n#jump\nOi\no\nd\n#monster\n#name\na\nmO>>>>>>q\n\u001bwaO>cj\n#enhance\nyn\ng\n\u001b>O>n\nh\n#sit\n.m..m.Ol\n20s#rub\nOekl\n#offer\nqdmO>>>>b\nhmO>mt\n\u0018\u001b#monster\nmO>>>>dhg\n \u001b#ride\nly20ssm."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n             \u0017war hammer\nwks..X\u0007mail daemon\n;j; \u001b@.sss\u0007lieutenant\nsk20s20s  20s  "
+ },
+ "segments": [
+  {
+   "seed": 50252026,
+   "datetime": "20180320204419",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n             \u0017war hammer\nwks..X\u0007mail daemon\n;j; \u001b@.sss\u0007lieutenant\nsk20s20s  20s  "
+  }
+ ]
+}

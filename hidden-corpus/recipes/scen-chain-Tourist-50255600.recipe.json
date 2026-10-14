@@ -1,0 +1,77 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nd\n 20s  .m.su.lsjsbssssss20s20s20s  .ksl.m..sm.s20s.m.sm.20ssn n.20s..ssss20s.20ss20ss \u0007pit fiend\nFuFk Fu   nFuFuFu    yy\u001by   y y y\u001by  F bkdf20s ss#chat\nnbkky nuhl#chat\nljlkbKJUH_ \u001bm,>FjFkFlYYKJ_>,>FlFu Fl s>YL LU_>.>H HKU_>.>r\u001b<KHHK_>,>n\\   H UKU_>.>HBYK_>.>#pray#quit\nyy  #wizintrinsic\nd\n .m.sm.      n .ysm.   yy\u001bny y\u001bn  2 #wizintrinsic\na\n ss20s20s20s20s20s20s   20s       20s   s20s    s.20s20s   s.ss.ss20s.. s.b #chat\nuytbndaessslnkubyjy_ \u001b,>100shn j150sFnFl20s\u0018\u001b100sulnFh20sFhFysFl _>.>nhh150s1#quit\ny\u001b    FlFl.#invoke\n\u001b100sFh FkFh\u000f\u001b100s FyFk 20s100s50s100sFls.hyn50si\u001b100s \u000f\u001b50s\u000f\u001b150s100sFl..150sFl20s20s 150sFl20sFl#quit\nyy\u001by  y y y\u001b  FkFk .nuh50s150su50s _ \u001b,>_>,>jnh100s 50s100sFhFhFhFhssnhkjlh\u0018\u001b\u000f\u001b100s#d#quit\n Fl sshuh\u000f\u001b100s100sFkFk20s150sybblubynuhluyllnyl50s50s150s150s100sFhs.,W_ \u001b@.>100sFh20ss100sjbbFuFks_>.>kyuFhFh20sbnl50s100sFysseduyh100sFhs.150slny100s_>,>100shlj50s150sFhsFh_>.>50s\u0018\u001b_>,>ybnFy20s20s100s\u0018\u001b#offer\n150s50s100#quit\ny\u001b    ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50255600,
+   "datetime": "20070521214239",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#wizintrinsic\nd\n 20s  .m.su.lsjsbssssss20s20s20s  .ksl.m..sm.s20s.m.sm.20ssn n.20s..ssss20s.20ss20ss"
+  },
+  {
+   "seed": 50355600,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007pit fiend\nFuFk Fu   nFuFuFu    yy\u001by   y y y\u001by  F"
+  },
+  {
+   "seed": 50455600,
+   "datetime": "20200313094504",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\n",
+   "moves": " bkdf20s ss#chat\nnbkky nuhl#chat\nljlkbKJUH_ \u001bm,>FjFkFlYYKJ_>,>FlFu Fl s>YL LU_>.>H HKU_>.>r\u001b<KHHK_>,>n\\   H UKU_>.>HBYK_>.>#pray#quit\n"
+  },
+  {
+   "seed": 50555600,
+   "datetime": "20111227141441",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "yy  #wizintrinsic\nd\n .m.sm.      n .ysm.   yy\u001bny y\u001bn  2"
+  },
+  {
+   "seed": 50655600,
+   "datetime": "20260812074658",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\na\n ss20s20s20s20s20s20s   20s       20s   s20s    s.20s20s   s.ss.ss20s.. s.b"
+  },
+  {
+   "seed": 50755600,
+   "datetime": "20211020195651",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #chat\nuytbndaessslnkubyjy_ \u001b,>100shn j150sFnFl20s\u0018\u001b100sulnFh20sFhFysFl _>.>nhh150s1#quit\ny\u001b    "
+  },
+  {
+   "seed": 50855600,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=sortloot:none\nOPTIONS=runmode:run\nOPTIONS=fruit:durian\n",
+   "moves": "FlFl.#invoke\n\u001b100sFh FkFh\u000f\u001b100s FyFk 20s100s50s100sFls.hyn50si\u001b100s \u000f\u001b50s\u000f\u001b150s100sFl..150sFl20s20s 150sFl20sFl#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50955600,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\n",
+   "moves": " FkFk .nuh50s150su50s _ \u001b,>_>,>jnh100s 50s100sFhFhFhFhssnhkjlh\u0018\u001b\u000f\u001b100s#d#quit\n"
+  },
+  {
+   "seed": 51055600,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=fruit:durian\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": " Fl sshuh\u000f\u001b100s100sFkFk20s150sybblubynuhluyllnyl50s50s150s150s100sFhs.,W_ \u001b@.>100sFh20ss100sjbbFuFks_>.>kyuFhFh20sbnl50s100sFysseduyh100sFhs.150slny100s_>,>100shlj50s150sFhsFh_>.>50s\u0018\u001b_>,>ybnFy20s20s100s\u0018\u001b#offer\n150s50s100#quit\ny\u001b    "
+  }
+ ]
+}

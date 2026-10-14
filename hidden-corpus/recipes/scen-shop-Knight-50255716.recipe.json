@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWi\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w  \u0006_ \u001b.q_{. Fk    n_.  n Fk  nq\u00167\nyny\u0016?\n>w \u0006\u00161\njby#chat\nj_ooooooo.Fj_,m.,p_ooooooooo,_,;m,,p__,#chat\nl_oooooooo.Fl_.@.,p_ooooooooo._.;>.,p__.#chat\nj_oooooooo._.,\u0014@.s.__.#chat\nb#pray\ny y _oo._._ooo., $_{.q_oooo._,,#chat\nu_ooo,_,<.,$__.#chat\nh_{,q\u0016?\nchh y\u0016?\n>w\u0006lbn#chat\nl\u00167\nubn\u0016?\n>w \u0006_ooo. Fk  _.   n Fk ,   np\u00163\n__,#chat\ny_{,q_oo.,p_ooo.,#chat\ny_ooooooo,,$FyFyFyFy Fy   nFyFyFyFy  n FyFyFy _ooooo.,p_oo,,p_ooooo.,p_oooo,,#chat\ny  n__.#chat\nu    _{.q_oo,,:Fy  Fy Fy   nFy  Fy  Fy  n    \u001611\n_{.q__.#chat\nn#pray\ny y     _ooo,,p_ooooooo.,$_oo._o.,p\u00163\nb j b \u0016?\n>w\u0006__.  n Fk _.Fn  n #chat\nl\u001610\n_ooooooooo,,:_{.qFjFj Fj   nFjFj Fj  _ooooooo.    Fl   n_.  Fj"
+ },
+ "segments": [
+  {
+   "seed": 50255716,
+   "datetime": "20050306235827",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWi\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w  \u0006_ \u001b.q_{. Fk    n_.  n Fk  nq\u00167\nyny\u0016?\n>w \u0006\u00161\njby#chat\nj_ooooooo.Fj_,m.,p_ooooooooo,_,;m,,p__,#chat\nl_oooooooo.Fl_.@.,p_ooooooooo._.;>.,p__.#chat\nj_oooooooo._.,\u0014@.s.__.#chat\nb#pray\ny y _oo._._ooo., $_{.q_oooo._,,#chat\nu_ooo,_,<.,$__.#chat\nh_{,q\u0016?\nchh y\u0016?\n>w\u0006lbn#chat\nl\u00167\nubn\u0016?\n>w \u0006_ooo. Fk  _.   n Fk ,   np\u00163\n__,#chat\ny_{,q_oo.,p_ooo.,#chat\ny_ooooooo,,$FyFyFyFy Fy   nFyFyFyFy  n FyFyFy _ooooo.,p_oo,,p_ooooo.,p_oooo,,#chat\ny  n__.#chat\nu    _{.q_oo,,:Fy  Fy Fy   nFy  Fy  Fy  n    \u001611\n_{.q__.#chat\nn#pray\ny y     _ooo,,p_ooooooo.,$_oo._o.,p\u00163\nb j b \u0016?\n>w\u0006__.  n Fk _.Fn  n #chat\nl\u001610\n_ooooooooo,,:_{.qFjFj Fj   nFjFj Fj  _ooooooo.    Fl   n_.  Fj"
+  }
+ ]
+}

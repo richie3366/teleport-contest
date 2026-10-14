@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0016?\ndjlk\u0017squeaky board\nny20s.j\u0017fire trap\nubssh\u0017rolling boulder trap\nk#untrap\nj\u0017land mine\naobb#terrain\nc\n\u001b;#invoke\n\u001b#jump\ni\u001b\u0016?\ni_>.\u001615\n     #chat\nb;b;\u0016?\n>z#levelchange\n12\n      \u0017chain mail\nW\u001b20s..\u0007brown mold\n;h,sm.20s sm.     \u0007yellow light\nFh   Fl  Fk  n  Fu    Fu   n     Fy   \u0007chameleon\nFu   n  Fn   Fy     n Fk    20s      n .  \u00165\n \u0016?\n>>M     ring of conflict\n_{.>\u0016?\n\u001bb n  \u0016?\n\u001bn  n   n  \u001628\nh    n b n   h b  n :   \u00165\n\u0016?\n\u001bj   n j  \u001b\u0016?\n\u001bl    j  \u001644\n#chat\nl    n;m..u  sm. sm.  n   \u00161\n\u0016?\n\u001bb l  \u0016?\n\u001bb  n j    n   \u00163\n\u001643\nj n       h b h  n  b yy\u001by   y ny\u001b  :"
+ },
+ "segments": [
+  {
+   "seed": 50255528,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0016?\ndjlk\u0017squeaky board\nny20s.j\u0017fire trap\nubssh\u0017rolling boulder trap\nk#untrap\nj\u0017land mine\naobb#terrain\nc\n\u001b;#invoke\n\u001b#jump\ni\u001b\u0016?\ni_>.\u001615\n     #chat\nb;b;\u0016?\n>z#levelchange\n12\n      \u0017chain mail\nW\u001b20s..\u0007brown mold\n;h,sm.20s sm.     \u0007yellow light\nFh   Fl  Fk  n  Fu    Fu   n     Fy   \u0007chameleon\nFu   n  Fn   Fy     n Fk    20s      n .  \u00165\n \u0016?\n>>M     ring of conflict\n_{.>\u0016?\n\u001bb n  \u0016?\n\u001bn  n   n  \u001628\nh    n b n   h b  n :   \u00165\n\u0016?\n\u001bj   n j  \u001b\u0016?\n\u001bl    j  \u001644\n#chat\nl    n;m..u  sm. sm.  n   \u00161\n\u0016?\n\u001bb l  \u0016?\n\u001bb  n j    n   \u00163\n\u001643\nj n       h b h  n  b yy\u001by   y ny\u001b  :"
+  }
+ ]
+}

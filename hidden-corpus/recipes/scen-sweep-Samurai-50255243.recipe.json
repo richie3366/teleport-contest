@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n14\n\u0017tsurugi\nwfFn  20s.X\u0007gray ooze\nFnFnFns..20sss\u0007black pudding\nFlFl FlFn FlFn.m.20s \u0007Medusa\nyFj FhFl   n Fh n Fh n Fj  n Fh n sm. n sm. n \u00162\n#levelchange\n14\n\u0016?\nk   \u0006_ \u001b;#chat\nj20s .m.  20s #rub\nE- I am a fish\n \u0004l  \u0007sewer rat\n;j;sk20s sm.  \u0007Angel\nyFn     Fh  Fn Fh        n      \u00168\n\u0007warhorse\n\u0017scroll of taming\nrg       \u0017saddle\nahy#ride\nly\u0007horse\n\u0017scroll of taming\nri \u0017saddle\n aju   #ride\nuy\u0007tame saddled pony\n#ride\nyy bl    kjllu \u0006_>, Fb   _.  Fj  >Fj ._>,Fl_,   >_>, Fh _.@.Fn>Fn Fh\u0004y\u001623\n#levelchange\n20\n    \u0016?\n>>\u001b\u0016?\n>v #force\n#sit\n#untrap\nh;h:  ..\u001617\n  nP_<,.;y;\u0006ss\u0016?\ne\u0004nyolcl20s .#levelchange\n8\n    \u0017silver dagger\nwks.s  \u0007master mind flayer\nFl   Fj  n                           Fy                \u0007pit viper\n;j:  .s\u001bs\u00173 the Tsurugi of Muramasa\n wlFj    n     Fk  Fj#invoke\nl  Fj   n  Fj   n       \u0017blessed wand of teleportation\nzmn  n   zmb   n   Fh  n   Fj  yy\u001by   y y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50255243,
+   "datetime": "20001213061603",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n14\n\u0017tsurugi\nwfFn  20s.X\u0007gray ooze\nFnFnFns..20sss\u0007black pudding\nFlFl FlFn FlFn.m.20s \u0007Medusa\nyFj FhFl   n Fh n Fh n Fj  n Fh n sm. n sm. n \u00162\n#levelchange\n14\n\u0016?\nk   \u0006_ \u001b;#chat\nj20s .m.  20s #rub\nE- I am a fish\n \u0004l  \u0007sewer rat\n;j;sk20s sm.  \u0007Angel\nyFn     Fh  Fn Fh        n      \u00168\n\u0007warhorse\n\u0017scroll of taming\nrg       \u0017saddle\nahy#ride\nly\u0007horse\n\u0017scroll of taming\nri \u0017saddle\n aju   #ride\nuy\u0007tame saddled pony\n#ride\nyy bl    kjllu \u0006_>, Fb   _.  Fj  >Fj ._>,Fl_,   >_>, Fh _.@.Fn>Fn Fh\u0004y\u001623\n#levelchange\n20\n    \u0016?\n>>\u001b\u0016?\n>v #force\n#sit\n#untrap\nh;h:  ..\u001617\n  nP_<,.;y;\u0006ss\u0016?\ne\u0004nyolcl20s .#levelchange\n8\n    \u0017silver dagger\nwks.s  \u0007master mind flayer\nFl   Fj  n                           Fy                \u0007pit viper\n;j:  .s\u001bs\u00173 the Tsurugi of Muramasa\n wlFj    n     Fk  Fj#invoke\nl  Fj   n  Fj   n       \u0017blessed wand of teleportation\nzmn  n   zmb   n   Fh  n   Fj  yy\u001by   y y y\u001by  \u0017"
+  }
+ ]
+}

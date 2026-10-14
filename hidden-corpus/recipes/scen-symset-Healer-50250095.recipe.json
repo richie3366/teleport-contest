@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b:>FbFk_>>.Fl_,> FuFnFu \u0006_>,Fu_.<.Fy >FlFuFk\u0006_>.Fu_.Fl>FhFb_>.Fk_.Fy>FyFkFb\u0006_>.Fu_,> FnFyFn#enhance\nyl\nj\n\u001b#tip\n\u001b\u0006_>._.:>_>,Fj_,> FhFjFyacy#ride\nby\u00164\nO>>>i\u001b\u001b\nWK_>,sZc\nuuuu\u0017cloud\n:y\u0017magic fountain\nqyqy y\u0017long sword\n#dip\nlfhqd#ride\nyyFnFhFjFjFbFbFuFh Fj Fy   nFlFuFu FuFjFjFhFl#pray\ny y      FnFb FnFlFnFn#pray\ny y  FhFhFlFb   nFlFk Fy   n Fu  Fy   nFn  Fn Fj   n Fb FjFj   nFn FuFn Fk    nFb Fl Fn Fk   nFk Fn Fj   nFkFu Fk Fh   nFk Fj   nFuFj FhFb Fj Fb   nFh FuFu Fj #pray\ny y   FyFk Fy   nFu Fj Fj   nFhFn Fj Fy   nFkFh FnFy FjFy   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50250095,
+   "datetime": "20220409224810",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nMENUCOLOR=\"uncursed\"=red\n",
+   "moves": "\u0006_ \u001b:>FbFk_>>.Fl_,> FuFnFu \u0006_>,Fu_.<.Fy >FlFuFk\u0006_>.Fu_.Fl>FhFb_>.Fk_.Fy>FyFkFb\u0006_>.Fu_,> FnFyFn#enhance\nyl\nj\n\u001b#tip\n\u001b\u0006_>._.:>_>,Fj_,> FhFjFyacy#ride\nby\u00164\nO>>>i\u001b\u001b\nWK_>,sZc\nuuuu\u0017cloud\n:y\u0017magic fountain\nqyqy y\u0017long sword\n#dip\nlfhqd#ride\nyyFnFhFjFjFbFbFuFh Fj Fy   nFlFuFu FuFjFjFhFl#pray\ny y      FnFb FnFlFnFn#pray\ny y  FhFhFlFb   nFlFk Fy   n Fu  Fy   nFn  Fn Fj   n Fb FjFj   nFn FuFn Fk    nFb Fl Fn Fk   nFk Fn Fj   nFkFu Fk Fh   nFk Fj   nFuFj FhFb Fj Fb   nFh FuFu Fj #pray\ny y   FyFk Fy   nFu Fj Fj   nFhFn Fj Fy   nFkFh FnFy FjFy   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

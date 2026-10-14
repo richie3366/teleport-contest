@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b#levelchange\n14\n             \u0017blessed spellbook of drain life\nri20s\u0007incubus\nZa\nZa\n         s.Za\n.sZa\nZa\nZa\nZa\nZa\n\u001720 darts\nQj\u0007bugbear\n\u0007yellow mold\ntblfyflfy       fhfytjytjl fh\u0017blessed spellbook of finger of death\nrk sm.\u0017blessed spellbook of knock\nrl 20s\u0007aligned cleric\nyZa\nZa\n20ssm.Za\nZa\n.n.Za\nZa\n.m.    s       n  Za\nZa\n#turn\n\u0017wand of slow monster\n\u0017wand of fire\n\u0017wand of sleep\n\u0007bugbear\n\u0007jackal\n\u0007hobbit\nzol  n  s znh  n zmy zol   n     n 20s   zob   n    n zmh     nznh      n 20s  zmh s  n \u0018\u001b\u00163\n \u0017blessed spellbook of knock\nrp.\u0017blessed spellbook of fireball\nrq20s\u0007incubus\n\u0007lich\nZa\nZa\n  Za\nssZa\n    Za\ns s Za\nss Za\n   n\u0018\u001b\u0017blessed spellbook of light\nrrs \u0007master lich\nZa\nZa\ns 20s    n Za\n    n Za\n    n sm.    n  20s    n Za\n     yy\u001by  y y y\u001b y  Z"
+ },
+ "segments": [
+  {
+   "seed": 50250076,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b#levelchange\n14\n             \u0017blessed spellbook of drain life\nri20s\u0007incubus\nZa\nZa\n         s.Za\n.sZa\nZa\nZa\nZa\nZa\n\u001720 darts\nQj\u0007bugbear\n\u0007yellow mold\ntblfyflfy       fhfytjytjl fh\u0017blessed spellbook of finger of death\nrk sm.\u0017blessed spellbook of knock\nrl 20s\u0007aligned cleric\nyZa\nZa\n20ssm.Za\nZa\n.n.Za\nZa\n.m.    s       n  Za\nZa\n#turn\n\u0017wand of slow monster\n\u0017wand of fire\n\u0017wand of sleep\n\u0007bugbear\n\u0007jackal\n\u0007hobbit\nzol  n  s znh  n zmy zol   n     n 20s   zob   n    n zmh     nznh      n 20s  zmh s  n \u0018\u001b\u00163\n \u0017blessed spellbook of knock\nrp.\u0017blessed spellbook of fireball\nrq20s\u0007incubus\n\u0007lich\nZa\nZa\n  Za\nssZa\n    Za\ns s Za\nss Za\n   n\u0018\u001b\u0017blessed spellbook of light\nrrs \u0007master lich\nZa\nZa\ns 20s    n Za\n    n Za\n    n sm.    n  20s    n Za\n     yy\u001by  y y y\u001b y  Z"
+  }
+ ]
+}

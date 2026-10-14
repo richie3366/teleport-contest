@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u0017blessed +3 cloak of magic resistance\nW\u001b\u001630\n   lhl:\u0016?\n>A \u0014 \u001b,\u0016?\n>y  \u0017two-handed sword\nwqFkFjFk\u0007air elemental\nFjFu  \u0007vampire bat\nFk Fk Fj \u0007hill orc\n20s   sh    s  n    sm.     sm.   20s  \u0007green slime\nFj Fj   n Fh    Fh      \u00168\n\u0016?\n>Ak     n l    u     nn   :   \u00168\n\u0016?\nbhybjkjk     n  :   \u001610\njjy nkj: \u0016?\ne#levelchange\n8\n       \u0007yellow light\ns  n Fk FlFy\u0007Yeenoghu\nynFy  nFy  s\u00165\n  \u001610\nbuy   n   l   k    n :\u00166\n \u0016?\n\u001bn             n   u         \u001630\n _<.\u0016?\n\u001bj  k  n      \u0016?\n\u001bn  y   n   \u0016?\n>J     spellbook of healing\n\u0004y    \u001630\nh        n                n   k    n       :\u001610\n_{.\u001610\nn        j   y\u001b      \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50255518,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u0017blessed +3 cloak of magic resistance\nW\u001b\u001630\n   lhl:\u0016?\n>A \u0014 \u001b,\u0016?\n>y  \u0017two-handed sword\nwqFkFjFk\u0007air elemental\nFjFu  \u0007vampire bat\nFk Fk Fj \u0007hill orc\n20s   sh    s  n    sm.     sm.   20s  \u0007green slime\nFj Fj   n Fh    Fh      \u00168\n\u0016?\n>Ak     n l    u     nn   :   \u00168\n\u0016?\nbhybjkjk     n  :   \u001610\njjy nkj: \u0016?\ne#levelchange\n8\n       \u0007yellow light\ns  n Fk FlFy\u0007Yeenoghu\nynFy  nFy  s\u00165\n  \u001610\nbuy   n   l   k    n :\u00166\n \u0016?\n\u001bn             n   u         \u001630\n _<.\u0016?\n\u001bj  k  n      \u0016?\n\u001bn  y   n   \u0016?\n>J     spellbook of healing\n\u0004y    \u001630\nh        n                n   k    n       :\u001610\n_{.\u001610\nn        j   y\u001b      \u0017"
+  }
+ ]
+}

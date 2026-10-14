@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017wand of stasis\nzgg\u0017FhFk \u0017cursed horn of plenty\nahah\u00173 wand of make invisible\nzk..s\u0017shield of reflection\nWlss20sss\u001616\n #levelchange\n30\n                             \u0017scroll of scare monster\nrm  \u001b20s20s\u00173 magic lamp\n\u0007red naga\n.m.\u0017cursed scroll of magic mapping\n\u0007genetic engineer\nro  Fj     Fj 20s     .m.#levelchange\n14\n     \u0017speed boots\nWp     sm.   20s     20s  \u0007wood nymph\nFj  Fj Fj   Fl   Fj  Fj  20s.m.#pray\ny y       \u0007water nymph\nFh     Fj      Fj    Fj  Fj Fj  Fy  sb20s     \u0006\u0017blessed lance\nwFl Fl s\u0017potion of invisibility\nqr\u0017potion of paralysis\nqs         #dip\nf\u0017blessed potion of acid\n\u0007ghost\nqt \u001b#dip\nf\u00173 wand of enlightenment\nzu \u001bFlFl\u0017spellbook of fireball\nrv sksZFlFl  n20s20s\u0017spellbook of restore ability\n\u0007lurker above\nrw sn20sZZ\u0017uncursed scroll of fire\n\u0007gray ooze\nrx    \u0017blessed wand of cold\nzy.zyyFkFk\u0017200 gold pieces\n20s  n Fy Fk\u0017cursed potion of blindness\nqzFkFks20s\u0007earth elemental\n#chat\nbFkFy\u0007silver dragon\nFyFkFkFkFy  n \u0007umber hulk\n#chat\njFjFj\u00164\n\\  \u0007tame soldier ant\n#chat\nj\u0007yellow mold\n\u0017scroll of taming\nrA\u0007kobold\nsssss20s \u0006_ \u001b:>FlFl_>,_.m.>_>.Fh_,>.   >#name\ni\n\u0006_>.  _.>_>._.>_>._,>\u0007newt\ns20s..ss#levelchange\n30\n               \u0017blessed ring of polymorph control\nPBr#polyself\nleprechaun\n #monster\n.s\u0007dust vortex\nFuFu :20ssss#polyself\nlurker above\n #monster\ns20s20ss.#polyself\ncockatrice\n  #monster\n20sssss\u0006#levelchange\n12\n    "
+ },
+ "segments": [
+  {
+   "seed": 50255229,
+   "datetime": "20140626032309",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=fruit:durian\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of stasis\nzgg\u0017FhFk \u0017cursed horn of plenty\nahah\u00173 wand of make invisible\nzk..s\u0017shield of reflection\nWlss20sss\u001616\n #levelchange\n30\n                             \u0017scroll of scare monster\nrm  \u001b20s20s\u00173 magic lamp\n\u0007red naga\n.m.\u0017cursed scroll of magic mapping\n\u0007genetic engineer\nro  Fj     Fj 20s     .m.#levelchange\n14\n     \u0017speed boots\nWp     sm.   20s     20s  \u0007wood nymph\nFj  Fj Fj   Fl   Fj  Fj  20s.m.#pray\ny y       \u0007water nymph\nFh     Fj      Fj    Fj  Fj Fj  Fy  sb20s     \u0006\u0017blessed lance\nwFl Fl s\u0017potion of invisibility\nqr\u0017potion of paralysis\nqs         #dip\nf\u0017blessed potion of acid\n\u0007ghost\nqt \u001b#dip\nf\u00173 wand of enlightenment\nzu \u001bFlFl\u0017spellbook of fireball\nrv sksZFlFl  n20s20s\u0017spellbook of restore ability\n\u0007lurker above\nrw sn20sZZ\u0017uncursed scroll of fire\n\u0007gray ooze\nrx    \u0017blessed wand of cold\nzy.zyyFkFk\u0017200 gold pieces\n20s  n Fy Fk\u0017cursed potion of blindness\nqzFkFks20s\u0007earth elemental\n#chat\nbFkFy\u0007silver dragon\nFyFkFkFkFy  n \u0007umber hulk\n#chat\njFjFj\u00164\n\\  \u0007tame soldier ant\n#chat\nj\u0007yellow mold\n\u0017scroll of taming\nrA\u0007kobold\nsssss20s \u0006_ \u001b:>FlFl_>,_.m.>_>.Fh_,>.   >#name\ni\n\u0006_>.  _.>_>._.>_>._,>\u0007newt\ns20s..ss#levelchange\n30\n               \u0017blessed ring of polymorph control\nPBr#polyself\nleprechaun\n #monster\n.s\u0007dust vortex\nFuFu :20ssss#polyself\nlurker above\n #monster\ns20s20ss.#polyself\ncockatrice\n  #monster\n20sssss\u0006#levelchange\n12\n    "
+  }
+ ]
+}

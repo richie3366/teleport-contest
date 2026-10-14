@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " b#ride\nlPoh#name\na\n#loot\nlHs#jump\n#conduct\n \u0014ag  :#terrain\nc\n\u001b,#wipe\n #jump\n#tip\n\u001b#sit\n\u001b#wipe\n#loot\nWi\u001bee20s  sqd#dip\nddwaFkFl.Xrh ysksm.Zb\nW ss.ef..j#tip\n\u001bZa\n\u0018\u001bZb\n#pray\ny  "
+ },
+ "segments": [
+  {
+   "seed": 50252010,
+   "datetime": "20120604130114",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": " b#ride\nlPoh#name\na\n#loot\nlHs#jump\n#conduct\n \u0014ag  :#terrain\nc\n\u001b,#wipe\n #jump\n#tip\n\u001b#sit\n\u001b#wipe\n#loot\nWi\u001bee20s  sqd#dip\nddwaFkFl.Xrh ysksm.Zb\nW ss.ef..j#tip\n\u001bZa\n\u0018\u001bZb\n#pray\ny  "
+  }
+ ]
+}

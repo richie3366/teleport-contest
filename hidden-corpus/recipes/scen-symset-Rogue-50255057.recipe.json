@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u00163\nFhFhFk  150s50sFys.\u0018\u001b_ \u001b;>#ride\nuy10s_<,20s150s\u0018\u001bnyy100s100syjk100s100si\u001b100s100seh50s50sei  yjkj#enhance\nyq\np\n\u001b#terrain\nd\n50s 50sFkFkFkFkFks50seeeeeeee\u00165\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeb#monster\n\u00167\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u00166\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0007pony\n\u0017lichen corpse\ntbb\u0007kobold\n\u0017scroll of taming\nrk \u0017magic whistle\nh uual  \u0007jackal\n\u0017scroll of taming\nrm  #name\nf\n\u0007.s20ss.20s   #chat\nhyyj\u0017tree\nj\u0017sink\nqy\u0017ring of teleportation\ndn \u001bk\u0004j\u0004j:kk\u0017chaotic altar\ndl\u0017floating eye corpse\n#offer\no #pray\ny y : ejE-  >\u001619\n\u0006_>._,:>_>,Fk _,>.Fh>Fhs_>,Fb  _.@.Fh>FhFhFhFhFh\u0006_>>,Fh_.Fh>FhFh_>>.Fh_.@.Fh>_>>,_.,>K#name\n\u001b\u0006_>,_.,>_>._,:>_>,_.;;>\u0006_>,_,:>_>._,>_>._.;m.>#chat\nbn\u0006_>,_..>_>,_,m.>_>,_.;<. ><\u0006_>>._,,>_>>._.m,>_>>,_.,>\u0006_>._..>_>,_.:>_>._,;<. >#enhance\nyo\nj\n\u001bwav  i\u001b\u00162\n_>.>150s ej 150s 100sFhFhs150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u00165\n"
+ },
+ "segments": [
+  {
+   "seed": 50255057,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You kill\"\nMENUCOLOR=\"a potion\"=cyan\n",
+   "moves": " \u00163\nFhFhFk  150s50sFys.\u0018\u001b_ \u001b;>#ride\nuy10s_<,20s150s\u0018\u001bnyy100s100syjk100s100si\u001b100s100seh50s50sei  yjkj#enhance\nyq\np\n\u001b#terrain\nd\n50s 50sFkFkFkFkFks50seeeeeeee\u00165\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeb#monster\n\u00167\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u00166\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0007pony\n\u0017lichen corpse\ntbb\u0007kobold\n\u0017scroll of taming\nrk \u0017magic whistle\nh uual  \u0007jackal\n\u0017scroll of taming\nrm  #name\nf\n\u0007.s20ss.20s   #chat\nhyyj\u0017tree\nj\u0017sink\nqy\u0017ring of teleportation\ndn \u001bk\u0004j\u0004j:kk\u0017chaotic altar\ndl\u0017floating eye corpse\n#offer\no #pray\ny y : ejE-  >\u001619\n\u0006_>._,:>_>,Fk _,>.Fh>Fhs_>,Fb  _.@.Fh>FhFhFhFhFh\u0006_>>,Fh_.Fh>FhFh_>>.Fh_.@.Fh>_>>,_.,>K#name\n\u001b\u0006_>,_.,>_>._,:>_>,_.;;>\u0006_>,_,:>_>._,>_>._.;m.>#chat\nbn\u0006_>,_..>_>,_,m.>_>,_.;<. ><\u0006_>>._,,>_>>._.m,>_>>,_.,>\u0006_>._..>_>,_.:>_>._,;<. >#enhance\nyo\nj\n\u001bwav  i\u001b\u00162\n_>.>150s ej 150s 100sFhFhs150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u00165\n"
+  }
+ ]
+}

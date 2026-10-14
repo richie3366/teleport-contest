@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " Fk 20ss100s<ynnny y\u001b F"
+ },
+ "segments": [
+  {
+   "seed": 50255011,
+   "datetime": "20060201093725",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nMENUCOLOR=\"a potion\"=brown\nBIND=v:inventory\n",
+   "moves": " Fk 20ss100s<ynnny y\u001b F"
+  }
+ ]
+}

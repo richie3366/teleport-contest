@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b<.>FbFj_>>, Fu_.Fu>FbFu_>>,Fn_.Fu>FbFnFbFuFb\u0006_>,Fh_.Fn>FuFn_>,Fn_,Fb>Fb  Fh_>.Fu_,Fb>FnFuFhFnFh\u0006_>.Fn_.Fn>FhFu_>.Fh_,Fn>FhFb_>.Fh_.Fh>FuFbFnFuFn#terrain\n\u001b\u000f\u001b<\u0006_>.Fn_.Fh>FbFn_>.Fh_.Fu>FuFh_>.Fu_.Fb>FuFbFuFuFu#sit\n\u001bZ\u000f\u001b\u0006_>>.Fb_,Fn>FbFh_>>.Fn_.Fb>FnFb_>>.Fn_,Fb>FnFhFbFhFn\u0006_>.Fu_.Fh>FbFn_>,Fn_.Fb>FuFb_>.Fn_,Fb>FbFnFbFnFu\u0006_>.Fh_,Fu>FbFn_>.Fh_,Fb>FbFu_>.Fu_,Fn>FhFnFuFhFb\u0006_>.Fu_.Fu>FnFb_>.Fb_.Fu>FbFh_>.Fn_,Fu>FhFnFnFhFh,:\u0006_>>.Fb_.Fh>FhFh_>>,Fh_.Fu>FbFh_>>.Fh_.Fb>FbFbFhFnFhehh\u0006_>.Fh_,Fn>FbFn_>.Fh_,Fb>FbFh_>.Fu_.Fb>FbFbFbFuFu\u0006_>>.Fh_,Fh>FbFu_>>.Fh_,Fu>FhFn_>>,Fh_,Fn>FhFuFbFuFn<kyuk\u0017neutral altar\ndgdd\u0017newt corpse\n#offer\ni  l yn\u0017fountain\nqy y\u0017long swor"
+ },
+ "segments": [
+  {
+   "seed": 50255033,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nMENUCOLOR=\"a potion\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0006_ \u001b<.>FbFj_>>, Fu_.Fu>FbFu_>>,Fn_.Fu>FbFnFbFuFb\u0006_>,Fh_.Fn>FuFn_>,Fn_,Fb>Fb  Fh_>.Fu_,Fb>FnFuFhFnFh\u0006_>.Fn_.Fn>FhFu_>.Fh_,Fn>FhFb_>.Fh_.Fh>FuFbFnFuFn#terrain\n\u001b\u000f\u001b<\u0006_>.Fn_.Fh>FbFn_>.Fh_.Fu>FuFh_>.Fu_.Fb>FuFbFuFuFu#sit\n\u001bZ\u000f\u001b\u0006_>>.Fb_,Fn>FbFh_>>.Fn_.Fb>FnFb_>>.Fn_,Fb>FnFhFbFhFn\u0006_>.Fu_.Fh>FbFn_>,Fn_.Fb>FuFb_>.Fn_,Fb>FbFnFbFnFu\u0006_>.Fh_,Fu>FbFn_>.Fh_,Fb>FbFu_>.Fu_,Fn>FhFnFuFhFb\u0006_>.Fu_.Fu>FnFb_>.Fb_.Fu>FbFh_>.Fn_,Fu>FhFnFnFhFh,:\u0006_>>.Fb_.Fh>FhFh_>>,Fh_.Fu>FbFh_>>.Fh_.Fb>FbFbFhFnFhehh\u0006_>.Fh_,Fn>FbFn_>.Fh_,Fb>FbFh_>.Fu_.Fb>FbFbFbFuFu\u0006_>>.Fh_,Fh>FbFu_>>.Fh_,Fu>FhFn_>>,Fh_,Fn>FhFuFbFuFn<kyuk\u0017neutral altar\ndgdd\u0017newt corpse\n#offer\ni  l yn\u0017fountain\nqy y\u0017long swor"
+  }
+ ]
+}

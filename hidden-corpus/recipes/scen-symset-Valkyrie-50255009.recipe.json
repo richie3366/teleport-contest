@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#twoweapon\n\\   J#wipe\n#enhance\nym\nl\n\u001b10s,v\u001bi\u001b\u0007tame winter wolf cub\n\u0007little dog\n\u0017food ration\n tbn ly \u0017leash\naeb bkk lh baen \u0006_ \u001b@.>FnFy_>, Fh_. Fk>FbFkl _>. Fb_.  Flk >FbFh\u001b\u0017magic whistle\njjbaf    \u0017meatball\ntbl \u00163\nFbFln FuFlFbFky FbFnFhFjFhFbFky FhFlFjFuFjFuFuFhFjFlFhFnFh\u001bFnFbFyFjFbFbFuFuFkFyFh\u001bFuFbFjFyFnFkFkFkFkFbFbFnFnFkFuFyFyFnFlj FjFkFlFnFuy FkFjFyFh\u001bFbFkn FjFnFnFbFub FlFlFhFlFhFuFuFhFlFkFkFhFkFkFuFbFln FhFyFkl FnFnFjFhFhFnFlk FkFnFjFbFlj FhFkFlFbFbFhFnFyFuFlFuFhFhFkFkFnubkb \u0017melting ice\n:lu \u0017fountain\nqyqy yul \u0017magic fountain\nqy qyqy\u0017long sword\n#dip\nhybln \u0017iron bars\n#dip\nf#jump\n#ride\nb \u0007tame hill orc\n\u0007tame housecat\n10s20s \u0017leash\naib blh h\u001buk ain 10s\u0017huge chunk of meat\nthy #name\nm\n\u0006_>>.Fb_.Fn>FjFb_>>.                                           "
+ },
+ "segments": [
+  {
+   "seed": 50255009,
+   "datetime": "20230726083935",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nBIND=v:inventory\n",
+   "moves": "#twoweapon\n\\   J#wipe\n#enhance\nym\nl\n\u001b10s,v\u001bi\u001b\u0007tame winter wolf cub\n\u0007little dog\n\u0017food ration\n tbn ly \u0017leash\naeb bkk lh baen \u0006_ \u001b@.>FnFy_>, Fh_. Fk>FbFkl _>. Fb_.  Flk >FbFh\u001b\u0017magic whistle\njjbaf    \u0017meatball\ntbl \u00163\nFbFln FuFlFbFky FbFnFhFjFhFbFky FhFlFjFuFjFuFuFhFjFlFhFnFh\u001bFnFbFyFjFbFbFuFuFkFyFh\u001bFuFbFjFyFnFkFkFkFkFbFbFnFnFkFuFyFyFnFlj FjFkFlFnFuy FkFjFyFh\u001bFbFkn FjFnFnFbFub FlFlFhFlFhFuFuFhFlFkFkFhFkFkFuFbFln FhFyFkl FnFnFjFhFhFnFlk FkFnFjFbFlj FhFkFlFbFbFhFnFyFuFlFuFhFhFkFkFnubkb \u0017melting ice\n:lu \u0017fountain\nqyqy yul \u0017magic fountain\nqy qyqy\u0017long sword\n#dip\nhybln \u0017iron bars\n#dip\nf#jump\n#ride\nb \u0007tame hill orc\n\u0007tame housecat\n10s20s \u0017leash\naib blh h\u001buk ain 10s\u0017huge chunk of meat\nthy #name\nm\n\u0006_>>.Fb_.Fn>FjFb_>>.                                           "
+  }
+ ]
+}

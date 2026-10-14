@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWi\u0017blessed amulet of life saving\nPj \u0016?\n>w\u0006_ \u001bm,,p__._.>.#chat\nj_ooo.,p_ooo.,\u0014@..._oo._ooo,,$_ooooooooo._o.,:_{.Fj _.Fj q_ooo,,p_ooooooo,,p_ooo.,p_ooooo,,#chat\nj _oooooo.,p\u0016?\ncnbn\u0016?\n>w\u0006Fl   Fl    Fl Fl   nFl   nFl    n \u00166\n_oo,,#chat\nn _{,q_ooooooooo,,#chat\nn   n_{.qFy Fy  n   n FyFy   n Fy   n Fy   n \u00168\n_ooooooooo.   nFn_.   nFk   n,p\u001612\n_{.qFhFh  Fh  n    nFh Fh  n    yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50255702,
+   "datetime": "20060812065151",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWi\u0017blessed amulet of life saving\nPj \u0016?\n>w\u0006_ \u001bm,,p__._.>.#chat\nj_ooo.,p_ooo.,\u0014@..._oo._ooo,,$_ooooooooo._o.,:_{.Fj _.Fj q_ooo,,p_ooooooo,,p_ooo.,p_ooooo,,#chat\nj _oooooo.,p\u0016?\ncnbn\u0016?\n>w\u0006Fl   Fl    Fl Fl   nFl   nFl    n \u00166\n_oo,,#chat\nn _{,q_ooooooooo,,#chat\nn   n_{.qFy Fy  n   n FyFy   n Fy   n Fy   n \u00168\n_ooooooooo.   nFn_.   nFk   n,p\u001612\n_{.qFhFh  Fh  n    nFh Fh  n    yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

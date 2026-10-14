@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "v i\u001bh#invoke\n\u001b#twoweapon\n\u0007tame kitten\n\u0007little dog\n\u0017apple\n t$h\u0017magic whistle\nl   j  lam \u0017leash\nanhubunank\u0006_ \u001b.>FkFy_>.Fk_,Fu>Fk20s_>.Fu_.>\u0007kobold\nsk...s20s#chat\nl#chat\nu20s\u00165\n\u0006_>.Fk_.:Fk>_>,_.<.Fk >_>._,>.>\u0004yy\u0006_>,_,<.>_>._,>.>_>._.<.>\u0006_>>._.;>. >_>>._,>.>_>>._.:>#conduct\n #twoweapon\n<t\u001b\u00166\nFbFkFyFuFnFhFjFnFlFuFyFjFnFbFnFyFhFy#pray\ny y    FbFhFnFnFbFuFuFhFnFnFyFlFbFuFnFlFlFjFhFjFlFlFuFlFkFlFnFkFlFbFjFnFyFu  nFhFhFkFuFjFkFnFnFkFhFu  nFuFuFjFyFyFnFbFnFlFhFnFnFuFyFnFhFlFnFnFnFbFhFlFkFyFbFkFlFyFnFuFyFbFbFkFkFbFhFnFyFuFlFlFlFhFkFhFnFbFyFlFyFnFk\u00164\n  bu"
+ },
+ "segments": [
+  {
+   "seed": 50255047,
+   "datetime": "20170711152356",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nMENUCOLOR=\"a potion\"=brown\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "v i\u001bh#invoke\n\u001b#twoweapon\n\u0007tame kitten\n\u0007little dog\n\u0017apple\n t$h\u0017magic whistle\nl   j  lam \u0017leash\nanhubunank\u0006_ \u001b.>FkFy_>.Fk_,Fu>Fk20s_>.Fu_.>\u0007kobold\nsk...s20s#chat\nl#chat\nu20s\u00165\n\u0006_>.Fk_.:Fk>_>,_.<.Fk >_>._,>.>\u0004yy\u0006_>,_,<.>_>._,>.>_>._.<.>\u0006_>>._.;>. >_>>._,>.>_>>._.:>#conduct\n #twoweapon\n<t\u001b\u00166\nFbFkFyFuFnFhFjFnFlFuFyFjFnFbFnFyFhFy#pray\ny y    FbFhFnFnFbFuFuFhFnFnFyFlFbFuFnFlFlFjFhFjFlFlFuFlFkFlFnFkFlFbFjFnFyFu  nFhFhFkFuFjFkFnFnFkFhFu  nFuFuFjFyFyFnFbFnFlFhFnFnFuFyFnFhFlFnFnFnFbFhFlFkFyFbFkFlFyFnFuFyFbFbFkFkFbFhFnFyFuFlFlFlFhFkFhFnFbFyFlFyFnFk\u00164\n  bu"
+  }
+ ]
+}

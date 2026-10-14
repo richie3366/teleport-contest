@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                              yjkb h\u001b\u0017melting ice\n:uj \u0017altar\ndc\u0017human corpse\n #pray\ny y : n\u0017moat\n#dip\nay    #invoke\n\u001b\u000f\u001b#dip\nbd  \u0007tame gnome lord\n\u0006_ \u001b;>FjFu_>.Fu_,.Fl>FhFh_>.Fb_. Fh\u001b>FlFh20sj\u0007kobold\n.m.sm. ss20ss#name\n\u001bOi\u001b\u001b\nO>g\u001b\n\u00163\nFnFnFbFkn FyFnFuFjFjFkFyFbFkFnFjFkFjFkFkFkFkFjFnFll FyFky FjFyFnFuFlFlFkFlFyFyFnFnFnFh\u001bFjFkFhFhFbFbFlFlFyFnFlFlFkFhFuFnFnFlFjFuFbFnFkFyFnFjFuFyFkl FyFly FyFlb FnFnFlFlFkFhFlFyFlb FnFyFyFlj FkFjFkFkFhFkFlFuFhFnFbFnFkj FkFbFly FbFnFkFjFnFkh FlFnFkj FjFhFyFlk FlFjFkFbFy#wipe\n PFuFhFkFhFhFnFyFuFlFbFh\u001bFuFlFhFuFkFnFnFkFuFuFkFhFbFjFyFh\u001bFhFyFnFuFuFlFlFjFyFyFkFbFuu FbFub FyFlb FnFh\u001bFbFbFhFlFnFnFlFnFnFuFuFuFyFjFlFnFlh FhFjFjFuFbFbFhFbFnFjFjFnFln FnFlu FbFul FuFbFbFuFuFjFbFh\u001bFbFlb FjFjFnFbFjFjFjFhFnFlh FjFlFjFlFyFnFhFyFbFhFjFbFnFyFbFhFlFuFyFb\u001613\nO>>>>n\u001b\u001b\nv  i\u001bmO>>u\u001b\n\u00168\nkj jy\u0017moat\nuy ky \u0017throne\n#sit\n #sit\n "
+ },
+ "segments": [
+  {
+   "seed": 50250015,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"The door\"\n",
+   "moves": " #levelchange\n30\n                              yjkb h\u001b\u0017melting ice\n:uj \u0017altar\ndc\u0017human corpse\n #pray\ny y : n\u0017moat\n#dip\nay    #invoke\n\u001b\u000f\u001b#dip\nbd  \u0007tame gnome lord\n\u0006_ \u001b;>FjFu_>.Fu_,.Fl>FhFh_>.Fb_. Fh\u001b>FlFh20sj\u0007kobold\n.m.sm. ss20ss#name\n\u001bOi\u001b\u001b\nO>g\u001b\n\u00163\nFnFnFbFkn FyFnFuFjFjFkFyFbFkFnFjFkFjFkFkFkFkFjFnFll FyFky FjFyFnFuFlFlFkFlFyFyFnFnFnFh\u001bFjFkFhFhFbFbFlFlFyFnFlFlFkFhFuFnFnFlFjFuFbFnFkFyFnFjFuFyFkl FyFly FyFlb FnFnFlFlFkFhFlFyFlb FnFyFyFlj FkFjFkFkFhFkFlFuFhFnFbFnFkj FkFbFly FbFnFkFjFnFkh FlFnFkj FjFhFyFlk FlFjFkFbFy#wipe\n PFuFhFkFhFhFnFyFuFlFbFh\u001bFuFlFhFuFkFnFnFkFuFuFkFhFbFjFyFh\u001bFhFyFnFuFuFlFlFjFyFyFkFbFuu FbFub FyFlb FnFh\u001bFbFbFhFlFnFnFlFnFnFuFuFuFyFjFlFnFlh FhFjFjFuFbFbFhFbFnFjFjFnFln FnFlu FbFul FuFbFbFuFuFjFbFh\u001bFbFlb FjFjFnFbFjFjFjFhFnFlh FjFlFjFlFyFnFhFyFbFhFjFbFnFyFbFhFlFuFyFb\u001613\nO>>>>n\u001b\u001b\nv  i\u001bmO>>u\u001b\n\u00168\nkj jy\u0017moat\nuy ky \u0017throne\n#sit\n #sit\n "
+  }
+ ]
+}

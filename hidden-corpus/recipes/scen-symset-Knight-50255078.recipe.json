@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " hnyu\u0017neutral altar\ndg\u0017floating eye corpse\n#offer\ni  #pray\ny y    yk\u0017magic fountain\nqy  qy#dip\nfy #dip\nay E#rub\n#twoweapon\n\u0004j #sit\n O>>>o2\n\u001b\n O>f\u001b\nmO>>>d\u001b\nO>>>>h\u001b\n\u0006_ \u001b:>_>>,_.m,>_>>._,m.>zf  \u0006_>,_,m.>_>,_.<.>_>._.@.>\u0006_>._.:>_>._..>_>,Fh_.,>#ride\n.y#dip\nb<O>d\u001b\n\u00164\n150s 100slbjFuFuFuFuFlFuFlFlFl#pray\ny y     FlFls100s FlFlFlFls.100sFls20snlhunylnl150s  hhy100s150s50s100sehjuh100s eh abm.50sehlyl\u0018\u001b50sfnyh100sFlFlFlFlFlFlFl  nFl.nhjhuk#levelchange\n30\n                             jbyn\u0017altar\ndcdf\u0017lichen corpse\n#offer\nm #pray\ny y  :l\u0017moat\n#dip\nby  ynj\u0017magic fountain\nqy qy yq"
+ },
+ "segments": [
+  {
+   "seed": 50255078,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a potion\"=green\n",
+   "moves": " hnyu\u0017neutral altar\ndg\u0017floating eye corpse\n#offer\ni  #pray\ny y    yk\u0017magic fountain\nqy  qy#dip\nfy #dip\nay E#rub\n#twoweapon\n\u0004j #sit\n O>>>o2\n\u001b\n O>f\u001b\nmO>>>d\u001b\nO>>>>h\u001b\n\u0006_ \u001b:>_>>,_.m,>_>>._,m.>zf  \u0006_>,_,m.>_>,_.<.>_>._.@.>\u0006_>._.:>_>._..>_>,Fh_.,>#ride\n.y#dip\nb<O>d\u001b\n\u00164\n150s 100slbjFuFuFuFuFlFuFlFlFl#pray\ny y     FlFls100s FlFlFlFls.100sFls20snlhunylnl150s  hhy100s150s50s100sehjuh100s eh abm.50sehlyl\u0018\u001b50sfnyh100sFlFlFlFlFlFlFl  nFl.nhjhuk#levelchange\n30\n                             jbyn\u0017altar\ndcdf\u0017lichen corpse\n#offer\nm #pray\ny y  :l\u0017moat\n#dip\nby  ynj\u0017magic fountain\nqy qy yq"
+  }
+ ]
+}

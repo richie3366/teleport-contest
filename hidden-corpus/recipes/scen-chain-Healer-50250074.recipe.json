@@ -1,0 +1,63 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " unyjFbFh.100s  Fks.150sFl.20s FhFj.Fj .s50s100s100sFlss100s150sFlFlFl150s50sblh100sFhFhFhFh20sFh50sukj\u0018\u001bkyy\u000f\u001bjkjFlFl20s\\ 150sf $ y100sek50sek em#quit\nyy\u001by  y y y\u001b #wizintrinsic\nb\n .h20ssm..m.sm..m.sm.sssss.nsm..m.20s  ynny ny  .n#wizintrinsic\na\n s.20s20s20s20s20s20ssm.sm.sm.shss20ss20s20s20s  20s20s 20ssm.20s.m.sm..m.20sFlFl FlFlFlFlFlFlklunlbyyLUBB_ \u001b,>#loot\n#chat\nyNUYH_>.>FuFus#loot\n#offer\nHULK_>.>JNUU_>,>\u000f\u001bjjly#chat\njyl20sda20s20sshbtbnhlbuhhyjubujhkj\\ 20s\u000f\u001b100s100s 50s Fls20s50s100sFkFkFkFkFkFk100s20s50s150s100sFy20s  s100syjnllk_>.>100si\u001b100sFh20s20s150seeeeeeeeeeeeet\u001bt\u001bbh#quit\nyy\u001by  y y y\u001b yn  \u0007nurse\nFlFu  yy\u001by  y y\u001byy  FFjFjsFjFj20s150sFys20sFl.sFj .20s150s#offer\n150s\\   150sFh..50s150sFhFhFhklhlhukbnknb100s50s\u000f\u001b_ \u001bm,>_>,>_>.>150syyu50sFyFys\u0018\u001b_>.>hun150s100sFhs.50s100s100sFjFjFjkhktbbhhln10sbuukhbnlt\u001bjj20s#name\na\n#name\ni\n10sjhyn#name\nd\nFkFkFkFkFkFkFkFkHNNU_>,>NULY_>.>t\u001bi\u001bHNLU_>.>>jNHNY_>.>FlFlFlllnk#chat\nkhjdas20s.m.t\u001b10sh FhFhFhFhFhFhFhFhBJBB_>,>BLYJ_>,>YULN_>.>\u000f\u001bKKHB_>.>LNUJ_>.>UYNL_>,>Fy..#jump\nr\u001bJHBL_>,>JUJH_>,>ULHJ_>.>\u0004l#rub\nLUUB_>.>BNUY_>.>HHKU_>,>#chat\nh#chat\nk20s10sjhFnFnFnFnFnFnFnFnhunhklbjukjkedjhjnyy100s50s100s  FjFjsa100s100sFhss100syln50sFhss150s\\   _>.>i\u001b100s>\u000f\u001b,_>.>jbb100s#twoweapon\n_>.>150sFu.s50s50s50s nlkFhFkFh100s100s\u000f\u001b#quit\nyy\u001by  y y y\u001b   jhljFkFkFkFkFkFkFkFkd$sss#name\nd\nkhbhjnt\u001blhuhkknnbjt\u001bllhhjydjsss20sFuFuFuFu FuFuFuFuLLYB_ \u001b:>LJJL_>,>LNNB_>.>BYNB_>.>zgyf \u001bULUL_>.>LYBH_>.>YKYJ_>.>\u000f\u001bULNU_>.>KHBN_>.><KLKN_>,>JKUB_>,>UKKU_>.>LUUH_>,>FlFlFl50s100sFls.\u000f\u001b100s100s10#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50250074,
+   "datetime": "20221009160415",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\n",
+   "moves": " unyjFbFh.100s  Fks.150sFl.20s FhFj.Fj .s50s100s100sFlss100s150sFlFlFl150s50sblh100sFhFhFhFh20sFh50sukj\u0018\u001bkyy\u000f\u001bjkjFlFl20s\\ 150sf $ y100sek50sek em#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50350074,
+   "datetime": "20020925180358",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n .h20ssm..m.sm..m.sm.sssss.nsm..m.20s  ynny ny  ."
+  },
+  {
+   "seed": 50450074,
+   "datetime": "20170418021015",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "n#wizintrinsic\na\n s.20s20s20s20s20s20ssm.sm.sm.shss20ss20s20s20s  20s20s 20ssm.20s.m.sm..m.20s"
+  },
+  {
+   "seed": 50550074,
+   "datetime": "20100715024558",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\n",
+   "moves": "FlFl FlFlFlFlFlFlklunlbyyLUBB_ \u001b,>#loot\n#chat\nyNUYH_>.>FuFus#loot\n#offer\nHULK_>.>JNUU_>,>\u000f\u001bjjly#chat\njyl20sda20s20sshbtbnhlbuhhyjubujhkj\\ 20s\u000f\u001b100s100s 50s Fls20s50s100sFkFkFkFkFkFk100s20s50s150s100sFy20s  s100syjnllk_>.>100si\u001b100sFh20s20s150seeeeeeeeeeeeet\u001bt\u001bbh#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50650074,
+   "datetime": "20190126175235",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "yn  \u0007nurse\nFlFu  yy\u001by  y y\u001byy  F"
+  },
+  {
+   "seed": 50750074,
+   "datetime": "20210722205358",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "FjFjsFjFj20s150sFys20sFl.sFj .20s150s#offer\n150s\\   150sFh..50s150sFhFhFhklhlhukbnknb100s50s\u000f\u001b_ \u001bm,>_>,>_>.>150syyu50sFyFys\u0018\u001b_>.>hun150s100sFhs.50s100s100sFjFjFjkhktbbhhln10sbuukhbnlt\u001bjj20s#name\na\n#name\ni\n10sjhyn#name\nd\nFkFkFkFkFkFkFkFkHNNU_>,>NULY_>.>t\u001bi\u001bHNLU_>.>>jNHNY_>.>FlFlFlllnk#chat\nkhjdas20s.m.t\u001b10sh FhFhFhFhFhFhFhFhBJBB_>,>BLYJ_>,>YULN_>.>\u000f\u001bKKHB_>.>LNUJ_>.>UYNL_>,>Fy..#jump\nr\u001bJHBL_>,>JUJH_>,>ULHJ_>.>\u0004l#rub\nLUUB_>.>BNUY_>.>HHKU_>,>#chat\nh#chat\nk20s10sjhFnFnFnFnFnFnFnFnhunhklbjukjkedjhjnyy100s50s100s  FjFjsa100s100sFhss100syln50sFhss150s\\   _>.>i\u001b100s>\u000f\u001b,_>.>jbb100s#twoweapon\n_>.>150sFu.s50s50s50s nlkFhFkFh100s100s\u000f\u001b#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50850074,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\n",
+   "moves": "  jhljFkFkFkFkFkFkFkFkd$sss#name\nd\nkhbhjnt\u001blhuhkknnbjt\u001bllhhjydjsss20sFuFuFuFu FuFuFuFuLLYB_ \u001b:>LJJL_>,>LNNB_>.>BYNB_>.>zgyf \u001bULUL_>.>LYBH_>.>YKYJ_>.>\u000f\u001bULNU_>.>KHBN_>.><KLKN_>,>JKUB_>,>UKKU_>.>LUUH_>,>FlFlFl50s100sFls.\u000f\u001b100s100s10#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

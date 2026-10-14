@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  \u0007Wizard of Yendor\nyFyFy    Fy  yy\u001by   y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50252022,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007Wizard of Yendor\nyFyFy    Fy  yy\u001by   y y\u001by  F"
+  }
+ ]
+}

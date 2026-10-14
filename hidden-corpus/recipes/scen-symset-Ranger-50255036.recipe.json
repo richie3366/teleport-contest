@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " O>c\u001b\nO>>>j\u001b\njubj\u0017cloud\nbh\u0017throne\n#sit\n #sit\n   y#sit\n\u001buj\u0017neutral altar\ndcdb\u0017floating eye corpse\n#offer\ng  #pray\ny y bl\u0017grave\n: \u0017pick-axe\nah > s.efq#turn\n\u001619\nbhu\u0017cloud\nj\u0017lawful altar\ndh\u0017elf corpse\n #offer\nj   #pray\ny y  k\u0017chaotic altar\ndf\u0017newt corpse\n#offer\nk u   n\u0017ice\n#terrain\nd\n\u001b<.#dip\ne ck;l,\u0006_>. Fy_.Fu>FbFy_>.Fy_.Fh>FuFk_>.Fy_,Fl>FuFhFu FbFk\u0006_>.Fh_,Fu>FyFb_>.  nFb_.Fl  n>FkFk_>.  nFy_,Fk>Fk  nFuFbFk  nFy#chat\nun\u0006_>, Fh  n_.Fy   n>FkFl_>.Fk  n_. Fh  n>FkFl_>,   nFy_.Fb >FkFy   nFb  Fl   nFh\u0006_>,   nFy_,   n Fb   n>Fu Fy_>,   ynny y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50255036,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " O>c\u001b\nO>>>j\u001b\njubj\u0017cloud\nbh\u0017throne\n#sit\n #sit\n   y#sit\n\u001buj\u0017neutral altar\ndcdb\u0017floating eye corpse\n#offer\ng  #pray\ny y bl\u0017grave\n: \u0017pick-axe\nah > s.efq#turn\n\u001619\nbhu\u0017cloud\nj\u0017lawful altar\ndh\u0017elf corpse\n #offer\nj   #pray\ny y  k\u0017chaotic altar\ndf\u0017newt corpse\n#offer\nk u   n\u0017ice\n#terrain\nd\n\u001b<.#dip\ne ck;l,\u0006_>. Fy_.Fu>FbFy_>.Fy_.Fh>FuFk_>.Fy_,Fl>FuFhFu FbFk\u0006_>.Fh_,Fu>FyFb_>.  nFb_.Fl  n>FkFk_>.  nFy_,Fk>Fk  nFuFbFk  nFy#chat\nun\u0006_>, Fh  n_.Fy   n>FkFl_>.Fk  n_. Fh  n>FkFl_>,   nFy_.Fb >FkFy   nFb  Fl   nFh\u0006_>,   nFy_,   n Fb   n>Fu Fy_>,   ynny y\u001b  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed ring of free action\nPer\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>>Q#levelchange\n20\n   \u0017blessed spellbook of protection\nras\u0017blessed spellbook of detect food\nrb s\u0017blessed spellbook of confuse monster\nrc .\u0017spellbook of sleep\nrd .+\u001b\u0007grid bug\nZa\nFhZb\nZc\nsZc\ns\u001632\n\u0004ksss\u001632\nuukn\u0017teleportation trap\nb^uuysshy\u0017falling rock trap\nkj.suh\u0017dart trap\nn#untrap\ny\u0017beartrap\naebj#terrain\nd\n\u001b>.w\u001bsad \u001631\njhhukyl:\u0016?\nk    __,\u0016?\nf    \u0006_>._.\u0016?\n>x\u0014m..s20s\u001627\n\u0004y20s.m.sb\u001614\n\u0014<.\u0016?\n>>N       wand of cold\n#levelchange\n20\n   \u0017Orcrist\nwiFj   Fj   Fn #invoke\niX\u0007gnomish wizard\nFk    Fj Fk  Fk  \u0007Angel\nyy      n    Fl        n Fl  \u001b     Fb       \u001b     n Fn        n        Fb    n        \u001b \u0007ghost\nFj     n      Fl        n        Fl      n        Fb      n        Fb    n     \u0007Wizard of Yendor\nyn \u001b     n   Fb       n        Fn           nFj      n      .j       n     sm. \u001b  n      n    \u001b 20s    yy\u001by   y nn  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50250000,
+   "datetime": "20240207225327",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:kumquat\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed ring of free action\nPer\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>>Q#levelchange\n20\n   \u0017blessed spellbook of protection\nras\u0017blessed spellbook of detect food\nrb s\u0017blessed spellbook of confuse monster\nrc .\u0017spellbook of sleep\nrd .+\u001b\u0007grid bug\nZa\nFhZb\nZc\nsZc\ns\u001632\n\u0004ksss\u001632\nuukn\u0017teleportation trap\nb^uuysshy\u0017falling rock trap\nkj.suh\u0017dart trap\nn#untrap\ny\u0017beartrap\naebj#terrain\nd\n\u001b>.w\u001bsad \u001631\njhhukyl:\u0016?\nk    __,\u0016?\nf    \u0006_>._.\u0016?\n>x\u0014m..s20s\u001627\n\u0004y20s.m.sb\u001614\n\u0014<.\u0016?\n>>N       wand of cold\n#levelchange\n20\n   \u0017Orcrist\nwiFj   Fj   Fn #invoke\niX\u0007gnomish wizard\nFk    Fj Fk  Fk  \u0007Angel\nyy      n    Fl        n Fl  \u001b     Fb       \u001b     n Fn        n        Fb    n        \u001b \u0007ghost\nFj     n      Fl        n        Fl      n        Fb      n        Fb    n     \u0007Wizard of Yendor\nyn \u001b     n   Fb       n        Fn           nFj      n      .j       n     sm. \u001b  n      n    \u001b 20s    yy\u001by   y nn  \u0016"
+  }
+ ]
+}

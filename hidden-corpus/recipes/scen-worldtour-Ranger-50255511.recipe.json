@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed amulet of life saving\nPi\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwk \u0016?\n>>K      spellbook of invisibility\nlu  k j   u   u:\u0016?\n\u001bj        u\u001630\nh      b          l     :20s     \u001625\n_ \u001b:<\u0016?\n\u001bl  u   \u0016?\n\u001bj    nl      \u0016?\n\u001bn  n       h     n      \u00164\n\u001630\n\u0007blue jelly\nsm.      sy       n                         n      s           s         .m.              s      20s     n   \u0007rust monster\nsm.  n      \u001b         Fb              Fk   n                   nFj                n     \u0007aligned cleric\nnFb              \u001b  n    Fn       n    Fu    n      \u0007couatl\n;u;.n     n      20s   n      ynny nn  2"
+ },
+ "segments": [
+  {
+   "seed": 50255511,
+   "datetime": "20190830001813",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed amulet of life saving\nPi\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwk \u0016?\n>>K      spellbook of invisibility\nlu  k j   u   u:\u0016?\n\u001bj        u\u001630\nh      b          l     :20s     \u001625\n_ \u001b:<\u0016?\n\u001bl  u   \u0016?\n\u001bj    nl      \u0016?\n\u001bn  n       h     n      \u00164\n\u001630\n\u0007blue jelly\nsm.      sy       n                         n      s           s         .m.              s      20s     n   \u0007rust monster\nsm.  n      \u001b         Fb              Fk   n                   nFj                n     \u0007aligned cleric\nnFb              \u001b  n    Fn       n    Fu    n      \u0007couatl\n;u;.n     n      20s   n      ynny nn  2"
+  }
+ ]
+}

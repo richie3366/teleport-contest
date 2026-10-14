@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "FnFnFlFlFl .100s_ \u001b.>blhFlFls50s150sFl.20s#sit\n\u001b50s_>.>150s100s _>.>150sFlss\u0004n100sylb10sjhui\u001bkbh50s_>.>100sFyFyFy\u0018\u001b\u0018\u001b#force\nnub100s100suyj_>.>\u000f\u001bi\u001bhul\u0018\u001b100s  Fn.._>.>_>,>jjh50sFls20skhn100suuh50s Fnssjub150s100si\u001bcl50sFh.20s_>.>150s eg_>.>#invoke\n\u001b50s  egkhb100seg50seh\u000f\u001b50s eg150s100s  hnh\u0018\u001b100s \u0018\u001bLJUJ_>.>FjFjFjLLHU_>.>#chat\nlf  BYUN_>.>\u000f\u001bbyujdc20s20s.#chat\nn#chat\nntayubjys\\   #force\neheg100seg\u0004yulnlhy150s\u0018\u001b10sFlFl20s50seg_>.>150s\\   100sFl.s100seg100sFlFlFli\u001bhln50s eg100seh_>.>\u0018\u001bjkblly100seg_>.>150seglhn150s eh150s\u0018\u001buhbFlFlFlFlssuju50s eh50s100sFnFnFneh_>.>\\   50sFnFnFnFnFnFnFnFnFn100seh50seh100sFnFnFnFnFnFnjhlhhu150s50sehbub100s ehulhhlubub"
+ },
+ "segments": [
+  {
+   "seed": 50250059,
+   "datetime": "20071228183439",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=pettype:horse\n",
+   "moves": "FnFnFlFlFl .100s_ \u001b.>blhFlFls50s150sFl.20s#sit\n\u001b50s_>.>150s100s _>.>150sFlss\u0004n100sylb10sjhui\u001bkbh50s_>.>100sFyFyFy\u0018\u001b\u0018\u001b#force\nnub100s100suyj_>.>\u000f\u001bi\u001bhul\u0018\u001b100s  Fn.._>.>_>,>jjh50sFls20skhn100suuh50s Fnssjub150s100si\u001bcl50sFh.20s_>.>150s eg_>.>#invoke\n\u001b50s  egkhb100seg50seh\u000f\u001b50s eg150s100s  hnh\u0018\u001b100s \u0018\u001bLJUJ_>.>FjFjFjLLHU_>.>#chat\nlf  BYUN_>.>\u000f\u001bbyujdc20s20s.#chat\nn#chat\nntayubjys\\   #force\neheg100seg\u0004yulnlhy150s\u0018\u001b10sFlFl20s50seg_>.>150s\\   100sFl.s100seg100sFlFlFli\u001bhln50s eg100seh_>.>\u0018\u001bjkblly100seg_>.>150seglhn150s eh150s\u0018\u001buhbFlFlFlFlssuju50s eh50s100sFnFnFneh_>.>\\   50sFnFnFnFnFnFnFnFnFn100seh50seh100sFnFnFnFnFnFnjhlhhu150s50sehbub100s ehulhhlubub"
+  }
+ ]
+}

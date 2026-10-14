@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWn\u0017blessed +3 gauntlets of power\nWo\u0016?\n>w\u0006_ \u001b<.   ,\u0014; .m.  nsm.  Fl   nFl Fl  FlFlFl \u0016?\ncybk\u0016?\n>w\u0006hnn#chat\nh__, _.#chat\nb#pray\ny y  _ooooo.Fk_.Fh,#chat\nh__.Fy _,#chat\nbnkb#chat\nj_oooooo, _.,$_ooooooo,_,,:_{._.qh_ooooooo._,,#chat\nk_{._.qh__.Fy_.#chat\nb__.Fj    _. Fj #chat\nj _ooooo.Fj  _.  n Fb ,\u0017amulet of guarding\ndq   __.Fh_.  n  Fb     n#chat\nh  \u00165\nFb   n FbFb    nFb  Fb   n Fb    n\u00169\n_ooooooo.,p_ooooooo,,#chat\nn_ooooo,,$_ooooooo.,\u0017amulet vers"
+ },
+ "segments": [
+  {
+   "seed": 50250061,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWn\u0017blessed +3 gauntlets of power\nWo\u0016?\n>w\u0006_ \u001b<.   ,\u0014; .m.  nsm.  Fl   nFl Fl  FlFlFl \u0016?\ncybk\u0016?\n>w\u0006hnn#chat\nh__, _.#chat\nb#pray\ny y  _ooooo.Fk_.Fh,#chat\nh__.Fy _,#chat\nbnkb#chat\nj_oooooo, _.,$_ooooooo,_,,:_{._.qh_ooooooo._,,#chat\nk_{._.qh__.Fy_.#chat\nb__.Fj    _. Fj #chat\nj _ooooo.Fj  _.  n Fb ,\u0017amulet of guarding\ndq   __.Fh_.  n  Fb     n#chat\nh  \u00165\nFb   n FbFb    nFb  Fb   n Fb    n\u00169\n_ooooooo.,p_ooooooo,,#chat\nn_ooooo,,$_ooooooo.,\u0017amulet vers"
+  }
+ ]
+}

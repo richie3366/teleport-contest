@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #monster\nE- Elbereth\n#invoke\n\u001bqmO>>n\u001b\nlyj\u0017neutral altar\ndadd\u0017jackal corpse\n#offer\ne  yy\u0017tree\njk\u0017ice\nkjjj#dip\nb #jump\n\u0004jtbk#monster\n#untrap\nn;k; \u001b;#turn\n_<,    sv i\u001b\u001616\nO>>>b\u001b\n\u0006_>.Fh_.> Fj FnFn;k;#wipe\n\u0006_>>.Fj_.:Fb  >Fy Fy _>>.  n Fh  _.   nFu  >Fk Fl  n _>>,Fu   n_,Fy >Fy  Fb Fu  n Fu Fu \u0006_>.  nFl_. Fy   n>Fk Fn_>.   nFb _,Fh   n>FlFl_>. Fl   n_.Fk >FjFy FlFb  n Fk \u0006_>.Fh  n _.Fh >Fn Fh  n _>,Fu   n_,Fu >Fh  n Fn_>.Fb  yy\u001by   y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 50255052,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You hear\"\n",
+   "moves": " #monster\nE- Elbereth\n#invoke\n\u001bqmO>>n\u001b\nlyj\u0017neutral altar\ndadd\u0017jackal corpse\n#offer\ne  yy\u0017tree\njk\u0017ice\nkjjj#dip\nb #jump\n\u0004jtbk#monster\n#untrap\nn;k; \u001b;#turn\n_<,    sv i\u001b\u001616\nO>>>b\u001b\n\u0006_>.Fh_.> Fj FnFn;k;#wipe\n\u0006_>>.Fj_.:Fb  >Fy Fy _>>.  n Fh  _.   nFu  >Fk Fl  n _>>,Fu   n_,Fy >Fy  Fb Fu  n Fu Fu \u0006_>.  nFl_. Fy   n>Fk Fn_>.   nFb _,Fh   n>FlFl_>. Fl   n_.Fk >FjFy FlFb  n Fk \u0006_>.Fh  n _.Fh >Fn Fh  n _>,Fu   n_,Fu >Fh  n Fn_>.Fb  yy\u001by   y y y\u001b  _"
+  }
+ ]
+}

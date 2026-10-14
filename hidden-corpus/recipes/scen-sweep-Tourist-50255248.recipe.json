@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    \u0007gray ooze\nFuFuFyFyFyFyFysk20s\u0007cockatrice\nFbFhFhFb n FbFb n Fj.m..\u0007Medusa\nnFnFh n  Fb n FbFb  Fb n   Fb n su.m.\u0018\u001b\u00165\n\u0017blessed ring of polymorph control\nPnr#polyself\ndoppelganger\n#monster\n.s\u0007lurker above\nFhFlFhsm. 20s 20s  n #polyself\nrock piercer\n   #monster\ns      s\u001bs sn20s\\ ynk\u0017neutral altar\ndf\u0017jackal corpse\n#offer\no : yh\u0017tree\nl\u0004h    \u0017axe\nap h: #terrain\nc\n\u001b>.ltauqh\u001614\n#levelchange\n8\n   \u0017cursed spellbook of cancellation\n\u0007hobbit\nrq \u001b           n20s.m.ZZFk  Fj\u0017flint stone\nard\u0017blessed bullwhip\nwsFkFjFjX\u00173 wand of teleportation\n\u0007fire elemental\nztkztk\u0017potion of monster detection\nqu@.FjFj\u0017blessed potion of acid\nqv \u001bFjFkss\u001b\u0018\u001b\u00174 cream pies\nQ-\u00074 acid blob\nnbfkfjfk Fk  n Fb\u0007soldier\nufj   fn fb\u0007hill orc\nj h fn   fl fj fn   nfj   \u0017spetum\nwx\u0007sewer rat\nk axhyk,\u001619\n\u00167\n\u0007pony\n\u0017huge chunk of meat\n taj\u0017banana\ntpn \u0006_>.  Fj _,  n Fk>\u0007gnome\n.s\u001bsss.\u0007newt\n\u0017scroll of taming\nrA  #chat\njdr sm.20s   sm.  n\u0018\u001b\u00166\n#levelchange\n8\n\u0016?\ng #dip\nth #offer\nwa\u0006sm..m.  \u0016?\n>w,:#terrain\nd\ns sm.  n\u0016?\n>J     amulet of strangulation\n\u0004h di         n      s;n, sm.     sh   \u001614\nZ#dip\neh                   n  W\u001bsm.           sl     yny  y y y\u001b   \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50255248,
+   "datetime": "20131124145142",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n    \u0007gray ooze\nFuFuFyFyFyFyFysk20s\u0007cockatrice\nFbFhFhFb n FbFb n Fj.m..\u0007Medusa\nnFnFh n  Fb n FbFb  Fb n   Fb n su.m.\u0018\u001b\u00165\n\u0017blessed ring of polymorph control\nPnr#polyself\ndoppelganger\n#monster\n.s\u0007lurker above\nFhFlFhsm. 20s 20s  n #polyself\nrock piercer\n   #monster\ns      s\u001bs sn20s\\ ynk\u0017neutral altar\ndf\u0017jackal corpse\n#offer\no : yh\u0017tree\nl\u0004h    \u0017axe\nap h: #terrain\nc\n\u001b>.ltauqh\u001614\n#levelchange\n8\n   \u0017cursed spellbook of cancellation\n\u0007hobbit\nrq \u001b           n20s.m.ZZFk  Fj\u0017flint stone\nard\u0017blessed bullwhip\nwsFkFjFjX\u00173 wand of teleportation\n\u0007fire elemental\nztkztk\u0017potion of monster detection\nqu@.FjFj\u0017blessed potion of acid\nqv \u001bFjFkss\u001b\u0018\u001b\u00174 cream pies\nQ-\u00074 acid blob\nnbfkfjfk Fk  n Fb\u0007soldier\nufj   fn fb\u0007hill orc\nj h fn   fl fj fn   nfj   \u0017spetum\nwx\u0007sewer rat\nk axhyk,\u001619\n\u00167\n\u0007pony\n\u0017huge chunk of meat\n taj\u0017banana\ntpn \u0006_>.  Fj _,  n Fk>\u0007gnome\n.s\u001bsss.\u0007newt\n\u0017scroll of taming\nrA  #chat\njdr sm.20s   sm.  n\u0018\u001b\u00166\n#levelchange\n8\n\u0016?\ng #dip\nth #offer\nwa\u0006sm..m.  \u0016?\n>w,:#terrain\nd\ns sm.  n\u0016?\n>J     amulet of strangulation\n\u0004h di         n      s;n, sm.     sh   \u001614\nZ#dip\neh                   n  W\u001bsm.           sl     yny  y y y\u001b   \u0016"
+  }
+ ]
+}

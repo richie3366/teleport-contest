@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWo\u0016?\no _ \u001b.>\u001613\n\u0006_<,Fl _,\u0016?\n>>M      ring of polymorph control\nll   l  u      k     : s       20s        s  \u001613\nb        n       l   j  n              n l           n       j : \u00164\n\u0016?\ne n   y     n n  ukk:\u001612\n_<.\u001624\ny       h       y   n      h       n   :\u00166\n\u0016?\na  \u0004k \u001631\n\u0004k             \u0016?\nbj bl  n  l   l    n  :\u001610\n\u0016?\n\u001bu  u  \u0016?\n\u001bbj\u001612\nnu    n  u      l  k    :20s      n   .m.      n  \u00166\n\u001631\n_<,<\u0016?\n\u001bj            n    j       n    \u001611\n\u0016?\n\u001bn      n     k     n      \u0016?\n\u001bn  n          n   ynny nn  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50255519,
+   "datetime": "20031019032522",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWo\u0016?\no _ \u001b.>\u001613\n\u0006_<,Fl _,\u0016?\n>>M      ring of polymorph control\nll   l  u      k     : s       20s        s  \u001613\nb        n       l   j  n              n l           n       j : \u00164\n\u0016?\ne n   y     n n  ukk:\u001612\n_<.\u001624\ny       h       y   n      h       n   :\u00166\n\u0016?\na  \u0004k \u001631\n\u0004k             \u0016?\nbj bl  n  l   l    n  :\u001610\n\u0016?\n\u001bu  u  \u0016?\n\u001bbj\u001612\nnu    n  u      l  k    :20s      n   .m.      n  \u00166\n\u001631\n_<,<\u0016?\n\u001bj            n    j       n    \u001611\n\u0016?\n\u001bn      n     k     n      \u0016?\n\u001bn  n          n   ynny nn  \u0016"
+  }
+ ]
+}

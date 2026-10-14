@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nl_mm,#chat\ny_mmm.Fy_,#chat\ny;j. _mmm,Fy_.#chat\ny#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm._.#chat\nb;m. _m. \u001b_,#chat\nh\u0017blessed ring of free action\nPhl\u0017blessed Mjollnir\nwi \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017wand of striking\n\u0016?\n>A\u0006_mmmmmm,s.Fl sszkj,#chat\nu\u0016?\n>A\u0006_mm.Fl _. Fl Fl s.20ss.s,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmm. Fl _,Fl #chat\nl ;l,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.  n  Fl  _.Fl Fl Fl Fl .szkk,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nl;m,\u0016?\n>z\u0006_mmm,ss.s,\u0016?\n>A\u0006_mmmm.20s20s 20s s .sFl  , #chat\nl     n\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nl   \u0016?\n>A\u0006_mmmm,Fl ss.zkl,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fl   _,Fl #chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,20sssssss,\u0016?\n>z\u0006_mmmmmmm,_...20sss,\u0016?\n>A\u0006_mmmm.s20s20s.szky,#chat\nu\u0016?\n>A\u0006_mm.s20s \u001bs20s20s Fl  ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fj _,20s20s.s20s,\u0016?\n>z\u0006_mmmmm._,.ss20szkj  ,\u0016?\n>A\u0006_mm, Fl   _. Fl   Fl     nFb    Fb      Fl   ,\u0016?\n>>\u001b\u0016?\n>y_mmm.Fh _.   n  Fh     #chat\nn\u00164\n\u0016?\n>A\u0006_mmmmmm.Fn  Fn   Fn   Fk Fk Fl   ,      n \u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fk   Fk     Fk  Fn     nFn   Fn  Fl zkn,#chat\nn\u0016?\n>z\u0006_mm,FnFnFnFnzkn,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmmm._.#chat\nu\u0016?\n>A\u0006_mmmmm._.20ssss20s20s,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmmmm,_.#chat\nj;>.\u0016?\n>A\u0006_mmmm.ss20ss"
+ },
+ "segments": [
+  {
+   "seed": 50255401,
+   "datetime": "20240112181658",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=fruit:lychee\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nl_mm,#chat\ny_mmm.Fy_,#chat\ny;j. _mmm,Fy_.#chat\ny#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm._.#chat\nb;m. _m. \u001b_,#chat\nh\u0017blessed ring of free action\nPhl\u0017blessed Mjollnir\nwi \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017wand of striking\n\u0016?\n>A\u0006_mmmmmm,s.Fl sszkj,#chat\nu\u0016?\n>A\u0006_mm.Fl _. Fl Fl s.20ss.s,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmm. Fl _,Fl #chat\nl ;l,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.  n  Fl  _.Fl Fl Fl Fl .szkk,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nl;m,\u0016?\n>z\u0006_mmm,ss.s,\u0016?\n>A\u0006_mmmm.20s20s 20s s .sFl  , #chat\nl     n\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nl   \u0016?\n>A\u0006_mmmm,Fl ss.zkl,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fl   _,Fl #chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,20sssssss,\u0016?\n>z\u0006_mmmmmmm,_...20sss,\u0016?\n>A\u0006_mmmm.s20s20s.szky,#chat\nu\u0016?\n>A\u0006_mm.s20s \u001bs20s20s Fl  ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fj _,20s20s.s20s,\u0016?\n>z\u0006_mmmmm._,.ss20szkj  ,\u0016?\n>A\u0006_mm, Fl   _. Fl   Fl     nFb    Fb      Fl   ,\u0016?\n>>\u001b\u0016?\n>y_mmm.Fh _.   n  Fh     #chat\nn\u00164\n\u0016?\n>A\u0006_mmmmmm.Fn  Fn   Fn   Fk Fk Fl   ,      n \u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fk   Fk     Fk  Fn     nFn   Fn  Fl zkn,#chat\nn\u0016?\n>z\u0006_mm,FnFnFnFnzkn,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmmm._.#chat\nu\u0016?\n>A\u0006_mmmmm._.20ssss20s20s,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmmmm,_.#chat\nj;>.\u0016?\n>A\u0006_mmmm.ss20ss"
+  }
+ ]
+}

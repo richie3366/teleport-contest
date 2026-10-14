@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b,#chat\nh_mm,      Fn    n  _.    n   n   Fn    n   #chat\nh   n  _mmmm.   n   n   nFh     n   n   n_.#chat\nb#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_m.   Fn        n  _.#chat\nk       _mmmm,       n    Fn       n   _.#chat\nh\u0017blessed amulet of life saving\nPm      \u0017blessed +3 silver dragon scale mail\nWn          \u0017wand of magic missile\n\u0016?\n>A\u0006_mm,       n  Fh      _.Fn      Fl        yy\u001by  y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50255408,
+   "datetime": "20040721160659",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b,#chat\nh_mm,      Fn    n  _.    n   n   Fn    n   #chat\nh   n  _mmmm.   n   n   nFh     n   n   n_.#chat\nb#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_m.   Fn        n  _.#chat\nk       _mmmm,       n    Fn       n   _.#chat\nh\u0017blessed amulet of life saving\nPm      \u0017blessed +3 silver dragon scale mail\nWn          \u0017wand of magic missile\n\u0016?\n>A\u0006_mm,       n  Fh      _.Fn      Fl        yy\u001by  y y\u001b  F"
+  }
+ ]
+}

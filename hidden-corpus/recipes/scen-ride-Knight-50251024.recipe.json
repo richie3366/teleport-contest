@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017saddle\n aik#ride\nly\u0007tame saddled warhorse\n#ride\n \u0007tame saddled warhorse\n#ride\nly\u0006_ \u001b@.>Fu Fu_>. _,>_>._.>lbklhjujy\u0004ny\u0007kobold\nFn20sFj#ride\n s#ride\nly..Sy\u001b y #turn\nz,E- X marks the spot\n\u0018\u001b#dip\niz\u0018\u001b\u0007tame lichen\n\u0007tame housecat\nb#name\nd\n\u0017tin whistle\nbuuaj\u0017lichen corps",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50251024,
+   "datetime": "20070325170913",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017saddle\n aik#ride\nly\u0007tame saddled warhorse\n#ride\n \u0007tame saddled warhorse\n#ride\nly\u0006_ \u001b@.>Fu Fu_>. _,>_>._.>lbklhjujy\u0004ny\u0007kobold\nFn20sFj#ride\n s#ride\nly..Sy\u001b"
+  },
+  {
+   "seed": 50751024,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " y #turn\nz,E- X marks the spot\n\u0018\u001b#dip\niz\u0018\u001b\u0007tame lichen\n\u0007tame housecat\nb#name\nd\n\u0017tin whistle\nbuuaj\u0017lichen corps"
+  }
+ ]
+}

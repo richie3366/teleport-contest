@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nb;b,_mmmmm.Fj_,#chat\nj_mmmmm._.#chat\nj_mmm,#chat\nj#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm._.#chat\nn_mmmm._,#chat\nb_mmmmm._,#chat\nn\u0017blessed Mjollnir\nwi \u0017blessed +3 cloak of magic resistance\nWj\u0017wand of lightning\n \u0016?\n>A\u0006_mmmmmmm.Fk _.Fk  FkFk sFl   .20szkl,\u0016?\n>A\u0006_mmm.s...20sss,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.s20s.ss.szkb,#chat\nk\u0016?\n>z\u0006_mmm.s..ss.s,#chat\nh\u0016?\n>A\u0006_mmmmmm.ss.20s20s.20szkn,\u0016?\n>A\u0006_mmmm.ssss20ss20s,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,sssss.20s,\u0016?\n>z\u0006_mm,ss.s.zky,\u0016?\n>A\u0006_mmmm..20s20s.zk,#chat\nn\u0016?\n>A\u0006_mmm..20s.s20szk,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.20sss.szk,\u0016?\n>z\u0006_mmmmmmm.s20s20s20s,\u0016?\n>A\u0006_mmmm..s.20ssss,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_m.Fl_,m,Fl  #chat\n\u0016?\n>A\u0006<._mmmmm.Fk  sssszk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,s20ssszk,#chat\nj\u0016?\n>"
+ },
+ "segments": [
+  {
+   "seed": 50250030,
+   "datetime": "20130524085146",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nb;b,_mmmmm.Fj_,#chat\nj_mmmmm._.#chat\nj_mmm,#chat\nj#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm._.#chat\nn_mmmm._,#chat\nb_mmmmm._,#chat\nn\u0017blessed Mjollnir\nwi \u0017blessed +3 cloak of magic resistance\nWj\u0017wand of lightning\n \u0016?\n>A\u0006_mmmmmmm.Fk _.Fk  FkFk sFl   .20szkl,\u0016?\n>A\u0006_mmm.s...20sss,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.s20s.ss.szkb,#chat\nk\u0016?\n>z\u0006_mmm.s..ss.s,#chat\nh\u0016?\n>A\u0006_mmmmmm.ss.20s20s.20szkn,\u0016?\n>A\u0006_mmmm.ssss20ss20s,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,sssss.20s,\u0016?\n>z\u0006_mm,ss.s.zky,\u0016?\n>A\u0006_mmmm..20s20s.zk,#chat\nn\u0016?\n>A\u0006_mmm..20s.s20szk,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.20sss.szk,\u0016?\n>z\u0006_mmmmmmm.s20s20s20s,\u0016?\n>A\u0006_mmmm..s.20ssss,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_m.Fl_,m,Fl  #chat\n\u0016?\n>A\u0006<._mmmmm.Fk  sssszk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,s20ssszk,#chat\nj\u0016?\n>"
+  }
+ ]
+}

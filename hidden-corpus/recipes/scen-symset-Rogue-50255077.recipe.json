@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "FhFnFjFnFbFjFjFjFnFnFk FbFnFjFbFnFbFhFbFbFjFbFjFjFnFnFnFbFbFbFnFbFnFnFnFbFjFjFbFnFnFbFjFjFbFnFjFbFjFhFbFbFnFhFbFbFjFbFnFnFbFnFjFbFbFnFbFbFnFnFbFjFjFjFbFnFjFj FbFnFnFbFjFjFjFhFjFnFnFnFjFjFbFbFbFjFj  nFnFjFlFjFnFnFnFnFjFnFlFnFbFnFnFjFbFnFnFbFnFnFj\u0006_ \u001b,>FnFn_>.Fh_.:Fk>FhFk_>.Fk_.:Fk>FhFhFhFhFh\u0006_>.Fy_,> FnFu Fn \u0006_>.Fk   n_,>.Fk>Fb Fb _>.Fb_.> FkFkFuJ\u0014.\u0006_>,Fy_.Fu>FuFy_>,Fy_.Fu>FyFk_>.Fk_,Fu>FyFyFyFyFu>tbn\u0006_>,Fy_.Fk>FyFy_>.Fy_.Fy>FkFy_>.Fk_.Fy>FkFyFyFkFu<\\ \u0006_>>.Fu_.Fu>FuFk_>>.Fu_.Fu>FyFu_>>.Fu_.Fj>FuFuFuFyFj  n\u0006_>.Fy_.Fy>FkFy_>,Fu_.Fk>FyFy_>.Fu_.Fk>FkFy  nFyFuFj\u000f\u001b\u001610\nO>>f\u001b\n\u00164\nFyFuFyFuFuFkFuFkFkFuFuFyFuFyFkFyFkFkFyFyFyFkFuFuFkFuFkFkFyFuFuFyFuFuFyFuFhFyFyFuFkFk#pray\ny y   FyFuFuFuFuFkFkFhFkFkFkFuFuFkFkFuFkFyF"
+ },
+ "segments": [
+  {
+   "seed": 50255077,
+   "datetime": "20160726100506",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "FhFnFjFnFbFjFjFjFnFnFk FbFnFjFbFnFbFhFbFbFjFbFjFjFnFnFnFbFbFbFnFbFnFnFnFbFjFjFbFnFnFbFjFjFbFnFjFbFjFhFbFbFnFhFbFbFjFbFnFnFbFnFjFbFbFnFbFbFnFnFbFjFjFjFbFnFjFj FbFnFnFbFjFjFjFhFjFnFnFnFjFjFbFbFbFjFj  nFnFjFlFjFnFnFnFnFjFnFlFnFbFnFnFjFbFnFnFbFnFnFj\u0006_ \u001b,>FnFn_>.Fh_.:Fk>FhFk_>.Fk_.:Fk>FhFhFhFhFh\u0006_>.Fy_,> FnFu Fn \u0006_>.Fk   n_,>.Fk>Fb Fb _>.Fb_.> FkFkFuJ\u0014.\u0006_>,Fy_.Fu>FuFy_>,Fy_.Fu>FyFk_>.Fk_,Fu>FyFyFyFyFu>tbn\u0006_>,Fy_.Fk>FyFy_>.Fy_.Fy>FkFy_>.Fk_.Fy>FkFyFyFkFu<\\ \u0006_>>.Fu_.Fu>FuFk_>>.Fu_.Fu>FyFu_>>.Fu_.Fj>FuFuFuFyFj  n\u0006_>.Fy_.Fy>FkFy_>,Fu_.Fk>FyFy_>.Fu_.Fk>FkFy  nFyFuFj\u000f\u001b\u001610\nO>>f\u001b\n\u00164\nFyFuFyFuFuFkFuFkFkFuFuFyFuFyFkFyFkFkFyFyFyFkFuFuFkFuFkFkFyFuFuFyFuFuFyFuFhFyFyFuFkFk#pray\ny y   FyFuFuFuFuFkFkFhFkFkFkFuFuFkFkFuFkFyF"
+  }
+ ]
+}

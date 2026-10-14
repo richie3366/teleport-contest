@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "K  KBJ_ \u001bm.>Fb ssLNBU_>.>KHUL_>.>JYYU_>.>_>.>150s100sFlFlsl lkkjj100s100sFks20s100skkj100sjkj100s100s50sFkFk.150si\u001b\u000f\u001b_>.>kkkjkk100s jjk\u0018\u001b100s Fksst\u001b50seeeeeeeeeeLKJJ_>.>FjFj20sJYYB_>,>E- X marks the spot\n#turn\nH UUH_>.>UBJ L_>.>LYLB_>.>KYBK_>.>Fk.sYUBY_>.>20s#chat\nkkjjjkdg20sss#chat\nlt\u001b10s#pray\ny 20sYYUJ _>.>BUBH _>.>JL KY_>,>\u000f\u001bzcj#untrap\nh#pray\ny  ee#pray\ny  ee#pray\ny     y\u001by  y y y\u001b  #"
+ },
+ "segments": [
+  {
+   "seed": 50250027,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\n",
+   "moves": "K  KBJ_ \u001bm.>Fb ssLNBU_>.>KHUL_>.>JYYU_>.>_>.>150s100sFlFlsl lkkjj100s100sFks20s100skkj100sjkj100s100s50sFkFk.150si\u001b\u000f\u001b_>.>kkkjkk100s jjk\u0018\u001b100s Fksst\u001b50seeeeeeeeeeLKJJ_>.>FjFj20sJYYB_>,>E- X marks the spot\n#turn\nH UUH_>.>UBJ L_>.>LYLB_>.>KYBK_>.>Fk.sYUBY_>.>20s#chat\nkkjjjkdg20sss#chat\nlt\u001b10s#pray\ny 20sYYUJ _>.>BUBH _>.>JL KY_>,>\u000f\u001bzcj#untrap\nh#pray\ny  ee#pray\ny  ee#pray\ny     y\u001by  y y y\u001b  #"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u001612\n    hkbkjh:\u00161\n#chat\nn;_. \u001b,\u0016?\nn _<.<\u0016?\n>>M       cloak of protection\n#chat\nu;u:  \u00162\n\u0004b     \u0016?\na  j u        k    u     l      y       n      h           :    n   \u00169\n\u0016?\nc#levelchange\n20\n\u0007Medusa\nyy. s  n     Fn  n         sm. n                 n .m. n    \u001b            n      n                n      #pray\ny y  n        \u0007black pudding\nFk  n           Fh  n n              n   Fj  n                 n  20s yy\u001by   y n  ."
+ },
+ "segments": [
+  {
+   "seed": 50255505,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u001612\n    hkbkjh:\u00161\n#chat\nn;_. \u001b,\u0016?\nn _<.<\u0016?\n>>M       cloak of protection\n#chat\nu;u:  \u00162\n\u0004b     \u0016?\na  j u        k    u     l      y       n      h           :    n   \u00169\n\u0016?\nc#levelchange\n20\n\u0007Medusa\nyy. s  n     Fn  n         sm. n                 n .m. n    \u001b            n      n                n      #pray\ny y  n        \u0007black pudding\nFk  n           Fh  n n              n   Fj  n                 n  20s yy\u001by   y n  ."
+  }
+ ]
+}

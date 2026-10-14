@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0016?\n>y  \u0006_ \u001bm,ss\u001630\n_<,\u0016?\n>>K      wand of locking\n\u00175 boomerangs\nQq\u0007kobold\nkfl      fy   fy       fn      FyFy\u0007acid blob\nnfy   nfh    f \u001bf \u001bFh Fl   b     n    y h ,  \u00167\n\u0016?\nb_<,\u0016?\nd#chat\nu;m..s 20s  \u001630\n\u00175 boomerangs\nQr\u0007dwarf\nj fk    n fh    fj  fk  \u00072 acid blob\nl   fj    n fh    Fk Fk h k  n  y ,#enhance\nyo\ni\n\u001b\u00162\n\u0016?\n\u001by  n  \u0016?\n\u001by   y    n \u0016?\n\u001bu    u \u0016?\na  _<.>\u001620\n_{,20s \u001618\n\u0004h           20s  n \u001618\n#levelchange\n30\njhj       l\u0017level teleporter\nk      n     h          n \u0017web\nu      u     n \u0017rust trap\n#chat\nb             n w-,\u00168\n\u0016?\na_>,<\u001618\n_{.\u0016?\nc l k      :\u001633\ny  n j   : \u0016?\nbj h :.m.sm.  n     sb\u0016?\n\u001bu   h           n \u00162\n_>.\u00169\n\u0014m.  \u001634\n_{.\u0016?\n\u001bnk    \u00163\nl   h   u     n     llb          :\u001618\ny   n      u      y  :"
+ },
+ "segments": [
+  {
+   "seed": 50250032,
+   "datetime": "20161016075825",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0016?\n>y  \u0006_ \u001bm,ss\u001630\n_<,\u0016?\n>>K      wand of locking\n\u00175 boomerangs\nQq\u0007kobold\nkfl      fy   fy       fn      FyFy\u0007acid blob\nnfy   nfh    f \u001bf \u001bFh Fl   b     n    y h ,  \u00167\n\u0016?\nb_<,\u0016?\nd#chat\nu;m..s 20s  \u001630\n\u00175 boomerangs\nQr\u0007dwarf\nj fk    n fh    fj  fk  \u00072 acid blob\nl   fj    n fh    Fk Fk h k  n  y ,#enhance\nyo\ni\n\u001b\u00162\n\u0016?\n\u001by  n  \u0016?\n\u001by   y    n \u0016?\n\u001bu    u \u0016?\na  _<.>\u001620\n_{,20s \u001618\n\u0004h           20s  n \u001618\n#levelchange\n30\njhj       l\u0017level teleporter\nk      n     h          n \u0017web\nu      u     n \u0017rust trap\n#chat\nb             n w-,\u00168\n\u0016?\na_>,<\u001618\n_{.\u0016?\nc l k      :\u001633\ny  n j   : \u0016?\nbj h :.m.sm.  n     sb\u0016?\n\u001bu   h           n \u00162\n_>.\u00169\n\u0014m.  \u001634\n_{.\u0016?\n\u001bnk    \u00163\nl   h   u     n     llb          :\u001618\ny   n      u      y  :"
+  }
+ ]
+}

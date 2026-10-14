@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "i\u001bW\u001b\u001bss20swcFlFk.afwbFk20s FlwdyFl..wasFks#terrain\nb\n\u001bm.q#offer\nPE- Elbereth Elbereth\nWn#jump\n\u0016?\n>E\u0017blessed ring of levitation\nPhrbnlbbbbjbbj10sb10sjjbbj10sbjlbbbjhhkbbbbbjhhhhhlbn\u0017scroll of earth\nri\u0017scroll of earth\nrj\u0017wand of digging\nzkh\u0017wand of digging\nzlk\u0017wand of striking\nzmk\u0017scroll of earth\nri\u0017wand of digging\nznh\u0017wand of digging\nzolh\u0017scroll of earth\nrjky10syyh#wizintrinsic\ngl\n  ;_.\u0017scroll of amnesia\nrp\u0017scroll of stinking cloud\nrq20s 20s.i\u001brpzoyzokwg sssXrjzmkzmnwb.20s20sX,\u001b#offer\n\u0004k#monster\nq<wdyaoy  i\u001bwcs.20szkhWs.sTrjafzll#levelchange\n30\n                             \u0007violet fungus\nFjFjFjFj\u0007ape\n#chat\njFlFl\u0007frost giant\n;l:  .m.snnnny 20s \u0007sandestin\nFl FbFj   Fl    \\    #levelchange\n8\n       \u0017alchemy smock\nWsssss\u0007hill orc\nFn  n  Fb  FuFu   n Fj     \u0007Medusa\ny#chat\nlFu  n    Fy n  \u00162\n\u001612\n#levelchange\n14\n     \u0007ice vortex\nFkFb  Fl Fj. Fb Fb Fk .m.  Fu FjFk#levelchange\n30\n                \u0016?\n>z Hqri  20s.\u0016?\n>>R\u0018\u001b#wipe\nk;..s\u0016?\n>E 10s#chat\nn\u0004y\u000620s20s\u0016?\nq\\    #dip\nr,;m,\u0006s20s\u001622\n#offer\nfh#wipe\n\u000620ss\u0016?\n>Dbbbuk10sk10snnnu10skknhuhhhyyyhyyjykuknlhnk\u0017wand of digging\nzakkyuhhhhhhhjyyyhj\u0017wand of digging\nzbhkklyy\u0016?\n>x\u0006\u0017blessed potion of object detection\nqg_,:_ooooooooo,_.<._oo,Fb_.,$__.Fh_.Fh #chat\nh#pray\ny y     _ooooooooo,Fy_,@.Fj,pHW\u001b\u001bfk\u0017spellboo"
+ },
+ "segments": [
+  {
+   "seed": 50255256,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=runmode:crawl\nOPTIONS=fruit:lychee\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "i\u001bW\u001b\u001bss20swcFlFk.afwbFk20s FlwdyFl..wasFks#terrain\nb\n\u001bm.q#offer\nPE- Elbereth Elbereth\nWn#jump\n\u0016?\n>E\u0017blessed ring of levitation\nPhrbnlbbbbjbbj10sb10sjjbbj10sbjlbbbjhhkbbbbbjhhhhhlbn\u0017scroll of earth\nri\u0017scroll of earth\nrj\u0017wand of digging\nzkh\u0017wand of digging\nzlk\u0017wand of striking\nzmk\u0017scroll of earth\nri\u0017wand of digging\nznh\u0017wand of digging\nzolh\u0017scroll of earth\nrjky10syyh#wizintrinsic\ngl\n  ;_.\u0017scroll of amnesia\nrp\u0017scroll of stinking cloud\nrq20s 20s.i\u001brpzoyzokwg sssXrjzmkzmnwb.20s20sX,\u001b#offer\n\u0004k#monster\nq<wdyaoy  i\u001bwcs.20szkhWs.sTrjafzll#levelchange\n30\n                             \u0007violet fungus\nFjFjFjFj\u0007ape\n#chat\njFlFl\u0007frost giant\n;l:  .m.snnnny 20s \u0007sandestin\nFl FbFj   Fl    \\    #levelchange\n8\n       \u0017alchemy smock\nWsssss\u0007hill orc\nFn  n  Fb  FuFu   n Fj     \u0007Medusa\ny#chat\nlFu  n    Fy n  \u00162\n\u001612\n#levelchange\n14\n     \u0007ice vortex\nFkFb  Fl Fj. Fb Fb Fk .m.  Fu FjFk#levelchange\n30\n                \u0016?\n>z Hqri  20s.\u0016?\n>>R\u0018\u001b#wipe\nk;..s\u0016?\n>E 10s#chat\nn\u0004y\u000620s20s\u0016?\nq\\    #dip\nr,;m,\u0006s20s\u001622\n#offer\nfh#wipe\n\u000620ss\u0016?\n>Dbbbuk10sk10snnnu10skknhuhhhyyyhyyjykuknlhnk\u0017wand of digging\nzakkyuhhhhhhhjyyyhj\u0017wand of digging\nzbhkklyy\u0016?\n>x\u0006\u0017blessed potion of object detection\nqg_,:_ooooooooo,_.<._oo,Fb_.,$__.Fh_.Fh #chat\nh#pray\ny y     _ooooooooo,Fy_,@.Fj,pHW\u001b\u001bfk\u0017spellboo"
+  }
+ ]
+}

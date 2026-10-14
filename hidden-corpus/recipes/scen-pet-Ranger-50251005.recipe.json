@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  jhyhnunhhyuyun#chat\njhldessu.m. 10s ljbn hhuub10sdfs.sSy\u001b_>, \u001b,20s#force\ntcuck<\u0018\u001b#sit\nf  n<#levelchange\nhybb\u0017q\u0017y\u0004n\u0004 \u0004 h\u0017ynny#dip\na Hdc",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50251005,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "  jhyhnunhhyuyun#chat\njhldessu.m. 10s ljbn hhuub10sdfs.sSy\u001b"
+  },
+  {
+   "seed": 50751005,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "_>, \u001b,20s#force\ntcuck<\u0018\u001b#sit\nf  n<#levelchange\nhybb\u0017q\u0017y\u0004n\u0004 \u0004 h\u0017ynny#dip\na Hdc"
+  }
+ ]
+}

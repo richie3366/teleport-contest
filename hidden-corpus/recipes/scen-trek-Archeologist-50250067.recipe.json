@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "B KYL_ \u001b:>FlFl 20sJBKU_>.>cl#sit\n\u001bBYYU_>,>HLYB_>.>NYNB_>,>KHNL_>.>FhFls>\u000f\u001bfkW#name\no\nNBLY_>.><JYUL_>.>LYBK_>.>JUKH _>,>UHUJ_>,>i\u001b#terrain\nd\n<\u000f #rub\ng\u001b\u000f\u001b<HJHU_>,>LULH_>.>HKNJ_>.>JK BB_>,>100skyh150sFbss\u0018\u001b50s \u0018\u001b#pray\ny FbFbsljkjlubjy50sFyFy20skknynh50s100sFh.s\u000f\u001bkljylbjjl50syjuFhFh.100slhjlyuFh20ss\u0018\u001b100sFhsFh150s\u0018\u001b150sFh20ss50s<uhlckdg#tip\nh\u001b100sFhFh.50s100sFhs20s150sed50s50s50sFhFhFh150s#wipe\nnbhFyFyFy100s50sjyj150si\u001b100sFyss100s50s_>.>100sFy.20s100s100sFuss\\ i\u001bluu150sKljy100sFhss100s50s#dip\ni#tip\nh\u001b#rub\nFnss_>,>_>.>bulhln#force\n#pray\ny 100s\u0018\u001b100sFjFjFjFjss100s150sFy20sFj_>.>nyn\\ 50s150s100sFj.20s100s_>.>50sFjFj.100s150s ynyFj20ss150s150sFhFhs100sed#tip\nh\u001byjk150s100snyjUHBY_>.><UBLU_>,>LY NH_>,>Fk.20s\u000f\u001bFk.20sb100sFk.s#name\no\n150s150sFu Fkslhu100s#ride\n.100sukhFh20s.100sFl.s100s100"
+ },
+ "segments": [
+  {
+   "seed": 50250067,
+   "datetime": "20111103235011",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:explore\n",
+   "moves": "B KYL_ \u001b:>FlFl 20sJBKU_>.>cl#sit\n\u001bBYYU_>,>HLYB_>.>NYNB_>,>KHNL_>.>FhFls>\u000f\u001bfkW#name\no\nNBLY_>.><JYUL_>.>LYBK_>.>JUKH _>,>UHUJ_>,>i\u001b#terrain\nd\n<\u000f #rub\ng\u001b\u000f\u001b<HJHU_>,>LULH_>.>HKNJ_>.>JK BB_>,>100skyh150sFbss\u0018\u001b50s \u0018\u001b#pray\ny FbFbsljkjlubjy50sFyFy20skknynh50s100sFh.s\u000f\u001bkljylbjjl50syjuFhFh.100slhjlyuFh20ss\u0018\u001b100sFhsFh150s\u0018\u001b150sFh20ss50s<uhlckdg#tip\nh\u001b100sFhFh.50s100sFhs20s150sed50s50s50sFhFhFh150s#wipe\nnbhFyFyFy100s50sjyj150si\u001b100sFyss100s50s_>.>100sFy.20s100s100sFuss\\ i\u001bluu150sKljy100sFhss100s50s#dip\ni#tip\nh\u001b#rub\nFnss_>,>_>.>bulhln#force\n#pray\ny 100s\u0018\u001b100sFjFjFjFjss100s150sFy20sFj_>.>nyn\\ 50s150s100sFj.20s100s_>.>50sFjFj.100s150s ynyFj20ss150s150sFhFhs100sed#tip\nh\u001byjk150s100snyjUHBY_>.><UBLU_>,>LY NH_>,>Fk.20s\u000f\u001bFk.20sb100sFk.s#name\no\n150s150sFu Fkslhu100s#ride\n.100sukhFh20s.100sFl.s100s100"
+  }
+ ]
+}

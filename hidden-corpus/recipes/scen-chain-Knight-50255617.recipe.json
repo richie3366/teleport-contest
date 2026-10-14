@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "NHJJ_ \u001b:>FlFkFk tbnuBNK U_>.>#monster\nwaUUUN_>.>KYLJ_>.>HUBH_>.>FuFksNK JY_>,>JLHB_>.>a>luhnKLKN_>.>#ride\nl#turn\nHKLN_>.>NLYH_>.>KNJU_>,_.> KUJY_>.>YHUB_>.>LYNL_>.>#offer\n#untrap\nh\u000f\u001b20s#name\ni\ndes20ssde.ssbkynujybUKBN_>.>UHUK_>,>#wipe\n#force\nUKHH_>,>KHKY_>.>WPYBHK_>.>HUHY_>,>ljnkt\u001bdg20s20ssyjhnju#chat\nb100s\\   \u000f\u001b\u000f\u001bhhn_>,>uyj;m.150s50s\u000f\u001b50sknb100s\u0018\u001b100seh150seh 100seh100seh50sehyub50seh10s100seh100seh100seh100seh\u0018\u001b_>.>i\u001blhujHYHL_>.>NUJY_>,>NNHY_>.>HHYN_>.>JHHB_>.>u#pray\ny UNJN_>,>20s#name\na\nkh#name\nd\n#name\na\nblyknyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeubklhljbujlbhlhknkyueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeejynhjuhlkbjleeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b #wizintrinsic\nc\n .b.sm.s20s sm..usm.20s   ynny y\u001b y  syn  \u0007green slime\nFyFh Fh  yy\u001by  y y y\u001byy  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50255617,
+   "datetime": "20110803124749",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\n",
+   "moves": "NHJJ_ \u001b:>FlFkFk tbnuBNK U_>.>#monster\nwaUUUN_>.>KYLJ_>.>HUBH_>.>FuFksNK JY_>,>JLHB_>.>a>luhnKLKN_>.>#ride\nl#turn\nHKLN_>.>NLYH_>.>KNJU_>,_.> KUJY_>.>YHUB_>.>LYNL_>.>#offer\n#untrap\nh\u000f\u001b20s#name\ni\ndes20ssde.ssbkynujybUKBN_>.>UHUK_>,>#wipe\n#force\nUKHH_>,>KHKY_>.>WPYBHK_>.>HUHY_>,>ljnkt\u001bdg20s20ssyjhnju#chat\nb100s\\   \u000f\u001b\u000f\u001bhhn_>,>uyj;m.150s50s\u000f\u001b50sknb100s\u0018\u001b100seh150seh 100seh100seh50sehyub50seh10s100seh100seh100seh100seh\u0018\u001b_>.>i\u001blhujHYHL_>.>NUJY_>,>NNHY_>.>HHYN_>.>JHHB_>.>u#pray\ny UNJN_>,>20s#name\na\nkh#name\nd\n#name\na\nblyknyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeubklhljbujlbhlhknkyueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeejynhjuhlkbjleeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50355617,
+   "datetime": "20030625135813",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nc\n .b.sm.s20s sm..usm.20s   ynny y\u001b y  s"
+  },
+  {
+   "seed": 50455617,
+   "datetime": "20230129091857",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "yn  \u0007green slime\nFyFh Fh  yy\u001by  y y y\u001byy  F"
+  }
+ ]
+}

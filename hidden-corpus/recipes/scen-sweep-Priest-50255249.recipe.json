@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017cursed -1 cloak of protection\nW\u001bsssTcsFl\u0017banana\n\u0007lieutenant\nel.m. sm.  n \u0017blessed +3 jumping boots\n\u0007nalfeshnee\nWm    n   n.m.    n sn  n sm.   n   n    nFh     n Fk  n     n \u0017cursed leather drum\n\u0007pit viper\nan   anFyFh\u0017scroll of gold detection\nro  \u001bm,\u001bFhFh \u0017wand of secret door detection\n\u0007warg\nzp 20s  n  20s \u001623\n\u00166\n  \u0007lurker above\n;u.sm.sl20s\u0007nalfeshnee\n#chat\nkFbFk   n   n\u0007chameleon\n#chat\nyFk  Fk  n    \u0007purple worm\nFk  n  Fh    y y\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50255249,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:crawl\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017cursed -1 cloak of protection\nW\u001bsssTcsFl\u0017banana\n\u0007lieutenant\nel.m. sm.  n \u0017blessed +3 jumping boots\n\u0007nalfeshnee\nWm    n   n.m.    n sn  n sm.   n   n    nFh     n Fk  n     n \u0017cursed leather drum\n\u0007pit viper\nan   anFyFh\u0017scroll of gold detection\nro  \u001bm,\u001bFhFh \u0017wand of secret door detection\n\u0007warg\nzp 20s  n  20s \u001623\n\u00166\n  \u0007lurker above\n;u.sm.sl20s\u0007nalfeshnee\n#chat\nkFbFk   n   n\u0007chameleon\n#chat\nyFk  Fk  n    \u0007purple worm\nFk  n  Fh    y y\u001by   y y y\u001b  F"
+  }
+ ]
+}

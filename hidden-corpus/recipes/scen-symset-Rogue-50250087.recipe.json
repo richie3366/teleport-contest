@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0007tame little dog\n10s\u0017huge chunk of meat\n tby \u0017tripe ration\ntby 10s \u0017food ration\n tbb dg20ss20sOg\u001b\u001b\nqd  20sf by h fk #enhance\nya\nr\n\u001boh \u00162\nFyFyFyFyFkFyFkh FkFhFhFyFh\u001bFhFhFyFh\u001bFhFhFhFhFyFkk FyFh\u001bFkFhFhFhFkFhFhFhFkFkFkFhFyFkk FkFhFhFyFyFyFyFyFyFyFyFyFyFhFkFyFky FkFhFhFyFkh FyFkh FkFkFhFkFkFyFyFkFyFh\u001bFyFkh FyFyFkFhFhFhFkFhFkFhFyFyFkFkFyFh\u001bFkFkFkFkFhFkFhFyFyFyFyFkFhFyFyFyFh\u001bFkFkFkFhFkFkFkFkFhFyFyFhFynjky j\u0017pool\nj\u0017tree\n:n\u0017neutral altar\ndf dh \u0017jackal corpse\n#offer\nk  #pray\ny y kk \u0017throne\n#sit\n#sit\naek #jump\n#turn\nFkFkFkFyFyFhFhFyFkh FhFyFkk FkFyFkh FhFyFh\u001bFhFhFhFyFky FyFkh FhFyFh\u001bFyFky FyFh"
+ },
+ "segments": [
+  {
+   "seed": 50250087,
+   "datetime": "20100513011608",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=mention_walls\nOPTIONS=sortloot:full\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMSGTYPE=norep \"The door\"\n",
+   "moves": " \u0007tame little dog\n10s\u0017huge chunk of meat\n tby \u0017tripe ration\ntby 10s \u0017food ration\n tbb dg20ss20sOg\u001b\u001b\nqd  20sf by h fk #enhance\nya\nr\n\u001boh \u00162\nFyFyFyFyFkFyFkh FkFhFhFyFh\u001bFhFhFyFh\u001bFhFhFhFhFyFkk FyFh\u001bFkFhFhFhFkFhFhFhFkFkFkFhFyFkk FkFhFhFyFyFyFyFyFyFyFyFyFyFhFkFyFky FkFhFhFyFkh FyFkh FkFkFhFkFkFyFyFkFyFh\u001bFyFkh FyFyFkFhFhFhFkFhFkFhFyFyFkFkFyFh\u001bFkFkFkFkFhFkFhFyFyFyFyFkFhFyFyFyFh\u001bFkFkFkFhFkFkFkFkFhFyFyFhFynjky j\u0017pool\nj\u0017tree\n:n\u0017neutral altar\ndf dh \u0017jackal corpse\n#offer\nk  #pray\ny y kk \u0017throne\n#sit\n#sit\naek #jump\n#turn\nFkFkFkFyFyFhFhFyFkh FhFyFkk FkFyFkh FhFyFh\u001bFhFhFhFyFky FyFkh FhFyFh\u001bFyFky FyFh"
+  }
+ ]
+}

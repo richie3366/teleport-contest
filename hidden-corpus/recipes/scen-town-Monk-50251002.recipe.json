@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n          \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqj \u001b._oooo.Fy_,:Fy_oo,_.,p_oooooooo.   _._o._.,p__.Fk _,.Fl#chat\nbdf _ooo.Fk _.,$_oooooooo, Fy_.Fy,p_oooooo. _.,\u0014,ck20sbSy\u001b yn#twoweapon\n#chat\nyi\u001b#offer\n;y,\\  20s20s \u0014:  ai ai ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50251002,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n          \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqj \u001b._oooo.Fy_,:Fy_oo,_.,p_oooooooo.   _._o._.,p__.Fk _,.Fl#chat\nbdf _ooo.Fk _.,$_oooooooo, Fy_.Fy,p_oooooo. _.,\u0014,ck20sbSy\u001b"
+  },
+  {
+   "seed": 50751002,
+   "datetime": "20040812235050",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " yn#twoweapon\n#chat\nyi\u001b#offer\n;y,\\  20s20s \u0014:  ai ai "
+  }
+ ]
+}

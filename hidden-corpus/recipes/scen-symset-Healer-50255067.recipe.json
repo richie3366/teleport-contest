@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "mO>>a\u001b\nO>e\u001b\n\u001611\nmO>>p\u001b\nOo\u001b\u001b\n O>>g\u001b\n\u001620\n50sFhFuFlFuFnFj FbFbFhFlFbFuFbFjFbFuFkFjFjFjFlFhFkFjFlFhFlFlFnFjFuFbFhFhFyFkFjFu  nFnFjFy  nFuFb FnFn  nFyFl FjFb  n FuFu  nFyFnFnFu  nFlFkFlFh  nFnFbFnFhFh    n   nFu   nFb     n Fn   n Fb   n Fn   n Fy  n Fh    yy\u001by  y y\u001b   F"
+ },
+ "segments": [
+  {
+   "seed": 50255067,
+   "datetime": "20130909182558",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "mO>>a\u001b\nO>e\u001b\n\u001611\nmO>>p\u001b\nOo\u001b\u001b\n O>>g\u001b\n\u001620\n50sFhFuFlFuFnFj FbFbFhFlFbFuFbFjFbFuFkFjFjFjFlFhFkFjFlFhFlFlFnFjFuFbFhFhFyFkFjFu  nFnFjFy  nFuFb FnFn  nFyFl FjFb  n FuFu  nFyFnFnFu  nFlFkFlFh  nFnFbFnFhFh    n   nFu   nFb     n Fn   n Fb   n Fn   n Fy  n Fh    yy\u001by  y y\u001b   F"
+  }
+ ]
+}

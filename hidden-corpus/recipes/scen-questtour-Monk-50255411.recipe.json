@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\ny;y,_mmm.Fk_,  nFl#chat\nl_mmmm,   n   nFl   n   n  n_,   nFy   n   n#chat\nk   n ;u:  _mmmmm.#chat\ny   n   n #levelchange\n16\n                  \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.  Fu_.#chat\nk   n_m,  Fn  _.#chat\nk_mmmmm,   n  Fu _,#chat\ny    n\u0017blessed +3 helm of telepathy\nWk   \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017wand of cold\n\u0016?\n>A\u0006_mmm.    yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50255411,
+   "datetime": "20240506044713",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\ny;y,_mmm.Fk_,  nFl#chat\nl_mmmm,   n   nFl   n   n  n_,   nFy   n   n#chat\nk   n ;u:  _mmmmm.#chat\ny   n   n #levelchange\n16\n                  \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.  Fu_.#chat\nk   n_m,  Fn  _.#chat\nk_mmmmm,   n  Fu _,#chat\ny    n\u0017blessed +3 helm of telepathy\nWk   \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017wand of cold\n\u0016?\n>A\u0006_mmm.    yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

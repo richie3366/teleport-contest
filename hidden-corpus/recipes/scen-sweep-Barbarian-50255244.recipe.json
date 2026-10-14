@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n30\n                      #wizintrinsic\nra\n ssssssssss\u0017bag of holding\naei\naes\n#tip\ne\u001b#chat\nl,#enhance\nyh\nc\n\u001bsy#turn\n.s20s s..\u00167\n\u0007housecat\n\u0017huge chunk of meat\ntbn\u0007housecat\n\u0017huge chunk of meat\n t\u001b\u0017magic whistle\nj unag \u0017huge chunk of meat\n t\u001b#chat\ny#name\na\n\u0017leash\nahk jh nh  ahk  \u0017leash\naik   hnh   njaik  \u001626\n\u0017blessed ring of polymorph control\nPjr\u0017cloak of protection\nWk..s#polyself\nyeti\n  #monster\n20ssn\u0007nurse\nFy  Fk Fj 20s \u001b..#polyself\npaper golem\n #monster\n. .m.  \u0007soldier ant\nFk  Fj   Fh      s\u001bs.\u0017amulet of unchanging\nPl  sm.    s\u001bss  Rl    \u00168\n\u0017bow\nwm\u001720 arrows\nQn\u0007sewer rat\nlfk   fhfh\u0007dwarf\njlfhfh fh   nfh   \u0007soldier\nb h fk fu fu   lu   nu   ,\u00166\n#levelchange\n14\n     \u0016?\n>DFh FhFh   nFh Fh Fh Fh Fh Fh ly   n10s Fh FhFh Fh kFb Fb Fb FbFb   nFb Fb hkFj 10s  Fj Fj   nbbFj Fj bbFj FjnFh \u0017wand of striking\nzo>Fh Fh   njFy Fy \u0017wand of striking\nzpkFy Fy \u0017wand of digging\nzql kFh   n ybFj ubbbb\u00163\ni\u001bPl sm.sm..l.yzpb   \u001bahjPsssRjwass.aikJ#dip\nidf#invoke\n\u001b#twoweapon\nE- I am a fish\nE-n  Elbereth Elbereth\n: i\u001baihwny.ssahbwm20s.sXPjrsssP20s20s20ss\u0007dust vortex\n#pray\ny y    Fk    Fl   #pray\ny y   Fl FkFkFk  20sFlFyFu#levelchange\n10\n \u0016?\nj\u0006\u0017magic flute\nasnEFoDeoGBsnDDBCsAtetoesAeseCEenCsGCFGCCACFBE\nu yasneEoEneDeenoGFFssDotnBtCnAFnBBEAeAeDtoECCBGF\n nh\u0017wand of opening\nztj   n >trh 10s  #levelchange\n20\n           \u0016?\n>y  _ \u001b@.#chat\nn_mm.#chat\nl_mm.#chat\nl\u0006_>.Fl  "
+ },
+ "segments": [
+  {
+   "seed": 50255244,
+   "datetime": "20251231012241",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n30\n                      #wizintrinsic\nra\n ssssssssss\u0017bag of holding\naei\naes\n#tip\ne\u001b#chat\nl,#enhance\nyh\nc\n\u001bsy#turn\n.s20s s..\u00167\n\u0007housecat\n\u0017huge chunk of meat\ntbn\u0007housecat\n\u0017huge chunk of meat\n t\u001b\u0017magic whistle\nj unag \u0017huge chunk of meat\n t\u001b#chat\ny#name\na\n\u0017leash\nahk jh nh  ahk  \u0017leash\naik   hnh   njaik  \u001626\n\u0017blessed ring of polymorph control\nPjr\u0017cloak of protection\nWk..s#polyself\nyeti\n  #monster\n20ssn\u0007nurse\nFy  Fk Fj 20s \u001b..#polyself\npaper golem\n #monster\n. .m.  \u0007soldier ant\nFk  Fj   Fh      s\u001bs.\u0017amulet of unchanging\nPl  sm.    s\u001bss  Rl    \u00168\n\u0017bow\nwm\u001720 arrows\nQn\u0007sewer rat\nlfk   fhfh\u0007dwarf\njlfhfh fh   nfh   \u0007soldier\nb h fk fu fu   lu   nu   ,\u00166\n#levelchange\n14\n     \u0016?\n>DFh FhFh   nFh Fh Fh Fh Fh Fh ly   n10s Fh FhFh Fh kFb Fb Fb FbFb   nFb Fb hkFj 10s  Fj Fj   nbbFj Fj bbFj FjnFh \u0017wand of striking\nzo>Fh Fh   njFy Fy \u0017wand of striking\nzpkFy Fy \u0017wand of digging\nzql kFh   n ybFj ubbbb\u00163\ni\u001bPl sm.sm..l.yzpb   \u001bahjPsssRjwass.aikJ#dip\nidf#invoke\n\u001b#twoweapon\nE- I am a fish\nE-n  Elbereth Elbereth\n: i\u001baihwny.ssahbwm20s.sXPjrsssP20s20s20ss\u0007dust vortex\n#pray\ny y    Fk    Fl   #pray\ny y   Fl FkFkFk  20sFlFyFu#levelchange\n10\n \u0016?\nj\u0006\u0017magic flute\nasnEFoDeoGBsnDDBCsAtetoesAeseCEenCsGCFGCCACFBE\nu yasneEoEneDeenoGFFssDotnBtCnAFnBBEAeAeDtoECCBGF\n nh\u0017wand of opening\nztj   n >trh 10s  #levelchange\n20\n           \u0016?\n>y  _ \u001b@.#chat\nn_mm.#chat\nl_mm.#chat\nl\u0006_>.Fl  "
+  }
+ ]
+}

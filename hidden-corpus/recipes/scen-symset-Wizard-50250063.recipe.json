@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b>.>FuFu_>.Fb_.Fn>FuFn_>FyFkl FjFbFb\u0006_>,Fu_.Fu>FkFb_>.Fj_,Fy>FkFu_>.Fb_.Fl>FuFyFnFjFy\u0006_>,Fu_.Fu>FbFn_>.Fn_>FjFb_>.Fy_.Fb>FbFyFnFjFb\u0006_>>.Fk_.Fu>FyFky _>>.Fu_.Fy>FyFl_>>,Fl_,Fj>FbFuu FnFlFu\u0006_>,Fj_.Fu>FlFy_>.Fy_,Fn>FkFyFl\u0006_>.Fk_,Fb>FkFk_>.Fy_.Fy>FjFl_>.Fl_.Fk>FnFnFjFjFu\u000f\u001b#conduct\n \u0006_>.Fn_>FbFkj _>.Fb_.Fl>FjFy_>.Fb_.Fn>FjFnFun \u001616\n O>>m\u001b\u001b\n\u0006_>. Fl_.m,Fl>FlFl_>.Fl_,    nFl>FlFl_>,Fl_.Fl>FlFlFlFlFl<\u0014>.<\u0006_>.> \u0006_>._.,>_>._.@.>_>._.m.>s20s#name\n\u001b\u0018\u001b\u0007little dog\n\u0017fortune cookie\nt\u001b#name\n\u001bh\u001bh\u001b\u0017leash\naoh bblh naoh \u0007yellow mold\n.h\u001b.sm..m.  n sm.20sm.v i\u001b20s#tip\n\u001b#wipe\n  n\u0006_>,Fh_,  n Fn>FnFh\u001bFn\u0006_>.Fh_,  n Fn>FhFnFn<\u0006_>.Fh_.  "
+ },
+ "segments": [
+  {
+   "seed": 50250063,
+   "datetime": "20191228022113",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\n",
+   "moves": "\u0006_ \u001b>.>FuFu_>.Fb_.Fn>FuFn_>FyFkl FjFbFb\u0006_>,Fu_.Fu>FkFb_>.Fj_,Fy>FkFu_>.Fb_.Fl>FuFyFnFjFy\u0006_>,Fu_.Fu>FbFn_>.Fn_>FjFb_>.Fy_.Fb>FbFyFnFjFb\u0006_>>.Fk_.Fu>FyFky _>>.Fu_.Fy>FyFl_>>,Fl_,Fj>FbFuu FnFlFu\u0006_>,Fj_.Fu>FlFy_>.Fy_,Fn>FkFyFl\u0006_>.Fk_,Fb>FkFk_>.Fy_.Fy>FjFl_>.Fl_.Fk>FnFnFjFjFu\u000f\u001b#conduct\n \u0006_>.Fn_>FbFkj _>.Fb_.Fl>FjFy_>.Fb_.Fn>FjFnFun \u001616\n O>>m\u001b\u001b\n\u0006_>. Fl_.m,Fl>FlFl_>.Fl_,    nFl>FlFl_>,Fl_.Fl>FlFlFlFlFl<\u0014>.<\u0006_>.> \u0006_>._.,>_>._.@.>_>._.m.>s20s#name\n\u001b\u0018\u001b\u0007little dog\n\u0017fortune cookie\nt\u001b#name\n\u001bh\u001bh\u001b\u0017leash\naoh bblh naoh \u0007yellow mold\n.h\u001b.sm..m.  n sm.20sm.v i\u001b20s#tip\n\u001b#wipe\n  n\u0006_>,Fh_,  n Fn>FnFh\u001bFn\u0006_>.Fh_,  n Fn>FhFnFn<\u0006_>.Fh_.  "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed amulet of life saving\nPe\u0017blessed ring of free action\nPfr\u0017blessed shield of reflection\nW\u001b\u0017wand of sleep\n\u0017wand of lightning\n\u0017wand of striking\n\u0007acid blob\n\u0007gnome\nzjn zin    zi.  n.ziuzjnzh.zhh20s\u0017blessed spellbook of force bolt\nrks\u0007mind flayer\nZZZZZZ#turn\n\u0017spellbook of sleep\nrls\u0007orc shaman\n\u0007incubus\nZZZZZZi\u001b\u001715 shuriken\nQm\u0007troll\nfk fk  n      n   fk  n  n  fy  n  \u0017potion of blindness\ntmy  n  n \u0018\u001b\u001610\n\u001720 darts\nQo\u0007hobbit\nfu  nfb  nfl  ntmb  nfb  ntmb  n\u0017potion of restore ability\ntob  n\u0017orcish bow\nwq  yy\u001by   y y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50250012,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed amulet of life saving\nPe\u0017blessed ring of free action\nPfr\u0017blessed shield of reflection\nW\u001b\u0017wand of sleep\n\u0017wand of lightning\n\u0017wand of striking\n\u0007acid blob\n\u0007gnome\nzjn zin    zi.  n.ziuzjnzh.zhh20s\u0017blessed spellbook of force bolt\nrks\u0007mind flayer\nZZZZZZ#turn\n\u0017spellbook of sleep\nrls\u0007orc shaman\n\u0007incubus\nZZZZZZi\u001b\u001715 shuriken\nQm\u0007troll\nfk fk  n      n   fk  n  n  fy  n  \u0017potion of blindness\ntmy  n  n \u0018\u001b\u001610\n\u001720 darts\nQo\u0007hobbit\nfu  nfb  nfl  ntmb  nfb  ntmb  n\u0017potion of restore ability\ntob  n\u0017orcish bow\nwq  yy\u001by   y y y\u001by  \u0017"
+  }
+ ]
+}

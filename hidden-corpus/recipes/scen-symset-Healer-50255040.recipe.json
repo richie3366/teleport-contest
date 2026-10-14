@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " Oo\u001b\u001b\n\u0007large dog\n\u0017food ration\nt$l\u0007tame pony\n10s  nk\u0006_ \u001b;>FkFn  n_>.Fb   n _, Fn >Fl   nFj_>.  nFj _.>.Fj >FhFb   nddsm.  n20s.m.\u0007yellow mold\n\u0017scroll of taming\nrm dcss.\u00163\nmO>>>q\u001b\nO>>>>m\u001b\u001b\n#untrap\nyt\u001b\u0004n#terrain\ne\nO>g\u001b\nO>>p\u001b\n\u00167\nFjFjFj#pray\ny y  FjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFj _>.>knuFhFhFyFhFhFyFyFhFhFhFhFyFhFhFyFyFhFyFyFyFyFyFhFyFyFhFhFhFhFhFhFyFyFyFyFhFhFhFhFhFyFhFhFyFyFhFhFhFyFhFyFhFyFyFhFhFyFyFyFyFhFhFhFhFyFyFyFhFyFyFyFyFhFhFyFyFyFyFhFhFhFhFhFyFyFhFh\u00166\n50s Fl Fk Fu  n FuFu Fh Fu  n  Fu Fk Fl  n  FlFu  n Fk Fy  n Fu Fk   nFk FyFl  n Fl Fk  n F"
+ },
+ "segments": [
+  {
+   "seed": 50255040,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:Enhanced1\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"uncursed\"=cyan\nBIND=v:inventory\n",
+   "moves": " Oo\u001b\u001b\n\u0007large dog\n\u0017food ration\nt$l\u0007tame pony\n10s  nk\u0006_ \u001b;>FkFn  n_>.Fb   n _, Fn >Fl   nFj_>.  nFj _.>.Fj >FhFb   nddsm.  n20s.m.\u0007yellow mold\n\u0017scroll of taming\nrm dcss.\u00163\nmO>>>q\u001b\nO>>>>m\u001b\u001b\n#untrap\nyt\u001b\u0004n#terrain\ne\nO>g\u001b\nO>>p\u001b\n\u00167\nFjFjFj#pray\ny y  FjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFj _>.>knuFhFhFyFhFhFyFyFhFhFhFhFyFhFhFyFyFhFyFyFyFyFyFhFyFyFhFhFhFhFhFhFyFyFyFyFhFhFhFhFhFyFhFhFyFyFhFhFhFyFhFyFhFyFyFhFhFyFyFyFyFhFhFhFhFyFyFyFhFyFyFyFyFhFhFyFyFyFyFhFhFhFhFhFyFyFhFh\u00166\n50s Fl Fk Fu  n FuFu Fh Fu  n  Fu Fk Fl  n  FlFu  n Fk Fy  n Fu Fk   nFk FyFl  n Fl Fk  n F"
+  }
+ ]
+}

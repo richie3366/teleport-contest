@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "   y   >_ \u001b>.#untrap\n.bbh#wipe\nkkkunbbuk_>.hnbkjk,<ubunhb;>.kukhjlb__.20s10subk#twoweapon\nnnk#name\nm\n_ia>10s#enhance\n\u001b:#sit\n\u001buylq<:bjunnkr\u001b<20snhlkjje__,s_>.yuh#invoke\n\u001b::\u0004yykb__.:"
+ },
+ "segments": [
+  {
+   "seed": 50251019,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=pettype:cat\n",
+   "moves": "   y   >_ \u001b>.#untrap\n.bbh#wipe\nkkkunbbuk_>.hnbkjk,<ubunhb;>.kukhjlb__.20s10subk#twoweapon\nnnk#name\nm\n_ia>10s#enhance\n\u001b:#sit\n\u001buylq<:bjunnkr\u001b<20snhlkjje__,s_>.yuh#invoke\n\u001b::\u0004yykb__.:"
+  }
+ ]
+}

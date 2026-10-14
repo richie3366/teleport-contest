@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001bm,>FjFh _>._,>_>,Fl _,>ZZ\u0006_>._.>_>._.>_>._.>\u0006_>._,>_>._.>_>,_.>#tip\nf\u001b#pray\ny y \u0006_>._.>_>,_,>_>._.>\u0006_>._.>_>._,>_>._.>10saey\u0006_>>._.>_>>,_,>_>>.Fl_,Fl>20s#offer\n"
+ },
+ "segments": [
+  {
+   "seed": 50255806,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0006_ \u001bm,>FjFh _>._,>_>,Fl _,>ZZ\u0006_>._.>_>._.>_>._.>\u0006_>._,>_>._.>_>,_.>#tip\nf\u001b#pray\ny y \u0006_>._.>_>,_,>_>._.>\u0006_>._.>_>._,>_>._.>10saey\u0006_>>._.>_>>,_,>_>>.Fl_,Fl>20s#offer\n"
+  }
+ ]
+}

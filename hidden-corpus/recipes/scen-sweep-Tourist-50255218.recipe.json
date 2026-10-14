@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017dwarvish mattock\n_ \u001b:an >ankkany ybuan>  .an>jb anl l \u001629\n   \u0007watchman\n#chat\nbFk Fk\u0007giant mimic\nFb  Fk   nFk\u0007yellow mold\nFy Fk   n\u0007erinys\n.m.sm.  \u001b  .b  n  \u001b  \u001b20s   n sm.20s  n   .n .m.  n   \u00162\n#wizintrinsic\ngm\n \u0017cursed scroll of punishment\nro   Z\u0017cursed scroll of destroy armor\nrp   \u001b  n \u0017blessed potion of confusion\nqq \u001b  n20s sm.20s  n \\ \u001610\n\u0016?\n \u0006\u0017wooden flute\nar b  nhar yu\u0017wand of locking\nzsk  n>    n#sit\n   #jump\n\u001619\n\u00163\n #levelchange\n6\n  \u0016?\n \u0006Fn Fn Fn   n Fn  Fj   nFkbkj   nn,;y.,\u001615\n #levelchange\n30\n                        \u0016?\n \u0016?\n \u0016?\n\u000f\u001b#levelchange\n12\n     \u00173 20 elven arrows\n \u001b\u0007air elemental\nFh Fh   \u0017blessed +3 gray dragon scale mail\nWu       yy\u001bnnnnn  ."
+ },
+ "segments": [
+  {
+   "seed": 50255218,
+   "datetime": "20071118151936",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=runmode:crawl\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017dwarvish mattock\n_ \u001b:an >ankkany ybuan>  .an>jb anl l \u001629\n   \u0007watchman\n#chat\nbFk Fk\u0007giant mimic\nFb  Fk   nFk\u0007yellow mold\nFy Fk   n\u0007erinys\n.m.sm.  \u001b  .b  n  \u001b  \u001b20s   n sm.20s  n   .n .m.  n   \u00162\n#wizintrinsic\ngm\n \u0017cursed scroll of punishment\nro   Z\u0017cursed scroll of destroy armor\nrp   \u001b  n \u0017blessed potion of confusion\nqq \u001b  n20s sm.20s  n \\ \u001610\n\u0016?\n \u0006\u0017wooden flute\nar b  nhar yu\u0017wand of locking\nzsk  n>    n#sit\n   #jump\n\u001619\n\u00163\n #levelchange\n6\n  \u0016?\n \u0006Fn Fn Fn   n Fn  Fj   nFkbkj   nn,;y.,\u001615\n #levelchange\n30\n                        \u0016?\n \u0016?\n \u0016?\n\u000f\u001b#levelchange\n12\n     \u00173 20 elven arrows\n \u001b\u0007air elemental\nFh Fh   \u0017blessed +3 gray dragon scale mail\nWu       yy\u001bnnnnn  ."
+  }
+ ]
+}

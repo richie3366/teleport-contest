@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "mO>>>>d\u001b\nO>>k\u001b\u001b\nv i\u001b\u0006_ \u001b<.>FuFk_>>.Fy_.:Fu>FuFy_>>.Fj_,m,Fy>FyFjFyFjFy\u0006_>,Fy_,:Fy>FuFy_>.Fj_.>.Fk>FkFk_>.>FkFyFuFkFk\u000f\u001b#tip\n\u001b\u001b\u0006_>.Fn_.Fb>FbFb_>.Fb_,Fb>FbFn_>.Fb_.Fb>FbFbFbFbFb\u0006_>>.Fn_.Fb>FbFn_>>.Fb_,Fb>FnFb_>>,Fn_.Fn>FnFbFnFnFn\u0006_>.Fn_.Fb>FbFn_>.Fb_.Fb>FnFn_>.Fb_.Fb>FnFnFnFbFb\u0006_>,Fn_,Fb>FnFb_>.Fn_,Fn>FbFb_>.Fn_.Fb>FbFnFbFbFb\u0007tame jackal\n\u0007lichen\n20s 20s sj.b20s20s \u0017tripe ration\ntby \u0017tin whistle\nukhag\u0007newt\n\u0017scroll of taming\nrh udcf \u001b\u001bs20ssm.#levelchange\n20\n                   jlb\u0017magic fountain\nqyqy#dip\neyy:u\u0017fountain\nqy#dip\ney #terrain\n\u001b:\u0014,<.#twoweapon\nnby\u0017altar\nde\u0017dwarf corpse\n #of"
+ },
+ "segments": [
+  {
+   "seed": 50255018,
+   "datetime": "20101021151133",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "mO>>>>d\u001b\nO>>k\u001b\u001b\nv i\u001b\u0006_ \u001b<.>FuFk_>>.Fy_.:Fu>FuFy_>>.Fj_,m,Fy>FyFjFyFjFy\u0006_>,Fy_,:Fy>FuFy_>.Fj_.>.Fk>FkFk_>.>FkFyFuFkFk\u000f\u001b#tip\n\u001b\u001b\u0006_>.Fn_.Fb>FbFb_>.Fb_,Fb>FbFn_>.Fb_.Fb>FbFbFbFbFb\u0006_>>.Fn_.Fb>FbFn_>>.Fb_,Fb>FnFb_>>,Fn_.Fn>FnFbFnFnFn\u0006_>.Fn_.Fb>FbFn_>.Fb_.Fb>FnFn_>.Fb_.Fb>FnFnFnFbFb\u0006_>,Fn_,Fb>FnFb_>.Fn_,Fn>FbFb_>.Fn_.Fb>FbFnFbFbFb\u0007tame jackal\n\u0007lichen\n20s 20s sj.b20s20s \u0017tripe ration\ntby \u0017tin whistle\nukhag\u0007newt\n\u0017scroll of taming\nrh udcf \u001b\u001bs20ssm.#levelchange\n20\n                   jlb\u0017magic fountain\nqyqy#dip\neyy:u\u0017fountain\nqy#dip\ney #terrain\n\u001b:\u0014,<.#twoweapon\nnby\u0017altar\nde\u0017dwarf corpse\n #of"
+  }
+ ]
+}

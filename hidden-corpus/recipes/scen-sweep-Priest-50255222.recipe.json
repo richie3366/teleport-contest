@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0016?\nk   \u0006_ \u001b>.#chat\nl  20s sm.  n  .l  #chat\nl   n #enhance\nyj\na\n\u001bE- X marks the spot\n \u000f\u001b\u001610\n\u00176 eggs\nQ\u001b\u0007hill orc\nl  l  f \u001bf \u001bf \u001b\u0007gnome\nk  yf \u001bf \u001bf \u001bf \u001b\u0017potion of fruit juice\nt\u001b\u0017grappling hook\nwk\u0007grid bug\njakm.njl,#enhance\nyj\ne\n\u001b\u0017pick-axe\n_<,Fk  n_,Flalalj j  nal>.  n al>\u0006_ooo.  nFj_.Fh  n al> yn\u000f\u001b\u00164\n#levelchange\n12\n          \u0017blessed ring of polymorph control\nPml\u0017elven leather helm\nWns20s20s#polyself\nblack dragon\n   #monster\nlss\u0007crocodile\n..Fks20ss#polyself\nlich\n#monster\ns20s\u0007Keystone Kop\nFk FkFl.s.#polyself\nimp\n#monster\ns.\u0007vampire bat\nFlFl  Fl20s ss \u0017amulet of unchanging\nPo   n . . ss #levelchange\n16\n    \u0016?\n>y  _mmmmm.#chat\nb_m.#chat\nb_m.#chat\ny;m,_mmmm.#chat\nk;m.\u0006_>.Fl_..Fl>FlFl_>.Fu_.  nFu >Fl Fl_>.Fu_,Fu>FlFl_<.20s\u0014>.w-#levelchange\n12\n \u0016?\nl ,yrh y s s  \u001622\n#conduct\n ok#chat\nk;_.\u0006ss\u0016?\n>>\u001b\u0016?\nf    lrg y \u0004h;m,s20s#levelchange\n30\n                  \u0017uncursed ice box\n\u0007rock piercer\n,Fjs\u0017uncursed potion of acid\n\u0007Demogorgon\nnqq \u001b\u0017tripe ration\ner   n   sj   sn\u0017cursed wand of polymorph\nzsh zsh Fh   n Fh  n\u0017tin opener\n\u0007violet fungus\nat\u0017tin whistle\nauau FhFh.m..\u00166\n\u0017crossbow\nwv20s  Fk   nFk\u0007straw golem\n#chat\nkFkFk \u0007kobold shaman\n;l:  sh sns\u0007electric eel\nFk  n Fu Fk  Fk   nFu Fk \u0007kitten\nFu Fl  yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50255222,
+   "datetime": "20000605032313",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\nk   \u0006_ \u001b>.#chat\nl  20s sm.  n  .l  #chat\nl   n #enhance\nyj\na\n\u001bE- X marks the spot\n \u000f\u001b\u001610\n\u00176 eggs\nQ\u001b\u0007hill orc\nl  l  f \u001bf \u001bf \u001b\u0007gnome\nk  yf \u001bf \u001bf \u001bf \u001b\u0017potion of fruit juice\nt\u001b\u0017grappling hook\nwk\u0007grid bug\njakm.njl,#enhance\nyj\ne\n\u001b\u0017pick-axe\n_<,Fk  n_,Flalalj j  nal>.  n al>\u0006_ooo.  nFj_.Fh  n al> yn\u000f\u001b\u00164\n#levelchange\n12\n          \u0017blessed ring of polymorph control\nPml\u0017elven leather helm\nWns20s20s#polyself\nblack dragon\n   #monster\nlss\u0007crocodile\n..Fks20ss#polyself\nlich\n#monster\ns20s\u0007Keystone Kop\nFk FkFl.s.#polyself\nimp\n#monster\ns.\u0007vampire bat\nFlFl  Fl20s ss \u0017amulet of unchanging\nPo   n . . ss #levelchange\n16\n    \u0016?\n>y  _mmmmm.#chat\nb_m.#chat\nb_m.#chat\ny;m,_mmmm.#chat\nk;m.\u0006_>.Fl_..Fl>FlFl_>.Fu_.  nFu >Fl Fl_>.Fu_,Fu>FlFl_<.20s\u0014>.w-#levelchange\n12\n \u0016?\nl ,yrh y s s  \u001622\n#conduct\n ok#chat\nk;_.\u0006ss\u0016?\n>>\u001b\u0016?\nf    lrg y \u0004h;m,s20s#levelchange\n30\n                  \u0017uncursed ice box\n\u0007rock piercer\n,Fjs\u0017uncursed potion of acid\n\u0007Demogorgon\nnqq \u001b\u0017tripe ration\ner   n   sj   sn\u0017cursed wand of polymorph\nzsh zsh Fh   n Fh  n\u0017tin opener\n\u0007violet fungus\nat\u0017tin whistle\nauau FhFh.m..\u00166\n\u0017crossbow\nwv20s  Fk   nFk\u0007straw golem\n#chat\nkFkFk \u0007kobold shaman\n;l:  sh sns\u0007electric eel\nFk  n Fu Fk  Fk   nFu Fk \u0007kitten\nFu Fl  yy\u001by   y y y\u001by  F"
+  }
+ ]
+}
