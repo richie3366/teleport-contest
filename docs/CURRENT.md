@@ -33,8 +33,8 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Metric | Value |
 |--------|------:|
 | **Held-out (judge 2026-10-14 01:26Z)** | **32 / 44**, 9,920 / 11,265 pts, RNG **92.0 %**, rngSteps 95.8 %, screens **88.1 %** |
-| **Fresh cohort (§10.20, scored on arrival)** | 50050000 ×159 @`9a0ca2a78`: **146/159 (91.8 %)**, RNG 93.3 %, screens 96.4 % — sweep 10/16 worst |
-| **Corpus board (worked, regression fortress)** | **2476 / 2815** @`ed99ac9db` full, RNG 97.13 %, screens 94.70 % |
+| **Fresh cohort (§10.20, scored on arrival)** | 50150000 ×159 @`3535ccd78`: **137/159 (86.2 %)**, RNG 97.1 %, screens 93.5 % — symset 0/12 worst |
+| **Corpus board (worked, regression fortress)** | **2792 / 3233** @`3535ccd78` full, RNG 97.09 %, screens 94.65 % |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
@@ -53,16 +53,17 @@ together:** held-out (judge), fresh cohort (`fresh-cohort.mjs`, the local
 generalization estimate), board (the fortress — it rises by
 construction). Fresh history: 610000 marathon ×160 → 126/160 (79 %);
 620000 mixed ×160 → 141/160 (88 %); 49950000 ×158 → 140/158 (88.6 %,
-Grow #5); 50050000 ×159 → 146/159 (91.8 %, Grow #6). Fresh−held-out gap
-now 19 pts (91.8 % vs 72.7 %), back inside the §10.20 20-pt band (was 21 —
-the Grow #6 calibration trigger; new `symset` wave-3 family, 6/100 now).
-**Corpus (2026-10-14 06:21Z, `ed99ac9db`, 2815/2815 entries, `full: true`):**
-2476 PASS (+7 since the Grow #6 board: D-3941 net +3 after its 2 LADDER
-regressions, D-3942 +1, D-3943 +2, +1 stale-row refresh on full rerun —
-Archeologist-50059044; 0 PASS→FAIL); RNG 88122032/90725936
-(97.13 %), screens 1548125/1634784 (94.70 %). Worst families
-`scen-symset` 6/100, `scen-sweep` 359/460, `scen-worldtour` 316/389,
-`scen-shop` 142/172, `scen-options` 33/38; rest ≥ 94 %.
+Grow #5); 50050000 ×159 → 146/159 (91.8 %, Grow #6); 50150000 ×159 →
+137/159 (86.2 %, Grow #7). Fresh−held-out gap now 13.5 pts (86.2 % vs
+72.7 %), inside the §10.20 20-pt band — no calibration family this grow
+(gap ≤ 20; Grow #6's `symset` wave-3 family now 16/172).
+**Corpus (2026-10-14 09:16Z, `3535ccd78`, 3233/3233 entries, `full: true`):**
+2792 PASS (+313 since the Grow #6 board: +418 Grow #7 sessions — 159 fresh
++ 259 weighted to symset/sweep/questtour/wish/shop/chain/zapfest/options;
+0 PASS→FAIL); RNG 99177366/102151823 (97.09 %), screens 1804606/1906677
+(94.65 %). Worst families `scen-symset` 16/172, `scen-sweep` 402/512,
+`scen-worldtour` 328/401, `scen-questtour` 51/62, `scen-options` 49/59,
+`scen-shop` 178/214, `scen-zapfest` 67/73; rest ≥ 95 %.
 `scen-sweep-Priest-582706` still FAIL@1166 (known recorder flake, D-3885 park
 stands — unchanged since the Grow #6 re-record).
 Reviews 1225–2795 (index; no row 1618): 1397 ACCEPT, 62 WITH-DEBT, 111 QUALITY-RISK (2790–2795: 5A/1D/0Q, 0 Must-fix queued).

@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — Grow #7: fresh 137/159 (86.2 %) @50150000; +418 sessions; board 2792/3233 full, 0 PASS→FAIL
+
+**Fresh:** 50150000 ×159 @`3535ccd78` → 137/159 (86.2 %), RNG 97.1 %, screens 93.5 %; worst symset 0/12, options 1/2, wish 7/9, questtour 10/12, sweep 10/12, chain/shop/zapfest 11/12; trek + worldtour 12/12. Fresh−held-out gap 13.5 pts (86.2 vs 72.7) — inside the §10.20 20-pt band, no calibration family.
+**Grew:** +259 weighted @50155000–50162000 (symset 60, sweep 40, questtour 30, wish 30, shop 30, chain 25, zapfest 25, options 19/20 — Valkyrie-50162014 too short); full rescore 2792/3233 (86.4 %), RNG 97.09 %, screens 94.65 %, 0 PASS→FAIL (D-3885 582706 still FAIL@1166). Note: `scenario-gen --help` runs a default 60-recipe batch (no help text) — removed that out-of-range accident before scoring.
+**Next:** regen'd cliffs head (12 owners, Must-fix empty): new multi-session owners handler_menu_colors ×11, optfn_IBMgraphics ×14, welcome ×14 re-entry (symset step-0); optfn_symset 18→28, do_fight 9→16; peace_minded / mhitm_knockback / cprefx out.
 ## 2026-10-14 — D-3949 `dothrow.c` hurtle_step collision arm never drained the deferred low-HP wail: knockback hurtle skipped C's inline maybe_wail `--More--` wait, landing mdamageu one screen early (Healer-50055087 s577 HP:2→12, moved to s1028)
 
 **C locus:** `nethack-c/upstream/src/dothrow.c` hurtle_step `:834–839` (`dmg = rnd(2 + *range); losehp(...); wake_nearto(x, y, 10); return FALSE`) + `hack.c` losehp `:4289–4291` (`else if (n > 0 && u.uhp*10 < u.uhpmax) maybe_wail();`) + `hack.c` maybe_wail `:4210–4243` (staticfn, losehp's two elif arms only — `:4275`, `:4290` — verified by grep; 50-move `wailmsg` throttle). losehp(2) at 14→12 HP crossed the 1/10 threshold, so maybe_wail's You_hear printed inline and its `--More--` wait suspended the chain before the stun roll + mdamageu.
