@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-14 — D-3961 [measure] `pager.c` do_screen_description travel: geom-probe refutes the D-3960 flush theory — C's hero never arrived, writer is travel-blocking/pathing (no js/)
+
+**C locus:** travel execution (`cmd.c` dotravel/getpos accept → `hack.c` domove_core travel steps + `domove_bump_mon` pet-blocking + `findtravelpath` BFS tie-break) — the hero's step-16 position is the writer's input; the flush path (`hack.c:2996–3017` runmode_delay_output, `allmain.c:473–479`, `cmd.c:5104` parse, `display.c:1687–1690` curs_on_u) is proven faithful (see JS was).
+**JS:** none.
+**Change:** none — measurement (this commit). No TEMP-C build was needed (probe + static C read sufficed); no C files touched; /tmp probes kept out of tree.
+**Verify:** preflight `node scripts/verify.mjs --no-cohort` → VERIFY: PASS (this session, before diagnosis). `verify --fn do_screen_description` → 0 PASS, 0 moved past, 5 unchanged, 0 worse → NO MOVEMENT (no js/ — expected); REACH-OK (fixed smoke spread 24 PASS); green 2/2, strict ×2, cohort 7/7. Probes reverted (`git status` clean except CURRENT.md line).
+**Named:** none — no port; docs-only entry, no Ledger bullet (D-3944/D-3960 precedent) — flush/runmode/getpos/vision/newsym untouched (all proven faithful this iter: runmode LEAP both sides, getpos `>` loops correctly, D-3959's delta cannot early-exit, recalc runs eagerly in C `vision.c:512–532`).
+**Next:** port-iter: (i) confirm C's hero cell at step 16 — fork-look recipe (D-3957: fork + `;`-look keys, rng-neutral) or temp-C u.ux/uy dump at the `,`-accept + arrival ticks; (ii) read C `domove_bump_mon` (pet-blocking/stop rule) + `findtravelpath` (BFS order/tie-break) against JS for the rule that stops C's hero (dog at (50,15) is adjacent to start (50,14)); (iii) port the rule whole + `verify do_screen_description` (predict Caveman s16 moves — hero-pos heals row 4 + stairs + white). Falsifier: C's hero AT (55,5) at step 16 (then the writer is paint-visibility (newsym/cansee/memory), not travel — re-queue under that).
 ## 2026-10-14 — D-3960 [measure] `pager.c` do_screen_description travel-flush: temp-C vizdump proves C painted GOLD (gbuf) but the terminal shows floor — writer is the map-output flush path (no js/)
 
 **C locus:** `display.c` show_glyph `:2031–2057` (gbuf "3rd screen" buffering: paints update gbuf + dirty ranges + gnew, never write the terminal); the flush path (flush_screen/docrt/display_nhwindow(WIN_MAP) + runmode gates, wintty.c — exact travel flush points NOT yet mapped, see Next); `allmain.c:548–556` (map flush skipped during run — "done through domove()"); `vision.c` vision_recalc `:849–850` trailing newsym(ux,uy) (ran — painted hero to gbuf, never flushed).
