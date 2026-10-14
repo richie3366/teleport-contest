@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-10-14
+
+- [x] `allmain.c` welcome — blocks 96/2815 corpus sessions (first at step 814; RNG lost 299068, screens lost 67437): toplines identical; first differing screen row 8: C «#·· ·······[···│» vs JS «·· ·······[···│» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify welcome` (scen-chain-Ranger-49950026, scen-symset-Archeologist-50058507, scen-symset-Archeologist-50058509). @9a0ca2a78 **[history: archived D-2725 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3941
+
 ## 2026-10-13
 
 - [x] `[measure]` `botl.c` do_statusline2 T-field / Barbarian-49959646 steps 553–558 moves-vs-paint timing (D-3939 park follow-up) — blocks 12/2296 (JS T=C T+1 transiently at menu keys, RNG identical). Deliverable: TEMP-C dump in the ignored recorder tree (botl.c do_statusline2/bot/timebot entry: svm.moves + disp.time_botl/disp.botl + painted row 23 + step tag; rebuild, run recipe, revert + rebuild after; probes in /tmp, never committed). Predict C moves=92 with stale T:91 at 553–557 (RNG owner order already proves 2 rounds at 553) + fresh T:93 at 558 (1 round + repaint); then port iter gates the JS menu-path freshen (JS stack instrument to name the painter) with `verify do_statusline2` (predict 12 PASS). If dump shows C moves=91, re-queue as round-trigger Open instead. No `js/` in the measure commit. **Addressed:** D-3939 `31071a2a4`

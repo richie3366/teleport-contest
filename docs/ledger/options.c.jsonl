@@ -20,7 +20,7 @@
 {"fn":"optfn_crash_name","c":"1285-1308","status":"ported","js":["js/options.js:optfn_crash_name"],"d":["D-3169"],"at":"2026-09-30@e79d836f7","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_crash_urlmax","c":"1311-1339","status":"ported","js":["js/options.js:optfn_crash_urlmax"],"d":["D-3630","D-3167"],"at":"2026-10-07@a77f1cc66","note":"D-3630: live at js/options.js:3825 (windowed error promise chained); stale MISSING note retired"}
 {"fn":"optfn_cursesgraphics","c":"1345-1390","status":"by-design","d":["D-3162"],"at":"2026-09-30@a8bd0bc2e","note":"compiled out: CURSES_GRAPHICS commented out config.h:58, only xcode/cross/multiw hints; contest unix build is TTY_GRAPHICS"}
-{"fn":"optfn_DECgraphics","c":"1394-1439","status":"ported","js":["js/options.js:optfn_DECgraphics"],"d":["D-3403","D-3162"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
+{"fn":"optfn_DECgraphics","c":"1394-1439","status":"ported","js":["js/options.js:optfn_DECgraphics"],"d":["D-3941","D-3403","D-3162"],"at":"2026-10-14@73801e55a","note":"audited D-3403: whole vs C"}
 {"fn":"optfn_disclose","c":"1442-1560","status":"ported","js":["js/options.js:optfn_disclose"],"d":["D-3403","D-2788"],"at":"2026-10-04@7a3ae7a92"}
 {"fn":"optfn_dogname","c":"1563-1569","status":"ported","js":["js/options.js:optfn_dogname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"optfn_dungeon","c":"1572-1591","status":"ported","js":["js/options.js:optfn_dungeon"],"d":["D-3177"],"at":"2026-09-30@ae5beffe4","note":"refresh: no JS symbol (measured MISSING)"}
@@ -40,7 +40,7 @@
 {"fn":"optfn_glyph","c":"1815-1849","status":"ported","js":["js/options.js:optfn_glyph"],"d":["D-3167"],"at":"2026-09-30@2b25db15c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_hilite_status","c":"1852-1894","status":"ported","js":["js/options.js:optfn_hilite_status"],"d":["D-3162"],"at":"2026-09-30@a8bd0bc2e","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_horsename","c":"1897-1903","status":"ported","js":["js/options.js:optfn_horsename"],"at":"2026-10-03@bbe63333a"}
-{"fn":"optfn_IBMgraphics","c":"1906-1960","status":"partial","js":["js/options.js:optfn_IBMgraphics"],"omit":"blocked: remainder unportable — read_sym_file arm needs SYMBOLS file IO (Rule #2) and clear_symsetentry/switch_symbols are by-design seeds; D-3159 partial stands (D-3160).","d":["D-3159"],"at":"2026-09-30@deff666da","note":"stale-row retired: portable body complete at js/options.js:7013"}
+{"fn":"optfn_IBMgraphics","c":"1906-1960","status":"ported","js":["js/options.js:optfn_IBMgraphics"],"d":["D-3941","D-3159"],"at":"2026-10-14@73801e55a","note":"stale-row retired: portable body complete at js/options.js:7013"}
 {"fn":"optfn_map_mode","c":"1963-2047","status":"ported","js":["js/options.js:optfn_map_mode"],"d":["D-3157"],"at":"2026-09-30@e47a5e02a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"shared_menu_optfn","c":"2052-2074","status":"ported","js":["js/options.js:shared_menu_optfn"],"d":["D-3416","D-3403","D-2651"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"optfn_menu_deselect_all","c":"2077-2082","status":"ported","js":["js/options.js:optfn_menu_deselect_all"],"at":"2026-10-03@bbe63333a"}
@@ -79,7 +79,7 @@
 {"fn":"optfn_player_selection","c":"3438-3468","status":"ported","js":["js/options.js:optfn_player_selection"],"d":["D-3167"],"at":"2026-09-30@2b25db15c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_playmode","c":"3471-3504","status":"ported","js":["js/options.js:optfn_playmode"],"d":["D-3162"],"at":"2026-09-30@a8bd0bc2e","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_race","c":"3507-3542","status":"ported","js":["js/options.js:optfn_race"],"d":["D-3403","D-2786"],"at":"2026-10-04@7a3ae7a92"}
-{"fn":"optfn_roguesymset","c":"3545-3586","status":"ported","js":["js/options.js:optfn_roguesymset"],"d":["D-3403","D-3121"],"at":"2026-10-04@7a3ae7a92","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_roguesymset","c":"3545-3586","status":"ported","js":["js/options.js:optfn_roguesymset"],"d":["D-3941","D-3403","D-3121"],"at":"2026-10-14@73801e55a","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_role","c":"3589-3624","status":"ported","js":["js/options.js:optfn_role"],"d":["D-3403","D-2786"],"at":"2026-10-04@7a3ae7a92"}
 {"fn":"optfn_runmode","c":"3627-3666","status":"ported","js":["js/options.js:optfn_runmode"],"d":["D-2830"],"at":"seed@a30a7de84"}
 {"fn":"optfn_scores","c":"3669-3760","status":"ported","js":["js/options.js:optfn_scores"],"d":["D-2830"],"at":"seed@a30a7de84"}
@@ -93,7 +93,7 @@
 {"fn":"optfn_statuslines","c":"4067-4107","status":"ported","js":["js/options.js:optfn_statuslines"],"d":["D-3161"],"at":"2026-09-30@deff666da","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_subkeyvalue","c":"4111-4131","status":"by-design","at":"2026-09-30@ae5beffe4","note":"WIN32CON-only body options.c:4109-4132 and optlist.h:736-739; compiled out in Unix contest C"}
 {"fn":"optfn_suppress_alert","c":"4135-4161","status":"ported","js":["js/options.js:optfn_suppress_alert"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
-{"fn":"optfn_symset","c":"4167-4236","status":"ported","js":["js/options.js:optfn_symset"],"at":"2026-09-30@c8af100c3","note":"stale: js/options.js:3447 whole per D-3162 DECgraphics (read_sym_file/switch_symbols file-IO + do_handler/do_symset browser named; flags gated, roguesymset/perminv precedent)"}
+{"fn":"optfn_symset","c":"4167-4236","status":"ported","js":["js/options.js:optfn_symset"],"d":["D-3941"],"at":"2026-10-14@73801e55a","note":"stale: js/options.js:3447 whole per D-3162 DECgraphics (read_sym_file/switch_symbols file-IO + do_handler/do_symset browser named; flags gated, roguesymset/perminv precedent)"}
 {"fn":"optfn_term_cols","c":"4239-4277","status":"ported","js":["js/options.js:optfn_term_cols"],"d":["D-3162"],"at":"2026-09-30@a8bd0bc2e","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_term_rows","c":"4280-4318","status":"ported","js":["js/options.js:optfn_term_rows"],"d":["D-3162"],"at":"2026-09-30@a8bd0bc2e","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_tile_file","c":"4321-4351","status":"ported","js":["js/options.js:optfn_tile_file"],"d":["D-3167"],"at":"2026-09-30@2b25db15c","note":"refresh: no JS symbol (measured MISSING)"}
@@ -159,7 +159,7 @@
 {"fn":"escapes","c":"6896-6966","status":"ported","js":["js/options.js:escapes"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full decoder: meta, ^X, dec/oct/hex, C-escapes"}
 {"fn":"txt2key","c":"6971-7067","status":"ported","js":["js/options.js:txt2key"],"d":["D-3403","D-3114"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"initoptions","c":"7079-7115","status":"ported","js":["js/options.js:initoptions"],"d":["D-3472","D-3403","D-3182","D-3025"],"at":"2026-10-05@e4e184360","note":"row retired D-3472: D-3182 finish first-line-stamped own whole-claim over D-3025 paste; body whole, earlyarg caller wired+guarded, unixmain flattened-equivalent, callee omits on own rows"}
-{"fn":"initoptions_init","c":"7119-7305","status":"partial","js":["js/options.js:initoptions_init"],"omit":"sf_init :7129 (NHFILE, no analogue); choose_windows :7136 (by-design); init_random×2 :7161-7162 (initRng adapter, no per-stream entry); init/switch/rogue_symbols :7199/:7212/:7213 (by-design); TERM AT/vt+load_symset :7223-7242 (Rule #2); MSDOS/WIN32/MAC :7246-7257 compiled out","d":["D-3556","D-3545","D-3403","D-3172","D-3061"],"at":"2026-10-06@b39cb750e","note":"audited D-3556: remaining omit cannot ship"}
+{"fn":"initoptions_init","c":"7119-7305","status":"partial","js":["js/options.js:initoptions_init"],"omit":"load_symset symbols.c:672–690 + do_symset browser :908–1099 (callers compiled-out/by-design); assign_graphics/switch_symbols(TRUE) keep the defaults+ov showsyms source — non-mapglyph readers (decode_mixed windows.c:1484 botl `\\G` bytes, detect boulder, getpos match) see pre-load values under loaded…","d":["D-3941","D-3556","D-3545","D-3403","D-3172","D-3061"],"at":"2026-10-14@73801e55a","note":"D-3941: :7199 init_symbols + :7213 init_rogue_symbols wired"}
 {"fn":"initoptions_finish","c":"7324-7384","status":"ported","js":["js/options.js:initoptions_finish"],"d":["D-3403","D-3232","D-3025"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"allopt_array_init","c":"7405-7433","status":"ported","js":["js/options.js:allopt_array_init"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_menuobjsyms_flags","c":"7446-7451","status":"ported","js":["js/options.js:set_menuobjsyms_flags"],"at":"2026-10-03@bbe63333a"}

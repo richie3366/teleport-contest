@@ -1,21 +1,21 @@
-{"fn":"init_symbols","c":"85-92","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"init_showsyms","c":"95-109","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"init_symbols","c":"85-92","status":"ported","js":["js/display.js:init_symbols"],"d":["D-3941"],"at":"2026-10-14@73801e55a","note":"seed: no scored analogue (file)"}
+{"fn":"init_showsyms","c":"95-109","status":"ported","js":["js/display.js:init_showsyms"],"d":["D-3941"],"at":"2026-10-14@73801e55a","note":"seed: no scored analogue (file)"}
 {"fn":"init_ov_rogue_symbols","c":"113-119","status":"ported","js":["js/display.js:init_ov_rogue_symbols"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}
 {"fn":"init_ov_primary_symbols","c":"122-128","status":"ported","js":["js/display.js:init_ov_primary_symbols"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}
-{"fn":"get_othersym","c":"131-163","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"init_primary_symbols","c":"167-183","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"init_rogue_symbols","c":"187-214","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"get_othersym","c":"131-163","status":"ported","js":["js/display.js:get_othersym"],"d":["D-3941"],"at":"2026-10-14@73801e55a","note":"seed: no scored analogue (file)"}
+{"fn":"init_primary_symbols","c":"167-183","status":"ported","js":["js/display.js:init_primary_symbols"],"d":["D-3941"],"at":"2026-10-14@73801e55a","note":"seed: no scored analogue (file)"}
+{"fn":"init_rogue_symbols","c":"187-214","status":"ported","js":["js/display.js:init_rogue_symbols"],"d":["D-3941"],"at":"2026-10-14@73801e55a","note":"seed: no scored analogue (file)"}
 {"fn":"assign_graphics","c":"217-250","status":"ported","js":["js/display.js:assign_graphics"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}
-{"fn":"switch_symbols","c":"253-292","status":"partial","js":["js/display.js:switch_symbols"],"omit":"- `switch_symbols`: TRUE :261–287 callbacks null in contest tty; FALSE clear_symsetentry tail: desc/restrict/purge/glyphmap (:326–348); callers options.c:1419/:1943/:4197/:7212/:7228/:7241/:7256 + load_symset:682 + do_symset:1088 (named in JS); :1370 CURSES_GRAPHICS compiled out; unixmain platform.","d":["D-3511","D-3413"],"at":"2026-10-06@97b97195d","note":"D-3511 restore-compacted (D-3413 377→299): :664 wired D-3416 (options.js:12505); body display.js:3257; TRUE exact (review 2359)"}
+{"fn":"switch_symbols","c":"253-292","status":"partial","js":["js/display.js:switch_symbols"],"omit":"load_symset symbols.c:672–690 + do_symset browser :908–1099 (callers compiled-out/by-design); assign_graphics/switch_symbols(TRUE) keep the defaults+ov showsyms source — non-mapglyph readers (decode_mixed windows.c:1484 botl `\\G` bytes, detect boulder, getpos match) see pre-load values under loaded…","d":["D-3941","D-3511","D-3413"],"at":"2026-10-14@73801e55a","note":"D-3941: FALSE :289-290 wired (init_primary_symbols+init_showsyms); TRUE defaults-source standing"}
 {"fn":"update_ov_primary_symset","c":"295-298","status":"ported","js":["js/display.js:update_ov_primary_symset"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: signature adapted to (idx,val); same indexed store with bounds check"}
 {"fn":"update_ov_rogue_symset","c":"301-304","status":"ported","js":["js/display.js:update_ov_rogue_symset"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: signature adapted to (idx,val); same indexed store with bounds check"}
-{"fn":"update_primary_symset","c":"307-310","status":"partial","js":["js/const.js:update_primary_symset"],"omit":"indexed store gp.primary_syms[symp->idx]=val; JS overwrites whole scalar, ignores symp/idx","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: autotranslation lost array model per const.js comment; no callers"}
-{"fn":"update_rogue_symset","c":"313-316","status":"partial","js":["js/const.js:update_rogue_symset"],"omit":"indexed store gr.rogue_syms[symp->idx]=val; JS overwrites whole scalar, ignores symp/idx","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: autotranslation lost array model per const.js comment; no callers"}
-{"fn":"clear_symsetentry","c":"319-349","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"update_primary_symset","c":"307-310","status":"ported","js":["js/display.js:update_primary_symset"],"d":["D-3941"],"at":"2026-10-14@73801e55a","note":"audit 2026-10-03: autotranslation lost array model per const.js comment; no callers"}
+{"fn":"update_rogue_symset","c":"313-316","status":"ported","js":["js/display.js:update_rogue_symset"],"d":["D-3941"],"at":"2026-10-14@73801e55a","note":"audit 2026-10-03: autotranslation lost array model per const.js comment; no callers"}
+{"fn":"clear_symsetentry","c":"319-349","status":"ported","js":["js/display.js:clear_symsetentry"],"d":["D-3941"],"at":"2026-10-14@73801e55a","note":"seed: no scored analogue (file)"}
 {"fn":"symset_is_compatible","c":"353-367","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"proc_symset_line","c":"431-434","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"parse_sym_line","c":"438-654","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"set_symhandling","c":"657-669","status":"ported","js":["js/const.js:set_symhandling"],"d":["D-3365","D-3364"],"at":"2026-10-03@ace5efd57"}
+{"fn":"proc_symset_line","c":"431-434","status":"ported","js":["js/options.js:proc_symset_line"],"d":["D-3941"],"at":"2026-10-14@73801e55a","note":"seed: no scored analogue (file)"}
+{"fn":"parse_sym_line","c":"438-654","status":"ported","js":["js/options.js:parse_sym_line"],"d":["D-3941"],"at":"2026-10-14@73801e55a","note":"seed: no scored analogue (file)"}
+{"fn":"set_symhandling","c":"657-669","status":"ported","js":["js/display.js:set_symhandling"],"d":["D-3941","D-3365","D-3364"],"at":"2026-10-14@73801e55a"}
 {"fn":"load_symset","c":"673-690","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"free_symsets","c":"693-701","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"savedsym_free","c":"712-723","status":"ported","js":["js/options.js:savedsym_free"],"d":["D-3364"],"at":"2026-10-03@6da1640bc"}

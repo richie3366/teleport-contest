@@ -56,8 +56,8 @@
 {"fn":"wizkit_addinv","c":"2537-2559","status":"ported","js":["js/files.js:wizkit_addinv"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: module-local in JS"}
 {"fn":"proc_wizkit_line","c":"2562-2581","status":"ported","js":["js/files.js:proc_wizkit_line"],"d":["D-3465","D-2880"],"at":"2026-10-05@ef3f2aa84"}
 {"fn":"read_wizkit","c":"2584-2601","status":"ported","js":["js/files.js:read_wizkit"],"d":["D-3465"],"at":"2026-10-05@ef3f2aa84"}
-{"fn":"fopen_sym_file","c":"2611-2624","status":"unknown"}
-{"fn":"read_sym_file","c":"2631-2674","status":"unknown"}
+{"fn":"fopen_sym_file","c":"2611-2624","status":"ported","js":["js/options.js:fopen_sym_file"],"d":["D-3941"],"at":"2026-10-14@73801e55a","note":"Rule-2 shape: returns embedded text, null when empty"}
+{"fn":"read_sym_file","c":"2631-2674","status":"ported","js":["js/options.js:read_sym_file"],"d":["D-3941"],"at":"2026-10-14@73801e55a","note":"symset loader whole: embedded SYMBOLS_TEXT via parse_conf_file"}
 {"fn":"check_recordfile","c":"2689-2791","status":"unknown"}
 {"fn":"paniclog","c":"2801-2833","status":"by-design","at":"seed@a30a7de84","note":"seed: filesystem (CURRENT.md Do not)"}
 {"fn":"testinglog","c":"2836-2854","status":"unknown"}

@@ -12,7 +12,7 @@
 {"fn":"clear_stale_map","c":"318-331","status":"ported","js":["js/detect.js:clear_stale_map"],"at":"2026-10-03@bbe63333a"}
 {"fn":"gold_detect","c":"335-475","status":"ported","js":["js/detect.js:gold_detect"],"d":["D-3935","D-1773"],"at":"2026-10-13@ec0e2af9b"}
 {"fn":"food_detect","c":"479-594","status":"ported","js":["js/detect.js:food_detect"],"d":["D-3406","D-3404","D-1781"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
-{"fn":"object_detect","c":"603-789","status":"ported","js":["js/detect.js:object_detect"],"d":["D-1782"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: display_nhwindow absence arm is a flush; illegal-class impossible silent"}
+{"fn":"object_detect","c":"603-789","status":"ported","js":["js/detect.js:object_detect"],"d":["D-3941","D-1782"],"at":"2026-10-14@73801e55a","note":"audit 2026-10-03: display_nhwindow absence arm is a flush; illegal-class impossible silent"}
 {"fn":"monster_detect","c":"798-862","status":"ported","js":["js/detect.js:monster_detect"],"d":["D-3406","D-3404","D-2081"],"at":"2026-10-04@44ce1ba38","note":"audit 2026-10-03: scan/map/sense/browse arms live"}
 {"fn":"sense_trap","c":"865-897","status":"ported","js":["js/detect.js:sense_trap"],"d":["D-1753"],"at":"2026-10-03@bbe63333a"}
 {"fn":"detect_obj_traps","c":"907-953","status":"ported","js":["js/detect.js:detect_obj_traps"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: ft-arm flash_glyph_at/foundone visual-only calls omitted; counts live"}
@@ -20,7 +20,7 @@
 {"fn":"trap_detect","c":"1011-1088","status":"ported","js":["js/detect.js:trap_detect"],"at":"2026-10-03@bbe63333a"}
 {"fn":"furniture_detect","c":"1091-1134","status":"ported","js":["js/detect.js:furniture_detect"],"d":["D-3045"],"at":"2026-09-28@25bf764f0"}
 {"fn":"level_distance","c":"1142-1185","status":"ported","js":["js/detect.js:level_distance"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
-{"fn":"use_crystal_ball","c":"1206-1368","status":"ported","js":["js/detect.js:use_crystal_ball"],"at":"2026-10-03@bbe63333a"}
+{"fn":"use_crystal_ball","c":"1206-1368","status":"ported","js":["js/detect.js:use_crystal_ball"],"d":["D-3941"],"at":"2026-10-14@73801e55a"}
 {"fn":"show_map_spot","c":"1372-1419","status":"ported","js":["js/detect.js:show_map_spot"],"d":["D-3257"],"at":"2026-10-02@1fe3dcc2a"}
 {"fn":"do_mapping","c":"1422-1444","status":"ported","js":["js/detect.js:do_mapping"],"d":["D-3257"],"at":"2026-10-02@1fe3dcc2a","note":"stale 2026-09-08"}
 {"fn":"do_vicinity_map","c":"1448-1585","status":"ported","js":["js/detect.js:do_vicinity_map"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
