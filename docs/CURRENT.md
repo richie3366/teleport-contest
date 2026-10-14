@@ -34,7 +34,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 |--------|------:|
 | **Held-out (judge 2026-10-14 13:45Z)** | **32 / 44**, 9,921 / 11,265 pts, RNG **92.0 %**, rngSteps 95.8 %, screens **88.1 %** |
 | **Fresh cohort (§10.20, scored on arrival)** | 50250000 ×160 @`fe3b23998`: **140/160 (87.5 %)**, RNG 94.6 %, screens 92.1 % — symset 4/12 worst |
-| **Corpus board (worked, regression fortress)** | **3183 / 3657** @`f0282c7f3` full, RNG 97.46 %, screens 95.82 % |
+| **Corpus board (worked, regression fortress)** | **3186 / 3657** @`1d6305025` full (canonical Enhanced re-record, D-3963), RNG 97.47 %, screens 96.1 % |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
@@ -68,7 +68,7 @@ Reviews 1225–2807 (index; no row 1618): 1408 ACCEPT, 63 WITH-DEBT, 111 QUALITY
 Live debts: `reviews/loop-unattended/00-INDEX.md` WITH-DEBT rows; 52
 unit tests in `scripts/*.test.mjs` fail on HEAD (stale after rewires —
 same set before and after D-3930).
-Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs 8` (≈35 min for 2815), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
+Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs <cores-4>` (3657 sessions: ≈10 min at --jobs 10 on 14 cores; ≈35 min at --jobs 8 on the loop host), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
 
 **PASS (44):** every session in `sessions/`.
 
