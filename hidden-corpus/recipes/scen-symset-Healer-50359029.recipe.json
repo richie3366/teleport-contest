@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " mO>>>n\u001b\nO>h\u001b\n\u00162\nFjFyFbFbFjFnFbFjFjFjFbFjFlFbFjFnFjFnFnFbFjFbFjFbFnFbFnFbFnFbFnFjFjFlFjFbFbFjFjFjFjFjFnFnFnFbFjFnFnFbFjFjFbFbFnFjFnFnFnFjFbFbFbFjFbFbFnFjFbFjFnFnFbFbFbFjFbFjFnFbFjFnFnFbFjFjFbFnFkFnFbFbFjFbFjFnFbFnFbFkFbFnFbFjFjFbFbFjFbFnFjFjFl FnFnFbFjFnFnFj\u001613\njhh\u0017grave\n:\u0017wand of digging\nzl> ..y\u0017fountain\nqy yly\u0017pool\n#dip\nb\u001b#terrain\n#monster\n\u0004 y \u0016 \u0016 _ > \\ 150s l khFy     FhFhFh  nFhFhFh  n FhFhFhFh  nFhFh  nFhFhFh  nFhFhFhFh  nFhFhFh .jjnFnFbFjFbFbFjFjFjFbFb FuFbFnFnFnFbFjFjFbFnFbFjFbFnFbFjFb#pray\ny y     FjFkFkFk  nFbFbFnFkFn  nFbFnFn#pray\ny y     FkFnFnFk  nFnFbFkFjFk  n FjFbFjFjFjFkFbFjFjFjFnFjFnFjFbFbFbFnFbFjFbFnFnFnFjFjFj\u001610\n#untrap\ny\u0014 \u001b.#levelchange\n14\n           j n j\u0017cloud\nbj\u0017melting ice\n:ri,u          \u00161\n\\ bub50sFlFls 150sFlss100syjhFjFbFnFbFbFjFnFnFbFjFjFnFnFjFjFbFjFnFnFjFbFbFnFbFjFbFjFbFnFjFnFnFbFjFbFjFjFjFbFnFjFnFnFbFjFbFbFjFnFjFbFnFnFnF"
+ },
+ "segments": [
+  {
+   "seed": 50359029,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=sortloot:full\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You miss\"\n",
+   "moves": " mO>>>n\u001b\nO>h\u001b\n\u00162\nFjFyFbFbFjFnFbFjFjFjFbFjFlFbFjFnFjFnFnFbFjFbFjFbFnFbFnFbFnFbFnFjFjFlFjFbFbFjFjFjFjFjFnFnFnFbFjFnFnFbFjFjFbFbFnFjFnFnFnFjFbFbFbFjFbFbFnFjFbFjFnFnFbFbFbFjFbFjFnFbFjFnFnFbFjFjFbFnFkFnFbFbFjFbFjFnFbFnFbFkFbFnFbFjFjFbFbFjFbFnFjFjFl FnFnFbFjFnFnFj\u001613\njhh\u0017grave\n:\u0017wand of digging\nzl> ..y\u0017fountain\nqy yly\u0017pool\n#dip\nb\u001b#terrain\n#monster\n\u0004 y \u0016 \u0016 _ > \\ 150s l khFy     FhFhFh  nFhFhFh  n FhFhFhFh  nFhFh  nFhFhFh  nFhFhFhFh  nFhFhFh .jjnFnFbFjFbFbFjFjFjFbFb FuFbFnFnFnFbFjFjFbFnFbFjFbFnFbFjFb#pray\ny y     FjFkFkFk  nFbFbFnFkFn  nFbFnFn#pray\ny y     FkFnFnFk  nFnFbFkFjFk  n FjFbFjFjFjFkFbFjFjFjFnFjFnFjFbFbFbFnFbFjFbFnFnFnFjFjFj\u001610\n#untrap\ny\u0014 \u001b.#levelchange\n14\n           j n j\u0017cloud\nbj\u0017melting ice\n:ri,u          \u00161\n\\ bub50sFlFls 150sFlss100syjhFjFbFnFbFbFjFnFnFbFjFjFnFnFjFjFbFjFnFnFjFbFbFnFbFjFbFjFbFnFjFnFnFbFjFbFjFjFjFbFnFjFnFnFbFjFbFbFjFnFjFbFnFnFnF"
+  }
+ ]
+}

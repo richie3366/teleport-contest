@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "Ogi\ng\nj\n#enhance\nyn\nj\n\u001b#terrain\n\u001bOmd\n#sit\n10sO>fdl\n;l. \u001b.Oca\nc\n20s,Oe\n\u0014m,i\u001b20s.m.mO>jcn\n  #turn\nf $ umO>i\n olnOin\nk\n#chat\njmO>>>st\ni\u001bOh\n#enhance\nyn\nj\n\u001b#invoke\n\u001bmO>>>>dc\n#rub\n20s.lsm."
+ },
+ "segments": [
+  {
+   "seed": 50355013,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "Ogi\ng\nj\n#enhance\nyn\nj\n\u001b#terrain\n\u001bOmd\n#sit\n10sO>fdl\n;l. \u001b.Oca\nc\n20s,Oe\n\u0014m,i\u001b20s.m.mO>jcn\n  #turn\nf $ umO>i\n olnOin\nk\n#chat\njmO>>>st\ni\u001bOh\n#enhance\nyn\nj\n\u001b#invoke\n\u001bmO>>>>dc\n#rub\n20s.lsm."
+  }
+ ]
+}

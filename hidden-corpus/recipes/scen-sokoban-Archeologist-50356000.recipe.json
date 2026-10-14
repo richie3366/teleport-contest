@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>EFl njlhnjhnnnnnnnnnnk\u0017wand of digging\nzikjnk\u0017scroll of earth\n rj lnkhbhjyhun\u0017scroll of earth\nrk   yy\u001by  y ny\u001b  y"
+ },
+ "segments": [
+  {
+   "seed": 50356000,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>EFl njlhnjhnnnnnnnnnnk\u0017wand of digging\nzikjnk\u0017scroll of earth\n rj lnkhbhjyhun\u0017scroll of earth\nrk   yy\u001by  y ny\u001b  y"
+  }
+ ]
+}

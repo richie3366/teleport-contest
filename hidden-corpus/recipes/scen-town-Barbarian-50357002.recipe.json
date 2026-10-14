@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>w\u0006\u0017blessed potion of object detection\nqe \u001b,_ooooooo, Fk_,,$_dd._,\u0004k_ooooooo._.@.Fl ,p_{.Fl _. Fl  q_oooooo.  Fn  _.  Fj  _ooo. Fn _.;.Fj,#chat\nu_ooooo._.,$_ooooooo,Fb  _.Fh  _ooo.Fb _,Fh ,#chat\nh #dip\nb#loot\nh>Sy\u001b yW#terrain\n\u001b#pray\ny y       #chat\nb#jump\ncl<",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50357002,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>w\u0006\u0017blessed potion of object detection\nqe \u001b,_ooooooo, Fk_,,$_dd._,\u0004k_ooooooo._.@.Fl ,p_{.Fl _. Fl  q_oooooo.  Fn  _.  Fj  _ooo. Fn _.;.Fj,#chat\nu_ooooo._.,$_ooooooo,Fb  _.Fh  _ooo.Fb _,Fh ,#chat\nh #dip\nb#loot\nh>Sy\u001b"
+  },
+  {
+   "seed": 50857002,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " yW#terrain\n\u001b#pray\ny y       #chat\nb#jump\ncl<"
+  }
+ ]
+}

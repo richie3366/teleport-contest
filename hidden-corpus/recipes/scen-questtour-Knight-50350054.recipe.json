@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nh_mmm. Fh_.#chat\nh_m.Fh_.#chat\nj_mmmm.#chat\nh_mmmm.#chat\nj#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fk_.#chat\nj_mmmm,Fl _,#chat\nn_mmmm.Fy _, Fk #chat\nk\u0017blessed +3 cloak of magic resistance\nWi    \u0017blessed +3 helm of telepathy\nW\u001b\u0017wand of cold\n\u0016?\n>A\u0006_mmmmm.Fk  _.    Fu         Fk   n        Fl          Fu         Fu   n        Fy          Fu         ,#chat\nh\u00168\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,     n     Fu         _,Fk  Fy         Fy       Fn Fj    n          zkj        ,\u00167\n\u0016?\n>z\u0006_mm.  Fb    n         _.Fb   n          Fu        Fk Fb       n      Fh        Fkzky       ,\u0016?\n>>\u001b\u0016?\n>y_mmmm, Fh         _.#chat\nj\u00167\n\u0016?\n>A\u0006_mmmmmm,       n      Fn            _.Fb            n Fj           Fk        Fl   Fy        Fk  n   Fj        zkb,\u00163\n\u0016?\n>A\u0006_mmmmmm,       Fy       n        _.Fk       Fn  Fl       Fj      n    Fu       Fn Fj         ,\u001612\n\u0016?\n>>\u001b\u0016?\n>z"
+ },
+ "segments": [
+  {
+   "seed": 50350054,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nh_mmm. Fh_.#chat\nh_m.Fh_.#chat\nj_mmmm.#chat\nh_mmmm.#chat\nj#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fk_.#chat\nj_mmmm,Fl _,#chat\nn_mmmm.Fy _, Fk #chat\nk\u0017blessed +3 cloak of magic resistance\nWi    \u0017blessed +3 helm of telepathy\nW\u001b\u0017wand of cold\n\u0016?\n>A\u0006_mmmmm.Fk  _.    Fu         Fk   n        Fl          Fu         Fu   n        Fy          Fu         ,#chat\nh\u00168\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,     n     Fu         _,Fk  Fy         Fy       Fn Fj    n          zkj        ,\u00167\n\u0016?\n>z\u0006_mm.  Fb    n         _.Fb   n          Fu        Fk Fb       n      Fh        Fkzky       ,\u0016?\n>>\u001b\u0016?\n>y_mmmm, Fh         _.#chat\nj\u00167\n\u0016?\n>A\u0006_mmmmmm,       n      Fn            _.Fb            n Fj           Fk        Fl   Fy        Fk  n   Fj        zkb,\u00163\n\u0016?\n>A\u0006_mmmmmm,       Fy       n        _.Fk       Fn  Fl       Fj      n    Fu       Fn Fj         ,\u001612\n\u0016?\n>>\u001b\u0016?\n>z"
+  }
+ ]
+}

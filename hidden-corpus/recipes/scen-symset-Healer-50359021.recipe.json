@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "v\u001bi\u001bOd\u001b\n\u001614\n    Od\u001b\n#rub\noh ai #sit\n\u001b\u001615\ni\u001b#tip\n\u001b\\ O>p\u001b\n\u0004y ai FbFbFnFbFbFbFbFnFbFnFnFbFbFnFnFbFnFbFbFnFbFnFbFnFnFbFbFbFnFbFbFbFbFnFbFbFbFbFnFnFbFbFbFnFnFbFnFbFnFbFnFnFbFbFnFnFnFbFnFnFnFbFbFnFbFnFnFbFbFnFnFnFbFbFbFnFbFbFbFnFbFnFbFnFnFbFnFnFnFbFbFbFbFbFbFbFnFbFnFbFnFnFnFnFnFbFnFnFbFbFnFnFnFbFbFnFbFbFnFnv\u001bi\u001bO>>j\u001b\nmOa\u001b\nFnFnFbFbFnFbFnFbFbFbFbFbFbFnFnFbFnFnFnFbFbFnFnFnFbFnFbFbFbFnFnFnFnFnFnFbFbFbFnFbFbFbFbFbFnFnFbFnFbFbFbFbFnFnFnFnFnFbFbFnFnFnFbFnFnFnFbFnFnFnFbFbFnFbFbFbFnFbFnFnFnFbFbFbFbFbFbFbFbFbFnFbFnFbFbFbFbFnFnFbFnFnFbFnFnFnFnFnFbFbFbFnFnFnFnFbFnFbFnFb\u0007little dog\n\u0017tripe ration\nt$n \u0017leash\nann kk lb ln jank kn \u0006_ \u001b.>FbFkb _>>.Fl_.m,Fl>FlFl_>>.Fl_.@.Fu>FuFu#name\n\u001b\u0007yellow mold\nsm.sm.sm.  n .m.  n20sm.20sm.  n\u0017magic whistle\nh\u001bybao#chat\nk \u00164\n#jump\n#dip\nif\u00165\nFnFjFjFbFnFjFbFjFbFbFbFnFjFbFjFbFnFjFjFnFjFbFnFjFnFbFbFjFjFbFbFjFbFbFjFnFbFnFnFnFnFjFbFjFbFbFjFnFbFjFjFbFbFnF"
+ },
+ "segments": [
+  {
+   "seed": 50359021,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=number_pad\nMSGTYPE=norep \"You miss\"\nMENUCOLOR=\"a potion\"=brown\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "v\u001bi\u001bOd\u001b\n\u001614\n    Od\u001b\n#rub\noh ai #sit\n\u001b\u001615\ni\u001b#tip\n\u001b\\ O>p\u001b\n\u0004y ai FbFbFnFbFbFbFbFnFbFnFnFbFbFnFnFbFnFbFbFnFbFnFbFnFnFbFbFbFnFbFbFbFbFnFbFbFbFbFnFnFbFbFbFnFnFbFnFbFnFbFnFnFbFbFnFnFnFbFnFnFnFbFbFnFbFnFnFbFbFnFnFnFbFbFbFnFbFbFbFnFbFnFbFnFnFbFnFnFnFbFbFbFbFbFbFbFnFbFnFbFnFnFnFnFnFbFnFnFbFbFnFnFnFbFbFnFbFbFnFnv\u001bi\u001bO>>j\u001b\nmOa\u001b\nFnFnFbFbFnFbFnFbFbFbFbFbFbFnFnFbFnFnFnFbFbFnFnFnFbFnFbFbFbFnFnFnFnFnFnFbFbFbFnFbFbFbFbFbFnFnFbFnFbFbFbFbFnFnFnFnFnFbFbFnFnFnFbFnFnFnFbFnFnFnFbFbFnFbFbFbFnFbFnFnFnFbFbFbFbFbFbFbFbFbFnFbFnFbFbFbFbFnFnFbFnFnFbFnFnFnFnFnFbFbFbFnFnFnFnFbFnFbFnFb\u0007little dog\n\u0017tripe ration\nt$n \u0017leash\nann kk lb ln jank kn \u0006_ \u001b.>FbFkb _>>.Fl_.m,Fl>FlFl_>>.Fl_.@.Fu>FuFu#name\n\u001b\u0007yellow mold\nsm.sm.sm.  n .m.  n20sm.20sm.  n\u0017magic whistle\nh\u001bybao#chat\nk \u00164\n#jump\n#dip\nif\u00165\nFnFjFjFbFnFjFbFjFbFbFbFnFjFbFjFbFnFjFjFnFjFbFnFjFnFbFbFjFjFbFbFjFbFbFjFnFbFnFnFnFnFjFbFjFbFbFjFnFbFjFjFbFbFnF"
+  }
+ ]
+}

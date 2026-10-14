@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n16\n               #wizintrinsic\nl\n E- Vlad was here\n \u0017scroll of amnesia\nro \u0017sprig of wolfsbane\nepE-n  Elbereth Elbereth\n\u0017scroll of fire\nrq sss\u001613\n#levelchange\n6\n   #polyself\nfire vortex\n#monster\n20s    20s   \u0007gnome\nFl20s   FnFn\u0007kobold\nFnFu .s\u0017wand of digging\nz.\u0006_ \u001b.zzsl\u0017grave\nzs20s     #levelchange\n30\n                       \u0016?\nk\u0006\u0017wooden harp\najlayk#sit\n  ri  #name\nm\n\u0016\\   \u0017wand of cold\nzty  zty   n  Fy Fy  n \u0017cursed spellbook of invisibility\nru    n \u001b sn20s Z\u001bZ\u001b\u0017blessed +3 dagger\nwv  n  Fy   n Fy Fy  n Xsks\u001628\n\u00164\n\u0017scroll of stinking cloud\n\u0007erinys\nrw  m,  . s \u0017blessed plate mail\n Wx      .l.20sT      n     \u0017blessed +3 crystal plate mail\n,y             nFb          Fk       n       \u0017potion of polymorph\n\u0007horned devil\nqz   n                 n   Fh              n Fk               n            \u00173 wand of slow monster\nzAk       n          Fy    n                  yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50362013,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n16\n               #wizintrinsic\nl\n E- Vlad was here\n \u0017scroll of amnesia\nro \u0017sprig of wolfsbane\nepE-n  Elbereth Elbereth\n\u0017scroll of fire\nrq sss\u001613\n#levelchange\n6\n   #polyself\nfire vortex\n#monster\n20s    20s   \u0007gnome\nFl20s   FnFn\u0007kobold\nFnFu .s\u0017wand of digging\nz.\u0006_ \u001b.zzsl\u0017grave\nzs20s     #levelchange\n30\n                       \u0016?\nk\u0006\u0017wooden harp\najlayk#sit\n  ri  #name\nm\n\u0016\\   \u0017wand of cold\nzty  zty   n  Fy Fy  n \u0017cursed spellbook of invisibility\nru    n \u001b sn20s Z\u001bZ\u001b\u0017blessed +3 dagger\nwv  n  Fy   n Fy Fy  n Xsks\u001628\n\u00164\n\u0017scroll of stinking cloud\n\u0007erinys\nrw  m,  . s \u0017blessed plate mail\n Wx      .l.20sT      n     \u0017blessed +3 crystal plate mail\n,y             nFb          Fk       n       \u0017potion of polymorph\n\u0007horned devil\nqz   n                 n   Fh              n Fk               n            \u00173 wand of slow monster\nzAk       n          Fy    n                  yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "FnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFneW#ride\nn v\u001bi\u001bv\u001bi\u001bjnkn \u0017altar\ndc\u0017jackal corpse\n#offer\nf  yj\u0017magic fountain\nqyqy\u0017long sword\n#dip\ngy:b\u0017neutral altar\ndb  \u0017jackal corpse\n#offer\nh   #terrain\ne\nP#tip\n\u001b#rub\n#chat\nh >#levelchange\n20\n                   h\u001byjlh \u0017melting ice\nh\u001bj\u0017altar\ndg\u0017floating eye corpse\n#offer\ni #pray\ny y     : y\u0017unaligned altar\nde\u0017elf corpse\n #offer\nj           :"
+ },
+ "segments": [
+  {
+   "seed": 50359006,
+   "datetime": "20110725203913",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You miss\"\nBIND=v:inventory\n",
+   "moves": "FnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFneW#ride\nn v\u001bi\u001bv\u001bi\u001bjnkn \u0017altar\ndc\u0017jackal corpse\n#offer\nf  yj\u0017magic fountain\nqyqy\u0017long sword\n#dip\ngy:b\u0017neutral altar\ndb  \u0017jackal corpse\n#offer\nh   #terrain\ne\nP#tip\n\u001b#rub\n#chat\nh >#levelchange\n20\n                   h\u001byjlh \u0017melting ice\nh\u001bj\u0017altar\ndg\u0017floating eye corpse\n#offer\ni #pray\ny y     : y\u0017unaligned altar\nde\u0017elf corpse\n #offer\nj           :"
+  }
+ ]
+}

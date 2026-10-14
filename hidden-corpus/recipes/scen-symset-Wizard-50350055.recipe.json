@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "mO>>p\u001b\n#enhance\nyk\nb\n\u001b\u000f\u001bmO>o\u001b\n\u00165\nFkFuFnFlj FjFnFh\u001bFlFlFyFyFjFkFbFub FkFhFlFuFhFlFlFyFly FuFbFkb FuFhFjFkFnFyFuFbFlj FuFhFyFnFhFlFkFlFnFh\u001bFnFnFuFjFlFhFkFuFuFjFjFhFyFbFjFhFnFyFbFjFuFbFnFnFnFnFln FlFnFbFkFhFuFhFuFuFjFhFuFyFbFlFbFjFnFnFjFbFuh FjFuFnFuk FyFh\u001bFkFhFyFnFkFuFjFuFjFhFbFh\u001bFjFjFkFkFlFbFh\u001bmO>>>>i\u001b\nOaslime mold\n\u001b\nv i\u001b\u0006_ \u001b>.>FyFy_>.Fy_.Fb>FyFb_>.Fb_,Fb>FbFyFyFbFyqg,\u0006_>.Fb_.Fy>FyFb_>.Fy_,Fly >FbFy_>,Fn_>FnFnFnFnFb\u0006_>,Fy_.Fb>FbFb_>.Fl_.Fy>FyFb_>.Fy_.Fy>FbFly FlFbFb\u0006_>>.Fy_,Fb>FyFj_>>,Fb_.Fb>FbFy_>>,Fy_.Fy>FyFyFyFyFy\u0006_>.Fb_.Fy>FbFy_>.Fb_.Fb>FyFlb _>,Fj_.Fl>FyFbFlFlFl\u000f\u001bll bnb\u0017ice\nlb \u0017fountain\nqyqy\u0017long sword\n#dip\nny ly \u0017lawfu"
+ },
+ "segments": [
+  {
+   "seed": 50350055,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"a scroll\"=cyan\n",
+   "moves": "mO>>p\u001b\n#enhance\nyk\nb\n\u001b\u000f\u001bmO>o\u001b\n\u00165\nFkFuFnFlj FjFnFh\u001bFlFlFyFyFjFkFbFub FkFhFlFuFhFlFlFyFly FuFbFkb FuFhFjFkFnFyFuFbFlj FuFhFyFnFhFlFkFlFnFh\u001bFnFnFuFjFlFhFkFuFuFjFjFhFyFbFjFhFnFyFbFjFuFbFnFnFnFnFln FlFnFbFkFhFuFhFuFuFjFhFuFyFbFlFbFjFnFnFjFbFuh FjFuFnFuk FyFh\u001bFkFhFyFnFkFuFjFuFjFhFbFh\u001bFjFjFkFkFlFbFh\u001bmO>>>>i\u001b\nOaslime mold\n\u001b\nv i\u001b\u0006_ \u001b>.>FyFy_>.Fy_.Fb>FyFb_>.Fb_,Fb>FbFyFyFbFyqg,\u0006_>.Fb_.Fy>FyFb_>.Fy_,Fly >FbFy_>,Fn_>FnFnFnFnFb\u0006_>,Fy_.Fb>FbFb_>.Fl_.Fy>FyFb_>.Fy_.Fy>FbFly FlFbFb\u0006_>>.Fy_,Fb>FyFj_>>,Fb_.Fb>FbFy_>>,Fy_.Fy>FyFyFyFyFy\u0006_>.Fb_.Fy>FbFy_>.Fb_.Fb>FyFlb _>,Fj_.Fl>FyFbFlFlFl\u000f\u001bll bnb\u0017ice\nlb \u0017fountain\nqyqy\u0017long sword\n#dip\nny ly \u0017lawfu"
+  }
+ ]
+}

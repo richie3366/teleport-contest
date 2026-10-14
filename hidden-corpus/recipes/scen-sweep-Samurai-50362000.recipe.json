@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \u0006_ \u001b:>FuFu_>>.Fy_.>_>>,_.>i\u001bE- I am a fish\n\u0006_>._.>_>._.Fl>FlFl_>.Fu_,Fl>FuFlFlFlFuf  #force\n\u0006_>>.Fu _,Fu>FuFu_>>.Fl_,>_>>._,>\u0006_>>._.>_>>._,>_>>,_.>\u000f\u001b\u0017blessed Stormbringer\n  nwf 20s.ss20s\u0017blessed cloak of invisibility\n\u0007wraith\nWg .m.20s.m.\u0017loadstone\n ahh\u0017blessed eucalyptus leaf\n\u0007air elemental\neism.   n sm. sm.   n      n  20s  n  \u001629\n   \u0006\u00167\n#levelchange\n20\n                   #wizintrinsic\nso\n 20s20s.m.20s20s20s.bslsn20s20ssm.sm.sm.sm.sm..nsm.sm.sk20s.m.\u0017scroll of create monster\nrj kobold shaman\n  y10s q#invoke\nf ;n.qsus.m...sm.\u001613\n#levelchange\n30\n         \u0017blessed ring of polymorph control\nPkr#polyself\nrock piercer\n   #monster\n sss20ss#polyself\nAleax\n 20s.\u0007nurse\nFn FnFn  .lsm..m.#polyself\nleprechaun\n .m.s20sss#polyself\nbrown mold\n#monster\n20s    sm.   20s   n   20s    .k#levelchange\n30\n       \u0017blessed ring of polymorph control\nPl    \u0017water walking boots\nWm         n.m.   sh    20s    #polyself\nfire elemental\n#monster\ns   s   n   .m.   sm.s#polyself\nxorn\n#monster\nsm.    20s      n\u0007shrieker\nFh    Fj    n   Fj      n.m.    n  n.usl#polyself\ngold dragon\n sm.  n   n    yy\u001by   y nn  2"
+ },
+ "segments": [
+  {
+   "seed": 50362000,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=runmode:run\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0006_ \u001b:>FuFu_>>.Fy_.>_>>,_.>i\u001bE- I am a fish\n\u0006_>._.>_>._.Fl>FlFl_>.Fu_,Fl>FuFlFlFlFuf  #force\n\u0006_>>.Fu _,Fu>FuFu_>>.Fl_,>_>>._,>\u0006_>>._.>_>>._,>_>>,_.>\u000f\u001b\u0017blessed Stormbringer\n  nwf 20s.ss20s\u0017blessed cloak of invisibility\n\u0007wraith\nWg .m.20s.m.\u0017loadstone\n ahh\u0017blessed eucalyptus leaf\n\u0007air elemental\neism.   n sm. sm.   n      n  20s  n  \u001629\n   \u0006\u00167\n#levelchange\n20\n                   #wizintrinsic\nso\n 20s20s.m.20s20s20s.bslsn20s20ssm.sm.sm.sm.sm..nsm.sm.sk20s.m.\u0017scroll of create monster\nrj kobold shaman\n  y10s q#invoke\nf ;n.qsus.m...sm.\u001613\n#levelchange\n30\n         \u0017blessed ring of polymorph control\nPkr#polyself\nrock piercer\n   #monster\n sss20ss#polyself\nAleax\n 20s.\u0007nurse\nFn FnFn  .lsm..m.#polyself\nleprechaun\n .m.s20sss#polyself\nbrown mold\n#monster\n20s    sm.   20s   n   20s    .k#levelchange\n30\n       \u0017blessed ring of polymorph control\nPl    \u0017water walking boots\nWm         n.m.   sh    20s    #polyself\nfire elemental\n#monster\ns   s   n   .m.   sm.s#polyself\nxorn\n#monster\nsm.    20s      n\u0007shrieker\nFh    Fj    n   Fj      n.m.    n  n.usl#polyself\ngold dragon\n sm.  n   n    yy\u001by   y nn  2"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>Dbhhhhhhhh10s10sFl hhhhhhy10sbjj10syy10sjyjjlk\u0017wand of striking\nzik\u0017scroll of earth\nrj uhl  10sjbjbuuj\u0017wand of striking\nzkuhhhybhbybjbyj\u0016?\n>E\u0017blessed ring of levitation\nPlr kll\u0017scroll of earth\nrm bbll\u0017wand of digging\nznhbhjhjnSy\u001b yE-#name\nf\n <.r\u001b,:zinWs_m,sk#force\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50356006,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>Dbhhhhhhhh10s10sFl hhhhhhy10sbjj10syy10sjyjjlk\u0017wand of striking\nzik\u0017scroll of earth\nrj uhl  10sjbjbuuj\u0017wand of striking\nzkuhhhybhbybjbyj\u0016?\n>E\u0017blessed ring of levitation\nPlr kll\u0017scroll of earth\nrm bbll\u0017wand of digging\nznhbhjhjnSy\u001b"
+  },
+  {
+   "seed": 50856006,
+   "datetime": "20080404212231",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=playmode:debug\n",
+   "moves": " yE-#name\nf\n <.r\u001b,:zinWs_m,sk#force\n"
+  }
+ ]
+}

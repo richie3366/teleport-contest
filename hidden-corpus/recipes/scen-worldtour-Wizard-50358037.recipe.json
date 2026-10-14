@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 cloak of magic resistance\nW\u001b\u001b\u0016?\n>w_ \u001bm.>\u001639\nknny h :20ssm. sm.\u0016?\nhhb:\u0016?\n>>Q__.ss.\u001639\n\u0017Orcrist\nwass.#invoke\na\u0007plains centaur\nFjFj Fj \u0007hill orc\nFyFj  n Fy \u0007master mind flayer\n;y.sm.  sm.  sh   \u0007pyrolisk\nFu        n  Fk   Fu       n  Fn   n   \u00169\n\u001639\n\u0004u   n  \u0016?\ne #levelchange\n30\n         \u0017silver saber\nwpFkFy  Fk \u0007vampire\nFh Fh     nFb   \u0007titanothere\nFb   Fk    n  \u0007cockatrice\n;b;sm.    20s     .m.    n  sb     \u00167\n\u001617\n\u0014m.\u0016?\nk  nju:\u0016?\n>>L     spellbook of clairvoyance\n\u0006_>,sm.\u001617\n#chat\nu    n  ;b;\u001639\n__,>\u001636\n_{.<sm.         n   \u0016?\n\u001bl     n     u            n     \u00167\n\u001643\n\u0007chickatrice\n20s       n   s      n   20s        n    sk         y\u001b       F"
+ },
+ "segments": [
+  {
+   "seed": 50358037,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 cloak of magic resistance\nW\u001b\u001b\u0016?\n>w_ \u001bm.>\u001639\nknny h :20ssm. sm.\u0016?\nhhb:\u0016?\n>>Q__.ss.\u001639\n\u0017Orcrist\nwass.#invoke\na\u0007plains centaur\nFjFj Fj \u0007hill orc\nFyFj  n Fy \u0007master mind flayer\n;y.sm.  sm.  sh   \u0007pyrolisk\nFu        n  Fk   Fu       n  Fn   n   \u00169\n\u001639\n\u0004u   n  \u0016?\ne #levelchange\n30\n         \u0017silver saber\nwpFkFy  Fk \u0007vampire\nFh Fh     nFb   \u0007titanothere\nFb   Fk    n  \u0007cockatrice\n;b;sm.    20s     .m.    n  sb     \u00167\n\u001617\n\u0014m.\u0016?\nk  nju:\u0016?\n>>L     spellbook of clairvoyance\n\u0006_>,sm.\u001617\n#chat\nu    n  ;b;\u001639\n__,>\u001636\n_{.<sm.         n   \u0016?\n\u001bl     n     u            n     \u00167\n\u001643\n\u0007chickatrice\n20s       n   s      n   20s        n    sk         y\u001b       F"
+  }
+ ]
+}

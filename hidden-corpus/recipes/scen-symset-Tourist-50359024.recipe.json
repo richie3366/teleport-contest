@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  \u0007pony\n\u0017meatball\nt$l\u0007pony\n\u0017apple\ntak\u0017leash\naolluny  aoj\u0017tin whistle\nn  nyap \u0017magic whistle\nuulaq dos20ss#chat\nb\u0017leash\narbnubkarjdes.s\u0007pony\n\u0017carrot\nt$j\u0017apple\ntah\u0017leash\natbununath\u0017banana\ntab\u0017leash\navhnlynavjbj   n O>>m\u001b\u001b\nO>>>l\u001b\n\u00167\nFkFnFnFjFjFkFkFh Fy Fb FlFjFhFbFbFnFyFbFjFkFh#pray\ny y     FuFuFjFl Fn  nFyFhFlFj  nFnFnFl FjFy  nFj FhFkFuFl  nFl FnFhFb  nFhFhFh  nFnFyFuFh  nFyFlFyFjFl  nFuFhFy   nFbFj Fy  nFjFuFl  nFnFlFj  nFuFuFbFl#pray\ny y     FbFk   nFjFyFyFbFh  nFnFjFlFlFn#pray\ny y     FyFlFy FkFkFl#pray\ny y     FyFbFj  yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50359024,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  \u0007pony\n\u0017meatball\nt$l\u0007pony\n\u0017apple\ntak\u0017leash\naolluny  aoj\u0017tin whistle\nn  nyap \u0017magic whistle\nuulaq dos20ss#chat\nb\u0017leash\narbnubkarjdes.s\u0007pony\n\u0017carrot\nt$j\u0017apple\ntah\u0017leash\natbununath\u0017banana\ntab\u0017leash\navhnlynavjbj   n O>>m\u001b\u001b\nO>>>l\u001b\n\u00167\nFkFnFnFjFjFkFkFh Fy Fb FlFjFhFbFbFnFyFbFjFkFh#pray\ny y     FuFuFjFl Fn  nFyFhFlFj  nFnFnFl FjFy  nFj FhFkFuFl  nFl FnFhFb  nFhFhFh  nFnFyFuFh  nFyFlFyFjFl  nFuFhFy   nFbFj Fy  nFjFuFl  nFnFlFj  nFuFuFbFl#pray\ny y     FbFk   nFjFyFyFbFh  nFnFjFlFlFn#pray\ny y     FyFlFy FkFkFl#pray\ny y     FyFbFj  yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

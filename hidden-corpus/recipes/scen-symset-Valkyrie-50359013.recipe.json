@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b;>FlFl_>, Fh_,> FbFnFbaf by j\u0006_>.Fy_.Fy>FhFh_>.Fy_,Fy>FbFb_>.Fy_.Fy>FyFhFhFbFb\u0006_>.Fb_.Fh>FbFb_>.Fb_,Fy>FbFb_>,Fy_,Fy>FbFyFhFuFb#ride\nby#untrap\nh\u0006_>.Fh_.Fb>FbFy_>.Fu_,Fl>FuFb_>.Fy_.Fb>FbFbFhFuFh\u0006_>,Fu _.Fb>FhFh_>,Fy_.Fh>FbFb_>.Fh_.Fy>FhFyFhFhFy\u0006_>.Fy_,Fb>FhFh_>,Fy_.Fh>FyFh_>.Fy_.Fh>FyFbFyFbFb\u0006_>,Fb_,Fb>FyFb_>,Fy_,Fh>FyFb_>.Fh_.Fy>FbFhFbFyFh\u001616\n    FbFjFbFkFjFbFjFj  nFkFnFbFbFh  nFjFhFnFb  nFkFhFkFn  nFjFyFbFyFkFn  nFjFkFnFh  nFhFk FkFjFb  nFyFnFkFk  nFbFnFbFb  n Fl FnFkFb  nFuFkFy  nFj Fu Fb#pray\ny y    FjFhFjFkFbFb  nFjFkFnFbFnFjFhFbFjFyFjFnFnFyFnFjFjFjFnFbFbFbFjFnFhFjFbFyFnFbFhFjFhFhFhFjFyFhFyFyFhFjFjFyFhFhFbFjFjFjFjFjFjFhFjFbFh\u00161\n   #chat\nj>_>,.k#enhance\nyi\nd\n\u001b\u0007tame gnome lord\ndcsns.m.\u0017magic whistle\njllae  \u0017leash\nafuyu   hjafj10s20s\u0007giant rat\n\u0017scroll of taming\nrg b\u001617\n \u0006_>._.>.>_>._,:>_>._..>\u0006_>._,:>_>._.m.>_>._,>.>\u0006_>.Fl_.m,Fl >_>._.,>_>.Fn_.,Fn>Fl Fn 10sr\u001b\u0006_>>,_.m,>_>>._.m.>_>>,_.<.>wa#enhance\nyl\ni\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 50359013,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=runmode:crawl\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nMSGTYPE=hide \"You feel\"\nMENUCOLOR=\"cursed\"=brown\nBIND=v:inventory\n",
+   "moves": "\u0006_ \u001b;>FlFl_>, Fh_,> FbFnFbaf by j\u0006_>.Fy_.Fy>FhFh_>.Fy_,Fy>FbFb_>.Fy_.Fy>FyFhFhFbFb\u0006_>.Fb_.Fh>FbFb_>.Fb_,Fy>FbFb_>,Fy_,Fy>FbFyFhFuFb#ride\nby#untrap\nh\u0006_>.Fh_.Fb>FbFy_>.Fu_,Fl>FuFb_>.Fy_.Fb>FbFbFhFuFh\u0006_>,Fu _.Fb>FhFh_>,Fy_.Fh>FbFb_>.Fh_.Fy>FhFyFhFhFy\u0006_>.Fy_,Fb>FhFh_>,Fy_.Fh>FyFh_>.Fy_.Fh>FyFbFyFbFb\u0006_>,Fb_,Fb>FyFb_>,Fy_,Fh>FyFb_>.Fh_.Fy>FbFhFbFyFh\u001616\n    FbFjFbFkFjFbFjFj  nFkFnFbFbFh  nFjFhFnFb  nFkFhFkFn  nFjFyFbFyFkFn  nFjFkFnFh  nFhFk FkFjFb  nFyFnFkFk  nFbFnFbFb  n Fl FnFkFb  nFuFkFy  nFj Fu Fb#pray\ny y    FjFhFjFkFbFb  nFjFkFnFbFnFjFhFbFjFyFjFnFnFyFnFjFjFjFnFbFbFbFjFnFhFjFbFyFnFbFhFjFhFhFhFjFyFhFyFyFhFjFjFyFhFhFbFjFjFjFjFjFjFhFjFbFh\u00161\n   #chat\nj>_>,.k#enhance\nyi\nd\n\u001b\u0007tame gnome lord\ndcsns.m.\u0017magic whistle\njllae  \u0017leash\nafuyu   hjafj10s20s\u0007giant rat\n\u0017scroll of taming\nrg b\u001617\n \u0006_>._.>.>_>._,:>_>._..>\u0006_>._,:>_>._.m.>_>._,>.>\u0006_>.Fl_.m,Fl >_>._.,>_>.Fn_.,Fn>Fl Fn 10sr\u001b\u0006_>>,_.m,>_>>._.m.>_>>,_.<.>wa#enhance\nyl\ni\n\u001b"
+  }
+ ]
+}

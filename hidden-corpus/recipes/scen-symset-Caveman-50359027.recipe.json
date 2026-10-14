@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    ykb bb\u0017ice\n:j\u0017magic fountain\nqy qy:#loot\nsjO>h\u001b\nZr\u001bwb \u000f\u001b\u00166\n  50sFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFn\u0016#levelchange\n30\n                        jnjb\u0017lawful altar\nddde\u0017jackal corpse\n#offer\nf h\u001bj\u0017tree\nby\u0017sink\nqy\u0017ring of warning\ndg  \u001b\\ P#untrap\nh v  i\u001b\u0007little dog\n\u0017huge chunk of meat\ntck \u0007large dog\n\u0017lichen "
+ },
+ "segments": [
+  {
+   "seed": 50359027,
+   "datetime": "20150427012747",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"uncursed\"=brown\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n6\n    ykb bb\u0017ice\n:j\u0017magic fountain\nqy qy:#loot\nsjO>h\u001b\nZr\u001bwb \u000f\u001b\u00166\n  50sFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFn\u0016#levelchange\n30\n                        jnjb\u0017lawful altar\nddde\u0017jackal corpse\n#offer\nf h\u001bj\u0017tree\nby\u0017sink\nqy\u0017ring of warning\ndg  \u001b\\ P#untrap\nh v  i\u001b\u0007little dog\n\u0017huge chunk of meat\ntck \u0007large dog\n\u0017lichen "
+  }
+ ]
+}

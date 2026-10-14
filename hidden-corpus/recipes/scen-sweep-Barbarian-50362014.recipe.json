@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       uuhn\u0017squeaky board\nb\u0007newt\nsm.ss.ll\u0017anti-magic field\nh^ll.jsm.ll\u0017spiked pit\nlhs20s#enhance\nyo\ni\n\u001bZ#terrain\nf\n\\  \u0007horse\n\u0017fortune cookie\ntbl\u0006_ \u001b,>Fl._>,_.> \u0007acid blob\n20s20s.m.20ssm.s\u0007jackal\nsm.ss20s20ssm.\u0007newt\n\u0017scroll of taming\nrf \u0017huge chunk of meat\nt\u001b\u000f\u001b#levelchange\n30\n                      kkjk\u0017hole\nj#untrap\nku\u0017spiked pit\nub20s.l\u0017pit\nny..l\u0017fire trap\nu^bb.s\u0017beartrap\n ahun#force\nZ,\u0017blessed potion of paralysis\n\u0007Uruk-hai\nqi          \u0017uncursed wand of light\nzj zj\u0017blessed spellbook of fireball\n\u0007pit viper\nrk .m. .m.   Zsm.  sm. \u0017cursed scroll of blank paper\nrl    \u0017uncursed potion of fruit juice\nqm \u001b   n      #dip\nk\u0017cursed spellbook of detect treasure\nrn .                    n sm. sm.Z\u0017uncursed potion of water\n\u0007purple worm\nqo  sm..m. \u00164\n\u0017dwarvish mattock\nu\u0017grave\nap >  .h.m.bbap<ap<#levelchange\n30\n\u0007violet fungus\nFh Fk\u0007water demon\nFkFkFy Fh Fh \u00173 scroll of destroy armor\nrq \u00173 potion of confusion\nqr  Fh  Fb  \u0017uncursed +0 lance\nws  Fk      n Fk    Fh     Fk   Fj        n sm.     sh  \u00162\n#levelchange\n20\n   \u0017spellbook of cure sickness\nrt     n      20s        \u0017spellbook of cone of cold\nru    sm.  n      \u0017blessed spellbook of force bolt\nrv    .m.        n    \u0017blessed spellbook of cancellation\nrw    sm.      n "
+ },
+ "segments": [
+  {
+   "seed": 50362014,
+   "datetime": "20161215072706",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n8\n       uuhn\u0017squeaky board\nb\u0007newt\nsm.ss.ll\u0017anti-magic field\nh^ll.jsm.ll\u0017spiked pit\nlhs20s#enhance\nyo\ni\n\u001bZ#terrain\nf\n\\  \u0007horse\n\u0017fortune cookie\ntbl\u0006_ \u001b,>Fl._>,_.> \u0007acid blob\n20s20s.m.20ssm.s\u0007jackal\nsm.ss20s20ssm.\u0007newt\n\u0017scroll of taming\nrf \u0017huge chunk of meat\nt\u001b\u000f\u001b#levelchange\n30\n                      kkjk\u0017hole\nj#untrap\nku\u0017spiked pit\nub20s.l\u0017pit\nny..l\u0017fire trap\nu^bb.s\u0017beartrap\n ahun#force\nZ,\u0017blessed potion of paralysis\n\u0007Uruk-hai\nqi          \u0017uncursed wand of light\nzj zj\u0017blessed spellbook of fireball\n\u0007pit viper\nrk .m. .m.   Zsm.  sm. \u0017cursed scroll of blank paper\nrl    \u0017uncursed potion of fruit juice\nqm \u001b   n      #dip\nk\u0017cursed spellbook of detect treasure\nrn .                    n sm. sm.Z\u0017uncursed potion of water\n\u0007purple worm\nqo  sm..m. \u00164\n\u0017dwarvish mattock\nu\u0017grave\nap >  .h.m.bbap<ap<#levelchange\n30\n\u0007violet fungus\nFh Fk\u0007water demon\nFkFkFy Fh Fh \u00173 scroll of destroy armor\nrq \u00173 potion of confusion\nqr  Fh  Fb  \u0017uncursed +0 lance\nws  Fk      n Fk    Fh     Fk   Fj        n sm.     sh  \u00162\n#levelchange\n20\n   \u0017spellbook of cure sickness\nrt     n      20s        \u0017spellbook of cone of cold\nru    sm.  n      \u0017blessed spellbook of force bolt\nrv    .m.        n    \u0017blessed spellbook of cancellation\nrw    sm.      n "
+  }
+ ]
+}

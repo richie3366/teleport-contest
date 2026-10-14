@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed amulet of life saving\nPp\u0017blessed +3 gauntlets of power\nWq\u0016?\n>>L      tinning kit\nl b         \u0017wand of fire\nEt  I am a fish\n              :  \u0017wand of lightning\nEu y Elbereth\n         \u0017athame\nEv  Vlad was here\n   :      n          u     \u001b   n          E-      n         \u0007soldier ant\n.m.     n     sj      n       20s     n             n             n Fy             Fy  n            n  \u00165\n\u001623\n\u0004n             n  \u001623\n#levelchange\n20\n   b      n           h     n           u            n      k              n   \u0017magic trap\nn       y\u001b       b"
+ },
+ "segments": [
+  {
+   "seed": 50358017,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed amulet of life saving\nPp\u0017blessed +3 gauntlets of power\nWq\u0016?\n>>L      tinning kit\nl b         \u0017wand of fire\nEt  I am a fish\n              :  \u0017wand of lightning\nEu y Elbereth\n         \u0017athame\nEv  Vlad was here\n   :      n          u     \u001b   n          E-      n         \u0007soldier ant\n.m.     n     sj      n       20s     n             n             n Fy             Fy  n            n  \u00165\n\u001623\n\u0004n             n  \u001623\n#levelchange\n20\n   b      n           h     n           u            n      k              n   \u0017magic trap\nn       y\u001b       b"
+  }
+ ]
+}

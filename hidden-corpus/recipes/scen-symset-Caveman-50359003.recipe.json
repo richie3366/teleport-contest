@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "ch#turn\n#ride\nyy\u00166\n\u0006_ \u001bm,>FkFu_>>.Fy_,.Fh>FyFk_>>.Fy_.<.Fy>FyFkFkFyFk<\u0006_>,Fk_,<.Fk>FyFy_>.Fk_.m.Fk>FkFk_>.Fk_..Fy>FhFyFyFyFk\u0006_>,Fh_.<.Fh>FyFk_>.Fh_.>.Fy>FhFk_>.Fk_.m,Fk>FyFyFkFyFy\u0006_>.Fk_.<.Fk>FhFy_>,Fk_.m.Fh>FyFy_>.Fy_.>.Fy>FyFyFh FyFk#dip\nc#dip\nahhkk\u0017unaligned altar\ndcdd\u0017dwarf corpse\n #offer\nf        n  lh   n  \u0017chaotic altar\ndb   n  da\u0017human corpse\n#offer\ng       n  #pray\ny y       h\u0017neutral altar\ndade\u0017elf corpse\n #offer\nh      n  #pray\ny y      : hz\u000f\u001b\u001612\n    O>>i\u001b\u001b\n\u00164\nFuFuFuFu   n Fh   n FhFhFhFh   n Fk  nFk   n FhFhFhFh    n Fk  nFjFjFjFj  sm. n FkFkFk   n FlFlFlFlFlFlFlFlFl   n Fh      FbFbFbFb   n FhFhFhFhFh sm.20s  y\u001b      F"
+ },
+ "segments": [
+  {
+   "seed": 50359003,
+   "datetime": "20160430121248",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "ch#turn\n#ride\nyy\u00166\n\u0006_ \u001bm,>FkFu_>>.Fy_,.Fh>FyFk_>>.Fy_.<.Fy>FyFkFkFyFk<\u0006_>,Fk_,<.Fk>FyFy_>.Fk_.m.Fk>FkFk_>.Fk_..Fy>FhFyFyFyFk\u0006_>,Fh_.<.Fh>FyFk_>.Fh_.>.Fy>FhFk_>.Fk_.m,Fk>FyFyFkFyFy\u0006_>.Fk_.<.Fk>FhFy_>,Fk_.m.Fh>FyFy_>.Fy_.>.Fy>FyFyFh FyFk#dip\nc#dip\nahhkk\u0017unaligned altar\ndcdd\u0017dwarf corpse\n #offer\nf        n  lh   n  \u0017chaotic altar\ndb   n  da\u0017human corpse\n#offer\ng       n  #pray\ny y       h\u0017neutral altar\ndade\u0017elf corpse\n #offer\nh      n  #pray\ny y      : hz\u000f\u001b\u001612\n    O>>i\u001b\u001b\n\u00164\nFuFuFuFu   n Fh   n FhFhFhFh   n Fk  nFk   n FhFhFhFh    n Fk  nFjFjFjFj  sm. n FkFkFk   n FlFlFlFlFlFlFlFlFl   n Fh      FbFbFbFb   n FhFhFhFhFh sm.20s  y\u001b      F"
+  }
+ ]
+}

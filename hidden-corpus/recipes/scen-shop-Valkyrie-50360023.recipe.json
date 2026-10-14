@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 gauntlets of power\nWe\u0017blessed +3 helm of telepathy\nWf\u0016?\n>w \u0006_ \u001b:,\u0014<.ss_{.Fk_. Fhq_oo,Fk _,,Fh_ooo._,,\u001b: _ooooooo,Fh_.Fh ,p_ooooooooo,Fh_._o.Fu      n_.Fu,#chat\nb_oooooo._._ooo.Fh_,m.,\u001bpbyb#chat\nb_{,Fb_.Fbq__.Fy_,m.Fk#chat\nh#pray\ny y \u00163\nlnn\u0016?\n>w\u0006_ooo, _,,$lku#chat\nj_{.Fl_.q\u00163\nhlh\u0016?\n>w \u0006_ooooooo,Fb_.Fj_oo._,,\u001bpm._ooooo,_., #chat\nn_ooooooooo,Fh _, Fh_o.Fk _,,   n:_ooooo.Fy_,Fh,   n \u0017cheap plastic imitation of the Amulet of Yendor\ndj FhFhFhFh  FhFh _ooo,Fh   n_.Fh, \u0017worthless piece of red glass\ndkFh FhFhFhFhFh_{.Fl_.<.Flqg_ooooo,Fl_,.Fl,:_ooooo.Fl_.y ,#chat\nn_ooooooo,_.,:_oooo._.,\u0017touchstone\ndl__. _,#chat\nlul n   #chat\nl _{.Fn   _.FnqFn   Fn   n    Fn Fn   Fn    Fn   n   \u00164\n_oooo.,:FuFu Fu Fu Fu Fu _{.q_oooo.,#chat\ny _ooooo,Fh _._ooo,,b\n$_ooo.,e\n    p_ooooooo.,a\n  p_oooo._oo,,c\n  \u0017flint stone\ndr "
+ },
+ "segments": [
+  {
+   "seed": 50360023,
+   "datetime": "20161008101407",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 gauntlets of power\nWe\u0017blessed +3 helm of telepathy\nWf\u0016?\n>w \u0006_ \u001b:,\u0014<.ss_{.Fk_. Fhq_oo,Fk _,,Fh_ooo._,,\u001b: _ooooooo,Fh_.Fh ,p_ooooooooo,Fh_._o.Fu      n_.Fu,#chat\nb_oooooo._._ooo.Fh_,m.,\u001bpbyb#chat\nb_{,Fb_.Fbq__.Fy_,m.Fk#chat\nh#pray\ny y \u00163\nlnn\u0016?\n>w\u0006_ooo, _,,$lku#chat\nj_{.Fl_.q\u00163\nhlh\u0016?\n>w \u0006_ooooooo,Fb_.Fj_oo._,,\u001bpm._ooooo,_., #chat\nn_ooooooooo,Fh _, Fh_o.Fk _,,   n:_ooooo.Fy_,Fh,   n \u0017cheap plastic imitation of the Amulet of Yendor\ndj FhFhFhFh  FhFh _ooo,Fh   n_.Fh, \u0017worthless piece of red glass\ndkFh FhFhFhFhFh_{.Fl_.<.Flqg_ooooo,Fl_,.Fl,:_ooooo.Fl_.y ,#chat\nn_ooooooo,_.,:_oooo._.,\u0017touchstone\ndl__. _,#chat\nlul n   #chat\nl _{.Fn   _.FnqFn   Fn   n    Fn Fn   Fn    Fn   n   \u00164\n_oooo.,:FuFu Fu Fu Fu Fu _{.q_oooo.,#chat\ny _ooooo,Fh _._ooo,,b\n$_ooo.,e\n    p_ooooooo.,a\n  p_oooo._oo,,c\n  \u0017flint stone\ndr "
+  }
+ ]
+}

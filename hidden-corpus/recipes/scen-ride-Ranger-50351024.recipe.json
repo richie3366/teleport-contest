@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0007tame saddled white unicorn\n#ride\nyy\u0007tame saddled pony\n#ride\nly\u0007tame saddled horse\n#ride\n  \u0006_ \u001bm. >FuFu_>>.Fu _,>_>>._,Fl>#ride\nkys#ride\n.ykuj#ride\nny20s#ride\n #ride\njy.#ride\nly\u0007newt\nFkFks"
+ },
+ "segments": [
+  {
+   "seed": 50351024,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0007tame saddled white unicorn\n#ride\nyy\u0007tame saddled pony\n#ride\nly\u0007tame saddled horse\n#ride\n  \u0006_ \u001bm. >FuFu_>>.Fu _,>_>>._,Fl>#ride\nkys#ride\n.ykuj#ride\nny20s#ride\n #ride\njy.#ride\nly\u0007newt\nFkFks"
+  }
+ ]
+}

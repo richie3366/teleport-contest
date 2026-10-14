@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwp\u0017blessed +3 gauntlets of power\nWq\u001642\n   _ \u001b@.\u001642\n _>.\u0016?\n>Dbynu:\u0016?\nj\u0007green mold\nFb Fk  Fj  Fk  s20s 20s \u0007nurse\nFj Fj   n Fj    nFk Fj sm. .m.  n  #pray\ny y      \u00164\n\u001642\n   _>.>\u0016?\n>>P  hbl:\u001611\n#chat\nk;_.\u0016?\nd \u0004j\u001640\n   \u0014:s\u001640\n #chat\nn;m,s20s\u0016?\na_>,>\u00168\n#levelchange\n30\n\u0017ring of hunger\nPrl.20s      20s    nRFl  Fl\u0017uncursed spellbook of fireball\nrs  .m. 20s    nZa\n Za\n \u0017spellbook of detect monsters\n\u0007blue jelly\nrt  snsm. Zb\n   nZb\nFl Fk 20s.\u00164\n\u001635\n   jhjkjbu:s20s.m.\u0016?\n>D_<.Fn  _..<.m..m.sm.\u0016?\nq #levelchange\n6\n        \u0017blessed spellbook of cure blindness\nru .h\u0017blessed spellbook of magic mapping\nrvsn\u0017spellbook of clairvoyance\nrwy sm.+\u001bZ\u001b\u0007grid bug\nZ\u001b\u0007gnome lord\nZ\u001bFh Z\u001b\u0007gnome lord\nZ\u001bZ\u001bFh .j20s  20s  \u00163\n\u0004ksm.20s\u0016?\nc#chat\ny;_.sh.m.\u001618\n #levelchange\n20\n             \u0017spellbook of light\nrx20ssyZb\n\u0017beartrap\n\u0007xorn\nay\u0017uncursed Giantslayer\nwz  Fu  Fu  Fu   n Fu  Fu \u0017spellbook of chain lightning\nrA .u 20sZb\nZb\nFu   n Fu\u0017blessed wand of polymorph\nzBu20ssm.\u00164\n\u0016?\ng\u0006_<._."
+ },
+ "segments": [
+  {
+   "seed": 50358015,
+   "datetime": "20260805104709",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwp\u0017blessed +3 gauntlets of power\nWq\u001642\n   _ \u001b@.\u001642\n _>.\u0016?\n>Dbynu:\u0016?\nj\u0007green mold\nFb Fk  Fj  Fk  s20s 20s \u0007nurse\nFj Fj   n Fj    nFk Fj sm. .m.  n  #pray\ny y      \u00164\n\u001642\n   _>.>\u0016?\n>>P  hbl:\u001611\n#chat\nk;_.\u0016?\nd \u0004j\u001640\n   \u0014:s\u001640\n #chat\nn;m,s20s\u0016?\na_>,>\u00168\n#levelchange\n30\n\u0017ring of hunger\nPrl.20s      20s    nRFl  Fl\u0017uncursed spellbook of fireball\nrs  .m. 20s    nZa\n Za\n \u0017spellbook of detect monsters\n\u0007blue jelly\nrt  snsm. Zb\n   nZb\nFl Fk 20s.\u00164\n\u001635\n   jhjkjbu:s20s.m.\u0016?\n>D_<.Fn  _..<.m..m.sm.\u0016?\nq #levelchange\n6\n        \u0017blessed spellbook of cure blindness\nru .h\u0017blessed spellbook of magic mapping\nrvsn\u0017spellbook of clairvoyance\nrwy sm.+\u001bZ\u001b\u0007grid bug\nZ\u001b\u0007gnome lord\nZ\u001bFh Z\u001b\u0007gnome lord\nZ\u001bZ\u001bFh .j20s  20s  \u00163\n\u0004ksm.20s\u0016?\nc#chat\ny;_.sh.m.\u001618\n #levelchange\n20\n             \u0017spellbook of light\nrx20ssyZb\n\u0017beartrap\n\u0007xorn\nay\u0017uncursed Giantslayer\nwz  Fu  Fu  Fu   n Fu  Fu \u0017spellbook of chain lightning\nrA .u 20sZb\nZb\nFu   n Fu\u0017blessed wand of polymorph\nzBu20ssm.\u00164\n\u0016?\ng\u0006_<._."
+  }
+ ]
+}

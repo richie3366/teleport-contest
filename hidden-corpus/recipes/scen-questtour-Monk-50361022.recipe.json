@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nl;k;_mmmmm.Fy_,:Fh#chat\nh_mmmmm.Fy_,m.   n#chat\nb;>._mmmmm.Fk_.m,Fy#chat\ny_mmm.Fh_.#chat\nh  n   n    n;m,#levelchange\n14\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.Fh_,  Fy #chat\nh    n;h._mm.      nFl _.#chat\ny\u0017blessed ring of free action\nPjr      n \u0017blessed Mjollnir\nwk  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of fire\n\u0016?\n>A\u0006_mmm.   n   Fb      n _.Fn    Fh   n  Fl     n  Fj      nFb    ,\u0016?\n>>\u001b\u0016?\n>y_mmm.   n Fh    _,#chat\nk;u;\u00165\n\u0016?\n>A\u0006_mmmmm,   n     Fh   n      _.Fh   yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50361022,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nl;k;_mmmmm.Fy_,:Fh#chat\nh_mmmmm.Fy_,m.   n#chat\nb;>._mmmmm.Fk_.m,Fy#chat\ny_mmm.Fh_.#chat\nh  n   n    n;m,#levelchange\n14\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.Fh_,  Fy #chat\nh    n;h._mm.      nFl _.#chat\ny\u0017blessed ring of free action\nPjr      n \u0017blessed Mjollnir\nwk  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of fire\n\u0016?\n>A\u0006_mmm.   n   Fb      n _.Fn    Fh   n  Fl     n  Fj      nFb    ,\u0016?\n>>\u001b\u0016?\n>y_mmm.   n Fh    _,#chat\nk;u;\u00165\n\u0016?\n>A\u0006_mmmmm,   n     Fh   n      _.Fh   yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

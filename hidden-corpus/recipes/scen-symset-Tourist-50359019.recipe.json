@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " FlFlFlFlFlFlFhFlFlFlFlFlFlFlFlFlFlFlFlFlFl FlFlFlFl FlFlFlFlFjFjFlFjFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFhFnFlFnFl FnFnFlFnFnFlFnFnFlFlFlFnFnFnFlFlFnFlFnFnFlFlFnFlFnFlFlFnFlFlFnFnFnFlFlFnFnFnFnFnFlFnFlFlFlFnFlFlFlFnFnFlFnFnFlFlv i\u001b\u0007tame dingo\n\u0007housecat\n\u0017fortune cookie\n t$h20s 20s  \u0017food ration\n tak  n   \u0017magic whistle\nb k k    nao   \u0006_ \u001bm. >Fk  n Fj_>>.Fk   n_,Fl >Fu Fu_>>.Fl_.Fl>FlFl#name\na\n\u00168\nditajdcmO>>>g\u001b\ndlcj\u0006_>.Fk_..Fy>FyFy  n_>.Fy_.Fy>Fy Fy_>.Fk_.m.Fk>FkFk  nFkFkFk \u0014.\u000f\u001b\u0006_>.  n Fk   n _.Fj  n  >Fb  n  Fk _>.  n Fb _.  nFj >Fj  Fj  n  _>.   n Fj _,  nFj >Fj Fj  yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50359019,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nMENUCOLOR=\"a potion\"=green\n",
+   "moves": " FlFlFlFlFlFlFhFlFlFlFlFlFlFlFlFlFlFlFlFlFl FlFlFlFl FlFlFlFlFjFjFlFjFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFhFnFlFnFl FnFnFlFnFnFlFnFnFlFlFlFnFnFnFlFlFnFlFnFnFlFlFnFlFnFlFlFnFlFlFnFnFnFlFlFnFnFnFnFnFlFnFlFlFlFnFlFlFlFnFnFlFnFnFlFlv i\u001b\u0007tame dingo\n\u0007housecat\n\u0017fortune cookie\n t$h20s 20s  \u0017food ration\n tak  n   \u0017magic whistle\nb k k    nao   \u0006_ \u001bm. >Fk  n Fj_>>.Fk   n_,Fl >Fu Fu_>>.Fl_.Fl>FlFl#name\na\n\u00168\nditajdcmO>>>g\u001b\ndlcj\u0006_>.Fk_..Fy>FyFy  n_>.Fy_.Fy>Fy Fy_>.Fk_.m.Fk>FkFk  nFkFkFk \u0014.\u000f\u001b\u0006_>.  n Fk   n _.Fj  n  >Fb  n  Fk _>.  n Fb _.  nFj >Fj  Fj  n  _>.   n Fj _,  nFj >Fj Fj  yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

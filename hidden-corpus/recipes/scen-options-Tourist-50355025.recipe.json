@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  mO>>>if\nqiWOom\ng\no\nn\nhO>fk\n#sit\n O>g\nzOlp\n\\ E- Elbereth\ns.mO>>r\nP#rub\nmO>>ti\nee  ec  O>h\n20s mO>>>>>ic\non\nmango\n;n; \u001b<.#turn\nOlh\n#offer\n20s  s"
+ },
+ "segments": [
+  {
+   "seed": 50355025,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  mO>>>if\nqiWOom\ng\no\nn\nhO>fk\n#sit\n O>g\nzOlp\n\\ E- Elbereth\ns.mO>>r\nP#rub\nmO>>ti\nee  ec  O>h\n20s mO>>>>>ic\non\nmango\n;n; \u001b<.#turn\nOlh\n#offer\n20s  s"
+  }
+ ]
+}

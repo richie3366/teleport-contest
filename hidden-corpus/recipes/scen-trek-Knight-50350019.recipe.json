@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "H NH    B_ \u001b<.   >\u0018\u001b#tip\n\u001bUNLB_>,>ULLL_>.>K KB Uny_>,>#wipe\nnBYBY_>.>JUKB_>.>BKKB_>,>KBLK_>.>BUHN_>,>HYHL_>.><#chat\nhbi\u001bULHU_>,>ZdhYJNH_>.>#jump\nm.#enhance\n\u001bLHNK_>.>LNBN_>.>JNBK_>,>\u000f\u001b#force\nW#name\nm\n100s150sjbu50s_>,>50s50sulhjuh_>.>_>.>jjy\\   _>.>150s 50sFlFl20s#name\nm\n50s100sbhhhlhhlhlhh150shjj_>.>50sFkss50s150sFh.shlh100s_>.>ab  ,lhl150seg50seg50sFh 20ss50sFh..100seg50seg50sFhFhs50seg100seg150sFhFhFheg150segq100sFhFhs100s egblj150sFhFhFhFh.snnk eyFbFbs50s100sey_>.>50sFyFy20s100sFyFyszr\u001b#twoweapon\nUBNL_>,>r\u001br\u001bYUHH_>.>i\u001bfLNUJy_>.>#enhance\n\u001b,LJHJ_>.>LYLJ_>,>HYJH_>,>FkFkFk\u000f\u001b#dip\ncz#loot\nkegegFks20s150seg100sluu100sFhFhFhFhFhFh eeeeee"
+ },
+ "segments": [
+  {
+   "seed": 50350019,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\n",
+   "moves": "H NH    B_ \u001b<.   >\u0018\u001b#tip\n\u001bUNLB_>,>ULLL_>.>K KB Uny_>,>#wipe\nnBYBY_>.>JUKB_>.>BKKB_>,>KBLK_>.>BUHN_>,>HYHL_>.><#chat\nhbi\u001bULHU_>,>ZdhYJNH_>.>#jump\nm.#enhance\n\u001bLHNK_>.>LNBN_>.>JNBK_>,>\u000f\u001b#force\nW#name\nm\n100s150sjbu50s_>,>50s50sulhjuh_>.>_>.>jjy\\   _>.>150s 50sFlFl20s#name\nm\n50s100sbhhhlhhlhlhh150shjj_>.>50sFkss50s150sFh.shlh100s_>.>ab  ,lhl150seg50seg50sFh 20ss50sFh..100seg50seg50sFhFhs50seg100seg150sFhFhFheg150segq100sFhFhs100s egblj150sFhFhFhFh.snnk eyFbFbs50s100sey_>.>50sFyFy20s100sFyFyszr\u001b#twoweapon\nUBNL_>,>r\u001br\u001bYUHH_>.>i\u001bfLNUJy_>.>#enhance\n\u001b,LJHJ_>.>LYLJ_>,>HYJH_>,>FkFkFk\u000f\u001b#dip\ncz#loot\nkegegFks20s150seg100sluu100sFhFhFhFhFhFh eeeeee"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   #levelchange\n30\n         \u0007human mummy\nFjFl \u0007quasit\nsm.sm. .ysm.   .k20s   \u0007wraith\nFl Fn   Fn  Fl    n#levelchange\n14\n    \u0017quarterstaff\nwm   Fl   Fj  Fj   n  \u0017300 gold pieces\n\u0007leprechaun\nFl   Fn   Fn   n  Fj  Fn   n  Fn   Fj  n  .ksm. #pray\ny y           \u0007wererat\nFl   Fl     n    Fl  Fj   n  Fn    n  Fn  20s    n.m.  \u0007werewolf\nFn   n    n Fj   n   n   Fj   n   Fl  n   Fn  yy\u001by  y y\u001b y  F"
+ },
+ "segments": [
+  {
+   "seed": 50362017,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:durian\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   #levelchange\n30\n         \u0007human mummy\nFjFl \u0007quasit\nsm.sm. .ysm.   .k20s   \u0007wraith\nFl Fn   Fn  Fl    n#levelchange\n14\n    \u0017quarterstaff\nwm   Fl   Fj  Fj   n  \u0017300 gold pieces\n\u0007leprechaun\nFl   Fn   Fn   n  Fj  Fn   n  Fn   Fj  n  .ksm. #pray\ny y           \u0007wererat\nFl   Fl     n    Fl  Fj   n  Fn    n  Fn  20s    n.m.  \u0007werewolf\nFn   n    n Fj   n   n   Fj   n   Fl  n   Fn  yy\u001by  y y\u001b y  F"
+  }
+ ]
+}

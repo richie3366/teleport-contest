@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " O>b\n#loot\nkOm\n20szn trident\nmO>>pit\n 20sO>a\ni\u001b#loot\nj.m.sj O>nca\n\u001bj\n \u001b\u001b\u001b<yy\u001bny y\u001b 2"
+ },
+ "segments": [
+  {
+   "seed": 50355027,
+   "datetime": "20030819155839",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:explore\n",
+   "moves": " O>b\n#loot\nkOm\n20szn trident\nmO>>pit\n 20sO>a\ni\u001b#loot\nj.m.sj O>nca\n\u001bj\n \u001b\u001b\u001b<yy\u001bny y\u001b 2"
+  }
+ ]
+}

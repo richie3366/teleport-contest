@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " hh\u0017wand of polymorph\nEj I am a fish\n: \u0017wand of magic missile\nEkn  Elbereth\n: \u0017wand of speed monster\nEln  I am a fish\nb\u0017wand of secret door detection\nEm  Elbereth Elbereth\nl\u0017wand of opening\nEn I am a fish\nSy\u001b y  #rub\n>#rub\n;h; \u001bm,dizjk,10s#loot\nh",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50351018,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " hh\u0017wand of polymorph\nEj I am a fish\n: \u0017wand of magic missile\nEkn  Elbereth\n: \u0017wand of speed monster\nEln  I am a fish\nb\u0017wand of secret door detection\nEm  Elbereth Elbereth\nl\u0017wand of opening\nEn I am a fish\nSy\u001b"
+  },
+  {
+   "seed": 50851018,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " y  #rub\n>#rub\n;h; \u001bm,dizjk,10s#loot\nh"
+  }
+ ]
+}

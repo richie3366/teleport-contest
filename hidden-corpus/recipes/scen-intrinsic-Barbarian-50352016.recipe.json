@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             #wizintrinsic\ndp\n sm.20s  sm.20ssk.hsns20s20s.m.sm..j..20s.m. yny   y nnn  ."
+ },
+ "segments": [
+  {
+   "seed": 50352016,
+   "datetime": "20120130042254",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             #wizintrinsic\ndp\n sm.20s  sm.20ssk.hsns20s20s.m.sm..j..20s.m. yny   y nnn  ."
+  }
+ ]
+}

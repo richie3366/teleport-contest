@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nW\u001b\u001635\n   #levelchange\n8\n    \u0017slime mold\nem20s 20s  \u00173 tooled horn\n\u0007Wizard of Yendor\nyany any    \u00173 scroll of light\nro   .y.\u0016?\n>D_ \u001b@.>s\u00165\nnnkh\u0017neutral altar\ndhda\u0017gnome corpse\n#offer\np   : h\u0017unaligned altar\ndkdc\u0017jackal corpse\n #offer\nq   #pray\ny y n\u0017magic fountain\nqy qy y  n:h\u0017iron bars\nlhlh   n #terrain\nc\n.#jump\n,,\u001610\n\u001625\n#levelchange\n12\n   \u0017the Magic Mirror of Merlin\n , s.\u0017beartrap\nar     \u0017spellbook of cause fear\n\u0007ki-rin\nrs  n. .   n        n        nZb\n    n  Za\n  n   n Fn     nFl    n  \u0017crystal ball\nat   n    n Fk   n     n Fb   n  20s  n    n   \u001bs   yny  y y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50358008,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nW\u001b\u001635\n   #levelchange\n8\n    \u0017slime mold\nem20s 20s  \u00173 tooled horn\n\u0007Wizard of Yendor\nyany any    \u00173 scroll of light\nro   .y.\u0016?\n>D_ \u001b@.>s\u00165\nnnkh\u0017neutral altar\ndhda\u0017gnome corpse\n#offer\np   : h\u0017unaligned altar\ndkdc\u0017jackal corpse\n #offer\nq   #pray\ny y n\u0017magic fountain\nqy qy y  n:h\u0017iron bars\nlhlh   n #terrain\nc\n.#jump\n,,\u001610\n\u001625\n#levelchange\n12\n   \u0017the Magic Mirror of Merlin\n , s.\u0017beartrap\nar     \u0017spellbook of cause fear\n\u0007ki-rin\nrs  n. .   n        n        nZb\n    n  Za\n  n   n Fn     nFl    n  \u0017crystal ball\nat   n    n Fk   n     n Fb   n  20s  n    n   \u001bs   yny  y y\u001b  \u0016"
+  }
+ ]
+}

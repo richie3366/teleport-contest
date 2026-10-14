@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u00176 javelins\nQg\u0007owlbear\njfyfk  fhfk\u0017spetum\nwh\u0007giant rat\nbah \u001bm,yhu,\u00178 rocks\nQa\u0007sewer rat\nbflffffFl Fl \u0017potion of acid\ntcu  \u0007giant rat\nb j ff\u0007soldier\nj h   yy\u001by   y ny\u001by  f"
+ },
+ "segments": [
+  {
+   "seed": 50351008,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u00176 javelins\nQg\u0007owlbear\njfyfk  fhfk\u0017spetum\nwh\u0007giant rat\nbah \u001bm,yhu,\u00178 rocks\nQa\u0007sewer rat\nbflffffFl Fl \u0017potion of acid\ntcu  \u0007giant rat\nb j ff\u0007soldier\nj h   yy\u001by   y ny\u001by  f"
+  }
+ ]
+}

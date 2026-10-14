@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " mO>v\n>\\  O>en\n\u0014 \u001bm.am  mOa\nW\u001bf \u001bmO>>>>adh\n \u0018\u001bmOa\n>ss"
+ },
+ "segments": [
+  {
+   "seed": 50355023,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=fruit:mango\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " mO>v\n>\\  O>en\n\u0014 \u001bm.am  mOa\nW\u001bf \u001bmO>>>>adh\n \u0018\u001bmOa\n>ss"
+  }
+ ]
+}

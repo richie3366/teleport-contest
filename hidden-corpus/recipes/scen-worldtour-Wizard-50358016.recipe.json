@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 speed boots\nWo\u0017blessed ring of free action\nPpl\u0016?\n>>Q#levelchange\n14\n  \u0007gremlin\nFjFnFn Fn Fn sm. sl \u0007quantum mechanic\nFj Fn   \u001b>. Fn  ; .l  m,   n sm.  >. .nsn\u001614\nnl  @.lj:\u0016nb\u0016nh\u0016hy\u0016uk\u0016hh\u0016ln\u0016bk\u0016nb\u0016hy\u0016nj\u0016bk\u0016un\u0016hj\u0016hy\u0016jy\u0016hh\u0016hy\u0016hb\u0016kl\u0016nl\u0016uh\u0016nj\u0016jn\u0016nu\u0016yl\u0016ln\u0016bj\u0016nn\u0016kk\u0016lu\u0016ub\u0016kl\u0016hb\u0016jn\u0016yh\u0016ky\u0016yn\u0016bj\u0016ky\u0016nl\u0016kj\u0016nu\u0016yn\u0016kn\u0016hb\u0016jl\u0016bk\u0016nb\u0016lk\u0016jb\u0016ub\u0016nj\u0016hk\u0016uh\u0016bn\u0016yk\u0016uu\u0016kl\u0016jh\u0016jy\u0016yh\u0016jy\u0016jb\u0016ny\u0016lb\u0016jj\u0016kh\u0016nh\u0016jn\u0016kn\u0016hn\u0016hj\u0016jh\u0016yb\u0016yl\u0016jk\u0016hb\u0016ll"
+ },
+ "segments": [
+  {
+   "seed": 50358016,
+   "datetime": "20020721011950",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 speed boots\nWo\u0017blessed ring of free action\nPpl\u0016?\n>>Q#levelchange\n14\n  \u0007gremlin\nFjFnFn Fn Fn sm. sl \u0007quantum mechanic\nFj Fn   \u001b>. Fn  ; .l  m,   n sm.  >. .nsn\u001614\nnl  @.lj:\u0016nb\u0016nh\u0016hy\u0016uk\u0016hh\u0016ln\u0016bk\u0016nb\u0016hy\u0016nj\u0016bk\u0016un\u0016hj\u0016hy\u0016jy\u0016hh\u0016hy\u0016hb\u0016kl\u0016nl\u0016uh\u0016nj\u0016jn\u0016nu\u0016yl\u0016ln\u0016bj\u0016nn\u0016kk\u0016lu\u0016ub\u0016kl\u0016hb\u0016jn\u0016yh\u0016ky\u0016yn\u0016bj\u0016ky\u0016nl\u0016kj\u0016nu\u0016yn\u0016kn\u0016hb\u0016jl\u0016bk\u0016nb\u0016lk\u0016jb\u0016ub\u0016nj\u0016hk\u0016uh\u0016bn\u0016yk\u0016uu\u0016kl\u0016jh\u0016jy\u0016yh\u0016jy\u0016jb\u0016ny\u0016lb\u0016jj\u0016kh\u0016nh\u0016jn\u0016kn\u0016hn\u0016hj\u0016jh\u0016yb\u0016yl\u0016jk\u0016hb\u0016ll"
+  }
+ ]
+}

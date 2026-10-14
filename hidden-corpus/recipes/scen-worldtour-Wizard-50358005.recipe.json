@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nWo\u0017blessed +3 speed boots\nWp\u0016?\n>>L      tin of spinach\n_ \u001b.>\u001615\n\u0014;.m.     20s     \u001b  \u0016?\n\u001bj      l   n        \u00163\n#levelchange\n10\n   k      n y       j  n  k        \u0017trap door\ny  n      #untrap\nnk      n   \u0017dart trap\n\u0017beartrap\nas         n   h     h    n         #terrain\n\u001bj  n         n    #wipe\n       n     ok                 n     \u001611\n\u001643\n__,<\u0016?\n\u001buy\u0016?\n\u001bl             n       j  n               n      \u001612\n\u0016?\n\u001bn             n           yy\u001by   ny y\u001b  u"
+ },
+ "segments": [
+  {
+   "seed": 50358005,
+   "datetime": "20040312205629",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nWo\u0017blessed +3 speed boots\nWp\u0016?\n>>L      tin of spinach\n_ \u001b.>\u001615\n\u0014;.m.     20s     \u001b  \u0016?\n\u001bj      l   n        \u00163\n#levelchange\n10\n   k      n y       j  n  k        \u0017trap door\ny  n      #untrap\nnk      n   \u0017dart trap\n\u0017beartrap\nas         n   h     h    n         #terrain\n\u001bj  n         n    #wipe\n       n     ok                 n     \u001611\n\u001643\n__,<\u0016?\n\u001buy\u0016?\n\u001bl             n       j  n               n      \u001612\n\u0016?\n\u001bn             n           yy\u001by   ny y\u001b  u"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " kuu\u0017spiked pit\nbuys20snn\u0017rust trap\nb#untrap\nunh\u0017hole\nk\u0007grid bug\n20s    20s s20s    nb\u0017anti-magic field\ny#untrap\nn\u0017beartrap\nai  uk#terrain\nf\n#chat\nk#monster\nt\u001bbkl\u0017polymorph trap\nh^l#untrap\nlj\u0017dart trap\nl#untrap\nhlj\u0017squeaky board\nny.20sk\u0017rolling boulder trap\nny s.#conduct\n #force\nq"
+ },
+ "segments": [
+  {
+   "seed": 50351021,
+   "datetime": "20090531064529",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " kuu\u0017spiked pit\nbuys20snn\u0017rust trap\nb#untrap\nunh\u0017hole\nk\u0007grid bug\n20s    20s s20s    nb\u0017anti-magic field\ny#untrap\nn\u0017beartrap\nai  uk#terrain\nf\n#chat\nk#monster\nt\u001bbkl\u0017polymorph trap\nh^l#untrap\nlj\u0017dart trap\nl#untrap\nhlj\u0017squeaky board\nny.20sk\u0017rolling boulder trap\nny s.#conduct\n #force\nq"
+  }
+ ]
+}

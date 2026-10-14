@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b,#chat\ny;y:   _mmmmm.Fk_.#chat\nk_mmm,_,#chat\ny#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm,_,#chat\nj_mmmmm.Fk _.#chat\nk\u0017blessed +3 speed boots\nWf \u0017blessed Mjollnir\nwg\u0017blessed +3 gauntlets of power\nWh\u0017wand of magic missile\n\u0016?\n>A\u0006_mmm.20s.20ss,#chat\nh\u0016?\n>A\u0006_mm,.20ss20s.zi.,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.sssss20s20s,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nh;.\u0016?\n>z\u0006_mmm,..ss20s,\u0016?\n>A\u0006_mmmm..sss20ss,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nk\u0016?\n>A\u0006_mmmmmmm,20ss.20sss20s,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj;_.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20sss.szin ,#chat\nb\u0016?\n>z\u0006_mmmmmmm,20ss.20sziy,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nn\u0016?\n>A\u0006_mmmmmmm,s.ss.sszi.,#chat\nh\u0016?\n>A\u0006_mmmmmmm..20ss20sss.,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm..s.szin ,\u0016?\n>z\u0006_mmmmmmm.20sss.20s20sziu,#chat\nj\u0016?\n>A\u0006_mmmmmmm.ss20s.s,#chat\nl\u0016?\n>A\u0006_mmm,.20s..20s20s ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.s20ssss.sziy,#chat\ny\u0016?\n>z\u0006_mmmmmm.20s.20s.20s,\u0016?\n>A\u0006_mmmmmm,Fh s.20sszi,\u0016?\n>A\u0006_mmmmmmm..sss20ss,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nk;_.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.ssss.sszi ,\u0016?\n>z\u0006_mmmmmm.FhFh .szi,\u0016?\n>A\u0006_mmm,20s.20s.20sszi,\u0016?\n>A\u0006_mmmmm...20ss,#chat\nl\u0016?"
+ },
+ "segments": [
+  {
+   "seed": 50361011,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b,#chat\ny;y:   _mmmmm.Fk_.#chat\nk_mmm,_,#chat\ny#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm,_,#chat\nj_mmmmm.Fk _.#chat\nk\u0017blessed +3 speed boots\nWf \u0017blessed Mjollnir\nwg\u0017blessed +3 gauntlets of power\nWh\u0017wand of magic missile\n\u0016?\n>A\u0006_mmm.20s.20ss,#chat\nh\u0016?\n>A\u0006_mm,.20ss20s.zi.,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.sssss20s20s,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nh;.\u0016?\n>z\u0006_mmm,..ss20s,\u0016?\n>A\u0006_mmmm..sss20ss,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nk\u0016?\n>A\u0006_mmmmmmm,20ss.20sss20s,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj;_.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20sss.szin ,#chat\nb\u0016?\n>z\u0006_mmmmmmm,20ss.20sziy,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nn\u0016?\n>A\u0006_mmmmmmm,s.ss.sszi.,#chat\nh\u0016?\n>A\u0006_mmmmmmm..20ss20sss.,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm..s.szin ,\u0016?\n>z\u0006_mmmmmmm.20sss.20s20sziu,#chat\nj\u0016?\n>A\u0006_mmmmmmm.ss20s.s,#chat\nl\u0016?\n>A\u0006_mmm,.20s..20s20s ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.s20ssss.sziy,#chat\ny\u0016?\n>z\u0006_mmmmmm.20s.20s.20s,\u0016?\n>A\u0006_mmmmmm,Fh s.20sszi,\u0016?\n>A\u0006_mmmmmmm..sss20ss,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nk;_.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.ssss.sszi ,\u0016?\n>z\u0006_mmmmmm.FhFh .szi,\u0016?\n>A\u0006_mmm,20s.20s.20sszi,\u0016?\n>A\u0006_mmmmm...20ss,#chat\nl\u0016?"
+  }
+ ]
+}

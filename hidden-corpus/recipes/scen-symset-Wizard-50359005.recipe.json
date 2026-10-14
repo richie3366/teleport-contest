@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": ":,H\u0018\u001b\u0006_ \u001b<. >FhFj_>._.> \u0006_>>.Fk_.Fl>_>>.Fh_.Fh>_>>,_.>#terrain\n\u001bw-\u0006_>._.>_>,_,Fl >FlFl_>,Fl_.>\u0007large dog\n\u0017huge chunk of meat\ntal\u0007tame soldier ant\n\u0017newt corpse\nt\u001b\u0007acid blob\n\u0017scroll of taming\nrr #chat\nl\u0007acid blob\nss.s.s#chat\nh\u001611\n50s100skjlFjFj FjFj Fj   nFjFj Fjs#twoweapon\n#pray\ny y i\u001b100si\u001b100s_>.>50sFjFjFjFjFjFjFjFjFjFjFj  nFjFjFjFjFjFjFj#pray\ny y     FjFjFjFjFj  nFjFjFjFjFjFjFj  nFjFjFjFjFjFj100s100s,100s  FjFj.knl\\  jlk\u000f\u001b100s\u0004j50s100s\u00163\n50s#offer\n\u000f\u001b150s lnlep  FlFls150s150sFhFhFhFhFhFhFhss#ride\nly50s50s100sL100s\u0018\u001b150s100sFlFlFlFlFlFlFlFlFuFuFlFl150s#twoweapon\n100sFhFh Fh Fh          nFlFh          nFh                    nFl Fl Fh                       n Fl Fl Fl FjFk Fh FhFh          nFh                  nFlFkFh                     nFh                        nFh                  nFh FlFlFh                           nFlFlFkFkFh FhFh Fh      n\u0006_>.  Fl_.,Fl>Fl._>,Fk_,;.Fk>FkFk_>.Fk_..Fk>FkFkkep \u0006_>._.>_>,_.>_>._.>\u0006_>._,>_>,_.>_>._.>\u000f\u001b#pray\ny y"
+ },
+ "segments": [
+  {
+   "seed": 50359005,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": ":,H\u0018\u001b\u0006_ \u001b<. >FhFj_>._.> \u0006_>>.Fk_.Fl>_>>.Fh_.Fh>_>>,_.>#terrain\n\u001bw-\u0006_>._.>_>,_,Fl >FlFl_>,Fl_.>\u0007large dog\n\u0017huge chunk of meat\ntal\u0007tame soldier ant\n\u0017newt corpse\nt\u001b\u0007acid blob\n\u0017scroll of taming\nrr #chat\nl\u0007acid blob\nss.s.s#chat\nh\u001611\n50s100skjlFjFj FjFj Fj   nFjFj Fjs#twoweapon\n#pray\ny y i\u001b100si\u001b100s_>.>50sFjFjFjFjFjFjFjFjFjFjFj  nFjFjFjFjFjFjFj#pray\ny y     FjFjFjFjFj  nFjFjFjFjFjFjFj  nFjFjFjFjFjFj100s100s,100s  FjFj.knl\\  jlk\u000f\u001b100s\u0004j50s100s\u00163\n50s#offer\n\u000f\u001b150s lnlep  FlFls150s150sFhFhFhFhFhFhFhss#ride\nly50s50s100sL100s\u0018\u001b150s100sFlFlFlFlFlFlFlFlFuFuFlFl150s#twoweapon\n100sFhFh Fh Fh          nFlFh          nFh                    nFl Fl Fh                       n Fl Fl Fl FjFk Fh FhFh          nFh                  nFlFkFh                     nFh                        nFh                  nFh FlFlFh                           nFlFlFkFkFh FhFh Fh      n\u0006_>.  Fl_.,Fl>Fl._>,Fk_,;.Fk>FkFk_>.Fk_..Fk>FkFkkep \u0006_>._.>_>,_.>_>._.>\u0006_>._,>_>,_.>_>._.>\u000f\u001b#pray\ny y"
+  }
+ ]
+}

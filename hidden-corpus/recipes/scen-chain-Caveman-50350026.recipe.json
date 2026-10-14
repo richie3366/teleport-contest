@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nc\n sj20s .m..sm.s.m.sm..n.20s sus20s.m.20s    yy\u001bny ny\u001b y  .FjFj  Fj Fj  y\u001by  y y\u001b  FN  LYK_ \u001b;>FhFhFj J NBK_>.>__.s<N UHK_>.>\u000f\u001bhjkjHYKY_>,>YKYB_>,>BLHL_>,>HLYU_>.>JJLB_>.><<KLHK_>.><JBUH_>.>lblkjbuhBNNJ_>.>>oj<YKBN_>.>E- I am a fish\n#rub\nUKLN_>.>YUUH_>,>hnbunjjyNHLU_>.>KNJU_>,>UKB N_>,>>#terrain\nc\n:HBNK_>,>BHNY_>.>KKUH_>.>BHUH_>.>KUHJ_>,>UHUY_>.>HLUB_>,>JJYB_>.>150s100sllh100s100s150seh _>,>100s eg100seg50segkhnkju\u000f\u001bi\u001bjhl100seh\u0004nhkn150s100s100seh150seg100seh100seg150seg\u000f\u001b150seh100s 50sBBBU_>.>NB JJ_>,>FyFh.E-y I am a fish\ni\u001bBJLN_>.>FyFhFhUYUL _>.>FhFjFb YYYK_>.>FjFb20s\u000f\u001bFhFhFhFhFhFhFhFhhbblbnynyjhkehFyFyFy150sFys.Fys20seh100sFys.100s\u0018\u001b\u000f\u001bllb50sehab  m,50sFk FkFkFkFkFkFkFk.uhjukk#twoweapon\nhln150segnuh50skyn100s_>.>byh100segFb..Fbss100s#tip\n\u001b50sFbFbFbFbFbFbKJBY_>,>FlFlFlBBNK_>.>JL BH_>,><UNLN_>,>z#offer\nJUUY_>.>#dip\nhPJ  UUU_>,>#tip\n\u001b\u000f\u001bYYYB_>.>hklbegFkFks_>.>\u0018\u001b50s100s100sehi\u001bhhn\u0018\u001b100seh150sFhFh20sW50sFhFhFhFhs.100seg#offer\n50s100sFhFhFhFhFhFh\u000f\u001b100sehFlFlFlFlFl20si\u001b100seh100s100sFhFhFhFhFhss100s20sdbsm..m.sm.h jnludds.sybYYBJ _>,>#untrap\nb>NL JU_>.>LJLU_>,>JJH Y_>,>20s#monster\nYJ JB_>.>BUHB_>.>BUNJ_>,>kknyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeukjjkkhbbyjjhlnylkuueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBUHU_>.>JYBK _>,#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50350026,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nc\n sj20s .m..sm.s.m.sm..n.20s sus20s.m.20s    yy\u001bny ny\u001b y  ."
+  },
+  {
+   "seed": 50450026,
+   "datetime": "20160725074134",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "FjFj  Fj Fj  y\u001by  y y\u001b  F"
+  },
+  {
+   "seed": 50550026,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=autodig\n",
+   "moves": "N  LYK_ \u001b;>FhFhFj J NBK_>.>__.s<N UHK_>.>\u000f\u001bhjkjHYKY_>,>YKYB_>,>BLHL_>,>HLYU_>.>JJLB_>.><<KLHK_>.><JBUH_>.>lblkjbuhBNNJ_>.>>oj<YKBN_>.>E- I am a fish\n#rub\nUKLN_>.>YUUH_>,>hnbunjjyNHLU_>.>KNJU_>,>UKB N_>,>>#terrain\nc\n:HBNK_>,>BHNY_>.>KKUH_>.>BHUH_>.>KUHJ_>,>UHUY_>.>HLUB_>,>JJYB_>.>150s100sllh100s100s150seh _>,>100s eg100seg50segkhnkju\u000f\u001bi\u001bjhl100seh\u0004nhkn150s100s100seh150seg100seh100seg150seg\u000f\u001b150seh100s 50sBBBU_>.>NB JJ_>,>FyFh.E-y I am a fish\ni\u001bBJLN_>.>FyFhFhUYUL _>.>FhFjFb YYYK_>.>FjFb20s\u000f\u001bFhFhFhFhFhFhFhFhhbblbnynyjhkehFyFyFy150sFys.Fys20seh100sFys.100s\u0018\u001b\u000f\u001bllb50sehab  m,50sFk FkFkFkFkFkFkFk.uhjukk#twoweapon\nhln150segnuh50skyn100s_>.>byh100segFb..Fbss100s#tip\n\u001b50sFbFbFbFbFbFbKJBY_>,>FlFlFlBBNK_>.>JL BH_>,><UNLN_>,>z#offer\nJUUY_>.>#dip\nhPJ  UUU_>,>#tip\n\u001b\u000f\u001bYYYB_>.>hklbegFkFks_>.>\u0018\u001b50s100s100sehi\u001bhhn\u0018\u001b100seh150sFhFh20sW50sFhFhFhFhs.100seg#offer\n50s100sFhFhFhFhFhFh\u000f\u001b100sehFlFlFlFlFl20si\u001b100seh100s100sFhFhFhFhFhss100s20sdbsm..m.sm.h jnludds.sybYYBJ _>,>#untrap\nb>NL JU_>.>LJLU_>,>JJH Y_>,>20s#monster\nYJ JB_>.>BUHB_>.>BUNJ_>,>kknyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeukjjkkhbbyjjhlnylkuueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBUHU_>.>JYBK _>,#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

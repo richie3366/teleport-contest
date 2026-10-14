@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWo\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>y  yb   y\u0017magic trap\njk s  s  j  l \u0017pit\nn   \u0007jackal\n.20s   20s  s  l b\u0017arrow trap\nu   b    20s      n 20s    n\u0017statue trap\nu#untrap\nb\u0017beartrap\naq  nlZa\n  #jump\n#tip\n\u001b.k  .m.  .m. \u001623\n#chat\nb;h: \u001b<..m. \u0016?\n>x_>.\u001624\n#chat\nb;_.\u0016?\n>>K     potion of gain ability\n__.>\u0016?\n\u001bjk \u0016?\n\u001bn  k  \u0016?\n\u001bl h   \u001623\n#chat\nh    n  ;n:  \u0016?\n\u001bb     y\u001638\n#levelchange\n6\n        n       n  hl        h\u0017anti-magic field\nb\u0017magic trap\nh\u0017rolling boulder trap\njh\u0017falling rock trap\n#terrain\n\u001b#dip\na#turn\n_ . \u0016 jh\u0016?\n\u001byk       n \u001626\n#levelchange\n12\n     \u0007giant spider\nsj.m.      .m.     sm.      n  sm.     n          su      n  s     \u0007Angel\nyFn      Fl        n      Fu      n \u00161\n\u0016?\n\u001bu         n   j   \u0016?\n\u001bj        j   n    \u0016?\n\u001bb     n j          n  \u00168\n\u001628\n\u0004b         n su      \u0016?\n\u001by    n      y       ynny y  y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50350056,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWo\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>y  yb   y\u0017magic trap\njk s  s  j  l \u0017pit\nn   \u0007jackal\n.20s   20s  s  l b\u0017arrow trap\nu   b    20s      n 20s    n\u0017statue trap\nu#untrap\nb\u0017beartrap\naq  nlZa\n  #jump\n#tip\n\u001b.k  .m.  .m. \u001623\n#chat\nb;h: \u001b<..m. \u0016?\n>x_>.\u001624\n#chat\nb;_.\u0016?\n>>K     potion of gain ability\n__.>\u0016?\n\u001bjk \u0016?\n\u001bn  k  \u0016?\n\u001bl h   \u001623\n#chat\nh    n  ;n:  \u0016?\n\u001bb     y\u001638\n#levelchange\n6\n        n       n  hl        h\u0017anti-magic field\nb\u0017magic trap\nh\u0017rolling boulder trap\njh\u0017falling rock trap\n#terrain\n\u001b#dip\na#turn\n_ . \u0016 jh\u0016?\n\u001byk       n \u001626\n#levelchange\n12\n     \u0007giant spider\nsj.m.      .m.     sm.      n  sm.     n          su      n  s     \u0007Angel\nyFn      Fl        n      Fu      n \u00161\n\u0016?\n\u001bu         n   j   \u0016?\n\u001bj        j   n    \u0016?\n\u001bb     n j          n  \u00168\n\u001628\n\u0004b         n su      \u0016?\n\u001by    n      y       ynny y  y\u001b  \u0016"
+  }
+ ]
+}

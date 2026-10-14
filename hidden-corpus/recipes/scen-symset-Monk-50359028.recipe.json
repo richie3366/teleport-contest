@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "nhyj\u0017sink\nqy  k\u0004j\u0004jk\u0017iron bars\nllhhlj\u0017chaotic altar\ndedg\u0017dwarf corpse\n#offer\nj   #pray\ny y #force\n#name\na\nPmO>>>>d\u001b\n\u00167\n  Fn ..nyhybh\u000f\u001byhk150s100s \u001bkhh50s100s_ \u001b>.>kkunn     b100sFl Fl20s100sFls20s50s Fl Flshjj#pray\ny y ljnok100s150s#monster\nf \u001b_>,>byu 150sFn 20sFl100s150s Flss50s100s#wipe\nhlklyu100s\u0006_>.Fn _,Fn>Fns_>,Fj _.Fh>Fh Fh   n_>,Fh_,Fj>Fjs\u0006_>>,_.,\u001b>_>>._.m.>_>>._..>f \u001bE\u001b\u0006_>._,<.>_>._,<.>_>._,<.>#jump\nW<\u0006_>._,: >_>._,m.>_>._.m,\u001b>\u0006_>._.,\u001b>_>,_.m.>_>,_,;.>\u0006_>>,_.,\u001b>_>>._.<.>_>>._..><\u0006_>>._.@.>_>>._,<.>_>>._,>.>\u00165\n100s100sFbFb.150s100sjjnjyj#tip\n\u001b_>,>yhj50sFy.s50sFy.20snlk_>.>#untrap\nn150s ef100s ef150s\u0018\u001b150sFhFh.i\u001b50sFhFh20s100seh  50s\\  100s ef_>.>\u0018\u001b#name\na\n50s_>.>E\u001bv i\u001bv i\u001b\u00165\n100sFhFh20s,_<..jlu#sit\n\u001bi\u001bbub\u0018\u001b50skhb50s Fy20s.eflujhll\u000f\u001b150sef100s eh  \u001b100sefylkkkbbnh\u000f\u001b100seh  100sef150shlhFhFhsbuu150seeeemO>>>f\u001b\nhkbl\u0017fou"
+ },
+ "segments": [
+  {
+   "seed": 50359028,
+   "datetime": "20221116061529",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "nhyj\u0017sink\nqy  k\u0004j\u0004jk\u0017iron bars\nllhhlj\u0017chaotic altar\ndedg\u0017dwarf corpse\n#offer\nj   #pray\ny y #force\n#name\na\nPmO>>>>d\u001b\n\u00167\n  Fn ..nyhybh\u000f\u001byhk150s100s \u001bkhh50s100s_ \u001b>.>kkunn     b100sFl Fl20s100sFls20s50s Fl Flshjj#pray\ny y ljnok100s150s#monster\nf \u001b_>,>byu 150sFn 20sFl100s150s Flss50s100s#wipe\nhlklyu100s\u0006_>.Fn _,Fn>Fns_>,Fj _.Fh>Fh Fh   n_>,Fh_,Fj>Fjs\u0006_>>,_.,\u001b>_>>._.m.>_>>._..>f \u001bE\u001b\u0006_>._,<.>_>._,<.>_>._,<.>#jump\nW<\u0006_>._,: >_>._,m.>_>._.m,\u001b>\u0006_>._.,\u001b>_>,_.m.>_>,_,;.>\u0006_>>,_.,\u001b>_>>._.<.>_>>._..><\u0006_>>._.@.>_>>._,<.>_>>._,>.>\u00165\n100s100sFbFb.150s100sjjnjyj#tip\n\u001b_>,>yhj50sFy.s50sFy.20snlk_>.>#untrap\nn150s ef100s ef150s\u0018\u001b150sFhFh.i\u001b50sFhFh20s100seh  50s\\  100s ef_>.>\u0018\u001b#name\na\n50s_>.>E\u001bv i\u001bv i\u001b\u00165\n100sFhFh20s,_<..jlu#sit\n\u001bi\u001bbub\u0018\u001b50skhb50s Fy20s.eflujhll\u000f\u001b150sef100s eh  \u001b100sefylkkkbbnh\u000f\u001b100seh  100sef150shlhFhFhsbuu150seeeemO>>>f\u001b\nhkbl\u0017fou"
+  }
+ ]
+}

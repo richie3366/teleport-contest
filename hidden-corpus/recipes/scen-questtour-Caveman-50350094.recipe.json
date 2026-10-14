@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nn_mmmm.#chat\nn_m.Fl_,#chat\nl_mmm.Fl_.#chat\nl#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nl_mm.#chat\ny\u0017blessed Mjollnir\nwf\u0017blessed amulet of life saving\nPg\u0017wand of fire\n\u0016?\n>A\u0006_mm.Fy s.20s,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,ss20ss.,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nl\u0016?\n>z\u0006_mmmm.s20ss20s.20s.,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nj;>.\u0016?\n>A\u0006_mm.sssszhk   ,\u0016?\n>A\u0006_mmmmmmm..s20ss20s,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_m. Fy _.#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,s.s20s \u001bFl szhb,\u0016?\n>z\u0006_mm,20ss20s.s,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nj\u0016?\n>A\u0006_mmmmm..s.sszhn,\u0016?\n>A\u0006_mmmmm,ss20ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm..s.sszhl,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nb\u0016?\n>z\u0006_mm.s20ss20s.20szhn,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nj;<.\u0016?\n>A\u0006_mmm...ssszhl,\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nl\u0016?\n>A\u0006"
+ },
+ "segments": [
+  {
+   "seed": 50350094,
+   "datetime": "20021106051807",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nn_mmmm.#chat\nn_m.Fl_,#chat\nl_mmm.Fl_.#chat\nl#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nl_mm.#chat\ny\u0017blessed Mjollnir\nwf\u0017blessed amulet of life saving\nPg\u0017wand of fire\n\u0016?\n>A\u0006_mm.Fy s.20s,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,ss20ss.,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nl\u0016?\n>z\u0006_mmmm.s20ss20s.20s.,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nj;>.\u0016?\n>A\u0006_mm.sssszhk   ,\u0016?\n>A\u0006_mmmmmmm..s20ss20s,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_m. Fy _.#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,s.s20s \u001bFl szhb,\u0016?\n>z\u0006_mm,20ss20s.s,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nj\u0016?\n>A\u0006_mmmmm..s.sszhn,\u0016?\n>A\u0006_mmmmm,ss20ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm..s.sszhl,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nb\u0016?\n>z\u0006_mm.s20ss20s.20szhn,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nj;<.\u0016?\n>A\u0006_mmm...ssszhl,\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nl\u0016?\n>A\u0006"
+  }
+ ]
+}

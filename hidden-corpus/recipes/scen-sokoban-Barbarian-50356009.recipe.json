@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n6\n    \u0016?\n>C10sFk \u0017scroll of earth\nre bnukynlyll\u0017scroll of earth\nrf h \u0017scroll of earth\nrg l bbylbuyhy\u0017wand of striking\nzhh  lybyyll10sylybly\u0017wand of digging\nzibllbbyybl\u0017wand of striking\nzjb lyyyllyny"
+ },
+ "segments": [
+  {
+   "seed": 50356009,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n6\n    \u0016?\n>C10sFk \u0017scroll of earth\nre bnukynlyll\u0017scroll of earth\nrf h \u0017scroll of earth\nrg l bbylbuyhy\u0017wand of striking\nzhh  lybyyll10sylybly\u0017wand of digging\nzibllbbyybl\u0017wand of striking\nzjb lyyyllyny"
+  }
+ ]
+}

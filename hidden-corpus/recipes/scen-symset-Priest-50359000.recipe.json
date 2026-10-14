@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "v i\u001bFkFyFkk FhFhFnFnFlFuFhFlFkFhFjFnFnFnFly FhFkFuFlFyFkj FkFnFh\u001bFnFjFyFyFnFku FuFhFhFnFjFuFlFkFnFyFhFyFlh FuFlFnFul FjFuFkFkFyFly FnFyFnFjFuFhFnFh\u001bFjFjFuFuFuFuFuFnFll FhFnFyFyFlh FkFyFjFkFyFjFhFnFlk FlFhFhFjFyFuh FlFyFh\u001bFlFyFlu FkFjFkFuFkFjFkFlFnFjFuFhFhFuFjFlFhFnFnFnFj\u0006_ \u001b;>FuFy_>.Fn_.  Fh>FhFh_>, Fh_.Fh>FhFhFhFhFh\u0006_>.Fh_.Fh>FhFh_>,Fh_.Fh>FhFh_>.Fh_,Fl>FlFhFhFlFh\u0006_>,Fh_,  nFh>FhFh_>.Fh_,Fl>FhFl_>,Fl_,Fh>FhFhFhFhFh\u0006_>.Fh_.Fh>FhFh_>.Fl_,Fl>FlFh_>.Fh_,Fh>FhFhFhFhFh\u0006_>.Fh_,  nFh>FhFh_>.Fh_.Fh>FhFh_>,Fh_.Fh>FhFhFhFhFh\u00162\nO>>k\u001b\u001b\nnh\u001bnn\u0017tree\n:y\u0017throne\n#sit\n #sit\n y:uk h\u001b\u0017melting ice\n;l.#chat\nn f \u001b\u0006_>>.Fn_>FkFj_>>,Fj_.Fn"
+ },
+ "segments": [
+  {
+   "seed": 50359000,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=stop \"You feel\"\n",
+   "moves": "v i\u001bFkFyFkk FhFhFnFnFlFuFhFlFkFhFjFnFnFnFly FhFkFuFlFyFkj FkFnFh\u001bFnFjFyFyFnFku FuFhFhFnFjFuFlFkFnFyFhFyFlh FuFlFnFul FjFuFkFkFyFly FnFyFnFjFuFhFnFh\u001bFjFjFuFuFuFuFuFnFll FhFnFyFyFlh FkFyFjFkFyFjFhFnFlk FlFhFhFjFyFuh FlFyFh\u001bFlFyFlu FkFjFkFuFkFjFkFlFnFjFuFhFhFuFjFlFhFnFnFnFj\u0006_ \u001b;>FuFy_>.Fn_.  Fh>FhFh_>, Fh_.Fh>FhFhFhFhFh\u0006_>.Fh_.Fh>FhFh_>,Fh_.Fh>FhFh_>.Fh_,Fl>FlFhFhFlFh\u0006_>,Fh_,  nFh>FhFh_>.Fh_,Fl>FhFl_>,Fl_,Fh>FhFhFhFhFh\u0006_>.Fh_.Fh>FhFh_>.Fl_,Fl>FlFh_>.Fh_,Fh>FhFhFhFhFh\u0006_>.Fh_,  nFh>FhFh_>.Fh_.Fh>FhFh_>,Fh_.Fh>FhFhFhFhFh\u00162\nO>>k\u001b\u001b\nnh\u001bnn\u0017tree\n:y\u0017throne\n#sit\n #sit\n y:uk h\u001b\u0017melting ice\n;l.#chat\nn f \u001b\u0006_>>.Fn_>FkFj_>>,Fj_.Fn"
+  }
+ ]
+}

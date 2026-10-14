@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "mO>gj\nrh y E- Elbereth Elbereth\nmO>>>>>u\na\nw-mOa\nf a n#rub\nO>hcp\n\u000f\u001bmO>>>pr\n,s.mO>>>>ge\noff\nyes\n\u0014O>k\nb\nl\n20s#force\nO>nf\nn\ns\no\n\u001b\u001b\u0004jmO>>>>e\nyes\n#tip\n\u001b#ride\nkmO>>>>>nh\nc\ni\n\\ #sit\n\u001b.s"
+ },
+ "segments": [
+  {
+   "seed": 50355030,
+   "datetime": "20090505081445",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "mO>gj\nrh y E- Elbereth Elbereth\nmO>>>>>u\na\nw-mOa\nf a n#rub\nO>hcp\n\u000f\u001bmO>>>pr\n,s.mO>>>>ge\noff\nyes\n\u0014O>k\nb\nl\n20s#force\nO>nf\nn\ns\no\n\u001b\u001b\u0004jmO>>>>e\nyes\n#tip\n\u001b#ride\nkmO>>>>>nh\nc\ni\n\\ #sit\n\u001b.s"
+  }
+ ]
+}

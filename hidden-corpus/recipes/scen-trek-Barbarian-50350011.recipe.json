@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  nhjFuFus\u0018\u001bi\u001b100sz100sFjss100sFjs.\\  50sFjssnyu,i\u001b\u000f\u001b100s\\   100shubFnFn FnFns20s50s100s\u0018\u001b150sFjFjs100s100sulbuuj\u000f\u001bbkyjly150sFj20ss\u000f\u001bljyFbss_ \u001b,>\u000f\u001b\u000f\u001b100s150sed ed\u0018\u001b100shll150sFjss\u0018\u001b100s50s FjFjshhl100s50s100sFjFjs100sab  n50sFjss100s_>.>\\   hll50sFh20s.#wipe\n100seeeeeee#monster\nf ay nt\u001bLJJJ_>.>NUYY_>,>KYBN_>.>HLNU_>,>#monster\ni\u001bLHYB_>,>FhFhs#offer\nn#dip\ncJBYK_>.>JNHL_>,>FhFh20sKKKY_>.>FhFhFhULNJ_>.>LNBY_>,>HU HK_>,>FjFj20sKYN L _>.>JHLH_>.>FuFb20sYYBU_>.>LUBU_>.>FhFhsUNUH_>.>YK UL_>.>ZojUB LB_>.>#untrap\nj:UYB K_>.><UKYN _>,>YUN N_>.>#pray\ny  100s150s\\   100sFhFhFh\u0018\u001bjhh#pray\ny  100s100sjlk\u000f\u001b50swb100s_>,>50s100si\u001b_>,>f \u001b100s100s50seeeeeeeeeeeeeee#force\nhzJHJL_>.>Fhs20s<JYLK_>.>\u0004h#wipe\nNH YB _>.>_>,.#untrap\nlNYBB_>,>\u000f\u001b#dip\nbcjZHNLB_>.><YJK H"
+ },
+ "segments": [
+  {
+   "seed": 50350011,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=pettype:none\n",
+   "moves": "  nhjFuFus\u0018\u001bi\u001b100sz100sFjss100sFjs.\\  50sFjssnyu,i\u001b\u000f\u001b100s\\   100shubFnFn FnFns20s50s100s\u0018\u001b150sFjFjs100s100sulbuuj\u000f\u001bbkyjly150sFj20ss\u000f\u001bljyFbss_ \u001b,>\u000f\u001b\u000f\u001b100s150sed ed\u0018\u001b100shll150sFjss\u0018\u001b100s50s FjFjshhl100s50s100sFjFjs100sab  n50sFjss100s_>.>\\   hll50sFh20s.#wipe\n100seeeeeee#monster\nf ay nt\u001bLJJJ_>.>NUYY_>,>KYBN_>.>HLNU_>,>#monster\ni\u001bLHYB_>,>FhFhs#offer\nn#dip\ncJBYK_>.>JNHL_>,>FhFh20sKKKY_>.>FhFhFhULNJ_>.>LNBY_>,>HU HK_>,>FjFj20sKYN L _>.>JHLH_>.>FuFb20sYYBU_>.>LUBU_>.>FhFhsUNUH_>.>YK UL_>.>ZojUB LB_>.>#untrap\nj:UYB K_>.><UKYN _>,>YUN N_>.>#pray\ny  100s150s\\   100sFhFhFh\u0018\u001bjhh#pray\ny  100s100sjlk\u000f\u001b50swb100s_>,>50s100si\u001b_>,>f \u001b100s100s50seeeeeeeeeeeeeee#force\nhzJHJL_>.>Fhs20s<JYLK_>.>\u0004h#wipe\nNH YB _>.>_>,.#untrap\nlNYBB_>,>\u000f\u001b#dip\nbcjZHNLB_>.><YJK H"
+  }
+ ]
+}

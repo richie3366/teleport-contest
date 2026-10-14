@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " mO>sdw\n damO>kw\n10smO>>>>>mlf\na\nt\n#ride\n#chat\nOegc\ne\nwcmO>>>>>>a\nh\nZ>.sO>edf\n#jump\n#ride\nO>e\n#offer\nmO>>>>>>adf\nq\na\na\n\u001b\u001b__. \u001b>..#rub\nmOd\nPflO>c\n#invoke\n\u001b10smO>>>>>n\nc\n#pray\ns20s"
+ },
+ "segments": [
+  {
+   "seed": 50355039,
+   "datetime": "20021228163757",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:mango\nOPTIONS=pettype:none\nOPTIONS=playmode:explore\n",
+   "moves": " mO>sdw\n damO>kw\n10smO>>>>>mlf\na\nt\n#ride\n#chat\nOegc\ne\nwcmO>>>>>>a\nh\nZ>.sO>edf\n#jump\n#ride\nO>e\n#offer\nmO>>>>>>adf\nq\na\na\n\u001b\u001b__. \u001b>..#rub\nmOd\nPflO>c\n#invoke\n\u001b10smO>>>>>n\nc\n#pray\ns20s"
+  }
+ ]
+}

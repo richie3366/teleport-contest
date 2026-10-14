@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0014#dip\ngg\u0004h#chat\nu:ok\u0018\u001b\\  #jump\nZ\u001b#dip\nnfPdlW\u001b#enhance\n\u001b#ride\ny#wipe\n>#monster\n#wipe\n#wipe\n#offer\n#enhance\n\u001b#wipe\nqg"
+ },
+ "segments": [
+  {
+   "seed": 50352017,
+   "datetime": "20151206133532",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": "\u0014#dip\ngg\u0004h#chat\nu:ok\u0018\u001b\\  #jump\nZ\u001b#dip\nnfPdlW\u001b#enhance\n\u001b#ride\ny#wipe\n>#monster\n#wipe\n#wipe\n#offer\n#enhance\n\u001b#wipe\nqg"
+  }
+ ]
+}

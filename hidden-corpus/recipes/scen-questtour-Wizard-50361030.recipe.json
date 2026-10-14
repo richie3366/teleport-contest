@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\ny;y;_mmmm.Fl_.  n Fh     n   #chat\nb    n _mmm.    n  Fy  n    n _.#chat\ny     n _mmmmm.  n   Fh  n _. Fh #chat\ny  n  #levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mm,   Fh   _,#chat\nh_m,  Fk   _,#chat\nb  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWo    \u0017wand of death\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.  n   Fh    _.Fk   Fh  Fy   Fb   zpl  ,\u0016?\n>A\u0006_mmmmmmm.     n   Fb  _,     Fh  Fu Fk  Fb    Fb   zph  ,#chat\nb   \u0016?\n>A\u0006_mmmmmm,Fy    n  20s   Fy Fb Fk Fl Fh ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nu \u0016?\n>z\u0006_mmmmmm.Fb   n Fu FhFu Fb FbFuzpk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm..20ss..,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nk\u0016?\n>A\u0006_mmmmmmm.s20s FyFy,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\ny\u0016?\n>A\u0006_m"
+ },
+ "segments": [
+  {
+   "seed": 50361030,
+   "datetime": "20140514071621",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\ny;y;_mmmm.Fl_.  n Fh     n   #chat\nb    n _mmm.    n  Fy  n    n _.#chat\ny     n _mmmmm.  n   Fh  n _. Fh #chat\ny  n  #levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mm,   Fh   _,#chat\nh_m,  Fk   _,#chat\nb  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWo    \u0017wand of death\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.  n   Fh    _.Fk   Fh  Fy   Fb   zpl  ,\u0016?\n>A\u0006_mmmmmmm.     n   Fb  _,     Fh  Fu Fk  Fb    Fb   zph  ,#chat\nb   \u0016?\n>A\u0006_mmmmmm,Fy    n  20s   Fy Fb Fk Fl Fh ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nu \u0016?\n>z\u0006_mmmmmm.Fb   n Fu FhFu Fb FbFuzpk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm..20ss..,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nk\u0016?\n>A\u0006_mmmmmmm.s20s FyFy,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\ny\u0016?\n>A\u0006_m"
+  }
+ ]
+}

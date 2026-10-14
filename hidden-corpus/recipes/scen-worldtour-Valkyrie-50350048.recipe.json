@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed amulet of reflection\nPe\u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg  \u0016?\n>>K      spellbook of haste self\n_ \u001bm..m.sm.   .m.  \u00165\nj    y \u0017wand of cold\nE:\u0017wand of enlightenment\nE\u0017wand of make invisible\nE:\u0017wand of opening\nE:n\u0017wand of speed monster\nE:E\u0007minotaur\n20s  20s       sm.    n   sm.      n  .m.     sm.  n   \u00161\n\u0016?\n\u001bb            h\u0016?\n\u001by   n   j     n        \u001610\n\u0016?\n\u001bnk   n      \u001633\n#chat\nk   n    ;k;\u0016?\n\u001bk     n     k   n    \u00166\n\u001638\nnu     n       k   n    b\u0017arrow trap\nj\u0017rolling boulder trap\nj\u0017falling rock trap\n#terrain\n\u001b\u0018\u001b<zmu     n      \u00161\n\u001618\n\u0014<.   n      \u00164\n_>.\u00164\n#chat\nu;l;\u0016?\n\u001bk   n j\u0016?\n\u001by   n  b\u0016?\n\u001bk   yy\u001by   y n  b"
+ },
+ "segments": [
+  {
+   "seed": 50350048,
+   "datetime": "20231213015838",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed amulet of reflection\nPe\u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg  \u0016?\n>>K      spellbook of haste self\n_ \u001bm..m.sm.   .m.  \u00165\nj    y \u0017wand of cold\nE:\u0017wand of enlightenment\nE\u0017wand of make invisible\nE:\u0017wand of opening\nE:n\u0017wand of speed monster\nE:E\u0007minotaur\n20s  20s       sm.    n   sm.      n  .m.     sm.  n   \u00161\n\u0016?\n\u001bb            h\u0016?\n\u001by   n   j     n        \u001610\n\u0016?\n\u001bnk   n      \u001633\n#chat\nk   n    ;k;\u0016?\n\u001bk     n     k   n    \u00166\n\u001638\nnu     n       k   n    b\u0017arrow trap\nj\u0017rolling boulder trap\nj\u0017falling rock trap\n#terrain\n\u001b\u0018\u001b<zmu     n      \u00161\n\u001618\n\u0014<.   n      \u00164\n_>.\u00164\n#chat\nu;l;\u0016?\n\u001bk   n j\u0016?\n\u001by   n  b\u0016?\n\u001bk   yy\u001by   y n  b"
+  }
+ ]
+}

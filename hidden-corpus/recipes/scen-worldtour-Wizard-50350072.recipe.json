@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed amulet of reflection\nPo\u0016?\nq \u0017silver saber\nwpFb  .20sX\u0007werewolf\nFkFk    \u0007elf-lord\n#chat\nkFk    Fj  \u0007gold golem\nFj   n  Fu   Fu    n  Fb    sm.    n sm.     \u00162\n\u001614\n#chat\nn;>. \u001b.\u001614\n__.s\u00166\n#chat\nl;<.\u0016?\n>J     wand of sleep\n\u0007gnomish wizard\nFkFb           Fb                  Fy          n    Fy                 n Fu              \u0007frost giant\n#chat\nb   n              Fl      n              Fk  n                    n  \u0007pit viper\nFj                 Fu     n               Fb     n                 \u0007killer bee\nsm.   n                .m.   n                 n   .m.               n   sb               yy\u001bny ny\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50350072,
+   "datetime": "20200121161753",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed amulet of reflection\nPo\u0016?\nq \u0017silver saber\nwpFb  .20sX\u0007werewolf\nFkFk    \u0007elf-lord\n#chat\nkFk    Fj  \u0007gold golem\nFj   n  Fu   Fu    n  Fb    sm.    n sm.     \u00162\n\u001614\n#chat\nn;>. \u001b.\u001614\n__.s\u00166\n#chat\nl;<.\u0016?\n>J     wand of sleep\n\u0007gnomish wizard\nFkFb           Fb                  Fy          n    Fy                 n Fu              \u0007frost giant\n#chat\nb   n              Fl      n              Fk  n                    n  \u0007pit viper\nFj                 Fu     n               Fb     n                 \u0007killer bee\nsm.   n                .m.   n                 n   .m.               n   sb               yy\u001bny ny\u001b  s"
+  }
+ ]
+}

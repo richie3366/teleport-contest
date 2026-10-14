@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "mO>>>l\nE- X marks the spot\nmO>>u\n\u000f\u001b\u0018\u001bOih\nd\n_m, \u001b,20s\u000f\u001bO>j\n\u0004k20ss"
+ },
+ "segments": [
+  {
+   "seed": 50355031,
+   "datetime": "20000921050128",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=pettype:horse\n",
+   "moves": "mO>>>l\nE- X marks the spot\nmO>>u\n\u000f\u001b\u0018\u001bOih\nd\n_m, \u001b,20s\u000f\u001bO>j\n\u0004k20ss"
+  }
+ ]
+}

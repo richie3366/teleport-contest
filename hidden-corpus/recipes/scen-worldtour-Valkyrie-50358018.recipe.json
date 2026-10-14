@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nWe\u001636\n   \u0004h\u00164\n_ \u001b@.<\u0016?\n>xhbjkbuu:\u001636\nbjh:\u0016?\n>>L      red dragon scale mail\n\u0004j\u0016?\na   __,>\u00164\nh   j        kj           :\u001615\n_<.\u0016?\ne y  h    \u001b   n     j k        n  :\u0016?\nb\u0004n      20s    sm.20s   \u0016?\n\u001bl    l    \u001634\n\u0017spellbook of clairvoyance\nrh   n      .m.          \u0017spellbook of detect food\nri       n      sl      \u0017blessed spellbook of teleport away\nrj    sm.\u0017blessed spellbook of magic missile\nrk       sm.+Z\u0007gnome\nZFl    ZZ\u0007grid bug\nZZZ#turn\n#pray\ny y                 \u00169\n\u0016?\n\u001bb         n u \u001623\nkukuukl:\u0016?\n\u001bkh \u001636\nk      b           :\u0016?\n\u001bu             n b                                         n          \u0016?\n\u001bj        b           \u0016?\n\u001bj h       n     \u0016?\n\u001bj                      n                 n       \u0016?\n\u001bk        y   "
+ },
+ "segments": [
+  {
+   "seed": 50358018,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nWe\u001636\n   \u0004h\u00164\n_ \u001b@.<\u0016?\n>xhbjkbuu:\u001636\nbjh:\u0016?\n>>L      red dragon scale mail\n\u0004j\u0016?\na   __,>\u00164\nh   j        kj           :\u001615\n_<.\u0016?\ne y  h    \u001b   n     j k        n  :\u0016?\nb\u0004n      20s    sm.20s   \u0016?\n\u001bl    l    \u001634\n\u0017spellbook of clairvoyance\nrh   n      .m.          \u0017spellbook of detect food\nri       n      sl      \u0017blessed spellbook of teleport away\nrj    sm.\u0017blessed spellbook of magic missile\nrk       sm.+Z\u0007gnome\nZFl    ZZ\u0007grid bug\nZZZ#turn\n#pray\ny y                 \u00169\n\u0016?\n\u001bb         n u \u001623\nkukuukl:\u0016?\n\u001bkh \u001636\nk      b           :\u0016?\n\u001bu             n b                                         n          \u0016?\n\u001bj        b           \u0016?\n\u001bj h       n     \u0016?\n\u001bj                      n                 n       \u0016?\n\u001bk        y   "
+  }
+ ]
+}

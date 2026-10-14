@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>CnFh 10s\u0017wand of striking\nzoj10s\u0017wand of striking\nzp>jk\u0017scroll of earth\nrq   yy\u001bnnny\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50356017,
+   "datetime": "20000812073419",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>CnFh 10s\u0017wand of striking\nzoj10s\u0017wand of striking\nzp>jk\u0017scroll of earth\nrq   yy\u001bnnny\u001b  \u0017"
+  }
+ ]
+}

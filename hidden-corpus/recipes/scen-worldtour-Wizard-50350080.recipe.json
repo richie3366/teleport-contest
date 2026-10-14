@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwo \u0017blessed ring of free action\nPpr\u0016?\n>B\u0006_ \u001b,s \u00163\nyljlyb:\u0016?\n>>N       spellbook of fireball\nyu   yuk:\u001628\n\u0014 n   20s     n   \u001628\n_<.\u001640\nj     n  k       n    :\u00168\n\u0016?\nc\u0006_<.\u0016?\n\u001bb  u      \u001625\n_<.\u001617\nb      b    b    b j   j   n        : \u00161\n_>,<\u001624\n\u0014m,     \u0016?\n\u001bu        y   n         \u00163\nn       y  : \u001628\n\u0006<._>.\u0016?\nd _{,<\u001645\nk    n      h           n      y          n            n :\u001611\n\u001631\nj       n     h    \u001b      n     l          n         h               n      u   n          n      h       yy\u001bny  n  b"
+ },
+ "segments": [
+  {
+   "seed": 50350080,
+   "datetime": "20021025114003",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwo \u0017blessed ring of free action\nPpr\u0016?\n>B\u0006_ \u001b,s \u00163\nyljlyb:\u0016?\n>>N       spellbook of fireball\nyu   yuk:\u001628\n\u0014 n   20s     n   \u001628\n_<.\u001640\nj     n  k       n    :\u00168\n\u0016?\nc\u0006_<.\u0016?\n\u001bb  u      \u001625\n_<.\u001617\nb      b    b    b j   j   n        : \u00161\n_>,<\u001624\n\u0014m,     \u0016?\n\u001bu        y   n         \u00163\nn       y  : \u001628\n\u0006<._>.\u0016?\nd _{,<\u001645\nk    n      h           n      y          n            n :\u001611\n\u001631\nj       n     h    \u001b      n     l          n         h               n      u   n          n      h       yy\u001bny  n  b"
+  }
+ ]
+}

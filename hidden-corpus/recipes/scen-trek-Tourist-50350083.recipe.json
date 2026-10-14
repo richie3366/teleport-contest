@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "N YJN_ \u001b@.>HUNU_>,>#invoke\n\u001b#loot\n<UYNY_>,>KYHJ_>,>HKNH_>.>#monster\n<\u000f\u001bLNNH_>.>HKKJ_>.>HBUN_>.>BYJU_>.>NUBN_>.>\u000f\u001bLJHL_>.>s\u000f\u001bLKYU_>.>t$nE- ad aerarium\nLKUB_>.>BYJL_>.>KHL N_>.>,i\u001bYHHJ_>.>HUHH_>.>\u0014i\u001b#sit\n\u001b<,150s150snllhhlyhl50s100s_>.>i\u001b100s_>,>150see\u000f\u001bnkj50s100sFh Fh FhFh..Fhss100s_>.>klh100sFhFhFhFhFhs100sljk100s150s100sFhs.50s_>.>100snjylulhbhFyFyFyjynujy_>.>100s50s\u000f\u001b150s\u0018\u001b50skbn100s100s150s  FhFhFhFhFhFy Fy FyFylhk150sFhFhFh#pray\ny      FhFhFhlub50s\u000f\u001b_>.>hjl50sec50sFhFhFhFhFhFhFhFh20s150s150see_>,>ykj100sFhFhFhFhss\u0018\u001b<#enhance\n\u001b#twoweapon\n100slubyjnkjy#ride\nbknu#untrap\njbjki\u001b100s\u000f\u001b100sFhFhsuby50s50s150sFhFh.\u000f\u001b\u0018\u001b150snbu#sit\n\u001bFhFhFhFhss100s50sull150s100sFhFhs100s_>,>\\ i\u001bluj_>,>150s50s50sHYKJ_>.>BKLL_>.>#force\n#invoke\n\u001bLLNU_>.>\u0014alj\u000f\u001bHYBJ_>.>JHBU_>.>YBUY_>.>LYYY_>,>NLYK_>.>\u000f\u001bt$n20stan#chat\nltak dl .20s.m.dhsbsu  .m.h#chat\nbhtah10s#chat\nh#pray\ny      Fhsslllujk<50s100sFbFbs150s150s100s150s FbFbFb FbFbFbFbFbs100sjkj150sef100s\u0018\u001b100sFhFh.100sz100seb100s100s#dip\nkg150s\\"
+ },
+ "segments": [
+  {
+   "seed": 50350083,
+   "datetime": "20021104121122",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\n",
+   "moves": "N YJN_ \u001b@.>HUNU_>,>#invoke\n\u001b#loot\n<UYNY_>,>KYHJ_>,>HKNH_>.>#monster\n<\u000f\u001bLNNH_>.>HKKJ_>.>HBUN_>.>BYJU_>.>NUBN_>.>\u000f\u001bLJHL_>.>s\u000f\u001bLKYU_>.>t$nE- ad aerarium\nLKUB_>.>BYJL_>.>KHL N_>.>,i\u001bYHHJ_>.>HUHH_>.>\u0014i\u001b#sit\n\u001b<,150s150snllhhlyhl50s100s_>.>i\u001b100s_>,>150see\u000f\u001bnkj50s100sFh Fh FhFh..Fhss100s_>.>klh100sFhFhFhFhFhs100sljk100s150s100sFhs.50s_>.>100snjylulhbhFyFyFyjynujy_>.>100s50s\u000f\u001b150s\u0018\u001b50skbn100s100s150s  FhFhFhFhFhFy Fy FyFylhk150sFhFhFh#pray\ny      FhFhFhlub50s\u000f\u001b_>.>hjl50sec50sFhFhFhFhFhFhFhFh20s150s150see_>,>ykj100sFhFhFhFhss\u0018\u001b<#enhance\n\u001b#twoweapon\n100slubyjnkjy#ride\nbknu#untrap\njbjki\u001b100s\u000f\u001b100sFhFhsuby50s50s150sFhFh.\u000f\u001b\u0018\u001b150snbu#sit\n\u001bFhFhFhFhss100s50sull150s100sFhFhs100s_>,>\\ i\u001bluj_>,>150s50s50sHYKJ_>.>BKLL_>.>#force\n#invoke\n\u001bLLNU_>.>\u0014alj\u000f\u001bHYBJ_>.>JHBU_>.>YBUY_>.>LYYY_>,>NLYK_>.>\u000f\u001bt$n20stan#chat\nltak dl .20s.m.dhsbsu  .m.h#chat\nbhtah10s#chat\nh#pray\ny      Fhsslllujk<50s100sFbFbs150s150s100s150s FbFbFb FbFbFbFbFbs100sjkj150sef100s\u0018\u001b100sFhFh.100sz100seb100s100s#dip\nkg150s\\"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed ring of free action\nPor\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b,,p_ooo._ooo.,:_ooo,,\u0014;ss_ooooooooo.,pFlFlFlFlFl Fl\u0016?\nclkl\u0016?\n>w\u0006kjk#chat\nu_oo._o. _.,p__._.,#chat\nh_oooo.,#chat\nh_oooooooo._o,_.,\u001b$_{,_,qf;nyj#chat\nl_oooooooo,,$jkj#chat\nb_{._.@.qh_ooooooo. \u001b_._ooo.,\u001bp\u0016?\n>Bkjk\u0016?\n>w\u0006_ooooo,Fl  _.   nFl    n,#chat\nl  \u0016?\n>Bnbk\u0016?\n>w\u0006\u00169\nh  n uk#chat\nn_ooooo,,p_ooooooooo._oo,,\u0017amulet of reflection\nds__.#chat\ny  n_ooooooo._ooo.,#chat\ny_oo.,:_ooooo,,$_oooooo,_ooo.,:_{.qg  luu#chat\n\u00167\nnnb\u0016?\n>w\u0006__._. Fb    #chat\nh       _ooo,  n  Fh      _.  n  Fh        ,\u0017amulet of life saving\ndt  \u00165\n_{.q_oooo.,$_oooooooo.,:_ooooooooo._o,,$_ooooo.,p\u00167\nhyh\u0016?\n>w\u0006_oo.  nFu _.  n Fl ,:\u00163\nkhk\u0016?\n>w\u0006\u00167\njkj#chat\nn_oooooo.Fh_.  nFj,:_oooooo.Fn_,;m.Fl,#chat\nl_oooooooo._oo.  nFu_.Fy,:_ooooo,Fh_._oo.  n Fj_,Fn,p_{.  nFn_.@.FjqFjFj  n Fj   nFj Fj   n Fj __,  y\u001b   y  F"
+ },
+ "segments": [
+  {
+   "seed": 50360004,
+   "datetime": "20250103191312",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed ring of free action\nPor\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b,,p_ooo._ooo.,:_ooo,,\u0014;ss_ooooooooo.,pFlFlFlFlFl Fl\u0016?\nclkl\u0016?\n>w\u0006kjk#chat\nu_oo._o. _.,p__._.,#chat\nh_oooo.,#chat\nh_oooooooo._o,_.,\u001b$_{,_,qf;nyj#chat\nl_oooooooo,,$jkj#chat\nb_{._.@.qh_ooooooo. \u001b_._ooo.,\u001bp\u0016?\n>Bkjk\u0016?\n>w\u0006_ooooo,Fl  _.   nFl    n,#chat\nl  \u0016?\n>Bnbk\u0016?\n>w\u0006\u00169\nh  n uk#chat\nn_ooooo,,p_ooooooooo._oo,,\u0017amulet of reflection\nds__.#chat\ny  n_ooooooo._ooo.,#chat\ny_oo.,:_ooooo,,$_oooooo,_ooo.,:_{.qg  luu#chat\n\u00167\nnnb\u0016?\n>w\u0006__._. Fb    #chat\nh       _ooo,  n  Fh      _.  n  Fh        ,\u0017amulet of life saving\ndt  \u00165\n_{.q_oooo.,$_oooooooo.,:_ooooooooo._o,,$_ooooo.,p\u00167\nhyh\u0016?\n>w\u0006_oo.  nFu _.  n Fl ,:\u00163\nkhk\u0016?\n>w\u0006\u00167\njkj#chat\nn_oooooo.Fh_.  nFj,:_oooooo.Fn_,;m.Fl,#chat\nl_oooooooo._oo.  nFu_.Fy,:_ooooo,Fh_._oo.  n Fj_,Fn,p_{.  nFn_.@.FjqFjFj  n Fj   nFj Fj   n Fj __,  y\u001b   y  F"
+  }
+ ]
+}

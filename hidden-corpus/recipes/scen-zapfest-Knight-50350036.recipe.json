@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed shield of reflection\nW\u001b\u0017blessed +3 gray dragon scale mail\n W\u001b\u0017blessed +3 speed boots\nWk#levelchange\n10\n         \u00178 spears\nQl\u0007jackal\nfl futlhfkfn\u001614\n\u001720 darts\nQm\u0007lichen\nfhfhflfbtln\u0017blessed spellbook of fireball\nrns\u0017blessed spellbook of finger of death\nro 20s\u0007orc shaman\n\u0007aligned cleric\nnZb\n Za\nZa\nZa\nZb\nZb\n\u0007silver dragon\n20s  20s  .b#polyself\nred dragon\n     #monster\ny       sj .n #monster\n#monster\nFb  Fb  i\u001b\u0017orcish bow\nw\u001720 orcish arrows\nQby\u0007sewer rat\ntfftfff\u0017potion of sleeping\nt\u0007aligned cleric\nn\u0007kobold shaman\n\u0017wand of fire\n.h    sm.  sm.i\u001b\u0017wand of fire\n\u0017wand of sleep\n\u0017wand of teleportation\n\u0007soldier\n\u0007owlbear\nzuy     n   sm.    zvh zvh zth   zvh  .u   nzvu zuu  zuy    zty  zuk20si\u001b\u00161\n\u0007mind flayer\n\u0007mind flayer\n\u0007kobold shaman\n\u0017wand of fire\nzwbzwn       zwh \u0017blessed spellbook of cause fear\nrx   n    n sm.    n \u0007lich\n\u0007succubus\nZ\u001bZ\u001bZ\u001b20s      n syZ\u001bssZ\u001bZ\u001b\u001611\n     \u0017wand of digging\n \u0017wand of lightning\n\u0007soldier\n\u0007jackal\nzy>    \u001b      zzk    zy> zzhszy> zz.     n \u0007mind flayer\n\u0007master mind flayer\n\u0007lich\n\u0017wand of striking\nzAh  \u0007succubus\n\u0007lich\n\u0017wand of cold\n.  n    n           n    n  s     n    n  zBl     n    n  s   n    s  yy\u001by   ny y\u001by  z"
+ },
+ "segments": [
+  {
+   "seed": 50350036,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed shield of reflection\nW\u001b\u0017blessed +3 gray dragon scale mail\n W\u001b\u0017blessed +3 speed boots\nWk#levelchange\n10\n         \u00178 spears\nQl\u0007jackal\nfl futlhfkfn\u001614\n\u001720 darts\nQm\u0007lichen\nfhfhflfbtln\u0017blessed spellbook of fireball\nrns\u0017blessed spellbook of finger of death\nro 20s\u0007orc shaman\n\u0007aligned cleric\nnZb\n Za\nZa\nZa\nZb\nZb\n\u0007silver dragon\n20s  20s  .b#polyself\nred dragon\n     #monster\ny       sj .n #monster\n#monster\nFb  Fb  i\u001b\u0017orcish bow\nw\u001720 orcish arrows\nQby\u0007sewer rat\ntfftfff\u0017potion of sleeping\nt\u0007aligned cleric\nn\u0007kobold shaman\n\u0017wand of fire\n.h    sm.  sm.i\u001b\u0017wand of fire\n\u0017wand of sleep\n\u0017wand of teleportation\n\u0007soldier\n\u0007owlbear\nzuy     n   sm.    zvh zvh zth   zvh  .u   nzvu zuu  zuy    zty  zuk20si\u001b\u00161\n\u0007mind flayer\n\u0007mind flayer\n\u0007kobold shaman\n\u0017wand of fire\nzwbzwn       zwh \u0017blessed spellbook of cause fear\nrx   n    n sm.    n \u0007lich\n\u0007succubus\nZ\u001bZ\u001bZ\u001b20s      n syZ\u001bssZ\u001bZ\u001b\u001611\n     \u0017wand of digging\n \u0017wand of lightning\n\u0007soldier\n\u0007jackal\nzy>    \u001b      zzk    zy> zzhszy> zz.     n \u0007mind flayer\n\u0007master mind flayer\n\u0007lich\n\u0017wand of striking\nzAh  \u0007succubus\n\u0007lich\n\u0017wand of cold\n.  n    n           n    n  s     n    n  zBl     n    n  s   n    s  yy\u001by   ny y\u001by  z"
+  }
+ ]
+}

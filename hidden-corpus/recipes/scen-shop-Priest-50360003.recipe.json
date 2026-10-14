@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017blessed +3 helm of telepathy\nWk\u0016?\n>w\u0006_ \u001b,,p__,Fl_,m.Fl#chat\nl_ooooooooo.,\u0017amulet versus poison\ndl_{,Fk _,Fl  nqd  n\u00165\nbhl#chat\ny_oooooo.,\u0017amulet of life saving\ndmj_ooo,,p\u0016?\nclhh\u0016?\n>w\u0006__._,#chat\nn_oooooooo.,\u0017amulet of restful sleep\ndnai_oooooo,_,Fb_oo,Fj _.  nFh,$__._,#chat\nj_oooo,_o.  _.Fb  ,:_ooooooo,,\u0017amulet of ESP\ndpg_,p_oooooo.Fy  n_.Fy,$_ooo,Fh  n_.Fh,$_ooooooo.Fk  n_.,\u0014m.20ssm._{,Fl_,Flqd  n Fl  nFlFlFlFlFl_ooo,Fn_.m,_oo._,,\u001bp_ooooooo,_.  Fj ,p  _oo,Fl  _,.Fl ,\u001bpFu FuFuFuFuFu__.  n  Fk_.Fy#chat\ny#pray\ny y   _oooooooo,Fu_, Fk_o,Fk_,Fu,\u001b$_oooo. Fj _,  nFj ,$_oooooooo.  n Fj_.Fj  n ,#chat\nj   n \u00168\nFjFjFjFjFjFj_{,qd_ooooo,_._ooo.,b\np\u00167\nhln\u0016?\n>w\u0006_{._,,qy_ooooo.Fy_.m.,\u001b#chat\nl\u0016?\n>Bhkl\u0016?\n>w  \u0006Fu Fu  nFuFuFuFu   _ooooooooo,  n Fu_.  y ny   ny ny  F"
+ },
+ "segments": [
+  {
+   "seed": 50360003,
+   "datetime": "20121130153520",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017blessed +3 helm of telepathy\nWk\u0016?\n>w\u0006_ \u001b,,p__,Fl_,m.Fl#chat\nl_ooooooooo.,\u0017amulet versus poison\ndl_{,Fk _,Fl  nqd  n\u00165\nbhl#chat\ny_oooooo.,\u0017amulet of life saving\ndmj_ooo,,p\u0016?\nclhh\u0016?\n>w\u0006__._,#chat\nn_oooooooo.,\u0017amulet of restful sleep\ndnai_oooooo,_,Fb_oo,Fj _.  nFh,$__._,#chat\nj_oooo,_o.  _.Fb  ,:_ooooooo,,\u0017amulet of ESP\ndpg_,p_oooooo.Fy  n_.Fy,$_ooo,Fh  n_.Fh,$_ooooooo.Fk  n_.,\u0014m.20ssm._{,Fl_,Flqd  n Fl  nFlFlFlFlFl_ooo,Fn_.m,_oo._,,\u001bp_ooooooo,_.  Fj ,p  _oo,Fl  _,.Fl ,\u001bpFu FuFuFuFuFu__.  n  Fk_.Fy#chat\ny#pray\ny y   _oooooooo,Fu_, Fk_o,Fk_,Fu,\u001b$_oooo. Fj _,  nFj ,$_oooooooo.  n Fj_.Fj  n ,#chat\nj   n \u00168\nFjFjFjFjFjFj_{,qd_ooooo,_._ooo.,b\np\u00167\nhln\u0016?\n>w\u0006_{._,,qy_ooooo.Fy_.m.,\u001b#chat\nl\u0016?\n>Bhkl\u0016?\n>w  \u0006Fu Fu  nFuFuFuFu   _ooooooooo,  n Fu_.  y ny   ny ny  F"
+  }
+ ]
+}

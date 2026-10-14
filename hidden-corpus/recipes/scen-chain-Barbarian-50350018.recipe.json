@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nb\n sks20ssjs20ssm.s20s20s .m...sm.sl .m.sh20s  .m...sm.20s  .l  n20sssss20sss..s20s20s s..hnnl #name\nf\n .dc..20s10s #name\nd\n#name\nm\nd20s20s 20stbkjkt\u001b#chat\nbyk#name\nm\ndss.blnydc20s s20st\u001b#name\ni\nj10sut\u001bbl20s 20sydcs.m.20shj kj 10su  20shbhu#chat\nbdas20sst\u001bnhyklbylhkbhFn FnFnFnFnFnFnFndds.20s#chat\ny20s#name\nm\n#name\nm.foo\nuhlj10s 20sbuulLBYL_>.>JLBH_>.>LKUK_>.>LLKY_>,>HKNB_>.>FussJBBK _>,>jnh100sFus20s  FlFl 20s50sFns.100snnnynnFyss_>,>__,.hyh\u0018\u001b100s100sFls20s100sFlFlFl_>.>100sklh100sFlFl.100sjkk_>,>\\  100s\u0018\u001bjbb_>,>w\u001b\\  \u000f\u001b150sFu.slhh150sFlss50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehllleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeklkjhlhleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10st\u001bdc20ssshudc.20s20skuyueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebknnFyFyFyFyFyFyFyFyFhFhFhFhFhFhFhFht\u001bhlt\u001bdcss20sdcs.s#name\nm\n@.uynnlhkj10sjdcsssdcs..KBJH    _>.>FjsFj<HLNL_>.>FkssUYKU_>.>YBHN_>,>KJBU_>.><YUNU_>.>YJYN_>.>,,<llhh100sFl     Fl   y\u001by  y y y\u001b  . hubuNKBK_ \u001bm.>#turn\n\u0014ULYB_>.>H U HY_>.>#force\nw-ULJN_>.>#invoke\n\u001b#tip\n\u001b\u000f\u001b150skly100s 150si\u001b100s150s 100s eg150sef50sybhujk150s   ef100s100s efdf100s150sFh FhFh150s ey100shub100s eeeeeeeeeeeejjuykbhheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNNJY_>.>KHHK_>.>KYKU_>.>LKYJ_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHJHL_>,>FhFb20s #untrap\nb#terrain\nc\nm.JNNJ_>,>Fb sFb#monster\n#monster\nLYNL_>.>\u000f\u001blhllFlFl  FlFl   y\u001by   y y y\u001b  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50350018,
+   "datetime": "20190606060319",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n sks20ssjs20ssm.s20s20s .m...sm.sl .m.sh20s  .m...sm.20s  .l  n20sssss20sss..s20s20s s.."
+  },
+  {
+   "seed": 50450018,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=sortloot:none\nOPTIONS=runmode:crawl\n",
+   "moves": "hnnl #name\nf\n .dc..20s10s #name\nd\n#name\nm\nd20s20s 20stbkjkt\u001b#chat\nbyk#name\nm\ndss.blnydc20s s20st\u001b#name\ni\nj10sut\u001bbl20s 20sydcs.m.20shj kj 10su  20shbhu#chat\nbdas20sst\u001bnhyklbylhkbhFn FnFnFnFnFnFnFndds.20s#chat\ny20s#name\nm\n#name\nm.foo\nuhlj10s 20sbuulLBYL_>.>JLBH_>.>LKUK_>.>LLKY_>,>HKNB_>.>FussJBBK _>,>jnh100sFus20s  FlFl 20s50sFns.100snnnynnFyss_>,>__,.hyh\u0018\u001b100s100sFls20s100sFlFlFl_>.>100sklh100sFlFl.100sjkk_>,>\\  100s\u0018\u001bjbb_>,>w\u001b\\  \u000f\u001b150sFu.slhh150sFlss50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehllleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeklkjhlhleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10st\u001bdc20ssshudc.20s20skuyueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebknnFyFyFyFyFyFyFyFyFhFhFhFhFhFhFhFht\u001bhlt\u001bdcss20sdcs.s#name\nm\n@.uynnlhkj10sjdcsssdcs..KBJH    _>.>FjsFj<HLNL_>.>FkssUYKU_>.>YBHN_>,>KJBU_>.><YUNU_>.>YJYN_>.>,,<llhh100sFl     Fl   y\u001by  y y y\u001b  ."
+  },
+  {
+   "seed": 50550018,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=mention_walls\nOPTIONS=runmode:crawl\n",
+   "moves": " hubuNKBK_ \u001bm.>#turn\n\u0014ULYB_>.>H U HY_>.>#force\nw-ULJN_>.>#invoke\n\u001b#tip\n\u001b\u000f\u001b150skly100s 150si\u001b100s150s 100s eg150sef50sybhujk150s   ef100s100s efdf100s150sFh FhFh150s ey100shub100s eeeeeeeeeeeejjuykbhheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNNJY_>.>KHHK_>.>KYKU_>.>LKYJ_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHJHL_>,>FhFb20s #untrap\nb#terrain\nc\nm.JNNJ_>,>Fb sFb#monster\n#monster\nLYNL_>.>\u000f\u001blhllFlFl  FlFl   y\u001by   y y y\u001b  F"
+  }
+ ]
+}

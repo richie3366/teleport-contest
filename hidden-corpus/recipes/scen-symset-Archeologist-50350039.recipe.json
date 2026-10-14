@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " O>>>i\u001b\u001b\nOc\u001b\n\u0006_ \u001b.>FbFb_>,_,>FyFyFy\u0006_>.Fk_,:Fk>FkFk_>.Fk_,Fk>FkFk_>.Fk_..Fk>FkFkFkFkFk<\u0006_>>.Fk_.:Fk>FkFk_>>.Fk_,@.Fy>FyFy_>>.Fh_.:Fy>FyFyFyFyFy\u0006_>>.Fk_..Fu>FuFu_>>.Fk_..Fk>y#invoke\n\u001b\u001bmO>>>d\u001b\nOb\u001b\u001b\nO>>>o5\n \u001b\nmO>>>>a\u001b\nmOa\u001b\n\u0006_>._,>\u0006_>.Fy_.>\u0006_>,_.>_>.Fk_.Fk>FkFk_>.Fk_.    nFk>FkFkFkFkFk_>,slk >\u0006_>.Fj_,Fk>FjFj_>,  n Fk_,Fk>FkFj_>,  n Fk_,Fj>FkFkFkFjFk<\u0006_>,  n Fj_,Fk>FjFk_>.  nFj_.Fk>FkFj_>.Fj_.  n Fk>FkFkFkFkFk\u00163\n\u00161\n\u00167\n50s_>.>100s,_>.>#rub\ng\u001b\u001bbnkb 100s\u0018\u001bi\u001byyj\u0018\u001bnkh kn 100s100sh\u001blj\u000f\u001b_>.>150s_>.>50s50sjbb50s50si\u001b;>.100s\\ bjn150s100sh\u001blni\u001b50s\u0018\u001bllb\\ lnnnjn\u001614\n   \u0007tame wolf\n\u0007tame little dog\n20s\u0017leash\najl nyjnajl \u0017carrot\nt\u001b\u001b\u0017tripe ration\nt\u001b\u001b\u0017newt corpse\nt\u001b\u001b#chat\nl \u0007newt\nsm.sm..m.sm. sul .nmO>>o\u001b\nkj kl nuj \u0017unaligned altar\nda  \u0017newt corpse\n#offer\nn   #pray\ny y      : n\u0017melting ice\nynnyy\u0017grave\n:\u0017wand of digging\nzo>   20s.#terrain\ne\n,#untrap\nn ,mO>>n\u001b\n\u0006_>._.>>#terrain\nb\n \u0006_>,  nFy_. Fy>   n FyFyFy>#"
+ },
+ "segments": [
+  {
+   "seed": 50350039,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nMSGTYPE=hide \"The door\"\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": " O>>>i\u001b\u001b\nOc\u001b\n\u0006_ \u001b.>FbFb_>,_,>FyFyFy\u0006_>.Fk_,:Fk>FkFk_>.Fk_,Fk>FkFk_>.Fk_..Fk>FkFkFkFkFk<\u0006_>>.Fk_.:Fk>FkFk_>>.Fk_,@.Fy>FyFy_>>.Fh_.:Fy>FyFyFyFyFy\u0006_>>.Fk_..Fu>FuFu_>>.Fk_..Fk>y#invoke\n\u001b\u001bmO>>>d\u001b\nOb\u001b\u001b\nO>>>o5\n \u001b\nmO>>>>a\u001b\nmOa\u001b\n\u0006_>._,>\u0006_>.Fy_.>\u0006_>,_.>_>.Fk_.Fk>FkFk_>.Fk_.    nFk>FkFkFkFkFk_>,slk >\u0006_>.Fj_,Fk>FjFj_>,  n Fk_,Fk>FkFj_>,  n Fk_,Fj>FkFkFkFjFk<\u0006_>,  n Fj_,Fk>FjFk_>.  nFj_.Fk>FkFj_>.Fj_.  n Fk>FkFkFkFkFk\u00163\n\u00161\n\u00167\n50s_>.>100s,_>.>#rub\ng\u001b\u001bbnkb 100s\u0018\u001bi\u001byyj\u0018\u001bnkh kn 100s100sh\u001blj\u000f\u001b_>.>150s_>.>50s50sjbb50s50si\u001b;>.100s\\ bjn150s100sh\u001blni\u001b50s\u0018\u001bllb\\ lnnnjn\u001614\n   \u0007tame wolf\n\u0007tame little dog\n20s\u0017leash\najl nyjnajl \u0017carrot\nt\u001b\u001b\u0017tripe ration\nt\u001b\u001b\u0017newt corpse\nt\u001b\u001b#chat\nl \u0007newt\nsm.sm..m.sm. sul .nmO>>o\u001b\nkj kl nuj \u0017unaligned altar\nda  \u0017newt corpse\n#offer\nn   #pray\ny y      : n\u0017melting ice\nynnyy\u0017grave\n:\u0017wand of digging\nzo>   20s.#terrain\ne\n,#untrap\nn ,mO>>n\u001b\n\u0006_>._.>>#terrain\nb\n \u0006_>,  nFy_. Fy>   n FyFyFy>#"
+  }
+ ]
+}

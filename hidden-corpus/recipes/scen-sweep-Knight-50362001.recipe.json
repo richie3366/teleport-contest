@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017large box\n \u0017ice box\n\u0017ring of slow digestion\n\u0017wand of cancellation\n\u0017skeleton key\ndiam.ys20s .#loot\na\n yab   \u001bm.df#loot\nb\no\n,b\n air\na\n#tip\nyi\ni\u001b\u0017scroll of blank paper\nr\u00173 kelp frond\nep20s s\u0017uncursed tin of spinach\n\u0007disenchanter\neqsm.s\u0017blessed ring of levitation\nPrl    n   n 20s  n    n   n sm.  n   n   n  20s  n     n   n\u0017uncursed wand of fire\nzzsb  n   n sl  n   n   yy\u001b y  y ny\u001by  #"
+ },
+ "segments": [
+  {
+   "seed": 50362001,
+   "datetime": "20071123215532",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017large box\n \u0017ice box\n\u0017ring of slow digestion\n\u0017wand of cancellation\n\u0017skeleton key\ndiam.ys20s .#loot\na\n yab   \u001bm.df#loot\nb\no\n,b\n air\na\n#tip\nyi\ni\u001b\u0017scroll of blank paper\nr\u00173 kelp frond\nep20s s\u0017uncursed tin of spinach\n\u0007disenchanter\neqsm.s\u0017blessed ring of levitation\nPrl    n   n 20s  n    n   n sm.  n   n   n  20s  n     n   n\u0017uncursed wand of fire\nzzsb  n   n sl  n   n   yy\u001b y  y ny\u001by  #"
+  }
+ ]
+}

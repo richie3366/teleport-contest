@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " O>n\nf\ndeOjfm\n#wipe\n\u000f\u001bmO>>>>b\n1\n\\ O>e\n#twoweapon\nssOkem\negmO>>>ai\nzi wand of enlightenment\n#conduct\n Ofec\n#tip\nf\u001bO>b\nohZmO>>>>>juo\n4\nf\n#chat\nk20s."
+ },
+ "segments": [
+  {
+   "seed": 50355026,
+   "datetime": "20170702083602",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:explore\n",
+   "moves": " O>n\nf\ndeOjfm\n#wipe\n\u000f\u001bmO>>>>b\n1\n\\ O>e\n#twoweapon\nssOkem\negmO>>>ai\nzi wand of enlightenment\n#conduct\n Ofec\n#tip\nf\u001bO>b\nohZmO>>>>>juo\n4\nf\n#chat\nk20s."
+  }
+ ]
+}

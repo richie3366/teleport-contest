@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed Mjollnir\nwp\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>>K      wand of death\nhu   :\u0016?\n\u001bk       h    \u001610\n\u0004y   \u0016?\n\u001bu u\u001632\nb      n   n     n    \u0017pool\nk  n       l   n      \u0017lawful altar\ndj    n           \u0017dwarf corpse\n#pray\ny y                       : #offer\nam      n       <\u00163\n\u001610\nu     n      l       k    n       y    n     b       n  h       n :20s           \u00166\n\u001624\n_ \u001b@.>.l    n        n   sm.          n       n        \u00166\n\u001623\n_<.\u0016?\n\u001bb   n           yy\u001by   y ny\u001b  b"
+ },
+ "segments": [
+  {
+   "seed": 50358032,
+   "datetime": "20110417150532",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed Mjollnir\nwp\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>>K      wand of death\nhu   :\u0016?\n\u001bk       h    \u001610\n\u0004y   \u0016?\n\u001bu u\u001632\nb      n   n     n    \u0017pool\nk  n       l   n      \u0017lawful altar\ndj    n           \u0017dwarf corpse\n#pray\ny y                       : #offer\nam      n       <\u00163\n\u001610\nu     n      l       k    n       y    n     b       n  h       n :20s           \u00166\n\u001624\n_ \u001b@.>.l    n        n   sm.          n       n        \u00166\n\u001623\n_<.\u0016?\n\u001bb   n           yy\u001by   y ny\u001b  b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " mO>>>qw\nt\u001b>Oe\n\\  #offer\nO>h\n>#monster\nmO>>>>ha\nhs20s  O>ah\n10sOho\ne\n\u0004b#turn\nO>jnm\n#dip\njdmO>k\n#untrap\nl_<,20s mO>>>>>ops\n$\")[%?+!=/(*`0_\na\ng\n>f \u001bmO>>>p\n\\  ef 20ss"
+ },
+ "segments": [
+  {
+   "seed": 50355018,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " mO>>>qw\nt\u001b>Oe\n\\  #offer\nO>h\n>#monster\nmO>>>>ha\nhs20s  O>ah\n10sOho\ne\n\u0004b#turn\nO>jnm\n#dip\njdmO>k\n#untrap\nl_<,20s mO>>>>>ops\n$\")[%?+!=/(*`0_\na\ng\n>f \u001bmO>>>p\n\\  ef 20ss"
+  }
+ ]
+}

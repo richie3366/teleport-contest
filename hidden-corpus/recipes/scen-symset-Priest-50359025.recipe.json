@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " O>>d\u001b\nO>>>>n\u001b\u001b\nmOa\u001b\n\u0006_ \u001b,>FuFu _>.Fh_.,> n#tip\n\u001b\u0006_>._,> \u0006_>,Fl_.Fn >Fns_>,_.>_>._.>\u0006_>._,>_>._.>_>.Fl_.Fl>Fl  nFl\u0006_>,_,>_>,_.>_>,_.>\\ 100sFlFlskyu\\ 50s_>._.>#force\n100sFlFlFlFlFlFlFlFl20s100s FlFl Flbjj\u0018\u001b100sFlFlFlFlFls50s50sFlFlFlFl..i\u001bnyu100sjlyybhah 100shybylyjhni\u001bkyl100s ey ef100sFn.m..m.O>h\u001b\n\u0007kitten\n\u0017meatball\nt\u001b#name\n\u001b20s\u0017meatball\nt\u001b#name\n\u001b\u0007sewer rat\n\u0017scroll of taming\nrj  \u001bdcsm.sm.  n.m.\u0006_>>,Fl  n_.Fh>FhFh_>>._.>_>>._.>\u001611\n\u0006_>>.Fk_,Fk>Fk  nFk _>>.Fk _,  n Fu>FuFl_>>._,>    z#sit\n\u0006_>>.Fl _.m,Fl >Fl   nFh  _>>.  n Fu _.   nFu   n  >  Fh  n Fh.\u0006_>,        n _,Fn >Fn Fn   n_>,_.> \u0006_>>._.>_>>,_.>_>>._.>\u0006_>._.>_>._.>_>,_.>\u000f\u001b\u00164\nmO>>t\u001b\nO>>>o7\n \u001b\n\u001614\n_>.     _.     nFk>FkFkFkFk  nFkFkFk  nFk FkFk  yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50359025,
+   "datetime": "20110702102405",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " O>>d\u001b\nO>>>>n\u001b\u001b\nmOa\u001b\n\u0006_ \u001b,>FuFu _>.Fh_.,> n#tip\n\u001b\u0006_>._,> \u0006_>,Fl_.Fn >Fns_>,_.>_>._.>\u0006_>._,>_>._.>_>.Fl_.Fl>Fl  nFl\u0006_>,_,>_>,_.>_>,_.>\\ 100sFlFlskyu\\ 50s_>._.>#force\n100sFlFlFlFlFlFlFlFl20s100s FlFl Flbjj\u0018\u001b100sFlFlFlFlFls50s50sFlFlFlFl..i\u001bnyu100sjlyybhah 100shybylyjhni\u001bkyl100s ey ef100sFn.m..m.O>h\u001b\n\u0007kitten\n\u0017meatball\nt\u001b#name\n\u001b20s\u0017meatball\nt\u001b#name\n\u001b\u0007sewer rat\n\u0017scroll of taming\nrj  \u001bdcsm.sm.  n.m.\u0006_>>,Fl  n_.Fh>FhFh_>>._.>_>>._.>\u001611\n\u0006_>>.Fk_,Fk>Fk  nFk _>>.Fk _,  n Fu>FuFl_>>._,>    z#sit\n\u0006_>>.Fl _.m,Fl >Fl   nFh  _>>.  n Fu _.   nFu   n  >  Fh  n Fh.\u0006_>,        n _,Fn >Fn Fn   n_>,_.> \u0006_>>._.>_>>,_.>_>>._.>\u0006_>._.>_>._.>_>,_.>\u000f\u001b\u00164\nmO>>t\u001b\nO>>>o7\n \u001b\n\u001614\n_>.     _.     nFk>FkFkFkFk  nFkFkFk  nFk FkFk  yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

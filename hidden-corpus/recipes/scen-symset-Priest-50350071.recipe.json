@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " O>>>l\u001b\nv i\u001bFkFj FlFuFhFkFlFbFbFkFbFjFuFkFuFjFjFbFlFuFkFuFjFkFbFhFuFjFjFjFjFuFkFnFhFlFlFjFlFlFuFlFbFkFlFhFkFuFkFnFjFjFbFnFkFlFnFjFhFkFlFjFjFlFnFjFuFnFbFlFnFhFbFlFhFlFkFnFbFbFjFnFuFhFjFuFkFyFkFbFlFnFuFyFbFnFuFkFuFhFuFlFjFnFlFkFjFuFnFkFkFhFuFhFyFlFhFkFjFy\u00163\nO>>>l\u001b\n\u00167\n FuFu  Fj     nFy     n Fk   n    nFk     n #pray\ny y            #pray\ny y            Fl  n   n Fb    n    nFh    nFj    n Fn   n    nFb    n Fl   \u001b   n    nFb    n Fl     yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50350071,
+   "datetime": "20140131110029",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " O>>>l\u001b\nv i\u001bFkFj FlFuFhFkFlFbFbFkFbFjFuFkFuFjFjFbFlFuFkFuFjFkFbFhFuFjFjFjFjFuFkFnFhFlFlFjFlFlFuFlFbFkFlFhFkFuFkFnFjFjFbFnFkFlFnFjFhFkFlFjFjFlFnFjFuFnFbFlFnFhFbFlFhFlFkFnFbFbFjFnFuFhFjFuFkFyFkFbFlFnFuFyFbFnFuFkFuFhFuFlFjFnFlFkFjFuFnFkFkFhFuFhFyFlFhFkFjFy\u00163\nO>>>l\u001b\n\u00167\n FuFu  Fj     nFy     n Fk   n    nFk     n #pray\ny y            #pray\ny y            Fl  n   n Fb    n    nFh    nFj    n Fn   n    nFb    n Fl   \u001b   n    nFb    n Fl     yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

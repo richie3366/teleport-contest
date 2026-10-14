@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "mO>w\u001b\nO>n\u001b\u001b\n\u00167\n 10s#monster\nzch, \u001617\n\u00162\n\u000f\u001b150si\u001b#dip\ngf 100sFy20ss\u0018\u001bqh\u0018\u001b100sFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlO>>>>d\u001b\n\u00169\n\u00167\nnnlhly100s#tip\n\u001b150s FhFhFh #pray\ny y     FhFhFh #pray\ny y    Fh.s\u0018\u001blyb\\  100syjlFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFb100s\\  \\  hyj100s_ \u001b<.>100s150s  hub150sFkFk Fk eeeeeee\u0007housecat\n\u0017meatball\nt\u001b\u0007large dog\n\u0017meatball\nt\u001bu\u0017huge chunk of meat\nt\u001b\u0006_>.  n  Fn   n _. Fk  n  >Fn  n Fk   n _>,  n Fn  n  _,  n   nFu >Fk  n Fk _>.  n  Fn   n  _.  n Fn   n >Fn   nFk    yy\u001by   y y y\u001by  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 50359004,
+   "datetime": "20250715231327",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"You kill\"\nMENUCOLOR=\"a scroll\"=green\nBIND=v:inventory\n",
+   "moves": "mO>w\u001b\nO>n\u001b\u001b\n\u00167\n 10s#monster\nzch, \u001617\n\u00162\n\u000f\u001b150si\u001b#dip\ngf 100sFy20ss\u0018\u001bqh\u0018\u001b100sFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlO>>>>d\u001b\n\u00169\n\u00167\nnnlhly100s#tip\n\u001b150s FhFhFh #pray\ny y     FhFhFh #pray\ny y    Fh.s\u0018\u001blyb\\  100syjlFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFb100s\\  \\  hyj100s_ \u001b<.>100s150s  hub150sFkFk Fk eeeeeee\u0007housecat\n\u0017meatball\nt\u001b\u0007large dog\n\u0017meatball\nt\u001bu\u0017huge chunk of meat\nt\u001b\u0006_>.  n  Fn   n _. Fk  n  >Fn  n Fk   n _>,  n Fn  n  _,  n   nFu >Fk  n Fk _>.  n  Fn   n  _.  n Fn   n >Fn   nFk    yy\u001by   y y y\u001by  \u0007"
+  }
+ ]
+}

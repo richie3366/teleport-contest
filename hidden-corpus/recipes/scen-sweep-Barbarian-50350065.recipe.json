@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n8\n    \u0017blessed ring of polymorph control\nPgr#polyself\ndust vortex\n #monster\n20s     ss..#polyself\nnurse\n red dragon\n #monster\nl    sss.s\u0017potion of polymorph\nqh aligned cleric\n flesh golem\n#dip\nf#levelchange\n20\n            \u0017blessed ring of polymorph control\nPi\u0017Hawaiian shirt\nW\u001bs.sT\u001b#polyself\nhomunculus\n #monster\nss\u0007kitten\nFh    Fj  Fh sm..m..#polyself\nchameleon\n mastodon\n#monster\nsm..m.20s.m.sb#polyself\nhobbit\n#monster\nsb20s s..#polyself\nbalrog\n#monster\n20s   s\u0007cobra\nFnFn Fn .m.20s20s \u0017amulet of unchanging\nPk20s20s  sm..m.Rk \u0007disenchanter\nFj Fn  Fj   FjFnFn  Fn  sn20s#pray\ny y        \u0007quantum mechanic\nFu Fj   FjFn   \u001bm,s20s20s#pray\ny y #wizintrinsic\ncd\n sm..ysm..m.20s.j20ssm.20ssm.20s20s.m..#ride\njy\\   >:y20ssm.20ssm.ss20s\u001613\n#levelchange\n20\n\u0017silver dagger\nwlFk  Fk Fk  \u0007green mold\nFk  Fh   n  n Fk FkFk\u0007paper golem\n;k:s ..\u0007scorpion\nFk   Fk   Fh    Fk    Fy  \u00168\n\u001611\nlj\u0017athame\nEm Elbereth\n : \u0017wand of make invisible\nEn  X marks the spot\n: \u0017wand of speed monster\nEoy Elbereth\n  uE- I am a fish\n  n \u0007jackal\ns  20s   sk  \u00166\n\u000f\u001bunh\u0017web\nhlsbsm.   kl\u0017trap door\nn\u0007yellow mold\n20s.ssh\u0017falling rock trap\nh#untrap\nl#ride\nky:<#levelchange\n12\n  \u0017blessed scroll "
+ },
+ "segments": [
+  {
+   "seed": 50350065,
+   "datetime": "20170415211732",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n8\n    \u0017blessed ring of polymorph control\nPgr#polyself\ndust vortex\n #monster\n20s     ss..#polyself\nnurse\n red dragon\n #monster\nl    sss.s\u0017potion of polymorph\nqh aligned cleric\n flesh golem\n#dip\nf#levelchange\n20\n            \u0017blessed ring of polymorph control\nPi\u0017Hawaiian shirt\nW\u001bs.sT\u001b#polyself\nhomunculus\n #monster\nss\u0007kitten\nFh    Fj  Fh sm..m..#polyself\nchameleon\n mastodon\n#monster\nsm..m.20s.m.sb#polyself\nhobbit\n#monster\nsb20s s..#polyself\nbalrog\n#monster\n20s   s\u0007cobra\nFnFn Fn .m.20s20s \u0017amulet of unchanging\nPk20s20s  sm..m.Rk \u0007disenchanter\nFj Fn  Fj   FjFnFn  Fn  sn20s#pray\ny y        \u0007quantum mechanic\nFu Fj   FjFn   \u001bm,s20s20s#pray\ny y #wizintrinsic\ncd\n sm..ysm..m.20s.j20ssm.20ssm.20s20s.m..#ride\njy\\   >:y20ssm.20ssm.ss20s\u001613\n#levelchange\n20\n\u0017silver dagger\nwlFk  Fk Fk  \u0007green mold\nFk  Fh   n  n Fk FkFk\u0007paper golem\n;k:s ..\u0007scorpion\nFk   Fk   Fh    Fk    Fy  \u00168\n\u001611\nlj\u0017athame\nEm Elbereth\n : \u0017wand of make invisible\nEn  X marks the spot\n: \u0017wand of speed monster\nEoy Elbereth\n  uE- I am a fish\n  n \u0007jackal\ns  20s   sk  \u00166\n\u000f\u001bunh\u0017web\nhlsbsm.   kl\u0017trap door\nn\u0007yellow mold\n20s.ssh\u0017falling rock trap\nh#untrap\nl#ride\nky:<#levelchange\n12\n  \u0017blessed scroll "
+  }
+ ]
+}

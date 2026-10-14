@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed shield of reflection\nWn\u0017blessed +3 speed boots\nWo #levelchange\n20\n                   \u0017wand of teleportation\n\u0017wand of digging\n\u0017wand of lightning\n\u0007kobold shaman\n\u0007gnome\nzq> zq> zrh  zpuzq> zq> zpyzr.zpnzqzqs\u0017blessed spellbook of magic missile\nrs.\u0017spellbook of cause fear\nrts\u0007gnomish wizard\nZZ..Z.20s ZZZss\u001611\n\u0017wand of slow monster\n\u0017wand of sleep\n\u0007owlbear\nzvjszvb20szubzubzvbszvbzubszub\u001615\n\u00178 rocks\nQa\u0007newt\ntajfnfhfhfh\u00167\n\u0017wand of fire\n\u0017wand of slow monster\n\u0007gnome\n\u0007gnome lord\nzyjzyjzxk  zxj  zxl  zylzxn  zyuzyys\u0018\u001b\u0007mind flayer\n\u0007aligned cleric\ny\u0017wand of striking\n20s       sm.\u001620\n\u0017wand of polymorph\n\u0017wand of slow monster\n\u0017wand of lightning\n\u0007kobold shaman\nzBjzCj  zBhzBj20szBkzAuzBnzCbzA. 20s     \u0007baby red dragon\n\u0007silver dragon\n.   n 20s     n  s   n     n #polyself\nblack dragon\n   #monster\nk      s .    #monster\n#monster\n#monster\n\u0017wand of cold\naDy     n   Fy  n Fy  n \u00167\n\u0007black dragon\ns.s#polyself\nblack dragon\n #monster\nk     20s.#monster\nk   #monster\nk  "
+ },
+ "segments": [
+  {
+   "seed": 50350076,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed shield of reflection\nWn\u0017blessed +3 speed boots\nWo #levelchange\n20\n                   \u0017wand of teleportation\n\u0017wand of digging\n\u0017wand of lightning\n\u0007kobold shaman\n\u0007gnome\nzq> zq> zrh  zpuzq> zq> zpyzr.zpnzqzqs\u0017blessed spellbook of magic missile\nrs.\u0017spellbook of cause fear\nrts\u0007gnomish wizard\nZZ..Z.20s ZZZss\u001611\n\u0017wand of slow monster\n\u0017wand of sleep\n\u0007owlbear\nzvjszvb20szubzubzvbszvbzubszub\u001615\n\u00178 rocks\nQa\u0007newt\ntajfnfhfhfh\u00167\n\u0017wand of fire\n\u0017wand of slow monster\n\u0007gnome\n\u0007gnome lord\nzyjzyjzxk  zxj  zxl  zylzxn  zyuzyys\u0018\u001b\u0007mind flayer\n\u0007aligned cleric\ny\u0017wand of striking\n20s       sm.\u001620\n\u0017wand of polymorph\n\u0017wand of slow monster\n\u0017wand of lightning\n\u0007kobold shaman\nzBjzCj  zBhzBj20szBkzAuzBnzCbzA. 20s     \u0007baby red dragon\n\u0007silver dragon\n.   n 20s     n  s   n     n #polyself\nblack dragon\n   #monster\nk      s .    #monster\n#monster\n#monster\n\u0017wand of cold\naDy     n   Fy  n Fy  n \u00167\n\u0007black dragon\ns.s#polyself\nblack dragon\n #monster\nk     20s.#monster\nk   #monster\nk  "
+  }
+ ]
+}

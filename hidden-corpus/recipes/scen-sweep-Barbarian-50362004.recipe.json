@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u00175000 gold pieces\n\u0016?\n>w  \u0006\u0017blessed potion of object detection\nqf \u001b:_oo,Fj _., p\u001b_oooo._,_o._,, \u0014,_ooooooo._., :_mmmm.#chat\ny20s#conduct\n #untrap\nu#levelchange\n20\n\u0017uncursed blindfold\n\u0007air elemental\naj\u0017Snickersnee\nwk  Fj Fk Fj  #invoke\nkXFh  Fk  \u0017cursed wand of create monster\n\u0007master mind flayer\nzlwumpus\n zlpiranha\n\u0017uncursed the Heart of Ahriman\n  wb   Fk  n     Fh  n   Fk#invoke\nm  s 20s   \u00166\n    #wizintrinsic\nmh\n  \u0017lizard corpse\nen \u0017blessed scroll of light\nro\u0017cursed wand of lightning\nzp.zpy\u0017wand of magic missile\nzqlss  n 20s bh\u0017magic marker\nEry\u0017wand of cancellation\nEs  :n\u0017wand of cold\nEt :y\u001611\n\u0017plate mail\n W\u001b20s.sT\u0007mountain nymph\nFhFhs20s.\u0007gas spore\nFu FhFuFhFhFlFh20s 20s#pray\ny y \u0007werewolf\nFhFy FkFkFkFk.20ss#pray\ny y \\   \u0007lich\n20s FnFns .\u0007werewolf\nFnFnFn Fn  20s.\u0017300 gold pieces\n\u0007leprechaun\nFn  Fh    n Fb Fn..#pray\ny y          i\u001b#levelchange\n8\n    \u0017ring of see invisible\nPvl  n    s 20s  n s  \u0017wand of enlightenment\nzw \u001b  n  Fb   n Fy  \u0017cursed chest\n.Fy   n Fy .  n   s  n   \u00164\ni>\u001bzqkzql  n whFus20sXWus20sszpbzpuwa.20s   .t\\   da#offer\n\u0004n#jump\n,,\u000f\u001buy\u0017wand of enlightenment\nE\u0017wand of teleportation\nE:\u0017wand of nothing\nE\u0017wand of cancellation\nE:E\u0007minotaur\ns s  n sFl   n   n Fli\u001b\u0017blessed shield of reflection\nWC  yy\u001b y   ny y\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 50362004,
+   "datetime": "20090328023130",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u00175000 gold pieces\n\u0016?\n>w  \u0006\u0017blessed potion of object detection\nqf \u001b:_oo,Fj _., p\u001b_oooo._,_o._,, \u0014,_ooooooo._., :_mmmm.#chat\ny20s#conduct\n #untrap\nu#levelchange\n20\n\u0017uncursed blindfold\n\u0007air elemental\naj\u0017Snickersnee\nwk  Fj Fk Fj  #invoke\nkXFh  Fk  \u0017cursed wand of create monster\n\u0007master mind flayer\nzlwumpus\n zlpiranha\n\u0017uncursed the Heart of Ahriman\n  wb   Fk  n     Fh  n   Fk#invoke\nm  s 20s   \u00166\n    #wizintrinsic\nmh\n  \u0017lizard corpse\nen \u0017blessed scroll of light\nro\u0017cursed wand of lightning\nzp.zpy\u0017wand of magic missile\nzqlss  n 20s bh\u0017magic marker\nEry\u0017wand of cancellation\nEs  :n\u0017wand of cold\nEt :y\u001611\n\u0017plate mail\n W\u001b20s.sT\u0007mountain nymph\nFhFhs20s.\u0007gas spore\nFu FhFuFhFhFlFh20s 20s#pray\ny y \u0007werewolf\nFhFy FkFkFkFk.20ss#pray\ny y \\   \u0007lich\n20s FnFns .\u0007werewolf\nFnFnFn Fn  20s.\u0017300 gold pieces\n\u0007leprechaun\nFn  Fh    n Fb Fn..#pray\ny y          i\u001b#levelchange\n8\n    \u0017ring of see invisible\nPvl  n    s 20s  n s  \u0017wand of enlightenment\nzw \u001b  n  Fb   n Fy  \u0017cursed chest\n.Fy   n Fy .  n   s  n   \u00164\ni>\u001bzqkzql  n whFus20sXWus20sszpbzpuwa.20s   .t\\   da#offer\n\u0004n#jump\n,,\u000f\u001buy\u0017wand of enlightenment\nE\u0017wand of teleportation\nE:\u0017wand of nothing\nE\u0017wand of cancellation\nE:E\u0007minotaur\ns s  n sFl   n   n Fli\u001b\u0017blessed shield of reflection\nWC  yy\u001b y   ny y\u001b  ."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0016?\n>>M      jumping boots\nhh    l   yj  n :    n  \u00169\n\u0016?\n\u001by   n  j \u00167\nb  u     n  l b  n     : \u00161\n\u0016?\ne ub  yj   nnb   n  \u001b:   .20s \u00165\n\u0016?\nd_ \u001b.>\u0016?\n\u001bu     n  j     \u00167\nn  n     n  h    n  h    n      nn      n    n       n  n   n     yy\u001bnnny\u001b  b"
+ },
+ "segments": [
+  {
+   "seed": 50358024,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0016?\n>>M      jumping boots\nhh    l   yj  n :    n  \u00169\n\u0016?\n\u001by   n  j \u00167\nb  u     n  l b  n     : \u00161\n\u0016?\ne ub  yj   nnb   n  \u001b:   .20s \u00165\n\u0016?\nd_ \u001b.>\u0016?\n\u001bu     n  j     \u00167\nn  n     n  h    n  h    n      nn      n    n       n  n   n     yy\u001bnnny\u001b  b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " O>>>l\u001b\n\\  W#enhance\nyj\ng\n\u001b\u00162\nw\u001baj#conduct\n t\u001b\u0007pony\n\u0017huge chunk of meat\nt\u001b\u0007little dog\n\u0017meatball\nt\u001b20s   20s  \u0017leash\naml   n  y   n hnlamk20s#name\nm\n m,blessed\n#chat\nk\u00162\n\u00167\nO>>>>f\u001b\n\u001611\nO>o4\n \u001b\n\u0007tame winter wolf cub\n\u0007tame hill orc\n\u0007jackal\n.m..sy .m.20s  20s\u0007giant rat\n\u0017scroll of taming\nrn \u0017leash\naollnnjaoj\u0017fortune cookie\n t\u001b#chat\nk\u00161\nFjFjFb  Fn FkFuFuFl Fn  100s_>.>bhjFjFjFnFnFjFbFjFjFjFnFbFbFbFjFjFjFjFnFbFjFnFbFbFbFbFjFnFnFjFnFjFjFbFbFbFjFjFbFbFnFnFjFjFjFjFjFnFnFbFjFnFnFnFbFjFbFjFjFnFbFjFjFjFnFnFjFjFnFjFjFbFnFbFnFbFjFjFjFjFjFnFjFjFbFjFnFnFbFbFjFbFbFhFbFjFjFnFjFjFjFbFnmO>>q\u001b\nE\u001b#dip\nfdoh#wipe\n\u0007tame wolf\n\u0007tame soldier ant\n20s20s\u0017magic whistle\njnyap  #name\nm\n\u001710sv\u001bi\u001b\u00164\nv\u001bi\u001b\u0007kitten\n\u0017banana\nt\u001b\u0007tame winter wolf cub\nn  \u0007gnome\n20s s20s..20s\u0017leash\narjh jbharh\u0017fortune cookie\n t\u001bn\u0006_>>.Fl_,,Fh>FlFb_>>.Fb_.m.Fu>FjFh_>>,Fb_.m.Fb>FbFuoj#turn\nk<#tip\n\u001b_>, s#enhance\ny\u001b\u0006_>,Fy_,m.Fl >FkFy_>,Fb_.<.Fl>FhFy_>.Fh  _.,Fh>Fy FyFlFuFb\u0006_>>.Fb_..Fh>Fy Fj_>>.Fj_,@.Fl>FlFu_>>,Fu_,.Fb>FbFuFlFbFl\u0006_>.Fj_.m"
+ },
+ "segments": [
+  {
+   "seed": 50359014,
+   "datetime": "20230222104228",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"The door\"\nMENUCOLOR=\"a potion\"=green\nBIND=v:inventory\n",
+   "moves": " O>>>l\u001b\n\\  W#enhance\nyj\ng\n\u001b\u00162\nw\u001baj#conduct\n t\u001b\u0007pony\n\u0017huge chunk of meat\nt\u001b\u0007little dog\n\u0017meatball\nt\u001b20s   20s  \u0017leash\naml   n  y   n hnlamk20s#name\nm\n m,blessed\n#chat\nk\u00162\n\u00167\nO>>>>f\u001b\n\u001611\nO>o4\n \u001b\n\u0007tame winter wolf cub\n\u0007tame hill orc\n\u0007jackal\n.m..sy .m.20s  20s\u0007giant rat\n\u0017scroll of taming\nrn \u0017leash\naollnnjaoj\u0017fortune cookie\n t\u001b#chat\nk\u00161\nFjFjFb  Fn FkFuFuFl Fn  100s_>.>bhjFjFjFnFnFjFbFjFjFjFnFbFbFbFjFjFjFjFnFbFjFnFbFbFbFbFjFnFnFjFnFjFjFbFbFbFjFjFbFbFnFnFjFjFjFjFjFnFnFbFjFnFnFnFbFjFbFjFjFnFbFjFjFjFnFnFjFjFnFjFjFbFnFbFnFbFjFjFjFjFjFnFjFjFbFjFnFnFbFbFjFbFbFhFbFjFjFnFjFjFjFbFnmO>>q\u001b\nE\u001b#dip\nfdoh#wipe\n\u0007tame wolf\n\u0007tame soldier ant\n20s20s\u0017magic whistle\njnyap  #name\nm\n\u001710sv\u001bi\u001b\u00164\nv\u001bi\u001b\u0007kitten\n\u0017banana\nt\u001b\u0007tame winter wolf cub\nn  \u0007gnome\n20s s20s..20s\u0017leash\narjh jbharh\u0017fortune cookie\n t\u001bn\u0006_>>.Fl_,,Fh>FlFb_>>.Fb_.m.Fu>FjFh_>>,Fb_.m.Fb>FbFuoj#turn\nk<#tip\n\u001b_>, s#enhance\ny\u001b\u0006_>,Fy_,m.Fl >FkFy_>,Fb_.<.Fl>FhFy_>.Fh  _.,Fh>Fy FyFlFuFb\u0006_>>.Fb_..Fh>Fy Fj_>>.Fj_,@.Fl>FlFu_>>,Fu_,.Fb>FbFuFlFbFl\u0006_>.Fj_.m"
+  }
+ ]
+}

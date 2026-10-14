@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nh_mmmmm._.#chat\ny_mmmm,#chat\nk#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.#chat\ny_mmmm.#chat\nk\u0017blessed +3 speed boots\nWg \u0017blessed amulet of reflection\nPh\u0017wand of lightning\n\u0016?\n>z\u0006_mm,Fb.s20sFb20s sziu,\u0016?\n>A\u0006_mmmmmm.ssFh  FjFjFjFjzij  ,\u0016?\n>A\u0006_mmmmmmm...s20ss,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,s20s             FjFj ,\u0016?\n>z\u0006_mmm,FjFjs.20s sz,#chat\nb\u0016?\n>A\u0006_mmmmmmm.s. 20s FbFb  20s  n sz,#chat\nk\u0016?\n>A\u0006_mmmmmm.20s   FjFjFj  n Fj FjFj,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fhsssz,#chat\nn\u0016?\n>z\u0006_mmmmm.s20s  n FlFl  n Fl n Fl n z,#chat\nl  \u00169\n\u0016?\n>A\u0006_mm.FhFl n FhFl n z,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmm.#ch"
+ },
+ "segments": [
+  {
+   "seed": 50361002,
+   "datetime": "20000407075049",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nh_mmmmm._.#chat\ny_mmmm,#chat\nk#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.#chat\ny_mmmm.#chat\nk\u0017blessed +3 speed boots\nWg \u0017blessed amulet of reflection\nPh\u0017wand of lightning\n\u0016?\n>z\u0006_mm,Fb.s20sFb20s sziu,\u0016?\n>A\u0006_mmmmmm.ssFh  FjFjFjFjzij  ,\u0016?\n>A\u0006_mmmmmmm...s20ss,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,s20s             FjFj ,\u0016?\n>z\u0006_mmm,FjFjs.20s sz,#chat\nb\u0016?\n>A\u0006_mmmmmmm.s. 20s FbFb  20s  n sz,#chat\nk\u0016?\n>A\u0006_mmmmmm.20s   FjFjFj  n Fj FjFj,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fhsssz,#chat\nn\u0016?\n>z\u0006_mmmmm.s20s  n FlFl  n Fl n Fl n z,#chat\nl  \u00169\n\u0016?\n>A\u0006_mm.FhFl n FhFl n z,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmm.#ch"
+  }
+ ]
+}

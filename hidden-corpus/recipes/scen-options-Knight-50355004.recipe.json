@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "mO>>>>>>i\non\nab   \u001b;Oale\nn\ndf#chat\nuOadm\nm\nqO>d\nab@.#monster\nOdi\nl\nychO>b\nW20ss"
+ },
+ "segments": [
+  {
+   "seed": 50355004,
+   "datetime": "20220808202819",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "mO>>>>>>i\non\nab   \u001b;Oale\nn\ndf#chat\nuOadm\nm\nqO>d\nab@.#monster\nOdi\nl\nychO>b\nW20ss"
+  }
+ ]
+}

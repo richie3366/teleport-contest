@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0016?\n>B\u0017blessed ring of levitation\nPjr FbFhjjhFj nnn10snnbhjjlnnhjjhnlbllujjjjjjjbllknjl\u0017scroll of earth\n rk luu10sklllhhhuk\u0017wand of striking\nzlkhl"
+ },
+ "segments": [
+  {
+   "seed": 50356010,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0016?\n>B\u0017blessed ring of levitation\nPjr FbFhjjhFj nnn10snnbhjjlnnhjjhnlbllujjjjjjjbllknjl\u0017scroll of earth\n rk luu10sklllhhhuk\u0017wand of striking\nzlkhl"
+  }
+ ]
+}

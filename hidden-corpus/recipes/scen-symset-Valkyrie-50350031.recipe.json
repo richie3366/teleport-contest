@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "mO>>w\u001b\n\u00169\nO>>>m\u001b\u001b\n<\u0014 \u001b, #turn\n#ride\nny,#jump\n#ride\nby#ride\nny#enhance\nyr\nn\n\u001b,:\u001612\nmOa\u001b\n\u001610\n O>>j\u001b\n\u0014m,qtbjr\u001b#force\n#wipe\nE- X marks the spot\n\u000f\u001b#enhance\nym\nm\n\u001b#enhance\nym\nc\n\u001b#force\nmOa\u001b\n\u0007tame soldier ant\n#chat\nj\u0007acid blob\n\u0017scroll of taming\nrf \u0007newt\n.n...20ssm.\u0017tin whistle\njhbagda20s20s20s\u0007newt\n20s sssss,bzhnul\u0017fountain\nqy yqqn\u0017magic fountain\nqy qy\u0017long sword\n#dip\nhy  bk\u0017pool\ny\u0017ice\n:f a ledthhk#sit\n\u001b;u,\u001616\n    z,\u001619\n#levelchange\n30\n                             njn\u0017fountain\nqy yqq:l\u0017iron bars\n:jh\u0017tree\nl\u0004h\u0004h\u0004hl\u0017moat\nlh:#terrain\nb\nq :w\u001b\u0007large dog\n\u0017huge chunk of meat\nt\u001b\u0007housecat\n\u0017carrot\nt\u001by \u0007sewer rat\nsl.k sm.ss.m. \u0017tripe ration\nt\u001b\u0017leash\naljbh k ualy #chat\nude  sm.20s20s#name\nf\n\u0017\u00163\n\u0006_>._.>_>._.>_>._,>\u0006_>._.>_>._,>_>._,>_>,.#pray\ny y \u0006_>,_.>_>._,>_>._,><\u0006_>>._,>_>>._,>_>>._,>t\u001b\u0018\u001b\u0006_>>._,>_>>._.>_"
+ },
+ "segments": [
+  {
+   "seed": 50350031,
+   "datetime": "20251225220608",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"uncursed\"=brown\n",
+   "moves": "mO>>w\u001b\n\u00169\nO>>>m\u001b\u001b\n<\u0014 \u001b, #turn\n#ride\nny,#jump\n#ride\nby#ride\nny#enhance\nyr\nn\n\u001b,:\u001612\nmOa\u001b\n\u001610\n O>>j\u001b\n\u0014m,qtbjr\u001b#force\n#wipe\nE- X marks the spot\n\u000f\u001b#enhance\nym\nm\n\u001b#enhance\nym\nc\n\u001b#force\nmOa\u001b\n\u0007tame soldier ant\n#chat\nj\u0007acid blob\n\u0017scroll of taming\nrf \u0007newt\n.n...20ssm.\u0017tin whistle\njhbagda20s20s20s\u0007newt\n20s sssss,bzhnul\u0017fountain\nqy yqqn\u0017magic fountain\nqy qy\u0017long sword\n#dip\nhy  bk\u0017pool\ny\u0017ice\n:f a ledthhk#sit\n\u001b;u,\u001616\n    z,\u001619\n#levelchange\n30\n                             njn\u0017fountain\nqy yqq:l\u0017iron bars\n:jh\u0017tree\nl\u0004h\u0004h\u0004hl\u0017moat\nlh:#terrain\nb\nq :w\u001b\u0007large dog\n\u0017huge chunk of meat\nt\u001b\u0007housecat\n\u0017carrot\nt\u001by \u0007sewer rat\nsl.k sm.ss.m. \u0017tripe ration\nt\u001b\u0017leash\naljbh k ualy #chat\nude  sm.20s20s#name\nf\n\u0017\u00163\n\u0006_>._.>_>._.>_>._,>\u0006_>._.>_>._,>_>._,>_>,.#pray\ny y \u0006_>,_.>_>._,>_>._,><\u0006_>>._,>_>>._,>_>>._,>t\u001b\u0018\u001b\u0006_>>._,>_>>._.>_"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nh_mmmmm.Fh_.#chat\nh;>._m.Fk _.#chat\nl;<.#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.Fl _.m,Fl  #chat\nk  _mmmm.Fk_. Fk#chat\nn   _m,Fk  _.#chat\nn \u0017blessed amulet of life saving\nPe   \u0017blessed +3 speed boots\nWf     \u0017blessed +3 helm of telepathy\nWg  \u0017wand of fire\n\u0016?\n>A\u0006_mmm.  Fu_.Fn     Fl  FuFu     ,\u0016?\n>>\u001b\u0016?\n>y_mm.Fk _.#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm. _.,FnFnFl   n FlFy,\u0016?\n>z\u0006_mmmmm. Fk _,m,FlFnFlFnFn,\u0016?\n>A\u0006_mmmm,  nFk_.FhFhFnFjFjFnFn,\u0016?\n>>\u001b\u0016?\n>y_mmmm.Fn_.#chat\nu\u0016?\n>A\u0006_mmmmmm,_,20ss20sFlFl,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fh  _.FhFhFhFk  Fh  Fh   n zhk    n ,#chat\nl \u00165\n\u0016?\n>z\u0006_mmmmmm.Fl  n _.FhFh   nFl Fh  nFhFh  nFhzhh,\u0016?\n>>\u001b\u0016?\n>y_mm.Fh_.  n Fh   n#chat\nh\u00162\n\u0016?\n>A\u0006_mmm.Fh  n _,  nFhFhFh  n Fh   nFhFh  n Fh  yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50350022,
+   "datetime": "20170506143701",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nh_mmmmm.Fh_.#chat\nh;>._m.Fk _.#chat\nl;<.#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.Fl _.m,Fl  #chat\nk  _mmmm.Fk_. Fk#chat\nn   _m,Fk  _.#chat\nn \u0017blessed amulet of life saving\nPe   \u0017blessed +3 speed boots\nWf     \u0017blessed +3 helm of telepathy\nWg  \u0017wand of fire\n\u0016?\n>A\u0006_mmm.  Fu_.Fn     Fl  FuFu     ,\u0016?\n>>\u001b\u0016?\n>y_mm.Fk _.#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm. _.,FnFnFl   n FlFy,\u0016?\n>z\u0006_mmmmm. Fk _,m,FlFnFlFnFn,\u0016?\n>A\u0006_mmmm,  nFk_.FhFhFnFjFjFnFn,\u0016?\n>>\u001b\u0016?\n>y_mmmm.Fn_.#chat\nu\u0016?\n>A\u0006_mmmmmm,_,20ss20sFlFl,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fh  _.FhFhFhFk  Fh  Fh   n zhk    n ,#chat\nl \u00165\n\u0016?\n>z\u0006_mmmmmm.Fl  n _.FhFh   nFl Fh  nFhFh  nFhzhh,\u0016?\n>>\u001b\u0016?\n>y_mm.Fh_.  n Fh   n#chat\nh\u00162\n\u0016?\n>A\u0006_mmm.Fh  n _,  nFhFhFh  n Fh   nFhFh  n Fh  yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

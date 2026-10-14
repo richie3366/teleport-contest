@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "NYKB_ \u001b@.>BNYL_>,>ULYL_>.>,fuLJKJ_>,>FyFk sKLJJ_>,>10sbbt\u001b#chat\nb#dip\ng10s:HNBN_>,>Fj.si\u001b#tip\nh\u001bYJYL_>.>FbFbFbHHBJ_>,>BBBY_>.>_m.sZr\u001b#untrap\nhw-150s100snuj100s_>,>100s50s150s\u0018\u001b100sFl FlFlFlFlFlFlFkFkFlFlFk#pray\ny     FlFlFl100sbujyhnFlFls100s_>.>#enhance\n\u001bkhl100sFn 20s20sqbkj50sklhFk  20s.100sFuFuFuFlFlFlnkkFyFy20si\u001b#pray\ny    FkFkFyFhFh.\u0018\u001b100sed100s100s100sFnFnFnFnFnFn50si\u001bhjn150s150sFlFlsi\u001b100s100s 50sFlFlFl100s\u0018\u001b150s50sFlFlFlFlFlFlFlFlFls50syuh50s,100sFkFkFkujhuunknj100s\\ _>,>50s100sbuyed FbFbFhFhFhs100s#dip\nkllb\u0014100sFhFhFk  FkFhFhkbklbu\u000f\u001b100s100sFhFhs100s_>,>\u0018\u001b\u0018\u001b150sFlFlFlFls20s100s50s hnb,100sek100s100s100sFlFlFkFkFlFlFlFyF"
+ },
+ "segments": [
+  {
+   "seed": 50350067,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=autodig\n",
+   "moves": "NYKB_ \u001b@.>BNYL_>,>ULYL_>.>,fuLJKJ_>,>FyFk sKLJJ_>,>10sbbt\u001b#chat\nb#dip\ng10s:HNBN_>,>Fj.si\u001b#tip\nh\u001bYJYL_>.>FbFbFbHHBJ_>,>BBBY_>.>_m.sZr\u001b#untrap\nhw-150s100snuj100s_>,>100s50s150s\u0018\u001b100sFl FlFlFlFlFlFlFkFkFlFlFk#pray\ny     FlFlFl100sbujyhnFlFls100s_>.>#enhance\n\u001bkhl100sFn 20s20sqbkj50sklhFk  20s.100sFuFuFuFlFlFlnkkFyFy20si\u001b#pray\ny    FkFkFyFhFh.\u0018\u001b100sed100s100s100sFnFnFnFnFnFn50si\u001bhjn150s150sFlFlsi\u001b100s100s 50sFlFlFl100s\u0018\u001b150s50sFlFlFlFlFlFlFlFlFls50syuh50s,100sFkFkFkujhuunknj100s\\ _>,>50s100sbuyed FbFbFhFhFhs100s#dip\nkllb\u0014100sFhFhFk  FkFhFhkbklbu\u000f\u001b100s100sFhFhs100s_>,>\u0018\u001b\u0018\u001b150sFlFlFlFls20s100s50s hnb,100sek100s100s100sFlFlFkFkFlFlFlFyF"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n12\n  \u0017egg\negs .m.\u0017potion of see invisible\n\u0007yellow mold\nqh \u001b \u0017the Staff of Aesculapius\n wi Fk .Fy  #invoke\ni X.s\u0017cursed lembas wafer\nej20s20s  n Fh Fh\u0017cursed -1 axe\nwk.ssXs20s\u0017cursed potion of enlightenment\nql \u001b.20s#levelchange\n20\n      \u0017800 gold pieces\n\u0016?\nc\u0006_ \u001bm,#chat\nn_mm.#chat\nu_mmm,#chat\nn_{,_.q#twoweapon\n\u0018\u001bE- Vlad was here\n#levelchange\n6\n    \u0007warhorse\n\u0017scroll of taming\nrm  \u001b\u0017saddle\nanu #ride\nuy\u0007tame saddled horse\n#ride\nuy\u0007warhorse\n\u0017scroll of taming\nro \u0017saddle\napl #ride\nuy\u0004k    uluh20s    n      n  sm.        n  \u0006_>,           Fu    _,         Fk     n     >Fu    n     Fu       n        n_>,    Fh  _.    nFh    n  >Fh    n Fl    n  _>.     n   Fb  n    n  _.   yy  F"
+ },
+ "segments": [
+  {
+   "seed": 50350009,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n12\n  \u0017egg\negs .m.\u0017potion of see invisible\n\u0007yellow mold\nqh \u001b \u0017the Staff of Aesculapius\n wi Fk .Fy  #invoke\ni X.s\u0017cursed lembas wafer\nej20s20s  n Fh Fh\u0017cursed -1 axe\nwk.ssXs20s\u0017cursed potion of enlightenment\nql \u001b.20s#levelchange\n20\n      \u0017800 gold pieces\n\u0016?\nc\u0006_ \u001bm,#chat\nn_mm.#chat\nu_mmm,#chat\nn_{,_.q#twoweapon\n\u0018\u001bE- Vlad was here\n#levelchange\n6\n    \u0007warhorse\n\u0017scroll of taming\nrm  \u001b\u0017saddle\nanu #ride\nuy\u0007tame saddled horse\n#ride\nuy\u0007warhorse\n\u0017scroll of taming\nro \u0017saddle\napl #ride\nuy\u0004k    uluh20s    n      n  sm.        n  \u0006_>,           Fu    _,         Fk     n     >Fu    n     Fu       n        n_>,    Fh  _.    nFh    n  >Fh    n Fl    n  _>.     n   Fb  n    n  _.   yy  F"
+  }
+ ]
+}

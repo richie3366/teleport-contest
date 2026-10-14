@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "mO>g\u001b\n\u00165\n#loot\ny<E- ad aerarium\n\u001613\n    mOa\u001b\n\u00162\nFuFuFuFuFuFyFyFyFyFyFyFyFuFyFuFuFuFuFyFuFuFyFyFuFuFyFyFuFuFuFuFyFyFuFyFuFyFyFuFyFuFyFyFyFyFyFyFuFuFyFyFuFyFyFuFuFyFyFyFuFuFuFuFyFyFuFkFuFuFy FyFyFyFkFu#pray\ny y    FuFkFuFyFyFyFuFuFyFyFuFuFuFyFuFyFuFuFyFuFuFyFyFuFyFyFyFyFuFyFyFuFuFyFyFuFyFyFuFyFyFk\u0007tame wolf\n\u0007housecat\n\u0017fortune cookie\ntbjl  \u0007acid blob\n\u0017scroll of taming\nrh \u0017tin whistle\nnhyai\u0007newt\n\u0017scroll of taming\nrj  \u0017leash\naku ybk  yakn Op\u001b\nv\u001bi\u001b\u00166\n\u0007large dog\n\u0017carrot\ntbl\u0007tame pony\ndd   n 20s.m.  n .m.#chat\nlk  n#name\n\u001b20s\u0017leash\namh  nyn b bamj\u00163\n#chat\nkr\u001b#turn\n#force\n \u0006_ \u001b<.  >FjFn_>>.Fy _.Fn>FhFh  _>>.Fj_.@.Fj>FjFjFnFnFk#chat\nji\u001b\u0006_>,Fy_. Fy>FyFb_>. _>\u0006_>#chat\nf by j\u0006_>,          Fj_,Fu>FyFu_>, Fu_. Fb>FhFh"
+ },
+ "segments": [
+  {
+   "seed": 50350015,
+   "datetime": "20060426080440",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=pushweapon\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\nBIND=v:inventory\n",
+   "moves": "mO>g\u001b\n\u00165\n#loot\ny<E- ad aerarium\n\u001613\n    mOa\u001b\n\u00162\nFuFuFuFuFuFyFyFyFyFyFyFyFuFyFuFuFuFuFyFuFuFyFyFuFuFyFyFuFuFuFuFyFyFuFyFuFyFyFuFyFuFyFyFyFyFyFyFuFuFyFyFuFyFyFuFuFyFyFyFuFuFuFuFyFyFuFkFuFuFy FyFyFyFkFu#pray\ny y    FuFkFuFyFyFyFuFuFyFyFuFuFuFyFuFyFuFuFyFuFuFyFyFuFyFyFyFyFuFyFyFuFuFyFyFuFyFyFuFyFyFk\u0007tame wolf\n\u0007housecat\n\u0017fortune cookie\ntbjl  \u0007acid blob\n\u0017scroll of taming\nrh \u0017tin whistle\nnhyai\u0007newt\n\u0017scroll of taming\nrj  \u0017leash\naku ybk  yakn Op\u001b\nv\u001bi\u001b\u00166\n\u0007large dog\n\u0017carrot\ntbl\u0007tame pony\ndd   n 20s.m.  n .m.#chat\nlk  n#name\n\u001b20s\u0017leash\namh  nyn b bamj\u00163\n#chat\nkr\u001b#turn\n#force\n \u0006_ \u001b<.  >FjFn_>>.Fy _.Fn>FhFh  _>>.Fj_.@.Fj>FjFjFnFnFk#chat\nji\u001b\u0006_>,Fy_. Fy>FyFb_>. _>\u0006_>#chat\nf by j\u0006_>,          Fj_,Fu>FyFu_>, Fu_. Fb>FhFh"
+  }
+ ]
+}

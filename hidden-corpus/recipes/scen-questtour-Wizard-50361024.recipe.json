@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nn_mm,#chat\nn_mmmm.#chat\nl_mmmm,#chat\nl#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nl;m,_m,Fl_.#chat\nk;.\u0017blessed Mjollnir\n wp\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of lightning\n\u0016?\n>z\u0006_mmmm.sFl  20sFj zr.   ,#chat\nu\u0016?\n>A\u0006_mmm,ssss20s.Fh  zrh ,\u0016?\n>>\u001b\u0016?\n>y_m,Fk _.#chat\nb\u0016?\n>A\u0006_mmm.sFj Fj s,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,Fj sFj  Fj   nFb Fb,\u0016?\n>z\u0006_mmm,Fb _,Fb Fh Fb Fh zrh   ,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nk \u0016?\n>A\u0006_mmmmmmm, Fl  _.  nFb Fb FbFbFn,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nh;h:\u0016?\n>A\u0006_mmmm.FbFhFh  n FlFlFkFy,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.FyFh FbFhFbzru  n,#chat\nj\u0016?\n>z\u0006_mmmmmm,FuFjFhFnFhzrn,\u0016?\n>A\u0006_mmm.FlFnss,\u0016?\n>A\u0006_mmmmmm..20sFhFhFh20szrn,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.FnFnsssFjs,#chat\nn\u0016?\n>z\u0006_mmm.20ss20s FhFhs.zr,\u0016?\n>A\u0006_mmm,20sssss20s,#chat\nj\u0016?\n>A\u0006_mmmm..sss,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fh _,m,s20s20s.20ss20szr,\u0016?\n>z\u0006_mmmmmmm. Fh  _,Fh  n  Fh  Fh  Fh Fh  Fh ,\u0016?\n>A\u0006_mmmmmm.20sss. zr ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,  Fh    n_,#chat\nh  \u0016?\n>A\u0006_mmm.Fh  _,Fh ssssszr,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_m.#chat\ny;>.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm..ss20s,#chat\nu\u0016?\n>z\u0006_mmmmm.  Fl  _.Fl   Fl Fl s20s.,\u0016?\n>A\u0006_mm..20sFh   nFh Fh zr ,#chat\nh\u0016?\n>A\u0006_mmmmmm,FhFh   nFhFh FhFh Fh ,#chat\nh\u0016?\n>>\u001b\u0016"
+ },
+ "segments": [
+  {
+   "seed": 50361024,
+   "datetime": "20140722021619",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nn_mm,#chat\nn_mmmm.#chat\nl_mmmm,#chat\nl#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nl;m,_m,Fl_.#chat\nk;.\u0017blessed Mjollnir\n wp\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of lightning\n\u0016?\n>z\u0006_mmmm.sFl  20sFj zr.   ,#chat\nu\u0016?\n>A\u0006_mmm,ssss20s.Fh  zrh ,\u0016?\n>>\u001b\u0016?\n>y_m,Fk _.#chat\nb\u0016?\n>A\u0006_mmm.sFj Fj s,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,Fj sFj  Fj   nFb Fb,\u0016?\n>z\u0006_mmm,Fb _,Fb Fh Fb Fh zrh   ,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nk \u0016?\n>A\u0006_mmmmmmm, Fl  _.  nFb Fb FbFbFn,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nh;h:\u0016?\n>A\u0006_mmmm.FbFhFh  n FlFlFkFy,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.FyFh FbFhFbzru  n,#chat\nj\u0016?\n>z\u0006_mmmmmm,FuFjFhFnFhzrn,\u0016?\n>A\u0006_mmm.FlFnss,\u0016?\n>A\u0006_mmmmmm..20sFhFhFh20szrn,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.FnFnsssFjs,#chat\nn\u0016?\n>z\u0006_mmm.20ss20s FhFhs.zr,\u0016?\n>A\u0006_mmm,20sssss20s,#chat\nj\u0016?\n>A\u0006_mmmm..sss,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fh _,m,s20s20s.20ss20szr,\u0016?\n>z\u0006_mmmmmmm. Fh  _,Fh  n  Fh  Fh  Fh Fh  Fh ,\u0016?\n>A\u0006_mmmmmm.20sss. zr ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,  Fh    n_,#chat\nh  \u0016?\n>A\u0006_mmm.Fh  _,Fh ssssszr,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_m.#chat\ny;>.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm..ss20s,#chat\nu\u0016?\n>z\u0006_mmmmm.  Fl  _.Fl   Fl Fl s20s.,\u0016?\n>A\u0006_mm..20sFh   nFh Fh zr ,#chat\nh\u0016?\n>A\u0006_mmmmmm,FhFh   nFhFh FhFh Fh ,#chat\nh\u0016?\n>>\u001b\u0016"
+  }
+ ]
+}

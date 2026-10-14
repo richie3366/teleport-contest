@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " O>m\u001b\u001b\nv i\u001bOd\u001b\nFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbO>>>d\u001b\n#invoke\n\u001b\u0004n 20s#force\n#loot\nk \u0006_ \u001b<.>FlFl_>.Fh_,Fh>FhFh_>,Fh_,Fh>FhFhFhFhFh#loot\nh #conduct\n \u0006_>.Fh_.>.Fh>FhFh_>,Fh_.@.Fh>FhFh_>.Fl_.Fh>FhFjFhFjFj<\u0006_>>. Fh_,.Fj>FhFh_>>,Fj_,Fj>FhFh_>>.Fj_.;>. Fj>FjFjFjFjFjck #dip\ned \u0006_>,   nFh_. Fh>FhFh_>._.> \u0006_>>,_.m,>_>>._,.>_>>,_.m,>#dip\nbd>\u0006_>,_..>_>,_,m,>_>,_,>"
+ },
+ "segments": [
+  {
+   "seed": 50359009,
+   "datetime": "20091217163249",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"a potion\"=green\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " O>m\u001b\u001b\nv i\u001bOd\u001b\nFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbO>>>d\u001b\n#invoke\n\u001b\u0004n 20s#force\n#loot\nk \u0006_ \u001b<.>FlFl_>.Fh_,Fh>FhFh_>,Fh_,Fh>FhFhFhFhFh#loot\nh #conduct\n \u0006_>.Fh_.>.Fh>FhFh_>,Fh_.@.Fh>FhFh_>.Fl_.Fh>FhFjFhFjFj<\u0006_>>. Fh_,.Fj>FhFh_>>,Fj_,Fj>FhFh_>>.Fj_.;>. Fj>FjFjFjFjFjck #dip\ned \u0006_>,   nFh_. Fh>FhFh_>._.> \u0006_>>,_.m,>_>>._,.>_>>,_.m,>#dip\nbd>\u0006_>,_..>_>,_,m,>_>,_,>"
+  }
+ ]
+}

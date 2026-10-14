@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed potion of restore ability\n\u0007frost giant\nqj \u001bFlFl \u00173 magic marker\n\u0007newt\nak\u001b\u0017wand of create monster\nzlprisoner\n 20s  sm. "
+ },
+ "segments": [
+  {
+   "seed": 50352029,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed potion of restore ability\n\u0007frost giant\nqj \u001bFlFl \u00173 magic marker\n\u0007newt\nak\u001b\u0017wand of create monster\nzlprisoner\n 20s  sm. "
+  }
+ ]
+}

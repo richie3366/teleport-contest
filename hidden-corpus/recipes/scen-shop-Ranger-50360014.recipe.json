@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  \u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b:q\u0016?\nclnl\u0016?\n>w\u0006juy#chat\nk_oooo.,p_{,_.qy_oooo.,\u0014<.20ss_ooooooooo,,$_oooooo.,pylb#chat\nbukb#chat\nl_ooooo.,plbu#chat\nu_{._.q_oooo.,pbuh#chat\nu_ooooo._ooo,,:_ooooooooo.,#chat\njhnj#chat\nj_oooooooo.,p_ooooooo.,p_oo._o,,\u0017loadstone\ndjhul#chat\ny_oooooooo._oo.,#chat\nhyjn#chat\nu_oooooooo,,p_{,_,q_oooooooo,,p_oooo,_oo.,\u0017amulet of guarding\ndk__._.#chat\nj_ooooooo,,$buj#chat\nyyjb#chat\nh_{,Fn_.q_ooooooo.,p_oo.,$_oooo,,p_oo,,#chat\nlbbk#chat\njlhn#chat\nk_{.Fh_.Flq_ooooooooo._oo,,:__.Fb_.<.Fl #chat\nl_{.Fl   n_.<.Flq__.Fl _.@.Fl  n#chat\nl #pray\ny y   _oooooooo.,pFlFl  nFlFlFlFl__.Fk _. Fk #chat\nk __.Fk _,Fk #chat\nk Fk Fk Fk Fk  Fk Fk _ooo.,$Fk Fk Fk  Fk Fk Fk _ooo,,\u0017touchstone\n dl __, Fk _.Fk #chat\nk #pray\ny y    _ooo,,   #chat\nk _oo.Fl _..Fb,#chat\nb   FbFb  nFb Fb FbFb\u00163\nhub\u0016?\n>w\u0006_{.   Fh _.Fh  q__.  "
+ },
+ "segments": [
+  {
+   "seed": 50360014,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  \u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b:q\u0016?\nclnl\u0016?\n>w\u0006juy#chat\nk_oooo.,p_{,_.qy_oooo.,\u0014<.20ss_ooooooooo,,$_oooooo.,pylb#chat\nbukb#chat\nl_ooooo.,plbu#chat\nu_{._.q_oooo.,pbuh#chat\nu_ooooo._ooo,,:_ooooooooo.,#chat\njhnj#chat\nj_oooooooo.,p_ooooooo.,p_oo._o,,\u0017loadstone\ndjhul#chat\ny_oooooooo._oo.,#chat\nhyjn#chat\nu_oooooooo,,p_{,_,q_oooooooo,,p_oooo,_oo.,\u0017amulet of guarding\ndk__._.#chat\nj_ooooooo,,$buj#chat\nyyjb#chat\nh_{,Fn_.q_ooooooo.,p_oo.,$_oooo,,p_oo,,#chat\nlbbk#chat\njlhn#chat\nk_{.Fh_.Flq_ooooooooo._oo,,:__.Fb_.<.Fl #chat\nl_{.Fl   n_.<.Flq__.Fl _.@.Fl  n#chat\nl #pray\ny y   _oooooooo.,pFlFl  nFlFlFlFl__.Fk _. Fk #chat\nk __.Fk _,Fk #chat\nk Fk Fk Fk Fk  Fk Fk _ooo.,$Fk Fk Fk  Fk Fk Fk _ooo,,\u0017touchstone\n dl __, Fk _.Fk #chat\nk #pray\ny y    _ooo,,   #chat\nk _oo.Fl _..Fb,#chat\nb   FbFb  nFb Fb FbFb\u00163\nhub\u0016?\n>w\u0006_{.   Fh _.Fh  q__.  "
+  }
+ ]
+}

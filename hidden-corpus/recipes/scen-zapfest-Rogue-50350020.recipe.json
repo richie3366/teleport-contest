@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed ring of free action\nPir\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWk#levelchange\n10\n         \u0017blessed spellbook of drain life\nrl20s\u0007incubus\nZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bZ\u001b\u00167\n\u0017blessed spellbook of drain life\nrm y  20s \u0007master lich\n\u0007mind flayer\nZa\n  yy     Za\nZa\n   Za\n       Za\n      n Za\n   n Za\n\u00165\n\u00178 rocks\nQby\u0007newt\ntbyfjflfktojfy\u0007red dragon\n\u0007silver dragon\nsm.s.m. #polyself\nred dragon\n  #monster\n.m. sm.#monster\n#monster\n\u0017wand of cold\naFn    Fn  \u0017blessed spellbook of cause fear\nrq  sm.  \u0007vampire\n\u0007succubus\nZa\n   sm.   n sm.  Za\nZa\nZa\nZa\n.b.m.     Za\n#turn\n\u0018\u001b\u0007kobold shaman\n\u0007incubus\n\u0007m"
+ },
+ "segments": [
+  {
+   "seed": 50350020,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=fruit:durian\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed ring of free action\nPir\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWk#levelchange\n10\n         \u0017blessed spellbook of drain life\nrl20s\u0007incubus\nZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bZ\u001b\u00167\n\u0017blessed spellbook of drain life\nrm y  20s \u0007master lich\n\u0007mind flayer\nZa\n  yy     Za\nZa\n   Za\n       Za\n      n Za\n   n Za\n\u00165\n\u00178 rocks\nQby\u0007newt\ntbyfjflfktojfy\u0007red dragon\n\u0007silver dragon\nsm.s.m. #polyself\nred dragon\n  #monster\n.m. sm.#monster\n#monster\n\u0017wand of cold\naFn    Fn  \u0017blessed spellbook of cause fear\nrq  sm.  \u0007vampire\n\u0007succubus\nZa\n   sm.   n sm.  Za\nZa\nZa\nZa\n.b.m.     Za\n#turn\n\u0018\u001b\u0007kobold shaman\n\u0007incubus\n\u0007m"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "ef  #tip\n\u001b#rub\n\u0018\u001b#terrain\n\u001b20s  \u0014: #force\n#turn\n#untrap\nltch#monster\nW#rub\n: b  ,zW#wipe\n#offer\ns#conduct\n #tip\n\u001b;l; \u001b."
+ },
+ "segments": [
+  {
+   "seed": 50352024,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\n",
+   "moves": "ef  #tip\n\u001b#rub\n\u0018\u001b#terrain\n\u001b20s  \u0014: #force\n#turn\n#untrap\nltch#monster\nW#rub\n: b  ,zW#wipe\n#offer\ns#conduct\n #tip\n\u001b;l; \u001b."
+  }
+ ]
+}

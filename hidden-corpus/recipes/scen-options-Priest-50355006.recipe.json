@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "mO>>hvw\n WO>jhe\n#loot\nkWmO>>>>>>eah\n1\nv\nWmOa\n#pray\n\u001b#terrain\nb\n\u001b>.O>g\n,Op\n#sit\n#name\ni\nFido\niag ssmO>kvd\n zmO>>>>ag\nu\n durian\n\u0004bO>je\n#wipe\nOg\ng\nj\nrg\ny\nO>pl\n\u000f\u001b\u0014Omj\nd\u001b#offer\nss"
+ },
+ "segments": [
+  {
+   "seed": 50355006,
+   "datetime": "20130729105855",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\n",
+   "moves": "mO>>hvw\n WO>jhe\n#loot\nkWmO>>>>>>eah\n1\nv\nWmOa\n#pray\n\u001b#terrain\nb\n\u001b>.O>g\n,Op\n#sit\n#name\ni\nFido\niag ssmO>kvd\n zmO>>>>ag\nu\n durian\n\u0004bO>je\n#wipe\nOg\ng\nj\nrg\ny\nO>pl\n\u000f\u001b\u0014Omj\nd\u001b#offer\nss"
+  }
+ ]
+}

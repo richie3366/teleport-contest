@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>DFn \u0017wand of striking\nzgh\u0017wand of digging\nzhh\u0017wand of striking\nzil\u0017wand of digging\nzjl\u0017wand of digging\nzkh\u0017wand of digging\nzl> yy\u0017wand of digging\nzmh\u0017scroll of earth\nrn     yny  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 50356023,
+   "datetime": "20040125220948",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>DFn \u0017wand of striking\nzgh\u0017wand of digging\nzhh\u0017wand of striking\nzil\u0017wand of digging\nzjl\u0017wand of digging\nzkh\u0017wand of digging\nzl> yy\u0017wand of digging\nzmh\u0017scroll of earth\nrn     yny  y y y\u001b  1"
+  }
+ ]
+}

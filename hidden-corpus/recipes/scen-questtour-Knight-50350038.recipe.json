@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\ny_mmmm. Fj         n _,      n Fk     n    n  #chat\ny_m.      n      n  Fy   n      n     n   _,#chat\nn#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.       Fk     n        _.#chat\nj_mmmmm,         n  Fl       _.#chat\nn;j;\u0017blessed +3 speed boots\nWi          \u0017blessed +3 cloak of magic resistance\nWj        \u0017blessed +3 gauntlets of power\nW\u001b\u0017wand of fire\n\u0016?\n>z\u0006_mmmmm. Fk   n        _,Fj        Fj     Fn        Fk Fj     n      Fu        ,\u00167\n\u0016?\n>A\u0006_mmm.      Fl  _,Fu       Fn Fy      n    Fh       Fj       Fk    Fn               nzlh         ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.       Fk   _,Fl        Fy Fy      Fu  ,\u0016?\n>A\u0006_mmmmmmm.     yy\u001by   ny y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50350038,
+   "datetime": "20151127091649",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\ny_mmmm. Fj         n _,      n Fk     n    n  #chat\ny_m.      n      n  Fy   n      n     n   _,#chat\nn#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.       Fk     n        _.#chat\nj_mmmmm,         n  Fl       _.#chat\nn;j;\u0017blessed +3 speed boots\nWi          \u0017blessed +3 cloak of magic resistance\nWj        \u0017blessed +3 gauntlets of power\nW\u001b\u0017wand of fire\n\u0016?\n>z\u0006_mmmmm. Fk   n        _,Fj        Fj     Fn        Fk Fj     n      Fu        ,\u00167\n\u0016?\n>A\u0006_mmm.      Fl  _,Fu       Fn Fy      n    Fh       Fj       Fk    Fn               nzlh         ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.       Fk   _,Fl        Fy Fy      Fu  ,\u0016?\n>A\u0006_mmmmmmm.     yy\u001by   ny y\u001b  F"
+  }
+ ]
+}

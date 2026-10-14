@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nijl\n  .s20s   ssssss.20s  .\u0017unicorn horn\najaj#tip\n\u001bE\u001bol#force\nj;l; \u001b,s20s ss s 20s \u0017blessed spellbook of knock\nrks\u0017spellbook of polymorph\nrl  s+\u001b\u0007yellow mold\nZa\n Fh  Zb\n\u0007kobold\nZb\nZa\nZb\n#pray\ny y    \u0017uncursed potion of monster detection\nqm@. #dip\nid  \u00173 spellbook of light\nrn m, s.Za\nZa\n\u00173 Orcrist\nwo..s#invoke\no.s\u0017potion of fruit juice\nqp \u001bss#levelchange\n20\n                    \u0017cursed scroll of stinking cloud\n\u0007jackal\nrq  <.\u0017blessed cloak of protection\nW\u001b.jsm.20sTc\u0017blessed floating eye corpse\nes 20s20s\u0017uncursed wand of nothing\nztztFus\u0017uncursed eucalyptus leaf\neusss.\u0017cursed scroll of magic mapping\nrv ss#levelchange\n12\n   #wizintrinsic\ne\n sm.20ssm.s20s   nssss20ss20s20s sn\u0017scroll of stinking cloud\nrw  >.    t\u001bf \u001b#terrain\n\u001b#conduct\n #turn\n        n #monster\n20s   . s .s20s\u00165\n#levelchange\n8\n \u0007scorpion\n20s sm. sn   n20s sn .h .m.  sm.   n \u0007black dragon\nFu Fk     nFk  Fn \u0007bugbear\nFk     nFu   Fh  Fl   n    \u00162\n#levelchange\n16\n        \u0016?\n>y  _mmmmm. Fl _.m.  Fl  n #chat\nl _m. Fl_,#chat\nb_mmmmm,Fj                      n    _.        n Fl             n        #chat\nu_mm.      n     Fn             n     _.#chat\nb         ;y,\u0006_>.     n            n  Fj          _.  n       Fj    n             >Fl   yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50362011,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nijl\n  .s20s   ssssss.20s  .\u0017unicorn horn\najaj#tip\n\u001bE\u001bol#force\nj;l; \u001b,s20s ss s 20s \u0017blessed spellbook of knock\nrks\u0017spellbook of polymorph\nrl  s+\u001b\u0007yellow mold\nZa\n Fh  Zb\n\u0007kobold\nZb\nZa\nZb\n#pray\ny y    \u0017uncursed potion of monster detection\nqm@. #dip\nid  \u00173 spellbook of light\nrn m, s.Za\nZa\n\u00173 Orcrist\nwo..s#invoke\no.s\u0017potion of fruit juice\nqp \u001bss#levelchange\n20\n                    \u0017cursed scroll of stinking cloud\n\u0007jackal\nrq  <.\u0017blessed cloak of protection\nW\u001b.jsm.20sTc\u0017blessed floating eye corpse\nes 20s20s\u0017uncursed wand of nothing\nztztFus\u0017uncursed eucalyptus leaf\neusss.\u0017cursed scroll of magic mapping\nrv ss#levelchange\n12\n   #wizintrinsic\ne\n sm.20ssm.s20s   nssss20ss20s20s sn\u0017scroll of stinking cloud\nrw  >.    t\u001bf \u001b#terrain\n\u001b#conduct\n #turn\n        n #monster\n20s   . s .s20s\u00165\n#levelchange\n8\n \u0007scorpion\n20s sm. sn   n20s sn .h .m.  sm.   n \u0007black dragon\nFu Fk     nFk  Fn \u0007bugbear\nFk     nFu   Fh  Fl   n    \u00162\n#levelchange\n16\n        \u0016?\n>y  _mmmmm. Fl _.m.  Fl  n #chat\nl _m. Fl_,#chat\nb_mmmmm,Fj                      n    _.        n Fl             n        #chat\nu_mm.      n     Fn             n     _.#chat\nb         ;y,\u0006_>.     n            n  Fj          _.  n       Fj    n             >Fl   yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

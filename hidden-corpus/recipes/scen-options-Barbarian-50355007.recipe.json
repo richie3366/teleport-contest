@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "mO>>>>>jp\nc\n$\")[%?+!=/(*`0_\n>O>lb\ng\nn\n#untrap\nhO>ahg\nc\n\\   #jump\nmO>>mcj\n f bn#untrap\nhmOa\n\u000f\u001b,s."
+ },
+ "segments": [
+  {
+   "seed": 50355007,
+   "datetime": "20070122081034",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "mO>>>>>jp\nc\n$\")[%?+!=/(*`0_\n>O>lb\ng\nn\n#untrap\nhO>ahg\nc\n\\   #jump\nmO>>mcj\n f bn#untrap\nhmOa\n\u000f\u001b,s."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n12\n \u0016?\n>C#enhance\nym\no\n\u001bPg#invoke\n\u001b\u000620s    s\u001632\n>z#rub\n;. \u001b@...\u0016?\n>>\u001b\u0016?\n>Etbjz\u000f\u001b20s20skhn\u0017anti-magic field\nj^k\u0007lichen\n.20s.20sb\u0017statue trap\nbu .sb\u0017dart trap\nhl 20s   n s u   n\u0017arrow trap\n;h:P#pray\ny y   \u001611\n#levelchange\n20\n       \u00173 amulet of restful sleep\nPh s .  n .sRhFjFj\u0017uncursed boulder\n, \u0017spellbook of confuse monster\n\u0007gecko\nrj.  ns  ZZFjFj  n \u0017uncursed +0 fumble boots\n\u0007water demon\nWk  s  n20s  s Tk   n Fh Fk s  n  s \u00164\n\u00169\n\u0016?\nk   \u0006__. Fb_,Fh  n    #chat\nh sss\u000f\u001bde oli\u001bP\u001bs  n 20s.20s#name\n\u001b#monster\ne#pray\ny y      sche#dip\nfd  n\u00163\n  \u001610\n#levelchange\n14\n \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqlm,_oooo.  Fj_. Fb,#chat\nh_dd. Fb _. Fj \u0004l   n_oo. Fh _. Fj _oo. Fn  n _, Fl ,p_oooooooo, Fh _.  n Fj  ,p_mmm.#chat\nb   i\u001b#conduct\n 20s  n  \u001610\ni\u001b\u0017blessed potion of blindness\n\u0007green mold\nqm  #dip\nk\u0017uncursed wand of lightning\nznu   yy\u001bny y nn  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50350089,
+   "datetime": "20240103214524",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n12\n \u0016?\n>C#enhance\nym\no\n\u001bPg#invoke\n\u001b\u000620s    s\u001632\n>z#rub\n;. \u001b@...\u0016?\n>>\u001b\u0016?\n>Etbjz\u000f\u001b20s20skhn\u0017anti-magic field\nj^k\u0007lichen\n.20s.20sb\u0017statue trap\nbu .sb\u0017dart trap\nhl 20s   n s u   n\u0017arrow trap\n;h:P#pray\ny y   \u001611\n#levelchange\n20\n       \u00173 amulet of restful sleep\nPh s .  n .sRhFjFj\u0017uncursed boulder\n, \u0017spellbook of confuse monster\n\u0007gecko\nrj.  ns  ZZFjFj  n \u0017uncursed +0 fumble boots\n\u0007water demon\nWk  s  n20s  s Tk   n Fh Fk s  n  s \u00164\n\u00169\n\u0016?\nk   \u0006__. Fb_,Fh  n    #chat\nh sss\u000f\u001bde oli\u001bP\u001bs  n 20s.20s#name\n\u001b#monster\ne#pray\ny y      sche#dip\nfd  n\u00163\n  \u001610\n#levelchange\n14\n \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqlm,_oooo.  Fj_. Fb,#chat\nh_dd. Fb _. Fj \u0004l   n_oo. Fh _. Fj _oo. Fn  n _, Fl ,p_oooooooo, Fh _.  n Fj  ,p_mmm.#chat\nb   i\u001b#conduct\n 20s  n  \u001610\ni\u001b\u0017blessed potion of blindness\n\u0007green mold\nqm  #dip\nk\u0017uncursed wand of lightning\nznu   yy\u001bny y nn  \u0017"
+  }
+ ]
+}

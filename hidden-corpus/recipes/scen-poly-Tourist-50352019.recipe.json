@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPnl\u0017cloak of displacement\nWo sm..j20s#polyself\nfire vortex\n ss\u0007nurse\nFh.s ss.#polyself\nrock piercer\n  #monster\n      .m..m. \u0007cobra\nFj Fj  n  Fj  yy\u001by  y y y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 50352019,
+   "datetime": "20000918012302",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of polymorph control\nPnl\u0017cloak of displacement\nWo sm..j20s#polyself\nfire vortex\n ss\u0007nurse\nFh.s ss.#polyself\nrock piercer\n  #monster\n      .m..m. \u0007cobra\nFj Fj  n  Fj  yy\u001by  y y y\u001by  ."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed Cleaver\nwoFhss\u0017blessed potion of confusion\nqp\u001b\u0017cursed 20 shuriken\nQqfbfbfk\u0017spellbook of create familiar\nrr  \u001b20ssZb\nZa\ns.20s.\u0006#levelchange\n14\n            \u0017blessed spellbook of polymorph\nrs.y\u0017spellbook of sleep\nrt  sm.\u0017blessed spellbook of magic missile\n ru    sm.+b\n\u0007zombie\nZb\nZb\nZa\n Zb\nZb\n\u0007ghoul\nZa\n \u001623\n\u0017amulet of reflection\nPvs20s.m..m.\u0017cursed -1 aklys\n\u0007jellyfish\nww FyFyFyXFyFy\u0017amulet of restful sleep\n\u0007fire elemental\nPx.m. 20s   .m.sbR   n \u0017uncursed spellbook of knock\n\u0007titanothere\nry sl20s Zb\n\u00173 scroll of gold detection\nrz  \u001b@. Fh    n  Fh 20s su\u00164\n\u0007incubus\nFn      y     FbFbFk  n  Fksm.s\u0007gray ooze\nFbFbFb .k.u #pray\ny y         \u0007yellow light\nFb Fn FbFk  n 20s20s\u0018\u001b\u001612\n#levelchange\n6\n  \u0017blessed spellbook of sleep\nrAs\u0017blessed spellbook of create monster\nrB.\u0017spellbook of force bolt\nrC.\u0017blessed spellbook of wizard lock\nrD20s+\u001bZb\n\u0007acid blob\nZb\nZa\n  n Za\nZb\n.\u0007lichen\nZa\n\u0007ghoul\nZa\n#pray\ny y  #enhance\nyg\nh\n\u001b\u0006\u0016?\ne\u0006FuFuFnFuFuFnhuukH  n#offer\nwo  \u001629\n  #levelchange\n12\n     #wizintrinsic\nnad\n  sm.20s20s20ssm.sm.sl .jsm.sm.20ssm.sm..ysm.20ssm.  nslsm.sm.sm.sm.20s.m.syss20sskss.m.\u0017sack\naEb\ne\n\u001baEs\nv   #tip\nE\u001bZ\u0004 #jump\nrm: #untrap\nj.m.20ssm.sm. n.s\u00161\n#levelchange\n8\n \u0017Mjollnir\nwFFyFyFu#invoke\nF\u0017cursed spellbook of identify\nrG20ssZb\n nZa\n\u0017wand of death\nzHyzHks.i\u001b#levelchange\n30\n                     \u0017silver dagger\nwI.s20s     X\u0007ogre king\n#chat\nkss\u0007"
+ },
+ "segments": [
+  {
+   "seed": 50350041,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed Cleaver\nwoFhss\u0017blessed potion of confusion\nqp\u001b\u0017cursed 20 shuriken\nQqfbfbfk\u0017spellbook of create familiar\nrr  \u001b20ssZb\nZa\ns.20s.\u0006#levelchange\n14\n            \u0017blessed spellbook of polymorph\nrs.y\u0017spellbook of sleep\nrt  sm.\u0017blessed spellbook of magic missile\n ru    sm.+b\n\u0007zombie\nZb\nZb\nZa\n Zb\nZb\n\u0007ghoul\nZa\n \u001623\n\u0017amulet of reflection\nPvs20s.m..m.\u0017cursed -1 aklys\n\u0007jellyfish\nww FyFyFyXFyFy\u0017amulet of restful sleep\n\u0007fire elemental\nPx.m. 20s   .m.sbR   n \u0017uncursed spellbook of knock\n\u0007titanothere\nry sl20s Zb\n\u00173 scroll of gold detection\nrz  \u001b@. Fh    n  Fh 20s su\u00164\n\u0007incubus\nFn      y     FbFbFk  n  Fksm.s\u0007gray ooze\nFbFbFb .k.u #pray\ny y         \u0007yellow light\nFb Fn FbFk  n 20s20s\u0018\u001b\u001612\n#levelchange\n6\n  \u0017blessed spellbook of sleep\nrAs\u0017blessed spellbook of create monster\nrB.\u0017spellbook of force bolt\nrC.\u0017blessed spellbook of wizard lock\nrD20s+\u001bZb\n\u0007acid blob\nZb\nZa\n  n Za\nZb\n.\u0007lichen\nZa\n\u0007ghoul\nZa\n#pray\ny y  #enhance\nyg\nh\n\u001b\u0006\u0016?\ne\u0006FuFuFnFuFuFnhuukH  n#offer\nwo  \u001629\n  #levelchange\n12\n     #wizintrinsic\nnad\n  sm.20s20s20ssm.sm.sl .jsm.sm.20ssm.sm..ysm.20ssm.  nslsm.sm.sm.sm.20s.m.syss20sskss.m.\u0017sack\naEb\ne\n\u001baEs\nv   #tip\nE\u001bZ\u0004 #jump\nrm: #untrap\nj.m.20ssm.sm. n.s\u00161\n#levelchange\n8\n \u0017Mjollnir\nwFFyFyFu#invoke\nF\u0017cursed spellbook of identify\nrG20ssZb\n nZa\n\u0017wand of death\nzHyzHks.i\u001b#levelchange\n30\n                     \u0017silver dagger\nwI.s20s     X\u0007ogre king\n#chat\nkss\u0007"
+  }
+ ]
+}

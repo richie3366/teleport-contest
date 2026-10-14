@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   bhnu\u0017level teleporter\nb^uu 7\n s20sj\u0017trap door\nlh s20sn\u0017polymorph trap\ny^n#untrap\nnE- Elbereth\n#name\n\u001b20s\u00161\n\u0006_ \u001b.>_>._.>_>._.>#force\ndc\u0006_>._,>_>,_.>_>._,>\u000f\u001b#rub\n\u0006_>._.>_>._.>_>,_,>\u0006_>>._.>_>>,_,>_>>._.>#invoke\n\u001b#rub\n\u000f\u001b#wizintrinsic\nqgp\n  s20ssm.20ssm.sm.sssss20s20ssm.s20s20s20s.ksm.sm.20s\u0017bag of tricks\nagag #tip\ng\u001bwb  ag #terrain\n\u001b#offer\nL#tip\ng\u001b.h.20s     20s    20s sk  \u0007tame winter wolf cub\n\u0007tame little dog\n\u0017magic whistle\nlk     u  n ah         #chat\njdgsm.    sm.    .b    n\u0017tin whistle\nl   l   l ai    #chat\nh\u0017banana\ntah           n  \u0018\u001b\u00167\n#levelchange\n20\n\u0017uncursed potion of hallucination\nqk\u0017cursed potion of sickness\nql   \u0017blessed spellbook of cure blindness\n\u0007fire giant\nrm.m. 20sZZ\u00173 scroll of light\nrnFb20sss\\   \u0017uncursed scroll of identify\nro j\n\u0017blessed fumble boots\n\u0007trapper\nWp su 20s\u001b20s  Tp  nFb Fj\u0017uncursed +0 dwarvish mattock\nwqFjFjFkX\u0017uncursed +0 axe\nwrFjFkFks\u001bs\u0017bow\nwsFj FbFb\u0007chameleon\nFbFbFb sm.20s\u0007mountain nymph\nFnFbFnFbFu     n  20ssn  \u001627\n   \u000f\u001b#levelchange\n8\n    \u0007long worm\n;k;sm.s20s\u0007pony\nFkFkFkFk\u0007large mimic\nsbss20s\u0007rock piercer\nFkFk#levelchange\n14\n     yyhu\u0017grave\n: \u0017wand of digging\nzt> sm..m.:yh\u0017moat\n#dip\npy   n    kj:#terrain\nd\n#wipe\n,#turn\n#monster\n\u0007incu"
+ },
+ "segments": [
+  {
+   "seed": 50362020,
+   "datetime": "20070818032526",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   bhnu\u0017level teleporter\nb^uu 7\n s20sj\u0017trap door\nlh s20sn\u0017polymorph trap\ny^n#untrap\nnE- Elbereth\n#name\n\u001b20s\u00161\n\u0006_ \u001b.>_>._.>_>._.>#force\ndc\u0006_>._,>_>,_.>_>._,>\u000f\u001b#rub\n\u0006_>._.>_>._.>_>,_,>\u0006_>>._.>_>>,_,>_>>._.>#invoke\n\u001b#rub\n\u000f\u001b#wizintrinsic\nqgp\n  s20ssm.20ssm.sm.sssss20s20ssm.s20s20s20s.ksm.sm.20s\u0017bag of tricks\nagag #tip\ng\u001bwb  ag #terrain\n\u001b#offer\nL#tip\ng\u001b.h.20s     20s    20s sk  \u0007tame winter wolf cub\n\u0007tame little dog\n\u0017magic whistle\nlk     u  n ah         #chat\njdgsm.    sm.    .b    n\u0017tin whistle\nl   l   l ai    #chat\nh\u0017banana\ntah           n  \u0018\u001b\u00167\n#levelchange\n20\n\u0017uncursed potion of hallucination\nqk\u0017cursed potion of sickness\nql   \u0017blessed spellbook of cure blindness\n\u0007fire giant\nrm.m. 20sZZ\u00173 scroll of light\nrnFb20sss\\   \u0017uncursed scroll of identify\nro j\n\u0017blessed fumble boots\n\u0007trapper\nWp su 20s\u001b20s  Tp  nFb Fj\u0017uncursed +0 dwarvish mattock\nwqFjFjFkX\u0017uncursed +0 axe\nwrFjFkFks\u001bs\u0017bow\nwsFj FbFb\u0007chameleon\nFbFbFb sm.20s\u0007mountain nymph\nFnFbFnFbFu     n  20ssn  \u001627\n   \u000f\u001b#levelchange\n8\n    \u0007long worm\n;k;sm.s20s\u0007pony\nFkFkFkFk\u0007large mimic\nsbss20s\u0007rock piercer\nFkFk#levelchange\n14\n     yyhu\u0017grave\n: \u0017wand of digging\nzt> sm..m.:yh\u0017moat\n#dip\npy   n    kj:#terrain\nd\n#wipe\n,#turn\n#monster\n\u0007incu"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           #wizintrinsic\ngb\n sm..m.sm.sss.hsjs20s\u0017scroll of taming\nri   \u001bsab   \u001b.#pray\ny y #turn\n;>.dd20sss..s"
+ },
+ "segments": [
+  {
+   "seed": 50352015,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           #wizintrinsic\ngb\n sm..m.sm.sss.hsjs20s\u0017scroll of taming\nri   \u001bsab   \u001b.#pray\ny y #turn\n;>.dd20sss..s"
+  }
+ ]
+}

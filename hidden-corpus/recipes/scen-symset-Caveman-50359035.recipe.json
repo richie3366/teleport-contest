@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             bnj\u0017grave\n: \u0017pick-axe\naf >   sm.sl\u0017iron bars\ncEr\u001b\u001bO>>>b\u001b\n#levelchange\n10\n yjh\u0017unaligned altar\nda de\u0017lichen corpse\n#offer\ng    n    n #pray\ny  j\u0017ice\nf  y:  r\u001b\u001b\u001611\nmO>h\u001b\nPdbcl>:v  i\u001b\u0006_ \u001bm.>FkFu_>.Fn_. Fu >FuFu _>.Fu   n _.Fu >Fu FuFu   nFu Fu#conduct\n #terrain\n\u001b\u0006_>,Fu _,m.  nFu >Fj Fu _>.Fu  n  _.Fu>Fu Fu_>.Fb_.>FnFbFn\u0006_>.Fn _.Fn  n       >Fb Fk_>,Fb  _,m.Fu>Fu   n Fj     _>._. >i\u001b\u000f\u001b\u0006_>\u0006 _>. _,   n  Fj  > \u0006_>\u0006 _>.    n  Fu  _.>  Fj     Fu     n  Fk     \u001b\u001610\n\u00164\nFbFkFu   FyFjFbFjFkFhFnFhFlFjFuFyFh   FlFu  Fj     Fj     nFjFbFkFkFuFlFlFnFjFuFlFbFkFjFhFnFjFuFhFnFkFn#pray\ny y      FbFj   Fl#pray\ny y      FnFnFbFhFkFuFnFlFk   FkFuFh#pray\ny y       Fj     FyFy#pray\ny y        FbFk      FnFkFl   Fh   FjFbFhFbFyFj#pray\ny y    #pray\ny y   FlFjFb#pray\ny y #pray\ny y #pray\ny y #pray\ny y FuFnFyFbFbFk#pray\ny y #pray\ny y FhFyFnmO>>h\u001b\nmO>>>>f\u001b\n\u00165\nFlFbFb#pray\ny y #pray\ny y FbFkFuFbFyFuFhFhFl#pray\ny y FlFyFu#pray\ny y #pray\ny y #pray\n"
+ },
+ "segments": [
+  {
+   "seed": 50359035,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueWindows\nOPTIONS=!verbose\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n14\n             bnj\u0017grave\n: \u0017pick-axe\naf >   sm.sl\u0017iron bars\ncEr\u001b\u001bO>>>b\u001b\n#levelchange\n10\n yjh\u0017unaligned altar\nda de\u0017lichen corpse\n#offer\ng    n    n #pray\ny  j\u0017ice\nf  y:  r\u001b\u001b\u001611\nmO>h\u001b\nPdbcl>:v  i\u001b\u0006_ \u001bm.>FkFu_>.Fn_. Fu >FuFu _>.Fu   n _.Fu >Fu FuFu   nFu Fu#conduct\n #terrain\n\u001b\u0006_>,Fu _,m.  nFu >Fj Fu _>.Fu  n  _.Fu>Fu Fu_>.Fb_.>FnFbFn\u0006_>.Fn _.Fn  n       >Fb Fk_>,Fb  _,m.Fu>Fu   n Fj     _>._. >i\u001b\u000f\u001b\u0006_>\u0006 _>. _,   n  Fj  > \u0006_>\u0006 _>.    n  Fu  _.>  Fj     Fu     n  Fk     \u001b\u001610\n\u00164\nFbFkFu   FyFjFbFjFkFhFnFhFlFjFuFyFh   FlFu  Fj     Fj     nFjFbFkFkFuFlFlFnFjFuFlFbFkFjFhFnFjFuFhFnFkFn#pray\ny y      FbFj   Fl#pray\ny y      FnFnFbFhFkFuFnFlFk   FkFuFh#pray\ny y       Fj     FyFy#pray\ny y        FbFk      FnFkFl   Fh   FjFbFhFbFyFj#pray\ny y    #pray\ny y   FlFjFb#pray\ny y #pray\ny y #pray\ny y #pray\ny y FuFnFyFbFbFk#pray\ny y #pray\ny y FhFyFnmO>>h\u001b\nmO>>>>f\u001b\n\u00165\nFlFbFb#pray\ny y #pray\ny y FbFkFuFbFyFuFhFhFl#pray\ny y FlFyFu#pray\ny y #pray\ny y #pray\n"
+  }
+ ]
+}

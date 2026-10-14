@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0016?\n>Buk jj kFuFj\u0017wand of digging\nzflFu FuFujk10sFuFuFunFujj \u0017wand of digging\nzglnjFu  n jlyul kuFjybukbkbnbhunllhlhlhllh\u0017wand of digging\nzhhhunjSy\u001b y 20sclZ#force\nE- ad aerarium\n<#levelchange\n30\n                \u0017morning star\nwis.sX\u0007green slime\nFyFyFyFy Fy F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50356015,
+   "datetime": "20050614152102",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=fruit:lychee\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0016?\n>Buk jj kFuFj\u0017wand of digging\nzflFu FuFujk10sFuFuFunFujj \u0017wand of digging\nzglnjFu  n jlyul kuFjybukbkbnbhunllhlhlhllh\u0017wand of digging\nzhhhunjSy\u001b"
+  },
+  {
+   "seed": 50856015,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=fruit:lychee\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " y 20sclZ#force\nE- ad aerarium\n<#levelchange\n30\n                \u0017morning star\nwis.sX\u0007green slime\nFyFyFyFy Fy F"
+  }
+ ]
+}

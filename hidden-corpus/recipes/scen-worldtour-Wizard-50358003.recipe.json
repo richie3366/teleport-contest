@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed amulet of reflection\nPn\u0017blessed ring of free action\nPol\u0016?\n>>L      wand of slow monster\n_ \u001b@..m.sm.      \u0016?\n\u001bu        y \u0016?\na   __.\u0016?\ne _{.\u00163\njl :\u0016?\nd\u0006>._<.\u0016?\n\u001bn           n   j        \u0016?\n\u001bn          n   n              n  \u001610\n\u00167\n\u0006._>.\u001625\n_>..l             \u00163\nj    n             n  n b   n     n   n   n :\u00168\n\u0016?\n\u001bj      h            n \u00164\nl         n  n   n : \u001629\nn   n  j    y   n :\u001612\n\u0016?\n\u001bj            n   n     n  \u00167\n\u00169\n_{.. \u0016?\ne#chat\nk;l:  .u       n      .m.          n   \u0016?\nej         n     h      k       n       ny    yy\u001by   y y\u001b  n"
+ },
+ "segments": [
+  {
+   "seed": 50358003,
+   "datetime": "20001202201444",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed amulet of reflection\nPn\u0017blessed ring of free action\nPol\u0016?\n>>L      wand of slow monster\n_ \u001b@..m.sm.      \u0016?\n\u001bu        y \u0016?\na   __.\u0016?\ne _{.\u00163\njl :\u0016?\nd\u0006>._<.\u0016?\n\u001bn           n   j        \u0016?\n\u001bn          n   n              n  \u001610\n\u00167\n\u0006._>.\u001625\n_>..l             \u00163\nj    n             n  n b   n     n   n   n :\u00168\n\u0016?\n\u001bj      h            n \u00164\nl         n  n   n : \u001629\nn   n  j    y   n :\u001612\n\u0016?\n\u001bj            n   n     n  \u00167\n\u00169\n_{.. \u0016?\ne#chat\nk;l:  .u       n      .m.          n   \u0016?\nej         n     h      k       n       ny    yy\u001by   y y\u001b  n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 speed boots\nWf \u0016?\n>>N       wand of sleep\n_ \u001b.\u001632\nyub y uk:sm.\u001636\n#chat\nn;n;\u0016?\nel ln ku  n k l:\u0016?\nd\u0004j         n   \u001641\nb   y \u0017wand of stasis\nE: \u0017wand of speed monster\nE: \u0017wand of opening\nEE\u0007jackal\n20s s  sh  .\u0016?\na    uhb          n      n      n       \u001b  k       y           n :.u20s     \u00164\n\u0016?\nc _{,\u001632\n_<.>20s     \u001632\n\u0006_<,\u001638\nuyyy           \u0017neutral altar\ndd      \u0017jackal corpse\n#offer\nl   l  n \u0017iron bars\nl      h  l     n  huu  \u0017sink\nqy \u0017ring of teleport control\ndm  \u001b  l\u0004h           \u0004hl  n  \u0017melting ice\nn         yyn #force\n        r\u001b#enhance\nyr\ni\n\u001b\u00169\n\u0016?\n\u001bll      \u001614\nn j bjhhh:\u001637\n#levelchange\n6\n  \u0007giant mimic\nFl Fk  n          Fn     n FkFk Fj   n sj.m. \u0007green mold\nFk Fj Fk  n       20s  n     20s   #pray\ny y         20s    n  \u001612\n\u0016?\ncb n  n    y   yy yy:\u0016?\n\u001byyynyy\u0016?\n\u001byy"
+ },
+ "segments": [
+  {
+   "seed": 50358030,
+   "datetime": "20070201181213",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 speed boots\nWf \u0016?\n>>N       wand of sleep\n_ \u001b.\u001632\nyub y uk:sm.\u001636\n#chat\nn;n;\u0016?\nel ln ku  n k l:\u0016?\nd\u0004j         n   \u001641\nb   y \u0017wand of stasis\nE: \u0017wand of speed monster\nE: \u0017wand of opening\nEE\u0007jackal\n20s s  sh  .\u0016?\na    uhb          n      n      n       \u001b  k       y           n :.u20s     \u00164\n\u0016?\nc _{,\u001632\n_<.>20s     \u001632\n\u0006_<,\u001638\nuyyy           \u0017neutral altar\ndd      \u0017jackal corpse\n#offer\nl   l  n \u0017iron bars\nl      h  l     n  huu  \u0017sink\nqy \u0017ring of teleport control\ndm  \u001b  l\u0004h           \u0004hl  n  \u0017melting ice\nn         yyn #force\n        r\u001b#enhance\nyr\ni\n\u001b\u00169\n\u0016?\n\u001bll      \u001614\nn j bjhhh:\u001637\n#levelchange\n6\n  \u0007giant mimic\nFl Fk  n          Fn     n FkFk Fj   n sj.m. \u0007green mold\nFk Fj Fk  n       20s  n     20s   #pray\ny y         20s    n  \u001612\n\u0016?\ncb n  n    y   yy yy:\u0016?\n\u001byyynyy\u0016?\n\u001byy"
+  }
+ ]
+}

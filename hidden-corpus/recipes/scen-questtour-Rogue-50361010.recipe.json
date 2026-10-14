@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm, #chat\nk;<._mmmmm,Fl_.#chat\nb_mmmm.#chat\nk;m,_mm,#chat\nk;<.#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_m._,#chat\nj_mmmm,#chat\ny;_._mmmm.#chat\nh\u0017blessed +3 helm of telepathy\nWj\u0017blessed +3 gauntlets of power\nWk\u0017wand of death\n\u0016?\n>A\u0006_mmmmm,sFu ss.,#chat\ny\u0016?\n>A\u0006_mmmmmm,Fl_..Fus ..ssszlh ,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fh_,:Fh#chat\ny;m,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm..s.20s szll,\u0016?\n>z\u0006_mmm. Fu   _..s20s20s .20s .zlh n,\u0016?\n>A\u0006_mmmmm,Fk _,.ssss.zly,\u0016?\n>A\u0006_mmmmm. _,20ssss,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.ss.20ss20szl,\u0016?\n>z\u0006_mmmmm,s.20ss,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nh\u0016?\n>A\u0006_mmmmm.ss...20s,#chat\nh\u0016?\n>A\u0006_mm,s20s ss20s  ,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.ss20s 20s szl,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nb;<.\u0016?"
+ },
+ "segments": [
+  {
+   "seed": 50361010,
+   "datetime": "20190218065255",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm, #chat\nk;<._mmmmm,Fl_.#chat\nb_mmmm.#chat\nk;m,_mm,#chat\nk;<.#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_m._,#chat\nj_mmmm,#chat\ny;_._mmmm.#chat\nh\u0017blessed +3 helm of telepathy\nWj\u0017blessed +3 gauntlets of power\nWk\u0017wand of death\n\u0016?\n>A\u0006_mmmmm,sFu ss.,#chat\ny\u0016?\n>A\u0006_mmmmmm,Fl_..Fus ..ssszlh ,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fh_,:Fh#chat\ny;m,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm..s.20s szll,\u0016?\n>z\u0006_mmm. Fu   _..s20s20s .20s .zlh n,\u0016?\n>A\u0006_mmmmm,Fk _,.ssss.zly,\u0016?\n>A\u0006_mmmmm. _,20ssss,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.ss.20ss20szl,\u0016?\n>z\u0006_mmmmm,s.20ss,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nh\u0016?\n>A\u0006_mmmmm.ss...20s,#chat\nh\u0016?\n>A\u0006_mm,s20s ss20s  ,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.ss20s 20s szl,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nb;<.\u0016?"
+  }
+ ]
+}

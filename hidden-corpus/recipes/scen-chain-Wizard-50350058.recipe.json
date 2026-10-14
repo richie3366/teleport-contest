@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " FjFjs\u000f\u001b100s  Fj20s20sFjFh Fhjbh_ \u001b<.>\u000f\u001b\\  100s    Fl .s150s50sFh20s20sFhFhs50s_<.sFh.Fh\u0018\u001bnlj100sFhFh.\u000f\u001b_>.>zc100s150sFhFh20s100s\u0018\u001bjhu50s50sFkFkFkjku100sFkss150s100sFk20sFkFkFkFkFkFkFkFkFkljljhlkblkjyLHKN_>.>Fk20ss#name\ni\nsULKL_>.><YBKK_>.>UBBB_>,>\u0018\u001b<NLJL_>.>#ride\ny;<.JLYY_>.>_>.>e1#quit\nyy\u001by  y y y\u001b  #wizintrinsic\na\n .s20s20s20s20s20s20s  .sm. .s20s20s...20s20ssss20s.20ssss jnhuJKYH_ \u001b<.>FhFjFl YHUN_>.>YYKK_>,>KUUY_>,>#conduct\n ,ULYB_>,>\u000f\u001bHLBK_>,>HJBJ_>,>KJLH_>.>HBYJ_>.>UBLK_>,>UYHJ_>.>ubuk20syjtcunh20syntdjhlhunyljybh100s_>.>hun#ride\nkykk_>.>150sFhs.\u000f\u001b50s100shlj50sFhFhs50sybj\u000f\u001b\u0018\u001b100s50s50sFlFl20s150s150sFhFhs150sl100snjl\\    _>,>50sFl#quit\ny #wizintrinsic\nd\n .l..snss20ssm.20s20s .m.sm.sm. n..ss.sss.20sss..20ss20s20s.20s  20s sssss20s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50350058,
+   "datetime": "20241229013138",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " FjFjs\u000f\u001b100s  Fj20s20sFjFh Fhjbh_ \u001b<.>\u000f\u001b\\  100s    Fl .s150s50sFh20s20sFhFhs50s_<.sFh.Fh\u0018\u001bnlj100sFhFh.\u000f\u001b_>.>zc100s150sFhFh20s100s\u0018\u001bjhu50s50sFkFkFkjku100sFkss150s100sFk20sFkFkFkFkFkFkFkFkFkljljhlkblkjyLHKN_>.>Fk20ss#name\ni\nsULKL_>.><YBKK_>.>UBBB_>,>\u0018\u001b<NLJL_>.>#ride\ny;<.JLYY_>.>_>.>e1#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50450058,
+   "datetime": "20241129013810",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\na\n .s20s20s20s20s20s20s  .sm. .s20s20s...20s20ssss20s.20ssss"
+  },
+  {
+   "seed": 50550058,
+   "datetime": "20160319095123",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\n",
+   "moves": " jnhuJKYH_ \u001b<.>FhFjFl YHUN_>.>YYKK_>,>KUUY_>,>#conduct\n ,ULYB_>,>\u000f\u001bHLBK_>,>HJBJ_>,>KJLH_>.>HBYJ_>.>UBLK_>,>UYHJ_>.>ubuk20syjtcunh20syntdjhlhunyljybh100s_>.>hun#ride\nkykk_>.>150sFhs.\u000f\u001b50s100shlj50sFhFhs50sybj\u000f\u001b\u0018\u001b100s50s50sFlFl20s150s150sFhFhs150sl100snjl\\    _>,>50sFl#quit\ny "
+  },
+  {
+   "seed": 50650058,
+   "datetime": "20050729233310",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nd\n .l..snss20ssm.20s20s .m.sm.sm. n..ss.sss.20sss..20ss20s20s.20s  20s sssss20s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "BBYU_ \u001b,>Fj.FhUKJY_>.>YLKK_>.>Fj 20s20s\u000f\u001bahr\ni\u001b\u0004yYLLU_>.>h#tip\nh\u001bJNUU_>,>KBHU_>.>YBLL_>,>YYKU_>.>#turn\n#dip\nh\u000f\u001bNNHB_>.>BLKN_>.>UYHK_>.><HBYH_>.>UYUL_>.>jahr\n\u000f\u001blkb50s100s100s100sFuFusbyn\u000f\u001bfu_>.>\\ i\u001b_>,>nyb_>,>100sknkFu..100skblFuFkFk#sit\n\u001bulhbby50s100snll100syul100s100s150sFkFk20sFhss150sFhFh.uk jhlk #jump\nkkubuhjuh#name\no\nlh#chat\nlFlFlFl#rub\nijubi\u001bjku50s _>.>100sFu Fu20sujhFuFuFuFuFuFulhui\u001b\u0018\u001bkjj100sed kbh150s\u000f\u001b_>.>50s100sFlFlFl100sFlFls100si\u001b100sFjFjFj\u0018\u001b100s100sFlFlFlFlFlFlFlFlFlFlFls150s50sFlFlFli\u001b50sFlFlFlFlFl Flej FlFlFl\u000f\u001bkkj 150sjjj150sed100s 50sFhFh.kkji\u001bkjk100sFkFkFkFkFj Fj FkFjFjFjFjFj150s150sFkFkFk100s150sFkFkFkFkFkFkFj FkFjFjFjFjFj  Fj  FkFkFksFkFk20s\\ jkj_>,>50skjk#enhance\n\u001b\u0018\u001bi\u001b50sFkFkFkFkFkFkFk.s100s\u000f\u001b100sFjFjFjFjFjFjFj20s.100sedFjFjFjFjFjFjFjFjFjFjFjFj#pray\ny  FjFjFj50s100shyy150sFkFk.50s150snnj150sFkFkFkFkFkFkFkFk.50s50s_>.>100s50s50sHHKY_>.>FkFkFkJH BK_>.>FlFls#name\nf\n#terrain\n.BNJL_>.>\u000f\u001btal#monster\n>BYBN_>"
+ },
+ "segments": [
+  {
+   "seed": 50350075,
+   "datetime": "20181216134439",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\n",
+   "moves": "BBYU_ \u001b,>Fj.FhUKJY_>.>YLKK_>.>Fj 20s20s\u000f\u001bahr\ni\u001b\u0004yYLLU_>.>h#tip\nh\u001bJNUU_>,>KBHU_>.>YBLL_>,>YYKU_>.>#turn\n#dip\nh\u000f\u001bNNHB_>.>BLKN_>.>UYHK_>.><HBYH_>.>UYUL_>.>jahr\n\u000f\u001blkb50s100s100s100sFuFusbyn\u000f\u001bfu_>.>\\ i\u001b_>,>nyb_>,>100sknkFu..100skblFuFkFk#sit\n\u001bulhbby50s100snll100syul100s100s150sFkFk20sFhss150sFhFh.uk jhlk #jump\nkkubuhjuh#name\no\nlh#chat\nlFlFlFl#rub\nijubi\u001bjku50s _>.>100sFu Fu20sujhFuFuFuFuFuFulhui\u001b\u0018\u001bkjj100sed kbh150s\u000f\u001b_>.>50s100sFlFlFl100sFlFls100si\u001b100sFjFjFj\u0018\u001b100s100sFlFlFlFlFlFlFlFlFlFlFls150s50sFlFlFli\u001b50sFlFlFlFlFl Flej FlFlFl\u000f\u001bkkj 150sjjj150sed100s 50sFhFh.kkji\u001bkjk100sFkFkFkFkFj Fj FkFjFjFjFjFj150s150sFkFkFk100s150sFkFkFkFkFkFkFj FkFjFjFjFjFj  Fj  FkFkFksFkFk20s\\ jkj_>,>50skjk#enhance\n\u001b\u0018\u001bi\u001b50sFkFkFkFkFkFkFk.s100s\u000f\u001b100sFjFjFjFjFjFjFj20s.100sedFjFjFjFjFjFjFjFjFjFjFjFj#pray\ny  FjFjFj50s100shyy150sFkFk.50s150snnj150sFkFkFkFkFkFkFkFk.50s50s_>.>100s50s50sHHKY_>.>FkFkFkJH BK_>.>FlFls#name\nf\n#terrain\n.BNJL_>.>\u000f\u001btal#monster\n>BYBN_>"
+  }
+ ]
+}

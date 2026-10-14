@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 speed boots\nWe\u0017blessed ring of free action\nPfr\u0017blessed amulet of life saving\nPg\u001720 darts\nQh\u0007gnome lord\n\u0007dwarf\nfkfufhtbk fh fu \u0017potion of healing\nthh\u0018\u001b\u0017blessed spellbook of fireball\nrj    sm.\u0017blessed spellbook of slow monster\nrk sy\u0007master mind flayer\nZZsysm.Zsb 20s ZZZZsm.  nsm.    \u0017spellbook of slow monster\nrl  n       n .m.   n  \u0017spellbook of cone of cold\nrm  n  n  20s   n \u0007incubus\n\u0007aligned cleric\nyyZZZZss    n    n  Zs  n s   n #turn\n\u001612\n\u0017wand of slow monster\n\u0017wand of death\n\u0007hill orc\nzo.  nznb20s zoyznkszouznyznu  nszou \u00166\n\u0017blessed spellbook of sleep\nrp.\u0017blessed spellbook of knock\nrqs\u0007master lich\n\u0007aligned cleric\nynZZZ20s    n   s  n   Zs  n   s  n ZZZZ#turn\n\u0017sling\nwr    yy\u001by   y y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50350068,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 speed boots\nWe\u0017blessed ring of free action\nPfr\u0017blessed amulet of life saving\nPg\u001720 darts\nQh\u0007gnome lord\n\u0007dwarf\nfkfufhtbk fh fu \u0017potion of healing\nthh\u0018\u001b\u0017blessed spellbook of fireball\nrj    sm.\u0017blessed spellbook of slow monster\nrk sy\u0007master mind flayer\nZZsysm.Zsb 20s ZZZZsm.  nsm.    \u0017spellbook of slow monster\nrl  n       n .m.   n  \u0017spellbook of cone of cold\nrm  n  n  20s   n \u0007incubus\n\u0007aligned cleric\nyyZZZZss    n    n  Zs  n s   n #turn\n\u001612\n\u0017wand of slow monster\n\u0017wand of death\n\u0007hill orc\nzo.  nznb20s zoyznkszouznyznu  nszou \u00166\n\u0017blessed spellbook of sleep\nrp.\u0017blessed spellbook of knock\nrqs\u0007master lich\n\u0007aligned cleric\nynZZZ20s    n   s  n   Zs  n   s  n ZZZZ#turn\n\u0017sling\nwr    yy\u001by   y y y\u001by  \u0017"
+  }
+ ]
+}

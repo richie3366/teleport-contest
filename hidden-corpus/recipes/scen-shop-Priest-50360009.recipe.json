@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWj\u0016?\n>w\u0006_ \u001b;,\u0014..s\u0016?\nc bjj\u0016?\n>w\u0006_oooooo,,:_ooooo.,phuh#chat\nllby#chat\ny_ooooo,,p__.Fb_,.Fh#chat\nb#pray\ny y _{._,@.qdFy  nFyFyFyFyFyhuk#chat\nnylh#chat\nn_oooo._.,p_ooo,_._o,,\u001b$luh#chat\nk  FkFkFkFkFkFkunk#chat\ny_ooooooo._,,\u001bpnnj#chat\nn_ooooooooo._ooo.,p_oooo,_.,\u001b\u0017amulet of strangulation\ndm__._,m,#chat\ny#pray\ny y __._.;.#chat\ny_oooo,_,,\u001bp__.Fy_, \u001bFj#chat\nk_{,_,<.qd_oooooo._.,\u001bpyyh#chat\nkhnh#chat\nl_{._,,Fbqd__.Fh_.m.#chat\nl#pray\ny y _{._.@.qd\u0016?\nckll\u0016?\n>w\u0006kyl#chat\ny_oo. _.>.,\u0017worthless piece of red gl"
+ },
+ "segments": [
+  {
+   "seed": 50360009,
+   "datetime": "20150723003116",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWj\u0016?\n>w\u0006_ \u001b;,\u0014..s\u0016?\nc bjj\u0016?\n>w\u0006_oooooo,,:_ooooo.,phuh#chat\nllby#chat\ny_ooooo,,p__.Fb_,.Fh#chat\nb#pray\ny y _{._,@.qdFy  nFyFyFyFyFyhuk#chat\nnylh#chat\nn_oooo._.,p_ooo,_._o,,\u001b$luh#chat\nk  FkFkFkFkFkFkunk#chat\ny_ooooooo._,,\u001bpnnj#chat\nn_ooooooooo._ooo.,p_oooo,_.,\u001b\u0017amulet of strangulation\ndm__._,m,#chat\ny#pray\ny y __._.;.#chat\ny_oooo,_,,\u001bp__.Fy_, \u001bFj#chat\nk_{,_,<.qd_oooooo._.,\u001bpyyh#chat\nkhnh#chat\nl_{._,,Fbqd__.Fh_.m.#chat\nl#pray\ny y _{._.@.qd\u0016?\nckll\u0016?\n>w\u0006kyl#chat\ny_oo. _.>.,\u0017worthless piece of red gl"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWl\u0017blessed amulet of reflection\nPm\u0016?\n>w\u0006FhFhFhFhFhFh_ \u001b.qd_ooooooooo.,#chat\nn_oooooo.,\u0014>.ss_{._.qd_oooo.,plhl#chat\nn__,_.#chat\nu#pray\ny y jlj#chat\nh_ooo,_,,pkkn#chat\nu_oooooooo.,$__._.#chat\nj#pray\ny y _{._.qe_ooo.,#chat\nu_ooooo.,p_ooo._oo.,$__,_,#chat\nb_{._.qd_ooooooooo,,\u0017amulet of reflection\ndolbl#chat\nj__._.#chat\nh_oo._oo.,:_{._.qe_oooooo,,p_oooooooo._ooo.,:\u0016?\ncuhy\u0016?\n>w\u0006_ooooooo.,$Fy  Fy Fy Fy Fy   nFy _oooo._o.,p_oo,_o,,pFy Fy   nFy Fy Fy   nFy \u00165\nFy FyFy Fy   nFy Fy_ooooooooo.,p_ooooo._ooo.,#chat\ny __,Fh   n_.<.Fh #chat\nh _ooooooooo,_o,,p\u00167\nun  nj\u0016?\n>w\u0006Fl Fl   nFl Fl Fl   nFl \u00167\n_ooooooooo._oo.,pFk Fk Fk   nFk Fk Fk  n\u0016?\n>Bhul\u0016?\n>w\u0006\u00166\n_ooooooooo,,p_ooooo,,p_{,qf Fh Fh   nFh FhFhFh_ooo,_,,e\n$llh#chat\ny__,#chat\nblhl#ch"
+ },
+ "segments": [
+  {
+   "seed": 50360016,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWl\u0017blessed amulet of reflection\nPm\u0016?\n>w\u0006FhFhFhFhFhFh_ \u001b.qd_ooooooooo.,#chat\nn_oooooo.,\u0014>.ss_{._.qd_oooo.,plhl#chat\nn__,_.#chat\nu#pray\ny y jlj#chat\nh_ooo,_,,pkkn#chat\nu_oooooooo.,$__._.#chat\nj#pray\ny y _{._.qe_ooo.,#chat\nu_ooooo.,p_ooo._oo.,$__,_,#chat\nb_{._.qd_ooooooooo,,\u0017amulet of reflection\ndolbl#chat\nj__._.#chat\nh_oo._oo.,:_{._.qe_oooooo,,p_oooooooo._ooo.,:\u0016?\ncuhy\u0016?\n>w\u0006_ooooooo.,$Fy  Fy Fy Fy Fy   nFy _oooo._o.,p_oo,_o,,pFy Fy   nFy Fy Fy   nFy \u00165\nFy FyFy Fy   nFy Fy_ooooooooo.,p_ooooo._ooo.,#chat\ny __,Fh   n_.<.Fh #chat\nh _ooooooooo,_o,,p\u00167\nun  nj\u0016?\n>w\u0006Fl Fl   nFl Fl Fl   nFl \u00167\n_ooooooooo._oo.,pFk Fk Fk   nFk Fk Fk  n\u0016?\n>Bhul\u0016?\n>w\u0006\u00166\n_ooooooooo,,p_ooooo,,p_{,qf Fh Fh   nFh FhFhFh_ooo,_,,e\n$llh#chat\ny__,#chat\nblhl#ch"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001bm.>FkFk_>.Fy_.Fb>FbFb_>. Fy_. Fy>FyFbFbFbFb\u0006_>>.Fy_.Fy>FyFy_>>.Fy_.Fy>FyFy_>>,Fb_.Fb>FbFbFyFbFb<\u0006_>.Fb_,Fb>FbFy_>.Fy_.Fy>FyFy_>,Fy_.Fy>FyFbFbFyFb#jump\ned  \u0006_>>,Fj_.Fy>FyFy_>>.Fy_.Fy>FlFy_>>.Fb_,Fy>FyFbFbFyFy#tip\n\u001b#invoke\n\u001bmO>>>>c\u001b\n#levelchange\n30\n                             ybj\u0017neutral altar\ndcdc\u0017lichen corpse\n#offer\nf #pray\ny y :bub \u0017throne\n#sit\n #sit\n lichen\n#sit\n :\u001b#terrain\n m, yz#turn\nq\u0007housecat\n\u0017carrot\ntbl \u0007tame lichen\nydg.20s  s\u0017leash\nahb lj h\u001byyahb \u0017leash\nail jln bbain \u0017apple\ntbl \u0017tripe ration\ntbb \u0017fortune cookie\ntbh O>n\u001b\u001b\nOd\u001b\nv\u001bi\u001bO>>>a\u001b\n\u0006_>>.Fy_.Fkl >FbFky _>>,Fy_,Fb>FyFj_>>,Fy_.Fku >FuFkFbFuk Fu\u0006_>.Fb_.Fb>FbFy_>.Fb_.Fb>FyFy_>.Fn_>FyFyFlFnFb\u0006_>,Fb_.Fkk >FkFy_>.Flb _,Fj>"
+ },
+ "segments": [
+  {
+   "seed": 50359034,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nBIND=v:inventory\n",
+   "moves": "\u0006_ \u001bm.>FkFk_>.Fy_.Fb>FbFb_>. Fy_. Fy>FyFbFbFbFb\u0006_>>.Fy_.Fy>FyFy_>>.Fy_.Fy>FyFy_>>,Fb_.Fb>FbFbFyFbFb<\u0006_>.Fb_,Fb>FbFy_>.Fy_.Fy>FyFy_>,Fy_.Fy>FyFbFbFyFb#jump\ned  \u0006_>>,Fj_.Fy>FyFy_>>.Fy_.Fy>FlFy_>>.Fb_,Fy>FyFbFbFyFy#tip\n\u001b#invoke\n\u001bmO>>>>c\u001b\n#levelchange\n30\n                             ybj\u0017neutral altar\ndcdc\u0017lichen corpse\n#offer\nf #pray\ny y :bub \u0017throne\n#sit\n #sit\n lichen\n#sit\n :\u001b#terrain\n m, yz#turn\nq\u0007housecat\n\u0017carrot\ntbl \u0007tame lichen\nydg.20s  s\u0017leash\nahb lj h\u001byyahb \u0017leash\nail jln bbain \u0017apple\ntbl \u0017tripe ration\ntbb \u0017fortune cookie\ntbh O>n\u001b\u001b\nOd\u001b\nv\u001bi\u001bO>>>a\u001b\n\u0006_>>.Fy_.Fkl >FbFky _>>,Fy_,Fb>FyFj_>>,Fy_.Fku >FuFkFbFuk Fu\u0006_>.Fb_.Fb>FbFy_>.Fb_.Fb>FyFy_>.Fn_>FyFyFlFnFb\u0006_>,Fb_.Fkk >FkFy_>.Flb _,Fj>"
+  }
+ ]
+}

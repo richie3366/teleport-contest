@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nWh\u0017blessed ring of free action\nPil#levelchange\n14\n             \u0017wand of magic missile\n\u0017wand of sleep\n\u0007gnome\n\u0007hill orc\n\u0007dwarf\nzjl  20s   zkb   sm.zjb   zkj zjj zjy zjy zknzkn\u0017orcish bow\nwl\u001720 orcish arrows\nQm\u0007giant rat\nfjtbjflflfntajfh\u0007silver dragon\n.m..#polyself\nblack dragon\n  sm. sm. #monster\ny      #monster\ny    Fy  Fy  \u0017wand of teleportation\n\u0017wand of lightning\n\u0007grid bug\n\u0007soldier\nzzz.m.zzzzzsm.  znl    \u0018\u001b\u0017wand of slow monster\n\u0017wand of fire\n\u0007acid blob\nzpj  zqj   n zph zphzqh  zpy zpyzqy    n zpyzp \u001611\n\u0017blessed spellbook of magic missile\nrrs\u0007master lich\nZa\n 20s20s   Za\n   n  Za\n     n Za\n20s    sm.  n  Za\n  Za\n    Za\n\u001612\n    \u0007gnomish wizard\n\u0007master lich\n\u0017wand of striking\nsm.\u0017spellbook of drain life\nrt     n  sm.  \u0007master lich\n\u0007succubus\nZa\nZa\nZa\nsn    sm.     Za\nZa\n20s           sm.  n     Za\n\u00162\n\u0017spellbook of knock\nru 20s\u0017blessed spellbook of fireball\nrv .\u0007gnomish wizard\nZc\nZb\nZb\n Za\nZc\nZb\n#turn\n\u0017wand of slow monster\n\u0017wand of digging\n\u0017wand of teleportation\n\u0007owlbear\n\u0007owlbear\n\u0007kobold shaman\nzyh zwk  .m.  z"
+ },
+ "segments": [
+  {
+   "seed": 50350052,
+   "datetime": "20130610023131",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nWh\u0017blessed ring of free action\nPil#levelchange\n14\n             \u0017wand of magic missile\n\u0017wand of sleep\n\u0007gnome\n\u0007hill orc\n\u0007dwarf\nzjl  20s   zkb   sm.zjb   zkj zjj zjy zjy zknzkn\u0017orcish bow\nwl\u001720 orcish arrows\nQm\u0007giant rat\nfjtbjflflfntajfh\u0007silver dragon\n.m..#polyself\nblack dragon\n  sm. sm. #monster\ny      #monster\ny    Fy  Fy  \u0017wand of teleportation\n\u0017wand of lightning\n\u0007grid bug\n\u0007soldier\nzzz.m.zzzzzsm.  znl    \u0018\u001b\u0017wand of slow monster\n\u0017wand of fire\n\u0007acid blob\nzpj  zqj   n zph zphzqh  zpy zpyzqy    n zpyzp \u001611\n\u0017blessed spellbook of magic missile\nrrs\u0007master lich\nZa\n 20s20s   Za\n   n  Za\n     n Za\n20s    sm.  n  Za\n  Za\n    Za\n\u001612\n    \u0007gnomish wizard\n\u0007master lich\n\u0017wand of striking\nsm.\u0017spellbook of drain life\nrt     n  sm.  \u0007master lich\n\u0007succubus\nZa\nZa\nZa\nsn    sm.     Za\nZa\n20s           sm.  n     Za\n\u00162\n\u0017spellbook of knock\nru 20s\u0017blessed spellbook of fireball\nrv .\u0007gnomish wizard\nZc\nZb\nZb\n Za\nZc\nZb\n#turn\n\u0017wand of slow monster\n\u0017wand of digging\n\u0017wand of teleportation\n\u0007owlbear\n\u0007owlbear\n\u0007kobold shaman\nzyh zwk  .m.  z"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "FyFy sulj100s\u0014100s    50sFhss150s100sFh20s20s150s\u000f\u001b100s FhFh.20s100s50sbhl150sFyFkFhhll50s100sFk.s50s150s100s_ \u001b>.>hlk;_.100sef100s50si\u001b50s50sFyFh.50s100s100s50sFhssblk150s50sFh.s50sjhh#tip\n\u001bq50sFks.50slhy#chat\nn_>,>\\ 50sFhs.100s100sFhFhFhFhFhFh150s_>,>i\u001bynkH_>,>lbl50sefi\u001b\u000f\u001b100s100sFlss\u000f\u001b150s"
+ },
+ "segments": [
+  {
+   "seed": 50351014,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\n",
+   "moves": "FyFy sulj100s\u0014100s    50sFhss150s100sFh20s20s150s\u000f\u001b100s FhFh.20s100s50sbhl150sFyFkFhhll50s100sFk.s50s150s100s_ \u001b>.>hlk;_.100sef100s50si\u001b50s50sFyFh.50s100s100s50sFhssblk150s50sFh.s50sjhh#tip\n\u001bq50sFks.50slhy#chat\nn_>,>\\ 50sFhs.100s100sFhFhFhFhFhFh150s_>,>i\u001bynkH_>,>lbl50sefi\u001b\u000f\u001b100s100sFlss\u000f\u001b150s"
+  }
+ ]
+}

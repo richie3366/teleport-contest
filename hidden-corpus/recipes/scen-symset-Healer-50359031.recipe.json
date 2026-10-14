@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " FuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFhFh FuFh   nFhFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu\u00164\nO>>>c\u001b\nwa#rub\n\u001619\n#rub\n#terrain\nb\n\u001bm.hnb\u0017fountain\nqym,y\u0017long sword\n#dip\nmd   nh j\u0017pool\n#dip\nay  n       j \u0017unaligned altar\nd$   ndj \u0017floating eye corpse\n#offer\nn     nn \u0017sink\nqy   n#invoke\n\u001bqy \\ \u00163\n\u00165\n150sjblFhFkFhFhFkFkFkFhFhFkFhFhFhFhFkFkFkFhFhFkFkFhFhFkFkFhFhFkFhFkFhFkFkFhFhFhFhFkFkFhFhFhFhFhFkFhFhFhFhFhFkFkFkFkFkFhFkFhFkFhFhFkFkFkFhFkFhFhFkFkFkFhFhFhFkFkFkFkFhF"
+ },
+ "segments": [
+  {
+   "seed": 50359031,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You kill\"\nMENUCOLOR=\"a potion\"=magenta\n",
+   "moves": " FuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFhFh FuFh   nFhFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu\u00164\nO>>>c\u001b\nwa#rub\n\u001619\n#rub\n#terrain\nb\n\u001bm.hnb\u0017fountain\nqym,y\u0017long sword\n#dip\nmd   nh j\u0017pool\n#dip\nay  n       j \u0017unaligned altar\nd$   ndj \u0017floating eye corpse\n#offer\nn     nn \u0017sink\nqy   n#invoke\n\u001bqy \\ \u00163\n\u00165\n150sjblFhFkFhFhFkFkFkFhFhFkFhFhFhFhFkFkFkFhFhFkFkFhFhFkFkFhFhFkFhFkFhFkFkFhFhFhFhFkFkFhFhFhFhFhFkFhFhFhFhFhFkFkFkFkFkFhFkFhFkFhFhFkFkFkFhFkFhFhFkFkFkFhFhFhFkFkFkFkFhF"
+  }
+ ]
+}

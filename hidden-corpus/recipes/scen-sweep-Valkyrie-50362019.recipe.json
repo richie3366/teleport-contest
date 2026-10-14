@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b;>Fy._>>._,>_>>,_.>\u0006_>,_,>_>,_.>_>._,><\u0006_>,_.>_>._.>_>._.>\u0006_>,_,>_>,_,>_>._.>\u0006_>>._.>_>>._,>_>>._.>W#rub\n<\u0006_>,_,>_>._.>_>._.>\u001617\n i\u001bwass20sXw-20ssn.m.Xwb sm.s20s,#ride\nyy10saa\u0014,W\\   i\u001bwb20ssksjXwasbssi\u001b\u0007shopkeeper\nn#chat\nyFyFy\u0007giant mimic\nFyFyFyFy \u0007aligned cleric\nn;y.sm..m.20s  n \u0017uncursed +0 gauntlets of dexterity\n\u0007scorpion\nWesh   sm.   n 20s    n  \u0017uncursed Snickersnee\nwf   Fu   n  Fh    n Fy     n Fu   Fu   n  \u0017kicking boots\nWg  n     nsy 20s sm.  n sm. 20s \u000f\u001b\u00161\n#levelchange\n10\n        \u0017spear\nwhFhFh Fh\u0007quantum mechanic\nFhFh  ,Fh  , Fk  :Fk  ,sm.20s  @.\u0007water nymph\nFk  .Fk Fh  sbs\u0007rust monster\nFkFk  Fk    Fk FkFk Fk20s  .m.#wizintrinsic\nqp\n .m.sm.sm.sns20s  sm.sm.sm. .m.sh20s sm. sbsss.m. 20s  sh sm.sm.\u0017bugle\naiy  aiy #wipe\ni\u001b<10s#monster\n#monster\ns20s.sss\u0007hostile fog cloud\nsm.FlFlFlFlFlFlFl.m.FlsFl\u00164\n#levelchange\n14\n   jk y\u0017anti-magic field\njk  .m. sm.yb\u0017falling rock trap\nh#untrap\nl\u0017beartrap\najul,#untrap\nb#ride\nbyi\u001b#levelchange\n10\n\u0007ochre jelly\nFb Fb #pray\ny y         Fu  #pray\ny y       Fu Fu  sm. Fb FjFkFk \u001626\n#levelchange\n30\n                   \u0017cursed grappling hook\nak <.\u0017cursed magic marker\n\u0007xan\nal\u0017uncursed spellbook of jumping\nrm   sm.20s  ZZ\u0017uncursed cockatrice egg\nen .l sn  \u00173 the Sceptre of Might\n \u0007frost giant\nwoFb Fj Fn           n#invoke\no          sm.           20s          #levelchange\n8\n     \u0017blessed ring of polymorph control\nPpr\u0017oilskin cloak\nWq    20s   n    20s     20s      Tq        "
+ },
+ "segments": [
+  {
+   "seed": 50362019,
+   "datetime": "20090118122848",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0006_ \u001b;>Fy._>>._,>_>>,_.>\u0006_>,_,>_>,_.>_>._,><\u0006_>,_.>_>._.>_>._.>\u0006_>,_,>_>,_,>_>._.>\u0006_>>._.>_>>._,>_>>._.>W#rub\n<\u0006_>,_,>_>._.>_>._.>\u001617\n i\u001bwass20sXw-20ssn.m.Xwb sm.s20s,#ride\nyy10saa\u0014,W\\   i\u001bwb20ssksjXwasbssi\u001b\u0007shopkeeper\nn#chat\nyFyFy\u0007giant mimic\nFyFyFyFy \u0007aligned cleric\nn;y.sm..m.20s  n \u0017uncursed +0 gauntlets of dexterity\n\u0007scorpion\nWesh   sm.   n 20s    n  \u0017uncursed Snickersnee\nwf   Fu   n  Fh    n Fy     n Fu   Fu   n  \u0017kicking boots\nWg  n     nsy 20s sm.  n sm. 20s \u000f\u001b\u00161\n#levelchange\n10\n        \u0017spear\nwhFhFh Fh\u0007quantum mechanic\nFhFh  ,Fh  , Fk  :Fk  ,sm.20s  @.\u0007water nymph\nFk  .Fk Fh  sbs\u0007rust monster\nFkFk  Fk    Fk FkFk Fk20s  .m.#wizintrinsic\nqp\n .m.sm.sm.sns20s  sm.sm.sm. .m.sh20s sm. sbsss.m. 20s  sh sm.sm.\u0017bugle\naiy  aiy #wipe\ni\u001b<10s#monster\n#monster\ns20s.sss\u0007hostile fog cloud\nsm.FlFlFlFlFlFlFl.m.FlsFl\u00164\n#levelchange\n14\n   jk y\u0017anti-magic field\njk  .m. sm.yb\u0017falling rock trap\nh#untrap\nl\u0017beartrap\najul,#untrap\nb#ride\nbyi\u001b#levelchange\n10\n\u0007ochre jelly\nFb Fb #pray\ny y         Fu  #pray\ny y       Fu Fu  sm. Fb FjFkFk \u001626\n#levelchange\n30\n                   \u0017cursed grappling hook\nak <.\u0017cursed magic marker\n\u0007xan\nal\u0017uncursed spellbook of jumping\nrm   sm.20s  ZZ\u0017uncursed cockatrice egg\nen .l sn  \u00173 the Sceptre of Might\n \u0007frost giant\nwoFb Fj Fn           n#invoke\no          sm.           20s          #levelchange\n8\n     \u0017blessed ring of polymorph control\nPpr\u0017oilskin cloak\nWq    20s   n    20s     20s      Tq        "
+  }
+ ]
+}

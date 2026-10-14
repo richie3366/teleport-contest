@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nh_m.Fj _,#chat\nu_mmmm.Fn    n _.   n Fn   n    n    n#chat\nn;h;#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.  Fl     _.  Fj  #chat\nl_mmmmm.Fb    n   _,       Fn   #chat\nb\u0017blessed Mjollnir\nwe    n     \u0017blessed ring of free action\nPfr      \u0017blessed +3 gray dragon scale mail\nWg      n      \u0017wand of death\n\u0016?\n>z\u0006_mmmmm.      Fl    _.  Fb  Fh    Fh  Fn .20szhh   ,\u0016?\n>A\u0006_mmmmmm, Fh _.:Fh s.sss.,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.Fk _.Fh   Fh Fy  ss 20s    zh.  n,\u0016?\n>>\u001b\u0016?\n>y_mmm, Fh   _.Fb  #chat\nj;_.\u0016?\n>A\u0006_mm,Fj _.s.sFl      Fj   Fu      ,      \u0016?\n>z\u0006_mmmmm,      Fy        _,    Fu Fu          Fk          n Fy        Fy                n,      \u0016?\n>>\u001b\u0016?\n>y_m,          n Fh     "
+ },
+ "segments": [
+  {
+   "seed": 50361029,
+   "datetime": "20220215071752",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nh_m.Fj _,#chat\nu_mmmm.Fn    n _.   n Fn   n    n    n#chat\nn;h;#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.  Fl     _.  Fj  #chat\nl_mmmmm.Fb    n   _,       Fn   #chat\nb\u0017blessed Mjollnir\nwe    n     \u0017blessed ring of free action\nPfr      \u0017blessed +3 gray dragon scale mail\nWg      n      \u0017wand of death\n\u0016?\n>z\u0006_mmmmm.      Fl    _.  Fb  Fh    Fh  Fn .20szhh   ,\u0016?\n>A\u0006_mmmmmm, Fh _.:Fh s.sss.,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.Fk _.Fh   Fh Fy  ss 20s    zh.  n,\u0016?\n>>\u001b\u0016?\n>y_mmm, Fh   _.Fb  #chat\nj;_.\u0016?\n>A\u0006_mm,Fj _.s.sFl      Fj   Fu      ,      \u0016?\n>z\u0006_mmmmm,      Fy        _,    Fu Fu          Fk          n Fy        Fy                n,      \u0016?\n>>\u001b\u0016?\n>y_m,          n Fh     "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n6\n    \u001710 daggers\nQf\u0007yellow mold\nlfj fjfj\u0017potion of extra healing\ntbb\u0007dwarf\nyhfjfj flfl \u0017potion of sickness\ntdl buh,#levelchange\n10\n   \u0017crossbow\nwi\u001715 crossbow bolts\nQj\u0007giant rat\nlhfn flflFl 20s\u0017potion of blindness\ntjy\u0007dwarf\nlbflflfl FlFl\u0007dwarf\nkflfn  fn  fl\u0017potion of see invisible\ntalj n l,"
+ },
+ "segments": [
+  {
+   "seed": 50351028,
+   "datetime": "20130608092504",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=sortloot:none\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n6\n    \u001710 daggers\nQf\u0007yellow mold\nlfj fjfj\u0017potion of extra healing\ntbb\u0007dwarf\nyhfjfj flfl \u0017potion of sickness\ntdl buh,#levelchange\n10\n   \u0017crossbow\nwi\u001715 crossbow bolts\nQj\u0007giant rat\nlhfn flflFl 20s\u0017potion of blindness\ntjy\u0007dwarf\nlbflflfl FlFl\u0007dwarf\nkflfn  fn  fl\u0017potion of see invisible\ntalj n l,"
+  }
+ ]
+}

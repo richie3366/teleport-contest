@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "vi\u0006_>#name\n #pray\ny y \u0006_ \u001b.>_>._.>_>._.>\u0006_>._,>_>,_.>_>,_.>#turn\n\u0018\u001b<\u0006_>>._,>_>>,_.>_>>,_,>\u0006_>,_,>_>._.>_>._.>\u0006_>>._.>_>>,_.>_>>._,>\u000f\u001bO>n\u001b\u001b\nmOa\u001b\n\u00166\n\u0006_>>._,>_>>._.>_>>._.>\u0006_>._.>_>._,>_>._.>okcj\u0006_>._.>_>,_.>_>._.>\u000f\u001b\u0006_>,_,>_>,_,  n>_>._,<.>#offer\n#name\n\u001b\u0006_>._.  n>_>._,>_>.  n_.>\u0006_>._.m.  n>_>._.  n>_>._.  n><\u0006_>,_.;:    >_>._.>_>,_.>\u000f\u001b\u00162\ndd#name\nm\nOyuuh\u0017dc\u0017dwarf corpse\n#offer\n#pray\ny y  ly\u0017moat\nn h\u0017grave\n: \u0017wand of digging\nzp> 20ss:h\u0017tree\n#terrain\nb\n#sit\n:zph,\u0006_>._.;<. ><\u0006_>._.@.>_>._.<.>\u0006_>._.>.>_>._.m,>_>,_.:>\u0006_>>._,>_>>._.>_>>._.>\u000f\u001bO>b\u001b\n \u00165\n\u00166\ny bb_>. _. >#pray\ny y      yhu 50s\u0018\u001b\u000f\u001b100s#pray\ny y     kh uuh  u150s khjbkk_>,  _.  >\u0018\u001bn n   y   20s  100su n k 150s \u000f\u001b100s _>._,> 50s100s  n150s 100s50s50s_>.>100s\\  50s100sjly150srm yy150shuh#offer\n10s#turn\n#conduct\n \u0007kitten\n\u0017fo"
+ },
+ "segments": [
+  {
+   "seed": 50359002,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:durian\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"cursed\"=cyan\n",
+   "moves": "vi\u0006_>#name\n #pray\ny y \u0006_ \u001b.>_>._.>_>._.>\u0006_>._,>_>,_.>_>,_.>#turn\n\u0018\u001b<\u0006_>>._,>_>>,_.>_>>,_,>\u0006_>,_,>_>._.>_>._.>\u0006_>>._.>_>>,_.>_>>._,>\u000f\u001bO>n\u001b\u001b\nmOa\u001b\n\u00166\n\u0006_>>._,>_>>._.>_>>._.>\u0006_>._.>_>._,>_>._.>okcj\u0006_>._.>_>,_.>_>._.>\u000f\u001b\u0006_>,_,>_>,_,  n>_>._,<.>#offer\n#name\n\u001b\u0006_>._.  n>_>._,>_>.  n_.>\u0006_>._.m.  n>_>._.  n>_>._.  n><\u0006_>,_.;:    >_>._.>_>,_.>\u000f\u001b\u00162\ndd#name\nm\nOyuuh\u0017dc\u0017dwarf corpse\n#offer\n#pray\ny y  ly\u0017moat\nn h\u0017grave\n: \u0017wand of digging\nzp> 20ss:h\u0017tree\n#terrain\nb\n#sit\n:zph,\u0006_>._.;<. ><\u0006_>._.@.>_>._.<.>\u0006_>._.>.>_>._.m,>_>,_.:>\u0006_>>._,>_>>._.>_>>._.>\u000f\u001bO>b\u001b\n \u00165\n\u00166\ny bb_>. _. >#pray\ny y      yhu 50s\u0018\u001b\u000f\u001b100s#pray\ny y     kh uuh  u150s khjbkk_>,  _.  >\u0018\u001bn n   y   20s  100su n k 150s \u000f\u001b100s _>._,> 50s100s  n150s 100s50s50s_>.>100s\\  50s100sjly150srm yy150shuh#offer\n10s#turn\n#conduct\n \u0007kitten\n\u0017fo"
+  }
+ ]
+}

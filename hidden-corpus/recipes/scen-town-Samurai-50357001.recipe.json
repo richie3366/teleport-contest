@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqf \u001b<.__._.#chat\nudc__.Fh _.Fk  #chat\nl_oo,_.,p_dddd._,\u0004h_oo,Fj_.,\u001bFj ,\u001bp#tip\n\u001bi\u001bfj #levelchange\n10\n        \u0016?\n>w\u0006\u0017blessed potion of object detection\nqg,_oooooo. Fh _, Fh   _oo.Fh  _, Fh ,p_oooooooo.Fh_.   Fh_oo.Fh  _,Fh   ,\u0014m,_ooooo._._o._.,#chat\nn_mmmm,#chat"
+ },
+ "segments": [
+  {
+   "seed": 50357001,
+   "datetime": "20030601031710",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqf \u001b<.__._.#chat\nudc__.Fh _.Fk  #chat\nl_oo,_.,p_dddd._,\u0004h_oo,Fj_.,\u001bFj ,\u001bp#tip\n\u001bi\u001bfj #levelchange\n10\n        \u0016?\n>w\u0006\u0017blessed potion of object detection\nqg,_oooooo. Fh _, Fh   _oo.Fh  _, Fh ,p_oooooooo.Fh_.   Fh_oo.Fh  _,Fh   ,\u0014m,_ooooo._._o._.,#chat\nn_mmmm,#chat"
+  }
+ ]
+}

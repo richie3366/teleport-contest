@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPpr\u0017blessed +3 speed boots\nWq\u0007kobold shaman\n\u0007aligned cleric\ny\u0007gnomish wizard\n\u0017wand of sleep\nsm.szrh                                          n\u00167\n\u0017wand of digging\n\u0017wand of slow monster\n\u0017wand of striking\n\u0007hobbit\nzukzuuzs> .zs> .zs> zs>  nzs> zt.s\u0018\u001b\u0007vampire\n\u0007incubus\n\u0017wand of fire\nzvk    nzvb     n  zvb 20szv.    nzvn s.20s\u00168\n\u0017spellbook of slow monster\nrwy 20s\u0007gnomish wizard\nZc\nZb\nZb\n20s  sm.Za\nZb\nsm.s\u0017spellbook of magic missile\nrxy  20s \u0017blessed spellbook of sleep\nry sm.  n\u0007orc shaman\n\u0007incubus\nZb\nZa\nZc\nZa\nsm.sm.  y     Zc\nZc\n#turn\n\u0017spellbook of slow monster\nrz yy   .u   n\u0017blessed spellbook of finger of death\nrA  sm. \u0007lich\nZc\nZa\n  n Za\nZb\n.m.  20s   n Zb\nZb\nZb\nZa\n20s 20s  n   #turn\n\u00167\n\u0007orc shaman\n\u0007master mind flayer\n\u0007mind flayer\n\u0017wand of striking\nzBkzBk          zBh      n      zBl     \u00169\n\u0017wand of digging\n\u0017wand of teleportation\n\u0017wand of cold\n\u0007jackal\n\u0007bugbear\nzEk   szDjzDhzC>  n.zC>      zC>  zEuszDj\u0017spellbook of slow monster\nrFy s\u0007vampire\nZc\nZb\n    nZ20s      nsm. ZZZZ20s sm.Z\u00166"
+ },
+ "segments": [
+  {
+   "seed": 50363002,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPpr\u0017blessed +3 speed boots\nWq\u0007kobold shaman\n\u0007aligned cleric\ny\u0007gnomish wizard\n\u0017wand of sleep\nsm.szrh                                          n\u00167\n\u0017wand of digging\n\u0017wand of slow monster\n\u0017wand of striking\n\u0007hobbit\nzukzuuzs> .zs> .zs> zs>  nzs> zt.s\u0018\u001b\u0007vampire\n\u0007incubus\n\u0017wand of fire\nzvk    nzvb     n  zvb 20szv.    nzvn s.20s\u00168\n\u0017spellbook of slow monster\nrwy 20s\u0007gnomish wizard\nZc\nZb\nZb\n20s  sm.Za\nZb\nsm.s\u0017spellbook of magic missile\nrxy  20s \u0017blessed spellbook of sleep\nry sm.  n\u0007orc shaman\n\u0007incubus\nZb\nZa\nZc\nZa\nsm.sm.  y     Zc\nZc\n#turn\n\u0017spellbook of slow monster\nrz yy   .u   n\u0017blessed spellbook of finger of death\nrA  sm. \u0007lich\nZc\nZa\n  n Za\nZb\n.m.  20s   n Zb\nZb\nZb\nZa\n20s 20s  n   #turn\n\u00167\n\u0007orc shaman\n\u0007master mind flayer\n\u0007mind flayer\n\u0017wand of striking\nzBkzBk          zBh      n      zBl     \u00169\n\u0017wand of digging\n\u0017wand of teleportation\n\u0017wand of cold\n\u0007jackal\n\u0007bugbear\nzEk   szDjzDhzC>  n.zC>      zC>  zEuszDj\u0017spellbook of slow monster\nrFy s\u0007vampire\nZc\nZb\n    nZ20s      nsm. ZZZZ20s sm.Z\u00166"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       #levelchange\n20\n            \u0017black dragon scale mail\nW\u001bss20s\u0007wererat\n#chat\nj Fj  Fj \u0007centipede\n#chat\nbFbFj\u00168\n#levelchange\n30\n         \u0007giant eel\ns20s\u0007barrow wight\nFkFk   i\u001bi\u001bW\u001bsm.  .m.   .k   W\u001bsm.s20s   W\u001b.m.20s   sm.  ag\u001bW\u001b.m.sm.   sm.Tc    Wc.y     nsm.  20s   \u0014 \u001bm.\u0018\u001bck\u000f\u001b#monster\nL#jump\n__,sbl\u0017wand of light\nEk  Elbereth Elbereth\n: \u0017wand of teleportation\nEl  Elbereth\n: h   \u0017magic marker\nE: k\u0017wand of death\nE\u0017wand of digging\nEj\u00167\n#levelchange\n30\n\u0017blessed ring of polymorph control\nPpl#polyself\ngold golem\n 20s.\u0007hobbit\nFl sssss#polyself\ndust vortex\n#monster\ns.\u0007werejackal\n..Fk.20ss#polyself\nelf\n20ssm.\u0007giant eel\nFk FkFk sm.sm.20s\u001612\n    \u000f\u001b\u0017scroll of blank paper\nrq\u0017uncursed spellbook of healing\n rr  sm.suZ\u0017lizard corpse\n\u0007wraith\nes  20s sm.Fh Fh \u00173 spellbook of jumping\n\u0007imp\nrt 20s  sj ZZFu Fy   n \u0017fortune cookie\neu    20s sk Fk Fy \u0017cursed -1 dwarvish mattock\nwvFu  Fu Fu X20s    n sm. \u00168\n  #wizintrinsic\nj\n \u0017scroll of light\n rw\u0017scroll of enchant armor\n rx  bnb\u0017wand of enlightenment\nzy \u001bzy \u001b20ssm..m.\u0006_>.Fy_.>.Fy>FyFk_>.Fy_.Fk>FyFk_>.Fk  n _.Fk>FyFk\u0006_>,Fu_,@.Fy>Fy  \u001b \u001bFy_>.Fy_,Fu>FyFy _>,Fy _.Fy  n >Fy FyFy FyFy\u0006_>>.Fy  n _.Fy >Fys_>>._.>.>_>>,_.m.>\u0006_>._,m.>_>._.@.>_>._,m,>ay#force\n\u0006_>>,_.>.>_>>._,<.>_>>._..>\u0006_>>._,;.>_>>,_.,>_>>._.m,>#terrain\nc\n.ck<\u000f\u001b\u0006\u00166\n\u0007werewolf\nFuFuFuFuFu20s"
+ },
+ "segments": [
+  {
+   "seed": 50362018,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       #levelchange\n20\n            \u0017black dragon scale mail\nW\u001bss20s\u0007wererat\n#chat\nj Fj  Fj \u0007centipede\n#chat\nbFbFj\u00168\n#levelchange\n30\n         \u0007giant eel\ns20s\u0007barrow wight\nFkFk   i\u001bi\u001bW\u001bsm.  .m.   .k   W\u001bsm.s20s   W\u001b.m.20s   sm.  ag\u001bW\u001b.m.sm.   sm.Tc    Wc.y     nsm.  20s   \u0014 \u001bm.\u0018\u001bck\u000f\u001b#monster\nL#jump\n__,sbl\u0017wand of light\nEk  Elbereth Elbereth\n: \u0017wand of teleportation\nEl  Elbereth\n: h   \u0017magic marker\nE: k\u0017wand of death\nE\u0017wand of digging\nEj\u00167\n#levelchange\n30\n\u0017blessed ring of polymorph control\nPpl#polyself\ngold golem\n 20s.\u0007hobbit\nFl sssss#polyself\ndust vortex\n#monster\ns.\u0007werejackal\n..Fk.20ss#polyself\nelf\n20ssm.\u0007giant eel\nFk FkFk sm.sm.20s\u001612\n    \u000f\u001b\u0017scroll of blank paper\nrq\u0017uncursed spellbook of healing\n rr  sm.suZ\u0017lizard corpse\n\u0007wraith\nes  20s sm.Fh Fh \u00173 spellbook of jumping\n\u0007imp\nrt 20s  sj ZZFu Fy   n \u0017fortune cookie\neu    20s sk Fk Fy \u0017cursed -1 dwarvish mattock\nwvFu  Fu Fu X20s    n sm. \u00168\n  #wizintrinsic\nj\n \u0017scroll of light\n rw\u0017scroll of enchant armor\n rx  bnb\u0017wand of enlightenment\nzy \u001bzy \u001b20ssm..m.\u0006_>.Fy_.>.Fy>FyFk_>.Fy_.Fk>FyFk_>.Fk  n _.Fk>FyFk\u0006_>,Fu_,@.Fy>Fy  \u001b \u001bFy_>.Fy_,Fu>FyFy _>,Fy _.Fy  n >Fy FyFy FyFy\u0006_>>.Fy  n _.Fy >Fys_>>._.>.>_>>,_.m.>\u0006_>._,m.>_>._.@.>_>._,m,>ay#force\n\u0006_>>,_.>.>_>>._,<.>_>>._..>\u0006_>>._,;.>_>>,_.,>_>>._.m,>#terrain\nc\n.ck<\u000f\u001b\u0006\u00166\n\u0007werewolf\nFuFuFuFuFu20s"
+  }
+ ]
+}

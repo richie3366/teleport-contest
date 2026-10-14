@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                    \u0007tame little dog\n\u0017saddle\najy\u0017lance\nwk    #ride\nky\u0007horse\n\u0017scroll of taming\nrl \u0017saddle\namj#ride\njy\u0007horse\n\u0017scroll of taming\n rn   \u0017saddle\naon#ride\nby\u0004 #ride\njys#ride\nkyulh#ride\nny20s         #ride\nnyjl #levelchange\n12\n   \u0007Pestilence\nnFn    Fl    n     Fj        Fk \u0007pit fiend\n#chat\nj   nFl  n Fn \u001625\n\u0018\u001b\u00162\nyh\u0017wand of sleep\nEp ad aerarium\n: l\u0017wand of create monster\nEqKop Kaptain\n  Elbereth Elbereth\n: y \u0017wand of cold\nEr Elbereth\n    : \u0017towel\nEs:k\u0017wand of slow monster\nEt X marks the spot\n : E-n  Vlad was here\n\u0007minotaur\nsm.     n .m.   n  .m.  n   Fk  n  Fk  n  \u00166\n#levelchange\n30\n                  nbjl\u0017magic fountain\nqyqy #dip\nayk\u0017melting ice\nkkjk:#terrain\n\u001b#sit\n\u001b#jump\n#monster\n\u001618\n #wizintrinsic\ngp\n sss.20s s20ss20sshs.20ssm.sm..ysm.sssssPs _<, \u001b.sL#conduct\n #rub\n;b..ss20s.s#levelchange\n6\n        \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqu<.  n_oooooo,_., : _ddddd.Fl_.Fl\u0004 __.Fl_,Fl#chat\nl  n#pray\ny y __.Fl_,Fl#chat\nl_oo,Fl_.Fl_ooo.Fl  n_.Fl,dd\u0004 ;l;#tip\n\u001b\u00163\n\u0017blessed ring of fire resistance\nPwls..Rw20s20s\u0017spellbook of chain lightning\nrxssZa\nZa\n\u0017cursed -1 unicorn horn\n\u0007baby red dragon\nwysFkFkX\u00173 wand of opening\n\u0007Kop Kaptain\nzz.  n\u00173 cockatrice corpse\n, n s20s  n \u0006\u00166\n\u0017pick-axe\nrx#jump\n#twoweapon\n#pray\ny yi\u001boji>\u001bW\u001b.s20swk20s20ssajl#ride\nnnaou#ride\njyzplee20s20s#"
+ },
+ "segments": [
+  {
+   "seed": 50362007,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                    \u0007tame little dog\n\u0017saddle\najy\u0017lance\nwk    #ride\nky\u0007horse\n\u0017scroll of taming\nrl \u0017saddle\namj#ride\njy\u0007horse\n\u0017scroll of taming\n rn   \u0017saddle\naon#ride\nby\u0004 #ride\njys#ride\nkyulh#ride\nny20s         #ride\nnyjl #levelchange\n12\n   \u0007Pestilence\nnFn    Fl    n     Fj        Fk \u0007pit fiend\n#chat\nj   nFl  n Fn \u001625\n\u0018\u001b\u00162\nyh\u0017wand of sleep\nEp ad aerarium\n: l\u0017wand of create monster\nEqKop Kaptain\n  Elbereth Elbereth\n: y \u0017wand of cold\nEr Elbereth\n    : \u0017towel\nEs:k\u0017wand of slow monster\nEt X marks the spot\n : E-n  Vlad was here\n\u0007minotaur\nsm.     n .m.   n  .m.  n   Fk  n  Fk  n  \u00166\n#levelchange\n30\n                  nbjl\u0017magic fountain\nqyqy #dip\nayk\u0017melting ice\nkkjk:#terrain\n\u001b#sit\n\u001b#jump\n#monster\n\u001618\n #wizintrinsic\ngp\n sss.20s s20ss20sshs.20ssm.sm..ysm.sssssPs _<, \u001b.sL#conduct\n #rub\n;b..ss20s.s#levelchange\n6\n        \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqu<.  n_oooooo,_., : _ddddd.Fl_.Fl\u0004 __.Fl_,Fl#chat\nl  n#pray\ny y __.Fl_,Fl#chat\nl_oo,Fl_.Fl_ooo.Fl  n_.Fl,dd\u0004 ;l;#tip\n\u001b\u00163\n\u0017blessed ring of fire resistance\nPwls..Rw20s20s\u0017spellbook of chain lightning\nrxssZa\nZa\n\u0017cursed -1 unicorn horn\n\u0007baby red dragon\nwysFkFkX\u00173 wand of opening\n\u0007Kop Kaptain\nzz.  n\u00173 cockatrice corpse\n, n s20s  n \u0006\u00166\n\u0017pick-axe\nrx#jump\n#twoweapon\n#pray\ny yi\u001boji>\u001bW\u001b.s20swk20s20ssajl#ride\nnnaou#ride\njyzplee20s20s#"
+  }
+ ]
+}

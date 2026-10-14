@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "mO>>dq\n z#loot\nhO>j\n;h, \u001b;\u0018\u001bOm\ndbOlnp\nz#loot\nhO>lja\nh\nZ#jump\nmO>>>>>b\nc\n ddPssOfkd\n#conduct\n _<,20s  O>p\nWPO>jne\nokjmO>>>mil\n P\u001bO>bg\ne\n#pray\ny   #untrap\nbssm. "
+ },
+ "segments": [
+  {
+   "seed": 50355016,
+   "datetime": "20160118150553",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "mO>>dq\n z#loot\nhO>j\n;h, \u001b;\u0018\u001bOm\ndbOlnp\nz#loot\nhO>lja\nh\nZ#jump\nmO>>>>>b\nc\n ddPssOfkd\n#conduct\n _<,20s  O>p\nWPO>jne\nokjmO>>>mil\n P\u001bO>bg\ne\n#pray\ny   #untrap\nbssm. "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "O>a\n#monster\nO>jf\n#jump\n\\ O>d\nwayO>nde\nd\nk\nq\n\u001b\u001bwayO>d\nWOk\n#jump\nO>jpb\nn\neb:sm.."
+ },
+ "segments": [
+  {
+   "seed": 50355003,
+   "datetime": "20231109030004",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "O>a\n#monster\nO>jf\n#jump\n\\ O>d\nwayO>nde\nd\nk\nq\n\u001b\u001bwayO>d\nWOk\n#jump\nO>jpb\nn\neb:sm.."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nj;._mmmmm.#chat\nl_mmmm,#chat\nk;m.#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nj;<._m.#chat\nu\u0017blessed +3 gauntlets of power\nWj\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWl\u0017wand of magic missile\n\u0016?\n>z\u0006_mmmm,20s20s20ssszmu,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20s..20szmy ,#chat\nn\u0016?\n>A\u0006_mmm.ss..sss,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nb\u0016?\n>A\u0006_mmmmmm,sss20ss,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nb;<.\u0016?\n>z\u0006_mmmmmm.20s..20s20ss20s,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.20ss.20s.zmh,#chat\nn\u0016?\n>A\u0006_mmmmmm...ss20szmy ,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\ny\u0016?\n>A\u0006_mm,s20ss.s20sszm,#chat\nh\u0016?\n>z\u0006_mm,.s.ss,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm...ss20sss,\u0016?\n>>\u001b\u0016?\n>y_m,_.m,#chat\nl\u0016?\n>A\u0006_mmm,."
+ },
+ "segments": [
+  {
+   "seed": 50361027,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nj;._mmmmm.#chat\nl_mmmm,#chat\nk;m.#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nj;<._m.#chat\nu\u0017blessed +3 gauntlets of power\nWj\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWl\u0017wand of magic missile\n\u0016?\n>z\u0006_mmmm,20s20s20ssszmu,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20s..20szmy ,#chat\nn\u0016?\n>A\u0006_mmm.ss..sss,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nb\u0016?\n>A\u0006_mmmmmm,sss20ss,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nb;<.\u0016?\n>z\u0006_mmmmmm.20s..20s20ss20s,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.20ss.20s.zmh,#chat\nn\u0016?\n>A\u0006_mmmmmm...ss20szmy ,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\ny\u0016?\n>A\u0006_mm,s20ss.s20sszm,#chat\nh\u0016?\n>z\u0006_mm,.s.ss,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm...ss20sss,\u0016?\n>>\u001b\u0016?\n>y_m,_.m,#chat\nl\u0016?\n>A\u0006_mmm,."
+  }
+ ]
+}

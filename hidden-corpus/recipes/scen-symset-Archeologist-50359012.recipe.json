@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0007tame jackal\ndh.ss10s\u0017food ration\n t\u001b\u0006_ \u001bm,>FyFh\u001b_>,   _.> \u0007yellow mold\nsss.ss20s\u00168\nylnn\u0017throne\n#sit\n #sit\njl\u0017unaligned altar\ndc\u0017gnome corpse\n #offer\n#pray\ny jkn \u0017tree\n\u0018\u001b\u0018\u001b#untrap\nn v\u001bi\u001bok L,\u0006_>>,_.  Fu>FuFb_>>.Fb_.   Fb>FuFu_>>,Fb_.  nFub >FbFbFbFbFb\u0006_>>,    Fb_,    n Fn>FnFj_>>. Fb_.  nFb>FbFn_>>.    nFj_,     nFb>FnFnFnFjFb\u0006_>>, Fb_.  n Fn>FbFj_>>.     nFj_.     nFb>FnFj_>>,Fn_>FnFnFjFjFj#invoke\n\u001b#rub\ng\u001b\u0006_>.Fn_>FjFn_>FbFb_>.    nFj_.     nFn>FbFnFj\u0006_>>.Fj_,Fj>FjFn_>FbFb_>>.  n Fb_,  nFj>FbFnFbFjFj\u0006_>.    n  Fj_.  n  Fb>FbFb_>,Fj_.  n Fn>FnFnFbkb ck \u000f\u001b\u00163\nOn\u001b\n:#turn\ncl :#pray\ny y      t\u001bmO>>a\u001b\n\u001620\n\u00167\nFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyF"
+ },
+ "segments": [
+  {
+   "seed": 50359012,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": " \u0007tame jackal\ndh.ss10s\u0017food ration\n t\u001b\u0006_ \u001bm,>FyFh\u001b_>,   _.> \u0007yellow mold\nsss.ss20s\u00168\nylnn\u0017throne\n#sit\n #sit\njl\u0017unaligned altar\ndc\u0017gnome corpse\n #offer\n#pray\ny jkn \u0017tree\n\u0018\u001b\u0018\u001b#untrap\nn v\u001bi\u001bok L,\u0006_>>,_.  Fu>FuFb_>>.Fb_.   Fb>FuFu_>>,Fb_.  nFub >FbFbFbFbFb\u0006_>>,    Fb_,    n Fn>FnFj_>>. Fb_.  nFb>FbFn_>>.    nFj_,     nFb>FnFnFnFjFb\u0006_>>, Fb_.  n Fn>FbFj_>>.     nFj_.     nFb>FnFj_>>,Fn_>FnFnFjFjFj#invoke\n\u001b#rub\ng\u001b\u0006_>.Fn_>FjFn_>FbFb_>.    nFj_.     nFn>FbFnFj\u0006_>>.Fj_,Fj>FjFn_>FbFb_>>.  n Fb_,  nFj>FbFnFbFjFj\u0006_>.    n  Fj_.  n  Fb>FbFb_>,Fj_.  n Fn>FnFnFbkb ck \u000f\u001b\u00163\nOn\u001b\n:#turn\ncl :#pray\ny y      t\u001bmO>>a\u001b\n\u001620\n\u00167\nFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyF"
+  }
+ ]
+}

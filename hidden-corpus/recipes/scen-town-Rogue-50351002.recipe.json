@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqi \u001b:_ooooooo,  _.Fb,$_ooooo,_.,$_{._.qd  #dip\nc_mm.#chat\nj_ooooooooo,Fj _,_ooo._,,$_{.Fk_.<.Fkq#dip\nhr\u001b#loot\ncl"
+ },
+ "segments": [
+  {
+   "seed": 50351002,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqi \u001b:_ooooooo,  _.Fb,$_ooooo,_.,$_{._.qd  #dip\nc_mm.#chat\nj_ooooooooo,Fj _,_ooo._,,$_{.Fk_.<.Fkq#dip\nhr\u001b#loot\ncl"
+  }
+ ]
+}

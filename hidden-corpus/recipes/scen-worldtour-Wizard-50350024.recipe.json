@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u0017blessed +3 gauntlets of power\nWp\u0017blessed +3 gray dragon scale mail\nW\u001b\u001630\n   _ \u001b,>20s     sbsm. \u0016?\n>t \u0014:\u0016?\n>G\u0004u\u0016?\ni#chat\nj;m,\u001630\n   kjyj :\u001630\n \u0017blessed tinning kit\narsm.s\u0017uncursed Dragonbane\nws.m.sm.20sXsh.m.\u00173 the Candelabrum of Invocation\nwssm.   Fy .jX\u0017blessed +3 ring of protection\nPul.m.snsFj   n Fj  \u0017cursed scroll of genocide\n\u0007electric eel\nrv  gnomish wizard\n    n 20s        n sm.       \u00166\n\u0016?\n>Euub:\u001630\nynynl:\u0016?\nn \u0017blessed dunce cap\nWw  20s.sTw\u0017uncursed wand of fire\nzxj \u0017ring of conflict\n\u0007little dog\nPy20ssm..m.   Fn   nFn \u0017uncursed +0 leather armor\nW\u001b.m.sm..yTp Fn  Fn\u0017Sunsword\nwA   Fn    nFn Fn #invoke\nA n .m.. \u00168\n\u001630\n   #chat\nu;m.\u001630\n ukbh     :\u001630\n\u0014m.\u001625\nujkkbbl:\u001619\nbub:s.s\u001630\n   _{,<20s.   \u001625\n#chat\nk;k,\u0016?\nd_>.<\u001630\n   \u0006_<,   Fl               _,         Fl       \u0016?\n>>K      scroll of amnesia\n\u0006_<.\u001621\n#chat\nu        ;k:  \u0016?\n\u001bh       u\u0016?\n\u001byj\u001621\nju          j        yj          u    y         :sh          sk         s\u0016?\n\u001bn           n  n      \u0016?\n\u001bk      j             n   \u001630\n#chat\nh       ;h, \u0016?\n\u001byn            \u0016?\n\u001bk     h   n     \u0016?\n\u001bn         b\u0016?\n\u001blu      \u001625\nn h:\u001619\nl      lh     :.j\u001632\n_{,\u0016?\n\u001bh      l     \u0016?\n\u001bh    n    l   \u001630\nl \u001b l  hn  :\u0016?\n\u001bu               \u001bl      "
+ },
+ "segments": [
+  {
+   "seed": 50350024,
+   "datetime": "20090406041215",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u0017blessed +3 gauntlets of power\nWp\u0017blessed +3 gray dragon scale mail\nW\u001b\u001630\n   _ \u001b,>20s     sbsm. \u0016?\n>t \u0014:\u0016?\n>G\u0004u\u0016?\ni#chat\nj;m,\u001630\n   kjyj :\u001630\n \u0017blessed tinning kit\narsm.s\u0017uncursed Dragonbane\nws.m.sm.20sXsh.m.\u00173 the Candelabrum of Invocation\nwssm.   Fy .jX\u0017blessed +3 ring of protection\nPul.m.snsFj   n Fj  \u0017cursed scroll of genocide\n\u0007electric eel\nrv  gnomish wizard\n    n 20s        n sm.       \u00166\n\u0016?\n>Euub:\u001630\nynynl:\u0016?\nn \u0017blessed dunce cap\nWw  20s.sTw\u0017uncursed wand of fire\nzxj \u0017ring of conflict\n\u0007little dog\nPy20ssm..m.   Fn   nFn \u0017uncursed +0 leather armor\nW\u001b.m.sm..yTp Fn  Fn\u0017Sunsword\nwA   Fn    nFn Fn #invoke\nA n .m.. \u00168\n\u001630\n   #chat\nu;m.\u001630\n ukbh     :\u001630\n\u0014m.\u001625\nujkkbbl:\u001619\nbub:s.s\u001630\n   _{,<20s.   \u001625\n#chat\nk;k,\u0016?\nd_>.<\u001630\n   \u0006_<,   Fl               _,         Fl       \u0016?\n>>K      scroll of amnesia\n\u0006_<.\u001621\n#chat\nu        ;k:  \u0016?\n\u001bh       u\u0016?\n\u001byj\u001621\nju          j        yj          u    y         :sh          sk         s\u0016?\n\u001bn           n  n      \u0016?\n\u001bk      j             n   \u001630\n#chat\nh       ;h, \u0016?\n\u001byn            \u0016?\n\u001bk     h   n     \u0016?\n\u001bn         b\u0016?\n\u001blu      \u001625\nn h:\u001619\nl      lh     :.j\u001632\n_{,\u0016?\n\u001bh      l     \u0016?\n\u001bh    n    l   \u001630\nl \u001b l  hn  :\u0016?\n\u001bu               \u001bl      "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nu_mmmm._.@.Fh    #chat\nl_m,  n     n Fb_,  n      n  Fk  n  #chat\nh  n _mmmm,Fh  n _.     n Fb#chat\nb_mm,#chat\nb#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nb;b;_mmm,Fu _,#chat\nu  _mm,  Fb _.#chat\nu        \u0017blessed +3 gray dragon scale mail\nWl  n   \u0017blessed amulet of life saving\nPm    \u0017wand of magic missile\n\u0016?\n>A\u0006_mmmmmm.    Fu  _,Fb Fu      Fj Fj   ,#chat\nu  \u0016?\n>>\u001b\u0016?\n>z\u0006_mm, Fb _,Fu  n   Fb   Fu Fu    20s   n 20s  . ,\u001611\n\u0016?\n>A\u0006_mm,20s   s    s    20s    n    s  s    s     n znj  ,\u001611\n\u0016?\n>z\u0006_mmmmmmm.20s   Fu  n  Fh        Fb          Fu  n        Fh   Fu     yy\u001by   y y y\u001b  z"
+ },
+ "segments": [
+  {
+   "seed": 50350046,
+   "datetime": "20160530194755",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nu_mmmm._.@.Fh    #chat\nl_m,  n     n Fb_,  n      n  Fk  n  #chat\nh  n _mmmm,Fh  n _.     n Fb#chat\nb_mm,#chat\nb#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nb;b;_mmm,Fu _,#chat\nu  _mm,  Fb _.#chat\nu        \u0017blessed +3 gray dragon scale mail\nWl  n   \u0017blessed amulet of life saving\nPm    \u0017wand of magic missile\n\u0016?\n>A\u0006_mmmmmm.    Fu  _,Fb Fu      Fj Fj   ,#chat\nu  \u0016?\n>>\u001b\u0016?\n>z\u0006_mm, Fb _,Fu  n   Fb   Fu Fu    20s   n 20s  . ,\u001611\n\u0016?\n>A\u0006_mm,20s   s    s    20s    n    s  s    s     n znj  ,\u001611\n\u0016?\n>z\u0006_mmmmmmm.20s   Fu  n  Fh        Fb          Fu  n        Fh   Fu     yy\u001by   y y y\u001b  z"
+  }
+ ]
+}

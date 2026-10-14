@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwq \u0017blessed +3 helm of telepathy\nWr\u00161\nlnbyj:\u0016?\nibjyyl u    :\u00161\n\u0017mace\n\u0007hill orc\nwsFk s.X20s20s\u0017cursed the Orb of Fate\n \u0007crocodile\n, \u0017spellbook of cancellation\n\u0007energy vortex\nrty sm.  .    Zb\n  Za\n     \u0017blessed spellbook of polymorph\n\u0007erinys\nru   n   sm.  s  Zb\n   \u0017blessed expensive camera\navy      Fk    n   Fl     \u0017uncursed spellbook of polymorph\nrwy        20s 20s   Za\n    Zb\nFj   Fl  n    .m.    s    \u001610\n\u001624\n_ \u001b@.\u0016?\n>>M      blindfold\n\u0006;_<,.m.20s       \u0016?\n\u001bn k    n   \u001631\ny          b  n  y         u          n    n   n  l          n     :\u00163\n\u001633\nl               n   u  n         n     k   n            n      n :sm.         n          yy\u001by   nny\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50358012,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwq \u0017blessed +3 helm of telepathy\nWr\u00161\nlnbyj:\u0016?\nibjyyl u    :\u00161\n\u0017mace\n\u0007hill orc\nwsFk s.X20s20s\u0017cursed the Orb of Fate\n \u0007crocodile\n, \u0017spellbook of cancellation\n\u0007energy vortex\nrty sm.  .    Zb\n  Za\n     \u0017blessed spellbook of polymorph\n\u0007erinys\nru   n   sm.  s  Zb\n   \u0017blessed expensive camera\navy      Fk    n   Fl     \u0017uncursed spellbook of polymorph\nrwy        20s 20s   Za\n    Zb\nFj   Fl  n    .m.    s    \u001610\n\u001624\n_ \u001b@.\u0016?\n>>M      blindfold\n\u0006;_<,.m.20s       \u0016?\n\u001bn k    n   \u001631\ny          b  n  y         u          n    n   n  l          n     :\u00163\n\u001633\nl               n   u  n         n     k   n            n      n :sm.         n          yy\u001by   nny\u001b  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nm\n Zuku\u0017wand of cold\nzfh   n\u0017wand of death\nzgj yny  y ny\u001bn  z"
+ },
+ "segments": [
+  {
+   "seed": 50351030,
+   "datetime": "20020518094451",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#wizintrinsic\nm\n Zuku\u0017wand of cold\nzfh   n\u0017wand of death\nzgj yny  y ny\u001bn  z"
+  }
+ ]
+}

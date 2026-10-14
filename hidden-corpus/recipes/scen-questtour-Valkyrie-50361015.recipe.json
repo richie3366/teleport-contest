@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nh_m,   Fj_.#chat\nk_mm.Fj _.Fl#chat\ny_mmmm,#chat\nn_mmm.#chat\nb#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y \u0006_mmm.Fl  _.>.Fl #chat\nk_m,Fl  _.#chat\nk;k;\u0017blessed ring of free action\nPel \u0017blessed +3 gauntlets of power\nWf   \u0017wand of lightning\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.   Fl   n  _,      Fk      n  Fh     Fy     Fk    n     Fu   zgl  ,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmm.    n Fh  _.#chat\nu\u00164\n\u0016?\n>A\u0006_mmmmm,Fy _.FyFussss,\u0016?\n>z\u0006_mm,Fh _.Fh20s.ssFh FhFh,#chat\nb\u0016?\n>A\u0006_mmmm.Fb Fb20sszgh ,#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fb _.  n  Fh FhFhFh  Fh Fh  Fh Fh  n,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nh;h,\u001611\n\u0016?\n>A\u0006_mmmm.Fh20sss,#chat\nj\u0016?\n>z\u0006_mmmmm......,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmm.Fh_.Fh #chat\nh \u0016?\n>A\u0006_mmmmm.Fj _, Fl  Fl Fn  Fn20s   n Fl  ,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fl_.<.Fl20s...20szgl,\u0016?\n>A\u0006_mm._..sFy     Fb     Fu      Fu      n   ,\u0016?\n>>\u001b\u0016?\n>y_mmmm.       Fy     n     _,#chat\ny           n   ;u;\u00166\n\u0016?\n>z\u0006_mmmmmm.            n Fy           n_.           nFu         Fh    n         nFy          yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50361015,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nh_m,   Fj_.#chat\nk_mm.Fj _.Fl#chat\ny_mmmm,#chat\nn_mmm.#chat\nb#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y \u0006_mmm.Fl  _.>.Fl #chat\nk_m,Fl  _.#chat\nk;k;\u0017blessed ring of free action\nPel \u0017blessed +3 gauntlets of power\nWf   \u0017wand of lightning\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.   Fl   n  _,      Fk      n  Fh     Fy     Fk    n     Fu   zgl  ,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmm.    n Fh  _.#chat\nu\u00164\n\u0016?\n>A\u0006_mmmmm,Fy _.FyFussss,\u0016?\n>z\u0006_mm,Fh _.Fh20s.ssFh FhFh,#chat\nb\u0016?\n>A\u0006_mmmm.Fb Fb20sszgh ,#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fb _.  n  Fh FhFhFh  Fh Fh  Fh Fh  n,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nh;h,\u001611\n\u0016?\n>A\u0006_mmmm.Fh20sss,#chat\nj\u0016?\n>z\u0006_mmmmm......,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmm.Fh_.Fh #chat\nh \u0016?\n>A\u0006_mmmmm.Fj _, Fl  Fl Fn  Fn20s   n Fl  ,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fl_.<.Fl20s...20szgl,\u0016?\n>A\u0006_mm._..sFy     Fb     Fu      Fu      n   ,\u0016?\n>>\u001b\u0016?\n>y_mmmm.       Fy     n     _,#chat\ny           n   ;u;\u00166\n\u0016?\n>z\u0006_mmmmmm.            n Fy           n_.           nFu         Fh    n         nFy          yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

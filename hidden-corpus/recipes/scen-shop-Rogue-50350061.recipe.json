@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed amulet of reflection\nPi\u0017blessed +3 helm of telepathy\nWj\u0016?\n>w\u0006_ \u001b>. ,#chat\nb_ooooo.,\u0014>.20s.m._ooooooo.,#chat\nl_{.Fl_.,Flqd   __.Fl_,Fl  n#chat\nl   n\u00167\nhbu#chat\nu_oo,,:jub#chat\nk_ooo.,phuj#chat\nu__,#chat\nb#pray\ny y hhl#chat\nb_{.q__.#chat\nl_ooo.,p_{,q__,#chat\nu#pray\ny y   Fu Fu  nFuFu   nFu  Fu  n\u00166\nylh#chat\nhhlj#chat\nk_oo.,:\u00163\nkjy\u0016?\n>w\u0006hkj#chat\nlunl#chat\ny_oo,,#chat\nb_oooo._ooo.,$ynk#chat\nkjkk#chat\ny_{._,Fh q_oooooo,,p_ooooo,,p_oo.,#chat\nh_ooo.,:Fh  Fh FhFh FhFh  _ooooooooo.,:Fh Fh FhFh Fh Fh _ooooooo._o,,:Fh Fh Fh Fh Fh Fh  _oooooo.,p_oooooooo.,$_ooooo.,#chat\nh _ooooo,,#chat\nh Fh Fh  Fh Fh Fh Fh _ooooooooo.,p_{.Fh _. Fh q_oooooooo.,$Fh  Fh Fh Fh Fh Fh"
+ },
+ "segments": [
+  {
+   "seed": 50350061,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed amulet of reflection\nPi\u0017blessed +3 helm of telepathy\nWj\u0016?\n>w\u0006_ \u001b>. ,#chat\nb_ooooo.,\u0014>.20s.m._ooooooo.,#chat\nl_{.Fl_.,Flqd   __.Fl_,Fl  n#chat\nl   n\u00167\nhbu#chat\nu_oo,,:jub#chat\nk_ooo.,phuj#chat\nu__,#chat\nb#pray\ny y hhl#chat\nb_{.q__.#chat\nl_ooo.,p_{,q__,#chat\nu#pray\ny y   Fu Fu  nFuFu   nFu  Fu  n\u00166\nylh#chat\nhhlj#chat\nk_oo.,:\u00163\nkjy\u0016?\n>w\u0006hkj#chat\nlunl#chat\ny_oo,,#chat\nb_oooo._ooo.,$ynk#chat\nkjkk#chat\ny_{._,Fh q_oooooo,,p_ooooo,,p_oo.,#chat\nh_ooo.,:Fh  Fh FhFh FhFh  _ooooooooo.,:Fh Fh FhFh Fh Fh _ooooooo._o,,:Fh Fh Fh Fh Fh Fh  _oooooo.,p_oooooooo.,$_ooooo.,#chat\nh _ooooo,,#chat\nh Fh Fh  Fh Fh Fh Fh _ooooooooo.,p_{.Fh _. Fh q_oooooooo.,$Fh  Fh Fh Fh Fh Fh"
+  }
+ ]
+}

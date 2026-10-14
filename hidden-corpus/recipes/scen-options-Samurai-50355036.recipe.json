@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " mOa\n#name\nf\n.mO>>>>>>hsk\nc\nyes\na\n\u001bE- Vlad was here\nO>m\no\nm\namO>>>>>fm\ng\na\n#terrain\nb\n\\mO.20sOhm\n#sit\nmO>vtw\n #ride\nOmil\nj\n10smO>>>ejb\n #force\n#monster\nOnek\ns.s"
+ },
+ "segments": [
+  {
+   "seed": 50355036,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " mOa\n#name\nf\n.mO>>>>>>hsk\nc\nyes\na\n\u001bE- Vlad was here\nO>m\no\nm\namO>>>>>fm\ng\na\n#terrain\nb\n\\mO.20sOhm\n#sit\nmO>vtw\n #ride\nOmil\nj\n10smO>>>ejb\n #force\n#monster\nOnek\ns.s"
+  }
+ ]
+}

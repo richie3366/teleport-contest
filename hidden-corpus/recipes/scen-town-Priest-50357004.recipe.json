@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n     \u0017500 gold pieces\n\u0016?\n>w\u0006_ \u001b,\u0004l_oooooo.,p__._,,Fl#chat\nl_ddd.Fk_.Fy\u0004j_ooooooooo.,p__._.#chat\ny#pray\ny y  i\u001bW\u0018\u001bSy\u001b nyef  ,#wipe\n#offer\n#untrap\njcj#loot\nj#levelchange\n30\n                        \u00174 cream pies\nQ$\u0007grid bug\njfjfj",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50357004,
+   "datetime": "20251130234545",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n     \u0017500 gold pieces\n\u0016?\n>w\u0006_ \u001b,\u0004l_oooooo.,p__._,,Fl#chat\nl_ddd.Fk_.Fy\u0004j_ooooooooo.,p__._.#chat\ny#pray\ny y  i\u001bW\u0018\u001bSy\u001b"
+  },
+  {
+   "seed": 50857004,
+   "datetime": "20000903212047",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " nyef  ,#wipe\n#offer\n#untrap\njcj#loot\nj#levelchange\n30\n                        \u00174 cream pies\nQ$\u0007grid bug\njfjfj"
+  }
+ ]
+}

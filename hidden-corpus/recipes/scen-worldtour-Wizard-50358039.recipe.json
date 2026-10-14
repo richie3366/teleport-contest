@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u001615\n\u0004h.\u0016?\n>>N       wand of light\n\u0014 \u001b.\u0016?\na  #levelchange\n14\nk  j      u    nj        \u0017grave\n:  \u0017pick-axe\naq        n .m.   20s      b     n   y    \u001b   n   \u0017lawful altar\ndj           n  \u0017lichen corpse\n#offer\n#pray\ny y                 : u       n     \u0017moat\n#rub\n#pray\ny y               n              >\u001611\n\u00168\n_>,sm.               n    n\u001612\n\u0016?\nd__.>.m.      n sb    n      n \u00167\n\u00163\nl     n n     n     n       n:.m.     ynny n  2"
+ },
+ "segments": [
+  {
+   "seed": 50358039,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u001615\n\u0004h.\u0016?\n>>N       wand of light\n\u0014 \u001b.\u0016?\na  #levelchange\n14\nk  j      u    nj        \u0017grave\n:  \u0017pick-axe\naq        n .m.   20s      b     n   y    \u001b   n   \u0017lawful altar\ndj           n  \u0017lichen corpse\n#offer\n#pray\ny y                 : u       n     \u0017moat\n#rub\n#pray\ny y               n              >\u001611\n\u00168\n_>,sm.               n    n\u001612\n\u0016?\nd__.>.m.      n sb    n      n \u00167\n\u00163\nl     n n     n     n       n:.m.     ynny n  2"
+  }
+ ]
+}

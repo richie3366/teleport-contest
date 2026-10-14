@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqg \u001b,_ooooooooo. Fj_.,:_ooooooooo._.,\u0014<._mmm.#chat\nk_oooooooo,_._o._.,#chat\nn_ddddd._.\u0004h#loot\n>ZSy\u001b n\u000f\u001bn#monster\n>\u000f\u001b#loot\n#dip\nd#levelchange\n30\n                        bkkl\u0017sink\nqy\u0017ring of polymorph\ndg  \u001bb\u0004u:j",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50357012,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n    \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqg \u001b,_ooooooooo. Fj_.,:_ooooooooo._.,\u0014<._mmm.#chat\nk_oooooooo,_._o._.,#chat\nn_ddddd._.\u0004h#loot\n>ZSy\u001b"
+  },
+  {
+   "seed": 50857012,
+   "datetime": "20030812181705",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " n\u000f\u001bn#monster\n>\u000f\u001b#loot\n#dip\nd#levelchange\n30\n                        bkkl\u0017sink\nqy\u0017ring of polymorph\ndg  \u001bb\u0004u:j"
+  }
+ ]
+}

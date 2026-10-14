@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPir\u0017blessed amulet of life saving\nPj#levelchange\n20\n                   \u0017wand of cancellation\n\u0017wand of polymorph\n\u0007kobold shaman\n\u0007jackal\nzkk 20s  zkjzkk zlj zlkzlj   zlk  20s zlzklsyzk zk\u0007red dragon\n20s        .m. Fk s\u0007succubus\n\u0007lich\n\u0017wand of sleep\nzmu  i\u001b\u0017blessed spellbook of slow monster\nrn   \u001b   y   .m.\u0007orc shaman\nZZ.nsm.   ZZZZsb20s         #turn\n\u0017blessed spellbook of knock\nro  20s  \u0007gnomish wizard\nZZZZZ. s ZZs  20sZZ\u00178 rocks\nQ\u001b\u0007yellow mold\n\u0007grid bug\nt\u001bfj fl  fut\u001bflt\u001b\u001617\n\u0017blessed spellbook of finger of death\nrq s\u0017blessed spellbook of knock\n rr 20s \u0007aligned cleric\nnZa\nZa\nZa\nsm.sZa\n.m.shZa\nZa\nsk.lZa\n#turn\n\u0017blessed spellbook of magic missile\nrs 20s   \u0017spellbook of force bo"
+ },
+ "segments": [
+  {
+   "seed": 50363006,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPir\u0017blessed amulet of life saving\nPj#levelchange\n20\n                   \u0017wand of cancellation\n\u0017wand of polymorph\n\u0007kobold shaman\n\u0007jackal\nzkk 20s  zkjzkk zlj zlkzlj   zlk  20s zlzklsyzk zk\u0007red dragon\n20s        .m. Fk s\u0007succubus\n\u0007lich\n\u0017wand of sleep\nzmu  i\u001b\u0017blessed spellbook of slow monster\nrn   \u001b   y   .m.\u0007orc shaman\nZZ.nsm.   ZZZZsb20s         #turn\n\u0017blessed spellbook of knock\nro  20s  \u0007gnomish wizard\nZZZZZ. s ZZs  20sZZ\u00178 rocks\nQ\u001b\u0007yellow mold\n\u0007grid bug\nt\u001bfj fl  fut\u001bflt\u001b\u001617\n\u0017blessed spellbook of finger of death\nrq s\u0017blessed spellbook of knock\n rr 20s \u0007aligned cleric\nnZa\nZa\nZa\nsm.sZa\n.m.shZa\nZa\nsk.lZa\n#turn\n\u0017blessed spellbook of magic missile\nrs 20s   \u0017spellbook of force bo"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00165\nFlFbFnFnFbFjFjFuFjFnFuFlFyFuFu FkFnFbFuFbFuFlFlFuFyFjFkFlFnFbFnFnFnFkFlFyFjFjFnFk FjFbFjFbFbFuFjFnFlFjFnFnFlFnFjFlFnFnFbFlFbFlFlFnFnFuFbFuFjFbFjFlFlFjFjFnFlFlFlFbFjFbFnFuFuFlFbFnFlFbFuFjFbFbFbFuFnFnFlFjFbFlFbFnFuFuFjFlFbFuFjFjFjFjFuFuFuFlFnFlmO>>>>d\u001b\n#levelchange\n10\n         bkk\u0017cloud\nyn\u0017tree\nk\u0017fountain\nqyqyqy \u001bm,#dip\nay ul   \u0017lawful altar\nda     n\u0017newt corpse\n#offer\ni       #pray\ny y                #force\n#dip\nddw-v i\u001bjn   l     n \u0017magic fountain\nqy    qy y      #dip\nbd   n :u\u0017chaotic altar\ndcdb  \u0017lichen corpse\n#offer\nj       yn  \u0017unaligned altar\nde   \u0017human corpse\n #pray\ny  n   : _<,sh  #pray\ny         n \u001610\nO>m\u001b\u001b\nmO>>>n\u001b\nFuFuFkFuFkFuFlFjFkFlFbFlFlFuFnFnFkFbFlFnFbFjFkFbFuFjFnFbFjFnFnFbFlFjFuFlFuFjFuFkFnFjFkFjFlFkFlFlFnFkFlFbFbFjFuFlFnFkFkFlFnFjFuFlFuFjFkFkFkFuFbFjFuFbFuFuFnFbFbFjFbFuFbFkFkFjFnFkFjFnFjFkFkFlFlFlFlFlFlFbFlFnFbFkFlFjFbFbFjFjFnFnFbFjFjFkFnFnFbFu#leve"
+ },
+ "segments": [
+  {
+   "seed": 50350023,
+   "datetime": "20110126204856",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You feel\"\n",
+   "moves": "\u00165\nFlFbFnFnFbFjFjFuFjFnFuFlFyFuFu FkFnFbFuFbFuFlFlFuFyFjFkFlFnFbFnFnFnFkFlFyFjFjFnFk FjFbFjFbFbFuFjFnFlFjFnFnFlFnFjFlFnFnFbFlFbFlFlFnFnFuFbFuFjFbFjFlFlFjFjFnFlFlFlFbFjFbFnFuFuFlFbFnFlFbFuFjFbFbFbFuFnFnFlFjFbFlFbFnFuFuFjFlFbFuFjFjFjFjFuFuFuFlFnFlmO>>>>d\u001b\n#levelchange\n10\n         bkk\u0017cloud\nyn\u0017tree\nk\u0017fountain\nqyqyqy \u001bm,#dip\nay ul   \u0017lawful altar\nda     n\u0017newt corpse\n#offer\ni       #pray\ny y                #force\n#dip\nddw-v i\u001bjn   l     n \u0017magic fountain\nqy    qy y      #dip\nbd   n :u\u0017chaotic altar\ndcdb  \u0017lichen corpse\n#offer\nj       yn  \u0017unaligned altar\nde   \u0017human corpse\n #pray\ny  n   : _<,sh  #pray\ny         n \u001610\nO>m\u001b\u001b\nmO>>>n\u001b\nFuFuFkFuFkFuFlFjFkFlFbFlFlFuFnFnFkFbFlFnFbFjFkFbFuFjFnFbFjFnFnFbFlFjFuFlFuFjFuFkFnFjFkFjFlFkFlFlFnFkFlFbFbFjFuFlFnFkFkFlFnFjFuFlFuFjFkFkFkFuFbFjFuFbFuFuFnFbFbFjFbFuFbFkFkFjFnFkFjFnFjFkFkFlFlFlFlFlFlFbFlFnFbFkFlFjFbFbFjFjFnFnFbFjFjFkFnFnFbFu#leve"
+  }
+ ]
+}

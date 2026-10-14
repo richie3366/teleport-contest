@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " uk jjj\u0017tree\nuj lb \u0017sink\nqyi\u001bz#monster\ndc#jump\n#sit\n\u001b\u0006_ \u001b.>FhFh_>>,Fy_.Fb>FjFn_>FuFlFuFuFjZ\u0014>.\u0006_>.> FbFjFn\u0006_>.>FnFkl _>,>FuFh_>,>FuFbFbFnFy\u0006_>.Fh_.;,Fk>FbFh\u001b_>,Fy_, Fkh >FlFy_>, Fb_,Fk>FhFhFhFuFy\u0006_>>.Fy_.Fn>FbFb_>>,Fh_,Fn>FbFnFh\u000f\u001b\u00163\nFuFbFuj FjFjFkFbFlFyFjFkFjFbFkb FjFuFkFjFuFhFlFbFun FuFuFbFyFjFhFnFyFlFnFkl FjFuFuFuFlFuFhFkFhFbFnFlFnFky FhFlFyFjFkFyFnFkFlFhFnFlFjFnFh\u001bFuFnFnFhFnFnFlFkFkFkFyFlFjFbFbFuFuFbFnFhFkFnFlFuFuFbFbFyFjFlFyFkk FnFuk FjFnFun FkFlFjFkFnFyFkFbFnFhFnFbFjFkFlFhFhFkFjFhO>>i\u001b\u001b\nO>>>>c\u001b\n\u001611\nmO>>>>c\u001b\n\u0007little dog\n\u0017fortune cookie\ntbh \u0007grid bug\nsn.m.sm.sb20sm.20sm.\u0017meatball\ntbh \u0007sewer rat\n.m..m.sm.20sj20slh sm.  n\u0017leash\nagb ynh\u001byagl n\u0007tame housecat\n\u0007kitten\n\u0017banana\ntbl \u0007grid bug\n\u0017scroll of taming\nri \u0017food ration\n tbl \u0017banana\ntbh dc.ss\u0017leash\najh uk h\u001bybajl #name\nm\n\u00166\nFlFbFyFuFuFhFlFkFkFu"
+ },
+ "segments": [
+  {
+   "seed": 50359001,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueWindows\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=hide \"You hear\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " uk jjj\u0017tree\nuj lb \u0017sink\nqyi\u001bz#monster\ndc#jump\n#sit\n\u001b\u0006_ \u001b.>FhFh_>>,Fy_.Fb>FjFn_>FuFlFuFuFjZ\u0014>.\u0006_>.> FbFjFn\u0006_>.>FnFkl _>,>FuFh_>,>FuFbFbFnFy\u0006_>.Fh_.;,Fk>FbFh\u001b_>,Fy_, Fkh >FlFy_>, Fb_,Fk>FhFhFhFuFy\u0006_>>.Fy_.Fn>FbFb_>>,Fh_,Fn>FbFnFh\u000f\u001b\u00163\nFuFbFuj FjFjFkFbFlFyFjFkFjFbFkb FjFuFkFjFuFhFlFbFun FuFuFbFyFjFhFnFyFlFnFkl FjFuFuFuFlFuFhFkFhFbFnFlFnFky FhFlFyFjFkFyFnFkFlFhFnFlFjFnFh\u001bFuFnFnFhFnFnFlFkFkFkFyFlFjFbFbFuFuFbFnFhFkFnFlFuFuFbFbFyFjFlFyFkk FnFuk FjFnFun FkFlFjFkFnFyFkFbFnFhFnFbFjFkFlFhFhFkFjFhO>>i\u001b\u001b\nO>>>>c\u001b\n\u001611\nmO>>>>c\u001b\n\u0007little dog\n\u0017fortune cookie\ntbh \u0007grid bug\nsn.m.sm.sb20sm.20sm.\u0017meatball\ntbh \u0007sewer rat\n.m..m.sm.20sj20slh sm.  n\u0017leash\nagb ynh\u001byagl n\u0007tame housecat\n\u0007kitten\n\u0017banana\ntbl \u0007grid bug\n\u0017scroll of taming\nri \u0017food ration\n tbl \u0017banana\ntbh dc.ss\u0017leash\najh uk h\u001bybajl #name\nm\n\u00166\nFlFbFyFuFuFhFlFkFkFu"
+  }
+ ]
+}

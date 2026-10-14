@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "O>h\n#pray\ny Oolh\na\nb\nb\n\u001b_>, \u001b>..#force\nO>ml\nc\nnOkeh\n#terrain\nb\nOO.20s"
+ },
+ "segments": [
+  {
+   "seed": 50355035,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\n",
+   "moves": "O>h\n#pray\ny Oolh\na\nb\nb\n\u001b_>, \u001b>..#force\nO>ml\nc\nnOkeh\n#terrain\nb\nOO.20s"
+  }
+ ]
+}

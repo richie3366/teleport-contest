@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "mO>k\n#rub\neOmkd\n\\   i\u001bmOade\n aeOo\ni\ni\nb\n\u001b\u0004u dbmO>>>ndc\n #terrain\nb\n\u001b<.>Oklj\n#loot\nu.20smO>>>>>>cdi\ng\n m\n#monster\nmO>>>>>dvt\nh\nl\n#offer\n>Ofih\nc\n>\u000f\u001bO>kmd\ne\n\u0018\u001b#invoke\n\u001bs."
+ },
+ "segments": [
+  {
+   "seed": 50355010,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=sortloot:full\n",
+   "moves": "mO>k\n#rub\neOmkd\n\\   i\u001bmOade\n aeOo\ni\ni\nb\n\u001b\u0004u dbmO>>>ndc\n #terrain\nb\n\u001b<.>Oklj\n#loot\nu.20smO>>>>>>cdi\ng\n m\n#monster\nmO>>>>>dvt\nh\nl\n#offer\n>Ofih\nc\n>\u000f\u001bO>kmd\ne\n\u0018\u001b#invoke\n\u001bs."
+  }
+ ]
+}

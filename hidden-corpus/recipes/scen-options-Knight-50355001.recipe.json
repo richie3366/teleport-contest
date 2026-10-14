@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  mO>>>>egd\noff\n off\nyes\n#loot\nhy  :Oedh\n20s#conduct\n O>bdh\n\u0018\u001bWO>bc\n#loot\njab    \u001bm,mO>>>>gfa\n on\non\n,.   sm.   O>pb\nn\n\u0018\u001bOjdg\ng\nb\ni\n\u001b,mO>>>>>>eab\nd\na\na\n\u001b\u001b#monster\n#rub\nOa\nb\ni\nj\nqO>bmd\n#invoke\n\u001b\u001bO>m\nm\n__,sm.  <yy\u001by  y y y\u001b s"
+ },
+ "segments": [
+  {
+   "seed": 50355001,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\n",
+   "moves": "  mO>>>>egd\noff\n off\nyes\n#loot\nhy  :Oedh\n20s#conduct\n O>bdh\n\u0018\u001bWO>bc\n#loot\njab    \u001bm,mO>>>>gfa\n on\non\n,.   sm.   O>pb\nn\n\u0018\u001bOjdg\ng\nb\ni\n\u001b,mO>>>>>>eab\nd\na\na\n\u001b\u001b#monster\n#rub\nOa\nb\ni\nj\nqO>bmd\n#invoke\n\u001b\u001bO>m\nm\n__,sm.  <yy\u001by  y y y\u001b s"
+  }
+ ]
+}

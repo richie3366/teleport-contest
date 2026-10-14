@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nl;._m. Fk_.#chat\nk_m,     nFu    n_.#chat\nk;u,_mmmm.#chat\ny   n #levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.#chat\nl  _mmm,#chat\ny  _mm.#chat\ny  n  \u0017blessed amulet of reflection\nPn  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of magic missile\n\u0016?\n>z\u0006_mmmmmm.Fl Fy   n Fu  Fj FkFy zpy  n ,\u00167\n\u0016?\n>A\u0006_mm,Fu Fu Fn   nFl  Fb Fb    n Fb ,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nl\u00168\n\u0016?\n>A\u0006_mmmmmm,Fk Fl  Fb  n   Fk    nzpb  ,\u00161\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.Fj   Fu  Fb  Fh  n  Fu  Fu   ,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nn  n   \u00165\n\u0016?\n>z\u0006_mmmmmm,Fb     nFh   Fh  Fn    n Fk    zpu  ,#chat\nu   n   \u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\ny\u0016?\n>A\u0006_mmmm.Fh   Fl    yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50361014,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nl;._m. Fk_.#chat\nk_m,     nFu    n_.#chat\nk;u,_mmmm.#chat\ny   n #levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.#chat\nl  _mmm,#chat\ny  _mm.#chat\ny  n  \u0017blessed amulet of reflection\nPn  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of magic missile\n\u0016?\n>z\u0006_mmmmmm.Fl Fy   n Fu  Fj FkFy zpy  n ,\u00167\n\u0016?\n>A\u0006_mm,Fu Fu Fn   nFl  Fb Fb    n Fb ,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nl\u00168\n\u0016?\n>A\u0006_mmmmmm,Fk Fl  Fb  n   Fk    nzpb  ,\u00161\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.Fj   Fu  Fb  Fh  n  Fu  Fu   ,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nn  n   \u00165\n\u0016?\n>z\u0006_mmmmmm,Fb     nFh   Fh  Fn    n Fk    zpu  ,#chat\nu   n   \u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\ny\u0016?\n>A\u0006_mmmm.Fh   Fl    yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

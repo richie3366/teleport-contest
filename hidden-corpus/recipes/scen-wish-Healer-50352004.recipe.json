@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017scroll of teleportation\n\u0007wraith\nrm  \u001b>.\u00173 wand of probing\n\u0007bugbear\nzn. FnFl \u00173 wand of cancellation\n\u0007baby purple worm\nzon\u0017uncursed lump of royal jelly\nep sm.sj .m.sm."
+ },
+ "segments": [
+  {
+   "seed": 50352004,
+   "datetime": "20111129014547",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017scroll of teleportation\n\u0007wraith\nrm  \u001b>.\u00173 wand of probing\n\u0007bugbear\nzn. FnFl \u00173 wand of cancellation\n\u0007baby purple worm\nzon\u0017uncursed lump of royal jelly\nep sm.sj .m.sm."
+  }
+ ]
+}

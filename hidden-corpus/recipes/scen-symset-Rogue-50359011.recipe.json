@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00167\nFkFkFyFyFuFkFyFkFkFkFkFuFuFyFuFkFkFyFuFkFkFyFkFyFlFyFuFkFkFkFkFuFuFkFkFkFuFy FuFkFuFkFkFuFkFkFyFkFyFkFyFyFnFyFyFyFyFkFkFyFkFyFlFkFkFyFuFuFyFuFyFyFkFuFkFyFyFuFuFuFkFyFuFkFyFuFuFhFh  n Fu#pray\ny y    FbFk Fb  nFu Fb  nFbFk  n Fk Fk   nFbFuFyFkFkFkFuFuFyFyFkFkFyFkFyFkFkFk\u00167\n\u000f\u001b#twoweapon\n#invoke\n\u001b\u001b;u: \u001b<.\u00165\nO>>>>c\u001b\nO>e\u001b\nclr\u001b\u001bv i\u001b\u0006_>>,_..>_>>,_.>_>>,_.>.><\u0006_>,_.:>_>,_,;>. >_>._.@.>\u0006_>._,>.>_>,_.:>_>,_.@.>\u0006_>._.,>_>._,.>_>,_,:>\u0006_>>._.;@.>_>>._..>_>>._.:>\u000f\u001by#terrain\nb\n\u0016 #sit\n\u001b#wipe\n#untrap\ny\u0004btbh\u0007tame hill orc\n#chat\nj#name\nm\n10s\u0006_>,_.:>_>.Fj_,:>_>.Fj_.:>ll\u0006_>>.Fj_.m.Fj >_>>,_,>.>_>>,_,m.>yuv i\u001bmOa\u001b\n\u0006_>>,Fj_.<.Fb>Fb._>>._,m,>_>>._.>.>E- I am a fish\naf\u001b\u0006_>._.@.>_>,_,m.>_>,_.: >\u0006_>._.: >_>._.,>_>._.>.>\u0006_>,_.,>_>._.m,>_>._..>\u0006_>._.@.>_>._,,>_>._.@.>\u0006_>._,m.>_>._,@.>_>,_.,>\u0006_>._.<.>_>._.<.>_>._,,>\u0006_>,_.m.>_>._.,>_>._,,><\u0006_>._.,>_>._.: >_>,_..><v i\u001bO>>>d\u001b\nO"
+ },
+ "segments": [
+  {
+   "seed": 50359011,
+   "datetime": "20140114114432",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=sortloot:full\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\nMSGTYPE=hide \"You kill\"\nMENUCOLOR=\"uncursed\"=brown\n",
+   "moves": "\u00167\nFkFkFyFyFuFkFyFkFkFkFkFuFuFyFuFkFkFyFuFkFkFyFkFyFlFyFuFkFkFkFkFuFuFkFkFkFuFy FuFkFuFkFkFuFkFkFyFkFyFkFyFyFnFyFyFyFyFkFkFyFkFyFlFkFkFyFuFuFyFuFyFyFkFuFkFyFyFuFuFuFkFyFuFkFyFuFuFhFh  n Fu#pray\ny y    FbFk Fb  nFu Fb  nFbFk  n Fk Fk   nFbFuFyFkFkFkFuFuFyFyFkFkFyFkFyFkFkFk\u00167\n\u000f\u001b#twoweapon\n#invoke\n\u001b\u001b;u: \u001b<.\u00165\nO>>>>c\u001b\nO>e\u001b\nclr\u001b\u001bv i\u001b\u0006_>>,_..>_>>,_.>_>>,_.>.><\u0006_>,_.:>_>,_,;>. >_>._.@.>\u0006_>._,>.>_>,_.:>_>,_.@.>\u0006_>._.,>_>._,.>_>,_,:>\u0006_>>._.;@.>_>>._..>_>>._.:>\u000f\u001by#terrain\nb\n\u0016 #sit\n\u001b#wipe\n#untrap\ny\u0004btbh\u0007tame hill orc\n#chat\nj#name\nm\n10s\u0006_>,_.:>_>.Fj_,:>_>.Fj_.:>ll\u0006_>>.Fj_.m.Fj >_>>,_,>.>_>>,_,m.>yuv i\u001bmOa\u001b\n\u0006_>>,Fj_.<.Fb>Fb._>>._,m,>_>>._.>.>E- I am a fish\naf\u001b\u0006_>._.@.>_>,_,m.>_>,_.: >\u0006_>._.: >_>._.,>_>._.>.>\u0006_>,_.,>_>._.m,>_>._..>\u0006_>._.@.>_>._,,>_>._.@.>\u0006_>._,m.>_>._,@.>_>,_.,>\u0006_>._.<.>_>._.<.>_>._,,>\u0006_>,_.m.>_>._.,>_>._,,><\u0006_>._.,>_>._.: >_>,_..><v i\u001bO>>>d\u001b\nO"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWn\u0017blessed +3 speed boots\nWo\u0017blessed ring of free action\nPpl\u0016?\n>y  \u0006_ \u001b;\u00169\nuhjk   :\u0016?\n>y_>,Fk  _. Fk  >\u0016?\n>>Qllunju:\u00166\n\u0017cursed touchstone\nt\u001bs20s\u0017cursed the Orb of Detection\n , \u0017blessed +3 ring of warning\nPbls.s\u0017apple\necssss\u0017uncursed spellbook of identify\nrdssZa\n d\nZa\n b\n..ss20s\u0016?\n>z   _<,s\u00166\n #levelchange\n8\n      \u0017blessed sack\naq\u001baq\u001b#tip\nq\u001b\u001715 crossbow bolts\n\u0007flesh golem\nQ-f a kfk fkFl   n Fl  \u0017scroll of stinking cloud\nrs  @.    n  20s     ns  \u00167\n\u0016?\n>I\u0007chameleon\nsFh Fh   s.m.  n  20s\u0007yellow light\nFjFl  Fl ss20s   n s    #pray\ny y    \u00163\n\u001643\n   _>.\u0016?\n>I_>.s\u00166\n\u0006_<.Fj  n_.>..20s \u0016?\ney y  n yl :   n   \u00166\n\u0016?\n>C\u0006_>.  nFj_.Fy  n \u00167\n\u0016?\nf    bu b:   n .\u0016?\njkh\u0017wand of digging\nEt ad aerarium\n:   j \u0017wand of make invisible\nEu Elbereth Elbereth\n : \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50358021,
+   "datetime": "20060428234708",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWn\u0017blessed +3 speed boots\nWo\u0017blessed ring of free action\nPpl\u0016?\n>y  \u0006_ \u001b;\u00169\nuhjk   :\u0016?\n>y_>,Fk  _. Fk  >\u0016?\n>>Qllunju:\u00166\n\u0017cursed touchstone\nt\u001bs20s\u0017cursed the Orb of Detection\n , \u0017blessed +3 ring of warning\nPbls.s\u0017apple\necssss\u0017uncursed spellbook of identify\nrdssZa\n d\nZa\n b\n..ss20s\u0016?\n>z   _<,s\u00166\n #levelchange\n8\n      \u0017blessed sack\naq\u001baq\u001b#tip\nq\u001b\u001715 crossbow bolts\n\u0007flesh golem\nQ-f a kfk fkFl   n Fl  \u0017scroll of stinking cloud\nrs  @.    n  20s     ns  \u00167\n\u0016?\n>I\u0007chameleon\nsFh Fh   s.m.  n  20s\u0007yellow light\nFjFl  Fl ss20s   n s    #pray\ny y    \u00163\n\u001643\n   _>.\u0016?\n>I_>.s\u00166\n\u0006_<.Fj  n_.>..20s \u0016?\ney y  n yl :   n   \u00166\n\u0016?\n>C\u0006_>.  nFj_.Fy  n \u00167\n\u0016?\nf    bu b:   n .\u0016?\njkh\u0017wand of digging\nEt ad aerarium\n:   j \u0017wand of make invisible\nEu Elbereth Elbereth\n : \u0017"
+  }
+ ]
+}

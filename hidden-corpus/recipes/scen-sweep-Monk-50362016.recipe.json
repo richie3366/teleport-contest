@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n                  \u0017dwarvish mattock\nb\u0017grave\nak >   .sak>   sak>ak>   sak> \u00169\n\u0017wand of locking\nzl.zljs.\u0017uncursed 20 darts\nQmfufhfj\u0017unicorn horn\n\u0007captain\nanan \u0017cursed -1 leather armor\nW\u001bsm. snsFuFu  \u0017potion of hallucination\nqp   n sm. sm.#levelchange\n16\n\u0016?\n>y  _ \u001bm.   n#chat\nb_mmmmm.  Fb    n_.#chat\nb  ;b:  _mmmm,#chat\nb  _mmmm.#chat\nb;b.l_m,    n .yfu \u00169\n#levelchange\n14\n\u0017spellbook of clairvoyance\nrq .    n 20s  \u0017spellbook of teleport away\nrr         nsn+\u001bZ\u001bFj  Z\u001b\u0007gnome\nZ\u001bZ\u001bZ\u001bZ\u001b#pray\ny y      \u000f\u001b\u00167\n\u0017uncursed potion of booze\nqs  #dip\na\u0017 \u0007 \u0017 \u0007 , s s \u0017 , 20s s \u0017 \u0007 , . . \u0018 #levelchange\n\u0007 ;m, . 20s s \u0007 s . . . \u0007 #chat\n. s \u0007 s 20s . s s \\ \u0007 . s s . s 20s \u0007 . 20s s s s 20s \u0007 20s s s 20s 20s \u0006 \u0017 s s \u0017 \u0017 \u0017 \u0007 20s s #levelchange\n#wizintrinsic\n\u0017 s w #force\ne E- Elbereth\n     n    ;j,sm.     n.m.   .m.     n  sm.      n.m.      n .m.     n  \u001629\n\u001610\ni>\u001beh          n 20s   .m.  n     ee    n     .n20s    yy\u001bny y\u001b  W"
+ },
+ "segments": [
+  {
+   "seed": 50362016,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n                  \u0017dwarvish mattock\nb\u0017grave\nak >   .sak>   sak>ak>   sak> \u00169\n\u0017wand of locking\nzl.zljs.\u0017uncursed 20 darts\nQmfufhfj\u0017unicorn horn\n\u0007captain\nanan \u0017cursed -1 leather armor\nW\u001bsm. snsFuFu  \u0017potion of hallucination\nqp   n sm. sm.#levelchange\n16\n\u0016?\n>y  _ \u001bm.   n#chat\nb_mmmmm.  Fb    n_.#chat\nb  ;b:  _mmmm,#chat\nb  _mmmm.#chat\nb;b.l_m,    n .yfu \u00169\n#levelchange\n14\n\u0017spellbook of clairvoyance\nrq .    n 20s  \u0017spellbook of teleport away\nrr         nsn+\u001bZ\u001bFj  Z\u001b\u0007gnome\nZ\u001bZ\u001bZ\u001bZ\u001b#pray\ny y      \u000f\u001b\u00167\n\u0017uncursed potion of booze\nqs  #dip\na\u0017 \u0007 \u0017 \u0007 , s s \u0017 , 20s s \u0017 \u0007 , . . \u0018 #levelchange\n\u0007 ;m, . 20s s \u0007 s . . . \u0007 #chat\n. s \u0007 s 20s . s s \\ \u0007 . s s . s 20s \u0007 . 20s s s s 20s \u0007 20s s s 20s 20s \u0006 \u0017 s s \u0017 \u0017 \u0017 \u0007 20s s #levelchange\n#wizintrinsic\n\u0017 s w #force\ne E- Elbereth\n     n    ;j,sm.     n.m.   .m.     n  sm.      n.m.      n .m.     n  \u001629\n\u001610\ni>\u001beh          n 20s   .m.  n     ee    n     .n20s    yy\u001bny y\u001b  W"
+  }
+ ]
+}

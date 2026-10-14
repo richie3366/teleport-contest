@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n         \u0017yumi\nwj\u001720 ya\nQk\u0007sewer rat\nyj fn fu  fu20s.\u0017potion of speed\ntal \u0007acid blob\nylfyfj20sFj lkk,#enhance\nyl\nk\n\u001bi\u001b\u0017yumi\nwm\u001720 ya\nQk\u0007dwarf\nynfjfjfj\u0007soldier\nkyfj fj fj Fj Fj\u0017lance\nwn \u0007kobold\nkan \u001b>.yhh,#enhance\nyk\nh\n\u001b\u000f\u001bi\u001bees20sqdwns.sWs20s 20saiy aiy rh y 20ssm.Zb\nZa\nP\u0004h#offer\nrh#conduct\n #loot\nlwn#jump\ni\u001bW.b..TcqdWc.m.20s.m.aiy aiy wjFlFlFlefss#levelchange\n12\n \u001612\n\\  ,E- ad aerarium\ns20s \u001610\n#terrain\nb\n#pray\n@.#tip\n\u001b\u0006.m.sm.\u0016?\n>>K      crystal plate mail\n #conduct\n #force\n#force\n\u0006:20s    n   sk    \u00166\n10s    >10s   n ;h,20s     n.m.    n\u00168\n\u0006,_>>.>Fl    nFn   n   n  _>>.>Fb     n      n        nFh       n          n         n   _>>.>Fj  n       n          n Fk     n           n     Fk    n         n Fu   n               n      n     n  Fj                   yy\u001by   y y y\u001b  \u0006"
+ },
+ "segments": [
+  {
+   "seed": 50362002,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n         \u0017yumi\nwj\u001720 ya\nQk\u0007sewer rat\nyj fn fu  fu20s.\u0017potion of speed\ntal \u0007acid blob\nylfyfj20sFj lkk,#enhance\nyl\nk\n\u001bi\u001b\u0017yumi\nwm\u001720 ya\nQk\u0007dwarf\nynfjfjfj\u0007soldier\nkyfj fj fj Fj Fj\u0017lance\nwn \u0007kobold\nkan \u001b>.yhh,#enhance\nyk\nh\n\u001b\u000f\u001bi\u001bees20sqdwns.sWs20s 20saiy aiy rh y 20ssm.Zb\nZa\nP\u0004h#offer\nrh#conduct\n #loot\nlwn#jump\ni\u001bW.b..TcqdWc.m.20s.m.aiy aiy wjFlFlFlefss#levelchange\n12\n \u001612\n\\  ,E- ad aerarium\ns20s \u001610\n#terrain\nb\n#pray\n@.#tip\n\u001b\u0006.m.sm.\u0016?\n>>K      crystal plate mail\n #conduct\n #force\n#force\n\u0006:20s    n   sk    \u00166\n10s    >10s   n ;h,20s     n.m.    n\u00168\n\u0006,_>>.>Fl    nFn   n   n  _>>.>Fb     n      n        nFh       n          n         n   _>>.>Fj  n       n          n Fk     n           n     Fk    n         n Fu   n               n      n     n  Fj                   yy\u001by   y y y\u001b  \u0006"
+  }
+ ]
+}

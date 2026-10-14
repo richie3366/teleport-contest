@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nn;n;_mm,Fn_..Fh  n#chat\nh;h:  _mmmm.Fl_.@.Fj#chat\nj;j,#levelchange\n14\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm, Fn_. Fn   n   #chat\nj;n,_mmmmm,    n Fj _.m,Fk #chat\nn   n  \u0017blessed +3 speed boots\nWk    n  \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017wand of striking\n\u0016?\n>A\u0006_mmmmmm,    nFj  _,Fn  Fy FjFj   nFh  ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mm. _.#chat\nu\u001611\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.    n Fh     n_.Fh FbFj    FyFb  n       nzmb   ,\u0016?\n>>\u001b\u0016?\n>y_m,     n  Fb    n  _.#chat\ny    n ;k.\u00161\n\u0016?\n>z\u0006_mm.      nFl      yy\u001by   y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 50350062,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nn;n;_mm,Fn_..Fh  n#chat\nh;h:  _mmmm.Fl_.@.Fj#chat\nj;j,#levelchange\n14\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm, Fn_. Fn   n   #chat\nj;n,_mmmmm,    n Fj _.m,Fk #chat\nn   n  \u0017blessed +3 speed boots\nWk    n  \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017wand of striking\n\u0016?\n>A\u0006_mmmmmm,    nFj  _,Fn  Fy FjFj   nFh  ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mm. _.#chat\nu\u001611\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.    n Fh     n_.Fh FbFj    FyFb  n       nzmb   ,\u0016?\n>>\u001b\u0016?\n>y_m,     n  Fb    n  _.#chat\ny    n ;k.\u00161\n\u0016?\n>z\u0006_mm.      nFl      yy\u001by   y y y\u001b  _"
+  }
+ ]
+}

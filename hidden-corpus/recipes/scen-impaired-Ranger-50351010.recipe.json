@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nji\n \u0017scroll of confuse monster\nri\u0017scroll of blank paper\nrj\u0017lembas wafer\nek\u0017cursed wand of opening\nzl...20s    #wizintrinsic\nfl\n \u0017scroll of enchant weapon\nrmE- X marks the spot\n\u0017cursed scroll of scare monster\nrn;u: \u001b>.\u0017wraith corpse\neo ..."
+ },
+ "segments": [
+  {
+   "seed": 50351010,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nji\n \u0017scroll of confuse monster\nri\u0017scroll of blank paper\nrj\u0017lembas wafer\nek\u0017cursed wand of opening\nzl...20s    #wizintrinsic\nfl\n \u0017scroll of enchant weapon\nrmE- X marks the spot\n\u0017cursed scroll of scare monster\nrn;u: \u001b>.\u0017wraith corpse\neo ..."
+  }
+ ]
+}

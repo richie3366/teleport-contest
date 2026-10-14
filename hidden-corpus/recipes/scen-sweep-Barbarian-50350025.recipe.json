@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0007Yeenoghu\ny#chat\nnFb  Fl  \u001bm,\u0007electric eel\n.s\u0007floating eye\ns.s20s    n   .m.    sk  n .m.    .m.  \u0006\u00164\n #levelchange\n30\n                      #polyself\npurple worm\n .l   sm. \u0007lichen\nFy Flss\u0007kobold\nFnsss\u001625\n\u0017rubber hose\nw.ssX\u0007yellow mold\nsss20s\u0007stalker\n#chat\nFls\u0007gas spore\n.s20ssm.ss20ssm.\u0018\u001b#levelchange\n12\n      \u0017red dragon scale mail\nWf  n.h.m.20s\u0007fire giant\nFuFu Fl   Fh\u0007green-elf\n#chat\nyFuFu  n \u0007Uruk-hai\nFyFh\u00164\n\u0007little dog\n\u0017newt corpse\ntej\u0007housecat\n\u0017fortune cookie\ntbk20s dd20s .u20s  n \u0017leash\naih  lulhaib20s \u0017meatball\nt\u001b\u001b\u0007giant rat\n\u0017scroll of taming\nrk #name\nm\n#chat\n<.i\u001b\u0006_>>,Fk_.Fk>FyFk _>>,Fb _,>_>>.Fh_.>\u0006_>>.Fh_,Fh>_>>._,Fj>_>>._.Fj>Fh.\u0006_>>,Fj _,Fj>_>>._,>_>>.Fb_.>\u0006_>>._.>_>>._,>_>>._.Fb>\u00161\n\u000f\u001b#levelchange\n30\n                 \u0017leather armor\nW\u001b\u001bsss  T  n \u0007Keystone Kop\nFbFl\u0007jackal\n;l:  20s .m.20s#levelchange\n20\n   \u0007dust vortex\nFl20s . #pray\ny y     20s Fj FhsFkFjFkFj\u0006yb\u0017wand of striking\nEm Vlad was here\n   \u0017wand of make invisible\nEn: \u001bl\u0017wand of undead turning\nEoE-\u0007jackal\nsk  .m.20s#levelchange\n12\n   #wizintrinsic\nfb\n sm.  nsm.20ssm..m.sm..b20s  sh .m.\u0017potion of full healing\nqp#conduct\n zob\u0004n#tip\n\u001b\u001bP\u001b\u001b#chat\nn.ksysm.s20s sm.\u0017uncursed the Book of the Dead\n\u0007titanothere\nw\u001b\u001bFhFjFj#invoke\nq X\u0017scroll of blank paper\nrr \u0017blessed food ration\nes sl sm. FlFn    n\u0017blessed wand of magic missile\nzt.ztl\u0017the Sceptre of M"
+ },
+ "segments": [
+  {
+   "seed": 50350025,
+   "datetime": "20261017125801",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n8\n       \u0007Yeenoghu\ny#chat\nnFb  Fl  \u001bm,\u0007electric eel\n.s\u0007floating eye\ns.s20s    n   .m.    sk  n .m.    .m.  \u0006\u00164\n #levelchange\n30\n                      #polyself\npurple worm\n .l   sm. \u0007lichen\nFy Flss\u0007kobold\nFnsss\u001625\n\u0017rubber hose\nw.ssX\u0007yellow mold\nsss20s\u0007stalker\n#chat\nFls\u0007gas spore\n.s20ssm.ss20ssm.\u0018\u001b#levelchange\n12\n      \u0017red dragon scale mail\nWf  n.h.m.20s\u0007fire giant\nFuFu Fl   Fh\u0007green-elf\n#chat\nyFuFu  n \u0007Uruk-hai\nFyFh\u00164\n\u0007little dog\n\u0017newt corpse\ntej\u0007housecat\n\u0017fortune cookie\ntbk20s dd20s .u20s  n \u0017leash\naih  lulhaib20s \u0017meatball\nt\u001b\u001b\u0007giant rat\n\u0017scroll of taming\nrk #name\nm\n#chat\n<.i\u001b\u0006_>>,Fk_.Fk>FyFk _>>,Fb _,>_>>.Fh_.>\u0006_>>.Fh_,Fh>_>>._,Fj>_>>._.Fj>Fh.\u0006_>>,Fj _,Fj>_>>._,>_>>.Fb_.>\u0006_>>._.>_>>._,>_>>._.Fb>\u00161\n\u000f\u001b#levelchange\n30\n                 \u0017leather armor\nW\u001b\u001bsss  T  n \u0007Keystone Kop\nFbFl\u0007jackal\n;l:  20s .m.20s#levelchange\n20\n   \u0007dust vortex\nFl20s . #pray\ny y     20s Fj FhsFkFjFkFj\u0006yb\u0017wand of striking\nEm Vlad was here\n   \u0017wand of make invisible\nEn: \u001bl\u0017wand of undead turning\nEoE-\u0007jackal\nsk  .m.20s#levelchange\n12\n   #wizintrinsic\nfb\n sm.  nsm.20ssm..m.sm..b20s  sh .m.\u0017potion of full healing\nqp#conduct\n zob\u0004n#tip\n\u001b\u001bP\u001b\u001b#chat\nn.ksysm.s20s sm.\u0017uncursed the Book of the Dead\n\u0007titanothere\nw\u001b\u001bFhFjFj#invoke\nq X\u0017scroll of blank paper\nrr \u0017blessed food ration\nes sl sm. FlFn    n\u0017blessed wand of magic missile\nzt.ztl\u0017the Sceptre of M"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  hulk\u0017iron bars\nk\u0017unaligned altar\ndddd\u0017newt corpse\n#offer\ni  jj\u0017cloud\njjjkj\u0017moat\njkw-#enhance\nyi\nq\n\u001bqO>>>f\u001b\n O>>>n\u001b\u001b\n\u00166\nO>>>e\u001b\nhl k\u0017neutral altar\ndfdd\u0017dwarf corpse\n bh\u0017pool\n#terrain\nc\n\u001b@.#wipe\n    #name\nd\n>\u0006_>,Fj_,Fu >Fu Fu  n _>,Fj_.m,Fj   n>Fj Fn _>.Fj _.Fb  n>FjFjFjFj  n Fj \u0006_>.Fj_.@.Fh>FhFj_>.Fy_.<.Fk>FbFu_>.Fk_.:Fy>FyFb  n FbFkFk\u0006_>,Fk_.,Fu>FlFk  n _>.Fk _,m.Fk>FuFy_>,Fk_.@.Fl  n>FlFl Fu  nFlFy\u0006_>.Fu _.  n Fl >Fk Fb  n_>.Fb _.Fy  n >Fb Fy_>.  nFl_.Fk >Fb Fl  n FyFl  nFkZ\u0014@. \u000f\u001b\u00161\nO>>m\u001b\u001b\ni\u001b#invoke\n\u001b\\   mO>>g\u001b\n\u0007horse\n\u0017fortune cookie\ntbj\u0007tame large dog\n\u0017huge chunk of meat\n tay     dh   n .j20s   20s   yny  y ny\u001bn"
+ },
+ "segments": [
+  {
+   "seed": 50359020,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"You feel\"\nMENUCOLOR=\"a potion\"=green\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "  hulk\u0017iron bars\nk\u0017unaligned altar\ndddd\u0017newt corpse\n#offer\ni  jj\u0017cloud\njjjkj\u0017moat\njkw-#enhance\nyi\nq\n\u001bqO>>>f\u001b\n O>>>n\u001b\u001b\n\u00166\nO>>>e\u001b\nhl k\u0017neutral altar\ndfdd\u0017dwarf corpse\n bh\u0017pool\n#terrain\nc\n\u001b@.#wipe\n    #name\nd\n>\u0006_>,Fj_,Fu >Fu Fu  n _>,Fj_.m,Fj   n>Fj Fn _>.Fj _.Fb  n>FjFjFjFj  n Fj \u0006_>.Fj_.@.Fh>FhFj_>.Fy_.<.Fk>FbFu_>.Fk_.:Fy>FyFb  n FbFkFk\u0006_>,Fk_.,Fu>FlFk  n _>.Fk _,m.Fk>FuFy_>,Fk_.@.Fl  n>FlFl Fu  nFlFy\u0006_>.Fu _.  n Fl >Fk Fb  n_>.Fb _.Fy  n >Fb Fy_>.  nFl_.Fk >Fb Fl  n FyFl  nFkZ\u0014@. \u000f\u001b\u00161\nO>>m\u001b\u001b\ni\u001b#invoke\n\u001b\\   mO>>g\u001b\n\u0007horse\n\u0017fortune cookie\ntbj\u0007tame large dog\n\u0017huge chunk of meat\n tay     dh   n .j20s   20s   yny  y ny\u001bn"
+  }
+ ]
+}

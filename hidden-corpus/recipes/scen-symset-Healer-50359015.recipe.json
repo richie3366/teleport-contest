@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b;>FlFl_>.Fh_.@.Fh>FhFh_>,Fh_,>\u0006_>._.>_>._.>_>._,>\u0006_>.Fl_.>_>.Fl _,>_>._,>\u0006_>._,>_>,_,>_>._,>\u0006_>,_,>_>._,>_>._.>:#rub\nl\u0006_>._,>_>._.>_>._.>\u0006_>,_.>_>._.>_>,_,>\u000f\u001b#pray\ny y #ride\n.y\u00168\n\u00163\nynn_>._.> 100s#turn\nnulhjn_>,>50stan\u000f\u001bjku150s 50sjln_>.>_>.>50s100s\\ \u0014.100s_>.>\\ hhyek100sek_>,>_>.>_>.>100s ek ep_>.>#chat\nn150s ek\u000f\u001b_>.>\u0018\u001b\u00164\n100sek er100sek\u0018\u001bnnh100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemOa\u001b\n\u0007horse\n\u0017huge chunk of meat\n t$y \u0007grid bug\n\u0017scroll of taming\nrt \u0017apple\nt\u001b\u0017apple\nt\u001b\u0017tripe ration\nt\u001b\u0007newt\nsl    s   s20s .s\u0017huge chunk of meat\n\u0007lichen\n.m..m.sm. .m..m.20s  \u0006_>.   _,;;F"
+ },
+ "segments": [
+  {
+   "seed": 50359015,
+   "datetime": "20090803171109",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\nMENUCOLOR=\"a potion\"=green\nBIND=v:inventory\n",
+   "moves": "\u0006_ \u001b;>FlFl_>.Fh_.@.Fh>FhFh_>,Fh_,>\u0006_>._.>_>._.>_>._,>\u0006_>.Fl_.>_>.Fl _,>_>._,>\u0006_>._,>_>,_,>_>._,>\u0006_>,_,>_>._,>_>._.>:#rub\nl\u0006_>._,>_>._.>_>._.>\u0006_>,_.>_>._.>_>,_,>\u000f\u001b#pray\ny y #ride\n.y\u00168\n\u00163\nynn_>._.> 100s#turn\nnulhjn_>,>50stan\u000f\u001bjku150s 50sjln_>.>_>.>50s100s\\ \u0014.100s_>.>\\ hhyek100sek_>,>_>.>_>.>100s ek ep_>.>#chat\nn150s ek\u000f\u001b_>.>\u0018\u001b\u00164\n100sek er100sek\u0018\u001bnnh100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemOa\u001b\n\u0007horse\n\u0017huge chunk of meat\n t$y \u0007grid bug\n\u0017scroll of taming\nrt \u0017apple\nt\u001b\u0017apple\nt\u001b\u0017tripe ration\nt\u001b\u0007newt\nsl    s   s20s .s\u0017huge chunk of meat\n\u0007lichen\n.m..m.sm. .m..m.20s  \u0006_>.   _,;;F"
+  }
+ ]
+}

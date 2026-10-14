@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed Mjollnir\nwj  n  \u0017blessed amulet of life saving\nPk\u0016?\n>w\u0006_ \u001b;,$ujk#chat\nl_{._.qd__._.#chat\nu#pray\ny y _ooooo.,p_oo,_o.,#chat\nh_ooo._ooo,,p_ooooooooo.,pkjk#chat\nh_ooooooo._ooo.,#chat\nl_oooo.,\u0017gray stone\ndl_oooo.,:__._.#chat\nk#pray\ny y    _oo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndm _oooooo.,\u0014m,20sshhh#chat\nyhhl#chat\nyhhh#chat\nl__.Fl_,   Fl#chat\nl #pray\ny y _{.Fb _.     Fy     qd    Fy  Fy Fy FyFyFy  n FlFl FlFl FlFl __,Fh_.   n Fy  #chat\nh#pray\ny y    \u0016?\n>Bhlh\u0016?\n>w\u0006_oooooooo, Fy  _.Fh,p_ooooooooo.Fy  _.,Fn   ,  pFn FnFnFnFnFn __.Fh _.Fh #chat\nh_ooo.  Fl_.Fl ,#chat\ny\u0016?\n>Bjyu\u0016?\n>w \u0006_oo.Fk_._oo.Fy  n_.,   p\u001bFy  n Fy  n  nFyFy  nFy  n Fy  n \u0016?\nc    b  nhl  n  n \u0016?\n>w  \u0006\u00164\n_oooooo,,p   _oo.,$_ooo._,, #chat\nj_oooooooo.,:_oooo,,p_oooooooo,_ooo,,#chat\nb_{,qd_oo.,$_oooooo,,plnj#chat\nnllu#chat\nu_oooooo.,pjub#chat\nyuhh#chat\nb\u00163\nnhh\u0016?\n>w\u0006bbh#chat\nnlhk#chat\nk_ooooooo.Fh  _,.Fh _oo. Fk_,Fu,\u0017amulet of reflection\ndp _oooo.Fl _.Fh   n  _o.Fl  _,"
+ },
+ "segments": [
+  {
+   "seed": 50360000,
+   "datetime": "20180410030031",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed Mjollnir\nwj  n  \u0017blessed amulet of life saving\nPk\u0016?\n>w\u0006_ \u001b;,$ujk#chat\nl_{._.qd__._.#chat\nu#pray\ny y _ooooo.,p_oo,_o.,#chat\nh_ooo._ooo,,p_ooooooooo.,pkjk#chat\nh_ooooooo._ooo.,#chat\nl_oooo.,\u0017gray stone\ndl_oooo.,:__._.#chat\nk#pray\ny y    _oo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndm _oooooo.,\u0014m,20sshhh#chat\nyhhl#chat\nyhhh#chat\nl__.Fl_,   Fl#chat\nl #pray\ny y _{.Fb _.     Fy     qd    Fy  Fy Fy FyFyFy  n FlFl FlFl FlFl __,Fh_.   n Fy  #chat\nh#pray\ny y    \u0016?\n>Bhlh\u0016?\n>w\u0006_oooooooo, Fy  _.Fh,p_ooooooooo.Fy  _.,Fn   ,  pFn FnFnFnFnFn __.Fh _.Fh #chat\nh_ooo.  Fl_.Fl ,#chat\ny\u0016?\n>Bjyu\u0016?\n>w \u0006_oo.Fk_._oo.Fy  n_.,   p\u001bFy  n Fy  n  nFyFy  nFy  n Fy  n \u0016?\nc    b  nhl  n  n \u0016?\n>w  \u0006\u00164\n_oooooo,,p   _oo.,$_ooo._,, #chat\nj_oooooooo.,:_oooo,,p_oooooooo,_ooo,,#chat\nb_{,qd_oo.,$_oooooo,,plnj#chat\nnllu#chat\nu_oooooo.,pjub#chat\nyuhh#chat\nb\u00163\nnhh\u0016?\n>w\u0006bbh#chat\nnlhk#chat\nk_ooooooo.Fh  _,.Fh _oo. Fk_,Fu,\u0017amulet of reflection\ndp _oooo.Fl _.Fh   n  _o.Fl  _,"
+  }
+ ]
+}

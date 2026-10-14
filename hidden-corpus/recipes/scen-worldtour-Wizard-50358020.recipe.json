@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed amulet of life saving\nPo\u0017blessed +3 cloak of magic resistance\nW\u001b\u00167\n_ \u001b@.>\u0016?\n>Dkh:\u00167\n#levelchange\n20\n   \u0017Werebane\nwqs20s.#invoke\nqX20s.\u0017cursed 20 elven arrows\n\u0007winter wolf\nQanf ay hf \u001bf \u001bFy Fh \u0017uncursed sprig of wolfsbane\n\u0007giant rat\nes sy .m.FlFh\u0017blessed spellbook of magic mapping\n\u0007Archon\nrt sm.         s    n Z20s   .s  n   s   n \u00168\n\u00167\n_{.\u0016?\niulh     l  n  hn:     n \u001611\n\u0016?\n>u j knbk   n hk  :\u0016?\n>G__.\u0016?\no \u001710 daggers\nQu\u0007jackal\nyfjflflfu.20s  \u0017lance\nwv\u0007sewer rat\nnavx#twoweapon\nFy Fk  uk   nh,\u00167\n\u00173 bag of holding\nawi\nawr\n#tip\nw\u001b\u0017cursed -1 cloak of invisibility\nW\u001bss20sT..\u0017uncursed bugle\nayy ayy \u0017ring of sustain ability\nPzl..sR\u0017blessed ring of regeneration\nPAlssss20s.s\u00167\nlhhl:\u0016?\n>>P  \u0017helm of brilliance\nWa..sT\u0007rust monster\nFlFl Fl  Fl  sksh\u0007green mold\n"
+ },
+ "segments": [
+  {
+   "seed": 50358020,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:run\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed amulet of life saving\nPo\u0017blessed +3 cloak of magic resistance\nW\u001b\u00167\n_ \u001b@.>\u0016?\n>Dkh:\u00167\n#levelchange\n20\n   \u0017Werebane\nwqs20s.#invoke\nqX20s.\u0017cursed 20 elven arrows\n\u0007winter wolf\nQanf ay hf \u001bf \u001bFy Fh \u0017uncursed sprig of wolfsbane\n\u0007giant rat\nes sy .m.FlFh\u0017blessed spellbook of magic mapping\n\u0007Archon\nrt sm.         s    n Z20s   .s  n   s   n \u00168\n\u00167\n_{.\u0016?\niulh     l  n  hn:     n \u001611\n\u0016?\n>u j knbk   n hk  :\u0016?\n>G__.\u0016?\no \u001710 daggers\nQu\u0007jackal\nyfjflflfu.20s  \u0017lance\nwv\u0007sewer rat\nnavx#twoweapon\nFy Fk  uk   nh,\u00167\n\u00173 bag of holding\nawi\nawr\n#tip\nw\u001b\u0017cursed -1 cloak of invisibility\nW\u001bss20sT..\u0017uncursed bugle\nayy ayy \u0017ring of sustain ability\nPzl..sR\u0017blessed ring of regeneration\nPAlssss20s.s\u00167\nlhhl:\u0016?\n>>P  \u0017helm of brilliance\nWa..sT\u0007rust monster\nFlFl Fl  Fl  sksh\u0007green mold\n"
+  }
+ ]
+}

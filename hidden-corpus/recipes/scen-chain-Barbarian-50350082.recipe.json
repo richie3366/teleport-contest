@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "FnFnFnFnFnFnFnFnFhFh FhFhFhFhFhFhnll100shllFh.s150s#force\n\\  100s100s50skjkFbFbFbFbFbs150sFbFbFbFbFbs#pray\ny _ \u001b:>kuh#pray\ny #pray\ny  150sy\u0018\u001blllFkFkFkFk..hlhFuFuFu\\  100s50slhl50s100s#sit\n\u001b\u000f\u001b50sFkss150shlhhFlFlFlFlFlFlFlFlhlhjKBNN_>,>JYNJ_>.>k#rub\nYHLU_>.>Flss#dip\nc#monster\nUHBY_>.>#tip\n\u001b#cond#quit\nFhFhFhFhFhFhFhFh#name\na\nl20s#chat\nb10s  Fj FjFjFjFjFjFjFjFlFlFlFlFlFlFlFlbjybFlFlFlFlFlFlFlFlkjuyln20sub20syhju20sYLUH_ \u001bm.>FjFns#rub\nca<<YJUB_>.><sKYUU_>.>BNBK _>,>LYHJ_>.>BYBH_>,>NJBY_>.>KLKJ_>,>dbw-KLUU_>.>H#ride\nlJHKK_>.><HNNB_>,>Fh Fh.LYLN_>.>n#pray\ny  ubh100shkn\u0018\u001b150s150s50sFh20s.lub100s\\ _>.>ubu#quit\nyy\u001by  y y y\u001b   #wizintrinsic\nc\n shss20s  sm.sm..y20s .l.sm.sm.20s    n .sss20s     20s     20s  ssss20sssssss.ss.ss20ss20ss.ss.",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50350082,
+   "datetime": "20130811111056",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\n",
+   "moves": "FnFnFnFnFnFnFnFnFhFh FhFhFhFhFhFhnll100shllFh.s150s#force\n\\  100s100s50skjkFbFbFbFbFbs150sFbFbFbFbFbs#pray\ny _ \u001b:>kuh#pray\ny #pray\ny  150sy\u0018\u001blllFkFkFkFk..hlhFuFuFu\\  100s50slhl50s100s#sit\n\u001b\u000f\u001b50sFkss150shlhhFlFlFlFlFlFlFlFlhlhjKBNN_>,>JYNJ_>.>k#rub\nYHLU_>.>Flss#dip\nc#monster\nUHBY_>.>#tip\n\u001b#cond#quit\n"
+  },
+  {
+   "seed": 50450082,
+   "datetime": "20070514063500",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\n",
+   "moves": "FhFhFhFhFhFhFhFh#name\na\nl20s#chat\nb10s  Fj FjFjFjFjFjFjFjFlFlFlFlFlFlFlFlbjybFlFlFlFlFlFlFlFlkjuyln20sub20syhju20sYLUH_ \u001bm.>FjFns#rub\nca<<YJUB_>.><sKYUU_>.>BNBK _>,>LYHJ_>.>BYBH_>,>NJBY_>.>KLKJ_>,>dbw-KLUU_>.>H#ride\nlJHKK_>.><HNNB_>,>Fh Fh.LYLN_>.>n#pray\ny  ubh100shkn\u0018\u001b150s150s50sFh20s.lub100s\\ _>.>ubu#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50550082,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nc\n shss20s  sm.sm..y20s .l.sm.sm.20s    n .sss20s     20s     20s  ssss20sssssss.ss.ss20ss20ss.ss."
+  }
+ ]
+}

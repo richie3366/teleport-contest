@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "mOa\n\\  O>m\na\no\np\nt\u001bckmO>v\n#offer\n\u001bmO>>>>>faq\nf\n c\n\u001b\u001b#loot\n_m. \u001b@.sumO>>>>jce\n f \u001b20ssm."
+ },
+ "segments": [
+  {
+   "seed": 50355008,
+   "datetime": "20161012233813",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "mOa\n\\  O>m\na\no\np\nt\u001bckmO>v\n#offer\n\u001bmO>>>>>faq\nf\n c\n\u001b\u001b#loot\n_m. \u001b@.sumO>>>>jce\n f \u001b20ssm."
+  }
+ ]
+}

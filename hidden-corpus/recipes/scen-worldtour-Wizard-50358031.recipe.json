@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed ring of free action\nPpr\u0016?\n>z hujk:\u0016?\n>y  #chat\nl;>. \u001b:  \u001618\nhhhbj:.b  sm. sk     \u0016?\n>>K      dunce cap\n\u0006<._<.sy \u001638\n\u0017scroll of teleportation\n\u0007blue jelly\nrs  y.\u0017uncursed wand of magic missile\n\u0007human mummy\nztl   ztl    n    \u0017cursed Cleaver\n\u0007master mind flayer\nwu   Fl       n Fj       Fb       n #invoke\nu     Fj         nFn             sm.  20s    \u00164\n\u0016?\nc uh  n       n n    n     :s  n      sm.  n     n  .m.   n  \u00169\n\u0016?\n\u001bl        n   u  \u0016?\na   b  n     l  nyn    n  n        yy\u001bnny y\u001b  j"
+ },
+ "segments": [
+  {
+   "seed": 50358031,
+   "datetime": "20040110073902",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed ring of free action\nPpr\u0016?\n>z hujk:\u0016?\n>y  #chat\nl;>. \u001b:  \u001618\nhhhbj:.b  sm. sk     \u0016?\n>>K      dunce cap\n\u0006<._<.sy \u001638\n\u0017scroll of teleportation\n\u0007blue jelly\nrs  y.\u0017uncursed wand of magic missile\n\u0007human mummy\nztl   ztl    n    \u0017cursed Cleaver\n\u0007master mind flayer\nwu   Fl       n Fj       Fb       n #invoke\nu     Fj         nFn             sm.  20s    \u00164\n\u0016?\nc uh  n       n n    n     :s  n      sm.  n     n  .m.   n  \u00169\n\u0016?\n\u001bl        n   u  \u0016?\na   b  n     l  nyn    n  n        yy\u001bnny y\u001b  j"
+  }
+ ]
+}

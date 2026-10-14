@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " kbl\u0017chaotic altar\nda\u0017dwarf corpse\n #offer\ne #pray\ny y jj\u0017neutral altar\ndc\u0017elf corpse\n #offer\nf   #pray\ny y : \u0004hy#pray\ny y #force\nv i\u001b\u00163\nFk Fk Fh100s100s50sFl20s s150s   klh100s 150s150sFkss100s Fkssf bn50sbjk_ \u001b;>njbbjk#tip\n\u001bknnkb\u0014:50s100sFk.s150s  _>.>_>.>,50s Fkss150s50si\u001b100s100s150s100s_>.>50s\u00167\n#enhance\nyc\nq\n\u001bi\u001btbb\u0006_>.Fu_.>.Fl>FlFl_>,_,m,>_>,_.;<. >\u0006_>,_.@.>_>._.<.>_>._,@.>\u0006_>>._,:>_>>,_.,>_>>,_,.>\u0006_>._.@.>_>._,>_>._.:>\u0006_>._,>.>_>._.m.>_>._,<.>\u0006_>>,_,m.>_>>._.;m,>_>>,_,m,>\u0006_>>._.>.>_>>,_.m,>_>>._.;@.>\u0006_>>,_,<.>_>>,_,.>_>>,_,m,>\u0006_>._.,>_>,_,m.>_>._,<.>\u0006_>>._.:>_>>._.;m,>_>>._.:>\u0006_>._.>.>_>,_.<.>_>._.m.>\u0006_>._.:>_>._,<.>_>._.@.><\u0006_>._,.>_>._.m,>_>._.m,>oh,\u0006_>,_.;@.>_>,_,@.>_>._..>Ok\u001b\nmO>>>r\u001b\n\u00164\n"
+ },
+ "segments": [
+  {
+   "seed": 50359007,
+   "datetime": "20110715191943",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=runmode:crawl\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nMENUCOLOR=\"a potion\"=brown\n",
+   "moves": " kbl\u0017chaotic altar\nda\u0017dwarf corpse\n #offer\ne #pray\ny y jj\u0017neutral altar\ndc\u0017elf corpse\n #offer\nf   #pray\ny y : \u0004hy#pray\ny y #force\nv i\u001b\u00163\nFk Fk Fh100s100s50sFl20s s150s   klh100s 150s150sFkss100s Fkssf bn50sbjk_ \u001b;>njbbjk#tip\n\u001bknnkb\u0014:50s100sFk.s150s  _>.>_>.>,50s Fkss150s50si\u001b100s100s150s100s_>.>50s\u00167\n#enhance\nyc\nq\n\u001bi\u001btbb\u0006_>.Fu_.>.Fl>FlFl_>,_,m,>_>,_.;<. >\u0006_>,_.@.>_>._.<.>_>._,@.>\u0006_>>._,:>_>>,_.,>_>>,_,.>\u0006_>._.@.>_>._,>_>._.:>\u0006_>._,>.>_>._.m.>_>._,<.>\u0006_>>,_,m.>_>>._.;m,>_>>,_,m,>\u0006_>>._.>.>_>>,_.m,>_>>._.;@.>\u0006_>>,_,<.>_>>,_,.>_>>,_,m,>\u0006_>._.,>_>,_,m.>_>._,<.>\u0006_>>._.:>_>>._.;m,>_>>._.:>\u0006_>._.>.>_>,_.<.>_>._.m.>\u0006_>._.:>_>._,<.>_>._.@.><\u0006_>._,.>_>._.m,>_>._.m,>oh,\u0006_>,_.;@.>_>,_,@.>_>._..>Ok\u001b\nmO>>>r\u001b\n\u00164\n"
+  }
+ ]
+}

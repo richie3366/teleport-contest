@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006FhFhFhFhFhFh_ \u001b<.,$_ooooo.,p_ooooooooo,,p__.Fj _. Fj#chat\njFjFjFjFjFjFj__,_.#chat\nn#pray\ny y _oooo.,\u0017gray stone\ndh_ooo.Fn_. ,y \u0014m.   .20s \u00167\nbkn\u0016?\n>w\u0006_ooooo,   Fj _,   nFj_oo. Fj _. Fj,  n p\u00161\nhjj#chat\nh_ooooooooo,,p_oo._ooo.,pFhFhFhFhFhFh_ooo._,,b\n\u0017gray stone\ndl_oo.,b\np\u00167\nhu b\u0016?\n>w\u0006_oooooooo. _,  Fu _ooo,     n Fu _,,Fk,p__,    Fh  _. Fh#chat\nn_ooooo, Fn _,_ooo.Fl    n  _.,    n   n \u0017amulet of restful sleep\ndn   n    n    n\u00165\n    Fk  n    n Fk  n  Fk  n    n    n Fk   y y\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50360001,
+   "datetime": "20010817202822",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006FhFhFhFhFhFh_ \u001b<.,$_ooooo.,p_ooooooooo,,p__.Fj _. Fj#chat\njFjFjFjFjFjFj__,_.#chat\nn#pray\ny y _oooo.,\u0017gray stone\ndh_ooo.Fn_. ,y \u0014m.   .20s \u00167\nbkn\u0016?\n>w\u0006_ooooo,   Fj _,   nFj_oo. Fj _. Fj,  n p\u00161\nhjj#chat\nh_ooooooooo,,p_oo._ooo.,pFhFhFhFhFhFh_ooo._,,b\n\u0017gray stone\ndl_oo.,b\np\u00167\nhu b\u0016?\n>w\u0006_oooooooo. _,  Fu _ooo,     n Fu _,,Fk,p__,    Fh  _. Fh#chat\nn_ooooo, Fn _,_ooo.Fl    n  _.,    n   n \u0017amulet of restful sleep\ndn   n    n    n\u00165\n    Fk  n    n Fk  n  Fk  n    n    n Fk   y y\u001by  y y y\u001by  F"
+  }
+ ]
+}

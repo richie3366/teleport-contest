@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  O>ge\n#wipe\nmO>>>>>>fq\nc\n#pray\ny y #enhance\nyo\nl\n\u001bmO>>>tc\n #chat\nk,Od\nc\nh\nc\n\u001b>Oho\no\nl\nm\n\u001b<ny#ride\nbys20smOa\n KO>mbe\nh\n c\n\u001b:Om\nj\nd\ni\n\u001b\u001bHmO>>>>>>jmh\n g\n \u001b\u001blsm.sy"
+ },
+ "segments": [
+  {
+   "seed": 50355037,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  O>ge\n#wipe\nmO>>>>>>fq\nc\n#pray\ny y #enhance\nyo\nl\n\u001bmO>>>tc\n #chat\nk,Od\nc\nh\nc\n\u001b>Oho\no\nl\nm\n\u001b<ny#ride\nbys20smOa\n KO>mbe\nh\n c\n\u001b:Om\nj\nd\ni\n\u001b\u001bHmO>>>>>>jmh\n g\n \u001b\u001blsm.sy"
+  }
+ ]
+}

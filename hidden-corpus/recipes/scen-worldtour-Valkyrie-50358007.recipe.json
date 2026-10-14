@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0016?\n>u #chat\nj;j, \u001bm.20s  \u001b20s  s  \u00161\nkhyh:20ssusm.\u0016?\nq \u0004k\u0016?\n>v#chat\nj;j;\u0016?\n>>Q_<._,>\u0016?\n>>L    cloak of displacement\n#levelchange\n20\n  \u0017uncursed potion of speed\nqc    \u0017blessed tooled horn\n\u0007brown pudding\nady   ady     nFb     Fh     \u0017potion of see invisible\nqe \u001b#dip\nbFn         Fj  n       \u0017scroll of earth\nrf \u001b        \u0017can of grease\n\u0007black light\nagb FjFk\u00173 potion of oil\n\u0007djinni\nqh#dip\nhhFk  n            Fy         n   sm.          20s \u00169\n\u001645\n__.<\u0016?\nc#levelchange\n30\n         bn  n     y    k\u0017squeaky board\nu     n      \u0007kobold\n20s 20s  20s        sm.  n  h \u0017sleeping gas trap\nu h\u0017level teleporter\nh j\u0017anti-magic field\n\u0017beartrap\naiu   n          j  n       oli\u001b#terrain\n\u001b\u00169\n\u0016?\n\u001by  n        u\u0016?\n\u001buj      \u00166\n\u0014, \u0016?\n\u001bh            n           j  n     \u00165\n\u001622\n\u0006_>.s            n\u001613\nj     j        \u0017magic marker\nEj I am a fish\n    n    :    "
+ },
+ "segments": [
+  {
+   "seed": 50358007,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=sortloot:none\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0016?\n>u #chat\nj;j, \u001bm.20s  \u001b20s  s  \u00161\nkhyh:20ssusm.\u0016?\nq \u0004k\u0016?\n>v#chat\nj;j;\u0016?\n>>Q_<._,>\u0016?\n>>L    cloak of displacement\n#levelchange\n20\n  \u0017uncursed potion of speed\nqc    \u0017blessed tooled horn\n\u0007brown pudding\nady   ady     nFb     Fh     \u0017potion of see invisible\nqe \u001b#dip\nbFn         Fj  n       \u0017scroll of earth\nrf \u001b        \u0017can of grease\n\u0007black light\nagb FjFk\u00173 potion of oil\n\u0007djinni\nqh#dip\nhhFk  n            Fy         n   sm.          20s \u00169\n\u001645\n__.<\u0016?\nc#levelchange\n30\n         bn  n     y    k\u0017squeaky board\nu     n      \u0007kobold\n20s 20s  20s        sm.  n  h \u0017sleeping gas trap\nu h\u0017level teleporter\nh j\u0017anti-magic field\n\u0017beartrap\naiu   n          j  n       oli\u001b#terrain\n\u001b\u00169\n\u0016?\n\u001by  n        u\u0016?\n\u001buj      \u00166\n\u0014, \u0016?\n\u001bh            n           j  n     \u00165\n\u001622\n\u0006_>.s            n\u001613\nj     j        \u0017magic marker\nEj I am a fish\n    n    :    "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWl\u0017blessed ring of free action\nPmr\u0017blessed amulet of life saving\nPn#levelchange\n10\n        \u0017blessed spellbook of cause fear\nro sm.\u0017blessed spellbook of light\nrp  20s\u0007master mind flayer\nZa\nZc\n   \u001bZa\n             n  20s     n  suZc\n     n  Zb\n   n  20s   n  20s   i\u001b\u00162\n\u0007aligned cleric\ny\u0007succubus\n\u0007orc shaman\n\u0017wand of fire\nzqj  zqk    zql      sm.zqj  zqsm..m.zq\u0017bow\nwr\u001720 arrows\nQs\u0007hobbit\ntsjfjfj fjfb fb\u0017potion of oil\nt$b i\u001b\u0017blessed spellbook of fireball\nru .l\u0007gnomish wizard\n\u0007lich\nZc\n20s.m.Zb\n.m.20s   Zb\nZc\nZa\nsm.20s     n     \u0018\u001b\u001710 daggers\n Qv\u0007hobbit\ntsy   fy  fb  tshfl    n  fy   fhfy    \u0017wand of teleportation\n\u0017wand of death\n\u0007lichen\n\u0007jackal\nzxl 20s  zxhzwy  zxb suzwhzwbzwbzwbi\u001b\u0017wand of teleportation\n\u0017wand of fire\n \u0007soldier\nzylzybzybzybzyb.zzb  sm.zyl.zzuzznzykzzh\u001613\n\u0007kobold shaman\n\u0007master mind flayer\n\u0007gnomish wizard\n\u0017wand of fire\n.m...20s    n  20s        n       n   sm.   zAu zAy     n  .m.    sm.\u0018\u001b\u00162\n\u0017blessed spellbook of magic missile\nrB s\u0017blessed spellbook of finger of death\nrCs\u0007m"
+ },
+ "segments": [
+  {
+   "seed": 50350004,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWl\u0017blessed ring of free action\nPmr\u0017blessed amulet of life saving\nPn#levelchange\n10\n        \u0017blessed spellbook of cause fear\nro sm.\u0017blessed spellbook of light\nrp  20s\u0007master mind flayer\nZa\nZc\n   \u001bZa\n             n  20s     n  suZc\n     n  Zb\n   n  20s   n  20s   i\u001b\u00162\n\u0007aligned cleric\ny\u0007succubus\n\u0007orc shaman\n\u0017wand of fire\nzqj  zqk    zql      sm.zqj  zqsm..m.zq\u0017bow\nwr\u001720 arrows\nQs\u0007hobbit\ntsjfjfj fjfb fb\u0017potion of oil\nt$b i\u001b\u0017blessed spellbook of fireball\nru .l\u0007gnomish wizard\n\u0007lich\nZc\n20s.m.Zb\n.m.20s   Zb\nZc\nZa\nsm.20s     n     \u0018\u001b\u001710 daggers\n Qv\u0007hobbit\ntsy   fy  fb  tshfl    n  fy   fhfy    \u0017wand of teleportation\n\u0017wand of death\n\u0007lichen\n\u0007jackal\nzxl 20s  zxhzwy  zxb suzwhzwbzwbzwbi\u001b\u0017wand of teleportation\n\u0017wand of fire\n \u0007soldier\nzylzybzybzybzyb.zzb  sm.zyl.zzuzznzykzzh\u001613\n\u0007kobold shaman\n\u0007master mind flayer\n\u0007gnomish wizard\n\u0017wand of fire\n.m...20s    n  20s        n       n   sm.   zAu zAy     n  .m.    sm.\u0018\u001b\u00162\n\u0017blessed spellbook of magic missile\nrB s\u0017blessed spellbook of finger of death\nrCs\u0007m"
+  }
+ ]
+}

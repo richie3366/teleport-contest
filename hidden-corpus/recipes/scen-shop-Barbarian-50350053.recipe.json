@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 speed boots\nWf\u0017blessed Mjollnir\n wg  n  \u0016?\n>w\u0006_ \u001b@.,p_ooooooooo.,p__.Fk _.m,Fy #chat\nk_{.  _,Fy q\u00163\nkkj\u0016?\n>w\u0006_oooooo.,#chat\nh_ooo._oo.,p_ooo.,p_{,Fb _.qjyk#chat\nklhj#chat\nn__,Fb _.#chat\nnkjk#chat\nj\u00163\nhln\u0016?\n>w\u0006_oooo._,,plbu#chat\nj_oooo._.,pnyl#chat\nn_oooooo.,$\u00167\nhlb\u0016?\n>w\u0006_{._.q\u00163\njju\u0016?\n>w\u0006__._. #chat\nl_{.Fu _,<.Fkq\u0016?\n>Bjjj\u0016?\n>w\u0006_{. Fy_,qy _oooo, _, Fy ,:_oo,_,, p_ooooooo.Fy _,@.Fu _oo.Fk_,Fu,\u001b#chat\nu _ooo. Fn _.>.,\u001b\u0014<.s.__.Fj _.  Fl       n  #chat\nl  n #pray\ny y  \u00168\n klh#chat\nu_{.q__.#chat\nulhl#chat\nk__.#chat\nk_oo.,\u0017amulet of unchanging\ndi__.#chat\nk#pray\ny y __,#chat\nk#pray\ny y  \u0016?\n bnu\u0016?\n \u0006_oo.,p_ooooooo._o.,\u0017amulet versus poison\ndj_{,q_oooo.,\u0017amulet of change\ndk__,#chat\nj#pray\ny y_{.q_oooooooo.,\u0017worthless piece of red glass\ndl_oooooo._ooo.,p\u0016?\n>Bynu\u0016?\n>w   \u0006__.Fh_.Fh#chat\nh_{.Fh_. Fhq_oooooooo.  nFh_.Fh_ooo, Fh_,Fh  n ,\u0017amulet of ESP\ndm  n \u00164\n_oooooo._ooo.,#chat\nh\u0016?\n>B "
+ },
+ "segments": [
+  {
+   "seed": 50350053,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 speed boots\nWf\u0017blessed Mjollnir\n wg  n  \u0016?\n>w\u0006_ \u001b@.,p_ooooooooo.,p__.Fk _.m,Fy #chat\nk_{.  _,Fy q\u00163\nkkj\u0016?\n>w\u0006_oooooo.,#chat\nh_ooo._oo.,p_ooo.,p_{,Fb _.qjyk#chat\nklhj#chat\nn__,Fb _.#chat\nnkjk#chat\nj\u00163\nhln\u0016?\n>w\u0006_oooo._,,plbu#chat\nj_oooo._.,pnyl#chat\nn_oooooo.,$\u00167\nhlb\u0016?\n>w\u0006_{._.q\u00163\njju\u0016?\n>w\u0006__._. #chat\nl_{.Fu _,<.Fkq\u0016?\n>Bjjj\u0016?\n>w\u0006_{. Fy_,qy _oooo, _, Fy ,:_oo,_,, p_ooooooo.Fy _,@.Fu _oo.Fk_,Fu,\u001b#chat\nu _ooo. Fn _.>.,\u001b\u0014<.s.__.Fj _.  Fl       n  #chat\nl  n #pray\ny y  \u00168\n klh#chat\nu_{.q__.#chat\nulhl#chat\nk__.#chat\nk_oo.,\u0017amulet of unchanging\ndi__.#chat\nk#pray\ny y __,#chat\nk#pray\ny y  \u0016?\n bnu\u0016?\n \u0006_oo.,p_ooooooo._o.,\u0017amulet versus poison\ndj_{,q_oooo.,\u0017amulet of change\ndk__,#chat\nj#pray\ny y_{.q_oooooooo.,\u0017worthless piece of red glass\ndl_oooooo._ooo.,p\u0016?\n>Bynu\u0016?\n>w   \u0006__.Fh_.Fh#chat\nh_{.Fh_. Fhq_oooooooo.  nFh_.Fh_ooo, Fh_,Fh  n ,\u0017amulet of ESP\ndm  n \u00164\n_oooooo._ooo.,#chat\nh\u0016?\n>B "
+  }
+ ]
+}

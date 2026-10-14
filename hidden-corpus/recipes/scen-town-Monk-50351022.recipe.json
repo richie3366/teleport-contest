@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqj \u001b:_m.Fk_.#chat\ny _dddd.Fy_,@.Fk \u0004h _oo.Fk_._o._.,#chat\nn_oooooo,Fn _.,p__,_.#chat\nh_oooooo._.,\u0014m,E\u001b;m.t$lSy\u001b yn#dip\nid#force\n#twoweapon\n#wipe\ni\u001b10s_<,20s\u0017sling\nwj\u001720 flint stones\nQl\u0007gnome lord\nhkfjfj\u0007yellow mold\nlfyfbF",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50351022,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=runmode:walk\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqj \u001b:_m.Fk_.#chat\ny _dddd.Fy_,@.Fk \u0004h _oo.Fk_._o._.,#chat\nn_oooooo,Fn _.,p__,_.#chat\nh_oooooo._.,\u0014m,E\u001b;m.t$lSy\u001b"
+  },
+  {
+   "seed": 50851022,
+   "datetime": "20100621060444",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=runmode:walk\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " yn#dip\nid#force\n#twoweapon\n#wipe\ni\u001b10s_<,20s\u0017sling\nwj\u001720 flint stones\nQl\u0007gnome lord\nhkfjfj\u0007yellow mold\nlfyfbF"
+  }
+ ]
+}

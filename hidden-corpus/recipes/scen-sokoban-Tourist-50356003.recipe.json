@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0016?\n>EFyhlljFkFk yk\u0017scroll of earth\nrl uunj10sull\u0017wand of digging\nzmjlkulnljulkkubjhyullknnbblbylkbkhl10sk10sbb\u0017wand of striking\nznbkk"
+ },
+ "segments": [
+  {
+   "seed": 50356003,
+   "datetime": "20190908053146",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0016?\n>EFyhlljFkFk yk\u0017scroll of earth\nrl uunj10sull\u0017wand of digging\nzmjlkulnljulkkubjhyullknnbblbylkbkhl10sk10sbb\u0017wand of striking\nznbkk"
+  }
+ ]
+}

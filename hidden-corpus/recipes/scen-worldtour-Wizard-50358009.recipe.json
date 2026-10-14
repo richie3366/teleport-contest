@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWp\u0016?\nd_ \u001b.\u001610\nyjhyyjn:\u00164\n_<.Fl_.m.Fl\u00164\n\u0006_<,Fn_,,Fb s\u001610\n_<.\u001620\n_>.>s\u001622\n#levelchange\n20\n      nhjn\u0017iron bars\nhlhhh\u0017throne\n#sit\n #sit\n y#sit\n\u001b: l\u0017cloud\nhl h l: qgs#offer\n\u001610\n#levelchange\n8\n    \u0017uncursed cream pie\neq.ss.\u0017blessed scroll of scare monster\nrr  \u001b\u0017blessed Frost Brand\nwsss.#invoke\nsm,       \u0017blessed Trollsbane\n\u0007homunculus\nwtFuFu  FuXFu Fu\u0017potion of gain level\nqu \u0017cursed meatball\nev 20s .m.sm..m.20s 20s20s\u0016?\nq #levelchange\n8\n\u0017mummy wrapping\nW\u001bsm.  sbsTp\u0017uncursed +0 ring of polymorph control\nPxrsjs20sR    \u0017potion of gain energy\nqy\u0017uncursed scroll of enchant weapon\nrz  \u001b \u00173 wax candle\naA#rub\n\u0017luckstone\n\u0007fire giant\naBhs.\u0016?\n>v\u0004u\u0016?\n>>R_ss\u0016by\u0016yl\u0016bj\u0016lk\u0016hn\u0016jy\u0016nk\u0016hj\u0016ln\u0016nl\u0016kk\u0016jl\u0016kb\u0016bl\u0016uj\u0016yb\u0016nn\u0016bn\u0016uj\u0016nj\u0016yy\u0016jh\u0016yy\u0016bj\u0016jb\u0016yj\u0016jn\u0016nn\u0016lk\u0016uj\u0016bk\u0016kj\u0016yb\u0016yn\u0016uh\u0016bk\u0016jj\u0016nl\u0016kn\u0016ju\u0016nl\u0016nh\u0016hk\u0016nj\u0016hn\u0016ky\u0016lu\u0016yl\u0016lk\u0016nn\u0016kb\u0016ln\u0016bh\u0016ll\u0016nk\u0016bb\u0016bj\u0016nu\u0016ul\u0016bb\u0016hy\u0016uj\u0016jn\u0016yk\u0016yb\u0016un\u0016hj\u0016yu\u0016ky"
+ },
+ "segments": [
+  {
+   "seed": 50358009,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWp\u0016?\nd_ \u001b.\u001610\nyjhyyjn:\u00164\n_<.Fl_.m.Fl\u00164\n\u0006_<,Fn_,,Fb s\u001610\n_<.\u001620\n_>.>s\u001622\n#levelchange\n20\n      nhjn\u0017iron bars\nhlhhh\u0017throne\n#sit\n #sit\n y#sit\n\u001b: l\u0017cloud\nhl h l: qgs#offer\n\u001610\n#levelchange\n8\n    \u0017uncursed cream pie\neq.ss.\u0017blessed scroll of scare monster\nrr  \u001b\u0017blessed Frost Brand\nwsss.#invoke\nsm,       \u0017blessed Trollsbane\n\u0007homunculus\nwtFuFu  FuXFu Fu\u0017potion of gain level\nqu \u0017cursed meatball\nev 20s .m.sm..m.20s 20s20s\u0016?\nq #levelchange\n8\n\u0017mummy wrapping\nW\u001bsm.  sbsTp\u0017uncursed +0 ring of polymorph control\nPxrsjs20sR    \u0017potion of gain energy\nqy\u0017uncursed scroll of enchant weapon\nrz  \u001b \u00173 wax candle\naA#rub\n\u0017luckstone\n\u0007fire giant\naBhs.\u0016?\n>v\u0004u\u0016?\n>>R_ss\u0016by\u0016yl\u0016bj\u0016lk\u0016hn\u0016jy\u0016nk\u0016hj\u0016ln\u0016nl\u0016kk\u0016jl\u0016kb\u0016bl\u0016uj\u0016yb\u0016nn\u0016bn\u0016uj\u0016nj\u0016yy\u0016jh\u0016yy\u0016bj\u0016jb\u0016yj\u0016jn\u0016nn\u0016lk\u0016uj\u0016bk\u0016kj\u0016yb\u0016yn\u0016uh\u0016bk\u0016jj\u0016nl\u0016kn\u0016ju\u0016nl\u0016nh\u0016hk\u0016nj\u0016hn\u0016ky\u0016lu\u0016yl\u0016lk\u0016nn\u0016kb\u0016ln\u0016bh\u0016ll\u0016nk\u0016bb\u0016bj\u0016nu\u0016ul\u0016bb\u0016hy\u0016uj\u0016jn\u0016yk\u0016yb\u0016un\u0016hj\u0016yu\u0016ky"
+  }
+ ]
+}

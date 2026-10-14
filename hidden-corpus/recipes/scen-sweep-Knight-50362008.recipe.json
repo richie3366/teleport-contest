@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0017blessed ring of polymorph control\nPil\u0017alchemy smock\nWj20s20ss#polyself\nbrown mold\n   #monster\n.20s    20s     ..#polyself\nsoldier ant\n #monster\ns20ssss#polyself\nstraw golem\n 20s.s20s.#polyself\ndoppelganger\n#monster\nss\u0007trapper\nFn FhFl20s s\u001b.\u0017potion of polymorph\nqk tengu\n \u00162\n\u0017dwarvish mattock\n:i\u001b\u0018\u001b\\   ab  \u001b,ab@.\u001628\n#levelchange\n12\n \u0016?\n>Ceh\\   qsm.s\u00164\nr\u001b\\   :\u000620ssb\u0016?\n>>L      cram ration\nyr\u001bt\u001b.m.      20s        \u001619\nw-  >  ol;k,.  20s     n     \u001616\nu \u0014<. #jump\n.;<.ss\u0007large dog\n\u0017tripe ration\ntby \u0007pony\n\u0017fortune cookie\nt\u001bdi.m.      n    20s  s    \u0017fortune cookie\nt\u001b\u0007grid bug\ns\u001bs.20s s  n    .\u0017tin whistle\nn uhas   10s \u0017magic whistle\nu yuat\u00168\n\u00164\n#levelchange\n30\n                 \u0017blessed ring of polymorph control\nPu #polyself\nmail daemon\n skeleton\n#monster\n20s   s       \u0007gold golem\nFjFkFks\u001b20s \u001b.#polyself\npit fiend\n.    .\u0007black light\nFj  Fj     Fb s\u001bs20s             #polyself\nnewt\n#monster\ns     n .\u0007barrow wight\nFjFkFj..   20s  #polyself\npony\n#monster\n20s .\u0007ki-rin\nFj  Fj Fk 20s s  n     20s         \u001611\nnlk\u0017magic fountain\nqq: y\u0017lawful altar\ndrdu\u0017gnome corpse\n #offer\n#pray\ny y b     n  \u0017moat\n:      n  , #jump\nL\u0006m.\u00167\n#levelchange\n30\n\u0017blessed spellbook of magic missile\nrws\u0017blessed spellbook of cause fear\nrx20s\u0017blessed spellbook of jumping\nry20s   n   +Zs Z\u0007acid blob\nZZZ#turn\n #pray\ny y \u001613\n\\    \u0017lance\nwz"
+ },
+ "segments": [
+  {
+   "seed": 50362008,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0017blessed ring of polymorph control\nPil\u0017alchemy smock\nWj20s20ss#polyself\nbrown mold\n   #monster\n.20s    20s     ..#polyself\nsoldier ant\n #monster\ns20ssss#polyself\nstraw golem\n 20s.s20s.#polyself\ndoppelganger\n#monster\nss\u0007trapper\nFn FhFl20s s\u001b.\u0017potion of polymorph\nqk tengu\n \u00162\n\u0017dwarvish mattock\n:i\u001b\u0018\u001b\\   ab  \u001b,ab@.\u001628\n#levelchange\n12\n \u0016?\n>Ceh\\   qsm.s\u00164\nr\u001b\\   :\u000620ssb\u0016?\n>>L      cram ration\nyr\u001bt\u001b.m.      20s        \u001619\nw-  >  ol;k,.  20s     n     \u001616\nu \u0014<. #jump\n.;<.ss\u0007large dog\n\u0017tripe ration\ntby \u0007pony\n\u0017fortune cookie\nt\u001bdi.m.      n    20s  s    \u0017fortune cookie\nt\u001b\u0007grid bug\ns\u001bs.20s s  n    .\u0017tin whistle\nn uhas   10s \u0017magic whistle\nu yuat\u00168\n\u00164\n#levelchange\n30\n                 \u0017blessed ring of polymorph control\nPu #polyself\nmail daemon\n skeleton\n#monster\n20s   s       \u0007gold golem\nFjFkFks\u001b20s \u001b.#polyself\npit fiend\n.    .\u0007black light\nFj  Fj     Fb s\u001bs20s             #polyself\nnewt\n#monster\ns     n .\u0007barrow wight\nFjFkFj..   20s  #polyself\npony\n#monster\n20s .\u0007ki-rin\nFj  Fj Fk 20s s  n     20s         \u001611\nnlk\u0017magic fountain\nqq: y\u0017lawful altar\ndrdu\u0017gnome corpse\n #offer\n#pray\ny y b     n  \u0017moat\n:      n  , #jump\nL\u0006m.\u00167\n#levelchange\n30\n\u0017blessed spellbook of magic missile\nrws\u0017blessed spellbook of cause fear\nrx20s\u0017blessed spellbook of jumping\nry20s   n   +Zs Z\u0007acid blob\nZZZ#turn\n #pray\ny y \u001613\n\\    \u0017lance\nwz"
+  }
+ ]
+}

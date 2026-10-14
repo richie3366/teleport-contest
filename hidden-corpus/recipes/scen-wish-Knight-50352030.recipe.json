@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0017cursed -1 aklys\nwiFb  FhFb   \u0017scroll of light\nrj\u0017cursed bag of holding\nak\u001bak\u001b#tip\nk\u001b\u0017uncursed +0 ring of protection\nPlls20s s..20ss"
+ },
+ "segments": [
+  {
+   "seed": 50352030,
+   "datetime": "20040115211218",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0017cursed -1 aklys\nwiFb  FhFb   \u0017scroll of light\nrj\u0017cursed bag of holding\nak\u001bak\u001b#tip\nk\u001b\u0017uncursed +0 ring of protection\nPlls20s s..20ss"
+  }
+ ]
+}

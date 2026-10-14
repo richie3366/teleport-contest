@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 gauntlets of power\nWg\u0017blessed amulet of life saving\nPh \u0016?\n>w\u0006_ \u001b<.,p_ooo.,#chat\nu__._.m,Fh #chat\nh_oo,,\u0017amulet of ESP\ndihbj#chat\nk_ooooooooo._,;<.,\u0017dilithium crystal\ndj\u0016?\n>Bhbh\u0016?\n>w\u0006_oo,,#chat\nu_ooo,_.,p_oooooo,,p_ooooooo._.,:\u00163\njnu\u0016?\n>w\u0006_oooooo._o.Fu _,<.Fu,#chat\nu_ooooooooo,   Fu_.@.,#chat\nk_oooooooo._,,,p_ooo.,p_{._.qd\u0016?\n>Byuh\u0016?\n>w\u0006_oooooooo._,:_ooo. _,m, ,$ _oooo,Fy  _,_oo.Fh   n  \u001b_.,\u0017worthless piece of red glass\ndl _oooo.  Fh _.  n Fh  n ,   n   n \u0017amulet of reflection\ndm  n \u00167\nk  n  n j   n  n k  n \u0016?\n>w\u0006\u001610\n    _oooo._o.,\u0017amulet of flying\ndn  n _{,q\u00167\nl  n h  n  n l  y y\u001bnny ny  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50360020,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 gauntlets of power\nWg\u0017blessed amulet of life saving\nPh \u0016?\n>w\u0006_ \u001b<.,p_ooo.,#chat\nu__._.m,Fh #chat\nh_oo,,\u0017amulet of ESP\ndihbj#chat\nk_ooooooooo._,;<.,\u0017dilithium crystal\ndj\u0016?\n>Bhbh\u0016?\n>w\u0006_oo,,#chat\nu_ooo,_.,p_oooooo,,p_ooooooo._.,:\u00163\njnu\u0016?\n>w\u0006_oooooo._o.Fu _,<.Fu,#chat\nu_ooooooooo,   Fu_.@.,#chat\nk_oooooooo._,,,p_ooo.,p_{._.qd\u0016?\n>Byuh\u0016?\n>w\u0006_oooooooo._,:_ooo. _,m, ,$ _oooo,Fy  _,_oo.Fh   n  \u001b_.,\u0017worthless piece of red glass\ndl _oooo.  Fh _.  n Fh  n ,   n   n \u0017amulet of reflection\ndm  n \u00167\nk  n  n j   n  n k  n \u0016?\n>w\u0006\u001610\n    _oooo._o.,\u0017amulet of flying\ndn  n _{,q\u00167\nl  n h  n  n l  y y\u001bnny ny  \u0016"
+  }
+ ]
+}

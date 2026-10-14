@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u00172000 gold pieces\n\u0016?\n>w \u0006\u0017blessed potion of object detection\nqk \u001b<._oo.Fy  _.,  \u0014m,   _ooo.  \u001b   _, Fl _o.Fl  _.,  p_dddd.   n Fb   _.  Fb    n \u0004k   _{. Fl  _.    n Fu  qe   ok#invoke\n\u001b#conduct\n \u001611\n\u00165\n\u0007little dog\n\u0017newt corpse\ntmb  \u0006_>>. Fn    n_.  Fj >Fn  Fn _>>. Fn  _,   n Fn  >Fb  Fb _>>.  Fn  _.  n  Fj  >Fj  Fn  dn  .m.  n  20s  su#chat\nj\u0017magic whistle\nhhhao  \u0007lichen\n20s  .y.20s  .m.  sm. \u0007yellow mold\n20s  n   20s  20s  sm.  sh20s  \u0007newt\n\u0017scroll of taming\nrp  \u00162\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqq<._mmm.   _,;m,#chat\nj_{,Fk_.  qd__,  Fk   _.  #chat\nndb_mmm,   _,  Fk#chat\nkohi\u001b#sit\n  \u0006uub\u0017squeaky board\nb\u0017polymorph trap\nj  j \u0017level teleporter\nb\u0017statue trap\n#terrain\n\u001b10s afy        n  #ride\nky\u0018\u001b\u0017spellbook of teleport away\nrr                    .\u0017blessed spellbook of detect treasure\nrs20s\u0017blessed spellbook of force bolt\nrtsm.   \u0017blessed spellbook of create familiar\nru 20s   +a\nZb\nZc\n   \u0007yellow mold\nZa\n    nFk  \u0007kobold\nZb\n    Za\n  #turn\n#enhance\nn\u001bi\u001bwaFk  Fj  Fj  Xch#sit\n   #chat\njPh#rub\n\u000f\u001bZa\n i\u001bwaFjFjFj\u0016?\nk   \u0006__,Fh_.<.Fh#chat\nhsl.bsm.rt \\  #dip\nhe  n#levelchange\n14\n\u0016?\n>Dj\u0017wand of digging\nzvl\u0017scroll of earth\nrw njnjuu10sjjuuuukllllll10sbulllkn10sh10s\u0017scroll of earth\nrx kyuybnhy10sj blllhhhhy10shhyhh#levelchange\n20\n      \u0007pony\n\u0017scroll of taming\nry \u0017sad"
+ },
+ "segments": [
+  {
+   "seed": 50350073,
+   "datetime": "20220131205642",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u00172000 gold pieces\n\u0016?\n>w \u0006\u0017blessed potion of object detection\nqk \u001b<._oo.Fy  _.,  \u0014m,   _ooo.  \u001b   _, Fl _o.Fl  _.,  p_dddd.   n Fb   _.  Fb    n \u0004k   _{. Fl  _.    n Fu  qe   ok#invoke\n\u001b#conduct\n \u001611\n\u00165\n\u0007little dog\n\u0017newt corpse\ntmb  \u0006_>>. Fn    n_.  Fj >Fn  Fn _>>. Fn  _,   n Fn  >Fb  Fb _>>.  Fn  _.  n  Fj  >Fj  Fn  dn  .m.  n  20s  su#chat\nj\u0017magic whistle\nhhhao  \u0007lichen\n20s  .y.20s  .m.  sm. \u0007yellow mold\n20s  n   20s  20s  sm.  sh20s  \u0007newt\n\u0017scroll of taming\nrp  \u00162\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqq<._mmm.   _,;m,#chat\nj_{,Fk_.  qd__,  Fk   _.  #chat\nndb_mmm,   _,  Fk#chat\nkohi\u001b#sit\n  \u0006uub\u0017squeaky board\nb\u0017polymorph trap\nj  j \u0017level teleporter\nb\u0017statue trap\n#terrain\n\u001b10s afy        n  #ride\nky\u0018\u001b\u0017spellbook of teleport away\nrr                    .\u0017blessed spellbook of detect treasure\nrs20s\u0017blessed spellbook of force bolt\nrtsm.   \u0017blessed spellbook of create familiar\nru 20s   +a\nZb\nZc\n   \u0007yellow mold\nZa\n    nFk  \u0007kobold\nZb\n    Za\n  #turn\n#enhance\nn\u001bi\u001bwaFk  Fj  Fj  Xch#sit\n   #chat\njPh#rub\n\u000f\u001bZa\n i\u001bwaFjFjFj\u0016?\nk   \u0006__,Fh_.<.Fh#chat\nhsl.bsm.rt \\  #dip\nhe  n#levelchange\n14\n\u0016?\n>Dj\u0017wand of digging\nzvl\u0017scroll of earth\nrw njnjuu10sjjuuuukllllll10sbulllkn10sh10s\u0017scroll of earth\nrx kyuybnhy10sj blllhhhhy10shhyhh#levelchange\n20\n      \u0007pony\n\u0017scroll of taming\nry \u0017sad"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>CuuFhFhubnnnnjnjnllkublknnnnn10sFhnnnbnFkunnnhFyFy\u0017wand of striking\nzihy\u0017scroll of earth\nrj bnkbbujjknjjujbu\u0016?\n>D\u0017scroll of earth\nrk \u0017wand of digging\nzll\u0017wand of striking\nzm>\u0017wand of striking\nznk\u0017wand of striking\nzolk\u0017scroll of earth\nrp  j10sjybkhun10s\u0017scroll of earth\nrq blh 10skhhjhnnnhhhhjyl\u0017wand of striking\nzrh1"
+ },
+ "segments": [
+  {
+   "seed": 50356004,
+   "datetime": "20040412015304",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>CuuFhFhubnnnnjnjnllkublknnnnn10sFhnnnbnFkunnnhFyFy\u0017wand of striking\nzihy\u0017scroll of earth\nrj bnkbbujjknjjujbu\u0016?\n>D\u0017scroll of earth\nrk \u0017wand of digging\nzll\u0017wand of striking\nzm>\u0017wand of striking\nznk\u0017wand of striking\nzolk\u0017scroll of earth\nrp  j10sjybkhun10s\u0017scroll of earth\nrq blh 10skhhjhnnnhhhhjyl\u0017wand of striking\nzrh1"
+  }
+ ]
+}

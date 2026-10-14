@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPfr\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b#levelchange\n20\n                   \u0017wand of digging\n\u0017wand of fire\n\u0007lichen\n\u0007dwarf\nzik zh>   zh> zh> zik  zh> 20szh> zik zh> .\u001620\n\u0017spellbook of sleep\nrj.\u0007kobold shaman\n\u0007aligned cleric\nnZa\nZa\nZa\n20s   .m.Za\n .m. sm.   n Za\n 20s   .m. Za\nZa\n 20s sm.Za\nZa\nZa\n\u0007aligned cleric\nn\u0007kobold shaman\n\u0017wand of magic missile\nzkj   n zky  zkk   zkk  .m. sh sm.  \u0017spellbook of magic missile\nrl  .m.\u0017blessed spellbook of force bolt\n rm   n  sk \u0007orc shaman\nZa\nZa\nsm.20s  Za\nZa\nZa\nsl  20s #turn\n\u0017wand of polymorph\n\u0017wand of magic missile\n\u0017wand of sleep\n\u0007sewer rat\n\u0007lichen\n\u0007acid blob\nzpy    20s    n  zou   znn   sbznyznl          n zpu  zny.m.    zpk   \u00168\n"
+ },
+ "segments": [
+  {
+   "seed": 50363000,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPfr\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b#levelchange\n20\n                   \u0017wand of digging\n\u0017wand of fire\n\u0007lichen\n\u0007dwarf\nzik zh>   zh> zh> zik  zh> 20szh> zik zh> .\u001620\n\u0017spellbook of sleep\nrj.\u0007kobold shaman\n\u0007aligned cleric\nnZa\nZa\nZa\n20s   .m.Za\n .m. sm.   n Za\n 20s   .m. Za\nZa\n 20s sm.Za\nZa\nZa\n\u0007aligned cleric\nn\u0007kobold shaman\n\u0017wand of magic missile\nzkj   n zky  zkk   zkk  .m. sh sm.  \u0017spellbook of magic missile\nrl  .m.\u0017blessed spellbook of force bolt\n rm   n  sk \u0007orc shaman\nZa\nZa\nsm.20s  Za\nZa\nZa\nsl  20s #turn\n\u0017wand of polymorph\n\u0017wand of magic missile\n\u0017wand of sleep\n\u0007sewer rat\n\u0007lichen\n\u0007acid blob\nzpy    20s    n  zou   znn   sbznyznl          n zpu  zny.m.    zpk   \u00168\n"
+  }
+ ]
+}

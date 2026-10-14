@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                    \u0016?\n>Du\u0017scroll of earth\nro  njjjjjk\u0017scroll of earth\nrp l10s\u0017wand of digging\nzqhh \u0017wand of striking\nzrn  Fb Fb 10s  Fy   lFjFj   yny   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50351003,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                    \u0016?\n>Du\u0017scroll of earth\nro  njjjjjk\u0017scroll of earth\nrp l10s\u0017wand of digging\nzqhh \u0017wand of striking\nzrn  Fb Fb 10s  Fy   lFjFj   yny   y y y\u001b  F"
+  }
+ ]
+}

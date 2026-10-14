@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#jump\n#chat\ny O>p\u001b\nlu uj ll h\u001b\u0017altar\ndbdd\u0017newt corpse\n#offer\nf   #pray\ny y : jb\u0017pool\nj\u0017chaotic altar\nde\u0017dwarf corpse\n #offer\ng   #pray\ny y Zdcr\u001b#twoweapon\ncj FyFuk FjFkFhFkFuFjFyFlh FlFuFlFkFjFuFjFbFbFuFlFlFuFbFub FbFkb FkFyFyFkFyFbFjFbFuk FhFjFhFlFlFuFhFuFlFlFuFlFlFyFly FjFlFyFbFyFjFlFlFuFhFhFlFkFhFbFbFlFbFlb FhFlFkFuFuFuFhFkFuFyFyFuFkFuFuFjFjFhFlFkFuFyFku FjFlFjFjFjFlFuFbFjFbFh\u001bFkFkFlFuFlFhFkFkFlFbFlh FkFlFyFku Fh\u0007kitten\n\u0017banana\nt\u001b\u0007tame pony\n\u0006_ \u001b:>FyFb_>.Fb_,  Fy>FyFln _>.Fh_,Fl>FlFl\u0007giant rat\nsm. sm.   .jsm.  sh\u001b.m. #name\n\u001b\u0007giant rat\nsjsm.sm. .m.  .m. sly \u0017leash\naih jkk ylh aik \u0007kobold\n.m.snss20s   sm.\u0006_"
+ },
+ "segments": [
+  {
+   "seed": 50359030,
+   "datetime": "20120726183942",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"You miss\"\n",
+   "moves": "#jump\n#chat\ny O>p\u001b\nlu uj ll h\u001b\u0017altar\ndbdd\u0017newt corpse\n#offer\nf   #pray\ny y : jb\u0017pool\nj\u0017chaotic altar\nde\u0017dwarf corpse\n #offer\ng   #pray\ny y Zdcr\u001b#twoweapon\ncj FyFuk FjFkFhFkFuFjFyFlh FlFuFlFkFjFuFjFbFbFuFlFlFuFbFub FbFkb FkFyFyFkFyFbFjFbFuk FhFjFhFlFlFuFhFuFlFlFuFlFlFyFly FjFlFyFbFyFjFlFlFuFhFhFlFkFhFbFbFlFbFlb FhFlFkFuFuFuFhFkFuFyFyFuFkFuFuFjFjFhFlFkFuFyFku FjFlFjFjFjFlFuFbFjFbFh\u001bFkFkFlFuFlFhFkFkFlFbFlh FkFlFyFku Fh\u0007kitten\n\u0017banana\nt\u001b\u0007tame pony\n\u0006_ \u001b:>FyFb_>.Fb_,  Fy>FyFln _>.Fh_,Fl>FlFl\u0007giant rat\nsm. sm.   .jsm.  sh\u001b.m. #name\n\u001b\u0007giant rat\nsjsm.sm. .m.  .m. sly \u0017leash\naih jkk ylh aik \u0007kobold\n.m.snss20s   sm.\u0006_"
+  }
+ ]
+}

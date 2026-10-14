@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed Mjollnir\nwn \u0017blessed amulet of reflection\nPo\u001641\n  _ \u001b@.>s\u001628\n#levelchange\n30\n\u0017blessed spellbook of detect monsters\nrp 20s \u001b\u0017blessed spellbook of wizard lock\nrq .\u0017spellbook of confuse monster\nrr 20s\u0017spellbook of teleport away\nrs .+\u001bZd\nZa\n.Zc\nZ\u0007 Zf\n \u0007lichen\nZb\n#turn\n#enhance\nyj\nm\n\u001b20s\u001628\n#chat\nk;k;\u001625\n\u0017blessed spellbook of invisibility\nrt s\u0017spellbook of polymorph\nru.+\u001b\u0007grid bug\nZ\u001bZ\u001b\u0007lichen\nZ\u001bZ\u001bZ\u001bFl#pray\ny y      .20s \u0016?\nmkjk: s\u001628\n#levelchange\n12\n      \u00173 spellbook of fireball\n\u0007umber hulk\nrv..Zf\n n Zc\nFk Fy \u00173 wand of fire\nzwy  nzwy\u0017potion of full healing\n qx \u00173 scroll of stinking cloud\n ry  ,      \u0017long sword\n\u0007energy vortex\nwz  s   Fk      n       Fl    s   s    \u00165\n\u0016?\n>u#chat\nb;<..s\u0016?\ng _<,\u0016?\n>G\u0017gauntlets of fumbling\nW\u001b\u001b20sss\u0007trapper\n#chat\nlFlFl\u0007ettin\nFl FjFkFk\u0007ape\n.20s s\u001b20s\u001bs sm.\u0007crocodile\n;l:  sh.k20s  n \u001628\n_{,<s20s.\u001641\n  hn:\u001624\n_>.<\u00166\n__.<\u00167\n_<,<\u0016?\n>>L     amulet of reflection\nh   l      n    n     u     n     yuh: s\u001b\u00168\n\u001641\n\u0007scorpion\ns20s  ..20s  20s \u001b\u0007energy vortex\nFj   n       Fk        Fj    n                 n \u0007sewer rat\nFk       Fj      n  Fj   Fj      Fj  n         \u0007Oracle\ny#chat\nuFb        n        Fu     \u00161\n\u0016?\nd k     n  b       n  h   b    n    j     n   yy\u001by  ny n  u"
+ },
+ "segments": [
+  {
+   "seed": 50350032,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed Mjollnir\nwn \u0017blessed amulet of reflection\nPo\u001641\n  _ \u001b@.>s\u001628\n#levelchange\n30\n\u0017blessed spellbook of detect monsters\nrp 20s \u001b\u0017blessed spellbook of wizard lock\nrq .\u0017spellbook of confuse monster\nrr 20s\u0017spellbook of teleport away\nrs .+\u001bZd\nZa\n.Zc\nZ\u0007 Zf\n \u0007lichen\nZb\n#turn\n#enhance\nyj\nm\n\u001b20s\u001628\n#chat\nk;k;\u001625\n\u0017blessed spellbook of invisibility\nrt s\u0017spellbook of polymorph\nru.+\u001b\u0007grid bug\nZ\u001bZ\u001b\u0007lichen\nZ\u001bZ\u001bZ\u001bFl#pray\ny y      .20s \u0016?\nmkjk: s\u001628\n#levelchange\n12\n      \u00173 spellbook of fireball\n\u0007umber hulk\nrv..Zf\n n Zc\nFk Fy \u00173 wand of fire\nzwy  nzwy\u0017potion of full healing\n qx \u00173 scroll of stinking cloud\n ry  ,      \u0017long sword\n\u0007energy vortex\nwz  s   Fk      n       Fl    s   s    \u00165\n\u0016?\n>u#chat\nb;<..s\u0016?\ng _<,\u0016?\n>G\u0017gauntlets of fumbling\nW\u001b\u001b20sss\u0007trapper\n#chat\nlFlFl\u0007ettin\nFl FjFkFk\u0007ape\n.20s s\u001b20s\u001bs sm.\u0007crocodile\n;l:  sh.k20s  n \u001628\n_{,<s20s.\u001641\n  hn:\u001624\n_>.<\u00166\n__.<\u00167\n_<,<\u0016?\n>>L     amulet of reflection\nh   l      n    n     u     n     yuh: s\u001b\u00168\n\u001641\n\u0007scorpion\ns20s  ..20s  20s \u001b\u0007energy vortex\nFj   n       Fk        Fj    n                 n \u0007sewer rat\nFk       Fj      n  Fj   Fj      Fj  n         \u0007Oracle\ny#chat\nuFb        n        Fu     \u00161\n\u0016?\nd k     n  b       n  h   b    n    j     n   yy\u001by  ny n  u"
+  }
+ ]
+}

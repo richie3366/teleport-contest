@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " hhuylnhtbh10stdn10s#untrap\njyaNNBY_ \u001b>.>Fn.Fl ,10sYBBB_>,>Fhs20sHJLJ_>.>NYBK_>.>J__..LUHK_>.><#conduct\n \u000f\u001b_m.20sl\u000f\u001b50sluynkl100sjby50sFnFnFn100sunujju100s150s100sFn20sFj100s#terrain\nb\n_>100s 100sFjFjswbi\u001b100s#ride\n.\u0018\u001b100s50s#invoke\n\u001b\u001bllk100sFjs20shhlch100s100sFjFj.100s50sFjFjFjFj.sJBKL_>.>KJBB_>,>FhFyFhKYYL_>,>\u0018\u001bWHYJY_>.>LUBH_>,>LNKJ_>,>#terrain\nc\n,#ride\nlubyu20snhuy#chat\nb#name\nm\n#chat\n<.ubjklbjkubef_>.>kuj150s100sFyFy20sFy20s20s150sFkFkFkFkss100sFjFj.100s150sFjs.bnbZ:hkhFhs20s100s100sFhFhFh\u000f\u001b:100si\u001b50s_>.>150sFhFhFh#untrap\nh_>,>\u0018\u001b\\  150sFhFhFhllk100s_>.>_m.sef  #conduct\n JLBK_>.><BNUH_>,>HKNN_>.>HBNJ_>.>JKKU_>.>\u000f\u001bKYLL_>,>Y LUH_>,>UBYJ_>.>KJHN_>,>yyhl#chat\ny#name\nm\n10sBKKN_>.><HHBL_>.>wb#conduct\n UJJN_>.>UUY N_>,>#monster\nP:150sFjFj20s\\  150sFysskbui\u001b,oj_>.>100sFhFjFhFjFhFhFbFhFbFhFhFh\u0018\u001bykb\u0018\u001b\u000f\u001b150s\u000f\u001b#turn\n100sFns20shlh100s50sFy20sFlFlFlFlFl.s#chat\nj50shhh_>.>100sFbFb._>.20s\u0018\u001bbbhFls.q#ride\ny#dip\nckyn#rub\n>#enhance\n\u001b_>.>\u0018\u001b_>.>_>.>bll_>.>100s100suklFhFhFh100s150s100sFhss100s100s_>,>lhl\u0018\u001b#offer\nlhl100s150sFl20sss100sFkss100s lhlFhFhs100s\u0018\u001b100"
+ },
+ "segments": [
+  {
+   "seed": 50350003,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=!verbose\nOPTIONS=fruit:slime mold\n",
+   "moves": " hhuylnhtbh10stdn10s#untrap\njyaNNBY_ \u001b>.>Fn.Fl ,10sYBBB_>,>Fhs20sHJLJ_>.>NYBK_>.>J__..LUHK_>.><#conduct\n \u000f\u001b_m.20sl\u000f\u001b50sluynkl100sjby50sFnFnFn100sunujju100s150s100sFn20sFj100s#terrain\nb\n_>100s 100sFjFjswbi\u001b100s#ride\n.\u0018\u001b100s50s#invoke\n\u001b\u001bllk100sFjs20shhlch100s100sFjFj.100s50sFjFjFjFj.sJBKL_>.>KJBB_>,>FhFyFhKYYL_>,>\u0018\u001bWHYJY_>.>LUBH_>,>LNKJ_>,>#terrain\nc\n,#ride\nlubyu20snhuy#chat\nb#name\nm\n#chat\n<.ubjklbjkubef_>.>kuj150s100sFyFy20sFy20s20s150sFkFkFkFkss100sFjFj.100s150sFjs.bnbZ:hkhFhs20s100s100sFhFhFh\u000f\u001b:100si\u001b50s_>.>150sFhFhFh#untrap\nh_>,>\u0018\u001b\\  150sFhFhFhllk100s_>.>_m.sef  #conduct\n JLBK_>.><BNUH_>,>HKNN_>.>HBNJ_>.>JKKU_>.>\u000f\u001bKYLL_>,>Y LUH_>,>UBYJ_>.>KJHN_>,>yyhl#chat\ny#name\nm\n10sBKKN_>.><HHBL_>.>wb#conduct\n UJJN_>.>UUY N_>,>#monster\nP:150sFjFj20s\\  150sFysskbui\u001b,oj_>.>100sFhFjFhFjFhFhFbFhFbFhFhFh\u0018\u001bykb\u0018\u001b\u000f\u001b150s\u000f\u001b#turn\n100sFns20shlh100s50sFy20sFlFlFlFlFl.s#chat\nj50shhh_>.>100sFbFb._>.20s\u0018\u001bbbhFls.q#ride\ny#dip\nckyn#rub\n>#enhance\n\u001b_>.>\u0018\u001b_>.>_>.>bll_>.>100s100suklFhFhFh100s150s100sFhss100s100s_>,>lhl\u0018\u001b#offer\nlhl100s150sFl20sss100sFkss100s lhlFhFhs100s\u0018\u001b100"
+  }
+ ]
+}

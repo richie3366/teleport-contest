@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed ring of free action\nPkl\u0017blessed +3 speed boots\nWl\u0007black dragon\n\u0007red dragon\n20ssj  n #polyself\nred dragon\n    #monster\nsm. sn#monster\n#monster\nFk  Fl  \u00169\n\u0017spellbook of light\nrm \u001bm, \u001bs\u0007incubus\nZb\nsl20sZa\nsm. 20s Za\nZb\nZa\nZb\nZb\nZb\n\u0017blessed spellbook of magic missile\nrn sy \u0017blessed spellbook of finger of death\nro sm.\u0007incubus\nZa\n  Za\nZb\n.m. sbZb\nZb\nZb\nsm.  shZa\nZb\n.m. 20s  Zb\nZa\n#turn\n       n \u0007baby red dragon\n.m.   n20s 20s  n  #polyself\nsilver dragon\n  sm.    sm. #monster\n#monster\n#monster\n#monster\n\u0017wand of magic missile\naFl    Fl  \u00167\n\u0007black dragon\nsj  sm.      20s sj    #polyself\nblack dragon\n sn    .h #monster\n#monster\n#monster\n#monster\nFn    Fl    \u0007aligned cleric\ny\u0007succubus\n\u0017wand of fire\nzs"
+ },
+ "segments": [
+  {
+   "seed": 50363011,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed ring of free action\nPkl\u0017blessed +3 speed boots\nWl\u0007black dragon\n\u0007red dragon\n20ssj  n #polyself\nred dragon\n    #monster\nsm. sn#monster\n#monster\nFk  Fl  \u00169\n\u0017spellbook of light\nrm \u001bm, \u001bs\u0007incubus\nZb\nsl20sZa\nsm. 20s Za\nZb\nZa\nZb\nZb\nZb\n\u0017blessed spellbook of magic missile\nrn sy \u0017blessed spellbook of finger of death\nro sm.\u0007incubus\nZa\n  Za\nZb\n.m. sbZb\nZb\nZb\nsm.  shZa\nZb\n.m. 20s  Zb\nZa\n#turn\n       n \u0007baby red dragon\n.m.   n20s 20s  n  #polyself\nsilver dragon\n  sm.    sm. #monster\n#monster\n#monster\n#monster\n\u0017wand of magic missile\naFl    Fl  \u00167\n\u0007black dragon\nsj  sm.      20s sj    #polyself\nblack dragon\n sn    .h #monster\n#monster\n#monster\n#monster\nFn    Fl    \u0007aligned cleric\ny\u0007succubus\n\u0017wand of fire\nzs"
+  }
+ ]
+}

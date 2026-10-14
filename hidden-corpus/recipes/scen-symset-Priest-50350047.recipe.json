@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "Oj\u001b\nO>>>>j\u001b\n\u0007tame hill orc\n\u0007kitten\n\u0017meatball\nt\u001bdjsk .m. .m.  \u0017magic whistle\nl  n ykal   \u0017lichen corpse\nt\u001bdl20ss.\u0017leash\nanykl yyank\u0017leash\naouhkylaok#name\nd\n\u0007gnome\n.m.20s    .m. sm. sm.  n 20s   \u001610\n  v i\u001b10s P\u000f\u001bt\u001b\u0006_ \u001b.>FlFu _>>.Fn_.> \u0006_>. Fj _.Fj>_>.Fl _.Fy > #offer\ncj\u0006_>. Fn              _.       n  Fn       >Fn  Fl    n   n _>,    n Fl      n _.    n Fn     n  n  >Fu   n  n Fn   n   n _>,  n Fn      yy\u001by  y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50350047,
+   "datetime": "20131115031901",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "Oj\u001b\nO>>>>j\u001b\n\u0007tame hill orc\n\u0007kitten\n\u0017meatball\nt\u001bdjsk .m. .m.  \u0017magic whistle\nl  n ykal   \u0017lichen corpse\nt\u001bdl20ss.\u0017leash\nanykl yyank\u0017leash\naouhkylaok#name\nd\n\u0007gnome\n.m.20s    .m. sm. sm.  n 20s   \u001610\n  v i\u001b10s P\u000f\u001bt\u001b\u0006_ \u001b.>FlFu _>>.Fn_.> \u0006_>. Fj _.Fj>_>.Fl _.Fy > #offer\ncj\u0006_>. Fn              _.       n  Fn       >Fn  Fl    n   n _>,    n Fl      n _.    n Fn     n  n  >Fu   n  n Fn   n   n _>,  n Fn      yy\u001by  y y y\u001by  _"
+  }
+ ]
+}

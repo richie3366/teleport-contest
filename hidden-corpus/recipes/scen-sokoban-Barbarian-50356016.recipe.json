@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>Eynkyu\u0017wand of striking\nzel\u0017wand of digging\nzfjn\u0017wand of digging\nzghn\u0017wand of striking\nzhh\u0017wand of digging\nzij\u0017wand of digging\nzjk\u0017scroll of earth\nrk   yy\u001by  ny\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50356016,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:walk\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>Eynkyu\u0017wand of striking\nzel\u0017wand of digging\nzfjn\u0017wand of digging\nzghn\u0017wand of striking\nzhh\u0017wand of digging\nzij\u0017wand of digging\nzjk\u0017scroll of earth\nrk   yy\u001by  ny\u001b  F"
+  }
+ ]
+}

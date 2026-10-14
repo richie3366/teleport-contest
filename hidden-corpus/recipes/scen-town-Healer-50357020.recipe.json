@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>w\u0006\u0017blessed potion of object detection\nql \u001b;_dd.   _.\u0004h_oo._.,p_ooo._,,:_mmm.#chat\nj#force\n#offer\nW\u0016?\n>w\u0006\u0017blessed potion of object detection\nqm@._ooo._,_o._.Fj,:_ooooo.Fj_.,p_ooooo.Fj_.Fj,#chat\nj_ooooooooo,Fj_.Fb_o,Fb_.Fb  n,p_ooooooooo,Fh_.Fh_oo.Fh_,Fh,p_d.Fh  yy\u001by  y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50357020,
+   "datetime": "20201020124154",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>w\u0006\u0017blessed potion of object detection\nql \u001b;_dd.   _.\u0004h_oo._.,p_ooo._,,:_mmm.#chat\nj#force\n#offer\nW\u0016?\n>w\u0006\u0017blessed potion of object detection\nqm@._ooo._,_o._.Fj,:_ooooo.Fj_.,p_ooooo.Fj_.Fj,#chat\nj_ooooooooo,Fj_.Fb_o,Fb_.Fb  n,p_ooooooooo,Fh_.Fh_oo.Fh_,Fh,p_d.Fh  yy\u001by  y y y\u001by  _"
+  }
+ ]
+}
