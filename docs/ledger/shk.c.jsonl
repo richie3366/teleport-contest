@@ -48,7 +48,7 @@
 {"fn":"sortbill_cmp","c":"1499-1518","status":"ported","js":["js/shk.js:sortbill_cmp"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cheapest_item","c":"1522-1539","status":"ported","js":["js/shk.js:cheapest_item"],"d":["D-3406","D-1688"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"make_itemized_bill","c":"1545-1663","status":"ported","js":["js/shk.js:make_itemized_bill"],"at":"2026-10-03@bbe63333a"}
-{"fn":"menu_pick_pay_items","c":"1668-1739","status":"ported","js":["js/shk.js:menu_pick_pay_items"],"at":"2026-10-03@bbe63333a"}
+{"fn":"menu_pick_pay_items","c":"1668-1739","status":"ported","js":["js/shk.js:menu_pick_pay_items"],"d":["D-3969"],"at":"2026-10-14@467971cb0"}
 {"fn":"dopay","c":"1743-2035","status":"ported","js":["js/shk.js:dopay"],"d":["D-1716","D-1704"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pay_billed_items","c":"2045-2167","status":"ported","js":["js/shk.js:pay_billed_items"],"d":["D-1715"],"at":"2026-10-03@bbe63333a"}
 {"fn":"update_bill","c":"2171-2211","status":"ported","js":["js/shk.js:update_bill"],"at":"2026-10-03@bbe63333a"}
