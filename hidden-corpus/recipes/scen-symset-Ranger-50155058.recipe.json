@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " FkFuFlFnFuk FjFkFuFlFjFnFkk FkFnFku FkFnFln FlFnFln FlFkFuFnFnFkFuFjFuFkFjFlFnFkk FjFnFll FkFkFnFjFlFkFlFlFjFnFun FnFkl FjFnFuj FlFkFuFuFjFnFjFnFjFnFun FjFlFjFkFuFnFlu FuFjFnFlk FnFlj FnFll FjFnFjFlFkFjFkFuFuFkFnFuj FkFnFkl FkFjFuFnFlj FlFkFuFnFun FuFnFlk FkFkFlFkFnFkn FjFjFjFkFjFk\u0006_ \u001b.>FkFn_>FkFj_>.Fb_.Fy>FbFbFkFhFj\u0006_>,Fy_.Fj>FjFk_>,Fh_.Fj>FjFy_>.Fb_.Fj>FbFyFjFyFj\u0006_>.Fy_.Fh\u001b>FhFb_>,Fy_,Fy>FhFh_>.Fj_.Fy>FjFbFh\u001bFkFj\u0006_>,Fj_.Fb>FjFy_>.Fy_.Fj>FkFj_>,Fy_,Fy>FkFhFjFhFk\u000f\u001b\u0006_>.Fj_,Fb>FjFy_>.Fy_.Fj>FyFj_>.Fh_.Fb>FbFh\u001bFhFbFb:#sit\n\u001b\u0006_>.Fk_.Fh>FbFkj _>.Fy_.Fj>FbFh\u001b_>,Fk_.Fh>FbFkj FbFbFh<\u0006_>>.Fk_,Fy>FjFb_>>.Fh\u001b_,Fy>FbFh\u001b_>>,Fb_,Fy>FyFkh FbFjFy\u0006_>>.Fj_,Fb>FkFj_>>,Fy_,Fh\u001b>FjFk_>>.Fj_.Fj>FbFkh FkFyFb<\u0006_>,Fb_,Fj>FjFj_>.Fb_,Fj>FyFy_>,Fb_.Fh\u001b>FyFjFhFjFj\u00161\n\u0006_>>.Fh_.Fj>FjFb_>>.Fj_,Fh>FhFj_>>.Fy_,Fkb >FhFbFbFyFj\u0006_>,"
+ },
+ "segments": [
+  {
+   "seed": 50155058,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=number_pad:3\n",
+   "moves": " FkFuFlFnFuk FjFkFuFlFjFnFkk FkFnFku FkFnFln FlFnFln FlFkFuFnFnFkFuFjFuFkFjFlFnFkk FjFnFll FkFkFnFjFlFkFlFlFjFnFun FnFkl FjFnFuj FlFkFuFuFjFnFjFnFjFnFun FjFlFjFkFuFnFlu FuFjFnFlk FnFlj FnFll FjFnFjFlFkFjFkFuFuFkFnFuj FkFnFkl FkFjFuFnFlj FlFkFuFnFun FuFnFlk FkFkFlFkFnFkn FjFjFjFkFjFk\u0006_ \u001b.>FkFn_>FkFj_>.Fb_.Fy>FbFbFkFhFj\u0006_>,Fy_.Fj>FjFk_>,Fh_.Fj>FjFy_>.Fb_.Fj>FbFyFjFyFj\u0006_>.Fy_.Fh\u001b>FhFb_>,Fy_,Fy>FhFh_>.Fj_.Fy>FjFbFh\u001bFkFj\u0006_>,Fj_.Fb>FjFy_>.Fy_.Fj>FkFj_>,Fy_,Fy>FkFhFjFhFk\u000f\u001b\u0006_>.Fj_,Fb>FjFy_>.Fy_.Fj>FyFj_>.Fh_.Fb>FbFh\u001bFhFbFb:#sit\n\u001b\u0006_>.Fk_.Fh>FbFkj _>.Fy_.Fj>FbFh\u001b_>,Fk_.Fh>FbFkj FbFbFh<\u0006_>>.Fk_,Fy>FjFb_>>.Fh\u001b_,Fy>FbFh\u001b_>>,Fb_,Fy>FyFkh FbFjFy\u0006_>>.Fj_,Fb>FkFj_>>,Fy_,Fh\u001b>FjFk_>>.Fj_.Fj>FbFkh FkFyFb<\u0006_>,Fb_,Fj>FjFj_>.Fb_,Fj>FyFy_>,Fb_.Fh\u001b>FyFjFhFjFj\u00161\n\u0006_>>.Fh_.Fj>FjFb_>>.Fj_,Fh>FhFj_>>.Fy_,Fkb >FhFbFbFyFj\u0006_>,"
+  }
+ ]
+}

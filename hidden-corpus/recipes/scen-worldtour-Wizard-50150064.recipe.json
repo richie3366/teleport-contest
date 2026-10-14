@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u0017blessed +3 speed boots\nWp\u001618\nlyk:ss.\u0016?\nm\u0014 \u001b:,\u001618\nyj:s20s.\u001618\n\u0006_>._.\u001618\n\u0014.;;\u00169\n\u0014>.\u0016?\n>>Q\u0006_>.\u0016?\nn kny nyjk:snsm.\u0016?\n>>M      potion of restore ability\n u u   u       y   n  j : \u001618\n_>,\u0016?\nch  h         \u0017wand of digging\nEr ad aerarium\n   n       : \u0017wand of speed monster\nE\u0017wand of enlightenment\nE\u0017wand of magic missile\nE: b  20s       n     20s \u00167\n\u0016?\ne b     n      l k  n nk  n    n :\u00166\n\u001618\n#levelchange\n6\n    \u0017orcish bow\nwv     n   n  \u001720 orcish arrows\nQw\u0007acid blob\nh   n    n fh  n    n   n  fh   n    yy\u001by  y y\u001b  f"
+ },
+ "segments": [
+  {
+   "seed": 50150064,
+   "datetime": "20251128173915",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=!verbose\nOPTIONS=fruit:mango\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                    \u0017blessed +3 speed boots\nWp\u001618\nlyk:ss.\u0016?\nm\u0014 \u001b:,\u001618\nyj:s20s.\u001618\n\u0006_>._.\u001618\n\u0014.;;\u00169\n\u0014>.\u0016?\n>>Q\u0006_>.\u0016?\nn kny nyjk:snsm.\u0016?\n>>M      potion of restore ability\n u u   u       y   n  j : \u001618\n_>,\u0016?\nch  h         \u0017wand of digging\nEr ad aerarium\n   n       : \u0017wand of speed monster\nE\u0017wand of enlightenment\nE\u0017wand of magic missile\nE: b  20s       n     20s \u00167\n\u0016?\ne b     n      l k  n nk  n    n :\u00166\n\u001618\n#levelchange\n6\n    \u0017orcish bow\nwv     n   n  \u001720 orcish arrows\nQw\u0007acid blob\nh   n    n fh  n    n   n  fh   n    yy\u001by  y y\u001b  f"
+  }
+ ]
+}

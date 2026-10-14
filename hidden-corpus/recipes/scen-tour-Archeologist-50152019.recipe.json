@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u001623\n#untrap\nb\u0004b    10s;b: \u001b<.\u0006.m..\u001621\n,#invoke\n\u001b#pray\ny y;_.20s .\u0016?\n>H#ride\n.yckdd;_.ss\u001613\n#dip\ne eae  y20s20s"
+ },
+ "segments": [
+  {
+   "seed": 50152019,
+   "datetime": "20020422003713",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u001623\n#untrap\nb\u0004b    10s;b: \u001b<.\u0006.m..\u001621\n,#invoke\n\u001b#pray\ny y;_.20s .\u0016?\n>H#ride\n.yckdd;_.ss\u001613\n#dip\ne eae  y20s20s"
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0007nurse\nFhFlFh   nFlFlFlFlFlFlFlFlFlFlFl  nFlFlFlFlFl  nFlFlFlFlFlFlukjynu#chat\nh10s10s#name\n\u001bhFhFhFh FhFhFhFhFhybbhdi.sst\u001bbylj#chat\nj10s10s20shlkhFjFjFjFjFjFjFjFjBUKH_ \u001b@.>YLNN_>,>#jump\n>YKYY_>.>20s#monster\nLHJB_>.>FksFn #invoke\n\u001b#monster\n\u000f\u001bUJKY_:#quit\nyy\u001by  y y y\u001b  dhcks20s20s#name\na\n#name\ni\nfoo\nby h  kubh#chat\nl20sdf20s.m.sltilbnyk20sdc..sdbeg s20s20suuhb10skhn100s50s50slnn100sFhFhFh150s50sFj.._ \u001b,>50s50sllk50s50sFh.20sbuni\u001b100sknj100sFhFhFhFh20ssuuh>50s50s 100s_>.>_:#quit\nyy\u001by  y y y\u001b  \u0017wand of digging\nzf> 20s zf> szf> szf>  szf>  20s  zf> 20sFlFj ..20sFhFhs..FlFlFlFlFlFlFlFlbhhk #chat\nujl20sdas20ssltbbbFk FkFkFkFkFkFkFkUHJN_ \u001b:>HLBN_>.>HJUU_>.>i\u001b#ride\nuBNYH_>.>JNYB_>,>\u000f\u001b10s20s #name\no\n#name\nf\n#name\nm,tdu#chat\nkllFkFkFkFkFkFkFkFkhylyljnuJYHJ_>,>BBUY_>.>HHHN_>.>FjssHUJN_>,>Fl.s\u0004n#tip\n\u001bYJUK_>.>NLHB_>,>LKNU_>.>FhFy20s20s #name\n\u001b20s20sdfs20ssblFbF#quit\n #chat\ny10s10s#chat\nlt\u001bkdb20s20s20sFl FlFlFlFlFlFlFl100s 100sFlFlFl100s100si\u001b\u0018\u001bnly\\ 50s100sFlss\u0018\u001b>50s>_ \u001b:>\u000f\u001b150s50sFl.s50s150s100sFhFhs_>,>hkh150s 100s50sFhss50s100sFlFlFhFhFhFhFhFhFh150s150sFlFl20s150snbhut\u001b#chat\nhyn20s20s10sjujylhylhjbhjdh.sskbkj10st\u001b#name\na\nt\u001buhkndb20s20ssm.dc.ksm.#quit\nyy\u001by  y y y\u001b   jlhhNJBB_ \u001bm,>FhFj s#jump\n>LLYN_>.>NJNB_>.>HUKN_>.>#sit\n\u001b\u000f\u001b10s#name\nf\nkkllhbjk20snbyhlnkb150s bul\u000f\u001b100s_>.>#untrap\nu_>,>150sFlFlFlFl20ss_>.>kb#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50160005,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007nurse\nFhFlFh   nFlFlFlFlFlFlFlFlFlFlFl  nFlFlFlFlFl  nFlFlFlFlFlFl"
+  },
+  {
+   "seed": 50260005,
+   "datetime": "20180719135719",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\n",
+   "moves": "ukjynu#chat\nh10s10s#name\n\u001bhFhFhFh FhFhFhFhFhybbhdi.sst\u001bbylj#chat\nj10s10s20shlkhFjFjFjFjFjFjFjFjBUKH_ \u001b@.>YLNN_>,>#jump\n>YKYY_>.>20s#monster\nLHJB_>.>FksFn #invoke\n\u001b#monster\n\u000f\u001bUJKY_:#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50360005,
+   "datetime": "20241117113154",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\n",
+   "moves": " dhcks20s20s#name\na\n#name\ni\nfoo\nby h  kubh#chat\nl20sdf20s.m.sltilbnyk20sdc..sdbeg s20s20suuhb10skhn100s50s50slnn100sFhFhFh150s50sFj.._ \u001b,>50s50sllk50s50sFh.20sbuni\u001b100sknj100sFhFhFhFh20ssuuh>50s50s 100s_>.>_:#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50460005,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of digging\nzf> 20s zf> szf> szf>  szf>  20s  zf> 20sFlFj ..20sFhFhs.."
+  },
+  {
+   "seed": 50560005,
+   "datetime": "20170420185746",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\n",
+   "moves": "FlFlFlFlFlFlFlFlbhhk #chat\nujl20sdas20ssltbbbFk FkFkFkFkFkFkFkUHJN_ \u001b:>HLBN_>.>HJUU_>.>i\u001b#ride\nuBNYH_>.>JNYB_>,>\u000f\u001b10s20s #name\no\n#name\nf\n#name\nm,tdu#chat\nkllFkFkFkFkFkFkFkFkhylyljnuJYHJ_>,>BBUY_>.>HHHN_>.>FjssHUJN_>,>Fl.s\u0004n#tip\n\u001bYJUK_>.>NLHB_>,>LKNU_>.>FhFy20s20s #name\n\u001b20s20sdfs20ssblFbF#quit\n"
+  },
+  {
+   "seed": 50660005,
+   "datetime": "20261126210949",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:durian\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": " #chat\ny10s10s#chat\nlt\u001bkdb20s20s20sFl FlFlFlFlFlFlFl100s 100sFlFlFl100s100si\u001b\u0018\u001bnly\\ 50s100sFlss\u0018\u001b>50s>_ \u001b:>\u000f\u001b150s50sFl.s50s150s100sFhFhs_>,>hkh150s 100s50sFhss50s100sFlFlFhFhFhFhFhFhFh150s150sFlFl20s150snbhut\u001b#chat\nhyn20s20s10sjujylhylhjbhjdh.sskbkj10st\u001b#name\na\nt\u001buhkndb20s20ssm.dc.ksm.#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50760005,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "  jlhhNJBB_ \u001bm,>FhFj s#jump\n>LLYN_>.>NJNB_>.>HUKN_>.>#sit\n\u001b\u000f\u001b10s#name\nf\nkkllhbjk20snbyhlnkb150s bul\u000f\u001b100s_>.>#untrap\nu_>,>150sFlFlFlFl20ss_>.>kb#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017the Staff of Aesculapius\n \u0017axe\nwiFkFk20sX20s20s\u0017cursed credit card\najy\u0017scroll of fire\nrk .s\u0017cursed bag of holding\nals\nals\n#tip\nlf\nss\u0017cursed wand of nothing\n\u0007vampire lord\nzmmzFyFysn20s"
+ },
+ "segments": [
+  {
+   "seed": 50158022,
+   "datetime": "20220714041153",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017the Staff of Aesculapius\n \u0017axe\nwiFkFk20sX20s20s\u0017cursed credit card\najy\u0017scroll of fire\nrk .s\u0017cursed bag of holding\nals\nals\n#tip\nlf\nss\u0017cursed wand of nothing\n\u0007vampire lord\nzmmzFyFysn20s"
+  }
+ ]
+}

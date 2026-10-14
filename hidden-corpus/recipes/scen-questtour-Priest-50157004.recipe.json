@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nh_mmm.Fk_,  nFh#chat\nh_mm.Fh_,Fn#chat\nu#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.Fj_,#chat\nj_mm,Fh_,#chat\nh;j,_mmmm.Fk _.Fl #chat\ny;k,\u0017blessed ring of free action\nPir \u0017blessed +3 speed boots\nWj  \u0017blessed Mjollnir\nwk   n\u0017wand of death\n\u0016?\n>A\u0006_mmm,Fy _.FbFb Fk Fn ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,Fh _.;<.Fy Fb Fh Fn  Fy Fl Fh,#chat\nh\u0016?\n>z\u0006_mmmmmm.Fh Fy Fh 20szln,#chat\ny\u0016?\n>A\u0006_mmmm,20s.s.,#chat\nj\u0016?\n>A\u0006_mmmm..20s20s..Flzll,\u0016?\n>>\u001b\u0016?\n>y_m.Fl _,#chat\nu;u.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,Fu_.Fu .20s.,\u0016?\n>z\u0006_mmmmmmm.Fl  _,FlFl sss20s.,\u0016?\n>A\u0006_mmmm..ss.FhFh,#chat\nh\u0016?\n>A\u0006_mmmm,Fh 20ss20sFhzlh,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.Fh 20s20s20s,\u0016?\n>z\u0006_mm,..20sss,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nl;m.\u0016?\n>A\u0006_mmmmm.ssss,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nl;.\u0016?\n>A\u0006_mmm.20ss..zly,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm....s20ss,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nb\u0016?\n>z\u0006_mm.20ss20s20s.szl,\u0016?\n>A\u0006_mmmmmmm.Fh _.FhFh .szl,\u0016?\n>A\u0006_mmmmmm.sss20szl,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,s.20s20ss,\u0016?\n>z\u0006_mmmmm..s..s20ss,\u0016?\n>A\u0006_mmm.ss.s,\u0016?\n>A\u0006_mmmmm,ss.s.,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,ssss..zl,#chat\nh\u0016?\n>z\u0006_mmmmmmm. Fl_.>.FlFl s.20s,\u0016?"
+ },
+ "segments": [
+  {
+   "seed": 50157004,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nh_mmm.Fk_,  nFh#chat\nh_mm.Fh_,Fn#chat\nu#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.Fj_,#chat\nj_mm,Fh_,#chat\nh;j,_mmmm.Fk _.Fl #chat\ny;k,\u0017blessed ring of free action\nPir \u0017blessed +3 speed boots\nWj  \u0017blessed Mjollnir\nwk   n\u0017wand of death\n\u0016?\n>A\u0006_mmm,Fy _.FbFb Fk Fn ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,Fh _.;<.Fy Fb Fh Fn  Fy Fl Fh,#chat\nh\u0016?\n>z\u0006_mmmmmm.Fh Fy Fh 20szln,#chat\ny\u0016?\n>A\u0006_mmmm,20s.s.,#chat\nj\u0016?\n>A\u0006_mmmm..20s20s..Flzll,\u0016?\n>>\u001b\u0016?\n>y_m.Fl _,#chat\nu;u.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,Fu_.Fu .20s.,\u0016?\n>z\u0006_mmmmmmm.Fl  _,FlFl sss20s.,\u0016?\n>A\u0006_mmmm..ss.FhFh,#chat\nh\u0016?\n>A\u0006_mmmm,Fh 20ss20sFhzlh,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.Fh 20s20s20s,\u0016?\n>z\u0006_mm,..20sss,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nl;m.\u0016?\n>A\u0006_mmmmm.ssss,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nl;.\u0016?\n>A\u0006_mmm.20ss..zly,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm....s20ss,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nb\u0016?\n>z\u0006_mm.20ss20s20s.szl,\u0016?\n>A\u0006_mmmmmmm.Fh _.FhFh .szl,\u0016?\n>A\u0006_mmmmmm.sss20szl,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,s.20s20ss,\u0016?\n>z\u0006_mmmmm..s..s20ss,\u0016?\n>A\u0006_mmm.ss.s,\u0016?\n>A\u0006_mmmmm,ss.s.,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,ssss..zl,#chat\nh\u0016?\n>z\u0006_mmmmmmm. Fl_.>.FlFl s.20s,\u0016?"
+  }
+ ]
+}

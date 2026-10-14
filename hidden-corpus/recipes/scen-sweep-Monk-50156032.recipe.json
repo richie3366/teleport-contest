@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                      \u00178 rocks\nQ\u001b\u00072 newt\nlf \u001bf \u001bf \u001bf \u001bFb .\u0007gnome lord\nkf \u001bf \u001bf \u001b20sFk \u0007troll\nyhf \u001bf \u001bf \u001b\u0017lance\nwm \u0007jackal\nnam \u001b@.yny,\u001622\n\u0018\u001b#wizintrinsic\ngf\n \u0017blindfold\nan\u0017blessed scroll of taming\nro\u0017cursed scroll of remove curse\nrp\u0017scroll of enchant weapon\nrqZs.s\u0017chest\n\u0017wand of sleep\n\u0017potion of speed\n\u0017wand of enlightenment\n\u0017wand of cancellation\ndr#loot\n,a\nauy dn#loot\n,b\n dry\u0004n\u0017dagger\nwxdv#force\ny 20sssamdc#loot\n,d\n i\u001b\u000f\u001b#levelchange\n20\n\u0017blessed ring of polymorph control\nPyl\u0017mummy wrapping\nW\u001b.  n 20s.#polyself\nfire vortex\n   #monster\ns.\u0007straw golem\n.20s .sss#polyself\nlizard\n s20s\u0007horned devil\nFlFl   Fl    sm.  sysh\u0017potion of polymorph\nqA centipede\n\u0006#levelchange\n20\n \u0017blessed ring of polymorph control\nPB \u0017helm of brilliance\nWC  .m.  .m.  20s   n    T  #polyself\nghost\n trapper\n#monster\nss \u0007red mold\n.  Fn    Fl   n   20s 20s       n sb#polyself\nArchon\n chameleon\n grid bug\n #monster\n.n.m.       .m.     n sm. sm.   #polyself\nearth elemental\n s          n   .u    .m.     n  sm.          n   20s             n   \u0017potion of polymorph\nqD silver dragon\n                          n          \u001614\n\u0006\u00163\n\u0006_>.   n Fj     _,     n  Fj     >   n         Fh  n       Fj      n Fh         y  \u0006"
+ },
+ "segments": [
+  {
+   "seed": 50156032,
+   "datetime": "20040405042808",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                      \u00178 rocks\nQ\u001b\u00072 newt\nlf \u001bf \u001bf \u001bf \u001bFb .\u0007gnome lord\nkf \u001bf \u001bf \u001b20sFk \u0007troll\nyhf \u001bf \u001bf \u001b\u0017lance\nwm \u0007jackal\nnam \u001b@.yny,\u001622\n\u0018\u001b#wizintrinsic\ngf\n \u0017blindfold\nan\u0017blessed scroll of taming\nro\u0017cursed scroll of remove curse\nrp\u0017scroll of enchant weapon\nrqZs.s\u0017chest\n\u0017wand of sleep\n\u0017potion of speed\n\u0017wand of enlightenment\n\u0017wand of cancellation\ndr#loot\n,a\nauy dn#loot\n,b\n dry\u0004n\u0017dagger\nwxdv#force\ny 20sssamdc#loot\n,d\n i\u001b\u000f\u001b#levelchange\n20\n\u0017blessed ring of polymorph control\nPyl\u0017mummy wrapping\nW\u001b.  n 20s.#polyself\nfire vortex\n   #monster\ns.\u0007straw golem\n.20s .sss#polyself\nlizard\n s20s\u0007horned devil\nFlFl   Fl    sm.  sysh\u0017potion of polymorph\nqA centipede\n\u0006#levelchange\n20\n \u0017blessed ring of polymorph control\nPB \u0017helm of brilliance\nWC  .m.  .m.  20s   n    T  #polyself\nghost\n trapper\n#monster\nss \u0007red mold\n.  Fn    Fl   n   20s 20s       n sb#polyself\nArchon\n chameleon\n grid bug\n #monster\n.n.m.       .m.     n sm. sm.   #polyself\nearth elemental\n s          n   .u    .m.     n  sm.          n   20s             n   \u0017potion of polymorph\nqD silver dragon\n                          n          \u001614\n\u0006\u00163\n\u0006_>.   n Fj     _,     n  Fj     >   n         Fh  n       Fj      n Fh         y  \u0006"
+  }
+ ]
+}

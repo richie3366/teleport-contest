@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n10\n         \u00178 rocks\nQby\u0007jackal\nkb fj  fj fl   fuss\u00074 hill orc\nkfl     f by h  f \u001bf \u001bf \u001bFj Fh   \u0017potion of gain ability\nt\u001b\u0007soldier\nu f \u001bf \u001bf \u001bFb    Fj   x     n #twoweapon\nFj    Fh  uh   ny,"
+ },
+ "segments": [
+  {
+   "seed": 50151028,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n10\n         \u00178 rocks\nQby\u0007jackal\nkb fj  fj fl   fuss\u00074 hill orc\nkfl     f by h  f \u001bf \u001bf \u001bFj Fh   \u0017potion of gain ability\nt\u001b\u0007soldier\nu f \u001bf \u001bf \u001bFb    Fj   x     n #twoweapon\nFj    Fh  uh   ny,"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPkl\u0017blessed +3 gray dragon scale mail\nWl\u0017blessed shield of reflection\nWm\u0007black dragon\nsm.s#polyself\nblack dragon\n  20s  sm. #monster\n#monster\n#monster\n#monster\n\u0017wand of lightning\naFl   Fl  \u0018\u001b\u0017blessed spellbook of slow monster\nro  sj\u0007aligned cleric\nnZa\n  n Zb\nZa\nZb\nsjsZc\nZb\nZb\n.m.  n .m.  Zb\n.m.  n    sm.  n  Za\nsm.  n   sl  n \u00165\n\u0007baby red dragon\n\u0007silver dragon\nsm..m.  n     n#polyself\ngold dragon\n #monster\nsm.    .m.  #monster\n#monster\n#monster\nFk  Fj     n\u001610\n\u0017wand of cold\n\u0017wand of polymorph\n\u0007giant rat\nzqkzpkzqyzpnzpy zpj  ns\u0017wand of striking\n\u0017wand of cold\n\u0017wand of lightning\n\u0007troll\n\u0007yellow mold\nzrkztk ztyztj zrh.zsn    n\u00176 eggs\nQ$\u0007gnome lord\n\u0007hobbit\nfkt$n fkfhfhfhfy  n\u001720 darts\nQv\u0007lichen\ntvyfyfytvyfh  n i\u001b\u0017wand of death\n\u0017wand of digging\n\u0007owlbear\n\u0007acid blob\nzx>    zwhzwnszwuzwuzwnzx> s\u00164\n\u0017spellbook of knock\nry.\u0007mind flayer\nZa\nZa\n20s      s  n Za\n  n Zc\ns. Za\nZc\nZb\nZa\n.  n 20s    y\u001b   y  #"
+ },
+ "segments": [
+  {
+   "seed": 50161023,
+   "datetime": "20010102175251",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPkl\u0017blessed +3 gray dragon scale mail\nWl\u0017blessed shield of reflection\nWm\u0007black dragon\nsm.s#polyself\nblack dragon\n  20s  sm. #monster\n#monster\n#monster\n#monster\n\u0017wand of lightning\naFl   Fl  \u0018\u001b\u0017blessed spellbook of slow monster\nro  sj\u0007aligned cleric\nnZa\n  n Zb\nZa\nZb\nsjsZc\nZb\nZb\n.m.  n .m.  Zb\n.m.  n    sm.  n  Za\nsm.  n   sl  n \u00165\n\u0007baby red dragon\n\u0007silver dragon\nsm..m.  n     n#polyself\ngold dragon\n #monster\nsm.    .m.  #monster\n#monster\n#monster\nFk  Fj     n\u001610\n\u0017wand of cold\n\u0017wand of polymorph\n\u0007giant rat\nzqkzpkzqyzpnzpy zpj  ns\u0017wand of striking\n\u0017wand of cold\n\u0017wand of lightning\n\u0007troll\n\u0007yellow mold\nzrkztk ztyztj zrh.zsn    n\u00176 eggs\nQ$\u0007gnome lord\n\u0007hobbit\nfkt$n fkfhfhfhfy  n\u001720 darts\nQv\u0007lichen\ntvyfyfytvyfh  n i\u001b\u0017wand of death\n\u0017wand of digging\n\u0007owlbear\n\u0007acid blob\nzx>    zwhzwnszwuzwuzwnzx> s\u00164\n\u0017spellbook of knock\nry.\u0007mind flayer\nZa\nZa\n20s      s  n Za\n  n Zc\ns. Za\nZc\nZb\nZa\n.  n 20s    y\u001b   y  #"
+  }
+ ]
+}

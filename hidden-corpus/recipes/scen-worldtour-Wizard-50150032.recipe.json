@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                              \u0017blessed +3 speed boots\nWp\u0016?\nl hlhl\u0017rust trap\nhls.h\u0017dart trap\ny\u0007newt\nsm.s20s20s\u0017land mine\naq yhckPdr ri \u001629\n#levelchange\n6\n        \u0017blessed spellbook of turn undead\nrr  s\u0017blessed spellbook of identify\nrs .m.+\u001bZb\n master lich\n   Za\n       Za\nZb\n Pestilence\ny     n    n  Z#pray\ny y   n     n    n    sm.   n   n    20s   n    \u00166\n\u0016?\n>Euu    n  n u    n u    n  n :20s   n     n sm.   y  2"
+ },
+ "segments": [
+  {
+   "seed": 50150032,
+   "datetime": "20210809053228",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                              \u0017blessed +3 speed boots\nWp\u0016?\nl hlhl\u0017rust trap\nhls.h\u0017dart trap\ny\u0007newt\nsm.s20s20s\u0017land mine\naq yhckPdr ri \u001629\n#levelchange\n6\n        \u0017blessed spellbook of turn undead\nrr  s\u0017blessed spellbook of identify\nrs .m.+\u001bZb\n master lich\n   Za\n       Za\nZb\n Pestilence\ny     n    n  Z#pray\ny y   n     n    n    sm.   n   n    20s   n    \u00166\n\u0016?\n>Euu    n  n u    n u    n  n :20s   n     n sm.   y  2"
+  }
+ ]
+}

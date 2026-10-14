@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0007little dog\n\u0017newt corpse\ntby\u0017tin whistle\nbnuaj\u0007yellow mold\n20s      ss20s.s#chat\njjnbl#chat\nu\\   aj#invoke\n\u001b\u00166\nFuFkFlFk FuFkFuFuFkFuFuFuFkFkFkFkFuFuFkFuFkFkFkFkFuFu FuFkFjFkFjFkFjFjFuFkFkFjFkFkFkFkFjFjFkFjFjFkFjFkFk FjFuFjFjFuFuFjFjFuFjFjFjFuFjFuFjFuFjFjFuFjFjFuFuFjFuFjFjFuFjFuFjFuFjFjFjFuFjFjFjFjFuFjFuFjFjFjFuFuFjFuFuFjFuFuFjFjFuFjFuFuFuFjFjFuFjFjFjFjv\u001bi\u001b\u0006_ \u001b,>FjFu_>.Fj_.Fj>FkFj_>.Fj_,  nFj>FkFj  nFkFjFj\u0006_>>.  nFj_,Fj>FkFj_>>.  nFj_.Fb>FbFk  n_>>,Fb_.  n Fk>FbFbFjFjFk\u0006_>>,Fl_.> FhFhFbzE- I am a fish\n\u00162\n#levelchange\n6\n   lhh\u0017chaotic altar\ndf\u0017human corpse\n : y\u0017unaligned altar\ndadg\u0017elf corpse\n#offer\nl    n    n  #p"
+ },
+ "segments": [
+  {
+   "seed": 50155054,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "\u0007little dog\n\u0017newt corpse\ntby\u0017tin whistle\nbnuaj\u0007yellow mold\n20s      ss20s.s#chat\njjnbl#chat\nu\\   aj#invoke\n\u001b\u00166\nFuFkFlFk FuFkFuFuFkFuFuFuFkFkFkFkFuFuFkFuFkFkFkFkFuFu FuFkFjFkFjFkFjFjFuFkFkFjFkFkFkFkFjFjFkFjFjFkFjFkFk FjFuFjFjFuFuFjFjFuFjFjFjFuFjFuFjFuFjFjFuFjFjFuFuFjFuFjFjFuFjFuFjFuFjFjFjFuFjFjFjFjFuFjFuFjFjFjFuFuFjFuFuFjFuFuFjFjFuFjFuFuFuFjFjFuFjFjFjFjv\u001bi\u001b\u0006_ \u001b,>FjFu_>.Fj_.Fj>FkFj_>.Fj_,  nFj>FkFj  nFkFjFj\u0006_>>.  nFj_,Fj>FkFj_>>.  nFj_.Fb>FbFk  n_>>,Fb_.  n Fk>FbFbFjFjFk\u0006_>>,Fl_.> FhFhFbzE- I am a fish\n\u00162\n#levelchange\n6\n   lhh\u0017chaotic altar\ndf\u0017human corpse\n : y\u0017unaligned altar\ndadg\u0017elf corpse\n#offer\nl    n    n  #p"
+  }
+ ]
+}

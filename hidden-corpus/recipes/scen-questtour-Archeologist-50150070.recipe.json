@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nu_m._.#chat\nn_mmmmm,   Fu  _.Fl  n  #chat\nu  n  #levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm, Fy  _. Fl#chat\nh _mmmm.Fu  n   _.#chat\nh  ;l;\u0017blessed ring of free action\nPil \u0017blessed Mjollnir\nwj\u0017wand of fire\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,    n  Fk     _.Fh    Fy    nFk    Fn   ,#chat\nh  \u00169\n\u0016?\n>A\u0006_mmmmm,Fh  _,FuFl   n Fu  Fy  Fy Fy ,#chat\nk \u0016?\n>z\u0006_mmmmmmm.Fk _.FkFk s.zkl,\u0016?\n>A\u0006_mmmm,s.sss.zkk ,\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nb;m.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,Fh _.Fh   nFh s20ssss20szku ,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nu\u0016?\n>A\u0006_mmm....s.zkj  ,\u0016?\n>z\u0006_mmmmmm.20ss.20s..szkj ,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nn\u0016?\n>A\u0006_mm.20ss20sss20szkn ,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.20sss.ss20s zk.,\u0016?\n>>\u001b\u0016?\n>y_m,Fh _..#chat\nj\u0016?\n>A\u0006_mmmm.20ss.s.zk,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nk\u0016?\n>z\u0006_mmmmmmm,20s.s.20s.szk,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nu\u0016?\n>A\u0006_"
+ },
+ "segments": [
+  {
+   "seed": 50150070,
+   "datetime": "20090119182144",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nu_m._.#chat\nn_mmmmm,   Fu  _.Fl  n  #chat\nu  n  #levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm, Fy  _. Fl#chat\nh _mmmm.Fu  n   _.#chat\nh  ;l;\u0017blessed ring of free action\nPil \u0017blessed Mjollnir\nwj\u0017wand of fire\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,    n  Fk     _.Fh    Fy    nFk    Fn   ,#chat\nh  \u00169\n\u0016?\n>A\u0006_mmmmm,Fh  _,FuFl   n Fu  Fy  Fy Fy ,#chat\nk \u0016?\n>z\u0006_mmmmmmm.Fk _.FkFk s.zkl,\u0016?\n>A\u0006_mmmm,s.sss.zkk ,\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nb;m.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,Fh _.Fh   nFh s20ssss20szku ,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nu\u0016?\n>A\u0006_mmm....s.zkj  ,\u0016?\n>z\u0006_mmmmmm.20ss.20s..szkj ,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nn\u0016?\n>A\u0006_mm.20ss20sss20szkn ,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.20sss.ss20s zk.,\u0016?\n>>\u001b\u0016?\n>y_m,Fh _..#chat\nj\u0016?\n>A\u0006_mmmm.20ss.s.zk,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nk\u0016?\n>z\u0006_mmmmmmm,20s.s.20s.szk,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nu\u0016?\n>A\u0006_"
+  }
+ ]
+}

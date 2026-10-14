@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b<.>FlFk_>.Fh_.Fb>FnFn_>,Fu_.Fy>FlFuFnFuFu\u0006_>.Fj_.Fj>FlFl_>.Fu_,Fl>FyFl_>,Fb_.Fu>FuFjFuFn Fb\u0006_>.Fh_.Fh>FyFu_>.Fy_.Fj>FuFh_>.Fl_,Fb>FhFhFbFhFu\u0006_>.Fb_.Fj>FuFy_>.Fj_.Fu>FuFu_>.Fb_.Fu>FbFyFbFyFy<\u0006_>,Fb_.Fl>FjFy_>.Fh_.Fh>FhFu_>,Fu_.Fh>FbFyFyFuFl\u0006_>.Fj_.Fh>FbFh_>.Fu_.Fy>FlFu_>,Fl_.Fy>FlFhFbFlFy\u0006_>.Fu_,Fu>FbFl_>,Fu_,Fu>FbFu_>.Fj_,Fu>FhFuFuFbFyO>>h\u001b\nFbFkFuFlFjFnFnFuFlFuFjFhFbFkFhFhFhFlFkFkFjFlFhFlFuFhFnFbFkFjFnFlFlFbFkFhFuFuFhFlFnFlFuFbFlFbFnFlFkFkFhFlFkFkFbFnFjFlFnFbFbFbFbFlFuFlFkFjFnFlFnFhFbFjFjFbFhFkFlFbFjFnFuFuFkFuFjFuFhFjFjFnFlFkFlFbFlFkFjFlFkFhFbFkFlFlFbFlFhFjFbFuFjFlFuFjFhFkFnFnOd\u001b\nFbFjFuFbFhFhFnFnFkFkFjFkFlFjFkFlFnFkFlFkFnFkFlFuFnFhFnFhFbFnFnFuFbFhFn  nFlFhFuFjFkFuFhFbFuFlFhFlFuFbFbFbFkFnFjFbFkFhFnFkFjFuFjFb FbFnFuFuFlFkFbFjFkFkFkFnFbFhFuFnFlFbFhFhFlFkFlFkFj"
+ },
+ "segments": [
+  {
+   "seed": 50155002,
+   "datetime": "20221025065022",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=!verbose\nOPTIONS=runmode:crawl\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You miss\"\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": " \u0006_ \u001b<.>FlFk_>.Fh_.Fb>FnFn_>,Fu_.Fy>FlFuFnFuFu\u0006_>.Fj_.Fj>FlFl_>.Fu_,Fl>FyFl_>,Fb_.Fu>FuFjFuFn Fb\u0006_>.Fh_.Fh>FyFu_>.Fy_.Fj>FuFh_>.Fl_,Fb>FhFhFbFhFu\u0006_>.Fb_.Fj>FuFy_>.Fj_.Fu>FuFu_>.Fb_.Fu>FbFyFbFyFy<\u0006_>,Fb_.Fl>FjFy_>.Fh_.Fh>FhFu_>,Fu_.Fh>FbFyFyFuFl\u0006_>.Fj_.Fh>FbFh_>.Fu_.Fy>FlFu_>,Fl_.Fy>FlFhFbFlFy\u0006_>.Fu_,Fu>FbFl_>,Fu_,Fu>FbFu_>.Fj_,Fu>FhFuFuFbFyO>>h\u001b\nFbFkFuFlFjFnFnFuFlFuFjFhFbFkFhFhFhFlFkFkFjFlFhFlFuFhFnFbFkFjFnFlFlFbFkFhFuFuFhFlFnFlFuFbFlFbFnFlFkFkFhFlFkFkFbFnFjFlFnFbFbFbFbFlFuFlFkFjFnFlFnFhFbFjFjFbFhFkFlFbFjFnFuFuFkFuFjFuFhFjFjFnFlFkFlFbFlFkFjFlFkFhFbFkFlFlFbFlFhFjFbFuFjFlFuFjFhFkFnFnOd\u001b\nFbFjFuFbFhFhFnFnFkFkFjFkFlFjFkFlFnFkFlFkFnFkFlFuFnFhFnFhFbFnFnFuFbFhFn  nFlFhFuFjFkFuFhFbFuFlFhFlFuFbFbFbFkFnFjFbFkFhFnFkFjFuFjFb FbFnFuFuFlFkFbFjFkFkFkFnFbFhFuFnFlFbFhFhFlFkFlFkFj"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\ngl\n  \u0017towel\nag;l. \u001bm,\u0017cursed potion of monster detection\nqh\u0017 \u0017potion of levitation\nqi sm.s.Sy\u001b n#name\nm\nw#sit\n;l:   f   kq",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50151010,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\ngl\n  \u0017towel\nag;l. \u001bm,\u0017cursed potion of monster detection\nqh\u0017 \u0017potion of levitation\nqi sm.s.Sy\u001b"
+  },
+  {
+   "seed": 50651010,
+   "datetime": "20210213041629",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": " n#name\nm\nw#sit\n;l:   f   kq"
+  }
+ ]
+}

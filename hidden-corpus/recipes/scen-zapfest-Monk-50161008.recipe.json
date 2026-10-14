@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed amulet of life saving\nPk\u0017blessed shield of reflection\nWl\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017bow\nwn\u001720 arrows\nQo\u0007bugbear\nfn toj  fnfn\u0017potion of speed\nton\u0007red dragon\n20s    sm.20s #polyself\nblack dragon\n  #monster\nsm. sm. #monster\n#monster\n#monster\n\u0017wand of fire\naFb Fb    \u001616\n\u0017wand of teleportation\n\u0017wand of cold\n\u0017wand of cancellation\n\u0007lichen\nzzzzz20s  zzzz\u0007master mind flayer\n\u0007gnomish wizard\n\u0017wand of cold\n.m.sm.   \u0007master lich\n\u0007lich\n\u0007master mind flayer\n\u0017wand of magic missile\nz\u0017yumi\nw\u001720 ya\nQ\u001b\u0007grid bug\n\u0007gnome\nftttftf\u0017blessed spellbook of light\nry        sm.       n  n   n       \u0007orc shaman\nZa\n  n     n    Za\n   n   n         n     n Z.m.     n      n     n sj         n     n ZZsm.   n      sm.   yy  Z"
+ },
+ "segments": [
+  {
+   "seed": 50161008,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  \u0017blessed amulet of life saving\nPk\u0017blessed shield of reflection\nWl\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017bow\nwn\u001720 arrows\nQo\u0007bugbear\nfn toj  fnfn\u0017potion of speed\nton\u0007red dragon\n20s    sm.20s #polyself\nblack dragon\n  #monster\nsm. sm. #monster\n#monster\n#monster\n\u0017wand of fire\naFb Fb    \u001616\n\u0017wand of teleportation\n\u0017wand of cold\n\u0017wand of cancellation\n\u0007lichen\nzzzzz20s  zzzz\u0007master mind flayer\n\u0007gnomish wizard\n\u0017wand of cold\n.m.sm.   \u0007master lich\n\u0007lich\n\u0007master mind flayer\n\u0017wand of magic missile\nz\u0017yumi\nw\u001720 ya\nQ\u001b\u0007grid bug\n\u0007gnome\nftttftf\u0017blessed spellbook of light\nry        sm.       n  n   n       \u0007orc shaman\nZa\n  n     n    Za\n   n   n         n     n Z.m.     n      n     n sj         n     n ZZsm.   n      sm.   yy  Z"
+  }
+ ]
+}

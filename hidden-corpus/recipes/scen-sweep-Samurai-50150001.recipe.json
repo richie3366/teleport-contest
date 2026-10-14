@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b;>_>._,>#name\ni\nshiny\ni\u001b\u0006_>._.>\u0006_>>,Fk_.:Fh>_>>._,>\u0006_>.Fn_.,Fj>_>._.>\u001625\n\u0017potion of gain energy\nqg\u0017cursed potion of water\nqh \u001b\u0017magic whistle\n\u0007aligned cleric\nnaiaiFkFk\u0017cursed potion of full healing\nqj\u0017uncursed amulet of life saving\nPk.ysm..m.   20sFlFl\u0017blessed stethoscope\n\u0007baby long worm\nall.h.#levelchange\n12\n          #wizintrinsic\no\n 20ssm.20ssnss20ssm.s.m.sm.ss20sm. 20ssusssss.m.\u0017scroll of scare monster\nrm  \u001b#untrap\nly#conduct\n ai\u0014@. #invoke\n\u001b\u001bssm. s20s .sm.\u00169\n#levelchange\n8\n #wizintrinsic\najm\n  s.s20sss...20s#ride\nnyi\u001bes#conduct\n #name\nm\ns...s.\u0017morning star\nwn20ss20s\u0007ogre king\nFbFbFbFb\u0007jellyfish\nFlFb  nFbFbFb\u0007hobbit\n#chat\nbFbFb  n\\    \u00162\n#levelchange\n30\n                      \u0017potion of fruit juice\n\u0007plains centaur\nqo \u001bFyFy\u0017elven leather helm\nWp sm.20s sm.\u001710 daggers\nQqfy fy fy \u0017blessed iron chain\n syw- \u0017blessed spellbook of drain life\nrs sm.20s Zsy  20s \u001613\n   \u000f\u001b#levelchange\n6\n        \u0007energy vortex\n20sFu    n  Fk  #pray\ny y       #pray\ny y       Fk    Fk  n   Fk Fk   Fk  n   Fk   .m.  \u00169\n\u0017morning star\nwtFyFy  nFy\u0007lieutenant\n;j;sm.sb.j  \u0007hezrou\nFu  nFh Fu   n    n Fk   n \u00166\n#wizintrinsic\ni\n \u0017blindfold\nau   n\u0017potion of sleeping\nqv    n\u0017lizard corpse\new   \u0017lizard corpse\nex    n \u0017blessed scroll of create monster\nry\u0017wand of striking\nzzkzzh   n  .  n .   ynny nnn  s"
+ },
+ "segments": [
+  {
+   "seed": 50150001,
+   "datetime": "20200901185006",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0006_ \u001b;>_>._,>#name\ni\nshiny\ni\u001b\u0006_>._.>\u0006_>>,Fk_.:Fh>_>>._,>\u0006_>.Fn_.,Fj>_>._.>\u001625\n\u0017potion of gain energy\nqg\u0017cursed potion of water\nqh \u001b\u0017magic whistle\n\u0007aligned cleric\nnaiaiFkFk\u0017cursed potion of full healing\nqj\u0017uncursed amulet of life saving\nPk.ysm..m.   20sFlFl\u0017blessed stethoscope\n\u0007baby long worm\nall.h.#levelchange\n12\n          #wizintrinsic\no\n 20ssm.20ssnss20ssm.s.m.sm.ss20sm. 20ssusssss.m.\u0017scroll of scare monster\nrm  \u001b#untrap\nly#conduct\n ai\u0014@. #invoke\n\u001b\u001bssm. s20s .sm.\u00169\n#levelchange\n8\n #wizintrinsic\najm\n  s.s20sss...20s#ride\nnyi\u001bes#conduct\n #name\nm\ns...s.\u0017morning star\nwn20ss20s\u0007ogre king\nFbFbFbFb\u0007jellyfish\nFlFb  nFbFbFb\u0007hobbit\n#chat\nbFbFb  n\\    \u00162\n#levelchange\n30\n                      \u0017potion of fruit juice\n\u0007plains centaur\nqo \u001bFyFy\u0017elven leather helm\nWp sm.20s sm.\u001710 daggers\nQqfy fy fy \u0017blessed iron chain\n syw- \u0017blessed spellbook of drain life\nrs sm.20s Zsy  20s \u001613\n   \u000f\u001b#levelchange\n6\n        \u0007energy vortex\n20sFu    n  Fk  #pray\ny y       #pray\ny y       Fk    Fk  n   Fk Fk   Fk  n   Fk   .m.  \u00169\n\u0017morning star\nwtFyFy  nFy\u0007lieutenant\n;j;sm.sb.j  \u0007hezrou\nFu  nFh Fu   n    n Fk   n \u00166\n#wizintrinsic\ni\n \u0017blindfold\nau   n\u0017potion of sleeping\nqv    n\u0017lizard corpse\new   \u0017lizard corpse\nex    n \u0017blessed scroll of create monster\nry\u0017wand of striking\nzzkzzh   n  .  n .   ynny nnn  s"
+  }
+ ]
+}

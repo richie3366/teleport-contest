@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " jljhYNJY_ \u001b>.>YKKU_>.>LYJY_>.>BJBK_>,>KHLL_>.>Fjss<jhub#chat\nnlhnbkj150sFk Fls100s\u0018\u001b100s100s50s150s50s100s150s50s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKYHU_>,>BJNL_>.>NUBJ_>.>LUKN_>._.> HNJN_>.>\u000f\u001bujkbeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKKBU_>,>i\u001bzHYBJ_>.>#tip\n\u001b#pray\ny YNBU_>.>FhssZ#enhance\n\u001bJHUY_>.><YYJB_>.>JYHJ #quit\nyy\u001by  y y y\u001b  nhujFj s.150s100sFkFk.Fks20shlnulhybhjuu,_ \u001b@.>100sFnss100sbhu150s50s100s100slhn_>.>bnyFjs20s100s150sFy.s_>.>_>,>\u000f\u001bHi\u001bjln100s;<.i\u001b150sFkFk20snhl100sFyssLYBH_>.>NJHK_>.>;<.f \u001bHKBH_>.>#chat\nnqdKLJN_>,>#tip\n\u001bohHLYJ_>,>\u000f\u001bkujhJNYJ_>,><JLYU_>.>UUYJ_>.>UNLY_>.>NKJJ_>,>#wipe\n  #rub\nLLLK_>,>100s150sej  efFhFh.m.hhl\u0018\u001b150s   ny   y y n  1 FjFjFh 100s\u000f\u001bbyn_ \u001bm,>FjFj.khu\u0018\u001b150s10s\\ _>.>\u000f\u001b100s150s_>.>_>.>#enhance\n\u001b\u000f\u001b100sFb.s100slkj50s_>,>hbu\u0018\u001b100s\u000f\u001b100s\\ lhbFlss_>.>ubu100sFn20s.ch150suhlFbFbFbFbss\u000f\u001b100s150sFjFjFjFjFjFjFjFjs#pray\ny 50s#pray\ny  jhujhyukjbnb150s50s150sFuFuFlFuFu20s\\ 100s\\ 100sFlFlFlFl..eeeeeeeeeeeeeeU YBN _>.>z#conduct\n HJYJ_>.>FkFk.#enhance\n\u001bqLK KJ _>,>\u000f\u001b10stbhda.s.knynynlhdcsssykkl20syjkknj#name\nm\n#chat\n>.#chat\nkddsssdess.dessslyyn20skbub10s#chat\nk#name\nm\n.20s20s20s#name\nm\n<.Fj FjFjFjFjFjFj#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50150074,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\n",
+   "moves": " jljhYNJY_ \u001b>.>YKKU_>.>LYJY_>.>BJBK_>,>KHLL_>.>Fjss<jhub#chat\nnlhnbkj150sFk Fls100s\u0018\u001b100s100s50s150s50s100s150s50s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKYHU_>,>BJNL_>.>NUBJ_>.>LUKN_>._.> HNJN_>.>\u000f\u001bujkbeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKKBU_>,>i\u001bzHYBJ_>.>#tip\n\u001b#pray\ny YNBU_>.>FhssZ#enhance\n\u001bJHUY_>.><YYJB_>.>JYHJ #quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50250074,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=runmode:run\nOPTIONS=fruit:lychee\nOPTIONS=pettype:horse\n",
+   "moves": " nhujFj s.150s100sFkFk.Fks20shlnulhybhjuu,_ \u001b@.>100sFnss100sbhu150s50s100s100slhn_>.>bnyFjs20s100s150sFy.s_>.>_>,>\u000f\u001bHi\u001bjln100s;<.i\u001b150sFkFk20snhl100sFyssLYBH_>.>NJHK_>.>;<.f \u001bHKBH_>.>#chat\nnqdKLJN_>,>#tip\n\u001bohHLYJ_>,>\u000f\u001bkujhJNYJ_>,><JLYU_>.>UUYJ_>.>UNLY_>.>NKJJ_>,>#wipe\n  #rub\nLLLK_>,>100s150sej  efFhFh.m.hhl\u0018\u001b150s   ny   y y n  1"
+  },
+  {
+   "seed": 50350074,
+   "datetime": "20101108130412",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:lychee\n",
+   "moves": " FjFjFh 100s\u000f\u001bbyn_ \u001bm,>FjFj.khu\u0018\u001b150s10s\\ _>.>\u000f\u001b100s150s_>.>_>.>#enhance\n\u001b\u000f\u001b100sFb.s100slkj50s_>,>hbu\u0018\u001b100s\u000f\u001b100s\\ lhbFlss_>.>ubu100sFn20s.ch150suhlFbFbFbFbss\u000f\u001b100s150sFjFjFjFjFjFjFjFjs#pray\ny 50s#pray\ny  jhujhyukjbnb150s50s150sFuFuFlFuFu20s\\ 100s\\ 100sFlFlFlFl..eeeeeeeeeeeeeeU YBN _>.>z#conduct\n HJYJ_>.>FkFk.#enhance\n\u001bqLK KJ _>,>\u000f\u001b10stbhda.s.knynynlhdcsssykkl20syjkknj#name\nm\n#chat\n>.#chat\nkddsssdess.dessslyyn20skbub10s#chat\nk#name\nm\n.20s20s20s#name\nm\n<.Fj FjFjFjFjFjFj#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

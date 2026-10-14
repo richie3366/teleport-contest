@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 helm of telepathy\nWg\u0016?\n>w\u0006_ \u001b>.#chat\nh#pray\ny y _oooo.,p\u00163\nyul\u0016?\n>w\u0006_oooooooo._ooo.,$_ooo,,:_oooooo.,:_ooo,,:huk#chat\nl_{.  Fh_.Fhq__,Fb_.Fh#chat\nb_ooooooo,Fb_.Fk,\u0014..s__._.#chat\nn#pray\ny y _ooooooooo._.,p_oooooo.,plhh#chat\nl_oooo.,p_{._,qyFn Fn Fn   nFn Fn Fn Fn   nFn Fn Fn Fn   nFn \u00168\nFb Fb Fb Fb   n Fb  Fb  _ooo,Fj _,<.Fb   n, p_{.qi Fj Fj Fj   nFj FjFj_ooooooo.,p\u0016?\n>Bhhh\u0016?\n>w\u0006_oooooooo._ooo. Fu  _,,  $ _ooooooo,,p\u001b_{.   n Fu _. Fl    q_{, Fk     n _.   nFk   nq\u00166\n_ooooo,    nFk  _.  n Fk   n _ooo.  n Fk   n _,  n Fk   y y\u001by   y y y\u001by  ,"
+ },
+ "segments": [
+  {
+   "seed": 50150069,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 helm of telepathy\nWg\u0016?\n>w\u0006_ \u001b>.#chat\nh#pray\ny y _oooo.,p\u00163\nyul\u0016?\n>w\u0006_oooooooo._ooo.,$_ooo,,:_oooooo.,:_ooo,,:huk#chat\nl_{.  Fh_.Fhq__,Fb_.Fh#chat\nb_ooooooo,Fb_.Fk,\u0014..s__._.#chat\nn#pray\ny y _ooooooooo._.,p_oooooo.,plhh#chat\nl_oooo.,p_{._,qyFn Fn Fn   nFn Fn Fn Fn   nFn Fn Fn Fn   nFn \u00168\nFb Fb Fb Fb   n Fb  Fb  _ooo,Fj _,<.Fb   n, p_{.qi Fj Fj Fj   nFj FjFj_ooooooo.,p\u0016?\n>Bhhh\u0016?\n>w\u0006_oooooooo._ooo. Fu  _,,  $ _ooooooo,,p\u001b_{.   n Fu _. Fl    q_{, Fk     n _.   nFk   nq\u00166\n_ooooo,    nFk  _.  n Fk   n _ooo.  n Fk   n _,  n Fk   y y\u001by   y y y\u001by  ,"
+  }
+ ]
+}

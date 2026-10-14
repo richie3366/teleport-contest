@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nu_mm.#chat\nn_mmm.Fu  n  _.  n Fk#chat\nu  n _mmmmm.  n Fk   n  _.#chat\nh_mmm.  n Fu   n _.#chat\nh#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nk_mm. Fh_,#chat\nh_m,Fu _,#chat\nh;u;\u0017blessed +3 gauntlets of power\nWi\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed amulet of life saving\nPk \u0017wand of fire\n\u0016?\n>z\u0006_mm.Fh _.FhFhFuFuFuFk,\u0016?\n>A\u0006_mmmm.FkFksss.20szlk,\u0016?\n>>\u001b\u0016?\n>y_m.Fk  _., Fk     #chat\nk ;k;\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fk _.Fk Fks.szly ,\u0016?\n>A\u0006_mmmmmmm.20ssss.20s,#chat\nk\u0016?\n>z\u0006_mmmm.Fy_,   s.ssszl.,\u0016?\n>A\u0006_mm.ss..FjFjFj,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,Fj_.Fj20ssss20ss.zlu,\u0016?\n>A\u0006_mmmmmm,20sFk Fk  Fks20ss,#chat\nj\u0016?\n>z\u0006_mmmmm.Fk_.m.20ssss.s20szlh "
+ },
+ "segments": [
+  {
+   "seed": 50150038,
+   "datetime": "20240210173130",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nu_mm.#chat\nn_mmm.Fu  n  _.  n Fk#chat\nu  n _mmmmm.  n Fk   n  _.#chat\nh_mmm.  n Fu   n _.#chat\nh#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nk_mm. Fh_,#chat\nh_m,Fu _,#chat\nh;u;\u0017blessed +3 gauntlets of power\nWi\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed amulet of life saving\nPk \u0017wand of fire\n\u0016?\n>z\u0006_mm.Fh _.FhFhFuFuFuFk,\u0016?\n>A\u0006_mmmm.FkFksss.20szlk,\u0016?\n>>\u001b\u0016?\n>y_m.Fk  _., Fk     #chat\nk ;k;\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fk _.Fk Fks.szly ,\u0016?\n>A\u0006_mmmmmmm.20ssss.20s,#chat\nk\u0016?\n>z\u0006_mmmm.Fy_,   s.ssszl.,\u0016?\n>A\u0006_mm.ss..FjFjFj,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,Fj_.Fj20ssss20ss.zlu,\u0016?\n>A\u0006_mmmmmm,20sFk Fk  Fks20ss,#chat\nj\u0016?\n>z\u0006_mmmmm.Fk_.m.20ssss.s20szlh "
+  }
+ ]
+}

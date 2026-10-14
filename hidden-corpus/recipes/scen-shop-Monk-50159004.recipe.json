@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed amulet of reflection\nPj\u0017blessed amulet of life saving\nPk\u0016?\n>w\u0006_ \u001b:,p_ooo.,\u0014@.20ss__,   _.Fh  #chat\nu#pray\ny y __.  _,   Fl   #chat\nl_oo.,  p_oooooo,_o.,p_{,_.     nFhqd_oooo.,#chat\nh_ooooo,_.,#chat\njlhl#chat\nl   FlFlFlFlFlFl__,      _.#chat\nn_{.  Fh _.@.Fhqd \u0016?\nclky\u0016?\n>w\u0006_{,Fu  _.Flqd_oooooo,Fn _.  n Fl  ,\u0017worthless piece of red glass\ndn   n  \u001610\n_ooo,,p_oooo,,p_oooooooo.,#chat\nk _{,q__.#chat\ny  n _oooo.,p__.#chat\ny#pray\ny y     _oooo._ooo,,p_oo.,p_ooo,_o.,\u0017luckstone\ndo \u00163\nlh  nl\u0016?\n>w\u0006_ooooooo.Fk _.Fk,\u0017amulet of change\ndpnhb#chat\nn_oooooooo. Fk _.Fn ,p\u0016?\ncknj\u0016?\n>w\u0006_ooooo, Fl_,m.Fj,\u0017amulet of restful sleep\ndr    n FjFj  FjFj   FjFj    _oooo._.,\u001bp_{,Fl_.Flq\u00167\njlb\u0016?\n>w\u0006__,  Fy_,Fy #chat\ny_oooo.Fh_.Fh,ph  hl#chat\nulhl#chat\nh  FhFh FhFh   n Fh     n Fh  \u001611\n_oooo._oo.,\u0017flint stone\ndw   n _oooooo.,     n   \u0017gray stone\ndx   n "
+ },
+ "segments": [
+  {
+   "seed": 50159004,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed amulet of reflection\nPj\u0017blessed amulet of life saving\nPk\u0016?\n>w\u0006_ \u001b:,p_ooo.,\u0014@.20ss__,   _.Fh  #chat\nu#pray\ny y __.  _,   Fl   #chat\nl_oo.,  p_oooooo,_o.,p_{,_.     nFhqd_oooo.,#chat\nh_ooooo,_.,#chat\njlhl#chat\nl   FlFlFlFlFlFl__,      _.#chat\nn_{.  Fh _.@.Fhqd \u0016?\nclky\u0016?\n>w\u0006_{,Fu  _.Flqd_oooooo,Fn _.  n Fl  ,\u0017worthless piece of red glass\ndn   n  \u001610\n_ooo,,p_oooo,,p_oooooooo.,#chat\nk _{,q__.#chat\ny  n _oooo.,p__.#chat\ny#pray\ny y     _oooo._ooo,,p_oo.,p_ooo,_o.,\u0017luckstone\ndo \u00163\nlh  nl\u0016?\n>w\u0006_ooooooo.Fk _.Fk,\u0017amulet of change\ndpnhb#chat\nn_oooooooo. Fk _.Fn ,p\u0016?\ncknj\u0016?\n>w\u0006_ooooo, Fl_,m.Fj,\u0017amulet of restful sleep\ndr    n FjFj  FjFj   FjFj    _oooo._.,\u001bp_{,Fl_.Flq\u00167\njlb\u0016?\n>w\u0006__,  Fy_,Fy #chat\ny_oooo.Fh_.Fh,ph  hl#chat\nulhl#chat\nh  FhFh FhFh   n Fh     n Fh  \u001611\n_oooo._oo.,\u0017flint stone\ndw   n _oooooo.,     n   \u0017gray stone\ndx   n "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006Fj FjFjFjFjFj_ \u001bm.#chat\nl__._,#chat\nk#pray\ny y __._.#chat\nl#pray\ny y   _{.Fl_,,Fnqlbb#chat\nk_{,Fl _,;<.Fl qFlFlFlFlFlFl_oooo._., #chat\ny\u00167\nbnk\u0016?\n>w\u0006_{._,qy _oooooooo.,\u0014,s20s_oo.,p_oooo,,:njh#chat\nk_{._.qy_oo,_oo.,pkuy#chat\nj_{.Fy    _.Fy q_{,Fl_.>.Fl  qFl    n Fl    Fl   n Fl    n Fl   Fl   n        n\u00162\n_oooo.,:_oooooo,,p\u00167\nk  j  n    h\u0016?\n>w\u0006_{.  n       n Fh  _,  n  Fh    n   q\u00163\nj  n  lk    n \u0016?\n>w \u0006\u001611\n_{.q_oo.,\u0017amulet"
+ },
+ "segments": [
+  {
+   "seed": 50159026,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006Fj FjFjFjFjFj_ \u001bm.#chat\nl__._,#chat\nk#pray\ny y __._.#chat\nl#pray\ny y   _{.Fl_,,Fnqlbb#chat\nk_{,Fl _,;<.Fl qFlFlFlFlFlFl_oooo._., #chat\ny\u00167\nbnk\u0016?\n>w\u0006_{._,qy _oooooooo.,\u0014,s20s_oo.,p_oooo,,:njh#chat\nk_{._.qy_oo,_oo.,pkuy#chat\nj_{.Fy    _.Fy q_{,Fl_.>.Fl  qFl    n Fl    Fl   n Fl    n Fl   Fl   n        n\u00162\n_oooo.,:_oooooo,,p\u00167\nk  j  n    h\u0016?\n>w\u0006_{.  n       n Fh  _,  n  Fh    n   q\u00163\nj  n  lk    n \u0016?\n>w \u0006\u001611\n_{.q_oo.,\u0017amulet"
+  }
+ ]
+}

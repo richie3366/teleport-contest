@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nb\n .n.m.sm.sm.20s sm.sm.sm.20s   su.m.  nsss...sss20s20s20s20s20s.sm.s.hs.m. .b..m..m.20s20s20sssFuFuFuFuFuFuFuFuFlFjFnFk s20s50s50s_ \u001b;>100s150s\\ \u0018\u001blkj150s100s100swany_>,>ulb150sed\u000f\u001bi\u001b100s\u0014uhn100s50s100sjky150sk150s150s\u000f\u001b100sFb FjFhFhs20s100s  150s50sFhFh Fh50sKYKJ_>.>Fj  \u001b     2Fk FkFkFkFkFkFkFkujlk\u0018\u001b100s100s100s100s50s_ \u001b,>yhn\u0018\u001b#loot\nZE- X marks the spot\nhnu100s100sFh20ss_>.>150s50sFhFhFh150sedi\u001b50sFhs20s50sjkbFy20s20s100sFy.sbnhujk100s150sjhubkj>uuj150sjhhHHYB_>,>JLNK_>,><YBUU_>.>z>YLJH_>.>BLKL_>,>BYUL_>,><HUYY_>.>\u000f\u001bhlnubk#name\ni\nblessed\nfbyhjubun#force\n#rub\n50s100snlh100s50see  lhl50sedbbulul#jump\n\u000f\u001b150sykl100sFhss150slnyhjk100s100s_>.>150s_>.>100sFj.s_>.>jbn100sFlFls#tip\n\u001b\u001b150suulFbFhFbFb.s100sbuj150sFh.s\u0018\u001b150s_>.>150sFh20s20s100s_>.>#force\n_>.>\u000f\u001b50snjhFj.20sFjFjFhFhFhFh\u000f\u001bubl150syhj100s_>.>unh_>.>100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYLNK_>.>#jump\n#offer\nLBNH_>.>#terrain\nb\n\u0004 <BJYY_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeukjklhlhln#name\ni\nblessed\nbkb#chat\nu#name\nm\nyhnunhuyhueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeunyh#chat\nj#name\ni\nblessed\nab  l20s#name\ni\nshiny\nhutal#chat\nlkbulbbknklt\u001b\u001b#name\nm\nthh20s#chat\nhulnheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeunhj20slhlk20st\u001b\u001b#name\ni\nFido\nc#chat\nl20sFlFlFlFlFlFlFlFlyyjkjnul#name\nm\n10sjFjFjFj#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50160006,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n .n.m.sm.sm.20s sm.sm.sm.20s   su.m.  nsss...sss20s20s20s20s20s.sm.s.hs.m. .b..m..m.20s20s20sss"
+  },
+  {
+   "seed": 50260006,
+   "datetime": "20140928184408",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "FuFuFuFuFuFuFuFuFlFjFnFk s20s50s50s_ \u001b;>100s150s\\ \u0018\u001blkj150s100s100swany_>,>ulb150sed\u000f\u001bi\u001b100s\u0014uhn100s50s100sjky150sk150s150s\u000f\u001b100sFb FjFhFhs20s100s  150s50sFhFh Fh50sKYKJ_>.>Fj  \u001b     2"
+  },
+  {
+   "seed": 50360006,
+   "datetime": "20190430151543",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:dog\n",
+   "moves": "Fk FkFkFkFkFkFkFkujlk\u0018\u001b100s100s100s100s50s_ \u001b,>yhn\u0018\u001b#loot\nZE- X marks the spot\nhnu100s100sFh20ss_>.>150s50sFhFhFh150sedi\u001b50sFhs20s50sjkbFy20s20s100sFy.sbnhujk100s150sjhubkj>uuj150sjhhHHYB_>,>JLNK_>,><YBUU_>.>z>YLJH_>.>BLKL_>,>BYUL_>,><HUYY_>.>\u000f\u001bhlnubk#name\ni\nblessed\nfbyhjubun#force\n#rub\n50s100snlh100s50see  lhl50sedbbulul#jump\n\u000f\u001b150sykl100sFhss150slnyhjk100s100s_>.>150s_>.>100sFj.s_>.>jbn100sFlFls#tip\n\u001b\u001b150suulFbFhFbFb.s100sbuj150sFh.s\u0018\u001b150s_>.>150sFh20s20s100s_>.>#force\n_>.>\u000f\u001b50snjhFj.20sFjFjFhFhFhFh\u000f\u001bubl150syhj100s_>.>unh_>.>100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYLNK_>.>#jump\n#offer\nLBNH_>.>#terrain\nb\n\u0004 <BJYY_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeukjklhlhln#name\ni\nblessed\nbkb#chat\nu#name\nm\nyhnunhuyhueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeunyh#chat\nj#name\ni\nblessed\nab  l20s#name\ni\nshiny\nhutal#chat\nlkbulbbknklt\u001b\u001b#name\nm\nthh20s#chat\nhulnheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeunhj20slhlk20st\u001b\u001b#name\ni\nFido\nc#chat\nl20sFlFlFlFlFlFlFlFlyyjkjnul#name\nm\n10sjFjFjFj#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

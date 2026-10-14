@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "mO>o\u001b\nmO>>e\u001b\n\u00165\nFlFlFnFlFnFjFlFjFnFnFnFlFbFjFjFbFbFbFbFjFbFlFlFnFhFlFhFjFbFnFhFbFhFbFjFbFbFjFjFnFnFbFlFhFnFlFjFhFbFnFbFjFbFlFjFbFnFnFjFlFhFhFbFhFhFbFlFnFnFnFhFlFnFbFlFjFjFlFjFnFhFhFhFlFbFjFbFhFbFlFnFlFbFbFbFnFhFjFjFnFlFnFlFnFbFlFlFbFnFnFjFbFbFbFlFlFnFbFj FnmO>w\u001b\n\u00163\ni\u001b\\ _ \u001b;>hllFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFkFkFkFhFkFkFkFkFkFkFhFhFkFhFhFkFhFhFkFkFkFkFhFkFhFkFhFkFkFhFkFhFhFhFhFhFhFkFkFhFkFkFhFhFhFhFkFkFkFkFkFkFhFkFhFkFkFkFkFhFkFkFkFhFkFhFkFkFhFkFhFkFhFhFkFkFhFkFhFkFhFkFhFhFkFhFhFkFhFkFk\u0007little dog\n\u0017fortune cookie\ntbh\u0007tame jackal\n\u0017leash\najk lluyaju #chat\nn\u0017leash\nakn uh   n uj akj    n\u0017carrot\nt"
+ },
+ "segments": [
+  {
+   "seed": 50155000,
+   "datetime": "20180830020424",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": "mO>o\u001b\nmO>>e\u001b\n\u00165\nFlFlFnFlFnFjFlFjFnFnFnFlFbFjFjFbFbFbFbFjFbFlFlFnFhFlFhFjFbFnFhFbFhFbFjFbFbFjFjFnFnFbFlFhFnFlFjFhFbFnFbFjFbFlFjFbFnFnFjFlFhFhFbFhFhFbFlFnFnFnFhFlFnFbFlFjFjFlFjFnFhFhFhFlFbFjFbFhFbFlFnFlFbFbFbFnFhFjFjFnFlFnFlFnFbFlFlFbFnFnFjFbFbFbFlFlFnFbFj FnmO>w\u001b\n\u00163\ni\u001b\\ _ \u001b;>hllFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFkFkFkFhFkFkFkFkFkFkFhFhFkFhFhFkFhFhFkFkFkFkFhFkFhFkFhFkFkFhFkFhFhFhFhFhFhFkFkFhFkFkFhFhFhFhFkFkFkFkFkFkFhFkFhFkFkFkFkFhFkFkFkFhFkFhFkFkFhFkFhFkFhFhFkFkFhFkFhFkFhFkFhFhFkFhFhFkFhFkFk\u0007little dog\n\u0017fortune cookie\ntbh\u0007tame jackal\n\u0017leash\najk lluyaju #chat\nn\u0017leash\nakn uh   n uj akj    n\u0017carrot\nt"
+  }
+ ]
+}

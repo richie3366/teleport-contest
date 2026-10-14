@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "BHUK_ \u001b@.>YJHK_>.>H JBJ_>.><HYYN_>.>>ckK#name\na\n#twoweapon\n_>,>kyhlnk50s Fh Fh Fh Fh .Fh Fj Fj 20s100s Fhs20s150sFhFhFhjjn150s         150sFlFlFlFlFlFl Fl FlFl 100s100s Fl .sFn .20sFj Fj Fj Fj ss100s Fl Fj .150s#rub\nynjFu  Fl Fl Fl s20s50sck100sFy Fk Fl hjk150s     \u0018\u001bq50s   jlk150s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nkldes..dcsss#name\no\ndd20s20s.ku\u0014f \u001b#turn\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNLKU_>,>Fj Fj Fl #offer\nZBYNK_>.>Fu Fl Fl zZYYNB_>.>,#loot\ns#jump\n#untrap\nlBJNH_>.>\u0004l#jump\n<BLKL_>.>YUKB_>,>#loot\n\\    YJKK_>.>YLHB_>.>KJBJ_>.>\u000f\u001b\u000f\u001b#turn\nt\u001b#pray\ny ee#pray\ny eeee#pray\ny  #pray\ny       y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 50150051,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "BHUK_ \u001b@.>YJHK_>.>H JBJ_>.><HYYN_>.>>ckK#name\na\n#twoweapon\n_>,>kyhlnk50s Fh Fh Fh Fh .Fh Fj Fj 20s100s Fhs20s150sFhFhFhjjn150s         150sFlFlFlFlFlFl Fl FlFl 100s100s Fl .sFn .20sFj Fj Fj Fj ss100s Fl Fj .150s#rub\nynjFu  Fl Fl Fl s20s50sck100sFy Fk Fl hjk150s     \u0018\u001bq50s   jlk150s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nkldes..dcsss#name\no\ndd20s20s.ku\u0014f \u001b#turn\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNLKU_>,>Fj Fj Fl #offer\nZBYNK_>.>Fu Fl Fl zZYYNB_>.>,#loot\ns#jump\n#untrap\nlBJNH_>.>\u0004l#jump\n<BLKL_>.>YUKB_>,>#loot\n\\    YJKK_>.>YLHB_>.>KJBJ_>.>\u000f\u001b\u000f\u001b#turn\nt\u001b#pray\ny ee#pray\ny eeee#pray\ny  #pray\ny       y\u001by  y y y\u001b  1"
+  }
+ ]
+}

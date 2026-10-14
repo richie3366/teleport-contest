@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of life saving\nPi\u0017blessed +3 speed boots\nWj\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n20\n                   \u0017spellbook of magic missile\n rl.\u0017spellbook of slow monster\nrm20s\u0007orc shaman\n\u0007aligned cleric\nnZa\nZa\n  Za\n    Za\n  20s    sjZa\n  sm.sZa\n    Za\n  Za\n #turn\n      \u0017blessed spellbook of magic missile\nrn s\u0007aligned cleric\nnZb\nZa\nZb\nsn20sZb\nZb\nZa\nZa\nZb\n#turn\n \u0017blessed spellbook of force bolt\nro .\u0017spellbook of fireball\nrp .\u0007master mind flayer\n\u0007vampire\nZa\nZc\nZa\n         Zc\n        Zd\n           Zb\n          \u0017spellbook of cone of cold\nrq           sm.\u0017blessed spellbook of slow monster\n rr             su            \u0007kobold shaman\nZb\n           Zd\n                             Zc\n       n   Za\n           n   sm.          n               20s      n Zd\n                     sm.           sb     n  i\u001b\u001612\n\u0017wand of fire\n\u0017wand of cancellation\n\u0017wand of sleep\n\u0007yellow mold\n\u0007owlbear\nztu             zsl                         sm.           ztu          zsu            zsk      20s     n                  zuk            zsu      "
+ },
+ "segments": [
+  {
+   "seed": 50161013,
+   "datetime": "20081212050555",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0017blessed amulet of life saving\nPi\u0017blessed +3 speed boots\nWj\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n20\n                   \u0017spellbook of magic missile\n rl.\u0017spellbook of slow monster\nrm20s\u0007orc shaman\n\u0007aligned cleric\nnZa\nZa\n  Za\n    Za\n  20s    sjZa\n  sm.sZa\n    Za\n  Za\n #turn\n      \u0017blessed spellbook of magic missile\nrn s\u0007aligned cleric\nnZb\nZa\nZb\nsn20sZb\nZb\nZa\nZa\nZb\n#turn\n \u0017blessed spellbook of force bolt\nro .\u0017spellbook of fireball\nrp .\u0007master mind flayer\n\u0007vampire\nZa\nZc\nZa\n         Zc\n        Zd\n           Zb\n          \u0017spellbook of cone of cold\nrq           sm.\u0017blessed spellbook of slow monster\n rr             su            \u0007kobold shaman\nZb\n           Zd\n                             Zc\n       n   Za\n           n   sm.          n               20s      n Zd\n                     sm.           sb     n  i\u001b\u001612\n\u0017wand of fire\n\u0017wand of cancellation\n\u0017wand of sleep\n\u0007yellow mold\n\u0007owlbear\nztu             zsl                         sm.           ztu          zsu            zsk      20s     n                  zuk            zsu      "
+  }
+ ]
+}

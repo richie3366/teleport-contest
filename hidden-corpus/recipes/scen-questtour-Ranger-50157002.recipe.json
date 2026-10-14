@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nl;l:   _mmmmm._.#chat\nu_m._,#chat\nb_mm,#chat\nh#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fj_,#chat\nj;j;_mm.#chat\nj\u0017blessed amulet of reflection\nPg\u0017blessed Mjollnir\nwh\u0017blessed +3 speed boots\nWi\u0017wand of lightning\n\u0016?\n>A\u0006_mm.FjFjFjFjFjFjzjk  ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.FjFjFjFjFjFjFjzjj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj;j.\u0016?\n>z\u0006_mmmmmmm.FjFjFjFjFjFj,\u0016?\n>A\u0006_mmm.FjFjFjFjFjFj,\u0016?\n>A\u0006_mmmmmmm.FjFjFjFj,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.FjFjFjFjFjFjzjj ,#chat\nj\u0016?\n>z\u0006_mm,FjFjFjFjFjFjzjj ,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nj\u0016?\n>A\u0006_mm,FjFjFjFjFj \u001bFj,\u0016?\n>A\u0006_mmmm.FjFjFjFjFjFjFjzjj,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.FjFjFjFjFjFjFj,#chat\nj\u0016?\n>z\u0006_mmmmmm.FjFjFjFjzjj ,\u0016?\n>A\u0006_mmmmmmm.FjFjFjFjFlzjl ,\u0016?\n>A\u0006_mmmmmmm,FjFjFjFjzj,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.FjFjFjFjFjFjzj,\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nj\u0016?\n>z\u0006_mm.FjFjFjFjFjFjFjzj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nj;j.\u0016?\n>A\u0006_mmm,FjFjFbFjFbzj  n ,\u0016?\n>>\u001b\u0016?\n>y"
+ },
+ "segments": [
+  {
+   "seed": 50157002,
+   "datetime": "20130925214411",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nl;l:   _mmmmm._.#chat\nu_m._,#chat\nb_mm,#chat\nh#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fj_,#chat\nj;j;_mm.#chat\nj\u0017blessed amulet of reflection\nPg\u0017blessed Mjollnir\nwh\u0017blessed +3 speed boots\nWi\u0017wand of lightning\n\u0016?\n>A\u0006_mm.FjFjFjFjFjFjzjk  ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.FjFjFjFjFjFjFjzjj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj;j.\u0016?\n>z\u0006_mmmmmmm.FjFjFjFjFjFj,\u0016?\n>A\u0006_mmm.FjFjFjFjFjFj,\u0016?\n>A\u0006_mmmmmmm.FjFjFjFj,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.FjFjFjFjFjFjzjj ,#chat\nj\u0016?\n>z\u0006_mm,FjFjFjFjFjFjzjj ,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nj\u0016?\n>A\u0006_mm,FjFjFjFjFj \u001bFj,\u0016?\n>A\u0006_mmmm.FjFjFjFjFjFjFjzjj,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.FjFjFjFjFjFjFj,#chat\nj\u0016?\n>z\u0006_mmmmmm.FjFjFjFjzjj ,\u0016?\n>A\u0006_mmmmmmm.FjFjFjFjFlzjl ,\u0016?\n>A\u0006_mmmmmmm,FjFjFjFjzj,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.FjFjFjFjFjFjzj,\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nj\u0016?\n>z\u0006_mm.FjFjFjFjFjFjFjzj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nj;j.\u0016?\n>A\u0006_mmm,FjFjFbFjFbzj  n ,\u0016?\n>>\u001b\u0016?\n>y"
+  }
+ ]
+}

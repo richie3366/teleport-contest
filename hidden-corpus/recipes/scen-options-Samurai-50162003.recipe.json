@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "O>dh\n,E- Vlad was here\nO>lk\n;k. \u001b:   ohmOa\n#terrain\nc\n:#jump\nOf\n20sO>fl\n20s#rub\ns20sO>e\n#turn\n#conduct\n mO>>fs\n ,#turn\nO>am\n#invoke\n\u001b_>,sOjh\ntcumO>>>>>h\n1\n;l._<,..s"
+ },
+ "segments": [
+  {
+   "seed": 50162003,
+   "datetime": "20060210162902",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "O>dh\n,E- Vlad was here\nO>lk\n;k. \u001b:   ohmOa\n#terrain\nc\n:#jump\nOf\n20sO>fl\n20s#rub\ns20sO>e\n#turn\n#conduct\n mO>>fs\n ,#turn\nO>am\n#invoke\n\u001b_>,sOjh\ntcumO>>>>>h\n1\n;l._<,..s"
+  }
+ ]
+}

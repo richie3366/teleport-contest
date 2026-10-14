@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           #levelchange\n12\n\u0017potion of blindness\nqf\u0017uncursed scroll of light\nrg\u0017uncursed +0 ring of regeneration\nPhl20s   20s   20sRFkFk\u0017cursed potion of gain ability\nqiFl.\u0017blessed red dragon scale mail\nW\u001b...T\u0017blessed spellbook of cancellation\nrkssZZFls20s20s \u001b\u0017bullwhip\nwl....s\u0017blessed wand of cancellation\nzmh\u0017cursed cockatrice corpse\n\u0017flint stone\n\u0007ogre king\naoj\u0017uncursed Sting\n\u0007erinys\nwpsFhFh#invoke\np20s s  n#levelchange\n16\n    \u0016?\n>y  _ \u001b.#chat\nn_m.#chat\nb_mm.#chat\nk_mmmm.#chat\nk\u0016?\n>>\u001b__.sok;<.\\ #levelchange\n14\nynhy\u0017moat\nny jb\u0017tree\nu\u0004b\u0017axe\naq\u0004 \u0018\u001bi\u001b\u001629\n\u0017pick-axe\n \u0007erinys\nar h ar>\u0017blessed war hammer\n\u0007paper golem\nwsFh  n Fb  Fy\u0017potion of healing\n\u0007succubus\nqt \u0017wax candle\n\u0007Pestilence\nyau   #rub\ncc   n    \u0017cursed bell\nav        n   av  Fy   n   Fh    n \u00173 potion of oil\n\u0007xan\nqw  Fn  nFl  sm.  n .u   n \u00162\n#levelchange\n30\n                \u0017scroll of teleportation\nrx\u0017blessed potion of booze\n\u0007Demogorgon\nyy  qy      n\u0017cursed the Heart of Ahriman\n,      n     Fb   n   Fb  \u0017scroll of gold detection\n\u0007fire elemental\nrz\u0017Giantslayer\n\u0007jellyfish\nwA   n      n Fb  Fb  n                yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50150065,
+   "datetime": "20050211223445",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           #levelchange\n12\n\u0017potion of blindness\nqf\u0017uncursed scroll of light\nrg\u0017uncursed +0 ring of regeneration\nPhl20s   20s   20sRFkFk\u0017cursed potion of gain ability\nqiFl.\u0017blessed red dragon scale mail\nW\u001b...T\u0017blessed spellbook of cancellation\nrkssZZFls20s20s \u001b\u0017bullwhip\nwl....s\u0017blessed wand of cancellation\nzmh\u0017cursed cockatrice corpse\n\u0017flint stone\n\u0007ogre king\naoj\u0017uncursed Sting\n\u0007erinys\nwpsFhFh#invoke\np20s s  n#levelchange\n16\n    \u0016?\n>y  _ \u001b.#chat\nn_m.#chat\nb_mm.#chat\nk_mmmm.#chat\nk\u0016?\n>>\u001b__.sok;<.\\ #levelchange\n14\nynhy\u0017moat\nny jb\u0017tree\nu\u0004b\u0017axe\naq\u0004 \u0018\u001bi\u001b\u001629\n\u0017pick-axe\n \u0007erinys\nar h ar>\u0017blessed war hammer\n\u0007paper golem\nwsFh  n Fb  Fy\u0017potion of healing\n\u0007succubus\nqt \u0017wax candle\n\u0007Pestilence\nyau   #rub\ncc   n    \u0017cursed bell\nav        n   av  Fy   n   Fh    n \u00173 potion of oil\n\u0007xan\nqw  Fn  nFl  sm.  n .u   n \u00162\n#levelchange\n30\n                \u0017scroll of teleportation\nrx\u0017blessed potion of booze\n\u0007Demogorgon\nyy  qy      n\u0017cursed the Heart of Ahriman\n,      n     Fb   n   Fb  \u0017scroll of gold detection\n\u0007fire elemental\nrz\u0017Giantslayer\n\u0007jellyfish\nwA   n      n Fb  Fb  n                yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

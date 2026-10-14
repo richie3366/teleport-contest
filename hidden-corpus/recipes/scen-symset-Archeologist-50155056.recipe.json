@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u00162\nFbFbFkFuFnFyFuFlFjFyFbFjFyFbFyFbFlFuFuFyFnFjFyFlj FkFuFjFbFbFjFuFnFbFkFkFnFyFjFbFjFnFbFnFnFuFnFyFyFyFuFjFjFkFyFuk FkFlFkFlFjFyFyFkFjFlFnFjFkFyFbFyFuj FkFyFun FbFnFbFbFyFuy FyFub FyFlb FnFkn FbFlk FkFuFuFyFll FlFnFjFnFbFuFbFyFyFjFuFlFuFyFjFuFnFnFbFnFkFbFlb FkFjFu\u00162\nFyFkn FlFkFlFkFkFlFbFub FnFyFkFlFyFkj FyFll FbFyFyFyFnFbFkFnFuy FjFkFbFnFkFuFuFjFlFjFbFnFuFlFyFbFbFbFlFkFnFbFuFlFjFkFbFkn FjFkFkFkFbFyFbFbFjFbFly FlFnFkb FlFlFlFyFjFjFjFjFbFjFuFbFkl FnFjFyFjFjFkFlFkFuFuFlFjFyFly FuFuFkFlFlFjFjFyFlj FjFyFjFuFjFjFyFkj FnFub FnFyFuFjFjFkFjFuFjFkFjFnFlk FlFuFkFbFjFbFyFyFln FuFyFku FuFuFjFkFbFuu FkFjFlFbFjFyFbFnFbFjFuFyFnFyFnFyFjFkFyFyFkFyFun FuFlFuFbFlk FlFjFuFuFlFnFkb FnFyFbFjFkFyFnFyFl"
+ },
+ "segments": [
+  {
+   "seed": 50155056,
+   "datetime": "20180823045716",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"uncursed\"=red\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00162\nFbFbFkFuFnFyFuFlFjFyFbFjFyFbFyFbFlFuFuFyFnFjFyFlj FkFuFjFbFbFjFuFnFbFkFkFnFyFjFbFjFnFbFnFnFuFnFyFyFyFuFjFjFkFyFuk FkFlFkFlFjFyFyFkFjFlFnFjFkFyFbFyFuj FkFyFun FbFnFbFbFyFuy FyFub FyFlb FnFkn FbFlk FkFuFuFyFll FlFnFjFnFbFuFbFyFyFjFuFlFuFyFjFuFnFnFbFnFkFbFlb FkFjFu\u00162\nFyFkn FlFkFlFkFkFlFbFub FnFyFkFlFyFkj FyFll FbFyFyFyFnFbFkFnFuy FjFkFbFnFkFuFuFjFlFjFbFnFuFlFyFbFbFbFlFkFnFbFuFlFjFkFbFkn FjFkFkFkFbFyFbFbFjFbFly FlFnFkb FlFlFlFyFjFjFjFjFbFjFuFbFkl FnFjFyFjFjFkFlFkFuFuFlFjFyFly FuFuFkFlFlFjFjFyFlj FjFyFjFuFjFjFyFkj FnFub FnFyFuFjFjFkFjFuFjFkFjFnFlk FlFuFkFbFjFbFyFyFln FuFyFku FuFuFjFkFbFuu FkFjFlFbFjFyFbFnFbFjFuFyFnFyFnFyFjFkFyFyFkFyFun FuFlFuFbFlk FlFjFuFuFlFnFkb FnFyFbFjFkFyFnFyFl"
+  }
+ ]
+}

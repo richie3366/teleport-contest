@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWf\u0017blessed shield of reflection\nWg\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n14\n             \u0007orc shaman\n\u0007master mind flayer\n\u0007lich\n\u0017wand of striking\nsm.20s   .m.   sbzib .m.zilzil        \u0007red dragon\n\u0007baby red dragon\nsm..l     20s    .b  n      n \u0017wand of cold\najy              n Fl     n Fn   n i\u001b\u00164\n\u0007master mind flayer\n\u0007mind flayer\n\u0017wand of striking\nzklzkl   n     \u001bzkl   n      n 20s   n    n sm.    n      n zkl   n    n  \u001610\n\u0017wand of death\n\u0017wand of cold\n\u0007kobold\n\u0007newt\n\u0007lichen\nzlj sm.zlu zly  zly.zlj  szmh zlk  \u0017elven bow\nwn\u001720 elven arrows\nQo\u0007lichen\nflflfhfbtbj\u0017wand of striking\n\u0017wand of polymorph\n\u0007yellow mold\nzqlsm.zpl zpjzp.szpjzqnzpls\u00176 javelins\nQ"
+ },
+ "segments": [
+  {
+   "seed": 50161003,
+   "datetime": "20220830124823",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWf\u0017blessed shield of reflection\nWg\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n14\n             \u0007orc shaman\n\u0007master mind flayer\n\u0007lich\n\u0017wand of striking\nsm.20s   .m.   sbzib .m.zilzil        \u0007red dragon\n\u0007baby red dragon\nsm..l     20s    .b  n      n \u0017wand of cold\najy              n Fl     n Fn   n i\u001b\u00164\n\u0007master mind flayer\n\u0007mind flayer\n\u0017wand of striking\nzklzkl   n     \u001bzkl   n      n 20s   n    n sm.    n      n zkl   n    n  \u001610\n\u0017wand of death\n\u0017wand of cold\n\u0007kobold\n\u0007newt\n\u0007lichen\nzlj sm.zlu zly  zly.zlj  szmh zlk  \u0017elven bow\nwn\u001720 elven arrows\nQo\u0007lichen\nflflfhfbtbj\u0017wand of striking\n\u0017wand of polymorph\n\u0007yellow mold\nzqlsm.zpl zpjzp.szpjzqnzpls\u00176 javelins\nQ"
+  }
+ ]
+}

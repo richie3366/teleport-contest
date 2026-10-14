@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "O>>c\u001b\nmO>>>>j\u001b\nO>o6\n \u001b\n\u0006_ \u001bm,>FlFj_>.Fy  _.Fh>Fhs_>,_.> FhFnFhi\u001bW\u0006_>.Fb_.Fn>FnFbFb\u0006_>,Fj_,Fu>FuFn_>,Fn_,Fu>FnFn_>,Fu_.Fn>FuFnFuFnFu\u0006_>>.Fu_,Fu>FnFu_>>.Fu_.Fu>FuFn_>>,Fn_,Fu>FnFnFnFuFu<mO>>k\u001b\nmOa\u001b\nFlFlFlFnFbFbFjFnFbFlFjFnFlFnFbFlFlFnFnFjFlFjFbFbFnFjFnFnFjFbFbFbFjFnFbFlFnFlFjFjFjFjFbFnFnFlFlFbFbFbFjFbFnFnFbFlFjFnFbFbFnFnFnFnFjFbFjFjFnFnFbFbFnFlFjFbFbFnFjFnFlFnFbFlFlFnFbFnFjFnFlFnFj FjFnFnFnFlFnFnFlFlFbFlFnFlFlFnFlFbFjFnFlFjFnFlFjFjFnFj\u0007tame jackal\n\u0007tame pony\n\u0006_>.Fb_.Fu>FnFy_>,Fn_.Fn>FnFk_>.Fn_.Fu>FkFn\u0006_>.Fn_.Fu>FuFn_>.Fn"
+ },
+ "segments": [
+  {
+   "seed": 50155040,
+   "datetime": "20160630101948",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "O>>c\u001b\nmO>>>>j\u001b\nO>o6\n \u001b\n\u0006_ \u001bm,>FlFj_>.Fy  _.Fh>Fhs_>,_.> FhFnFhi\u001bW\u0006_>.Fb_.Fn>FnFbFb\u0006_>,Fj_,Fu>FuFn_>,Fn_,Fu>FnFn_>,Fu_.Fn>FuFnFuFnFu\u0006_>>.Fu_,Fu>FnFu_>>.Fu_.Fu>FuFn_>>,Fn_,Fu>FnFnFnFuFu<mO>>k\u001b\nmOa\u001b\nFlFlFlFnFbFbFjFnFbFlFjFnFlFnFbFlFlFnFnFjFlFjFbFbFnFjFnFnFjFbFbFbFjFnFbFlFnFlFjFjFjFjFbFnFnFlFlFbFbFbFjFbFnFnFbFlFjFnFbFbFnFnFnFnFjFbFjFjFnFnFbFbFnFlFjFbFbFnFjFnFlFnFbFlFlFnFbFnFjFnFlFnFj FjFnFnFnFlFnFnFlFlFbFlFnFlFlFnFlFbFjFnFlFjFnFlFjFjFnFj\u0007tame jackal\n\u0007tame pony\n\u0006_>.Fb_.Fu>FnFy_>,Fn_.Fn>FnFk_>.Fn_.Fu>FkFn\u0006_>.Fn_.Fu>FuFn_>.Fn"
+  }
+ ]
+}

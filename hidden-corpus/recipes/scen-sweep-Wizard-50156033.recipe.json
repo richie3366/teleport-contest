@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   yuyl\u0017throne\n#sit\n #sit\n y:bl\u0017melting ice\nhlllbl\u0017cloud\nbuuuh\u0017magic fountain\nqy qyEk#jump\n#levelchange\n6\n     \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo \u001b,_m._.m.Fk#chat\nj_ddddd,_.Fn \u0004h_oooo.Fj_,_o._,Fj,di_ddddd._.m.\u0004l_ooooooooo._._oo,Fk _., :_oooo.Fj  _,Fj ,\u0014; _m,Fj _.#chat\nj __. sm.\u0018\u001b#untrap\nj\u00167\n#levelchange\n12\n    \u0017blessed ring of polymorph control\nPpl#polyself\nbalrog\n#monster\nssm.\u0007green slime\nFj  FlFl 20s  .m.   n  s #polyself\nlurker above\n #monster\n   sm.  sm.   n  s .   sm. #polyself\nblue jelly\n #monster\nsm.   .h .j sl  sb#polyself\nwater elemental\n#monster\n20s    n s \u0007Demogorgon\nynFk     Fk           Fh     n 20s    .y   .m.   n \u00164\n#levelchange\n12\n    \u00173 scroll of blank paper\nrq    n\u0017blessed +3 ring of free action\nPr      20s         n 20s      nsm.     n         Rr     n Fj  n Fl    \u0017oil lamp\n\u0007winter wolf\nas   n        n  #rub\ns     n   \u0017uncursed scroll of fire\nrt   20s  sy\u000f\u001b\u00161\n#levelchange\n30\n                     \u0016?\n>>\u001b\u0016?\n>J     amulet of magical breathing\namqearth\n       df     n                         #turn\n;y:  \u0006sm.   n           sm.   yny   y ny\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50156033,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   yuyl\u0017throne\n#sit\n #sit\n y:bl\u0017melting ice\nhlllbl\u0017cloud\nbuuuh\u0017magic fountain\nqy qyEk#jump\n#levelchange\n6\n     \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo \u001b,_m._.m.Fk#chat\nj_ddddd,_.Fn \u0004h_oooo.Fj_,_o._,Fj,di_ddddd._.m.\u0004l_ooooooooo._._oo,Fk _., :_oooo.Fj  _,Fj ,\u0014; _m,Fj _.#chat\nj __. sm.\u0018\u001b#untrap\nj\u00167\n#levelchange\n12\n    \u0017blessed ring of polymorph control\nPpl#polyself\nbalrog\n#monster\nssm.\u0007green slime\nFj  FlFl 20s  .m.   n  s #polyself\nlurker above\n #monster\n   sm.  sm.   n  s .   sm. #polyself\nblue jelly\n #monster\nsm.   .h .j sl  sb#polyself\nwater elemental\n#monster\n20s    n s \u0007Demogorgon\nynFk     Fk           Fh     n 20s    .y   .m.   n \u00164\n#levelchange\n12\n    \u00173 scroll of blank paper\nrq    n\u0017blessed +3 ring of free action\nPr      20s         n 20s      nsm.     n         Rr     n Fj  n Fl    \u0017oil lamp\n\u0007winter wolf\nas   n        n  #rub\ns     n   \u0017uncursed scroll of fire\nrt   20s  sy\u000f\u001b\u00161\n#levelchange\n30\n                     \u0016?\n>>\u001b\u0016?\n>J     amulet of magical breathing\namqearth\n       df     n                         #turn\n;y:  \u0006sm.   n           sm.   yny   y ny\u001b  \u0016"
+  }
+ ]
+}

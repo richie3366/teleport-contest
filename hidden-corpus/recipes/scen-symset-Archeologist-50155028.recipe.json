@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b,>FnFk_>.Fy_. Fk>FkFb_>.Fu_,Fb>FhFhFhFhFu\u0006_>>.Fl_.Fn>FbFy_>>.Fl_.Fk>FkFn_>>,Fb_.Fn>FkFkFlFkFy\u0006_>.Fy_.Fn>FyFk_>.Fk_.Fh>FnFn_>,Fk_.Fy>FlFyFbFkFy#jump\n>\u0006_>,Fn_,Fl>FbFk_>.Fu_.Fy>FkFu_>.Fk_.Fu>FhFbFhFlFn\u0006_>,Fu_,Fu>FhFy_>.Fu_,Fu>FkFu_>.Fn_,Fb>FuFbFbFyFbZK#loot\nuae  noks\u001616\nv i\u001bmOa\u001b\n\u001612\n\u0006_>>.Fh _.@.Fk >FlFk_>>._..>_>>._.m,>#tip\nh\u001b#dip\nc\u0006_>>._,m,>_>>._.m.>_>>,_.,><\u0006_>._,m,>_>._,;m,>_>._..>\\ #tip\nh\u001b\u0006_>._,@.>_>._..>_>,_.,>v i\u001b#conduct\n #monster\n#offer\n\u00163\n  O>>>f\u001b\n\u0006_>>,Fj_.Fu>FjFj_>>.Fb_,Fk>FjFu_>>.Fu_.Fu  >Fb    nFu    nFk Fl   n  nFb   n\u0006_>>.  nFk   n_.Fb  n >Fy   n Fy  n _>>,  n Fj   n _.  n Fb  n >Fb  n Fb  n_>>.Fl_..Fy> FyFyFl\u0006_>.Fn_.Fy>FkFu_>.Fj_.Fj>FjFk_>,Fb_.Fk>FbFbFkFhFh#sit\nw-< \u0006_>>.> FbFkFl\u0006_>>.Fh _.@.Fh>FhFh_>>,Fh_..Fh  n>_>>.Fy_.Fy>FyFbFbFbFy\u0006_>.Fy_.Fy>FbFb_>.Fb_.Fb>FyFb_>.Fy_,Fb>FbFbFbFbFb#tip\nh\u001b\u000f\u001bv i\u001bFyFyFyFyFyFbFyFyFyFbFbFbFbFbFbFbFbFbFbFyF"
+ },
+ "segments": [
+  {
+   "seed": 50155028,
+   "datetime": "20120328005902",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nOPTIONS=msg_window:reversed\n",
+   "moves": " \u0006_ \u001b,>FnFk_>.Fy_. Fk>FkFb_>.Fu_,Fb>FhFhFhFhFu\u0006_>>.Fl_.Fn>FbFy_>>.Fl_.Fk>FkFn_>>,Fb_.Fn>FkFkFlFkFy\u0006_>.Fy_.Fn>FyFk_>.Fk_.Fh>FnFn_>,Fk_.Fy>FlFyFbFkFy#jump\n>\u0006_>,Fn_,Fl>FbFk_>.Fu_.Fy>FkFu_>.Fk_.Fu>FhFbFhFlFn\u0006_>,Fu_,Fu>FhFy_>.Fu_,Fu>FkFu_>.Fn_,Fb>FuFbFbFyFbZK#loot\nuae  noks\u001616\nv i\u001bmOa\u001b\n\u001612\n\u0006_>>.Fh _.@.Fk >FlFk_>>._..>_>>._.m,>#tip\nh\u001b#dip\nc\u0006_>>._,m,>_>>._.m.>_>>,_.,><\u0006_>._,m,>_>._,;m,>_>._..>\\ #tip\nh\u001b\u0006_>._,@.>_>._..>_>,_.,>v i\u001b#conduct\n #monster\n#offer\n\u00163\n  O>>>f\u001b\n\u0006_>>,Fj_.Fu>FjFj_>>.Fb_,Fk>FjFu_>>.Fu_.Fu  >Fb    nFu    nFk Fl   n  nFb   n\u0006_>>.  nFk   n_.Fb  n >Fy   n Fy  n _>>,  n Fj   n _.  n Fb  n >Fb  n Fb  n_>>.Fl_..Fy> FyFyFl\u0006_>.Fn_.Fy>FkFu_>.Fj_.Fj>FjFk_>,Fb_.Fk>FbFbFkFhFh#sit\nw-< \u0006_>>.> FbFkFl\u0006_>>.Fh _.@.Fh>FhFh_>>,Fh_..Fh  n>_>>.Fy_.Fy>FyFbFbFbFy\u0006_>.Fy_.Fy>FbFb_>.Fb_.Fb>FyFb_>.Fy_,Fb>FbFbFbFbFb#tip\nh\u001b\u000f\u001bv i\u001bFyFyFyFyFyFbFyFyFyFbFbFbFbFbFbFbFbFbFbFyF"
+  }
+ ]
+}

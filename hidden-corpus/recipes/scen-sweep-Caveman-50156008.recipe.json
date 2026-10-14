@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           #levelchange\n30\n                  \u0007gelatinous cube\nFy Fk  FkFk FkFk s20s\u0007nurse\nFhFhFhFh sh20s\u0007werewolf\nFhFhFh  Fk Fk FkFh20s sm.#pray\ny y         #levelchange\n20\n   \u0016?\nk   \u0006_ \u001b<.  n #chat\nlsm.   20s   20s  \\ >\u0018\u001b#levelchange\n30\n         \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqfm,__,_,#chat\nk#pray\ny y _ooo._.;>._ooo,_.,p_mm.#chat\nu_ooooo._.,#chat\nl_mm.#chat\nb_{._.qy#dip\ney#offer\n#ride\nhy;m,\u0007lich\nFnFn  Fn FnFlFl  Fl  sksm.\u0007werewolf\nFhFhFhFn.m..u#pray\ny y          bbh\u0017web\nkjsl20sj  n\u0017trap door\nk j sj .m.b\u0017magic portal\nb\u0017fire trap\n\u0017land mine\nag llf  u #enhance\nyk\nj\n\u001b#ride\nky\u0017wand of digging\n\u0006_oo.Fk _.,   n Fk zh> n\u0017grave\nzh> su.m.jbzh> 20s zhl  nlzh< l\u0017zss\u0016\u0017\u0016\u0016\u0006_,p_,d__,:_#chat\n"
+ },
+ "segments": [
+  {
+   "seed": 50156008,
+   "datetime": "20030916143433",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n12\n           #levelchange\n30\n                  \u0007gelatinous cube\nFy Fk  FkFk FkFk s20s\u0007nurse\nFhFhFhFh sh20s\u0007werewolf\nFhFhFh  Fk Fk FkFh20s sm.#pray\ny y         #levelchange\n20\n   \u0016?\nk   \u0006_ \u001b<.  n #chat\nlsm.   20s   20s  \\ >\u0018\u001b#levelchange\n30\n         \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqfm,__,_,#chat\nk#pray\ny y _ooo._.;>._ooo,_.,p_mm.#chat\nu_ooooo._.,#chat\nl_mm.#chat\nb_{._.qy#dip\ney#offer\n#ride\nhy;m,\u0007lich\nFnFn  Fn FnFlFl  Fl  sksm.\u0007werewolf\nFhFhFhFn.m..u#pray\ny y          bbh\u0017web\nkjsl20sj  n\u0017trap door\nk j sj .m.b\u0017magic portal\nb\u0017fire trap\n\u0017land mine\nag llf  u #enhance\nyk\nj\n\u001b#ride\nky\u0017wand of digging\n\u0006_oo.Fk _.,   n Fk zh> n\u0017grave\nzh> su.m.jbzh> 20s zhl  nlzh< l\u0017zss\u0016\u0017\u0016\u0016\u0006_,p_,d__,:_#chat\n"
+  }
+ ]
+}

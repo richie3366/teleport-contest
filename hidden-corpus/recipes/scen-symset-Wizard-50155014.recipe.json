@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " uy nn\u0017moat\nkn \u0017ice\nbn\u0017melting ice\nh\u001by#tip\n\u001b\u001bO>>>>o6\n \u001b\n\u00162\nmO>>>>l\u001b\n#levelchange\n10\n         uj buj \u0017cloud\nj\u0017grave\n:\u0017pick-axe\nao >.20sjj\u0017chaotic altar\ndc\u0017gnome corpse\n#offer\np #pray\ny y j\u0017pool\n#dip\nhy    wotal _m, \u001bm,20sFyFly FhFuFjFbFyFkFbFlu FbFnFyFlj FjFlFkFhFlFyFlb FhFyFlb FbFbFyFh\u001bFkFbFyFjFnFuu FkFbFh\u001bFhFlFyFlh FjFyFbFuFuFbFun FlFjFjFlFhFnFyFjFjFlFlFnFbFjFbFh\u001bFhFkFnFbFbFbFjFjFuFjFbFjFyFbFlFkFkFbFh\u001bFkFhFnFjFhFkFhFlFjFuFjFlFkFhFnFh\u001bFyFku FkFjFlFyFkn FbFyFyFly FjFhFjFjFyFkk FuFnFyFj\u001618\nO>>>b\u001b\nFnFun FnFjFuFnFun FnFyFnFkj FbFjFjFyFh\u001bFyFjFnFh\u001bFyFul FkFlFnFh\u001bFnFbFyFjFuFyFky FlFbFjFkFnFh\u001bFhFhFhFuFuFhFnFjFhFuFhFjFyFyFjFyFyFlFnFyFnFbFbFub FhFjFbFjFbFh\u001bFyFuk FkFnFbFbFuk FbFyFkFnFjFhFhFbFuh FlFkFhFnFnFnFly FkFhFlFuFjFkFhFlFlFyFh\u001bFhFjFuFkFuFlFhFyFjFhFnFjFkFnFln FuFj\u00162\n\u00167\nFlFbFkl FyFll FjFnFnFjFhFhFjFkFnFyFyFnFjFlFbFbFnFkk FuFuFjFkFkFjFnFyFuFhFbFuj FuFuFlFbFbFbFyFyFln FjFlFkFyFyFyFbFyFul FkFkFlFkFbFjFyFh\u001bFnFul FbFlk FuFjFlFbFyFyFul FhFlFjFkFk"
+ },
+ "segments": [
+  {
+   "seed": 50155014,
+   "datetime": "20210412123600",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!verbose\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=number_pad:4\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a scroll\"=cyan\n",
+   "moves": " uy nn\u0017moat\nkn \u0017ice\nbn\u0017melting ice\nh\u001by#tip\n\u001b\u001bO>>>>o6\n \u001b\n\u00162\nmO>>>>l\u001b\n#levelchange\n10\n         uj buj \u0017cloud\nj\u0017grave\n:\u0017pick-axe\nao >.20sjj\u0017chaotic altar\ndc\u0017gnome corpse\n#offer\np #pray\ny y j\u0017pool\n#dip\nhy    wotal _m, \u001bm,20sFyFly FhFuFjFbFyFkFbFlu FbFnFyFlj FjFlFkFhFlFyFlb FhFyFlb FbFbFyFh\u001bFkFbFyFjFnFuu FkFbFh\u001bFhFlFyFlh FjFyFbFuFuFbFun FlFjFjFlFhFnFyFjFjFlFlFnFbFjFbFh\u001bFhFkFnFbFbFbFjFjFuFjFbFjFyFbFlFkFkFbFh\u001bFkFhFnFjFhFkFhFlFjFuFjFlFkFhFnFh\u001bFyFku FkFjFlFyFkn FbFyFyFly FjFhFjFjFyFkk FuFnFyFj\u001618\nO>>>b\u001b\nFnFun FnFjFuFnFun FnFyFnFkj FbFjFjFyFh\u001bFyFjFnFh\u001bFyFul FkFlFnFh\u001bFnFbFyFjFuFyFky FlFbFjFkFnFh\u001bFhFhFhFuFuFhFnFjFhFuFhFjFyFyFjFyFyFlFnFyFnFbFbFub FhFjFbFjFbFh\u001bFyFuk FkFnFbFbFuk FbFyFkFnFjFhFhFbFuh FlFkFhFnFnFnFly FkFhFlFuFjFkFhFlFlFyFh\u001bFhFjFuFkFuFlFhFyFjFhFnFjFkFnFln FuFj\u00162\n\u00167\nFlFbFkl FyFll FjFnFnFjFhFhFjFkFnFyFyFnFjFlFbFbFnFkk FuFuFjFkFkFjFnFyFuFhFbFuj FuFuFlFbFbFbFyFyFln FjFlFkFyFyFyFbFyFul FkFkFlFkFbFjFyFh\u001bFnFul FbFlk FuFjFlFbFyFyFul FhFlFjFkFk"
+  }
+ ]
+}

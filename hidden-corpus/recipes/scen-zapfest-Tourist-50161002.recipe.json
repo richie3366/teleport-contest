@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed shield of reflection\nWp\u0017blessed ring of free action\nPqr\u0017blessed amulet of life saving\nPr#levelchange\n20\n                   \u001715 shuriken\nQs\u0007yellow mold\n\u0007gnome lord\ntaufk  fl fk fk fk\u0017spellbook of cone of cold\nrts\u0007aligned cleric\nnZa\nZa\nZa\nZa\nZa\nZa\nZa\nZa\nZa\n\u0017wand of striking\n\u0017wand of fire\n\u0017wand of magic missile\n\u0007giant rat\nzvl zwk szvnzvk szvk zvu \u0007red dragon\n\u0007black dragon\n.m.sk    #polyself\nsilver dragon\n   #monster\nl     sm.  20s   #monster\n#monster\n#monster\n\u0017wand of magic missile\naxy     ..\u00162\n\u0017orcish bow\nwy\u001720 orcish arrows\nQz\u0007lichen\n\u0007troll\nflt$l    tal taj fl fl \u001611\n\u0017wand of slow monster\n\u0017wand of cancellation\n\u0007gnome\n\u0007grid bug\nzBnzAu   nzBb zBb zBb zBb sm. zBu zAu  n zB zB zAj \u00161\n\u0017blessed spellbook of magic missile\nrC sm.\u0007succubus\n\u0007orc sham"
+ },
+ "segments": [
+  {
+   "seed": 50161002,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=fruit:mango\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed shield of reflection\nWp\u0017blessed ring of free action\nPqr\u0017blessed amulet of life saving\nPr#levelchange\n20\n                   \u001715 shuriken\nQs\u0007yellow mold\n\u0007gnome lord\ntaufk  fl fk fk fk\u0017spellbook of cone of cold\nrts\u0007aligned cleric\nnZa\nZa\nZa\nZa\nZa\nZa\nZa\nZa\nZa\n\u0017wand of striking\n\u0017wand of fire\n\u0017wand of magic missile\n\u0007giant rat\nzvl zwk szvnzvk szvk zvu \u0007red dragon\n\u0007black dragon\n.m.sk    #polyself\nsilver dragon\n   #monster\nl     sm.  20s   #monster\n#monster\n#monster\n\u0017wand of magic missile\naxy     ..\u00162\n\u0017orcish bow\nwy\u001720 orcish arrows\nQz\u0007lichen\n\u0007troll\nflt$l    tal taj fl fl \u001611\n\u0017wand of slow monster\n\u0017wand of cancellation\n\u0007gnome\n\u0007grid bug\nzBnzAu   nzBb zBb zBb zBb sm. zBu zAu  n zB zB zAj \u00161\n\u0017blessed spellbook of magic missile\nrC sm.\u0007succubus\n\u0007orc sham"
+  }
+ ]
+}

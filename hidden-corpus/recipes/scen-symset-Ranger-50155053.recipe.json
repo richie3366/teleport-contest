@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#enhance\nye\nh\n\u001b#twoweapon\n#untrap\nn z\u0007tame large dog\nll #chat\nn #name\no\ndfss20sy \u0006_ \u001b.>FnFn_>._,>_>.Fj_.> \u0006_>>,Fb_.Fb>FbFb_>>,Fj_,> #dip\na:O>>a\u001b\nOe\u001b\nv\u001bi\u001bv\u001bi\u001bO>>>p\u001b\nv\u001bi\u001bO>>c\u001b\n\u00168\n#enhance\nyh\nl\n\u001b\u0004b ,\u000f\u001b#levelchange\n14\n             uj h\u001bh\u001b\u0017sink\nqyub \u0004b \u0004b \u0004b :yy\u0017fountain\nqy yq#turn\n#loot\nf  l \u0007tame soldier ant\n\u0017leash\nagh lh uh kh uh agh dd...\u0017leash\nahl h\u001bykl kl ahl dcss.#chat\nl \u0017banana\ntal \u0017leash\najl kl yh\u001bkl ajl ll \u00169\n\u0006_>.Fl_.>_>.Fl_.Fl>FlFl_>._,>\u0006_>>,Fl_.Fl>FlFl_>>.Fl_,Fu>FuFu_>>.Fl_.Fl>FlFlFlFlFl\u0006_>,Fu_,Fl>FlFl_>,Fl_.Fl>FlFk_>.Fl_.Fl>FlFlFlFlFl\u0006_>>.Fl_.Fl>FlFl_>>.Fl_.  nFl>FlFl_>>.Fl_.Fl>FlFlFlFlFl\u0006_>.Fk_.Fl>FlFl_>.Fl_,  Fl>FuFl_>. Fl_. Fu>FlFuFuFlFl\u0006_>.Fl_.Fl>FuFu_>.Fl_.Fl>FlFu_>.  nFu_.Fl>FlFuFlFuFl\u0006_>.Fu_.Fl>FlFl_>.Fu_.Fl>FlFu_>.Fl_.Fu>FuFlFlFuFl\u00168\n \u0006_>._.> FjFjFj#rub\ncl \u0006_>,Fl_.m.Fl>FlFl_>,Fl_,:Fl>FlFl_>._, >\u0006_>>. _.Fl>FlFl_>>, Fl_. Fl>FlFl_>>, Fl_. Fl>FlFlFlFlFl\u0006_>>.Fl_, Fl>FlFl_>>,Fl_, Fl>FlFl_>>, Fl_.  n Fl>FlFlFlFlFlq__,.ul \u0006_>,Fl_. Fl>FlFl_>. Fl_. F"
+ },
+ "segments": [
+  {
+   "seed": 50155053,
+   "datetime": "20180405102150",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=hide \"You miss\"\nMENUCOLOR=\"cursed\"=cyan\nBIND=v:inventory\n",
+   "moves": "#enhance\nye\nh\n\u001b#twoweapon\n#untrap\nn z\u0007tame large dog\nll #chat\nn #name\no\ndfss20sy \u0006_ \u001b.>FnFn_>._,>_>.Fj_.> \u0006_>>,Fb_.Fb>FbFb_>>,Fj_,> #dip\na:O>>a\u001b\nOe\u001b\nv\u001bi\u001bv\u001bi\u001bO>>>p\u001b\nv\u001bi\u001bO>>c\u001b\n\u00168\n#enhance\nyh\nl\n\u001b\u0004b ,\u000f\u001b#levelchange\n14\n             uj h\u001bh\u001b\u0017sink\nqyub \u0004b \u0004b \u0004b :yy\u0017fountain\nqy yq#turn\n#loot\nf  l \u0007tame soldier ant\n\u0017leash\nagh lh uh kh uh agh dd...\u0017leash\nahl h\u001bykl kl ahl dcss.#chat\nl \u0017banana\ntal \u0017leash\najl kl yh\u001bkl ajl ll \u00169\n\u0006_>.Fl_.>_>.Fl_.Fl>FlFl_>._,>\u0006_>>,Fl_.Fl>FlFl_>>.Fl_,Fu>FuFu_>>.Fl_.Fl>FlFlFlFlFl\u0006_>,Fu_,Fl>FlFl_>,Fl_.Fl>FlFk_>.Fl_.Fl>FlFlFlFlFl\u0006_>>.Fl_.Fl>FlFl_>>.Fl_.  nFl>FlFl_>>.Fl_.Fl>FlFlFlFlFl\u0006_>.Fk_.Fl>FlFl_>.Fl_,  Fl>FuFl_>. Fl_. Fu>FlFuFuFlFl\u0006_>.Fl_.Fl>FuFu_>.Fl_.Fl>FlFu_>.  nFu_.Fl>FlFuFlFuFl\u0006_>.Fu_.Fl>FlFl_>.Fu_.Fl>FlFu_>.Fl_.Fu>FuFlFlFuFl\u00168\n \u0006_>._.> FjFjFj#rub\ncl \u0006_>,Fl_.m.Fl>FlFl_>,Fl_,:Fl>FlFl_>._, >\u0006_>>. _.Fl>FlFl_>>, Fl_. Fl>FlFl_>>, Fl_. Fl>FlFlFlFlFl\u0006_>>.Fl_, Fl>FlFl_>>,Fl_, Fl>FlFl_>>, Fl_.  n Fl>FlFlFlFlFlq__,.ul \u0006_>,Fl_. Fl>FlFl_>. Fl_. F"
+  }
+ ]
+}

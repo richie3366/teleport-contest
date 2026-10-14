@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n14\n     \u0007warhorse\n\u0017scroll of taming\nre \u0017saddle\nafh#ride\njy\u0007horse\n\u0017scroll of taming\nrg \u0017saddle\nahh  #ride\njy\u0007warhorse\n\u0017scroll of taming\nri \u0017saddle\najl#ride\nby#ride\nbys#ride\nbyjyhln\u0007newt\nFkFjFk hh,uhl\\   #levelchange\n8\n \u0017Snickersnee\n wk   sFnFn#invoke\nk \u0007gray ooze\nFh  Fh Fl   FhFhFh\u0007erinys\n.m..sys.b\u0018\u001b#levelchange\n14\n    ub  by\u0017pool\n#dip\nby   lh:l h\u0017moat\nbujj\u0017iron bars\nkjkj20s  n#tip\n\u001b#force\n \u0018\u001b#levelchange\n30\n               \u0007werewolf\nFb Fk\u0007Uruk-hai\nFb FbFb FkFkFk\u0007captain\nFbFb  \u00163\n\u000f\u001b#levelchange\n20\n  \u00176 eggs\nQa\u00074 lichen\nbfk  ffh     n nk  ,#levelchange\n20\n\u0017blessed ring of polymorph control\nPmr   \u0017Hawaiian shirt\nWn sb20s    n sm.  #polyself\npiranha\n    #monster\nsm.   sm.    20s     n sbs#polyself\nelf\n #monster\n.y       .y     \u0007baby long worm\nFj      n Fl  Fush     .usm.      n \u0017amulet of unchanging\nPo     sm..b.sb\u00163\n\u0017quarterstaff\nwp      FlFk    n Fu     \u0007blue jelly\n#chat\nhFy     Fu   n    \u0007Demogorgon\nn#chat\nj     Fu       n    Fu     \u00161\n#levelchange\n20\n\u00173 candy bar\neq   n     sm.    20s  Fh   n    Fj    \u0017blessed wand of teleportation\nzsy      n Fh     Fh       \u0017blessed wand of create monster\nztCroesus\ny   n     ztplains centaur\n      Fy    n      Fy         n  \u0017cursed lembas wafer\neu          yy\u001by   y y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 50156017,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showrace\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n14\n     \u0007warhorse\n\u0017scroll of taming\nre \u0017saddle\nafh#ride\njy\u0007horse\n\u0017scroll of taming\nrg \u0017saddle\nahh  #ride\njy\u0007warhorse\n\u0017scroll of taming\nri \u0017saddle\najl#ride\nby#ride\nbys#ride\nbyjyhln\u0007newt\nFkFjFk hh,uhl\\   #levelchange\n8\n \u0017Snickersnee\n wk   sFnFn#invoke\nk \u0007gray ooze\nFh  Fh Fl   FhFhFh\u0007erinys\n.m..sys.b\u0018\u001b#levelchange\n14\n    ub  by\u0017pool\n#dip\nby   lh:l h\u0017moat\nbujj\u0017iron bars\nkjkj20s  n#tip\n\u001b#force\n \u0018\u001b#levelchange\n30\n               \u0007werewolf\nFb Fk\u0007Uruk-hai\nFb FbFb FkFkFk\u0007captain\nFbFb  \u00163\n\u000f\u001b#levelchange\n20\n  \u00176 eggs\nQa\u00074 lichen\nbfk  ffh     n nk  ,#levelchange\n20\n\u0017blessed ring of polymorph control\nPmr   \u0017Hawaiian shirt\nWn sb20s    n sm.  #polyself\npiranha\n    #monster\nsm.   sm.    20s     n sbs#polyself\nelf\n #monster\n.y       .y     \u0007baby long worm\nFj      n Fl  Fush     .usm.      n \u0017amulet of unchanging\nPo     sm..b.sb\u00163\n\u0017quarterstaff\nwp      FlFk    n Fu     \u0007blue jelly\n#chat\nhFy     Fu   n    \u0007Demogorgon\nn#chat\nj     Fu       n    Fu     \u00161\n#levelchange\n20\n\u00173 candy bar\neq   n     sm.    20s  Fh   n    Fj    \u0017blessed wand of teleportation\nzsy      n Fh     Fh       \u0017blessed wand of create monster\nztCroesus\ny   n     ztplains centaur\n      Fy    n      Fy         n  \u0017cursed lembas wafer\neu          yy\u001by   y y y y\u001by  s"
+  }
+ ]
+}

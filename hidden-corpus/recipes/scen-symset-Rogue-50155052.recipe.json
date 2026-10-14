@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0007housecat\n\u0017meatball\ntbj \u0017leash\nail bkj ykn aib \u0017fortune cookie\ntby h\u001b\u0017leash\naky yh\u001blj yakl \u0017leash\nalu bh\u001bh\u001bnaly \u00165\n\u0006_ \u001b.>FnFj_>,  Fn_>FjFn_>FbFbFbFjFj\u0006_>.Fh_.>.Fh>FhFn_>FhFh_>.Fn_>FnFh\u001bFnFh\u001bFnf#twoweapon\n\u0006_>,Fn_>FnFn_>,Fn_>FnFh\u001b_>,  nFh_,,Fh>FhFnFh\u001bFnFnO>>a\u001b\n\u0007tame little dog\n\u0007kobold\n.m..sm.  20s sjsm. \u0007grid bug\n\u0017scroll of taming\nrm \u0007giant rat\n\u0017scroll of taming\nrn #chat\nl \u0007newt\nsuj .uj 20s .n20s.m. #name\n\u001b#chat\nu #chat\nk ej  ck #invoke\n\u001bO>>>h\u001b\n\u00163\nFjFyFj#pray\ny y  FlFjFlFnFlFnFlFjFjFyFub FhFyFjFbFnFkFnFkh FlFbFnFkFuFhFhFhFhFkFuFuFhFlFyFyFlFuFkFyFlFhFnFkl FlFlFyFjFhFuFuFbFbFyFnFlFnFku FjFbFh\u001bFyFh\u001bFjFyFlFlFuFyFbFnFh\u001bFkFyFlFbFbFnFuy FnFnFjFlFuFuFlFnFkn FuFhFyF"
+ },
+ "segments": [
+  {
+   "seed": 50155052,
+   "datetime": "20000213145234",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "\u0007housecat\n\u0017meatball\ntbj \u0017leash\nail bkj ykn aib \u0017fortune cookie\ntby h\u001b\u0017leash\naky yh\u001blj yakl \u0017leash\nalu bh\u001bh\u001bnaly \u00165\n\u0006_ \u001b.>FnFj_>,  Fn_>FjFn_>FbFbFbFjFj\u0006_>.Fh_.>.Fh>FhFn_>FhFh_>.Fn_>FnFh\u001bFnFh\u001bFnf#twoweapon\n\u0006_>,Fn_>FnFn_>,Fn_>FnFh\u001b_>,  nFh_,,Fh>FhFnFh\u001bFnFnO>>a\u001b\n\u0007tame little dog\n\u0007kobold\n.m..sm.  20s sjsm. \u0007grid bug\n\u0017scroll of taming\nrm \u0007giant rat\n\u0017scroll of taming\nrn #chat\nl \u0007newt\nsuj .uj 20s .n20s.m. #name\n\u001b#chat\nu #chat\nk ej  ck #invoke\n\u001bO>>>h\u001b\n\u00163\nFjFyFj#pray\ny y  FlFjFlFnFlFnFlFjFjFyFub FhFyFjFbFnFkFnFkh FlFbFnFkFuFhFhFhFhFkFuFuFhFlFyFyFlFuFkFyFlFhFnFkl FlFlFyFjFhFuFuFbFbFyFnFlFnFku FjFbFh\u001bFyFh\u001bFjFyFlFlFuFyFbFnFh\u001bFkFyFlFbFbFnFuy FnFnFjFlFuFuFlFnFkn FuFhFyF"
+  }
+ ]
+}

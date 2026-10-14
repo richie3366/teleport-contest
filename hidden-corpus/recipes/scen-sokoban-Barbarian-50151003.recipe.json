@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>Cly\u0017wand of digging\nzej\u0017wand of striking\nzfj\u0017scroll of earth\nrg  hbkblnnh\u0017wand of digging\nzhjuuuunlnhbujyjjl10suj10slbj\u0017wand of digging\nziljuy10suu\u0017wand of striking\nzju\u0017wand of striking\nzkh\u0017scroll of earth\nrl nj\u0017wand of digging\nzmjlyu10sjnnnulj"
+ },
+ "segments": [
+  {
+   "seed": 50151003,
+   "datetime": "20120217102551",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>Cly\u0017wand of digging\nzej\u0017wand of striking\nzfj\u0017scroll of earth\nrg  hbkblnnh\u0017wand of digging\nzhjuuuunlnhbujyjjl10suj10slbj\u0017wand of digging\nziljuy10suu\u0017wand of striking\nzju\u0017wand of striking\nzkh\u0017scroll of earth\nrl nj\u0017wand of digging\nzmjlyu10sjnnnulj"
+  }
+ ]
+}

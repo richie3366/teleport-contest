@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed spellbook of knock\nrism.\u0017blessed spellbook of finger of death\nrj  sm.\u0017blessed spellbook of cause fear\nrk  sy \u0017blessed spellbook of restore ability\nrl .m.+\u001b\u0007acid blob\nZa\n Fh\u0007kobold\nZb\n \u0007grid bug\nZa\n \u0007giant rat\nZb\n#pray\ny y     "
+ },
+ "segments": [
+  {
+   "seed": 50151029,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed spellbook of knock\nrism.\u0017blessed spellbook of finger of death\nrj  sm.\u0017blessed spellbook of cause fear\nrk  sy \u0017blessed spellbook of restore ability\nrl .m.+\u001b\u0007acid blob\nZa\n Fh\u0007kobold\nZb\n \u0007grid bug\nZa\n \u0007giant rat\nZb\n#pray\ny y     "
+  }
+ ]
+}

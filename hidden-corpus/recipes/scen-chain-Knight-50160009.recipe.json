@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "FuFu FuFuFuFuFuFuLKBJ_ \u001b>.>Fl20sFlNBK U_>.>FhFh s20s#dip\naNUYJ_>.>Hn NNU_>.>\u0018\u001b#conduct\n JNLY_>.>BJYN_>.>20s10s#chat\nbukhldesss#chat\nl#chat\nj10sul#name\nd\n20s#name\no\nfoo\n juhb20sy20sy10subluFhFhFhFhFhFhFhFhklnk10sjuuu#name\nf\n20skkjbuk10stah20sjjkjk100sFjFjFjFjFjFj100s150sFuFuFuFuFuFu,\\   bjbi\u001bb#quit\ny\u001b     bbulFh FhFhFhFhFhFhFhynljjyFn20s20s\u0018\u001b50s\u000f\u001bi\u001b>20sFhFhs#invoke\n\u001b_ \u001bm,>100s_>.>_>.>100s\\ nubjkjahr\n100sFks20s100sjkjFkFkFkFkss100s50s100sFkFks100ss100s_>.>i\u001bjjjkkj\u0004yFkss50sK NLY_>,>ck#wipe\nBUKU_>.>HYUB_>.>#dip\nc10si\u001bykj50s,100s1#quit\nyy\u001by  y y y\u001b \u0007pit fiend\nFhFh   nFhFhFh   yy\u001by  y y\u001by  F lllyFj FjFjFjFjFjFjFjUBL N_ \u001b.>KUKB_>,>NULK_>.>aay;m.NNUH _>.>FlFlFl\u000f\u001bFlFlFlFlFlFlFlFlhubububuUBY  J_>.>E- I am a fish\n: L BKH_>.>KH  UU_>.>NY  KY_>,>NL JN_>,>\u000f\u001bkbubJL NY_>.>UH  HH_>.>YYKJ_>.>L HUJ_>.>WPHNL Y_>,>UYJL _>.><KKYU_>.><bub150s150s unl150sFlFlFl#monster\n50s150s150s50sFl FlFlhnyi\u001b_>,>_>.>100s150s#tip\n\u001b100sFls.W150sFl20ss150s eecjlky100s150s ednnyynl50s50s100snbk100synyllbBLLN_>.>KKBU_>.>YBJL_>,>n\u0018\u001b\u000f\u001bdc.20ss20shnjjtbn#chat\nuddss.#name\nm\n100s50sFk20sslnhFks20s150sknnllhi\u001b\u0018\u001b100s#jump\n150sFhFhsda_>.>150s100s100sFh ss100s_>.>llj\u000f\u001b_>.>dc50s<_>,>50s100s150seeeeeeeekhnkjynkhldcs#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50160009,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=runmode:walk\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "FuFu FuFuFuFuFuFuLKBJ_ \u001b>.>Fl20sFlNBK U_>.>FhFh s20s#dip\naNUYJ_>.>Hn NNU_>.>\u0018\u001b#conduct\n JNLY_>.>BJYN_>.>20s10s#chat\nbukhldesss#chat\nl#chat\nj10sul#name\nd\n20s#name\no\nfoo\n juhb20sy20sy10subluFhFhFhFhFhFhFhFhklnk10sjuuu#name\nf\n20skkjbuk10stah20sjjkjk100sFjFjFjFjFjFj100s150sFuFuFuFuFuFu,\\   bjbi\u001bb#quit\ny\u001b    "
+  },
+  {
+   "seed": 50260009,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:cat\n",
+   "moves": " bbulFh FhFhFhFhFhFhFhynljjyFn20s20s\u0018\u001b50s\u000f\u001bi\u001b>20sFhFhs#invoke\n\u001b_ \u001bm,>100s_>.>_>.>100s\\ nubjkjahr\n100sFks20s100sjkjFkFkFkFkss100s50s100sFkFks100ss100s_>.>i\u001bjjjkkj\u0004yFkss50sK NLY_>,>ck#wipe\nBUKU_>.>HYUB_>.>#dip\nc10si\u001bykj50s,100s1#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50360009,
+   "datetime": "20240730170601",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007pit fiend\nFhFh   nFhFhFh   yy\u001by  y y\u001by  F"
+  },
+  {
+   "seed": 50460009,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\n",
+   "moves": " lllyFj FjFjFjFjFjFjFjUBL N_ \u001b.>KUKB_>,>NULK_>.>aay;m.NNUH _>.>FlFlFl\u000f\u001bFlFlFlFlFlFlFlFlhubububuUBY  J_>.>E- I am a fish\n: L BKH_>.>KH  UU_>.>NY  KY_>,>NL JN_>,>\u000f\u001bkbubJL NY_>.>UH  HH_>.>YYKJ_>.>L HUJ_>.>WPHNL Y_>,>UYJL _>.><KKYU_>.><bub150s150s unl150sFlFlFl#monster\n50s150s150s50sFl FlFlhnyi\u001b_>,>_>.>100s150s#tip\n\u001b100sFls.W150sFl20ss150s eecjlky100s150s ednnyynl50s50s100snbk100synyllbBLLN_>.>KKBU_>.>YBJL_>,>n\u0018\u001b\u000f\u001bdc.20ss20shnjjtbn#chat\nuddss.#name\nm\n100s50sFk20sslnhFks20s150sknnllhi\u001b\u0018\u001b100s#jump\n150sFhFhsda_>.>150s100s100sFh ss100s_>.>llj\u000f\u001b_>.>dc50s<_>,>50s100s150seeeeeeeekhnkjynkhldcs#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

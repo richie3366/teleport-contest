@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nk;k._m,Fh_,#chat\nh_m._.#chat\nh;m,#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fh  _.  Fy   #chat\ny_mmmm.Fy  _.  Fh  #chat\ny\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPjr  \u0017wand of striking\n\u0016?\n>A\u0006_mmmmmmm.    n Fh     _.   Fk    Fy   Fy  n   Fy    Fh    Fh   Fh    Fy   n,\u0016?\n>>\u001b\u0016?\n>y_m.   Fy   _.#chat\ny\u00166\n\u0016?\n>A\u0006_mmmmm.   Fy       n  _.  Fh  Fh   Fy     n  Fk   Fh    Fy   Fk    zkk     n ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmm.  Fy   _.#chat\nk\u00162\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,Fh   _.Fy  Fk    n  Fy   Fh  Fh   zkh  ,\u0016?\n>>\u001b\u0016?\n>y_mmm.   Fh   _.#chat\ny\u0016?\n>z\u0006_mmmmm,  n  Fk  _.;:   Fy  FkFy   Fy    Fyzky     n  ,\u00162\n\u0016?\n>A\u0006_mmmm.    Fk      _,Fk   Fy     nFy     Fk     Fh   Fy  n  zky   ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,  Fk     _,  Fy #chat\ny\u00168\n\u0016?\n>A\u0006_mmm,  Fh   n    _.Fh   Fy     n    Fh     Fy   n    Fy    Fk   zkh ,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mm,   n  Fk   _.#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.    Fk    _,Fk   FyFy    yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50150022,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nk;k._m,Fh_,#chat\nh_m._.#chat\nh;m,#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fh  _.  Fy   #chat\ny_mmmm.Fy  _.  Fh  #chat\ny\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPjr  \u0017wand of striking\n\u0016?\n>A\u0006_mmmmmmm.    n Fh     _.   Fk    Fy   Fy  n   Fy    Fh    Fh   Fh    Fy   n,\u0016?\n>>\u001b\u0016?\n>y_m.   Fy   _.#chat\ny\u00166\n\u0016?\n>A\u0006_mmmmm.   Fy       n  _.  Fh  Fh   Fy     n  Fk   Fh    Fy   Fk    zkk     n ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmm.  Fy   _.#chat\nk\u00162\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,Fh   _.Fy  Fk    n  Fy   Fh  Fh   zkh  ,\u0016?\n>>\u001b\u0016?\n>y_mmm.   Fh   _.#chat\ny\u0016?\n>z\u0006_mmmmm,  n  Fk  _.;:   Fy  FkFy   Fy    Fyzky     n  ,\u00162\n\u0016?\n>A\u0006_mmmm.    Fk      _,Fk   Fy     nFy     Fk     Fh   Fy  n  zky   ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,  Fk     _,  Fy #chat\ny\u00168\n\u0016?\n>A\u0006_mmm,  Fh   n    _.Fh   Fy     n    Fh     Fy   n    Fy    Fk   zkh ,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mm,   n  Fk   _.#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.    Fk    _,Fk   FyFy    yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

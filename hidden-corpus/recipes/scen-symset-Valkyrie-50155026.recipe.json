@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " Oi\u001b\u001b\nuyyb\u0017tree\n:y\u0017throne\n#sit\n #sit\n y#terrain\nb\n\u001b;H#untrap\nu#monster\nO>m\u001b\u001b\n:#monster\ned P#dip\nb \u0007tame kitten\n\u0007giant rat\n\u0017scroll of taming\nre l20s\u0007grid bug\n20ssm..m.20s20ssm.dcsm.sh.m.\u0006_>.Fn_.>_>._,Fj>_>._,>\u0006_>>._.Fj >_>>._.Fj>_>>.Fj_,>\u0006_>.Fj_.>_>._,>_>._.>\u0006_>._,Fj>_>.Fj _,>_>._.>\u0006_>,_.>_>._.>_>._.Fj>\u0006_>,Fj _.>_>._.>_>._.>#twoweapon\nZmO>>>b\u001b\nO>>>n\u001b\u001b\nO>>>>d\u001b\n#enhance\nyd\no\n\u001b#monster\n#offer\nmO>c\u001b\nmO>>>>b\u001b\nO>n\u001b\u001b\nO>>>l\u001b\nwa#wipe\n10smO>>p\u001b\nr\u001b#dip\nc#pray\ny y __,sm.\u0006_>.Fj_.>_>._,>_>._.>\u0006_>,_.>_>._.>_>._.>\u0006_>>._.>_>>._.>_>>.Fj_.Fj>\u0006_>>,_.Fj>_>>,_,>_>>._.>\u0006_>>._,>_>>,_,>_>>._.><,\u0006_>>._,>_>>._.>_>>._.>\u001611\n\u0006_>,_.Fk > FkFk  nFk \u0006_>,Fb_.Fy  n>FkFb_>,Fk _.Fy   n>FkFk _>,Fb_.Fk >Fk   nFbFkFkFk#monster\n#offer\n\u0006_>.Fb_,>.Fb>FbFb_>.Fb_..Fb>FbFb_>.Fb_,.Fb>FbFbFbFbFb\u00166\nv\u001bi\u001b\u00166\nFuFkFkFyFuFuFkFyFkFuFkFkFuFuFkFkFyFkFkFkFkFkFuFyFuFuFkFkFyFkFkFyFyFuFyFkFkFuFkFyFyFuFkFyFkFyFuFyFuFuFkFuFuFkFkFkFyFkFuFkFkFkFuFuFyFkFyFyFkFyFyFkFuFyFuFyFyFyFkFyFuFkFkFkFkFyFyFuFyFkFuFuFuFkFyFkFuFuFkFuFk"
+ },
+ "segments": [
+  {
+   "seed": 50155026,
+   "datetime": "20140908024248",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=runmode:crawl\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nBIND=v:inventory\n",
+   "moves": " Oi\u001b\u001b\nuyyb\u0017tree\n:y\u0017throne\n#sit\n #sit\n y#terrain\nb\n\u001b;H#untrap\nu#monster\nO>m\u001b\u001b\n:#monster\ned P#dip\nb \u0007tame kitten\n\u0007giant rat\n\u0017scroll of taming\nre l20s\u0007grid bug\n20ssm..m.20s20ssm.dcsm.sh.m.\u0006_>.Fn_.>_>._,Fj>_>._,>\u0006_>>._.Fj >_>>._.Fj>_>>.Fj_,>\u0006_>.Fj_.>_>._,>_>._.>\u0006_>._,Fj>_>.Fj _,>_>._.>\u0006_>,_.>_>._.>_>._.Fj>\u0006_>,Fj _.>_>._.>_>._.>#twoweapon\nZmO>>>b\u001b\nO>>>n\u001b\u001b\nO>>>>d\u001b\n#enhance\nyd\no\n\u001b#monster\n#offer\nmO>c\u001b\nmO>>>>b\u001b\nO>n\u001b\u001b\nO>>>l\u001b\nwa#wipe\n10smO>>p\u001b\nr\u001b#dip\nc#pray\ny y __,sm.\u0006_>.Fj_.>_>._,>_>._.>\u0006_>,_.>_>._.>_>._.>\u0006_>>._.>_>>._.>_>>.Fj_.Fj>\u0006_>>,_.Fj>_>>,_,>_>>._.>\u0006_>>._,>_>>,_,>_>>._.><,\u0006_>>._,>_>>._.>_>>._.>\u001611\n\u0006_>,_.Fk > FkFk  nFk \u0006_>,Fb_.Fy  n>FkFb_>,Fk _.Fy   n>FkFk _>,Fb_.Fk >Fk   nFbFkFkFk#monster\n#offer\n\u0006_>.Fb_,>.Fb>FbFb_>.Fb_..Fb>FbFb_>.Fb_,.Fb>FbFbFbFbFb\u00166\nv\u001bi\u001b\u00166\nFuFkFkFyFuFuFkFyFkFuFkFkFuFuFkFkFyFkFkFkFkFkFuFyFuFuFkFkFyFkFkFyFyFuFyFkFkFuFkFyFyFuFkFyFkFyFuFyFuFuFkFuFuFkFkFkFyFkFuFkFkFkFuFuFyFkFyFyFkFyFyFkFuFyFuFyFyFyFkFyFuFkFkFkFkFyFyFuFyFkFuFuFuFkFyFkFuFuFkFuFk"
+  }
+ ]
+}

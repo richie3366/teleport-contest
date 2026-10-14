@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "FjFhFl FyFjFyFbFnFhFjFhFkFkFuFyFhFjFuFjFkFkFkFuFyFhFkFhFkFbFuFyFbFyFhFyFbFnFyFjFyFkFyFhFkFlFbFlFnFkFkFnFuFlFyFjFuFkFkFkFnFhFkFlFbFkFbFuFkFnFjFjFlFuFbFbFnFuFhFyFlFkFyFjFjFnFuFnFyFkFjFbFnFyFjFyFhFlFuFuFlFhFyFkFnFjFjFbFkFyFkFbFbFyFyFjFnFjFbFkFj\u0006_ \u001bm.>FhFl_>>.Fj_.Fb>FuFu_>>,Fk_.Fb>FuFjFjFjFj\u0006_>.Fh_.Fj>FhFh_>,Fh_.Fj>FkFk_>,Fb_,Fu>FkFkFkFhFh\u0006_>.Fj_,Fu>FuFu_>.Fk_.Fj>FuFh_>,Fk_.Fh>FhFbFbFbFh\u0006_>>.Fu_.Fu>FuFj  n_>>.Fj_.Fj>FbFh_>>.Fb_.Fk>FkFhFbFkFk\u0006_>>,Fu_.Fh>FkFu_>>.Fk_.Fk>FbFb_>>.Fk_.Fk>FhFhFjFuFj\u0006_>>.Fh_.Fu>FbFb_>>.Fb_.Fk>FuFj_>>.Fb_.Fk>FbFkFhFjFj\u000f\u001b\u001615\n#ride\nly#sit\n\u001bi\u001bv\u001bi\u001b\u0014.,ckmO>>>>l\u001b\nmO>h\u001b\n\u00165\nFlFlFnFnFkFjFlFlFuFlFhFyFbFhFbFjFjFyFjFyF"
+ },
+ "segments": [
+  {
+   "seed": 50155045,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "FjFhFl FyFjFyFbFnFhFjFhFkFkFuFyFhFjFuFjFkFkFkFuFyFhFkFhFkFbFuFyFbFyFhFyFbFnFyFjFyFkFyFhFkFlFbFlFnFkFkFnFuFlFyFjFuFkFkFkFnFhFkFlFbFkFbFuFkFnFjFjFlFuFbFbFnFuFhFyFlFkFyFjFjFnFuFnFyFkFjFbFnFyFjFyFhFlFuFuFlFhFyFkFnFjFjFbFkFyFkFbFbFyFyFjFnFjFbFkFj\u0006_ \u001bm.>FhFl_>>.Fj_.Fb>FuFu_>>,Fk_.Fb>FuFjFjFjFj\u0006_>.Fh_.Fj>FhFh_>,Fh_.Fj>FkFk_>,Fb_,Fu>FkFkFkFhFh\u0006_>.Fj_,Fu>FuFu_>.Fk_.Fj>FuFh_>,Fk_.Fh>FhFbFbFbFh\u0006_>>.Fu_.Fu>FuFj  n_>>.Fj_.Fj>FbFh_>>.Fb_.Fk>FkFhFbFkFk\u0006_>>,Fu_.Fh>FkFu_>>.Fk_.Fk>FbFb_>>.Fk_.Fk>FhFhFjFuFj\u0006_>>.Fh_.Fu>FbFb_>>.Fb_.Fk>FuFj_>>.Fb_.Fk>FbFkFhFjFj\u000f\u001b\u001615\n#ride\nly#sit\n\u001bi\u001bv\u001bi\u001b\u0014.,ckmO>>>>l\u001b\nmO>h\u001b\n\u00165\nFlFlFnFnFkFjFlFlFuFlFhFyFbFhFbFjFjFyFjFyF"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n      \u0017tsurugi\n\u0007genetic engineer\nwgFkFk  Fk       \u0017scroll of taming\nrh \u0017cursed Snickersnee\nwFlFkFl .s\u0017cursed -1 ring of fire resistance\nPjls20s.R20s."
+ },
+ "segments": [
+  {
+   "seed": 50152013,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n      \u0017tsurugi\n\u0007genetic engineer\nwgFkFk  Fk       \u0017scroll of taming\nrh \u0017cursed Snickersnee\nwFlFkFl .s\u0017cursed -1 ring of fire resistance\nPjls20s.R20s."
+  }
+ ]
+}

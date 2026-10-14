@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.    #chat\ny_mmmmm,_.#chat\ny_mm.#chat\nb_mmmmm._,#chat\nh_mmmm.#chat\nb#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y  \u0006_mmmmm,Fu _. Fn #chat\nj;j;_mm,   Fl_.#chat\nu   _m.   Fn  n   _.#chat\nj  \u0017blessed amulet of reflection\nPe    \u0017blessed +3 helm of telepathy\nWf    n  \u0017blessed +3 cloak of magic resistance\nWg     \u0017wand of magic missile\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fn     n_,Fk     FyFj    FhFb    n Fj    Fl,#chat\nb  \u00161\n\u0016?\n>z\u0006_mmm.    Fj    n  _.Fn   Fy  FlFy    Fk   n    Fy     Fn   n   ,#chat\nj  \u0016?\n>>\u001b\u0016?\n>y_mmm,    Fy   n   _.#chat\nh    \u00167\n\u0016?\n>A\u0006_mm.Fj   _.Fk   n   Fj   Fu   Fn,#chat\ny  \u0016?\n>>\u001b\u0016?\n>y_mmm.     nFl   _.#chat\nk\u00161\n\u0016?\n>A\u0006_mmmmmmm,Fk    _.  FbFn   FuFy    n Fu Fl  ,#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.  Fy _,Fk   n  Fk  Fh FnFl,\u0016?\n>z\u0006_mm. _.ssss20s  zhk,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nk;_.\u0016?\n>A\u0006_mm,Fn "
+ },
+ "segments": [
+  {
+   "seed": 50157006,
+   "datetime": "20130915014534",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.    #chat\ny_mmmmm,_.#chat\ny_mm.#chat\nb_mmmmm._,#chat\nh_mmmm.#chat\nb#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y  \u0006_mmmmm,Fu _. Fn #chat\nj;j;_mm,   Fl_.#chat\nu   _m.   Fn  n   _.#chat\nj  \u0017blessed amulet of reflection\nPe    \u0017blessed +3 helm of telepathy\nWf    n  \u0017blessed +3 cloak of magic resistance\nWg     \u0017wand of magic missile\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fn     n_,Fk     FyFj    FhFb    n Fj    Fl,#chat\nb  \u00161\n\u0016?\n>z\u0006_mmm.    Fj    n  _.Fn   Fy  FlFy    Fk   n    Fy     Fn   n   ,#chat\nj  \u0016?\n>>\u001b\u0016?\n>y_mmm,    Fy   n   _.#chat\nh    \u00167\n\u0016?\n>A\u0006_mm.Fj   _.Fk   n   Fj   Fu   Fn,#chat\ny  \u0016?\n>>\u001b\u0016?\n>y_mmm.     nFl   _.#chat\nk\u00161\n\u0016?\n>A\u0006_mmmmmmm,Fk    _.  FbFn   FuFy    n Fu Fl  ,#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.  Fy _,Fk   n  Fk  Fh FnFl,\u0016?\n>z\u0006_mm. _.ssss20s  zhk,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nk;_.\u0016?\n>A\u0006_mm,Fn "
+  }
+ ]
+}

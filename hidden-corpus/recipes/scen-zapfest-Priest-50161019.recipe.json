@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPj\u0017blessed ring of free action\nPkr\u0017blessed +3 speed boots\nWl#levelchange\n20\n                    \u0017blessed spellbook of fireball\nrmsl\u0017blessed spellbook of light\nrnsm.\u0007mind flayer\n\u0007vampire\nZb\n k\nZb\n j\n.m.   .m.Zb\n   Zb\n l\n    Za\n\u001b,Za\n.      n 20s   n Za\nZZs   n .m. \u001611\n\u0017spellbook of cause fear\nro m.s\u0007vampire\nZa\nZZZZ.b.Zsm. 20s \u00178 rocks\nQ\u001b\u0007newt\nf \u001bt\u001bt\u001bt\u001bt\u001b\u0007master lich\n\u0007master mind flayer\n\u0017wand of sleep\nzqnzqb    n       sm.   n   zqn        zqb  zqn     n   sm.     n      .m.   n     zqn       n       zq   n     20s   n   sm.   n      \u00162\n\u0007succubus\n\u0007master mind flayer\n\u0017wand of fire\nzru .m.zrk      n  sl     n  20s   n     yy\u001by   y y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 50161019,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=fruit:lychee\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPj\u0017blessed ring of free action\nPkr\u0017blessed +3 speed boots\nWl#levelchange\n20\n                    \u0017blessed spellbook of fireball\nrmsl\u0017blessed spellbook of light\nrnsm.\u0007mind flayer\n\u0007vampire\nZb\n k\nZb\n j\n.m.   .m.Zb\n   Zb\n l\n    Za\n\u001b,Za\n.      n 20s   n Za\nZZs   n .m. \u001611\n\u0017spellbook of cause fear\nro m.s\u0007vampire\nZa\nZZZZ.b.Zsm. 20s \u00178 rocks\nQ\u001b\u0007newt\nf \u001bt\u001bt\u001bt\u001bt\u001b\u0007master lich\n\u0007master mind flayer\n\u0017wand of sleep\nzqnzqb    n       sm.   n   zqn        zqb  zqn     n   sm.     n      .m.   n     zqn       n       zq   n     20s   n   sm.   n      \u00162\n\u0007succubus\n\u0007master mind flayer\n\u0017wand of fire\nzru .m.zrk      n  sl     n  20s   n     yy\u001by   y y\u001by  2"
+  }
+ ]
+}

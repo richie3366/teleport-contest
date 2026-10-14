@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " jnkjkklbk20sdb20sssm.t\u001b\u001b#chat\nj#name\n\u001b10s#name\n\u001bt\u001b\u001b20s20s #name\n\u001bsE- X marks the spot\n  KKBJ_ \u001bm,>sojLHUU_>,_,>YLJJ_>.>\u000f\u001byhlFk ssdhee50s100s50sFl20s.kbn100syyj150s ljl100sFhFhsW50sFj.slhy150sFn20s20sFn20s20s100sFl20ss50si\u001b100s50sFnss50sFhss_>,>50s150sFnFns50syyy_>.>150s hlndgcjluhFnFl20sr\u001b\u001b_>.>jjkFlFl.ynb\u0018\u001bcj100sjjkFbs._m,s100sjly#pray\ny  Fl..#loot\n\\ ukb_>.>100sef#wipe\njbb100s eeeeeeeeeeeeeet\u001b\u001bZb\n#wipe\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLBLB_>.>KKJL_>,>Fys20s#monster\n<YBKU_>.>JBNJ_>,>#conduct\n LJYLB_>.>Fls20s#conduct\n s\u000f\u001bW#untrap\nh\u0018\u001bee#pray\ny ee#pray\ny  #pray\ny  e#pray\ny     e#pray\ny      yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50150091,
+   "datetime": "20040710010209",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": " jnkjkklbk20sdb20sssm.t\u001b\u001b#chat\nj#name\n\u001b10s#name\n\u001bt\u001b\u001b20s20s #name\n\u001bsE- X marks the spot\n  KKBJ_ \u001bm,>sojLHUU_>,_,>YLJJ_>.>\u000f\u001byhlFk ssdhee50s100s50sFl20s.kbn100syyj150s ljl100sFhFhsW50sFj.slhy150sFn20s20sFn20s20s100sFl20ss50si\u001b100s50sFnss50sFhss_>,>50s150sFnFns50syyy_>.>150s hlndgcjluhFnFl20sr\u001b\u001b_>.>jjkFlFl.ynb\u0018\u001bcj100sjjkFbs._m,s100sjly#pray\ny  Fl..#loot\n\\ ukb_>.>100sef#wipe\njbb100s eeeeeeeeeeeeeet\u001b\u001bZb\n#wipe\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLBLB_>.>KKJL_>,>Fys20s#monster\n<YBKU_>.>JBNJ_>,>#conduct\n LJYLB_>.>Fls20s#conduct\n s\u000f\u001bW#untrap\nh\u0018\u001bee#pray\ny ee#pray\ny  #pray\ny  e#pray\ny     e#pray\ny      yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

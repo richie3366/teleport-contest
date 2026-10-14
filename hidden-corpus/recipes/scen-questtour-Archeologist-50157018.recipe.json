@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nb_mmmmm,Fl_,#chat\nj;l, _m._,#chat\nk#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.Fn_,Fl #chat\nl ;l,_mm,Fl_.Fb  #chat\nj\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwj  \u0017wand of fire\n\u0016?\n>A\u0006_mmmmmm.Fj _.Fl FbFl Fbzkb ,\u0016?\n>>\u001b\u0016?\n>y_mmmm. Fj_,Fb#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.FbFjFnFh FjFbFn ,\u0016?\n>A\u0006_mmmmmm.  n Fb _, Fb Fj  Fn Fh Fj Fj Fn Fj,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmm.Fh _.Fh#chat\nh\u0016?\n>z\u0006_mmmmm,Fj_. Fy FnFj Fj Fn   n ,\u0016?\n>A\u0006_mmmmm,Fn_..FbFh  Fn FnFbFbFnFj,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,Fb _,m,FjFj  Fj FnFhFjFb,\u0016?\n>A\u0006_mm,Fj _,.FjFjFjFj  ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm.  Fn_,Fb#chat\nj\u0016?\n>z\u0006_mm.Fh _.Fl  Fl  FhFh FhFh ,#chat\nk\u0016?\n>A\u0006_mmm,sssss,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fb_.Fb FnFjFn Fl  FnFb ,\u0016?\n>A\u0006_mmmmmmm.Fn  _.Fn   n   Fj  Fj Fn Fj Fj ,\u0016?\n>z\u0006_mmmmmm.Fn Fj Fn Fj FnFjFnzkn ,\u0016?\n>A\u0006_mmmmmmm,Fn   n_. .ss20sss.zkb,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,s .s.s20s,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nl;>.\u0016?\n>A\u0006_mm,s..s.,#chat\nb\u0016?\n>>\u001b"
+ },
+ "segments": [
+  {
+   "seed": 50157018,
+   "datetime": "20240319094212",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nb_mmmmm,Fl_,#chat\nj;l, _m._,#chat\nk#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.Fn_,Fl #chat\nl ;l,_mm,Fl_.Fb  #chat\nj\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwj  \u0017wand of fire\n\u0016?\n>A\u0006_mmmmmm.Fj _.Fl FbFl Fbzkb ,\u0016?\n>>\u001b\u0016?\n>y_mmmm. Fj_,Fb#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.FbFjFnFh FjFbFn ,\u0016?\n>A\u0006_mmmmmm.  n Fb _, Fb Fj  Fn Fh Fj Fj Fn Fj,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmm.Fh _.Fh#chat\nh\u0016?\n>z\u0006_mmmmm,Fj_. Fy FnFj Fj Fn   n ,\u0016?\n>A\u0006_mmmmm,Fn_..FbFh  Fn FnFbFbFnFj,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,Fb _,m,FjFj  Fj FnFhFjFb,\u0016?\n>A\u0006_mm,Fj _,.FjFjFjFj  ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm.  Fn_,Fb#chat\nj\u0016?\n>z\u0006_mm.Fh _.Fl  Fl  FhFh FhFh ,#chat\nk\u0016?\n>A\u0006_mmm,sssss,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fb_.Fb FnFjFn Fl  FnFb ,\u0016?\n>A\u0006_mmmmmmm.Fn  _.Fn   n   Fj  Fj Fn Fj Fj ,\u0016?\n>z\u0006_mmmmmm.Fn Fj Fn Fj FnFjFnzkn ,\u0016?\n>A\u0006_mmmmmmm,Fn   n_. .ss20sss.zkb,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,s .s.s20s,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nl;>.\u0016?\n>A\u0006_mm,s..s.,#chat\nb\u0016?\n>>\u001b"
+  }
+ ]
+}

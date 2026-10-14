@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001bm.>FjFj _>>._.>_>>,_,>\u0006_>,_,>_>,_.>_>._,>\u0006_>,_.>_>._.>_>,_.>\u0006_>,_.>_>._.>_>._,><\u0006_>._.>_>,_.>_>._,>ch10s<\u000f\u001b\u00162\n#twoweapon\n#invoke\n\u001b>v i\u001b\u00165\nO>p\u001b\nmOa\u001b\n\u001619\n\u0006_>,_.<.> < \u0006_>>.> \u0006_>>._.>_>>,_.>_>>._.>#jump\ntdj<\u0006_>>._,>_>>._,>_>>._.>\u0006_>._.>_>._,>_>._,>K#ride\nhy\u0006_>>.Fj_.  nFl>Fl  nFl_>>,Fl_.  nFh>Fh  nFh_>>.        Fl      n _.  Fl     >Fl     nFl  Fl FlFl      n\u000f\u001b\u00163\nmO>>>a\u001b\nj#sit\n ojrf  \u001b  noh#wipe\n v i\u001b#sit\n #terrain\nf\n;h.O>>e\u001b\nv i\u001bO>>>>b\u001b\n\u001620\n\u0007large dog\n\u0017fortune cookie\ntcl   n\u0007little dog\n\u0017meatball\ntdj   #chat\nn  n   n\u0006_>. Fl     n _,  n  Fl   n >Fn    n Fn    yy\u001by   y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50155024,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nMSGTYPE=hide \"You kill\"\nMENUCOLOR=\"blessed\"=cyan\n",
+   "moves": " \u0006_ \u001bm.>FjFj _>>._.>_>>,_,>\u0006_>,_,>_>,_.>_>._,>\u0006_>,_.>_>._.>_>,_.>\u0006_>,_.>_>._.>_>._,><\u0006_>._.>_>,_.>_>._,>ch10s<\u000f\u001b\u00162\n#twoweapon\n#invoke\n\u001b>v i\u001b\u00165\nO>p\u001b\nmOa\u001b\n\u001619\n\u0006_>,_.<.> < \u0006_>>.> \u0006_>>._.>_>>,_.>_>>._.>#jump\ntdj<\u0006_>>._,>_>>._,>_>>._.>\u0006_>._.>_>._,>_>._,>K#ride\nhy\u0006_>>.Fj_.  nFl>Fl  nFl_>>,Fl_.  nFh>Fh  nFh_>>.        Fl      n _.  Fl     >Fl     nFl  Fl FlFl      n\u000f\u001b\u00163\nmO>>>a\u001b\nj#sit\n ojrf  \u001b  noh#wipe\n v i\u001b#sit\n #terrain\nf\n;h.O>>e\u001b\nv i\u001bO>>>>b\u001b\n\u001620\n\u0007large dog\n\u0017fortune cookie\ntcl   n\u0007little dog\n\u0017meatball\ntdj   #chat\nn  n   n\u0006_>. Fl     n _,  n  Fl   n >Fn    n Fn    yy\u001by   y y y\u001by  _"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017cursed gray stone\n\u0007grid bug\ntby Fk .\u0017uncursed +0 javelin\nwjsss\u0017blessed +3 mummy wrapping\nWksssTk.."
+ },
+ "segments": [
+  {
+   "seed": 50152001,
+   "datetime": "20140920004844",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017cursed gray stone\n\u0007grid bug\ntby Fk .\u0017uncursed +0 javelin\nwjsss\u0017blessed +3 mummy wrapping\nWksssTk.."
+  }
+ ]
+}

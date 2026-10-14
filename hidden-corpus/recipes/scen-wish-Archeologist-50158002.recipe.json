@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017uncursed sack\n\u0007ice devil\naio\naii\n#tip\ni\u001b\u0017ring of aggravate monster\nPjl    n sm.20s   n sb\u00173 wand of slow monster\n\u0007sandestin\nzklFlFlsl   yy\u001by  y ny  s"
+ },
+ "segments": [
+  {
+   "seed": 50158002,
+   "datetime": "20220118164401",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017uncursed sack\n\u0007ice devil\naio\naii\n#tip\ni\u001b\u0017ring of aggravate monster\nPjl    n sm.20s   n sb\u00173 wand of slow monster\n\u0007sandestin\nzklFlFlsl   yy\u001by  y ny  s"
+  }
+ ]
+}

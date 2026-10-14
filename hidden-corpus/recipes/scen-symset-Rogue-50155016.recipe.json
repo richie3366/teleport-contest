@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b>. >FbFb_>.Fb_,.Fb> FkFuFy\u0006_>,Fn_.Fn>FnFn_>,Fn_.Fn>FnFn_>.Fn_,Fn>FnFnFnFnFn\u0006_>.Fn_,Fn>FnFn_>.Fn_,Fn>FnFn_>.Fn_.Fn>FnFnFnFnFn\u0006_>>.Fn_,Fn>FnFn_>>.Fn_.Fn>FnFn_>>.Fn_.Fn>FnFnFnFnFn\u0006_>.Fn_.Fn>FnFn_>,Fn_.Fn>FnFn_>.Fn_.Fn>FnFnFnFnFn#wipe\neg \u0006_>,Fn_,Fn>FnFn_>.Fn_,Fn>FnFn_>.Fn_,Fn>FnFnFnFnFn\u0006_>.Fn_,Fn>FnFn_>.Fn_,Fn>FnFn_>.Fn_,Fn>FnFnFnFnFn\u000f\u001bmO>>b\u001b\n\u0006_>.Fn_,Fn>FjFn_>.Fn_.Fn>FnFn_>.Fn_.Fn>FnFnFnFnFn\u0006_>,Fn_.Fn>FnFn_>.Fn_.Fn>FnFn_>.Fn_.Fn>FnFnFnFnFn\u0006_>.Fn_.Fn>FnFn_>,Fn_.Fn>FnFn_>.Fn_.Fn>FnFnFnFnFn<\u000f\u001bhnnh\u0017chaotic altar\nda\u0017elf corpse\n #of"
+ },
+ "segments": [
+  {
+   "seed": 50155016,
+   "datetime": "20200831063458",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": "\u0006_ \u001b>. >FbFb_>.Fb_,.Fb> FkFuFy\u0006_>,Fn_.Fn>FnFn_>,Fn_.Fn>FnFn_>.Fn_,Fn>FnFnFnFnFn\u0006_>.Fn_,Fn>FnFn_>.Fn_,Fn>FnFn_>.Fn_.Fn>FnFnFnFnFn\u0006_>>.Fn_,Fn>FnFn_>>.Fn_.Fn>FnFn_>>.Fn_.Fn>FnFnFnFnFn\u0006_>.Fn_.Fn>FnFn_>,Fn_.Fn>FnFn_>.Fn_.Fn>FnFnFnFnFn#wipe\neg \u0006_>,Fn_,Fn>FnFn_>.Fn_,Fn>FnFn_>.Fn_,Fn>FnFnFnFnFn\u0006_>.Fn_,Fn>FnFn_>.Fn_,Fn>FnFn_>.Fn_,Fn>FnFnFnFnFn\u000f\u001bmO>>b\u001b\n\u0006_>.Fn_,Fn>FjFn_>.Fn_.Fn>FnFn_>.Fn_.Fn>FnFnFnFnFn\u0006_>,Fn_.Fn>FnFn_>.Fn_.Fn>FnFn_>.Fn_.Fn>FnFnFnFnFn\u0006_>.Fn_.Fn>FnFn_>,Fn_.Fn>FnFn_>.Fn_.Fn>FnFnFnFnFn<\u000f\u001bhnnh\u0017chaotic altar\nda\u0017elf corpse\n #of"
+  }
+ ]
+}

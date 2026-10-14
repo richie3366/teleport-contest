@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "O>a\u001b\n#tip\n\u001b#rub\n10s\u0006_ \u001bm.>FhFk_>.Fl_,Fl>_>,Fh_,Fh>FhFl#sit\n\u001bi\u001b\u0006_>,_.> \u0006_>._,>_>._.>_>._.>\u000f\u001b\u0006_>._,>_>._.>_>._.>\u0006_>>,_,>_>>._.>_>>._,>L\u0004u\u0006_>._,>_>._,>_>._.>v i\u001bO>>>>e\u001b\n\u00165\n\u00167\n100s100s#chat\nj\u000f\u001b150sFhs20s100skhy      nFjFjFjFjFj     n  Fj100s Fjs.150s100sFlFl.100s\u0004j50s150s FlFlFlFlFlFl50s50sFlFlsunu50shnl>50sFlFlFl\u0018\u001b50s#enhance\nyh\nn\n\u001bklnkhns100s\\   lbu\\   \u00167\nlnb\u0017moat\n#dip\ney  ubyj\u0017ice\nubbbhl\u0017fountain\nqyqy yq#dip\nf #rub\n#force\n#tip\n\u001bO>>>o8\n \u001b\nO>>>k\u001b\u001b\n\u00166\nO>>k\u001b\u001b\nmO>>g\u001b\n\u0006_>.Fb_,> Zz\u0006_>.Fu_,> \u0006_>,_,> v i\u001b\u00162\nkjknlh\u0018\u001bi\u001b\u0018\u001b150sFyFyFy\\   100s100s150sFnFns150s100sFn20s.150s50sFnFnFnFnFnFnFnFnsFn.s150s100seh100s  ehFlFls50s ehjkjjly_>,_.m.>100seg50s eh eg50semeg\u0007tame dingo\nb\u0017tin whistle\nuuhap\u0006_>._.> \u0017magic whistle\nulhaq\u0006_>._,m.>_>._.m,>_>._.,>\u00166\negFkFkFk100s100s150sFk.s50seg100sFh  Fh Fh   #pray\ny y Fh FhFh FhFh     nFyFh      nFyFyFyFyFyFhFyFyFh    Fh FhFyFyFh Fh Fh.50s50suhuFhFyFhFyFyFyFhFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyF"
+ },
+ "segments": [
+  {
+   "seed": 50150031,
+   "datetime": "20170504065738",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": "O>a\u001b\n#tip\n\u001b#rub\n10s\u0006_ \u001bm.>FhFk_>.Fl_,Fl>_>,Fh_,Fh>FhFl#sit\n\u001bi\u001b\u0006_>,_.> \u0006_>._,>_>._.>_>._.>\u000f\u001b\u0006_>._,>_>._.>_>._.>\u0006_>>,_,>_>>._.>_>>._,>L\u0004u\u0006_>._,>_>._,>_>._.>v i\u001bO>>>>e\u001b\n\u00165\n\u00167\n100s100s#chat\nj\u000f\u001b150sFhs20s100skhy      nFjFjFjFjFj     n  Fj100s Fjs.150s100sFlFl.100s\u0004j50s150s FlFlFlFlFlFl50s50sFlFlsunu50shnl>50sFlFlFl\u0018\u001b50s#enhance\nyh\nn\n\u001bklnkhns100s\\   lbu\\   \u00167\nlnb\u0017moat\n#dip\ney  ubyj\u0017ice\nubbbhl\u0017fountain\nqyqy yq#dip\nf #rub\n#force\n#tip\n\u001bO>>>o8\n \u001b\nO>>>k\u001b\u001b\n\u00166\nO>>k\u001b\u001b\nmO>>g\u001b\n\u0006_>.Fb_,> Zz\u0006_>.Fu_,> \u0006_>,_,> v i\u001b\u00162\nkjknlh\u0018\u001bi\u001b\u0018\u001b150sFyFyFy\\   100s100s150sFnFns150s100sFn20s.150s50sFnFnFnFnFnFnFnFnsFn.s150s100seh100s  ehFlFls50s ehjkjjly_>,_.m.>100seg50s eh eg50semeg\u0007tame dingo\nb\u0017tin whistle\nuuhap\u0006_>._.> \u0017magic whistle\nulhaq\u0006_>._,m.>_>._.m,>_>._.,>\u00166\negFkFkFk100s100s150sFk.s50seg100sFh  Fh Fh   #pray\ny y Fh FhFh FhFh     nFyFh      nFyFyFyFyFyFhFyFyFh    Fh FhFyFyFh Fh Fh.50s50suhuFhFyFhFyFyFyFhFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyF"
+  }
+ ]
+}

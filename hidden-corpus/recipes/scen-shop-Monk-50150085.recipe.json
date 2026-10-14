@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed amulet of life saving\nPk\u0017blessed amulet of reflection\nPl\u0016?\n>w\u0006_ \u001b:,\u0014m,20ss_{.Fb_,Fjqd _oo._ooo,,\u0017luckstone\ndm_oooo.,  p_oooooooo,,pFjFjFjFjFjFj_oooooo.,#chat\nylhn#chat\nbknh#chat\ny_ooooooo.Fh_,_ooo.,$_oooooo.,p__.Fn_,#chat\nn#pray\ny y _{._.qdnnu#chat\nk_{,_,qd_{._.q_{._,q_oo.,p__._,#chat\nn_oooooo,,p_{._,q_{._.q_oo.,p\u00163\nnhy\u0016?\n>w\u0006_ooooooooo.,pnkh#chat\nh__.Fk_,m,#chat\nnjbl#chat\nkhhh#chat\nbhll#chat\nj_ooo.,$\u0016?\ncnhh\u0016?\n>w\u0006_oooo,,pkkj#chat\nn_ooooooooo,_o.,p_oo.,:_oooooo,,$kjk#chat\nk_oooo.,#chat\nh_ooooooo,,\u0017worthless piece of red glass\ndp\u00167\nkjj\u0016?\n>w\u0006lkh#chat\nb_ooo. _,,p__,_.#chat\nb_oo,,$_oooooooo.,:\u0016?\n>Bukj\u0016?\n>w\u0006lyy#chat\nh_{._,:q_ooo._.,p__,_.m,#chat\nn_ooo._,,:_oo.,#chat\njlhl#chat\nk_oooooooo.,#chat\nu_ooooo._.,p_ooooooo,_._oo.,\u0017amulet of magical breathing\ndqllh#chat\nhlll#chat\nl_ooooooooo.,:hlh#chat\nk__._.,#chat\nu#pray\ny y hlh#chat\nn\u00167\nkkj\u0016?\n>w\u0006lky#chat\nu__._,#chat\nl#pray\ny y \u0016?\ncbhu\u0016?\n>w"
+ },
+ "segments": [
+  {
+   "seed": 50150085,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed amulet of life saving\nPk\u0017blessed amulet of reflection\nPl\u0016?\n>w\u0006_ \u001b:,\u0014m,20ss_{.Fb_,Fjqd _oo._ooo,,\u0017luckstone\ndm_oooo.,  p_oooooooo,,pFjFjFjFjFjFj_oooooo.,#chat\nylhn#chat\nbknh#chat\ny_ooooooo.Fh_,_ooo.,$_oooooo.,p__.Fn_,#chat\nn#pray\ny y _{._.qdnnu#chat\nk_{,_,qd_{._.q_{._,q_oo.,p__._,#chat\nn_oooooo,,p_{._,q_{._.q_oo.,p\u00163\nnhy\u0016?\n>w\u0006_ooooooooo.,pnkh#chat\nh__.Fk_,m,#chat\nnjbl#chat\nkhhh#chat\nbhll#chat\nj_ooo.,$\u0016?\ncnhh\u0016?\n>w\u0006_oooo,,pkkj#chat\nn_ooooooooo,_o.,p_oo.,:_oooooo,,$kjk#chat\nk_oooo.,#chat\nh_ooooooo,,\u0017worthless piece of red glass\ndp\u00167\nkjj\u0016?\n>w\u0006lkh#chat\nb_ooo. _,,p__,_.#chat\nb_oo,,$_oooooooo.,:\u0016?\n>Bukj\u0016?\n>w\u0006lyy#chat\nh_{._,:q_ooo._.,p__,_.m,#chat\nn_ooo._,,:_oo.,#chat\njlhl#chat\nk_oooooooo.,#chat\nu_ooooo._.,p_ooooooo,_._oo.,\u0017amulet of magical breathing\ndqllh#chat\nhlll#chat\nl_ooooooooo.,:hlh#chat\nk__._.,#chat\nu#pray\ny y hlh#chat\nn\u00167\nkkj\u0016?\n>w\u0006lky#chat\nu__._,#chat\nl#pray\ny y \u0016?\ncbhu\u0016?\n>w"
+  }
+ ]
+}

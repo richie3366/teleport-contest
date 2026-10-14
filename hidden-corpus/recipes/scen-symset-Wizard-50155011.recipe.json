@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n        kll\u0017fountain\nqy#dip\nny yuh \u0017unaligned altar\ndn  db\u0017dwarf corpse\n#offer\no    #pray\ny y                j   \u0017chaotic altar\ndg   n  \u0017elf corpse\n#offer\np     #pray\ny y               #name\ni\nE- \u0018\u001b#levelchange\n30\n                    b   l    y\u0017tree\n: h    n \u0017melting ice\nb    \u0017magic fountain\nqy      n#dip\ndy  \u000f\u001by\\  \u00167\n\u00163\nv  i\u001bOo\u001b\u001b\n\u001617\n\u0007tame kitten\n\u0007tame winter wolf cub\n\u0017food ration\nt\u001b\u0006_ \u001b,>FkFk_>>.    Fj_.Fj >FjFj_>>.Fj_.Fj>FjFj#chat\nj10s \u0017lichen corpse\nt\u001b\u0017leash\nasjulnbashv  i\u001bH#wipe\n\u0006_>.Fl_,Fl  >Fu Fl_>,Fu_,Fu>FlFu_>.Fu_.Fu>FlFuFuFuFl \u0006_>,Fu_.Fu>FuFu_>.Fu_,Fu>FuFu_>. Fu_. Fu>Fu  FuFu FuFu\u0006_>.Fu_. Fu>FuFu_>.Fu_, >_>,_.>\u000f\u001b50s50s100s_>._,>150s100sujnFksm..k50si\u001b\u000f\u001blnl100s150s 20sjhn\\  50s100sykjFkFkFk  Fk20ssb50s 150s100s 100s\u0018\u001b_>._.>\\  150s100s"
+ },
+ "segments": [
+  {
+   "seed": 50155011,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=runmode:run\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nMENUCOLOR=\"blessed\"=red\n",
+   "moves": "#levelchange\n10\n        kll\u0017fountain\nqy#dip\nny yuh \u0017unaligned altar\ndn  db\u0017dwarf corpse\n#offer\no    #pray\ny y                j   \u0017chaotic altar\ndg   n  \u0017elf corpse\n#offer\np     #pray\ny y               #name\ni\nE- \u0018\u001b#levelchange\n30\n                    b   l    y\u0017tree\n: h    n \u0017melting ice\nb    \u0017magic fountain\nqy      n#dip\ndy  \u000f\u001by\\  \u00167\n\u00163\nv  i\u001bOo\u001b\u001b\n\u001617\n\u0007tame kitten\n\u0007tame winter wolf cub\n\u0017food ration\nt\u001b\u0006_ \u001b,>FkFk_>>.    Fj_.Fj >FjFj_>>.Fj_.Fj>FjFj#chat\nj10s \u0017lichen corpse\nt\u001b\u0017leash\nasjulnbashv  i\u001bH#wipe\n\u0006_>.Fl_,Fl  >Fu Fl_>,Fu_,Fu>FlFu_>.Fu_.Fu>FlFuFuFuFl \u0006_>,Fu_.Fu>FuFu_>.Fu_,Fu>FuFu_>. Fu_. Fu>Fu  FuFu FuFu\u0006_>.Fu_. Fu>FuFu_>.Fu_, >_>,_.>\u000f\u001b50s50s100s_>._,>150s100sujnFksm..k50si\u001b\u000f\u001blnl100s150s 20sjhn\\  50s100sykjFkFkFk  Fk20ssb50s 150s100s 100s\u0018\u001b_>._.>\\  150s100s"
+  }
+ ]
+}

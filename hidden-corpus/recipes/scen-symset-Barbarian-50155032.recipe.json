@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " O>>o5\n \u001b\n\u0006_ \u001bm,>_>._.>_>._.><\u0006_>.Fy _,>_>.Fu_.>_>,_,>\u0006_>._,>_>._.>_>._.>#chat\nlZ\u0006_>._.>_>._,>_>._.>\u0006_>,_.>_>,_,>_>,_.>\u00163\n#dip\nd150s_>.Fl_.>50s100s100snhyFy.s100s_>.>kbj100sFkssk by_>.>hkhhhl\\  150s\u000f\u001bhll100sFh20s20s50sFlss_>.>150sdddaab  .nk j\\  50sFy20ssi\u001bP\u000f\u001b_<.s_>,>100s\u0018\u001bhjkmOa\u001b\nmO>q\u001b\n\u0006_>>,_.m.>FbFbFb   #monster\n#invoke\n\u001b\u001b\u0006_>,Fb_.>_>,Fy_.>_>._.>\u0006_>._,>_>._.>_>._.>\u0006_>._,>_>,_.>_>._,>mO>>>>e\u001b\nmO>>>>b\u001b\nv\u001bi\u001bkkjj\u0017unaligned altar\ndc\u0017elf corpse\n #offer\ne   #pray\ny y k\u0017chaotic altar\ndcdc\u0017jackal corpse\n#offer\nf  #pray\ny y :#pray\ny y qE-  \u0006_>>._.>_>>,_.>_>>,_.>Z#force\n\u0006_>,_.>_>,_,>_>._,>\u0006_>>,_,>_>>._.>_>>._.>\u000f\u001blju\u0017chaotic altar\ndb\u0017elf corpse\n #offer\ng   #pray\ny y :b\u0017"
+ },
+ "segments": [
+  {
+   "seed": 50155032,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\nBIND=v:inventory\n",
+   "moves": " O>>o5\n \u001b\n\u0006_ \u001bm,>_>._.>_>._.><\u0006_>.Fy _,>_>.Fu_.>_>,_,>\u0006_>._,>_>._.>_>._.>#chat\nlZ\u0006_>._.>_>._,>_>._.>\u0006_>,_.>_>,_,>_>,_.>\u00163\n#dip\nd150s_>.Fl_.>50s100s100snhyFy.s100s_>.>kbj100sFkssk by_>.>hkhhhl\\  150s\u000f\u001bhll100sFh20s20s50sFlss_>.>150sdddaab  .nk j\\  50sFy20ssi\u001bP\u000f\u001b_<.s_>,>100s\u0018\u001bhjkmOa\u001b\nmO>q\u001b\n\u0006_>>,_.m.>FbFbFb   #monster\n#invoke\n\u001b\u001b\u0006_>,Fb_.>_>,Fy_.>_>._.>\u0006_>._,>_>._.>_>._.>\u0006_>._,>_>,_.>_>._,>mO>>>>e\u001b\nmO>>>>b\u001b\nv\u001bi\u001bkkjj\u0017unaligned altar\ndc\u0017elf corpse\n #offer\ne   #pray\ny y k\u0017chaotic altar\ndcdc\u0017jackal corpse\n#offer\nf  #pray\ny y :#pray\ny y qE-  \u0006_>>._.>_>>,_.>_>>,_.>Z#force\n\u0006_>,_.>_>,_,>_>._,>\u0006_>>,_,>_>>._.>_>>._.>\u000f\u001blju\u0017chaotic altar\ndb\u0017elf corpse\n #offer\ng   #pray\ny y :b\u0017"
+  }
+ ]
+}

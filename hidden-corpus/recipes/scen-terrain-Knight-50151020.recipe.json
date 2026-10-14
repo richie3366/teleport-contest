@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   yly\u0017tree\nb\u0004u    \u0004u   \u0004 :b l   \u0017grave\n: \u0017pick-axe\nai    sm.    .h   #terrain\nf\n<#conduct\n ;k; \u001b,nnhn\u0017iron bars\ny\u0017lawful altar\ndcdf\u0017newt corpse\n#offer\nj   #pray\ny y                        u   k  \u0017uhorn of plenty\n "
+ },
+ "segments": [
+  {
+   "seed": 50151020,
+   "datetime": "20220623112755",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   yly\u0017tree\nb\u0004u    \u0004u   \u0004 :b l   \u0017grave\n: \u0017pick-axe\nai    sm.    .h   #terrain\nf\n<#conduct\n ;k; \u001b,nnhn\u0017iron bars\ny\u0017lawful altar\ndcdf\u0017newt corpse\n#offer\nj   #pray\ny y                        u   k  \u0017uhorn of plenty\n "
+  }
+ ]
+}

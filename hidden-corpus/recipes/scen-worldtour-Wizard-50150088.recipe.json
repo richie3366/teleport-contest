@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n             \u0017blessed Mjollnir\nwo\u0017blessed amulet of life saving\nPp\u0017blessed +3 gray dragon scale mail\nW\u001b\u001631\n   nhul:\u001636\n juhl:\u001631\n\u0004y\u001613\n\u0017uncursed potion of object detection\n qf \u001b:\u0017uncursed +0 ring of fire resistance\nPrlss20sRr\u0017cursed wand of enlightenment\nzs \u001bzs \u001b\u0017cursed potion of acid\n\u0007Orcus\nyqt \u001b20s \u001b20s20s20s\u0016?\ne    bkh  l:.m.      .m.     n  \u0016?\n>J     worthless piece of red glass\n_<,\u0016?\nc \u0004k  s  n    :  \u001bsh20s   \u0016?\ncy l  n : \u001637\nk h n h   n  n         n    j     n n    :\u00161\n\u0016?\n\u001bl   k    n    \u0016?\n\u001bh   b  \u0016?\n\u001bh   h   n       \u0016?\nc_>.<20s  20s   n     \u001633\n#levelchange\n14\n\u0007cockatrice\nFk Fj     Fj   n     Fj   n        n    .m.    n        20s  #pray\ny y                        \u0017chickatrice corpse\n\u0007giant rat\nFb   n        n     Fb   n     yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50150088,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n             \u0017blessed Mjollnir\nwo\u0017blessed amulet of life saving\nPp\u0017blessed +3 gray dragon scale mail\nW\u001b\u001631\n   nhul:\u001636\n juhl:\u001631\n\u0004y\u001613\n\u0017uncursed potion of object detection\n qf \u001b:\u0017uncursed +0 ring of fire resistance\nPrlss20sRr\u0017cursed wand of enlightenment\nzs \u001bzs \u001b\u0017cursed potion of acid\n\u0007Orcus\nyqt \u001b20s \u001b20s20s20s\u0016?\ne    bkh  l:.m.      .m.     n  \u0016?\n>J     worthless piece of red glass\n_<,\u0016?\nc \u0004k  s  n    :  \u001bsh20s   \u0016?\ncy l  n : \u001637\nk h n h   n  n         n    j     n n    :\u00161\n\u0016?\n\u001bl   k    n    \u0016?\n\u001bh   b  \u0016?\n\u001bh   h   n       \u0016?\nc_>.<20s  20s   n     \u001633\n#levelchange\n14\n\u0007cockatrice\nFk Fj     Fj   n     Fj   n        n    .m.    n        20s  #pray\ny y                        \u0017chickatrice corpse\n\u0007giant rat\nFb   n        n     Fb   n     yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

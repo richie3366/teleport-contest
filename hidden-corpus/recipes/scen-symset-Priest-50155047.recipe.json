@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "O>>>b\u001b\n\u00169\nFk Fb FjFbFkFkFnFkFjFjFnFuFjFyFyFkFhFnFuFyFhFkFuFbFuFkFbFjFuFyFnFbFjFnFyFhFuFhFkFnFlFjFlFbFnFlFbFuFuFuFjFjFlFyFjFhFjFkFkFnFyFkFkFyFlFhFhFkFnFnFlFlFuFbFbFlFhFyFjFjFyFuFjFnFhFbFjFbFlFyFbFnFyFlFhFuFnFnFjFhFuFuFyFlFhFbFlFbFhFlFkFlFhFlFuFkFlFjFjFnoh\u0014 \u001b<.#monster\nef;j.uZb\nE #enhance\nyc\nn\n\u001b\u0007horse\n\u0017lichen corpse\nt\u001b\u0007tame housecat\n\u0017carrot\nt\u001bhk\u0017magic whistle\nh   n  yual       n \u0017leash\namy  uuj    nuaml  10s    n\u0017magic whistle\nh  nkban    n \u001616\n\u001611\nv i\u001b\u00162\nFbFnFy FbFuFnFnFyFyFkFnFkFhFuFkFhFnFlFuFyFjFjFbFyFnFyFuFhFkFkFyFnFkFyFnFbFnFyFyFnFbFhFjFhFlFbFhFkFkFkFjFyFyFuFuFhFkFyFbFhFyFuFuFkFhFjFnFkFbFyFkFnFkFjFlFy FjFk Fn  FjFnFnFhFuFkFjFhFnFjFhFnFhFjFhFkFkFhFkFnFyFnFyFjFuFuFhFyFhFkFhFyFhFhFnFkFyFkFbFyFb\u001617\n#levelchange\n14\n            hju\u0017lawful altar\ndh\u0017elf corpse\n #offer\no yl \u0017unaligned a"
+ },
+ "segments": [
+  {
+   "seed": 50155047,
+   "datetime": "20150303222715",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nMSGTYPE=hide \"You miss\"\nMENUCOLOR=\"blessed\"=brown\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "O>>>b\u001b\n\u00169\nFk Fb FjFbFkFkFnFkFjFjFnFuFjFyFyFkFhFnFuFyFhFkFuFbFuFkFbFjFuFyFnFbFjFnFyFhFuFhFkFnFlFjFlFbFnFlFbFuFuFuFjFjFlFyFjFhFjFkFkFnFyFkFkFyFlFhFhFkFnFnFlFlFuFbFbFlFhFyFjFjFyFuFjFnFhFbFjFbFlFyFbFnFyFlFhFuFnFnFjFhFuFuFyFlFhFbFlFbFhFlFkFlFhFlFuFkFlFjFjFnoh\u0014 \u001b<.#monster\nef;j.uZb\nE #enhance\nyc\nn\n\u001b\u0007horse\n\u0017lichen corpse\nt\u001b\u0007tame housecat\n\u0017carrot\nt\u001bhk\u0017magic whistle\nh   n  yual       n \u0017leash\namy  uuj    nuaml  10s    n\u0017magic whistle\nh  nkban    n \u001616\n\u001611\nv i\u001b\u00162\nFbFnFy FbFuFnFnFyFyFkFnFkFhFuFkFhFnFlFuFyFjFjFbFyFnFyFuFhFkFkFyFnFkFyFnFbFnFyFyFnFbFhFjFhFlFbFhFkFkFkFjFyFyFuFuFhFkFyFbFhFyFuFuFkFhFjFnFkFbFyFkFnFkFjFlFy FjFk Fn  FjFnFnFhFuFkFjFhFnFjFhFnFhFjFhFkFkFhFkFnFyFnFyFjFuFuFhFyFhFkFhFyFhFhFnFkFyFkFbFyFb\u001617\n#levelchange\n14\n            hju\u0017lawful altar\ndh\u0017elf corpse\n #offer\no yl \u0017unaligned a"
+  }
+ ]
+}

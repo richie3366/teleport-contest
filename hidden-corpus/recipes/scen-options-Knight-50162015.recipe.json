@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "O>knh\nh\n>mO>>>>he\nzO>pl\n#pray\ny y     O>hdg\ne\n#name\nd\nO>am\n#ride\nyyy#pray\ny y .m.sm.O>fhk\ni\u001bO>n\no\ng\ng\n\u001b#ride\n  mO>>q\n#sit\n mO>>r\njss"
+ },
+ "segments": [
+  {
+   "seed": 50162015,
+   "datetime": "20110903061127",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:full\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "O>knh\nh\n>mO>>>>he\nzO>pl\n#pray\ny y     O>hdg\ne\n#name\nd\nO>am\n#ride\nyyy#pray\ny y .m.sm.O>fhk\ni\u001bO>n\no\ng\ng\n\u001b#ride\n  mO>>q\n#sit\n mO>>r\njss"
+  }
+ ]
+}

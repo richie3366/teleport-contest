@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " O>>h\u001b\nv\u001bi\u001b#pray\ny y :clzjju\u0017cloud\nl\u0017moat\nhl ny\u0017iron bars\n:kj\u0017chaotic altar\ndl\u0017floating eye corpse\n#offer\nq  #name\ni\n#dip\nkkqkjjjj\u0017moat\njk:b\u0017neutral altar\nd$df\u0017dwarf corpse\n#offer\nr : n\u0017magic fountain\nqy #dip\nby y: nn\u0017altar\ndm\u0017human corpse\n #pray\ny y : #terrain\nd\n\u001b>.W10s#chat\nh\u00168\n\u0018\u001bP#ride\njykln\u0017iron bars\nnl\u0017grave\n:\u0017pick-axe\nat >  .m.20s   :#terrain\nc\n<.#pray\ny y #wipe\nclkhl\u0017altar\ndg\u0017elf corpse\n#offer\nu   : l\u0017cloud\nlhl l:#terrain\ne\n#jump\n10s #loot\nh\u00166\nFk FlFjFn s._>.>hbh50syhy\u000f\u001b_>.>jnl50s150s100sbkj:50sbyj100s100sFj .s50si\u001bklki\u001b100snnhnhkFbFbFbFb .20sed  ynun50seji\u001blhy\\ _>,>150s50sec_>,>nubk\u0017unaligned altar\ndk\u0017lichen corpse\n#offer\nv    n    n#pray\ny uy\u0017cloud\ny\u0017throne\n#sit\n#sit\nnn\u0017neutral altar\nda\u0017elf corpse\n #offer\nw  #pray\ny y z: de\u00163\n\u0006_>>._.>_>>._.>_>>._.>\u0006_>,_,>_>._.>_>._,>\u0006_>>._,>_>>._,>_>>,_,>\u0006_"
+ },
+ "segments": [
+  {
+   "seed": 50155051,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You kill\"\nMENUCOLOR=\"uncursed\"=green\nBIND=v:inventory\n",
+   "moves": " O>>h\u001b\nv\u001bi\u001b#pray\ny y :clzjju\u0017cloud\nl\u0017moat\nhl ny\u0017iron bars\n:kj\u0017chaotic altar\ndl\u0017floating eye corpse\n#offer\nq  #name\ni\n#dip\nkkqkjjjj\u0017moat\njk:b\u0017neutral altar\nd$df\u0017dwarf corpse\n#offer\nr : n\u0017magic fountain\nqy #dip\nby y: nn\u0017altar\ndm\u0017human corpse\n #pray\ny y : #terrain\nd\n\u001b>.W10s#chat\nh\u00168\n\u0018\u001bP#ride\njykln\u0017iron bars\nnl\u0017grave\n:\u0017pick-axe\nat >  .m.20s   :#terrain\nc\n<.#pray\ny y #wipe\nclkhl\u0017altar\ndg\u0017elf corpse\n#offer\nu   : l\u0017cloud\nlhl l:#terrain\ne\n#jump\n10s #loot\nh\u00166\nFk FlFjFn s._>.>hbh50syhy\u000f\u001b_>.>jnl50s150s100sbkj:50sbyj100s100sFj .s50si\u001bklki\u001b100snnhnhkFbFbFbFb .20sed  ynun50seji\u001blhy\\ _>,>150s50sec_>,>nubk\u0017unaligned altar\ndk\u0017lichen corpse\n#offer\nv    n    n#pray\ny uy\u0017cloud\ny\u0017throne\n#sit\n#sit\nnn\u0017neutral altar\nda\u0017elf corpse\n #offer\nw  #pray\ny y z: de\u00163\n\u0006_>>._.>_>>._.>_>>._.>\u0006_>,_,>_>._.>_>._,>\u0006_>>._,>_>>._,>_>>,_,>\u0006_"
+  }
+ ]
+}

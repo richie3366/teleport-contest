@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " O>>c\u001b\nv i\u001bbh\u001byn\u0017magic fountain\nqy ln \u0017moat\ny\u0017lawful altar\ndb\u0017floating eye corpse\n#offer\ng  uk b\u0017ice\n#terrain\ne\n#conduct\n \u0018\u001b#dip\nc\u001bmO>>e\u001b\nO>>>g\u001b\nmO>>r\u001b\n#chat\nk e#levelchange\n14\n             ybjj\u0017unaligned altar\ndade\u0017human corpse\n #pray\ny  uk \u0017tree\n<yy\u001bnnn f"
+ },
+ "segments": [
+  {
+   "seed": 50155036,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=stop \"You hear\"\n",
+   "moves": " O>>c\u001b\nv i\u001bbh\u001byn\u0017magic fountain\nqy ln \u0017moat\ny\u0017lawful altar\ndb\u0017floating eye corpse\n#offer\ng  uk b\u0017ice\n#terrain\ne\n#conduct\n \u0018\u001b#dip\nc\u001bmO>>e\u001b\nO>>>g\u001b\nmO>>r\u001b\n#chat\nk e#levelchange\n14\n             ybjj\u0017unaligned altar\ndade\u0017human corpse\n #pray\ny  uk \u0017tree\n<yy\u001bnnn f"
+  }
+ ]
+}

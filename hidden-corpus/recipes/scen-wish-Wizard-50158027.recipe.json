@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed wand of cold\nzplzplss\u0017cursed amulet of flying\nPq.s..\u0017Dragonbane\nwrsss#invoke\nrss\u00173 scroll of scare monster\n rj \u0017blessed ring of protection from shape changers\nPsl20ss20s\u0017uncursed tallow candle\nat#rub\n20sss20s"
+ },
+ "segments": [
+  {
+   "seed": 50158027,
+   "datetime": "20151111064144",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed wand of cold\nzplzplss\u0017cursed amulet of flying\nPq.s..\u0017Dragonbane\nwrsss#invoke\nrss\u00173 scroll of scare monster\n rj \u0017blessed ring of protection from shape changers\nPsl20ss20s\u0017uncursed tallow candle\nat#rub\n20sss20s"
+  }
+ ]
+}

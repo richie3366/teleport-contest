@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "JJHB_ \u001bm,>Fl 20ssBHYB_>,>#offer\n20sYYHB_>.>r\u001bckYKHK_>,>JLJY_>,>JYBN_>,>YYHU_>,>Fh20s.z#pray\ny  BBUK_>,><UHBU_>.>BNNN_>.>;_.\u0014YUYY_>.>tdl20sH  KUB_>.>\u000f\u001b_>.>150sFlss100s\u0018\u001b100sFlFlFlFnFnFljnjFhs.150s100s150snukFjFjs#jump\nyul#offer\n50s\u000f\u001b\u0018\u001b_>.>150sW_>,>_>.>byn_>.>lhj_>.>150sFuFkFknnk100sjhk\u0018\u001b_>,>yyjbky150swatdh;m.jlj_>,>50s150s100suhuFnFnFk100sFkFk.100sef50s\\  50sFk.sjbj150sFjFjFjkjk100s\\  _>.>100sFjFjFbFbFjFb100sjkuFjFjFji\u001b\\  nbb100s150sFbFbs100s50s100s100s100s100stcb b20s#chat\nynlda20s20s._<,.m.#enhance\n\u001b\\  Fb.s\u000f\u001b50sykn50sFj20ss100sFuFusyjk150s50sFhFhFhFhs.20sjujyju100sef100s100s100sFh.s50s150s \u000f\u001b100s50s_>.>FlFl.FlFlFlFlFlFlFl.sFlFls\u0018\u001bhylWjkjynkFjFjshljP#dip\nf>ULKN_>.>FlssJNKU_>.>Fh.sKBJY_>,>L NLU_>.>BKKU_>.>ldd\u000f\u001bNHKN_>.>FhFh20s<yny  y y y\u001b \\"
+ },
+ "segments": [
+  {
+   "seed": 50150019,
+   "datetime": "20201010012625",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\n",
+   "moves": "JJHB_ \u001bm,>Fl 20ssBHYB_>,>#offer\n20sYYHB_>.>r\u001bckYKHK_>,>JLJY_>,>JYBN_>,>YYHU_>,>Fh20s.z#pray\ny  BBUK_>,><UHBU_>.>BNNN_>.>;_.\u0014YUYY_>.>tdl20sH  KUB_>.>\u000f\u001b_>.>150sFlss100s\u0018\u001b100sFlFlFlFnFnFljnjFhs.150s100s150snukFjFjs#jump\nyul#offer\n50s\u000f\u001b\u0018\u001b_>.>150sW_>,>_>.>byn_>.>lhj_>.>150sFuFkFknnk100sjhk\u0018\u001b_>,>yyjbky150swatdh;m.jlj_>,>50s150s100suhuFnFnFk100sFkFk.100sef50s\\  50sFk.sjbj150sFjFjFjkjk100s\\  _>.>100sFjFjFbFbFjFb100sjkuFjFjFji\u001b\\  nbb100s150sFbFbs100s50s100s100s100s100stcb b20s#chat\nynlda20s20s._<,.m.#enhance\n\u001b\\  Fb.s\u000f\u001b50sykn50sFj20ss100sFuFusyjk150s50sFhFhFhFhs.20sjujyju100sef100s100s100sFh.s50s150s \u000f\u001b100s50s_>.>FlFl.FlFlFlFlFlFlFl.sFlFls\u0018\u001bhylWjkjynkFjFjshljP#dip\nf>ULKN_>.>FlssJNKU_>.>Fh.sKBJY_>,>L NLU_>.>BKKU_>.>ldd\u000f\u001bNHKN_>.>FhFh20s<yny  y y y\u001b \\"
+  }
+ ]
+}

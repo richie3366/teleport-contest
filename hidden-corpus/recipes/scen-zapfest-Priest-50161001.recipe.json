@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPk\u0017blessed +3 speed boots\nWl#levelchange\n14\n            \u0017blessed spellbook of knock\nrm .\u0007master mind flayer\nZc\nsm..m.       Zc\nZc\n      n  Zb\n    n 20s   n 20s     n Za\n    n  ZZ\u001610\n \u0018\u001b\u00162\n\u0017bow\nwn\u001720 arrows\nQo\u0007giant rat\nfhfb tabfbtoh fb\u001612\n   \u0007silver dragon\n\u0007baby red dragon\nsysn #polyself\ngold dragon\n         #monster\nl  .m.sm.     #monster\ny  #monster\nh   \u0017wand of cold\naFhsi\u001b\u0017wand of fire\n\u0017wand of digging\n\u0007lichen\n\u0007giant rat\nzzzsm.zzzzz20s    \u00168\n\u0017blessed spellbook of slow monster\nrs 20s\u0007vampire\nZa\nZb\n Za\nsl   sy Zd\nZa\n Zsm. 20sZb\n Zd\n\u0018\u001b\u0007black dragon\n\u0007red dragon\nsm.sl  #polyself\ngold dragon\n  20s     .m.   #monster\nu     #monster\n#monster"
+ },
+ "segments": [
+  {
+   "seed": 50161001,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPk\u0017blessed +3 speed boots\nWl#levelchange\n14\n            \u0017blessed spellbook of knock\nrm .\u0007master mind flayer\nZc\nsm..m.       Zc\nZc\n      n  Zb\n    n 20s   n 20s     n Za\n    n  ZZ\u001610\n \u0018\u001b\u00162\n\u0017bow\nwn\u001720 arrows\nQo\u0007giant rat\nfhfb tabfbtoh fb\u001612\n   \u0007silver dragon\n\u0007baby red dragon\nsysn #polyself\ngold dragon\n         #monster\nl  .m.sm.     #monster\ny  #monster\nh   \u0017wand of cold\naFhsi\u001b\u0017wand of fire\n\u0017wand of digging\n\u0007lichen\n\u0007giant rat\nzzzsm.zzzzz20s    \u00168\n\u0017blessed spellbook of slow monster\nrs 20s\u0007vampire\nZa\nZb\n Za\nsl   sy Zd\nZa\n Zsm. 20sZb\n Zd\n\u0018\u001b\u0007black dragon\n\u0007red dragon\nsm.sl  #polyself\ngold dragon\n  20s     .m.   #monster\nu     #monster\n#monster"
+  }
+ ]
+}

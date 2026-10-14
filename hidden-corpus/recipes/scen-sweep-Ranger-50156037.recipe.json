@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n       \u0017spellbook of identify\nrgs.Za\n\u0017scroll of teleportation\n\u0007kobold shaman\nrh  \u001b>. Fu Fl\u0017newt corpse\n\u0007black dragon\nei      .m.  .m.Fk Fl   n  \u0017mace\n\u0007paper golem\nwj Fh  Fl   n   Fy   Xsm. sm. \u001612\n    \u00167\n#levelchange\n14\n     \u0007yellow light\nFlFn  Fl20ss\u0007vampire lord\nFhFh  Fh  Fh  Fh sm.20s #pray\ny y      #levelchange\n30\n               \u0017cursed scroll of remove curse\n\u0007dwarf lord\nrk  \u001b \u0017blessed wand of striking\nzlh  zlh  Fh  Fh   \u0017uncursed +0 spear\n\u0007Kop Kaptain\nwm   n Fj Fh Fh   Fh Fh 20s .j \u00167\n#levelchange\n10\n      \u0016?\ne\u0006.m.  n 20s  Fh Fh Fh  Fh    n j  n  l h  n    i\u001bef         n#name\nm\n\u0016\\  \u001612\n #levelchange\n6\n\u0017spellbook of remove curse\nro 20s \u0017blessed spellbook of extra healing\nrp    n.m.\u0017blessed spellbook of jumping\nrq 20s\u0017spellbook of detect treasure\nrr   n 20s    n+a\nZa\nFb  Za\n  n\u0007zombie\nZa\nZa\n i\u001b\u00168\n#levelchange\n8\n     \u0017cursed Ogresmasher\nwsFkFkFkX\u0017uncursed lock pick\natk\u0017huge chunk of meat\n eu  .m.sm.FkFk.b.#levelchange\n30\n                     #wizintrinsic\ns\n 20ssm.ssss20s20s.m.20ssy.m.\u0017potion of fruit juice\nqv \u001b#dip\na#dip\ncsoj#enhance\nyc\nd\n\u001bdqzll.sss.si\u001b#levelchange\n8\n       \u0017blessed ring of polymorph control\nPwl#polyself\nqueen bee\n    #monster\n.s\u0007mind flayer\nFjFj   Fj.m.  20s   sm.#polyself\ntitan\n#monster\nsk 20s    \u0007rust monster\nFj Fl     Fj   20s 20s    n  .m.    n   #polyself\ndwarf\n#monster\nsm.                  sm.  sm.      sb    n      n .y\u0017wand of polymorph\nzxl   #levelchange\n14\n     h    hh\u0017pit\nj       n   k    yy\u001by   y y y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 50156037,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n       \u0017spellbook of identify\nrgs.Za\n\u0017scroll of teleportation\n\u0007kobold shaman\nrh  \u001b>. Fu Fl\u0017newt corpse\n\u0007black dragon\nei      .m.  .m.Fk Fl   n  \u0017mace\n\u0007paper golem\nwj Fh  Fl   n   Fy   Xsm. sm. \u001612\n    \u00167\n#levelchange\n14\n     \u0007yellow light\nFlFn  Fl20ss\u0007vampire lord\nFhFh  Fh  Fh  Fh sm.20s #pray\ny y      #levelchange\n30\n               \u0017cursed scroll of remove curse\n\u0007dwarf lord\nrk  \u001b \u0017blessed wand of striking\nzlh  zlh  Fh  Fh   \u0017uncursed +0 spear\n\u0007Kop Kaptain\nwm   n Fj Fh Fh   Fh Fh 20s .j \u00167\n#levelchange\n10\n      \u0016?\ne\u0006.m.  n 20s  Fh Fh Fh  Fh    n j  n  l h  n    i\u001bef         n#name\nm\n\u0016\\  \u001612\n #levelchange\n6\n\u0017spellbook of remove curse\nro 20s \u0017blessed spellbook of extra healing\nrp    n.m.\u0017blessed spellbook of jumping\nrq 20s\u0017spellbook of detect treasure\nrr   n 20s    n+a\nZa\nFb  Za\n  n\u0007zombie\nZa\nZa\n i\u001b\u00168\n#levelchange\n8\n     \u0017cursed Ogresmasher\nwsFkFkFkX\u0017uncursed lock pick\natk\u0017huge chunk of meat\n eu  .m.sm.FkFk.b.#levelchange\n30\n                     #wizintrinsic\ns\n 20ssm.ssss20s20s.m.20ssy.m.\u0017potion of fruit juice\nqv \u001b#dip\na#dip\ncsoj#enhance\nyc\nd\n\u001bdqzll.sss.si\u001b#levelchange\n8\n       \u0017blessed ring of polymorph control\nPwl#polyself\nqueen bee\n    #monster\n.s\u0007mind flayer\nFjFj   Fj.m.  20s   sm.#polyself\ntitan\n#monster\nsk 20s    \u0007rust monster\nFj Fl     Fj   20s 20s    n  .m.    n   #polyself\ndwarf\n#monster\nsm.                  sm.  sm.      sb    n      n .y\u0017wand of polymorph\nzxl   #levelchange\n14\n     h    hh\u0017pit\nj       n   k    yy\u001by   y y y\u001by  ."
+  }
+ ]
+}

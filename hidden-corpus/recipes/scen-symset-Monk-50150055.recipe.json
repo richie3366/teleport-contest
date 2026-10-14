@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "W#loot\nh ,#rub\nv i\u001bmO>>>>g\u001b\nmO>>>h\u001b\n\u0006_ \u001bm.>FhFh_>._,> \u0006_>._.>_>._.>_>,_.>\u0006_>>,_.>_>>._.>_>>,_,>\u0006_>>._.>_>>._.>_>>._,>\u0006_>._,>_>,_.>_>._,>\u0006_>>._.>_>>._.>_>>,_.>#turn\ni\u001b\u0006_>>._.>_>>,_,>_>>._.>10s#chat\nh \u0006_>._.>_>._.>_>._.>_>.s,\u0006_>>._.>_>>._.>_>>._.>y,\u0006_>._.>_>._,>_>._.><\u0006_>>,_.>_>>,_,>_>>._.>\u00163\n  _>,>50s100s100s100s_>.>\\  150s100sun h\u001bun i\u001b100s\u000f\u001b100s50s\\  #name\nm\ni\u001b50si\u001b150s150snnb<bnj150s\\  _>,>jlh\u001b100s100s50s_>,>_>.>kk nkb 50s100sbny100s100s\u00166\n;_.\u0018\u001b_>,>100s150s_>,>ku jl_>.>150skn yj100sh\u001buh l\u000f\u001b#conduct\n 150s100s100sf \u001b\u0018\u001b50s50s<#untrap\nu 100s\\  100s150s100s100s150si\u001bdi100s\u0018\u001b_>.>100s_>,>lkn kk nlu.50sOm\u001b\n\u00164\n#turn\n150s150s50sky ln100s100snky l100sefjbh\u001b_>.>100sh\u001buh j#offer\nkk ykn 50sjh\u001bky h\u001bh\u001by\\  ;_.100s100s50s\u0018\u001b150s150s100sub ny100s150sFlFl"
+ },
+ "segments": [
+  {
+   "seed": 50150055,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"cursed\"=magenta\n",
+   "moves": "W#loot\nh ,#rub\nv i\u001bmO>>>>g\u001b\nmO>>>h\u001b\n\u0006_ \u001bm.>FhFh_>._,> \u0006_>._.>_>._.>_>,_.>\u0006_>>,_.>_>>._.>_>>,_,>\u0006_>>._.>_>>._.>_>>._,>\u0006_>._,>_>,_.>_>._,>\u0006_>>._.>_>>._.>_>>,_.>#turn\ni\u001b\u0006_>>._.>_>>,_,>_>>._.>10s#chat\nh \u0006_>._.>_>._.>_>._.>_>.s,\u0006_>>._.>_>>._.>_>>._.>y,\u0006_>._.>_>._,>_>._.><\u0006_>>,_.>_>>,_,>_>>._.>\u00163\n  _>,>50s100s100s100s_>.>\\  150s100sun h\u001bun i\u001b100s\u000f\u001b100s50s\\  #name\nm\ni\u001b50si\u001b150s150snnb<bnj150s\\  _>,>jlh\u001b100s100s50s_>,>_>.>kk nkb 50s100sbny100s100s\u00166\n;_.\u0018\u001b_>,>100s150s_>,>ku jl_>.>150skn yj100sh\u001buh l\u000f\u001b#conduct\n 150s100s100sf \u001b\u0018\u001b50s50s<#untrap\nu 100s\\  100s150s100s100s150si\u001bdi100s\u0018\u001b_>.>100s_>,>lkn kk nlu.50sOm\u001b\n\u00164\n#turn\n150s150s50sky ln100s100snky l100sefjbh\u001b_>.>100sh\u001buh j#offer\nkk ykn 50sjh\u001bky h\u001bh\u001by\\  ;_.100s100s50s\u0018\u001b150s150s100sub ny100s150sFlFl"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " w-takr\u001br\u001bf bnn\u000f\u001bi\u001bokj10s   tbuol#untrap\nywb  r\u001b>i\u001begssafs\nafs\n#tip\nf\u001baeueh.sqd  W20ss.\u0004b#invoke\n\u001b#wipe\n#untrap\n.#terrain\ne\n#chat\nl"
+ },
+ "segments": [
+  {
+   "seed": 50152031,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " w-takr\u001br\u001bf bnn\u000f\u001bi\u001bokj10s   tbuol#untrap\nywb  r\u001b>i\u001begssafs\nafs\n#tip\nf\u001baeueh.sqd  W20ss.\u0004b#invoke\n\u001b#wipe\n#untrap\n.#terrain\ne\n#chat\nl"
+  }
+ ]
+}

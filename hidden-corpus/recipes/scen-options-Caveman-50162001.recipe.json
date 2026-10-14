@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  mOa\na\u0014 \u001bm.mO>>f\n ,mO>>>p\nwb  mO>>>>i\nch\u0014>.s.Onm\n#monster\nWOnfi\ng\nk\ntcl#dip\ndO>pk\n20sO>ch\nq#dip\ncs."
+ },
+ "segments": [
+  {
+   "seed": 50162001,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "  mOa\na\u0014 \u001bm.mO>>f\n ,mO>>>p\nwb  mO>>>>i\nch\u0014>.s.Onm\n#monster\nWOnfi\ng\nk\ntcl#dip\ndO>pk\n20sO>ch\nq#dip\ncs."
+  }
+ ]
+}

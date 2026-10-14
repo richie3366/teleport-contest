@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPil\u0017jumping boots\nWj  sssTj#polyself\ntitan\n#monster\n20s.s.20s #polyself\nwerewolf\n master lich\n#monster\n20s   ssss#polyself\nqueen bee\n   #monster\n20s   s\u0007Elvenking\nFjFjFl  .m.20s  sm.\u0017potion of polymorph\nqk wood nymph\n      \u001618\n #levelchange\n20\n                   \u0007small mimic\n;m, \u001bm.20ssm..m.\u0007chameleon\nFh Fh   FhFj#levelchange\n12\n   \u0017the Mitre of Holiness\n wb FhFhFh\u0017blessed slime mold\n\u0007lichen\nem20ssm.FuFh\u0017uncursed potion of gain energy\n\u0007water demon\nqnFuFu \u0017blessed +3 ring of invisibility\nPol .m. sm.20s  sm.s\u001626\n\u0017blessed ring of polymorph control\nPp   n  \u0017helm of opposite alignment\nWq      s 20s .#polyself\ngiant spider\n      n#monster\ns m,   s \u0007rust monster\nFh Fl Fh s  n   20s  20s  #polyself\nkitten\n   20s   @.  20s  n  \u0007hezrou\nFj   Fj  Fl  n  .  ss #polyself\nstone golem\n #monster\n.    s    n   \u0007giant beetle\nFl  FjFb  .   n 20s  20s     #polyself\ntengu\n #monster\n20s    n   . .  .   n 20s  \u0017amulet of unchanging\nPr   ss  n   s  s  Rr   n  \u00165\n#levelchange\n20\n      \u0017dagger\nwsFyFy Fh \u0007baby purple worm\nFy Fh Fy FyFy  n \u0007iron golem\n;h:s ss\u0007succubus\nFhFu Fl   n Fl Fh  :  ss  n \u0007yellow light\nFh  FuFk  Fu  n 20s .  #pray\ny y       \u0007gas spore\nFh   y\u001b    y  F"
+ },
+ "segments": [
+  {
+   "seed": 50156001,
+   "datetime": "20190226184446",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed ring of polymorph control\nPil\u0017jumping boots\nWj  sssTj#polyself\ntitan\n#monster\n20s.s.20s #polyself\nwerewolf\n master lich\n#monster\n20s   ssss#polyself\nqueen bee\n   #monster\n20s   s\u0007Elvenking\nFjFjFl  .m.20s  sm.\u0017potion of polymorph\nqk wood nymph\n      \u001618\n #levelchange\n20\n                   \u0007small mimic\n;m, \u001bm.20ssm..m.\u0007chameleon\nFh Fh   FhFj#levelchange\n12\n   \u0017the Mitre of Holiness\n wb FhFhFh\u0017blessed slime mold\n\u0007lichen\nem20ssm.FuFh\u0017uncursed potion of gain energy\n\u0007water demon\nqnFuFu \u0017blessed +3 ring of invisibility\nPol .m. sm.20s  sm.s\u001626\n\u0017blessed ring of polymorph control\nPp   n  \u0017helm of opposite alignment\nWq      s 20s .#polyself\ngiant spider\n      n#monster\ns m,   s \u0007rust monster\nFh Fl Fh s  n   20s  20s  #polyself\nkitten\n   20s   @.  20s  n  \u0007hezrou\nFj   Fj  Fl  n  .  ss #polyself\nstone golem\n #monster\n.    s    n   \u0007giant beetle\nFl  FjFb  .   n 20s  20s     #polyself\ntengu\n #monster\n20s    n   . .  .   n 20s  \u0017amulet of unchanging\nPr   ss  n   s  s  Rr   n  \u00165\n#levelchange\n20\n      \u0017dagger\nwsFyFy Fh \u0007baby purple worm\nFy Fh Fy FyFy  n \u0007iron golem\n;h:s ss\u0007succubus\nFhFu Fl   n Fl Fh  :  ss  n \u0007yellow light\nFh  FuFk  Fu  n 20s .  #pray\ny y       \u0007gas spore\nFh   y\u001b    y  F"
+  }
+ ]
+}

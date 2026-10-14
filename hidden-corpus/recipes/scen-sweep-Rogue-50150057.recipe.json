@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u0017wand of digging\n\u00169\nzh<uh\u0006_ \u001b,zh> bu\u0006_o.zh> nbzh> s zh> skkzh.\u001620\n\u0006_>>._,> \u0006_>>,_.>_>>._.>_>>._,>\u0006_>._.>_>._.>_>._.>>,\u0006_>,_.>_>._,>_>._.>\u0006_>._.>_>,_.>_>._,>#invoke\n\u001beg\u000f\u001b#levelchange\n8\n\u0007ettin\n;h;.hsm.sm.   n\u0007couatl\n;k,sm. 20s  sm.  n   \u00164\n#levelchange\n20\n            \u0007wererat\nFu Fu  Fk FkFu  Fk  n  Fusm. sl \u0007brown pudding\nFkFn Fn  sm. sm. #levelchange\n12\n  \u0016?\nc#invoke\n\u001b\u0018\u001b#force\n\u0006.m. sm. \u0016?\n>H#monster\nwb  P\u0006sm..m.\u0016?\n>z  y#ride\njydg\u0006sm.sm.\u001628\ney  n #sit\n P;j:  .m. sl\u0016?\n>Dck#force\n#conduct\n ;h,20s.yi\u001bwa  Fh20s.afr\nafs\n#tip\nf\u001bwb .20s.Xqd  zhzhW.s.T_<,.\u0004b#pray\ny y #loot\n;m.l#ride\nyy y#tip\nf\u001b\u001613\n#wizintrinsic\ni\n \u0017towel\naj\u0017kelp frond\nekZ\u0017scroll of destroy armor\nrlss.\u0018\u001b#levelchange\n20\n      \u0016?\n>z  _mmmm.#chat\nh;._mmmm,#chat\ny_mmmm,#chat\nh;._mm.#chat\nn\u0006_>>._,>.>_>>._.>_>>,_.>\u0016?\n>A#monster\n>f by n#levelchange\n30\n         \u0007grey-elf\n;m,s20s s\u0007wumpus\n;u,.20s.  n\u0007green-elf\n;u.20sss\u0007green mold\nFk  n FkFuFlss  n \u0007werewolf\nFu   Fu   Fk  Fk   n Fl  Fk   .m. 20s  n  \u0007giant mimic\nFu  Fk    Fk    .m.  n su      \u00166\n#levelchange\n12\n     \u0017blessed leather drum\nan    an   \u0017blessed silver dagger\nwo   Fk   Fk  Fl  \u0017spellbook of force bolt\nrp      s s\u001bZZ\u0017blessed fumble boots\n\u0007mumak\nWq  n   .m.         s s  n  \u0017the Tsurugi of Muramasa\n .  n  n n  20s  \u0017cursed apple\n,\u001b20s    20s  yy\u001bny y y\u001b  i"
+ },
+ "segments": [
+  {
+   "seed": 50150057,
+   "datetime": "20210610201822",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u0017wand of digging\n\u00169\nzh<uh\u0006_ \u001b,zh> bu\u0006_o.zh> nbzh> s zh> skkzh.\u001620\n\u0006_>>._,> \u0006_>>,_.>_>>._.>_>>._,>\u0006_>._.>_>._.>_>._.>>,\u0006_>,_.>_>._,>_>._.>\u0006_>._.>_>,_.>_>._,>#invoke\n\u001beg\u000f\u001b#levelchange\n8\n\u0007ettin\n;h;.hsm.sm.   n\u0007couatl\n;k,sm. 20s  sm.  n   \u00164\n#levelchange\n20\n            \u0007wererat\nFu Fu  Fk FkFu  Fk  n  Fusm. sl \u0007brown pudding\nFkFn Fn  sm. sm. #levelchange\n12\n  \u0016?\nc#invoke\n\u001b\u0018\u001b#force\n\u0006.m. sm. \u0016?\n>H#monster\nwb  P\u0006sm..m.\u0016?\n>z  y#ride\njydg\u0006sm.sm.\u001628\ney  n #sit\n P;j:  .m. sl\u0016?\n>Dck#force\n#conduct\n ;h,20s.yi\u001bwa  Fh20s.afr\nafs\n#tip\nf\u001bwb .20s.Xqd  zhzhW.s.T_<,.\u0004b#pray\ny y #loot\n;m.l#ride\nyy y#tip\nf\u001b\u001613\n#wizintrinsic\ni\n \u0017towel\naj\u0017kelp frond\nekZ\u0017scroll of destroy armor\nrlss.\u0018\u001b#levelchange\n20\n      \u0016?\n>z  _mmmm.#chat\nh;._mmmm,#chat\ny_mmmm,#chat\nh;._mm.#chat\nn\u0006_>>._,>.>_>>._.>_>>,_.>\u0016?\n>A#monster\n>f by n#levelchange\n30\n         \u0007grey-elf\n;m,s20s s\u0007wumpus\n;u,.20s.  n\u0007green-elf\n;u.20sss\u0007green mold\nFk  n FkFuFlss  n \u0007werewolf\nFu   Fu   Fk  Fk   n Fl  Fk   .m. 20s  n  \u0007giant mimic\nFu  Fk    Fk    .m.  n su      \u00166\n#levelchange\n12\n     \u0017blessed leather drum\nan    an   \u0017blessed silver dagger\nwo   Fk   Fk  Fl  \u0017spellbook of force bolt\nrp      s s\u001bZZ\u0017blessed fumble boots\n\u0007mumak\nWq  n   .m.         s s  n  \u0017the Tsurugi of Muramasa\n .  n  n n  20s  \u0017cursed apple\n,\u001b20s    20s  yy\u001bny y y\u001b  i"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nu_mm, Fk _.  nFk  #chat\ny  _mmmmm.         _,    n#chat\nh_m.   n      _,   n n    #chat\nk#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nl_m,#chat\nh\u0017blessed +3 silver dragon scale mail\nWk          \u0017blessed ring of free action\nPlr    \u0017blessed Mjollnir\nwm  \u0017wand of cold\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,   Fn   _,Fb Fn   Fj      n Fn   Fh znb,\u0016?\n>A\u0006_mmmmmmm, Fb_.>.Fb  Fb    ssFb  ,\u0016?\n>A\u0006_mmm,Fl _.@.Fl FlFlFlFl,#chat\nl\u0016?\n>z\u0006_mmm._,     s.s20ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fl _.Fn Fn Fl Fl Fl Fn ,\u0016?\n>>\u001b\u0016?\n>y_m,_.     Fn  #chat\nn ;n;\u0016?\n>A\u0006_mmmmmmm._,. Fn Fn Fn znk,\u0016?\n>A\u0006_mmm,_.,sFl Fl Fl Fl s,\u0016?\n>z\u0006_mm._.<.20s Fl ss...znu,#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm, _,<.s.20s20sss,#chat\nb\u0016?\n>A\u0006_mm._,   Fn   s20sFl  Fj   n  Fh  Fj Fk znk  ,#chat\ny\u0016?\n>A\u0006_mm,_.;:   sFhFh  s.szn,\u0016?\n>z\u0006_mmmmm._,.s20s.20ssss,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm._.<.Fl  .sFj  Fl   n       .20szn,#chat\nb\u0016?\n>A\u0006_mmmmmmm._. Fu  Fu Fu.s20s ,#chat\nb\u0016?\n>A\u0006_mmmmmmm._.m.20ssssszn,\u0016?\n>z\u0006_mmm.Fn _.m,Fj Fj s.20sFl ss,#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm. Fu   _,  FkFk  Fk  Fk  Fk  zn ,\u0016?\n>A\u0006_mmmm,Fk s.20szn,#chat\ny\u0016?\n>A\u0006_mmmmmmm._.ss20s..,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_"
+ },
+ "segments": [
+  {
+   "seed": 50157014,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nu_mm, Fk _.  nFk  #chat\ny  _mmmmm.         _,    n#chat\nh_m.   n      _,   n n    #chat\nk#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nl_m,#chat\nh\u0017blessed +3 silver dragon scale mail\nWk          \u0017blessed ring of free action\nPlr    \u0017blessed Mjollnir\nwm  \u0017wand of cold\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,   Fn   _,Fb Fn   Fj      n Fn   Fh znb,\u0016?\n>A\u0006_mmmmmmm, Fb_.>.Fb  Fb    ssFb  ,\u0016?\n>A\u0006_mmm,Fl _.@.Fl FlFlFlFl,#chat\nl\u0016?\n>z\u0006_mmm._,     s.s20ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fl _.Fn Fn Fl Fl Fl Fn ,\u0016?\n>>\u001b\u0016?\n>y_m,_.     Fn  #chat\nn ;n;\u0016?\n>A\u0006_mmmmmmm._,. Fn Fn Fn znk,\u0016?\n>A\u0006_mmm,_.,sFl Fl Fl Fl s,\u0016?\n>z\u0006_mm._.<.20s Fl ss...znu,#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm, _,<.s.20s20sss,#chat\nb\u0016?\n>A\u0006_mm._,   Fn   s20sFl  Fj   n  Fh  Fj Fk znk  ,#chat\ny\u0016?\n>A\u0006_mm,_.;:   sFhFh  s.szn,\u0016?\n>z\u0006_mmmmm._,.s20s.20ssss,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm._.<.Fl  .sFj  Fl   n       .20szn,#chat\nb\u0016?\n>A\u0006_mmmmmmm._. Fu  Fu Fu.s20s ,#chat\nb\u0016?\n>A\u0006_mmmmmmm._.m.20ssssszn,\u0016?\n>z\u0006_mmm.Fn _.m,Fj Fj s.20sFl ss,#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm. Fu   _,  FkFk  Fk  Fk  Fk  zn ,\u0016?\n>A\u0006_mmmm,Fk s.20szn,#chat\ny\u0016?\n>A\u0006_mmmmmmm._.ss20s..,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_"
+  }
+ ]
+}

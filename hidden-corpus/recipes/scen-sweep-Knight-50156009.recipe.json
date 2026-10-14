@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n20\n\u0016?\n>y  _ \u001b,#chat\nk;k,_mm.  Fh  _,   Fu #chat\nu_mmm,Fu _, Fl   #chat\nl<oj;l:  \u0006n  jl   n  j     \u0017lawful altar\ndg      \u0017gnome corpse\n#offer\ni        n   #pray\ny y                      h     \u0017neutral altar\nda\u0017human corpse\n : h      y  \u0017cloud\ni\u001br\u001b#offer\n\u00164\n\u00162\n\u0007rock piercer\nFh     n    Fl     Fy      \u0007grey-elf\n;u,20s      n  sm.    20s \u0007black dragon\nFu        Fu          Fl   n        Fu       n   \u001622\n\u001612\n#wizintrinsic\nhm\n  El            bn\u0017blessed wand of cold\nzky     n       zkl          n   Esh          sj.m.      n    \u001624\n\u001611\n\u0006_>.       Fy          _.   n        Fh      >Fu          n Fu           _>,      n     Fk        _,    n    Fk       >Fl   n         Fu         _>.     n       Fl        yy\u001by   y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 50156009,
+   "datetime": "20241221030511",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n20\n\u0016?\n>y  _ \u001b,#chat\nk;k,_mm.  Fh  _,   Fu #chat\nu_mmm,Fu _, Fl   #chat\nl<oj;l:  \u0006n  jl   n  j     \u0017lawful altar\ndg      \u0017gnome corpse\n#offer\ni        n   #pray\ny y                      h     \u0017neutral altar\nda\u0017human corpse\n : h      y  \u0017cloud\ni\u001br\u001b#offer\n\u00164\n\u00162\n\u0007rock piercer\nFh     n    Fl     Fy      \u0007grey-elf\n;u,20s      n  sm.    20s \u0007black dragon\nFu        Fu          Fl   n        Fu       n   \u001622\n\u001612\n#wizintrinsic\nhm\n  El            bn\u0017blessed wand of cold\nzky     n       zkl          n   Esh          sj.m.      n    \u001624\n\u001611\n\u0006_>.       Fy          _.   n        Fh      >Fu          n Fu           _>,      n     Fk        _,    n    Fk       >Fl   n         Fu         _>.     n       Fl        yy\u001by   y y y\u001b  _"
+  }
+ ]
+}

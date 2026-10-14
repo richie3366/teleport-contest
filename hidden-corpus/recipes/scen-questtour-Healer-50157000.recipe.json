@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001bm,#chat\nk   n;k:  _mm, Fk   n_,#chat\nl ;l;_m.  Fk  n_,#chat\nl_mm.  n  Fk  n  _.#chat\nk    n;k;#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fk   _,Fh  #chat\ny     n_mm.#chat\nh _mmm.#chat\ny\u0017blessed Mjollnir\nwm\u0017blessed +3 gray dragon scale mail\nWn     n \u0017wand of fire\n\u0016?\n>A\u0006_mm.FuFu            Fl Fuzou  ,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nu\u0016?\n>A\u0006_mmmm.Fu Fu       FlFl   n Fl Fu   Fk  zok  n ,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nb\u00169\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,Fu      FlFl Fl  n s20s  szol   ,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj\u0016?\n>z\u0006_mmmmm.20s Fl FlFl,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nl;l;\u0016?\n>A\u0006_mm.FlFn   n Fu Fu  FlFlzol ,#chat\nj\u0016?\n>A\u0006_mmm,Fj Fu     FuFuFu  n   zo    ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fl FuFlFl    Fl    n  FlFl ,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nl\u0016?\n>z\u0006_mm.FlFu FlFu  n Fu FlFu,\u0016?\n>A\u0006_mmmmm.Fu FlFl  y  F"
+ },
+ "segments": [
+  {
+   "seed": 50157000,
+   "datetime": "20101202072023",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001bm,#chat\nk   n;k:  _mm, Fk   n_,#chat\nl ;l;_m.  Fk  n_,#chat\nl_mm.  n  Fk  n  _.#chat\nk    n;k;#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fk   _,Fh  #chat\ny     n_mm.#chat\nh _mmm.#chat\ny\u0017blessed Mjollnir\nwm\u0017blessed +3 gray dragon scale mail\nWn     n \u0017wand of fire\n\u0016?\n>A\u0006_mm.FuFu            Fl Fuzou  ,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nu\u0016?\n>A\u0006_mmmm.Fu Fu       FlFl   n Fl Fu   Fk  zok  n ,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nb\u00169\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,Fu      FlFl Fl  n s20s  szol   ,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj\u0016?\n>z\u0006_mmmmm.20s Fl FlFl,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nl;l;\u0016?\n>A\u0006_mm.FlFn   n Fu Fu  FlFlzol ,#chat\nj\u0016?\n>A\u0006_mmm,Fj Fu     FuFuFu  n   zo    ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fl FuFlFl    Fl    n  FlFl ,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nl\u0016?\n>z\u0006_mm.FlFu FlFu  n Fu FlFu,\u0016?\n>A\u0006_mmmmm.Fu FlFl  y  F"
+  }
+ ]
+}

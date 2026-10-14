@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nu_m._.#chat\nb_mm, Fh  _, Fn  n     n#chat\nn   n    n #levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.   Fy    _,#chat\nk    n  _mmmm.   Fk      n _.#chat\nk   ;k;\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwh       n\u0017wand of striking\n\u0016?\n>A\u0006_mmmmmmm.   Fu        n_.Fn      Fk    Fy   n   Fy      Fu    n    Fl        nzij    ,\u001610\n\u0016?\n>z\u0006_mmmm.Fj     _.Fl   n    Fn    Fh   n    Fj     Fk    n   Fn     Fb ,#chat\nk    n   \u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,    Fh     y\u001b      _"
+ },
+ "segments": [
+  {
+   "seed": 50157005,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nu_m._.#chat\nb_mm, Fh  _, Fn  n     n#chat\nn   n    n #levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.   Fy    _,#chat\nk    n  _mmmm.   Fk      n _.#chat\nk   ;k;\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwh       n\u0017wand of striking\n\u0016?\n>A\u0006_mmmmmmm.   Fu        n_.Fn      Fk    Fy   n   Fy      Fu    n    Fl        nzij    ,\u001610\n\u0016?\n>z\u0006_mmmm.Fj     _.Fl   n    Fn    Fh   n    Fj     Fk    n   Fn     Fb ,#chat\nk    n   \u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,    Fh     y\u001b      _"
+  }
+ ]
+}

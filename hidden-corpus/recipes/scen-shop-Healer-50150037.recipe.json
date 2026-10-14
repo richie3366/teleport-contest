@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  \u00178000 gold pieces\n\u0017blessed ring of free action\nPll\u0017blessed amulet of life saving\nPm\u0016?\n>w\u0006_ \u001b,qf\u0016?\n>Bubn\u0016?\n>w\u0006_ooo,,p_ooooo._ooo.,p_oooo.,p_oooooo.,\u0017amulet of change\ndn_ooooooo.,\u0017amulet of reflection\ndo_oooo.,$_ooo.,$_oooooooo,,:yny#chat\nh_oooo,,pnhk#chat\nh__,_.#chat\nu#pray\ny y _oo,,:_oooooooo,,p_ooooo.,#chat\ny_oo.,:_oooo.,\u0014@..20s_ooooooooo.,p__,Fh_.Fh #chat\nh#pray\ny y    _{.Fh _.Fh qf FhFh Fh Fh Fh Fh \u0016?\n>Bjlb\u0016?\n>w\u0006ubl#chat\nb_ooo.,\u0017luckstone\ndp__._.,Fh#chat\nh  _ooo.Fk_.;@.Fh,$__.Fk _.Fb  #chat\nh    #pray\ny y       _ooo,Fu _.  nFb  ,#chat\nb  _{.   nFj_.;;Fb   qe   "
+ },
+ "segments": [
+  {
+   "seed": 50150037,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00178000 gold pieces\n\u0017blessed ring of free action\nPll\u0017blessed amulet of life saving\nPm\u0016?\n>w\u0006_ \u001b,qf\u0016?\n>Bubn\u0016?\n>w\u0006_ooo,,p_ooooo._ooo.,p_oooo.,p_oooooo.,\u0017amulet of change\ndn_ooooooo.,\u0017amulet of reflection\ndo_oooo.,$_ooo.,$_oooooooo,,:yny#chat\nh_oooo,,pnhk#chat\nh__,_.#chat\nu#pray\ny y _oo,,:_oooooooo,,p_ooooo.,#chat\ny_oo.,:_oooo.,\u0014@..20s_ooooooooo.,p__,Fh_.Fh #chat\nh#pray\ny y    _{.Fh _.Fh qf FhFh Fh Fh Fh Fh \u0016?\n>Bjlb\u0016?\n>w\u0006ubl#chat\nb_ooo.,\u0017luckstone\ndp__._.,Fh#chat\nh  _ooo.Fk_.;@.Fh,$__.Fk _.Fb  #chat\nh    #pray\ny y       _ooo,Fu _.  nFb  ,#chat\nb  _{.   nFj_.;;Fb   qe   "
+  }
+ ]
+}

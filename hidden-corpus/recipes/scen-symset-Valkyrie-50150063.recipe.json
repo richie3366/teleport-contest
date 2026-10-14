@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " O>f\u001b\nnKmO>>>>h\u001b\n\u00167\nFjFkFuFh FjFbFhFuFjFjFbFjFnFlFbFuFnFuFjFhFyFnFjFjFnFlFuFjFhFnFuFuFb#pray\ny y    FbFlFbFjFnFnFbFlFhFnFjFlFbFjFlFhFuFuFuFlFlFjFlFbFuFbFnFjFbFjFuFjFbFnFhFhFhFnFjFlFlFjFuFjFjFlFnFuFlFhFbFlFuFbFlFjFlFjFnFuFnFhFhFjFhFuFjFhFbFhFbFuFlFuFuFjFh FhFhFlFhFuFuFl#levelchange\n20\n                   nnu\u0017grave\n: \u0017wand of digging\nze>  su.m. :h\u0017sink\nqy  u \u0017chaotic altar\nde da  \u0017jackal corpse\n#offer\nf  #pray\ny y        #terrain\nb\n\u001b,c#loot\nh#rub\nFb  FjFy FhFb Fk Fy Fj Fb   n Fj Fb Fk Fk Fb Fb Fb Fj Fk FkFk Fb FjFb Fk #pray\ny y    #pray\ny y     #pray\ny y     #pray\ny y      #pray\ny y     Fj Fy Fy #pray\ny y     Fb Fk Fb FkFy Fj FkFj FjFy Fk Fy Fy Fj FbFkFbFbFkFjFjFbFjFjFjFyFbFbFjFkFkFjFkFbFjFkFyFbFjFyFbFyFjFbFbFyFkFbFbFjFjFbFbFbFyFbFyFyFyFyFyFjFyFjFbFy "
+ },
+ "segments": [
+  {
+   "seed": 50150063,
+   "datetime": "20000120050517",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nBIND=v:inventory\n",
+   "moves": " O>f\u001b\nnKmO>>>>h\u001b\n\u00167\nFjFkFuFh FjFbFhFuFjFjFbFjFnFlFbFuFnFuFjFhFyFnFjFjFnFlFuFjFhFnFuFuFb#pray\ny y    FbFlFbFjFnFnFbFlFhFnFjFlFbFjFlFhFuFuFuFlFlFjFlFbFuFbFnFjFbFjFuFjFbFnFhFhFhFnFjFlFlFjFuFjFjFlFnFuFlFhFbFlFuFbFlFjFlFjFnFuFnFhFhFjFhFuFjFhFbFhFbFuFlFuFuFjFh FhFhFlFhFuFuFl#levelchange\n20\n                   nnu\u0017grave\n: \u0017wand of digging\nze>  su.m. :h\u0017sink\nqy  u \u0017chaotic altar\nde da  \u0017jackal corpse\n#offer\nf  #pray\ny y        #terrain\nb\n\u001b,c#loot\nh#rub\nFb  FjFy FhFb Fk Fy Fj Fb   n Fj Fb Fk Fk Fb Fb Fb Fj Fk FkFk Fb FjFb Fk #pray\ny y    #pray\ny y     #pray\ny y     #pray\ny y      #pray\ny y     Fj Fy Fy #pray\ny y     Fb Fk Fb FkFy Fj FkFj FjFy Fk Fy Fy Fj FbFkFbFbFkFjFjFbFjFjFjFyFbFbFjFkFkFjFkFbFjFkFyFbFjFyFbFyFjFbFbFyFkFbFbFjFjFbFbFbFyFbFyFyFyFyFyFjFyFjFbFy "
+  }
+ ]
+}

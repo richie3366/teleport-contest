@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0004k_<, \u001bm,s#pray\ny f by bz#rub\n#chat\nl#chat\nl#wipe\n__,s#pray\ny  y,t\u001b>#force\n#ride\nb#enhance\n\u001b#ride\nk#invoke\n\u001ba"
+ },
+ "segments": [
+  {
+   "seed": 50152018,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\n",
+   "moves": " \u0004k_<, \u001bm,s#pray\ny f by bz#rub\n#chat\nl#chat\nl#wipe\n__,s#pray\ny  y,t\u001b>#force\n#ride\nb#enhance\n\u001b#ride\nk#invoke\n\u001ba"
+  }
+ ]
+}

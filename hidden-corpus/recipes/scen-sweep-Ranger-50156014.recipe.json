@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nd\n .m.sm.s.jsy20s.m....tck #dip\nc#invoke\n\u001b#chat\n#dip\na#ride\njysm.sm.sm.sys.m. n#levelchange\n30\n                             \u0016?\n>t >Z#chat\nk;k. \u001bm, ss\u001618\n#untrap\nyJ#terrain\nf\n;l:  sm. sm.\u001622\n #monster\ni\u001bW;u;.sm.\u0016?\n>G \\ u#twoweapon\n;k. .sylj\u0017moat\n#dip\ney   hlhl\u0017pool\n#dip\nfy  bub\u0017fountain\nqy y\u0017long sword\n#dip\nh:#terrain\nb\nu#sit\n<.a#levelchange\n8\n       \u0017uncursed spellbook of stone to flesh\nri.sZ\u0017blessed fumble boots\nWjsssTj\u0017blessed wand of striking\nzknzkjs20s\u0017tallow candle\nal#rub\n\u0017uncursed +0 dwarvish mattock\nwmss.Xss\u001625\n#wizintrinsic\ni\n \u0017blessed scroll of light\nrn;m.Z\u0017scroll of confuse monster\nro.20ss#levelchange\n14\n     \u0016?\n>z  _mm.#chat\nh_mmmmm,#chat\nj;._mmmm,#chat\nl_mmmm.#chat\nb;m,\u0016?\n>Bzkkq> jbjy\u0017fountain\nqy    \u001b qy  qy y:y\u0017magic fountain\nqyqy   qy y #terrain\nc\n@.ri    #sit\n  >   \u001626\n\u0018\u001b#levelchange\n8\n #wizintrinsic\ned\n sl.m.  n 20s   sm. sny   n .m.  sj sm.  20s sm.   n  sm.    .j   n  .m.  sb  \u0014m,al,s\u0004y>20ssm.20s.m. sm.  n sm. \\  \u00164\n#levelchange\n8\n\u0017the Staff of Aesculapius\n \u0007shade\n.y .y  n n.m.   20s    n    .j   n    20s     n 20s      n  sk  20s      n \u0007black light\nsl     \u001b sh   n .m.   20s        n 20s   sm.    yy\u001bny y n  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 50156014,
+   "datetime": "20070626120615",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=autodig\nOPTIONS=sortloot:loot\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nd\n .m.sm.s.jsy20s.m....tck #dip\nc#invoke\n\u001b#chat\n#dip\na#ride\njysm.sm.sm.sys.m. n#levelchange\n30\n                             \u0016?\n>t >Z#chat\nk;k. \u001bm, ss\u001618\n#untrap\nyJ#terrain\nf\n;l:  sm. sm.\u001622\n #monster\ni\u001bW;u;.sm.\u0016?\n>G \\ u#twoweapon\n;k. .sylj\u0017moat\n#dip\ney   hlhl\u0017pool\n#dip\nfy  bub\u0017fountain\nqy y\u0017long sword\n#dip\nh:#terrain\nb\nu#sit\n<.a#levelchange\n8\n       \u0017uncursed spellbook of stone to flesh\nri.sZ\u0017blessed fumble boots\nWjsssTj\u0017blessed wand of striking\nzknzkjs20s\u0017tallow candle\nal#rub\n\u0017uncursed +0 dwarvish mattock\nwmss.Xss\u001625\n#wizintrinsic\ni\n \u0017blessed scroll of light\nrn;m.Z\u0017scroll of confuse monster\nro.20ss#levelchange\n14\n     \u0016?\n>z  _mm.#chat\nh_mmmmm,#chat\nj;._mmmm,#chat\nl_mmmm.#chat\nb;m,\u0016?\n>Bzkkq> jbjy\u0017fountain\nqy    \u001b qy  qy y:y\u0017magic fountain\nqyqy   qy y #terrain\nc\n@.ri    #sit\n  >   \u001626\n\u0018\u001b#levelchange\n8\n #wizintrinsic\ned\n sl.m.  n 20s   sm. sny   n .m.  sj sm.  20s sm.   n  sm.    .j   n  .m.  sb  \u0014m,al,s\u0004y>20ssm.20s.m. sm.  n sm. \\  \u00164\n#levelchange\n8\n\u0017the Staff of Aesculapius\n \u0007shade\n.y .y  n n.m.   20s    n    .j   n    20s     n 20s      n  sk  20s      n \u0007black light\nsl     \u001b sh   n .m.   20s        n 20s   sm.    yy\u001bny y n  \u0007"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017yumi\nwg\u001720 ya\nQh\u0007sewer rat\nblfkfk..\u0017potion of object detection\ntan\u0007yellow mold\nlfyfyfyfyfb..\u0007acid blob\nlfkfbfyfufh\u0017potion of gain level\nthyx #twoweapon\ns.k yu,#enhance\nn\u001b\u0018\u001bbj\u0017wand of lightning\nEk  X marks the spot\n \u0017towel\nEl\u0017wand of sleep\nEmE-\u0007gnome lord\nsm.s20s\u00162\n  \u0017cursed wand of undead turning\n\u0007frost giant\nzn.znb Fb    Fb\u00173 wand of light\nzoFbFb\u0017blessed long sword\n\u0007Demogorgon\nywpFhFb Fb    n   \u0017leash\naqbFbFb20s    20s\u00166\n\u000f\u001b\u0017kicking boots\nWr .m.  n sm. 20s \u0007jackal\n;l, \u001bm,sm. shs\u0007ettin\n.m. su    nsyss.m.  .n\u0007gnome lord\nFk FhFy  Fk  \u0007werejackal\n#chat\nk    nFk  Fy  \u001610\n\\  \u001612\n\u0007horse\n\u0017huge chunk of meat\n tgl \u0017banana\nthl  \u0017tin whistle\njl nau \u0006_>>. Fy   n _.<.Fh  >FhFh _>>, Fh_.Fh  >Fhs_>>,_.>\u0017fortune cookie\nthk\u0006_>._.>_>._.>_>._.>\u0007acid blob\nsss..    s20s\u000f\u001byyyy\u0017magic trap\ny#untrap\nyy\u0017dart trap\nyn.20s\u0017land mine\nayy#terrain\n\u001bw<#untrap\n\u0018\u001b\u0017dunce cap\nW20s.20s\u0007dwarf lord\n#chat\nkFyFy \u0007vrock\nFk   Fk     n   Fh   Fk   Fh       nFk   \u0007orc shaman\n;h.sm. sus\u001611\ni>\u001bes    20s 20s   nqi@.   #dip\nlj ev   20s   .hzkj     n  zkj why  Fj Fj  n Fj #name\no\n:  ;j,amy  #turn\n\u0004h#ride\nny10s i\u001bw- Fn Fn  Fn qd   n #dip\nfj  wb Fn Fn  Fn  n qj  #dip\neqq#dip\nw\u001618\n\u00169\n#wizintrinsic\nfi\n .  .  20s   n  s  20s 20s 20s  20s  sm..m.  n   .  20s  \u0017oil lamp\naz  n   #rub\nz      yy\u001by   y y y\u001by  \u000f"
+ },
+ "segments": [
+  {
+   "seed": 50156020,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017yumi\nwg\u001720 ya\nQh\u0007sewer rat\nblfkfk..\u0017potion of object detection\ntan\u0007yellow mold\nlfyfyfyfyfb..\u0007acid blob\nlfkfbfyfufh\u0017potion of gain level\nthyx #twoweapon\ns.k yu,#enhance\nn\u001b\u0018\u001bbj\u0017wand of lightning\nEk  X marks the spot\n \u0017towel\nEl\u0017wand of sleep\nEmE-\u0007gnome lord\nsm.s20s\u00162\n  \u0017cursed wand of undead turning\n\u0007frost giant\nzn.znb Fb    Fb\u00173 wand of light\nzoFbFb\u0017blessed long sword\n\u0007Demogorgon\nywpFhFb Fb    n   \u0017leash\naqbFbFb20s    20s\u00166\n\u000f\u001b\u0017kicking boots\nWr .m.  n sm. 20s \u0007jackal\n;l, \u001bm,sm. shs\u0007ettin\n.m. su    nsyss.m.  .n\u0007gnome lord\nFk FhFy  Fk  \u0007werejackal\n#chat\nk    nFk  Fy  \u001610\n\\  \u001612\n\u0007horse\n\u0017huge chunk of meat\n tgl \u0017banana\nthl  \u0017tin whistle\njl nau \u0006_>>. Fy   n _.<.Fh  >FhFh _>>, Fh_.Fh  >Fhs_>>,_.>\u0017fortune cookie\nthk\u0006_>._.>_>._.>_>._.>\u0007acid blob\nsss..    s20s\u000f\u001byyyy\u0017magic trap\ny#untrap\nyy\u0017dart trap\nyn.20s\u0017land mine\nayy#terrain\n\u001bw<#untrap\n\u0018\u001b\u0017dunce cap\nW20s.20s\u0007dwarf lord\n#chat\nkFyFy \u0007vrock\nFk   Fk     n   Fh   Fk   Fh       nFk   \u0007orc shaman\n;h.sm. sus\u001611\ni>\u001bes    20s 20s   nqi@.   #dip\nlj ev   20s   .hzkj     n  zkj why  Fj Fj  n Fj #name\no\n:  ;j,amy  #turn\n\u0004h#ride\nny10s i\u001bw- Fn Fn  Fn qd   n #dip\nfj  wb Fn Fn  Fn  n qj  #dip\neqq#dip\nw\u001618\n\u00169\n#wizintrinsic\nfi\n .  .  20s   n  s  20s 20s 20s  20s  sm..m.  n   .  20s  \u0017oil lamp\naz  n   #rub\nz      yy\u001by   y y y\u001by  \u000f"
+  }
+ ]
+}

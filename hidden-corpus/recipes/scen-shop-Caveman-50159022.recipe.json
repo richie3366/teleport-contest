@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPg\u0016?\n>w\u0006_ \u001b.,\u0017luckstone\ndh_ooooooo.,\u0014>.  20ss_ooooooooo.,\u0017amulet of life saving\ndi_ooooo._oo.,$_{._.q_ooooooooo.,pyhn#chat\nk_ooooooo,_oo.,plkh#chat\nl_oooo,,:__._.#chat\nh_ooooooooo.,p_{._.qy __._,#chat\nulkk#chat\nu_{._.Fk  q\u00167\nk yh  n  \u0016?\n>w\u0006Fn  Fn Fn FnFnFnFl  n FlFlFl  nFlFl\u00169\n_ooooooo.,#chat\nyFy  n Fy     FyFy  n FyFy\u00166\n  _oooo.Fh _.  nFy ,p      n\u00162\n_ooo.,\u0017amulet of restful sleep\ndj_ooo,,pFk   Fk  nFk  FkFkFk __.#chat\nu#pray\ny y    _ooooooo.,p_ooooooooo._ooo.,$_ooooooo,,:_oo.,p_ooooo.,:_ooooo,,:FuFuFuFuFuFu_oooooo.,p_{.qnhl#chat\nulyy#chat\nn_ooo.,#chat\ny_ooooo,,$nku#chat\nj_ooooo._oo.,p_oooo._oo.,:_{.qyny#chat\nn_{,qbkn#chat\njyjj#chat\nj\u0016?\ncbyb\u0016?\n>w\u0006_ooooooooo.,\u0017amulet of unchanging\ndkblu#chat\ny_ooo, Fj  _.,p  _ooo,_,_oo.Fb _.,   n #chat\nb \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50159022,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPg\u0016?\n>w\u0006_ \u001b.,\u0017luckstone\ndh_ooooooo.,\u0014>.  20ss_ooooooooo.,\u0017amulet of life saving\ndi_ooooo._oo.,$_{._.q_ooooooooo.,pyhn#chat\nk_ooooooo,_oo.,plkh#chat\nl_oooo,,:__._.#chat\nh_ooooooooo.,p_{._.qy __._,#chat\nulkk#chat\nu_{._.Fk  q\u00167\nk yh  n  \u0016?\n>w\u0006Fn  Fn Fn FnFnFnFl  n FlFlFl  nFlFl\u00169\n_ooooooo.,#chat\nyFy  n Fy     FyFy  n FyFy\u00166\n  _oooo.Fh _.  nFy ,p      n\u00162\n_ooo.,\u0017amulet of restful sleep\ndj_ooo,,pFk   Fk  nFk  FkFkFk __.#chat\nu#pray\ny y    _ooooooo.,p_ooooooooo._ooo.,$_ooooooo,,:_oo.,p_ooooo.,:_ooooo,,:FuFuFuFuFuFu_oooooo.,p_{.qnhl#chat\nulyy#chat\nn_ooo.,#chat\ny_ooooo,,$nku#chat\nj_ooooo._oo.,p_oooo._oo.,:_{.qyny#chat\nn_{,qbkn#chat\njyjj#chat\nj\u0016?\ncbyb\u0016?\n>w\u0006_ooooooooo.,\u0017amulet of unchanging\ndkblu#chat\ny_ooo, Fj  _.,p  _ooo,_,_oo.Fb _.,   n #chat\nb \u0016"
+  }
+ ]
+}

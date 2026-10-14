@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "FhFhsFhFh .100s150sFlss150s\u0018\u001b100sFlFl.jhy50s50s50s_ \u001bm.>100s\u000f\u001b150si\u001b\\    ulh100sFlsshlh_>.>#monster\n50sllh100sbub100s150sFlFls150sjkjlhl#twoweapon\n100sFlFlFlFlFlFlFlFlFlUHHB_>.>FlFlFlJNJU_>,>FuFuFu#jump\n#chat\nuL    B"
+ },
+ "segments": [
+  {
+   "seed": 50150035,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "FhFhsFhFh .100s150sFlss150s\u0018\u001b100sFlFl.jhy50s50s50s_ \u001bm.>100s\u000f\u001b150si\u001b\\    ulh100sFlsshlh_>.>#monster\n50sllh100sbub100s150sFlFls150sjkjlhl#twoweapon\n100sFlFlFlFlFlFlFlFlFlUHHB_>.>FlFlFlJNJU_>,>FuFuFu#jump\n#chat\nuL    B"
+  }
+ ]
+}

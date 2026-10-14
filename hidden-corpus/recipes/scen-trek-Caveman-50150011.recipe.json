@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "hukkhujjb#name\nf\n m.nyhyjuu\u0014#rub\ncd#wipe\nLUKB_>.>w-\u0014UHNB_>.>UUKJ_>.>FlFyFh #untrap\nn#offer\n>z#offer\nJHJB_>.>JUYY_>,>\u0004u#invoke\n\u001bYHNU_>.>UYJU_>,>UBJJ_>.>UKNL_>.>#monster\n#jump\nJHKY_>.><UKBL_>,>#untrap\nj#untrap\nnHBJB_>.>r\u001b#dip\neLHYK_>,>#name\ni\n#monster\n<HKUN_>,>BHKJ_>,>KHLH_>.>__,.zLHJJ_>,>\\ e\u000f\u001b#force\n#rub\ncd,YKKK_>,>KBJK_>.>YYLL_>.>#turn\n#twoweapon\nYHLJ_>,>FyssBJLN_>,>20s#jump\n<YBJY_>,>LKBL_>.>Fl..<LJJL_>.>FuFu.,sU  YLU _>.>FuFu Fh      K"
+ },
+ "segments": [
+  {
+   "seed": 50150011,
+   "datetime": "20170830164313",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "hukkhujjb#name\nf\n m.nyhyjuu\u0014#rub\ncd#wipe\nLUKB_>.>w-\u0014UHNB_>.>UUKJ_>.>FlFyFh #untrap\nn#offer\n>z#offer\nJHJB_>.>JUYY_>,>\u0004u#invoke\n\u001bYHNU_>.>UYJU_>,>UBJJ_>.>UKNL_>.>#monster\n#jump\nJHKY_>.><UKBL_>,>#untrap\nj#untrap\nnHBJB_>.>r\u001b#dip\neLHYK_>,>#name\ni\n#monster\n<HKUN_>,>BHKJ_>,>KHLH_>.>__,.zLHJJ_>,>\\ e\u000f\u001b#force\n#rub\ncd,YKKK_>,>KBJK_>.>YYLL_>.>#turn\n#twoweapon\nYHLJ_>,>FyssBJLN_>,>20s#jump\n<YBJY_>,>LKBL_>.>Fl..<LJJL_>.>FuFu.,sU  YLU _>.>FuFu Fh      K"
+  }
+ ]
+}

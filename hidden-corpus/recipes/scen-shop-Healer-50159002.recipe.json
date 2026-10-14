@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWl\u0017blessed Mjollnir\nwm\u0016?\n>w  \u0006_ \u001b.,  :_oooooooo,,#chat\nl_{.Fj  _.  nFj  nqe   n  n \u0016?\nc    k   nj  nk  n \u0016?\n>w\u0006\u00164\nFn  n  n Fn  n Fn   n  nFn  nFn  nFn  n\u00167\nu  nh  nj  y ny  y y y\u001by  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50159002,
+   "datetime": "20260311205728",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWl\u0017blessed Mjollnir\nwm\u0016?\n>w  \u0006_ \u001b.,  :_oooooooo,,#chat\nl_{.Fj  _.  nFj  nqe   n  n \u0016?\nc    k   nj  nk  n \u0016?\n>w\u0006\u00164\nFn  n  n Fn  n Fn   n  nFn  nFn  nFn  n\u00167\nu  nh  nj  y ny  y y y\u001by  \u0016"
+  }
+ ]
+}

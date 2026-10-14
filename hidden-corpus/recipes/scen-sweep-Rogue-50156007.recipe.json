@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n20\n\u0016?\n>Enuu10shFl \u0017wand of digging\nzik\u0017wand of striking\nzjj\u0017wand of striking\nzkjullllllllujy\u0017wand of digging\nzll\u0017wand of digging\nzmj\u0017wand of digging\nznj\u0017wand of digging\nzolnljjjjjhnnnnljlllly\u0017wand of digging\nzp>\u0017scroll of earth\nrq uny\u0017wand of striking\nzrubj10slFkFkFk FkjFk\u0006#levelchange\n12\n  \u0016?\ne,df<;_. \u001bm.ss\u0016?\nf    eg Ws20ss\u0016?\n>>\u001b\u000f\u001b\u0017blessed ring of polymorph control\nPsr\u0017shield of reflection\nWt20ss.#polyself\nlich\n.20ssss#polyself\nenergy vortex\n  #monster\nss..20s\u001621\n#levelchange\n14\n jkjk\u0017ice\njjkk: jj\u0017grave\n:   \u0017pick-axe\na20ss:   hu\u0017throne\n#sit\nbn\u0017cloud\nyynn: #tip\n\u001b10sLi\u001b#levelchange\n10\n \u0007tame mumak\n\u0017saddle\na\u0017lance\nw#ride\nyy\u0007tame saddled pony\n#ride\njy\u0007horse\n\u0017scroll of taming\nrx\u0017saddle\na#ride\nky\u0007jackal\nsFyFy  h  kkjky\u0006_>>.Fn_.Fn>_>>,_.>_>>._,>\u001612\ni\u001b#levelchange\n30\n                  \u0007minotaur\n20s   Fl Fl  n     n \u0007titanothere\n20s sm.  n 20s   n  sm.  n \u0006\u00167\n\u0016?\n>y  _m,Fn    _,#chat\nn    n_mmm, Fn      n_.#chat\nn  _m.  Fn   n   _.#chat\nn   \u0006_>.Fl     n    _,m.    Fn>Fl  Fl   n _>. Fl_. Fl    n >Fl  Fl_>. Fl_,   nFl  >Fl  Fl    n#chat\nl  \u0004h    #chat\nl    n  \u00167\n\u0016?\n>Dh u\u0017wand of striking\nzz>  n Fj  Fj\u0017wand of striking\nzAl   ynny ny\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50156007,
+   "datetime": "20010617234416",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n20\n\u0016?\n>Enuu10shFl \u0017wand of digging\nzik\u0017wand of striking\nzjj\u0017wand of striking\nzkjullllllllujy\u0017wand of digging\nzll\u0017wand of digging\nzmj\u0017wand of digging\nznj\u0017wand of digging\nzolnljjjjjhnnnnljlllly\u0017wand of digging\nzp>\u0017scroll of earth\nrq uny\u0017wand of striking\nzrubj10slFkFkFk FkjFk\u0006#levelchange\n12\n  \u0016?\ne,df<;_. \u001bm.ss\u0016?\nf    eg Ws20ss\u0016?\n>>\u001b\u000f\u001b\u0017blessed ring of polymorph control\nPsr\u0017shield of reflection\nWt20ss.#polyself\nlich\n.20ssss#polyself\nenergy vortex\n  #monster\nss..20s\u001621\n#levelchange\n14\n jkjk\u0017ice\njjkk: jj\u0017grave\n:   \u0017pick-axe\na20ss:   hu\u0017throne\n#sit\nbn\u0017cloud\nyynn: #tip\n\u001b10sLi\u001b#levelchange\n10\n \u0007tame mumak\n\u0017saddle\na\u0017lance\nw#ride\nyy\u0007tame saddled pony\n#ride\njy\u0007horse\n\u0017scroll of taming\nrx\u0017saddle\na#ride\nky\u0007jackal\nsFyFy  h  kkjky\u0006_>>.Fn_.Fn>_>>,_.>_>>._,>\u001612\ni\u001b#levelchange\n30\n                  \u0007minotaur\n20s   Fl Fl  n     n \u0007titanothere\n20s sm.  n 20s   n  sm.  n \u0006\u00167\n\u0016?\n>y  _m,Fn    _,#chat\nn    n_mmm, Fn      n_.#chat\nn  _m.  Fn   n   _.#chat\nn   \u0006_>.Fl     n    _,m.    Fn>Fl  Fl   n _>. Fl_. Fl    n >Fl  Fl_>. Fl_,   nFl  >Fl  Fl    n#chat\nl  \u0004h    #chat\nl    n  \u00167\n\u0016?\n>Dh u\u0017wand of striking\nzz>  n Fj  Fj\u0017wand of striking\nzAl   ynny ny\u001b  F"
+  }
+ ]
+}

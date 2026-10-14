@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0007ape\nFj FhFh  n sls\u0007lich\nFhFb  n FhFh  n sh 20s  n \u001611\nyblk\u0017throne\n#sit\n #sit\n fire elemental\n  guard\n  centipede\n:b\u0017unaligned altar\ndadf\u0017dwarf corpse\n#offer\nh       n 20s    n     n #jump\n#untrap\nn\u00167\n#wizintrinsic\niaq\n  s    n   n    n   n s  n   n  n 20s  n  yy\u001by   y black dragon\n  s"
+ },
+ "segments": [
+  {
+   "seed": 50156011,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:durian\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007ape\nFj FhFh  n sls\u0007lich\nFhFb  n FhFh  n sh 20s  n \u001611\nyblk\u0017throne\n#sit\n #sit\n fire elemental\n  guard\n  centipede\n:b\u0017unaligned altar\ndadf\u0017dwarf corpse\n#offer\nh       n 20s    n     n #jump\n#untrap\nn\u00167\n#wizintrinsic\niaq\n  s    n   n    n   n s  n   n  n 20s  n  yy\u001by   y black dragon\n  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "mO>>>>h\u001b\n\u0006_ \u001b.>FuFu_>._.Fy>FyFy_>,Fh_,Fy>FuFuFyFhFh\u0006_>>,Fu_.Fu>FuFu_>>.Fl_.Fl>FyFk_>>,Fh_.Fh>FuFkFuFkFy<\u0006_>,Fk_.Fy>FyFy_>.Fy_.Fy>FhFl_>.Fu_,Fk>FkFhFhFhFu\u0006_>>,Fu_.Fk>FhFl_>>,Fu_.Fk>FuFk_>>,Fl_.Fy>FyFlFlFhFl\u0006_>,Fl_.Fh>FlFy_>.Fl_.Fu>FhFh_>.Fh_.Fh>FhFuFyFlFu\u0006_>.Fu_.Fl>FhFh_>,Fl_.Fl>FhFu_>.Fy_.Fh>FlFuFuFlFhylO>>j\u001b\nmO>>>k\u001b\nybyh\u0017ice\nll\u0017cloud\nk\u0017unaligned altar\ndf\u0017floating eye corpse\n#offer\ni   ey   \u000f\u001bjO>>>>d\u001b\n\u00166\n\u0007pony\n\u0017tripe ration\ntbh #name\nd\n#chat\nh \u0017leash\nakn  n  h   n ukkakh  \u0017fortune cookie\nt\u001b\u001b\u0017leash\namn   n  j  n j  y  n  namk  n  \u0017leash\naoy   n nby  y  n  aok \u00167\nO>i\u001b\u001b\nO>p\u001b\nmO>>>i\u001b\n\u00166\n#pray"
+ },
+ "segments": [
+  {
+   "seed": 50155025,
+   "datetime": "20030710173228",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\nMSGTYPE=hide \"You kill\"\nMENUCOLOR=\"a scroll\"=brown\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "mO>>>>h\u001b\n\u0006_ \u001b.>FuFu_>._.Fy>FyFy_>,Fh_,Fy>FuFuFyFhFh\u0006_>>,Fu_.Fu>FuFu_>>.Fl_.Fl>FyFk_>>,Fh_.Fh>FuFkFuFkFy<\u0006_>,Fk_.Fy>FyFy_>.Fy_.Fy>FhFl_>.Fu_,Fk>FkFhFhFhFu\u0006_>>,Fu_.Fk>FhFl_>>,Fu_.Fk>FuFk_>>,Fl_.Fy>FyFlFlFhFl\u0006_>,Fl_.Fh>FlFy_>.Fl_.Fu>FhFh_>.Fh_.Fh>FhFuFyFlFu\u0006_>.Fu_.Fl>FhFh_>,Fl_.Fl>FhFu_>.Fy_.Fh>FlFuFuFlFhylO>>j\u001b\nmO>>>k\u001b\nybyh\u0017ice\nll\u0017cloud\nk\u0017unaligned altar\ndf\u0017floating eye corpse\n#offer\ni   ey   \u000f\u001bjO>>>>d\u001b\n\u00166\n\u0007pony\n\u0017tripe ration\ntbh #name\nd\n#chat\nh \u0017leash\nakn  n  h   n ukkakh  \u0017fortune cookie\nt\u001b\u001b\u0017leash\namn   n  j  n j  y  n  namk  n  \u0017leash\naoy   n nby  y  n  aok \u00167\nO>i\u001b\u001b\nO>p\u001b\nmO>>>i\u001b\n\u00166\n#pray"
+  }
+ ]
+}

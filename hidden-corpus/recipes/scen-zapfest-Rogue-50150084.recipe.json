@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed shield of reflection\nWi\u0017blessed +3 speed boots\nWj\u0017spellbook of drain life\nrk \u001bm, 20s \u0007gnomish wizard\n\u0007incubus\nZZ20s20s   y y    ZZZZZ\u0007red dragon\n\u0007black dragon\nsl 20s  n sm.  n   20s  n    n  \u0017wand of magic missile\naly      n  n Fb Fb\u001612\n\u001720 darts\nQm\u0007acid blob\nfjtmjfjtmjtmj\u0007silver dragon\n.h.skFn  n Fn   n \u00167\n\u0017wand of cancellation\n\u0017wand of teleportation\n\u0007jackal\nznnznnsm.zon20s zoh20s   nznjzojsznbzok\u00163\n\u0017blessed spellbook of slow monster\nrp.\u0017blessed spellbook of cone of cold\nrqsm.\u0007vampire\n\u0007aligned cleric\nnZa\nZa\nZa\nZa\nZa\nsn.m.Za\nZa\n.m.   n .m.Za\nZa\n\u0007incubus\n\u0007master lich\n\u0007succubus\n\u0017wand of magic missile\n.m.sm.      zrk   zrh \u00176 javelins\n Qs\u0007lichen\nfu  n  fk   fu  n    nfu    n fu   n  y\u001b    y  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50150084,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed shield of reflection\nWi\u0017blessed +3 speed boots\nWj\u0017spellbook of drain life\nrk \u001bm, 20s \u0007gnomish wizard\n\u0007incubus\nZZ20s20s   y y    ZZZZZ\u0007red dragon\n\u0007black dragon\nsl 20s  n sm.  n   20s  n    n  \u0017wand of magic missile\naly      n  n Fb Fb\u001612\n\u001720 darts\nQm\u0007acid blob\nfjtmjfjtmjtmj\u0007silver dragon\n.h.skFn  n Fn   n \u00167\n\u0017wand of cancellation\n\u0017wand of teleportation\n\u0007jackal\nznnznnsm.zon20s zoh20s   nznjzojsznbzok\u00163\n\u0017blessed spellbook of slow monster\nrp.\u0017blessed spellbook of cone of cold\nrqsm.\u0007vampire\n\u0007aligned cleric\nnZa\nZa\nZa\nZa\nZa\nsn.m.Za\nZa\n.m.   n .m.Za\nZa\n\u0007incubus\n\u0007master lich\n\u0007succubus\n\u0017wand of magic missile\n.m.sm.      zrk   zrh \u00176 javelins\n Qs\u0007lichen\nfu  n  fk   fu  n    nfu    n fu   n  y\u001b    y  \u0017"
+  }
+ ]
+}

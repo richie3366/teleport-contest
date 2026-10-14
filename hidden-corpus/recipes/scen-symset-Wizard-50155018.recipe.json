@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "FjFj Fl50sFl20s.20s50s50s\u000f\u001bljlkbu100s_ \u001b;>_>.>150s\u000f\u001bhljkhklyh150s\u000f\u001bjlh_>.>i\u001b\\  50slhk100s100seeeeeeeeeeeee_<,sW\u001bO>>>>b\u001b\nmO>>s\u001b\nuyk\u0017cloud\nnyyy:j\u0017moat\n#dip\nhy       lh#terrain\nc\nm.:>#sit\n\u001611\n\u0006_>._,> aozcred mold\n\u0006_>>.  n Fk_,:>_>>._.m.>_>>._,@.>\u0006_>>._.m.>_>>._,,>_>>._.,>\u0006_>>._.;<. >_>>,_,,>_>>._.m.>#terrain\n\u001b#tip\n\u001b\u0006_>>._,@.>_>>,_.;;Fl>Fl   nFl   n_>>.Fl_.  n   nFl   n   n>Fn Fn   n   n Fl    nFl Fn  n <\u00166\n\u0006_>.Fy_,Fb>Fbs_>. Fu_.Fu  n>FuFu_>,Fu_.  nFu>Fus<\u0006_>,_.> \u0006_>._.>_>._.>_>._,>dg#pray\ny y \u0006_>,_,>_>._,>_>,_.>\u0006_>,_.>_>._.>_>,_.>\u000f\u001b\u00166\nv i\u001b#levelchange\n20\n                   bluh\u0017magic fountain\nqylb\u0017iron bars\nbuuu#conduct\n ;.10sv  i\u001b\u0006_>._.> \u0006_>>._,>_>>,_.>_>>,_,>\u0006_>,_.>_>._,>_>._,>\u0006_>._.>_>._.>_>._.><\u000f\u001bO>>b\u001b\n#pray\ny y i\u001b\u00164\nhkkjkk50s150s  knyn"
+ },
+ "segments": [
+  {
+   "seed": 50155018,
+   "datetime": "20110311014450",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "FjFj Fl50sFl20s.20s50s50s\u000f\u001bljlkbu100s_ \u001b;>_>.>150s\u000f\u001bhljkhklyh150s\u000f\u001bjlh_>.>i\u001b\\  50slhk100s100seeeeeeeeeeeee_<,sW\u001bO>>>>b\u001b\nmO>>s\u001b\nuyk\u0017cloud\nnyyy:j\u0017moat\n#dip\nhy       lh#terrain\nc\nm.:>#sit\n\u001611\n\u0006_>._,> aozcred mold\n\u0006_>>.  n Fk_,:>_>>._.m.>_>>._,@.>\u0006_>>._.m.>_>>._,,>_>>._.,>\u0006_>>._.;<. >_>>,_,,>_>>._.m.>#terrain\n\u001b#tip\n\u001b\u0006_>>._,@.>_>>,_.;;Fl>Fl   nFl   n_>>.Fl_.  n   nFl   n   n>Fn Fn   n   n Fl    nFl Fn  n <\u00166\n\u0006_>.Fy_,Fb>Fbs_>. Fu_.Fu  n>FuFu_>,Fu_.  nFu>Fus<\u0006_>,_.> \u0006_>._.>_>._.>_>._,>dg#pray\ny y \u0006_>,_,>_>._,>_>,_.>\u0006_>,_.>_>._.>_>,_.>\u000f\u001b\u00166\nv i\u001b#levelchange\n20\n                   bluh\u0017magic fountain\nqylb\u0017iron bars\nbuuu#conduct\n ;.10sv  i\u001b\u0006_>._.> \u0006_>>._,>_>>,_.>_>>,_,>\u0006_>,_.>_>._,>_>._,>\u0006_>._.>_>._.>_>._.><\u000f\u001bO>>b\u001b\n#pray\ny y i\u001b\u00164\nhkkjkk50s150s  knyn"
+  }
+ ]
+}

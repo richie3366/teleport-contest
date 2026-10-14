@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n6\n\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqe \u001b;_mm.Fk _.Fk #chat\nk_ooo,Fj _,,a\np_m,Fh _.>.Fh#chat\nh_{,Fh_. Fh qzW#twoweapon\n#levelchange\n12\n    \u0017bullwhip\nwgFh Fh FhX\u0007fire giant\nFh Fh  \u0007guard\ny#chat\nkFuFh   \u001630\nhhE- Elbereth Elbereth\n\u0017ruby\nEh  X marks the spot\n: \u0017wand of probing\nEih\u0017wand of sleep\nEj Vlad was here\n: h\u0017wand of magic missile\nEk X marks the spot\n: \u001624\n#levelchange\n20\n        \u0007mail daemon\n;h;sm..m.    20s  \u0007floating eye\nFh           nFl   Fl   Fl   \u0007kraken\nFl   FlFl   \u0007lieutenant\nFh     nFlFlFl\u00163\n\u00166\n\u0007dwarf\n;j;20s  .m.  sm.   \u0007scorpion\n20s   20s    20s   n  .m.    .m.20s     .m.sn.m.#levelchange\n8\n    \u00166\nw-  n #force\n\u0018\u001b;h;20s     20s   \u001628\n   W#name\nd\n#chat\nl\u0006sm.    n.m.  \u0016?\n>I#force\nf g y  #offer\n;h:  .m.  .n\u00165\n#levelchange\n8\n\u0007energy vortex\n;y;.m.20s s     n\u0007salamander\n#chat\nu       Fk    \u001b  Fu \u0007kitten\n20s      sm.   n     20s    .b\u0006\u00169\n#levelchange\n20\n            \u0017blessed ring of polymorph control\nPlr     \u0017gray dragon scale mail\nW\u001b20s     20s     n  .kT               n  #polyself\nwater nymph\n #monster\nsm.      20s   sm.  20s    n    sb  #polyself\nAleax\nsm.         sm.     n  \u0007baby red dragon\nFj     Fk       n Fu      20s      .m.   n     .h  #polyself\nblack light\n#monster\ns   sy\u0007gecko\nFl      n Fl      Fu      sb    n    sm.      sm.#polyself\ncouatl\n#monster\n20s      sm.   yy\u001by   y y y\u001b  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 50156030,
+   "datetime": "20001228085413",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n6\n\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqe \u001b;_mm.Fk _.Fk #chat\nk_ooo,Fj _,,a\np_m,Fh _.>.Fh#chat\nh_{,Fh_. Fh qzW#twoweapon\n#levelchange\n12\n    \u0017bullwhip\nwgFh Fh FhX\u0007fire giant\nFh Fh  \u0007guard\ny#chat\nkFuFh   \u001630\nhhE- Elbereth Elbereth\n\u0017ruby\nEh  X marks the spot\n: \u0017wand of probing\nEih\u0017wand of sleep\nEj Vlad was here\n: h\u0017wand of magic missile\nEk X marks the spot\n: \u001624\n#levelchange\n20\n        \u0007mail daemon\n;h;sm..m.    20s  \u0007floating eye\nFh           nFl   Fl   Fl   \u0007kraken\nFl   FlFl   \u0007lieutenant\nFh     nFlFlFl\u00163\n\u00166\n\u0007dwarf\n;j;20s  .m.  sm.   \u0007scorpion\n20s   20s    20s   n  .m.    .m.20s     .m.sn.m.#levelchange\n8\n    \u00166\nw-  n #force\n\u0018\u001b;h;20s     20s   \u001628\n   W#name\nd\n#chat\nl\u0006sm.    n.m.  \u0016?\n>I#force\nf g y  #offer\n;h:  .m.  .n\u00165\n#levelchange\n8\n\u0007energy vortex\n;y;.m.20s s     n\u0007salamander\n#chat\nu       Fk    \u001b  Fu \u0007kitten\n20s      sm.   n     20s    .b\u0006\u00169\n#levelchange\n20\n            \u0017blessed ring of polymorph control\nPlr     \u0017gray dragon scale mail\nW\u001b20s     20s     n  .kT               n  #polyself\nwater nymph\n #monster\nsm.      20s   sm.  20s    n    sb  #polyself\nAleax\nsm.         sm.     n  \u0007baby red dragon\nFj     Fk       n Fu      20s      .m.   n     .h  #polyself\nblack light\n#monster\ns   sy\u0007gecko\nFl      n Fl      Fu      sb    n    sm.      sm.#polyself\ncouatl\n#monster\n20s      sm.   yy\u001by   y y y\u001b  \u0007"
+  }
+ ]
+}

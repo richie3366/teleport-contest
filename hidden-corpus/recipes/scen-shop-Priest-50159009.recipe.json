@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWj\u0017blessed Mjollnir\nwk\u0016?\n>w\u0006Fh  FhFhFhFhFh_ \u001b@.,:_oo.,p_{._.qd_oooooo,,#chat\ny_ooooooooo._o,,p__._.#chat\nu_ooooooooo.,p_ooooooo,,$_{._.qd  n_{,_.qd_oooo.,p_oooooooo._oo,,p_oooo,,\u0014.m.20ss_ooo,_oo.,:_ooo.,:_ooo,,\u0017gray stone\ndlah kbk#chat\nu_ooo._._o,,\u0017amulet of change\ndmm_{.\u001b_,qd  n_ooooooo.,p_{._,qkbk#chat\nkljy#chat\nu__._.Fh#chat\nh#pray\ny y   _ooo.,:_ooooo,,#chat\nh_{.Fh_.  nFh q_ooooooo.Fh_.,\u001bpFhFh FhFhFhFhFh FhFh FhFhFhFnFn Fn FnFnFnFh FhFhFhFh  nFh __.Fh_.,Fh #chat\nk_ooo"
+ },
+ "segments": [
+  {
+   "seed": 50159009,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWj\u0017blessed Mjollnir\nwk\u0016?\n>w\u0006Fh  FhFhFhFhFh_ \u001b@.,:_oo.,p_{._.qd_oooooo,,#chat\ny_ooooooooo._o,,p__._.#chat\nu_ooooooooo.,p_ooooooo,,$_{._.qd  n_{,_.qd_oooo.,p_oooooooo._oo,,p_oooo,,\u0014.m.20ss_ooo,_oo.,:_ooo.,:_ooo,,\u0017gray stone\ndlah kbk#chat\nu_ooo._._o,,\u0017amulet of change\ndmm_{.\u001b_,qd  n_ooooooo.,p_{._,qkbk#chat\nkljy#chat\nu__._.Fh#chat\nh#pray\ny y   _ooo.,:_ooooo,,#chat\nh_{.Fh_.  nFh q_ooooooo.Fh_.,\u001bpFhFh FhFhFhFhFh FhFh FhFhFhFnFn Fn FnFnFnFh FhFhFhFh  nFh __.Fh_.,Fh #chat\nk_ooo"
+  }
+ ]
+}

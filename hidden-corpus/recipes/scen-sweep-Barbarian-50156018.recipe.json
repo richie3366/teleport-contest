@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n12\n \u0017blessed ring of polymorph control\nPer#polyself\ngiant spider\n  #monster\nss\u0007Demogorgon\nyFhFj  Fj  20s   sh       .j    n#polyself\nleprechaun\n #monster\nsm.        sm.  20s n      20s   sy#polyself\ndjinni\n piranha\n sm.        nsj             20s sm.   n .m. #polyself\nhuman mummy\n#monster\n.m.  n .m.     n \u0007pyrolisk\nFl    n    n  Fl  n   n   n   n   n Fn   n  n  yy\u001by   y y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 50156018,
+   "datetime": "20030609142837",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n12\n \u0017blessed ring of polymorph control\nPer#polyself\ngiant spider\n  #monster\nss\u0007Demogorgon\nyFhFj  Fj  20s   sh       .j    n#polyself\nleprechaun\n #monster\nsm.        sm.  20s n      20s   sy#polyself\ndjinni\n piranha\n sm.        nsj             20s sm.   n .m. #polyself\nhuman mummy\n#monster\n.m.  n .m.     n \u0007pyrolisk\nFl    n    n  Fl  n   n   n   n   n Fn   n  n  yy\u001by   y y\u001by  2"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " :#force\nL#tip\n\u001b\u0006_ \u001b.>FnFl_>,_,> FuFlFu#wipe\n#turn\n\u0006_>,Fn_.> FuFlFl< \u0006_>.Fy_.Fb>FyFn_>,Fn_,> FlFnFl\u0006_>>,Fu_.> FlFuFn\u0006_>,Fb_.> FbFnFn\u0006_>.Fh_,Fh>FbFn_>,Fb_.  nFn>FbFn_>.Fn_.Fb>FhFbFnFbFb\u0006_>.Fn_.Fn>FnFn_>,Fb_.Fb>FbFn_>.Fn_,Fn>FnFhFbFb   nFha\u0018\u001b< \u0006_>>.> FlFnFn#conduct\n #rub\n\u0006_>,Fj_.Fj>Fk  nFk_>. Fb _.  n Fj  >Fj  n Fj _>.Fj  n _,Fk>Fb  n Fb   nFb FbFb   n#enhance\nyh\nl\n\u001b#invoke\n\u001b\u001611\n\u0007housecat\n\u0017fortune cookie\ntbn\u0017leash\nafnuluuafl\u0006_>.Fk_,  nFu>FuFu_>.Fl _.Fb>FyFy_>.Fb_,Fy>Fb     Fb\u0006_>>.Fb_,Fy>FbFy_>>.Fy_,Fb>FyFb_>>.Fy_.Fb>FbFy\u0017leash\nanjuba\u0007yellow mold\n\u0017scroll of taming\n\u0017banana\nt\u001614\nmOa\u001b\nOf\u001b\njun\u0017melting ice\n:ku\u0017tree\nb\u0017throne\n#sit\nu\u0017neutral altar\ndf dd \u0017lichen corpse\n #offer\nj   : 10s#pray\ny y : \u0006_>>.   Fb_.Fb>FjFu_>>.Fn_.Fj>FuFn_>>,Fn_,Fu>FjFjFjFjFn\u0006_>,Fb_.Fu>FnFb_>,Fb_,Fb>FnFn_>.Fu_,Fb>FuFuFuFjFn#force\n>\u0006_>.Fb_,Fb>FbFb_>,Fb_.Fu>FjFb_>.Fj_.Fb>FuFuFjFjFu\u000f\u001b\u00163\n \u00162\n\u000f\u001b100s"
+ },
+ "segments": [
+  {
+   "seed": 50155041,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nMSGTYPE=norep \"You hear\"\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": " :#force\nL#tip\n\u001b\u0006_ \u001b.>FnFl_>,_,> FuFlFu#wipe\n#turn\n\u0006_>,Fn_.> FuFlFl< \u0006_>.Fy_.Fb>FyFn_>,Fn_,> FlFnFl\u0006_>>,Fu_.> FlFuFn\u0006_>,Fb_.> FbFnFn\u0006_>.Fh_,Fh>FbFn_>,Fb_.  nFn>FbFn_>.Fn_.Fb>FhFbFnFbFb\u0006_>.Fn_.Fn>FnFn_>,Fb_.Fb>FbFn_>.Fn_,Fn>FnFhFbFb   nFha\u0018\u001b< \u0006_>>.> FlFnFn#conduct\n #rub\n\u0006_>,Fj_.Fj>Fk  nFk_>. Fb _.  n Fj  >Fj  n Fj _>.Fj  n _,Fk>Fb  n Fb   nFb FbFb   n#enhance\nyh\nl\n\u001b#invoke\n\u001b\u001611\n\u0007housecat\n\u0017fortune cookie\ntbn\u0017leash\nafnuluuafl\u0006_>.Fk_,  nFu>FuFu_>.Fl _.Fb>FyFy_>.Fb_,Fy>Fb     Fb\u0006_>>.Fb_,Fy>FbFy_>>.Fy_,Fb>FyFb_>>.Fy_.Fb>FbFy\u0017leash\nanjuba\u0007yellow mold\n\u0017scroll of taming\n\u0017banana\nt\u001614\nmOa\u001b\nOf\u001b\njun\u0017melting ice\n:ku\u0017tree\nb\u0017throne\n#sit\nu\u0017neutral altar\ndf dd \u0017lichen corpse\n #offer\nj   : 10s#pray\ny y : \u0006_>>.   Fb_.Fb>FjFu_>>.Fn_.Fj>FuFn_>>,Fn_,Fu>FjFjFjFjFn\u0006_>,Fb_.Fu>FnFb_>,Fb_,Fb>FnFn_>.Fu_,Fb>FuFuFuFjFn#force\n>\u0006_>.Fb_,Fb>FbFb_>,Fb_.Fu>FjFb_>.Fj_.Fb>FuFuFjFjFu\u000f\u001b\u00163\n \u00162\n\u000f\u001b100s"
+  }
+ ]
+}

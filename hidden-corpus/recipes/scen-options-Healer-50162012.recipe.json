@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "   O>e\n10smOa\nf $ hOn\nej mO>f\nchOjn\n,__, \u001b<.20s  O>kb\nh\n>.smO>>>>>ow\nf\n#chat\nkOiae\na\nc\n#loot\nk#chat\nkO>phg\ng\np\n#rub\nZc\nmOfac\n #invoke\n\u001bafy    .s"
+ },
+ "segments": [
+  {
+   "seed": 50162012,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=playmode:explore\n",
+   "moves": "   O>e\n10smOa\nf $ hOn\nej mO>f\nchOjn\n,__, \u001b<.20s  O>kb\nh\n>.smO>>>>>ow\nf\n#chat\nkOiae\na\nc\n#loot\nk#chat\nkO>phg\ng\np\n#rub\nZc\nmOfac\n #invoke\n\u001bafy    .s"
+  }
+ ]
+}

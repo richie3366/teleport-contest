@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u00166\nFbFbFlFlFlFlFbFnFuFjFnFjFbFbFyFlk FlFyFjFnFh\u001bFkFhFlFhFjFjFjFlFbFbFyFyFnFjFyFuy FlFuFyFh\u001bFuFlFnFky FjFnFjFlFhFyFnFlFjFlFkFhFjFuFkFbFuh FyFbFuFnFbFhFjFlFkFhFyFkl FlFhFkFuFnFh\u001bFyFnFlFyFub FhFkFbFyFbFkn FnFnFbFbFnFyFhFlFbFjFuFyFjFyFh\u001bFbFbFkFbFnFkFhFjFuFkFbFlu FyFb\u00165\n\u00165\nFjFyFh\u001bFhFnFh\u001bFnFly FbFbFyFjFyFnFkFyFlh FnFlk FhFnFll FnFyFlFyFkj FbFnFyFnFkFyFlj FlFnFh\u001bFhFlFyFnFnFjFjFhFkFlFjFbFbFnFbFhFbFkn FhFbFh\u001bFlFlFkFjFlFyFkj FkFnFkj FbFjFyFh\u001bFbFnFhFjFyFbFbFln FlFhFbFh\u001bFlFhFlFlFbFjFkFjFjFlFyFbFkFyFkh FjFnFlh FhFnFbFyFnFyFlj FjFhFjFjFhFhFlFhFnFjFh\u0006_ \u001b>.>FuFl_>>, Fk_.Fu>FyFln _>>,Fl_,<.Fh>FhFkFnFh\u001bFk\u0006_>>.Fn_>FuFn"
+ },
+ "segments": [
+  {
+   "seed": 50155006,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showrace\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You feel\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u00166\nFbFbFlFlFlFlFbFnFuFjFnFjFbFbFyFlk FlFyFjFnFh\u001bFkFhFlFhFjFjFjFlFbFbFyFyFnFjFyFuy FlFuFyFh\u001bFuFlFnFky FjFnFjFlFhFyFnFlFjFlFkFhFjFuFkFbFuh FyFbFuFnFbFhFjFlFkFhFyFkl FlFhFkFuFnFh\u001bFyFnFlFyFub FhFkFbFyFbFkn FnFnFbFbFnFyFhFlFbFjFuFyFjFyFh\u001bFbFbFkFbFnFkFhFjFuFkFbFlu FyFb\u00165\n\u00165\nFjFyFh\u001bFhFnFh\u001bFnFly FbFbFyFjFyFnFkFyFlh FnFlk FhFnFll FnFyFlFyFkj FbFnFyFnFkFyFlj FlFnFh\u001bFhFlFyFnFnFjFjFhFkFlFjFbFbFnFbFhFbFkn FhFbFh\u001bFlFlFkFjFlFyFkj FkFnFkj FbFjFyFh\u001bFbFnFhFjFyFbFbFln FlFhFbFh\u001bFlFhFlFlFbFjFkFjFjFlFyFbFkFyFkh FjFnFlh FhFnFbFyFnFyFlj FjFhFjFjFhFhFlFhFnFjFh\u0006_ \u001b>.>FuFl_>>, Fk_.Fu>FyFln _>>,Fl_,<.Fh>FhFkFnFh\u001bFk\u0006_>>.Fn_>FuFn"
+  }
+ ]
+}

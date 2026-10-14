@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed Mjollnir\nwk\u0017blessed amulet of reflection\nPl\u0016?\n>w\u0006_ \u001b:,p_oooo.,p_ooooooo,_oo.,$_{,Fy_.qy_ooooo,,\u0014,.s_oo.,#chat\nn_oooo.,p_{._.:qd  _ooo,_o.,puny#chat\nn_oooo.,p_ooooooooo.,pnjb#chat\nlkyu#chat\njkkk#chat\nkkyh#chat\nnyju#chat\nhhnl#chat\nn_{,_,qy__.   Fu_.;>.Fk        n#chat\nk   n #pray\ny y   \u00161\n_ooooooooo._,,y p_oooooooo.  Fj_,:_ooo,,:_oooooo.,#chat\nukkh#chat\ny_oooooooo.Fb _,,$_oo,_.Fj,:_ooooooooo._oo._.,#chat\nk_oo._o._,,p__.#chat\nnFjFjFjFjFjFj__,#chat\nl#pray\ny y _ooooooooo.,p_{.qdnnk#chat\ny\u00163\nunl\u0016?\n>w  \u0006__,Fl    n     n   n  _,   n     n   n Fl  n  n   n   n   n  n   n#chat\nl   y ny  nny\u001by  #"
+ },
+ "segments": [
+  {
+   "seed": 50159020,
+   "datetime": "20130928135352",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed Mjollnir\nwk\u0017blessed amulet of reflection\nPl\u0016?\n>w\u0006_ \u001b:,p_oooo.,p_ooooooo,_oo.,$_{,Fy_.qy_ooooo,,\u0014,.s_oo.,#chat\nn_oooo.,p_{._.:qd  _ooo,_o.,puny#chat\nn_oooo.,p_ooooooooo.,pnjb#chat\nlkyu#chat\njkkk#chat\nkkyh#chat\nnyju#chat\nhhnl#chat\nn_{,_,qy__.   Fu_.;>.Fk        n#chat\nk   n #pray\ny y   \u00161\n_ooooooooo._,,y p_oooooooo.  Fj_,:_ooo,,:_oooooo.,#chat\nukkh#chat\ny_oooooooo.Fb _,,$_oo,_.Fj,:_ooooooooo._oo._.,#chat\nk_oo._o._,,p__.#chat\nnFjFjFjFjFjFj__,#chat\nl#pray\ny y _ooooooooo.,p_{.qdnnk#chat\ny\u00163\nunl\u0016?\n>w  \u0006__,Fl    n     n   n  _,   n     n   n Fl  n  n   n   n   n  n   n#chat\nl   y ny  nny\u001by  #"
+  }
+ ]
+}

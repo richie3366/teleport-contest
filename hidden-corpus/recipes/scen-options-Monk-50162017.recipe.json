@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " Ocl\nri y \u0014 \u001b@.O>kjm\nh\n10smO>gio\n  #sit\nmO>>>>fi\n ,>20s.Ol\nai mO>>>i\n#enhance\nyh\ne\n\u001bmOa\nri y mO>hmg\n ;j:  i\u001bOd\n;j,\\  O>dc\ni\u001bf \u001b20s20s"
+ },
+ "segments": [
+  {
+   "seed": 50162017,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " Ocl\nri y \u0014 \u001b@.O>kjm\nh\n10smO>gio\n  #sit\nmO>>>>fi\n ,>20s.Ol\nai mO>>>i\n#enhance\nyh\ne\n\u001bmOa\nri y mO>hmg\n ;j:  i\u001bOd\n;j,\\  O>dc\ni\u001bf \u001b20s20s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " jbk\u0017magic portal\nhl20s20sbh\u0017\u0017\\E:lhyn\u0017bk\u0017bl\u0017\u0017#terrain\n"
+ },
+ "segments": [
+  {
+   "seed": 50151021,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " jbk\u0017magic portal\nhl20s20sbh\u0017\u0017\\E:lhyn\u0017bk\u0017bl\u0017\u0017#terrain\n"
+  }
+ ]
+}

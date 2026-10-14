@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #name\na\n#chat\nyyjylkuhnh20st\u001b20s dhs.20sjhny10s#chat\nlSy\u001b  #dip\ndn;l; \u001b;#twoweapon\n >quhu\u0017u#untrap\nbl\u0017b^uus20sh\u0017n^y#untrap\ny\u0017#jump\n#tip\n\u001b<",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50151025,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=pettype:horse\n",
+   "moves": " #name\na\n#chat\nyyjylkuhnh20st\u001b20s dhs.20sjhny10s#chat\nlSy\u001b"
+  },
+  {
+   "seed": 50651025,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=pettype:horse\n",
+   "moves": "  #dip\ndn;l; \u001b;#twoweapon\n >quhu\u0017u#untrap\nbl\u0017b^uus20sh\u0017n^y#untrap\ny\u0017#jump\n#tip\n\u001b<"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed +3 helm of telepathy\nWg\u0016?\n>>Q\u0014 \u001b;<.\u0016?\n>>K     drum of earthquake\njk  l   yk :s\u0016?\n\u001blu  \u0016?\n\u001bl         h     \u0016?\n\u001bu   n  l      \u0016?\n\u001blu     n\u001643\n\u0006_\u0016 u     j     \u001643\n\u0006_\u0016 l   n     h\u0016?\n\u001byh\u0016?\n\u001bk       n   n    \u001643\n#levelchange\n10\n      \u0017spellbook of protection\nrc  n      20s  n        \u0017blessed spellbook of extra healing\nrd   n      20s       n  \u0017blessed spellbook of chain lightning\nre  sm.\u0017blessed spellbook of cancellation\nrf   n           sm.  n     +ZZFn   ZZFj        n   ZFn        n  ZZ.  n  #turn\n#enhance\nyg\np\n\u001b\u00166\n\u00163\n#chat\ny;<.\u0016?\n\u001bl  j  \u0016?\n\u001bk   n      n    n   n     \u0016?\n\u001bj    n      y  y"
+ },
+ "segments": [
+  {
+   "seed": 50150000,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed +3 helm of telepathy\nWg\u0016?\n>>Q\u0014 \u001b;<.\u0016?\n>>K     drum of earthquake\njk  l   yk :s\u0016?\n\u001blu  \u0016?\n\u001bl         h     \u0016?\n\u001bu   n  l      \u0016?\n\u001blu     n\u001643\n\u0006_\u0016 u     j     \u001643\n\u0006_\u0016 l   n     h\u0016?\n\u001byh\u0016?\n\u001bk       n   n    \u001643\n#levelchange\n10\n      \u0017spellbook of protection\nrc  n      20s  n        \u0017blessed spellbook of extra healing\nrd   n      20s       n  \u0017blessed spellbook of chain lightning\nre  sm.\u0017blessed spellbook of cancellation\nrf   n           sm.  n     +ZZFn   ZZFj        n   ZFn        n  ZZ.  n  #turn\n#enhance\nyg\np\n\u001b\u00166\n\u00163\n#chat\ny;<.\u0016?\n\u001bl  j  \u0016?\n\u001bk   n      n    n   n     \u0016?\n\u001bj    n      y  y"
+  }
+ ]
+}

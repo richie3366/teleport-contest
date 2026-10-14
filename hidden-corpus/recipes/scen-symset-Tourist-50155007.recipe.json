@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   yuy\u0017fountain\nqyqy   #dip\nay  :l  y\u0017moat\n#dip\nhy    yn   \u0017pool\n#dip\nly   #terrain\ne\nlPWOg\u001b\u001b\nO>>h\u001b\nv i\u001bmO>>>>k\u001b\nmO>s\u001b\n\u0007pony\n\u0017apple\n t$b\u0007tame dingo\ndh  .l20s  20s   \u0017lichen corpse\ntau\u0007giant rat\n\u0017scroll of taming\nrn   \u0017carrot\ntab\u0017magic whistle\nhku ap   \u0006_ \u001b>.   >FbFh_>.  \u001bFu_,.Fn>FnFl_>.Fn_..Fn>FlFu\u00166\n#pray\ny y   Fk  Fk Fh   nFu Fj Fh Fy Fj  Fk Fn  Fk      nFl   Fh   Fk   Fy  #pray\ny y         #pray\ny y        Fj  Fh   n  Fj      Fh   Fk    Fl   Fk    Fj   Fb  Fh  Fk  n  Fb  Fj Fn  Fu   Fk  Fu Fu     #pray\ny y         Fn Fl  Fu  n  Fn  Fy Fy  Fk Fh  Fn Fh  Fk   Fj  Fl   n  Fb Fh  Fj Fj  Fb Fh  Fh  Fk Fn   Fj     n Fn   Fk  Fu "
+ },
+ "segments": [
+  {
+   "seed": 50155007,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nMENUCOLOR=\"a potion\"=red\n",
+   "moves": " #levelchange\n20\n                   yuy\u0017fountain\nqyqy   #dip\nay  :l  y\u0017moat\n#dip\nhy    yn   \u0017pool\n#dip\nly   #terrain\ne\nlPWOg\u001b\u001b\nO>>h\u001b\nv i\u001bmO>>>>k\u001b\nmO>s\u001b\n\u0007pony\n\u0017apple\n t$b\u0007tame dingo\ndh  .l20s  20s   \u0017lichen corpse\ntau\u0007giant rat\n\u0017scroll of taming\nrn   \u0017carrot\ntab\u0017magic whistle\nhku ap   \u0006_ \u001b>.   >FbFh_>.  \u001bFu_,.Fn>FnFl_>.Fn_..Fn>FlFu\u00166\n#pray\ny y   Fk  Fk Fh   nFu Fj Fh Fy Fj  Fk Fn  Fk      nFl   Fh   Fk   Fy  #pray\ny y         #pray\ny y        Fj  Fh   n  Fj      Fh   Fk    Fl   Fk    Fj   Fb  Fh  Fk  n  Fb  Fj Fn  Fu   Fk  Fu Fu     #pray\ny y         Fn Fl  Fu  n  Fn  Fy Fy  Fk Fh  Fn Fh  Fk   Fj  Fl   n  Fb Fh  Fj Fj  Fb Fh  Fh  Fk Fn   Fj     n Fn   Fk  Fu "
+  }
+ ]
+}

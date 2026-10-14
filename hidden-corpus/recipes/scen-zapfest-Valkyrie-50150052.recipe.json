@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWf\u0017blessed amulet of life saving\nPg#levelchange\n10\n         \u0017blessed spellbook of finger of death\nrh . \u0007aligned cleric\ny\u0007succubus\nZZZsm.sm.ZZZZZZ#turn\n\u0017wand of cold\n\u0017wand of teleportation\n\u0007owlbear\n\u0007sewer rat\nzjn                zjk  su zin       n  sb   zil zjl  zjlzjlzjlzjb\u001618\n \u0017blessed spellbook of fireball\nrk .\u0007vampire\n\u0007kobold shaman\nZslsZZZZZ..m.Z.h .jZ\u0007baby red dragon\n\u0007black dragon\nsh   n sm.  .k Fk    Fu    n  \u001611\n\u0007kobold shaman\n\u0007orc shaman\n\u0007succubus\n\u0017wand of fire\nzllzln zlj sbzlj  .m.sm.skzln\u00161\n\u0017blessed spellbook of force bolt\nrm   .m.\u0007kobold shaman\n\u0007master lich\nZ20s     skZZZsm.    sm. ZZ\u0007lich\n\u0007incubus\n\u0007succubus\n\u0017wand of cold\nznk  \u0017blessed spellbook of force bolt\nro sm.  \u0007gnomish wizard\n\u0007succubus\nZZsu  sm.ZZZsm.  n   sm.   #turn\n\u0017blessed spellbook of light\nrp     20s  \u0007master mind flayer\n\u0007master mind flayer\nZZZZZsm.20s   Zsm..m. \u0017spellbook of cone of cold\nrq \u001b   n s \u0007vampire\nZss Zs \u001b .ZZ. 20s ZZZ\u0017blessed spellbook of cone of cold\nrr20s \u0017blessed spellbook of light\nrss  n  \u0007lich\n\u0007gnom"
+ },
+ "segments": [
+  {
+   "seed": 50150052,
+   "datetime": "20071206032654",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWf\u0017blessed amulet of life saving\nPg#levelchange\n10\n         \u0017blessed spellbook of finger of death\nrh . \u0007aligned cleric\ny\u0007succubus\nZZZsm.sm.ZZZZZZ#turn\n\u0017wand of cold\n\u0017wand of teleportation\n\u0007owlbear\n\u0007sewer rat\nzjn                zjk  su zin       n  sb   zil zjl  zjlzjlzjlzjb\u001618\n \u0017blessed spellbook of fireball\nrk .\u0007vampire\n\u0007kobold shaman\nZslsZZZZZ..m.Z.h .jZ\u0007baby red dragon\n\u0007black dragon\nsh   n sm.  .k Fk    Fu    n  \u001611\n\u0007kobold shaman\n\u0007orc shaman\n\u0007succubus\n\u0017wand of fire\nzllzln zlj sbzlj  .m.sm.skzln\u00161\n\u0017blessed spellbook of force bolt\nrm   .m.\u0007kobold shaman\n\u0007master lich\nZ20s     skZZZsm.    sm. ZZ\u0007lich\n\u0007incubus\n\u0007succubus\n\u0017wand of cold\nznk  \u0017blessed spellbook of force bolt\nro sm.  \u0007gnomish wizard\n\u0007succubus\nZZsu  sm.ZZZsm.  n   sm.   #turn\n\u0017blessed spellbook of light\nrp     20s  \u0007master mind flayer\n\u0007master mind flayer\nZZZZZsm.20s   Zsm..m. \u0017spellbook of cone of cold\nrq \u001b   n s \u0007vampire\nZss Zs \u001b .ZZ. 20s ZZZ\u0017blessed spellbook of cone of cold\nrr20s \u0017blessed spellbook of light\nrss  n  \u0007lich\n\u0007gnom"
+  }
+ ]
+}

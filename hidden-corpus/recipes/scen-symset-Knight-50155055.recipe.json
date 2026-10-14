@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001bm,>FhFh_>>.Fu_,> FlFyFh\u001bP#monster\n\u0006_>.Fb_,Fy>FlFk_>.Fy_.Fb>FhFy_>,Fh\u001b_.Fh>FhFyFyFhFh>#invoke\n\u001b\u0006_>.Fb_.Fb>FbFb_>.Fj_.Fb>FbFb_>,Fj_,Fj>FjFjFjFjFj\u0006_>.Fj_.Fj>FjFj_>,Fb_.Fb>FbFb_>,Fj_.Fj>FjFjFjFjFjqeg \u0006_>,Fn_>FuFl_>.Fn_>FhFl_>,Fh_.Fk>FnFkn FkFlFlZeg \u0006_>>.Fh_,Fj>FhFu_>>.Fj_.  nFj>FuFh_>>,Fk_.Fu>FlFuFuFhFk\u0006_>>.Fu_.Fh>FkFh_>>.Fj_.Fk>FuFj_>>.Fh_.Fj>FjFuFhFuFj#tip\n\u001b10s<\u0007kitten\n\u0017newt corpse\ntbk 20s\u0007acid blob\n20sm.20sb.b20sm.sm.  nsj:#name\n\u001b\u0006_>.Fj_.Fh>FkFl_>.Fl_.  n Fj>FuFh_>.Fh_.Fl>FuFl\u0006_>>,Fk_.  n Fu>FhFl_>>,Fh_,   nFu>FhFj_>>,Fl_.Fk>FhFhdb20sj:20sm.  n sm.\u0006_>>.Fh_,  nFk>FkFj_>>.Fh_.Fj>FhFh_>>.  n Fl_.Fh>FjFh\u0017carrot\n t\u001b\u00166\nFhFbFh\u001bFbFyFyFyFuFyFlFjFlFyFnFnFj>.FyFub FyFyFhFkFbFub FbFkn FbFj>.Fl"
+ },
+ "segments": [
+  {
+   "seed": 50155055,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueWindows\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": "\u0006_ \u001bm,>FhFh_>>.Fu_,> FlFyFh\u001bP#monster\n\u0006_>.Fb_,Fy>FlFk_>.Fy_.Fb>FhFy_>,Fh\u001b_.Fh>FhFyFyFhFh>#invoke\n\u001b\u0006_>.Fb_.Fb>FbFb_>.Fj_.Fb>FbFb_>,Fj_,Fj>FjFjFjFjFj\u0006_>.Fj_.Fj>FjFj_>,Fb_.Fb>FbFb_>,Fj_.Fj>FjFjFjFjFjqeg \u0006_>,Fn_>FuFl_>.Fn_>FhFl_>,Fh_.Fk>FnFkn FkFlFlZeg \u0006_>>.Fh_,Fj>FhFu_>>.Fj_.  nFj>FuFh_>>,Fk_.Fu>FlFuFuFhFk\u0006_>>.Fu_.Fh>FkFh_>>.Fj_.Fk>FuFj_>>.Fh_.Fj>FjFuFhFuFj#tip\n\u001b10s<\u0007kitten\n\u0017newt corpse\ntbk 20s\u0007acid blob\n20sm.20sb.b20sm.sm.  nsj:#name\n\u001b\u0006_>.Fj_.Fh>FkFl_>.Fl_.  n Fj>FuFh_>.Fh_.Fl>FuFl\u0006_>>,Fk_.  n Fu>FhFl_>>,Fh_,   nFu>FhFj_>>,Fl_.Fk>FhFhdb20sj:20sm.  n sm.\u0006_>>.Fh_,  nFk>FkFj_>>.Fh_.Fj>FhFh_>>.  n Fl_.Fh>FjFh\u0017carrot\n t\u001b\u00166\nFhFbFh\u001bFbFyFyFyFuFyFlFjFlFyFnFnFj>.FyFub FyFyFhFkFbFub FbFkn FbFj>.Fl"
+  }
+ ]
+}

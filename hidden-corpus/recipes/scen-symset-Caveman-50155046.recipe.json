@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "v\u001bi\u001bmO>>>>e\u001b\nv\u001bi\u001bO>>d\u001b\n\u00164\nFnFnFjFnFbFnFun FbFuu FuFuFjFbFuu FjFbFjFnFun FjFjFbFnFnFuj FbFbFjFnFub FnFnFuFnFuu FnFnFnFnFnFbFjFbFbFbFun FnFbFbFbFuFjFjFnFbFjFbFnFnFnFuFbFnFbFbFjFbFnFuFnFun FnFuu FjFbFuj FuFjFnFjFbFbFbFnFjFuFjFnFnFnFun FnFub FuFuFjFuFbFbFjFuFjFuFbFnFbFuj FbFnFuFjFnFjFuFuFjFuFbFuu Fj\u00161\n#levelchange\n30\n                             bjlh b\u0017lawful altar\ndcdd \u0017newt corpse\n#offer\nf #pray\ny y h\u001b\u0017neutral altar\ndb\u0017lichen corpse\n#offer\ng  #terrain\nb\n\u001b;t\u001b#invoke\n\u001bZOj\u001b\n\\ #monster\n#loot\nj\u0006_>._.> FnFnFb\u0006_>,  Fy_,Fy>FuFy_>.Fuy_,Fl>FlFl_>.Fl_,Fl>FlFlFlFlFl\u0006_>,Fl_,,Fl>FlFl_>,Fl_.Fl>FlFl_>. Fl_.Fl>FlFlFlFlFl\u0006_>>,Fl_,>.Fl>FlFl_>>,Fl_..\u001bFl>FlFl_>>,Fl_,Fl>FlFlFlFlFl\u0006_>,Fl_.Fl>FlFl_>.   nFl_. Fl>FlFl_>.Fl_.Fl>FlFlFlFlFl\u0006_>.Fl_,;>. Fl>FlFl_>,Fl_.Fl>FlFl_>,Fl_,:Fl>FlFlFlFlFl\u000f\u001bv\u001bi\u001bO>>d\u001b\nmOa\u001b\nv\u001bi\u001b\u0006_>>.Fl_.Fl>FlFl_>>,  n Fl_.Fl>FlFl_>>.Fl_.Fl>FlFlFlFlFl\u0006_>.Fl_.Fl>FlFl_>. Fl_.Fl>FlFl_>,Fl_.Fl>FlFlFlFlFl#untrap\nl;l:   \u0006_>.Fl_,>.\u001bFl>FlFl_>,Fl_,Fl>FlFl"
+ },
+ "segments": [
+  {
+   "seed": 50155046,
+   "datetime": "20151215082418",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nBIND=v:inventory\n",
+   "moves": "v\u001bi\u001bmO>>>>e\u001b\nv\u001bi\u001bO>>d\u001b\n\u00164\nFnFnFjFnFbFnFun FbFuu FuFuFjFbFuu FjFbFjFnFun FjFjFbFnFnFuj FbFbFjFnFub FnFnFuFnFuu FnFnFnFnFnFbFjFbFbFbFun FnFbFbFbFuFjFjFnFbFjFbFnFnFnFuFbFnFbFbFjFbFnFuFnFun FnFuu FjFbFuj FuFjFnFjFbFbFbFnFjFuFjFnFnFnFun FnFub FuFuFjFuFbFbFjFuFjFuFbFnFbFuj FbFnFuFjFnFjFuFuFjFuFbFuu Fj\u00161\n#levelchange\n30\n                             bjlh b\u0017lawful altar\ndcdd \u0017newt corpse\n#offer\nf #pray\ny y h\u001b\u0017neutral altar\ndb\u0017lichen corpse\n#offer\ng  #terrain\nb\n\u001b;t\u001b#invoke\n\u001bZOj\u001b\n\\ #monster\n#loot\nj\u0006_>._.> FnFnFb\u0006_>,  Fy_,Fy>FuFy_>.Fuy_,Fl>FlFl_>.Fl_,Fl>FlFlFlFlFl\u0006_>,Fl_,,Fl>FlFl_>,Fl_.Fl>FlFl_>. Fl_.Fl>FlFlFlFlFl\u0006_>>,Fl_,>.Fl>FlFl_>>,Fl_..\u001bFl>FlFl_>>,Fl_,Fl>FlFlFlFlFl\u0006_>,Fl_.Fl>FlFl_>.   nFl_. Fl>FlFl_>.Fl_.Fl>FlFlFlFlFl\u0006_>.Fl_,;>. Fl>FlFl_>,Fl_.Fl>FlFl_>,Fl_,:Fl>FlFlFlFlFl\u000f\u001bv\u001bi\u001bO>>d\u001b\nmOa\u001b\nv\u001bi\u001b\u0006_>>.Fl_.Fl>FlFl_>>,  n Fl_.Fl>FlFl_>>.Fl_.Fl>FlFlFlFlFl\u0006_>.Fl_.Fl>FlFl_>. Fl_.Fl>FlFl_>,Fl_.Fl>FlFlFlFlFl#untrap\nl;l:   \u0006_>.Fl_,>.\u001bFl>FlFl_>,Fl_,Fl>FlFl"
+  }
+ ]
+}

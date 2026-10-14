@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n16\n               #levelchange\n20\n   \u0017cursed amulet of ESP\nPh.s..Fl s\u0017cursed spellbook of detect unseen\nri \u001b20s20s   ZZ\u0017wand of striking\n\u0007Death\nnzjl   zjl   \u0017cursed potion of blindness\n\u0007earth elemental\nqk    n   Fl Fu\u00173 wand of nothing\n\u0007trapper\nzlsn20s  n  \u001622\ni\u001b\u00167\ni\u001bzjbwb sssaekW\u001bs20sswa ss20sag#monster\nW#chat\ny: #force\n;<. \u001b<.#rub\n#name\nm\n\u0016\u0018\u001b\u0007dwarf lord\nFkFu Fk\u0007Wizard of Yendor\nyFkFu   Fj Fk    n Fk  Fk \u0007scorpion\n;b..m.    n      n   sm.    n     n   sm.    n     n  \u00165\n\u00164\n\u0017gray dragon scale mail\nW\u001bsk sm.  n  20s  \u0007mind flayer\n.u      n .m.        20s        n sm.    n       sm.  n    sm.  n      \u0007yellow light\n;h:  sh   n       sm.    yy\u001by   y y y\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 50156012,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n16\n               #levelchange\n20\n   \u0017cursed amulet of ESP\nPh.s..Fl s\u0017cursed spellbook of detect unseen\nri \u001b20s20s   ZZ\u0017wand of striking\n\u0007Death\nnzjl   zjl   \u0017cursed potion of blindness\n\u0007earth elemental\nqk    n   Fl Fu\u00173 wand of nothing\n\u0007trapper\nzlsn20s  n  \u001622\ni\u001b\u00167\ni\u001bzjbwb sssaekW\u001bs20sswa ss20sag#monster\nW#chat\ny: #force\n;<. \u001b<.#rub\n#name\nm\n\u0016\u0018\u001b\u0007dwarf lord\nFkFu Fk\u0007Wizard of Yendor\nyFkFu   Fj Fk    n Fk  Fk \u0007scorpion\n;b..m.    n      n   sm.    n     n   sm.    n     n  \u00165\n\u00164\n\u0017gray dragon scale mail\nW\u001bsk sm.  n  20s  \u0007mind flayer\n.u      n .m.        20s        n sm.    n       sm.  n    sm.  n      \u0007yellow light\n;h:  sh   n       sm.    yy\u001by   y y y\u001b  ."
+  }
+ ]
+}

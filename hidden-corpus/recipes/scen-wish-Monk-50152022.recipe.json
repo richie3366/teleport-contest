@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017uncursed spellbook of turn undead\nrk                   .m.20sZa\nFh.\u0017uncursed crystal ball\n\u0007stalker\nal \u001b\u0017cursed potion of booze\n\u0007mumak\nqm \u001b  n  nFy  yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50152022,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017uncursed spellbook of turn undead\nrk                   .m.20sZa\nFh.\u0017uncursed crystal ball\n\u0007stalker\nal \u001b\u0017cursed potion of booze\n\u0007mumak\nqm \u001b  n  nFy  yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

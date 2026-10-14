@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0017the Orb of Fate\n \u0017can of grease\nahe  Fn Fn\u0017oilskin cloak\nWi s.s\u0017scroll of magic mapping\nrj\u0017ring of protection from shape changers\nPkr20sssR\u001b\u0017potion of water\n\u0007straw golem\nql.l20s "
+ },
+ "segments": [
+  {
+   "seed": 50152023,
+   "datetime": "20090402134141",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0017the Orb of Fate\n \u0017can of grease\nahe  Fn Fn\u0017oilskin cloak\nWi s.s\u0017scroll of magic mapping\nrj\u0017ring of protection from shape changers\nPkr20sssR\u001b\u0017potion of water\n\u0007straw golem\nql.l20s "
+  }
+ ]
+}

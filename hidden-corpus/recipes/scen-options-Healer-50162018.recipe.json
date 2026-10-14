@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " Oi\na\no\nk\n#pray\ny y wamOa\n,mOa\n;h, \u001b;PO>g\nW#jump\nmO>>>qnd\n  zfhs20sOdp\n__.20sE- ad aerarium\nO>ph\n\u0014@. Oni\nn\ndaOfjc\nejOf\n#conduct\n 20ssm."
+ },
+ "segments": [
+  {
+   "seed": 50162018,
+   "datetime": "20100316092457",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " Oi\na\no\nk\n#pray\ny y wamOa\n,mOa\n;h, \u001b;PO>g\nW#jump\nmO>>>qnd\n  zfhs20sOdp\n__.20sE- ad aerarium\nO>ph\n\u0014@. Oni\nn\ndaOfjc\nejOf\n#conduct\n 20ssm."
+  }
+ ]
+}

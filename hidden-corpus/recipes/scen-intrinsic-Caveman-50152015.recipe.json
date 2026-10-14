@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       #wizintrinsic\npl\n  sm.sm.sns.m.sm. .ssss.s.ssss20s.s20s\u0017scroll of remove curse\nrf  \u001bok\u0018\u001b#turn\n_m. \u001b>..;_.as.20sss20s"
+ },
+ "segments": [
+  {
+   "seed": 50152015,
+   "datetime": "20081114162414",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       #wizintrinsic\npl\n  sm.sm.sns.m.sm. .ssss.s.ssss20s.s20s\u0017scroll of remove curse\nrf  \u001bok\u0018\u001b#turn\n_m. \u001b>..;_.as.20sss20s"
+  }
+ ]
+}

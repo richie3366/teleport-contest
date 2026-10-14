@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "Ok\u001b\n#levelchange\n6\n    h\u001bh\u001bh\u001b\u0017tree\nkj b\u0017magic fountain\nqy qy \u001b>.\u0017long sword\n#dip\niyul \u0017pool\n:#terrain\nc\n>.tin ah    \\ #sit\n\u001b>tij mO>>>j\u001b\nO>>>d\u001b\nmOa\u001b\n\u0007tame dingo\n\u0017fortune cookie\ntiu \u0017leash\nakj uu ul kn yakl \u0017food ration\ntin \u0017magic whistle\nh\u001bjuu am  20s #name\nf\n\u0006_>.Fj_.Fj>FjFn_>FnFn_>.Fn_>FjFnFjFnFn#turn\nb\u0006_>,Fk_.Fu>FlFj_>,Fn_>FjFj_>.Fn_>FjFnFjFjFn\u0006_>.Fj_,Fn>FnFnFn\u0006_>.Fj_.Fn>FjFjFjch #ride\nn \u0006_>,Fn_>FnFn_>.Fl_.Fn>FnFnFj,#twoweapon\n\u000f\u001bi\u001bag <oj #jump\nej  ag f i j 10szlnh\u001b\u0017melting ice\ny\u0017tree\nny\u0017pool\n#dip\ncy    am#ride\ny \u0014m,\u001617\n v i\u001bmO>>n\u001b\nfk oh winv i\u001b#levelchange\n6\nh\u001bh\u001bku \u0017moat\n#dip\nby h\u001bh\u001b\u0017tree\n#terrain\nd\n W10sfk mO>>>>c\u001b\nmO>>>>i\u001b\nO>o2\n\u001b\n\u0006_>,_.> FnFnFb\u0006_>>.Fk_, Fk>FkFk_>>,Fk_. Fk>FkFk_>>,Fk_. Fk>FkFkFkFkFk\u0006_>.   nFk_, Fk>FkFk_>.Fk_. Fk>FkFk_>, Fk_. Fk>FkFkFkFkF"
+ },
+ "segments": [
+  {
+   "seed": 50155044,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You hear\"\nMENUCOLOR=\"uncursed\"=green\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "Ok\u001b\n#levelchange\n6\n    h\u001bh\u001bh\u001b\u0017tree\nkj b\u0017magic fountain\nqy qy \u001b>.\u0017long sword\n#dip\niyul \u0017pool\n:#terrain\nc\n>.tin ah    \\ #sit\n\u001b>tij mO>>>j\u001b\nO>>>d\u001b\nmOa\u001b\n\u0007tame dingo\n\u0017fortune cookie\ntiu \u0017leash\nakj uu ul kn yakl \u0017food ration\ntin \u0017magic whistle\nh\u001bjuu am  20s #name\nf\n\u0006_>.Fj_.Fj>FjFn_>FnFn_>.Fn_>FjFnFjFnFn#turn\nb\u0006_>,Fk_.Fu>FlFj_>,Fn_>FjFj_>.Fn_>FjFnFjFjFn\u0006_>.Fj_,Fn>FnFnFn\u0006_>.Fj_.Fn>FjFjFjch #ride\nn \u0006_>,Fn_>FnFn_>.Fl_.Fn>FnFnFj,#twoweapon\n\u000f\u001bi\u001bag <oj #jump\nej  ag f i j 10szlnh\u001b\u0017melting ice\ny\u0017tree\nny\u0017pool\n#dip\ncy    am#ride\ny \u0014m,\u001617\n v i\u001bmO>>n\u001b\nfk oh winv i\u001b#levelchange\n6\nh\u001bh\u001bku \u0017moat\n#dip\nby h\u001bh\u001b\u0017tree\n#terrain\nd\n W10sfk mO>>>>c\u001b\nmO>>>>i\u001b\nO>o2\n\u001b\n\u0006_>,_.> FnFnFb\u0006_>>.Fk_, Fk>FkFk_>>,Fk_. Fk>FkFk_>>,Fk_. Fk>FkFkFkFkFk\u0006_>.   nFk_, Fk>FkFk_>.Fk_. Fk>FkFk_>, Fk_. Fk>FkFkFkFkF"
+  }
+ ]
+}

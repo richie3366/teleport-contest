@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "mO>t\u001b\nv\u001bi\u001b\u00164\nO>c\u001b\n\u00163\nFbFnFhFlFkFyFjFkFlFyFyFlFyFjFlFkFkFlFjFbFbFbFyFlFkFnFbFuFyFh\u001bFlFhFuFbFkl FkFkFkFkFlFlFnFjFlFhFuFbFjFbFkh FbFyFlFnFbFlFbFyFuFbFbFbFh\u001bFyFh\u001bFhFnFbFnFjFjFbFh\u001bFnFlu FyFbFbFnFyFjFlFuFbFbFyFkn FjFkFhFhFkFbFnFuFjFkFkFhFuFbFlu FjFuFnFlu FjFnFun FkFhFnFku FyFlb FjFyFyFkFlv\u001bi\u001b\u00167\n\u0006_ \u001b<.      >FnFy_>,Fy_.Fuh >FyFh\u001b_>.Fy_.  n Fy>FyFuk FkFhFu\u0006_>,Fy_.  n Fy>FhFh_>.Fy_.  Fy>FyFuu _>,Fh_..Fk>FkFuFhFkFu\u0006_>.  nFh_.<.Fu>FkFh_>.Fk_. Fk>FuFk_>,Fk_,  nFh>FhFyFyFyFy<\u0006_>>.Fy_.Fb>FyFb_>>.Fb_.  nFb>FbFb_>>.Fb_.  Fb>FbFbFbFbFbi\u001b#tip\n\u001b\u000f\u001b\u00161\n\u0006_>.Fn_>FbFh\u001b_>.Fn_>FuFk_>,Fh_.Fy>FlFnFnFuFl\u0006_>>.Fk_.Fn>FlFuFl\u0006_>.Fn_>FuFb_>,Fh\u001b_,Fb>FlFk_>.Fb_.Fb>FlFhFlFhFh\u0006_>,Fu_.Fl>FyFkl _>,Fh_.Fy>FlFh_>.Fh_.Fk>FlFyFyFuFk<#dip\nee\u0006_>>.Fl_.Fk>FyFuk _>>.Fl_.Fh>FyFuk _>>,Fk_,Fy>FhFyFkb Fb"
+ },
+ "segments": [
+  {
+   "seed": 50155059,
+   "datetime": "20130403093215",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"a potion\"=green\nBIND=v:inventory\n",
+   "moves": "mO>t\u001b\nv\u001bi\u001b\u00164\nO>c\u001b\n\u00163\nFbFnFhFlFkFyFjFkFlFyFyFlFyFjFlFkFkFlFjFbFbFbFyFlFkFnFbFuFyFh\u001bFlFhFuFbFkl FkFkFkFkFlFlFnFjFlFhFuFbFjFbFkh FbFyFlFnFbFlFbFyFuFbFbFbFh\u001bFyFh\u001bFhFnFbFnFjFjFbFh\u001bFnFlu FyFbFbFnFyFjFlFuFbFbFyFkn FjFkFhFhFkFbFnFuFjFkFkFhFuFbFlu FjFuFnFlu FjFnFun FkFhFnFku FyFlb FjFyFyFkFlv\u001bi\u001b\u00167\n\u0006_ \u001b<.      >FnFy_>,Fy_.Fuh >FyFh\u001b_>.Fy_.  n Fy>FyFuk FkFhFu\u0006_>,Fy_.  n Fy>FhFh_>.Fy_.  Fy>FyFuu _>,Fh_..Fk>FkFuFhFkFu\u0006_>.  nFh_.<.Fu>FkFh_>.Fk_. Fk>FuFk_>,Fk_,  nFh>FhFyFyFyFy<\u0006_>>.Fy_.Fb>FyFb_>>.Fb_.  nFb>FbFb_>>.Fb_.  Fb>FbFbFbFbFbi\u001b#tip\n\u001b\u000f\u001b\u00161\n\u0006_>.Fn_>FbFh\u001b_>.Fn_>FuFk_>,Fh_.Fy>FlFnFnFuFl\u0006_>>.Fk_.Fn>FlFuFl\u0006_>.Fn_>FuFb_>,Fh\u001b_,Fb>FlFk_>.Fb_.Fb>FlFhFlFhFh\u0006_>,Fu_.Fl>FyFkl _>,Fh_.Fy>FlFh_>.Fh_.Fk>FlFyFyFuFk<#dip\nee\u0006_>>.Fl_.Fk>FyFuk _>>.Fl_.Fh>FyFuk _>>,Fk_,Fy>FhFyFkb Fb"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nig\n \u0017blindfold\nai\u0017cursed scroll of remove curse\nrj\u0017blessed scroll of magic mapping\nrkZl yl Zsss"
+ },
+ "segments": [
+  {
+   "seed": 50151030,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nig\n \u0017blindfold\nai\u0017cursed scroll of remove curse\nrj\u0017blessed scroll of magic mapping\nrkZl yl Zsss"
+  }
+ ]
+}

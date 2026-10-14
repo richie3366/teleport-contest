@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPir\u0017blessed shield of reflection\nW\u001b#levelchange\n14\n             \u0017wand of teleportation\n\u0017wand of striking\n\u0007troll\n\u0007gnome lord\nzkk zklsm.zknszlbzllzll zll\u0007baby red dragon\n\u0007black dragon\n20s .nsm.20s#polyself\ngold dragon\n   #monster\nn    20s .m.#monster\nj   #monster\nj   #monster\nn    Fj    .\u00164\n\u0007silver dragon\n\u0007silver dragon\nsm.20s  .m.sm.  n  #polyself\nblack dragon\n .m. .n#monster\nk  #monster\nk      #monster\nFk  Fk  \u0017spellbook of force bolt\nrm     sm. \u0017blessed spellbook of sleep\nrn     .m.  n  \u0007orc shaman\nZsh sm.Zsm.  .m.   Z20s   n sm.ZZ20s  .m.ZZsj.\u001611\n\u0017yumi\nwo\u001720 ya\nQp\u0007grid bug\n\u0007grid bug\nfnfu fktbytpl fh   tpj   n  \u0017potion of confusion\ntpl   \u00165\n\u0007red dragon\n\u0007silver dragon\n.ksl  n #polyself\ngold dragon\n #monster\nl      sl    sm. #monster\n#monster\n#monster\n#monster\n\u0017wand of magic missile\naFh   Fl \u0007red dragon\n\u0007red dragon\n.n    s.l    s       n ssi\u001b\u001715 shuriken\nQs\u0007gnome\nflfl  flfn    \u001b  \u0007red dragon\n\u0007silver dragon\nsys#polyself\ngold dragon\n #monster\n20s   sm.    #monster\n#monster\nFn    Fu"
+ },
+ "segments": [
+  {
+   "seed": 50161017,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPir\u0017blessed shield of reflection\nW\u001b#levelchange\n14\n             \u0017wand of teleportation\n\u0017wand of striking\n\u0007troll\n\u0007gnome lord\nzkk zklsm.zknszlbzllzll zll\u0007baby red dragon\n\u0007black dragon\n20s .nsm.20s#polyself\ngold dragon\n   #monster\nn    20s .m.#monster\nj   #monster\nj   #monster\nn    Fj    .\u00164\n\u0007silver dragon\n\u0007silver dragon\nsm.20s  .m.sm.  n  #polyself\nblack dragon\n .m. .n#monster\nk  #monster\nk      #monster\nFk  Fk  \u0017spellbook of force bolt\nrm     sm. \u0017blessed spellbook of sleep\nrn     .m.  n  \u0007orc shaman\nZsh sm.Zsm.  .m.   Z20s   n sm.ZZ20s  .m.ZZsj.\u001611\n\u0017yumi\nwo\u001720 ya\nQp\u0007grid bug\n\u0007grid bug\nfnfu fktbytpl fh   tpj   n  \u0017potion of confusion\ntpl   \u00165\n\u0007red dragon\n\u0007silver dragon\n.ksl  n #polyself\ngold dragon\n #monster\nl      sl    sm. #monster\n#monster\n#monster\n#monster\n\u0017wand of magic missile\naFh   Fl \u0007red dragon\n\u0007red dragon\n.n    s.l    s       n ssi\u001b\u001715 shuriken\nQs\u0007gnome\nflfl  flfn    \u001b  \u0007red dragon\n\u0007silver dragon\nsys#polyself\ngold dragon\n #monster\n20s   sm.    #monster\n#monster\nFn    Fu"
+  }
+ ]
+}

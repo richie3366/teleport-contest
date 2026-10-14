@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0017wand of digging\nzf> 20szf> .zf> 20shk_ \u001b;zf>  zfyy\u001628\n\u0007housecat\n\u0017carrot\ntdn \u0007large dog\n\u0017huge chunk of meat\n tdn  \u0017magic whistle\njjl ai  \u0017meatball\ntcu    n \u0017leash\nakh     n  \u001b jh   h   n baku\u0017leash\nalu  b  hhyaln\u0017magic whistle\nkllam  \u00162\n\u0017pick-axe\nn\u0017grave\nan >  .m..m.u\u0017grave\nan> .ksm.  n ul\u0006_ooo.Fh_.Fb an> n\u0017grave\nan> .m.20suh\u0006\u0016?\n>C\u0017blessed ring of levitation\nPol klyyyyyyyyyyhklyhlyyyy10syyyhyyykykkklhlhlhklyyyyyyhyyyyyky10syl\u00164\n\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqp_#chat\ndo_oooooooo.Fn      \u001b_.Fj  n,$__, Fl_,  Fl #chat\nj   n   _oooooo.    Fl   _.Fb  n   _o.  Fj   _.  n        Fj  n    ,\u0014;   _ooooooooo.    Fu  n   _.  Fj     n     ,p\u0018\u001bJafy             \u00165\n nj E-\u0017wand of cancellation\nEq  \u0017ruby\nErn\u0017athame\nEsE-\u0007jackal\nsm.20s   nsm. \u0006\u0007hostile trapper\n#pray\ny y      Fh   sm.  n  .h  Fu Fl   n  .m. #pray\ny y s\u001bFjFk20s \u001624\n\u00168\n#wizintrinsic\nons\n  20s 20s\u001bss.s\u001b...20s  20s   n  20s   .m.  n  sk .; ..s20ss.sss20ss.s.20s20ss#chat\nh\\     #jump\nwdy\u0014::r\u001b\u001bss.20s20s.#levelchange\n6\n\u0007lurker above\nFl20s   #pray\ny y Fj.sFks\u001bFkFj#pray\ny y Fk#levelchange\n14\n       \u0016?\n>y _mm.Fl _.Fl#chat\nl;l,_mm,Fl _.Fl#chat\ny;y;_mmmm.     nFh_, Fj #chat\nl_mm.Fb_,#chat\nl;l,_mmmm. Fk_.Fk#chat\n;k:  10s\u001b\u0018\u001b#pray\ny y \u000f\u001b#levelchange\n20\n      \u001622\ni\u001b#dip\nr#untrap\n;k.\u0006s 20s\u0016?\n>v,\\     ,;b;\u0006sm. s\u001b\u0016?\n>D#name\no\nblessed\nJai  s20s\u0016?\n>ufl    #monster\nt$b;k;s "
+ },
+ "segments": [
+  {
+   "seed": 50156039,
+   "datetime": "20210618051250",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n8\n      \u0017wand of digging\nzf> 20szf> .zf> 20shk_ \u001b;zf>  zfyy\u001628\n\u0007housecat\n\u0017carrot\ntdn \u0007large dog\n\u0017huge chunk of meat\n tdn  \u0017magic whistle\njjl ai  \u0017meatball\ntcu    n \u0017leash\nakh     n  \u001b jh   h   n baku\u0017leash\nalu  b  hhyaln\u0017magic whistle\nkllam  \u00162\n\u0017pick-axe\nn\u0017grave\nan >  .m..m.u\u0017grave\nan> .ksm.  n ul\u0006_ooo.Fh_.Fb an> n\u0017grave\nan> .m.20suh\u0006\u0016?\n>C\u0017blessed ring of levitation\nPol klyyyyyyyyyyhklyhlyyyy10syyyhyyykykkklhlhlhklyyyyyyhyyyyyky10syl\u00164\n\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqp_#chat\ndo_oooooooo.Fn      \u001b_.Fj  n,$__, Fl_,  Fl #chat\nj   n   _oooooo.    Fl   _.Fb  n   _o.  Fj   _.  n        Fj  n    ,\u0014;   _ooooooooo.    Fu  n   _.  Fj     n     ,p\u0018\u001bJafy             \u00165\n nj E-\u0017wand of cancellation\nEq  \u0017ruby\nErn\u0017athame\nEsE-\u0007jackal\nsm.20s   nsm. \u0006\u0007hostile trapper\n#pray\ny y      Fh   sm.  n  .h  Fu Fl   n  .m. #pray\ny y s\u001bFjFk20s \u001624\n\u00168\n#wizintrinsic\nons\n  20s 20s\u001bss.s\u001b...20s  20s   n  20s   .m.  n  sk .; ..s20ss.sss20ss.s.20s20ss#chat\nh\\     #jump\nwdy\u0014::r\u001b\u001bss.20s20s.#levelchange\n6\n\u0007lurker above\nFl20s   #pray\ny y Fj.sFks\u001bFkFj#pray\ny y Fk#levelchange\n14\n       \u0016?\n>y _mm.Fl _.Fl#chat\nl;l,_mm,Fl _.Fl#chat\ny;y;_mmmm.     nFh_, Fj #chat\nl_mm.Fb_,#chat\nl;l,_mmmm. Fk_.Fk#chat\n;k:  10s\u001b\u0018\u001b#pray\ny y \u000f\u001b#levelchange\n20\n      \u001622\ni\u001b#dip\nr#untrap\n;k.\u0006s 20s\u0016?\n>v,\\     ,;b;\u0006sm. s\u001b\u0016?\n>D#name\no\nblessed\nJai  s20s\u0016?\n>ufl    #monster\nt$b;k;s "
+  }
+ ]
+}

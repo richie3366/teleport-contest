@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n16\n                  \u0017blessed ring of polymorph control\nPkl#polyself\nwraith\n#monster\nss\u0007shrieker\nFhFjFkss.#polyself\nfire elemental\n 20s s\u0007water nymph\nFjFh ss20s         .#polyself\nkraken\n red mold\n #monster\n.20s   20s     .s#polyself\nviolet fungus\n#monster\n.s\u0007disenchanter\nFjFj  Fb   sm.sm..m.#levelchange\n8\n   \u0017cheap plastic imitation of the Amulet of Yendor\n\u0007acid blob\nPl  nsm.20ssh .m.\u0017uncursed +0 two-handed sword\n\u0007hell hound\nwmFk   nFjFk FkFk   n \u0017blessed land mine\nan Fk Fk  n\u0017uncursed potion of full healing\n\u0007pit viper\nqo \u0017cursed Werebane\nwp  FbFy   n Fy  #invoke\npFb    nFb  \u0017blessed scroll of stinking cloud\n\u0007grey-elf\nrq   \u001b<.  Fb  s  n  20s  s  n  \u001610\n\u0017the Master Key of Thievery\n\u0007chickatrice\n#chat\ny20s Fu  \u0007troll\n#chat\nhFhFu #levelchange\n30\n                      \u0017silver dragon scale mail\nWr        n sm. 20s 20s T   n  \u0007guard\nyFu FhFh Fj   n \u0007ettin\n;j;20s  sm.20s  n   n  \u0007dwarf lord\n20s .k   n 20s .m.  sn  n   \u0007soldier\nFj    FbFb     yy\u001by   y y y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50156000,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n16\n                  \u0017blessed ring of polymorph control\nPkl#polyself\nwraith\n#monster\nss\u0007shrieker\nFhFjFkss.#polyself\nfire elemental\n 20s s\u0007water nymph\nFjFh ss20s         .#polyself\nkraken\n red mold\n #monster\n.20s   20s     .s#polyself\nviolet fungus\n#monster\n.s\u0007disenchanter\nFjFj  Fb   sm.sm..m.#levelchange\n8\n   \u0017cheap plastic imitation of the Amulet of Yendor\n\u0007acid blob\nPl  nsm.20ssh .m.\u0017uncursed +0 two-handed sword\n\u0007hell hound\nwmFk   nFjFk FkFk   n \u0017blessed land mine\nan Fk Fk  n\u0017uncursed potion of full healing\n\u0007pit viper\nqo \u0017cursed Werebane\nwp  FbFy   n Fy  #invoke\npFb    nFb  \u0017blessed scroll of stinking cloud\n\u0007grey-elf\nrq   \u001b<.  Fb  s  n  20s  s  n  \u001610\n\u0017the Master Key of Thievery\n\u0007chickatrice\n#chat\ny20s Fu  \u0007troll\n#chat\nhFhFu #levelchange\n30\n                      \u0017silver dragon scale mail\nWr        n sm. 20s 20s T   n  \u0007guard\nyFu FhFh Fj   n \u0007ettin\n;j;20s  sm.20s  n   n  \u0007dwarf lord\n20s .k   n 20s .m.  sn  n   \u0007soldier\nFj    FbFb     yy\u001by   y y y\u001b  \u0016"
+  }
+ ]
+}

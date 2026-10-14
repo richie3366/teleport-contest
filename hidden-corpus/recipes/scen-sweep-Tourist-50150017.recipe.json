@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n           \u0016?\n>y  _ \u001b.#chat\nl;u:  _m. Fh _,#chat\nk ;h,_mmmm.   Fk    _.#chat\nh    \u0006_>, Fj  _,      n  Fh   \u001b   >Fb    n  Fb  _>.    Fl   n    _.  Fh  >Fh    Fy  n    _>. Fh  _,   Fy   n  >Fu    Fh   ,#offer\nck  \u00166\n#levelchange\n20\n        lub  u  n \u0017tree\nb \u0004u    \u0017axe\nan   h  k   \u0017magic fountain\nqy   qy\u0017long sword\n#dip\noynb\u0017neutral altar\ndldg  n  \u0017gnome corpse\n #offer\n: #terrain\n\u001b#monster\n#rub\n\u00164\n#levelchange\n20\n\u0007air elemental\n#pray\ny y   Fy #pray\ny y    Fy  Fj     Fy  #pray\ny y s    #pray\ny y            sm.  20s  #pray\ny y \u0016?\n>y_mmmm,#chat\n;j._mmmmm.#chat\n_m.#chat\n_mm.#chat\n#name\ni\nt$j  #turn\n#levelchange\n12\n  \u0017water walking boots\nWq        sk s  20s     n \u00173 200 gold pieces\n20s  \u0017wand of teleportation\n\u0007mastodon\nzr. Fk   Fk  n 20s  sm.  n   \\ \u00166\n\u0007skeleton\nFh  n Fu  Fu   n   Fk   n \u0007green slime\n#chat\nhFl Fk   n    \u0007xorn\n#chat\nk    n Fy  Fh    yy\u001by   y y y\u001b  #"
+ },
+ "segments": [
+  {
+   "seed": 50150017,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n           \u0016?\n>y  _ \u001b.#chat\nl;u:  _m. Fh _,#chat\nk ;h,_mmmm.   Fk    _.#chat\nh    \u0006_>, Fj  _,      n  Fh   \u001b   >Fb    n  Fb  _>.    Fl   n    _.  Fh  >Fh    Fy  n    _>. Fh  _,   Fy   n  >Fu    Fh   ,#offer\nck  \u00166\n#levelchange\n20\n        lub  u  n \u0017tree\nb \u0004u    \u0017axe\nan   h  k   \u0017magic fountain\nqy   qy\u0017long sword\n#dip\noynb\u0017neutral altar\ndldg  n  \u0017gnome corpse\n #offer\n: #terrain\n\u001b#monster\n#rub\n\u00164\n#levelchange\n20\n\u0007air elemental\n#pray\ny y   Fy #pray\ny y    Fy  Fj     Fy  #pray\ny y s    #pray\ny y            sm.  20s  #pray\ny y \u0016?\n>y_mmmm,#chat\n;j._mmmmm.#chat\n_m.#chat\n_mm.#chat\n#name\ni\nt$j  #turn\n#levelchange\n12\n  \u0017water walking boots\nWq        sk s  20s     n \u00173 200 gold pieces\n20s  \u0017wand of teleportation\n\u0007mastodon\nzr. Fk   Fk  n 20s  sm.  n   \\ \u00166\n\u0007skeleton\nFh  n Fu  Fu   n   Fk   n \u0007green slime\n#chat\nhFl Fk   n    \u0007xorn\n#chat\nk    n Fy  Fh    yy\u001by   y y y\u001b  #"
+  }
+ ]
+}

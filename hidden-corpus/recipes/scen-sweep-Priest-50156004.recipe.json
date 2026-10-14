@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n16\n               \u0007cave spider\n#chat\nhFy 20s  \u0007rock piercer\n#chat\nhFy Fh\u0007ape\n#chat\nhFhFh \u001617\n\u0006\u0017spellbook of invisibility\nrjsu.hZ\u001bZ\u001b\u0017uncursed food ration\nek.m.sj \u0017cursed Snickersnee\n\u0007xan\nwlFy Fy Fk#invoke\nl FyFk\u0017food ration\nem .m.20sFyFk\u0017dilithium crystal\ntay\u00173 the Heart of Ahriman\n 20s sm.\u00164\n#wizintrinsic\nfj\n 20s  n sm.sm.sysm.sm.20s .h  n 20ssm.ag  #pray\ny y   ch Zef qd  n20s 20s sks.m.20s\u00164\n#levelchange\n30\n              \u0017blessed ring of polymorph control\nPol\u0017shield of reflection\nW\u001b.m. 20s sm.#polyself\npiranha\n   #monster\n20s  .m.   n\u0007werewolf\nFn Fn Fl 20ssh20s #polyself\nwater elemental\n#monster\n20s    sm. \u0007chickatrice\nFl  n FlFl  .jsl sl   n #polyself\ndoppelganger\n quantum mechanic\n#monster\nsm. sb.m.  ny.m.sm. \u0017wand of polymorph\nzqn zqh  \u00163\n\u0017blessed ring of polymorph control\nPr #polyself\npit fiend\n#monster\nss\u0007Uruk-hai\nFl Fl sss.#polyself\nAngel\n scorpion\n  .20s \u0007newt\nFuFuFu.m.sh.m.#polyself\ncouatl\n#monster\n.j..20s20s \u0017potion of polymorph\nqs trapper\n \u00166\n\u0018\u001b\u0007mumak\n\u0017scroll of taming\nrt\u0017saddle\na\u0017lance\nw#ride\nhy\u0007tame saddled warhorse\n#ride\nuy\u0007horse\n\u0017scroll of taming\nrt\u0017saddle\n a#ride\nyyj   b         n  k      j       j       n \u0007acid blob\nFn Fl Fn .m. sm.  n \u0004j  \u001b  \u001615\n\u00163\n#levelchange\n16\n    \u0016?\n>z  _ "
+ },
+ "segments": [
+  {
+   "seed": 50156004,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n16\n               \u0007cave spider\n#chat\nhFy 20s  \u0007rock piercer\n#chat\nhFy Fh\u0007ape\n#chat\nhFhFh \u001617\n\u0006\u0017spellbook of invisibility\nrjsu.hZ\u001bZ\u001b\u0017uncursed food ration\nek.m.sj \u0017cursed Snickersnee\n\u0007xan\nwlFy Fy Fk#invoke\nl FyFk\u0017food ration\nem .m.20sFyFk\u0017dilithium crystal\ntay\u00173 the Heart of Ahriman\n 20s sm.\u00164\n#wizintrinsic\nfj\n 20s  n sm.sm.sysm.sm.20s .h  n 20ssm.ag  #pray\ny y   ch Zef qd  n20s 20s sks.m.20s\u00164\n#levelchange\n30\n              \u0017blessed ring of polymorph control\nPol\u0017shield of reflection\nW\u001b.m. 20s sm.#polyself\npiranha\n   #monster\n20s  .m.   n\u0007werewolf\nFn Fn Fl 20ssh20s #polyself\nwater elemental\n#monster\n20s    sm. \u0007chickatrice\nFl  n FlFl  .jsl sl   n #polyself\ndoppelganger\n quantum mechanic\n#monster\nsm. sb.m.  ny.m.sm. \u0017wand of polymorph\nzqn zqh  \u00163\n\u0017blessed ring of polymorph control\nPr #polyself\npit fiend\n#monster\nss\u0007Uruk-hai\nFl Fl sss.#polyself\nAngel\n scorpion\n  .20s \u0007newt\nFuFuFu.m.sh.m.#polyself\ncouatl\n#monster\n.j..20s20s \u0017potion of polymorph\nqs trapper\n \u00166\n\u0018\u001b\u0007mumak\n\u0017scroll of taming\nrt\u0017saddle\na\u0017lance\nw#ride\nhy\u0007tame saddled warhorse\n#ride\nuy\u0007horse\n\u0017scroll of taming\nrt\u0017saddle\n a#ride\nyyj   b         n  k      j       j       n \u0007acid blob\nFn Fl Fn .m. sm.  n \u0004j  \u001b  \u001615\n\u00163\n#levelchange\n16\n    \u0016?\n>z  _ "
+  }
+ ]
+}

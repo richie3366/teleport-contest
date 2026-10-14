@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  O>ef\n10s #terrain\ne\nOmn\n>mO>>>rv\nf bnnmO>>>id\nsO>cmn\n#untrap\nlOid\nb\nc\nE- Elbereth\n20s  20s  "
+ },
+ "segments": [
+  {
+   "seed": 50162000,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=fruit:slime mold\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  O>ef\n10s #terrain\ne\nOmn\n>mO>>>rv\nf bnnmO>>>id\nsO>cmn\n#untrap\nlOid\nb\nc\nE- Elbereth\n20s  20s  "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "KYLU_ \u001bm,>FlFuFl<LUYJ_>.>\u0004b#force\nNYYN_>,>Fk ssYLLJ_>.>#monster\nnUNKK_>,>BJBK_>.>HNUJ_>.>Fjss10s#offer\n\u000f\u001b100s\\   kjk100sFjFjFj100skjjjkk\u0018\u001b150sFj.20s10s50skjj150sFj.skjk,150s150s eg150seg100seg150sFjFjFjegyukjuj100s100seykjk50sFjs20sW100shkj_>.>#untrap\nlkjj100sFjFjFjFjFjFjFj20ss50sFjs20sey eg100s   y\u001by  ny n  _"
+ },
+ "segments": [
+  {
+   "seed": 50150043,
+   "datetime": "20210216124107",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\n",
+   "moves": "KYLU_ \u001bm,>FlFuFl<LUYJ_>.>\u0004b#force\nNYYN_>,>Fk ssYLLJ_>.>#monster\nnUNKK_>,>BJBK_>.>HNUJ_>.>Fjss10s#offer\n\u000f\u001b100s\\   kjk100sFjFjFj100skjjjkk\u0018\u001b150sFj.20s10s50skjj150sFj.skjk,150s150s eg150seg100seg150sFjFjFjegyukjuj100s100seykjk50sFjs20sW100shkj_>.>#untrap\nlkjj100sFjFjFjFjFjFjFj20ss50sFjs20sey eg100s   y\u001by  ny n  _"
+  }
+ ]
+}

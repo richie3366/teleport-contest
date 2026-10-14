@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  O>hcf\nf  bmO>>>>d\n1\n>10sO>pgm\nf\ns#loot\nhO>lgh\ne\n#wipe\nPO"
+ },
+ "segments": [
+  {
+   "seed": 50162009,
+   "datetime": "20051019114116",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:explore\n",
+   "moves": "  O>hcf\nf  bmO>>>>d\n1\n>10sO>pgm\nf\ns#loot\nhO>lgh\ne\n#wipe\nPO"
+  }
+ ]
+}

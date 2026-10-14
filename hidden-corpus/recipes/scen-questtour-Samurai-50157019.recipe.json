@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nl_mmmm,   _.         Fl#chat\nh    _mmm.Fl  n  _, Fu#chat\nl   n     n_mmmm,    n Fu   n  _,  n   Fu  n    n #chat\nu   n  ;h,#levelchange\n14\n           \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm,   Fu_.#chat\nh   ;u,_mm,Fl  \u001b   _,#chat\nk    n _mmmmm.   Fu   _.>.Fk     #chat\nu\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of fire\n\u0016?\n>A\u0006_mmmm,    n Fl   _,,\u001bFl   Fl Fu Fu  n Fu Fu20sFl,\u001b\u0016?\n>>\u001b\u0016?\n>y_m.Fl_.#chat\nl\u00167\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,Fl_,FlFlFlFl20s.20szhk ,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmm,    _.      n    #chat\nb\u0016?\n>A\u0006_mm.   \u001b  _, .s.     .ss   szhy,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmm,   _.Fn #chat\nn;n:  \u0016?\n>z\u0006_mmmmm,        n Fn     _,>.Fn    Fn .FnFn    zhn,\u001b\u0016?\n>A\u0006_mmmmmmm. Fn _,m,\u001bFn      nFn   FjFn    Fj   FnFj  ,\u001b\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.    yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50157019,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=runmode:run\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nl_mmmm,   _.         Fl#chat\nh    _mmm.Fl  n  _, Fu#chat\nl   n     n_mmmm,    n Fu   n  _,  n   Fu  n    n #chat\nu   n  ;h,#levelchange\n14\n           \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm,   Fu_.#chat\nh   ;u,_mm,Fl  \u001b   _,#chat\nk    n _mmmmm.   Fu   _.>.Fk     #chat\nu\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of fire\n\u0016?\n>A\u0006_mmmm,    n Fl   _,,\u001bFl   Fl Fu Fu  n Fu Fu20sFl,\u001b\u0016?\n>>\u001b\u0016?\n>y_m.Fl_.#chat\nl\u00167\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,Fl_,FlFlFlFl20s.20szhk ,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmm,    _.      n    #chat\nb\u0016?\n>A\u0006_mm.   \u001b  _, .s.     .ss   szhy,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmm,   _.Fn #chat\nn;n:  \u0016?\n>z\u0006_mmmmm,        n Fn     _,>.Fn    Fn .FnFn    zhn,\u001b\u0016?\n>A\u0006_mmmmmmm. Fn _,m,\u001bFn      nFn   FjFn    Fj   FnFj  ,\u001b\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.    yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

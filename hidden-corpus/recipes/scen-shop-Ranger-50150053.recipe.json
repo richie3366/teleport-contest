@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWg\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b;,\u0017amulet of flying\ndi \u00163\n  uby\u0016?\n>w\u0006_ooo. Fl_._o,_.,phku#chat\nu_{,Fh_.Fh   q_ooooo.Fh_.   _oo, _,     n,\u001b#chat\nhjnu#chat\nj_oooooo,_ooo._.,$_ooooooo. Fh_.m.Fj,\u001b: _ooooooo.Fy_., :_ooooo.,\u0017loadstone\n dl_oooooo,_.,\u001b\u0014,ss_ooo,   Fh     n_. Fh   n ,p\u00163\n  _ooooooo.Fn_.,  $ _oooooooo._,,  #chat\nyFyFyFyFy FyFy_oooooooo._., $ __.#chat\nlynh#chat\nb_{.qm\u0016?\n>B   hjl\u0016?\n>w\u0006_ooooo.,p\u00167\nbjn\u0016?\n>w\u0006_oooooo. Fl _. Fl  ,$Fl  n  Fl FlFlFlFl_{,  _,    q\u0016?\n>Bj kk\u0016?\n>w\u0006_ooooooo._ooo.  _,Fy,p_oo.Fb_,Fn_ooo.Fb_,  Fl,pFlFlFlFlFlFl__,_.:Fb#chat\nh#pray\ny y _ooooo,_,, $uhj#chat\nj__,Fh_.Fh#chat\nh#pray\ny y  __.Fh_.  Fk       n #chat\nk  n    n#pray\ny y    n "
+ },
+ "segments": [
+  {
+   "seed": 50150053,
+   "datetime": "20130614163035",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWg\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b;,\u0017amulet of flying\ndi \u00163\n  uby\u0016?\n>w\u0006_ooo. Fl_._o,_.,phku#chat\nu_{,Fh_.Fh   q_ooooo.Fh_.   _oo, _,     n,\u001b#chat\nhjnu#chat\nj_oooooo,_ooo._.,$_ooooooo. Fh_.m.Fj,\u001b: _ooooooo.Fy_., :_ooooo.,\u0017loadstone\n dl_oooooo,_.,\u001b\u0014,ss_ooo,   Fh     n_. Fh   n ,p\u00163\n  _ooooooo.Fn_.,  $ _oooooooo._,,  #chat\nyFyFyFyFy FyFy_oooooooo._., $ __.#chat\nlynh#chat\nb_{.qm\u0016?\n>B   hjl\u0016?\n>w\u0006_ooooo.,p\u00167\nbjn\u0016?\n>w\u0006_oooooo. Fl _. Fl  ,$Fl  n  Fl FlFlFlFl_{,  _,    q\u0016?\n>Bj kk\u0016?\n>w\u0006_ooooooo._ooo.  _,Fy,p_oo.Fb_,Fn_ooo.Fb_,  Fl,pFlFlFlFlFlFl__,_.:Fb#chat\nh#pray\ny y _ooooo,_,, $uhj#chat\nj__,Fh_.Fh#chat\nh#pray\ny y  __.Fh_.  Fk       n #chat\nk  n    n#pray\ny y    n "
+  }
+ ]
+}

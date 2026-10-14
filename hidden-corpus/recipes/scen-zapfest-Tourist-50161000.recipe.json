@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of life saving\nPm\u0017blessed ring of free action\nPnl#levelchange\n14\n             \u0017wand of slow monster\n\u0017wand of striking\n\u0007yellow mold\n\u0007jackal\nzpl zpj  zol zpk zpj zonzp20szolzp.\u0007lich\n\u0007kobold shaman\n\u0017wand of cold\nzqk zqk suzqj zqhzqh  20s i\u001b\u0017blessed spellbook of fireball\nrr   20s  \u0007kobold shaman\nZZsm. sm.   ZZZZZZi\u001b\u00178 spears\nQs\u0007lichen\n\u0007newt\nfh   fyfh tsk i\u001b\u0007silver dragon\n\u0007silver dragon\nslsm.     sy  .m. #polyself\nred dragon\n  #monster\nk     .m.20s    #monster\nh#monster\nl   s .\u0017wand of cancellation\n\u0017wand of striking\n\u0017wand of lightning\n\u0007gnome lord\n\u0007soldier\nzsm. zsj zzzz20s z\u0017sling\nw\u001720 flint stones\nQa\u0007kobold shaman\nfttfff\u0017wand of magic missile\n\u0017wand of polymorph\n\u0017wand of slow monster\n\u0007sewer rat\n\u0007kobold shaman\n\u0007bugbear\nzzzzzz\u0017wand of lightning\n\u0017wand of cancellation\n\u0007troll\n\u0007acid blob\nzsm.    z20s     zzz20s  zzzzz\u0017blessed spellbook of finger of death\nrD          sm. \u0007master mind flayer\nZsm.   .k     ZZZZZZ\u0017blessed spellbook of sleep\nrE      sn\u0017blessed spellbook of slow monster\nrF    su     \u0007succubus\nZZZZZ20s     .m.Zsm.      nsm. \u0007lich\n\u0007orc shaman\n\u0017wand of striking\nzGy   sm.       sm.  .l   sb.l      \u0018\u001b\u0007lich\n\u0007orc shaman\n\u0017wan"
+ },
+ "segments": [
+  {
+   "seed": 50161000,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of life saving\nPm\u0017blessed ring of free action\nPnl#levelchange\n14\n             \u0017wand of slow monster\n\u0017wand of striking\n\u0007yellow mold\n\u0007jackal\nzpl zpj  zol zpk zpj zonzp20szolzp.\u0007lich\n\u0007kobold shaman\n\u0017wand of cold\nzqk zqk suzqj zqhzqh  20s i\u001b\u0017blessed spellbook of fireball\nrr   20s  \u0007kobold shaman\nZZsm. sm.   ZZZZZZi\u001b\u00178 spears\nQs\u0007lichen\n\u0007newt\nfh   fyfh tsk i\u001b\u0007silver dragon\n\u0007silver dragon\nslsm.     sy  .m. #polyself\nred dragon\n  #monster\nk     .m.20s    #monster\nh#monster\nl   s .\u0017wand of cancellation\n\u0017wand of striking\n\u0017wand of lightning\n\u0007gnome lord\n\u0007soldier\nzsm. zsj zzzz20s z\u0017sling\nw\u001720 flint stones\nQa\u0007kobold shaman\nfttfff\u0017wand of magic missile\n\u0017wand of polymorph\n\u0017wand of slow monster\n\u0007sewer rat\n\u0007kobold shaman\n\u0007bugbear\nzzzzzz\u0017wand of lightning\n\u0017wand of cancellation\n\u0007troll\n\u0007acid blob\nzsm.    z20s     zzz20s  zzzzz\u0017blessed spellbook of finger of death\nrD          sm. \u0007master mind flayer\nZsm.   .k     ZZZZZZ\u0017blessed spellbook of sleep\nrE      sn\u0017blessed spellbook of slow monster\nrF    su     \u0007succubus\nZZZZZ20s     .m.Zsm.      nsm. \u0007lich\n\u0007orc shaman\n\u0017wand of striking\nzGy   sm.       sm.  .l   sb.l      \u0018\u001b\u0007lich\n\u0007orc shaman\n\u0017wan"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0017aklys\nwoFuFjs\u0007mountain nymph\nFjFjFjFj   20ssss.\u0007green slime\nFlFlFl Fl Fl .m..m.\u0007giant mimic\nFlFl FlFlFl  yy\u001by   y y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 50151013,
+   "datetime": "20200705050701",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017aklys\nwoFuFjs\u0007mountain nymph\nFjFjFjFj   20ssss.\u0007green slime\nFlFlFl Fl Fl .m..m.\u0007giant mimic\nFlFl FlFlFl  yy\u001by   y y\u001by  2"
+  }
+ ]
+}

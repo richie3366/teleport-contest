@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "nkb n\u0017pool\nkn ku \u0017cloud\nn\u0017fountain\nqy y:#terrain\ne\nzck #dip\neFlFyFly FhFnFkh FhFnFnFhFhFkFuFlFbFyFnFbFlFuFkFlFjFbFlh FuFnFjFhFuFhFkFyFyFjFyFnFjFjFkFuFlFlFlFhFbFbFnFun FhFuFuFyFbFlFhFyFh\u001bFjFhFhFnFly FnFh\u001bFhFuFhFkFjFyFub FjFkFlFuFlFkFjFuFyFuh FjFhFnFll FuFyFh\u001bFnFnFjFkFnFnFuFuFkFlFyFh\u001bFhFjFkFkFbFbFjFjFlFjFbFjFyFjFbFyFkFlFhmOa\u001b\nmOa\u001b\nOm\u001b\nmO>>>>f\u001b\n\u00162\n O>>a\u001b\n#levelchange\n20\n                   bln by\u0017tree\nn\u0017melting ice\n:yb\u0017altar\ndedb\u0017jackal corpse\n#offer\nf  #pray\ny y h\u001bln \u0017chaotic altar\ndc\u0017dwarf corpse\n #offer\ng            #pray\ny y "
+ },
+ "segments": [
+  {
+   "seed": 50155015,
+   "datetime": "20140309080342",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=norep \"The door\"\n",
+   "moves": "nkb n\u0017pool\nkn ku \u0017cloud\nn\u0017fountain\nqy y:#terrain\ne\nzck #dip\neFlFyFly FhFnFkh FhFnFnFhFhFkFuFlFbFyFnFbFlFuFkFlFjFbFlh FuFnFjFhFuFhFkFyFyFjFyFnFjFjFkFuFlFlFlFhFbFbFnFun FhFuFuFyFbFlFhFyFh\u001bFjFhFhFnFly FnFh\u001bFhFuFhFkFjFyFub FjFkFlFuFlFkFjFuFyFuh FjFhFnFll FuFyFh\u001bFnFnFjFkFnFnFuFuFkFlFyFh\u001bFhFjFkFkFbFbFjFjFlFjFbFjFyFjFbFyFkFlFhmOa\u001b\nmOa\u001b\nOm\u001b\nmO>>>>f\u001b\n\u00162\n O>>a\u001b\n#levelchange\n20\n                   bln by\u0017tree\nn\u0017melting ice\n:yb\u0017altar\ndedb\u0017jackal corpse\n#offer\nf  #pray\ny y h\u001bln \u0017chaotic altar\ndc\u0017dwarf corpse\n #offer\ng            #pray\ny y "
+  }
+ ]
+}

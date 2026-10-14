@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "FlFlFlFlFlFlFlFlnbuhlkbjujyljyuuy#chat\nk20sFjFjFjFjFjFjFjFjFu 20s20sklh50snhyi\u001b100s100sFlFlsi\u001bjjl50s100s 150snjy100s100s#invoke\n\u001b_ \u001b,>100sFkFyFkFk.Fk#pray\ny 150s100sFkFk20sFkFk.150s_>.>;.#dip\ndd_<,20snnhkuhW50snjk\\ >\u000f\u001b100shkda20ss20skynltbnuh##quit\n#wizintrinsic\na\n .m.sm. 20s20s20s20s20s20s  s20s  ss.20ss20ss20s sss.s20s s..s #name\ni\njjjjb20st$unhhbjllyFhFhFh FhFhFhFhFhnnlkde20ss.10s#chat\nu20s#chat\nulykljuhbynhbnyhnkjun_ \u001b>.>hkh150s150s 50s50sFyFyFk#pray\ny   y\u001by  y y y\u001b  h hyjlybunNHLY_ \u001b;>BKYJ_>.>ch\u0004kKYHY_>.>HULY_>.>KYLN_>,>\u000f\u001btblbkhlt\u001b\u001b10s10s#chat\nk#chat\nljhkjHLKU_>.>YJBN_>,>PolNLLU_>.>yjynhy_>.>#force\njhh100s150s150sFh20s20s_>,>ylh50s_>,>\u000f\u001bhblhhh\\   _>.>lun100sFh20ssed 100s100s\u0018\u001b_>.>_>.>i\u001b50sFhFyFhFyFhFhFhFhs100s_>.>50s100sFhs20si\u001b#twoweapon\n\\   dc.ss20sllujdc..s#name\ni\nblessed\ncnhynlublyKHBN_>.>FhFhFh<NKBJ_>,>FhFhFhz#tip\n\u001b\u001b<H HNL _>.>HULJ _>,>#turn\n#enhance\n\u001b<YBNB_>.>YBUN_>.>L BKN_>,>Fls20s<ULBY_>,>JLJL_>,>FkssUKLH_>,>NJKK_>,>UUJN_>.>\u0004usKBYL_>,>Fh.s<LKJB_>.>10snnn150s50s50s\u000f\u001bz\u000f\u001b\u000f\u001bnnnnnn50sFhFh.FhFh20snnnnnnnnn150sFhFhFhFhFhFhFh  y\u001by  y y y\u001b   .",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50160023,
+   "datetime": "20260323211330",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\n",
+   "moves": "FlFlFlFlFlFlFlFlnbuhlkbjujyljyuuy#chat\nk20sFjFjFjFjFjFjFjFjFu 20s20sklh50snhyi\u001b100s100sFlFlsi\u001bjjl50s100s 150snjy100s100s#invoke\n\u001b_ \u001b,>100sFkFyFkFk.Fk#pray\ny 150s100sFkFk20sFkFk.150s_>.>;.#dip\ndd_<,20snnhkuhW50snjk\\ >\u000f\u001b100shkda20ss20skynltbnuh##quit\n"
+  },
+  {
+   "seed": 50260023,
+   "datetime": "20030317005004",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=runmode:walk\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\na\n .m.sm. 20s20s20s20s20s20s  s20s  ss.20ss20ss20s sss.s20s s..s"
+  },
+  {
+   "seed": 50360023,
+   "datetime": "20040503205812",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\n",
+   "moves": " #name\ni\njjjjb20st$unhhbjllyFhFhFh FhFhFhFhFhnnlkde20ss.10s#chat\nu20s#chat\nulykljuhbynhbnyhnkjun_ \u001b>.>hkh150s150s 50s50sFyFyFk#pray\ny   y\u001by  y y y\u001b  h"
+  },
+  {
+   "seed": 50460023,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=pettype:none\n",
+   "moves": " hyjlybunNHLY_ \u001b;>BKYJ_>.>ch\u0004kKYHY_>.>HULY_>.>KYLN_>,>\u000f\u001btblbkhlt\u001b\u001b10s10s#chat\nk#chat\nljhkjHLKU_>.>YJBN_>,>PolNLLU_>.>yjynhy_>.>#force\njhh100s150s150sFh20s20s_>,>ylh50s_>,>\u000f\u001bhblhhh\\   _>.>lun100sFh20ssed 100s100s\u0018\u001b_>.>_>.>i\u001b50sFhFyFhFyFhFhFhFhs100s_>.>50s100sFhs20si\u001b#twoweapon\n\\   dc.ss20sllujdc..s#name\ni\nblessed\ncnhynlublyKHBN_>.>FhFhFh<NKBJ_>,>FhFhFhz#tip\n\u001b\u001b<H HNL _>.>HULJ _>,>#turn\n#enhance\n\u001b<YBNB_>.>YBUN_>.>L BKN_>,>Fls20s<ULBY_>,>JLJL_>,>FkssUKLH_>,>NJKK_>,>UUJN_>.>\u0004usKBYL_>,>Fh.s<LKJB_>.>10snnn150s50s50s\u000f\u001bz\u000f\u001b\u000f\u001bnnnnnn50sFhFh.FhFh20snnnnnnnnn150sFhFhFhFhFhFhFh  y\u001by  y y y\u001b   ."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b,#chat\nu_mmmm.#chat\nu_mmmmm.Fl_,#chat\nu_mm.#chat\nl#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nj;j,_m._.#chat\nb_mm.#chat\nl\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 helm of telepathy\nWo\u0017blessed amulet of life saving\nPp\u0017wand of striking\n\u0016?\n>A\u0006_mmm.Fu_,Fu FuFuFuFb Fb Fl    ,\u0016?\n>>\u001b\u0016?\n>y_mmm.Fu _,Fu #chat\nb;b:  \u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.FbsFbs20sFjzqj,\u0016?\n>A\u0006_mmm,Fu_,sFhFh Fh       n  Fh Fb    zqn  ,\u0016?\n>z\u0006_mmmmm.        Fb        n  _.Fb         Fu        Fu    n   Fb   Fn   Fh    zqn   n    ,\u00163\n\u0016?\n>A\u0006_mm.     Fu     _.Fu   n    Fh    Fl     Fl  n      Fk    Fk      n   zqk    ,#chat\nj     \u0016?\n>>\u001b\u0016?\n>y_mmm.           n      Fj     _,#chat\nl  n      \u00162\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.    Fu    n   _.Fl      Fu   n    Fk    Fl    Fn  n      Fn      zqb    n     ,#chat\nh      n   \u001611\n\u0016?\n>A\u0006_mmmm,     Fk         n     _.Fu     Fk  y  F"
+ },
+ "segments": [
+  {
+   "seed": 50157029,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=fruit:mango\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b,#chat\nu_mmmm.#chat\nu_mmmmm.Fl_,#chat\nu_mm.#chat\nl#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nj;j,_m._.#chat\nb_mm.#chat\nl\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 helm of telepathy\nWo\u0017blessed amulet of life saving\nPp\u0017wand of striking\n\u0016?\n>A\u0006_mmm.Fu_,Fu FuFuFuFb Fb Fl    ,\u0016?\n>>\u001b\u0016?\n>y_mmm.Fu _,Fu #chat\nb;b:  \u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.FbsFbs20sFjzqj,\u0016?\n>A\u0006_mmm,Fu_,sFhFh Fh       n  Fh Fb    zqn  ,\u0016?\n>z\u0006_mmmmm.        Fb        n  _.Fb         Fu        Fu    n   Fb   Fn   Fh    zqn   n    ,\u00163\n\u0016?\n>A\u0006_mm.     Fu     _.Fu   n    Fh    Fl     Fl  n      Fk    Fk      n   zqk    ,#chat\nj     \u0016?\n>>\u001b\u0016?\n>y_mmm.           n      Fj     _,#chat\nl  n      \u00162\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.    Fu    n   _.Fl      Fu   n    Fk    Fl    Fn  n      Fn      zqb    n     ,#chat\nh      n   \u001611\n\u0016?\n>A\u0006_mmmm,     Fk         n     _.Fu     Fk  y  F"
+  }
+ ]
+}

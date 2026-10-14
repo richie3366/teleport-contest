@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017cursed potion of object detection\nqg \u001bm.Fj 20s\u0017helm of opposite alignment\nWh sj20s  20s ThFj Fj \u0017cursed horn of plenty\nai ai \u0017wand of lightning\nzlj  sFj\u0017uncursed crystal ball\n\u0007gas spore\nam   yy\u001by   y y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50158013,
+   "datetime": "20240212190947",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017cursed potion of object detection\nqg \u001bm.Fj 20s\u0017helm of opposite alignment\nWh sj20s  20s ThFj Fj \u0017cursed horn of plenty\nai ai \u0017wand of lightning\nzlj  sFj\u0017uncursed crystal ball\n\u0007gas spore\nam   yy\u001by   y y y\u001by  \u0017"
+  }
+ ]
+}

@@ -1,0 +1,77 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  kljk Fh FhFhFhFhFhFhFh20s#chat\nkjylj#name\no\n#name\no\nkjyn10sFkFkFy _ \u001b.>150s,\u000f\u001b50s\\   50s_>.>kjkjkj\u000f\u001bkjk150s50s100s100s_>.>100s jkj100sFy.20s\\   kjk50s100sed_>,>jkj150si\u001bkjk100s_>.>100s\u0018\u001b150s#sit\n\u001b\\   jkjkjkjFhFhFhFhFhFhFhFhkjkj#name\nf\n#quit\n,#wizintrinsic\nd\n 20s20s.m.20s20s20s yny  y y\u001bn  2 FlFlsFlFls\u0018\u001b100s   Fn.20s  FhFhFhFhFh Fj Fh ssFhFhFh#pray\ny nub50s#rub\n50s150s_ \u001b@.>50s100s150s#turn\n150seb150s 50si\u001b50s i\u001bulj50sec50s50s50sknu\u0018\u001bjhy_>,>\\ 150s_>.>50si\u001bhbu100s    #quit\ny\u001b    Fb FbFbFb FbFbFbFbLNKL_ \u001bm.>#invoke\n\u001b:HYYH_>,>#offer\nrj y JUHH_>.>LNLN_>,>#chat\nkkBKBU_>.><LKHB_>,>FyFy.t$bjynlt\u001b20shllyhkt\u001bjhnujyk100sdf50s\u0018\u001b100s 150s10sjhh100sFhFhs100shjluhkFbss#enhance\n\u001b1#quit\nyy\u001by  y y y\u001b FkFkFkFkFkFkFkFkybhbFuFuFuFuFuFuFuFuuuubylhunybyl10st\u001bjb#chat\nluuhlFh 20s20s100shhnljh_ \u001b>.>\u0018\u001bdfwa50s50s100s50s150s 50s100s ey\u0018\u001byly150see100see50s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebkjlnnybBKKU_>.>YYLY_>.>HYJH_>.>#tip\n\u001bzHKNN_>.><eeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b FyFyFyFyFyFyFyFy10sdcs20s.tbht\u001bbhllk10sFlFlFlFlFlFlFlFlFj FjFjFjFjFjFjFjnuylnjyjJH HL _ \u001b@.>HJJH_>.>HNBK_>,>Flss,__,20sYYUU_>,>W#monster\n#chat\nb#chat\nldc20s.20sn#quit\nyy\u001by  y y y\u001b  #chat\nhdaab  k20s20sskkhn#chat\nudbcyss.yb#name\ni\nshiny\nllbnFyFyFyFyFyFyFyFy#name\nm\n>.lyuddcy.20s20sdeclss20sjlhlhhll10shlhhi\u001b>_>.>100sFussuylklb100sFjFnFkFlFn s_>.>100s_>.>150s50syjk,100sFjFbFjFj2#quit\nyy\u001by  y y y\u001b   #wizintrinsic\nc\n .m.20sshsls.nsm.sm.s.m.sm..ksm.skss20s   ynny n n  sblhhFhFhFhFhFhFhFhFh100sFlFkFkFl ss150s \\  100s50s100sFyFys50sklb50suyn100sFhFhFh50s150s50sFhFh.#monster\n50s100s100saaj_ \u001b@.>100s_>.>yny\\  100sFhFhFhFhFjFjFhFjs_>.>lhnjhu50s100si\u001b100sFhFhFhFhFhFhFhFh150snuy_>.>50sFhFbs150s 50s100sck50sFb Fhsef100s50s100s100sFh..nyn\u000f\u001b50see100s150s_>,>150sFhFhFh_>.>100s100s #quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50150010,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "  kljk Fh FhFhFhFhFhFhFh20s#chat\nkjylj#name\no\n#name\no\nkjyn10sFkFkFy _ \u001b.>150s,\u000f\u001b50s\\   50s_>.>kjkjkj\u000f\u001bkjk150s50s100s100s_>.>100s jkj100sFy.20s\\   kjk50s100sed_>,>jkj150si\u001bkjk100s_>.>100s\u0018\u001b150s#sit\n\u001b\\   jkjkjkjFhFhFhFhFhFhFhFhkjkj#name\nf\n#quit\n,"
+  },
+  {
+   "seed": 50250010,
+   "datetime": "20200613151526",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nd\n 20s20s.m.20s20s20s yny  y y\u001bn  2"
+  },
+  {
+   "seed": 50350010,
+   "datetime": "20220812114908",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": " FlFlsFlFls\u0018\u001b100s   Fn.20s  FhFhFhFhFh Fj Fh ssFhFhFh#pray\ny nub50s#rub\n50s150s_ \u001b@.>50s100s150s#turn\n150seb150s 50si\u001b50s i\u001bulj50sec50s50s50sknu\u0018\u001bjhy_>,>\\ 150s_>.>50si\u001bhbu100s    #quit\ny\u001b    "
+  },
+  {
+   "seed": 50450010,
+   "datetime": "20100520181108",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=pettype:cat\n",
+   "moves": "Fb FbFbFb FbFbFbFbLNKL_ \u001bm.>#invoke\n\u001b:HYYH_>,>#offer\nrj y JUHH_>.>LNLN_>,>#chat\nkkBKBU_>.><LKHB_>,>FyFy.t$bjynlt\u001b20shllyhkt\u001bjhnujyk100sdf50s\u0018\u001b100s 150s10sjhh100sFhFhs100shjluhkFbss#enhance\n\u001b1#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50550010,
+   "datetime": "20160721172640",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:lychee\nOPTIONS=pettype:horse\n",
+   "moves": "FkFkFkFkFkFkFkFkybhbFuFuFuFuFuFuFuFuuuubylhunybyl10st\u001bjb#chat\nluuhlFh 20s20s100shhnljh_ \u001b>.>\u0018\u001bdfwa50s50s100s50s150s 50s100s ey\u0018\u001byly150see100see50s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebkjlnnybBKKU_>.>YYLY_>.>HYJH_>.>#tip\n\u001bzHKNN_>.><eeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50650010,
+   "datetime": "20200301103655",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\n",
+   "moves": "FyFyFyFyFyFyFyFy10sdcs20s.tbht\u001bbhllk10sFlFlFlFlFlFlFlFlFj FjFjFjFjFjFjFjnuylnjyjJH HL _ \u001b@.>HJJH_>.>HNBK_>,>Flss,__,20sYYUU_>,>W#monster\n#chat\nb#chat\nldc20s.20sn#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50750010,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=msg_window:reversed\n",
+   "moves": " #chat\nhdaab  k20s20sskkhn#chat\nudbcyss.yb#name\ni\nshiny\nllbnFyFyFyFyFyFyFyFy#name\nm\n>.lyuddcy.20s20sdeclss20sjlhlhhll10shlhhi\u001b>_>.>100sFussuylklb100sFjFnFkFlFn s_>.>100s_>.>150s50syjk,100sFjFbFjFj2#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50850010,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nc\n .m.20sshsls.nsm.sm.s.m.sm..ksm.skss20s   ynny n n  s"
+  },
+  {
+   "seed": 50950010,
+   "datetime": "20010704154055",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=sortloot:none\nOPTIONS=pettype:horse\n",
+   "moves": "blhhFhFhFhFhFhFhFhFh100sFlFkFkFl ss150s \\  100s50s100sFyFys50sklb50suyn100sFhFhFh50s150s50sFhFh.#monster\n50s100s100saaj_ \u001b@.>100s_>.>yny\\  100sFhFhFhFhFjFjFhFjs_>.>lhnjhu50s100si\u001b100sFhFhFhFhFhFhFhFh150snuy_>.>50sFhFbs150s 50s100sck50sFb Fhsef100s50s100s100sFh..nyn\u000f\u001b50see100s150s_>,>150sFhFhFh_>.>100s100s #quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "t\u001bu10s#name\ni\n#name\nf\n <.#name\nd\n#name\nf\n\\E:LNBN_>.>Fy .20sJUJY_>,>Fhs20s\u0018\u001bee<NBUL_>,><UKBU_>.>HHHN_>,>KNHB_>.>#chat\ny#monster\nJJKU_>,>\u000f\u001bqd>\u000f\u001b\u0018\u001b100s100subk50sFjFjFj_>,>\u000f\u001b150s100s50s150sFj.20s\u0018\u001bjjl50s100s 150sFhs.100s100sFhs.#jump\nlnhknu100s 100s150s100s50s100sFhsFhFhFbFhFbs20sFhFhsjhns\\ #offer\ni\u001bi\u001bP#jump\n100skbuFhFhFh100s50sFh..i\u001b#twoweapon\n100s100sjhu\u000f\u001b50sFhs20s#loot\n100s100sef100sybkFbFbFheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHJUB_>.>Fu20s20s#turn\n#twoweapon\nUN JJ_>.>FhssUBNU_>.>KNNN_>,>;.w-YHJJ_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeyyny#name\nf\n#name\nm.kktak10st\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYHBL_>,>FkFkFkULUN_>.>"
+ },
+ "segments": [
+  {
+   "seed": 50150003,
+   "datetime": "20130417002652",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\n",
+   "moves": "t\u001bu10s#name\ni\n#name\nf\n <.#name\nd\n#name\nf\n\\E:LNBN_>.>Fy .20sJUJY_>,>Fhs20s\u0018\u001bee<NBUL_>,><UKBU_>.>HHHN_>,>KNHB_>.>#chat\ny#monster\nJJKU_>,>\u000f\u001bqd>\u000f\u001b\u0018\u001b100s100subk50sFjFjFj_>,>\u000f\u001b150s100s50s150sFj.20s\u0018\u001bjjl50s100s 150sFhs.100s100sFhs.#jump\nlnhknu100s 100s150s100s50s100sFhsFhFhFbFhFbs20sFhFhsjhns\\ #offer\ni\u001bi\u001bP#jump\n100skbuFhFhFh100s50sFh..i\u001b#twoweapon\n100s100sjhu\u000f\u001b50sFhs20s#loot\n100s100sef100sybkFbFbFheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHJUB_>.>Fu20s20s#turn\n#twoweapon\nUN JJ_>.>FhssUBNU_>.>KNNN_>,>;.w-YHJJ_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeyyny#name\nf\n#name\nm.kktak10st\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYHBL_>,>FkFkFkULUN_>.>"
+  }
+ ]
+}

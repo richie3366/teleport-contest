@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 ring of shock resistance\nPjrs.20s RsFl\u0017uncursed ruby\n\u0007lichen\nai FjFj\u0017scroll of fire\n\u0007guardian naga\nrl  \u001b>.        yy\u001by   nny\u001bn  ."
+ },
+ "segments": [
+  {
+   "seed": 50152003,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 ring of shock resistance\nPjrs.20s RsFl\u0017uncursed ruby\n\u0007lichen\nai FjFj\u0017scroll of fire\n\u0007guardian naga\nrl  \u001b>.        yy\u001by   nny\u001bn  ."
+  }
+ ]
+}

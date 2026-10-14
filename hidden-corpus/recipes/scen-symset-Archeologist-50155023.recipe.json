@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "O>>>h\u001b\nO>>>k\u001b\u001b\nmO>j\u001b\n\u0007large dog\n\u0017huge chunk of meat\n t\u001b#name\nf\n >.dh 20s  n 20ssl  nyjdf   n20s.m.  nsm.\u0007gnome\n\u0017scroll of taming\n  rj  \u0017banana\nt\u001b\u00166\n20sK\u0007housecat\n\u0017huge chunk of meat\n t\u001b\u0017leash\nalh   n hn   nukalb dl  n sm.  n20s20s  n  h   n \u0007lichen\n\u0017scroll of taming\nrm \u0007grid bug\n\u0017scroll of taming\nrn \u0017tin whistle\nlnuao\u001610\n\u0007tame jackal\n\u0007tame wolf\n\u0017banana\nt\u001b\u0007grid bug\ns 20s 20s   s  s20s #name\nf\n10s\u0006_>.Fy_.Fk>FbFu_>.Fb_,Fk>FlFj_>.Fj_,>FuFjmO>>>n\u001b\nO>>>>j\u001b\noh#offer\n>fk\u00168\n\u0014m. #enhance\nyk\na\n\u001b#dip\nb\u001614\nO>>>o4\n \u001b\n\u0006_>.Fh _,  n Fl   n >Fh   nFn_>,   n Fn   n_. Fn  yy  >"
+ },
+ "segments": [
+  {
+   "seed": 50155023,
+   "datetime": "20150707141841",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "O>>>h\u001b\nO>>>k\u001b\u001b\nmO>j\u001b\n\u0007large dog\n\u0017huge chunk of meat\n t\u001b#name\nf\n >.dh 20s  n 20ssl  nyjdf   n20s.m.  nsm.\u0007gnome\n\u0017scroll of taming\n  rj  \u0017banana\nt\u001b\u00166\n20sK\u0007housecat\n\u0017huge chunk of meat\n t\u001b\u0017leash\nalh   n hn   nukalb dl  n sm.  n20s20s  n  h   n \u0007lichen\n\u0017scroll of taming\nrm \u0007grid bug\n\u0017scroll of taming\nrn \u0017tin whistle\nlnuao\u001610\n\u0007tame jackal\n\u0007tame wolf\n\u0017banana\nt\u001b\u0007grid bug\ns 20s 20s   s  s20s #name\nf\n10s\u0006_>.Fy_.Fk>FbFu_>.Fb_,Fk>FlFj_>.Fj_,>FuFjmO>>>n\u001b\nO>>>>j\u001b\noh#offer\n>fk\u00168\n\u0014m. #enhance\nyk\na\n\u001b#dip\nb\u001614\nO>>>o4\n \u001b\n\u0006_>.Fh _,  n Fl   n >Fh   nFn_>,   n Fn   n_. Fn  yy  >"
+  }
+ ]
+}

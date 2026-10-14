@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017cursed scroll of earth\n\u0007fire giant\nrh   y ny  y y\u001bn  F"
+ },
+ "segments": [
+  {
+   "seed": 50158020,
+   "datetime": "20120302070236",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017cursed scroll of earth\n\u0007fire giant\nrh   y ny  y y\u001bn  F"
+  }
+ ]
+}

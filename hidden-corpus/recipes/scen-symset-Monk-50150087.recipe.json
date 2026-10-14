@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b:>FuFj_>>,Fj_.Fy>FjFb_>>.Fj_.>.Fb>FbFlFbFhFj#sit\n\u001b#jump\n\u0006_>>.Fh_,Fj>FjFy_>>.Fy_.m.>_>>,_,.Fl>\u0006_>>,_,m.>_>>._..>_>>._,m,>\u000f\u001b\u0006_>,Fl _..>_>,_.m.>_>,_,m,>dhdf\u0006_>._.m,\u001b>_>._.>.>_>._,: ><\u0006_>,_.>.>_>._.m.>_>,_.;m,>O>>i\u001b\u001b\n\u001617\n\u0006_>,Fu_.Fh>FjFy_>.Fj_.Fj>FuFj_>.Fn_.Fj>FyFnFjFyFl\u0006_>>,Fy_,Fu>FhFu_>>.Fn_,Fl>FnFl_>>.Fh_.Fy>FlFuFhFnFl\u0006_>>,Fy_,Fl>FhFn_>>.Fn_,Fn>FuFl_>>.Fy_.Fj>FuFlFyFlFl<\u0006_>,Fl_,Fy>FhFh_>,Fu_,Fj>FlFn_>,Fu_.Fn>FyFhFjFjFy<\u0006_>>,Fy_.Fn>FuFh_>>.Fn_,Fj>FnFl_>>.Fu_.Fj>FhFyFnFnFn\u0006_>,Fy_.Fj>FlFl_>.Fh_,Fl>FhFh_>.Fl_.Fn>FyFyFyFlFu\u0006_>,Fl_.Fj>FjFj_>.Fj_,Fh>FhFu_>.Fy_.Fh>FnFhFuFhFuv i\u001b\u001617\nmO>>s\u001b\nmO>>>>f\u001b\nFjFuFhFuFhFnFlFnFlFuFhFuFlFkFkFlFhFnFnFlFhFuFuFjFkFuFnFkFjFlFuFhFuFlFnFhFnFuFlFuFlFlFkFnFhFhFnFnFkFkFlFuFnFjFhFnFkFkFjFu  nFu  n Fn  n   nFl  n #pray\ny y     Fu   n Fl  n   nFh   n Fk  n Fj  n Fn  n Fk  nFjFu  n #pray\ny y       Fu FlFk   nFh FlFj  nFh Fh   yy\u001by   y y y\u001by "
+ },
+ "segments": [
+  {
+   "seed": 50150087,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " \u0006_ \u001b:>FuFj_>>,Fj_.Fy>FjFb_>>.Fj_.>.Fb>FbFlFbFhFj#sit\n\u001b#jump\n\u0006_>>.Fh_,Fj>FjFy_>>.Fy_.m.>_>>,_,.Fl>\u0006_>>,_,m.>_>>._..>_>>._,m,>\u000f\u001b\u0006_>,Fl _..>_>,_.m.>_>,_,m,>dhdf\u0006_>._.m,\u001b>_>._.>.>_>._,: ><\u0006_>,_.>.>_>._.m.>_>,_.;m,>O>>i\u001b\u001b\n\u001617\n\u0006_>,Fu_.Fh>FjFy_>.Fj_.Fj>FuFj_>.Fn_.Fj>FyFnFjFyFl\u0006_>>,Fy_,Fu>FhFu_>>.Fn_,Fl>FnFl_>>.Fh_.Fy>FlFuFhFnFl\u0006_>>,Fy_,Fl>FhFn_>>.Fn_,Fn>FuFl_>>.Fy_.Fj>FuFlFyFlFl<\u0006_>,Fl_,Fy>FhFh_>,Fu_,Fj>FlFn_>,Fu_.Fn>FyFhFjFjFy<\u0006_>>,Fy_.Fn>FuFh_>>.Fn_,Fj>FnFl_>>.Fu_.Fj>FhFyFnFnFn\u0006_>,Fy_.Fj>FlFl_>.Fh_,Fl>FhFh_>.Fl_.Fn>FyFyFyFlFu\u0006_>,Fl_.Fj>FjFj_>.Fj_,Fh>FhFu_>.Fy_.Fh>FnFhFuFhFuv i\u001b\u001617\nmO>>s\u001b\nmO>>>>f\u001b\nFjFuFhFuFhFnFlFnFlFuFhFuFlFkFkFlFhFnFnFlFhFuFuFjFkFuFnFkFjFlFuFhFuFlFnFhFnFuFlFuFlFlFkFnFhFhFnFnFkFkFlFuFnFjFhFnFkFkFjFu  nFu  n Fn  n   nFl  n #pray\ny y     Fu   n Fl  n   nFh   n Fk  n Fj  n Fn  n Fk  nFjFu  n #pray\ny y       Fu FlFk   nFh FlFj  nFh Fh   yy\u001by   y y y\u001by "
+  }
+ ]
+}

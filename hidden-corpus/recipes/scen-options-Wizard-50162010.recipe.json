@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " O>ag\ng\nf\n#force\nOj\nqhmOf\nolmO>>>>>>ha\ns\n,w-Omh\n#pray\n"
+ },
+ "segments": [
+  {
+   "seed": 50162010,
+   "datetime": "20070319032034",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=runmode:walk\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " O>ag\ng\nf\n#force\nOj\nqhmOf\nolmO>>>>>>ha\ns\n,w-Omh\n#pray\n"
+  }
+ ]
+}

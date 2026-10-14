@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "O>>n\u001b\u001b\nnbbn\u0017grave\n: \u0017pick-axe\nai >        ssk\u0017tree\n\u0014 \u001bm.\u000f\u001b#twoweapon\n150sFh Fh .150sFhFhFhFhFhFhFhFhFh#pray\ny y   FlFlFlFl.20s100s50sFhFh.100s#dip\na 20s50s#name\nm\nElkj150s150s\u000f\u001bPhul150sFhFhFhFbFh20sFhFhFhFh20sFlFlFlFl_>.>50sFbFhFhFhFhsbub_>.>z150s100sFhFhFhO>>>o4\n \u001b\n\u0006_>.Fb_.Fb>FbFb_>,Fb_.Fb>FbFb_>._,> #dip\nif ay l\u0006_>.Fk_.Fh>FhFh_>.Fh_,>_>.Fb_,,Fh>FhFhFhFh Fh\u0006_>>.Fy_,.Fy>FyFy_>>.Fh_.<.Fy  >FyFy_>>._.> \u0006_>.  Fj       _.   n   Fj      >Fh     Fj  n      n _>,     Fh     _,   n     Fj      >Fj      Fu  n      n _>.     Fh    _,       n Fu       >Fj    n     Fh      n   Fh       Fu    n   n   Fu   n  \u0006_>,       n   Fu      _.     Fj        n    >Fj      Fu  n        _>,    yy\u001bnnny\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50155042,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You see\"\nMENUCOLOR=\"uncursed\"=brown\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "O>>n\u001b\u001b\nnbbn\u0017grave\n: \u0017pick-axe\nai >        ssk\u0017tree\n\u0014 \u001bm.\u000f\u001b#twoweapon\n150sFh Fh .150sFhFhFhFhFhFhFhFhFh#pray\ny y   FlFlFlFl.20s100s50sFhFh.100s#dip\na 20s50s#name\nm\nElkj150s150s\u000f\u001bPhul150sFhFhFhFbFh20sFhFhFhFh20sFlFlFlFl_>.>50sFbFhFhFhFhsbub_>.>z150s100sFhFhFhO>>>o4\n \u001b\n\u0006_>.Fb_.Fb>FbFb_>,Fb_.Fb>FbFb_>._,> #dip\nif ay l\u0006_>.Fk_.Fh>FhFh_>.Fh_,>_>.Fb_,,Fh>FhFhFhFh Fh\u0006_>>.Fy_,.Fy>FyFy_>>.Fh_.<.Fy  >FyFy_>>._.> \u0006_>.  Fj       _.   n   Fj      >Fh     Fj  n      n _>,     Fh     _,   n     Fj      >Fj      Fu  n      n _>.     Fh    _,       n Fu       >Fj    n     Fh      n   Fh       Fu    n   n   Fu   n  \u0006_>,       n   Fu      _.     Fj        n    >Fj      Fu  n        _>,    yy\u001bnnny\u001by  F"
+  }
+ ]
+}

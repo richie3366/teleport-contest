@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n10\n         yhh\u0017pool\n#dip\nbll\u0017:\u0017.s:y  \u0017fountain\nqy#dip\nby y#terrain\nf\n\u0018\u001bed #jump\nO>>>>l\u001b\nO>>h\u001b\nv i\u001b\u00162\nFlFlFlFnFnFnFuFlFnFlFnFnFh FuFlFlFlFuFnFlFuFnFnFnFuFuFlFnFlFlFuFlFnFlFnFjFnFlFnFuFlFuFnFjFnFuFuFuFuFuFnFnFnFlFlFlFuFuFlFnFuFuFnFuFnFlFuFnFuFuFlFnFuFlFnFuFlFlFlFnFnFuFnFlFnFnFnFnFuFlFuFlFnFuFnFlFlFuFuFlFuFuFnFuFuFnFlFuFlFnFuFlFnFlFuFnFuFlFuFu\u0006_ \u001b@.>FlFn_>,_,> \u0006_>>,Fu_.m,Fh>FkFu_>>.Fu_,m,Fk>FyFk_>>,Fb_.<.Fu>FhFyFkFkFb\u0006_>._.>.>_>,_,,>_>._..>_>,s\u0004l\u0006_>._.,>_>._.>_>._,m,>#monster\naa.<ubub\u0017cloud\nubuuln\u0017pool\n#dip\nay   kj#terrain\nc\n:#enhance\nyb\ng\n\u001b;>. _m.sv i\u001b\u00166\n\u0006_>>.Fu_,Fl >FnFn_>>.Fl _.,>_>>,_.m.>\u0006_>,_..>_>._,,>_>._,m,>\u0006_>._.;m.>_>,_,m,>_>._.@.>\u0006_>,_.;<. >"
+ },
+ "segments": [
+  {
+   "seed": 50155021,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n10\n         yhh\u0017pool\n#dip\nbll\u0017:\u0017.s:y  \u0017fountain\nqy#dip\nby y#terrain\nf\n\u0018\u001bed #jump\nO>>>>l\u001b\nO>>h\u001b\nv i\u001b\u00162\nFlFlFlFnFnFnFuFlFnFlFnFnFh FuFlFlFlFuFnFlFuFnFnFnFuFuFlFnFlFlFuFlFnFlFnFjFnFlFnFuFlFuFnFjFnFuFuFuFuFuFnFnFnFlFlFlFuFuFlFnFuFuFnFuFnFlFuFnFuFuFlFnFuFlFnFuFlFlFlFnFnFuFnFlFnFnFnFnFuFlFuFlFnFuFnFlFlFuFuFlFuFuFnFuFuFnFlFuFlFnFuFlFnFlFuFnFuFlFuFu\u0006_ \u001b@.>FlFn_>,_,> \u0006_>>,Fu_.m,Fh>FkFu_>>.Fu_,m,Fk>FyFk_>>,Fb_.<.Fu>FhFyFkFkFb\u0006_>._.>.>_>,_,,>_>._..>_>,s\u0004l\u0006_>._.,>_>._.>_>._,m,>#monster\naa.<ubub\u0017cloud\nubuuln\u0017pool\n#dip\nay   kj#terrain\nc\n:#enhance\nyb\ng\n\u001b;>. _m.sv i\u001b\u00166\n\u0006_>>.Fu_,Fl >FnFn_>>.Fl _.,>_>>,_.m.>\u0006_>,_..>_>._,,>_>._,m,>\u0006_>._.;m.>_>,_,m,>_>._.@.>\u0006_>,_.;<. >"
+  }
+ ]
+}

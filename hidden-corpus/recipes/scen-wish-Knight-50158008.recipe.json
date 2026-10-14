@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017uncursed spellbook of cure blindness\nri s sZa\n20sFk\u0017blessed chest\najaj#tip\nj\u001bFkFl\u00173 the Orb of Fate\n  n \u0007baby red dragon\n,  yny   y nny  F"
+ },
+ "segments": [
+  {
+   "seed": 50158008,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017uncursed spellbook of cure blindness\nri s sZa\n20sFk\u0017blessed chest\najaj#tip\nj\u001bFkFl\u00173 the Orb of Fate\n  n \u0007baby red dragon\n,  yny   y nny  F"
+  }
+ ]
+}

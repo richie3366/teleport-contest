@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #chat\nbnhukdb...kkdc20s.sKKUB_ \u001b<.>LHLB_>.>FuFl.#turn\n#sit\n\u001bNJKL  _>.>FyFhFb <\u000f\u001b100s Fys   snknyny100sFh Fh FhFh20ss150sFhs.100s50sFhs20s150sFhsslblFh.20s100s FhFh.hly50sjlk150s100sFhFh20s50s100sFh.20shjk50sFhFhFhFbFhFh150sFhss_>.>nhli\u001b100s100s_>.>100sHKHY_>,>FjFhsNJLJ_>,>KJJB_>,>HNUL_>.>BUBK_>.>FhssKYHN_>.>knk100shljFy.s50s100s50skjkFbFbFb100s50s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#tip\nf\u001b;m,ZLNKJ_>.>H qdBHUJ _>.>\u0018\u001bch<NHL U_>.><NUKJ_>.>UKHB _>.>#sit\n 20sBNNY_>.>UHKK_>.>10sde20sss#chat\nj20sjububu20sbubue#pray\ny  100s Fl.s_>.>#loot\n150sFkFksi\u001b\u0018\u001bi\u001b\\ 150sFkFk.FkFkFk;.100sbub_>.>150s100s  ubu_>.>_>,>\u000f\u001b100s150s\\ _>,>100sFk20ss150s  100seeeeeeeYLKL_>.>t\u001b#rub\nHJ LU_>.>BH HB_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nl#chat\nhhjyk t\u001b#chat\nlda20s.seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYJHU_>.>#force\n\\ K YNB_>,>UNUU_>,>UJUH _>.>YLLL_>.><LNUK_>.>KKJJ_>,>#loot\n\\ \u000f\u001b10s10s#name\nd\n#chat\nuyjub20s10s10syt\u001bub10s#name\nm\n20s\u0018\u001beee"
+ },
+ "segments": [
+  {
+   "seed": 50150067,
+   "datetime": "20120110190553",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\n",
+   "moves": " #chat\nbnhukdb...kkdc20s.sKKUB_ \u001b<.>LHLB_>.>FuFl.#turn\n#sit\n\u001bNJKL  _>.>FyFhFb <\u000f\u001b100s Fys   snknyny100sFh Fh FhFh20ss150sFhs.100s50sFhs20s150sFhsslblFh.20s100s FhFh.hly50sjlk150s100sFhFh20s50s100sFh.20shjk50sFhFhFhFbFhFh150sFhss_>.>nhli\u001b100s100s_>.>100sHKHY_>,>FjFhsNJLJ_>,>KJJB_>,>HNUL_>.>BUBK_>.>FhssKYHN_>.>knk100shljFy.s50s100s50skjkFbFbFb100s50s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#tip\nf\u001b;m,ZLNKJ_>.>H qdBHUJ _>.>\u0018\u001bch<NHL U_>.><NUKJ_>.>UKHB _>.>#sit\n 20sBNNY_>.>UHKK_>.>10sde20sss#chat\nj20sjububu20sbubue#pray\ny  100s Fl.s_>.>#loot\n150sFkFksi\u001b\u0018\u001bi\u001b\\ 150sFkFk.FkFkFk;.100sbub_>.>150s100s  ubu_>.>_>,>\u000f\u001b100s150s\\ _>,>100sFk20ss150s  100seeeeeeeYLKL_>.>t\u001b#rub\nHJ LU_>.>BH HB_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nl#chat\nhhjyk t\u001b#chat\nlda20s.seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYJHU_>.>#force\n\\ K YNB_>,>UNUU_>,>UJUH _>.>YLLL_>.><LNUK_>.>KKJJ_>,>#loot\n\\ \u000f\u001b10s10s#name\nd\n#chat\nuyjub20s10s10syt\u001bub10s#name\nm\n20s\u0018\u001beee"
+  }
+ ]
+}

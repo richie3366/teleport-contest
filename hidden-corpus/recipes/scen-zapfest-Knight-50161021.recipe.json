@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nW\u001b\u0017blessed amulet of life saving\nPj\u0007incubus\n\u0007mind flayer\n\u0007vampire\n\u0017wand of cold\nzkk       sbszkl          \u0017elven bow\nwl  n         yyyy   \u001720 elven arrows\nQm\u0007gnome lord\n\u0007dwarf\nfk  n     n fu  n  fk   n   n tbk     n fn     n fk    n \u001611\n\u0007black dragon\nsl20s#polyself\nblack dragon\n  #monster\n20s sm.#monster\n#monster\n#monster\nFh  .\u001720 darts\nQn\u0007dwarf\n\u0007acid blob\nftfff\u00162\n\u0017wand of slow monster\n\u0017wand of cold\n\u0007grid bug\nzzzz20szzzz\u0018\u001b\u0017wand of death\n\u0017wand of sleep\n\u0007gnome lord\n\u0007sewer rat\n\u0007newt\nzzzzz.m. zzzz\u00178 spears\nQs\u0007soldier\nttfftf\u0007baby red dragon\n\u0007red dragon\nsn sj  20s 20s #polyself\nsilver dragon\n  #monster\nsm.  n .m. #monster\n#monster\nFj   n Fl \u00165\n\u0017wand of sleep\n\u0017wand of striking\n\u0007kobold\nzzzzzz.m.  n zzzz\u001610\n\u0007red dragon\n\u0007red dragon\n.m.20s    20s     sm.  n   n  Fb  n     yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50161021,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed shield of reflection\nW\u001b\u0017blessed amulet of life saving\nPj\u0007incubus\n\u0007mind flayer\n\u0007vampire\n\u0017wand of cold\nzkk       sbszkl          \u0017elven bow\nwl  n         yyyy   \u001720 elven arrows\nQm\u0007gnome lord\n\u0007dwarf\nfk  n     n fu  n  fk   n   n tbk     n fn     n fk    n \u001611\n\u0007black dragon\nsl20s#polyself\nblack dragon\n  #monster\n20s sm.#monster\n#monster\n#monster\nFh  .\u001720 darts\nQn\u0007dwarf\n\u0007acid blob\nftfff\u00162\n\u0017wand of slow monster\n\u0017wand of cold\n\u0007grid bug\nzzzz20szzzz\u0018\u001b\u0017wand of death\n\u0017wand of sleep\n\u0007gnome lord\n\u0007sewer rat\n\u0007newt\nzzzzz.m. zzzz\u00178 spears\nQs\u0007soldier\nttfftf\u0007baby red dragon\n\u0007red dragon\nsn sj  20s 20s #polyself\nsilver dragon\n  #monster\nsm.  n .m. #monster\n#monster\nFj   n Fl \u00165\n\u0017wand of sleep\n\u0017wand of striking\n\u0007kobold\nzzzzzz.m.  n zzzz\u001610\n\u0007red dragon\n\u0007red dragon\n.m.20s    20s     sm.  n   n  Fb  n     yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

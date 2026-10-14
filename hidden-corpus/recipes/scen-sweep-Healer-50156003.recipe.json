@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n      \u00176 eggs\nQ$\u0007grid bug\nyfj  fj fj fk FkFh\u0007gnome\nhbfkfkfkFkFk\u0017potion of blindness\nt$k \u0007lichen\nhlfk fk FuFk\u0017potion of sleeping\nt$k \u0017grappling hook\nwp \u0007gnome\nyap \u001b<.nln,#enhance\nn\u001b\u001610\n\u0017blessed +3 silver saber\n\u0007Juiblex\nnwqFjFj  Fk\u0017blessed potion of booze\nqr \u001b\u0017scroll of fire\n\u0007fire vortex\nrs  ,     n Fh Fj 20s  .m.    l  n   u\u0017wand of nothing\nEt Vlad was here\n : u \u0017wand of striking\nE\u0017magic marker\nE\u0017wand of death\nE: k  n    \u0017wand of cancellation\nEx  Vlad was here\n  \u00163\n\u0017bag of holding\n\u0017blessed bag of holding\n\u0017oilskin sack\n\u0017ring of conflict\nayr\na\naAi\n\u0017long sword\nwDdy#force\nsm.ssazs\ndA#loot\nb\nr\n,b\ni>\u001bqnayr\nays\n#tip\nnyz\nav\u001bqdacuayi\nu,\u000f\u001b;m.E- I am a fish\nb nchi>\u001bqfW\u001b20s20s \u001bsTwassswD sssXeC20s.ap >.\u001610\n\u0006#levelchange\n14\n     \u0016?\n>y  _m.Fj   _.m.     Fl  #chat\nl_mmmm.Fl _.,Fl    n#chat\nj   ;h:  _mmmm,   Fk  _,Fy  #chat\nb    n_mmmm. Fb  _,   Fb    n#chat\nb    \u0006_>.   Fy  n _. Fb >Fb   n Fh          _>.    Fh _.  n   Fb   n >Fy        Fb   n   _>,  Fj  n _.   Fy     n >Fk    Fy     n   __.     yy\u001b y   y y y\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 50156003,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n      \u00176 eggs\nQ$\u0007grid bug\nyfj  fj fj fk FkFh\u0007gnome\nhbfkfkfkFkFk\u0017potion of blindness\nt$k \u0007lichen\nhlfk fk FuFk\u0017potion of sleeping\nt$k \u0017grappling hook\nwp \u0007gnome\nyap \u001b<.nln,#enhance\nn\u001b\u001610\n\u0017blessed +3 silver saber\n\u0007Juiblex\nnwqFjFj  Fk\u0017blessed potion of booze\nqr \u001b\u0017scroll of fire\n\u0007fire vortex\nrs  ,     n Fh Fj 20s  .m.    l  n   u\u0017wand of nothing\nEt Vlad was here\n : u \u0017wand of striking\nE\u0017magic marker\nE\u0017wand of death\nE: k  n    \u0017wand of cancellation\nEx  Vlad was here\n  \u00163\n\u0017bag of holding\n\u0017blessed bag of holding\n\u0017oilskin sack\n\u0017ring of conflict\nayr\na\naAi\n\u0017long sword\nwDdy#force\nsm.ssazs\ndA#loot\nb\nr\n,b\ni>\u001bqnayr\nays\n#tip\nnyz\nav\u001bqdacuayi\nu,\u000f\u001b;m.E- I am a fish\nb nchi>\u001bqfW\u001b20s20s \u001bsTwassswD sssXeC20s.ap >.\u001610\n\u0006#levelchange\n14\n     \u0016?\n>y  _m.Fj   _.m.     Fl  #chat\nl_mmmm.Fl _.,Fl    n#chat\nj   ;h:  _mmmm,   Fk  _,Fy  #chat\nb    n_mmmm. Fb  _,   Fb    n#chat\nb    \u0006_>.   Fy  n _. Fb >Fb   n Fh          _>.    Fh _.  n   Fb   n >Fy        Fb   n   _>,  Fj  n _.   Fy     n >Fk    Fy     n   __.     yy\u001b y   y y y\u001b  ."
+  }
+ ]
+}

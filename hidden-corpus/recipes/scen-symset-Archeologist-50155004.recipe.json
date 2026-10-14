@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "mO>>>>b\u001b\nv\u001bi\u001b\u0007tame wolf\n\u0007tame soldier ant\n20s\u0017tin whistle\nh\u001bnbai\u0007giant rat\n.m..ss20ss\u0017leash\najk uj kk ynajk \u0017magic whistle\nnuk uk ak   \u00161\nO>j\u001b\n\u00166\n\u00167\nFnFjFjFlFlFnFln FjFbFh\u001bFhFnFnFnFll FhFjFlFbFll FbFjFlFhFjFlFlFbFh\u001bFhFhFjFjFbFlh FlFhFjFbFln FjFlFhFhFnFjFjFbFnFhFlFnFnFlFlFhFjFjFlFnFh\u001bFhFjFjFbFjFbFlb FbFbFbFln FbFh\u001bFhFjFbFbFhFnFnFlFlFlFlFjFbFh\u001bFjFjFhFjFhFlFjFnFnFlFbFbFjFjFnFbFnFbFbFlb FlFhFnFbFnFnFbFbFjFjFlFj\u001619\n#offer\n#untrap\ny O>>e\u001b\nv\u001bi\u001b#invoke\n\u001b#sit\n\u001bW#force\n\u001612\nO>>>>d\u001b\nv\u001bi\u001b\u0006_ \u001b,>_>,Fy_.Fy>FyFy_>.Fy_,Fkk >FbFyFyFbFy\u0006_>,Fk_.m,Fy>FyFy_>.Fy_,Fky >FyFy_>,Fk_.m.Fk>FyFyFyFyFy\u0006_>>.Fy_.Fy>FyFj_>>,Fk_.@.Fb>FbFkb _>>.Fh_.m,Fj>FjFkFjFyFj\u0006_>.Fk_.m.Fk>FkF"
+ },
+ "segments": [
+  {
+   "seed": 50155004,
+   "datetime": "20020221034216",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nBIND=v:inventory\n",
+   "moves": "mO>>>>b\u001b\nv\u001bi\u001b\u0007tame wolf\n\u0007tame soldier ant\n20s\u0017tin whistle\nh\u001bnbai\u0007giant rat\n.m..ss20ss\u0017leash\najk uj kk ynajk \u0017magic whistle\nnuk uk ak   \u00161\nO>j\u001b\n\u00166\n\u00167\nFnFjFjFlFlFnFln FjFbFh\u001bFhFnFnFnFll FhFjFlFbFll FbFjFlFhFjFlFlFbFh\u001bFhFhFjFjFbFlh FlFhFjFbFln FjFlFhFhFnFjFjFbFnFhFlFnFnFlFlFhFjFjFlFnFh\u001bFhFjFjFbFjFbFlb FbFbFbFln FbFh\u001bFhFjFbFbFhFnFnFlFlFlFlFjFbFh\u001bFjFjFhFjFhFlFjFnFnFlFbFbFjFjFnFbFnFbFbFlb FlFhFnFbFnFnFbFbFjFjFlFj\u001619\n#offer\n#untrap\ny O>>e\u001b\nv\u001bi\u001b#invoke\n\u001b#sit\n\u001bW#force\n\u001612\nO>>>>d\u001b\nv\u001bi\u001b\u0006_ \u001b,>_>,Fy_.Fy>FyFy_>.Fy_,Fkk >FbFyFyFbFy\u0006_>,Fk_.m,Fy>FyFy_>.Fy_,Fky >FyFy_>,Fk_.m.Fk>FyFyFyFyFy\u0006_>>.Fy_.Fy>FyFj_>>,Fk_.@.Fb>FbFkb _>>.Fh_.m,Fj>FjFkFjFyFj\u0006_>.Fk_.m.Fk>FkF"
+  }
+ ]
+}

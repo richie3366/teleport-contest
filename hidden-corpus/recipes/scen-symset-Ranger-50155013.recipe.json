@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u0006_ \u001b;>FlFl_>. Fb_, Fj>FbFj_>. Fn_>FkFuFkFjFhcl w-<\u0006_>,Fy_.Fn>FuFj_>.Fu_.Fk>FbFj_>,Fh_,Fy>FnFbFuFuFy\u0006_>,Fy_,Fh\u001b>FhFj_>.Fj_.Fu>FjFu_>,Fu_.Fj>FnFun FhFbFku #turn\ni\u001b\u0006_>.Fj_.Fb>FyFj_>,Fk_.Fj>FnFh\u001b_>,Fu_.Fk>FjFkFjFbFn\u000f\u001b\u00165\nv i\u001b#levelchange\n30\n                             nyl\u0017neutral altar\ndcdf\u0017jackal corpse\n#offer\ng  #pray\ny y j\u0017tree\n: tbb i\u001bZ#levelchange\n10\n      jnh\u001b\u0017melting ice\nuk ku \u0017magic fountain\nqyuh \u0017tree\n: ku \u0017ice\n: ;y,E- Elbereth Elbereth\nz\u001618\n\u0006_>.Fh_.Fh>FhFh_>.Fh_.m.Fh>FhFh_>.Fh_,Fh>FhFhFhFhFh\u0006_>,Fh_.Fh>FhFh_>.Fh_.Fh>FhFh_>.Fh_.Fh>FhFhFhFhFhtdn 20s\u0006_>,Fh_.Fh>FhFh_>.Fh_.  nFh>FhFh_>.Fh_,Fh>FhFhFhFhFhi\u001ba\u000f\u001bv   i\u001bO>>p\u001b\n\u00164\nFnFkk FbFyFyFjFbFlFnFnFhFhFlFjFlFlFhFnFh\u001bFuFjFlFnFjFyFyFbFyFlFnFjFnFbFkFhFbFuh FbFlFhFnFyFyFbFhFlFnFjFjFkFkFlFhFkFnFyFbFyFjFlFuFhFjFnFuj FbFlFuFbFnFuFnFkk FjFkFbFbFlFhFuFjFhFlFuFuFhFhFhFbFnFkFuFnFyFbFkb FnFkk FkFkFkFhFhFjFkFnFnFyFh\u001bFnFkn FlFlFyFlFlFnFyFyFb\u00167\n\u0007tame lichen\n10sb20sde20sss\u0017leash\nahb bul h\u001bnahl FbFuu FkFbFh\u001bFhFkFuFyFlFnFkb FbFuy FhFyFlFlF"
+ },
+ "segments": [
+  {
+   "seed": 50155013,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!verbose\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "v i\u001b\u0006_ \u001b;>FlFl_>. Fb_, Fj>FbFj_>. Fn_>FkFuFkFjFhcl w-<\u0006_>,Fy_.Fn>FuFj_>.Fu_.Fk>FbFj_>,Fh_,Fy>FnFbFuFuFy\u0006_>,Fy_,Fh\u001b>FhFj_>.Fj_.Fu>FjFu_>,Fu_.Fj>FnFun FhFbFku #turn\ni\u001b\u0006_>.Fj_.Fb>FyFj_>,Fk_.Fj>FnFh\u001b_>,Fu_.Fk>FjFkFjFbFn\u000f\u001b\u00165\nv i\u001b#levelchange\n30\n                             nyl\u0017neutral altar\ndcdf\u0017jackal corpse\n#offer\ng  #pray\ny y j\u0017tree\n: tbb i\u001bZ#levelchange\n10\n      jnh\u001b\u0017melting ice\nuk ku \u0017magic fountain\nqyuh \u0017tree\n: ku \u0017ice\n: ;y,E- Elbereth Elbereth\nz\u001618\n\u0006_>.Fh_.Fh>FhFh_>.Fh_.m.Fh>FhFh_>.Fh_,Fh>FhFhFhFhFh\u0006_>,Fh_.Fh>FhFh_>.Fh_.Fh>FhFh_>.Fh_.Fh>FhFhFhFhFhtdn 20s\u0006_>,Fh_.Fh>FhFh_>.Fh_.  nFh>FhFh_>.Fh_,Fh>FhFhFhFhFhi\u001ba\u000f\u001bv   i\u001bO>>p\u001b\n\u00164\nFnFkk FbFyFyFjFbFlFnFnFhFhFlFjFlFlFhFnFh\u001bFuFjFlFnFjFyFyFbFyFlFnFjFnFbFkFhFbFuh FbFlFhFnFyFyFbFhFlFnFjFjFkFkFlFhFkFnFyFbFyFjFlFuFhFjFnFuj FbFlFuFbFnFuFnFkk FjFkFbFbFlFhFuFjFhFlFuFuFhFhFhFbFnFkFuFnFyFbFkb FnFkk FkFkFkFhFhFjFkFnFnFyFh\u001bFnFkn FlFlFyFlFlFnFyFyFb\u00167\n\u0007tame lichen\n10sb20sde20sss\u0017leash\nahb bul h\u001bnahl FbFuu FkFbFh\u001bFhFkFuFyFlFnFkb FbFuy FhFyFlFlF"
+  }
+ ]
+}

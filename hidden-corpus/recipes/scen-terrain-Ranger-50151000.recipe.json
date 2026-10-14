@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             yhuj\u0017altar\ndbdc\u0017human corpse\n l\u0017melting ice\nynnnub\u0017throne\n#sit\n y#sit\n\u001bkh\u0017tree\nl\u0004h\u0004 #terrain\nc\n\u001b:a#untrap\nh#conduct\n "
+ },
+ "segments": [
+  {
+   "seed": 50151000,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             yhuj\u0017altar\ndbdc\u0017human corpse\n l\u0017melting ice\nynnnub\u0017throne\n#sit\n y#sit\n\u001bkh\u0017tree\nl\u0004h\u0004 #terrain\nc\n\u001b:a#untrap\nh#conduct\n "
+  }
+ ]
+}

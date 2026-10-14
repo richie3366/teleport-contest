@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " O>jch\nWO>acl\nZ#sit\nOg\nm\nE- X marks the spot\nmO>>>>>t\nn\nZOm\n#jump\n \u001bm.O>fj\nP20s."
+ },
+ "segments": [
+  {
+   "seed": 50162005,
+   "datetime": "20200313032050",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": " O>jch\nWO>acl\nZ#sit\nOg\nm\nE- X marks the spot\nmO>>>>>t\nn\nZOm\n#jump\n \u001bm.O>fj\nP20s."
+  }
+ ]
+}

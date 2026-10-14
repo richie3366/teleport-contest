@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0007pony\n\u0017carrot\nt$h dcssm.20s dk s20s20s\u0017leash\nalu h\u001bbkk laly \u0007jackal\nsm.ssysm.20s .m.\u0007jackal\n.m. .m.sh\u001b20sns.m. \u0017tripe ration\nt$y \u0017apple\n t$h mO>>>w\u001b\n\u0006_ \u001b,>FhFh_>,Fh_,;;Fh>FbFh\u001b_>.Fh_.Fb>FbFh\u001bFbFh\u001bFb\u0006_>,Fh_.Fy>FyFj_>.Fj_,Fh>FhFb_>, Fb_..Fh>FhFhFhFhFh\u0006_>.Fh_.Fh>FhFh_>.Fh_.,Fh>FhFh_>.Fh_,:Fh>FhFhFhFhFhsL<f $ l \\ #force\nFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhO>>k\u001b\u001b\n#levelchange\n10\n        nh\u001bj\u0017unaligned altar\ndb\u0017elf corpse\n#offer\nn   uh \u0017iron bars\nh\u001bh\u001b\u0017altar\ndf\u0017gnome corpse\n#offer\no   #terrain\nb\n dhZc\n>\u00165\n  FhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhF"
+ },
+ "segments": [
+  {
+   "seed": 50155029,
+   "datetime": "20051128190200",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a potion\"=magenta\n",
+   "moves": "\u0007pony\n\u0017carrot\nt$h dcssm.20s dk s20s20s\u0017leash\nalu h\u001bbkk laly \u0007jackal\nsm.ssysm.20s .m.\u0007jackal\n.m. .m.sh\u001b20sns.m. \u0017tripe ration\nt$y \u0017apple\n t$h mO>>>w\u001b\n\u0006_ \u001b,>FhFh_>,Fh_,;;Fh>FbFh\u001b_>.Fh_.Fb>FbFh\u001bFbFh\u001bFb\u0006_>,Fh_.Fy>FyFj_>.Fj_,Fh>FhFb_>, Fb_..Fh>FhFhFhFhFh\u0006_>.Fh_.Fh>FhFh_>.Fh_.,Fh>FhFh_>.Fh_,:Fh>FhFhFhFhFhsL<f $ l \\ #force\nFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhO>>k\u001b\u001b\n#levelchange\n10\n        nh\u001bj\u0017unaligned altar\ndb\u0017elf corpse\n#offer\nn   uh \u0017iron bars\nh\u001bh\u001b\u0017altar\ndf\u0017gnome corpse\n#offer\no   #terrain\nb\n dhZc\n>\u00165\n  FhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhF"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nu   n_m.   nFn   n_.#chat\nn_m,Fu   n_.#chat\nu   n  n;n,#levelchange\n16\n                  \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm,#chat\nn_mmmm.#chat\nu \u0017blessed +3 helm of telepathy\nWj  \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed amulet of life saving\nPl  \u0017wand of fire\n\u0016?\n>A\u0006_mmmmmm.Fu_.Fn   Fu Fu FuFn Fj   n ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,Fh _,   nFlFnFh Fh FjFj FnFl,\u0016?\n>A\u0006_mmmmm,Fn  n_.FlFn FlFnFnFnszml,\u0016?\n>z\u0006_mm..s20sss20s,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_m. Fl _.#chat\nl\u0016?\n>A\u0006_mmmmm.   nFl _.FlFl Fl Fl Flsszmk,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.Fl_.>.FlFnFn   n Fn FnFn ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nl  \u0016?\n>A\u0006_mmm.    nFl _,m.  FuFu    nFnFu Fu FlFl zml  ,\u00162\n\u0016?\n>z\u0006_mmmmm.Fj _.;;FuFuFjFj.szmn,\u0016?\n>A\u0006_mmmmmm,...Flzml ,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_m.  nFl_,#chat\nl;l;\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,_.s20sFkFk sFks,#chat\nh\u0016?\n>A\u0006_mmmmm.Fl_.>.FlFlFlFl   nFl szmu ,#chat\nu\u0016?\n>z\u0006_mmmmmmm,Fu_,.FhFhFh FhFhFh,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmm,Fu_,Fl#chat\nu;l;\u0016?\n>A\u0006_mmmmmm.Fl_,FuFlFl   yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50157024,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nu   n_m.   nFn   n_.#chat\nn_m,Fu   n_.#chat\nu   n  n;n,#levelchange\n16\n                  \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm,#chat\nn_mmmm.#chat\nu \u0017blessed +3 helm of telepathy\nWj  \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed amulet of life saving\nPl  \u0017wand of fire\n\u0016?\n>A\u0006_mmmmmm.Fu_.Fn   Fu Fu FuFn Fj   n ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,Fh _,   nFlFnFh Fh FjFj FnFl,\u0016?\n>A\u0006_mmmmm,Fn  n_.FlFn FlFnFnFnszml,\u0016?\n>z\u0006_mm..s20sss20s,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_m. Fl _.#chat\nl\u0016?\n>A\u0006_mmmmm.   nFl _.FlFl Fl Fl Flsszmk,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.Fl_.>.FlFnFn   n Fn FnFn ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nl  \u0016?\n>A\u0006_mmm.    nFl _,m.  FuFu    nFnFu Fu FlFl zml  ,\u00162\n\u0016?\n>z\u0006_mmmmm.Fj _.;;FuFuFjFj.szmn,\u0016?\n>A\u0006_mmmmmm,...Flzml ,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_m.  nFl_,#chat\nl;l;\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,_.s20sFkFk sFks,#chat\nh\u0016?\n>A\u0006_mmmmm.Fl_.>.FlFlFlFl   nFl szmu ,#chat\nu\u0016?\n>z\u0006_mmmmmmm,Fu_,.FhFhFh FhFhFh,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmm,Fu_,Fl#chat\nu;l;\u0016?\n>A\u0006_mmmmmm.Fl_,FuFlFl   yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

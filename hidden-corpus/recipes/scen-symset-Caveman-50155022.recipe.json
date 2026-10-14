@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " mO>>r\u001b\nv i\u001b\u0006_ \u001b:>FbFn_>>.Fn _.Fb >Fb Fb_>>.Fn _.Fy>FyFyFuFuFy\u0006_>,Fy_.Fu>FyFy_>.Fu_.Fy>FuFu_>.Fu_.Fy>FyFuFyFuFu#chat\nu#sit\n\u001b\u0006_>,Fu_,Fu>FyFu_>,Fl_.Fy>FyFy_>.Fy_.Fy>FyFyFyFyFu\u0006_>,Fu_.Fu>FyFy_>,Fu_,Fu>FuFy_>.Fy_.Fy>FyFyFuFyFy\u0006_>,Fu_.Fu>FyFy_>.Fu_,Fy>FyFy_>.Fu_.Fy>FyFyFyFuFu#twoweapon\n#dip\na\u0006_>>.Fu_,Fy>FyFu_>>,Fy_.Fy>FyFu_>>.Fy_,Fu>FyFuFuFuFu\u0006_>>.Fu_.Fu>FyFu_>>,Fu_.Fy>FyFy_>>,Fy_.Fy>FuFuFyFuFu<\u000f\u001bO>>b\u001b\nO>>j\u001b\nbbnb\u0017chaotic altar\ndddf\u0017gnome corpse\n #offer\nnh         n    #pray\ny y          k \u0017tree\n: #terrain\nd\nZs #monster\n#sit\n#mons"
+ },
+ "segments": [
+  {
+   "seed": 50155022,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=autodig\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You feel\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " mO>>r\u001b\nv i\u001b\u0006_ \u001b:>FbFn_>>.Fn _.Fb >Fb Fb_>>.Fn _.Fy>FyFyFuFuFy\u0006_>,Fy_.Fu>FyFy_>.Fu_.Fy>FuFu_>.Fu_.Fy>FyFuFyFuFu#chat\nu#sit\n\u001b\u0006_>,Fu_,Fu>FyFu_>,Fl_.Fy>FyFy_>.Fy_.Fy>FyFyFyFyFu\u0006_>,Fu_.Fu>FyFy_>,Fu_,Fu>FuFy_>.Fy_.Fy>FyFyFuFyFy\u0006_>,Fu_.Fu>FyFy_>.Fu_,Fy>FyFy_>.Fu_.Fy>FyFyFyFuFu#twoweapon\n#dip\na\u0006_>>.Fu_,Fy>FyFu_>>,Fy_.Fy>FyFu_>>.Fy_,Fu>FyFuFuFuFu\u0006_>>.Fu_.Fu>FyFu_>>,Fu_.Fy>FyFy_>>,Fy_.Fy>FuFuFyFuFu<\u000f\u001bO>>b\u001b\nO>>j\u001b\nbbnb\u0017chaotic altar\ndddf\u0017gnome corpse\n #offer\nnh         n    #pray\ny y          k \u0017tree\n: #terrain\nd\nZs #monster\n#sit\n#mons"
+  }
+ ]
+}

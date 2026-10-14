@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017blessed ring of polymorph control\nPgr\u0017gauntlets of dexterity\nWh20s.s#polyself\nwater elemental\n #monster\ns.\u0007cave spider\nsFnss20s.#polyself\nviolet fungus\n #monster\n20s       sm. \u0007kitten\nFj    Fl   Fk   sm.    yy\u001by   y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50152014,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017blessed ring of polymorph control\nPgr\u0017gauntlets of dexterity\nWh20s.s#polyself\nwater elemental\n #monster\ns.\u0007cave spider\nsFnss20s.#polyself\nviolet fungus\n #monster\n20s       sm. \u0007kitten\nFj    Fl   Fk   sm.    yy\u001by   y y y\u001b  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "O>>e\u001b\nyyh\u001b\u0017ice\nuk bbb:lk \u0017fountain\nqy yq:y\u0017moat\n#dip\ndy    uy b:#terrain\nd\n\u001bm,auy Z\u001611\nO>>>l\u001b\n\u00163\nO>i\u001b\u001b\nv i\u001bmO>>>d\u001b\n\u00163\nO>>>i\u001b\u001b\n\u00167\n  h\u001b10scl r\u001btbb 10sPE- Elbereth\ned  #monster\n#wipe\n#twoweapon\n10scj #conduct\n , \u00165\n   FlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl#chat\nl eFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl\u0007pony\n\u0017meatball\nt\u001b\u0006_>>.Fb_. Fj>FjFb_>>. Fb_.  n  Fh>FhFh_>>.Fy_, Fy>FyFy#name\n\u001b\u0017carrot\nt\u001b#name\n\u001b\u0007gnome\nsnss.m.20s  n sm.kk \u0007kobold\n\u0017scroll of taming\nrh \u001612\n\u00167\nFuFkFyFh\u001bFkFyFlk FkFuFhFhFlFhFyFh\u001bFkFlFyFyFkFyFky FuFlFuFkFuFlFkFlFuF"
+ },
+ "segments": [
+  {
+   "seed": 50155019,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"uncursed\"=cyan\n",
+   "moves": "O>>e\u001b\nyyh\u001b\u0017ice\nuk bbb:lk \u0017fountain\nqy yq:y\u0017moat\n#dip\ndy    uy b:#terrain\nd\n\u001bm,auy Z\u001611\nO>>>l\u001b\n\u00163\nO>i\u001b\u001b\nv i\u001bmO>>>d\u001b\n\u00163\nO>>>i\u001b\u001b\n\u00167\n  h\u001b10scl r\u001btbb 10sPE- Elbereth\ned  #monster\n#wipe\n#twoweapon\n10scj #conduct\n , \u00165\n   FlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl#chat\nl eFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl\u0007pony\n\u0017meatball\nt\u001b\u0006_>>.Fb_. Fj>FjFb_>>. Fb_.  n  Fh>FhFh_>>.Fy_, Fy>FyFy#name\n\u001b\u0017carrot\nt\u001b#name\n\u001b\u0007gnome\nsnss.m.20s  n sm.kk \u0007kobold\n\u0017scroll of taming\nrh \u001612\n\u00167\nFuFkFyFh\u001bFkFyFlk FkFuFhFhFlFhFyFh\u001bFkFlFyFyFkFyFky FuFlFuFkFuFlFkFlFuF"
+  }
+ ]
+}

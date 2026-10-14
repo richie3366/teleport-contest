@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "E- Vlad was here\n#sit\nj:#name\nm\n m.#chat\nu#sit\n\u001b#turn\n#monster\n#untrap\nbyoh;>.#rub\ng\u001b#ride\nbi\u001bokwe Wcj#enhance\n\u001b#conduct\n #chat\nj#dip\nesi\u001bag\u001bwa 20s.sXWs20s.Tc\u0014#chat\nj#turn\n#force\nae  n#force\n"
+ },
+ "segments": [
+  {
+   "seed": 50152025,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "E- Vlad was here\n#sit\nj:#name\nm\n m.#chat\nu#sit\n\u001b#turn\n#monster\n#untrap\nbyoh;>.#rub\ng\u001b#ride\nbi\u001bokwe Wcj#enhance\n\u001b#conduct\n #chat\nj#dip\nesi\u001bag\u001bwa 20s.sXWs20s.Tc\u0014#chat\nj#turn\n#force\nae  n#force\n"
+  }
+ ]
+}

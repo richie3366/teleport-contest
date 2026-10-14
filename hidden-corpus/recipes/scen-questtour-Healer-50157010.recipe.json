@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nl_mmmmm.Fl_.Fh#chat\nu_mmmm.       _.  #chat\nh#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm,#chat\nh_mmmmm.#chat\nb;m.\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 cloak of magic resistance\nWn \u0017blessed +3 speed boots\nWo  \u0017wand of death\n\u0016?\n>A\u0006_mm,.20s    20s Fh  Fb zpb   ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fb_.FbFjFbFjFbFb,\u0016?\n>z\u0006_mmmmmmm.Fh_.FhFh  FjFh      n   20s   zpu ,\u0016?\n>A\u0006_mmmm.s s s         FyFy,\u0016?\n>A\u0006_mmm, Fh _,FhFhFyFkFy    Fu  Fy  n   ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm. Fy_.Fu   Fu FkFh       szpy,\u0016?\n>z\u0006_mmm,Fu     _,@.Fu      s    .  n  .       .sszpb,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nb\u0016?\n>A\u0006_mmm.Fk _,    .20s. ss zpn,\u0016?\n>A\u0006_mmmm.s   s20sFh,#chat\nh    \u0016?\n>>\u001b\u0016?\n>z\u0006_mm,FbFbFbFb FbFb   Fbzpb,\u0016?\n>z\u0006_mmm. Fb   n_,m,FhFh     20s Fh Fh zph      ,#chat\nh\u0016?\n>A\u0006_mmmm.   Fh  n _. FjFj FjFjFjs.zpk,\u0016?\n>A\u0006_mmmmm._.m.FnFnFnFnFnFnFnFnzp,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,Fl"
+ },
+ "segments": [
+  {
+   "seed": 50157010,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nl_mmmmm.Fl_.Fh#chat\nu_mmmm.       _.  #chat\nh#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm,#chat\nh_mmmmm.#chat\nb;m.\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 cloak of magic resistance\nWn \u0017blessed +3 speed boots\nWo  \u0017wand of death\n\u0016?\n>A\u0006_mm,.20s    20s Fh  Fb zpb   ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fb_.FbFjFbFjFbFb,\u0016?\n>z\u0006_mmmmmmm.Fh_.FhFh  FjFh      n   20s   zpu ,\u0016?\n>A\u0006_mmmm.s s s         FyFy,\u0016?\n>A\u0006_mmm, Fh _,FhFhFyFkFy    Fu  Fy  n   ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm. Fy_.Fu   Fu FkFh       szpy,\u0016?\n>z\u0006_mmm,Fu     _,@.Fu      s    .  n  .       .sszpb,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nb\u0016?\n>A\u0006_mmm.Fk _,    .20s. ss zpn,\u0016?\n>A\u0006_mmmm.s   s20sFh,#chat\nh    \u0016?\n>>\u001b\u0016?\n>z\u0006_mm,FbFbFbFb FbFb   Fbzpb,\u0016?\n>z\u0006_mmm. Fb   n_,m,FhFh     20s Fh Fh zph      ,#chat\nh\u0016?\n>A\u0006_mmmm.   Fh  n _. FjFj FjFjFjs.zpk,\u0016?\n>A\u0006_mmmmm._.m.FnFnFnFnFnFnFnFnzp,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,Fl"
+  }
+ ]
+}

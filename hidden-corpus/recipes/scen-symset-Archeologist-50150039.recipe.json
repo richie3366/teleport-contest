@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  \u0006_ \u001b:>_>.Fn_.> \u0006_>>.Fh_.,Fl> \u0006_>,_.> FjFjFn\u0006_>>.Fj_.> FbFnFj\u0006_>,Fy_,.Fn>FkFk_>.Fk_.Fy>FnFy _>.  nFk_.Fj >Fn FhFnFbFu#name\n\u001b__,.umO>w\u001b\n\u00166\n#pray\ny y   FhFlFbFbFnFlFlFlFnFbFbFlFjFlFnFbFbFlFlFlFlFnFnFlFlFbFlFlFnFlFlFlFjFbFnFbFbFjFnFnFb  nFjFjFlFbFjFbFl#pray\ny y    FbFlFnFjFnFnFjFnFbFlFlFnFnFbFnFnFbFnFnFlFlFnFlFlFbFhFlFbFnFnFlFnFbFlFbFhFnFbFnFnFlFlFnFnFlFnFh   FlFlFnFjFlFjFbFh       FlFlFh   FlFlFbFh    Fl FjFbFhFlFh    Fjed FlFnFnFnFbFjFnFjFjFlFnFbFh        Fh   nFhFyFhFh #pray\ny y       FhFb FjFy Fl Fl#pray\ny y   #pray\ny y  #pray\ny y    FjFbFhFlFbFjFjFhFlFjFjFnFjFlFnFnFjFnFnFbFbFbFlFlFbFlFjFjFbFbFbFnFlFnFlFbFnFlFlFlFbFbFlFlFbFbFnFlFbFbFnFjFlFlFnFbFnFbFlFlFbFbFlFlFbFlFlFbFnFnFbFnFlFnFbFbFbFbv\u001bi\u001b\u0016"
+ },
+ "segments": [
+  {
+   "seed": 50150039,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You hear\"\nBIND=v:inventory\n",
+   "moves": "  \u0006_ \u001b:>_>.Fn_.> \u0006_>>.Fh_.,Fl> \u0006_>,_.> FjFjFn\u0006_>>.Fj_.> FbFnFj\u0006_>,Fy_,.Fn>FkFk_>.Fk_.Fy>FnFy _>.  nFk_.Fj >Fn FhFnFbFu#name\n\u001b__,.umO>w\u001b\n\u00166\n#pray\ny y   FhFlFbFbFnFlFlFlFnFbFbFlFjFlFnFbFbFlFlFlFlFnFnFlFlFbFlFlFnFlFlFlFjFbFnFbFbFjFnFnFb  nFjFjFlFbFjFbFl#pray\ny y    FbFlFnFjFnFnFjFnFbFlFlFnFnFbFnFnFbFnFnFlFlFnFlFlFbFhFlFbFnFnFlFnFbFlFbFhFnFbFnFnFlFlFnFnFlFnFh   FlFlFnFjFlFjFbFh       FlFlFh   FlFlFbFh    Fl FjFbFhFlFh    Fjed FlFnFnFnFbFjFnFjFjFlFnFbFh        Fh   nFhFyFhFh #pray\ny y       FhFb FjFy Fl Fl#pray\ny y   #pray\ny y  #pray\ny y    FjFbFhFlFbFjFjFhFlFjFjFnFjFlFnFnFjFnFnFbFbFbFlFlFbFlFjFjFbFbFbFnFlFnFlFbFnFlFlFlFbFbFlFlFbFbFnFlFbFbFnFjFlFlFnFbFnFbFlFlFbFbFlFlFbFlFlFbFnFnFbFnFlFnFbFbFbFbv\u001bi\u001b\u0016"
+  }
+ ]
+}

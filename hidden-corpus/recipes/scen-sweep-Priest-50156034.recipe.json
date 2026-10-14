@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u0017blessed potion of full healing\nqj#dip\nhd  FuFj\u0017long sword\nwkFj s.\u0017uncursed bugle\naly aly \u0017ring of polymorph control\nPml20ss.20ss\u0017blessed +3 katana\nwns20ssss\u000f\u001b\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo \u001bm._{,_, Fu qd#dip\ned_ooooooo,Fh   _, Fl   ,  #chat\nh  _ooooooooo.Fh  _.Fl  ,:_mm, Fy  _.#chat\nh    n >\u0018\u001bP\u000f\u001b\u0017speed boots\nWq     20s   sm.s\u0007shrieker\nFb   FlFn   FyFy \u0007electric eel\nFy   n   Fj    Fb    \u0007mastodon\nFbFn     n Fb  FlFn     n    \u0007prisoner\nFj    FlFb  n        n  Fh     \u00168\n#levelchange\n20\n#wizintrinsic\ng\n slsn20s  n       sm.  .lsn.m...20s\u0017potion of blindness\nqr#untrap\njf a yu  n#turn\n zck20s .20s  n ss20s \u0018\u001b\u001612\n #levelchange\n16\n \u0016?\n>y  _mm,#chat\nl_mmmm,#chat\nk;_._mmmmm.#chat\nb;_._mmmmm.#chat\nl\u0006_>>,_.>_>>._.>_>>._,>\\   : \u0018\u001b#wizintrinsic\ni\ns20s s20s 20s  n s..20s 20s ss  n#conduct\n ch\u0014m, rgE- Elbereth Elbereth\n20s .20s 20s   n ..20s \u00161\n#levelchange\n30\n              \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqs<._{._.qd#dip\nb_dddd._.\u0004h_ooooooo.  n _.,p_{._,q#dip\nq _ooooo,_, _ooo._.,#chat\nu#turn\n  n,#pray\ny y   \u00168\n\u0007tame hill orc\n\u0007kitten\n\u0017tripe ration\nt$n\u0017tin whistle\nkbuau\u0017magic whistle\nkhyav \u0007kobold\ns20s ss 20s s#chat\nn  n\u0006_>>, Fn_.Fn >FkFk_>>.Fk  yy\u001by   y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50156034,
+   "datetime": "20010812142558",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                    \u0017blessed potion of full healing\nqj#dip\nhd  FuFj\u0017long sword\nwkFj s.\u0017uncursed bugle\naly aly \u0017ring of polymorph control\nPml20ss.20ss\u0017blessed +3 katana\nwns20ssss\u000f\u001b\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo \u001bm._{,_, Fu qd#dip\ned_ooooooo,Fh   _, Fl   ,  #chat\nh  _ooooooooo.Fh  _.Fl  ,:_mm, Fy  _.#chat\nh    n >\u0018\u001bP\u000f\u001b\u0017speed boots\nWq     20s   sm.s\u0007shrieker\nFb   FlFn   FyFy \u0007electric eel\nFy   n   Fj    Fb    \u0007mastodon\nFbFn     n Fb  FlFn     n    \u0007prisoner\nFj    FlFb  n        n  Fh     \u00168\n#levelchange\n20\n#wizintrinsic\ng\n slsn20s  n       sm.  .lsn.m...20s\u0017potion of blindness\nqr#untrap\njf a yu  n#turn\n zck20s .20s  n ss20s \u0018\u001b\u001612\n #levelchange\n16\n \u0016?\n>y  _mm,#chat\nl_mmmm,#chat\nk;_._mmmmm.#chat\nb;_._mmmmm.#chat\nl\u0006_>>,_.>_>>._.>_>>._,>\\   : \u0018\u001b#wizintrinsic\ni\ns20s s20s 20s  n s..20s 20s ss  n#conduct\n ch\u0014m, rgE- Elbereth Elbereth\n20s .20s 20s   n ..20s \u00161\n#levelchange\n30\n              \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqs<._{._.qd#dip\nb_dddd._.\u0004h_ooooooo.  n _.,p_{._,q#dip\nq _ooooo,_, _ooo._.,#chat\nu#turn\n  n,#pray\ny y   \u00168\n\u0007tame hill orc\n\u0007kitten\n\u0017tripe ration\nt$n\u0017tin whistle\nkbuau\u0017magic whistle\nkhyav \u0007kobold\ns20s ss 20s s#chat\nn  n\u0006_>>, Fn_.Fn >FkFk_>>.Fk  yy\u001by   y y y\u001by  _"
+  }
+ ]
+}

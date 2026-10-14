@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWm\u0017blessed ring of free action\nPnl\u0017spellbook of sleep\nro \u001b20s      \u0007kobold shaman\n\u0007gnomish wizard\nZZ20s sZssZZZZss#turn\n\u0007aligned cleric\nyn\u0007incubus\n\u0007orc shaman\n\u0017wand of striking\ns  zpk  n zpy      n    zpl     n   20s    n    zpy       n    \u001618\n \u00167\n \u00176 javelins\nQq\u0007dwarf\n\u0007lichen\nfb fjfj  fb\u0017potion of full healing\nt$b \u0007gnomish wizard\n\u0007aligned cleric\nyy\u0007succubus\n\u0017wand of magic missile\n20s\u0017blessed spellbook of cause fear\nrt  \u001b  n sm.  \u0007succubus\nZsm.    n20s Z20s    n  sm. Z.y20s  Zsm.sZ\u00166\n\u0017blessed spellbook of slow monster\nru sm.\u0017blessed spellbook of knock\nrv sm.  n\u0007incubus\n\u0007kobold shaman\nZZZZZ20s20s ZZ20s   nsm. ZZsm.s\u00163\n\u0007black dragon\n\u0007black dragon\nsm. .m.20s  "
+ },
+ "segments": [
+  {
+   "seed": 50150036,
+   "datetime": "20231018153149",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWm\u0017blessed ring of free action\nPnl\u0017spellbook of sleep\nro \u001b20s      \u0007kobold shaman\n\u0007gnomish wizard\nZZ20s sZssZZZZss#turn\n\u0007aligned cleric\nyn\u0007incubus\n\u0007orc shaman\n\u0017wand of striking\ns  zpk  n zpy      n    zpl     n   20s    n    zpy       n    \u001618\n \u00167\n \u00176 javelins\nQq\u0007dwarf\n\u0007lichen\nfb fjfj  fb\u0017potion of full healing\nt$b \u0007gnomish wizard\n\u0007aligned cleric\nyy\u0007succubus\n\u0017wand of magic missile\n20s\u0017blessed spellbook of cause fear\nrt  \u001b  n sm.  \u0007succubus\nZsm.    n20s Z20s    n  sm. Z.y20s  Zsm.sZ\u00166\n\u0017blessed spellbook of slow monster\nru sm.\u0017blessed spellbook of knock\nrv sm.  n\u0007incubus\n\u0007kobold shaman\nZZZZZ20s20s ZZ20s   nsm. ZZsm.s\u00163\n\u0007black dragon\n\u0007black dragon\nsm. .m.20s  "
+  }
+ ]
+}

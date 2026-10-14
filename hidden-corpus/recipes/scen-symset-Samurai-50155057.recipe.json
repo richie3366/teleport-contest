@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u0006_ \u001b>.>FbFb_>,Fn_.Fj>FnFn_>,Fb_.Fk>FhFkFnFyFktbu#invoke\n\u001b\u0006_>,Fb_.Fj>FnFh_>.Fb_,Fj>FyFk_>.Fy_.Fn>FjFkFkFkFk<P<\u0006_>>.Fy_.Fy>FhFj_>>,Fb_,Fb>FjFn_>>,Fn_.Fk>FkFbFkFbFbZ,\u0006_>.Fn_.Fk>FhFk_>.Fk_.Fh>FbFk_>.Fk_.Fk>FkFhFkFkFh\u0006_>,Fj_.Fn>FhFb_>.Fb_.Fn>FjFy_>,Fb_.Fy>FnFhFkFnFykwc\u0006_>.Fn_.Fy>FyFh_>.Fj_.Fb>FkFh_>.Fh_.Fj>FkFnFnFnFj\u0006_>.Fh_.Fb>FjFb_>,Fn_.Fj>FbFn_>,Fj_,Fh>FnFkFhFkFj\u0006_>.Fj_.Fh>FhFy_>.Fj_.Fk>FbFb_>.Fy_.Fy>FbFkFkFyFy\u0006_>,Fn_.Fj>FjFk_>.  nFj_.Fy>FjFh_>.Fh_.Fl >FnFhFnFhFb\u0006_>.Fl  n_,Fn>FjFk_>.Fh_,Fl>FkFj_>.Fy_,> FjFyFy\u0006_>,Fy_.>"
+ },
+ "segments": [
+  {
+   "seed": 50155057,
+   "datetime": "20120403174131",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:teleport\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": "v i\u001b\u0006_ \u001b>.>FbFb_>,Fn_.Fj>FnFn_>,Fb_.Fk>FhFkFnFyFktbu#invoke\n\u001b\u0006_>,Fb_.Fj>FnFh_>.Fb_,Fj>FyFk_>.Fy_.Fn>FjFkFkFkFk<P<\u0006_>>.Fy_.Fy>FhFj_>>,Fb_,Fb>FjFn_>>,Fn_.Fk>FkFbFkFbFbZ,\u0006_>.Fn_.Fk>FhFk_>.Fk_.Fh>FbFk_>.Fk_.Fk>FkFhFkFkFh\u0006_>,Fj_.Fn>FhFb_>.Fb_.Fn>FjFy_>,Fb_.Fy>FnFhFkFnFykwc\u0006_>.Fn_.Fy>FyFh_>.Fj_.Fb>FkFh_>.Fh_.Fj>FkFnFnFnFj\u0006_>.Fh_.Fb>FjFb_>,Fn_.Fj>FbFn_>,Fj_,Fh>FnFkFhFkFj\u0006_>.Fj_.Fh>FhFy_>.Fj_.Fk>FbFb_>.Fy_.Fy>FbFkFkFyFy\u0006_>,Fn_.Fj>FjFk_>.  nFj_.Fy>FjFh_>.Fh_.Fl >FnFhFnFhFb\u0006_>.Fl  n_,Fn>FjFk_>.Fh_,Fl>FkFj_>.Fy_,> FjFyFy\u0006_>,Fy_.>"
+  }
+ ]
+}

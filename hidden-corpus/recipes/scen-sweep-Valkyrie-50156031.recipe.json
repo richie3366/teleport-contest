@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " i\u001bWs20s swaFlsswb ss20sXed .sok#chat\nl#name\na\nW#force\nq#pray\ny y \\   i\u001bwa ssFlwb sFlFlWs.s#wizintrinsic\ng\n \u0017towel\nae\u0017cursed potion of gain ability\nqf \u001b\u0017scroll of amnesia\nrg  \u001b\u0017wand of make invisible\nzhlzhjZ\u0017scroll of destroy armor\nri   \u001bss20s\u000f\u001b\u0007tame little dog\n\u0017saddle\najl\u0017lance\nwk#ride\nuy\u0007tame saddled pony\n#ride\nyy\u0007warhorse\n\u0017scroll of taming\nrl  \u001b\u0017saddle\namn   n#ride\n   n unk  n j  n j  n uk  n n  n k   nn\u0006_ \u001b;>Fh  n Fh  n _>.Fk  n _.  n Fy   n >Fy   n Fy   n _>.Fb  n _.  yy\u001bny nny  F"
+ },
+ "segments": [
+  {
+   "seed": 50156031,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " i\u001bWs20s swaFlsswb ss20sXed .sok#chat\nl#name\na\nW#force\nq#pray\ny y \\   i\u001bwa ssFlwb sFlFlWs.s#wizintrinsic\ng\n \u0017towel\nae\u0017cursed potion of gain ability\nqf \u001b\u0017scroll of amnesia\nrg  \u001b\u0017wand of make invisible\nzhlzhjZ\u0017scroll of destroy armor\nri   \u001bss20s\u000f\u001b\u0007tame little dog\n\u0017saddle\najl\u0017lance\nwk#ride\nuy\u0007tame saddled pony\n#ride\nyy\u0007warhorse\n\u0017scroll of taming\nrl  \u001b\u0017saddle\namn   n#ride\n   n unk  n j  n j  n uk  n n  n k   nn\u0006_ \u001b;>Fh  n Fh  n _>.Fk  n _.  n Fy   n >Fy   n Fy   n _>.Fb  n _.  yy\u001bny nny  F"
+  }
+ ]
+}

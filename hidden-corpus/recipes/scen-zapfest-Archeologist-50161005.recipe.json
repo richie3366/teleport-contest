@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWj\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPlr #levelchange\n20\n                   \u0017wand of striking\n\u0017wand of digging\n\u0017wand of lightning\n\u0007gnome lord\n\u0007soldier\nzn>  zn> zn> zmjzn> zn>  zmb zn>  i\u001b\u0017wand of striking\n\u0017wand of teleportation\n\u0007acid blob\n\u0007yellow mold\nzqb.m.zpjzpj 20s zqlzpj zqjzqn20szqn\u0017wand of lightning\n\u0017wand of sleep\n\u0007hill orc\nzrh  zruzsyzs. zrl20szsnzryzr.  nzrzsb \u00178 rocks\nQ\u001b\u0007hill orc\nflfb fbfbfnfhfh\u0017potion of acid\nt\u001b\u0017wand of striking\n\u0017wand of cold\n\u0017wand of cancellation\n\u0007dwarf\n\u0007gnome lord\nzwhszvbzwbzxbszxyzvyzvlszwhzwbzw.  nzvb\u0017wand of striking\n\u0017wand of sleep\n\u0017wand of slow monster\n\u0007hobbit\n\u0007yellow mold\nzAjzzkzyn.zznzAuzAyzyuzzb    \u0017blessed spellbook of f"
+ },
+ "segments": [
+  {
+   "seed": 50161005,
+   "datetime": "20241114222329",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWj\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPlr #levelchange\n20\n                   \u0017wand of striking\n\u0017wand of digging\n\u0017wand of lightning\n\u0007gnome lord\n\u0007soldier\nzn>  zn> zn> zmjzn> zn>  zmb zn>  i\u001b\u0017wand of striking\n\u0017wand of teleportation\n\u0007acid blob\n\u0007yellow mold\nzqb.m.zpjzpj 20s zqlzpj zqjzqn20szqn\u0017wand of lightning\n\u0017wand of sleep\n\u0007hill orc\nzrh  zruzsyzs. zrl20szsnzryzr.  nzrzsb \u00178 rocks\nQ\u001b\u0007hill orc\nflfb fbfbfnfhfh\u0017potion of acid\nt\u001b\u0017wand of striking\n\u0017wand of cold\n\u0017wand of cancellation\n\u0007dwarf\n\u0007gnome lord\nzwhszvbzwbzxbszxyzvyzvlszwhzwbzw.  nzvb\u0017wand of striking\n\u0017wand of sleep\n\u0017wand of slow monster\n\u0007hobbit\n\u0007yellow mold\nzAjzzkzyn.zznzAuzAyzyuzzb    \u0017blessed spellbook of f"
+  }
+ ]
+}

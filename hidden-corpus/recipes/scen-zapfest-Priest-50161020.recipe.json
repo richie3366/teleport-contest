@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPkr\u0017blessed +3 speed boots\nWl#levelchange\n14\n            \u00178 rocks\nQ\u001b\u0007hill orc\n\u0007soldier\nf \u001bt\u001bf \u001bt\u001bf \u001bf \u001bf \u001b\u001620\ni\u001b\u0017spellbook of light\nrnsm.\u0007lich\nZa\nsj20sZa\nZa\nZa\nsm..m.Za\n.m.20s  Za\nZb\n bone devil\n \u0018\u001b\u0017blessed spellbook of force bolt\nro 20s \u0017spellbook of finger of death\nrp  sm.  \u0007master mind flayer\n\u0007orc shaman\nZa\nZb\n piranha\n           Zb\n human mummy\n  n Zb\n piranha\n           n   Zb\n little dog\n    n   Za\n     sm.sm.    n    Za\n       n     Za\n    n   sm.      sm.#turn\n       n   \u00168\n \u0017wand of magic missile\n\u0017wand of cancellation\n\u0017wand of sleep\n\u0007sewer rat\nzrh  zqk snzqh             zsk  zsk zsh  \u0007baby red dragon\n\u0007red dragon\nsls#polyself"
+ },
+ "segments": [
+  {
+   "seed": 50161020,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPkr\u0017blessed +3 speed boots\nWl#levelchange\n14\n            \u00178 rocks\nQ\u001b\u0007hill orc\n\u0007soldier\nf \u001bt\u001bf \u001bt\u001bf \u001bf \u001bf \u001b\u001620\ni\u001b\u0017spellbook of light\nrnsm.\u0007lich\nZa\nsj20sZa\nZa\nZa\nsm..m.Za\n.m.20s  Za\nZb\n bone devil\n \u0018\u001b\u0017blessed spellbook of force bolt\nro 20s \u0017spellbook of finger of death\nrp  sm.  \u0007master mind flayer\n\u0007orc shaman\nZa\nZb\n piranha\n           Zb\n human mummy\n  n Zb\n piranha\n           n   Zb\n little dog\n    n   Za\n     sm.sm.    n    Za\n       n     Za\n    n   sm.      sm.#turn\n       n   \u00168\n \u0017wand of magic missile\n\u0017wand of cancellation\n\u0017wand of sleep\n\u0007sewer rat\nzrh  zqk snzqh             zsk  zsk zsh  \u0007baby red dragon\n\u0007red dragon\nsls#polyself"
+  }
+ ]
+}

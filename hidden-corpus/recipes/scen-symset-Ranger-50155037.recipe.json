@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n6\n    lh byb\u0017fountain\nqy y#dip\nf:jn\u0017pool\n#loot\nb \\ #force\n  \u00166\nFuFbFkj FuFjFlFlFlFuFhFnFkj FuFkFuFuFbFlu FjFlFkFuFnFjFjFhFnFh\u001bFhFuFlFkFhFkFnFjFnFnFkFlFuFnFkk FhFkFlFjFjFnFjFkFlFbFnFuFuFjFnFbFlFkFkFbFnFkFhFbFun FkFjFnFjFlFbFun FhFjFkFnFnFhFhFkFuFjFuFnFku FkFlFjFlFkFjFhFnFuu FbFnFnFnFuFjFbFjFhFkFjFhFnFjFhFbFln FhFuFuFuFhFh\u001617\nO>>>>i\u001b\u001b\n#force\n\u0004b #ride\nl \u0006_ \u001b>.>FhFy_>.Fh\u001b_.@.Fb>FhFj_>,Fj_.:Fb>FyFyFyFh\u001bFb\\ l\u0006_>,Fh_,m.Fy>FyFy_>,Fj_.;>. Fh>FyFy_>,Fj_.,Fj>FyFbFyFjFj\u0004b W\u0006_>.Fh_.<.Fy>FhFj_>,Fy_.Fj>FbFh\u001b_>.Fj_.,Fy>FbFbFbFbFb\u000f\u001bOh\u001b\n\u0007large dog\n\u0017huge chunk of meat\ntch \u0007large dog\n\u0017meatball\ntbj df20sbsh\u001bs\u0017meatball\ntcy b\u0017magic whistle\nkb jjaj \u0007yellow mold\n.bsh\u001b20s   n .m.sm.  n20s \u0017magic whistle\nnub nak \u0017meatball\ntdy \u00165\n\u0006_>>.Fy_.Fh\u001b>FlFk_>>.Fj_,m.Fn>FbFnFu\\  #turn\n\u0006_>.Fj_,> FyFnFh\u0006_>.Fj_,:Fk> FhFyFky < \u000f\u001b\u001614\nmOa\u001b\nv i\u001bO>m\u001b\u001b\n#untrap\ny lf  k FyFnFbFyFjFnFnFjFk"
+ },
+ "segments": [
+  {
+   "seed": 50155037,
+   "datetime": "20040602231026",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"The door\"\nMENUCOLOR=\"uncursed\"=cyan\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n6\n    lh byb\u0017fountain\nqy y#dip\nf:jn\u0017pool\n#loot\nb \\ #force\n  \u00166\nFuFbFkj FuFjFlFlFlFuFhFnFkj FuFkFuFuFbFlu FjFlFkFuFnFjFjFhFnFh\u001bFhFuFlFkFhFkFnFjFnFnFkFlFuFnFkk FhFkFlFjFjFnFjFkFlFbFnFuFuFjFnFbFlFkFkFbFnFkFhFbFun FkFjFnFjFlFbFun FhFjFkFnFnFhFhFkFuFjFuFnFku FkFlFjFlFkFjFhFnFuu FbFnFnFnFuFjFbFjFhFkFjFhFnFjFhFbFln FhFuFuFuFhFh\u001617\nO>>>>i\u001b\u001b\n#force\n\u0004b #ride\nl \u0006_ \u001b>.>FhFy_>.Fh\u001b_.@.Fb>FhFj_>,Fj_.:Fb>FyFyFyFh\u001bFb\\ l\u0006_>,Fh_,m.Fy>FyFy_>,Fj_.;>. Fh>FyFy_>,Fj_.,Fj>FyFbFyFjFj\u0004b W\u0006_>.Fh_.<.Fy>FhFj_>,Fy_.Fj>FbFh\u001b_>.Fj_.,Fy>FbFbFbFbFb\u000f\u001bOh\u001b\n\u0007large dog\n\u0017huge chunk of meat\ntch \u0007large dog\n\u0017meatball\ntbj df20sbsh\u001bs\u0017meatball\ntcy b\u0017magic whistle\nkb jjaj \u0007yellow mold\n.bsh\u001b20s   n .m.sm.  n20s \u0017magic whistle\nnub nak \u0017meatball\ntdy \u00165\n\u0006_>>.Fy_.Fh\u001b>FlFk_>>.Fj_,m.Fn>FbFnFu\\  #turn\n\u0006_>.Fj_,> FyFnFh\u0006_>.Fj_,:Fk> FhFyFky < \u000f\u001b\u001614\nmOa\u001b\nv i\u001bO>m\u001b\u001b\n#untrap\ny lf  k FyFnFbFyFjFnFnFjFk"
+  }
+ ]
+}

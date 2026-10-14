@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          \u0017blessed spellbook of identify\nri ssZb\nZa\n\u001bm,20s20s\u0017potion of paralysis\nqj        nFnFn\u00173 tin whistle\nakak20s.m."
+ },
+ "segments": [
+  {
+   "seed": 50158024,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n          \u0017blessed spellbook of identify\nri ssZb\nZa\n\u001bm,20s20s\u0017potion of paralysis\nqj        nFnFn\u00173 tin whistle\nakak20s.m."
+  }
+ ]
+}

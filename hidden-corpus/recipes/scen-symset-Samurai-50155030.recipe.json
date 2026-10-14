@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " :#force\nmO>>>b\u001b\nmO>>>l\u001b\nmO>c\u001b\nv\u001bi\u001b\u00162\nFnsFj 150s50s50s100s_ \u001b,>100s100s\\    100slnyyjh100s50sFh.sbk bi\u001bi\u001b100sjknFnFnFbFbFbFbFnFnFnFjFjFbFjFnFjFjFnFjFnFjFbFjFnFbFjFnFnFjFnFjFbFbFnFnFjFnFbFbFjFnFnFnFjFnFnFnFnFjFbFnFnFnFjFjFbFnFnFbFnFnmO>>>>d\u001b\nv\u001bi\u001b\u00168\nv\u001bi\u001b\u0006_>>.Fb_,Fn>FyFn_>>,Fb_.Fy>FnFb_>>.Fy_.Fy>FnFbFbFn  nFn\u0006_>,Fn_.Fb>FbFb_>.Fy_.Fn>FnFb_>.Fn_.Fb>FbFnFnFnFb\u0006_>>.Fb_.Fn>FbFb_>>.Fn_.Fn>FnFb_>>,Fb_,Fb>FbFbFnFnFb\u0006_>.Fb_.Fb>FbFn_>.Fn_,Fn>FnFb_>.Fb_,Fb>FbFbFbFbFb\u0006_>.Fb_.Fb>FnFn_>.Fb_,Fn>FnFn_>.Fn_.Fn>FbFbFnFnFntbn#ride\nny\u0006_>.Fn_.Fb>FnFn_>.Fb_.Fb>FbFb_>.Fn_.Fb>FbFnFnFbFnhyk\u0017melting ice\n:kb\u0017pool\n:nn\u0017altar\ndd\u0017dwarf corpse\n#offer\nf   h\u0017grave\n: \u0017pick-axe\nag >  sm.20sf a jz,O>>j\u001b\n"
+ },
+ "segments": [
+  {
+   "seed": 50155030,
+   "datetime": "20250515202700",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nMENUCOLOR=\"a scroll\"=magenta\nBIND=v:inventory\n",
+   "moves": " :#force\nmO>>>b\u001b\nmO>>>l\u001b\nmO>c\u001b\nv\u001bi\u001b\u00162\nFnsFj 150s50s50s100s_ \u001b,>100s100s\\    100slnyyjh100s50sFh.sbk bi\u001bi\u001b100sjknFnFnFbFbFbFbFnFnFnFjFjFbFjFnFjFjFnFjFnFjFbFjFnFbFjFnFnFjFnFjFbFbFnFnFjFnFbFbFjFnFnFnFjFnFnFnFnFjFbFnFnFnFjFjFbFnFnFbFnFnmO>>>>d\u001b\nv\u001bi\u001b\u00168\nv\u001bi\u001b\u0006_>>.Fb_,Fn>FyFn_>>,Fb_.Fy>FnFb_>>.Fy_.Fy>FnFbFbFn  nFn\u0006_>,Fn_.Fb>FbFb_>.Fy_.Fn>FnFb_>.Fn_.Fb>FbFnFnFnFb\u0006_>>.Fb_.Fn>FbFb_>>.Fn_.Fn>FnFb_>>,Fb_,Fb>FbFbFnFnFb\u0006_>.Fb_.Fb>FbFn_>.Fn_,Fn>FnFb_>.Fb_,Fb>FbFbFbFbFb\u0006_>.Fb_.Fb>FnFn_>.Fb_,Fn>FnFn_>.Fn_.Fn>FbFbFnFnFntbn#ride\nny\u0006_>.Fn_.Fb>FnFn_>.Fb_.Fb>FbFb_>.Fn_.Fb>FbFnFnFbFnhyk\u0017melting ice\n:kb\u0017pool\n:nn\u0017altar\ndd\u0017dwarf corpse\n#offer\nf   h\u0017grave\n: \u0017pick-axe\nag >  sm.20sf a jz,O>>j\u001b\n"
+  }
+ ]
+}

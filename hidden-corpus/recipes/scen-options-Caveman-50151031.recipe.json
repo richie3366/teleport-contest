@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " mO>>>>>>hlk\na\no\nc\n\u001b#untrap\n.#tip\n\u001bOka\nb\na\ne\nJOn\n#monster\n\u000f\u001bO>p\n#loot\nJO>kne\no\na\na\n\u001bwb #enhance\n\u001bs20sO>fej\n#untrap\njOk\n,\u0018\u001bmO>>>>>sn\n\u001bmango\n\\ mO>>>>>>fda\ns\na\na\n\u001b\u001b#twoweapon\nOkc\nqs20s"
+ },
+ "segments": [
+  {
+   "seed": 50151031,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pettype:none\nOPTIONS=playmode:explore\n",
+   "moves": " mO>>>>>>hlk\na\no\nc\n\u001b#untrap\n.#tip\n\u001bOka\nb\na\ne\nJOn\n#monster\n\u000f\u001bO>p\n#loot\nJO>kne\no\na\na\n\u001bwb #enhance\n\u001bs20sO>fej\n#untrap\njOk\n,\u0018\u001bmO>>>>>sn\n\u001bmango\n\\ mO>>>>>>fda\ns\na\na\n\u001b\u001b#twoweapon\nOkc\nqs20s"
+  }
+ ]
+}

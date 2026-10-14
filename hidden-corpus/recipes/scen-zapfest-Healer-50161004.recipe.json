@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPk\u0017blessed shield of reflection\nWl\u0017blessed +3 speed boots\nWm\u0017wand of striking\n\u0017wand of death\n\u0007newt\n\u0007sewer rat\nzoh zobsjzol szol zol szo.zoznjzos\u00168\n\u0007baby red dragon\n\u0007silver dragon\nsm.sFk    Fu  n  \u0017elven bow\nwp  n   n\u001720 elven arrows\nQq\u0007jackal\nfh   n t$k   n fh   nfh   n fu  n  fu   n\u001614\n\u0018\u001b\u001611\n\u0017blessed spellbook of drain life\nrr s\u0007orc shaman\n\u0007vampire\nZa\nZa\nZa\nsm.sZa\nZa\nZa\nZa\nZa\n\u001612\n    \u0017blessed spellbook of light\nrss\u0007kobold shaman\nZb\nZb\nZb\nZc\nZa\nZc\n\u0017wand of digging\n\u0017wand of cold\n\u0007troll\nzulzuy  n  n .jzt>   n zt>   n 20s  n   nzt>   yy\u001by  y y y\u001by  z"
+ },
+ "segments": [
+  {
+   "seed": 50161004,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPk\u0017blessed shield of reflection\nWl\u0017blessed +3 speed boots\nWm\u0017wand of striking\n\u0017wand of death\n\u0007newt\n\u0007sewer rat\nzoh zobsjzol szol zol szo.zoznjzos\u00168\n\u0007baby red dragon\n\u0007silver dragon\nsm.sFk    Fu  n  \u0017elven bow\nwp  n   n\u001720 elven arrows\nQq\u0007jackal\nfh   n t$k   n fh   nfh   n fu  n  fu   n\u001614\n\u0018\u001b\u001611\n\u0017blessed spellbook of drain life\nrr s\u0007orc shaman\n\u0007vampire\nZa\nZa\nZa\nsm.sZa\nZa\nZa\nZa\nZa\n\u001612\n    \u0017blessed spellbook of light\nrss\u0007kobold shaman\nZb\nZb\nZb\nZc\nZa\nZc\n\u0017wand of digging\n\u0017wand of cold\n\u0007troll\nzulzuy  n  n .jzt>   n zt>   n 20s  n   nzt>   yy\u001by  y y y\u001by  z"
+  }
+ ]
+}

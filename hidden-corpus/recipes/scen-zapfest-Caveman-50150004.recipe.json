@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg#levelchange\n10\n         \u0017sling\nwh\u001720 flint stones\n Qc\u0007gnome\ntcnfjfn fu\u0017potion of water\ntcn  \u0007aligned cleric\ny\u0007lich\n\u0017wand of magic missile\nzjj zjl    \u001b20s       zjn sm.    sm.20s          20s zjb    n zjn i\u001b\u0017wand of polymorph\n\u0017wand of magic missile\n\u0007troll\n\u0007owlbear\n\u0007hobbit\nzlj    zkj   n zlh      n zlb  zkjzll  \u00162\n\u0017wand of magic missile\n\u0017wand of striking\n\u0007soldier\n\u0007troll\n\u0007troll\nznkzml  n zml sznk   nszmkznk znj\u00163\n\u0017wand of slow monster\n\u0017wand of cold\n\u0007yellow mold\n\u0007acid blob\nzol  n zph zpyszokzpkzplzpbs\u0017wand of sleep\n\u0017wand of fire\n\u0017wand of digging\n\u0007owlbear\n\u0007kobold shaman\nzquzs> zs> zqb zqk.zrh szrb   n\u0017blessed spellbook of cone"
+ },
+ "segments": [
+  {
+   "seed": 50150004,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg#levelchange\n10\n         \u0017sling\nwh\u001720 flint stones\n Qc\u0007gnome\ntcnfjfn fu\u0017potion of water\ntcn  \u0007aligned cleric\ny\u0007lich\n\u0017wand of magic missile\nzjj zjl    \u001b20s       zjn sm.    sm.20s          20s zjb    n zjn i\u001b\u0017wand of polymorph\n\u0017wand of magic missile\n\u0007troll\n\u0007owlbear\n\u0007hobbit\nzlj    zkj   n zlh      n zlb  zkjzll  \u00162\n\u0017wand of magic missile\n\u0017wand of striking\n\u0007soldier\n\u0007troll\n\u0007troll\nznkzml  n zml sznk   nszmkznk znj\u00163\n\u0017wand of slow monster\n\u0017wand of cold\n\u0007yellow mold\n\u0007acid blob\nzol  n zph zpyszokzpkzplzpbs\u0017wand of sleep\n\u0017wand of fire\n\u0017wand of digging\n\u0007owlbear\n\u0007kobold shaman\nzquzs> zs> zqb zqk.zrh szrb   n\u0017blessed spellbook of cone"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#conduct\n ,ch#levelchange\n20\n                      jyy\u0017moat\n#dip\ndy    k\u0017fountain\nqy\u0017long sword\n#dip\njy:h\u0017ice\n#terrain\nd\n\u001bm,tju#chat\njZa\nO>>>c\u001b\n\u001616\n O>>o6\n \u001b\nmO>>>u\u001b\n\u0006_>._,,>_>._,.>_>._,> FhFlFj,b\u0006_>>.Fj_.> FhFnFb\u0006_>.Fj _.>.Fl>FlFl_>,Fl_,;.Fj>FjFl _>.Fl_.Fj>FjFl FjFjFji\u001b#tip\n\u001b\u0006_>>.Fl_.Fl>FlFl_>>.Fj_.Fl>Fl Fl  n_>>.Fl_,Fj>FjFjFlFjFj\u0004k#force\n\u0006_>>.Fj_,Fu>FuFu_>>.Fu_.;:    Fu>FuFu_>>.Fn_,Fh>FhFhFhFhFh#untrap\nh#loot\n\u001617\n\u00162\nFuFbFlFyFlFyFhFyFuFbFyFbFbFyFkFhFuFlFlFbFhFkFjFhFlFlFbFyFbFbFyFlFuFhFuFbFyFjFuFhFuFbFkFyFhFuFjFjFuFuFkFyFuFjFyFyFhFbFhFkFhFuFjFlFl"
+ },
+ "segments": [
+  {
+   "seed": 50155017,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"cursed\"=red\nBIND=v:inventory\n",
+   "moves": "#conduct\n ,ch#levelchange\n20\n                      jyy\u0017moat\n#dip\ndy    k\u0017fountain\nqy\u0017long sword\n#dip\njy:h\u0017ice\n#terrain\nd\n\u001bm,tju#chat\njZa\nO>>>c\u001b\n\u001616\n O>>o6\n \u001b\nmO>>>u\u001b\n\u0006_>._,,>_>._,.>_>._,> FhFlFj,b\u0006_>>.Fj_.> FhFnFb\u0006_>.Fj _.>.Fl>FlFl_>,Fl_,;.Fj>FjFl _>.Fl_.Fj>FjFl FjFjFji\u001b#tip\n\u001b\u0006_>>.Fl_.Fl>FlFl_>>.Fj_.Fl>Fl Fl  n_>>.Fl_,Fj>FjFjFlFjFj\u0004k#force\n\u0006_>>.Fj_,Fu>FuFu_>>.Fu_.;:    Fu>FuFu_>>.Fn_,Fh>FhFhFhFhFh#untrap\nh#loot\n\u001617\n\u00162\nFuFbFlFyFlFyFhFyFuFbFyFbFbFyFkFhFuFlFlFbFhFkFjFhFlFlFbFyFbFbFyFlFuFhFuFbFyFjFuFhFuFbFkFyFhFuFjFjFuFuFkFyFuFjFyFyFhFbFhFkFhFuFjFlFl"
+  }
+ ]
+}

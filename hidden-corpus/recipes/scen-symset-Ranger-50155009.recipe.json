@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   nyl\u0017ice\nh\u0017neutral altar\ndb\u0017gnome corpse\n #offer\ng  ub\u0017magic fountain\nqy qy y#dip\nckj  \u0017throne\n#sit\n#sit\n#terrain\n\u001bJfych\u0007tame lichen\n\u0007tame wolf\n10s10sdfsm.sm.sh\u0007grid bug\n\u0017scroll of taming\nrh 10s  \u0007jackal\n.k ss20s20s  20s \u0006_ \u001b<.>Fl Fy_>.    Fn _.Fn>Fn Fn_>.Fn_. Fu>FnFjFnFuFu\u0006_>.Fu_.Fu >FnFn _>.Fn_.Fu>FhFn_>.Fu_.Fn>FnFnFuFj Futcbu\u0006_>, Fn_.Fu>FuFu_>,Fn_,Fu>FjFn_>.Fu_.Fu>FuFnFuFnFj \u0006_>>,Fu_.Fu>FnFn_>>.Fu_,Fn>FnFn_>>,Fj_.Fn>FnFnFnFnFn\u0006_>,Fn_,Fn>FnFn_>,Fn_,Fn>FuFn_>,Fu_.Fu>FuFnFuFnFj\u0006_>,Fn_.Fn>FuFh _>.Fn_,Fn>FnFu_>.Fu_,Fu>FuFuFnFuFudai\u001bmOa\u001b\n O>>a\u001b\n\u00167\n50s100s100se_>.>50s100slyuFkFkFkFkFyFyFuFyFyFyFuFyFuFuFkFkFuFkFkFyFyFyFkFuFyFuFyFkFuFuFuFuFyFuFyFkFyFyFuFuFuFyFuFyFkFkFuFyFuFkFyFyFyFyFkFkFkFkFyFkFyFyFyFyFuFkFyFkFkFkFyFuFuFuFuFkFkFueeeeeemO>>>i\u001b\nmOa\u001b\n\u0006_>,Fk_,<.Fk>F"
+ },
+ "segments": [
+  {
+   "seed": 50155009,
+   "datetime": "20110330092850",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You kill\"\nMENUCOLOR=\"uncursed\"=cyan\n",
+   "moves": "#levelchange\n20\n                   nyl\u0017ice\nh\u0017neutral altar\ndb\u0017gnome corpse\n #offer\ng  ub\u0017magic fountain\nqy qy y#dip\nckj  \u0017throne\n#sit\n#sit\n#terrain\n\u001bJfych\u0007tame lichen\n\u0007tame wolf\n10s10sdfsm.sm.sh\u0007grid bug\n\u0017scroll of taming\nrh 10s  \u0007jackal\n.k ss20s20s  20s \u0006_ \u001b<.>Fl Fy_>.    Fn _.Fn>Fn Fn_>.Fn_. Fu>FnFjFnFuFu\u0006_>.Fu_.Fu >FnFn _>.Fn_.Fu>FhFn_>.Fu_.Fn>FnFnFuFj Futcbu\u0006_>, Fn_.Fu>FuFu_>,Fn_,Fu>FjFn_>.Fu_.Fu>FuFnFuFnFj \u0006_>>,Fu_.Fu>FnFn_>>.Fu_,Fn>FnFn_>>,Fj_.Fn>FnFnFnFnFn\u0006_>,Fn_,Fn>FnFn_>,Fn_,Fn>FuFn_>,Fu_.Fu>FuFnFuFnFj\u0006_>,Fn_.Fn>FuFh _>.Fn_,Fn>FnFu_>.Fu_,Fu>FuFuFnFuFudai\u001bmOa\u001b\n O>>a\u001b\n\u00167\n50s100s100se_>.>50s100slyuFkFkFkFkFyFyFuFyFyFyFuFyFuFuFkFkFuFkFkFyFyFyFkFuFyFuFyFkFuFuFuFuFyFuFyFkFyFyFuFuFuFyFuFyFkFkFuFyFuFkFyFyFyFyFkFkFkFkFyFkFyFyFyFyFuFkFyFkFkFkFyFuFuFuFuFkFkFueeeeeemO>>>i\u001b\nmOa\u001b\n\u0006_>,Fk_,<.Fk>F"
+  }
+ ]
+}

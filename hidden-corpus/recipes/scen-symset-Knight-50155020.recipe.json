@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "v i\u001bO>>n\u001b\u001b\nmO>>d\u001b\n\\   WE- Elbereth\nOalychee\n\u001b\n\u0018\u001br\u001b20s    >\u00168\n#sit\n\u001behr\u001b\u0007large dog\n\u0017fortune cookie\ntbk\u0007tame pony\n\u0017banana\nt\u001bn#name\nd\n\u0017tin whistle\nyu j   n  al  \u0006_ \u001b.>Fk  Fu  n_>>,Fn_.  nFl>_>>.Fy_.Fj  >Fn   Fk\u00161\n\u00165\n  FuFyFyFnFkFlFuFnFlFyFyFlFkFnFlFlFkFkFlFyFnFuFnFuFlFlFnFuFkFuFkFuFlFlFnFlFnFkFuFuFuFlFuFuFnFuFnFlFnFuFnFyFuFuFuFyFkFnFlFyFyFkFkFuFkFlFuFnFnFkFkFyFkFyFuFyFnFlFuFyFlFkFyFlFnFnFnFuFuFnFnFkFyFuFkFuFnFkFnFyFyFuFnFuFkFnFlFlFlFkFyFnFyFlFnFnFkFkFnFyO>>>>m\u001b\u001b\nJ__,.FuFuFu Fl FnFhFn Fn FhFu    n Fl Fn Fn Fb Fn #pray\ny y          Fb Fl   nFu  "
+ },
+ "segments": [
+  {
+   "seed": 50155020,
+   "datetime": "20141216212011",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nMENUCOLOR=\"uncursed\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "v i\u001bO>>n\u001b\u001b\nmO>>d\u001b\n\\   WE- Elbereth\nOalychee\n\u001b\n\u0018\u001br\u001b20s    >\u00168\n#sit\n\u001behr\u001b\u0007large dog\n\u0017fortune cookie\ntbk\u0007tame pony\n\u0017banana\nt\u001bn#name\nd\n\u0017tin whistle\nyu j   n  al  \u0006_ \u001b.>Fk  Fu  n_>>,Fn_.  nFl>_>>.Fy_.Fj  >Fn   Fk\u00161\n\u00165\n  FuFyFyFnFkFlFuFnFlFyFyFlFkFnFlFlFkFkFlFyFnFuFnFuFlFlFnFuFkFuFkFuFlFlFnFlFnFkFuFuFuFlFuFuFnFuFnFlFnFuFnFyFuFuFuFyFkFnFlFyFyFkFkFuFkFlFuFnFnFkFkFyFkFyFuFyFnFlFuFyFlFkFyFlFnFnFnFuFuFnFnFkFyFuFkFuFnFkFnFyFyFuFnFuFkFnFlFlFlFkFyFnFyFlFnFnFkFkFnFyO>>>>m\u001b\u001b\nJ__,.FuFuFu Fl FnFhFn Fn FhFu    n Fl Fn Fn Fb Fn #pray\ny y          Fb Fl   nFu  "
+  }
+ ]
+}

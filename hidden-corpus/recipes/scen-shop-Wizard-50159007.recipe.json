@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 helm of telepathy\nWp\u0016?\n>w\u0006_ \u001bm.,p__.Fy_.Fl #chat\ny#pray\ny y    _oo.Fk_,Fu,\u0017touchstone\ndq_ooooooooo._o,Fl_,,y   n     n :\u00169\nbj  u     #chat\nl    n_oooooooo,,a\n  p_ooooo,  n      n    n   n Fn    n    n     n     n   _.      n    n     n      n    nFl    y\u001b   y  ,"
+ },
+ "segments": [
+  {
+   "seed": 50159007,
+   "datetime": "20130618142240",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:mango\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 helm of telepathy\nWp\u0016?\n>w\u0006_ \u001bm.,p__.Fy_.Fl #chat\ny#pray\ny y    _oo.Fk_,Fu,\u0017touchstone\ndq_ooooooooo._o,Fl_,,y   n     n :\u00169\nbj  u     #chat\nl    n_oooooooo,,a\n  p_ooooo,  n      n    n   n Fn    n    n     n     n   _.      n    n     n      n    nFl    y\u001b   y  ,"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " i\u001bW20sssWs20s.Tcbed s20safae  uaekai#pray\ny y Wccb#sit\n\u001b#untrap\nb#name\na\n#jump\nP\u0018\u001bi\u001bW.s.Tbbafahi\nahi\n#tip\nh\u001bwa sFlFlt\u001b\u001bed y  n s.#levelchange\n20\n                   \u00173 scroll of create monster\n rl guardian naga\nFls\u0017cursed chest\n20s20s Fk   \u0017uncursed +0 ring of hunger\nPnr sm.sm. su R Fh Fh .usm.#levelchange\n30\n         #wizintrinsic\nak\n sm..m.20s .m. sk.usls.jsm.sm.sm.sy  n  sjs20s .l20s sm. 20s su.m.  z#offer\n20s #dip\naz#ride\nky20s .nsy  sjsn.y #levelchange\n10\n      \u0016?\n \u0006\u0017magic flute\naouk aonsttABAFFsAnFBnDteCDeCsGBDoCCFDostAoeooGEDAB\nuhWbb#chat\nl,i\u001b#levelchange\n30\n                   \u00173 wand of digging\nzpuzpys20s\u0017potion of restore ability\n\u0007paper golem\nqq \u001bFkFk\u0017blessed potion of healing\nqrFkFk\u0017cursed cheap plastic imitation of the Amulet of Yendor\n\u0007ogre king\nPs20s sm.sm.sm.RFkFk\u0017blessed potion of monster detection\nqtsm.20suby  n b \u0017magic trap\nhl20ssm.hh\u0017level teleporter\nyny 10\n 20s 20sh\u0017fire trap\nh    ^ll    n sm.   .m.    n zpk   #pray\ny y                   #enhance\nyp\na\n\u001b\u00169\n\u0017blessed +3 chain mail\nW\u001b\u001b.m..nsm.FnFn\u0017cursed wand of nothing\nzv\u0017cursed grappling hook\naw FnFn\u0017quarterstaff\nwxFnFnFn.m. sm.\u0017mace\n\u0007chameleon\nFnFn Fh   nFnFh sm. sy\u0007owlbear\nFb   Fb   Fh     n  Fh Fn    Fj      n 20s    20s     n  \u0007gray ooze\nFj       Fl    n Fh  Fj     n   Fl      n  Fh      n  sm.      n  .m.   #pray\ny y            \u001610\n#wizint"
+ },
+ "segments": [
+  {
+   "seed": 50150009,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=runmode:crawl\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " i\u001bW20sssWs20s.Tcbed s20safae  uaekai#pray\ny y Wccb#sit\n\u001b#untrap\nb#name\na\n#jump\nP\u0018\u001bi\u001bW.s.Tbbafahi\nahi\n#tip\nh\u001bwa sFlFlt\u001b\u001bed y  n s.#levelchange\n20\n                   \u00173 scroll of create monster\n rl guardian naga\nFls\u0017cursed chest\n20s20s Fk   \u0017uncursed +0 ring of hunger\nPnr sm.sm. su R Fh Fh .usm.#levelchange\n30\n         #wizintrinsic\nak\n sm..m.20s .m. sk.usls.jsm.sm.sm.sy  n  sjs20s .l20s sm. 20s su.m.  z#offer\n20s #dip\naz#ride\nky20s .nsy  sjsn.y #levelchange\n10\n      \u0016?\n \u0006\u0017magic flute\naouk aonsttABAFFsAnFBnDteCDeCsGBDoCCFDostAoeooGEDAB\nuhWbb#chat\nl,i\u001b#levelchange\n30\n                   \u00173 wand of digging\nzpuzpys20s\u0017potion of restore ability\n\u0007paper golem\nqq \u001bFkFk\u0017blessed potion of healing\nqrFkFk\u0017cursed cheap plastic imitation of the Amulet of Yendor\n\u0007ogre king\nPs20s sm.sm.sm.RFkFk\u0017blessed potion of monster detection\nqtsm.20suby  n b \u0017magic trap\nhl20ssm.hh\u0017level teleporter\nyny 10\n 20s 20sh\u0017fire trap\nh    ^ll    n sm.   .m.    n zpk   #pray\ny y                   #enhance\nyp\na\n\u001b\u00169\n\u0017blessed +3 chain mail\nW\u001b\u001b.m..nsm.FnFn\u0017cursed wand of nothing\nzv\u0017cursed grappling hook\naw FnFn\u0017quarterstaff\nwxFnFnFn.m. sm.\u0017mace\n\u0007chameleon\nFnFn Fh   nFnFh sm. sy\u0007owlbear\nFb   Fb   Fh     n  Fh Fn    Fj      n 20s    20s     n  \u0007gray ooze\nFj       Fl    n Fh  Fj     n   Fl      n  Fh      n  sm.      n  .m.   #pray\ny y            \u001610\n#wizint"
+  }
+ ]
+}

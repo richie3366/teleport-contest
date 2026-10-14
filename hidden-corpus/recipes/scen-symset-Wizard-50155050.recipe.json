@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "FjFjFlFkFlFuFlFlFl100sFkFlFkFnFnFjFnFj FlFuFns\u000f\u001b50sFkFlFu i\u001b100sFlFls100s100sFn20ss100sFj.20s_ \u001bm,>100s100sbhh100syyhi\u001b150sFlFlFlFlFlFl50sFls20ss100sdduhbhkk_>,>jlkbnbFlFlFnmO>>>>l\u001b\n\u0006_>,Fh_.Fl>FlFl_>,Fh_.Fh>Fh._>._,> \u0006_>,Fn_.Fl>FlFl_>.Fl_.  nFl>_>._.>\u0006_>,_.>_>,_.>_>,_.>\u0006_>,_,>_>._. >_>,_.>\u0006_>,_,>_>._,>_>,_.>#monster\n20s\u000f\u001bO>>>m\u001b\u001b\nmO>>>e\u001b\nO>d\u001b\n\u0007tame soldier ant\n\u0007tame housecat\n#chat\nu\u0006_>>._.>_>>._,>_>>._.>#chat\ny#name\n\u001b\u0007grid bug\n\u0017scroll of taming\nro  l \u00166\nv\u001bi\u001b#sit\n\u001b#rub\nf \u001b\u0006_>,_.>_>,_,>_>._.>#tip\n\u001b#jump\n\u0006_>._.>_>._,>_>._,>\u0006_>,_.>_>._.>_>._.>\\  al \u0006_>>._,>_>>,_,>_>>._,>\u0006_>._,>_>,_.>_>._,>\u0006_>._.>_>._.>_>,_.>\u00161\n#loot\n,\u00163\nO>>>g\u001b\nO>>>m\u001b\u001b\nO>>e\u001b\nmOa\u001b\nv\u001bi\u001b_>.>100sZa\n100sFhFyFh#pray\ny y        FyFhFhFhss50s150syhj150sFuFuFu100s\u0018\u001b100s Fh s.100s100sE- Vlad was here\n#loot\nnkkbuyi\u001b\u0018\u001b100s_>.>lynnkuuku#untrap\njlhh\u000f\u001b150s Fh FhFh#pray\ny y        FhFb    nFjFhFbFhFbFbFbFhFhFhnny\u0017magic fountain\nqy qy\u0017long sword\n#d"
+ },
+ "segments": [
+  {
+   "seed": 50155050,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": "FjFjFlFkFlFuFlFlFl100sFkFlFkFnFnFjFnFj FlFuFns\u000f\u001b50sFkFlFu i\u001b100sFlFls100s100sFn20ss100sFj.20s_ \u001bm,>100s100sbhh100syyhi\u001b150sFlFlFlFlFlFl50sFls20ss100sdduhbhkk_>,>jlkbnbFlFlFnmO>>>>l\u001b\n\u0006_>,Fh_.Fl>FlFl_>,Fh_.Fh>Fh._>._,> \u0006_>,Fn_.Fl>FlFl_>.Fl_.  nFl>_>._.>\u0006_>,_.>_>,_.>_>,_.>\u0006_>,_,>_>._. >_>,_.>\u0006_>,_,>_>._,>_>,_.>#monster\n20s\u000f\u001bO>>>m\u001b\u001b\nmO>>>e\u001b\nO>d\u001b\n\u0007tame soldier ant\n\u0007tame housecat\n#chat\nu\u0006_>>._.>_>>._,>_>>._.>#chat\ny#name\n\u001b\u0007grid bug\n\u0017scroll of taming\nro  l \u00166\nv\u001bi\u001b#sit\n\u001b#rub\nf \u001b\u0006_>,_.>_>,_,>_>._.>#tip\n\u001b#jump\n\u0006_>._.>_>._,>_>._,>\u0006_>,_.>_>._.>_>._.>\\  al \u0006_>>._,>_>>,_,>_>>._,>\u0006_>._,>_>,_.>_>._,>\u0006_>._.>_>._.>_>,_.>\u00161\n#loot\n,\u00163\nO>>>g\u001b\nO>>>m\u001b\u001b\nO>>e\u001b\nmOa\u001b\nv\u001bi\u001b_>.>100sZa\n100sFhFyFh#pray\ny y        FyFhFhFhss50s150syhj150sFuFuFu100s\u0018\u001b100s Fh s.100s100sE- Vlad was here\n#loot\nnkkbuyi\u001b\u0018\u001b100s_>.>lynnkuuku#untrap\njlhh\u000f\u001b150s Fh FhFh#pray\ny y        FhFb    nFjFhFbFhFbFbFbFhFhFhnny\u0017magic fountain\nqy qy\u0017long sword\n#d"
+  }
+ ]
+}

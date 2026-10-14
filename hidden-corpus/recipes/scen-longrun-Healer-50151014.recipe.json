@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  FkFkFkFk s20s50sFhFhFh150s100s100syjb\u0018\u001b50sFhFhslbhwa100s_ \u001b@.>50skbl100s 100s150s150s100sFkFkFkFuFuFu100syhu100s100s50sFhFhsuhn100srh y  qe100sej100sFlss100si\u001bSy\u001b  y\\ \u000f\u001bol#invoke\n\u001b\u001b\u0014\u000f\u001b\u0014i\u001brg ny<\u0017\u0017\u0007blf $ ufjflfb\u0007klflfufl\u0017\u0017x #twoweapon\nFuFlhby,",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50151014,
+   "datetime": "20250712172355",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": "  FkFkFkFk s20s50sFhFhFh150s100s100syjb\u0018\u001b50sFhFhslbhwa100s_ \u001b@.>50skbl100s 100s150s150s100sFkFkFkFuFuFu100syhu100s100s50sFhFhsuhn100srh y  qe100sej100sFlss100si\u001bSy\u001b"
+  },
+  {
+   "seed": 50651014,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": "  y\\ \u000f\u001bol#invoke\n\u001b\u001b\u0014\u000f\u001b\u0014i\u001brg ny<\u0017\u0017\u0007blf $ ufjflfb\u0007klflfufl\u0017\u0017x #twoweapon\nFuFlhby,"
+  }
+ ]
+}

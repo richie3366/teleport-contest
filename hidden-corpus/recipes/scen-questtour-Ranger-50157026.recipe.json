@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nu;u:  _mmmmm.#chat\nk_mmmm.   Fu  n   n  _,  Fh   n  #chat\nj  n   #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.     \u001b Fy   _.   n  Fk     #chat\nb_mmm.Fu _.  Fk     n #chat\nk  \u0017blessed +3 speed boots\nWh     \u0017blessed +3 helm of telepathy\nWi     \u0017blessed amulet of reflection\nPj       \u0017wand of fire\n\u0016?\n>A\u0006_mm,   Fy  _.FyFh  n  Fn    Fu  Fb  ,\u001b#chat\nu\u0016?\n>z\u0006_mmmmm,  Fb     _.Fn  Fk  Fj    Fl   Fj   n  Fh  ,\u001b#chat\nn\u0016?\n>A\u0006_mmmmm,Fn  _.    Fl        Fb  Fn        Fh              Fy        ,\u001b#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,Fy   n    _.       Fy      Fu     Fh    Fn  Fh  n     Fu    Fb zkb       ,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmmmm. Fu    _.   Fj   #chat\nl\u00165\n\u0016?\n>A\u0006_mm. Fh _,Fk  Fn   n Fk   Fh    Fu  zkb  ,\u001b#chat\nl\u0016?\n>z\u0006_mmmmmm,   Fh  _. Fl  Fu   n  Fb  FlFk  ,\u001b\u0016?\n>>\u001b\u0016?\n>y_m.Fb   _.#chat\nn\u0016?\n>A\u0006_mm.Fb  _,FjFn   Fk  Fb  Fy Fj    nzkl     ,\u001b\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,Fj  _.Fn Fk FkFuFnFl Fh Fh zky   ,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmmm,Fb_.Fh #chat\nu\u0016?\n"
+ },
+ "segments": [
+  {
+   "seed": 50157026,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nu;u:  _mmmmm.#chat\nk_mmmm.   Fu  n   n  _,  Fh   n  #chat\nj  n   #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.     \u001b Fy   _.   n  Fk     #chat\nb_mmm.Fu _.  Fk     n #chat\nk  \u0017blessed +3 speed boots\nWh     \u0017blessed +3 helm of telepathy\nWi     \u0017blessed amulet of reflection\nPj       \u0017wand of fire\n\u0016?\n>A\u0006_mm,   Fy  _.FyFh  n  Fn    Fu  Fb  ,\u001b#chat\nu\u0016?\n>z\u0006_mmmmm,  Fb     _.Fn  Fk  Fj    Fl   Fj   n  Fh  ,\u001b#chat\nn\u0016?\n>A\u0006_mmmmm,Fn  _.    Fl        Fb  Fn        Fh              Fy        ,\u001b#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,Fy   n    _.       Fy      Fu     Fh    Fn  Fh  n     Fu    Fb zkb       ,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmmmm. Fu    _.   Fj   #chat\nl\u00165\n\u0016?\n>A\u0006_mm. Fh _,Fk  Fn   n Fk   Fh    Fu  zkb  ,\u001b#chat\nl\u0016?\n>z\u0006_mmmmmm,   Fh  _. Fl  Fu   n  Fb  FlFk  ,\u001b\u0016?\n>>\u001b\u0016?\n>y_m.Fb   _.#chat\nn\u0016?\n>A\u0006_mm.Fb  _,FjFn   Fk  Fb  Fy Fj    nzkl     ,\u001b\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,Fj  _.Fn Fk FkFuFnFl Fh Fh zky   ,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmmm,Fb_.Fh #chat\nu\u0016?\n"
+  }
+ ]
+}

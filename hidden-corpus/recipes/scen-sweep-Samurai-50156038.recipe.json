@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      i\u001bafwasFb.W.20s     20s   Twb sFjsXwdyFksFl XwcFls20s #name\no\n #twoweapon\nwa >E- X marks the spot\n\u0004b\u0004b\u0014 \u001b@.  i\u001bwaFh20s  20s    wg.s.wb...wdyss20s     Wes20s     saf\u001620\n\u0017blessed ring of polymorph control\nPil\u0017oilskin cloak\nWj 20ss20sT#polyself\nsandestin\n fire giant\ns..20ss#polyself\nmarilith\n.ss.s#polyself\nki-rin\n long worm\n .20s\u0007giant eel\nFkFyFk 20s20ssn\u0017wand of polymorph\nzk.water demon\n Elvenking\nzkk#wizintrinsic\nf\n 20s20ssm..m.sm.20s20s  .20s\u001b.\u0017scroll of create monster\nrl gas spore\n oh<#enhance\nyl\nq\n\u001b\u000f\u001b\u0018\u001bK.m.20s.bsm.20s.n\u0006#levelchange\n30\n                      uhn\u0017pool\nyn h\u0017cloud\nhllhzkjwa\u0018\u001b\u001629\n   \u0017blessed spellbook of detect monsters\nrm20s\u0017spellbook of force bolt\nrn 20s \u0017blessed spellbook of confuse monster\nro  .n+\u0007zombie\nZZZZZ\u0007zombie\nZFhZ\u001618\n#levelchange\n12\n      #wizintrinsic\nmnr\n  .h.m..20ssm..m.sm.sjsm.20s.usm.ss20s.m..b.m.sm..m..sm.sm.sh20s20ssm..m.sm.s.j.m.#dip\niPfcjbclw-ss20ss.s\u0007pony\n\u0017scroll of taming\nrp\u0017saddle\naqn#ride\nly y\u0007horse\n\u0017scroll of taming\nrp\u0017saddle\narn#ride\nny\u0007tame saddled pony\n#ride\njykn nn\u0006_>.  n Fb_,Fh>FbFj_>.Fb_,Fy>FyFy_>._,: >,yb\u001629\n     \u0006_>._.: >_>._..>_>._.;;>#pray\ny y    #wipe\n\u0006_>._.;,>_>,_,>.>_>._.m,>#twoweapon\nq\u0006_>._.@.>_>._.>.Fh>FbFh _>.Fh_.  n Fh>FbFhFhFhFb#wipe\n#rub\n\u0006_>.Fb  n _.Fb>FhFb_>.Fb_.Fh>FhFb  n _>.Fb _.Fj>Fh  n FjFh FjFbL#invoke\n\u001b\u0006_>.  n Fj_.Fj>FjFj_>.  nFj_.,Fj>FjFj_>._..>\u0006_>._,: >_>._.@.>_>,_,m.>\u000f\u001b\u001610\n#levelchange\n12\n\u0017T-shirt\nWs..20sT\u0007energy vortex\nss.  s\u001b\u0007cha"
+ },
+ "segments": [
+  {
+   "seed": 50156038,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      i\u001bafwasFb.W.20s     20s   Twb sFjsXwdyFksFl XwcFls20s #name\no\n #twoweapon\nwa >E- X marks the spot\n\u0004b\u0004b\u0014 \u001b@.  i\u001bwaFh20s  20s    wg.s.wb...wdyss20s     Wes20s     saf\u001620\n\u0017blessed ring of polymorph control\nPil\u0017oilskin cloak\nWj 20ss20sT#polyself\nsandestin\n fire giant\ns..20ss#polyself\nmarilith\n.ss.s#polyself\nki-rin\n long worm\n .20s\u0007giant eel\nFkFyFk 20s20ssn\u0017wand of polymorph\nzk.water demon\n Elvenking\nzkk#wizintrinsic\nf\n 20s20ssm..m.sm.20s20s  .20s\u001b.\u0017scroll of create monster\nrl gas spore\n oh<#enhance\nyl\nq\n\u001b\u000f\u001b\u0018\u001bK.m.20s.bsm.20s.n\u0006#levelchange\n30\n                      uhn\u0017pool\nyn h\u0017cloud\nhllhzkjwa\u0018\u001b\u001629\n   \u0017blessed spellbook of detect monsters\nrm20s\u0017spellbook of force bolt\nrn 20s \u0017blessed spellbook of confuse monster\nro  .n+\u0007zombie\nZZZZZ\u0007zombie\nZFhZ\u001618\n#levelchange\n12\n      #wizintrinsic\nmnr\n  .h.m..20ssm..m.sm.sjsm.20s.usm.ss20s.m..b.m.sm..m..sm.sm.sh20s20ssm..m.sm.s.j.m.#dip\niPfcjbclw-ss20ss.s\u0007pony\n\u0017scroll of taming\nrp\u0017saddle\naqn#ride\nly y\u0007horse\n\u0017scroll of taming\nrp\u0017saddle\narn#ride\nny\u0007tame saddled pony\n#ride\njykn nn\u0006_>.  n Fb_,Fh>FbFj_>.Fb_,Fy>FyFy_>._,: >,yb\u001629\n     \u0006_>._.: >_>._..>_>._.;;>#pray\ny y    #wipe\n\u0006_>._.;,>_>,_,>.>_>._.m,>#twoweapon\nq\u0006_>._.@.>_>._.>.Fh>FbFh _>.Fh_.  n Fh>FbFhFhFhFb#wipe\n#rub\n\u0006_>.Fb  n _.Fb>FhFb_>.Fb_.Fh>FhFb  n _>.Fb _.Fj>Fh  n FjFh FjFbL#invoke\n\u001b\u0006_>.  n Fj_.Fj>FjFj_>.  nFj_.,Fj>FjFj_>._..>\u0006_>._,: >_>._.@.>_>,_,m.>\u000f\u001b\u001610\n#levelchange\n12\n\u0017T-shirt\nWs..20sT\u0007energy vortex\nss.  s\u001b\u0007cha"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b:>FlFl_>._.> \u0006_>._.>_>._.>_>._.>\u0006_>._,>_>._,>_>._,>\u0006_>._.>_>._.>_>._.>#invoke\n\u001buy \u0006_>._,>_>._.>_>,_,>#ride\nb #sit\n\u001b\u000f\u001bO>>>>i\u001b\u001b\nmO>>>>k\u001b\n\u0006_>>._.>_>>,_.>_>>._.>tbu tbj \u0006_>._.>_>._.>_>,_.>\u0006_>>._.>_>>,_,>_>>,_,>\u0006_>>._,>_>>,_.>_>>,_.>\u0006_>>,_,>_>>._.>_>>,_.>#jump\n;_.\u0006_>>._.>_>>._.>_>>._.>ck #twoweapon\n\u0006_>>._,>_>>._.>_>>._,>\u00167\n\\   _>,>150snby\u000f\u001bub bl100s150s100syun b150s>150s_>.>\\   u.nuk 100s50suh jh\u001b150s50s100s100s100s100s150s150s100s150s_>.>\u000f\u001bnky n\u000f\u001b50sh\u001bkn b150s\u0018\u001b150s_>,>150s\u00164\nFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnO>>>>i\u001b\u001b\n\u0006_>._,> \u0006_>.Fl_.>_>,_,>_>._,>_<..lj s\u0006_>.Fl_.>_>._.>_>._.>\u0006_>._.>_>,_.>_>._.Fl>FlFlFlFlFl<\u0006_>,Fl_.Fl>FlFl_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFlFlFlFl\u0007housecat\n\u0017newt corpse\ntbj \u0007tame large dog\n\u0007gnome\n.n.sm..h\u001bsm.  sm.\u0007gnome\n\u0017"
+ },
+ "segments": [
+  {
+   "seed": 50150071,
+   "datetime": "20071122175652",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=sortloot:full\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": "\u0006_ \u001b:>FlFl_>._.> \u0006_>._.>_>._.>_>._.>\u0006_>._,>_>._,>_>._,>\u0006_>._.>_>._.>_>._.>#invoke\n\u001buy \u0006_>._,>_>._.>_>,_,>#ride\nb #sit\n\u001b\u000f\u001bO>>>>i\u001b\u001b\nmO>>>>k\u001b\n\u0006_>>._.>_>>,_.>_>>._.>tbu tbj \u0006_>._.>_>._.>_>,_.>\u0006_>>._.>_>>,_,>_>>,_,>\u0006_>>._,>_>>,_.>_>>,_.>\u0006_>>,_,>_>>._.>_>>,_.>#jump\n;_.\u0006_>>._.>_>>._.>_>>._.>ck #twoweapon\n\u0006_>>._,>_>>._.>_>>._,>\u00167\n\\   _>,>150snby\u000f\u001bub bl100s150s100syun b150s>150s_>.>\\   u.nuk 100s50suh jh\u001b150s50s100s100s100s100s150s150s100s150s_>.>\u000f\u001bnky n\u000f\u001b50sh\u001bkn b150s\u0018\u001b150s_>,>150s\u00164\nFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnO>>>>i\u001b\u001b\n\u0006_>._,> \u0006_>.Fl_.>_>,_,>_>._,>_<..lj s\u0006_>.Fl_.>_>._.>_>._.>\u0006_>._.>_>,_.>_>._.Fl>FlFlFlFlFl<\u0006_>,Fl_.Fl>FlFl_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFlFlFlFl\u0007housecat\n\u0017newt corpse\ntbj \u0007tame large dog\n\u0007gnome\n.n.sm..h\u001bsm.  sm.\u0007gnome\n\u0017"
+  }
+ ]
+}
