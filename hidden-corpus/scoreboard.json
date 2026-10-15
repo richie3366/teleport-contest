@@ -1,6 +1,6 @@
 {
- "commit": "002f9547d",
- "at": "2026-10-15T03:09:29.636Z",
+ "commit": "0ec553554",
+ "at": "2026-10-15T03:26:58.968Z",
  "full": false,
  "fullCommit": "7d4cd240b",
  "fullAt": "2026-10-15T01:14:24.494Z",
@@ -22619,20 +22619,20 @@
   },
   "scen-questtour-Healer-50157014": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 0,
+   "passed": true,
+   "rngM": 67798,
    "rngT": 67798,
-   "scrM": 0,
+   "scrM": 1104,
    "scrT": 1104,
-   "kind": "rng",
-   "step": 0,
+   "kind": null,
+   "step": null,
    "steps": 1104,
-   "owner": "randomize_gem_colors",
-   "loc": "o_init.c:89",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Hello wizard, welcome to NetHack! You are a neutral male gnomish Healer.",
+   "cTopline": "",
    "jsTopline": "",
-   "error": "Error: dobjsfree: obj where=1, not OBJ_DELETED |     at dobjsfree (file:///home/debian/dev/teleport-contest/js/mkobj.js:4098:19) |     at moveloop_core (file://"
+   "error": null
   },
   "scen-questtour-Healer-50250014": {
    "src": "corpus",

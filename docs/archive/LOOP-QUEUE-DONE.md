@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-15
 
-- [x] `monmove.c` m_move — blocks 3/4085 corpus sessions (first at step 505; RNG lost 104850, screens lost 2251): C draws `rn2(20)=6` in m_move, JS `rn2(5)=1` from distfleeck(monmove.js:1180). Probe: `node scripts/hidden-proxy.mjs verify m_move` (scen-sweep-Caveman-49956036, scen-sweep-Healer-50055087, scen-sweep-Tourist-50055019). @c6f828b04 **[parked: RESOLVED — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]** **Addressed:** D-3971
+- [x] `monmove.c` m_move — blocks 3/4085 corpus sessions (first at step 505; RNG lost 104850, screens lost 2251): C draws `rn2(20)=6` in m_move, JS `rn2(5)=1` from distfleeck(monmove.js:1180). Probe: `node scripts/hidden-proxy.mjs verify m_move` (scen-sweep-Caveman-49956036, scen-sweep-Healer-50055087, scen-sweep-Tourist-50055019). @c6f828b04 **[parked: RESOLVED — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]** **Addressed:** D-3971 `0ec553554`
 
 ## 2026-10-14
 
