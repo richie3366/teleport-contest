@@ -5509,8 +5509,11 @@ async function parse() {
  * @param {number} key
  */
 async function rhack_unknown_command(key) {
-    // C `:3833–3841`: no reset — forcefight survives Unknown (D-3953).
-    if (game.context?.run || (game.multi || 0) > 0) end_running(true);
+    // C `:3833–3841`: no reset — forcefight survives Unknown (D-3953),
+    // and so do run/domove_attempting: no end_running (D-3953 omission 1
+    // retired — its falsifier fired: 6 stale-T sessions prove C's run
+    // stays stuck after '5'+'0'/travel+Unknown, suppressing EOT time_botl
+    // while JS repainted; cf. scen-symset-Caveman-50359027 s83 T:5 vs T:6).
     if (game.context) game.context.command_count = 0;
     game._repeat_search = false;
     await custompline(SUPPRESS_HISTORY, // C `:3834`
@@ -5716,21 +5719,21 @@ export async function rhack(key) {
     }
     // C rhack: g/G PREFIXCMD then a non-walk, non-PREFIXCMD key (capital
     // run / Ctrl-rush lack CMD_gGF_PREFIX) → same pline, reset_cmd_vars.
-    const pendingRushPrefix = !!(
-        ((game.domove_attempting || 0) & DOMOVE_RUSH)
-        && !game.context?.mv
-        && (game.context?.run === 2 || game.context?.run === 3)
-    );
-    // C `:3693` — same tlist gate after a run/rush prefix: bound keys
+    // C `:3693` — same tlist gate after a run/rush prefix, and prefix_seen
+    // is call-local like the fight gate (D-3953): a run stuck by an
+    // earlier call ('5'+Unknown leaves run=3/RUSH set — C `:3833–3841`
+    // resets nothing) must not re-error the next command. Bound keys
     // without PREFIXCMD/CMD_gGF_PREFIX error, unbound keys fall through
     // to Unknown, movement and chained prefixes run.
-    const afterRushTab = pendingRushPrefix ? cmdbind_get(key & 0xff) : null;
+    const afterRushPrefix = prefix_seen?.txt === 'run'
+        || prefix_seen?.txt === 'rush';
+    const afterRushTab = afterRushPrefix ? cmdbind_get(key & 0xff) : null;
     if (afterRushTab && !(afterRushTab.flags & PREFIXCMD)
         && !(afterRushTab.flags & CMD_gGF_PREFIX)) {
         // C `:3696–3700` — visctrl(cmd_from_func(run|rush)): 'G'/'g' when
         // !num_pad; '5'/'g' when num_pad (M('5') is non-printable so the
         // older 'g' still wins for rush; 0 falls back to the ef_txt).
-        const rushTxt = game.context.run === 3 ? 'run' : 'rush';
+        const rushTxt = prefix_seen?.txt === 'rush' ? 'rush' : 'run';
         const rushPfx = cmd_from_func(rushTxt) & 0xff;
         const which = rushPfx ? visctrl(rushPfx) : rushTxt;
         const upDown = (ch === '<' || ch === '>');
