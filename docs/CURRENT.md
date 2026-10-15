@@ -30,8 +30,8 @@ Score last measured: **2026-10-15** — full `sessions` on `c22183fa1`
 | Metric | Value |
 |--------|------:|
 | **Held-out (judge 2026-10-15 19:12Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** (D-3978…D-3995 window unjudged) |
-| **Fresh cohort (§10.20, scored on arrival)** | 50650000 ×160 @`6a88a53cc`: **143/160 (89.4 %)**, RNG 96.5 %, screens 96.4 % — descend 1/2, worldtour 7/12, symset 8/12 worst; questtour/sweep 10/12, wish 10/11, shop/zapfest 11/12, trek/chain 12/12 |
-| **Corpus board (worked, regression fortress)** | full rescore 2026-10-15 (audit 2829–2836): **580/909** (63.8 %) → `archive` + `tier` (§10.21) → **863 active + 286 reserve + 3994 archive** (34 PASS archived, 14 promoted back/7 PASS, 0 PASS→FAIL) |
+| **Fresh cohort (§10.20, scored on arrival)** | 50750000 ×160 @`4ebab628e`: **143/160 (89.4 %)**, RNG 99.2 %, screens 96.8 % — impaired 1/2, symset 7/12, sweep 8/12 worst; questtour/shop/zapfest 10/12, worldtour 11/12, chain/trek 12/12 |
+| **Corpus board (worked, regression fortress)** | `score --new` 2026-10-15 (Grow #13): **574/920** (62.4 %); `tier` (§10.21) → **892 active + 283 reserve + 4137 archive** (143 PASS-on-arrival archived, reserve 286 → 283) |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
@@ -47,15 +47,14 @@ unions, TEXT col-0) moved the judge again — cliffs score where they
 reach. **Three lines, read together:** held-out (judge), fresh cohort
 (`fresh-cohort.mjs`, the local generalization estimate), board (the
 fortress — it rises by construction). Fresh history: 79–91.8 %
-across 10 cohorts (Grow #5–12; previous 139/160 @50550000).
+across 11 cohorts (Grow #5–13; previous 143/160 @50650000).
 Fresh−held-out gap now 16.7 pts (89.4 % vs 72.7 %), inside the §10.20 band —
 no calibration family (Grow #6 `symset` 15/240).
-**Corpus (audit 2829–2836 full rescore + archive, 2026-10-15):**
-553/889 scored (62.2 %); RNG 93.04 %, screens 92.1 %; 863 active + 286
-reserve + 3994 archive; `unrecorded` 0; 0 PASS→FAIL in the window.
-Worst families `scen-questtour` 7/27, `scen-zapfest` 8/12, `scen-shop` 14/83,
-`scen-worldtour` 65/159, `scen-descend` 7/9, `scen-sweep` 131/275,
-`scen-symset` 23/217; next `scen-town` 11/14, rest ≥ 96.9 % RNG.
+**Corpus (Grow #13 `score --new`, 2026-10-15, 920 rows):**
+574 PASS (62.4 %); RNG 93.45 %, screens 92.3 %; 892 active + 283 reserve + 4137 archive.
+Worst families `scen-questtour` 7/29, `scen-zapfest` 8/14, `scen-shop` 19/85,
+`scen-worldtour` 68/160, `scen-descend` 8/9, `scen-symset` 27/222,
+`scen-sweep` 134/279; next `scen-town` 11/14, rest ≥ 96.9 % RNG.
 Reviews 1225–2836 (index; no row 1618): 1437 ACCEPT, 63 WITH-DEBT, 111 QUALITY-RISK (2829–2836: 8A/0D/0Q, 0 Must-fix queued).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
@@ -148,7 +147,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** do_statusline2 ×12 head (region heuristic; writer or [measure]).
+**Next:** do_statusline2 ×15 head (region heuristic; writer or [measure]).
 
 ## Parked (diagnose only)
 

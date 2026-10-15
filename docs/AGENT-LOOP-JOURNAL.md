@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-15 — Grow #13: fresh 143/160 (89.4 %) @50750000; +17 failing folded, 143 archived, no full rescore
+
+**Fresh cohort:** 143/160 (89.4 %) on arrival, RNG 99.2 %, screens 96.8 %. Worst: impaired 1/2, symset 7/12, sweep 8/12; questtour/shop/zapfest 10/12, worldtour 11/12; chain/trek 12/12 + rest 100 %. Gap 16.7 pts vs held-out 72.7 % — inside the §10.20 band, no calibration family (prev 143/160 @50650000).
+**Fold:** +17 failing into hidden-corpus/recipes, 143 PASS-on-arrival → recipes-archive/; `score --new` 574/920 (62.4 %), RNG 93.45 %, screens 92.3 %; `tier` reserve 286 → 283 (11 → reserve, 14 promoted back); corpus 892 active + 283 reserve + 4137 archive. No full rescore (audit does it 1×/10 iters, §10.21). No JS throws — no Must-fix. Periodic slot (cliffs held 12 owners) — no refill (§10.19).
+**New owners:** m_move, level_distance, tactics (1 session each); minimal_xname, mswings_verb, toss_up now ×2; do_statusline2 ×3 in-cohort (12→15); getobj, glibr, use_pick_axe +1 each. 5 unattributed (sweep-Barbarian-50750065, sweep-Wizard-50750057, symset-Archeologist-50750063, symset-Monk-50750095, symset-Rogue-50750039).
+**Cliffs regen:** 12 owners, head do_statusline2 ×15; new unattributed sweep-Barbarian-50750065 row in, peffect_paralysis out; rest unchanged.
 ## 2026-10-15 — D-3995 sticky `u.Blind` mirror latched `Blindf_off` blind after blindfold removal (makemon_rnd_goodpos cliff writer; do_wear `Blind()` → D-0716 live-props + `Blindf_off` re-sync)
 
 **C locus:** `include/youprop.h:103` (`Blind ≡ (HBlinded||EBlinded)&&!BBlinded`, live props, no mirror); `do_wear.c:1495–1534` Blindf_off (`:1507` setworn clears the blindfold's BLINDED extrinsic via worn.c oc_oprop; `:1515–1529` post-setworn Blind reads; `:1531–1533` toggle); `makemon.c:1084–1090` main-loop cansee gate; `include/vision.h:28` cansee (IN_SIGHT over viz_array, rebuilt by toggle_blindness's recalc).
