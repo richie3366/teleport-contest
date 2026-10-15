@@ -1418,7 +1418,7 @@ cliff_open_count() {
 }
 
 recipes_added_since() {
-  git diff --name-only --diff-filter=A "$1" HEAD -- hidden-corpus/recipes 2>/dev/null | awk 'END { print NR+0 }'
+  git diff --name-only --diff-filter=A "$1" HEAD -- hidden-corpus/recipes hidden-corpus/recipes-archive 2>/dev/null | awk 'END { print NR+0 }'
 }
 
 # First line of the batch manifest (`batch @sha: N function(s) in …`), or

@@ -70,7 +70,7 @@
 import { spawn, spawnSync } from 'node:child_process';
 import {
     existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync,
-    copyFileSync, rmSync, cpSync,
+    copyFileSync, rmSync, cpSync, renameSync, statSync,
 } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -80,10 +80,12 @@ const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(SCRIPT_DIR, '..');
 const CORPUS = path.join(ROOT, 'hidden-corpus');
 const RECIPES = path.join(CORPUS, 'recipes');
+const ARCHIVE = path.join(CORPUS, 'recipes-archive');
 const SCOREBOARD = path.join(CORPUS, 'scoreboard.json');
 const CACHE = path.join(ROOT, '.cache', 'hidden');
 const SESSIONS = path.join(CACHE, 'sessions');
 const SCORES = path.join(CACHE, 'scores.json');
+const FNSETS = path.join(CACHE, 'fnsets.json');
 const PRIVATE = path.join(ROOT, 'private-sessions');
 const FUZZ_CACHE = path.join(ROOT, '.cache', 'fuzz');
 const WORKER = path.join(SCRIPT_DIR, 'lib', 'hidden-worker.mjs');
@@ -121,6 +123,14 @@ function corpusEntries() {
         for (const f of readdirSync(RECIPES).filter((x) => x.endsWith('.recipe.json')).sort()) {
             const id = stem(f);
             out.push({ id, recipe: path.join(RECIPES, f), session: path.join(SESSIONS, `${id}.session.json`), src: 'corpus' });
+        }
+    }
+    /* --with-archive: also the archived PASS recipes (`hidden-proxy archive`)
+       — a manual big regression run, never the loop's default. */
+    if (flag('with-archive') && existsSync(ARCHIVE)) {
+        for (const f of readdirSync(ARCHIVE).filter((x) => x.endsWith('.recipe.json')).sort()) {
+            const id = stem(f);
+            out.push({ id, recipe: path.join(ARCHIVE, f), session: path.join(SESSIONS, `${id}.session.json`), src: 'corpus', archived: true });
         }
     }
     if (existsSync(PRIVATE)) {
@@ -350,6 +360,104 @@ function writeScoreboard(rows, full = false) {
         unrecorded: all.filter((e) => !existsSync(e.session)).length,
         sessions: board,
     });
+}
+
+/* ---------------- archive ---------------- */
+/* The active corpus is what every full rescore, record and REACH pass
+   pays for. `archive` moves PASS recipes to hidden-corpus/recipes-archive/
+   (committed, restorable) and keeps a fortress in recipes/:
+     - every failing session (the picker),
+     - every session a unit test names (scripts/*.test.mjs),
+     - --keep-per-family N passing sessions per family (spread by id),
+     - a greedy --cover K set: every C function that any passing session's
+       recorded RNG log tags (`@ fn(`) stays tagged by K kept sessions, so
+       `verify` REACH still finds sessions executing each function.
+   Needs a full-rescore board (pass/fail must be current). */
+function familyOf(id) { return (/^scen-[a-z]+/.exec(id) || /^[a-z]+/.exec(id) || [id])[0]; }
+
+function loadFnSets(entries) {
+    const cache = existsSync(FNSETS) ? readJson(FNSETS) : {};
+    const out = new Map();
+    let fresh = 0;
+    for (const e of entries) {
+        const st = statSync(e.session);
+        const c = cache[e.id];
+        if (c && c.size === st.size && c.mtimeMs === st.mtimeMs) { out.set(e.id, new Set(c.fns)); continue; }
+        const fns = new Set();
+        const re = /@ ([A-Za-z_][A-Za-z0-9_]*)\(/g;
+        const text = readFileSync(e.session, 'utf8');
+        /* copy each name: a regex substring keeps the whole session text alive */
+        for (let m; (m = re.exec(text));) if (!fns.has(m[1])) fns.add(Buffer.from(m[1]).toString());
+        cache[e.id] = { size: st.size, mtimeMs: st.mtimeMs, fns: [...fns] };
+        out.set(e.id, fns);
+        if (++fresh % 250 === 0) console.error(`  fn sets: ${fresh} sessions read…`);
+    }
+    if (fresh) writeJson(FNSETS, cache);
+    return out;
+}
+
+function cmdArchive() {
+    const dry = flag('dry-run');
+    const perFamily = Number(val('keep-per-family', 6));
+    const K = Number(val('cover', 2));
+    if (!existsSync(SCOREBOARD)) { console.error('archive: no hidden-corpus/scoreboard.json'); process.exit(2); }
+    const board = readJson(SCOREBOARD);
+    if (!board.full) { console.error('archive: the board is not a full rescore — run `hidden-proxy score` (no --ids) first'); process.exit(2); }
+    const rows = board.sessions || {};
+    const active = corpusEntries().filter((e) => e.src === 'corpus' && !e.archived);
+    const passing = active.filter((e) => rows[e.id]?.passed && existsSync(e.session));
+    const tests = readdirSync(SCRIPT_DIR).filter((f) => f.endsWith('.test.mjs'))
+        .map((f) => readFileSync(path.join(SCRIPT_DIR, f), 'utf8')).join('\n');
+    const keep = new Map();
+    for (const e of passing) if (tests.includes(e.id)) keep.set(e.id, 'test');
+    const byFam = new Map();
+    for (const e of passing) { const f = familyOf(e.id); if (!byFam.has(f)) byFam.set(f, []); byFam.get(f).push(e.id); }
+    for (const ids of byFam.values()) for (const id of spread(ids.sort(), perFamily)) if (!keep.has(id)) keep.set(id, 'family');
+    const fnsets = loadFnSets(passing);
+    const avail = new Map();
+    for (const fns of fnsets.values()) for (const fn of fns) avail.set(fn, (avail.get(fn) || 0) + 1);
+    const count = new Map();
+    const take = (id) => { for (const fn of fnsets.get(id) || []) count.set(fn, (count.get(fn) || 0) + 1); };
+    for (const id of keep.keys()) take(id);
+    const gain = (id) => { let g = 0; for (const fn of fnsets.get(id) || []) if ((count.get(fn) || 0) < Math.min(K, avail.get(fn))) g++; return g; };
+    const steps = (id) => rows[id]?.steps || 0;
+    let heap = passing.filter((e) => !keep.has(e.id)).map((e) => ({ id: e.id, g: gain(e.id) }));
+    heap.sort((a, b) => b.g - a.g || steps(a.id) - steps(b.id));
+    while (heap.length && heap[0].g > 0) {
+        const top = heap.shift();
+        const g = gain(top.id);
+        if (g === 0) continue;
+        if (heap.length && g < heap[0].g) { top.g = g; heap.splice(heap.findIndex((h) => h.g < g || (h.g === g && steps(h.id) > steps(top.id))) >>> 0, 0, top); continue; }
+        keep.set(top.id, 'cover'); take(top.id);
+    }
+    const toArchive = passing.filter((e) => !keep.has(e.id));
+    const reasons = {};
+    for (const r of keep.values()) reasons[r] = (reasons[r] || 0) + 1;
+    const failing = active.length - passing.length;
+    const covered = [...avail.keys()].filter((fn) => (count.get(fn) || 0) >= Math.min(K, avail.get(fn))).length;
+    console.log(`archive${dry ? ' (dry run)' : ''}: active ${active.length} → ${active.length - toArchive.length} (${failing} not passing + ${keep.size} fortress: ${JSON.stringify(reasons)}); ${toArchive.length} PASS recipe(s) → hidden-corpus/recipes-archive/`);
+    console.log(`  REACH cover: ${covered}/${avail.size} C functions tagged by ≥ min(${K}, available) kept sessions`);
+    if (dry) return;
+    mkdirSync(ARCHIVE, { recursive: true });
+    for (const e of toArchive) { renameSync(e.recipe, path.join(ARCHIVE, path.basename(e.recipe))); delete rows[e.id]; }
+    board.entries = active.length - toArchive.length + corpusEntries().filter((e) => e.src === 'private').length;
+    board.archivedAt = new Date().toISOString();
+    writeJson(SCOREBOARD, board);
+    const work = loadScores();
+    for (const e of toArchive) delete work.rows?.[e.id];
+    if (existsSync(SCORES)) writeJson(SCORES, work);
+    console.log('  board rows dropped for archived ids (still full for the active set). Commit hidden-corpus/; restore with `hidden-proxy unarchive [--ids a,b]`.');
+}
+
+function cmdUnarchive() {
+    if (!existsSync(ARCHIVE)) { console.log('unarchive: no archive'); return; }
+    const ids = val('ids', null) ? new Set(val('ids', null).split(',')) : null;
+    let n = 0;
+    for (const f of readdirSync(ARCHIVE).filter((x) => x.endsWith('.recipe.json'))) {
+        if (ids && !ids.has(stem(f))) continue;
+        renameSync(path.join(ARCHIVE, f), path.join(RECIPES, f)); n++;
+    }
+    console.log(`unarchive: ${n} recipe(s) back in hidden-corpus/recipes — run \`hidden-proxy record\` then a full \`score\` (their board rows were dropped).`);
 }
 
 /* ---------------- aggregation ---------------- */
@@ -834,6 +942,8 @@ function cmdShow(id) {
     case 'show': cmdShow(rest[0]); break;
     case 'status': cmdStatus(); break;
     case 'families': cmdFamilies(); break;
+    case 'archive': cmdArchive(); break;
+    case 'unarchive': cmdUnarchive(); break;
     default:
         console.error('usage: hidden-proxy.mjs gen|import|record|score|queue|verify <fn>|show <id>|status');
         process.exit(2);

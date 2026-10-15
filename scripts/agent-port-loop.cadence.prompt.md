@@ -9,6 +9,7 @@ must fix a typo in a comment you are not here to write — default is
 node frozen/ps_test_runner.mjs sessions
 node scripts/hidden-proxy.mjs record --jobs 8   # missing corpus sessions; exit 3 = no C recorder
 node scripts/hidden-proxy.mjs score --jobs 8    # FULL: no --ids / --owner
+node scripts/hidden-proxy.mjs archive           # PASS recipes → recipes-archive/, fortress kept
 node scripts/leaderboard.mjs
 ```
 

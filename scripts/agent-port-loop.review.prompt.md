@@ -169,8 +169,8 @@ Must-fix prepend is a failed review — the supervisor will halt.
 After every listed SHA already has its file on disk: journal crumb.
 If this is the audit overlay: full `sessions` **and the full scoreboard
 update** (`hidden-proxy record`, then `hidden-proxy score` with no
-`--ids`/`--owner`, after the last re-measure verify; commit
-`hidden-corpus/scoreboard.json`) — mandatory, see the ALSO section.
+`--ids`/`--owner`, after the last re-measure verify; then `hidden-proxy
+archive`; commit `hidden-corpus/`) — mandatory, see the ALSO section.
 `node scripts/check-hot-docs.mjs --fix --review NN …` (this iter’s
 review ids; do not count). `ok` = no cap edit. If REFILL, `--fix`
 already regenerated both generated blocks (**Open — cliffs** from the

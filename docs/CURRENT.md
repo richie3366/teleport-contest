@@ -31,7 +31,7 @@ Score last measured: **2026-10-15** — full `sessions` on `7d4cd240b`
 |--------|------:|
 | **Held-out (judge 2026-10-14 19:15Z)** | **32 / 44**, 9,921 / 11,265 pts, RNG **92.0 %**, rngSteps 95.8 %, screens **88.1 %** |
 | **Fresh cohort (§10.20, scored on arrival)** | 50450000 ×160 @`65fe937c4`: **139/160 (86.9 %)**, RNG 98.9 %, screens 97.5 % — symset 4/12 worst |
-| **Corpus board (worked, regression fortress)** | **3960 / 4555** @`65fe937c4` full (Grow #10; +470 rows, +388 PASS, 0 PASS→FAIL), RNG 97.45 %, screens 96.57 % |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-15 of all 4,555: **3,989 PASS** (RNG 97.64 %); then `archive` → active **1,177** (566 not passing + 599-session fortress + 12 private), 3,378 PASS recipes in `hidden-corpus/recipes-archive/` |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |

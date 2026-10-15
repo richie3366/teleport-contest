@@ -57,6 +57,7 @@ let id = path.basename(target).replace(/\.(recipe|session)\.json$/, '');
 if (!existsSync(recipePath)) {
     const cands = [
         path.join(ROOT, 'hidden-corpus', 'recipes', `${target}.recipe.json`),
+        path.join(ROOT, 'hidden-corpus', 'recipes-archive', `${target}.recipe.json`),
         path.join(ROOT, 'private-sessions', `${target}.recipe.json`),
     ];
     recipePath = cands.find(existsSync);

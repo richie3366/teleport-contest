@@ -40,13 +40,15 @@ several independent seeds.
    another. Document the family in `HIDDEN-PROXY.md` §5c.
 6. `node scripts/hidden-proxy.mjs record --jobs 8`, then
    `node scripts/hidden-proxy.mjs score --jobs 8` — **full**, no
-   `--ids`/`--owner`; it must be the last hidden-proxy command.
+   `--ids`/`--owner` — then `node scripts/hidden-proxy.mjs archive`
+   (moves PASS recipes to `recipes-archive/`, keeps the fortress); those
+   two are the last hidden-proxy commands.
 7. Compare with the committed board (`git show
    HEAD:hidden-corpus/scoreboard.json`): an old row that was PASS and is
    not now is a **Must-fix** row (same `js/`, so it is flakiness or a
    recorder change — name the session; `hidden-proxy show <id>`).
 8. Commit recipes + board (+ scenario-gen if step 5 ran):
-   `git add hidden-corpus/recipes hidden-corpus/scoreboard.json && git
+   `git add -A hidden-corpus && git
    commit -m "Grow #N: fresh … ; +K sessions …"`. Then `node
    scripts/check-hot-docs.mjs --fix` (regenerates the cliffs block from
    the board you just committed), update `docs/CURRENT.md` (Fresh row,

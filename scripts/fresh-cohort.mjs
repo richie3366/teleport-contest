@@ -60,7 +60,8 @@ mix.forEach(([family, count], k) => {
     console.log(`author ${family} ×${count} @${base}: ${line}`);
 });
 const ids = readdirSync(recipeDir).filter((f) => f.endsWith('.recipe.json')).map((f) => f.replace(/\.recipe\.json$/, ''));
-const clash = ids.filter((id) => existsSync(path.join(RECIPES, `${id}.recipe.json`)));
+const clash = ids.filter((id) => existsSync(path.join(RECIPES, `${id}.recipe.json`))
+    || existsSync(path.join(ROOT, 'hidden-corpus', 'recipes-archive', `${id}.recipe.json`)));
 if (clash.length) console.log(`warning: ${clash.length} id(s) already in the corpus (not fresh): ${clash.slice(0, 3).join(', ')}…`);
 
 /* 2. score with the frozen runner, `jobs` processes */

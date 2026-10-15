@@ -527,7 +527,13 @@ case.
       iteration *n* with *n* mod 10 = 5 is a grow slot when no Must-fix
       is open (`LOOP_GROW_EVERY`). A grow adds ≥ 400 sessions (recording
       costs ~0.5 s each; a full rescore of ~2000 sessions ~5 min), so
-      owners that block several independent seeds surface.
+      owners that block several independent seeds surface. After every
+      full rescore `hidden-proxy archive` moves PASS recipes to
+      `hidden-corpus/recipes-archive/` and keeps a fortress (failing
+      sessions, test-named sessions, a per-family spread, a 2-cover of
+      every C function PASS sessions execute), so the active corpus —
+      what every rescore and REACH pays for — stays small (2026-10-15:
+      4,543 → 1,165). `--with-archive` runs everything, by hand.
     - **Rank by the judge's unit.** `hidden-proxy queue` ranks owners by
       screens lost after the first divergence summed over their sessions
       (frequency × impact), then sessions, then RNG lost. Unattributed
