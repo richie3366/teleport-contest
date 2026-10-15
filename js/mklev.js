@@ -10366,7 +10366,8 @@ function load_sam_loca() {
     // des.object class letters at fixed coords (C def_char_to_objclass:
     // '*'=GEM, '['=ARMOR, ')'=WEAPON, '('=TOOL)
     const placeClass = (oclass, rx, ry) => {
-        mkobj_at(oclass, mx + rx, my + ry, true);
+        // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+        stackobj(mkobj_at(oclass, mx + rx, my + ry, true));
     };
     for (const [rx, ry] of [
         [25, 5], [26, 5], [27, 5], [28, 5],
@@ -14506,6 +14507,8 @@ function load_tower2() {
         otmp.oeroded = 0;
         otmp.oeroded2 = 0;
         otmp.oerodeproof = 0;
+        // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+        stackobj(otmp);
     };
     placeObj(WATER_WALKING_BOOTS, 6); // place[7]
     placeObj(CRYSTAL_PLATE_MAIL, 7); // place[8]
@@ -14702,6 +14705,8 @@ function load_tower3() {
             otmp.oeroded = 0;
             otmp.oeroded2 = 0;
             otmp.oerodeproof = 0;
+            // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+            stackobj(otmp);
         }
         // des.trap({ coord = place[N] }) — random kind; hardfloor → ROCKTRAP
         let kind;
@@ -16609,6 +16614,8 @@ function load_minend_1() {
         otmp.oeroded = 0;
         otmp.oeroded2 = 0;
         otmp.oerodeproof = 0;
+        // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+        stackobj(otmp);
         return otmp;
     };
     const placeMimicAs = (otyp, rx, ry) => {
@@ -16855,10 +16862,13 @@ function load_minend_2() {
         otmp.oeroded = 0;
         otmp.oeroded2 = 0;
         otmp.oerodeproof = 0;
+        // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+        stackobj(otmp);
         return otmp;
     };
     const placeClass = (oclass, rx, ry) => {
-        mkobj_at(oclass, mx + rx, my + ry, true);
+        // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+        stackobj(mkobj_at(oclass, mx + rx, my + ry, true));
     };
 
     // Wine cellar potions
@@ -17093,6 +17103,8 @@ function load_minend_3() {
         otmp.oeroded = 0;
         otmp.oeroded2 = 0;
         otmp.oerodeproof = 0;
+        // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+        stackobj(otmp);
         return otmp;
     };
     const placeObjRnd = (otyp) => {
@@ -17104,6 +17116,8 @@ function load_minend_3() {
         otmp.oeroded = 0;
         otmp.oeroded2 = 0;
         otmp.oerodeproof = 0;
+        // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+        stackobj(otmp);
         return otmp;
     };
 
@@ -20713,6 +20727,8 @@ function tut1_object(xstart, ystart, mx, my, otyp, spe, buc) {
     otmp.oeroded = 0;
     otmp.oeroded2 = 0;
     otmp.oerodeproof = 0;
+    // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+    stackobj(otmp);
     return otmp;
 }
 
@@ -24206,8 +24222,9 @@ function splev_room_object(croom, oclass = null) {
     // C create_object → get_location_coord(DRY) — includes coord double-try
     const pos = get_location_coord_in_room(croom, DRY);
     if (pos.x < 0) return;
-    if (oclass == null) mkobj_at(RANDOM_CLASS, pos.x, pos.y, true);
-    else mkobj_at(oclass, pos.x, pos.y, true);
+    // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+    if (oclass == null) stackobj(mkobj_at(RANDOM_CLASS, pos.x, pos.y, true));
+    else stackobj(mkobj_at(oclass, pos.x, pos.y, true));
 }
 
 /**
@@ -24916,6 +24933,8 @@ function load_castle() {
         otmp.oeroded = 0;
         otmp.oeroded2 = 0;
         otmp.oerodeproof = 0;
+        // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+        stackobj(otmp);
     };
     // Storeroom 1 — object[1] Lua → object[0]
     for (const [rx, ry] of [
@@ -25662,7 +25681,10 @@ function load_asmodeus() {
     const placeClassObj = (oclass) => {
         const pos = get_location_random();
         if (pos.x < 0) return;
-        clearErosion(mkobj_at(oclass, pos.x, pos.y, true));
+        const _o = mkobj_at(oclass, pos.x, pos.y, true);
+        clearErosion(_o);
+        // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+        if (_o) stackobj(_o);
     };
     placeClassObj(ARMOR_CLASS);
     placeClassObj(ARMOR_CLASS);
@@ -26025,7 +26047,8 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     placeNamedAt('lemure', 45, 8);
 
     const placeClassAt = (oclass, rx, ry) => {
-        mkobj_at(oclass, mx + rx, my + ry, true);
+        // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+        stackobj(mkobj_at(oclass, mx + rx, my + ry, true));
     };
     placeClassAt(GEM_CLASS, 43, 6);
     placeClassAt(GEM_CLASS, 45, 6);
@@ -26246,7 +26269,8 @@ function load_baalz() {
     const placeClassObj = (oclass) => {
         const pos = get_location_random();
         if (pos.x < 0) return;
-        mkobj_at(oclass, pos.x, pos.y, true);
+        // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+        stackobj(mkobj_at(oclass, pos.x, pos.y, true));
     };
     placeClassObj(ARMOR_CLASS);
     placeClassObj(ARMOR_CLASS);
@@ -26507,7 +26531,8 @@ function load_orcus() {
         const otyp = lua_random2(0, 1) === 1 ? MAGIC_MARKER : MAGIC_LAMP;
         const pos = get_location_random();
         if (pos.x >= 0)
-            mksobj_at(otyp, pos.x, pos.y, true, true);
+            // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
+            stackobj(mksobj_at(otyp, pos.x, pos.y, true, true));
     }
 
     const placeNamedAt = (id, rx, ry) => {

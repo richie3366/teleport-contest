@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-10-15
+
+- [x] `monmove.c` m_move — blocks 3/4085 corpus sessions (first at step 505; RNG lost 104850, screens lost 2251): C draws `rn2(20)=6` in m_move, JS `rn2(5)=1` from distfleeck(monmove.js:1180). Probe: `node scripts/hidden-proxy.mjs verify m_move` (scen-sweep-Caveman-49956036, scen-sweep-Healer-50055087, scen-sweep-Tourist-50055019). @c6f828b04 **[parked: RESOLVED — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]** **Addressed:** D-3971
+
 ## 2026-10-14
 
 - [x] **regression (Must-fix, 2026-10-14):** 6 corpus PASS→FAIL since `ffbaf451a` (the C0-drop commit) **Addressed:** D-3964 `fe8a52a22` — scen-symset-Priest-50155027 getpos@77, -Samurai-50058504 getpos@551, -Tourist-50155040 getpos@27, -Tourist-50255028 getpos@4, -Valkyrie-50059034 getpos@569, -Wizard-50255006 dotravel@34 (all `symset:AmigaFont`; all PASS at `f0282c7f3`, measured by worktree replay). **Preflight on the loop machine first:** `node scripts/hidden-proxy.mjs record --jobs 8` (its cache holds temp-hook recordings; `record` now re-records every non-ASCII, i.e. non-canonical, session and `score` refuses to run until it has — Constitution §1.1). Deliverable: the getpos/travel reader of the raw-C0 gbuf value fixed in C terms (getpos symbol scan reads what C's glyph lookup reads), the 6 back to PASS, the C0-drop commit's 5 moved sessions kept.
