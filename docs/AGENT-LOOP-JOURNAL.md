@@ -7,6 +7,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-15 — D-3970 cliffs-head do_statusline2 writer: domove ended run on fight_empty-dig/attackmon where C returns bare — removed both JS-only clears (3 moved: Healer 478→585, Barbarian 314→389, Ranger 156→213)
+
+**C locus:** `hack.c` domove `:2796–2797` (attackmon-done bare `return`) and `:2802–2808` (ironbars/web/empty TRUE bare `return`); domove_fight_empty `:2229–2338` (nomul(0) only in the futile arm — the use_pick_axe2 dig arm returns TRUE with no nomul); end_running `:4130–4145` (sets disp.time_botl when run stops); allmain.c `:260–261` (time_botl iff !run) + `:473–477` (flush gate).
+**JS:** js/cmd.js (−7/+5: two arms + cites) · test scripts/domove-fightempty-run.test.mjs (replays Healer to 478, asserts stale T:182; pre-fix JS painted T:187 per board + probe).
+**Change:** js/cmd.js only — removed both JS-only `end_running` calls and the redundant `move = 1` (move stays the allmain preset 1; nothing on these paths clears it), leaving C-exact bare returns with cites. Mirrors already faithful (futile/u_rooted nomul inside like C), so the outer clears were purely additive on the dig/attack/ironbars/web arms.
+**Verify:** focused test 1/1 post-fix. `node scripts/verify.mjs --fn do_statusline2,domove` → PASS syntax (1 file) · rule2 · `verify do_statusline2: 0 PASS, 3 moved past, 11 unchanged, 0 worse → PROGRESS` (Healer 478→on_msg@585; Barbarian-50059021 314→do_screen_description@389; Ranger-50059072 156→screen@213 owner-null level-gen map (verify prints null-owner as 'js-throw'; jsPanic=null, kind=screen, reproducible)) · reach ×2 REACH-OK (smoke 24/24) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. Movement: `verify do_statusline2: 0 PASS, 3 moved, 11 no-movement`.
+**Named:** u_rooted outer end_running (cmd.js:6837) kept — redundant-but-harmless (mirror nomuls inside like C). Not this writer: Caveman-50359027 T:5v6@83 (mimic-find, no fight/run on path); Knight/Monk-50255055/50058514 goldsym `# Agent loop journal
+
+Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
+Each agent process should add a short dated entry **at the top** (after
+this header) before exiting. Keep entries tight; detailed hypothesis
+lives in `NOTES.md` / `CURRENT.md`.
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+ vs ` ` (invis_goldsym; Knight's invalid-value flip has no C setter on its path — temp-C candidate); Knight-50362021/Ranger-49956043 (OSC 7777 nomux-marker leak in C capture, rngM==rngT — recorder tooling, unportable).
+**Next:** Ranger-50059072 now unattributed screen@213 (getbones/splev_initlev map content) is its own next writer; do not re-chase run-clearing on domove fight arms (now C-bare). Falsifier: a fresh `verify do_statusline2` blocking on a fight-arm T-fresh divergence, or a run-lifecycle regression in cohort/full.
 ## 2026-10-15 — audit 2808–2815: review D-3962..D-3969 (8A/0D/0Q, 0 Must-fix) + full rescore 3565/4085 (0 PASS→FAIL, +2 spillover heals)
 
 **Reviews:** 2808 C0-drop/pile-inverse (patch 006:216 verified; 0+5+0+0) · 2809 g_pututf8 drop + re-record (unhooked; cites scrambled, mechanism true) · 2810 getpos corner (0x91–94 chain; 6/6 PASS) · 2811 FREE_ACTION mirror (:383; 3+0+4; 3124-reach flagged only parked flake 582706, exonerated) · 2812 dip :2049 botl (5/5 sites; 2 PASS) · 2813 gh.hname (1 PASS) · 2814 pickup pager adapter (518→609) · 2815 pay-menu adapter (bot_disabled; 0+1+14). All ACCEPT, Must-fix stays empty.
