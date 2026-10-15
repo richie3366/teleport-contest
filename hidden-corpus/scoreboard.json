@@ -1,7 +1,7 @@
 {
- "commit": "e9d602604",
- "at": "2026-10-15T16:40:59.621Z",
- "full": true,
+ "commit": "363d35e34",
+ "at": "2026-10-15T17:05:51.814Z",
+ "full": false,
  "fullCommit": "e9d602604",
  "fullAt": "2026-10-15T16:40:59.621Z",
  "entries": 1187,
@@ -11280,19 +11280,19 @@
   },
   "scen-sweep-Wizard-50556044": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 13276,
+   "passed": true,
+   "rngM": 24407,
    "rngT": 24407,
-   "scrM": 452,
+   "scrM": 750,
    "scrT": 750,
-   "kind": "screen",
-   "step": 450,
+   "kind": null,
+   "step": null,
    "steps": 750,
-   "owner": "do_statusline2",
-   "loc": "botl.c:130",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The apprentice is caught in the magical blast!--More--",
-   "jsTopline": "The apprentice is caught in the magical blast!--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-sweep-Wizard-578137": {
@@ -11366,18 +11366,18 @@
   "scen-sweep-Wizard-620021": {
    "src": "corpus",
    "passed": false,
-   "rngM": 44130,
+   "rngM": 67611,
    "rngT": 67611,
-   "scrM": 765,
+   "scrM": 1530,
    "scrT": 1533,
    "kind": "screen",
-   "step": 763,
+   "step": 764,
    "steps": 1533,
-   "owner": "do_statusline2",
-   "loc": "botl.c:130",
+   "owner": "revive",
+   "loc": "zap.c:1048",
    "jsOwner": null,
-   "cTopline": "You kill the small mimic! You are caught in the magical blast!--More--",
-   "jsTopline": "You kill the small mimic! You are caught in the magical blast!--More--",
+   "cTopline": "Malasgirt's small mimic corpse glows iridescently.--More--",
+   "jsTopline": "The corpse glows iridescently. You owe Malasgirt 31 zorkmids for it!--More--",
    "error": null
   },
   "scen-sweep-Wizard-620057": {
@@ -20186,6 +20186,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "archivedAt": "2026-10-15T16:49:47.034Z"
+ }
 }
