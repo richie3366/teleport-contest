@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-15 — audit 2808–2815: review D-3962..D-3969 (8A/0D/0Q, 0 Must-fix) + full rescore 3565/4085 (0 PASS→FAIL, +2 spillover heals)
+
+**Reviews:** 2808 C0-drop/pile-inverse (patch 006:216 verified; 0+5+0+0) · 2809 g_pututf8 drop + re-record (unhooked; cites scrambled, mechanism true) · 2810 getpos corner (0x91–94 chain; 6/6 PASS) · 2811 FREE_ACTION mirror (:383; 3+0+4; 3124-reach flagged only parked flake 582706, exonerated) · 2812 dip :2049 botl (5/5 sites; 2 PASS) · 2813 gh.hname (1 PASS) · 2814 pickup pager adapter (518→609) · 2815 pay-menu adapter (bot_disabled; 0+1+14). All ACCEPT, Must-fix stays empty.
+**Score:** public 44/44 (11405 scr, 792838 RNG, `386+1.79/turn`) · corpus 3565/4085 full @7d4cd240b (97.51 % RNG, 96.56 % scr; +5, 0 PASS→FAIL) · held-out 32/44 9921 pts (rank 5) · ledger snapshot + 5 seeded rows briefed (0 fixes).
+**Next:** Must-fix empty → do_statusline2 cliffs head (digging-T pair + pickup-menu writers).
 ## 2026-10-14 — D-3969 cliffs-head do_statusline2 writer: shop pay menu bypassed the ported tty pager — restarted as adapter over select_menu_pick_any, stale T kept (1 moved 384→683)
 
 **C locus:** `shk.c` menu_pick_pay_items `:1668–1739` (build + end_menu `:1723` + select_menu PICK_ANY `:1724` + queuedpay apply `:1727–1735` + max(n,0) `:1738`); `windows.c` select_menu `:1855–1865` (gb.bot_disabled around win_select_menu); wintty corner dismiss = docorner via erase_menu_or_text (no docrt, no bot).
