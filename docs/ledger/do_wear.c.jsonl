@@ -10,7 +10,7 @@
 {"fn":"Helmet_on","c":"434-515","status":"ported","js":["js/do_wear.js:Helmet_on"],"d":["D-3948","D-3437","D-3426"],"at":"2026-10-14@d0fed11a2","note":"audited D-3437: whole vs C"}
 {"fn":"Helmet_off","c":"518-564","status":"ported","js":["js/do_wear.js:Helmet_off"],"d":["D-2554"],"at":"seed@a30a7de84"}
 {"fn":"hard_helmet","c":"568-573","status":"ported","js":["js/do_wear.js:hard_helmet"],"at":"2026-10-01@f9a10fead","note":"stale: js/do_wear.js:254"}
-{"fn":"Gloves_on","c":"576-603","status":"ported","js":["js/do_wear.js:Gloves_on"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Gloves_on","c":"576-603","status":"ported","js":["js/do_wear.js:Gloves_on"],"d":["D-3979"],"at":"2026-10-15@8823bdbca"}
 {"fn":"wielding_corpse","c":"608-643","status":"ported","js":["js/do_wear.js:wielding_corpse"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Gloves_off","c":"646-702","status":"ported","js":["js/do_wear.js:Gloves_off"],"d":["D-3215","D-2397"],"at":"2026-10-01@f9a10fead"}
 {"fn":"Shield_on","c":"705-730","status":"ported","js":["js/do_wear.js:Shield_on"],"d":["D-2925"],"at":"seed@a30a7de84"}
