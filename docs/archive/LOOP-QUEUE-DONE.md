@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-15
 
+- [x] `monmove.c` distfleeck — blocks 5/1204 corpus sessions (first at step 552; RNG lost 66199, screens lost 1810): C draws `rn2(5)=3` in distfleeck, JS `rn2(20)=3` from gethungry(eat.js:700). Probe: `node scripts/hidden-proxy.mjs verify distfleeck` (scen-symset-Archeologist-50255043, scen-symset-Monk-50455043, scen-sweep-Archeologist-50456037). @e7e82572e **[parked: SYMPTOM — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+
+
 - [x] `muse.c` find_defensive — blocks 4/1204 corpus sessions (first at step 123; RNG lost 90848, screens lost 2058): C draws `rn2(3)=0` in find_defensive, JS `rn2(5)=4` from distfleeck(monmove.js:1180). Probe: `node scripts/hidden-proxy.mjs verify find_defensive` (scen-questtour-Barbarian-50350022, scen-questtour-Barbarian-50350030, scen-worldtour-Tourist-50650048). @6a88a53cc **[history: archived D-1988 — read that D-entry once; the arm this divergence names is still open]**
 
 

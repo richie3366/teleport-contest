@@ -96,7 +96,7 @@
 {"fn":"all_options_autocomplete","c":"3296-3308","status":"ported","js":["js/options.js:all_options_autocomplete"],"at":"2026-09-30@e3edb2ef9","note":"stale: complete at js/options.js:11557 (AUTOCOMP_ADJ gate + AUTOCOMPLETE !-prefix + strbuf_append); C caller options.c:9739 wired at js/options.js:12064 in C order"}
 {"fn":"count_autocompletions","c":"3312-3322","status":"ported","js":["js/cmd.js:count_autocompletions"],"d":["D-3162"],"at":"2026-09-30@a8bd0bc2e","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lock_mouse_buttons","c":"3326-3340","status":"ported","js":["js/cmd.js:lock_mouse_buttons"],"d":["D-3006"],"at":"2026-09-28@92e07989a","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"reset_commands","c":"3344-3476","status":"partial","js":["js/cmd.js:reset_commands"],"omit":"`bind_mousebtn` (`cmd.c:2624`, called from `commands_init` `:2752–2753`); `click_to_cmd` still reads `game.Cmd.mousebtn` and stays inert.","d":["D-3402","D-2861"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: remaining omit cannot ship"}
+{"fn":"reset_commands","c":"3344-3476","status":"partial","js":["js/cmd.js:numpad_walk_dir"],"omit":"(1) swap_yz (-1, sdir_swap_yz) in getdir's char-table paths (lock.js GETDIR_SDIR; the live bind path is already swapped via reset_commands) — no corpus recipe uses number_pad:-1 (falsifier: a -1 session blocked on a getdir/rhack letter arm).","d":["D-3990","D-3402","D-2861"],"at":"2026-10-15@443b0e1a6","note":"audited D-3402: remaining omit cannot ship"}
 {"fn":"update_rest_on_space","c":"3483-3503","status":"ported","js":["js/cmd.js:update_rest_on_space"],"at":"2026-10-03@bbe63333a"}
 {"fn":"accept_menu_prefix","c":"3509-3512","status":"ported","js":["js/getline.js:accept_menu_prefix"],"at":"2026-10-03@bbe63333a"}
 {"fn":"randomkey","c":"3517-3578","status":"ported","js":["js/cmd.js:randomkey"],"d":["D-3402","D-2480"],"at":"2026-10-04@e77f3975a"}
@@ -106,11 +106,11 @@
 {"fn":"rhack","c":"3627-3843","status":"ported","js":["js/cmd.js:rhack"],"d":["D-3953","D-3947","D-3848","D-3693","D-3690","D-3574"],"at":"2026-10-14@0c8785117"}
 {"fn":"xytodir","c":"3847-3855","status":"ported","js":["js/const.js:xytodir"],"d":["D-3402"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"dirtocoord","c":"3859-3865","status":"ported","js":["js/const.js:dirtocoord"],"at":"2026-10-03@bbe63333a"}
-{"fn":"movecmd","c":"3869-3898","status":"ported","js":["js/dokeylist.js:movecmd"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: txt-match adaptation of fnc==move_funcs"}
+{"fn":"movecmd","c":"3869-3898","status":"ported","js":["js/lock.js:apply_dirsym"],"d":["D-3990"],"at":"2026-10-15@443b0e1a6","note":"audit 2026-10-03: txt-match adaptation of fnc==move_funcs"}
 {"fn":"dxdy_moveok","c":"3902-3907","status":"ported","js":["js/lock.js:dxdy_moveok"],"at":"2026-10-03@bbe63333a"}
 {"fn":"redraw_cmd","c":"3911-3918","status":"ported","js":["js/getpos.js:redraw_cmd"],"d":["D-3395"],"at":"2026-10-03@34473e95a"}
 {"fn":"get_adjacent_loc","c":"3931-3953","status":"ported","js":["js/lock.js:get_adjacent_loc"],"d":["D-3402","D-3086"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
-{"fn":"getdir","c":"3958-4119","status":"ported","js":["js/lock.js:getdir"],"d":["D-2434","D-2117","D-1806","D-1729","D-1721"],"at":"2026-10-01@92ffa7863","note":"stale: js/lock.js:653 getdir + :586 getdir_read_dirsym cover C cmd.c:3958-4119 whole (cmdq/fuzzer/redraw/SELF/mouse/movecmd/help/strange/dxdy/confdir); *readchar_queue term has no JS counterpart (empty in sessions); 6 blocked sessions are missing caller doidtrap (^ dispatch, no JS symbol), not this…"}
+{"fn":"getdir","c":"3958-4119","status":"ported","js":["js/lock.js:getdir_dirsym_from_dir"],"d":["D-3990","D-2434","D-2117","D-1806","D-1729","D-1721"],"at":"2026-10-15@443b0e1a6","note":"stale: js/lock.js:653 getdir + :586 getdir_read_dirsym cover C cmd.c:3958-4119 whole (cmdq/fuzzer/redraw/SELF/mouse/movecmd/help/strange/dxdy/confdir); *readchar_queue term has no JS counterpart (empty in sessions); 6 blocked sessions are missing caller doidtrap (^ dispatch, no JS symbol), not this…"}
 {"fn":"show_direction_keys","c":"4122-4165","status":"ported","js":["js/dokeylist.js:show_direction_keys"],"d":["D-3402","D-2970"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"help_dir","c":"4171-4296","status":"ported","js":["js/lock.js:help_dir"],"d":["D-2495"],"at":"seed@a30a7de84"}
 {"fn":"confdir","c":"4300-4310","status":"ported","js":["js/hack.js:confdir"],"at":"2026-10-03@bbe63333a"}

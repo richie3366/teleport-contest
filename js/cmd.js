@@ -3664,11 +3664,21 @@ export async function dotherecmdmenu() {
 const DIR_DX = { h: -1, l: 1, j: 0, k: 0, y: -1, u: 1, b: -1, n: 1 };
 const DIR_DY = { h: 0, l: 0, j: 1, k: -1, y: -1, u: -1, b: 1, n: 1 };
 
-// C ref: cmd.c reset_commands `:3433–3435` — num_pad dirchars are ndir
+// C ref: cmd.c reset_commands `:3432–3435` — num_pad dirchars are ndir
 // "47896321" index-aligned with sdir "hykulnjb", so each digit walks the
 // same direction as its sdir letter ('5' is no direction: commands_init
-// `:2770` binds it to the run prefix instead).
+// `:2770` binds it to the run prefix instead). With phone_layout
+// (`ndir_phone_layout[] = "41236987><"`, `:3347–3350`, selected at
+// `:3432–3434`) the 1/2/3 and 7/8/9 rows swap: 1→NW 2→N 3→NE 7→SW
+// 8→S 9→SE (4/6/5 unchanged). Every digit→direction read below goes
+// through numpad_walk_dir so both layouts resolve.
 const NUMPAD_WALK = { 4: 'h', 7: 'y', 8: 'k', 9: 'u', 6: 'l', 3: 'n', 2: 'j', 1: 'b' };
+const NUMPAD_WALK_PHONE = { 4: 'h', 1: 'y', 2: 'k', 3: 'u', 6: 'l', 9: 'n', 8: 'j', 7: 'b' };
+
+/** C ref: cmd.c reset_commands `:3432–3434` — dirchars digit for one key. */
+function numpad_walk_dir(ch) {
+    return (game.Cmd?.phone_layout ? NUMPAD_WALK_PHONE : NUMPAD_WALK)[ch];
+}
 
 // C ref: cmd.c move_funcs `:2070–2083` rows by sdir letter — the CQ_REPEAT
 // func/txt for num_pad digit (walk) and M(digit) (run) keys.
@@ -5238,10 +5248,10 @@ function rhack_repeat_command(ch, key) {
         if (key === Mcode(53)) return do_rush;
         if (key === Ccode(108)) return doredraw;
         if (key >= Mcode(49) && key <= Mcode(57)) {
-            const md = NUMPAD_WALK[String.fromCharCode(key & 0x7f)];
+            const md = numpad_walk_dir(String.fromCharCode(key & 0x7f));
             if (md) return RHACK_REPEAT_RUN[md];
         }
-        const wl = NUMPAD_WALK[ch];
+        const wl = numpad_walk_dir(ch);
         if (wl !== undefined) return RHACK_REPEAT_MOVE[wl];
         if ('hykulnjbHYKULNJB'.includes(ch)) return null;
         if (key >= 1 && key <= 26
@@ -5342,10 +5352,10 @@ function rhack_repeat_txt(ch, key) {
         if (key === Mcode(53)) return 'rush';
         if (key === Ccode(108)) return 'redraw';
         if (key >= Mcode(49) && key <= Mcode(57)) {
-            const md = NUMPAD_WALK[String.fromCharCode(key & 0x7f)];
+            const md = numpad_walk_dir(String.fromCharCode(key & 0x7f));
             if (md) return RHACK_REPEAT_RUN_TXT[md];
         }
-        const wl = NUMPAD_WALK[ch];
+        const wl = numpad_walk_dir(ch);
         if (wl !== undefined) return RHACK_REPEAT_MOVE_TXT[wl];
         if ('hykulnjbHYKULNJB'.includes(ch)) return '';
         if (key >= 1 && key <= 26
@@ -5658,7 +5668,7 @@ export async function rhack(key) {
     // (`:2771`, chained at the g/G arm below like 'g').
     const metaRunDir = !!game.Cmd?.num_pad && key >= Mcode(49)
         && key <= Mcode(57) && key !== Mcode(53)
-        ? (NUMPAD_WALK[String.fromCharCode(key & 0x7f)] || null) : null;
+        ? (numpad_walk_dir(String.fromCharCode(key & 0x7f)) || null) : null;
 
     // C rhack (cmd.c): prefix_seen=do_fight + command lacking CMD_gGF_PREFIX
     // → pline feedback, ECMD_FAIL, reset_cmd_vars — do NOT run the command.
@@ -5801,7 +5811,7 @@ export async function rhack(key) {
         // plain walk ends any run (e.g. travel's run=8); without this the
         // EOT time_botl stays suppressed and T: goes stale after travel.
         // Under num_pad the key is an ndir digit walking its sdir letter.
-        const wch = NUMPAD_WALK[ch] || ch;
+        const wch = numpad_walk_dir(ch) || ch;
         const mu = game.u || (game.u = {});
         mu.dz = 0; // C `:1389` u.dz = zdir[dir] (0 for planar)
         mu.dx = DIR_DX[wch]; // C `:1390`
