@@ -1,7 +1,7 @@
 {
- "commit": "746adfbb3",
- "at": "2026-10-15T13:10:52.400Z",
- "full": true,
+ "commit": "dce47a27b",
+ "at": "2026-10-15T13:38:22.798Z",
+ "full": false,
  "fullCommit": "746adfbb3",
  "fullAt": "2026-10-15T13:10:52.400Z",
  "entries": 1108,
@@ -6690,19 +6690,19 @@
   },
   "scen-sweep-Archeologist-50456018": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 7538,
    "rngT": 7538,
-   "scrM": 383,
+   "scrM": 385,
    "scrT": 385,
-   "kind": "screen",
-   "step": 250,
+   "kind": null,
+   "step": null,
    "steps": 385,
-   "owner": "do_statusline2",
-   "loc": "botl.c:130",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You hit the acid blob. You are splashed by the acid blob's acid!--More--",
-   "jsTopline": "You hit the acid blob. You are splashed by the acid blob's acid!--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-sweep-Archeologist-50456037": {
@@ -8699,16 +8699,16 @@
    "passed": false,
    "rngM": 44054,
    "rngT": 44054,
-   "scrM": 1514,
+   "scrM": 1516,
    "scrT": 1517,
    "kind": "screen",
-   "step": 1378,
+   "step": 1453,
    "steps": 1517,
-   "owner": "passive",
-   "loc": "uhitm.c:5909",
+   "owner": "trapeffect_fire_trap",
+   "loc": "trap.c:1810",
    "jsOwner": null,
-   "cTopline": "You hit the ochre jelly. You are splashed!",
-   "jsTopline": "You hit the ochre jelly. You are splashed by the ochre jelly's acid!",
+   "cTopline": "You now wield a lamp (lit). You smell smoke.",
+   "jsTopline": "You now wield a lamp (lit). You see a puff of smoke.",
    "error": null
   },
   "scen-sweep-Monk-578207": {
@@ -18843,6 +18843,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "archivedAt": "2026-10-15T13:14:31.995Z"
+ }
 }
