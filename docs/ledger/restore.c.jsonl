@@ -17,7 +17,7 @@
 {"fn":"restcemetery","c":"988-1017","status":"ported","js":["js/dungeon.js:restcemetery"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: CONVERTING/UNCONVERTING free arm omitted (no JSON conversion mode)"}
 {"fn":"rest_levl","c":"1021-1030","status":"split","js":["js/lev_json.js:deserLevel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: locations overlay in deserLevel"}
 {"fn":"trickery","c":"1035-1042","status":"ported","js":["js/bones.js:trickery"],"at":"2026-10-03@bbe63333a"}
-{"fn":"getlev","c":"1046-1311","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
+{"fn":"getlev","c":"1046-1311","status":"by-design","d":["D-3974"],"at":"2026-10-15@d8d44a10c","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"rest_adjust_levelflags","c":"1314-1318","status":"ported","js":["js/restore.js:rest_adjust_levelflags"],"d":["D-3374"],"at":"2026-10-03@5046334ff"}
 {"fn":"moves_to_relative_time","c":"1320-1325","status":"ported","js":["js/restore.js:moves_to_relative_time"],"at":"2026-10-03@bbe63333a"}
 {"fn":"relative_time_to_moves","c":"1328-1333","status":"ported","js":["js/restore.js:relative_time_to_moves"],"at":"2026-10-03@bbe63333a"}

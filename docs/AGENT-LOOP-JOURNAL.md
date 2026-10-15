@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-15 — D-3974 cliffs-head peace_minded writers: bones ghostly is_unicorn gate + des-monster set_malign re-run (4/4 PASS)
+
+**C locus:** `restore.c` getlev ghostly `is_unicorn(mtmp->data)` (`mondata.h:149`: mlet S_UNICORN && likes_gems); `sp_lev.c` create_monster `:2125–2129` (des `mpeaceful` override + `set_malign` re-run).
+**JS:** js/bones.js:40 (import), :692–696 (gate); js/mklev.js:6683,6883,6902,9164,15712,20496; scripts/bones-ghostly-peace-unicorn.test.mjs (new: restored pony hostile); scripts/des-monster-peaceful-malign.test.mjs (new: record +1 after des-bat kill).
+**Change:** js/bones.js — import the live C-exact `is_unicorn` (js/monsters.js:503; `imports.mjs --can`: already-imports-monsters edge) and call it in the ghostly gate (D-1849-class clone deleted). js/mklev.js — `set_malign(mtmp)` after the six overrides (ogre loop, wiz_strt placeNamedAt + placeClassAt, kni_goal Ixoth, earth placeNamedAt, tut1 wolf). splev_create_monster + five hardcoded sites already re-ran (audited, untouched); mk_roamer path untouched (different C locus). Rule #2 clean, no new import edge.
+**Verify:** focused tests 0/2 pre-fix (stash check) → 2/2 post-fix. `node scripts/verify.mjs --fn peace_minded` → PASS syntax (2 files) · rule2 · `verify peace_minded: 4 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (all 4 probe sessions PASS full) · reach 80/80 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file) → VERIFY: PASS. Movement: `verify peace_minded: 4 PASS, 0 moved, 0 no-movement`.
+**Named:** (1) mk_roamer peaceful path (mklev.js:27790, no set_malign) — different C locus (mk_roamer), no session evidence. (2) tut1 wolf des `female` (C :2125 forces it; JS keeps birth) — no session evidence. (3) apply.js local `is_unicorn` duplicate — body C-exact, left in place.
+**Next:** regen heals the peace_minded row (4/4 PASS); pop the new cliffs head.
 ## 2026-10-15 — Grow #10: fresh 139/160 (86.9 %) @50450000; +470 sessions, board 3960/4555 full, 0 PASS→FAIL
 
 **Fresh cohort:** 139/160 (86.9 %) on arrival, RNG 98.9 %, screens 97.5 %. Worst: symset 4/12, options 1/2, genesis 3/4, shop 9/12, sweep 9/12, chain 10/12, wish 8/9, worldtour 11/12, zapfest 11/12; every other family 100 %. Gap 14.2 pts vs held-out 72.7 % — inside the §10.20 band, no calibration family.

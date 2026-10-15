@@ -6680,6 +6680,7 @@ function load_bar_strt() {
             if (mtmp) {
                 mtmp.female = female;
                 mtmp.mpeaceful = 0; // C: peaceful > BOOL_RANDOM override
+                set_malign(mtmp); // C sp_lev.c:2128-2129: reset malign
             }
         }
     }
@@ -6877,8 +6878,10 @@ function load_wiz_strt() {
         const mtmp = makemon(pm, moved.x, moved.y, 0);
         if (mtmp) {
             mtmp.female = female;
-            if (peaceful != null && peaceful > BOOL_RANDOM)
+            if (peaceful != null && peaceful > BOOL_RANDOM) {
                 mtmp.mpeaceful = peaceful;
+                set_malign(mtmp); // C sp_lev.c:2128-2129: reset malign
+            }
         }
     };
     const placeClassAt = (cls, rx, ry, peaceful) => {
@@ -6894,8 +6897,10 @@ function load_wiz_strt() {
         // the tmpmons.female = 0 default (:3230); clobber the makemon
         // birth draw (cf. splev_create_monster D-0873).
         if (mtmp) mtmp.female = 0;
-        if (mtmp && peaceful != null && peaceful > BOOL_RANDOM)
+        if (mtmp && peaceful != null && peaceful > BOOL_RANDOM) {
             mtmp.mpeaceful = peaceful;
+            set_malign(mtmp); // C sp_lev.c:2128-2129: reset malign
+        }
     };
 
     for (const [rx, ry] of [
@@ -9156,6 +9161,7 @@ function load_kni_goal() {
             if (mtmp) {
                 mtmp.female = r.female;
                 mtmp.mpeaceful = 0;
+                set_malign(mtmp); // C sp_lev.c:2128-2129: reset malign
             }
         }
     }
@@ -15701,8 +15707,10 @@ function load_earth() {
         const mtmp = makemon(pm, moved.x, moved.y, 0);
         if (mtmp) {
             mtmp.female = female;
-            if (peaceful != null && peaceful > BOOL_RANDOM)
+            if (peaceful != null && peaceful > BOOL_RANDOM) {
                 mtmp.mpeaceful = peaceful;
+                set_malign(mtmp); // C sp_lev.c:2128-2129: reset malign
+            }
         }
         return mtmp;
     };
@@ -20485,6 +20493,7 @@ function load_tut1() {
         const mtmp = pm >= 0 ? makemon(mons(pm), xstart + 29, ystart + 2, MM_NOGRP) : null;
         if (mtmp) {
             mtmp.mpeaceful = 0;
+            set_malign(mtmp); // C sp_lev.c:2128-2129: reset malign
             mtmp.mstrategy = (mtmp.mstrategy || 0) | STRAT_WAITFORU;
         }
     }
