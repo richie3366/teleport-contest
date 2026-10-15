@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-15
 
-- [x] `sit.c` rndcurse — blocks 11/1170 corpus sessions (first at step 60; RNG lost 32708, screens lost 1297): C «You feel a malignant aura surround you.» vs JS «A black glow surrounds you. You feel a malignant aura surrou». Probe: `node scripts/hidden-proxy.mjs verify rndcurse` (scen-descend-Wizard-50255809, scen-options-Wizard-50557411, scen-trek-Wizard-610139). @7005cc234 **[history: ledger: ported D-1089 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3994
+- [x] `sit.c` rndcurse — blocks 11/1170 corpus sessions (first at step 60; RNG lost 32708, screens lost 1297): C «You feel a malignant aura surround you.» vs JS «A black glow surrounds you. You feel a malignant aura surrou». Probe: `node scripts/hidden-proxy.mjs verify rndcurse` (scen-descend-Wizard-50255809, scen-options-Wizard-50557411, scen-trek-Wizard-610139). @7005cc234 **[history: ledger: ported D-1089 — read that D-entry once; the arm this divergence names is still open]** **Addressed:** D-3994 `8bee1398d`
 
 
 - [x] `monmove.c` distfleeck — blocks 5/1204 corpus sessions (first at step 552; RNG lost 66199, screens lost 1810): C draws `rn2(5)=3` in distfleeck, JS `rn2(20)=3` from gethungry(eat.js:700). Probe: `node scripts/hidden-proxy.mjs verify distfleeck` (scen-symset-Archeologist-50255043, scen-symset-Monk-50455043, scen-sweep-Archeologist-50456037). @e7e82572e **[parked: SYMPTOM — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**

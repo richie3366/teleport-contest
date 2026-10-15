@@ -30,7 +30,7 @@
 {"fn":"Ring_off","c":"1449-1452","status":"ported","js":["js/do_wear.js:Ring_off"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Ring_gone","c":"1455-1458","status":"ported","js":["js/do_wear.js:Ring_gone"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Blindf_on","c":"1461-1492","status":"ported","js":["js/do_wear.js:Blindf_on"],"at":"2026-10-03@bbe63333a"}
-{"fn":"Blindf_off","c":"1495-1534","status":"ported","js":["js/do_wear.js:Blindf_off"],"d":["D-2050"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Blindf_off","c":"1495-1534","status":"ported","js":["js/do_wear.js:Blindf_off"],"d":["D-3995","D-2050"],"at":"2026-10-15@8bee1398d"}
 {"fn":"set_wear","c":"1539-1569","status":"ported","js":["js/do_wear.js:set_wear"],"at":"2026-10-03@bbe63333a"}
 {"fn":"donning","c":"1574-1597","status":"ported","js":["js/do_wear.js:donning"],"d":["D-3040"],"at":"2026-09-28@4e6edc522","note":"stale: js/do_wear.js:3930"}
 {"fn":"doffing","c":"1603-1640","status":"ported","js":["js/do_wear.js:doffing"],"at":"2026-09-29@11ac109be","note":"stale: js/do_wear.js:3920"}

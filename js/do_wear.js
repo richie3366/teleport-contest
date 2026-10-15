@@ -2081,10 +2081,14 @@ async function armoroff(otmp) {
     return 1;
 }
 
-/** C youprop.h Blind — HBlinded || EBlinded, not blocked. */
+/** C youprop.h:103 Blind — (HBlinded||EBlinded)&&!BBlinded; no sticky
+ * u.Blind/u.ublind (D-0716 house shape, cf. shk.js Blind). u.Blind syncs
+ * only in make_blinded, so after Blindf_off's setworn cleared EBlinded
+ * the sticky term still read true: "still cannot see" where C sees
+ * again, no toggle_blindness, stale viz (Samurai-50156038@186). */
 function Blind() {
     const u = game.u || {};
-    if (u.Blind || u.ublind) return true;
+    if (u.uroleplay?.blind) return true;
     return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
 }
 
@@ -2166,6 +2170,10 @@ export async function Blindf_off(otmp) {
     if (changed) {
         await toggle_blindness();
     }
+    // House: re-sync the sticky u.Blind mirror (elsewhere written only by
+    // make_blinded) so out-of-file readers see the eyewear transition;
+    // value ≡ live props ≡ C (C has no mirror).
+    u.Blind = Blind();
 }
 
 /**
