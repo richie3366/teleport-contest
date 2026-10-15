@@ -31,7 +31,7 @@ Score last measured: **2026-10-15** — full `sessions` on `e9d602604`
 |--------|------:|
 | **Held-out (judge 2026-10-15 13:09Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** (D-3978…D-3983 window unjudged) |
 | **Fresh cohort (§10.20, scored on arrival)** | 50550000 ×160 @`170f0240a`: **139/160 (86.9 %)**, RNG 97.8 %, screens 94.4 % — symset 6/12 worst; options/town 1/2, shop/sweep/kit/poly 75 %, wish 4/5, worldtour 10/12, chain/questtour 11/12 |
-| **Corpus board (worked, regression fortress)** | full rescore 2026-10-15 of active 1,223: **577 PASS** (0 PASS→FAIL, +1 full-board catch) |
+| **Corpus board (worked, regression fortress)** | full 2026-10-15: **577/1223** (0 PASS→FAIL); `archive` → **1,187** (541 PASS) |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
@@ -50,8 +50,8 @@ fortress — it rises by construction). Fresh history: 79–91.8 %
 across 9 cohorts (Grow #5–11, 139/160 twice running).
 Fresh−held-out gap now 14.2 pts (86.9 % vs 72.7 %), inside the §10.20 band —
 no calibration family (Grow #6 `symset` 15/240).
-**Corpus (2026-10-15 16:40Z, `e9d602604`, 1223/1223 entries, `full: true`):**
-577 PASS (0 PASS→FAIL; +1 catch Wizard-50055081; D-3978…D-3983 PASSes hold);
+**Corpus (2026-10-15 16:40Z, `e9d602604`, 1223, `full: true`; `archive` → 1187):**
+577 pre-archive (0 PASS→FAIL; +1 Wizard-50055081); 541/1187 post;
 RNG 91.20 %, screens 88.1 %; `unrecorded` 0. Worst families `scen-questtour` 9/29,
 `scen-shop` 16/86, `scen-worldtour` 66/156, `scen-sweep` 134/279,
 `scen-zapfest` 8/12, `scen-symset` 15/240; next `scen-trek` 11/19, rest ≥ 97.2 % RNG.
