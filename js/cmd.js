@@ -6713,11 +6713,13 @@ export async function domove(dx, dy) {
         game.iflags.menu_requested = false;
     }
 
-    // C sets u.dx/u.dy before the blocked-move check (used by lookaround/run)
+    // C sets u.dx/u.dy before the blocked-move check (used by lookaround/run).
+    // ux0/uy0 are NOT written here: C hack.c:2780-2781 writes them after the
+    // early-return gates below (carrying/turbulence/impaired/bounds/trap/
+    // sticky/run), just before bhitpos — a failed move keeps the stale
+    // previous-turn square for URETREATING (mthrowu.c:18-19) and friends.
     u.dx = dx;
     u.dy = dy;
-    u.ux0 = u.ux;
-    u.uy0 = u.uy;
 
     // C ref: hack.c domove_core — carrying_too_much before swallow/attack
     if (await carrying_too_much()) {
@@ -6791,7 +6793,12 @@ export async function domove(dx, dy) {
         }
     }
 
-    // C hack.c:2775 — bhitpos tracks the target square for zap/throw aim.
+    // C hack.c:2780-2781 — ux0/uy0 trail the hero's previous square; every
+    // early-return gate above leaves them stale (a failed move does not
+    // move the trail). C hack.c:2782-2783 — bhitpos tracks the target
+    // square for zap/throw aim.
+    u.ux0 = u.ux;
+    u.uy0 = u.uy;
     if (!game.bhitpos) game.bhitpos = { x: 0, y: 0 };
     game.bhitpos.x = newx;
     game.bhitpos.y = newy;
