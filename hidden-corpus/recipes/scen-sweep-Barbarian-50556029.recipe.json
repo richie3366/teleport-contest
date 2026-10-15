@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017spellbook of force bolt\nre.\u0017blessed spellbook of chain lightning\nrf s\u0017blessed spellbook of finger of death\nrg     s\u0017blessed spellbook of knock\nrh 20s+d\n\u0007kobold\nZa\nZc\n\u0007zombie\nZa\nZb\nZd\n#turn\n#pray\ny y  \u0017cursed potion of speed\n\u0007minotaur\nqiFh Fl  \u0017blessed Giantslayer\nwj  Fh  n  Fh Fh  n #invoke\nj   \u0017blessed +3 helm of telepathy\n\u0007tengu\nWk  n 20s sm.s\u0017blessed ring of hunger\n\u0007little dog\nPll sm.20s   n  20s RFh   n  Fh \u0017blessed potion of gain ability\nqm  Fk   nFh   \u0017blessed cloak of magic resistance\n\u0007dwarf lord\nWn  sm.sm.    n sm.   Tn  .lsy  n \u00163\n #levelchange\n8\n    \u0017blessed ring of polymorph control\nPol#polyself\nki-rin\n yeti\n20ssm.s.k.#polyself\npony\n    #monster\n.m.sy\u0007ogre king\nFh Fj  Fh 20s      n.m. sm.\u0017oilskin sack\n\u0017blessed bag of holding\n\u0017locked large box\n\u0017ring of slow digestion\n#tip\nrp\n arardp #loot\ni\n,b\n    n \u0016?\nj   \u0006\u0017leather drum\nat  jhat   n  bn\u0004j#jump\n\u0004j\u001629\n  \u0016?\n>Bjlnbjuu\u0017wand of digging\nzul\u0017wand of striking\nzvlhhhhhybjhljbjnlyk\u0017wand of digging\nzw> bk\u0017wand of striking\nzx>\u0017scroll of earth\nry bbbnj\u0017scroll of earth\nrz l lhbybnbh\u0017wand of digging\nzAlhnykhbnlbbhuk#levelchange\n20\n            \u0017uncursed +0 shield of reflection\n \u0007aligned cleric\nyyWB..s\u0017elven leather helm"
+ },
+ "segments": [
+  {
+   "seed": 50556029,
+   "datetime": "20230809044604",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017spellbook of force bolt\nre.\u0017blessed spellbook of chain lightning\nrf s\u0017blessed spellbook of finger of death\nrg     s\u0017blessed spellbook of knock\nrh 20s+d\n\u0007kobold\nZa\nZc\n\u0007zombie\nZa\nZb\nZd\n#turn\n#pray\ny y  \u0017cursed potion of speed\n\u0007minotaur\nqiFh Fl  \u0017blessed Giantslayer\nwj  Fh  n  Fh Fh  n #invoke\nj   \u0017blessed +3 helm of telepathy\n\u0007tengu\nWk  n 20s sm.s\u0017blessed ring of hunger\n\u0007little dog\nPll sm.20s   n  20s RFh   n  Fh \u0017blessed potion of gain ability\nqm  Fk   nFh   \u0017blessed cloak of magic resistance\n\u0007dwarf lord\nWn  sm.sm.    n sm.   Tn  .lsy  n \u00163\n #levelchange\n8\n    \u0017blessed ring of polymorph control\nPol#polyself\nki-rin\n yeti\n20ssm.s.k.#polyself\npony\n    #monster\n.m.sy\u0007ogre king\nFh Fj  Fh 20s      n.m. sm.\u0017oilskin sack\n\u0017blessed bag of holding\n\u0017locked large box\n\u0017ring of slow digestion\n#tip\nrp\n arardp #loot\ni\n,b\n    n \u0016?\nj   \u0006\u0017leather drum\nat  jhat   n  bn\u0004j#jump\n\u0004j\u001629\n  \u0016?\n>Bjlnbjuu\u0017wand of digging\nzul\u0017wand of striking\nzvlhhhhhybjhljbjnlyk\u0017wand of digging\nzw> bk\u0017wand of striking\nzx>\u0017scroll of earth\nry bbbnj\u0017scroll of earth\nrz l lhbybnbh\u0017wand of digging\nzAlhnykhbnlbbhuk#levelchange\n20\n            \u0017uncursed +0 shield of reflection\n \u0007aligned cleric\nyyWB..s\u0017elven leather helm"
+  }
+ ]
+}

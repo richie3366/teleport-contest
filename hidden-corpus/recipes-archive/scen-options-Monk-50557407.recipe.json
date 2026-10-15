@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "Oaeh\nb\nc\n#pray\ny  O>mgn\nn\ndgO>cel\nqd>mO>>>dpg\n  dirc mOa\n#twoweapon\nr\u001bs20sO>cb\nm\nw\u001b#conduct\n mO>>>>>>i\na\na\na\n\u001bey#untrap\njOklj\n#jump\nmO>>>>>u\ng\n Za\nefO>gpd\nP>mO>>>>>>f\nl\n\u000f\u001bss"
+ },
+ "segments": [
+  {
+   "seed": 50557407,
+   "datetime": "20020402090047",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=autodig\n",
+   "moves": "Oaeh\nb\nc\n#pray\ny  O>mgn\nn\ndgO>cel\nqd>mO>>>dpg\n  dirc mOa\n#twoweapon\nr\u001bs20sO>cb\nm\nw\u001b#conduct\n mO>>>>>>i\na\na\na\n\u001bey#untrap\njOklj\n#jump\nmO>>>>>u\ng\n Za\nefO>gpd\nP>mO>>>>>>f\nl\n\u000f\u001bss"
+  }
+ ]
+}

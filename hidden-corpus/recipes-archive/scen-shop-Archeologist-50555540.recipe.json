@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWi\u0017blessed +3 cloak of magic resistance\nWj\u0016?\n>w\u0006Fk FkFkFkFkFkhjb#chat\nj_ \u001b,,\u0014m. 20s   .m._oo.,:hun#chat\nk_ooooo.,#chat\nb_{.  Fl_.m,qy_oooooo,_ooo.  Fk    n _.  n  n Fb  n   ,p  \u00167\n__,#chat\nk_ooo.,p_oo._.,\u0017amulet of change\ndm_ooo.,:_ooooooooo,,plyu#chat\nj__.#chat\ny#pray\ny y _ooooo,Fk _,m, ,puhb#chat\nkukk#chat\nujuj#chat\nhjhk#chat\nu_ooo,Fj_,Fl ,$__,#chat\nl _ooooooooo,Fl_.m,Fl_oo._,,#chat\nlnln#chat\nl_{.q_ooo._.,\u001b: hhj#chat\nh_oooooooo.,\u0017amulet of strangulation\ndp_{.qhul#chat\nyhuj#chat\nn\u0016?\nclh h\u0016?\n>w\u0006FjFjFjFjFjFj__.Fj_.Fn#chat\nn\u0016?\ncyhl  n \u0016?\n>w\u0006_oooooo,_.._oo,_.,p_oooooooo._.,#chat\nk_ooo,_,,p_{._,qjyh#chat\nnlhn#chat\njlyn#chat\nu__, Fl_..Fn#chat\njbub#chat\nh_oo.  Fh   _.:,p_{,_.qy_ooooooooo, Fj_,.Fj_o.Fb    _.,      n   \u0017amulet of guarding\ndr  \u00167\nk  n yb\u0016?\n>w\u0006\u001610\n_ooooooo,,p_{.qFk   n Fk   n Fk    nFk  Fk    n   Fk\u00166\nFy   n Fy FyFyFyFy_oooooooo._.,:hjb#chat\nu_oooo._ooo._.Fl,p_oooooo.Fl _,,\u001bp_ooooooo.Fj_. Fk _ooo. Fy _.Fk"
+ },
+ "segments": [
+  {
+   "seed": 50555540,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWi\u0017blessed +3 cloak of magic resistance\nWj\u0016?\n>w\u0006Fk FkFkFkFkFkhjb#chat\nj_ \u001b,,\u0014m. 20s   .m._oo.,:hun#chat\nk_ooooo.,#chat\nb_{.  Fl_.m,qy_oooooo,_ooo.  Fk    n _.  n  n Fb  n   ,p  \u00167\n__,#chat\nk_ooo.,p_oo._.,\u0017amulet of change\ndm_ooo.,:_ooooooooo,,plyu#chat\nj__.#chat\ny#pray\ny y _ooooo,Fk _,m, ,puhb#chat\nkukk#chat\nujuj#chat\nhjhk#chat\nu_ooo,Fj_,Fl ,$__,#chat\nl _ooooooooo,Fl_.m,Fl_oo._,,#chat\nlnln#chat\nl_{.q_ooo._.,\u001b: hhj#chat\nh_oooooooo.,\u0017amulet of strangulation\ndp_{.qhul#chat\nyhuj#chat\nn\u0016?\nclh h\u0016?\n>w\u0006FjFjFjFjFjFj__.Fj_.Fn#chat\nn\u0016?\ncyhl  n \u0016?\n>w\u0006_oooooo,_.._oo,_.,p_oooooooo._.,#chat\nk_ooo,_,,p_{._,qjyh#chat\nnlhn#chat\njlyn#chat\nu__, Fl_..Fn#chat\njbub#chat\nh_oo.  Fh   _.:,p_{,_.qy_ooooooooo, Fj_,.Fj_o.Fb    _.,      n   \u0017amulet of guarding\ndr  \u00167\nk  n yb\u0016?\n>w\u0006\u001610\n_ooooooo,,p_{.qFk   n Fk   n Fk    nFk  Fk    n   Fk\u00166\nFy   n Fy FyFyFyFy_oooooooo._.,:hjb#chat\nu_oooo._ooo._.Fl,p_oooooo.Fl _,,\u001bp_ooooooo.Fj_. Fk _ooo. Fy _.Fk"
+  }
+ ]
+}

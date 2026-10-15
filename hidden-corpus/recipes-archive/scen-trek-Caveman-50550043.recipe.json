@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "B KBK_ \u001bm.>Fl 20ss\u0014\u0018\u001bKNYL_>.>#twoweapon\n#invoke\n\u001bUKUU_>.>#untrap\nu\u0004l<UHHL_>.>FlFlFlLUBB_>.>Z\u0018\u001bKHKU_>.>P#name\na\nUJKH_>,>HLYU_>.>JUHJ_>.>#name\nf\n#pray\n<.YYKL_>.>#loot\n#chat\nb<tbhdcs.s10slj10s#name\ni\njuukKJJL_>.>LBJY_>.>YNYJ_>,>BLUL_>.>#dip\na#dip\nfULKK_>.><zfWf \u001bddsssdess20s#name\ni\njy#name\nm\n>.#name\ni\n#offer\nohL50sFjss50s150s100s \u000f\u001bi\u001b\u0018\u001b150sFjssi\u001b#chat\nhi\u001bhhy100skykFj20ss100s100s Fjss150s100s100sFbFbs100sFuFu20sFlss100s100s100sFuFuFuFuFuFuFussnkjFkFksjkj100s100skyu100s150s FuFuFubub100subnFkss\\ ynj#terrain\nb\n150s 50s150seeeeeeeeeeeeeeeeeeeeeeeeeeee#pray\ny de20sLJUY_>.>UBNK_>.>YLYN_>.>LBBK_>,>f \u001bch<KLJY_>,>FjFj.KYLK_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef \u001br\u001b#force\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeer\u001b#name\n\u001b#ride\nneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUUBK_>.>BYHL_>.>KYYU_>,><da<JJJU_>.>NYKJ_>.>HLHH_>.>e#pray\ny eee#pray\ny   e#pray\ny #pray\ny   yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50550043,
+   "datetime": "20260604094410",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:lychee\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": "B KBK_ \u001bm.>Fl 20ss\u0014\u0018\u001bKNYL_>.>#twoweapon\n#invoke\n\u001bUKUU_>.>#untrap\nu\u0004l<UHHL_>.>FlFlFlLUBB_>.>Z\u0018\u001bKHKU_>.>P#name\na\nUJKH_>,>HLYU_>.>JUHJ_>.>#name\nf\n#pray\n<.YYKL_>.>#loot\n#chat\nb<tbhdcs.s10slj10s#name\ni\njuukKJJL_>.>LBJY_>.>YNYJ_>,>BLUL_>.>#dip\na#dip\nfULKK_>.><zfWf \u001bddsssdess20s#name\ni\njy#name\nm\n>.#name\ni\n#offer\nohL50sFjss50s150s100s \u000f\u001bi\u001b\u0018\u001b150sFjssi\u001b#chat\nhi\u001bhhy100skykFj20ss100s100s Fjss150s100s100sFbFbs100sFuFu20sFlss100s100s100sFuFuFuFuFuFuFussnkjFkFksjkj100s100skyu100s150s FuFuFubub100subnFkss\\ ynj#terrain\nb\n150s 50s150seeeeeeeeeeeeeeeeeeeeeeeeeeee#pray\ny de20sLJUY_>.>UBNK_>.>YLYN_>.>LBBK_>,>f \u001bch<KLJY_>,>FjFj.KYLK_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef \u001br\u001b#force\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeer\u001b#name\n\u001b#ride\nneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUUBK_>.>BYHL_>.>KYYU_>,><da<JJJU_>.>NYKJ_>.>HLHH_>.>e#pray\ny eee#pray\ny   e#pray\ny #pray\ny   yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

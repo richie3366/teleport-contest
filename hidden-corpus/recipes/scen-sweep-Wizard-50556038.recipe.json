@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0007tame kitten\n\u0007tame housecat\n\u0017apple\nt\u001b\u0017magic whistle\nnuyap     #chat\nj\u0017tin whistle\nyluaq\u0007giant rat\nsm.sssssdc20s 20s   s\u0007gnome\n\u0017scroll of taming\nrr \u00178 spears\nQs\u0007gnome\nl fh  fh \u0007newt\nbfk fkfj\u0017potion of water\ntshjbb,#enhance\nye\ne\n\u001b#wizintrinsic\nl\n \u0017blindfold\nau \u0017cursed wand of teleportation\nzv. \u001bm.  zv  n\u0017scroll of earth\nrw\u0017scroll of taming\nrxs..\u001629\n   #wizintrinsic\nm\n hlh\u0017cursed scroll of confuse monster\nry\u0017scroll of create monster\nrz\u0017wand of secret door detection\nzAzA.20s20s\u0018\u001b\u0017dwarvish mattock\naB h  n al .  n\u0006_oo.anal   ny  bk \u0017grave\nam   nss  n h  nj\u00162\n#levelchange\n16\n               \u0016?\n>y  _mmmmm,#chat\nu_mmmm.#chat\ny_mm,#chat\nb;m._mmm.#chat\nn\u0006_>>._.>_>>,Fl _. Fn  >Fj   n Fl  _>>.   Fl     _.      n Fk    >Fj  Fn   \u0016?\n>>\u001b:    n #chat\njrx\u00167\ny   u    k\u0017altar\ndA   n  dm  \u0017newt corpse\n#offer\nC      k  n  \u0017throne\n#sit\n#sit\nj  n \u0017grave\n:    \u0017wand of digging\nzD>   n   . 20s    n h  \u0017ice\nh l   n  hl    #terrain\n\u001b<#force\nw-\u00165\n\\   \u0017cursed bag of holding\n\u0017oilskin sack\n\u0017scroll of gold detection\n\u0017potion of booze\n\u0017mace\nwI    yy\u001bnny n  d"
+ },
+ "segments": [
+  {
+   "seed": 50556038,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0007tame kitten\n\u0007tame housecat\n\u0017apple\nt\u001b\u0017magic whistle\nnuyap     #chat\nj\u0017tin whistle\nyluaq\u0007giant rat\nsm.sssssdc20s 20s   s\u0007gnome\n\u0017scroll of taming\nrr \u00178 spears\nQs\u0007gnome\nl fh  fh \u0007newt\nbfk fkfj\u0017potion of water\ntshjbb,#enhance\nye\ne\n\u001b#wizintrinsic\nl\n \u0017blindfold\nau \u0017cursed wand of teleportation\nzv. \u001bm.  zv  n\u0017scroll of earth\nrw\u0017scroll of taming\nrxs..\u001629\n   #wizintrinsic\nm\n hlh\u0017cursed scroll of confuse monster\nry\u0017scroll of create monster\nrz\u0017wand of secret door detection\nzAzA.20s20s\u0018\u001b\u0017dwarvish mattock\naB h  n al .  n\u0006_oo.anal   ny  bk \u0017grave\nam   nss  n h  nj\u00162\n#levelchange\n16\n               \u0016?\n>y  _mmmmm,#chat\nu_mmmm.#chat\ny_mm,#chat\nb;m._mmm.#chat\nn\u0006_>>._.>_>>,Fl _. Fn  >Fj   n Fl  _>>.   Fl     _.      n Fk    >Fj  Fn   \u0016?\n>>\u001b:    n #chat\njrx\u00167\ny   u    k\u0017altar\ndA   n  dm  \u0017newt corpse\n#offer\nC      k  n  \u0017throne\n#sit\n#sit\nj  n \u0017grave\n:    \u0017wand of digging\nzD>   n   . 20s    n h  \u0017ice\nh l   n  hl    #terrain\n\u001b<#force\nw-\u00165\n\\   \u0017cursed bag of holding\n\u0017oilskin sack\n\u0017scroll of gold detection\n\u0017potion of booze\n\u0017mace\nwI    yy\u001bnny n  d"
+  }
+ ]
+}

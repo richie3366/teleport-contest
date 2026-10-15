@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #untrap\ny #turn\n\u00161\n#turn\nqf  b \\ O>>>d\u001b\nv i\u001b\u0007kitten\n\u0017tripe ration\ntcy \u0017tin whistle\nh\u001bjyah \u0006_ \u001b;>FyFy_>>,Fl_,:Fk>FlFk_>>. _.m.Fh>FhFh\u0017tripe ration\ntah \u0007gnome\nsm..m..m...20sndgsm..m.  n20sy#name\n\u001b\u0007yellow mold\n\u0017scroll of taming\nri  #name\n\u001b\u00163\nO>f\u001b\nO>>g\u001b\n\u000f\u001b\\ O>>i\u001b\u001b\nOe\u001b\n#levelchange\n20\n                   ynlk n\u0017neutral altar\nda \u0017newt corpse\n#offer\nj  :l\u0017ice\nbu.\u0017pool\n:h\u001buh \u0017grave\n:\u0017pick-axe\nak  s.#jump\nW:#levelchange\n14\n ul jh\u001b\u0017grave\n: \u0017pick-axe\nal >  .20sm.y\u0017chaotic altar\ndd df   \u0017human corpse\n :  #terrain\n\u001bf    j ,\u001b#pray\ny y \u0006_>.Fh_.> \u0006_>>._.> Zol \u0006_>>._.Fn>FnFnFn\u0006_>>.Fh_,m,Fh>FhFh_>>.Fh_.;:   Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFhewl \u0006_>.Fh_.Fh>FlFl_>,Fh_.>.Fl>FlFh_>.Fh_.Fh>FlFlFlFlFhZ10s\u0006_>,Fl_,Fh>FlFl_>.Fl_.Fl>FlFh_>.Fl_, Fl>FhFlFhFhFl#pray\ny y     >\u0006_>,Fh_.;.Fh>FhFl_>,Fl_, Fl>FlFl_>.Fl_.Fh>FhFhFlFhFh\u000f\u001b\u00167\n\u0006_>,_.> #name\ni\nq\u0006_>>.Fh_.Fh>FhFh_>>. Fh_.Fh>FhFh_>>. Fh_.  n Fh>FhFhFhFhFhz#conduct\n \u0006_>.Fn_>FnFn_>,Fn_>FhFn_>FhFhFhFnFn#loot\nn \u0018\u001b\u0006_>>.Fh_.Fn>FhFhFh<\u0006_>>.Fh_., Fh>FhFn_>FhFh_>>.Fh_.Fy>FhFyFh"
+ },
+ "segments": [
+  {
+   "seed": 50555006,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:Enhanced1\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=stop \"You hear\"\n",
+   "moves": " #untrap\ny #turn\n\u00161\n#turn\nqf  b \\ O>>>d\u001b\nv i\u001b\u0007kitten\n\u0017tripe ration\ntcy \u0017tin whistle\nh\u001bjyah \u0006_ \u001b;>FyFy_>>,Fl_,:Fk>FlFk_>>. _.m.Fh>FhFh\u0017tripe ration\ntah \u0007gnome\nsm..m..m...20sndgsm..m.  n20sy#name\n\u001b\u0007yellow mold\n\u0017scroll of taming\nri  #name\n\u001b\u00163\nO>f\u001b\nO>>g\u001b\n\u000f\u001b\\ O>>i\u001b\u001b\nOe\u001b\n#levelchange\n20\n                   ynlk n\u0017neutral altar\nda \u0017newt corpse\n#offer\nj  :l\u0017ice\nbu.\u0017pool\n:h\u001buh \u0017grave\n:\u0017pick-axe\nak  s.#jump\nW:#levelchange\n14\n ul jh\u001b\u0017grave\n: \u0017pick-axe\nal >  .20sm.y\u0017chaotic altar\ndd df   \u0017human corpse\n :  #terrain\n\u001bf    j ,\u001b#pray\ny y \u0006_>.Fh_.> \u0006_>>._.> Zol \u0006_>>._.Fn>FnFnFn\u0006_>>.Fh_,m,Fh>FhFh_>>.Fh_.;:   Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFhewl \u0006_>.Fh_.Fh>FlFl_>,Fh_.>.Fl>FlFh_>.Fh_.Fh>FlFlFlFlFhZ10s\u0006_>,Fl_,Fh>FlFl_>.Fl_.Fl>FlFh_>.Fl_, Fl>FhFlFhFhFl#pray\ny y     >\u0006_>,Fh_.;.Fh>FhFl_>,Fl_, Fl>FlFl_>.Fl_.Fh>FhFhFlFhFh\u000f\u001b\u00167\n\u0006_>,_.> #name\ni\nq\u0006_>>.Fh_.Fh>FhFh_>>. Fh_.Fh>FhFh_>>. Fh_.  n Fh>FhFhFhFhFhz#conduct\n \u0006_>.Fn_>FnFn_>,Fn_>FhFn_>FhFhFhFnFn#loot\nn \u0018\u001b\u0006_>>.Fh_.Fn>FhFhFh<\u0006_>>.Fh_., Fh>FhFn_>FhFh_>>.Fh_.Fy>FhFyFh"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed ring of polymorph control\nPfr\u0017dunce cap\nWgsss#polyself\nlichen\n  .ss.20s     #polyself\ntrapper\n s20s    \u0007small mimic\nsFu Fu ss.#polyself\nrope golem\n#monster\nsm..m.20s sbs\u0017potion of polymorph\nqh pony\n  "
+ },
+ "segments": [
+  {
+   "seed": 50558003,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed ring of polymorph control\nPfr\u0017dunce cap\nWgsss#polyself\nlichen\n  .ss.20s     #polyself\ntrapper\n s20s    \u0007small mimic\nsFu Fu ss.#polyself\nrope golem\n#monster\nsm..m.20s sbs\u0017potion of polymorph\nqh pony\n  "
+  }
+ ]
+}

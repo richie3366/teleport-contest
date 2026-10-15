@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b<.>FyFy_>>,Fb_,Fy>FbFy_>>.  Fl_,Fh>FhFhFlFhFh\u0006_>.Fh_.Fh>FlFl_>.Fl_.Fh>FlFl_>.Fl_.Fh>FlFhFlFlFh\u0006_>>,Fl_,Fh>FlFl_>>,Fh_.Fh>FlFh_>>.Fl_,Fl>FhFhFlFlFh\u0006_>.Fl_,Fh>FlFl_>,Fl_,  nFh>FlFh_>,Fh_,Fh>FlFhFlFhFl\u0006_>>.Fh_.Fl>FlFl_>>,Fl_,Fl>FlFh_>>,Fh_.Fh>FhFlFlFhFh\u000f\u001b\u00167\n_>.>_>,>100sFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuO>>>g\u001b\n\u0006_>>.Fl_,Fl>F"
+ },
+ "segments": [
+  {
+   "seed": 50550087,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=stop \"You feel\"\n",
+   "moves": "\u0006_ \u001b<.>FyFy_>>,Fb_,Fy>FbFy_>>.  Fl_,Fh>FhFhFlFhFh\u0006_>.Fh_.Fh>FlFl_>.Fl_.Fh>FlFl_>.Fl_.Fh>FlFhFlFlFh\u0006_>>,Fl_,Fh>FlFl_>>,Fh_.Fh>FlFh_>>.Fl_,Fl>FhFhFlFlFh\u0006_>.Fl_,Fh>FlFl_>,Fl_,  nFh>FlFh_>,Fh_,Fh>FlFhFlFhFl\u0006_>>.Fh_.Fl>FlFl_>>,Fl_,Fl>FlFh_>>,Fh_.Fh>FhFlFlFhFh\u000f\u001b\u00167\n_>.>_>,>100sFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuO>>>g\u001b\n\u0006_>>.Fl_,Fl>F"
+  }
+ ]
+}

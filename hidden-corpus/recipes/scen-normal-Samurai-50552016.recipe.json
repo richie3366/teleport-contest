@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " 20s#turn\n#invoke\n\u001b#pray\ny #conduct\n E- Vlad was here\n#turn\n#ride\njr\u001btbj20s#tip\n\u001b\u0004u#monster\nok#monster\n#turn\n\u000f\u001b,i\u001b\u0004k#invoke\n\u001bf  h#sit\ni\u001bW\u001b.s20safwc.20sswa 20s20ssXwdys..#chat\nk#offer\ni\u001b\u000f\u001b:  \\    "
+ },
+ "segments": [
+  {
+   "seed": 50552016,
+   "datetime": "20170809075434",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": " 20s#turn\n#invoke\n\u001b#pray\ny #conduct\n E- Vlad was here\n#turn\n#ride\njr\u001btbj20s#tip\n\u001b\u0004u#monster\nok#monster\n#turn\n\u000f\u001b,i\u001b\u0004k#invoke\n\u001bf  h#sit\ni\u001bW\u001b.s20safwc.20sswa 20s20ssXwdys..#chat\nk#offer\ni\u001b\u000f\u001b:  \\    "
+  }
+ ]
+}

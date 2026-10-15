@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017blessed amulet of life saving\nPi\u001630\n   \u0004us\u001610\n\u0006_ \u001b>.\u001610\n_>._.m.<20s\u0016?\n>u \u0017cursed wand of probing\nzjjzjbss\u0017amulet of guarding\nPk20s20ss.R\u0017uncursed the Sceptre of Might\n \u0007baby red dragon\nwl FkFkFk\u0017blessed wand of fire\n\u0007nalfeshnee\nzmkFj   Fj\u00173 spellbook of protection\n \u0007green slime\nrn  sm.sZZ\u0017blessed wand of lightning\n\u0007Famine\nyyzo.  n FkFj20s sm..m.\u001635\n_{.20s.m..u\u001638\nkj   :        n  \u0016?\n>>Q_>.<sss\u001630\n\u0004 \u001630\n\u0014;\u0016?\nq  yln:   \u00165\nub: \u0016?\n>Iyk:   \u001633\n u     n  k hll:   n   n \u00165\n   \u0016?\n>>P  nj\u0017wand of undead turning\nEc X marks the spot\nk\u0017towel\nEd\u0017wand of slow monster\nEe X marks the spot\n: \u0017wand of teleportation\nEf Elbereth\n: E- Elbereth Elbereth\n\u0007jackal\n20sss\u001635\n   jkjkj: \u001635\nyulnyl:\u0016?\n>J       scroll of food detection\n#levelchange\n8\n     \u0007fog cloud\n.m.sm. \u001b .m.     .m.   n   .m.       n \u0007sandestin\n#chat\nl      Fl   n                   n Fb             n      \u0007Nazgul\nFy   n                 n            n Fu    n                 \u0007newt\n;h;sl     n    20s   yy\u001bny y y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 50550080,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017blessed amulet of life saving\nPi\u001630\n   \u0004us\u001610\n\u0006_ \u001b>.\u001610\n_>._.m.<20s\u0016?\n>u \u0017cursed wand of probing\nzjjzjbss\u0017amulet of guarding\nPk20s20ss.R\u0017uncursed the Sceptre of Might\n \u0007baby red dragon\nwl FkFkFk\u0017blessed wand of fire\n\u0007nalfeshnee\nzmkFj   Fj\u00173 spellbook of protection\n \u0007green slime\nrn  sm.sZZ\u0017blessed wand of lightning\n\u0007Famine\nyyzo.  n FkFj20s sm..m.\u001635\n_{.20s.m..u\u001638\nkj   :        n  \u0016?\n>>Q_>.<sss\u001630\n\u0004 \u001630\n\u0014;\u0016?\nq  yln:   \u00165\nub: \u0016?\n>Iyk:   \u001633\n u     n  k hll:   n   n \u00165\n   \u0016?\n>>P  nj\u0017wand of undead turning\nEc X marks the spot\nk\u0017towel\nEd\u0017wand of slow monster\nEe X marks the spot\n: \u0017wand of teleportation\nEf Elbereth\n: E- Elbereth Elbereth\n\u0007jackal\n20sss\u001635\n   jkjkj: \u001635\nyulnyl:\u0016?\n>J       scroll of food detection\n#levelchange\n8\n     \u0007fog cloud\n.m.sm. \u001b .m.     .m.   n   .m.       n \u0007sandestin\n#chat\nl      Fl   n                   n Fb             n      \u0007Nazgul\nFy   n                 n            n Fu    n                 \u0007newt\n;h;sl     n    20s   yy\u001bny y y\u001b  2"
+  }
+ ]
+}

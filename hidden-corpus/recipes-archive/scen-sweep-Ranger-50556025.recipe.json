@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n20\nbjy\u0017grave\n:\u0017pick-axe\nag >s.:hk\u0017iron bars\nkjkjkl\u0017moat\n#dip\ney  jkj\u0017tree\nk\u0004j\u0004j#terrain\n\u001bwcyr\u001bck\u0017blessed spellbook of remove curse\nri.\u0017spellbook of cone of cold\nrj .+\u001bZ\u001b\u0007jackal\nZ\u001b\u0007sewer rat\nZ\u001bZ\u001bFjZ\u001bZ\u001bFjZ\u001b#turn\n\u0007little dog\n\u0017scroll of taming\nrk \u001b\u0017saddle\nalj#ride\njy\u0007tame saddled warhorse\n#ride\njy\u0007tame saddled horse\n#ride\njy\u0006_ \u001bm, >FjFj_>>.Fj_.;,Fj>FjFj_>>.Fj_,<.Fj>FjFj\u0007kobold\nFjFjFj\u0006_>,Fj_.m,Fj>FjFj_>.Fj_,@.Fj>FjFj_>,Fj_,:Fj>FjFjyjnl nh\u00164\ni\u001ball#ride\njnem..rj y s20sZa\nwdss.Xwh..20sXwcy20sFh Fh#dip\nf\u0004j#monster\n#dip\ng\u0018\u001bPwa\\ i\u001bwhFh FhFhWsy20s .uri y 20s sm.  n Za\nwb  Fb FbFb XwdFb   n Fb Fb wcy Fb  Fb  n FbP#jump\nP\u0018\u001bthy :H\\ \u000f\u001b\u001610\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqq@._{,  Fh_,qy#dip\ngy_oooooo. Fu_.  Fh     ,p_oooooooo,   n  Fk    _,    n Fk   _oo.  Fy    _.  n  Fy  ,:_ooooo. Fk  n  _, Fk   n _oo.  Fy    n _. Fk  ,$do  n  tbk  J\u00164\n\u0016?\n>y  _mm.#chat\nn_mmmmm.#chat\nl;>._mmm,#chat\nj;m,_mmm,#chat\nj;_.#force\n#offer\nwg\u0007sandestin\nFhFh \u0007shrieker\nsm.   n  \u001b.m.sm. 20s sm. sm. sm. .m.\u0007balrog\nFhFn  nFjFh\u001610\n#levelchange\n12\n \u0007master mind flayer\nsk.m.                sm.  n   sm.       n  \u0007red dragon\n;k.sb     n  sls\u0017dwarvish mattock\n\u0006_oo.ar   yy\u001by   y y y\u001b  a"
+ },
+ "segments": [
+  {
+   "seed": 50556025,
+   "datetime": "20200505015129",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n20\nbjy\u0017grave\n:\u0017pick-axe\nag >s.:hk\u0017iron bars\nkjkjkl\u0017moat\n#dip\ney  jkj\u0017tree\nk\u0004j\u0004j#terrain\n\u001bwcyr\u001bck\u0017blessed spellbook of remove curse\nri.\u0017spellbook of cone of cold\nrj .+\u001bZ\u001b\u0007jackal\nZ\u001b\u0007sewer rat\nZ\u001bZ\u001bFjZ\u001bZ\u001bFjZ\u001b#turn\n\u0007little dog\n\u0017scroll of taming\nrk \u001b\u0017saddle\nalj#ride\njy\u0007tame saddled warhorse\n#ride\njy\u0007tame saddled horse\n#ride\njy\u0006_ \u001bm, >FjFj_>>.Fj_.;,Fj>FjFj_>>.Fj_,<.Fj>FjFj\u0007kobold\nFjFjFj\u0006_>,Fj_.m,Fj>FjFj_>.Fj_,@.Fj>FjFj_>,Fj_,:Fj>FjFjyjnl nh\u00164\ni\u001ball#ride\njnem..rj y s20sZa\nwdss.Xwh..20sXwcy20sFh Fh#dip\nf\u0004j#monster\n#dip\ng\u0018\u001bPwa\\ i\u001bwhFh FhFhWsy20s .uri y 20s sm.  n Za\nwb  Fb FbFb XwdFb   n Fb Fb wcy Fb  Fb  n FbP#jump\nP\u0018\u001bthy :H\\ \u000f\u001b\u001610\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqq@._{,  Fh_,qy#dip\ngy_oooooo. Fu_.  Fh     ,p_oooooooo,   n  Fk    _,    n Fk   _oo.  Fy    _.  n  Fy  ,:_ooooo. Fk  n  _, Fk   n _oo.  Fy    n _. Fk  ,$do  n  tbk  J\u00164\n\u0016?\n>y  _mm.#chat\nn_mmmmm.#chat\nl;>._mmm,#chat\nj;m,_mmm,#chat\nj;_.#force\n#offer\nwg\u0007sandestin\nFhFh \u0007shrieker\nsm.   n  \u001b.m.sm. 20s sm. sm. sm. .m.\u0007balrog\nFhFn  nFjFh\u001610\n#levelchange\n12\n \u0007master mind flayer\nsk.m.                sm.  n   sm.       n  \u0007red dragon\n;k.sb     n  sls\u0017dwarvish mattock\n\u0006_oo.ar   yy\u001by   y y y\u001b  a"
+  }
+ ]
+}

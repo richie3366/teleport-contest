@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  O>jkc\n#sit\nmOa\n#jump\n_m. \u001bm..Onei\nn\n:#conduct\n mOa\n#loot\nuOji\nd\n#offer\n#terrain\nf\nOjfp\n\u0018\u001b#twoweapon\ns .m.mO>>>t\n#monster\nOklm\na\nlychee\nj\n\u001b#turn\n      olOlm\np\nf\ng\n\u001b\u001bi\u001blmO>ts\n ckmO>>>>g\n#conduct\n .s"
+ },
+ "segments": [
+  {
+   "seed": 50557401,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  O>jkc\n#sit\nmOa\n#jump\n_m. \u001bm..Onei\nn\n:#conduct\n mOa\n#loot\nuOji\nd\n#offer\n#terrain\nf\nOjfp\n\u0018\u001b#twoweapon\ns .m.mO>>>t\n#monster\nOklm\na\nlychee\nj\n\u001b#turn\n      olOlm\np\nf\ng\n\u001b\u001bi\u001blmO>ts\n ckmO>>>>g\n#conduct\n .s"
+  }
+ ]
+}

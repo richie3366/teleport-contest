@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWk\u0016?\n>w\u0006Fj FjFjFjFjFj\u00167\nluk\u0016?\n>w\u0006_ \u001b>.,p_ooooo,Fj_.,\u0014m,s.__,_.Fb #chat\nj _ooooooooo.Fh _.Fu  ,:_oooo,  n Fu_, Fu   n ,p\u00167\n_ooooo.,$Fu Fu   nFuFuFuFu\u0016?\n>Bbkh\u0016?\n>w\u0006_oooo, Fb_,@.Fb,p_ooooooooo,Fh_..,\u001b$_{,Fl_.qdlll#chat\nkllu#chat\nk_oo,Fh_.  Fh ,p   Fh Fh Fh Fh   Fh   nFh_oo.  n Fk  n_,   n Fh   n,p   \u00167\nlyb\u0016?\n>w\u0006\u00164\n_{.qd_{.qdklu#chat\nh__.#chat\nh__.#chat\nu\u0016?\n>Bnhl\u0016?\n>w\u0006_{. _.@.Fj  qd  n  Fj FjFjFjFjFjnll#chat\ny_oooo.Fh_. Fh  n,p  uln#chat\nl__.  Fj     n   n _.#chat\nj  n  \u00164\n_oooo.,p_{,q\u0016?\ncjkj\u0016?\n>w\u0006_ooo._,_o.   nFh _.,  n p  Fh  y y\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50555521,
+   "datetime": "20061202105127",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWk\u0016?\n>w\u0006Fj FjFjFjFjFj\u00167\nluk\u0016?\n>w\u0006_ \u001b>.,p_ooooo,Fj_.,\u0014m,s.__,_.Fb #chat\nj _ooooooooo.Fh _.Fu  ,:_oooo,  n Fu_, Fu   n ,p\u00167\n_ooooo.,$Fu Fu   nFuFuFuFu\u0016?\n>Bbkh\u0016?\n>w\u0006_oooo, Fb_,@.Fb,p_ooooooooo,Fh_..,\u001b$_{,Fl_.qdlll#chat\nkllu#chat\nk_oo,Fh_.  Fh ,p   Fh Fh Fh Fh   Fh   nFh_oo.  n Fk  n_,   n Fh   n,p   \u00167\nlyb\u0016?\n>w\u0006\u00164\n_{.qd_{.qdklu#chat\nh__.#chat\nh__.#chat\nu\u0016?\n>Bnhl\u0016?\n>w\u0006_{. _.@.Fj  qd  n  Fj FjFjFjFjFjnll#chat\ny_oooo.Fh_. Fh  n,p  uln#chat\nl__.  Fj     n   n _.#chat\nj  n  \u00164\n_oooo.,p_{,q\u0016?\ncjkj\u0016?\n>w\u0006_ooo._,_o.   nFh _.,  n p  Fh  y y\u001by   y y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                              \u0016?\n>H\u0004y\u001640\n\u0006_ \u001bm,\u001640\n#levelchange\n6\n        hu h    nk  \u0017chaotic altar\ndn   n \u0017gnome corpse\n #offer\nq    n  : j   n j   n \u0017melting ice\nl   n hhh:#terrain\nc\n>.i\u001b#name\nm\n#dip\nm.shiny\n\u00166\n\u0016?\ng \u0017blessed apple\n\u0017dilithium crystal\n\u0007fire giant\nFnFn\u0017cursed scroll of destroy armor\nrt .u.\u0016?\ni_<.<\u0016?\n>A #chat\nl;_.\u0016?\n>>L      grappling hook\nbu       n u     k        n  :\u001610\n\u001626\n_{,\u0016?\n\u001bh      u    n     n    \u00164\n\u001640\nl        n    k          nl             n  l         n       l   n       yny  y n  u"
+ },
+ "segments": [
+  {
+   "seed": 50556513,
+   "datetime": "20001025211052",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:mango\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                              \u0016?\n>H\u0004y\u001640\n\u0006_ \u001bm,\u001640\n#levelchange\n6\n        hu h    nk  \u0017chaotic altar\ndn   n \u0017gnome corpse\n #offer\nq    n  : j   n j   n \u0017melting ice\nl   n hhh:#terrain\nc\n>.i\u001b#name\nm\n#dip\nm.shiny\n\u00166\n\u0016?\ng \u0017blessed apple\n\u0017dilithium crystal\n\u0007fire giant\nFnFn\u0017cursed scroll of destroy armor\nrt .u.\u0016?\ni_<.<\u0016?\n>A #chat\nl;_.\u0016?\n>>L      grappling hook\nbu       n u     k        n  :\u001610\n\u001626\n_{,\u0016?\n\u001bh      u    n     n    \u00164\n\u001640\nl        n    k          nl             n  l         n       l   n       yny  y n  u"
+  }
+ ]
+}

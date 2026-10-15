@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nb;>._mmmm.Fl       _.#chat\nl     n_m,     nFh    n  _.#chat\nn  n    n _mm.     Fb        n _.#chat\nn  n   _m.      n   n Fh      n    n  _,#chat\nj    n      n    n#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_m,                Fu  _.#chat\nn           \u001b_mmm,    Fl  _.#chat\nl_mmmmm,Fh    _.#chat\nn   \u0017blessed +3 silver dragon scale mail\nWj   n       \u0017blessed +3 helm of telepathy\nWk      \u0017wand of magic missile\n\u0016?\n>z\u0006_mm.     Fj    yy\u001by   y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 50557007,
+   "datetime": "20120514020019",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nb;>._mmmm.Fl       _.#chat\nl     n_m,     nFh    n  _.#chat\nn  n    n _mm.     Fb        n _.#chat\nn  n   _m.      n   n Fh      n    n  _,#chat\nj    n      n    n#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_m,                Fu  _.#chat\nn           \u001b_mmm,    Fl  _.#chat\nl_mmmmm,Fh    _.#chat\nn   \u0017blessed +3 silver dragon scale mail\nWj   n       \u0017blessed +3 helm of telepathy\nWk      \u0017wand of magic missile\n\u0016?\n>z\u0006_mm.     Fj    yy\u001by   y y y\u001b  _"
+  }
+ ]
+}

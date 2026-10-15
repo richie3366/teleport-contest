@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "v  i\u001bO>>>>c\u001b\n\u0006_ \u001b>.> FhFnFy>\u0004n\u0006_>,Fk_.> FkFuFktby#rub\n< \u0006_>>,> FlFhFj\u0006_>>.Fl_.Fk>FkFk_>>.Fk_.Fy>FbFk_>>.Fk_,Fk>FkFlFlFuFy\u000f\u001b\u0014m.ymO>t\u001b\n#levelchange\n14\n             bybk\u0017melting ice\nk\u0017chaotic altar\ndedb\u0017human corpse\n #pray\ny y : jl\u0017sink\nqy \u0017ring of teleportation\ndh \u001bb\u0017grave\n: \u0017wand of digging\nzi> .s:#untrap\ny#terrain\nb\nW \u0007housecat\n\u0017newt corpse\nt\u001b\u0007horse\n\u0017meatball\nt\u001b#name\ni\n\u0007sewer rat\n\u0017scroll of taming\nrl \u0017leash\namy nkujamn\u0006_>>. Fu_.Fb>FlFy_>>,Fy_.Fl>FyFb_>>,Fb_.Fl>FlFldks.s\u001613\nFuFjFjFl Fj Fk Fj  Fh Fh  Fy Fh Fu  Fy  Fl  Fb Fk Fu Fl Fl Fu   Fl  Fk Fh   nFj  Fb FkFh Fu Fh FhFh Fb FkFl Fb Fl "
+ },
+ "segments": [
+  {
+   "seed": 50555051,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a scroll\"=green\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "v  i\u001bO>>>>c\u001b\n\u0006_ \u001b>.> FhFnFy>\u0004n\u0006_>,Fk_.> FkFuFktby#rub\n< \u0006_>>,> FlFhFj\u0006_>>.Fl_.Fk>FkFk_>>.Fk_.Fy>FbFk_>>.Fk_,Fk>FkFlFlFuFy\u000f\u001b\u0014m.ymO>t\u001b\n#levelchange\n14\n             bybk\u0017melting ice\nk\u0017chaotic altar\ndedb\u0017human corpse\n #pray\ny y : jl\u0017sink\nqy \u0017ring of teleportation\ndh \u001bb\u0017grave\n: \u0017wand of digging\nzi> .s:#untrap\ny#terrain\nb\nW \u0007housecat\n\u0017newt corpse\nt\u001b\u0007horse\n\u0017meatball\nt\u001b#name\ni\n\u0007sewer rat\n\u0017scroll of taming\nrl \u0017leash\namy nkujamn\u0006_>>. Fu_.Fb>FlFy_>>,Fy_.Fl>FyFb_>>,Fb_.Fl>FlFldks.s\u001613\nFuFjFjFl Fj Fk Fj  Fh Fh  Fy Fh Fu  Fy  Fl  Fb Fk Fu Fl Fl Fu   Fl  Fk Fh   nFj  Fb FkFh Fu Fh FhFh Fb FkFl Fb Fl "
+  }
+ ]
+}

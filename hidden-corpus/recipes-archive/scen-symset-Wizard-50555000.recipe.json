@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "FlFnFk FnFjFnFnFlFuFjFhFlFlFnFuFlFlFlFlFnFuFuFuFuFuFnFlFnFuFnFnFnFnFnFuFnFuFlFuFuFnFuFuFlFuFnFlFnFlFuFlFlFnFnFn FjFuFnFuFlFjFuFlFnFuFnFuFjFk FuFlFnFuFuFnFnFuFlFnFuFlFlFlFnFlFuFuFnFjFuFnFlFhFlFnFnFnFlFnFnFnFhFlFnFnFnFnFnFuFlFlFnFnFlFuFlFuFuFnFuO>d\u001b\nFuFlFuFnFlFuFlFlFlFbFnFuFbFbFuFlFuFuFlFnFuFlFlFnFlFnFuFlFuFlFnFuFlFuFlFuFuFuFlFuFnFuFuFnFuFuFnFnFlFnFuFuFnFuFlFlFlFuFuFnFlFuFuFlFlFlFnFuFlFnFuFuFnFlFuFlFnFlFlFuFlFlFlFuFlFnFnFuFlFnFnFnFnFlFnFuFlFuFnFuFhFnFlFnFuFuFuFnFlFuFnFlFnFuFnFuFlFnFnFn\u0007horse\n\u0017food ration\nt\u001b\u0007tame housecat\n\u0006_ \u001b@.>FbFu  n _>>.Fk  n _. Fn> 20s\u0006_>>,Fb_,Fb>FkFk_>>._,Fk>FuFn_>>.Fn_.Fy>FyFk\u0007sewer rat\n20s20ssm.syss\u0017meatball\nt\u001b\u0007lichen\n20s20ssm.  nsm..m.20s\u001614\n\u00169\nFuFlFuFlFnFlFnFuFlFnFnFlFuFuFlFnFuFnFuFuFuFuFlFlFuFnFuFlFnFuFuFnFuFuFlFlFlFnFlFnFnFlFuFlFuFuFnFnFuFlFlFnFlFnFuFnFuFlFl"
+ },
+ "segments": [
+  {
+   "seed": 50555000,
+   "datetime": "20110208064429",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\nMENUCOLOR=\"a scroll\"=green\n",
+   "moves": "FlFnFk FnFjFnFnFlFuFjFhFlFlFnFuFlFlFlFlFnFuFuFuFuFuFnFlFnFuFnFnFnFnFnFuFnFuFlFuFuFnFuFuFlFuFnFlFnFlFuFlFlFnFnFn FjFuFnFuFlFjFuFlFnFuFnFuFjFk FuFlFnFuFuFnFnFuFlFnFuFlFlFlFnFlFuFuFnFjFuFnFlFhFlFnFnFnFlFnFnFnFhFlFnFnFnFnFnFuFlFlFnFnFlFuFlFuFuFnFuO>d\u001b\nFuFlFuFnFlFuFlFlFlFbFnFuFbFbFuFlFuFuFlFnFuFlFlFnFlFnFuFlFuFlFnFuFlFuFlFuFuFuFlFuFnFuFuFnFuFuFnFnFlFnFuFuFnFuFlFlFlFuFuFnFlFuFuFlFlFlFnFuFlFnFuFuFnFlFuFlFnFlFlFuFlFlFlFuFlFnFnFuFlFnFnFnFnFlFnFuFlFuFnFuFhFnFlFnFuFuFuFnFlFuFnFlFnFuFnFuFlFnFnFn\u0007horse\n\u0017food ration\nt\u001b\u0007tame housecat\n\u0006_ \u001b@.>FbFu  n _>>.Fk  n _. Fn> 20s\u0006_>>,Fb_,Fb>FkFk_>>._,Fk>FuFn_>>.Fn_.Fy>FyFk\u0007sewer rat\n20s20ssm.syss\u0017meatball\nt\u001b\u0007lichen\n20s20ssm.  nsm..m.20s\u001614\n\u00169\nFuFlFuFlFnFlFnFuFlFnFnFlFuFuFlFnFuFnFuFuFuFuFlFlFuFnFuFlFnFuFuFnFuFuFlFlFlFnFlFnFnFlFuFlFuFuFnFnFuFlFlFnFlFnFuFnFuFlFl"
+  }
+ ]
+}

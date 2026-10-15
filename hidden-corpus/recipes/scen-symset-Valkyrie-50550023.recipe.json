@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "O>>n\u001b\u001b\nFlFkFbFkk FlFyFh\u001bFlFhFhFnFll FjFuFbFyFlFjFkFkFlFnFuj FkFjFlFlFjFnFjFuFjFuFjFlFnFyFlFjFlFnFyFjFyFjFyFbFkFjFkFkFkFuFlFyFuh FuFbFlb FnFh\u001bFkFnFul FkFhFuFhFyFh\u001bFkFjFhFlFjFjFuFkFnFh\u001bFuFjFnFyFuFjFuFuFkFuFlFhFbFlk FlFyFuy FkFbFkb FhFyFkh FkFkFlFuFjFbFh\u001bFnFlk FyFyFnFkj FbFul FjFuO>>g\u001b\n\u00164\nFyFlb FuFjFuFbFh\u001bFyFul FyFbFyFh\u001bFuFuFhFnFbFhFyFly FlFyFnFuFhFnFnFuFjFbFh\u001bFnFnFbFnFhFuFhFyFun FlFuFhFnFll FlFnFnFuFhFjFbFnFyFh\u001bFnFh\u001bFlFyFnFyFh\u001bFuFyFlh FhFuFlFjFnFnFnFly FuFhFnFyFlFuFbFuh FuFhFyFlb FbFbFyFln FnFh\u001bFyFjFuFhFjFhFnFlj FlFuFhFhFlFjFyFyFnFbFbFjFhFbFbFbFyFuFnFj\u0006_ \u001b,>FjFn_>FbFub _>>,Fh_,> FnFjFn\u0006_>>,>FnFl_>>.>FbFy_>>,>FjFyFnFjFl\u0006_>.Fl_,;>. Fk>FnFkj _>, Fh_..Fj>FyFn_>,  Fn_>FlFuFuFlFl\u0006_>>,Fh_.Fj>FuFl_>>.Fh_,Fu>FbFn_>>,Fb_.  nFj>FuFhFyFh\u001bFu\u0006_>>.Fb_.Fj>FnFlk _>>.Fl_.  nFy>FnFj_>>.Fj_.  n Fn>FlFuFu#offer\nr\u001b\u0006_>,  nFj_.Fl>FkFj_>,Fu_,Fj>FkFu_>.  n Fy_.Fb>FnFh\u001bFjFnFn\u0006_>.  n Fn_>FnFb_>.Fh_,Fb>FjF"
+ },
+ "segments": [
+  {
+   "seed": 50550023,
+   "datetime": "20061025084556",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueEpyx\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "O>>n\u001b\u001b\nFlFkFbFkk FlFyFh\u001bFlFhFhFnFll FjFuFbFyFlFjFkFkFlFnFuj FkFjFlFlFjFnFjFuFjFuFjFlFnFyFlFjFlFnFyFjFyFjFyFbFkFjFkFkFkFuFlFyFuh FuFbFlb FnFh\u001bFkFnFul FkFhFuFhFyFh\u001bFkFjFhFlFjFjFuFkFnFh\u001bFuFjFnFyFuFjFuFuFkFuFlFhFbFlk FlFyFuy FkFbFkb FhFyFkh FkFkFlFuFjFbFh\u001bFnFlk FyFyFnFkj FbFul FjFuO>>g\u001b\n\u00164\nFyFlb FuFjFuFbFh\u001bFyFul FyFbFyFh\u001bFuFuFhFnFbFhFyFly FlFyFnFuFhFnFnFuFjFbFh\u001bFnFnFbFnFhFuFhFyFun FlFuFhFnFll FlFnFnFuFhFjFbFnFyFh\u001bFnFh\u001bFlFyFnFyFh\u001bFuFyFlh FhFuFlFjFnFnFnFly FuFhFnFyFlFuFbFuh FuFhFyFlb FbFbFyFln FnFh\u001bFyFjFuFhFjFhFnFlj FlFuFhFhFlFjFyFyFnFbFbFjFhFbFbFbFyFuFnFj\u0006_ \u001b,>FjFn_>FbFub _>>,Fh_,> FnFjFn\u0006_>>,>FnFl_>>.>FbFy_>>,>FjFyFnFjFl\u0006_>.Fl_,;>. Fk>FnFkj _>, Fh_..Fj>FyFn_>,  Fn_>FlFuFuFlFl\u0006_>>,Fh_.Fj>FuFl_>>.Fh_,Fu>FbFn_>>,Fb_.  nFj>FuFhFyFh\u001bFu\u0006_>>.Fb_.Fj>FnFlk _>>.Fl_.  nFy>FnFj_>>.Fj_.  n Fn>FlFuFu#offer\nr\u001b\u0006_>,  nFj_.Fl>FkFj_>,Fu_,Fj>FkFu_>.  n Fy_.Fb>FnFh\u001bFjFnFn\u0006_>.  n Fn_>FnFb_>.Fh_,Fb>FjF"
+  }
+ ]
+}

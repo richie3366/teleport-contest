@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nk_mmmmm.Fh   _.#chat\nh   n   n  _mmmmm.Fj       n   n_,    n    n Fb      n  #chat\nu    n   #levelchange\n14\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.   Fh    _.#chat\nj;k,_mmmmm. Fl    _,#chat\nu     n  \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed ring of free action\nPll     \u0017blessed amulet of life saving\nPm     \u0017wand of lightning\n\u0016?\n>z\u0006_mmmmmmm,   Fh      _.Fl    Fu    Fl    Fb  n    ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,  Fj  _.Fn     Fh   n  Fy    Fn  Fn Fn     n   Fu  znl ,\u0016?\n>>\u001b\u0016?\n>y_m.  Fj _,#chat\nl\u00161\n\u0016?\n>A\u0006_mm,    n Fy   _,Fh Fj   Fy Fh    Fy    n Fj    ,#chat\nu\u00168\n\u0016?\n>A\u0006_mmmmmm.   Fu  _.FbFj    Fj Fk  n   Fb    znh    n ,\u0016?\n>z\u0006_mmmmm.    Fh     yy\u001by   y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 50557005,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nk_mmmmm.Fh   _.#chat\nh   n   n  _mmmmm.Fj       n   n_,    n    n Fb      n  #chat\nu    n   #levelchange\n14\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.   Fh    _.#chat\nj;k,_mmmmm. Fl    _,#chat\nu     n  \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed ring of free action\nPll     \u0017blessed amulet of life saving\nPm     \u0017wand of lightning\n\u0016?\n>z\u0006_mmmmmmm,   Fh      _.Fl    Fu    Fl    Fb  n    ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,  Fj  _.Fn     Fh   n  Fy    Fn  Fn Fn     n   Fu  znl ,\u0016?\n>>\u001b\u0016?\n>y_m.  Fj _,#chat\nl\u00161\n\u0016?\n>A\u0006_mm,    n Fy   _,Fh Fj   Fy Fh    Fy    n Fj    ,#chat\nu\u00168\n\u0016?\n>A\u0006_mmmmmm.   Fu  _.FbFj    Fj Fk  n   Fb    znh    n ,\u0016?\n>z\u0006_mmmmm.    Fh     yy\u001by   y y y\u001b  _"
+  }
+ ]
+}

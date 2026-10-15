@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed ring of polymorph control\nPel#polyself\ngold dragon\n  #monster\ns20s\u0007water nymph\nFn sss20ssm.#polyself\npaper golem\n#monster\n20ssbsm.sy.u#polyself\nhuman mummy\n#monster\nsm.20s\u0007Oracle\nnFh    Fh   yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50552002,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed ring of polymorph control\nPel#polyself\ngold dragon\n  #monster\ns20s\u0007water nymph\nFn sss20ssm.#polyself\npaper golem\n#monster\n20ssbsm.sy.u#polyself\nhuman mummy\n#monster\nsm.20s\u0007Oracle\nnFh    Fh   yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

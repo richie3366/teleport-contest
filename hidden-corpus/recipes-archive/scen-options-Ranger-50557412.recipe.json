@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "O>ef\n#wipe\ndamO>>>>>>us\na\na\na\n\u001b\u001bolzmO>>>be\nnO>gnc\nE- Elbereth Elbereth\nmO>tlo\n  #conduct\n #tip\n\u001b.."
+ },
+ "segments": [
+  {
+   "seed": 50557412,
+   "datetime": "20240824070036",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "O>ef\n#wipe\ndamO>>>>>>us\na\na\na\n\u001b\u001bolzmO>>>be\nnO>gnc\nE- Elbereth Elbereth\nmO>tlo\n  #conduct\n #tip\n\u001b.."
+  }
+ ]
+}

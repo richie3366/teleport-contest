@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " FkFkFl_ \u001b,>\\   100s   Fk..Fk ssW50s Fl.s_>.>150s50s150sFls20s\u000f\u001b50s100sFlss\u0018\u001bhynhlk50s100s100sjyu_>.>_>,>yju50sFls.150s150s   _>.>150sFlFlFlFlFlFl_>.>blh100s50skjjjuy_>.>100snubuul\u0018\u001b100s edjjhnuh#force\ndd100s_>.>i\u001buhn_>.>_>,>100sFlFl20s100s50s_>,>150sFlss100sFlss_>.>150s150s 100sFlFls\\   100s100sFlFls100sjkj_>,>ze scroll of enchant armor\n#turn\nze chest\nnukjbu20sdgsss#chat\nhda.20s20sFk FkFkFks20si\u001b_>.>50sbnn_>.>>100sFlFlFlFlFlFlkjy150s150sFlFls50sw-50s_>,>#wipe\n50sFyFy.100sdchlhlhl100sljl150s eeeeeeeeeeeZ#force\n>Y LHU _>.>HKBJ_>.><JKJH_>.>\u0004hcl\u000f\u001bUKNJ_>,>\u000f\u001bw-LLJH_>.><HNHL_>,>JYHK_>.>FlFls,#turn\n\u000f\u001bUBHH_>.>e>YHHY_>.>JLKB_>.>J_m.20sYJKH_>.>YBNB_>.><\u000f\u001bHHLH_>,>LKKH_>,>KBUB_>.>;<.i\u001bKULB_>,>JYBY_>,>JBHL_>,>\u000f\u001b#sit\nf by kr\u001bLJHY_>.><HKUU_>,>UHHY_>.>NNUL_>,>HHHL_>,>JKHH_>.><LHUB_>.>#loot\nr\u001bUNHK_>.>BYHK_>,>KJNH_>.>#pray\ny #pray\ny #pray\ny  #pray\ny   yy\u001b y  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50550059,
+   "datetime": "20190126060350",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=playmode:explore\n",
+   "moves": " FkFkFl_ \u001b,>\\   100s   Fk..Fk ssW50s Fl.s_>.>150s50s150sFls20s\u000f\u001b50s100sFlss\u0018\u001bhynhlk50s100s100sjyu_>.>_>,>yju50sFls.150s150s   _>.>150sFlFlFlFlFlFl_>.>blh100s50skjjjuy_>.>100snubuul\u0018\u001b100s edjjhnuh#force\ndd100s_>.>i\u001buhn_>.>_>,>100sFlFl20s100s50s_>,>150sFlss100sFlss_>.>150s150s 100sFlFls\\   100s100sFlFls100sjkj_>,>ze scroll of enchant armor\n#turn\nze chest\nnukjbu20sdgsss#chat\nhda.20s20sFk FkFkFks20si\u001b_>.>50sbnn_>.>>100sFlFlFlFlFlFlkjy150s150sFlFls50sw-50s_>,>#wipe\n50sFyFy.100sdchlhlhl100sljl150s eeeeeeeeeeeZ#force\n>Y LHU _>.>HKBJ_>.><JKJH_>.>\u0004hcl\u000f\u001bUKNJ_>,>\u000f\u001bw-LLJH_>.><HNHL_>,>JYHK_>.>FlFls,#turn\n\u000f\u001bUBHH_>.>e>YHHY_>.>JLKB_>.>J_m.20sYJKH_>.>YBNB_>.><\u000f\u001bHHLH_>,>LKKH_>,>KBUB_>.>;<.i\u001bKULB_>,>JYBY_>,>JBHL_>,>\u000f\u001b#sit\nf by kr\u001bLJHY_>.><HKUU_>,>UHHY_>.>NNUL_>,>HHHL_>,>JKHH_>.><LHUB_>.>#loot\nr\u001bUNHK_>.>BYHK_>,>KJNH_>.>#pray\ny #pray\ny #pray\ny  #pray\ny   yy\u001b y  y y y\u001b  F"
+  }
+ ]
+}

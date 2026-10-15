@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed +3 speed boots\nWi\u0017blessed amulet of reflection\nPj\u0016?\n>w\u0006_ \u001b<._ooo.,$_{.    Fj_.qhjk#chat\nl_ooooooooo.,plhj#chat\nu\u00167\njjj\u0016?\n>w\u0006jjj#chat\nk_ooooooo,,:_ooo.,$__.Fk_,Fy  #chat\nk#pray\ny y   _oo,_o.,$_oooooo.,\u0014m,   20ssm._ooooooooo.,\u0017amulet of flying\ndk_ooooooo.,$FnFnFnFnFnFn_{.Fy _,Flq_{, Fl _, Fl q_oooooooo,,#chat\nl _{,Fl _.FnqFl  FlFl FlFl  Fl  Fu  Fu FuFu FuFu _oooooooo,,#chat\nl\u0016?\n>Bull\u0016?\n>w\u0006Fk  Fk    FkFk  Fk Fk _{.Fk  _.m. FkqFkFkFkFkFkFk__. Fy _,<.Fk#chat\ny#pray\ny y jyn#chat\ny\u00163\njun\u0016?\n>w\u0006Fl FlFl FlFl Fl_ooooo.  nFn _.>.Fh,pFhFh Fh FhFhFh _{.  Fj_.Fbq_oooo,  Fn_._o._,,a\n\u0017amulet of flying\n dmjuk#chat\nh_oo.   Fl_. Fb_oo.Fh_,Fy,a\n : _ooo,,a\n  p_oo.Fy_.: Fy   n,a\n : _oooooo._oo.Fy_.Fy,a\np_ooooooo,  _. ,$nu y#chat\nj_oooooo.,p_oooo,_.,a\n#chat\nbnky#chat\ny_ooooooooo,_,,p\u00163\nyjl\u0016?\n>w\u0006_oo.Fu_.@.Fu  ,pkjj#chat\nk_oooo.Fl _, Fl _o.Fl _..Fn,\u0017amulet of ESP\ndt _ooooooo,    _, _o.   Fu   _, Fu,\u0017amulet of change\ndu _{.Fl_,,Flq_oooooo."
+ },
+ "segments": [
+  {
+   "seed": 50555544,
+   "datetime": "20140713221514",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:teleport\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed +3 speed boots\nWi\u0017blessed amulet of reflection\nPj\u0016?\n>w\u0006_ \u001b<._ooo.,$_{.    Fj_.qhjk#chat\nl_ooooooooo.,plhj#chat\nu\u00167\njjj\u0016?\n>w\u0006jjj#chat\nk_ooooooo,,:_ooo.,$__.Fk_,Fy  #chat\nk#pray\ny y   _oo,_o.,$_oooooo.,\u0014m,   20ssm._ooooooooo.,\u0017amulet of flying\ndk_ooooooo.,$FnFnFnFnFnFn_{.Fy _,Flq_{, Fl _, Fl q_oooooooo,,#chat\nl _{,Fl _.FnqFl  FlFl FlFl  Fl  Fu  Fu FuFu FuFu _oooooooo,,#chat\nl\u0016?\n>Bull\u0016?\n>w\u0006Fk  Fk    FkFk  Fk Fk _{.Fk  _.m. FkqFkFkFkFkFkFk__. Fy _,<.Fk#chat\ny#pray\ny y jyn#chat\ny\u00163\njun\u0016?\n>w\u0006Fl FlFl FlFl Fl_ooooo.  nFn _.>.Fh,pFhFh Fh FhFhFh _{.  Fj_.Fbq_oooo,  Fn_._o._,,a\n\u0017amulet of flying\n dmjuk#chat\nh_oo.   Fl_. Fb_oo.Fh_,Fy,a\n : _ooo,,a\n  p_oo.Fy_.: Fy   n,a\n : _oooooo._oo.Fy_.Fy,a\np_ooooooo,  _. ,$nu y#chat\nj_oooooo.,p_oooo,_.,a\n#chat\nbnky#chat\ny_ooooooooo,_,,p\u00163\nyjl\u0016?\n>w\u0006_oo.Fu_.@.Fu  ,pkjj#chat\nk_oooo.Fl _, Fl _o.Fl _..Fn,\u0017amulet of ESP\ndt _ooooooo,    _, _o.   Fu   _, Fu,\u0017amulet of change\ndu _{.Fl_,,Flq_oooooo."
+  }
+ ]
+}

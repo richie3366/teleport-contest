@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " y   sujn<#invoke\n\u001b\u001b\u0018\u001blkkjkk_ \u001bm,hbl_>.<<nbkhyhlll_>,Z_<.<nyj<d\u001b\u001b#untrap\nubhl:#invoke\n\u001b\u001b#dip\n\u001b\u001bkyl#wipe\n>uhl>>#twoweapon\n\u0018\u001b__,>:::ljb>uhkcl_<,bjl#twoweapon\n#monster\n20snby:>knh:hbujul"
+ },
+ "segments": [
+  {
+   "seed": 50551019,
+   "datetime": "20240322024442",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:horse\n",
+   "moves": " y   sujn<#invoke\n\u001b\u001b\u0018\u001blkkjkk_ \u001bm,hbl_>.<<nbkhyhlll_>,Z_<.<nyj<d\u001b\u001b#untrap\nubhl:#invoke\n\u001b\u001b#dip\n\u001b\u001bkyl#wipe\n>uhl>>#twoweapon\n\u0018\u001b__,>:::ljb>uhkcl_<,bjl#twoweapon\n#monster\n20snby:>knh:hbujul"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "O>m\nj\nzgk>Of\n,mO>>>cqe\n #force\nOhm\ndidj$20s."
+ },
+ "segments": [
+  {
+   "seed": 50557404,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\n",
+   "moves": "O>m\nj\nzgk>Of\n,mO>>>cqe\n #force\nOhm\ndidj$20s."
+  }
+ ]
+}

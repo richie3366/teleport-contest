@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPol\u0016?\n>>N       scroll of gold detection\nkj    \u001bk  :\u001637\n\u0017the Staff of Aesculapius\n wr  n    Fn     n   Fl     n Fj      n#invoke\nr       n\u0007giant rat\n;j. \u001b>.20s    sm.   n   .y\u0007long worm\nFl        nFl    Fj  n   \u0007mastodon\n.m.  n   .m.    n  sm.        n     20s    n   sm.     n   \u0007lurker above\n20s    n   sm.    n sbss20s      yy\u001by   nnn  2"
+ },
+ "segments": [
+  {
+   "seed": 50556519,
+   "datetime": "20120208073747",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPol\u0016?\n>>N       scroll of gold detection\nkj    \u001bk  :\u001637\n\u0017the Staff of Aesculapius\n wr  n    Fn     n   Fl     n Fj      n#invoke\nr       n\u0007giant rat\n;j. \u001b>.20s    sm.   n   .y\u0007long worm\nFl        nFl    Fj  n   \u0007mastodon\n.m.  n   .m.    n  sm.        n     20s    n   sm.     n   \u0007lurker above\n20s    n   sm.    n sbss20s      yy\u001by   nnn  2"
+  }
+ ]
+}

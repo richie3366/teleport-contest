@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWe\u0017blessed +3 speed boots\nWf\u0016?\n>w\u0006_ \u001b:,#chat\nuhhh#chat\nb_{._.qy _oooo,_oo.,:__,   Fh _, #chat\nu\u00167\njyh\u0016?\n>w\u0006__._,>.#chat\nl#pray\ny y \u0016?\n>Bbuj\u0016?\n>w\u0006_oooo,,\u0014;ss\u00163\nkky\u0016?\n>w\u0006lhl#chat\nb_oooooo.,$__._. Fk #chat\nk#pray\ny y   Fk FkFk FkFkFkkkk#chat\nn Fn Fn FnFn Fn Fn _oooo.,p_ooooo,,p_oooo,,\u0017worthless piece of red glass\ndh_{._.qy y_{,Fb _.m. FjqFj FjFjFjFjFjFj FjFj FjFjFj  \u00163\nly  nn\u0016?\n>w\u0006_ooooo,Fj _,>.Fn,$__,Fl_.     Fk        n #chat\nk  n \u00162\n  _{.q_ooo._ooo.,: nl h#chat\nu_{.q_ooooooo._,,$_oooooo.,phlh#chat\nb_oo.,p_ooooooo._oo.,plhl#chat\nk_{,q_ooo,_oo.,p_ooo._oo,,\u0017loadstone\ndi_ooooo.,p_oooo.,p_ooooooooo._ooo.,$_ooooooooo.,p\u00163\nnub\u0016?\n>w\u0006_oooo.,: _ooooooooo._.,\u0017flint stone\ndjkku#chat\nh_oooo.Fj_.,\u0017luckstone\ndk_oooo,,p_{.Fj  n_.Fnq__.  n Fn_,Fn  n#chat\nj  n#pray\ny y    \u00164\n_ooo.,\u0017amulet of change\ndl__.#chat\nl__.#chat\nl  n Fk  nFk "
+ },
+ "segments": [
+  {
+   "seed": 50555535,
+   "datetime": "20030106233337",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWe\u0017blessed +3 speed boots\nWf\u0016?\n>w\u0006_ \u001b:,#chat\nuhhh#chat\nb_{._.qy _oooo,_oo.,:__,   Fh _, #chat\nu\u00167\njyh\u0016?\n>w\u0006__._,>.#chat\nl#pray\ny y \u0016?\n>Bbuj\u0016?\n>w\u0006_oooo,,\u0014;ss\u00163\nkky\u0016?\n>w\u0006lhl#chat\nb_oooooo.,$__._. Fk #chat\nk#pray\ny y   Fk FkFk FkFkFkkkk#chat\nn Fn Fn FnFn Fn Fn _oooo.,p_ooooo,,p_oooo,,\u0017worthless piece of red glass\ndh_{._.qy y_{,Fb _.m. FjqFj FjFjFjFjFjFj FjFj FjFjFj  \u00163\nly  nn\u0016?\n>w\u0006_ooooo,Fj _,>.Fn,$__,Fl_.     Fk        n #chat\nk  n \u00162\n  _{.q_ooo._ooo.,: nl h#chat\nu_{.q_ooooooo._,,$_oooooo.,phlh#chat\nb_oo.,p_ooooooo._oo.,plhl#chat\nk_{,q_ooo,_oo.,p_ooo._oo,,\u0017loadstone\ndi_ooooo.,p_oooo.,p_ooooooooo._ooo.,$_ooooooooo.,p\u00163\nnub\u0016?\n>w\u0006_oooo.,: _ooooooooo._.,\u0017flint stone\ndjkku#chat\nh_oooo.Fj_.,\u0017luckstone\ndk_oooo,,p_{.Fj  n_.Fnq__.  n Fn_,Fn  n#chat\nj  n#pray\ny y    \u00164\n_ooo.,\u0017amulet of change\ndl__.#chat\nl__.#chat\nl  n Fk  nFk "
+  }
+ ]
+}

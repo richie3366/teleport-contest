@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "FlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl\u0006_ \u001b;>FlFl_>>.Fl_.Fl>FlFl_>>,Fl_.Fl>FlFlFlFlFl\u000f\u001bf  \u0006_>.Fl_.Fl>FlFl_>.Fl_,Fl>FlFl_>.Fl_.Fl>FlFlFlFlFl\u0006_>,Fl_,Fl>FlFl_>,Fl_,Fl>FlFl_>.Fl_,Fl>FlFlFlFlFl\u0006_>.Fl_,Fl>FlFl_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFlFlFlFl,z\u0006_>>.Fl_.Fl>FlFl_>>.Fl_,Fl>FlFl_>>,Fl_.Fl>FlFlFlFlFl\u0006_>.Fl_.Fl>FlFl_>,Fl_.Fl>FlFl_>.Fl_,Fl>FlFlFlFlFl\u0006_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFl_>,Fl_.Fl>FlFlFlFlFl\u0006_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlF"
+ },
+ "segments": [
+  {
+   "seed": 50555059,
+   "datetime": "20140905072136",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "FlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl\u0006_ \u001b;>FlFl_>>.Fl_.Fl>FlFl_>>,Fl_.Fl>FlFlFlFlFl\u000f\u001bf  \u0006_>.Fl_.Fl>FlFl_>.Fl_,Fl>FlFl_>.Fl_.Fl>FlFlFlFlFl\u0006_>,Fl_,Fl>FlFl_>,Fl_,Fl>FlFl_>.Fl_,Fl>FlFlFlFlFl\u0006_>.Fl_,Fl>FlFl_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFlFlFlFl,z\u0006_>>.Fl_.Fl>FlFl_>>.Fl_,Fl>FlFl_>>,Fl_.Fl>FlFlFlFlFl\u0006_>.Fl_.Fl>FlFl_>,Fl_.Fl>FlFl_>.Fl_,Fl>FlFlFlFlFl\u0006_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFl_>,Fl_.Fl>FlFlFlFlFl\u0006_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlF"
+  }
+ ]
+}

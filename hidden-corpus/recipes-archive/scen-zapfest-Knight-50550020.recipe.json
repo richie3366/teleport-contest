@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPi\u0017blessed ring of free action\nPjl\u0017blessed +3 speed boots\nWk#levelchange\n10\n         \u001715 shuriken\nQl\u0007gnome\ntlhtbbtlntlb fn\u0017wand of striking\n\u0017wand of cancellation\n\u0017wand of lightning\n\u0007newt\nznnzolznn.m.zmnzm.zon\u0007black dragon\nsm.20s 20s #polyself\nblack dragon\n    #monster\nn  sks#monster\nn #monster\nn    Fn  Fn i\u001b\u0017wand of digging\n\u0017wand of sleep\n\u0007gnome lord\n\u0007bugbear\n\u0007owlbear\nz.m.zzzzz20s   zz\u001615\n    \u0017bow\nw\u001720 arrows\nQ-\u0007acid blob\nfftfff\u001612\n\u0007red dragon\nsu20s sm. .m. #polyself\nblack dragon\n sbs#monster\nk #monster\n.s\u0017blessed spellbook of light\nrt20s\u0007succubus\nZa\nZa\nZa\nZa\nZa\nZa\nZa\n\u0007silver dragon\nsk   sm.  #polyself\ngold dragon\n #monster\nsk  20s #monster\n#monster\n#monster\n\u0017wand of magic missile\naFl Fl  \u0007silver dragon\nsm..y  .m.  #polyself\ngold dragon\n #monster\n20ssm.  #monster\n#monster\n#monster\n#monster\n\u0017wand of lightning\naFl    Fy  \u00178 rocks\nQl\u0007hobbit\n\u0007yellow mold\nfffff\u0017blessed spellbook of sleep\nrx     sb\u0007kobold shaman"
+ },
+ "segments": [
+  {
+   "seed": 50550020,
+   "datetime": "20150729143519",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPi\u0017blessed ring of free action\nPjl\u0017blessed +3 speed boots\nWk#levelchange\n10\n         \u001715 shuriken\nQl\u0007gnome\ntlhtbbtlntlb fn\u0017wand of striking\n\u0017wand of cancellation\n\u0017wand of lightning\n\u0007newt\nznnzolznn.m.zmnzm.zon\u0007black dragon\nsm.20s 20s #polyself\nblack dragon\n    #monster\nn  sks#monster\nn #monster\nn    Fn  Fn i\u001b\u0017wand of digging\n\u0017wand of sleep\n\u0007gnome lord\n\u0007bugbear\n\u0007owlbear\nz.m.zzzzz20s   zz\u001615\n    \u0017bow\nw\u001720 arrows\nQ-\u0007acid blob\nfftfff\u001612\n\u0007red dragon\nsu20s sm. .m. #polyself\nblack dragon\n sbs#monster\nk #monster\n.s\u0017blessed spellbook of light\nrt20s\u0007succubus\nZa\nZa\nZa\nZa\nZa\nZa\nZa\n\u0007silver dragon\nsk   sm.  #polyself\ngold dragon\n #monster\nsk  20s #monster\n#monster\n#monster\n\u0017wand of magic missile\naFl Fl  \u0007silver dragon\nsm..y  .m.  #polyself\ngold dragon\n #monster\n20ssm.  #monster\n#monster\n#monster\n#monster\n\u0017wand of lightning\naFl    Fy  \u00178 rocks\nQl\u0007hobbit\n\u0007yellow mold\nfffff\u0017blessed spellbook of sleep\nrx     sb\u0007kobold shaman"
+  }
+ ]
+}

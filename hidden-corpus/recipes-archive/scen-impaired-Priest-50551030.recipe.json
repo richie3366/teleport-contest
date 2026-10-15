@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\ngf\n \u0017scroll of blank paper\nrj\u0017scroll of scare monster\nrk   \u001bZ.s20s  #wizintrinsic\nfh\n \u0017cursed scroll of remove curse\nrl  \u0017scroll of blank paper\nrm;j; \u001b<.sm..m.sm."
+ },
+ "segments": [
+  {
+   "seed": 50551030,
+   "datetime": "20121225001018",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\ngf\n \u0017scroll of blank paper\nrj\u0017scroll of scare monster\nrk   \u001bZ.s20s  #wizintrinsic\nfh\n \u0017cursed scroll of remove curse\nrl  \u0017scroll of blank paper\nrm;j; \u001b<.sm..m.sm."
+  }
+ ]
+}

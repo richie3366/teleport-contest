@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nWn\u001624\n\u0006_ \u001b>.\u001638\n   __.\u001611\n\u0017silver dragon scale mail\nW\u001b20s  s.\u0007salamander\nFlFl\u0007kitten\nFl  Fl      Fu      \u0007wood nymph\nFb      n    Fl      \u0007titanothere\n;u:  sl     sm.  n         sm.        n \u00161\n\u0016?\n>w_<,\u001633\nl  jjy:   \u001611\n#chat\nh  ;h:  .m.   n sm.  \u001632\n\u0006_<.  Fj  _. Fj   n  \u0016?\nk   #levelchange\n30\n\u0017cursed fortune cookie\n\u0007purple worm\nep    .m. 20s \u0017cursed 20 flint stones\nQ\u001bf \u001bf \u001bf \u001b\u0017blessed potion of sleeping\n\u0007jellyfish\nqr   n    #dip\nas s 20s 20s . . s \u0016 l l \u0016 u j \u0016 h     n  \u001633\n yyj    n uyby:   sk.ksm. \u0016?\n>Il  j    n  :       \u00162\n   \u0004k  \u001629\n   b   n yj y:      \u0016?\n>xuuyhh:   su   n  20s sm. \u0016?\nbu  u    nl h l :\u0016?\n>J     fortune cookie\n#levelchange\n8\n       \u0017uncursed +0 gauntlets of fumbling\nWu  n  .h     n       sm.   n     sm.   n         \u0017Stormbringer\n  yy\u001bny nn  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50550040,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nWn\u001624\n\u0006_ \u001b>.\u001638\n   __.\u001611\n\u0017silver dragon scale mail\nW\u001b20s  s.\u0007salamander\nFlFl\u0007kitten\nFl  Fl      Fu      \u0007wood nymph\nFb      n    Fl      \u0007titanothere\n;u:  sl     sm.  n         sm.        n \u00161\n\u0016?\n>w_<,\u001633\nl  jjy:   \u001611\n#chat\nh  ;h:  .m.   n sm.  \u001632\n\u0006_<.  Fj  _. Fj   n  \u0016?\nk   #levelchange\n30\n\u0017cursed fortune cookie\n\u0007purple worm\nep    .m. 20s \u0017cursed 20 flint stones\nQ\u001bf \u001bf \u001bf \u001b\u0017blessed potion of sleeping\n\u0007jellyfish\nqr   n    #dip\nas s 20s 20s . . s \u0016 l l \u0016 u j \u0016 h     n  \u001633\n yyj    n uyby:   sk.ksm. \u0016?\n>Il  j    n  :       \u00162\n   \u0004k  \u001629\n   b   n yj y:      \u0016?\n>xuuyhh:   su   n  20s sm. \u0016?\nbu  u    nl h l :\u0016?\n>J     fortune cookie\n#levelchange\n8\n       \u0017uncursed +0 gauntlets of fumbling\nWu  n  .h     n       sm.   n     sm.   n         \u0017Stormbringer\n  yy\u001bny nn  \u0017"
+  }
+ ]
+}

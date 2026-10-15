@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nWk\u0016?\n>>N       spellbook of dig\n_ \u001b>.20s     .m.    \u001b  n\u0016?\ney    hku    n   kn      u   n      :\u00161\n\u001620\n\u0017blessed spellbook of magic mapping\nrn    n        n   sm.      n   \u0017blessed spellbook of dig\nro      n       20s     n     n \u0017blessed spellbook of knock\nrp      n  sk+b\nZc\nn       n Zb\nb       n Zb\nb       n Zc\n       n      \u00161\n\u0016?\nc_{.sl  n     \u0016?\n\u001bk   y        n  \u0016?\n\u001bn        j   yy\u001bny y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50556501,
+   "datetime": "20020517162237",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nWk\u0016?\n>>N       spellbook of dig\n_ \u001b>.20s     .m.    \u001b  n\u0016?\ney    hku    n   kn      u   n      :\u00161\n\u001620\n\u0017blessed spellbook of magic mapping\nrn    n        n   sm.      n   \u0017blessed spellbook of dig\nro      n       20s     n     n \u0017blessed spellbook of knock\nrp      n  sk+b\nZc\nn       n Zb\nb       n Zb\nb       n Zc\n       n      \u00161\n\u0016?\nc_{.sl  n     \u0016?\n\u001bk   y        n  \u0016?\n\u001bn        j   yy\u001bny y\u001b  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWk\u0017blessed ring of free action\nPlr\u0017blessed amulet of life saving\nPm#levelchange\n10\n        \u0017blessed spellbook of slow monster\nrn s\u0007kobold shaman\nZd\nZd\nsu20s   Zd\nsm.sm.Zd\n20ssbZb\n20ssm.Zd\n.m.suZc\nZb\n#turn\ni\u001b\u0017elven bow\nwo \u001720 elven arrows\nQp\u0007bugbear\ntph  fhfy tph\u0007aligned cleric\nn\u0007orc shaman\n\u0017wand of cold\nzqh  20s20s  zqy  zql zqu 20s20s\u00168\n\u0017wand of slow monster\n\u0017wand of sleep\n\u0007newt\n\u0007yellow mold\nzrjzsjzrnzrlzsjsm.zrnzsj zsj sbzslzruzr\u00178 rocks\nQay\u0007acid blob\nfuf p ufl fnfl\u0017potion of see invisible\nt$u\u0017bow\nwv\u001720 arrows\nQw\u0007kobold shaman\n\u0007soldier\nfnfl fh fhtph tpu    \u0007orc shaman\n\u0007master mind flayer\n\u0007master lich\n\u0017wand of fire\nzxu    .l      zxh            n   zxj      zxk zxl    n       \u001611\n\u0007vampire\n\u0007master lich\n\u0007succubus\n\u0017wand of magic missile\nsy sm.   n    zyh       \u001715 shuriken\nQz\u0007grid bug\n\u0007grid bug\nfntwl   fy fy    n  fj      fn    \u0007orc shaman\n\u0007gnomish wizard\n\u0017wand of fire\n.m.  20s      sy  i\u001b\u0017blessed spellbook of sleep\nrB    n .m.    \u0017blessed spellbook of cone of cold\n rC   .m. \u0007orc shaman\n\u0007mind flayer\nZc\n  sm.20s  Zd\n    ZZZZ20s  20s  ZZZ.m.   20s   Zb\n      #turn\n\u0017wand of sleep\n\u0017wand of digging\n\u0007grid bug\nzE>     zDnzE>  nzE> szE> zDk      zE.m.\u0018\u001b\u0017wand of ma"
+ },
+ "segments": [
+  {
+   "seed": 50550012,
+   "datetime": "20051119212813",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed +3 speed boots\nWk\u0017blessed ring of free action\nPlr\u0017blessed amulet of life saving\nPm#levelchange\n10\n        \u0017blessed spellbook of slow monster\nrn s\u0007kobold shaman\nZd\nZd\nsu20s   Zd\nsm.sm.Zd\n20ssbZb\n20ssm.Zd\n.m.suZc\nZb\n#turn\ni\u001b\u0017elven bow\nwo \u001720 elven arrows\nQp\u0007bugbear\ntph  fhfy tph\u0007aligned cleric\nn\u0007orc shaman\n\u0017wand of cold\nzqh  20s20s  zqy  zql zqu 20s20s\u00168\n\u0017wand of slow monster\n\u0017wand of sleep\n\u0007newt\n\u0007yellow mold\nzrjzsjzrnzrlzsjsm.zrnzsj zsj sbzslzruzr\u00178 rocks\nQay\u0007acid blob\nfuf p ufl fnfl\u0017potion of see invisible\nt$u\u0017bow\nwv\u001720 arrows\nQw\u0007kobold shaman\n\u0007soldier\nfnfl fh fhtph tpu    \u0007orc shaman\n\u0007master mind flayer\n\u0007master lich\n\u0017wand of fire\nzxu    .l      zxh            n   zxj      zxk zxl    n       \u001611\n\u0007vampire\n\u0007master lich\n\u0007succubus\n\u0017wand of magic missile\nsy sm.   n    zyh       \u001715 shuriken\nQz\u0007grid bug\n\u0007grid bug\nfntwl   fy fy    n  fj      fn    \u0007orc shaman\n\u0007gnomish wizard\n\u0017wand of fire\n.m.  20s      sy  i\u001b\u0017blessed spellbook of sleep\nrB    n .m.    \u0017blessed spellbook of cone of cold\n rC   .m. \u0007orc shaman\n\u0007mind flayer\nZc\n  sm.20s  Zd\n    ZZZZ20s  20s  ZZZ.m.   20s   Zb\n      #turn\n\u0017wand of sleep\n\u0017wand of digging\n\u0007grid bug\nzE>     zDnzE>  nzE> szE> zDk      zE.m.\u0018\u001b\u0017wand of ma"
+  }
+ ]
+}

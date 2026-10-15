@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nl;k._mmmmm.Fy_,#chat\nk_m._.#chat\nu;m.#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nu_m,Fl_.#chat\nl;l:  \u0017blessed +3 speed boots\nWg\u0017blessed +3 helm of telepathy\nWh\u0017wand of death\n\u0016?\n>A\u0006_mmmmm.Fy_.FyFyFyFyFb Fy,#chat\ny\u0016?\n>A\u0006_mm.FyFyFyFyziy,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,FyFyFyFyFyFyFy,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\ny\u0016?\n>z\u0006_mmmm,FyFyFyFyziy,\u0016?\n>A\u0006_mmm.FyFyFyFyFyFyziy,#chat\ny\u0016?\n>A\u0006_mmmmmm.FyFyFyFyFyziy,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.FyFyFyFyFyFyFyziy,\u0016?\n>z\u0006_mmm,FyFy \u001bFyFyFyFyziy,\u0016?\n>A\u0006_mmm.FyFyFyFyFyFyFy,#chat\ny\u0016?\n>A\u0006_mmmmmm.FyFyFyFyFyFyziy,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\ny;y.\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.Fy"
+ },
+ "segments": [
+  {
+   "seed": 50550030,
+   "datetime": "20241120114106",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nl;k._mmmmm.Fy_,#chat\nk_m._.#chat\nu;m.#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nu_m,Fl_.#chat\nl;l:  \u0017blessed +3 speed boots\nWg\u0017blessed +3 helm of telepathy\nWh\u0017wand of death\n\u0016?\n>A\u0006_mmmmm.Fy_.FyFyFyFyFb Fy,#chat\ny\u0016?\n>A\u0006_mm.FyFyFyFyziy,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,FyFyFyFyFyFyFy,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\ny\u0016?\n>z\u0006_mmmm,FyFyFyFyziy,\u0016?\n>A\u0006_mmm.FyFyFyFyFyFyziy,#chat\ny\u0016?\n>A\u0006_mmmmmm.FyFyFyFyFyziy,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.FyFyFyFyFyFyFyziy,\u0016?\n>z\u0006_mmm,FyFy \u001bFyFyFyFyziy,\u0016?\n>A\u0006_mmm.FyFyFyFyFyFyFy,#chat\ny\u0016?\n>A\u0006_mmmmmm.FyFyFyFyFyFyziy,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\ny;y.\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.Fy"
+  }
+ ]
+}

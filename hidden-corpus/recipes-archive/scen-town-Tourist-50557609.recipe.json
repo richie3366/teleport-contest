@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqk \u001b<.__,Fy_,.#chat\nu#pray\ny y db  \u001b__,_,,#chat\nl_{. \u001bFh_..Fjqe_ooo._.,p_oooooo,Fj_.<.Fj,#chat\nj_ooooo._.,p\\ zhSy\u001b nn#invoke\n\u001b,#rub\nE- ad aerarium\n       #terrain\n\u001b#twoweapon\n#name\n\u001b#monster\nrf#sit\n #levelchange\n10\n         ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50557609,
+   "datetime": "20111016103457",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqk \u001b<.__,Fy_,.#chat\nu#pray\ny y db  \u001b__,_,,#chat\nl_{. \u001bFh_..Fjqe_ooo._.,p_oooooo,Fj_.<.Fj,#chat\nj_ooooo._.,p\\ zhSy\u001b"
+  },
+  {
+   "seed": 51057609,
+   "datetime": "20161211100008",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " nn#invoke\n\u001b,#rub\nE- ad aerarium\n       #terrain\n\u001b#twoweapon\n#name\n\u001b#monster\nrf#sit\n #levelchange\n10\n         "
+  }
+ ]
+}

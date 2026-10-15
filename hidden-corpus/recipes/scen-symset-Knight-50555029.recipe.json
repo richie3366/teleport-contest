@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0007tame large dog\n\u0007tame little dog\n\u0017newt corpse\ntbj\u0017magic whistle\nbnlaj   \u0006_ \u001b:>FlFh  _>.Fn_.Fj>FyFb_>.Fk_.Fy>Fk Fb \u0017lichen corpse\nt\u001b\u0017leash\nalu ujhnalyy;k.aly#jump\n<.\u0006_>.Fk_,Fl>FjFl_>,Fj_.Fk>FnFy_>.Fu_.Fj>FyFyFuFyFu\u0006_>>,Fk_.Fk>FjFb_>>.Fy_.Fu>FbFn_>>.Fu_.Fb>FyFkFnFuFj>#pray\ny y \u0006_>.Fy_.Fn>FuFb_>.Fy_.Fk>FkFy_>,Fk_,Fy>FkFkFnFuFj\u0006_>>.Fj_.Fb>FjFu_>>,Fu_.Fb>FjFn_>>.Fn  _.Fu  >FyFkFbFkFur\u001b#rub\n<\u0006_>>.Fy_.Fk>FjFu_>>.Fy_.Fb>FkFu_>>.Fk_.Fj>FyFyFyFyFu<\u0006_>,Fy_.Fy>FjFb_>.Fu_.Fu>FkFu_>,Fj_.Fk>FbFkFyFkFbmO>>c\u001b\nmO>>n\u001b\n#levelchange\n10\n       lnkb\u0017ice\ny\u0017pool\nj \u0017altar\nde\u0017gnome corpse\n #offer\nm    #terrain\n\u001b#chat\nbck#enhance\nyk\nm\n\u001bFyFbFnFnFjFjFnFjFyFjFjFnFnFbFbFnFjFjFjFnFnFnFjFbFbFbFjFjFbFjFjFnFnFbFjFnFjFbFnFjFbFjFnFjFyFbFjFnFbFbFjFnFnFbFbFbFbFbFnFbFnFjFnFjFnF"
+ },
+ "segments": [
+  {
+   "seed": 50555029,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=sortloot:none\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\nMENUCOLOR=\"uncursed\"=brown\n",
+   "moves": "\u0007tame large dog\n\u0007tame little dog\n\u0017newt corpse\ntbj\u0017magic whistle\nbnlaj   \u0006_ \u001b:>FlFh  _>.Fn_.Fj>FyFb_>.Fk_.Fy>Fk Fb \u0017lichen corpse\nt\u001b\u0017leash\nalu ujhnalyy;k.aly#jump\n<.\u0006_>.Fk_,Fl>FjFl_>,Fj_.Fk>FnFy_>.Fu_.Fj>FyFyFuFyFu\u0006_>>,Fk_.Fk>FjFb_>>.Fy_.Fu>FbFn_>>.Fu_.Fb>FyFkFnFuFj>#pray\ny y \u0006_>.Fy_.Fn>FuFb_>.Fy_.Fk>FkFy_>,Fk_,Fy>FkFkFnFuFj\u0006_>>.Fj_.Fb>FjFu_>>,Fu_.Fb>FjFn_>>.Fn  _.Fu  >FyFkFbFkFur\u001b#rub\n<\u0006_>>.Fy_.Fk>FjFu_>>.Fy_.Fb>FkFu_>>.Fk_.Fj>FyFyFyFyFu<\u0006_>,Fy_.Fy>FjFb_>.Fu_.Fu>FkFu_>,Fj_.Fk>FbFkFyFkFbmO>>c\u001b\nmO>>n\u001b\n#levelchange\n10\n       lnkb\u0017ice\ny\u0017pool\nj \u0017altar\nde\u0017gnome corpse\n #offer\nm    #terrain\n\u001b#chat\nbck#enhance\nyk\nm\n\u001bFyFbFnFnFjFjFnFjFyFjFjFnFnFbFbFnFjFjFjFnFnFnFjFbFbFbFjFjFbFjFjFnFnFbFjFnFjFbFnFjFbFjFnFjFyFbFjFnFbFbFjFnFnFbFbFbFbFbFnFbFnFjFnFjFnF"
+  }
+ ]
+}

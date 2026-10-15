@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   #levelchange\n20\n\u0017800 gold pieces\n\u0016?\nc\u0006_ \u001b;#chat\nh_mm.Fh_.Fj  #chat\nj_mmm,  Fj _. Fl   #chat\nk_{, Fj  _.>.Fn qh ri  >#ride\nny\u001612\n\u0007gelatinous cube\nFyFyFyFy         nFy   \u0007Angel\nyFn n Fy         n \u00166\n#levelchange\n20\n\u0016?\n>DbyFl    nFl    Fl     nFl   Fl     nFl   u     n  \u0017wand of striking\nzmk   n     n bFh    10s     nFh   Fh     nj     bFy     nbk   Fh     nFh   l\u0017scroll of earth\nrn bnbjluklylbnhnhbbl10slhh\u0017wand of digging\nzoyujjnjljh\u0017scroll of earth\nrp lln\u001620\n\u00166\n\u0007black pudding\nFkFk FkFk   nFk.l sm.\u0017300 gold pieces\n\u0007leprechaun\nFy Fb     Fb FyFy sh20s#pray\ny y   \u0018\u001b#levelchange\n20\n\u0017blessed ring of polymorph control\nPqr #polyself\nsandestin\n green-elf\n#monster\nsm.s.m.sm.s#polyself\nnalfeshnee\n#monster\n20s20ssnss#polyself\ntitan\n#monster\n20s20s.l..#levelchange\n8\n   \u0016?\n>>N        potion of sickness\nclqsW\u001b;l,\u000620s   .j\u0016?\n\u001b\u0016?\n\u001b\u0017blessed ring of polymorph control\nPt      n   \u0017levitation boots\nWu   n       yy\u001by   y y y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 50556004,
+   "datetime": "20120818051637",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n20\n                   #levelchange\n20\n\u0017800 gold pieces\n\u0016?\nc\u0006_ \u001b;#chat\nh_mm.Fh_.Fj  #chat\nj_mmm,  Fj _. Fl   #chat\nk_{, Fj  _.>.Fn qh ri  >#ride\nny\u001612\n\u0007gelatinous cube\nFyFyFyFy         nFy   \u0007Angel\nyFn n Fy         n \u00166\n#levelchange\n20\n\u0016?\n>DbyFl    nFl    Fl     nFl   Fl     nFl   u     n  \u0017wand of striking\nzmk   n     n bFh    10s     nFh   Fh     nj     bFy     nbk   Fh     nFh   l\u0017scroll of earth\nrn bnbjluklylbnhnhbbl10slhh\u0017wand of digging\nzoyujjnjljh\u0017scroll of earth\nrp lln\u001620\n\u00166\n\u0007black pudding\nFkFk FkFk   nFk.l sm.\u0017300 gold pieces\n\u0007leprechaun\nFy Fb     Fb FyFy sh20s#pray\ny y   \u0018\u001b#levelchange\n20\n\u0017blessed ring of polymorph control\nPqr #polyself\nsandestin\n green-elf\n#monster\nsm.s.m.sm.s#polyself\nnalfeshnee\n#monster\n20s20ssnss#polyself\ntitan\n#monster\n20s20s.l..#levelchange\n8\n   \u0016?\n>>N        potion of sickness\nclqsW\u001b;l,\u000620s   .j\u0016?\n\u001b\u0016?\n\u001b\u0017blessed ring of polymorph control\nPt      n   \u0017levitation boots\nWu   n       yy\u001by   y y y\u001b  2"
+  }
+ ]
+}

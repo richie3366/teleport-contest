@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "FjFjFbFjs.kbb100sqd#pray\ny y hnkFnFhFlFjFlsFjFlsFlsFhi\u001bh lkFkFkFkFkFkFkFkFkFuFkFjFyFyFkFyFkFuFuFyFuFyFuFuFyFkFuFyFuFyFyFkFuFuFyFuFyFkFuFyFyFuFkFyFkFyFuFuFuFyFyFkFuFuFuFuFyFuFkFuFkFkFkFyFuFuFyFyFkFkFuFyFuFkFyFuFuFyFyFkFkFu\u00167\nFyFyFyFyFkFkFkFyFkFyFkFkFyFkFkFkFyFkFyFyFyFkFyFyFkFyFyFyFyFyFyFkFyFkFkFkFkFyFyFyFyFyFkFkFkFkFkFkFyFkFyFkFkFyFyFyFkFkFyFyFkFkFkFkFkFyFkFkFyFyFkFyFyFyFkFkFyFkFyFyFyFyFy FkFuFuFyFyFyFyFkFkFkFyFkFkFyFyFyFyFyFkFyFyFkFyFkFyFkFkFyFkFkFyFkFkFkFyFyFk#dip\ncd;y. \u001b>.: <cl#force\n\\ v i\u001b\u0006_>.Fy_.@.Fk>FkFy_>,Fy_.Fh>FyFk_>.Fb_,Fk>FbFyFkFyFk  n\u0006_>,Fy_,Fb>FkFk_>.Fj_.;,Fy>FyFk_>.Fk_.,Fj>FjFkFyFjFy\u0006_>.Fy_,,Fy>Fy Fj_>.Fy_,:Fy>FyFk_>,Fy_,.Fk>FyFkFkFkFyP\u000f\u001b<\u000f\u001b\u001617\n\u00164\nFyFuFuFkFjFuFkFuFkFkFkFkFyFkFyFyFuFjFyFyFjFyFuFuFjFyFkFjFuFkFu  n FkFlFyFuFlFlFjFkFyFkFuFuFkFkFuFkFkFyFyFyFyFuFkFuFkFkFyFyFkFyFyFkFyFuFyFuFuFuFuFuFuFkFuFyFkFyFuFyFkFyFkFuFkFyFyFyFkFuFyFyFkFyFyFkFyFuFyFuFuFuFuFuFkFuFkFuFyFuFkFkFyFuFkFyFyFkFuFkFk\u0006_"
+ },
+ "segments": [
+  {
+   "seed": 50555022,
+   "datetime": "20191222155445",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"You kill\"\n",
+   "moves": "FjFjFbFjs.kbb100sqd#pray\ny y hnkFnFhFlFjFlsFjFlsFlsFhi\u001bh lkFkFkFkFkFkFkFkFkFuFkFjFyFyFkFyFkFuFuFyFuFyFuFuFyFkFuFyFuFyFyFkFuFuFyFuFyFkFuFyFyFuFkFyFkFyFuFuFuFyFyFkFuFuFuFuFyFuFkFuFkFkFkFyFuFuFyFyFkFkFuFyFuFkFyFuFuFyFyFkFkFu\u00167\nFyFyFyFyFkFkFkFyFkFyFkFkFyFkFkFkFyFkFyFyFyFkFyFyFkFyFyFyFyFyFyFkFyFkFkFkFkFyFyFyFyFyFkFkFkFkFkFkFyFkFyFkFkFyFyFyFkFkFyFyFkFkFkFkFkFyFkFkFyFyFkFyFyFyFkFkFyFkFyFyFyFyFy FkFuFuFyFyFyFyFkFkFkFyFkFkFyFyFyFyFyFkFyFyFkFyFkFyFkFkFyFkFkFyFkFkFkFyFyFk#dip\ncd;y. \u001b>.: <cl#force\n\\ v i\u001b\u0006_>.Fy_.@.Fk>FkFy_>,Fy_.Fh>FyFk_>.Fb_,Fk>FbFyFkFyFk  n\u0006_>,Fy_,Fb>FkFk_>.Fj_.;,Fy>FyFk_>.Fk_.,Fj>FjFkFyFjFy\u0006_>.Fy_,,Fy>Fy Fj_>.Fy_,:Fy>FyFk_>,Fy_,.Fk>FyFkFkFkFyP\u000f\u001b<\u000f\u001b\u001617\n\u00164\nFyFuFuFkFjFuFkFuFkFkFkFkFyFkFyFyFuFjFyFyFjFyFuFuFjFyFkFjFuFkFu  n FkFlFyFuFlFlFjFkFyFkFuFuFkFkFuFkFkFyFyFyFyFuFkFuFkFkFyFyFkFyFyFkFyFuFyFuFuFuFuFuFuFkFuFyFkFyFuFyFkFyFkFuFkFyFyFyFkFuFyFyFkFyFyFkFyFuFyFuFuFuFuFuFkFuFkFuFyFuFkFkFyFuFkFyFyFkFuFkFk\u0006_"
+  }
+ ]
+}

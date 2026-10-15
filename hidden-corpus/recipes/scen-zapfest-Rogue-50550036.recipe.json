@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPhr\u0017blessed shield of reflection\nWi\u0017blessed amulet of life saving\nPj#levelchange\n20\n                   \u0017wand of magic missile\n\u0017wand of sleep\n\u0007hobbit\n\u0007sewer rat\nzkbzlb sm.zkl zlb zlbzlb zlbi\u001b\u0017crossbow\nwm\u001715 crossbow bolts\nQn\u0007grid bug\n\u0007hill orc\ntnltbb   tab fb fj fj fj fj \u001611\n\u0017spellbook of light\nros\u0017blessed spellbook of fireball\nrp.\u0007vampire\n\u0007aligned cleric\nyZa\nZa\nsm.  sbZa\n 20s  sm. Za\n sm.   sjZa\n Za\n \u001617\n\u0018\u001b\u0007baby red dragon\n20s .m.\u0017wand of magic missile\naqy     Fb  Fb   i\u001b\u0017wand of slow monster\n\u0017wand of magic missile\n\u0007gnome\n\u0007owlbear\nzry zsy    n sm.    zsl  .m.  n  zsy  sm.   zrb zrb    zrb  n \u001619\ni\u001b\u00166\n\u0017wand of slow monster\n\u0017wand of sleep\n\u0007gnome lord\nztl ztlzuu ztuztu  zth  ztlztl  ztu   .m.     n   zt   \u001715 shuriken\nQv\u0007bugbear\ntnk     fh   fy    tny  n    fkfh      fh  i\u001b\u0007silver dragon\nsm.   n  .n       #polyself\nblack dragon\n   #monster\nn         sm.     .m.      n   #monster\n#monster\n#monster\n\u0017wand of magic missile\nawy             Fh    Fy  n     \u00164\n\u0017wand of magic missile\n\u0017wand of slow monster\n\u0017wand of cold\n\u0007lichen\n\u0007lichen\nzzb  .n zxh  zzy     zzh  sm.zyn .m.zzy zyj  .m.  n  zzn sm. \u0017spellbook of magic missile\nrA \u001b.sy\u0007mind flayer\nZa\nZa\n"
+ },
+ "segments": [
+  {
+   "seed": 50550036,
+   "datetime": "20250530010212",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPhr\u0017blessed shield of reflection\nWi\u0017blessed amulet of life saving\nPj#levelchange\n20\n                   \u0017wand of magic missile\n\u0017wand of sleep\n\u0007hobbit\n\u0007sewer rat\nzkbzlb sm.zkl zlb zlbzlb zlbi\u001b\u0017crossbow\nwm\u001715 crossbow bolts\nQn\u0007grid bug\n\u0007hill orc\ntnltbb   tab fb fj fj fj fj \u001611\n\u0017spellbook of light\nros\u0017blessed spellbook of fireball\nrp.\u0007vampire\n\u0007aligned cleric\nyZa\nZa\nsm.  sbZa\n 20s  sm. Za\n sm.   sjZa\n Za\n \u001617\n\u0018\u001b\u0007baby red dragon\n20s .m.\u0017wand of magic missile\naqy     Fb  Fb   i\u001b\u0017wand of slow monster\n\u0017wand of magic missile\n\u0007gnome\n\u0007owlbear\nzry zsy    n sm.    zsl  .m.  n  zsy  sm.   zrb zrb    zrb  n \u001619\ni\u001b\u00166\n\u0017wand of slow monster\n\u0017wand of sleep\n\u0007gnome lord\nztl ztlzuu ztuztu  zth  ztlztl  ztu   .m.     n   zt   \u001715 shuriken\nQv\u0007bugbear\ntnk     fh   fy    tny  n    fkfh      fh  i\u001b\u0007silver dragon\nsm.   n  .n       #polyself\nblack dragon\n   #monster\nn         sm.     .m.      n   #monster\n#monster\n#monster\n\u0017wand of magic missile\nawy             Fh    Fy  n     \u00164\n\u0017wand of magic missile\n\u0017wand of slow monster\n\u0017wand of cold\n\u0007lichen\n\u0007lichen\nzzb  .n zxh  zzy     zzh  sm.zyn .m.zzy zyj  .m.  n  zzn sm. \u0017spellbook of magic missile\nrA \u001b.sy\u0007mind flayer\nZa\nZa\n"
+  }
+ ]
+}

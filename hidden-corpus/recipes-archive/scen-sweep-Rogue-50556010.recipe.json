@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "jhkh\u0017grave\n: \u0017pick-axe\nai >  .20sju\u0017iron bars\nnyyyjj\u0017ice\nkkjj:k  \u0017lawful altar\ndidf\u0017newt corpse\n#offer\nj  #pray\ny y #terrain\nb\n\u001b,>tbbs\u0017wand of digging\nj\u0017grave\nzk> s.nyzk<zkkknjzkllbyzk< zkkki\u001beh  20s.zklaebW20ssm.  n  20s waFlFl20sXeg   .20s_<,s#name\n\u001b__.20s  20s#tip\n\u001b#jump\nzkn#ride\nny\u001614\n    #levelchange\n14\n             yyhb\u0017rust trap\nk ^jjy.ksbyh\u0017spiked pit\nhl sm..m.h\u0017fire trap\nlh 20ss\\ :10s\u000f\u001b\u0016?\n>w\u0006\u0017blessed potion of object detection\nqm@._{,  Fl   _..qd  _{, Fl _.Fl q_dd._.\u0004k _dddd.Fk_.\u0004 _ooo,Fl _,  Fn  _oo.Fj  _.,  p#untrap\nj>20s         i\u001bwaFj  Fj  Fn   wb    Fl Fh   Fn    aky    r\u001bz\u0018\u001b20s  s,   n   \u0004j   i\u001bWsm. .l  sm.   T         wa   Fn  Fh Fj    wb     Fn   Fn   Fh  wn Fh   Fh Fl   j    n    ,da      #wipe\n   20s    #dip\nc#turn\n:i\u001b\u0007warhorse\n\u0017scroll of taming\nro  \u001b  \u0017saddle\napl  n    #ride\nhy\u0007tame saddled horse\n#ride\nly\u0007pony\n\u0017scroll of taming\nrq   \u0017saddle\narn #ride\nny.  s\u0007yellow mold\nFk   Fl   Fl\u0004jy  \u0006_>.Fl _.>.Fk   >Fk Fk_>.Fh _,Fb >Fb Fb _>.  Fb   _..Fh >Fh Fljybuh   n\u00166\n\u0017pick-axe\nas > .has> k jas< as> sm. as> khas>sm.  n as> sm. n u\u0017dwarvish mattock\n \u0016?\neat  j  _<.  Fl   n       _,    n   Fk        n  at>         n     at>        n  20s      _>,       n         nFu       _.    n   Fh      n         yy\u001by   y y y\u001by  a"
+ },
+ "segments": [
+  {
+   "seed": 50556010,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "jhkh\u0017grave\n: \u0017pick-axe\nai >  .20sju\u0017iron bars\nnyyyjj\u0017ice\nkkjj:k  \u0017lawful altar\ndidf\u0017newt corpse\n#offer\nj  #pray\ny y #terrain\nb\n\u001b,>tbbs\u0017wand of digging\nj\u0017grave\nzk> s.nyzk<zkkknjzkllbyzk< zkkki\u001beh  20s.zklaebW20ssm.  n  20s waFlFl20sXeg   .20s_<,s#name\n\u001b__.20s  20s#tip\n\u001b#jump\nzkn#ride\nny\u001614\n    #levelchange\n14\n             yyhb\u0017rust trap\nk ^jjy.ksbyh\u0017spiked pit\nhl sm..m.h\u0017fire trap\nlh 20ss\\ :10s\u000f\u001b\u0016?\n>w\u0006\u0017blessed potion of object detection\nqm@._{,  Fl   _..qd  _{, Fl _.Fl q_dd._.\u0004k _dddd.Fk_.\u0004 _ooo,Fl _,  Fn  _oo.Fj  _.,  p#untrap\nj>20s         i\u001bwaFj  Fj  Fn   wb    Fl Fh   Fn    aky    r\u001bz\u0018\u001b20s  s,   n   \u0004j   i\u001bWsm. .l  sm.   T         wa   Fn  Fh Fj    wb     Fn   Fn   Fh  wn Fh   Fh Fl   j    n    ,da      #wipe\n   20s    #dip\nc#turn\n:i\u001b\u0007warhorse\n\u0017scroll of taming\nro  \u001b  \u0017saddle\napl  n    #ride\nhy\u0007tame saddled horse\n#ride\nly\u0007pony\n\u0017scroll of taming\nrq   \u0017saddle\narn #ride\nny.  s\u0007yellow mold\nFk   Fl   Fl\u0004jy  \u0006_>.Fl _.>.Fk   >Fk Fk_>.Fh _,Fb >Fb Fb _>.  Fb   _..Fh >Fh Fljybuh   n\u00166\n\u0017pick-axe\nas > .has> k jas< as> sm. as> khas>sm.  n as> sm. n u\u0017dwarvish mattock\n \u0016?\neat  j  _<.  Fl   n       _,    n   Fk        n  at>         n     at>        n  20s      _>,       n         nFu       _.    n   Fh      n         yy\u001by   y y y\u001by  a"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n             \u0017blessed scroll of fire\n\u0007wood nymph\nrl  \u001b@.      Fl  Fj\u0017T-shirt\nW\u001b20ssn.Fhs\u0017blessed +3 morning star\nwn.s.\u00173 food ration\n \u0007imp\nef.h 20sFls\u0017cursed -1 tsurugi\nwpFlssX\u0017katana\n\u0007hobbit\nwqFhFhss."
+ },
+ "segments": [
+  {
+   "seed": 50558204,
+   "datetime": "20210222203140",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n             \u0017blessed scroll of fire\n\u0007wood nymph\nrl  \u001b@.      Fl  Fj\u0017T-shirt\nW\u001b20ssn.Fhs\u0017blessed +3 morning star\nwn.s.\u00173 food ration\n \u0007imp\nef.h 20sFls\u0017cursed -1 tsurugi\nwpFlssX\u0017katana\n\u0007hobbit\nwqFhFhss."
+  }
+ ]
+}

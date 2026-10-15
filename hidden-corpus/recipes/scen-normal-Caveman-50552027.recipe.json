@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u000f\u001br\u001b#pray\ny  oh#ride\nn\\ #ride\nji\u001b20s#offer\n#ride\nb#invoke\n\u001b>\u000f\u001be#ride\nhi\u001bwb 20s.20sW20ss.tcuawa 20ss20s#terrain\nc\n\u001b;10s#enhance\n\u001b\u0004l_<..m.20s"
+ },
+ "segments": [
+  {
+   "seed": 50552027,
+   "datetime": "20010824173251",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "\u000f\u001br\u001b#pray\ny  oh#ride\nn\\ #ride\nji\u001b20s#offer\n#ride\nb#invoke\n\u001b>\u000f\u001be#ride\nhi\u001bwb 20s.20sW20ss.tcuawa 20ss20s#terrain\nc\n\u001b;10s#enhance\n\u001b\u0004l_<..m.20s"
+  }
+ ]
+}

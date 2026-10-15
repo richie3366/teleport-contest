@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed amulet of reflection\nPl\u0017blessed +3 helm of telepathy\nWm\u0016?\n>w\u0006_ \u001b@.qg__,Fh_.Fu #chat\nu #pray\ny y   _ooo._oo,,#chat\nu _ooooooooo.,p_ooooooooo,,pFu FuFu Fu Fu Fu __.Fl _,Fj  #chat\nl _oooooo.,\u0014>. s20s_{.Fh_.Fhqg_ooooo.,:_oooo,,$_ooooooooo,,p\u0016?\n>Bbuj\u0016?\n>w\u0006_oo._o,,$\u00167\njhj\u0016?\n>w\u0006hyk#chat\nk_oooo,,p__._,#chat\nn#pray\ny y _oo,,\u0017amulet versus poison\ndn_{._.q\u0016?\n>B jbh    n \u0016?\n>w\u0006_oooo.,#chat\nu FuFuFuFuFuFu  nFuFuFu FuFuFu  n\u0016?\n>Bknk\u0016?\n>w\u0006_ooooooo,Fl_,@.Fl,pFl  Fl Fl Fl  nFlFl_{,Fl_,Fl  nq_ooo.Fl_..Fu,pFuFuFuFu  nFuFuFu FuFu FuFu  nFu_ooo.Fl _..Fl,$FlFl Fl  n FlFlFl_ooooo,Fu_.;m,Fk,p_ooooooo.Fk  n_.;>.Fk,p_oooo,,p\u0016?\n>B blu\u0016?\n>w\u0006_oooooooo,,$_ooooooooo.Fu_.>.Fl,:Fl  nFl"
+ },
+ "segments": [
+  {
+   "seed": 50550077,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed amulet of reflection\nPl\u0017blessed +3 helm of telepathy\nWm\u0016?\n>w\u0006_ \u001b@.qg__,Fh_.Fu #chat\nu #pray\ny y   _ooo._oo,,#chat\nu _ooooooooo.,p_ooooooooo,,pFu FuFu Fu Fu Fu __.Fl _,Fj  #chat\nl _oooooo.,\u0014>. s20s_{.Fh_.Fhqg_ooooo.,:_oooo,,$_ooooooooo,,p\u0016?\n>Bbuj\u0016?\n>w\u0006_oo._o,,$\u00167\njhj\u0016?\n>w\u0006hyk#chat\nk_oooo,,p__._,#chat\nn#pray\ny y _oo,,\u0017amulet versus poison\ndn_{._.q\u0016?\n>B jbh    n \u0016?\n>w\u0006_oooo.,#chat\nu FuFuFuFuFuFu  nFuFuFu FuFuFu  n\u0016?\n>Bknk\u0016?\n>w\u0006_ooooooo,Fl_,@.Fl,pFl  Fl Fl Fl  nFlFl_{,Fl_,Fl  nq_ooo.Fl_..Fu,pFuFuFuFu  nFuFuFu FuFu FuFu  nFu_ooo.Fl _..Fl,$FlFl Fl  n FlFlFl_ooooo,Fu_.;m,Fk,p_ooooooo.Fk  n_.;>.Fk,p_oooo,,p\u0016?\n>B blu\u0016?\n>w\u0006_oooooooo,,$_ooooooooo.Fu_.>.Fl,:Fl  nFl"
+  }
+ ]
+}

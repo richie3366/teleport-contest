@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #quit\nyyKUNB_ \u001b<.>FbFj.BJHY_>.>,#tip\n\u001b\u001bUHHJ_>.>Fy20sFyNYBU_>.>NUBK_>.>Fj s.BJUU_>.>#loot\n#offer\nBHJB_>.>HNNB_>,><JUJK_>.>;.\u0018\u001bUHKL_>.>#turn\n#quit\nyy\u001by  y y y\u001b  bjkjkjuuBYLY_ \u001b;>HJBB_>.>Fu20s.#loot\n#invoke\n\u001b<HLYY_>.>Fyss,#terrain\nb\nKKKN_>HKKL_>HKUJ_>uhbnkkbylhhbhbkynl20s 10sdf20s.sk#chat\nkFl Fk20s100sFkFks100sllyubunyn150s\u000f\u001b150sujk50sFh20s.byh150s 50s\u0018\u001b50sFhFh20s150s\u000f\u001b50sFhsslh#quit\nyy\u001by  y y y\u001b FbFb FbFbFbFbFbFbkkjl20st\u001b#name\no\nda.s.10s20sunbkblFu FuFuFuFuFuFuFu20s20shulbhut\u001b10st\u001byllbjbkjulujynbyhjuh#name\ni\n10st\u001b20s#chat\njt\u001bjkyuNNL#quit\nyy\u001by  y y y\u001b FhFhFh FhFh FhFhFhi\u001blllFlFl ._ \u001bm,>150sFuFlFlFl.subh150s100shyhFyFyFhFhFhFh150s\u001450s50sqeklb150s50sFlFls50s150s100sFlFlFlFlFl20s150sFlFl20s_>.>100s100s100s hkj50sFl20ss100s_>.>ynj150sFlFl FlFlFlFlFl#quit\nyy\u001by  y y y\u001b das..dess.10sbl20shkhj150sFlFls150skju150s100sFl.20snyh100s\\ chuyj100s100s50sFl.20s\u0014#pray\ny 150s100s100s#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50550066,
+   "datetime": "20060825200312",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #quit\nyy"
+  },
+  {
+   "seed": 50650066,
+   "datetime": "20061211063759",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=mention_walls\n",
+   "moves": "KUNB_ \u001b<.>FbFj.BJHY_>.>,#tip\n\u001b\u001bUHHJ_>.>Fy20sFyNYBU_>.>NUBK_>.>Fj s.BJUU_>.>#loot\n#offer\nBHJB_>.>HNNB_>,><JUJK_>.>;.\u0018\u001bUHKL_>.>#turn\n#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50750066,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": " bjkjkjuuBYLY_ \u001b;>HJBB_>.>Fu20s.#loot\n#invoke\n\u001b<HLYY_>.>Fyss,#terrain\nb\nKKKN_>HKKL_>HKUJ_>uhbnkkbylhhbhbkynl20s 10sdf20s.sk#chat\nkFl Fk20s100sFkFks100sllyubunyn150s\u000f\u001b150sujk50sFh20s.byh150s 50s\u0018\u001b50sFhFh20s150s\u000f\u001b50sFhsslh#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50850066,
+   "datetime": "20150127195256",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\n",
+   "moves": "FbFb FbFbFbFbFbFbkkjl20st\u001b#name\no\nda.s.10s20sunbkblFu FuFuFuFuFuFuFu20s20shulbhut\u001b10st\u001byllbjbkjulujynbyhjuh#name\ni\n10st\u001b20s#chat\njt\u001bjkyuNNL#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50950066,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\n",
+   "moves": "FhFhFh FhFh FhFhFhi\u001blllFlFl ._ \u001bm,>150sFuFlFlFl.subh150s100shyhFyFyFhFhFhFh150s\u001450s50sqeklb150s50sFlFls50s150s100sFlFlFlFlFl20s150sFlFl20s_>.>100s100s100s hkj50sFl20ss100s_>.>ynj150sFlFl FlFlFlFlFl#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51050066,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "das..dess.10sbl20shkhj150sFlFls150skju150s100sFl.20snyh100s\\ chuyj100s100s50sFl.20s\u0014#pray\ny 150s100s100s#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

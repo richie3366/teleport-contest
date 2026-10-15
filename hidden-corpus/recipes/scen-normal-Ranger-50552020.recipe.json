@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#ride\nl#turn\natduazW#pray\ny :dfcley  : #wipe\ni\u001bwcyFlFn .Xwa20s20s.XWssbsm.wb FkFkFkXwd.20ss_m, \u001b<.sPw-Zl#conduct\n "
+ },
+ "segments": [
+  {
+   "seed": 50552020,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "#ride\nl#turn\natduazW#pray\ny :dfcley  : #wipe\ni\u001bwcyFlFn .Xwa20s20s.XWssbsm.wb FkFkFkXwd.20ss_m, \u001b<.sPw-Zl#conduct\n "
+  }
+ ]
+}

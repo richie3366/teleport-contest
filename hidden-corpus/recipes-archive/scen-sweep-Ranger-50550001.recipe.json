@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           #levelchange\n20\n       \u001715 shuriken\nQi\u0007newt\nyfj fj fnfun yb,#enhance\nn\u001b\u001610\n\u0017chest\n\u0017bag of tricks\n\u0017scroll of identify\n\u0017potion of acid\n\u0017wand of death\naj\u0017dagger\nwodk#force\n20s20ss.20sdcu\u0004baji\u001b\u0006hl\u0017wand of probing\nEp Vlad was here\n: \u0017athame\nEq  ad aerarium\n: l\u0017wand of secret door detection\nEr  Elbereth\n: bE- X marks the spot\n\u0007soldier ant\n.m.20s      .m.  Fl Fk   n  i\u001bqm \u001b wiy  Fl      n Fk    Fk    Xef        n    20s    sm.   n  zpj           zpn    n   znj          ajaj#tip\nj\u001b          n        #tip\nj\u001b     cl#conduct\n #loot\nk_<, \u001b@.sm.     ch#enhance\nyp\nl\n\u001b: i\u001brl   n        eg      n sy       20s            eh        n  .m.  sm.       znl    wb  Fl       nFl   Fl  Xwd    Fj     Fj Fn      \u001612\n    \u0006_>, Fh_. Fh   n >  Fu Fk   n Fl #conduct\n #wipe\n <\u0006_>>.    n  Fj _.Fb   >Fj  n Fj _>>.  Fj _.Fb    n >Fj Fj _>>. Fj  yy\u001b y   y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50550001,
+   "datetime": "20130314004035",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           #levelchange\n20\n       \u001715 shuriken\nQi\u0007newt\nyfj fj fnfun yb,#enhance\nn\u001b\u001610\n\u0017chest\n\u0017bag of tricks\n\u0017scroll of identify\n\u0017potion of acid\n\u0017wand of death\naj\u0017dagger\nwodk#force\n20s20ss.20sdcu\u0004baji\u001b\u0006hl\u0017wand of probing\nEp Vlad was here\n: \u0017athame\nEq  ad aerarium\n: l\u0017wand of secret door detection\nEr  Elbereth\n: bE- X marks the spot\n\u0007soldier ant\n.m.20s      .m.  Fl Fk   n  i\u001bqm \u001b wiy  Fl      n Fk    Fk    Xef        n    20s    sm.   n  zpj           zpn    n   znj          ajaj#tip\nj\u001b          n        #tip\nj\u001b     cl#conduct\n #loot\nk_<, \u001b@.sm.     ch#enhance\nyp\nl\n\u001b: i\u001brl   n        eg      n sy       20s            eh        n  .m.  sm.       znl    wb  Fl       nFl   Fl  Xwd    Fj     Fj Fn      \u001612\n    \u0006_>, Fh_. Fh   n >  Fu Fk   n Fl #conduct\n #wipe\n <\u0006_>>.    n  Fj _.Fb   >Fj  n Fj _>>.  Fj _.Fb    n >Fj Fj _>>. Fj  yy\u001b y   y y y\u001by  _"
+  }
+ ]
+}

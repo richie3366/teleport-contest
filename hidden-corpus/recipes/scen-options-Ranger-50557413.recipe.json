@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "O>gm\n#twoweapon\nmO>>d\n #wipe\nnO>d\nr\u001b#rub\nOgpn\nb\nn\n<yy\u001by  y n \u0014"
+ },
+ "segments": [
+  {
+   "seed": 50557413,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showrace\n",
+   "moves": "O>gm\n#twoweapon\nmO>>d\n #wipe\nnO>d\nr\u001b#rub\nOgpn\nb\nn\n<yy\u001by  y n \u0014"
+  }
+ ]
+}

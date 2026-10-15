@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0017wand of digging\n\u0016?\n>wb\u0017grave\nzi>  .sj\u0017grave\nzi> ssbuzi> 20s  zillzill #levelchange\n12\n\u0017trident\nwj FjFlFl X\u0007soldier\n;l; \u001b@.20s  ss\u0007grid bug\nFjFlFlFlFj \u0007silver dragon\nFjFj FkFn  \u0017saddle\n akj   #ride\nny\u0007warhorse\n\u0017scroll of taming\nrl     \u0017saddle\namn  #ride\nny\u0007tame saddled horse\n#ride\n  \u0006_>>,Fb        _,Fb>Fb Fb_>>.  Fj   _.    Fk        n       >Fj         Fk      _>>.   Fb    _.    Fb >FhFn  \u0004l \u0006_>,Fh_, Fh>Fh  Fh _>.Fl      _,    Fh>_>,Fh_.    > ,\u0006_>>._.> #polyself\nfog cloud\n  #monster\nss\u0007newt\nsFhFhFh\u0007yellow mold\nFhFh FhFy\u001626\n#levelchange\n30\n                 \u0017war hammer\nw.ss\u0007pyrolisk\ns. .u  sy.m..\u0007Wizard of Yendor\ny#chat\nlFh Fu#levelchange\n30\n\u0017Grayswandir\nwo FuFuFu #invoke\no \u0007Medusa\nynFl   FuFu  n   Fh  Fu Fh  \u0007pony\n#chat\nu  FuFu  n \u0007guardian naga\n20s20s.m. sb20s .m. sm.  20s  20s     n   \\    \u00168\n\u0016?\n>Cj\u0017wand of striking\nzpjljjjjjjkjjjjjnj10skk\u0017wand of digging\nzq> h\u0017wand of striking\nzr>\u0017wand of striking\nzsj\u0017wand of striking\nztl\u0017scroll of earth\nru l10skn10skbkkkkkkkj\u0017wand of striking\nzvj\u0017wand of striking\nzwj10sh\u0017wand of digging\nzxkh\u0017wand of digging\nzyj\u0017wand of digging\nzzj\u0017wand of striking\nzAk\u0017wand of striking\nzB>  \u0017scroll of earth\nr\u0017wand of striking\nz\u0017scroll of earth\nr\u0017wand of striking\nz\u0017scroll of earth\nr\u0017scroll of earth\nr\u0017wand of digging\nz\u0017scroll of earth\nr\u0017wand of digging\nz\u001624\n\\    kl\u0017wa"
+ },
+ "segments": [
+  {
+   "seed": 50556000,
+   "datetime": "20110519182403",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n12\n           \u0017wand of digging\n\u0016?\n>wb\u0017grave\nzi>  .sj\u0017grave\nzi> ssbuzi> 20s  zillzill #levelchange\n12\n\u0017trident\nwj FjFlFl X\u0007soldier\n;l; \u001b@.20s  ss\u0007grid bug\nFjFlFlFlFj \u0007silver dragon\nFjFj FkFn  \u0017saddle\n akj   #ride\nny\u0007warhorse\n\u0017scroll of taming\nrl     \u0017saddle\namn  #ride\nny\u0007tame saddled horse\n#ride\n  \u0006_>>,Fb        _,Fb>Fb Fb_>>.  Fj   _.    Fk        n       >Fj         Fk      _>>.   Fb    _.    Fb >FhFn  \u0004l \u0006_>,Fh_, Fh>Fh  Fh _>.Fl      _,    Fh>_>,Fh_.    > ,\u0006_>>._.> #polyself\nfog cloud\n  #monster\nss\u0007newt\nsFhFhFh\u0007yellow mold\nFhFh FhFy\u001626\n#levelchange\n30\n                 \u0017war hammer\nw.ss\u0007pyrolisk\ns. .u  sy.m..\u0007Wizard of Yendor\ny#chat\nlFh Fu#levelchange\n30\n\u0017Grayswandir\nwo FuFuFu #invoke\no \u0007Medusa\nynFl   FuFu  n   Fh  Fu Fh  \u0007pony\n#chat\nu  FuFu  n \u0007guardian naga\n20s20s.m. sb20s .m. sm.  20s  20s     n   \\    \u00168\n\u0016?\n>Cj\u0017wand of striking\nzpjljjjjjjkjjjjjnj10skk\u0017wand of digging\nzq> h\u0017wand of striking\nzr>\u0017wand of striking\nzsj\u0017wand of striking\nztl\u0017scroll of earth\nru l10skn10skbkkkkkkkj\u0017wand of striking\nzvj\u0017wand of striking\nzwj10sh\u0017wand of digging\nzxkh\u0017wand of digging\nzyj\u0017wand of digging\nzzj\u0017wand of striking\nzAk\u0017wand of striking\nzB>  \u0017scroll of earth\nr\u0017wand of striking\nz\u0017scroll of earth\nr\u0017wand of striking\nz\u0017scroll of earth\nr\u0017scroll of earth\nr\u0017wand of digging\nz\u0017scroll of earth\nr\u0017wand of digging\nz\u001624\n\\    kl\u0017wa"
+  }
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nc\n 20s  sys.m. 20sm..m.20s sj.m..u20s    n sss20s   ...s20s20s20s20s  20s20s20ssn20s20s.m. s..s20ssssss20s s20ss20s \u0007Death\nyFjFb     yy\u001by  y y y\u001by  FFbFbFbFbFbFbFbFb50s  Fl.Fl\\ 100s         FlFk Fk Fh Fl20s       Fh.20s150s           Fh FhFb100s   FkFl.#force\n150s  FhFhFlulh50s  FysFjjk#quit\nyy\u001by  y y y\u001b Fk FkFkFkFkFkFkFkhkyljjkj#chat\nn#name\ni\ndbsssda20sssdd20sss#chat\nutcykubyynhlFy FyFyFyFyFyFyFy100sFy20s.50s50sZluk\u0018\u001b150shlhFjss50s100s50s njl150s Fb20s20s100s150s_ \u001b,>#force\n_>.>100si\u001ba50sFhsFyFhs20s100s5#quit\nyy\u001by  y y y\u001b yy   #wizintrinsic\nb\n 20s      yy\u001bnny\u001by  s yhhyllykFn..#rub\n100s   50s\u0018\u001b#jump\n\\    lnb100sFu20ss100s150s 100sFhs.FnFj Fh \u000f\u001bjul\u0018\u001b100s#offer\n150s150sFlFl20s100s\\    100sFl20s.50sFh#quit\nyy\u001by  y y y\u001b FlFl FlFlFlFlFlFlyjklKLHK_ \u001b<.>FlFlsL YLH_>,><NKLU_>.>LBLU_>.>FhFh.egE- Elbereth Elbereth\nkhhbjhhn_>,>#name\nm\n\u001850si\u001b100sFbss50s#sit\n\u001b_>.>50s50sFbFbFbFbFbFb100s100s50syjlFhFhFh_>.>\\   i\u001b\u0018\u001b100s\u000f\u001b_>,>nlhFhsFbFhs20s50sFh20ss100s#dip\na100s100s 150sehljl\u0018\u001b50slkuh#quit\ny  llllFhFhFhFhFhFh  FhFhhlhhllllujkhkjknyut$h50sjkkkkj\u0018\u001b100sFyFys150s150sFkFkFk_ \u001b;>:i\u001b100sjhl150s#rub\nkjhkny100s nhukkjhju150s100sFjFjFjFjs.150sbnk100s100s\u0018\u001brj y FhFhFhFhss\u0018\u001b100s100sFj.s100s ek\\ yju100s ek1#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50557204,
+   "datetime": "20151001103318",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nc\n 20s  sys.m. 20sm..m.20s sj.m..u20s    n sss20s   ...s20s20s20s20s  20s20s20ssn20s20s.m. s..s20ssssss20s s20ss20s"
+  },
+  {
+   "seed": 50657204,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007Death\nyFjFb     yy\u001by  y y y\u001by  F"
+  },
+  {
+   "seed": 50757204,
+   "datetime": "20220327142616",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=fruit:durian\n",
+   "moves": "FbFbFbFbFbFbFbFb50s  Fl.Fl\\ 100s         FlFk Fk Fh Fl20s       Fh.20s150s           Fh FhFb100s   FkFl.#force\n150s  FhFhFlulh50s  FysFjjk#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50857204,
+   "datetime": "20030902205033",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=runmode:run\nOPTIONS=pettype:cat\n",
+   "moves": "Fk FkFkFkFkFkFkFkhkyljjkj#chat\nn#name\ni\ndbsssda20sssdd20sss#chat\nutcykubyynhlFy FyFyFyFyFyFyFy100sFy20s.50s50sZluk\u0018\u001b150shlhFjss50s100s50s njl150s Fb20s20s100s150s_ \u001b,>#force\n_>.>100si\u001ba50sFhsFyFhs20s100s5#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50957204,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "yy   #wizintrinsic\nb\n 20s      yy\u001bnny\u001by  s"
+  },
+  {
+   "seed": 51057204,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\n",
+   "moves": " yhhyllykFn..#rub\n100s   50s\u0018\u001b#jump\n\\    lnb100sFu20ss100s150s 100sFhs.FnFj Fh \u000f\u001bjul\u0018\u001b100s#offer\n150s150sFlFl20s100s\\    100sFl20s.50sFh#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51157204,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\n",
+   "moves": "FlFl FlFlFlFlFlFlyjklKLHK_ \u001b<.>FlFlsL YLH_>,><NKLU_>.>LBLU_>.>FhFh.egE- Elbereth Elbereth\nkhhbjhhn_>,>#name\nm\n\u001850si\u001b100sFbss50s#sit\n\u001b_>.>50s50sFbFbFbFbFbFb100s100s50syjlFhFhFh_>.>\\   i\u001b\u0018\u001b100s\u000f\u001b_>,>nlhFhsFbFhs20s50sFh20ss100s#dip\na100s100s 150sehljl\u0018\u001b50slkuh#quit\ny "
+  },
+  {
+   "seed": 51257204,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\n",
+   "moves": " llllFhFhFhFhFhFh  FhFhhlhhllllujkhkjknyut$h50sjkkkkj\u0018\u001b100sFyFys150s150sFkFkFk_ \u001b;>:i\u001b100sjhl150s#rub\nkjhkny100s nhukkjhju150s100sFjFjFjFjs.150sbnk100s100s\u0018\u001brj y FhFhFhFhss\u0018\u001b100s100sFj.s100s ek\\ yju100s ek1#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

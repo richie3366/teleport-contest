@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  \u00172000 gold pieces\n\u0017blessed amulet of reflection\nPi\u0017blessed +3 gauntlets of power\nWj\u0016?\n>w\u0006_ \u001b,qd_oooo.,p_oooo._o.,:_oooooo,_oo.,$_ooooooo.,:_ooooooooo,,$_ooooooo,,\u0014m,ss__,_.Fl#chat\nb#pray\ny y  _{._.;<.qd_oooooo._o._.,\u001b$__,_,#chat\nl#pray\ny y  \u0016?\n>Bjjk\u0016?\n>w\u0006_ooooooooo.,#chat\nkFkFkFkFkFk  Fk_ooooooooo._oo.  nFk _.  nFu  ,\u001b: \u00163\nFjFj  nFjFjFj Fj__.#chat\nh#pray\ny y    _ooooooooo,,\u0017amulet of guarding\ndk\u0016?\n>Bynl\u0016?\n>w\u0006njh#chat\nyukj#chat\nj_ooo,Fh_.>._ooo._,,\u001bp__,_,m.#chat\ny#pray\ny y _{._.<.qd_ooooo.,pjjj#chat\nk_oooooooo. _.,,plhl#chat\nn_{.Fl_.>.FlqdFlFlFlFlFlFl_ooo.Fl_.Fl,p_oooooo,  n Fl_.  Fl, #chat\nl _"
+ },
+ "segments": [
+  {
+   "seed": 50555538,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00172000 gold pieces\n\u0017blessed amulet of reflection\nPi\u0017blessed +3 gauntlets of power\nWj\u0016?\n>w\u0006_ \u001b,qd_oooo.,p_oooo._o.,:_oooooo,_oo.,$_ooooooo.,:_ooooooooo,,$_ooooooo,,\u0014m,ss__,_.Fl#chat\nb#pray\ny y  _{._.;<.qd_oooooo._o._.,\u001b$__,_,#chat\nl#pray\ny y  \u0016?\n>Bjjk\u0016?\n>w\u0006_ooooooooo.,#chat\nkFkFkFkFkFk  Fk_ooooooooo._oo.  nFk _.  nFu  ,\u001b: \u00163\nFjFj  nFjFjFj Fj__.#chat\nh#pray\ny y    _ooooooooo,,\u0017amulet of guarding\ndk\u0016?\n>Bynl\u0016?\n>w\u0006njh#chat\nyukj#chat\nj_ooo,Fh_.>._ooo._,,\u001bp__,_,m.#chat\ny#pray\ny y _{._.<.qd_ooooo.,pjjj#chat\nk_oooooooo. _.,,plhl#chat\nn_{.Fl_.>.FlqdFlFlFlFlFlFl_ooo.Fl_.Fl,p_oooooo,  n Fl_.  Fl, #chat\nl _"
+  }
+ ]
+}

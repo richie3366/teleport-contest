@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b,>FhFh_>._.>_>,_.Fh>Fb20s y<\u0006_>,_.Fh>_>,_.>_>.Fb _.>\u0006_>>._,>_>>,_.>_>>._.>\u0006_>._.>_>._.>_>._,>\u0006_>._,>_>._,>_>,_.><\u0006_>._.>_>._,>_>,_.>\u0006_>._.>_>,_.>_>,Fl_,.Fl>\u0006_>,Fl_.;.> \u0006_>,Fj_.> k,\u0006_>._.>_>,_,>_>._.>Sy\u001b n#name\nm\n#loot\n<.,10sdaP10s\u0007kitten\n\u0017food ration\ntdk \u0017magic whistle\nhhkag   yy\u001bny y ny  \u0007",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50551027,
+   "datetime": "20060626145110",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0006_ \u001b,>FhFh_>._.>_>,_.Fh>Fb20s y<\u0006_>,_.Fh>_>,_.>_>.Fb _.>\u0006_>>._,>_>>,_.>_>>._.>\u0006_>._.>_>._.>_>._,>\u0006_>._,>_>._,>_>,_.><\u0006_>._.>_>._,>_>,_.>\u0006_>._.>_>,_.>_>,Fl_,.Fl>\u0006_>,Fl_.;.> \u0006_>,Fj_.> k,\u0006_>._.>_>,_,>_>._.>Sy\u001b"
+  },
+  {
+   "seed": 51051027,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " n#name\nm\n#loot\n<.,10sdaP10s\u0007kitten\n\u0017food ration\ntdk \u0017magic whistle\nhhkag   yy\u001bny y ny  \u0007"
+  }
+ ]
+}

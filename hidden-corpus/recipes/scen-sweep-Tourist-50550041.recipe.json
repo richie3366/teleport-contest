@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0007electric eel\nFb Fjs20s\u0007dwarf\n.m.sn20ssm.  nsls\u0007ape\nsm..m.  n .nsh  n sm.  n .k   n \\ \u00164\n\u0016?\nk   \u0006_ \u001b,#chat\ny.20s .m.   n  ed  <:#levelchange\n14\n            \u00176 javelins\nQm\u0007soldier\nn  fk  fk   fk    fk    fy      n\u0017potion of polymorph\nt$y  jl  y ,#enhance\nyk\nj\n\u001b\u0007Aleax\nsm. 20s   susssss\u0007jellyfish\n.m.  .m.     20s   n      .m.    sm.    n    sm.      \u0007horned devil\nsj    .m.  n    sb         sj       n   .k        sm.         n \u0007brown pudding\nFy               n                    nFn          Fj      n       Fn     Fn      yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50550041,
+   "datetime": "20150918204135",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:durian\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007electric eel\nFb Fjs20s\u0007dwarf\n.m.sn20ssm.  nsls\u0007ape\nsm..m.  n .nsh  n sm.  n .k   n \\ \u00164\n\u0016?\nk   \u0006_ \u001b,#chat\ny.20s .m.   n  ed  <:#levelchange\n14\n            \u00176 javelins\nQm\u0007soldier\nn  fk  fk   fk    fk    fy      n\u0017potion of polymorph\nt$y  jl  y ,#enhance\nyk\nj\n\u001b\u0007Aleax\nsm. 20s   susssss\u0007jellyfish\n.m.  .m.     20s   n      .m.    sm.    n    sm.      \u0007horned devil\nsj    .m.  n    sb         sj       n   .k        sm.         n \u0007brown pudding\nFy               n                    nFn          Fj      n       Fn     Fn      yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

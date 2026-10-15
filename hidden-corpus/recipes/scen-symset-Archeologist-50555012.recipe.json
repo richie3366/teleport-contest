@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "150s100s\\100s150snjh50s#turn\n #name\ni\n150sh yk#tip\nh\u001b100s50s150sj kb150s_ \u001b.>i\u001b_>,>100s100si\u001bhky_>,>100s_>,>#pray\ny y lljuybhlk#tip\nh\u001b100s_>.>150s150s#tip\nh\u001b100sed100snlh\u0017moat\n#dip\ndy  k\u0017melting ice\nn\u0017pool\nb   y\u0017neutral altar\ndgdd\u0017human corpse\n #pray\ny y #terrain\nb\n,zwe O>>>>h\u001b\n\u00168\n r\u001b#dip\nf\u001618\n\u0007large dog\n\u0017lichen corpse\ntah\u0007tame winter wolf cub\n#chat\nb#name\nm\n\u0017\u0007lichen\nsm.sm. .j  n.m.20ssm.  n#name\nm\n#name\n,\u00168\nO>>>>m\u001b\u001b\n  \u0006_>>.    _.>_>>,_.>_>>._.>\u0006_>>._,>_>>._,>_>>._,>Z,\u0006_>._,>_>._.>_>._.>#wipe\n#conduct\n \u0006_>._.>_>._.>_>,_,>q#twoweapon\n\u0006_>._.>_>._,>_>,_,>hshkyy\u0017fountain\nqy y #dip\nh:k\u0017pool\n:bu\u0017unaligned altar\ndcdm   n \u0017floating eye corpse\n#offer\nn   #pray\ny y      ub\u0017throne\n#sit\n #turn\n#pra"
+ },
+ "segments": [
+  {
+   "seed": 50555012,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=msg_window:reversed\n",
+   "moves": "150s100s\\100s150snjh50s#turn\n #name\ni\n150sh yk#tip\nh\u001b100s50s150sj kb150s_ \u001b.>i\u001b_>,>100s100si\u001bhky_>,>100s_>,>#pray\ny y lljuybhlk#tip\nh\u001b100s_>.>150s150s#tip\nh\u001b100sed100snlh\u0017moat\n#dip\ndy  k\u0017melting ice\nn\u0017pool\nb   y\u0017neutral altar\ndgdd\u0017human corpse\n #pray\ny y #terrain\nb\n,zwe O>>>>h\u001b\n\u00168\n r\u001b#dip\nf\u001618\n\u0007large dog\n\u0017lichen corpse\ntah\u0007tame winter wolf cub\n#chat\nb#name\nm\n\u0017\u0007lichen\nsm.sm. .j  n.m.20ssm.  n#name\nm\n#name\n,\u00168\nO>>>>m\u001b\u001b\n  \u0006_>>.    _.>_>>,_.>_>>._.>\u0006_>>._,>_>>._,>_>>._,>Z,\u0006_>._,>_>._.>_>._.>#wipe\n#conduct\n \u0006_>._.>_>._.>_>,_,>q#twoweapon\n\u0006_>._.>_>._,>_>,_,>hshkyy\u0017fountain\nqy y #dip\nh:k\u0017pool\n:bu\u0017unaligned altar\ndcdm   n \u0017floating eye corpse\n#offer\nn   #pray\ny y      ub\u0017throne\n#sit\n #turn\n#pra"
+  }
+ ]
+}

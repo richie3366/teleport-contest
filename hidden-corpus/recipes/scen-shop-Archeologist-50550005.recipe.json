@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 speed boots\nWi\u0017blessed amulet of life saving\nPj\u0016?\n>w\u0006_ \u001b@.,$_oooooooo.,\u0017amulet of restful sleep\ndk\u0016?\n>Bhub\u0016?\n>w\u0006_ooooooo.Fh_.Fy,p__. Fy_,Fy#chat\nk#pray\ny y     _{, _.>.q_oooo. _,,Fj_oo.Fj   \u001b_,@.,#chat\nj_oo,Fn_. Fl,#chat\nu__._..#chat\nu_ooooo._.,\u0014m.ssjjk#chat\nl_ooo,_oo._,.,:\u00163\nukn\u0016?\n>w\u0006_ooooo,_.,p__._.<.#chat\nj_{._.<.q_ooooooooo,,#chat\nh_oo._,,_ooo.,p_oo,_,,:llh#chat\nj__._.m.#chat\nklhl#chat\nl_oo,_.m,_ooo.,p_oo._.;@.Fl,p_{,_,@.q_oooooo.,$_ooo._ooo,,#chat\ny\u00163\njly\u0016?\n>w\u0006nby#chat\nb\u0016?\nchjj\u0016?\n>w\u0006huk#chat\nk_ooooooo.Fl_.Fl,\u0017amulet of change\ndm_{.Fl_.,Flq_ooo.Fk_.m,Fk,p_ooooooo.Fn _,m,Fn,p_oooooooo.Fn_,Fk,#chat\nk _ooooooo,,p_oooooo,Fn_.Fk_o.   Fk_.Fn,p_ooooooooo,_ooo.Fl_.,:__.Fl  _,>.Fl#chat\nj_{._.>.q_ooo.Fy_,,p_#chat\n#pray\ny y     _ooooooooo,Fy_.Fy,p\u0016khj\u0016\u0006__,pjkh#chat\nFyFy  n FyFyFy FyFlFlFlFlFlFl_oooooo._.:,pl ju#chat\nk_ooooo._._ooo._.,\u0017d_#chat\n_oooooooo."
+ },
+ "segments": [
+  {
+   "seed": 50550005,
+   "datetime": "20130209195315",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 speed boots\nWi\u0017blessed amulet of life saving\nPj\u0016?\n>w\u0006_ \u001b@.,$_oooooooo.,\u0017amulet of restful sleep\ndk\u0016?\n>Bhub\u0016?\n>w\u0006_ooooooo.Fh_.Fy,p__. Fy_,Fy#chat\nk#pray\ny y     _{, _.>.q_oooo. _,,Fj_oo.Fj   \u001b_,@.,#chat\nj_oo,Fn_. Fl,#chat\nu__._..#chat\nu_ooooo._.,\u0014m.ssjjk#chat\nl_ooo,_oo._,.,:\u00163\nukn\u0016?\n>w\u0006_ooooo,_.,p__._.<.#chat\nj_{._.<.q_ooooooooo,,#chat\nh_oo._,,_ooo.,p_oo,_,,:llh#chat\nj__._.m.#chat\nklhl#chat\nl_oo,_.m,_ooo.,p_oo._.;@.Fl,p_{,_,@.q_oooooo.,$_ooo._ooo,,#chat\ny\u00163\njly\u0016?\n>w\u0006nby#chat\nb\u0016?\nchjj\u0016?\n>w\u0006huk#chat\nk_ooooooo.Fl_.Fl,\u0017amulet of change\ndm_{.Fl_.,Flq_ooo.Fk_.m,Fk,p_ooooooo.Fn _,m,Fn,p_oooooooo.Fn_,Fk,#chat\nk _ooooooo,,p_oooooo,Fn_.Fk_o.   Fk_.Fn,p_ooooooooo,_ooo.Fl_.,:__.Fl  _,>.Fl#chat\nj_{._.>.q_ooo.Fy_,,p_#chat\n#pray\ny y     _ooooooooo,Fy_.Fy,p\u0016khj\u0016\u0006__,pjkh#chat\nFyFy  n FyFyFy FyFlFlFlFlFlFl_oooooo._.:,pl ju#chat\nk_ooooo._._ooo._.,\u0017d_#chat\n_oooooooo."
+  }
+ ]
+}

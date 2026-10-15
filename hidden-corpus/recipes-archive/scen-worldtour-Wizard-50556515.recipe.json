@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed Mjollnir\nwo\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0016?\n>Djkuh\u0017magic fountain\nqy qyqyu\u0017melting ice\nynny:y\u0017ice\nnyyn:bk\u0017grave\n: \u0017pick-axe\naq > .s#terrain\nd\n\u001b<.#twoweapon\n#twoweapon\n#jump\n\u00167\n_<._.@.\u0016?\n>>P \u0006_>._.>.\u00167\n#levelchange\n14\n     \u0017yumi\nwa\u001720 ya\nQb\u0007soldier\nbfuflflfl\u0007lichen\njfyfufy ykj,\u0016?\nn llhlh:sm.sysh\u0016?\n>>K      potion of healing\n \u0004b\u0016?\n\u001bh j\u00169\n__.\u0016?\n\u001by  k   \u0016?\n\u001bu   k  n      \u001632\n#levelchange\n12\n      \u0017bell\n\u0007green mold\nas    nas       n\u00173 scroll of taming\nrt  \u001b   n \u0017cursed bag of holding\nau\u001bau\u001b#tip\nu\u001b    nFj    n  n  n   Fh  n    n  n   nsh   n  20s  n   n  y\u001b      \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50556515,
+   "datetime": "20010711010100",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed Mjollnir\nwo\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0016?\n>Djkuh\u0017magic fountain\nqy qyqyu\u0017melting ice\nynny:y\u0017ice\nnyyn:bk\u0017grave\n: \u0017pick-axe\naq > .s#terrain\nd\n\u001b<.#twoweapon\n#twoweapon\n#jump\n\u00167\n_<._.@.\u0016?\n>>P \u0006_>._.>.\u00167\n#levelchange\n14\n     \u0017yumi\nwa\u001720 ya\nQb\u0007soldier\nbfuflflfl\u0007lichen\njfyfufy ykj,\u0016?\nn llhlh:sm.sysh\u0016?\n>>K      potion of healing\n \u0004b\u0016?\n\u001bh j\u00169\n__.\u0016?\n\u001by  k   \u0016?\n\u001bu   k  n      \u001632\n#levelchange\n12\n      \u0017bell\n\u0007green mold\nas    nas       n\u00173 scroll of taming\nrt  \u001b   n \u0017cursed bag of holding\nau\u001bau\u001b#tip\nu\u001b    nFj    n  n  n   Fh  n    n  n   nsh   n  20s  n   n  y\u001b      \u0016"
+  }
+ ]
+}

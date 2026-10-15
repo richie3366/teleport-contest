@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  \u0007captain\nFjFjFj  n  nFbFh   n  nFj  n\u0007doppelganger\n#chat\nb  n Fb  n  n Fb  n  n \u0007umber hulk\nFb  n  n Fj  n   n  nFh\u0007giant spider\n;h: \u001b:   sm.  yy\u001by   y ny\u001bn  s"
+ },
+ "segments": [
+  {
+   "seed": 50556033,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007captain\nFjFjFj  n  nFbFh   n  nFj  n\u0007doppelganger\n#chat\nb  n Fb  n  n Fb  n  n \u0007umber hulk\nFb  n  n Fj  n   n  nFh\u0007giant spider\n;h: \u001b:   sm.  yy\u001by   y ny\u001bn  s"
+  }
+ ]
+}

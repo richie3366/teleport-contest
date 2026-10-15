@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  hhl\u0017lawful altar\ndkdl\u0017lichen corpse\n#offer\no  #pray\ny y : jj\u0017pool\n#dip\nay      hl:dh #conduct\n dblulh\u0017altar\ndn\u0017floating eye corpse\n#offer\np  #pray\ny y : hh\u0017neutral altar\ndadg\u0017gnome corpse\n #offer\nq   : l\u0017chaotic altar\ndc\u0017dwarf cpotion of speed\n"
+ },
+ "segments": [
+  {
+   "seed": 50551020,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "  hhl\u0017lawful altar\ndkdl\u0017lichen corpse\n#offer\no  #pray\ny y : jj\u0017pool\n#dip\nay      hl:dh #conduct\n dblulh\u0017altar\ndn\u0017floating eye corpse\n#offer\np  #pray\ny y : hh\u0017neutral altar\ndadg\u0017gnome corpse\n #offer\nq   : l\u0017chaotic altar\ndc\u0017dwarf cpotion of speed\n"
+  }
+ ]
+}

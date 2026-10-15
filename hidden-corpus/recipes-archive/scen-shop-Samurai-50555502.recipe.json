@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPgl\u0016?\n>w \u0006_ \u001b;,p__,Fl_, Fl #chat\nj 1000\n    _{.Fy _.Fu q_oooo._oo,,p_{, Fy  _, Fkq_oo,,#chat\nk  _ooooooooo,,:_{,Fk  _.Fkq_oooo._oo,,\u0017amulet of restful sleep\ndh _oooo.,  #chat\ny  _ooo._oo,,#chat\ny_oo.,p\u0016?\nchyh\u0016?\n>w\u0006__. _.  #chat\nkjlk#chat\nn_ooooooo._,,:__.   nFh _.@.Fh #chat\nh _ooooo.,p_ooooooo.Fk_.<.Fu,pFuFuFuFuFuFulyb#chat\nh_ooo,_.m.Fu _ooo.Fl_. ,:_oooooo.,\u0017flint stone\ndj_oooooooo,_.,p_oooooooo,_,,\u0014;.s__.  _,<.Fl     #chat\nl   n __,#chat\ny#pray\ny y           Fl    n  n  Fl  n   n  n Fl   n  n  Fl  n   n Fl  n   n   nFl   n  yy\u001by   y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50555502,
+   "datetime": "20230113220321",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPgl\u0016?\n>w \u0006_ \u001b;,p__,Fl_, Fl #chat\nj 1000\n    _{.Fy _.Fu q_oooo._oo,,p_{, Fy  _, Fkq_oo,,#chat\nk  _ooooooooo,,:_{,Fk  _.Fkq_oooo._oo,,\u0017amulet of restful sleep\ndh _oooo.,  #chat\ny  _ooo._oo,,#chat\ny_oo.,p\u0016?\nchyh\u0016?\n>w\u0006__. _.  #chat\nkjlk#chat\nn_ooooooo._,,:__.   nFh _.@.Fh #chat\nh _ooooo.,p_ooooooo.Fk_.<.Fu,pFuFuFuFuFuFulyb#chat\nh_ooo,_.m.Fu _ooo.Fl_. ,:_oooooo.,\u0017flint stone\ndj_oooooooo,_.,p_oooooooo,_,,\u0014;.s__.  _,<.Fl     #chat\nl   n __,#chat\ny#pray\ny y           Fl    n  n  Fl  n   n  n Fl   n  n  Fl  n   n Fl  n   n   nFl   n  yy\u001by   y y y\u001by  _"
+  }
+ ]
+}

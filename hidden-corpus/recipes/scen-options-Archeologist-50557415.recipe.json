@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " Okej\nJi\u001bO>jce\n__, \u001b..10s  O>ba\nn\n#chat\nlOei\nn\n#sit\n Oc\n;>.#tip\nh\u001bO>bkp\ns.sO>nj\ns\nj\ne\n\u001b\u001b#enhance\nyc\nm\n\u001b#name\nd\nmOdc\n#loot\nyO>bl\n#pray\ny y Oaih\nj\nsOcm\n;k,#ride\nkymO>c\n#turn\n#enhance\nyd\na\n\u001bOg\nc\n#untrap\nk20ss"
+ },
+ "segments": [
+  {
+   "seed": 50557415,
+   "datetime": "20120614120137",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " Okej\nJi\u001bO>jce\n__, \u001b..10s  O>ba\nn\n#chat\nlOei\nn\n#sit\n Oc\n;>.#tip\nh\u001bO>bkp\ns.sO>nj\ns\nj\ne\n\u001b\u001b#enhance\nyc\nm\n\u001b#name\nd\nmOdc\n#loot\nyO>bl\n#pray\ny y Oaih\nj\nsOcm\n;k,#ride\nkymO>c\n#turn\n#enhance\nyd\na\n\u001bOg\nc\n#untrap\nk20ss"
+  }
+ ]
+}

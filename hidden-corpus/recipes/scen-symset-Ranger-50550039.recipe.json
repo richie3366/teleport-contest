@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "oh\u0014 \u001b.#invoke\n\u001bck\u001620\nmO>>>f\u001b\nO>>d\u001b\n,_m,smO>>>b\u001b\nmO>>d\u001b\nmO>>>>e\u001b\nFlss_>,>100sFnFn  nFnFnFn  nFnFn  nFnFnFlFnFl 50s50s150sFyFyFyFyFyFyFyFyFyFys20s100s150s100s_>.>unyi\u001bnlkblu50sjkn100sa100sefylbi\u001b100sFu   FhFu FhFus150skby100sFhFhFhFhFhFhFhFh  nFhFhFhFh\u001612\n\u0007tame hill orc\n\u0007tame gnome lord\n\u0017tripe ration\ntbu\u0017tripe ration\ntcu   \u0017magic whistle\nk  y  h  ai     \u0007kobold\n\u0017scroll of taming\nrj   \u0017apple\ntdh   \u0007tame hill orc\n\u0007kobold\n.m.  .m.         20s          sm.      .m.sm. \u0017leash\nalb   jb  n      n    alu dk     n  .k       s     n 20s \u0007kobold\n\u0017scroll of taming\nrm\u0017leash\nanky    jlan\u0006m._>>. _.>  \u0017leash\naol hjb     n y    n aoj    n \u00168\nO>f\u001b\n\u001616\nO>m\u001b\u001b\n\u001614\n    v  i\u001b\u0007housecat\n\u0017carrot\ntcy\u0007housecat\n\u0017banana\ntdj\u0017food ration\ntdl \u0006_>>,Fj_.Fj>Fj  nFj_>>.Fb _.  n Fh>FhFb_>>.Fh  n _.Fb>FbFb  n h \u0006_>,Fb_,Fh>FhFh  n_>.Fh_,Fh>FhFh_>.Fh_.>\u0017food ration\ntcu\u00168\nv  i\u001b\u0006_>._,Fh >Fh Fh _>.Fh _.Fh  n >Fh Fb _>,Fb _. Fh >Fu Fh  Fu Fu  n Fu   #tip\n\u001b#invoke\n"
+ },
+ "segments": [
+  {
+   "seed": 50550039,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "oh\u0014 \u001b.#invoke\n\u001bck\u001620\nmO>>>f\u001b\nO>>d\u001b\n,_m,smO>>>b\u001b\nmO>>d\u001b\nmO>>>>e\u001b\nFlss_>,>100sFnFn  nFnFnFn  nFnFn  nFnFnFlFnFl 50s50s150sFyFyFyFyFyFyFyFyFyFys20s100s150s100s_>.>unyi\u001bnlkblu50sjkn100sa100sefylbi\u001b100sFu   FhFu FhFus150skby100sFhFhFhFhFhFhFhFh  nFhFhFhFh\u001612\n\u0007tame hill orc\n\u0007tame gnome lord\n\u0017tripe ration\ntbu\u0017tripe ration\ntcu   \u0017magic whistle\nk  y  h  ai     \u0007kobold\n\u0017scroll of taming\nrj   \u0017apple\ntdh   \u0007tame hill orc\n\u0007kobold\n.m.  .m.         20s          sm.      .m.sm. \u0017leash\nalb   jb  n      n    alu dk     n  .k       s     n 20s \u0007kobold\n\u0017scroll of taming\nrm\u0017leash\nanky    jlan\u0006m._>>. _.>  \u0017leash\naol hjb     n y    n aoj    n \u00168\nO>f\u001b\n\u001616\nO>m\u001b\u001b\n\u001614\n    v  i\u001b\u0007housecat\n\u0017carrot\ntcy\u0007housecat\n\u0017banana\ntdj\u0017food ration\ntdl \u0006_>>,Fj_.Fj>Fj  nFj_>>.Fb _.  n Fh>FhFb_>>.Fh  n _.Fb>FbFb  n h \u0006_>,Fb_,Fh>FhFh  n_>.Fh_,Fh>FhFh_>.Fh_.>\u0017food ration\ntcu\u00168\nv  i\u001b\u0006_>._,Fh >Fh Fh _>.Fh _.Fh  n >Fh Fb _>,Fb _. Fh >Fu Fh  Fu Fu  n Fu   #tip\n\u001b#invoke\n"
+  }
+ ]
+}

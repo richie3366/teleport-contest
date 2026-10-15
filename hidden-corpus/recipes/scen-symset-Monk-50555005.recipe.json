@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0007tame lichen\n#chat\nb \u0007acid blob\n.ssss20s#name\no\n#name\nd\n\u0007jackal\n\u0017scroll of taming\nrl \u0007kobold\n.m...sm. sub sy\u0017leash\namu ub kn ynaml ch Wjw\u001bh\u001bh\u001bylj \u0017sink\nqy\u0017ring of hunger\ndn \u001b  :yb\u0017ice\n#terrain\nc\n\u001b.#twoweapon\n20s   \u000f\u001b\u0007tame lichen\n\u0007tame winter wolf cub\n\u0017leash\naok un bkn uk aok n\u0017leash\napk ll jyyaph \u0017leash\naql bnykb aqh dp20s s20s\u0017fortune cookie\n t\u001b\u0006_>,Fu_,Fh>FjFu_>.Fn_>FkFb_>.Fy_.Fy>FyFjFnFku Fb\u0006_>.Fh_.Fy>FnFkn _>.Fj_.Fu>FnFb_>,Fb_.Fkj >FyFyFjFnFn<\u0006_>.Fh_.Fn>FkFkFyFnFyFbFjFhFjFhFjFnFnFyFnFuFjFnFyFkFyFnFhFjFuFuFbFjFhFhFbFbFkFnFyFkFnFh\u001bFnFbFkFnFkn FyFjFuFnFjFjFkFjFkFhFnFyFbFjFhFuFjFhFuFyFh\u001bFkFuFkFkFhFuFuFbFh\u001bFbFnFkFnFjFhFuFbFh\u001bFkFjFhFkFhFnFnFnFkn FnFkh FjFbFjFyFyFbFuy FkFnFkn FuFyFyFkFuFnFky FuFuFnFbFyFh\u001bFuFhFjFnFy"
+ },
+ "segments": [
+  {
+   "seed": 50555005,
+   "datetime": "20110328120231",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"The door\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0007tame lichen\n#chat\nb \u0007acid blob\n.ssss20s#name\no\n#name\nd\n\u0007jackal\n\u0017scroll of taming\nrl \u0007kobold\n.m...sm. sub sy\u0017leash\namu ub kn ynaml ch Wjw\u001bh\u001bh\u001bylj \u0017sink\nqy\u0017ring of hunger\ndn \u001b  :yb\u0017ice\n#terrain\nc\n\u001b.#twoweapon\n20s   \u000f\u001b\u0007tame lichen\n\u0007tame winter wolf cub\n\u0017leash\naok un bkn uk aok n\u0017leash\napk ll jyyaph \u0017leash\naql bnykb aqh dp20s s20s\u0017fortune cookie\n t\u001b\u0006_>,Fu_,Fh>FjFu_>.Fn_>FkFb_>.Fy_.Fy>FyFjFnFku Fb\u0006_>.Fh_.Fy>FnFkn _>.Fj_.Fu>FnFb_>,Fb_.Fkj >FyFyFjFnFn<\u0006_>.Fh_.Fn>FkFkFyFnFyFbFjFhFjFhFjFnFnFyFnFuFjFnFyFkFyFnFhFjFuFuFbFjFhFhFbFbFkFnFyFkFnFh\u001bFnFbFkFnFkn FyFjFuFnFjFjFkFjFkFhFnFyFbFjFhFuFjFhFuFyFh\u001bFkFuFkFkFhFuFuFbFh\u001bFbFnFkFnFjFhFuFbFh\u001bFkFjFhFkFhFnFnFnFkn FnFkh FjFbFjFyFyFbFuy FkFnFkn FuFyFyFkFuFnFky FuFuFnFbFyFh\u001bFuFhFjFnFy"
+  }
+ ]
+}

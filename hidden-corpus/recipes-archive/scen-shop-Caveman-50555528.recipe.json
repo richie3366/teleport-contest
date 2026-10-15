@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPg\u0016?\n>w  \u0006FbFb Fb Fb Fb  Fb _ \u001b;,\u0014: sm.sm._oooooooo.,#chat\nb \u0016?\n>Bbub\u0016?\n>w\u0006_oooo,,$FjFjFjFjFjFj_ooooo.,p_oo,,p_ooooo._o.,:__._,#chat\nk#pray\ny y kjk#chat\nl_oooooooo.,\u0017gray stone\ndh_{._,q_oooo,_oo.,plhl#chat\nhhyn#chat\nj_oooooooo,,:_ooooooo._,,:_{._.q\u00163\n kjk\u0016?\n>w  \u0006nhl#chat\nlFu Fu    FuFu  n FuFu Fu  nFu   n  nFu  n  nFu  n  nFu  n  nFu  n  n  n  n\u001612\n__.#chat\nh__.#chat\nj\u00167\nujn\u0016?\n>w\u0006_oooo.    _.,:nlb#chat\nh_{.Fk _,Fl q_oo,Fl _.Fl_ooo,_.,p_oooooooo.Fn  _. Fn ,p_ooo. F"
+ },
+ "segments": [
+  {
+   "seed": 50555528,
+   "datetime": "20250207162222",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPg\u0016?\n>w  \u0006FbFb Fb Fb Fb  Fb _ \u001b;,\u0014: sm.sm._oooooooo.,#chat\nb \u0016?\n>Bbub\u0016?\n>w\u0006_oooo,,$FjFjFjFjFjFj_ooooo.,p_oo,,p_ooooo._o.,:__._,#chat\nk#pray\ny y kjk#chat\nl_oooooooo.,\u0017gray stone\ndh_{._,q_oooo,_oo.,plhl#chat\nhhyn#chat\nj_oooooooo,,:_ooooooo._,,:_{._.q\u00163\n kjk\u0016?\n>w  \u0006nhl#chat\nlFu Fu    FuFu  n FuFu Fu  nFu   n  nFu  n  nFu  n  nFu  n  nFu  n  n  n  n\u001612\n__.#chat\nh__.#chat\nj\u00167\nujn\u0016?\n>w\u0006_oooo.    _.,:nlb#chat\nh_{.Fk _,Fl q_oo,Fl _.Fl_ooo,_.,p_oooooooo.Fn  _. Fn ,p_ooo. F"
+  }
+ ]
+}

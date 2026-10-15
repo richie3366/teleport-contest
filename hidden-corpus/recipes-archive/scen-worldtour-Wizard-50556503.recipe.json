@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0016?\n>>P  _ \u001bm,<\u0016?\n>>M      potion of paralysis\n\u0006,_<..m.sm.     \u0016?\nc _<,<sk   sm.    n     \u0016?\n\u001bky ky\u0016?\n\u001bkyhnn   \u001635\nb     n j           n    n   \u001b    n             n b          n        h  n              n                 n       n            n          n   :\u00168\n\u001639\nu      n             n n       n           n     yy\u001by   ny y\u001b  n"
+ },
+ "segments": [
+  {
+   "seed": 50556503,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0016?\n>>P  _ \u001bm,<\u0016?\n>>M      potion of paralysis\n\u0006,_<..m.sm.     \u0016?\nc _<,<sk   sm.    n     \u0016?\n\u001bky ky\u0016?\n\u001bkyhnn   \u001635\nb     n j           n    n   \u001b    n             n b          n        h  n              n                 n       n            n          n   :\u00168\n\u001639\nu      n             n n       n           n     yy\u001by   ny y\u001b  n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b;>FyFy_>.Fk_.Fy>FhFy_>, Fy_,.Fy>FlFyFyFlFy\u0006_>, Fk_.@.Fj> FlFhFh\u0006_>>.Fk_.> \u0006_>>.Fj_.Fl>FlFl_>>,Fu_,  nFj>FkFj_>>.Fk_.<.Fu>FkFuFuFlFuf $ u #pray\ny y        \u0006_>.Fk_,   n Fl>FjFl_>,  n Fn_>FkFu_>.   nFl_.Fj>FuFnFul FlFk\u0006_>>.  n  Fj_.  nFj>FkFu_>>.Fu_.    n Fu>FuFn_>FuFuFkFkFl\u000f\u001b\u00162\n  \u00165\n FbFnFbFbFbFnFnFbFjFbFbFbFbFjFbFbFjFnFnFnFnFbFbFnFjFnFnFbFbFjFjFbFnFjFbFnFbFjFbFjFnFjFnFjFjFjFnFnFjFbFnFnFjFjFjFbFjFbFnFnFbFbFnFnFnFjFbFjFbFjFnFjFjFbFnFbFbFjFjFnFbFnFjFjFnFjFnFbFjFbFbFnFnFbFjFnFbFnFjFbFbFnFjFnFjFnFbFnFjFjFbFjFbFjFjFjFbFbFnFb\u0006_>.Fb_. Fb>FjFn_>FjFj_>,Fb_,  Fj>FnFbFnFnFnZck \u0006_>>. Fn_>FhFn_>FjFh_>>,    Fb_.Fj>FnFh\u001bFbFjFj#dip\nkf  n   20s         n  \u0006_>>.      n   Fh_.        n   Fl>FnFlb _>>,        n   Fb_.    n   nFh\u001b>FnFn_>>.         n  Fn_>FnFnFnFnFh\u0006_>.    yy\u001bnnny\u001bn  F"
+ },
+ "segments": [
+  {
+   "seed": 50550079,
+   "datetime": "20160717065855",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=stop \"You kill\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0006_ \u001b;>FyFy_>.Fk_.Fy>FhFy_>, Fy_,.Fy>FlFyFyFlFy\u0006_>, Fk_.@.Fj> FlFhFh\u0006_>>.Fk_.> \u0006_>>.Fj_.Fl>FlFl_>>,Fu_,  nFj>FkFj_>>.Fk_.<.Fu>FkFuFuFlFuf $ u #pray\ny y        \u0006_>.Fk_,   n Fl>FjFl_>,  n Fn_>FkFu_>.   nFl_.Fj>FuFnFul FlFk\u0006_>>.  n  Fj_.  nFj>FkFu_>>.Fu_.    n Fu>FuFn_>FuFuFkFkFl\u000f\u001b\u00162\n  \u00165\n FbFnFbFbFbFnFnFbFjFbFbFbFbFjFbFbFjFnFnFnFnFbFbFnFjFnFnFbFbFjFjFbFnFjFbFnFbFjFbFjFnFjFnFjFjFjFnFnFjFbFnFnFjFjFjFbFjFbFnFnFbFbFnFnFnFjFbFjFbFjFnFjFjFbFnFbFbFjFjFnFbFnFjFjFnFjFnFbFjFbFbFnFnFbFjFnFbFnFjFbFbFnFjFnFjFnFbFnFjFjFbFjFbFjFjFjFbFbFnFb\u0006_>.Fb_. Fb>FjFn_>FjFj_>,Fb_,  Fj>FnFbFnFnFnZck \u0006_>>. Fn_>FhFn_>FjFh_>>,    Fb_.Fj>FnFh\u001bFbFjFj#dip\nkf  n   20s         n  \u0006_>>.      n   Fh_.        n   Fl>FnFlb _>>,        n   Fb_.    n   nFh\u001b>FnFn_>>.         n  Fn_>FnFnFnFnFh\u0006_>.    yy\u001bnnny\u001bn  F"
+  }
+ ]
+}

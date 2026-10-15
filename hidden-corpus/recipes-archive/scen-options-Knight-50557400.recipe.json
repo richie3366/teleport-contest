@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " Opf\n#dip\ndOp\n,mO>>>uq\n ymO>>ae\n #twoweapon\n#terrain\nd\nO..O>nk\ne\nj\nd\n\u001b\u001bzi cockatrice egg\nO>n\nh\n_>.s#rub\nO>c\nokmO>>>j\n#wipe\n#loot\nlyO>djb\nj\n10s #monster\nmO>>>vde\n dhkss"
+ },
+ "segments": [
+  {
+   "seed": 50557400,
+   "datetime": "20140720070536",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": " Opf\n#dip\ndOp\n,mO>>>uq\n ymO>>ae\n #twoweapon\n#terrain\nd\nO..O>nk\ne\nj\nd\n\u001b\u001bzi cockatrice egg\nO>n\nh\n_>.s#rub\nO>c\nokmO>>>j\n#wipe\n#loot\nlyO>djb\nj\n10s #monster\nmO>>>vde\n dhkss"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0016?\n>D\u0017blessed ring of levitation\nPfr FkFhbbkjjbFb ljlllhnlkb\u0017wand of digging\nzgbbbnljjjjjjjjjj10sjjbhyjjjhbbnbnbbhjjjjjjjj#levelchange\n30\n                      \u0017blessed ring of polymorph control\nPh#polyself\nwerewolf\n ogre king\n#monster\ns.20ss.#polyself\niron golem\n #monster\ny ss20s ssny\u0017wand of cancellation\nEi l\u0017wand of locking\nEj \u0017wand of slow monster\nEk h\u0017athame\nEl:nE-\u0007gnome lord\nsbs20s  FlFl\u0007disenchanter\nFlFlFuFuFuFuFusns\u0007cockatrice\nFk Fk  FkFu Fk Fk  Fk20s sm.\u0017sack\n\u0017potion of blindness\n\u0017potion of oil\nami\n\u0017mace\nwpdm#force\nsu.20sajy dgy\u0004n\u0017long sword\nwqdk #force\n.m.sm..m.i\u001b\\    #levelchange\n6\n        \u0016?\n>DFjFjbFl kFlFlFlkhl\u0017scroll of earth\nrr 10suykuul\u0017wand of striking\nzsnh\u0017wand of striking\nztkhj\u0017wand of striking\nzuullljknunn\u0017scroll of earth\nrv by\u0017wand of digging\nzwnhnn\u0017wand of digging\nzxlbl10sbn10shn10snnnnyuj10sl\u0018\u001b#levelchange\n8\n\u0007black light\n20s.s20ss.s\u0007chameleon\ns20ss.20s\u0007Yeenoghu\nnns.\u0007vampire\nss.ssbl\u0017wand of locking\nEy h\u0017wand of stasis\nEz :\u0017wand of enlightenment\nEA  \u001b \u0017wand of death\nEB \u0017wand of probing\nEC E-\u0007jackal\ns20s20s20ss\u0017cursed potion of invisibility\nqD #dip\nCn\u0017spellbook of confuse monster\n\u0007soldier ant\nrE .sZa\nZa\n\u0017blessed +3 helm of brilliance\n\u0007wraith\nWFs20s.\u0017bless"
+ },
+ "segments": [
+  {
+   "seed": 50550033,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0016?\n>D\u0017blessed ring of levitation\nPfr FkFhbbkjjbFb ljlllhnlkb\u0017wand of digging\nzgbbbnljjjjjjjjjj10sjjbhyjjjhbbnbnbbhjjjjjjjj#levelchange\n30\n                      \u0017blessed ring of polymorph control\nPh#polyself\nwerewolf\n ogre king\n#monster\ns.20ss.#polyself\niron golem\n #monster\ny ss20s ssny\u0017wand of cancellation\nEi l\u0017wand of locking\nEj \u0017wand of slow monster\nEk h\u0017athame\nEl:nE-\u0007gnome lord\nsbs20s  FlFl\u0007disenchanter\nFlFlFuFuFuFuFusns\u0007cockatrice\nFk Fk  FkFu Fk Fk  Fk20s sm.\u0017sack\n\u0017potion of blindness\n\u0017potion of oil\nami\n\u0017mace\nwpdm#force\nsu.20sajy dgy\u0004n\u0017long sword\nwqdk #force\n.m.sm..m.i\u001b\\    #levelchange\n6\n        \u0016?\n>DFjFjbFl kFlFlFlkhl\u0017scroll of earth\nrr 10suykuul\u0017wand of striking\nzsnh\u0017wand of striking\nztkhj\u0017wand of striking\nzuullljknunn\u0017scroll of earth\nrv by\u0017wand of digging\nzwnhnn\u0017wand of digging\nzxlbl10sbn10shn10snnnnyuj10sl\u0018\u001b#levelchange\n8\n\u0007black light\n20s.s20ss.s\u0007chameleon\ns20ss.20s\u0007Yeenoghu\nnns.\u0007vampire\nss.ssbl\u0017wand of locking\nEy h\u0017wand of stasis\nEz :\u0017wand of enlightenment\nEA  \u001b \u0017wand of death\nEB \u0017wand of probing\nEC E-\u0007jackal\ns20s20s20ss\u0017cursed potion of invisibility\nqD #dip\nCn\u0017spellbook of confuse monster\n\u0007soldier ant\nrE .sZa\nZa\n\u0017blessed +3 helm of brilliance\n\u0007wraith\nWFs20s.\u0017bless"
+  }
+ ]
+}

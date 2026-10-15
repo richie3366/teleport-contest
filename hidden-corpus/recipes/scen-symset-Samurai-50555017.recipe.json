@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  O>>>f\u001b\n\u0007little dog\n\u0017newt corpse\ntcl \u0007tame hill orc\n\u0017magic whistle\nykl ub ag  \u0006_ \u001bm, >FyFy_>. Fb_.  Fb>FbFb_>._.>\u0007sewer rat\n20sb.m. 20sh\u001bs20sm.20sjdd ..20s\u0017leash\nahj h\u001bh\u001bh\u001bh\u001bahj Ok\u001b\nv i\u001b#invoke\n\u001b#loot\nj r\u001b\u0006_>.Fb_.Fj>FjFj_>._.Fj>FjFj_>.Fj_,Fh>FhFhFhFhFh\u0006_>. Fj_.Fj>FjFj_>.Fj_,Fb>FbFb_>.Fb_,Fj>FhFhFhFjFhh\u001b#conduct\n \u0006_>. Fj_.>_>.Fh_,Fb>FbFb_>.Fh_,>#wipe\n#ride\nl O>f\u001b\nO>b\u001b\n\u0006_>>.Fj_.Fb>FbFb_>>.Fb_.Fj>FjFj_>>.Fj_.Fb>FbFbFhFbFh\u001br\u001b#enhance\nyj\na\n\u001b<\u0006_>.Fj_.Fb>FjFb_>.Fj_.Fb>FbFb_>.Fb_.Fb>FbFjFbFbFb\u0006_>>.Fj_.Fb>FbFb_>>,Fb_,Fj>FjFj_>>.Fj_,>Z#chat\nh \u0006_>._,>_>._.>_>,Fb_.Fh\u001b>FhFhFhFhFh\u000f\u001bmO>>>m\u001b\n\u0007tame soldier ant\n\u0007housec"
+ },
+ "segments": [
+  {
+   "seed": 50555017,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nMSGTYPE=stop \"You feel\"\n",
+   "moves": "  O>>>f\u001b\n\u0007little dog\n\u0017newt corpse\ntcl \u0007tame hill orc\n\u0017magic whistle\nykl ub ag  \u0006_ \u001bm, >FyFy_>. Fb_.  Fb>FbFb_>._.>\u0007sewer rat\n20sb.m. 20sh\u001bs20sm.20sjdd ..20s\u0017leash\nahj h\u001bh\u001bh\u001bh\u001bahj Ok\u001b\nv i\u001b#invoke\n\u001b#loot\nj r\u001b\u0006_>.Fb_.Fj>FjFj_>._.Fj>FjFj_>.Fj_,Fh>FhFhFhFhFh\u0006_>. Fj_.Fj>FjFj_>.Fj_,Fb>FbFb_>.Fb_,Fj>FhFhFhFjFhh\u001b#conduct\n \u0006_>. Fj_.>_>.Fh_,Fb>FbFb_>.Fh_,>#wipe\n#ride\nl O>f\u001b\nO>b\u001b\n\u0006_>>.Fj_.Fb>FbFb_>>.Fb_.Fj>FjFj_>>.Fj_.Fb>FbFbFhFbFh\u001br\u001b#enhance\nyj\na\n\u001b<\u0006_>.Fj_.Fb>FjFb_>.Fj_.Fb>FbFb_>.Fb_.Fb>FbFjFbFbFb\u0006_>>.Fj_.Fb>FbFb_>>,Fb_,Fj>FjFj_>>.Fj_,>Z#chat\nh \u0006_>._,>_>._.>_>,Fb_.Fh\u001b>FhFhFhFhFh\u000f\u001bmO>>>m\u001b\n\u0007tame soldier ant\n\u0007housec"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPml\u0017red dragon scale mail\nWnsss#polyself\nkraken\n ettin\n#monster\n20s20s .b20s20s#polyself\nraven\n sjsu20s.h.b"
+ },
+ "segments": [
+  {
+   "seed": 50558012,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of polymorph control\nPml\u0017red dragon scale mail\nWnsss#polyself\nkraken\n ettin\n#monster\n20s20s .b20s20s#polyself\nraven\n sjsu20s.h.b"
+  }
+ ]
+}

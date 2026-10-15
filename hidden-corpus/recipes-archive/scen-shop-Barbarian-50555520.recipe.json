@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed amulet of life saving\nPe\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b,,\u0014:.s \u00167\nhl h\u0016?\n>w\u0006_oooooo.,#chat\nl    _ooooooo.,p_{.Fl_.Fl  q_{.Fb_.q_{,_.q_oooo,_ooo._.,#chat\nbnkj#chat\nyjku#chat\ny_ooooooooo._,,\u001b\u0017amulet of reflection\ndh__,_,#chat\nl#pray\ny y  _oooooo._oo.,\u001b$_ooooooo,,\u001b: bkn#chat\nbyjk#chat\nk__,_,#chat\nj#pray\ny y _ooo,,\u001b#chat\ny_{,_.qyju#chat\ny__._.#chat\nn\u0016?\n>Bjuj\u0016?\n>w\u0006_oo._o,Fj_,Fn,#chat\nj_oooooo._oo.Fy     n_.    nFy  ,#chat\nb   n \u00169\n_ooooooooo.,p_oo._o.,p_oooooooo.,#chat\nj   n \u00163\nyj  n h\u0016?\n>w\u0006\u00169\n_oooooooo,,p_ooooo.,pkyn#chat\nkFkFkFkFkFkFk_{.qjlh#chat\nh_oo.Fb_.m,Fn,:_oo,Fh _.,a\n   $_{.q\u00163\n ukb\u0016?\n>w\u0006__.Fl_.#chat\ny\u0016?\ncklh\u0016?\n>w\u0006__._.#chat\nu#pray\ny y _ooooo,_.,p_{._.q_oooo._._ooo,,p_ooooooooo.,p_ooooo,_.,p_{,_.qlkh#chat\nk_{,_,Fu  q_oo.Fu  n _.Fk ,p_{,  nFk_.Fu q_{,Fu_.q"
+ },
+ "segments": [
+  {
+   "seed": 50555520,
+   "datetime": "20110523003246",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed amulet of life saving\nPe\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b,,\u0014:.s \u00167\nhl h\u0016?\n>w\u0006_oooooo.,#chat\nl    _ooooooo.,p_{.Fl_.Fl  q_{.Fb_.q_{,_.q_oooo,_ooo._.,#chat\nbnkj#chat\nyjku#chat\ny_ooooooooo._,,\u001b\u0017amulet of reflection\ndh__,_,#chat\nl#pray\ny y  _oooooo._oo.,\u001b$_ooooooo,,\u001b: bkn#chat\nbyjk#chat\nk__,_,#chat\nj#pray\ny y _ooo,,\u001b#chat\ny_{,_.qyju#chat\ny__._.#chat\nn\u0016?\n>Bjuj\u0016?\n>w\u0006_oo._o,Fj_,Fn,#chat\nj_oooooo._oo.Fy     n_.    nFy  ,#chat\nb   n \u00169\n_ooooooooo.,p_oo._o.,p_oooooooo.,#chat\nj   n \u00163\nyj  n h\u0016?\n>w\u0006\u00169\n_oooooooo,,p_ooooo.,pkyn#chat\nkFkFkFkFkFkFk_{.qjlh#chat\nh_oo.Fb_.m,Fn,:_oo,Fh _.,a\n   $_{.q\u00163\n ukb\u0016?\n>w\u0006__.Fl_.#chat\ny\u0016?\ncklh\u0016?\n>w\u0006__._.#chat\nu#pray\ny y _ooooo,_.,p_{._.q_oooo._._ooo,,p_ooooooooo.,p_ooooo,_.,p_{,_.qlkh#chat\nk_{,_,Fu  q_oo.Fu  n _.Fk ,p_{,  nFk_.Fu q_{,Fu_.q"
+  }
+ ]
+}

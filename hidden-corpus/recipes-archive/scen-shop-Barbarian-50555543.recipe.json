@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPg\u0016?\n>w\u0006_ \u001bm.,p\u0016?\n>Bhjj\u0016?\n>w  \u0006_oooooooo,Fl_._oo,Fj_,, $ _oooo,_., p\u001b_oo,Fb _._oo,_., \u0017amulet of ESP\ndj_oo._,, $ _ooo,_., \u0014>.    .n20s   _ooooo,  nFy_.Fk,p_ooooo.Fk  _,  nFh,#chat\ny _ooooooooo. Fh  n _.Fy ,$_ooooooo.Fu  n_. Fk,\u0017worthless piece of red glass\ndlFyFyFyFy  n FyFy\u00163\njhu\u0016?\n>w\u0006_oooooooo._oo. Fy_. Fy,:__.Fy_. Fy   n#chat\nyFy Fy Fy FyFyFy_{.Fy_.Fyq_{.  Fh _.Fyqnk j#chat\nyFy  Fy Fy   FyFyFyFyFyFyFyFyFy__,_,Fn #chat\nb_{.Fl_. q_oooooooo. _.  nFk    _oo.Fy  n _,Fu ,\u0017amulet of ESP\ndm \u00169\nnjh"
+ },
+ "segments": [
+  {
+   "seed": 50555543,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPg\u0016?\n>w\u0006_ \u001bm.,p\u0016?\n>Bhjj\u0016?\n>w  \u0006_oooooooo,Fl_._oo,Fj_,, $ _oooo,_., p\u001b_oo,Fb _._oo,_., \u0017amulet of ESP\ndj_oo._,, $ _ooo,_., \u0014>.    .n20s   _ooooo,  nFy_.Fk,p_ooooo.Fk  _,  nFh,#chat\ny _ooooooooo. Fh  n _.Fy ,$_ooooooo.Fu  n_. Fk,\u0017worthless piece of red glass\ndlFyFyFyFy  n FyFy\u00163\njhu\u0016?\n>w\u0006_oooooooo._oo. Fy_. Fy,:__.Fy_. Fy   n#chat\nyFy Fy Fy FyFyFy_{.Fy_.Fyq_{.  Fh _.Fyqnk j#chat\nyFy  Fy Fy   FyFyFyFyFyFyFyFyFy__,_,Fn #chat\nb_{.Fl_. q_oooooooo. _.  nFk    _oo.Fy  n _,Fu ,\u0017amulet of ESP\ndm \u00169\nnjh"
+  }
+ ]
+}

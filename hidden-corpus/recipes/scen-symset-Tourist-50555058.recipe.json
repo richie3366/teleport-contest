@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "20s#tip\n\u001b\u001bOd\u001b\n\u0007little dog\n\u0017food ration\n tal \u0017tin whistle\nyyuan#chat\nk10s\u0007giant rat\n\u0017scroll of taming\nro #chat\nu\u0006_ \u001b>.   >FkFu_>.Fn_,Fy>FuFk_>.Fk_.Fy>FuFl\u001613\nv i\u001b\u00162\nFyFyFhFyFhFbFhFyFhFbFhFbFbFhFbFyFbFyFbFhFbFhFhFbFhFyFyFbFbFbFlFbFyFbFl  FbFyFyFbFyFyFbFyFbFbFyFhFhFyFyFyFbFhFbFbFhFhFhFbFbFh FyFbFyFyFhFbFhFbFyFyFbFhFhFyFyFbFbFhFhFhFbFbFbFbFbFyFhFyFbFhFbFhFhFyFhFhFyFbFyFhFbFhFhFbFhFhFhFbFhFhFhFbFyFhFbFbFyFbFbynyj\u0017cloud\nh\u0017sink\nqy    n:    u    n\u0017lawful altar\nda \u0017elf corpse\n #offer\np        nbnm.\u0017melting ice\nllhhqis#pray\ny y \u00168\n\u0007little dog\n\u0017food ration\n t$j#chat\nn#name\na\n\u0007grid bug\n20s.m..m. .m.20s sm.  n \u0017tin whistle\nb h laq \u0007grid bug\n\u0017scroll of taming\nrr deqi20sss#sit\n#offer\nb#tip\n\u001b\u001bO>>i\u001b\u001b\nmO>>i\u001b\n\u001620\nmO>>j\u001b\n\u0007la"
+ },
+ "segments": [
+  {
+   "seed": 50555058,
+   "datetime": "20130826094415",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"uncursed\"=red\n",
+   "moves": "20s#tip\n\u001b\u001bOd\u001b\n\u0007little dog\n\u0017food ration\n tal \u0017tin whistle\nyyuan#chat\nk10s\u0007giant rat\n\u0017scroll of taming\nro #chat\nu\u0006_ \u001b>.   >FkFu_>.Fn_,Fy>FuFk_>.Fk_.Fy>FuFl\u001613\nv i\u001b\u00162\nFyFyFhFyFhFbFhFyFhFbFhFbFbFhFbFyFbFyFbFhFbFhFhFbFhFyFyFbFbFbFlFbFyFbFl  FbFyFyFbFyFyFbFyFbFbFyFhFhFyFyFyFbFhFbFbFhFhFhFbFbFh FyFbFyFyFhFbFhFbFyFyFbFhFhFyFyFbFbFhFhFhFbFbFbFbFbFyFhFyFbFhFbFhFhFyFhFhFyFbFyFhFbFhFhFbFhFhFhFbFhFhFhFbFyFhFbFbFyFbFbynyj\u0017cloud\nh\u0017sink\nqy    n:    u    n\u0017lawful altar\nda \u0017elf corpse\n #offer\np        nbnm.\u0017melting ice\nllhhqis#pray\ny y \u00168\n\u0007little dog\n\u0017food ration\n t$j#chat\nn#name\na\n\u0007grid bug\n20s.m..m. .m.20s sm.  n \u0017tin whistle\nb h laq \u0007grid bug\n\u0017scroll of taming\nrr deqi20sss#sit\n#offer\nb#tip\n\u001b\u001bO>>i\u001b\u001b\nmO>>i\u001b\n\u001620\nmO>>j\u001b\n\u0007la"
+  }
+ ]
+}

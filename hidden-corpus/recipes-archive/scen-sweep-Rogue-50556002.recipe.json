@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      #levelchange\n14\n      \u0016?\n>y  _ \u001b;#chat\nn_mm.#chat\nn_mmmm.#chat\nl\u0006_>.Fj _.>_>._.>_>,_,Fk >Fk.#tip\nf\u001b#offer\n\u000f\u001b#wizintrinsic\nh\n Z\u0017cram ration\nej \u0017potion of acid\nqk #dip\nfd ;h:  \u0017potion of fruit juice\nql  \u0017scroll of stinking cloud\nrm  m, 20s    s   20s    \u001619\n#levelchange\n8\n  \u0017blessed scroll of destroy armor\nrn\u0017cursed -1 flail\nwo  Fl  s  n   Fb\u0017blessed +3 mummy wrapping\nWpsss\u0017blessed +3 fumble boots\nWqss20s  \u0017wand of digging\n,\u00173 spellbook of healing\n\u0007guard\nnsh.n\u001616\n#levelchange\n12\n   \u0017quarterstaff\nFk Fh  \u0017uncursed scroll of stinking cloud\nFh  Fk  n  \u0017uncursed +0 gauntlets of fumbling\n,\u001b\u00173 Snickersnee\n ,\u001bFh  Fh  n  \u0017leather drum\n\u0007minotaur\n\u0017blessed +3 ring of cold resistance\n\u0007guardian naga\n,\u001bFh   Fu     n    n  sm.     n   .m.     n \u001611\n\u00167\n#levelchange\n12\n\u0017blessed lenses\nFl     n   Fu      n   \u0017the Eyes of the Overworld\n \u0017uncursed the Eye of the Aethiopica\n  n \u0007guard\nnFu           n    Fh    n     20s     n   sm.    n  \u001627\n\u0018\u001b\u00163\n#levelchange\n8\n \u0017uncursed skeleton key\n,\u001b\u0017uncursed frost horn\n\u0007Kop Kaptain\n,\u001bFk    n   yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50556002,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      #levelchange\n14\n      \u0016?\n>y  _ \u001b;#chat\nn_mm.#chat\nn_mmmm.#chat\nl\u0006_>.Fj _.>_>._.>_>,_,Fk >Fk.#tip\nf\u001b#offer\n\u000f\u001b#wizintrinsic\nh\n Z\u0017cram ration\nej \u0017potion of acid\nqk #dip\nfd ;h:  \u0017potion of fruit juice\nql  \u0017scroll of stinking cloud\nrm  m, 20s    s   20s    \u001619\n#levelchange\n8\n  \u0017blessed scroll of destroy armor\nrn\u0017cursed -1 flail\nwo  Fl  s  n   Fb\u0017blessed +3 mummy wrapping\nWpsss\u0017blessed +3 fumble boots\nWqss20s  \u0017wand of digging\n,\u00173 spellbook of healing\n\u0007guard\nnsh.n\u001616\n#levelchange\n12\n   \u0017quarterstaff\nFk Fh  \u0017uncursed scroll of stinking cloud\nFh  Fk  n  \u0017uncursed +0 gauntlets of fumbling\n,\u001b\u00173 Snickersnee\n ,\u001bFh  Fh  n  \u0017leather drum\n\u0007minotaur\n\u0017blessed +3 ring of cold resistance\n\u0007guardian naga\n,\u001bFh   Fu     n    n  sm.     n   .m.     n \u001611\n\u00167\n#levelchange\n12\n\u0017blessed lenses\nFl     n   Fu      n   \u0017the Eyes of the Overworld\n \u0017uncursed the Eye of the Aethiopica\n  n \u0007guard\nnFu           n    Fh    n     20s     n   sm.    n  \u001627\n\u0018\u001b\u00163\n#levelchange\n8\n \u0017uncursed skeleton key\n,\u001b\u0017uncursed frost horn\n\u0007Kop Kaptain\n,\u001bFk    n   yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

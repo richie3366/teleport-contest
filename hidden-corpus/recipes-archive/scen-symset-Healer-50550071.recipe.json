@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "mO>>>b\u001b\nFnFnFkFnFjFjFb FjFnFjFbFbFnFkFbFjFbFbFkFbFkFbFjFnFnFbFnFjFjFjFnFjFnFbFnFjFbFjFjFu FjFnFnFjFjFbFnFbFbFjFbFjFjFjFjFbFjFjFjFnFbFnFnFbFbFnFjFbFnFbFjFnFbFjFbFjFbFnFnFjFnFjFnFbFjFbFnFjFjFnFjFnFjFjFnFjFjFjFjFnFjFnFjFjFjFjFnFnFnFnFjFjFnFnFnFjFjFjFnFj\u001612\nOe\u001b\nO>p\u001b\nmO>>g\u001b\n\u00163\nmO>>b\u001b\n\u00167\nv\u001bi\u001b\u00164\nv\u001bi\u001bmO>>t\u001b\nzhj   n#force\n>dd\u001614\n    \u0006_ \u001b.>FlFn_>.Fb  _.>. Fh>FbFy_>.>FbFbFbFlFl,,\u0006_>>.Fu_,;;> f $ u#wipe\n\u0006_>.Fn_.Fj>FnFb_>.Fb_.Fb>FjFb_>.Fn_.Fn>FbFnFnFu  Fb  qf  #pray\ny y      \u0006_>>, Fb   n _,   Fb    n >Fj  Fu _>>.  Fn  n _, Fj >Fu Fu _>>.  Fn _, Fj  n  >Fn   Fb Fn  n  Fu  Fn  \u0006_>,  n  Fb _.  Fu  >Fn  n  Fn _>.   Fj  n _.  Fu >Fn Fu  n  _>.  Fn  _,   n Fu  >Fb Fb  n  Fb Fu  Fj  \u0006_>>"
+ },
+ "segments": [
+  {
+   "seed": 50550071,
+   "datetime": "20090815035721",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nMENUCOLOR=\"a scroll\"=red\nBIND=v:inventory\n",
+   "moves": "mO>>>b\u001b\nFnFnFkFnFjFjFb FjFnFjFbFbFnFkFbFjFbFbFkFbFkFbFjFnFnFbFnFjFjFjFnFjFnFbFnFjFbFjFjFu FjFnFnFjFjFbFnFbFbFjFbFjFjFjFjFbFjFjFjFnFbFnFnFbFbFnFjFbFnFbFjFnFbFjFbFjFbFnFnFjFnFjFnFbFjFbFnFjFjFnFjFnFjFjFnFjFjFjFjFnFjFnFjFjFjFjFnFnFnFnFjFjFnFnFnFjFjFjFnFj\u001612\nOe\u001b\nO>p\u001b\nmO>>g\u001b\n\u00163\nmO>>b\u001b\n\u00167\nv\u001bi\u001b\u00164\nv\u001bi\u001bmO>>t\u001b\nzhj   n#force\n>dd\u001614\n    \u0006_ \u001b.>FlFn_>.Fb  _.>. Fh>FbFy_>.>FbFbFbFlFl,,\u0006_>>.Fu_,;;> f $ u#wipe\n\u0006_>.Fn_.Fj>FnFb_>.Fb_.Fb>FjFb_>.Fn_.Fn>FbFnFnFu  Fb  qf  #pray\ny y      \u0006_>>, Fb   n _,   Fb    n >Fj  Fu _>>.  Fn  n _, Fj >Fu Fu _>>.  Fn _, Fj  n  >Fn   Fb Fn  n  Fu  Fn  \u0006_>,  n  Fb _.  Fu  >Fn  n  Fn _>.   Fj  n _.  Fu >Fn Fu  n  _>.  Fn  _,   n Fu  >Fb Fb  n  Fb Fu  Fj  \u0006_>>"
+  }
+ ]
+}

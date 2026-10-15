@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0017cloak of magic resistance\nWisss \u0007leprechaun\n;n; \u001b,s .s\u0007mail daemon\nFlFn FlFkFlFl\u0007acid blob\nFlFlFlFn "
+ },
+ "segments": [
+  {
+   "seed": 50552019,
+   "datetime": "20050520222123",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0017cloak of magic resistance\nWisss \u0007leprechaun\n;n; \u001b,s .s\u0007mail daemon\nFlFn FlFkFlFl\u0007acid blob\nFlFlFlFn "
+  }
+ ]
+}

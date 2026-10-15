@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0017blessed war hammer\nwfss20sX\u0017wand of teleportation\nzgh\u0017flail\nwh20ss.ss"
+ },
+ "segments": [
+  {
+   "seed": 50558206,
+   "datetime": "20061018000020",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0017blessed war hammer\nwfss20sX\u0017wand of teleportation\nzgh\u0017flail\nwh20ss.ss"
+  }
+ ]
+}

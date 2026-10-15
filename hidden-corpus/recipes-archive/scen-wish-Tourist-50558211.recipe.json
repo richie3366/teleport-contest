@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017cursed saddle\nalb#ride\nyy\u0017amulet of ESP\nPms20s.s\u0017wand of undead turning\nznuznl\u00173 lembas wafer\n\u0007long worm\neo  sm.sFlFnsm.20s"
+ },
+ "segments": [
+  {
+   "seed": 50558211,
+   "datetime": "20210228062246",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017cursed saddle\nalb#ride\nyy\u0017amulet of ESP\nPms20s.s\u0017wand of undead turning\nznuznl\u00173 lembas wafer\n\u0007long worm\neo  sm.sFlFnsm.20s"
+  }
+ ]
+}

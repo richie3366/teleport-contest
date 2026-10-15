@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWp\u0017blessed amulet of reflection\nPq \u0016?\n>w\u0006_ \u001bm,,\u0014;:.20s_oooooo.,#chat\nj_{.  nFb_,m.Fb  qjlbn#chat\nl_{,Fj_.qy _ooooooooo.Fu_.m,Fl  _ooo.,p_ooooo.Fl_,,,$_oooo,Fl_,Fl  ,pFlFlFlFlFlFl_oooooo.,$_ooooooo._,,\u0017loadstone\ndt_oo,_o.Fb_,Fb,$FhFh  nFhFhFhFh_oo.Fh_,_o.Fb_.,\u001b: _{.Fn _.qy y   nFnFnFn  nFnFnFn_oooooooo,,p_oooooo,Fl  n _.m.Fk,p_oooo.Fl_,>.Fh_o.Fu_..,#chat\ny_oooo.Fh_,  nFb ,\u0017amulet of strangulation\n duFbFbFbFbFbFb   n__. Fh  n _,@.Fb   n#chat\nh#pray\ny y     \u001610\nFyFy    Fy  n  Fy  nFy Fy \u001611\n__.#chat\nuhuh#chat\nh_{.qj_oo._ooo.,p_oooo.,:_ooooo,,$__.#chat\nn#pray\ny y  _oo,,$_oooo,,p_ooooo._ooo,,p_ooooooo._o.,#chat\nk\u00167\nhhb\u0016?\n>w\u0006_oo.Fh_.,Fk,:FkFkFkFkFk  nFk_oooo"
+ },
+ "segments": [
+  {
+   "seed": 50555536,
+   "datetime": "20050409000042",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWp\u0017blessed amulet of reflection\nPq \u0016?\n>w\u0006_ \u001bm,,\u0014;:.20s_oooooo.,#chat\nj_{.  nFb_,m.Fb  qjlbn#chat\nl_{,Fj_.qy _ooooooooo.Fu_.m,Fl  _ooo.,p_ooooo.Fl_,,,$_oooo,Fl_,Fl  ,pFlFlFlFlFlFl_oooooo.,$_ooooooo._,,\u0017loadstone\ndt_oo,_o.Fb_,Fb,$FhFh  nFhFhFhFh_oo.Fh_,_o.Fb_.,\u001b: _{.Fn _.qy y   nFnFnFn  nFnFnFn_oooooooo,,p_oooooo,Fl  n _.m.Fk,p_oooo.Fl_,>.Fh_o.Fu_..,#chat\ny_oooo.Fh_,  nFb ,\u0017amulet of strangulation\n duFbFbFbFbFbFb   n__. Fh  n _,@.Fb   n#chat\nh#pray\ny y     \u001610\nFyFy    Fy  n  Fy  nFy Fy \u001611\n__.#chat\nuhuh#chat\nh_{.qj_oo._ooo.,p_oooo.,:_ooooo,,$__.#chat\nn#pray\ny y  _oo,,$_oooo,,p_ooooo._ooo,,p_ooooooo._o.,#chat\nk\u00167\nhhb\u0016?\n>w\u0006_oo.Fh_.,Fk,:FkFkFkFkFk  nFk_oooo"
+  }
+ ]
+}

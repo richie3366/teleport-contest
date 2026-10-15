@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "lyn\u0017lawful altar\nde\u0017elf corpse\n#offer\ni #pray\ny y  : kh\u0017fountain\nqy yq#dip\nc#terrain\nb\n\u001bm,w-oj#offer\n#levelchange\n6\n     lhl\u0017iron bars\nhlllh\u0017melting ice\nl h hl lu\u0017altar\ndcdb\u0017floating eye corpse\n#offer\nj #pray\ny y   :#terrain\nc\n;<\u0018\u001bW"
+ },
+ "segments": [
+  {
+   "seed": 50551000,
+   "datetime": "20040410091653",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "lyn\u0017lawful altar\nde\u0017elf corpse\n#offer\ni #pray\ny y  : kh\u0017fountain\nqy yq#dip\nc#terrain\nb\n\u001bm,w-oj#offer\n#levelchange\n6\n     lhl\u0017iron bars\nhlllh\u0017melting ice\nl h hl lu\u0017altar\ndcdb\u0017floating eye corpse\n#offer\nj #pray\ny y   :#terrain\nc\n;<\u0018\u001bW"
+  }
+ ]
+}

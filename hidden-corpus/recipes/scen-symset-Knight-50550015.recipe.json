@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "_.#jump\n #twoweapon\nda100s 150s_ \u001b.>\\   yyl _>,>yyhjhk50s     100s100s 100s \u000f\u001b150s    khn50s100s      \\   hnh100s     100scj50s     jun100s                 100s          h hn50s       yjk\\   kjh_>.>kly10s100s   \u0018\u001b#tip\n\u001b50s50s  100s v i\u001b\u00167\n150s150s      100s hlk\u0018\u001b\\   \\   bl  h  100s   150s   n y   n l 150s  n kyu#pray\ny y       j jh i\u001b#pray\ny y      100s  n nh    n  yi\u001b100s100s150s#pray\ny y      150s_>.sn   nkyh#pray\ny y     _>.>nkn\u0014,   n100s100syk  nj i\u001b100s  n 50s#ride\nly100s#pray\ny y     \u00165\n  \u00165\n100s            150s          #untrap\nbnnl100s      150s  \u000f\u001bbnbdb150s 100sjl l100s    nuk , _>.>100s      100s      uj u150s                           P150s                ey  bkh 100st\u001b#jump\n:100sP: 100s100s\u000f\u001b100s50s150snhb100s100s kkbO>>>g\u001b\n k kk \u0017grave\n:  \u0017wand of digging\nzj>    "
+ },
+ "segments": [
+  {
+   "seed": 50550015,
+   "datetime": "20051017150707",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a scroll\"=green\n",
+   "moves": "_.#jump\n #twoweapon\nda100s 150s_ \u001b.>\\   yyl _>,>yyhjhk50s     100s100s 100s \u000f\u001b150s    khn50s100s      \\   hnh100s     100scj50s     jun100s                 100s          h hn50s       yjk\\   kjh_>.>kly10s100s   \u0018\u001b#tip\n\u001b50s50s  100s v i\u001b\u00167\n150s150s      100s hlk\u0018\u001b\\   \\   bl  h  100s   150s   n y   n l 150s  n kyu#pray\ny y       j jh i\u001b#pray\ny y      100s  n nh    n  yi\u001b100s100s150s#pray\ny y      150s_>.sn   nkyh#pray\ny y     _>.>nkn\u0014,   n100s100syk  nj i\u001b100s  n 50s#ride\nly100s#pray\ny y     \u00165\n  \u00165\n100s            150s          #untrap\nbnnl100s      150s  \u000f\u001bbnbdb150s 100sjl l100s    nuk , _>.>100s      100s      uj u150s                           P150s                ey  bkh 100st\u001b#jump\n:100sP: 100s100s\u000f\u001b100s50s150snhb100s100s kkbO>>>g\u001b\n k kk \u0017grave\n:  \u0017wand of digging\nzj>    "
+  }
+ ]
+}

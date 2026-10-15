@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               i\u001bed sswaFl ssW20ssswb s.20s#loot\n#invoke\n\u001b#turn\n#twoweapon\n#name\na\nJ10ssi\u001bW...wa sssXed  y  n ..wb s20s.#levelchange\n6\n   \u0017blessed spellbook of cure sickness\nrgs\u0017spellbook of restore ability\nrh \u001b  20s+\u001bZa\nZa\nZa\nZa\nZa\n\u0007newt\nZa\nZa\nFkZa\n#levelchange\n20\n             \u0016?\n>y  _ \u001b,#chat\nb_mmmm,#chat\ny_mmm.  Fh_,Fn #chat\nn\u0006_>>, Fk  _,  Fl  >FnFk  n  _>>.  Fk   _.    n Fn    >Fb   Fy  n  _>>.   Fj     n  _,   Fh    >Fn   n    Fh      nojqw-    \u00167\n\u00163\n#levelchange\n20\n\u00173 wand of slow monster\nzik    zih   n   \u0017potion of fruit juice\n\u0007scorpion\nqj \u001b   \u0017cursed -1 crystal plate mail\nW\u001b.lsm.     n sm.   \u0017egg\n\u0007killer bee\nelsm.   .m.   n  sb    sm.     n \u00161\n\u0006_>,   Fl     n_,  Fb   >FuFn      n_>,   Fk    _,:Fn   n  >Fy   Fj     n_>.    Fb   _.  yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50556013,
+   "datetime": "20200305060517",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               i\u001bed sswaFl ssW20ssswb s.20s#loot\n#invoke\n\u001b#turn\n#twoweapon\n#name\na\nJ10ssi\u001bW...wa sssXed  y  n ..wb s20s.#levelchange\n6\n   \u0017blessed spellbook of cure sickness\nrgs\u0017spellbook of restore ability\nrh \u001b  20s+\u001bZa\nZa\nZa\nZa\nZa\n\u0007newt\nZa\nZa\nFkZa\n#levelchange\n20\n             \u0016?\n>y  _ \u001b,#chat\nb_mmmm,#chat\ny_mmm.  Fh_,Fn #chat\nn\u0006_>>, Fk  _,  Fl  >FnFk  n  _>>.  Fk   _.    n Fn    >Fb   Fy  n  _>>.   Fj     n  _,   Fh    >Fn   n    Fh      nojqw-    \u00167\n\u00163\n#levelchange\n20\n\u00173 wand of slow monster\nzik    zih   n   \u0017potion of fruit juice\n\u0007scorpion\nqj \u001b   \u0017cursed -1 crystal plate mail\nW\u001b.lsm.     n sm.   \u0017egg\n\u0007killer bee\nelsm.   .m.   n  sb    sm.     n \u00161\n\u0006_>,   Fl     n_,  Fb   >FuFn      n_>,   Fk    _,:Fn   n  >Fy   Fj     n_>.    Fb   _.  yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b<.>FuFk_>>.Fk_,Fj>FnFk_>>.Fj_.>  FuFuFn\u0006_>>.Fk_.Fh>Fh._>>.Fy_,Fb>FyFh_>>.Fj_,Fh>FhFhFkFkFy\u0006_>.Fk_.Fj>FyFk_>.Fy_.Fh>FkFb_>.Fj_.Fy>FyFkFbFhFb\u0004j \u0018\u001b\u00161\n\u0006_>.Fl_.Fb>FjFb_>.Fh_.Fl>FyFb_>.Fb_.Fb>FyFlFlFuFj\u0006_>.Fl_.Fl>FhFh_>.Fh_.Fu>FuFl_>.Fb_,Fl>FuFyFuFuFui\u001boj<\u0006_>.Fb_.Fu>FjFl_>.Fh_,Fh>FjFj_>.Fj_.Fu>FbFbFlFyFl\u0006_>.Fj_.Fy>FhFy_>.Fj_.Fh>FuFh_>.Fh_.Fj>FlFhFyFjFhqh energy vortex\n #sit\n\u0006_>.Fl_.Fl>FjFh_>,Fl_,Fl>FbFl_>.Fu_.Fl>FbFjFbFlFydf#monster\n\u0006_>>.Fu_,Fl>FuFy_>>, Fj_.Fu>FbFl_>>.Fu_.Fu>FjFhFjFuFb<\u0006_>>.Fj_,Fy>FbFy_>>,Fl_.Fb>FbFl_>>.Fl_.Fh>FyFuFlFlFy\u0018\u001bf \u001bePer #two"
+ },
+ "segments": [
+  {
+   "seed": 50550055,
+   "datetime": "20041019223523",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=number_pad:0\nMENUCOLOR=\"a potion\"=magenta\n",
+   "moves": "\u0006_ \u001b<.>FuFk_>>.Fk_,Fj>FnFk_>>.Fj_.>  FuFuFn\u0006_>>.Fk_.Fh>Fh._>>.Fy_,Fb>FyFh_>>.Fj_,Fh>FhFhFkFkFy\u0006_>.Fk_.Fj>FyFk_>.Fy_.Fh>FkFb_>.Fj_.Fy>FyFkFbFhFb\u0004j \u0018\u001b\u00161\n\u0006_>.Fl_.Fb>FjFb_>.Fh_.Fl>FyFb_>.Fb_.Fb>FyFlFlFuFj\u0006_>.Fl_.Fl>FhFh_>.Fh_.Fu>FuFl_>.Fb_,Fl>FuFyFuFuFui\u001boj<\u0006_>.Fb_.Fu>FjFl_>.Fh_,Fh>FjFj_>.Fj_.Fu>FbFbFlFyFl\u0006_>.Fj_.Fy>FhFy_>.Fj_.Fh>FuFh_>.Fh_.Fj>FlFhFyFjFhqh energy vortex\n #sit\n\u0006_>.Fl_.Fl>FjFh_>,Fl_,Fl>FbFl_>.Fu_.Fl>FbFjFbFlFydf#monster\n\u0006_>>.Fu_,Fl>FuFy_>>, Fj_.Fu>FbFl_>>.Fu_.Fu>FjFhFjFuFb<\u0006_>>.Fj_,Fy>FbFy_>>,Fl_.Fb>FbFl_>>.Fl_.Fh>FyFuFlFlFy\u0018\u001bf \u001bePer #two"
+  }
+ ]
+}

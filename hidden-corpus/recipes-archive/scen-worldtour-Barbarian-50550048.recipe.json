@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPg\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\nq \u0004ky \u0016?\n>>K     spellbook of confuse monster\n_ \u001b,\u00162\n\u0006:_>.\u00162\n#levelchange\n8\n \u0017the Platinum Yendorian Express Card\n \u0007yellow light\n;b.20s s .\u0007black dragon\nsFh\u0007piranha\ns20s   n 20s \u001640\nbhb  n y      n h  k : \u00164\n\u00162\n\u0014.s s  n \u001640\n_<.>\u001633\nb     hnlhj:\u0016?\n\u001bu  nb\u0016?\n\u001bj   n  \u0016?\n\u001buy  n \u0016?\n\u001bjh   \u0016?\n\u001bh  y    n   \u001633\n\u0004b  n  \u00165\n#levelchange\n8\n\u0017the Mitre of Holiness\n \u0007lichen\ns s  n  s s  n  s  n . \u0007cave spider\n20s  n 20s  s20s   n 20s   n . s\u0007hell hound\ns  n s.  yny   ny y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50550048,
+   "datetime": "20181123184233",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPg\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\nq \u0004ky \u0016?\n>>K     spellbook of confuse monster\n_ \u001b,\u00162\n\u0006:_>.\u00162\n#levelchange\n8\n \u0017the Platinum Yendorian Express Card\n \u0007yellow light\n;b.20s s .\u0007black dragon\nsFh\u0007piranha\ns20s   n 20s \u001640\nbhb  n y      n h  k : \u00164\n\u00162\n\u0014.s s  n \u001640\n_<.>\u001633\nb     hnlhj:\u0016?\n\u001bu  nb\u0016?\n\u001bj   n  \u0016?\n\u001buy  n \u0016?\n\u001bjh   \u0016?\n\u001bh  y    n   \u001633\n\u0004b  n  \u00165\n#levelchange\n8\n\u0017the Mitre of Holiness\n \u0007lichen\ns s  n  s s  n  s  n . \u0007cave spider\n20s  n 20s  s20s   n 20s   n . s\u0007hell hound\ns  n s.  yny   ny y\u001b  F"
+  }
+ ]
+}

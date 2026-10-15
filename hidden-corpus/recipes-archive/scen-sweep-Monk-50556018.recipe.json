@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                                \u0016?\ngcl#jump\n#pray\ny y ;l. \u001bm.ss\u0016?\n>uP,#invoke\n\u001b\u001b\u0006.s\u00162\nu#jump\n;_.s20s\u0016?\nc\u000f\u001b#invoke\n\u001b\u001b:;j;20ssni\u001bqeegsm.src  ei  sm.20srj y 20ssnZa\n W20s.m.20s10sWl20s #rub\n\\  Pb \\  #levelchange\n8\n        \u0017cloak of magic resistance\nW\u001b\u001bsm.  n sm..y\u0007pyrolisk\n;l.sm.shs\u0007mastodon\nFl Fj  FnFn\u0017pick-axe\n_<.an j  n nan<   n  an>  sm.  n   hjan<   n  anb b\u001616\n\u0006\u00165\n#levelchange\n30\n                      \u0007wraith\nFlFlFl\u0007hezrou\nFl Fk Fu Fu Fl  \u0007floating eye\n#chat\nlFuFy        n   \u0007Archon\n.m.  20s     20s  .  n  .       s   n  .   20s   n    \u001610\n#levelchange\n8\n        \u0017flail\nwo  ns 20s  20sX\u0007dwarf\n;>.20s ss   \u0007Nazgul\n;l;.s   n s \u0007master mind flayer\nFl  n    n Fy   n  Fk    n   \u0007lieutenant\n;l;s    ynnny y\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 50556018,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                                \u0016?\ngcl#jump\n#pray\ny y ;l. \u001bm.ss\u0016?\n>uP,#invoke\n\u001b\u001b\u0006.s\u00162\nu#jump\n;_.s20s\u0016?\nc\u000f\u001b#invoke\n\u001b\u001b:;j;20ssni\u001bqeegsm.src  ei  sm.20srj y 20ssnZa\n W20s.m.20s10sWl20s #rub\n\\  Pb \\  #levelchange\n8\n        \u0017cloak of magic resistance\nW\u001b\u001bsm.  n sm..y\u0007pyrolisk\n;l.sm.shs\u0007mastodon\nFl Fj  FnFn\u0017pick-axe\n_<.an j  n nan<   n  an>  sm.  n   hjan<   n  anb b\u001616\n\u0006\u00165\n#levelchange\n30\n                      \u0007wraith\nFlFlFl\u0007hezrou\nFl Fk Fu Fu Fl  \u0007floating eye\n#chat\nlFuFy        n   \u0007Archon\n.m.  20s     20s  .  n  .       s   n  .   20s   n    \u001610\n#levelchange\n8\n        \u0017flail\nwo  ns 20s  20sX\u0007dwarf\n;>.20s ss   \u0007Nazgul\n;l;.s   n s \u0007master mind flayer\nFl  n    n Fy   n  Fk    n   \u0007lieutenant\n;l;s    ynnny y\u001b  ."
+  }
+ ]
+}

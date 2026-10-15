@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00166\n\u0018\u001b100sFys.150s100s100s  100s_ \u001b@.>ljhbuj150s100si\u001b150s150seeeeeeeeeeeeeeeeeeeeeeeee,#untrap\nhZqmOa\u001b\n\u001619\nO>k\u001b\u001b\nO>g\u001b\n\u0006_>>.Fu_,>FjFlFu\u0006_>.Fl_.Fu>FnFu_>.Fn_.Fl>FkFk_>,Fk_,Fy>FuFyFnFuFu\u0006_>,Fn_.Fn>FnFl_>.Fn_,Fy>FyFk_>.Fu_.Fk>FkFkFnFlFn<i\u001b#levelchange\n10\n        nnj\u0017cloud\n:bu\u0017pool\n#dip\ndy u\u0017fountain\nqy yqq:h\u0017neutral altar\ndeda\u0017elf corpse\n #offer\nf   #pray\ny y    : #terrain\nc\n\u0018 20s>v i\u001bzde#pray\ny y v i\u001bv i\u001b\u00169\n#sit\n\u001betbk#pray\ny y O>>j\u001b\nk<#monster\n#offer\nZar\u001b\u001b#loot\nO>>>b\u001b\n\u00162\nFnFjFbFbFbFjFnFjFjFbFnFnFjFnFjFnFnFbFjFnFbFjFnFnFbFjFbFjFnFbFbFjFbFbFjFnFbFnFjFjFnFjFbFbFbFjFjFnFnFnFjFnFnFnFbFbFbFbFnFbFbFjFbFnFbFjFjFbFjFbFbFnFnFnFjFnFjFjFjFnFbFjFbFbFnFnFnFnFjFbFnFbFnFjFnFnFnFjFbFbFnFjFbFjFnFbFnFnFjFnFbFbFjFnFbFlFnFlFbFjmO>>t\u001b\nO>>c\u001b\n#rub\nq10s__,s\u0004jOi\u001b\u001b\n#dip\nd#terrain\nc\n#rub\n<v i\u001b\u0006_>,Fu_.Fk>FkFk_>.Fk_,Fk>FuFu_>,Fy_.Fu>FkFuFuFuFy,\u0018\u001b\u0006_>.Fk_.Fk>FyFy_>.Fk_,Fy>FkFy_>.Fy_,Fu>FuFuFkFuFya#dip\nd\u0006_>,Fk_,Fk>FuFu_>.Fy_.Fu>FuFy_>.Fu_,Fk>FkFuFyFyFy\u0006_>,Fk_,Fy>FyFu_>.Fk_,Fk>FyFk_>.Fk_.Fy>FuFk"
+ },
+ "segments": [
+  {
+   "seed": 50555038,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=runmode:run\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nMSGTYPE=hide \"You kill\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u00166\n\u0018\u001b100sFys.150s100s100s  100s_ \u001b@.>ljhbuj150s100si\u001b150s150seeeeeeeeeeeeeeeeeeeeeeeee,#untrap\nhZqmOa\u001b\n\u001619\nO>k\u001b\u001b\nO>g\u001b\n\u0006_>>.Fu_,>FjFlFu\u0006_>.Fl_.Fu>FnFu_>.Fn_.Fl>FkFk_>,Fk_,Fy>FuFyFnFuFu\u0006_>,Fn_.Fn>FnFl_>.Fn_,Fy>FyFk_>.Fu_.Fk>FkFkFnFlFn<i\u001b#levelchange\n10\n        nnj\u0017cloud\n:bu\u0017pool\n#dip\ndy u\u0017fountain\nqy yqq:h\u0017neutral altar\ndeda\u0017elf corpse\n #offer\nf   #pray\ny y    : #terrain\nc\n\u0018 20s>v i\u001bzde#pray\ny y v i\u001bv i\u001b\u00169\n#sit\n\u001betbk#pray\ny y O>>j\u001b\nk<#monster\n#offer\nZar\u001b\u001b#loot\nO>>>b\u001b\n\u00162\nFnFjFbFbFbFjFnFjFjFbFnFnFjFnFjFnFnFbFjFnFbFjFnFnFbFjFbFjFnFbFbFjFbFbFjFnFbFnFjFjFnFjFbFbFbFjFjFnFnFnFjFnFnFnFbFbFbFbFnFbFbFjFbFnFbFjFjFbFjFbFbFnFnFnFjFnFjFjFjFnFbFjFbFbFnFnFnFnFjFbFnFbFnFjFnFnFnFjFbFbFnFjFbFjFnFbFnFnFjFnFbFbFjFnFbFlFnFlFbFjmO>>t\u001b\nO>>c\u001b\n#rub\nq10s__,s\u0004jOi\u001b\u001b\n#dip\nd#terrain\nc\n#rub\n<v i\u001b\u0006_>,Fu_.Fk>FkFk_>.Fk_,Fk>FuFu_>,Fy_.Fu>FkFuFuFuFy,\u0018\u001b\u0006_>.Fk_.Fk>FyFy_>.Fk_,Fy>FkFy_>.Fy_,Fu>FuFuFkFuFya#dip\nd\u0006_>,Fk_,Fk>FuFu_>.Fy_.Fu>FuFy_>.Fu_,Fk>FkFuFyFyFy\u0006_>,Fk_,Fy>FyFu_>.Fk_,Fk>FyFk_>.Fk_.Fy>FuFk"
+  }
+ ]
+}

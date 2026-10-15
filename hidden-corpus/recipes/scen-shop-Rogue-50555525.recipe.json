@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWk\u0016?\n>w\u0006lhb#chat\nl_ \u001b:_ooo,,#chat\nu_{._.m.qd  _{._.m,q\u00167\nhby\u0016?\n>w\u0006_oooooooo.,\u0014,s._ooooooooo._ooo.,\u0017amulet of strangulation\ndl__._,.#chat\nu#pray\ny y __._.<.#chat\nl__._.>.#chat\nh_{,_.<.q_ooo._._o.,#chat\nj_ooooooo._oo.,$_{._,:qhlh#chat\nb_oooooooo,,p\u00167\nlhl\u0016?\n>w\u0006hbj#chat\nj_ooo.,p_oooooo._ooo,,\u0017loadstone\ndmFjFjFjFjFjFj_ooooooo._., \u0017luckstone\ndo_oo,, $kyh#chat\nhbuu#chat\nb_oo.,\u0017worthless piece of red glass\ndp__._,;>.#chat\ny#pray\ny y _{._..qhlh#chat\nlhbn#chat\nb_oo,,\u0017amulet of reflection\ndqhub#chat\nl_{._,m,q__,_,.#chat\nk#pray\ny y _oooo._.,p_{,_.m,qkhu#chat\nl_{._,<.qynk#chat\nu\u0016?\n>Bjkl\u0016?\n>w\u0006nby#chat\ny_ooo,_,m.,p\u0016?\ncubk\u0016?\n>w\u0006_{, _..Fhqlhl#chat\nn__,_.,#chat\nn_ooooo._.,  \u0017diamond\nds_ooooooo,_._ooo.Fl_,>.Fl,phhh#chat\nj\u00167\nh \u001blh\u0016?\n>w\u0006__,_,:#chat"
+ },
+ "segments": [
+  {
+   "seed": 50555525,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWk\u0016?\n>w\u0006lhb#chat\nl_ \u001b:_ooo,,#chat\nu_{._.m.qd  _{._.m,q\u00167\nhby\u0016?\n>w\u0006_oooooooo.,\u0014,s._ooooooooo._ooo.,\u0017amulet of strangulation\ndl__._,.#chat\nu#pray\ny y __._.<.#chat\nl__._.>.#chat\nh_{,_.<.q_ooo._._o.,#chat\nj_ooooooo._oo.,$_{._,:qhlh#chat\nb_oooooooo,,p\u00167\nlhl\u0016?\n>w\u0006hbj#chat\nj_ooo.,p_oooooo._ooo,,\u0017loadstone\ndmFjFjFjFjFjFj_ooooooo._., \u0017luckstone\ndo_oo,, $kyh#chat\nhbuu#chat\nb_oo.,\u0017worthless piece of red glass\ndp__._,;>.#chat\ny#pray\ny y _{._..qhlh#chat\nlhbn#chat\nb_oo,,\u0017amulet of reflection\ndqhub#chat\nl_{._,m,q__,_,.#chat\nk#pray\ny y _oooo._.,p_{,_.m,qkhu#chat\nl_{._,<.qynk#chat\nu\u0016?\n>Bjkl\u0016?\n>w\u0006nby#chat\ny_ooo,_,m.,p\u0016?\ncubk\u0016?\n>w\u0006_{, _..Fhqlhl#chat\nn__,_.,#chat\nn_ooooo._.,  \u0017diamond\nds_ooooooo,_._ooo.Fl_,>.Fl,phhh#chat\nj\u00167\nh \u001blh\u0016?\n>w\u0006__,_,:#chat"
+  }
+ ]
+}

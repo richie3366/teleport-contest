@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWh\u0016?\n>w\u0006_ \u001bm,,\u0014>..m.._oooooo._o.,\u0017amulet of strangulation\ndi_ooooooooo.,$_ooooooooo,,#chat\nkFkFkFkFkFkFk\u00167\nuln\u0016?\n>w\u0006_oooooo.,p_oooooooo.,p_ooooooo.,:_ooooooo.,p_ooooo.,:_{, _. Fy qd  njku#chat\nn\u0016?\n>Bnnu\u0016?\n>w\u0006__,_,   #chat\nj__,   Fu    n   n    n  n    n_.#chat\nu  n \u0016?\n>Bh bn\u0016?\n>w\u0006\u00162\nubu#chat\nj__.#chat\nh__.#chat\nb\u00167\nyyb\u0016?\n>w\u0006_{._.qujh#chat\nn_ooooo.,$_ooooo.,#chat\nklhk#chat\nhjkj#chat\nklyn#chat\nj__,Fj_.  nFj#chat\nj  n\u00169\n_oooooo,_ooo.,p\u0016?\nc  bnh\u0016?\n>w\u0006jkk#chat\nu_oooo.,: \u00167\nkjk\u0016?\n>w\u0006_{,_.qy_ooooo.,pm,__,_.#chat\ny#pray\ny y  FhFh  nFh  Fh Fh   n     n Fh   n \u00164\n_ooooooo.,#chat\nl_{.q_oooo,,\u0017amulet of change\ndj  n_ooo.,:   nFl  yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50555541,
+   "datetime": "20201214221336",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWh\u0016?\n>w\u0006_ \u001bm,,\u0014>..m.._oooooo._o.,\u0017amulet of strangulation\ndi_ooooooooo.,$_ooooooooo,,#chat\nkFkFkFkFkFkFk\u00167\nuln\u0016?\n>w\u0006_oooooo.,p_oooooooo.,p_ooooooo.,:_ooooooo.,p_ooooo.,:_{, _. Fy qd  njku#chat\nn\u0016?\n>Bnnu\u0016?\n>w\u0006__,_,   #chat\nj__,   Fu    n   n    n  n    n_.#chat\nu  n \u0016?\n>Bh bn\u0016?\n>w\u0006\u00162\nubu#chat\nj__.#chat\nh__.#chat\nb\u00167\nyyb\u0016?\n>w\u0006_{._.qujh#chat\nn_ooooo.,$_ooooo.,#chat\nklhk#chat\nhjkj#chat\nklyn#chat\nj__,Fj_.  nFj#chat\nj  n\u00169\n_oooooo,_ooo.,p\u0016?\nc  bnh\u0016?\n>w\u0006jkk#chat\nu_oooo.,: \u00167\nkjk\u0016?\n>w\u0006_{,_.qy_ooooo.,pm,__,_.#chat\ny#pray\ny y  FhFh  nFh  Fh Fh   n     n Fh   n \u00164\n_ooooooo.,#chat\nl_{.q_oooo,,\u0017amulet of change\ndj  n_ooo.,:   nFl  yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

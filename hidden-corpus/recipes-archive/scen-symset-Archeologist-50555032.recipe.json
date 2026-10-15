@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "jkhh\u0017cloud\n:n\u0017ice\nynnyy\u0017unaligned altar\nde\u0017dwarf corpse\n#offer\nj          n   nn      n    n   n   nn     n   \u0017sink\nqy     n     n   #terrain\nb\n  n     n   #rub\ni     n   ahi\n#sit\n   n    n     n   #levelchange\n10\n         y        k       yy\u001bny ny  h"
+ },
+ "segments": [
+  {
+   "seed": 50555032,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You kill\"\nBIND=v:inventory\n",
+   "moves": "jkhh\u0017cloud\n:n\u0017ice\nynnyy\u0017unaligned altar\nde\u0017dwarf corpse\n#offer\nj          n   nn      n    n   n   nn     n   \u0017sink\nqy     n     n   #terrain\nb\n  n     n   #rub\ni     n   ahi\n#sit\n   n    n     n   #levelchange\n10\n         y        k       yy\u001bny ny  h"
+  }
+ ]
+}

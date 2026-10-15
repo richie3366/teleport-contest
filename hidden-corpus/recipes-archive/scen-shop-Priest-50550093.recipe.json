@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed amulet of life saving\nPj\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>w\u0006_ \u001b:,pFn FnFn FnFnFn_oooooo.,\u0014,.m.20s   _oooooo.,p_oooooooo.,pFlFlFlFlFlFlFnFnFnFn FnFn__, Fu _. Fh  #chat\nu  _oooooooo.  Fk  _,,\u001b$_ooo,,\u001bp_oooooooo._ooo,,\u001b\u0017amulet of guarding\ndl   _oooooooo._oo,,\u001bp\u00163\nuln\u0016?\n>w\u0006_{._.qd_ooooo,_.,\u0017amulet of unchanging\ndm\u00163\nlbl\u0016?\n>w\u0006_ooooo,,#chat\nyhhl#chat\nu_oooooo,  n Fu_.Fu,:_{.  Fh _,  Fh  qd  __.  nFl_.Fl#chat\nl#pray\ny y   FlFl Fl  Fl Fl Fl _ooo,Fl _,Fl  ,#chat\nl _{,Fl _.Fl qd_{,Fl _,.Fn  qd _ooooooo,Fn _.Fn ,:_ooo,Fl _.m,Fl  ,#chat\nl  _oo.Fn   _,,Fj ,p_{,Fj _.Fj  qFj "
+ },
+ "segments": [
+  {
+   "seed": 50550093,
+   "datetime": "20100122175522",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed amulet of life saving\nPj\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>w\u0006_ \u001b:,pFn FnFn FnFnFn_oooooo.,\u0014,.m.20s   _oooooo.,p_oooooooo.,pFlFlFlFlFlFlFnFnFnFn FnFn__, Fu _. Fh  #chat\nu  _oooooooo.  Fk  _,,\u001b$_ooo,,\u001bp_oooooooo._ooo,,\u001b\u0017amulet of guarding\ndl   _oooooooo._oo,,\u001bp\u00163\nuln\u0016?\n>w\u0006_{._.qd_ooooo,_.,\u0017amulet of unchanging\ndm\u00163\nlbl\u0016?\n>w\u0006_ooooo,,#chat\nyhhl#chat\nu_oooooo,  n Fu_.Fu,:_{.  Fh _,  Fh  qd  __.  nFl_.Fl#chat\nl#pray\ny y   FlFl Fl  Fl Fl Fl _ooo,Fl _,Fl  ,#chat\nl _{,Fl _.Fl qd_{,Fl _,.Fn  qd _ooooooo,Fn _.Fn ,:_ooo,Fl _.m,Fl  ,#chat\nl  _oo.Fn   _,,Fj ,p_{,Fj _.Fj  qFj "
+  }
+ ]
+}

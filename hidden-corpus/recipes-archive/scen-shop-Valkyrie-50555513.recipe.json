@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed Mjollnir\nwe\u0017blessed +3 cloak of magic resistance\nWf\u0016?\n>w\u0006_ \u001bm.#chat\nh_ooo._o.,p\u0016?\nclby\u0016?\n>w\u0006_oooooo.,p\u0016?\n>Bknh\u0016?\n>w\u0006_{,Fb_,:Fh qy _oooooooo._oo.,p_oooooo,_o.,\u0017amulet of unchanging\ndg_ooo.,   \u0017amulet of strangulation\ndh    Fl  Fl FlFlFlFl_oo.,  :__.    Fl  _.  Fh #chat\nh #pray\ny y    Fh Fh   nFh Fh FhFh   n\u00169\n_{.q_{.q_{.q_ooo.Fk _.>.Fk   n ,\u0017amulet of change\ndi   n   n\u001612\n_ooooo.Fk _,m._ooo._,,a\np_ooooo._.,$_{,q_oooooooo.,p_ooooo,_.,a\n: __.#chat\nk_oooooooo,,d\n#chat\nynnh#chat\nb\u0016?\ncujl\u0016?\n>w\u0006FyFyFyFyFyFy\u0016?\ncknb\u0016?\n>w\u0006_ooo.,\u0014@.ssnlh#chat\nb__,_.m,#chat\nk_oooooooo.,p_{. Fk   _. Fk  q\u0016?\n>Bnby\u0016?\n>w\u0006_ooooooooo.Fh _. ,pjyh#chat\nj_ooooo,_.Fj, p\u001bFh  FhFhFhFhFh\u0016?\nc    lhl\u0016?\n>w \u0006Fh     Fh   n  Fh   n  Fh    Fh    n  Fh    n   \u00169\nFk    Fk    n  Fk   Fk    n  Fk  Fk    n  \u00164\n _{."
+ },
+ "segments": [
+  {
+   "seed": 50555513,
+   "datetime": "20050428214836",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed Mjollnir\nwe\u0017blessed +3 cloak of magic resistance\nWf\u0016?\n>w\u0006_ \u001bm.#chat\nh_ooo._o.,p\u0016?\nclby\u0016?\n>w\u0006_oooooo.,p\u0016?\n>Bknh\u0016?\n>w\u0006_{,Fb_,:Fh qy _oooooooo._oo.,p_oooooo,_o.,\u0017amulet of unchanging\ndg_ooo.,   \u0017amulet of strangulation\ndh    Fl  Fl FlFlFlFl_oo.,  :__.    Fl  _.  Fh #chat\nh #pray\ny y    Fh Fh   nFh Fh FhFh   n\u00169\n_{.q_{.q_{.q_ooo.Fk _.>.Fk   n ,\u0017amulet of change\ndi   n   n\u001612\n_ooooo.Fk _,m._ooo._,,a\np_ooooo._.,$_{,q_oooooooo.,p_ooooo,_.,a\n: __.#chat\nk_oooooooo,,d\n#chat\nynnh#chat\nb\u0016?\ncujl\u0016?\n>w\u0006FyFyFyFyFyFy\u0016?\ncknb\u0016?\n>w\u0006_ooo.,\u0014@.ssnlh#chat\nb__,_.m,#chat\nk_oooooooo.,p_{. Fk   _. Fk  q\u0016?\n>Bnby\u0016?\n>w\u0006_ooooooooo.Fh _. ,pjyh#chat\nj_ooooo,_.Fj, p\u001bFh  FhFhFhFhFh\u0016?\nc    lhl\u0016?\n>w \u0006Fh     Fh   n  Fh   n  Fh    Fh    n  Fh    n   \u00169\nFk    Fk    n  Fk   Fk    n  Fk  Fk    n  \u00164\n _{."
+  }
+ ]
+}

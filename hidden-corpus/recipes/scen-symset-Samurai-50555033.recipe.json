@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    h\u001buu lu \u0017throne\n#sit\n nny#sit\n :\u001byk\u0017qq\u0017:\u001bn\u0017ao#dip\n y\u00167\n\u0006_ \u001b>.> FnFjFn<\u0006_>. Fk_.,Fb>FkFh_>, Fb_.Fkl >FkFh_>.Fn_>FnFbFlFhFl\u0006_>. Fh_.:Fk>FkFh_>. Fk_,Fl>FbFh\u001b_>. Fk_. Fn>FnFkh FkE- Vlad was here\n E-y I am a fish\n#pray\ny y     FlFkFhFlFhFkFbFnFkFbFkl FnFkn FlFlFnFlk FhFkFhFkFlFnFbFhFlFkFkFhFnFlh FlFnFbFkFbFbFnFll FnFkl FbFbFhFbFbFbFbFkFnFbFkFkFhFhFnFh\u001bFhFhFlFhFlFnFh\u001bFkFnFnFkFnFbFhFhFnFnFbFbFlFnFnFbFh\u001bFbFh\u001bFbFh\u001bFlFhFbFbFnFbFhFlFkFlFkFkFbFkk FlFbFkb FnFkn FbFkk FlFlFhFnFln FkFhFhFhFnFn\u001614\n    v\u001bi\u001bO>>>k\u001b\u001b\nv\u001bi\u001b\u001620\ns>#chat\nl O>e\u001b\n\u001614\n \u00163\nFbFjFnFjFnFnFbFjFbFjFbFjFjFnFjFjFnFbFjFjFnFnFbFjFnFnFjFnFjFnFjFbFbFbFbFnFbFnFnFnFbFbFbFbFjFnFjFbFnFbFnFnFjFbFbFnFn"
+ },
+ "segments": [
+  {
+   "seed": 50555033,
+   "datetime": "20240801125643",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=runmode:run\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"cursed\"=green\nBIND=v:inventory\n",
+   "moves": "#levelchange\n6\n    h\u001buu lu \u0017throne\n#sit\n nny#sit\n :\u001byk\u0017qq\u0017:\u001bn\u0017ao#dip\n y\u00167\n\u0006_ \u001b>.> FnFjFn<\u0006_>. Fk_.,Fb>FkFh_>, Fb_.Fkl >FkFh_>.Fn_>FnFbFlFhFl\u0006_>. Fh_.:Fk>FkFh_>. Fk_,Fl>FbFh\u001b_>. Fk_. Fn>FnFkh FkE- Vlad was here\n E-y I am a fish\n#pray\ny y     FlFkFhFlFhFkFbFnFkFbFkl FnFkn FlFlFnFlk FhFkFhFkFlFnFbFhFlFkFkFhFnFlh FlFnFbFkFbFbFnFll FnFkl FbFbFhFbFbFbFbFkFnFbFkFkFhFhFnFh\u001bFhFhFlFhFlFnFh\u001bFkFnFnFkFnFbFhFhFnFnFbFbFlFnFnFbFh\u001bFbFh\u001bFbFh\u001bFlFhFbFbFnFbFhFlFkFlFkFkFbFkk FlFbFkb FnFkn FbFkk FlFlFhFnFln FkFhFhFhFnFn\u001614\n    v\u001bi\u001bO>>>k\u001b\u001b\nv\u001bi\u001b\u001620\ns>#chat\nl O>e\u001b\n\u001614\n \u00163\nFbFjFnFjFnFnFbFjFbFjFbFjFjFnFjFjFnFbFjFjFnFnFbFjFnFnFjFnFjFnFjFbFbFbFbFnFbFnFnFnFbFbFbFbFjFnFjFbFnFbFnFnFjFbFbFnFn"
+  }
+ ]
+}

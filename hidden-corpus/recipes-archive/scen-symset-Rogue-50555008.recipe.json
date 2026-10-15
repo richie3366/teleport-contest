@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "lk h\u001by\u0017sink\nqyy\u0004n \u0004n \u0004n lk \u0017neutral altar\nde\u0017dwarf corpse\n#offer\nh   : h\u001b\u0017lawful altar\ndg\u0017elf corpse\n#offer\ni   : #terrain\nf\n#force\n#rub\n#monster\nO>m\u001b\u001b\nmO>l\u001b\n\u0006_ \u001b@.>FhFh_>>. _,> #terrain\ne\n,\u0006_>.Fn_>FnFn_>,_.> cl #rub\n\u0006_>,_.;<. >_>,_.:>_>._,.>\u0006_>._..>_>,_.m,>_>,_.:>\u0006_>._,<.>_>._.;,>_>,_.@.>\u000f\u001b\u001618\n \u0006_>,_.> \u0006_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFl_>,Fl_.>.Fl>FlFlFlFlFl\u0006_>.Fl_.   n Fl>FlFl_>.Fl_.@.Fl>FlFl_>, Fl_.m,Fl>FlFlFlFlFlO>>>>n\u001b\u001b\n\u001619\nFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlul yh\u001by\u0017tree\nh\u001b\u0004l \u0017ax"
+ },
+ "segments": [
+  {
+   "seed": 50555008,
+   "datetime": "20230725191609",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=norep \"You feel\"\nMENUCOLOR=\"uncursed\"=brown\n",
+   "moves": "lk h\u001by\u0017sink\nqyy\u0004n \u0004n \u0004n lk \u0017neutral altar\nde\u0017dwarf corpse\n#offer\nh   : h\u001b\u0017lawful altar\ndg\u0017elf corpse\n#offer\ni   : #terrain\nf\n#force\n#rub\n#monster\nO>m\u001b\u001b\nmO>l\u001b\n\u0006_ \u001b@.>FhFh_>>. _,> #terrain\ne\n,\u0006_>.Fn_>FnFn_>,_.> cl #rub\n\u0006_>,_.;<. >_>,_.:>_>._,.>\u0006_>._..>_>,_.m,>_>,_.:>\u0006_>._,<.>_>._.;,>_>,_.@.>\u000f\u001b\u001618\n \u0006_>,_.> \u0006_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFl_>,Fl_.>.Fl>FlFlFlFlFl\u0006_>.Fl_.   n Fl>FlFl_>.Fl_.@.Fl>FlFl_>, Fl_.m,Fl>FlFlFlFlFlO>>>>n\u001b\u001b\n\u001619\nFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlul yh\u001by\u0017tree\nh\u001b\u0004l \u0017ax"
+  }
+ ]
+}

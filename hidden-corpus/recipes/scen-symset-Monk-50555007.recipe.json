@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \u0007horse\n\u0017food ration\n t\u001b\u0007tame hill orc\n#chat\nb\u0017leash\nakh  n u jh  n   akh   n #name\na\n\u0007gnome\n\u0017scroll of taming\nrl #name\nm\n m,shiny\nk#chat\nk\u00162\n \u001612\n#levelchange\n6\n     k   j  un\u0017melting ice\nyn    y    n   :j j      \u0017neutral altar\ndadb\u0017human corpse\n : n    \u0017moat\njk \u0004uqd   \u0018\u001b#pray\ny y      #pray\ny y        Fk   n Fj  Fj  n  Fy   n   Fy  n    n Fj   #pray\ny y          Fu  Fy  n Fj  #pray\ny y        Fu   n Fj   Fu  n  Fk   n   nFn Fk    n Fk   n Fn  Fj  n    yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50555007,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nMENUCOLOR=\"cursed\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "  \u0007horse\n\u0017food ration\n t\u001b\u0007tame hill orc\n#chat\nb\u0017leash\nakh  n u jh  n   akh   n #name\na\n\u0007gnome\n\u0017scroll of taming\nrl #name\nm\n m,shiny\nk#chat\nk\u00162\n \u001612\n#levelchange\n6\n     k   j  un\u0017melting ice\nyn    y    n   :j j      \u0017neutral altar\ndadb\u0017human corpse\n : n    \u0017moat\njk \u0004uqd   \u0018\u001b#pray\ny y      #pray\ny y        Fk   n Fj  Fj  n  Fy   n   Fy  n    n Fj   #pray\ny y          Fu  Fy  n Fj  #pray\ny y        Fu   n Fj   Fu  n  Fk   n   nFn Fk    n Fk   n Fn  Fj  n    yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

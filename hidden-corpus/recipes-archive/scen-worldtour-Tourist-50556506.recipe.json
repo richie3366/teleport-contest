@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed amulet of life saving\nPm\u0017blessed +3 cloak of magic resistance\nWn\u0017blessed +3 gauntlets of power\nWo\u001643\n   \u0014 \u001b,\u0016?\n>>L      potion of hallucination\n#chat\ny;k:  \u0016?\n\u001bj   u    \u0016?\n\u001bh    k  \u001642\n\u0014<.       \u0016?\n\u001by  u       \u0016?\n\u001bh        \u001b n  y\u001643\nn jbb  :\u001623\n__.<\u0016?\n\u001bu    j\u0016?\ne y  u     j       l    ny     yn         n:\u001611\n\u0016?\ndn h       n      n n   y       n \u001b     h       n                   n      :.m.           n    .m.      n     s     n  \u00166\n\u001623\n\u0006m._<.s   s   \u0016?\n\u001bj k\u0016?\ne\u0006_>.\u0016?\n\u001by   n y   n\u00166\n\u0016?\n\u001by  l\u0016?\n\u001blj\u0016?\n\u001blj\u0016?\n\u001bu   n k  \u0016?\n\u001bbn\u001636\nlh   n k   n ny  l    y\u001b       u"
+ },
+ "segments": [
+  {
+   "seed": 50556506,
+   "datetime": "20240908105147",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed amulet of life saving\nPm\u0017blessed +3 cloak of magic resistance\nWn\u0017blessed +3 gauntlets of power\nWo\u001643\n   \u0014 \u001b,\u0016?\n>>L      potion of hallucination\n#chat\ny;k:  \u0016?\n\u001bj   u    \u0016?\n\u001bh    k  \u001642\n\u0014<.       \u0016?\n\u001by  u       \u0016?\n\u001bh        \u001b n  y\u001643\nn jbb  :\u001623\n__.<\u0016?\n\u001bu    j\u0016?\ne y  u     j       l    ny     yn         n:\u001611\n\u0016?\ndn h       n      n n   y       n \u001b     h       n                   n      :.m.           n    .m.      n     s     n  \u00166\n\u001623\n\u0006m._<.s   s   \u0016?\n\u001bj k\u0016?\ne\u0006_>.\u0016?\n\u001by   n y   n\u00166\n\u0016?\n\u001by  l\u0016?\n\u001blj\u0016?\n\u001blj\u0016?\n\u001bu   n k  \u0016?\n\u001bbn\u001636\nlh   n k   n ny  l    y\u001b       u"
+  }
+ ]
+}

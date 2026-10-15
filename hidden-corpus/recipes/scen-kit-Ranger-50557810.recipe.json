@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " i\u001bwas.sefsswd20s20sswcysssXwb .s20sWs20ssT #sit\ns;_. \u001bm._<.20stdn#rub\n#twoweapon\n#loot\ni\u001bwd20s..Xwh 20sssef  y.swa20ss.Xwbs.20sXwcys.sX"
+ },
+ "segments": [
+  {
+   "seed": 50557810,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " i\u001bwas.sefsswd20s20sswcysssXwb .s20sWs20ssT #sit\ns;_. \u001bm._<.20stdn#rub\n#twoweapon\n#loot\ni\u001bwd20s..Xwh 20sssef  y.swa20ss.Xwbs.20sXwcys.sX"
+  }
+ ]
+}

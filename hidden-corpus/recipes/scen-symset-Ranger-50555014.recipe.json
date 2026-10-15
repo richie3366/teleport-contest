@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  W:O>>>>p\u001b\nO>k\u001b\u001b\njkb y\u0017neutral altar\ndfdb\u0017dwarf corpse\n #offer\ng   : nb\u0017pool\nkj \u0017unaligned altar\ndd\u0017dwarf corpse\n #offer\nh   ub \u0017grave\n: \u0017wand of digging\nzi> ss#jump\n20s#jump\n\u0006_ \u001b.>FlFl_>._,> FyFku Fk#force\n\u000f\u001b\u0006_>,Fl_.Fl>FlFl_>,Fl_,Fl>FlFl_>.Fk_.Fy>FyFyFyFyFy<\u0006_>.Fy_.Fy>FyFy_>.Fh_.Fh>FhFh_>,Fh_,Fh>FhFhFhFhFh#tip\n\u001br\u001b\u0006_>.Fb_.Fb>FbFb_>,Fb_,  nFb>FbFb_>.Fj_.Fl>FjFjFjFjFjE- I am a fish\n_<.sm.\u0006_>.Fn_>FjFn_>FnFj_>,Fj_,Fj>FjFnFjFnFnfn #enhance\nyh\ne\n\u001b\u0006_>.Fj_.Fj>FjFj_>.Fj_.Fj>FjFj_>.Fb_,Fb>FbFbFbFkk Fu<mOa\u001b\n\u00163\n#untrap\nh \u000f\u001b50s150sFkFyFku FkFyFyFkFuFuFyFyFyFyFkFuFyFuy FyFku FyFyFyFyFyFku FyFkk FyFuy FyFuk FkFuFuFuFkFkFkFkFyFuk FyFyFyFuk FuFyFuk FuFyFku FuFuFyFyFuFkFkFkFyFkk FyFkk FuFuFuFyFuy FkFkFuFkFyFky FuFuFkFuFyFkk FyFku FkFkFkFyFkk FkFkFyFuu FkFuFuFkFuFuFyFuu FuFuFyFyFuFyFuk FuFuO>>>n\u001b\u001b\n>#jump\nmO>>>s\u001b\nO>>>h\u001b\nck E- Elbereth Elbereth\n#twoweapon"
+ },
+ "segments": [
+  {
+   "seed": 50555014,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=sortloot:loot\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nMSGTYPE=stop \"You miss\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  W:O>>>>p\u001b\nO>k\u001b\u001b\njkb y\u0017neutral altar\ndfdb\u0017dwarf corpse\n #offer\ng   : nb\u0017pool\nkj \u0017unaligned altar\ndd\u0017dwarf corpse\n #offer\nh   ub \u0017grave\n: \u0017wand of digging\nzi> ss#jump\n20s#jump\n\u0006_ \u001b.>FlFl_>._,> FyFku Fk#force\n\u000f\u001b\u0006_>,Fl_.Fl>FlFl_>,Fl_,Fl>FlFl_>.Fk_.Fy>FyFyFyFyFy<\u0006_>.Fy_.Fy>FyFy_>.Fh_.Fh>FhFh_>,Fh_,Fh>FhFhFhFhFh#tip\n\u001br\u001b\u0006_>.Fb_.Fb>FbFb_>,Fb_,  nFb>FbFb_>.Fj_.Fl>FjFjFjFjFjE- I am a fish\n_<.sm.\u0006_>.Fn_>FjFn_>FnFj_>,Fj_,Fj>FjFnFjFnFnfn #enhance\nyh\ne\n\u001b\u0006_>.Fj_.Fj>FjFj_>.Fj_.Fj>FjFj_>.Fb_,Fb>FbFbFbFkk Fu<mOa\u001b\n\u00163\n#untrap\nh \u000f\u001b50s150sFkFyFku FkFyFyFkFuFuFyFyFyFyFkFuFyFuy FyFku FyFyFyFyFyFku FyFkk FyFuy FyFuk FkFuFuFuFkFkFkFkFyFuk FyFyFyFuk FuFyFuk FuFyFku FuFuFyFyFuFkFkFkFyFkk FyFkk FuFuFuFyFuy FkFkFuFkFyFky FuFuFkFuFyFkk FyFku FkFkFkFyFkk FkFkFyFuu FkFuFuFkFuFuFyFuu FuFuFyFyFuFyFuk FuFuO>>>n\u001b\u001b\n>#jump\nmO>>>s\u001b\nO>>>h\u001b\nck E- Elbereth Elbereth\n#twoweapon"
+  }
+ ]
+}

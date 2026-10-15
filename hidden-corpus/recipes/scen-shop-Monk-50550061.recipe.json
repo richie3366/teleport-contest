@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed amulet of life saving\nPk\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\n>w\u0006_ \u001bm,,p_oo.,p_ooooooooo._ooo,,$Fj FjFjFjFjFj_ooooooo.,\u0014<.20s20s_ooooooo.,\u0017luckstone\ndnFhFhFhFhFhFh_ooooo.Fh_,_o.Fh_.,p\u0016?\ncunn\u0016?\n>w\u0006jub#chat\nk_{.Fu_.Fu qe_oooooooo. Fl_.@.Fl,:FlFlFlFlFlFl_oooo._.:,\u0017worthless piece of red glass\ndokhhh #chat\nk_oooo, _.>.,p\u0016?\n>Bjyl\u0016?\n>w\u0006_ooo._,,,p_oo._.,y p_oooo.  Fk       _,   Fu  n       n ,p\u00165\n_oooooooo.,$\u00167\nyn y   n \u0016?\n>w\u0006ub  u  n   #chat\nl    n    \u001611\n__,#chat\nu__.#chat\ny#pray\ny y jj j#chat\nk __,#chat\nk  n #pray\ny y   _ooooooooo.,:Fk  Fk Fk Fk   nFkFk_ooooooo.Fn_.,d\n p__.#chat\nk__.#chat\nk_{.qd_ooooo._,_oo,, p_{,qdujl#chat\nl__.#chat\ny\u00163\nuly\u0016?\n>w\u0006_oooo._,<.,:_ooooooooo."
+ },
+ "segments": [
+  {
+   "seed": 50550061,
+   "datetime": "20130724150050",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed amulet of life saving\nPk\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\n>w\u0006_ \u001bm,,p_oo.,p_ooooooooo._ooo,,$Fj FjFjFjFjFj_ooooooo.,\u0014<.20s20s_ooooooo.,\u0017luckstone\ndnFhFhFhFhFhFh_ooooo.Fh_,_o.Fh_.,p\u0016?\ncunn\u0016?\n>w\u0006jub#chat\nk_{.Fu_.Fu qe_oooooooo. Fl_.@.Fl,:FlFlFlFlFlFl_oooo._.:,\u0017worthless piece of red glass\ndokhhh #chat\nk_oooo, _.>.,p\u0016?\n>Bjyl\u0016?\n>w\u0006_ooo._,,,p_oo._.,y p_oooo.  Fk       _,   Fu  n       n ,p\u00165\n_oooooooo.,$\u00167\nyn y   n \u0016?\n>w\u0006ub  u  n   #chat\nl    n    \u001611\n__,#chat\nu__.#chat\ny#pray\ny y jj j#chat\nk __,#chat\nk  n #pray\ny y   _ooooooooo.,:Fk  Fk Fk Fk   nFkFk_ooooooo.Fn_.,d\n p__.#chat\nk__.#chat\nk_{.qd_ooooo._,_oo,, p_{,qdujl#chat\nl__.#chat\ny\u00163\nuly\u0016?\n>w\u0006_oooo._,<.,:_ooooooooo."
+  }
+ ]
+}

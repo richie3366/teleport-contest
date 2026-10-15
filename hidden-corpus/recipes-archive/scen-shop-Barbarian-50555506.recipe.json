@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 gauntlets of power\nWe\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006yyk#chat\nu_ \u001b.#chat\nn_ooo.,\u0014m,s20s _oooooooo.,p_oooooooo,,$_ooooo._ooo.,p_oooo.,$_ooooooo,_ooo,,p__,Fk_.Fk#chat\ny_oo.,:_ooooo._,, #chat\nu_ooooo.,:\u0016?\n>Bjhy\u0016?\n>w\u0006_ooo,_ooo,,$\u0016?\n>Bukh\u0016?\n>w\u0006_ooo._o.,p\u00163\nyyu\u0016?\n>w\u0006__.Fl_.Fu#chat\nk_ooooooo,Fh_,, $_{,Fk_.Fuq_oooooo._o,Fn_, Fj  ,:_{,Fu _.  Fnq\u00167\njhh \u0016?\n>w\u0006_{._,qy_{.Fb_,   qjlb#chat\nl_oo, Fj _.Fb   n ,#chat\nb\u00163\nuju\u0016?\n>w\u0006_ooooo.Fn_, Fh  ,y    :_oooo.Fn    _.    n Fn _oo.      Fj     n  _.         n   Fu         n  ,p\u00164\n_oooooo.      n  Fb        n_,           nFj        n     ,#chat\nj    n         n\u00167\nFu       Fu     n    Fu     n    Fu     nFu        n   Fu       yy\u001by  y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50555506,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 gauntlets of power\nWe\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006yyk#chat\nu_ \u001b.#chat\nn_ooo.,\u0014m,s20s _oooooooo.,p_oooooooo,,$_ooooo._ooo.,p_oooo.,$_ooooooo,_ooo,,p__,Fk_.Fk#chat\ny_oo.,:_ooooo._,, #chat\nu_ooooo.,:\u0016?\n>Bjhy\u0016?\n>w\u0006_ooo,_ooo,,$\u0016?\n>Bukh\u0016?\n>w\u0006_ooo._o.,p\u00163\nyyu\u0016?\n>w\u0006__.Fl_.Fu#chat\nk_ooooooo,Fh_,, $_{,Fk_.Fuq_oooooo._o,Fn_, Fj  ,:_{,Fu _.  Fnq\u00167\njhh \u0016?\n>w\u0006_{._,qy_{.Fb_,   qjlb#chat\nl_oo, Fj _.Fb   n ,#chat\nb\u00163\nuju\u0016?\n>w\u0006_ooooo.Fn_, Fh  ,y    :_oooo.Fn    _.    n Fn _oo.      Fj     n  _.         n   Fu         n  ,p\u00164\n_oooooo.      n  Fb        n_,           nFj        n     ,#chat\nj    n         n\u00167\nFu       Fu     n    Fu     n    Fu     nFu        n   Fu       yy\u001by  y y y\u001by  _"
+  }
+ ]
+}

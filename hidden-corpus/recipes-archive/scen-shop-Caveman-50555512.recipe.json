@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 speed boots\nWf\u0017blessed +3 cloak of magic resistance\nWg\u0016?\n>w\u0006_ \u001b.,\u0014:20ss_{,Fl _.q_ooo._,,p_oooo,,\u0017loadstone\ndi\u00163\nbyy\u0016?\n>w\u0006nky#chat\nubju#chat\nb_{,Fy_,FyqFyFyFyFyFyFy_ooooooooo,,\u0017luckstone\ndjkhu#chat\nb_ooo.Fl_,_ooo.,$_oo,,:_oo.,\u0017gray stone\ndj__,Fl_.Fl#chat\nlFlFl FlFlFlFl  n FlFlFlFlFlFl  nFlFlFlFlFlFl_oooo,,:Fk FkFkFkFkFk__. Fn _.Fj  #chat\nj #pray\ny y        _oooooooo._o.,:_{,     Fh  _,Fu   q_ooo.Fk  _.  Fh _ooo.,\u001bpFh   Fh   n  Fh Fh Fh Fh Fu Fu FuFu FuFu_ooo.Fl _,,\u001bp_{. Fl_.;@.FbqFbFbFbFbFbFb _ooooooooo.Fk_., Fu,$_ooo.Fk_,,Fk,$_ooo,_,_ooo._., $ _ooooooo.Fy  _,   nFy_o.Fk   n_.,  #chat\nk \u00167\n    Fj  n FjFj  n Fj  n Fj  n Fj   n\u00162\nFh   nFh   nFh   nFh   nFh  "
+ },
+ "segments": [
+  {
+   "seed": 50555512,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 speed boots\nWf\u0017blessed +3 cloak of magic resistance\nWg\u0016?\n>w\u0006_ \u001b.,\u0014:20ss_{,Fl _.q_ooo._,,p_oooo,,\u0017loadstone\ndi\u00163\nbyy\u0016?\n>w\u0006nky#chat\nubju#chat\nb_{,Fy_,FyqFyFyFyFyFyFy_ooooooooo,,\u0017luckstone\ndjkhu#chat\nb_ooo.Fl_,_ooo.,$_oo,,:_oo.,\u0017gray stone\ndj__,Fl_.Fl#chat\nlFlFl FlFlFlFl  n FlFlFlFlFlFl  nFlFlFlFlFlFl_oooo,,:Fk FkFkFkFkFk__. Fn _.Fj  #chat\nj #pray\ny y        _oooooooo._o.,:_{,     Fh  _,Fu   q_ooo.Fk  _.  Fh _ooo.,\u001bpFh   Fh   n  Fh Fh Fh Fh Fu Fu FuFu FuFu_ooo.Fl _,,\u001bp_{. Fl_.;@.FbqFbFbFbFbFbFb _ooooooooo.Fk_., Fu,$_ooo.Fk_,,Fk,$_ooo,_,_ooo._., $ _ooooooo.Fy  _,   nFy_o.Fk   n_.,  #chat\nk \u00167\n    Fj  n FjFj  n Fj  n Fj  n Fj   n\u00162\nFh   nFh   nFh   nFh   nFh  "
+  }
+ ]
+}

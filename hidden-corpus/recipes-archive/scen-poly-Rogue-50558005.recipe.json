@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of polymorph control\nPhl#polyself\nghoul\n#monster\n20s.20sss#polyself\nstone golem\n#monster\n.20sss20s#polyself\nAleax\n#monster\n20ss\u0007guard\nyFb Fb Fb  sm.  yy\u001by   y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 50558005,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of polymorph control\nPhl#polyself\nghoul\n#monster\n20s.20sss#polyself\nstone golem\n#monster\n.20sss20s#polyself\nAleax\n#monster\n20ss\u0007guard\nyFb Fb Fb  sm.  yy\u001by   y y\u001by  s"
+  }
+ ]
+}

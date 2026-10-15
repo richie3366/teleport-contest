@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 gauntlets of power\nWo\u0016?\n>v \u0014 \u001b,\u0016?\n>y  \u0004ly20ss\u00163\n\u0006_<.\u00163\n#levelchange\n12\n\u0017the Tsurugi of Muramasa\n \u0007floating eye\nFlFls sFl  20s   \u0007xorn\nFn       Fu    Fn     Fu     Fu   n    \u0007violet fungus\nFl     Fu     Fk   n        Fl  s \u0007stalker\n;l,20s  s  n  s \u00161\n\u0016?\n>>Ql un  n nl: \u0016?\n>>K     spellbook of remove curse\n_{.<\u001625\n#levelchange\n6\n b l  n  y  n  \u0017chaotic altar\ndb  n   n   n\u0017newt corpse\n#offer\n:    n b     \u0017moat\nk  n b     n \u0017tree\n#terrain\n\u001b#twoweapon\n,#rub\n\u00169\n\u0016?\n\u001bj  h \u0016?\n\u001blu\u001616\n\u0006m,_>.\u0016?\n\u001bnu \u0016?\n\u001by  n y   n \u001612\n\u0016?\n\u001bkb \u0016?\n\u001bkb  n  \u0016?\n\u001bk  n   n   ynny ny\u001b  b"
+ },
+ "segments": [
+  {
+   "seed": 50550024,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 gauntlets of power\nWo\u0016?\n>v \u0014 \u001b,\u0016?\n>y  \u0004ly20ss\u00163\n\u0006_<.\u00163\n#levelchange\n12\n\u0017the Tsurugi of Muramasa\n \u0007floating eye\nFlFls sFl  20s   \u0007xorn\nFn       Fu    Fn     Fu     Fu   n    \u0007violet fungus\nFl     Fu     Fk   n        Fl  s \u0007stalker\n;l,20s  s  n  s \u00161\n\u0016?\n>>Ql un  n nl: \u0016?\n>>K     spellbook of remove curse\n_{.<\u001625\n#levelchange\n6\n b l  n  y  n  \u0017chaotic altar\ndb  n   n   n\u0017newt corpse\n#offer\n:    n b     \u0017moat\nk  n b     n \u0017tree\n#terrain\n\u001b#twoweapon\n,#rub\n\u00169\n\u0016?\n\u001bj  h \u0016?\n\u001blu\u001616\n\u0006m,_>.\u0016?\n\u001bnu \u0016?\n\u001by  n y   n \u001612\n\u0016?\n\u001bkb \u0016?\n\u001bkb  n  \u0016?\n\u001bk  n   n   ynny ny\u001b  b"
+  }
+ ]
+}

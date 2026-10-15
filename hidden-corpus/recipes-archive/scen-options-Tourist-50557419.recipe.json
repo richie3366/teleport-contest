@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " mO>>>>>>mbk\n5\n1\ng\n anyOl\n#chat\nyOaf\np\n#twoweapon\nOnal\nk\n#ride\nhy#sit\nO>ehj\nfh \u0004nssO>ka\na\na\na\n\u001b\u001b>mO>>>>>>kp\nm\nl\n#force\n#untrap\nlOl\n#offer\nOpd\n#dip\naimO>>>>>>o\na\na\na\n\u001b,O>g\nL20ss"
+ },
+ "segments": [
+  {
+   "seed": 50557419,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " mO>>>>>>mbk\n5\n1\ng\n anyOl\n#chat\nyOaf\np\n#twoweapon\nOnal\nk\n#ride\nhy#sit\nO>ehj\nfh \u0004nssO>ka\na\na\na\n\u001b\u001b>mO>>>>>>kp\nm\nl\n#force\n#untrap\nlOl\n#offer\nOpd\n#dip\naimO>>>>>>o\na\na\na\n\u001b,O>g\nL20ss"
+  }
+ ]
+}

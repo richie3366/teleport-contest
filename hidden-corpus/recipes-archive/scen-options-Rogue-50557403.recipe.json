@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "mO>>>u\n #twoweapon\n#rub\nO>m\nl\n\\ Oo\ne\n#rub\nOo\nd\n#jump\nmO>>>>>>cj\n\u001b a\n\u001b#ride\nk\u0004knn..mO>>eo\n _m, \u001b>.20s#offer\nmO>>>>>t\nn\n#chat\nlmO>>>>ec\nu\n 1\n#terrain\nb\nOmOs s"
+ },
+ "segments": [
+  {
+   "seed": 50557403,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\n",
+   "moves": "mO>>>u\n #twoweapon\n#rub\nO>m\nl\n\\ Oo\ne\n#rub\nOo\nd\n#jump\nmO>>>>>>cj\n\u001b a\n\u001b#ride\nk\u0004knn..mO>>eo\n _m, \u001b>.20s#offer\nmO>>>>>t\nn\n#chat\nlmO>>>>ec\nu\n 1\n#terrain\nb\nOmOs s"
+  }
+ ]
+}

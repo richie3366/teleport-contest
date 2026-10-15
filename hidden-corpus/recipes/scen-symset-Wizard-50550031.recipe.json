@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#chat\nh oj #dip\ngh \u0006_ \u001b:>FhFh_>._.>_>._.>zcu cl \u0006_>.Fn_>FlFl_>,Fn_>FlFn_>FlFnFlFnFl\u0006_>.Fl_.Fl>FlFl_>.Fl_,Fl>FlFl_>.Fn_>FnFln FnFnFn\u0006_>>,Fn_>FnFln _>>,Fl_,Fl>FlFl_>>.Fl_,Fl>FlFlFnFnFn\u0006_>.Fl_,Fl>FnFn_>.Fl_,Fn>FlFlFn\u0006_>.Fn_>FnFl_>.Fl_.Fl>FnFn_>,Fn_>FlFnFlFlFnmO>>>t\u001b\nmO>>>i\u001b\nOm\u001b\n150syh\u001by_>._.Fn>FnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnmO>>>>k\u001b\nun nkn \u0017fountain\nqy<.qy\u0017long sword\n#dip\noy y:un h\u001b\u0017iron bars\n#terrain\nf\nrl y \u0014;\u0004u \u00162\n100sFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFn"
+ },
+ "segments": [
+  {
+   "seed": 50550031,
+   "datetime": "20100427210010",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "#chat\nh oj #dip\ngh \u0006_ \u001b:>FhFh_>._.>_>._.>zcu cl \u0006_>.Fn_>FlFl_>,Fn_>FlFn_>FlFnFlFnFl\u0006_>.Fl_.Fl>FlFl_>.Fl_,Fl>FlFl_>.Fn_>FnFln FnFnFn\u0006_>>,Fn_>FnFln _>>,Fl_,Fl>FlFl_>>.Fl_,Fl>FlFlFnFnFn\u0006_>.Fl_,Fl>FnFn_>.Fl_,Fn>FlFlFn\u0006_>.Fn_>FnFl_>.Fl_.Fl>FnFn_>,Fn_>FlFnFlFlFnmO>>>t\u001b\nmO>>>i\u001b\nOm\u001b\n150syh\u001by_>._.Fn>FnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnmO>>>>k\u001b\nun nkn \u0017fountain\nqy<.qy\u0017long sword\n#dip\noy y:un h\u001b\u0017iron bars\n#terrain\nf\nrl y \u0014;\u0004u \u00162\n100sFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFn"
+  }
+ ]
+}

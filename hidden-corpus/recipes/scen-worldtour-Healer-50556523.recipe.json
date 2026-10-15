@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed ring of free action\nPmr\u0017blessed +3 helm of telepathy\nWn\u0016?\nk   knl:\u0016?\no \u0006_ \u001b<. \u0016?\n>>P  kb\u0017ruby\nEa Elbereth\n: \u0017wand of cancellation\nEb  Vlad was here\nhE- Vlad was here\n: \u0017wand of locking\nEcn  Elbereth\n\u0017wand of teleportation\nEd  I am a fish\nkE- Elbereth Elbereth\n\u0007minotaur\n20s 20s sm. sl\u0016?\n>>K      scroll of earth\n__,<\u0016?\n\u001bh y\u0016?\n\u001bjy\u0016?\n\u001bl   j\u001624\n__.>.m.  n     sm.        .y\u001624\nl     y  yn   n l      y   u           n    :\u00161\n\u0016?\n\u001bb          n u                       n  \u00165\n\u0016?\n\u001bh   n     n     \u001643\n_<,\u001624\n\u0014,      20s   s   n      nsm.  \u00169\n\u0016?\ne _<.>\u0016?\nd\u0006:_<..l   sm.   sm.   \u0016?\n\u001bl     ny\u00169\nk b  k    k   n   b:   s    20s  \u0016?\nc k  n jk u  n j   nh    :      n   n  \u001613\n\u0006_>,\u001624\n\u0006_<.\u0016?\n\u001by    n    b  yy\u001by   y y y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50556523,
+   "datetime": "20041206132203",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed ring of free action\nPmr\u0017blessed +3 helm of telepathy\nWn\u0016?\nk   knl:\u0016?\no \u0006_ \u001b<. \u0016?\n>>P  kb\u0017ruby\nEa Elbereth\n: \u0017wand of cancellation\nEb  Vlad was here\nhE- Vlad was here\n: \u0017wand of locking\nEcn  Elbereth\n\u0017wand of teleportation\nEd  I am a fish\nkE- Elbereth Elbereth\n\u0007minotaur\n20s 20s sm. sl\u0016?\n>>K      scroll of earth\n__,<\u0016?\n\u001bh y\u0016?\n\u001bjy\u0016?\n\u001bl   j\u001624\n__.>.m.  n     sm.        .y\u001624\nl     y  yn   n l      y   u           n    :\u00161\n\u0016?\n\u001bb          n u                       n  \u00165\n\u0016?\n\u001bh   n     n     \u001643\n_<,\u001624\n\u0014,      20s   s   n      nsm.  \u00169\n\u0016?\ne _<.>\u0016?\nd\u0006:_<..l   sm.   sm.   \u0016?\n\u001bl     ny\u00169\nk b  k    k   n   b:   s    20s  \u0016?\nc k  n jk u  n j   nh    :      n   n  \u001613\n\u0006_>,\u001624\n\u0006_<.\u0016?\n\u001by    n    b  yy\u001by   y y y\u001b  \u0016"
+  }
+ ]
+}

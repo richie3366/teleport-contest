@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPel#polyself\npiranha\n   s20s sss#polyself\nsandestin\n hobbit\n20s 20s.ss#polyself\ncouatl\nsss.s#polyself\nghoul\n#monster\ns20s \u0007incubus\nFh Fh  Fh       20sssm.    "
+ },
+ "segments": [
+  {
+   "seed": 50558002,
+   "datetime": "20230907202133",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPel#polyself\npiranha\n   s20s sss#polyself\nsandestin\n hobbit\n20s 20s.ss#polyself\ncouatl\nsss.s#polyself\nghoul\n#monster\ns20s \u0007incubus\nFh Fh  Fh       20sssm.    "
+  }
+ ]
+}

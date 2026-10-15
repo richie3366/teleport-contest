@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  \u00178000 gold pieces\n\u0017blessed +3 speed boots\nWi  \u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w  \u0006_ \u001bm.,  p\u001b_oooooooo,,\u0014m,    ..__.   _.Fy #chat\nk _{,  n Fk  n_,   nFy q\u001612\n_oooo.,#chat\nbhk  n k  n #chat\nk\u00165\n_oooooo._o,,\u0017amulet of flying\ndl  n_ooooooo.,\u0017worthless piece of red glass\ndm__.#chat\nn_ooooooooo.,\u0017luckstone\ndn  nFnFnFn  nFnFnFn_{.q_{.q_oooo.,#chat\nh  n _oooooooo.,: _oooo,,#chat\nnFh  nFhFhFh  nFhFh\u00168\nj  nbb#chat\njFjFj  n FjFjFj   nFj \u00166\n_ooooo,Fh_.  ,pll    nh  #chat\nlFl    y y\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50555539,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00178000 gold pieces\n\u0017blessed +3 speed boots\nWi  \u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w  \u0006_ \u001bm.,  p\u001b_oooooooo,,\u0014m,    ..__.   _.Fy #chat\nk _{,  n Fk  n_,   nFy q\u001612\n_oooo.,#chat\nbhk  n k  n #chat\nk\u00165\n_oooooo._o,,\u0017amulet of flying\ndl  n_ooooooo.,\u0017worthless piece of red glass\ndm__.#chat\nn_ooooooooo.,\u0017luckstone\ndn  nFnFnFn  nFnFnFn_{.q_{.q_oooo.,#chat\nh  n _oooooooo.,: _oooo,,#chat\nnFh  nFhFhFh  nFhFh\u00168\nj  nbb#chat\njFjFj  n FjFjFj   nFj \u00166\n_ooooo,Fh_.  ,pll    nh  #chat\nlFl    y y\u001by   y y y\u001by  F"
+  }
+ ]
+}

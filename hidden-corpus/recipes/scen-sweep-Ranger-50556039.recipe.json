@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0007housecat\n\u0017meatball\ntcl \u0017lichen corpse\ntcl  \u0017tin whistle\nbhhail hde.m.sm.sl\u0007newt\nsh.j sy20s   .m.sm.j\u0006_ \u001b@.>FlFl_>>,Fb_,:Fu>FuFu_>>.Fu_.>nhny\u0017pit\nkjs20slk\u0017magic portal\nl\u0007sewer rat\nsh.m.20s.m.h ny   ny y\u001b \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50556039,
+   "datetime": "20170721115736",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0007housecat\n\u0017meatball\ntcl \u0017lichen corpse\ntcl  \u0017tin whistle\nbhhail hde.m.sm.sl\u0007newt\nsh.j sy20s   .m.sm.j\u0006_ \u001b@.>FlFl_>>,Fb_,:Fu>FuFu_>>.Fu_.>nhny\u0017pit\nkjs20slk\u0017magic portal\nl\u0007sewer rat\nsh.m.20s.m.h ny   ny y\u001b \u0017"
+  }
+ ]
+}

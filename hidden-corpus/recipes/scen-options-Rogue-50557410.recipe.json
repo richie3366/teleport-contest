@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " Ocf\n>,mO>>>>daf\n yes\n mango\n#untrap\nhO>bae\nl\n#sit\nOeli\np\nckmO>>>>>qsd\nc\nt\nolmO>>>>fd\non\n off\n\u0004l lssmOa\n\u0014#monster\nO>nhk\nb\nf\ns\n\u001b\u001by#enhance\n\u001bO>ej\nqd#untrap\nuOpf\n;<. \u001b>.#ride\nbs20s"
+ },
+ "segments": [
+  {
+   "seed": 50557410,
+   "datetime": "20030317211640",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\n",
+   "moves": " Ocf\n>,mO>>>>daf\n yes\n mango\n#untrap\nhO>bae\nl\n#sit\nOeli\np\nckmO>>>>>qsd\nc\nt\nolmO>>>>fd\non\n off\n\u0004l lssmOa\n\u0014#monster\nO>nhk\nb\nf\ns\n\u001b\u001by#enhance\n\u001bO>ej\nqd#untrap\nuOpf\n;<. \u001b>.#ride\nbs20s"
+  }
+ ]
+}

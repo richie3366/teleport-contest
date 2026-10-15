@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed ring of free action\nPol\u0016?\ne   bj\u0017wand of enlightenment\nEp \u001b  I am a fish\n: \u0017magic marker\nEq  Elbereth Elbereth\ny\u0017wand of cancellation\nEr I am a fish\nb\u0017wand of fire\nEs ad aerarium\n: \u0017wand of light\nEt E-\u0007minotaur\n20s su 20s   n\u001613\nylnyl:\u0016?\n>>M     amulet of change\nju  k         :\u001639\n\u0006_ \u001b.\u001639\n#levelchange\n12\n\u0007ogre king\nFb   Fb \u0007yellow mold\nFn    n      Fk     \u001618\n#levelchange\n10\n\u0007chickatrice\nFj  n        Fk   n           Fj     n       Fj Fk  n            Fk  n    sy     n      .   \u0007black pudding\nFkFj       n      Fl        n     Fn   n      Fk  n       Fj.. #pray\ny y \u0007vampire lord\nFk  n        FjFjFj  n      ss #pray\ny y  20s\u001b\u00164\n\u001623\nyujj    n     : .\u001618\nn  yy\u001by   y y y\u001b  h"
+ },
+ "segments": [
+  {
+   "seed": 50556516,
+   "datetime": "20240115171017",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed ring of free action\nPol\u0016?\ne   bj\u0017wand of enlightenment\nEp \u001b  I am a fish\n: \u0017magic marker\nEq  Elbereth Elbereth\ny\u0017wand of cancellation\nEr I am a fish\nb\u0017wand of fire\nEs ad aerarium\n: \u0017wand of light\nEt E-\u0007minotaur\n20s su 20s   n\u001613\nylnyl:\u0016?\n>>M     amulet of change\nju  k         :\u001639\n\u0006_ \u001b.\u001639\n#levelchange\n12\n\u0007ogre king\nFb   Fb \u0007yellow mold\nFn    n      Fk     \u001618\n#levelchange\n10\n\u0007chickatrice\nFj  n        Fk   n           Fj     n       Fj Fk  n            Fk  n    sy     n      .   \u0007black pudding\nFkFj       n      Fl        n     Fn   n      Fk  n       Fj.. #pray\ny y \u0007vampire lord\nFk  n        FjFjFj  n      ss #pray\ny y  20s\u001b\u00164\n\u001623\nyujj    n     : .\u001618\nn  yy\u001by   y y y\u001b  h"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00163\nFkFy FyFjFuFyFkFkFyFlFlFlFjFkFuFyFkFuFjFnFnFjFhFnFuFkFhFjFhFhFjFyFyFuFbFnFbFuFuFuFnFyFhFhFyFkFhFhFlFuFkFkFbFhFlFnFhFuFyFlFlFkFkFjFbFuFuFuFnFlFjFjFuFhFjFyFkFuFhFhFjFkFjFkFjFhFyFyFlFlFlFyFnFjFuFyFuFhFbFbFkFkFnFbFnFuFlFyFjFkFkFbFyFkFjFbFlFuFhFj\u0006_ \u001bm.>FkFh_>.Fn_.> FyFuFn\u0006_>.Fl  n_.>.Fn>FkFh_>.Fy_,@.Fj>FjFb_>.Fk_,  nFk>FhFbFhFkFy;b,r\u001b\u0006_>>.Fu_.Fj>FnFn_>>,Fb_,Fb>FjFb_>>.Fk_,Fj>FhFyFnFhFj<\u0006_>>.Fh_.Fb>FuFh_>>.Fn_.Fj>FyFu_>>,Fb_.Fh>FyFhFuFyFu\u001611\n\u0006_>.Fl_,Fl>FlFk_>.Fb_.Fu>FuFy_>,Fu_.Fk>FyFkFyFbFu\u0006_>>.Fl_.Fy>FjFn_>>.Fu_.Fk>FnFl_>>.Fj_.Fy>FnFnFkFkFu#wipe\n\u000f\u001b\u0006_>>.Fn_,Fu>FuFj_>>.Fn_,Fu>FbFy_>>.Fb_.Fu>FuFjFyFyFu<\u0006_>.Fk_.Fb>FyFu_>.Fj_.Fj>FyFu_>,Fu_,Fn>FyFlFjFlFu\u000f\u001b\u00164\nFyFhFlFhFyFjFnFuFjFkFuFuFuFyFyFbFkFyFhFnFyFnFjFhFbFyFkFjFlFjFbFlFyFjFjFjFkFbFnFjFhFlFyFhFkFnFnFjFnFyFkFuFlFlFlFhFyFuFkFnFbFuFuFbFbFyFlFkFlFuFkFlFbFkFhFlFnFnFbFuFlFuFbFjFjFuFyFhFjFkFnFhFbFhFbFhFkFlFlFjFhFhFkFnFyFhFbFuFhFbFuFyFyFjFnFuFhFjFuFj\u00168\n\u0006_>. Fn_.> FuFlFy10sef\u0006_>>.Fk _.Fn>Fh  n Fk_>>,Fh_,Fl  n>Fk Fu  _>>.Fl_.  n Fn>FhFl  n FlFk Fk   "
+ },
+ "segments": [
+  {
+   "seed": 50555003,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\nMENUCOLOR=\"cursed\"=green\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00163\nFkFy FyFjFuFyFkFkFyFlFlFlFjFkFuFyFkFuFjFnFnFjFhFnFuFkFhFjFhFhFjFyFyFuFbFnFbFuFuFuFnFyFhFhFyFkFhFhFlFuFkFkFbFhFlFnFhFuFyFlFlFkFkFjFbFuFuFuFnFlFjFjFuFhFjFyFkFuFhFhFjFkFjFkFjFhFyFyFlFlFlFyFnFjFuFyFuFhFbFbFkFkFnFbFnFuFlFyFjFkFkFbFyFkFjFbFlFuFhFj\u0006_ \u001bm.>FkFh_>.Fn_.> FyFuFn\u0006_>.Fl  n_.>.Fn>FkFh_>.Fy_,@.Fj>FjFb_>.Fk_,  nFk>FhFbFhFkFy;b,r\u001b\u0006_>>.Fu_.Fj>FnFn_>>,Fb_,Fb>FjFb_>>.Fk_,Fj>FhFyFnFhFj<\u0006_>>.Fh_.Fb>FuFh_>>.Fn_.Fj>FyFu_>>,Fb_.Fh>FyFhFuFyFu\u001611\n\u0006_>.Fl_,Fl>FlFk_>.Fb_.Fu>FuFy_>,Fu_.Fk>FyFkFyFbFu\u0006_>>.Fl_.Fy>FjFn_>>.Fu_.Fk>FnFl_>>.Fj_.Fy>FnFnFkFkFu#wipe\n\u000f\u001b\u0006_>>.Fn_,Fu>FuFj_>>.Fn_,Fu>FbFy_>>.Fb_.Fu>FuFjFyFyFu<\u0006_>.Fk_.Fb>FyFu_>.Fj_.Fj>FyFu_>,Fu_,Fn>FyFlFjFlFu\u000f\u001b\u00164\nFyFhFlFhFyFjFnFuFjFkFuFuFuFyFyFbFkFyFhFnFyFnFjFhFbFyFkFjFlFjFbFlFyFjFjFjFkFbFnFjFhFlFyFhFkFnFnFjFnFyFkFuFlFlFlFhFyFuFkFnFbFuFuFbFbFyFlFkFlFuFkFlFbFkFhFlFnFnFbFuFlFuFbFjFjFuFyFhFjFkFnFhFbFhFbFhFkFlFlFjFhFhFkFnFyFhFbFuFhFbFuFyFyFjFnFuFhFjFuFj\u00168\n\u0006_>. Fn_.> FuFlFy10sef\u0006_>>.Fk _.Fn>Fh  n Fk_>>,Fh_,Fl  n>Fk Fu  _>>.Fl_.  n Fn>FhFl  n FlFk Fk   "
+  }
+ ]
+}

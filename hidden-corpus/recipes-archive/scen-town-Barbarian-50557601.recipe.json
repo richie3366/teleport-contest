@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqe \u001b<._ooooo,_.,\u0014>.__.Fu_, Fn  #chat\nnd$ _ooooo.Fn  _. Fn_oo.Fn _.Fj,:_ooooooooo.Fb _. Fh ,p_mm. Fh _. Fh  #chat\nh_oooooo,Fh_,<.,\u0014m,r\u001b#jump\n#jump\n"
+ },
+ "segments": [
+  {
+   "seed": 50557601,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqe \u001b<._ooooo,_.,\u0014>.__.Fu_, Fn  #chat\nnd$ _ooooo.Fn  _. Fn_oo.Fn _.Fj,:_ooooooooo.Fb _. Fh ,p_mm. Fh _. Fh  #chat\nh_oooooo,Fh_,<.,\u0014m,r\u001b#jump\n#jump\n"
+  }
+ ]
+}

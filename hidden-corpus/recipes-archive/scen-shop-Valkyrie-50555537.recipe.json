@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed amulet of reflection\nPe\u0017blessed +3 gray dragon scale mail\nWf\u0016?\n>w\u0006_ \u001bm,_oo,,\u0017worthless piece of red glass\ndg_oo._oo.,:_oooooo.,p_{,       Fl      _.q_oooooo.,$\u00163\nk  j  n l\u0016?\n>w\u0006_oooooooo,,\u0014m.20s s_ooo.Fj _. Fj ,\u0017amulet of ESP\ndh_oooo,,:FjFj Fj Fj   nFj Fj Fj FjFj   Fj  Fj   n Fj  \u0016?\n>Bub y\u0016?\n>w\u0006_oooo.Fj   n _,@.Fk  _ooo,,#chat\nj  _{,Fb_.Fh  q_{.Fh  _,;@.FhqFh   FhFh   n Fh     nFhFh  \u00167\n_oooooooo,_ooo.,$_oooooooo,_ooo.,p_{.q__.#chat\ny  #pray\ny y   _oooooo.,$_oooo,_o.,\u0017amulet of life saving\ndi     n  _{.q_oo,_ooo.,  \u0017amulet of reflection\ndk  \u0016?\n>Blhb  \u0016?\n>w\u0006_ooooooo.Fk   n _.;,Fu     n,p\u0016?\nchlh \u0016?\n>w\u0006\u00165\nFb   Fb  "
+ },
+ "segments": [
+  {
+   "seed": 50555537,
+   "datetime": "20130106045930",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed amulet of reflection\nPe\u0017blessed +3 gray dragon scale mail\nWf\u0016?\n>w\u0006_ \u001bm,_oo,,\u0017worthless piece of red glass\ndg_oo._oo.,:_oooooo.,p_{,       Fl      _.q_oooooo.,$\u00163\nk  j  n l\u0016?\n>w\u0006_oooooooo,,\u0014m.20s s_ooo.Fj _. Fj ,\u0017amulet of ESP\ndh_oooo,,:FjFj Fj Fj   nFj Fj Fj FjFj   Fj  Fj   n Fj  \u0016?\n>Bub y\u0016?\n>w\u0006_oooo.Fj   n _,@.Fk  _ooo,,#chat\nj  _{,Fb_.Fh  q_{.Fh  _,;@.FhqFh   FhFh   n Fh     nFhFh  \u00167\n_oooooooo,_ooo.,$_oooooooo,_ooo.,p_{.q__.#chat\ny  #pray\ny y   _oooooo.,$_oooo,_o.,\u0017amulet of life saving\ndi     n  _{.q_oo,_ooo.,  \u0017amulet of reflection\ndk  \u0016?\n>Blhb  \u0016?\n>w\u0006_ooooooo.Fk   n _.;,Fu     n,p\u0016?\nchlh \u0016?\n>w\u0006\u00165\nFb   Fb  "
+  }
+ ]
+}

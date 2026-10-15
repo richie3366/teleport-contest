@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "FlFlFlFlFlFlFlFl lnynKJHU _ \u001bm,>BBKJ_>,>#name\nf\n#force\n@.YHJL_>.>#terrain\nc\n>.#force\nLKUJ_>,>Fj20sFnsi\u001bLKNN_>.>FjssBNJN_>.>#wipe\n#dip\ne \u000f\u001bkjhukyulLHKN_>,>HBNL_>.>JBNB_>,>#jump\neUBKK_>,>#monster\n#terrain\nc\n<.HHKU_>.>BBYY_>,>ubub150s50s\u0018\u001b100s150sFuFu20sh150s100s_>.>lll_>,>50s50seeeeeeeeeeeeeeeeeeeeeeeeeellhhllhldb20sssllhlt\u001bhlhlhlhl#chat\nh#chat\nk#chat\nndd20ssshlllt\u001bhlhlnyhllkkkFkFkFkFkFkFkFkFk#chat\nhulhbjj10snlNNNK_>.>HULB_>.>YJJK_>,>KJKJ_>,>#enhance\n\u001b#offer\nJJBJ_>.>HJKL_>.>Fns20s ;>.#ride\n.NHUN_>,>BBLL_>.>BNNK_>.><LJKB_>,>UJJB_>.><JBY B_>.>Fls.hllllhh  hdes    y\u001by  ny y\u001b  2Fb FbFbFbFbFbFbFbyuyykjkyljyn#chat\nb#name\ni\n20sjjtbl100syhlFlFlshlh150sFhFhFhFhss100sFhs20s\u0018\u001b\u0018\u001b\\   llhi\u001b150sFhs.100s150sFnFnFnFnss150s\u0018\u001b100sFn.s_ \u001b<.>50s100shhknyh_>,>uny50sFhs20s50s \\   50slnkk jjFy FyskbjuhuyBKYJ_>,>:ckUBKJ_>,>Fk.sJHHH_>.>HYHN_>,>UNUU_>,>UYYH_>.>;.#invoke\n\u001bBKNK_>.>#ride\nu#invoke\n\u001b\u000f\u001bujjb10sljlnlhlllkju150s100sFhss100s100sFhs20s100s150sFlFl20sFbFhFhFh20s.50s50sFb.20seh100seh_>,>50si\u001b100s100sFbFb.\u0018\u001b#pray\ny  50seh100s>\u0018\u001bhlhFbFbslhj150segklhlbui\u001b100s100sFhFhFhFhFhFhFhFhubbuegulu150sFlFlseh\\   i\u001b100seh100seg150s50sFbss100seg\u0018\u001b_>,>150s\u0018\u001br\u001b150s eg100s100sehlkllll100seg150sFhFhFh150seh100seg100seg150seghlhlkbuklbjkbu10s100seh150segbhli\u001b100seg#quit\nyy\u001by  y y y\u001b   \u0007minotaur\nFlFj  yy\u001by  y y\u001by  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50557207,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=pettype:cat\n",
+   "moves": "FlFlFlFlFlFlFlFl lnynKJHU _ \u001bm,>BBKJ_>,>#name\nf\n#force\n@.YHJL_>.>#terrain\nc\n>.#force\nLKUJ_>,>Fj20sFnsi\u001bLKNN_>.>FjssBNJN_>.>#wipe\n#dip\ne \u000f\u001bkjhukyulLHKN_>,>HBNL_>.>JBNB_>,>#jump\neUBKK_>,>#monster\n#terrain\nc\n<.HHKU_>.>BBYY_>,>ubub150s50s\u0018\u001b100s150sFuFu20sh150s100s_>.>lll_>,>50s50seeeeeeeeeeeeeeeeeeeeeeeeeellhhllhldb20sssllhlt\u001bhlhlhlhl#chat\nh#chat\nk#chat\nndd20ssshlllt\u001bhlhlnyhllkkkFkFkFkFkFkFkFkFk#chat\nhulhbjj10snlNNNK_>.>HULB_>.>YJJK_>,>KJKJ_>,>#enhance\n\u001b#offer\nJJBJ_>.>HJKL_>.>Fns20s ;>.#ride\n.NHUN_>,>BBLL_>.>BNNK_>.><LJKB_>,>UJJB_>.><JBY B_>.>Fls.hllllhh  hdes    y\u001by  ny y\u001b  2"
+  },
+  {
+   "seed": 50657207,
+   "datetime": "20020220010720",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\n",
+   "moves": "Fb FbFbFbFbFbFbFbyuyykjkyljyn#chat\nb#name\ni\n20sjjtbl100syhlFlFlshlh150sFhFhFhFhss100sFhs20s\u0018\u001b\u0018\u001b\\   llhi\u001b150sFhs.100s150sFnFnFnFnss150s\u0018\u001b100sFn.s_ \u001b<.>50s100shhknyh_>,>uny50sFhs20s50s \\   50slnkk jjFy FyskbjuhuyBKYJ_>,>:ckUBKJ_>,>Fk.sJHHH_>.>HYHN_>,>UNUU_>,>UYYH_>.>;.#invoke\n\u001bBKNK_>.>#ride\nu#invoke\n\u001b\u000f\u001bujjb10sljlnlhlllkju150s100sFhss100s100sFhs20s100s150sFlFl20sFbFhFhFh20s.50s50sFb.20seh100seh_>,>50si\u001b100s100sFbFb.\u0018\u001b#pray\ny  50seh100s>\u0018\u001bhlhFbFbslhj150segklhlbui\u001b100s100sFhFhFhFhFhFhFhFhubbuegulu150sFlFlseh\\   i\u001b100seh100seg150s50sFbss100seg\u0018\u001b_>,>150s\u0018\u001br\u001b150s eg100s100sehlkllll100seg150sFhFhFh150seh100seg100seg150seghlhlkbuklbjkbu10s100seh150segbhli\u001b100seg#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50757207,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007minotaur\nFlFj  yy\u001by  y y\u001by  F"
+  }
+ ]
+}

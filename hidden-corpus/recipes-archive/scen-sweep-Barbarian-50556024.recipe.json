@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           #levelchange\n6\n hulj \u0017fire trap\nlh20s20su\u0017level teleporter\nkj 9\n 20s .m.  n\u0017anti-magic field\nj   n   k    su   n   20s   #wipe\n   n   zP\u001620\n\u0018\u001b\u00165\n#levelchange\n8\n  \u0016?\n>>R#enhance\nye\ns\n\u001be\u000f\u001b;_. \u001bm,\u0006.s\u0016?\n>>L      scroll of destroy armor\n\u0004j\u000f\u001bi\u001b;k,sb sm.   \u001b\u0016?\n\u001b\u0016?\n\u001b\u0016?\n\u001b\u001614\n_mmmm.  Fb_.#chat"
+ },
+ "segments": [
+  {
+   "seed": 50556024,
+   "datetime": "20000716080118",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           #levelchange\n6\n hulj \u0017fire trap\nlh20s20su\u0017level teleporter\nkj 9\n 20s .m.  n\u0017anti-magic field\nj   n   k    su   n   20s   #wipe\n   n   zP\u001620\n\u0018\u001b\u00165\n#levelchange\n8\n  \u0016?\n>>R#enhance\nye\ns\n\u001be\u000f\u001b;_. \u001bm,\u0006.s\u0016?\n>>L      scroll of destroy armor\n\u0004j\u000f\u001bi\u001b;k,sb sm.   \u001b\u0016?\n\u001b\u0016?\n\u001b\u0016?\n\u001b\u001614\n_mmmm.  Fb_.#chat"
+  }
+ ]
+}

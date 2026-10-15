@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0016?\ne\u0006Fu ...FjFj h j   \u001b:  jj,#jump\nH#levelchange\n10\n      \u0017shield of reflection\nWj   @.  n  \u0016?\nh\u0006ssss 20s Fulhlh #invoke\n\u001b,di Sy\u001b nn   ynnny y\u001b  y",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50551017,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0016?\ne\u0006Fu ...FjFj h j   \u001b:  jj,#jump\nH#levelchange\n10\n      \u0017shield of reflection\nWj   @.  n  \u0016?\nh\u0006ssss 20s Fulhlh #invoke\n\u001b,di Sy\u001b"
+  },
+  {
+   "seed": 51051017,
+   "datetime": "20090414004511",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " nn   ynnny y\u001b  y"
+  }
+ ]
+}

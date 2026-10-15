@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "FnFnFjFk FnFlFlFlFlFuFuFnFuFlFnFlFjFjFnFjFnFlFjFuFuFlFjFjFjFjFnFjFnFjFlFuFlFjFjFjFlFlFjFlFlFuFuFjFjFjFjFnFnFjFjFnFuFlFlFjFlFuFjFnFnFjFjFjFjFjFlFnFuFuFuFnFuFuFnFuFjFlFjFnFnFjFuFnFjFnFlFnFlFnFuFuFlFjFjFuFjFuFuFuFnFnFuFjFlFnFlFuFjFnFuFuFnFn  nFlFuO>>>f\u001b\n\u001610\nFhFkFyFyFnFuFkFbFnFkFlFlFnFyFuFuFuFnFuFnFkFkFnFlFlFhFbFbFnFkFbFnFkFyFuFuFuFuFnFuFuFlFhFbFuFbFkFlFlFnFlFkFbFuFhFnFyFbFnFkFnFkFbFhFkFnFbFnFlFkFuFuFuFkFnFuFyFlFbFhFyFnFhFbFnFyFuFhFhFbFkFkFnFhFuFuFkFnFnFlFbFyFuFlFhFuFyFuFhFbFuFbFbFuFhFnFhFnFhFy#levelchange\n14\n             uyub\u0017throne\n#sit\n #sit\n  hn\u0017grave\n:\u0017wand of digging\nzf> ssj\u0017neutral altar\ndf\u0017lichen corpse\n#offer\ng  r\u001b\u001b#loot\nj\u00167\n FlFuFlFlFl"
+ },
+ "segments": [
+  {
+   "seed": 50555028,
+   "datetime": "20250525181831",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "FnFnFjFk FnFlFlFlFlFuFuFnFuFlFnFlFjFjFnFjFnFlFjFuFuFlFjFjFjFjFnFjFnFjFlFuFlFjFjFjFlFlFjFlFlFuFuFjFjFjFjFnFnFjFjFnFuFlFlFjFlFuFjFnFnFjFjFjFjFjFlFnFuFuFuFnFuFuFnFuFjFlFjFnFnFjFuFnFjFnFlFnFlFnFuFuFlFjFjFuFjFuFuFuFnFnFuFjFlFnFlFuFjFnFuFuFnFn  nFlFuO>>>f\u001b\n\u001610\nFhFkFyFyFnFuFkFbFnFkFlFlFnFyFuFuFuFnFuFnFkFkFnFlFlFhFbFbFnFkFbFnFkFyFuFuFuFuFnFuFuFlFhFbFuFbFkFlFlFnFlFkFbFuFhFnFyFbFnFkFnFkFbFhFkFnFbFnFlFkFuFuFuFkFnFuFyFlFbFhFyFnFhFbFnFyFuFhFhFbFkFkFnFhFuFuFkFnFnFlFbFyFuFlFhFuFyFuFhFbFuFbFbFuFhFnFhFnFhFy#levelchange\n14\n             uyub\u0017throne\n#sit\n #sit\n  hn\u0017grave\n:\u0017wand of digging\nzf> ssj\u0017neutral altar\ndf\u0017lichen corpse\n#offer\ng  r\u001b\u001b#loot\nj\u00167\n FlFuFlFlFl"
+  }
+ ]
+}

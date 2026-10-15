@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPk\u0016?\n>w\u0006_ \u001b.,p_oooo._ooo.Fj_.Fk, p_oo,, p_ooo., p_{,      _.;:   qd  n_oooooo.,\u0014m..s_oo._ooo.,p\u0016?\nchnn\u0016?\n>w\u0006hub#chat\nl_oooooo._o.,p_{._.,qd  _ooooooooo,,#chat\nu_oooo.,p_oooo.,:_ooooooooo.,#chat\nu__,_.<.Fj#chat\njFjFjFjFj  nFjFj_oo,,#chat\nkhhu#chat\nl_{._,@.Fjqd__. _,>.Fj#chat\ny_oooooo._._ooo.,p\u0016?\ncjnl\u0016?\n>w\u0006_ooooooo,_.,\u0017flint stone\ndn_ooooo._._ooo,_.,p_oooooo._.,#chat\nh\u00167\nykk\u0016?\n>w\u0006lhn#chat\nh\u00167\nhju\u0016?\n>w\u0006_{._,.qd_ooooooooo._ooo.,$__.Fk  _,.#chat\nh_ooo.,$_oooooooo._"
+ },
+ "segments": [
+  {
+   "seed": 50550053,
+   "datetime": "20181216124150",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPk\u0016?\n>w\u0006_ \u001b.,p_oooo._ooo.Fj_.Fk, p_oo,, p_ooo., p_{,      _.;:   qd  n_oooooo.,\u0014m..s_oo._ooo.,p\u0016?\nchnn\u0016?\n>w\u0006hub#chat\nl_oooooo._o.,p_{._.,qd  _ooooooooo,,#chat\nu_oooo.,p_oooo.,:_ooooooooo.,#chat\nu__,_.<.Fj#chat\njFjFjFjFj  nFjFj_oo,,#chat\nkhhu#chat\nl_{._,@.Fjqd__. _,>.Fj#chat\ny_oooooo._._ooo.,p\u0016?\ncjnl\u0016?\n>w\u0006_ooooooo,_.,\u0017flint stone\ndn_ooooo._._ooo,_.,p_oooooo._.,#chat\nh\u00167\nykk\u0016?\n>w\u0006lhn#chat\nh\u00167\nhju\u0016?\n>w\u0006_{._,.qd_ooooooooo._ooo.,$__.Fk  _,.#chat\nh_ooo.,$_oooooooo._"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017cursed wand of undead turning\n\u0007gas spore\nzlk\u0017blessed Grimtooth\n wmFhFh Fy  \u0017cursed flint stone\naniFkFk \u0017cursed tin of spinach\neo   yy.s\u0017blindfold\naps.\u001628\nlkhl\u0017hole\nh#untrap\nljy\u0017anti-magic field\nn^yy20ssnh\u0017pit\nlh  nssl  n  n  n\u0017rust trap\n#terrain\nd\n\u001b>.ky  n  n  n  n \u0004b  n  n #wipe\n  n  n  n  n \u00169\n\u0007tame saddled black unicorn\n#ride\nly\u0007tame saddled horse\n#ride\nhy\u0007tame saddled warhorse\n#ride\nbyy,\u0004nnuku,ss\u0007giant rat\nFn..,\u0006#levelchange\n14\n               lnyn\u0017magic fountain\nqduj\u0017ice\nbubu#conduct\n qdZa\n#levelchange\n14\n\u0007hostile lurker above\nFyFhsFnFuFbFb#pray\ny yFj#pray\ny yFks\u0017Grayswandir\nwq FlsFj\u0007Juiblex\nyy;<.s20s    sm.\u0007Demogorgon\nynFkFj  \u0007earth elemental\nFl    20s    ns   sm.  \u0007brown mold\nsm.      yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50556022,
+   "datetime": "20150402223441",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017cursed wand of undead turning\n\u0007gas spore\nzlk\u0017blessed Grimtooth\n wmFhFh Fy  \u0017cursed flint stone\naniFkFk \u0017cursed tin of spinach\neo   yy.s\u0017blindfold\naps.\u001628\nlkhl\u0017hole\nh#untrap\nljy\u0017anti-magic field\nn^yy20ssnh\u0017pit\nlh  nssl  n  n  n\u0017rust trap\n#terrain\nd\n\u001b>.ky  n  n  n  n \u0004b  n  n #wipe\n  n  n  n  n \u00169\n\u0007tame saddled black unicorn\n#ride\nly\u0007tame saddled horse\n#ride\nhy\u0007tame saddled warhorse\n#ride\nbyy,\u0004nnuku,ss\u0007giant rat\nFn..,\u0006#levelchange\n14\n               lnyn\u0017magic fountain\nqduj\u0017ice\nbubu#conduct\n qdZa\n#levelchange\n14\n\u0007hostile lurker above\nFyFhsFnFuFbFb#pray\ny yFj#pray\ny yFks\u0017Grayswandir\nwq FlsFj\u0007Juiblex\nyy;<.s20s    sm.\u0007Demogorgon\nynFkFj  \u0007earth elemental\nFl    20s    ns   sm.  \u0007brown mold\nsm.      yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

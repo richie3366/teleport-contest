@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nW\u001b\u0017blessed ring of free action\nPjr#levelchange\n20\n                   \u0007master lich\n\u0007succubus\n\u0007orc shaman\n\u0017wand of striking\nzkn  .m.     zkj    .m.sm.     i\u001b\u0007red dragon\n\u0007baby red dragon\n20s   susm.  n          20s         #polyself\nred dragon\n    #monster\nh   su  20s       #monster\nh  #monster\nh    Fl   Fl     \u001615\n     \u0007master lich\n\u0007master lich\n\u0017wand of cold\nzz20szzsj  sh  \u0017wand of lightning\n\u0017wand of sleep\n\u0007gnome lord\nzzzzzz.m.zzzsuz\u001616\n\u0018\u001b\u0017wand of death\n\u0017wand of cancellation\n\u0017wand of lightning\n\u0007newt\n\u0007hill orc\nz.m.z.m. zsk zzsb zz20sz\u0007silver dragon\nsm.sm.  \u0017wand of fire\naFb   Fb  \u0017blessed spellbook of cause fear\nrs   n  sj \u0017blessed spellbook of sleep\nrt.m.   \u0007gnomish wizard\nZsnsZZZ20ssm. ZZ\u0017wand of cancellation\n\u0017wand of lightning\n\u0007kobold shaman\nzvyzulzulzulzuhsm.    nzvy 20s   zvl zukzus\u0017wand of lightning\n\u0017wand of magic missile\n\u0007sewer rat\n\u0007bugbear\nzwhzwbszxkzxyzxyzx.szwhzwl  n\u0017wand of magic missile\n\u0017wand of lightning\n\u0017wand of po"
+ },
+ "segments": [
+  {
+   "seed": 50550076,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nW\u001b\u0017blessed ring of free action\nPjr#levelchange\n20\n                   \u0007master lich\n\u0007succubus\n\u0007orc shaman\n\u0017wand of striking\nzkn  .m.     zkj    .m.sm.     i\u001b\u0007red dragon\n\u0007baby red dragon\n20s   susm.  n          20s         #polyself\nred dragon\n    #monster\nh   su  20s       #monster\nh  #monster\nh    Fl   Fl     \u001615\n     \u0007master lich\n\u0007master lich\n\u0017wand of cold\nzz20szzsj  sh  \u0017wand of lightning\n\u0017wand of sleep\n\u0007gnome lord\nzzzzzz.m.zzzsuz\u001616\n\u0018\u001b\u0017wand of death\n\u0017wand of cancellation\n\u0017wand of lightning\n\u0007newt\n\u0007hill orc\nz.m.z.m. zsk zzsb zz20sz\u0007silver dragon\nsm.sm.  \u0017wand of fire\naFb   Fb  \u0017blessed spellbook of cause fear\nrs   n  sj \u0017blessed spellbook of sleep\nrt.m.   \u0007gnomish wizard\nZsnsZZZ20ssm. ZZ\u0017wand of cancellation\n\u0017wand of lightning\n\u0007kobold shaman\nzvyzulzulzulzuhsm.    nzvy 20s   zvl zukzus\u0017wand of lightning\n\u0017wand of magic missile\n\u0007sewer rat\n\u0007bugbear\nzwhzwbszxkzxyzxyzx.szwhzwl  n\u0017wand of magic missile\n\u0017wand of lightning\n\u0017wand of po"
+  }
+ ]
+}

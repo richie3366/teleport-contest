@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of polymorph control\nPor#polyself\nvampire\n#monster\ny   s..s.#polyself\nhobbit\ns.\u0007werewolf\nFk FkFksm.  ynny y\u001bn  s"
+ },
+ "segments": [
+  {
+   "seed": 50558006,
+   "datetime": "20200313080349",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of polymorph control\nPor#polyself\nvampire\n#monster\ny   s..s.#polyself\nhobbit\ns.\u0007werewolf\nFk FkFksm.  ynny y\u001bn  s"
+  }
+ ]
+}

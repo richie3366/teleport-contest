@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWf\u0017blessed amulet of life saving\nPg\u0017blessed shield of reflection\nW\u001b#levelchange\n20\n                   \u0017spellbook of cone of cold\nris\u0007master lich\n\u0007kobold shaman\nZa\nZa\n   Za\nZa\n20s   .m.Za\nZa\nZa\nZa\nshs#turn\ni\u001b\u0017elven bow\nwj  \u001720 elven arrows\nQk\u0007gnome lord\nfufltal  fkfu \u00162\n\u0007incubus\n\u0007vampire\n\u0007vampire\n\u0017wand of cold\n.yzll sj20s   zll zlu   zlu  \u0017wand of digging\n\u0017wand of cold\n\u0007grid bug\n\u0007jackal\nznk  .m.zm> sm.znk sznkzm> zm> znj20szm> .zms\u0017wand of death\n\u0017wand of sleep\n\u0007gnome\n\u0007soldier\nzoj sm.zol 20szol   zo.  nzozplzp..zozphzozphszphs\u0017spellbook of force bolt\nrq 20s\u0017blessed spellbook of sl"
+ },
+ "segments": [
+  {
+   "seed": 50550068,
+   "datetime": "20080811015917",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWf\u0017blessed amulet of life saving\nPg\u0017blessed shield of reflection\nW\u001b#levelchange\n20\n                   \u0017spellbook of cone of cold\nris\u0007master lich\n\u0007kobold shaman\nZa\nZa\n   Za\nZa\n20s   .m.Za\nZa\nZa\nZa\nshs#turn\ni\u001b\u0017elven bow\nwj  \u001720 elven arrows\nQk\u0007gnome lord\nfufltal  fkfu \u00162\n\u0007incubus\n\u0007vampire\n\u0007vampire\n\u0017wand of cold\n.yzll sj20s   zll zlu   zlu  \u0017wand of digging\n\u0017wand of cold\n\u0007grid bug\n\u0007jackal\nznk  .m.zm> sm.znk sznkzm> zm> znj20szm> .zms\u0017wand of death\n\u0017wand of sleep\n\u0007gnome\n\u0007soldier\nzoj sm.zol 20szol   zo.  nzozplzp..zozphzozphszphs\u0017spellbook of force bolt\nrq 20s\u0017blessed spellbook of sl"
+  }
+ ]
+}

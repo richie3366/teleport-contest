@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed amulet of reflection\nPf\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b;,\u0014.s20s_{. \u001b_,m,Fhqnyu#chat\nl_oo._.:_ooo, Fh_,,\u0017amulet of strangulation\ndh_oooooooo.,$FuFuFuFu Fu   nFu    _{,  Fj     n_,,Fh  q_ooo.   nFy_.,\u001b\u0017amulet of flying\ndi_ooo._.,\u001bp_ooooooooo,_,_o._,,\u001bphhl#chat\nn\u00167\njkn\u0016?\n>w\u0006_ooooo. _.<.Fl,p_oooooo.Fl_,_o.Fl_.>.Fl,#chat\nu_oooo._.,\u0017amulet of restful sleep\ndkl  ll#chat\nnhlh#chat\nb_oooo,  _.@., :__,_..#chat\ny__,_,m,#chat\nk_{.Fh _,Fh qFhFhFhFhFhFhhll#chat\nu_{.  _,@.q_ooooooooo._.>.,plll#chat\njllh#chat\nh_ooooooooo._.:_o.Fk_,,Fy,p_{._.,q_ooooooooo._.,:\u0016?\n>Bhub\u0016?\n>w\u0006yyn#chat\nb_{._,.q_ooooooooo._._o._.,\u001bp_oooooooo._.:,p_ooooooooo,_.<.,#chat\nukkj#chat\nl_oooo.   \u001b_.  _ooo._,,p_{._,.q_oo._.,\u001b\u0017amulet of life saving\ndl_ooooo._oo._,m.,\u0017diamo"
+ },
+ "segments": [
+  {
+   "seed": 50555505,
+   "datetime": "20230115082838",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed amulet of reflection\nPf\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b;,\u0014.s20s_{. \u001b_,m,Fhqnyu#chat\nl_oo._.:_ooo, Fh_,,\u0017amulet of strangulation\ndh_oooooooo.,$FuFuFuFu Fu   nFu    _{,  Fj     n_,,Fh  q_ooo.   nFy_.,\u001b\u0017amulet of flying\ndi_ooo._.,\u001bp_ooooooooo,_,_o._,,\u001bphhl#chat\nn\u00167\njkn\u0016?\n>w\u0006_ooooo. _.<.Fl,p_oooooo.Fl_,_o.Fl_.>.Fl,#chat\nu_oooo._.,\u0017amulet of restful sleep\ndkl  ll#chat\nnhlh#chat\nb_oooo,  _.@., :__,_..#chat\ny__,_,m,#chat\nk_{.Fh _,Fh qFhFhFhFhFhFhhll#chat\nu_{.  _,@.q_ooooooooo._.>.,plll#chat\njllh#chat\nh_ooooooooo._.:_o.Fk_,,Fy,p_{._.,q_ooooooooo._.,:\u0016?\n>Bhub\u0016?\n>w\u0006yyn#chat\nb_{._,.q_ooooooooo._._o._.,\u001bp_oooooooo._.:,p_ooooooooo,_.<.,#chat\nukkj#chat\nl_oooo.   \u001b_.  _ooo._,,p_{._,.q_oo._.,\u001b\u0017amulet of life saving\ndl_ooooo._oo._,m.,\u0017diamo"
+  }
+ ]
+}

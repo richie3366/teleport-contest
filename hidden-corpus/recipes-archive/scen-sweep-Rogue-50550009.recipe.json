@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n30\n             #wizintrinsic\ngh\n sm.s.m..20s20ssm.ss20s 20ssm.ss\u0017bell\naiai#wipe\n#rub\n#force\nW#ride\nlydg.l ssss.#levelchange\n14\n     \u0007purple worm\nFkFk  Fj20s Fj  n   Fl  Fj FjFj  n   Fh  FjFk  \u00163\n  \u0017kicking boots\nWj.s.m.\u0007owlbear\n;j, \u001b<.susm.20s \u0007air elemental\n#chat\n Fh   n  Fj  u u y     n n    \u0017sleeping gas trap\nl\u0017anti-magic field\nln\u0017statue trap\ndcz20s  #levelchange\n20\n    \u0016?\n>>\u001b\u0016?\n>>L      oil lamp\n#conduct\n  ,s20s    n      n sm.    \u0016?\n\u001b\u0016?\n\u001b\u0016?\n\u001b\u001627\n\u001610\n#wizintrinsic\nl\n \u0017scroll of enchant armor\nrm            n  ZZE- Vlad was here\n      E-y Vlad was here\n     n    n     \u0017banana\nen      n    n    n20s        n   n      n    .m.   yny   y y  y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 50550009,
+   "datetime": "20151203101902",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n30\n             #wizintrinsic\ngh\n sm.s.m..20s20ssm.ss20s 20ssm.ss\u0017bell\naiai#wipe\n#rub\n#force\nW#ride\nlydg.l ssss.#levelchange\n14\n     \u0007purple worm\nFkFk  Fj20s Fj  n   Fl  Fj FjFj  n   Fh  FjFk  \u00163\n  \u0017kicking boots\nWj.s.m.\u0007owlbear\n;j, \u001b<.susm.20s \u0007air elemental\n#chat\n Fh   n  Fj  u u y     n n    \u0017sleeping gas trap\nl\u0017anti-magic field\nln\u0017statue trap\ndcz20s  #levelchange\n20\n    \u0016?\n>>\u001b\u0016?\n>>L      oil lamp\n#conduct\n  ,s20s    n      n sm.    \u0016?\n\u001b\u0016?\n\u001b\u0016?\n\u001b\u001627\n\u001610\n#wizintrinsic\nl\n \u0017scroll of enchant armor\nrm            n  ZZE- Vlad was here\n      E-y Vlad was here\n     n    n     \u0017banana\nen      n    n    n20s        n   n      n    .m.   yny   y y  y\u001b  2"
+  }
+ ]
+}

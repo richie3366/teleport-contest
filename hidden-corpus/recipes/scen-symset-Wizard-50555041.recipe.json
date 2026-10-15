@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " mO>>>>c\u001b\n\u00163\nFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnv\u001bi\u001bOj\u001b\nrl y s#pray\ny y    FbFbFlFbFbFnFbFbFbFlFbFbFnFlnFnFbFnFnFnFbFnFbFbFnFbFlnFlFnFlnFbFbFlFbFlnFbFllFlFnFnFlFnFnFbFlnFlFlFbFbFlFbFnFlFlFnFbFnFbFnFnFbFlbFbFbFnFnFbFlnFlFlFnFnFbFbFnFbFlFnFnFlFlFbFlnFbFlbFbFllFbFlnFlFnFlbFbFllFlFlFnFlbFlFbFbFnFbFlFnFnFlFnFnFlFlFlFbFnFbFlnFnFnFbFbFl\u00163\nFbFlbFlFbFbFnFnFbFlnFbFlnFbFlbFlFlFnFnFlFnFbFnFbFlFlFnFlnFlFnFnFbFnFbFnFlFnFlnFbFbFlFlFnFlbFnFnFlFnFnFlFbFnFbFnFlFlFbFnFbFllFnFbFlFlFnFnFlFlFbFbFnFbFnFbFbFllFbFllFnFbFbFbFlFbFlnFbFllFnFbFnFbFlFnFbFlFnFbFbFnFnFlbFbFnFbFnFnFlnFlFnFllFbFlnFnFbFlFbFnFbFlnFlFbFln\u00166\nv\u001bi\u001b\u001619\nO>>>c\u001b\nO>f\u001b\nmO>q\u001b\n\u0007tame little dog\n#chat\nn\u0017food ration\nt\u001b\u0006_ \u001b.>FnFn_>>. Fh_.m,Fy>FhFh_>>,Fk_.Fh>FhFy\u0017leash\naoykhh\u001blhyaoh\u0007yellow mold\ns s20s.ss#name\nd\n\u0017ba"
+ },
+ "segments": [
+  {
+   "seed": 50555041,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:Enhanced2\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=sortloot:none\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": " mO>>>>c\u001b\n\u00163\nFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnv\u001bi\u001bOj\u001b\nrl y s#pray\ny y    FbFbFlFbFbFnFbFbFbFlFbFbFnFlnFnFbFnFnFnFbFnFbFbFnFbFlnFlFnFlnFbFbFlFbFlnFbFllFlFnFnFlFnFnFbFlnFlFlFbFbFlFbFnFlFlFnFbFnFbFnFnFbFlbFbFbFnFnFbFlnFlFlFnFnFbFbFnFbFlFnFnFlFlFbFlnFbFlbFbFllFbFlnFlFnFlbFbFllFlFlFnFlbFlFbFbFnFbFlFnFnFlFnFnFlFlFlFbFnFbFlnFnFnFbFbFl\u00163\nFbFlbFlFbFbFnFnFbFlnFbFlnFbFlbFlFlFnFnFlFnFbFnFbFlFlFnFlnFlFnFnFbFnFbFnFlFnFlnFbFbFlFlFnFlbFnFnFlFnFnFlFbFnFbFnFlFlFbFnFbFllFnFbFlFlFnFnFlFlFbFbFnFbFnFbFbFllFbFllFnFbFbFbFlFbFlnFbFllFnFbFnFbFlFnFbFlFnFbFbFnFnFlbFbFnFbFnFnFlnFlFnFllFbFlnFnFbFlFbFnFbFlnFlFbFln\u00166\nv\u001bi\u001b\u001619\nO>>>c\u001b\nO>f\u001b\nmO>q\u001b\n\u0007tame little dog\n#chat\nn\u0017food ration\nt\u001b\u0006_ \u001b.>FnFn_>>. Fh_.m,Fy>FhFh_>>,Fk_.Fh>FhFy\u0017leash\naoykhh\u001blhyaoh\u0007yellow mold\ns s20s.ss#name\nd\n\u0017ba"
+  }
+ ]
+}

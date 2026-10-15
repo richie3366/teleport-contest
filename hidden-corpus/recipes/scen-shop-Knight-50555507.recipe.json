@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 gray dragon scale mail\n W\u001b\u001b\u0017blessed amulet of reflection\nPj\u0016?\n>w\u0006FuFuFu FuFuFu_ \u001b,,$_oooooo,,\u0014:20s   nsm._ooooooooo.,  :_ooooooooo.,:_{. Fl_,q_ooo.,p_ooooooooo._ooo.,p_ooooooooo,,p\u00167\nblk\u0016?\n>w\u0006_ooooooooo,,:\u0016?\n>Bujy\u0016?\n>w\u0006_ooooooo.,plyj#chat\nubln#chat\nnbky#chat\nuyyh#chat\nl_{,_.Fu q\u00163\nkhl\u0016?\n>w\u0006_ooooooooo.   Fn_._o.Fb_,Fb,\u001b\u0017diamond\ndl  \u0016?\n>Bjkk\u0016?\n>w\u0006FkFkFkFk    nFkFk  _oooo.Fu_.Fb  n  ,p_oooooooo.Fb_.m.  nFj_ooo.Fu     n_, Fk  n,#chat\nk    n\u00163\n__,#chat\nj#pray\ny y \u0016?\n>Bjly\u0016?\n>w\u0006_ooooo,Fj _,Fj ,\u0017amulet of restful sleep\ndm_ooo.  n    n Fj  n_.  n Fj  n    n   n,\u001b\u0017"
+ },
+ "segments": [
+  {
+   "seed": 50555507,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 gray dragon scale mail\n W\u001b\u001b\u0017blessed amulet of reflection\nPj\u0016?\n>w\u0006FuFuFu FuFuFu_ \u001b,,$_oooooo,,\u0014:20s   nsm._ooooooooo.,  :_ooooooooo.,:_{. Fl_,q_ooo.,p_ooooooooo._ooo.,p_ooooooooo,,p\u00167\nblk\u0016?\n>w\u0006_ooooooooo,,:\u0016?\n>Bujy\u0016?\n>w\u0006_ooooooo.,plyj#chat\nubln#chat\nnbky#chat\nuyyh#chat\nl_{,_.Fu q\u00163\nkhl\u0016?\n>w\u0006_ooooooooo.   Fn_._o.Fb_,Fb,\u001b\u0017diamond\ndl  \u0016?\n>Bjkk\u0016?\n>w\u0006FkFkFkFk    nFkFk  _oooo.Fu_.Fb  n  ,p_oooooooo.Fb_.m.  nFj_ooo.Fu     n_, Fk  n,#chat\nk    n\u00163\n__,#chat\nj#pray\ny y \u0016?\n>Bjly\u0016?\n>w\u0006_ooooo,Fj _,Fj ,\u0017amulet of restful sleep\ndm_ooo.  n    n Fj  n_.  n Fj  n    n   n,\u001b\u0017"
+  }
+ ]
+}

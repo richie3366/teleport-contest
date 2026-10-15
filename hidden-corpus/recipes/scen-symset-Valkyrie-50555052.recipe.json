@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "O>>>h\u001b\n#ride\nkyP\u0018\u001bv i\u001b#dip\na#invoke\n\u001b#chat\nk\u001617\n\u0007tame wolf\n\u0017leash\naenjybk aek   n\u0017magic whistle\nl y jaf     n \u0007lichen\n\u0017scroll of taming\nrg \u0007newt\n\u0017scroll of taming\nrh \u0017leash\naibjukyaib\u0017magic whistle\nblbaj \u00161\nFj FyFlFjFkFhFjFbFlFj FjFj Fb Fj.50skjl\u0018\u001b100sFjFkFkFnss50shjulhb;m. \u001b<. 100s\u0018\u001b150sFkFh.FyFkFkujhFk20sFkuhy50s\u000f\u001b,100sFlFnFl100sFlFlFl  nFlFlFlFlFl  nFlFlFl.lubjhbnln50s_>.>\\   150s\u00167\nO>k\u001b\u001b\nO>>c\u001b\nmO>>>a\u001b\n\\   #enhance\nye\nr\n\u001b#invoke\n\u001bO>>>i\u001b\u001b\nOi\u001b\u001b\n100si\u001b\u0018\u001bz100s 100s 100s 100sFkFkFk blj50s100s  50sFkFkFkFk Fk.E- ad aerarium\ny nj\u000f\u001b_>._.> 150"
+ },
+ "segments": [
+  {
+   "seed": 50555052,
+   "datetime": "20091123101748",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=runmode:walk\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "O>>>h\u001b\n#ride\nkyP\u0018\u001bv i\u001b#dip\na#invoke\n\u001b#chat\nk\u001617\n\u0007tame wolf\n\u0017leash\naenjybk aek   n\u0017magic whistle\nl y jaf     n \u0007lichen\n\u0017scroll of taming\nrg \u0007newt\n\u0017scroll of taming\nrh \u0017leash\naibjukyaib\u0017magic whistle\nblbaj \u00161\nFj FyFlFjFkFhFjFbFlFj FjFj Fb Fj.50skjl\u0018\u001b100sFjFkFkFnss50shjulhb;m. \u001b<. 100s\u0018\u001b150sFkFh.FyFkFkujhFk20sFkuhy50s\u000f\u001b,100sFlFnFl100sFlFlFl  nFlFlFlFlFl  nFlFlFl.lubjhbnln50s_>.>\\   150s\u00167\nO>k\u001b\u001b\nO>>c\u001b\nmO>>>a\u001b\n\\   #enhance\nye\nr\n\u001b#invoke\n\u001bO>>>i\u001b\u001b\nOi\u001b\u001b\n100si\u001b\u0018\u001bz100s 100s 100s 100sFkFkFk blj50s100s  50sFkFkFkFk Fk.E- ad aerarium\ny nj\u000f\u001b_>._.> 150"
+  }
+ ]
+}

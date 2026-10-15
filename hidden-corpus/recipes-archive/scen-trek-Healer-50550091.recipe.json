@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "U YH L_ \u001bm.>FjssJ HYL_>.>Fl Fl sKYYJ _>,>NULK_>.>YLBN_>.>YUUH _>.>dc#pray\ny  NLHY_>.>w-<BL JB_>.>K KL J_>,>K KHN_>.>20subjldb20ss.#name\na\nhl10s>#twoweapon\n#monster\ntauhhlhlh#name\no\n#chat\nj#chat\nhi\u001b,W20s20s20slhlhlhlhlh#name\ni\n10slhlhdb20sss20slhlh#ride\nu<#invoke\n\u001bULNJ_>,>BYNN_>.>KNJH_>.>K HBB_>.><100sFy FyFy\u0018\u001b50sFyFy.100sFyFyFyFyFyFyzfy    FkFk  y\u001by  y y y\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 50550091,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\n",
+   "moves": "U YH L_ \u001bm.>FjssJ HYL_>.>Fl Fl sKYYJ _>,>NULK_>.>YLBN_>.>YUUH _>.>dc#pray\ny  NLHY_>.>w-<BL JB_>.>K KL J_>,>K KHN_>.>20subjldb20ss.#name\na\nhl10s>#twoweapon\n#monster\ntauhhlhlh#name\no\n#chat\nj#chat\nhi\u001b,W20s20s20slhlhlhlhlh#name\ni\n10slhlhdb20sss20slhlh#ride\nu<#invoke\n\u001bULNJ_>,>BYNN_>.>KNJH_>.>K HBB_>.><100sFy FyFy\u0018\u001b50sFyFy.100sFyFyFyFyFyFyzfy    FkFk  y\u001by  y y y\u001b  ."
+  }
+ ]
+}

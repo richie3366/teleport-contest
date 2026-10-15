@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  \u0017locked large box\n\u0017chest\n\u0017blessed bag of holding\n\u0017potion of oil\n\u0017potion of blindness\n\u0017long sword\nwqdm #force\ny sss#tip\nyl\nalal#levelchange\n20\n                   \u001616\n \u0018\u001bfn#monster\n;<. \u001b>.sm.20s\u00166\n#monster\n#tip\nln\nW\u000620s     .n\u0016?\nl #terrain\nb\n\u0014 rhsm.20s\u0016?\n>E\u0014.#rub\n,\u0006.m.sy\u0007dust vortex\nFn  FjFj\u0007Demogorgon\nnn    n  ;j;sk.m.  .b\u0017locked chest\n\u0017ice box\n\u0017blessed bag of holding\n\u0017wand of undead turning\nati\ndt #loot\na\ni\n,a\n            nato\n     dt   alajki\u001bi>\u001bwqFj   Fj       FjXec20s .m. n   qo  #dip\nbg   n  qp \u001b   rh <.   P#name\nm\nEtaj  n  n qg       n  \\ __.20s    n  #terrain\nb\n\u000f \u00163\n\u0017spellbook of invisibility\n rv \u001b   n s\u0017blessed spellbook of turn undead\n rw.\u0017spellbook of stone to flesh\nrxs\u0017blessed spellbook of clairvoyance\nry20s  n +ZFh ZZZ\u0007acid blob\nZ#pray\ny y  #enhance\nn\u001b\u000f\u001b\u00165\n#levelchange\n30\n           \u0017slime mold\n\u0007bone devil\nezs s\u0017cursed -1 helm of telepathy\nWA 20s  n sm. shTAFl Fl   \u00173 20 flint stones\nQafl fl fl   n \u00173 spellbook of cancellation\n\u0007crocodile\nrCsm.sm.ZZ\u0017spellbook of cancellation\nrD20s    sm.ZZ.n sm. \u00164\n\u0017dwarvish mattock\n_<,aE  n aEl     lny aE>  sm.  n aE>    aE>  sn aE>     n\u000f\u001b#levelchange\n8\n      \u0017spellbook of jumping\nrFsm. 20s   n  ZFh  Fh  yy\u001b y  y y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50556003,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017locked large box\n\u0017chest\n\u0017blessed bag of holding\n\u0017potion of oil\n\u0017potion of blindness\n\u0017long sword\nwqdm #force\ny sss#tip\nyl\nalal#levelchange\n20\n                   \u001616\n \u0018\u001bfn#monster\n;<. \u001b>.sm.20s\u00166\n#monster\n#tip\nln\nW\u000620s     .n\u0016?\nl #terrain\nb\n\u0014 rhsm.20s\u0016?\n>E\u0014.#rub\n,\u0006.m.sy\u0007dust vortex\nFn  FjFj\u0007Demogorgon\nnn    n  ;j;sk.m.  .b\u0017locked chest\n\u0017ice box\n\u0017blessed bag of holding\n\u0017wand of undead turning\nati\ndt #loot\na\ni\n,a\n            nato\n     dt   alajki\u001bi>\u001bwqFj   Fj       FjXec20s .m. n   qo  #dip\nbg   n  qp \u001b   rh <.   P#name\nm\nEtaj  n  n qg       n  \\ __.20s    n  #terrain\nb\n\u000f \u00163\n\u0017spellbook of invisibility\n rv \u001b   n s\u0017blessed spellbook of turn undead\n rw.\u0017spellbook of stone to flesh\nrxs\u0017blessed spellbook of clairvoyance\nry20s  n +ZFh ZZZ\u0007acid blob\nZ#pray\ny y  #enhance\nn\u001b\u000f\u001b\u00165\n#levelchange\n30\n           \u0017slime mold\n\u0007bone devil\nezs s\u0017cursed -1 helm of telepathy\nWA 20s  n sm. shTAFl Fl   \u00173 20 flint stones\nQafl fl fl   n \u00173 spellbook of cancellation\n\u0007crocodile\nrCsm.sm.ZZ\u0017spellbook of cancellation\nrD20s    sm.ZZ.n sm. \u00164\n\u0017dwarvish mattock\n_<,aE  n aEl     lny aE>  sm.  n aE>    aE>  sn aE>     n\u000f\u001b#levelchange\n8\n      \u0017spellbook of jumping\nrFsm. 20s   n  ZFh  Fh  yy\u001b y  y y y\u001by  \u0017"
+  }
+ ]
+}

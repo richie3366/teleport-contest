@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>>N       wand of opening\nhj      \u001b  h   n     h    n   ybn    n   :\u001611\n\u0016?\ne\u0014 \u001b,         n    \u001625\nykn   n        nj      b:\u00161\n\u001625\n\u0004k   n     n \u00161\n\u0016?\na  _<,\u001625\n\u0006_<,su\u0016?\nb\u0004k\u001644\n\u0004k               sn .m.       n  \u00162\nk    u      n    :\u0016?\n\u001bb      j        \u001610\n\u0006<._>,.m.  n      \u0016?\n\u001by  n    u       n   \u00163\n\u0016?\n\u001bu           n         nn     \u001611\nh          n                n n           l       yy\u001by   ny y\u001b  k"
+ },
+ "segments": [
+  {
+   "seed": 50556500,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>>N       wand of opening\nhj      \u001b  h   n     h    n   ybn    n   :\u001611\n\u0016?\ne\u0014 \u001b,         n    \u001625\nykn   n        nj      b:\u00161\n\u001625\n\u0004k   n     n \u00161\n\u0016?\na  _<,\u001625\n\u0006_<,su\u0016?\nb\u0004k\u001644\n\u0004k               sn .m.       n  \u00162\nk    u      n    :\u0016?\n\u001bb      j        \u001610\n\u0006<._>,.m.  n      \u0016?\n\u001by  n    u       n   \u00163\n\u0016?\n\u001bu           n         nn     \u001611\nh          n                n n           l       yy\u001by   ny y\u001b  k"
+  }
+ ]
+}

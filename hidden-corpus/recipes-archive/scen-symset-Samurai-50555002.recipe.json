@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b<.>FjFk_>>.  Fj_,> FyFlFy\u0006_>.Fh_.Fl>FhFy_>,Fu_.>FyFj_>.Fk_.>FuFnFjFhFb\u0006_>.Fu_.> FuFnFy\u0006_>,Fk_.@.Fy>FkFh_>,Fu_.> FyFyFktcb#untrap\nl\u0006_>.Fb_.m.Fy>FyFh_>.Fy_.@.Fh>FhFh_>,Fh_.m.Fy>FhFbFyFhFh\u000f\u001bO>>>>g\u001b\n\u00167\nFuFhFyFyFjFkFnFkFnFhFlFkFkFnFyFuFkFlFjFbFyFbFnFjFuFjFjFnFkFhFjFnFbFbFjFuFlFhFbFnFhFnFjFuFnFyFyFkFbFkFlFlFnFkFkFyFyFyFbFbFlFnFhFkFlFkFbFuFuFbFhFbFkFyFjFkFyFnFbFbFkFbFyFhFuFjFnFuFnFuFhFlFlFkFuFhFyFhFlFlFyFhFyFjFuFhFlFnFlFhFjFbFlFuFkFnFlFjFjFnW\u001bole\\    wdnn#twoweapon\nE- Vlad was here\n#monster\n\u001617\n\u0006_>.Fl_,<.Fn>FuFu_>,Fu_.<.Fl>FuFl "
+ },
+ "segments": [
+  {
+   "seed": 50555002,
+   "datetime": "20140708100250",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\n",
+   "moves": "\u0006_ \u001b<.>FjFk_>>.  Fj_,> FyFlFy\u0006_>.Fh_.Fl>FhFy_>,Fu_.>FyFj_>.Fk_.>FuFnFjFhFb\u0006_>.Fu_.> FuFnFy\u0006_>,Fk_.@.Fy>FkFh_>,Fu_.> FyFyFktcb#untrap\nl\u0006_>.Fb_.m.Fy>FyFh_>.Fy_.@.Fh>FhFh_>,Fh_.m.Fy>FhFbFyFhFh\u000f\u001bO>>>>g\u001b\n\u00167\nFuFhFyFyFjFkFnFkFnFhFlFkFkFnFyFuFkFlFjFbFyFbFnFjFuFjFjFnFkFhFjFnFbFbFjFuFlFhFbFnFhFnFjFuFnFyFyFkFbFkFlFlFnFkFkFyFyFyFbFbFlFnFhFkFlFkFbFuFuFbFhFbFkFyFjFkFyFnFbFbFkFbFyFhFuFjFnFuFnFuFhFlFlFkFuFhFyFhFlFlFyFhFyFjFuFhFlFnFlFhFjFbFlFuFkFnFlFjFjFnW\u001bole\\    wdnn#twoweapon\nE- Vlad was here\n#monster\n\u001617\n\u0006_>.Fl_,<.Fn>FuFu_>,Fu_.<.Fl>FuFl "
+  }
+ ]
+}

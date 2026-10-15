@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "O\u0006_>\u0006_>#terrain\n \u0014 \u001b>.\u0006_>,_,.>_>,_.m,>_>,_.> \u0014@.#invoke\n\u001b\u0006_>._.> s#turn\n\u0006_>>._.>_>>._.>_>>,_,>\u0006_>._,>_>,_.>_>,_,>\u0006_>._.>_>,_.>_>,_.>#offer\n,\u000f\u001bnbul\u0017altar\ndc\u0017elf corpse\n#offer\nf  : j\u0017throne\n#sit\n #sit\n#sit\n nj\u0017h\u0017:\u001b#terrain\n yi\u001b#terrain\n\u001b#ride\nly\u0006_>._.>_>._.>_>._,>\u0006_>>._.>_>>,_.>_>>,_.>#wipe\n#sit\n< \u0006_>.>  \u000f\u001b\u00163\n_>._,>100s100s150s 100s100s100s   eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeq#enhance\nyr\ng\n\u001b#terrain\n\u001bhjy\u0017melting ice\nnb\u0017pool\n:#terrain\n\u001b#tip\n\u001b#terrain\n\u001b#name\n\u001b\u0007tame housecat\n\u0017tin whistle\nnlkag\u0006_>._.>_>._,>_>._.>hb\u0017food ration\ntbu\u0017lichen corpse\ntdy\u0007grid bug\n\u0017scroll of taming\nrj  \u0017tin whistle\nnbnak20s    \u0007tame soldier ant\n\u0007large dog\n\u0017apple\ntdu \u0007giant rat\nsu  .m.sk .yssh ul  n  10s\u0007lichen\n20s  .bsm..ysysda  n sm..m.20s #chat\ny\u00169\nhhy150s100s100s   r\u001b50s50s150s150s             W100s100s buj#ride\n.y100s          100s eh by b100s    50s   100s oj50s50s    _>.>150s  ei _>.>unullb100s    _>.>100s     nkn\u000f\u001b150s_>.>hyy#pray\ny y   150s  O>>"
+ },
+ "segments": [
+  {
+   "seed": 50555047,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:MACgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=sortloot:full\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": "O\u0006_>\u0006_>#terrain\n \u0014 \u001b>.\u0006_>,_,.>_>,_.m,>_>,_.> \u0014@.#invoke\n\u001b\u0006_>._.> s#turn\n\u0006_>>._.>_>>._.>_>>,_,>\u0006_>._,>_>,_.>_>,_,>\u0006_>._.>_>,_.>_>,_.>#offer\n,\u000f\u001bnbul\u0017altar\ndc\u0017elf corpse\n#offer\nf  : j\u0017throne\n#sit\n #sit\n#sit\n nj\u0017h\u0017:\u001b#terrain\n yi\u001b#terrain\n\u001b#ride\nly\u0006_>._.>_>._.>_>._,>\u0006_>>._.>_>>,_.>_>>,_.>#wipe\n#sit\n< \u0006_>.>  \u000f\u001b\u00163\n_>._,>100s100s150s 100s100s100s   eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeq#enhance\nyr\ng\n\u001b#terrain\n\u001bhjy\u0017melting ice\nnb\u0017pool\n:#terrain\n\u001b#tip\n\u001b#terrain\n\u001b#name\n\u001b\u0007tame housecat\n\u0017tin whistle\nnlkag\u0006_>._.>_>._,>_>._.>hb\u0017food ration\ntbu\u0017lichen corpse\ntdy\u0007grid bug\n\u0017scroll of taming\nrj  \u0017tin whistle\nnbnak20s    \u0007tame soldier ant\n\u0007large dog\n\u0017apple\ntdu \u0007giant rat\nsu  .m.sk .yssh ul  n  10s\u0007lichen\n20s  .bsm..ysysda  n sm..m.20s #chat\ny\u00169\nhhy150s100s100s   r\u001b50s50s150s150s             W100s100s buj#ride\n.y100s          100s eh by b100s    50s   100s oj50s50s    _>.>150s  ei _>.>unullb100s    _>.>100s     nkn\u000f\u001b150s_>.>hyy#pray\ny y   150s  O>>"
+  }
+ ]
+}

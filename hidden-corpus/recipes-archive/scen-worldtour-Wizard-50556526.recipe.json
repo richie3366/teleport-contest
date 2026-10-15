@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0016?\n>>K      Excalibur\n _ \u001b@.>\u001617\nb ubn:\u001625\n__.>\u001625\n\u00174 cream pies\nQn\u0007yellow mold\nk      fk     f \u001bf \u001bf \u001bFk    n   Fu    \u0017potion of sickness\nt\u001b\u0017lance\nwq       \u0007sewer rat\nj      n aqm,n          kn  n        ,#enhance\nyd\nb\n\u001b\u00164\n\u0016?\n\u001by  n     u      n      \u00161\n\u001631\nj     n      h     n         j   n        k    :\u001612\n\u0016?\n\u001bh  n   j     n\u00161\n\u0016?\n\u001bu  b    n   \u001631\nh   n  y   n   l b   n  :.m. 20s   n \u0016?\n\u001bb  l  ynnnnn  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50556526,
+   "datetime": "20091103153422",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0016?\n>>K      Excalibur\n _ \u001b@.>\u001617\nb ubn:\u001625\n__.>\u001625\n\u00174 cream pies\nQn\u0007yellow mold\nk      fk     f \u001bf \u001bf \u001bFk    n   Fu    \u0017potion of sickness\nt\u001b\u0017lance\nwq       \u0007sewer rat\nj      n aqm,n          kn  n        ,#enhance\nyd\nb\n\u001b\u00164\n\u0016?\n\u001by  n     u      n      \u00161\n\u001631\nj     n      h     n         j   n        k    :\u001612\n\u0016?\n\u001bh  n   j     n\u00161\n\u0016?\n\u001bu  b    n   \u001631\nh   n  y   n   l b   n  :.m. 20s   n \u0016?\n\u001bb  l  ynnnnn  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       lnhl\u0017pool\n#dip\nby   jkn\u0017cloud\nkjkj:#terrain\n\u001bsJai\u001b\u0017sling\nwg\u001720 flint stones\nQh\u0007lichen\nufh  fb fhfhfh\u0017potion of booze\nthh\u0007soldier\nlfhfh fh  fh Fh Fh x  #twoweapon\nFh Fhlnk,#enhance\nyr\nm\n\u001b\u0017blessed spellbook of stone to flesh\nrj sl\u0017spellbook of cause fear\nrk .n\u0017spellbook of slow monster\nrl   n sb\u0017blessed spellbook of confuse monster\nrm .m.+\u0007sewer rat\nZZZZZFj ZZ#turn\n#enhance\nn\u001b\u001622\n\u0017blessed leather drum\nan an 20s.\u00173 wand of striking\nzoh\u0017wand of lightning\nzp.  n20s Fh \u0017uncursed Orcrist\nwq Fu  n Fy Fk #invoke\nq   n XFh  Fu \u0017potion of confusion\n\u0007lurker above\nqr  n Fh    Fu    n . s\u001b\u00168\n#levelchange\n12\n   \u0016?\n>>K     water walking boots\n#jump\n#dip\nq\u001bK;_. \u001b@..s  \u001641\n#dip\nhi   #enhance\nyn\nb\n\u001b,\u000620s     n    s         n    \u0016?\n\u0016?\n\u001613\n\u0004u     zpb  n       qi \u001b    n   \u0006s    .  n     \u00165\n\u00168\ni>\u001bPs  n      .  n  s  n    20s  .R       n     rksm..m.      n     ZZwg         yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50556027,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       lnhl\u0017pool\n#dip\nby   jkn\u0017cloud\nkjkj:#terrain\n\u001bsJai\u001b\u0017sling\nwg\u001720 flint stones\nQh\u0007lichen\nufh  fb fhfhfh\u0017potion of booze\nthh\u0007soldier\nlfhfh fh  fh Fh Fh x  #twoweapon\nFh Fhlnk,#enhance\nyr\nm\n\u001b\u0017blessed spellbook of stone to flesh\nrj sl\u0017spellbook of cause fear\nrk .n\u0017spellbook of slow monster\nrl   n sb\u0017blessed spellbook of confuse monster\nrm .m.+\u0007sewer rat\nZZZZZFj ZZ#turn\n#enhance\nn\u001b\u001622\n\u0017blessed leather drum\nan an 20s.\u00173 wand of striking\nzoh\u0017wand of lightning\nzp.  n20s Fh \u0017uncursed Orcrist\nwq Fu  n Fy Fk #invoke\nq   n XFh  Fu \u0017potion of confusion\n\u0007lurker above\nqr  n Fh    Fu    n . s\u001b\u00168\n#levelchange\n12\n   \u0016?\n>>K     water walking boots\n#jump\n#dip\nq\u001bK;_. \u001b@..s  \u001641\n#dip\nhi   #enhance\nyn\nb\n\u001b,\u000620s     n    s         n    \u0016?\n\u0016?\n\u001613\n\u0004u     zpb  n       qi \u001b    n   \u0006s    .  n     \u00165\n\u00168\ni>\u001bPs  n      .  n  s  n    20s  .R       n     rksm..m.      n     ZZwg         yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

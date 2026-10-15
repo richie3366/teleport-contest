@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqm \u001b._oooo.Fu    _.<.,:_oooooo. Fj  _.  Fj  ,p_ooo,Fj  _.Fj _oo, Fj_.   Fl,#chat\nb_oooooo.Fl  _. Fh,da  _{.Fh_, qh#dip\ngh_oo.Fn _. Fn _o.Fn _, Fn ,$#chat\nh \u0014m.  #loot\nlSy\u001b ynE\u001b\u0018\u001bPw\u001bjuZ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50557613,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqm \u001b._oooo.Fu    _.<.,:_oooooo. Fj  _.  Fj  ,p_ooo,Fj  _.Fj _oo, Fj_.   Fl,#chat\nb_oooooo.Fl  _. Fh,da  _{.Fh_, qh#dip\ngh_oo.Fn _. Fn _o.Fn _, Fn ,$#chat\nh \u0014m.  #loot\nlSy\u001b"
+  },
+  {
+   "seed": 51057613,
+   "datetime": "20140511155703",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " ynE\u001b\u0018\u001bPw\u001bjuZ"
+  }
+ ]
+}

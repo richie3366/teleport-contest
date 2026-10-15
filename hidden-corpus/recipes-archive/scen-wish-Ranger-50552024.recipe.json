@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  \u0017uncursed figurine of an Archon\n.m.FjFj\u0017cursed lembas wafer\neh20s     s\u0017the Sceptre of Might\n  ynny ny\u001by  ,"
+ },
+ "segments": [
+  {
+   "seed": 50552024,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017uncursed figurine of an Archon\n.m.FjFj\u0017cursed lembas wafer\neh20s     s\u0017the Sceptre of Might\n  ynny ny\u001by  ,"
+  }
+ ]
+}

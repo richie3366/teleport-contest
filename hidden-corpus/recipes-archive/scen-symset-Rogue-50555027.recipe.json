@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b,>FuFn_>,Fh_..Fj> FhFyFj\u0006_>.  Fb_.Fb>FbFn_>.Fb_,Fb>FnFn_>.Fn_,Fb>FnFbFnFnFu__..m.r\u001b\u0006_>.  Fn_.Fb>FuFb_>.Fl_.Fn>FbFn_>,Fn_.Fn>FbFbFbFuFn\u0006_>>.Fn_.Fl>FnFb_>>.Fb_.Fn>FbFb_>>.Fn_.Fn>FbFbFbFuFl#offer\n#chat\nb\u0006_>>,Fb_,Fn>FbFn_>>.Fl _.Fn>FbFn_>>,Fn_.Fn>FnFbFbFnFb<mOa\u001b\ndachtbbmO>>>o\u001b\n\u0018\u001b\u000f\u001b#turn\n\\ #terrain\n\u001b#untrap\nb#enhance\nyq\nb\n\u001bdf\u0007large dog\n\u0017carrot\ntbb\u0007yellow mold\nsm..m.  nsm.shss#name\n\u001b\u0017tin whistle\nl   nl  nuaj   ndbsm.  n.m..m.  n\u0007newt\nsm.sm.20s  n .m.sm.sm.  n\u001612\n\u00168\n\u0006_>.Fj_,  nFj>FjFj_>.Fj _.  n Fj>FjFu _>,  n Fj_.Fj  n>FjFu  n FjFjFj  nqd  z\u0006_>>.Fj _,  n Fj>FjFj  n_>>.Fj_,Fu>FuFu_>>,Fy_.Fy>F"
+ },
+ "segments": [
+  {
+   "seed": 50555027,
+   "datetime": "20190502203724",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nMENUCOLOR=\"a scroll\"=magenta\n",
+   "moves": " \u0006_ \u001b,>FuFn_>,Fh_..Fj> FhFyFj\u0006_>.  Fb_.Fb>FbFn_>.Fb_,Fb>FnFn_>.Fn_,Fb>FnFbFnFnFu__..m.r\u001b\u0006_>.  Fn_.Fb>FuFb_>.Fl_.Fn>FbFn_>,Fn_.Fn>FbFbFbFuFn\u0006_>>.Fn_.Fl>FnFb_>>.Fb_.Fn>FbFb_>>.Fn_.Fn>FbFbFbFuFl#offer\n#chat\nb\u0006_>>,Fb_,Fn>FbFn_>>.Fl _.Fn>FbFn_>>,Fn_.Fn>FnFbFbFnFb<mOa\u001b\ndachtbbmO>>>o\u001b\n\u0018\u001b\u000f\u001b#turn\n\\ #terrain\n\u001b#untrap\nb#enhance\nyq\nb\n\u001bdf\u0007large dog\n\u0017carrot\ntbb\u0007yellow mold\nsm..m.  nsm.shss#name\n\u001b\u0017tin whistle\nl   nl  nuaj   ndbsm.  n.m..m.  n\u0007newt\nsm.sm.20s  n .m.sm.sm.  n\u001612\n\u00168\n\u0006_>.Fj_,  nFj>FjFj_>.Fj _.  n Fj>FjFu _>,  n Fj_.Fj  n>FjFu  n FjFjFj  nqd  z\u0006_>>.Fj _,  n Fj>FjFj  n_>>.Fj_,Fu>FuFu_>>,Fy_.Fy>F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nb\n .m..syss.m.sm.s.l.\u0017potion of monster detection\nqi \u001b<.eeqdt\u001b#tip\n\u001b#dip\nhd\u0004lsm.20ssuss20s  "
+ },
+ "segments": [
+  {
+   "seed": 50552011,
+   "datetime": "20250620204459",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n .m..syss.m.sm.s.l.\u0017potion of monster detection\nqi \u001b<.eeqdt\u001b#tip\n\u001b#dip\nhd\u0004lsm.20ssuss20s  "
+  }
+ ]
+}

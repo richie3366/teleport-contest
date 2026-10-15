@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "mO>omn\n  r\u001b\u001bmO>ab\ntbywb  O>fmk\n\u0004kmO>>>>he\n1\no\nd\n#tip\nf\u001btbyO>gcn\n#ride\numO>>wi\n 10s#enhance\n\u001bssOlpd\nyeOlo\ni\nl\ne#loot\nkmOa\nzmO>s\n\u0018\u001bclO>k\nc\n#wipe\n\u001b\u001b\u001b#name\nO>bma\nh\n\u0018\u001bsss"
+ },
+ "segments": [
+  {
+   "seed": 50557417,
+   "datetime": "20190325155004",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=mention_walls\n",
+   "moves": "mO>omn\n  r\u001b\u001bmO>ab\ntbywb  O>fmk\n\u0004kmO>>>>he\n1\no\nd\n#tip\nf\u001btbyO>gcn\n#ride\numO>>wi\n 10s#enhance\n\u001bssOlpd\nyeOlo\ni\nl\ne#loot\nkmOa\nzmO>s\n\u0018\u001bclO>k\nc\n#wipe\n\u001b\u001b\u001b#name\nO>bma\nh\n\u0018\u001bsss"
+  }
+ ]
+}

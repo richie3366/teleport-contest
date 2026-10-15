@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           i\u001bWsssTcWcs20ssef.see20s20srh y ssZa\nrg y .sZa\nZa\nKE- Vlad was here\nJ\u000f\u001b,ee#name\ni\ni\u001bwasssrh y .sZb\nqd#dip\nddWsssrg y \u001b@.20s20sZa\nZa\nWs20s20sTb\u000f\u001b#wizintrinsic\nhg\n \u0017towel\nakkbh;l. \u0017blessed scroll of genocide\nrl  kobold shaman\n s.s\u0006i\u001bwaFu sschqd>;m,z;<.>#force\n#levelchange\n30\n                  ylj\u0017iron bars\nhhllu\u0017throne\n#sit\n #sit\n<#wipe\n#jump\n\u001622\n#levelchange\n30\n\u0017blessed ring of polymorph control\nPmr#polyself\nrust monster\n #monster\n20s.m.20s.m..#polyself\nfire giant\n#monster\nsm.20s\u0007mail daemon\nFhFh  Fh  s20s.m.#polyself\nghoul\n sm. .u\u0007shrieker\nFn Fn  Fn sm.20s 20s #polyself\njellyfish\n sm.  .m.sm.ss\u0017potion of polymorph\nqn erinys\n balrog\n \u0018\u001b\u0017Frost Brand\nwoFbFn Fn #invoke\no@.   \u0007dwarf\nFns20s20s.20s\u0007Wizard of Yendor\nn.m.     sh        .m.      n   20s      n 20s          n            n  nsm.   sm.     n    sy\u00166\n#levelchange\n20\n   \u0017Sunsword\nwp 20s FjFj#invoke\npj \u0007horned devil\nFlFb   n Fb  FjFj   \u0007raven\n;l..m..sn\u0007Death\nyn s   n   n 20s  n    n s    n s   n    n20s   n  yy\u001bny ghoul\nny\u001bn  #"
+ },
+ "segments": [
+  {
+   "seed": 50556020,
+   "datetime": "20230220062330",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           i\u001bWsssTcWcs20ssef.see20s20srh y ssZa\nrg y .sZa\nZa\nKE- Vlad was here\nJ\u000f\u001b,ee#name\ni\ni\u001bwasssrh y .sZb\nqd#dip\nddWsssrg y \u001b@.20s20sZa\nZa\nWs20s20sTb\u000f\u001b#wizintrinsic\nhg\n \u0017towel\nakkbh;l. \u0017blessed scroll of genocide\nrl  kobold shaman\n s.s\u0006i\u001bwaFu sschqd>;m,z;<.>#force\n#levelchange\n30\n                  ylj\u0017iron bars\nhhllu\u0017throne\n#sit\n #sit\n<#wipe\n#jump\n\u001622\n#levelchange\n30\n\u0017blessed ring of polymorph control\nPmr#polyself\nrust monster\n #monster\n20s.m.20s.m..#polyself\nfire giant\n#monster\nsm.20s\u0007mail daemon\nFhFh  Fh  s20s.m.#polyself\nghoul\n sm. .u\u0007shrieker\nFn Fn  Fn sm.20s 20s #polyself\njellyfish\n sm.  .m.sm.ss\u0017potion of polymorph\nqn erinys\n balrog\n \u0018\u001b\u0017Frost Brand\nwoFbFn Fn #invoke\no@.   \u0007dwarf\nFns20s20s.20s\u0007Wizard of Yendor\nn.m.     sh        .m.      n   20s      n 20s          n            n  nsm.   sm.     n    sy\u00166\n#levelchange\n20\n   \u0017Sunsword\nwp 20s FjFj#invoke\npj \u0007horned devil\nFlFb   n Fb  FjFj   \u0007raven\n;l..m..sn\u0007Death\nyn s   n   n 20s  n    n s    n s   n    n20s   n  yy\u001bny ghoul\nny\u001bn  #"
+  }
+ ]
+}

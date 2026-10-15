@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " h\u001bnyn\u0017altar\ndbdd \u0017newt corpse\n#offer\ne   #pray\ny y uh b\u0017chaotic altar\nda\u0017newt corpse\n#offer\nf  : h\u001b\u0017fountain\nqy   #dip\ncy    n: kb ln \u0017neutral altar\ndc\u0017lichen corpse\n#offer\ng    #pray\ny y            : #sit\n    n #loot\nn #offer\n\u001610\nO>>o8\n \u001b\nmO>>>>g\u001b\nOf\u001b\n\u001618\nO>>p\u001b\nOf\u001b\nyh\u001bn100sh\u001buu h\u001b100s_ \u001b,>150s150s100s\\   h\u001bnh\u001blnn100s#jump\nnh\u001bh\u001b\u000f\u001b100s100s100s100scl 150slnh\u001b50s50s100s100s150s100s_>.>50s100s\u0018\u001b\u000f\u001b100sh\u001blldch\u001bnlh\u001bln100s  \u001bFhFhFh\u0006_>. _.>_>.  n Fb_.  n Fb>FbFb_>, Fb_.  n Fy>FyFbFyFbFb\u0006_>, Fb_.   n Fb>FbFb_>,  Fb_,   n Fb>FbFb_>.  n  Fb_.  n  Fb>FbFbFbFbFb\u0006_>>,  n  Fb_.  n Fb>FbFb_>>.    nFb_.  Fb>FbFb_>>.  n  Fb_.  n   nFb>FbFbFbFbFb\u0006_>>,   yy\u001by  y ny"
+ },
+ "segments": [
+  {
+   "seed": 50555049,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " h\u001bnyn\u0017altar\ndbdd \u0017newt corpse\n#offer\ne   #pray\ny y uh b\u0017chaotic altar\nda\u0017newt corpse\n#offer\nf  : h\u001b\u0017fountain\nqy   #dip\ncy    n: kb ln \u0017neutral altar\ndc\u0017lichen corpse\n#offer\ng    #pray\ny y            : #sit\n    n #loot\nn #offer\n\u001610\nO>>o8\n \u001b\nmO>>>>g\u001b\nOf\u001b\n\u001618\nO>>p\u001b\nOf\u001b\nyh\u001bn100sh\u001buu h\u001b100s_ \u001b,>150s150s100s\\   h\u001bnh\u001blnn100s#jump\nnh\u001bh\u001b\u000f\u001b100s100s100s100scl 150slnh\u001b50s50s100s100s150s100s_>.>50s100s\u0018\u001b\u000f\u001b100sh\u001blldch\u001bnlh\u001bln100s  \u001bFhFhFh\u0006_>. _.>_>.  n Fb_.  n Fb>FbFb_>, Fb_.  n Fy>FyFbFyFbFb\u0006_>, Fb_.   n Fb>FbFb_>,  Fb_,   n Fb>FbFb_>.  n  Fb_.  n  Fb>FbFbFbFbFb\u0006_>>,  n  Fb_.  n Fb>FbFb_>>.    nFb_.  Fb>FbFb_>>.  n  Fb_.  n   nFb>FbFbFbFbFb\u0006_>>,   yy\u001by  y ny"
+  }
+ ]
+}

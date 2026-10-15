@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed spellbook of light\nrk s\u0017spellbook of dig\nrls\u0017spellbook of force bolt\nrm 20s\u0017spellbook of slow monster\nrn \u001b<. \u001b.+\u001bZa\n\u0007gnome\nZd\nZd\nZc\n#pray\ny y   #enhance\nya\nn\n\u001bSy\u001b ynt$n#sit\n#twoweapon\n#sit\n#force\nach #jump\n;h.#force\nejjhkn\u0017statue trap\nhlsm.     sm.  yny  nny\u001by  l",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50551009,
+   "datetime": "20000417195814",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed spellbook of light\nrk s\u0017spellbook of dig\nrls\u0017spellbook of force bolt\nrm 20s\u0017spellbook of slow monster\nrn \u001b<. \u001b.+\u001bZa\n\u0007gnome\nZd\nZd\nZc\n#pray\ny y   #enhance\nya\nn\n\u001bSy\u001b"
+  },
+  {
+   "seed": 51051009,
+   "datetime": "20220514102308",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " ynt$n#sit\n#twoweapon\n#sit\n#force\nach #jump\n;h.#force\nejjhkn\u0017statue trap\nhlsm.     sm.  yny  nny\u001by  l"
+  }
+ ]
+}

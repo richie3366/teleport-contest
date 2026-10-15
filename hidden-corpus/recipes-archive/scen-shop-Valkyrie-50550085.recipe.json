@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nWe\u0017blessed +3 cloak of magic resistance\nWf\u0016?\n>w\u0006_ \u001b,,$__, Fl     _.   Fn   #chat\nj     n_ooo,   Fj  _,_ooo.,   p\u0016?\n>Bj  n  kj    n \u0016?\n>w\u0006\u00166\n__.#chat\nn   #pray\ny y       _ooooooooo. Fn _.    nFh,p_oo.Fk _.Fn    n_ooo,Fu_.Fh  ,p_ooooo.Fj _.;m.Fl     n ,p__.Fn   _.Fn  #chat\nn#pray\ny y     __,Fl     n   _,#chat\nk_ooo,,\u0014,20s  sm. _oooooo.,pFl   Fl     nFl  Fl FlFl   Fh  Fh   Fh    n Fh   Fh  Fh   n  \u0016?\n>Bl u j    n\u0016?\n>w\u0006\u00163\n_ooo.  Fk     n_.<.Fk  _o.,   p\u0016?\ncj  jk    n\u0016?\n>w\u0006\u001610\n_ooo.,:_oooooooo.  Fh    _.   Fk ,\u0017ruby\ndi   _oo.   Fj   n _,  _o, _, ,#chat\nl\u00163\nulj\u0016?\n>w\u0006kbl#chat\nb__. Fu _.Fu #chat\nk _o"
+ },
+ "segments": [
+  {
+   "seed": 50550085,
+   "datetime": "20020404063839",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nWe\u0017blessed +3 cloak of magic resistance\nWf\u0016?\n>w\u0006_ \u001b,,$__, Fl     _.   Fn   #chat\nj     n_ooo,   Fj  _,_ooo.,   p\u0016?\n>Bj  n  kj    n \u0016?\n>w\u0006\u00166\n__.#chat\nn   #pray\ny y       _ooooooooo. Fn _.    nFh,p_oo.Fk _.Fn    n_ooo,Fu_.Fh  ,p_ooooo.Fj _.;m.Fl     n ,p__.Fn   _.Fn  #chat\nn#pray\ny y     __,Fl     n   _,#chat\nk_ooo,,\u0014,20s  sm. _oooooo.,pFl   Fl     nFl  Fl FlFl   Fh  Fh   Fh    n Fh   Fh  Fh   n  \u0016?\n>Bl u j    n\u0016?\n>w\u0006\u00163\n_ooo.  Fk     n_.<.Fk  _o.,   p\u0016?\ncj  jk    n\u0016?\n>w\u0006\u001610\n_ooo.,:_oooooooo.  Fh    _.   Fk ,\u0017ruby\ndi   _oo.   Fj   n _,  _o, _, ,#chat\nl\u00163\nulj\u0016?\n>w\u0006kbl#chat\nb__. Fu _.Fu #chat\nk _o"
+  }
+ ]
+}

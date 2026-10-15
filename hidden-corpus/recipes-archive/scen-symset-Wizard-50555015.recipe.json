@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Ol\u001b\n\u00167\nFyFbFlFjFhFyFln FyFuy FhFlFnFjFbFln FkFuFbFuk FyFlj FyFh\u001bFbFnFyFlh FlFyFun FnFul FhFyFkk FlFjFbFjFuFbFub FnFnFuFuFjFuFuFyFuh FbFjFlFuFhFbFkj FbFub FlFkFuFjFlFkFuFuFbFll FjFkFuFhFyFnFuFnFuy FnFh\u001bFnFh\u001bFjFbFh\u001bFuFbFyFlFlFbFbFyFyFjFbFyFlFlFyFyFyFlh FlFuFhFhFkFjFkFkFyFkl FkFyFjFlFkFkFuFuFyFkb FhFjFhFbFh\u001bFyFjFyFjFlFkFjFyFuy FyFbFyFkn FjFkFyFkb FyFjFhFyFnFjFnFkl FnFly FlFhFnFuk FjFlFuFjFuFkFuFbFyFlFuFjFnFly FhFhFkFkFyFky FjFyFbFnFbFjFuFnFbFjFhFbFuk FlFhFnFyFnFlk FlFlFhFyFuu FkFlFbFkj FuFyFh\u001bFkFjFnFuh FbFkh FhFjFyFh\u001bFlFkFuFlFlFbFbFkFkFuFyFbFnFll FnFh\u001bFkFuFbO>>p\u001b\n\u0006_ \u001b>. >_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFlFlFlFl\u0006_>>,_,>_>>,_.>_>>,Fl_.>\u0006_>.Fl_,>_>,_.>_>._.Fl>FlFlFlFlFl\u0006_>>._,Fl>FlFl_>>._,Fl>FlFl_>>,Fl_,>ok #twoweapon\n\u00166\nFkFnFnFlFuFlFuFuFjFbFlFkFuFhFbFjFyFnFlFjFjFhFuFuFyFkb FnFbFhFjFnFyFjFlF"
+ },
+ "segments": [
+  {
+   "seed": 50555015,
+   "datetime": "20260212095401",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueWindows\nOPTIONS=mention_walls\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You see\"\nMENUCOLOR=\"a scroll\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "Ol\u001b\n\u00167\nFyFbFlFjFhFyFln FyFuy FhFlFnFjFbFln FkFuFbFuk FyFlj FyFh\u001bFbFnFyFlh FlFyFun FnFul FhFyFkk FlFjFbFjFuFbFub FnFnFuFuFjFuFuFyFuh FbFjFlFuFhFbFkj FbFub FlFkFuFjFlFkFuFuFbFll FjFkFuFhFyFnFuFnFuy FnFh\u001bFnFh\u001bFjFbFh\u001bFuFbFyFlFlFbFbFyFyFjFbFyFlFlFyFyFyFlh FlFuFhFhFkFjFkFkFyFkl FkFyFjFlFkFkFuFuFyFkb FhFjFhFbFh\u001bFyFjFyFjFlFkFjFyFuy FyFbFyFkn FjFkFyFkb FyFjFhFyFnFjFnFkl FnFly FlFhFnFuk FjFlFuFjFuFkFuFbFyFlFuFjFnFly FhFhFkFkFyFky FjFyFbFnFbFjFuFnFbFjFhFbFuk FlFhFnFyFnFlk FlFlFhFyFuu FkFlFbFkj FuFyFh\u001bFkFjFnFuh FbFkh FhFjFyFh\u001bFlFkFuFlFlFbFbFkFkFuFyFbFnFll FnFh\u001bFkFuFbO>>p\u001b\n\u0006_ \u001b>. >_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFlFlFlFl\u0006_>>,_,>_>>,_.>_>>,Fl_.>\u0006_>.Fl_,>_>,_.>_>._.Fl>FlFlFlFlFl\u0006_>>._,Fl>FlFl_>>._,Fl>FlFl_>>,Fl_,>ok #twoweapon\n\u00166\nFkFnFnFlFuFlFuFuFjFbFlFkFuFhFbFjFyFnFlFjFjFhFuFuFyFkb FnFbFhFjFnFyFjFlF"
+  }
+ ]
+}

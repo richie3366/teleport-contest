@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed Mjollnir\nwf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001bm, ,p_ooooo.,:Fj FjFjFjFjFjFj FjFjFjFjFj_ooooo._._oo.,p_oooooooo,,\u0014;.s_ooo.,\u0017amulet of magical breathing\ndi_{,_.q\u0016?\nckhy\u0016?\n>w\u0006__,Fu_..Fu#chat\nl_ooooooooo.Fu _.Fj_ooo,Fb_,  ,  #chat\nb__._.#chat\ny#pray\ny y   Fu  Fu     n  Fu Fu Fu Fu   Fh  Fh  Fh Fh  Fh Fh  _oooooooo,_ooo.Fu _,@.Fu ,#chat\nu __. Fu  _. Fu   n  #chat\nu   _oooooo,Fk   _,  Fu  _ooo,  n   Fy   n   _.  n   Fh   n    n,    n  #chat\ny   n   \u00165\nFk   n   Fk   n  Fk       nFk    nFk    n Fk  \u00167\n_ooooooo._oo.,$_ooooooo,_oo.,$Fb   n   Fb   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50555542,
+   "datetime": "20250106115125",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed Mjollnir\nwf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001bm, ,p_ooooo.,:Fj FjFjFjFjFjFj FjFjFjFjFj_ooooo._._oo.,p_oooooooo,,\u0014;.s_ooo.,\u0017amulet of magical breathing\ndi_{,_.q\u0016?\nckhy\u0016?\n>w\u0006__,Fu_..Fu#chat\nl_ooooooooo.Fu _.Fj_ooo,Fb_,  ,  #chat\nb__._.#chat\ny#pray\ny y   Fu  Fu     n  Fu Fu Fu Fu   Fh  Fh  Fh Fh  Fh Fh  _oooooooo,_ooo.Fu _,@.Fu ,#chat\nu __. Fu  _. Fu   n  #chat\nu   _oooooo,Fk   _,  Fu  _ooo,  n   Fy   n   _.  n   Fh   n    n,    n  #chat\ny   n   \u00165\nFk   n   Fk   n  Fk       nFk    nFk    n Fk  \u00167\n_ooooooo._oo.,$_ooooooo,_oo.,$Fb   n   Fb   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

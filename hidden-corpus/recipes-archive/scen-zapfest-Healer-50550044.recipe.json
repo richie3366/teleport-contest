@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nWl   \u0017blessed amulet of life saving\nPm\u0017blessed +3 speed boots\nWn\u0017blessed spellbook of cause fear\nro s\u0007vampire\n\u0007succubus\nZb\nsy.m.Zc\nZb\nZa\nZd\n20ssm.Zd\nsm.sm. Zc\nZd\n.ysm. \u0017blessed spellbook of cone of cold\nrp   sm.\u0007orc shaman\n\u0007master mind flayer\nZb\nZb\nZc\nZb\nZd\nsm.  20s                 Za\nZc\n Zb\nZa\n.m.   n    sm.     \u0017wand of lightning\n\u0017wand of fire\n\u0007gnome\n\u0007gnome lord\n\u0007grid bug\nzrl  n   n    zqk    n    n  zry    n  zqh   n  zry     n  n   ns   n   nzqy   n  zql    n  zru     n \u0017spellbook of magic missile\nrss\u0007master lich\n\u0007orc shaman\nZa\nZa\n    Zb\n   yy\u001by   y y y\u001b y  Z"
+ },
+ "segments": [
+  {
+   "seed": 50550044,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nWl   \u0017blessed amulet of life saving\nPm\u0017blessed +3 speed boots\nWn\u0017blessed spellbook of cause fear\nro s\u0007vampire\n\u0007succubus\nZb\nsy.m.Zc\nZb\nZa\nZd\n20ssm.Zd\nsm.sm. Zc\nZd\n.ysm. \u0017blessed spellbook of cone of cold\nrp   sm.\u0007orc shaman\n\u0007master mind flayer\nZb\nZb\nZc\nZb\nZd\nsm.  20s                 Za\nZc\n Zb\nZa\n.m.   n    sm.     \u0017wand of lightning\n\u0017wand of fire\n\u0007gnome\n\u0007gnome lord\n\u0007grid bug\nzrl  n   n    zqk    n    n  zry    n  zqh   n  zry     n  n   ns   n   nzqy   n  zql    n  zru     n \u0017spellbook of magic missile\nrss\u0007master lich\n\u0007orc shaman\nZa\nZa\n    Zb\n   yy\u001by   y y y\u001b y  Z"
+  }
+ ]
+}

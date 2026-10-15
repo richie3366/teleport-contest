@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 speed boots\nWn\u0017blessed +3 helm of telepathy\nWo\u0017blessed +3 gauntlets of power\nWp\u0016?\n>H jkjhlh:20s\u001626\n     \u0014 \u001bm..s\u0016?\n>H_<.<s20s.\u00163\nnl:\u0016?\nabnuln:\u0016?\n>z yuuh:\u0016?\n>v hhl:20s20s\u001632\n_>,<sm..m.sm.  \u0016?\n>>M      spellbook of healing\n_>.>\u001632\nuh       yyynb: sn  n\u001629\n\u0006m,_<.\u00163\n_{,20s     .m.\u0016?\n\u001bj   j\u001632\n__.>\u0016?\n\u001bl   u\u0016?\n\u001bu b    \u001623\n\u0006:_>.sm.  sm.  \u0016?\n\u001bll \u0016?\n\u001bbk     n \u001626\n#chat\nb;b.sm.   sm.  \u0016?\n\u001bhu   \u001632\n\u0004y\u0016?\n\u001by j\u00163\n\u0006,_>,s     \u0016?\n\u001bj      y   n  \u00165\n_<.20s  \u001640\nb          n  h          n :\u001611\n\u0016?\n\u001bl     y\u0016?\n\u001bny     n \u0016?\n\u001bb            n n      n  \u001610\n\u00165\nj     y    n       :\u0016?\n\u001bl     n      l   \u0016?\n\u001bkh\u0016?\n\u001bj    n    k      n    \u001611\n\u001630\n\u0017spellbook of cure sickness\nrs        n  20s       sm.Z\u001bZ\u001b\u0017cursed scroll of charging\n\u0007wumpus\nrt m   n      Fj     n  Fu     \u001b     \u0017uncursed tin of lizard meat\neu       yy\u001by   y y  y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50556520,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 speed boots\nWn\u0017blessed +3 helm of telepathy\nWo\u0017blessed +3 gauntlets of power\nWp\u0016?\n>H jkjhlh:20s\u001626\n     \u0014 \u001bm..s\u0016?\n>H_<.<s20s.\u00163\nnl:\u0016?\nabnuln:\u0016?\n>z yuuh:\u0016?\n>v hhl:20s20s\u001632\n_>,<sm..m.sm.  \u0016?\n>>M      spellbook of healing\n_>.>\u001632\nuh       yyynb: sn  n\u001629\n\u0006m,_<.\u00163\n_{,20s     .m.\u0016?\n\u001bj   j\u001632\n__.>\u0016?\n\u001bl   u\u0016?\n\u001bu b    \u001623\n\u0006:_>.sm.  sm.  \u0016?\n\u001bll \u0016?\n\u001bbk     n \u001626\n#chat\nb;b.sm.   sm.  \u0016?\n\u001bhu   \u001632\n\u0004y\u0016?\n\u001by j\u00163\n\u0006,_>,s     \u0016?\n\u001bj      y   n  \u00165\n_<.20s  \u001640\nb          n  h          n :\u001611\n\u0016?\n\u001bl     y\u0016?\n\u001bny     n \u0016?\n\u001bb            n n      n  \u001610\n\u00165\nj     y    n       :\u0016?\n\u001bl     n      l   \u0016?\n\u001bkh\u0016?\n\u001bj    n    k      n    \u001611\n\u001630\n\u0017spellbook of cure sickness\nrs        n  20s       sm.Z\u001bZ\u001b\u0017cursed scroll of charging\n\u0007wumpus\nrt m   n      Fj     n  Fu     \u001b     \u0017uncursed tin of lizard meat\neu       yy\u001by   y y  y\u001b  s"
+  }
+ ]
+}

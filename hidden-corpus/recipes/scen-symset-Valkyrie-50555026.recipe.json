@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "O>>>i\u001b\u001b\n\u0007tame kitten\n\u0017huge chunk of meat\ntbn \u0017magic whistle\nbh\u001bh\u001baf  #name\ni\n\u0017magic whistle\nyll bag  #chat\nj dgsss\u0017tin whistle\nbjkk ahmO>e\u001b\nOn\u001b\nFbFh\u001bFhFkFkFnFjFnFjFkFjFkFbFnFnFkb FhFjFhFhFbFkn FnFjFbFnFbFbFkFbFnFjFhFkFkFjFbFjFjFjFhFhFhFbFkh FnFbFjFkFbFnFbFbFkFhFbFnFjFhFnFbFjFkFkFnFkj FnFnFbFh\u001bFkFbFjFbFh\u001bFjFbFbFjFbFnFnFh\u001bFbFh\u001bFbFbFnFnFnFbFjFbFkb FjFjFbFh\u001bFjFkFnFkk FjFnFh\u001bFnFh\u001bFjFjFhFkFkFkFjFhFjFnFjFjFh: ch oh \u001614\n\u0006_ \u001bm,>FjFj_>. Fk_.> FbFjFb#wipe\nr\u001b\u0006_>.Fk_.,Fn>FuFjFu_<.s#enhance\nyp\nk\n\u001b< \u0006_>>.> FuFnFuh f bnq\u0006_>,Fu_.>.Fl>FkFk_>,Fj_.Fk>FuFk_>,Fk_.Fj>FuFuFjFuFk#offer\n10s\u0006_>,Fl_.> FkFkFk\u0006_>>, Fl_.> FlFlFlZi\u001b\u0006_>._.> FlFlFn\u0014,< v i\u001bv i\u001b\u00165\n:#twoweapon\nP\u0006_>,Fh_.Fb>FyFh\u001b_>.Fy_.Fh\u001b>FyFh\u001b_>.Fb_,Fy>FyFbFyFbFh\u0018\u001b#invoke\n\u001b\u0006_>.Fb_.Fb>FbFll _>.Fh_,Fh>FyFy_>.Fl_.Fl>FlFhFbFbFyWL\u0006_>.Fh_.Fb>FbFh\u001b_>.F"
+ },
+ "segments": [
+  {
+   "seed": 50555026,
+   "datetime": "20220821220343",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nMENUCOLOR=\"blessed\"=magenta\n",
+   "moves": "O>>>i\u001b\u001b\n\u0007tame kitten\n\u0017huge chunk of meat\ntbn \u0017magic whistle\nbh\u001bh\u001baf  #name\ni\n\u0017magic whistle\nyll bag  #chat\nj dgsss\u0017tin whistle\nbjkk ahmO>e\u001b\nOn\u001b\nFbFh\u001bFhFkFkFnFjFnFjFkFjFkFbFnFnFkb FhFjFhFhFbFkn FnFjFbFnFbFbFkFbFnFjFhFkFkFjFbFjFjFjFhFhFhFbFkh FnFbFjFkFbFnFbFbFkFhFbFnFjFhFnFbFjFkFkFnFkj FnFnFbFh\u001bFkFbFjFbFh\u001bFjFbFbFjFbFnFnFh\u001bFbFh\u001bFbFbFnFnFnFbFjFbFkb FjFjFbFh\u001bFjFkFnFkk FjFnFh\u001bFnFh\u001bFjFjFhFkFkFkFjFhFjFnFjFjFh: ch oh \u001614\n\u0006_ \u001bm,>FjFj_>. Fk_.> FbFjFb#wipe\nr\u001b\u0006_>.Fk_.,Fn>FuFjFu_<.s#enhance\nyp\nk\n\u001b< \u0006_>>.> FuFnFuh f bnq\u0006_>,Fu_.>.Fl>FkFk_>,Fj_.Fk>FuFk_>,Fk_.Fj>FuFuFjFuFk#offer\n10s\u0006_>,Fl_.> FkFkFk\u0006_>>, Fl_.> FlFlFlZi\u001b\u0006_>._.> FlFlFn\u0014,< v i\u001bv i\u001b\u00165\n:#twoweapon\nP\u0006_>,Fh_.Fb>FyFh\u001b_>.Fy_.Fh\u001b>FyFh\u001b_>.Fb_,Fy>FyFbFyFbFh\u0018\u001b#invoke\n\u001b\u0006_>.Fb_.Fb>FbFll _>.Fh_,Fh>FyFy_>.Fl_.Fl>FlFhFbFbFyWL\u0006_>.Fh_.Fb>FbFh\u001b_>.F"
+  }
+ ]
+}

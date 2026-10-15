@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nk_mmmm,Fk_.   nFk#chat\nk;k;_mmm,  n Fk  n   n _,#chat\nu   n #levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m. Fh  _.#chat\ny;u,_mm.Fy _,#chat\ny_mmmm.   n Fh  _.#chat\nu     n\u0017blessed +3 cloak of magic resistance\nWj  \u0017blessed +3 speed boots\nWk     \u0017blessed +3 gauntlets of power\nWl   n \u0017wand of lightning\n\u0016?\n>z\u0006_mmm, Fy_.Fu Fb   FbFh Fb,#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm. Fk   n _,  Fh FbFu FuFy  Fl zmk ,\u0016?\n>A\u0006_mmmmmmm.Fb _, Fh FjFhFjFjs,\u0016?\n>A\u0006_mmmm.Fb_.@.FhFbFh Fh Fh,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mm.  n Fy _.#chat\nh\u0016?\n>z\u0006_mmmmmmm.Fh _,Fh.20s..20s,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm._.ss...zmu,\u0016?\n>A\u0006_mmmmmmm.Fh_,Fhs.ss20s20s,\u0016?\n>>\u001b\u0016?\n>y_mm._.#chat\nu;m,\u0016?\n>A\u0006_mmmm..20ss.s,#chat\nn\u0016?\n>z\u0006_mmm.20s20sFkFk20ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.s..s,#chat\nn\u0016?\n>A\u0006_mmmm.s...,\u0016?\n>A\u0006_mm....20s.szmy,#chat\nb\u0016?\n>z\u0006_mmmm,s.s..s,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm._. Fk"
+ },
+ "segments": [
+  {
+   "seed": 50550046,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nk_mmmm,Fk_.   nFk#chat\nk;k;_mmm,  n Fk  n   n _,#chat\nu   n #levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m. Fh  _.#chat\ny;u,_mm.Fy _,#chat\ny_mmmm.   n Fh  _.#chat\nu     n\u0017blessed +3 cloak of magic resistance\nWj  \u0017blessed +3 speed boots\nWk     \u0017blessed +3 gauntlets of power\nWl   n \u0017wand of lightning\n\u0016?\n>z\u0006_mmm, Fy_.Fu Fb   FbFh Fb,#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm. Fk   n _,  Fh FbFu FuFy  Fl zmk ,\u0016?\n>A\u0006_mmmmmmm.Fb _, Fh FjFhFjFjs,\u0016?\n>A\u0006_mmmm.Fb_.@.FhFbFh Fh Fh,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mm.  n Fy _.#chat\nh\u0016?\n>z\u0006_mmmmmmm.Fh _,Fh.20s..20s,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm._.ss...zmu,\u0016?\n>A\u0006_mmmmmmm.Fh_,Fhs.ss20s20s,\u0016?\n>>\u001b\u0016?\n>y_mm._.#chat\nu;m,\u0016?\n>A\u0006_mmmm..20ss.s,#chat\nn\u0016?\n>z\u0006_mmm.20s20sFkFk20ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.s..s,#chat\nn\u0016?\n>A\u0006_mmmm.s...,\u0016?\n>A\u0006_mm....20s.szmy,#chat\nb\u0016?\n>z\u0006_mmmm,s.s..s,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm._. Fk"
+  }
+ ]
+}

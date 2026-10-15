@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPer\u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg   \u0007silver dragon\n\u0007black dragon\nsm.ss#polyself\nsilver dragon\n    #monster\nsb 20s #monster\n#monster\nFl    Fl  \u0007black dragon\n\u0007silver dragon\nsm. sm.      #polyself\nred dragon\n #monster\n20s       sm.     n #monster\n#monster\n#monster\n#monster\nFnFl   n   n\u001611\n\u0017crossbow\nwh\u001715 crossbow bolts\nQi\u0007owlbear\n\u0007gnome lord\ntbhtik fk   n  tik fh  n  nfk fk   n \u00165\n\u00161\n\u0007baby red dragon\n\u0007baby red dragon\nsm.20s sm.#polyself\ngold dragon\n  #monster\n20s sm.#monster\n#monster\n\u0017wand of magic missile\naFk   Fk   \u0017orcish bow\nw\u001720 orcish arrows\nQ\u001b\u0007yellow mold\n\u0007bugb"
+ },
+ "segments": [
+  {
+   "seed": 50550028,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0017blessed ring of free action\nPer\u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg   \u0007silver dragon\n\u0007black dragon\nsm.ss#polyself\nsilver dragon\n    #monster\nsb 20s #monster\n#monster\nFl    Fl  \u0007black dragon\n\u0007silver dragon\nsm. sm.      #polyself\nred dragon\n #monster\n20s       sm.     n #monster\n#monster\n#monster\n#monster\nFnFl   n   n\u001611\n\u0017crossbow\nwh\u001715 crossbow bolts\nQi\u0007owlbear\n\u0007gnome lord\ntbhtik fk   n  tik fh  n  nfk fk   n \u00165\n\u00161\n\u0007baby red dragon\n\u0007baby red dragon\nsm.20s sm.#polyself\ngold dragon\n  #monster\n20s sm.#monster\n#monster\n\u0017wand of magic missile\naFk   Fk   \u0017orcish bow\nw\u001720 orcish arrows\nQ\u001b\u0007yellow mold\n\u0007bugb"
+  }
+ ]
+}

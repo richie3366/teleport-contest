@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  O>>f\u001b\n\u00168\n>qe#loot\ny#conduct\n v i\u001bv i\u001bhubh\u0017unaligned altar\nda\u0017lichen corpse\n#offer\nk  #pray\ny : u\u0017tree\n:#terrain\nb\n\u001b.w\u001bi\u001b20s    v i\u001b\u00163\nFbFuFbFuFuFnFjFlFyFjFuFjFhFuFnFjFhFnFbFuFbFy FbFbFyFyFnFnFjFyFjFyFbFlFjFnFyFlFjFbFjFjFuFnFbFjFhFjFuFb FhFhFjFuFjFkFuFkFuFjFbFbFuFuFjFyFuFuFlFj FbFjFlFkFbFjFnFuFyFuFhFkFlFyFyFbFjFbFnFyFnFlFuFnFyFbFuFnFnFbFhFkFuFbFlFyFbFnFlFnFjFbFkFnFkFlFkFyFlFn\u0006_>,_.;:   >_>._.,>_>,_.>.>#monster\nb\u0006_>>,_,:>_>>,_,>.>_>>._.m.>\u0006_>._,,Fl>FlFl_>._.;m,>_>._.:>\u0006_>._.>.Fl>_>,Fl_.>.>_>,Fl_,m.><\u0006_>>._,m.Fl>_>>._.;m,>_>>._.>.Fl>FlsFlsFl\u000f\u001b\u001612\nv i\u001bmO>>>>f\u001b\nO>>h\u001b\n#levelchange\n20\n                   uhh\u0017grave\n: \u0017wand of digging\nzl> sm.sm.y\u0017sink\nqy20si\u001b\u0018\u001b\u001617\n\u0004n#ride\njy#twoweapon\n#invoke\n\u001b\u0006_>>.Fn_,> W#conduct\n \u0006_>._,> FhFnFl\u0014>.\u0004n\u0006_>.Fy_.Fj>FkFl_>.Fu_.Fn>FjFl_>.Fu_,Fl>F"
+ },
+ "segments": [
+  {
+   "seed": 50555044,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You kill\"\nMENUCOLOR=\"a potion\"=green\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  O>>f\u001b\n\u00168\n>qe#loot\ny#conduct\n v i\u001bv i\u001bhubh\u0017unaligned altar\nda\u0017lichen corpse\n#offer\nk  #pray\ny : u\u0017tree\n:#terrain\nb\n\u001b.w\u001bi\u001b20s    v i\u001b\u00163\nFbFuFbFuFuFnFjFlFyFjFuFjFhFuFnFjFhFnFbFuFbFy FbFbFyFyFnFnFjFyFjFyFbFlFjFnFyFlFjFbFjFjFuFnFbFjFhFjFuFb FhFhFjFuFjFkFuFkFuFjFbFbFuFuFjFyFuFuFlFj FbFjFlFkFbFjFnFuFyFuFhFkFlFyFyFbFjFbFnFyFnFlFuFnFyFbFuFnFnFbFhFkFuFbFlFyFbFnFlFnFjFbFkFnFkFlFkFyFlFn\u0006_>,_.;:   >_>._.,>_>,_.>.>#monster\nb\u0006_>>,_,:>_>>,_,>.>_>>._.m.>\u0006_>._,,Fl>FlFl_>._.;m,>_>._.:>\u0006_>._.>.Fl>_>,Fl_.>.>_>,Fl_,m.><\u0006_>>._,m.Fl>_>>._.;m,>_>>._.>.Fl>FlsFlsFl\u000f\u001b\u001612\nv i\u001bmO>>>>f\u001b\nO>>h\u001b\n#levelchange\n20\n                   uhh\u0017grave\n: \u0017wand of digging\nzl> sm.sm.y\u0017sink\nqy20si\u001b\u0018\u001b\u001617\n\u0004n#ride\njy#twoweapon\n#invoke\n\u001b\u0006_>>.Fn_,> W#conduct\n \u0006_>._,> FhFnFl\u0014>.\u0004n\u0006_>.Fy_.Fj>FkFl_>.Fu_.Fn>FjFl_>.Fu_,Fl>F"
+  }
+ ]
+}

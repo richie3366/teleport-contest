@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPer\u0017blessed +3 gray dragon scale mail\nWf   \u0016?\n>w\u0006_ \u001b,#chat\nj _ooooooo,,#chat\nh_{.Fk _.q_{._.q_oooooooo,,\u0014;.subl#chat\nh_oooooo.,\u0017amulet versus poison\ndg__,_.#chat\nh_ooooo,_._o._,,pblu#chat\nh_oooo.,$\u0016?\n>Byju\u0016?\n>w\u0006FnFn FnFnFnFn\u00163\nunb\u0016?\n>w\u0006_ooooooo,Fl_,   Fb_oo.,:_oo.,p_oooooooo.,#chat\nb_{. _, q_{.  Fj _. FjqFj Fj FjFj FjFj _oooooooo,, #chat\nj__. Fn _,Fh #chat\nn #pray\ny y    _ooooooooo, Fj_.,   #chat\nn_oooooooo.  Fn _,   Fn_o. Fj_.,\u001b\u0017amulet of magical breathing\ndj _oo, Fj_. Fn  ,#chat\nn  _{,  Fh_, Fnq\u00163\nubn\u0016?\n>w\u0006__.Fy_.Fj #chat\nj#pray\ny y      _oooooo.Fn_.Fn,p_oooooo.Fl_.Fl,\u0017amulet of restful sleep\ndk_ooo,Fl_,Fl,p_oooo.Fl_.Fl_oo.Fn  n_.Fn ,p_ooo.Fn _,Fl,:_{,Fl _.Fh q_oooo.Fl_. Fh  ,\u0017ruby\ndl\u0016?\n>Bu bu\u0016?\n>w \u0006_{,Fh_.Fh q_ooooooo, Fb_.Fn,$Fj  FjFj Fj Fj Fj _ooooooooo,Fj _.Fb,p_oooo.Fb _.Fb ,p_ooo,Fb  n_.Fk   ,p_ooo.   Fk _. Fb _o.  nFk  _.  Fb   ,       n :\u00168\n_oooooo,,p_oo,_ooo,,pFj Fj  Fj  Fj Fj"
+ },
+ "segments": [
+  {
+   "seed": 50555522,
+   "datetime": "20111130191218",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPer\u0017blessed +3 gray dragon scale mail\nWf   \u0016?\n>w\u0006_ \u001b,#chat\nj _ooooooo,,#chat\nh_{.Fk _.q_{._.q_oooooooo,,\u0014;.subl#chat\nh_oooooo.,\u0017amulet versus poison\ndg__,_.#chat\nh_ooooo,_._o._,,pblu#chat\nh_oooo.,$\u0016?\n>Byju\u0016?\n>w\u0006FnFn FnFnFnFn\u00163\nunb\u0016?\n>w\u0006_ooooooo,Fl_,   Fb_oo.,:_oo.,p_oooooooo.,#chat\nb_{. _, q_{.  Fj _. FjqFj Fj FjFj FjFj _oooooooo,, #chat\nj__. Fn _,Fh #chat\nn #pray\ny y    _ooooooooo, Fj_.,   #chat\nn_oooooooo.  Fn _,   Fn_o. Fj_.,\u001b\u0017amulet of magical breathing\ndj _oo, Fj_. Fn  ,#chat\nn  _{,  Fh_, Fnq\u00163\nubn\u0016?\n>w\u0006__.Fy_.Fj #chat\nj#pray\ny y      _oooooo.Fn_.Fn,p_oooooo.Fl_.Fl,\u0017amulet of restful sleep\ndk_ooo,Fl_,Fl,p_oooo.Fl_.Fl_oo.Fn  n_.Fn ,p_ooo.Fn _,Fl,:_{,Fl _.Fh q_oooo.Fl_. Fh  ,\u0017ruby\ndl\u0016?\n>Bu bu\u0016?\n>w \u0006_{,Fh_.Fh q_ooooooo, Fb_.Fn,$Fj  FjFj Fj Fj Fj _ooooooooo,Fj _.Fb,p_oooo.Fb _.Fb ,p_ooo,Fb  n_.Fk   ,p_ooo.   Fk _. Fb _o.  nFk  _.  Fb   ,       n :\u00168\n_oooooo,,p_oo,_ooo,,pFj Fj  Fj  Fj Fj"
+  }
+ ]
+}

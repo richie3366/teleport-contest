@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWg\u0017blessed shield of reflection\nWh#levelchange\n20\n                   \u0017sling\nwi\u001720 flint stones\n Qc\u0007hill orc\ntdh  tdk fk  fufkfbfn\u0017potion of hallucination\ntdk\u00178 spears\n Qk\u0007gnome lord\nfufufutdu tdu  tdufufu\u0007gnomish wizard\n\u0007master lich\n\u0017wand of striking\nzlh  \u001b.u zlhzlk    sm.20s      zly   zlh \u0007gnomish wizard\n\u0007vampire\n\u0007incubus\n\u0017wand of cold\nzmhzmlzmy       .j20s     y    sm.   \u0017blessed spellbook of magic missile\nrn    20s \u0007aligned cleric\nyZsu   sh Zsm.      n .     ZZ20s   n     .   ZZs       n    s    n i\u001b\u00169\n\u0007gnomish wizard\n\u0007kobold shaman\n\u0017wand of fire\ns20s  zobzoys.zoj  \u0017spellbook of slow monster\nrps\u0007master lich\nZZ.    n 20s ZZZZ20s   .  #turn\n\u0018\u001b\u0017blessed spellbook of sleep\nrq. \u0007master mind flayer\n\u0007master mind flayer\nZZZZs    n 20s         n   n   ZZ#turn\n\u001612\n    \u0017spellbook of cone of cold\nrr20s\u0007mind flayer\n\u0007master mind flayer\nZZZZZss  n    n     n   n  Zs  n   n     n  s   ynny nn  Z"
+ },
+ "segments": [
+  {
+   "seed": 50550084,
+   "datetime": "20121024202918",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWg\u0017blessed shield of reflection\nWh#levelchange\n20\n                   \u0017sling\nwi\u001720 flint stones\n Qc\u0007hill orc\ntdh  tdk fk  fufkfbfn\u0017potion of hallucination\ntdk\u00178 spears\n Qk\u0007gnome lord\nfufufutdu tdu  tdufufu\u0007gnomish wizard\n\u0007master lich\n\u0017wand of striking\nzlh  \u001b.u zlhzlk    sm.20s      zly   zlh \u0007gnomish wizard\n\u0007vampire\n\u0007incubus\n\u0017wand of cold\nzmhzmlzmy       .j20s     y    sm.   \u0017blessed spellbook of magic missile\nrn    20s \u0007aligned cleric\nyZsu   sh Zsm.      n .     ZZ20s   n     .   ZZs       n    s    n i\u001b\u00169\n\u0007gnomish wizard\n\u0007kobold shaman\n\u0017wand of fire\ns20s  zobzoys.zoj  \u0017spellbook of slow monster\nrps\u0007master lich\nZZ.    n 20s ZZZZ20s   .  #turn\n\u0018\u001b\u0017blessed spellbook of sleep\nrq. \u0007master mind flayer\n\u0007master mind flayer\nZZZZs    n 20s         n   n   ZZ#turn\n\u001612\n    \u0017spellbook of cone of cold\nrr20s\u0007mind flayer\n\u0007master mind flayer\nZZZZZss  n    n     n   n  Zs  n   n     n  s   ynny nn  Z"
+  }
+ ]
+}

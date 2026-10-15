@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nn;u._m.Fk_,#chat\nk;k,_mmmmm,Fl_.>.Fh   n #chat\ny_mm.  nFl   n  n_,#chat\nl_m. Fh_.#chat\nh  n#levelchange\n16\n                  \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm. Fh    n _.#chat\nu;y;_mmm, Fu_,#chat\ny_mmm,  n Fh  _.#chat\nu\u0017blessed ring of free action\nPkl\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017wand of striking\n\u0016?\n>A\u0006_mmmmm,  n Fh    _.Fk   n Fk FuFkzny   ,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_m.Fk _,  nFk#chat\nn;n.\u001611\n\u0016?\n>A\u0006_mmmmmm.Fk _,;m,Fu  n FyFyFl   Fu Fu znu     n ,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_m.Fn_.#chat\ny\u00163\n\u0016?\n>z\u0006_mmm,   nFn_.FlFl Fj  n Fl   znn   n ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,Fy_,Fy FnFl    y"
+ },
+ "segments": [
+  {
+   "seed": 50557004,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nn;u._m.Fk_,#chat\nk;k,_mmmmm,Fl_.>.Fh   n #chat\ny_mm.  nFl   n  n_,#chat\nl_m. Fh_.#chat\nh  n#levelchange\n16\n                  \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm. Fh    n _.#chat\nu;y;_mmm, Fu_,#chat\ny_mmm,  n Fh  _.#chat\nu\u0017blessed ring of free action\nPkl\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017wand of striking\n\u0016?\n>A\u0006_mmmmm,  n Fh    _.Fk   n Fk FuFkzny   ,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_m.Fk _,  nFk#chat\nn;n.\u001611\n\u0016?\n>A\u0006_mmmmmm.Fk _,;m,Fu  n FyFyFl   Fu Fu znu     n ,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_m.Fn_.#chat\ny\u00163\n\u0016?\n>z\u0006_mmm,   nFn_.FlFl Fj  n Fl   znn   n ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,Fy_,Fy FnFl    y"
+  }
+ ]
+}

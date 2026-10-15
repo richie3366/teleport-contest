@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                    \u0016?\n>>K      ring of poison resistance\nlh   :\u001628\nj nk   :\u00166\n\u0014 \u001b,    n       \u0016?\n\u001by    n    u     n           \u001612\n\u0016?\n\u001bn   n    n  y     n       \u001612\n\u0016?\n\u001bh   n        n   y   n     n      \u00163\n\u0016?\n\u001bu    n      n    \u001625\nn     nb   n   n   h           n:\u00166\n\u0016?\n\u001bl     h     n       n\u0016?\n\u001bl      y  b"
+ },
+ "segments": [
+  {
+   "seed": 50556509,
+   "datetime": "20091231203048",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                    \u0016?\n>>K      ring of poison resistance\nlh   :\u001628\nj nk   :\u00166\n\u0014 \u001b,    n       \u0016?\n\u001by    n    u     n           \u001612\n\u0016?\n\u001bn   n    n  y     n       \u001612\n\u0016?\n\u001bh   n        n   y   n     n      \u00163\n\u0016?\n\u001bu    n      n    \u001625\nn     nb   n   n   h           n:\u00166\n\u0016?\n\u001bl     h     n       n\u0016?\n\u001bl      y  b"
+  }
+ ]
+}

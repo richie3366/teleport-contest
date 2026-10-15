@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqf \u001b@._oo.Fb_,Fj ,:_oooooo,Fy  _.,,\u0014:_mmm,Fl  _,Fl#chat\nl _ooooooo.Fl _.Fn ,#chat\nn_ooo._._o.Fb  _,,\u0014,_ooo.   y y\u001by  y ny\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50557602,
+   "datetime": "20250224124353",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqf \u001b@._oo.Fb_,Fj ,:_oooooo,Fy  _.,,\u0014:_mmm,Fl  _,Fl#chat\nl _ooooooo.Fl _.Fn ,#chat\nn_ooo._._o.Fb  _,,\u0014,_ooo.   y y\u001by  y ny\u001by  F"
+  }
+ ]
+}

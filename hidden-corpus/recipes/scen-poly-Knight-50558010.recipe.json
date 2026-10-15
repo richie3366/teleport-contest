@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPir\u0017fumble boots\nWj20ssm.sm.#polyself\nlong worm\n  #monster\nsm.  sm. sm.  sk   .m.    #polyself\nstalker\n#monster\n.m..u sm.20ssh\u0017amulet of unchanging\nPk shs20ssm."
+ },
+ "segments": [
+  {
+   "seed": 50558010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of polymorph control\nPir\u0017fumble boots\nWj20ssm.sm.#polyself\nlong worm\n  #monster\nsm.  sm. sm.  sk   .m.    #polyself\nstalker\n#monster\n.m..u sm.20ssh\u0017amulet of unchanging\nPk shs20ssm."
+  }
+ ]
+}

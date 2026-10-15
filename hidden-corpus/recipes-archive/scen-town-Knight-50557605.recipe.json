@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqi \u001b;_oooo.   _,Fh ,$_mmm._.#chat\nl_{.Fu_,   q_ooo. Fk_..Fk,p__,Fy_. Fy#chat\nk _oooooo,Fh  yy\u001by  y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50557605,
+   "datetime": "20240910020840",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqi \u001b;_oooo.   _,Fh ,$_mmm._.#chat\nl_{.Fu_,   q_ooo. Fk_..Fk,p__,Fy_. Fy#chat\nk _oooooo,Fh  yy\u001by  y y y\u001by  _"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " mO>>>>>>re\n1\n b\n\u001b#monster\n\u0018\u001bmO>>h\n wb mO>>>fp\n\u000f\u001b#force\nmO>>>tla\n zmO>>>lnp\n  #enhance\ny\n__, \u001b<..mO>>>>jag\n i\u001bO>gd\n c\ng\n\u001b\u001bch#enhance\ny\n.."
+ },
+ "segments": [
+  {
+   "seed": 50557414,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:full\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " mO>>>>>>re\n1\n b\n\u001b#monster\n\u0018\u001bmO>>h\n wb mO>>>fp\n\u000f\u001b#force\nmO>>>tla\n zmO>>>lnp\n  #enhance\ny\n__, \u001b<..mO>>>>jag\n i\u001bO>gd\n c\ng\n\u001b\u001bch#enhance\ny\n.."
+  }
+ ]
+}

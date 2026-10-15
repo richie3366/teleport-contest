@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed amulet of reflection\n Pi\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001bm.,p_oooo,,$_oooo.,\u0014<.20s20s_{,Fh_.  n Fhq_ooooo.,p_oooooo,,p_ooooooo._oo.,\u0017worthless piece of red glass\ndku  nkb#chat\nl_ooooooo.Fj  _,_o., p_oooooo._o.,p\u0016?\ncyhl\u0016?\n>w\u0006_ooooo._oo.,\u0017worthless piece of red glass\ndk\u00163\nkhh\u0016?\n>w  \u0006_ooooooooo,Fk     n_._oo.    nFy _,,  $ \u00162\n    _ooooooooo.   n Fk  n _.  n  nFl   n   n ,:\u001610\n_{.qFh  n Fh  n Fh  n   n   n Fh  y y\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50555511,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed amulet of reflection\n Pi\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001bm.,p_oooo,,$_oooo.,\u0014<.20s20s_{,Fh_.  n Fhq_ooooo.,p_oooooo,,p_ooooooo._oo.,\u0017worthless piece of red glass\ndku  nkb#chat\nl_ooooooo.Fj  _,_o., p_oooooo._o.,p\u0016?\ncyhl\u0016?\n>w\u0006_ooooo._oo.,\u0017worthless piece of red glass\ndk\u00163\nkhh\u0016?\n>w  \u0006_ooooooooo,Fk     n_._oo.    nFy _,,  $ \u00162\n    _ooooooooo.   n Fk  n _.  n  nFl   n   n ,:\u001610\n_{.qFh  n Fh  n Fh  n   n   n Fh  y y\u001by   y y y\u001by  F"
+  }
+ ]
+}

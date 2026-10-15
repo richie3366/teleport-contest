@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #pray\ny y s>#force\n\u000f\u001b#name\nf\n :E\u001bqd#loot\nj<yy\u001by   y y\u001b Z"
+ },
+ "segments": [
+  {
+   "seed": 50555045,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\nMSGTYPE=hide \"You hear\"\nMENUCOLOR=\"a potion\"=red\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": " #pray\ny y s>#force\n\u000f\u001b#name\nf\n :E\u001bqd#loot\nj<yy\u001by   y y\u001b Z"
+  }
+ ]
+}

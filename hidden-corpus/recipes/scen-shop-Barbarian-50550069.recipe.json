@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWe\u0017blessed +3 speed boots\nWf\u0016?\n>w\u0006_ \u001bm.,\u0014>.s.\u00163\nhjb\u0016?\n>w\u0006_{._,q\u0016?\ncuhu\u0016?\n>w\u0006_oooooooo.,$bhk#chat\nb_oo._ooo.,#chat\nhjny#chat\nb_{, Fj_. Flq_{.Fl_.q_{.Fy _.<.Fy q_oo.Fb_. Fl,p_ooooooooo.,$_ooo.,p\u00167\nbuu\u0016?\n>w\u0006_{.Fb _,.Fl  q_ooo.Fl_.,:_oooooooo.,p\u00167\nukh\u0016?\n>w\u0006__.Fn_,>.Fl#chat\nl__.Fh _.:Fh#chat\nl_oo.Fk _.,\u001bFh,\u001bp_oooooo.,\u001bp_ooooo.Fh_.m.,#chat\nuukh#chat\nbklk#chat\nk_ooooooo.,p_oooo._., :_oo._._ooo,_,,\u001bp_oooo.Fl_.Fl,\u001b\u0017amulet of magical breathing\ndhFlFlFlFlFl FlFlFlFlFlFlFl Fn Fn Fn FnFnFn\u0016?\ncljk\u0016?\n>w  \u0006jhb#chat\nu_oo.Fj_,,y p_oo,Fb_.@.,\u001bp_ooooooooo._._ooo,_.,\u001b#chat\nb_ooooooooo.Fl _,,\u001bp_oooooo,,\u001bpFl FlFl Fl  n  FlFl_{,Fu_.Fl  n q_oooooo.,\u001bpFlFlFl FlFlFl\u00167\nkkl   n\u0016?\n>w\u0006_ooo.Fl _.    Fh       n   ,\u001b$_{,       nFh  _.   Fh    n   q\u001612\n_{,q__.#chat\nk     n     Fl    n     Fl       n Fl        nFl         n    Fl"
+ },
+ "segments": [
+  {
+   "seed": 50550069,
+   "datetime": "20010704102957",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWe\u0017blessed +3 speed boots\nWf\u0016?\n>w\u0006_ \u001bm.,\u0014>.s.\u00163\nhjb\u0016?\n>w\u0006_{._,q\u0016?\ncuhu\u0016?\n>w\u0006_oooooooo.,$bhk#chat\nb_oo._ooo.,#chat\nhjny#chat\nb_{, Fj_. Flq_{.Fl_.q_{.Fy _.<.Fy q_oo.Fb_. Fl,p_ooooooooo.,$_ooo.,p\u00167\nbuu\u0016?\n>w\u0006_{.Fb _,.Fl  q_ooo.Fl_.,:_oooooooo.,p\u00167\nukh\u0016?\n>w\u0006__.Fn_,>.Fl#chat\nl__.Fh _.:Fh#chat\nl_oo.Fk _.,\u001bFh,\u001bp_oooooo.,\u001bp_ooooo.Fh_.m.,#chat\nuukh#chat\nbklk#chat\nk_ooooooo.,p_oooo._., :_oo._._ooo,_,,\u001bp_oooo.Fl_.Fl,\u001b\u0017amulet of magical breathing\ndhFlFlFlFlFl FlFlFlFlFlFlFl Fn Fn Fn FnFnFn\u0016?\ncljk\u0016?\n>w  \u0006jhb#chat\nu_oo.Fj_,,y p_oo,Fb_.@.,\u001bp_ooooooooo._._ooo,_.,\u001b#chat\nb_ooooooooo.Fl _,,\u001bp_oooooo,,\u001bpFl FlFl Fl  n  FlFl_{,Fu_.Fl  n q_oooooo.,\u001bpFlFlFl FlFlFl\u00167\nkkl   n\u0016?\n>w\u0006_ooo.Fl _.    Fh       n   ,\u001b$_{,       nFh  _.   Fh    n   q\u001612\n_{,q__.#chat\nk     n     Fl    n     Fl       n Fl        nFl         n    Fl"
+  }
+ ]
+}

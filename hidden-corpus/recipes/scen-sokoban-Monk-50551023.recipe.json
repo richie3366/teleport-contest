@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n          \u0016?\n>EFk bjyjyhkkkkkhuu10suuh\u0017scroll of earth\nrj ukukukllklkkljunlhuuulkybllkkhlkllluullk"
+ },
+ "segments": [
+  {
+   "seed": 50551023,
+   "datetime": "20150326224510",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n          \u0016?\n>EFk bjyjyhkkkkkhuu10suuh\u0017scroll of earth\nrj ukukukllklkkljunlhuuulkybllkkhlkllluullk"
+  }
+ ]
+}

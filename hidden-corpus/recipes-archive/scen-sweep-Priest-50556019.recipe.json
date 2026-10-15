@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0016?\n>EFk yhnhyyyyyy\u0017scroll of earth\nri yl10syyl\u0017wand of striking\nzjlhuhyyhyuh\u0017scroll of earth\nrk \u0017scroll of earth\nrl hk khhukjkhukl kl\u0017wand of striking\nzmk yb\u0017wand of striking\nznyhnhhlhhhhhh\u0017Demonbane\nwos..#invoke\noouX20s20s\u0017blessed spellbook of invisibility\nrp s20sZa\nZc\nss\u0017uncursed wand of enlightenment\nzq \u001bzq \u001b\u00173 Sting\nwrss.X\u0017wand of create monster\nzsbrown pudding\nzswater nymph\n20s20s#levelchange\n20\n            \u0016?\n>y  _ \u001b>.#chat\nk_mm.    Fj                       n                 n     _.         Fk    n       #chat\nu_mm,       Fb   n         _.#chat\nh_mmmmm,          n   Fh         _.#chat\nn   n        #untrap\nni\u001b#sit\n   n     \u001610\n#wizintrinsic\nmj\n \u0017blessed scroll of identify\nrt\u0017scroll of light\nru\u0017cursed scroll of scare monster\nrv\u0017scroll of earth\nrw.       n   s       n    20s   \u001623\n\u00161\n#levelchange\n30\n         \u00172000 gold pieces\n\u0016?\n\u00165\n\u0006\u0017blessed potion of object detection\nqx,     n   _oooooooo.      n Fl    _.    n   Fl        n     ,\u001b$_mmmm.#chat\nn__,     n   Fn        n    _.        n      Fl     yy\u001by   y y y\u001b  #"
+ },
+ "segments": [
+  {
+   "seed": 50556019,
+   "datetime": "20100610043811",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0016?\n>EFk yhnhyyyyyy\u0017scroll of earth\nri yl10syyl\u0017wand of striking\nzjlhuhyyhyuh\u0017scroll of earth\nrk \u0017scroll of earth\nrl hk khhukjkhukl kl\u0017wand of striking\nzmk yb\u0017wand of striking\nznyhnhhlhhhhhh\u0017Demonbane\nwos..#invoke\noouX20s20s\u0017blessed spellbook of invisibility\nrp s20sZa\nZc\nss\u0017uncursed wand of enlightenment\nzq \u001bzq \u001b\u00173 Sting\nwrss.X\u0017wand of create monster\nzsbrown pudding\nzswater nymph\n20s20s#levelchange\n20\n            \u0016?\n>y  _ \u001b>.#chat\nk_mm.    Fj                       n                 n     _.         Fk    n       #chat\nu_mm,       Fb   n         _.#chat\nh_mmmmm,          n   Fh         _.#chat\nn   n        #untrap\nni\u001b#sit\n   n     \u001610\n#wizintrinsic\nmj\n \u0017blessed scroll of identify\nrt\u0017scroll of light\nru\u0017cursed scroll of scare monster\nrv\u0017scroll of earth\nrw.       n   s       n    20s   \u001623\n\u00161\n#levelchange\n30\n         \u00172000 gold pieces\n\u0016?\n\u00165\n\u0006\u0017blessed potion of object detection\nqx,     n   _oooooooo.      n Fl    _.    n   Fl        n     ,\u001b$_mmmm.#chat\nn__,     n   Fn        n    _.        n      Fl     yy\u001by   y y y\u001b  #"
+  }
+ ]
+}

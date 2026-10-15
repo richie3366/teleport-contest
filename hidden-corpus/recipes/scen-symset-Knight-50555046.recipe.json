@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #twoweapon\nehr\u001b\u001b#enhance\nyl\na\n\u001b#name\nm\nm.Fido\nP\u001614\n#force\n#turn\n\u00165\nO>g\u001b\nO>i\u001b\u001b\nv i\u001bv i\u001b\u0006_>>.Fk_.>.Fk>FkFk_>>.Fk_,m,Fk>FhFh_>>.Fk_.Fk>FhFhFhFhFh\u0006_>.Fk_.  Fk>FhFk_>,  Fh_, Fh>FkFh_>, Fh_. Fh>FkFhFhFhFh\u0006_>.  Fh_, Fk>FhFh_>. Fh_, Fk>FkFh_>.  Fk_. Fh>FkFkFhFkFk\u0006_>, Fk_.m,Fh>FhFh_>.Fh_.<.Fk>FhFh_>.Fh_.>.Fh>FkFhFhFhFk\u0006_>>,Fk_.@.Fy>FkFk_>>.Fy_.Fkh >FhFh_>>,Fh_.m.Fk>FkFhFkFkFh10s#untrap\nk \u0006_>.Fy_.Fy>FyFy_>.Fy_,Fy>FyFy_>,Fy_,Fy>FyFky FkFkFk\u0006_>>,Fk_,m.Fk>FkFk_>>.Fk_.@.Fk>FkFh_>>.Fh_.:Fk>FhFkFhFkFk\u001613\n    \u0006_>.Fy_, Fh\u001b>FhFh_>.  nFh_.F"
+ },
+ "segments": [
+  {
+   "seed": 50555046,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nMSGTYPE=norep \"You kill\"\n",
+   "moves": " #twoweapon\nehr\u001b\u001b#enhance\nyl\na\n\u001b#name\nm\nm.Fido\nP\u001614\n#force\n#turn\n\u00165\nO>g\u001b\nO>i\u001b\u001b\nv i\u001bv i\u001b\u0006_>>.Fk_.>.Fk>FkFk_>>.Fk_,m,Fk>FhFh_>>.Fk_.Fk>FhFhFhFhFh\u0006_>.Fk_.  Fk>FhFk_>,  Fh_, Fh>FkFh_>, Fh_. Fh>FkFhFhFhFh\u0006_>.  Fh_, Fk>FhFh_>. Fh_, Fk>FkFh_>.  Fk_. Fh>FkFkFhFkFk\u0006_>, Fk_.m,Fh>FhFh_>.Fh_.<.Fk>FhFh_>.Fh_.>.Fh>FkFhFhFhFk\u0006_>>,Fk_.@.Fy>FkFk_>>.Fy_.Fkh >FhFh_>>,Fh_.m.Fk>FkFhFkFkFh10s#untrap\nk \u0006_>.Fy_.Fy>FyFy_>.Fy_,Fy>FyFy_>,Fy_,Fy>FyFky FkFkFk\u0006_>>,Fk_,m.Fk>FkFk_>>.Fk_.@.Fk>FkFh_>>.Fh_.:Fk>FhFkFhFkFk\u001613\n    \u0006_>.Fy_, Fh\u001b>FhFh_>.  nFh_.F"
+  }
+ ]
+}

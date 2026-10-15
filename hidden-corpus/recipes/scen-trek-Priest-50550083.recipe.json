@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "J KYU_ \u001bm.>BYLU_>.>Fl s20sJBKY_>.>BBHH_>.>\u000f\u001bKJLUH_>,>rh y #sit\nBU LH _>,>#untrap\nh,a\n,t$ubht\u001b\u001b#chat\nnt\u001b\u001b#name\no\nfoo\n\u001b\u001b100sklb100s50s_>.>150s\\ i\u001b\u000f\u001b100s150s100see50s efkju\u000f\u001bhlb50seeeeeeeeeeeeeeeeeeeeeUJHY_>.>HHHB_>.>HBLK_>.>i\u001b:KUNY_>,>BJHB_>,>#twoweapon\n#invoke\n\u001b\u001b#turn\nKJLJ_>.>HJBJ_>,>KNKL_>.>JYLB_>,>ok>#pray\ny P20s10s#chat\nl20sunhyjldbsssYHKB_>.>ojdigKKJU_>.>KKUY_>.>UNLL_>,>LYLJ_>,>NHYY_>,>YKKN_>.>UBKL_>.>JBKN_>.>NBUN_>.>k#chat\nbHKBB_>.>HJNB_>,>i\u001bZa\n\u000f\u001b;_.#monster\nWYKNN_>.>W_<.20s YLLL_>.>YK HK_>,><dc20s ..#name\no\nfoo\n\u001b\u001b#name\nm\n20s10s 150s #monster\n#pray\ny #pray\ny #pray\ny   150s lnk#pray\ny   lhn100s y ny_>,>150s #pray\ny   y\u001by  y y y\u001b  5"
+ },
+ "segments": [
+  {
+   "seed": 50550083,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\n",
+   "moves": "J KYU_ \u001bm.>BYLU_>.>Fl s20sJBKY_>.>BBHH_>.>\u000f\u001bKJLUH_>,>rh y #sit\nBU LH _>,>#untrap\nh,a\n,t$ubht\u001b\u001b#chat\nnt\u001b\u001b#name\no\nfoo\n\u001b\u001b100sklb100s50s_>.>150s\\ i\u001b\u000f\u001b100s150s100see50s efkju\u000f\u001bhlb50seeeeeeeeeeeeeeeeeeeeeUJHY_>.>HHHB_>.>HBLK_>.>i\u001b:KUNY_>,>BJHB_>,>#twoweapon\n#invoke\n\u001b\u001b#turn\nKJLJ_>.>HJBJ_>,>KNKL_>.>JYLB_>,>ok>#pray\ny P20s10s#chat\nl20sunhyjldbsssYHKB_>.>ojdigKKJU_>.>KKUY_>.>UNLL_>,>LYLJ_>,>NHYY_>,>YKKN_>.>UBKL_>.>JBKN_>.>NBUN_>.>k#chat\nbHKBB_>.>HJNB_>,>i\u001bZa\n\u000f\u001b;_.#monster\nWYKNN_>.>W_<.20s YLLL_>.>YK HK_>,><dc20s ..#name\no\nfoo\n\u001b\u001b#name\nm\n20s10s 150s #monster\n#pray\ny #pray\ny #pray\ny   150s lnk#pray\ny   lhn100s y ny_>,>150s #pray\ny   y\u001by  y y y\u001b  5"
+  }
+ ]
+}

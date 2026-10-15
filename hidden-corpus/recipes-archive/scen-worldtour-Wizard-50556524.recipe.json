@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n            \u0017blessed amulet of life saving\nPn\u0016?\n>>M      wand of undead turning\n_ \u001b.\u0016?\n\u001bjj            \u0016?\n\u001bn            n n       \u001631\n\u0014:       n  .m.   \u001631\n_<,>\u001631\n\u0017blessed spellbook of finger of death\nrq        s  n   . Za\nk Za\nk   n  Fk Fj    \u0017cockatrice corpse\n\u0007Juiblex\nny   n  ,    \u0017scroll of enchant armor\nrs     \u0017blessed scroll of earth\nrt \u001b  n   Fj Fk \u0017blessed leather drum\nau    au     n   Fk Fj 20s    n .k      \u00166\n\u0016?\ne y  l   k       n  :sm.   n sm.       \u00164\n\u0016?\ne#chat\nj;n;\u001642\n_{,>.m.   n  \u0016?\ncl  k  :\u001642\nh       b  y      l    n         h            n     b       :sb      .m.  n           \u001612\n\u0016?\n\u001bh         n    j          n  \u001642\n#chat\nu     ;u,sj   yy\u001by   y n  2"
+ },
+ "segments": [
+  {
+   "seed": 50556524,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=sortloot:full\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n            \u0017blessed amulet of life saving\nPn\u0016?\n>>M      wand of undead turning\n_ \u001b.\u0016?\n\u001bjj            \u0016?\n\u001bn            n n       \u001631\n\u0014:       n  .m.   \u001631\n_<,>\u001631\n\u0017blessed spellbook of finger of death\nrq        s  n   . Za\nk Za\nk   n  Fk Fj    \u0017cockatrice corpse\n\u0007Juiblex\nny   n  ,    \u0017scroll of enchant armor\nrs     \u0017blessed scroll of earth\nrt \u001b  n   Fj Fk \u0017blessed leather drum\nau    au     n   Fk Fj 20s    n .k      \u00166\n\u0016?\ne y  l   k       n  :sm.   n sm.       \u00164\n\u0016?\ne#chat\nj;n;\u001642\n_{,>.m.   n  \u0016?\ncl  k  :\u001642\nh       b  y      l    n         h            n     b       :sb      .m.  n           \u001612\n\u0016?\n\u001bh         n    j          n  \u001642\n#chat\nu     ;u,sj   yy\u001by   y n  2"
+  }
+ ]
+}

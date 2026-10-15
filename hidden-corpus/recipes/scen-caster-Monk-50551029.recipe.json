@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n          \u0017blessed spellbook of detect monsters\nrk s\u0017blessed spellbook of fireball\nrl s\u0017blessed spellbook of identify\nrm s\u0017blessed spellbook of levitation\nrn s+\u001bZb\n\u001b.Zb\ns Za\n\u0007newt\nZe\n"
+ },
+ "segments": [
+  {
+   "seed": 50551029,
+   "datetime": "20250618234902",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n          \u0017blessed spellbook of detect monsters\nrk s\u0017blessed spellbook of fireball\nrl s\u0017blessed spellbook of identify\nrm s\u0017blessed spellbook of levitation\nrn s+\u001bZb\n\u001b.Zb\ns Za\n\u0007newt\nZe\n"
+  }
+ ]
+}

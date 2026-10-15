@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nm\n E- Elbereth Elbereth\nE-n  Vlad was here\nE-n  Vlad was here\n\u0017lizard corpse\nef Zs..#wizintrinsic\ng\n \u0017blindfold\nagZE- X marks the spot\n\u0017cursed scroll of fire\nrh\u0017newt corpse\nei  \u0017blessed scroll of light\nrjss.Sy\u001b yy;>. \u001b<.,P\u0018\u001bag#pray\ny y #loot\n#conduct\n \u0007tame winter wolf cub\n#name\no\n\u0017magic whistle\nlnuaf  \u0017tin whistle\njhn",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50551010,
+   "datetime": "20260408184920",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nm\n E- Elbereth Elbereth\nE-n  Vlad was here\nE-n  Vlad was here\n\u0017lizard corpse\nef Zs..#wizintrinsic\ng\n \u0017blindfold\nagZE- X marks the spot\n\u0017cursed scroll of fire\nrh\u0017newt corpse\nei  \u0017blessed scroll of light\nrjss.Sy\u001b"
+  },
+  {
+   "seed": 51051010,
+   "datetime": "20000703200355",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " yy;>. \u001b<.,P\u0018\u001bag#pray\ny y #loot\n#conduct\n \u0007tame winter wolf cub\n#name\no\n\u0017magic whistle\nlnuaf  \u0017tin whistle\njhn"
+  }
+ ]
+}

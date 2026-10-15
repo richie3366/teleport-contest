@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Og\u001b\u001b\n\u0006_ \u001bm.>FnFn_>, Fh_. Fy> Fuy FyFkn \u0006_>, Fb_,> FhFuFl\u0006_>.Fb_.Fb>FuFk_>,Fb_.> FhFjFuE- Vlad was here\nw- < \u0006_>>,>   FhFyFh\u001b\u0006_>. Fn_>FnFh\u001b_>, Fj_.Fh>FnFy_>. Fn_>FhFlFkFuFj<\u0006_>.  nFy_.Fb>FnFy_>.Fh_.  nFy>FhFj_>,Fh_.Fh>FkFbFh\u001bFyFll E- I am a fish\n #untrap\nb \u00164\n\u00162\nFbFbFyFyFyFyFjFnFjFjFuFkFlFlFnFbFuFlFuFlFuFkFbFbFnFjFnFjFjFyFul FlFkFhFlFkFnFbFjFjFhFyFuj FlFyFun FhFkFlFyFku FyFky FlFjFhFbFub FjFuFjFjFhFjFjFhFjFuFhFbFkh FbFyFkFhFhFyFyFbFku FhFuFkFlFkFhFkFuFuFhFlFhFbFbFbFuy FkFnFjFnFnFkFnFyFkFhFuFnFnFnFlFnFh\u001bFhFuFnFyFkFhFy\u00163\nFkFyFyFhFnFjFyFul FnFh\u001bFlFuFnFnFkFjFuFlFkFlFlFyFlFkFlFuFnFyFuFuFyFlFnFyFyFyFkFkFlFyFkk FuFyFjFyFlFkFnFyFjFkFuFuFlFuFyFh\u001bFuFlFuFuFkFyFyFkFyFlFuFkFjFjFkFkFuFhFjFjFhFkFhFuFnFh\u001bFnFnFuFkFuFkFlFhFhFuFhFlFhFnFyFjFyFnFjFkFkFuFjFkFhFhFkFkFlFnFlFnFky FjFjFkFyOo\u001b\u001b\nO>"
+ },
+ "segments": [
+  {
+   "seed": 50555025,
+   "datetime": "20150421105206",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueEpyx\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": "Og\u001b\u001b\n\u0006_ \u001bm.>FnFn_>, Fh_. Fy> Fuy FyFkn \u0006_>, Fb_,> FhFuFl\u0006_>.Fb_.Fb>FuFk_>,Fb_.> FhFjFuE- Vlad was here\nw- < \u0006_>>,>   FhFyFh\u001b\u0006_>. Fn_>FnFh\u001b_>, Fj_.Fh>FnFy_>. Fn_>FhFlFkFuFj<\u0006_>.  nFy_.Fb>FnFy_>.Fh_.  nFy>FhFj_>,Fh_.Fh>FkFbFh\u001bFyFll E- I am a fish\n #untrap\nb \u00164\n\u00162\nFbFbFyFyFyFyFjFnFjFjFuFkFlFlFnFbFuFlFuFlFuFkFbFbFnFjFnFjFjFyFul FlFkFhFlFkFnFbFjFjFhFyFuj FlFyFun FhFkFlFyFku FyFky FlFjFhFbFub FjFuFjFjFhFjFjFhFjFuFhFbFkh FbFyFkFhFhFyFyFbFku FhFuFkFlFkFhFkFuFuFhFlFhFbFbFbFuy FkFnFjFnFnFkFnFyFkFhFuFnFnFnFlFnFh\u001bFhFuFnFyFkFhFy\u00163\nFkFyFyFhFnFjFyFul FnFh\u001bFlFuFnFnFkFjFuFlFkFlFlFyFlFkFlFuFnFyFuFuFyFlFnFyFyFyFkFkFlFyFkk FuFyFjFyFlFkFnFyFjFkFuFuFlFuFyFh\u001bFuFlFuFuFkFyFyFkFyFlFuFkFjFjFkFkFuFhFjFjFhFkFhFuFnFh\u001bFnFnFuFkFuFkFlFhFhFuFhFlFhFnFyFjFyFnFjFkFkFuFjFkFhFhFkFkFlFnFlFnFky FjFjFkFyOo\u001b\u001b\nO>"
+  }
+ ]
+}

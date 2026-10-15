@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " sw-de#jump\nFkFkFyFhFuFyFyFkFkFuFbFuFkFuFuFkFkFkFyFkFyFkFuFuFkFyFkFyFkFkFyFkFjFyFkFyFlFkFuFuFuFkFkFyFkFuFuFkFkFyFl FuFyFyFkFuFkFuFyFkFkFkFyFyFkFuFuFkFkFuFyFuFyFuFkFkFyFuFuFkFyFyFkFkFkFyFyFuFkFuFuFkFkFkFuFuFuFuFkFuFhFkFhFkFuFyFkFuFhFuFyFyFyFuFuFuFyFkFuFu\u0006_ \u001b@.>FyFy_>>.Fj_.> \u0006_>>.Fj_.>.Fb>FbFb_>>.Fb_.Fj>FnFb_>>.Fb_.Fb>FnFbFjFnFb,#turn\n<\u0006_>,Fj_.Fj>FbFj_>,Fj_.Fb>FbFh_>.Fn_.Fj>FhFjFbFjFh\u0006_>.Fn_.Fb>FhFb  n_>.Fb_.Fb>Fy  nFh_>.  nFj _,Fy>FbFj  n FhFnFy\u00163\n#chat\njyi\u001b100s100sjkj#jump\ni\u001b,100sFhFhFhFhFhFh#pray\ny y lnjFnFbFjFjFbFbFbFjFjFjFnFnFnFnFjFnFjFjFjFbFjFbFnFnFnFjFnFjFnFbFbFjFjFbFbFnFjFnFbFnFbFbFbFnFjFnFjFjFnFbFjFjFjFbFbFnFnFjFbFnFbFnFnFjFbFjFjFjFnFbFnFjFjFbFjFnFnFnFjFnFjFjFnFj\u001618\n \u0007little dog\n\u0017apple\n"
+ },
+ "segments": [
+  {
+   "seed": 50550047,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=sortloot:none\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": " sw-de#jump\nFkFkFyFhFuFyFyFkFkFuFbFuFkFuFuFkFkFkFyFkFyFkFuFuFkFyFkFyFkFkFyFkFjFyFkFyFlFkFuFuFuFkFkFyFkFuFuFkFkFyFl FuFyFyFkFuFkFuFyFkFkFkFyFyFkFuFuFkFkFuFyFuFyFuFkFkFyFuFuFkFyFyFkFkFkFyFyFuFkFuFuFkFkFkFuFuFuFuFkFuFhFkFhFkFuFyFkFuFhFuFyFyFyFuFuFuFyFkFuFu\u0006_ \u001b@.>FyFy_>>.Fj_.> \u0006_>>.Fj_.>.Fb>FbFb_>>.Fb_.Fj>FnFb_>>.Fb_.Fb>FnFbFjFnFb,#turn\n<\u0006_>,Fj_.Fj>FbFj_>,Fj_.Fb>FbFh_>.Fn_.Fj>FhFjFbFjFh\u0006_>.Fn_.Fb>FhFb  n_>.Fb_.Fb>Fy  nFh_>.  nFj _,Fy>FbFj  n FhFnFy\u00163\n#chat\njyi\u001b100s100sjkj#jump\ni\u001b,100sFhFhFhFhFhFh#pray\ny y lnjFnFbFjFjFbFbFbFjFjFjFnFnFnFnFjFnFjFjFjFbFjFbFnFnFnFjFnFjFnFbFbFjFjFbFbFnFjFnFbFnFbFbFbFnFjFnFjFjFnFbFjFjFjFbFbFnFnFjFbFnFbFnFnFjFbFjFjFjFnFbFnFjFjFbFjFnFnFnFjFnFjFjFnFj\u001618\n \u0007little dog\n\u0017apple\n"
+  }
+ ]
+}

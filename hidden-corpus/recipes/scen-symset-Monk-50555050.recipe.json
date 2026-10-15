@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " ,Kv\u001bi\u001bO>>>>b\u001b\nO>n\u001b\u001b\nv\u001bi\u001bv\u001bi\u001bO>d\u001b\n\u00162\n\u0007tame kitten\n\u0007tame dingo\n\u0006_ \u001b<.>FnFl_>.Fh_,> \u0006_>>.   Fn_.   nFh >Fn   nFk _>>,Fy  _.Fj   n>FlFn_>>. Fl_.Fu>FnFk\u0017newt corpse\nt\u001b20s10s20s\u0017banana\nt\u001bj\u00169\nmO>>>>e\u001b\nv\u001bi\u001bi\u001b;b:knl\u0017chaotic altar\ndldg\u0017lichen corpse\n#offer\nnn #pray\ny y hk\u0017unaligned altar\ndi\u0017human corpse\n #terrain\nf\nPt\u001bqd\u0007housecat\n\u0017carrot\nt\u001b\u0007tame housecat\n20s  \u0017leash\naql  b hhhaqy\u0017leash\naruk  jk    n laru\u0017magic whistle\nlj  n u as    n  #name\na\n\u0017huge chunk of meat\nt\u001b\u00162\n \u00165\nFuFlFhFjFlFyFuFjFkFnFuFuFjFnFjFyFhFuFhFlFkFyFuFlFnFhFbFlFlFlFkFhFkFhFbFlFnFjFnFjFhFjFyFbFkFbFlFjFhFuFhFuFyFyFnFuFjFuFbFnFlFuFlFbFlFyFbFuFbFkFuFkFnFjFlFyFuFhFjFbFuFbFkFnFlFyFlFlFyFkFlFnFyFbFuFbFjFyFyFnFnFkFjFkFlFyFlFbFlFuFyFnFjFuFjFnFjFjFuFnOn\u001b\n\u001613\nO>>>>n\u001b\u001b\n\u0007tame dingo\n10s10sdksss\u0007lichen\n\u0017scroll "
+ },
+ "segments": [
+  {
+   "seed": 50555050,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nMENUCOLOR=\"uncursed\"=green\nBIND=v:inventory\n",
+   "moves": " ,Kv\u001bi\u001bO>>>>b\u001b\nO>n\u001b\u001b\nv\u001bi\u001bv\u001bi\u001bO>d\u001b\n\u00162\n\u0007tame kitten\n\u0007tame dingo\n\u0006_ \u001b<.>FnFl_>.Fh_,> \u0006_>>.   Fn_.   nFh >Fn   nFk _>>,Fy  _.Fj   n>FlFn_>>. Fl_.Fu>FnFk\u0017newt corpse\nt\u001b20s10s20s\u0017banana\nt\u001bj\u00169\nmO>>>>e\u001b\nv\u001bi\u001bi\u001b;b:knl\u0017chaotic altar\ndldg\u0017lichen corpse\n#offer\nnn #pray\ny y hk\u0017unaligned altar\ndi\u0017human corpse\n #terrain\nf\nPt\u001bqd\u0007housecat\n\u0017carrot\nt\u001b\u0007tame housecat\n20s  \u0017leash\naql  b hhhaqy\u0017leash\naruk  jk    n laru\u0017magic whistle\nlj  n u as    n  #name\na\n\u0017huge chunk of meat\nt\u001b\u00162\n \u00165\nFuFlFhFjFlFyFuFjFkFnFuFuFjFnFjFyFhFuFhFlFkFyFuFlFnFhFbFlFlFlFkFhFkFhFbFlFnFjFnFjFhFjFyFbFkFbFlFjFhFuFhFuFyFyFnFuFjFuFbFnFlFuFlFbFlFyFbFuFbFkFuFkFnFjFlFyFuFhFjFbFuFbFkFnFlFyFlFlFyFkFlFnFyFbFuFbFjFyFyFnFnFkFjFkFlFyFlFbFlFuFyFnFjFuFjFnFjFjFuFnOn\u001b\n\u001613\nO>>>>n\u001b\u001b\n\u0007tame dingo\n10s10sdksss\u0007lichen\n\u0017scroll "
+  }
+ ]
+}

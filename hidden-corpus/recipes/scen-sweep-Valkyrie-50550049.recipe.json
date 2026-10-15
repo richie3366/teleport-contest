@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n20\nlun\u0017neutral altar\ndcda\u0017newt corpse\n#offer\ne  h\u0017cloud\nynnn:y\u0017tree\nh\u0004lu\u0017grave\n: \u0017wand of digging\nzf>  20ss:#turn\nq#force\n\u001612\nbn\u0017wand of polymorph\nEg Elbereth\n: \u0017athame\nEh  I am a fish\n: u\u0017magic marker\nEi ad aerarium\n: \u0017wand of fire\nEj   Elbereth Elbereth\n \u0017wand of lightning\nEk y ad aerarium\n:   E-\u0007hill orc\nss20sFj Fj\u0006\u0007ape\nss20ss20s20s20s.\u0007orc shaman\nFyFyFj  nFyFy \u0007flesh golem\ns ..s#levelchange\n8\n  \u0017cursed potion of object detection\n\u0007soldier ant\nql \u001b@.  n \u0017cursed -1 dwarvish mattock\n\u0007acid blob\nwmFl Fj   nFb  \u0017blessed +3 ring of warning\n\u0007Yeenoghu\nny  n Pnl    n .j       n.m.   20sR      n Fn    Fb sm.     n  sm.     n  \u001610\n\u0018\u001b\u00165\n#levelchange\n14\n    \u0016?\nl   \u0006__._,@.#chat\nl.m...#rub\ni\u001b\\   #levelchange\n12\n\u0017blessed ring of polymorph control\nPol#polyself\nhuman\nsm.ssss#polyself\ncrocodile\n #monster\n.y.\u0007giant eel\n.m.sysss20s#levelchange\n16\n   \u0016?\n>z  _mmmm.Fb  _.      Fb  #chat\nh;h;_mmmmm. Fh   _.    n Fb   #chat\nh;h._mmmm,    Fh   n  _, Fj  #chat\nj;y:  #turn\n#sit\n  \\   \u00165\n\u0017blessed spellbook of detect food\nrp    n  .y   sj    n Z\u00173 oil lamp\naq     #rub\nq    n     Fb       n  Fh      \u0017drum of earthquake\n\u0007ogre king\nar        y\u001b      a"
+ },
+ "segments": [
+  {
+   "seed": 50550049,
+   "datetime": "20000130092637",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n20\nlun\u0017neutral altar\ndcda\u0017newt corpse\n#offer\ne  h\u0017cloud\nynnn:y\u0017tree\nh\u0004lu\u0017grave\n: \u0017wand of digging\nzf>  20ss:#turn\nq#force\n\u001612\nbn\u0017wand of polymorph\nEg Elbereth\n: \u0017athame\nEh  I am a fish\n: u\u0017magic marker\nEi ad aerarium\n: \u0017wand of fire\nEj   Elbereth Elbereth\n \u0017wand of lightning\nEk y ad aerarium\n:   E-\u0007hill orc\nss20sFj Fj\u0006\u0007ape\nss20ss20s20s20s.\u0007orc shaman\nFyFyFj  nFyFy \u0007flesh golem\ns ..s#levelchange\n8\n  \u0017cursed potion of object detection\n\u0007soldier ant\nql \u001b@.  n \u0017cursed -1 dwarvish mattock\n\u0007acid blob\nwmFl Fj   nFb  \u0017blessed +3 ring of warning\n\u0007Yeenoghu\nny  n Pnl    n .j       n.m.   20sR      n Fn    Fb sm.     n  sm.     n  \u001610\n\u0018\u001b\u00165\n#levelchange\n14\n    \u0016?\nl   \u0006__._,@.#chat\nl.m...#rub\ni\u001b\\   #levelchange\n12\n\u0017blessed ring of polymorph control\nPol#polyself\nhuman\nsm.ssss#polyself\ncrocodile\n #monster\n.y.\u0007giant eel\n.m.sysss20s#levelchange\n16\n   \u0016?\n>z  _mmmm.Fb  _.      Fb  #chat\nh;h;_mmmmm. Fh   _.    n Fb   #chat\nh;h._mmmm,    Fh   n  _, Fj  #chat\nj;y:  #turn\n#sit\n  \\   \u00165\n\u0017blessed spellbook of detect food\nrp    n  .y   sj    n Z\u00173 oil lamp\naq     #rub\nq    n     Fb       n  Fh      \u0017drum of earthquake\n\u0007ogre king\nar        y\u001b      a"
+  }
+ ]
+}

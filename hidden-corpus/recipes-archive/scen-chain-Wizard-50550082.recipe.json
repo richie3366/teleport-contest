@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of lightning\nzn.    y y\u001bny y\u001by  s   huh b l20s  db 20s sm. sh 10s      k k j   h 10s                               10s  50s     150s  150s    h n  h 100s100s       #pray\ny            #pray\ny         100s   #pray\ny        y\u001by  y y y\u001b  ##wizintrinsic\nb\n .usl20s      20s  20s  yny  ny nn  sN HBN_ \u001b<.>FkFk 20s10s>BUNB_>,>UYYY_>.>HJLJ_>,>Fl20ss<yy\u001by  y nn E",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50550082,
+   "datetime": "20210210015931",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=runmode:run\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of lightning\nzn.    y y\u001bny y\u001by  s"
+  },
+  {
+   "seed": 50650082,
+   "datetime": "20030628001516",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "   huh b l20s  db 20s sm. sh 10s      k k j   h 10s                               10s  50s     150s  150s    h n  h 100s100s       #pray\ny            #pray\ny         100s   #pray\ny        y\u001by  y y y\u001b  #"
+  },
+  {
+   "seed": 50750082,
+   "datetime": "20020919155147",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n .usl20s      20s  20s  yny  ny nn  s"
+  },
+  {
+   "seed": 50850082,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\n",
+   "moves": "N HBN_ \u001b<.>FkFk 20s10s>BUNB_>,>UYYY_>.>HJLJ_>,>Fl20ss<yy\u001by  y nn E"
+  }
+ ]
+}

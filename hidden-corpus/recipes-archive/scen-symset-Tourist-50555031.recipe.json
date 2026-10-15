@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u00166\n  FjFj20s FjFh s:100s              FhFkFjFhFhFhFhFb.FjsFbFj 20s .Fbs.100s       Fh20sFb100sFh.FjFjFb20sFh.20s FjsFb100s      FjFjFhFjFbFjFk  Fk  nFk  nFkFk  nFkFk20ss150sbjy\u000f\u001b#ride\nky100sFkFhFhFkFhFk  nFh  nFkFhFhFh  n FhFhFk  n FkFkFkFhFkFkFk#pray\ny y FhFk  n FkFkFkFkFk  nFkFh  n FhFk  nFk\u001619\n\u00167\nv i\u001b\u001614\nlhh#untrap\nb100sFjFjFj  FjFj    nFjFjFj  Fj    nFj  Fj      nFj  FjFj  Fj#pray\ny y   FjFj  Fj   n Fj  Fj   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50555031,
+   "datetime": "20251029022256",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:curses\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=autodig\nOPTIONS=sortloot:full\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": "v i\u001b\u00166\n  FjFj20s FjFh s:100s              FhFkFjFhFhFhFhFb.FjsFbFj 20s .Fbs.100s       Fh20sFb100sFh.FjFjFb20sFh.20s FjsFb100s      FjFjFhFjFbFjFk  Fk  nFk  nFkFk  nFkFk20ss150sbjy\u000f\u001b#ride\nky100sFkFhFhFkFhFk  nFh  nFkFhFhFh  n FhFhFk  n FkFkFkFhFkFkFk#pray\ny y FhFk  n FkFkFkFkFk  nFkFh  n FhFk  nFk\u001619\n\u00167\nv i\u001b\u001614\nlhh#untrap\nb100sFjFjFj  FjFj    nFjFjFj  Fj    nFj  Fj      nFj  FjFj  Fj#pray\ny y   FjFj  Fj   n Fj  Fj   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

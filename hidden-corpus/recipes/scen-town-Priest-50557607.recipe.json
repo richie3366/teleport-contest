@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u00172000 gold pieces\n\u0016?\n>w \u0006\u0017blessed potion of object detection\nqj \u001b,_ooooooooo,Fk  _.  Fy   ,p  _mmmm,#chat\nk  y y\u001by   ny y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50557607,
+   "datetime": "20030108051553",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u00172000 gold pieces\n\u0016?\n>w \u0006\u0017blessed potion of object detection\nqj \u001b,_ooooooooo,Fk  _.  Fy   ,p  _mmmm,#chat\nk  y y\u001by   ny y\u001by  _"
+  }
+ ]
+}

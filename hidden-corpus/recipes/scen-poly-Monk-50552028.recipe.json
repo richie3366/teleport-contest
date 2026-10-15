@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n        \u0017blessed ring of polymorph control\nPjr#polyself\nimp\n #monster\ns.\u0007owlbear\nFyFy Fy .m.sm. 20s #polyself\nkraken\n guard\n#monster\nsm..m.\u0007shopkeeper\nyFbFh Fy  n20s20s 20s #polyself\nAleax\n#monster\nsm. sk sl sm. sm.#polyself\nkraken\n gas spore\n.y   sj   yy\u001by   y y y\u001by  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 50552028,
+   "datetime": "20080918135733",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n        \u0017blessed ring of polymorph control\nPjr#polyself\nimp\n #monster\ns.\u0007owlbear\nFyFy Fy .m.sm. 20s #polyself\nkraken\n guard\n#monster\nsm..m.\u0007shopkeeper\nyFbFh Fy  n20s20s 20s #polyself\nAleax\n#monster\nsm. sk sl sm. sm.#polyself\nkraken\n gas spore\n.y   sj   yy\u001by   y y y\u001by  \u0007"
+  }
+ ]
+}

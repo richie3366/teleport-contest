@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqg \u001b:_{, _,<.Fhqy__.Fl_..#chat\nn#pray\ny y dc_ooo.Fy _.Fu ,p__.Fl _.Fu #chat\nl#pray\ny y     Z#sit\n >Sy\u001b yyok#sit\n >z<tdl  #wipe\n #ride\nnydeW#conduct\n ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50551002,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqg \u001b:_{, _,<.Fhqy__.Fl_..#chat\nn#pray\ny y dc_ooo.Fy _.Fu ,p__.Fl _.Fu #chat\nl#pray\ny y     Z#sit\n >Sy\u001b"
+  },
+  {
+   "seed": 51051002,
+   "datetime": "20190621072158",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " yyok#sit\n >z<tdl  #wipe\n #ride\nnydeW#conduct\n "
+  }
+ ]
+}
