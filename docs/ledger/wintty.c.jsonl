@@ -4,9 +4,9 @@
 {"fn":"winch_handler","c":"361-387","status":"unknown"}
 {"fn":"resize_tty","c":"392-467","status":"unknown"}
 {"fn":"newclipping","c":"471-486","status":"ported","js":["js/display.js:newclipping"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Full CLIPPING arms: small screen setclipped+cliparound when x, else unclip and zero offsets."}
-{"fn":"new_status_window","c":"491-507","status":"ported","js":["js/botl.js:new_status_window"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Destroy/init/reassess ported; tty screen clears folded (terminal I/O, botlx via status_initialize)."}
+{"fn":"new_status_window","c":"491-507","status":"ported","js":["js/botl.js:new_status_window"],"d":["D-3993"],"at":"2026-10-15@7005cc234","note":"D-3993: both tty clears live (clear_status_window blanks buffer+grid rows 21-23, cache blanked); winch caller still named (no JS resize)"}
 {"fn":"tty_init_nhwindows","c":"511-593","status":"unknown"}
-{"fn":"tty_preference_update","c":"596-631","status":"unknown"}
+{"fn":"tty_preference_update","c":"596-631","status":"ported","js":["js/options.js:preference_update"],"d":["D-3993"],"at":"2026-10-15@7005cc234"}
 {"fn":"tty_player_selection","c":"634-641","status":"unknown"}
 {"fn":"tty_askname","c":"651-755","status":"partial","js":["js/askname.js:tty_askname"],"omit":"SELECTSAVED restore_menu arm (quit/return paths); EOF->ESC; control/high-bit chars skipped not mapped to _","at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Prompt loop, 10-try bail->throw, backspace, unix filter, PL_NSIZ cap, renameallowed ported."}
 {"fn":"tty_get_nh_event","c":"758-761","status":"unknown"}
@@ -18,7 +18,7 @@
 {"fn":"tty_create_nhwindow","c":"850-961","status":"unknown"}
 {"fn":"erase_menu_or_text","c":"966-984","status":"ported","js":["js/display.js:erase_menu_or_text"],"d":["D-3627"],"at":"2026-10-07@8245e6151"}
 {"fn":"free_window_info","c":"987-1031","status":"unknown"}
-{"fn":"tty_clear_nhwindow","c":"1034-1110","status":"unknown"}
+{"fn":"tty_clear_nhwindow","c":"1034-1110","status":"partial","js":["js/botl.js:clear_status_window"],"omit":"(1) The 2 unchanged worldtour sessions keep their own cause: C screens embed recorder `KIND=input` markers with garbage cursor coords (Monk s90–92 CX=962272096 CY=1832137563; Wizard s112–114) plus missing status bytes — recorder-metadata, unportable (values are C-side garbage); needs its own measur…","d":["D-3993"],"at":"2026-10-15@7005cc234"}
 {"fn":"toggle_menu_curr","c":"1114-1151","status":"ported","js":["js/invent.js:toggle_menu_curr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Selected/count transitions exact in all arms; set_item_state screen paints unportable."}
 {"fn":"dmore","c":"1154-1172","status":"unknown"}
 {"fn":"set_item_state","c":"1177-1194","status":"unknown"}
@@ -33,7 +33,7 @@
 {"fn":"tty_dismiss_nhwindow","c":"1953-2006","status":"partial","js":["js/invent.js:dismiss_nhw_menu"],"omit":"(1) corner teardown keeps the flush-resync cadence rather than C's docorner+no-flush — pixel-proven equivalent (gbuf reprint then full resync), C-equivalent on every passing session; (2) tty_dismiss_nhwindow's NHW_MESSAGE/STATUS/BASE/MAP arms (game-exit/suspend only) have no JS caller; (3) the clea…","d":["D-3677"],"at":"2026-10-08@3cb2f5ae2"}
 {"fn":"tty_destroy_nhwindow","c":"2009-2032","status":"unknown"}
 {"fn":"erase_tty_screen","c":"2036-2055","status":"unknown"}
-{"fn":"tty_curs","c":"2058-2158","status":"unknown"}
+{"fn":"tty_curs","c":"2058-2158","status":"partial","js":["js/display.js:map_screen_cell","js/getpos.js:curs_win_map"],"omit":"(1) The 2 unchanged worldtour sessions keep their own cause: C screens embed recorder `KIND=input` markers with garbage cursor coords (Monk s90–92 CX=962272096 CY=1832137563; Wizard s112–114) plus missing status bytes — recorder-metadata, unportable (values are C-side garbage); needs its own measur…","d":["D-3993"],"at":"2026-10-15@7005cc234"}
 {"fn":"tty_putsym","c":"2162-2192","status":"unknown"}
 {"fn":"compress_str","c":"2196-2223","status":"ported","js":["js/pager.js:compress_str"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact: gate, leading-drop, run-collapse, newline->space, trailing-trim, BUFSZ cap."}
 {"fn":"tty_putstr","c":"2226-2422","status":"unknown","d":["D-2952"],"at":"seed@a30a7de84"}
@@ -60,13 +60,13 @@
 {"fn":"tty_update_inventory","c":"3606-3614","status":"unknown"}
 {"fn":"tty_mark_synch","c":"3617-3621","status":"unknown"}
 {"fn":"tty_wait_synch","c":"3624-3647","status":"ported","js":["js/display.js:tty_wait_synch"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: getret/rawprint + map/inmore/inread arms ported; fflush/HUPSKIP unportable."}
-{"fn":"docorner","c":"3650-3721","status":"ported","js":["js/display.js:docorner"],"d":["D-3441"],"at":"2026-10-05@9e1efbc82","note":"audit 2026-10-03: cl_end loop, CLIPPING row_refresh, status bot() tail ported; RESIZABLE/PERMINV arms N/A."}
+{"fn":"docorner","c":"3650-3721","status":"ported","js":["js/display.js:docorner"],"d":["D-3993","D-3441"],"at":"2026-10-15@7005cc234","note":"audit 2026-10-03: cl_end loop, CLIPPING row_refresh, status bot() tail ported; RESIZABLE/PERMINV arms N/A."}
 {"fn":"end_glyphout","c":"3724-3737","status":"unknown"}
 {"fn":"g_putch","c":"3740-3790","status":"unknown"}
 {"fn":"g_pututf8","c":"3795-3803","status":"ported","js":["js/display.js:show_glyph_cell"],"d":["D-3945"],"at":"2026-10-14@5018ae760"}
 {"fn":"setclipped","c":"3809-3815","status":"ported","js":["js/display.js:setclipped"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact: clipping on, origin pan, extents at screen size minus statuslines."}
 {"fn":"tty_cliparound","c":"3818-3842","status":"ported","js":["js/display.js:tty_cliparound"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact hysteresis both axes + redraw_map on origin move."}
-{"fn":"tty_print_glyph","c":"3855-3977","status":"partial","js":["js/display.js:show_glyph_cell"],"omit":"topline residual — in Enhanced sessions C's capture loses the col-0 character of some toplines (« ogged events: », « mdassist: », « here is an altar ») while welcome toplines match; same capture class, mechanism not yet measured (the `getdir` cliffs row).","d":["D-3963"],"at":"2026-10-14@ffbaf451a"}
+{"fn":"tty_print_glyph","c":"3855-3977","status":"partial","js":["js/display.js:show_glyph_cell","js/display.js:map_screen_cell"],"omit":"(1) The 2 unchanged worldtour sessions keep their own cause: C screens embed recorder `KIND=input` markers with garbage cursor coords (Monk s90–92 CX=962272096 CY=1832137563; Wizard s112–114) plus missing status bytes — recorder-metadata, unportable (values are C-side garbage); needs its own measur…","d":["D-3993","D-3963"],"at":"2026-10-15@7005cc234"}
 {"fn":"term_start_bgcolor","c":"3982-3985","status":"unknown"}
 {"fn":"term_curs_set","c":"3987-3990","status":"unknown"}
 {"fn":"tty_change_color","c":"3995-3998","status":"unknown"}
@@ -90,5 +90,5 @@
 {"fn":"check_windowdata","c":"4891-4901","status":"ported","js":["js/botl.js:check_windowdata"],"d":["D-3576"],"at":"2026-10-06@441169570"}
 {"fn":"condcolor","c":"4908-4918","status":"ported","js":["js/botl.js:condcolor"],"d":["D-3576"],"at":"2026-10-06@441169570"}
 {"fn":"condattr","c":"4921-4953","status":"ported","js":["js/botl.js:condattr"],"d":["D-3576"],"at":"2026-10-06@441169570"}
-{"fn":"render_status","c":"4992-5264","status":"ported","js":["js/botl.js:render_status"],"d":["D-3576"],"at":"2026-10-06@441169570"}
+{"fn":"render_status","c":"4992-5264","status":"ported","js":["js/botl.js:render_status"],"d":["D-3993","D-3576"],"at":"2026-10-15@7005cc234"}
 {"fn":"play_usersound_via_idx","c":"5284-5287","status":"unknown"}
