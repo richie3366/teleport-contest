@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-15 — audit 2823–2828: review D-3978..D-3983 (6A/0D/0Q, 0 Must-fix) + full rescore 577/1223 (0 PASS→FAIL, +1 catch)
+
+**Reviews:** 2823 passive uprops resists + Blind gate (youprop macros; 0+1+322; Tourist WORSE proven worker flake, distfleeck@1734 stands) · 2824 Gloves_on no find_ac (adj_abon/impossible exact; 3+1+11+0 superset) · 2825 float_down slot clear + digests (single-storage; is_animal-"deleted" overclaim noted, live import kept; 1+2+11+0) · 2826 boulder mid-drain (read.c:2331-2337 order; exact 1+1+2+0; muse twin named) · 2827 Strngl intrinsic-only (:177/:1201 + worn.c:123-125; 2+0+11+0 superset; pray zero-clears noted) · 2828 pending-botl via putmesg (pline.c:273-276 order; exact 1+0+11+0). All ACCEPT, Must-fix stays empty. Every SHA worked its parent's cliffs head (regen_hp headed D-3981's parent).
+**Score:** public 44/44 (11405 scr, 792838 RNG, `388+1.79/turn`) · corpus 577/1223 full @e9d602604 (91.20 % RNG, 88.1 % scr; 0 PASS→FAIL, +1 Wizard-50055081 board catch) · held-out 32/44 10454 pts (judge 13:09Z; D-3978…D-3983 window unjudged).
+**Next:** Must-fix empty → do_statusline2 cliffs head x11 (OSC-tooling pair never port rows; blast-HP ×2 first value writers).
 ## 2026-10-15 — D-3983 cliffs-head do_statusline2 writer: floated encumber_msg botl commit lost the race with the chained follower's flush (Valkyrie-610117 s1013 → PASS)
 
 **C locus:** `pickup.c:1977–2020` (encumber_msg; `:2016` disp.botl=TRUE after the crossing pline resolves) + `pline.c:274` (pre-putmesg flush_screen) + `display.c:2236–2239` (flush repaints iff botl) + `dothrow.c:267–271` (freeinv → throwit → encumber_msg order) + `attrib.c:516–517` (exercise STR/CON tail). C is synchronous: the botl commit lands before any later pline's flush.
