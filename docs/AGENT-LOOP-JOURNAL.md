@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-15 — D-3986 cliffs-head next_ident writer: gs.sell_response starts 'a' (decl.c:720), not BSS null — first shop sale auto-accepts (2 PASS + 3 moved)
+
+**C locus:** `decl.c:720` (`'a', /* sell_response */` in the gs initializer — explicit, NOT BSS '\0') + `include/decl.h:905` + `shk.c` sellobj switch `:4159` (`gs.sell_response ? … : nyaq`, case 'a'→'y' `:4171–4172`) + no-money auto arm `:4051–4052` + pay `:1297–1313` + money2u `:186–212` (splitobj when shk gold exceeds the price).
+**JS:** js/shk.js (1 line + comment); scripts/sellobj-startup-autosell.test.mjs (new node:test: first sellobj touch inits 'a'/SELL_NORMAL/false; DELIBERATE still queries, NORMAL restores 'a').
+**Change:** js/shk.js only — init `'a'` per decl.c:720 + corrected cite comment. No signature change, no new import, no DIAG/FORCE/seed; Rule #2 clean.
+**Verify:** focused test 1/2 pre-fix (authentic: init null) → 2/2 post-fix. `node scripts/verify.mjs --fn next_ident` → PASS syntax (js/shk.js) · rule2 · `verify next_ident: 2 PASS, 3 moved past, 0 unchanged, 0 worse → PROGRESS` (50456006: 911→on_msg@1083; 50556029: 688→describe_decor@897; 49956029 PASS; 50255231: 1258→flooreffects@1493; 50161001 PASS) · reach spread 80/80 → REACH-OK · reach-all 543/543 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 (full skipped: no shared file) → VERIFY: PASS. Movement: `verify next_ident: 2 PASS, 3 moved, 0 no-movement`.
+**Named:** none new (sellobj/pay/money2u/splitobj/nextoid pre-wired and faithful — offers, splits, messages all matched pre-fix; multi-sale More-suspension interleaving matches once the preset matches, proven by the 3 strictly-later landings + 2 PASS).
+**Next:** the 3 moved sessions keep own writers (on_msg@1083, describe_decor@897, flooreffects@1493 — next iterations, not this cause). Do not re-pop next_ident for the 2 PASS. Do not "fix" the init back to null (decl.c:720 is explicit 'a').
 ## 2026-10-15 — D-3985 cliffs-head distfleeck writer: maketrap HOLE arm cleared flags but not the rm.h union mirrors — minetn-6 (49,7) des door kept D_CLOSED where C has D_NODOOR (shop-Valkyrie-50455535 → PASS)
 
 **C locus:** `trap.c` maketrap HOLE/TRAPDOOR/PIT/SPIKED_PIT `:513–561` (the `:560–561` `lev->flags = 0`); `include/rm.h:213–221` (doormask/altarmask/wall_info/drawbridgemask/looted/icedpool/ladder/emptygrave ALL alias flags — one union); `lock.c:1165` ("maketrap() clears doormask, so it should be NODOOR"); `sp_lev.c` ensure_way_out `:5198` (the HOLE placement); minetn-6 des door (28,6)→(49,7) D_CLOSED.

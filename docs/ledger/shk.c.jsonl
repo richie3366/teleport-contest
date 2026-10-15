@@ -88,7 +88,7 @@
 {"fn":"stolen_container","c":"3713-3751","status":"ported","js":["js/shk.js:stolen_container"],"at":"2026-10-03@bbe63333a"}
 {"fn":"stolen_value","c":"3754-3872","status":"ported","js":["js/shk.js:stolen_value"],"at":"2026-10-03@bbe63333a"}
 {"fn":"donate_gold","c":"3877-3910","status":"ported","js":["js/shk.js:donate_gold"],"at":"2026-10-03@bbe63333a"}
-{"fn":"sellobj_state","c":"3913-3924","status":"ported","js":["js/shk.js:sellobj_state"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sellobj_state","c":"3913-3924","status":"ported","js":["js/shk.js:sellobj_state"],"d":["D-3986"],"at":"2026-10-15@a2a643eb5"}
 {"fn":"sellobj","c":"3927-4194","status":"ported","js":["js/shk.js:sellobj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doinvbill","c":"4197-4271","status":"ported","js":["js/shk.js:doinvbill"],"at":"2026-10-03@bbe63333a"}
 {"fn":"corpsenm_price_adj","c":"4275-4316","status":"ported","js":["js/shk.js:corpsenm_price_adj"],"at":"2026-10-03@bbe63333a"}
