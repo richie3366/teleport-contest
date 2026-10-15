@@ -50,7 +50,7 @@
 {"fn":"search_door","c":"2492-2540","status":"ported","js":["js/mklev.js:search_door"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dig_corridor","c":"2549-2663","status":"ported","js":["js/mklev.js:dig_corridor"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"create_corridor","c":"2671-2725","status":"ported","js":["js/mklev.js:create_corridor"],"d":["D-2668"],"at":"2026-10-03@bbe63333a"}
-{"fn":"fill_special_room","c":"2731-2804","status":"ported","js":["js/mklev.js:fill_special_room"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
+{"fn":"fill_special_room","c":"2731-2804","status":"ported","js":["js/mklev.js:fill_special_room"],"at":"2026-10-15@d9ea00c54","note":"audit 2822: whole vs C (recursion, FILL_NORMAL shop/vault/zoo-8, 8 flag arms incl TEMPLE/SWAMP); PARTIAL tag is the line-density heuristic"}
 {"fn":"build_room","c":"2807-2833","status":"ported","js":["js/mklev.js:build_room"],"d":["D-3185","D-1836"],"at":"2026-10-01@03eae3466"}
 {"fn":"light_region","c":"2839-2862","status":"ported","js":["js/mklev.js:light_region"],"at":"2026-10-03@bbe63333a"}
 {"fn":"wallify_map","c":"2865-2891","status":"ported","js":["js/mklev.js:wallify_map"],"at":"2026-10-03@bbe63333a"}
