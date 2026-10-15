@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-15 — Grow #12: fresh 143/160 (89.4 %) @50650000; +17 failing folded, 143 archived, no full rescore
+
+**Fresh cohort:** 143/160 (89.4 %) on arrival, RNG 96.5 %, screens 96.4 %. Worst: descend 1/2, worldtour 7/12, symset 8/12, questtour/sweep 10/12, wish 10/11, shop/zapfest 11/12; trek/chain 12/12 + rest 100 %. Gap 16.7 pts vs held-out 72.7 % — inside the §10.20 band, no calibration family (prev 139/160 @50550000).
+**Fold:** +17 failing into hidden-corpus/recipes, 143 PASS-on-arrival → recipes-archive/; `score --new` 564/1204 (46.8 %), RNG 91.24 %, screens 88.1 %; `tier` reserve 301 → 295 (11 → reserve, 17 promoted back); corpus 897 active + 295 reserve + 3960 archive. No full rescore (audit does it 1×/10 iters, §10.21). No JS throws — no Must-fix. scen-wish-Tourist-50652024 failed on arrival but reads PASS on rescore (same-js/ flip, kept as row).
+**New owners:** mcast_disappear, roguename, dodip (1 session each); distfleeck ×2 in-cohort (4→6); use_defensive, missmu, inuse_classify, goto_level, find_defensive, newsym +1 each. 5 unattributed (descend-Tourist-50651027, questtour-Wizard-50650062, shop-Archeologist-50650085, symset-Tourist-50650015, worldtour-Wizard-50650000).
+**Cliffs regen:** 12 owners, head find_defensive ×4 (fresh worldtour-Tourist-50650048 joins); then distfleeck, look_here, do_statusline1, dolook, rndcurse, use_pick_axe, thrwmu, makemon_rnd_goodpos, do_statusline2, dfeature_at, cprefx.
 ## 2026-10-15 — D-3987 `symbols.c` do_symset `:908–1098` menu browser whole (cliffs head: 18 PASS + 11 moved)
 
 **C locus:** nethack-c/upstream/src/symbols.c:908–1098 — whole body in C order: `:923–931` which_set + null-name list pick, `:937–958` restriction/handling filter + widest-name measure, `:959–963` empty There arm, `:965–1006` Default + per-set menu + prompt + PICK_ONE select, `:1007–1017` chosen mapping, `:1021–1039` name transfer, `:1040–1048` !res/empty arms, `:1051–1058` cleanup, `:1060–1061` nothing_to_do, `:1065–1085` defaults reset + reload, `:1087–1097` switch/assign/customize/preference tail. Sole C caller options.c:6325 handler_symset. Compile gates measured: MAC_GRAPHICS_ENV undefined (H_MAC skip live), ENHANCED_SYMBOLS defined config.h:368 (H_UTF8 skip compiled out).
