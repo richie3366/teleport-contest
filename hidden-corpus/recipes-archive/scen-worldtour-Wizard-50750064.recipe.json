@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0016?\nm\u0017blessed wand of cold\nzo. \u0017cursed spellbook of cure blindness\nrps.Za\nZb\n \u00173 scroll of teleportation\nrq  \u001b>.  FjFj\u0017blessed wand of make invisible\nzrk zrhshsm.\u0017cursed wand of magic missile\nzsyzsj.m..\u0017lizard corpse\n\u0007black dragon\net    n .m.sm.sm. sm.   nsm. sl20s \u00161\n\u00163\n_<,ss\u001616\n_<,<\u00164\nnyh:s\u0016?\n>C  \u0007hell hound\n;m,ss20s\u0007ghoul\n#chat\nnss\u0007water nymph\n20s20ss20s.\u0016?\n>G \u0004l20s  ss\u001610\nlyjk\u0017dart trap\nj  ksm.   n20s  j \u0017falling rock trap\nk   ^jj      n20s sunyh\u0017trap door\n#dip\ndg #pray\ny y    #terrain\nd\n..m. .m.\u00165\n\u00163\n__.\u001610\n\u0006_<,sm.  \u0016?\ns \u0014 nn\u001616\nhjy:\u0016?\nk_>.<s\u0016?\n>xynhuhj:\u0016?\n>v \u0006_<._.;.s. \u001bs\u0016?\ne     jyhln   :\u001616\n\u0014m. \u0016?\n>I hnlbhu:\u0016?\n>Dnb\u0017wand of light\nEu  Vlad was here\n\u0017wand of enlightenment\nEv \u001b y ad aerarium\nb\u0017wand of stasis\nEw X marks the spot\n\u0017wand of speed monster\nExn  Elbereth\nE-n  Elbereth\n\u0007gnome lord\nsn.hsm.FuFu\u0016?\n>I#levelchange\n14\nllh\u0017sleeping gas trap\nhls20sll\u0017spiked pit\nh^ll  .sh\u0017squeaky board\nl^hh..ln\u0017magic trap\nk j s  n 20s #terrain\nc\n._<,s"
+ },
+ "segments": [
+  {
+   "seed": 50750064,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0016?\nm\u0017blessed wand of cold\nzo. \u0017cursed spellbook of cure blindness\nrps.Za\nZb\n \u00173 scroll of teleportation\nrq  \u001b>.  FjFj\u0017blessed wand of make invisible\nzrk zrhshsm.\u0017cursed wand of magic missile\nzsyzsj.m..\u0017lizard corpse\n\u0007black dragon\net    n .m.sm.sm. sm.   nsm. sl20s \u00161\n\u00163\n_<,ss\u001616\n_<,<\u00164\nnyh:s\u0016?\n>C  \u0007hell hound\n;m,ss20s\u0007ghoul\n#chat\nnss\u0007water nymph\n20s20ss20s.\u0016?\n>G \u0004l20s  ss\u001610\nlyjk\u0017dart trap\nj  ksm.   n20s  j \u0017falling rock trap\nk   ^jj      n20s sunyh\u0017trap door\n#dip\ndg #pray\ny y    #terrain\nd\n..m. .m.\u00165\n\u00163\n__.\u001610\n\u0006_<,sm.  \u0016?\ns \u0014 nn\u001616\nhjy:\u0016?\nk_>.<s\u0016?\n>xynhuhj:\u0016?\n>v \u0006_<._.;.s. \u001bs\u0016?\ne     jyhln   :\u001616\n\u0014m. \u0016?\n>I hnlbhu:\u0016?\n>Dnb\u0017wand of light\nEu  Vlad was here\n\u0017wand of enlightenment\nEv \u001b y ad aerarium\nb\u0017wand of stasis\nEw X marks the spot\n\u0017wand of speed monster\nExn  Elbereth\nE-n  Elbereth\n\u0007gnome lord\nsn.hsm.FuFu\u0016?\n>I#levelchange\n14\nllh\u0017sleeping gas trap\nhls20sll\u0017spiked pit\nh^ll  .sh\u0017squeaky board\nl^hh..ln\u0017magic trap\nk j s  n 20s #terrain\nc\n._<,s"
+  }
+ ]
+}

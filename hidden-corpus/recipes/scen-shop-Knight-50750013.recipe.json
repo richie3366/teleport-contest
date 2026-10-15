@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed Mjollnir\nwi\u0017blessed +3 gauntlets of power\n W\u001b\u0016?\n>w \u0006_ \u001b;q_oooooooo,,p__.         Fk    n   n    n_.#chat\nk   n #pray\ny y    \u00163\n_{.q_oooooooo,,: _ooo.,p_oooooo.,#chat\ny_{,qhlh#chat\nb_oooooooo.,\u0014>.ssnkj#chat\nh_oo._,, $_oo._o._,,p_oooo,_ooo.,p_{.q\u00163\nkhj\u0016?\n>w\u0006_oooooooo.,$_{._. FlqFl FlFlFlFlFlhjk#chat\nn_ooooooooo.,#chat\nn\u00167\nlb  nh\u0016?\n>w\u0006_{._.qy _ooooo,,p_{,Fn_,Fnqy y_ooo.,p_ooooo.,#chat\nn_{,  n Fn_, Fn q_oooooooo.,p_oooo.,p\u0016?\nch    nbh  n \u0016?\n>w\u0006\u00165\n__.#chat\ny  n _ooooooo._oo.,:   n _ooooo.,p_{.q_oooo.,p_{,q_ooooo.,:   n Fy  n Fy  n Fy  n   n Fy  yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50750013,
+   "datetime": "20060222152545",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed Mjollnir\nwi\u0017blessed +3 gauntlets of power\n W\u001b\u0016?\n>w \u0006_ \u001b;q_oooooooo,,p__.         Fk    n   n    n_.#chat\nk   n #pray\ny y    \u00163\n_{.q_oooooooo,,: _ooo.,p_oooooo.,#chat\ny_{,qhlh#chat\nb_oooooooo.,\u0014>.ssnkj#chat\nh_oo._,, $_oo._o._,,p_oooo,_ooo.,p_{.q\u00163\nkhj\u0016?\n>w\u0006_oooooooo.,$_{._. FlqFl FlFlFlFlFlhjk#chat\nn_ooooooooo.,#chat\nn\u00167\nlb  nh\u0016?\n>w\u0006_{._.qy _ooooo,,p_{,Fn_,Fnqy y_ooo.,p_ooooo.,#chat\nn_{,  n Fn_, Fn q_oooooooo.,p_oooo.,p\u0016?\nch    nbh  n \u0016?\n>w\u0006\u00165\n__.#chat\ny  n _ooooooo._oo.,:   n _ooooo.,p_{.q_oooo.,p_{,q_ooooo.,:   n Fy  n Fy  n Fy  n   n Fy  yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

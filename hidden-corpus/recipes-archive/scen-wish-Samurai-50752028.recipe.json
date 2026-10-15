@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u001720 darts\nQffhfnfl \u0017blessed wand of create monster\nzgsmall mimic\n\u0017frost horn\nahy u ahy k  yy\u001by  y y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50752028,
+   "datetime": "20150218093923",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u001720 darts\nQffhfnfl \u0017blessed wand of create monster\nzgsmall mimic\n\u0017frost horn\nahy u ahy k  yy\u001by  y y y\u001by  \u0017"
+  }
+ ]
+}

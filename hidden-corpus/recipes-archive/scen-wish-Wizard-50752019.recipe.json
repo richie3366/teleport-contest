@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017cursed magic lamp\nao#rub\no\u0017scroll of stinking cloud\n\u0007Angel\nyrp   \u001bm.\u0017silver dragon scale mail\n\u0007Famine\nyW\u001bsj   n   sm.sm.  n   n  \u0017ring of invisibility\nPrl    ynny y y\u001bn  ."
+ },
+ "segments": [
+  {
+   "seed": 50752019,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017cursed magic lamp\nao#rub\no\u0017scroll of stinking cloud\n\u0007Angel\nyrp   \u001bm.\u0017silver dragon scale mail\n\u0007Famine\nyW\u001bsj   n   sm.sm.  n   n  \u0017ring of invisibility\nPrl    ynny y y\u001bn  ."
+  }
+ ]
+}

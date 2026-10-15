@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b,>FyFkj _>.Fl_.>_>._.>fj ,\u0006_>.Fl_,Fl>FlFl_>,Fl_,Fl>FlFl_>,Fl_.Fl>FlFlFlFlFl\u0006_>,_.Fl>FlFl_>,_.Fl>FlFl_>.Fl_,>\u0006_>,_.>_>.Fl_.Fl>FlFl_>._.>\u00167\n50skl kb n100su.nli\u001b100snuh y100s50s50s150s150s50s150s150s100sFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlynyul \u0017lawful altar\ndf\u0017newt corpse\n#offer\nl   #pray\ny y   : ul \u0017neutral altar\ndj \u0017gnome corpse\n#offer\nm #pray\ny y     : #terrain\nf\ndez#wipe\nv i\u001b\u00168\n\u0006_>.Fn_>FnFn_>.Fn_>FnFn_>,Fn_>FnFnFnFnFn\u0006_>.  nFn_>FnFn_>.Fn_>FnFn_>.Fn_>FnFnFnFnFn<\u0006_>>,Fn_>FnFn_>>,Fn_>FnFn_>>,Fn_>FnFnFnFnFn\u0006_>>,  nFn_>FnFn_>>.Fn_>FhFh_>>.  nFn_>FhFnFh\u001bFnFn#invoke\n\u001bi\u001b\u0006_>.Fh_.  nFh>FnFh\u001b_>.Fn_>FnFh\u001b_>,  nFn_>FhFhFnFnFn\u0006_>.   nFn_>FhFn_>FnFn_>.Fh_,  nFh>FhFhFnFnFn\u0016\u0006_>,Fh_,  nFh>F"
+ },
+ "segments": [
+  {
+   "seed": 50750023,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nOPTIONS=msg_window:reversed\n",
+   "moves": "\u0006_ \u001b,>FyFkj _>.Fl_.>_>._.>fj ,\u0006_>.Fl_,Fl>FlFl_>,Fl_,Fl>FlFl_>,Fl_.Fl>FlFlFlFlFl\u0006_>,_.Fl>FlFl_>,_.Fl>FlFl_>.Fl_,>\u0006_>,_.>_>.Fl_.Fl>FlFl_>._.>\u00167\n50skl kb n100su.nli\u001b100snuh y100s50s50s150s150s50s150s150s100sFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlynyul \u0017lawful altar\ndf\u0017newt corpse\n#offer\nl   #pray\ny y   : ul \u0017neutral altar\ndj \u0017gnome corpse\n#offer\nm #pray\ny y     : #terrain\nf\ndez#wipe\nv i\u001b\u00168\n\u0006_>.Fn_>FnFn_>.Fn_>FnFn_>,Fn_>FnFnFnFnFn\u0006_>.  nFn_>FnFn_>.Fn_>FnFn_>.Fn_>FnFnFnFnFn<\u0006_>>,Fn_>FnFn_>>,Fn_>FnFn_>>,Fn_>FnFnFnFnFn\u0006_>>,  nFn_>FnFn_>>.Fn_>FhFh_>>.  nFn_>FhFnFh\u001bFnFn#invoke\n\u001bi\u001b\u0006_>.Fh_.  nFh>FnFh\u001b_>.Fn_>FnFh\u001b_>,  nFn_>FhFhFnFnFn\u0006_>.   nFn_>FhFn_>FnFn_>.Fh_,  nFh>FhFhFnFnFn\u0016\u0006_>,Fh_,  nFh>F"
+  }
+ ]
+}

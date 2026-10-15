@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 speed boots\nWg \u0017blessed Mjollnir\n wh\u0016?\n>w\u0006_ \u001b.,:_ooooooo.,$_ooooo,_ooo.,p_ooooooo.,\u0017amulet versus poison\ndi__._. Fh #chat\nj_oooo._., p__.Fh_.Fy#chat\ny\u0016?\ncnnn\u0016?\n>w\u0006_ooooooo. Fh   n_._o.Fl_.,Fl ,\u0017amulet of life saving\ndl _ooooo, Fh   n_,>.Fh ,#chat\nh _ooooooooo.Fh _.;:   _ooo. Fl _.   Fl ,$\u00163\njyy\u0016?\n>w \u0006_ooo.  Fu    _,   n  Fu ,\u001b\u0014<.ss_ooo,_.Fl _oo._,,\u001b\u0017amulet of life saving\ndm_oooooo. Fn _.Fj   _ooo.Fj _.;,Fj  ,p_ooo,Fj    _,m,Fj ,$__,Fn_.Fn#chat\nn#pray\ny y    _{.Fn_.;:   Fnq_oooo._._ooo.Fl _,Fn ,$\u00163\nnly\u0016?\n>w\u0006_oo."
+ },
+ "segments": [
+  {
+   "seed": 50750093,
+   "datetime": "20030203053651",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 speed boots\nWg \u0017blessed Mjollnir\n wh\u0016?\n>w\u0006_ \u001b.,:_ooooooo.,$_ooooo,_ooo.,p_ooooooo.,\u0017amulet versus poison\ndi__._. Fh #chat\nj_oooo._., p__.Fh_.Fy#chat\ny\u0016?\ncnnn\u0016?\n>w\u0006_ooooooo. Fh   n_._o.Fl_.,Fl ,\u0017amulet of life saving\ndl _ooooo, Fh   n_,>.Fh ,#chat\nh _ooooooooo.Fh _.;:   _ooo. Fl _.   Fl ,$\u00163\njyy\u0016?\n>w \u0006_ooo.  Fu    _,   n  Fu ,\u001b\u0014<.ss_ooo,_.Fl _oo._,,\u001b\u0017amulet of life saving\ndm_oooooo. Fn _.Fj   _ooo.Fj _.;,Fj  ,p_ooo,Fj    _,m,Fj ,$__,Fn_.Fn#chat\nn#pray\ny y    _{.Fn_.;:   Fnq_oooo._._ooo.Fl _,Fn ,$\u00163\nnly\u0016?\n>w\u0006_oo."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed spellbook of turn undead\nrk  s\u0017blessed spellbook of cause fear\nrl .h+\u001bZc\nFy \u0007acid blob\nZa\n Zb\n\u0007kobold\nZb\nZb\n\u0007ghoul\nZb\n#pray\ny y        \u0017blessed spellbook of clairvoyance\nrm 20s  n  \u0017blessed spellbook of detect unseen\nrn   20s +a\n\u0007yellow mold\nZc\n\u0007zombie\nZa\nZc\nZa\nZc\n\u0007sewer rat\nZa\n#turn\n#pray\ny y          #enhanc"
+ },
+ "segments": [
+  {
+   "seed": 50751009,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed spellbook of turn undead\nrk  s\u0017blessed spellbook of cause fear\nrl .h+\u001bZc\nFy \u0007acid blob\nZa\n Zb\n\u0007kobold\nZb\nZb\n\u0007ghoul\nZb\n#pray\ny y        \u0017blessed spellbook of clairvoyance\nrm 20s  n  \u0017blessed spellbook of detect unseen\nrn   20s +a\n\u0007yellow mold\nZc\n\u0007zombie\nZa\nZc\nZa\nZc\n\u0007sewer rat\nZa\n#turn\n#pray\ny y          #enhanc"
+  }
+ ]
+}

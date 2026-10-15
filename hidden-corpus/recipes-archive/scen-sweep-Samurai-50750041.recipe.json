@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017helm of telepathy\nWfs20ssTf\u0007green slime\nFyFyFy Fy Fl Fy.ns\u0007gray ooze\nFlFlFl FyFysb20s\u001627\n#levelchange\n30\n\u0016?\n>>L      plate mail\n#enhance\nyk\nq\n\u001b#loot\nks\u000620s    sm.    \u001614\n#tip\n\u001bE- Elbereth Elbereth\n     #tip\n\u001bs.\u0016?\n\u001b\u0016?\n\u001b\u0016?\n\u001bi\u001bwb  Fj   Fj   Fh            Wf  .s    20s         n Pg         s  s     sj        n                   n     .            Rwc  Fk         n          Fh        n        Fj      wa               Fy        n                       n        Fu         n                  Fj    n                n            W\u001b20s    n               n              sm.  n                 n                 n 20s ,                  yy\u001by   ny n  f"
+ },
+ "segments": [
+  {
+   "seed": 50750041,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017helm of telepathy\nWfs20ssTf\u0007green slime\nFyFyFy Fy Fl Fy.ns\u0007gray ooze\nFlFlFl FyFysb20s\u001627\n#levelchange\n30\n\u0016?\n>>L      plate mail\n#enhance\nyk\nq\n\u001b#loot\nks\u000620s    sm.    \u001614\n#tip\n\u001bE- Elbereth Elbereth\n     #tip\n\u001bs.\u0016?\n\u001b\u0016?\n\u001b\u0016?\n\u001bi\u001bwb  Fj   Fj   Fh            Wf  .s    20s         n Pg         s  s     sj        n                   n     .            Rwc  Fk         n          Fh        n        Fj      wa               Fy        n                       n        Fu         n                  Fj    n                n            W\u001b20s    n               n              sm.  n                 n                 n 20s ,                  yy\u001by   ny n  f"
+  }
+ ]
+}

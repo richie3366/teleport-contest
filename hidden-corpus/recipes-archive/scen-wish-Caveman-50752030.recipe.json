@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed wand of locking\nzf.\u0017wax candle\n\u0007air elemental\nag#rub\nca Fj Fk \u0017cursed potion of blindness\n\u0007horned devil\nqh#dip\ngFk Fj   \u0017uncursed spellbook of detect food\n\u0007baluchitherium\nris    s   Zs 20s  "
+ },
+ "segments": [
+  {
+   "seed": 50752030,
+   "datetime": "20160704010824",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed wand of locking\nzf.\u0017wax candle\n\u0007air elemental\nag#rub\nca Fj Fk \u0017cursed potion of blindness\n\u0007horned devil\nqh#dip\ngFk Fj   \u0017uncursed spellbook of detect food\n\u0007baluchitherium\nris    s   Zs 20s  "
+  }
+ ]
+}

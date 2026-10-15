@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "YLNJ_ \u001b>.>FkFkFk LLUY_>,>FkssNJKU_>.>BNLJ_>,>FjFjFjNLYH_>.>Fj.sP>NBJK_>.>#invoke\n\u001b#enhance\n\u001bJHNL_>.>Fj20s.\u000f\u001bP#loot\n,bulhbtbybjkjjjjkbjYNUL_>,>dd#dip\nhUNBY_>.>Fjs.JLBN_>.>\\ #rub\nYHJK_>.>#pray\ny dgJYBH_>.><E- Vlad was here\n20sdb20sllll20sdf..20sl#name\ni\n#pray\ny  aelwaFlFlFlP\\ 100s100s100sFh20sslny50s100s\u000f\u001b150s50sFls20snyl150sFj20s.50s50sFh ss100s50sFns.\u000f\u001b100sFnFn.50s100sFj20sFj100s ehjkj100s150s\u0018\u001bW#dip\nckjkjkj100skjt\u001bt\u001bkjkj#name\ni\n20skjk100sjkjkjk100sjkjFl20s20sFls.FlFl.\u000f\u001b<\u000f\u001b_>,>i\u001b100s i\u001b100s150sFlss50sFyFy.b150s#force\n\u0018\u001b_>.>150sFl20sskjk100sFnFnFnFnss100sjkj150skjk50sFnFjsjkkFjss;_.ok\u0018\u001bJLBK_>.>f \u001b\u0004kU  LH L_>.>H  NJY _>.>LUUL_>.>Fls20szeUH UN_>.>HYU J_>,>HKU B_>.>JU KU_>.>YULK_>.>KzJNJB_>.>#chat\nbr\u001bLNHU_>.>FlF"
+ },
+ "segments": [
+  {
+   "seed": 50750091,
+   "datetime": "20090908204618",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\n",
+   "moves": "YLNJ_ \u001b>.>FkFkFk LLUY_>,>FkssNJKU_>.>BNLJ_>,>FjFjFjNLYH_>.>Fj.sP>NBJK_>.>#invoke\n\u001b#enhance\n\u001bJHNL_>.>Fj20s.\u000f\u001bP#loot\n,bulhbtbybjkjjjjkbjYNUL_>,>dd#dip\nhUNBY_>.>Fjs.JLBN_>.>\\ #rub\nYHJK_>.>#pray\ny dgJYBH_>.><E- Vlad was here\n20sdb20sllll20sdf..20sl#name\ni\n#pray\ny  aelwaFlFlFlP\\ 100s100s100sFh20sslny50s100s\u000f\u001b150s50sFls20snyl150sFj20s.50s50sFh ss100s50sFns.\u000f\u001b100sFnFn.50s100sFj20sFj100s ehjkj100s150s\u0018\u001bW#dip\nckjkjkj100skjt\u001bt\u001bkjkj#name\ni\n20skjk100sjkjkjk100sjkjFl20s20sFls.FlFl.\u000f\u001b<\u000f\u001b_>,>i\u001b100s i\u001b100s150sFlss50sFyFy.b150s#force\n\u0018\u001b_>.>150sFl20sskjk100sFnFnFnFnss100sjkj150skjk50sFnFjsjkkFjss;_.ok\u0018\u001bJLBK_>.>f \u001b\u0004kU  LH L_>.>H  NJY _>.>LUUL_>.>Fls20szeUH UN_>.>HYU J_>,>HKU B_>.>JU KU_>.>YULK_>.>KzJNJB_>.>#chat\nbr\u001bLNHU_>.>FlF"
+  }
+ ]
+}

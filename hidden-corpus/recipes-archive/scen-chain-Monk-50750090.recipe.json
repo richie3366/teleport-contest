@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "Fk FkFkFkFkFkFkFkjhyjlyjkt\u001b#name\na\n10s#name\na\nnlyh,_ \u001b@.>jlh_>.>100s100s\u0018\u001b_>.>100s\u000f\u001bkln150si\u001bybukbni\u001b100s100s100s100s100s eh  100s150seh  Fl20s.llnE\u001b_>.>150sef\u000f\u001b\\  100seh  100see100sol50sjkjjkk#name\n\u001b10s#name\n\u001b10s;_.150s50sFuFu20sFuFuFu\u000f\u001b150sFus.Fuss50sFuFusFuFu.W_>,>\u0018\u001b150sFuss100sFuss100#quit\nyy\u001by  y y y\u001b \u0017wand of cold\nzj.   y y\u001by  y y\u001bn  sFuFuFuFuFuFu FuFudcsssdiss20skdc20ss20s10s nhlkblkn150s FbFb20sFl s.100sFbFbFbFbFb20suunFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFlFlFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu FuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFlFuFuFuFuFuFu  y\u001by  y y y\u001b  F#wizintrinsic\nd\n .m.20s .m.sm. 20s s20s.bsm..m.sm. yy\u001by   y y y\u001bn  2",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50750090,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\n",
+   "moves": "Fk FkFkFkFkFkFkFkjhyjlyjkt\u001b#name\na\n10s#name\na\nnlyh,_ \u001b@.>jlh_>.>100s100s\u0018\u001b_>.>100s\u000f\u001bkln150si\u001bybukbni\u001b100s100s100s100s100s eh  100s150seh  Fl20s.llnE\u001b_>.>150sef\u000f\u001b\\  100seh  100see100sol50sjkjjkk#name\n\u001b10s#name\n\u001b10s;_.150s50sFuFu20sFuFuFu\u000f\u001b150sFus.Fuss50sFuFusFuFu.W_>,>\u0018\u001b150sFuss100sFuss100#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50850090,
+   "datetime": "20060508185327",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=sortloot:loot\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of cold\nzj.   y y\u001by  y y\u001bn  s"
+  },
+  {
+   "seed": 50950090,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=runmode:teleport\n",
+   "moves": "FuFuFuFuFuFu FuFudcsssdiss20skdc20ss20s10s nhlkblkn150s FbFb20sFl s.100sFbFbFbFbFb20suunFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFlFlFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu FuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFlFuFuFuFuFuFu  y\u001by  y y y\u001b  F"
+  },
+  {
+   "seed": 51050090,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#wizintrinsic\nd\n .m.20s .m.sm. 20s s20s.bsm..m.sm. yy\u001by   y y y\u001bn  2"
+  }
+ ]
+}

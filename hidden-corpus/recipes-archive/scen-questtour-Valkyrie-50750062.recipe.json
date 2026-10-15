@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b<.#chat\nh_mmmm.Fh   n   _.  n  Fj  n    n    n#chat\nk;h:  _mmmmm.   n   n Fk  n   n   n _,  n    n    nFh    n #chat\nh_mmmm.  n   ynnny\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50750062,
+   "datetime": "20161108165943",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b<.#chat\nh_mmmm.Fh   n   _.  n  Fj  n    n    n#chat\nk;h:  _mmmmm.   n   n Fk  n   n   n _,  n    n    nFh    n #chat\nh_mmmm.  n   ynnny\u001b  F"
+  }
+ ]
+}

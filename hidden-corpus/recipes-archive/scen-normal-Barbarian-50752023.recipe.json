@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " 20s#tip\n\u001bwb >\u0014,E- Elbereth\n10sabl \u000f\u001b<nyabnq#chat\nlwa cjdb,\u0014\u0014#untrap\nj: ed ,#wipe\nE-y ad aerarium\n"
+ },
+ "segments": [
+  {
+   "seed": 50752023,
+   "datetime": "20190504072401",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\n",
+   "moves": " 20s#tip\n\u001bwb >\u0014,E- Elbereth\n10sabl \u000f\u001b<nyabnq#chat\nlwa cjdb,\u0014\u0014#untrap\nj: ed ,#wipe\nE-y ad aerarium\n"
+  }
+ ]
+}

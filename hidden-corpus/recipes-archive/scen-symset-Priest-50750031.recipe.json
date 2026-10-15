@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "v i\u001bO>>>m\u001b\u001b\n#untrap\nu #ride\nu ddcl \u0018\u001bL\u0006_ \u001bm,>FlFl_>. _.Fh>FhFh_>._,>\u0006_>.Fh_,>_>,Fk_.>_>._.Fk>FkFkFkFkFk\u0006_>.Fk_.>_>._.Fh>FhFh_>,Fj_.>\u0006_>._.Fb>FbFb_>,Fj_.Fb>FbFb_>.Fb_,Fj>FjFjFjFjFjW,mO>>>>d\u001b\n\u00167\n\u0006_>._.Fy>FyFy_>,Fk_.Fu>FuFu_>,Fk_.  nFu>FuFuFuFuFu\u0006_>,Fl_.Fl>FlFl_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFlFlFlFl\u0006_>.Fl_,m,Fh>FhFh_>,Fh_.  n Fh>FhFh_>,Fh_.Fh>FhFhFhFhFh\u0006_>>,  n Fl_.Fh>FhFh_>>,Fl_.  nFl>FlFl_>>.Fh_,Fh>FlFlFlFhFl\u0006_>,Fl_.Fh>FhFh_>,  n Fh_.Fh>FhFh_>.  nFh_,Fl>FhFhFhFlFl\u001620\n\u00164\nFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl\u00166\nFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuF"
+ },
+ "segments": [
+  {
+   "seed": 50750031,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:curses\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=autodig\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\nOPTIONS=number_pad\n",
+   "moves": "v i\u001bO>>>m\u001b\u001b\n#untrap\nu #ride\nu ddcl \u0018\u001bL\u0006_ \u001bm,>FlFl_>. _.Fh>FhFh_>._,>\u0006_>.Fh_,>_>,Fk_.>_>._.Fk>FkFkFkFkFk\u0006_>.Fk_.>_>._.Fh>FhFh_>,Fj_.>\u0006_>._.Fb>FbFb_>,Fj_.Fb>FbFb_>.Fb_,Fj>FjFjFjFjFjW,mO>>>>d\u001b\n\u00167\n\u0006_>._.Fy>FyFy_>,Fk_.Fu>FuFu_>,Fk_.  nFu>FuFuFuFuFu\u0006_>,Fl_.Fl>FlFl_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFlFlFlFl\u0006_>.Fl_,m,Fh>FhFh_>,Fh_.  n Fh>FhFh_>,Fh_.Fh>FhFhFhFhFh\u0006_>>,  n Fl_.Fh>FhFh_>>,Fl_.  nFl>FlFl_>>.Fh_,Fh>FlFlFlFhFl\u0006_>,Fl_.Fh>FhFh_>,  n Fh_.Fh>FhFh_>.  nFh_,Fl>FhFhFhFlFl\u001620\n\u00164\nFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl\u00166\nFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuF"
+  }
+ ]
+}

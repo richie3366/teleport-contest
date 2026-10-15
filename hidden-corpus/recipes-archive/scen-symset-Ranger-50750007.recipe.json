@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "mO>r\u001b\nO>p\u001b\nFk FlFlFhFlFlFlFlFlFhFhFlFhFlFhFlFhFlFlFlFhFhFhFhFhFhFhFhFhFhFhFhFhFhFlFlFhFhFhFhFlFlFlFhFhFlFhFlFhFlFlFlFhFlFlFhFhFlFhFhFlFhFlFlFlFlFlFhFlFlFhFlFlFhFhFhFlFlFlFhFlFlFlFlFhFhFlFlFhFlFhFlFlFhFlFlFhFhFhFlFlFhFlFhFlFlFhFlFhFlFhFhFlFhFlFhFlFhFlFlv i\u001b\u00164\n150sFyFy20snubhbn100s100s#jump\njbuch20s100s100sFhFhsFhFhFhFhFhFhFhFh20s100s#monster\n_ \u001b.>#loot\nhyhFhFhs_>,>i\u001b\\ 100s_>,>50skly150s100sFhFh.100sa50sW100sef\u0018\u001bnln_m.ss,#turn\nFbFbFjFjFjFbFbFbFbFbFjFjFjFjFjFnFnFbFnFbFjFjFbFbFnFbFnFnFjFbFjFnFbFnFjFnFnFjFnFbFjFjFnFnFbFjFjFjFbFbFbFnFbFnFnFnFbFbFjFnFjFjFbFbFbFnFjFnFbFnFbFnFnFnFbFbFnFbFnFjFbFbFnFbFnFnFnFbFbFnFjFjFnFbFjFjFjFnFjFjFbFjFjFbFbFjFnFnFnFnFnFjFbFjFbFnFnFnFnFb\u001617\n v i\u001b\u001618\n\u0007kitten\n\u0017tripe ration\n tbjj\u0007yellow mold\n.m.20s  nsls20s20s\u0017tin whistle\njlhaj\u0007grid bug\n20s   n sb20s20s 20s   n20s   n n20s \u0017leash\nakn   nnnh j   n  akh    n\u001611\n\u0007kitten\n\u0017newt corpse\ntcn\u0007giant rat\n20s sm.  nsm.sm.  n shsm.  n #name\ni\n#c"
+ },
+ "segments": [
+  {
+   "seed": 50750007,
+   "datetime": "20080317020017",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": "mO>r\u001b\nO>p\u001b\nFk FlFlFhFlFlFlFlFlFhFhFlFhFlFhFlFhFlFlFlFhFhFhFhFhFhFhFhFhFhFhFhFhFhFlFlFhFhFhFhFlFlFlFhFhFlFhFlFhFlFlFlFhFlFlFhFhFlFhFhFlFhFlFlFlFlFlFhFlFlFhFlFlFhFhFhFlFlFlFhFlFlFlFlFhFhFlFlFhFlFhFlFlFhFlFlFhFhFhFlFlFhFlFhFlFlFhFlFhFlFhFhFlFhFlFhFlFhFlFlv i\u001b\u00164\n150sFyFy20snubhbn100s100s#jump\njbuch20s100s100sFhFhsFhFhFhFhFhFhFhFh20s100s#monster\n_ \u001b.>#loot\nhyhFhFhs_>,>i\u001b\\ 100s_>,>50skly150s100sFhFh.100sa50sW100sef\u0018\u001bnln_m.ss,#turn\nFbFbFjFjFjFbFbFbFbFbFjFjFjFjFjFnFnFbFnFbFjFjFbFbFnFbFnFnFjFbFjFnFbFnFjFnFnFjFnFbFjFjFnFnFbFjFjFjFbFbFbFnFbFnFnFnFbFbFjFnFjFjFbFbFbFnFjFnFbFnFbFnFnFnFbFbFnFbFnFjFbFbFnFbFnFnFnFbFbFnFjFjFnFbFjFjFjFnFjFjFbFjFjFbFbFjFnFnFnFnFnFjFbFjFbFnFnFnFnFb\u001617\n v i\u001b\u001618\n\u0007kitten\n\u0017tripe ration\n tbjj\u0007yellow mold\n.m.20s  nsls20s20s\u0017tin whistle\njlhaj\u0007grid bug\n20s   n sb20s20s 20s   n20s   n n20s \u0017leash\nakn   nnnh j   n  akh    n\u001611\n\u0007kitten\n\u0017newt corpse\ntcn\u0007giant rat\n20s sm.  nsm.sm.  n shsm.  n #name\ni\n#c"
+  }
+ ]
+}

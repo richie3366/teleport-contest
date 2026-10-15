@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n          #levelchange\n12\n\u0017blessed spellbook of create monster\n\u0007Elvenking\nri  20s   sm. Za\n\u001bm. \u0017blessed potion of object detection\n\u0007soldier\nqj@. #dip\ned     nFb   Fn  \u0017blessed ring of gain strength\n\u0007homunculus\nPkl   .m.   sm.  20s   n  \u0017uncursed crystal ball\n\u0007nurse\nal   Fh   Fj   .h   n  sm.  \u000f\u001b\u001611\n i\u001bal \u001bef  sm. .yW.m.           n .m. 20s P20s             20s   nsm. eessW20s sjs#ride\nhy#chat\nh P#loot\nhWezri  i\u001bWsm..m.20s Tb qd #dip\ndd rg y  .m.skZb\nZw Fb Fb Fb   nXWb 20s .ksTc     rh y    s.Za\nZ\u0016     \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqmm,_oooooooo._.,:_ooooo,_._oo._.,#chat\nj_mmmm.#chat\nh_{. _.<.Fh qd 20s  #untrap\nh\u0014m,#levelchange\n10\n\u0007baby red dragon\n\u0017scroll of taming\nrn \u0017saddle\naoh\u0017lance\nwp#ride\nhyy\u0007horse\n\u0017scroll of taming\nrq \u0017saddle\narh#ride\n\u0007horse\n\u0017scroll of taming\nrs \u0017saddle\n ath     #ride\nhy\u0006_>>.Fl  _,    Fh   >FlFh_>>.Fl  n _.    Fl>Fl Fh_>>,              Fh_.      >.shhll#ride\n 20s #ride\nhy\u00162\n#levelchange\n30\n                   \u0017dwarvish mattock\nwus20sFk \u0007skeleton\nFy Fy  FhFhFh\u0007lurker above\nFhFk   FjFjFjFj\u0007dwarf\nFkFj    FhFhFy   \u0007lurker above\nFb Fn \\   \u0016?\nj\u0006\u0017magic flute\navnGnGBFtGtGoottntnFECAeeAtnsEeGDonDnoneDECAAF\n  klavnAstADCFseosnsoostFeBsFGEtsGGoBAeFooEDEDBCGF\nnh\u0017wand of opening\nzwj 20s #name\nm\n\u0018\u001627\n\u0018\u001b\u0007xorn\nFj Fl   \u001bFj    \u001bF"
+ },
+ "segments": [
+  {
+   "seed": 50750049,
+   "datetime": "20240424231439",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=runmode:crawl\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n          #levelchange\n12\n\u0017blessed spellbook of create monster\n\u0007Elvenking\nri  20s   sm. Za\n\u001bm. \u0017blessed potion of object detection\n\u0007soldier\nqj@. #dip\ned     nFb   Fn  \u0017blessed ring of gain strength\n\u0007homunculus\nPkl   .m.   sm.  20s   n  \u0017uncursed crystal ball\n\u0007nurse\nal   Fh   Fj   .h   n  sm.  \u000f\u001b\u001611\n i\u001bal \u001bef  sm. .yW.m.           n .m. 20s P20s             20s   nsm. eessW20s sjs#ride\nhy#chat\nh P#loot\nhWezri  i\u001bWsm..m.20s Tb qd #dip\ndd rg y  .m.skZb\nZw Fb Fb Fb   nXWb 20s .ksTc     rh y    s.Za\nZ\u0016     \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqmm,_oooooooo._.,:_ooooo,_._oo._.,#chat\nj_mmmm.#chat\nh_{. _.<.Fh qd 20s  #untrap\nh\u0014m,#levelchange\n10\n\u0007baby red dragon\n\u0017scroll of taming\nrn \u0017saddle\naoh\u0017lance\nwp#ride\nhyy\u0007horse\n\u0017scroll of taming\nrq \u0017saddle\narh#ride\n\u0007horse\n\u0017scroll of taming\nrs \u0017saddle\n ath     #ride\nhy\u0006_>>.Fl  _,    Fh   >FlFh_>>.Fl  n _.    Fl>Fl Fh_>>,              Fh_.      >.shhll#ride\n 20s #ride\nhy\u00162\n#levelchange\n30\n                   \u0017dwarvish mattock\nwus20sFk \u0007skeleton\nFy Fy  FhFhFh\u0007lurker above\nFhFk   FjFjFjFj\u0007dwarf\nFkFj    FhFhFy   \u0007lurker above\nFb Fn \\   \u0016?\nj\u0006\u0017magic flute\navnGnGBFtGtGoottntnFECAeeAtnsEeGDonDnoneDECAAF\n  klavnAstADCFseosnsoostFeBsFGEtsGGoBAeFooEDEDBCGF\nnh\u0017wand of opening\nzwj 20s #name\nm\n\u0018\u001627\n\u0018\u001b\u0007xorn\nFj Fl   \u001bFj    \u001bF"
+  }
+ ]
+}

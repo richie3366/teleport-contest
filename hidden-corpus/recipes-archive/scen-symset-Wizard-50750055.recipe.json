@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "v i\u001bmO>c\u001b\nmO>>>>a\u001b\n\u0007tame wolf\n\u0007kitten\n\u0017newt corpse\nt\u001b\u0017leash\naol h\u001bbyll aok 10s\u0017magic whistle\nh\u001bnnap   \u0017lichen corpse\nt\u001b\u0017food ration\nt\u001bdk20sssO>>>>i\u001b\u001b\n\u00165\n FjFbFbFjFnFjFbFbFnFnFjFnFjFjFnFyFnFjFyFyFjFjFyFyFjFyFbFnFbFyFyFbFbFjFbFyFjFnFnFyFbFyFnFbFjFjFjFyFnFnFjFyFbFnFnFnFnFjFyFyFyFbFyFjFjFnFyFjFnFbFjFnFbFnFbFjFnFnFnFyFbFjFbFyFnFyFjFnFnFbFbFbFyFyFnFyFjFyFyFyFyFyFyFyFnFbFyFyFbFyFnFnFjFjFbFnFbFjFbFb\u0006_ \u001b:>FbFj_>>.Fl_.Fn>FbFbFn<\u0006_>.Fn_>FbFn_>,Fh_.Fb>FnFb_>,Fh_.Fb>FhFbFh\u001bFhFh\u0006_>.Fh_,Fn>FbFbFbZb\nE- I am a fish\nh\u001bbjub \u0017cloud\nj\u0017unaligned altar\ndfdl\u0017new"
+ },
+ "segments": [
+  {
+   "seed": 50750055,
+   "datetime": "20071203064527",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\n",
+   "moves": "v i\u001bmO>c\u001b\nmO>>>>a\u001b\n\u0007tame wolf\n\u0007kitten\n\u0017newt corpse\nt\u001b\u0017leash\naol h\u001bbyll aok 10s\u0017magic whistle\nh\u001bnnap   \u0017lichen corpse\nt\u001b\u0017food ration\nt\u001bdk20sssO>>>>i\u001b\u001b\n\u00165\n FjFbFbFjFnFjFbFbFnFnFjFnFjFjFnFyFnFjFyFyFjFjFyFyFjFyFbFnFbFyFyFbFbFjFbFyFjFnFnFyFbFyFnFbFjFjFjFyFnFnFjFyFbFnFnFnFnFjFyFyFyFbFyFjFjFnFyFjFnFbFjFnFbFnFbFjFnFnFnFyFbFjFbFyFnFyFjFnFnFbFbFbFyFyFnFyFjFyFyFyFyFyFyFyFnFbFyFyFbFyFnFnFjFjFbFnFbFjFbFb\u0006_ \u001b:>FbFj_>>.Fl_.Fn>FbFbFn<\u0006_>.Fn_>FbFn_>,Fh_.Fb>FnFb_>,Fh_.Fb>FhFbFh\u001bFhFh\u0006_>.Fh_,Fn>FbFbFbZb\nE- I am a fish\nh\u001bbjub \u0017cloud\nj\u0017unaligned altar\ndfdl\u0017new"
+  }
+ ]
+}

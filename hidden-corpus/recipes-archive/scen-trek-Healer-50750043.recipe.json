@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " uy20s  lhljyhh20s#name\no\n\u000f\u001b\u0018\u001bK_ \u001b,>#chat\nbhhlFl ss100s50s50sFhFhFbFbFbFbFb20s20s150s100s150s_>.>150sFhs20s\\ bynnbl#wipe\n\u0018\u001b<_>.>;m,buj50s100s \u0018\u001b150s 150sejllb100s ej100s ejW50s\u0018\u001b50sFkFkFkFkFksnly\u0018\u001b\\ _>.>i\u001b#dip\nhd_>,>i\u001b50sFyFyFyFyFys50sej#wipe\nunk50sFhss100s_>,>150sej150sej50seeeeeeeeeeeeeeKJJK_>.>\u0014:BLBN_>,>LKHB_>.>cky<YBKJ_>.>Fu.20s<JNKY_>.>ah #untrap\nh#invoke\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeku#chat\nl#chat\ny#chat\nkhhlj20sojrg y LJUY_>.>JKUB_>.>BYHN_>.>UUUY_>,><\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#force\n#loot\n#twoweapon\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#offer\n#pray\ny \\ #name\nd\n10sdbss20s20sh#chat\nh10s#chat\nhnnnnhh#chat\nhdb.ksm..uYKHB_>.>FhFhs10s\u0004yNHUN_>,>NNLL_>.>#offer\n#i"
+ },
+ "segments": [
+  {
+   "seed": 50750043,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " uy20s  lhljyhh20s#name\no\n\u000f\u001b\u0018\u001bK_ \u001b,>#chat\nbhhlFl ss100s50s50sFhFhFbFbFbFbFb20s20s150s100s150s_>.>150sFhs20s\\ bynnbl#wipe\n\u0018\u001b<_>.>;m,buj50s100s \u0018\u001b150s 150sejllb100s ej100s ejW50s\u0018\u001b50sFkFkFkFkFksnly\u0018\u001b\\ _>.>i\u001b#dip\nhd_>,>i\u001b50sFyFyFyFyFys50sej#wipe\nunk50sFhss100s_>,>150sej150sej50seeeeeeeeeeeeeeKJJK_>.>\u0014:BLBN_>,>LKHB_>.>cky<YBKJ_>.>Fu.20s<JNKY_>.>ah #untrap\nh#invoke\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeku#chat\nl#chat\ny#chat\nkhhlj20sojrg y LJUY_>.>JKUB_>.>BYHN_>.>UUUY_>,><\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#force\n#loot\n#twoweapon\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#offer\n#pray\ny \\ #name\nd\n10sdbss20s20sh#chat\nh10s#chat\nhnnnnhh#chat\nhdb.ksm..uYKHB_>.>FhFhs10s\u0004yNHUN_>,>NNLL_>.>#offer\n#i"
+  }
+ ]
+}

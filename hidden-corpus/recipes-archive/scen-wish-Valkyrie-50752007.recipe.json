@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017tin opener\n\u0007giant rat\naeFhFu\u0017blessed sprig of wolfsbane\nef.s.s \u0017gauntlets of fumbling\nWg 20s   ..TgFl s\u0017cursed Dragonbane\nwhs..X...20s"
+ },
+ "segments": [
+  {
+   "seed": 50752007,
+   "datetime": "20180920041603",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017tin opener\n\u0007giant rat\naeFhFu\u0017blessed sprig of wolfsbane\nef.s.s \u0017gauntlets of fumbling\nWg 20s   ..TgFl s\u0017cursed Dragonbane\nwhs..X...20s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0007mastodon\nFuFuFuFuFj \u0007air elemental\nFn  FuFu  Fk\u0007imp\nFk Fk    yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50752003,
+   "datetime": "20180923220534",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0007mastodon\nFuFuFuFuFj \u0007air elemental\nFn  FuFu  Fk\u0007imp\nFk Fk    yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

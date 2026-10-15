@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "ybl\u0017unaligned altar\ndh\u0017dwarf corpse\n#offer\ni   uh\u0017altar\ndc\u0017gnome corpse\n #offer\nj yl\u0017throne\n#sit\n:l\u0017lawful altar\ndd\u0017dwarf corpse\n#offer\nk #pray\ny y oj#rub\n#jump\n"
+ },
+ "segments": [
+  {
+   "seed": 50751000,
+   "datetime": "20081108122547",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "ybl\u0017unaligned altar\ndh\u0017dwarf corpse\n#offer\ni   uh\u0017altar\ndc\u0017gnome corpse\n #offer\nj yl\u0017throne\n#sit\n:l\u0017lawful altar\ndd\u0017dwarf corpse\n#offer\nk #pray\ny y oj#rub\n#jump\n"
+  }
+ ]
+}

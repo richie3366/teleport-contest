@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "L JNH_ \u001b,>;.#terrain\nd\nHHKL_>LNJH_>UYNB_>BHLK_><NKUJ_>#tip\n;deYBHL _>.>KUYL_>.>#rub\n_m,20s"
+ },
+ "segments": [
+  {
+   "seed": 50751007,
+   "datetime": "20150613142832",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=playmode:explore\n",
+   "moves": "L JNH_ \u001b,>;.#terrain\nd\nHHKL_>LNJH_>UYNB_>BHLK_><NKUJ_>#tip\n;deYBHL _>.>KUYL_>.>#rub\n_m,20s"
+  }
+ ]
+}

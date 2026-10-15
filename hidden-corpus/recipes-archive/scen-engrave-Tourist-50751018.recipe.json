@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "bk\u0017wand of teleportation\nEo Elbereth\n: n\u0017wand of striking\nEp ad aerarium\nl\u0017wand of probing\nEq Elbereth Elbereth\n: E-y Elbereth\n\u0007gnome lord\nsbs20s  FhFhul\u0017wand of secret door detection\nEr  I am a fish\n: k\u0017magic marker\nEs Elbereth\n: \u0017wand of digging\nEt   I am a fish\n: "
+ },
+ "segments": [
+  {
+   "seed": 50751018,
+   "datetime": "20050213003420",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:durian\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "bk\u0017wand of teleportation\nEo Elbereth\n: n\u0017wand of striking\nEp ad aerarium\nl\u0017wand of probing\nEq Elbereth Elbereth\n: E-y Elbereth\n\u0007gnome lord\nsbs20s  FhFhul\u0017wand of secret door detection\nEr  I am a fish\n: k\u0017magic marker\nEs Elbereth\n: \u0017wand of digging\nEt   I am a fish\n: "
+  }
+ ]
+}

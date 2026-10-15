@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed Mjollnir\nwh\u0016?\n>w\u0006Fy FyFyFyFyFy_ \u001b>.#chat\nu_{. _.qy_ooooooo,Fu _.<.Fj, \u0014;sm. 20s  n  \u00163\nlhj\u0016?\n>w\u0006_ooooooo.Fk     _.,\u0017luckstone\ndj   n   n\u00164\n_oooooooo,,\u0017worthless piece of red glass\ndk__,#chat\nkujj#chat\nbhnk#chat\nu_{.qlyy#chat\ny_ooooooo,_._o.Fl_.Fl,\u0017amulet of life saving\ndl _ooooooooo,_oo.Fl_,  n Fh,:_ooooooo.Fl_,Fl _oo,Fh _.@.,p__.#chat\nb#pray\ny y _ooo,,p_oooooo.,$_ooo,_oo,Fl _. ,phlh#chat\nl_{.Fl_,  Fl qu yn#chat\nn  n_ooo.Fl _.Fh  ,#chat\nu_{.q_ooo._o._,,a\n#chat\nl_oooo.,:FlFlFlFlFlFl hlh#chat\nh_ooo.,p\u0016?\n>Buyj\u0016?\n>w\u0006_{. _.q_oooo,Fb _.;,Fh_ooo.Fh_.    n,pFhFhFhFh   nFh Fh_{._.q_oooooo,Fk_.:,p_oo, Fu_.  Fh ,p     n \u0016?\nclub\u0016?\n>w\u0006_ooooooo.Fk _.  Fk ,p_oo.Fk  n_.Fk,$_oooooo.Fk _.Fk,p_ooo,Fk _.  n Fu   n ,#chat\nj    n \u00169\n__.#chat\ny   n  #pray\ny y        Fl    Fl   n Fl  FlFl   n   Fl __.#chat\ny   y\u001b   n  #"
+ },
+ "segments": [
+  {
+   "seed": 50750077,
+   "datetime": "20221103101526",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed Mjollnir\nwh\u0016?\n>w\u0006Fy FyFyFyFyFy_ \u001b>.#chat\nu_{. _.qy_ooooooo,Fu _.<.Fj, \u0014;sm. 20s  n  \u00163\nlhj\u0016?\n>w\u0006_ooooooo.Fk     _.,\u0017luckstone\ndj   n   n\u00164\n_oooooooo,,\u0017worthless piece of red glass\ndk__,#chat\nkujj#chat\nbhnk#chat\nu_{.qlyy#chat\ny_ooooooo,_._o.Fl_.Fl,\u0017amulet of life saving\ndl _ooooooooo,_oo.Fl_,  n Fh,:_ooooooo.Fl_,Fl _oo,Fh _.@.,p__.#chat\nb#pray\ny y _ooo,,p_oooooo.,$_ooo,_oo,Fl _. ,phlh#chat\nl_{.Fl_,  Fl qu yn#chat\nn  n_ooo.Fl _.Fh  ,#chat\nu_{.q_ooo._o._,,a\n#chat\nl_oooo.,:FlFlFlFlFlFl hlh#chat\nh_ooo.,p\u0016?\n>Buyj\u0016?\n>w\u0006_{. _.q_oooo,Fb _.;,Fh_ooo.Fh_.    n,pFhFhFhFh   nFh Fh_{._.q_oooooo,Fk_.:,p_oo, Fu_.  Fh ,p     n \u0016?\nclub\u0016?\n>w\u0006_ooooooo.Fk _.  Fk ,p_oo.Fk  n_.Fk,$_oooooo.Fk _.Fk,p_ooo,Fk _.  n Fu   n ,#chat\nj    n \u00169\n__.#chat\ny   n  #pray\ny y        Fl    Fl   n Fl  FlFl   n   Fl __.#chat\ny   y\u001b   n  #"
+  }
+ ]
+}

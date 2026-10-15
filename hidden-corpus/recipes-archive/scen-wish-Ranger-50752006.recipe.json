@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u00173 potion of water\nqg \u001b#dip\ngg20s.\u0017uncursed Mjollnir\n\u0007quantum mechanic\nwhFn    \u001b<.Fn   .Fn #invoke\nhX\u0017blessed oilskin cloak\nW\u001bsss\u0017blessed wand of probing\nzj.zjn\u0017cursed Excalibur\n wk s.s#invoke\nk X\u0017uncursed tin opener\n\u0007vrock\nal.m.."
+ },
+ "segments": [
+  {
+   "seed": 50752006,
+   "datetime": "20041006113747",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u00173 potion of water\nqg \u001b#dip\ngg20s.\u0017uncursed Mjollnir\n\u0007quantum mechanic\nwhFn    \u001b<.Fn   .Fn #invoke\nhX\u0017blessed oilskin cloak\nW\u001bsss\u0017blessed wand of probing\nzj.zjn\u0017cursed Excalibur\n wk s.s#invoke\nk X\u0017uncursed tin opener\n\u0007vrock\nal.m.."
+  }
+ ]
+}

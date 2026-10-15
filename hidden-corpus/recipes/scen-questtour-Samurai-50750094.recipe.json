@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nb;l._mm,#chat\nl_m.Fu _.#chat\ny;_._mmmm.#chat\nk#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.#chat\nj_m.#chat\nl;m,_mmmmm,#chat\nn\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWh\u0017wand of cold\n\u0016?\n>A\u0006_mmmmmmm._.;m,20sss.,\u0016?\n>>\u001b\u0016?\n>y_mmm,_,@.#chat\ny\u0016?\n>A\u0006_mmmmm,_.>.20s.sszib ,\u0016?\n>z\u0006_mmmm._.>.sssss,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmmm._.#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm._.s..20sss20s,#chat\nn\u0016?\n>A\u0006_mmmmmmm,_,20s \u001b20s20ssss20s,\u0016?\n>A\u0006_mmmmmm._.20s20s  .ssszik,\u0016?\n>z\u0006_mm,_,s.s20s,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,_,ss.20s20s20ssziy,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mm,_,#chat\nk\u0016?\n>A\u0006_mm,_..s.20sFb Fb Fb zib  ,\u0016?\n>A\u0006_mmmm,Fb  _.Fb  n  Fb FbFb FbFbFbFbzib  ,#chat\nb\u0016?\n>z\u0006_mmmmm.Fb_.FbFbFbFbFb,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.     Fy      _.: Fh         Fh  n     Fh   FyFy  Fhzi      ,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmmmm,      Fh _.<.Fy   #chat\nh   n \u001612\n\u0016?\n>A\u0006_mmmmmmm.    Fy  _. FhFhFhFyFh   FhFy  n  ,\u001b\u0016?\n>A\u0006_mmmmm.  Fy  _.  Fh Fy FhFy    nFh  Fh  Fy  Fy  zi  n  ,\u001b#chat\nh  \u0016?"
+ },
+ "segments": [
+  {
+   "seed": 50750094,
+   "datetime": "20030719065800",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nb;l._mm,#chat\nl_m.Fu _.#chat\ny;_._mmmm.#chat\nk#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.#chat\nj_m.#chat\nl;m,_mmmmm,#chat\nn\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWh\u0017wand of cold\n\u0016?\n>A\u0006_mmmmmmm._.;m,20sss.,\u0016?\n>>\u001b\u0016?\n>y_mmm,_,@.#chat\ny\u0016?\n>A\u0006_mmmmm,_.>.20s.sszib ,\u0016?\n>z\u0006_mmmm._.>.sssss,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmmm._.#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm._.s..20sss20s,#chat\nn\u0016?\n>A\u0006_mmmmmmm,_,20s \u001b20s20ssss20s,\u0016?\n>A\u0006_mmmmmm._.20s20s  .ssszik,\u0016?\n>z\u0006_mm,_,s.s20s,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,_,ss.20s20s20ssziy,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mm,_,#chat\nk\u0016?\n>A\u0006_mm,_..s.20sFb Fb Fb zib  ,\u0016?\n>A\u0006_mmmm,Fb  _.Fb  n  Fb FbFb FbFbFbFbzib  ,#chat\nb\u0016?\n>z\u0006_mmmmm.Fb_.FbFbFbFbFb,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.     Fy      _.: Fh         Fh  n     Fh   FyFy  Fhzi      ,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmmmm,      Fh _.<.Fy   #chat\nh   n \u001612\n\u0016?\n>A\u0006_mmmmmmm.    Fy  _. FhFhFhFyFh   FhFy  n  ,\u001b\u0016?\n>A\u0006_mmmmm.  Fy  _.  Fh Fy FhFy    nFh  Fh  Fy  Fy  zi  n  ,\u001b#chat\nh  \u0016?"
+  }
+ ]
+}

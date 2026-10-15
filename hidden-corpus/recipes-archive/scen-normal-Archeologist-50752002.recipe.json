@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#tip\nh\u001b#enhance\n\u001b#terrain\nb\n\u001b<.i\u001b#pray\ny  fu#sit\nh#rub\nied Hi\u001b20s#enhance\n\u001b,waW\u0018\u001b#dip\ni20sJ\\ i\u001bwaFh.sag\u001bai#rub\ni afae  kae<W.m..j20s;h;E- Elbereth Elbereth\nq#monster\n#twoweapon\n#terrain\nc\n>."
+ },
+ "segments": [
+  {
+   "seed": 50752002,
+   "datetime": "20170501002623",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\n",
+   "moves": "#tip\nh\u001b#enhance\n\u001b#terrain\nb\n\u001b<.i\u001b#pray\ny  fu#sit\nh#rub\nied Hi\u001b20s#enhance\n\u001b,waW\u0018\u001b#dip\ni20sJ\\ i\u001bwaFh.sag\u001bai#rub\ni afae  kae<W.m..j20s;h;E- Elbereth Elbereth\nq#monster\n#twoweapon\n#terrain\nc\n>."
+  }
+ ]
+}

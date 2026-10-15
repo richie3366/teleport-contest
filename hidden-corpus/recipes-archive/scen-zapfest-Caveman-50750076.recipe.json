@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of life saving\nPf\u0017blessed ring of free action\nPgr\u0017blessed shield of reflection\nWh\u0017wand of digging\n\u0017wand of teleportation\n\u0017wand of polymorph\n\u0007kobold\n\u0007grid bug\nzkl zi>      zi>    n  zjlzkhzi>   n zi>  \u00162\n\u0017spellbook of magic missile\nrl.\u0007incubus\n\u0007gnomish wizard\nZa\nZa\nZa\nZa\n.m..m.Za\nZa\n#turn\n\u0007red dragon\n\u0007silver dragon\nsm.sb\u0017wand of magic missile\namy         n    n  Fl  n   n   Fl  n   n  \u00166\n\u00161\n\u0017wand of fire\n\u0017wand of cold\n\u0017wand of cancellation\n\u0007newt\nzpnznl.m.  n zon 20szn.  nzpjznk s\u00166\n\u0007vampire\n\u0007kobold shaman\n\u0017wand of striking\nsm.20s  .m.  zqb \u0017wand of lightning\n\u0017wand of digging\n\u0017wand of striking\n\u0007kobold shaman\n\u0007newt\nzty    n zry   syztj  20s ztn  ztn    n zt     .m. zrn   sm.    nzti\u001b\u00169\n\u0017blessed spellbook of sleep\nrusm.\u0007vampire\nZa\nsj sm. Za\nsnsm.  n   nZa\n  yy\u001by   y y y\u001by  Z"
+ },
+ "segments": [
+  {
+   "seed": 50750076,
+   "datetime": "20050706121514",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=autodig\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of life saving\nPf\u0017blessed ring of free action\nPgr\u0017blessed shield of reflection\nWh\u0017wand of digging\n\u0017wand of teleportation\n\u0017wand of polymorph\n\u0007kobold\n\u0007grid bug\nzkl zi>      zi>    n  zjlzkhzi>   n zi>  \u00162\n\u0017spellbook of magic missile\nrl.\u0007incubus\n\u0007gnomish wizard\nZa\nZa\nZa\nZa\n.m..m.Za\nZa\n#turn\n\u0007red dragon\n\u0007silver dragon\nsm.sb\u0017wand of magic missile\namy         n    n  Fl  n   n   Fl  n   n  \u00166\n\u00161\n\u0017wand of fire\n\u0017wand of cold\n\u0017wand of cancellation\n\u0007newt\nzpnznl.m.  n zon 20szn.  nzpjznk s\u00166\n\u0007vampire\n\u0007kobold shaman\n\u0017wand of striking\nsm.20s  .m.  zqb \u0017wand of lightning\n\u0017wand of digging\n\u0017wand of striking\n\u0007kobold shaman\n\u0007newt\nzty    n zry   syztj  20s ztn  ztn    n zt     .m. zrn   sm.    nzti\u001b\u00169\n\u0017blessed spellbook of sleep\nrusm.\u0007vampire\nZa\nsj sm. Za\nsnsm.  n   nZa\n  yy\u001by   y y y\u001by  Z"
+  }
+ ]
+}

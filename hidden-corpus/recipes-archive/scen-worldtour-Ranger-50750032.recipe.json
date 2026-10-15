@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWh\u0017blessed ring of free action\nPil\u0017blessed +3 cloak of magic resistance\nW\u001b\u001613\n    ylbk:\u001613\n_ \u001b:>20s .\u0016?\n>>P#chat\nb;.\u0016?\nl  #chat\ny;_.\u001613\n #chat\nl;_..20s\u001634\n   \u0017scroll of gold detection\nrk ,s20s   \u0017uncursed Vorpal Blade\nwl Fu  Fu  Fl   #invoke\nl  X\u0017Hawaiian shirt\nW\u001b20s     20s    n   20s      Fh    n    Fy       \u0017tin of lizard meat\nen     n      sm.       n  sm.       Fh      n    Fu       \u0017spellbook of detect food\nro     n     .m.        n     .m.        ZZFy      n     Fy        sm.   n       sm.          n   \u00162\n\u0016?\n>>M      potion of hallucination\nk k   k     j: .  n      .    n\u001610\n\u0016?\n\u001bn      n        n \u0016?\n\u001bb      b       n  \u0016?\nd\u0007ape\nFj Fk  n  Fu         \u0007baby purple worm\n;l:  20s      ynny y y  y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50750032,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWh\u0017blessed ring of free action\nPil\u0017blessed +3 cloak of magic resistance\nW\u001b\u001613\n    ylbk:\u001613\n_ \u001b:>20s .\u0016?\n>>P#chat\nb;.\u0016?\nl  #chat\ny;_.\u001613\n #chat\nl;_..20s\u001634\n   \u0017scroll of gold detection\nrk ,s20s   \u0017uncursed Vorpal Blade\nwl Fu  Fu  Fl   #invoke\nl  X\u0017Hawaiian shirt\nW\u001b20s     20s    n   20s      Fh    n    Fy       \u0017tin of lizard meat\nen     n      sm.       n  sm.       Fh      n    Fu       \u0017spellbook of detect food\nro     n     .m.        n     .m.        ZZFy      n     Fy        sm.   n       sm.          n   \u00162\n\u0016?\n>>M      potion of hallucination\nk k   k     j: .  n      .    n\u001610\n\u0016?\n\u001bn      n        n \u0016?\n\u001bb      b       n  \u0016?\nd\u0007ape\nFj Fk  n  Fu         \u0007baby purple worm\n;l:  20s      ynny y y  y\u001b  s"
+  }
+ ]
+}

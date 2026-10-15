@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  \u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b,,p_ooooo._oo,,$FlFl FlFlFlFl_oo.,p\u0016?\ncbu n\u0016?\n>w  \u0006_oooooooo._o.Fj   \u001b _.,$ _{,Fn   n _.   n  nFn  n  nq\u00166\n__,#chat\nn_oooooooo._ooo._,,pjub#chat\njyuu#chat\ny_oooooooo.,$__,#chat\ny#pray\ny y    \u00167\njnh\u0016?\n>w\u0006_oooooooo,,#chat\ny\u0016?\ncujk\u0016?\n>w\u0006__, _,#chat\nj#pray\ny y ubk#chat\nl_oo.   Fb_,Fy_oo,Fy_.   nFy,:__,Fh _.  Fn  #chat\nn  _ooooo,Fy _.:Fk,p_ooo.Fl  n_,Fj,pkuh#chat\nl _ooo.Fu _.;.Fk  _ooo,    Fk_,Fy,pFkFkFkFk  nFkFk_oooooooo.Fk _.Fj,\u0014m,20s._{, _,q__,Fn_,   Fl  #chat\nllkj#chat\nh_ooo,    nFl_.  n  Fl  n  _o.Fu_..Fu  ,\u001b$\u00166\n_oooo.,$Fh Fh   nFh Fh Fh"
+ },
+ "segments": [
+  {
+   "seed": 50750045,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:crawl\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b,,p_ooooo._oo,,$FlFl FlFlFlFl_oo.,p\u0016?\ncbu n\u0016?\n>w  \u0006_oooooooo._o.Fj   \u001b _.,$ _{,Fn   n _.   n  nFn  n  nq\u00166\n__,#chat\nn_oooooooo._ooo._,,pjub#chat\njyuu#chat\ny_oooooooo.,$__,#chat\ny#pray\ny y    \u00167\njnh\u0016?\n>w\u0006_oooooooo,,#chat\ny\u0016?\ncujk\u0016?\n>w\u0006__, _,#chat\nj#pray\ny y ubk#chat\nl_oo.   Fb_,Fy_oo,Fy_.   nFy,:__,Fh _.  Fn  #chat\nn  _ooooo,Fy _.:Fk,p_ooo.Fl  n_,Fj,pkuh#chat\nl _ooo.Fu _.;.Fk  _ooo,    Fk_,Fy,pFkFkFkFk  nFkFk_oooooooo.Fk _.Fj,\u0014m,20s._{, _,q__,Fn_,   Fl  #chat\nllkj#chat\nh_ooo,    nFl_.  n  Fl  n  _o.Fu_..Fu  ,\u001b$\u00166\n_oooo.,$Fh Fh   nFh Fh Fh"
+  }
+ ]
+}

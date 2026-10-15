@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " FbFbFn 100sFhss100slbu50slhya_ \u001b:>150schnkhbuni\u001b\\ 150s150sbuyFlFlFlFls.100sbyjhny100s  Fl FuFu Fl.20sFlFl.10syjk100s_>.>jjynhy#conduct\n ljlkkh100sFlFl20s50s50sBJHL_>,>Fhs.JHBL_>,>UYLL_>,>hdaNBKH_>.>\u000f\u001bJBKN_>.>>WNNYN_>.>YKJY_>.>JYYH_>.>,LYUJJ_>.>#untrap\nb,LBNU_>.>JHBJ_>.><\u000f\u001bLJYH_>,>KUJL_>.>JBLU_>,>#force\n:HYNN_>,>#dip\nc#chat\njJYLU_>.>\\ #offer\nYJBK_>,><KJJJ_>.>#name\no\nubuh#chat\nutbu20s#dip\ndW#twoweapon\njhlullnndds20ss#name\nf\nbj#name\n@.dess.ky#name\ni\njkhnynly#dip\nc#sit\n\u001b\\ eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUYYY_>.>KNUH_>.>BBNK_>.>t\u001b\u0018\u001b#tip\n\u001b#turn\n\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 50750027,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": " FbFbFn 100sFhss100slbu50slhya_ \u001b:>150schnkhbuni\u001b\\ 150s150sbuyFlFlFlFls.100sbyjhny100s  Fl FuFu Fl.20sFlFl.10syjk100s_>.>jjynhy#conduct\n ljlkkh100sFlFl20s50s50sBJHL_>,>Fhs.JHBL_>,>UYLL_>,>hdaNBKH_>.>\u000f\u001bJBKN_>.>>WNNYN_>.>YKJY_>.>JYYH_>.>,LYUJJ_>.>#untrap\nb,LBNU_>.>JHBJ_>.><\u000f\u001bLJYH_>,>KUJL_>.>JBLU_>,>#force\n:HYNN_>,>#dip\nc#chat\njJYLU_>.>\\ #offer\nYJBK_>,><KJJJ_>.>#name\no\nubuh#chat\nutbu20s#dip\ndW#twoweapon\njhlullnndds20ss#name\nf\nbj#name\n@.dess.ky#name\ni\njkhnynly#dip\nc#sit\n\u001b\\ eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUYYY_>.>KNUH_>.>BBNK_>.>t\u001b\u0018\u001b#tip\n\u001b#turn\n\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

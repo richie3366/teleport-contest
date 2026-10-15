@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  \u0017pick-axe\nae > .b ae>nlb\u0017grave\nae>20s.hyae>  sae>\u0006_ \u001b:ae>  "
+ },
+ "segments": [
+  {
+   "seed": 50751015,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017pick-axe\nae > .b ae>nlb\u0017grave\nae>20s.hyae>  sae>\u0006_ \u001b:ae>  "
+  }
+ ]
+}

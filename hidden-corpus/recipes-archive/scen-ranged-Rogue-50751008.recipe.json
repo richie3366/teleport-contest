@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017sling\nwh\u001720 flint stones\nQi\u0007sewer rat\nbjflfkfl20s  .\u0017potion of enlightenment\ntik\u0007soldier\njflfkfk fl   yy\u001by  y y y\u001by  f"
+ },
+ "segments": [
+  {
+   "seed": 50751008,
+   "datetime": "20171227064352",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=runmode:teleport\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017sling\nwh\u001720 flint stones\nQi\u0007sewer rat\nbjflfkfl20s  .\u0017potion of enlightenment\ntik\u0007soldier\njflfkfk fl   yy\u001by  y y y\u001by  f"
+  }
+ ]
+}

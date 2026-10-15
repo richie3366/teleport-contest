@@ -1,11 +1,11 @@
 {
- "commit": "8bee1398d",
- "at": "2026-10-15T22:19:04.009Z",
+ "commit": "4ebab628e",
+ "at": "2026-10-15T22:30:47.818Z",
  "full": false,
  "fullCommit": "c22183fa1",
  "fullAt": "2026-10-15T20:55:45.201Z",
- "entries": 1170,
- "reserve": 286,
+ "entries": 1187,
+ "reserve": 283,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -2133,6 +2133,24 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-impaired-Knight-50751030": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 2940,
+   "rngT": 3248,
+   "scrM": 117,
+   "scrT": 192,
+   "kind": "screen",
+   "step": 117,
+   "steps": 192,
+   "owner": "getobj",
+   "loc": "invent.c:1913",
+   "jsOwner": null,
+   "cTopline": "You don't have anything to dip the pair of leather gloves into.",
+   "jsTopline": "You don't have anything to dip a +0 pair of leather gloves (being worn;",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-impaired-Knight-94330": {
    "src": "corpus",
    "passed": true,
@@ -4105,6 +4123,23 @@
    "jsTopline": "The chieftain reads a scroll labeled PHOL ENDE WODAN!--More--",
    "error": null
   },
+  "scen-questtour-Caveman-50750030": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 4426,
+   "rngT": 5741,
+   "scrM": 58,
+   "scrT": 190,
+   "kind": "rng",
+   "step": 58,
+   "steps": 190,
+   "owner": "m_move",
+   "loc": "monmove.c:1963",
+   "jsOwner": "pri_move(shk.js:4728)",
+   "cTopline": "The club welds itself to the neanderthal's hand!--More--",
+   "jsTopline": "The club welds itself to the neanderthal's hand!--More--",
+   "error": null
+  },
   "scen-questtour-Healer-50157014": {
    "src": "corpus",
    "passed": true,
@@ -4273,6 +4308,23 @@
    "jsOwner": null,
    "cTopline": "You stop searching. A wolf suddenly appears close by!--More--",
    "jsTopline": "You stop searching. A wolf suddenly appears close by!--More--",
+   "error": null
+  },
+  "scen-questtour-Samurai-50750094": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 56611,
+   "rngT": 56611,
+   "scrM": 937,
+   "scrT": 938,
+   "kind": "screen",
+   "step": 469,
+   "steps": 938,
+   "owner": "level_distance",
+   "loc": "detect.c:1160",
+   "jsOwner": null,
+   "cTopline": "You hear an F note squeak in the distance.--More--",
+   "jsTopline": "You hear an F note squeak in the distance.--More--",
    "error": null
   },
   "scen-questtour-Wizard-50361014": {
@@ -4665,6 +4717,41 @@
    "cTopline": "human knight called wizard",
    "jsTopline": "",
    "error": null
+  },
+  "scen-shop-Knight-50750013": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 22572,
+   "rngT": 22572,
+   "scrM": 588,
+   "scrT": 589,
+   "kind": "screen",
+   "step": 575,
+   "steps": 589,
+   "owner": "minimal_xname",
+   "loc": "objnam.c:1080",
+   "jsOwner": null,
+   "cTopline": "Coins",
+   "jsTopline": "Coins",
+   "error": null
+  },
+  "scen-shop-Knight-50750053": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 41328,
+   "rngT": 41328,
+   "scrM": 758,
+   "scrT": 760,
+   "kind": "screen",
+   "step": 443,
+   "steps": 760,
+   "owner": "glibr",
+   "loc": "do_wear.c:2617",
+   "jsOwner": null,
+   "cTopline": "a pony corpse",
+   "jsTopline": "a kobold corpse",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-shop-Monk-49959641": {
    "src": "corpus",
@@ -6110,6 +6197,24 @@
    "cTopline": "It is suddenly very cold! It dies! Maybe not... It bites!--More--",
    "jsTopline": "It is suddenly very cold! It dies! Maybe not... It bites again!--More--",
    "error": null
+  },
+  "scen-sweep-Barbarian-50750065": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 18405,
+   "rngT": 25326,
+   "scrM": 491,
+   "scrT": 1568,
+   "kind": "screen",
+   "step": 351,
+   "steps": 1568,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "The wall glows then fades.",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-sweep-Barbarian-582613": {
    "src": "corpus",
@@ -7760,6 +7865,24 @@
    "jsTopline": "There is a boulder in your way.",
    "error": null
   },
+  "scen-sweep-Priest-50750049": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 44211,
+   "rngT": 44211,
+   "scrM": 1299,
+   "scrT": 1300,
+   "kind": "screen",
+   "step": 1061,
+   "steps": 1300,
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
+   "jsOwner": null,
+   "cTopline": "You are being squashed!--More--",
+   "jsTopline": "You are being squashed!--More--",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-sweep-Priest-582714": {
    "src": "corpus",
    "passed": true,
@@ -9035,6 +9158,23 @@
    "jsTopline": "You fall into a chasm! The fire ant turns to flee.--More--",
    "error": null
   },
+  "scen-sweep-Valkyrie-50750081": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 92635,
+   "rngT": 92635,
+   "scrM": 1999,
+   "scrT": 2000,
+   "kind": "screen",
+   "step": 895,
+   "steps": 2000,
+   "owner": "toss_up",
+   "loc": "dothrow.c:1269",
+   "jsOwner": null,
+   "cTopline": "The sleep ray hits the nalfeshnee. The nalfeshnee zaps a balsa wand!--More--",
+   "jsTopline": "The sleep ray hits the nalfeshnee. The nalfeshnee zaps a balsa wand!--More--",
+   "error": null
+  },
   "scen-sweep-Valkyrie-578204": {
    "src": "corpus",
    "passed": true,
@@ -9340,6 +9480,24 @@
    "cTopline": "",
    "jsTopline": "",
    "error": null
+  },
+  "scen-sweep-Wizard-50750057": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 36794,
+   "rngT": 36794,
+   "scrM": 1099,
+   "scrT": 1133,
+   "kind": "screen",
+   "step": 1099,
+   "steps": 1133,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "You materialize on a different level!",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-sweep-Wizard-578137": {
    "src": "corpus",
@@ -9663,6 +9821,24 @@
    "cTopline": "Where do you want to travel to? (For instructions type a '?')",
    "jsTopline": "You move right into the gas spore.",
    "error": null
+  },
+  "scen-symset-Archeologist-50750063": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 5191,
+   "rngT": 31025,
+   "scrM": 0,
+   "scrT": 578,
+   "kind": "screen",
+   "step": 0,
+   "steps": 578,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "Hello wizard, welcome to NetHack! You are a neutral female gnomish",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-symset-Barbarian-50059021": {
    "src": "corpus",
@@ -10004,6 +10180,24 @@
    "jsTopline": "\u0001a human or elf or you (gnomish healer called wizard)--More--",
    "error": null
   },
+  "scen-symset-Healer-50750015": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 12174,
+   "rngT": 12174,
+   "scrM": 964,
+   "scrT": 965,
+   "kind": "screen",
+   "step": 800,
+   "steps": 965,
+   "owner": "use_pick_axe",
+   "loc": "dig.c:1151",
+   "jsOwner": null,
+   "cTopline": "In what direction do you want to dig? [123>]",
+   "jsTopline": "In what direction do you want to dig? [yku>]",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-symset-Knight-50058518": {
    "src": "corpus",
    "passed": true,
@@ -10275,6 +10469,24 @@
    "cTopline": "Armor",
    "jsTopline": "Armor",
    "error": null
+  },
+  "scen-symset-Monk-50750095": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 16953,
+   "rngT": 20232,
+   "scrM": 501,
+   "scrT": 856,
+   "kind": "screen",
+   "step": 40,
+   "steps": 856,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "The large mimic hits!",
+   "jsTopline": "You move right into the large mimic. The large mimic hits!",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-symset-Priest-50155027": {
    "src": "corpus",
@@ -10565,6 +10777,24 @@
    "jsTopline": "You move right into the jackal. The jackal misses!",
    "error": null
   },
+  "scen-symset-Rogue-50750039": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 8740,
+   "rngT": 9433,
+   "scrM": 450,
+   "scrT": 926,
+   "kind": "screen",
+   "step": 162,
+   "steps": 926,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-symset-Samurai-50059033": {
    "src": "corpus",
    "passed": false,
@@ -10734,6 +10964,24 @@
    "cTopline": "Coins",
    "jsTopline": "Coins",
    "error": null
+  },
+  "scen-symset-Tourist-50750023": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 14316,
+   "rngT": 14316,
+   "scrM": 785,
+   "scrT": 796,
+   "kind": "screen",
+   "step": 145,
+   "steps": 796,
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-symset-Valkyrie-50059008": {
    "src": "corpus",
@@ -12467,6 +12715,23 @@
    "jsOwner": "next_ident(makemon.js:468)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
+   "error": null
+  },
+  "scen-worldtour-Archeologist-50750040": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 42798,
+   "rngT": 42798,
+   "scrM": 346,
+   "scrT": 352,
+   "kind": "screen",
+   "step": 234,
+   "steps": 352,
+   "owner": "mswings_verb",
+   "loc": "mhitu.c:121",
+   "jsOwner": null,
+   "cTopline": "The barrow wight swings his long sword. The barrow wight hits!--More--",
+   "jsTopline": "The barrow wight swings her long sword. The barrow wight hits!--More--",
    "error": null
   },
   "scen-worldtour-Archeologist-587120": {
@@ -14628,6 +14893,24 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-zapfest-Knight-50750084": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 12670,
+   "rngT": 12670,
+   "scrM": 1142,
+   "scrT": 1144,
+   "kind": "screen",
+   "step": 556,
+   "steps": 1144,
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
+   "jsOwner": null,
+   "cTopline": "Your mail turns to dust and falls to the doorway!--More--",
+   "jsTopline": "Your mail turns to dust and falls to the doorway!--More--",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-zapfest-Priest-50161001": {
    "src": "corpus",
    "passed": true,
@@ -14728,6 +15011,23 @@
    "jsOwner": "bhitm(zap.js:4449)",
    "cTopline": "It misses! It bites! It stings! It hits! It kicks! It hits!--More--",
    "jsTopline": "It bites! It bites! It stings! It hits! It kicks! It hits!--More--",
+   "error": null
+  },
+  "scen-zapfest-Valkyrie-50750092": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 30974,
+   "rngT": 31288,
+   "scrM": 918,
+   "scrT": 920,
+   "kind": "rng",
+   "step": 896,
+   "steps": 920,
+   "owner": "tactics",
+   "loc": "wizard.c:406",
+   "jsOwner": "tactics(wizard.js:556)",
+   "cTopline": "You bite it. You hit it. You hit it. It suddenly arrives!",
+   "jsTopline": "You bite it. You hit it. You hit it. It suddenly arrives close by!",
    "error": null
   },
   "tour-Archeologist-70010-d3-6-10-11-12": {
@@ -15045,8 +15345,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-chain-Monk-50450082": {
    "src": "corpus",
@@ -15117,8 +15416,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-chain-Tourist-610146": {
    "src": "corpus",
@@ -15765,8 +16063,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-shop-Knight-50555544": {
    "src": "corpus",
@@ -15819,8 +16116,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-shop-Monk-50057004": {
    "src": "corpus",
@@ -16773,8 +17069,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Samurai-50255256": {
    "src": "corpus",
@@ -16863,8 +17158,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Wizard-50362012": {
    "src": "corpus",
@@ -18077,18 +18371,17 @@
    "passed": false,
    "rngM": 59841,
    "rngT": 59841,
-   "scrM": 561,
+   "scrM": 563,
    "scrT": 838,
    "kind": "screen",
-   "step": 354,
+   "step": 398,
    "steps": 838,
-   "owner": "dfeature_at",
-   "loc": "invent.c:4076",
+   "owner": "do_screen_description",
+   "loc": "pager.c:1422",
    "jsOwner": null,
-   "cTopline": "here is an altar to Poseidon (chaotic) here.",
-   "jsTopline": "There is an altar to Poseidon (chaotic) here.",
-   "error": null,
-   "tier": "reserve"
+   "cTopline": "fla doorway or the floor of a room or the dark part of a room or ice",
+   "jsTopline": "·a doorway or the floor of a room or the dark part of a room or ice",
+   "error": null
   },
   "scen-symset-Priest-50059010": {
    "src": "corpus",
@@ -18483,8 +18776,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Rogue-50350015": {
    "src": "corpus",
@@ -19077,8 +19369,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Wizard-50059002": {
    "src": "corpus",
@@ -19365,8 +19656,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Archeologist-49955017": {
    "src": "corpus",
@@ -19419,8 +19709,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Caveman-50255525": {
    "src": "corpus",
@@ -19743,8 +20032,7 @@
    "jsOwner": null,
    "cTopline": "You hit it. The golden haze around you becomes less dense.--More--",
    "jsTopline": "You hit it. You feel a bit steadier now.--More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Wizard-49955042": {
    "src": "corpus",
@@ -19797,8 +20085,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Wizard-50056056": {
    "src": "corpus",
@@ -19905,8 +20192,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Wizard-50358009": {
    "src": "corpus",
@@ -20184,5 +20470,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-15T22:31:06.531Z"
 }

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nrfc\n  .m...sm.sbsm.sm.s.m.sus.h.sm.i\u001bojK#force\nedwa.nsm.sj.m..m.sm."
+ },
+ "segments": [
+  {
+   "seed": 50752013,
+   "datetime": "20161011204233",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nrfc\n  .m...sm.sbsm.sm.s.m.sus.h.sm.i\u001bojK#force\nedwa.nsm.sj.m..m.sm."
+  }
+ ]
+}

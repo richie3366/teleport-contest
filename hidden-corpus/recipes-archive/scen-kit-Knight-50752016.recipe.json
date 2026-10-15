@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " i\u001bwb s.20sWss.Wssseh.sW20ssm.sjTf eg.jsm.#dip\ng#twoweapon\n#twoweapon\n#conduct\n \u000f\u001b10s#tip\n\u001bfi\u001beh.h snWfsm.sm..kW.m..m.sm.W.m.20s.m.W.m.20ssuwa FhFh.X"
+ },
+ "segments": [
+  {
+   "seed": 50752016,
+   "datetime": "20210627145143",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\n",
+   "moves": " i\u001bwb s.20sWss.Wssseh.sW20ssm.sjTf eg.jsm.#dip\ng#twoweapon\n#twoweapon\n#conduct\n \u000f\u001b10s#tip\n\u001bfi\u001beh.h snWfsm.sm..kW.m..m.sm.W.m.20s.m.W.m.20ssuwa FhFh.X"
+  }
+ ]
+}

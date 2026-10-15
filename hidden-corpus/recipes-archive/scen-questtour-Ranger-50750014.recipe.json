@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nb_m,Fb _.#chat\nn_mmmmm.#chat\nu;m.#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.#chat\nl_mm,#chat\nh\u0017blessed amulet of life saving\nPg\u0017blessed ring of free action\nPhl\u0017blessed +3 helm of telepathy\nWi\u0017wand of lightning\n\u0016?\n>z\u0006_mmmmmmm..sss..zjk,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\ny\u0016?\n>A\u0006_mm,s.20sss..zjn,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm.    Fy _.:Fk  #chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm. Fl  _.FlFlFl Fl   Fh   Fl   Fh     zjh,\u0016?\n>>\u001b\u0016?\n>y_m. Fl   _. Fl #chat\nl \u0016?\n>A\u0006_mm.  _.FbFbFbFbFbzjb,#chat\nb\u0016?\n>z\u0006_mmmmmmm,_.20s20s.20ssss,\u0016?\n>A\u0006_mmmmm,sss20s20szj,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.s20s20ss.s20s  ,#chat\nh\u0016?\n>A\u0006_mmmmmmm, Fh    n_,Fh Fh  Fh Fh  ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nh\u0016?\n>z\u0006_mmm,Fh _.Fh.ss,\u0016?\n>A\u0006_mmmmmm.20s.  20s  .. zj , #chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.  Fu   _.   n Fh    Fh Fh   Fh    n  Fh Fh ,#chat\nh   \u00162\n\u0016?\n>A\u0006_mmmmmmm, Fj  _.  Fn.20s s.,\u0016?\n>z\u0006_mmmmm.  _. ss s20s  s .,#chat\nl\u0016?\n>A\u0006_mmmm. Fh   n  _, Fk   Fk   Fk Fk    n Fk Fk zj   ,\u0016?\n>>\u001b\u0016?\n>y_mmmm.Fl _, Fn   #chat\nk;n, \u00164\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm. Fk     n_. Fk Fb Fb Fb Fk    n zj   ,#chat\nn   \u00168\n\u0016?\n>A\u0006_mmmmmmm.  Fh _, FjFhFbFj Fh  n Fb  Fh Fj ,\u0016?\n>z\u0006_mmmmmm.Fn _. Fn Fy   n Fk  Fj  Fy  zj ,\u0016?\n>>"
+ },
+ "segments": [
+  {
+   "seed": 50750014,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nb_m,Fb _.#chat\nn_mmmmm.#chat\nu;m.#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.#chat\nl_mm,#chat\nh\u0017blessed amulet of life saving\nPg\u0017blessed ring of free action\nPhl\u0017blessed +3 helm of telepathy\nWi\u0017wand of lightning\n\u0016?\n>z\u0006_mmmmmmm..sss..zjk,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\ny\u0016?\n>A\u0006_mm,s.20sss..zjn,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm.    Fy _.:Fk  #chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm. Fl  _.FlFlFl Fl   Fh   Fl   Fh     zjh,\u0016?\n>>\u001b\u0016?\n>y_m. Fl   _. Fl #chat\nl \u0016?\n>A\u0006_mm.  _.FbFbFbFbFbzjb,#chat\nb\u0016?\n>z\u0006_mmmmmmm,_.20s20s.20ssss,\u0016?\n>A\u0006_mmmmm,sss20s20szj,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.s20s20ss.s20s  ,#chat\nh\u0016?\n>A\u0006_mmmmmmm, Fh    n_,Fh Fh  Fh Fh  ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nh\u0016?\n>z\u0006_mmm,Fh _.Fh.ss,\u0016?\n>A\u0006_mmmmmm.20s.  20s  .. zj , #chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.  Fu   _.   n Fh    Fh Fh   Fh    n  Fh Fh ,#chat\nh   \u00162\n\u0016?\n>A\u0006_mmmmmmm, Fj  _.  Fn.20s s.,\u0016?\n>z\u0006_mmmmm.  _. ss s20s  s .,#chat\nl\u0016?\n>A\u0006_mmmm. Fh   n  _, Fk   Fk   Fk Fk    n Fk Fk zj   ,\u0016?\n>>\u001b\u0016?\n>y_mmmm.Fl _, Fn   #chat\nk;n, \u00164\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm. Fk     n_. Fk Fb Fb Fb Fk    n zj   ,#chat\nn   \u00168\n\u0016?\n>A\u0006_mmmmmmm.  Fh _, FjFhFbFj Fh  n Fb  Fh Fj ,\u0016?\n>z\u0006_mmmmmm.Fn _. Fn Fy   n Fk  Fj  Fy  zj ,\u0016?\n>>"
+  }
+ ]
+}

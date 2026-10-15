@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  #dip\naZtbn_>, \u001bm.20s#jump\nf \u001b;k:  E- Vlad was here\n#chat\nkf \u001bl:a10sE- Elbereth Elbereth\n#conduct\n #ride\nhZ: #enhance\n\u001bZi\u001bWsm.sk20swaFj.20sed ss10s#enhance\n\u001b#jump\nE- Elbereth\nq\u0004n"
+ },
+ "segments": [
+  {
+   "seed": 50752001,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": "  #dip\naZtbn_>, \u001bm.20s#jump\nf \u001b;k:  E- Vlad was here\n#chat\nkf \u001bl:a10sE- Elbereth Elbereth\n#conduct\n #ride\nhZ: #enhance\n\u001bZi\u001bWsm.sk20swaFj.20sed ss10s#enhance\n\u001b#jump\nE- Elbereth\nq\u0004n"
+  }
+ ]
+}

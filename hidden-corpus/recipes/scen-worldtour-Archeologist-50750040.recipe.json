@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u00163\n#levelchange\n6\n       \u00176 javelins\nQj\u0007troll\nuu fb fjflfb  jjh,..s\u001638\n   _ \u001bm,\u001621\nnbyn:\u001637\n   jkjnb  ny:\u0016?\n>Ihlhl:\u001638\nlu    :\u001633\nny:sj\u0016?\n>>L      ring of protection from shape changers\nb      n b          nn    n      n       n  nj    n       n   n  n :\u001611\n\u0016?\n\u001bl   n      n    nl    n   n      ynny  y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50750040,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u00163\n#levelchange\n6\n       \u00176 javelins\nQj\u0007troll\nuu fb fjflfb  jjh,..s\u001638\n   _ \u001bm,\u001621\nnbyn:\u001637\n   jkjnb  ny:\u0016?\n>Ihlhl:\u001638\nlu    :\u001633\nny:sj\u0016?\n>>L      ring of protection from shape changers\nb      n b          nn    n      n       n  nj    n       n   n  n :\u001611\n\u0016?\n\u001bl   n      n    nl    n   n      ynny  y\u001b  \u0016"
+  }
+ ]
+}

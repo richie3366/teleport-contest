@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u001616\n\u00162\nFkFnFbFnFjFyFnFjFjFjFjFjFuFuFbFh\u001bFyFbFhFkFbFh\u001bFbFbFuFnFku FkFuFuFjFjFnFyFlFbFbFnFul FhFbFnFbFjFkFuFuFhFbFh\u001bFbFbFlFlFhFlFuFjFnFkn FhFbFuu FnFkj FbFkl FbFlu FjFkFlFyFjFuFkFjFbFjFhFlFnFkk FlFyFkb FlFuFuFlFlFlFyFuh FlFyFly FhFbFh\u001bFyFbFkFnFjFkFnFuk FhFnFjFkFyFbFlFuFjFhFuFb\u0006_ \u001b,>FyFkn _>.Fh_,Fu>FuFj_>,Fb_.Fub >FyFun FnFuh Fl\u0006_>>.Fb_.Fuj >FhFh_>>,Fb_,Fy>FhFh_>>.Fy_.Fl>FuFhFuFbFh\u001b\u0006_>,Fn_>FnFj_>.Fh_.Fj>FuFn_>FhFbFyFyFly \u0006_>,Fh_.Fn>FnFlFus#force\n\u0006_>.Fh_.Fb>FyFj_>.Fb_.Fb>FnFb_>.Fl_,Fu>FhFhFuFhFy<\u0006_>,Fb_.Fn>FbFy_>,Fn_>FyFn_>,Fy_,Fl>FuFlFyFyFb\u0018\u001b#ride\nb \u0006_>.Fj_.Fh>FlFu_>.Fl_.Fl>FyFl_>,Fn_>FjFjFlFnFlh #untrap\nh #untrap\nn lj lh j\u0017sink\nqy\u0017ring of regeneration\ndk  \u001bly\u0017unaligned altar\ndb\u0017gnome corpse\n #offer\nl   #pray\ny ln \u0017lawful altar\ndfdi \u0017floating eye corpse\n#offer\nm  ul \u0017grave\n: \u0017pick-axe\nan >20ss#invoke\n\u001bs#turn\n\u0007little dog\n\u0017lichen corpse\nt$l 20s \u0007lichen\n\u0017scroll of taming\nrp \u0017meatball\ntab 10s\u0017tin whistle\nbh\u001bbar#name\n\u001b\u001616\nO>>i\u001b\u001b\n\u0006_>. Fy_. Fy>FbFy_>.     "
+ },
+ "segments": [
+  {
+   "seed": 50750015,
+   "datetime": "20221227092112",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You kill\"\n",
+   "moves": "v i\u001b\u001616\n\u00162\nFkFnFbFnFjFyFnFjFjFjFjFjFuFuFbFh\u001bFyFbFhFkFbFh\u001bFbFbFuFnFku FkFuFuFjFjFnFyFlFbFbFnFul FhFbFnFbFjFkFuFuFhFbFh\u001bFbFbFlFlFhFlFuFjFnFkn FhFbFuu FnFkj FbFkl FbFlu FjFkFlFyFjFuFkFjFbFjFhFlFnFkk FlFyFkb FlFuFuFlFlFlFyFuh FlFyFly FhFbFh\u001bFyFbFkFnFjFkFnFuk FhFnFjFkFyFbFlFuFjFhFuFb\u0006_ \u001b,>FyFkn _>.Fh_,Fu>FuFj_>,Fb_.Fub >FyFun FnFuh Fl\u0006_>>.Fb_.Fuj >FhFh_>>,Fb_,Fy>FhFh_>>.Fy_.Fl>FuFhFuFbFh\u001b\u0006_>,Fn_>FnFj_>.Fh_.Fj>FuFn_>FhFbFyFyFly \u0006_>,Fh_.Fn>FnFlFus#force\n\u0006_>.Fh_.Fb>FyFj_>.Fb_.Fb>FnFb_>.Fl_,Fu>FhFhFuFhFy<\u0006_>,Fb_.Fn>FbFy_>,Fn_>FyFn_>,Fy_,Fl>FuFlFyFyFb\u0018\u001b#ride\nb \u0006_>.Fj_.Fh>FlFu_>.Fl_.Fl>FyFl_>,Fn_>FjFjFlFnFlh #untrap\nh #untrap\nn lj lh j\u0017sink\nqy\u0017ring of regeneration\ndk  \u001bly\u0017unaligned altar\ndb\u0017gnome corpse\n #offer\nl   #pray\ny ln \u0017lawful altar\ndfdi \u0017floating eye corpse\n#offer\nm  ul \u0017grave\n: \u0017pick-axe\nan >20ss#invoke\n\u001bs#turn\n\u0007little dog\n\u0017lichen corpse\nt$l 20s \u0007lichen\n\u0017scroll of taming\nrp \u0017meatball\ntab 10s\u0017tin whistle\nbh\u001bbar#name\n\u001b\u001616\nO>>i\u001b\u001b\n\u0006_>. Fy_. Fy>FbFy_>.     "
+  }
+ ]
+}

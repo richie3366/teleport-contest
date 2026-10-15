@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWg\u0017blessed +3 gauntlets of power\nWh\u0016?\n>w\u0006_ \u001b.,\u0017amulet of reflection\ndi _ooo._ooo,,$FhFh FhFh   FhFh_{. _.q__,_.#chat\nl_ooooo._.,\u001b#chat\nu_ooo.,\u001b#chat\nn_ooooooooo.,\u001b#chat\nb_ooo._ooo,,\u001b#chat\nn_oooo._ooo.,\u001b: __,_.#chat\nj#pray\ny y  _oooooooo.,\u0017diamond\ndj_ooo.Fj _. _oo.,\u001bp_oooo.,\u001bp_ooooooooo.Fh_.Fh,#chat\nh_oooooo._oo. Fh_.,\u001bp_{,Fh  n_.Fhq_oooo.,p_ooooooo.Fh_.  nFl ,\u0014:sm.sm._ooo.  nFh  _,,,:_oooooooo.,p_{._.m.q\u0016?\ncylb\u0016?\n>w  \u0006FnFnFnFnFnFn_ooooo._,, \u0017amulet of life saving\ndl ylbl#chat\n_oo._., :_ooooooo, Fh _,   nFh _ooo.Fk _.Fk  ,     n :\u001612\n   Fh Fh   n  n   Fh  n   n Fh  n    Fh  nFh   n \u00162\nFlFlFlFlFlFl_oooooooo._,,p_{.q_ooooo,_,_ooo.,b\n\u0017cheap plastic imitation of the Amulet of Yendor\ndp_{.q_oo,_ooo.,c\n: _ooooooo._ooo,,a\np_oooooo.,b\npnjk#chat\nubbj#chat\nyjyu#chat\nh\u00167\nylh\u0016?\n>w\u0006_oooo, Fl _.  n Fj _o,Fj   _,Fh  ,\u0017amulet"
+ },
+ "segments": [
+  {
+   "seed": 50750037,
+   "datetime": "20121021181035",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:walk\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWg\u0017blessed +3 gauntlets of power\nWh\u0016?\n>w\u0006_ \u001b.,\u0017amulet of reflection\ndi _ooo._ooo,,$FhFh FhFh   FhFh_{. _.q__,_.#chat\nl_ooooo._.,\u001b#chat\nu_ooo.,\u001b#chat\nn_ooooooooo.,\u001b#chat\nb_ooo._ooo,,\u001b#chat\nn_oooo._ooo.,\u001b: __,_.#chat\nj#pray\ny y  _oooooooo.,\u0017diamond\ndj_ooo.Fj _. _oo.,\u001bp_oooo.,\u001bp_ooooooooo.Fh_.Fh,#chat\nh_oooooo._oo. Fh_.,\u001bp_{,Fh  n_.Fhq_oooo.,p_ooooooo.Fh_.  nFl ,\u0014:sm.sm._ooo.  nFh  _,,,:_oooooooo.,p_{._.m.q\u0016?\ncylb\u0016?\n>w  \u0006FnFnFnFnFnFn_ooooo._,, \u0017amulet of life saving\ndl ylbl#chat\n_oo._., :_ooooooo, Fh _,   nFh _ooo.Fk _.Fk  ,     n :\u001612\n   Fh Fh   n  n   Fh  n   n Fh  n    Fh  nFh   n \u00162\nFlFlFlFlFlFl_oooooooo._,,p_{.q_ooooo,_,_ooo.,b\n\u0017cheap plastic imitation of the Amulet of Yendor\ndp_{.q_oo,_ooo.,c\n: _ooooooo._ooo,,a\np_oooooo.,b\npnjk#chat\nubbj#chat\nyjyu#chat\nh\u00167\nylh\u0016?\n>w\u0006_oooo, Fl _.  n Fj _o,Fj   _,Fh  ,\u0017amulet"
+  }
+ ]
+}

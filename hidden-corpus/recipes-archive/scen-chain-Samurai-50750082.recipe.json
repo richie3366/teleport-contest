@@ -1,0 +1,63 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  #quit\nyy  #wizintrinsic\nd\n 20ssbss20ssj20ssm.sm. nss20ssssss20s...ss.ssss.s...s20s20sssss\u0017wand of digging\nzf> .zf> szf> 20s zf>  szf>  szf>   yny  ny y\u001by  sFnFnFnFnFnFnFnFnUHNK_ \u001bm,>YHNB _>.>Fk FkFkJBBN_>.>FkFk  Fk<L K  nnny y\u001b  Uyy  \u0007cockatrice\nFhFhFb    yy\u001by  y y\u001by  Fyy   \u0017wand of digging\nzj> .m.zj>    yy\u001bny y\u001by  2      bbk  nnny\u001b  h",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50750082,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  #quit\nyy"
+  },
+  {
+   "seed": 50850082,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nd\n 20ssbss20ssj20ssm.sm. nss20ssssss20s...ss.ssss.s...s20s20sssss"
+  },
+  {
+   "seed": 50950082,
+   "datetime": "20151019062919",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\nzf> .zf> szf> 20s zf>  szf>  szf>   yny  ny y\u001by  s"
+  },
+  {
+   "seed": 51050082,
+   "datetime": "20101230184015",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\n",
+   "moves": "FnFnFnFnFnFnFnFnUHNK_ \u001bm,>YHNB _>.>Fk FkFkJBBN_>.>FkFk  Fk<L K  nnny y\u001b  U"
+  },
+  {
+   "seed": 51150082,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "yy  \u0007cockatrice\nFhFhFb    yy\u001by  y y\u001by  F"
+  },
+  {
+   "seed": 51250082,
+   "datetime": "20090224195947",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "yy   \u0017wand of digging\nzj> .m.zj>    yy\u001bny y\u001by  2"
+  },
+  {
+   "seed": 51350082,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\n",
+   "moves": "      bbk  nnny\u001b  h"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "unjk\u0017throne\n#sit\n :b\u0017lawful altar\ndgdh\u0017jackal corpse\n#offer\ni  #pray\ny y   h\u0017magic fountain\nqy #dip\ndy\u0018\u001b\\ wajk uu\u0017melting ice\nkjjk:k\u0017pool\njk jh\u0017grave\n: \u0017pick-axe\naj >sm.sm.u\u0017chaotic altar\ndcda \u0017dwarf corpse\n#offer\nk #terrain\nd\n\u001b:#rub\n\\ #offer\n"
+ },
+ "segments": [
+  {
+   "seed": 50751020,
+   "datetime": "20060217233132",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "unjk\u0017throne\n#sit\n :b\u0017lawful altar\ndgdh\u0017jackal corpse\n#offer\ni  #pray\ny y   h\u0017magic fountain\nqy #dip\ndy\u0018\u001b\\ wajk uu\u0017melting ice\nkjjk:k\u0017pool\njk jh\u0017grave\n: \u0017pick-axe\naj >sm.sm.u\u0017chaotic altar\ndcda \u0017dwarf corpse\n#offer\nk #terrain\nd\n\u001b:#rub\n\\ #offer\n"
+  }
+ ]
+}

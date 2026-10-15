@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPgr\u0017gray dragon scale mail\nW\u001b20s20s.#polyself\nquasit\n  #monster\ns.\u0007Croesus\nyFl    Fj  n   nFj  n   n.k   n.h  nsm.  n#polyself\nminotaur\n#monster\nsm..m.  \u0007fire giant\nFh   nFn   nFn   n20s   n   nsm.   nsu#polyself\ndjinni\n mastodon\n#monster\nslsm. sm. 20s   nsm.   n   yy\u001by  y ny\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50750073,
+   "datetime": "20210124161350",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed ring of polymorph control\nPgr\u0017gray dragon scale mail\nW\u001b20s20s.#polyself\nquasit\n  #monster\ns.\u0007Croesus\nyFl    Fj  n   nFj  n   n.k   n.h  nsm.  n#polyself\nminotaur\n#monster\nsm..m.  \u0007fire giant\nFh   nFn   nFn   n20s   n   nsm.   nsu#polyself\ndjinni\n mastodon\n#monster\nslsm. sm. 20s   nsm.   n   yy\u001by  y ny\u001by  \u0017"
+  }
+ ]
+}

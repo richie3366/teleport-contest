@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWi\u0017blessed +3 gray dragon scale mail\nW\u001b\u00178 spears\nQk\u0007hill orc\n\u0007bugbear\nfytkbfbfbfb\u0007silver dragon\n\u0007baby red dragon\n.m..#polyself\nblack dragon\n   sm. .m. #monster\n#monster\n#monster\n#monster\n\u0017wand of magic missile\naFb     Fb   \u0018\u001b\u0007silver dragon\nsm..nsm.  #polyself\nred dragon\n #monster\nsh   .m.#monster\n#monster\nFk  Fj  \u0007aligned cleric\ny\u0007incubus\n\u0017wand of magic missile\nzzz.m. \u0017spellbook of force bolt\nrn \u001b, \u001b     20s  n  n \u0017blessed spellbook of drain life\nro .m.  n  \u0007gnomish wizard\nZZZZZZ\u00165\n\u0017wand of cold\n\u0017wand of digging\n\u0007gnome\nzq> zpy  zq> zq> zpuzq> 20szqzqzphzpy20szq\u0017wand of death\n\u0017wand of magic missile\n\u0017wand of slow monster\n\u0007acid blob\n\u0007newt\nzsk 20szsn zsk  nzrn.zryszs"
+ },
+ "segments": [
+  {
+   "seed": 50750036,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWi\u0017blessed +3 gray dragon scale mail\nW\u001b\u00178 spears\nQk\u0007hill orc\n\u0007bugbear\nfytkbfbfbfb\u0007silver dragon\n\u0007baby red dragon\n.m..#polyself\nblack dragon\n   sm. .m. #monster\n#monster\n#monster\n#monster\n\u0017wand of magic missile\naFb     Fb   \u0018\u001b\u0007silver dragon\nsm..nsm.  #polyself\nred dragon\n #monster\nsh   .m.#monster\n#monster\nFk  Fj  \u0007aligned cleric\ny\u0007incubus\n\u0017wand of magic missile\nzzz.m. \u0017spellbook of force bolt\nrn \u001b, \u001b     20s  n  n \u0017blessed spellbook of drain life\nro .m.  n  \u0007gnomish wizard\nZZZZZZ\u00165\n\u0017wand of cold\n\u0017wand of digging\n\u0007gnome\nzq> zpy  zq> zq> zpuzq> 20szqzqzphzpy20szq\u0017wand of death\n\u0017wand of magic missile\n\u0017wand of slow monster\n\u0007acid blob\n\u0007newt\nzsk 20szsn zsk  nzrn.zryszs"
+  }
+ ]
+}

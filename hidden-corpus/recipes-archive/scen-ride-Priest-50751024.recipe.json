@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0007pony\n\u0017scroll of taming\nri \u0017saddle\najn#ride\nly\u0007tame saddled horse\n#ride\nyy\u0007tame saddled warhorse\n#ride\n ,,\u0006_ \u001bm,>_>.  Fj_.  Fj>Fh  Fj_>.   Fb_. Fh>FhFh  \u0007acid blob\nFk   FjFb"
+ },
+ "segments": [
+  {
+   "seed": 50751024,
+   "datetime": "20250122142347",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0007pony\n\u0017scroll of taming\nri \u0017saddle\najn#ride\nly\u0007tame saddled horse\n#ride\nyy\u0007tame saddled warhorse\n#ride\n ,,\u0006_ \u001bm,>_>.  Fj_.  Fj>Fh  Fj_>.   Fb_. Fh>FhFh  \u0007acid blob\nFk   FjFb"
+  }
+ ]
+}

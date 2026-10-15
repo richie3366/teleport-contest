@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0007tame saddled pony\n#ride\nhy\u0007tame saddled pony\n#ride\nuyy\u0007warhorse\n\u0017scroll of taming\nrj \u0017saddle\nakn#ride\n#ride\nhy20s                #ride\nky l hh\u0004y \u0007lichen\nFl Fj Fh\u0006_ \u001bm.>FnFj   _>.Fy_.> ssSy\u001b nyz::\u0018\u001b#enhance\nyf\nd\n\u001bcj20st\u001bol#levelchange\n10\n        ybny\u0017sleeping gas trap\ny#untrap\nnll\u0017magic trap\nny ss10",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50751004,
+   "datetime": "20061223035708",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007tame saddled pony\n#ride\nhy\u0007tame saddled pony\n#ride\nuyy\u0007warhorse\n\u0017scroll of taming\nrj \u0017saddle\nakn#ride\n#ride\nhy20s                #ride\nky l hh\u0004y \u0007lichen\nFl Fj Fh\u0006_ \u001bm.>FnFj   _>.Fy_.> ssSy\u001b"
+  },
+  {
+   "seed": 51251004,
+   "datetime": "20210529201800",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " nyz::\u0018\u001b#enhance\nyf\nd\n\u001bcj20st\u001bol#levelchange\n10\n        ybny\u0017sleeping gas trap\ny#untrap\nnll\u0017magic trap\nny ss10"
+  }
+ ]
+}

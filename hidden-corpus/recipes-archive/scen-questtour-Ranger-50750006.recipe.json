@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nh_mmm.  Fu    \u001b_,  n   n Fj   n#chat\nu_mm. Fh   n _.#chat\nk_mmmm.  n   nFu _.  n Fu  n   #chat\nk_mmm.  nFh _.Fy#chat\nk;h; #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.Fk_,   Fk  #chat\nu;y;_mmm.Fh _.<.Fu #chat\nk;y:  _mm, Fy   n _.#chat\ny\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWi     \u0017wand of fire\n\u0016?\n>A\u0006_mmmmmmm,Fl   \u001b_.Fn \u001bFu Fj Fh Fn Fn   n,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mm. Fb_,#chat\ny\u0016?\n>A\u0006_mmmmmm. Fu  _.m. Fu    n  Fy  Fk Fh   Fh    ,#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.   n Fy  _.Fh  Fb Fb  Fn   n Fj  Fu Fk  zjb   ,\u0016?\n>>\u001b\u0016?\n>y_mmmm.   n  Fy  _.Fk  #chat\nh ;k:  \u0016?\n>z\u0006_mmmmm.  ynny nn  F"
+ },
+ "segments": [
+  {
+   "seed": 50750006,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nh_mmm.  Fu    \u001b_,  n   n Fj   n#chat\nu_mm. Fh   n _.#chat\nk_mmmm.  n   nFu _.  n Fu  n   #chat\nk_mmm.  nFh _.Fy#chat\nk;h; #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.Fk_,   Fk  #chat\nu;y;_mmm.Fh _.<.Fu #chat\nk;y:  _mm, Fy   n _.#chat\ny\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWi     \u0017wand of fire\n\u0016?\n>A\u0006_mmmmmmm,Fl   \u001b_.Fn \u001bFu Fj Fh Fn Fn   n,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mm. Fb_,#chat\ny\u0016?\n>A\u0006_mmmmmm. Fu  _.m. Fu    n  Fy  Fk Fh   Fh    ,#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.   n Fy  _.Fh  Fb Fb  Fn   n Fj  Fu Fk  zjb   ,\u0016?\n>>\u001b\u0016?\n>y_mmmm.   n  Fy  _.Fk  #chat\nh ;k:  \u0016?\n>z\u0006_mmmmm.  ynny nn  F"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017locked large box\n \u0017scroll of charging\n\u0017potion of healing\n\u0017ring of free action\n\u0017wand of cancellation\n\u0017credit card\ndpau.yss20s#loot\ns\ndg#loot\no\n,a\nauu\u0017skeleton key\ndaav.ys.s#loot\n y\u0017mace\nwwde#force\n 20sssSy\u001b n#loot\nb\nA\n#wipe\n#force\n f \u001bZb\n#enhance\nya\ng\n\u001b20s#wipe\nE- Elbereth Elbereth\n#levelchange\n10\n        \u0007incubus\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50751006,
+   "datetime": "20080524001900",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017locked large box\n \u0017scroll of charging\n\u0017potion of healing\n\u0017ring of free action\n\u0017wand of cancellation\n\u0017credit card\ndpau.yss20s#loot\ns\ndg#loot\no\n,a\nauu\u0017skeleton key\ndaav.ys.s#loot\n y\u0017mace\nwwde#force\n 20sssSy\u001b"
+  },
+  {
+   "seed": 51251006,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " n#loot\nb\nA\n#wipe\n#force\n f \u001bZb\n#enhance\nya\ng\n\u001b20s#wipe\nE- Elbereth Elbereth\n#levelchange\n10\n        \u0007incubus\n"
+  }
+ ]
+}

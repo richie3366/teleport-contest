@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "v  i\u001b\u0006_ \u001b>.>FuFj_>>,Fu_,Fu>FuFu_>>.Fj_,Fn>FuFnFj\u0006_>,Fn_>FuFu_>.Fu_,Fn>FnFnFn\u000fy\u0006_>.Fn_>FnFn_>.Fn_>FnFn_>.Fu_.Fu>FuFnFuu FnFn\u000f\u001bO>>o4\n \u001b\nv i\u001bO>>>>m\u001b\u001b\nmO>>>d\u001b\nO>>>>b\u001b\n\u001616\nv i\u001bmO>s\u001b\n\u00161\n#levelchange\n6\n    lh\u001byb\u0017cloud\nll\u0017ice\n#terrain\n\u001b#tip\nf\u001b#offer\n#conduct\n \u0007tame lichen\n\u0006_>.Fu_.> \u0017food ration\ntbu \u0007grid bug\n20sm.sm.sm..ub .lj sm.\u0007newt\n.m.slk .m. sm.20sm..j\u0017leash\naku lh lb ybaku #chat\nh \u0006_>.Fn_>FhFu_>.Fu_.Fj>FyFy_>,Fn_>FkFnFlk FnFlj \u0006_>.Fj_.Fl>FhFy_>.Fn_,Fy>FuFu_>.Fj_.Fu>FhFjFkFuFh20s#tip\nf\u001b\u0006_>.Fh_.Fh>FbFkn _>,Fn_>FbFlk _>,Fl_.Fu>FnFkb FbFyFu<\u0006_>>.Fn_>FyFh\u001b_>>.Fb_,Fn>FjFj_>>.Fb_.Fb>FuFnFlk FjFj#pray\ny y      z\u0006_>.Fn_>FbFj_>.Fy_,Fj>FkFn_>FhFyFuk FkFj\u0006_>,Fk_.Fy>FlFk_>.Fu_.Fl>FbFh\u001b_>.Fk_.Fk>FyFjFjFuFk\u0006_>>,  nFk_.Fj>FjFy_>>.Fb_,Fy>FkFl_>>,Fh_.Fh>FuFuFjFlFl\u0006_>.Fy_,Fuu >FkFk_>,Fn_>FbFuj _>.Fk_,Fj>FkFuFkFjFy#name\nm\ndgdcoh ck ZO>f\u001b\nzP#twoweapon\n#invoke\n\u001b#rub\n#chat\nk h\u001bkn yh\u001b\u0017lawful altar\ndf \u0017jackal corpse\n#offer\nl  #pray\ny y   "
+ },
+ "segments": [
+  {
+   "seed": 50750039,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nMENUCOLOR=\"a scroll\"=red\n",
+   "moves": "v  i\u001b\u0006_ \u001b>.>FuFj_>>,Fu_,Fu>FuFu_>>.Fj_,Fn>FuFnFj\u0006_>,Fn_>FuFu_>.Fu_,Fn>FnFnFn\u000fy\u0006_>.Fn_>FnFn_>.Fn_>FnFn_>.Fu_.Fu>FuFnFuu FnFn\u000f\u001bO>>o4\n \u001b\nv i\u001bO>>>>m\u001b\u001b\nmO>>>d\u001b\nO>>>>b\u001b\n\u001616\nv i\u001bmO>s\u001b\n\u00161\n#levelchange\n6\n    lh\u001byb\u0017cloud\nll\u0017ice\n#terrain\n\u001b#tip\nf\u001b#offer\n#conduct\n \u0007tame lichen\n\u0006_>.Fu_.> \u0017food ration\ntbu \u0007grid bug\n20sm.sm.sm..ub .lj sm.\u0007newt\n.m.slk .m. sm.20sm..j\u0017leash\naku lh lb ybaku #chat\nh \u0006_>.Fn_>FhFu_>.Fu_.Fj>FyFy_>,Fn_>FkFnFlk FnFlj \u0006_>.Fj_.Fl>FhFy_>.Fn_,Fy>FuFu_>.Fj_.Fu>FhFjFkFuFh20s#tip\nf\u001b\u0006_>.Fh_.Fh>FbFkn _>,Fn_>FbFlk _>,Fl_.Fu>FnFkb FbFyFu<\u0006_>>.Fn_>FyFh\u001b_>>.Fb_,Fn>FjFj_>>.Fb_.Fb>FuFnFlk FjFj#pray\ny y      z\u0006_>.Fn_>FbFj_>.Fy_,Fj>FkFn_>FhFyFuk FkFj\u0006_>,Fk_.Fy>FlFk_>.Fu_.Fl>FbFh\u001b_>.Fk_.Fk>FyFjFjFuFk\u0006_>>,  nFk_.Fj>FjFy_>>.Fb_,Fy>FkFl_>>,Fh_.Fh>FuFuFjFlFl\u0006_>.Fy_,Fuu >FkFk_>,Fn_>FbFuj _>.Fk_,Fj>FkFuFkFjFy#name\nm\ndgdcoh ck ZO>f\u001b\nzP#twoweapon\n#invoke\n\u001b#rub\n#chat\nk h\u001bkn yh\u001b\u0017lawful altar\ndf \u0017jackal corpse\n#offer\nl  #pray\ny y   "
+  }
+ ]
+}

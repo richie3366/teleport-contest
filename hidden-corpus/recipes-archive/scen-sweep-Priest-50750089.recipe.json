@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0017blessed 20 arrows\n\u0007Wizard of Yendor\nyQ\u001bf \u001bf \u001bf \u001b\u0017uncursed potion of confusion\nqj\u001b#dip\nfd   Fh  Fk  \u00173 lizard corpse\nek     n  .u  20s    Fh          n  Fh        \u0017cursed -1 war hammer\n\u0007red dragon\nwm    n     n       Fb      n  Fh       n    Fh  n    n    \u0017cursed -1 javelin\nwnFy  n     n     n  Fh  n    n      n   Fh    n    yy\u001by  y y y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 50750089,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=runmode:run\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0017blessed 20 arrows\n\u0007Wizard of Yendor\nyQ\u001bf \u001bf \u001bf \u001b\u0017uncursed potion of confusion\nqj\u001b#dip\nfd   Fh  Fk  \u00173 lizard corpse\nek     n  .u  20s    Fh          n  Fh        \u0017cursed -1 war hammer\n\u0007red dragon\nwm    n     n       Fb      n  Fh       n    Fh  n    n    \u0017cursed -1 javelin\nwnFy  n     n     n  Fh  n    n      n   Fh    n    yy\u001by  y y y\u001by  2"
+  }
+ ]
+}

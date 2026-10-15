@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " Fn 20ss50s100s50sFjFjs\u0018\u001b_ \u001b:>150s150s50s100s\u000f\u001b_>,>50s150sFbFhFh_>,>50s50s_>,>nbn150s eg \u000f\u001b#force\n100s#monster\ni\u001b150s\u000f\u001b50sFh.20s100s150sFlFlFl#wipe\n150sFlFl.150slnj,zi the Sceptre of Might\n  n  dajjj150s50s_>.>50sFk .20skbli\u001bbuhtbhlbj\u0018\u001b\u0018\u001b\u0018\u001blyjy100s150s150sFk Fksbjji\u001b50s\\ hlh50s\u0018\u001b100si\u001b100s50sFn.shll150sFk.s150s100sFkFkFk100s ehchqd  #wipe\n_>,>50s>100s_>,>_>.>100sFkFk.100slkl150sFk20s20s100seeeeeeeeeeeeeeeeeeeeeeeeeee#untrap\nbP<JBH K_>.>KHHH_>.>UHYL_>.>BNK Y_>.><JNUN_>.>_<,.;m, HHKB_>,>FkssLYHL_>.>KUBJ_>,>BBLB_>,>BKJN_>,><UBKY_>,>UHLK_>.>UUHK_>,>#terrain\nb\ne BLUN_>.>YKHH_>,>FbFbFhHLBB_>,>FkFkFk#pray\ny      LNKKN_>,>Fh  nFh20sJJLK_>,>KBLL_>,>_>.>byh150si\u001b_>,>50sFhFhFhyyj100s100s50s#invoke\n\u001b\u000f\u001b_>.>#tip\nf\u001b150sFhFh.i\u001b150sFh20sFhFhFhskkh100s_>.>100s50s\\  i\u001b100s50s _>.>jnlFhFhFhFhFhFhFh20ssi\u001bi\u001bbuy\u0018\u001b100shutbudfs20s20stbh  #name\nd\n10sdi20s20ssm.10s\u0014>#jump\n10stbh  #name\nd\nnhh NNHK_>.>Fk Fh Fh Y Y BJ_>,>FuFuFu<JJKY_>,>Fl  FbFb:#wipe\nKL BB_>.>lyk#pray\ny  \u000f\u001b150sFbFbs150s150sFbFbFbFbFbFbFbFbFbFbFbFb150s_>.>50sFb.s150sFjssjny\\  uyn100sZylhFjFjsnlli\u001b\\  hyn150s\\  _>.>#dip\nc_>,>lhbFkFkFkFk.s#pray\ny"
+ },
+ "segments": [
+  {
+   "seed": 50750003,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:explore\n",
+   "moves": " Fn 20ss50s100s50sFjFjs\u0018\u001b_ \u001b:>150s150s50s100s\u000f\u001b_>,>50s150sFbFhFh_>,>50s50s_>,>nbn150s eg \u000f\u001b#force\n100s#monster\ni\u001b150s\u000f\u001b50sFh.20s100s150sFlFlFl#wipe\n150sFlFl.150slnj,zi the Sceptre of Might\n  n  dajjj150s50s_>.>50sFk .20skbli\u001bbuhtbhlbj\u0018\u001b\u0018\u001b\u0018\u001blyjy100s150s150sFk Fksbjji\u001b50s\\ hlh50s\u0018\u001b100si\u001b100s50sFn.shll150sFk.s150s100sFkFkFk100s ehchqd  #wipe\n_>,>50s>100s_>,>_>.>100sFkFk.100slkl150sFk20s20s100seeeeeeeeeeeeeeeeeeeeeeeeeee#untrap\nbP<JBH K_>.>KHHH_>.>UHYL_>.>BNK Y_>.><JNUN_>.>_<,.;m, HHKB_>,>FkssLYHL_>.>KUBJ_>,>BBLB_>,>BKJN_>,><UBKY_>,>UHLK_>.>UUHK_>,>#terrain\nb\ne BLUN_>.>YKHH_>,>FbFbFhHLBB_>,>FkFkFk#pray\ny      LNKKN_>,>Fh  nFh20sJJLK_>,>KBLL_>,>_>.>byh150si\u001b_>,>50sFhFhFhyyj100s100s50s#invoke\n\u001b\u000f\u001b_>.>#tip\nf\u001b150sFhFh.i\u001b150sFh20sFhFhFhskkh100s_>.>100s50s\\  i\u001b100s50s _>.>jnlFhFhFhFhFhFhFh20ssi\u001bi\u001bbuy\u0018\u001b100shutbudfs20s20stbh  #name\nd\n10sdi20s20ssm.10s\u0014>#jump\n10stbh  #name\nd\nnhh NNHK_>.>Fk Fh Fh Y Y BJ_>,>FuFuFu<JJKY_>,>Fl  FbFb:#wipe\nKL BB_>.>lyk#pray\ny  \u000f\u001b150sFbFbs150s150sFbFbFbFbFbFbFbFbFbFbFbFb150s_>.>50sFb.s150sFjssjny\\  uyn100sZylhFjFjsnlli\u001b\\  hyn150s\\  _>.>#dip\nc_>,>lhbFkFkFkFk.s#pray\ny"
+  }
+ ]
+}

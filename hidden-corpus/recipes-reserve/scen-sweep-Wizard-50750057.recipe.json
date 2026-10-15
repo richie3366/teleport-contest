@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n30\n              \u0017blessed spellbook of clairvoyance\nrp 20s \u0017blessed spellbook of detect monsters\nrq s\u0017blessed spellbook of confuse monster\nrr .\u0017blessed spellbook of charm monster\nrs  .+\u001bZf\nFlZd\n\u001bm,\u0007giant rat\nZf\nZb\n              Fl\u0007gnome\nZc\n#enhance\nya\na\n\u001bu n\u0017wand of enlightenment\nEt \u001b  Elbereth Elbereth\n : \u0017wand of light\nEu n  Elbereth Elbereth\n   : \u0017wand of speed monster\nEvn  ad aerarium\n  : \u0017wand of magic missile\nEwn  ad aerarium\n \u0017wand of teleportation\nEx  I am a fish\n  : E-n  Elbereth\n \u0007minotaur\n.m...Fy  n   Fh    n \u00168\njlyu\u0017chaotic altar\ndb\u0017dwarf corpse\n #pray\ny y  : b\u0017pool\nhl j\u0017grave\n: \u0017wand of digging\nzz> .m. .j k\u0017tree\nk \u0004 \u0004 \u0017axe\naA   n#terrain\nb\n#turn\n@.10s,i\u001b\u0007horse\n\u0017fortune cookie\ntan  \u0007tame wolf\n\u0017newt corpse\nt\u001b\u0007kobold\n.m. .m. sm.       n syss\u0017meatball\nt\u001b#chat\nh  h   \u0006#levelchange\n6\n        \u0017spellbook of invisibility\nrEy   n  sm.     n \u0017blessed spellbook of healing\nrF  20s        n +\u001bZa\n   Za\n Fn   n   Zb\n     n Za\nZb\nZa\n#turn\n#pray\ny y         #enhance\nn\u001b\u001611\n#levelchange\n12\n     \u001620\n#offer\nqg #offer\nss\u001625\n#sit\n\u001bqft\u001b;k.sm..m.\u0016?\n>>R\u0014a;k;.s\u0007\u0007\u0017\u0017\u0017\u0007.20ss20s20ss\u0017\u0007\u0017#chat\n"
+ },
+ "segments": [
+  {
+   "seed": 50750057,
+   "datetime": "20250322233810",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=runmode:teleport\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n30\n              \u0017blessed spellbook of clairvoyance\nrp 20s \u0017blessed spellbook of detect monsters\nrq s\u0017blessed spellbook of confuse monster\nrr .\u0017blessed spellbook of charm monster\nrs  .+\u001bZf\nFlZd\n\u001bm,\u0007giant rat\nZf\nZb\n              Fl\u0007gnome\nZc\n#enhance\nya\na\n\u001bu n\u0017wand of enlightenment\nEt \u001b  Elbereth Elbereth\n : \u0017wand of light\nEu n  Elbereth Elbereth\n   : \u0017wand of speed monster\nEvn  ad aerarium\n  : \u0017wand of magic missile\nEwn  ad aerarium\n \u0017wand of teleportation\nEx  I am a fish\n  : E-n  Elbereth\n \u0007minotaur\n.m...Fy  n   Fh    n \u00168\njlyu\u0017chaotic altar\ndb\u0017dwarf corpse\n #pray\ny y  : b\u0017pool\nhl j\u0017grave\n: \u0017wand of digging\nzz> .m. .j k\u0017tree\nk \u0004 \u0004 \u0017axe\naA   n#terrain\nb\n#turn\n@.10s,i\u001b\u0007horse\n\u0017fortune cookie\ntan  \u0007tame wolf\n\u0017newt corpse\nt\u001b\u0007kobold\n.m. .m. sm.       n syss\u0017meatball\nt\u001b#chat\nh  h   \u0006#levelchange\n6\n        \u0017spellbook of invisibility\nrEy   n  sm.     n \u0017blessed spellbook of healing\nrF  20s        n +\u001bZa\n   Za\n Fn   n   Zb\n     n Za\nZb\nZa\n#turn\n#pray\ny y         #enhance\nn\u001b\u001611\n#levelchange\n12\n     \u001620\n#offer\nqg #offer\nss\u001625\n#sit\n\u001bqft\u001b;k.sm..m.\u0016?\n>>R\u0014a;k;.s\u0007\u0007\u0017\u0017\u0017\u0007.20ss20s20ss\u0017\u0007\u0017#chat\n"
+  }
+ ]
+}

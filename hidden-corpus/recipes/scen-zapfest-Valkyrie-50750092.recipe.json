@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPel\u0017blessed shield of reflection\nW\u001b#levelchange\n20\n                   \u0007gnomish wizard\n\u0007master mind flayer\n\u0007master lich\n\u0017wand of cold\n20s       .m.      zg      zz.m.zsui\u001b\u0007aligned cleric\nn\u0007incubus\n\u0017wand of striking\nzhn         n  .l      n  .m.        n  zhn    \u001b         n zhh      n  .ksm.    zhh     n  zhl      n   zhh            n sh        n  \u00166\n\u0017blessed spellbook of slow monster\nrism.  \u0007mind flayer\n\u0007gnomish wizard\nZZZsm.  20s     n    Zsm.    n   .m.    n   ZZZsl.m.    n    Zsk.m.    Z\u00168\n\u0017wand of slow monster\n\u0017wand of digging\n\u0007troll\n\u0007owlbear\nzk> sm.zk>   zjnzk>   zjy  s zk>   zk>   \u001710 daggers\nQl\u0007kobold shaman\nfnfb  n fb  tlj fn   \u0017potion of sleeping\ntbj\u001610\n\u0017blessed spellbook of finger of death\nrns\u0017blessed spellbook of force bolt\nros\u0007master lich\nZ.. ZZZZZZZZ\u0007red dragon\n20s..s#polyself\nsilver dragon\n   #monster\nk   20ss#monster\nk  #monster\nu#monster\nFlFh\u0007master mind flayer\n\u0007"
+ },
+ "segments": [
+  {
+   "seed": 50750092,
+   "datetime": "20211209181323",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPel\u0017blessed shield of reflection\nW\u001b#levelchange\n20\n                   \u0007gnomish wizard\n\u0007master mind flayer\n\u0007master lich\n\u0017wand of cold\n20s       .m.      zg      zz.m.zsui\u001b\u0007aligned cleric\nn\u0007incubus\n\u0017wand of striking\nzhn         n  .l      n  .m.        n  zhn    \u001b         n zhh      n  .ksm.    zhh     n  zhl      n   zhh            n sh        n  \u00166\n\u0017blessed spellbook of slow monster\nrism.  \u0007mind flayer\n\u0007gnomish wizard\nZZZsm.  20s     n    Zsm.    n   .m.    n   ZZZsl.m.    n    Zsk.m.    Z\u00168\n\u0017wand of slow monster\n\u0017wand of digging\n\u0007troll\n\u0007owlbear\nzk> sm.zk>   zjnzk>   zjy  s zk>   zk>   \u001710 daggers\nQl\u0007kobold shaman\nfnfb  n fb  tlj fn   \u0017potion of sleeping\ntbj\u001610\n\u0017blessed spellbook of finger of death\nrns\u0017blessed spellbook of force bolt\nros\u0007master lich\nZ.. ZZZZZZZZ\u0007red dragon\n20s..s#polyself\nsilver dragon\n   #monster\nk   20ss#monster\nk  #monster\nu#monster\nFlFh\u0007master mind flayer\n\u0007"
+  }
+ ]
+}

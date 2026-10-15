@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWj#levelchange\n10\n         \u0017wand of death\n\u0017wand of fire\n \u0007giant rat\nzkn zkn .zklzllzk.  nzlu zlli\u001b\u00174 cream pies\nQby\u0007gnome lord\n\u0007jackal\ntbht\u001bf \u001bf \u001bt\u001bf \u001b\u00165\ni\u001b\u0017crossbow\nwn\u001715 crossbow bolts\nQo\u0007sewer rat\n\u0007acid blob\nfyfyfltobfhfytoy\u0017blessed spellbook of sleep\nrp s\u0017spellbook of force bolt\n rq \u001b, .\u0007incubus\n\u0007kobold shaman\nZZZZZZsh20s  \u0007succubus\n\u0007incubus\n\u0017wand of striking\nzrk sm.zry   n  yyn    \u0007aligned cleric\ny\u0007orc shaman\n\u0007aligned cleric\nn\u0017wand of fire\nzsn \u0017bow\nwt     \u001720 arrows\nQu\u0007kobold shaman\nfu   n    n fj  fy    n fy tny    n fy  toy    n fh \u0017potion of booze\ntoh   n      n      n   \u001610\n \u0007black dragon\n\u0007silver dragon\n20s 20s   20s 20s   n #polyself\nred dragon\n    20s 20s#monster\ny #monster\nu #monster\nk #monster\nk FyFu\u0017spellbook of sleep\nrws\u0017blessed spellbo"
+ },
+ "segments": [
+  {
+   "seed": 50750060,
+   "datetime": "20261108052252",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWj#levelchange\n10\n         \u0017wand of death\n\u0017wand of fire\n \u0007giant rat\nzkn zkn .zklzllzk.  nzlu zlli\u001b\u00174 cream pies\nQby\u0007gnome lord\n\u0007jackal\ntbht\u001bf \u001bf \u001bt\u001bf \u001b\u00165\ni\u001b\u0017crossbow\nwn\u001715 crossbow bolts\nQo\u0007sewer rat\n\u0007acid blob\nfyfyfltobfhfytoy\u0017blessed spellbook of sleep\nrp s\u0017spellbook of force bolt\n rq \u001b, .\u0007incubus\n\u0007kobold shaman\nZZZZZZsh20s  \u0007succubus\n\u0007incubus\n\u0017wand of striking\nzrk sm.zry   n  yyn    \u0007aligned cleric\ny\u0007orc shaman\n\u0007aligned cleric\nn\u0017wand of fire\nzsn \u0017bow\nwt     \u001720 arrows\nQu\u0007kobold shaman\nfu   n    n fj  fy    n fy tny    n fy  toy    n fh \u0017potion of booze\ntoh   n      n      n   \u001610\n \u0007black dragon\n\u0007silver dragon\n20s 20s   20s 20s   n #polyself\nred dragon\n    20s 20s#monster\ny #monster\nu #monster\nk #monster\nk FyFu\u0017spellbook of sleep\nrws\u0017blessed spellbo"
+  }
+ ]
+}

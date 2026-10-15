@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed ring of free action\nPor\u0017blessed +3 speed boots\nWp\u0016?\n>C_ \u001b.\u0016?\n>G_<.\u0016?\n>>M      potion of object detection\n_{.\u00163\nhyy   yy    h    n  : \u0016?\nc \u0006_>.\u0016?\n\u001bu  u          \u0016?\n\u001by        n    h        n      \u00161\n\u001617\nhy l  n      uj k  n   y: \u00166\n\u0016?\ne \u0004k\u001621\nl      nh     nb     jl    n    l     n   l  n :\u00161\n\u0016?\na  l   \u001bhh       n   h   :\u0016?\na#chat\nj;b,.ysm.        \u001617\n\u0017blessed spellbook of detect unseen\nrs         20s       n          \u0017spellbook of create monster\nrt     n                      20s            \u0017blessed spellbook of cone of cold\nru    n 20s                    n                  \u0017blessed spellbook of extra healing\nrv     yy\u001by   y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50750000,
+   "datetime": "20250430081201",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed ring of free action\nPor\u0017blessed +3 speed boots\nWp\u0016?\n>C_ \u001b.\u0016?\n>G_<.\u0016?\n>>M      potion of object detection\n_{.\u00163\nhyy   yy    h    n  : \u0016?\nc \u0006_>.\u0016?\n\u001bu  u          \u0016?\n\u001by        n    h        n      \u00161\n\u001617\nhy l  n      uj k  n   y: \u00166\n\u0016?\ne \u0004k\u001621\nl      nh     nb     jl    n    l     n   l  n :\u00161\n\u0016?\na  l   \u001bhh       n   h   :\u0016?\na#chat\nj;b,.ysm.        \u001617\n\u0017blessed spellbook of detect unseen\nrs         20s       n          \u0017spellbook of create monster\nrt     n                      20s            \u0017blessed spellbook of cone of cold\nru    n 20s                    n                  \u0017blessed spellbook of extra healing\nrv     yy\u001by   y y y\u001b  s"
+  }
+ ]
+}

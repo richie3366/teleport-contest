@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed +3 helm of telepathy\nWp\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>Elk:\u0016?\n>C#chat\nb;b, \u001b@.\u00162\nhlhuh:20s 20s\u00162\njh:s\u001629\n   __,>sm..l  sm.  \u0016?\n>C_>._,;>.\u001629\n#levelchange\n10\n \u0007wererat\nFkFkFkFkFkFk20s20s#pray\ny y \u0007disenchanter\nFbFbFb  nFb20s.m.\u0007water nymph\nFbFbFb  nFy     FyFb sm.sm.  nsu20s.y\u00163\n  \u0016?\n>y  nk:\u0016?\n>>L      Werebane\n__,<.m.sm.     sm.   \u0016?\n\u001bb        n   k  \u0016?\ncb  n            l       n :\u00169\n\u0016?\n\u001bk          n b \u001612\n\u0004h 20s  s\u001629\n\u0014,        n   \u00162\n\u0007purple worm\n;n,.m.        sm.     n   s\u0007blue jelly\nFj  n    FjFj  n         n  \u0007warg\nFj  Fk  n        n        Fk  n   Fk\u00162\n\u0014:   \u0016?\n\u001bbl  \u00162\n#levelchange\n6\n by   n     yy\u001by   y y n  y"
+ },
+ "segments": [
+  {
+   "seed": 50750024,
+   "datetime": "20180921163926",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed +3 helm of telepathy\nWp\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>Elk:\u0016?\n>C#chat\nb;b, \u001b@.\u00162\nhlhuh:20s 20s\u00162\njh:s\u001629\n   __,>sm..l  sm.  \u0016?\n>C_>._,;>.\u001629\n#levelchange\n10\n \u0007wererat\nFkFkFkFkFkFk20s20s#pray\ny y \u0007disenchanter\nFbFbFb  nFb20s.m.\u0007water nymph\nFbFbFb  nFy     FyFb sm.sm.  nsu20s.y\u00163\n  \u0016?\n>y  nk:\u0016?\n>>L      Werebane\n__,<.m.sm.     sm.   \u0016?\n\u001bb        n   k  \u0016?\ncb  n            l       n :\u00169\n\u0016?\n\u001bk          n b \u001612\n\u0004h 20s  s\u001629\n\u0014,        n   \u00162\n\u0007purple worm\n;n,.m.        sm.     n   s\u0007blue jelly\nFj  n    FjFj  n         n  \u0007warg\nFj  Fk  n        n        Fk  n   Fk\u00162\n\u0014:   \u0016?\n\u001bbl  \u00162\n#levelchange\n6\n by   n     yy\u001by   y y n  y"
+  }
+ ]
+}

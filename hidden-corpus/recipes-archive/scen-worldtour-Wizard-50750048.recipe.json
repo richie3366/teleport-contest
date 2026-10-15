@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0016?\ni_ \u001b@.>.s.\u001613\nbbujy:\u0016?\n>>L      mace\n#chat\nk;k.\u001626\n\u0014@.    \u001622\nl  b      h          b: \u0016?\nb u        n  u  h     l      n          n          n      n             :   n      n   \u00165\n\u0016?\n\u001bb   n  h      \u0016?\n\u001bj      n  u  \u001b \u001b\u001611\n\u0006._<.s  n   \u001611\n_{.\u0016?\n\u001bj h     n  \u0016?\n\u001bu    n j  \u0016?\n\u001bk  n     n u   n   \u00164\n\u001622\nl      n  y      yy\u001by   y y  y\u001b  l"
+ },
+ "segments": [
+  {
+   "seed": 50750048,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0016?\ni_ \u001b@.>.s.\u001613\nbbujy:\u0016?\n>>L      mace\n#chat\nk;k.\u001626\n\u0014@.    \u001622\nl  b      h          b: \u0016?\nb u        n  u  h     l      n          n          n      n             :   n      n   \u00165\n\u0016?\n\u001bb   n  h      \u0016?\n\u001bj      n  u  \u001b \u001b\u001611\n\u0006._<.s  n   \u001611\n_{.\u0016?\n\u001bj h     n  \u0016?\n\u001bu    n j  \u0016?\n\u001bk  n     n u   n   \u00164\n\u001622\nl      n  y      yy\u001by   y y  y\u001b  l"
+  }
+ ]
+}

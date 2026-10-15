@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPir\u0017blessed +3 speed boots\nWj\u0017wand of sleep\n\u0017wand of fire\n\u0017wand of polymorph\n\u0007troll\n\u0007giant rat\nzmj         zmk   nzkk      n zkhszmkzkj    n zkh   nzlk    n\u00165\n\u0017wand of teleportation\n\u0017wand of death\n\u0017wand of lightning\n\u0007hobbit\n\u0007grid bug\nzpkznu  zok n sm. znks znl20szoh nznni\u001b\u00164\n  \u0017blessed spellbook of light\nrq s\u0017blessed spellbook of sleep\nrr .\u0007incubus\n\u0007aligned cleric\nnZ\u001b20s 20s   nZ\u001bZ\u001b.m.20sZ\u001b20s  n sm.  nZ\u001bZ\u001bZ\u001b#turn\n      n\u00168\n\u0017wand of polymorph\n\u0017wand of teleportation\n\u0007jackal\n\u0007newt\nztn .m.zslzty ztkztjztj.zsk zsk   n ztk\u00178 spears\n Qu\u0007grid bug\nfbtub tuh fhfhfl   nfh\u0017wand of polymorph\n\u0017wand of lightning\n\u0017wand of striking\n\u0007hobbit\n\u0007kobold\nzvlzvbsb  n  zxn  .nzwk   n .nzwh zxyszvyzxuszvyszvzvzwl\u0017blessed spellbook of fireball\nry  .\u0007gnomish wizard\nZc\n.20sZd\nZd\nZd\nZa\n\u001bm.Zd\ns.Z"
+ },
+ "segments": [
+  {
+   "seed": 50750012,
+   "datetime": "20000103081008",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPir\u0017blessed +3 speed boots\nWj\u0017wand of sleep\n\u0017wand of fire\n\u0017wand of polymorph\n\u0007troll\n\u0007giant rat\nzmj         zmk   nzkk      n zkhszmkzkj    n zkh   nzlk    n\u00165\n\u0017wand of teleportation\n\u0017wand of death\n\u0017wand of lightning\n\u0007hobbit\n\u0007grid bug\nzpkznu  zok n sm. znks znl20szoh nznni\u001b\u00164\n  \u0017blessed spellbook of light\nrq s\u0017blessed spellbook of sleep\nrr .\u0007incubus\n\u0007aligned cleric\nnZ\u001b20s 20s   nZ\u001bZ\u001b.m.20sZ\u001b20s  n sm.  nZ\u001bZ\u001bZ\u001b#turn\n      n\u00168\n\u0017wand of polymorph\n\u0017wand of teleportation\n\u0007jackal\n\u0007newt\nztn .m.zslzty ztkztjztj.zsk zsk   n ztk\u00178 spears\n Qu\u0007grid bug\nfbtub tuh fhfhfl   nfh\u0017wand of polymorph\n\u0017wand of lightning\n\u0017wand of striking\n\u0007hobbit\n\u0007kobold\nzvlzvbsb  n  zxn  .nzwk   n .nzwh zxyszvyzxuszvyszvzvzwl\u0017blessed spellbook of fireball\nry  .\u0007gnomish wizard\nZc\n.20sZd\nZd\nZd\nZa\n\u001bm.Zd\ns.Z"
+  }
+ ]
+}

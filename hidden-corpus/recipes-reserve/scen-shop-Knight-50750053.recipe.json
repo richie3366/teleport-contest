@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPil\u0017blessed amulet of reflection\nPj  \u0016?\n>w\u0006_ \u001b<. ,#chat\nn_oooooo,,\u0014:20s .   _oooo._o.,p_oooo.,#chat\nl    \u0016?\n>Bjkj\u0016?\n>w\u0006__.  Fh    _,>.Fh #chat\nh#pray\ny y   FhFhFhFhFh Fh  n _{.Fl_,Fhq__, Fh_,Fl#chat\nh#pray\ny y    _oooo,,p_oooo,_oo.,:Fh FhFh  Fh FhFhFhFh  Fh Fh  FhFh_ooooooooo._.,\u001b: lkk#chat\nk_{.Fh_,  nFh q_oo,_oo.,\u001bp\u0016?\ncjyn\u0016?\n>w\u0006_ooooooooo.Fj _.Fj _oo,Fj _. Fj ,:Fj  FjFj  FjFjFj\u00167\nkju\u0016?\n>w\u0006_ooo,,:_{,Fj _.,q\u0016?\nculy\u0016?\n>w\u0006hhh#chat\nb_oooooooo. Fk _. Fk_o,_.,p_{,_.qyjyj#chat\ny_{.Fk_,<.Fh qk\u0016?\ncuyj\u0016?\n>w\u0006_ooooo.Fj_.>.Fh_oo.Fh_.m.Fh,pFl Fl FlFlFl  Fl_oooo,Fu_. Fn,p\u00163\nhnb\u0016?\n>w\u0006_oo._.,phub#chat\nk_ooooo._.,:\u0016?\ncknu\u0016?\n>w  \u0006_ooooooo.Fn _, Fl _o.  nFn _,,     n#chat\nn  \u00169\n    Fh  n Fh   n Fh Fh  n Fh  nFh \u00163\n Fh  n F"
+ },
+ "segments": [
+  {
+   "seed": 50750053,
+   "datetime": "20230823192629",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPil\u0017blessed amulet of reflection\nPj  \u0016?\n>w\u0006_ \u001b<. ,#chat\nn_oooooo,,\u0014:20s .   _oooo._o.,p_oooo.,#chat\nl    \u0016?\n>Bjkj\u0016?\n>w\u0006__.  Fh    _,>.Fh #chat\nh#pray\ny y   FhFhFhFhFh Fh  n _{.Fl_,Fhq__, Fh_,Fl#chat\nh#pray\ny y    _oooo,,p_oooo,_oo.,:Fh FhFh  Fh FhFhFhFh  Fh Fh  FhFh_ooooooooo._.,\u001b: lkk#chat\nk_{.Fh_,  nFh q_oo,_oo.,\u001bp\u0016?\ncjyn\u0016?\n>w\u0006_ooooooooo.Fj _.Fj _oo,Fj _. Fj ,:Fj  FjFj  FjFjFj\u00167\nkju\u0016?\n>w\u0006_ooo,,:_{,Fj _.,q\u0016?\nculy\u0016?\n>w\u0006hhh#chat\nb_oooooooo. Fk _. Fk_o,_.,p_{,_.qyjyj#chat\ny_{.Fk_,<.Fh qk\u0016?\ncuyj\u0016?\n>w\u0006_ooooo.Fj_.>.Fh_oo.Fh_.m.Fh,pFl Fl FlFlFl  Fl_oooo,Fu_. Fn,p\u00163\nhnb\u0016?\n>w\u0006_oo._.,phub#chat\nk_ooooo._.,:\u0016?\ncknu\u0016?\n>w  \u0006_ooooooo.Fn _, Fl _o.  nFn _,,     n#chat\nn  \u00169\n    Fh  n Fh   n Fh Fh  n Fh  nFh \u00163\n Fh  n F"
+  }
+ ]
+}

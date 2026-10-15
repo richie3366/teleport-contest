@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  FkFkFuFl  20s Fl#pray\ny FlFls#pray\ny   yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50750011,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:explore\n",
+   "moves": "  FkFkFuFl  20s Fl#pray\ny FlFls#pray\ny   yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

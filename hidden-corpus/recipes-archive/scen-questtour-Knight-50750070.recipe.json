@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nk_mm.Fh_.#chat\nn;<._mmm,#chat\nj_mm.Fy_.#chat\nl#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm._,#chat\nj_mmmm.#chat\nl_mm._.#chat\nh;>.\u0017blessed amulet of life saving\nPi\u0017blessed amulet of reflection\nPj\u0017blessed +3 gauntlets of power\nW\u001b\u0017wand of fire\n\u0016?\n>A\u0006_mm.Fk _, Fk Fk Fj FkFy  Fy Fy  Fkzlk   ,\u0016?\n>>\u001b\u0016?\n>y_mmm.   Fy  _.     Fk   #chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.   Fy _,     FkFb   Fb     n Fh     Fb     Fy      Fh    n     Fk     zlh   ,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_m.   Fy _.#chat\nb;h,\u00164\n\u0016?\n>z\u0006_mmmmm.     n  Fb    _.    Fk Fb      Fh     n  Fb     Fb,\u00163\n\u0016?\n>A\u0006_mmmmm.   Fh _.     n Fb    Fy  Fh    Fh       n Fh               n Fy       Fy    Fk    nzly    ,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmmm.   Fh  _.   Fy    n   #chat\nb\u00165\n\u0016?\n>A\u0006_mmmmmmm.Fk          n  Fb      Fh       Fb    n    Fh      zly      n ,\u0016?\n>>\u001b\u0016?\n>y_mm.  Fk   _,#chat\nb;h;\u00164\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fk           n _,Fb    Fy   Fk         n    Fy     Fb    zly   n  ,\u0016?\n>>\u001b\u0016?\n>y"
+ },
+ "segments": [
+  {
+   "seed": 50750070,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nk_mm.Fh_.#chat\nn;<._mmm,#chat\nj_mm.Fy_.#chat\nl#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm._,#chat\nj_mmmm.#chat\nl_mm._.#chat\nh;>.\u0017blessed amulet of life saving\nPi\u0017blessed amulet of reflection\nPj\u0017blessed +3 gauntlets of power\nW\u001b\u0017wand of fire\n\u0016?\n>A\u0006_mm.Fk _, Fk Fk Fj FkFy  Fy Fy  Fkzlk   ,\u0016?\n>>\u001b\u0016?\n>y_mmm.   Fy  _.     Fk   #chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.   Fy _,     FkFb   Fb     n Fh     Fb     Fy      Fh    n     Fk     zlh   ,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_m.   Fy _.#chat\nb;h,\u00164\n\u0016?\n>z\u0006_mmmmm.     n  Fb    _.    Fk Fb      Fh     n  Fb     Fb,\u00163\n\u0016?\n>A\u0006_mmmmm.   Fh _.     n Fb    Fy  Fh    Fh       n Fh               n Fy       Fy    Fk    nzly    ,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmmm.   Fh  _.   Fy    n   #chat\nb\u00165\n\u0016?\n>A\u0006_mmmmmmm.Fk          n  Fb      Fh       Fb    n    Fh      zly      n ,\u0016?\n>>\u001b\u0016?\n>y_mm.  Fk   _,#chat\nb;h;\u00164\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fk           n _,Fb    Fy   Fk         n    Fy     Fb    zly   n  ,\u0016?\n>>\u001b\u0016?\n>y"
+  }
+ ]
+}

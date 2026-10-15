@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed amulet of reflection\nPp\u0016?\n>>K      figurine of an Archon\n\u0017oilskin cloak\nW\u001b.jsm.  sm.   \u0007killer bee\nFl    Fn      \u0007gecko\nFb    n      Fh Fn    Fb   n       Fy   \u001b    n \u00166\n\u0016?\n\u001bh k\u00169\n_ \u001b;<sy.m..m.  n \u0016?\n\u001bnk    n    n \u00162\n\u0016?\n\u001byl       n      n \u00161\n\u0016?\n\u001bub\u00169\nl     n  hyk:\u0016?\n\u001bhh\u0016?\n\u001bl  n     \u001by\u001640\nnyul  n          :\u001616\n\u0014m,\u0016?\n\u001bbn  n  \u00166\nkn  \u0017wand of lightning\nE\u0017towel\nE\u0017wand of digging\nE:\u0017wand of stasis\nE\u0017wand of slow monster\nE:E\u0007minotaur\n.m.   n   sh    n      n .k    ynnny y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50750088,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed amulet of reflection\nPp\u0016?\n>>K      figurine of an Archon\n\u0017oilskin cloak\nW\u001b.jsm.  sm.   \u0007killer bee\nFl    Fn      \u0007gecko\nFb    n      Fh Fn    Fb   n       Fy   \u001b    n \u00166\n\u0016?\n\u001bh k\u00169\n_ \u001b;<sy.m..m.  n \u0016?\n\u001bnk    n    n \u00162\n\u0016?\n\u001byl       n      n \u00161\n\u0016?\n\u001bub\u00169\nl     n  hyk:\u0016?\n\u001bhh\u0016?\n\u001bl  n     \u001by\u001640\nnyul  n          :\u001616\n\u0014m,\u0016?\n\u001bbn  n  \u00166\nkn  \u0017wand of lightning\nE\u0017towel\nE\u0017wand of digging\nE:\u0017wand of stasis\nE\u0017wand of slow monster\nE:E\u0007minotaur\n.m.   n   sh    n      n .k    ynnny y\u001b  F"
+  }
+ ]
+}

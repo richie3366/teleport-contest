@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\nd\\ i\u001bdes.\u0016?\ns K\u000f\u001b#turn\nss\u0016?\n>>Q#pray\ny y l20s.20s"
+ },
+ "segments": [
+  {
+   "seed": 50752017,
+   "datetime": "20100110234719",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0016?\nd\\ i\u001bdes.\u0016?\ns K\u000f\u001b#turn\nss\u0016?\n>>Q#pray\ny y l20s.20s"
+  }
+ ]
+}

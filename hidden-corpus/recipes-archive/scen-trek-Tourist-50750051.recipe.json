@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " 150s\u0018\u001b100sFhFhFhFhs.50s100s100s150sFhFhs100s_ \u001b<.>100s100sFhs.50s100sbhy150s100s150sFkFkFk100snyh\\ 100seeluj50s\u0018\u001b50sdi100s100seg  y100s100sFkFkFk100s ecH\u0014ah ujy100s100sFlFlFl#pray\ny         FlFuFu\u0018\u001b100sjjl#invoke\n\u001b100s150s150sFkFkFk50shknFk.s50s100s50sFks.ynlFkFkFkFkFkFkFkFk20slybulj150s100s100sFhs20shun_>,>50s50s _>,>ef FkFkFkFkFkFkFks.i\u001b100s 50sFkFksFkFkFk50si\u001b100s50sFks.100sed50secFkFkFkFkFks150s100sFk20s.qyhl100s100s_>.>100s50sFkFk  FyFhFhFhFhFh20skyjlyhnuu150s    150sFns20s50s100sebZ100s 150s\u000f\u001b150s _>.>bju50s_>.>150sec efeq FkFkFkFkFkFkFkFks150s50sec50si\u001b100s50s150sFkssck_>.>150s100s150sFkFkFk150soh150seq rk  i\u001bnnn_m,s50slhh_>,>UULU_>,>YLLH_"
+ },
+ "segments": [
+  {
+   "seed": 50750051,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:crawl\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " 150s\u0018\u001b100sFhFhFhFhs.50s100s100s150sFhFhs100s_ \u001b<.>100s100sFhs.50s100sbhy150s100s150sFkFkFk100snyh\\ 100seeluj50s\u0018\u001b50sdi100s100seg  y100s100sFkFkFk100s ecH\u0014ah ujy100s100sFlFlFl#pray\ny         FlFuFu\u0018\u001b100sjjl#invoke\n\u001b100s150s150sFkFkFk50shknFk.s50s100s50sFks.ynlFkFkFkFkFkFkFkFk20slybulj150s100s100sFhs20shun_>,>50s50s _>,>ef FkFkFkFkFkFkFks.i\u001b100s 50sFkFksFkFkFk50si\u001b100s50sFks.100sed50secFkFkFkFkFks150s100sFk20s.qyhl100s100s_>.>100s50sFkFk  FyFhFhFhFhFh20skyjlyhnuu150s    150sFns20s50s100sebZ100s 150s\u000f\u001b150s _>.>bju50s_>.>150sec efeq FkFkFkFkFkFkFkFks150s50sec50si\u001b100s50s150sFkssck_>.>150s100s150sFkFkFk150soh150seq rk  i\u001bnnn_m,s50slhh_>,>UULU_>,>YLLH_"
+  }
+ ]
+}

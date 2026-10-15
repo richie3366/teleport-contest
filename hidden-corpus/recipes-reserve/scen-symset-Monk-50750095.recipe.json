@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  O>>n\u001b\u001b\nmO>>>f\u001b\n\u001611\n\u0006_ \u001b:>FyFuy _>.Fy_,Fkn >FnFnFk\u0006_>>.Fk_,:Fu>FkFuFy\u0006_>.Fu_,.Fu>  n FnFnFn\u000f#offer\n\u0006_>,Fk_., Fu>FnFuk _>,Fy_.m,Fu>FnFn_>,Fy_,.Fy>FuFnFnFkFu\u0006_>,Fu_.m.Fu>FuFy_>.Fkk _,Fn>FkFnFuk \u0006_>,Fk_,:Fu>FnFuy _>,Fn_>FuFk_>,Fy_.@.Fk>FnFku FuFnFkn #rub\nj   n#rub\njdff \u001bt\u001bv i\u001bh\u001bh\u001bj\u0017lawful altar\ndb\u0017jackal corpse\n#offer\nl     n#pray\ny y   j\u0017unaligned altar\ndd dh\u0017dwarf corpse\n : uu \u0017pool\n#dip\njy    kk \u0017moat\n#dip\nby  #terrain\n\u001b#loot\nh \u0004k #untrap\nn \u001618\nv i\u001bt\u001bJOd\u001b\n\u00163\n150s100s100s50s150s100s100s100sky kn kb 100s100s_>.>100si\u001b#chat\nu 100s100s_>.>100s100s,ku kk ky k.kh kb _>.>100s50s100skl kb kk 50s150si\u001b100skk ku kh w\u001b\u0014m.100szky ku ku 150s150s,day\u001615\nmO>>>>l\u001b\nmOa\u001b\nFuFkFuFyFyFkFuFkFkFyFyFuFyFkk FuFyFkk FyFku FyFyFkFkFyFku FuFyFku FyFyFyFyFkFkFyFky FkFkFkFuFuFkFkFyFku FuFuFkFkFuFuFyFyFuFyFku FkFuFyFku FyFku FuFyFuu FyFuu FuFkFyFky FyFyFkFkFkFkFyFyFyFyFuFu"
+ },
+ "segments": [
+  {
+   "seed": 50750095,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=autodig\nOPTIONS=runmode:walk\nOPTIONS=fruit:lychee\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"cursed\"=magenta\n",
+   "moves": "  O>>n\u001b\u001b\nmO>>>f\u001b\n\u001611\n\u0006_ \u001b:>FyFuy _>.Fy_,Fkn >FnFnFk\u0006_>>.Fk_,:Fu>FkFuFy\u0006_>.Fu_,.Fu>  n FnFnFn\u000f#offer\n\u0006_>,Fk_., Fu>FnFuk _>,Fy_.m,Fu>FnFn_>,Fy_,.Fy>FuFnFnFkFu\u0006_>,Fu_.m.Fu>FuFy_>.Fkk _,Fn>FkFnFuk \u0006_>,Fk_,:Fu>FnFuy _>,Fn_>FuFk_>,Fy_.@.Fk>FnFku FuFnFkn #rub\nj   n#rub\njdff \u001bt\u001bv i\u001bh\u001bh\u001bj\u0017lawful altar\ndb\u0017jackal corpse\n#offer\nl     n#pray\ny y   j\u0017unaligned altar\ndd dh\u0017dwarf corpse\n : uu \u0017pool\n#dip\njy    kk \u0017moat\n#dip\nby  #terrain\n\u001b#loot\nh \u0004k #untrap\nn \u001618\nv i\u001bt\u001bJOd\u001b\n\u00163\n150s100s100s50s150s100s100s100sky kn kb 100s100s_>.>100si\u001b#chat\nu 100s100s_>.>100s100s,ku kk ky k.kh kb _>.>100s50s100skl kb kk 50s150si\u001b100skk ku kh w\u001b\u0014m.100szky ku ku 150s150s,day\u001615\nmO>>>>l\u001b\nmOa\u001b\nFuFkFuFyFyFkFuFkFkFyFyFuFyFkk FuFyFkk FyFku FyFyFkFkFyFku FuFyFku FyFyFyFyFkFkFyFky FkFkFkFuFuFkFkFyFku FuFuFkFkFuFuFyFyFuFyFku FkFuFyFku FyFku FuFyFuu FyFuu FuFkFyFky FyFyFkFkFkFkFyFyFyFyFuFu"
+  }
+ ]
+}

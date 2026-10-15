@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0007horse\n\u0017carrot\nt\u001b\u0017leash\naklk njhakyk#name\nm\n :\u0006_>,  Fh_.Fy>FkFk_>,Fh_.<.Fl>\u0017magic whistle\nkjual \u001618\nO>>a\u001b\n#rub\ng\u001bP#ride\nyyi\u001b\u0007large dog\n\u0017huge chunk of meat\n t\u001bdg sbs20s\u0017leash\nany  n ujuuank   n dbsm..m.  n 20s  n #chat\nhl\u0017magic whistle\nubuao de  n   n   20s  sm.  n    .m.  n  \u001610\n #levelchange\n6\n     j      j  b  \u0017ice\nh     \u0017fountain\nqy   n qy y    #terrain\n\u001b\u0018\u001bj     #conduct\n \u001612\n    \u0006_>>. Fl       n_.    y     Fn    >  Fl   n   Fh  Fb   n ,\\ \u0006_>>.    Fn   n _. Fj    n   >Fy Fh  n _>>. Fy  n _.Fn  yy\u001by  y y y\u001by  >"
+ },
+ "segments": [
+  {
+   "seed": 50750047,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You kill\"\n",
+   "moves": "\u0007horse\n\u0017carrot\nt\u001b\u0017leash\naklk njhakyk#name\nm\n :\u0006_>,  Fh_.Fy>FkFk_>,Fh_.<.Fl>\u0017magic whistle\nkjual \u001618\nO>>a\u001b\n#rub\ng\u001bP#ride\nyyi\u001b\u0007large dog\n\u0017huge chunk of meat\n t\u001bdg sbs20s\u0017leash\nany  n ujuuank   n dbsm..m.  n 20s  n #chat\nhl\u0017magic whistle\nubuao de  n   n   20s  sm.  n    .m.  n  \u001610\n #levelchange\n6\n     j      j  b  \u0017ice\nh     \u0017fountain\nqy   n qy y    #terrain\n\u001b\u0018\u001bj     #conduct\n \u001612\n    \u0006_>>. Fl       n_.    y     Fn    >  Fl   n   Fh  Fb   n ,\\ \u0006_>>.    Fn   n _. Fj    n   >Fy Fh  n _>>. Fy  n _.Fn  yy\u001by  y y y\u001by  >"
+  }
+ ]
+}

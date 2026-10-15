@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b<.#chat\nj;n,_mm.Fn  _,#chat\nj  _mmmmm.Fj _.  Fn#chat\nh   #levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fj _.@.Fy       #chat\ny_mmm,#chat\nj;m,\u0017blessed +3 silver dragon scale mail\nWi \u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017wand of cold\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,.20s.Fl     Fl.,\u0016?\n>A\u0006_mmmmmm.s20s s20s s,\u0016?\n>A\u0006_mm.20s..s20s .sz,#chat\nn\u0016?\n>z\u0006_mm,20s20sssz,#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.ss.s.s,\u0016?\n>A\u0006_mmmmm._,FlFks s20ssz,#chat\nh\u0016?\n>A\u0006_mmmmmmm.Fu_, .s.s,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_m, Fh  _. Fh  #chat\nh  ;h; \u0016?\n>z\u0006_mmmmm. Fh   _,Fh  Fhs20s 20sss,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.s.20sssz,\u0016?\n>A\u0006_mmm..20s sssss,#chat\nl\u0016?\n>A\u0006_mm..20s ..sss,#chat\nb\u0016?\n>z\u0006_mmmmm.ssss20ss.,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.s20s 20s .20s z,#chat\nn\u0016?\n>A\u0006_mmmm.ss20s20s ,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nn\u0016?\n>A\u0006_mmmm.sss.sz,\u0016?\n>>\u001b\u0016?"
+ },
+ "segments": [
+  {
+   "seed": 50750054,
+   "datetime": "20190217000644",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b<.#chat\nj;n,_mm.Fn  _,#chat\nj  _mmmmm.Fj _.  Fn#chat\nh   #levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fj _.@.Fy       #chat\ny_mmm,#chat\nj;m,\u0017blessed +3 silver dragon scale mail\nWi \u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017wand of cold\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,.20s.Fl     Fl.,\u0016?\n>A\u0006_mmmmmm.s20s s20s s,\u0016?\n>A\u0006_mm.20s..s20s .sz,#chat\nn\u0016?\n>z\u0006_mm,20s20sssz,#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.ss.s.s,\u0016?\n>A\u0006_mmmmm._,FlFks s20ssz,#chat\nh\u0016?\n>A\u0006_mmmmmmm.Fu_, .s.s,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_m, Fh  _. Fh  #chat\nh  ;h; \u0016?\n>z\u0006_mmmmm. Fh   _,Fh  Fhs20s 20sss,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.s.20sssz,\u0016?\n>A\u0006_mmm..20s sssss,#chat\nl\u0016?\n>A\u0006_mm..20s ..sss,#chat\nb\u0016?\n>z\u0006_mmmmm.ssss20ss.,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.s20s 20s .20s z,#chat\nn\u0016?\n>A\u0006_mmmm.ss20s20s ,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nn\u0016?\n>A\u0006_mmmm.sss.sz,\u0016?\n>>\u001b\u0016?"
+  }
+ ]
+}
