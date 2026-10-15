@@ -1100,7 +1100,24 @@ export function maketrap(x, y, typ) {
                     : DOOR;
                 set_levltyp(x, y, newt);
             }
-            if (clear_flags) lev.flags = 0;
+            // C trap.c:560–561 — lev->flags = 0 clears the rm.h union:
+            // doormask/altarmask/wall_info/drawbridgemask/looted/
+            // icedpool/ladder/emptygrave ALL alias flags (rm.h:213–221).
+            // JS split the mirrors, so clear each live one (DRAWBRIDGE_UP
+            // keeps its mask via clear_flags above; ladder cells never
+            // reach here — stairs fail the terrain gate; emptygrave has
+            // no JS field). Proved by minetn-6 (49,7): the ensure_way_out
+            // HOLE on a D_CLOSED des door must leave D_NODOOR
+            // (lock.c:1165), JS kept doormask=4 → fi14 cnt 4 vs 5.
+            if (clear_flags) {
+                lev.flags = 0;
+                lev.doormask = 0;
+                lev.altarmask = 0;
+                lev.wall_info = 0;
+                lev.drawbridgemask = 0;
+                lev.looted = 0;
+                lev.icedpool = 0;
+            }
             maketrap_unearth_objs(x, y);
             recalc_block_point(x, y);
         }
