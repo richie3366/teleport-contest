@@ -30,8 +30,8 @@ Score last measured: **2026-10-15** — full `sessions` on `746adfbb3`
 | Metric | Value |
 |--------|------:|
 | **Held-out (judge 2026-10-15 07:22Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** |
-| **Fresh cohort (§10.20, scored on arrival)** | 50450000 ×160 @`65fe937c4`: **139/160 (86.9 %)**, RNG 98.9 %, screens 97.5 % — symset 4/12 worst |
-| **Corpus board (worked, regression fortress)** | full rescore 2026-10-15 of active 1,177: **611 PASS** (0 PASS→FAIL, 0 heals); `archive` → active **1,108** (566 failing + 530 fortress + 12 private) |
+| **Fresh cohort (§10.20, scored on arrival)** | 50550000 ×160 @`170f0240a`: **139/160 (86.9 %)**, RNG 97.8 %, screens 94.4 % — symset 6/12 worst; options/town 1/2, shop/sweep/kit/poly 75 %, wish 4/5, worldtour 10/12, chain/questtour 11/12 |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-15 of active 1,557: **906 PASS** (0 PASS→FAIL); `archive` → active **1,223** (651 failing + 560 fortress + 12 private) |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
@@ -47,18 +47,16 @@ unions, TEXT col-0) moved the judge again — cliffs score where they
 reach. **Three lines, read together:** held-out (judge), fresh cohort
 (`fresh-cohort.mjs`, the local generalization estimate), board (the
 fortress — it rises by construction). Fresh history: 79–91.8 %
-across 8 cohorts (Grow #5–10, latest 139/160).
+across 9 cohorts (Grow #5–11, 139/160 twice running).
 Fresh−held-out gap now 14.2 pts (86.9 % vs 72.7 %), inside the §10.20 band —
-no calibration family (Grow #6 `symset` now 200/398).
-**Corpus (2026-10-15 13:10Z, `746adfbb3`, 1177/1177 entries, `full: true`):**
-611 PASS (0 PASS→FAIL, 0 heals — no `js/` since `d9ea00c54`);
-RNG 35609609/38934181 (91.46 %), screens 728472/817465
-(89.11 %); then `archive` → active 1,108 (566 failing + 530 fortress
-+ 12 private). Worst families `scen-questtour` 8/25,
-`scen-shop` 16/78, `scen-worldtour` 69/154, `scen-sweep` 129/266,
-`scen-symset` 14/199; next `scen-zapfest` 10/14, rest ≥ 96 % RNG.
-`scen-sweep-Priest-582706` still FAIL@1166 (known recorder flake, D-3885 park
-stands — unchanged since the Grow #6 re-record).
+no calibration family (Grow #6 `symset` 15/240).
+**Corpus (2026-10-15 14:25Z, `170f0240a`, 1557/1557 entries, `full: true`):**
+906 PASS (0 PASS→FAIL, 1 flake heal; js/ untouched);
+RNG 92.72 %, screens 89.9 %; `archive` → active 1,223 (651 failing + 560 fortress
++ 12 private). Worst families `scen-questtour` 9/29,
+`scen-shop` 16/86, `scen-worldtour` 66/156, `scen-sweep` 129/279,
+`scen-zapfest` 8/12, `scen-symset` 15/240; next `scen-trek` 11/19, rest ≥ 97 % RNG.
+`scen-sweep-Priest-582706` still unscorable (recorder flake, D-3885 park stands).
 Reviews 1225–2822 (index; no row 1618): 1423 ACCEPT, 63 WITH-DEBT, 111 QUALITY-RISK (2816–2822: 7A/0D/0Q, 0 Must-fix queued).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).

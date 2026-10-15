@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-15 — Grow #11: fresh 139/160 (86.9 %) @50550000; +449 sessions, board 906/1557 full, 0 PASS→FAIL
+
+**Fresh cohort:** 139/160 (86.9 %) on arrival, RNG 97.8 %, screens 94.4 %. Worst: symset 6/12, options 1/2, town 1/2, kit/poly/shop/sweep 75 %, wish 4/5, worldtour 10/12, chain/questtour 11/12; trek/zapfest + rest 100 %. Gap 14.2 pts vs held-out 72.7 % — inside the §10.20 band, no calibration family (prev cohort also 139/160 @50450000).
+**Authored:** +289 weighted to the failed families (symset 60 @50555000, shop 45 @50555500, sweep 45 @50556000, worldtour 30 @50556500, questtour 12 @50557000, chain 12 @50557200, options 20 @50557400, town 20 @50557600, kit 15 @50557800, poly 15 @50558000, wish 15 @50558200; 500-spacing to stay inside base..base+9999) + 160 fresh = +449 (symset 470 recipes total, 15/240 on the active board). (A `scenario-gen --help` probe again ran defaults with no --help handler and wrote 57 recipes at 91003–91059; removed — they collided with Grow #10's kept 91000–91044 accidentals, 3 skips proved overlap.)
+**Board:** full `record` + `score` 906/1557 (was 611/1177), RNG 46756360/50429789 (92.72 %), screens 955180/1062124 (89.9 %). 0 PASS→FAIL (no Must-fix). 1 flake heal same-js/: scen-worldtour-Tourist-620032. Board rescore reads the fresh rows 140/160 (1 arrival FAIL healed on rescore — runner flake, named here not as Must-fix). Archive → active 1,223 (651 failing + 560 fortress + 12 private), 334 PASS → recipes-archive/.
+**Cliffs regen:** 12 owners, head still do_statusline2 12→15. New multi-session owners: do_symset x29, rndcurse x11. Growers: regen_hp 3→4, next_ident 4→5, look_here 11→13, do_statusline1 4→5. Dropped: cprefx, moveloop_core.
+**Next:** picker feeds on the 2 new multi-session owners; do_symset x29 (C `Select symbol set:` vs JS `Options`, first at step 6) is the cheapest new cliff.
 ## 2026-10-15 — D-3979 `do_wear.c` Gloves_on ran a house find_ac C never calls: mid-turn gloves-donning completion painted the new AC early (Ranger-50050043 s1125 AC:6 → PASS)
 
 **C locus:** `do_wear.c` Gloves_on `:576–603` (oldprop + glove switch + known tail — NO find_ac) + `accessory_or_armor_on` `:2376` (instant setworn) / `:2383` (afternmv) / `:2395–2399` (nomul, nomovemsg) + `hack.c` unmul (nomovemsg first, then afternmv) + `allmain.c` `:453` (once-per-player-input find_ac — the sole uac authority on this path). find_ac itself is whole (`js/u_init.js:1428`); the writer is its house caller.
