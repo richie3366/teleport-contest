@@ -22,20 +22,20 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-15** — full `sessions` on `e9d602604`
-(audit **2823–2828**). Fortress **44/44** (no throws; aggregates in the table).
+Score last measured: **2026-10-15** — full `sessions` on `c22183fa1`
+(audit **2829–2836**). Fortress **44/44** (no throws; aggregates in the table).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-15 13:09Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** (D-3978…D-3991 window unjudged) |
+| **Held-out (judge 2026-10-15 19:12Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** (D-3978…D-3991 window unjudged) |
 | **Fresh cohort (§10.20, scored on arrival)** | 50650000 ×160 @`6a88a53cc`: **143/160 (89.4 %)**, RNG 96.5 %, screens 96.4 % — descend 1/2, worldtour 7/12, symset 8/12 worst; questtour/sweep 10/12, wish 10/11, shop/zapfest 11/12, trek/chain 12/12 |
-| **Corpus board (worked, regression fortress)** | `score --new` 2026-10-15 (Grow #12): **564/1204** (46.8 %); `tier` (§10.21) → **897 active + 295 reserve + 3960 archive** (143 PASS-on-arrival archived, reserve 301 → 295) |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-15 (audit 2829–2836): **580/909** (63.8 %) → `archive` + `tier` (§10.21) → **863 active + 286 reserve + 3994 archive** (34 PASS archived, 14 promoted back/7 PASS, 0 PASS→FAIL) |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `388+1.79/turn` (R² 0.81) |
+| Speed label | `385+1.83/turn` (R² 0.81) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
@@ -50,13 +50,13 @@ fortress — it rises by construction). Fresh history: 79–91.8 %
 across 10 cohorts (Grow #5–12; previous 139/160 @50550000).
 Fresh−held-out gap now 16.7 pts (89.4 % vs 72.7 %), inside the §10.20 band —
 no calibration family (Grow #6 `symset` 15/240).
-**Corpus (Grow #12 `score --new`, 2026-10-15, 1204 rows):**
-564 PASS (46.8 %); RNG 91.24 %, screens 88.1 %; 897 active + 295 reserve + 3960 archive.
-Worst families `scen-questtour` 6/28, `scen-zapfest` 9/13, `scen-shop` 14/84,
-`scen-worldtour` 64/159, `scen-descend` 7/9, `scen-sweep` 134/279,
-`scen-symset` 30/241; next `scen-trek` 8/16, rest ≥ 96.2 % RNG.
-`scen-sweep-Priest-582706` archived out (D-3885 park stands).
-Reviews 1225–2828 (index; no row 1618): 1429 ACCEPT, 63 WITH-DEBT, 111 QUALITY-RISK (2823–2828: 6A/0D/0Q, 0 Must-fix queued).
+**Corpus (audit 2829–2836 full rescore + archive, 2026-10-15):**
+553/889 scored (62.2 %); RNG 93.04 %, screens 92.1 %; 863 active + 286
+reserve + 3994 archive; `unrecorded` 0; 0 PASS→FAIL in the window.
+Worst families `scen-questtour` 7/27, `scen-zapfest` 8/12, `scen-shop` 14/83,
+`scen-worldtour` 65/159, `scen-descend` 7/9, `scen-sweep` 131/275,
+`scen-symset` 23/217; next `scen-town` 11/14, rest ≥ 96.9 % RNG.
+Reviews 1225–2836 (index; no row 1618): 1437 ACCEPT, 63 WITH-DEBT, 111 QUALITY-RISK (2829–2836: 8A/0D/0Q, 0 Must-fix queued).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
 Full rescore (audit only, §10.21): `record` + unfiltered `score` (active tier) + `archive` (+ quota), committed `full: true`; needs the C recorder.
@@ -148,8 +148,8 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** look_here ×7 (fountain/inverse writers; hings ×4 shipped D-3991).
-**This iter:** audit 2823–2828 — 6A, 44/44, 577/1223 full, 0 Must-fix.
+**Next:** thrwmu ×8 (new cliffs head after the audit rescore; 133 kRNG + 1.7 k screens).
+**This iter:** audit 2829–2836 — 8A, 44/44, 553/889 full, 0 Must-fix.
 
 ## Parked (diagnose only)
 

@@ -55,7 +55,7 @@
 {"fn":"mhitm_ad_drst","c":"3122-3165","status":"ported","js":["js/mhitm.js:mhitm_ad_drst"],"d":["D-3406","D-3402","D-2797"],"at":"2026-10-04@44ce1ba38"}
 {"fn":"mhitm_ad_drin","c":"3168-3303","status":"split","js":["js/mhitu.js:mhitm_ad_drin_u","js/mhitm.js:mhitm_ad_drin","js/uhitm.js:mhitm_ad_drin"],"d":["D-3932","D-3402","D-1307"],"at":"2026-10-13@c639bbbcb","note":"audit 2114-2122: uhitm hero-mon arm + mhitm mon-mon arm (D-1329); was ported@uhitm only"}
 {"fn":"mhitm_ad_stck","c":"3306-3334","status":"ported","js":["js/mhitm.js:mhitm_ad_stck"],"d":["D-3406","D-3402","D-2855"],"at":"2026-10-04@44ce1ba38"}
-{"fn":"mhitm_ad_wrap","c":"3337-3428","status":"ported","js":["js/uhitm.js:mhitm_ad_wrap"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
+{"fn":"mhitm_ad_wrap","c":"3337-3428","status":"split","js":["js/uhitm.js:mhitm_ad_wrap","js/mhitu.js:mhitm_ad_wrap_u","js/mhitm.js:mhitm_ad_wrap"],"d":["D-1348"],"at":"2026-10-15@c22183fa1","note":"audit 2829-2836: whole C :3337-3428 across 3 arms (uhitm D-1348, mhitu D-1331, mhitm D-1406); was ported+PARTIAL"}
 {"fn":"mhitm_ad_plys","c":"3431-3476","status":"split","js":["js/mhitm.js:mhitm_ad_plys","js/mhitu.js:mhitm_ad_plys_u","js/uhitm.js:damageum_ad_plys"],"d":["D-2128"],"at":"2026-09-27@d2d72caa6","note":"refresh: 3 arms verified (uhitm damageum_ad_plys, mhitu plys_u, mhitm base; D-2128)"}
 {"fn":"mhitm_ad_slee","c":"3479-3522","status":"split","js":["js/mhitm.js:mhitm_ad_slee","js/mhitu.js:mhitm_ad_slee_u"],"d":["D-3211","D-1857"],"at":"2026-10-01@b9de54524"}
 {"fn":"mhitm_ad_slim","c":"3526-3600","status":"split","js":["js/mhitm.js:mhitm_ad_slim"],"d":["D-3406","D-3402","D-2539"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
