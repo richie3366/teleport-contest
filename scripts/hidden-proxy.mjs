@@ -557,7 +557,9 @@ async function cmdTier() {
     console.log(`tier${dry ? ' (dry run)' : ''}: ${groups} failing owner group(s), quota ${quota} (unattributed ${quotaU}/family); `
         + `${demote.length} session(s) → reserve (${steps(demote)} steps a full rescore no longer replays), `
         + `${promote.length} promoted back; reserve ${reserveNow} → ${reserveNow + demote.length - promote.length}`);
-    if (dry || (!promote.length && !demote.length)) return;
+    if (dry) return;
+    /* no moves still re-marks `tier` on the rows (a merged or hand-restored
+       board may lack the marks) */
     mkdirSync(RESERVE, { recursive: true });
     for (const e of demote) renameSync(e.recipe, path.join(RESERVE, path.basename(e.recipe)));
     for (const e of promote) renameSync(e.recipe, path.join(RECIPES, path.basename(e.recipe)));
