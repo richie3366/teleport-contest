@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-15 — Grow #10: fresh 139/160 (86.9 %) @50450000; +470 sessions, board 3960/4555 full, 0 PASS→FAIL
+
+**Fresh cohort:** 139/160 (86.9 %) on arrival, RNG 98.9 %, screens 97.5 %. Worst: symset 4/12, options 1/2, genesis 3/4, shop 9/12, sweep 9/12, chain 10/12, wish 8/9, worldtour 11/12, zapfest 11/12; every other family 100 %. Gap 14.2 pts vs held-out 72.7 % — inside the §10.20 band, no calibration family.
+**Authored:** +265 weighted to the failed families (symset 70 @50455000, shop 40 @50455500, sweep 40 @50456000, chain 25 @50456500, options 20 @50457000, genesis 25 @50457500, wish/worldtour/zapfest 15 each @50458000/50458500/50459000; 500-spacing to stay inside base..base+9999) + 45 accidental default-seed mixed (91000–91044, all PASS — a `scenario-gen --help` probe runs defaults with no --help handler, wrote 45 before I killed it; kept and disclosed here, valid C-recorded sessions).
+**Board:** full `record` + `score` 3960/4555 (was 3572/4085), RNG 137356273/140953685 (97.45 %), screens 2631827/2725255 (96.57 %). 0 PASS→FAIL (no Must-fix). 1 flake heal same-js/: scen-shop-Barbarian-49959601 (mdig_tunnel@526 → PASS). Board rescore reads the fresh rows 141/160 (1 genesis + 1 wish arrival FAIL healed on rescore — runner flake, named here not as Must-fix).
+**Cliffs regen:** 12 owners, head now peace_minded x4 (was do_statusline2). New multi-session owners: distfleeck x7, thrwmu x7, look_here x9, next_ident x4. Growers: getdir 12→17, do_statusline2 11→13, peace_minded 3→4.
+**Next:** picker feeds on the 4 new multi-session owners; do_statusline2 still cliffed x13 with fresh probes (scen-sweep-Archeologist-50456018).
 ## 2026-10-15 — D-3973 cliffs-head `mkroom.c` somex writer: mon_arrive MIGR_PORTAL scan walked only stale game.ftrap, blind to the live level.traps portal (2 somex + 1 mon_arrive PASS)
 
 **C locus:** `dog.c` mon_arrive MIGR_PORTAL `:553–557` (`for (t = gf.ftrap; t; t = t->ntrap) if (t->ttyp == MAGIC_PORTAL)`) then `:582–605` wander jitter (`in_rooms` + `somexy`, C newest-first) else `:610–613` `mnearto`/`rloc`; `mkroom.c` somex `:666–669` (whole, untouched).
