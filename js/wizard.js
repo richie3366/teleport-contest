@@ -42,6 +42,10 @@ import { stairway_find_type_dir } from './mklev.js';
 // mondata.js attacktype`: hoisted export, sites read it only inside nasty()
 // bodies, no top-level reads either way; verify judges TDZ).
 import { attacktype } from './mondata.js';
+// C youprop.h:355-360 Protection_from_shape_changers = H || E
+// (uprops[PROT_FROM_SHAPE_CHANGERS].intrinsic || .extrinsic); canonical
+// export, hoisted fn cycle-safe per imports.mjs (lock.js D-2373 precedent).
+import { Protection_from_shape_changers } from './were.js';
 
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const BELL_OF_OPENING = objectNames.indexOf('BELL_OF_OPENING');
@@ -222,13 +226,6 @@ export function aggravate() {
             mtmp.mcanmove = 1;
         }
     }
-}
-
-function Protection_from_shape_changers() {
-    const u = game.u || {};
-    return !!(u.HProtection_from_shape_changers
-        || u.EProtection_from_shape_changers
-        || u.Protection_from_shape_changers);
 }
 
 /** C ref: wizard.c clonewiz — Double Trouble; caller checks no_of_wizards==1. */
