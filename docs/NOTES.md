@@ -6,7 +6,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
-- **Capture is truth (D-3963, human 2026-10-14):** fountain-customcolor park (D-3946) void — measured on temp-hook recordings; canonically those ⌠ cells are uncaptured. Live lead: Enhanced toplines lose col-0 in C's capture (« ogged events: ») while welcome match — temp-C dump nomux_putch row 0, then `record --rerecord`. Never re-record with a modified recorder.
+- **Capture is truth (D-3963, human 2026-10-14):** fountain-customcolor park (D-3946) void — measured on temp-hook recordings; canonically those ⌠ cells are uncaptured. TEXT col-0 fixed (D-3977 linestart g_putch hook); « ogged »/« altar » unattributed (recall TEXT vs live topline). Never re-record with a modified recorder.
 - **Calibration (§10.20):** held-out 22→32/44 (RNG 92 %) after the
   `symset` family + D-3930; fresh 87.5 %. New family ≤ 60 % on arrival =
   held-out shape; ≥ 85 % = not. Start regime falsified 2026-10-13 (68/68
@@ -25,21 +25,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-3976 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3977 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3976.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3976 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3977.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3977 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3977: js/pager.js only — hoist `utf8Handling` (live `game.gs.symset[currentgraphics].handling === H_UTF8`, glyphs.js:1005 idiom, probe-verified 5/Enhanced2  Named: (1) show_nhw_menu_text fullscreen + corner paint loops — same C linestart lines under offx
 - D-3976: u_simple_floortyp u_in_air now `u.Levitation || Levitation_st() || u.Flying || Flying_st() || !grounded(...)` (in-file unions, C order, D-3810 shape). Named: (1) pooleffects leaving-water pop-out arms (`:2220`/`:2222`) fixed same-idiom but session-
 - D-3975: none — measurement iteration, no `js/` changed. Named: n/a.
 - D-3974: js/bones.js — import the live C-exact `is_unicorn` (js/monsters.js:503; `imports.mjs --can`: already-imports-monsters edge) and call it in the ghostly Named: (1) mk_roamer peaceful path (mklev.js:27790, no set_malign) — different C locus (mk_roamer
@@ -54,5 +55,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3965: FREE_ACTION arm in `confer_oc_oprop` mirroring `u.EFree_action` set/clear (same shape as the FAST arm; doc Named list updated). Named: remaining E-flat mirrors absent from confer (SLEEP_RES/FIRE_RES/COLD_RES/SHOCK_RES/POISON_
 - D-3964: corner arm now calls the shared ported `erase_menu_or_text(offx, 0, maxrow, false)` (`js/display.js:8649`, D-3626) → `docorner` cl_end + `row_refresh` Named: none new (getpos stays ledger-partial on its D-3556 audited note).
 - D-3963: the utf8 arm keeps the C value in the gbuf and sets `loc.disp_capture_drop`; `_paint_gbuf_cell` and `paint_gbuf_level_to_terminal` skip such cells (as Named: topline residual — in Enhanced sessions C's capture loses the col-0 character of some topl
-- D-3962: (1) temp-C flushtrace in the ignored recorder tree (log-only FLUSH/PAINT/RUNMODE/TRAVEL/BOTLSYNC/MAPSYNC to /tmp; incremental make + install + sysconf Named: (1) menu/topline/text paths rendering control bytes (separate render, no session evidence)
 <!-- landmarks:end -->
