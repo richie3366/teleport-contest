@@ -63,7 +63,7 @@
 {"fn":"mselftouch","c":"3913-3933","status":"ported","js":["js/trap.js:mselftouch"],"at":"2026-10-03@bbe63333a"}
 {"fn":"float_up","c":"3937-4006","status":"ported","js":["js/trap.js:float_up"],"d":["D-2381"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fill_pit","c":"4010-4020","status":"ported","js":["js/dig.js:fill_pit"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
-{"fn":"float_down","c":"4024-4179","status":"ported","js":["js/trap.js:float_down"],"d":["D-3610","D-3426","D-2094"],"at":"2026-10-07@4a634cdac"}
+{"fn":"float_down","c":"4024-4179","status":"ported","js":["js/trap.js:float_down"],"d":["D-3980","D-3610","D-3426","D-2094"],"at":"2026-10-15@9beb79118"}
 {"fn":"climb_pit","c":"4183-4230","status":"ported","js":["js/trap.js:climb_pit"],"d":["D-3426","D-1876","D-1863"],"at":"2026-10-04@0d801c73f"}
 {"fn":"dofiretrap","c":"4233-4314","status":"ported","js":["js/trap.js:dofiretrap"],"d":["D-3610","D-2532"],"at":"2026-10-07@4a634cdac"}
 {"fn":"domagictrap","c":"4317-4451","status":"ported","js":["js/trap.js:domagictrap"],"at":"2026-10-03@bbe63333a"}
