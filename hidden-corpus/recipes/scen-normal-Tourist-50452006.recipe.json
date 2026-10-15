@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#wipe\nrfE- Elbereth Elbereth\n#force\nda#name\n\u001b;h: \u001b.ck<yy\u001by  ny\u001b \u0018"
+ },
+ "segments": [
+  {
+   "seed": 50452006,
+   "datetime": "20190117091939",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#wipe\nrfE- Elbereth Elbereth\n#force\nda#name\n\u001b;h: \u001b.ck<yy\u001by  ny\u001b \u0018"
+  }
+ ]
+}

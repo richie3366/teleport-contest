@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n10\n        \u0007nurse\nFu FkFkFkFkFk20s.k\u0007disenchanter\nFbFbFbFkFbFk.m.sj  yn  #"
+ },
+ "segments": [
+  {
+   "seed": 50451013,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n10\n        \u0007nurse\nFu FkFkFkFkFk20s.k\u0007disenchanter\nFbFbFbFkFbFk.m.sj  yn  #"
+  }
+ ]
+}

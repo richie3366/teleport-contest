@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b,>FuFb_>.Fy_.Fh>FhFh_>.Fh_.Fn>FhFuFnFbFn\u0006_>>.Fu_.Fn>FuFk_>>.Fu_,Fn>FbFn_>>.Fl_,Fb>FlFnFkFbFu<\u0006_>,Fk_,Fn>FyFk_>.Fb_,Fl>FyFk_>,Fl_,Fy>FhFuFbFuFn\u0006_>,Fh_.Fy>FhFk_>.Fn_.Fh>FbFk_>.Fy_,Fl>FhFbFuFk FbZa\ne\u0006_>>.Fk_,m.Fk> FnFjFj< \u0006_>>.> FnFhFn\u0006_>.Fy_.m,Fy>FyFy_>.Fy_.;,Fy>FyFy_>.Fy_.;>. Fy>FyFyFyFyFy\u000f\u001b\u00168\nqg\u001bf \u001bOk\u001b\n\u001617\nkblb\u0017neutral altar\ndjda\u0017human corpse\n #pray\ny y y\u0017tree\n:h\u0017moat\n#dip\nly   k  j  :nn\u0017lawful altar\ndc\u0017gnome corpse\n #offer\n#pray\ny y eq #jump\n#enhance\nyo\no\n\u001b#offer\nq  e,qfPdr#twoweapon\n#ride\nuy#levelchange\n14\n             nnn\u0017iron bars\nnyyyn\u0017melting ice\nnynn:>>\u0014m.mO>u\u001b\n O>l\u001b\nv  i\u001bO>>f\u001b\nmOa\u001b\nmO>>>>l\u001b\n\u00165\nFjFn  Fj Fk Fk Fk Fb Fn Fh Fu Fh Fk Fj   n Fh Fn Fj Fk Fl Fb Fb  Fh Fh Fb Fj   n Fu Fn Fb Fn Fb Fn Fh Fk Fl Fu   Fh Fn Fn Fu  n  Fb Fu Fu Fh Fb Fj Fh #pray\ny y    #pray\ny y    #pray\ny y    Fu Fh Fn Fb   nFu Fh Fh Fj Fl Fb Fu Fj Fb Fj Fy "
+ },
+ "segments": [
+  {
+   "seed": 50455006,
+   "datetime": "20120918040741",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nMENUCOLOR=\"a potion\"=magenta\n",
+   "moves": " \u0006_ \u001b,>FuFb_>.Fy_.Fh>FhFh_>.Fh_.Fn>FhFuFnFbFn\u0006_>>.Fu_.Fn>FuFk_>>.Fu_,Fn>FbFn_>>.Fl_,Fb>FlFnFkFbFu<\u0006_>,Fk_,Fn>FyFk_>.Fb_,Fl>FyFk_>,Fl_,Fy>FhFuFbFuFn\u0006_>,Fh_.Fy>FhFk_>.Fn_.Fh>FbFk_>.Fy_,Fl>FhFbFuFk FbZa\ne\u0006_>>.Fk_,m.Fk> FnFjFj< \u0006_>>.> FnFhFn\u0006_>.Fy_.m,Fy>FyFy_>.Fy_.;,Fy>FyFy_>.Fy_.;>. Fy>FyFyFyFyFy\u000f\u001b\u00168\nqg\u001bf \u001bOk\u001b\n\u001617\nkblb\u0017neutral altar\ndjda\u0017human corpse\n #pray\ny y y\u0017tree\n:h\u0017moat\n#dip\nly   k  j  :nn\u0017lawful altar\ndc\u0017gnome corpse\n #offer\n#pray\ny y eq #jump\n#enhance\nyo\no\n\u001b#offer\nq  e,qfPdr#twoweapon\n#ride\nuy#levelchange\n14\n             nnn\u0017iron bars\nnyyyn\u0017melting ice\nnynn:>>\u0014m.mO>u\u001b\n O>l\u001b\nv  i\u001bO>>f\u001b\nmOa\u001b\nmO>>>>l\u001b\n\u00165\nFjFn  Fj Fk Fk Fk Fb Fn Fh Fu Fh Fk Fj   n Fh Fn Fj Fk Fl Fb Fb  Fh Fh Fb Fj   n Fu Fn Fb Fn Fb Fn Fh Fk Fl Fu   Fh Fn Fn Fu  n  Fb Fu Fu Fh Fb Fj Fh #pray\ny y    #pray\ny y    #pray\ny y    Fu Fh Fn Fb   nFu Fh Fh Fj Fl Fb Fu Fj Fb Fj Fy "
+  }
+ ]
+}

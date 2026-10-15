@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u00166\nFyFhFhFyFkFlFhFhFyFnFnFkFu  nFyFbFlFkFyFyFhFkFhFuFlFnFbFhFyFyFhFbFjFkFhFyFnFjFlFjFnFuFnFbFbFkFhFyFkFuFkFkFuFyFbFnFhFjFnFjFyFhFnFuFhFnFnFbFnFnFhFlFjFyFlFyFuFnFkFjFhFlFbFh FlFkFkFyFlFlFkFnFbFjFhFlFnFkFhFnFhFuFyFlFnFbFhFnFhFkFbFnFjFbFkFnFlFjFlFnFbmO>k\u001b\n\u0007tame wolf\n\u0007tame winter wolf cub\n20s \u0017magic whistle\nyhhai   10s de.20s 20s    \u0017apple\n tbh\u0006_ \u001bm.>FuFh_>.Fy_,Fj >FyFy_>,Fy_.Fj >FyFj v i\u001b\u0006_>.Fj_.Fj>FjFj _>.Fj _.Fy >FyFy_>,Fy_.Fj >Fj FyFjFyFy\u0006_>>,Fj_.Fy>Fj Fj_>>,Fy_.Fj>Fj Fy_>>.Fj   _,Fy>FyFyFj FjFy\u0006_>>,Fj _.Fy>FjFy_>>.Fy_.Fj >FyFy_>>,Fy_,Fj >FjFyFjFyFjw-#offer\nmO>>f\u001b\n\u0006_>.Fy_.Fy>Fj  Fj _>.Fj_.Fj  >FyFy_>.Fj_.Fj>FjFjFjFjFj\u0006_>.Fy_.Fj>FyFy_>.Fj_,Fy>FjFj_>.Fy_.Fj>FjFyFyFjFy\u0006_>.Fy _,Fj>FjFy_>,Fj_,Fy>FyFj_>.Fj_,Fy>FyFjFjFyFy\u000f\u001b\u0007little dog\n\u0017lichen corpse\ntay\u0007tame kitten\n#name\nm\nd..ysndf.usm.20s#name\nm\n\u0017yv i\u001bFy FjFj Fy Fj FyFyFy Fj  nFj Fj Fj Fy FyFy FyFy Fj  nFj Fy FyFj FjFyFj   n FyFyFy Fy FjFj FyFyFjFj Fy#p"
+ },
+ "segments": [
+  {
+   "seed": 50455050,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You miss\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00166\nFyFhFhFyFkFlFhFhFyFnFnFkFu  nFyFbFlFkFyFyFhFkFhFuFlFnFbFhFyFyFhFbFjFkFhFyFnFjFlFjFnFuFnFbFbFkFhFyFkFuFkFkFuFyFbFnFhFjFnFjFyFhFnFuFhFnFnFbFnFnFhFlFjFyFlFyFuFnFkFjFhFlFbFh FlFkFkFyFlFlFkFnFbFjFhFlFnFkFhFnFhFuFyFlFnFbFhFnFhFkFbFnFjFbFkFnFlFjFlFnFbmO>k\u001b\n\u0007tame wolf\n\u0007tame winter wolf cub\n20s \u0017magic whistle\nyhhai   10s de.20s 20s    \u0017apple\n tbh\u0006_ \u001bm.>FuFh_>.Fy_,Fj >FyFy_>,Fy_.Fj >FyFj v i\u001b\u0006_>.Fj_.Fj>FjFj _>.Fj _.Fy >FyFy_>,Fy_.Fj >Fj FyFjFyFy\u0006_>>,Fj_.Fy>Fj Fj_>>,Fy_.Fj>Fj Fy_>>.Fj   _,Fy>FyFyFj FjFy\u0006_>>,Fj _.Fy>FjFy_>>.Fy_.Fj >FyFy_>>,Fy_,Fj >FjFyFjFyFjw-#offer\nmO>>f\u001b\n\u0006_>.Fy_.Fy>Fj  Fj _>.Fj_.Fj  >FyFy_>.Fj_.Fj>FjFjFjFjFj\u0006_>.Fy_.Fj>FyFy_>.Fj_,Fy>FjFj_>.Fy_.Fj>FjFyFyFjFy\u0006_>.Fy _,Fj>FjFy_>,Fj_,Fy>FyFj_>.Fj_,Fy>FyFjFjFyFy\u000f\u001b\u0007little dog\n\u0017lichen corpse\ntay\u0007tame kitten\n#name\nm\nd..ysndf.usm.20s#name\nm\n\u0017yv i\u001bFy FjFj Fy Fj FyFyFy Fj  nFj Fj Fj Fy FyFy FyFy Fj  nFj Fy FyFj FjFyFj   n FyFyFy Fy FjFj FyFyFjFj Fy#p"
+  }
+ ]
+}

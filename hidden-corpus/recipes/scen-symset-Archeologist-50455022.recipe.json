@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b.>FuFu _>.Fh_,,Fb> < \u0006_>.> E- I am a fish\n#tip\nh\u001b\u0006_>.Fk_.Fy>FlFy_>.Fn_.Fu>FhFu_>,Fn_. Fj >Fj Fb FjFkFn\u0006_>.Fh_.Fu>FuFn_>,_.> FhFbFy\u0006_>.Fj_.Fj>FjFn_>. Fn_. Fu > FuFuFu< \u00163\nFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFkFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFumO>>>>l\u001b\n\u00167\nO>>>>b\u001b\ni\u001b10s #conduct\n v\u001bi\u001b,z\u00165\nhynh\u0017neutral altar\nda\u0017gnome corpse\n #pray\ny y : jn\u0017throne\n#sit\nj\u0017unaligned altar\ndb\u0017jackal corpse\n #offer\nk   #pray\ny y kk\u0017grave\n: \u0017pick-axe\nal20s  n sb : #terrain\nc\n@.oh#terrain\nf\nz\u00165\nO>>d\u001b\n\u0007pony\n\u0017apple\nt\u001b\u0007pony\n\u0017food ration\n t\u001b#chat\nu \u0007lichen\n.m.   n  sm.   n  sm.  n  sm.   n   sl  n    n .u   n  \u0007giant rat\n\u0017scroll of taming\n rn   #chat\nu\u0017tin whistle\nk jl aodes20s   .#name\nf\n\u0016Fn  FnFu Fy   Fl  Fl  Fh  Fy FjFuFh  Fb  F"
+ },
+ "segments": [
+  {
+   "seed": 50455022,
+   "datetime": "20100503183015",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nMSGTYPE=norep \"The door\"\nBIND=v:inventory\n",
+   "moves": " \u0006_ \u001b.>FuFu _>.Fh_,,Fb> < \u0006_>.> E- I am a fish\n#tip\nh\u001b\u0006_>.Fk_.Fy>FlFy_>.Fn_.Fu>FhFu_>,Fn_. Fj >Fj Fb FjFkFn\u0006_>.Fh_.Fu>FuFn_>,_.> FhFbFy\u0006_>.Fj_.Fj>FjFn_>. Fn_. Fu > FuFuFu< \u00163\nFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFkFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFumO>>>>l\u001b\n\u00167\nO>>>>b\u001b\ni\u001b10s #conduct\n v\u001bi\u001b,z\u00165\nhynh\u0017neutral altar\nda\u0017gnome corpse\n #pray\ny y : jn\u0017throne\n#sit\nj\u0017unaligned altar\ndb\u0017jackal corpse\n #offer\nk   #pray\ny y kk\u0017grave\n: \u0017pick-axe\nal20s  n sb : #terrain\nc\n@.oh#terrain\nf\nz\u00165\nO>>d\u001b\n\u0007pony\n\u0017apple\nt\u001b\u0007pony\n\u0017food ration\n t\u001b#chat\nu \u0007lichen\n.m.   n  sm.   n  sm.  n  sm.   n   sl  n    n .u   n  \u0007giant rat\n\u0017scroll of taming\n rn   #chat\nu\u0017tin whistle\nk jl aodes20s   .#name\nf\n\u0016Fn  FnFu Fy   Fl  Fl  Fh  Fy FjFuFh  Fb  F"
+  }
+ ]
+}

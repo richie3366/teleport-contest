@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPjl\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n20\n                      \u0007mind flayer\n\u0007master lich\n\u0007incubus\n\u0017wand of magic missile\nzll susn .nszlh   y     zl.s  sm. sm.20s   zlh \u0007red dragon\nsm.s20s   Fy     Fk   \u0017blessed spellbook of sleep\nrm20s\u0017blessed spellbook of slow monster\nrn   n   sy      \u0007lich\nZa\n         Za\n       n Za\n    ZZZ.h     n sm.   n Zsm.   .j    n Za\n     #turn\n\u0018\u001b\u001612\n \u0017wand of cold\n\u0017wand of cancellation\n\u0007kobold shaman\nzpl .m.  zon  zpl zpl zol  zpbzon\u0007aligned cleric\nn\u0007succubus\n\u0017wand of cold\nzqj  zqn sm.sm.ss20ssm.s\u0007master lich\n\u0007kobold shaman\n\u0017wand of fire\nzrn zrl  zrj   \u00169\n\u0007baby red dragon\n.y20s #polyself\nblack dragon\n sm.20s #monster\nn   #monster\nj   #monster\nj   \u0017wand of fire\na.s\u0018\u001b\u0017blessed spellbook of light\nrt .\u0017blessed spellbook of drain life\nru 20s\u0007gnomish wizard\n\u0007kobold shaman\nZa\nZb\n   .y.Zb\n Za\n  Zc\n  sm.sZb\n  Zb\n  Zb\n  \u0007gnomish wizard\n\u0007master lich\n\u0017wand of striking\nsm. zzsbzz20s    i\u001b\u0017spellbook of sleep\nrw \u001bm,        20s \u0007orc shaman\n\u0007orc shaman\nZb\n.m.    20s   Zc\n  Zc\nZa\n Zc\n Zb\n   Za\n 20s 20s   Zc\n sm..m.#turn\n\u0018\u001b\u0017wand of fire\n\u0017wand of sleep\n\u0017wand o"
+ },
+ "segments": [
+  {
+   "seed": 50459005,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPjl\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n20\n                      \u0007mind flayer\n\u0007master lich\n\u0007incubus\n\u0017wand of magic missile\nzll susn .nszlh   y     zl.s  sm. sm.20s   zlh \u0007red dragon\nsm.s20s   Fy     Fk   \u0017blessed spellbook of sleep\nrm20s\u0017blessed spellbook of slow monster\nrn   n   sy      \u0007lich\nZa\n         Za\n       n Za\n    ZZZ.h     n sm.   n Zsm.   .j    n Za\n     #turn\n\u0018\u001b\u001612\n \u0017wand of cold\n\u0017wand of cancellation\n\u0007kobold shaman\nzpl .m.  zon  zpl zpl zol  zpbzon\u0007aligned cleric\nn\u0007succubus\n\u0017wand of cold\nzqj  zqn sm.sm.ss20ssm.s\u0007master lich\n\u0007kobold shaman\n\u0017wand of fire\nzrn zrl  zrj   \u00169\n\u0007baby red dragon\n.y20s #polyself\nblack dragon\n sm.20s #monster\nn   #monster\nj   #monster\nj   \u0017wand of fire\na.s\u0018\u001b\u0017blessed spellbook of light\nrt .\u0017blessed spellbook of drain life\nru 20s\u0007gnomish wizard\n\u0007kobold shaman\nZa\nZb\n   .y.Zb\n Za\n  Zc\n  sm.sZb\n  Zb\n  Zb\n  \u0007gnomish wizard\n\u0007master lich\n\u0017wand of striking\nsm. zzsbzz20s    i\u001b\u0017spellbook of sleep\nrw \u001bm,        20s \u0007orc shaman\n\u0007orc shaman\nZb\n.m.    20s   Zc\n  Zc\nZa\n Zc\n Zb\n   Za\n 20s 20s   Zc\n sm..m.#turn\n\u0018\u001b\u0017wand of fire\n\u0017wand of sleep\n\u0017wand o"
+  }
+ ]
+}

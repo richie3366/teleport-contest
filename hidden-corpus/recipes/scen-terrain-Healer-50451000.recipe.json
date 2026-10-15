@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " nhj\u0017chaotic altar\ndf\u0017elf corpse\n#offer\nm   #pray\ny y bb\u0017neutral altar\ndk dj\u0017dwarf corpse\n#offer\nn #pray\ny y #terrain\nd\n\u001b;el#loot\nf $ uuljk\u0017fountain\nqy   qy qy  \u0017long sword\n#dip\npy   yy\u001by  y y\u001by  n"
+ },
+ "segments": [
+  {
+   "seed": 50451000,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=mention_walls\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " nhj\u0017chaotic altar\ndf\u0017elf corpse\n#offer\nm   #pray\ny y bb\u0017neutral altar\ndk dj\u0017dwarf corpse\n#offer\nn #pray\ny y #terrain\nd\n\u001b;el#loot\nf $ uuljk\u0017fountain\nqy   qy qy  \u0017long sword\n#dip\npy   yy\u001by  y y\u001by  n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                      \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWk\u0016?\n>>P  \u0004l\u00169\n#chat\nu;m, \u001b@.\u0016?\n>z   _<._.>20s\u0016?\n>A  nbb :\u00169\ny yl n  h    n:\u0016?\n>I\u0017uncursed scroll of create monster\nrl guard\ny\u0017potion of water\nqmss\u0017uncursed potion of enlightenment\n\u0007pit viper\nqn \u001bFj Fj  sj 20s\u0016?\n>>L      potion of object detection\nhynn    k   \u001b    :sm. s       s   \u00169\n\u0017Stormbringer\n wq  n        Fk      Fk  n      Fk    #invoke\nq      \u0007sergeant\ns  n     .ss s   sm.       .m.  20s    n   \u0007vampire bat\n;j;.s    .m.              \u0007homunculus\nFj Fj \u0007hill orc\n;k..s ..\u00168\n\u0016?\ne  \u0017blessed spellbook of turn undead\nrr 20s\u0017blessed spellbook of invisibility\nrs   n    20s    n +\u001bZ\u001bZ\u001bZ\u001bFn    \u0007giant rat\nZ\u001b#pray\ny y               sk\u001612\n\u0016?\nd_>.>\u0016?\n\u001bkh\u0016?\n\u001bn k  \u0016?\na    \u0017blessed +3 helm of telepathy\nW\u001bsm.20s     s FlFk\u0017cursed -1 morning star\n\u0007frost giant\nwu   FkFk   Fk X\u0017cursed wand of lightning\nzvk    s20s  n    \u0017uncursed scroll of punishment\n\u0007human mummy\nrws  20s \u0017potion of extra healing\n\u0007shade\nqx\u0017blessed scroll of teleportation\nry :        20s     20s \u001629\nl     k  n     j              n      nn:\u00165\n\u0016?\na\u0006_>,\u001636\n\u0017spellbook of dig\n\u0007watchman\nrz      20s        n  sm.       Za\n "
+ },
+ "segments": [
+  {
+   "seed": 50450072,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                      \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWk\u0016?\n>>P  \u0004l\u00169\n#chat\nu;m, \u001b@.\u0016?\n>z   _<._.>20s\u0016?\n>A  nbb :\u00169\ny yl n  h    n:\u0016?\n>I\u0017uncursed scroll of create monster\nrl guard\ny\u0017potion of water\nqmss\u0017uncursed potion of enlightenment\n\u0007pit viper\nqn \u001bFj Fj  sj 20s\u0016?\n>>L      potion of object detection\nhynn    k   \u001b    :sm. s       s   \u00169\n\u0017Stormbringer\n wq  n        Fk      Fk  n      Fk    #invoke\nq      \u0007sergeant\ns  n     .ss s   sm.       .m.  20s    n   \u0007vampire bat\n;j;.s    .m.              \u0007homunculus\nFj Fj \u0007hill orc\n;k..s ..\u00168\n\u0016?\ne  \u0017blessed spellbook of turn undead\nrr 20s\u0017blessed spellbook of invisibility\nrs   n    20s    n +\u001bZ\u001bZ\u001bZ\u001bFn    \u0007giant rat\nZ\u001b#pray\ny y               sk\u001612\n\u0016?\nd_>.>\u0016?\n\u001bkh\u0016?\n\u001bn k  \u0016?\na    \u0017blessed +3 helm of telepathy\nW\u001bsm.20s     s FlFk\u0017cursed -1 morning star\n\u0007frost giant\nwu   FkFk   Fk X\u0017cursed wand of lightning\nzvk    s20s  n    \u0017uncursed scroll of punishment\n\u0007human mummy\nrws  20s \u0017potion of extra healing\n\u0007shade\nqx\u0017blessed scroll of teleportation\nry :        20s     20s \u001629\nl     k  n     j              n      nn:\u00165\n\u0016?\na\u0006_>,\u001636\n\u0017spellbook of dig\n\u0007watchman\nrz      20s        n  sm.       Za\n "
+  }
+ ]
+}

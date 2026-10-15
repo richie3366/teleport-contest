@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\n wj\u0016?\n>w\u0006_ \u001b;q_oo,_oo,,p__.Fh _,Fk  #chat\nh   n FhFh     nFhFhFh    nFh \u00165\n_ooooooooo.    n Fl _,,      n      n    :\u00165\n_oooooo.,\u0014.   n    .b   n    .b   n       n    \u001612\n_oooooo._o.Fh   n   _.  n Fh,#chat\nh   \u001b\u00165\n_ooooooo._ooo.,#chat\nn   n FnFn   n   Fn   n    yy  F"
+ },
+ "segments": [
+  {
+   "seed": 50455502,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\n wj\u0016?\n>w\u0006_ \u001b;q_oo,_oo,,p__.Fh _,Fk  #chat\nh   n FhFh     nFhFhFh    nFh \u00165\n_ooooooooo.    n Fl _,,      n      n    :\u00165\n_oooooo.,\u0014.   n    .b   n    .b   n       n    \u001612\n_oooooo._o.Fh   n   _.  n Fh,#chat\nh   \u001b\u00165\n_ooooooo._ooo.,#chat\nn   n FnFn   n   Fn   n    yy  F"
+  }
+ ]
+}

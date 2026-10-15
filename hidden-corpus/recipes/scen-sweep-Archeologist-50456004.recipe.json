@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n       #levelchange\n12\n    \u0007black light\nFk . s..\u0007water demon\nFlFl \u0007tengu\nFu Fu Fl Fu  FuFu \u0007chickatrice\n#chat\nh FyFl   \u0007black light\nFh  FyFh    n Fl  Fl  Fh\u001628\n#levelchange\n12\n#wizintrinsic\nj\n sm.   .m. 20s  sm.  sm.   n sm.  sm.20s   20s   .m.    \u0017scroll of fire\nrj           n #terrain\nf\n\u0004k    #conduct\n ;u: \u001b.,\u000f\u001bsbsm.   sm.     n .m.   .m.   20s    \u000f\u001b\u001610\n#levelchange\n12\n\u0007disenchanter\n;h,20s    n  sb 20s   \u0007water elemental\n;u;20s    nsb.n\u0007dwarf lord\n#chat\nlFy   Fk\\ \u001612\n#levelchange\n12\n#wizintrinsic\nfiq\n  s... 20s .s  n 20s s 20s ss s  n . W,,n#offer\ns 20s    n s 20s  s 20s  n  s \u00168\n\u00163\nb y k   n \u0017statue trap\nh u  \u0017rolling boulder trap\nn u \u0017magic portal\n\u0017beartrap\nak   n h  k #terrain\nc\n Z#chat\nj s \u0006\u00165\n#levelchange\n12\n\u0007marilith\nsFh   n     Fj       Fl\u0007quantum mechanic\nFu    n     Fb  :       Fu\u0007erinys\n#chat\nl  <.  n       Fb   m.s\u001612\n\u000f\u001b\u0017T-shirt\nW\u001b.20ss\u0007mind flayer\nFkFk      Fk      .m..#pray\ny y    \u0007water nymph\nFk      Fu         FkFk        yy\u001by   y y y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 50456004,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n       #levelchange\n12\n    \u0007black light\nFk . s..\u0007water demon\nFlFl \u0007tengu\nFu Fu Fl Fu  FuFu \u0007chickatrice\n#chat\nh FyFl   \u0007black light\nFh  FyFh    n Fl  Fl  Fh\u001628\n#levelchange\n12\n#wizintrinsic\nj\n sm.   .m. 20s  sm.  sm.   n sm.  sm.20s   20s   .m.    \u0017scroll of fire\nrj           n #terrain\nf\n\u0004k    #conduct\n ;u: \u001b.,\u000f\u001bsbsm.   sm.     n .m.   .m.   20s    \u000f\u001b\u001610\n#levelchange\n12\n\u0007disenchanter\n;h,20s    n  sb 20s   \u0007water elemental\n;u;20s    nsb.n\u0007dwarf lord\n#chat\nlFy   Fk\\ \u001612\n#levelchange\n12\n#wizintrinsic\nfiq\n  s... 20s .s  n 20s s 20s ss s  n . W,,n#offer\ns 20s    n s 20s  s 20s  n  s \u00168\n\u00163\nb y k   n \u0017statue trap\nh u  \u0017rolling boulder trap\nn u \u0017magic portal\n\u0017beartrap\nak   n h  k #terrain\nc\n Z#chat\nj s \u0006\u00165\n#levelchange\n12\n\u0007marilith\nsFh   n     Fj       Fl\u0007quantum mechanic\nFu    n     Fb  :       Fu\u0007erinys\n#chat\nl  <.  n       Fb   m.s\u001612\n\u000f\u001b\u0017T-shirt\nW\u001b.20ss\u0007mind flayer\nFkFk      Fk      .m..#pray\ny y    \u0007water nymph\nFk      Fu         FkFk        yy\u001by   y y y\u001by  2"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017katana\nwgs.s\u0007baby purple worm\nFnFnFnFnFnFh\u0007Croesus\nnFnFn  yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 91026,
+   "datetime": "20130505111945",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017katana\nwgs.s\u0007baby purple worm\nFnFnFnFnFnFh\u0007Croesus\nnFnFn  yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

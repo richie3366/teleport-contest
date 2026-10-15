@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b:>FkFh _>>.Fl_.> FlsFl\u0006_>.Fy_,Fy>FyFk _>._.>_>,_.>\u0006_>>,_,>_>>,_.>_>>._.>\u0006_>._.>_>._,>_>._,>\u0006_>._,>_>._,>_>._,>\u0006_>>._.>_>>._.>_>>._.>\u0006_>._.>_>,_,>_>._.>#tip\n\u001brj\u0006_>._.>_>,_.>_>,_.>#twoweapon\n#untrap\nh\u0006_>,_.>_>._.>_>._,>\u0006_>>,_,>_>>._,>_>>._.>ohZ\u0006_>._.>_>,_,>_>._.>fk\u000f\u001b"
+ },
+ "segments": [
+  {
+   "seed": 50451027,
+   "datetime": "20120602230832",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0006_ \u001b:>FkFh _>>.Fl_.> FlsFl\u0006_>.Fy_,Fy>FyFk _>._.>_>,_.>\u0006_>>,_,>_>>,_.>_>>._.>\u0006_>._.>_>._,>_>._,>\u0006_>._,>_>._,>_>._,>\u0006_>>._.>_>>._.>_>>._.>\u0006_>._.>_>,_,>_>._.>#tip\n\u001brj\u0006_>._.>_>,_.>_>,_.>#twoweapon\n#untrap\nh\u0006_>,_.>_>._.>_>._,>\u0006_>>,_,>_>>._,>_>>._.>ohZ\u0006_>._.>_>,_,>_>._.>fk\u000f\u001b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "mO>>>>c\u001b\n\u001620\n150sFkFkFkFkFkFkFkFks>byn150sujyhnubly50s100s\u000f\u001b_ \u001b;>_>.>r\u001b150sljk50sFkFk  nFkFkFkFk  n FkFkFk#pray\ny y      FkFks100s#dip\nadblh_>.>150s ynknyj100s50sE- Vlad was here\ni\u001b100sFyFy Fy FyFy Fy Fy FyFy Fys20s\u001612\n20s ohPPO>>>>i\u001b\u001b\n\u0006_>.Fk_,Fy>FyFh_>.Fy_.<.Fy>FkFy  n_>.Fk_,Fk>FyFkFkFkFy #jump\n#dip\nfd \u0006_>.Fy_.Fy>_>,_.,>_>,_..>\u0006_>._.>.>_>._.m,>_>._,:><\u0006_>._.>.>_>,_.m.>_>._.>.><\u0006_>._.<.>_>._,m,>_>._.m.>\u0006_>._.;,>_>,_.m,>_>._.:>20s,\u00161\n\u00166\nlykhul50s100s100s _>.>\u000f\u001b150s  byu100s 150s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeO>m\u001b\u001b\n\u0006_>>._,>_>>._.>_>>._,"
+ },
+ "segments": [
+  {
+   "seed": 50455011,
+   "datetime": "20091013104700",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "mO>>>>c\u001b\n\u001620\n150sFkFkFkFkFkFkFkFks>byn150sujyhnubly50s100s\u000f\u001b_ \u001b;>_>.>r\u001b150sljk50sFkFk  nFkFkFkFk  n FkFkFk#pray\ny y      FkFks100s#dip\nadblh_>.>150s ynknyj100s50sE- Vlad was here\ni\u001b100sFyFy Fy FyFy Fy Fy FyFy Fys20s\u001612\n20s ohPPO>>>>i\u001b\u001b\n\u0006_>.Fk_,Fy>FyFh_>.Fy_.<.Fy>FkFy  n_>.Fk_,Fk>FyFkFkFkFy #jump\n#dip\nfd \u0006_>.Fy_.Fy>_>,_.,>_>,_..>\u0006_>._.>.>_>._.m,>_>._,:><\u0006_>._.>.>_>,_.m.>_>._.>.><\u0006_>._.<.>_>._,m,>_>._.m.>\u0006_>._.;,>_>,_.m,>_>._.:>20s,\u00161\n\u00166\nlykhul50s100s100s _>.>\u000f\u001b150s  byu100s 150s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeO>m\u001b\u001b\n\u0006_>>._,>_>>._.>_>>._,"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " FhFy Fb Fn FyFnFlFnFnFbFkFhFkFjFkFjFbFhFnFkFhFlFlFuFnFhFhFj FhFjFbFkFkFnFhFnFlFjFnFnFjFuFkFlFnFjFbFlFhFhFuFjFlFnFnFbFbFkFbFbFnFnFkFbFlFjFjFnFnFuFbFuFbFuFuFjFlFnFlFnFjFnFkFkFlFlFkFuFuFlFuFjFjFlFhFnFhFjFkFlFnFhFnFhFbFlFlFkFkFuFkFhFjFkFkFuFnFlFhFnO>a\u001b\nv i\u001b\u0006_ \u001b,>FnFn_>,Fj_.Fj>FbFn_>.Fu_.Fu>FuFjFlFhFl\u0006_>.Fu_,Fu>FlFb_>.Fu_.Fn>FhFh_>.Fh_,Fl>FlFbFjFhFj\u0006_>.Fb_,Fn>FnFh_>.Fl_.Fn>FyFu_>,Fl_.Fj>FyFyFnFuFn\u0006_>.Fl_.Fb>FyFj_>.Fu_.Fj>FlFu_>.Fu_,Fy>FyFbFuFnFy#force\n#conduct\n \u0006_>.Fl_,Fy>FyFj_>.Fy_,Fj>FuFl_>.Fh_.Fb>FyFnFnFnFl#conduct\n #terrain\n\u001b\u0006_>,Fl_.Fj>FuFy_>.Fu_,Fl>FuFl_>.Fh_.Fn>FnFbFuFlFnk#force\nFbFjFnFbFnFyFlFbFhFkFbFuFhFlFlFhFjFkFbFhFlFkFbFlFhFjFnFbFkFhFlFuFjFkFjFjFjFkFbFjFnFlFnFnFyFjFuFjFjFuFnFkFnFnFhFkFyFnFyFnFyFlFnFlFuFuFjFlFkFkFkFyFyFnFbFkFnFnFjFkFlFbFlFbFhFlFyFlFyFyFhFuFlFyFuFkFuFbFjFuFhFkFyFlFkFhFjFnFkFyFjFjFhFlFyFjFjFnFuFn\u0006_>>,Fu_.Fy>FkFy_>>.Fu"
+ },
+ "segments": [
+  {
+   "seed": 50455053,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a scroll\"=magenta\n",
+   "moves": " FhFy Fb Fn FyFnFlFnFnFbFkFhFkFjFkFjFbFhFnFkFhFlFlFuFnFhFhFj FhFjFbFkFkFnFhFnFlFjFnFnFjFuFkFlFnFjFbFlFhFhFuFjFlFnFnFbFbFkFbFbFnFnFkFbFlFjFjFnFnFuFbFuFbFuFuFjFlFnFlFnFjFnFkFkFlFlFkFuFuFlFuFjFjFlFhFnFhFjFkFlFnFhFnFhFbFlFlFkFkFuFkFhFjFkFkFuFnFlFhFnO>a\u001b\nv i\u001b\u0006_ \u001b,>FnFn_>,Fj_.Fj>FbFn_>.Fu_.Fu>FuFjFlFhFl\u0006_>.Fu_,Fu>FlFb_>.Fu_.Fn>FhFh_>.Fh_,Fl>FlFbFjFhFj\u0006_>.Fb_,Fn>FnFh_>.Fl_.Fn>FyFu_>,Fl_.Fj>FyFyFnFuFn\u0006_>.Fl_.Fb>FyFj_>.Fu_.Fj>FlFu_>.Fu_,Fy>FyFbFuFnFy#force\n#conduct\n \u0006_>.Fl_,Fy>FyFj_>.Fy_,Fj>FuFl_>.Fh_.Fb>FyFnFnFnFl#conduct\n #terrain\n\u001b\u0006_>,Fl_.Fj>FuFy_>.Fu_,Fl>FuFl_>.Fh_.Fn>FnFbFuFlFnk#force\nFbFjFnFbFnFyFlFbFhFkFbFuFhFlFlFhFjFkFbFhFlFkFbFlFhFjFnFbFkFhFlFuFjFkFjFjFjFkFbFjFnFlFnFnFyFjFuFjFjFuFnFkFnFnFhFkFyFnFyFnFyFlFnFlFuFuFjFlFkFkFkFyFyFnFbFkFnFnFjFkFlFbFlFbFhFlFyFlFyFyFhFuFlFyFuFkFuFbFjFuFhFkFyFlFkFhFjFnFkFyFjFjFhFlFyFjFjFnFuFn\u0006_>>,Fu_.Fy>FkFy_>>.Fu"
+  }
+ ]
+}

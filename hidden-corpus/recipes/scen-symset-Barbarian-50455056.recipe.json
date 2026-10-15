@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001bm,>FbFb_>.Fb_.> FuFuFu\u0006_>.Fl_,Fh>FhFh_>,Fh_.Fh>FhFh_>.Fh_.Fh>FhFhFhFhFh\u0006_>>.Fh_.Fh>FhFh_>>.Fh_.Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFhf by b P\u0006_>.Fh_.Fh>FhFh_>.Fh_.  nFh>FhFh_>,Fh_.Fh>FhFhFhFhFh#sit\nfl \u0006_>.Fh_.Fh>FhFh_>,Fh_.Fh>FhFh_>.Fh_.Fh>FhFhFhFhFh\u0006_>.Fh_,Fh>FhFh_>.Fh_,Fh>FhFh_>,Fh_,Fh>FhFhFhFhFhmO>>>k\u001b\n10s#ride\nh \u0007tame hill orc\n\u0017fortune cookie\ntbh \u0007sewer rat\n\u0017scroll of taming\nrf lh \u0017tin whistle\njbjag20s\u0017carrot\ntbl ll \u0017tripe ration\ntbl \u001613\nO>>j\u001b\n#pray\ny y   FkFkFuFnFnFkFyFkn FyFkk FkFuFkFyFun FyFkk FkFyFnFyFyFuF"
+ },
+ "segments": [
+  {
+   "seed": 50455056,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nMSGTYPE=norep \"You miss\"\n",
+   "moves": " \u0006_ \u001bm,>FbFb_>.Fb_.> FuFuFu\u0006_>.Fl_,Fh>FhFh_>,Fh_.Fh>FhFh_>.Fh_.Fh>FhFhFhFhFh\u0006_>>.Fh_.Fh>FhFh_>>.Fh_.Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFhf by b P\u0006_>.Fh_.Fh>FhFh_>.Fh_.  nFh>FhFh_>,Fh_.Fh>FhFhFhFhFh#sit\nfl \u0006_>.Fh_.Fh>FhFh_>,Fh_.Fh>FhFh_>.Fh_.Fh>FhFhFhFhFh\u0006_>.Fh_,Fh>FhFh_>.Fh_,Fh>FhFh_>,Fh_,Fh>FhFhFhFhFhmO>>>k\u001b\n10s#ride\nh \u0007tame hill orc\n\u0017fortune cookie\ntbh \u0007sewer rat\n\u0017scroll of taming\nrf lh \u0017tin whistle\njbjag20s\u0017carrot\ntbl ll \u0017tripe ration\ntbl \u001613\nO>>j\u001b\n#pray\ny y   FkFkFuFnFnFkFyFkn FyFkk FkFuFkFyFun FyFkk FkFyFnFyFyFuF"
+  }
+ ]
+}

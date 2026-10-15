@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                              \u0017blessed amulet of reflection\nPo\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>C#levelchange\n30\n\u0017athame\nwqFlFl .X\u0007giant spider\n;n; \u001b,20s20s20s\u0007jackal\nsm..m.sm. 20ssk20s \u0007kitten\nsm. sm.  n.m..y.sm.sm. sm.\u0016?\n>Inuh:\u0016?\n>A  bb   n    :\u0016?\n>>K      scroll of enchant weapon\n_<.su   n20s     \u0016?\n\u001bj   u     n\u001641\n__,<\u0016?\n\u001bu  l  \u001636\n\u0006m._<.\u0016?\n\u001by l        n\u001641\n\u0006@._>.\u0016?\n\u001by      nu\u001632\n_{.<\u001641\n#levelchange\n12\n      \u0007pyrolisk\nFn   Fb  n    Fb Fn   nFb  Fb  \u0007kobold shaman\nsm.     n 20s          n    sm.        n  20s             n     \u0007Pestilence\nnFn       n         n  Fj       n  Fj                 n  Fh         \u0007watchman\n;h..m.     sm.    yny   y y  y\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 50458511,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                              \u0017blessed amulet of reflection\nPo\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>C#levelchange\n30\n\u0017athame\nwqFlFl .X\u0007giant spider\n;n; \u001b,20s20s20s\u0007jackal\nsm..m.sm. 20ssk20s \u0007kitten\nsm. sm.  n.m..y.sm.sm. sm.\u0016?\n>Inuh:\u0016?\n>A  bb   n    :\u0016?\n>>K      scroll of enchant weapon\n_<.su   n20s     \u0016?\n\u001bj   u     n\u001641\n__,<\u0016?\n\u001bu  l  \u001636\n\u0006m._<.\u0016?\n\u001by l        n\u001641\n\u0006@._>.\u0016?\n\u001by      nu\u001632\n_{.<\u001641\n#levelchange\n12\n      \u0007pyrolisk\nFn   Fb  n    Fb Fn   nFb  Fb  \u0007kobold shaman\nsm.     n 20s          n    sm.        n  20s             n     \u0007Pestilence\nnFn       n         n  Fj       n  Fj                 n  Fh         \u0007watchman\n;h..m.     sm.    yny   y y  y\u001b  ."
+  }
+ ]
+}

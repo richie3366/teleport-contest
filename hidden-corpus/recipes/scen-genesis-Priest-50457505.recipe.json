@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n          \u0017Dragonbane\nwiFnFl20s #invoke\ni\u0007cobra\nFl FjFjFjFjFj\u0007scorpion\nsm.sl   yy\u001by   y y y\u001bn  2"
+ },
+ "segments": [
+  {
+   "seed": 50457505,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n          \u0017Dragonbane\nwiFnFl20s #invoke\ni\u0007cobra\nFl FjFjFjFjFj\u0007scorpion\nsm.sl   yy\u001by   y y y\u001bn  2"
+  }
+ ]
+}

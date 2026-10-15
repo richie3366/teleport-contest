@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nlf\n \u0017blessed scroll of create monster\nro paper golem\n \u0017potion of enlightenment\nqp \u001b \u0017blessed wand of teleportation\nzqu zqu E- ad aerarium\n Zsu 20s sSy\u001b y w\u001b#turn\n<f \u001b\u000f\u001bok,oh;m. \u001bm.",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50451030,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nlf\n \u0017blessed scroll of create monster\nro paper golem\n \u0017potion of enlightenment\nqp \u001b \u0017blessed wand of teleportation\nzqu zqu E- ad aerarium\n Zsu 20s sSy\u001b"
+  },
+  {
+   "seed": 50951030,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " y w\u001b#turn\n<f \u001b\u000f\u001bok,oh;m. \u001bm."
+  }
+ ]
+}

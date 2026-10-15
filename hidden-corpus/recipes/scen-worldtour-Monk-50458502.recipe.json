@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                                \u0017blessed Mjollnir\nwk\u001641\n  hl:\u0016?\n>I_ \u001b;\u0016?\n>>P\u0004h\u001641\nju   unlku:\u001641\n__.>.m.   \u0016?\n>>P _>.<.b  \u001641\n\u0006_>,sm.\u0016?\nh _<,_.20s\u0016?\n>Dklbjh:\u001641\n\u0007plains centaur\n;h;sysm.20s \u0007gold golem\nsm.ss.y.sm. .hsn 20s  \u0007gray ooze\nFu   Fl  \u0007green mold\n;n:  .j20s .m.  \u0016?\nk  __.>\u0016?\n>>Q   hkjk\u0017ice\njkjku\u0017magic fountain\nqy qyqy\u0017long sword\n#dip\nly:lk\u0017iron bars\nhllhbh\u0017unaligned altar\ndcdl\u0017human corpse\n #pray\ny z20s#sit\n\u0016?\nr#levelchange\n12\n      \u0017blessed +3 ring of see invisible\n\u0007winter wolf\nPnlsm.  n.m.20s\u0017dagger\nwoFjFjFj\u0017unicorn horn\napap\u0017blessed wand of teleportation\n\u0007green slime\nzqjzqkss20s \u001629\n\u0004b\u0016?\n>>K      the Staff of Aesculapius\n  u lk:\u0016?\n\u001bky\u001641\n#levelchange\n20\n         \u0017cursed scroll of teleportation\n\u0007minotaur\nrs 3\n    \u0017blessed spellbook of remove curse\nrt   n    .l      n  sm.     n   Z\u001bZ\u001bFk   Fk   n\u0017cursed wand of death\nzuj   FjFu    n  \u0017blessed 20 arrows\nQkyfnfkfuFu  Fh   n      .m.   .m.    n    \u00161\n\u001618\n#chat\nb   ;h.\u0016?\n\u001bl   n  j           n  \u00167\n\u0016?\n\u001bn       l     n \u0016?\n\u001bb     n b     n \u00169\n\u0016?\n\u001by        h    n    n \u0016?\n\u001bb    ynnnny\u001b  l"
+ },
+ "segments": [
+  {
+   "seed": 50458502,
+   "datetime": "20140704183834",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                                \u0017blessed Mjollnir\nwk\u001641\n  hl:\u0016?\n>I_ \u001b;\u0016?\n>>P\u0004h\u001641\nju   unlku:\u001641\n__.>.m.   \u0016?\n>>P _>.<.b  \u001641\n\u0006_>,sm.\u0016?\nh _<,_.20s\u0016?\n>Dklbjh:\u001641\n\u0007plains centaur\n;h;sysm.20s \u0007gold golem\nsm.ss.y.sm. .hsn 20s  \u0007gray ooze\nFu   Fl  \u0007green mold\n;n:  .j20s .m.  \u0016?\nk  __.>\u0016?\n>>Q   hkjk\u0017ice\njkjku\u0017magic fountain\nqy qyqy\u0017long sword\n#dip\nly:lk\u0017iron bars\nhllhbh\u0017unaligned altar\ndcdl\u0017human corpse\n #pray\ny z20s#sit\n\u0016?\nr#levelchange\n12\n      \u0017blessed +3 ring of see invisible\n\u0007winter wolf\nPnlsm.  n.m.20s\u0017dagger\nwoFjFjFj\u0017unicorn horn\napap\u0017blessed wand of teleportation\n\u0007green slime\nzqjzqkss20s \u001629\n\u0004b\u0016?\n>>K      the Staff of Aesculapius\n  u lk:\u0016?\n\u001bky\u001641\n#levelchange\n20\n         \u0017cursed scroll of teleportation\n\u0007minotaur\nrs 3\n    \u0017blessed spellbook of remove curse\nrt   n    .l      n  sm.     n   Z\u001bZ\u001bFk   Fk   n\u0017cursed wand of death\nzuj   FjFu    n  \u0017blessed 20 arrows\nQkyfnfkfuFu  Fh   n      .m.   .m.    n    \u00161\n\u001618\n#chat\nb   ;h.\u0016?\n\u001bl   n  j           n  \u00167\n\u0016?\n\u001bn       l     n \u0016?\n\u001bb     n b     n \u00169\n\u0016?\n\u001by        h    n    n \u0016?\n\u001bb    ynnnny\u001b  l"
+  }
+ ]
+}

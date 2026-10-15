@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWi\u0016?\n>w\u0006_ \u001b.,p;FbFb Fb FbFbFb  _ooooo.,pm._oooo.,#chat\nl_oooooooo.,pm,_oooooo.,p@._oooooooo,,\u0017amulet of reflection\ndj_oooooooo.,#chat\nu_ooooooo,,$_oooooo.,p@._ooooo,,p>._{,Fn _.  n Fy   nqd  \u00161\n_ooooooo.Fh_.;>.Fh   n_oo.Fh_,Fk,p\u0016?\ncju  n j \u0016?\n>w\u0006\u00163\n_oooooo.,$\u0016?\n>Bnnn\u0016?\n>w\u0006_ooooooo,  nFu _.;@.Fk   n,\u0014,   n.m.sm.\u00165\n_ooooo,_ooo.,p_ooooooo,,\u0017amulet of restful sleep\ndk   nFk FkFk Fk Fk   nFk Fk   nFk Fk Fk   nFk Fk   n\u00164\nFy   nFy Fy   nFy Fy   nFy\u0016?\ncl  jj  yy\u001by   y nny  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50450045,
+   "datetime": "20090511221427",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWi\u0016?\n>w\u0006_ \u001b.,p;FbFb Fb FbFbFb  _ooooo.,pm._oooo.,#chat\nl_oooooooo.,pm,_oooooo.,p@._oooooooo,,\u0017amulet of reflection\ndj_oooooooo.,#chat\nu_ooooooo,,$_oooooo.,p@._ooooo,,p>._{,Fn _.  n Fy   nqd  \u00161\n_ooooooo.Fh_.;>.Fh   n_oo.Fh_,Fk,p\u0016?\ncju  n j \u0016?\n>w\u0006\u00163\n_oooooo.,$\u0016?\n>Bnnn\u0016?\n>w\u0006_ooooooo,  nFu _.;@.Fk   n,\u0014,   n.m.sm.\u00165\n_ooooo,_ooo.,p_ooooooo,,\u0017amulet of restful sleep\ndk   nFk FkFk Fk Fk   nFk Fk   nFk Fk Fk   nFk Fk   n\u00164\nFy   nFy Fy   nFy Fy   nFy\u0016?\ncl  jj  yy\u001by   y nny  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u001622\n \u0014 \u001b:\u0016?\n>>K      wand of fire\nn kl  h      h     uu:20s       n  sm.    \u001631\n\u0004u   \u0016?\n\u001by   n     b  n         n\u00168\n\u0016?\n\u001bb           n y         \u0016?\n\u001bl  n           n   j   n    \u00162\n\u001622\nn    n      n   u      n    j   n               n h      n    y   n       yny   y y n  l"
+ },
+ "segments": [
+  {
+   "seed": 50458508,
+   "datetime": "20020903020153",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                    \u001622\n \u0014 \u001b:\u0016?\n>>K      wand of fire\nn kl  h      h     uu:20s       n  sm.    \u001631\n\u0004u   \u0016?\n\u001by   n     b  n         n\u00168\n\u0016?\n\u001bb           n y         \u0016?\n\u001bl  n           n   j   n    \u00162\n\u001622\nn    n      n   u      n    j   n               n h      n    y   n       yny   y y n  l"
+  }
+ ]
+}

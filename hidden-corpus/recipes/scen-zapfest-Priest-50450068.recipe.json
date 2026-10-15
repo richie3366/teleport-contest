@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPjr\u0017blessed shield of reflection\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n20\n                    \u0017spellbook of sleep\nrm sm.\u0017spellbook of fireball\nrn.m.\u0007gnomish wizard\nZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bsm.20s Z\u001bZ\u001bZ\u001b\u0018\u001b\u0017spellbook of cone of cold\nro  20s\u0017blessed spellbook of slow monster\nrp  20s \u0007kobold shaman\nZ\u001bZ\u001bZ\u001bZ\u001b.m.20s Z\u001bZ\u001bZ\u001b\u0007lich\n\u0007vampire\n\u0017wand of striking\n20s sm.  zqy    zqy   20s     \u00178 spears\n Qr\u0007giant rat\n\u0007sewer rat\ntru       tru    n  try   fu        \u0017wand of lightning\n\u0017wand of striking\n\u0017wand of digging\n\u0007hobbit\n\u0007hobbit\nzsu    ztk     .y       zsy   zth   n zty  sl  zsy   zu>    .m. ztk    ztk     n  zu>   zu>   \u00167\n\u0017wand of polymorph\n\u0017wand of digging\n\u0017wand of fire\n\u0007jackal\n\u0007yellow mold\nzw> zw> zxkzvu sm.zvuzw> zw> zxh "
+ },
+ "segments": [
+  {
+   "seed": 50450068,
+   "datetime": "20240515053858",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPjr\u0017blessed shield of reflection\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n20\n                    \u0017spellbook of sleep\nrm sm.\u0017spellbook of fireball\nrn.m.\u0007gnomish wizard\nZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bsm.20s Z\u001bZ\u001bZ\u001b\u0018\u001b\u0017spellbook of cone of cold\nro  20s\u0017blessed spellbook of slow monster\nrp  20s \u0007kobold shaman\nZ\u001bZ\u001bZ\u001bZ\u001b.m.20s Z\u001bZ\u001bZ\u001b\u0007lich\n\u0007vampire\n\u0017wand of striking\n20s sm.  zqy    zqy   20s     \u00178 spears\n Qr\u0007giant rat\n\u0007sewer rat\ntru       tru    n  try   fu        \u0017wand of lightning\n\u0017wand of striking\n\u0017wand of digging\n\u0007hobbit\n\u0007hobbit\nzsu    ztk     .y       zsy   zth   n zty  sl  zsy   zu>    .m. ztk    ztk     n  zu>   zu>   \u00167\n\u0017wand of polymorph\n\u0017wand of digging\n\u0017wand of fire\n\u0007jackal\n\u0007yellow mold\nzw> zw> zxkzvu sm.zvuzw> zw> zxh "
+  }
+ ]
+}

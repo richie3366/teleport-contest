@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u0007kitten\n\u0017apple\n tbj\u0007jackal\nsm. 20s  sm.    sm. sm.  n  20s  k\u0007kobold\n.m. sm.  20s  20s  n    su.n \u0017newt corpse\nt\u001b\u0017tin whistle\nbyuaj \u0006_ \u001bm.>FlFl_>.Fj_.m.Fk>FlFj_>.Fj_.Fh>Fl  nFh \u00161\nv i\u001b#levelchange\n10\n         uj n \u0017tree\nny \u0017magic fountain\nqy #dip\nay ynn\u0017melting ice\nnynnnn\u0017sink\nqy\u0017ring of teleport control\ndk  \u001bn\u0004y:#terrain\n\u001bf \u001b\u0018\u001bH\u000f\u001b#turn\n#offer\nO>>>l\u001b\n\u0006_>,Fu_.Fu>FuFn_>,Fn_.Fn>FnFh_>.Fh_,Fu>FuFuFhFuFh\u0006_>.Fu_,Fh>FuFu_>,Fu_.Fh>FuFu_>,Fu_.Fh>FnFuFnFnFn\u0006_>.Fn_.Fu>Fh Fn_>.Fu_.Fn>FuFn_>.Fn_.Fu>FuFnFnFnFn,_m,s\u0006_>>.Fu_.Fu>FuFu_>>.Fu_,Fu>FnFu_>>.Fu_.Fn>FuFnFnFnFu\u0006_>.Fn_.Fu>Fh Fu_>.Fl_. Fn >Fh Fu _>, Fl _. Fu>FuFu Fl   \u001bFlFh\u0006_>,Fl_,Fu>FlFl_>.Fh_.Fh>FhFl _>,Fn_.Fl >Fl Fn FhFl Fh\u0007tame gnome lord\n\u0007tame winter wolf cub\n\u0017meatball\nt\u001b\u0017huge chunk of meat\n t\u001bl20s\u0006_>. Fu_, Fn >Fn   nFn _>.  Fh_,> \u0007kobold\nsy su sk20ssm.20s\u0017leash\nannyll nany dism..bsm.Om\u001b\n10s  n i\u001b\u00165\n_>.>50skhjFyFbFbFbFhFyFyFbFbFhFbFhFyFyFhFbFbFyFbFbFhFyFhFhFyFyFbFhFbFbFyFhFyFyFhFyFh"
+ },
+ "segments": [
+  {
+   "seed": 50455035,
+   "datetime": "20040921020503",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "v i\u001b\u0007kitten\n\u0017apple\n tbj\u0007jackal\nsm. 20s  sm.    sm. sm.  n  20s  k\u0007kobold\n.m. sm.  20s  20s  n    su.n \u0017newt corpse\nt\u001b\u0017tin whistle\nbyuaj \u0006_ \u001bm.>FlFl_>.Fj_.m.Fk>FlFj_>.Fj_.Fh>Fl  nFh \u00161\nv i\u001b#levelchange\n10\n         uj n \u0017tree\nny \u0017magic fountain\nqy #dip\nay ynn\u0017melting ice\nnynnnn\u0017sink\nqy\u0017ring of teleport control\ndk  \u001bn\u0004y:#terrain\n\u001bf \u001b\u0018\u001bH\u000f\u001b#turn\n#offer\nO>>>l\u001b\n\u0006_>,Fu_.Fu>FuFn_>,Fn_.Fn>FnFh_>.Fh_,Fu>FuFuFhFuFh\u0006_>.Fu_,Fh>FuFu_>,Fu_.Fh>FuFu_>,Fu_.Fh>FnFuFnFnFn\u0006_>.Fn_.Fu>Fh Fn_>.Fu_.Fn>FuFn_>.Fn_.Fu>FuFnFnFnFn,_m,s\u0006_>>.Fu_.Fu>FuFu_>>.Fu_,Fu>FnFu_>>.Fu_.Fn>FuFnFnFnFu\u0006_>.Fn_.Fu>Fh Fu_>.Fl_. Fn >Fh Fu _>, Fl _. Fu>FuFu Fl   \u001bFlFh\u0006_>,Fl_,Fu>FlFl_>.Fh_.Fh>FhFl _>,Fn_.Fl >Fl Fn FhFl Fh\u0007tame gnome lord\n\u0007tame winter wolf cub\n\u0017meatball\nt\u001b\u0017huge chunk of meat\n t\u001bl20s\u0006_>. Fu_, Fn >Fn   nFn _>.  Fh_,> \u0007kobold\nsy su sk20ssm.20s\u0017leash\nannyll nany dism..bsm.Om\u001b\n10s  n i\u001b\u00165\n_>.>50skhjFyFbFbFbFhFyFyFbFbFhFbFhFyFyFhFbFbFyFbFbFhFyFhFhFyFyFbFhFbFbFyFhFyFyFhFyFh"
+  }
+ ]
+}

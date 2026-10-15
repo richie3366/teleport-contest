@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " Fb ssbbknhu_<, \u001bm.sm.FlFl20s100s100s\u0018\u001b150snyys100s100sFnFnFn100s150sFnFnFnFn20s.i\u001b100s\u0018\u001b100s150s100sFlss#terrain\nb\n100s 50sFlFl.100s_>.>Flss50slbj150s jblbjj100sed150sLHKL_>.>Fk20sFk#pray\ny        ag\u001bNKBB_>.>FjFjFk#pray\ny  #conduct\n YYHB_>.>\u000f\u001b50sFk20ssed 150s100sFjFjsi\u001b100s100sFkssnyl#dip\nb100s#untrap\nyk uy100s50s\u0018\u001bnlhFlss100sFb20s20s\u000f\u001b_>.>llh150sFhFhFh150s100sFls20s50s#dip\ngs50sZ50s150sFl.20slll100st\u001b10slnt\u001bjy10s\u0018\u001b100s100sn100s_>.>50s50suhy50s50slljhkl150s#offer\n100sedbubi\u001b150sFhs.50sFhss100s kjuFjFn.Fn20s20sFnFnFn_>.>\u000f\u001b150sFjs20sFj.20s\\ _>.>50s50s50sembyn_>,>\\ \u0004h100s50s100si\u001b100sFhFhs150s50s\\ 100sjkyjyh\\ lnyed150s50s10"
+ },
+ "segments": [
+  {
+   "seed": 50450019,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:explore\n",
+   "moves": " Fb ssbbknhu_<, \u001bm.sm.FlFl20s100s100s\u0018\u001b150snyys100s100sFnFnFn100s150sFnFnFnFn20s.i\u001b100s\u0018\u001b100s150s100sFlss#terrain\nb\n100s 50sFlFl.100s_>.>Flss50slbj150s jblbjj100sed150sLHKL_>.>Fk20sFk#pray\ny        ag\u001bNKBB_>.>FjFjFk#pray\ny  #conduct\n YYHB_>.>\u000f\u001b50sFk20ssed 150s100sFjFjsi\u001b100s100sFkssnyl#dip\nb100s#untrap\nyk uy100s50s\u0018\u001bnlhFlss100sFb20s20s\u000f\u001b_>.>llh150sFhFhFh150s100sFls20s50s#dip\ngs50sZ50s150sFl.20slll100st\u001b10slnt\u001bjy10s\u0018\u001b100s100sn100s_>.>50s50suhy50s50slljhkl150s#offer\n100sedbubi\u001b150sFhs.50sFhss100s kjuFjFn.Fn20s20sFnFnFn_>.>\u000f\u001b150sFjs20sFj.20s\\ _>.>50s50s50sembyn_>,>\\ \u0004h100s50s100si\u001b100sFhFhs150s50s\\ 100sjkyjyh\\ lnyed150s50s10"
+  }
+ ]
+}

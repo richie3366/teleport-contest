@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    jjn\u0017squeaky board\ny^nns.k\u0017sleeping gas trap\nh^l#untrap\nlj\u0017trap door\nu   \u0007jackal\n20s   sm.20ssm.y\u0017anti-magic field\ny^nn20ssl#terrain\nb\n\u001bm,,#jump\n#jump\n"
+ },
+ "segments": [
+  {
+   "seed": 50451021,
+   "datetime": "20080428212548",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n    jjn\u0017squeaky board\ny^nns.k\u0017sleeping gas trap\nh^l#untrap\nlj\u0017trap door\nu   \u0007jackal\n20s   sm.20ssm.y\u0017anti-magic field\ny^nn20ssl#terrain\nb\n\u001bm,,#jump\n#jump\n"
+  }
+ ]
+}

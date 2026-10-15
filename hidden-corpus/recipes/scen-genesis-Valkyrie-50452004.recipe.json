@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0007baluchitherium\n;n; \u001b>.sus.m.\u0007pony\nFj Fn\u0007werewolf\nFj  Fj Fn "
+ },
+ "segments": [
+  {
+   "seed": 50452004,
+   "datetime": "20051017024149",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0007baluchitherium\n;n; \u001b>.sus.m.\u0007pony\nFj Fn\u0007werewolf\nFj  Fj Fn "
+  }
+ ]
+}

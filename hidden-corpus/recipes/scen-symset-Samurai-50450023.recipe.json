@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "FyFbFnFhFuFuFkFyFyFkFyFuFbFyFuFjFhFhFnFhFuFlFnFkFlFuFkFjFjFlFhFjFuFjFjFuFyFuFkFyFlFhFjFjFnFkFnFuFuFlFnFbFbFjFyFyFyFkFbFjFhFyFyFkFkFjFbFn  FnFhFkFhFnFuFb#pray\ny y     FjFuFyFbFjFyFyFkFjFkFnFnFhFkFlFuFnFjFkFuFkFuFhFbFyFkFlFuFlFuFlFjFlFbFlFuFjFkFyFuFlFn\u0007pony\n\u0017huge chunk of meat\n tcb\u0007large dog\n\u0017huge chunk of meat\n tdb \u0007yellow mold\n20s su   n sm.sm.   n sm.   n sm. #chat\nu\u0007yellow mold\nsm.  n  sm.  n sk20s  20s  n sm.   n \u0017huge chunk of meat\ntdh  \u0007giant rat\n.m.  n     n.m. sm.   n  sm.    n sm.   n sm.   n \u0007grid bug\n\u0017scroll of taming\nrh \u0007newt\n20s s.ss.\u001610\n\u0007tame soldier ant\n\u0017apple\ntdj#c"
+ },
+ "segments": [
+  {
+   "seed": 50450023,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nMSGTYPE=hide \"You miss\"\nMENUCOLOR=\"a potion\"=brown\nBIND=v:inventory\n",
+   "moves": "FyFbFnFhFuFuFkFyFyFkFyFuFbFyFuFjFhFhFnFhFuFlFnFkFlFuFkFjFjFlFhFjFuFjFjFuFyFuFkFyFlFhFjFjFnFkFnFuFuFlFnFbFbFjFyFyFyFkFbFjFhFyFyFkFkFjFbFn  FnFhFkFhFnFuFb#pray\ny y     FjFuFyFbFjFyFyFkFjFkFnFnFhFkFlFuFnFjFkFuFkFuFhFbFyFkFlFuFlFuFlFjFlFbFlFuFjFkFyFuFlFn\u0007pony\n\u0017huge chunk of meat\n tcb\u0007large dog\n\u0017huge chunk of meat\n tdb \u0007yellow mold\n20s su   n sm.sm.   n sm.   n sm. #chat\nu\u0007yellow mold\nsm.  n  sm.  n sk20s  20s  n sm.   n \u0017huge chunk of meat\ntdh  \u0007giant rat\n.m.  n     n.m. sm.   n  sm.    n sm.   n sm.   n \u0007grid bug\n\u0017scroll of taming\nrh \u0007newt\n20s s.ss.\u001610\n\u0007tame soldier ant\n\u0017apple\ntdj#c"
+  }
+ ]
+}

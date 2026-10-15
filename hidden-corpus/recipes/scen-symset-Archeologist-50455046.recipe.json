@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "v  i\u001b\u0007tame housecat\n\u0007housecat\n\u0017lichen corpse\nt\u001b\u0017lichen corpse\nt\u001b\u0006_ \u001b,>FjFj_>.   Fj_.Fj>Fk Fj_>. Fk_..Fu>FjFhdis.s\u0017banana\nt\u001bdk.s20s\u0006_>,Fl_.> \u0006_>.Fu_.>.Fl>FnFl_>,_.> \u001616\n\u00163\nFhFyFhFyFhFyFyFyFhFyFyFyFhFhFyFhFhFyFhFyFyFhFhFhFhFyFhFyFyFyFyFyFyFhFyFhFyFyFyFyFhFhFyFhFhFhFyFyFhFyFyFyFhFyFyFyFyFhFhFyFyFyFyFhFhFhFyFhFhFhFyFyFhFyFyFyFhFyFyFhFyFyFyFhFyFyFyFhFyFyFyFhFhFyFyFhFhFyFhFyFhFhFyFhFyFhFhFyFhFyFhFhFyFyFyFyFhFyFyFyOk\u001b\nO>>>c\u001b\n\u0006_>>,_.> FbFjFj\u0006_>,_,> FnFbFn< \u0006_>>,> FnFnFn\u000f\u001b#offer\nqi\u001b\u000f\u001b\u00165\nFbFbFbFnFnFnFnFbFnFnFnFbFbFbFnFnFnFnFbFbFbFbFnFbFnFnFnFnFnFnFnFbFbFnFnFbFbFbFbFbFbFbFbFnFbFnFbFbFbFnFnFbFbFbFbFbFbFbFbFbFbFnFnFbFbFnFnFnFnFbFbFbFbFnFnFbFbFnFbFbFbFnFnFbFbFnFbFbFnFbFbFbFbFnFnFnFnFnFbFbFbFbFnFbFbFbFbFbFnFnFnFbFnFbFnFnFbFnFbFbmOa\u001b\n\u001613\n\u0007tame gnome lord\n \u0007pony\n\u0017meatball\nt\u001bdj.ss\u0017carrot\nt\u001b\u0017magic whistle\nbbban  \u0017leash\naonuyykaon\u0006_>.    Fu_,Fu  >Fn   Fu_>.  Fl_.  Fl>Fu   Fn_>,Fu_.Fn>FuFu\u0017leash\napjubuyapk\u0007yellow mold\n\u0017scroll of taming\n rq \u001614\n    i\u001bi\u001bv i\u001bOk\u001b"
+ },
+ "segments": [
+  {
+   "seed": 50455046,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:MACgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You feel\"\n",
+   "moves": "v  i\u001b\u0007tame housecat\n\u0007housecat\n\u0017lichen corpse\nt\u001b\u0017lichen corpse\nt\u001b\u0006_ \u001b,>FjFj_>.   Fj_.Fj>Fk Fj_>. Fk_..Fu>FjFhdis.s\u0017banana\nt\u001bdk.s20s\u0006_>,Fl_.> \u0006_>.Fu_.>.Fl>FnFl_>,_.> \u001616\n\u00163\nFhFyFhFyFhFyFyFyFhFyFyFyFhFhFyFhFhFyFhFyFyFhFhFhFhFyFhFyFyFyFyFyFyFhFyFhFyFyFyFyFhFhFyFhFhFhFyFyFhFyFyFyFhFyFyFyFyFhFhFyFyFyFyFhFhFhFyFhFhFhFyFyFhFyFyFyFhFyFyFhFyFyFyFhFyFyFyFhFyFyFyFhFhFyFyFhFhFyFhFyFhFhFyFhFyFhFhFyFhFyFhFhFyFyFyFyFhFyFyFyOk\u001b\nO>>>c\u001b\n\u0006_>>,_.> FbFjFj\u0006_>,_,> FnFbFn< \u0006_>>,> FnFnFn\u000f\u001b#offer\nqi\u001b\u000f\u001b\u00165\nFbFbFbFnFnFnFnFbFnFnFnFbFbFbFnFnFnFnFbFbFbFbFnFbFnFnFnFnFnFnFnFbFbFnFnFbFbFbFbFbFbFbFbFnFbFnFbFbFbFnFnFbFbFbFbFbFbFbFbFbFbFnFnFbFbFnFnFnFnFbFbFbFbFnFnFbFbFnFbFbFbFnFnFbFbFnFbFbFnFbFbFbFbFnFnFnFnFnFbFbFbFbFnFbFbFbFbFbFnFnFnFbFnFbFnFnFbFnFbFbmOa\u001b\n\u001613\n\u0007tame gnome lord\n \u0007pony\n\u0017meatball\nt\u001bdj.ss\u0017carrot\nt\u001b\u0017magic whistle\nbbban  \u0017leash\naonuyykaon\u0006_>.    Fu_,Fu  >Fn   Fu_>.  Fl_.  Fl>Fu   Fn_>,Fu_.Fn>FuFu\u0017leash\napjubuyapk\u0007yellow mold\n\u0017scroll of taming\n rq \u001614\n    i\u001bi\u001bv i\u001bOk\u001b"
+  }
+ ]
+}

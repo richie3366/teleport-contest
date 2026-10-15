@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n12\n #wizintrinsic\nbfi\n  suss.jsb20s  .m.20s  sm.  nss20s#pray\ny y #ride\nhy#force\n#chat\nl#force\n20ssssss20s\u001623\n\u0017bag of holding\n\u0017wand of magic missile\n\u0017ring of warning\ndjj\u0004k#tip\nf\u001b\u0017skeleton key\ndiam.s20s    sm.#loot\nkaky    #levelchange\n8\n \u0017uncursed spellbook of wizard lock\nrn  ..ZZ\u0017uncursed potion of fruit juice\nqo\u00173 potion of restore ability\n\u0007soldier\nqp\u0017uncursed scroll of fire\nrq   sk20s #levelchange\n30\n                      \u0016?\n>J     wand of slow monster\ntbn _<. \u001b@.sm.   #jump\n;h:  \u0006.m. sm.          \u0016?\n\u001b\u0016?\n\u001b\u001639\n10s        n       k    W\u001b;k..m..m.#levelchange\n20\n   \u0017uncursed spellbook of light\nrt  n                 n  20s        n  n           20s  ZZ\u00173 the Platinum Yendorian Express Card\n \u0007dwarf\n\u0017uncursed +0 black dragon scale mail\n\u0007vrock\nW\u001b20s sm.  n     su   n    n        n     \u0017blessed scroll of confuse monster\nrv.s\u001b\u00161\n\u00166\n\u0016?\n\u001b\u001614\n_mm.#chat\n_mmmm.#chat\n_mmm.#chat\n_mmmm,#chat\nf by k  ;k;#rub\n\u0017oilskin sack\n\u0017ring of cold resistance\n\u0017potion of polymorph\n\u0017wand of striking\n#tip\nxf\n   n       n  ax\u001bax\u001b\u0017lock pick\ndx     n  n     aB.   s s s   n      n #loot\n\u001baf\u001baeh\u001610\ni\u001b\u0017ring of gain strength\nPCl    yny   y ny\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50456022,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n12\n #wizintrinsic\nbfi\n  suss.jsb20s  .m.20s  sm.  nss20s#pray\ny y #ride\nhy#force\n#chat\nl#force\n20ssssss20s\u001623\n\u0017bag of holding\n\u0017wand of magic missile\n\u0017ring of warning\ndjj\u0004k#tip\nf\u001b\u0017skeleton key\ndiam.s20s    sm.#loot\nkaky    #levelchange\n8\n \u0017uncursed spellbook of wizard lock\nrn  ..ZZ\u0017uncursed potion of fruit juice\nqo\u00173 potion of restore ability\n\u0007soldier\nqp\u0017uncursed scroll of fire\nrq   sk20s #levelchange\n30\n                      \u0016?\n>J     wand of slow monster\ntbn _<. \u001b@.sm.   #jump\n;h:  \u0006.m. sm.          \u0016?\n\u001b\u0016?\n\u001b\u001639\n10s        n       k    W\u001b;k..m..m.#levelchange\n20\n   \u0017uncursed spellbook of light\nrt  n                 n  20s        n  n           20s  ZZ\u00173 the Platinum Yendorian Express Card\n \u0007dwarf\n\u0017uncursed +0 black dragon scale mail\n\u0007vrock\nW\u001b20s sm.  n     su   n    n        n     \u0017blessed scroll of confuse monster\nrv.s\u001b\u00161\n\u00166\n\u0016?\n\u001b\u001614\n_mm.#chat\n_mmmm.#chat\n_mmm.#chat\n_mmmm,#chat\nf by k  ;k;#rub\n\u0017oilskin sack\n\u0017ring of cold resistance\n\u0017potion of polymorph\n\u0017wand of striking\n#tip\nxf\n   n       n  ax\u001bax\u001b\u0017lock pick\ndx     n  n     aB.   s s s   n      n #loot\n\u001baf\u001baeh\u001610\ni\u001b\u0017ring of gain strength\nPCl    yny   y ny\u001b  s"
+  }
+ ]
+}

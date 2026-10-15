@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u00166\nFjFuFyFuFuFlFjFy FbFlFjFjFlFuFbFlFlFjFjFbFuFuFuFuFuFlFuFlFbFb  _>\\\u000f\\150s100skby100s150syjhjjjllb100s50s#loot\nFjFlFbFjFuFbFjFb   nFl  nFu  nFu  nFu  nFb  nFk  nFj  nFk  nFk  nFb  nFb  nFb  nFj  nFj  nFb  yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50455064,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=runmode:walk\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": " \u00166\nFjFuFyFuFuFlFjFy FbFlFjFjFlFuFbFlFlFjFjFbFuFuFuFuFuFlFuFlFbFb  _>\\\u000f\\150s100skby100s150syjhjjjllb100s50s#loot\nFjFlFbFjFuFbFjFb   nFl  nFu  nFu  nFu  nFb  nFk  nFj  nFk  nFk  nFb  nFb  nFb  nFj  nFj  nFb  yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

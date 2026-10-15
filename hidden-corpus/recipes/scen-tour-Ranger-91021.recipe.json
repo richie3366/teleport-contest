@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u001614\n#untrap\nh\u0014 \u001b<.#loot\ns.\u0016?\nb#monster\ntdl#wipe\nss\u00162\ntdnWolss\u0016?\n>v E- I am a fish\ncj#offer\n;_.\u0006.s"
+ },
+ "segments": [
+  {
+   "seed": 91021,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u001614\n#untrap\nh\u0014 \u001b<.#loot\ns.\u0016?\nb#monster\ntdl#wipe\nss\u00162\ntdnWolss\u0016?\n>v E- I am a fish\ncj#offer\n;_.\u0006.s"
+  }
+ ]
+}

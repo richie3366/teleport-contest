@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                                \u0017wand of make invisible\nzj.Fb20s\u0017two-handed sword\nwks20sss.\u0017spellbook of clairvoyance\nrl  ..Zb\nZa\ns20s \u0017cloak of magic resistance\n\u0007mastodon\nW\u001bsm.sm.20ssm.sb"
+ },
+ "segments": [
+  {
+   "seed": 91024,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                                \u0017wand of make invisible\nzj.Fb20s\u0017two-handed sword\nwks20sss.\u0017spellbook of clairvoyance\nrl  ..Zb\nZa\ns20s \u0017cloak of magic resistance\n\u0007mastodon\nW\u001bsm.sm.20ssm.sb"
+  }
+ ]
+}

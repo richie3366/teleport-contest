@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #loot\nh #chat\nh W\u001bZv i\u001b\u00167\nv i\u001b#rub\nz\u00162\nOd\u001b\nOamango\n\u001b\nFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFn\u0006_ \u001b.>FnFn_>._. >_>._,>\u0006_>,_.>_>.Fb_,Fb>FbFb_>,Fb_.Fb>FbFbFbFbFb\u0006_>.Fb_,Fb>FbFb_>,Fb_.Fj>FjFj_>.Fj_.Fb>FjFjFjFjFb\u0006_>.Fb_,Fb>FjFj_>.Fb_.Fb>FjFj_>.Fb_.Fj>FjFbFjFbFb\u0006_>.Fj_.Fj>FjFj_>.Fj_.Fb>FbFb_>.Fj_.Fb>FbFjFjFbFj#unt"
+ },
+ "segments": [
+  {
+   "seed": 50455066,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nMENUCOLOR=\"a scroll\"=brown\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #loot\nh #chat\nh W\u001bZv i\u001b\u00167\nv i\u001b#rub\nz\u00162\nOd\u001b\nOamango\n\u001b\nFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFn\u0006_ \u001b.>FnFn_>._. >_>._,>\u0006_>,_.>_>.Fb_,Fb>FbFb_>,Fb_.Fb>FbFbFbFbFb\u0006_>.Fb_,Fb>FbFb_>,Fb_.Fj>FjFj_>.Fj_.Fb>FjFjFjFjFb\u0006_>.Fb_,Fb>FjFj_>.Fb_.Fb>FjFj_>.Fb_.Fj>FjFbFjFbFb\u0006_>.Fj_.Fj>FjFj_>.Fj_.Fb>FbFb_>.Fj_.Fb>FbFjFjFbFj#unt"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "O>h\u001b\n#turn\n#ride\nuychP\u0007tame little dog\n\u0007horse\n\u0017lichen corpse\ntbj#chat\nl#name\nf\n m,\u0007sewer rat\n\u0017scroll of taming\nrf \u0017carrot\nt\u001bh\u0007lichen\n\u0017scroll of taming\nrh dc.ss\u00167\nFyFkFk\u0018\u001b100s50sFn   \u001bsFn#tip\n\u001b100s   #untrap\nlnhnFnFnFn    Fn FbFjFjFnFjFj FjFbFjFjFnFb FnFbFnFbFnFbFj FbFjFb  Fu FbFkFkFnFbFjFbFjFbFbFnFnFbFbFjFjFnFjFjFbFl FnFnFbFbFbFj#pray\ny y  Fj   n Fb    nFk   #pray\ny y      Fj  Fn    nFy   Fn   n Fk    nFn  Fj   n Fn    nFk  Fn    nFkFnFnFj FnFbFnFbFbFjFnFnFjFjFbFnFnFjFbFn\u00161\nO>>>>i\u001b\u001b\nOc\u001b\n#untrap\nj#ride\njymO>>>i\u001b\n\u00163\nFjFjFnFnFjFbFbFbFnFnFbFnFjFnFjFbFjFbFjFnFjFbFjFbFjFnFjFbFjFnFbFjFjFnFkFkFjFkFjFjFjFnFnFbFjFbFbFnFnFjFnFnFbFnFbFjFnFnFbFjFnFbFbFnFjFjFbFbFjFbFbFjFjFjFjFnFjFbFbFbFjFjFjFnFnFnFjFjFnFbFjFnFjFbFjFbFbFnFjFnFnFnFbFnFjFjFnFjFbFjFnFnFbFnFnFjFnFnFjFn\u00167\nFuFyFuFuFuFuFyFyFuFyFyFkFyFuFhFkFuFkFhFyFyFyFyFu  nFkFyFhFyFyFkFyFkFyFkFyFyFyFyFyFyFyFuFyFkFkFuFyFkFkFuFkFkFuFyFuFuFyFuFkFkFyFyFuFyFuFyFuFuFuFuFyFyFuFuFuFuFuFyFkFkFyFuFuFuFuFyFyFuFuFuFkFyFkFyFyFuFkFuFkFkFkFyF"
+ },
+ "segments": [
+  {
+   "seed": 50455020,
+   "datetime": "20020722152346",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nMENUCOLOR=\"uncursed\"=green\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "O>h\u001b\n#turn\n#ride\nuychP\u0007tame little dog\n\u0007horse\n\u0017lichen corpse\ntbj#chat\nl#name\nf\n m,\u0007sewer rat\n\u0017scroll of taming\nrf \u0017carrot\nt\u001bh\u0007lichen\n\u0017scroll of taming\nrh dc.ss\u00167\nFyFkFk\u0018\u001b100s50sFn   \u001bsFn#tip\n\u001b100s   #untrap\nlnhnFnFnFn    Fn FbFjFjFnFjFj FjFbFjFjFnFb FnFbFnFbFnFbFj FbFjFb  Fu FbFkFkFnFbFjFbFjFbFbFnFnFbFbFjFjFnFjFjFbFl FnFnFbFbFbFj#pray\ny y  Fj   n Fb    nFk   #pray\ny y      Fj  Fn    nFy   Fn   n Fk    nFn  Fj   n Fn    nFk  Fn    nFkFnFnFj FnFbFnFbFbFjFnFnFjFjFbFnFnFjFbFn\u00161\nO>>>>i\u001b\u001b\nOc\u001b\n#untrap\nj#ride\njymO>>>i\u001b\n\u00163\nFjFjFnFnFjFbFbFbFnFnFbFnFjFnFjFbFjFbFjFnFjFbFjFbFjFnFjFbFjFnFbFjFjFnFkFkFjFkFjFjFjFnFnFbFjFbFbFnFnFjFnFnFbFnFbFjFnFnFbFjFnFbFbFnFjFjFbFbFjFbFbFjFjFjFjFnFjFbFbFbFjFjFjFnFnFnFjFjFnFbFjFnFjFbFjFbFbFnFjFnFnFnFbFnFjFjFnFjFbFjFnFnFbFnFnFjFnFnFjFn\u00167\nFuFyFuFuFuFuFyFyFuFyFyFkFyFuFhFkFuFkFhFyFyFyFyFu  nFkFyFhFyFyFkFyFkFyFkFyFyFyFyFyFyFyFuFyFkFkFuFyFkFkFuFkFkFuFyFuFuFyFuFkFkFyFyFuFyFuFyFuFuFuFuFyFyFuFuFuFuFuFyFkFkFyFuFuFuFuFyFyFuFuFuFkFyFkFyFyFuFkFuFkFkFkFyF"
+  }
+ ]
+}

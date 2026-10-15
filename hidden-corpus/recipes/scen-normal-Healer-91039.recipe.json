@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "u #pray\ny  f $ bt$h\u0018\u001b#name\nf\n .<Hzgj \u000f\u001bai 20sn\u000f\u001b#conduct\n b\\ #chat\ny rj nyw-i\u001bW20s20s20sacuri y.k  sZb\nZc\nqe#dip\nadwasFkFlXrh y .20s Za\nek#loot\nl#untrap\nlokE- I am a fish\n__.20s "
+ },
+ "segments": [
+  {
+   "seed": 91039,
+   "datetime": "20170703171442",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "u #pray\ny  f $ bt$h\u0018\u001b#name\nf\n .<Hzgj \u000f\u001bai 20sn\u000f\u001b#conduct\n b\\ #chat\ny rj nyw-i\u001bW20s20s20sacuri y.k  sZb\nZc\nqe#dip\nadwasFkFlXrh y .20s Za\nek#loot\nl#untrap\nlokE- I am a fish\n__.20s "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPi\u0017blessed shield of reflection\nWj\u0017blessed ring of free action\nPkl#levelchange\n10\n         \u0017blessed spellbook of sleep\nrls\u0017blessed spellbook of cone of cold\nrm .\u0007master lich\nZb\nsn  20s Za\nZa\nZb\nZb\ns sZb\nZa\nZa\n#turn\n\u00175 boomerangs\nQn\u0007gnome\n\u0007hobbit\ntnh  tby  fy fk\u0017potion of full healing\ntbk\u0017wand of digging\n\u0017wand of cold\n\u0007newt\n\u0007hill orc\nzqysm.zp> zp> .zp> zp> zqjzq.   zpszp20szqj\u0017blessed spellbook of sleep\nrr y.\u0017blessed spellbook of drain life\nrs 20s \u0007lich\nZa\n sm. sm.Zb\nZb\nZa\nZb\n Za\n Zb\nsm..#turn\n\u0007mind flayer\n\u0007succubus\n\u0017wand of fire\nztl  \u0007lich\n\u0007lich\n\u0007mind flayer\n\u0017wand of striking\nzuy  \u0017wand of death\n\u0017wand of cancellation\n\u0017wand of striking\n\u0007gnome\n\u0007bugbear\nzvl              n  n  zvl     n      n 20s   n      n zxl        n sm.  n       n zvu   n     zvk   zxl     zv   zxy  zv    \u00166\n\u0007silver dragon\n.j20s#polyself\nsilver dragon\n    #monster\nsm.    20s #monster\n#monster\n#monster\n\u0017wand of lightning\naFu     Fl   \u0018\u001b\u0017"
+ },
+ "segments": [
+  {
+   "seed": 50450028,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPi\u0017blessed shield of reflection\nWj\u0017blessed ring of free action\nPkl#levelchange\n10\n         \u0017blessed spellbook of sleep\nrls\u0017blessed spellbook of cone of cold\nrm .\u0007master lich\nZb\nsn  20s Za\nZa\nZb\nZb\ns sZb\nZa\nZa\n#turn\n\u00175 boomerangs\nQn\u0007gnome\n\u0007hobbit\ntnh  tby  fy fk\u0017potion of full healing\ntbk\u0017wand of digging\n\u0017wand of cold\n\u0007newt\n\u0007hill orc\nzqysm.zp> zp> .zp> zp> zqjzq.   zpszp20szqj\u0017blessed spellbook of sleep\nrr y.\u0017blessed spellbook of drain life\nrs 20s \u0007lich\nZa\n sm. sm.Zb\nZb\nZa\nZb\n Za\n Zb\nsm..#turn\n\u0007mind flayer\n\u0007succubus\n\u0017wand of fire\nztl  \u0007lich\n\u0007lich\n\u0007mind flayer\n\u0017wand of striking\nzuy  \u0017wand of death\n\u0017wand of cancellation\n\u0017wand of striking\n\u0007gnome\n\u0007bugbear\nzvl              n  n  zvl     n      n 20s   n      n zxl        n sm.  n       n zvu   n     zvk   zxl     zv   zxy  zv    \u00166\n\u0007silver dragon\n.j20s#polyself\nsilver dragon\n    #monster\nsm.    20s #monster\n#monster\n#monster\n\u0017wand of lightning\naFu     Fl   \u0018\u001b\u0017"
+  }
+ ]
+}

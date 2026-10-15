@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0016?\n>>M      the Sceptre of Might\n _ \u001bm,\u0016?\n\u001bu    u        n   \u0016?\na  \u0017uncursed oilskin sack\nani\nano\n   #tip\nn\u001b     \u0017cursed ruby\ntau     \u0017sack\n\u0007lurker above\napi\napr\na\n     #tip\npn\n     n \u0017potion of paralysis\n\u0007giant rat\nqq             n        n  #dip\nqh        n   20s         n  .m.      n    \u00162\n\u00167\n\u0007succubus\nFy   n  Fh   Fk..\u0017300 gold pieces\n\u0007leprechaun\nFkFkFjFj20s\u001bs#pray\ny y \u0016?\ne \u0017potion of gain level\n\u0007mastodon\nqr           n   \u0017potion of gain ability\n\u0007marilith\nqs  n    \u0017ring of levitation\nPtr       n       n.     n      n .  n   yy\u001by   y y n  s"
+ },
+ "segments": [
+  {
+   "seed": 50458510,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0016?\n>>M      the Sceptre of Might\n _ \u001bm,\u0016?\n\u001bu    u        n   \u0016?\na  \u0017uncursed oilskin sack\nani\nano\n   #tip\nn\u001b     \u0017cursed ruby\ntau     \u0017sack\n\u0007lurker above\napi\napr\na\n     #tip\npn\n     n \u0017potion of paralysis\n\u0007giant rat\nqq             n        n  #dip\nqh        n   20s         n  .m.      n    \u00162\n\u00167\n\u0007succubus\nFy   n  Fh   Fk..\u0017300 gold pieces\n\u0007leprechaun\nFkFkFjFj20s\u001bs#pray\ny y \u0016?\ne \u0017potion of gain level\n\u0007mastodon\nqr           n   \u0017potion of gain ability\n\u0007marilith\nqs  n    \u0017ring of levitation\nPtr       n       n.     n      n .  n   yy\u001by   y y n  s"
+  }
+ ]
+}

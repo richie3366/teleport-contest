@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of polymorph control\nPor\u0017red dragon scale mail\nWp 20s.m.20s#polyself\nhobbit\n #monster\n.b20ssm.20s20s#polyself\nrock piercer\n  s   sksm.20s.m.  yy\u001by  y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 91010,
+   "datetime": "20160521163453",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of polymorph control\nPor\u0017red dragon scale mail\nWp 20s.m.20s#polyself\nhobbit\n #monster\n.b20ssm.20s20s#polyself\nrock piercer\n  s   sksm.20s.m.  yy\u001by  y y\u001by  \u0017"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "mO>>n\u001b\nmO>>>e\u001b\n\u0006_ \u001bm.>FbFh_>>.Fh_.Fh>FkFk_>>.Fk_.Fh>FjFbFjFkFk#offer\nw-<\u0006_>.Fn_.Fh>FkFb_>.Fh_,Fy>FjFu_>.Fn_,Fj>FkFnFbFjFb\u0006_>>.Fy_,Fh>FnFn_>>,Fn_.Fn>FnFb_>>,Fb_.Fj>FyFjFkFkFb\u000f\u001bO>>>>f\u001b\nO>>m\u001b\u001b\n\u00165\nFhFjFnFkFbFnFkFkFhFlFhFuFbFhFuFhFnFuFyFj   nFhFkFnFbFnFj   nFyFyFuFjFuFnFnFhFhFlFbFj   nFbFhFuFj   nFnFj   nFkFlFlFhFbFhFuFhFu  nFj   nFyFbFhFyFbFbFkFkFuFnFhFbFj FbFuFhFyFnFhFbFhFyFhFj FbFuFnFnFj  FkFjFlFuFbFnFhFbFj Fj  #pray\ny y Fu FyFuFhFkFhFkFnFhFyFbFbFlFj FhFnFuFhFbFkFyFlFnFl\u00168\nO>>>>d\u001b\n\u001618\n\u00164\nFyFlFkFyFlFuFnFlFkFhFyFkFkFuFhFhFkFkFlFlFuFnFkFyFlFlFuFbFbFjFhFlFuFlFhFkFhFyFnFbFuFyFyFyFyFlFlFlFuFkFkFuFyFlFhFnFbFnFlFkFbFyFkFyFlFbFkFbFhFjFkFyFuFnFkFyFjFbFnFuFuFkFbFjFjFnFkFhFhFhFhFyFlFkFlFlFnFnFhFbFjFlFyFhFuFyFuFlFjFnFyFkFjFhFnFbFjFjFyFkcj#turn\n#name\nf\nnlu_>FuFjFyFuFnFlFhFjFnFl"
+ },
+ "segments": [
+  {
+   "seed": 50455039,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nMSGTYPE=norep \"The door\"\n",
+   "moves": "mO>>n\u001b\nmO>>>e\u001b\n\u0006_ \u001bm.>FbFh_>>.Fh_.Fh>FkFk_>>.Fk_.Fh>FjFbFjFkFk#offer\nw-<\u0006_>.Fn_.Fh>FkFb_>.Fh_,Fy>FjFu_>.Fn_,Fj>FkFnFbFjFb\u0006_>>.Fy_,Fh>FnFn_>>,Fn_.Fn>FnFb_>>,Fb_.Fj>FyFjFkFkFb\u000f\u001bO>>>>f\u001b\nO>>m\u001b\u001b\n\u00165\nFhFjFnFkFbFnFkFkFhFlFhFuFbFhFuFhFnFuFyFj   nFhFkFnFbFnFj   nFyFyFuFjFuFnFnFhFhFlFbFj   nFbFhFuFj   nFnFj   nFkFlFlFhFbFhFuFhFu  nFj   nFyFbFhFyFbFbFkFkFuFnFhFbFj FbFuFhFyFnFhFbFhFyFhFj FbFuFnFnFj  FkFjFlFuFbFnFhFbFj Fj  #pray\ny y Fu FyFuFhFkFhFkFnFhFyFbFbFlFj FhFnFuFhFbFkFyFlFnFl\u00168\nO>>>>d\u001b\n\u001618\n\u00164\nFyFlFkFyFlFuFnFlFkFhFyFkFkFuFhFhFkFkFlFlFuFnFkFyFlFlFuFbFbFjFhFlFuFlFhFkFhFyFnFbFuFyFyFyFyFlFlFlFuFkFkFuFyFlFhFnFbFnFlFkFbFyFkFyFlFbFkFbFhFjFkFyFuFnFkFyFjFbFnFuFuFkFbFjFjFnFkFhFhFhFhFyFlFkFlFlFnFnFhFbFjFlFyFhFuFyFuFlFjFnFyFkFjFhFnFbFjFjFyFkcj#turn\n#name\nf\nnlu_>FuFjFyFuFnFlFhFjFnFl"
+  }
+ ]
+}

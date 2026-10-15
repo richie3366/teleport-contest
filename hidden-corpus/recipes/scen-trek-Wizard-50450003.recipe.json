@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "FbFbsFhFh shhb_ \u001b<.>_>,>\u0018\u001b_>,>100sFlFls150s#rub\n_>.>100s\u0018\u001b_>.>150sFhFh20s100s\\  _>,>150sblhlubFhFhs150slhu100s100sFhFh20s150s100sFhFhs100s50sFhs20sFhFh  .\u0018\u001b\\  150sFh..lnujdhs20s.lu20shjyhlljk100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedass20sjut\u001bbubybyt\u001bnyZb\n#dip\nmg\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKLKY_>,>YBUJ_>,>BJUN_>.>UHJH_>,>NJHK_>.>BNKJ_>.>Y HUY_>.>YBHY_>.><UKJL_>,>LKH N_>,>_>..10s<Y HYK_>,>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNNBN_>,>JJKL _>,>JJBH_>.>#wipe\nhJLKH_>.>YYHH_>.>JUJH_>.>HLJB_>.>Fh Fhs#name\nm\njhuuhuds.st\u001bhhjbln#pray\ny ee#pray\ny #pray\ny  #pray\ny  y\u001by  y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 50450003,
+   "datetime": "20200723132300",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\n",
+   "moves": "FbFbsFhFh shhb_ \u001b<.>_>,>\u0018\u001b_>,>100sFlFls150s#rub\n_>.>100s\u0018\u001b_>.>150sFhFh20s100s\\  _>,>150sblhlubFhFhs150slhu100s100sFhFh20s150s100sFhFhs100s50sFhs20sFhFh  .\u0018\u001b\\  150sFh..lnujdhs20s.lu20shjyhlljk100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedass20sjut\u001bbubybyt\u001bnyZb\n#dip\nmg\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKLKY_>,>YBUJ_>,>BJUN_>.>UHJH_>,>NJHK_>.>BNKJ_>.>Y HUY_>.>YBHY_>.><UKJL_>,>LKH N_>,>_>..10s<Y HYK_>,>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNNBN_>,>JJKL _>,>JJBH_>.>#wipe\nhJLKH_>.>YYHH_>.>JUJH_>.>HLJB_>.>Fh Fhs#name\nm\njhuuhuds.st\u001bhhjbln#pray\ny ee#pray\ny #pray\ny  #pray\ny  y\u001by  y y y\u001b  _"
+  }
+ ]
+}

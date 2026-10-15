@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      #levelchange\n30\n                      \u0007air elemental\nFnFn    Fk Fk Fj Fj   n \u0007black pudding\nFl   Fk  Fk Fk   n Fh       \u001611\n#wizintrinsic\nlhm\n   s20s sjs.m.sb.m.20s sm.   nsm. .y20ssm.20stbn20s afs\n#pray\ny y   E- ad aerarium\nqd  sj sm. 20s 20s   n .m. 20s\u001626\ni\u001b\u001611\ni\u001bW20s sk sm. wb   Fn    nFn  Fn aen  eg .j .m.   n eh .bsm. af\u001baf\u001b#tip\nf\u001b20s  z\u0004j    n<#invoke\n\u001b\u0014 \u001bm,u#monster\ni\u001bw-s.swb20sFj FkwbFjFk  Fj \\ \u00169\n\u0017bow\nwi\u001720 arrows\nQj\u0007soldier\nhlfl fl Fl Fl \u0007giant rat\nn fh fh   nFh Fh \u0017potion of blindness\ntjh x #twoweapon\nFk Fkubu,\u0006_>. _,>_>,_.>_>,_.>\u0006_>>._,Fb >Fb Fb _>>, Fb _. Fb >Fb Fb   n_>>.Fb _, Fb>Fbs\u0006_>>._,>_>>,_,>_>>,_.>\\ #sit\n\u001b#levelchange\n20\n   \u0017blessed scroll of scare monster\n\u0007erinys\nrl  \u001b\u0017uncursed scroll of blank paper\n\u0007homunculus\nrm   \u001bFj  Fb\u0017cursed loadstone\n tjb  \u00173 egg\neosys\u0017ring of polymorph\nPqr sj sm..m.  nRFb    Fj   \u0017uncursed wand of magic missile\nzrb FbFb     n.m.20s     \u00162\n\u0017oilskin sack\n\u0017cursed bag of holding\n\u0017ring of warning\n\u0017ring of aggravate monster\ndtn\u0004y   asr\na\n #tip\nsf\n#tip\nsf\ni\u001b\u0017dwarvish mattock\n\u0016?\nc_<.ax u  h   n   ax>   sn   ax>   n ax>  sm.     nj \u0017grave\nax>  shs\u00163\n#levelchange\n10\n   \u00178 spears\nQy\u0007gnome lord\nbl   nfkfk \u0017potion of fruit juice\ntbk  \u00074 grid bug\nulfh  fj   fh  \u0017ranseur\nwA\u0007yellow mold\nj     yy\u001by   y y y y\u001by  a"
+ },
+ "segments": [
+  {
+   "seed": 50456016,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      #levelchange\n30\n                      \u0007air elemental\nFnFn    Fk Fk Fj Fj   n \u0007black pudding\nFl   Fk  Fk Fk   n Fh       \u001611\n#wizintrinsic\nlhm\n   s20s sjs.m.sb.m.20s sm.   nsm. .y20ssm.20stbn20s afs\n#pray\ny y   E- ad aerarium\nqd  sj sm. 20s 20s   n .m. 20s\u001626\ni\u001b\u001611\ni\u001bW20s sk sm. wb   Fn    nFn  Fn aen  eg .j .m.   n eh .bsm. af\u001baf\u001b#tip\nf\u001b20s  z\u0004j    n<#invoke\n\u001b\u0014 \u001bm,u#monster\ni\u001bw-s.swb20sFj FkwbFjFk  Fj \\ \u00169\n\u0017bow\nwi\u001720 arrows\nQj\u0007soldier\nhlfl fl Fl Fl \u0007giant rat\nn fh fh   nFh Fh \u0017potion of blindness\ntjh x #twoweapon\nFk Fkubu,\u0006_>. _,>_>,_.>_>,_.>\u0006_>>._,Fb >Fb Fb _>>, Fb _. Fb >Fb Fb   n_>>.Fb _, Fb>Fbs\u0006_>>._,>_>>,_,>_>>,_.>\\ #sit\n\u001b#levelchange\n20\n   \u0017blessed scroll of scare monster\n\u0007erinys\nrl  \u001b\u0017uncursed scroll of blank paper\n\u0007homunculus\nrm   \u001bFj  Fb\u0017cursed loadstone\n tjb  \u00173 egg\neosys\u0017ring of polymorph\nPqr sj sm..m.  nRFb    Fj   \u0017uncursed wand of magic missile\nzrb FbFb     n.m.20s     \u00162\n\u0017oilskin sack\n\u0017cursed bag of holding\n\u0017ring of warning\n\u0017ring of aggravate monster\ndtn\u0004y   asr\na\n #tip\nsf\n#tip\nsf\ni\u001b\u0017dwarvish mattock\n\u0016?\nc_<.ax u  h   n   ax>   sn   ax>   n ax>  sm.     nj \u0017grave\nax>  shs\u00163\n#levelchange\n10\n   \u00178 spears\nQy\u0007gnome lord\nbl   nfkfk \u0017potion of fruit juice\ntbk  \u00074 grid bug\nulfh  fj   fh  \u0017ranseur\nwA\u0007yellow mold\nj     yy\u001by   y y y y\u001by  a"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " O>n\u001b\u001b\nO>h\u001b\n#turn\n#untrap\njnluFbFyFb FhFhFhFhFhFhFbFyFhFbFhFyFyFhFhFyFhFbFhFbFbFhFyFyFhFhFyFyFhFyFhFbFyFbFyFbFbFbFhFhFyFyFyFbFhFbFbFhFbFyFyFhFhFyFbFbFyFbFhFyFyFhFyFyFhFyFhFhFbFyFyFbFbFyFyFyFhFyFhFhFyFhFhFyFhFyFhFhFbFyFhFhFbFbFyFbFhFbFhFyFyFyFyFhFhFyFyFyFyFhFyFbFbFy\u0006_ \u001b>.>_>>,_,>_>>._.>20s,\u0006_>,_.>_>._.>_>,_.>\u0006_>,_.>_>._.>_>._.>O>j\u001b\n\u00166\n\\  50s100sFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFhFkFkFkFhFkFhFhFkFhFk#pray\ny y     FkFkFkFk FkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFk\u001614\n\u0006_>.Fk_..Fk>FkFk_>,Fk_,m.Fk>FkFk_>.Fk_.m.Fk>FkFkFkFkFk\u0006_>,Fk_.:Fk>FkFk_>.Fk_.:Fk>FkFk_>,Fk_.;<. Fk>FkFkFkFkFk\u0006_>,Fk_.m,Fk>FkFk_>.Fk_.:Fk>FkFk_>.Fk_.@.Fk>FkFkFkFkFk#name\no\n#turn\n\u0006_>.Fk_,>.Fk>FkFk_>,Fk_,>.Fk>FkFk_>.Fk_.@.Fk>FkFkFkFkFk#twoweapon\n#wipe\n\u0006_>.Fk_.@.Fk>FkFk_>.F"
+ },
+ "segments": [
+  {
+   "seed": 50450079,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:Enhanced2\nOPTIONS=playmode:debug\n",
+   "moves": " O>n\u001b\u001b\nO>h\u001b\n#turn\n#untrap\njnluFbFyFb FhFhFhFhFhFhFbFyFhFbFhFyFyFhFhFyFhFbFhFbFbFhFyFyFhFhFyFyFhFyFhFbFyFbFyFbFbFbFhFhFyFyFyFbFhFbFbFhFbFyFyFhFhFyFbFbFyFbFhFyFyFhFyFyFhFyFhFhFbFyFyFbFbFyFyFyFhFyFhFhFyFhFhFyFhFyFhFhFbFyFhFhFbFbFyFbFhFbFhFyFyFyFyFhFhFyFyFyFyFhFyFbFbFy\u0006_ \u001b>.>_>>,_,>_>>._.>20s,\u0006_>,_.>_>._.>_>,_.>\u0006_>,_.>_>._.>_>._.>O>j\u001b\n\u00166\n\\  50s100sFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFhFkFkFkFhFkFhFhFkFhFk#pray\ny y     FkFkFkFk FkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFk\u001614\n\u0006_>.Fk_..Fk>FkFk_>,Fk_,m.Fk>FkFk_>.Fk_.m.Fk>FkFkFkFkFk\u0006_>,Fk_.:Fk>FkFk_>.Fk_.:Fk>FkFk_>,Fk_.;<. Fk>FkFkFkFkFk\u0006_>,Fk_.m,Fk>FkFk_>.Fk_.:Fk>FkFk_>.Fk_.@.Fk>FkFkFkFkFk#name\no\n#turn\n\u0006_>.Fk_,>.Fk>FkFk_>,Fk_,>.Fk>FkFk_>.Fk_.@.Fk>FkFkFkFkFk#twoweapon\n#wipe\n\u0006_>.Fk_.@.Fk>FkFk_>.F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWj\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b<.,\u0014;.s_{,Fk _, Fk qd    n\u0016?\ncljj\u0016?\n>w\u0006_oooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndl_ooooooo.Fj_.Fl_o,Fj_..Fj,  n$_oo,Fl_.<.Fu,p_{.Fl_,,Flq_{.Fl_..FlqFlFlFlFlFlFl_{.Fn_.qy _oooooooo,,p__. _..Fb #chat\nb #pray\ny y     \u00163\nkhj\u0016?\n>w  \u0006_oooooooo._,, p\u001b_ooooo._,_o,Fb _,,   n  n#chat\nb   n\u00165\n_{.  n  nFb  n_,  n  nFb  n  nq\u0016?\nc    bh  n j\u0016?\n>w\u0006\u00162\nFk  nFk  nFk  y y\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50455513,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWj\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b<.,\u0014;.s_{,Fk _, Fk qd    n\u0016?\ncljj\u0016?\n>w\u0006_oooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndl_ooooooo.Fj_.Fl_o,Fj_..Fj,  n$_oo,Fl_.<.Fu,p_{.Fl_,,Flq_{.Fl_..FlqFlFlFlFlFlFl_{.Fn_.qy _oooooooo,,p__. _..Fb #chat\nb #pray\ny y     \u00163\nkhj\u0016?\n>w  \u0006_oooooooo._,, p\u001b_ooooo._,_o,Fb _,,   n  n#chat\nb   n\u00165\n_{.  n  nFb  n_,  n  nFb  n  nq\u0016?\nc    bh  n j\u0016?\n>w\u0006\u00162\nFk  nFk  nFk  y y\u001by   y y y\u001b  F"
+  }
+ ]
+}

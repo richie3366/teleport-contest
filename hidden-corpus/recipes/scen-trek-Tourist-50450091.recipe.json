@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "FjFhFjFnFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFlFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFlFjFjFjFjFlFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFlFjFjFjFjFjFjFjFjFjFjFlFjFjFjFjFjFjFjFjFjFjFj#sit\njohHUHU_ \u001b;>NNNJ_>.>FhFkFkJJLN_>,>YHBY_>,>Fn s20s\u000f\u001bzUBKL_>,>JUHK_>.>FjFjFjLYUL_>.>#pray\ny  kE- Vlad was here\n50si\u001b100s\u000f\u001b100s\\ \u000f\u001b150s150sef50sbnk150s\u000f\u001b_>.>_>.>50sec  y50sbkb100sbhyyunyjj100sqg_>.>150si\u001b#enhance\n\u001b150sed150s efjhh\u000f\u001b100s 100s150seb20s20snk#chat\ny10stabun#ride\nu100s50s100s100s50s\u0018\u001b100s\u000f\u001b\u000f\u001b100s100s100see  100seb\\ 100s100s150s100snju50s\u0018\u001b100s_>,>100snhli\u001b100seb150s  yuj100s150s,_>,>_>.>50s100subb50skllhynlyn150s _>.>100seb150s100s150sbynlyu150skkj_>.>100shujynj150seb_>.>50s\u0018\u001b150s50s\u000f\u001bP\\ 100s_>.>_>,>byh150s150s150seeehhkhd$.ss10s20sblubhlllBYKH_>,>#rub\najbULJK_>.>UYJK_>.>tab10sjybbykhhHJJB_>.>FlFlFloj\u0014HNHY_>,>FlFlFl>,NYJN_>.>FlFlFlUNNU_>.>#invoke\n\u001b#conduct\n UKNL_>.>LBLB_>.>K KKH_>,><KUKB_>,>JYBN_>.>FlF"
+ },
+ "segments": [
+  {
+   "seed": 50450091,
+   "datetime": "20160920090550",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\n",
+   "moves": "FjFhFjFnFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFlFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFlFjFjFjFjFlFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFlFjFjFjFjFjFjFjFjFjFjFlFjFjFjFjFjFjFjFjFjFjFj#sit\njohHUHU_ \u001b;>NNNJ_>.>FhFkFkJJLN_>,>YHBY_>,>Fn s20s\u000f\u001bzUBKL_>,>JUHK_>.>FjFjFjLYUL_>.>#pray\ny  kE- Vlad was here\n50si\u001b100s\u000f\u001b100s\\ \u000f\u001b150s150sef50sbnk150s\u000f\u001b_>.>_>.>50sec  y50sbkb100sbhyyunyjj100sqg_>.>150si\u001b#enhance\n\u001b150sed150s efjhh\u000f\u001b100s 100s150seb20s20snk#chat\ny10stabun#ride\nu100s50s100s100s50s\u0018\u001b100s\u000f\u001b\u000f\u001b100s100s100see  100seb\\ 100s100s150s100snju50s\u0018\u001b100s_>,>100snhli\u001b100seb150s  yuj100s150s,_>,>_>.>50s100subb50skllhynlyn150s _>.>100seb150s100s150sbynlyu150skkj_>.>100shujynj150seb_>.>50s\u0018\u001b150s50s\u000f\u001bP\\ 100s_>.>_>,>byh150s150s150seeehhkhd$.ss10s20sblubhlllBYKH_>,>#rub\najbULJK_>.>UYJK_>.>tab10sjybbykhhHJJB_>.>FlFlFloj\u0014HNHY_>,>FlFlFl>,NYJN_>.>FlFlFlUNNU_>.>#invoke\n\u001b#conduct\n UKNL_>.>LBLB_>.>K KKH_>,><KUKB_>,>JYBN_>.>FlF"
+  }
+ ]
+}

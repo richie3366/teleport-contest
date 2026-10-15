@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " waE- I am a fish\nfhOo\u001b\u001b\n#invoke\n\u001b#dip\nhkun\u0017grave\n: \u0017pick-axe\nai >s.u\u0017altar\ndadb\u0017newt corpse\n#offer\nj  #pray\ny   :  h  \u0017ice\n#terrain\ne\nw- we<\u001616\n O>>>>p\u001b\nOg\u001b\u001b\n\u00167\nO>p\u001b\nFj Fn Fb 100sFb..hjy  yFb ssi\u001b_ \u001b,>hyknnj100snkb 150s100slby\\ #invoke\n\u001bed\u0018\u001b#invoke\n\u001b150s100s100si\u001b150s150s150s150s\u000f\u001b150sFjFjFjFjFj.byu100sed\u000f\u001b150shhl50s150s#force\n\u001613\nw-#untrap\nn<,#chat\nn#pray\ny y    >\u0006_>>.Fl_,,Fb>FbFn_>>.  nFb_.Fj>FnFb_>>.Fj_.Fu  n>FjFjFjFuFbE- Elbereth Elbereth\n#rub\ng\u001b\u0006_>.Fn_,Fu>FbFn_>.Fb_,Fu>FuFu  n_>,Fu_.Fb>FnFbFuFuFb\u0006_>>.Fb_.Fn>FnFb_>>.Fb_.Fb>FjFn_>>,  nFu_,Fn>FuFuFbFuFu10s\\ \u0006_>,  nFb_.Fn>FjFb_>,Fb_,Fb  n>FjFb_>.Fb_.  nFn>FnFbFnFbFb\u0006_>,Fb_,Fj>FbFu_>.Fb  n_,Fn>FjFu_>.  nFb_.Fu>FuFnFnFnFj\u000f\u001b\u00168\n\u0006_>._,>_>._.>_>._.>\u0006_>,_.>_>._.>_>._,>#untrap\nj;.\u0006_>._,>_>._.>_>,_.><\u0006_>>._.>_>>,_.>_>>._.>Hz"
+ },
+ "segments": [
+  {
+   "seed": 50455000,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nMSGTYPE=norep \"The door\"\n",
+   "moves": " waE- I am a fish\nfhOo\u001b\u001b\n#invoke\n\u001b#dip\nhkun\u0017grave\n: \u0017pick-axe\nai >s.u\u0017altar\ndadb\u0017newt corpse\n#offer\nj  #pray\ny   :  h  \u0017ice\n#terrain\ne\nw- we<\u001616\n O>>>>p\u001b\nOg\u001b\u001b\n\u00167\nO>p\u001b\nFj Fn Fb 100sFb..hjy  yFb ssi\u001b_ \u001b,>hyknnj100snkb 150s100slby\\ #invoke\n\u001bed\u0018\u001b#invoke\n\u001b150s100s100si\u001b150s150s150s150s\u000f\u001b150sFjFjFjFjFj.byu100sed\u000f\u001b150shhl50s150s#force\n\u001613\nw-#untrap\nn<,#chat\nn#pray\ny y    >\u0006_>>.Fl_,,Fb>FbFn_>>.  nFb_.Fj>FnFb_>>.Fj_.Fu  n>FjFjFjFuFbE- Elbereth Elbereth\n#rub\ng\u001b\u0006_>.Fn_,Fu>FbFn_>.Fb_,Fu>FuFu  n_>,Fu_.Fb>FnFbFuFuFb\u0006_>>.Fb_.Fn>FnFb_>>.Fb_.Fb>FjFn_>>,  nFu_,Fn>FuFuFbFuFu10s\\ \u0006_>,  nFb_.Fn>FjFb_>,Fb_,Fb  n>FjFb_>.Fb_.  nFn>FnFbFnFbFb\u0006_>,Fb_,Fj>FbFu_>.Fb  n_,Fn>FjFu_>.  nFb_.Fu>FuFnFnFnFj\u000f\u001b\u00168\n\u0006_>._,>_>._.>_>._.>\u0006_>,_.>_>._.>_>._,>#untrap\nj;.\u0006_>._,>_>._.>_>,_.><\u0006_>>._.>_>>,_.>_>>._.>Hz"
+  }
+ ]
+}

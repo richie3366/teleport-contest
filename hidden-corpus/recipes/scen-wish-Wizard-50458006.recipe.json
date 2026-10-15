@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  \u0017cursed spellbook of dig\nrn..Za\nFkFk \u0017fire horn\naoy l aoy y \u0017blessed wand of light\n\u0007giant eel\nzpzps20s.sm."
+ },
+ "segments": [
+  {
+   "seed": 50458006,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017cursed spellbook of dig\nrn..Za\nFkFk \u0017fire horn\naoy l aoy y \u0017blessed wand of light\n\u0007giant eel\nzpzps20s.sm."
+  }
+ ]
+}

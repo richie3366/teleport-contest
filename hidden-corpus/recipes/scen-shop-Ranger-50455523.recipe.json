@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b;,p_ooooooooo,,p_oooooooo,_ooo.,#chat\nkFkFkFkFkFkFk__, Fu _.Fl#chat\nl _ooo._oo,,:\u0016?\n>Buuu\u0016?\n>w  \u0006_ooooo.,\u0014m,..\u00167\nbhu\u0016?\n>w\u0006_oo.,p__.Fl _.,#chat\nk_{. _,:qy\u00163\nknl\u0016?\n>w\u0006ykj#chat\nlnuh#chat\nubhh#chat\nu_ooo._,:,$__.Fl_.Fk#chat\nk#pray\ny y    _{, Fl_,FhqFhFhFhFhFhFh_ooo._.,a\n p_oooooooo. Fh_.@.Fh_ooo._.,$__, Fk    n    n   n _.#chat\nk\u00166\n_ooooooo.,p_ooooooooo.,#chat\ny\u0016?\n>B l  \u001b  n k    \u001bu   n \u0016?\n>w\u0006\u00166\n_ooooo,,\u0017luckstone\ndm__.#chat\nk__,#chat\nk__.#chat\nk__,#chat\nn\u00167\nk   n   njj\u0016?\n>w\u0006\u001610\n n  nyn  n #chat\nu  n   n\u00166\n_ooooooooo,Fh  _.,$yny#chat\nh"
+ },
+ "segments": [
+  {
+   "seed": 50455523,
+   "datetime": "20261223100232",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b;,p_ooooooooo,,p_oooooooo,_ooo.,#chat\nkFkFkFkFkFkFk__, Fu _.Fl#chat\nl _ooo._oo,,:\u0016?\n>Buuu\u0016?\n>w  \u0006_ooooo.,\u0014m,..\u00167\nbhu\u0016?\n>w\u0006_oo.,p__.Fl _.,#chat\nk_{. _,:qy\u00163\nknl\u0016?\n>w\u0006ykj#chat\nlnuh#chat\nubhh#chat\nu_ooo._,:,$__.Fl_.Fk#chat\nk#pray\ny y    _{, Fl_,FhqFhFhFhFhFhFh_ooo._.,a\n p_oooooooo. Fh_.@.Fh_ooo._.,$__, Fk    n    n   n _.#chat\nk\u00166\n_ooooooo.,p_ooooooooo.,#chat\ny\u0016?\n>B l  \u001b  n k    \u001bu   n \u0016?\n>w\u0006\u00166\n_ooooo,,\u0017luckstone\ndm__.#chat\nk__,#chat\nk__.#chat\nk__,#chat\nn\u00167\nk   n   njj\u0016?\n>w\u0006\u001610\n n  nyn  n #chat\nu  n   n\u00166\n_ooooooooo,Fh  _.,$yny#chat\nh"
+  }
+ ]
+}

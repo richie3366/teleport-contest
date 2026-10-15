@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b>.#chat\nb_m._.#chat\nk_m.Fh_.#chat\nj;m,#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm,#chat\nu;m._mmmm,#chat\nb\u0017blessed +3 helm of telepathy\nWi\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017wand of cold\n\u0016?\n>z\u0006_mm,Fl _,20s20s..s.zlj,\u0016?\n>A\u0006_mmmmmmm.   \u001b _.sssszly,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nu\u0016?\n>A\u0006_mmmmmm.s20s20sssszly,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fy_,m.FkFjFkFj Fh FhFbzlh ,#chat\ny\u0016?\n>z\u0006_mmmmmmm,Fy  n_,FbFyFhFj FkFn ,\u0016?\n>A\u0006_mmm,Fy _,Fh   nFy Fb FkFk Fh,\u0016?\n>A\u0006_mmmm.Fy_,FjFj Fb Fb   nFhFn,\u0016?\n>>\u001b\u0016?\n>y_mmmm. Fu _.#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,Fy _,Fh Fh Fy  n FnFkFu,\u0016?\n>z\u0006_mm,Fk_,Fj Fj  Fh FbFu ,\u0016?\n>A\u0006_mmmm,  nFb_.FbFjFyFyFyFjFj,\u0016?\n>A\u0006_mmm.Fy_.FjFjFjFyFjzlj,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.FjFjFjFjzlj  ,\u0016?\n>z\u0006_mmmmmmm.FjFjFjFj,#chat\nj\u0016?\n>A\u0006_mmmm.FjFjFjFjFjFjFjzlj  n,\u0016?\n>A\u0006_mmmmmmm.FjFjFjFjFj,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,FjFjFjFjFj,#chat\nj\u0016?\n>z\u0006_mmmmmm.FjFjFjFjFjFjzlj,\u0016?\n>A\u0006_mmm.FjFjFjFjFjzl,\u0016?\n>A\u0006_mmm.FjFjFjFjFj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nj;j;\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.FjF"
+ },
+ "segments": [
+  {
+   "seed": 50450046,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b>.#chat\nb_m._.#chat\nk_m.Fh_.#chat\nj;m,#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm,#chat\nu;m._mmmm,#chat\nb\u0017blessed +3 helm of telepathy\nWi\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017wand of cold\n\u0016?\n>z\u0006_mm,Fl _,20s20s..s.zlj,\u0016?\n>A\u0006_mmmmmmm.   \u001b _.sssszly,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nu\u0016?\n>A\u0006_mmmmmm.s20s20sssszly,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fy_,m.FkFjFkFj Fh FhFbzlh ,#chat\ny\u0016?\n>z\u0006_mmmmmmm,Fy  n_,FbFyFhFj FkFn ,\u0016?\n>A\u0006_mmm,Fy _,Fh   nFy Fb FkFk Fh,\u0016?\n>A\u0006_mmmm.Fy_,FjFj Fb Fb   nFhFn,\u0016?\n>>\u001b\u0016?\n>y_mmmm. Fu _.#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,Fy _,Fh Fh Fy  n FnFkFu,\u0016?\n>z\u0006_mm,Fk_,Fj Fj  Fh FbFu ,\u0016?\n>A\u0006_mmmm,  nFb_.FbFjFyFyFyFjFj,\u0016?\n>A\u0006_mmm.Fy_.FjFjFjFyFjzlj,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.FjFjFjFjzlj  ,\u0016?\n>z\u0006_mmmmmmm.FjFjFjFj,#chat\nj\u0016?\n>A\u0006_mmmm.FjFjFjFjFjFjFjzlj  n,\u0016?\n>A\u0006_mmmmmmm.FjFjFjFjFj,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,FjFjFjFjFj,#chat\nj\u0016?\n>z\u0006_mmmmmm.FjFjFjFjFjFjzlj,\u0016?\n>A\u0006_mmm.FjFjFjFjFjzl,\u0016?\n>A\u0006_mmm.FjFjFjFjFj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nj;j;\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.FjF"
+  }
+ ]
+}

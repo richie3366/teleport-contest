@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed amulet of life saving\nPf\u0017blessed +3 helm of telepathy\nWg\u0016?\n>w\u0006_ \u001b@.,$__.Fh_.Fb #chat\nj_ooooooo.,\u0014>.susFbFbFbFbFbFb_{,Fj_. Fhq__._. #chat\nn_ooo.,pknu#chat\nk_{.Fb _..Fj qFjFj FjFj Fj Fj \u0016?\nc bku\u0016?\n>w \u0006_{._,Fuq_ooooo,Fl   _,Fu ,#chat\nu_{, Fl     _,Fu  n q\u0016?\n>B jjk   \u0016?\n>w\u0006_oo._.,#chat\nh_oo,_.,:nly#chat\nb_ooooooo.Fj _,Fu,$FuFuFuFuFuFu_ooooooo,Fh_,Fh,\u0017ruby\ndh__.Fh_.Fh#chat\nh #pray\ny y    _oooooooo,_ooo.Fh_,<.Fh ,p@.__,_.m,#chat\nh#pray\ny y__.Fk_.;m,Fk#chat\nk#pray\ny y      _oooo,Fk_.Fk,p:_oooooooo.,: _ooooooooo,Fk_.Fk,: _ooooooo.Fk_,Fk_ooo.Fk_.m,Fn,pm.FnFnFnFnFnFnkjk#chat\nk_ooo._,: ,p<.\u0016?\n>Bkll\u0016?\n>w\u0006_ooooo._,,p@._ooooooo,_.@.,p_oooooooo._,,,$_oooo._.Fj    ,#chat\nj _oo,Fn_.@.Fl_oo,Fu_,:Fl,$Fl FlFl Fl   n Fl Fl FnFn    n Fn FnFn Fn _oooooo.Fn _,.Fn,#chat\nl_{,Fl_.FlqFl FlFlFl FlFl   n  _ooooooooo.,  :Fl FlFl  nFl FlFl_ooo,Fj _,_ooo,_. ,\u001b: _{,Fh_.Fh  q_oooooooo. _.  ,pm,__,  _. Fh#chat\nh#pray\ny y     _oooooooo._.,$jjj#chat\nb_oooo,"
+ },
+ "segments": [
+  {
+   "seed": 50455506,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed amulet of life saving\nPf\u0017blessed +3 helm of telepathy\nWg\u0016?\n>w\u0006_ \u001b@.,$__.Fh_.Fb #chat\nj_ooooooo.,\u0014>.susFbFbFbFbFbFb_{,Fj_. Fhq__._. #chat\nn_ooo.,pknu#chat\nk_{.Fb _..Fj qFjFj FjFj Fj Fj \u0016?\nc bku\u0016?\n>w \u0006_{._,Fuq_ooooo,Fl   _,Fu ,#chat\nu_{, Fl     _,Fu  n q\u0016?\n>B jjk   \u0016?\n>w\u0006_oo._.,#chat\nh_oo,_.,:nly#chat\nb_ooooooo.Fj _,Fu,$FuFuFuFuFuFu_ooooooo,Fh_,Fh,\u0017ruby\ndh__.Fh_.Fh#chat\nh #pray\ny y    _oooooooo,_ooo.Fh_,<.Fh ,p@.__,_.m,#chat\nh#pray\ny y__.Fk_.;m,Fk#chat\nk#pray\ny y      _oooo,Fk_.Fk,p:_oooooooo.,: _ooooooooo,Fk_.Fk,: _ooooooo.Fk_,Fk_ooo.Fk_.m,Fn,pm.FnFnFnFnFnFnkjk#chat\nk_ooo._,: ,p<.\u0016?\n>Bkll\u0016?\n>w\u0006_ooooo._,,p@._ooooooo,_.@.,p_oooooooo._,,,$_oooo._.Fj    ,#chat\nj _oo,Fn_.@.Fl_oo,Fu_,:Fl,$Fl FlFl Fl   n Fl Fl FnFn    n Fn FnFn Fn _oooooo.Fn _,.Fn,#chat\nl_{,Fl_.FlqFl FlFlFl FlFl   n  _ooooooooo.,  :Fl FlFl  nFl FlFl_ooo,Fj _,_ooo,_. ,\u001b: _{,Fh_.Fh  q_oooooooo. _.  ,pm,__,  _. Fh#chat\nh#pray\ny y     _oooooooo._.,$jjj#chat\nb_oooo,"
+  }
+ ]
+}

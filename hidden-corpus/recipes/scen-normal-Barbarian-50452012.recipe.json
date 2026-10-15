@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "deed ck\u0014q#pray\ny  E- Vlad was here\nwaWJy#name\ni\n\\   \u0014#pray\ny  #invoke\n\u001b#jump\n\u001410s#ride\nh\u0014qq#enhance\n\u001b#conduct\n "
+ },
+ "segments": [
+  {
+   "seed": 50452012,
+   "datetime": "20101017175120",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "deed ck\u0014q#pray\ny  E- Vlad was here\nwaWJy#name\ni\n\\   \u0014#pray\ny  #invoke\n\u001b#jump\n\u001410s#ride\nh\u0014qq#enhance\n\u001b#conduct\n "
+  }
+ ]
+}

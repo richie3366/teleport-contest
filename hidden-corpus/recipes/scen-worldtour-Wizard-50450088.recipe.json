@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\nd#chat\nl;l. \u001bm.\u001625\n\u0004l\u001617\n\u0006_>.Fj_.\u0016?\nb\u0007green-elf\nFhFhFh Fh\u0007violet fungus\nFuFuFuFu20ss\u00165\n__.\u0016?\n>E#levelchange\n8\n \u0017cursed potion of healing\n\u0007titanothere\nqp\u0017cursed wand of polymorph\nzq.   zFlFl\u00173 wand of locking\nz\u0017uncursed scroll of taming\nrs.s\u001625\n\u0004 \u0016?\n>w_<,\u0016?\n>>Qlhlhlh: s.\u001640\nylhj: \u0016?\n>>Q\u0006_<._.\u0016?\n>I \u0004 \u0016?\nq \u00173 wand of digging\nz20ss\u0017blessed potion of healing\n \u0007marilith\nqb FlFl\u0017boulder\n,Fl Fl\u0017potion of monster detection\n qt:#dip\nof\u0017potion of see invisible\n \u0007prisoner\nqu     Fj     nFl  \u0017mirror\navj    n   .j   .m.    n  \u00166\n\u001644\n   \u0004n  \u0016?\n>A _>.sm.    n sk     n    \u00163\n\u0016?\nr _>.<\u0016?\nr\u0006_<,   n Fk  _.  n   Fk  \u00168\n\u001612\nyn  n  j   n uuj   :\u00168\n\u001629\n   h  n  l   n :\u00165\n\u001617\n_{,Fb      n _,<\u0016?\n>>K     wand of death\n\u0017wand of nothing\n\u0007xorn\nzy  zy     n         \u0017huge chunk of meat\n ez    n        20s   n        y  ."
+ },
+ "segments": [
+  {
+   "seed": 50450088,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\nd#chat\nl;l. \u001bm.\u001625\n\u0004l\u001617\n\u0006_>.Fj_.\u0016?\nb\u0007green-elf\nFhFhFh Fh\u0007violet fungus\nFuFuFuFu20ss\u00165\n__.\u0016?\n>E#levelchange\n8\n \u0017cursed potion of healing\n\u0007titanothere\nqp\u0017cursed wand of polymorph\nzq.   zFlFl\u00173 wand of locking\nz\u0017uncursed scroll of taming\nrs.s\u001625\n\u0004 \u0016?\n>w_<,\u0016?\n>>Qlhlhlh: s.\u001640\nylhj: \u0016?\n>>Q\u0006_<._.\u0016?\n>I \u0004 \u0016?\nq \u00173 wand of digging\nz20ss\u0017blessed potion of healing\n \u0007marilith\nqb FlFl\u0017boulder\n,Fl Fl\u0017potion of monster detection\n qt:#dip\nof\u0017potion of see invisible\n \u0007prisoner\nqu     Fj     nFl  \u0017mirror\navj    n   .j   .m.    n  \u00166\n\u001644\n   \u0004n  \u0016?\n>A _>.sm.    n sk     n    \u00163\n\u0016?\nr _>.<\u0016?\nr\u0006_<,   n Fk  _.  n   Fk  \u00168\n\u001612\nyn  n  j   n uuj   :\u00168\n\u001629\n   h  n  l   n :\u00165\n\u001617\n_{,Fb      n _,<\u0016?\n>>K     wand of death\n\u0017wand of nothing\n\u0007xorn\nzy  zy     n         \u0017huge chunk of meat\n ez    n        20s   n        y  ."
+  }
+ ]
+}

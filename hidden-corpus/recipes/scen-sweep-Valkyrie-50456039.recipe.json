@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       kkn\u0017pool\n#dip\nay  buhl\u0017sink\nqyn\u0004y jk\u0017lawful altar\nda\u0017elf corpse\n#offer\ne : #tip\n\u001b#monster\nW\u0017large box\n\u0017cursed bag of holding\n\u0017locked large box\n\u0017ring of levitation\n\u0017potion of booze\n\u0017diamond\ndh#loot\n,a\nagb\na\n\u001bafafdf#loot\na\n,a\ndf#loot\na\n,a\n\u00161\n#levelchange\n20\n           \u0017blessed brass lantern\nal#rub\nl  Fn  s\u00173 amulet of restful sleep\n\u0007Famine\nyPmsm.20s   nsm.sm.  n\u0017the Tsurugi of Muramasa\n Fb Fb   n\u00173 scroll of teleportation\nrn  \u001b.  Fb   nFb .m. 20s  n \u001624\n\u000f\u001b\u001612\n\u0006_>>.Fk _,  n   Fk >Fj  n     Fj _>>,   n   _,                >_>>,  _.>.Fb>Fb  Fl Fl         Fb Fj   n \\   r\u001b\u0006_>, Fl     _,Fk  >Fk   Fh  n _>.Fh_, Fj >Fh  n Fj _>.  Fn_. Fj  n >Fh Fh Fj   n Fh      Fh   n  z#name\n\u001b\u0006_>,  Fh     n _,  Fl>Fn  Fl   n   _>,  Fn  yy\u001by   y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50456039,
+   "datetime": "20070606045422",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       kkn\u0017pool\n#dip\nay  buhl\u0017sink\nqyn\u0004y jk\u0017lawful altar\nda\u0017elf corpse\n#offer\ne : #tip\n\u001b#monster\nW\u0017large box\n\u0017cursed bag of holding\n\u0017locked large box\n\u0017ring of levitation\n\u0017potion of booze\n\u0017diamond\ndh#loot\n,a\nagb\na\n\u001bafafdf#loot\na\n,a\ndf#loot\na\n,a\n\u00161\n#levelchange\n20\n           \u0017blessed brass lantern\nal#rub\nl  Fn  s\u00173 amulet of restful sleep\n\u0007Famine\nyPmsm.20s   nsm.sm.  n\u0017the Tsurugi of Muramasa\n Fb Fb   n\u00173 scroll of teleportation\nrn  \u001b.  Fb   nFb .m. 20s  n \u001624\n\u000f\u001b\u001612\n\u0006_>>.Fk _,  n   Fk >Fj  n     Fj _>>,   n   _,                >_>>,  _.>.Fb>Fb  Fl Fl         Fb Fj   n \\   r\u001b\u0006_>, Fl     _,Fk  >Fk   Fh  n _>.Fh_, Fj >Fh  n Fj _>.  Fn_. Fj  n >Fh Fh Fj   n Fh      Fh   n  z#name\n\u001b\u0006_>,  Fh     n _,  Fl>Fn  Fl   n   _>,  Fn  yy\u001by   y y y\u001by  _"
+  }
+ ]
+}

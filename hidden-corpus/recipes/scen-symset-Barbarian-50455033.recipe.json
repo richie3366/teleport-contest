@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " O>>>>f\u001b\n\u0006_ \u001b,>FjFu_>.Fn_>FbFn_>,Fn_>FnFkk FkFkFn<\u0006_>,Fn_>FnFn_>.Fb_,                                                                                >                                                                                \u0006                                                                                _                                                                                   >                                                                                \u0006                                                                                _ >FbFb_>>.Fn_>FbFb_>>.Fn_>FbFll FlFlFn\u000f#dip\nd\u0006_>,Fn_>FnFb_>,Fn_>FnFn_>.Fh_.Fy>FyFlh FhFnFb\u0006_>>.Fb_, Fn>FkFl_>>. Fh_. Fb>FbFkk _>>,Fh_.Fn>FbFbFb\u0006_>.Fy_.Fn>FbFh\u001b_>.Fh_.Fh>FbFh\u001b_>. Fn_>FnFnFkFbFnnub h\u001bj\u0017altar\ndb \u0017jackal corpse\n#offer\ne    bh\u001b\u0017unaligned altar\ndadc\u0017newt corpse\n#offer\nf  j\u0017chaotic altar\ndcdd \u0017newt corpse\n#offer\ng  h\u001b\u0017moat\n#dip\ncy    E\u001b<#twoweapon\n\u00162\n\u0006_>>._,Fj>FjFj_>>.Fj_.Fj>FjFj_>>.Fb_.Fj>FjFjFjFjFj\u0006_>.Fj_.Fj>FjFj_>"
+ },
+ "segments": [
+  {
+   "seed": 50455033,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=hide \"You hear\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " O>>>>f\u001b\n\u0006_ \u001b,>FjFu_>.Fn_>FbFn_>,Fn_>FnFkk FkFkFn<\u0006_>,Fn_>FnFn_>.Fb_,                                                                                >                                                                                \u0006                                                                                _                                                                                   >                                                                                \u0006                                                                                _ >FbFb_>>.Fn_>FbFb_>>.Fn_>FbFll FlFlFn\u000f#dip\nd\u0006_>,Fn_>FnFb_>,Fn_>FnFn_>.Fh_.Fy>FyFlh FhFnFb\u0006_>>.Fb_, Fn>FkFl_>>. Fh_. Fb>FbFkk _>>,Fh_.Fn>FbFbFb\u0006_>.Fy_.Fn>FbFh\u001b_>.Fh_.Fh>FbFh\u001b_>. Fn_>FnFnFkFbFnnub h\u001bj\u0017altar\ndb \u0017jackal corpse\n#offer\ne    bh\u001b\u0017unaligned altar\ndadc\u0017newt corpse\n#offer\nf  j\u0017chaotic altar\ndcdd \u0017newt corpse\n#offer\ng  h\u001b\u0017moat\n#dip\ncy    E\u001b<#twoweapon\n\u00162\n\u0006_>>._,Fj>FjFj_>>.Fj_.Fj>FjFj_>>.Fb_.Fj>FjFjFjFjFj\u0006_>.Fj_.Fj>FjFj_>"
+  }
+ ]
+}

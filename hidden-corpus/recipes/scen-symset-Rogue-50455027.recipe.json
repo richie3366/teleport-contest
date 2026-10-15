@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "v\u001bi\u001btbl r\u001b#chat\nb \u001614\nmO>>r\u001b\nePO>>n\u001b\u001b\n\u0006_ \u001b.>FyFy_>,Fu_.Fu>FyFh\u001b_>,Fu_.Fy>FlFnFnFyFy\u0006_>.Fn_>FyFkk _>.Fu_,Fl>FnFn_>,Fy_.Fln >FnFyFhFlFh\u0006_>.Fy_.Fl>FlFl_>.Fu_,Fl>FlFl_>.Fn_>FuFuFuFuFnitbl \u00167\nFbFbFjFbFjFnFjFnFnFjFbFbFnFnFnFnFbFbFjFnFjFjFnFjFbFbFjFbFjFnFbFnFjFnFjFjFjFjFbFjFjFjFnFjFnFnFbFjFbFnFbFbFnFjFbFbFnFbFjFjFjFbFbFjFjFbFjFnFbFbFnFjFnFbFjFnFbFnFbFjFjFnFbFbFjFjFjFnFbFbFbFjFbFnFjFbFbFbFnFbFjFbFnFbFjFjFjFbFnFjFnFjFjFbFnFjFbFnFjFbv\u001bi\u001bO>>>d\u001b\nr\u001b#name\no\nmO>>>>d\u001b\nOk\u001b\n\u001619\n#levelchange\n6\n    byy\u0017lawful altar\ndfdc\u0017newt corpse\n#offer\ng  #pray\ny y bn\u0017tree\n20sf bnn#untrap\ny \u0007tame large dog\ndb20ss.\u0017meatball\nt\u001bkk \u0017newt corpse\nt\u001bkk kk \u0007tame gnome lord\n\u0007acid blob\n\u0017scroll of taming\nrj \u0017banana\nt\u001bdi.s.da.ss\u0017tripe ration\nt\u001b\u0007acid blob\n\u0017scroll of taming\nrm \u0006_>>. Fj_,,Fk> FbFln Fb20s>\u0006_>,Fb_,Fb>FjFj_>.Fj"
+ },
+ "segments": [
+  {
+   "seed": 50455027,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nBIND=v:inventory\n",
+   "moves": "v\u001bi\u001btbl r\u001b#chat\nb \u001614\nmO>>r\u001b\nePO>>n\u001b\u001b\n\u0006_ \u001b.>FyFy_>,Fu_.Fu>FyFh\u001b_>,Fu_.Fy>FlFnFnFyFy\u0006_>.Fn_>FyFkk _>.Fu_,Fl>FnFn_>,Fy_.Fln >FnFyFhFlFh\u0006_>.Fy_.Fl>FlFl_>.Fu_,Fl>FlFl_>.Fn_>FuFuFuFuFnitbl \u00167\nFbFbFjFbFjFnFjFnFnFjFbFbFnFnFnFnFbFbFjFnFjFjFnFjFbFbFjFbFjFnFbFnFjFnFjFjFjFjFbFjFjFjFnFjFnFnFbFjFbFnFbFbFnFjFbFbFnFbFjFjFjFbFbFjFjFbFjFnFbFbFnFjFnFbFjFnFbFnFbFjFjFnFbFbFjFjFjFnFbFbFbFjFbFnFjFbFbFbFnFbFjFbFnFbFjFjFjFbFnFjFnFjFjFbFnFjFbFnFjFbv\u001bi\u001bO>>>d\u001b\nr\u001b#name\no\nmO>>>>d\u001b\nOk\u001b\n\u001619\n#levelchange\n6\n    byy\u0017lawful altar\ndfdc\u0017newt corpse\n#offer\ng  #pray\ny y bn\u0017tree\n20sf bnn#untrap\ny \u0007tame large dog\ndb20ss.\u0017meatball\nt\u001bkk \u0017newt corpse\nt\u001bkk kk \u0007tame gnome lord\n\u0007acid blob\n\u0017scroll of taming\nrj \u0017banana\nt\u001bdi.s.da.ss\u0017tripe ration\nt\u001b\u0007acid blob\n\u0017scroll of taming\nrm \u0006_>>. Fj_,,Fk> FbFln Fb20s>\u0006_>,Fb_,Fb>FjFj_>.Fj"
+  }
+ ]
+}

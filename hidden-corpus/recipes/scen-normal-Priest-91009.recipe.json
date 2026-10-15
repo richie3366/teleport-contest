@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  #offer\n#offer\ndf#name\no\n10s#chat\nhZb\n20sqd\u0018\u001b\u0018\u001b#chat\njhdbt\u001bJrh ny#offer\n#offer\n,\\ i\u001brh y .sZa\nZa\nqdeessWs.sai#rub\nirg y ssZb\nZa\nz#invoke\n\u001b\\ rg y E- ad aerarium\nf a n"
+ },
+ "segments": [
+  {
+   "seed": 91009,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "  #offer\n#offer\ndf#name\no\n10s#chat\nhZb\n20sqd\u0018\u001b\u0018\u001b#chat\njhdbt\u001bJrh ny#offer\n#offer\n,\\ i\u001brh y .sZa\nZa\nqdeessWs.sai#rub\nirg y ssZb\nZa\nz#invoke\n\u001b\\ rg y E- ad aerarium\nf a n"
+  }
+ ]
+}

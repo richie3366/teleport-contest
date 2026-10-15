@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "Om\u001b\n\u001619\nmOa\u001b\n\u0006_ \u001b;>FbFlk _>.Fb_,Fn>FbFn_>.Fb_.Fn>FnFbFnFbFb\u0006_>.Fn_>FbFn_>.Fb_.Fb>FbFn_>.Fb_.Fn>FnFnFbFnFn\u0006_>,Fb_.Fn>FbFb_>.Fb_.Flb >FbFll _>.Fb_,Fln >FnFbFbFnFl\u0006_>,Fb_.Fb>FnFb_>.Fn_>FnFb_>.Fb_,Fn>FnFnFnFnFb#dip\njd#pray\ny y  \u0006_>>,Fn_>FnFb_>>,Fb_.Fn>FnFlb _>>.   nFl_.  n Fb>FbFbFbFnFb#wipe\n   n  #offer\n\u0006_>,  n Fb_,  n Fn>FlFb_>.  n Fn_.  n  nFn>FlFlFl\u00166\nmO>>>>a\u001b\n\u00161\nW#tip\n\u001b#sit\n\u001b\u0014@.v i\u001bO>>>>c\u001b\nmO>>>v\u001b\n\u00164\nmO>>d\u001b\n\u00166\nv i\u001bmO>u\u001b\n\u00162\n150sFbFun FkFlFkFbFnFkFbFuu FlFbFh\u001bFbFlFlFuFkFjFnFbFlFkFnFh\u001bFnFuk FbFuk FnFlFnFub FuFhFuFkFuFlFhFhFhFnFnFjFjFkFbFjFkFjFbFun FlFhFkFjFuFkFkFnFbFbFjFnFjFkFbFnFbFkh FjFlFkFlFbFkk FlFkFuFuFuFbFnFkFbFbFhFnFh\u001bFkFlFkFjFnFlFhFuFbFku FuFnFbFhFbFnFuFuFnFbFhFkFjFuFlFlFh\u0006_>, _.Fl>FlFl_>.Fl_.Fl>FlFl_>,Fl_,Fl>FlFlFlFlFl20src \u0006_>,Fl_.Fl>FlFl_>.Fl_.Fl>FlFl_>.Fl_,Fl>FlFlFlFlFl\u0006_>.Fl_.Fl>FlFl_>,Fl_,Fl>FlFl_>.Fl_,Fl>FlFlFlFlFl<\u0006_>>.Fl_,Fl>FlFl_>>,Fl_.Fl>FlFl_>>.Fl_. "
+ },
+ "segments": [
+  {
+   "seed": 50450047,
+   "datetime": "20101119185944",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=number_pad:1\nMSGTYPE=stop \"You feel\"\nMENUCOLOR=\"cursed\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "Om\u001b\n\u001619\nmOa\u001b\n\u0006_ \u001b;>FbFlk _>.Fb_,Fn>FbFn_>.Fb_.Fn>FnFbFnFbFb\u0006_>.Fn_>FbFn_>.Fb_.Fb>FbFn_>.Fb_.Fn>FnFnFbFnFn\u0006_>,Fb_.Fn>FbFb_>.Fb_.Flb >FbFll _>.Fb_,Fln >FnFbFbFnFl\u0006_>,Fb_.Fb>FnFb_>.Fn_>FnFb_>.Fb_,Fn>FnFnFnFnFb#dip\njd#pray\ny y  \u0006_>>,Fn_>FnFb_>>,Fb_.Fn>FnFlb _>>.   nFl_.  n Fb>FbFbFbFnFb#wipe\n   n  #offer\n\u0006_>,  n Fb_,  n Fn>FlFb_>.  n Fn_.  n  nFn>FlFlFl\u00166\nmO>>>>a\u001b\n\u00161\nW#tip\n\u001b#sit\n\u001b\u0014@.v i\u001bO>>>>c\u001b\nmO>>>v\u001b\n\u00164\nmO>>d\u001b\n\u00166\nv i\u001bmO>u\u001b\n\u00162\n150sFbFun FkFlFkFbFnFkFbFuu FlFbFh\u001bFbFlFlFuFkFjFnFbFlFkFnFh\u001bFnFuk FbFuk FnFlFnFub FuFhFuFkFuFlFhFhFhFnFnFjFjFkFbFjFkFjFbFun FlFhFkFjFuFkFkFnFbFbFjFnFjFkFbFnFbFkh FjFlFkFlFbFkk FlFkFuFuFuFbFnFkFbFbFhFnFh\u001bFkFlFkFjFnFlFhFuFbFku FuFnFbFhFbFnFuFuFnFbFhFkFjFuFlFlFh\u0006_>, _.Fl>FlFl_>.Fl_.Fl>FlFl_>,Fl_,Fl>FlFlFlFlFl20src \u0006_>,Fl_.Fl>FlFl_>.Fl_.Fl>FlFl_>.Fl_,Fl>FlFlFlFlFl\u0006_>.Fl_.Fl>FlFl_>,Fl_,Fl>FlFl_>.Fl_,Fl>FlFlFlFlFl<\u0006_>>.Fl_,Fl>FlFl_>>,Fl_.Fl>FlFl_>>.Fl_. "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "O>>k\u001b\u001b\n\u00161\nFyFyFk _ \u001b<.>100sFhs.100s Fk20ss#loot\nuyu100sWhll150s50sFl.s100s FlFl.50s_>.>50sFl20s20sFlsshlh100sFls.100s_>.>hhllhb100s#invoke\n\u001b50s Fl20s20s50s150sFls.bhkubj100s ee\u0007horse\n\u0017carrot\ntdk \u0007newt\n20s 20s  n 20s 20s 20s  n20s\u0007jackal\n.m...sn.m. 20s #chat\ny#name\no\n\u0017magic whistle\nh  n hkag  n #chat\nn \u001610\n\u0006_>.  _.Fy>FyFy_>._.:Fl>Fl Fl_>.Fl_.m.Fl>Fl.J\u0018\u001b\u0006_>>.Fl_.@.>    #ride\nky#ride\nky\u0006_>.Fh_.Fh>FhFh_>.Fh_.@.Fh>FhFj  n _>,Fj   _.<.Fn   n  >Fn  Fn  Fu   n   Fl   Fk   n  \u0006_>>.    n Fl    _,   n   Fj     n >Fn   Fl  n _>>.  Fb    n_.   Fj    n   >Fk     n Fk       yy\u001by  y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 50455055,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\nBIND=v:inventory\n",
+   "moves": "O>>k\u001b\u001b\n\u00161\nFyFyFk _ \u001b<.>100sFhs.100s Fk20ss#loot\nuyu100sWhll150s50sFl.s100s FlFl.50s_>.>50sFl20s20sFlsshlh100sFls.100s_>.>hhllhb100s#invoke\n\u001b50s Fl20s20s50s150sFls.bhkubj100s ee\u0007horse\n\u0017carrot\ntdk \u0007newt\n20s 20s  n 20s 20s 20s  n20s\u0007jackal\n.m...sn.m. 20s #chat\ny#name\no\n\u0017magic whistle\nh  n hkag  n #chat\nn \u001610\n\u0006_>.  _.Fy>FyFy_>._.:Fl>Fl Fl_>.Fl_.m.Fl>Fl.J\u0018\u001b\u0006_>>.Fl_.@.>    #ride\nky#ride\nky\u0006_>.Fh_.Fh>FhFh_>.Fh_.@.Fh>FhFj  n _>,Fj   _.<.Fn   n  >Fn  Fn  Fu   n   Fl   Fk   n  \u0006_>>.    n Fl    _,   n   Fj     n >Fn   Fl  n _>>.  Fb    n_.   Fj    n   >Fk     n Fk       yy\u001by  y y y\u001b  _"
+  }
+ ]
+}

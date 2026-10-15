@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  \u00172000 gold pieces\n\u0017blessed amulet of life saving\nPg\u0017blessed amulet of reflection\nPh\u0016?\n>w\u0006_ \u001b<. q_{.  Fy_,:Fkq_oooo,,$_oooooo.,$_{. Fl_. Fuq\u00163\nlyl\u0016?\n>w\u0006_ooooo.,p_oooooo,,\u0017amulet of flying\ndiee     _ooooooooo,_o., p\u0016?\ncyjk\u0016?\n>w\u0006_{.    _.q__,_,Fy #chat\ny#pray\ny y       Fy Fy  Fy  FyFyFyFyFyFyFyFyFylby#chat\nb_oo.,p_{.Fj_.;<.qy__,\u0017amulet of strangulation\ndkf by ._oo.Fl_. _o._.,\u001bp__.Fk    n    n _.#chat\nk  n #pray\ny y  \u00161\n_ooooooo._.<.,$_ooooooo._,<._ooo.Fl_,m.,p_oo.,p_ooooo,_.m,,p_ooooooo._.<.,p\u0016?\n>Bjkk\u0016?\n>w\u0006_oooo,_,,\u0014m.20s20s_ooooo._,,p__,_,#chat\nb#pray\ny y  __.Fh_,#chat\nj__._.#chat\ny_oooooo.,: h hb#chat\nn_ooooooooo._.,p_ooooo._.,p__._.#chat\nj\u00167\njjl\u0016?\n>w  \u0006h n b#chat\nl_ooooooo._,, : jhk #chat\ny_{.  Fb_, Fb  n q\u00163\n   k    n j  n n\u0016?\n>w\u0006\u00169\nl  nhl  n  n#chat\nb   "
+ },
+ "segments": [
+  {
+   "seed": 50455528,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=sortloot:loot\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00172000 gold pieces\n\u0017blessed amulet of life saving\nPg\u0017blessed amulet of reflection\nPh\u0016?\n>w\u0006_ \u001b<. q_{.  Fy_,:Fkq_oooo,,$_oooooo.,$_{. Fl_. Fuq\u00163\nlyl\u0016?\n>w\u0006_ooooo.,p_oooooo,,\u0017amulet of flying\ndiee     _ooooooooo,_o., p\u0016?\ncyjk\u0016?\n>w\u0006_{.    _.q__,_,Fy #chat\ny#pray\ny y       Fy Fy  Fy  FyFyFyFyFyFyFyFyFylby#chat\nb_oo.,p_{.Fj_.;<.qy__,\u0017amulet of strangulation\ndkf by ._oo.Fl_. _o._.,\u001bp__.Fk    n    n _.#chat\nk  n #pray\ny y  \u00161\n_ooooooo._.<.,$_ooooooo._,<._ooo.Fl_,m.,p_oo.,p_ooooo,_.m,,p_ooooooo._.<.,p\u0016?\n>Bjkk\u0016?\n>w\u0006_oooo,_,,\u0014m.20s20s_ooooo._,,p__,_,#chat\nb#pray\ny y  __.Fh_,#chat\nj__._.#chat\ny_oooooo.,: h hb#chat\nn_ooooooooo._.,p_ooooo._.,p__._.#chat\nj\u00167\njjl\u0016?\n>w  \u0006h n b#chat\nl_ooooooo._,, : jhk #chat\ny_{.  Fb_, Fb  n q\u00163\n   k    n j  n n\u0016?\n>w\u0006\u00169\nl  nhl  n  n#chat\nb   "
+  }
+ ]
+}

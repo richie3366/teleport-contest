@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       #levelchange\n8\n\u0007shopkeeper\ny;k: \u001b@.s20ss\u0007werewolf\nFuFkFu\u0007pit fiend\nFuFl     Fu    n Fy Fy      n \u0007shade\nFh Fu      n \\ \u00161\n#levelchange\n12\n    \u0007disenchanter\n;u,sy sh  sm.   \u0007iron golem\n;u,sm.  n  .m.       n      sm.   \u0007killer bee\nFh  n   Fl  Fl     n Fy    Fy  n  \u0007soldier ant\n.m. 20s   n   sm.              n    .   n    \u00162\ni\u001bed      n   sn sm. af   waFu  n    Fu Fu ahi\nahr\n#tip\nh\u001b       nWsh   .m.  sm.   n  W.m.       sm.  yy\u001by   ny y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 50456002,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       #levelchange\n8\n\u0007shopkeeper\ny;k: \u001b@.s20ss\u0007werewolf\nFuFkFu\u0007pit fiend\nFuFl     Fu    n Fy Fy      n \u0007shade\nFh Fu      n \\ \u00161\n#levelchange\n12\n    \u0007disenchanter\n;u,sy sh  sm.   \u0007iron golem\n;u,sm.  n  .m.       n      sm.   \u0007killer bee\nFh  n   Fl  Fl     n Fy    Fy  n  \u0007soldier ant\n.m. 20s   n   sm.              n    .   n    \u00162\ni\u001bed      n   sn sm. af   waFu  n    Fu Fu ahi\nahr\n#tip\nh\u001b       nWsh   .m.  sm.   n  W.m.       sm.  yy\u001by   ny y\u001by  s"
+  }
+ ]
+}

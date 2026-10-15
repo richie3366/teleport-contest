@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " blul\u0017ice\nkl\u0017moat\n:hh\u0017cloud\n:lk\u0017grave\n: \u0017wand of digging\nzi>  20ss#terrain\nf\ni\u001b#loot\n#terrain\ne\nO>>l\u001b\n\u0006_ \u001b.>_>.Fl_,Fl>FlFl_>.Fl_.Fl>FlFlFlFj Fl\u0006_>.Fl _,Fj >FlFl_>,Fl_,Fl>FlFl_>.Fl_,Fl>FlFlFjFlFj\u0006_>,Fj_,Fj>FlFj_>.Fj_,Fl>FlFl_>,Fj_.Fl>FlFjFlFjFj\u0006_>.Fj_.Fl>FjFl_>,Fl_,Fj>FjFj_>.Fl_.Fj>FlFjFlFjFl\u0006_>.Fj_,Fj>FjFj_>.Fl_.Fl>FjFl_>.Fj_.Fl>FlFlFlFjFl\u0006_>.Fl_.@.Fh>FlFj_>.Fh _.Fl  n>FjFj_>,Fh_,Fj>FlFh FlFh Fh\u0006_>.Fl_.Fl>FlFh_>.Fy_,,> FlFlFl\u0006_>,Fh_..Fj>FkFk_>,_.> \u0006_>,_.m,>_>._.>.>_>._,<.>u#invoke\n\u001b\u0006_>._.,>_>,_.m.>_>._.>.>\u0018\u001b\\ <\u0006_>._..>_>,_.>.>_>,_.>.><mO>>>>i\u001b\n#dip\ncE- Elbereth\n100s  FhFhFhFhFhFhFhFh FhFh Fh Fh Fh Fh Fh\u0018\u001bkulFhFhFhFhFh FhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFh\u0006_>._.>.>_>._,@.>_>._.,><\u0006_>>,_.;;>_>>._,@.>_>>._,m,>\u0006_>,_.;m,>_>._.>.>_>._.,>Om\u001b\n\u0007kitten\n\u0017huge chunk of meat\n t\u001b\u0017meatball\nt\u001b#chat\nll \u0017apple\nt\u001b\u0006_>,Fl _.  nFl>FlFl_>.Fb_,m,Fb>FbFb_>.Fb_"
+ },
+ "segments": [
+  {
+   "seed": 50455044,
+   "datetime": "20011102080831",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=showrace\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You miss\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " blul\u0017ice\nkl\u0017moat\n:hh\u0017cloud\n:lk\u0017grave\n: \u0017wand of digging\nzi>  20ss#terrain\nf\ni\u001b#loot\n#terrain\ne\nO>>l\u001b\n\u0006_ \u001b.>_>.Fl_,Fl>FlFl_>.Fl_.Fl>FlFlFlFj Fl\u0006_>.Fl _,Fj >FlFl_>,Fl_,Fl>FlFl_>.Fl_,Fl>FlFlFjFlFj\u0006_>,Fj_,Fj>FlFj_>.Fj_,Fl>FlFl_>,Fj_.Fl>FlFjFlFjFj\u0006_>.Fj_.Fl>FjFl_>,Fl_,Fj>FjFj_>.Fl_.Fj>FlFjFlFjFl\u0006_>.Fj_,Fj>FjFj_>.Fl_.Fl>FjFl_>.Fj_.Fl>FlFlFlFjFl\u0006_>.Fl_.@.Fh>FlFj_>.Fh _.Fl  n>FjFj_>,Fh_,Fj>FlFh FlFh Fh\u0006_>.Fl_.Fl>FlFh_>.Fy_,,> FlFlFl\u0006_>,Fh_..Fj>FkFk_>,_.> \u0006_>,_.m,>_>._.>.>_>._,<.>u#invoke\n\u001b\u0006_>._.,>_>,_.m.>_>._.>.>\u0018\u001b\\ <\u0006_>._..>_>,_.>.>_>,_.>.><mO>>>>i\u001b\n#dip\ncE- Elbereth\n100s  FhFhFhFhFhFhFhFh FhFh Fh Fh Fh Fh Fh\u0018\u001bkulFhFhFhFhFh FhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFh\u0006_>._.>.>_>._,@.>_>._.,><\u0006_>>,_.;;>_>>._,@.>_>>._,m,>\u0006_>,_.;m,>_>._.>.>_>._.,>Om\u001b\n\u0007kitten\n\u0017huge chunk of meat\n t\u001b\u0017meatball\nt\u001b#chat\nll \u0017apple\nt\u001b\u0006_>,Fl _.  nFl>FlFl_>.Fb_,m,Fb>FbFb_>.Fb_"
+  }
+ ]
+}

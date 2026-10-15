@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWg\u0017blessed amulet of life saving\nPh#levelchange\n14\n             \u0007mind flayer\n\u0007master lich\n\u0007orc shaman\n\u0017wand of fire\n.m.zin       ziuzik            n ziu     n ziu       n sm.    n \u001618\n\u00165\n\u0017blessed spellbook of drain life\nrjsm.\u0017blessed spellbook of cause fear\nrk20s\u0007gnomish wizard\n\u0007lich\nZZZZZZZZ20ssm.ZZ\u0007lich\n\u0007master lich\n\u0007gnomish wizard\n\u0017wand of magic missile\nsm..j20s       20s  sm.20s   \u0007baby red dragon\n.k.m..\u0017wand of fire\namy              nFk   Fk\u00167\n\u00176 javelins\nQn\u0007soldier\n\u0007gnome\nfy tnhfh  fy tbyt\u001bt\u001b\u00174 cream pies\nQ\u001b\u0007giant rat\nt\u001bf \u001bt\u001bf \u001bi\u001b\u0017blessed spellbook of magic missile\nrp  sm.\u0017blessed spellbook of light\nrq sl \u0007orc shaman\n\u0007gnomish wizard\nZZZZsk.m.  Zsm.sZZ\u0018\u001b\u0017spellbook of force bolt\nrr     su\u0017spellbook of light\nrs.m.  \u0007succubus\nZZZZZsj .m.   y       \u0017blessed spellbook of drain life\nrt.k\u0017spellbook of magic missile\n ru     20s      \u0007incubus\n\u0007kobold shaman\nZZZZ20s     20s  ZZZ\u001612\n\u0017wand of magic missile\n\u0017wand of polymorph\n\u0017wand of teleportation\n\u0007kobold shaman\n\u0007bugbear\nzvl zxl   n     zwbzxb  sm.zwnzvn    \u0018\u001b\u0017blessed spellbook of light\nry 20s  \u0017spellbook of force bolt\nrz     \u001b:  .  \u0007incubus\n\u0007kobold shaman\nZ"
+ },
+ "segments": [
+  {
+   "seed": 50459011,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWg\u0017blessed amulet of life saving\nPh#levelchange\n14\n             \u0007mind flayer\n\u0007master lich\n\u0007orc shaman\n\u0017wand of fire\n.m.zin       ziuzik            n ziu     n ziu       n sm.    n \u001618\n\u00165\n\u0017blessed spellbook of drain life\nrjsm.\u0017blessed spellbook of cause fear\nrk20s\u0007gnomish wizard\n\u0007lich\nZZZZZZZZ20ssm.ZZ\u0007lich\n\u0007master lich\n\u0007gnomish wizard\n\u0017wand of magic missile\nsm..j20s       20s  sm.20s   \u0007baby red dragon\n.k.m..\u0017wand of fire\namy              nFk   Fk\u00167\n\u00176 javelins\nQn\u0007soldier\n\u0007gnome\nfy tnhfh  fy tbyt\u001bt\u001b\u00174 cream pies\nQ\u001b\u0007giant rat\nt\u001bf \u001bt\u001bf \u001bi\u001b\u0017blessed spellbook of magic missile\nrp  sm.\u0017blessed spellbook of light\nrq sl \u0007orc shaman\n\u0007gnomish wizard\nZZZZsk.m.  Zsm.sZZ\u0018\u001b\u0017spellbook of force bolt\nrr     su\u0017spellbook of light\nrs.m.  \u0007succubus\nZZZZZsj .m.   y       \u0017blessed spellbook of drain life\nrt.k\u0017spellbook of magic missile\n ru     20s      \u0007incubus\n\u0007kobold shaman\nZZZZ20s     20s  ZZZ\u001612\n\u0017wand of magic missile\n\u0017wand of polymorph\n\u0017wand of teleportation\n\u0007kobold shaman\n\u0007bugbear\nzvl zxl   n     zwbzxb  sm.zwnzvn    \u0018\u001b\u0017blessed spellbook of light\nry 20s  \u0017spellbook of force bolt\nrz     \u001b:  .  \u0007incubus\n\u0007kobold shaman\nZ"
+  }
+ ]
+}

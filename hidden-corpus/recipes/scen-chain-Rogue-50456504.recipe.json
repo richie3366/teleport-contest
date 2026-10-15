@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nd\n .m.sm.20ssm.sss.m...sm.s.m.su20ssb.h yy\u001by   nny  syy \u0017wand of digging\nzf>  20s    nzf>    20s zf>   yy\u001by  y y\u001by  2yy  #wizintrinsic\nb\n 20s.y  sm. sn 20s sm.20s  .m. sm..ksm.20s .m..sm.s.m.sm..m.sm..nsys20ssm.sj  yy\u001bny ny\u001bn  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50456504,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nd\n .m.sm.20ssm.sss.m...sm.s.m.su20ssb.h yy\u001by   nny  s"
+  },
+  {
+   "seed": 50556504,
+   "datetime": "20150801080023",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "yy \u0017wand of digging\nzf>  20s    nzf>    20s zf>   yy\u001by  y y\u001by  2"
+  },
+  {
+   "seed": 50656504,
+   "datetime": "20191223063750",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "yy  #wizintrinsic\nb\n 20s.y  sm. sn 20s sm.20s  .m. sm..ksm.20s .m..sm.s.m.sm..m.sm..nsys20ssm.sj  yy\u001bny ny\u001bn  s"
+  }
+ ]
+}

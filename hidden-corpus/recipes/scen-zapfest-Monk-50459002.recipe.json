@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of life saving\nPj\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nWl#levelchange\n20\n                      \u0007silver dragon\n\u0007baby red dragon\n.nsm.sm.FnFb\u0017wand of cold\n\u0017wand of lightning\n\u0007gnome\nznj    znn20s    znh  zmy zm. znj   n znk\u0017bow\nwo\u001720 arrows\nQp\u0007grid bug\nfhfn   n tph flfbfyfb  nfj\u00167\n\u0007red dragon\ns.20s  .\u0017wand of magic missile\naqy   n .si\u001b\u0007kobold shaman\n\u0007succubus\n\u0007lich\n\u0017wand of fire\nzry\u0007master mind flayer\n\u0007lich\n\u0007mind flayer\n\u0017wand of magic missile\n20s      y     n 20s .zsj \u0017wand of slow monster\n\u0017wand of striking\n\u0007yellow mold\n\u0007bugbear\nzuyztu  zul  n     n s  n  zun  n  zu.  n  zu \u00168\n\u0017bow\nwv\u001720 arrows\nQw\u0007gnome\n\u0007hill orc\nfyfbtwltoytpyfyi\u001b\u0007baby red dragon\nss20s s#polyself\nsilver dragon\n #monste"
+ },
+ "segments": [
+  {
+   "seed": 50459002,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of life saving\nPj\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nWl#levelchange\n20\n                      \u0007silver dragon\n\u0007baby red dragon\n.nsm.sm.FnFb\u0017wand of cold\n\u0017wand of lightning\n\u0007gnome\nznj    znn20s    znh  zmy zm. znj   n znk\u0017bow\nwo\u001720 arrows\nQp\u0007grid bug\nfhfn   n tph flfbfyfb  nfj\u00167\n\u0007red dragon\ns.20s  .\u0017wand of magic missile\naqy   n .si\u001b\u0007kobold shaman\n\u0007succubus\n\u0007lich\n\u0017wand of fire\nzry\u0007master mind flayer\n\u0007lich\n\u0007mind flayer\n\u0017wand of magic missile\n20s      y     n 20s .zsj \u0017wand of slow monster\n\u0017wand of striking\n\u0007yellow mold\n\u0007bugbear\nzuyztu  zul  n     n s  n  zun  n  zu.  n  zu \u00168\n\u0017bow\nwv\u001720 arrows\nQw\u0007gnome\n\u0007hill orc\nfyfbtwltoytpyfyi\u001b\u0007baby red dragon\nss20s s#polyself\nsilver dragon\n #monste"
+  }
+ ]
+}

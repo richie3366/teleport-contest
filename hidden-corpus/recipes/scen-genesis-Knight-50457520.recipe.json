@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017the Book of the Dead\nw-20sFj Fj#invoke\ni\u0007piranha\n;j: \u001bm.20s.m..m.\u0007winter wolf\nslsm.sm..m.  yy\u001by  ny y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 50457520,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017the Book of the Dead\nw-20sFj Fj#invoke\ni\u0007piranha\n;j: \u001bm.20s.m..m.\u0007winter wolf\nslsm.sm..m.  yy\u001by  ny y\u001by  s"
+  }
+ ]
+}

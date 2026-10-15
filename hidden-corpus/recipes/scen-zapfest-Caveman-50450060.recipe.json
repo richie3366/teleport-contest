@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nWf\u0017blessed +3 speed boots\nWg\u0017blessed ring of free action\nPhl\u0017wand of magic missile\n\u0017wand of polymorph\n\u0007gnome lord\nzjlzil szjhzikzjlzjlzjk.zilzilzi\u0017spellbook of sleep\nrks\u0007master lich\nZZZsm.sZZZZZ.m.   sm.#turn\n\u0007silver dragon\n\u0007black dragon\nsm. sn20s  n     n     #polyself\nblack dragon\n    #monster\nsm.       sh   #monster\n#monster\n#monster\nFl        n  n Fk   n \u001612\n\u0017bow\nwl\u001720 arrows\nQm\u0007troll\nfjfj  n  tbb  tmj  n fj   n\u001611\n    \u00162\n\u0017wand of striking\n\u0017wand of sleep\n\u0017wand of teleportation\n\u0007newt\n\u0007kobold shaman\nzoj     n zpl znjznj  znnsm.zob.znbszobsznkszpjs\u0007lich\n\u0007succubus\n\u0017wand of magic missile\nsm.zqh      .m.zqbzqb zqb    n zqbzqb\u00176 javelins\nQr\u0007kobold shaman\n\u0007gnome\ntmb  tmh fh    fj  fb    tmb   \u0017blessed spellbook of sleep\nrs    su\u0007gnomish wizard\nZZZZZ.m.    nsyZZ20s    sm.   Zsb    sy\u0017sling\nwt\u001720 flint stones\n Q-\u0007kobold shaman\n\u0007lichen\nf r l       n  ttj      tmn    tmn     f m b    fh       n  tmh      \u00166\n\u0017elven bow\nwu\u001720 elven arrows\nQv\u0007owlbear\ntmh  fl     n fl   tmh   tml  n    \u0007black dragon\n\u0007black dragon\nsm.  sm.  yy\u001bny y y\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 50450060,
+   "datetime": "20010216062143",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nWf\u0017blessed +3 speed boots\nWg\u0017blessed ring of free action\nPhl\u0017wand of magic missile\n\u0017wand of polymorph\n\u0007gnome lord\nzjlzil szjhzikzjlzjlzjk.zilzilzi\u0017spellbook of sleep\nrks\u0007master lich\nZZZsm.sZZZZZ.m.   sm.#turn\n\u0007silver dragon\n\u0007black dragon\nsm. sn20s  n     n     #polyself\nblack dragon\n    #monster\nsm.       sh   #monster\n#monster\n#monster\nFl        n  n Fk   n \u001612\n\u0017bow\nwl\u001720 arrows\nQm\u0007troll\nfjfj  n  tbb  tmj  n fj   n\u001611\n    \u00162\n\u0017wand of striking\n\u0017wand of sleep\n\u0017wand of teleportation\n\u0007newt\n\u0007kobold shaman\nzoj     n zpl znjznj  znnsm.zob.znbszobsznkszpjs\u0007lich\n\u0007succubus\n\u0017wand of magic missile\nsm.zqh      .m.zqbzqb zqb    n zqbzqb\u00176 javelins\nQr\u0007kobold shaman\n\u0007gnome\ntmb  tmh fh    fj  fb    tmb   \u0017blessed spellbook of sleep\nrs    su\u0007gnomish wizard\nZZZZZ.m.    nsyZZ20s    sm.   Zsb    sy\u0017sling\nwt\u001720 flint stones\n Q-\u0007kobold shaman\n\u0007lichen\nf r l       n  ttj      tmn    tmn     f m b    fh       n  tmh      \u00166\n\u0017elven bow\nwu\u001720 elven arrows\nQv\u0007owlbear\ntmh  fl     n fl   tmh   tml  n    \u0007black dragon\n\u0007black dragon\nsm.  sm.  yy\u001bny y y\u001b  ."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPl\u0016?\n>w\u0006_ \u001b,qd_oooooo._ooo.,\u0017amulet of flying\ndm_ooo,,p_ooooooo._o.,\u0017touchstone\ndn__._, Fy#chat\ny#pray\ny y  _ooooo.Fy _,,$__,Fh_.m.Fh #chat\nj#pray\ny y    _oooooooo.Fh_,,\u001b$_ooooo._.,$__.Fh_.;,Fh#chat\nh_oooooo,,\u0017amulet of ESP\ndp_ooooooo.Fy_.,p_ooooooo.Fh_,,:_ooooooo,_.,\u001b\u0014>.20ss_ooooooo.Fu_.,\u001bFl,\u001b$__.Fh_, Fk#chat\nh_ooooooooo.Fu_.Fu ,:_{. Fu _,@.Fj  n qd _ooooooo,Fl _., #chat\nh_ooo.Fu _.Fl_o.Fj_.,p_ooo,Fh_,<.Fy,:FyFyFyFyFyFy_oooooo,_ooo,Fh_.m,Fk,p_oooooooo,Fy _,.Fh ,p_oo,Fh _. Fk  ,#chat\nb_ooooooo.  n Fb_.m.,y $_oo.  Fl _.   Fl,$_oo.Fu  _.Fu   n ,\u001b\u0017amulet of life saving\ndv  _oooooo.   Fu_. Fj    n,   :_ooooooooo.   Fb   n_.    Fu     ,p_ooooooo,   n       nF"
+ },
+ "segments": [
+  {
+   "seed": 50455521,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPl\u0016?\n>w\u0006_ \u001b,qd_oooooo._ooo.,\u0017amulet of flying\ndm_ooo,,p_ooooooo._o.,\u0017touchstone\ndn__._, Fy#chat\ny#pray\ny y  _ooooo.Fy _,,$__,Fh_.m.Fh #chat\nj#pray\ny y    _oooooooo.Fh_,,\u001b$_ooooo._.,$__.Fh_.;,Fh#chat\nh_oooooo,,\u0017amulet of ESP\ndp_ooooooo.Fy_.,p_ooooooo.Fh_,,:_ooooooo,_.,\u001b\u0014>.20ss_ooooooo.Fu_.,\u001bFl,\u001b$__.Fh_, Fk#chat\nh_ooooooooo.Fu_.Fu ,:_{. Fu _,@.Fj  n qd _ooooooo,Fl _., #chat\nh_ooo.Fu _.Fl_o.Fj_.,p_ooo,Fh_,<.Fy,:FyFyFyFyFyFy_oooooo,_ooo,Fh_.m,Fk,p_oooooooo,Fy _,.Fh ,p_oo,Fh _. Fk  ,#chat\nb_ooooooo.  n Fb_.m.,y $_oo.  Fl _.   Fl,$_oo.Fu  _.Fu   n ,\u001b\u0017amulet of life saving\ndv  _oooooo.   Fu_. Fj    n,   :_ooooooooo.   Fb   n_.    Fu     ,p_ooooooo,   n       nF"
+  }
+ ]
+}

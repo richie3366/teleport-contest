@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017spear\nwfs..X\u0007orc shaman\nFyFy \u0007quantum mechanic\n#chat\nyFy   \u001b@. Fb  m,\u0007guardian naga\n;u.sss\u0007chameleon\nFuFuFu"
+ },
+ "segments": [
+  {
+   "seed": 50457519,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017spear\nwfs..X\u0007orc shaman\nFyFy \u0007quantum mechanic\n#chat\nyFy   \u001b@. Fb  m,\u0007guardian naga\n;u.sss\u0007chameleon\nFuFuFu"
+  }
+ ]
+}

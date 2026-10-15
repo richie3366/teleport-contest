@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " mO>>>>h\u001b\nmO>i\u001b\n\u0006_ \u001bm.>Fj Fb  _>>.Fb_,Fb>Fk Fn_>>,Fn_.Fn>FnFbFbFbFnr\u001b#jump\n\u0006_>.Fn_,Fb>FnFb_>,Fb_.Fn>FnFb_>.Fb_.Fb>FbFbFbFbFb\u0006_>.Fn_.Fb>FnFb_>.Fn_,Fn>FnFb_>.Fn_.Fb>FnFnFbFbFb\u0006_>>.Fb_.Fb>FnFn_>>.Fb_,Fn>FbFb_>>.Fb_.Fb>FbFbFbFbFbz\u0014m,\u0006_>.Fb_.Fb>FbFb_>,Fb_.Fn>FnFn_>.Fb_,Fb>FnFbFnFnFn\u000f\u001bmOa\u001b\nmOa\u001b\nO>>j\u001b\n#conduct\n #rub\nzFbFbFnFnFnFnFnFnFnFbFbFnFbFnFnFbFnFbFbFnFnFbFnFnFbFnFbFnFnFnFnFnFnFbFnFnFnFbFnFbFnFnFnFbFnFbFnFbFbFbFnFnFnFbFbFbFnFbFnFbFnFbFnFnFbFnFnFnFbFbFbFnFbFnFnFnFbFnFbFbFbFnFnFbFbFbFnFnFnFbFbFnFnFbFbFbFbFnFnFbFnFbFbFbFnFnFnFnFnFnFbFnFnFnFbFnFbFnFnFbjyhk\u0017altar\ndddc\u0017elf corpse\n #offer\ne   #pray\ny : j\u0017tree\n:hl\u0017grave\n: \u0017pick-axe\naf >  su sj ll\u0017throne\n#sit\n#sit\nq:de\u0007housecat\n\u0017apple\ntbu\u0017magic whistle\nlllah  n #chat\nuudh20s  n .hsm.#name\nm\n\u0017\u00168\n\u00163\n#pray\ny y 50s 150s_>,_.> 50sFhFhFhFhss#lo"
+ },
+ "segments": [
+  {
+   "seed": 50455016,
+   "datetime": "20080815170349",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You hear\"\nMENUCOLOR=\"a potion\"=red\n",
+   "moves": " mO>>>>h\u001b\nmO>i\u001b\n\u0006_ \u001bm.>Fj Fb  _>>.Fb_,Fb>Fk Fn_>>,Fn_.Fn>FnFbFbFbFnr\u001b#jump\n\u0006_>.Fn_,Fb>FnFb_>,Fb_.Fn>FnFb_>.Fb_.Fb>FbFbFbFbFb\u0006_>.Fn_.Fb>FnFb_>.Fn_,Fn>FnFb_>.Fn_.Fb>FnFnFbFbFb\u0006_>>.Fb_.Fb>FnFn_>>.Fb_,Fn>FbFb_>>.Fb_.Fb>FbFbFbFbFbz\u0014m,\u0006_>.Fb_.Fb>FbFb_>,Fb_.Fn>FnFn_>.Fb_,Fb>FnFbFnFnFn\u000f\u001bmOa\u001b\nmOa\u001b\nO>>j\u001b\n#conduct\n #rub\nzFbFbFnFnFnFnFnFnFnFbFbFnFbFnFnFbFnFbFbFnFnFbFnFnFbFnFbFnFnFnFnFnFnFbFnFnFnFbFnFbFnFnFnFbFnFbFnFbFbFbFnFnFnFbFbFbFnFbFnFbFnFbFnFnFbFnFnFnFbFbFbFnFbFnFnFnFbFnFbFbFbFnFnFbFbFbFnFnFnFbFbFnFnFbFbFbFbFnFnFbFnFbFbFbFnFnFnFnFnFnFbFnFnFnFbFnFbFnFnFbjyhk\u0017altar\ndddc\u0017elf corpse\n #offer\ne   #pray\ny : j\u0017tree\n:hl\u0017grave\n: \u0017pick-axe\naf >  su sj ll\u0017throne\n#sit\n#sit\nq:de\u0007housecat\n\u0017apple\ntbu\u0017magic whistle\nlllah  n #chat\nuudh20s  n .hsm.#name\nm\n\u0017\u00168\n\u00163\n#pray\ny y 50s 150s_>,_.> 50sFhFhFhFhss#lo"
+  }
+ ]
+}

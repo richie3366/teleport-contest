@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nWe \u0017blessed +3 gauntlets of power\nWf\u0016?\n>w\u0006_ \u001b,#chat\nkhju#chat\nj_ooo.,\u0014<.  .m..__.Fn_.Fn #chat\nk  _ooooo.Fh_., $Fy FyFyFyFyFy_ooooooooo,Fk_,,$_oooooo._ooo,_,,\u001bp\u0016?\ncbkl\u0016?\n>w\u0006juh#chat\nb_{.    Fn  _. qy  _ooooooo, Fh_,Fk _o._.,\u001b#chat\nkkkn#chat\nb _oooo,    Fj _.@.Fj_ooo.Fn_.@.,p\u0016?\nchhb\u0016?\n>w\u0006__.Fk_,Fn#chat\nn_oo._,,\u001b#chat\nhjlk#chat\ny_ooo._.,\u001b\u0017cheap plastic imitation of the Amulet of Yendor\ndj__.Fn_.#chat\nu_oooooooo,_._ooo._,,\u001bp_ooooo._._ooo. Fh  _.,p   _{,Fh_.@.qy y__.Fh_,.Fh#chat\nh#pray\ny y    _oooooooo, Fn_.Fl _ooo,Fl_.Fl,p_ooooooooo.Fk_, Fl   n  ,\u001b\u0017amulet of guarding\ndk  Fl    Fl    Fl   Fl    n  Fl  Fl  _ooooooo, Fl   _,Fj _oo.Fl  _.,    n      pFj     Fj   Fj     Fj    Fj "
+ },
+ "segments": [
+  {
+   "seed": 50455535,
+   "datetime": "20061219222711",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:full\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nWe \u0017blessed +3 gauntlets of power\nWf\u0016?\n>w\u0006_ \u001b,#chat\nkhju#chat\nj_ooo.,\u0014<.  .m..__.Fn_.Fn #chat\nk  _ooooo.Fh_., $Fy FyFyFyFyFy_ooooooooo,Fk_,,$_oooooo._ooo,_,,\u001bp\u0016?\ncbkl\u0016?\n>w\u0006juh#chat\nb_{.    Fn  _. qy  _ooooooo, Fh_,Fk _o._.,\u001b#chat\nkkkn#chat\nb _oooo,    Fj _.@.Fj_ooo.Fn_.@.,p\u0016?\nchhb\u0016?\n>w\u0006__.Fk_,Fn#chat\nn_oo._,,\u001b#chat\nhjlk#chat\ny_ooo._.,\u001b\u0017cheap plastic imitation of the Amulet of Yendor\ndj__.Fn_.#chat\nu_oooooooo,_._ooo._,,\u001bp_ooooo._._ooo. Fh  _.,p   _{,Fh_.@.qy y__.Fh_,.Fh#chat\nh#pray\ny y    _oooooooo, Fn_.Fl _ooo,Fl_.Fl,p_ooooooooo.Fk_, Fl   n  ,\u001b\u0017amulet of guarding\ndk  Fl    Fl    Fl   Fl    n  Fl  Fl  _ooooooo, Fl   _,Fj _oo.Fl  _.,    n      pFj     Fj   Fj     Fj    Fj "
+  }
+ ]
+}

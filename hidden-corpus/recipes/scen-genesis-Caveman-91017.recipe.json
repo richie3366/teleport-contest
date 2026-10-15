@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0007vampire lord\nsm.ss.h  sl.\u0007hobbit\nFh  Fy Fh Fh  \u0007trapper\n;h: \u001b;20s.usm.\u0007dwarf lord\nFyFb      FkFj"
+ },
+ "segments": [
+  {
+   "seed": 91017,
+   "datetime": "20260629234321",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0007vampire lord\nsm.ss.h  sl.\u0007hobbit\nFh  Fy Fh Fh  \u0007trapper\n;h: \u001b;20s.usm.\u0007dwarf lord\nFyFb      FkFj"
+  }
+ ]
+}

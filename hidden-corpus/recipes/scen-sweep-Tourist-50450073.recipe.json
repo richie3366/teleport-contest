@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0017dagger\nwn.FhFh\u0007vrock\nFbFb Fb Fb \u0007Uruk-hai\nFn  n Fn \u0007chameleon\n;k. \u001b;.m.   20s  n  .m.  \\ \u00162\n#levelchange\n10\n\u0007wood nymph\nFh   n  Fj  Fj    n 20s  .n  #pray\ny y         \u0007disenchanter\nFn    Fh    n  Fl    n   Fj      n .m.    20s  n     #pray\ny y             \u00167\n#levelchange\n10\n\u0017crystal plate mail\nWo   n   20s     n .h20s  \u0007mind flayer\nFy  Fy    n Fl       Fl          n Fu    sm.    n    20s    n    \u0007incubus\nFy       n     n Fu       n    Fu       yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50450073,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0017dagger\nwn.FhFh\u0007vrock\nFbFb Fb Fb \u0007Uruk-hai\nFn  n Fn \u0007chameleon\n;k. \u001b;.m.   20s  n  .m.  \\ \u00162\n#levelchange\n10\n\u0007wood nymph\nFh   n  Fj  Fj    n 20s  .n  #pray\ny y         \u0007disenchanter\nFn    Fh    n  Fl    n   Fj      n .m.    20s  n     #pray\ny y             \u00167\n#levelchange\n10\n\u0017crystal plate mail\nWo   n   20s     n .h20s  \u0007mind flayer\nFy  Fy    n Fl       Fl          n Fu    sm.    n    20s    n    \u0007incubus\nFy       n     n Fu       n    Fu       yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

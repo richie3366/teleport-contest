@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "nn\u0017wand of opening\nEj I am a fish\n\u0017wand of speed monster\nEkn  I am a fish\n\u0017wand of cancellation\nEl  I am a fish\n: b\u0017wand of slow monster\nEm I am a fish\n: \u001626\ni\u001b#levelchange\n30\n                              \u0017blessed ring of polymorph control\nPnr#polyself\nmail daemon\n vampire\n#monster\ny    ss\u0007orc shaman\nFjFjFj20s ss#polyself\nincubus\n20s 20s \u0007horned devil\nFn Fn  \u001bFj s  ss #polyself\niron golem\n#monster\nj   20s  s    \u001b\u0007rabid rat\nFn  Fn   Fj .. s  n \u0018\u001b\u0006_ \u001b;>Fj  Fj_>,>Fj Fj  n _>,>Fn Fj Fj Fj Fj  n  Lj \u0006_>.>Fn Fn   n _>,>Fj Fn _>,>FnFnFn ss  n \u0006_>.>_>.>_>.>\u0006_>,>_>.>_>.>js \u0006_>.>_>.>_>,>\u0006_>>.>_>>.>_>>.>\u00161\nk  jl\u0017unaligned altar\ndg  n dm\u0017newt corpse\n#offer\no   #pray\ny y  : nj \u0017iron bars\nh    n lll:bn\u0017altar\ndn\u0017elf corpse\n#offer\np        #pray\ny          n  nb\u0017sink\nqy#terrain\nf\n#chat\nh#offer\n>\u00165\n#levelchange\n30\n#wizintrinsic\nhk\n 20s sb20s   su sm.  sm.  n  sm.   20s   20s   n   sm.    20s    n .k     .m.      n 20s    su     .m.    n    20s      .m.    n     sm.       20s    n      sbsj\u0017scroll of punishment\nrq       : #wipe\n     yy  #"
+ },
+ "segments": [
+  {
+   "seed": 50450089,
+   "datetime": "20240615062748",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=fruit:mango\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "nn\u0017wand of opening\nEj I am a fish\n\u0017wand of speed monster\nEkn  I am a fish\n\u0017wand of cancellation\nEl  I am a fish\n: b\u0017wand of slow monster\nEm I am a fish\n: \u001626\ni\u001b#levelchange\n30\n                              \u0017blessed ring of polymorph control\nPnr#polyself\nmail daemon\n vampire\n#monster\ny    ss\u0007orc shaman\nFjFjFj20s ss#polyself\nincubus\n20s 20s \u0007horned devil\nFn Fn  \u001bFj s  ss #polyself\niron golem\n#monster\nj   20s  s    \u001b\u0007rabid rat\nFn  Fn   Fj .. s  n \u0018\u001b\u0006_ \u001b;>Fj  Fj_>,>Fj Fj  n _>,>Fn Fj Fj Fj Fj  n  Lj \u0006_>.>Fn Fn   n _>,>Fj Fn _>,>FnFnFn ss  n \u0006_>.>_>.>_>.>\u0006_>,>_>.>_>.>js \u0006_>.>_>.>_>,>\u0006_>>.>_>>.>_>>.>\u00161\nk  jl\u0017unaligned altar\ndg  n dm\u0017newt corpse\n#offer\no   #pray\ny y  : nj \u0017iron bars\nh    n lll:bn\u0017altar\ndn\u0017elf corpse\n#offer\np        #pray\ny          n  nb\u0017sink\nqy#terrain\nf\n#chat\nh#offer\n>\u00165\n#levelchange\n30\n#wizintrinsic\nhk\n 20s sb20s   su sm.  sm.  n  sm.   20s   20s   n   sm.    20s    n .k     .m.      n 20s    su     .m.    n    20s      .m.    n     sm.       20s    n      sbsj\u0017scroll of punishment\nrq       : #wipe\n     yy  #"
+  }
+ ]
+}

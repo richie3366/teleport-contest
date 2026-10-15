@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "HBLY_ \u001bm.>FnFls<nnYNBL_>,>Fk 20ssYKKH_>.>hl10slnkj#name\nf\n10sh#chat\nj10s10sda..stbykn_>.>150sluhFh FhFhFhsslhj150si\u001b150sFkFkFkFkFk._>.>150s50s50sbkn100s100s   Fk Fk Fk   y\u001by  y y y\u001b  5"
+ },
+ "segments": [
+  {
+   "seed": 50450059,
+   "datetime": "20100222153532",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=runmode:walk\n",
+   "moves": "HBLY_ \u001bm.>FnFls<nnYNBL_>,>Fk 20ssYKKH_>.>hl10slnkj#name\nf\n10sh#chat\nj10s10sda..stbykn_>.>150sluhFh FhFhFhsslhj150si\u001b150sFkFkFkFkFk._>.>150s50s50sbkn100s100s   Fk Fk Fk   y\u001by  y y y\u001b  5"
+  }
+ ]
+}

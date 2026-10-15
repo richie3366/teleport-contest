@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": ":r\u001bk#chat\nkO>>>i\u001b\u001b\n\u00167\nO>>n\u001b\u001b\nv i\u001b\u001617\n \u0006_ \u001b,>_>>._.> FyFbFl\u0006_>.Fn_.>.Fn>FjFj_>.Fn_.@.Fj>FjFj_>,Fj_.,Fj>FnFjFnFjFn\u0006_>>.Fn_,>.Fn>FnFn_>>,Fn_.@.Fj >FnFn_>>.Fn_.@.Fj>FjFjFnFnFn#pray\ny y #force\n\u0006_>.Fn_..Fn>FjFj_>.Fj_.@.Fj>FjFj_>,Fn_.m.Fj>FnFjFnFjFn\u0006_>>,Fj_.m.Fn>FjFj_>>.Fj_.@.Fn>FnFj_>>.Fn_.>.Fb >Fj Fn FbFjFj\u000f\u001bmO>>>>j\u001b\n\u0006_>>.Fj_,m.Fj>FnFj_>>.Fn_..Fj>FnFn_>>.Fj_.:Fn>FnFjFnFjFj\u0006_>,Fn_.;m,Fn>FnFj_>.Fj_,m,Fj>FnFn_>.Fn_.,Fj>FjFnFjFnFj\u0006_>>.Fj_,.Fn>FjFn_>>.Fn_.:Fn>FjFj_>>.Fn_,.Fj>FjFjFjFnFn\u0006_>.Fn_.;m,Fj>FjFj_>,Fj_.:Fj>FjFj_>.Fh_,>.Fh>FhFjFh FnFj  n\u000f\u001b\u0007tame soldier ant\n\u0007little dog\n\u0017fortune cookie\ntbbh  de.n..\u0007kobold\nsm.sm..m.sm..m.sm.\u0017tin whistle\nh uyag  n \u0007jackal\nsm.   sm. 20s  20s .s\u0007gnome\n\u0017scroll of taming\nrh nch\u0014,cjO>i\u001b\u001b\nynhj \u0017fountain\nqyqy\u0017long sword\n#dip\nly:yl\u0017ice\nhk\u0017magic fountain\nqy qyag #wipe\n>\u001618\n\\    50s   #offer\ni\u001b100s \u0018\u001b_>,Fn_.>.Fn>FnFnFnF"
+ },
+ "segments": [
+  {
+   "seed": 50455012,
+   "datetime": "20080922045902",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": ":r\u001bk#chat\nkO>>>i\u001b\u001b\n\u00167\nO>>n\u001b\u001b\nv i\u001b\u001617\n \u0006_ \u001b,>_>>._.> FyFbFl\u0006_>.Fn_.>.Fn>FjFj_>.Fn_.@.Fj>FjFj_>,Fj_.,Fj>FnFjFnFjFn\u0006_>>.Fn_,>.Fn>FnFn_>>,Fn_.@.Fj >FnFn_>>.Fn_.@.Fj>FjFjFnFnFn#pray\ny y #force\n\u0006_>.Fn_..Fn>FjFj_>.Fj_.@.Fj>FjFj_>,Fn_.m.Fj>FnFjFnFjFn\u0006_>>,Fj_.m.Fn>FjFj_>>.Fj_.@.Fn>FnFj_>>.Fn_.>.Fb >Fj Fn FbFjFj\u000f\u001bmO>>>>j\u001b\n\u0006_>>.Fj_,m.Fj>FnFj_>>.Fn_..Fj>FnFn_>>.Fj_.:Fn>FnFjFnFjFj\u0006_>,Fn_.;m,Fn>FnFj_>.Fj_,m,Fj>FnFn_>.Fn_.,Fj>FjFnFjFnFj\u0006_>>.Fj_,.Fn>FjFn_>>.Fn_.:Fn>FjFj_>>.Fn_,.Fj>FjFjFjFnFn\u0006_>.Fn_.;m,Fj>FjFj_>,Fj_.:Fj>FjFj_>.Fh_,>.Fh>FhFjFh FnFj  n\u000f\u001b\u0007tame soldier ant\n\u0007little dog\n\u0017fortune cookie\ntbbh  de.n..\u0007kobold\nsm.sm..m.sm..m.sm.\u0017tin whistle\nh uyag  n \u0007jackal\nsm.   sm. 20s  20s .s\u0007gnome\n\u0017scroll of taming\nrh nch\u0014,cjO>i\u001b\u001b\nynhj \u0017fountain\nqyqy\u0017long sword\n#dip\nly:yl\u0017ice\nhk\u0017magic fountain\nqy qyag #wipe\n>\u001618\n\\    50s   #offer\ni\u001b100s \u0018\u001b_>,Fn_.>.Fn>FnFnFnF"
+  }
+ ]
+}

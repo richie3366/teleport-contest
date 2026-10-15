@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                      \u0017cursed scroll of destroy armor\nrj\u00173 credit card\nakk\u00173 Sunsword\nwl  Fn Fl s.s\u0017uncursed +0 elven mithril-coat\nW\u001bs.sT\u0017cursed potion of enlightenment\n\u0007yeti\nqn \u001bFl Fl\u0017amulet versus poison\nPo  sm..m.sm.sR sm.sm."
+ },
+ "segments": [
+  {
+   "seed": 91013,
+   "datetime": "20210824191538",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                      \u0017cursed scroll of destroy armor\nrj\u00173 credit card\nakk\u00173 Sunsword\nwl  Fn Fl s.s\u0017uncursed +0 elven mithril-coat\nW\u001bs.sT\u0017cursed potion of enlightenment\n\u0007yeti\nqn \u001bFl Fl\u0017amulet versus poison\nPo  sm..m.sm.sR sm.sm."
+  }
+ ]
+}

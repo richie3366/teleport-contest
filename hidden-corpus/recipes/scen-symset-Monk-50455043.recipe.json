@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  P#sit\n\u0007large dog\n\u0017huge chunk of meat\nt\u001b\u0007yellow mold\n.h\u001bsuu sm..n20ssj\u0017fortune cookie\n t\u001b\u0007newt\n20sm.s20sm.s20sm.suj \u0017tin whistle\nh\u001blj h\u001bak#chat\nj \u0017meatball\nt\u001bO>>p\u001b\n#wipe\n\\  v i\u001b#chat\nb zv i\u001bmO>r\u001b\n\u0006_ \u001b,>FbFb_>>.  nFj_.m,Fh>FyFy_>>.Fh_,<.Fh>FhFhFhFhFh<\u0006_>.Fh_,;@.Fh>FhFh_>,Fh_,:Fh>FhFh_>.Fb_.Fb>FbFbFbFbFb>;b:    \u0006_>.Fh_.m.Fh>FhFh_>,Fh_,Fh>FhFh_>.Fh_,Fh>FhFhFhFhFh\u000f\u001bO>>>b\u001b\nv i\u001bri nnyrc  >.  n \u001611\nOi\u001b\u001b\nv i\u001b\u0007tame large dog\n\u0007tame kitten\n#name\nf\n#chat\nj \u0017leash\namy ku juk ly amj j10s\u0017fortune cookie\n t\u001b\u0017leash\nanj ky uu ly uy any ai #untrap\nl ,\u00167\nFnFyFnFyFyFnFnFnFnFyFyFyFyFnFnFyFnFyFnFyFnFyFnFnFnFnFnFnFnFnFyFnFyFnFnFyFyFyFnFnFyFnFyFyFyFnFnFyFyFyFyFnFyFnFnFyFnFnFyFnFnFyFnFnFnFnFnFyFyFnFyFyFnFyFyFnFnFyFyFnFnFnFnFnFnFyFnFyFyFyFnFnFnFyFyFyFnFnFnFnFnFnFyFnFyFyFnFnFnFnFyFnFnFnFyFnFyFnFnFy#chat\ny >z:\u001613\n\u00167\nF"
+ },
+ "segments": [
+  {
+   "seed": 50455043,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=fruit:durian\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a potion\"=red\n",
+   "moves": "  P#sit\n\u0007large dog\n\u0017huge chunk of meat\nt\u001b\u0007yellow mold\n.h\u001bsuu sm..n20ssj\u0017fortune cookie\n t\u001b\u0007newt\n20sm.s20sm.s20sm.suj \u0017tin whistle\nh\u001blj h\u001bak#chat\nj \u0017meatball\nt\u001bO>>p\u001b\n#wipe\n\\  v i\u001b#chat\nb zv i\u001bmO>r\u001b\n\u0006_ \u001b,>FbFb_>>.  nFj_.m,Fh>FyFy_>>.Fh_,<.Fh>FhFhFhFhFh<\u0006_>.Fh_,;@.Fh>FhFh_>,Fh_,:Fh>FhFh_>.Fb_.Fb>FbFbFbFbFb>;b:    \u0006_>.Fh_.m.Fh>FhFh_>,Fh_,Fh>FhFh_>.Fh_,Fh>FhFhFhFhFh\u000f\u001bO>>>b\u001b\nv i\u001bri nnyrc  >.  n \u001611\nOi\u001b\u001b\nv i\u001b\u0007tame large dog\n\u0007tame kitten\n#name\nf\n#chat\nj \u0017leash\namy ku juk ly amj j10s\u0017fortune cookie\n t\u001b\u0017leash\nanj ky uu ly uy any ai #untrap\nl ,\u00167\nFnFyFnFyFyFnFnFnFnFyFyFyFyFnFnFyFnFyFnFyFnFyFnFnFnFnFnFnFnFnFyFnFyFnFnFyFyFyFnFnFyFnFyFyFyFnFnFyFyFyFyFnFyFnFnFyFnFnFyFnFnFyFnFnFnFnFnFyFyFnFyFyFnFyFyFnFnFyFyFnFnFnFnFnFnFyFnFyFyFyFnFnFnFyFyFyFnFnFnFnFnFnFyFnFyFyFnFnFnFnFyFnFnFnFyFnFyFnFnFy#chat\ny >z:\u001613\n\u00167\nF"
+  }
+ ]
+}

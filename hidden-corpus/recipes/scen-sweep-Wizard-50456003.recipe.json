@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          \u0017wand of digging\nzoyyzohh_ \u001b;zo> _>.zo> zo> 20s\u001616\n\u0018\u001b#levelchange\n20\n        \u0017morning star\nwp20ss20s\u0007Wizard of Yendor\ny;l, 20s  20s  .j \u0007soldier\nsj  20s    20s    n     20s       20s    n       .m.       n .m.     \u0007brown mold\n;l.20s    \u001b   n.m.      s    n \u0007genetic engineer\ns  s\u001b20s\u001b.s20s\u001bs20s \u001612\n#levelchange\n30\n         \u00173 20 arrows\n \u001b\u0007vampire bat\n,\u0017blessed wand of digging\nzr>   n   \u0017dagger\nwss .   .  n  \u0017cursed heavy iron ball\n 20s   wa\u0017magic lamp\n\u0007fire elemental\n.\u0017cursed amulet of magical breathing\nPvs ss\u001bss20s \u00163\n\u0017locked large box\n\u0017bag of tricks\n\u0017scroll of amnesia\n#tip\nyx\n n    .  n s    ax  n      s    n .\u0017long sword\nwzdx      n #force\ny   .  n s   n   s     ns   .   ynny y y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50456003,
+   "datetime": "20260408025618",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n          \u0017wand of digging\nzoyyzohh_ \u001b;zo> _>.zo> zo> 20s\u001616\n\u0018\u001b#levelchange\n20\n        \u0017morning star\nwp20ss20s\u0007Wizard of Yendor\ny;l, 20s  20s  .j \u0007soldier\nsj  20s    20s    n     20s       20s    n       .m.       n .m.     \u0007brown mold\n;l.20s    \u001b   n.m.      s    n \u0007genetic engineer\ns  s\u001b20s\u001b.s20s\u001bs20s \u001612\n#levelchange\n30\n         \u00173 20 arrows\n \u001b\u0007vampire bat\n,\u0017blessed wand of digging\nzr>   n   \u0017dagger\nwss .   .  n  \u0017cursed heavy iron ball\n 20s   wa\u0017magic lamp\n\u0007fire elemental\n.\u0017cursed amulet of magical breathing\nPvs ss\u001bss20s \u00163\n\u0017locked large box\n\u0017bag of tricks\n\u0017scroll of amnesia\n#tip\nyx\n n    .  n s    ax  n      s    n .\u0017long sword\nwzdx      n #force\ny   .  n s   n   s     ns   .   ynny y y\u001b  \u0017"
+  }
+ ]
+}

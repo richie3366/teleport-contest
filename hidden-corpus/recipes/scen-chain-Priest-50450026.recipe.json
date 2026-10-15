@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "luhhYLBK_ \u001b,>LLLB_>.>FlFksUNBK _>.>\u000f\u001bbjjyFkFkFkFkFkFkFkFkdbss20sdcs.sdgss20sky#name\ni\n#chat\njt\u001bbblkt\u001b#name\nf\n20st\u001bde.20ssFuFuFuFuFuFuFuFudf ss20s10s20sn blkFhFhFhFhFhFh FhFhFlFlFlFlFlFlFlFl20s nubhlll#quit\nyy\u001by  y y y\u001b YBKJ_ \u001b<.><nyBBKN_>,>Fh 20s20sJULK_>,><BULJ_>,>20s#chat\nnLKNK_>.>YHYK_>.>bn#chat\nlt\u001b20sdi20s.20suuln#chat\nkt\u001bjkhb10s20s#chat\nk#chat\nl20s#chat\nnjubuuujjda20s20s20s10s10s20s10shlyyJUKY_>.>#enhance\n\u001b\u0004n#quit\nyy\u001by  y y y\u001b #wizintrinsic\na\n .20s20s20s20s20s20s20s  sm.sm..m. 20s ssss.ssss.s20sss20s.10s da20s.s10s20s ulbuFn   Fn  Fn  Fn FnFnFn  FnFnFnFnFnFnFnFnFnul yh20s    10s #name\na\n10s tbhjjhkFlFk20s100s      FlsFl ul h  _ \u001b:>nunykj50sFns    . n k y150s100s    FhsFjbh   lFlFjFlFlFkFu _>.>50sFlFjs>hyj\u000f\u001b50sFl.Fl  Fl  Fl   y\u001by  y y y\u001b  #\u0017wand of death\nzg.  y y\u001by  y y\u001by  .   jblyFl  \u001b     F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50450026,
+   "datetime": "20100503223146",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\n",
+   "moves": "luhhYLBK_ \u001b,>LLLB_>.>FlFksUNBK _>.>\u000f\u001bbjjyFkFkFkFkFkFkFkFkdbss20sdcs.sdgss20sky#name\ni\n#chat\njt\u001bbblkt\u001b#name\nf\n20st\u001bde.20ssFuFuFuFuFuFuFuFudf ss20s10s20sn blkFhFhFhFhFhFh FhFhFlFlFlFlFlFlFlFl20s nubhlll#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50550026,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "YBKJ_ \u001b<.><nyBBKN_>,>Fh 20s20sJULK_>,><BULJ_>,>20s#chat\nnLKNK_>.>YHYK_>.>bn#chat\nlt\u001b20sdi20s.20suuln#chat\nkt\u001bjkhb10s20s#chat\nk#chat\nl20s#chat\nnjubuuujjda20s20s20s10s10s20s10shlyyJUKY_>.>#enhance\n\u001b\u0004n#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50650026,
+   "datetime": "20010118101011",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\na\n .20s20s20s20s20s20s20s  sm.sm..m. 20s ssss.ssss.s20sss20s."
+  },
+  {
+   "seed": 50750026,
+   "datetime": "20200918013059",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "10s da20s.s10s20s ulbuFn   Fn  Fn  Fn FnFnFn  FnFnFnFnFnFnFnFnFnul yh20s    10s #name\na\n10s tbhjjhkFlFk20s100s      FlsFl ul h  _ \u001b:>nunykj50sFns    . n k y150s100s    FhsFjbh   lFlFjFlFlFkFu _>.>50sFlFjs>hyj\u000f\u001b50sFl.Fl  Fl  Fl   y\u001by  y y y\u001b  #"
+  },
+  {
+   "seed": 50850026,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of death\nzg.  y y\u001by  y y\u001by  ."
+  },
+  {
+   "seed": 50950026,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "   jblyFl  \u001b     F"
+  }
+ ]
+}

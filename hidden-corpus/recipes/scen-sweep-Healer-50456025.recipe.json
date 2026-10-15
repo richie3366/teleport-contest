@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          i\u001bqeqd#dip\ndd waFuFk20srg y 20ssZb\nrh y ssZb\nZb\nW20s.20s#rub\ndc i\u001bej #chat\nl;l. \u001bm.f $ nzfl i\u001bej        sm.sm. qd#dip\nde  Wsm.20sshT ri y ssZb\nrg y ssZc\nZc\nqe\u001618\n \u0018\u001b\u0017wand of digging\n_>.zm> zmuu  zm> 20s\u0017Stormbringer\n wn  .s.#invoke\nn \u0007crocodile\nFlFl Fl Fh   >.Fh   <.Fh   ,\u0007fire giant\nFy   @.Fl   <.Fy   n  >. \u0007genetic engineer\n#chat\ny    ,Fy      ,Fl      :#levelchange\n14\n \u0007tame saddled mumak\n\u0017lance\nw#ride\nhy\u0007horse\n\u0017scroll of taming\nrp \u0017saddle\na#ride\nuy\u0007tame saddled horse\n#ride\nky20s     20s              \u0007kobold\nFy      Fy   Fl\u0007kobold\nFu Fl    Fh s.\u0017elven mithril-coat\nWrss  20s            T \u0007dwarf lord\nFy Fk       Fy Fy\u0007baby purple worm\n#chat\nl Fu   Fl     \u001626\n\u0007wood nymph\nFkFj Fk  FjFjFk Fk20s s  #pray\ny y  \u0007owlbear\nFk  FkFk  n  sm.20s \u001b\u0007shrieker\nFjFjFk FkFj20s . i\u001b\u0017Snickersnee\nws  Fk  FkFj#invoke\ns\u0007rust monster\n;j,.20s\u001b.\u0007mail daemon\n#chat\nFjFk  #wizintrinsic\nome\n  sm. snssssss20s sm.    .nsm. 20s  sy20s   sm. 20s  sm.  sm. sy.j sm.    <.\u0017tooled horn\naty   aty ej  \u000f\u001b20s  ej  #name\no\n,sm.    20s  sm.  sm.  sm. 20s    n\u0016?\nj\u0006\u0017tooled horn\nawnFtntEesneFoEosAFsCDDnCFBotoBFsEonAsCEBBEGAC\n   j  k awnDnFBGoEeeenBGssCBsAGADstFotttCEntDAsDtBGFCA\n     yb\u0017wand of opening\nzxlbfl #name\nm\n\u0016\u0007jackal\nFj  Fj    Fj   Fj    \u0007rust monster\nFk  Fk Fk     Fj\u001626\n#levelchange\n30\n                \u0017blessed spellb"
+ },
+ "segments": [
+  {
+   "seed": 50456025,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n          i\u001bqeqd#dip\ndd waFuFk20srg y 20ssZb\nrh y ssZb\nZb\nW20s.20s#rub\ndc i\u001bej #chat\nl;l. \u001bm.f $ nzfl i\u001bej        sm.sm. qd#dip\nde  Wsm.20sshT ri y ssZb\nrg y ssZc\nZc\nqe\u001618\n \u0018\u001b\u0017wand of digging\n_>.zm> zmuu  zm> 20s\u0017Stormbringer\n wn  .s.#invoke\nn \u0007crocodile\nFlFl Fl Fh   >.Fh   <.Fh   ,\u0007fire giant\nFy   @.Fl   <.Fy   n  >. \u0007genetic engineer\n#chat\ny    ,Fy      ,Fl      :#levelchange\n14\n \u0007tame saddled mumak\n\u0017lance\nw#ride\nhy\u0007horse\n\u0017scroll of taming\nrp \u0017saddle\na#ride\nuy\u0007tame saddled horse\n#ride\nky20s     20s              \u0007kobold\nFy      Fy   Fl\u0007kobold\nFu Fl    Fh s.\u0017elven mithril-coat\nWrss  20s            T \u0007dwarf lord\nFy Fk       Fy Fy\u0007baby purple worm\n#chat\nl Fu   Fl     \u001626\n\u0007wood nymph\nFkFj Fk  FjFjFk Fk20s s  #pray\ny y  \u0007owlbear\nFk  FkFk  n  sm.20s \u001b\u0007shrieker\nFjFjFk FkFj20s . i\u001b\u0017Snickersnee\nws  Fk  FkFj#invoke\ns\u0007rust monster\n;j,.20s\u001b.\u0007mail daemon\n#chat\nFjFk  #wizintrinsic\nome\n  sm. snssssss20s sm.    .nsm. 20s  sy20s   sm. 20s  sm.  sm. sy.j sm.    <.\u0017tooled horn\naty   aty ej  \u000f\u001b20s  ej  #name\no\n,sm.    20s  sm.  sm.  sm. 20s    n\u0016?\nj\u0006\u0017tooled horn\nawnFtntEesneFoEosAFsCDDnCFBotoBFsEonAsCEBBEGAC\n   j  k awnDnFBGoEeeenBGssCBsAGADstFotttCEntDAsDtBGFCA\n     yb\u0017wand of opening\nzxlbfl #name\nm\n\u0016\u0007jackal\nFj  Fj    Fj   Fj    \u0007rust monster\nFk  Fk Fk     Fj\u001626\n#levelchange\n30\n                \u0017blessed spellb"
+  }
+ ]
+}

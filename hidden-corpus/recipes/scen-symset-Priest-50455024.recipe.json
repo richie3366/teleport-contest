@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "O>>>>i\u001b\u001b\nO>>>>n\u001b\u001b\nmOa\u001b\n\u00167\nFjFjFhFhFj FhFjFhFjFhFhFlFnFl FnFjFjFjFj   nFjFlFhFjFl#pray\ny y    FnFlFlFlFjFjFhFhFh#pray\ny y    FnFnFnFl FlFj#pray\ny y    FlFjFjFnFnFjFnFjFhFjFlFjFnFjFnFhFl  nFnFjFl FjFlFnFl FnFhFl#pray\ny y    FhFhFhFlFhFhFhFnFb  nFlFnFlFbFjFnFhFbFhFnFjFnFjFl FhFhFhFhFjFhFnFhFhFhFhFjFjFhFjFnFnFnFh\u00168\n v i\u001b#turn\n>O>>p\u001b\n\u0006_ \u001b.>FkFk_>>.Fk_.>.Fk>FkFk_>>.Fk_.m.Fk>FkFkFkFkFk\u0006_>>.Fk_.>.Fk>FkFk_>>,Fk_.m.Fk>FkFk_>>.Fk_.m.Fk>FkFkFkFkFk\u0006_>>,Fk_.,Fk>FkFk_>>,Fk_.>.Fk>FkFk_>>.Fk_.;.Fk>FkFkFkFkFk\u0006_>>.Fk_,<.Fk>FkFk_>>,Fk_.,Fk>FkFk_>>.Fk_,m.Fk>FkFkFkFkFk\u000f\u001b\u00162\nv i\u001bOe\u001b\n\u001617\n \u0006_>>._.> \u0006_>.Fh_.Fl>Fl  nFl_>.Fl_.  nFl>FlFl_>.Fl  n_,Fl>Fl \u001bFlFlFlFl#ride\nly#wipe\n  n \u0006_>.  nFl_.Fu    n>Fl    nFu_>.Fu_,   nFl>Fu   n Fn   n   n_>.   n Fu   n _.  yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50455024,
+   "datetime": "20190918215135",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=!autopickup\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": "O>>>>i\u001b\u001b\nO>>>>n\u001b\u001b\nmOa\u001b\n\u00167\nFjFjFhFhFj FhFjFhFjFhFhFlFnFl FnFjFjFjFj   nFjFlFhFjFl#pray\ny y    FnFlFlFlFjFjFhFhFh#pray\ny y    FnFnFnFl FlFj#pray\ny y    FlFjFjFnFnFjFnFjFhFjFlFjFnFjFnFhFl  nFnFjFl FjFlFnFl FnFhFl#pray\ny y    FhFhFhFlFhFhFhFnFb  nFlFnFlFbFjFnFhFbFhFnFjFnFjFl FhFhFhFhFjFhFnFhFhFhFhFjFjFhFjFnFnFnFh\u00168\n v i\u001b#turn\n>O>>p\u001b\n\u0006_ \u001b.>FkFk_>>.Fk_.>.Fk>FkFk_>>.Fk_.m.Fk>FkFkFkFkFk\u0006_>>.Fk_.>.Fk>FkFk_>>,Fk_.m.Fk>FkFk_>>.Fk_.m.Fk>FkFkFkFkFk\u0006_>>,Fk_.,Fk>FkFk_>>,Fk_.>.Fk>FkFk_>>.Fk_.;.Fk>FkFkFkFkFk\u0006_>>.Fk_,<.Fk>FkFk_>>,Fk_.,Fk>FkFk_>>.Fk_,m.Fk>FkFkFkFkFk\u000f\u001b\u00162\nv i\u001bOe\u001b\n\u001617\n \u0006_>>._.> \u0006_>.Fh_.Fl>Fl  nFl_>.Fl_.  nFl>FlFl_>.Fl  n_,Fl>Fl \u001bFlFlFlFl#ride\nly#wipe\n  n \u0006_>.  nFl_.Fu    n>Fl    nFu_>.Fu_,   nFl>Fu   n Fn   n   n_>.   n Fu   n _.  yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

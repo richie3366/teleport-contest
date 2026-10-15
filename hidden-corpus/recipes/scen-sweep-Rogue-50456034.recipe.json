@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           #levelchange\n10\n\u0007titanothere\n\u0017scroll of taming\nrg \u0017saddle\nahh#ride\njy\u0007tame saddled warhorse\n#ride\nky\u0007horse\n\u0017scroll of taming\nri \u0017saddle\najy#ride\n ,jbnul#ride\nyys#ride\nyy\u0007yellow mold\nFjFhFb \u001622\n\u0018\u001b#levelchange\n30\n                  unk\u0017web\nh\u0007jackal\n.m. sm..20s b\u0017sleeping gas trap\nu  ^bb 20ssok#untrap\nhP\u0006#levelchange\n12\n     \u0016?\n>u #offer\n\u0004j#name\nm\n >.\u0006s.\u0016?\n>Is#terrain\nc\n:Z;<.ss\u001638\n10s,,20s.m.bhh h \u0017falling rock trap\nl hysm..m.h\u0017anti-magic field\nj  n\u0007grid bug\nsb y .b20s sm.\u0017beartrap\nak j  lyckokhlhl\u0017neutral altar\ndj  n\u0017gnome corpse\n #offer\nl     #pray\ny y    : hh\u0017altar\nda\u0017jackal corpse\n #offer\nm   h\u0017unaligned altar\nde df \u0017dwarf corpse\n#offer\nn    10s 20s #offer\ni\u001bWsm.20s .kwb    nFl Fl Fl Xak l 10s #offer\nK#enhance\nya\nf\n\u001be,\u001b__..m. i\u001bwbFl Fl Fl Wsm.sm.20s  n ak \u0018\u001b\u001612\ni\u001bWsm. sm. .m. T    ak  n  wbFy  Fy Fk  i\u001b>#monster\n:qr\u001b,db i\u001bak  Wc  n 20s  .m.  \u001b 20s T       \\ \u00168\n#wizintrinsic\nf\n \u0017cursed potion of levitation\nqo  n   Zkh    bk        nk   b\u0017lembas wafer\nep       \u0017scroll of create monster\nrq troll\n      n sm.       20s  n      sm.     n \u001611\n\u0007tame saddled little dog\n#ride\nny\u0007tame saddled warhorse\n#ride\nby\u0007tame saddled pony\n#ride\nhy #ride\n        sm.        #ride\njyhbh   n\u0004h       \u0007newt\nFl  n        Fn  n      Fn     n   \u00168\n\u0018\u001bi\u001bep       yy\u001by   y y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 50456034,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           #levelchange\n10\n\u0007titanothere\n\u0017scroll of taming\nrg \u0017saddle\nahh#ride\njy\u0007tame saddled warhorse\n#ride\nky\u0007horse\n\u0017scroll of taming\nri \u0017saddle\najy#ride\n ,jbnul#ride\nyys#ride\nyy\u0007yellow mold\nFjFhFb \u001622\n\u0018\u001b#levelchange\n30\n                  unk\u0017web\nh\u0007jackal\n.m. sm..20s b\u0017sleeping gas trap\nu  ^bb 20ssok#untrap\nhP\u0006#levelchange\n12\n     \u0016?\n>u #offer\n\u0004j#name\nm\n >.\u0006s.\u0016?\n>Is#terrain\nc\n:Z;<.ss\u001638\n10s,,20s.m.bhh h \u0017falling rock trap\nl hysm..m.h\u0017anti-magic field\nj  n\u0007grid bug\nsb y .b20s sm.\u0017beartrap\nak j  lyckokhlhl\u0017neutral altar\ndj  n\u0017gnome corpse\n #offer\nl     #pray\ny y    : hh\u0017altar\nda\u0017jackal corpse\n #offer\nm   h\u0017unaligned altar\nde df \u0017dwarf corpse\n#offer\nn    10s 20s #offer\ni\u001bWsm.20s .kwb    nFl Fl Fl Xak l 10s #offer\nK#enhance\nya\nf\n\u001be,\u001b__..m. i\u001bwbFl Fl Fl Wsm.sm.20s  n ak \u0018\u001b\u001612\ni\u001bWsm. sm. .m. T    ak  n  wbFy  Fy Fk  i\u001b>#monster\n:qr\u001b,db i\u001bak  Wc  n 20s  .m.  \u001b 20s T       \\ \u00168\n#wizintrinsic\nf\n \u0017cursed potion of levitation\nqo  n   Zkh    bk        nk   b\u0017lembas wafer\nep       \u0017scroll of create monster\nrq troll\n      n sm.       20s  n      sm.     n \u001611\n\u0007tame saddled little dog\n#ride\nny\u0007tame saddled warhorse\n#ride\nby\u0007tame saddled pony\n#ride\nhy #ride\n        sm.        #ride\njyhbh   n\u0004h       \u0007newt\nFl  n        Fn  n      Fn     n   \u00168\n\u0018\u001bi\u001bep       yy\u001by   y y y y\u001by  s"
+  }
+ ]
+}

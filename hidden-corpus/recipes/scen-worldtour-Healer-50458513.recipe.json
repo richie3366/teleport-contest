@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed amulet of life saving\nPk\u0017blessed +3 cloak of magic resistance\nWll\u0017blessed amulet of reflection\nPm\u0016?\n>J       potion of blindness\n\u0006_ \u001bm,\u0016?\n\u001by  h \u00163\n#chat\nj          ;l:  \u0016?\n\u001by      l      \u0016?\n\u001bu    l  \u0016?\n\u001bj        n    \u0016?\n\u001bu            k       \u001637\nl       h         l     l  jk:\u00165\n#chat\nl   n          ;b.\u001610\njjjy:\u0016?\n\u001byh      \u0016?\n\u001byb         \u001610\n\u0006_<.\u0016?\n\u001bkh         \u0016?\n\u001byu\u0016?\n\u001bb    n   n\u0016?\n\u001bb    n\u0016?\n\u001bnl        \u0016?\n\u001buu\u00165\n\u001710 daggers\nQp\u0007yellow mold\nb      ufh        fb       fh   n   fb                fl  Fb     Fh        \u0017potion of object detection\nt$b       \u0007yellow mold\nkfh           fb   n                fl        fb                      n               Fh    \u001b     Fb   n        x             #twoweapon\nFb         Fl       kh     n         j,\u001b\u001612\n\u001621\nnn: sm.         n "
+ },
+ "segments": [
+  {
+   "seed": 50458513,
+   "datetime": "20140424001945",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed amulet of life saving\nPk\u0017blessed +3 cloak of magic resistance\nWll\u0017blessed amulet of reflection\nPm\u0016?\n>J       potion of blindness\n\u0006_ \u001bm,\u0016?\n\u001by  h \u00163\n#chat\nj          ;l:  \u0016?\n\u001by      l      \u0016?\n\u001bu    l  \u0016?\n\u001bj        n    \u0016?\n\u001bu            k       \u001637\nl       h         l     l  jk:\u00165\n#chat\nl   n          ;b.\u001610\njjjy:\u0016?\n\u001byh      \u0016?\n\u001byb         \u001610\n\u0006_<.\u0016?\n\u001bkh         \u0016?\n\u001byu\u0016?\n\u001bb    n   n\u0016?\n\u001bb    n\u0016?\n\u001bnl        \u0016?\n\u001buu\u00165\n\u001710 daggers\nQp\u0007yellow mold\nb      ufh        fb       fh   n   fb                fl  Fb     Fh        \u0017potion of object detection\nt$b       \u0007yellow mold\nkfh           fb   n                fl        fb                      n               Fh    \u001b     Fb   n        x             #twoweapon\nFb         Fl       kh     n         j,\u001b\u001612\n\u001621\nnn: sm.         n "
+  }
+ ]
+}

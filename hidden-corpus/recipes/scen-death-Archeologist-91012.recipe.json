@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0007cockatrice\nFbFb Fb Fj FkFu FbFb20ss20ssssss20ss20s...20sss"
+ },
+ "segments": [
+  {
+   "seed": 91012,
+   "datetime": "20231201101828",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007cockatrice\nFbFb Fb Fj FkFu FbFb20ss20ssssss20ss20s...20sss"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWl\u0017blessed ring of free action\nPmr\u0016?\n>w\u0006_ \u001b,_oo.,$_{. _..Fhqe_{._.m.qe__.Fh_.>.Fh#chat\nu_{._..qd \u00163\nhnl\u0016?\n>w\u0006_{. _,m.Fhqf__.Fh_.Fh#chat\nh_{.Fh_.  nFhqd_oooo.Fh_.,\u0014<..s_oo._o,,#chat\nj  _ooooooo,_oo.,:_oooooooo,_oo.,$_ooo,,$_{.Fb  _, qf\u0016?\n>Blyn\u0016?\n>w\u0006__,Fl_.Fj#chat\nj#pray\ny y    FjFjFjFjFjFj_ooooooooo,Fh_,>.Fy,p__,Fk_.Fk#chat\nk#pray\ny y     FkFkFkFkFkFk_ooo._.,:_oooo,,p_oooo._oo,,p_oooo,_oo,,$_oo.,#chat\njbyh#chat\nh_{._.<.qd__._.@.#chat\nh_ooo.,p__,_.m.#chat\nl_ooo,,p_ooo,_o.,:_{._.>.qd_oooooooo.,:_ooooooo.,\u0017amulet of change\ndq_ooooo._ooo.,#chat\nkyuh#chat\nj_oooooo.,$_oooooo,,$_oo,,p_oo._oo.,pbul#chat\nyhhl#chat\nu\u0016?\ncbju\u0016?\n>w\u0006__._.;m,#chat\nu_ooooooo.Fj_.Fj,#chat\nj_ooooooooo,Fb _.>.Fj_ooo,Fj_.Fj,p_oooo"
+ },
+ "segments": [
+  {
+   "seed": 50450021,
+   "datetime": "20260819133655",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:full\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWl\u0017blessed ring of free action\nPmr\u0016?\n>w\u0006_ \u001b,_oo.,$_{. _..Fhqe_{._.m.qe__.Fh_.>.Fh#chat\nu_{._..qd \u00163\nhnl\u0016?\n>w\u0006_{. _,m.Fhqf__.Fh_.Fh#chat\nh_{.Fh_.  nFhqd_oooo.Fh_.,\u0014<..s_oo._o,,#chat\nj  _ooooooo,_oo.,:_oooooooo,_oo.,$_ooo,,$_{.Fb  _, qf\u0016?\n>Blyn\u0016?\n>w\u0006__,Fl_.Fj#chat\nj#pray\ny y    FjFjFjFjFjFj_ooooooooo,Fh_,>.Fy,p__,Fk_.Fk#chat\nk#pray\ny y     FkFkFkFkFkFk_ooo._.,:_oooo,,p_oooo._oo,,p_oooo,_oo,,$_oo.,#chat\njbyh#chat\nh_{._.<.qd__._.@.#chat\nh_ooo.,p__,_.m.#chat\nl_ooo,,p_ooo,_o.,:_{._.>.qd_oooooooo.,:_ooooooo.,\u0017amulet of change\ndq_ooooo._ooo.,#chat\nkyuh#chat\nj_oooooo.,$_oooooo,,$_oo,,p_oo._oo.,pbul#chat\nyhhl#chat\nu\u0016?\ncbju\u0016?\n>w\u0006__._.;m,#chat\nu_ooooooo.Fj_.Fj,#chat\nj_ooooooooo,Fb _.>.Fj_ooo,Fj_.Fj,p_oooo"
+  }
+ ]
+}

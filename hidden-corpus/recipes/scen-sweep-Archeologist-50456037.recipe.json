@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           #wizintrinsic\nfm\n \u0017wand of probing\nzih \u0017wand of death\nzj. n nu uhE- Elbereth Elbereth\nsm.20ssm.\u00168\n#levelchange\n20\n       \u0017leather armor\nW\u001b20ssm.sTc\u0007gecko\n20s.m.20s sysb 20s \u0007grid bug\nFyFyFhFhFhFh\u0016?\nk   \u0006_ \u001b;#chat\nu.bsl20s  zil ed<i\u001b\u0007violet fungus\n;l.sb    sm. 20s\u0007jellyfish\nFl FlFk FuFl  n\u0007elf-lord\n.m. 20s   sm.     sb  20s    n  .m.   sm.   .h   n sm.    \u0007prisoner\nFuFl     n Fy       \u001b\u001617\n     \u000f\u001b\u00163\n  #levelchange\n30\n         \u0016?\n \u0006\u0017tooled horn\nam llam ln#pray\ny y #monster\naiy #levelchange\n30\n\u0016?\n \u0006\u0017tooled horn\nan uyan yy>#offer\n:\u00163\n\u0017blessed spellbook of finger of death\nro s\u0017blessed spellbook of cure sickness\nrp .\u0017spellbook of teleport away\nrq  20s+b\nZb\nsZb\nZa\nZa\nZb\n\u0007ghoul\nZb\n\u0006#levelchange\n20\n   lky\u0017pit\nb\u0007gnome\nsys20s.bk\u0017web\njky.m.   sm.j   l\u0017magic portal\nu\u0007gnome\n20s20s20s20sy\u0017anti-magic field\nu#untrap\nb\u0014m,fych\u0007large dog\n\u0017meatball\nt\u001b\u0007tame lichen\n\u0006_>,_.>_>._.Fb >_>._,>#chat\nh10s#chat\nkjh\u0017banana\nt\u001b\u0017tin whistle\nlkjat#levelchange\n20\n\u0017blessed ring of polymorph control\nPul#polyself\nincubus\n#monster\ns.sss#polyself\nchameleon\n energy vortex\n20s.ss.#polyself\njackal\n #monster\n.s..s#polyself\nfire elemental\n#monster\n20sss..\u0017amulet of unchanging\nPv..s.Rv\u0016?\ne\u000620s FkFk  Fh  Fh   n  Fh    b   n     n  u   n h#turn\n"
+ },
+ "segments": [
+  {
+   "seed": 50456037,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=runmode:run\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           #wizintrinsic\nfm\n \u0017wand of probing\nzih \u0017wand of death\nzj. n nu uhE- Elbereth Elbereth\nsm.20ssm.\u00168\n#levelchange\n20\n       \u0017leather armor\nW\u001b20ssm.sTc\u0007gecko\n20s.m.20s sysb 20s \u0007grid bug\nFyFyFhFhFhFh\u0016?\nk   \u0006_ \u001b;#chat\nu.bsl20s  zil ed<i\u001b\u0007violet fungus\n;l.sb    sm. 20s\u0007jellyfish\nFl FlFk FuFl  n\u0007elf-lord\n.m. 20s   sm.     sb  20s    n  .m.   sm.   .h   n sm.    \u0007prisoner\nFuFl     n Fy       \u001b\u001617\n     \u000f\u001b\u00163\n  #levelchange\n30\n         \u0016?\n \u0006\u0017tooled horn\nam llam ln#pray\ny y #monster\naiy #levelchange\n30\n\u0016?\n \u0006\u0017tooled horn\nan uyan yy>#offer\n:\u00163\n\u0017blessed spellbook of finger of death\nro s\u0017blessed spellbook of cure sickness\nrp .\u0017spellbook of teleport away\nrq  20s+b\nZb\nsZb\nZa\nZa\nZb\n\u0007ghoul\nZb\n\u0006#levelchange\n20\n   lky\u0017pit\nb\u0007gnome\nsys20s.bk\u0017web\njky.m.   sm.j   l\u0017magic portal\nu\u0007gnome\n20s20s20s20sy\u0017anti-magic field\nu#untrap\nb\u0014m,fych\u0007large dog\n\u0017meatball\nt\u001b\u0007tame lichen\n\u0006_>,_.>_>._.Fb >_>._,>#chat\nh10s#chat\nkjh\u0017banana\nt\u001b\u0017tin whistle\nlkjat#levelchange\n20\n\u0017blessed ring of polymorph control\nPul#polyself\nincubus\n#monster\ns.sss#polyself\nchameleon\n energy vortex\n20s.ss.#polyself\njackal\n #monster\n.s..s#polyself\nfire elemental\n#monster\n20sss..\u0017amulet of unchanging\nPv..s.Rv\u0016?\ne\u000620s FkFk  Fh  Fh   n  Fh    b   n     n  u   n h#turn\n"
+  }
+ ]
+}

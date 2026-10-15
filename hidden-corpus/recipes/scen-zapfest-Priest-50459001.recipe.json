@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWk\u0017blessed amulet of life saving\nPl\u0007kobold shaman\n\u0007incubus\n\u0017wand of fire\n20s  sm.zmj  sm.zmh     zmn zmn    nzmn zmnzmn \u001619\n\u0017blessed spellbook of knock\nrn sm.\u0017blessed spellbook of sleep\nro   n.h\u0007gnomish wizard\nZ\u001bsh20s  \u001bZ\u001bZ\u001bZ\u001bsm.snZ\u001b20s.m.Z\u001b#turn\n  n \u00169\n\u0007black dragon\n20ssm.20s  n  #polyself\nred dragon\n   #monster\n.m.  .m.#monster\n#monster\nFl    Fj   \u00165\n\u0017spellbook of cone of cold\nrp20s\u0017blessed spellbook of knock\nrqsm.\u0007orc shaman\n\u0007mind flayer\nZa\nZa\n  sk      20s  Za\n   n  ZZZZZZ#turn\n   n     n  \u00169\n\u0017blessed spellbook of magic missile\nrr .\u0017blessed spellbook of knock\nrs s\u0007succubus\nZa\nZa\n Zb\n  ZZZZZZ\u0017spellbook of slow monster\nrt   .m. \u0007kobold shaman\nZb\n Zb\n ZZZZ#turn\n         \u0007baby red dragon\n\u0007baby red dragon\n.l 20s   #polyself\nred dragon\n.m.     sb#monster\n#monster\n#monster\n#monster\n\u0017wand of magic missile\naFl    Fy  \u0018\u001b\u0017wand of slow monster\n\u0017wand of fire\n\u0017wand of lightning\n\u0007giant rat\n\u0007"
+ },
+ "segments": [
+  {
+   "seed": 50459001,
+   "datetime": "20250623153603",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWk\u0017blessed amulet of life saving\nPl\u0007kobold shaman\n\u0007incubus\n\u0017wand of fire\n20s  sm.zmj  sm.zmh     zmn zmn    nzmn zmnzmn \u001619\n\u0017blessed spellbook of knock\nrn sm.\u0017blessed spellbook of sleep\nro   n.h\u0007gnomish wizard\nZ\u001bsh20s  \u001bZ\u001bZ\u001bZ\u001bsm.snZ\u001b20s.m.Z\u001b#turn\n  n \u00169\n\u0007black dragon\n20ssm.20s  n  #polyself\nred dragon\n   #monster\n.m.  .m.#monster\n#monster\nFl    Fj   \u00165\n\u0017spellbook of cone of cold\nrp20s\u0017blessed spellbook of knock\nrqsm.\u0007orc shaman\n\u0007mind flayer\nZa\nZa\n  sk      20s  Za\n   n  ZZZZZZ#turn\n   n     n  \u00169\n\u0017blessed spellbook of magic missile\nrr .\u0017blessed spellbook of knock\nrs s\u0007succubus\nZa\nZa\n Zb\n  ZZZZZZ\u0017spellbook of slow monster\nrt   .m. \u0007kobold shaman\nZb\n Zb\n ZZZZ#turn\n         \u0007baby red dragon\n\u0007baby red dragon\n.l 20s   #polyself\nred dragon\n.m.     sb#monster\n#monster\n#monster\n#monster\n\u0017wand of magic missile\naFl    Fy  \u0018\u001b\u0017wand of slow monster\n\u0017wand of fire\n\u0017wand of lightning\n\u0007giant rat\n\u0007"
+  }
+ ]
+}

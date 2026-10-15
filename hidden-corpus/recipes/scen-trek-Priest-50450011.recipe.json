@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "NKHL_ \u001b.>LUJU_>,><HNUL_>.>\u000f\u001bL#ride\nk#monster\nNLNL_>,>z#force\nYHJN_>.>JBKL_>.>Fj 20sFhJNJL_>.>HULU_>.>YYJB_>.>UJKK_>.>UNLB_>.>FlFlFlt\u001b:KLJB_>,>lkhFlFlFl50sbkb100s_>,>100s FkFks\u0018\u001b\u000f\u001b\u000f\u001bkhl150sFh20s.100s100sFhFh20soj100s150s 50sFks20sFkFk20sFkFkFuFkFh  nnnnn  s"
+ },
+ "segments": [
+  {
+   "seed": 50450011,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:dog\n",
+   "moves": "NKHL_ \u001b.>LUJU_>,><HNUL_>.>\u000f\u001bL#ride\nk#monster\nNLNL_>,>z#force\nYHJN_>.>JBKL_>.>Fj 20sFhJNJL_>.>HULU_>.>YYJB_>.>UJKK_>.>UNLB_>.>FlFlFlt\u001b:KLJB_>,>lkhFlFlFl50sbkb100s_>,>100s FkFks\u0018\u001b\u000f\u001b\u000f\u001bkhl150sFh20s.100s100sFhFh20soj100s150s 50sFks20sFkFk20sFkFkFuFkFh  nnnnn  s"
+  }
+ ]
+}

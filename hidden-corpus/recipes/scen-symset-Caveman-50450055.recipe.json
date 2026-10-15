@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " Wf  u tdn O>>>>c\u001b\nmO>>>b\u001b\n\u00166\nmO>>>p\u001b\n\u00167\n  #levelchange\n14\n              h\u001bh\u001bh\u001buk \u0017chaotic altar\nda nny\u0017floating eye corpse\n#offer\nf   #pray\ny y   y\u0017tree\nr\u001b#force\n#wipe\nO>>>>i\u001b\u001b\n\u00163\nFhFjFhFlFjFkFkFuFjFjFkFlFyFh\u001bFyFjFhFyFll FjFhFhFhFjFyFul FjFkFuFkFjFlFyFh\u001bFkFuFlFhFyFlh FjFlFlFuFyFlu FhFhFyFyFlFuFuFlFyFkk FhFjFyFuy FjFuFuFkFlFyFyFlFuFuFuFhFkFuFhFuFyFlh FlFlFhFkFyFh\u001bFlFuFkFkFyFkj FkFjFlFjFuFlFjFkFlFkFlFhFjFyFh\u001bFuFlFhFjFuFkFhFjFkFkFlFyFuu FyFy\u0006_ \u001b@.>FkFh_>>,Fj_.    Fj>FbFu\u001b_>>.   Fy_,    Fj>FjFyFk FnFly \u0006_>>.Fj_, Fb>FuFk_>>,Fj_,Fu>FuFb_>>.Fuu _.Fj>FkFlFlFlFbzdc \u0006_>,Fj_,Fk>FlFb_>,Fn_.Fl>FbFj_>.Fj_,Fk>FuFkFuFnFuk <"
+ },
+ "segments": [
+  {
+   "seed": 50450055,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=stop \"You feel\"\n",
+   "moves": " Wf  u tdn O>>>>c\u001b\nmO>>>b\u001b\n\u00166\nmO>>>p\u001b\n\u00167\n  #levelchange\n14\n              h\u001bh\u001bh\u001buk \u0017chaotic altar\nda nny\u0017floating eye corpse\n#offer\nf   #pray\ny y   y\u0017tree\nr\u001b#force\n#wipe\nO>>>>i\u001b\u001b\n\u00163\nFhFjFhFlFjFkFkFuFjFjFkFlFyFh\u001bFyFjFhFyFll FjFhFhFhFjFyFul FjFkFuFkFjFlFyFh\u001bFkFuFlFhFyFlh FjFlFlFuFyFlu FhFhFyFyFlFuFuFlFyFkk FhFjFyFuy FjFuFuFkFlFyFyFlFuFuFuFhFkFuFhFuFyFlh FlFlFhFkFyFh\u001bFlFuFkFkFyFkj FkFjFlFjFuFlFjFkFlFkFlFhFjFyFh\u001bFuFlFhFjFuFkFhFjFkFkFlFyFuu FyFy\u0006_ \u001b@.>FkFh_>>,Fj_.    Fj>FbFu\u001b_>>.   Fy_,    Fj>FjFyFk FnFly \u0006_>>.Fj_, Fb>FuFk_>>,Fj_,Fu>FuFb_>>.Fuu _.Fj>FkFlFlFlFbzdc \u0006_>,Fj_,Fk>FlFb_>,Fn_.Fl>FbFj_>.Fj_,Fk>FuFkFuFnFuk <"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                    \u001620\n\u0004k\u0016?\n>>Qnj:\u001620\nnlljyy:\u001620\n#levelchange\n8\n    \u0017Ogresmasher\nwaFls.X\u0007vampire bat\n#chat\nuFu  Fu \u0007black light\n#chat\nu  Fu    Fu \u0007master mind flayer\nFl  Fl        n   Fu    Fu    sm.   n  sm.   sk  \u00169\n\u001632\nku  n n       n n k  n   l:\u00164\n\u001631\n\u0017sling\nwb      n  \u001720 flint stones\nQc\u0007dwarf\nunfj   n fh      n    Fy    n  Fh   \u0007lichen\nk    n   ufy   n    fk    n      fk    n   Fh    n    Fy      n   \u0017potion of healing\ntck     yny   ny n  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 50458503,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                    \u001620\n\u0004k\u0016?\n>>Qnj:\u001620\nnlljyy:\u001620\n#levelchange\n8\n    \u0017Ogresmasher\nwaFls.X\u0007vampire bat\n#chat\nuFu  Fu \u0007black light\n#chat\nu  Fu    Fu \u0007master mind flayer\nFl  Fl        n   Fu    Fu    sm.   n  sm.   sk  \u00169\n\u001632\nku  n n       n n k  n   l:\u00164\n\u001631\n\u0017sling\nwb      n  \u001720 flint stones\nQc\u0007dwarf\nunfj   n fh      n    Fy    n  Fh   \u0007lichen\nk    n   ufy   n    fk    n      fk    n   Fh    n    Fy      n   \u0017potion of healing\ntck     yny   ny n  \u0007"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "B  YLY_ \u001b.>\u0018\u001b#enhance\n\u001bLUUH _>,>nKKKYN_>.>;<.\u0014LYBN_>.>Fyss__,.rg ny\u000f\u001b#rub\n#pray\ny  #chat\nbBHLL_>,><LBNL_>,>KUKN_>.>Fbss<NJBH_>,>Zb\n#offer\nUJJL_>.><#conduct\n LUYU_>.>Fj20sFl\u0018\u001bWFlFlFlFjFlFjFl s20s50sFbss_>,>50sFb..llnhnu100s,hkjylbylj\\ ylh150sFj.s150s\\ _>.>50sFhFh.150s_>,>100s150s_>.>50sFhFhFh150s100s FhFhFh100s\u0018\u001b#loot\n100s\u0018\u001b\u000f\u001b100sFhFh20see_<.20s100sFb.sJef_>,snkj50s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJKKU_>,>#wipe\neUYLN_>.>LH YL_>,>LKKJ_>.>L\u0004yJHHN_>,>>:HUJK_>,>10s #offer\n\u000f\u001bE- X marks the spot\n,qdBNNU_>,>FkFkFk <HYKU_>,>BYBY_>.>YNLN_>.>K  KH K_>.>Fb20sss#name\na\nB JBY_>.>#terrain\nb\n20s JLJL_>,>FhFhs#name"
+ },
+ "segments": [
+  {
+   "seed": 50450027,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:explore\n",
+   "moves": "B  YLY_ \u001b.>\u0018\u001b#enhance\n\u001bLUUH _>,>nKKKYN_>.>;<.\u0014LYBN_>.>Fyss__,.rg ny\u000f\u001b#rub\n#pray\ny  #chat\nbBHLL_>,><LBNL_>,>KUKN_>.>Fbss<NJBH_>,>Zb\n#offer\nUJJL_>.><#conduct\n LUYU_>.>Fj20sFl\u0018\u001bWFlFlFlFjFlFjFl s20s50sFbss_>,>50sFb..llnhnu100s,hkjylbylj\\ ylh150sFj.s150s\\ _>.>50sFhFh.150s_>,>100s150s_>.>50sFhFhFh150s100s FhFhFh100s\u0018\u001b#loot\n100s\u0018\u001b\u000f\u001b100sFhFh20see_<.20s100sFb.sJef_>,snkj50s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJKKU_>,>#wipe\neUYLN_>.>LH YL_>,>LKKJ_>.>L\u0004yJHHN_>,>>:HUJK_>,>10s #offer\n\u000f\u001bE- X marks the spot\n,qdBNNU_>,>FkFkFk <HYKU_>,>BYBY_>.>YNLN_>.>K  KH K_>.>Fb20sss#name\na\nB JBY_>.>#terrain\nb\n20s JLJL_>,>FhFhs#name"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      #levelchange\n20\n            \u0017cursed gray stone\n alg\u0017scroll of remove curse\nrm  \u001b\u0017cursed spellbook of detect monsters\n\u0007mastodon\nrn \u001b<.sm. sm.Za\n  n Zc\n \u0017blessed ring of increase accuracy\n\u0007Kop Kaptain\nPor   n20s sm.   n.j R Fl   n Fy \u0017unicorn horn\n\u0007giant spider\nwp   n Fy    Fl    n Fy  \u0017cursed -1 javelin\nwq    n  Fh     nFh Fl      n XFh   Fh     n .j  20s   n \u00162\n \u0007vampire lord\nFjFj         Fh   Fj  Fh       n  Fj  Fh   .ksl#pray\ny y          \u0007mind flayer\nFh      nFh      Fh      nFj     20s      n   sy\u0007wood nymph\nFh   Fb          n Fh     n       n    Fh    y y\u001by  y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50456032,
+   "datetime": "20160409125437",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      #levelchange\n20\n            \u0017cursed gray stone\n alg\u0017scroll of remove curse\nrm  \u001b\u0017cursed spellbook of detect monsters\n\u0007mastodon\nrn \u001b<.sm. sm.Za\n  n Zc\n \u0017blessed ring of increase accuracy\n\u0007Kop Kaptain\nPor   n20s sm.   n.j R Fl   n Fy \u0017unicorn horn\n\u0007giant spider\nwp   n Fy    Fl    n Fy  \u0017cursed -1 javelin\nwq    n  Fh     nFh Fl      n XFh   Fh     n .j  20s   n \u00162\n \u0007vampire lord\nFjFj         Fh   Fj  Fh       n  Fj  Fh   .ksl#pray\ny y          \u0007mind flayer\nFh      nFh      Fh      nFj     20s      n   sy\u0007wood nymph\nFh   Fb          n Fh     n       n    Fh    y y\u001by  y y\u001by  F"
+  }
+ ]
+}

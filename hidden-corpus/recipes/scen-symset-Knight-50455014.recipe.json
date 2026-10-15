@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "lkj\u0017chaotic altar\ndbda\u0017elf corpse\n#offer\ni   #pray\ny y y\u0017melting ice\nkjkkll\u0017magic fountain\nqy qy#dip\ndy:lj\u0017ice\njk kj:f \u001bP20s  \u001613\n    O>>>h\u001b\nmO>>>>d\u001b\n\u00164\nO>>>g\u001b\n\u00166\nar\u001b\u000f\u001b10s    \u0004j :mO>>>b\u001b\nFb    Fu Fk #pray\ny y      Fk FkFu FuFuFu    n   Fl  Fk Fu  Fl Fu   Fl150s\\   _ \u001b>.>_>.>100s    50s      FlFlFlklhFkFkFkFkFkFkFkFkFkFkFkFkFkFkFl   FkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFnFkFkFk FnFkFjFkFk FlFkFkFkFkFkFkFkFkFkFk FkFkFkFkFkFk FkFkFkFkFkFkFuFkFkFkFkFuFlFk FkFk\u001616\n\u0006_>>.Fb_,@.Fj>Fjs_>>._.<.>_>>._,;:   >\u0006_>,_.<.>_>._,<.>_>._,m,>\u0006_>>,_.:>_>>._.<.>_>>._,m,><\u0006_>>._.>.>_>>._,>.>_>>,_,;@.>20sb\u0006_>>,_,>.>_>>._.:>_>>,_.;>. >\u000f\u001b\u00162\nanW\u0007"
+ },
+ "segments": [
+  {
+   "seed": 50455014,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": "lkj\u0017chaotic altar\ndbda\u0017elf corpse\n#offer\ni   #pray\ny y y\u0017melting ice\nkjkkll\u0017magic fountain\nqy qy#dip\ndy:lj\u0017ice\njk kj:f \u001bP20s  \u001613\n    O>>>h\u001b\nmO>>>>d\u001b\n\u00164\nO>>>g\u001b\n\u00166\nar\u001b\u000f\u001b10s    \u0004j :mO>>>b\u001b\nFb    Fu Fk #pray\ny y      Fk FkFu FuFuFu    n   Fl  Fk Fu  Fl Fu   Fl150s\\   _ \u001b>.>_>.>100s    50s      FlFlFlklhFkFkFkFkFkFkFkFkFkFkFkFkFkFkFl   FkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFnFkFkFk FnFkFjFkFk FlFkFkFkFkFkFkFkFkFkFk FkFkFkFkFkFk FkFkFkFkFkFkFuFkFkFkFkFuFlFk FkFk\u001616\n\u0006_>>.Fb_,@.Fj>Fjs_>>._.<.>_>>._,;:   >\u0006_>,_.<.>_>._,<.>_>._,m,>\u0006_>>,_.:>_>>._.<.>_>>._,m,><\u0006_>>._.>.>_>>._,>.>_>>,_,;@.>20sb\u0006_>>,_,>.>_>>._.:>_>>,_.;>. >\u000f\u001b\u00162\nanW\u0007"
+  }
+ ]
+}

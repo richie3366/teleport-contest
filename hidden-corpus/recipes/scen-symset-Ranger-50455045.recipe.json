@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u000f\u001bda;u; \u001b>.,\u00165\nFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFk\u0007little dog\n\u0017fortune cookie\ntck \u0007housecat\n\u0017meatball\ntcu uh #name\nf\n\u0017apple\ntch \u0017meatball\ntau \u0007giant rat\n\u0017scroll of taming\nrj \u0017lichen corpse\ntah \u0007acid blob\n20s20ss 20s. 20s #chat\ny \u001610\n\u0006_>. _.> \u0006_>,Fj_,  Fy>FlFy_>.   n Fh\u001b_.Fh>FyFh\u001b_>,Fy_,   nFy>FyFyFyFky Fy\u0006_>.Fu_.>.Fn>FnFyFu\u0014:,\u00165\nOg\u001b\u001b\n\u0007housecat\n\u0017huge chunk of meat\ntdu \u0007large dog\n\u0017meatball\ntbu uk \u0017tin whistle\njh\u001bnam\u0017fortune cookie\ntck \u0017huge chunk of meat\n tcu \u0017leash\nanu yjjyanu \u0007"
+ },
+ "segments": [
+  {
+   "seed": 50455045,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=stop \"You feel\"\nMENUCOLOR=\"a potion\"=brown\nBIND=v:inventory\n",
+   "moves": " \u000f\u001bda;u; \u001b>.,\u00165\nFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFk\u0007little dog\n\u0017fortune cookie\ntck \u0007housecat\n\u0017meatball\ntcu uh #name\nf\n\u0017apple\ntch \u0017meatball\ntau \u0007giant rat\n\u0017scroll of taming\nrj \u0017lichen corpse\ntah \u0007acid blob\n20s20ss 20s. 20s #chat\ny \u001610\n\u0006_>. _.> \u0006_>,Fj_,  Fy>FlFy_>.   n Fh\u001b_.Fh>FyFh\u001b_>,Fy_,   nFy>FyFyFyFky Fy\u0006_>.Fu_.>.Fn>FnFyFu\u0014:,\u00165\nOg\u001b\u001b\n\u0007housecat\n\u0017huge chunk of meat\ntdu \u0007large dog\n\u0017meatball\ntbu uk \u0017tin whistle\njh\u001bnam\u0017fortune cookie\ntck \u0017huge chunk of meat\n tcu \u0017leash\nanu yjjyanu \u0007"
+  }
+ ]
+}

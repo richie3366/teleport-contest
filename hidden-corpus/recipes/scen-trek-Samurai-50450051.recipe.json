@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "H UKU_ \u001b,>FjFjFj#enhance\n\u001b#pray\ny HJJB_>,>FlFn Fl UHNH_>.>100s100sFkFkFu#conduct\n i\u001b\u0018\u001bjuhyuu150s150sFbs.100sFkFkFkFkFks50s#conduct\n \\    bbh\u0018\u001b100shlhlhk100s100sFj20s20si\u001b_>,>100sFkFkFkFkFkFkFks.nyj150s100s100s_>,>wdny150sFlFls20s100s150s _>.>\\    kkk50si\u001b100stbj;.i\u001bkjj100sFjss100sFjFj20s100s eeeeeeeeeeeeeeeeeeeeeeeE- Elbereth Elbereth\ns<eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKHLL_>,>#untrap\nhPNHBY_>.>KYNN_>.>NLJ Y_>,>YHKB_>.>#tip\n\u001bdcHLJ Y_>.>#sit\n10sohzf#tip\n\u001bey50s_>.>100s    Fns._>,>50s50s_>.>k kk150seeeeeeeeeeeeeeeeeeeeeeeeeeeee10s#chat\njkh#name\n\u001bnyr\u001b#tip\n\u001b#offer\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee,#monster\n\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeetak#name\n\u001b#chat\njnjkjkjkjkjkkjjNULB_>,><NNLK_>.>FhFhFh#dip\nf,JYHB_>.>FhFhFh#loot\nh,10sUBUK_>,>FhFhFhYYBY_>.>FhFhsL UHB_>.>#tip\n\u001b#invoke\n\u001bNLJK _>.><BLJY_>.>20slj bl ln20s#name\n\u001b20s#chat\nleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJ#offer\nPeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 50450051,
+   "datetime": "20190316120812",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:explore\n",
+   "moves": "H UKU_ \u001b,>FjFjFj#enhance\n\u001b#pray\ny HJJB_>,>FlFn Fl UHNH_>.>100s100sFkFkFu#conduct\n i\u001b\u0018\u001bjuhyuu150s150sFbs.100sFkFkFkFkFks50s#conduct\n \\    bbh\u0018\u001b100shlhlhk100s100sFj20s20si\u001b_>,>100sFkFkFkFkFkFkFks.nyj150s100s100s_>,>wdny150sFlFls20s100s150s _>.>\\    kkk50si\u001b100stbj;.i\u001bkjj100sFjss100sFjFj20s100s eeeeeeeeeeeeeeeeeeeeeeeE- Elbereth Elbereth\ns<eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKHLL_>,>#untrap\nhPNHBY_>.>KYNN_>.>NLJ Y_>,>YHKB_>.>#tip\n\u001bdcHLJ Y_>.>#sit\n10sohzf#tip\n\u001bey50s_>.>100s    Fns._>,>50s50s_>.>k kk150seeeeeeeeeeeeeeeeeeeeeeeeeeeee10s#chat\njkh#name\n\u001bnyr\u001b#tip\n\u001b#offer\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee,#monster\n\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeetak#name\n\u001b#chat\njnjkjkjkjkjkkjjNULB_>,><NNLK_>.>FhFhFh#dip\nf,JYHB_>.>FhFhFh#loot\nh,10sUBUK_>,>FhFhFhYYBY_>.>FhFhsL UHB_>.>#tip\n\u001b#invoke\n\u001bNLJK _>.><BLJY_>.>20slj bl ln20s#name\n\u001b20s#chat\nleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJ#offer\nPeeeeeeeee"
+  }
+ ]
+}

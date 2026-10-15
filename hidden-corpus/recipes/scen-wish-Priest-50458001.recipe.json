@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0017wooden harp\n\u0007ghost\nakyaky\u0017blessed potion of oil\nql\u0017cursed wand of undead turning\nzm.zmu\u0017Cleaver\n wnsm..m.sk#invoke\nnXsm..m."
+ },
+ "segments": [
+  {
+   "seed": 50458001,
+   "datetime": "20040423232113",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0017wooden harp\n\u0007ghost\nakyaky\u0017blessed potion of oil\nql\u0017cursed wand of undead turning\nzm.zmu\u0017Cleaver\n wnsm..m.sk#invoke\nnXsm..m."
+  }
+ ]
+}

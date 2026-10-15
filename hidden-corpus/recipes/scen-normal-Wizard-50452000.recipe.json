@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "ck\\  #enhance\n\u001bf \u001b\u0014f \u001b#force\n\u0018\u001brj  \u001b>.Za\n#terrain\nb\n#ride\nm,cj#tip\n\u001b#sit\n,t\u001bf \u001b\u0018\u001b#invoke\n\u001b\\  #conduct\n \u0014h#loot\n#loot\ndh"
+ },
+ "segments": [
+  {
+   "seed": 50452000,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": "ck\\  #enhance\n\u001bf \u001b\u0014f \u001b#force\n\u0018\u001brj  \u001b>.Za\n#terrain\nb\n#ride\nm,cj#tip\n\u001b#sit\n,t\u001bf \u001b\u0018\u001b#invoke\n\u001b\\  #conduct\n \u0014h#loot\n#loot\ndh"
+  }
+ ]
+}

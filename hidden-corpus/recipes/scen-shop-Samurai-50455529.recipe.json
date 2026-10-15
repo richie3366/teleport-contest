@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPg\u0016?\n>w\u0006_ \u001b<. q__,Fh _,@.Fh #chat\nl__.Fh_,Fh#chat\nh #pray\ny y _oooooooo._.,\u0014.sls _{.Fh_,FhqFlFl FlFlFlFl_oooo,,pFh    FhFhFhFh Fh\u00163\nkhh\u0016?\n>w\u0006_ooooo. Fb_.Fb,p_ooooooooo.Fb  n_,Fb_ooo,Fb_,:Fb,:Fb Fb   FbFbFbFbnlb#chat\nyFhFhFh FhFhFh_ooooo,_,,p\u00163\nhyn\u0016?\n>w\u0006yhu#chat\nn_ooooo._.,p_ooooooo._o.,#chat\nn_oooo.,$_oooooo.,#chat\nl_oo._o.,#chat\nj_ooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndi_ooo., $ynn#chat\nk\u00163\nuyl\u0016?\n>w\u0006__. Fj_.Fj#chat\nh#pray\ny y   FhFhFhFhFhFhFjFjFjFjFjFj_oooooooo,Fb_.,\u001b$__. _.#chat\nbkuj#chat\nbknu#chat\nyjhb#chat\nbuhh#chat\nu_ooooooo.   _.Fl,$Fn FnFn Fn FnFn   n_ooo,_._oo.,pjhk#chat\nh_{.Fl_.Fk q__.  nFl_.   #chat\nu\u00167\nnkj\u0016?\n>w\u0006lul#chat\nu_ooooo.  _.  ,:hll#chat\nb_{. _.qy_oooo.,p_oooooo.,p_ooooooooo. Fb_.Fh,$nyj#chat\nn_{._,qy\u00167\nyjn\u0016?\n>w\u0006nby#chat\nj__. Fy_.@.Fh        n   #chat\nh   n \u00168\n_{._,.q_{._.m.Fhqy_oooo._"
+ },
+ "segments": [
+  {
+   "seed": 50455529,
+   "datetime": "20230109063011",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPg\u0016?\n>w\u0006_ \u001b<. q__,Fh _,@.Fh #chat\nl__.Fh_,Fh#chat\nh #pray\ny y _oooooooo._.,\u0014.sls _{.Fh_,FhqFlFl FlFlFlFl_oooo,,pFh    FhFhFhFh Fh\u00163\nkhh\u0016?\n>w\u0006_ooooo. Fb_.Fb,p_ooooooooo.Fb  n_,Fb_ooo,Fb_,:Fb,:Fb Fb   FbFbFbFbnlb#chat\nyFhFhFh FhFhFh_ooooo,_,,p\u00163\nhyn\u0016?\n>w\u0006yhu#chat\nn_ooooo._.,p_ooooooo._o.,#chat\nn_oooo.,$_oooooo.,#chat\nl_oo._o.,#chat\nj_ooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndi_ooo., $ynn#chat\nk\u00163\nuyl\u0016?\n>w\u0006__. Fj_.Fj#chat\nh#pray\ny y   FhFhFhFhFhFhFjFjFjFjFjFj_oooooooo,Fb_.,\u001b$__. _.#chat\nbkuj#chat\nbknu#chat\nyjhb#chat\nbuhh#chat\nu_ooooooo.   _.Fl,$Fn FnFn Fn FnFn   n_ooo,_._oo.,pjhk#chat\nh_{.Fl_.Fk q__.  nFl_.   #chat\nu\u00167\nnkj\u0016?\n>w\u0006lul#chat\nu_ooooo.  _.  ,:hll#chat\nb_{. _.qy_oooo.,p_oooooo.,p_ooooooooo. Fb_.Fh,$nyj#chat\nn_{._,qy\u00167\nyjn\u0016?\n>w\u0006nby#chat\nj__. Fy_.@.Fh        n   #chat\nh   n \u00168\n_{._,.q_{._.m.Fhqy_oooo._"
+  }
+ ]
+}

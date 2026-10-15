@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017Sting\nwlFkFhFh#invoke\nl\u0007violet fungus\nFlFhFlFhFl\u0007fire giant\n;u: \u001b>.susm.sm.  yy\u001bny y\u001by  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 50457502,
+   "datetime": "20021106132429",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017Sting\nwlFkFhFh#invoke\nl\u0007violet fungus\nFlFhFlFhFl\u0007fire giant\n;u: \u001b>.susm.sm.  yy\u001bny y\u001by  \u0007"
+  }
+ ]
+}

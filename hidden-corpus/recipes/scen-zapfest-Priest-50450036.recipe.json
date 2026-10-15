@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWi\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n20\n                   \u0017blessed spellbook of fireball\nrk .\u0007mind flayer\nZb\ns.Zb\nZc\nZc\nZb\nZa\n\u001bm,20ssm.      Zc\n     Zc\n        \u0007kobold shaman\n\u0007master mind flayer\n\u0007kobold shaman\n\u0017wand of fire\n.usm.    n   20s   n      n  sm.   n     n slsm.      n     n .m.     n    n sm.   n    n 20s   n    n \u00169\n\u0017bow\nwm\u001720 arrows\nQn\u0007kobold shaman\nfufy       tnu   fu   tnu   \u0018\u001b\u0007gnomish wizard\n\u0007aligned cleric\nn\u0017wand of magic missile\n20s  sm.   20s    zou zon      zoy       sm.      zou     \u001619\n\u0007red dragon\n.m.20s   #polyself\ngold dragon\n    #monster\nh  .m. sm.   #monster\nl  #monster\nFh   n Fl   \u0018\u001b\u0017blessed spellbook of c"
+ },
+ "segments": [
+  {
+   "seed": 50450036,
+   "datetime": "20181103171752",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWi\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n20\n                   \u0017blessed spellbook of fireball\nrk .\u0007mind flayer\nZb\ns.Zb\nZc\nZc\nZb\nZa\n\u001bm,20ssm.      Zc\n     Zc\n        \u0007kobold shaman\n\u0007master mind flayer\n\u0007kobold shaman\n\u0017wand of fire\n.usm.    n   20s   n      n  sm.   n     n slsm.      n     n .m.     n    n sm.   n    n 20s   n    n \u00169\n\u0017bow\nwm\u001720 arrows\nQn\u0007kobold shaman\nfufy       tnu   fu   tnu   \u0018\u001b\u0007gnomish wizard\n\u0007aligned cleric\nn\u0017wand of magic missile\n20s  sm.   20s    zou zon      zoy       sm.      zou     \u001619\n\u0007red dragon\n.m.20s   #polyself\ngold dragon\n    #monster\nh  .m. sm.   #monster\nl  #monster\nFh   n Fl   \u0018\u001b\u0017blessed spellbook of c"
+  }
+ ]
+}

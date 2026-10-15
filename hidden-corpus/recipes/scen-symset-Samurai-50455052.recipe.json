@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "v i\u001bOc\u001b\n\u00165\n\u00163\nFbFl FyFkFnFyFbFuFnFuFlFhFlFkFyFbFnFhFkFbFuFhFyFlFlFuFkFlFkFbFkFhFbFkFnFnFkFnFhFyFyFbFbFuFkFuFhFkFuFuFlFhFuFbFhFhFlFuFkFuFkFnFbFyFyFyFhFbFkFuFnFbFhFkFbFbFkFlFyFyFbFbFnFnFnFhFbFuFlFlFkFlFlFuFyFhFnFnFlFhFbFkFuFuFhFnFnFnFuFnFbFnFnFhFbFkFuFnFnFnOe\u001b\nO>>>j\u001b\n\u0007tame kitten\n\u0017meatball\ntbk\u0007jackal\n20s  sm.20s...#name\nm\n ,\u0006_>,Fu_,.Fl>FlFu_>,Fk_.Fu >FnFk_>.Fu_.,Fu>FuFu\u0017magic whistle\nkbnag l\u0006_>, Fb_.Fy>FhFy_>. Fl_.<.Fl>FuFu_>,Fb_.Fy>FnFnmOa\u001b\n\\    cji\u001bl\u001620\nmO>>>q\u001b\nO>c\u001b\nv i\u001bOl\u001b\nh#rub\nFhFlFuFuFhFjFkFuFyFjFuFnFnFbFbFjFhFyFjFuFlFjFhFnFbFyFnFhFyFjFlFhFbFyFyFyFlFkFuFl FuFuFkFyFyFkFyF"
+ },
+ "segments": [
+  {
+   "seed": 50455052,
+   "datetime": "20030508202850",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nMENUCOLOR=\"cursed\"=brown\n",
+   "moves": "v i\u001bOc\u001b\n\u00165\n\u00163\nFbFl FyFkFnFyFbFuFnFuFlFhFlFkFyFbFnFhFkFbFuFhFyFlFlFuFkFlFkFbFkFhFbFkFnFnFkFnFhFyFyFbFbFuFkFuFhFkFuFuFlFhFuFbFhFhFlFuFkFuFkFnFbFyFyFyFhFbFkFuFnFbFhFkFbFbFkFlFyFyFbFbFnFnFnFhFbFuFlFlFkFlFlFuFyFhFnFnFlFhFbFkFuFuFhFnFnFnFuFnFbFnFnFhFbFkFuFnFnFnOe\u001b\nO>>>j\u001b\n\u0007tame kitten\n\u0017meatball\ntbk\u0007jackal\n20s  sm.20s...#name\nm\n ,\u0006_>,Fu_,.Fl>FlFu_>,Fk_.Fu >FnFk_>.Fu_.,Fu>FuFu\u0017magic whistle\nkbnag l\u0006_>, Fb_.Fy>FhFy_>. Fl_.<.Fl>FuFu_>,Fb_.Fy>FnFnmOa\u001b\n\\    cji\u001bl\u001620\nmO>>>q\u001b\nO>c\u001b\nv i\u001bOl\u001b\nh#rub\nFhFlFuFuFhFjFkFuFyFjFuFnFnFbFbFjFhFyFjFuFlFjFhFnFbFyFnFhFyFjFlFhFbFyFyFyFlFkFuFl FuFuFkFyFyFkFyF"
+  }
+ ]
+}

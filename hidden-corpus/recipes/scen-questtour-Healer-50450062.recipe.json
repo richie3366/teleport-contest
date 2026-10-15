@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nu_mmmmm.Fy_.#chat\ny_mmmmm.Fb    _,#chat\nk  ;b:  #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm,  Fu  _.#chat\nu   _m.  Fb  _.#chat\nb   \u0017blessed +3 cloak of magic resistance\nWn  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPpl  \u0017wand of striking\n\u0016?\n>A\u0006_mmmmm.    n Fb  _,Fu  Fl  Fk  Fh   ,   #chat\nu    n \u0016?\n>>\u001b\u0016?\n>y_mm.  Fu  _.#chat\nu   \u00167\n\u0016?\n>A\u0006_mmmmmm.Fl  Fb  Fl  Fb  ,\u0016?\n>z\u0006_mmmm.  n  Fl  _,Fk  Fl  Fb  Fu  Fl  Fl    n ,#chat\nu   \u001610\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.  Fb  _.Fb  Fl  Fj   Fl    n Fk  zqk   ,\u0016?\n>>\u001b\u0016?\n>y_mmm,  Fu  _.#chat\nk   \u0016?\n>A\u0006_mmmmmm.Fl  Fb  Fl    Fl   n  ,\u0016?\n>A\u0006_mmm.  Fu   _,Fu  Fb  Fu  Fu  ,\u0016?\n>>\u001b\u0016?\n>y_mmmm,  Fk    n_,  Fb  #chat\nk   \u0016?\n>z\u0006_mm,  Fk  "
+ },
+ "segments": [
+  {
+   "seed": 50450062,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=sortloot:none\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nu_mmmmm.Fy_.#chat\ny_mmmmm.Fb    _,#chat\nk  ;b:  #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm,  Fu  _.#chat\nu   _m.  Fb  _.#chat\nb   \u0017blessed +3 cloak of magic resistance\nWn  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPpl  \u0017wand of striking\n\u0016?\n>A\u0006_mmmmm.    n Fb  _,Fu  Fl  Fk  Fh   ,   #chat\nu    n \u0016?\n>>\u001b\u0016?\n>y_mm.  Fu  _.#chat\nu   \u00167\n\u0016?\n>A\u0006_mmmmmm.Fl  Fb  Fl  Fb  ,\u0016?\n>z\u0006_mmmm.  n  Fl  _,Fk  Fl  Fb  Fu  Fl  Fl    n ,#chat\nu   \u001610\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.  Fb  _.Fb  Fl  Fj   Fl    n Fk  zqk   ,\u0016?\n>>\u001b\u0016?\n>y_mmm,  Fu  _.#chat\nk   \u0016?\n>A\u0006_mmmmmm.Fl  Fb  Fl    Fl   n  ,\u0016?\n>A\u0006_mmm.  Fu   _,Fu  Fb  Fu  Fu  ,\u0016?\n>>\u001b\u0016?\n>y_mmmm,  Fk    n_,  Fb  #chat\nk   \u0016?\n>z\u0006_mm,  Fk  "
+  }
+ ]
+}

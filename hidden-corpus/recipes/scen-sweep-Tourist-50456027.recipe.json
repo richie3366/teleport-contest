@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u001617\n#rub\nt$j#offer\n;h, \u001bm,s.\u0016?\nmi\u001b\u0018\u001bss. \u001621\nchP\u0018\u001b;y;sm..m.\u0016?\n>G #twoweapon\n#tip\n\u001b#monster\nsl.m.\u0016?\n>>K     scroll of genocide\n10s  olrh  sm.sm.\u001627\nuyun\u0017grave\n: \u001b\u0017pick-axe\nao  n   sn         sl   y             n :u     \u0017tree\ny       \u0004n       \u0004n     n \u0017axe\nap   u k \u0017pool\n#dip\neg l\u0017fountain\nqg qg     qy           \u0017long sword\n#dip\nqy       n        :        E#name\no\n#terrain\nc\nm,\u00167\n\u0016?\n\u001b\u0006__.     Fn    _. Fj  n      #chat\nn.l   n  s   sm.u#dip\nb#pray\ny y \u001625\n\u0018\u001b\u00169\n#levelchange\n30\n\u0017cursed 15 crossbow bolts\n\u0007Wizard of Yendor\nynQafkfk     \u001bfn    n      Fj              Fl              \u0017cursed 20 darts\nQsfb  n      fh            fl      n \u001b  20s     s         \u0017cursed -1 trident\nwt       20s       n      s          Fb        n Fh           n Fh        \u0017blessed spellbook of protection\n\u0007dust vortex\nru      n             n.     n . \u001b \u001b      yy\u001by   y y  y\u001b  Z"
+ },
+ "segments": [
+  {
+   "seed": 50456027,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u001617\n#rub\nt$j#offer\n;h, \u001bm,s.\u0016?\nmi\u001b\u0018\u001bss. \u001621\nchP\u0018\u001b;y;sm..m.\u0016?\n>G #twoweapon\n#tip\n\u001b#monster\nsl.m.\u0016?\n>>K     scroll of genocide\n10s  olrh  sm.sm.\u001627\nuyun\u0017grave\n: \u001b\u0017pick-axe\nao  n   sn         sl   y             n :u     \u0017tree\ny       \u0004n       \u0004n     n \u0017axe\nap   u k \u0017pool\n#dip\neg l\u0017fountain\nqg qg     qy           \u0017long sword\n#dip\nqy       n        :        E#name\no\n#terrain\nc\nm,\u00167\n\u0016?\n\u001b\u0006__.     Fn    _. Fj  n      #chat\nn.l   n  s   sm.u#dip\nb#pray\ny y \u001625\n\u0018\u001b\u00169\n#levelchange\n30\n\u0017cursed 15 crossbow bolts\n\u0007Wizard of Yendor\nynQafkfk     \u001bfn    n      Fj              Fl              \u0017cursed 20 darts\nQsfb  n      fh            fl      n \u001b  20s     s         \u0017cursed -1 trident\nwt       20s       n      s          Fb        n Fh           n Fh        \u0017blessed spellbook of protection\n\u0007dust vortex\nru      n             n.     n . \u001b \u001b      yy\u001by   y y  y\u001b  Z"
+  }
+ ]
+}

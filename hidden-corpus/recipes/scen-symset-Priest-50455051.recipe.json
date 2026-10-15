@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0007\u001710s#chat\n  \u0017leash\najljl hnaju n\u0017apple\nt\u001bFn Fn FuFn Fn FlFnFuFuFl Fl Fl FlFlFl#pray\ny y FuFnFnFnFuFnFlFlFlFnFuFlFnFuFuFlFuFuFuFuFuFlFuFlFnFuFlFnFlFnFlFlFnFlFnFnFuFuFuFlFnFnFuFuFuFnFlFuFuFuFnFnFnFuFuFnFuFnFnFlFuFlFnFnFlFuFlFuFnFlFlFuFuFnFnFlFuFlFlFlFuFlFuFlFuFnFuFlFlFuFnFnFuFuFuFlFuFuFlFnFuFn\u00165\n\u000f\u001b#sit\n\u001b#levelchange\n30\n                              lylj\u0017lawful altar\nda \u0017floating eye corpse\n#offer\nl   #pray\ny y     \u001bl\u0017neutral altar\ndg \u0017gnome corpse\n #offer\nm    h \u0017magic fountain\nqy  qy\u0017long sword\n#dip\nnyk\u0017unaligned altar\ndcdi \u0017newt corpse\n#offer\no   #enhance\nyp\no\n\u001bZa\n\u001b>.b\u00163\nck50s100s100s _>.>150s50s150s100s100s150s50s150s\u0018\u001b50sjkhlef100s50shnj#ride\n.y\\  i\u001bbuh100s150sajj\u000f\u001b50s_>.>h bjlykkhk100s bkjuhh100sE- I am a fish\nlbjv  i\u001bykb50s100s50sbuui\u001b150shukjlu_>,>_>.>"
+ },
+ "segments": [
+  {
+   "seed": 50455051,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a scroll\"=brown\n",
+   "moves": "\u0007\u001710s#chat\n  \u0017leash\najljl hnaju n\u0017apple\nt\u001bFn Fn FuFn Fn FlFnFuFuFl Fl Fl FlFlFl#pray\ny y FuFnFnFnFuFnFlFlFlFnFuFlFnFuFuFlFuFuFuFuFuFlFuFlFnFuFlFnFlFnFlFlFnFlFnFnFuFuFuFlFnFnFuFuFuFnFlFuFuFuFnFnFnFuFuFnFuFnFnFlFuFlFnFnFlFuFlFuFnFlFlFuFuFnFnFlFuFlFlFlFuFlFuFlFuFnFuFlFlFuFnFnFuFuFuFlFuFuFlFnFuFn\u00165\n\u000f\u001b#sit\n\u001b#levelchange\n30\n                              lylj\u0017lawful altar\nda \u0017floating eye corpse\n#offer\nl   #pray\ny y     \u001bl\u0017neutral altar\ndg \u0017gnome corpse\n #offer\nm    h \u0017magic fountain\nqy  qy\u0017long sword\n#dip\nnyk\u0017unaligned altar\ndcdi \u0017newt corpse\n#offer\no   #enhance\nyp\no\n\u001bZa\n\u001b>.b\u00163\nck50s100s100s _>.>150s50s150s100s100s150s50s150s\u0018\u001b50sjkhlef100s50shnj#ride\n.y\\  i\u001bbuh100s150sajj\u000f\u001b50s_>.>h bjlykkhk100s bkjuhh100sE- I am a fish\nlbjv  i\u001bykb50s100s50sbuui\u001b150shukjlu_>,>_>.>"
+  }
+ ]
+}

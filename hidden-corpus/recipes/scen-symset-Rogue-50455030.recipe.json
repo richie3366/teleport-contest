@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "v\u001bi\u001b#levelchange\n6\n    hhuk\u0017moat\n#dip\nby   n\u0017ice\nlu\u0017cloud\n:#terrain\nd\n\u001b:\u0018\u001bZ#offer\n\u00167\nFhFyFbFkFkFuFyFyFuFuFyFyFbFkFkFkFbFyFyFbFkFbFbFbFuFbFk Fb Fu  FuFk FyFbFyFlFbFkFkFu   nFyFb FyFlFu FlFu FyFk Fu  FlFb #pray\ny y       Fu Fy Fk  Fy    n Fb Fk Fu  Fu  FlFyFbFk#pray\ny y   FuFlFb#pray\ny y  Fb  Fy s\u001b150s FbFy  Fn #pray\ny y#pray\ny y#pray\ny yku uFy  nFj s\u001b50s FbFj . FjFb  Fu \u0014<.Fu FuFuFuFlFuFlFhFh\u00166\n \u0006_>.  nFn_,Fj>FjFj_>.Fb_,Fy  n >FhFy_>.Fy_.  nFy>FyFhFhFhFh\u0006_>,  nFh_.Fn>FlFu_>.Fu_.Fy  n>FkFy_>. Fh_.Fl>FhFlFls20s\u0006_>.Fu  n_,Fh>FlFu_>,Fh_,Fl>FhFh_>.Fn_.Fu  n>FlFlFnFuFh\u0006_>>.Fl_.Fn>FlFh_>>.Fu_.Fh>Fh  nFh_>>.Fl_.Fu>FuFnFhFuFu \u0006_>.  nFu_.Fh>FuFn_>,Fh_.Fh>FhFn_>,Fl_.Fn>FlFuFlFnFu\u0006_>.Fu_.Fn>FuFu_>,Fu_,Fl>FuFu_>,Fn_.Fu>FuFnFnFuFu\u000f\u001b\u00166\n#force\nck#twoweapon\n\u0006_>.Fn_.Fl>FuFu_>.Fu_.Fn>FuFn_>,Fn_,Fu>FlFnFuFuFn,#twoweapon\n\u0006_>,Fl_.Fn>FlFn_>,Fu_,Fl>FnFl_>,Fn_.Fl>FuFnFlFlFn\u0006_>.Fn_.Fl>FlFu_>,Fl_,Fh>Fn Fu _>.Fu _.  n Fn >FhFuFlFn Fh\u0006_>,Fu  n _.Fh>Fl Fu _>,Fh_.Fl>FnFl_>.Fl_,Fu>FlFnFlFnFl\u00168"
+ },
+ "segments": [
+  {
+   "seed": 50455030,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=sortloot:loot\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": "v\u001bi\u001b#levelchange\n6\n    hhuk\u0017moat\n#dip\nby   n\u0017ice\nlu\u0017cloud\n:#terrain\nd\n\u001b:\u0018\u001bZ#offer\n\u00167\nFhFyFbFkFkFuFyFyFuFuFyFyFbFkFkFkFbFyFyFbFkFbFbFbFuFbFk Fb Fu  FuFk FyFbFyFlFbFkFkFu   nFyFb FyFlFu FlFu FyFk Fu  FlFb #pray\ny y       Fu Fy Fk  Fy    n Fb Fk Fu  Fu  FlFyFbFk#pray\ny y   FuFlFb#pray\ny y  Fb  Fy s\u001b150s FbFy  Fn #pray\ny y#pray\ny y#pray\ny yku uFy  nFj s\u001b50s FbFj . FjFb  Fu \u0014<.Fu FuFuFuFlFuFlFhFh\u00166\n \u0006_>.  nFn_,Fj>FjFj_>.Fb_,Fy  n >FhFy_>.Fy_.  nFy>FyFhFhFhFh\u0006_>,  nFh_.Fn>FlFu_>.Fu_.Fy  n>FkFy_>. Fh_.Fl>FhFlFls20s\u0006_>.Fu  n_,Fh>FlFu_>,Fh_,Fl>FhFh_>.Fn_.Fu  n>FlFlFnFuFh\u0006_>>.Fl_.Fn>FlFh_>>.Fu_.Fh>Fh  nFh_>>.Fl_.Fu>FuFnFhFuFu \u0006_>.  nFu_.Fh>FuFn_>,Fh_.Fh>FhFn_>,Fl_.Fn>FlFuFlFnFu\u0006_>.Fu_.Fn>FuFu_>,Fu_,Fl>FuFu_>,Fn_.Fu>FuFnFnFuFu\u000f\u001b\u00166\n#force\nck#twoweapon\n\u0006_>.Fn_.Fl>FuFu_>.Fu_.Fn>FuFn_>,Fn_,Fu>FlFnFuFuFn,#twoweapon\n\u0006_>,Fl_.Fn>FlFn_>,Fu_,Fl>FnFl_>,Fn_.Fl>FuFnFlFlFn\u0006_>.Fn_.Fl>FlFu_>,Fl_,Fh>Fn Fu _>.Fu _.  n Fn >FhFuFlFn Fh\u0006_>,Fu  n _.Fh>Fl Fu _>,Fh_.Fl>FnFl_>.Fl_,Fu>FlFnFlFnFl\u00168"
+  }
+ ]
+}

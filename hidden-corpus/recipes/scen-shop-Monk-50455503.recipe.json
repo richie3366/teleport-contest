@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \u00175000 gold pieces\n\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed amulet of reflection\nPl\u0016?\n>w\u0006_ \u001b.,$_oooooo._ooo.,:_oooooooo,,:_ooo._oo.,$_oooo.,\u0014@. ..m._ooo,_ooo,,$_oooo._ooo.,p__. Fu _.Fu#chat\nb_ooooo.Fj_,,\u0017amulet of unchanging\ndn_{._.qd_ooooo.Fl _,_ooo.,\u0017amulet of change\ndo__._,#chat\nj#pray\ny y \u0016?\n>Bujl\u0016?\n>w\u0006_{.  _.m.Flqd_ooooo,_._ooo.,:\u00163\nhny\u0016?\n>w\u0006Fk  Fk FkFk FkFk__,Fh_,Fb#chat\nb _oo,Fb _,Fb ,$_{.Fj _.qy  \u0016?\ncnhk\u0016?\n>w\u0006_ooooooo._,Fl  _o.Fk _,.Fk,#chat\nk_oooooooo.Fj _.Fj _oo, Fj _,  n Fk ,p__,Fy_, #chat\nbblk#chat\nk_ooo,,\u0017cheap plastic imitation of the Amulet of Yendor\ndp_ooooooo.Fj_.,\u001bpbyu#chat\nb_oooooooo._,,:__.Fj _,Fj   \u001b#chat\nj#pray\ny y    _ooo.Fn_,Fl,p_ooooo.Fu_.Fk ,p_oooo,,$_oooo,_oo.,#chat\nk Fk   nFkFkFkFkFk__.Fk   _,.Fk#chat\nk#pray\ny y    Fk  Fk  FkFkFkFk_ooooo"
+ },
+ "segments": [
+  {
+   "seed": 50455503,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00175000 gold pieces\n\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed amulet of reflection\nPl\u0016?\n>w\u0006_ \u001b.,$_oooooo._ooo.,:_oooooooo,,:_ooo._oo.,$_oooo.,\u0014@. ..m._ooo,_ooo,,$_oooo._ooo.,p__. Fu _.Fu#chat\nb_ooooo.Fj_,,\u0017amulet of unchanging\ndn_{._.qd_ooooo.Fl _,_ooo.,\u0017amulet of change\ndo__._,#chat\nj#pray\ny y \u0016?\n>Bujl\u0016?\n>w\u0006_{.  _.m.Flqd_ooooo,_._ooo.,:\u00163\nhny\u0016?\n>w\u0006Fk  Fk FkFk FkFk__,Fh_,Fb#chat\nb _oo,Fb _,Fb ,$_{.Fj _.qy  \u0016?\ncnhk\u0016?\n>w\u0006_ooooooo._,Fl  _o.Fk _,.Fk,#chat\nk_oooooooo.Fj _.Fj _oo, Fj _,  n Fk ,p__,Fy_, #chat\nbblk#chat\nk_ooo,,\u0017cheap plastic imitation of the Amulet of Yendor\ndp_ooooooo.Fj_.,\u001bpbyu#chat\nb_oooooooo._,,:__.Fj _,Fj   \u001b#chat\nj#pray\ny y    _ooo.Fn_,Fl,p_ooooo.Fu_.Fk ,p_oooo,,$_oooo,_oo.,#chat\nk Fk   nFkFkFkFkFk__.Fk   _,.Fk#chat\nk#pray\ny y    Fk  Fk  FkFkFkFk_ooooo"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWq\u0016?\ns \u0017orcish bow\nwr\u001720 orcish arrows\nQs\u0007kobold\nkyfn  fn   n fn \u00073 hill orc\nukfl  fn    n  \u0007troll\nb   yfn    n  fh     n fl    fb  n    x       n #twoweapon\nFn   Fn  n   jl     n l    ,#enhance\nyi\ni\n\u001b\u001612\n\u0016?\nany:sm.  n \u001611\njlyuh     :\u0016?\n>>O       bow\nh  n j     u        n  h        n :\u00162\n\u0016?\nej        nh       k       n         n  \u0017throne\n#sit\n :\u001buh\u0017d\u0017n\u0017d\u0017#pray\n            \u001b   n   Zb\n  \u001b   yy\u001by   y nn  ,"
+ },
+ "segments": [
+  {
+   "seed": 50458509,
+   "datetime": "20190827035833",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWq\u0016?\ns \u0017orcish bow\nwr\u001720 orcish arrows\nQs\u0007kobold\nkyfn  fn   n fn \u00073 hill orc\nukfl  fn    n  \u0007troll\nb   yfn    n  fh     n fl    fb  n    x       n #twoweapon\nFn   Fn  n   jl     n l    ,#enhance\nyi\ni\n\u001b\u001612\n\u0016?\nany:sm.  n \u001611\njlyuh     :\u0016?\n>>O       bow\nh  n j     u        n  h        n :\u00162\n\u0016?\nej        nh       k       n         n  \u0017throne\n#sit\n :\u001buh\u0017d\u0017n\u0017d\u0017#pray\n            \u001b   n   Zb\n  \u001b   yy\u001by   y nn  ,"
+  }
+ ]
+}

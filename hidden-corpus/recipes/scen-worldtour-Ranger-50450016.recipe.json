@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\np \u0004b\u0016?\nb_ \u001b:<\u0016?\n>A  hk  :\u001616\n_<,<\u0016?\nn \u0017blessed wand of speed monster\n\u0007brown pudding\nzik \u0017scroll of create monster\nrj Uruk-hai\n\u0017lance\n\u0007prisoner\nwk Fj  Fk Fj X\u0017uncursed potion of polymorph\nql   #dip\niFk Fj  sn.l\u001616\n#levelchange\n20\n     \u0017crossbow\nwm  \u001715 crossbow bolts\nQn\u0007troll\nlj  n  fy   fh    Fh   n Fh \u0017lance\nwo  \u0007kobold\nk    nao@.j k y,#enhance\nye\ni\n\u001b\u00169\n\u0016?\n>C__.sh  sl  n20s  \u001616\nh lu j \u0017pit\nk  n j sb 20s k \u0017arrow trap\nh\u0007lichen\n20s    nsm.   .k  20s  h  n  \u0017falling rock trap\ny^n#untrap\nnhj  \u0017teleportation trap\nl  h    n sm.  sb#terrain\nd\n#wipe\n;tbj  _m,  n  sm.  \u00163\n\u0016?\n>>O       dilithium crystal\nkn     n   k       n h      \u0017pit\nh\u0017spiked pit\nb    \u0017squeaky board\n\u0017beartrap\n ar      n    kl          n #dip\nhtdu             n    #terrain\nd\n\u0016 \u001632\n\u0006_<.\u0016?\n\u001bn        n h\u001616\n\u0006_<.\u001616\n#levelchange\n14\n \u001715 shuriken\nQs\u0007soldier\nn         n fl         yy\u001by   y y  y\u001b  f"
+ },
+ "segments": [
+  {
+   "seed": 50450016,
+   "datetime": "20110621215832",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\np \u0004b\u0016?\nb_ \u001b:<\u0016?\n>A  hk  :\u001616\n_<,<\u0016?\nn \u0017blessed wand of speed monster\n\u0007brown pudding\nzik \u0017scroll of create monster\nrj Uruk-hai\n\u0017lance\n\u0007prisoner\nwk Fj  Fk Fj X\u0017uncursed potion of polymorph\nql   #dip\niFk Fj  sn.l\u001616\n#levelchange\n20\n     \u0017crossbow\nwm  \u001715 crossbow bolts\nQn\u0007troll\nlj  n  fy   fh    Fh   n Fh \u0017lance\nwo  \u0007kobold\nk    nao@.j k y,#enhance\nye\ni\n\u001b\u00169\n\u0016?\n>C__.sh  sl  n20s  \u001616\nh lu j \u0017pit\nk  n j sb 20s k \u0017arrow trap\nh\u0007lichen\n20s    nsm.   .k  20s  h  n  \u0017falling rock trap\ny^n#untrap\nnhj  \u0017teleportation trap\nl  h    n sm.  sb#terrain\nd\n#wipe\n;tbj  _m,  n  sm.  \u00163\n\u0016?\n>>O       dilithium crystal\nkn     n   k       n h      \u0017pit\nh\u0017spiked pit\nb    \u0017squeaky board\n\u0017beartrap\n ar      n    kl          n #dip\nhtdu             n    #terrain\nd\n\u0016 \u001632\n\u0006_<.\u0016?\n\u001bn        n h\u001616\n\u0006_<.\u001616\n#levelchange\n14\n \u001715 shuriken\nQs\u0007soldier\nn         n fl         yy\u001by   y y  y\u001b  f"
+  }
+ ]
+}

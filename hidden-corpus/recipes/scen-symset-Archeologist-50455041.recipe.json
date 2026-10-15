@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  O>>>o4\n \u001b\nmO>q\u001b\n\u00167\n100sFhFlFlFhFlFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFh#pray\ny y   FhFhFh_ \u001bm.>_>._.> 150s50sFhFbFbFbFb  nFbFbFbFb#pray\ny y _>.>_>.>150suuk50s50s  FjFjFjFbFb Fj #pray\ny y  FbFjFj   nFj FbFbFbFbFbFbFbs100s100s   Fj20s  Fl Flsslnhbhj100s100s\u00167\n150s\\ #jump\n50sFl.20si\u001b50sFlFlFlnlk_>._,.>#untrap\nblhj100s_>,_.m,>\\ 50s100s50s 100s ed\\ 100s100s150s_>._.,Fh>ed100sFh Fh Fh Fh Fh Fh Fhss100s\\ juj\u0018\u001b_>._.m.>100s _>,_,.>100sFyss50s\u001616\n\u0006_>._,>.>_>._,,>_>,_,;<. >\u0006_>,_.>.>_>,_.@.>_>._.m,><\u0006_>,_,,>_>,_,>.>_>._..>\u0006_>._.:>_>._.<.>_>._.<.>\u0006_>._.,>_>,_.<.>_>._..>\u0006_>._.m.>_>._,;<. >_>,_,m.>#chat\ny#dip\na<mO>>c\u001b\n\u0006_>,_.:>_>._.>.>_>.Fh_.Fh>FhFh Fh   \u001bFhFh<\u0006_>.Fh_.;m,>_>,_,m.>_>,_.>.>#ride\nby\\ \u0006_>._.;m.>_>._,;m,>_>._,,>\u0006_>,_.,>_>._.m.>_>._.>.>\u0006_>,_,,>_>._.;@.>_>._.;,>#jump\nfj\u0006_>._..>_>._,:>_>._,@.>\u000f\u001b,wa#terrain\nb\nq O>>c\u001b\n\u00166\nO>g\u001b\n\u001617\n\u00163\n#pray\ny y  i\u001b#pray\ny y #pray\ny y  100s\u000f\u001b150sFlFls\u0004l50s100s \u000f\u001b100sFk.FlFlFlFl#terrain\ne\n100s 50s50s\u0018\u001b100sFkFkFkFkFkFkubh150s150sFkFks150sknu_>.>byn100s \u000f\u001b"
+ },
+ "segments": [
+  {
+   "seed": 50455041,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=autodig\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nMSGTYPE=hide \"You miss\"\nMENUCOLOR=\"uncursed\"=magenta\nBIND=v:inventory\n",
+   "moves": "  O>>>o4\n \u001b\nmO>q\u001b\n\u00167\n100sFhFlFlFhFlFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFh#pray\ny y   FhFhFh_ \u001bm.>_>._.> 150s50sFhFbFbFbFb  nFbFbFbFb#pray\ny y _>.>_>.>150suuk50s50s  FjFjFjFbFb Fj #pray\ny y  FbFjFj   nFj FbFbFbFbFbFbFbs100s100s   Fj20s  Fl Flsslnhbhj100s100s\u00167\n150s\\ #jump\n50sFl.20si\u001b50sFlFlFlnlk_>._,.>#untrap\nblhj100s_>,_.m,>\\ 50s100s50s 100s ed\\ 100s100s150s_>._.,Fh>ed100sFh Fh Fh Fh Fh Fh Fhss100s\\ juj\u0018\u001b_>._.m.>100s _>,_,.>100sFyss50s\u001616\n\u0006_>._,>.>_>._,,>_>,_,;<. >\u0006_>,_.>.>_>,_.@.>_>._.m,><\u0006_>,_,,>_>,_,>.>_>._..>\u0006_>._.:>_>._.<.>_>._.<.>\u0006_>._.,>_>,_.<.>_>._..>\u0006_>._.m.>_>._,;<. >_>,_,m.>#chat\ny#dip\na<mO>>c\u001b\n\u0006_>,_.:>_>._.>.>_>.Fh_.Fh>FhFh Fh   \u001bFhFh<\u0006_>.Fh_.;m,>_>,_,m.>_>,_.>.>#ride\nby\\ \u0006_>._.;m.>_>._,;m,>_>._,,>\u0006_>,_.,>_>._.m.>_>._.>.>\u0006_>,_,,>_>._.;@.>_>._.;,>#jump\nfj\u0006_>._..>_>._,:>_>._,@.>\u000f\u001b,wa#terrain\nb\nq O>>c\u001b\n\u00166\nO>g\u001b\n\u001617\n\u00163\n#pray\ny y  i\u001b#pray\ny y #pray\ny y  100s\u000f\u001b150sFlFls\u0004l50s100s \u000f\u001b100sFk.FlFlFlFl#terrain\ne\n100s 50s50s\u0018\u001b100sFkFkFkFkFkFkubh150s150sFkFks150sknu_>.>byn100s \u000f\u001b"
+  }
+ ]
+}

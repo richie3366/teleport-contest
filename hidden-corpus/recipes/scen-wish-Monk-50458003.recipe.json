@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017potion of restore ability\nqj \u001b#dip\nbd\u0017blessed tsurugi\nwkFh20ssX\u0017blessed ring of polymorph\nPlr20s20ss20ss\u0017cursed Grayswandir\nwmss20sX\u0017blessed scroll of remove curse\nrn \u0017scroll of blank paper\nro20s."
+ },
+ "segments": [
+  {
+   "seed": 50458003,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017potion of restore ability\nqj \u001b#dip\nbd\u0017blessed tsurugi\nwkFh20ssX\u0017blessed ring of polymorph\nPlr20s20ss20ss\u0017cursed Grayswandir\nwmss20sX\u0017blessed scroll of remove curse\nrn \u0017scroll of blank paper\nro20s."
+  }
+ ]
+}

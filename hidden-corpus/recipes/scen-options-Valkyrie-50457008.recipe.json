@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "O>k\nd\nqO>f\n#dip\ndmO>>>>dj\n#invoke\n\u001bmO>>>>>>das\no\nw\n20sw- O>m\nb\nb\no\n\u001b#loot\nksn 20sOj\nf b bzO>en\n#tip\n\u001buOfog\nh\n_>, \u001b:.mO>>g\n W<Oan\nn\nw-mOa\n#terrain\nc\n@.Ofla\np\n#terrain\nc\nm,s20s"
+ },
+ "segments": [
+  {
+   "seed": 50457008,
+   "datetime": "20041120074828",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "O>k\nd\nqO>f\n#dip\ndmO>>>>dj\n#invoke\n\u001bmO>>>>>>das\no\nw\n20sw- O>m\nb\nb\no\n\u001b#loot\nksn 20sOj\nf b bzO>en\n#tip\n\u001buOfog\nh\n_>, \u001b:.mO>>g\n W<Oan\nn\nw-mOa\n#terrain\nc\n@.Ofla\np\n#terrain\nc\nm,s20s"
+  }
+ ]
+}

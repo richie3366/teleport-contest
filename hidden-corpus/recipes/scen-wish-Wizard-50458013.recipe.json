@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017uncursed 20 shuriken\nQofnfnfn\u0017scroll of enchant armor\nrp  \u0017potion of fruit juice\nqq \u001bFnFn\u0017uncursed scroll of destroy armor\n rj   20s.\u0017potion of oil\n\u0007sergeant\nqrFjFj   n.m..j   n"
+ },
+ "segments": [
+  {
+   "seed": 50458013,
+   "datetime": "20130110100514",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017uncursed 20 shuriken\nQofnfnfn\u0017scroll of enchant armor\nrp  \u0017potion of fruit juice\nqq \u001bFnFn\u0017uncursed scroll of destroy armor\n rj   20s.\u0017potion of oil\n\u0007sergeant\nqrFjFj   n.m..j   n"
+  }
+ ]
+}

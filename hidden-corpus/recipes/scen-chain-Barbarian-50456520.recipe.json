@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#quit\nyy  ykhbJLKY_ \u001b,>H  LNL_>.><LJYH_>,>YJBJ_>.>W#terrain\nb\nJUHH_>JYJH_>#twoweapon\n,\\  \u000f\u001bhkkjHHYK_>,>Fh .sLULJ_>.>KNNB_>,>#invoke\n\u001b\u0018\u001b<HLNH_>.>KUBB_>.>n#rub\nllhlhlda20ssm..m.#name\ni\nl llljjjFnFnFnFnFnFnFnFnkkjnyj20s#name\ni\n10s20s FnFnFnFnFnFnFnFnkkylhn100s_>.>kjj\u0018\u001b100sjkjFnss100s150sFn..150sFkFk.Fks.100sFn.Fn100s50s100s150sFl20ss100s,150sFn20s.lhl#quit\nyy\u001by  y y y\u001b  ybkb jkuhbnhlbkkntbyFnFnFn FnFnFnFnFnltbjlhbk20snkbl20snllhBKUU_ \u001b:>NKUB_>,>YBJL_>.>UBYU_>.>\u000f\u001bllhl50s150s#wipe\n\u000f\u001b100sFkFkFk100s\u0018\u001b_>,>luk100s_>.>yhh\u000f\u001b150s100sFls20si\u001b150s100sFkFlFljkk\u000f\u001b50s150s150s100s50sFnFnFnFls20s#pray\ny 150s_>,>#pray\ny #pra#quit\n  \u0017wand of death\nzp.  nsjs.m. jjuuuk#name\no\n10s20s llhh20s  Fu FuFuFuFu FuFu Fuuu20sjhynn10sFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjyblhLKJBy  _ \u001b@.>FlFlFl<\u0004 U UJY_>.><LYLY_>,>Fj.sBYBL_>,>Fl20ssHNnyJyLny_>,>FkFkFkBYBJ_>.>FkFkFk\u000f\u001bkkuk10skkdc.20s.dg  ...20st\u001bklunFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbynllhlllHBNL_>.>NBLHy  _>,>FlFlFlHyJBU_>.>FjFjFjKKKU_>.>2#quit\ny ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50456520,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 50556520,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:mango\n",
+   "moves": "  ykhbJLKY_ \u001b,>H  LNL_>.><LJYH_>,>YJBJ_>.>W#terrain\nb\nJUHH_>JYJH_>#twoweapon\n,\\  \u000f\u001bhkkjHHYK_>,>Fh .sLULJ_>.>KNNB_>,>#invoke\n\u001b\u0018\u001b<HLNH_>.>KUBB_>.>n#rub\nllhlhlda20ssm..m.#name\ni\nl llljjjFnFnFnFnFnFnFnFnkkjnyj20s#name\ni\n10s20s FnFnFnFnFnFnFnFnkkylhn100s_>.>kjj\u0018\u001b100sjkjFnss100s150sFn..150sFkFk.Fks.100sFn.Fn100s50s100s150sFl20ss100s,150sFn20s.lhl#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50656520,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": " ybkb jkuhbnhlbkkntbyFnFnFn FnFnFnFnFnltbjlhbk20snkbl20snllhBKUU_ \u001b:>NKUB_>,>YBJL_>.>UBYU_>.>\u000f\u001bllhl50s150s#wipe\n\u000f\u001b100sFkFkFk100s\u0018\u001b_>,>luk100s_>.>yhh\u000f\u001b150s100sFls20si\u001b150s100sFkFlFljkk\u000f\u001b50s150s150s100s50sFnFnFnFls20s#pray\ny 150s_>,>#pray\ny #pra#quit\n"
+  },
+  {
+   "seed": 50756520,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017wand of death\nzp.  nsjs.m."
+  },
+  {
+   "seed": 50856520,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\n",
+   "moves": " jjuuuk#name\no\n10s20s llhh20s  Fu FuFuFuFu FuFu Fuuu20sjhynn10sFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjyblhLKJBy  _ \u001b@.>FlFlFl<\u0004 U UJY_>.><LYLY_>,>Fj.sBYBL_>,>Fl20ssHNnyJyLny_>,>FkFkFkBYBJ_>.>FkFkFk\u000f\u001bkkuk10skkdc.20s.dg  ...20st\u001bklunFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbynllhlllHBNL_>.>NBLHy  _>,>FlFlFlHyJBU_>.>FjFjFjKKKU_>.>2#quit\ny "
+  }
+ ]
+}

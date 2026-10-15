@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPel\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b.,p__.Fk _.#chat\nb_oooo.,\u0014,20s sm._{.Fj_.;.qy _oooooooo._oo,,p__,Fn   _. Fn   #chat\nk  #pray\ny y         Fu   n     Fu   n    n Fu     n Fu     n Fu     n  Fu     n  \u001611\n_oooo.,p_oooo.,#chat\nu  Fu   n  Fu    n  Fu    n Fu    n  Fu   n   Fu   n  \u00165\nFh Fh   n      nFhFh    yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50455518,
+   "datetime": "20130612113345",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPel\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b.,p__.Fk _.#chat\nb_oooo.,\u0014,20s sm._{.Fj_.;.qy _oooooooo._oo,,p__,Fn   _. Fn   #chat\nk  #pray\ny y         Fu   n     Fu   n    n Fu     n Fu     n Fu     n  Fu     n  \u001611\n_oooo.,p_oooo.,#chat\nu  Fu   n  Fu    n  Fu    n Fu    n  Fu   n   Fu   n  \u00165\nFh Fh   n      nFhFh    yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

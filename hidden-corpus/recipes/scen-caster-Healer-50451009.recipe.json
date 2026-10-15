@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed spellbook of knock\nrk s\u0017blessed spellbook of haste self\nrl s+\u001b\u0007zombie\nZc\n\u0007jackal\nZe\nZc\nZb\n"
+ },
+ "segments": [
+  {
+   "seed": 50451009,
+   "datetime": "20230802042750",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed spellbook of knock\nrk s\u0017blessed spellbook of haste self\nrl s+\u001b\u0007zombie\nZc\n\u0007jackal\nZe\nZc\nZb\n"
+  }
+ ]
+}

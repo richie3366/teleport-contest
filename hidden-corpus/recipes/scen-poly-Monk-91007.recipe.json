@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPjl#polyself\nwraith\n.s20sss#polyself\nowlbear\ns.\u0007titanothere\nFhFl  Fh .usm.sm.\u0017potion of polymorph\nqk energy vortex\n#dip\ncd  yy\u001by  y y y\u001by  "
+ },
+ "segments": [
+  {
+   "seed": 91007,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of polymorph control\nPjl#polyself\nwraith\n.s20sss#polyself\nowlbear\ns.\u0007titanothere\nFhFl  Fh .usm.sm.\u0017potion of polymorph\nqk energy vortex\n#dip\ncd  yy\u001by  y y y\u001by  "
+  }
+ ]
+}

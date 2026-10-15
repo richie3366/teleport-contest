@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "mOa\u001b\n\u00163\nFuFnFuFhFlFkFjFnFbFjFuFuFhFhFhFkFhFbFbFkFhFkFkFbFbFjFlFbFuFbFbFuFuFhFlFjFhFjFjFnFuFhFkFlFnFlFkFbFyFkFjFbFkFuFnFlFuFlFlFjFuFyFjFj FuFuFjFnFkFuFlFnFjFyFnFlFuFnFkFyFjFyFkFyFjFbFjFkFbFbFnFlFjFnFuFkFyFkFbFlFlFnFyFlFnFkFuFyFjFnFkFuFlFlFyFkFjFnFjFbv i\u001b\u001616\n    O>>>>b\u001b\n\u0006_ \u001b@.>FkFn _>.Fn_.Fj>FjFh_>.Fk_,Fj>FuFyFnFbFh\u0006_>.Fn_,Fu>FkFn_>.Fb_.Fu>FhFn_>,Fy_.Fj>FyFhFnFjFk\u0006_>,Fy_.Fu>FkFn_>,Fk_.Fu>FkFb_>.Fk_,Fk>FnFyFkFyFh\u000f\u001b\u0006_>.Fn_,Fn>FuFb_>,Fn_.Fb>FhFk_>,Fj_,Fh>FbFuFkFkFh#twoweapon\n#pray\ny y <\u0006_>>,Fn_.Fk>FuFj_>>.Fk_.Fy>FyFy_>>.Fn_,Fu>FyFuFjFnFh\u0006_>>.Fk_,Fb>FjFn_>>.Fu_.Fy>FkFu_>>,Fn_,Fu>FyFuFhFuFh<\u0006_>.Fk_.Fn>FjFy_>,Fj_.Fy>FkFk_>.Fu_,Fy>FyFjFuFnFy<\u0006_>.Fy_,Fk>FnFj_>.Fk_.Fy>FbFj_>.Fj_,Fy>FnFkFnFhFk\u0006_>.Fn_.Fn>FuFj_>.Fy_.Fb>FuFu_>.Fk_,Fh>FnFbFjFyFy\u0006_>.Fj_.Fh>FuFh_>,Fk_.Fy>FkFh_>,Fh_,Fu>FuFkFhFhFk_m,.#sit\n\u001b\u000f\u001b#dip\ne #tip\n\u001bq#enhance\nym\nc\n\u001bmO>>>>h\u001b\nv i\u001bz#wipe\n__.20s\u0006_>.Fk_.Fy>FnFh_>.Fy_.Fn>FbFn_>.Fu_,Fj>FkFjFb"
+ },
+ "segments": [
+  {
+   "seed": 50455026,
+   "datetime": "20040812032455",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=norep \"You see\"\nMENUCOLOR=\"a scroll\"=red\n",
+   "moves": "mOa\u001b\n\u00163\nFuFnFuFhFlFkFjFnFbFjFuFuFhFhFhFkFhFbFbFkFhFkFkFbFbFjFlFbFuFbFbFuFuFhFlFjFhFjFjFnFuFhFkFlFnFlFkFbFyFkFjFbFkFuFnFlFuFlFlFjFuFyFjFj FuFuFjFnFkFuFlFnFjFyFnFlFuFnFkFyFjFyFkFyFjFbFjFkFbFbFnFlFjFnFuFkFyFkFbFlFlFnFyFlFnFkFuFyFjFnFkFuFlFlFyFkFjFnFjFbv i\u001b\u001616\n    O>>>>b\u001b\n\u0006_ \u001b@.>FkFn _>.Fn_.Fj>FjFh_>.Fk_,Fj>FuFyFnFbFh\u0006_>.Fn_,Fu>FkFn_>.Fb_.Fu>FhFn_>,Fy_.Fj>FyFhFnFjFk\u0006_>,Fy_.Fu>FkFn_>,Fk_.Fu>FkFb_>.Fk_,Fk>FnFyFkFyFh\u000f\u001b\u0006_>.Fn_,Fn>FuFb_>,Fn_.Fb>FhFk_>,Fj_,Fh>FbFuFkFkFh#twoweapon\n#pray\ny y <\u0006_>>,Fn_.Fk>FuFj_>>.Fk_.Fy>FyFy_>>.Fn_,Fu>FyFuFjFnFh\u0006_>>.Fk_,Fb>FjFn_>>.Fu_.Fy>FkFu_>>,Fn_,Fu>FyFuFhFuFh<\u0006_>.Fk_.Fn>FjFy_>,Fj_.Fy>FkFk_>.Fu_,Fy>FyFjFuFnFy<\u0006_>.Fy_,Fk>FnFj_>.Fk_.Fy>FbFj_>.Fj_,Fy>FnFkFnFhFk\u0006_>.Fn_.Fn>FuFj_>.Fy_.Fb>FuFu_>.Fk_,Fh>FnFbFjFyFy\u0006_>.Fj_.Fh>FuFh_>,Fk_.Fy>FkFh_>,Fh_,Fu>FuFkFhFhFk_m,.#sit\n\u001b\u000f\u001b#dip\ne #tip\n\u001bq#enhance\nym\nc\n\u001bmO>>>>h\u001b\nv i\u001bz#wipe\n__.20s\u0006_>.Fk_.Fy>FnFh_>.Fy_.Fn>FbFn_>.Fu_,Fj>FkFjFb"
+  }
+ ]
+}

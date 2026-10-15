@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  \u0017cursed flint stone\n\u0007Nazgul\ntbnFnFn \u0017cursed scroll of remove curse\n\u0007shade\nrj  \u001b\u00173 wand of cold\nzkn    yny  ny\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50458002,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017cursed flint stone\n\u0007Nazgul\ntbnFnFn \u0017cursed scroll of remove curse\n\u0007shade\nrj  \u001b\u00173 wand of cold\nzkn    yny  ny\u001by  F"
+  }
+ ]
+}

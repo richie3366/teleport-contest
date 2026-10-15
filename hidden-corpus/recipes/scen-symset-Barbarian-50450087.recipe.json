@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b;>FkFn_>FuFy_>>,Fub _.m,Fl>FjFjFbFbFj<\u0006_>. Fj_.Fj>FbFh\u001b_>.Fn_>FyFuy _>, Fn_>FnFh\u001bFkFjFn#dip\nf\u000f\u001b\u0006_>,Fn_>FhFh_>.Fn_>FbFn_>.Fl_.Fn>FlFhFh\u0006_>.Fb_.Fy>FkFn_>FuFl_>.Fl_,Fn>FuFbFh\u001b\u0006_>.Fk_.Fn>FyFky Fn\u0006_>>.Fy_.Fh\u001b>FnFkn _>>,Fk_.Fn>FyFlFu\u0006_>.Fk_.Fn>FbFyFu\u0006_>.Fk_.Fk>FnFh\u001b_>.Fn_>FlFl_>.Fn_>FkFbFky FkFhf by n q\u0006_>.Fb_,Fuu >FlFb_>.Fl_,Fh>FlFk_>.Fb_.Fb>FnFbFbFbFh\u0006_>.Fn_>FyFuk _>.Fn_>FuFh_>.Fy_.Fb>FnFyFkFhFn\u0016O>>o5\n \u001b\n:l#name\n\u001b>#untrap\nh \u00169\n\u0007pony\n\u0017banana\ntbk \u0007tame gnome lord\ndesm..h\u001b.dg   nsm.20sm.  n .y\u0017food ration\n tbh \u0017leash\nahl h\u001buy uh bahu dh .m.   n sm. 20sm.\u0006_>,  n Fb_, Fy>FbFj_>,   n Fu_.Fk>FjFl_>,Fh_,   n Fj>FyFkj \u0006_>. Fj_,Fk>FlFh_>.  n Fl_.   nFh>FhFk_>.Fb_.Fh\u001b>FnFlu \u00169\nFhFkFhFlFyFh\u001bFuFuFjFjFlFnFkk FjFjFkF"
+ },
+ "segments": [
+  {
+   "seed": 50450087,
+   "datetime": "20071105201730",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a scroll\"=magenta\n",
+   "moves": "\u0006_ \u001b;>FkFn_>FuFy_>>,Fub _.m,Fl>FjFjFbFbFj<\u0006_>. Fj_.Fj>FbFh\u001b_>.Fn_>FyFuy _>, Fn_>FnFh\u001bFkFjFn#dip\nf\u000f\u001b\u0006_>,Fn_>FhFh_>.Fn_>FbFn_>.Fl_.Fn>FlFhFh\u0006_>.Fb_.Fy>FkFn_>FuFl_>.Fl_,Fn>FuFbFh\u001b\u0006_>.Fk_.Fn>FyFky Fn\u0006_>>.Fy_.Fh\u001b>FnFkn _>>,Fk_.Fn>FyFlFu\u0006_>.Fk_.Fn>FbFyFu\u0006_>.Fk_.Fk>FnFh\u001b_>.Fn_>FlFl_>.Fn_>FkFbFky FkFhf by n q\u0006_>.Fb_,Fuu >FlFb_>.Fl_,Fh>FlFk_>.Fb_.Fb>FnFbFbFbFh\u0006_>.Fn_>FyFuk _>.Fn_>FuFh_>.Fy_.Fb>FnFyFkFhFn\u0016O>>o5\n \u001b\n:l#name\n\u001b>#untrap\nh \u00169\n\u0007pony\n\u0017banana\ntbk \u0007tame gnome lord\ndesm..h\u001b.dg   nsm.20sm.  n .y\u0017food ration\n tbh \u0017leash\nahl h\u001buy uh bahu dh .m.   n sm. 20sm.\u0006_>,  n Fb_, Fy>FbFj_>,   n Fu_.Fk>FjFl_>,Fh_,   n Fj>FyFkj \u0006_>. Fj_,Fk>FlFh_>.  n Fl_.   nFh>FhFk_>.Fb_.Fh\u001b>FnFlu \u00169\nFhFkFhFlFyFh\u001bFuFuFjFjFlFnFkk FjFjFkF"
+  }
+ ]
+}

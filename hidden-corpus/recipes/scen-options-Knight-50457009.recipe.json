@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "mO>>>>>>a\ne\n<nymO>>>v\n#pray\ny y #twoweapon\nO>p\nWO>pd\nuOeam\nb\ni\nc\n10s#name\ni\nOg\nf\ntbks.mO>wl\n #tip\n\u001b;k. \u001b<.Oah\ng\nc\n#conduct\n #enhance\nyc\ni\n\u001bmO>>>>>drj\nmango\ni\nd\nsOe\nz#jump\n>.mOa\n_>,20sOiel\nm\n:#loot\n20ss"
+ },
+ "segments": [
+  {
+   "seed": 50457009,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "mO>>>>>>a\ne\n<nymO>>>v\n#pray\ny y #twoweapon\nO>p\nWO>pd\nuOeam\nb\ni\nc\n10s#name\ni\nOg\nf\ntbks.mO>wl\n #tip\n\u001b;k. \u001b<.Oah\ng\nc\n#conduct\n #enhance\nyc\ni\n\u001bmO>>>>>drj\nmango\ni\nd\nsOe\nz#jump\n>.mOa\n_>,20sOiel\nm\n:#loot\n20ss"
+  }
+ ]
+}

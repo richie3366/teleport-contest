@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " O>e\n:#dip\nc\u001bOgn\no\nj\n#sit\nOldj\n,#invoke\n\u001bOh\n#terrain\nc\n\u001b.>mO>>tlm\n  #wipe\nW\u001bssmO>>>awc\n #rub\nmO>>>>>fpi\nc\nb\n $\")[%?+!=/(*`0_\n#force\n#offer\nmO>>chi\n  ,mO>>>>>mgs\nkumquat\nt\ns\n\u0014m.20s20s"
+ },
+ "segments": [
+  {
+   "seed": 50451011,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " O>e\n:#dip\nc\u001bOgn\no\nj\n#sit\nOldj\n,#invoke\n\u001bOh\n#terrain\nc\n\u001b.>mO>>tlm\n  #wipe\nW\u001bssmO>>>awc\n #rub\nmO>>>>>fpi\nc\nb\n $\")[%?+!=/(*`0_\n#force\n#offer\nmO>>chi\n  ,mO>>>>>mgs\nkumquat\nt\ns\n\u0014m.20s20s"
+  }
+ ]
+}

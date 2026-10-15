@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#rub\n#loot\nyy \u0006_ \u001b:>FkFk_>.Fj_.> \u0006_>._,>_>.Fh_,@.> \u0006_>.Fl_.>_>, Fj   n _..Fh>Fu Fj_>.Fh_,  Fh>FhFhFh Fl FuO>>>>c\u001b\n\u0006_>.Fy     n_,Fh>Fy Fh _>.  n Fy _,Fh >Fy   n Fh_>.Fh     n_. Fy  >Fy   n Fy Fl    n Fh   n    n Fh   \u0006_>.  n Fu_, Fh>Fu   n Fh _>,Fl    n _.m,Fk >Fk Fk_>.  Fb_.Fj >FbFbFlFbFl<\u0006_>.Fl_,.Fh> WP\u0006_>,Fu_,Fu>FuFu_>.Fu_,Fu>_>,Fl_.Fl>Fb.\u001612\n\u0006_>.>_>,>_>.>w-tby\u0006_>>.>_>>.>_>>,>\u0006_>,>_>.>_>.>\u0006_>.>_>.>_>.>\u0006_>,>_>.>_>.>\u0006_>.>_>.>_>.>#jump\n@.dg\u0006_>>,>Fh  Fh _>>.>Fh Fh _>>,>FkFh Fh  Fh     nFk           n   \u000f\u001b\u00165\n\u00165\n150s Fk20sFlFlFlFk   Fu  Fk FkFk  nFk FuFl Fu Fu Fl Fj FjFu   nFlFl FlFl FuFl Fk   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50455001,
+   "datetime": "20231208043037",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You feel\"\nMENUCOLOR=\"a scroll\"=brown\nBIND=v:inventory\n",
+   "moves": "#rub\n#loot\nyy \u0006_ \u001b:>FkFk_>.Fj_.> \u0006_>._,>_>.Fh_,@.> \u0006_>.Fl_.>_>, Fj   n _..Fh>Fu Fj_>.Fh_,  Fh>FhFhFh Fl FuO>>>>c\u001b\n\u0006_>.Fy     n_,Fh>Fy Fh _>.  n Fy _,Fh >Fy   n Fh_>.Fh     n_. Fy  >Fy   n Fy Fl    n Fh   n    n Fh   \u0006_>.  n Fu_, Fh>Fu   n Fh _>,Fl    n _.m,Fk >Fk Fk_>.  Fb_.Fj >FbFbFlFbFl<\u0006_>.Fl_,.Fh> WP\u0006_>,Fu_,Fu>FuFu_>.Fu_,Fu>_>,Fl_.Fl>Fb.\u001612\n\u0006_>.>_>,>_>.>w-tby\u0006_>>.>_>>.>_>>,>\u0006_>,>_>.>_>.>\u0006_>.>_>.>_>.>\u0006_>,>_>.>_>.>\u0006_>.>_>.>_>.>#jump\n@.dg\u0006_>>,>Fh  Fh _>>.>Fh Fh _>>,>FkFh Fh  Fh     nFk           n   \u000f\u001b\u00165\n\u00165\n150s Fk20sFlFlFlFk   Fu  Fk FkFk  nFk FuFl Fu Fu Fl Fj FjFu   nFlFl FlFl FuFl Fk   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

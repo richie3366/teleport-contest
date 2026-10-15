@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       #wizintrinsic\nj\n ;j; \u001b,Zb\n\u0017blessed scroll of fire\nrj  m,    E- I am a fish\ns20s20s#levelchange\n20\n            \u00173 spellbook of healing\nrk y 20s.m.Za\n\u0017Demonbane\nwl Fhs20s#invoke\nll\u0017spellbook of detect treasure\n\u0007shade\nrm snsZb\n\u0017towel\nan.m..y..un \u0017wand of sleep\nEo I am a fish\n : E-n  Elbereth\n\u0017wand of death\nEpn  Elbereth\n: yE- I am a fish\n\u0007jackal\n.m..sn FhFl\u0017bag of tricks\n\u0017wand of cancellation\n\u0017scroll of scare monster\n\u0017potion of object detection\n\u0017wand of cancellation\ndq#loot\n ,ss\u0017dagger\nwvdq#force\ns20s  n sjsm.sm.dv #loot\nu,do #loot\nj,    n \u00165\n#wizintrinsic\nba\n sm.20s .hsm.sb20s  sl   .k .l  20s  n   \u0017blindfold\naw eeu#invoke\nl#invoke\nl #turn\n#twoweapon\n.m.20ssm.sm. ,su20s \u001630\n   #levelchange\n12\n   \u0017blessed ring of polymorph control\nPyl\u0017chain mail\nW\u001b.m.20s  sm.  n #polyself\ndwarf\n.n     n20s 20s 20s  s#polyself\nstone golem\n#monster\ns    s        s         s     s   n    #polyself\nred dragon\n #monster\nl        s   .    \u0007iron golem\nFj   n  Fy    Fl  n    20s   .  n    s   n  \u00161\n#levelchange\n20\n        \u0007earth elemental\n..s20ss 20s \u0007werewolf\n;>.20s20s.\u0007vampire bat\n.  n.ss\u0007red dragon\n\u0017scroll of taming\nrA\u0017saddle\n aBk   #ride\n.y\u0007tame saddled pony\n#ride\n.y\u0007tame saddled warhorse\n#ride\nky\u0004u  n  j l   n  "
+ },
+ "segments": [
+  {
+   "seed": 50456019,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       #wizintrinsic\nj\n ;j; \u001b,Zb\n\u0017blessed scroll of fire\nrj  m,    E- I am a fish\ns20s20s#levelchange\n20\n            \u00173 spellbook of healing\nrk y 20s.m.Za\n\u0017Demonbane\nwl Fhs20s#invoke\nll\u0017spellbook of detect treasure\n\u0007shade\nrm snsZb\n\u0017towel\nan.m..y..un \u0017wand of sleep\nEo I am a fish\n : E-n  Elbereth\n\u0017wand of death\nEpn  Elbereth\n: yE- I am a fish\n\u0007jackal\n.m..sn FhFl\u0017bag of tricks\n\u0017wand of cancellation\n\u0017scroll of scare monster\n\u0017potion of object detection\n\u0017wand of cancellation\ndq#loot\n ,ss\u0017dagger\nwvdq#force\ns20s  n sjsm.sm.dv #loot\nu,do #loot\nj,    n \u00165\n#wizintrinsic\nba\n sm.20s .hsm.sb20s  sl   .k .l  20s  n   \u0017blindfold\naw eeu#invoke\nl#invoke\nl #turn\n#twoweapon\n.m.20ssm.sm. ,su20s \u001630\n   #levelchange\n12\n   \u0017blessed ring of polymorph control\nPyl\u0017chain mail\nW\u001b.m.20s  sm.  n #polyself\ndwarf\n.n     n20s 20s 20s  s#polyself\nstone golem\n#monster\ns    s        s         s     s   n    #polyself\nred dragon\n #monster\nl        s   .    \u0007iron golem\nFj   n  Fy    Fl  n    20s   .  n    s   n  \u00161\n#levelchange\n20\n        \u0007earth elemental\n..s20ss 20s \u0007werewolf\n;>.20s20s.\u0007vampire bat\n.  n.ss\u0007red dragon\n\u0017scroll of taming\nrA\u0017saddle\n aBk   #ride\n.y\u0007tame saddled pony\n#ride\n.y\u0007tame saddled warhorse\n#ride\nky\u0004u  n  j l   n  "
+  }
+ ]
+}

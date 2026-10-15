@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " mO>>c\u001b\neg#invoke\n\u001b\u0007tame wolf\n\u0007giant rat\n.m.    .m. ssss#chat\nk \u0007grid bug\n.nsm.s20s20s.dh20ss20s20s#chat\nb dgsss\u0017apple\ntbk \u001615\n \u0007tame little dog\n\u0007tame soldier ant\n\u0006_ \u001b>.>FkFy_>.Fh\u001b_,.Fk>FkFk_>,Fy_,Fh\u001b>FhFh\u0017magic whistle\nbbh\u001bak   \u0007newt\n\u0017scroll of taming\nrl h\u001b#name\nm\n\u0017magic whistle\nlh kk h\u001bam mO>>>>d\u001b\n\u0006_>,Fh_.<.Fk>FkFy_>,Fh\u001b_,@.Fy>FkFk_>,Fk_.,Fh>FyFyFyFyFybej\u0006_>>,Fy_.Fh\u001b>FyFh\u001b_>>.Fk_.m.Fh>FkFy_>>.Fh\u001b_.<.Fy>FhFkFkFkFy\u0006_>.Fh_.,Fk>FhFk_>,Fy_.Fkk >FkFh_>.Fy_.Fky >FkFkFyFkk Fkr\u001b#twoweapon\n\u0006_>.Fh_.;.Fy>FkFy_>.Fkk _,<.Fh>FkFk_>.Fh_..Fy>FyFyFyFyFy\u00164\nFkFuFkFnFuk FkFyFyFlFuFuFuFyFul FlFuFyFyFnFku FkFnFyFyFyFlFyFnFyFnFnFun FkFlFnFkn FnFyFyFnFyFkn FnFyFlFyFky FlFuFlFlFlFkFyFyFlFyFkn FlFkFyFyFnFlu FnFnFyFln FlFuF"
+ },
+ "segments": [
+  {
+   "seed": 50455036,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"The door\"\n",
+   "moves": " mO>>c\u001b\neg#invoke\n\u001b\u0007tame wolf\n\u0007giant rat\n.m.    .m. ssss#chat\nk \u0007grid bug\n.nsm.s20s20s.dh20ss20s20s#chat\nb dgsss\u0017apple\ntbk \u001615\n \u0007tame little dog\n\u0007tame soldier ant\n\u0006_ \u001b>.>FkFy_>.Fh\u001b_,.Fk>FkFk_>,Fy_,Fh\u001b>FhFh\u0017magic whistle\nbbh\u001bak   \u0007newt\n\u0017scroll of taming\nrl h\u001b#name\nm\n\u0017magic whistle\nlh kk h\u001bam mO>>>>d\u001b\n\u0006_>,Fh_.<.Fk>FkFy_>,Fh\u001b_,@.Fy>FkFk_>,Fk_.,Fh>FyFyFyFyFybej\u0006_>>,Fy_.Fh\u001b>FyFh\u001b_>>.Fk_.m.Fh>FkFy_>>.Fh\u001b_.<.Fy>FhFkFkFkFy\u0006_>.Fh_.,Fk>FhFk_>,Fy_.Fkk >FkFh_>.Fy_.Fky >FkFkFyFkk Fkr\u001b#twoweapon\n\u0006_>.Fh_.;.Fy>FkFy_>.Fkk _,<.Fh>FkFk_>.Fh_..Fy>FyFyFyFyFy\u00164\nFkFuFkFnFuk FkFyFyFlFuFuFuFyFul FlFuFyFyFnFku FkFnFyFyFyFlFyFnFyFnFnFun FkFlFnFkn FnFyFyFnFyFkn FnFyFlFyFky FlFuFlFlFlFkFyFyFlFyFkn FlFkFyFyFnFlu FnFnFyFln FlFuF"
+  }
+ ]
+}

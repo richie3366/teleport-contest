@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u0006_ \u001bm,>FuFb_>>.Fb_.Fb>FuFb_>>.Fj_,Fn>FkFuFkFuFj\u0006_>,Fl_,Fk>FnFb_>.Fu_,Fb>FnFk_>,Fj_.Fn>FuFnFnFjFk_>,s#pray\ny y \u0006_>>.Fn_,Fl>FjFu_>>.Fy_,Fj>FuFj_>>.Fk_.Fn>FlFuFbFbFn#name\nm\n#jump\nm,Fido\n\u0006_>,Fk_.Fl>FjFn_>.Fb_,Fb>FkFb_>,Fl_.Fj>FlFlFyFyFk\u0006_>.Fy_,Fk>FjFn_>,Fn_,Fn>FnFl_>.Fk_.Fj>FbFyFjFbFk#force\nol\u000f\u001bO>>>>k\u001b\u001b\n mO>>>k\u001b\n#invoke\n\u001bZE- I am a fish\n#dip\na\u0007tame large dog\n\u0007housecat\n\u0017food ration\ntbh\u0017magic whistle\nyu naj   \u0006_>.Fh _. Fn>FbFy_>.Fk_.Fy>FuFk_>.Fk_.Fl>FbFl#chat\nb\u0017tin whistle\nnubakdg.s20s  k<dc#twoweapon\n\u0006_>,Fj_.Fl>FhFk_>.Fn_.  nFu>Fu Fk_>,Fl_,Fn>FnFhFlFhFh#rub\n#offer\n\u0006_>.Fk_.> FlFjFuW#wipe\n\u0006_>>,Fh_.> FhFj Fjs#monster\n\u0006_>.Fk _.Fl   n >FyFj _>.Fy_,> FnFlFy  \u0006_>,  nFl_.Fj>FkFy _>.Fn_, Fl>FjFl  n_>.Fh_.Fk>FuFbFyFuFk\u0006_>,Fh _.Fl>FnFb_>.Fu_.Fn >Fh  n Fu_>.Fh_,Fh     >Fk     FyFn  Fl  Fh  r\u001bf \u001b\u00166\nh"
+ },
+ "segments": [
+  {
+   "seed": 50455017,
+   "datetime": "20091227021835",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nMENUCOLOR=\"cursed\"=brown\n",
+   "moves": "v i\u001b\u0006_ \u001bm,>FuFb_>>.Fb_.Fb>FuFb_>>.Fj_,Fn>FkFuFkFuFj\u0006_>,Fl_,Fk>FnFb_>.Fu_,Fb>FnFk_>,Fj_.Fn>FuFnFnFjFk_>,s#pray\ny y \u0006_>>.Fn_,Fl>FjFu_>>.Fy_,Fj>FuFj_>>.Fk_.Fn>FlFuFbFbFn#name\nm\n#jump\nm,Fido\n\u0006_>,Fk_.Fl>FjFn_>.Fb_,Fb>FkFb_>,Fl_.Fj>FlFlFyFyFk\u0006_>.Fy_,Fk>FjFn_>,Fn_,Fn>FnFl_>.Fk_.Fj>FbFyFjFbFk#force\nol\u000f\u001bO>>>>k\u001b\u001b\n mO>>>k\u001b\n#invoke\n\u001bZE- I am a fish\n#dip\na\u0007tame large dog\n\u0007housecat\n\u0017food ration\ntbh\u0017magic whistle\nyu naj   \u0006_>.Fh _. Fn>FbFy_>.Fk_.Fy>FuFk_>.Fk_.Fl>FbFl#chat\nb\u0017tin whistle\nnubakdg.s20s  k<dc#twoweapon\n\u0006_>,Fj_.Fl>FhFk_>.Fn_.  nFu>Fu Fk_>,Fl_,Fn>FnFhFlFhFh#rub\n#offer\n\u0006_>.Fk_.> FlFjFuW#wipe\n\u0006_>>,Fh_.> FhFj Fjs#monster\n\u0006_>.Fk _.Fl   n >FyFj _>.Fy_,> FnFlFy  \u0006_>,  nFl_.Fj>FkFy _>.Fn_, Fl>FjFl  n_>.Fh_.Fk>FuFbFyFuFk\u0006_>,Fh _.Fl>FnFb_>.Fu_.Fn >Fh  n Fu_>.Fh_,Fh     >Fk     FyFn  Fl  Fh  r\u001bf \u001b\u00166\nh"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b<.>FjFj_>.Fu_,Fh>_>,Fu_.> FkFyFy\u0006_>,Fl_.Fh>FhFh_>,Fh_.;;Fn> FkFkFy< \u0006_>>.> FkFkFk\u0006_>,Fn_.Fu>FlFn_>.Fy_.Fl>FlFl_>.Fl_.Fn>FkFuFuFyFk>i\u001b\u0006_>.Fn_,Fu>FyFk_>,Fl_.Fk>FlFk_>,Fu_,Fl>FnFlFlFuFu\u000f\u001bnnk\u0017grave\n: \u0017wand of digging\nzf> sm..m.:n\u0017cloud\n:j\u0017magic fountain\nqyqy yok\\ E-\u00162\nFjs20s150s100s\u0018\u001b\u0018\u001b\u000f\u001b100s150sFh.._>.Fb_.> FlFlFlFlFlFlFlFlFlFlFlFl FlFlFlFl FlFh Fk  FhFlFl FkFhFlFl FlFl FlFlFlFlFlFl Fl Fl FuFuFu#pray\ny y  FuFuFl   nFu FuFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlO>l\u001b\n#levelchange\n6\n   bnyh\u0017magic fountain\nqy #dip\nay yuy\u0017tr"
+ },
+ "segments": [
+  {
+   "seed": 50450015,
+   "datetime": "20130322174717",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=runmode:run\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"You kill\"\nMENUCOLOR=\"a scroll\"=green\n",
+   "moves": "\u0006_ \u001b<.>FjFj_>.Fu_,Fh>_>,Fu_.> FkFyFy\u0006_>,Fl_.Fh>FhFh_>,Fh_.;;Fn> FkFkFy< \u0006_>>.> FkFkFk\u0006_>,Fn_.Fu>FlFn_>.Fy_.Fl>FlFl_>.Fl_.Fn>FkFuFuFyFk>i\u001b\u0006_>.Fn_,Fu>FyFk_>,Fl_.Fk>FlFk_>,Fu_,Fl>FnFlFlFuFu\u000f\u001bnnk\u0017grave\n: \u0017wand of digging\nzf> sm..m.:n\u0017cloud\n:j\u0017magic fountain\nqyqy yok\\ E-\u00162\nFjs20s150s100s\u0018\u001b\u0018\u001b\u000f\u001b100s150sFh.._>.Fb_.> FlFlFlFlFlFlFlFlFlFlFlFl FlFlFlFl FlFh Fk  FhFlFl FkFhFlFl FlFl FlFlFlFlFlFl Fl Fl FuFuFu#pray\ny y  FuFuFl   nFu FuFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlO>l\u001b\n#levelchange\n6\n   bnyh\u0017magic fountain\nqy #dip\nay yuy\u0017tr"
+  }
+ ]
+}

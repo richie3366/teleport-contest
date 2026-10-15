@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001bm.>FnFj_>._.> FkFkFy\u0006_>>,Fy_,Fy>FkFu_>>.Fu_.Fu>FuFu_>>.Fk_.Fu>FuFuFyFuy Fy\u0006_>,Fy_,Fuu >FuFu_>.Fu_.Fy>FuFu_>.Fy_.Fy>FyFuu FyFuy Fu\u000f\u001b\u0006_>.Fy_.Fy>FyFuu _>.Fy_,Fuu >FuFy_>.Fy_,Fy>FyFyFuFuFy<\u0006_>>.Fy_.Fuy >FyFy_>>,Fu_.Fy>FuFu_>>.Fu_,Fu>FyFuy FuFyFuu \u0006_>.Fy_.Fy>FuFu_>.Fy_.Fy>FuFy_>.Fy_,Fu>FyFuy FuFyFy\u0006_>.Fy_,Fuu >FyFuu _>.Fy_,Fuu >FuFu_>.Fu_.Fy>FuFyFyFyFuu L#loot\n\u0006_>.Fy_.Fuu >FuFu_>.Fy_,Fuu >FyFuu _>.Fy_.Fy>FuFyFyFyFuu \u0006_>.Fu_,Fy>FyFy_>.Fu_,Fu>FuFu_>,Fu_.Fu>FyFuy FyFuu Fu\u0006_>>.Fu_,Fy>FyFuu _>>.Fy_,Fuy >FyFy_>>,Fu_.Fu>FyFyFyFyFuh\u001br\u001bbjb\u0017pool\n#dip\nhy  :n\u0017cloud\nb\u0017melting ice\n:#tip\nh\u001b#untrap\nk #force\nmOa\u001b\nO>d\u001b\nv i\u001bv i\u001bO>>>>l\u001b\n\u0006_>>,Fb_.Fn>FbFb_>>.Fn_>FnFb_>>.Fb_.Fb>FnFbFnFnFn\u0006_>>.Fb_.Fn>FnFb_>>,Fn_>FnFn_>>.Fn_>FbFnFnFnFb<\u0006_>>.Fb_.Fb>FbFn_>>.Fn_>FbFb_>>.Fb_.Fb>FbFbFbFbFn#dip\nez\u0006_>.Fn_>FbFn_>.Fn_>FbFn_>.Fn_>FbFnFn"
+ },
+ "segments": [
+  {
+   "seed": 50455003,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\n",
+   "moves": " \u0006_ \u001bm.>FnFj_>._.> FkFkFy\u0006_>>,Fy_,Fy>FkFu_>>.Fu_.Fu>FuFu_>>.Fk_.Fu>FuFuFyFuy Fy\u0006_>,Fy_,Fuu >FuFu_>.Fu_.Fy>FuFu_>.Fy_.Fy>FyFuu FyFuy Fu\u000f\u001b\u0006_>.Fy_.Fy>FyFuu _>.Fy_,Fuu >FuFy_>.Fy_,Fy>FyFyFuFuFy<\u0006_>>.Fy_.Fuy >FyFy_>>,Fu_.Fy>FuFu_>>.Fu_,Fu>FyFuy FuFyFuu \u0006_>.Fy_.Fy>FuFu_>.Fy_.Fy>FuFy_>.Fy_,Fu>FyFuy FuFyFy\u0006_>.Fy_,Fuu >FyFuu _>.Fy_,Fuu >FuFu_>.Fu_.Fy>FuFyFyFyFuu L#loot\n\u0006_>.Fy_.Fuu >FuFu_>.Fy_,Fuu >FyFuu _>.Fy_.Fy>FuFyFyFyFuu \u0006_>.Fu_,Fy>FyFy_>.Fu_,Fu>FuFu_>,Fu_.Fu>FyFuy FyFuu Fu\u0006_>>.Fu_,Fy>FyFuu _>>.Fy_,Fuy >FyFy_>>,Fu_.Fu>FyFyFyFyFuh\u001br\u001bbjb\u0017pool\n#dip\nhy  :n\u0017cloud\nb\u0017melting ice\n:#tip\nh\u001b#untrap\nk #force\nmOa\u001b\nO>d\u001b\nv i\u001bv i\u001bO>>>>l\u001b\n\u0006_>>,Fb_.Fn>FbFb_>>.Fn_>FnFb_>>.Fb_.Fb>FnFbFnFnFn\u0006_>>.Fb_.Fn>FnFb_>>,Fn_>FnFn_>>.Fn_>FbFnFnFnFb<\u0006_>>.Fb_.Fb>FbFn_>>.Fn_>FbFb_>>.Fb_.Fb>FbFbFbFbFn#dip\nez\u0006_>.Fn_>FbFn_>.Fn_>FbFn_>.Fn_>FbFnFn"
+  }
+ ]
+}

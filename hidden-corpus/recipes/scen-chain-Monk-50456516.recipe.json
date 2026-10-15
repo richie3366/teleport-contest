@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " ljubuhybkuubllhkFjFjFjFjFjFjFjFj #name\nd\nde20ss.njbbyu20s10sbjly#chat\nht\u001bnuyhdcsm.sksFnFnFnFnFnFnFnFnnbubuyljdh20s20sskhllny10slh10sljynkh10s20shhll\\  150s100si\u001bnyh_ \u001b;>100s\u0018\u001b100si\u001bhll50s\u0014_>.>ljjFn20s20si\u001bE\u001bP50sFnsskjk100sFjFjs100sFjFjs100#quit\nyy\u001by   y y y\u001b LJYN_ \u001b;>Fh s20sUBLY_>.>;m,nJNNY_>,>Hr\u001b\u000f\u001b150s#monster\n100s Fb..100s#untrap\nk50s100s50sFhs.100sFhss_>.>\u000f\u001b_>,>100s#jump\nlby100s100s10s#terrain\nb\n50s nyn100s150s\u0018\u001b:50sFh.synlkbynlh#conduct\n ujl100sef#turn\n150sFhs20skjkntcnly10sFbFbFbFbFbFbFbFb  y\u001by  y y y\u001b  1U KNK_ \u001b@.>BYHY_>.>Fb20ssUBJU_>,>WLJJUB_>.>KBHJ_>.>Fl 20ss#enhance\n\u001b;.LKJB_>.>FjssE- X marks the spot\n#chat\nlNBLY_>,>_>,20s100s100s50s#offer\n100s100sFhss\u0018\u001b50s50sFhs20si\u001b50slbb_>.>50sjyne\\ i\u001b100s50s_>.>100seeeeeeeeeeeeeeekydc.20s.#name\nd\n10s#name\no\nhllyLBHB_>.>i\u001b20sYYUN_>,><HNYJ_>,>LYNN_>,>KYYJ_>,>#force\n#invoke\n\u001bhubhlkuuhhjk20sbk10s #name\na\ntbnblly#chat\njt\u001b#name\ni\nt\u001bjbnlhl#pray\ny  100s100shuy\u0018\u001b\u0018\u001b100s150sFhF#quit\n\u0007master mind flayer\nFkFk Fk           yy\u001by   y y\u001by  Fn\u0007soldier ant\nFlFl    n  Fu  yy\u001by   y y y\u001byy  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50456516,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\n",
+   "moves": " ljubuhybkuubllhkFjFjFjFjFjFjFjFj #name\nd\nde20ss.njbbyu20s10sbjly#chat\nht\u001bnuyhdcsm.sksFnFnFnFnFnFnFnFnnbubuyljdh20s20sskhllny10slh10sljynkh10s20shhll\\  150s100si\u001bnyh_ \u001b;>100s\u0018\u001b100si\u001bhll50s\u0014_>.>ljjFn20s20si\u001bE\u001bP50sFnsskjk100sFjFjs100sFjFjs100#quit\nyy\u001by   y y y\u001b "
+  },
+  {
+   "seed": 50556516,
+   "datetime": "20220621145952",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\n",
+   "moves": "LJYN_ \u001b;>Fh s20sUBLY_>.>;m,nJNNY_>,>Hr\u001b\u000f\u001b150s#monster\n100s Fb..100s#untrap\nk50s100s50sFhs.100sFhss_>.>\u000f\u001b_>,>100s#jump\nlby100s100s10s#terrain\nb\n50s nyn100s150s\u0018\u001b:50sFh.synlkbynlh#conduct\n ujl100sef#turn\n150sFhs20skjkntcnly10sFbFbFbFbFbFbFbFb  y\u001by  y y y\u001b  1"
+  },
+  {
+   "seed": 50656516,
+   "datetime": "20101207214446",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "U KNK_ \u001b@.>BYHY_>.>Fb20ssUBJU_>,>WLJJUB_>.>KBHJ_>.>Fl 20ss#enhance\n\u001b;.LKJB_>.>FjssE- X marks the spot\n#chat\nlNBLY_>,>_>,20s100s100s50s#offer\n100s100sFhss\u0018\u001b50s50sFhs20si\u001b50slbb_>.>50sjyne\\ i\u001b100s50s_>.>100seeeeeeeeeeeeeeekydc.20s.#name\nd\n10s#name\no\nhllyLBHB_>.>i\u001b20sYYUN_>,><HNYJ_>,>LYNN_>,>KYYJ_>,>#force\n#invoke\n\u001bhubhlkuuhhjk20sbk10s #name\na\ntbnblly#chat\njt\u001b#name\ni\nt\u001bjbnlhl#pray\ny  100s100shuy\u0018\u001b\u0018\u001b100s150sFhF#quit\n"
+  },
+  {
+   "seed": 50756516,
+   "datetime": "20070918195207",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007master mind flayer\nFkFk Fk           yy\u001by   y y\u001by  F"
+  },
+  {
+   "seed": 50856516,
+   "datetime": "20070214070756",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "n\u0007soldier ant\nFlFl    n  Fu  yy\u001by   y y y\u001byy  F"
+  }
+ ]
+}

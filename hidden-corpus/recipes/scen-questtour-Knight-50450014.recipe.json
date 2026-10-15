@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nb _m,Fk_.#chat\nl_mmmmm,_,#chat\nl_m.Fn _.#chat\nb;>._mm,#chat\ny;>.#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.#chat\nh_mmmmm.#chat\nu_mmm.#chat\nl\u0017blessed ring of free action\nPir\u0017blessed +3 cloak of magic resistance\nWj\u0017wand of magic missile\n\u0016?\n>A\u0006_mmmmm._.sss20ss20sszkb    ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.    Fb   _,>.Fb     Fb    Fj    n  Fj    Fn  Fj     ,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmm.      n  Fl     _.#chat\nl;l,\u00166\n\u0016?\n>A\u0006_mmmmmmm, Fb     _,  Fb       Fn     FlFu     n   Fn              n     ,#chat\nj\u00165\n\u0016?\n>z\u0006_mmm.           nFj        _.Fh        Fy      n    Fb          Fy        n Fh        Fu      n       zku              n      ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,       Fl    n       _.#chat\nh\u001611\n\u0016?\n>A\u0006_mmmmm.         Fy    n      _.Fj       Fu   n                n  Fy         Fb       Fn   n                  n  Fl       Fu   n  ,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.         Fb        n    _,Fl       Fy       n      Fn          n   Fl          Fn     n    Fj        Fy        yy\u001by   y y y\u001b  z"
+ },
+ "segments": [
+  {
+   "seed": 50450014,
+   "datetime": "20211117215622",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nb _m,Fk_.#chat\nl_mmmmm,_,#chat\nl_m.Fn _.#chat\nb;>._mm,#chat\ny;>.#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.#chat\nh_mmmmm.#chat\nu_mmm.#chat\nl\u0017blessed ring of free action\nPir\u0017blessed +3 cloak of magic resistance\nWj\u0017wand of magic missile\n\u0016?\n>A\u0006_mmmmm._.sss20ss20sszkb    ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.    Fb   _,>.Fb     Fb    Fj    n  Fj    Fn  Fj     ,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmm.      n  Fl     _.#chat\nl;l,\u00166\n\u0016?\n>A\u0006_mmmmmmm, Fb     _,  Fb       Fn     FlFu     n   Fn              n     ,#chat\nj\u00165\n\u0016?\n>z\u0006_mmm.           nFj        _.Fh        Fy      n    Fb          Fy        n Fh        Fu      n       zku              n      ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,       Fl    n       _.#chat\nh\u001611\n\u0016?\n>A\u0006_mmmmm.         Fy    n      _.Fj       Fu   n                n  Fy         Fb       Fn   n                  n  Fl       Fu   n  ,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.         Fb        n    _,Fl       Fy       n      Fn          n   Fl          Fn     n    Fj        Fy        yy\u001by   y y y\u001b  z"
+  }
+ ]
+}

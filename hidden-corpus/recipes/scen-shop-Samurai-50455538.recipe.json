@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed Mjollnir\nwf \u0017blessed +3 helm of telepathy\nWg\u0016?\n>w\u0006_ \u001bm,,p_oo._ooo._.,\u001bp__.Fk   _,:Fl    n #chat\nk     n#pray\ny y    \u00168\n_oooo,,\u0014>.ss_{,Fu_,  Fy  q_ooo,Fh_,Fk   ,p_oooo._oo.Fh_.,\u001bpFh FhFhFhFh  n FhFu FuFu Fu  nFuFu_{,Fh _. Fy q_{, Fy  _,>.Fy  q_oooo,,\u001bp_ooooooo,Fh_.Fh    _o,_,,\u001b: __.    Fh  _,Fh#chat\nu#pray\ny y   _oooooooo.Fh_., \u0017amulet of ESP\ndi _oo,Fb _,m.,\u001b#chat\nlhkh#chat\nb_ooooo.Fb_,Fb ,p_{.   \u001b_, Fy q_oooooo.,\u001b\u0017amulet of magical breathing\ndj     __.    Fk _.    nFh             #chat\nh _oooooo. Fh     n_.        Fk , #chat\nh  _ooo.    n   Fk   _,Fy    n_oo, _.,\u001bp\u001612\nlhl#chat\nn_ooo.,\u0017amulet of reflection\ndllll#chat\njlll#chat\ny\u00163\nujy\u0016?\n>w\u0006njh#chat\nl_oo.   Fy      n   _.      n    Fn      n ,$\u00168\n_oooooo.    Fl    n  _.    n  Fn      n  _ooo.     n         n  Fu        yy  _"
+ },
+ "segments": [
+  {
+   "seed": 50455538,
+   "datetime": "20041110085158",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed Mjollnir\nwf \u0017blessed +3 helm of telepathy\nWg\u0016?\n>w\u0006_ \u001bm,,p_oo._ooo._.,\u001bp__.Fk   _,:Fl    n #chat\nk     n#pray\ny y    \u00168\n_oooo,,\u0014>.ss_{,Fu_,  Fy  q_ooo,Fh_,Fk   ,p_oooo._oo.Fh_.,\u001bpFh FhFhFhFh  n FhFu FuFu Fu  nFuFu_{,Fh _. Fy q_{, Fy  _,>.Fy  q_oooo,,\u001bp_ooooooo,Fh_.Fh    _o,_,,\u001b: __.    Fh  _,Fh#chat\nu#pray\ny y   _oooooooo.Fh_., \u0017amulet of ESP\ndi _oo,Fb _,m.,\u001b#chat\nlhkh#chat\nb_ooooo.Fb_,Fb ,p_{.   \u001b_, Fy q_oooooo.,\u001b\u0017amulet of magical breathing\ndj     __.    Fk _.    nFh             #chat\nh _oooooo. Fh     n_.        Fk , #chat\nh  _ooo.    n   Fk   _,Fy    n_oo, _.,\u001bp\u001612\nlhl#chat\nn_ooo.,\u0017amulet of reflection\ndllll#chat\njlll#chat\ny\u00163\nujy\u0016?\n>w\u0006njh#chat\nl_oo.   Fy      n   _.      n    Fn      n ,$\u00168\n_oooooo.    Fl    n  _.    n  Fn      n  _ooo.     n         n  Fu        yy  _"
+  }
+ ]
+}

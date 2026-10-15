@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed Mjollnir\n wf\u0017blessed +3 gauntlets of power\nWg\u0016?\n>w\u0006_ \u001b,,$_{.  _,  nFl q_{.Fn _,@.Fj q_ooo.,p_ooooo,  _,,\u0017amulet of flying\ndi_ooooooo, _, Fl ,\u0014m. .._{._,qy_{,Fj_.@.Fj qkjk#chat\nkFj FjFjFjFjFj__.Fj    \u001b_.  #chat\nh_ooooooo,  Fk  _.Fy , pFy FyFy Fy Fy Fy_{.Fh _.Fh q_oooooooo._,,\u001b: __.Fn _.m.Fu #chat\nl#pray\ny y        _ooooo.Fn _.>.,\u001b: hhl#chat\nk_oooooooo.Fy_.m,Fy ,:bjy#chat\ny__.Fl _,<.Fk #chat\njlkh#chat\nb\u00167\nun j\u0016?\n>w  \u0006_oooo,_._o._., :kjb#chat\nh_{,Fl    _,   Fl   q__.  n   Fu _,  nFl    "
+ },
+ "segments": [
+  {
+   "seed": 50450069,
+   "datetime": "20180125195249",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed Mjollnir\n wf\u0017blessed +3 gauntlets of power\nWg\u0016?\n>w\u0006_ \u001b,,$_{.  _,  nFl q_{.Fn _,@.Fj q_ooo.,p_ooooo,  _,,\u0017amulet of flying\ndi_ooooooo, _, Fl ,\u0014m. .._{._,qy_{,Fj_.@.Fj qkjk#chat\nkFj FjFjFjFjFj__.Fj    \u001b_.  #chat\nh_ooooooo,  Fk  _.Fy , pFy FyFy Fy Fy Fy_{.Fh _.Fh q_oooooooo._,,\u001b: __.Fn _.m.Fu #chat\nl#pray\ny y        _ooooo.Fn _.>.,\u001b: hhl#chat\nk_oooooooo.Fy_.m,Fy ,:bjy#chat\ny__.Fl _,<.Fk #chat\njlkh#chat\nb\u00167\nun j\u0016?\n>w  \u0006_oooo,_._o._., :kjb#chat\nh_{,Fl    _,   Fl   q__.  n   Fu _,  nFl    "
+  }
+ ]
+}

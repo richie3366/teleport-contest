@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "lbuk\u0017d\u0017h\u0017:\u0017s20s:\\\u000f;_.\u0016O#force\n #monster\nO>>h\u001b\nmO>>>v\u001b\n\u00164\nzi\u001b_ \u001b.>jjk _>.>\\    100s   jky50s  jhy50s  150s      150s        150s       100s   \u000f\u001b100s     50s  50s  hnu 50s uykeeeeeeeeeeeeeeeeee\u0006_>.Fl_..Fl>FuFu_>.Fu_.>.Fu>FuFl_>,Fl_.>.Fu>FlFuFlFuFl\u0006_>>,Fl_.@.Fl>FlFl_>>,Fl_.m.Fl>FuFl_>>.Fu_.>.Fl>FuFlFuFuFl\u0006_>,Fu_,:Fu>FuFu_>.Fl_.@.Fu>FuFl_>.Fl_.;<. Fu>FlFuFlFlFuE- Vlad was here\ne\u0006_>,Fu_.m,Fl>FlFl_>.Fl_.;;Fl>FlFu_>,Fu_.@.Fu>FlFlFuFuFuch20s \u0006_>.Fl_.m,Fu>FuFl_>.Fl_.Fu >FuFu_>,Fu_.@.Fu>FlFlFlFuFu\u0014>. #invoke\n\u001b\u0006_>.> \u0006_>._,>_>._,<.>_>._.       n >O>>a\u001b\nv\u001bi\u001b\u00166\nv\u001bi\u001b\u0006_>>._.>_>>._.>_>>,_.>\u0006_>>._.>_>>,_.>_>>._.>\u0006_>,_.>_>._.>_>._,>\u0006_>>,_.>_>>,_.>_>>._,>\u0006_>,_.>_>._.>_>,_.;m,>tbn#twoweapon\n<#loot\nb#terrain\n\u001btcu\u000f\u001b\u001612\nv\u001bi\u001b\u00162\n\u00164\nFuFuFlFuFuFuFl FuFlFlFuFlFuFl  nFuFuFlFlFlFlFl#pray\ny y   FlFlFlFlFlFuFuFuFlFuFlFl#pray\ny y   FlFlFu  nFlFuFlFuFuFlFuFuFlFlFuFuFlFlFuFlFlFlFuFuFuFuFlFlFlFlFlFlFuFlFlFuFuFuFlFlFu  nFlFuFuFuFlFuFuFuFlFlFuFuFuFuFlFlFlFlF"
+ },
+ "segments": [
+  {
+   "seed": 50455025,
+   "datetime": "20241004124122",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:kumquat\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "lbuk\u0017d\u0017h\u0017:\u0017s20s:\\\u000f;_.\u0016O#force\n #monster\nO>>h\u001b\nmO>>>v\u001b\n\u00164\nzi\u001b_ \u001b.>jjk _>.>\\    100s   jky50s  jhy50s  150s      150s        150s       100s   \u000f\u001b100s     50s  50s  hnu 50s uykeeeeeeeeeeeeeeeeee\u0006_>.Fl_..Fl>FuFu_>.Fu_.>.Fu>FuFl_>,Fl_.>.Fu>FlFuFlFuFl\u0006_>>,Fl_.@.Fl>FlFl_>>,Fl_.m.Fl>FuFl_>>.Fu_.>.Fl>FuFlFuFuFl\u0006_>,Fu_,:Fu>FuFu_>.Fl_.@.Fu>FuFl_>.Fl_.;<. Fu>FlFuFlFlFuE- Vlad was here\ne\u0006_>,Fu_.m,Fl>FlFl_>.Fl_.;;Fl>FlFu_>,Fu_.@.Fu>FlFlFuFuFuch20s \u0006_>.Fl_.m,Fu>FuFl_>.Fl_.Fu >FuFu_>,Fu_.@.Fu>FlFlFlFuFu\u0014>. #invoke\n\u001b\u0006_>.> \u0006_>._,>_>._,<.>_>._.       n >O>>a\u001b\nv\u001bi\u001b\u00166\nv\u001bi\u001b\u0006_>>._.>_>>._.>_>>,_.>\u0006_>>._.>_>>,_.>_>>._.>\u0006_>,_.>_>._.>_>._,>\u0006_>>,_.>_>>,_.>_>>._,>\u0006_>,_.>_>._.>_>,_.;m,>tbn#twoweapon\n<#loot\nb#terrain\n\u001btcu\u000f\u001b\u001612\nv\u001bi\u001b\u00162\n\u00164\nFuFuFlFuFuFuFl FuFlFlFuFlFuFl  nFuFuFlFlFlFlFl#pray\ny y   FlFlFlFlFlFuFuFuFlFuFlFl#pray\ny y   FlFlFu  nFlFuFlFuFuFlFuFuFlFlFuFuFlFlFuFlFlFlFuFuFuFuFlFlFlFlFlFlFuFlFlFuFuFuFlFlFu  nFlFuFuFuFlFuFuFuFlFlFuFuFuFuFlFlFlFlF"
+  }
+ ]
+}

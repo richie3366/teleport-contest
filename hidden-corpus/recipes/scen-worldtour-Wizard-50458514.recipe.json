@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u001639\n  _ \u001b<.\u0016?\n>>Q\u0004j\u0016?\n>>K     15 crossbow bolts\n#levelchange\n10\n       bl   y\u0017level teleporter\ny\u0017dart trap\nk   ny \u0017arrow trap\n#enhance\nyb\ni\n\u001b>K .m.  \u00161\nh  n   k    h    n      :        20s    sm.      .l      n\u00167\n\u001640\n\u0014m,\u0016?\n\u001bub\u0016?\n\u001bkh\u0016?\n\u001bhk\u00161\n#levelchange\n20\n          \u0017uncursed heavy iron ball\n\u0007erinys\n20swb \u0017scroll of earth\n\u0007giant beetle\nrd \u001b  n \u0017blessed axe\nwe  Fj Fb  n  Fy  \u0017blessed scroll of enchant armor\n\u0007newt\nrf  \u001b sk    n .m.     n  \u00162\n\u001639\n#chat\nu            n  ;u:  sm.        n    sm.    n          \u001b       n   \u00167\n\u001634\n\u0006_\u0016 nl          n     n  \u00166\n\u0016?\n\u001bj                 k  n   n      n \u0016?\n\u001bn       k       yy\u001by   y nn  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50458514,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n30\n                             \u001639\n  _ \u001b<.\u0016?\n>>Q\u0004j\u0016?\n>>K     15 crossbow bolts\n#levelchange\n10\n       bl   y\u0017level teleporter\ny\u0017dart trap\nk   ny \u0017arrow trap\n#enhance\nyb\ni\n\u001b>K .m.  \u00161\nh  n   k    h    n      :        20s    sm.      .l      n\u00167\n\u001640\n\u0014m,\u0016?\n\u001bub\u0016?\n\u001bkh\u0016?\n\u001bhk\u00161\n#levelchange\n20\n          \u0017uncursed heavy iron ball\n\u0007erinys\n20swb \u0017scroll of earth\n\u0007giant beetle\nrd \u001b  n \u0017blessed axe\nwe  Fj Fb  n  Fy  \u0017blessed scroll of enchant armor\n\u0007newt\nrf  \u001b sk    n .m.     n  \u00162\n\u001639\n#chat\nu            n  ;u:  sm.        n    sm.    n          \u001b       n   \u00167\n\u001634\n\u0006_\u0016 nl          n     n  \u00166\n\u0016?\n\u001bj                 k  n   n      n \u0016?\n\u001bn       k       yy\u001by   y nn  \u0016"
+  }
+ ]
+}

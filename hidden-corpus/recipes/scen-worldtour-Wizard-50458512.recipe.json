@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                    \u0017blessed ring of free action\nPor\u001637\n   \u0004u\u00165\nybjlk:\u001632\n   \u0006_ \u001b:\u0016?\n>>P  _<.\u0016?\n>A  #chat\nj;_.\u001632\n_{.s20ssh\u001611\n_{,>\u0016?\n>t \u0004b\u001611\n\u0007orc shaman\n20s 20s sm. sb20s  \u0007wood nymph\nFk Fh Fh  Fh   n Fl  \u0007rock piercer\n#chat\nl Fh Fl  \u0007vampire bat\nFk  Fn     n \u00169\n\u00166\nnkjkj:\u001611\n\u0014,  20ssb\u0016?\n>y  \u0006_<,\u001632\n_>.Fl _.Fj <20s   n s 20s \u001644\n#levelchange\n30\n         \u0017cursed scroll of magic mapping\nrpFj Fj\u0017war hammer\n\u0007cockatrice\nwq Fl  n Fl FlX\u0017uncursed amulet of life saving\n\u0007Keystone Kop\nPr s s20s 20s Rr  n \u0017floating eye corpse\n\u0007silver dragon\nes  s s \u0017blessed spellbook of drain life\n\u0007marilith\nrt20s s     n Z\u001bZ\u001b.s \u001610\n\u0016?\n>z__.Fl_.Fl    n \u0016?\ns yu: \u001630\n  \u0014;.20s \u0016?\n>>K      spellbook of levitation\n\u0006;_<,\u0016?\n\u001bjj      \u001612\nbkh  n j:   n\u00163\n\u0016?\n\u001bn n\u0016?\n\u001buy\u001640\n__.>.  \u0016?\n\u001blk\u001632\nh b  n b  y    : \u0016?\n\u001bb   nj  \u0016?\n\u001bl  u    n \u0016?\n\u001bn  b   n \u001630\nb  n y   n \u0017wand of slow monster\nE: \u0017wand of undead turning\nE:       yy\u001by   y y y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50458512,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                    \u0017blessed ring of free action\nPor\u001637\n   \u0004u\u00165\nybjlk:\u001632\n   \u0006_ \u001b:\u0016?\n>>P  _<.\u0016?\n>A  #chat\nj;_.\u001632\n_{.s20ssh\u001611\n_{,>\u0016?\n>t \u0004b\u001611\n\u0007orc shaman\n20s 20s sm. sb20s  \u0007wood nymph\nFk Fh Fh  Fh   n Fl  \u0007rock piercer\n#chat\nl Fh Fl  \u0007vampire bat\nFk  Fn     n \u00169\n\u00166\nnkjkj:\u001611\n\u0014,  20ssb\u0016?\n>y  \u0006_<,\u001632\n_>.Fl _.Fj <20s   n s 20s \u001644\n#levelchange\n30\n         \u0017cursed scroll of magic mapping\nrpFj Fj\u0017war hammer\n\u0007cockatrice\nwq Fl  n Fl FlX\u0017uncursed amulet of life saving\n\u0007Keystone Kop\nPr s s20s 20s Rr  n \u0017floating eye corpse\n\u0007silver dragon\nes  s s \u0017blessed spellbook of drain life\n\u0007marilith\nrt20s s     n Z\u001bZ\u001b.s \u001610\n\u0016?\n>z__.Fl_.Fl    n \u0016?\ns yu: \u001630\n  \u0014;.20s \u0016?\n>>K      spellbook of levitation\n\u0006;_<,\u0016?\n\u001bjj      \u001612\nbkh  n j:   n\u00163\n\u0016?\n\u001bn n\u0016?\n\u001buy\u001640\n__.>.  \u0016?\n\u001blk\u001632\nh b  n b  y    : \u0016?\n\u001bb   nj  \u0016?\n\u001bl  u    n \u0016?\n\u001bn  b   n \u001630\nb  n y   n \u0017wand of slow monster\nE: \u0017wand of undead turning\nE:       yy\u001by   y y y\u001b  \u0017"
+  }
+ ]
+}

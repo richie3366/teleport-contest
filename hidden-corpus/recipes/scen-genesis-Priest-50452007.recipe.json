@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017the Orb of Fate\n  y ny  ny\u001by  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 50452007,
+   "datetime": "20150521233223",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017the Orb of Fate\n  y ny  ny\u001by  \u0007"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u0007pony\n\u0017huge chunk of meat\n t\u001b\u0007acid blob\n20s .m. .m. 20s  .m.sm.  n\u0017tripe ration\nt\u001b\u0017magic whistle\nh ulal   \u0007newt\n\u0017scroll of taming\n rm dass.10s\u0018\u001b\u0017cursed large box\nanan#tip\nn\u001b\u0017blessed alchemy smock\n\u0007Death\nyWo  .ysm.  n  n  n  .h     n      n   n\u0017uncursed scroll of amnesia\n \u0007orc shaman\nrp       n     n   n sm.    n     n   n .m.    n   n    n   yy\u001b y   y y y\u001by  \\"
+ },
+ "segments": [
+  {
+   "seed": 50456018,
+   "datetime": "20020108131826",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u0007pony\n\u0017huge chunk of meat\n t\u001b\u0007acid blob\n20s .m. .m. 20s  .m.sm.  n\u0017tripe ration\nt\u001b\u0017magic whistle\nh ulal   \u0007newt\n\u0017scroll of taming\n rm dass.10s\u0018\u001b\u0017cursed large box\nanan#tip\nn\u001b\u0017blessed alchemy smock\n\u0007Death\nyWo  .ysm.  n  n  n  .h     n      n   n\u0017uncursed scroll of amnesia\n \u0007orc shaman\nrp       n     n   n sm.    n     n   n .m.    n   n    n   yy\u001b y   y y y\u001by  \\"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nWl\u0017blessed amulet of life saving\nPm\u0017blessed ring of free action\nPnr#levelchange\n10\n        \u0007mind flayer\n\u0007gnomish wizard\n\u0017wand of striking\nzol zoh  zon       .m.  .m.   zoh      n \u0017crossbow\nwp     n \u001715 crossbow bolts\nQq\u0007kobold\n\u0007soldier\nfn    n fb    fh     n t$l   fn      n i\u001b\u00165\n\u0017wand of cold\n\u0017wand of polymorph\n\u0007kobold\n\u0007bugbear\n\u0007giant rat\nzrh zsn   zrb 20szrn sm.zsn    zsl 20szsh \u0017blessed spellbook of knock\nrt sm. \u0017spellbook of force bolt\nru sj \u0007vampire\n\u0007lich\nZ\u001bZ\u001b.l  sm.     Z\u001bZ\u001b20s  .m.Z\u001b\u0017blessed spellbook of finger of death\nrv   sm.  \u0007master mind flayer\nZa\ns   20s  n     n      Zsy    n      20s   ZZZZ\u00168\n\u0017blessed spellbook of finger of death\nrw su\u0007master mind flayer\nZa\n ZZsn   n   .k    n  Za\n      n  20s     n  sm.   n  Zc\n      n  Zb\n    n  Za\n      y  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50450052,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nWl\u0017blessed amulet of life saving\nPm\u0017blessed ring of free action\nPnr#levelchange\n10\n        \u0007mind flayer\n\u0007gnomish wizard\n\u0017wand of striking\nzol zoh  zon       .m.  .m.   zoh      n \u0017crossbow\nwp     n \u001715 crossbow bolts\nQq\u0007kobold\n\u0007soldier\nfn    n fb    fh     n t$l   fn      n i\u001b\u00165\n\u0017wand of cold\n\u0017wand of polymorph\n\u0007kobold\n\u0007bugbear\n\u0007giant rat\nzrh zsn   zrb 20szrn sm.zsn    zsl 20szsh \u0017blessed spellbook of knock\nrt sm. \u0017spellbook of force bolt\nru sj \u0007vampire\n\u0007lich\nZ\u001bZ\u001b.l  sm.     Z\u001bZ\u001b20s  .m.Z\u001b\u0017blessed spellbook of finger of death\nrv   sm.  \u0007master mind flayer\nZa\ns   20s  n     n      Zsy    n      20s   ZZZZ\u00168\n\u0017blessed spellbook of finger of death\nrw su\u0007master mind flayer\nZa\n ZZsn   n   .k    n  Za\n      n  20s     n  sm.   n  Zc\n      n  Zb\n    n  Za\n      y  \u0016"
+  }
+ ]
+}

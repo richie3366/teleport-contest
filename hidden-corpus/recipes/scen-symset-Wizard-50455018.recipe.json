@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " O>j\u001b\nFbFnFjFnFnFnFyFbFbFyFnFjFjFjFnFjFjFjFnFnFbFnFjFbFjFjFbFjFnFjFbFhFnFnFjFjFnFjFjFnFnFuFkFyFnFbFbFbFjFbFnFbFnFbFjFjFnFn Fj Fn FjFnFbFjFbFnFbFbFbFnFnFbFnFnFk FbFjFbFbFjFnFbFbFjFnFbFjFbFnFjFjFbFjFbFnFbFbFnFnFjFjFbFnFbFnFjFbFbFbFbFnFjFjFbFnFnFnFjFbFb\u0006_ \u001bm.>FbFb_>.Fu_,Fk>FuFk_>.Fu_,Fy>FuFlFyFyFu\u0006_>.Fn_,Fl>FlFn_>.Fk_,Fu>FlFn_>,Fy_,Fk>FnFuFuFlFy\u0006_>.Fu_.Fu>FnFn_>.Fy_.Fl>FnFy_>,Fk_,Fk>FyFyFuFyFn\u000f\u001bOn\u001b\n\u0006_>,Fy_,Fu>FyFu_>.Fk_.Fy>FkFl_>.Fl_.Fu>FyFyFlFuFy<\u0006_>>.Fu_.Fl>FuFy_>>.Fu_.Fu>FkFl_>>.Fn_.Fk>FnFyFyFkFn#wipe\ns<\u0006_>.Fl_,Fk>FnFk_>.Fu_.Fk>FkFn_>.Fy_,Fl>FyFkFyFuFy\u0006_>.Fu_.Fk>FlFk_>.Fl_,Fn>FuFl_>.Fy_.Fy>FnFuFkFlFy\u0006_>.Fu_.Fu>FuFl_>,Fk_.Fy>FkFl_>.Fl_.Fl>FnFnFlFuFuao#turn\nFyFyFuFyFnFkFlFuFnFlFuFuFkFlFuFlFlFyFnFlFlFkFyFkFyFkFlFnFuFuFnFyFuFuFlFlFyFkFnFuFnFuFuFyFkFlFkFnFyFlFlFuFyFyFyFkFuFuFkFkFlFkFyFnFyFyFkFyFnFkFnFyFkFkFyFnF"
+ },
+ "segments": [
+  {
+   "seed": 50455018,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You see\"\n",
+   "moves": " O>j\u001b\nFbFnFjFnFnFnFyFbFbFyFnFjFjFjFnFjFjFjFnFnFbFnFjFbFjFjFbFjFnFjFbFhFnFnFjFjFnFjFjFnFnFuFkFyFnFbFbFbFjFbFnFbFnFbFjFjFnFn Fj Fn FjFnFbFjFbFnFbFbFbFnFnFbFnFnFk FbFjFbFbFjFnFbFbFjFnFbFjFbFnFjFjFbFjFbFnFbFbFnFnFjFjFbFnFbFnFjFbFbFbFbFnFjFjFbFnFnFnFjFbFb\u0006_ \u001bm.>FbFb_>.Fu_,Fk>FuFk_>.Fu_,Fy>FuFlFyFyFu\u0006_>.Fn_,Fl>FlFn_>.Fk_,Fu>FlFn_>,Fy_,Fk>FnFuFuFlFy\u0006_>.Fu_.Fu>FnFn_>.Fy_.Fl>FnFy_>,Fk_,Fk>FyFyFuFyFn\u000f\u001bOn\u001b\n\u0006_>,Fy_,Fu>FyFu_>.Fk_.Fy>FkFl_>.Fl_.Fu>FyFyFlFuFy<\u0006_>>.Fu_.Fl>FuFy_>>.Fu_.Fu>FkFl_>>.Fn_.Fk>FnFyFyFkFn#wipe\ns<\u0006_>.Fl_,Fk>FnFk_>.Fu_.Fk>FkFn_>.Fy_,Fl>FyFkFyFuFy\u0006_>.Fu_.Fk>FlFk_>.Fl_,Fn>FuFl_>.Fy_.Fy>FnFuFkFlFy\u0006_>.Fu_.Fu>FuFl_>,Fk_.Fy>FkFl_>.Fl_.Fl>FnFnFlFuFuao#turn\nFyFyFuFyFnFkFlFuFnFlFuFuFkFlFuFlFlFyFnFlFlFkFyFkFyFkFlFnFuFuFnFyFuFuFlFlFyFkFnFuFnFuFuFyFkFlFkFnFyFlFlFuFyFyFyFkFuFuFkFkFlFkFyFnFyFyFkFyFnFkFnFyFkFkFyFnF"
+  }
+ ]
+}

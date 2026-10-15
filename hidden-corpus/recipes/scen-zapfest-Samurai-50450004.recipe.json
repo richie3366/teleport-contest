@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPf\u0017blessed shield of reflection\nWg\u0017blessed ring of free action\nPhl#levelchange\n14\n            \u0017wand of death\n\u0017wand of teleportation\n\u0017wand of fire\n\u0007gnome lord\n\u0007lichen\nzkj zkjzkuziuziuzjhzjnzib\u0007red dragon\n\u0007silver dragon\n20s.yFj   Fn   \u0007silver dragon\n\u0007baby red dragon\nsm.s.m.       sl   #polyself\ngold dragon\n   #monster\nu      sm.   sm.#monster\nj           #monster\n#monster\nFl     n Fn   \u0007red dragon\n\u0007baby red dragon\n20s     .m.   n     sm.   .m.\u0017wand of fire\naly           n  Fj  Fl  \u00169\n\u0017blessed spellbook of cone of cold\nrm.\u0017blessed spellbook of knock\nrn s\u0007gnomish wizard\n\u0007incubus\nZa\n20s snZa\nZa\n sn20sZb\nsl20sZb\nZa\n20s.bZb\nZb\n20ssm.\u001620\n\u00178 rocks\nQ-\u0007acid blob\nf by h f \u001bf \u001bf \u001b\u0017blessed spellbook of finger of death\nrp .m.\u0017blessed spellbook of force bolt\nrq su\u0007master mind flayer\n\u0007orc shaman\nZa\nZb\nsm.   n     sjZb\n20s      .y     n  Zb\nZb\n"
+ },
+ "segments": [
+  {
+   "seed": 50450004,
+   "datetime": "20090106133654",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPf\u0017blessed shield of reflection\nWg\u0017blessed ring of free action\nPhl#levelchange\n14\n            \u0017wand of death\n\u0017wand of teleportation\n\u0017wand of fire\n\u0007gnome lord\n\u0007lichen\nzkj zkjzkuziuziuzjhzjnzib\u0007red dragon\n\u0007silver dragon\n20s.yFj   Fn   \u0007silver dragon\n\u0007baby red dragon\nsm.s.m.       sl   #polyself\ngold dragon\n   #monster\nu      sm.   sm.#monster\nj           #monster\n#monster\nFl     n Fn   \u0007red dragon\n\u0007baby red dragon\n20s     .m.   n     sm.   .m.\u0017wand of fire\naly           n  Fj  Fl  \u00169\n\u0017blessed spellbook of cone of cold\nrm.\u0017blessed spellbook of knock\nrn s\u0007gnomish wizard\n\u0007incubus\nZa\n20s snZa\nZa\n sn20sZb\nsl20sZb\nZa\n20s.bZb\nZb\n20ssm.\u001620\n\u00178 rocks\nQ-\u0007acid blob\nf by h f \u001bf \u001bf \u001b\u0017blessed spellbook of finger of death\nrp .m.\u0017blessed spellbook of force bolt\nrq su\u0007master mind flayer\n\u0007orc shaman\nZa\nZb\nsm.   n     sjZb\n20s      .y     n  Zb\nZb\n"
+  }
+ ]
+}

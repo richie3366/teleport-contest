@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n        \u0017blessed bag of holding\n\u0017wand of cold\n\u0017scroll of blank paper\n\u0017ring of fire resistance\n\u0017lock pick\ndkao.s20ss#loot\nr\na\ndb#loot\ns\n,\u0017credit card\ndkaq..20ss#loot\ns\naly   #tip\ny\u001b#levelchange\n14\n       \u0016?\n>y  _ \u001b;#chat\nu_mmmm.#chat\nn_mmm.#chat\nn;m.Pnlj<\\  ykhn\u0017moat\n#dip\niy    y nh\u0017lawful altar\ndf\u0017newt corpse\n#offer\nr   #pray\ny y #terrain\nb\nd#invoke\nm,aj i\u001b\u0017blessed spellbook of force bolt\nrs ..Za\nZa\n\u0017blessed scroll of taming\n\u0007couatl\nrt \u0017blessed wand of lightning\n\u0007marilith\nzuu   zuk  \u0017potion of sickness\nqv       #dip\ngd     n  Fy  Fy\u0017pick-axe\naw     awh     Fk Fh sm.  sm.\u00169\n\\  #levelchange\n8\n  \u001624\n#dip\nmp   #name\na\n: \u000620s  sy\u0016?\nmi\u001bol:20s      n    sn \u0016?\nl #ride\nhydn#name\ni\n;k;20s   n   .m.   n   \u0016?\n>>\u001b\u00165\n#levelchange\n12\n    \u0007hezrou\nFh    FjFj  n      \u0007hezrou\n.b sm.20s  n     .u    n     su  n        n  sb        n  su     n    sm.    n        n 20s       n     \u000f\u001b\u00169\n\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqx<.  n        yy\u001bnny ny  _"
+ },
+ "segments": [
+  {
+   "seed": 50456031,
+   "datetime": "20250119024859",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n        \u0017blessed bag of holding\n\u0017wand of cold\n\u0017scroll of blank paper\n\u0017ring of fire resistance\n\u0017lock pick\ndkao.s20ss#loot\nr\na\ndb#loot\ns\n,\u0017credit card\ndkaq..20ss#loot\ns\naly   #tip\ny\u001b#levelchange\n14\n       \u0016?\n>y  _ \u001b;#chat\nu_mmmm.#chat\nn_mmm.#chat\nn;m.Pnlj<\\  ykhn\u0017moat\n#dip\niy    y nh\u0017lawful altar\ndf\u0017newt corpse\n#offer\nr   #pray\ny y #terrain\nb\nd#invoke\nm,aj i\u001b\u0017blessed spellbook of force bolt\nrs ..Za\nZa\n\u0017blessed scroll of taming\n\u0007couatl\nrt \u0017blessed wand of lightning\n\u0007marilith\nzuu   zuk  \u0017potion of sickness\nqv       #dip\ngd     n  Fy  Fy\u0017pick-axe\naw     awh     Fk Fh sm.  sm.\u00169\n\\  #levelchange\n8\n  \u001624\n#dip\nmp   #name\na\n: \u000620s  sy\u0016?\nmi\u001bol:20s      n    sn \u0016?\nl #ride\nhydn#name\ni\n;k;20s   n   .m.   n   \u0016?\n>>\u001b\u00165\n#levelchange\n12\n    \u0007hezrou\nFh    FjFj  n      \u0007hezrou\n.b sm.20s  n     .u    n     su  n        n  sb        n  su     n    sm.    n        n 20s       n     \u000f\u001b\u00169\n\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqx<.  n        yy\u001bnny ny  _"
+  }
+ ]
+}

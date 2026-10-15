@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " FyFyFyFly FlFlFlFyFll FyFly FlFlFyFll FlFyFyFlFyFly FlFlFlFlFlFyFll FlFlFlFlFlFyFll FyFly FlFyFll FyFly FyFly FyFyFlFyFly FyFll FlFlFyFly FlFyFly FlFlFlFyFyFyFly FlFlFlFlFlFyFyFlFlFlFlFlFlFlFlFlFlFyFll FyFly FyFyFlFyFly FyFll FyFyFyFly FyFly FyFyFlFyFyFyFll FlFyFyFyFly FlFlFlFlFlFyFll FyFy\u0007horse\n\u0017tripe ration\nt\u001b\u0017tin whistle\nbkl nal\u0017leash\naml h\u001bh\u001bh\u001bnaml \u0007kobold\nsjsly sm. sm.20sm..m. #name\na\n10s\u0017tin whistle\njku h\u001ban\u0017magic whistle\nku lu jao 10s #twoweapon\n: \\  \u001612\n    jln b\u0017cloud\nln h\u001bln h\u001b: bkn \u0017chaotic altar\ndadc\u0017floating eye corpse\n#offer\np  #pray\ny y #sit\n#rub\n#tip\n\u001bFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkv i\u001bO>>>>f\u001b\nFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkF"
+ },
+ "segments": [
+  {
+   "seed": 50455015,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nMSGTYPE=stop \"You see\"\n",
+   "moves": " FyFyFyFly FlFlFlFyFll FyFly FlFlFyFll FlFyFyFlFyFly FlFlFlFlFlFyFll FlFlFlFlFlFyFll FyFly FlFyFll FyFly FyFly FyFyFlFyFly FyFll FlFlFyFly FlFyFly FlFlFlFyFyFyFly FlFlFlFlFlFyFyFlFlFlFlFlFlFlFlFlFlFyFll FyFly FyFyFlFyFly FyFll FyFyFyFly FyFly FyFyFlFyFyFyFll FlFyFyFyFly FlFlFlFlFlFyFll FyFy\u0007horse\n\u0017tripe ration\nt\u001b\u0017tin whistle\nbkl nal\u0017leash\naml h\u001bh\u001bh\u001bnaml \u0007kobold\nsjsly sm. sm.20sm..m. #name\na\n10s\u0017tin whistle\njku h\u001ban\u0017magic whistle\nku lu jao 10s #twoweapon\n: \\  \u001612\n    jln b\u0017cloud\nln h\u001bln h\u001b: bkn \u0017chaotic altar\ndadc\u0017floating eye corpse\n#offer\np  #pray\ny y #sit\n#rub\n#tip\n\u001bFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkv i\u001bO>>>>f\u001b\nFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkF"
+  }
+ ]
+}

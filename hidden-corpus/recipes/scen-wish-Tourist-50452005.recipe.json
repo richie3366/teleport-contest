@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  \u0017uncursed wand of locking\n\u0007wumpus\nzmhzmhFhFh\u0017uncursed amulet of ESP\n\u0007sewer rat\nPn20s20s.m.sm.\u0017cursed the Orb of Fate\n  yy\u001by  nnn  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 50452005,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017uncursed wand of locking\n\u0007wumpus\nzmhzmhFhFh\u0017uncursed amulet of ESP\n\u0007sewer rat\nPn20s20s.m.sm.\u0017cursed the Orb of Fate\n  yy\u001by  nnn  \u0007"
+  }
+ ]
+}

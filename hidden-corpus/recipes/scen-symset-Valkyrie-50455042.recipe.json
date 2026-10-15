@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " hyk\u0017unaligned altar\ndcdc\u0017floating eye corpse\n#offer\ne  #pray\ny bb\u0017grave\n:\u0017pick-axe\naf >  .l .m.j h \u0017sink\nqy   \u0018\u001b#name\n\u001bsn buk\u0017cloud\n:nk\u0017tree\nh\u0004l\u0004l :i\u001b#invoke\n\u001b#rub\n\u0007tame large dog\n\u0007pony\n\u0017apple\ntay\u0017leash\nahn   uh   uh    n ahl  \u0017fortune cookie\ntbk   dhsm.   20s  .m. y\u0007newt\n20s  20s  sm. sm.  n 20s  .m. \u00169\n#levelchange\n10\n         khu\u0017tree\nhl\u0017moat\n#dip\ndy  ,#enhance\nyo\np\n\u001b#dip\nh\u0007pony\n\u0017carrot\nt\u001b\u0007kitten\n\u0017apple\nt\u001b\u0007jackal\n\u0017scroll of taming\nrk \u0007yellow mold\ns  ssss20s\u0017magic whistle\njynal      #chat\nu\u0007jackal\n.m. ssss.v\u001bi\u001b\u00165\n Fj FkFkFlFyFjFnFyFkFnFbFnFyFbFnFbFjFy FuFkFjFlFjFkFlFyFlFuFuFnFkFbFyFnFuFuFbFbFyFuFjFnFuFjFbFkFyFlFyFu FuFbFn Fu  Fy   FlFj FjFbFjFbFk Fy FyFbFn FjFyFbFlFb Fj#pray\ny y Fk  FuFj FkFbFbFb FuFy FuFnFj FyFy   Fn Fy FyFk Fu Fl Fy #pray\ny y      Fl   Fu   Fy   Fb   Fn Fk   nFb Fl Fb FjFn Fj   Fy   Fu Fn   n Fl   Fy  Fn FjF"
+ },
+ "segments": [
+  {
+   "seed": 50455042,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": " hyk\u0017unaligned altar\ndcdc\u0017floating eye corpse\n#offer\ne  #pray\ny bb\u0017grave\n:\u0017pick-axe\naf >  .l .m.j h \u0017sink\nqy   \u0018\u001b#name\n\u001bsn buk\u0017cloud\n:nk\u0017tree\nh\u0004l\u0004l :i\u001b#invoke\n\u001b#rub\n\u0007tame large dog\n\u0007pony\n\u0017apple\ntay\u0017leash\nahn   uh   uh    n ahl  \u0017fortune cookie\ntbk   dhsm.   20s  .m. y\u0007newt\n20s  20s  sm. sm.  n 20s  .m. \u00169\n#levelchange\n10\n         khu\u0017tree\nhl\u0017moat\n#dip\ndy  ,#enhance\nyo\np\n\u001b#dip\nh\u0007pony\n\u0017carrot\nt\u001b\u0007kitten\n\u0017apple\nt\u001b\u0007jackal\n\u0017scroll of taming\nrk \u0007yellow mold\ns  ssss20s\u0017magic whistle\njynal      #chat\nu\u0007jackal\n.m. ssss.v\u001bi\u001b\u00165\n Fj FkFkFlFyFjFnFyFkFnFbFnFyFbFnFbFjFy FuFkFjFlFjFkFlFyFlFuFuFnFkFbFyFnFuFuFbFbFyFuFjFnFuFjFbFkFyFlFyFu FuFbFn Fu  Fy   FlFj FjFbFjFbFk Fy FyFbFn FjFyFbFlFb Fj#pray\ny y Fk  FuFj FkFbFbFb FuFy FuFnFj FyFy   Fn Fy FyFk Fu Fl Fy #pray\ny y      Fl   Fu   Fy   Fb   Fn Fk   nFb Fl Fb FjFn Fj   Fy   Fu Fn   n Fl   Fy  Fn FjF"
+  }
+ ]
+}

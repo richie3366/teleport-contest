@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 gauntlets of power\nWo\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>w\u0006_ \u001b;,\u0014m,s.\u0016?\n>Buyn\u0016?\n>w\u0006_{._.qg.\u00167\nhll\u0016?\n>w\u0006jjk#chat\nu__._.m.#chat\njhll#chat\nj_ooooooo._.Fk,:kky#chat\nj\u0016?\ncjyh\u0016?\n>w\u0006_{. _.,qy_ooo._,,pjkj#chat\nk_{.Fk_.qy_oooooooo. Fy _.Fk _o.Fk   n_,  , $ hlh#chat\nn_oooo,_.Fj , p\u001b\u0016?\nc    uj   n n  n \u0016?\n>w\u0006\u001611\n_ooooo,,:_oo,_ooo,,p   _{.qh _ooooo.,\u0017diamond\nds_ooooooooo,,  n p_oooo._oo,,p_ooooooo,_o,,:_ooo,,:__,#chat\nlFlFl  n FlFlFlFlkhl#chat\nl_ooooo._.,p_ooooooooo.,p_oooo.,phbk#chat\nlyuj#chat\nulj  ny#chat\nj__,#chat\nu\u0016?\n>Byln\u0016?\n>w\u0006_{.Fu_.qfm,__._.#chat\nu_{._.qq_ooooooooo,_.,\u0017amulet of ESP\ndu_{._.q_{._,q_oooooo._._ooo._.,:__,_.#chat\nn#pray\ny y \u00163\nlbn\u0016?\n>w\u0006_oo. Fj   _.,:_ooooooo.  n Fn   n_.  n  nFn   n  n,p  \u00169"
+ },
+ "segments": [
+  {
+   "seed": 50455520,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 gauntlets of power\nWo\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>w\u0006_ \u001b;,\u0014m,s.\u0016?\n>Buyn\u0016?\n>w\u0006_{._.qg.\u00167\nhll\u0016?\n>w\u0006jjk#chat\nu__._.m.#chat\njhll#chat\nj_ooooooo._.Fk,:kky#chat\nj\u0016?\ncjyh\u0016?\n>w\u0006_{. _.,qy_ooo._,,pjkj#chat\nk_{.Fk_.qy_oooooooo. Fy _.Fk _o.Fk   n_,  , $ hlh#chat\nn_oooo,_.Fj , p\u001b\u0016?\nc    uj   n n  n \u0016?\n>w\u0006\u001611\n_ooooo,,:_oo,_ooo,,p   _{.qh _ooooo.,\u0017diamond\nds_ooooooooo,,  n p_oooo._oo,,p_ooooooo,_o,,:_ooo,,:__,#chat\nlFlFl  n FlFlFlFlkhl#chat\nl_ooooo._.,p_ooooooooo.,p_oooo.,phbk#chat\nlyuj#chat\nulj  ny#chat\nj__,#chat\nu\u0016?\n>Byln\u0016?\n>w\u0006_{.Fu_.qfm,__._.#chat\nu_{._.qq_ooooooooo,_.,\u0017amulet of ESP\ndu_{._.q_{._,q_oooooo._._ooo._.,:__,_.#chat\nn#pray\ny y \u00163\nlbn\u0016?\n>w\u0006_oo. Fj   _.,:_ooooooo.  n Fn   n_.  n  nFn   n  n,p  \u00169"
+  }
+ ]
+}

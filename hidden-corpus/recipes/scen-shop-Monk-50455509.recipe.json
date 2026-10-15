@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed Mjollnir\nwl\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b<.,:_oooo.,p_ooooo.,\u0017gray stone\ndn\u0016?\ncj ul\u0016?\n>w\u0006_oo,,\u0017amulet of unchanging\ndo_ooooo.Fk_..Fl,#chat\nl_ooooooooo.Fk _.  n Fh  _o.Fb _.,    n:\u00162\n_oooooo.,#chat\nu__.#chat\nb\u0016?\n>Bjjk\u0016?\n>w\u0006_ooo,_oo.Fb  _.Fn ,\u0017luckstone\ndqyhh#chat\nb _ooooo,,\u0014@. sys_oooooooo,Fh    n_,m.Fy,\u0017gray stone\ndr _oooo,Fh    _.m,    nFh  ,pFyFy     nFy   nFy   nFy   Fy  n \u001612\n_oooooo.,p__.#chat\nk#pray\ny y _oooooo,,#chat\njhhh#chat\nbhll#chat\nl_ooooo,Fl   n_.Fl,#chat\nl_oooooo.,p__.#chat\nl#pray\ny y  _{,qd __,#chat\nl #pray\ny y    _ooooooo._o.,:FlFl  FlFlFl  nFl_{.qe_oo,_ooo._.,\u0017luckstone\ndqFhFh FhFhFhFh__.#chat\nk#pray\ny y _oooooooo,,$lll#chat\nhlll#chat\nh\u0016?\n>Bjlk\u0016?\n>w\u0006_oo. _.;,Fb ,#chat\nj__.      Fh        n _.#chat\nh    n  n #pray\ny y  \u00161\n_oo.,puhh#chat\nl_oooooo.,plul#chat\nh_{.qe_oooooo,,p_oooooo,,#chat\nk_{,q_oooooooo.,:_oooooooo.,:_oooo,,p__.#chat\njnun#c"
+ },
+ "segments": [
+  {
+   "seed": 50455509,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed Mjollnir\nwl\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b<.,:_oooo.,p_ooooo.,\u0017gray stone\ndn\u0016?\ncj ul\u0016?\n>w\u0006_oo,,\u0017amulet of unchanging\ndo_ooooo.Fk_..Fl,#chat\nl_ooooooooo.Fk _.  n Fh  _o.Fb _.,    n:\u00162\n_oooooo.,#chat\nu__.#chat\nb\u0016?\n>Bjjk\u0016?\n>w\u0006_ooo,_oo.Fb  _.Fn ,\u0017luckstone\ndqyhh#chat\nb _ooooo,,\u0014@. sys_oooooooo,Fh    n_,m.Fy,\u0017gray stone\ndr _oooo,Fh    _.m,    nFh  ,pFyFy     nFy   nFy   nFy   Fy  n \u001612\n_oooooo.,p__.#chat\nk#pray\ny y _oooooo,,#chat\njhhh#chat\nbhll#chat\nl_ooooo,Fl   n_.Fl,#chat\nl_oooooo.,p__.#chat\nl#pray\ny y  _{,qd __,#chat\nl #pray\ny y    _ooooooo._o.,:FlFl  FlFlFl  nFl_{.qe_oo,_ooo._.,\u0017luckstone\ndqFhFh FhFhFhFh__.#chat\nk#pray\ny y _oooooooo,,$lll#chat\nhlll#chat\nh\u0016?\n>Bjlk\u0016?\n>w\u0006_oo. _.;,Fb ,#chat\nj__.      Fh        n _.#chat\nh    n  n #pray\ny y  \u00161\n_oo.,puhh#chat\nl_oooooo.,plul#chat\nh_{.qe_oooooo,,p_oooooo,,#chat\nk_{,q_oooooooo.,:_oooooooo.,:_oooo,,p__.#chat\njnun#c"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n10\n         \u0016?\n>w\u0006\u0017blessed potion of object detection\nql \u001b:_oo,   _,Fl _oo.  Fh  _, Fh ,:_ooooo,  Fb _,  Fj   ,#chat\nh   _oooooooo.   Fb    _,   Fl      _oo.   Fl   _,   Fj    ,\u0014.   n    __.      Fb   _.    Fj   #chat\nl    #offer\n#enhance\nyo\nk\n\u001b\u0014>. "
+ },
+ "segments": [
+  {
+   "seed": 50451022,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n10\n         \u0016?\n>w\u0006\u0017blessed potion of object detection\nql \u001b:_oo,   _,Fl _oo.  Fh  _, Fh ,:_ooooo,  Fb _,  Fj   ,#chat\nh   _oooooooo.   Fb    _,   Fl      _oo.   Fl   _,   Fj    ,\u0014.   n    __.      Fb   _.    Fj   #chat\nl    #offer\n#enhance\nyo\nk\n\u001b\u0014>. "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " FlFlFl 150s 50s50s100sFls20snhh150s50sFls20s50s100s\u000f\u001b_ \u001b;>100s150sFl..150sFl20ss100s100s100si\u001b100skky150s  50sFls20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 50451014,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:explore\n",
+   "moves": " FlFlFl 150s 50s50s100sFls20snhh150s50sFls20s50s100s\u000f\u001b_ \u001b;>100s150sFl..150sFl20ss100s100s100si\u001b100skky150s  50sFls20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

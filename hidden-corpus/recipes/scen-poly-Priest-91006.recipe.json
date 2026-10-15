@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPjr\u0017gray dragon scale mail\nW\u001b.s.Tc#polyself\nfire vortex\n #monster\n.s20s     .s#polyself\niron golem\n #monster\nssm.\u0007giant mimic\nFk   Fl.s20s .m.\u0017potion of polymorph\nql giant mimic\n"
+ },
+ "segments": [
+  {
+   "seed": 91006,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of polymorph control\nPjr\u0017gray dragon scale mail\nW\u001b.s.Tc#polyself\nfire vortex\n #monster\n.s20s     .s#polyself\niron golem\n #monster\nssm.\u0007giant mimic\nFk   Fl.s20s .m.\u0017potion of polymorph\nql giant mimic\n"
+  }
+ ]
+}

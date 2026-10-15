@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed amulet of life saving\nPn\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>w\u0006_ \u001b@.#chat\nh\u0016?\n>Bkhn\u0016?\n>w\u0006_oo.,p_ooooooooo.,p\u00163\nhhl\u0016?\n>w\u0006_ooooooo,,p_{,   Fl_,m.Fjqh    _oooooo,,\u0014m,s.blh#chat\nljkj#chat\nh_oo,,p_oooooo.,p_{,_.qf_oo,_ooo.,\u0017ruby\ndp_ooooo.,plhy#chat\ny__._,#chat\ny_{._.qg_oooo,_ooo.,p_ooooooooo._oo.,p_oooo.,plyn#chat\nl_oooo.,p\u00167\nyhl\u0016?\n>w\u0006_oooooo._oo.,p_ooooooooo,_oo,,p__._,#chat\nk#pray\ny y _oooooooo,_ooo,,:_oooooo.,p_oooo,,\u0017gray stone\n dq_{._,q_oo,,p_ooooo._o.,\u0017loadstone\n  dq_oooo,,:kkj#chat\nb     n_ooooooo."
+ },
+ "segments": [
+  {
+   "seed": 50455539,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed amulet of life saving\nPn\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>w\u0006_ \u001b@.#chat\nh\u0016?\n>Bkhn\u0016?\n>w\u0006_oo.,p_ooooooooo.,p\u00163\nhhl\u0016?\n>w\u0006_ooooooo,,p_{,   Fl_,m.Fjqh    _oooooo,,\u0014m,s.blh#chat\nljkj#chat\nh_oo,,p_oooooo.,p_{,_.qf_oo,_ooo.,\u0017ruby\ndp_ooooo.,plhy#chat\ny__._,#chat\ny_{._.qg_oooo,_ooo.,p_ooooooooo._oo.,p_oooo.,plyn#chat\nl_oooo.,p\u00167\nyhl\u0016?\n>w\u0006_oooooo._oo.,p_ooooooooo,_oo,,p__._,#chat\nk#pray\ny y _oooooooo,_ooo,,:_oooooo.,p_oooo,,\u0017gray stone\n dq_{._,q_oo,,p_ooooo._o.,\u0017loadstone\n  dq_oooo,,:kkj#chat\nb     n_ooooooo."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00162\nFjFjFhFlFlFhFyFh\u001bFuFyFky FlFhFuFbFuj FyFuj FbFyFkFhFhFlFlFlFlFbFbFjFkFlFyFh\u001bFyFkl FbFh\u001bFyFuh FjFbFjFyFuu FhFyFh\u001bFkFlFkFkFuFhFhFlFuFkFyFkj FbFkk FkFbFyFlFkFkFbFjFuFyFh\u001bFbFbFbFyFjFlFyFkb FkFuFjFbFbFbFyFjFjFyFky FjFbFly FuFbFh\u001bFuFyFkl FyFbFhFhFlFlFlFyFkj FjFlFkFyFkl FyFlk FuFbFlj FjFbFh\u001bFjFjFhFhFlFlFbFly FlFuFbFh\u001bFbFbFyFh\u001bFbFuh FuFuFjFhFuFhFlFlFuFlFlFbFkk FkFhFlFlFkFkFhFyFkj FhFjFkFbFuu FlFlFkFbFjFlFhFkFyFlh FyFly FuFuFjFuFyFub FjFjFuFlFhFkFyFyFkFjFjFuFkFlFyFjFkFkFkFyFuy FjFuFuFhFuFkFlFbFlj FuFjFyFuk FhFjFyFjFhFuFlFjFuFhFlFbFuk FjFhFjFjFhFyFul 10s#conduct\n 10suy P#name\nd\n10s#conduct\n \u00166\nFbFjFhFhFuFlFjFkFnFnFhFuFlFkFhFkFnFyFnFuj FkFyFlk FjFlFjFlFyFub FkFbFkn FhFuFhFnFh\u001bFuFyFnFyFnFlFhFbFuu FkFlFnFnFjFyFbFuFjFkFhFbFuk FuFyFku FkFnFuj FuFnFuy FlFbFh\u001bFkFkFlFyFjFnFbFnFnFuFkFkFyFbFnFkn FkFbFuh FhFlFuFbFun FbFkl FkFkFhFbFyFhFlFlFbFlu FbFkb FjFjFkFlFkFuFuFuFyFbFkO>>>b\u001b\nmO>>>>l\u001b\n\u001611\n\u0007large dog\n\u0017b"
+ },
+ "segments": [
+  {
+   "seed": 50455005,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"a scroll\"=green\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00162\nFjFjFhFlFlFhFyFh\u001bFuFyFky FlFhFuFbFuj FyFuj FbFyFkFhFhFlFlFlFlFbFbFjFkFlFyFh\u001bFyFkl FbFh\u001bFyFuh FjFbFjFyFuu FhFyFh\u001bFkFlFkFkFuFhFhFlFuFkFyFkj FbFkk FkFbFyFlFkFkFbFjFuFyFh\u001bFbFbFbFyFjFlFyFkb FkFuFjFbFbFbFyFjFjFyFky FjFbFly FuFbFh\u001bFuFyFkl FyFbFhFhFlFlFlFyFkj FjFlFkFyFkl FyFlk FuFbFlj FjFbFh\u001bFjFjFhFhFlFlFbFly FlFuFbFh\u001bFbFbFyFh\u001bFbFuh FuFuFjFhFuFhFlFlFuFlFlFbFkk FkFhFlFlFkFkFhFyFkj FhFjFkFbFuu FlFlFkFbFjFlFhFkFyFlh FyFly FuFuFjFuFyFub FjFjFuFlFhFkFyFyFkFjFjFuFkFlFyFjFkFkFkFyFuy FjFuFuFhFuFkFlFbFlj FuFjFyFuk FhFjFyFjFhFuFlFjFuFhFlFbFuk FjFhFjFjFhFyFul 10s#conduct\n 10suy P#name\nd\n10s#conduct\n \u00166\nFbFjFhFhFuFlFjFkFnFnFhFuFlFkFhFkFnFyFnFuj FkFyFlk FjFlFjFlFyFub FkFbFkn FhFuFhFnFh\u001bFuFyFnFyFnFlFhFbFuu FkFlFnFnFjFyFbFuFjFkFhFbFuk FuFyFku FkFnFuj FuFnFuy FlFbFh\u001bFkFkFlFyFjFnFbFnFnFuFkFkFyFbFnFkn FkFbFuh FhFlFuFbFun FbFkl FkFkFhFbFyFhFlFlFbFlu FbFkb FjFjFkFlFkFuFuFuFyFbFkO>>>b\u001b\nmO>>>>l\u001b\n\u001611\n\u0007large dog\n\u0017b"
+  }
+ ]
+}

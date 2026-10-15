@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "hhbn10s#name\nm\n>.10s20s#chat\nnde20s..lkynFkFkFkFkFkFkFkFkjyjuFnFnFnFnFnFnFnFnyblhlhujFnFnFnFnFnFnFnFnnnkjnklhhklktdb10shdddbcysssunb100s FkFyFyFkFyFkFyFyFk lun50snynyhj150sFh.Fhi\u001b150syly150s\u000f\u001bjyj50sFlFl20sbjujyk50si\u001b150s50s50s100sFlFuFlFlFlFlFls.yhb150s150sefhknu#quit\ny\u001b      \u0017wand of digging\nze> sze> 20sze> .ze> 20sze> sze> 20sFhFjFj .20s20sss20ss #wizintrinsic\ne\n 20s  20s.jslsb.m. .m.sk .m..k20s  yy\u001by   y nny  syn \u0007minotaur\nFlFu  yy\u001by  y y\u001byy  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50456503,
+   "datetime": "20000708152703",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=runmode:teleport\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "hhbn10s#name\nm\n>.10s20s#chat\nnde20s..lkynFkFkFkFkFkFkFkFkjyjuFnFnFnFnFnFnFnFnyblhlhujFnFnFnFnFnFnFnFnnnkjnklhhklktdb10shdddbcysssunb100s FkFyFyFkFyFkFyFyFk lun50snynyhj150sFh.Fhi\u001b150syly150s\u000f\u001bjyj50sFlFl20sbjujyk50si\u001b150s50s50s100sFlFuFlFlFlFlFls.yhb150s150sefhknu#quit\ny\u001b    "
+  },
+  {
+   "seed": 50556503,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017wand of digging\nze> sze> 20sze> .ze> 20sze> sze> 20sFhFjFj .20s20sss20ss"
+  },
+  {
+   "seed": 50656503,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\ne\n 20s  20s.jslsb.m. .m.sk .m..k20s  yy\u001by   y nny  s"
+  },
+  {
+   "seed": 50756503,
+   "datetime": "20050208093221",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "yn \u0007minotaur\nFlFu  yy\u001by  y y\u001byy  F"
+  }
+ ]
+}

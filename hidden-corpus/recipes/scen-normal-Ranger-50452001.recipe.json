@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": ">#offer\nl#invoke\n\u001b#ride\n.,,ok#force\n#dip\nd<i\u001beh#dip\nf#pray\ny  #monster\n_<, \u001bm.20s#rub\ni\u001befsswcyFjFhswb  sssXWs.20sT  wd FhFjFjeg yss20sojojwd\\ #monster\n"
+ },
+ "segments": [
+  {
+   "seed": 50452001,
+   "datetime": "20080517093529",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\n",
+   "moves": ">#offer\nl#invoke\n\u001b#ride\n.,,ok#force\n#dip\nd<i\u001beh#dip\nf#pray\ny  #monster\n_<, \u001bm.20s#rub\ni\u001befsswcyFjFhswb  sssXWs.20sT  wd FhFjFjeg yss20sojojwd\\ #monster\n"
+  }
+ ]
+}

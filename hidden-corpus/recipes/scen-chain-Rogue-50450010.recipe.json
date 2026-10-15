@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0007electric eel\nFkFksFks20sss.20sFy  ..ss.20ss.ss20s20s.20sbynj#name\ni\nknk#name\nf\n @.10sNUJB_>.>JKNL_>.>wb olYKBJ_>,>UKYB_>,>Fl 20s s#wipe\n10s UJ Y N_>.>_<.s#force\nKNNK _>.>FuFl 20s<UHHN_>.>10sck\u000f\u001buujhjutcb#chat\nkuhbl10s#chat\nlddss.nlullujk#name\nm\n10s#chat\nnljhjulnkblFks20s150shhyi\u001b50sFk20s20s150s100s150s\u000f\u001bjkbknu\u000f\u001b150sFyFhFhFyFy20s100s100sFk20ssnub\\ 50sFhFh20s100suhl100sbyy100sFhss100s100seeeeeeeHBNH_>,>YBKK_>.>UHBN_>.>JNBJ_>.>NBHJ_>.>LYNU_>,>,#enhance\n\u001bHBHU_>,>\u000f\u001blhlhhl20s10s#name\nd\nhhhbbkbtckhbub10shbFhFhFhFhFhFhFhFhkjub10subub#chat\ny#name\no\nulhhlhHNLL_>,>HBJY_>.>FhFhsNNNK_>.>HH YB_>.>Fj s.\u0014#loot\n\u000f\u001b<50sFy20s s\u000f\u001b#pray\ny 100s  FjFjs\u0018\u001b#pray\ny   #pray\ny    Fj        y\u001by  y y y\u001b  s\u0007electric eel\nFb s.s..sss20sss.sss.20s..sss.s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50450010,
+   "datetime": "20010119163851",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0007electric eel\nFkFksFks20sss.20sFy  ..ss.20ss.ss20s20s.20s"
+  },
+  {
+   "seed": 50550010,
+   "datetime": "20170715033250",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:teleport\nOPTIONS=fruit:lychee\n",
+   "moves": "bynj#name\ni\nknk#name\nf\n @.10sNUJB_>.>JKNL_>.>wb olYKBJ_>,>UKYB_>,>Fl 20s s#wipe\n10s UJ Y N_>.>_<.s#force\nKNNK _>.>FuFl 20s<UHHN_>.>10sck\u000f\u001buujhjutcb#chat\nkuhbl10s#chat\nlddss.nlullujk#name\nm\n10s#chat\nnljhjulnkblFks20s150shhyi\u001b50sFk20s20s150s100s150s\u000f\u001bjkbknu\u000f\u001b150sFyFhFhFyFy20s100s100sFk20ssnub\\ 50sFhFh20s100suhl100sbyy100sFhss100s100seeeeeeeHBNH_>,>YBKK_>.>UHBN_>.>JNBJ_>.>NBHJ_>.>LYNU_>,>,#enhance\n\u001bHBHU_>,>\u000f\u001blhlhhl20s10s#name\nd\nhhhbbkbtckhbub10shbFhFhFhFhFhFhFhFhkjub10subub#chat\ny#name\no\nulhhlhHNLL_>,>HBJY_>.>FhFhsNNNK_>.>HH YB_>.>Fj s.\u0014#loot\n\u000f\u001b<50sFy20s s\u000f\u001b#pray\ny 100s  FjFjs\u0018\u001b#pray\ny   #pray\ny    Fj        y\u001by  y y y\u001b  s"
+  },
+  {
+   "seed": 50650010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=fruit:mango\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007electric eel\nFb s.s..sss20sss.sss.20s..sss.s"
+  }
+ ]
+}

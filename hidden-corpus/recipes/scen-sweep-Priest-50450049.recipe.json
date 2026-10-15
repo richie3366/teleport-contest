@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0007hobbit\nsm.sss.m. .k  20s sm.  \u0007grey-elf\nFj FbFb #levelchange\n30\n                      \u00173 wand of sleep\nzjb  zjb  Fb Fb\u0017blessed silver dagger\n\u0007Elvenking\nwkFl  Fl  Fl  X\u0017towel\nal\u001720 arrows\nQanf ay l    nf \u001bf \u001b\u0017cursed crystal ball\nan  .h.#wizintrinsic\nj\n \u0017towel\nao\u0017sprig of wolfsbane\nef  Za\n \u0017blessed scroll of scare monster\nrq  \u001b \u0017scroll of scare monster\nrr  \u001b 20s  20s    n20s  \u0017blessed spellbook of create familiar\nrs            nsk\u0017blessed spellbook of extra healing\nrt              n20s  +\u001b\u0007hill orc\nZa\n Fl   Za\n Fl  Zb\n Archon\n    n\u0007newt\nZb\n newt\n   \u0007zombie\nZa\n     Fn  n \u0007giant rat\nZa\n #pray\ny y     \u0018\u001b\u00165\ni\u001bW\u001b.sszjj     n zju    anai\u001brs        n sm.sjZa\nZa\nwkFbFbFbZb\n sandestin\n#dip\nsd  #wipe\n  ah   #chat\nb   n;h: \u001b,#tip\n\u001b#enhance\nyb\ni\n\u001b\u0018\u001b\u00162\n#levelchange\n8\n       \u00162\n\u000f\u001b#offer\n#ride\nhy;h;sm. sk\u001613\n#monster\nKcl\u0006sm.20s\u0016?\n>y#loot\nlE- I am a fish\n H;l:   \u000620ssm.#levelchange\n30\n                      hnbb\u0017magic portal\nyl  \u0017pit\nee\u0004y \\  \u001629\n#wizintrinsic\nhl\n  ;l;\u0017apple\neu  \u0017glob of green slime\nev   \u0017wand of probing\nzwl \u001b.m. .m.20s  i\u001b#levelchange\n14\n     \u0016?\n>Fk\u0017wand of striking\nzxhbk    n \u0017wand of striking\nz\u0017wand of striking\nzjhy       j            \u0017scroll of earth\nrl             Fy     "
+ },
+ "segments": [
+  {
+   "seed": 50450049,
+   "datetime": "20091122223930",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0007hobbit\nsm.sss.m. .k  20s sm.  \u0007grey-elf\nFj FbFb #levelchange\n30\n                      \u00173 wand of sleep\nzjb  zjb  Fb Fb\u0017blessed silver dagger\n\u0007Elvenking\nwkFl  Fl  Fl  X\u0017towel\nal\u001720 arrows\nQanf ay l    nf \u001bf \u001b\u0017cursed crystal ball\nan  .h.#wizintrinsic\nj\n \u0017towel\nao\u0017sprig of wolfsbane\nef  Za\n \u0017blessed scroll of scare monster\nrq  \u001b \u0017scroll of scare monster\nrr  \u001b 20s  20s    n20s  \u0017blessed spellbook of create familiar\nrs            nsk\u0017blessed spellbook of extra healing\nrt              n20s  +\u001b\u0007hill orc\nZa\n Fl   Za\n Fl  Zb\n Archon\n    n\u0007newt\nZb\n newt\n   \u0007zombie\nZa\n     Fn  n \u0007giant rat\nZa\n #pray\ny y     \u0018\u001b\u00165\ni\u001bW\u001b.sszjj     n zju    anai\u001brs        n sm.sjZa\nZa\nwkFbFbFbZb\n sandestin\n#dip\nsd  #wipe\n  ah   #chat\nb   n;h: \u001b,#tip\n\u001b#enhance\nyb\ni\n\u001b\u0018\u001b\u00162\n#levelchange\n8\n       \u00162\n\u000f\u001b#offer\n#ride\nhy;h;sm. sk\u001613\n#monster\nKcl\u0006sm.20s\u0016?\n>y#loot\nlE- I am a fish\n H;l:   \u000620ssm.#levelchange\n30\n                      hnbb\u0017magic portal\nyl  \u0017pit\nee\u0004y \\  \u001629\n#wizintrinsic\nhl\n  ;l;\u0017apple\neu  \u0017glob of green slime\nev   \u0017wand of probing\nzwl \u001b.m. .m.20s  i\u001b#levelchange\n14\n     \u0016?\n>Fk\u0017wand of striking\nzxhbk    n \u0017wand of striking\nz\u0017wand of striking\nzjhy       j            \u0017scroll of earth\nrl             Fy     "
+  }
+ ]
+}

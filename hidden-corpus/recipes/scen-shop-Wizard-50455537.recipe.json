@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed amulet of life saving\nPp\u0017blessed +3 helm of telepathy\nWq\u0016?\n>w\u0006_ \u001b:_oo.,p_oooooo._o.,\u0017luckstone\ndr_oooo.,p_ooooo.,\u0014..slhn#chat\nlknh#chat\nuyjl#chat\nllly#chat\nl_ooooo._oo.,\u0017amulet of life saving\nds__,Fk_..#chat\nbjkk#chat\nj_{. Fh_.Fh qf_ooooo, _,_ooo.,:bbj#chat\ny_{,_.qy_oooooooo.,p_oo,_ooo,,$_ooooooooo.,:_ooooooooo.,\u0017amulet versus poison\ndt \u0016?\n>Bkkk\u0016?\n>w\u0006_ooooooo.Fl  _.,$_{.Fb    _.,Fjqg   n_ooo.,\u0017flint stone\ndu\u00163\njbk\u0016?\n>w\u0006_oooo,,\u0017luckstone\ndr_oooooo._o.Fb   n_.  nFh,#chat\nh\u00164\n_oooooo.,\u0017loadstone\n dv\u0016?\n>Blyu\u0016?\n>w\u0006__,  Fy  _,Fh   #chat\nh  _{,Fb_.qy \u001b _oo,    Fn_., \u0017amulet of flying\ndx_oooooooo,Fj  _.  n  n   n Fl  n  n,:\u001610\n   _oooooo._oo.,#chat\nk   n Fk  n   n   Fk  n     nFk  n   nFk  y y\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50455537,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed amulet of life saving\nPp\u0017blessed +3 helm of telepathy\nWq\u0016?\n>w\u0006_ \u001b:_oo.,p_oooooo._o.,\u0017luckstone\ndr_oooo.,p_ooooo.,\u0014..slhn#chat\nlknh#chat\nuyjl#chat\nllly#chat\nl_ooooo._oo.,\u0017amulet of life saving\nds__,Fk_..#chat\nbjkk#chat\nj_{. Fh_.Fh qf_ooooo, _,_ooo.,:bbj#chat\ny_{,_.qy_oooooooo.,p_oo,_ooo,,$_ooooooooo.,:_ooooooooo.,\u0017amulet versus poison\ndt \u0016?\n>Bkkk\u0016?\n>w\u0006_ooooooo.Fl  _.,$_{.Fb    _.,Fjqg   n_ooo.,\u0017flint stone\ndu\u00163\njbk\u0016?\n>w\u0006_oooo,,\u0017luckstone\ndr_oooooo._o.Fb   n_.  nFh,#chat\nh\u00164\n_oooooo.,\u0017loadstone\n dv\u0016?\n>Blyu\u0016?\n>w\u0006__,  Fy  _,Fh   #chat\nh  _{,Fb_.qy \u001b _oo,    Fn_., \u0017amulet of flying\ndx_oooooooo,Fj  _.  n  n   n Fl  n  n,:\u001610\n   _oooooo._oo.,#chat\nk   n Fk  n   n   Fk  n     nFk  n   nFk  y y\u001by   y y y\u001by  F"
+  }
+ ]
+}

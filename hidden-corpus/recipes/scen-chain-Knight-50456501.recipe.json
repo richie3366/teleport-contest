@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "FnFnFnFnFnFnFnFn150s100s\u000f\u001bluh #force\n   nhy100s    Fl20s  FjFlsFllhn_ \u001b;>lun100snbhFls20s    #quit\nyy\u001by  y y y\u001b \u0017wand of digging\nze> 20s ze> 20sze> 20sze> sze20sze.Fks20sFl ss.s20ss Fl sFu50s\u0018\u001b150s50shkl\u000f\u001b_ \u001b,>nuyFlss150sujkFk.s100sFuss150sFu20ss150sFu20ss100skblhbb100s 100sFb20ss50s100s10s50suyy150sFlss150seg100slbu100segnuh100sNHNY_>,>NL BB_>.>NLNH_>.>YJKL_>,>H KJH_>.>\u000f\u001bkukuFjFj FjFjFjFjFjFjblb#pray\ny     Fl.20see100s;m,\u000f\u001b100s100s150s#jump\nubylkj150sFl20ssW_>.>_>.>150s100sFuFks_>,>150s\u000f\u001b;<._>.>jyk150sFl20ss100sFl..50sFlFls_>,>\u000f\u001b\\  di150s#monster\n\u000f\u001b#quit\nyy\u001by  y y y\u001b  Fk s20sujynuj100s50s50sFkss\u0018\u001b50s100suby50s150s50s50sujulny\u0018\u001bjjy100s\u0018\u001b50sFk.20slkkjjynkh100s 50sFuFuFu\\ 100sjbu100syjn100slhl_ \u001b@.>100s150seduht\u001bde.m.20ssnk20slndgsk.m.20s#name\nd\nkuhylbjHLJJ_>.>J#dip\nhLNJH_>.>HJNB_>.>t\u001b\u0018\u001b\u000f\u001bulkl150s_>.>hnhFuFu.100shjl_>.>khn\u000f\u001bllu100s150sFkFks150slhuFhss_>.>10#quit\nyy\u001by  y y y\u001b   #wizintrinsic\nc\n .n.sm.ss20ssb.m.sm.sm..m..m.sn.m..m..sm.   y n  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50456501,
+   "datetime": "20100630112430",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\n",
+   "moves": "FnFnFnFnFnFnFnFn150s100s\u000f\u001bluh #force\n   nhy100s    Fl20s  FjFlsFllhn_ \u001b;>lun100snbhFls20s    #quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50556501,
+   "datetime": "20081004224804",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\nze> 20s ze> 20sze> 20sze> sze20sze.Fks20sFl ss.s20ss"
+  },
+  {
+   "seed": 50656501,
+   "datetime": "20040520235729",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\n",
+   "moves": " Fl sFu50s\u0018\u001b150s50shkl\u000f\u001b_ \u001b,>nuyFlss150sujkFk.s100sFuss150sFu20ss150sFu20ss100skblhbb100s 100sFb20ss50s100s10s50suyy150sFlss150seg100slbu100segnuh100sNHNY_>,>NL BB_>.>NLNH_>.>YJKL_>,>H KJH_>.>\u000f\u001bkukuFjFj FjFjFjFjFjFjblb#pray\ny     Fl.20see100s;m,\u000f\u001b100s100s150s#jump\nubylkj150sFl20ssW_>.>_>.>150s100sFuFks_>,>150s\u000f\u001b;<._>.>jyk150sFl20ss100sFl..50sFlFls_>,>\u000f\u001b\\  di150s#monster\n\u000f\u001b#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50756501,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\n",
+   "moves": " Fk s20sujynuj100s50s50sFkss\u0018\u001b50s100suby50s150s50s50sujulny\u0018\u001bjjy100s\u0018\u001b50sFk.20slkkjjynkh100s 50sFuFuFu\\ 100sjbu100syjn100slhl_ \u001b@.>100s150seduht\u001bde.m.20ssnk20slndgsk.m.20s#name\nd\nkuhylbjHLJJ_>.>J#dip\nhLNJH_>.>HJNB_>.>t\u001b\u0018\u001b\u000f\u001bulkl150s_>.>hnhFuFu.100shjl_>.>khn\u000f\u001bllu100s150sFkFks150slhuFhss_>.>10#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50856501,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  #wizintrinsic\nc\n .n.sm.ss20ssb.m.sm.sm..m..m.sn.m..m..sm.   y n  s"
+  }
+ ]
+}

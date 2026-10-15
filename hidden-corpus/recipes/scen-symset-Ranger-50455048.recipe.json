@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "v i\u001bFjFbFyFbFyFjFnFyFjFnFbFjFbFyFbFbFyFnFbFnFyFbFjFyFbFjFjFnFjFyFnFjFnFbFnFyFnFyFnFnFjFjFbFyFyFnFnFyFbFjFyFjFnFyFbFnFyFjFnFyFbFnFnFjFjFjFyFyFyFnFjFyFyFyFyFbFjFyFyFyFjFyFnFbFnFnFyFbFyFjFyFbFyFjFbFbFnFyFjFnFnFnFnFnFjFjFbFjFnFbFyFjFyFnFjFjFbFyFjFnvi\u001bv i\u001bO>>g\u001b\n:ok #sit\nW\u001612\n\u0006_ \u001b>.>_>.Fh_.;@.Fl>FnFn_>.Fn_>FjFuFlFjFn\u0006_>>.Fy_.Fj>FjFk_>>.Fk_.<.Fy>FkFn_>FkFlFnFul Fn\u000f#terrain\n\u001b<\u0006_>.Fy_.Fun >FnFky _>.Fy_,Fuk >FuFy_>.Fly _.m,Fy>FkFlFnFkl Fyf  y :\u0006_>,Fn_>FkFy_>,Fy_.>.Fb>FbFn_>,Fy_.Fy>FnFyFuFkFn#pray\n<\u0006_>.Fn_>FyFku _>,Fn_>FhFh_>.Fj_.:Fy>FuFuFuFlFy\u0006_>,Fn_>FuFu_>,Fn_>FyFuk _>,Fl_,:Fn>FlFkFy<\u000f\u001bFnFkk FuFnFky FyFuy FkFlFkFkFlFkFyFnFnFyFyFul FuFuFkFkFnFuk FuFuFnFlFkFnFlFnFuk FyFlFyFyFkFnFnFlFlFnFyFkFlF"
+ },
+ "segments": [
+  {
+   "seed": 50455048,
+   "datetime": "20061108230744",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\n",
+   "moves": "v i\u001bFjFbFyFbFyFjFnFyFjFnFbFjFbFyFbFbFyFnFbFnFyFbFjFyFbFjFjFnFjFyFnFjFnFbFnFyFnFyFnFnFjFjFbFyFyFnFnFyFbFjFyFjFnFyFbFnFyFjFnFyFbFnFnFjFjFjFyFyFyFnFjFyFyFyFyFbFjFyFyFyFjFyFnFbFnFnFyFbFyFjFyFbFyFjFbFbFnFyFjFnFnFnFnFnFjFjFbFjFnFbFyFjFyFnFjFjFbFyFjFnvi\u001bv i\u001bO>>g\u001b\n:ok #sit\nW\u001612\n\u0006_ \u001b>.>_>.Fh_.;@.Fl>FnFn_>.Fn_>FjFuFlFjFn\u0006_>>.Fy_.Fj>FjFk_>>.Fk_.<.Fy>FkFn_>FkFlFnFul Fn\u000f#terrain\n\u001b<\u0006_>.Fy_.Fun >FnFky _>.Fy_,Fuk >FuFy_>.Fly _.m,Fy>FkFlFnFkl Fyf  y :\u0006_>,Fn_>FkFy_>,Fy_.>.Fb>FbFn_>,Fy_.Fy>FnFyFuFkFn#pray\n<\u0006_>.Fn_>FyFku _>,Fn_>FhFh_>.Fj_.:Fy>FuFuFuFlFy\u0006_>,Fn_>FuFu_>,Fn_>FyFuk _>,Fl_,:Fn>FlFkFy<\u000f\u001bFnFkk FuFnFky FyFuy FkFlFkFkFlFkFyFnFnFyFyFul FuFuFkFkFnFuk FuFuFnFlFkFnFlFnFuk FyFlFyFyFkFnFnFlFlFnFyFkFlF"
+  }
+ ]
+}

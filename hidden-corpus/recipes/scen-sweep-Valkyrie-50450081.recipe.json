@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0007tame winter wolf cub\n\u0017newt corpse\ntbn 20s dess.l\u0007grid bug\n20ssb 20s ss20s  #name\nf\n :\\   \u0017mummy wrapping\nWgsssTg \u0007kobold shaman\nFn  FyFn\u0007ghost\nFhFnFjFjFh Fb\u0007skeleton\nFhFh  FuFu FuFu\u001628\n#levelchange\n20\n           \u0007tame saddled mumak\n\u0017lance\nwh#ride\nhy\u0007pony\n\u0017scroll of taming\nri \u0017saddle\najl  #ride\nyy\u0007pony\n\u0017scroll of taming\nrk  \u0017saddle\nall  #ride\nbys  s  \u0004k   ,\u0004n  \u001b #ride\nyy20s                       #ride\nyynkjkj\u000f\u001b#levelchange\n10\n  \u0017shield of reflection\nWg  n \u0016?\nh\u0006FlFlFl FlFlFu k yh lf,#turn\n#levelchange\n12\n \u0007werewolf\nFuFnFy\u0007master mind flayer\n20s  n s  .     n  .   n  20s  s  n  s   n  \u0007pit viper\ns  n  20s    n   20s  n  20s    s  n  20s     n   s   n  \u0007fire vortex\n#chat\nb    n  Fn Fk \u001620\n\\   \u00169\n\u001760 gold pieces\n\u0016?\nc\u0006_mmm,#chat\ny_m.#chat\ny_m,#chat\nk_{._,qy yy10s  #turn\najj\u0017blessed ring of polymorph control\nPnr#polyself\nhobbit\n s s..s#polyself\ngelatinous cube\n    #monster\nssss20s#polyself\nred dragon\n  #monster\nj ssss20s#polyself\nbalrog\n#monster\n... 20s .  \u0017potion of polymorph\nqo flesh golem\n\u0017blessed potion of full healing\n\u0007Pestilence\nnyqp Fl     Fl   n \u00173 wand of speed monster\nzq.  Fl  Fj  \u0017blessed potion of gain ability\nqr     n #dip\nn\u00173 crystal ball\nas \u0017potion of acid\n\u0007Demogorgon\nyqt \u001b  \u0017drum of earthquake\nau      yy\u001by   y y y\u001by  a"
+ },
+ "segments": [
+  {
+   "seed": 50450081,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0007tame winter wolf cub\n\u0017newt corpse\ntbn 20s dess.l\u0007grid bug\n20ssb 20s ss20s  #name\nf\n :\\   \u0017mummy wrapping\nWgsssTg \u0007kobold shaman\nFn  FyFn\u0007ghost\nFhFnFjFjFh Fb\u0007skeleton\nFhFh  FuFu FuFu\u001628\n#levelchange\n20\n           \u0007tame saddled mumak\n\u0017lance\nwh#ride\nhy\u0007pony\n\u0017scroll of taming\nri \u0017saddle\najl  #ride\nyy\u0007pony\n\u0017scroll of taming\nrk  \u0017saddle\nall  #ride\nbys  s  \u0004k   ,\u0004n  \u001b #ride\nyy20s                       #ride\nyynkjkj\u000f\u001b#levelchange\n10\n  \u0017shield of reflection\nWg  n \u0016?\nh\u0006FlFlFl FlFlFu k yh lf,#turn\n#levelchange\n12\n \u0007werewolf\nFuFnFy\u0007master mind flayer\n20s  n s  .     n  .   n  20s  s  n  s   n  \u0007pit viper\ns  n  20s    n   20s  n  20s    s  n  20s     n   s   n  \u0007fire vortex\n#chat\nb    n  Fn Fk \u001620\n\\   \u00169\n\u001760 gold pieces\n\u0016?\nc\u0006_mmm,#chat\ny_m.#chat\ny_m,#chat\nk_{._,qy yy10s  #turn\najj\u0017blessed ring of polymorph control\nPnr#polyself\nhobbit\n s s..s#polyself\ngelatinous cube\n    #monster\nssss20s#polyself\nred dragon\n  #monster\nj ssss20s#polyself\nbalrog\n#monster\n... 20s .  \u0017potion of polymorph\nqo flesh golem\n\u0017blessed potion of full healing\n\u0007Pestilence\nnyqp Fl     Fl   n \u00173 wand of speed monster\nzq.  Fl  Fj  \u0017blessed potion of gain ability\nqr     n #dip\nn\u00173 crystal ball\nas \u0017potion of acid\n\u0007Demogorgon\nyqt \u001b  \u0017drum of earthquake\nau      yy\u001by   y y y\u001by  a"
+  }
+ ]
+}

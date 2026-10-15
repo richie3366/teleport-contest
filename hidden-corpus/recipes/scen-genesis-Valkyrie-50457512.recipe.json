@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017javelin\nwe.s.\u0007werejackal\n#chat\nnFnFn\u0007air elemental\n;j. \u001b>..m..sm.     n"
+ },
+ "segments": [
+  {
+   "seed": 50457512,
+   "datetime": "20071024225022",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017javelin\nwe.s.\u0007werejackal\n#chat\nnFnFn\u0007air elemental\n;j. \u001b>..m..sm.     n"
+  }
+ ]
+}

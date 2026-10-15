@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of stealth\nPfls.s\u0017spellbook of detect unseen\nrgs20sZa\nFl 20s\u0017blessed potion of polymorph\n\u0007soldier\nqh gold golem\n#dip\naFk Fk\u0017oilskin sack\nair\na\n ais\n#tip\ni\u001b\u0017crossbow\n wk Fk  Fk  Fk FkFk  sn20s "
+ },
+ "segments": [
+  {
+   "seed": 50458011,
+   "datetime": "20091026135418",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of stealth\nPfls.s\u0017spellbook of detect unseen\nrgs20sZa\nFl 20s\u0017blessed potion of polymorph\n\u0007soldier\nqh gold golem\n#dip\naFk Fk\u0017oilskin sack\nair\na\n ais\n#tip\ni\u001b\u0017crossbow\n wk Fk  Fk  Fk FkFk  sn20s "
+  }
+ ]
+}

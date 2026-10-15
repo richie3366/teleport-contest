@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b:>FhFh_>,Fh _,Fl>FlFl_>,Fl_,Fl>\u0006_>,_.> \u0006_>.Fk_.Fn>Fjs_>._.> \u0006_>._.> #name\ni\n#loot\n\u0006_>._,> \u0006_>, Fl_.,Fl>_>.Fl_.>.>_>,Fn_,<.> < \u0006_>,> tbhH\u0006_>>,Fl_.Fj>_>>,_.> \u0006_>, Fu_.>_>._.> FnFn   Fj \u0006_>.  _,Fb>Fb._>. Fj_.,> "
+ },
+ "segments": [
+  {
+   "seed": 50451007,
+   "datetime": "20070602190435",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " \u0006_ \u001b:>FhFh_>,Fh _,Fl>FlFl_>,Fl_,Fl>\u0006_>,_.> \u0006_>.Fk_.Fn>Fjs_>._.> \u0006_>._.> #name\ni\n#loot\n\u0006_>._,> \u0006_>, Fl_.,Fl>_>.Fl_.>.>_>,Fn_,<.> < \u0006_>,> tbhH\u0006_>>,Fl_.Fj>_>>,_.> \u0006_>, Fu_.>_>._.> FnFn   Fj \u0006_>.  _,Fb>Fb._>. Fj_.,> "
+  }
+ ]
+}

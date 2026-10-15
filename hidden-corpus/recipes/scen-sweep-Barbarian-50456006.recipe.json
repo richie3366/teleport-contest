@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0017wand of digging\n\u0016?\nf    zh> szh> .\u0006_ \u001b,zh> #wizintrinsic\ngh\n \u0017towel\naiZ\u0017blessed scroll of charging\nrj \u0017scroll of stinking cloud\nrk   <. ;m, \u0017cockatrice egg\nel  sl20s  sh      n \u0017blessed spellbook of light\nrm. \u0017spellbook of dig\nrn. \u0017blessed spellbook of create monster\nro s+ZZ\u0007gnome lord\nZZZ\u0007jackal\nZFbZ#enhance\nyd\nc\n\u001b#levelchange\n8\n #wizintrinsic\nl\n 20s .m.sh.20ssm.s20s.m.sm.\u0017scroll of punishment\nrp  #sit\n ;u.:#rub\ne cj10ssy.20ssm.sm.sm.\u001623\n#levelchange\n20\n            #polyself\nfog cloud\ns    sm.\u0007kobold\nFh Fk Fk Fk \u0007sewer rat\nFl Fk  Fk  Fk  y k  \u0017wand of speed monster\nEq    n  :u\u0017wand of light\nEr  Vlad was here\n : \u0017diamond\nEs: n  E-\u0007soldier ant\n.m. sm.  20s   Fj     n Fb   \u00169\n\u00163\n #levelchange\n30\n         \u0017blessed ring of polymorph control\nPtr\u0017helm of telepathy\nWu20s..#polyself\nmaster mind flayer\n #monster\n20ss20s.20s #polyself\nfire giant\n20s 20s ss20s#polyself\npurple worm\n  #monster\nss\u0007shrieker\nFh  20s20s  . sl   ..\u001621\n#levelchange\n30\n\u0016?\n>E  #jump\nw#terrain\nd\n;>.\u000620ss\u001613\nj_>.s<;_.\u0006ss\u0016?\no 20srm<20ssm.\u001627\nsaz;>.20s        20s     \u001b   \u0016?\n>u :Pi _>.s;<.ss#wizintrinsic\nse\n .h20s          n20ss.. sb20s sm.  sm.     n su    sk .l    sl \u0017potion of hallucination\nqv \u001b  n  ;h;f by n      n               n     dq          #offer\n#conduct\n  #ride\nhy.h   n    .j           sm.  n         20s    n   20s           20s   n         \u00166\n#levelchange\n10\n      \u0007rust monster\nFkFk   "
+ },
+ "segments": [
+  {
+   "seed": 50456006,
+   "datetime": "20261014091723",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0017wand of digging\n\u0016?\nf    zh> szh> .\u0006_ \u001b,zh> #wizintrinsic\ngh\n \u0017towel\naiZ\u0017blessed scroll of charging\nrj \u0017scroll of stinking cloud\nrk   <. ;m, \u0017cockatrice egg\nel  sl20s  sh      n \u0017blessed spellbook of light\nrm. \u0017spellbook of dig\nrn. \u0017blessed spellbook of create monster\nro s+ZZ\u0007gnome lord\nZZZ\u0007jackal\nZFbZ#enhance\nyd\nc\n\u001b#levelchange\n8\n #wizintrinsic\nl\n 20s .m.sh.20ssm.s20s.m.sm.\u0017scroll of punishment\nrp  #sit\n ;u.:#rub\ne cj10ssy.20ssm.sm.sm.\u001623\n#levelchange\n20\n            #polyself\nfog cloud\ns    sm.\u0007kobold\nFh Fk Fk Fk \u0007sewer rat\nFl Fk  Fk  Fk  y k  \u0017wand of speed monster\nEq    n  :u\u0017wand of light\nEr  Vlad was here\n : \u0017diamond\nEs: n  E-\u0007soldier ant\n.m. sm.  20s   Fj     n Fb   \u00169\n\u00163\n #levelchange\n30\n         \u0017blessed ring of polymorph control\nPtr\u0017helm of telepathy\nWu20s..#polyself\nmaster mind flayer\n #monster\n20ss20s.20s #polyself\nfire giant\n20s 20s ss20s#polyself\npurple worm\n  #monster\nss\u0007shrieker\nFh  20s20s  . sl   ..\u001621\n#levelchange\n30\n\u0016?\n>E  #jump\nw#terrain\nd\n;>.\u000620ss\u001613\nj_>.s<;_.\u0006ss\u0016?\no 20srm<20ssm.\u001627\nsaz;>.20s        20s     \u001b   \u0016?\n>u :Pi _>.s;<.ss#wizintrinsic\nse\n .h20s          n20ss.. sb20s sm.  sm.     n su    sk .l    sl \u0017potion of hallucination\nqv \u001b  n  ;h;f by n      n               n     dq          #offer\n#conduct\n  #ride\nhy.h   n    .j           sm.  n         20s    n   20s           20s   n         \u00166\n#levelchange\n10\n      \u0007rust monster\nFkFk   "
+  }
+ ]
+}

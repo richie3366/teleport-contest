@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  n\u0018\u001bdgs: lly_ \u001b<.uyn#terrain\nc\n>._>,#terrain\nb\nulk::nul>kyhskhh#turn\njlh:<nlhuyhlbnbllPJ:lkh20sljh:<_<.Fu_.,_d._,hlu::oluukbju:ujknll\\ #twoweapon\nnyj__.uunbynzukh#sit\n\u001b#jump\n_>."
+ },
+ "segments": [
+  {
+   "seed": 50451019,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\n",
+   "moves": "  n\u0018\u001bdgs: lly_ \u001b<.uyn#terrain\nc\n>._>,#terrain\nb\nulk::nul>kyhskhh#turn\njlh:<nlhuyhlbnbllPJ:lkh20sljh:<_<.Fu_.,_d._,hlu::oluukbju:ujknll\\ #twoweapon\nnyj__.uunbynzukh#sit\n\u001b#jump\n_>."
+  }
+ ]
+}

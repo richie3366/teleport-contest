@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   hyju\u0017unaligned altar\nda\u0017elf corpse\n#offer\nn   #pray\ny y : nl\u0017iron bars\njy \u0017lawful altar\ndg \u0017elf corpse\n#offer\no   #pray\ny y _>, \u001b;20s#turn\nZa\nO>g\u001b\nFnFnFy FjFk FuFuFbFnFhFuFhFnFnFuFuFbFbFhFuFbFjFuFuFbFuFbFjFuFhFjFbFhFnFuFuFhFhFjFjFuFnFbFh FhFb FjFn FhFjFjFn Fn FhFn FnFuFh FhFuFnFuFuFuFhFhFuFuFbFnFjFuFuFhFhFuFuFbFjFnFhFbFhFhFhFnFhFbFuFjFnFhFb FhFnFnFh  FnFb FnFbFyFuFjFjFbFkFhFbFhFhFnFjFkFhFnFuFhFbFhO>>>>h\u001b\neri >#turn\nmO>>n\u001b\nFlFbFjFbFbFnFbFnFbFlFhFjFnFhFkFyFhFyFnFjFjFjFkFkFhFkFlFbFj FlFkFn Fb Fy FkFn Fk  FkFy Fh FhFh Fn Fh Fy  Fb Fl Fj Fn Fh Fn Fl Fb FhFkFh FkFb FhFn Fj Fj Fh FlFb Fb Fb Fl Fk FlFb Fn FhFlFlFy  Fk   Fb Fb Fk FlFn Fy Fj  Fn FkFb FkFy Fh Fl FkFy Fj Fy Fb  FkFkFn FlFlFn FkFlFb Fj Fy Fb Fn Fb FlFn Fj Fy Fj Fl Fb Fn FhFh v  i\u001b\u0006_>>.Fj_,;,Fb  >Fy  Fy _>>.Fj _.>.Fn >Fb Fb _>>,Fj _,m. Fj >Fj Fj Fj  Fj Fj \u0006_>>.Fb   _,;,Fj >Fj Fj  _>>.Fu _.@.Fh >FuFl _>>.Fb _,:Fk"
+ },
+ "segments": [
+  {
+   "seed": 50455063,
+   "datetime": "20161117110458",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\nMENUCOLOR=\"a scroll\"=green\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n20\n                   hyju\u0017unaligned altar\nda\u0017elf corpse\n#offer\nn   #pray\ny y : nl\u0017iron bars\njy \u0017lawful altar\ndg \u0017elf corpse\n#offer\no   #pray\ny y _>, \u001b;20s#turn\nZa\nO>g\u001b\nFnFnFy FjFk FuFuFbFnFhFuFhFnFnFuFuFbFbFhFuFbFjFuFuFbFuFbFjFuFhFjFbFhFnFuFuFhFhFjFjFuFnFbFh FhFb FjFn FhFjFjFn Fn FhFn FnFuFh FhFuFnFuFuFuFhFhFuFuFbFnFjFuFuFhFhFuFuFbFjFnFhFbFhFhFhFnFhFbFuFjFnFhFb FhFnFnFh  FnFb FnFbFyFuFjFjFbFkFhFbFhFhFnFjFkFhFnFuFhFbFhO>>>>h\u001b\neri >#turn\nmO>>n\u001b\nFlFbFjFbFbFnFbFnFbFlFhFjFnFhFkFyFhFyFnFjFjFjFkFkFhFkFlFbFj FlFkFn Fb Fy FkFn Fk  FkFy Fh FhFh Fn Fh Fy  Fb Fl Fj Fn Fh Fn Fl Fb FhFkFh FkFb FhFn Fj Fj Fh FlFb Fb Fb Fl Fk FlFb Fn FhFlFlFy  Fk   Fb Fb Fk FlFn Fy Fj  Fn FkFb FkFy Fh Fl FkFy Fj Fy Fb  FkFkFn FlFlFn FkFlFb Fj Fy Fb Fn Fb FlFn Fj Fy Fj Fl Fb Fn FhFh v  i\u001b\u0006_>>.Fj_,;,Fb  >Fy  Fy _>>.Fj _.>.Fn >Fb Fb _>>,Fj _,m. Fj >Fj Fj Fj  Fj Fj \u0006_>>.Fb   _,;,Fj >Fj Fj  _>>.Fu _.@.Fh >FuFl _>>.Fb _,:Fk"
+  }
+ ]
+}

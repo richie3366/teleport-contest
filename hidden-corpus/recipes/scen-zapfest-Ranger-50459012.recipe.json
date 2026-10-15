@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed amulet of life saving\nPg  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nWi#levelchange\n20\n                   \u0007baby red dragon\n20ssm.20ssm.#polyself\nsilver dragon\n     #monster\nu  .m..#monster\nu  #monster\nu #monster\nuFl .\u0017blessed spellbook of cone of cold\nrj s\u0017blessed spellbook of magic missile\nrksm.\u0007succubus\nZZZZZZZ\u0007vampire\n\u0007lich\n\u0007lich\n\u0017wand of sleep\nzsm..l    sm.   .m.20s  20s sm.zzz\u0018\u001b\u0007silver dragon\nsm.20s       Fu Fu   \u0017spellbook of cone of cold\nrm    sm.   \u0007lich\n\u0007mind flayer\nZZZZZZshsm.      ZZZ#turn\n\u0017blessed spellbook of magic missile\nrn          sm.     \u0017blessed spellbook of light\nro       n     sm.     \u0007succubus\n\u0007gnomish wizard\nZ20s   n      sm.     n     ZZZZZsm.     n      .n      n "
+ },
+ "segments": [
+  {
+   "seed": 50459012,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed amulet of life saving\nPg  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nWi#levelchange\n20\n                   \u0007baby red dragon\n20ssm.20ssm.#polyself\nsilver dragon\n     #monster\nu  .m..#monster\nu  #monster\nu #monster\nuFl .\u0017blessed spellbook of cone of cold\nrj s\u0017blessed spellbook of magic missile\nrksm.\u0007succubus\nZZZZZZZ\u0007vampire\n\u0007lich\n\u0007lich\n\u0017wand of sleep\nzsm..l    sm.   .m.20s  20s sm.zzz\u0018\u001b\u0007silver dragon\nsm.20s       Fu Fu   \u0017spellbook of cone of cold\nrm    sm.   \u0007lich\n\u0007mind flayer\nZZZZZZshsm.      ZZZ#turn\n\u0017blessed spellbook of magic missile\nrn          sm.     \u0017blessed spellbook of light\nro       n     sm.     \u0007succubus\n\u0007gnomish wizard\nZ20s   n      sm.     n     ZZZZZsm.     n      .n      n "
+  }
+ ]
+}

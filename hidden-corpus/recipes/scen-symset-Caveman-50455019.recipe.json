@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "Pf  hcjr\u001bFhFnFjFlFkFuFyFjFk FkFnFyFhFn FkFbFyFyFn FlFyFkFkFbFyFkFnFyFhFhFyFnFuFhFbFbFjFkFhFjFjFbFyFkFnFhFkFbFjFkFkFbFuFyFlFlFnFbFjFlFkFnFhFjFkFyFyFhFjFuFbFuFkFnFjFjFnFbFnFuFkFkFkFuFkFbFnFyFjFhFhFyFuFuFlFuFyFuFyFuFjFkFjFbFuFkFlFbFjFbFbFlFnFlFnFbFhFlFbFl\u00167\nFlFb Fl #pray\ny y           Fy FhFy   n FyFn   n Fk FlFl  n Fh Fu Fb  n Fn Fb   nFl Fl   n Fb Fu Fy   n Fu Fb Fk  n Fj Fb  n Fb   nFj Fy Fj #pray\ny y           Fb Fn Fj  n Fl Fk  n Fn   n Fl   n Fy Fn  n   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50455019,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=runmode:teleport\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": "Pf  hcjr\u001bFhFnFjFlFkFuFyFjFk FkFnFyFhFn FkFbFyFyFn FlFyFkFkFbFyFkFnFyFhFhFyFnFuFhFbFbFjFkFhFjFjFbFyFkFnFhFkFbFjFkFkFbFuFyFlFlFnFbFjFlFkFnFhFjFkFyFyFhFjFuFbFuFkFnFjFjFnFbFnFuFkFkFkFuFkFbFnFyFjFhFhFyFuFuFlFuFyFuFyFuFjFkFjFbFuFkFlFbFjFbFbFlFnFlFnFbFhFlFbFl\u00167\nFlFb Fl #pray\ny y           Fy FhFy   n FyFn   n Fk FlFl  n Fh Fu Fb  n Fn Fb   nFl Fl   n Fb Fu Fy   n Fu Fb Fk  n Fj Fb  n Fb   nFj Fy Fj #pray\ny y           Fb Fn Fj  n Fl Fk  n Fn   n Fl   n Fy Fn  n   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

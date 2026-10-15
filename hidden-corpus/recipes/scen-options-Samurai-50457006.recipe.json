@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "O>hdf\n#enhance\nyf\ne\n\u001bmO>>ovr\n \u0014 \u001b; #wipe\nO>cf\n#chat\nlw-Oeik\ne\nf jO>jge\np\ndcssOf\nW#tip\n\u001bmO>>jlt\n  btdbmO>>>vg\n #untrap\nlmOa\namO>>>>>>hp\nc\np\ness"
+ },
+ "segments": [
+  {
+   "seed": 50457006,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "O>hdf\n#enhance\nyf\ne\n\u001bmO>>ovr\n \u0014 \u001b; #wipe\nO>cf\n#chat\nlw-Oeik\ne\nf jO>jge\np\ndcssOf\nW#tip\n\u001bmO>>jlt\n  btdbmO>>>vg\n #untrap\nlmOa\namO>>>>>>hp\nc\np\ness"
+  }
+ ]
+}

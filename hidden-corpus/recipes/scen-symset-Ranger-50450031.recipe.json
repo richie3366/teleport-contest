@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "kb blk \u0017fountain\nqy#dip\nfy:b\u0017ice\n:y\u0017iron bars\n#pray\ny y ,:\u001615\nv\u001bi\u001b,#ride\ny W__, \u001bm..\u00169\n\u0006_>.Fb_,Fb>FbFb_>,Fb_.Fb>FbFb_>.Fb_.Fb>FbFbFbFbFbh\u001b\\ <\u0006_>.Fb_.Fb>FbFb_>.Fb_,Fb>FbFb_>,Fl_.Fb>FbFnFbFbFn\u0006_>,Fb_.Fkh >FkFb_>.Fll _.   nFb>FkFk_>.  Fl_. Fl>FbFbFhFhFb\u0006_>.  n Fh_. Fh>FlFn_>FhFl_>.   nFl_. Fb>FhFjFbFll Fn<\u0006_>,  Fh_, Fh>FjFh_>.Fl_,   nFh>FhFj_>.Fj_.Fj>FbFlk FlFkFb#turn\n#force\n   n\u00164\nmOa\u001b\nFjFhFbFun FjFkFlFnFkk FkFnFjFhFyFjFjFlFjFbFjFuFhFhFbFkb FjFnFh\u001bFkFbFuk FhFkFbFlb FlFnFbFkFuFyFjFkFhFlFnFbFkFhFhFnFyFhFyFnFuFbFbFbFuh FnFkl FyFlu FlFuFhFuFyFnFyFuy FnFkl FyFbFlFhFyFbFnFbFkFhFbFnFhFkFbFnFnFll FnFjFuFuFhFbFh\u001bFyFkh FbFjFuFjFyFbFkFhFkFuFnFnFlFjFnFbFuFuFj\u00163\nFbFbFjFlFuFkFjFlFhFjFhFjFlFbFbFnFbFhFlFbFjFyFbFhFyFbFkFbFyFhFlFbFku FkFbFh\u001bFbFun FjFnFnFnFuu FhFuFbFly FnFkn FhFjFbFkk FlFbFll FkFnFyFkFlFuFnFuj FyFlb FnFbFkFkFy"
+ },
+ "segments": [
+  {
+   "seed": 50450031,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=number_pad:3\nBIND=v:inventory\n",
+   "moves": "kb blk \u0017fountain\nqy#dip\nfy:b\u0017ice\n:y\u0017iron bars\n#pray\ny y ,:\u001615\nv\u001bi\u001b,#ride\ny W__, \u001bm..\u00169\n\u0006_>.Fb_,Fb>FbFb_>,Fb_.Fb>FbFb_>.Fb_.Fb>FbFbFbFbFbh\u001b\\ <\u0006_>.Fb_.Fb>FbFb_>.Fb_,Fb>FbFb_>,Fl_.Fb>FbFnFbFbFn\u0006_>,Fb_.Fkh >FkFb_>.Fll _.   nFb>FkFk_>.  Fl_. Fl>FbFbFhFhFb\u0006_>.  n Fh_. Fh>FlFn_>FhFl_>.   nFl_. Fb>FhFjFbFll Fn<\u0006_>,  Fh_, Fh>FjFh_>.Fl_,   nFh>FhFj_>.Fj_.Fj>FbFlk FlFkFb#turn\n#force\n   n\u00164\nmOa\u001b\nFjFhFbFun FjFkFlFnFkk FkFnFjFhFyFjFjFlFjFbFjFuFhFhFbFkb FjFnFh\u001bFkFbFuk FhFkFbFlb FlFnFbFkFuFyFjFkFhFlFnFbFkFhFhFnFyFhFyFnFuFbFbFbFuh FnFkl FyFlu FlFuFhFuFyFnFyFuy FnFkl FyFbFlFhFyFbFnFbFkFhFbFnFhFkFbFnFnFll FnFjFuFuFhFbFh\u001bFyFkh FbFjFuFjFyFbFkFhFkFuFnFnFlFjFnFbFuFuFj\u00163\nFbFbFjFlFuFkFjFlFhFjFhFjFlFbFbFnFbFhFlFbFjFyFbFhFyFbFkFbFyFhFlFbFku FkFbFh\u001bFbFun FjFnFnFnFuu FhFuFbFly FnFkn FhFjFbFkk FlFbFll FkFnFyFkFlFuFnFuj FyFlb FnFbFkFkFy"
+  }
+ ]
+}

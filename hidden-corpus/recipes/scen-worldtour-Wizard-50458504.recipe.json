@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWo\u0017blessed +3 helm of telepathy\nWp\u0017blessed amulet of reflection\nPq\u001624\n_ \u001b;>\u0016?\np jyhlnb:\u001643\n#levelchange\n30\n\u0017the Orb of Detection\n \u0007rothe\nFkFj . \u0007ghoul\nFlFl\u0016?\n>>K       the Heart of Ahriman\n hn   :\u001624\nl n:\u0016?\n\u001bh   h  \u0016?\n\u001bl  y  \u001645\n#levelchange\n10\n       h   n  j  bj\u0017altar\ndo\u0017jackal corpse\n#offer\ns        #pray\ny y               j\u0017pool\n#dip\niy       k  \u0017iron bars\n#terrain\n\u001b:#jump\n>\u001626\nh    n   nl     n   :.m.     \u00166\n\u0016?\n\u001bbn\u001622\n\u0014,     n       20s      n  \u00168\n\u0016?\n\u001bh        nj\u0016?\n\u001bk   j\u001626\n_{.\u0016?\n\u001bk         n     b       n\u00168\n\u001617\njy          l   n   \u0017pool\n:u       n           y\u0017ice\nb      nh        \u0017tree\n:#terrain\n\u001b#force\n     n      qf    n              \u000f\u001b\u00164\n\u0016?\n\u001byl   n       n \u0016?\n\u001bl     yy\u001bny y n  k"
+ },
+ "segments": [
+  {
+   "seed": 50458504,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWo\u0017blessed +3 helm of telepathy\nWp\u0017blessed amulet of reflection\nPq\u001624\n_ \u001b;>\u0016?\np jyhlnb:\u001643\n#levelchange\n30\n\u0017the Orb of Detection\n \u0007rothe\nFkFj . \u0007ghoul\nFlFl\u0016?\n>>K       the Heart of Ahriman\n hn   :\u001624\nl n:\u0016?\n\u001bh   h  \u0016?\n\u001bl  y  \u001645\n#levelchange\n10\n       h   n  j  bj\u0017altar\ndo\u0017jackal corpse\n#offer\ns        #pray\ny y               j\u0017pool\n#dip\niy       k  \u0017iron bars\n#terrain\n\u001b:#jump\n>\u001626\nh    n   nl     n   :.m.     \u00166\n\u0016?\n\u001bbn\u001622\n\u0014,     n       20s      n  \u00168\n\u0016?\n\u001bh        nj\u0016?\n\u001bk   j\u001626\n_{.\u0016?\n\u001bk         n     b       n\u00168\n\u001617\njy          l   n   \u0017pool\n:u       n           y\u0017ice\nb      nh        \u0017tree\n:#terrain\n\u001b#force\n     n      qf    n              \u000f\u001b\u00164\n\u0016?\n\u001byl   n       n \u0016?\n\u001bl     yy\u001bny y n  k"
+  }
+ ]
+}

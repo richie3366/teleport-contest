@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "mO>>>>>>jk\na\na\na\n\u001b\u001b#conduct\n mO>>>>>rh\nf\non\nqdOfd\n\u000f\u001bO>kle\na\nn\n#loot\njmO>>rk\n#monster\nri ny.sO>m\nk\n#terrain\nc\n\u001b;Ojm\n\u0018\u001bmO>>>gao\n 10sOi\nf\n#jump\nmOa\nj#enhance\n\u001bO>fhe\nP;k,s."
+ },
+ "segments": [
+  {
+   "seed": 50457010,
+   "datetime": "20180205082645",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=runmode:crawl\n",
+   "moves": "mO>>>>>>jk\na\na\na\n\u001b\u001b#conduct\n mO>>>>>rh\nf\non\nqdOfd\n\u000f\u001bO>kle\na\nn\n#loot\njmO>>rk\n#monster\nri ny.sO>m\nk\n#terrain\nc\n\u001b;Ojm\n\u0018\u001bmO>>>gao\n 10sOi\nf\n#jump\nmOa\nj#enhance\n\u001bO>fhe\nP;k,s."
+  }
+ ]
+}

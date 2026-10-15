@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " mO>k\u001b\nO>f\u001b\n\u0006_ \u001b:>FlFk _>.Fl_.m.Fl>_>._.>wc#pray\ny y \u0006_>._.>_>._,>_>._.>\u0006_>,_,>_>._,>_>,_.>\u0006_>._,>_>,Fh _.Fh>Fh20s_>,_.>#untrap\nk#ride\n.y\u0006_>._.>_>._.>_>._,>#force\n:\u0006_>>._,>_>>._,>_>>,_.>O>>o9\n \u001b\nO>>>m\u001b\u001b\n\u0006_>._.>_>._,>_>._.><\u0006_>._.>_>,_.>_>._.>#offer\n#rub\n<\u0006_>,_.>_>._.>_>,_,>\u0006_>._.Fh>_>,_,>_>._.>,a\u00167\n#wipe\ntbnE- Elbereth\nohO>>n\u001b\u001b\ni\u001b\\    \u0018\u001b>hu h\u0017throne\n#sit\n #sit\n#sit\n#sit\n:l j\u0017unaligned altar\ndcda\u0017human corpse\n #pray\ny  u\u0017magic fountain\nqy #dip\ndy: #terrain\nd\n#turn\n;_<.s#wipe\n#jump\n: \u0018\u001b#invoke\n\u001bOp\u001b\nw-#conduct\n \u0004uzv i\u001bO>>>g\u001b\n\u001612\n\u00165\njhj150s50s150s\u0014.ljj50sFhFh20s50sjbk150sFhFhFh#pray\ny y        FhFhs100s\u000f\u001b100s\u000f\u001bjlj\u000f\u001b150sFh.s100s100sFhFhs100s100s FhFhFhh nl100s150s100seeeeeeee\u00164\nO>l\u001b\n\u0006_>._.>_>._.>_>._,>\u0006_>,_,>_>._,>_>._.>\u0006"
+ },
+ "segments": [
+  {
+   "seed": 50455061,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " mO>k\u001b\nO>f\u001b\n\u0006_ \u001b:>FlFk _>.Fl_.m.Fl>_>._.>wc#pray\ny y \u0006_>._.>_>._,>_>._.>\u0006_>,_,>_>._,>_>,_.>\u0006_>._,>_>,Fh _.Fh>Fh20s_>,_.>#untrap\nk#ride\n.y\u0006_>._.>_>._.>_>._,>#force\n:\u0006_>>._,>_>>._,>_>>,_.>O>>o9\n \u001b\nO>>>m\u001b\u001b\n\u0006_>._.>_>._,>_>._.><\u0006_>._.>_>,_.>_>._.>#offer\n#rub\n<\u0006_>,_.>_>._.>_>,_,>\u0006_>._.Fh>_>,_,>_>._.>,a\u00167\n#wipe\ntbnE- Elbereth\nohO>>n\u001b\u001b\ni\u001b\\    \u0018\u001b>hu h\u0017throne\n#sit\n #sit\n#sit\n#sit\n:l j\u0017unaligned altar\ndcda\u0017human corpse\n #pray\ny  u\u0017magic fountain\nqy #dip\ndy: #terrain\nd\n#turn\n;_<.s#wipe\n#jump\n: \u0018\u001b#invoke\n\u001bOp\u001b\nw-#conduct\n \u0004uzv i\u001bO>>>g\u001b\n\u001612\n\u00165\njhj150s50s150s\u0014.ljj50sFhFh20s50sjbk150sFhFhFh#pray\ny y        FhFhs100s\u000f\u001b100s\u000f\u001bjlj\u000f\u001b150sFh.s100s100sFhFhs100s100s FhFhFhh nl100s150s100seeeeeeee\u00164\nO>l\u001b\n\u0006_>._.>_>._.>_>._,>\u0006_>,_,>_>._,>_>._.>\u0006"
+  }
+ ]
+}

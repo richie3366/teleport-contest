@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\ne\n slsm.s20ssnss.m.sy.m.sm.s20s  yy\u001by  ny\u001bn  s"
+ },
+ "segments": [
+  {
+   "seed": 50452023,
+   "datetime": "20221227105237",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\ne\n slsm.s20ssnss.m.sy.m.sm.s20s  yy\u001by  ny\u001bn  s"
+  }
+ ]
+}

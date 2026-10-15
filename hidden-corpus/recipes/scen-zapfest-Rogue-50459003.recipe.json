@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWh#levelchange\n14\n             \u0017spellbook of cause fear\nri  20s \u0017spellbook of cone of cold\nrj    20s  \u0007vampire\n\u0007kobold shaman\nZb\nZb\n.l   .m. Zb\nZa\n sl20s Za\nZa\n.m. 20s Za\n Za\n\u0018\u001b\u0007red dragon\nsh 20s #polyself\nsilver dragon\n    sm.     .m. #monster\n#monster\n#monster\n#monster\n\u0017wand of lightning\naFy      Fk    \u0007orc shaman\n\u0007incubus\n\u0007master lich\n\u0017wand of sleep\nzlh   \u00165\n\u0017blessed spellbook of cause fear\nrm y s\u0007incubus\nZa\nZa\nZa\nsm.      sZa\nZb\nZa\n#turn\n\u0017wand of death\n\u0017wand of cancellation\n\u0007grid bug\n\u0007lichen\nzokznkznkznj nzojszob\u0017wand of lightning\n\u0017wand of striking\n\u0017wand of sleep\n\u0007acid blob\nzrk zpk    zqk \u001bszphzpyzq.zqnzpuzqhzp\u0017wand of digging\n\u0017wand of magic missile\n\u0007soldier\n\u0007troll\nztuzs> zs>   n ztk zs> zs>  n s\u00167\n\u00162\n\u0007red "
+ },
+ "segments": [
+  {
+   "seed": 50459003,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWh#levelchange\n14\n             \u0017spellbook of cause fear\nri  20s \u0017spellbook of cone of cold\nrj    20s  \u0007vampire\n\u0007kobold shaman\nZb\nZb\n.l   .m. Zb\nZa\n sl20s Za\nZa\n.m. 20s Za\n Za\n\u0018\u001b\u0007red dragon\nsh 20s #polyself\nsilver dragon\n    sm.     .m. #monster\n#monster\n#monster\n#monster\n\u0017wand of lightning\naFy      Fk    \u0007orc shaman\n\u0007incubus\n\u0007master lich\n\u0017wand of sleep\nzlh   \u00165\n\u0017blessed spellbook of cause fear\nrm y s\u0007incubus\nZa\nZa\nZa\nsm.      sZa\nZb\nZa\n#turn\n\u0017wand of death\n\u0017wand of cancellation\n\u0007grid bug\n\u0007lichen\nzokznkznkznj nzojszob\u0017wand of lightning\n\u0017wand of striking\n\u0017wand of sleep\n\u0007acid blob\nzrk zpk    zqk \u001bszphzpyzq.zqnzpuzqhzp\u0017wand of digging\n\u0017wand of magic missile\n\u0007soldier\n\u0007troll\nztuzs> zs>   n ztk zs> zs>  n s\u00167\n\u00162\n\u0007red "
+  }
+ ]
+}

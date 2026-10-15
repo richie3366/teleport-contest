@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0006_>f#jump\n\u0006_ \u001b@.>_>,_. >_>._,>\u0006_>,_,>_>,_.>_>,_,>\u000f\u001bbyh150s 150s\u000f\u001bjubnbjok50shbhbkhjuj100shyk50s100s50s150sjyjkjb150s150s150s50s20sukkhll50s_>,_.>z50sbbj150see50s   ef50see_<. see#levelchange\n30\n                              jnhy\u0017altar\ndc\u0017jackal corpse\n#offer\nk h\u0017neutral altar\ndadg\u0017newt corpse\n#offer\nl  #pray\ny y jy\u0017ice\n:kh\u0017grave\n: \u0017pick-axe\nam >  ..#conduct\n E\u001b\u0018\u001b\u0006_>. _, >_>._.>_>,_,>chf \u001b\u0006_>._.>_>,_.>_>._,>\u0006_>>._,>_>>,_.>_>>,_.>\u0006_>,_.>_>._.>_>._,>#force\n#force\n\u0006_>._,>_>,_.>_>._.>\u0006_>._,>_>,_.>_>._.><\u0006_>>._,>_>>._.>_>>,_,>#pray\ny y #twoweapon\n#levelchange\n14\n     hjuy\u0017iron bars\ny\u0017mo"
+ },
+ "segments": [
+  {
+   "seed": 50455009,
+   "datetime": "20021017052018",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": "\u0006_>f#jump\n\u0006_ \u001b@.>_>,_. >_>._,>\u0006_>,_,>_>,_.>_>,_,>\u000f\u001bbyh150s 150s\u000f\u001bjubnbjok50shbhbkhjuj100shyk50s100s50s150sjyjkjb150s150s150s50s20sukkhll50s_>,_.>z50sbbj150see50s   ef50see_<. see#levelchange\n30\n                              jnhy\u0017altar\ndc\u0017jackal corpse\n#offer\nk h\u0017neutral altar\ndadg\u0017newt corpse\n#offer\nl  #pray\ny y jy\u0017ice\n:kh\u0017grave\n: \u0017pick-axe\nam >  ..#conduct\n E\u001b\u0018\u001b\u0006_>. _, >_>._.>_>,_,>chf \u001b\u0006_>._.>_>,_.>_>._,>\u0006_>>._,>_>>,_.>_>>,_.>\u0006_>,_.>_>._.>_>._,>#force\n#force\n\u0006_>._,>_>,_.>_>._.>\u0006_>._,>_>,_.>_>._.><\u0006_>>._,>_>>._.>_>>,_,>#pray\ny y #twoweapon\n#levelchange\n14\n     hjuy\u0017iron bars\ny\u0017mo"
+  }
+ ]
+}

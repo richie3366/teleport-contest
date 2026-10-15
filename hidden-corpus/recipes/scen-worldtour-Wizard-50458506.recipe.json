@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0016?\n>Gkk:\u00165\n_ \u001b.<\u0016?\n>J     20 arrows\n\u0006_>.\u001621\nny        b  u     n       :.m.          n           sy          n               .n\u00167\n\u0016?\n\u001bu               n              b\u0016?\n\u001bl            n           h              \u001635\n__.      n                  n     Fy                 n      _.   n                n    Fh   n                 >\u00163\n\u0016?\n\u001bnb\u00165\n_>.   n               Fu     n               n   _.   n                     Fy   n                <\u0016?\n\u001bk     yy\u001by   y y\u001b  l"
+ },
+ "segments": [
+  {
+   "seed": 50458506,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0016?\n>Gkk:\u00165\n_ \u001b.<\u0016?\n>J     20 arrows\n\u0006_>.\u001621\nny        b  u     n       :.m.          n           sy          n               .n\u00167\n\u0016?\n\u001bu               n              b\u0016?\n\u001bl            n           h              \u001635\n__.      n                  n     Fy                 n      _.   n                n    Fh   n                 >\u00163\n\u0016?\n\u001bnb\u00165\n_>.   n               Fu     n               n   _.   n                     Fy   n                <\u0016?\n\u001bk     yy\u001by   y y\u001b  l"
+  }
+ ]
+}

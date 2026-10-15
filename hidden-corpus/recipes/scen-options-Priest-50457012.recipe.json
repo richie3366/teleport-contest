@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "Oc\n#force\nmO>>>>>>ac\noff\ng\n 20smOa\n#untrap\nhOe\nwaOmap\na\nn\nohO>l\n#enhance\n\u001b\\ ssmO>>>>>>dl\nm\nda#tip\n\u001bOgoj\ne\n#enhance\n\u001bmO>>>dh\n\u0014mO>>>>>l\nc\n#twoweapon\nag mO>>>>>r\noff\n#jump\nKO>db\nb\nd\nyO>gmc\nE\u001bWs20s"
+ },
+ "segments": [
+  {
+   "seed": 50457012,
+   "datetime": "20260424084159",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=fruit:mango\n",
+   "moves": "Oc\n#force\nmO>>>>>>ac\noff\ng\n 20smOa\n#untrap\nhOe\nwaOmap\na\nn\nohO>l\n#enhance\n\u001b\\ ssmO>>>>>>dl\nm\nda#tip\n\u001bOgoj\ne\n#enhance\n\u001bmO>>>dh\n\u0014mO>>>>>l\nc\n#twoweapon\nag mO>>>>>r\noff\n#jump\nKO>db\nb\nd\nyO>gmc\nE\u001bWs20s"
+  }
+ ]
+}

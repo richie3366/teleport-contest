@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "N  NUB_ \u001b:>ULLY_>,>Fh .20sYUBK_>,>\u000f\u001bi\u001bljn150skyjnyk100s\u0018\u001b\\   jlbhub100s FyFyFyFy20sFyFyFyFyFyFyFy_>.>_>,>\\   \u000f\u001b150sFyFys50sFyFkFy FyFkFy\u000f\u001bq100s50s unk_>.>100s100s jhl100sFhFhFh50shlk\\   100syjkFbFbFbFbFbFbFbFbnblhhllhj150s100sFy.20s#quit\nyy\u001by  y y y\u001b H  YUB_ \u001b,>FlFl sHNNK_>,>\\ #force\nLUNJ_>,>E- Elbereth Elbereth\n#jump\n\u000f\u001bhyybbllh\u0018\u001b#terrain\nb\n_>100s \\ yuj100s150si\u001b150sFhFhFhFhFhFhFhFhFh150s50sFhFhFh100s100sFhFhFhFhFhs100s\\ 100s150sej  ek100s100sFh.sej100sFhFh20sFhss150s100sej\u0018\u001b100sej_>,>lbukjhlnlhlkBKHL_>.>J#quit\nyy\u001by  y y y\u001b  #name\n\u001b#name\n\u001btbl20s 10sFhFhFhFhFhFhFhFhnbyyjhuj10sknnljhhk#name\n\u001btblFlFlFlFlFlFlFlFlynylKKLY_ \u001b<.>#offer\ni\u001bNKUY_>,>YYHK_>,>UKBy  y\u001bny y y\u001b  B #wizintrinsic\ne\n .m.sm.s20ssm.20s 20s  yy\u001by  y y nn  .",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50456500,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\n",
+   "moves": "N  NUB_ \u001b:>ULLY_>,>Fh .20sYUBK_>,>\u000f\u001bi\u001bljn150skyjnyk100s\u0018\u001b\\   jlbhub100s FyFyFyFy20sFyFyFyFyFyFyFy_>.>_>,>\\   \u000f\u001b150sFyFys50sFyFkFy FyFkFy\u000f\u001bq100s50s unk_>.>100s100s jhl100sFhFhFh50shlk\\   100syjkFbFbFbFbFbFbFbFbnblhhllhj150s100sFy.20s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50556500,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\n",
+   "moves": "H  YUB_ \u001b,>FlFl sHNNK_>,>\\ #force\nLUNJ_>,>E- Elbereth Elbereth\n#jump\n\u000f\u001bhyybbllh\u0018\u001b#terrain\nb\n_>100s \\ yuj100s150si\u001b150sFhFhFhFhFhFhFhFhFh150s50sFhFhFh100s100sFhFhFhFhFhs100s\\ 100s150sej  ek100s100sFh.sej100sFhFh20sFhss150s100sej\u0018\u001b100sej_>,>lbukjhlnlhlkBKHL_>.>J#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50656500,
+   "datetime": "20190420122748",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\n",
+   "moves": " #name\n\u001b#name\n\u001btbl20s 10sFhFhFhFhFhFhFhFhnbyyjhuj10sknnljhhk#name\n\u001btblFlFlFlFlFlFlFlFlynylKKLY_ \u001b<.>#offer\ni\u001bNKUY_>,>YYHK_>,>UKBy  y\u001bny y y\u001b  B"
+  },
+  {
+   "seed": 50756500,
+   "datetime": "20000220185630",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\ne\n .m.sm.s20ssm.20s 20s  yy\u001by  y y nn  ."
+  }
+ ]
+}

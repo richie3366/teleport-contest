@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0007tame large dog\n\u0007horse\n\u0017tripe ration\ntbl\u0017lichen corpse\nt\u001b#name\nd\n\u0017leash\nagj k  n  nub  agu \u0007kobold\n\u0017scroll of taming\nrh \u0007newt\n\u0017scroll of taming\nri mO>>r\u001b\nmO>>>c\u001b\n#levelchange\n30\n                             uyh\u0017lawful altar\nde\u0017jackal corpse\n#offer\nj  nh\u0017unaligned altar\ndgdg\u0017human corpse\n#offer\nk     #pray\ny   : k\u0017sink\nqy  \u0017ring of protection\ndlnl   \u0017altar\ndg\u0017floating eye corpse\n#offer\nm   #pray\ny           <za\u0006_ \u001b,>Fu Fu   _>, _. >#twoweapon\na\u0006@._>,  Fu   _. >  n    Fn  Fj   sm. \u0006<._>, _.   Fu   >  \u0006m._>._. Fh >FuFj_>, Fy _,Fb>Fy   sm._>._.  n Fh>FhFhFbFhFn \u0006_>>,Fh  _.Fb>Fu  "
+ },
+ "segments": [
+  {
+   "seed": 50455013,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007tame large dog\n\u0007horse\n\u0017tripe ration\ntbl\u0017lichen corpse\nt\u001b#name\nd\n\u0017leash\nagj k  n  nub  agu \u0007kobold\n\u0017scroll of taming\nrh \u0007newt\n\u0017scroll of taming\nri mO>>r\u001b\nmO>>>c\u001b\n#levelchange\n30\n                             uyh\u0017lawful altar\nde\u0017jackal corpse\n#offer\nj  nh\u0017unaligned altar\ndgdg\u0017human corpse\n#offer\nk     #pray\ny   : k\u0017sink\nqy  \u0017ring of protection\ndlnl   \u0017altar\ndg\u0017floating eye corpse\n#offer\nm   #pray\ny           <za\u0006_ \u001b,>Fu Fu   _>, _. >#twoweapon\na\u0006@._>,  Fu   _. >  n    Fn  Fj   sm. \u0006<._>, _.   Fu   >  \u0006m._>._. Fh >FuFj_>, Fy _,Fb>Fy   sm._>._.  n Fh>FhFhFbFhFn \u0006_>>,Fh  _.Fb>Fu  "
+  }
+ ]
+}

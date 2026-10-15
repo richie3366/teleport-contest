@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "mOa\u001b\n\u0007housecat\n\u0017meatball\ntbb10sk  #name\no\n\u0017tripe ration\nt$b b \u0006_ \u001b.>Fjs_>>. Fj_.>_>>,_.>50sFlFl s50s100sFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhmO>t\u001b\n\u0006_>,_.> \u0006_>>._.>_>>,_.>_>>. _.><\u0006_>>,_.Fl>_>>._.>_>>._,>_<,20sef\u0006_>._.>_>._,>_>._.>v\u001bi\u001b#levelchange\n10\n        yny\u0017magic fountain\nqy yul\u0017throne\n#sit\n#sit\n#sit\n y#sit\n\u001b:b \u0017neutral altar\ndc\u0017dwarf corpse\n#offer\nnh  : #terrain\nf\n#sit\n#loot\n,b\n \u0006_>._.>_>,_.>_>._,>\u0006_>>._.>_>>,_.>_>>,_,>\u0006_>>,_.>_>>._.>_>>,_,>\u0006_>>._.>_>>._.>_>>,_.>\u000f\u001b150s 100s Fh s.100syky100s egbllFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFh"
+ },
+ "segments": [
+  {
+   "seed": 50450095,
+   "datetime": "20041124082749",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=norep \"You hear\"\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "mOa\u001b\n\u0007housecat\n\u0017meatball\ntbb10sk  #name\no\n\u0017tripe ration\nt$b b \u0006_ \u001b.>Fjs_>>. Fj_.>_>>,_.>50sFlFl s50s100sFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhmO>t\u001b\n\u0006_>,_.> \u0006_>>._.>_>>,_.>_>>. _.><\u0006_>>,_.Fl>_>>._.>_>>._,>_<,20sef\u0006_>._.>_>._,>_>._.>v\u001bi\u001b#levelchange\n10\n        yny\u0017magic fountain\nqy yul\u0017throne\n#sit\n#sit\n#sit\n y#sit\n\u001b:b \u0017neutral altar\ndc\u0017dwarf corpse\n#offer\nnh  : #terrain\nf\n#sit\n#loot\n,b\n \u0006_>._.>_>,_.>_>._,>\u0006_>>._.>_>>,_.>_>>,_,>\u0006_>>,_.>_>>._.>_>>,_,>\u0006_>>._.>_>>._.>_>>,_.>\u000f\u001b150s 100s Fh s.100syky100s egbllFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFh"
+  }
+ ]
+}

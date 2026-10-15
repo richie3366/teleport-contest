@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001bm,>FuFk_>.Fl_,> Fl20s   s\u0018\u001b#untrap\nl\u0006_>.Fk_, Fu>_>,_,>_>._,> \u0006_>>._,>_>>._,>_>>,_.>#chat\nlWjnll\u0017polymorph trap\nn#untrap\nyy   \u0017sleeping gas trap\nn#untrap\n\u001bkn\u0017pit\ny^n#untrap\n\u001b#invoke\n\u001bo\u0018\u001b#levelchange\n20\n                   \u0016?\naW#sit\n\\ .20s\u001622\n<#invoke\n\u001bb\u0006.s\u0016?\n>w#chat\nkP#invoke\n\u001b20s  s#levelchange\n12\n  \u0017kicking boots\nW20s..\u0007watchman\n;u;20ss20s\u0007cave spider\n#chat\nhFhFh\u0006#levelchange\n12\n\u0017lance\nwmFh Fh.X\u0007Oracle\ny;l.20s .m..m. \u0007dwarf\n;l:  20s 20s sn\u0007hobbit\nFjFl         nFu   Fh Fl  \\ #levelchange\n12\n#wizintrinsic\njl\n  20s sm..m.   n sm. sm.  sm. 20s sm.   n sm. sj  t$k #dip\ngg #sit\n #conduct\n #ride\nhycl20s su   n 20s 20s  20s  .m.    n\u0006\u001612\n#wizintrinsic\nlg\n  \u0017wand of death\nznk n;m.\u0017blessed potion of gain level\nqo#dip\nhg\u0017blessed potion of water\nqp \u001b.m.sm.20s\u0007mind flayer\nFjFu     Fu     Fj     n 20s  sm.  n \u0007green slime\nFj    n Fj      n Fj     n  Fj   n 20s  sm.  n \u001611\n #levelchange\n30\n                \u0007gas spore\nFbFbFbFbsh  n s\u0007green mold\nsFhFhFhFh 20s20s \u0007wererat\nFyFb Fb sm. 20s \u0007werewolf\nFk Fb Fk  Fy  n Fy .h .m. #pray\ny y                   \u0017300 gold pieces\n\u0007leprechaun\nFl  Fn     yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50456009,
+   "datetime": "20170404034558",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "\u0006_ \u001bm,>FuFk_>.Fl_,> Fl20s   s\u0018\u001b#untrap\nl\u0006_>.Fk_, Fu>_>,_,>_>._,> \u0006_>>._,>_>>._,>_>>,_.>#chat\nlWjnll\u0017polymorph trap\nn#untrap\nyy   \u0017sleeping gas trap\nn#untrap\n\u001bkn\u0017pit\ny^n#untrap\n\u001b#invoke\n\u001bo\u0018\u001b#levelchange\n20\n                   \u0016?\naW#sit\n\\ .20s\u001622\n<#invoke\n\u001bb\u0006.s\u0016?\n>w#chat\nkP#invoke\n\u001b20s  s#levelchange\n12\n  \u0017kicking boots\nW20s..\u0007watchman\n;u;20ss20s\u0007cave spider\n#chat\nhFhFh\u0006#levelchange\n12\n\u0017lance\nwmFh Fh.X\u0007Oracle\ny;l.20s .m..m. \u0007dwarf\n;l:  20s 20s sn\u0007hobbit\nFjFl         nFu   Fh Fl  \\ #levelchange\n12\n#wizintrinsic\njl\n  20s sm..m.   n sm. sm.  sm. 20s sm.   n sm. sj  t$k #dip\ngg #sit\n #conduct\n #ride\nhycl20s su   n 20s 20s  20s  .m.    n\u0006\u001612\n#wizintrinsic\nlg\n  \u0017wand of death\nznk n;m.\u0017blessed potion of gain level\nqo#dip\nhg\u0017blessed potion of water\nqp \u001b.m.sm.20s\u0007mind flayer\nFjFu     Fu     Fj     n 20s  sm.  n \u0007green slime\nFj    n Fj      n Fj     n  Fj   n 20s  sm.  n \u001611\n #levelchange\n30\n                \u0007gas spore\nFbFbFbFbsh  n s\u0007green mold\nsFhFhFhFh 20s20s \u0007wererat\nFyFb Fb sm. 20s \u0007werewolf\nFk Fb Fk  Fy  n Fy .h .m. #pray\ny y                   \u0017300 gold pieces\n\u0007leprechaun\nFl  Fn     yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

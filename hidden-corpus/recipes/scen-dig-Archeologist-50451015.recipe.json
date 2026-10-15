@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017pick-axe\naj >20sn\u0017grave\naj>  s20saj>  saj>ajjjaj>  s\u0017dwarvish mattock\n\u0006_ \u001b<.ak > ak<akn nak<bhak>  ."
+ },
+ "segments": [
+  {
+   "seed": 50451015,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017pick-axe\naj >20sn\u0017grave\naj>  s20saj>  saj>ajjjaj>  s\u0017dwarvish mattock\n\u0006_ \u001b<.ak > ak<akn nak<bhak>  ."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "mOa\n#force\nmO>>>>d\nyes\n\u0018\u001bmO>>>>>>caj\non\ng\n \u001b#wipe\nO>bj\n\\ O>lnm\n#dip\nds20sOh\nE- Elbereth\nuO>m\nf\n#loot\ni\u001bOm\n#ride\njOja\nh\n,#rub\nss"
+ },
+ "segments": [
+  {
+   "seed": 50457016,
+   "datetime": "20010716174532",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:mango\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\n",
+   "moves": "mOa\n#force\nmO>>>>d\nyes\n\u0018\u001bmO>>>>>>caj\non\ng\n \u001b#wipe\nO>bj\n\\ O>lnm\n#dip\nds20sOh\nE- Elbereth\nuO>m\nf\n#loot\ni\u001bOm\n#ride\njOja\nh\n,#rub\nss"
+  }
+ ]
+}

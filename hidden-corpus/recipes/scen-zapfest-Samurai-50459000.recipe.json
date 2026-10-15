@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPfl\u0017blessed shield of reflection\nWg#levelchange\n14\n            \u00174 cream pies\nQby\u0007soldier\n\u0007newt\nfbf \u001btclf \u001b\u0017blessed spellbook of slow monster\nri .m.\u0007kobold shaman\n\u0007master lich\nZZZZZZ20s       .l     Z\u0017blessed spellbook of force bolt\nrj       .n    \u0017blessed spellbook of light\nrk     20s    \u0007succubus\nZZZZ20s     n.m.         ZZ\u0007silver dragon\nsm.sm.\u0017wand of fire\naly          Fl       Fb\u0017wand of lightning\n\u0017wand of digging\n\u0007jackal\nzn>     zn>    .l    zmb   zn>   nzmjzmb zmjzmszn>    n zm  s zms\u0018\u001b\u001611\n\u0007orc shaman\n\u0007kobold shaman\n\u0007master lich\n\u0017wand of magic missile\nzoyzol .s \u00166"
+ },
+ "segments": [
+  {
+   "seed": 50459000,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPfl\u0017blessed shield of reflection\nWg#levelchange\n14\n            \u00174 cream pies\nQby\u0007soldier\n\u0007newt\nfbf \u001btclf \u001b\u0017blessed spellbook of slow monster\nri .m.\u0007kobold shaman\n\u0007master lich\nZZZZZZ20s       .l     Z\u0017blessed spellbook of force bolt\nrj       .n    \u0017blessed spellbook of light\nrk     20s    \u0007succubus\nZZZZ20s     n.m.         ZZ\u0007silver dragon\nsm.sm.\u0017wand of fire\naly          Fl       Fb\u0017wand of lightning\n\u0017wand of digging\n\u0007jackal\nzn>     zn>    .l    zmb   zn>   nzmjzmb zmjzmszn>    n zm  s zms\u0018\u001b\u001611\n\u0007orc shaman\n\u0007kobold shaman\n\u0007master lich\n\u0017wand of magic missile\nzoyzol .s \u00166"
+  }
+ ]
+}

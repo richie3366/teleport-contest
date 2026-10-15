@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWi\u0017blessed amulet of reflection\nPj\u0016?\n>w\u0006_ \u001bm,,\u0017touchstone\ndk\u0016?\ncujh\u0016?\n>w\u0006_oo,,$_ooooooo, _.,:_{.Fl_.;:   Flq__.Fl_.#chat\nn#pray\ny y _oooooo._oo.,:__.Fu   n_.Fl   n #chat\nl#pray\ny y       \u001612\n_ooo.,\u0014m.20ss_ooooooooo.,p_oooooooo.,p_ooooooo.,#chat\nn_oo,,p_ooooo._ooo,,p\u00167\nkky\u0016?\n>w\u0006_oo,,\u0017amulet of unchanging\ndl_ooooo,Fb_,.Fh,p__,  _.Fl#chat\nb  Fn   n    Fn  Fn  Fn    Fn  Fn \u00167\nblu\u0016?\n>w\u0006_{.Fk_.qbbl#chat\nu_oooooo. Fb_,,Fj_ooo.Fl _.,p_ooooooooo.Fl _.;;Fu_o._.,\u001bp_ooooo.Fb _,:Fj  _o,Fj_.m.  Fl    ,$yhn#chat\nyyhn #chat\nj_ooooooo. _.Fu  ,:Fu FuFuFuFu Fu_oooo.Fk _,_ooo.Fk _.,     n$ _{,Fh _.   Fb   n q_ooo.Fh _.   nFy ,   n   n$ \u001612\n   _oooooo._ooo.Fl  n   n_,,   n :\u00169\nFlFlFlFlFlFl__.#chat\nn_oo,_ooo._.,d\n#chat\nk_oo.,a\ny  pFu FuFu FuFuFu    n"
+ },
+ "segments": [
+  {
+   "seed": 50455514,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWi\u0017blessed amulet of reflection\nPj\u0016?\n>w\u0006_ \u001bm,,\u0017touchstone\ndk\u0016?\ncujh\u0016?\n>w\u0006_oo,,$_ooooooo, _.,:_{.Fl_.;:   Flq__.Fl_.#chat\nn#pray\ny y _oooooo._oo.,:__.Fu   n_.Fl   n #chat\nl#pray\ny y       \u001612\n_ooo.,\u0014m.20ss_ooooooooo.,p_oooooooo.,p_ooooooo.,#chat\nn_oo,,p_ooooo._ooo,,p\u00167\nkky\u0016?\n>w\u0006_oo,,\u0017amulet of unchanging\ndl_ooooo,Fb_,.Fh,p__,  _.Fl#chat\nb  Fn   n    Fn  Fn  Fn    Fn  Fn \u00167\nblu\u0016?\n>w\u0006_{.Fk_.qbbl#chat\nu_oooooo. Fb_,,Fj_ooo.Fl _.,p_ooooooooo.Fl _.;;Fu_o._.,\u001bp_ooooo.Fb _,:Fj  _o,Fj_.m.  Fl    ,$yhn#chat\nyyhn #chat\nj_ooooooo. _.Fu  ,:Fu FuFuFuFu Fu_oooo.Fk _,_ooo.Fk _.,     n$ _{,Fh _.   Fb   n q_ooo.Fh _.   nFy ,   n   n$ \u001612\n   _oooooo._ooo.Fl  n   n_,,   n :\u00169\nFlFlFlFlFlFl__.#chat\nn_oo,_ooo._.,d\n#chat\nk_oo.,a\ny  pFu FuFu FuFuFu    n"
+  }
+ ]
+}
