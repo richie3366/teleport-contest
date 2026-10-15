@@ -10053,6 +10053,17 @@ export function install_tty_wincap2() {
 function putmesg(line) {
     let attr = ATR_NONE;
     if (game.iflags?.debug_prevent_pline) return;
+    // Convert a pending encumber_msg botl commit (pickup.c:2016/:1999):
+    // the crossing message is displayed now — after its own pline's
+    // pre-putmesg flush (which must not repaint, as in C) and before
+    // any later flush (which must, display.c:2236-2239). Idempotent
+    // with the caller's post-pline real sets; a stale pending from a
+    // suppressed pline converts redundantly at the next message.
+    if (game._pending_botl) {
+        game._pending_botl = false;
+        if (game.flags) game.flags.botl = true;
+        if (game.disp) game.disp.botl = true;
+    }
     const wincap2 = install_tty_wincap2();
     if ((gp.pline_flags & URGENT_MESSAGE) !== 0
         && (wincap2 & WC2_URGENT_MESG) !== 0) {

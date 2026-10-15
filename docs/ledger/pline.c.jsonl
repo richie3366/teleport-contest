@@ -1,6 +1,6 @@
 {"fn":"dumplogmsg","c":"22-46","status":"by-design","at":"seed@a30a7de84","note":"seed: DUMPLOG retired (D-1776)"}
 {"fn":"dumplogfreemessages","c":"52-60","status":"ported","js":["js/display.js:dumplogfreemessages"],"d":["D-3402","D-3401"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
-{"fn":"putmesg","c":"65-80","status":"ported","js":["js/display.js:putmesg"],"d":["D-2944"],"at":"seed@a30a7de84"}
+{"fn":"putmesg","c":"65-80","status":"ported","js":["js/display.js:putmesg"],"d":["D-3983","D-2944"],"at":"2026-10-15@a858bd5e1"}
 {"fn":"set_msg_dir","c":"84-89","status":"ported","js":["js/display.js:set_msg_dir"],"d":["D-1216"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_msg_xy","c":"93-97","status":"ported","js":["js/display.js:set_msg_xy"],"at":"2026-10-03@bbe63333a"}
 {"fn":"pline","c":"104-111","status":"ported","js":["js/display.js:pline"],"at":"2026-10-01@2c5d70e9a","note":"stale: js/display.js:8143"}

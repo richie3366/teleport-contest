@@ -7,11 +7,10 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 - **Capture is truth (D-3963, human 2026-10-14):** fountain-customcolor park (D-3946) void — measured on temp-hook recordings; canonically those ⌠ cells are uncaptured. TEXT col-0 fixed (D-3977 linestart g_putch hook); « ogged »/« altar » unattributed (recall TEXT vs live topline). Never re-record with a modified recorder.
-- **Calibration (§10.20):** held-out 22→32/44 (RNG 92 %) after the
-  `symset` family + D-3930; fresh 87.5 %. New family ≤ 60 % on arrival =
-  held-out shape; ≥ 85 % = not. Start regime falsified 2026-10-13 (68/68
-  probe; misses = recorder banner artifact).
-- **Recorder flake:** Priest-582706 re-recorded 2026-10-13 aborts at s1166 and reads PASS even on pre-D-3930 JS — not a port fix.
+- **Calibration (§10.20):** new family ≤ 60 % on arrival = held-out
+  shape; ≥ 85 % = not. Start regime falsified 2026-10-13 (68/68 probe;
+  misses = recorder banner artifact).
+- **Priest-582706 s1166 flake:** re-record aborts yet reads PASS even pre-D-3930 — not a port fix (see nhl_gamestate).
 
 - **obj_resists (D-2407/2413-15):** steal.c relobj+flooreffects+Knight/Arch/Healer arms; fire-trap/fmon/polyuse/monstone/bury/steal falsified.
 
@@ -25,21 +24,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-3982 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-3983 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3982.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3982 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-3983.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-3983 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-3983: js/invent.js + js/display.js only — encumber_msg records `game._pending_botl = true` synchronously with the oldcap commit on crossings (before any awa Named: none new (encumber_msg and putmesg stay ledger-ported; the change restores C's commit orde
 - D-3982: js/display.js + js/botl.js only — both Strngl predicates narrowed to the C-exact read: flat u.Strangled (JS mirror of the same C field) OR uprops[STRA Named: none new (do_statusline2 stays ledger-partial on its three doc omissions: vers/showvers, M
 - D-3981: js/read.js only — drain the deferred wail/done finishers between flooreffects and the boulder-hit losehp (same explode_losehp idiom as the existing po Named: (1) the js/muse.js drop_boulder_on_player twin (:1203–1240; drifted: flat HPasses check vs
 - D-3980: js/trap.js only — float_down now applies the hmask/emask clear to the uprops slot (intrinsic + extrinsic) alongside the flats (C single-storage semant Named: none new (float_down already ledger-ported D-3610; this iteration repaired the mask-clear 
@@ -54,5 +54,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3971: added the missing `:2422-2423` `stackobj` (post-attrs, C order; null-safe via live export) at all 15 floor des-place sites. Named: (1) `splev_create_boulder`: no stack (BOULDER oc_merge=0 → `stackobj` no-op; moot). (2) `m
 - D-3970: js/cmd.js only — removed both JS-only `end_running` calls and the redundant `move = 1` (move stays the allmain preset 1; nothing on these paths clears Named: u_rooted outer end_running (cmd.js:6837) kept — redundant-but-harmless (mirror nomuls insi
 - D-3969: restarted the clone as a thin C-order adapter (same name/signature) building the raw list (amt width `:1684–1691`, used-up heading `:1696–1700`, per-i Named: subset counts accepted by the pager but ignored on apply (C FIXME `:1729–1732` — C behavio
-- D-3968: restarted the clone as a thin qflags adapter (same name/signature) delegating to the ported query_objlist (js/pickup.js:782) → select_menu_pick_any/on Named: none new — adapter adds none; inherits the generic query_objlist's engulfer mon_to_glyph b
 <!-- landmarks:end -->
