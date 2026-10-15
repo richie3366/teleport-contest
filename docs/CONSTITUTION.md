@@ -523,7 +523,8 @@ case.
       runner before any port, then folds the recipes in. Its line (PASS,
       RNG, screens, worst families) goes into `CURRENT.md` next to the
       held-out line and the board line; audits compare the three.
-    - **Growth is periodic and large.** Besides the < 6-rows trigger,
+    - **Growth is periodic** (its size and rescore superseded by §10.21:
+      a grow is the fresh cohort, failing sessions folded). Besides the < 6-rows trigger,
       iteration *n* with *n* mod 10 = 5 is a grow slot when no Must-fix
       is open (`LOOP_GROW_EVERY`). A grow adds ≥ 400 sessions (recording
       costs ~0.5 s each; a full rescore of ~2000 sessions ~5 min), so
@@ -560,6 +561,47 @@ case.
       rate rising and held-out flat → the generator still misses the
       judge's shape; revisit the families, not the port. Held-out rising
       with fresh → the proxy is calibrated enough; keep going.
+21. **Bounded corpus (architect decision 2026-10-15, under delegated human
+    authority; amends §10.20 "Growth is periodic and large", whose fresh
+    cohort, ranking, completeness, calibration and falsifier rules
+    stand).** Growth outran consumption. On 2026-10-15 the active corpus
+    held 1,187 sessions, 644 failing under 169 owners — 341 of them the
+    4th-or-later session of an owner the queue already ranked — while a
+    port iteration moves one or two sessions and every grow added ~450
+    (`scen-symset` alone: 470 recipes, because each grow weighted the
+    worst fresh family). Every 10 iterations paid two full rescores (grow
+    and audit, ~24 CPU-min of replay each, 62 % of it failing sessions)
+    plus one `--reach-all` per reviewed SHA, all of them replaying
+    HEAD's code — the same sessions N times. Held-out kept rising
+    (22 → 32/44) because the picker pops one owner at a time; the extra
+    sessions did not change which owner it popped.
+    - **Owner quota.** Per first-divergence owner, the 3 shortest failing
+      sessions stay active (`hidden-corpus/recipes/`); the rest wait in
+      `recipes-reserve/` with their board rows (`hidden-proxy tier`, run
+      by `archive` and by `fresh-cohort --fold`). The queue still counts
+      reserve rows (frequency × impact is unchanged); a full rescore skips
+      them; `verify <owner>` re-runs them, so they are re-measured exactly
+      when their owner is worked. Unattributed rows group per family
+      (quota 4); JS throws and test-named sessions are never reserved.
+      Reserve rows whose owner falls under quota, or that PASS, are
+      promoted and re-run by the next `tier`.
+    - **Growth is the measurement.** A grow is the fresh cohort (160 on
+      unseen seeds, scored on arrival): failing recipes fold into the
+      corpus, PASS-on-arrival ones go straight to the archive, `score
+      --new` + `tier` follow. No full rescore and no weighted top-up on a
+      periodic grow; a grow triggered by a short cliffs block (< 6 rows)
+      may author ≤ 160 more in families whose owners are not already
+      queued. Calibration families (§10.20) stay, ≤ 80 sessions each.
+    - **One full rescore per 10 iterations,** at the audit, of the active
+      tier only; it is the regression check for the window. Review
+      re-measures run `verify --no-reach` on the blocked sessions; a
+      PASS→FAIL the rescore finds is a Must-fix naming session, owner and
+      the window SHAs touching the owner's `js/` file. Port-time
+      `verify.mjs --fn` REACH (≤ 80 spread) is unchanged.
+    - **Falsifier (architect/human reads it):** held-out passing count
+      flat for ~30 iterations while the cliffs head keeps moving sessions
+      → the active tier hides the judge's owners; raise the quota or
+      rescore `--with-reserve` once, before growing again.
 
 ---
 

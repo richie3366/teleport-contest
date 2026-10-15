@@ -43,6 +43,7 @@ function sandboxRepo({ queue = "## Open\n- [ ] Port fill_zoo\n" } = {}) {
   for (const type of ["", ".continue", ".review", ".cadence", ".grow"]) put(`scripts/agent-port-loop${type}.prompt.md`, `${type || "port"} test prompt`);
   for (const f of ["strict-output-check.mjs", "archive-loop-queue-done.mjs", "rotate-journal.mjs", "check-hot-docs.mjs"]) put(`scripts/${f}`, "// test gate: no work\n");
   put("scripts/port-did-park.mjs", "process.exit(1);\n");
+  put("scripts/hidden-proxy.mjs", "console.log('nothing to score');\n");
   put("frozen/ps_test_runner.mjs", 'console.log(\'__RESULTS_JSON__ {"results":[{"passed":true}]}\');\n');
   put("docs/LOOP-QUEUE.md", queue);
   put("js/fill.js", "export const fill = 0;\n");
@@ -228,7 +229,8 @@ describe("port-loop Codex supervisor in an isolated fixture repo", () => {
       assert.match(call.prompt, /Seed base for this iteration/);
       assert.match(r.stdout, /growth iteration: cliffs block holds 1 < 6 owners/);
       assert.match(r.stdout, /grow iteration added 1 corpus recipe/);
-      assert.match(r.stdout, /full rescore committed by the audit/);
+      assert.match(r.stdout, /every corpus recipe has a row/);
+      assert.doesNotMatch(r.stdout, /full rescore committed by the audit/);
     } finally { rmSync(root, { recursive: true, force: true }); }
   });
 

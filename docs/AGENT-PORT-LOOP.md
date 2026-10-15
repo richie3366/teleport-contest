@@ -190,8 +190,10 @@ audit agent **writes that SHA’s review file immediately**, then
 starts the next SHA. Git is still **one grouped commit** at the
 end of the iteration (not one commit per SHA). A cluster SHA is reviewed
 **per function** (one inventory + fidelity block each, `hidden-proxy
-verify a,b,c --base HASH~1 --reach-all` in one call); the SHA verdict is
-the worst function's.
+verify a,b,c --base HASH~1 --no-reach` in one call); the SHA verdict is
+the worst function's. No per-SHA `--reach-all` (Constitution §10.21):
+every re-measure runs HEAD's code, so the audit's one full rescore is the
+window's regression check.
 
 **Full scoreboard rescore (mandatory, 2026-09-28).** Every audit ends with
 `hidden-proxy record` (missing corpus sessions; exit 3 = no C recorder)
@@ -609,7 +611,7 @@ Halt reason is still `last-halt-reason.txt`.
 | Dirty tree at start | Loop refuses to launch, unless a continue latch is armed (`--continue-unfinished`, crash leftover, or dirty tree + `NEXT_AGENT_PROMPT.md`) |
 | QUALITY-RISK with no Must-fix | Review-debt overlay for the next iteration (any mode); continue |
 | Queue empty after port | Both generated blocks empty (`check-hot-docs --fix` runs `hidden-proxy queue --write` + `ledger.mjs rows --write`) — warn + next-iter overlay; never a hand refill |
-| Short cliffs block or periodic grow slot | No Must-fix and fewer than `LOOP_GROWTH_MIN` (6) cliff rows, or n % `LOOP_GROW_EVERY` == 5 → the slot runs as **grow** (`agent-port-loop.grow.prompt.md`, Constitution §10.19–20): `fresh-cohort.mjs` first (scored on arrival, then folded), ≥ 240 more sessions, record, full rescore, commit. Supervisor commits leftover recipes, checks the board is a full rescore, and halts after 3 grow iterations in a row that add no recipe |
+| Short cliffs block or periodic grow slot | No Must-fix and fewer than `LOOP_GROWTH_MIN` (6) cliff rows, or n % `LOOP_GROW_EVERY` == 5 → the slot runs as **grow** (`agent-port-loop.grow.prompt.md`, Constitution §10.19–20): `fresh-cohort.mjs --fold` (scored on arrival; failing recipes folded, PASS archived, `score --new` + `tier`), no full rescore (§10.21). Supervisor commits leftover recipes, scores any recipe still missing a board row (`ensure_new_rows_scored`), and halts after 3 grow iterations in a row that add no recipe |
 
 The shell parses `__RESULTS_JSON__` (the frozen runner exits 0 on FAIL),
 enforces density, one-loop locking, protected-path hashes, finite

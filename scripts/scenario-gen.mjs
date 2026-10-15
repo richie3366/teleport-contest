@@ -1793,7 +1793,9 @@ async function main() {
             if (r.moves.length < 12) return { ...r, skipped: 'too short' };
             const recipePath = path.join(outDir, `${r.id}.recipe.json`);
             const sessionPath = path.join(SESSIONS, `${r.id}.session.json`);
-            if (existsSync(recipePath)) return { ...r, skipped: 'exists' };
+            /* an id already in any corpus tier (active / archive / reserve) is not new */
+            if ([outDir, ...['recipes', 'recipes-archive', 'recipes-reserve'].map((d) => path.join(ROOT, 'hidden-corpus', d))]
+                .some((d) => existsSync(path.join(d, `${r.id}.recipe.json`)))) return { ...r, skipped: 'exists' };
             const segments = r.segs || [r.seg];
             const recipe = { version: 5, timezone: PIN_TZ, fuzz: { mode: 'scenario', family: r.fam, role: r.role, prefixMoves: '', suffix: r.moves, ...(segments.length > 1 ? { restore: true } : {}) }, segments };
             writeFileSync(recipePath, JSON.stringify(recipe, null, 1) + '\n');

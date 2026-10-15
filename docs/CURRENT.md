@@ -31,7 +31,7 @@ Score last measured: **2026-10-15** — full `sessions` on `e9d602604`
 |--------|------:|
 | **Held-out (judge 2026-10-15 13:09Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** (D-3978…D-3985 window unjudged) |
 | **Fresh cohort (§10.20, scored on arrival)** | 50550000 ×160 @`170f0240a`: **139/160 (86.9 %)**, RNG 97.8 %, screens 94.4 % — symset 6/12 worst; options/town 1/2, shop/sweep/kit/poly 75 %, wish 4/5, worldtour 10/12, chain/questtour 11/12 |
-| **Corpus board (worked, regression fortress)** | full 2026-10-15: **577/1223** (0 PASS→FAIL); `archive` → **1,187** (541 PASS) |
+| **Corpus board (worked, regression fortress)** | full 2026-10-15: **577/1223** (0 PASS→FAIL); `archive` → **1,187** (541 PASS); `tier` (§10.21) → **885 active + 302 reserve** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
@@ -59,7 +59,7 @@ RNG 91.20 %, screens 88.1 %; `unrecorded` 0. Worst families `scen-questtour` 9/2
 Reviews 1225–2828 (index; no row 1618): 1429 ACCEPT, 63 WITH-DEBT, 111 QUALITY-RISK (2823–2828: 6A/0D/0Q, 0 Must-fix queued).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
-Full rescore (audit/grow): `hidden-proxy record` + unfiltered `score --jobs <cores-4>` (≈10–35 min), committed `full: true`; needs the C recorder (`bash nethack-c/build-recorder.sh`).
+Full rescore (audit only, §10.21): `record` + unfiltered `score` (active tier) + `archive` (+ quota), committed `full: true`; needs the C recorder.
 
 **PASS (44):** every session in `sessions/`.
 
@@ -92,9 +92,9 @@ function, every caller, `verify.mjs --fn` **movement + REACH-OK**: as
 before. One cause healing several rows ships them together. A fix that
 adds "the entry for role/variant X" ships the whole table instead.
 **Grow slot:** every iteration with n % 10 == 5 (and any port slot with
-< 6 rows): `fresh-cohort.mjs --seed <unused> --n 160 --fold` first (its
-line goes in Score), then ≥ 240 more sessions weighted to the worst fresh
-families, record, full rescore, commit. While fresh − held-out > 20 pts,
+< 6 rows): `fresh-cohort.mjs --seed <unused> --n 160 --fold` only (line in
+Score; folds failing, scores new rows, tiers). No full rescore (§10.21).
+While fresh − held-out > 20 pts,
 every second grow adds/reshapes a family (`HIDDEN-PROXY.md` §5c).
 **Audit:** review + full rescore + held-out + fresh + board side by side.
 **Completeness audit (§10.20; work these as cliffs surface them, whole):**

@@ -13,8 +13,12 @@
  *   node scripts/fresh-cohort.mjs --seed 620000 [--n 160] [--jobs 8]
  *        [--mix marathon:96,broad:32,mixed:32] [--fold] [--keep]
  *
- * --fold   copy the recipes into hidden-corpus/recipes (a grow); the next
- *          `hidden-proxy score` attributes their owners.
+ * --fold   a grow (Constitution §10.21): failing recipes go to
+ *          hidden-corpus/recipes, PASS-on-arrival recipes straight to
+ *          recipes-archive/ (they would only be archived after the next
+ *          rescore); then `hidden-proxy score --new` attributes the folded
+ *          owners and `hidden-proxy tier` applies the owner quota. No full
+ *          rescore — the audit's is the only one.
  * --keep   keep the temp recipe dir (printed) instead of deleting it.
  *
  * Writes .cache/hidden/fresh/<seed>.json (per-session metrics + summary).
@@ -60,8 +64,10 @@ mix.forEach(([family, count], k) => {
     console.log(`author ${family} ×${count} @${base}: ${line}`);
 });
 const ids = readdirSync(recipeDir).filter((f) => f.endsWith('.recipe.json')).map((f) => f.replace(/\.recipe\.json$/, ''));
-const clash = ids.filter((id) => existsSync(path.join(RECIPES, `${id}.recipe.json`))
-    || existsSync(path.join(ROOT, 'hidden-corpus', 'recipes-archive', `${id}.recipe.json`)));
+const ARCHIVE = path.join(ROOT, 'hidden-corpus', 'recipes-archive');
+const RESERVE = path.join(ROOT, 'hidden-corpus', 'recipes-reserve');
+const known = (id) => [RECIPES, ARCHIVE, RESERVE].some((d) => existsSync(path.join(d, `${id}.recipe.json`)));
+const clash = ids.filter(known);
 if (clash.length) console.log(`warning: ${clash.length} id(s) already in the corpus (not fresh): ${clash.slice(0, 3).join(', ')}…`);
 
 /* 2. score with the frozen runner, `jobs` processes */
@@ -103,12 +109,23 @@ writeFileSync(path.join(OUT_DIR, `${seed}.json`), JSON.stringify({
 }, null, 1) + '\n');
 
 if (flag('fold')) {
-    let k = 0;
+    const passed = new Set(results.filter((r) => r.passed).map((r) => r.session.replace(/\.session\.json$/, '')));
+    let active = 0, archived = 0;
+    mkdirSync(ARCHIVE, { recursive: true });
     for (const id of ids) {
-        const dst = path.join(RECIPES, `${id}.recipe.json`);
-        if (!existsSync(dst)) { copyFileSync(path.join(recipeDir, `${id}.recipe.json`), dst); k++; }
+        if (known(id)) continue;
+        const dst = path.join(passed.has(id) ? ARCHIVE : RECIPES, `${id}.recipe.json`);
+        copyFileSync(path.join(recipeDir, `${id}.recipe.json`), dst);
+        if (passed.has(id)) archived++; else active++;
     }
-    console.log(`folded ${k} recipe(s) into hidden-corpus/recipes — next: node scripts/hidden-proxy.mjs score --jobs ${jobs} (full)`);
+    console.log(`folded ${active} failing recipe(s) into hidden-corpus/recipes, ${archived} PASS-on-arrival into recipes-archive/`);
+    const hp = path.join(ROOT, 'scripts', 'hidden-proxy.mjs');
+    for (const sub of [['score', '--new', '--jobs', String(jobs)], ['tier', '--jobs', String(jobs)]]) {
+        const r = spawnSync(process.execPath, [hp, ...sub], { cwd: ROOT, encoding: 'utf8' });
+        const out = `${r.stdout || ''}${r.stderr || ''}`.trim().split('\n');
+        console.log(`hidden-proxy ${sub[0]}${sub[1] === '--new' ? ' --new' : ''}: ${out.filter((l) => /^(scored|nothing|hidden-proxy:|tier)/.test(l)).join(' · ') || out.pop()}`);
+    }
+    console.log('commit hidden-corpus/ (recipes, recipes-archive, recipes-reserve, scoreboard.json).');
 }
 if (flag('keep')) console.log(`recipes kept in ${recipeDir}`);
 else rmSync(tmp, { recursive: true, force: true });

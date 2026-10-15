@@ -112,13 +112,16 @@ gets the whole Method per function.
    ≤ 100 functions, ≤ a third `Left open:`, one Verify line per
    function, the `sweep` line.)
    **Re-measure the corpus claim yourself:** run
-   `node scripts/hidden-proxy.mjs verify <fn>[,<fn>…] --base HASH~1 --reach-all`
+   `node scripts/hidden-proxy.mjs verify <fn>[,<fn>…] --base HASH~1 --no-reach`
    on the **sampled** functions of a batch (every function of a ≤ 10-function
-   SHA), in one call: the sessions blocked at the parent commit plus every
-   baseline-PASS session that executes each function, re-run on this
-   SHA's code; cite both summary lines per function. The audit's final
-   full rescore covers the rest of the corpus. Any `REGRESSED` session is a C-wrong the port
-   introduced → QUALITY-RISK + Must-fix row naming session and owner. A bullet that says "PASS hidden" or "no corpus
+   SHA), in one call: the sessions blocked at the parent commit (reserve
+   rows included), re-run on HEAD's code; cite the summary line per
+   function. **No `--reach-all`** (§10.21): every review re-measure runs
+   HEAD's code, so N per-SHA reach runs replay the same sessions N times;
+   the audit's single full rescore at the end is the regression check for
+   the whole window. A PASS→FAIL it finds is a Must-fix row naming the
+   session, its owner and the window SHAs whose `js/` diff touches the
+   owner's file (`git log --oneline <first>~1..HEAD -- js/<file>`). A bullet that says "PASS hidden" or "no corpus
    session is blocked" while the queue row cited N blocks is a vacuous
    check (a verify earlier in that iteration rewrote the baseline); if
    your re-run shows WORSE or "still <fn> at a later step" for sessions
@@ -170,7 +173,8 @@ After every listed SHA already has its file on disk: journal crumb.
 If this is the audit overlay: full `sessions` **and the full scoreboard
 update** (`hidden-proxy record`, then `hidden-proxy score` with no
 `--ids`/`--owner`, after the last re-measure verify; then `hidden-proxy
-archive`; commit `hidden-corpus/`) — mandatory, see the ALSO section.
+archive`, which also applies the owner quota (`tier`); commit
+`hidden-corpus/`) — mandatory, see the ALSO section.
 `node scripts/check-hot-docs.mjs --fix --review NN …` (this iter’s
 review ids; do not count). `ok` = no cap edit. If REFILL, `--fix`
 already regenerated both generated blocks (**Open — cliffs** from the

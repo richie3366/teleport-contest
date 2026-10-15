@@ -16,13 +16,25 @@
  *   node scripts/hidden-proxy.mjs record [--jobs 6] [--rerecord <recipe regex>]
  *       re-record every recipe whose session is missing from .cache
  *       (the cache is disposable; recipes + the recorder rebuild it).
- *   node scripts/hidden-proxy.mjs score [--jobs 6] [--ids a,b] [--owner fn]
+ *   node scripts/hidden-proxy.mjs score [--jobs 6] [--ids a,b] [--owner fn] [--new] [--with-reserve]
  *       replay in JS (one process per session), attribute first diffs,
  *       write hidden-corpus/scoreboard.json (+ .cache/hidden/scores.json).
- *       Without --ids/--owner every recorded session is re-run and the
- *       board is marked `full: true` (the audit's mandatory rescore; any
- *       later partial write — verify, --ids, --owner — clears the mark).
- *       `entries` / `unrecorded` say how much of the corpus it covers.
+ *       Without --ids/--owner/--new every recorded ACTIVE session is re-run
+ *       and the board is marked `full: true` (the audit's mandatory rescore;
+ *       any later partial write — verify, --ids, --owner, --new — clears
+ *       the mark). Reserve rows are carried, not re-run (--with-reserve
+ *       re-runs them too). `--new`: only recipes with no board row yet (a
+ *       grow). `entries` / `unrecorded` say how much of the corpus it covers.
+ *   node scripts/hidden-proxy.mjs tier [--quota 3] [--quota-unattributed 4] [--dry-run]
+ *       owner quota (Constitution §10.21): per first-divergence owner the
+ *       `--quota` shortest failing sessions stay in recipes/ (active); the
+ *       rest move to hidden-corpus/recipes-reserve/. Reserve rows stay on
+ *       the board (the queue still counts them: frequency × impact) but
+ *       a full rescore does not re-run them; `verify <owner>` does, so they
+ *       are re-measured exactly when their owner is worked. Reserve rows
+ *       that now PASS or whose owner fell under quota are promoted back and
+ *       re-scored in the same call. JS throws and test-named sessions are
+ *       never reserved. `archive` runs it after moving PASS recipes out.
  *   node scripts/hidden-proxy.mjs queue [--limit 12] [--by screens|sessions|rng] [--committed] [--write]
  *       LOOP-QUEUE cliff rows: C-function owners ranked by screens lost after
  *       the first divergence, summed over every session they block (the
@@ -81,6 +93,7 @@ const ROOT = path.resolve(SCRIPT_DIR, '..');
 const CORPUS = path.join(ROOT, 'hidden-corpus');
 const RECIPES = path.join(CORPUS, 'recipes');
 const ARCHIVE = path.join(CORPUS, 'recipes-archive');
+const RESERVE = path.join(CORPUS, 'recipes-reserve');
 const SCOREBOARD = path.join(CORPUS, 'scoreboard.json');
 const CACHE = path.join(ROOT, '.cache', 'hidden');
 const SESSIONS = path.join(CACHE, 'sessions');
@@ -123,6 +136,15 @@ function corpusEntries() {
         for (const f of readdirSync(RECIPES).filter((x) => x.endsWith('.recipe.json')).sort()) {
             const id = stem(f);
             out.push({ id, recipe: path.join(RECIPES, f), session: path.join(SESSIONS, `${id}.session.json`), src: 'corpus' });
+        }
+    }
+    /* Reserve (owner quota, `tier`): failing sessions beyond the per-owner
+       quota. Always members — `verify`, `show`, `record` and `--ids` reach
+       them — but a full `score` and `archive` skip them. */
+    if (existsSync(RESERVE)) {
+        for (const f of readdirSync(RESERVE).filter((x) => x.endsWith('.recipe.json')).sort()) {
+            const id = stem(f);
+            out.push({ id, recipe: path.join(RESERVE, f), session: path.join(SESSIONS, `${id}.session.json`), src: 'corpus', reserve: true });
         }
     }
     /* --with-archive: also the archived PASS recipes (`hidden-proxy archive`)
@@ -316,8 +338,15 @@ async function cmdScore() {
     const prev = loadScores();
     const ids = val('ids', null);
     const owner = val('owner', null);
+    const fresh = flag('new');
     if (ids) { const set = new Set(ids.split(',')); entries = entries.filter((e) => set.has(e.id)); }
     if (owner) entries = entries.filter((e) => prev.rows[e.id]?.owner === owner);
+    if (fresh) {
+        const board = existsSync(SCOREBOARD) ? readJson(SCOREBOARD).sessions || {} : {};
+        entries = entries.filter((e) => !e.archived && !board[e.id]);
+    }
+    const full = !ids && !owner && !fresh;
+    if (full && !flag('with-reserve')) entries = entries.filter((e) => !e.reserve);
     if (!entries.length) { console.log('nothing to score'); return; }
     const bad = nonCanonical(entries.filter((e) => e.src === 'corpus'));
     if (bad.length) {
@@ -326,30 +355,41 @@ async function cmdScore() {
     }
     const t0 = Date.now();
     const res = await pool(entries, jobs, async (e) => ({ ...(await runWorker(e.session)), id: e.id, src: e.src }));
-    const full = !ids && !owner;
     const rows = full ? {} : prev.rows;
     for (const r of res) rows[r.id] = r;
     writeJson(SCORES, { commit: gitHead(), at: new Date().toISOString(), rows });
-    writeScoreboard(rows, full);
+    writeScoreboard(rows, full, new Set(res.map((r) => r.id)));
     const all = corpusEntries();
     const unrecorded = all.filter((e) => !existsSync(e.session)).length;
     console.log(`scored ${res.length} in ${((Date.now() - t0) / 1000).toFixed(1)}s${full ? ` — full rescore: ${res.length}/${all.length} corpus entries${unrecorded ? ` (${unrecorded} unrecorded: \`hidden-proxy record\`)` : ''}` : ''}`);
     printStatus(rows);
 }
 
-function writeScoreboard(rows, full = false) {
-    const board = {};
-    for (const [id, r] of Object.entries(rows)) {
-        board[id] = {
-            src: r.src, passed: !!r.passed, rngM: r.rngM, rngT: r.rngT, scrM: r.scrM, scrT: r.scrT,
-            kind: r.kind, step: r.step, steps: r.steps, owner: r.owner,
-            loc: r.ownerFile ? `${r.ownerFile}:${r.ownerLine}` : null,
-            jsOwner: r.jsOwner, cTopline: r.cTopline, jsTopline: r.jsTopline,
-            error: r.error ? String(r.error).slice(0, 160) : null,
-        };
-    }
+function boardRow(r) {
+    return {
+        src: r.src, passed: !!r.passed, rngM: r.rngM, rngT: r.rngT, scrM: r.scrM, scrT: r.scrT,
+        kind: r.kind, step: r.step, steps: r.steps, owner: r.owner,
+        loc: r.ownerFile ? `${r.ownerFile}:${r.ownerLine}` : null,
+        jsOwner: r.jsOwner, cTopline: r.cTopline, jsTopline: r.jsTopline,
+        error: r.error ? String(r.error).slice(0, 160) : null,
+    };
+}
+
+/* Only the rows this command re-ran (`ran`) replace board rows; every
+   other corpus member keeps its prior board row (reserve rows on a full
+   rescore; every untouched row on a partial write — the .cache scores of
+   a machine that did not run the last audit are older than the committed
+   board, and copying them wholesale reverted newer rows). */
+function writeScoreboard(rows, full, ran) {
     const prior = existsSync(SCOREBOARD) ? readJson(SCOREBOARD) : {};
     const all = corpusEntries();
+    const board = {};
+    for (const e of all) {
+        if (e.archived) continue;
+        if (ran.has(e.id) && rows[e.id]) board[e.id] = boardRow(rows[e.id]);
+        else if (prior.sessions?.[e.id] && !(full && !e.reserve)) board[e.id] = prior.sessions[e.id];
+    }
+    finishBoard(board, all);
     const commit = gitHead();
     const at = new Date().toISOString();
     writeJson(SCOREBOARD, {
@@ -357,9 +397,18 @@ function writeScoreboard(rows, full = false) {
         fullCommit: full ? commit : prior.fullCommit ?? null,
         fullAt: full ? at : prior.fullAt ?? null,
         entries: all.length,
+        reserve: all.filter((e) => e.reserve).length,
         unrecorded: all.filter((e) => !existsSync(e.session)).length,
         sessions: board,
     });
+}
+
+/* Board rows carry their tier so readers (queue, families) need no fs. */
+function finishBoard(board, all) {
+    const reserve = new Set(all.filter((e) => e.reserve).map((e) => e.id));
+    for (const [id, row] of Object.entries(board)) {
+        if (reserve.has(id)) row.tier = 'reserve'; else delete row.tier;
+    }
 }
 
 /* ---------------- archive ---------------- */
@@ -396,7 +445,12 @@ function loadFnSets(entries) {
     return out;
 }
 
-function cmdArchive() {
+function testText() {
+    return readdirSync(SCRIPT_DIR).filter((f) => f.endsWith('.test.mjs'))
+        .map((f) => readFileSync(path.join(SCRIPT_DIR, f), 'utf8')).join('\n');
+}
+
+async function cmdArchive() {
     const dry = flag('dry-run');
     const perFamily = Number(val('keep-per-family', 6));
     const K = Number(val('cover', 2));
@@ -404,10 +458,9 @@ function cmdArchive() {
     const board = readJson(SCOREBOARD);
     if (!board.full) { console.error('archive: the board is not a full rescore — run `hidden-proxy score` (no --ids) first'); process.exit(2); }
     const rows = board.sessions || {};
-    const active = corpusEntries().filter((e) => e.src === 'corpus' && !e.archived);
+    const active = corpusEntries().filter((e) => e.src === 'corpus' && !e.archived && !e.reserve);
     const passing = active.filter((e) => rows[e.id]?.passed && existsSync(e.session));
-    const tests = readdirSync(SCRIPT_DIR).filter((f) => f.endsWith('.test.mjs'))
-        .map((f) => readFileSync(path.join(SCRIPT_DIR, f), 'utf8')).join('\n');
+    const tests = testText();
     const keep = new Map();
     for (const e of passing) if (tests.includes(e.id)) keep.set(e.id, 'test');
     const byFam = new Map();
@@ -437,16 +490,97 @@ function cmdArchive() {
     const covered = [...avail.keys()].filter((fn) => (count.get(fn) || 0) >= Math.min(K, avail.get(fn))).length;
     console.log(`archive${dry ? ' (dry run)' : ''}: active ${active.length} → ${active.length - toArchive.length} (${failing} not passing + ${keep.size} fortress: ${JSON.stringify(reasons)}); ${toArchive.length} PASS recipe(s) → hidden-corpus/recipes-archive/`);
     console.log(`  REACH cover: ${covered}/${avail.size} C functions tagged by ≥ min(${K}, available) kept sessions`);
-    if (dry) return;
+    if (dry) { await cmdTier(); return; }
     mkdirSync(ARCHIVE, { recursive: true });
     for (const e of toArchive) { renameSync(e.recipe, path.join(ARCHIVE, path.basename(e.recipe))); delete rows[e.id]; }
-    board.entries = active.length - toArchive.length + corpusEntries().filter((e) => e.src === 'private').length;
+    board.entries = corpusEntries().length;
     board.archivedAt = new Date().toISOString();
     writeJson(SCOREBOARD, board);
     const work = loadScores();
     for (const e of toArchive) delete work.rows?.[e.id];
     if (existsSync(SCORES)) writeJson(SCORES, work);
     console.log('  board rows dropped for archived ids (still full for the active set). Commit hidden-corpus/; restore with `hidden-proxy unarchive [--ids a,b]`.');
+    await cmdTier();
+}
+
+/* ---------------- tier (owner quota) ---------------- */
+/* Constitution §10.21 (2026-10-15). The failing set outgrew what the loop
+   consumes: 644 of 1,187 active sessions failed under 169 owners, 341 of
+   them the 4th+ session of an owner the queue already ranked, and every
+   full rescore replayed all of them (62 % of its steps) while a port
+   iteration moves one or two. Per owner the `--quota` shortest failing
+   sessions stay active; the rest wait in recipes-reserve/ with their board
+   rows (the queue's frequency × impact still counts them) and are re-run
+   by `verify <owner>` — i.e. exactly when their owner is worked. Grouping
+   key: the first-divergence owner; unattributed rows group per family
+   (`--quota-unattributed`); JS throws and test-named sessions stay active. */
+function tierKey(id, r) {
+    if (!r.owner && r.error) return null;
+    return r.owner || `unattributed:${familyOf(id)}`;
+}
+
+function planTiers(rows, quota, quotaU) {
+    const tests = testText();
+    const members = corpusEntries().filter((e) => e.src === 'corpus' && !e.archived);
+    const groups = new Map();
+    const promote = [], demote = [];
+    for (const e of members) {
+        const r = rows[e.id];
+        if (!r) continue;
+        const key = r.passed ? null : tierKey(e.id, r);
+        if (key === null || tests.includes(e.id)) { if (e.reserve) promote.push(e); continue; }
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(e);
+    }
+    for (const [key, list] of groups) {
+        const q = key.startsWith('unattributed:') ? quotaU : quota;
+        list.sort((a, b) => (rows[a.id].steps || 0) - (rows[b.id].steps || 0) || (a.id < b.id ? -1 : 1));
+        list.forEach((e, i) => {
+            if (i < q && e.reserve) promote.push(e);
+            else if (i >= q && !e.reserve) demote.push(e);
+        });
+    }
+    return { promote, demote, groups: groups.size, members: members.length };
+}
+
+async function cmdTier() {
+    const dry = flag('dry-run');
+    const quota = Number(val('quota', 3));
+    const quotaU = Number(val('quota-unattributed', 4));
+    const jobs = Number(val('jobs', 8));
+    if (!existsSync(SCOREBOARD)) { console.error('tier: no hidden-corpus/scoreboard.json'); process.exit(2); }
+    const board = readJson(SCOREBOARD);
+    const rows = board.sessions || {};
+    const { promote, demote, groups, members } = planTiers(rows, quota, quotaU);
+    const steps = (list) => list.reduce((a, e) => a + (rows[e.id]?.steps || 0), 0);
+    const reserveNow = members - corpusEntries().filter((e) => e.src === 'corpus' && !e.archived && !e.reserve).length;
+    console.log(`tier${dry ? ' (dry run)' : ''}: ${groups} failing owner group(s), quota ${quota} (unattributed ${quotaU}/family); `
+        + `${demote.length} session(s) → reserve (${steps(demote)} steps a full rescore no longer replays), `
+        + `${promote.length} promoted back; reserve ${reserveNow} → ${reserveNow + demote.length - promote.length}`);
+    if (dry || (!promote.length && !demote.length)) return;
+    mkdirSync(RESERVE, { recursive: true });
+    for (const e of demote) renameSync(e.recipe, path.join(RESERVE, path.basename(e.recipe)));
+    for (const e of promote) renameSync(e.recipe, path.join(RECIPES, path.basename(e.recipe)));
+    /* A promoted row was scored at an older commit: re-run it now so every
+       active row stays current (the board keeps its `full` mark). */
+    const rerun = promote.filter((e) => existsSync(e.session));
+    const work = loadScores();
+    if (rerun.length) {
+        const res = await pool(rerun, jobs, async (e) => ({ ...(await runWorker(e.session)), id: e.id, src: e.src }));
+        for (const r of res) { rows[r.id] = boardRow(r); work.rows[r.id] = r; }
+        const healed = res.filter((r) => r.passed).length;
+        console.log(`  promoted re-run: ${res.length} (${healed} now PASS — the next \`archive\` moves them out)`);
+        writeJson(SCORES, work);
+    }
+    if (rerun.length < promote.length) console.log(`  ${promote.length - rerun.length} promoted session(s) unrecorded — \`hidden-proxy record\`, then \`score --ids\``);
+    const all = corpusEntries();
+    finishBoard(rows, all);
+    board.sessions = rows;
+    board.entries = all.length;
+    board.reserve = all.filter((e) => e.reserve).length;
+    board.tieredAt = new Date().toISOString();
+    writeJson(SCOREBOARD, board);
+    console.log('  commit hidden-corpus/ (recipes, recipes-reserve, scoreboard.json).');
 }
 
 function cmdUnarchive() {
@@ -463,7 +597,9 @@ function cmdUnarchive() {
 /* ---------------- aggregation ---------------- */
 function aggregate(rows, order = 'rng') {
     const by = new Map();
-    const list = Object.values(rows);
+    /* active rows first: an owner's example sessions (the probe a porter
+       replays) come from recipes/, reserve rows only add to its counts */
+    const list = Object.values(rows).sort((x, y) => Number(x.tier === 'reserve') - Number(y.tier === 'reserve'));
     for (const r of list) {
         if (r.passed) continue;
         let key = r.owner;
@@ -537,7 +673,7 @@ function committedRows() {
         rows[id] = {
             id, src: r.src, passed: !!r.passed, kind: r.kind, step: r.step, steps: r.steps,
             owner: r.owner, ownerFile: file || null, ownerLine: line ? Number(line) : null,
-            jsOwner: r.jsOwner, cTopline: r.cTopline, jsTopline: r.jsTopline, error: r.error,
+            jsOwner: r.jsOwner, cTopline: r.cTopline, jsTopline: r.jsTopline, error: r.error, tier: r.tier,
             rngM: r.rngM, rngT: r.rngT, scrM: r.scrM, scrT: r.scrT,
             blockedRng: Math.max(0, (r.rngT || 0) - (r.rngM || 0)),
             blockedScr: Math.max(0, (r.scrT || 0) - (r.scrM || 0)),
@@ -600,6 +736,8 @@ function cmdFamilies() {
         console.log(`${f.padEnd(18)} ${`${b.pass}/${b.n}`.padStart(9)}  ${pct(b.rngM, b.rngT)}  ${String(Math.round(b.steps / b.n)).padStart(10)}  ${med(b.firstDiv)}`);
     }
     if (env) console.log(`(${env} env:config-path rows not counted: recording path on screen, not a port divergence)`);
+    const reserve = rows.filter((r) => r.tier === 'reserve').length;
+    if (reserve) console.log(`(${reserve} of these rows are reserve — over their owner's quota, re-run only by \`verify <owner>\`; \`tier\`, Constitution §10.21)`);
 }
 
 /* Where LOOP-QUEUE already knows an owner: live hand-written Open/Must-fix
@@ -786,6 +924,7 @@ async function cmdVerify(fn) {
     const ids = [...new Set([...baseIds, ...workIds])];
     console.log(`verify ${fn}: baseline ${base ? `${baseRev} (scoreboard at ${base.commit}, ${base.at})` : 'working scores'} — ${ids.length} session(s) blocked on it (${baseIds.length} at baseline, ${workIds.length} in the working scoreboard)`);
     let exitCode = 0;
+    const ran = new Set();
     if (!ids.length) {
         console.log(`verify ${fn}: no corpus session is blocked on it at ${base ? baseRev : 'working'} — a vacuous verify is NOT a corpus PASS. If the queue row cited N corpus blocks, re-run with --base <the commit that row was queued at>; otherwise ship with the public gates + the reach line below and say so in the D-log.`);
     } else {
@@ -796,7 +935,7 @@ async function cmdVerify(fn) {
         let passed = 0, moved = 0, sameStep = 0, stillFn = 0, stuck = 0, worse = 0;
         for (const r of res) {
             const before = (base && base.rows[r.id]) || prev.rows[r.id] || {};
-            prev.rows[r.id] = r;
+            prev.rows[r.id] = r; ran.add(r.id);
             let verdict;
             if (r.passed) { verdict = 'PASS'; passed++; }
             else if (before.passed) { verdict = `WORSE: was PASS at baseline, now ${r.owner || 'js-throw'} at step ${r.step}`; worse++; }
@@ -843,7 +982,7 @@ async function cmdVerify(fn) {
             const res = await pool(entries, jobs, async (e) => ({ ...(await runWorker(e.session)), id: e.id, src: e.src }));
             let ok = 0, bad = 0;
             for (const r of res) {
-                prev.rows[r.id] = r;
+                prev.rows[r.id] = r; ran.add(r.id);
                 if (r.passed) { ok++; continue; }
                 bad++;
                 const rd = r.rowDiff;
@@ -858,7 +997,7 @@ async function cmdVerify(fn) {
     }
 
     writeJson(SCORES, { commit: gitHead(), at: new Date().toISOString(), rows: prev.rows });
-    writeScoreboard(prev.rows);
+    writeScoreboard(prev.rows, false, ran);
     return exitCode;
 }
 
@@ -907,7 +1046,7 @@ async function cmdSweep(fnsCsv) {
     if (unattributed.length) console.log(`sweep: ${unattributed.length} regression(s) execute no batch function (a callee/caller edit broke them): ${unattributed.slice(0, 6).join(', ')} → REACH-REGRESSION`);
     console.log(`sweep ${fns.length} fn(s): ${res.length} baseline-PASS session(s) re-run in ${secs}s, ${bad.length} regressed → ${bad.length ? 'REACH-REGRESSION' : 'REACH-OK'}`);
     writeJson(SCORES, { commit: gitHead(), at: new Date().toISOString(), rows: prev.rows });
-    writeScoreboard(prev.rows);
+    writeScoreboard(prev.rows, false, new Set(res.map((r) => r.id)));
     return bad.length ? 1 : 0;
 }
 
@@ -942,7 +1081,8 @@ function cmdShow(id) {
     case 'show': cmdShow(rest[0]); break;
     case 'status': cmdStatus(); break;
     case 'families': cmdFamilies(); break;
-    case 'archive': cmdArchive(); break;
+    case 'archive': await cmdArchive(); break;
+    case 'tier': await cmdTier(); break;
     case 'unarchive': cmdUnarchive(); break;
     default:
         console.error('usage: hidden-proxy.mjs gen|import|record|score|queue|verify <fn>|show <id>|status');

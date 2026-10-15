@@ -58,10 +58,11 @@ if (!existsSync(recipePath)) {
     const cands = [
         path.join(ROOT, 'hidden-corpus', 'recipes', `${target}.recipe.json`),
         path.join(ROOT, 'hidden-corpus', 'recipes-archive', `${target}.recipe.json`),
+        path.join(ROOT, 'hidden-corpus', 'recipes-reserve', `${target}.recipe.json`),
         path.join(ROOT, 'private-sessions', `${target}.recipe.json`),
     ];
     recipePath = cands.find(existsSync);
-    if (!recipePath) { console.error(`no recipe for ${target} (looked in hidden-corpus/recipes, private-sessions)`); process.exit(2); }
+    if (!recipePath) { console.error(`no recipe for ${target} (looked in hidden-corpus/recipes, recipes-archive, recipes-reserve, private-sessions)`); process.exit(2); }
     id = target;
 }
 const recipe = JSON.parse(readFileSync(recipePath, 'utf8'));

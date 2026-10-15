@@ -20,7 +20,8 @@ node scripts/hidden-proxy.mjs gen --n 240     # more ordinary-play mutants (satu
 node scripts/hidden-proxy.mjs gen --mode tour # debug ^V descents to deep levels
 node scripts/scenario-gen.mjs --n 120 --seed N  # scenario sessions (the held-out genre) — grow this one
 node scripts/fresh-cohort.mjs --seed N --n 160 [--fold]  # unseen seeds scored on arrival (generalization)
-node scripts/hidden-proxy.mjs archive [--dry-run]        # PASS recipes → recipes-archive/ (fortress kept)
+node scripts/hidden-proxy.mjs archive [--dry-run]        # PASS recipes → recipes-archive/ (fortress kept), then tier
+node scripts/hidden-proxy.mjs tier [--dry-run]           # owner quota: >3 failing per owner → recipes-reserve/ (rows kept)
 node scripts/hidden-proxy.mjs score --with-archive        # manual big regression check over everything
 ```
 

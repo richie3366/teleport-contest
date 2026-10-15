@@ -914,9 +914,11 @@ Mandatory, after every review file is on disk, in this order (still no
    --jobs 8` (records every corpus session missing from `.cache`; exit 3
    = no C recorder — say so in CURRENT, keep going), then
    `node scripts/hidden-proxy.mjs score --jobs 8` with **no** `--ids` /
-   `--owner`. It must be the **last** hidden-proxy command of the
-   iteration: any later `verify` rewrites rows and clears the board's
-   `full` mark. Commit `hidden-corpus/scoreboard.json`. The supervisor
+   `--owner` (it re-runs the active tier; reserve rows are carried), then
+   `node scripts/hidden-proxy.mjs archive` (PASS recipes out + owner
+   quota, Constitution §10.21). These are the **last** hidden-proxy
+   commands of the iteration: any later `verify` rewrites rows and clears
+   the board's `full` mark. Commit `hidden-corpus/`. The supervisor
    checks `full: true` and a `fullAt` inside this iteration, and redoes
    the rescore itself (logged as audit debt) when it is missing.
 3. Rewrite the CURRENT **Corpus fortress** line from that score (PASS /
@@ -965,11 +967,12 @@ ensure_full_scoreboard() {
     rc="${PIPESTATUS[0]}"
     run_with_timeout_secs "$LOOP_RESCORE_TIMEOUT_SEC" \
       node scripts/hidden-proxy.mjs score --jobs "$LOOP_RESCORE_JOBS" 2>&1 | tail -n 40 | tee -a "$MASTER_LOG"
+    node scripts/hidden-proxy.mjs archive --jobs "$LOOP_RESCORE_JOBS" 2>&1 | tail -n 6 | tee -a "$MASTER_LOG"
     set -e
     if (( rc != 0 )); then
       warn_regression "hidden-proxy record exit ${rc} (no C recorder? \`bash nethack-c/build-recorder.sh\`) — scoreboard covers recorded sessions only"
     fi
-    git add hidden-corpus/scoreboard.json
+    git add -A hidden-corpus
     if ! git diff --cached --quiet; then
       if ! git commit -m "Audit #${iter}: full corpus rescore (supervisor; the audit skipped it)."; then
         warn_regression "failed to commit the supervisor rescore (local tree kept)"
@@ -991,6 +994,28 @@ ensure_full_scoreboard() {
     return 0
   fi
   warn_regression "scoreboard is not the whole corpus (${cov}) — record the missing sessions (\`hidden-proxy record\`; needs the C recorder)"
+}
+
+# Grow end: every active/reserve recipe must have a board row. Scores the
+# missing ones (`score --new`), applies the owner quota (`tier`), commits.
+ensure_new_rows_scored() {
+  local iter="$1" out
+  set +e
+  out="$(run_with_timeout_secs "$LOOP_RESCORE_TIMEOUT_SEC" \
+    node scripts/hidden-proxy.mjs score --new --jobs "$LOOP_RESCORE_JOBS" 2>&1)"
+  set -e
+  if [[ "$out" == *"nothing to score"* ]]; then
+    echo "$(date -Iseconds) scoreboard: every corpus recipe has a row" | tee -a "$MASTER_LOG"
+    return 0
+  fi
+  printf '%s\n' "$out" | tail -n 5 | tee -a "$MASTER_LOG"
+  warn_regression "grow #${iter} left unscored recipes — supervisor ran \`hidden-proxy score --new\` + \`tier\`"
+  node scripts/hidden-proxy.mjs tier --jobs "$LOOP_RESCORE_JOBS" 2>&1 | tee -a "$MASTER_LOG" || true
+  git add -A hidden-corpus
+  if ! git diff --cached --quiet; then
+    git commit -qm "Grow #${iter}: score new recipes + owner quota (supervisor; the grow left them unscored)." \
+      || warn_regression "failed to commit the supervisor's new-row scoring (local tree kept)"
+  fi
 }
 
 run_with_timeout_secs() {
@@ -1418,7 +1443,7 @@ cliff_open_count() {
 }
 
 recipes_added_since() {
-  git diff --name-only --diff-filter=A "$1" HEAD -- hidden-corpus/recipes hidden-corpus/recipes-archive 2>/dev/null | awk 'END { print NR+0 }'
+  git diff --name-only --diff-filter=A "$1" HEAD -- hidden-corpus/recipes hidden-corpus/recipes-archive hidden-corpus/recipes-reserve 2>/dev/null | awk 'END { print NR+0 }'
 }
 
 # First line of the batch manifest (`batch @sha: N function(s) in …`), or
@@ -1960,7 +1985,7 @@ while true; do
         prompt_body="$(cat "$GROW_PROMPT_FILE")"
         prompt_body+=$'\n\n**Seed base for this iteration:** `'"$((iter * 10000 + 1000000))"$'` (yours: base … base+9999;\n'
         prompt_body+=$'fresh-cohort takes base … base+2999, scenario-gen runs base+5000, base+6000, …).\n'
-        echo "$(date -Iseconds) === grow iteration (author + record + full rescore, no js/) ===" \
+        echo "$(date -Iseconds) === grow iteration (fresh cohort + fold failing + score new rows, no js/) ===" \
           | tee -a "$MASTER_LOG"
         ;;
       *)
@@ -2348,8 +2373,8 @@ while true; do
 
   if [[ "$mode" == "grow" ]]; then
     # Recipes the agent authored but did not commit are still the cohort.
-    if [[ -n "$(git status --porcelain -- hidden-corpus/recipes 2>/dev/null)" ]]; then
-      git add hidden-corpus/recipes
+    if [[ -n "$(git status --porcelain -- hidden-corpus/recipes hidden-corpus/recipes-archive hidden-corpus/recipes-reserve 2>/dev/null)" ]]; then
+      git add -A hidden-corpus
       git commit -qm "Grow #${iter}: commit authored corpus recipes (supervisor; the agent left them uncommitted)." \
         || warn_regression "failed to commit leftover grow recipes (local tree kept)"
     fi
@@ -2366,9 +2391,14 @@ while true; do
     fi
   fi
 
-  if [[ "$mode" == "audit" || "$mode" == "cadence" || "$mode" == "grow" ]]; then
+  if [[ "$mode" == "audit" || "$mode" == "cadence" ]]; then
     echo "$(date -Iseconds) === post-iteration scoreboard check ===" | tee -a "$MASTER_LOG"
     ensure_full_scoreboard "$iter" "$iter_start"
+  elif [[ "$mode" == "grow" ]]; then
+    # Constitution §10.21: a grow scores only its new recipes; the audit's
+    # rescore is the only full one.
+    echo "$(date -Iseconds) === post-grow scoreboard check (new rows only) ===" | tee -a "$MASTER_LOG"
+    ensure_new_rows_scored "$iter"
   fi
 
   echo "$(date -Iseconds) === post-iteration green gate ===" | tee -a "$MASTER_LOG"
