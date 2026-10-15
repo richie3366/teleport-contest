@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-15 — D-3988 sp_lev.c sel_set_wall_property gate: 17 ungated des.non_diggable loops marked floors (find_defensive cliffs head: 3 PASS + 1 moved)
+
+**C locus:** sp_lev.c sel_set_wall_property :985-995 (`IS_STWALL||IS_TREE||IRONBARS` gate on single-storage `wall_info`≡`flags`, rm.h:215) via set_wallprop_in_selection :5910-5932 ← lspo_non_diggable :5936-5941 ← des.non_diggable (Bar-strt.lua:88 area(00,00,75,19) + 16 sibling sites); read by muse.c find_defensive :671 `!(wall_info&W_NONDIGGABLE)`. Owner context: monmove.c:791-800 dochug (distfleeck→find_defensive(FALSE)→use_defensive), :1925-1930 m_move no-moves escape (TRUE).
+**JS:** js/mklev.js:4308+4384+4498+5394+5658+6231+6307+6380+6474+6652+8179+14336+14552+14743+20315+20715+25093 (17 gated loops); scripts/des-nondiggable-wall-gate.test.mjs (new, 1/1).
+**Change:** added the C :989-993 gate to all 17 inline loops (same `IS_STWALL||IS_TREE||IRONBARS` expression as sibling :4515; flags-mirror write kept per splev_non_diggable — union-correct for every OR-reader; wall_info-only readers see sibling-identical state), each with a C-cite comment. No find_defensive change (owner faithful). Census after: flags8 1679→338 (walls/doors/legit overloads), wallinfo8 160 unchanged.
+**Verify:** `node scripts/verify.mjs --fn find_defensive` → VERIFY: PASS — syntax (1 changed: js/mklev.js) · rule2 · hidden `verify find_defensive: 3 PASS, 1 moved past, 0 unchanged, 0 worse` (50350022/50350030/50650048 PASS; sweep-Barbarian-50255201 → background_enlightenment@1734, was find_defensive@995) · REACH-OK (70/70 baseline-PASS reach sessions) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed). Focused test 1/1.
+**Named:** none (C :985-995 whole at every application: shared per-cell :5131 + splev_non_diggable :4510 + bound_digging :34875 + solidify :4186/:14333/:14547/:14737 + the 17 now gated).
+**Next:** pop the regenerated cliffs head (distfleeck SYMPTOM row or its writer).
 ## 2026-10-15 — Grow #12: fresh 143/160 (89.4 %) @50650000; +17 failing folded, 143 archived, no full rescore
 
 **Fresh cohort:** 143/160 (89.4 %) on arrival, RNG 96.5 %, screens 96.4 %. Worst: descend 1/2, worldtour 7/12, symset 8/12, questtour/sweep 10/12, wish 10/11, shop/zapfest 11/12; trek/chain 12/12 + rest 100 %. Gap 16.7 pts vs held-out 72.7 % — inside the §10.20 band, no calibration family (prev 139/160 @50550000).

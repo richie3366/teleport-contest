@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-15
 
+- [x] `muse.c` find_defensive — blocks 4/1204 corpus sessions (first at step 123; RNG lost 90848, screens lost 2058): C draws `rn2(3)=0` in find_defensive, JS `rn2(5)=4` from distfleeck(monmove.js:1180). Probe: `node scripts/hidden-proxy.mjs verify find_defensive` (scen-questtour-Barbarian-50350022, scen-questtour-Barbarian-50350030, scen-worldtour-Tourist-50650048). @6a88a53cc **[history: archived D-1988 — read that D-entry once; the arm this divergence names is still open]**
+
+
 - [x] `[measure]` `monmove.c` distfleeck / shop-Valkyrie-50455535 step-110 fi14 5th candidate (D-3975 follow-up) — blocks 1/4555 (step 110/734 kind=rng: C loop m1..m5 vs JS m1..m4 for the fi14-slot turn; JS doors LEVEL-GEN DOOR 4/8, never broken post-gen; step-109 diggers at (21,10),(40,12) on ROOM; no crash tops, verbose on — JS-side writers exhausted, see D-3975). Deliverable: TEMP-C log-only fmon census (mndx/pos/peaceful/movement in turn order) + levl typ/dm at (49,7),(49,9),(50,7),(50,9),(50,8) + mndx165 mtrapseen at step 110 in the ignored recorder tree (W2/D-3960 recipe: incremental make + install + sysconf re-provision, revert byte-identical + rebuild + smoke after; re-record `.cache/probe/scen-shop-Valkyrie-50455535-s110.recipe.json`; probes in /tmp, never committed), then bisect steps 96–109 for the fork event and port the writer it names (door-break vs silent position/order fork). No `js/` in the measure commit. **Addressed:** D-3975 `4722dc249`
 
 

@@ -18,7 +18,7 @@
 {"fn":"flip_level","c":"533-922","status":"partial","js":["js/mklev.js:flip_level"],"omit":"ball/chain unplace (:566-585, unplacebc :582) + re-place (:909-910, placebc :910) — async in JS (ball.js), flip_level stays sync; C leaves SpLev_Map unflipped (by design, pre-existing); nh.flip_level Lua caller (nhlua.c:1517) unwired","d":["D-3406","D-3131","D-2336"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: remaining omit cannot ship"}
 {"fn":"flip_vault_guard","c":"926-958","status":"ported","js":["js/mklev.js:flip_vault_guard"],"d":["D-2913"],"at":"seed@a30a7de84"}
 {"fn":"flip_level_rnd","c":"967-982","status":"ported","js":["js/mklev.js:flip_level_rnd"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"sel_set_wall_property","c":"986-995","status":"ported","js":["js/mklev.js:sel_set_wall_property"],"at":"2026-10-03@bbe63333a"}
+{"fn":"sel_set_wall_property","c":"986-995","status":"ported","js":["js/mklev.js:sel_set_wall_property"],"d":["D-3988"],"at":"2026-10-15@36d6d328f"}
 {"fn":"set_wall_property","c":"1001-1013","status":"ported","js":["js/mklev.js:set_wall_property"],"at":"2026-10-03@bbe63333a"}
 {"fn":"remove_boundary_syms","c":"1016-1038","status":"ported","js":["js/mklev.js:remove_boundary_syms"],"d":["D-3913"],"at":"2026-10-13@c22b308a5"}
 {"fn":"set_door_orientation","c":"1042-1085","status":"ported","js":["js/mklev.js:set_door_orientation"],"at":"2026-10-03@bbe63333a"}
