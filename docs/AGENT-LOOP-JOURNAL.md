@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-15 — D-3975 [measure] `monmove.c` distfleeck@110 (shop-Valkyrie-50455535): C drew one more m_move selection draw than JS for the fi14-slot turn; door-break paths falsified JS-side — temp-C fmon+levl dump names the writer
+
+**C locus:** `monmove.c` m_move `:1970` (`!rn2(++chcnt)`, appr==0 peaceful loop); `mon.c` mfndpos diagonal-door arm (`IS_DOOR(ntyp) && doormask & ~D_BROKEN` rejects); door-break sites `monmove.c:1592–1600` (doorbuster smash; locked draws `rn2(2)`) and `dig.c:1427–1431` (mdig_tunnel eats closed doors; entry draws `rnd(12)`). Owner body proven faithful (D-3559, ledger ported) — distfleeck is NOT re-ported.
+**JS:** no files changed (monmove.js/mon.js/dig.js temp DIAG reverted, `git status` clean).
+**Change:** none — measurement iteration, no `js/` changed.
+**Verify:** preflight `node scripts/verify.mjs --no-cohort` → PASS on a clean tree before diagnosis. `node scripts/verify.mjs --fn distfleeck` → PASS syntax (0 changed js files) · PASS rule2 · FAIL hidden `verify distfleeck: 0 PASS, 0 moved past, 7 unchanged, 0 worse → NO MOVEMENT` (50455535 still distfleeck@110 by design — no `js/` in a measure commit; other 6 keep own writers: 50255246 moat-avoid, 50456037 ghoul-disappears, 49950029+620037 pool-fall, 50255043+50455043 dog-combat) · PASS reach distfleeck 80/80 spread (3869 reach it) → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (not shared) → VERIFY: FAIL — expected for a [measure] (D-3879 precedent).
+**Named:** n/a.
+**Next:** execute the `[measure]` row below (temp-C fmon census in turn order + levl typ/dm at (49,7),(49,9),(50,7),(50,9),(50,8) + mndx165 mtrapseen at step 110; bisect steps 96–109) → verdict door-break vs silent position/order fork → port the writer it names. Do not re-diagnose the JS side (findings (1)–(4) stand).
 ## 2026-10-15 — D-3974 cliffs-head peace_minded writers: bones ghostly is_unicorn gate + des-monster set_malign re-run (4/4 PASS)
 
 **C locus:** `restore.c` getlev ghostly `is_unicorn(mtmp->data)` (`mondata.h:149`: mlet S_UNICORN && likes_gems); `sp_lev.c` create_monster `:2125–2129` (des `mpeaceful` override + `set_malign` re-run).
