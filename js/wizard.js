@@ -625,7 +625,7 @@ export async function tactics(mtmp) {
  * only — resurrect itself prints nothing else (D-3735 deleted the D-0559
  * ungated inline duplicate, which also fired on the migrating path where
  * C prints no appear).
- * Named omissions: SetVoice; Deaf-aware acoustics polish.
+ * Named omissions: SetVoice (voice-render polish; no screen/RNG).
  */
 export async function resurrect() {
     const u = game.u;
@@ -687,7 +687,12 @@ export async function resurrect() {
         // path prints nothing before the voice (D-3735 deleted the D-0559
         // ungated inline duplicate, which over-filled the message window
         // for a blind hero and hid the voice behind --More--).
-        if (!u.Deaf) {
+        // C wizard.c:773 + youprop.h:125 — Deaf ≡ HDeaf || EDeaf ||
+        // u.uroleplay.deaf (u.Deaf flat kept in the union: same shape as
+        // cuss below and detect.js/do.js).
+        const Deaf = !!((u.HDeaf | 0) || (u.EDeaf | 0)
+            || u.uroleplay?.deaf || u.Deaf);
+        if (!Deaf) {
             await pline('A voice booms out...');
             await verbalize(`So thou thought thou couldst ${verb} me, fool.`);
         }
