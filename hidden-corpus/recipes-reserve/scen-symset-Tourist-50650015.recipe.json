@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0007housecat\n\u0017banana\nt$l \u0007tame pony\n\u0006_ \u001b,>FuFu_>>.Fn_>FnFlk _>>,   Fk_.  nFk>FuFb\u0017magic whistle\nku kk lk an    n\u0017tripe ration\n tau #name\nm\n20sdl   .m.sm.   n 20sh\u001b\u00165\n\u00165\nFuFkFkFuFuFkFuFyFbFyFyFkFhFbFh\u001bFkFuFhFbFyFbFbFkFhFyFyFyFyFbFbFhFhFbFyFhFkFbFuh FuFyFkk FbFyFhFhFhFyFuy FkFkFbFuu FyFh\u001bFyFh\u001bFuFkFuFhFkFhFuFyFyFkFkFhFuFbFky FbFkk FuFbFyFhFhFyFbFuFbFbFyFbFuFyFh\u001bFhFhFuFbFub FyFkh FbFbFbFuh FhFhFkFhFyFyFkFbFyFkFuFbFyFyFyFhFyFyFuFyFh\u001bO>>f\u001b\n\u00166\nFuFkFhFuFhFuFuFhFyFyFkFyFkk FhFhFkFuFhFyFh\u001bFkFyFh\u001bFkFyFh\u001bFuFkFkFhFyFh\u001bFkFkFkFyFky FuFkFkFkFuFhFyFyFyFuy FyFyFyFky FuFkFyFyFyFkh FkFhFuFuFhFhFhFuFhFkFuFhFyFuy FkFkFuFyFh\u001bFkFyFuu FkFhFuFuFkFyFky FhFkFhFuFkFuFhFkFuFuFu"
+ },
+ "segments": [
+  {
+   "seed": 50650015,
+   "datetime": "20100703140027",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nBIND=v:inventory\n",
+   "moves": "\u0007housecat\n\u0017banana\nt$l \u0007tame pony\n\u0006_ \u001b,>FuFu_>>.Fn_>FnFlk _>>,   Fk_.  nFk>FuFb\u0017magic whistle\nku kk lk an    n\u0017tripe ration\n tau #name\nm\n20sdl   .m.sm.   n 20sh\u001b\u00165\n\u00165\nFuFkFkFuFuFkFuFyFbFyFyFkFhFbFh\u001bFkFuFhFbFyFbFbFkFhFyFyFyFyFbFbFhFhFbFyFhFkFbFuh FuFyFkk FbFyFhFhFhFyFuy FkFkFbFuu FyFh\u001bFyFh\u001bFuFkFuFhFkFhFuFyFyFkFkFhFuFbFky FbFkk FuFbFyFhFhFyFbFuFbFbFyFbFuFyFh\u001bFhFhFuFbFub FyFkh FbFbFbFuh FhFhFkFhFyFyFkFbFyFkFuFbFyFyFyFhFyFyFuFyFh\u001bO>>f\u001b\n\u00166\nFuFkFhFuFhFuFuFhFyFyFkFyFkk FhFhFkFuFhFyFh\u001bFkFyFh\u001bFkFyFh\u001bFuFkFkFhFyFh\u001bFkFkFkFyFky FuFkFkFkFuFhFyFyFyFuy FyFyFyFky FuFkFyFyFyFkh FkFhFuFuFhFhFhFuFhFkFuFhFyFuy FkFkFuFyFh\u001bFkFyFuu FkFhFuFuFkFyFky FhFkFhFuFkFuFhFkFuFuFu"
+  }
+ ]
+}

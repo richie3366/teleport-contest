@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "Od\u001b\n\u00167\nFhFjFhFhFhFhFjFjFhFhFjFhFjFhFjFhFjFjFhFhFjFhFhFjFjFjFjFjFhFhFhFhFjFjFhFhFjFhFjFjFhFjFhFjFjFjFhFhFjFjFjFhFhFhFjFjFjFjFhFhFjFhFhFhFhFjFjFjFhFjFhFhFjFhFjFjFjFjFjFjFjFhFhFhFhFhFhFjFjFjFhFjFjFjFhFjFhFjFhFjFjFjFhFjFjFjFjFjFhFjFhFjFhFjFjFjFhFjFjFj\u001616\n\u00163\nFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFn\u00161\nee w\u001b\u001bZa\nmOa\u001b\nw\u001b\u001boh #levelchange\n6\n     uk yuu l\u0017iron bars\nyb\u0017altar\ndbdg\u0017lichen corpse\n#offer\nk  k.kk \u0017moat\n#dip\nd"
+ },
+ "segments": [
+  {
+   "seed": 50650095,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nMSGTYPE=hide \"You see\"\nMENUCOLOR=\"uncursed\"=brown\n",
+   "moves": "Od\u001b\n\u00167\nFhFjFhFhFhFhFjFjFhFhFjFhFjFhFjFhFjFjFhFhFjFhFhFjFjFjFjFjFhFhFhFhFjFjFhFhFjFhFjFjFhFjFhFjFjFjFhFhFjFjFjFhFhFhFjFjFjFjFhFhFjFhFhFhFhFjFjFjFhFjFhFhFjFhFjFjFjFjFjFjFjFhFhFhFhFhFhFjFjFjFhFjFjFjFhFjFhFjFhFjFjFjFhFjFjFjFjFjFhFjFhFjFhFjFjFjFhFjFjFj\u001616\n\u00163\nFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFn\u00161\nee w\u001b\u001bZa\nmOa\u001b\nw\u001b\u001boh #levelchange\n6\n     uk yuu l\u0017iron bars\nyb\u0017altar\ndbdg\u0017lichen corpse\n#offer\nk  k.kk \u0017moat\n#dip\nd"
+  }
+ ]
+}

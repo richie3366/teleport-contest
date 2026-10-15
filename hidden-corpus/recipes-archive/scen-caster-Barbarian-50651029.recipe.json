@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed spellbook of turn undead\nrf   s\u0017blessed spellbook of extra healing\nrg    s\u0017blessed spellbook of magic mapping\nrh  20s\u0017blessed spellbook of create monster\nri s+c\nZd\nZb\n\u0007kobold\nZd\nZa\nFkZa\nFk Zb\n"
+ },
+ "segments": [
+  {
+   "seed": 50651029,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed spellbook of turn undead\nrf   s\u0017blessed spellbook of extra healing\nrg    s\u0017blessed spellbook of magic mapping\nrh  20s\u0017blessed spellbook of create monster\nri s+c\nZd\nZb\n\u0007kobold\nZd\nZa\nFkZa\nFk Zb\n"
+  }
+ ]
+}

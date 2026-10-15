@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed ring of free action\nPjl\u0017blessed +3 helm of telepathy\nW\u001b\u0016?\nc#levelchange\n8\n   \u0017long sword\nwlFb   Fl Fl X \u0007pit viper\nsm.  n20s .m. sm. sm.   n.k 20s  .b\u0007baby long worm\nFb   n Fl  Fl  \u0007owlbear\n.m.  n   .h.sm.     n sm.   .m.  n   20s    n  sy\u00162\n\u001626\nkunkhhn:\u0016?\n>A  \u0004y\u001636\n\u0014 \u001b:su.m.20s\u0016?\n>E\u0006_<._.m.\u001636\n\u0004k\u00166\n\u0014@.ss.\u001626\n\u0004n\u0016?\ns \u0004hs\u0016?\n>whhlhl h:.20ss\u001621\n_{.<.s\u001621\n\u0014m,\u0016?\nk   \u0014m.\u001620\n\u0017blessed spellbook of healing\nrms\u0017blessed spellbook of dig\nrn .\u0017blessed spellbook of cancellation\nro  .+\u001bZb\nZb\nZb\n\u0007sewer rat\nZb\n#turn\n#enhance\nn\u001b\u001626\n\u0017blessed spellbook of restore ability\nrp 20s\u0017spellbook of extra healing\nrq 20s\u0017blessed spellbook of cause fear\n rr 20s+\u001bZb\nFl \u0007yellow mold\nZd\n\u0007giant rat\nZa\n Zc\nZb\nZe\nZc\n#turn\n\u001626\n\u0017blessed T-shirt\nW\u001bsm.   20s20sTc FyFj \u0017blessed +3 ring of warning\nPt 20s  n sm.20s  \u0017wand of death\nzuuzujss\u00173 potion of paralysis\n\u0007red naga\nqv\u0017uncursed pick-axe\n\u0007Kop Kaptain\naw awk  sm. .m.  n   \u00168\n\u001626\n\u0014m,\u00166\n\u0004h\u0016?\n>>K      ri"
+ },
+ "segments": [
+  {
+   "seed": 50650024,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed ring of free action\nPjl\u0017blessed +3 helm of telepathy\nW\u001b\u0016?\nc#levelchange\n8\n   \u0017long sword\nwlFb   Fl Fl X \u0007pit viper\nsm.  n20s .m. sm. sm.   n.k 20s  .b\u0007baby long worm\nFb   n Fl  Fl  \u0007owlbear\n.m.  n   .h.sm.     n sm.   .m.  n   20s    n  sy\u00162\n\u001626\nkunkhhn:\u0016?\n>A  \u0004y\u001636\n\u0014 \u001b:su.m.20s\u0016?\n>E\u0006_<._.m.\u001636\n\u0004k\u00166\n\u0014@.ss.\u001626\n\u0004n\u0016?\ns \u0004hs\u0016?\n>whhlhl h:.20ss\u001621\n_{.<.s\u001621\n\u0014m,\u0016?\nk   \u0014m.\u001620\n\u0017blessed spellbook of healing\nrms\u0017blessed spellbook of dig\nrn .\u0017blessed spellbook of cancellation\nro  .+\u001bZb\nZb\nZb\n\u0007sewer rat\nZb\n#turn\n#enhance\nn\u001b\u001626\n\u0017blessed spellbook of restore ability\nrp 20s\u0017spellbook of extra healing\nrq 20s\u0017blessed spellbook of cause fear\n rr 20s+\u001bZb\nFl \u0007yellow mold\nZd\n\u0007giant rat\nZa\n Zc\nZb\nZe\nZc\n#turn\n\u001626\n\u0017blessed T-shirt\nW\u001bsm.   20s20sTc FyFj \u0017blessed +3 ring of warning\nPt 20s  n sm.20s  \u0017wand of death\nzuuzujss\u00173 potion of paralysis\n\u0007red naga\nqv\u0017uncursed pick-axe\n\u0007Kop Kaptain\naw awk  sm. .m.  n   \u00168\n\u001626\n\u0014m,\u00166\n\u0004h\u0016?\n>>K      ri"
+  }
+ ]
+}

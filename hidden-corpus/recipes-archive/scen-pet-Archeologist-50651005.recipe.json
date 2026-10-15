@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "20s y20s   jbkjt\u001b20s   yu"
+ },
+ "segments": [
+  {
+   "seed": 50651005,
+   "datetime": "20210622225039",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": "20s y20s   jbkjt\u001b20s   yu"
+  }
+ ]
+}

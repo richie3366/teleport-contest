@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed amulet of reflection\nPn\u0017blessed +3 silver dragon scale mail\nWo  \u0016?\n>w\u0006_ \u001b<.      ,  :_ooooooooo.Fh_.,\u001b\u0017ruby\ndq_{.Fl  n_,Fl qg_oo.,p_ooooooooo,,:_{.Fl _,Flqh_ooo,,\u0017amulet of magical breathing\ndr_{.Fh_. Fl  q_{,Fl   _,Flq_oooo.,\u0014. 20ssm. _{, Fh_,Flq_oooooooo,,:_oooooo.Fl_.Fl,#chat\nl\u0016?\n>Bhhl\u0016?\n>w  \u0006_{,_.qy_oooooo,Fk_.m,Fk,:_oooo.Fk_.Fj   ,\u0017amulet of restful sleep\nds   n __.Fj _.Fh #chat\nh _ooo.   Fk   n _.  Fy  n    n ,  n   n:\u00168\n_oooo.,#chat\nh  _{,qFl  Fl   n Fl Fl  Fl   n Fl \u00169\n__,#chat\ny  #pray\ny y    Fy    nFy  Fy Fy Fy    nFy\u00167\nllk\u0016?\n>w\u0006\u00167\n_ooooooo.,p_oooo._o,,p_ooooooo._o.,p_ooooooo._oo.,p_{,qFn Fn Fn Fn FnFn \u0016?\ncbnl\u0016?\n>w \u0006Fk   nFk F"
+ },
+ "segments": [
+  {
+   "seed": 50650037,
+   "datetime": "20000823144430",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed amulet of reflection\nPn\u0017blessed +3 silver dragon scale mail\nWo  \u0016?\n>w\u0006_ \u001b<.      ,  :_ooooooooo.Fh_.,\u001b\u0017ruby\ndq_{.Fl  n_,Fl qg_oo.,p_ooooooooo,,:_{.Fl _,Flqh_ooo,,\u0017amulet of magical breathing\ndr_{.Fh_. Fl  q_{,Fl   _,Flq_oooo.,\u0014. 20ssm. _{, Fh_,Flq_oooooooo,,:_oooooo.Fl_.Fl,#chat\nl\u0016?\n>Bhhl\u0016?\n>w  \u0006_{,_.qy_oooooo,Fk_.m,Fk,:_oooo.Fk_.Fj   ,\u0017amulet of restful sleep\nds   n __.Fj _.Fh #chat\nh _ooo.   Fk   n _.  Fy  n    n ,  n   n:\u00168\n_oooo.,#chat\nh  _{,qFl  Fl   n Fl Fl  Fl   n Fl \u00169\n__,#chat\ny  #pray\ny y    Fy    nFy  Fy Fy Fy    nFy\u00167\nllk\u0016?\n>w\u0006\u00167\n_ooooooo.,p_oooo._o,,p_ooooooo._o.,p_ooooooo._oo.,p_{,qFn Fn Fn Fn FnFn \u0016?\ncbnl\u0016?\n>w \u0006Fk   nFk F"
+  }
+ ]
+}

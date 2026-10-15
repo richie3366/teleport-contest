@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u00166\nFbFbFnFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu\u0006_ \u001b;>FuFu_>.Fu_.,Fb>FbFb_>.Fn_,,Fb>FnFnFbFnFb\u0006_>.Fn_,,Fn>FbFb_>,Fn_.:Fh>FhFb_>.Fb_.m,Fb>FbFbFbFbFb\\ #invoke\n\u001b\u0006_>.Fb_,Fh>FbFn_>,Fn_,@.Fb>FnFb_>,Fb_..Fn>FnFnFbFnFb#offer\n;b,\u0006_>>.Fb_.:Fb>FbFn_>>.Fb_.m.Fb>FnFn_>>.Fb_..Fn>FbFnFbFnFb,L\u0006_>.Fb_,.Fn>FbFb_>.Fb_.,Fb>FnFb_>.Fn_,Fb >FhFbFyFbFn\u0006_>.Fh_.<.Fb>FnFn_>.Fb_.;.Fh >FnFb_>.Fb_.;<. Fn>FnFnFnFbFbWtfn\u0006_>.Fn_,m.Fn>FnFb_>.Fn_.;.Fb>FbFb_>.Fn_,>.Fj>FbFnFnFbFb\u000f\u001bO>p\u001b\n\u0007kitten\n\u0017tripe ration\ntbk\u0007tame jackal\n\u0017leash\nain ljhyaij10sdh .k  nsjsuk\u0007gnome\nsm.s20s.l.s\u0017tripe ration\nt"
+ },
+ "segments": [
+  {
+   "seed": 50650031,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=norep \"You kill\"\nMENUCOLOR=\"cursed\"=cyan\nBIND=v:inventory\n",
+   "moves": "  \u00166\nFbFbFnFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu\u0006_ \u001b;>FuFu_>.Fu_.,Fb>FbFb_>.Fn_,,Fb>FnFnFbFnFb\u0006_>.Fn_,,Fn>FbFb_>,Fn_.:Fh>FhFb_>.Fb_.m,Fb>FbFbFbFbFb\\ #invoke\n\u001b\u0006_>.Fb_,Fh>FbFn_>,Fn_,@.Fb>FnFb_>,Fb_..Fn>FnFnFbFnFb#offer\n;b,\u0006_>>.Fb_.:Fb>FbFn_>>.Fb_.m.Fb>FnFn_>>.Fb_..Fn>FbFnFbFnFb,L\u0006_>.Fb_,.Fn>FbFb_>.Fb_.,Fb>FnFb_>.Fn_,Fb >FhFbFyFbFn\u0006_>.Fh_.<.Fb>FnFn_>.Fb_.;.Fh >FnFb_>.Fb_.;<. Fn>FnFnFnFbFbWtfn\u0006_>.Fn_,m.Fn>FnFb_>.Fn_.;.Fb>FbFb_>.Fn_,>.Fj>FbFnFnFbFb\u000f\u001bO>p\u001b\n\u0007kitten\n\u0017tripe ration\ntbk\u0007tame jackal\n\u0017leash\nain ljhyaij10sdh .k  nsjsuk\u0007gnome\nsm.s20s.l.s\u0017tripe ration\nt"
+  }
+ ]
+}

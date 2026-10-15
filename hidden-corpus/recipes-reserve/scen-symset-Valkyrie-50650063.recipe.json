@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "v i\u001bv i\u001b\u0007tame gnome lord\n#name\no\nlk lj #chat\nj dc.20s.#chat\nh \u0017tin whistle\nbh\u001bnae\u00162\nFjFlFjFyFh\u001bFkFhFkFhFyFbFbFkh FkFhFyFyFlFlFbFyFyFlFbFuu FlFkFyFlFyFku FkFkFyFky FyFub FhFjFbFul FbFh\u001bFuFhFuFlFuFbFyFkFyFjFyFyFlFyFh\u001bFuFhFyFlFjFhFjFjFuFyFbFlFlFkFkFbFbFjFhFbFyFlFhFbFh\u001bFkFkFuFlFuFkFhFuFhFjFjFjFjFjFyFbFjFyFyFjFkFbFlFbFjFbFyFuFuFlFbFjFhFuFjFyFb#name\na\nch Zw-lkj juh \u0017iron bars\nkj \u0017neutral altar\ndddb\u0017dwarf corpse\n#offer\nf   #pray\ny y y\u0017pool\nly\u0017lawful altar\ndc\u0017jackal corpse\n#offer\ng #pray\ny y #rub\nr\u001b20s\u00163\n  FnFbFbFjFbFlFlFjFbFnFbFh\u001bFyFyFhFuFbFh\u001bFnFnFhFuFuFuFnFkl FnFlFlFnFbFnFuh FlFkFkFbFbFnFkn FnFyFuFlFhFhFkFhFbFkj FyFh\u001bFyFkl FnFjFjFbFky FnFuj FhFnFh\u001bFhFkFyFky FlFkFyFuh FuFbFyFuFkFyFlFlFbFyFuFjFuFuFlFnFbFuFhFuFbFh\u001bFkFlFuFhFnFuh FnFnFnFub FjFbFjFnFh\u001bFjFkFlFkFbFjFnFnFhFlFhFhFjFnFkb FkFhFbFuy FyFjFlFhFkFhFuFkFlFnFlFyFh\u001bFlFkFnFkk FlFyFh\u001bFuFbFlFbFyFhFjFbFjFbFuk FhFlFnFjFbFyFkFkFjF"
+ },
+ "segments": [
+  {
+   "seed": 50650063,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:kumquat\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nMENUCOLOR=\"uncursed\"=green\n",
+   "moves": "v i\u001bv i\u001b\u0007tame gnome lord\n#name\no\nlk lj #chat\nj dc.20s.#chat\nh \u0017tin whistle\nbh\u001bnae\u00162\nFjFlFjFyFh\u001bFkFhFkFhFyFbFbFkh FkFhFyFyFlFlFbFyFyFlFbFuu FlFkFyFlFyFku FkFkFyFky FyFub FhFjFbFul FbFh\u001bFuFhFuFlFuFbFyFkFyFjFyFyFlFyFh\u001bFuFhFyFlFjFhFjFjFuFyFbFlFlFkFkFbFbFjFhFbFyFlFhFbFh\u001bFkFkFuFlFuFkFhFuFhFjFjFjFjFjFyFbFjFyFyFjFkFbFlFbFjFbFyFuFuFlFbFjFhFuFjFyFb#name\na\nch Zw-lkj juh \u0017iron bars\nkj \u0017neutral altar\ndddb\u0017dwarf corpse\n#offer\nf   #pray\ny y y\u0017pool\nly\u0017lawful altar\ndc\u0017jackal corpse\n#offer\ng #pray\ny y #rub\nr\u001b20s\u00163\n  FnFbFbFjFbFlFlFjFbFnFbFh\u001bFyFyFhFuFbFh\u001bFnFnFhFuFuFuFnFkl FnFlFlFnFbFnFuh FlFkFkFbFbFnFkn FnFyFuFlFhFhFkFhFbFkj FyFh\u001bFyFkl FnFjFjFbFky FnFuj FhFnFh\u001bFhFkFyFky FlFkFyFuh FuFbFyFuFkFyFlFlFbFyFuFjFuFuFlFnFbFuFhFuFbFh\u001bFkFlFuFhFnFuh FnFnFnFub FjFbFjFnFh\u001bFjFkFlFkFbFjFnFnFhFlFhFhFjFnFkb FkFhFbFuy FyFjFlFhFkFhFuFkFlFnFlFyFh\u001bFlFkFnFkk FlFyFh\u001bFuFbFlFbFyFhFjFbFjFbFuk FhFlFnFjFbFyFkFkFjF"
+  }
+ ]
+}

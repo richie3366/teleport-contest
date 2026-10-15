@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " ck ZFjFjFnFh\u001bFjFyFj \u001bm,FjFyFj<.FnFbFnFyFjFuFyFub FbFnFhFjFbFbFnFlj FyFnFjFkFlFbFky FnFlh FuFkFhFbFlb FbFnFhFbFul FnFh\u001bFuFlFkFhFuFuFyFku FjFbFjm.FuFkFyFkl FjFhFkFyFj.FhFkFuFjFlFbFkh FuFnFh\u001bFbFbFkFuFlFkFjFjFhFhFnFyFnFuj FnFuh FhFlFjFuFyFh\u001bFlFuFbFky FuFbFh\u001bFkFlFjFjFhFjFuFuFlFkFuFjFkFnmOa\u001b\nmO>>>>a\u001b\nmOa\u001b\nmOa\u001b\n\u0006_>.Fj_.Fj>FjFj_>.Fj_,Fj>FjFj_>,Fk_,Fj>FjFjFjFjFj\u0006_>.Fk_,Fj>FjFj_>,Fj_.Fj>FkFj_>.Fj_.Fj>FjFjFjFjFj#force\n\\   \u0006_>.  nFj_,Fk>FkFj_>,Fk_.Fk>FjFj_>.Fj_.Fj>FjFjFkFkFkehb\u0006_>.Fk_.Fj>FjFk_>.Fj_,Fj>FkFj_>,Fj_,Fj>FjFjFjFjFj#rub\n#jump\n.\u0006_>,  nFk_.Fj>FjFj_>,Fk_.Fj>FjFj_>.Fj_.Fj>FjFjFjFjFj\u00169\n\u00164\nFjFhFkFkFbFj.FyFh\u001bFyFjm,FhFjFhFhFhFnFuj FhFuFlFkFbFlFjFjFnFkl FuFkFlFkFjFjFhFhFyFh\u001bFhFnFlFkFjFkFyFuy FbFj.FhFnFkl FyFyFkFhFjFlFyFh\u001bFuFyFbFkFyFlFhFnFkj FnFlFlFjFnFh\u001bFuFyFnFn"
+ },
+ "segments": [
+  {
+   "seed": 50650079,
+   "datetime": "20081127152627",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=number_pad:4\nMSGTYPE=stop \"The door\"\nMENUCOLOR=\"a potion\"=brown\n",
+   "moves": " ck ZFjFjFnFh\u001bFjFyFj \u001bm,FjFyFj<.FnFbFnFyFjFuFyFub FbFnFhFjFbFbFnFlj FyFnFjFkFlFbFky FnFlh FuFkFhFbFlb FbFnFhFbFul FnFh\u001bFuFlFkFhFuFuFyFku FjFbFjm.FuFkFyFkl FjFhFkFyFj.FhFkFuFjFlFbFkh FuFnFh\u001bFbFbFkFuFlFkFjFjFhFhFnFyFnFuj FnFuh FhFlFjFuFyFh\u001bFlFuFbFky FuFbFh\u001bFkFlFjFjFhFjFuFuFlFkFuFjFkFnmOa\u001b\nmO>>>>a\u001b\nmOa\u001b\nmOa\u001b\n\u0006_>.Fj_.Fj>FjFj_>.Fj_,Fj>FjFj_>,Fk_,Fj>FjFjFjFjFj\u0006_>.Fk_,Fj>FjFj_>,Fj_.Fj>FkFj_>.Fj_.Fj>FjFjFjFjFj#force\n\\   \u0006_>.  nFj_,Fk>FkFj_>,Fk_.Fk>FjFj_>.Fj_.Fj>FjFjFkFkFkehb\u0006_>.Fk_.Fj>FjFk_>.Fj_,Fj>FkFj_>,Fj_,Fj>FjFjFjFjFj#rub\n#jump\n.\u0006_>,  nFk_.Fj>FjFj_>,Fk_.Fj>FjFj_>.Fj_.Fj>FjFjFjFjFj\u00169\n\u00164\nFjFhFkFkFbFj.FyFh\u001bFyFjm,FhFjFhFhFhFnFuj FhFuFlFkFbFlFjFjFnFkl FuFkFlFkFjFjFhFhFyFh\u001bFhFnFlFkFjFkFyFuy FbFj.FhFnFkl FyFyFkFhFjFlFyFh\u001bFuFyFbFkFyFlFhFnFkj FnFlFlFjFnFh\u001bFuFyFnFn"
+  }
+ ]
+}

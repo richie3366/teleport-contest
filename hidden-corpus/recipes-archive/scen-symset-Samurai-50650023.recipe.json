@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \u00167\nFbFlFkFyFyFjFlFl FuFuFjFyFlFnFjFlFkFkFhFuFkFnFyFnFuFhFbFuFlFlFnFbFyFjFyFhFhFbFnFhFbFkFjFbFjFhFlFjFyFnFlFnFkFyFkFbFuFjFuFnFhFjFkFhFuFlFhFhFhFyFnFnFlFkFyFkFlFbFkFlFkFbFhFbFnFkFkFjFnFuFuFyFkFlFbFnFnFbFyFuFuFjFkFkFbFyFlFhFnFbFbFjFyFhFuFkFhFnFjFkmO>>>>f\u001b\nFuFkFlFjFhFyFuFhFhFjFkFjFhFlFjFyFkFyFhFkFjFjFkFhFuFlFuFkFkFyFjFjFkFkFkFhFyFhFkFuFhFkFuFkFjFyFyFyFjFhFhFuFuFlFyFkFuFlFuFkFuFhFjFlFkFhFhFjFlFuFlFuFjFlFu  nFjFyFuFyFuFhFjFyFyFlFkFyFuFjFkFhFuFjFuFlFkFlFlFjFhFyFlFlFjFyFyFyFuFjFjFyFyFuFjFjFuFhFlFkFyO>p\u001b\nk  nnyjk\u0017cloud\nhu\u0017throne\n#sit\n#sit\n y#sit\n\u001b#sit\n\u001by\u0017magic fountain\nqyqy #dip\ney :#terrain\nc\n\u001b@.dc 10s  n P\u001612\njkuu\u0017lawful altar\ndeda   n \u0017jackal corpse\n#offer\nf  yy\u0017tree\nnl \u0017cloud\n:h l\u0017iron bars\n#terrain\ne\n\\    P#invoke\n\u001bO>>j\u001b\n#pray\ny y FhFuFhFlFuFl FyFhFhFu FuFlFhFlFuFyFyFu FyFhFhFuFyFhFyFlFu FlFhFyFyFyFhFyFyFh FuFlFyFyFuFyFu FyFuFlFlFu#pray\ny y FyFy FlFhFl FhFuFyFlFyFhFhFhFuFyFhFhFuFyFhFhFlFuFyFlFyFhFlFlFuFh FlFh FuFlFuFyFlFyFuFy FyFuFyFuFlFy FlFl   FhFl   n   Fh   n  Fu      nFy   "
+ },
+ "segments": [
+  {
+   "seed": 50650023,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:debug\nBIND=v:inventory\n",
+   "moves": "  \u00167\nFbFlFkFyFyFjFlFl FuFuFjFyFlFnFjFlFkFkFhFuFkFnFyFnFuFhFbFuFlFlFnFbFyFjFyFhFhFbFnFhFbFkFjFbFjFhFlFjFyFnFlFnFkFyFkFbFuFjFuFnFhFjFkFhFuFlFhFhFhFyFnFnFlFkFyFkFlFbFkFlFkFbFhFbFnFkFkFjFnFuFuFyFkFlFbFnFnFbFyFuFuFjFkFkFbFyFlFhFnFbFbFjFyFhFuFkFhFnFjFkmO>>>>f\u001b\nFuFkFlFjFhFyFuFhFhFjFkFjFhFlFjFyFkFyFhFkFjFjFkFhFuFlFuFkFkFyFjFjFkFkFkFhFyFhFkFuFhFkFuFkFjFyFyFyFjFhFhFuFuFlFyFkFuFlFuFkFuFhFjFlFkFhFhFjFlFuFlFuFjFlFu  nFjFyFuFyFuFhFjFyFyFlFkFyFuFjFkFhFuFjFuFlFkFlFlFjFhFyFlFlFjFyFyFyFuFjFjFyFyFuFjFjFuFhFlFkFyO>p\u001b\nk  nnyjk\u0017cloud\nhu\u0017throne\n#sit\n#sit\n y#sit\n\u001b#sit\n\u001by\u0017magic fountain\nqyqy #dip\ney :#terrain\nc\n\u001b@.dc 10s  n P\u001612\njkuu\u0017lawful altar\ndeda   n \u0017jackal corpse\n#offer\nf  yy\u0017tree\nnl \u0017cloud\n:h l\u0017iron bars\n#terrain\ne\n\\    P#invoke\n\u001bO>>j\u001b\n#pray\ny y FhFuFhFlFuFl FyFhFhFu FuFlFhFlFuFyFyFu FyFhFhFuFyFhFyFlFu FlFhFyFyFyFhFyFyFh FuFlFyFyFuFyFu FyFuFlFlFu#pray\ny y FyFy FlFhFl FhFuFyFlFyFhFhFhFuFyFhFhFuFyFhFhFlFuFyFlFyFhFlFlFuFh FlFh FuFlFuFyFlFyFuFy FyFuFyFuFlFy FlFl   FhFl   n   Fh   n  Fu      nFy   "
+  }
+ ]
+}

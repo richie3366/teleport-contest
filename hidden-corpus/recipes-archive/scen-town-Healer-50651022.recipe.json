@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqk \u001b;_{,Fk_.>.qd_ooooooooo,     Fl_,Fu,:_oo,Fu_.  n  ,\u0014:_ooooooooo,_.,Fj,pzfjP\\  \u00175000 gold pieces\n\u0016?\n>w\u0006_oooooooo,Fj_,>.Fj_o._.,\u0014:__. _, Fk   #chat\nk   dg__,Fk_. Fj  #chat\nj_ooo._,@.,#chat\nl#untrap\nyt$lrh y    "
+ },
+ "segments": [
+  {
+   "seed": 50651022,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqk \u001b;_{,Fk_.>.qd_ooooooooo,     Fl_,Fu,:_oo,Fu_.  n  ,\u0014:_ooooooooo,_.,Fj,pzfjP\\  \u00175000 gold pieces\n\u0016?\n>w\u0006_oooooooo,Fj_,>.Fj_o._.,\u0014:__. _, Fk   #chat\nk   dg__,Fk_. Fj  #chat\nj_ooo._,@.,#chat\nl#untrap\nyt$lrh y    "
+  }
+ ]
+}

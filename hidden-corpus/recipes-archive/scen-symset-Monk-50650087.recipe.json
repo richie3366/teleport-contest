@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "v\u001bi\u001bOaslime mold\n\u001b\n\u00161\nmOa\u001b\n\u0006_ \u001bm.>Fu s_>._.>_>._,>,#pray\ny y \u0006_>>._.>_>>._.>_>>._,>\u0006_>._,>_>._.>_>._.Fh>\u0006_>._.>_>._.>_>,_.>\u0006_>>._.>_>>,_.>_>>,_.>\u0006_>,_.>_>,_,>_>,_.>#enhance\ny\u001bqdE\u001b#invoke\n\u001b#tip\n\u001b,\u00167\n\u0006_>>._.m.>_>>._.@.>_>>._.;.>\u0006_>._,,>_>,_,m,>_>._.m.>\u0006_>._.@.>_>._.,>_>._,<.><#pray\ny y \u0006_>>,_.:>_>>._.m.>_>>,_,m.>\u0006_>._,:>_>._,:>_>._,,>#chat\nb#turn\ns\u0006_>._,.>_>._,<.>_>._,.>\u0006_>>._.,>_>>._,@.>_>>,_.;.>\u0006_>._,@.>_>,_..>_>,_.@.>\u0006_>._.m.>_>._,<.>_>,_,>.>\u0006_>._,<.>_>,_..>_>._.>.>\u0006_>._.;;>_>._,,>_>._.:>Z\u001bz\u0006_>._.m.>_>,_.m,>_>._,.>#pray\ny y j#untrap\nu,O>>>>m\u001b\u001b\nri y \u0004yeg:<\u001619\n\u0006_>._.Fj>FjFj_>.Fj_.  nFj>FjFj_>.Fj"
+ },
+ "segments": [
+  {
+   "seed": 50650087,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=playmode:debug\nMSGTYPE=hide \"You miss\"\nMENUCOLOR=\"a potion\"=cyan\nBIND=v:inventory\n",
+   "moves": "v\u001bi\u001bOaslime mold\n\u001b\n\u00161\nmOa\u001b\n\u0006_ \u001bm.>Fu s_>._.>_>._,>,#pray\ny y \u0006_>>._.>_>>._.>_>>._,>\u0006_>._,>_>._.>_>._.Fh>\u0006_>._.>_>._.>_>,_.>\u0006_>>._.>_>>,_.>_>>,_.>\u0006_>,_.>_>,_,>_>,_.>#enhance\ny\u001bqdE\u001b#invoke\n\u001b#tip\n\u001b,\u00167\n\u0006_>>._.m.>_>>._.@.>_>>._.;.>\u0006_>._,,>_>,_,m,>_>._.m.>\u0006_>._.@.>_>._.,>_>._,<.><#pray\ny y \u0006_>>,_.:>_>>._.m.>_>>,_,m.>\u0006_>._,:>_>._,:>_>._,,>#chat\nb#turn\ns\u0006_>._,.>_>._,<.>_>._,.>\u0006_>>._.,>_>>._,@.>_>>,_.;.>\u0006_>._,@.>_>,_..>_>,_.@.>\u0006_>._.m.>_>._,<.>_>,_,>.>\u0006_>._,<.>_>,_..>_>._.>.>\u0006_>._.;;>_>._,,>_>._.:>Z\u001bz\u0006_>._.m.>_>,_.m,>_>._,.>#pray\ny y j#untrap\nu,O>>>>m\u001b\u001b\nri y \u0004yeg:<\u001619\n\u0006_>._.Fj>FjFj_>.Fj_.  nFj>FjFj_>.Fj"
+  }
+ ]
+}

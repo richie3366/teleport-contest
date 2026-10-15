@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u00176 javelins\nQg\u0007owlbear\nyyfl   fl fl Fb Fb \u0007kobold\nh fb  fn   yy\u001by   y y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50651008,
+   "datetime": "20110812145618",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u00176 javelins\nQg\u0007owlbear\nyyfl   fl fl Fb Fb \u0007kobold\nh fb  fn   yy\u001by   y y y\u001by  \u0017"
+  }
+ ]
+}

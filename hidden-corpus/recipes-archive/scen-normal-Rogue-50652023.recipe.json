@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #tip\nf\u001b#untrap\nkZ,,#twoweapon\nE- ad aerarium\ns\\ #jump\n\u0018\u001bi\u001b\\ #tip\nf\u001b10sZ#turn\n#untrap\n.<yy\u001by  y n W"
+ },
+ "segments": [
+  {
+   "seed": 50652023,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": " #tip\nf\u001b#untrap\nkZ,,#twoweapon\nE- ad aerarium\ns\\ #jump\n\u0018\u001bi\u001b\\ #tip\nf\u001b10sZ#turn\n#untrap\n.<yy\u001by  y n W"
+  }
+ ]
+}

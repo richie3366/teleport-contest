@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u0006_ \u001b>.>_>,Fy _.m,Fk>FhFy_>,Fk_.m.Fu>FuFkFyFyFu\u0006_>.Fy_.Fl>FkFl_>,Fl_,@.Fl>FyFk_>.Fy_.:Fu>FuFuFyFlFl\u0006_>.Fy_.,Fk>FuFu_>.Fy_,m,Fy>FlFy_>.Fu _.Fl>FyFuFyFlFk\u0006_>,Fy_.<.Fu>FlFy_>.Fu_,,Fy>FyFl_>,Fu_.>.Fu>FlFyFuFkFyed #conduct\n \u0004hL#chat\nkO>>>>g\u001b\nO>>e\u001b\n\u00162\n50s50sFls.150s150sFlFl.50s\\   lly150s50sFlFlFlhhyFhFbFyFyFhFbFhFhFhFyFbFhFbFhFyFhFhFbFyFhFyFbFhFhFhFbFhFbFyFhFbFhFhFhFhFyFbFbFbFhFhFbFhFbFbFhFhFhFhFhFyFhFhFbFhFyFhFhFyFbFbFhFhFbFyFhFyFyFbFyFyFhFyFbFhFyFbFhFhFyFy\u0006_>.Fj_,Fj>FjFj_>,Fk_.Fu>FnFn_>.Fh_.Fb>FjFjFbFbFn\u0006_>.Fu_.Fl>FnFl_>.Fj_.Fj>FbFj_>.Fu_.Fu>FkFuFkFyFu\u0006_>>,Fu_.Fu>FlFk_>>,Fl_.Fn>FnFl_>>.Fy_.Fk>FyFyFnFlFy\u000f\u001b\u001615\n     \u0007kitten\n\u0017food ration\ntbl\u0007tame lichen\nl\u0007jackal\n\u0017scroll of taming\nrf 20s#name\nm\n#name\n.nFuFk FkFk20s Fl  i\u001b100sFk sks100s\u0004u150s50suyjlll100sull100s_>.>50s_>,>100s\u0014<.50s150skkb100s100s150s100s150slhb_>.>100s50st$nkky50s100s100s100snyb50s50s\u00166\nFkFyFyFkFuFuFuFyFuFuFk"
+ },
+ "segments": [
+  {
+   "seed": 50650055,
+   "datetime": "20240131123109",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You kill\"\n",
+   "moves": "v i\u001b\u0006_ \u001b>.>_>,Fy _.m,Fk>FhFy_>,Fk_.m.Fu>FuFkFyFyFu\u0006_>.Fy_.Fl>FkFl_>,Fl_,@.Fl>FyFk_>.Fy_.:Fu>FuFuFyFlFl\u0006_>.Fy_.,Fk>FuFu_>.Fy_,m,Fy>FlFy_>.Fu _.Fl>FyFuFyFlFk\u0006_>,Fy_.<.Fu>FlFy_>.Fu_,,Fy>FyFl_>,Fu_.>.Fu>FlFyFuFkFyed #conduct\n \u0004hL#chat\nkO>>>>g\u001b\nO>>e\u001b\n\u00162\n50s50sFls.150s150sFlFl.50s\\   lly150s50sFlFlFlhhyFhFbFyFyFhFbFhFhFhFyFbFhFbFhFyFhFhFbFyFhFyFbFhFhFhFbFhFbFyFhFbFhFhFhFhFyFbFbFbFhFhFbFhFbFbFhFhFhFhFhFyFhFhFbFhFyFhFhFyFbFbFhFhFbFyFhFyFyFbFyFyFhFyFbFhFyFbFhFhFyFy\u0006_>.Fj_,Fj>FjFj_>,Fk_.Fu>FnFn_>.Fh_.Fb>FjFjFbFbFn\u0006_>.Fu_.Fl>FnFl_>.Fj_.Fj>FbFj_>.Fu_.Fu>FkFuFkFyFu\u0006_>>,Fu_.Fu>FlFk_>>,Fl_.Fn>FnFl_>>.Fy_.Fk>FyFyFnFlFy\u000f\u001b\u001615\n     \u0007kitten\n\u0017food ration\ntbl\u0007tame lichen\nl\u0007jackal\n\u0017scroll of taming\nrf 20s#name\nm\n#name\n.nFuFk FkFk20s Fl  i\u001b100sFk sks100s\u0004u150s50suyjlll100sull100s_>.>50s_>,>100s\u0014<.50s150skkb100s100s150s100s150slhb_>.>100s50st$nkky50s100s100s100snyb50s50s\u00166\nFkFyFyFkFuFuFuFyFuFuFk"
+  }
+ ]
+}

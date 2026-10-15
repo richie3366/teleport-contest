@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0016?\n>y  _ \u001b.#chat\ny_m,_.#chat\nj_mmmmm. Fl_.;. Fk  #chat\nu  _mmmm.#chat\nl;l.\u0006_>.  Fu  _.   yy\u001bnny y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50651016,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=runmode:crawl\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0016?\n>y  _ \u001b.#chat\ny_m,_.#chat\nj_mmmmm. Fl_.;. Fk  #chat\nu  _mmmm.#chat\nl;l.\u0006_>.  Fu  _.   yy\u001bnny y\u001b  F"
+  }
+ ]
+}

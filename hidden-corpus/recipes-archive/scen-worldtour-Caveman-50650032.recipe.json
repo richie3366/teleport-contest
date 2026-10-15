@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0016?\n>>M      spellbook of confuse monster\nbk     k   n  k        y       j                l  n      : \u001611\n\u001641\n#chat\n;k. \u001bm.\u00165\n_{,>   \u001622\nj   l  j     j  n               \u0017fire trap\nn  \u0007jackal\ns    s s    .   n l   l \u0017level teleporter\nl \u0017rolling boulder trap\n\u0017land mine\nahk     j  n   #terrain\nb\ne _<.s     :   \u00164\n\u0016?\nc\u0014;s .    n  \u001636\ny y : \u001641\n\u0006_<,\u0016?\n\u001bl  j\u001632\n\u0007chameleon\nFj   FjFk Fj 20s  n      s  #pray\ny y  \u0007gas spore\nFkFjFj  n       FkFk.20s\u001b#pray\ny y \u0007yellow light\nFjFj    Fu     n  20s.s\u001b20s.\u00163\n\u001623\n\u0004l  \u001641\n\u0006_>,\u0016?\n\u001bn     n   u   n  \u00165\n\u0016?\ne \u0017aklys\nwis    nFl    n Fy   n    n \u0007wood nymph\n.   n s  yny   y nn  s"
+ },
+ "segments": [
+  {
+   "seed": 50650032,
+   "datetime": "20241118211730",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0016?\n>>M      spellbook of confuse monster\nbk     k   n  k        y       j                l  n      : \u001611\n\u001641\n#chat\n;k. \u001bm.\u00165\n_{,>   \u001622\nj   l  j     j  n               \u0017fire trap\nn  \u0007jackal\ns    s s    .   n l   l \u0017level teleporter\nl \u0017rolling boulder trap\n\u0017land mine\nahk     j  n   #terrain\nb\ne _<.s     :   \u00164\n\u0016?\nc\u0014;s .    n  \u001636\ny y : \u001641\n\u0006_<,\u0016?\n\u001bl  j\u001632\n\u0007chameleon\nFj   FjFk Fj 20s  n      s  #pray\ny y  \u0007gas spore\nFkFjFj  n       FkFk.20s\u001b#pray\ny y \u0007yellow light\nFjFj    Fu     n  20s.s\u001b20s.\u00163\n\u001623\n\u0004l  \u001641\n\u0006_>,\u0016?\n\u001bn     n   u   n  \u00165\n\u0016?\ne \u0017aklys\nwis    nFl    n Fy   n    n \u0007wood nymph\n.   n s  yny   y nn  s"
+  }
+ ]
+}

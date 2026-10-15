@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Y   NUL_ \u001b,>FuFuFuJKKU_>,>HNKU_>,>\\  #ride\n.#twoweapon\noh\u0018\u001b_>.>_>,>\u000f\u001b\\  100sFy..i\u001b150sFhFhFy_>.>100sFl 20s.100s100s100sri #enhance\n\u001bi\u001b\\  <150sFlFls\u0018\u001bnjh100suub,jly50s_>.>100s Flsslhybnu100s  Fl20ss150sjklBUYK_>.>FjssJLNB_>,>FyFhFkYYKY_>.>FlssNHLK_>,>i\u001b\\  NYNU_>,>FuFuFu    K"
+ },
+ "segments": [
+  {
+   "seed": 50650083,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "Y   NUL_ \u001b,>FuFuFuJKKU_>,>HNKU_>,>\\  #ride\n.#twoweapon\noh\u0018\u001b_>.>_>,>\u000f\u001b\\  100sFy..i\u001b150sFhFhFy_>.>100sFl 20s.100s100s100sri #enhance\n\u001bi\u001b\\  <150sFlFls\u0018\u001bnjh100suub,jly50s_>.>100s Flsslhybnu100s  Fl20ss150sjklBUYK_>.>FjssJLNB_>,>FyFhFkYYKY_>.>FlssNHLK_>,>i\u001b\\  NYNU_>,>FuFuFu    K"
+  }
+ ]
+}

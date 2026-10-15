@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  dd.s20s jnjj10s20sdgs.s10sbldes..FkFk FkFkFkFkFkFkbklZ150sFb20sFbFbFbFbFb..150s\u0018\u001bhlh\u0018\u001b100s100sFjFjFjlhlab   \u001b@.i\u001b50stal100sFbs20s_>.>100sFks.s150s150si\u001b50shhl150sFkFk.150s50sFkFk20s150s_>.>hnj 100sFjFkFuFj.20sklhl50s eh100sFbFbFbFbFb._>.>i\u001bhlh100sehhhnj kh150s15#quit\nyy\u001by  y y y\u001b \u0017wand of digging\nzf> szf> 20szf> szf>  20szf>   yny  y y\u001by  sH   UJN_ \u001b@.>Fu    y\u001by  y y\u001b  s#wizintrinsic\nc\n .m.20ssm.20s    sm.20s.m.sm.s20s      ynnny y\u001b n  s \u0017wand of digging\nzm> 20s zm> szm>   yy\u001by  y ny  2",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50650042,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\n",
+   "moves": "  dd.s20s jnjj10s20sdgs.s10sbldes..FkFk FkFkFkFkFkFkbklZ150sFb20sFbFbFbFbFb..150s\u0018\u001bhlh\u0018\u001b100s100sFjFjFjlhlab   \u001b@.i\u001b50stal100sFbs20s_>.>100sFks.s150s150si\u001b50shhl150sFkFk.150s50sFkFk20s150s_>.>hnj 100sFjFkFuFj.20sklhl50s eh100sFbFbFbFbFb._>.>i\u001bhlh100sehhhnj kh150s15#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50750042,
+   "datetime": "20070211195858",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\nzf> szf> 20szf> szf>  20szf>   yny  y y\u001by  s"
+  },
+  {
+   "seed": 50850042,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=fruit:durian\n",
+   "moves": "H   UJN_ \u001b@.>Fu    y\u001by  y y\u001b  s"
+  },
+  {
+   "seed": 50950042,
+   "datetime": "20150109144911",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nc\n .m.20ssm.20s    sm.20s.m.sm.s20s      ynnny y\u001b n  s"
+  },
+  {
+   "seed": 51050042,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of digging\nzm> 20s zm> szm>   yy\u001by  y ny  2"
+  }
+ ]
+}

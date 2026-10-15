@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed Mjollnir\nwn\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 gauntlets of power\nWp\u0016?\n>>L      ring of sustain ability\n\u0017uncursed potion of restore ability\nqs \u001b\u0017blessed potion of paralysis\nqt                n     \u0017brass lantern\nau        n    #rub\nu            .s\u001bs     ns     n s    n   \u001611\n\u0016?\na   y  h   n     u     n  :   n         .   n      s  n        n    \u00169\n\u0016?\ne \u0014 \u001b:    n \u0016?\nb#levelchange\n6\n  \u0017cockatrice corpse\nwa  \u0007gnome\n.  n   Fy    n    Fh      \u0007chickatrice\nFy    n    Fy  n     Fh   yy\u001by  y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50650056,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed Mjollnir\nwn\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 gauntlets of power\nWp\u0016?\n>>L      ring of sustain ability\n\u0017uncursed potion of restore ability\nqs \u001b\u0017blessed potion of paralysis\nqt                n     \u0017brass lantern\nau        n    #rub\nu            .s\u001bs     ns     n s    n   \u001611\n\u0016?\na   y  h   n     u     n  :   n         .   n      s  n        n    \u00169\n\u0016?\ne \u0014 \u001b:    n \u0016?\nb#levelchange\n6\n  \u0017cockatrice corpse\nwa  \u0007gnome\n.  n   Fy    n    Fh      \u0007chickatrice\nFy    n    Fy  n     Fh   yy\u001by  y y y\u001b  s"
+  }
+ ]
+}

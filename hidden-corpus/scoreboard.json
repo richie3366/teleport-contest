@@ -1,11 +1,11 @@
 {
- "commit": "6b42d7236",
- "at": "2026-10-15T18:39:12.883Z",
+ "commit": "6a88a53cc",
+ "at": "2026-10-15T18:47:31.573Z",
  "full": false,
  "fullCommit": "e9d602604",
  "fullAt": "2026-10-15T16:40:59.621Z",
- "entries": 1187,
- "reserve": 301,
+ "entries": 1204,
+ "reserve": 295,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -1434,6 +1434,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-descend-Tourist-50651027": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 5045,
+   "rngT": 9562,
+   "scrM": 22,
+   "scrT": 143,
+   "kind": "screen",
+   "step": 22,
+   "steps": 143,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "You miss the newt. The newt bites!",
    "error": null
   },
   "scen-descend-Wizard-50255809": {
@@ -4173,6 +4190,24 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-questtour-Knight-50650022": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 27383,
+   "rngT": 27383,
+   "scrM": 980,
+   "scrT": 981,
+   "kind": "screen",
+   "step": 507,
+   "steps": 981,
+   "owner": "use_defensive",
+   "loc": "muse.c:989",
+   "jsOwner": null,
+   "cTopline": "The quasit zaps a wand of create monster!--More--",
+   "jsTopline": "The quasit zaps a wand of create monster!--More--",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-questtour-Monk-50557003": {
    "src": "corpus",
    "passed": false,
@@ -4308,6 +4343,24 @@
    "cTopline": "",
    "jsTopline": "You miss the quasit. The kitten misses the giant bat.--More--",
    "error": null
+  },
+  "scen-questtour-Wizard-50650062": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 16359,
+   "rngT": 26769,
+   "scrM": 666,
+   "scrT": 890,
+   "kind": "screen",
+   "step": 650,
+   "steps": 890,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "You miss the giant eel. The giant eel bites!--More--",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-ranged-Barbarian-582808": {
    "src": "corpus",
@@ -4546,6 +4599,24 @@
    "cTopline": "",
    "jsTopline": "",
    "error": null
+  },
+  "scen-shop-Archeologist-50650085": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 40898,
+   "rngT": 63471,
+   "scrM": 506,
+   "scrT": 842,
+   "kind": "screen",
+   "step": 499,
+   "steps": 842,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "You lash the werejackal. The werejackal changes into a jackal.--More--",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-shop-Barbarian-49959646": {
    "src": "corpus",
@@ -5786,7 +5857,8 @@
    "jsOwner": "(no JS draw; last matched was m_move)",
    "cTopline": "Suddenly, the ghoul disappears out of sight.",
    "jsTopline": "",
-   "error": "js panic (C did not): NhPanic: level number out of range [ledger_to_dnum(-1)] |     at panic (file:///home/debian/dev/teleport-contest/js/end.js:1072:11) |     "
+   "error": "js panic (C did not): NhPanic: level number out of range [ledger_to_dnum(-1)] |     at panic (file:///home/debian/dev/teleport-contest/js/end.js:1072:11) |     ",
+   "tier": "reserve"
   },
   "scen-sweep-Archeologist-585417": {
    "src": "corpus",
@@ -6058,7 +6130,8 @@
    "jsOwner": "distfleeck(monmove.js:1180)",
    "cTopline": "OK, so you don't die. You survived that attempt on your life.--More--",
    "jsTopline": "OK, so you don't die. You survived that attempt on your life.--More--",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-sweep-Barbarian-50255228": {
    "src": "corpus",
@@ -8117,6 +8190,23 @@
    "jsTopline": "You materialize on a different level!",
    "error": null
   },
+  "scen-sweep-Ranger-50650001": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 43438,
+   "rngT": 46590,
+   "scrM": 1039,
+   "scrT": 1115,
+   "kind": "rng",
+   "step": 1037,
+   "steps": 1115,
+   "owner": "distfleeck",
+   "loc": "monmove.c:538",
+   "jsOwner": "clonewiz(wizard.js:248)",
+   "cTopline": "The Wizard of Yendor suddenly appears next to you! The shark bites!--More--",
+   "jsTopline": "The Wizard of Yendor suddenly appears next to you! The shark bites!--More--",
+   "error": null
+  },
   "scen-sweep-Ranger-582637": {
    "src": "corpus",
    "passed": true,
@@ -8353,6 +8443,23 @@
    "jsOwner": null,
    "cTopline": "The erinys thrusts his short sword. The erinys hits!",
    "jsTopline": "The erinys thrusts her short sword. The erinys hits!",
+   "error": null
+  },
+  "scen-sweep-Rogue-50650049": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 70127,
+   "rngT": 70127,
+   "scrM": 1447,
+   "scrT": 1448,
+   "kind": "screen",
+   "step": 1380,
+   "steps": 1448,
+   "owner": "mcast_disappear",
+   "loc": "mcastu.c:494",
+   "jsOwner": null,
+   "cTopline": "A gremlin suddenly appears close by!--More--",
+   "jsTopline": "A gremlin suddenly appears close by!--More--",
    "error": null
   },
   "scen-sweep-Rogue-578101": {
@@ -9885,6 +9992,23 @@
    "jsTopline": "Hello wizard, welcome to NetHack! You are a neutral female human Barbarian.",
    "error": null
   },
+  "scen-symset-Barbarian-50650039": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 11154,
+   "rngT": 12180,
+   "scrM": 746,
+   "scrT": 897,
+   "kind": "screen",
+   "step": 72,
+   "steps": 897,
+   "owner": "missmu",
+   "loc": "mhitu.c:96",
+   "jsOwner": null,
+   "cTopline": "The jackal misses!",
+   "jsTopline": "You move right into the jackal. The jackal misses!",
+   "error": null
+  },
   "scen-symset-Caveman-50059032": {
    "src": "corpus",
    "passed": true,
@@ -10786,6 +10910,24 @@
    "jsTopline": "Coins",
    "error": null
   },
+  "scen-symset-Tourist-50650015": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 4607,
+   "rngT": 10008,
+   "scrM": 157,
+   "scrT": 654,
+   "kind": "screen",
+   "step": 136,
+   "steps": 654,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "Done.",
+   "jsTopline": "stone",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-symset-Valkyrie-50059008": {
    "src": "corpus",
    "passed": false,
@@ -10887,6 +11029,41 @@
    "cTopline": "",
    "jsTopline": "",
    "error": null
+  },
+  "scen-symset-Valkyrie-50650055": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 31828,
+   "rngT": 31828,
+   "scrM": 868,
+   "scrT": 884,
+   "kind": "screen",
+   "step": 834,
+   "steps": 884,
+   "owner": "roguename",
+   "loc": "do_name.c:1437",
+   "jsOwner": null,
+   "cTopline": "Michael Toy's ghost touches you!",
+   "jsTopline": "Michael Toy's ghost touches you!",
+   "error": null
+  },
+  "scen-symset-Valkyrie-50650063": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 7843,
+   "rngT": 7844,
+   "scrM": 841,
+   "scrT": 880,
+   "kind": "screen",
+   "step": 3,
+   "steps": 880,
+   "owner": "inuse_classify",
+   "loc": "invent.c:116",
+   "jsOwner": null,
+   "cTopline": "Weapons",
+   "jsTopline": "Weapons",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-symset-Wizard-50059040": {
    "src": "corpus",
@@ -12401,6 +12578,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-wish-Tourist-50652024": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 2476,
+   "rngT": 2476,
+   "scrM": 72,
+   "scrT": 72,
+   "kind": null,
+   "step": null,
+   "steps": 72,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
   "scen-wish-Tourist-91125": {
    "src": "corpus",
    "passed": true,
@@ -12707,6 +12901,23 @@
    "jsTopline": "You materialize on a different level!",
    "error": null
   },
+  "scen-worldtour-Barbarian-50650080": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 73172,
+   "rngT": 73175,
+   "scrM": 693,
+   "scrT": 699,
+   "kind": "screen",
+   "step": 94,
+   "steps": 699,
+   "owner": "goto_level",
+   "loc": "do.c:1696",
+   "jsOwner": null,
+   "cTopline": "goto_level: returning to discarded level?--More--",
+   "jsTopline": "goto_level: returning to discarded level?--More--",
+   "error": null
+  },
   "scen-worldtour-Barbarian-578309": {
    "src": "corpus",
    "passed": true,
@@ -12790,7 +13001,8 @@
    "jsOwner": "get_location_random(mklev.js:22073)",
    "cTopline": "You materialize on a different level! It is hot here.--More--",
    "jsTopline": "You materialize on a different level! It is hot here.--More--",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-worldtour-Caveman-587132": {
    "src": "corpus",
@@ -13030,6 +13242,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-worldtour-Monk-50650072": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 89998,
+   "rngT": 89998,
+   "scrM": 1167,
+   "scrT": 1168,
+   "kind": "screen",
+   "step": 942,
+   "steps": 1168,
+   "owner": "dodip",
+   "loc": "potion.c:2338",
+   "jsOwner": null,
+   "cTopline": "Dip them into the moat? [yn] (n)",
+   "jsTopline": "Dip it into the moat? [yn] (n)",
+   "error": null
+  },
   "scen-worldtour-Monk-578305": {
    "src": "corpus",
    "passed": true,
@@ -13181,7 +13410,8 @@
    "jsOwner": null,
    "cTopline": "goto_level: returning to discarded level?--More--",
    "jsTopline": "goto_level: returning to discarded level?--More--",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-worldtour-Ranger-49955071": {
    "src": "corpus",
@@ -13436,6 +13666,23 @@
    "jsOwner": "maybe_generate_rnd_mon(allmain.js:401)",
    "cTopline": "What would you like to identify first?",
    "jsTopline": "That scroll is not implemented yet.",
+   "error": null
+  },
+  "scen-worldtour-Tourist-50650048": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 17515,
+   "rngT": 54110,
+   "scrM": 214,
+   "scrT": 734,
+   "kind": "rng",
+   "step": 210,
+   "steps": 734,
+   "owner": "find_defensive",
+   "loc": "muse.c:659",
+   "jsOwner": "AC_VALUE(mhitu.js:326)",
+   "cTopline": "You hit the elf-lord! The elf-lord zaps a pine wand!--More--",
+   "jsTopline": "You hit the elf-lord! The elf-lord thrusts his runed spear.--More--",
    "error": null
   },
   "scen-worldtour-Tourist-578104": {
@@ -14152,6 +14399,41 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-worldtour-Wizard-50650000": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 25724,
+   "rngT": 44363,
+   "scrM": 146,
+   "scrT": 611,
+   "kind": "rng",
+   "step": 143,
+   "steps": 611,
+   "owner": null,
+   "loc": null,
+   "jsOwner": "get_location_random(mklev.js:22073)",
+   "cTopline": "You materialize on a different level!",
+   "jsTopline": "You materialize on a different level!",
+   "error": null
+  },
+  "scen-worldtour-Wizard-50650088": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 64151,
+   "rngT": 64151,
+   "scrM": 1085,
+   "scrT": 1103,
+   "kind": "screen",
+   "step": 458,
+   "steps": 1103,
+   "owner": "newsym",
+   "loc": "display.c:934",
+   "jsOwner": null,
+   "cTopline": "newsym: attempting screen update for <0,0>--More--",
+   "jsTopline": "",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-worldtour-Wizard-578116": {
    "src": "corpus",
    "passed": true,
@@ -14763,6 +15045,24 @@
    "cTopline": "",
    "jsTopline": "",
    "error": null
+  },
+  "scen-zapfest-Valkyrie-50650068": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 12424,
+   "rngT": 54038,
+   "scrM": 545,
+   "scrT": 1178,
+   "kind": "rng",
+   "step": 545,
+   "steps": 1178,
+   "owner": "distfleeck",
+   "loc": "monmove.c:538",
+   "jsOwner": "bhitm(zap.js:4449)",
+   "cTopline": "It misses! It bites! It stings! It hits! It kicks! It hits!--More--",
+   "jsTopline": "It bites! It bites! It stings! It hits! It kicks! It hits!--More--",
+   "error": null,
+   "tier": "reserve"
   },
   "tour-Archeologist-70010-d3-6-10-11-12": {
    "src": "corpus",
@@ -17329,8 +17629,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Caveman-50255015": {
    "src": "corpus",
@@ -17365,8 +17664,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Caveman-50359035": {
    "src": "corpus",
@@ -17419,8 +17717,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Caveman-50450095": {
    "src": "corpus",
@@ -17689,8 +17986,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Healer-50555009": {
    "src": "corpus",
@@ -17959,8 +18255,7 @@
    "jsOwner": null,
    "cTopline": "Armor",
    "jsTopline": "Armor",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50058514": {
    "src": "corpus",
@@ -18049,8 +18344,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50255003": {
    "src": "corpus",
@@ -18085,8 +18379,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50255049": {
    "src": "corpus",
@@ -18103,8 +18396,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50255060": {
    "src": "corpus",
@@ -18121,8 +18413,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50255071": {
    "src": "corpus",
@@ -18463,8 +18754,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Ranger-50059072": {
    "src": "corpus",
@@ -18697,8 +18987,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Rogue-50059025": {
    "src": "corpus",
@@ -18787,8 +19076,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Rogue-50359011": {
    "src": "corpus",
@@ -18931,8 +19219,7 @@
    "jsOwner": null,
    "cTopline": "You see here a cyan potion (for sale, 27 zorkmids).",
    "jsTopline": "You see here a cyan potion (for sale, 27 zorkmids).--More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Samurai-50455002": {
    "src": "corpus",
@@ -18967,8 +19254,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Samurai-50455025": {
    "src": "corpus",
@@ -19201,8 +19487,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Valkyrie-50058502": {
    "src": "corpus",
@@ -19363,8 +19648,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Valkyrie-50455034": {
    "src": "corpus",
@@ -19381,8 +19665,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Valkyrie-50550023": {
    "src": "corpus",
@@ -20488,5 +20771,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-15T18:47:45.416Z"
 }

@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "FjFj FjFjFjFjFjFjjjkhNBYL_ \u001bm,>Fb  y\u001by  y y y\u001b  2FlFlFlFlFlFlFlFl#chat\nj#name\nd\nlllb#chat\nnlu#chat\nydass.\u000f\u001bjbh\u000f\u001b150s150sFyFyFyFyFyFl  y\u001by  y y\u001b  #FkFkFkFkFk FkFkFki\u001b150s 100s 100sFkFk.E- ad aerarium\n100s100suln100s_ \u001bm.>FkFk.\\ 50s50snlkFyFyFy100s#force\n100s50s100sFys20slkbujnzP50s100sknk100sFhFh20s50s150sFhFhsybn\u0018\u001b50s#offer\n100skbuyUNJN_>.>UUYJ_>,>HYJN_>,>BBJN_>.>BLLN_>.>BBLB_>.>#monster\n#pray\ny \u000f\u001bhyljyhhkBHY U_>.>#name\n\u001bf  uJLHB_>.>Fu FkFuq\\ LLYL_>.>FbssLNH U_>,>#sit\n#twoweapon\nNKBL_>.>#wipe\n:LKJ#quit\nyy\u001by  y y y\u001b \u0017wand of digging\nzl> szl> .zl>  20szl> .zl.zlsFlFlFhFbFkFbFkFus.#quit\nyy",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50650066,
+   "datetime": "20031227000351",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\n",
+   "moves": "FjFj FjFjFjFjFjFjjjkhNBYL_ \u001bm,>Fb  y\u001by  y y y\u001b  2"
+  },
+  {
+   "seed": 50750066,
+   "datetime": "20230827184556",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "FlFlFlFlFlFlFlFl#chat\nj#name\nd\nlllb#chat\nnlu#chat\nydass.\u000f\u001bjbh\u000f\u001b150s150sFyFyFyFyFyFl  y\u001by  y y\u001b  #"
+  },
+  {
+   "seed": 50850066,
+   "datetime": "20201122182722",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:cat\n",
+   "moves": "FkFkFkFkFk FkFkFki\u001b150s 100s 100sFkFk.E- ad aerarium\n100s100suln100s_ \u001bm.>FkFk.\\ 50s50snlkFyFyFy100s#force\n100s50s100sFys20slkbujnzP50s100sknk100sFhFh20s50s150sFhFhsybn\u0018\u001b50s#offer\n100skbuyUNJN_>.>UUYJ_>,>HYJN_>,>BBJN_>.>BLLN_>.>BBLB_>.>#monster\n#pray\ny \u000f\u001bhyljyhhkBHY U_>.>#name\n\u001bf  uJLHB_>.>Fu FkFuq\\ LLYL_>.>FbssLNH U_>,>#sit\n#twoweapon\nNKBL_>.>#wipe\n:LKJ#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50950066,
+   "datetime": "20261212101644",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\nzl> szl> .zl>  20szl> .zl.zlsFlFlFhFbFkFbFkFus."
+  },
+  {
+   "seed": 51050066,
+   "datetime": "20200520214105",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  }
+ ]
+}

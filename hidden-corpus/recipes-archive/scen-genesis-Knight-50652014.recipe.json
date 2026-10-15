@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017gauntlets of dexterity\nW\u001bs.20s\u0007cave spider\n20ssm.20ssk20s20s.m.\u0007xan\nFbFb   yy\u001by  y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50652014,
+   "datetime": "20040207083058",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017gauntlets of dexterity\nW\u001bs.20s\u0007cave spider\n20ssm.20ssk20s20s.m.\u0007xan\nFbFb   yy\u001by  y y\u001by  F"
+  }
+ ]
+}

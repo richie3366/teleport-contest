@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " ec \\ y\\ ri#dip\ndg<W#monster\nLeb   alh\u0018\u001b\u0004ned alj#enhance\nyq\nr\n\u001b\u0018\u001bflqg;n. \u001b;cknL#name\n\u001bakhi\u001b\u000f\u001bE- ad aerarium\n"
+ },
+ "segments": [
+  {
+   "seed": 50652013,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " ec \\ y\\ ri#dip\ndg<W#monster\nLeb   alh\u0018\u001b\u0004ned alj#enhance\nyq\nr\n\u001b\u0018\u001bflqg;n. \u001b;cknL#name\n\u001bakhi\u001b\u000f\u001bE- ad aerarium\n"
+  }
+ ]
+}

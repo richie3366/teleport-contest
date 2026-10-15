@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPg\u0017blessed ring of free action\nPhl#levelchange\n14\n             \u0007vampire\n\u0007gnomish wizard\n\u0007succubus\n\u0017wand of sleep\nziu zil         .m.zib zil sh20s  i\u001b\u0017wand of striking\n\u0017wand of cancellation\n\u0017wand of death\n\u0007gnome lord\nzjb sm.zkkzjbzkbzln suzjb zlh   zlj s\u0017wand of death\n\u0017wand of slow monster\n\u0007soldier\n\u0007yellow mold\nzmh  nznjznb       sm.znj20szmjzm.  nzmy\u00163\n\u0007baby red dragon\n\u0007black dragon\nsm.20s   Fj Fl   ni\u001b\u0007orc shaman\n\u0007aligned cleric\ny\u0007incubus\n\u0017wand of fire\nsm.sm.   20s    \u0007baby red dragon\n20s  n 20s   \u0017wand of fire\napy         n   Fn  Fl    n i\u001b\u00164\n\u0007red dragon\n20s sm.  .m.  sm.#polyself\nblack dragon\n #monster\nb   slsm. #monster\nj#monster\nl#monster\nj #monster\nl\u0017wand of lightning\na..\u00175 boomerangs\nQr\u0007soldier\n\u0007troll\nfffff\u0018\u001b\u0017wand of sleep\n\u0017wand of death\n\u0007jackal\n\u0007hill orc\nzzzzzz.m.zzz\u00169\n\u00174 cream pies\nQby\u0007bugbear\nfttttff\u0017potion of polymorph\nt\u00174 cream pies\nQ-\u0007soldier\nftftft\u0007red dragon\nsk  sy       #polyself\nblack dragon"
+ },
+ "segments": [
+  {
+   "seed": 50650012,
+   "datetime": "20150822185631",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPg\u0017blessed ring of free action\nPhl#levelchange\n14\n             \u0007vampire\n\u0007gnomish wizard\n\u0007succubus\n\u0017wand of sleep\nziu zil         .m.zib zil sh20s  i\u001b\u0017wand of striking\n\u0017wand of cancellation\n\u0017wand of death\n\u0007gnome lord\nzjb sm.zkkzjbzkbzln suzjb zlh   zlj s\u0017wand of death\n\u0017wand of slow monster\n\u0007soldier\n\u0007yellow mold\nzmh  nznjznb       sm.znj20szmjzm.  nzmy\u00163\n\u0007baby red dragon\n\u0007black dragon\nsm.20s   Fj Fl   ni\u001b\u0007orc shaman\n\u0007aligned cleric\ny\u0007incubus\n\u0017wand of fire\nsm.sm.   20s    \u0007baby red dragon\n20s  n 20s   \u0017wand of fire\napy         n   Fn  Fl    n i\u001b\u00164\n\u0007red dragon\n20s sm.  .m.  sm.#polyself\nblack dragon\n #monster\nb   slsm. #monster\nj#monster\nl#monster\nj #monster\nl\u0017wand of lightning\na..\u00175 boomerangs\nQr\u0007soldier\n\u0007troll\nfffff\u0018\u001b\u0017wand of sleep\n\u0017wand of death\n\u0007jackal\n\u0007hill orc\nzzzzzz.m.zzz\u00169\n\u00174 cream pies\nQby\u0007bugbear\nfttttff\u0017potion of polymorph\nt\u00174 cream pies\nQ-\u0007soldier\nftftft\u0007red dragon\nsk  sy       #polyself\nblack dragon"
+  }
+ ]
+}

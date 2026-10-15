@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nWi\u0017blessed ring of free action\nPjr\u0017blessed amulet of life saving\nPk#levelchange\n20\n                   \u0017bow\nwl\u001720 arrows\nQm\u0007owlbear\n\u0007kobold\nfn fn tmn fn  fj fj  \u0007black dragon\n20s    sm.  sm.  \u0017wand of lightning\nany    n Fn  Fn \u0017blessed spellbook of fireball\nro20s \u0007kobold shaman\nZsm.  n .jZZZZsm.  sm. ZZsm.  sh#turn\n\u0017blessed spellbook of drain life\nrp  .m.   n \u0017blessed spellbook of cone of cold\nrq   sm. \u0007gnomish wizard\n\u0007mind flayer\nZZZ20s sm.     n Zsm. sm.  Zsm.sZZZ#turn\n\u001611\n\u00161\n\u0017blessed spellbook of force bolt\nrr   20s\u0007vampire\nZ\u001bZ\u001bZ\u001bsm.sZ\u001bZ\u001bZ\u001bZ\u001b\u0018\u001b\u0017blessed spellbook of force bolt\nrs y sm. \u0007lich\n\u0007vampire\nZ\u001bZ\u001b.n.j      Z\u001bZ\u001bZ\u001bZ\u001b\u0017wand of death\n\u0017wand "
+ },
+ "segments": [
+  {
+   "seed": 50650052,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nWi\u0017blessed ring of free action\nPjr\u0017blessed amulet of life saving\nPk#levelchange\n20\n                   \u0017bow\nwl\u001720 arrows\nQm\u0007owlbear\n\u0007kobold\nfn fn tmn fn  fj fj  \u0007black dragon\n20s    sm.  sm.  \u0017wand of lightning\nany    n Fn  Fn \u0017blessed spellbook of fireball\nro20s \u0007kobold shaman\nZsm.  n .jZZZZsm.  sm. ZZsm.  sh#turn\n\u0017blessed spellbook of drain life\nrp  .m.   n \u0017blessed spellbook of cone of cold\nrq   sm. \u0007gnomish wizard\n\u0007mind flayer\nZZZ20s sm.     n Zsm. sm.  Zsm.sZZZ#turn\n\u001611\n\u00161\n\u0017blessed spellbook of force bolt\nrr   20s\u0007vampire\nZ\u001bZ\u001bZ\u001bsm.sZ\u001bZ\u001bZ\u001bZ\u001b\u0018\u001b\u0017blessed spellbook of force bolt\nrs y sm. \u0007lich\n\u0007vampire\nZ\u001bZ\u001b.n.j      Z\u001bZ\u001bZ\u001bZ\u001b\u0017wand of death\n\u0017wand "
+  }
+ ]
+}

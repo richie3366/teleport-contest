@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017blessed ring of polymorph control\nPlr\u0017shield of reflection\nWm20s .s#polyself\nbaby crocodile\n  #monster\ns.\u0007trapper\nFkFk   Fl.m.  s s#polyself\nstone golem\n.s\u001bsss\u001b#polyself\nhomunculus\n #monster\n.s   \u0007elf-lord\n20s       s.s 20s s #polyself\nmail daemon\n dwarf lord\n#monster\ns  "
+ },
+ "segments": [
+  {
+   "seed": 50652002,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017blessed ring of polymorph control\nPlr\u0017shield of reflection\nWm20s .s#polyself\nbaby crocodile\n  #monster\ns.\u0007trapper\nFkFk   Fl.m.  s s#polyself\nstone golem\n.s\u001bsss\u001b#polyself\nhomunculus\n #monster\n.s   \u0007elf-lord\n20s       s.s 20s s #polyself\nmail daemon\n dwarf lord\n#monster\ns  "
+  }
+ ]
+}

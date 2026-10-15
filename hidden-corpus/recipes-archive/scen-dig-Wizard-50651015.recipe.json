@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of digging\n_ \u001bm.zp>  b\u0017grave\nzp>  sm. 20szp<zp> 20szpu\u0017wand of digging\nzquuzq> 20szq> .zq> szq<zq<  yy\u001bny y y\u001by  "
+ },
+ "segments": [
+  {
+   "seed": 50651015,
+   "datetime": "20160403180137",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\n_ \u001bm.zp>  b\u0017grave\nzp>  sm. 20szp<zp> 20szpu\u0017wand of digging\nzquuzq> 20szq> .zq> szq<zq<  yy\u001bny y y\u001by  "
+  }
+ ]
+}

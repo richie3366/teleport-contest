@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": ";>. \u001bm,wa;<.f by h#ride\nkyzf \u001bE- X marks the spot\n\u0014m. ,\u0018\u001b#terrain\ne\nz\u0018\u001bWW#wipe\n\u0004uzck#enhance\nyq\nr\n\u001b#rub\ne#twoweapon\ni\u001bed..Ws.swas20ssae#rub\ne>wa10s#invoke\n\u001bh#terrain\nf\n"
+ },
+ "segments": [
+  {
+   "seed": 50652019,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": ";>. \u001bm,wa;<.f by h#ride\nkyzf \u001bE- X marks the spot\n\u0014m. ,\u0018\u001b#terrain\ne\nz\u0018\u001bWW#wipe\n\u0004uzck#enhance\nyq\nr\n\u001b#rub\ne#twoweapon\ni\u001bed..Ws.swas20ssae#rub\ne>wa10s#invoke\n\u001bh#terrain\nf\n"
+  }
+ ]
+}

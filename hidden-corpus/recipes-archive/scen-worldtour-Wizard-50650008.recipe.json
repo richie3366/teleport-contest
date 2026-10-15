@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n            \u001616\n lk:\u001643\n   #levelchange\n30\n                \u0017sling\nwpFl Fl s\u0007water nymph\nFl Fl   Fl Flss\u0007wood nymph\nFl Fl Fl20s20s20s sl \u0007cobra\nFl 20s 20ssm.Fl Fl sm.s.m.\u0016?\n>B \u0014 \u001b,\u0016?\n>>L      potion of invisibility\nhu   b      nk j    kk:sm.     sk      n\u00167\n\u0016?\n\u001by   h              \u0016?\n\u001bj    y\u0016?\n\u001bny  \u0016?\n\u001bk    n n   \u001618\n\u0006<._<,\u0016?\n\u001bk      l   \u0016?\n\u001bb          n     u    n       n \u001612\n\u0016?\n\u001bkj     \u0016?\n\u001bhj   n      \u001618\n\u001720 darts\nQs\u0007grid bug\nkfj           n  fk     n  fk     n  .    n  20s    n  \u0017potion of booze\nt\u001b\u0007lichen\nl     n  kfb   fj   n  fy    fk   n      \u0007gnome lord\nyyfn       y\u001b        f"
+ },
+ "segments": [
+  {
+   "seed": 50650008,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n            \u001616\n lk:\u001643\n   #levelchange\n30\n                \u0017sling\nwpFl Fl s\u0007water nymph\nFl Fl   Fl Flss\u0007wood nymph\nFl Fl Fl20s20s20s sl \u0007cobra\nFl 20s 20ssm.Fl Fl sm.s.m.\u0016?\n>B \u0014 \u001b,\u0016?\n>>L      potion of invisibility\nhu   b      nk j    kk:sm.     sk      n\u00167\n\u0016?\n\u001by   h              \u0016?\n\u001bj    y\u0016?\n\u001bny  \u0016?\n\u001bk    n n   \u001618\n\u0006<._<,\u0016?\n\u001bk      l   \u0016?\n\u001bb          n     u    n       n \u001612\n\u0016?\n\u001bkj     \u0016?\n\u001bhj   n      \u001618\n\u001720 darts\nQs\u0007grid bug\nkfj           n  fk     n  fk     n  .    n  20s    n  \u0017potion of booze\nt\u001b\u0007lichen\nl     n  kfb   fj   n  fy    fk   n      \u0007gnome lord\nyyfn       y\u001b        f"
+  }
+ ]
+}

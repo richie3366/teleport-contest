@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPkl\u0016?\n>w\u0006_ \u001b<.,$__.Fl_,  Fu#chat\nu#pray\ny y _oooooo._ooo._., p__,_.  Fu #chat\nu  #pray\ny y    _oooooo,_oo.,:_oo._oo.,\u0017flint stone\ndl_ooooo._o.,  n$\u00167\nkjj\u0016?\n>w\u0006__, Fh_.Fj  n#chat\ny#pray\ny y   FjFjFjFj FjFj_{.Fh _.@.Fuq_oooooooo,_ooo,Fj _.  nFh ,\u0017amulet of change\ndm __.Fj_.Fh #chat\nj_ooooo,   n Fk_.Fh_ooo,  Fh  _.Fn ,   n p\u001612\n_{.q__.#chat\nk  #pray\ny y           \u00163\ny  nj n\u0016?\n>w\u0006Fn   nFn  Fn   n FnFn  Fn   n\u00162\nFlFl  Fl    nFl  Fl   n Fl  \u001611\n_ooo.  nFl_.,  \u0014; .h  nsh\u00161\n_oooooo,,p_ooo._o.Fk_.,    :__,#chat\nh Fk   n Fk   Fk Fk   n Fk   Fk   yy\u001b y  y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 50650061,
+   "datetime": "20130830022117",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPkl\u0016?\n>w\u0006_ \u001b<.,$__.Fl_,  Fu#chat\nu#pray\ny y _oooooo._ooo._., p__,_.  Fu #chat\nu  #pray\ny y    _oooooo,_oo.,:_oo._oo.,\u0017flint stone\ndl_ooooo._o.,  n$\u00167\nkjj\u0016?\n>w\u0006__, Fh_.Fj  n#chat\ny#pray\ny y   FjFjFjFj FjFj_{.Fh _.@.Fuq_oooooooo,_ooo,Fj _.  nFh ,\u0017amulet of change\ndm __.Fj_.Fh #chat\nj_ooooo,   n Fk_.Fh_ooo,  Fh  _.Fn ,   n p\u001612\n_{.q__.#chat\nk  #pray\ny y           \u00163\ny  nj n\u0016?\n>w\u0006Fn   nFn  Fn   n FnFn  Fn   n\u00162\nFlFl  Fl    nFl  Fl   n Fl  \u001611\n_ooo.  nFl_.,  \u0014; .h  nsh\u00161\n_oooooo,,p_ooo._o.Fk_.,    :__,#chat\nh Fk   n Fk   Fk Fk   n Fk   Fk   yy\u001b y  y y y\u001by  _"
+  }
+ ]
+}

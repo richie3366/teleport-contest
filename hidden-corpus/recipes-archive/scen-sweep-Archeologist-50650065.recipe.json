@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqj \u001b,_dd, Fn _,\u0004j _dd.  nFl_.@.Fl \u0004k  n __.Fl _,m,Fl   n   \u001b#chat\nl   n dd _oooooo.Fl   n _.Fl   n, p_ooooooo,Fl   n_.Fl,p_mmmm.  nFh _.  n Fl   n#chat\nh _ooooooooo.  n Fh _.  nFl _oo.  nFl_,Fh   n ,$,#turn\n,i\u001b\u001611\n\u0016?\n>y  _mmmmm.  nFk _,#chat\nk;k,_mmmmm,#chat\nk   yy\u001by  y n  ;"
+ },
+ "segments": [
+  {
+   "seed": 50650065,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqj \u001b,_dd, Fn _,\u0004j _dd.  nFl_.@.Fl \u0004k  n __.Fl _,m,Fl   n   \u001b#chat\nl   n dd _oooooo.Fl   n _.Fl   n, p_ooooooo,Fl   n_.Fl,p_mmmm.  nFh _.  n Fl   n#chat\nh _ooooooooo.  n Fh _.  nFl _oo.  nFl_,Fh   n ,$,#turn\n,i\u001b\u001611\n\u0016?\n>y  _mmmmm.  nFk _,#chat\nk;k,_mmmmm,#chat\nk   yy\u001by  y n  ;"
+  }
+ ]
+}

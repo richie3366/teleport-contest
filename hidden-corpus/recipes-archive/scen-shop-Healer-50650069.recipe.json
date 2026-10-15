@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed amulet of life saving\nPm\u0017blessed +3 silver dragon scale mail\nWn\u0016?\n>w\u0006_ \u001b.#chat\nj_oooo,,plbl#chat\nj_{, Fj    _,Fj qd _ooo.,p_oo.,p_ooo.,\u0014>.20s s_oooooooo,,:_{.Fh_.Fhqf__.Fh_,   Fb #chat\nb_ooooooo,Fh_, Fj,#chat\njFjFjFj Fj FjFj_ooooo.,pFb Fb FbFbFb Fb FjFj Fj    Fj Fj Fj FkFk Fk Fk Fk Fk Fu Fu   n Fu FuFu Fu  _oo.Fh _,,  \u0017amulet of change\ndp _{.Fh   _.@.Fh qd_ooooooooo,Fb _,Fk ,\u001bp_{.Fb _.Fu qeFk Fk FkFk  Fk Fk _{.Fu_.    n FuqeFbFb  Fb Fb Fb Fb _ooooooo. Fl_.,\u001b: _ooooooo.Fu _.m.Fh, :_ooooooooo,Fh_.Fh ,p_{.Fh_.Fhqgnyn#chat\nu_ooooooooo,Fu_,,\u001bpFu FuFuFu FuFu_ooo.Fh   _, Fu  ,\u001bp_ooooooooo,,\u001bpFu FuFuFu  nFu  Fu __.Fu  _. Fk #chat\nuFkFkFkFkFkFkFuFuFuFuFuFu_{.Fu_. Fu qf Fh Fh FhFhFhFh_{. Fh_.Fhqf _{,  Fy_.Fy q__.Fy_.Fh#chat\n"
+ },
+ "segments": [
+  {
+   "seed": 50650069,
+   "datetime": "20240623051821",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=sortloot:loot\nOPTIONS=runmode:teleport\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed amulet of life saving\nPm\u0017blessed +3 silver dragon scale mail\nWn\u0016?\n>w\u0006_ \u001b.#chat\nj_oooo,,plbl#chat\nj_{, Fj    _,Fj qd _ooo.,p_oo.,p_ooo.,\u0014>.20s s_oooooooo,,:_{.Fh_.Fhqf__.Fh_,   Fb #chat\nb_ooooooo,Fh_, Fj,#chat\njFjFjFj Fj FjFj_ooooo.,pFb Fb FbFbFb Fb FjFj Fj    Fj Fj Fj FkFk Fk Fk Fk Fk Fu Fu   n Fu FuFu Fu  _oo.Fh _,,  \u0017amulet of change\ndp _{.Fh   _.@.Fh qd_ooooooooo,Fb _,Fk ,\u001bp_{.Fb _.Fu qeFk Fk FkFk  Fk Fk _{.Fu_.    n FuqeFbFb  Fb Fb Fb Fb _ooooooo. Fl_.,\u001b: _ooooooo.Fu _.m.Fh, :_ooooooooo,Fh_.Fh ,p_{.Fh_.Fhqgnyn#chat\nu_ooooooooo,Fu_,,\u001bpFu FuFuFu FuFu_ooo.Fh   _, Fu  ,\u001bp_ooooooooo,,\u001bpFu FuFuFu  nFu  Fu __.Fu  _. Fk #chat\nuFkFkFkFkFkFkFuFuFuFuFuFu_{.Fu_. Fu qf Fh Fh FhFhFhFh_{. Fh_.Fhqf _{,  Fy_.Fy q__.Fy_.Fh#chat\n"
+  }
+ ]
+}

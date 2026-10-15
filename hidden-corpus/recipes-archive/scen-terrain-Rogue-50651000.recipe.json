@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "yhuh\u0017grave\n: \u0017wand of digging\nzg> s.jn\u0017unaligned altar\ndedd\u0017lichen corpse\n#offer\nnh  #pray\ny #pray\ny i\u001b#tip\nf\u001b#levelchange\n14\n             bjb\u0017unaligned altar\nda\u0017gnome corpse\n #offer\ni   ll\u0017melting ice\nubub:#terrain\nf\ne<#sit\nSy\u001b y#tip\nf\u001b#wipe\n#dip\ncLe#jump\noh<#ride\n.y#enhance\nym\np\n\u001b;>. \u001b;",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50651000,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "yhuh\u0017grave\n: \u0017wand of digging\nzg> s.jn\u0017unaligned altar\ndedd\u0017lichen corpse\n#offer\nnh  #pray\ny #pray\ny i\u001b#tip\nf\u001b#levelchange\n14\n             bjb\u0017unaligned altar\nda\u0017gnome corpse\n #offer\ni   ll\u0017melting ice\nubub:#terrain\nf\ne<#sit\nSy\u001b"
+  },
+  {
+   "seed": 51151000,
+   "datetime": "20051102065929",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " y#tip\nf\u001b#wipe\n#dip\ncLe#jump\noh<#ride\n.y#enhance\nym\np\n\u001b;>. \u001b;"
+  }
+ ]
+}

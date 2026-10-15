@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017blessed ring of polymorph control\nPjl#polyself\nkraken\n ice devil\n#monster\n.20ss..#polyself\nhobbit\n #monster\ns20ss20s.#polyself\ndisenchanter\n#monster\n.s.ss#polyself\nearth elemental\n #monster\ns.\u0007barrow wight\nFj .  .   .  s  s   \\ #levelchange\n8\n  \u001610\n\\ #loot\nu10s     \u0006sm.    .m.    \u0016?\nl >z#wipe\n   sb   .m.   \u0016?\n>w  z\\ E- Elbereth Elbereth\n    n 20s   su#wizintrinsic\nfi\n \u0017towel\nak\u0017scroll of amnesia\nrlj    \u001bj u   h j j  n h   h    n  h   nZ\u0017wand of undead turning\nzm.     nzml n   n s   n   n .   n 20s n   n  n \u00162\n\u000f\u001b\u00161\n\u0017sack\n\u0017ring of warning\n\u0017ring of fire resistance\n\u0017credit card\ndn aq. s  n 20s   n s#loot\nr\n  yy\u001by  y y\u001b y  a"
+ },
+ "segments": [
+  {
+   "seed": 50650081,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=autodig\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017blessed ring of polymorph control\nPjl#polyself\nkraken\n ice devil\n#monster\n.20ss..#polyself\nhobbit\n #monster\ns20ss20s.#polyself\ndisenchanter\n#monster\n.s.ss#polyself\nearth elemental\n #monster\ns.\u0007barrow wight\nFj .  .   .  s  s   \\ #levelchange\n8\n  \u001610\n\\ #loot\nu10s     \u0006sm.    .m.    \u0016?\nl >z#wipe\n   sb   .m.   \u0016?\n>w  z\\ E- Elbereth Elbereth\n    n 20s   su#wizintrinsic\nfi\n \u0017towel\nak\u0017scroll of amnesia\nrlj    \u001bj u   h j j  n h   h    n  h   nZ\u0017wand of undead turning\nzm.     nzml n   n s   n   n .   n 20s n   n  n \u00162\n\u000f\u001b\u00161\n\u0017sack\n\u0017ring of warning\n\u0017ring of fire resistance\n\u0017credit card\ndn aq. s  n 20s   n s#loot\nr\n  yy\u001by  y y\u001b y  a"
+  }
+ ]
+}

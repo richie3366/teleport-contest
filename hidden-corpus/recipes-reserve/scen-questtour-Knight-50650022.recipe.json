@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b.#chat\nu;u,_mm.#chat\nu;j;_mm,#chat\nj#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nj_mmmm.#chat\nh;j,_mmmm.#chat\nj\u0017blessed +3 cloak of magic resistance\nWii\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017wand of fire\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fh_,sssszkh ,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nj;_.\u0016?\n>z\u0006_mmmmmmm,.s.ss.szkl,\u0016?\n>A\u0006_mmmm..s.s,#chat\nb\u0016?\n>A\u0006_mm.20s Fj Fj  Fjs20szkj ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.FnFn  Fl Fj Fnzky ,\u0016?\n>z\u0006_mmmmmmm,Fj _,Fj Fl  Fl   FjFl  Fn Fb   n   zkj       ,\u0016?\n>A\u0006_mmmmmmm,     Fn       _.     Fh  Fu       n  Fj         Fb     Fj Fh    Fb      Fl  n        ,#chat\nu\u00169\n\u0016?\n>A\u0006_mmm.      Fb      _.Fh      Fl  n         Fn    FuFj     Fu Fn      zku    n    ,\u0016?\n>>\u001b\u0016?\n>y_m.     Fl        _,#chat\nl\u00165\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.     Fu      n  _.       Fb      Fh      Fb    Fu  Fu     n      Fu     Fh     zk   ,#chat\nh\u00166\n\u0016?\n>z\u0006_mmmmmmm.     Fn     n  _.    Fj       Fn    Fu Fj     n    Fh      Fj      Fl      ,\u0016?\n>>\u001b\u0016?\n>y_mm.    Fb      n   _,#chat\nu\u00168\n\u0016?\n>A\u0006_mmmm"
+ },
+ "segments": [
+  {
+   "seed": 50650022,
+   "datetime": "20011219112429",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b.#chat\nu;u,_mm.#chat\nu;j;_mm,#chat\nj#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nj_mmmm.#chat\nh;j,_mmmm.#chat\nj\u0017blessed +3 cloak of magic resistance\nWii\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017wand of fire\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fh_,sssszkh ,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nj;_.\u0016?\n>z\u0006_mmmmmmm,.s.ss.szkl,\u0016?\n>A\u0006_mmmm..s.s,#chat\nb\u0016?\n>A\u0006_mm.20s Fj Fj  Fjs20szkj ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.FnFn  Fl Fj Fnzky ,\u0016?\n>z\u0006_mmmmmmm,Fj _,Fj Fl  Fl   FjFl  Fn Fb   n   zkj       ,\u0016?\n>A\u0006_mmmmmmm,     Fn       _.     Fh  Fu       n  Fj         Fb     Fj Fh    Fb      Fl  n        ,#chat\nu\u00169\n\u0016?\n>A\u0006_mmm.      Fb      _.Fh      Fl  n         Fn    FuFj     Fu Fn      zku    n    ,\u0016?\n>>\u001b\u0016?\n>y_m.     Fl        _,#chat\nl\u00165\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.     Fu      n  _.       Fb      Fh      Fb    Fu  Fu     n      Fu     Fh     zk   ,#chat\nh\u00166\n\u0016?\n>z\u0006_mmmmmmm.     Fn     n  _.    Fj       Fn    Fu Fj     n    Fh      Fj      Fl      ,\u0016?\n>>\u001b\u0016?\n>y_mm.    Fb      n   _,#chat\nu\u00168\n\u0016?\n>A\u0006_mmmm"
+  }
+ ]
+}

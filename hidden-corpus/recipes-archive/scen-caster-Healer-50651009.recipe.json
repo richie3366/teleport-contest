@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed spellbook of knock\nrm 20s \u0017blessed spellbook of invisibility\nrn   .\u0017blessed spellbook of confuse monster\nro s+\u001bZe\nZe\nZb\n\u0007zombie\nZf\n\u0007sewer rat\nZc\n  \u0007newt\nZa\n Fu \u0007yellow mold\nZb\n#pray\ny y "
+ },
+ "segments": [
+  {
+   "seed": 50651009,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed spellbook of knock\nrm 20s \u0017blessed spellbook of invisibility\nrn   .\u0017blessed spellbook of confuse monster\nro s+\u001bZe\nZe\nZb\n\u0007zombie\nZf\n\u0007sewer rat\nZc\n  \u0007newt\nZa\n Fu \u0007yellow mold\nZb\n#pray\ny y "
+  }
+ ]
+}

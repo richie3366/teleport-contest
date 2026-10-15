@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " Olk\n#rub\ng\u001bOo\nh\n10s   O>cdf\nW#tip\nh\u001bO>e\n;l: \u001b,#untrap\nlssOld\nz#wipe\nmO>>>>ga\n#sit\nOlc\n#loot\nmO>w\n#untrap\nn10sOhok\nh\n#untrap\ny<yy\u001by  y y y\u001b 2"
+ },
+ "segments": [
+  {
+   "seed": 50651031,
+   "datetime": "20080918175213",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=runmode:walk\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " Olk\n#rub\ng\u001bOo\nh\n10s   O>cdf\nW#tip\nh\u001bO>e\n;l: \u001b,#untrap\nlssOld\nz#wipe\nmO>>>>ga\n#sit\nOlc\n#loot\nmO>w\n#untrap\nn10sOhok\nh\n#untrap\ny<yy\u001by  y y y\u001b 2"
+  }
+ ]
+}

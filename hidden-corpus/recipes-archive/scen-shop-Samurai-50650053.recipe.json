@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed Mjollnir\nwf\u0017blessed ring of free action\nPgr\u0016?\n>w\u0006_ \u001b:,\u0017loadstone\n dh_oo,_ooo,,:\u0016?\nckn j\u0016?\n>w \u0006_ooooooooo._o.,$_oo.,pkkj#chat\nl _ooo.,\u0014@..m.sn__.Fh_.m.  nFh #chat\nn#pray\ny y _{.Fj_.Fjq_ooo.Fl_.  nFu  ,:__.  Fj _.  nFj #chat\nb#pray\ny y     _oooooo,,p_{,Fj_.m.Fb  q_oooooooo.  nFj_,m.Fj,#chat\nj \u00167\nkjk \u0016?\n>w\u0006ubl #chat\nu__._.m,#chat\ny_oooo._._o.Fy _.m,y ,:ylh#chat\nj__._.#chat\nu_ooo.,p_ooooo._.m._oo.,\u001b#chat\nl_oooo.,\u001bp__._..#chat\nk_oooooooo,_.,\u001b#chat\nbuhn#chat\nn_ooooo._,,p_{,_.>.Fj q_ooooo. Fl _._ooo,,\u001bp__."
+ },
+ "segments": [
+  {
+   "seed": 50650053,
+   "datetime": "20261111204847",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed Mjollnir\nwf\u0017blessed ring of free action\nPgr\u0016?\n>w\u0006_ \u001b:,\u0017loadstone\n dh_oo,_ooo,,:\u0016?\nckn j\u0016?\n>w \u0006_ooooooooo._o.,$_oo.,pkkj#chat\nl _ooo.,\u0014@..m.sn__.Fh_.m.  nFh #chat\nn#pray\ny y _{.Fj_.Fjq_ooo.Fl_.  nFu  ,:__.  Fj _.  nFj #chat\nb#pray\ny y     _oooooo,,p_{,Fj_.m.Fb  q_oooooooo.  nFj_,m.Fj,#chat\nj \u00167\nkjk \u0016?\n>w\u0006ubl #chat\nu__._.m,#chat\ny_oooo._._o.Fy _.m,y ,:ylh#chat\nj__._.#chat\nu_ooo.,p_ooooo._.m._oo.,\u001b#chat\nl_oooo.,\u001bp__._..#chat\nk_oooooooo,_.,\u001b#chat\nbuhn#chat\nn_ooooo._,,p_{,_.>.Fj q_ooooo. Fl _._ooo,,\u001bp__."
+  }
+ ]
+}

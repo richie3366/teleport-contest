@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             #wizintrinsic\nnor\n  20s \u001b>.s.ss20ssssn.m.20s.usm..m..sksm.ss.jsls.m.20s20ssm..m..nsm.ss.m.\u0017potion of blindness\nqi#dip\nc\u001bW#name\no\n#tip\nf\u001bz#conduct\n #tip\nf\u001b20s  s20s.s."
+ },
+ "segments": [
+  {
+   "seed": 50652029,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             #wizintrinsic\nnor\n  20s \u001b>.s.ss20ssssn.m.20s.usm..m..sksm.ss.jsls.m.20s20ssm..m..nsm.ss.m.\u0017potion of blindness\nqi#dip\nc\u001bW#name\no\n#tip\nf\u001bz#conduct\n #tip\nf\u001b20s  s20s.s."
+  }
+ ]
+}

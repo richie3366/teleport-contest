@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001bm._o,,#chat\nh _{.Fl_.qyjbu#chat\nkljh#chat\nl_oooooo.,p_ooooo,,pFkFkFkFkFkFkuhn#chat\nh\u00163\n  bhn\u0016?\n>w\u0006_oo,,:_ooooo.,\u0017amulet of ESP\ndk_ooooooooo.,pkkn#chat\nyulb#chat\nl_oooooo,,p_{.Fu_.qy_ooo.,$_ooooooooo.,p_oooooooo,,\u0014<..._ooooo.,#chat\nk_ooooo,,p_oo.,\u0017amulet of unchanging\ndl_oooooo.,p__.Fu_.Fk  n#chat\nl #pray\ny y   _oooooo.,p_ooooo.Fn_,_oo,, \u0017touchstone\ndn\u0016?\n>Bnyu\u0016?\n>w\u0006_{.Fk_.   nFkqd     n\u00169\n_oooooo.,$jlk#chat\nj_ooooooo._. Fy,      n\u0017a"
+ },
+ "segments": [
+  {
+   "seed": 50650077,
+   "datetime": "20061010113639",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=sortloot:full\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001bm._o,,#chat\nh _{.Fl_.qyjbu#chat\nkljh#chat\nl_oooooo.,p_ooooo,,pFkFkFkFkFkFkuhn#chat\nh\u00163\n  bhn\u0016?\n>w\u0006_oo,,:_ooooo.,\u0017amulet of ESP\ndk_ooooooooo.,pkkn#chat\nyulb#chat\nl_oooooo,,p_{.Fu_.qy_ooo.,$_ooooooooo.,p_oooooooo,,\u0014<..._ooooo.,#chat\nk_ooooo,,p_oo.,\u0017amulet of unchanging\ndl_oooooo.,p__.Fu_.Fk  n#chat\nl #pray\ny y   _oooooo.,p_ooooo.Fn_,_oo,, \u0017touchstone\ndn\u0016?\n>Bnyu\u0016?\n>w\u0006_{.Fk_.   nFkqd     n\u00169\n_oooooo.,$jlk#chat\nj_ooooooo._. Fy,      n\u0017a"
+  }
+ ]
+}

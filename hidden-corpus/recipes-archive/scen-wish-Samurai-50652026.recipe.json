@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017uncursed +0 plate mail\nW\u001bsssm.T  \u0017blessed potion of gain level\n\u0007soldier\nqg FjFn \u0017cursed potion of confusion\nqh #dip\ne\u0017spellbook of levitation\nri \u001b>.   yy\u001by  y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 50652026,
+   "datetime": "20210324202932",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017uncursed +0 plate mail\nW\u001bsssm.T  \u0017blessed potion of gain level\n\u0007soldier\nqg FjFn \u0017cursed potion of confusion\nqh #dip\ne\u0017spellbook of levitation\nri \u001b>.   yy\u001by  y y y\u001by  s"
+  }
+ ]
+}

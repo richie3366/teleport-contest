@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  mO>>>>>g\nlychee\nab   \u001b;O>lfc\nsO>e\nsfO>lp\n#terrain\nf\nOlne\n#ride\nkyytabssO>mdg\nd\n#dip\neE- Elbereth Elbereth\nmO>g\nwb#offer\nOk\nZKO>fm\n#turn\nhO>hld\n20sss"
+ },
+ "segments": [
+  {
+   "seed": 50651011,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  mO>>>>>g\nlychee\nab   \u001b;O>lfc\nsO>e\nsfO>lp\n#terrain\nf\nOlne\n#ride\nkyytabssO>mdg\nd\n#dip\neE- Elbereth Elbereth\nmO>g\nwb#offer\nOk\nZKO>fm\n#turn\nhO>hld\n20sss"
+  }
+ ]
+}

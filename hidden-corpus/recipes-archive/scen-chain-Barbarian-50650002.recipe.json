@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " kbkyjtbk20s  20s   l 10s FlFuFn\\  \u000f\u001bbuk100s     FnFl s150s_ \u001bm.>FlFl.50sluyljy\u000f\u001b150saan50sFnFjFn\u000f\u001b_>.>#turn\nkku_>.>150sbkj_>.>kju100s\u000f\u001b_>,>100s#pray#quit\njukuyylhjujhjkbl20st\u001b10sdjs.sdiss.t\u001bFn  FnFnFnFnFnFnFnFlFlFlFlFlFlFlFljnnhhl#chat\nyknyuklhnUKUH_ \u001b@#quit\n<.Y YUL_ \u001b.>NJKN_>.>HUJK_>.><UYJJ_>.>hlkjulljynlyNJBJ_>.>tbk#name\nm\nBUHL_>YLUN_>#pray\n:WBJNY_>.>LYYH_>.>JBYY_>.>uuhulbubkda..s20sdc20s.s150s yubyjjnjynlhuhj150sFy #quit\nyy\u001by  y y y\u001b #quit\nyy \u0007minotaur\nFhFl  n  n Fl  n  n   n  n Fh  yy\u001by   y y y\u001by  F hybyhbybhhku10sdns20ss20skbjubt\u001b20s #name\nd\nnhyjFlFlFlFlFlFlFlFllkt\u001bjkhny#name\ni\nubbuHYLJ _ \u001b@.>FhFkFyHNL Y_>.>Fb s.y#ride\nlUNLU_>.>YHJU_>,>\u000f\u001b100sFlFl.hbhkjk150s50sFj..ljknll100s100s150si\u001b50s100s_>.>50sFlFlFluhh\\  100sFlFlFl_>.>150s\u0018\u001b150s#enhance\n\u001bhjybubf \u001b100s100sFlFlFlFlFl20s150s100sFlFlFl#pray\ny   FlFl20snlhul10s20sl10s#name\nd\n#name\nm\nnb#chat\n<.#chat\nl10#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50650002,
+   "datetime": "20150313151734",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\n",
+   "moves": " kbkyjtbk20s  20s   l 10s FlFuFn\\  \u000f\u001bbuk100s     FnFl s150s_ \u001bm.>FlFl.50sluyljy\u000f\u001b150saan50sFnFjFn\u000f\u001b_>.>#turn\nkku_>.>150sbkj_>.>kju100s\u000f\u001b_>,>100s#pray#quit\n"
+  },
+  {
+   "seed": 50750002,
+   "datetime": "20010430064531",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "jukuyylhjujhjkbl20st\u001b10sdjs.sdiss.t\u001bFn  FnFnFnFnFnFnFnFlFlFlFlFlFlFlFljnnhhl#chat\nyknyuklhnUKUH_ \u001b@#quit\n<."
+  },
+  {
+   "seed": 50850002,
+   "datetime": "20161227203003",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:none\n",
+   "moves": "Y YUL_ \u001b.>NJKN_>.>HUJK_>.><UYJJ_>.>hlkjulljynlyNJBJ_>.>tbk#name\nm\nBUHL_>YLUN_>#pray\n:WBJNY_>.>LYYH_>.>JBYY_>.>uuhulbubkda..s20sdc20s.s150s yubyjjnjynlhuhj150sFy #quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50950002,
+   "datetime": "20261102050953",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 51050002,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:crawl\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007minotaur\nFhFl  n  n Fl  n  n   n  n Fh  yy\u001by   y y y\u001by  F"
+  },
+  {
+   "seed": 51150002,
+   "datetime": "20010410170813",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\n",
+   "moves": " hybyhbybhhku10sdns20ss20skbjubt\u001b20s #name\nd\nnhyjFlFlFlFlFlFlFlFllkt\u001bjkhny#name\ni\nubbuHYLJ _ \u001b@.>FhFkFyHNL Y_>.>Fb s.y#ride\nlUNLU_>.>YHJU_>,>\u000f\u001b100sFlFl.hbhkjk150s50sFj..ljknll100s100s150si\u001b50s100s_>.>50sFlFlFluhh\\  100sFlFlFl_>.>150s\u0018\u001b150s#enhance\n\u001bhjybubf \u001b100s100sFlFlFlFlFl20s150s100sFlFlFl#pray\ny   FlFl20snlhul10s20sl10s#name\nd\n#name\nm\nnb#chat\n<.#chat\nl10#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

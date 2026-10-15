@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWk\u0017blessed amulet of life saving\nPl\u0016?\n>w\u0006_ \u001b,,$_ooooo,,pm.\u0016?\ncblk\u0016?\n>w\u0006_oooooo.,:_ooooo.,p_ooooooo.,:_{.Fh_.Fbqd_ooo.,p_oooo._ooo.,p__._.#chat\nn#pray\ny y _oooooooo._ooo.,pjjh#chat\njubl#chat\nn__._.#chat\nl_ooooo._ooo.,p_oooooooo,,:__._.#chat\nn_oooooooo.,\u0017flint stone\ndm_{._.qe \u001b_ooo.,p_ooooo,,pkhl#chat\nn_ooooo._ooo.,#chat\nb__._.#chat\ny#pray\ny y _ooo,,#chat\nl_ooooo.,$_{,_,qd__._,#chat\nu_oooo.,\u0014..sm.\u00167\nkju\u0016?\n>w\u0006_{,Fh_.q\u00167\njbk\u0016?\n>w\u0006_oooooooo.,p_ooooooooo.Fl_.;m,_ooo._,,:_"
+ },
+ "segments": [
+  {
+   "seed": 50650029,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWk\u0017blessed amulet of life saving\nPl\u0016?\n>w\u0006_ \u001b,,$_ooooo,,pm.\u0016?\ncblk\u0016?\n>w\u0006_oooooo.,:_ooooo.,p_ooooooo.,:_{.Fh_.Fbqd_ooo.,p_oooo._ooo.,p__._.#chat\nn#pray\ny y _oooooooo._ooo.,pjjh#chat\njubl#chat\nn__._.#chat\nl_ooooo._ooo.,p_oooooooo,,:__._.#chat\nn_oooooooo.,\u0017flint stone\ndm_{._.qe \u001b_ooo.,p_ooooo,,pkhl#chat\nn_ooooo._ooo.,#chat\nb__._.#chat\ny#pray\ny y _ooo,,#chat\nl_ooooo.,$_{,_,qd__._,#chat\nu_oooo.,\u0014..sm.\u00167\nkju\u0016?\n>w\u0006_{,Fh_.q\u00167\njbk\u0016?\n>w\u0006_oooooooo.,p_ooooooooo.Fl_.;m,_ooo._,,:_"
+  }
+ ]
+}

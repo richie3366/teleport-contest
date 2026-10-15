@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u001632\n   _ \u001b;s\u00166\n#chat\nj;n.\u001632\n   hulhh:sh20s\u001619\n_>,\u001624\n\u0004j\u001624\n__.<sn.m.\u001617\n \u0006_<,Fk_,@.ss\u0016?\n>>Qyhkuy:\u001624\nnj:\u0016?\n>>Q\u0006_<,_..\u0016?\n>>P  _{.\u0016?\n>>Q\u0014@.\u0016?\n>>L      eucalyptus leaf\njk     ubj k y  :sm. s\u0016?\nb \u0014>.   \u001632\n\u0014@.   20s     n   \u001640\nj   b  n       :\u001640\n#levelchange\n30\n\u0017dagger\nwd     n Fh     n Fh     n Fl \u001b      n  \u0007floating eye\nFb      Fl  n     Fy  n   \u001b   Fh     n  Fh    n        n Fy      \u0007Croesus\nyn Fu   n            n Fl      nFy       n \u0016?\n\u001bh       n b   yy\u001by  y ny\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50650064,
+   "datetime": "20000522114351",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u001632\n   _ \u001b;s\u00166\n#chat\nj;n.\u001632\n   hulhh:sh20s\u001619\n_>,\u001624\n\u0004j\u001624\n__.<sn.m.\u001617\n \u0006_<,Fk_,@.ss\u0016?\n>>Qyhkuy:\u001624\nnj:\u0016?\n>>Q\u0006_<,_..\u0016?\n>>P  _{.\u0016?\n>>Q\u0014@.\u0016?\n>>L      eucalyptus leaf\njk     ubj k y  :sm. s\u0016?\nb \u0014>.   \u001632\n\u0014@.   20s     n   \u001640\nj   b  n       :\u001640\n#levelchange\n30\n\u0017dagger\nwd     n Fh     n Fh     n Fl \u001b      n  \u0007floating eye\nFb      Fl  n     Fy  n   \u001b   Fh     n  Fh    n        n Fy      \u0007Croesus\nyn Fu   n            n Fl      nFy       n \u0016?\n\u001bh       n b   yy\u001by  y ny\u001b  \u0016"
+  }
+ ]
+}

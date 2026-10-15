@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  \u00173 brass lantern\nak#rub\nk  \u0017clove of garlic\nel20ss\u0017blessed flint stone\n\u0007yellow light\ntah\u0017potion of extra healing\n \u0007energy vortex\nqe . Fj   yy\u001by   y y y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50652001,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00173 brass lantern\nak#rub\nk  \u0017clove of garlic\nel20ss\u0017blessed flint stone\n\u0007yellow light\ntah\u0017potion of extra healing\n \u0007energy vortex\nqe . Fj   yy\u001by   y y y\u001b  \u0017"
+  }
+ ]
+}

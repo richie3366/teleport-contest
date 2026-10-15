@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "20s 10sklkj#chat\nbhb20st\u001bykhbde20ssm.s#chat\nllt\u001bFlFlFlFl.20s50sylb;_. \u001b.100s100s100sFj.20s100sFy.s100s100s\u0018\u001b50s150s\u0018\u001bP50s ed150s,i\u001b_>.>150s _>.>50s100sFlss#monster\n100sFjs20sFlFlFlFlFls\u0018\u001bi\u001b100s150sFjFjFjFjFj20s\u0004uahi\n#pray\ny  UYBK_>,>YBBJ_>.>BKN J_>.>K UYB _>.>;.#force\nJJYN_>,>K YJB_>.>BYJU _>.>khlfl100s\\ 50shll100shhlhllFjFh20si\u001b_>,>100s50s150s50sFjss150shhl#offer\n100slhhlll100s150sFj.FjFjFj20sFj20sslhlFjFjs\u000f\u001bhlllby100s50sFjss100s_>,>50s\\ 10s#chat\ny#chat\nylnkht\u001b_>,>50shhlhln100sFyFhFhFyFy20s#rub\ni100sknh100s100sFh FhFh50sed50szlyl_>.>100sjynFhFhFhFhFhFhFhFhFhFh  20ssi\u001b100sFhFhsylh100s150sE- ad aerarium\n150s150sFhFhFhFhFhs100s100snkj:150s\u0018\u001b\u000f\u001bkjk\u000f\u001b_>.>50s50s_>.>jkj150s \\ 150sFhFhFhFhFhFhFhFhFhFhFh20sedkjk100s150s100sFhFhFhFhFhFhjkj150skjk50s_>.>\\ _>,>i\u001b_>.>100s_>.>150s_>.>_>.>\u0018\u001b50s#offer\nf a y#t"
+ },
+ "segments": [
+  {
+   "seed": 50650011,
+   "datetime": "20170810162806",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=runmode:run\nOPTIONS=pettype:none\n",
+   "moves": "20s 10sklkj#chat\nbhb20st\u001bykhbde20ssm.s#chat\nllt\u001bFlFlFlFl.20s50sylb;_. \u001b.100s100s100sFj.20s100sFy.s100s100s\u0018\u001b50s150s\u0018\u001bP50s ed150s,i\u001b_>.>150s _>.>50s100sFlss#monster\n100sFjs20sFlFlFlFlFls\u0018\u001bi\u001b100s150sFjFjFjFjFj20s\u0004uahi\n#pray\ny  UYBK_>,>YBBJ_>.>BKN J_>.>K UYB _>.>;.#force\nJJYN_>,>K YJB_>.>BYJU _>.>khlfl100s\\ 50shll100shhlhllFjFh20si\u001b_>,>100s50s150s50sFjss150shhl#offer\n100slhhlll100s150sFj.FjFjFj20sFj20sslhlFjFjs\u000f\u001bhlllby100s50sFjss100s_>,>50s\\ 10s#chat\ny#chat\nylnkht\u001b_>,>50shhlhln100sFyFhFhFyFy20s#rub\ni100sknh100s100sFh FhFh50sed50szlyl_>.>100sjynFhFhFhFhFhFhFhFhFhFh  20ssi\u001b100sFhFhsylh100s150sE- ad aerarium\n150s150sFhFhFhFhFhs100s100snkj:150s\u0018\u001b\u000f\u001bkjk\u000f\u001b_>.>50s50s_>.>jkj150s \\ 150sFhFhFhFhFhFhFhFhFhFhFh20sedkjk100s150s100sFhFhFhFhFhFhjkj150skjk50s_>.>\\ _>,>i\u001b_>.>100s_>.>150s_>.>_>.>\u0018\u001b50s#offer\nf a y#t"
+  }
+ ]
+}

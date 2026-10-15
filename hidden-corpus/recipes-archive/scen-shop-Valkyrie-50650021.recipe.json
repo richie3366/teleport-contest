@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 gauntlets of power\nWf\u0017blessed amulet of reflection\nPg\u0016?\n>w\u0006_ \u001bm,_o.,p\u00163\nhlk\u0016?\n>w\u0006_oooooo.,p_{._,qylly#chat\nn_oooooo._oo,,#chat\nb_ooooo.,#chat\nu_oooooo.,p\u00167\nykh\u0016?\n>w\u0006_{._.q__._.#chat\nh#pray\ny y   _oooo._oo.,#chat\nh_ooooooo,,\u0014..20s  _ooooooooo.,#chat\nh _ooo,,$FhFh  nFhFhFh Fh_{,_.q\u0016?\ncbbl\u0016?\n>w\u0006_oooo._o.Fb_,Fh ,p__.  nFh _.m.Fb #chat\nb#pray\ny y      Fk FkFkFkFkFkFbFbFbFbFbFb__._.#chat\nu_ooooooooo._,,\u001b\u0017gray stone\ndh_ooo,Fj_.Fl_ooo,  nFj_,: ,\u001bp_{.Fj_.<.q_ooooooo,,p_{,Fl_.<.Fuq_oooo. _.,\u001bpjnu#chat\nb\u00163\njjn\u0016?\n>w\u0006__,_,#chat\nk_{.Fk_, qy_oooooooo.   Fk      n _.   Fy   n   ,:\u00167\n_ooooo._ooo, _. Fl  n,\u0017gray stone\ndi _oooooo., p\u00163\nblb\u0016?\n>w\u0006_ooo,Fk _.Fy  n ,$_ooooooo. Fy     n_.  Fk    _oo.   n Fk _.  Fk  ,p\u001610\nlyn#chat\nh_{.q_oooooo.,$__.#chat\nl_oo,_ooo._.,,:__.#chat\njhhn#chat\nj_oooooooo.,p_oooooooo.,phub#chat\nl _oooo.,$__,#chat\nl _ooooooooo.,:_{.q_oooooooo.,$Fl Fl Fl FlFlFl_ooo.,\u0017ruby\ndk_{.qhkj#chat\nu_oo"
+ },
+ "segments": [
+  {
+   "seed": 50650021,
+   "datetime": "20210420234932",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 gauntlets of power\nWf\u0017blessed amulet of reflection\nPg\u0016?\n>w\u0006_ \u001bm,_o.,p\u00163\nhlk\u0016?\n>w\u0006_oooooo.,p_{._,qylly#chat\nn_oooooo._oo,,#chat\nb_ooooo.,#chat\nu_oooooo.,p\u00167\nykh\u0016?\n>w\u0006_{._.q__._.#chat\nh#pray\ny y   _oooo._oo.,#chat\nh_ooooooo,,\u0014..20s  _ooooooooo.,#chat\nh _ooo,,$FhFh  nFhFhFh Fh_{,_.q\u0016?\ncbbl\u0016?\n>w\u0006_oooo._o.Fb_,Fh ,p__.  nFh _.m.Fb #chat\nb#pray\ny y      Fk FkFkFkFkFkFbFbFbFbFbFb__._.#chat\nu_ooooooooo._,,\u001b\u0017gray stone\ndh_ooo,Fj_.Fl_ooo,  nFj_,: ,\u001bp_{.Fj_.<.q_ooooooo,,p_{,Fl_.<.Fuq_oooo. _.,\u001bpjnu#chat\nb\u00163\njjn\u0016?\n>w\u0006__,_,#chat\nk_{.Fk_, qy_oooooooo.   Fk      n _.   Fy   n   ,:\u00167\n_ooooo._ooo, _. Fl  n,\u0017gray stone\ndi _oooooo., p\u00163\nblb\u0016?\n>w\u0006_ooo,Fk _.Fy  n ,$_ooooooo. Fy     n_.  Fk    _oo.   n Fk _.  Fk  ,p\u001610\nlyn#chat\nh_{.q_oooooo.,$__.#chat\nl_oo,_ooo._.,,:__.#chat\njhhn#chat\nj_oooooooo.,p_oooooooo.,phub#chat\nl _oooo.,$__,#chat\nl _ooooooooo.,:_{.q_oooooooo.,$Fl Fl Fl FlFlFl_ooo.,\u0017ruby\ndk_{.qhkj#chat\nu_oo"
+  }
+ ]
+}

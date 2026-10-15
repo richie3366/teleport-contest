@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00173 potion of gain ability\nqf FbFb\u0017magic lamp\n\u0007couatl\nag #rub\ng \u0017scroll of remove curse\nrh  \u001b.y."
+ },
+ "segments": [
+  {
+   "seed": 50652010,
+   "datetime": "20001122195424",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00173 potion of gain ability\nqf FbFb\u0017magic lamp\n\u0007couatl\nag #rub\ng \u0017scroll of remove curse\nrh  \u001b.y."
+  }
+ ]
+}

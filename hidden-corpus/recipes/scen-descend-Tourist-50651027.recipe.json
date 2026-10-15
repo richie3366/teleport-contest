@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b:>FuFu_>,Fy _.> FlFlFl\u0006_>.Fk_.> n#name\nd\n\u0006_>>,Fu_,>.Fl>Fl20s_>>,Fh_,Fh>Fhs_>>,_.>\u0006_>._,>_>,_.>_>._.>\u0006_>._.>_>,_,>_>._.>\u0006_>._,>_>,_,>_>._.>"
+ },
+ "segments": [
+  {
+   "seed": 50651027,
+   "datetime": "20150223024242",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "\u0006_ \u001b:>FuFu_>,Fy _.> FlFlFl\u0006_>.Fk_.> n#name\nd\n\u0006_>>,Fu_,>.Fl>Fl20s_>>,Fh_,Fh>Fhs_>>,_.>\u0006_>._,>_>,_.>_>._.>\u0006_>._.>_>,_,>_>._.>\u0006_>._,>_>,_,>_>._.>"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " O>>>i\u001b\u001b\n\u0006_ \u001bm.>FjFj_>>.Fu_.Fu>FyFh\u001b_>>.Fb_,Fun >FjFhFhFyFy\u0006_>>,Fh_,Fb>FlFn_>FjFy_>>,Fy_,Fy>FhFjFnFlFu\u0006_>.Fj_,Fl>FhFb_>.Fh\u001b_.Fj>FnFub _>.Fu_.Fy>FhFjFlFbFy#loot\nu \\    <\u0006_>,Fb_.Fb>FuFj_>.Fj_.Fn>FhFbFn_>..#rub\n\u00163\nFkFnFkl FkFyFlFhFjFkFkFuFlFkFnFyFkFkFnFuk FbFkl FjFnFjFhFbFkh FbFh\u001bFnFuj FlFbFyFnFnFjFuFhFlFjFnFh\u001bFbFuk FbFjFbFuu FhFhFbFh\u001bFkFhFnFbFbFyFlFuFyFub FkFhFyFky FbFnFjFhFhFkFkFnFjFhFbFlFuFuFbFkn FnFun FlFnFlFuFlFuFjFkFbFbFnFbFlFnFjFnFyFlFyFkb FnFlFjFbFuh FkFhFyFlFyFuj FjFhFyFnmO>>>>c\u001b\n\u001614\n\u00163\nFkFnFbFjFnFkb FuFlFkFbFkk FlFlFkFbFlFbFnFbFbFlFjFnFuy FuFkFyFbFnFnFlFkFbFlFnFkh FlFuFhFuFuFbFyFkFuFkFyFkj FbFlFlFlFjFnFky FjFnFh\u001bFuFjFuFjFnFbFbFh\u001bFkFhFlFuFyFyFnFbFjFyFun FbFyFnFkl FyFuj FyFjFjFhFjFyFkj FyFnFlFhFjFjFlFkFjFhFyFbFuFnFnFhFjFnFbFuFbFlFbFh\u001bFyFh\u001bFyFbFbFb\u0007tame pony\n\u0017fortune cookie\ntbn \u0006_>.Fj_,  Fj>FlFl_>.   Fl_.m,Fl>FuFn_>FnFkk #cha"
+ },
+ "segments": [
+  {
+   "seed": 50650047,
+   "datetime": "20011230133240",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=autodig\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nMSGTYPE=hide \"You kill\"\n",
+   "moves": " O>>>i\u001b\u001b\n\u0006_ \u001bm.>FjFj_>>.Fu_.Fu>FyFh\u001b_>>.Fb_,Fun >FjFhFhFyFy\u0006_>>,Fh_,Fb>FlFn_>FjFy_>>,Fy_,Fy>FhFjFnFlFu\u0006_>.Fj_,Fl>FhFb_>.Fh\u001b_.Fj>FnFub _>.Fu_.Fy>FhFjFlFbFy#loot\nu \\    <\u0006_>,Fb_.Fb>FuFj_>.Fj_.Fn>FhFbFn_>..#rub\n\u00163\nFkFnFkl FkFyFlFhFjFkFkFuFlFkFnFyFkFkFnFuk FbFkl FjFnFjFhFbFkh FbFh\u001bFnFuj FlFbFyFnFnFjFuFhFlFjFnFh\u001bFbFuk FbFjFbFuu FhFhFbFh\u001bFkFhFnFbFbFyFlFuFyFub FkFhFyFky FbFnFjFhFhFkFkFnFjFhFbFlFuFuFbFkn FnFun FlFnFlFuFlFuFjFkFbFbFnFbFlFnFjFnFyFlFyFkb FnFlFjFbFuh FkFhFyFlFyFuj FjFhFyFnmO>>>>c\u001b\n\u001614\n\u00163\nFkFnFbFjFnFkb FuFlFkFbFkk FlFlFkFbFlFbFnFbFbFlFjFnFuy FuFkFyFbFnFnFlFkFbFlFnFkh FlFuFhFuFuFbFyFkFuFkFyFkj FbFlFlFlFjFnFky FjFnFh\u001bFuFjFuFjFnFbFbFh\u001bFkFhFlFuFyFyFnFbFjFyFun FbFyFnFkl FyFuj FyFjFjFhFjFyFkj FyFnFlFhFjFjFlFkFjFhFyFbFuFnFnFhFjFnFbFuFbFlFbFh\u001bFyFh\u001bFyFbFbFb\u0007tame pony\n\u0017fortune cookie\ntbn \u0006_>.Fj_,  Fj>FlFl_>.   Fl_.m,Fl>FuFn_>FnFkk #cha"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPlr\u0017blessed amulet of life saving\nPm \u0017blessed +3 speed boots\nWn #levelchange\n10\n        \u0007silver dragon\nsm..m.20s sm.#polyself\nblack dragon\n #monster\ny  .m. 20s  #monster\nn    #monster\nn    #monster\nn     Fn Fn   \u0017wand of teleportation\n\u0017wand of polymorph\n\u0007yellow mold\n\u0007bugbear\nzphzphzpuzpuzp   zp slzp20s\u0017sling\nwq\u001720 flint stones\nQr\u0007troll\nfl  fh  n fh trl fh  n t$l fl \u00161\n\u0017wand of polymorph\n\u0017wand of cold\n\u0017wand of magic missile\n\u0007newt\n\u0007yellow mold\n\u0007hobbit\nzuh   n ztb   zth  n zul   sm.zsj       nztnztlztn  20s  \u00161\n\u0017blessed spellbook of cause fear\nrv.m.\u0017spellbook of magic missile\nrw \u001b:  n sh\u0007kobold shaman\n\u0007vampire\nZc\nZa"
+ },
+ "segments": [
+  {
+   "seed": 50650084,
+   "datetime": "20040210105930",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPlr\u0017blessed amulet of life saving\nPm \u0017blessed +3 speed boots\nWn #levelchange\n10\n        \u0007silver dragon\nsm..m.20s sm.#polyself\nblack dragon\n #monster\ny  .m. 20s  #monster\nn    #monster\nn    #monster\nn     Fn Fn   \u0017wand of teleportation\n\u0017wand of polymorph\n\u0007yellow mold\n\u0007bugbear\nzphzphzpuzpuzp   zp slzp20s\u0017sling\nwq\u001720 flint stones\nQr\u0007troll\nfl  fh  n fh trl fh  n t$l fl \u00161\n\u0017wand of polymorph\n\u0017wand of cold\n\u0017wand of magic missile\n\u0007newt\n\u0007yellow mold\n\u0007hobbit\nzuh   n ztb   zth  n zul   sm.zsj       nztnztlztn  20s  \u00161\n\u0017blessed spellbook of cause fear\nrv.m.\u0017spellbook of magic missile\nrw \u001b:  n sh\u0007kobold shaman\n\u0007vampire\nZc\nZa"
+  }
+ ]
+}

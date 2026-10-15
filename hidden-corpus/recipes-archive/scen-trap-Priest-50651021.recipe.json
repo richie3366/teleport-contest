@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             hbk\u0017statue trap\nbu sm.sm.jh\u0017anti-magic field\ny#untrap\nnlj \u0017pit\nynsm.sj\u0017land mine\naiuk#terrain\nf\n#rub\n#sit\n,Sy\u001b yn f \u001b\\ #enhance\nyb\nc\n\u001b__, \u001bm.  .#loot\nu,luh\u0017pool\n#dip\nhy   ny:nl\u0017neutral altar\ndd di \u0017jackal corpse\n#offer\nd",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50651021,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             hbk\u0017statue trap\nbu sm.sm.jh\u0017anti-magic field\ny#untrap\nnlj \u0017pit\nynsm.sj\u0017land mine\naiuk#terrain\nf\n#rub\n#sit\n,Sy\u001b"
+  },
+  {
+   "seed": 51151021,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " yn f \u001b\\ #enhance\nyb\nc\n\u001b__, \u001bm.  .#loot\nu,luh\u0017pool\n#dip\nhy   ny:nl\u0017neutral altar\ndd di \u0017jackal corpse\n#offer\nd"
+  }
+ ]
+}

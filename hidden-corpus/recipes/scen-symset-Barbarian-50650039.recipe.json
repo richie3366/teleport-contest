@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b>.>FyFn_>>,Fy_.Fkl >FbFuj _>>,Fn_>FbFuj FhFyFkl \u0006_>>,Fh_.Fu>FlFb_>>.Fj_. Fk>FlFk_>>. Fu_, Fb>FbFbFbFnFk\u0006_>>,Fj_, Fu>FuFu_>>.Fu_.Fu>FuFu_>>.Fu_.Fh>FhFhFuFhFh<\u0006_>,Fu_.Fh>FuFh_>.Fh_.Fh>FuFu_>,Fu_.  n Fu>FhFhFhFuFh#ride\nu W\u0006_>>.Fu_,Fu>FuFu_>>.Fu_.Fu>FuFu_>>,Fu_.Fu>FuFuFuFuFu\u0006_>.Fu_.Fu>FuFu_>.Fu_,Fh>FhFu_>.Fh_.  nFu>FuFuFuFuFu\u0006_>>.Fu_.Fh>FuFu_>>.Fu_.Fu>FuFh_>>.Fu_.Fu>FuFuFuFuFu#sit\n#invoke\n\u001b\u00161\nOaslime mold\n\u001b\nmO>>>>e\u001b\nOh\u001b\n\u001614\nnlj lh ku \u0017cloud\nbll \u0017sink\nqy  :#terrain\nc\n>.#ride\nu W#sit\n\u0006_>,Fh_.Fy>FjFb_>.Fh\u001b_.Fy>FuFu_>,Fh_.Fn>FjFjFh\u0006_>.Fy_.Fn>FnFb_>.Fk_,Fn>FnFbFy\u0006_>>.Fn_>FkFk_>>,Fh_.Fh>FyFy_>>,Fb_,Fj>FbFh\u001bFuFjFj<\u0006_>.Fb_.Fj>FhFy_>.Fy_.Fj>FnFj_>.Fk_.Fj>FhFyFkj FyFh\u001b#conduct\n #invoke\n\u001b\u0006_>.Fj_,Fu>FhFu_>.Fn_>FbFkh _>.Fh_,Fn>FyFyFj\\   #name\nm\n<\u0006_>,Fh_.Fy>FkFj_>.Fj_,Fb>FkFh_>.Fu_. Fb>FkFuFyFnFb\u000f\u001bch zed  \u0006_>.Fk_,Fj>FnFuk _>.  Fy_,  nFb>FuFj_>. Fb_.  nFb>FlFhFhFbFy\u0006_>.Fl_.Fj>FyFj_>.Fb_,:Fy>FhFk_>."
+ },
+ "segments": [
+  {
+   "seed": 50650039,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "\u0006_ \u001b>.>FyFn_>>,Fy_.Fkl >FbFuj _>>,Fn_>FbFuj FhFyFkl \u0006_>>,Fh_.Fu>FlFb_>>.Fj_. Fk>FlFk_>>. Fu_, Fb>FbFbFbFnFk\u0006_>>,Fj_, Fu>FuFu_>>.Fu_.Fu>FuFu_>>.Fu_.Fh>FhFhFuFhFh<\u0006_>,Fu_.Fh>FuFh_>.Fh_.Fh>FuFu_>,Fu_.  n Fu>FhFhFhFuFh#ride\nu W\u0006_>>.Fu_,Fu>FuFu_>>.Fu_.Fu>FuFu_>>,Fu_.Fu>FuFuFuFuFu\u0006_>.Fu_.Fu>FuFu_>.Fu_,Fh>FhFu_>.Fh_.  nFu>FuFuFuFuFu\u0006_>>.Fu_.Fh>FuFu_>>.Fu_.Fu>FuFh_>>.Fu_.Fu>FuFuFuFuFu#sit\n#invoke\n\u001b\u00161\nOaslime mold\n\u001b\nmO>>>>e\u001b\nOh\u001b\n\u001614\nnlj lh ku \u0017cloud\nbll \u0017sink\nqy  :#terrain\nc\n>.#ride\nu W#sit\n\u0006_>,Fh_.Fy>FjFb_>.Fh\u001b_.Fy>FuFu_>,Fh_.Fn>FjFjFh\u0006_>.Fy_.Fn>FnFb_>.Fk_,Fn>FnFbFy\u0006_>>.Fn_>FkFk_>>,Fh_.Fh>FyFy_>>,Fb_,Fj>FbFh\u001bFuFjFj<\u0006_>.Fb_.Fj>FhFy_>.Fy_.Fj>FnFj_>.Fk_.Fj>FhFyFkj FyFh\u001b#conduct\n #invoke\n\u001b\u0006_>.Fj_,Fu>FhFu_>.Fn_>FbFkh _>.Fh_,Fn>FyFyFj\\   #name\nm\n<\u0006_>,Fh_.Fy>FkFj_>.Fj_,Fb>FkFh_>.Fu_. Fb>FkFuFyFnFb\u000f\u001bch zed  \u0006_>.Fk_,Fj>FnFuk _>.  Fy_,  nFb>FuFj_>. Fb_.  nFb>FlFhFhFbFy\u0006_>.Fl_.Fj>FyFj_>.Fb_,:Fy>FhFk_>."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "LKYL_ \u001b<.>Fu s.YULB_>.><KYKN_>.>f by h#conduct\n YKKL_>,>#wipe\n#invoke\n\u001b150s #twoweapon\n_>,>100s  FhFhFh#pray\ny bhy\\   \u0018\u001b150s100s  150s  i\u001b#chat\nu150s\u0018\u001bjyn100sFhFhs_>,>#sit\n\u001bi\u001b100sFhss50s150s_>.>100sFhFhFh150slyj_>.>i\u001b100s150sFhFhs_>,>klj100sed\\   50s_>.>150sFks.150s50s100sFk.20sFh.20shny100si\u001b100s_>.>100sFl20ss100sFh20s.10s50s150s Fhssnuj100s100s100sFhss\\   ch\u000f\u001bi\u001bkhy100s50shnlFh Fk Fh Fk FhFk100s100sBLY H_>.>BLYL_>,>FkFk FkLJJB_>,>NLUB_>,>\u0004h#ride\nbYLNJ_>,><ae10sWynkbde.20s 20s hyyb#name\na\n10s #chat\nl#enhance\n\u001b#enhance\n\u001bda #chat\nl dcsm.ssjyjyt\u001b#chat\ny20s20s dc.m.sm.20s 10s #name\na\nl20sdc.s20sh#terrain\nc\nm,10s\u0018\u001bKLBU_>,>UJBN_>,><HYHU_>,><BKYH_>.>\\   a#name\nf\nt#chat\nb#chat\nht\u001blnnlFuFus100s1"
+ },
+ "segments": [
+  {
+   "seed": 50650067,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "LKYL_ \u001b<.>Fu s.YULB_>.><KYKN_>.>f by h#conduct\n YKKL_>,>#wipe\n#invoke\n\u001b150s #twoweapon\n_>,>100s  FhFhFh#pray\ny bhy\\   \u0018\u001b150s100s  150s  i\u001b#chat\nu150s\u0018\u001bjyn100sFhFhs_>,>#sit\n\u001bi\u001b100sFhss50s150s_>.>100sFhFhFh150slyj_>.>i\u001b100s150sFhFhs_>,>klj100sed\\   50s_>.>150sFks.150s50s100sFk.20sFh.20shny100si\u001b100s_>.>100sFl20ss100sFh20s.10s50s150s Fhssnuj100s100s100sFhss\\   ch\u000f\u001bi\u001bkhy100s50shnlFh Fk Fh Fk FhFk100s100sBLY H_>.>BLYL_>,>FkFk FkLJJB_>,>NLUB_>,>\u0004h#ride\nbYLNJ_>,><ae10sWynkbde.20s 20s hyyb#name\na\n10s #chat\nl#enhance\n\u001b#enhance\n\u001bda #chat\nl dcsm.ssjyjyt\u001b#chat\ny20s20s dc.m.sm.20s 10s #name\na\nl20sdc.s20sh#terrain\nc\nm,10s\u0018\u001bKLBU_>,>UJBN_>,><HYHU_>,><BKYH_>.>\\   a#name\nf\nt#chat\nb#chat\nht\u001blnnlFuFus100s1"
+  }
+ ]
+}

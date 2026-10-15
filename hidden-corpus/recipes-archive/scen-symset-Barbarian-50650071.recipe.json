@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    jh\u001bnb\u0017lawful altar\nda\u0017jackal corpse\n#offer\ne  b\u0017throne\n#sit\n:#terrain\ne\n#invoke\n\u001bZJFnFbFbFbFbFnFbFkb FbFnFjFnFnFjFbFnFbFnFjFjFnFjFkFnFjFkFkFnFbFnFbFkFbFnFnFkb FjFjFkFkFbFkk FjFjFkFnFjFbFnFkFbFbFjFjFkFnFnFbFkb FjFkFjFbFkb FkFnFbFjFjFnFbFbFbFnFbFnFkn FnFbFbFnFnFkj FnFjFjFbFkn FnFnFjFbFjFjFjFnFbFkFkFkFkFbFnFnFbFjFjFbFbFbFbFjFjFjFkFjFbFbFjFn\u0016FbFnFjFkFbFjFbFkn FkFbFbFnFjFbFnFbFjFkFbFbFnFjFjFbFjFjFbFnFbFnFbFbFnFjFnFkb FnFkb FnFbFjFbFkb FbFkk FkFbFnFnFjFnFbFkFjFkFkFnFjFjFjFbFjFbFjFbFkk FkFnFjFnFbFnFjFnFjFjFjFnFkn FnFjFjFkFkFbFkn FbFbFjFkFjFjFbFbFkFjFkFnFnFjFkFnFkk FjFkFjFbFjFjFkFkFkFjFnFbFnFbFkFkFnuh\u001bby\u0017lawful altar\ndcdb\u0017human corpse\n#offer\nf uj \u0017moat\n#dip\ndy jlh \u0017neutral altar\ndcdd\u0017floating eye corpse\n#offer\ng  #pray\ny y #terrain\nb\n\u001b:t\u001bst\u001bO>>m\u001b\u001b\nOb\u001b\u001b\nmOa\u001b\n\u0006_>.Fy_,Fy>FbFb_>.Fy_,Fb>FyFy_>.Fy_.Fb>FbFyFbFyFy\u0006_>,Fb_.Fy>FbFy_>,Fb_.Fb>FyFy_>,Fb_.Fb>FbFbFyFbFy\u0006_>.Fy_.Fb>FyFy_>.Fy_,Fb>FbFb_>,Fb_.Fb>FyFbFbFyFy\u0006_>.Fy_,Fb>FbFb_>,Fy_,Fb>FyFy_>,Fy_,Fy>FyFyFyFyFy\u0006_>,F"
+ },
+ "segments": [
+  {
+   "seed": 50650071,
+   "datetime": "20220320123119",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\n",
+   "moves": "#levelchange\n6\n    jh\u001bnb\u0017lawful altar\nda\u0017jackal corpse\n#offer\ne  b\u0017throne\n#sit\n:#terrain\ne\n#invoke\n\u001bZJFnFbFbFbFbFnFbFkb FbFnFjFnFnFjFbFnFbFnFjFjFnFjFkFnFjFkFkFnFbFnFbFkFbFnFnFkb FjFjFkFkFbFkk FjFjFkFnFjFbFnFkFbFbFjFjFkFnFnFbFkb FjFkFjFbFkb FkFnFbFjFjFnFbFbFbFnFbFnFkn FnFbFbFnFnFkj FnFjFjFbFkn FnFnFjFbFjFjFjFnFbFkFkFkFkFbFnFnFbFjFjFbFbFbFbFjFjFjFkFjFbFbFjFn\u0016FbFnFjFkFbFjFbFkn FkFbFbFnFjFbFnFbFjFkFbFbFnFjFjFbFjFjFbFnFbFnFbFbFnFjFnFkb FnFkb FnFbFjFbFkb FbFkk FkFbFnFnFjFnFbFkFjFkFkFnFjFjFjFbFjFbFjFbFkk FkFnFjFnFbFnFjFnFjFjFjFnFkn FnFjFjFkFkFbFkn FbFbFjFkFjFjFbFbFkFjFkFnFnFjFkFnFkk FjFkFjFbFjFjFkFkFkFjFnFbFnFbFkFkFnuh\u001bby\u0017lawful altar\ndcdb\u0017human corpse\n#offer\nf uj \u0017moat\n#dip\ndy jlh \u0017neutral altar\ndcdd\u0017floating eye corpse\n#offer\ng  #pray\ny y #terrain\nb\n\u001b:t\u001bst\u001bO>>m\u001b\u001b\nOb\u001b\u001b\nmOa\u001b\n\u0006_>.Fy_,Fy>FbFb_>.Fy_,Fb>FyFy_>.Fy_.Fb>FbFyFbFyFy\u0006_>,Fb_.Fy>FbFy_>,Fb_.Fb>FyFy_>,Fb_.Fb>FbFbFyFbFy\u0006_>.Fy_.Fb>FyFy_>.Fy_,Fb>FbFb_>,Fb_.Fb>FyFbFbFyFy\u0006_>.Fy_,Fb>FbFb_>,Fy_,Fb>FyFy_>,Fy_,Fy>FyFyFyFyFy\u0006_>,F"
+  }
+ ]
+}

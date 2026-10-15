@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0017scroll of teleportation\nrk  \u001b>.Fy Fy \u0017uncursed chest\nalal#tip\nl\u001b\u00173 spellbook of knock\n \u0007quasit\nrm 20ssjZa\nZb\nss\u0017blessed morning star\nwns.sXsFk\u0017cursed -1 ring of gain constitution\nPor.s20sR20s20s"
+ },
+ "segments": [
+  {
+   "seed": 50652031,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0017scroll of teleportation\nrk  \u001b>.Fy Fy \u0017uncursed chest\nalal#tip\nl\u001b\u00173 spellbook of knock\n \u0007quasit\nrm 20ssjZa\nZb\nss\u0017blessed morning star\nwns.sXsFk\u0017cursed -1 ring of gain constitution\nPor.s20sR20s20s"
+  }
+ ]
+}

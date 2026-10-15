@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "U NLJ_ \u001bm.>Fk 20sFhYHKJ_>.>YNYU_>.>UBLL_>.>FbFlFb<ULJ N_>.>JYBY_>,>KKYL_>,>qd\\ UJ UH_>.>BKKN_>.>dfLLBJB_>,>K JHN_>,>#ride\nkt\u001bLNUL_>.>dgqdHJU B_>,>s#loot\nHUHN_>.>YJNH_>.>#wipe\nPBJYK_>.>Flss\u000f\u001b150s  100sFhss100s100s150sllh#invoke\n\u001b50sFlFlFl150s 100s100s100see\\ hlh50seeeeeeeeeeeeeeeeeeeeeeKJJY_>.>ol\u0018\u001bYBYH_>.>NJJN_>.>HYLY_>.>HBUY_>,>KLJL_>.>qd\u0014wat\u001bojeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef \u001b#force\ncjHLHB_>,>YHKY_>,><NJUH_>,>,b<KKKB_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNNNN_>.>#loot\nokYBLK_>.>Fj FhFjKBKY_>,>HBUK_>,>,\\ <JKBY_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLYLK_>,><BJJL_>.>FuFuFucks<yy\u001bny y y\u001b B"
+ },
+ "segments": [
+  {
+   "seed": 50650043,
+   "datetime": "20180514080445",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\n",
+   "moves": "U NLJ_ \u001bm.>Fk 20sFhYHKJ_>.>YNYU_>.>UBLL_>.>FbFlFb<ULJ N_>.>JYBY_>,>KKYL_>,>qd\\ UJ UH_>.>BKKN_>.>dfLLBJB_>,>K JHN_>,>#ride\nkt\u001bLNUL_>.>dgqdHJU B_>,>s#loot\nHUHN_>.>YJNH_>.>#wipe\nPBJYK_>.>Flss\u000f\u001b150s  100sFhss100s100s150sllh#invoke\n\u001b50sFlFlFl150s 100s100s100see\\ hlh50seeeeeeeeeeeeeeeeeeeeeeKJJY_>.>ol\u0018\u001bYBYH_>.>NJJN_>.>HYLY_>.>HBUY_>,>KLJL_>.>qd\u0014wat\u001bojeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef \u001b#force\ncjHLHB_>,>YHKY_>,><NJUH_>,>,b<KKKB_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNNNN_>.>#loot\nokYBLK_>.>Fj FhFjKBKY_>,>HBUK_>,>,\\ <JKBY_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLYLK_>,><BJJL_>.>FuFuFucks<yy\u001bny y y\u001b B"
+  }
+ ]
+}

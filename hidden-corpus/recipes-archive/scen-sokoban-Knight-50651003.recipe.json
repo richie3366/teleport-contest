@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>E\u0017blessed ring of levitation\nPir FhFjFhln\u0017wand of striking\nzjnjby\u0017wand of striking\nzkkFlb\u0017wand of striking\nzlhFj\u0017wand of digging\nzmkunFhFhFjlFhFbFj10sFjlnb\u0017wand of digging\nznlhFkFlFk\u0017wand of striking\nzoh\u0017wand of striking\nzp>\u0017scroll of earth\nrq bhlk\u0017wand of striking\nzrlhkhkkyuuyuukhkk\u0017wand of digging\nzsu\u0017scroll of e"
+ },
+ "segments": [
+  {
+   "seed": 50651003,
+   "datetime": "20190524185633",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>E\u0017blessed ring of levitation\nPir FhFjFhln\u0017wand of striking\nzjnjby\u0017wand of striking\nzkkFlb\u0017wand of striking\nzlhFj\u0017wand of digging\nzmkunFhFhFjlFhFbFj10sFjlnb\u0017wand of digging\nznlhFkFlFk\u0017wand of striking\nzoh\u0017wand of striking\nzp>\u0017scroll of earth\nrq bhlk\u0017wand of striking\nzrlhkhkkyuuyuukhkk\u0017wand of digging\nzsu\u0017scroll of e"
+  }
+ ]
+}
