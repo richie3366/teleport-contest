@@ -239,6 +239,8 @@ here). Candidates — public shapes the generator does not copy:
 | `options` | seed2600 binds, seed0200 `msg_window:reversed`, 7 public rc without DECgraphics | non-DEC symsets (14 in `dat/symbols`), `number_pad`, BIND, MSGTYPE / MENUCOLOR / status hilites | **added 2026-10-14 as wave-3 `symset`** (wave-2 owns the `options` name): probe 0/20 (0 %), 100 sessions (20 probe + 80 @50059000); in WAVE3 |
 | `shop` | seed0116 wizard-wear-shop | `^V minetn`, buy / sell / price-id / #chat / steal / Kops / pay | **added 2026-10-13: probe 15/20 (75 %)**, 100 sessions (20 probe + 80 @49959600); in WAVE3 |
 | `human` | seed0002/0004/0006/0007/0009/0012/0014 | minimal rc, interactive chargen, legacy + tutorial prompt, wall-clock datetimes, 300–700 normal steps | start regime **measured fine** (68/68 probe); long tail ≈ `trek` (100 %) — low prior |
+| `hallu` | seed0383 / seed0399 hallucinate / hallu-actions | whole marathon tripping (`#wizintrinsic h` + scheduled re-trips): fights, wand barrages, scrolls, quaffs, throws, looks, casts, prayers, tours under scrambled glyphs | **probed 2026-10-16: 18/20 (90 %) — NOT held-out-like** (≥ 85 %); kept in WAVE3 (2 fails folded) |
+| `extcmd` | seed0106 priest-extcmd-sweep, seed4500 knight-coverage (1814 keys) | systematic `#` rotation in varied contexts (altar / shop / stairs / tour / fountain × info / item / social / wiz phases: `#wizidentify`, `#wizdetect` / `#wizmap`, `#polyself` carousel, `#levelchange` ping-pong) | **added 2026-10-16**: probe 0/20 (0 %), 100 sessions (20 probe @51256000 + 80 @51257000, 1/80 PASS); 99 failing folded; in WAVE3 |
 
 Since 2026-10-13 `scenario-gen` also draws half its datetimes from any
 second of 2000–2026 (it had five fixed values).
@@ -271,6 +273,23 @@ SYMBOLS / BIND rc lines, with O-menu flips mid-game) scored 0/20 (0 %,
 screens 3.7 %, no throws) — the display layer under exotic rc is the
 held-out shape; 20 probe + 80 authored @50059000. No candidates remain;
 the next calibration grow mines a new public shape.
+
+**Third calibration probes (grow 2026-10-16, Grow #18, fresh gap
+93.7 − 72.7 = 21.0 pts).** `hallu` (wave-3, 600–1200 keys: `#wizintrinsic
+h` trip + scheduled re-trips, every body impaired — fights, wand
+barrages, scrolls, quaffs, throws, looks, casts, prayers, tours)
+scored 18/20 (90 %, RNG 100 %, screens 99.6 %) on arrival — the port
+handles sustained hallucination, so not a held-out shape; its 20 probe
+sessions are folded (fails: Priest-51255006 unattributed s401,
+Valkyrie-51255008 doread s203) but no more were authored. `extcmd`
+(wave-3, 600–1200 keys: rotating context/info/item/social/wiz/skirmish
+phases through the `#` list in varied contexts) scored 0/20 (0 %,
+RNG 99.9 %, screens 94.4 %) — every session diverges on a screen;
+owners `display_pickinv` (the Debug Identify menu, 14) and
+`u_stuck_cannot_go` (misattributed: `#history` is unimplemented in JS,
+6); 20 probe + 80 @51257000 (1/80 PASS) authored, 99 failing folded
+under 7 owners (quota keeps 10 active, 89 reserve). Both kept in WAVE3;
+no candidates remain again — the next calibration grow mines another.
 
 ## 6. Why not a state-dump patch or a fntrace build (yet)
 

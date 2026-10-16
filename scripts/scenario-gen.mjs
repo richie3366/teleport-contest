@@ -15,7 +15,7 @@
  *        [--family mixed|wish|genesis|poly|intrinsic|death|kit|tour|normal]
  *        [--family broad|terrain|trap|town|sokoban|ride|pet|container|descend|
  *                  ranged|caster|impaired|options|engulf|hazard|longrun|dig]
- *        [--family marathon|worldtour|sweep|chain|trek|zapfest|shop|questtour|symset]
+ *        [--family marathon|worldtour|sweep|chain|trek|zapfest|shop|questtour|symset|hallu|extcmd]
  *        [--out hidden-corpus/recipes] [--probe [--index i]]
  *
  * `broad` rotates evenly through the second-wave families (terrain … dig);
@@ -1261,8 +1261,8 @@ async function levelportTune(g, rng, target) {
    scen-* session above ran past 344 steps. These four families play that
    long. Debug games answer «Die?» with n, so a death mid-marathon costs one
    prompt, not the rest of the session. */
-const WAVE3 = ['worldtour', 'sweep', 'chain', 'trek', 'zapfest', 'shop', 'questtour', 'symset'];
-const WAVE3_KEYS = { worldtour: [800, 1500], sweep: [1200, 2000], chain: [900, 1900], trek: [600, 1100], zapfest: [600, 1200], shop: [500, 1000], questtour: [600, 1200], symset: [500, 1000] };
+const WAVE3 = ['worldtour', 'sweep', 'chain', 'trek', 'zapfest', 'shop', 'questtour', 'symset', 'hallu', 'extcmd'];
+const WAVE3_KEYS = { worldtour: [800, 1500], sweep: [1200, 2000], chain: [900, 1900], trek: [600, 1100], zapfest: [600, 1200], shop: [500, 1000], questtour: [600, 1200], symset: [500, 1000], hallu: [600, 1200], extcmd: [600, 1200] };
 /* symset (2026-10-14, §10.20 calibration): non-DEC symset candidates from
    dat/symbols, minus Blank (an invisible map is unplayable) */
 const SYMSET_ALT = ['curses', 'IBMgraphics', 'IBMGraphics_1', 'IBMGraphics_2', 'RogueIBM', 'RogueEpyx', 'RogueWindows', 'plain', 'MACgraphics', 'Enhanced1', 'Enhanced2', 'AmigaFont'];
@@ -1289,6 +1289,22 @@ const ZAP_FODDER = [...PREY, 'hill orc', 'soldier', 'gnome lord', 'dwarf', 'owlb
 const ZAP_CASTERS = ['lich', 'master lich', 'gnomish wizard', 'orc shaman', 'kobold shaman', 'mind flayer', 'master mind flayer', 'succubus', 'incubus', 'vampire', 'aligned cleric'];
 const ZAP_BREATHERS = ['red dragon', 'black dragon', 'silver dragon', 'baby red dragon'];
 const ZAP_POLY_BREATH = ['red dragon', 'black dragon', 'silver dragon', 'gold dragon'];
+/* hallu (2026-10-16, §10.20 calibration): kit mirrors public
+   seed0399-wizard-hallu-actions (amulet, dragon mail, 20 daggers,
+   scrolls, lamp, bell, harp, leash, wand, spellbook) */
+const HALLU_KIT = ['blessed amulet of life saving', 'blessed +3 gray dragon scale mail', 'blessed +3 speed boots', 'blessed ring of free action', 'blessed +3 helm of telepathy', 'blessed magic lamp', 'blessed bell of opening', 'blessed magic harp', 'blessed leash'];
+const HALLU_WANDS = ['fire', 'cold', 'lightning', 'magic missile', 'striking', 'sleep', 'polymorph', 'teleportation', 'digging', 'light', 'probing', 'slow monster'];
+const HALLU_SCROLLS = ['identify', 'light', 'enchant weapon', 'enchant armor', 'remove curse', 'magic mapping', 'teleportation', 'earth', 'fire', 'mail'];
+const HALLU_POTIONS = ['hallucination', 'hallucination', 'booze', 'confusion', 'speed', 'healing', 'extra healing', 'gain energy', 'see invisible', 'invisibility', 'levitation', 'polymorph', 'sleeping', 'acid', 'oil'];
+const HALLU_SPELLS = ['magic missile', 'fireball', 'cone of cold', 'sleep', 'light', 'knock', 'slow monster', 'cause fear'];
+const HALLU_FODDER = [...PREY, 'gnome lord', 'dwarf', 'hill orc', 'owlbear', 'troll', 'bugbear', 'hobbit', 'kobold shaman', 'soldier'];
+/* extcmd (2026-10-16, §10.20 calibration): systematic # rotation à la
+   public seed0106-priest-extcmd-sweep and seed4500-knight-coverage.
+   Never #quit / #save / #suspend / #shell (those end or escape the game). */
+const EXTCMD_INFO = ['overview', 'conduct', 'vanquished', 'genocided', 'chronicle', 'terrain', 'version', 'history'];
+const EXTCMD_ITEM = ['dip', 'offer', 'name', 'adjust', 'twoweapon', 'invoke', 'wipe', 'loot', 'tip', 'ride'];
+const EXTCMD_SOCIAL = ['pray', 'chat', 'chat', 'turn', 'sit'];
+const EXTCMD_POLY = ['red dragon', 'mind flayer', 'vampire', 'xorn', 'purple worm', 'troll', 'leprechaun', 'fire giant', 'fog cloud', 'air elemental'];
 const SWEEP_W1 = ['wish', 'wish', 'genesis', 'genesis', 'poly', 'intrinsic', 'kit', 'tour'];
 const SWEEP_W2 = ['terrain', 'trap', 'town', 'sokoban', 'ride', 'pet', 'container', 'descend', 'ranged', 'caster', 'impaired', 'engulf', 'hazard', 'dig', 'quest', 'special', 'engrave'];
 const TOUR_KIT = ['blessed +3 gray dragon scale mail', 'blessed +3 silver dragon scale mail', 'blessed +3 speed boots', 'blessed amulet of life saving', 'blessed amulet of reflection', 'blessed ring of free action', 'blessed +3 cloak of magic resistance', 'blessed +3 gauntlets of power', 'blessed Mjollnir', 'blessed +3 helm of telepathy'];
@@ -1587,6 +1603,131 @@ async function runWave3Game(g, rng, family, { debug }) {
             else if (r < 0.85) { await g.send('v'); await settle(g, rng); await typeCmd(g, rng, 'i'); }
             else await ordinary(g, rng, 2 + Math.floor(rng() * 3));
             if (chance(rng, 0.15)) await levelport(g, rng, 1 + Math.floor(rng() * 20));
+        });
+        break;
+    }
+    case 'hallu': {
+        /* hallu (2026-10-16, §10.20 calibration): a whole marathon tripping,
+           like public seed0383/seed0399 (hallucinate / hallu-actions): a
+           debug game with a wished kit, #wizintrinsic h to trip, then every
+           body played impaired — fights, wand barrages, scrolls, quaffs,
+           throws, looks, casts, prayers, tours — re-tripping on schedule so
+           the screen stays scrambled. Wave-2 `impaired` touches
+           hallucination for a few keys; hundreds of keys under scrambled
+           glyphs are unprobed (symset precedent: display-layer shapes fail
+           on arrival). */
+        g.immortal = true;
+        for (const w of shuffle(rng, HALLU_KIT).slice(0, 3 + Math.floor(rng() * 3))) {
+            const l = await wish(g, rng, w);
+            if (l && /amulet|ring/.test(w)) await typeCmd(g, rng, 'P', { letter: l });
+            else if (l && /mail|boots|helm/.test(w)) await typeCmd(g, rng, 'W', { letter: l });
+        }
+        const dagger = await wish(g, rng, 'blessed 20 daggers');
+        if (dagger) await typeCmd(g, rng, 'Q', { letter: dagger });
+        if (chance(rng, 0.7)) await ext(g, rng, 'levelchange', { level: String(pick(rng, [14, 20, 20, 26])) });
+        await intrinsic(g, rng, ['h'], 0);
+        let trippedAt = g.moves.length;
+        await untilFull(g, rng, async () => {
+            /* a wizintrinsic trip lasts ~200 turns; the policy counts its own
+               keys and re-trips on schedule so the marathon stays impaired */
+            if (g.moves.length - trippedAt > 90) { await intrinsic(g, rng, ['h'], 0); trippedAt = g.moves.length; }
+            const r = rng();
+            if (r < 0.2) {
+                for (let k = 0; k < 1 + Math.floor(rng() * 2); k++) await genesis(g, rng, pick(rng, HALLU_FODDER));
+                await fight(g, rng, 4 + Math.floor(rng() * 4));
+            } else if (r < 0.32) {
+                const l = await wish(g, rng, `wand of ${pick(rng, HALLU_WANDS)}`);
+                if (l) for (let i = 0; i < 3 + Math.floor(rng() * 4) && !g.full; i++)
+                    await typeCmd(g, rng, 'z', { letter: l, dir: monsterDir(g.s, rng) || pick(rng, 'hjklyubn.') });
+            } else if (r < 0.42) {
+                const l = await wish(g, rng, `${chance(rng, 0.5) ? 'blessed ' : ''}scroll of ${pick(rng, HALLU_SCROLLS)}`);
+                if (l) await typeCmd(g, rng, 'r', { letter: l, menuPick: true, yn: 'y' });
+                if (chance(rng, 0.4)) { const [f] = pick(rng, FOOD); const fl = await wish(g, rng, f); if (fl) await typeCmd(g, rng, 'e', { letter: fl, yn: 'y' }); }
+            } else if (r < 0.52) {
+                const l = await wish(g, rng, `potion of ${pick(rng, HALLU_POTIONS)}`);
+                if (l) await typeCmd(g, rng, 'q', { letter: l, yn: 'y' });
+                await wait(g, rng, 1 + Math.floor(rng() * 2));
+            } else if (r < 0.62) {
+                for (let i = 0; i < 2 + Math.floor(rng() * 3) && !g.full; i++) await shoot(g, rng, chance(rng, 0.7) ? 'f' : 't', { yn: 'y' });
+                if (chance(rng, 0.3)) await ext(g, rng, 'invoke', { menuPick: true, yn: 'y' });
+            } else if (r < 0.72) {
+                await look(g, rng);
+                await typeCmd(g, rng, 'E', { letter: '-' });
+                if (chance(rng, 0.5)) await chat(g, rng);
+                if (chance(rng, 0.4)) await ext(g, rng, 'pray', { yn: 'y' });
+            } else if (r < 0.82) {
+                const book = await wish(g, rng, `${chance(rng, 0.7) ? 'blessed ' : ''}spellbook of ${pick(rng, HALLU_SPELLS)}`);
+                if (book) { await typeCmd(g, rng, 'r', { letter: book, yn: 'y' }); await wait(g, rng, 1); }
+                await typeCmd(g, rng, 'Z', { menuPick: true, dir: monsterDir(g.s, rng) || pick(rng, 'hjklyubn.'), yn: 'y' });
+                if (chance(rng, 0.3)) await ext(g, rng, 'turn', { yn: 'y' });
+                await typeCmd(g, rng, ':');
+            } else if (r < 0.92) {
+                if (chance(rng, 0.6)) await levelportMenu(g, rng); else await levelport(g, rng, 1 + Math.floor(rng() * 25));
+                await tourStop(g, rng);
+            } else {
+                await typeCmd(g, rng, pick(rng, ['i', 'i', CTRL('x'), '_']));
+                await steps(g, rng, 2 + Math.floor(rng() * 3));
+            }
+        });
+        break;
+    }
+    case 'extcmd': {
+        /* extcmd (2026-10-16, §10.20 calibration): a systematic extended-
+           command rotation in varied contexts, like public seed0106
+           (priest-extcmd-sweep) and seed4500 (knight-coverage, 1814 keys of
+           many commands in one debug game). Each body runs one rotating
+           phase — context move, info screens, item verbs, social/divine,
+           wiz commands, skirmish — so the same command fires on altars, in
+           shops, near monsters, poly'd, and across dungeon levels.
+           ordinary() hits these commands at random; the systematic rotation
+           through debug-only wiz commands (#wizidentify, #wizdetect,
+           #wizmap, #polyself carousel) is unprobed. */
+        g.immortal = true;
+        for (const w of shuffle(rng, TOUR_KIT).slice(0, 2)) {
+            const l = await wish(g, rng, w);
+            if (l) await typeCmd(g, rng, /amulet|ring/.test(w) ? 'P' : /Mjollnir/.test(w) ? 'w' : 'W', { letter: l });
+        }
+        for (const spare of ['long sword', 'potion of water', 'scroll of identify']) await wish(g, rng, spare);
+        if (chance(rng, 0.7)) await ext(g, rng, 'levelchange', { level: String(pick(rng, [8, 12, 16, 20])) });
+        await genesis(g, rng, pick(rng, HALLU_FODDER));
+        let phase = Math.floor(rng() * 6), info = 0, item = 0, soc = 0;
+        await untilFull(g, rng, async () => {
+            const ph = (phase++) % 6;
+            if (ph === 0) {
+                const where = pick(rng, ['altar', 'shop', 'stairs', 'tour', 'fountain']);
+                if (where === 'altar') { await travelTo(g, rng, '_'); await chat(g, rng); }
+                else if (where === 'shop') { await travelTo(g, rng, 'o'.repeat(2 + Math.floor(rng() * 5))); await typeCmd(g, rng, ','); }
+                else if (where === 'stairs') await travelTo(g, rng, pick(rng, ['>', '<']));
+                else if (where === 'tour') { if (chance(rng, 0.6)) await levelportMenu(g, rng); else await levelport(g, rng, 1 + Math.floor(rng() * 25)); await mapLevel(g, rng); }
+                else { await travelTo(g, rng, '{'); await typeCmd(g, rng, 'q', { yn: 'y' }); }
+                if (chance(rng, 0.4)) await genesis(g, rng, pick(rng, HALLU_FODDER));
+            } else if (ph === 1) {
+                for (let k = 0; k < 2 && !g.full; k++) await ext(g, rng, EXTCMD_INFO[(info++) % EXTCMD_INFO.length], { yn: 'y' });
+                if (chance(rng, 0.3)) await ext(g, rng, 'annotate', { yn: 'y' });
+                await typeCmd(g, rng, pick(rng, [CTRL('x'), CTRL('o'), 'i']));
+            } else if (ph === 2) {
+                for (let k = 0; k < 2 && !g.full; k++)
+                    await ext(g, rng, EXTCMD_ITEM[(item++) % EXTCMD_ITEM.length], { menuPick: true, yn: 'y', dir: monsterDir(g.s, rng) || pick(rng, 'hjklyubn') });
+            } else if (ph === 3) {
+                for (let k = 0; k < 2 && !g.full; k++)
+                    await ext(g, rng, EXTCMD_SOCIAL[(soc++) % EXTCMD_SOCIAL.length], { menuPick: true, yn: 'y', dir: monsterDir(g.s, rng) || pick(rng, 'hjklyubn') });
+                if (chance(rng, 0.3)) await ext(g, rng, 'jump', { dir: pick(rng, 'hjklyubn') });
+            } else if (ph === 4) {
+                const w = pick(rng, ['identify', 'detect', 'intrinsic', 'poly', 'level']);
+                if (w === 'identify') await ext(g, rng, 'wizidentify', { yn: 'y' });
+                else if (w === 'detect') { await ext(g, rng, chance(rng, 0.5) ? 'wizdetect' : 'wizmap'); await mapLevel(g, rng); }
+                else if (w === 'intrinsic') await intrinsic(g, rng, shuffle(rng, ['a', 'f', 'g', 'q', 'r', 's']).slice(0, 1 + Math.floor(rng() * 2)), 0);
+                else if (w === 'poly') {
+                    await polyself(g, rng, pick(rng, EXTCMD_POLY));
+                    await fight(g, rng, 2);
+                }
+                else await ext(g, rng, 'levelchange', { level: String(1 + Math.floor(rng() * 25)) });
+            } else {
+                const mon = monsterDir(g.s, rng);
+                if (mon) await fight(g, rng, 2 + Math.floor(rng() * 3));
+                else await steps(g, rng, 3);
+                if (chance(rng, 0.4)) await ordinary(g, rng, 1);
+            }
         });
         break;
     }
