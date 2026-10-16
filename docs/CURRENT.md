@@ -30,7 +30,7 @@ Score last measured: **2026-10-16** — full `sessions` on `bf7208009`
 | Metric | Value |
 |--------|------:|
 | **Held-out (judge 2026-10-16 13:26Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** (window unjudged) |
-| **Fresh cohort (§10.20, scored on arrival)** | 51050000 ×160 @`1c7d7bc15`: **148/160 (92.5 %)**, RNG 98.8 %, screens 97.9 % — caster/town 1/2 worst; symset 8/12, sweep/worldtour 10/12, shop/zapfest 11/12; chain/questtour/trek 12/12 + rest 100 % |
+| **Fresh cohort (§10.20, scored on arrival)** | 51150000 ×160 @`5241a6149`: **146/160 (91.3 %)**, RNG 98.7 %, screens 97.6 % — options 1/2, symset 7/12 worst; intrinsic/tour 2/3, sweep 10/12; chain/shop/worldtour/zapfest 11/12; questtour/trek 12/12 + rest 100 % |
 | **Corpus board (worked, regression fortress)** | full rescore 2026-10-16 (audit 2860–2867): **561/1157** (**0 PASS→FAIL**, 6 healed+archived, 20 archived, `unrecorded` 0; RNG 95.7 %, screens 94.6 %); `tier` → **857 + 288 + 4646** (1 out, 0 back) |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
@@ -47,14 +47,14 @@ unions, TEXT col-0) moved the judge again — cliffs score where they
 reach. **Three lines, read together:** held-out (judge), fresh cohort
 (`fresh-cohort.mjs`, the local generalization estimate), board (the
 fortress — it rises by construction). Fresh history: 79–92.5 %
-across 14 cohorts (Grow #5–16; previous 140/159 @50950000).
-Fresh−held-out gap now 19.8 pts (92.5 % vs 72.7 %), inside the §10.20 band —
+across 15 cohorts (Grow #5–17; previous 148/160 @51050000).
+Fresh−held-out gap now 18.6 pts (91.3 % vs 72.7 %), inside the §10.20 band —
 no calibration family (Grow #6 `symset` 15/240).
-**Corpus (Grow #16 `score --new` + `tier`, 2026-10-16, 896 rows):**
-571 PASS (63.7 %); RNG 95.33 %, screens 94.4 %; 878 active + 287 reserve + 4626 archive.
-Worst families `scen-questtour` 11/33, `scen-shop` 15/83, `scen-zapfest` 9/19,
-`scen-descend` 7/8, `scen-symset` 15/214, `scen-town` 11/16,
-`scen-worldtour` 72/160, `scen-sweep` 146/274, rest ≥ 96.9 % RNG.
+**Corpus (Grow #17 `score --new` + `tier`, 2026-10-16, 888 rows):**
+568 PASS (64.0 %); RNG 95.85 %, screens 94.5 %; 863 active + 296 reserve + 4792 archive.
+Worst families `scen-questtour` 11/29, `scen-shop` 15/84, `scen-zapfest` 8/19,
+`scen-descend` 7/8, `scen-symset` 15/219, `scen-town` 11/16,
+`scen-worldtour` 69/154, `scen-sweep` 146/268, rest ≥ 96.9 % RNG.
 Reviews 1225–2867 (index; no row 1618): 1467 ACCEPT, 64 WITH-DEBT, 111 QUALITY-RISK (2860–2867: 8A/0D/0Q, 0 Must-fix).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
@@ -147,7 +147,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** D-4029: kick_monster Levitation sticky→macro (3 probes; dupe-rc×7 + 95340 parked kin re-verified first-hand); then use_pick_axe/lspo_replace_terrain/questtour-50250094 per regen.
+**Next:** Must-fix first (Grow #17 FACE throw, potion.js:403 — pops next, ships alone); then D-4029: kick_monster Levitation sticky→macro (3 probes; dupe-rc×7 + 95340 parked kin re-verified first-hand); then use_pick_axe/lspo_replace_terrain/questtour-50250094 per regen.
 
 ## Parked (diagnose only)
 

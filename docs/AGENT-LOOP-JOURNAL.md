@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — Grow #17 fresh 51150000 ×160: 146/160 (91.3 %) on arrival; +14 failing folded, 1 js-throw → Must-fix
+
+**Fresh:** 146/160 (91.3 %), RNG 98.7 %, screens 97.6 % @`5241a6149`. Worst: options 1/2, symset 7/12; intrinsic/tour 2/3, sweep 10/12; chain/shop/worldtour/zapfest 11/12; questtour/trek 12/12 + rest 100 %. Gap 18.6 pts vs held-out 32/44 (72.7 %) — inside the §10.20 band, no calibration family. Periodic slot (cliffs held 12 rows); step 4 skipped.
+**Fold:** 14 failing → hidden-corpus (7 active, 7 reserve over quota); 146 PASS → archive. `score --new` 568/888 (64.0 %), RNG 95.85 %, screens 94.5 %; `tier` 11 → reserve, 3 PASS back (questtour-Priest ×2, sweep-Wizard-95344), reserve 288 → 296. Files: 863 active + 296 reserve + 4792 archive. No flips (no js/).
+**Owners:** fresh joins multi-session groups look_here (8), inuse_classify ×2 (36), glibr (26), getpos (14), one_characteristic (13), auto_describe (12), list_genocided (5), handler_rebind_keys (5), castmu (2); singletons exercise, randomize_gem_colors (throw-voided); 2 unattributed symset.
+**Must-fix:** `ReferenceError: FACE is not defined` at peffect_oil (js/potion.js:403, bare `body_part(FACE)` in lit-oil quaff) voids scen-sweep-Wizard-51150073 (1190 steps, rngM/scrM 0; board misattributes randomize_gem_colors s0) — filed, pops next, ships alone.
+**Next:** Must-fix FACE throw; then the D-4029 line per regen.
 ## 2026-10-16 — D-4029 kick_monster Levitation wild-miss read the JS-only sticky instead of the C macro (3 probes FULL PASS)
 
 **C locus:** dokick.c kick_monster :153–159 (`if (Levitation && !rn2(3) && verysmall(mon->data) && !is_flyer(mon->data))`) + youprop.h :240 (`#define Levitation ((HLevitation || ELevitation) && !BLevitation)`).
