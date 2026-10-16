@@ -7,6 +7,10 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — audit 2868–2874 @6aed804b1: review D-4026..D-4033 (7A/0D/0Q, 0 Must-fix) + full rescore 592/1144 (0 PASS→FAIL)
+
+**Reviews:** 2868–2874: 7A/0D/0Q, 0 Must-fix. All movement claims re-measured on HEAD — hold, 0 worse. Non-findings: D-4031's `moved → js-throw @357` line is the null-owner display fallback (`hidden-proxy.mjs:947`, stored row owner/error null — D-2193 note correct); canonical `Levitation` export reads the sticky first while D-4029's kept local is the macro-exact one (observation, no row without session evidence).
+**Score:** 44/44 public; held-out 32/44 (unjudged); board 592/1144 full:true (0 PASS→FAIL, 18 healed+archived, 27 archived, RNG 96.2 %, screens 92.4 %); tier 850+282+4819 (5 out, 19 back). Seeded sample 5/5 whole (node:sqlite absent — grep-pick + brief fallback, prior-audit precedent).
 ## 2026-10-16 — D-4033 hellfill hells[4] iron-bar floor replace wired: the live whole lspo_replace_terrain runs the :366 mapfragment arm (1 PASS + 1 moved past)
 
 **C locus:** dat/hellfill.lua hells[4] :363–369 (`cwid == 1`, iron-bars walls, `percent(80)` → `des.replace_terrain({ mapfragment = ".\nF\n.", toterrain = ".", chance = 25 * math.random(4) })`) + sp_lev.c lspo_replace_terrain :5051–5143 (mapfragment arm :5126–5129 — owner line 5127 is the `mapfrag_match && rn2(100) < chance` draw). Lua evaluates `chance` in the table constructor, before the C call. D-1856 read once (bigrm-2 selection-arm call site — different arm, same owner/call-site shape); D-4019 named this arm omission (1).
