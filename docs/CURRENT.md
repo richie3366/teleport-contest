@@ -22,20 +22,20 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-16** — full `sessions` on `6607c2f82`
-(audit **2853–2859**). Fortress **44/44** (no throws; aggregates in the table).
+Score last measured: **2026-10-16** — full `sessions` on `bf7208009`
+(audit **2860–2867**). Fortress **44/44** (no throws; aggregates in the table).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-16 07:21Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** (window unjudged) |
+| **Held-out (judge 2026-10-16 13:26Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** (window unjudged) |
 | **Fresh cohort (§10.20, scored on arrival)** | 51050000 ×160 @`1c7d7bc15`: **148/160 (92.5 %)**, RNG 98.8 %, screens 97.9 % — caster/town 1/2 worst; symset 8/12, sweep/worldtour 10/12, shop/zapfest 11/12; chain/questtour/trek 12/12 + rest 100 % |
-| **Corpus board (worked, regression fortress)** | full rescore 2026-10-16 (audit 2853–2859): **557/1165** (**0 PASS→FAIL**, +1 healed, 11 archived, `unrecorded` 0; RNG 95.2 %, screens 94.4 %); `tier` → **864 + 288 + 4478** (0 out, 1 promoted) |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-16 (audit 2860–2867): **561/1157** (**0 PASS→FAIL**, 6 healed+archived, 20 archived, `unrecorded` 0; RNG 95.7 %, screens 94.6 %); `tier` → **857 + 288 + 4646** (1 out, 0 back) |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `397+1.77/turn` (R² 0.79) |
+| Speed label | `388+1.81/turn` (R² 0.81) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
@@ -55,7 +55,7 @@ no calibration family (Grow #6 `symset` 15/240).
 Worst families `scen-questtour` 11/33, `scen-shop` 15/83, `scen-zapfest` 9/19,
 `scen-descend` 7/8, `scen-symset` 15/214, `scen-town` 11/16,
 `scen-worldtour` 72/160, `scen-sweep` 146/274, rest ≥ 96.9 % RNG.
-Reviews 1225–2859 (index; no row 1618): 1459 ACCEPT, 64 WITH-DEBT, 111 QUALITY-RISK (2853–2859: 6A/1D/0Q, 1 Must-fix queued).
+Reviews 1225–2867 (index; no row 1618): 1467 ACCEPT, 64 WITH-DEBT, 111 QUALITY-RISK (2860–2867: 8A/0D/0Q, 0 Must-fix).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
 Full rescore (audit only, §10.21): `record` + unfiltered `score` (active tier) + `archive` (+ quota), committed `full: true`; needs the C recorder.
