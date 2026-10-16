@@ -22,21 +22,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4016 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4017 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4016.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4016 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4017.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4017 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4017: js/do_name.js only — the x_monnam priest arm now also saves/clears/restores the `u.Hallucination` sticky alongside EHalluc_resistance when !do_hallu ( Named: (1) Valkyrie-50362023 s1003 (RNG-full 43622/43622): JS appends «You survived that attempt 
 - D-4016: none — measurement (this commit). /tmp/cfgprobe-probe.mjs (kept out of tree): pinned recorder binary unmodified, /tmp install copy, fresh mkdtemp home Named: none — no port; docs-only entry, no Ledger bullet (D-3944/D-3961 precedent) — config_error
 - D-4015: both sites now use the live `level_difficulty()` (already imported in mklev.js :15 — no new edge). Named: (1) standing dispatch omits untouched: Water vault D-0690, Blocked center D-0243; (2) debu
 - D-4014: opt-in deferred tail (D-4011's reverted shape, probe-scoped via a flag so its hallu/caller regressions cannot fire): (1) `MM_ASYNCGROUP = 0x00200000`  Named: (1) other grouped-capable mid-game makemon callers stay on the sync fallback (no mid-group
@@ -51,5 +52,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-4005: kludge spiral calls the live `dirtocoord(cc, j)` in both loops (added to the existing const.js import — no new edge; removed the now-unused xdir/ydir  Named: none in this unit — the kludge arms are now C-exact (assigning spiral, both rings, stay fa
 - D-4004: js/invent.js (+10/-1): capture `touched`, then `if (game.program_state?.gameover) return obj;` before the refuse/form-change arms (D-4001 idiom) — a f Named: none new — hold_another_object stays ported (guard only; standing doc omit perm_invent WIN
 - D-4003: js/teleport.js only — in migrate_to_level, when tolev===-1 (reachable only via to-nowhere dst: every other caller passes ledger_no of a valid level ≥  Named: (1) hero domagicportal on a to-nowhere portal (teleport.js:2583 schedule_goto {-1,-1}): C
-- D-4002: js/timeout.js only — deleted the shadowing dynamic import (replaced with a 2-line NB comment citing the static invent.js:54 import); the :2591 call no Named: none new — hatch_egg stays ported (body untouched; standing doc omits SetVoice-before-Glee
 <!-- landmarks:end -->

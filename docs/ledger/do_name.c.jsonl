@@ -18,7 +18,7 @@
 {"fn":"docall","c":"636-676","status":"ported","js":["js/do_name.js:docall"],"d":["D-1672"],"at":"2026-10-03@bbe63333a"}
 {"fn":"namefloorobj","c":"679-757","status":"ported","js":["js/do_name.js:namefloorobj"],"d":["D-1555"],"at":"2026-10-03@bbe63333a"}
 {"fn":"rndghostname","c":"772-776","status":"ported","js":["js/makemon.js:rndghostname"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
-{"fn":"x_monnam","c":"827-1032","status":"ported","js":["js/do_name.js:x_monnam"],"d":["D-2092","D-2038","D-1803"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
+{"fn":"x_monnam","c":"827-1032","status":"ported","js":["js/do_name.js:x_monnam"],"d":["D-4017","D-2092","D-2038","D-1803"],"at":"2026-10-16@ebfb0b3f9","note":"stale 2026-09-14"}
 {"fn":"l_monnam","c":"1035-1039","status":"ported","js":["js/do_name.js:l_monnam"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_nam","c":"1042-1046","status":"ported","js":["js/do_name.js:mon_nam"],"at":"2026-10-03@bbe63333a"}
 {"fn":"noit_mon_nam","c":"1054-1060","status":"ported","js":["js/do_name.js:noit_mon_nam"],"at":"2026-10-03@bbe63333a"}
