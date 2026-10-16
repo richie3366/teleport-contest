@@ -15,7 +15,7 @@ import "../js/do_wear.js";
 import { objects_globals_init } from "../js/objects.js";
 import { game } from "../js/gstate.js";
 import {
-  COIN_CLASS, TOOL_CLASS, ARMOR_CLASS, objectNames,
+  COIN_CLASS, TOOL_CLASS, ARMOR_CLASS, AMULET_CLASS, objectNames,
 } from "../js/generated/objects_data.js";
 import { W_ARMOR, WORN_ARMOR } from "../js/const.js";
 
@@ -105,6 +105,48 @@ describe("doname_base flags and arms (objnam.c:1223-1751)", () => {
     assert.match(doname(armor), /\(being worn\)/);
     game.context.takeoff = { what: WORN_ARMOR };
     assert.match(doname(armor), /\(being doffed\)/);
+  });
+
+  it("override_ID reveals the true base name (C xname :640-646 staging)", () => {
+    // scen-extcmd wizid cliff (D-4038): C «a blessed amulet of reflection»
+    // vs JS «a blessed hexagonal amulet» — doname_base forced its own
+    // prefix locals but pretty_base read the raw nn.
+    objects_globals_init();
+    const AMULET_OF_REFLECTION = objectNames.indexOf("AMULET_OF_REFLECTION");
+    const oc = game.objects[AMULET_OF_REFLECTION];
+    const savedNn = oc.oc_name_known;
+    const savedUname = oc.oc_uname;
+    try {
+      oc.oc_name_known = 0;
+      oc.oc_uname = null;
+      const amulet = () => baseObj({
+        otyp: AMULET_OF_REFLECTION, oclass: AMULET_CLASS,
+        blessed: 1, known: 0, dknown: 0, bknown: 0,
+      });
+      // Fresh object per call: near doname observes (dknown=1, like C xname).
+      assert.match(doname(amulet()), /^a hexagonal amulet$/);
+      game.iflags.override_ID = 9; // C wiz_identify: cmd char, nonzero
+      try {
+        assert.match(doname(amulet()), /^a blessed amulet of reflection$/);
+      } finally {
+        game.iflags.override_ID = 0;
+      }
+      // Staging restores the raw flags (C locals, not writes; dknown stays
+      // observed — C observe_object persists too).
+      const probe = amulet();
+      game.iflags.override_ID = 9;
+      try {
+        doname(probe);
+      } finally {
+        game.iflags.override_ID = 0;
+      }
+      assert.equal(probe.known, 0);
+      assert.equal(probe.bknown, 0);
+      assert.equal(oc.oc_name_known, 0);
+    } finally {
+      oc.oc_name_known = savedNn;
+      oc.oc_uname = savedUname;
+    }
   });
 
   it("plain doname appends a recorded price quote (trailing arm)", () => {

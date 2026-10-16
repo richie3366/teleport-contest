@@ -3306,16 +3306,40 @@ export function doname_base(obj, doname_flags = 0) {
     // bare ONAME (xname obj_is_pname goto nameit, `:663–664` + `:999–1012`):
     // no base type, no "poisoned " (Grimtooth), no " named ONAME" suffix.
     const isPname = obj_is_pname(obj) && has_oname(obj);
+    /* C xname_flags `:640–646` — bp = xname(obj) stages known=dknown=
+       bknown=TRUE and nn=1 under override_ID for its whole switch; the
+       locals above already force all five prefix flags, but pretty_base
+       reads the raw obj/ocl fields, so stage the same four C writes here
+       and restore after (xname_flags `:1083–1090` sibling shape; D-4038). */
+    const oclID = overrideID ? game.objects?.[otyp] : undefined;
+    let savedID = null;
+    if (overrideID) {
+        savedID = {
+            known: obj.known, dknown: obj.dknown, bknown: obj.bknown,
+            nn: oclID ? oclID.oc_name_known : undefined,
+        };
+        obj.known = 1; obj.dknown = 1; obj.bknown = 1;
+        if (oclID) oclID.oc_name_known = 1;
+    }
     let base;
-    if (isPname) {
-        let nm = String(ONAME(obj) ?? '');
-        if (obj.oartifact && nm.slice(0, 4) === 'The ') nm = `t${nm.slice(1)}`;
-        if (nm.length >= 4 && nm.slice(0, 4).toLowerCase() === 'the ') {
-            nm = nm.slice(4);
+    try {
+        if (isPname) {
+            let nm = String(ONAME(obj) ?? '');
+            if (obj.oartifact && nm.slice(0, 4) === 'The ') nm = `t${nm.slice(1)}`;
+            if (nm.length >= 4 && nm.slice(0, 4).toLowerCase() === 'the ') {
+                nm = nm.slice(4);
+            }
+            base = nm;
+        } else {
+            base = pretty_base(obj);
         }
-        base = nm;
-    } else {
-        base = pretty_base(obj);
+    } finally {
+        if (savedID) {
+            obj.known = savedID.known;
+            obj.dknown = savedID.dknown;
+            obj.bknown = savedID.bknown;
+            if (oclID && savedID.nn !== undefined) oclID.oc_name_known = savedID.nn;
+        }
     }
     // C doname_base: xname may start with "poisoned "; strip into prefix
     // so order is article/BUC/poisoned/erosion/spe + bare name.
