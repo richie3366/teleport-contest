@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0007tame lichen\n\u0007tame soldier ant\n\u0017banana\nt\u001b#name\nm\n >.\u0007jackal\nsm.ss.jsh   20s     20s   \u0007newt\n\u0017scroll of taming\n rk  10s \u0007jackal\n\u0017scroll of taming\nrl \u0007pony\n\u0017lichen corpse\nt\u001bk   #name\nf\n10s\u0007gnome\n\u0017scroll of taming\nrn \u0007newt\nshssss20s           #name\no\n\u0017leash\naoukkln aoh "
+ },
+ "segments": [
+  {
+   "seed": 51051005,
+   "datetime": "20060803133625",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007tame lichen\n\u0007tame soldier ant\n\u0017banana\nt\u001b#name\nm\n >.\u0007jackal\nsm.ss.jsh   20s     20s   \u0007newt\n\u0017scroll of taming\n rk  10s \u0007jackal\n\u0017scroll of taming\nrl \u0007pony\n\u0017lichen corpse\nt\u001bk   #name\nf\n10s\u0007gnome\n\u0017scroll of taming\nrn \u0007newt\nshssss20s           #name\no\n\u0017leash\naoukkln aoh "
+  }
+ ]
+}

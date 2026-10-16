@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPgl\u0017blessed +3 speed boots\nWh\u0017wand of cold\n\u0017wand of cancellation\n\u0017wand of death\n\u0007dwarf\n\u0007gnome\nzkb20szib zjuzjhzih  nziy  nzibszjl.\u00166\n\u0007lich\n\u0007lich\n\u0007lich\n\u0017wand of cold\nzllzllzll   20s   20s     nzlb sm.20s   n.m.    n   n\u00164\n\u0017bow\nwm\u001720 arrows\nQn\u0007sewer rat\nfk fk fk fkfktck \u0007succubus\n\u0007kobold shaman\n\u0007incubus\n\u0017wand of sleep\nzoh         nzoyzoh      n20s.hsm.sm.\u00167\n \u0017bow\nwp\u001720 arrows\nQn\u0007giant rat\nfy fyfkfh  tdy tcy  fy\u0017wand of death\n\u0017wand of sleep\n\u0007kobold shaman\n\u0007hill orc\n\u0007owlbear\nzrh20s zqh 20s    n zqk zrhsm.zqh zryzqyszqb20s\u0017blessed spellbook of force bolt\nrs sm.\u0017blessed spellbook of magic missile\nrt sm.\u0007lich\nZZZZZ.m..jZZ\u0018\u001b\u0017wand of cold\n\u0017wand of sleep\n\u0017wand of fire\n\u0007owlbear\nzwkslzvk    n zuy zwhzukszul20szwl   nzvl            s  nzuy\u001611\n\u0017wand o"
+ },
+ "segments": [
+  {
+   "seed": 51050092,
+   "datetime": "20090222000157",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPgl\u0017blessed +3 speed boots\nWh\u0017wand of cold\n\u0017wand of cancellation\n\u0017wand of death\n\u0007dwarf\n\u0007gnome\nzkb20szib zjuzjhzih  nziy  nzibszjl.\u00166\n\u0007lich\n\u0007lich\n\u0007lich\n\u0017wand of cold\nzllzllzll   20s   20s     nzlb sm.20s   n.m.    n   n\u00164\n\u0017bow\nwm\u001720 arrows\nQn\u0007sewer rat\nfk fk fk fkfktck \u0007succubus\n\u0007kobold shaman\n\u0007incubus\n\u0017wand of sleep\nzoh         nzoyzoh      n20s.hsm.sm.\u00167\n \u0017bow\nwp\u001720 arrows\nQn\u0007giant rat\nfy fyfkfh  tdy tcy  fy\u0017wand of death\n\u0017wand of sleep\n\u0007kobold shaman\n\u0007hill orc\n\u0007owlbear\nzrh20s zqh 20s    n zqk zrhsm.zqh zryzqyszqb20s\u0017blessed spellbook of force bolt\nrs sm.\u0017blessed spellbook of magic missile\nrt sm.\u0007lich\nZZZZZ.m..jZZ\u0018\u001b\u0017wand of cold\n\u0017wand of sleep\n\u0017wand of fire\n\u0007owlbear\nzwkslzvk    n zuy zwhzukszul20szwl   nzvl            s  nzuy\u001611\n\u0017wand o"
+  }
+ ]
+}

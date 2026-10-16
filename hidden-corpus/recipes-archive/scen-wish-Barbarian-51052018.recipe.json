@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed war hammer\nwf20ssss20s\u0017blessed scroll of confuse monster\nrg  \u001b\u0017uncursed spellbook of remove curse\nrh \u001b; \u001b   yy\u001by  y y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 51052018,
+   "datetime": "20010823082118",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed war hammer\nwf20ssss20s\u0017blessed scroll of confuse monster\nrg  \u001b\u0017uncursed spellbook of remove curse\nrh \u001b; \u001b   yy\u001by  y y\u001by  ."
+  }
+ ]
+}

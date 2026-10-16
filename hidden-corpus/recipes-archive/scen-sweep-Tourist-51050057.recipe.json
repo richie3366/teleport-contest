@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n12\n  \u0017ring of polymorph\n\u0007nurse\nPnlsbss\u0017uncursed +0 cloak of displacement\n\u0007stalker\nWo sm..u.T  \u0017spellbook of jumping\nrp su.yZZFj  n Fh\u0017elven leather helm\nWq.m..jsm.  n 20ssm.\u00165\ni\u001b\u00167\nkn\u0017wand of probing\nEr X marks the spot\n\u0017towel\nEs  n:y\u0017wand of make invisible\nEt Elbereth Elbereth\n#levelchange\n20\n       #wizintrinsic\nma\n  .ssl.m.sm..m..m.sy.hsm.\u0017scroll of create monster\nru jackal\n#enhance\nyp\no\n\u001b:ZJt$bee sjsm.sm.  n sm..m..m.\u0006_ \u001b@.>FuFu_>._,> FlFlFlPs#conduct\n \u0006_>._.<.Fh> \u0006_>.Fh_.Fh  n>Fh Fh _>,  Fh_. Fy   n >Fy Fy_>.  Fj _.Fh  n  >FyFy Fy FyFbZ10s \u000f\u001b\u00164\n\u0017blessed spellbook of charm monster\nrvs\u0017blessed spellbook of chain lightning\nrw.+\u0007lichen\nZZ\u0007gnome lord\nZZ\u0007lichen\nZZZ#enhance\nyo\ne\n\u001b\u0016?\n>w\u0006\u0017blessed potion of object detection\nqx@._oo.Fu_,Fu,: _d,Fu_.Fu\u0004 __.Fu    n_.Fl#chat\nldf _ooo,Fl_,Fl,\u001bp_oooooo,Fu_,Fl,\u001b$\u000f\u001b20s  n <\u00169\n\u0017chest\n\u0017ice box\n\u0017potion of sickness\ni\u001b\u000f\u001b\u0006_>>._.>_>>._, Fl>FlFh_>>. Fh_,  nFk>FkFkFk FhFk\u0006_>>.Fl _,  nFy>FkFk_>>.Fy_.Fy   n >FlFy_>>.Fh_.   n Fl>FhFlFlFhFy <\u0006_>,  n Fl_,Fl  >Fh  n Fy_>.Fy _.  n Fh>FyFl_>.Fh _,Fh >Fl  nFy FyFyFh\u0006_>,Fh_,Fh >FlFl  n _>. Fh_.Fh>FhFh _>,Fy_.Fk>Fy  yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51050057,
+   "datetime": "20230724033343",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:walk\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n12\n  \u0017ring of polymorph\n\u0007nurse\nPnlsbss\u0017uncursed +0 cloak of displacement\n\u0007stalker\nWo sm..u.T  \u0017spellbook of jumping\nrp su.yZZFj  n Fh\u0017elven leather helm\nWq.m..jsm.  n 20ssm.\u00165\ni\u001b\u00167\nkn\u0017wand of probing\nEr X marks the spot\n\u0017towel\nEs  n:y\u0017wand of make invisible\nEt Elbereth Elbereth\n#levelchange\n20\n       #wizintrinsic\nma\n  .ssl.m.sm..m..m.sy.hsm.\u0017scroll of create monster\nru jackal\n#enhance\nyp\no\n\u001b:ZJt$bee sjsm.sm.  n sm..m..m.\u0006_ \u001b@.>FuFu_>._,> FlFlFlPs#conduct\n \u0006_>._.<.Fh> \u0006_>.Fh_.Fh  n>Fh Fh _>,  Fh_. Fy   n >Fy Fy_>.  Fj _.Fh  n  >FyFy Fy FyFbZ10s \u000f\u001b\u00164\n\u0017blessed spellbook of charm monster\nrvs\u0017blessed spellbook of chain lightning\nrw.+\u0007lichen\nZZ\u0007gnome lord\nZZ\u0007lichen\nZZZ#enhance\nyo\ne\n\u001b\u0016?\n>w\u0006\u0017blessed potion of object detection\nqx@._oo.Fu_,Fu,: _d,Fu_.Fu\u0004 __.Fu    n_.Fl#chat\nldf _ooo,Fl_,Fl,\u001bp_oooooo,Fu_,Fl,\u001b$\u000f\u001b20s  n <\u00169\n\u0017chest\n\u0017ice box\n\u0017potion of sickness\ni\u001b\u000f\u001b\u0006_>>._.>_>>._, Fl>FlFh_>>. Fh_,  nFk>FkFkFk FhFk\u0006_>>.Fl _,  nFy>FkFk_>>.Fy_.Fy   n >FlFy_>>.Fh_.   n Fl>FhFlFlFhFy <\u0006_>,  n Fl_,Fl  >Fh  n Fy_>.Fy _.  n Fh>FyFl_>.Fh _,Fh >Fl  nFy FyFyFh\u0006_>,Fh_,Fh >FlFl  n _>. Fh_.Fh>FhFh _>,Fy_.Fk>Fy  yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

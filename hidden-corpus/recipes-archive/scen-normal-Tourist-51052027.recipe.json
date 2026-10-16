@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "E- X marks the spot\n;b. \u001b:   #offer\n\u0018\u001b#invoke\n\u001b10s10s10s#enhance\nya\nn\n\u001b#force\n>Z;j,;j:  n#dip\nke\u0014>. :\\ ,i\u001bi\u001bWsssalhriwayssFb qhy#offer\n#name\nm\n#chat\n:E-n  I am a fish\nch"
+ },
+ "segments": [
+  {
+   "seed": 51052027,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "E- X marks the spot\n;b. \u001b:   #offer\n\u0018\u001b#invoke\n\u001b10s10s10s#enhance\nya\nn\n\u001b#force\n>Z;j,;j:  n#dip\nke\u0014>. :\\ ,i\u001bi\u001bWsssalhriwayssFb qhy#offer\n#name\nm\n#chat\n:E-n  I am a fish\nch"
+  }
+ ]
+}

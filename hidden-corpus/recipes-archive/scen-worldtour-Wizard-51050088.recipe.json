@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u0017blessed Mjollnir\n wp \u0017blessed +3 helm of telepathy\nWq\u0017blessed +3 speed boots\nWr\u0016?\n>>K      potion of sickness\njyl   :\u001628\n#levelchange\n10\n   \u0007yellow light\nFnFk        n Fj       n Fh          n sl      n sk               n\u0007succubus\nFb     FbFj   n     Fb      n   Fb         n  Fb      n       nsh        n  n  sm.        n  .m.   20s s \u001612\n\u001628\n_ \u001b:\u001628\n#levelchange\n20\n         \u0017spellbook of drain life\nru. \u0017blessed spellbook of polymorph\nrv.  n       \u0017blessed spellbook of knock\n rwsm.   n          ny y+\u001bZ\u001bZ\u001b\u0007gnome\nZ\u001bZ\u001b\u0007zombie\nZ\u001b\u001628\n\u0014 n  n       20s     n   s    n    s     \u001b\u0016?\n\u001by        n \u001b       y          yy\u001by   y y y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 51050088,
+   "datetime": "20030407192645",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                    \u0017blessed Mjollnir\n wp \u0017blessed +3 helm of telepathy\nWq\u0017blessed +3 speed boots\nWr\u0016?\n>>K      potion of sickness\njyl   :\u001628\n#levelchange\n10\n   \u0007yellow light\nFnFk        n Fj       n Fh          n sl      n sk               n\u0007succubus\nFb     FbFj   n     Fb      n   Fb         n  Fb      n       nsh        n  n  sm.        n  .m.   20s s \u001612\n\u001628\n_ \u001b:\u001628\n#levelchange\n20\n         \u0017spellbook of drain life\nru. \u0017blessed spellbook of polymorph\nrv.  n       \u0017blessed spellbook of knock\n rwsm.   n          ny y+\u001bZ\u001bZ\u001b\u0007gnome\nZ\u001bZ\u001b\u0007zombie\nZ\u001b\u001628\n\u0014 n  n       20s     n   s    n    s     \u001b\u0016?\n\u001by        n \u001b       y          yy\u001by   y y y\u001b  \u0016"
+  }
+ ]
+}

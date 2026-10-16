@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>>M      scroll of genocide\n\u0014 nn     \u001615\n\u0014 \u001bm.\u0016?\n\u001bn j   \u001615\nybn       b   n   k    n    :   \u001634\n#levelchange\n20\n   \u0007nurse\nFj Fk FjFk    n     Fj  Fn    n   Fk      n20s         sm.   n       n \u0007mind flayer\nFu           n  Fb         n         n Fn                   n Fh              n    Fb            n    Fl   n        n   Fj s    n  sm.  n           yy\u001by   y y y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 51050032,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>>M      scroll of genocide\n\u0014 nn     \u001615\n\u0014 \u001bm.\u0016?\n\u001bn j   \u001615\nybn       b   n   k    n    :   \u001634\n#levelchange\n20\n   \u0007nurse\nFj Fk FjFk    n     Fj  Fn    n   Fk      n20s         sm.   n       n \u0007mind flayer\nFu           n  Fb         n         n Fn                   n Fh              n    Fb            n    Fl   n        n   Fj s    n  sm.  n           yy\u001by   y y y\u001b  \u0016"
+  }
+ ]
+}

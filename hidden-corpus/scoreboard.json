@@ -1,11 +1,11 @@
 {
- "commit": "d4c675cc7",
- "at": "2026-10-16T12:10:09.129Z",
+ "commit": "1c7d7bc15",
+ "at": "2026-10-16T12:19:50.310Z",
  "full": false,
  "fullCommit": "6607c2f82",
  "fullAt": "2026-10-16T10:33:38.325Z",
- "entries": 1165,
- "reserve": 288,
+ "entries": 1177,
+ "reserve": 287,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -533,6 +533,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-caster-Wizard-51051009": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 4511,
+   "rngT": 4511,
+   "scrM": 315,
+   "scrT": 316,
+   "kind": "screen",
+   "step": 290,
+   "steps": 316,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "Move cursor to the desired position:",
    "error": null
   },
   "scen-chain-Archeologist-49950006": {
@@ -4632,6 +4649,23 @@
    "jsTopline": "The massive hammer hits! Lightning strikes Baneaithosa of Zaiothai!--More--",
    "error": null
   },
+  "scen-shop-Caveman-51050085": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 13575,
+   "rngT": 13575,
+   "scrM": 297,
+   "scrT": 298,
+   "kind": "screen",
+   "step": 191,
+   "steps": 298,
+   "owner": "demon_talk",
+   "loc": "minion.c:355",
+   "jsOwner": null,
+   "cTopline": "\"For you, scum; 22 zorkmids for this corpse named Slasher.\"--More--",
+   "jsTopline": "\"For you, scum; 22 zorkmids for this corpse.\"--More--",
+   "error": null
+  },
   "scen-shop-Healer-50057028": {
    "src": "corpus",
    "passed": false,
@@ -7080,6 +7114,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-sweep-Knight-51050073": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 8094,
+   "rngT": 45431,
+   "scrM": 319,
+   "scrT": 1275,
+   "kind": "screen",
+   "step": 319,
+   "steps": 1275,
+   "owner": "hitmm",
+   "loc": "mhitm.c:679",
+   "jsOwner": null,
+   "cTopline": "The barbed devil hits again! The barbed devil stings!--More--",
+   "jsTopline": "The barbed devil hits again! The barbed devil stings!",
+   "error": null
+  },
   "scen-sweep-Knight-578215": {
    "src": "corpus",
    "passed": true,
@@ -8831,6 +8882,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-sweep-Tourist-51050041": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 3461,
+   "rngT": 11437,
+   "scrM": 116,
+   "scrT": 677,
+   "kind": "rng",
+   "step": 112,
+   "steps": 677,
+   "owner": "regen_hp",
+   "loc": "allmain.c:659",
+   "jsOwner": "exercise(attrib.js:239)",
+   "cTopline": "You have turned to stone. You feel a bit steadier now.--More--",
+   "jsTopline": "You have turned to stone. You feel a bit steadier now.--More--",
+   "error": null
+  },
   "scen-sweep-Tourist-582711": {
    "src": "corpus",
    "passed": true,
@@ -9970,6 +10038,24 @@
    "jsTopline": "\u0001a human or elf or you (gnomish healer called wizard)--More--",
    "error": null
   },
+  "scen-symset-Healer-51050031": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 17227,
+   "rngT": 17227,
+   "scrM": 635,
+   "scrT": 637,
+   "kind": "screen",
+   "step": 130,
+   "steps": 637,
+   "owner": "inuse_classify",
+   "loc": "invent.c:116",
+   "jsOwner": null,
+   "cTopline": "Weapons",
+   "jsTopline": "Weapons",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-symset-Knight-50155020": {
    "src": "corpus",
    "passed": false,
@@ -10258,6 +10344,41 @@
    "cTopline": "The jackal bites!",
    "jsTopline": "You move right into the jackal. The jackal bites!",
    "error": null
+  },
+  "scen-symset-Priest-51050015": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 19294,
+   "rngT": 19294,
+   "scrM": 573,
+   "scrT": 646,
+   "kind": "screen",
+   "step": 506,
+   "steps": 646,
+   "owner": "gulpmu",
+   "loc": "mhitu.c:1450",
+   "jsOwner": null,
+   "cTopline": "You are being squashed! You get released!--More--",
+   "jsTopline": "You are being squashed! You get released!--More--",
+   "error": null
+  },
+  "scen-symset-Priest-51050063": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 10810,
+   "rngT": 10810,
+   "scrM": 649,
+   "scrT": 657,
+   "kind": "screen",
+   "step": 432,
+   "steps": 657,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "Done.--More--",
+   "jsTopline": "unexplored area",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-symset-Ranger-50059059": {
    "src": "corpus",
@@ -10683,6 +10804,24 @@
    "cTopline": "Michael Toy's ghost touches you!",
    "jsTopline": "Michael Toy's ghost touches you!",
    "error": null
+  },
+  "scen-symset-Valkyrie-51050079": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 9000,
+   "rngT": 9000,
+   "scrM": 845,
+   "scrT": 854,
+   "kind": "screen",
+   "step": 53,
+   "steps": 854,
+   "owner": "getpos",
+   "loc": "getpos.c:1129",
+   "jsOwner": null,
+   "cTopline": "Unknown direction: 'n' (use '4', '8', '2', '6' or '.').",
+   "jsTopline": "wall",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-symset-Wizard-50059040": {
    "src": "corpus",
@@ -11175,6 +11314,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "You hit the watchman. The watchman swings his knife.--More--",
+   "error": null
+  },
+  "scen-town-Priest-51051022": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 9585,
+   "rngT": 12397,
+   "scrM": 142,
+   "scrT": 285,
+   "kind": "screen",
+   "step": 140,
+   "steps": 285,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "You hit the gnomish wizard!--More--",
    "error": null
   },
   "scen-town-Priest-94282": {
@@ -12433,7 +12589,8 @@
    "jsOwner": "next_ident(mkobj.js:426)",
    "cTopline": "You materialize on a different level!--More--",
    "jsTopline": "You materialize on a different level!--More--",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-worldtour-Barbarian-50458507": {
    "src": "corpus",
@@ -12467,6 +12624,23 @@
    "jsOwner": null,
    "cTopline": "goto_level: returning to discarded level?--More--",
    "jsTopline": "goto_level: returning to discarded level?--More--",
+   "error": null
+  },
+  "scen-worldtour-Barbarian-51050016": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 67367,
+   "rngT": 67370,
+   "scrM": 915,
+   "scrT": 916,
+   "kind": "rng",
+   "step": 84,
+   "steps": 916,
+   "owner": "noncoalignment",
+   "loc": "sp_lev.c:1856",
+   "jsOwner": "next_ident(mkobj.js:426)",
+   "cTopline": "You materialize on a different level!--More--",
+   "jsTopline": "You materialize on a different level!--More--",
    "error": null
   },
   "scen-worldtour-Barbarian-578309": {
@@ -12927,6 +13101,24 @@
    "cTopline": "You die...--More--",
    "jsTopline": "Elf, your life force is running out.--More--",
    "error": null
+  },
+  "scen-worldtour-Priest-51050040": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 72021,
+   "rngT": 72021,
+   "scrM": 669,
+   "scrT": 670,
+   "kind": "screen",
+   "step": 659,
+   "steps": 670,
+   "owner": "one_characteristic",
+   "loc": "insight.c:926",
+   "jsOwner": null,
+   "cTopline": "Your constitution was 18 (limit:18).",
+   "jsTopline": "Your constitution was 18 (limit:18).",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-worldtour-Priest-587309": {
    "src": "corpus",
@@ -14458,6 +14650,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-zapfest-Monk-51050084": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 9159,
+   "rngT": 9159,
+   "scrM": 751,
+   "scrT": 753,
+   "kind": "screen",
+   "step": 749,
+   "steps": 753,
+   "owner": "print_mapseen",
+   "loc": "dungeon.c:3549",
+   "jsOwner": null,
+   "cTopline": "The Dungeons of Doom: levels 1 to 6",
+   "jsTopline": "The Dungeons of Doom: levels 1 to 6",
+   "error": null
+  },
   "scen-zapfest-Priest-50161001": {
    "src": "corpus",
    "passed": true,
@@ -15232,8 +15441,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-questtour-Priest-50150014": {
    "src": "corpus",
@@ -16204,8 +16412,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Archeologist-50055021": {
    "src": "corpus",
@@ -16582,8 +16789,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Rogue-50055025": {
    "src": "corpus",
@@ -19336,8 +19542,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "You materialize on a different level!--More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Caveman-50255525": {
    "src": "corpus",
@@ -19354,8 +19559,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Healer-50056034": {
    "src": "corpus",
@@ -19588,8 +19792,7 @@
    "jsOwner": null,
    "cTopline": "Your wisdom was 10 (limit:18).",
    "jsTopline": "Your wisdom was 10 (limit:18).",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Valkyrie-49955041": {
    "src": "corpus",
@@ -20101,5 +20304,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-16T12:20:00.761Z"
 }

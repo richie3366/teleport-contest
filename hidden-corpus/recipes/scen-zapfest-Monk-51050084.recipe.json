@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nWl\u0017blessed amulet of life saving\nPm#levelchange\n10\n          \u0007black dragon\n\u0007baby red dragon\n.k20s .y\u0017wand of fire\nany     Fl  Fl    \u0017blessed spellbook of finger of death\nro sj  \u0017blessed spellbook of light\nrp    n.m. \u0007lich\n\u0007master mind flayer\nZa\nZa\n .m.sm.  n  Za\n sb20s   Za\n sm.  n sm. Za\n20s         n     .m.   n  Za\n  n   sm.   n   20s   n  Za\n    n  \u00161\n\u00175 boomerangs\nQq\u0007grid bug\nfj     n     fl      n   fj    n  fl   n   fl    n   \u00161\n\u00166\n\u0007silver dragon\n\u0007black dragon\n20s 20s  #polyself\ngold dragon\n  #monster\nn   sm.  sm. #monster\nh      n  #monster\n#monster\n\u0017wand of lightning\nary  .. \u0017blessed spellbook of drain life\nrs s\u0017blessed spellbook of magic missile\nrt   yy\u001by   y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 51050084,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nWl\u0017blessed amulet of life saving\nPm#levelchange\n10\n          \u0007black dragon\n\u0007baby red dragon\n.k20s .y\u0017wand of fire\nany     Fl  Fl    \u0017blessed spellbook of finger of death\nro sj  \u0017blessed spellbook of light\nrp    n.m. \u0007lich\n\u0007master mind flayer\nZa\nZa\n .m.sm.  n  Za\n sb20s   Za\n sm.  n sm. Za\n20s         n     .m.   n  Za\n  n   sm.   n   20s   n  Za\n    n  \u00161\n\u00175 boomerangs\nQq\u0007grid bug\nfj     n     fl      n   fj    n  fl   n   fl    n   \u00161\n\u00166\n\u0007silver dragon\n\u0007black dragon\n20s 20s  #polyself\ngold dragon\n  #monster\nn   sm.  sm. #monster\nh      n  #monster\n#monster\n\u0017wand of lightning\nary  .. \u0017blessed spellbook of drain life\nrs s\u0017blessed spellbook of magic missile\nrt   yy\u001by   y y y\u001b  s"
+  }
+ ]
+}

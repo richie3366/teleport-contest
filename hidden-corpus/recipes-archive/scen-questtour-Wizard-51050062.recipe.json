@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nh_mmmm.#chat\nh_mmmm,#chat\nh;h.#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.Fk _,#chat\ny;h;_mm.#chat\nh\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPq\u0017blessed amulet of reflection\nPr\u0017wand of cold\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fh_,.20sss20ss,\u0016?\n>>\u001b\u0016?\n>y_mmm.Fj  _,#chat\nj  \u0016?\n>z\u0006_mm,Fj Fj Fl  Fj Fl  Fl zsu  ,\u0016?\n>A\u0006_mmmmm.   Fh    _.Fy  Fk  Fy  Fy  Fu  ,#chat\ny  n \u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nh  \u0016?\n>A\u0006_mm.  Fy    _.Fb    Fh      n Fy     Fh     zsb    n ,#chat\nb   \u00163\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.   Fb   _.Fy   Fy   Fy  Fy  Fk    n  Fy   Fu  zsk  ,#chat\ny  \u0016?\n>>\u001b\u0016?\n>y_mm. _.#chat\nl;>.\u0016?\n>z\u0006_mm,s    n Fh  Fh  Fh  Fb   n 20s  zsj ,\u00162\n\u0016?\n>A\u0006_mm,s  s 20s  n  s  20s   20s  zsu  n ,\u001611\n\u0016?\n>A\u0006_mmm,s 20s  Fh Fu Fu  n Fu  zs ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,Fu Fl  n Fl s  Fk zs ,\u0016?\n>z\u0006_mmm.Fj Fy  n  Fj Fk ,#chat\nj  n \u0016?\n>>\u001b\u0016?\n>y_m,#chat\nh  ;k.\u00168\n\u0016?\n>A\u0006_mmmmmmm.Fj  Fj  n Fk Fj   n Fk  zs   n ,\u0016?\n>A\u0006_mm.Fk Fh    n Fl Fk zs   yy\u001by  ny y\u001b   ,"
+ },
+ "segments": [
+  {
+   "seed": 51050062,
+   "datetime": "20010414015807",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=fruit:kumquat\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nh_mmmm.#chat\nh_mmmm,#chat\nh;h.#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.Fk _,#chat\ny;h;_mm.#chat\nh\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPq\u0017blessed amulet of reflection\nPr\u0017wand of cold\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fh_,.20sss20ss,\u0016?\n>>\u001b\u0016?\n>y_mmm.Fj  _,#chat\nj  \u0016?\n>z\u0006_mm,Fj Fj Fl  Fj Fl  Fl zsu  ,\u0016?\n>A\u0006_mmmmm.   Fh    _.Fy  Fk  Fy  Fy  Fu  ,#chat\ny  n \u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nh  \u0016?\n>A\u0006_mm.  Fy    _.Fb    Fh      n Fy     Fh     zsb    n ,#chat\nb   \u00163\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.   Fb   _.Fy   Fy   Fy  Fy  Fk    n  Fy   Fu  zsk  ,#chat\ny  \u0016?\n>>\u001b\u0016?\n>y_mm. _.#chat\nl;>.\u0016?\n>z\u0006_mm,s    n Fh  Fh  Fh  Fb   n 20s  zsj ,\u00162\n\u0016?\n>A\u0006_mm,s  s 20s  n  s  20s   20s  zsu  n ,\u001611\n\u0016?\n>A\u0006_mmm,s 20s  Fh Fu Fu  n Fu  zs ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,Fu Fl  n Fl s  Fk zs ,\u0016?\n>z\u0006_mmm.Fj Fy  n  Fj Fk ,#chat\nj  n \u0016?\n>>\u001b\u0016?\n>y_m,#chat\nh  ;k.\u00168\n\u0016?\n>A\u0006_mmmmmmm.Fj  Fj  n Fk Fj   n Fk  zs   n ,\u0016?\n>A\u0006_mm.Fk Fh    n Fl Fk zs   yy\u001by  ny y\u001b   ,"
+  }
+ ]
+}

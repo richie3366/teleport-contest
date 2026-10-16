@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0017blessed ring of polymorph control\nPfr#polyself\nmind flayer\n #monster\n20ss...#polyself\ncobra\n   .20s20sss"
+ },
+ "segments": [
+  {
+   "seed": 51052019,
+   "datetime": "20151114135146",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0017blessed ring of polymorph control\nPfr#polyself\nmind flayer\n #monster\n20ss...#polyself\ncobra\n   .20s20sss"
+  }
+ ]
+}

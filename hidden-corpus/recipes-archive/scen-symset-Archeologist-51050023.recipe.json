@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0007tame large dog\n\u0007large dog\n\u0017lichen corpse\nt\u001b\u0017lichen corpse\nt\u001b\u0017magic whistle\nykh  n aj    n\u0006_ \u001b@.>Fl  Fl _>.  nFj_,Fj  n>FjFj  n_>.Fu   n_,Fu>FuFu  n\u0007yellow mold\n\u0017scroll of taming\n rk l20s\u00165\n\u00165\nFjFhFb Fu FjFyFuFkFnFhFb FyFhFhFuFuFyFb FuFhFyFlFuFyFuFbFyFkFbFnFhFhFkFj FhFhFkFyFbFkFhFbFhFkFbFkFbFhFyFkFuFyFyFkFuFhFkFbFhFyFbFuFl FjFbFuFyFkFbFhFuFy FyFuFuFuFbFhFuFbFbFuFbFyFhFyFbFbFbFhFuFyFkFbFbFhFyFkFkFuFy  FkFyFlFb FhFuFuFyFbFbFbFhFuFjFuFkFjFuFh#levelchange\n20\n                   unh\u0017cloud\n:nb\u0017magic fountain\nqyqy  qy\u0017long sword\n#dip\nly:ZL#offer\nmO>>>>b\u001b\n\u00162\nO>>l\u001b\nmO>>e\u001b\n\u001611\n\u0006_>.Fj_,Fl >Fl Fn_>.Fb_,m,>_>._,;;>\u0006_>>._..Fn>FlFn_>>.Fl _.>.>_>>,_.<.>\u0006_>._.@.>_>._.,>_>,_.;;>\u0006_>,_,m,>_>._..>_>._..>ol\u0004b\u0006_>,_.<.>_>._.;;>_>,_.>.>P#offer\n\u000f\u001b\u00162\n nhk100s100sFl Fl Fl Fl  Fl FlFlFl Fl Fl   n Fl  Fl Fl Fl FlFl Fl s_>.>100snnnFjFjFnFbFjFnFbFjFnFjFjFnFjFbFnFbFjFnFjFnFjFnFbFbFnFjFnFbFjFbFnFjFb"
+ },
+ "segments": [
+  {
+   "seed": 51050023,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You kill\"\nMENUCOLOR=\"a potion\"=green\n",
+   "moves": "\u0007tame large dog\n\u0007large dog\n\u0017lichen corpse\nt\u001b\u0017lichen corpse\nt\u001b\u0017magic whistle\nykh  n aj    n\u0006_ \u001b@.>Fl  Fl _>.  nFj_,Fj  n>FjFj  n_>.Fu   n_,Fu>FuFu  n\u0007yellow mold\n\u0017scroll of taming\n rk l20s\u00165\n\u00165\nFjFhFb Fu FjFyFuFkFnFhFb FyFhFhFuFuFyFb FuFhFyFlFuFyFuFbFyFkFbFnFhFhFkFj FhFhFkFyFbFkFhFbFhFkFbFkFbFhFyFkFuFyFyFkFuFhFkFbFhFyFbFuFl FjFbFuFyFkFbFhFuFy FyFuFuFuFbFhFuFbFbFuFbFyFhFyFbFbFbFhFuFyFkFbFbFhFyFkFkFuFy  FkFyFlFb FhFuFuFyFbFbFbFhFuFjFuFkFjFuFh#levelchange\n20\n                   unh\u0017cloud\n:nb\u0017magic fountain\nqyqy  qy\u0017long sword\n#dip\nly:ZL#offer\nmO>>>>b\u001b\n\u00162\nO>>l\u001b\nmO>>e\u001b\n\u001611\n\u0006_>.Fj_,Fl >Fl Fn_>.Fb_,m,>_>._,;;>\u0006_>>._..Fn>FlFn_>>.Fl _.>.>_>>,_.<.>\u0006_>._.@.>_>._.,>_>,_.;;>\u0006_>,_,m,>_>._..>_>._..>ol\u0004b\u0006_>,_.<.>_>._.;;>_>,_.>.>P#offer\n\u000f\u001b\u00162\n nhk100s100sFl Fl Fl Fl  Fl FlFlFl Fl Fl   n Fl  Fl Fl Fl FlFl Fl s_>.>100snnnFjFjFnFbFjFnFbFjFnFjFjFnFjFbFnFbFjFnFjFnFjFnFbFbFnFjFnFbFjFbFnFjFb"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nWe\u0017blessed +3 speed boots\nWf\u0016?\n>w\u0006_ \u001b>. #chat\njnyl#chat\nk_oo._oo.,p\u00167\njlb\u0016?\n>w\u0006__.     _.;.Fh#chat\nh#pray\ny y   _ooooo._oo.,\u0017amulet of strangulation\ndg_oooooooo,,p_{._.qy_{. _.qy_oooo.Fj _.  \u001bFb,\u0014; sm.20s  n__.Fj_, Fh    n  #chat\ny_{, Fh  n _.Fyq_{.  n  Fh   n _, Fh q\u00167\n_oo.Fh  n  _.Fy,   n  p\u001b\u00169\n   __,#chat\nb _oo.,p   \u0016?\ncjhy\u0016?\n>w\u0006_ooooo._ooo._, Fj,p Fj Fj FjFjFjFj_ooooo.,\u0017touchstone\ndiFl  Fl  nFl FlFlFl   n\u00168\n_ooooooooo.,p_{,q__.#chat\nb#pray\ny y  __,#chat\nb\u00167\n  kyy\u0016?\n>w\u0006_oooooooo,Fh_.Fy,$ _oooo.Fb_.Fj_o,Fk  n _.,  p\u001b_ooooo. Fk_.  n  Fj ,:_ooooooooo,  n    nFu _.Fj  _o.Fn _.,    np\u001b\u001612\n   _oooooo,,\u0017amulet of ESP\ndl _ooooooooo., $_{.qFyFy  n Fy FyFy Fy  y y\u001by   y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 51050053,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nWe\u0017blessed +3 speed boots\nWf\u0016?\n>w\u0006_ \u001b>. #chat\njnyl#chat\nk_oo._oo.,p\u00167\njlb\u0016?\n>w\u0006__.     _.;.Fh#chat\nh#pray\ny y   _ooooo._oo.,\u0017amulet of strangulation\ndg_oooooooo,,p_{._.qy_{. _.qy_oooo.Fj _.  \u001bFb,\u0014; sm.20s  n__.Fj_, Fh    n  #chat\ny_{, Fh  n _.Fyq_{.  n  Fh   n _, Fh q\u00167\n_oo.Fh  n  _.Fy,   n  p\u001b\u00169\n   __,#chat\nb _oo.,p   \u0016?\ncjhy\u0016?\n>w\u0006_ooooo._ooo._, Fj,p Fj Fj FjFjFjFj_ooooo.,\u0017touchstone\ndiFl  Fl  nFl FlFlFl   n\u00168\n_ooooooooo.,p_{,q__.#chat\nb#pray\ny y  __,#chat\nb\u00167\n  kyy\u0016?\n>w\u0006_oooooooo,Fh_.Fy,$ _oooo.Fb_.Fj_o,Fk  n _.,  p\u001b_ooooo. Fk_.  n  Fj ,:_ooooooooo,  n    nFu _.Fj  _o.Fn _.,    np\u001b\u001612\n   _oooooo,,\u0017amulet of ESP\ndl _ooooooooo., $_{.qFyFy  n Fy FyFy Fy  y y\u001by   y y y\u001by  _"
+  }
+ ]
+}

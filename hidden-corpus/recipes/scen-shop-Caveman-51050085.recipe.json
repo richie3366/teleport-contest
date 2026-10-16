@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed amulet of reflection\nPf\u0017blessed +3 speed boots\nWg\u0016?\n>w  \u0006_ \u001b.#chat\n_oooooo._oo.Fh _., \u0017ruby\ndi_oooooooo,,p\u001b_oooo.,\u0014,s.__.Fj_.Fj#chat\nj #pray\ny y    _oooo,_ooo.Fn_,,     n   np\u001b\u00162\n      Fb  nFb  nFb  nFb  nFb  n    nFb  n  n\u00164\n_{.qFj  n  n   n  nFj  nFj  y y\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51050085,
+   "datetime": "20160827102346",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed amulet of reflection\nPf\u0017blessed +3 speed boots\nWg\u0016?\n>w  \u0006_ \u001b.#chat\n_oooooo._oo.Fh _., \u0017ruby\ndi_oooooooo,,p\u001b_oooo.,\u0014,s.__.Fj_.Fj#chat\nj #pray\ny y    _oooo,_ooo.Fn_,,     n   np\u001b\u00162\n      Fb  nFb  nFb  nFb  nFb  n    nFb  n  n\u00164\n_{.qFj  n  n   n  nFj  nFj  y y\u001by  y y y\u001by  F"
+  }
+ ]
+}

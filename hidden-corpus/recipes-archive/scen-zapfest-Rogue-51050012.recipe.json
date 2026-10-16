@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPg\u0017blessed shield of reflection\nWh\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of digging\n\u0017wand of lightning\n\u0017wand of striking\n\u0007hobbit\n\u0007newt\nzkh   zl.zj>    zj>    nzljzklzj> zkkzj>   n\u00166\n\u0017blessed spellbook of sleep\nrms\u0017blessed spellbook of magic missile\nrns\u0007lich\nZZZ20s  sZZZZs20s  n  #turn\n\u0017wand of digging\n\u0017wand of death\n\u0007hill orc\n\u0007grid bug\nzo> zpb zo> 20szo> zpbzplzpbzp\u0017wand of fire\n\u0017wand of sleep\n\u0017wand of striking\n\u0007gnome\nzryzqk zqu 20s  n zqj zr.zryzslszqn\u00178 rocks\n Qby\u0007yellow mold\n\u0007bugbear\ntbjfjflfl\u0017potion of extra healing\n tub\u0017blessed spellbook of fireball\n rws\u0017blessed spellbook of magic missile\nrxs\u0007aligned cleric\nny\u0007lich\nZ20s  s  nZZ20s   .    n  n ZZZs.  ni\u001b\u00167\n\u0007master lich\n\u0007master lich\n\u0007incubus\n\u0017wand of cold\ns    nzy"
+ },
+ "segments": [
+  {
+   "seed": 51050012,
+   "datetime": "20231105223125",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPg\u0017blessed shield of reflection\nWh\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of digging\n\u0017wand of lightning\n\u0017wand of striking\n\u0007hobbit\n\u0007newt\nzkh   zl.zj>    zj>    nzljzklzj> zkkzj>   n\u00166\n\u0017blessed spellbook of sleep\nrms\u0017blessed spellbook of magic missile\nrns\u0007lich\nZZZ20s  sZZZZs20s  n  #turn\n\u0017wand of digging\n\u0017wand of death\n\u0007hill orc\n\u0007grid bug\nzo> zpb zo> 20szo> zpbzplzpbzp\u0017wand of fire\n\u0017wand of sleep\n\u0017wand of striking\n\u0007gnome\nzryzqk zqu 20s  n zqj zr.zryzslszqn\u00178 rocks\n Qby\u0007yellow mold\n\u0007bugbear\ntbjfjflfl\u0017potion of extra healing\n tub\u0017blessed spellbook of fireball\n rws\u0017blessed spellbook of magic missile\nrxs\u0007aligned cleric\nny\u0007lich\nZ20s  s  nZZ20s   .    n  n ZZZs.  ni\u001b\u00167\n\u0007master lich\n\u0007master lich\n\u0007incubus\n\u0017wand of cold\ns    nzy"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   huhj\u0017magic trap\nu#untrap\nbh\u0017statue trap\nb#untrap\nukn \u0017hole\nj  k  20s   .  \u0017land mine\nal  l  j   n ,J E- X marks the spot\n kjnyn  \u0017statue trap\nn  \u0017dart trap\nul \u0017anti-magic field\n#terrain\nb\n\u001b,P#conduct\n W"
+ },
+ "segments": [
+  {
+   "seed": 51051001,
+   "datetime": "20150308110856",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   huhj\u0017magic trap\nu#untrap\nbh\u0017statue trap\nb#untrap\nukn \u0017hole\nj  k  20s   .  \u0017land mine\nal  l  j   n ,J E- X marks the spot\n kjnyn  \u0017statue trap\nn  \u0017dart trap\nul \u0017anti-magic field\n#terrain\nb\n\u001b,P#conduct\n W"
+  }
+ ]
+}

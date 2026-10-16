@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " i\u001bqh \u001brkrm yssZb\nqf#dip\nngPdlss20sRrl y ssZa\nZa\n#ride\nb#chat\nlqg#chat\nb#pray\ny #invoke\n\u001b20s#twoweapon\n"
+ },
+ "segments": [
+  {
+   "seed": 51052024,
+   "datetime": "20231112233627",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": " i\u001bqh \u001brkrm yssZb\nqf#dip\nngPdlss20sRrl y ssZa\nZa\n#ride\nb#chat\nlqg#chat\nb#pray\ny #invoke\n\u001b20s#twoweapon\n"
+  }
+ ]
+}

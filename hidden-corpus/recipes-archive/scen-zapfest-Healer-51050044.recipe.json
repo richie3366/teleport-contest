@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nWl\u0017blessed amulet of life saving\nPm#levelchange\n20\n                   \u0017wand of striking\n\u0017wand of teleportation\n\u0017wand of death\n\u0007giant rat\n\u0007acid blob\n\u0007grid bug\nznb zojzpy znbznj znlznk20s\u0018\u001b\u0007orc shaman\n\u0007succubus\n\u0017wand of cold\n20s   y     sm.s.m. zqhsm.i\u001b\u0017wand of fire\n\u0017wand of slow monster\n\u0007yellow mold\n\u0007yellow mold\nzsjzsj zrjzsbzrb zrj zrh        \u00175 boomerangs\nQt\u0007dwarf\nfyfyfyfy\u0017potion of gain energy\ntty\u0017blessed spellbook of sleep\nrv sm.\u0017spellbook of magic missile\nrw sm.\u0007vampire\n\u0007succubus\nZZZZsm.sZZ\u0018\u001b\u0017spellbook of cone of cold\nrx          20s        \u0017blessed spellbook of force bolt\nry    20s  \u0007orc shaman\nZb\n Zc\nZc\nZa\n.m.   su  Za\n20s  .m. Zc\n.u .m.Za\n\u0007master lich\n\u0007kobold shaman\n\u0007lich\n\u0017wand of magic missile\nsh   \u0007succubus\n\u0007gnomish wizard\n\u0007vampire\n\u0017wand of sleep\n zAy                zAu     zAh        .m."
+ },
+ "segments": [
+  {
+   "seed": 51050044,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nWl\u0017blessed amulet of life saving\nPm#levelchange\n20\n                   \u0017wand of striking\n\u0017wand of teleportation\n\u0017wand of death\n\u0007giant rat\n\u0007acid blob\n\u0007grid bug\nznb zojzpy znbznj znlznk20s\u0018\u001b\u0007orc shaman\n\u0007succubus\n\u0017wand of cold\n20s   y     sm.s.m. zqhsm.i\u001b\u0017wand of fire\n\u0017wand of slow monster\n\u0007yellow mold\n\u0007yellow mold\nzsjzsj zrjzsbzrb zrj zrh        \u00175 boomerangs\nQt\u0007dwarf\nfyfyfyfy\u0017potion of gain energy\ntty\u0017blessed spellbook of sleep\nrv sm.\u0017spellbook of magic missile\nrw sm.\u0007vampire\n\u0007succubus\nZZZZsm.sZZ\u0018\u001b\u0017spellbook of cone of cold\nrx          20s        \u0017blessed spellbook of force bolt\nry    20s  \u0007orc shaman\nZb\n Zc\nZc\nZa\n.m.   su  Za\n20s  .m. Zc\n.u .m.Za\n\u0007master lich\n\u0007kobold shaman\n\u0007lich\n\u0017wand of magic missile\nsh   \u0007succubus\n\u0007gnomish wizard\n\u0007vampire\n\u0017wand of sleep\n zAy                zAu     zAh        .m."
+  }
+ ]
+}

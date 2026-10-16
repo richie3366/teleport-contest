@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nWh\u0017blessed +3 speed boots\nWi  \u0007vampire\n\u0007lich\n\u0017wand of fire\nzjhzjlzjh    zjhzjb .yzjn .lsm.\u0007baby red dragon\n\u0007red dragon\nsm. 20s  n   n  nFl  n    nFj \u00169\n  \u0018\u001b\u00166\n\u0017wand of sleep\n\u0017wand of fire\n\u0017wand of slow monster\n\u0007hobbit\n\u0007troll\n\u0007kobold\nzkh  zkh   n  nzklsm.zlh  zkbszllzmbzll.zklzkl20s\u00165\n  \u001710 daggers\nQn\u0007kobold\ntch  fyfhtnbfyfjfhtcn tcl \u0017wand of death\n\u0017wand of cancellation\n\u0017wand of slow monster\n\u0007gnome\n\u0007owlbear\nzoh zqyzpyzoy zok zoj \u0017blessed spellbook of slow monster\nrr.\u0007master lich\n\u0007gnomish wizard\nZa\n20s      .m.Za\nZa\nZa\nZa\nZa\n20s    .m.Za\nZa\nZa\n\u0007succubus\n\u0007orc shaman\n\u0007master lich\n\u0017wand of fire\nzsu   \u001611\n\u0017blessed spellbook of sleep\nrt  sm.\u0017blessed spellbook of magic missile\nru           sm.\u0007succubus\n\u0007succubus\nZ\u001b20s  n   .m.            Za\n. .m.    n Z\u001bZ\u001bsm.  n s Za\n   Z\u001bZ\u001bZ\u001b20s   n   .\u00161\n\u0017spellbook of cause fear\nr"
+ },
+ "segments": [
+  {
+   "seed": 51050076,
+   "datetime": "20240118122510",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nWh\u0017blessed +3 speed boots\nWi  \u0007vampire\n\u0007lich\n\u0017wand of fire\nzjhzjlzjh    zjhzjb .yzjn .lsm.\u0007baby red dragon\n\u0007red dragon\nsm. 20s  n   n  nFl  n    nFj \u00169\n  \u0018\u001b\u00166\n\u0017wand of sleep\n\u0017wand of fire\n\u0017wand of slow monster\n\u0007hobbit\n\u0007troll\n\u0007kobold\nzkh  zkh   n  nzklsm.zlh  zkbszllzmbzll.zklzkl20s\u00165\n  \u001710 daggers\nQn\u0007kobold\ntch  fyfhtnbfyfjfhtcn tcl \u0017wand of death\n\u0017wand of cancellation\n\u0017wand of slow monster\n\u0007gnome\n\u0007owlbear\nzoh zqyzpyzoy zok zoj \u0017blessed spellbook of slow monster\nrr.\u0007master lich\n\u0007gnomish wizard\nZa\n20s      .m.Za\nZa\nZa\nZa\nZa\n20s    .m.Za\nZa\nZa\n\u0007succubus\n\u0007orc shaman\n\u0007master lich\n\u0017wand of fire\nzsu   \u001611\n\u0017blessed spellbook of sleep\nrt  sm.\u0017blessed spellbook of magic missile\nru           sm.\u0007succubus\n\u0007succubus\nZ\u001b20s  n   .m.            Za\n. .m.    n Z\u001bZ\u001bsm.  n s Za\n   Z\u001bZ\u001bZ\u001b20s   n   .\u00161\n\u0017spellbook of cause fear\nr"
+  }
+ ]
+}

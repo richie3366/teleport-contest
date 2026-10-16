@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    \u0017300 gold pieces\n\u0007leprechaun\nFhFj  FjFb  20ss\u0017chickatrice corpse\nwa\u0007gnome\nFhFh Fh#levelchange\n8\n  \u0007black dragon\n;j: \u001b@.sm.s20s  \u0007Wizard of Yendor\nnFjFjFj Fj        Fh  n \u0007erinys\n.nsys20s sm.ss\u001622\n\u00178 rocks\nQby\u0007hill orc\nl l  fbf $ b   n  \u0007jackal\nl nfhfyFy   Fhuj h,#enhance\nyl\nn\n\u001b\u0017Orcrist\nwk    n Fy    FyFy  #invoke\nk \u0007centipede\nsm.   n 20s   sb   n   sm.  \u0007water nymph\n;l,20s  n     .j20s     n\u0007ice devil\nFl   FlFh    n  Fk    FyFk     n \u0007titanothere\nFh   FyFy    n  Fy   Fy   n   Fk   i\u001b\u00161\n#levelchange\n30\n                     \u0017shield of reflection\nWll\u0016?\ni\u0006FhFhFhFh FhFhn  bjnch#offer\nE- Elbereth Elbereth\nly\u0017wand of speed monster\nEm Vlad was here\n \u0017wand of enlightenment\nEn \u001b n  ad aerarium\nk \u0017wand of nothing\nE\u0017towel\nE:  \u0017wand of death\nEq Vlad was here\n:  \u001616\n\u0006#levelchange\n8\n          \u0007fire giant\ns  ns 20s.\u0007gray ooze\n#chat\njFjFj\\   \u0017dwarvish mattock\n ary\u0006_oo.ararybk\u00165\nynyy\u0017altar\ndr\u0017lichen corpse\n #offer\ns   :  u\u0017ice\n: y\u0017unaligned altar\nd$\u0017floating eye corpse\n #offer\nt      n#pray\ny y    : hj\u0017melting ice\nl hh l#terrain\nf\nol#wipe\n#pray\ny y     \u0017wand of digging\n \u0006_oooo.zu> zu<   n uhzul lzuh  h  n #levelchange\n30\n                     \u001621\n#force\n  10s #untrap\nb;j.sm..m.   \u00163\n#twoweapon\nZ#monster\n;y;20ssl\u001627\n\\    du#tip\n\u001b\u001bsm.sm.   yny   y ny y\u001by  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 51050073,
+   "datetime": "20261117020113",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n    \u0017300 gold pieces\n\u0007leprechaun\nFhFj  FjFb  20ss\u0017chickatrice corpse\nwa\u0007gnome\nFhFh Fh#levelchange\n8\n  \u0007black dragon\n;j: \u001b@.sm.s20s  \u0007Wizard of Yendor\nnFjFjFj Fj        Fh  n \u0007erinys\n.nsys20s sm.ss\u001622\n\u00178 rocks\nQby\u0007hill orc\nl l  fbf $ b   n  \u0007jackal\nl nfhfyFy   Fhuj h,#enhance\nyl\nn\n\u001b\u0017Orcrist\nwk    n Fy    FyFy  #invoke\nk \u0007centipede\nsm.   n 20s   sb   n   sm.  \u0007water nymph\n;l,20s  n     .j20s     n\u0007ice devil\nFl   FlFh    n  Fk    FyFk     n \u0007titanothere\nFh   FyFy    n  Fy   Fy   n   Fk   i\u001b\u00161\n#levelchange\n30\n                     \u0017shield of reflection\nWll\u0016?\ni\u0006FhFhFhFh FhFhn  bjnch#offer\nE- Elbereth Elbereth\nly\u0017wand of speed monster\nEm Vlad was here\n \u0017wand of enlightenment\nEn \u001b n  ad aerarium\nk \u0017wand of nothing\nE\u0017towel\nE:  \u0017wand of death\nEq Vlad was here\n:  \u001616\n\u0006#levelchange\n8\n          \u0007fire giant\ns  ns 20s.\u0007gray ooze\n#chat\njFjFj\\   \u0017dwarvish mattock\n ary\u0006_oo.ararybk\u00165\nynyy\u0017altar\ndr\u0017lichen corpse\n #offer\ns   :  u\u0017ice\n: y\u0017unaligned altar\nd$\u0017floating eye corpse\n #offer\nt      n#pray\ny y    : hj\u0017melting ice\nl hh l#terrain\nf\nol#wipe\n#pray\ny y     \u0017wand of digging\n \u0006_oooo.zu> zu<   n uhzul lzuh  h  n #levelchange\n30\n                     \u001621\n#force\n  10s #untrap\nb;j.sm..m.   \u00163\n#twoweapon\nZ#monster\n;y;20ssl\u001627\n\\    du#tip\n\u001b\u001bsm.sm.   yny   y ny y\u001by  \u0016"
+  }
+ ]
+}

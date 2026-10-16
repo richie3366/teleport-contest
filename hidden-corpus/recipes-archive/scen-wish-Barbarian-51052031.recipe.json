@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0017blessed food ration\n\u0007werejackal\negsm.20sFkFk\u0017cursed clove of garlic\n\u0007troll\neh       yy\u001by   y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 51052031,
+   "datetime": "20130114002422",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0017blessed food ration\n\u0007werejackal\negsm.20sFkFk\u0017cursed clove of garlic\n\u0007troll\neh       yy\u001by   y y y\u001by  s"
+  }
+ ]
+}

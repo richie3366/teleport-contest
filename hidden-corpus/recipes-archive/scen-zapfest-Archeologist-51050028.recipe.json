@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nWj\u0017blessed amulet of life saving\nPk\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017spellbook of light\nrms\u0007lich\nZa\nZa\n Za\nZa\nZa\nZa\nZa\n\u0017blessed spellbook of force bolt\nrn     sj\u0007vampire\nZa\nZa\nZa\nZa\nZa\nZa\n20s   .m.   Za\nZa\n\u0017wand of lightning\n\u0017wand of striking\n\u0007dwarf\n\u0007yellow mold\nzpk   n   zoh  sl  n zpl  n   zph   zpyzpyzoyzon \u00169\n\u0017blessed spellbook of finger of death\n rq 20s\u0007vampire\n\u0007aligned cleric\nnZa\nZa\nZb\nZa\nZa\nsm.20sZa\nZa\n\u001616\n\u0017spellbook of drain life\nrr sy\u0007vampire\n\u0007vampire\nZb\nZa\nZb\n.ysm.Zb\n.m.  s   n     Za\nZb\nsm.   n sm.   Za\n#turn\n\u001619\n\u00162\n\u0017wand of death\n\u0017wand of fire\n\u0007sewer rat\n\u0007grid bug\nzsj  zsk     nzsj    zth  ztu sm.    nztl 20sztj  .h\u0018\u001b\u00162\n\u0017wand of digging\n\u0017wand of striking\n\u0007gnome\nzvuzvhzu> zvkszu>  zvhszu>      20s zvl zvk\u001715 shuriken\nQw\u0007jackal\n\u0007gnome lord\ntwutwhtwh fhtwhfhtwh\u0017potion of booze\ntwh\u001615\n\u0018\u001b\u0017wand of magic missile\n\u0017wand of striking\n\u0007jackal\n\u0007gnome\n\u0007giant rat\nzzy zyhzzbzzbzz.  nzyl zzu\u0007red dragon\nsksm. 20s  s#polyself\nblack dragon\n     #monster\nn ss#monster\n#monster\n#monster\n#monster\ns20s  \u00166\n\u0007incubus\n\u0007kobold shaman\n\u0007succubus\n\u0017wand of striking\nsm. 20s  sh  zsl   zz20s  20s 20s   .m.  \u0017wand of magic missile\n\u0017wand of striking\n\u0017wan"
+ },
+ "segments": [
+  {
+   "seed": 51050028,
+   "datetime": "20141114041650",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=fruit:durian\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nWj\u0017blessed amulet of life saving\nPk\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017spellbook of light\nrms\u0007lich\nZa\nZa\n Za\nZa\nZa\nZa\nZa\n\u0017blessed spellbook of force bolt\nrn     sj\u0007vampire\nZa\nZa\nZa\nZa\nZa\nZa\n20s   .m.   Za\nZa\n\u0017wand of lightning\n\u0017wand of striking\n\u0007dwarf\n\u0007yellow mold\nzpk   n   zoh  sl  n zpl  n   zph   zpyzpyzoyzon \u00169\n\u0017blessed spellbook of finger of death\n rq 20s\u0007vampire\n\u0007aligned cleric\nnZa\nZa\nZb\nZa\nZa\nsm.20sZa\nZa\n\u001616\n\u0017spellbook of drain life\nrr sy\u0007vampire\n\u0007vampire\nZb\nZa\nZb\n.ysm.Zb\n.m.  s   n     Za\nZb\nsm.   n sm.   Za\n#turn\n\u001619\n\u00162\n\u0017wand of death\n\u0017wand of fire\n\u0007sewer rat\n\u0007grid bug\nzsj  zsk     nzsj    zth  ztu sm.    nztl 20sztj  .h\u0018\u001b\u00162\n\u0017wand of digging\n\u0017wand of striking\n\u0007gnome\nzvuzvhzu> zvkszu>  zvhszu>      20s zvl zvk\u001715 shuriken\nQw\u0007jackal\n\u0007gnome lord\ntwutwhtwh fhtwhfhtwh\u0017potion of booze\ntwh\u001615\n\u0018\u001b\u0017wand of magic missile\n\u0017wand of striking\n\u0007jackal\n\u0007gnome\n\u0007giant rat\nzzy zyhzzbzzbzz.  nzyl zzu\u0007red dragon\nsksm. 20s  s#polyself\nblack dragon\n     #monster\nn ss#monster\n#monster\n#monster\n#monster\ns20s  \u00166\n\u0007incubus\n\u0007kobold shaman\n\u0007succubus\n\u0017wand of striking\nsm. 20s  sh  zsl   zz20s  20s 20s   .m.  \u0017wand of magic missile\n\u0017wand of striking\n\u0017wan"
+  }
+ ]
+}

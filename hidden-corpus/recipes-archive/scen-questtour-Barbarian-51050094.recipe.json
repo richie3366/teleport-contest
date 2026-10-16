@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nl;l:   _mmmm. _.  #chat\nh_mmmmm._, Fk  n  #chat\nk#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_m. Fk  n  _,#chat\nj_m. Fk_.#chat\nk;k;\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPg  \u0017wand of fire\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm. Fk  n  _. FkFjFj Fk  FkFks20s,#chat\nl\u0016?\n>z\u0006_mmmmmm,_.m..s20s20s Fn   20s szhh,#chat\nl\u0016?\n>A\u0006_mmmmmmm, _,FyFy  Fyss,#chat\nn\u0016?\n>A\u0006_mmmmmmm._.@.20s 20s 20s.zhj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mm.Fu_.Fu#chat\nu;u.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,Fu_,ss..zhy,#chat\nn\u0016?\n>z\u0006_mmmmm._.>..20s .20s ,\u0016?\n>>\u001b\u0016?\n>y_m. _.<.#chat\ny\u0016?\n>A\u0006_mmmmmmm,_,m,ssss.zhy,\u0016?\n>A\u0006_mm,_,;<.20s ss.sszhu,\u0016?\n>>\u001b\u0016?\n>y_mm._.>. #chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,_,,s20s s .zh,\u0016?\n>>\u001b\u0016?\n>y_mmm,_,@.#chat\ny\u0016?\n>z\u0006_mmm,_,m,20sss20s s20s s ,#chat\nu\u0016?\n>A\u0006_mmmmmm,_.m.sss20s s .,#chat\nk\u0016?\n>A\u0006_mmmmmm, _.>. s ...s .,\u0016?\n>>\u001b\u0016?\n>y_mmmm._,m,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mm._.,.s20s s ,\u0016?\n>z\u0006_mmmmm._.m,.s20s s s,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm,_,m,#chat\nb\u0016?\n>A\u0006_mmmmmm,_.:ss.20s ,\u0016?\n>A\u0006_mmmm,_.<.sss.zh,\u0016?\n>>\u001b\u0016?\n>y_mmm,_. #chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm, _, ..sss20s 20s zh ,\u0016?\n"
+ },
+ "segments": [
+  {
+   "seed": 51050094,
+   "datetime": "20140615065936",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showrace\nOPTIONS=sortloot:full\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nl;l:   _mmmm. _.  #chat\nh_mmmmm._, Fk  n  #chat\nk#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_m. Fk  n  _,#chat\nj_m. Fk_.#chat\nk;k;\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPg  \u0017wand of fire\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm. Fk  n  _. FkFjFj Fk  FkFks20s,#chat\nl\u0016?\n>z\u0006_mmmmmm,_.m..s20s20s Fn   20s szhh,#chat\nl\u0016?\n>A\u0006_mmmmmmm, _,FyFy  Fyss,#chat\nn\u0016?\n>A\u0006_mmmmmmm._.@.20s 20s 20s.zhj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mm.Fu_.Fu#chat\nu;u.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,Fu_,ss..zhy,#chat\nn\u0016?\n>z\u0006_mmmmm._.>..20s .20s ,\u0016?\n>>\u001b\u0016?\n>y_m. _.<.#chat\ny\u0016?\n>A\u0006_mmmmmmm,_,m,ssss.zhy,\u0016?\n>A\u0006_mm,_,;<.20s ss.sszhu,\u0016?\n>>\u001b\u0016?\n>y_mm._.>. #chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,_,,s20s s .zh,\u0016?\n>>\u001b\u0016?\n>y_mmm,_,@.#chat\ny\u0016?\n>z\u0006_mmm,_,m,20sss20s s20s s ,#chat\nu\u0016?\n>A\u0006_mmmmmm,_.m.sss20s s .,#chat\nk\u0016?\n>A\u0006_mmmmmm, _.>. s ...s .,\u0016?\n>>\u001b\u0016?\n>y_mmmm._,m,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mm._.,.s20s s ,\u0016?\n>z\u0006_mmmmm._.m,.s20s s s,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm,_,m,#chat\nb\u0016?\n>A\u0006_mmmmmm,_.:ss.20s ,\u0016?\n>A\u0006_mmmm,_.<.sss.zh,\u0016?\n>>\u001b\u0016?\n>y_mmm,_. #chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm, _, ..sss20s 20s zh ,\u0016?\n"
+  }
+ ]
+}

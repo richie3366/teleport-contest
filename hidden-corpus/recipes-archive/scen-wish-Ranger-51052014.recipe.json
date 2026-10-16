@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0017wand of opening\nzg.zglFk .\u0017blessed wand of magic missile\nzhj zhj\u0017cursed potion of blindness\nqi\u0017blessed 20 arrows\n\u0007shopkeeper\nyyQjf  nfkfks."
+ },
+ "segments": [
+  {
+   "seed": 51052014,
+   "datetime": "20001229023351",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0017wand of opening\nzg.zglFk .\u0017blessed wand of magic missile\nzhj zhj\u0017cursed potion of blindness\nqi\u0017blessed 20 arrows\n\u0007shopkeeper\nyyQjf  nfkfks."
+  }
+ ]
+}

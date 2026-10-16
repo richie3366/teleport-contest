@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "K LKJ_ \u001b;>Fh Fh sUJBK_>.>\\  #conduct\n NLLK_>.>YUKK_>.>BNBL_>.>YYKL_>.>YBNK_>.>FhFh20sKBJB_>,>BBYN_>,>n10s\u0014#chat\nh#untrap\nhNUJK_>,>Fys20sYUKY_>.>Fy..#chat\nk\\  <BNJY_>,>Fys.P#sit\n\u001bNHJL_>.>Fl.s<UYLU_>.>#terrain\nb\n#tip\nm.NYJU_>,>YHKK_>,>\u000f\u001b20s#enhance\n\u001b#wipe\nBNNB_>.>JLKU_>,><NBNU_>.>#enhance\n\u001boh\u000f\u001bt\u001bdh20ss.t\u001bhh20sbbnu10s20s10sht\u001bt\u001bdgsl.m.sm.10sh#chat\ny10s100s150s150s100st\u001bnhh hyhFhFhs100s_>.>jlk100s_>.>100s50sFh..lbk150s\u000f\u001b50sFh..150s150sFhFhFhFhFh.100sef\\  ykl50see100seeeeeeeeHBLB_>.>BHHL_>.>UYYU_>.>YL BB_>,>;m,sKBYK_>.>w-#conduct\n UUKB_>,>LBBL_>.>_>.s\u0004uUNBY_>,>E- Vlad was here\nE-n  Elbereth\nBBU B_>,>KBLH_>.>HLUJ_>.>KkUUKH_>.>BBYJ_>.>#pray\ny  100s100sFy FyFyFyFys150s100snlhFyFyFy#ride\nu100s150sFyFyFylhl150s50sFhFhFhyny100s100s50sFhFhFhFhFhFhunu100s\\  50s,\\  50sFbFj Fj Fj FhFjFjFj.150sj hb_>,>100s_>.>100sFhFh20s#conduct\n tajck#chat\ny_>,>150sFhFhFh Fhs.\u000f\u001b_>,>_>,>_>.>_>.>s150s\u000f\u001b50sFhFhFh#conduct\n i\u001br\u001b50s100s\u000f\u001bulk50sFhFhFh150s#loot\n\u0004n100sFhFhFhFhFhFhFhFhFh#pray\ny      FhFhFh150s50snjjukunlhr\u001beKBJY_>.>UYNH_>.>FuFuFuLUY Y_>.>FnFnFn<BNJJ_>.>#name\nf\nPBLY L_>,>#pray\ny  \u0018\u001b\u000f\u001b>#wipe\n#chat\nheeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 51050019,
+   "datetime": "20060613020250",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=runmode:teleport\n",
+   "moves": "K LKJ_ \u001b;>Fh Fh sUJBK_>.>\\  #conduct\n NLLK_>.>YUKK_>.>BNBL_>.>YYKL_>.>YBNK_>.>FhFh20sKBJB_>,>BBYN_>,>n10s\u0014#chat\nh#untrap\nhNUJK_>,>Fys20sYUKY_>.>Fy..#chat\nk\\  <BNJY_>,>Fys.P#sit\n\u001bNHJL_>.>Fl.s<UYLU_>.>#terrain\nb\n#tip\nm.NYJU_>,>YHKK_>,>\u000f\u001b20s#enhance\n\u001b#wipe\nBNNB_>.>JLKU_>,><NBNU_>.>#enhance\n\u001boh\u000f\u001bt\u001bdh20ss.t\u001bhh20sbbnu10s20s10sht\u001bt\u001bdgsl.m.sm.10sh#chat\ny10s100s150s150s100st\u001bnhh hyhFhFhs100s_>.>jlk100s_>.>100s50sFh..lbk150s\u000f\u001b50sFh..150s150sFhFhFhFhFh.100sef\\  ykl50see100seeeeeeeeHBLB_>.>BHHL_>.>UYYU_>.>YL BB_>,>;m,sKBYK_>.>w-#conduct\n UUKB_>,>LBBL_>.>_>.s\u0004uUNBY_>,>E- Vlad was here\nE-n  Elbereth\nBBU B_>,>KBLH_>.>HLUJ_>.>KkUUKH_>.>BBYJ_>.>#pray\ny  100s100sFy FyFyFyFys150s100snlhFyFyFy#ride\nu100s150sFyFyFylhl150s50sFhFhFhyny100s100s50sFhFhFhFhFhFhunu100s\\  50s,\\  50sFbFj Fj Fj FhFjFjFj.150sj hb_>,>100s_>.>100sFhFh20s#conduct\n tajck#chat\ny_>,>150sFhFhFh Fhs.\u000f\u001b_>,>_>,>_>.>_>.>s150s\u000f\u001b50sFhFhFh#conduct\n i\u001br\u001b50s100s\u000f\u001bulk50sFhFhFh150s#loot\n\u0004n100sFhFhFhFhFhFhFhFhFh#pray\ny      FhFhFh150s50snjjukunlhr\u001beKBJY_>.>UYNH_>.>FuFuFuLUY Y_>.>FnFnFn<BNJJ_>.>#name\nf\nPBLY L_>,>#pray\ny  \u0018\u001b\u000f\u001b>#wipe\n#chat\nheeeeeeeeee"
+  }
+ ]
+}

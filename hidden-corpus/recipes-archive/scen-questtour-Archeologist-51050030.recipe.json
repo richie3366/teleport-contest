@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\ny_mmmm.Fk_.#chat\nk_mmm.#chat\nu#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.Fb_.,Fh#chat\nh_mmmmm,#chat\nh_mm.Fl_.Fl#chat\nh;h;\u0017blessed ring of free action\nPir \u0017blessed +3 speed boots\nWj   \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017wand of cold\n\u0016?\n>A\u0006_mmmmmmm.Fk_,Fk   nFh FhFl FkFk,\u0016?\n>A\u0006_mmmmmm.Fk_,>.FyFhFkFy FkFy zlk,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,Fl_.FlFl20s20ss,\u0016?\n>z\u0006_mmm,Fh_,:20s20ssFl FlFlFl,\u0016?\n>>\u001b\u0016?\n>y_mm.Fj_.Fj#chat\nk\u0016?\n>A\u0006_mm.Fl  n _.FlFlFlFu FlFu zlk,#chat\nl\u0016?\n>A\u0006_mm,Fk_. ..ss.,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmm.Fk_.m,Fl#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,FlFl   nFk  FkFl  Fl,#chat\nl\u0016?\n>z\u0006_mmmmmmm. Fk_. 20s FlFls20s.20s zlk,\u0016?\n>>\u001b\u0016?\n>y_m,Fn_.#chat\nn\u0016?\n>A\u0006_mmm.Fn_.FnFnFn  nFnFnzln,#chat\nn\u0016?\n>A\u0006_mmmmmmm.s20s20s.20ss20szlj,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,Fl_.FlFls20s20ss.zl,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fl _.Fl #chat\nl\u0016?\n>z\u0006_mm.Fl _,@.Fl FlFl   nFl FlFl ,\u0016?\n>>\u001b\u0016?\n>y_mmm,Fl _..Fl #chat\nl\u0016?\n>A\u0006_mmmmm.Fl_.FlFl  n Fl20s20s.szl,\u0016?\n>>\u001b\u0016?\n>y_mm,Fl   _.,Fl#chat\nu\u0016?\n>A\u0006_mmmmmm,Fk_.FlFkFkFlFlFls,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,Fl_.<.Fl.sFlFuFk  Fk,#chat\nk\u0016?\n>z\u0006_mmmm. Fl_.FkFy Fy"
+ },
+ "segments": [
+  {
+   "seed": 51050030,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=runmode:teleport\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\ny_mmmm.Fk_.#chat\nk_mmm.#chat\nu#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.Fb_.,Fh#chat\nh_mmmmm,#chat\nh_mm.Fl_.Fl#chat\nh;h;\u0017blessed ring of free action\nPir \u0017blessed +3 speed boots\nWj   \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017wand of cold\n\u0016?\n>A\u0006_mmmmmmm.Fk_,Fk   nFh FhFl FkFk,\u0016?\n>A\u0006_mmmmmm.Fk_,>.FyFhFkFy FkFy zlk,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,Fl_.FlFl20s20ss,\u0016?\n>z\u0006_mmm,Fh_,:20s20ssFl FlFlFl,\u0016?\n>>\u001b\u0016?\n>y_mm.Fj_.Fj#chat\nk\u0016?\n>A\u0006_mm.Fl  n _.FlFlFlFu FlFu zlk,#chat\nl\u0016?\n>A\u0006_mm,Fk_. ..ss.,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmm.Fk_.m,Fl#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,FlFl   nFk  FkFl  Fl,#chat\nl\u0016?\n>z\u0006_mmmmmmm. Fk_. 20s FlFls20s.20s zlk,\u0016?\n>>\u001b\u0016?\n>y_m,Fn_.#chat\nn\u0016?\n>A\u0006_mmm.Fn_.FnFnFn  nFnFnzln,#chat\nn\u0016?\n>A\u0006_mmmmmmm.s20s20s.20ss20szlj,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,Fl_.FlFls20s20ss.zl,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fl _.Fl #chat\nl\u0016?\n>z\u0006_mm.Fl _,@.Fl FlFl   nFl FlFl ,\u0016?\n>>\u001b\u0016?\n>y_mmm,Fl _..Fl #chat\nl\u0016?\n>A\u0006_mmmmm.Fl_.FlFl  n Fl20s20s.szl,\u0016?\n>>\u001b\u0016?\n>y_mm,Fl   _.,Fl#chat\nu\u0016?\n>A\u0006_mmmmmm,Fk_.FlFkFkFlFlFls,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,Fl_.<.Fl.sFlFuFk  Fk,#chat\nk\u0016?\n>z\u0006_mmmm. Fl_.FkFy Fy"
+  }
+ ]
+}

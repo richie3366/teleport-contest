@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "JJ#loot\n#force\nqd#jump\n10scjy\u0018\u001b#jump\n#twoweapon\n#monster\n#untrap\ny#jump\n__, \u001b:seh  f \u001bE\u001b;.i\u001bWs20ssri y sb.hZa\nZa\nqdeh   20s20seesm.sm.Wsm..m.sm.Tb #ride\nk#dip\ngd10s#tip\n\u001b_m,20sck"
+ },
+ "segments": [
+  {
+   "seed": 51052025,
+   "datetime": "20201103045649",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": "JJ#loot\n#force\nqd#jump\n10scjy\u0018\u001b#jump\n#twoweapon\n#monster\n#untrap\ny#jump\n__, \u001b:seh  f \u001bE\u001b;.i\u001bWs20ssri y sb.hZa\nZa\nqdeh   20s20seesm.sm.Wsm..m.sm.Tb #ride\nk#dip\ngd10s#tip\n\u001b_m,20sck"
+  }
+ ]
+}

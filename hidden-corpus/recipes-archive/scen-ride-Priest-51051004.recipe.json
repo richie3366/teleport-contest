@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017saddle\naju#ride\nuy\u0007tame saddled warhorse\n#ride\nuy\u0007horse\n\u0017scroll of taming\nrk \u0017saddle\nalu#ride\nkyy,\u0004ny\u0006_ \u001b@.>FlFn _>,_,>_>._.>yu#ride\ns#ride\nky\u0007tame jackal\n\u0017saddle\n amj#ride\nyy\u0007warhorse\n\u0017scroll of taming\nrn \u0017saddle\naoj #ride\njy\u0007warhorse\n\u0017scroll of taming\nrp  \u0017saddle\naqb#ride\nbyss.20s 20s    .#ride\n   s#ride\nhy "
+ },
+ "segments": [
+  {
+   "seed": 51051004,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017saddle\naju#ride\nuy\u0007tame saddled warhorse\n#ride\nuy\u0007horse\n\u0017scroll of taming\nrk \u0017saddle\nalu#ride\nkyy,\u0004ny\u0006_ \u001b@.>FlFn _>,_,>_>._.>yu#ride\ns#ride\nky\u0007tame jackal\n\u0017saddle\n amj#ride\nyy\u0007warhorse\n\u0017scroll of taming\nrn \u0017saddle\naoj #ride\njy\u0007warhorse\n\u0017scroll of taming\nrp  \u0017saddle\naqb#ride\nbyss.20s 20s    .#ride\n   s#ride\nhy "
+  }
+ ]
+}

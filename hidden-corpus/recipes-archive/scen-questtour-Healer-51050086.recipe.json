@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nj_mmmm,Fb _,    nFk #chat\nh  n   _mmmmm,Fh  n   _.  nFj #chat\nb  n    n    n#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.  Fl _, Fn  #chat\nj _mmm.   Fb   n   _,#chat\nj  \u0017blessed ring of free action\nPll    \u0017blessed amulet of reflection\nPm  \u0017wand of striking\n\u0016?\n>z\u0006_mmm.Fn  _.Fl Fl  n    Fu     Fu Fu   Fj znl    n ,#chat\nj  \u0016?\n>>\u001b\u0016?\n>y_mmmmm.   Fb      _.#chat\nb    n   ;j;\u00168\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,  Fj _,Fb     Fy  n     Fn   Fj znu   n    ,\u00165\n\u0016?\n>A\u0006_mmmmmmm.       Fu   n _.Fh    Fy Fj   Fn     n     ,#chat\nh    \u0016?\n>A\u0006_mmmmmmm.   Fn  yy\u001by   y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 51050086,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nj_mmmm,Fb _,    nFk #chat\nh  n   _mmmmm,Fh  n   _.  nFj #chat\nb  n    n    n#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.  Fl _, Fn  #chat\nj _mmm.   Fb   n   _,#chat\nj  \u0017blessed ring of free action\nPll    \u0017blessed amulet of reflection\nPm  \u0017wand of striking\n\u0016?\n>z\u0006_mmm.Fn  _.Fl Fl  n    Fu     Fu Fu   Fj znl    n ,#chat\nj  \u0016?\n>>\u001b\u0016?\n>y_mmmmm.   Fb      _.#chat\nb    n   ;j;\u00168\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,  Fj _,Fb     Fy  n     Fn   Fj znu   n    ,\u00165\n\u0016?\n>A\u0006_mmmmmmm.       Fu   n _.Fh    Fy Fj   Fn     n     ,#chat\nh    \u0016?\n>A\u0006_mmmmmmm.   Fn  yy\u001by   y y y\u001b  _"
+  }
+ ]
+}

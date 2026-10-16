@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  FhFh 20s\u000f\u001b\u0018\u001b100s100sFl.20sj150s150sFlFlFl50subn\u000f\u001bkjh_ \u001b.>100sFhFh.100s50s100shyu50si\u001b50sFlFls150s\u000f\u001bl150sed100s100s :\u0018\u001bjnyhkbujj100s_>.>\\   kkn;_.yjlnkn\u000f\u001b150shhh50sFyFhFyFhFhsyyn50s50s150sFlFlFljub\u000f\u001bi\u001b\u000f\u001b_>.>_>,>100s150s   eeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 51051014,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "  FhFh 20s\u000f\u001b\u0018\u001b100s100sFl.20sj150s150sFlFlFl50subn\u000f\u001bkjh_ \u001b.>100sFhFh.100s50s100shyu50si\u001b50sFlFls150s\u000f\u001bl150sed100s100s :\u0018\u001bjnyhkbujj100s_>.>\\   kkn;_.yjlnkn\u000f\u001b150shhh50sFyFhFyFhFhsyyn50s50s150sFlFlFljub\u000f\u001bi\u001b\u000f\u001b_>.>_>,>100s150s   eeeeeeeeeeeeeeeee"
+  }
+ ]
+}

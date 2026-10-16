@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "mOa\u001b\nO>>a\u001b\n\u0006_ \u001bm.>FlFu_>. Fj_,Fn>FbFh\u001bFh\u0006_>,Fj_.Fb>FbFh\u001b_>.Fb_.Fuh >FhFu_>.Fb_.Fh\u001b>FnFyFbFbFy\u0006_>>.Fj_.Fn>FhFyFy#turn\n\u0014.m.\u00162\nFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhylh lh \u0017sink\nqy      \u0017ring of slow digestion\ndi \u001bb\u0017pool\n:#terrain\nc\n #tip\n\u001b\u001b<ee  mO>u\u001b\nO>p\u001b\n\u001620\n\u00163\n150sh\u001bln150s100s50s100sFuFuFuFyFu\u001bFuFuFuFyFkk FyFky FkFuFuFuFuFyFyFuFkFuFyFyFyFu\u001bFyFyFuFkFkFyFky FyFu\u001bFuFkFuFuFkFkFkFyFyFyFyFkFkFyFyFuFuFyFu\u001bFuFuFuFuFyFyFuFyFyFyFu\u001bFyFu\u001bFuFuFyFyFyFu\u001bFyFyFuFkFuF"
+ },
+ "segments": [
+  {
+   "seed": 51050063,
+   "datetime": "20231104140846",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nMSGTYPE=hide \"The door\"\n",
+   "moves": "mOa\u001b\nO>>a\u001b\n\u0006_ \u001bm.>FlFu_>. Fj_,Fn>FbFh\u001bFh\u0006_>,Fj_.Fb>FbFh\u001b_>.Fb_.Fuh >FhFu_>.Fb_.Fh\u001b>FnFyFbFbFy\u0006_>>.Fj_.Fn>FhFyFy#turn\n\u0014.m.\u00162\nFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhylh lh \u0017sink\nqy      \u0017ring of slow digestion\ndi \u001bb\u0017pool\n:#terrain\nc\n #tip\n\u001b\u001b<ee  mO>u\u001b\nO>p\u001b\n\u001620\n\u00163\n150sh\u001bln150s100s50s100sFuFuFuFyFu\u001bFuFuFuFyFkk FyFky FkFuFuFuFuFyFyFuFkFuFyFyFyFu\u001bFyFyFuFkFkFyFky FyFu\u001bFuFkFuFuFkFkFkFyFyFyFyFkFkFyFyFuFuFyFu\u001bFuFuFuFuFyFyFuFyFyFyFu\u001bFyFu\u001bFuFuFyFyFyFu\u001bFyFyFuFkFuF"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  mO>>ehg\n  #enhance\nyq\nm\n\u001bO>fk\nqmO>>>l\nr\u001bOodn\na\nh\n<yny  y y\u001b O"
+ },
+ "segments": [
+  {
+   "seed": 51051011,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  mO>>ehg\n  #enhance\nyq\nm\n\u001bO>fk\nqmO>>>l\nr\u001bOodn\na\nh\n<yny  y y\u001b O"
+  }
+ ]
+}

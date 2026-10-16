@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "jjnl\u0017neutral altar\ndadc\u0017jackal corpse\n#offer\ne  #pray\ny y : hk\u0017altar\ndd\u0017floating eye corpse\n#offer\nf  #pray\ny y : y\u0017magic fountain\nqy qy  scroll of magic mapping\nuj\u0017cloud\nbbbu#terrain\nc\n\u001b<.rg #tip\n\u001b\u001bq"
+ },
+ "segments": [
+  {
+   "seed": 51051000,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "jjnl\u0017neutral altar\ndadc\u0017jackal corpse\n#offer\ne  #pray\ny y : hk\u0017altar\ndd\u0017floating eye corpse\n#offer\nf  #pray\ny y : y\u0017magic fountain\nqy qy  scroll of magic mapping\nuj\u0017cloud\nbbbu#terrain\nc\n\u001b<.rg #tip\n\u001b\u001bq"
+  }
+ ]
+}

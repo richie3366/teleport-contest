@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             ujjh\u0017trap door\nj\u0007lichen\n.nssm.20s y\u0017anti-magic field\nu^bbs20sn\u0017statue trap\nhlsm.20s \u0017land mine\nag kk#terrain\nb\n\u001b;s\u000f\u001bZjuyj\u0017rolling boulder trap\nj ky  ..j\u0017web\njksm.sm.j\u0017falling rock trap\nj^kk sls\u0017land mine\nahjyy#terrain\nb\nP #terrain\nb\n\u000f "
+ },
+ "segments": [
+  {
+   "seed": 51051021,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             ujjh\u0017trap door\nj\u0007lichen\n.nssm.20s y\u0017anti-magic field\nu^bbs20sn\u0017statue trap\nhlsm.20s \u0017land mine\nag kk#terrain\nb\n\u001b;s\u000f\u001bZjuyj\u0017rolling boulder trap\nj ky  ..j\u0017web\njksm.sm.j\u0017falling rock trap\nj^kk sls\u0017land mine\nahjyy#terrain\nb\nP #terrain\nb\n\u000f "
+  }
+ ]
+}

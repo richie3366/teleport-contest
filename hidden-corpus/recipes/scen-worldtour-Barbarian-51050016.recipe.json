@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u001621\n\u0004ky\u0016?\n>x\u0006_ \u001b:\u0016?\n>w  \u0014<. \u001615\n\u0014,\u0016?\n>A  by:\u001621\nklk:.m..m.sm.\u00162\n#levelchange\n10\n      \u0017blessed spellbook of wizard lock\nre.\u0017spellbook of extra healing\nrf.\u0017blessed spellbook of cancellation\nrg 20s \u0017blessed spellbook of magic missile\nrh sn+\u001bZ\u001bZ\u001bZ\u001b\u0007gnome lord\nZ\u001bZ\u001b#turn\n\u0016?\nq lh  h:20s\u0016?\nnlhl:\u0016?\n>J       shield of reflection\n#levelchange\n8\n\u0007jackal\nFyFu         n   Fn         n    Fy      n     Fh       n     \u0007centipede\n.m.   \u001b    n     .m.     n     20s    n     sj        ss     s   ss                    n    \u00168\n\u0016?\nb\u0014.      sm.    .m.       \u0016?\n\u001bh     h     \u001627\n_{.<\u0016?\n\u001byl     \u0016?\n\u001bl    u\u00165\njlujn l:\u001612\n\u0006>._>,.\u001629\n\u0007mind flayer\nFb      FjFkFk  nFkFl       Fksm.        nsm.     \u0007green slime\nFbFb FbFbFy   20s20s.l\u001612\n\u0016?\n\u001blk\u0016?\n\u001bbu   n \u0016?\n\u001bhl     \u0016?\n\u001bb    j \u0016?\n\u001buk      \u0016?\n\u001bbu  \u0016?\n\u001bkk\u001635\nnbyjjl b:\u001635\n\u0014 nn\u001613\n__.<su.20s\u0016?\n\u001bnu\u001615\n\u00173 scroll of enchant weapon\n\u0007incubus\nrk  \u001b\u00173 "
+ },
+ "segments": [
+  {
+   "seed": 51050016,
+   "datetime": "20241119170936",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u001621\n\u0004ky\u0016?\n>x\u0006_ \u001b:\u0016?\n>w  \u0014<. \u001615\n\u0014,\u0016?\n>A  by:\u001621\nklk:.m..m.sm.\u00162\n#levelchange\n10\n      \u0017blessed spellbook of wizard lock\nre.\u0017spellbook of extra healing\nrf.\u0017blessed spellbook of cancellation\nrg 20s \u0017blessed spellbook of magic missile\nrh sn+\u001bZ\u001bZ\u001bZ\u001b\u0007gnome lord\nZ\u001bZ\u001b#turn\n\u0016?\nq lh  h:20s\u0016?\nnlhl:\u0016?\n>J       shield of reflection\n#levelchange\n8\n\u0007jackal\nFyFu         n   Fn         n    Fy      n     Fh       n     \u0007centipede\n.m.   \u001b    n     .m.     n     20s    n     sj        ss     s   ss                    n    \u00168\n\u0016?\nb\u0014.      sm.    .m.       \u0016?\n\u001bh     h     \u001627\n_{.<\u0016?\n\u001byl     \u0016?\n\u001bl    u\u00165\njlujn l:\u001612\n\u0006>._>,.\u001629\n\u0007mind flayer\nFb      FjFkFk  nFkFl       Fksm.        nsm.     \u0007green slime\nFbFb FbFbFy   20s20s.l\u001612\n\u0016?\n\u001blk\u0016?\n\u001bbu   n \u0016?\n\u001bhl     \u0016?\n\u001bb    j \u0016?\n\u001buk      \u0016?\n\u001bbu  \u0016?\n\u001bkk\u001635\nnbyjjl b:\u001635\n\u0014 nn\u001613\n__.<su.20s\u0016?\n\u001bnu\u001615\n\u00173 scroll of enchant weapon\n\u0007incubus\nrk  \u001b\u00173 "
+  }
+ ]
+}

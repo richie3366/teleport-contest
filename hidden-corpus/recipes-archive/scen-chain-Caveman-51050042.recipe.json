@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "YHL L_ \u001b:>Fh FlsBYHU_>.>#name\na\nclLULU_>.>UUUL_>.>NHNU_>,>JBYN_>.>s#terrain\nc\n.UHBL_>.>#chat\nbe<\u000f\u001b100s_>.>_>.>hbl100s50sjkljhh150s100sFk20ss100sFk.s100sFkss\\ _>,>hyb100s100skjuFuFksFuFk20s50s50s100s \u000f\u001b_>.>_>,>100s#quit\nyy\u001by  y y y\u001b  FlFl sbjh50s100sFyFy.150s100s_ \u001b.>h100s100sFhFhFhFhss50s150shhu100sFhss100s_>.>50snhh50s100sFkFkFkFkFks_>.>hhu100sFbFbslnh150skly\u0018\u001b50sbkj100sFbFbFb100s50sFbFbFbFbFbFbFbFbllbkFbFbFbFbFbFbFbFbulhhKNNN_>.>KBBN_>.>BYUU_>.>\u0018\u001b#terrain\n\u001bNHLY_>,>w-#ride\nh<_>.>nkkFj  Fl Fj Fb Fb FlFbFjFj  nnnnn  1FnFnFnFnFnFnFnFnnhub20s#name\ni\ndcs20ss20sybhlda20s.s10skkullhbhnkujbulhHLJK_ \u001b<.>KJLB_>,>JHNB_>,>JJKY_>.>nubb#twoweapon\n50s Fk Fu .nlk100s100s jun_>.>50skuk100s  \u000f\u001b50s FhFh20s100sFhss100snkn\\    50s\u0018\u001b50sFh20sFhFhFhs100s\u000f\u001bnjydb100s  FhFhs\u0004buul100s 150sFhFh.nbl15#quit\nyy\u001by  y y y\u001b FuFu s100s150sFk20ss100sFks.luu100s100sunk100s#conduct\n i\u001b\u0018\u001b150s50s100sFl.s100sFhs20sFlFlFl50s100sFhFh20s150sFhFhFh150s_ \u001b@.>50sf k150sFhFhFh100sFuFuFuFuFuFu100s150s50s50sFuFusjljjkj10s10stak20shy10sFjFjFjFjFjFjFjFjFnFnFnFnFnFnFnFnbylhuhjhkh10skn20s#name\nm\njhjjhyKNUJ_>BLKY_><UHJU_><UHYU_>z,JJYY_>,Fh_.<.Fh>FhFhFh#jump\ndbeJJKJ_>._,>#conduct\n b#turn\n100s#enhance\n\u001b100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLHLH_>.>;m.eLUJU_>.>NJNH_>,_.>BLHK_>,>JKNB_>,>NKHY_>,>KE- Elbereth Elbereth\nBUUN_>,>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeelklleeeeeeeeeeeeeeeee#quit\ny ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51050042,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "YHL L_ \u001b:>Fh FlsBYHU_>.>#name\na\nclLULU_>.>UUUL_>.>NHNU_>,>JBYN_>.>s#terrain\nc\n.UHBL_>.>#chat\nbe<\u000f\u001b100s_>.>_>.>hbl100s50sjkljhh150s100sFk20ss100sFk.s100sFkss\\ _>,>hyb100s100skjuFuFksFuFk20s50s50s100s \u000f\u001b_>.>_>,>100s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51150042,
+   "datetime": "20231127195933",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": " FlFl sbjh50s100sFyFy.150s100s_ \u001b.>h100s100sFhFhFhFhss50s150shhu100sFhss100s_>.>50snhh50s100sFkFkFkFkFks_>.>hhu100sFbFbslnh150skly\u0018\u001b50sbkj100sFbFbFb100s50sFbFbFbFbFbFbFbFbllbkFbFbFbFbFbFbFbFbulhhKNNN_>.>KBBN_>.>BYUU_>.>\u0018\u001b#terrain\n\u001bNHLY_>,>w-#ride\nh<_>.>nkkFj  Fl Fj Fb Fb FlFbFjFj  nnnnn  1"
+  },
+  {
+   "seed": 51250042,
+   "datetime": "20010802034214",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:crawl\n",
+   "moves": "FnFnFnFnFnFnFnFnnhub20s#name\ni\ndcs20ss20sybhlda20s.s10skkullhbhnkujbulhHLJK_ \u001b<.>KJLB_>,>JHNB_>,>JJKY_>.>nubb#twoweapon\n50s Fk Fu .nlk100s100s jun_>.>50skuk100s  \u000f\u001b50s FhFh20s100sFhss100snkn\\    50s\u0018\u001b50sFh20sFhFhFhs100s\u000f\u001bnjydb100s  FhFhs\u0004buul100s 150sFhFh.nbl15#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51350042,
+   "datetime": "20110605054549",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "FuFu s100s150sFk20ss100sFks.luu100s100sunk100s#conduct\n i\u001b\u0018\u001b150s50s100sFl.s100sFhs20sFlFlFl50s100sFhFh20s150sFhFhFh150s_ \u001b@.>50sf k150sFhFhFh100sFuFuFuFuFuFu100s150s50s50sFuFusjljjkj10s10stak20shy10sFjFjFjFjFjFjFjFjFnFnFnFnFnFnFnFnbylhuhjhkh10skn20s#name\nm\njhjjhyKNUJ_>BLKY_><UHJU_><UHYU_>z,JJYY_>,Fh_.<.Fh>FhFhFh#jump\ndbeJJKJ_>._,>#conduct\n b#turn\n100s#enhance\n\u001b100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLHLH_>.>;m.eLUJU_>.>NJNH_>,_.>BLHK_>,>JKNB_>,>NKHY_>,>KE- Elbereth Elbereth\nBUUN_>,>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeelklleeeeeeeeeeeeeeeee#quit\ny "
+  }
+ ]
+}

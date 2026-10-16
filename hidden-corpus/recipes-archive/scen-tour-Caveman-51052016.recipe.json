@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0016?\n>J     helm of brilliance\n10s       \u0018\u001b#turn\n\u000620s        sl           n  \u001612\n#twoweapon\n#dip\na#monster\ns     s         \u0016?\n\u001b\u0016?\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 51052016,
+   "datetime": "20241217142633",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0016?\n>J     helm of brilliance\n10s       \u0018\u001b#turn\n\u000620s        sl           n  \u001612\n#twoweapon\n#dip\na#monster\ns     s         \u0016?\n\u001b\u0016?\n\u001b"
+  }
+ ]
+}

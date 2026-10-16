@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017locked large box\n\u0017diamond\n\u0017scroll of blank paper\naoaoao\u0017lock pick\ndoar.y  ss20s#loot\ni\n"
+ },
+ "segments": [
+  {
+   "seed": 51051026,
+   "datetime": "20191027065624",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017locked large box\n\u0017diamond\n\u0017scroll of blank paper\naoaoao\u0017lock pick\ndoar.y  ss20s#loot\ni\n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "N UYY_ \u001b<.>Fl .20sJYUU_>.>Fh20ssH HBK_>.>UUUL_>.>KNUN_>,>LNLL_>.>#offer\n#rub\nKKKH_>,>#name\na\nE- Elbereth\nNBJB_>.>BLLL_>.>LKNJ_>,>z;>.YJYY_>.><YYNN_>.>tbb,#rub\n100shhhlhh_>.>100sFlFls\u000f\u001b_>.>hhh50sFlFlFl100s_>,>bjhuklFlss100si\u001b_>,>100sFl20ss100s150sFls20s150s150s150s150sFlFls50s_>.>100shll_>,>100sFh20s20slhl100s\u000f\u001b100sFlFls50s150s ehhlhlhlhlh100slhli\u001b#dip\ne _>.>_>.>J100sFls.hlh\u000f\u001b150slhl\u0018\u001b150sFlFl20s150s_>.>hlhlhl100s 150sFlFlFl100s\\    50sFlFlFl100s150s150s\\    hlhlhll#chat\nk#chat\nh20s10s#name\nm\n#name\n@.FlFlsa100s \\    J_>.>150shlh50s50slhl100sFlFls\\    yol,\u0018\u001bhlh100s150s_>,>150sFl20ss100slhl#force\n50s50seeeeeeeeeee20shl10s#chat\nbtdy10seeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 51050003,
+   "datetime": "20250707024107",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\n",
+   "moves": "N UYY_ \u001b<.>Fl .20sJYUU_>.>Fh20ssH HBK_>.>UUUL_>.>KNUN_>,>LNLL_>.>#offer\n#rub\nKKKH_>,>#name\na\nE- Elbereth\nNBJB_>.>BLLL_>.>LKNJ_>,>z;>.YJYY_>.><YYNN_>.>tbb,#rub\n100shhhlhh_>.>100sFlFls\u000f\u001b_>.>hhh50sFlFlFl100s_>,>bjhuklFlss100si\u001b_>,>100sFl20ss100s150sFls20s150s150s150s150sFlFls50s_>.>100shll_>,>100sFh20s20slhl100s\u000f\u001b100sFlFls50s150s ehhlhlhlhlh100slhli\u001b#dip\ne _>.>_>.>J100sFls.hlh\u000f\u001b150slhl\u0018\u001b150sFlFl20s150s_>.>hlhlhl100s 150sFlFlFl100s\\    50sFlFlFl100s150s150s\\    hlhlhll#chat\nk#chat\nh20s10s#name\nm\n#name\n@.FlFlsa100s \\    J_>.>150shlh50s50slhl100sFlFls\\    yol,\u0018\u001bhlh100s150s_>,>150sFl20ss100slhl#force\n50s50seeeeeeeeeee20shl10s#chat\nbtdy10seeeeeeeeee"
+  }
+ ]
+}

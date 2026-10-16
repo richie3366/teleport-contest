@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nWn\u0017blessed +3 speed boots\nWo   \u0017blessed ring of free action\nPpr#levelchange\n20\n                   \u0017elven bow\nwq\u001720 elven arrows\nQr\u0007yellow mold\nfkt$kfktrb\u00167\n\u0018\u001b\u0017blessed spellbook of magic missile\nrss\u0007gnomish wizard\nZa\n sm. sZa\n..Za\nZa\nZa\nZa\n  Za\nZa\n  \u0017wand of cold\n\u0017wand of cancellation\n\u0017wand of teleportation\n\u0007giant rat\n\u0007gnome lord\nzvu.m.zth zujzvkzu.zul20szt sm.zv \u0007silver dragon\nsjssFu Fu\u0007baby red dragon\n\u0007silver dragon\nsks#polyself\ngold dragon\n    #monster\nb   sm. .m.    #monster\nh     #monster\n#monster\n.20s  \u0017blessed spellbook of cone of cold\nrw sn    \u0017blessed spellbook of finger of death\nrx20s  \u0007incubus\nZa\n  n Za\nZa\n Za\nsm.sk Za\nsm.sm.Za\n\u0017wand of"
+ },
+ "segments": [
+  {
+   "seed": 51050068,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nWn\u0017blessed +3 speed boots\nWo   \u0017blessed ring of free action\nPpr#levelchange\n20\n                   \u0017elven bow\nwq\u001720 elven arrows\nQr\u0007yellow mold\nfkt$kfktrb\u00167\n\u0018\u001b\u0017blessed spellbook of magic missile\nrss\u0007gnomish wizard\nZa\n sm. sZa\n..Za\nZa\nZa\nZa\n  Za\nZa\n  \u0017wand of cold\n\u0017wand of cancellation\n\u0017wand of teleportation\n\u0007giant rat\n\u0007gnome lord\nzvu.m.zth zujzvkzu.zul20szt sm.zv \u0007silver dragon\nsjssFu Fu\u0007baby red dragon\n\u0007silver dragon\nsks#polyself\ngold dragon\n    #monster\nb   sm. .m.    #monster\nh     #monster\n#monster\n.20s  \u0017blessed spellbook of cone of cold\nrw sn    \u0017blessed spellbook of finger of death\nrx20s  \u0007incubus\nZa\n  n Za\nZa\n Za\nsm.sk Za\nsm.sm.Za\n\u0017wand of"
+  }
+ ]
+}

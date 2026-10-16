@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWe\u0017blessed shield of reflection\nW\u001b\u0017blessed +3 gray dragon scale mail\nWg  #levelchange\n14\n             \u0017wand of lightning\n\u0017wand of cancellation\n\u0007acid blob\n\u0007soldier\nzhy zhj   zikziyzinzhuzhk zib\u0017blessed spellbook of finger of death\nrj20s\u0017spellbook of slow monster\nrk.\u0007vampire\n\u0007incubus\nZ..     n   Z.s ZZZssZZ..\u0007aligned cleric\nny \u0007master lich\n\u0007succubus\n\u0017wand of magic missile\n20szlb\u0017spellbook of sleep\nrm. \u0007incubus\n\u0007aligned cleric\nyyZZs s    n ZZZs          sZZ\u0007red dragon\n20s s     n s.Fl  Fni\u001b\u0017wand of polymorph\n\u0017wand of lightning\n\u0017wand of teleportation\n\u0007jackal\n\u0007hobbit\nzoh   n zpjzojzon zoh znb.znn  n znl znj  s  n  \u00163\n\u0007baby red dragon\n\u0007baby red dragon\n..ss\u0017wand of cold\naqy  20s20s\u0017wand of fire\n\u0017wand of slow monster\n\u0007kobold\n\u0007bugbear\nzskzsbzrjzslzrlzsbzrhzs.\u0007master mind flayer\n\u0007kobold shaman\n\u0017wand of striking\nzt.  n20s   s         n 20s    n ztk    n ztl  n 20s  n 20s 20s  n \u0018\u001b\u00164\n\u0017yumi\nwu\u001720 ya\nQv\u0007owlbear\n\u0007yellow mold\nfbfnfk fk tbk\u0007mind flayer\n\u0007gnomish wizard\n\u0007master mind flayer\n\u0017wand of magic missile\ns \u0017blessed spellbook of drain life\nrxs  n   n    n  \u0007master li"
+ },
+ "segments": [
+  {
+   "seed": 51050052,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWe\u0017blessed shield of reflection\nW\u001b\u0017blessed +3 gray dragon scale mail\nWg  #levelchange\n14\n             \u0017wand of lightning\n\u0017wand of cancellation\n\u0007acid blob\n\u0007soldier\nzhy zhj   zikziyzinzhuzhk zib\u0017blessed spellbook of finger of death\nrj20s\u0017spellbook of slow monster\nrk.\u0007vampire\n\u0007incubus\nZ..     n   Z.s ZZZssZZ..\u0007aligned cleric\nny \u0007master lich\n\u0007succubus\n\u0017wand of magic missile\n20szlb\u0017spellbook of sleep\nrm. \u0007incubus\n\u0007aligned cleric\nyyZZs s    n ZZZs          sZZ\u0007red dragon\n20s s     n s.Fl  Fni\u001b\u0017wand of polymorph\n\u0017wand of lightning\n\u0017wand of teleportation\n\u0007jackal\n\u0007hobbit\nzoh   n zpjzojzon zoh znb.znn  n znl znj  s  n  \u00163\n\u0007baby red dragon\n\u0007baby red dragon\n..ss\u0017wand of cold\naqy  20s20s\u0017wand of fire\n\u0017wand of slow monster\n\u0007kobold\n\u0007bugbear\nzskzsbzrjzslzrlzsbzrhzs.\u0007master mind flayer\n\u0007kobold shaman\n\u0017wand of striking\nzt.  n20s   s         n 20s    n ztk    n ztl  n 20s  n 20s 20s  n \u0018\u001b\u00164\n\u0017yumi\nwu\u001720 ya\nQv\u0007owlbear\n\u0007yellow mold\nfbfnfk fk tbk\u0007mind flayer\n\u0007gnomish wizard\n\u0007master mind flayer\n\u0017wand of magic missile\ns \u0017blessed spellbook of drain life\nrxs  n   n    n  \u0007master li"
+  }
+ ]
+}

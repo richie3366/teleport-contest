@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPp\u0017blessed ring of free action\nPqr\u00164\n#levelchange\n6\n        bhl\u0017throne\n#sit\n#sit\nn\u0017sink\nqy  \u001bl\u0004h\u0004h:nk\u0017fountain\nqyqy \u001bm,qy y#dip\njg:jj\u0017unaligned altar\ndc\u0017lichen corpse\n#offer\nr  #pray\ny y    #offer\ns,  \u001630\n   #levelchange\n8\n \u0017blessed gauntlets of dexterity\nWss20s  \u001b  \u001b 20s  \u001b  \u0017blessed elven mithril-coat\nW\u001b.20s    20s Fl Fn   n  \u0017wand of light\nzu    Fl   Fl   \u0017tin opener\navFn   Fn   n \u0017cursed -1 ring of teleport control\n\u0007aligned cleric\nnPw   sm.     20s   n     sm.    20s  n      sb   n  \u001612\n    \u00164\n#levelchange\n14\n     \u00176 eggs\nQ\u001b\u00074 gnome\nbf \u001bf \u001bf \u001b\u0007lichen\nu f \u001bf \u001bf \u001b\u0017potion of blindness\nt\u001bknn,#enhance\nyk\nj\n\u001b\u00169\n#chat\ny;m..\u00166\n_<.sss\u0016?\n>z#levelchange\n12\n\u0017blessed unicorn horn\nazazss\u0017cursed potion of extra healing\n\u0007mastodon\nqA\u0017blessed iron chain\n 20s   nwa\u0017cursed potion of levitation\nqC   \u0017blessed ring of increase accuracy\nPD20ssm.  n sm.  n Rw\u0017uncursed spellbook of cure sickness\nrE   n  sk20s Za\n   n Zb\nFl  n Fh   n 20s  n 20s 20s  n  sm.  n .m.\u00166\n y h   n  b  k    k nn:\u001640\n_>.sm.\u0016?\ng \u0017ring of see invisible\nPF.m.  n sm.20s\u0017lembas wafer\n\u0007couatl\neG  20s  sm.  yy  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 51050072,
+   "datetime": "20210109105037",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPp\u0017blessed ring of free action\nPqr\u00164\n#levelchange\n6\n        bhl\u0017throne\n#sit\n#sit\nn\u0017sink\nqy  \u001bl\u0004h\u0004h:nk\u0017fountain\nqyqy \u001bm,qy y#dip\njg:jj\u0017unaligned altar\ndc\u0017lichen corpse\n#offer\nr  #pray\ny y    #offer\ns,  \u001630\n   #levelchange\n8\n \u0017blessed gauntlets of dexterity\nWss20s  \u001b  \u001b 20s  \u001b  \u0017blessed elven mithril-coat\nW\u001b.20s    20s Fl Fn   n  \u0017wand of light\nzu    Fl   Fl   \u0017tin opener\navFn   Fn   n \u0017cursed -1 ring of teleport control\n\u0007aligned cleric\nnPw   sm.     20s   n     sm.    20s  n      sb   n  \u001612\n    \u00164\n#levelchange\n14\n     \u00176 eggs\nQ\u001b\u00074 gnome\nbf \u001bf \u001bf \u001b\u0007lichen\nu f \u001bf \u001bf \u001b\u0017potion of blindness\nt\u001bknn,#enhance\nyk\nj\n\u001b\u00169\n#chat\ny;m..\u00166\n_<.sss\u0016?\n>z#levelchange\n12\n\u0017blessed unicorn horn\nazazss\u0017cursed potion of extra healing\n\u0007mastodon\nqA\u0017blessed iron chain\n 20s   nwa\u0017cursed potion of levitation\nqC   \u0017blessed ring of increase accuracy\nPD20ssm.  n sm.  n Rw\u0017uncursed spellbook of cure sickness\nrE   n  sk20s Za\n   n Zb\nFl  n Fh   n 20s  n 20s 20s  n  sm.  n .m.\u00166\n y h   n  b  k    k nn:\u001640\n_>.sm.\u0016?\ng \u0017ring of see invisible\nPF.m.  n sm.20s\u0017lembas wafer\n\u0007couatl\neG  20s  sm.  yy  \u0017"
+  }
+ ]
+}

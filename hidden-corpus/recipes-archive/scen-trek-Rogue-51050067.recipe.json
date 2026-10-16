@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "H JHJ_ \u001b.>FusFlJNYL_>.>Zf by lJJNK_>,>ULJB_>.>Fhs.BLUH_>.>UBUU_>.>hh#name\nf\nttbkdhi\u001b20s20s stik  #name\na\nBJLL_>,>Fu  .20sKHBY_>,>h#untrap\nkKKKY_>.>\u000f\u001bULHU_>.>YUBK_>.>HYHY_>.>\\ #conduct\n KLLL_>.>fy#monster\nHLUK_>.>\u000f\u001bZLBYH_>.>YHNJ_>,>UHJH_>.>UNUU_>,>#wipe\n20sUBJY_>.>#monster\n__.20s\u000f\u001b10sllhhdfsm.sh20s20slnu10sLLNU_>.>FhFhFhKNBL_>.>KKJL_>.>Fh20ssBYUJ_>.>UBLY_>.>#conduct\n sYH YB_>.><UYHL_>.>FnFjFjYJKJ_>,>FlFuFuHHKY_>,>FlFlFlKYYU_>.>#invoke\n\u001b\u001b#conduct\n \u000f\u001b#turn\n#wipe\n;<.\u0018\u001b#pray\ny #pray\ny uun#pray\ny  \u0018\u001bbkybju100sFl.s100sbhh\\  \u000f\u001b100skjk50sE- Elbereth Elbereth\nFnFnFnFn20s20sFnFn20s150s50s_>,>50s150s\u0018\u001b50sFn.20s50s50s150segjyb\u000f\u001bujy50sFlFl20s\\  100s#chat\nujnkj#chat\nkt\u001b\u001b#name\no\nfoo\n\u001b\u001bdaaeksss#name\no\nblessed\ngi\u001b150sFkFk.100sFkFkFk100s150sFkFks#pray\ny  \u0018\u001b50suyb50s100sFu..jkk150s100sFlFls_>.>100seeeeeeeeeeeeeeeeeeehlt\u001b\u001bkbbn10sdesss#name\n\u001bt\u001b\u001bNK KJ _>,>UB BB_>,>:#invoke\n\u001b\u001bKNJN_>,>HJBB_>.>i\u001bdddc\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 51050067,
+   "datetime": "20070925120320",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=runmode:teleport\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\n",
+   "moves": "H JHJ_ \u001b.>FusFlJNYL_>.>Zf by lJJNK_>,>ULJB_>.>Fhs.BLUH_>.>UBUU_>.>hh#name\nf\nttbkdhi\u001b20s20s stik  #name\na\nBJLL_>,>Fu  .20sKHBY_>,>h#untrap\nkKKKY_>.>\u000f\u001bULHU_>.>YUBK_>.>HYHY_>.>\\ #conduct\n KLLL_>.>fy#monster\nHLUK_>.>\u000f\u001bZLBYH_>.>YHNJ_>,>UHJH_>.>UNUU_>,>#wipe\n20sUBJY_>.>#monster\n__.20s\u000f\u001b10sllhhdfsm.sh20s20slnu10sLLNU_>.>FhFhFhKNBL_>.>KKJL_>.>Fh20ssBYUJ_>.>UBLY_>.>#conduct\n sYH YB_>.><UYHL_>.>FnFjFjYJKJ_>,>FlFuFuHHKY_>,>FlFlFlKYYU_>.>#invoke\n\u001b\u001b#conduct\n \u000f\u001b#turn\n#wipe\n;<.\u0018\u001b#pray\ny #pray\ny uun#pray\ny  \u0018\u001bbkybju100sFl.s100sbhh\\  \u000f\u001b100skjk50sE- Elbereth Elbereth\nFnFnFnFn20s20sFnFn20s150s50s_>,>50s150s\u0018\u001b50sFn.20s50s50s150segjyb\u000f\u001bujy50sFlFl20s\\  100s#chat\nujnkj#chat\nkt\u001b\u001b#name\no\nfoo\n\u001b\u001bdaaeksss#name\no\nblessed\ngi\u001b150sFkFk.100sFkFkFk100s150sFkFks#pray\ny  \u0018\u001b50suyb50s100sFu..jkk150s100sFlFls_>.>100seeeeeeeeeeeeeeeeeeehlt\u001b\u001bkbbn10sdesss#name\n\u001bt\u001b\u001bNK KJ _>,>UB BB_>,>:#invoke\n\u001b\u001bKNJN_>,>HJBB_>.>i\u001bdddc\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

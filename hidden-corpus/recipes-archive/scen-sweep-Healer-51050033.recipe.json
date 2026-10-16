@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0007tame soldier ant\n10s\u0017leash\nalh bbkuall\u0017meatball\nt$j \u0017tin whistle\nbynan  \u0017tin whistle\nubyao\u0007lichen\n\u0017scroll of taming\nrp   \u0007tame lichen\nh #chat\nl#name\nf\n ,dd.ss10s\u0007werewolf\nFlFl Fh Fh       Fl  Fh   ss.\u0007brown pudding\nFlFlFl FlFhsm.sm.  n#levelchange\n8\n  \u0017blessed ring of polymorph control\nPqr#polyself\nincubus\n#monster\n.m.20s.m.sm.sm.#polyself\nlurker above\n 20s 20s 20ssm. 20s\u0017potion of polymorph\nqr black light\n#dip\nnf\u0006\u0006_>, Fh  _.Fh  n>FlFl_>.Fh_. Fh      n>FhFl   _>.Fl_,Fh  n>FlFl FhFlFl\u0006_>,Fh_.  nFl>FlFl _>.Fl_,Fh  n>FhFl_>, Fh_.Fl     n>FlFhFhFhFh     n\u0006_>>.Fh_,Fl>Fh Fl_>>.   nFh_,Fh  >Fl  Fh_>>.    n Fl_.Fh >FlFl   nFhFl   Fh\u0006_>,Fh _.Fh   n>FhFh  _>.Fh_.Fl>FhFh_>.  nFh y_,Fh>Fl FhFl FhFh \u0006_>. _,Fh>FhFh  n_>.Fh_.Fu>Fu Fh _>.Fh  n_,Fh  >FuFh FuFhFh\u001612\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqsm,_ooooo._.;.,\u0014@._oo,_,Fk   _oo._.,$_ooooooooo.Fu_, Fl  _oo,Fl_.  Fk,$_oo._.,#chat\nl_oooooo.Fn_,Fn  n_oo,Fj_.@.Fj,\u0014,   _mm,#chat\nk__,Fj_.Fj#chat\nj#pray\ny y #sit\n\u001b#twoweapon\n#rub\n\u00165\n\u0007housecat\n\u0017fortune cookie\nt$u\u0007grid bug\n\u0017scroll of taming\nru \u0017magic whistle\nykkav \u0017banana\nt\u001b\u0006_>>,Fb _,Fj>Fb Fj_>>.  nFh_,Fy>FyFy_>>. _.>\u0017lichen corpse\nt\u001b#chat\nh\u0007lieutenant\nFj Fj  Fb    yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51050033,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:full\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0007tame soldier ant\n10s\u0017leash\nalh bbkuall\u0017meatball\nt$j \u0017tin whistle\nbynan  \u0017tin whistle\nubyao\u0007lichen\n\u0017scroll of taming\nrp   \u0007tame lichen\nh #chat\nl#name\nf\n ,dd.ss10s\u0007werewolf\nFlFl Fh Fh       Fl  Fh   ss.\u0007brown pudding\nFlFlFl FlFhsm.sm.  n#levelchange\n8\n  \u0017blessed ring of polymorph control\nPqr#polyself\nincubus\n#monster\n.m.20s.m.sm.sm.#polyself\nlurker above\n 20s 20s 20ssm. 20s\u0017potion of polymorph\nqr black light\n#dip\nnf\u0006\u0006_>, Fh  _.Fh  n>FlFl_>.Fh_. Fh      n>FhFl   _>.Fl_,Fh  n>FlFl FhFlFl\u0006_>,Fh_.  nFl>FlFl _>.Fl_,Fh  n>FhFl_>, Fh_.Fl     n>FlFhFhFhFh     n\u0006_>>.Fh_,Fl>Fh Fl_>>.   nFh_,Fh  >Fl  Fh_>>.    n Fl_.Fh >FlFl   nFhFl   Fh\u0006_>,Fh _.Fh   n>FhFh  _>.Fh_.Fl>FhFh_>.  nFh y_,Fh>Fl FhFl FhFh \u0006_>. _,Fh>FhFh  n_>.Fh_.Fu>Fu Fh _>.Fh  n_,Fh  >FuFh FuFhFh\u001612\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqsm,_ooooo._.;.,\u0014@._oo,_,Fk   _oo._.,$_ooooooooo.Fu_, Fl  _oo,Fl_.  Fk,$_oo._.,#chat\nl_oooooo.Fn_,Fn  n_oo,Fj_.@.Fj,\u0014,   _mm,#chat\nk__,Fj_.Fj#chat\nj#pray\ny y #sit\n\u001b#twoweapon\n#rub\n\u00165\n\u0007housecat\n\u0017fortune cookie\nt$u\u0007grid bug\n\u0017scroll of taming\nru \u0017magic whistle\nykkav \u0017banana\nt\u001b\u0006_>>,Fb _,Fj>Fb Fj_>>.  nFh_,Fy>FyFy_>>. _.>\u0017lichen corpse\nt\u001b#chat\nh\u0007lieutenant\nFj Fj  Fb    yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "FlFls100s                FkFlslkhnubkhl100sFn.s100s                  FhFjs\u000f\u001b:\u0018\u001b100slbn FnFjs100s        Fu20s  .FlFlFnnkh100s           100s             FuFk20sFyFks_ \u001b:>100s             jkyFu FuFu#pray\ny        Fu Fu  nnnnn  2"
+ },
+ "segments": [
+  {
+   "seed": 51050059,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\n",
+   "moves": "FlFls100s                FkFlslkhnubkhl100sFn.s100s                  FhFjs\u000f\u001b:\u0018\u001b100slbn FnFjs100s        Fu20s  .FlFlFnnkh100s           100s             FuFk20sFyFks_ \u001b:>100s             jkyFu FuFu#pray\ny        Fu Fu  nnnnn  2"
+  }
+ ]
+}

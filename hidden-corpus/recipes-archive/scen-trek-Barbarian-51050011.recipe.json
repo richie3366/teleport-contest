@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "U   LKK_ \u001b>.>FjFh 20sNUKL_>.>:#loot\nJUKH_>.>HKBN_>.>YKHH_>.>E- ad aerarium\n#loot\nNYYL_>.>YHBK_>.>#sit\n\u001b20sJYJJ_>.>KJHL_>.>u#wipe\nKUHK_>,>#turn\n#tip\n\u001bLYYN_>.>NKYY_>.>100sFjFjFj100s100s100sFjFj.100s50s100s\\   :50s100sFjss100s_>.>50sFjFjFj\u000f\u001b\u0018\u001b100shhj150sklh\\   \u000f\u001b50sjhy_>.>_>.>bnlFls.lky100s \\   _>.>lbk150sFb20s20sFbs20sLLJY_>.>YKHJ_>.>FhFhFhNYYH_>,>ahy 10sJJJB_>.>BKHJ_>.>:;<.ae#monster\nol#chat\nj10slydg.s20s#name\nm\nnyjhlh#untrap\nm,foo\nt$u__.20slnhdcs.slunhlhdcssKNHU_>.>UJNN_>.>JNJY_>.>\u0014,\u000f\u001b10s 20sbltbn10slunkBLUL_>,>Fh20s.#wipe\n#name\nm\nm.JUYU_>.>BJNK_>,>B LYN_>,>10s#name\nm\n@.<yny  nnn U"
+ },
+ "segments": [
+  {
+   "seed": 51050011,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "U   LKK_ \u001b>.>FjFh 20sNUKL_>.>:#loot\nJUKH_>.>HKBN_>.>YKHH_>.>E- ad aerarium\n#loot\nNYYL_>.>YHBK_>.>#sit\n\u001b20sJYJJ_>.>KJHL_>.>u#wipe\nKUHK_>,>#turn\n#tip\n\u001bLYYN_>.>NKYY_>.>100sFjFjFj100s100s100sFjFj.100s50s100s\\   :50s100sFjss100s_>.>50sFjFjFj\u000f\u001b\u0018\u001b100shhj150sklh\\   \u000f\u001b50sjhy_>.>_>.>bnlFls.lky100s \\   _>.>lbk150sFb20s20sFbs20sLLJY_>.>YKHJ_>.>FhFhFhNYYH_>,>ahy 10sJJJB_>.>BKHJ_>.>:;<.ae#monster\nol#chat\nj10slydg.s20s#name\nm\nnyjhlh#untrap\nm,foo\nt$u__.20slnhdcs.slunhlhdcssKNHU_>.>UJNN_>.>JNJY_>.>\u0014,\u000f\u001b10s 20sbltbn10slunkBLUL_>,>Fh20s.#wipe\n#name\nm\nm.JUYU_>.>BJNK_>,>B LYN_>,>10s#name\nm\n@.<yny  nnn U"
+  }
+ ]
+}

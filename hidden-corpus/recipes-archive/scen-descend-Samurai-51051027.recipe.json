@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b<.>Fy ._>._,<.> #force\nZ\u0006_>,Fj_.<.Fh> #rub\nq\u0006_>,Fb_.m,> #tip\n\u001bL<\u0006_>>,Fj_.Fn>_>>,_,<.Fh>Fh._>>._,Fh>Fh.db#rub\n\u000f\u001b\u0006_>,Fh_.;:   Fh>Fhs_>.Fy_,Fy>_>.Fy_.>\u0006_>,Fh_.m.Fk>FhFk_>.Fh_,Fb>Fbs_>,_.> H<. L\u0006_>>._.> < \u0006_>,> \u0006_>>,Fl _.Fl>_>>,_. Fl>Fl   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51051027,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0006_ \u001b<.>Fy ._>._,<.> #force\nZ\u0006_>,Fj_.<.Fh> #rub\nq\u0006_>,Fb_.m,> #tip\n\u001bL<\u0006_>>,Fj_.Fn>_>>,_,<.Fh>Fh._>>._,Fh>Fh.db#rub\n\u000f\u001b\u0006_>,Fh_.;:   Fh>Fhs_>.Fy_,Fy>_>.Fy_.>\u0006_>,Fh_.m.Fk>FhFk_>.Fh_,Fb>Fbs_>,_.> H<. L\u0006_>>._.> < \u0006_>,> \u0006_>>,Fl _.Fl>_>>,_. Fl>Fl   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

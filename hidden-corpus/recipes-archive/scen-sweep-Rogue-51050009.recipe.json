@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      #levelchange\n20\n            \u0007doppelganger\n;n; \u001bm.sm.20s sm.\u0007straw golem\n;k:  slsh sm. \u000f\u001bbnhu \u0017sleeping gas trap\nb u 20s sm.   nl\u0017level teleporter\nn\u0017rolling boulder trap\n#terrain\nd\n#tip\n#conduct\n #tip\nf\u001b y ukny y\u0017magic portal\ny^n#untrap\nnh\u0017fire trap\nb\u0007newt\n20s s.sk\u0017h\u0017\u0017#terrain\n"
+ },
+ "segments": [
+  {
+   "seed": 51050009,
+   "datetime": "20130413195135",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      #levelchange\n20\n            \u0007doppelganger\n;n; \u001bm.sm.20s sm.\u0007straw golem\n;k:  slsh sm. \u000f\u001bbnhu \u0017sleeping gas trap\nb u 20s sm.   nl\u0017level teleporter\nn\u0017rolling boulder trap\n#terrain\nd\n#tip\n#conduct\n #tip\nf\u001b y ukny y\u0017magic portal\ny^n#untrap\nnh\u0017fire trap\nb\u0007newt\n20s s.sk\u0017h\u0017\u0017#terrain\n"
+  }
+ ]
+}

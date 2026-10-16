@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed amulet of life saving\nPk\u0017blessed +3 cloak of magic resistance\nWl\u0016?\n>w\u0006_ \u001bm,,p_{.Fk _, Flqd_ooooooo.,\u0014:ss\u0016?\n>Bklj\u0016?\n>w\u0006_{,Fh  _,Fhqe FhFh Fh Fh Fh Fh Fh Fh Fh Fh Fh Fh _ooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndm _oooooo., p_oooooo.,p_ooo._oo.,$__,Fh _.m,Fh #chat\nh __.Fh_,Fh #chat\nh _{,Fh _.Fh qd_oo._oo.,p_ooooooo,_oo,,$\u00163\nyhy\u0016?\n>w\u0006yku#chat\nn_ooo,,$_oooooo,,p_ooooooo.,p_ooooooo._ooo.,pu jy#chat\nubjj#chat\nk_{.Fl _,  Fu   qy   __.Fu _.Fu #chat\nu #pray\ny y     _oo"
+ },
+ "segments": [
+  {
+   "seed": 51050045,
+   "datetime": "20161007163040",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed amulet of life saving\nPk\u0017blessed +3 cloak of magic resistance\nWl\u0016?\n>w\u0006_ \u001bm,,p_{.Fk _, Flqd_ooooooo.,\u0014:ss\u0016?\n>Bklj\u0016?\n>w\u0006_{,Fh  _,Fhqe FhFh Fh Fh Fh Fh Fh Fh Fh Fh Fh Fh _ooo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndm _oooooo., p_oooooo.,p_ooo._oo.,$__,Fh _.m,Fh #chat\nh __.Fh_,Fh #chat\nh _{,Fh _.Fh qd_oo._oo.,p_ooooooo,_oo,,$\u00163\nyhy\u0016?\n>w\u0006yku#chat\nn_ooo,,$_oooooo,,p_ooooooo.,p_ooooooo._ooo.,pu jy#chat\nubjj#chat\nk_{.Fl _,  Fu   qy   __.Fu _.Fu #chat\nu #pray\ny y     _oo"
+  }
+ ]
+}

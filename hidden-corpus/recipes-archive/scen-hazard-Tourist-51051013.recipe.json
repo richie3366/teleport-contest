@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017shield of reflection\nWp..sTp\u0007gelatinous cube\nFbFy Fy FyFyFyFy sus\u0007succubus\nFyFkFy  Fh  Fy sn20s \u0007werewolf\nFk Fy   Fy   Fy  Fk .m.      sm.     yny   ny nn  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 51051013,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=runmode:teleport\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017shield of reflection\nWp..sTp\u0007gelatinous cube\nFbFy Fy FyFyFyFy sus\u0007succubus\nFyFkFy  Fh  Fy sn20s \u0007werewolf\nFk Fy   Fy   Fy  Fk .m.      sm.     yny   ny nn  \u0007"
+  }
+ ]
+}

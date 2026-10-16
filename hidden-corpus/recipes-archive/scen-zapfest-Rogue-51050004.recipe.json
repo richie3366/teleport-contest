@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nWii\u001b\u0017blessed ring of free action\nPjl\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b#levelchange\n14\n             \u001710 daggers\nQl\u0007hill orc\n\u0007bugbear\nfb   fb tlh tbb  fh \u0007black dragon\n\u0007black dragon\nsm.sm.   .l y   \u0017wand of cold\namy     Fj  n Fb \u0017wand of polymorph\n\u0017wand of lightning\n\u0017wand of sleep\n\u0007yellow mold\n\u0007gnome lord\nzol  20s znhznbzpbznhznbsm.zobzpbzob20s zphi\u001b\u0017wand of sleep\n\u0017wand of cancellation\n\u0007owlbear\nzrbzrb  n     n    zqb zrlzql zrh20szrlzrh\u00161\n\u0007master mind flayer\n\u0007orc shaman\n\u0017wand of cold\n20s     .   n s   n  .  n s  n 20s    n 20s    n s   n 20s  n zsh    n 20s  n .  "
+ },
+ "segments": [
+  {
+   "seed": 51050004,
+   "datetime": "20091027013105",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=runmode:walk\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nWii\u001b\u0017blessed ring of free action\nPjl\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b#levelchange\n14\n             \u001710 daggers\nQl\u0007hill orc\n\u0007bugbear\nfb   fb tlh tbb  fh \u0007black dragon\n\u0007black dragon\nsm.sm.   .l y   \u0017wand of cold\namy     Fj  n Fb \u0017wand of polymorph\n\u0017wand of lightning\n\u0017wand of sleep\n\u0007yellow mold\n\u0007gnome lord\nzol  20s znhznbzpbznhznbsm.zobzpbzob20s zphi\u001b\u0017wand of sleep\n\u0017wand of cancellation\n\u0007owlbear\nzrbzrb  n     n    zqb zrlzql zrh20szrlzrh\u00161\n\u0007master mind flayer\n\u0007orc shaman\n\u0017wand of cold\n20s     .   n s   n  .  n s  n 20s    n 20s    n s   n 20s  n zsh    n 20s  n .  "
+  }
+ ]
+}

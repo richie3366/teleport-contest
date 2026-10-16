@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  FyFy.Fk s.100s100sFls20s100s50syyn50s kju150s50s100sFl20ss\u000f\u001b\u000f\u001b#twoweapon\n_ \u001b:>100sFlFlFlFlss100s clbknFk20ss100s100s\\ #conduct\n i\u001bi\u001bulhFbsFb50seeeeeeKKHBy _>.>YLNHny _>.>z,BNJN_>,>KYJK_>.>KB LL_>.>UHYN_>.>\u0018\u001bPNBy L B_>.>#offer\ns#conduct\n eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLLNN_>,>BUUH_>,>UUJU_>.>NYKK_>.>NBNB_>.>LLYB_>.>FlFlsE- I am a fish\n#turn\n#name\na\nhyubnlhlhy10shk20s#force\n,,HBHN_>,>NJBL_>,>LHYL_>,><LBKU_>.>YUBY_>.><NULN_>,>\u000f\u001b#turn\n#sit\n\u001boleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeetbji\u001bs20sjdcsm.sh20s#name\no\ndd20s.h.20s#pray\ny e#pray\ny eee#pray\ny   #pray\ny eee#pray\ny  e#pray\ny    y\u001by  y y y\u001b  5"
+ },
+ "segments": [
+  {
+   "seed": 51050043,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:horse\n",
+   "moves": "  FyFy.Fk s.100s100sFls20s100s50syyn50s kju150s50s100sFl20ss\u000f\u001b\u000f\u001b#twoweapon\n_ \u001b:>100sFlFlFlFlss100s clbknFk20ss100s100s\\ #conduct\n i\u001bi\u001bulhFbsFb50seeeeeeKKHBy _>.>YLNHny _>.>z,BNJN_>,>KYJK_>.>KB LL_>.>UHYN_>.>\u0018\u001bPNBy L B_>.>#offer\ns#conduct\n eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLLNN_>,>BUUH_>,>UUJU_>.>NYKK_>.>NBNB_>.>LLYB_>.>FlFlsE- I am a fish\n#turn\n#name\na\nhyubnlhlhy10shk20s#force\n,,HBHN_>,>NJBL_>,>LHYL_>,><LBKU_>.>YUBY_>.><NULN_>,>\u000f\u001b#turn\n#sit\n\u001boleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeetbji\u001bs20sjdcsm.sh20s#name\no\ndd20s.h.20s#pray\ny e#pray\ny eee#pray\ny   #pray\ny eee#pray\ny  e#pray\ny    y\u001by  y y y\u001b  5"
+  }
+ ]
+}

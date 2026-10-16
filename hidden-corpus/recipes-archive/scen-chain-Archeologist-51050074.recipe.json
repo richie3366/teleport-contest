@@ -1,0 +1,63 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nc\n sm.20s20s sm.sss20s      n ss.ss20s ss20s     .20s 20s20s.20s20s.ss20s20s.s...s..ss20s20s20s20sss kyhhFlFlFlFlFlFl FlFlbkjn;<. \u001bm,150s100s50syjlyhl#wipe\n150s_m,20s150s150s egjyl50seg#monster\n100s egkjn\\   100s eg100seh100seh100seg100seghybybl50s eh\u0018\u001b150s egyhl10#quit\nyy\u001by  y y y\u001b  \u0007nurse\nFnFnFlFy FnFn  nFnFn  yy\u001by  y y y\u001by  Fn#wizintrinsic\na\n s.20s20s20s20s20s20s  sssss20s s20s20s  .ss20s20ss20s  s20s .s  FyFyFu  Fk FuFui\u001bZ100sykllnu100s#twoweapon\njlhi\u001b100s100s_ \u001b:>100s100s150s egybu100s eg100seg100s eh150seg50s eg\u000f\u001bi\u001b100s eh100s egllljkb50seg_>.>nhhuujkhYKKJ_;#quit\nyy\u001by  y y y\u001b H YKJ_ \u001b,>FhsFhKJYB_>.>ajj10sNJHL_>.>Fls.H NKU_>.>FjFjFjNHKH_>.>#ride\nlfh <LJKJ_>.>Fk .20s\u000f\u001bKYLY_>,>HJHU_>.><JHYL_>,>UHBL_>.>#quit\nyy\u001by  y y y\u001b FkFk Fk  FkFkFkFkFkFlFlFlFlFlFlFlFl 150s50sFkFkFkFkFk20s100sykkjnbFyFyFyFy FyFy #pray\ny   y\u001by  y y y\u001b  1",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51050074,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nc\n sm.20s20s sm.sss20s      n ss.ss20s ss20s     .20s 20s20s.20s20s.ss20s20s.s...s..ss20s20s20s20sss"
+  },
+  {
+   "seed": 51150074,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\n",
+   "moves": " kyhhFlFlFlFlFlFl FlFlbkjn;<. \u001bm,150s100s50syjlyhl#wipe\n150s_m,20s150s150s egjyl50seg#monster\n100s egkjn\\   100s eg100seh100seh100seg100seghybybl50s eh\u0018\u001b150s egyhl10#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51250074,
+   "datetime": "20031012215833",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007nurse\nFnFnFlFy FnFn  nFnFn  yy\u001by  y y y\u001by  F"
+  },
+  {
+   "seed": 51350074,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "n#wizintrinsic\na\n s.20s20s20s20s20s20s  sssss20s s20s20s  .ss20s20ss20s  s20s .s"
+  },
+  {
+   "seed": 51450074,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\n",
+   "moves": "  FyFyFu  Fk FuFui\u001bZ100sykllnu100s#twoweapon\njlhi\u001b100s100s_ \u001b:>100s100s150s egybu100s eg100seg100s eh150seg50s eg\u000f\u001bi\u001b100s eh100s egllljkb50seg_>.>nhhuujkhYKKJ_;#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51550074,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "H YKJ_ \u001b,>FhsFhKJYB_>.>ajj10sNJHL_>.>Fls.H NKU_>.>FjFjFjNHKH_>.>#ride\nlfh <LJKJ_>.>Fk .20s\u000f\u001bKYLY_>,>HJHU_>.><JHYL_>,>UHBL_>.>#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51650074,
+   "datetime": "20230205002110",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\n",
+   "moves": "FkFk Fk  FkFkFkFkFkFlFlFlFlFlFlFlFl 150s50sFkFkFkFkFk20s100sykkjnbFyFyFyFy FyFy #pray\ny   y\u001by  y y y\u001b  1"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          \u0016?\n>>L      the Book of the Dead\n_<, \u001b@.20s       #jump\n#invoke\ni  ;k:  20s    .m.   \u001626\n#invoke\nj#rub\nrh y       yy\u001by  nn  \u0006"
+ },
+ "segments": [
+  {
+   "seed": 51052012,
+   "datetime": "20111108122627",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n          \u0016?\n>>L      the Book of the Dead\n_<, \u001b@.20s       #jump\n#invoke\ni  ;k:  20s    .m.   \u001626\n#invoke\nj#rub\nrh y       yy\u001by  nn  \u0006"
+  }
+ ]
+}

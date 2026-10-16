@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nj_mm,#chat\nj;._mmm.#chat\nn_mmmmm.#chat\ny_mm,#chat\nh#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nu_mm,#chat\nn;>.\u0017blessed +3 speed boots\nWf \u0017blessed Mjollnir\nwg\u0017wand of cold\n\u0016?\n>A\u0006_mmm.Fl Fh s.Fl Fl ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fl _.#chat\nn\u0016?\n>z\u0006_mmmm,Fn Fn Fn sss,\u0016?\n>A\u0006_mmmmm.20sss.,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm..s20s20s20s20s20s,\u0016?\n>A\u0006_mmmmmm...20ss20sszhb,#chat\nj\u0016?\n>z\u0006_mmm.s20ss20s20ss,\u0016?\n>A\u0006_mmmmmm..20ss20s20s,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.20ss.20s.sszhn,\u0016?\n>A\u0006_mmmm,s20ss.zhn,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nn\u0016?\n>z\u0006_mm,...ss20s 20szhb,\u0016?\n>A\u0006_mm,20sss20s..s,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,20ss20s20s20sszh,\u0016?\n>A\u0006_mmmmm.20ss20ssss,\u0016?\n>z\u0006_mmm.s20sss20s,#chat\nl\u0016?\n>A\u0006_mm..ss..s,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,20s.ss20s ,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nj\u0016?\n>"
+ },
+ "segments": [
+  {
+   "seed": 51050022,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nj_mm,#chat\nj;._mmm.#chat\nn_mmmmm.#chat\ny_mm,#chat\nh#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nu_mm,#chat\nn;>.\u0017blessed +3 speed boots\nWf \u0017blessed Mjollnir\nwg\u0017wand of cold\n\u0016?\n>A\u0006_mmm.Fl Fh s.Fl Fl ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fl _.#chat\nn\u0016?\n>z\u0006_mmmm,Fn Fn Fn sss,\u0016?\n>A\u0006_mmmmm.20sss.,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm..s20s20s20s20s20s,\u0016?\n>A\u0006_mmmmmm...20ss20sszhb,#chat\nj\u0016?\n>z\u0006_mmm.s20ss20s20ss,\u0016?\n>A\u0006_mmmmmm..20ss20s20s,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.20ss.20s.sszhn,\u0016?\n>A\u0006_mmmm,s20ss.zhn,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nn\u0016?\n>z\u0006_mm,...ss20s 20szhb,\u0016?\n>A\u0006_mm,20sss20s..s,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,20ss20s20s20sszh,\u0016?\n>A\u0006_mmmmm.20ss20ssss,\u0016?\n>z\u0006_mmm.s20sss20s,#chat\nl\u0016?\n>A\u0006_mm..ss..s,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,20s.ss20s ,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nj\u0016?\n>"
+  }
+ ]
+}

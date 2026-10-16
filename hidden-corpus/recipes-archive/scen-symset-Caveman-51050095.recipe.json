@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0007pony\n\u0017tripe ration\ntbn\u0017magic whistle\nl ub ag  \u0007giant rat\n\u0017scroll of taming\nrh #name\nf\n <.df 20s 20ss\u0017banana\nt\u001b\u0006_>>. _.>_>>._,>_>>.Fj_,Fn >Fl sdd20sssmOa\u001b\nv\u001bi\u001bbjy\u0017moat\n#dip\ney  n\u0017lawful altar\nda\u0017newt corpse\n#offer\nj   #pray\ny y #pray\ny y ohE-  \u00169\nO>a\u001b\n\u00163\nv\u001bi\u001b#name\nm\niohmO>v\u001b\n100shuh100s100s Fl20ss\u0018\u001b50s\u0018\u001b_>,>jykubjjnb50s150s100s \\ _>,>_>,>50shbyjyb50sFlFl.\u0018\u001bhjki\u001b150s100s_>,>100sFlss100s  FlFl Flynu_>.>50s#pray\ny y 50sFl.s50s\u001618\nO>>l\u001b\n\u00165\n_>.>_>,>100s50seiluy50s50s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#untrap\nl20ss\u00164\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u00165\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0007horse\n\u0017fortune cookie\nt\u001b\u0007tame kitten\n#chat\nh#chat\nh\u0017leash\nalj   nkullalh  n \u0017huge chunk of meat\nt\u001b20s\u0007y"
+ },
+ "segments": [
+  {
+   "seed": 51050095,
+   "datetime": "20160516220553",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nBIND=v:inventory\n",
+   "moves": "\u0007pony\n\u0017tripe ration\ntbn\u0017magic whistle\nl ub ag  \u0007giant rat\n\u0017scroll of taming\nrh #name\nf\n <.df 20s 20ss\u0017banana\nt\u001b\u0006_>>. _.>_>>._,>_>>.Fj_,Fn >Fl sdd20sssmOa\u001b\nv\u001bi\u001bbjy\u0017moat\n#dip\ney  n\u0017lawful altar\nda\u0017newt corpse\n#offer\nj   #pray\ny y #pray\ny y ohE-  \u00169\nO>a\u001b\n\u00163\nv\u001bi\u001b#name\nm\niohmO>v\u001b\n100shuh100s100s Fl20ss\u0018\u001b50s\u0018\u001b_>,>jykubjjnb50s150s100s \\ _>,>_>,>50shbyjyb50sFlFl.\u0018\u001bhjki\u001b150s100s_>,>100sFlss100s  FlFl Flynu_>.>50s#pray\ny y 50sFl.s50s\u001618\nO>>l\u001b\n\u00165\n_>.>_>,>100s50seiluy50s50s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#untrap\nl20ss\u00164\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u00165\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0007horse\n\u0017fortune cookie\nt\u001b\u0007tame kitten\n#chat\nh#chat\nh\u0017leash\nalj   nkullalh  n \u0017huge chunk of meat\nt\u001b20s\u0007y"
+  }
+ ]
+}

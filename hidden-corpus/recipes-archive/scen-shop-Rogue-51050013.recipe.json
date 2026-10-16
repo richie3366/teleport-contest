@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWii\u001b\u0017blessed Mjollnir\nwj\u0016?\n>w\u0006_ \u001b:,p_ooooooo.,$FnFnFnFnFnFn_{.Fh  _,qd  \u0016?\n>Blll\u0016?\n>w\u0006__,Fl _.Fl  n#chat\nl#pray\ny y   __.Fl_.Fl#chat\nl_{.Fl   n_.@.Fk q__,Fl _.  nFl   n#chat\nl#pray\ny y   \u00167\n_ooo.Fl _.:Fh ,\u0014.>.s.__,Fh_,Fh #chat\ny#pray\ny y __,  Fn    n _.#chat\nn   n #pray\ny y  \u00162\n_ooooooooo.,$kjk#chat\nb_ooooooo.,: _ooo.,$_oo.,p_{,q_oooooooo.,p_ooooooooo,_o.,: _{.q_ooo._ooo.,: \u00167\njkj\u0016?\n>w  \u0006_{,    nFb  n _.  n Fb  n q\u00162\n_ooooooo.,pyny#chat\nl__.#chat\nh__.#chat\nk_oooooo._ooo,,p_oooo._o.,: nyn#chat\nk_{.qFkFkFkFkFkFk__,#chat\nu#pray\ny y   FlFlFlFlFlFl_oooooooo.,p_ooo.,p__,#chat\nu#pray\ny y _oooooooo._oo.,\u0017amulet of flying\ndk_oo.,pFuFuFuFuFuFu_ooooooo.,p\u0016?\n>Bhkh\u0016?\n>w\u0006_ooooo,_., p\u0016?\nc   lkj\u0016?\n>w\u0006_ooo. _,Fl,pFlFlFlFlFlFl__. Fl_.Fk#chat\nk#pray\ny y _oo.  n_,m.   Fy  _oo. Fl _,Fl,:_oooo,Fy  n _.  n Fy  ,:\u00163\n_oooooo.,p_oooooooo._ooo.Fh   n_.,$Fh FhFhFhFhFhkly#chat\nh_oooooooo._ooo,_,,c\npu"
+ },
+ "segments": [
+  {
+   "seed": 51050013,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWii\u001b\u0017blessed Mjollnir\nwj\u0016?\n>w\u0006_ \u001b:,p_ooooooo.,$FnFnFnFnFnFn_{.Fh  _,qd  \u0016?\n>Blll\u0016?\n>w\u0006__,Fl _.Fl  n#chat\nl#pray\ny y   __.Fl_.Fl#chat\nl_{.Fl   n_.@.Fk q__,Fl _.  nFl   n#chat\nl#pray\ny y   \u00167\n_ooo.Fl _.:Fh ,\u0014.>.s.__,Fh_,Fh #chat\ny#pray\ny y __,  Fn    n _.#chat\nn   n #pray\ny y  \u00162\n_ooooooooo.,$kjk#chat\nb_ooooooo.,: _ooo.,$_oo.,p_{,q_oooooooo.,p_ooooooooo,_o.,: _{.q_ooo._ooo.,: \u00167\njkj\u0016?\n>w  \u0006_{,    nFb  n _.  n Fb  n q\u00162\n_ooooooo.,pyny#chat\nl__.#chat\nh__.#chat\nk_oooooo._ooo,,p_oooo._o.,: nyn#chat\nk_{.qFkFkFkFkFkFk__,#chat\nu#pray\ny y   FlFlFlFlFlFl_oooooooo.,p_ooo.,p__,#chat\nu#pray\ny y _oooooooo._oo.,\u0017amulet of flying\ndk_oo.,pFuFuFuFuFuFu_ooooooo.,p\u0016?\n>Bhkh\u0016?\n>w\u0006_ooooo,_., p\u0016?\nc   lkj\u0016?\n>w\u0006_ooo. _,Fl,pFlFlFlFlFlFl__. Fl_.Fk#chat\nk#pray\ny y _oo.  n_,m.   Fy  _oo. Fl _,Fl,:_oooo,Fy  n _.  n Fy  ,:\u00163\n_oooooo.,p_oooooooo._ooo.Fh   n_.,$Fh FhFhFhFhFhkly#chat\nh_oooooooo._ooo,_,,c\npu"
+  }
+ ]
+}

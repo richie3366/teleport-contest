@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\n>w\u0006\u0017blessed potion of object detection\nqi \u001b@._m.Fl _.#chat\nb__,  Fl_.  Fn #chat\nn  _dd.Fj_.>.\u0004h__.  Fy_.#chat\ny #pray\ny y  dat\u001b\\  ;j.Sy\u001b y qd,#twoweapon\n#pray\ny y #monster\n__.s#rub\ndfuynj\u0017web\ny#untrap\nnn\u0017anti-magic field\nyns20sky\u0017squeaky board\nny",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51051022,
+   "datetime": "20091221134053",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n20\n                   \u0016?\n>w\u0006\u0017blessed potion of object detection\nqi \u001b@._m.Fl _.#chat\nb__,  Fl_.  Fn #chat\nn  _dd.Fj_.>.\u0004h__.  Fy_.#chat\ny #pray\ny y  dat\u001b\\  ;j.Sy\u001b"
+  },
+  {
+   "seed": 51551022,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " y qd,#twoweapon\n#pray\ny y #monster\n__.s#rub\ndfuynj\u0017web\ny#untrap\nnn\u0017anti-magic field\nyns20sky\u0017squeaky board\nny"
+  }
+ ]
+}

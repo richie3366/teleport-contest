@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nl_mmmm.Fl  n _. Fk  n #chat\ny_mmmmm.  n   n Fk   n _.  n  Fl   n  n  #chat\ny#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_m,Fk _.#chat\nk _mm. Fu _.#chat\nn_mmmmm,  n   Fh  _.Fu   n #chat\nh   ;b:  \u0017blessed +3 cloak of magic resistance\nWi   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPk   n  \u0017wand of magic missile\n\u0016?\n>z\u0006_mmmmm.    Fl _,Fh   n  Fl    Fb  Fk   n  Fu   Fj zlj   ,#chat\nk  \u001611\n\u0016?\n>A\u0006_mmmmmm.  n Fn _.Fb     Fy   n  Fk   Fl   zlh     yy\u001bnny n  ,"
+ },
+ "segments": [
+  {
+   "seed": 51050070,
+   "datetime": "20001002235010",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nl_mmmm.Fl  n _. Fk  n #chat\ny_mmmmm.  n   n Fk   n _.  n  Fl   n  n  #chat\ny#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_m,Fk _.#chat\nk _mm. Fu _.#chat\nn_mmmmm,  n   Fh  _.Fu   n #chat\nh   ;b:  \u0017blessed +3 cloak of magic resistance\nWi   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPk   n  \u0017wand of magic missile\n\u0016?\n>z\u0006_mmmmm.    Fl _,Fh   n  Fl    Fb  Fk   n  Fu   Fj zlj   ,#chat\nk  \u001611\n\u0016?\n>A\u0006_mmmmmm.  n Fn _.Fb     Fy   n  Fk   Fl   zlh     yy\u001bnny n  ,"
+  }
+ ]
+}

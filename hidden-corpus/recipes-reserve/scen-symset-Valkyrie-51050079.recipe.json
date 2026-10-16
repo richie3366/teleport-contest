@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  \u0006_ \u001bm,>FkFu_>.Fj_. Fk>FjFk_>.Fk_, Fk>FnFkk FbFbFk;n,w-\u0006_>.Fj_.Fk>FjFk_>,Fk_,Fn>FnFkj Fndq\u0006_>. Fu_.Fn>FkFbFb\u0006_>.Fk_.Fb>FjFu_>.Fk_.Fu>FjFn_>FbFub FnFub Fu, \u001b10s\u0006_>.Fb_. Fku >FuFn_>FbFn_>.Fb_.Fb>FkFjFbFkk Fn\u000f\u001613\nv i\u001b\u0007pony\n\u0017huge chunk of meat\ntal \u0017leash\nafl h\u001bbll ln afu \u0017magic whistle\nuu jnagdasul sm.sb\u0017tripe ration\ntbu #chat\nj df20s   n.y20sm. de.lk sm..m.  n \u00166\nO>a\u001b\n#levelchange\n20\n                   nlyb\u0017unaligned altar\ndh\u0017jackal corpse\n#offer\ni  l\u0017moat\n#dip\ngy :h\u001bun \u0017throne\n#sit\n ynul \u0017iron bars\n#terrain\nc\n@.#dip\ng#untrap\ny \u0004b O>>f\u001b\n;u;;n:   FbFyFbFkk FnFbFbFub FnFbFjFjFuFlFuFyFjFjFkFlFbFjFyFkn FnFlFyFkn FyFnFjFkFbFkb FkFuFnFbFyFkn FuFyFyFbFky FlFnFkl FyFlFuFnFlFuFjFnFyFyFbFlFnFbFnFuy FnFkk FjFkFlFnFbFnFuy FlFnFnFuFkFlFkFnFub FlFlFnFuy FkFyFlFuFyFkk FkFlFlFjFkFjFyFbFnFlFlFjFbFjFnFbFkFkFyFlFlFlFbFnFyFlFuFk\u0007tame pony\n\u0007kitten\n\u0017tripe ration\ntb"
+ },
+ "segments": [
+  {
+   "seed": 51050079,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\n",
+   "moves": "  \u0006_ \u001bm,>FkFu_>.Fj_. Fk>FjFk_>.Fk_, Fk>FnFkk FbFbFk;n,w-\u0006_>.Fj_.Fk>FjFk_>,Fk_,Fn>FnFkj Fndq\u0006_>. Fu_.Fn>FkFbFb\u0006_>.Fk_.Fb>FjFu_>.Fk_.Fu>FjFn_>FbFub FnFub Fu, \u001b10s\u0006_>.Fb_. Fku >FuFn_>FbFn_>.Fb_.Fb>FkFjFbFkk Fn\u000f\u001613\nv i\u001b\u0007pony\n\u0017huge chunk of meat\ntal \u0017leash\nafl h\u001bbll ln afu \u0017magic whistle\nuu jnagdasul sm.sb\u0017tripe ration\ntbu #chat\nj df20s   n.y20sm. de.lk sm..m.  n \u00166\nO>a\u001b\n#levelchange\n20\n                   nlyb\u0017unaligned altar\ndh\u0017jackal corpse\n#offer\ni  l\u0017moat\n#dip\ngy :h\u001bun \u0017throne\n#sit\n ynul \u0017iron bars\n#terrain\nc\n@.#dip\ng#untrap\ny \u0004b O>>f\u001b\n;u;;n:   FbFyFbFkk FnFbFbFub FnFbFjFjFuFlFuFyFjFjFkFlFbFjFyFkn FnFlFyFkn FyFnFjFkFbFkb FkFuFnFbFyFkn FuFyFyFbFky FlFnFkl FyFlFuFnFlFuFjFnFyFyFbFlFnFbFnFuy FnFkk FjFkFlFnFbFnFuy FlFnFnFuFkFlFkFnFub FlFlFnFuy FkFyFlFuFyFkk FkFlFlFjFkFjFyFbFnFlFlFjFbFjFnFbFkFkFyFlFlFlFbFnFyFlFuFk\u0007tame pony\n\u0007kitten\n\u0017tripe ration\ntb"
+  }
+ ]
+}

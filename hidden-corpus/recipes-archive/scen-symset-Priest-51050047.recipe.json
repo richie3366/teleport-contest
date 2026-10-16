@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "FkFnFnFkFnFbFbFjFjFjFjFkFbFbFkFbFbFbFnFbFkj FkFjFnFkb FnFkk FnFkk FkFbFjFbFnFbFnFbFnFbFjFkFbFnFbFnFnFnFjFjFnFjFjFnFnFnFjFkFnFjFbFbFjFnFkk FkFbFnFkFbFjFkFkFjFjFjFbFnFkFkFkFjFkFjFnFjFnFnFkFkFnFjFkFkFnFjFbFnFnFjFbFnFbFkk FbFnFnFbFbFkj FjFkFjFjFnFkk FbFnFjFbFbO>>>h\u001b\nFbFjFkFnFbFnFnFbFkb FjFbFbFbFnFjFjFbFkj FjFjFnFbFkFbFnFnFjFnFnFbFkk FnFjFjFkFjFbFkb FbFjFnFnFnFkn FjFjFnFjFjFbFjFnFkj FnFkn FjFkFbFjFkFjFjFjFbFnFkFbFnFjFkFkFnFjFkFjFbFkj FnFbFbFkb FkFkFnFkj FbFnFjFjFjFkFnFnFbFnFjFnFnFnFnFkFnFbFkFkFbFbFjFbFnFjFnFnFkFkFjFnFnFnFjylb jy\u0017chaotic altar\ndbdb\u0017jackal corpse\n#offer\nj #pray\ny y bkj \u0017unaligned altar\ndd\u0017human corpse\n : ll \u0017magic fountain\nqy qy#terrain\nb\n\u001b>.#offer\n\u0018\u001b10s\u00163\nFnFnFkFkFnFkj FnFkn FbFnFkFnFkj FjFbFnFjFnFjFbFkj FjFkFbFnFbFjFnFbFkFjFbFjFjFjFkFbFkj FkFbFbFkFkFbFnFjFbFnFnFjFbFjFnFnFjFbFjFnFnFjFjFkFnFnFkFbFjFkFjFjFbFbFjFnFjFjFnFkj FnFbFjFbFbFnFjFkFnFnFnFkk FkFbFjFnFkj FkFnFk"
+ },
+ "segments": [
+  {
+   "seed": 51050047,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad\n",
+   "moves": "FkFnFnFkFnFbFbFjFjFjFjFkFbFbFkFbFbFbFnFbFkj FkFjFnFkb FnFkk FnFkk FkFbFjFbFnFbFnFbFnFbFjFkFbFnFbFnFnFnFjFjFnFjFjFnFnFnFjFkFnFjFbFbFjFnFkk FkFbFnFkFbFjFkFkFjFjFjFbFnFkFkFkFjFkFjFnFjFnFnFkFkFnFjFkFkFnFjFbFnFnFjFbFnFbFkk FbFnFnFbFbFkj FjFkFjFjFnFkk FbFnFjFbFbO>>>h\u001b\nFbFjFkFnFbFnFnFbFkb FjFbFbFbFnFjFjFbFkj FjFjFnFbFkFbFnFnFjFnFnFbFkk FnFjFjFkFjFbFkb FbFjFnFnFnFkn FjFjFnFjFjFbFjFnFkj FnFkn FjFkFbFjFkFjFjFjFbFnFkFbFnFjFkFkFnFjFkFjFbFkj FnFbFbFkb FkFkFnFkj FbFnFjFjFjFkFnFnFbFnFjFnFnFnFnFkFnFbFkFkFbFbFjFbFnFjFnFnFkFkFjFnFnFnFjylb jy\u0017chaotic altar\ndbdb\u0017jackal corpse\n#offer\nj #pray\ny y bkj \u0017unaligned altar\ndd\u0017human corpse\n : ll \u0017magic fountain\nqy qy#terrain\nb\n\u001b>.#offer\n\u0018\u001b10s\u00163\nFnFnFkFkFnFkj FnFkn FbFnFkFnFkj FjFbFnFjFnFjFbFkj FjFkFbFnFbFjFnFbFkFjFbFjFjFjFkFbFkj FkFbFbFkFkFbFnFjFbFnFnFjFbFjFnFnFjFbFjFnFnFjFjFkFnFnFkFbFjFkFjFjFbFbFjFnFjFjFnFkj FnFbFjFbFbFnFjFkFnFnFnFkk FkFbFjFnFkj FkFnFk"
+  }
+ ]
+}

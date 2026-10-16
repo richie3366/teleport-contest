@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed amulet of life saving\nPg\u0017blessed Mjollnir\n wh\u0016?\n>w\u0006FhFh  FhFhFhFh_ \u001b,_o.,  :_oooo.,:\u0016?\nckhb\u0016?\n>w\u0006_oo.,p_oooooooo.,$_ooooo.,p_ooo,,\u0014,ss_ooooo,,p_oooooo.,pl   hl#chat\nlFl Fl Fl Fl  n Fl  Fl\u0016?\ncbn   y\u0016?\n>w\u0006_ooo._._ooo,_,,$_ooooooo,_.,#chat\n_ooo._.,:__._,#chat\n_{._,qd_ooooo._._oo,_.,:_ooooo,_.,pkhj#chat\nuub#chat\njuu#chat\n_oooooooo.,$__._,#chat\n_ooooooooo,_.,#chat\n_ooooooooo,_._o._,,\u0017amulet of flying\ndi_oooo.,:_oooo,_oo,_.,\u0017amulet of strangulation\ndj_oooooo,_,, #chat\n_ooooo._., #chat\n__._,#chat\n#pray\ny y  _oooo._o._., #chat\n_ooooooooo._., p\u0016?\nc juy\u0016?\n>w\u0006nln#chat\nljj#chat\n__._.#chat\n_{._.q_ooooo._oo._.,#chat\n_oooooooo._._ooo,_.,:_{,_,q_ooooooo._.,p_oooo._.,$_ooooooo._,,#chat\n_oooo._.,p_oooo._.,:lnn#chat\njnl#chat\n_oooooooo._,,#chat\n_ooooo,_o._.,p_{._,q_{._.q_oo,_.,p_ooo._,,:_ooooooooo,_,,p_oooooooo._._ooo._,,pjnl#chat\n_ooo,_.,p_oooo._._oo._.,\u0017cheap plastic imitation of the Amulet of Yendor\ndk_oooooo._.,#chat\n\u00167\njnu \u0016?\n>w\u0006_ooooooooo. Fn   n_.m.F"
+ },
+ "segments": [
+  {
+   "seed": 51050069,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed amulet of life saving\nPg\u0017blessed Mjollnir\n wh\u0016?\n>w\u0006FhFh  FhFhFhFh_ \u001b,_o.,  :_oooo.,:\u0016?\nckhb\u0016?\n>w\u0006_oo.,p_oooooooo.,$_ooooo.,p_ooo,,\u0014,ss_ooooo,,p_oooooo.,pl   hl#chat\nlFl Fl Fl Fl  n Fl  Fl\u0016?\ncbn   y\u0016?\n>w\u0006_ooo._._ooo,_,,$_ooooooo,_.,#chat\n_ooo._.,:__._,#chat\n_{._,qd_ooooo._._oo,_.,:_ooooo,_.,pkhj#chat\nuub#chat\njuu#chat\n_oooooooo.,$__._,#chat\n_ooooooooo,_.,#chat\n_ooooooooo,_._o._,,\u0017amulet of flying\ndi_oooo.,:_oooo,_oo,_.,\u0017amulet of strangulation\ndj_oooooo,_,, #chat\n_ooooo._., #chat\n__._,#chat\n#pray\ny y  _oooo._o._., #chat\n_ooooooooo._., p\u0016?\nc juy\u0016?\n>w\u0006nln#chat\nljj#chat\n__._.#chat\n_{._.q_ooooo._oo._.,#chat\n_oooooooo._._ooo,_.,:_{,_,q_ooooooo._.,p_oooo._.,$_ooooooo._,,#chat\n_oooo._.,p_oooo._.,:lnn#chat\njnl#chat\n_oooooooo._,,#chat\n_ooooo,_o._.,p_{._,q_{._.q_oo,_.,p_ooo._,,:_ooooooooo,_,,p_oooooooo._._ooo._,,pjnl#chat\n_ooo,_.,p_oooo._._oo._.,\u0017cheap plastic imitation of the Amulet of Yendor\ndk_oooooo._.,#chat\n\u00167\njnu \u0016?\n>w\u0006_ooooooooo. Fn   n_.m.F"
+  }
+ ]
+}

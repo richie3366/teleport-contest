@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " FkFk sefyly100sFbss#turn\n150s150sFjFjs150skjk\u0018\u001b50s100s150sjjlFh FhFjf bn100syny:50s50sFj20ss50s150sFjFjs_ \u001b,>150sFbss50s100s150s50sFb Fj20snyn50s100sFjFj._>.>100s150sFj..50s150s_>,>100s100sFbFjs50s50s150sFhFh.\\   \u000f\u001b20s150s150s\u000f\u001b100sFhFh20sef100s100s\u000f\u001b#ride\n.#monster\n100sFhFbFh50s50sFjss100sbnb50s\\   _>.>_>,>100s  ee KYLB_>.>#monster\n<HJNK_>.>N NNU_>.>JYNB_>.>Fys20sNBUU_>.>JULB_>.>wb s\u000f\u001bedi\u001bykl150s100sFys20si\u001b150sFh.s100s100s150s100sFh.s_>.>100s100s FyFys\u0018\u001b#loot\nbjl_>,>50s100si\u001b50s100s100see ed #pray\ny 100shku100sFh FyFyhbl50s50s\u0018\u001b#offer\ndb20sss#chat\nbtahnhlk#name\no\njbbh20s10s#rub\n#rub\n\u000f\u001b100sFh..100shlh100s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#"
+ },
+ "segments": [
+  {
+   "seed": 51050091,
+   "datetime": "20200312194446",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=fruit:durian\nOPTIONS=playmode:explore\n",
+   "moves": " FkFk sefyly100sFbss#turn\n150s150sFjFjs150skjk\u0018\u001b50s100s150sjjlFh FhFjf bn100syny:50s50sFj20ss50s150sFjFjs_ \u001b,>150sFbss50s100s150s50sFb Fj20snyn50s100sFjFj._>.>100s150sFj..50s150s_>,>100s100sFbFjs50s50s150sFhFh.\\   \u000f\u001b20s150s150s\u000f\u001b100sFhFh20sef100s100s\u000f\u001b#ride\n.#monster\n100sFhFbFh50s50sFjss100sbnb50s\\   _>.>_>,>100s  ee KYLB_>.>#monster\n<HJNK_>.>N NNU_>.>JYNB_>.>Fys20sNBUU_>.>JULB_>.>wb s\u000f\u001bedi\u001bykl150s100sFys20si\u001b150sFh.s100s100s150s100sFh.s_>.>100s100s FyFys\u0018\u001b#loot\nbjl_>,>50s100si\u001b50s100s100see ed #pray\ny 100shku100sFh FyFyhbl50s50s\u0018\u001b#offer\ndb20sss#chat\nbtahnhlk#name\no\njbbh20s10s#rub\n#rub\n\u000f\u001b100sFh..100shlh100s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#"
+  }
+ ]
+}

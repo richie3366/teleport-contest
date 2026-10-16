@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0007Angel\nn.m..20s .l .m.  nsj.m.\u0007Nazgul\nFbFy    nFb  Fk   nFk  n  n Fy  \u0007watchman\nsm.  n sm. .m. sl  n sy  n .m.  n sls\u0007kitten\n;y: \u001b@.20s  n 20s  n su     n\\ \u001612\n\u0007tame pony\n\u0007housecat\n\u0017food ration\n t$k   20s    n  h     n\u0017fortune cookie\ntah      n \u0017tin whistle\nh   ny   n  h  an  yy\u001by  y nny  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 51050065,
+   "datetime": "20020325031612",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007Angel\nn.m..20s .l .m.  nsj.m.\u0007Nazgul\nFbFy    nFb  Fk   nFk  n  n Fy  \u0007watchman\nsm.  n sm. .m. sl  n sy  n .m.  n sls\u0007kitten\n;y: \u001b@.20s  n 20s  n su     n\\ \u001612\n\u0007tame pony\n\u0007housecat\n\u0017food ration\n t$k   20s    n  h     n\u0017fortune cookie\ntah      n \u0017tin whistle\nh   ny   n  h  an  yy\u001by  y nny  \u0017"
+  }
+ ]
+}

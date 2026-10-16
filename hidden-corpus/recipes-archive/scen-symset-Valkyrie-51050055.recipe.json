@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0007horse\n\u0017carrot\ntbb \u0007tame housecat\n\u0017leash\nafu h\u001bh\u001bkb yafu j\u0017huge chunk of meat\ntbj 10sdd .m.  n  .ul skk \u0017lichen corpse\ntbl FkFlFlFkFlFkFkFlFlFkFlFlFlFkFkFlFlFlFkFlFkFlFlFlFkFlFlFlFlFkFlFlFlFlFkFlFlFkFkFlFkFkFkFlFlFkFkFkFkFlFkFkFkFlFkFlFkFlFlFkFkFkFlFkFkFlFlFkFkFlFlFlFkFlFlFlFkFlFlFlFkFlFkFlFlFlFlFkFlFlFkFlFlFlFkFlFkFkFlFkFkFlFkFlFkFlFkFlFlFlFkFlFlFlFkFkFkFkFlFl#dip\na\u0014 \u001bm, Z#turn\n\u0006_>>.Fh_,@.Fh>FhFh_>>,Fh_.:Fh>FhFh_>>.Fh_,@.Fh>FhFhFhFhFh\u0006_>.Fh_,>.Fh>FhFh_>.Fh_.@.Fu>FhFu_>,Fh_. Fu>FuFuFuFuFu\u0006_>>.Fh_.Fu>FhFu_>>.  nFu_,Fh>FhFh_>>,Fu_.Fh>FhFuFuFuFu#wipe\n:<\u0006_>,Fu"
+ },
+ "segments": [
+  {
+   "seed": 51050055,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"You miss\"\n",
+   "moves": "\u0007horse\n\u0017carrot\ntbb \u0007tame housecat\n\u0017leash\nafu h\u001bh\u001bkb yafu j\u0017huge chunk of meat\ntbj 10sdd .m.  n  .ul skk \u0017lichen corpse\ntbl FkFlFlFkFlFkFkFlFlFkFlFlFlFkFkFlFlFlFkFlFkFlFlFlFkFlFlFlFlFkFlFlFlFlFkFlFlFkFkFlFkFkFkFlFlFkFkFkFkFlFkFkFkFlFkFlFkFlFlFkFkFkFlFkFkFlFlFkFkFlFlFlFkFlFlFlFkFlFlFlFkFlFkFlFlFlFlFkFlFlFkFlFlFlFkFlFkFkFlFkFkFlFkFlFkFlFkFlFlFlFkFlFlFlFkFkFkFkFlFl#dip\na\u0014 \u001bm, Z#turn\n\u0006_>>.Fh_,@.Fh>FhFh_>>,Fh_.:Fh>FhFh_>>.Fh_,@.Fh>FhFhFhFhFh\u0006_>.Fh_,>.Fh>FhFh_>.Fh_.@.Fu>FhFu_>,Fh_. Fu>FuFuFuFuFu\u0006_>>.Fh_.Fu>FhFu_>>.  nFu_,Fh>FhFh_>>,Fu_.Fh>FhFuFuFuFu#wipe\n:<\u0006_>,Fu"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n30\n                     unll\u0017anti-magic field\nu^bb.sy\u0017teleportation trap\nhly \u001b<.20ssy\u0017spiked pit\nh^ll s20sl\u0017magic portal\nh^ll y\u001by  y y y\u001b s"
+ },
+ "segments": [
+  {
+   "seed": 51050089,
+   "datetime": "20091211183245",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:loot\nOPTIONS=runmode:run\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n30\n                     unll\u0017anti-magic field\nu^bb.sy\u0017teleportation trap\nhly \u001b<.20ssy\u0017spiked pit\nh^ll s20sl\u0017magic portal\nh^ll y\u001by  y y y\u001b s"
+  }
+ ]
+}

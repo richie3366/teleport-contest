@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed amulet of reflection\nPk\u0017blessed +3 gauntlets of power\nW\u001b\u0016?\n>w\u0006_ \u001b,#chat\nhFjFjFj FjFjFj_oo.,p_oooooooo.,\u0017diamond\ndmFnFnFn     nFnFnFn\u00167\nhjn\u0016?\n>w\u0006_oooooo,  Fn   _.,  \u0014,sk20s _{,Fl _,   nFn   n qd   \u001611\n_ooo.,#chat\nk_oooooo._oo.,:\u0016?\nc lub\u0016?\n>w\u0006_oo,  _,Fh,#chat\nu_{,  nFy_.qy _ooooo.    _,m,Fb_oo. _.,#chat\nh Fh Fh   nFh FhFhFh __.Fl _. Fl#chat\nn#pray\ny y _ooooooo. _._ooo._.,#chat\nb_ooooooooo, _,Fy,\u0017diamond\ndpFbFbFbFb    n Fb     nFb  \u00164\nFh   n Fh   n Fh   n Fh   n       nFh  Fh   n \u00161\n__.#chat\nu   n _ooooooooo. _., pFl     nFl    yy  F"
+ },
+ "segments": [
+  {
+   "seed": 51050077,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed amulet of reflection\nPk\u0017blessed +3 gauntlets of power\nW\u001b\u0016?\n>w\u0006_ \u001b,#chat\nhFjFjFj FjFjFj_oo.,p_oooooooo.,\u0017diamond\ndmFnFnFn     nFnFnFn\u00167\nhjn\u0016?\n>w\u0006_oooooo,  Fn   _.,  \u0014,sk20s _{,Fl _,   nFn   n qd   \u001611\n_ooo.,#chat\nk_oooooo._oo.,:\u0016?\nc lub\u0016?\n>w\u0006_oo,  _,Fh,#chat\nu_{,  nFy_.qy _ooooo.    _,m,Fb_oo. _.,#chat\nh Fh Fh   nFh FhFhFh __.Fl _. Fl#chat\nn#pray\ny y _ooooooo. _._ooo._.,#chat\nb_ooooooooo, _,Fy,\u0017diamond\ndpFbFbFbFb    n Fb     nFb  \u00164\nFh   n Fh   n Fh   n Fh   n       nFh  Fh   n \u00161\n__.#chat\nu   n _ooooooooo. _., pFl     nFl    yy  F"
+  }
+ ]
+}

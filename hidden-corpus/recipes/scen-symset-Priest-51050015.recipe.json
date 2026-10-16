@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b>.>FhFh_>.Fk_.Fk>FkFk_>.Fk_,Fk>FkFkFkFkFk<\u0006_>.Fk_.Fk>FkFk_>,Fk_.Fk>FkFk_>,Fk_.Fk>FkFkFkFkFk\u0006_>>.Fk_.Fk>FkFk_>>,Fk_,Fk>FkFk_>>,Fk_.Fk>FkFkFkFkFk#name\nf\niunbl\u0017altar\nda\u0017floating eye corpse\n#offer\nj  #pray\ny y : jb\u0017neutral altar\ndddi\u0017elf corpse\n #offer\nk yj\u0017cloud\nbj\u0017unaligned altar\ndfde\u0017newt corpse\n#offer\nl  #pray\ny : rh nn#ride\nky\u0004uO>>>n\u001b\u001b\n\u001610\n#wipe\n#name\nf\ni\u00162\n  #levelchange\n30\n                              jku\u0017unaligned altar\ndc\u0017jackal corpse\n#offer\nm  b\u0017tree\n#offer\nn#jump\n\u00167\n50s150sFl FlFlFlFlFu  FlFl .50s 100s100s kuj100s\u001b\\  100s\u001b100s\u001bknb50s\u001b50s#sit\n100s  FlFhFlFl ..100s\u001bi\u001b150s 50s  FlFu FlFu  .s  n FhFu Fh  _m.suhki\u001b_>,_.>ujb150s1"
+ },
+ "segments": [
+  {
+   "seed": 51050015,
+   "datetime": "20150220091429",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=runmode:crawl\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0006_ \u001b>.>FhFh_>.Fk_.Fk>FkFk_>.Fk_,Fk>FkFkFkFkFk<\u0006_>.Fk_.Fk>FkFk_>,Fk_.Fk>FkFk_>,Fk_.Fk>FkFkFkFkFk\u0006_>>.Fk_.Fk>FkFk_>>,Fk_,Fk>FkFk_>>,Fk_.Fk>FkFkFkFkFk#name\nf\niunbl\u0017altar\nda\u0017floating eye corpse\n#offer\nj  #pray\ny y : jb\u0017neutral altar\ndddi\u0017elf corpse\n #offer\nk yj\u0017cloud\nbj\u0017unaligned altar\ndfde\u0017newt corpse\n#offer\nl  #pray\ny : rh nn#ride\nky\u0004uO>>>n\u001b\u001b\n\u001610\n#wipe\n#name\nf\ni\u00162\n  #levelchange\n30\n                              jku\u0017unaligned altar\ndc\u0017jackal corpse\n#offer\nm  b\u0017tree\n#offer\nn#jump\n\u00167\n50s150sFl FlFlFlFlFu  FlFl .50s 100s100s kuj100s\u001b\\  100s\u001b100s\u001bknb50s\u001b50s#sit\n100s  FlFhFlFl ..100s\u001bi\u001b150s 50s  FlFu FlFu  .s  n FhFu Fh  _m.suhki\u001b_>,_.>ujb150s1"
+  }
+ ]
+}

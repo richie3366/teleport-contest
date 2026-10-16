@@ -1,0 +1,63 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "FnFnFn  Fn Fn FnFnFnJYHY_ \u001b;>#monster\nE- Elbereth Elbereth\n NY KN_>.>oj#force\nNBUN_>.>FhFjFhLYJL_>.>Fy 20s sNNYU_>,>L#quit\nyy\u001by  y y y\u001b  \u0017wand of digging\nze> sm.ze>   sm.ze> .ze> sze>   yny  y y ny  2FyFyFyFyFyFyFyFy nlhk#name\nd\ndf20s20ssulun#name\nf\n >.10slyhjjhlyt$b#quit\nyy\u001by  y y y\u001b n#wizintrinsic\nc\n 20ssm.s20s sm.20s     n 20s      .20s      ssss..sss20s.s.20s    20ssss.20s.s20s 20s..20ss20s20s20ss.20s ssFbFb FbFbFbFbFbFb150s20s150s_ \u001b<.>150s 100s 150snjl100s Fys._>.>uyj150slkn50sFhFh.\\   zck100sylj150sFkFks150s50sFhFhs_>,#quit\nyy\u001by  y y y\u001b yn  #quit\nyy  de20s20s .b#name\no\n20s   y\u001bny y\u001b  2",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51050034,
+   "datetime": "20141212012155",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\n",
+   "moves": "FnFnFn  Fn Fn FnFnFnJYHY_ \u001b;>#monster\nE- Elbereth Elbereth\n NY KN_>.>oj#force\nNBUN_>.>FhFjFhLYJL_>.>Fy 20s sNNYU_>,>L#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51150034,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of digging\nze> sm.ze>   sm.ze> .ze> sze>   yny  y y ny  2"
+  },
+  {
+   "seed": 51250034,
+   "datetime": "20221226235615",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\n",
+   "moves": "FyFyFyFyFyFyFyFy nlhk#name\nd\ndf20s20ssulun#name\nf\n >.10slyhjjhlyt$b#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51350034,
+   "datetime": "20230131213725",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "n#wizintrinsic\nc\n 20ssm.s20s sm.20s     n 20s      .20s      ssss..sss20s.s.20s    20ssss.20s.s20s 20s..20ss20s20s20ss.20s ss"
+  },
+  {
+   "seed": 51450034,
+   "datetime": "20040723075553",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=runmode:run\nOPTIONS=msg_window:reversed\n",
+   "moves": "FbFb FbFbFbFbFbFb150s20s150s_ \u001b<.>150s 100s 150snjl100s Fys._>.>uyj150slkn50sFhFh.\\   zck100sylj150sFkFks150s50sFhFhs_>,#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51550034,
+   "datetime": "20130316104759",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "yn  #quit\nyy"
+  },
+  {
+   "seed": 51650034,
+   "datetime": "20040705154744",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\n",
+   "moves": "  de20s20s .b#name\no\n20s   y\u001bny y\u001b  2"
+  }
+ ]
+}

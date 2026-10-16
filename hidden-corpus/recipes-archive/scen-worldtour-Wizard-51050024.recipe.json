@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0016?\n>>P  _ \u001b;>\u0016?\n>>Pyhnnn:\u0016?\nd _{.s20s\u0016?\np #chat\nj;m.ss20s\u0016?\n>>M       scroll of genocide\n couatl\nyy          : \u0016?\nb_{.\u00161\n\u0004j   .m.     nsu         \u0016?\n\u001bk        n    k    n  \u00167\n\u00164\n#levelchange\n14\n\u0017spellbook of turn undead\nrpy     n  sm.      n \u0017blessed spellbook of cone of cold\nrq      n 20s      n      \u0017spellbook of detect food\nrr   n      n .m.      n +\u001bZ\u001bZ\u001bZ\u001bZ\u001bZ\u001b\u0007acid blob\nZ\u001b#turn\nsm.       n sm.      n  \u00166\n\u0016?\n\u001bh k      n  \u00164\nn     n       n yk       nl     j:\u0016?\n\u001bbb\u001613\n\u0004n    n  \u0016?\n\u001bn    b   y\u001b     \u0016"
+ },
+ "segments": [
+  {
+   "seed": 51050024,
+   "datetime": "20111015050732",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0016?\n>>P  _ \u001b;>\u0016?\n>>Pyhnnn:\u0016?\nd _{.s20s\u0016?\np #chat\nj;m.ss20s\u0016?\n>>M       scroll of genocide\n couatl\nyy          : \u0016?\nb_{.\u00161\n\u0004j   .m.     nsu         \u0016?\n\u001bk        n    k    n  \u00167\n\u00164\n#levelchange\n14\n\u0017spellbook of turn undead\nrpy     n  sm.      n \u0017blessed spellbook of cone of cold\nrq      n 20s      n      \u0017spellbook of detect food\nrr   n      n .m.      n +\u001bZ\u001bZ\u001bZ\u001bZ\u001bZ\u001b\u0007acid blob\nZ\u001b#turn\nsm.       n sm.      n  \u00166\n\u0016?\n\u001bh k      n  \u00164\nn     n       n yk       nl     j:\u0016?\n\u001bbb\u001613\n\u0004n    n  \u0016?\n\u001bn    b   y\u001b     \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#pray\ny y #force\nde#wipe\n150s   Fk ssuun100s150sJFbFnFbFjFkFkFbFnFbFjFjFbFnFbFjFnFbFjFjFbFnFjFnFjFjFjFbFjFjFbFnFjFbFnFnFjFjFnFjFjFnFnFjFbFnFnFnFjFbFjFbFbFnFnFjFbFnFnFjFnFbFjFnFbFjFjFjFnFjFnFjFjFnFbFbFbFnFjFbFbFnFnFbFbFnFbFbFjFjFbFbFjFn FbFjFnFjFnFjFbFnFb_<, \u001b;sE- ad aerarium\nmO>>r\u001b\n\u0006_>>,Fb_.> FjFbFb\u0006_>,Fn_,Fu>FyFy_>,Fn_.Fk>FkFy_>,Fk_,Fu>FyFyFhFuFn\u0006_>.Fn_,Fu>FuFk_>,Fk_,Fn>FuFy_>.Fk_.Fy>FuFyFyFyFns20s\u0006_>.Fu_,Fk>FnFn_>,Fy_,Fk>FkFy_>.Fy_.Fy>FyFnFnFkFy\u000f\u001b\u0007tame housecat\n\u0017magic whistle\nnbnaf l\u0017banana\ntcj20s\u0017food ration\ntbnn10s\u0006_>.Fy_,Fy>FuFy_>.Fu_.Fj >FhFy_>,Fu_.Fj>FuFu#dip\ngr\u001bv i\u001bO>>>>c\u001b\nmOa\u001b\nv i\u001b\u001618\n\u0006_>. Fl     n_.>.Fn>Fj    nFb_>.Fb_,Fy>FbFb_>.Fb_,Fb>FyFyFbFbFy<\u0006_>.Fb_.Fb>FbFl_>.Fy_.Fy>FlFy_>,Fy_.    nFb     n>Fl     nFb     nFbFy     nFb\u0006_>.Fb     n_.Fb>Fb "
+ },
+ "segments": [
+  {
+   "seed": 51050087,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#pray\ny y #force\nde#wipe\n150s   Fk ssuun100s150sJFbFnFbFjFkFkFbFnFbFjFjFbFnFbFjFnFbFjFjFbFnFjFnFjFjFjFbFjFjFbFnFjFbFnFnFjFjFnFjFjFnFnFjFbFnFnFnFjFbFjFbFbFnFnFjFbFnFnFjFnFbFjFnFbFjFjFjFnFjFnFjFjFnFbFbFbFnFjFbFbFnFnFbFbFnFbFbFjFjFbFbFjFn FbFjFnFjFnFjFbFnFb_<, \u001b;sE- ad aerarium\nmO>>r\u001b\n\u0006_>>,Fb_.> FjFbFb\u0006_>,Fn_,Fu>FyFy_>,Fn_.Fk>FkFy_>,Fk_,Fu>FyFyFhFuFn\u0006_>.Fn_,Fu>FuFk_>,Fk_,Fn>FuFy_>.Fk_.Fy>FuFyFyFyFns20s\u0006_>.Fu_,Fk>FnFn_>,Fy_,Fk>FkFy_>.Fy_.Fy>FyFnFnFkFy\u000f\u001b\u0007tame housecat\n\u0017magic whistle\nnbnaf l\u0017banana\ntcj20s\u0017food ration\ntbnn10s\u0006_>.Fy_,Fy>FuFy_>.Fu_.Fj >FhFy_>,Fu_.Fj>FuFu#dip\ngr\u001bv i\u001bO>>>>c\u001b\nmOa\u001b\nv i\u001b\u001618\n\u0006_>. Fl     n_.>.Fn>Fj    nFb_>.Fb_,Fy>FbFb_>.Fb_,Fb>FyFyFbFbFy<\u0006_>.Fb_.Fb>FbFl_>.Fy_.Fy>FlFy_>,Fy_.    nFb     n>Fl     nFb     nFbFy     nFb\u0006_>.Fb     n_.Fb>Fb "
+  }
+ ]
+}

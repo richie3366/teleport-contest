@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017cursed Trollsbane\n \u0007Keystone Kop\nwi Fl  Fl20s   #invoke\niX\u0017uncursed +0 ring of teleportation\nPjls.s\u0017blessed tsurugi\nwksss\u0017uncursed spellbook of knock\nrl.sZ\u001bZ\u001b\u0017blessed scroll of teleportation\nrm  \u001b;s.\u000f\u001b#levelchange\n14\n  \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqn:_ddd,  Fl  _.\u0004k_oooooooo.Fl  _.Fl _ooo.       Fl_.<.Fl       ,#chat\nl _mmmm.Fl            _.     #chat\nj__,Fl   n_. Fl#chat\nlde_{.Fl_. Fl q#dip\ne_ooooo.Fl _,  Fl  ,\u001bprl y     f ay b \\    \u0017locked chest\n\u0017locked large box\n\u0017blessed bag of holding\n\u0017ring of polymorph\n\u0017wand of sleep\n\u0017wand of cancellation\n#tip\ny\u001bdq     #loot\n\u001b,\u001bap#tip\n\u001bap\u0007acid blob\n.m.sm.sm.  n .m. sns.m.sl sm.    \u0007Demogorgon\nyy   n  #chat\nhFh Fb  \u00163\n\u0007housecat\n\u0017newt corpse\ntkh   \u0007tame little dog\ny  \u0017leash\navh       nb   bb b    avu        #chat\nl       ds         n .m. 20s     .sy  \u0017tin whistle\nh hyaw\u00161\n\u00163\n\u0016?\n>BbFnnyl  Fb Fb Fb   n FbFb lFb  Fb  lFb h\u0017wand of digging\nzxk  l n    nFnFb  Fb Fb  Fb Fb  lh n\u0017wand of striking\nzyu Fh y   n\u0017scroll of earth\nrz    j Fj   l hl Fb n10s Fb Fn   n jh\u0017wand of digging\nzAn Fl knFjFj 10s nnb10s  Fj  Fl Fj   nl\u0017wand of striking\nzBl   \u0018\u001b\u00167\n#levelchange\n12\n\u0007djinni\nFlFl \u0007grid bug\nsm.   m,.y    n sm. 20"
+ },
+ "segments": [
+  {
+   "seed": 51050001,
+   "datetime": "20040412021431",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017cursed Trollsbane\n \u0007Keystone Kop\nwi Fl  Fl20s   #invoke\niX\u0017uncursed +0 ring of teleportation\nPjls.s\u0017blessed tsurugi\nwksss\u0017uncursed spellbook of knock\nrl.sZ\u001bZ\u001b\u0017blessed scroll of teleportation\nrm  \u001b;s.\u000f\u001b#levelchange\n14\n  \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqn:_ddd,  Fl  _.\u0004k_oooooooo.Fl  _.Fl _ooo.       Fl_.<.Fl       ,#chat\nl _mmmm.Fl            _.     #chat\nj__,Fl   n_. Fl#chat\nlde_{.Fl_. Fl q#dip\ne_ooooo.Fl _,  Fl  ,\u001bprl y     f ay b \\    \u0017locked chest\n\u0017locked large box\n\u0017blessed bag of holding\n\u0017ring of polymorph\n\u0017wand of sleep\n\u0017wand of cancellation\n#tip\ny\u001bdq     #loot\n\u001b,\u001bap#tip\n\u001bap\u0007acid blob\n.m.sm.sm.  n .m. sns.m.sl sm.    \u0007Demogorgon\nyy   n  #chat\nhFh Fb  \u00163\n\u0007housecat\n\u0017newt corpse\ntkh   \u0007tame little dog\ny  \u0017leash\navh       nb   bb b    avu        #chat\nl       ds         n .m. 20s     .sy  \u0017tin whistle\nh hyaw\u00161\n\u00163\n\u0016?\n>BbFnnyl  Fb Fb Fb   n FbFb lFb  Fb  lFb h\u0017wand of digging\nzxk  l n    nFnFb  Fb Fb  Fb Fb  lh n\u0017wand of striking\nzyu Fh y   n\u0017scroll of earth\nrz    j Fj   l hl Fb n10s Fb Fn   n jh\u0017wand of digging\nzAn Fl knFjFj 10s nnb10s  Fj  Fl Fj   nl\u0017wand of striking\nzBl   \u0018\u001b\u00167\n#levelchange\n12\n\u0007djinni\nFlFl \u0007grid bug\nsm.   m,.y    n sm. 20"
+  }
+ ]
+}

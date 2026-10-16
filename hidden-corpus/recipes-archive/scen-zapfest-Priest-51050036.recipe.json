@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWl\u0017blessed shield of reflection\nW\u001b#levelchange\n10\n         \u0017blessed spellbook of cone of cold\nrn .\u0007kobold shaman\n\u0007succubus\nZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bsm.sm.\u00176 eggs\nQ\u001b\u0007yellow mold\nf \u001bf \u001bf \u001bt\u001bf \u001bf \u001bi\u001b\u0017wand of lightning\n\u0017wand of digging\n\u0007giant rat\nzpn     y      .m.zq>   zq>   zpl  shzq>  zq>  \u00169\n\u0017blessed spellbook of cause fear\nrr .\u0007gnomish wizard\nZd\nZb\n 20s  20s   nZb\nZb\n Zb\n20s.m.Zd\nZa\n n \u001611\n\u0007baby red dragon\n20s sm.#polyself\nred dragon\n #monster\nl     20s   su#monster\nj     #monster\nj     #monster\nj   #monster\nb   Fj  Fj \u0017yumi\nw\u001720 ya\nQ\u001b\u0007soldier\n\u0007grid bug\nftfffff\u0017potion of fruit juice\nt\u0007vampire\n\u0007aligned cleric\nn\u0017wand of cold\nz\u0017wand of cancellation\n\u0017wand of death\n\u0007troll\n\u0007acid blob\n\u0007grid bug\nzzzzzsm.zzz\u0017wand of digging\n\u0017wand of teleportation\n\u0007troll\nzsm.     zy>   n sm.  zzn   n .m. zy>     zy>   n zzkzzuzy> \u00167\n\u0017sling\nwA\u001720 flint stones\n QB\u0007grid bug\n\u0007gnome lord\ntByfh fy tBy tBh fy fh  \u0018\u001b\u0017blessed spellbook of cause fear\nrC y sm.\u0017blessed spellbook of finger of death\nrD   n sb\u0007incubus\n\u0007master lich\nZb\nZc\n.b20s         Za\nZc\nZa\nZa\n   n 20s sm.   Zb\nsy    20s  #turn\n      n     i\u001b\u00166\n\u0017wand of striking\n\u0017wand of sleep\n"
+ },
+ "segments": [
+  {
+   "seed": 51050036,
+   "datetime": "20150625015249",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWl\u0017blessed shield of reflection\nW\u001b#levelchange\n10\n         \u0017blessed spellbook of cone of cold\nrn .\u0007kobold shaman\n\u0007succubus\nZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bsm.sm.\u00176 eggs\nQ\u001b\u0007yellow mold\nf \u001bf \u001bf \u001bt\u001bf \u001bf \u001bi\u001b\u0017wand of lightning\n\u0017wand of digging\n\u0007giant rat\nzpn     y      .m.zq>   zq>   zpl  shzq>  zq>  \u00169\n\u0017blessed spellbook of cause fear\nrr .\u0007gnomish wizard\nZd\nZb\n 20s  20s   nZb\nZb\n Zb\n20s.m.Zd\nZa\n n \u001611\n\u0007baby red dragon\n20s sm.#polyself\nred dragon\n #monster\nl     20s   su#monster\nj     #monster\nj     #monster\nj   #monster\nb   Fj  Fj \u0017yumi\nw\u001720 ya\nQ\u001b\u0007soldier\n\u0007grid bug\nftfffff\u0017potion of fruit juice\nt\u0007vampire\n\u0007aligned cleric\nn\u0017wand of cold\nz\u0017wand of cancellation\n\u0017wand of death\n\u0007troll\n\u0007acid blob\n\u0007grid bug\nzzzzzsm.zzz\u0017wand of digging\n\u0017wand of teleportation\n\u0007troll\nzsm.     zy>   n sm.  zzn   n .m. zy>     zy>   n zzkzzuzy> \u00167\n\u0017sling\nwA\u001720 flint stones\n QB\u0007grid bug\n\u0007gnome lord\ntByfh fy tBy tBh fy fh  \u0018\u001b\u0017blessed spellbook of cause fear\nrC y sm.\u0017blessed spellbook of finger of death\nrD   n sb\u0007incubus\n\u0007master lich\nZb\nZc\n.b20s         Za\nZc\nZa\nZa\n   n 20s sm.   Zb\nsy    20s  #turn\n      n     i\u001b\u00166\n\u0017wand of striking\n\u0017wand of sleep\n"
+  }
+ ]
+}

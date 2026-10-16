@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed spellbook of jumping\nro s\u0017spellbook of extra healing\nrpy \u001b>..\u0017blessed spellbook of sleep\nrq s+\u001b\u0007zombie\nZd\nFh\u0007jackal\nZd\nZd\nZd\n#enhance\nyh\nn\n\u001b\u0017spellbook of cure blindness\nrry >.  .y\u0017spellbook of clairvoyance\nrsy  s\u0017spellbook of cone of cold\nrty s+b\n\u0007lichen\nZd\nZb\nFk Zc\n20s\u0007ZZZ#turn\n.#pray\ny y #enhance\nyf\nm\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 51051009,
+   "datetime": "20180821054414",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed spellbook of jumping\nro s\u0017spellbook of extra healing\nrpy \u001b>..\u0017blessed spellbook of sleep\nrq s+\u001b\u0007zombie\nZd\nFh\u0007jackal\nZd\nZd\nZd\n#enhance\nyh\nn\n\u001b\u0017spellbook of cure blindness\nrry >.  .y\u0017spellbook of clairvoyance\nrsy  s\u0017spellbook of cone of cold\nrty s+b\n\u0007lichen\nZd\nZb\nFk Zc\n20s\u0007ZZZ#turn\n.#pray\ny y #enhance\nyf\nm\n\u001b"
+  }
+ ]
+}

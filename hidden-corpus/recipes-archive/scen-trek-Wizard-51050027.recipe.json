@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Fu 20s.150s _ \u001bm.>\\  ujk50s_>.>100s 100sPdl_>.>_>.>50sjyl_>,>100si\u001b100seeeeeeeeeeeeeeeeeeeeeeLUHU_>,>zck_m,s<HBUK_>.>UNHH_>.>KYYH_>.>KLUY_>.>,j #name\no\n10s10sdf.s.#name\nm\n20s#name\nf\n#name\n._>,s#jump\n#offer\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNJUL_>.>NLNJ_>.>#chat\nn#name\nd\nLLJB_>.><NLUU_>.>\u000f\u001b#enhance\n\u001b\u0014#conduct\n UBHN_>.>>clNHKL  _>,>#loot\nf \u001bBJLN_>,>JJBN_>,>#tip\n\u001bW\u001b<BBHY_>.>:_<.sBUKJ_>,>;.#invoke\n\u001b\\  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYBJJ_>,>BBUU_>.>#enhance\n\u001b,YUHN_>.>#loot\n#dip\neK N L H _ > < U N J N _ > Y L B K _ > #twoweapon\n#terrain\n< U L U H _ > U J K Y _ > N B U K _ > U U J Y _ > #sit\nf #pray\n#pray\ne #pray\ny #"
+ },
+ "segments": [
+  {
+   "seed": 51050027,
+   "datetime": "20250308204328",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "Fu 20s.150s _ \u001bm.>\\  ujk50s_>.>100s 100sPdl_>.>_>.>50sjyl_>,>100si\u001b100seeeeeeeeeeeeeeeeeeeeeeLUHU_>,>zck_m,s<HBUK_>.>UNHH_>.>KYYH_>.>KLUY_>.>,j #name\no\n10s10sdf.s.#name\nm\n20s#name\nf\n#name\n._>,s#jump\n#offer\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNJUL_>.>NLNJ_>.>#chat\nn#name\nd\nLLJB_>.><NLUU_>.>\u000f\u001b#enhance\n\u001b\u0014#conduct\n UBHN_>.>>clNHKL  _>,>#loot\nf \u001bBJLN_>,>JJBN_>,>#tip\n\u001bW\u001b<BBHY_>.>:_<.sBUKJ_>,>;.#invoke\n\u001b\\  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYBJJ_>,>BBUU_>.>#enhance\n\u001b,YUHN_>.>#loot\n#dip\neK N L H _ > < U N J N _ > Y L B K _ > #twoweapon\n#terrain\n< U L U H _ > U J K Y _ > N B U K _ > U U J Y _ > #sit\nf #pray\n#pray\ne #pray\ny #"
+  }
+ ]
+}

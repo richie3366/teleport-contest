@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "L  BHL_ \u001b>.>FlFbFjBBBB_>.>Fl20sFlNBUY_>.>FjFb sUNLB_>.>\u0014#rub\ng\u001b\u000f\u001b#name\ni\nhhyb10slu20s10st\u001b#chat\nkt\u001b10sbk20sbuljt\u001b#chat\nhk#jump\n#tip\nh\u001bYKYK_>.>Fb  nFbsKLJH_>,>fhr\u001bKUNK_>.>YJJU_>,><NHJK_>,>NHKN_>.>#twoweapon\nqKUBJ_>,>t\u001b10shu#name\nd\n10s#chat\nk20s20sll20sbylhll100sjub100sFlssi\u001b\u0018\u001b100s<\u000f\u001bi\u001b100s_>,>100sE- ad aerarium\nFlFlFlkhl#invoke\n\u001blhlhhlbhhWulj150s100shhl100s\\ lhu50sed Fls20s50s150s edhlb#jump\nlkj100s150s50st\u001bunul#name\ni\nt\u001bkjh_>,>100sFuFu20s100slhh100shbu50s50s100s50sed150si\u001b150s100sFlFlFlFlFl.100s100s_>.>KljyFl Fl Fl Fls.50s\\ hhb\u0018\u001blhlFh.20s\u0018\u001b150s50sFlFlFl100s\\ 150s\u000f\u001bULBK_>,>Fnssck#force\nNHHB_>,>YLBH_>,><NLBY_>.>#wipe\n,NBLB_>,>#chat\nu#chat\nn10sulhhjulhNHJK_>.>YYJH_>.><BLJH_>.>JKNH_>.>UKKK_>,>#turn\n#en"
+ },
+ "segments": [
+  {
+   "seed": 51050051,
+   "datetime": "20190203005729",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:explore\n",
+   "moves": "L  BHL_ \u001b>.>FlFbFjBBBB_>.>Fl20sFlNBUY_>.>FjFb sUNLB_>.>\u0014#rub\ng\u001b\u000f\u001b#name\ni\nhhyb10slu20s10st\u001b#chat\nkt\u001b10sbk20sbuljt\u001b#chat\nhk#jump\n#tip\nh\u001bYKYK_>.>Fb  nFbsKLJH_>,>fhr\u001bKUNK_>.>YJJU_>,><NHJK_>,>NHKN_>.>#twoweapon\nqKUBJ_>,>t\u001b10shu#name\nd\n10s#chat\nk20s20sll20sbylhll100sjub100sFlssi\u001b\u0018\u001b100s<\u000f\u001bi\u001b100s_>,>100sE- ad aerarium\nFlFlFlkhl#invoke\n\u001blhlhhlbhhWulj150s100shhl100s\\ lhu50sed Fls20s50s150s edhlb#jump\nlkj100s150s50st\u001bunul#name\ni\nt\u001bkjh_>,>100sFuFu20s100slhh100shbu50s50s100s50sed150si\u001b150s100sFlFlFlFlFl.100s100s_>.>KljyFl Fl Fl Fls.50s\\ hhb\u0018\u001blhlFh.20s\u0018\u001b150s50sFlFlFl100s\\ 150s\u000f\u001bULBK_>,>Fnssck#force\nNHHB_>,>YLBH_>,><NLBY_>.>#wipe\n,NBLB_>,>#chat\nu#chat\nn10sulhhjulhNHJK_>.>YYJH_>.><BLJH_>.>JKNH_>.>UKKK_>,>#turn\n#en"
+  }
+ ]
+}

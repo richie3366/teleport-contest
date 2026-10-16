@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0007black light\nsFb.20ss.\u0007vampire bat\nsm..u 20s .m.   yy\u001bnnnnn  s"
+ },
+ "segments": [
+  {
+   "seed": 51052001,
+   "datetime": "20090929171538",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007black light\nsFb.20ss.\u0007vampire bat\nsm..u 20s .m.   yy\u001bnnnnn  s"
+  }
+ ]
+}

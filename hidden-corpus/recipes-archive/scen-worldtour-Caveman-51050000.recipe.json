@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 cloak of magic resistance\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u001622\n\u0017scroll of light\nrh\u00173 luckstone\n\u0007ogre king\ntbh\u0017cursed -1 javelin\nwj Fh  Fh Fh \u00173 expensive camera\nakh \u0017blessed +3 tsurugi\nwlFhFh Fj FjFj\u0017blessed tooled horn\namy amy20ss.s\u0016?\njnkbnl:\u0016?\n>y   ujlkjyh:\u001628\nlyjn:\u0016?\n>v _ \u001b>.\u001628\nnubk:\u001622\njnbjk:20ss\u0016?\nm#levelchange\n12\n  \u0017Frost Brand\nwnsss#invoke\nn>.       n \u0007mumak\n.m.sm..ks20s\u0007wumpus\nsm.sk.m.sm.sm.  n sn\u0007Kop Kaptain\nsm.sm.sm.  n  20s sm.ss20s .h \u0007werewolf\n#chat\nyFh  Fj   n \u00161\n\u0016?\n>Ejul:20s n .m.\u0016?\n>>K      amulet of ESP\n__.>sm..n .m.    \u0016?\n\u001bk    b \u0016?\n\u001bj     \u001b     nh   \u001b      \u001628\n\u0004k         n sm.          n  sy         n    .u      n        \u00168\n\u001622\n\u0006m._<,\u0016?\n\u001bn        nb              \u0016?\n\u001bk  y         n     \u001622\nn           y bu          n    \u0017trap door\nl    \u0017arrow trap\nk             n     l      n  \u0017pit\n#terrain\n\u001b#untrap\nu#turn\n#jump\n\u00165\nu        n    yy\u001by   nny\u001b  u"
+ },
+ "segments": [
+  {
+   "seed": 51050000,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 cloak of magic resistance\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u001622\n\u0017scroll of light\nrh\u00173 luckstone\n\u0007ogre king\ntbh\u0017cursed -1 javelin\nwj Fh  Fh Fh \u00173 expensive camera\nakh \u0017blessed +3 tsurugi\nwlFhFh Fj FjFj\u0017blessed tooled horn\namy amy20ss.s\u0016?\njnkbnl:\u0016?\n>y   ujlkjyh:\u001628\nlyjn:\u0016?\n>v _ \u001b>.\u001628\nnubk:\u001622\njnbjk:20ss\u0016?\nm#levelchange\n12\n  \u0017Frost Brand\nwnsss#invoke\nn>.       n \u0007mumak\n.m.sm..ks20s\u0007wumpus\nsm.sk.m.sm.sm.  n sn\u0007Kop Kaptain\nsm.sm.sm.  n  20s sm.ss20s .h \u0007werewolf\n#chat\nyFh  Fj   n \u00161\n\u0016?\n>Ejul:20s n .m.\u0016?\n>>K      amulet of ESP\n__.>sm..n .m.    \u0016?\n\u001bk    b \u0016?\n\u001bj     \u001b     nh   \u001b      \u001628\n\u0004k         n sm.          n  sy         n    .u      n        \u00168\n\u001622\n\u0006m._<,\u0016?\n\u001bn        nb              \u0016?\n\u001bk  y         n     \u001622\nn           y bu          n    \u0017trap door\nl    \u0017arrow trap\nk             n     l      n  \u0017pit\n#terrain\n\u001b#untrap\nu#turn\n#jump\n\u00165\nu        n    yy\u001by   nny\u001b  u"
+  }
+ ]
+}

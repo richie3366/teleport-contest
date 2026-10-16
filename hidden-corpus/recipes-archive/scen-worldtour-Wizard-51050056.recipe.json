@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u0017blessed +3 gray dragon scale mail\nW\u001b\u001629\n   hhu:.\u0016?\n>>N       scroll of stinking cloud\n#levelchange\n6\n        bl   u\u0017unaligned altar\ndr   n   n \u0017human corpse\n #pray\ny   n  b  nh    n \u0017tree\nb \u0004u    n   \u0004 y\u0017fountain\nqy      n qy#dip\ndy  n:n\u0017throne\n#sit\n   n    n #sit\n #sit\n     n #sit\n \u0018,#monster\n y    nsjss\u001612\n\u001629\nny     n   n l  n   yy\u001by   ny\u001b  k"
+ },
+ "segments": [
+  {
+   "seed": 51050056,
+   "datetime": "20020310232214",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u0017blessed +3 gray dragon scale mail\nW\u001b\u001629\n   hhu:.\u0016?\n>>N       scroll of stinking cloud\n#levelchange\n6\n        bl   u\u0017unaligned altar\ndr   n   n \u0017human corpse\n #pray\ny   n  b  nh    n \u0017tree\nb \u0004u    n   \u0004 y\u0017fountain\nqy      n qy#dip\ndy  n:n\u0017throne\n#sit\n   n    n #sit\n #sit\n     n #sit\n \u0018,#monster\n y    nsjss\u001612\n\u001629\nny     n   n l  n   yy\u001by   ny\u001b  k"
+  }
+ ]
+}

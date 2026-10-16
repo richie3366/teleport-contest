@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nb\n .jsns20s 20s  sm.  nsss.20s20s20ss20s20s...sss20ssss.ss20s 20ss20s  sssss20ss"
+ },
+ "segments": [
+  {
+   "seed": 51052010,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nb\n .jsns20s 20s  sm.  nsss.20s20s20ss20s20s...sss20ssss.ss20s 20ss20s  sssss20ss"
+  }
+ ]
+}

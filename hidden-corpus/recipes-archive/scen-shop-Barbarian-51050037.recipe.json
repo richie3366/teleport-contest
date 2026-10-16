@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWe\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0016?\n>w\u0006Fj FjFjFjFjFj_ \u001b._ooo.,p_ooooo.,\u0014m,..juj#chat\ny  \u00167\nhnl\u0016?\n>w\u0006_{,_,q_ooo.,:lkb#chat\ny__._,#chat\nn_ooooo._ooo,,#chat\nj_oooooo._o,,:_ooooooo,,$_oo._o.,#chat\ny_oo.,p_oo._oo.,pklh#chat\nj_oooooooo,_ooo.,pnyn#chat\ny_ooooooooo._o,,:__._,#chat\nu_ooooo.,p_oooo.,p_{._,q_ooooooooo.,#chat\ny_{,_. qujy#chat\nu_ooooooo.,\u0017amulet of magical breathing\ndg$_oooo,,#chat\nl\u00167\nkjy\u0016?\n>w\u0006__._.Fh#chat\nj_{.Fk_, Fl q_ooooooooo.Fl _.Fl_ooo.Fl_. Fl  ,p_ooooooooo.Fl_.  Fl,p_ooooooo,Fl _,Fk ,p_ooooooo, Fn   _.Fj_oo,Fb   _.m,\u001b,a\npFbFbFbFbFbFbb lu#chat\nl_ooo.  nFk_,Fu,a\npu  kn#chat\nk_oooooooo._,,a\np_ooo.Fh_.Fk  n ,p_ooooooo,_,,a\n\u0017gray stone\ndlb_ooo._.,\u0017cheap plastic imitation of the Amulet of Yendor\ndmck_{,Fh _.@.Fb  nqy__. _.  n #chat\ny#pray\ny y  __._.  n#chat\nnhuj#chat\nu"
+ },
+ "segments": [
+  {
+   "seed": 51050037,
+   "datetime": "20181130124654",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWe\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0016?\n>w\u0006Fj FjFjFjFjFj_ \u001b._ooo.,p_ooooo.,\u0014m,..juj#chat\ny  \u00167\nhnl\u0016?\n>w\u0006_{,_,q_ooo.,:lkb#chat\ny__._,#chat\nn_ooooo._ooo,,#chat\nj_oooooo._o,,:_ooooooo,,$_oo._o.,#chat\ny_oo.,p_oo._oo.,pklh#chat\nj_oooooooo,_ooo.,pnyn#chat\ny_ooooooooo._o,,:__._,#chat\nu_ooooo.,p_oooo.,p_{._,q_ooooooooo.,#chat\ny_{,_. qujy#chat\nu_ooooooo.,\u0017amulet of magical breathing\ndg$_oooo,,#chat\nl\u00167\nkjy\u0016?\n>w\u0006__._.Fh#chat\nj_{.Fk_, Fl q_ooooooooo.Fl _.Fl_ooo.Fl_. Fl  ,p_ooooooooo.Fl_.  Fl,p_ooooooo,Fl _,Fk ,p_ooooooo, Fn   _.Fj_oo,Fb   _.m,\u001b,a\npFbFbFbFbFbFbb lu#chat\nl_ooo.  nFk_,Fu,a\npu  kn#chat\nk_oooooooo._,,a\np_ooo.Fh_.Fk  n ,p_ooooooo,_,,a\n\u0017gray stone\ndlb_ooo._.,\u0017cheap plastic imitation of the Amulet of Yendor\ndmck_{,Fh _.@.Fb  nqy__. _.  n #chat\ny#pray\ny y  __._.  n#chat\nnhuj#chat\nu"
+  }
+ ]
+}

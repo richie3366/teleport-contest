@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "Oi\u001b\u001b\n\u0007kitten\n\u0017carrot\nt$u\u0017leash\namuk  n yyhaml#chat\nl#name\no\n\u0007grid bug\n\u0017scroll of taming\nrn \u0007newt\nsj.m.20s su .ls\u0017leash\nao.jkhbaoji\u001b#monster\n\u0007large dog\n\u0017meatball\nt\u001b\u0007tame wolf\n\u0017tin whistle\nuu  nbaq10s   n \u0017apple\n t\u001b\u0006_ \u001b.>Fl Fl  n_>. Fl    n_..Fj>FjFj  n _>.  nFj_.Fj  n>Fj20s\u0006_>>._.Fj>_>>,_.Fj>Fj s_>>._.>10s\u001611\n#pray\ny y     #conduct\n #force\n  O>>d\u001b\nu  nyb  \u0017iron bars\nynnnu \u0017melting ice\nl h  nh  hn\u0017lawful altar\ndj    n  dg    n\u0017dwarf corpse\n#offer\nr    #pray\ny y               j  n  n\u0017neutral altar\ndb\u0017dwarf corpse\n#offer\ns  #pray\ny y    :  #terrain\n\u001b20s  n #chat\ny#sit\n    n Ob\u001b\u001b\n#invoke\n\u001bchZ\u001b#wipe\nOp\u001b\n\u0007tame dingo\n\u0006_>,  yy\u001by  ny nn  F"
+ },
+ "segments": [
+  {
+   "seed": 51050031,
+   "datetime": "20020103120747",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"You miss\"\nMENUCOLOR=\"cursed\"=brown\nBIND=v:inventory\n",
+   "moves": "Oi\u001b\u001b\n\u0007kitten\n\u0017carrot\nt$u\u0017leash\namuk  n yyhaml#chat\nl#name\no\n\u0007grid bug\n\u0017scroll of taming\nrn \u0007newt\nsj.m.20s su .ls\u0017leash\nao.jkhbaoji\u001b#monster\n\u0007large dog\n\u0017meatball\nt\u001b\u0007tame wolf\n\u0017tin whistle\nuu  nbaq10s   n \u0017apple\n t\u001b\u0006_ \u001b.>Fl Fl  n_>. Fl    n_..Fj>FjFj  n _>.  nFj_.Fj  n>Fj20s\u0006_>>._.Fj>_>>,_.Fj>Fj s_>>._.>10s\u001611\n#pray\ny y     #conduct\n #force\n  O>>d\u001b\nu  nyb  \u0017iron bars\nynnnu \u0017melting ice\nl h  nh  hn\u0017lawful altar\ndj    n  dg    n\u0017dwarf corpse\n#offer\nr    #pray\ny y               j  n  n\u0017neutral altar\ndb\u0017dwarf corpse\n#offer\ns  #pray\ny y    :  #terrain\n\u001b20s  n #chat\ny#sit\n    n Ob\u001b\u001b\n#invoke\n\u001bchZ\u001b#wipe\nOp\u001b\n\u0007tame dingo\n\u0006_>,  yy\u001by  ny nn  F"
+  }
+ ]
+}
