@@ -1,7 +1,7 @@
 {
- "commit": "28130c7ea",
- "at": "2026-10-16T00:20:57.304Z",
- "full": true,
+ "commit": "d90b28f89",
+ "at": "2026-10-16T00:54:45.168Z",
+ "full": false,
  "fullCommit": "28130c7ea",
  "fullAt": "2026-10-16T00:20:57.304Z",
  "entries": 1157,
@@ -2728,6 +2728,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-options-Archeologist-50457000": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 4251,
+   "rngT": 4251,
+   "scrM": 204,
+   "scrT": 205,
+   "kind": "screen",
+   "step": 133,
+   "steps": 205,
+   "owner": "getobj",
+   "loc": "invent.c:1919",
+   "jsOwner": null,
+   "cTopline": "What do you want to drop?",
+   "jsTopline": "What do you want to drop? [a-i or ?*]",
+   "error": null
+  },
   "scen-options-Archeologist-50557415": {
    "src": "corpus",
    "passed": false,
@@ -2812,24 +2829,6 @@
    "cTopline": "Do what?",
    "jsTopline": "Changed key '<enter>' from \"rushsouth\" to \"adjust\".--More--",
    "error": null
-  },
-  "scen-options-Barbarian-50351031": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 3672,
-   "rngT": 3672,
-   "scrM": 170,
-   "scrT": 171,
-   "kind": "screen",
-   "step": 33,
-   "steps": 171,
-   "owner": "choose_disco_sort",
-   "loc": "o_init.c:644",
-   "jsOwner": null,
-   "cTopline": "Ordering of discoveries",
-   "jsTopline": "Ordering of discoveries",
-   "error": null,
-   "tier": "reserve"
   },
   "scen-options-Barbarian-50355007": {
    "src": "corpus",
@@ -3560,6 +3559,23 @@
    "jsOwner": null,
    "cTopline": "a ) a blessed +1 quarterstaff (weapon in hands)",
    "jsTopline": "a - a blessed +1 quarterstaff (weapon in hands)",
+   "error": null
+  },
+  "scen-options-Wizard-630011": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 3933,
+   "rngT": 3933,
+   "scrM": 177,
+   "scrT": 177,
+   "kind": null,
+   "step": null,
+   "steps": 177,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-options-Wizard-94291": {
@@ -7950,18 +7966,18 @@
   },
   "scen-sweep-Ranger-50550065": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 15485,
+   "passed": true,
+   "rngM": 22964,
    "rngT": 22964,
-   "scrM": 606,
+   "scrM": 1341,
    "scrT": 1341,
-   "kind": "screen",
-   "step": 606,
+   "kind": null,
+   "step": null,
    "steps": 1341,
-   "owner": "drinksink",
-   "loc": "fountain.c:612",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You take a sip of scalding hot water.--More--",
+   "cTopline": "",
    "jsTopline": "",
    "error": null
   },
@@ -9903,6 +9919,23 @@
    "jsTopline": "You move right into the lichen.",
    "error": null
   },
+  "scen-symset-Healer-50255002": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 13806,
+   "rngT": 13806,
+   "scrM": 555,
+   "scrT": 555,
+   "kind": null,
+   "step": null,
+   "steps": 555,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
   "scen-symset-Healer-50359016": {
    "src": "corpus",
    "passed": false,
@@ -9988,6 +10021,23 @@
    "jsTopline": "Weapons",
    "error": null
   },
+  "scen-symset-Knight-50255055": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 26039,
+   "rngT": 26104,
+   "scrM": 931,
+   "scrT": 996,
+   "kind": "screen",
+   "step": 800,
+   "steps": 996,
+   "owner": "flooreffects",
+   "loc": "do.c:336",
+   "jsOwner": null,
+   "cTopline": "The giant mummy hits! The giant mummy hits again!",
+   "jsTopline": "You move right into the giant mummy. The giant mummy hits!--More--",
+   "error": null
+  },
   "scen-symset-Knight-50450039": {
    "src": "corpus",
    "passed": false,
@@ -10071,6 +10121,23 @@
    "jsOwner": null,
    "cTopline": "Autopickup: ON, for % objects.",
    "jsTopline": "Autopickup: ON, for 0bjects.",
+   "error": null
+  },
+  "scen-symset-Monk-50058514": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 9227,
+   "rngT": 9227,
+   "scrM": 722,
+   "scrT": 722,
+   "kind": null,
+   "step": null,
+   "steps": 722,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-symset-Monk-50059012": {
@@ -10600,6 +10667,23 @@
    "jsTopline": "Coins",
    "error": null
   },
+  "scen-symset-Tourist-50750023": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 14316,
+   "rngT": 14316,
+   "scrM": 796,
+   "scrT": 796,
+   "kind": null,
+   "step": null,
+   "steps": 796,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
   "scen-symset-Valkyrie-50059008": {
    "src": "corpus",
    "passed": false,
@@ -10632,6 +10716,23 @@
    "jsOwner": null,
    "cTopline": "%a piece of food (a lichen corpse)",
    "jsTopline": "%a fungus or mold (a lichen corpse)",
+   "error": null
+  },
+  "scen-symset-Valkyrie-50150071": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 15335,
+   "rngT": 15335,
+   "scrM": 945,
+   "scrT": 945,
+   "kind": null,
+   "step": null,
+   "steps": 945,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-symset-Valkyrie-50155012": {
@@ -13186,19 +13287,19 @@
   },
   "scen-worldtour-Tourist-50050066": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 26144,
+   "passed": true,
+   "rngM": 140218,
    "rngT": 140218,
-   "scrM": 581,
+   "scrM": 950,
    "scrT": 950,
-   "kind": "screen",
-   "step": 576,
+   "kind": null,
+   "step": null,
    "steps": 950,
-   "owner": "drinksink",
-   "loc": "fountain.c:697",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Ew, what a stench!--More--",
-   "jsTopline": "Ew, what a stench! You are enveloped in a cloud of noxious gas!--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-worldtour-Tourist-50358021": {
@@ -14951,22 +15052,23 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-options-Archeologist-50457000": {
+  "scen-options-Barbarian-50351031": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4251,
-   "rngT": 4251,
-   "scrM": 204,
-   "scrT": 205,
+   "rngM": 3672,
+   "rngT": 3672,
+   "scrM": 170,
+   "scrT": 171,
    "kind": "screen",
-   "step": 133,
-   "steps": 205,
-   "owner": "getobj",
-   "loc": "invent.c:1919",
+   "step": 33,
+   "steps": 171,
+   "owner": "choose_disco_sort",
+   "loc": "o_init.c:644",
    "jsOwner": null,
-   "cTopline": "What do you want to drop?",
-   "jsTopline": "What do you want to drop? [a-i or ?*]",
-   "error": null
+   "cTopline": "Ordering of discoveries",
+   "jsTopline": "Ordering of discoveries",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-options-Caveman-50151031": {
    "src": "corpus",
@@ -15075,23 +15177,6 @@
    "jsTopline": "Ordering of discoveries",
    "error": null,
    "tier": "reserve"
-  },
-  "scen-options-Wizard-630011": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 3933,
-   "rngT": 3933,
-   "scrM": 177,
-   "scrT": 177,
-   "kind": null,
-   "step": null,
-   "steps": 177,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
   },
   "scen-questtour-Archeologist-50157018": {
    "src": "corpus",
@@ -17397,23 +17482,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-symset-Healer-50255002": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 13806,
-   "rngT": 13806,
-   "scrM": 555,
-   "scrT": 555,
-   "kind": null,
-   "step": null,
-   "steps": 555,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Healer-50255014": {
    "src": "corpus",
    "passed": false,
@@ -17612,23 +17680,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-symset-Knight-50255055": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 26039,
-   "rngT": 26104,
-   "scrM": 931,
-   "scrT": 996,
-   "kind": "screen",
-   "step": 800,
-   "steps": 996,
-   "owner": "flooreffects",
-   "loc": "do.c:336",
-   "jsOwner": null,
-   "cTopline": "The giant mummy hits! The giant mummy hits again!",
-   "jsTopline": "You move right into the giant mummy. The giant mummy hits!--More--",
-   "error": null
-  },
   "scen-symset-Knight-50255078": {
    "src": "corpus",
    "passed": false,
@@ -17700,23 +17751,6 @@
    "jsTopline": "Salutations wizard, welcome to NetHack! You are a lawful male human Knight.",
    "error": null,
    "tier": "reserve"
-  },
-  "scen-symset-Monk-50058514": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 9227,
-   "rngT": 9227,
-   "scrM": 722,
-   "scrT": 722,
-   "kind": null,
-   "step": null,
-   "steps": 722,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
   },
   "scen-symset-Monk-50059011": {
    "src": "corpus",
@@ -18708,23 +18742,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-symset-Tourist-50750023": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 14316,
-   "rngT": 14316,
-   "scrM": 796,
-   "scrT": 796,
-   "kind": null,
-   "step": null,
-   "steps": 796,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Valkyrie-50058502": {
    "src": "corpus",
    "passed": false,
@@ -18760,23 +18777,6 @@
    "jsTopline": "",
    "error": null,
    "tier": "reserve"
-  },
-  "scen-symset-Valkyrie-50150071": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 15335,
-   "rngT": 15335,
-   "scrM": 945,
-   "scrT": 945,
-   "kind": null,
-   "step": null,
-   "steps": 945,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
   },
   "scen-symset-Valkyrie-50155019": {
    "src": "corpus",
@@ -19954,7 +19954,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "archivedAt": "2026-10-16T00:21:15.223Z",
- "tieredAt": "2026-10-16T00:21:20.825Z"
+ }
 }

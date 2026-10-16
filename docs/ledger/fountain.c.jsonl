@@ -11,6 +11,6 @@
 {"fn":"dipfountain","c":"394-554","status":"ported","js":["js/fountain.js:dipfountain"],"d":["D-3319","D-2287","D-1134","D-1115","D-1114","D-1107"],"at":"2026-10-02@e33fbee37"}
 {"fn":"wash_hands","c":"558-577","status":"ported","js":["js/fountain.js:wash_hands"],"d":["D-3319","D-1108"],"at":"2026-10-02@e33fbee37"}
 {"fn":"breaksink","c":"581-591","status":"ported","js":["js/fountain.js:breaksink"],"d":["D-3319"],"at":"2026-10-02@e33fbee37"}
-{"fn":"drinksink","c":"595-712","status":"ported","js":["js/fountain.js:drinksink"],"d":["D-3319","D-1124","D-1118"],"at":"2026-10-02@e33fbee37"}
+{"fn":"drinksink","c":"595-712","status":"ported","js":["js/fountain.js:drinksink"],"d":["D-4000","D-3319","D-1124","D-1118"],"at":"2026-10-16@d90b28f89"}
 {"fn":"dipsink","c":"716-801","status":"ported","js":["js/fountain.js:dipsink"],"d":["D-3319","D-1113"],"at":"2026-10-02@e33fbee37"}
 {"fn":"sink_backs_up","c":"805-826","status":"ported","js":["js/fountain.js:sink_backs_up"],"d":["D-3318"],"at":"2026-10-02@1f248868c"}

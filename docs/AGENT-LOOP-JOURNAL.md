@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — D-4000 drinksink cliff ×2: case-2 losehp drain + MB-amulet extrinsic mirror (2 PASS)
+
+**C locus:** `fountain.c` drinksink :611–621 (case 2; losehp→done(DIED) noreturn); `do_wear.c` Amulet_on :978–995 (EMagical_breathing mask-test-restore, unconditional `|= W_AMUL`); `worn.c` setworn :112–125 (oc_oprop extrinsic confer); youprop.h EMagical_breathing ≡ uprops[].extrinsic; `end.c` done :1104–1117 (wizard Die? — already ported, now reached).
+**JS:** js/fountain.js drinksink; js/do_wear.js confer_oc_oprop (+ MAGICAL_BREATHING const import, Named comment); scripts/drinksink-drain-mb-extrinsic.test.mjs (new: Ranger-607 + Tourist-577 truncated replays pinning the C-exact toplines).
+**Change:** (1) drain idiom in the else arm (needs_done → finish_losehp_done + gameover return; else finish_maybe_wail), monstunseesu after on survival (C order; the wail is non-fatal only per D-3998). (2) MAGICAL_BREATHING mirror arm in confer_oc_oprop (on/off symmetric — also corrects the Amulet_off clear path, whose region_danger test reads the flat via Breathless).
+**Verify:** `verify drinksink: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (both probe sessions PASS end-to-end); REACH 12/12; green 2/2; strict ×2; cohort 7/7; syntax + Rule #2 PASS; new test 2/2.
+**Named:** (1) Amulet_on hadMB guard kept: equivalent to C's unconditional restore whenever confer wrote the bit (now always for a worn MB amulet); set_wear recompute behaves identically. (2) Remaining unmirrored E-flats in confer ship only with session evidence. (3) drinksink Soundeffect arms (cases 11–12) unchanged (pre-existing sound by-design).
+**Next:** row heals (both sessions PASS); queue regenerates from the committed board.
 ## 2026-10-16 — audit 2837–2843 @28130c7ea: review D-3992..D-3999 (7A/0D/0Q, 0 Must-fix) + full rescore 583/904 (0 PASS→FAIL)
 
 **Reviews:** 7 cliff SHAs oldest-first, each re-measured on HEAD: 2837 domove ux0/uy0 (exact 8+0+0+0; URETREATING :18-19 + :1258 verified), 2838 tty_preference_update whole (exact 3+0+2+0; clip/curs/docorner cites verified), 2839 rndcurse glow+dream (exact 9+2+0+0), 2840 Blind live props (exact 1+0+0+0; Eyes parity verified), 2841 Unknown keeps run (exact 4+4+7+0; null-owner "js-throw" labels proven reporter quirk again — error/jsPanic null in cache), 2842 eatcorpse survives (exact 2+0+1+0; really_done-only gameover gate verified), 2843 resurrect Deaf union (exact 3+0+0+0). All C cites read directly. No Must-fix queued.
