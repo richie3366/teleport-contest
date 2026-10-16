@@ -25,7 +25,7 @@
 {"fn":"peffect_enlightenment","c":"795-808","status":"ported","js":["js/potion.js:peffect_enlightenment"],"d":["D-1413"],"at":"2026-10-03@bbe63333a"}
 {"fn":"peffect_invisibility","c":"811-838","status":"ported","js":["js/potion.js:peffect_invisibility"],"at":"2026-10-03@bbe63333a"}
 {"fn":"peffect_see_invisible","c":"841-878","status":"ported","js":["js/potion.js:peffect_see_invisible"],"d":["D-3380"],"at":"2026-10-03@4a4cc3e73"}
-{"fn":"peffect_paralysis","c":"881-898","status":"ported","js":["js/potion.js:peffect_paralysis"],"d":["D-4013","D-2153"],"at":"2026-10-16@eca48e9b1"}
+{"fn":"peffect_paralysis","c":"881-898","status":"ported","js":["js/potion.js:peffect_paralysis"],"d":["D-4013","D-2153"],"at":"2026-10-16@2c0203dea"}
 {"fn":"peffect_sleeping","c":"901-911","status":"ported","js":["js/potion.js:peffect_sleeping"],"d":["D-2097","D-1437"],"at":"2026-10-03@bbe63333a"}
 {"fn":"peffect_monster_detection","c":"914-952","status":"ported","js":["js/potion.js:peffect_monster_detection"],"at":"2026-10-03@bbe63333a"}
 {"fn":"peffect_object_detection","c":"955-961","status":"ported","js":["js/potion.js:peffect_object_detection"],"at":"2026-10-03@bbe63333a"}
