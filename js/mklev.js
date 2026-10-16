@@ -26047,8 +26047,20 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     }
     const placeNamedAtAbs = (id, x, y, appearFurniture) => {
         const { mndx, female } = find_montype_gender(id);
-        const pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
+        let pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
         induced_align(80);
+        // C sp_lev.c create_monster :1947–1953 — an extinct unique never
+        // spawns (a genesis-born Juiblex carries G_EXTINCT from propagate's
+        // unique side effect, makemon.c:966–968); a genocided or extinct
+        // type falls through to a random monster (pm cleared, makemon(null)
+        // below). Same shape as splev_create_monster :22278–22287.
+        if (pm) {
+            const g_mvflags = game.mvitals?.[mndx]?.mvflags ?? 0;
+            if (((pm?.geno ?? 0) & G_UNIQ) && (g_mvflags & G_EXTINCT))
+                return null;
+            if (g_mvflags & G_GONE)
+                pm = null;
+        }
         let xx = x, yy = y;
         const moved = splev_resolve_occupied(xx, yy, pm);
         xx = moved.x;
