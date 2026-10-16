@@ -84,7 +84,7 @@
 {"fn":"keylist_putcmds","c":"2802-2863","status":"partial","js":["js/dokeylist.js:keylist_putcmds"],"omit":"`parsebindings` still strips `(param)`, so an rc BIND= does not fill `_bindParam`.","d":["D-3402","D-2863"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: remaining omit cannot ship"}
 {"fn":"dokeylist","c":"2867-3013","status":"split","js":["js/dokeylist.js:dokeylist_lines","js/pager.js:show_text_pages"],"d":["D-3402","D-3028"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"ext_func_tab_from_func","c":"3016-3025","status":"ported","js":["js/cmd.js:ext_func_tab_from_func"],"d":["D-2978","D-2977"],"at":"2026-09-27@516c184a8"}
-{"fn":"cmd_from_dir","c":"3029-3032","status":"ported","js":["js/dokeylist.js:cmd_from_dir"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: txt-table adaptation; OOB returns 0"}
+{"fn":"cmd_from_dir","c":"3029-3032","status":"ported","js":["js/dokeylist.js:cmd_from_dir"],"d":["D-4032"],"at":"2026-10-16@0a69afa1c","note":"audit 2026-10-03: txt-table adaptation; OOB returns 0"}
 {"fn":"cmd_from_func","c":"3036-3066","status":"partial","js":["js/dokeylist.js:cmd_from_func"],"omit":"`lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.","d":["D-3402","D-2899"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: remaining omit cannot ship"}
 {"fn":"cmd_from_ecname","c":"3071-3089","status":"ported","js":["js/dokeylist.js:cmd_from_ecname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ecname_from_fn","c":"3092-3102","status":"ported","js":["js/dokeylist.js:ecname_from_fn"],"d":["D-3089"],"at":"2026-09-29@aeb41ef5f","note":"refresh: no JS symbol (measured MISSING)"}
