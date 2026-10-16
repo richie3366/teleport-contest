@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — Grow #15: fresh 140/159 (88.1 %) @50950000; +19 failing folded, 140 archived, no Must-fix, no full rescore
+
+**Fresh cohort:** 140/159 (88.1 %) on arrival (159 authored+scored, one short of --n 160 — no clash, no unscored recipe; one part yielded one fewer), RNG 98.8 %, screens 97.4 %. Worst: impaired/options 1/2; questtour/symset/worldtour/zapfest 9/12; chain/sweep 10/12; shop 11/12; trek 12/12 + rest 100 %. Gap 15.4 pts vs held-out 72.7 % — inside the §10.20 band, no calibration family (prev 144/160 @50850000).
+**Fold:** +19 failing (12 active recipes + 7 direct-to-reserve over quota), 140 PASS-on-arrival → recipes-archive/; `score --new` 562/901 (62.4 %), RNG 94.86 %, screens 93.6 %; `tier` 12 → reserve (7 new + options-50355030/sweep-50850025/symset-50155012/trek-49950063/zapfest-50350028), 2 promoted back (sweep-Monk-50055011, sweep-Ranger-50250049); reserve 279 → 289; corpus 877 active + 289 reserve + 4465 archive. No full rescore (audit does it 1×/10 iters, §10.21). Periodic slot (cliffs held 12 owners) — no refill (§10.19).
+**Must-fix:** none — no JS throw in the 19 folded sessions (all error null).
+**Owners (committed board):** none brand-new — all 14 named owners already on the board; chwepon ×2 new (7 total, the multi-session join); readobjnam_postparse2, handler_msg_window, revive_corpse, use_defensive, glibr, one_characteristic, m_move, use_pick_axe, auto_describe, mcast_weaken_you, do_statusline2, nh_timeout, save_dungeon ×1 each; 4 unattributed (chain-Healer-50950082 active; questtour-Priest-50950030, symset-Rogue-50950071, symset-Valkyrie-50950047 → reserve).
+**Cliffs regen:** same head (peffect_paralysis), denominators /1159 → /1178; fresh unattributed questtour-Priest-50950030 (880 screens lost) takes the last row from questtour-Priest-50157004.
 ## 2026-10-16 — D-4012 cliffs-head mhitm_ad_elec mhitu arm: Shock_resistance read missed worn-ring uprops extrinsic (Samurai 521→830)
 
 **C locus:** uhitm.c mhitm_ad_elec `:2704–2723` (mhitu arm), `:2711` `if (Shock_resistance)`; youprop.h:44 Shock_resistance ≡ HShock_resistance || EShock_resistance ≡ uprops[SHOCK_RES].intrinsic || .extrinsic. Worn gear confers extrinsic via setworn → confer_oc_oprop (C worn.c:117–125), which the JS port writes to uprops only (no E* mirror for resists — do_wear.js:411).
