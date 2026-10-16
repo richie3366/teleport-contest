@@ -7,7 +7,7 @@
 {"fn":"make_sick","c":"137-192","status":"ported","js":["js/potion.js:make_sick"],"at":"2026-10-03@bbe63333a"}
 {"fn":"make_slimed","c":"195-218","status":"ported","js":["js/potion.js:make_slimed"],"d":["D-3402"],"at":"2026-10-04@e77f3975a"}
 {"fn":"make_stoned","c":"222-240","status":"ported","js":["js/potion.js:make_stoned"],"at":"2026-10-03@bbe63333a"}
-{"fn":"make_vomiting","c":"243-255","status":"ported","js":["js/potion.js:make_vomiting"],"d":["D-3858"],"at":"2026-10-12@1b791008a"}
+{"fn":"make_vomiting","c":"243-255","status":"ported","js":["js/potion.js:make_vomiting"],"d":["D-4034","D-3858"],"at":"2026-10-16@603b5e8bb"}
 {"fn":"make_blinded","c":"261-331","status":"ported","js":["js/do.js:make_blinded"],"d":["D-3402","D-2452","D-1768","D-1755"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"toggle_blindness","c":"336-364","status":"ported","js":["js/do.js:toggle_blindness"],"at":"2026-10-03@bbe63333a"}
 {"fn":"make_hallucinated","c":"369-438","status":"ported","js":["js/potion.js:make_hallucinated"],"d":["D-3803","D-2200"],"at":"2026-10-11@69d583849"}
