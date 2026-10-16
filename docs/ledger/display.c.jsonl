@@ -31,7 +31,7 @@
 {"fn":"swallowed","c":"1332-1386","status":"ported","js":["js/display.js:swallowed"],"d":["D-3579"],"at":"2026-10-06@f61bc493b"}
 {"fn":"under_water","c":"1395-1437","status":"ported","js":["js/display.js:under_water"],"d":["D-1981"],"at":"2026-10-03@bbe63333a"}
 {"fn":"under_ground","c":"1445-1467","status":"ported","js":["js/display.js:under_ground"],"at":"2026-10-03@bbe63333a"}
-{"fn":"see_monsters","c":"1487-1529","status":"partial","js":["js/display.js:see_monsters"],"omit":"- `see_monsters`: restore.c:682 defer setter absent.","d":["D-3417","D-3402","D-3401","D-2493","D-1746"],"at":"2026-10-04@b127042af","note":"audited D-3402: remaining omit cannot ship; D-3417: replmon paste replaced with D-3401 text"}
+{"fn":"see_monsters","c":"1487-1529","status":"partial","js":["js/display.js:see_monsters"],"omit":"(1) 31 other JS `see_monsters()` call sites (artifact/do_wear/eat/potion/polyself/timeout/sit/teleport/detect/attrib/do/uhitm/display-docrt) stay unawaited — same latent landmine (Sting text deferred past a capture-adjacent call), no corpus session blocks on any of them; each rides its own future c…","d":["D-4022","D-3417","D-3402","D-3401","D-2493","D-1746"],"at":"2026-10-16@79a1cf283","note":"audited D-3402: remaining omit cannot ship; D-3417: replmon paste replaced with D-3401 text"}
 {"fn":"mimic_light_blocking","c":"1532-1540","status":"ported","js":["js/vision.js:mimic_light_blocking"],"d":["D-1587"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_mimic_blocking","c":"1548-1551","status":"ported","js":["js/vision.js:set_mimic_blocking"],"at":"2026-10-03@bbe63333a"}
 {"fn":"see_objects","c":"1558-1571","status":"ported","js":["js/display.js:see_objects"],"d":["D-3290"],"at":"2026-10-02@be60a5eca"}

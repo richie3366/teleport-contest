@@ -325,7 +325,7 @@ export async function moveloop_preamble(resuming) {
     // C `:90–93` — deferred see_monsters catch-up.
     if (game.defer_see_monsters) {
         game.defer_see_monsters = false;
-        see_monsters();
+        await see_monsters();
     }
     // C allmain.c:97 — u_init leaves uz0.dlevel at 0 (u_init.c:984).
     // Until this copy, on_level(uz, uz0) is false on the starting
@@ -1474,7 +1474,7 @@ export async function moveloop_core() {
             || (((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0)));
         if (!g.context.mv || Blind) {
             if (Hallucination()) {
-                see_monsters();
+                await see_monsters();
                 see_objects();
                 see_traps();
                 if (u.uswallow) swallowed(0);
@@ -1484,7 +1484,7 @@ export async function moveloop_core() {
                     || !!(u.uprops?.[TELEPAT]?.extrinsic | 0);
                 if (Unblind_telepat || Warning(u) || Warn_of_mon()
                     || any_visible_region()) {
-                    see_monsters();
+                    await see_monsters();
                 }
             }
             // C :470–471 — inside the gate, after the see arms.
