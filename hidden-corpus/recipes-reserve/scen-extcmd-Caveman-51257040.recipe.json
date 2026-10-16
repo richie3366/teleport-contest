@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed amulet of life saving\nPf\u0017blessed amulet of reflection\nPg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007gnome\n#dip\ngi#offer\n#pray\ny y   #chat\nj #wizidentify\n\u001bFjFn _ \u001b<.#chat\nn#overview\n\u001b#conduct\n \u000f\u001b#name\nm\n#adjust\n.#chat\nn#turn\n#wizdetect\n\u0006FnFlFjs_oooooo.Fl_.,\u001b#vanquished\n #genocided\ntrapper\nhl\u0018\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n#pray\ny y #polyself\npurple worm\n s20sFuFu kkh_{.Fl_.Fnqi#chronicle\n #terrain\n\u001bi\u001b#wipe\n#loot\n#chat\n#chat\n#wizintrinsic\ng\n llk_<.20s_{,Fl_.Flq#version\n  #history\n                  #annotate\nshiny\n\u0018\u001b#tip\n\u001b\u001b#ride\nly#turn\n#sit\n#jump\n#polyself\nvampire\nsm.slFuFukhl#tip\n\u001b\u001b__,Fl_.#chat\nl#overview\n\u001b#conduct\n i\u001b#dip\nj#offer\n#pray\ny y #chat\nn#jump\n#levelchange\n25\n                       hyn\u001620\n\u0006\u0007acid blob\n#vanquished\n #genocided\npyrolisk\nj \u001b#annotate\nFido\n\u000f\u001b#name\n\u001b#adjust\ng\u001b#chat\nl#turn\n#polyself\nfire giant\n20s20sFl20snnb_<,_.\u0007acid blob\n#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n#pray\ny y #w"
+ },
+ "segments": [
+  {
+   "seed": 51257040,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed amulet of life saving\nPf\u0017blessed amulet of reflection\nPg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007gnome\n#dip\ngi#offer\n#pray\ny y   #chat\nj #wizidentify\n\u001bFjFn _ \u001b<.#chat\nn#overview\n\u001b#conduct\n \u000f\u001b#name\nm\n#adjust\n.#chat\nn#turn\n#wizdetect\n\u0006FnFlFjs_oooooo.Fl_.,\u001b#vanquished\n #genocided\ntrapper\nhl\u0018\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n#pray\ny y #polyself\npurple worm\n s20sFuFu kkh_{.Fl_.Fnqi#chronicle\n #terrain\n\u001bi\u001b#wipe\n#loot\n#chat\n#chat\n#wizintrinsic\ng\n llk_<.20s_{,Fl_.Flq#version\n  #history\n                  #annotate\nshiny\n\u0018\u001b#tip\n\u001b\u001b#ride\nly#turn\n#sit\n#jump\n#polyself\nvampire\nsm.slFuFukhl#tip\n\u001b\u001b__,Fl_.#chat\nl#overview\n\u001b#conduct\n i\u001b#dip\nj#offer\n#pray\ny y #chat\nn#jump\n#levelchange\n25\n                       hyn\u001620\n\u0006\u0007acid blob\n#vanquished\n #genocided\npyrolisk\nj \u001b#annotate\nFido\n\u000f\u001b#name\n\u001b#adjust\ng\u001b#chat\nl#turn\n#polyself\nfire giant\n20s20sFl20snnb_<,_.\u0007acid blob\n#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n#pray\ny y #w"
+  }
+ ]
+}

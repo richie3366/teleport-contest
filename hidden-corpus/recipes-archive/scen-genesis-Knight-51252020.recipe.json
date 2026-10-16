@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0017mummy wrapping\nWi20ss.\u0007crocodile\nFnFhFhFhFh\u0007lichen\n;n: \u001b@..m.  20ssm.\u0007little dog\nFn  FlFl  n\u0007green-elf\nFhFh"
+ },
+ "segments": [
+  {
+   "seed": 51252020,
+   "datetime": "20061027162253",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0017mummy wrapping\nWi20ss.\u0007crocodile\nFnFhFhFhFh\u0007lichen\n;n: \u001b@..m.  20ssm.\u0007little dog\nFn  FlFl  n\u0007green-elf\nFhFh"
+  }
+ ]
+}

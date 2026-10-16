@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nWg\u0017blessed amulet of life saving\nPh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007giant rat\n#pray\ny y   #chat\nl#wizintrinsic\nfr\n FlFlFlJ_ \u001bm.,#overview\n\u001b#conduct\n i\u001b#dip\nb#offer\n#chat\n#turn\n#wizintrinsic\nj \u001bbyafi\n_oooooo,,#vanquished\n #genocided\nwatchman\nf\u001b\u000f\u001b#name\ni\n#adjust\ne\u001b#sit\n\u001b#pray\ny y #jump\n#polyself\nair elemental\n #monster\nss20s20skb  h_{.qd  #chronicle\n #terrain\n\u001b#annotate\nFido\n\u000f\u001b#twoweapon\n#invoke\n\u001b#chat\n#chat\n#polyself\nleprechaun\n #monster\n.20sFuFuFuFuFu _{.q#version\n  #history\n                  #annotate\n\u001bi\u001b#wipe\n#loot\n#turn\n#sit\n\u001b#polyself\nvampire\n #monster\n  sm.sFuFuFu20s__.#chat\nj#overview\n\u001b#conduct\n \u0018\u001b#tip\nf\u001b#ride\nky#pray\ny y #chat\ny#wizdetect\n\u0006lhl_ooooo._,,\u001b\u0007hobbit\n#vanquished\n #genocided\nNazgul\nf\u001b\u000f\u001b#dip\nk#offer\n#chat\nl#turn\n#levelchange\n7\n     hyy#chat\nl__.#chat\nl#chronicle\n #terrain\n\u001bi\u001b#name\nm\n#adjust\n:#sit\n#pray\ny y  #wizintrinsic\na\n FlFlFl20sch__.#chat\nb\u0007sewer rat\n#version\n  #history\n                  i\u001b#twoweapon\n#invoke\n\u001b#chat"
+ },
+ "segments": [
+  {
+   "seed": 51257073,
+   "datetime": "20041019005850",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nWg\u0017blessed amulet of life saving\nPh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007giant rat\n#pray\ny y   #chat\nl#wizintrinsic\nfr\n FlFlFlJ_ \u001bm.,#overview\n\u001b#conduct\n i\u001b#dip\nb#offer\n#chat\n#turn\n#wizintrinsic\nj \u001bbyafi\n_oooooo,,#vanquished\n #genocided\nwatchman\nf\u001b\u000f\u001b#name\ni\n#adjust\ne\u001b#sit\n\u001b#pray\ny y #jump\n#polyself\nair elemental\n #monster\nss20s20skb  h_{.qd  #chronicle\n #terrain\n\u001b#annotate\nFido\n\u000f\u001b#twoweapon\n#invoke\n\u001b#chat\n#chat\n#polyself\nleprechaun\n #monster\n.20sFuFuFuFuFu _{.q#version\n  #history\n                  #annotate\n\u001bi\u001b#wipe\n#loot\n#turn\n#sit\n\u001b#polyself\nvampire\n #monster\n  sm.sFuFuFu20s__.#chat\nj#overview\n\u001b#conduct\n \u0018\u001b#tip\nf\u001b#ride\nky#pray\ny y #chat\ny#wizdetect\n\u0006lhl_ooooo._,,\u001b\u0007hobbit\n#vanquished\n #genocided\nNazgul\nf\u001b\u000f\u001b#dip\nk#offer\n#chat\nl#turn\n#levelchange\n7\n     hyy#chat\nl__.#chat\nl#chronicle\n #terrain\n\u001bi\u001b#name\nm\n#adjust\n:#sit\n#pray\ny y  #wizintrinsic\na\n FlFlFl20sch__.#chat\nb\u0007sewer rat\n#version\n  #history\n                  i\u001b#twoweapon\n#invoke\n\u001b#chat"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg\u0017blessed magic lamp\n\u0017blessed ring of free action\nPir\u0017blessed leash\n\u0017blessed 20 daggers\nQk#levelchange\n14\n             #wizintrinsic\nh\n \u0017potion of polymorph\nql   20s;m, \u001b.E#chat\nj\u0017potion of booze\nqmsm.s\u00161\n \u0017spear\nwFu  ssX\u0007xan\n#chat\nkFk Fk \u0007iron golem\nFyFk   Fk #wizintrinsic\nh\n\u0017scroll of enchant armor\nro    \u0017glob of green slime\nep   \u0017wand of cold\nzqk  zqy zqy  \u0016?\n\u001b#levelchange\n12\n\u0017the Bell of Opening\nwnFj      Fj   Fj  \u0007ape\n#chat\nbFb     n      Fb    \u0007Keystone Kop\n#chat\nb   Fb      Fj \u0007giant rat\n;h;.m.  n   sh      20s    \u0007mastodon\nFj   Fn "
+ },
+ "segments": [
+  {
+   "seed": 51255015,
+   "datetime": "20231201025354",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg\u0017blessed magic lamp\n\u0017blessed ring of free action\nPir\u0017blessed leash\n\u0017blessed 20 daggers\nQk#levelchange\n14\n             #wizintrinsic\nh\n \u0017potion of polymorph\nql   20s;m, \u001b.E#chat\nj\u0017potion of booze\nqmsm.s\u00161\n \u0017spear\nwFu  ssX\u0007xan\n#chat\nkFk Fk \u0007iron golem\nFyFk   Fk #wizintrinsic\nh\n\u0017scroll of enchant armor\nro    \u0017glob of green slime\nep   \u0017wand of cold\nzqk  zqy zqy  \u0016?\n\u001b#levelchange\n12\n\u0017the Bell of Opening\nwnFj      Fj   Fj  \u0007ape\n#chat\nbFb     n      Fb    \u0007Keystone Kop\n#chat\nb   Fb      Fj \u0007giant rat\n;h;.m.  n   sh      20s    \u0007mastodon\nFj   Fn "
+  }
+ ]
+}

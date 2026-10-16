@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed magic lamp\n\u0017blessed +3 helm of telepathy\nWh\u0017blessed 20 daggers\nQi#levelchange\n14\n             #wizintrinsic\nh\n \u0017wand of striking\nzjy  zjlzjuzj.fhfyfl#invoke\n\u001b\u0007kobold shaman\nFjFj..ss;m. \u001b.E- Elbereth Elbereth\n#chat\nu#wizintrinsic\nh\n\u0017wand of fire\nzkk zk.zkhzkk i\u001bhnhyi\u001bkk\u0017potion of booze\nqls.\u0017wand of teleportation\nzmuzm.m,zmn#wizintrinsic\nh\n\u0017potion of speed\nqn20s.\u0017blessed spellbook of cone of cold\nrosZa\n:\u0018\u001bhuk tijtbjfk#invoke\n\u001b\u0007sewer rat\n\u0007acid blob\nFkFj   FbsFl#wizintrinsic\nh\n\u0017wand of magic missile\nzphzpuzpjzpu\u001612\n\u0014@.20s.s\u0017blessed spellbook of light\nrq.Za\n#turn"
+ },
+ "segments": [
+  {
+   "seed": 51255004,
+   "datetime": "20121008113458",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:full\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed magic lamp\n\u0017blessed +3 helm of telepathy\nWh\u0017blessed 20 daggers\nQi#levelchange\n14\n             #wizintrinsic\nh\n \u0017wand of striking\nzjy  zjlzjuzj.fhfyfl#invoke\n\u001b\u0007kobold shaman\nFjFj..ss;m. \u001b.E- Elbereth Elbereth\n#chat\nu#wizintrinsic\nh\n\u0017wand of fire\nzkk zk.zkhzkk i\u001bhnhyi\u001bkk\u0017potion of booze\nqls.\u0017wand of teleportation\nzmuzm.m,zmn#wizintrinsic\nh\n\u0017potion of speed\nqn20s.\u0017blessed spellbook of cone of cold\nrosZa\n:\u0018\u001bhuk tijtbjfk#invoke\n\u001b\u0007sewer rat\n\u0007acid blob\nFkFj   FbsFl#wizintrinsic\nh\n\u0017wand of magic missile\nzphzpuzpjzpu\u001612\n\u0014@.20s.s\u0017blessed spellbook of light\nrq.Za\n#turn"
+  }
+ ]
+}

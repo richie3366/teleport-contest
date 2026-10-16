@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic lamp\n\u0017blessed leash\n\u0017blessed +3 helm of telepathy\nWh\u0017blessed +3 gray dragon scale mail\nWi\u0017blessed 20 daggers\nQj#levelchange\n26\n                         #wizintrinsic\nh\n \u0017scroll of light\nrk tbh fhfy\u0017wand of striking\nzlbzlbzlh\u0007sewer rat\n\u0007gnome lord\nFjFhFhFh\u0017potion of confusion\nqm20s#wizintrinsic\nh\n\u00163\n \u0006_ \u001bm.i\u001bbkll\u0017wand of probing\nznkznnznhznuznj\u0007grid bug\nFn20s20s20s.\u0017spellbook of magic missile\nrosZ\u001b:#wizintrinsic\nh\n;m.E- I am a fish\n#chat\nn#pray\ny y \u0007grid bug\nFls20sss20s\u0017wand of digging\nzpyzpuzpkzpu\u0017wand of slow monster\nzqhzqlzqlzqyzqkzqn#wizintrinsic\nh\n \u001624\n\u0004js20s 20s \u0007acid blob\nFh.s.s.20s;_.E- I am a fish\n#chat\nh_,jyn;m.E- Vlad was here\n#pray\ny y #wizintrinsic\nh\n\u0016?\n>G#levelchange\n6\n     \u0017blessed spellbook of invisibility\nrr  .\u0017blessed spellbook of turn undead\nrs .\u0017blessed spellbook of chain lightning\nrt .+\u001bZc\n20sZa\n20sZc\n\u0007gnome lord\nZc\nZa\nZc\n\u0007ghoul\nZb\nFhZa\n#enhance\nn\u001bsn.m.#wizintrinsic\nh\n \u0017blessed spellbook of slow monster\nrusm.Za\n:i\u001blhlfh tjlfl\u0007bugbear\nFhFhFlFh\u0017potion of oil\nqvs#wizintrinsic\nh\ntjbtjbtjytjhfutjntju;m.E- ad aerarium\n\u0017spellbook of cone of cold\nrw20s Zc\n: \u0017blessed scroll of light\nrx#wizintrinsic\nh\n\u0017blessed spellbook of cau"
+ },
+ "segments": [
+  {
+   "seed": 51255008,
+   "datetime": "20181012011417",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic lamp\n\u0017blessed leash\n\u0017blessed +3 helm of telepathy\nWh\u0017blessed +3 gray dragon scale mail\nWi\u0017blessed 20 daggers\nQj#levelchange\n26\n                         #wizintrinsic\nh\n \u0017scroll of light\nrk tbh fhfy\u0017wand of striking\nzlbzlbzlh\u0007sewer rat\n\u0007gnome lord\nFjFhFhFh\u0017potion of confusion\nqm20s#wizintrinsic\nh\n\u00163\n \u0006_ \u001bm.i\u001bbkll\u0017wand of probing\nznkznnznhznuznj\u0007grid bug\nFn20s20s20s.\u0017spellbook of magic missile\nrosZ\u001b:#wizintrinsic\nh\n;m.E- I am a fish\n#chat\nn#pray\ny y \u0007grid bug\nFls20sss20s\u0017wand of digging\nzpyzpuzpkzpu\u0017wand of slow monster\nzqhzqlzqlzqyzqkzqn#wizintrinsic\nh\n \u001624\n\u0004js20s 20s \u0007acid blob\nFh.s.s.20s;_.E- I am a fish\n#chat\nh_,jyn;m.E- Vlad was here\n#pray\ny y #wizintrinsic\nh\n\u0016?\n>G#levelchange\n6\n     \u0017blessed spellbook of invisibility\nrr  .\u0017blessed spellbook of turn undead\nrs .\u0017blessed spellbook of chain lightning\nrt .+\u001bZc\n20sZa\n20sZc\n\u0007gnome lord\nZc\nZa\nZc\n\u0007ghoul\nZb\nFhZa\n#enhance\nn\u001bsn.m.#wizintrinsic\nh\n \u0017blessed spellbook of slow monster\nrusm.Za\n:i\u001blhlfh tjlfl\u0007bugbear\nFhFhFlFh\u0017potion of oil\nqvs#wizintrinsic\nh\ntjbtjbtjytjhfutjntju;m.E- ad aerarium\n\u0017spellbook of cone of cold\nrw20s Zc\n: \u0017blessed scroll of light\nrx#wizintrinsic\nh\n\u0017blessed spellbook of cau"
+  }
+ ]
+}

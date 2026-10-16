@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed amulet of life saving\nPg\u0017blessed ring of free action\nPhl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007sewer rat\n#pray\ny y      #chat\nh#polyself\nred dragon\n    s.Fb 20sbkh\u00169\n\u0006\u0007acid blob\n#overview\n\u001b#conduct\n \u0018\u001b#dip\nkj \u001b#offer\n#chat\nn#turn\n#wizdetect\n\u0006Fnss_ \u001b;q#vanquished\n #genocided\nwatchman\ni\u001b#name\nm\n#adjust\nm.blessed\n#sit\n#pray\ny y  #wizidentify\n\u001blkh_oooo.Fl_.Fl,#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#chat\nl#chat\nl#jump\n#levelchange\n16\n               FlFl_ooo._.,\u0007soldier\n#version\n  #history\n                  i\u001b#wipe\n#loot\nh#turn\n#sit\n#wizdetect\n\u0006Fh Fh _{,Fn_.Fjq#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nhy#pray\ny y   #chat\nj#wizintrinsic\nrg\n Fh FjFhFj_{,Fb_.Fb q\u0007soldier\n#vanquished\n #genocided\nape\n\u001bi\u001b#dip\nd#offer\n#chat\nb#turn\n#jump\n#wizidentify\n\u001bFl"
+ },
+ "segments": [
+  {
+   "seed": 51257042,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:kumquat\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed amulet of life saving\nPg\u0017blessed ring of free action\nPhl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007sewer rat\n#pray\ny y      #chat\nh#polyself\nred dragon\n    s.Fb 20sbkh\u00169\n\u0006\u0007acid blob\n#overview\n\u001b#conduct\n \u0018\u001b#dip\nkj \u001b#offer\n#chat\nn#turn\n#wizdetect\n\u0006Fnss_ \u001b;q#vanquished\n #genocided\nwatchman\ni\u001b#name\nm\n#adjust\nm.blessed\n#sit\n#pray\ny y  #wizidentify\n\u001blkh_oooo.Fl_.Fl,#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#chat\nl#chat\nl#jump\n#levelchange\n16\n               FlFl_ooo._.,\u0007soldier\n#version\n  #history\n                  i\u001b#wipe\n#loot\nh#turn\n#sit\n#wizdetect\n\u0006Fh Fh _{,Fn_.Fjq#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nhy#pray\ny y   #chat\nj#wizintrinsic\nrg\n Fh FjFhFj_{,Fb_.Fb q\u0007soldier\n#vanquished\n #genocided\nape\n\u001bi\u001b#dip\nd#offer\n#chat\nb#turn\n#jump\n#wizidentify\n\u001bFl"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\n wk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n16\n               \u0007jackal\n#dip\nam#offer\n#pray\ny y    #chat\nl#jump\n#wizintrinsic\nga\n Fn  Fb s_ \u001b;qm#overview\n\u001b#conduct\n i\u001b#name\na\n#adjust\nc\u001b#chat\nh#turn\n#wizidentify\n\u001blju\u0016?\n\u001b\u0006\u0007sewer rat\n#vanquished\n #genocided\nprisoner\ni\u001b#twoweapon\n#invoke\nk#sit\n#pray\ny y    #wizdetect\n\u0006Flss20s_oo.,#chronicle\n  #terrain\n\u001b\u0018\u001b#wipe\n#loot\n#chat\nb#chat\nu#jump\n#wizidentify\n\u001bjhh_>.Fn   _.:\u0007acid blob\n#version\n  #history\n                  #annotate\nFido\n\u0018\u001b#tip\nh\u001b#ride\nny#turn\n#sit\n#jump\n#levelchange\n21\n    Fn .\\ _oooo,,#overview\n\u001b#conduct\n i\u001b#dip\na#offer\n#pray\ny y #chat\nl#wizintrinsic\ngr\n bkh\u0016?\n\u001b\u0006#vanquished\n #genocided\nchameleon\ni\u001b\u0018\u001b#name\n\u001b#adjust\ng\u001b#chat\nh#turn\n#jump\n#levelchange\n6\n    njb_<,Fb _.\u0007hobbit\n#chronicle\n   #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\nk#sit\n\u001b#pray\ny y #wizmap\n\u0006hln\u0016?\n\u001b\u0006#version\n  #history\n                  #annotate\nFido\ni\u001b#wipe\n#loot\n#chat\n#chat\n#wizintrinsic\na\n FbFbFb#offer\n_>.Fj_.<.Fj#overview\n\u001b#conduct\n \u000f\u001b#tip\nh\u001b#ride\njy#turn\n#sit\n   #polyself\nvampire\n20s sn  Fh Fh  Fh Fh \u0016?\n>>N       gray st"
+ },
+ "segments": [
+  {
+   "seed": 51257026,
+   "datetime": "20000923104748",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\n wk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n16\n               \u0007jackal\n#dip\nam#offer\n#pray\ny y    #chat\nl#jump\n#wizintrinsic\nga\n Fn  Fb s_ \u001b;qm#overview\n\u001b#conduct\n i\u001b#name\na\n#adjust\nc\u001b#chat\nh#turn\n#wizidentify\n\u001blju\u0016?\n\u001b\u0006\u0007sewer rat\n#vanquished\n #genocided\nprisoner\ni\u001b#twoweapon\n#invoke\nk#sit\n#pray\ny y    #wizdetect\n\u0006Flss20s_oo.,#chronicle\n  #terrain\n\u001b\u0018\u001b#wipe\n#loot\n#chat\nb#chat\nu#jump\n#wizidentify\n\u001bjhh_>.Fn   _.:\u0007acid blob\n#version\n  #history\n                  #annotate\nFido\n\u0018\u001b#tip\nh\u001b#ride\nny#turn\n#sit\n#jump\n#levelchange\n21\n    Fn .\\ _oooo,,#overview\n\u001b#conduct\n i\u001b#dip\na#offer\n#pray\ny y #chat\nl#wizintrinsic\ngr\n bkh\u0016?\n\u001b\u0006#vanquished\n #genocided\nchameleon\ni\u001b\u0018\u001b#name\n\u001b#adjust\ng\u001b#chat\nh#turn\n#jump\n#levelchange\n6\n    njb_<,Fb _.\u0007hobbit\n#chronicle\n   #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\nk#sit\n\u001b#pray\ny y #wizmap\n\u0006hln\u0016?\n\u001b\u0006#version\n  #history\n                  #annotate\nFido\ni\u001b#wipe\n#loot\n#chat\n#chat\n#wizintrinsic\na\n FbFbFb#offer\n_>.Fj_.<.Fj#overview\n\u001b#conduct\n \u000f\u001b#tip\nh\u001b#ride\njy#turn\n#sit\n   #polyself\nvampire\n20s sn  Fh Fh  Fh Fh \u0016?\n>>N       gray st"
+  }
+ ]
+}

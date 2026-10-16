@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "L  YJK _ \u001b>.>FjFlFjHYJL_>.>HYLL_>.>BUYH_>.>YKHY_>,>#loot\nWJKBJ_>,>_>.>150s150s100s100s_>,>100s#chat\nn50s100s eh_>.>50seghln#tip\n\u001blhl150s eh_>,>ch100sehP\u000f\u001b_>,>100seguujyjj100segi\u001b\\   _>.>100sehcjblk\u000f\u001b#enhance\n\u001b:f  UUHK_>,>HUJY_>,>JHBY_>.>LHJN_>.>HYKJ_>,>n,YKJY_>.>LKy KH_>,>\u000f\u001bHJLN_>.>eg20sHNNK_>.>NBBL_>.>HUKJ_>.>#force\n\u0004hNLUN_>.>YNHN_>,>Fk FkFkNJBH_>.>egegFlFl.50sykyP100seg100seh100s eh_>.>_>,>\u000f\u001b100s eg150segi\u001b50s eh ehkkb100s ey eghlh\\   lny100seg eg50seyeB ehuln150sehcj#dip\na #name\nm\nt#name\nm\n#chat\n;kj10s10sKBHY_>,><YYYL_>.><HUJJ_>.>\u0004bWNLBL_>.>BNLJ_>.>\u000f\u001b,r\u001b#offer\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\nm\n:kjkjkjtalkkkj#chat\nhYKLJ_>.>r\u001blYNUH_>,>#name\nm\n@.#force\n<ULKN_>.>JKYU_>,>#enhance\n\u001b\u0014clYBHY_>.>YUBK_>,>HBYU_>,>LJUB_>.>JJBB_>.>#force\n#chat\nn20st\u001b20s10s10"
+ },
+ "segments": [
+  {
+   "seed": 51250051,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=runmode:walk\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:explore\n",
+   "moves": "L  YJK _ \u001b>.>FjFlFjHYJL_>.>HYLL_>.>BUYH_>.>YKHY_>,>#loot\nWJKBJ_>,>_>.>150s150s100s100s_>,>100s#chat\nn50s100s eh_>.>50seghln#tip\n\u001blhl150s eh_>,>ch100sehP\u000f\u001b_>,>100seguujyjj100segi\u001b\\   _>.>100sehcjblk\u000f\u001b#enhance\n\u001b:f  UUHK_>,>HUJY_>,>JHBY_>.>LHJN_>.>HYKJ_>,>n,YKJY_>.>LKy KH_>,>\u000f\u001bHJLN_>.>eg20sHNNK_>.>NBBL_>.>HUKJ_>.>#force\n\u0004hNLUN_>.>YNHN_>,>Fk FkFkNJBH_>.>egegFlFl.50sykyP100seg100seh100s eh_>.>_>,>\u000f\u001b100s eg150segi\u001b50s eh ehkkb100s ey eghlh\\   lny100seg eg50seyeB ehuln150sehcj#dip\na #name\nm\nt#name\nm\n#chat\n;kj10s10sKBHY_>,><YYYL_>.><HUJJ_>.>\u0004bWNLBL_>.>BNLJ_>.>\u000f\u001b,r\u001b#offer\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\nm\n:kjkjkjtalkkkj#chat\nhYKLJ_>.>r\u001blYNUH_>,>#name\nm\n@.#force\n<ULKN_>.>JKYU_>,>#enhance\n\u001b\u0014clYBHY_>.>YUBK_>,>HBYU_>,>LJUB_>.>JJBB_>.>#force\n#chat\nn20st\u001b20s10s10"
+  }
+ ]
+}

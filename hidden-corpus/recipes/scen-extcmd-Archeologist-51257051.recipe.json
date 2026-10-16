@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of reflection\nPj\u0017blessed Mjollnir\nwk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n16\n               \u0007troll\nFkFk #monster\n_ \u001b<.qm#overview\n\u001b#conduct\n \u0018\u001b#dip\nn#offer\n#pray\ny y #chat\nk#jump\n#wizintrinsic\nf\n njhZ_{.q#vanquished\n #genocided\npit fiend\na h\u0018\u001b#name\nm\n#adjust\n>.#chat\nk#turn\n#polyself\nred dragon\n  ss20sFy Fy Fy Fy  Fy _ooooo.Fy _.Fh ,#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y     #levelchange\n4\n    Fh Fh__.  n Fy  n_,Fh #chat\nh  n \u0007grid bug\n\u00166\n#version\n  #history\n                  \u000f\u001b#wipe\n   n#loot\nn#chat\nn#chat\nn  n #jump\n#wizdetect\n\u0006Fn   nFl Fn  n Fl   n #tip\nh\u001b\u00169\n_{,q#overview\n\u001b#conduct\n \u000f\u001b#tip\nh\u001b  n #ride\njy#turn\n#sit\n   n#wizdetect\n\u0006FjFj  n _<.Fl  n _.Fl  n \u0007hill orc\n\u001612\n#vanquished\n #genocided\nwerewolf\n  #annotate\nFido\n\u000f\u001b#"
+ },
+ "segments": [
+  {
+   "seed": 51257051,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=runmode:teleport\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of reflection\nPj\u0017blessed Mjollnir\nwk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n16\n               \u0007troll\nFkFk #monster\n_ \u001b<.qm#overview\n\u001b#conduct\n \u0018\u001b#dip\nn#offer\n#pray\ny y #chat\nk#jump\n#wizintrinsic\nf\n njhZ_{.q#vanquished\n #genocided\npit fiend\na h\u0018\u001b#name\nm\n#adjust\n>.#chat\nk#turn\n#polyself\nred dragon\n  ss20sFy Fy Fy Fy  Fy _ooooo.Fy _.Fh ,#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y     #levelchange\n4\n    Fh Fh__.  n Fy  n_,Fh #chat\nh  n \u0007grid bug\n\u00166\n#version\n  #history\n                  \u000f\u001b#wipe\n   n#loot\nn#chat\nn#chat\nn  n #jump\n#wizdetect\n\u0006Fn   nFl Fn  n Fl   n #tip\nh\u001b\u00169\n_{,q#overview\n\u001b#conduct\n \u000f\u001b#tip\nh\u001b  n #ride\njy#turn\n#sit\n   n#wizdetect\n\u0006FjFj  n _<.Fl  n _.Fl  n \u0007hill orc\n\u001612\n#vanquished\n #genocided\nwerewolf\n  #annotate\nFido\n\u000f\u001b#"
+  }
+ ]
+}

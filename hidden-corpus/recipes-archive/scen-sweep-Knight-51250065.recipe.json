@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n16\n               i\u001bWs.20swb FkssehssW.ssW20ss.wa FkFu20solZE- X marks the spot\n#chat\nu#ride\njy: i\u001b#chat\nli\u001bwa.ssWs..Ws20s.TdegssWd20sssTcehs20s\u0017banana\n\u0007horned devil\nel.m.sm. \u0017uncursed credit card\n\u0007giant spider\namu\u0017cursed spellbook of protection\nrn \u001bm. ssZZ\u0017cursed bag of tricks\naoao#tip\no\u001b.jsm.\u000f\u001b\u0017ice box\n\u0017bag of tricks\n\u0017blessed bag of holding\n\u0017wand of lightning\n\u0017wand of lightning\ndr#loot\nb\no\n,b\nnasy     dm#loot\na\nr\na\n,c\naty  n\u0017credit card\ndqav.sss#loot\na\n s20sab  m.\u0016?\n>B\u0017blessed ring of levitation\nPwl hh\u0017wand of striking\nzxh\u0017wand of digging\nzyh\u0017wand of digging\nzzj\u0017wand of digging\nzAl\u0017wand of striking\nzB>\u0017wand of striking\nzC>yuuuuuuu10suukhun10snb\u0017wand of digging\nzDh\u0017wand of striking\nzEhnuukh\u0017wand of digging\nzFj\u0017wand of digging\nzGh\u0017wand of striking\nzH>\u0017wand of digging\nzIl\u0017wand of striking\nzJhklnnhnly\u0017wand of digging\nzKkjunjlllllllkFl  i>\u001bzxl  zy> rn ;  ..ZZzBj,#dip\nB#invoke\n\u001b\u000f\u001bE-#turn\n:#terrain\nf\n#levelchange\n30\n             \u0017blessed ring of polymorph control\nPL#polyself\nhuman mummy\n#monster\n.s\u0007couatl\nFhFh Fh .k.sj#polyself\nvampire\nsnsm. \u0007guard\nnFh  Fh  Fh sm. .m. 20s#polyself\nbrown mold\n s  .m.\u0007brown pudding\nFy Fy Fu 20ssm..m.  n  \u00167\n\\    \u0017potion of monster detection\n\u0007doppelganger\nqM>. #dip\nxFk Fk  \u0017Magicbane\nwN   Fn   Fn   n   Fb  #invoke\nNFk  Fb  \u0017uncursed potion of enlightenment\n\u0007grid bug\nqO \u001bFyFk \u0017wand "
+ },
+ "segments": [
+  {
+   "seed": 51250065,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n16\n               i\u001bWs.20swb FkssehssW.ssW20ss.wa FkFu20solZE- X marks the spot\n#chat\nu#ride\njy: i\u001b#chat\nli\u001bwa.ssWs..Ws20s.TdegssWd20sssTcehs20s\u0017banana\n\u0007horned devil\nel.m.sm. \u0017uncursed credit card\n\u0007giant spider\namu\u0017cursed spellbook of protection\nrn \u001bm. ssZZ\u0017cursed bag of tricks\naoao#tip\no\u001b.jsm.\u000f\u001b\u0017ice box\n\u0017bag of tricks\n\u0017blessed bag of holding\n\u0017wand of lightning\n\u0017wand of lightning\ndr#loot\nb\no\n,b\nnasy     dm#loot\na\nr\na\n,c\naty  n\u0017credit card\ndqav.sss#loot\na\n s20sab  m.\u0016?\n>B\u0017blessed ring of levitation\nPwl hh\u0017wand of striking\nzxh\u0017wand of digging\nzyh\u0017wand of digging\nzzj\u0017wand of digging\nzAl\u0017wand of striking\nzB>\u0017wand of striking\nzC>yuuuuuuu10suukhun10snb\u0017wand of digging\nzDh\u0017wand of striking\nzEhnuukh\u0017wand of digging\nzFj\u0017wand of digging\nzGh\u0017wand of striking\nzH>\u0017wand of digging\nzIl\u0017wand of striking\nzJhklnnhnly\u0017wand of digging\nzKkjunjlllllllkFl  i>\u001bzxl  zy> rn ;  ..ZZzBj,#dip\nB#invoke\n\u001b\u000f\u001bE-#turn\n:#terrain\nf\n#levelchange\n30\n             \u0017blessed ring of polymorph control\nPL#polyself\nhuman mummy\n#monster\n.s\u0007couatl\nFhFh Fh .k.sj#polyself\nvampire\nsnsm. \u0007guard\nnFh  Fh  Fh sm. .m. 20s#polyself\nbrown mold\n s  .m.\u0007brown pudding\nFy Fy Fu 20ssm..m.  n  \u00167\n\\    \u0017potion of monster detection\n\u0007doppelganger\nqM>. #dip\nxFk Fk  \u0017Magicbane\nwN   Fn   Fn   n   Fb  #invoke\nNFk  Fb  \u0017uncursed potion of enlightenment\n\u0007grid bug\nqO \u001bFyFk \u0017wand "
+  }
+ ]
+}

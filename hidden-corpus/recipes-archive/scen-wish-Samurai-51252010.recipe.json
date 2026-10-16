@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \u00173 horn of plenty\n\u0007yeti\nafaf \u0017blessed +3 ring of sustain ability\nPil .m.  yy\u001by   nnn  2"
+ },
+ "segments": [
+  {
+   "seed": 51252010,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00173 horn of plenty\n\u0007yeti\nafaf \u0017blessed +3 ring of sustain ability\nPil .m.  yy\u001by   nnn  2"
+  }
+ ]
+}

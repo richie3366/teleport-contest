@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  \u0017Fire Brand\nwp.ss#invoke\np \u001bm.        \u0007green-elf\nFuFu  Fu Fu   nFu Fu \u0007yeti\nFkFk Fk  yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51252019,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017Fire Brand\nwp.ss#invoke\np \u001bm.        \u0007green-elf\nFuFu  Fu Fu   nFu Fu \u0007yeti\nFkFk Fk  yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

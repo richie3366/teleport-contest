@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 gauntlets of power\nWo\u0017blessed +3 helm of telepathy\nWp\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007kobold\n_ \u001bm. qr \u001b\u0007giant rat\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nlg#offer\n#pray\ny y    #chat\ny#levelchange\n20\nFb Fy._oo._,,#vanquished\n #genocided\nettin\n  #annotate\nshiny\n\u000f\u001b#name\no\n#adjust\nb\u001b#chat\nu#turn\n#levelchange\n4\n     ybn_{.qg#chronicle\n   #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n#levelchange\n23\n                   ybu__,#chat\nh#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nh#chat\nj#jump\n#wizidentify\n\u001byny\u0016?\n>x\u0006\u0007acid blob\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n\u001b#wizmap\n\u0006Fhs _>,#vanquished\n #genocided\nwater demon\n\u0018\u001b#dip\ngf #offer\n#pray\ny y  #chat\nn#jump\n#wizmap\n\u0006kyl __,#chat\nl#chronicle\n    #terrain\n\u001b\u000f\u001b#name\ni\n#adjust\nl\u001b#chat\nn#turn\n#jump\n#wizintrinsic\nqa\n yl y_>.#version\n  #"
+ },
+ "segments": [
+  {
+   "seed": 51257023,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 gauntlets of power\nWo\u0017blessed +3 helm of telepathy\nWp\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007kobold\n_ \u001bm. qr \u001b\u0007giant rat\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nlg#offer\n#pray\ny y    #chat\ny#levelchange\n20\nFb Fy._oo._,,#vanquished\n #genocided\nettin\n  #annotate\nshiny\n\u000f\u001b#name\no\n#adjust\nb\u001b#chat\nu#turn\n#levelchange\n4\n     ybn_{.qg#chronicle\n   #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n#levelchange\n23\n                   ybu__,#chat\nh#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nh#chat\nj#jump\n#wizidentify\n\u001byny\u0016?\n>x\u0006\u0007acid blob\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n\u001b#wizmap\n\u0006Fhs _>,#vanquished\n #genocided\nwater demon\n\u0018\u001b#dip\ngf #offer\n#pray\ny y  #chat\nn#jump\n#wizmap\n\u0006kyl __,#chat\nl#chronicle\n    #terrain\n\u001b\u000f\u001b#name\ni\n#adjust\nl\u001b#chat\nn#turn\n#jump\n#wizintrinsic\nqa\n yl y_>.#version\n  #"
+  }
+ ]
+}

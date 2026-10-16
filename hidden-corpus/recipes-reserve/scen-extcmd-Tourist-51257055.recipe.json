@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPnl\u0017blessed +3 gauntlets of power\nWo \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007owlbear\n#pray\ny y   #chat\nl #wizidentify\n\u001bFl Fl \u0016?\n>x\u0006#overview\n\u001b#conduct\n \u000f\u001b#dip\ncg#offer\n#chat\nj#turn\n#polyself\nvampire\n#monster\n     .ssFjFjFj#jump\n_ \u001b,\u0007soldier\n#vanquished\n #genocided\ndoppelganger\nei\u001b#name\nm\n#adjust\n@.#sit\n#pray\ny y     #wizidentify\n\u001bFkFj#pray\ny y      _ooo.,\u001b#chronicle\n #terrain\n\u001b#annotate\nblessed\ni\u001b#twoweapon\n#invoke\n\u001b#chat\nk#chat\nk#jump\n#wizdetect\n\u0006Fk Fk  i\u001b_oooooo,,\u001b#version\n  #history\n                  \u0018\u001b#wipe\n   n#loot\nj#turn\n#sit\n #polyself\nxorn\n#mon"
+ },
+ "segments": [
+  {
+   "seed": 51257055,
+   "datetime": "20060828055348",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPnl\u0017blessed +3 gauntlets of power\nWo \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007owlbear\n#pray\ny y   #chat\nl #wizidentify\n\u001bFl Fl \u0016?\n>x\u0006#overview\n\u001b#conduct\n \u000f\u001b#dip\ncg#offer\n#chat\nj#turn\n#polyself\nvampire\n#monster\n     .ssFjFjFj#jump\n_ \u001b,\u0007soldier\n#vanquished\n #genocided\ndoppelganger\nei\u001b#name\nm\n#adjust\n@.#sit\n#pray\ny y     #wizidentify\n\u001bFkFj#pray\ny y      _ooo.,\u001b#chronicle\n #terrain\n\u001b#annotate\nblessed\ni\u001b#twoweapon\n#invoke\n\u001b#chat\nk#chat\nk#jump\n#wizdetect\n\u0006Fk Fk  i\u001b_oooooo,,\u001b#version\n  #history\n                  \u0018\u001b#wipe\n   n#loot\nj#turn\n#sit\n #polyself\nxorn\n#mon"
+  }
+ ]
+}

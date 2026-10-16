@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of reflection\nPj\u0017blessed +3 gauntlets of power\nW\u001b\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007troll\nFjFn_ \u001b@.,#overview\n\u001b#conduct\n #annotate\nfoo\n\u000f\u001b#dip\ndd#offer\n#pray\ny y     #chat\nj  n#levelchange\n21\n                       Fl  Fj__.#chat\nj#vanquished\n #genocided\nowlbear\n#annotate\n\u001b\u0018\u001b#name\nm\n#adjust\n;#chat\nj#turn\n#wizidentify\n\u001bFjFj  n Fjs_ooo,_,,\u001b\u0007kobold\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n#pray\ny y #wizidentify\n\u001bFk.s_>.\u0007grid bug\n#version\n  #history\n                  \u0018\u001b#wipe\n#loot\nl#chat\nl#chat\nl#jump\n#wizintrinsic\ng\n Fls20s_{,qd#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#tip\n\u001b\u001b#ride\nky#turn\n#sit\n #jump\n#polyself\nair elemental\n ssssy yh__.#chat\nn\u0007owlbear\n#vanquished\n #genocided\nminotaur\ni\u001b#dip\ngd  #offer\n#pray\ny y      #chat\nl#jump\n#wizmap\n\u0006Fl  FlFl  Fl\u0018\u001b__.#chat\nn\u0007owlb"
+ },
+ "segments": [
+  {
+   "seed": 51257013,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=fruit:lychee\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of reflection\nPj\u0017blessed +3 gauntlets of power\nW\u001b\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007troll\nFjFn_ \u001b@.,#overview\n\u001b#conduct\n #annotate\nfoo\n\u000f\u001b#dip\ndd#offer\n#pray\ny y     #chat\nj  n#levelchange\n21\n                       Fl  Fj__.#chat\nj#vanquished\n #genocided\nowlbear\n#annotate\n\u001b\u0018\u001b#name\nm\n#adjust\n;#chat\nj#turn\n#wizidentify\n\u001bFjFj  n Fjs_ooo,_,,\u001b\u0007kobold\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n#pray\ny y #wizidentify\n\u001bFk.s_>.\u0007grid bug\n#version\n  #history\n                  \u0018\u001b#wipe\n#loot\nl#chat\nl#chat\nl#jump\n#wizintrinsic\ng\n Fls20s_{,qd#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#tip\n\u001b\u001b#ride\nky#turn\n#sit\n #jump\n#polyself\nair elemental\n ssssy yh__.#chat\nn\u0007owlbear\n#vanquished\n #genocided\nminotaur\ni\u001b#dip\ngd  #offer\n#pray\ny y      #chat\nl#jump\n#wizmap\n\u0006Fl  FlFl  Fl\u0018\u001b__.#chat\nn\u0007owlb"
+  }
+ ]
+}

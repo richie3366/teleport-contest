@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "N  JNN_ \u001b,>FkFy s#twoweapon\nKHBJN_>.>#force\nnBBKJ_>.>q#terrain\nb\nYJLL_>\u000f unjjky\u0018\u001bee100s150sFkFk20s\u0018\u001bf by buyyljy100sjylhlh50s_>.>100s50s150s 50s_>.>100sclhhl>lljZ150s100sef  y50s150sef  y_>,>150s Fy20ssed100s_>,>kjl#conduct\n \u0004n#offer\nKYYH_>,>Fj.s#ride\nj#name\nf\nLJBH_>KYLJ_>JHYJ_>LYYJ_>ckLJUN_>.>Fyss#terrain\nd\nP LNHH_>.>KHBJ_>,>UBKY_>,>#offer\nr\u001bl100slblf \u001b150szg Magicbane\ni\u001bubyFhs.jly\u000f\u001b50sFhFhFhFhFh.100slbl50s100s\u0014e_>,>100sFyFhFy100s100skjkFh.s_>.>100s100sFhs20s100s150sFhss_>.>100s100s50sFhsslhl\u0018\u001bKLUJ_>.>HKJK_>.>FlFl20sULYJ_>.>KYNN_>,>:r\u001bLJLN_>.>#pray\ny  #turn\nYJHL_>.>HULK_>,>H JJK _>.>HUUH_>.>Fjs.UL HL _>.>r\u001b\u0018\u001bKULK_>.>#turn\nZ\u000f\u001b_>,>bhbFy.Fh_>.><50s150s100s150sFh20ss100sFhss50s\u0018\u001bu"
+ },
+ "segments": [
+  {
+   "seed": 51250091,
+   "datetime": "20240819211510",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:explore\n",
+   "moves": "N  JNN_ \u001b,>FkFy s#twoweapon\nKHBJN_>.>#force\nnBBKJ_>.>q#terrain\nb\nYJLL_>\u000f unjjky\u0018\u001bee100s150sFkFk20s\u0018\u001bf by buyyljy100sjylhlh50s_>.>100s50s150s 50s_>.>100sclhhl>lljZ150s100sef  y50s150sef  y_>,>150s Fy20ssed100s_>,>kjl#conduct\n \u0004n#offer\nKYYH_>,>Fj.s#ride\nj#name\nf\nLJBH_>KYLJ_>JHYJ_>LYYJ_>ckLJUN_>.>Fyss#terrain\nd\nP LNHH_>.>KHBJ_>,>UBKY_>,>#offer\nr\u001bl100slblf \u001b150szg Magicbane\ni\u001bubyFhs.jly\u000f\u001b50sFhFhFhFhFh.100slbl50s100s\u0014e_>,>100sFyFhFy100s100skjkFh.s_>.>100s100sFhs20s100s150sFhss_>.>100s100s50sFhsslhl\u0018\u001bKLUJ_>.>HKJK_>.>FlFl20sULYJ_>.>KYNN_>,>:r\u001bLJLN_>.>#pray\ny  #turn\nYJHL_>.>HULK_>,>H JJK _>.>HUUH_>.>Fjs.UL HL _>.>r\u001b\u0018\u001bKULK_>.>#turn\nZ\u000f\u001b_>,>bhbFy.Fh_>.><50s150s100s150sFh20ss100sFhss50s\u0018\u001bu"
+  }
+ ]
+}

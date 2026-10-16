@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n20\n   \u0016?\n>v r\u001b#loot\nj#conduct\n ;j, \u001b:   ss\u0016?\n>>N        wand of teleportation\n10s     \u001b#chat\nn       n       nr\u001bsj       n   su   n    n\u0016?\n\u001b\u0016?\n\u001b\u000f\u001b\u00168\n#levelchange\n6\n    #polyself\nfire vortex\n  #monster\ns    n   n .m.  n  n    n\u0007jackal\nFb   n  n    nFl   n  n   n   n Fb  yy\u001by  y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51250017,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n20\n   \u0016?\n>v r\u001b#loot\nj#conduct\n ;j, \u001b:   ss\u0016?\n>>N        wand of teleportation\n10s     \u001b#chat\nn       n       nr\u001bsj       n   su   n    n\u0016?\n\u001b\u0016?\n\u001b\u000f\u001b\u00168\n#levelchange\n6\n    #polyself\nfire vortex\n  #monster\ns    n   n .m.  n  n    n\u0007jackal\nFb   n  n    nFl   n  n   n   n Fb  yy\u001by  y y\u001b  F"
+  }
+ ]
+}

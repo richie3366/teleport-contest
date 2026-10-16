@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n                  \u0007soldier\nFjFk Fj Fk  _ \u001b,,\u0007gnome lord\n#overview\n\u001b#conduct\n #annotate\nFido\n\u000f\u001b#dip\nie#offer\n#pray\ny y   #chat\nj #wizintrinsic\nar\n FjFb__.#chat\nj #vanquished\n #genocided\nhill orc\n#annotate\n\u001b\u0018\u001b#name\no\n#adjust\nd\u001b#chat\nn #turn\n#polyself\npurple worm\n #monster\nsm.20sFj   Fn  Fh._{.qe#chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y  #wizidentify\n\u001byhl_{,qn\u0007hill orc\n#version\n  #history\n                  i\u001b#wipe\n#loot\nh#chat\nh#chat\nh#jump\n#wizintrinsic\nfr\n Fh Fh FhFh \u0016?\n>>M      amulet of restful sleep\n\u0006;#overview\n\u001b#conduct\n #annotate\nFido\n\u0018\u001b#tip\n\u001b#ride\nky#turn\n#sit\n\u001b#levelchange\n18\n  Fk   Fl  n      Fb    n     \u001610\n\u0016?\n\u001b\u0006,\u0007troll\n#vanquished\n #genocided\nshrieker\n      n     \u000f\u001b#dip\nid    n        n   #offer\n\u00166\n#pray\ny y                              #chat\nu#polyself\nl"
+ },
+ "segments": [
+  {
+   "seed": 51257064,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n                  \u0007soldier\nFjFk Fj Fk  _ \u001b,,\u0007gnome lord\n#overview\n\u001b#conduct\n #annotate\nFido\n\u000f\u001b#dip\nie#offer\n#pray\ny y   #chat\nj #wizintrinsic\nar\n FjFb__.#chat\nj #vanquished\n #genocided\nhill orc\n#annotate\n\u001b\u0018\u001b#name\no\n#adjust\nd\u001b#chat\nn #turn\n#polyself\npurple worm\n #monster\nsm.20sFj   Fn  Fh._{.qe#chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y  #wizidentify\n\u001byhl_{,qn\u0007hill orc\n#version\n  #history\n                  i\u001b#wipe\n#loot\nh#chat\nh#chat\nh#jump\n#wizintrinsic\nfr\n Fh Fh FhFh \u0016?\n>>M      amulet of restful sleep\n\u0006;#overview\n\u001b#conduct\n #annotate\nFido\n\u0018\u001b#tip\n\u001b#ride\nky#turn\n#sit\n\u001b#levelchange\n18\n  Fk   Fl  n      Fb    n     \u001610\n\u0016?\n\u001b\u0006,\u0007troll\n#vanquished\n #genocided\nshrieker\n      n     \u000f\u001b#dip\nid    n        n   #offer\n\u00166\n#pray\ny y                              #chat\nu#polyself\nl"
+  }
+ ]
+}

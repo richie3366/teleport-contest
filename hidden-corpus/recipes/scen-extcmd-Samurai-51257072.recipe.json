@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007grid bug\n#overview\n\u001b#conduct\n i\u001b#dip\ncj#offer\n#pray\ny y   #chat\nj#polyself\npurple worm\n #monster\n.sFn shjk_ \u001bm.,\u0007kobold\n#vanquished\n #genocided\nelf-lord\ni\u001b#name\no\n#adjust\nc\u001b#chat\n#turn\n#wizintrinsic\nfs\n FyFyFy_oo.Fb_.,#chronicle\n #terrain\n\u001b#annotate\nshiny\n\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #wizintrinsic\nq\n bll#tip\n\u001b__,_,#chat\nj\u0007lichen\n#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#wipe\n#loot\nl#chat\nl#chat\nl#levelchange\n13\n           FlFl_>.#overview\n\u001b#conduct\n #annotate\n\u001bi\u001b#tip\n\u001b#ri"
+ },
+ "segments": [
+  {
+   "seed": 51257072,
+   "datetime": "20140808092530",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007grid bug\n#overview\n\u001b#conduct\n i\u001b#dip\ncj#offer\n#pray\ny y   #chat\nj#polyself\npurple worm\n #monster\n.sFn shjk_ \u001bm.,\u0007kobold\n#vanquished\n #genocided\nelf-lord\ni\u001b#name\no\n#adjust\nc\u001b#chat\n#turn\n#wizintrinsic\nfs\n FyFyFy_oo.Fb_.,#chronicle\n #terrain\n\u001b#annotate\nshiny\n\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #wizintrinsic\nq\n bll#tip\n\u001b__,_,#chat\nj\u0007lichen\n#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#wipe\n#loot\nl#chat\nl#chat\nl#levelchange\n13\n           FlFl_>.#overview\n\u001b#conduct\n #annotate\n\u001bi\u001b#tip\n\u001b#ri"
+  }
+ ]
+}

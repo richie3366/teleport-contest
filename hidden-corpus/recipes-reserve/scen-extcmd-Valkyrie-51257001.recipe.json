@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 helm of telepathy\nWe\u0017blessed Mjollnir\nwf \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007yellow mold\n#overview\n\u001b#conduct\n i\u001b#dip\ngh #offer\n#pray\ny y      #chat\nl#jump\n#wizdetect\n\u0006Fk  .ss#turn\n_ \u001b>.\u0007dwarf\n#vanquished\n #genocided\nerinys\nd#annotate\nfoo\n\u0018\u001b#name\nm\n#adjust\n<.#chat\nj#turn\n#wizmap\n\u0006Fj 20ss.#offer\n__._.#chat\ny#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\nf#sit\n\u001b#pray\ny y #wizmap\n\u0006nll10s_oooooo,,#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nn#chat\nk#wizmap\n\u0006hyk\u0016?\n>>P  \u0006\u0007yellow mold\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nby#turn\n#sit\n\u001b#polyself\npurple worm\ns20sFb20sljh__,#chat\n#vanquished\n #genocided\ngrid bug\ni#dip\n\u001b#offer\n#pray\ny y  #chat\nj#polyself\nleprechaun\n#monste"
+ },
+ "segments": [
+  {
+   "seed": 51257001,
+   "datetime": "20010125213544",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 helm of telepathy\nWe\u0017blessed Mjollnir\nwf \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007yellow mold\n#overview\n\u001b#conduct\n i\u001b#dip\ngh #offer\n#pray\ny y      #chat\nl#jump\n#wizdetect\n\u0006Fk  .ss#turn\n_ \u001b>.\u0007dwarf\n#vanquished\n #genocided\nerinys\nd#annotate\nfoo\n\u0018\u001b#name\nm\n#adjust\n<.#chat\nj#turn\n#wizmap\n\u0006Fj 20ss.#offer\n__._.#chat\ny#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\nf#sit\n\u001b#pray\ny y #wizmap\n\u0006nll10s_oooooo,,#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nn#chat\nk#wizmap\n\u0006hyk\u0016?\n>>P  \u0006\u0007yellow mold\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nby#turn\n#sit\n\u001b#polyself\npurple worm\ns20sFb20sljh__,#chat\n#vanquished\n #genocided\ngrid bug\ni#dip\n\u001b#offer\n#pray\ny y  #chat\nj#polyself\nleprechaun\n#monste"
+  }
+ ]
+}

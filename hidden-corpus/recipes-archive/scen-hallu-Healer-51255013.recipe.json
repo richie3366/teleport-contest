@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic harp\n\u0017blessed +3 speed boots\nWm\u0017blessed magic lamp\n\u0017blessed +3 gray dragon scale mail\nWo\u0017blessed bell of opening\n\u0017blessed 20 daggers\n Qq#wizintrinsic\nh\n \u0017wand of probing\nzrl zrk zrl zrk zrl zrl \u0017wand of cold\nzsl   nzsj  nzsk  nzsh\u001610\n\u0017wand of magic missile\nzty ztyztn zth  zt#wizintrinsic\nh\n\u0007jackal\nFuFuFh Fh  s\u0017scroll of identify\nru q\n\u0016?\ns hlh:\u0017wand of magic missile\nzvuzvuzvhzv.\u0017wand of digging\nzwyzwjzwbzwk#wizintrinsic\nh\n\u0017blessed spellbook of cone of cold\nrx 20sZc\n#turn\n:\u0017blessed spellbook of cone of cold\nry sm.  nZc\n#turn\n:#wizintrinsic\nh\nfk  nfkfk\u0017wand of lightning\nzzkzzk   nzzkzzkzzk\u0016?\n>>L     amulet of reflection\nbuy  n  n    y   jn     n     :\u001611\n#wizintrinsic\nh\n;n, \u001bm.E- I am a fish\n  n   n        n          n #chat\nu#pray\ny y                              \u001612\n#wizintrinsic\nh\n\u0017blessed scroll of identify\nrC \u001b    n          n    \u00169\n\u0017wand of digging\nzDkzDjzDj  n         y  z"
+ },
+ "segments": [
+  {
+   "seed": 51255013,
+   "datetime": "20100601115409",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic harp\n\u0017blessed +3 speed boots\nWm\u0017blessed magic lamp\n\u0017blessed +3 gray dragon scale mail\nWo\u0017blessed bell of opening\n\u0017blessed 20 daggers\n Qq#wizintrinsic\nh\n \u0017wand of probing\nzrl zrk zrl zrk zrl zrl \u0017wand of cold\nzsl   nzsj  nzsk  nzsh\u001610\n\u0017wand of magic missile\nzty ztyztn zth  zt#wizintrinsic\nh\n\u0007jackal\nFuFuFh Fh  s\u0017scroll of identify\nru q\n\u0016?\ns hlh:\u0017wand of magic missile\nzvuzvuzvhzv.\u0017wand of digging\nzwyzwjzwbzwk#wizintrinsic\nh\n\u0017blessed spellbook of cone of cold\nrx 20sZc\n#turn\n:\u0017blessed spellbook of cone of cold\nry sm.  nZc\n#turn\n:#wizintrinsic\nh\nfk  nfkfk\u0017wand of lightning\nzzkzzk   nzzkzzkzzk\u0016?\n>>L     amulet of reflection\nbuy  n  n    y   jn     n     :\u001611\n#wizintrinsic\nh\n;n, \u001bm.E- I am a fish\n  n   n        n          n #chat\nu#pray\ny y                              \u001612\n#wizintrinsic\nh\n\u0017blessed scroll of identify\nrC \u001b    n          n    \u00169\n\u0017wand of digging\nzDkzDjzDj  n         y  z"
+  }
+ ]
+}

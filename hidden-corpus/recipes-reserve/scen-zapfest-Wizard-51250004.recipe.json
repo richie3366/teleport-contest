@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPm\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPol#levelchange\n14\n            \u0007black dragon\n\u0007black dragon\nsm.20s 20s  .h     \u0017wand of magic missile\napy        FlFb  \u0017blessed spellbook of drain life\nrq    ns\u0017blessed spellbook of sleep\nrr   n20s  n \u0007incubus\nZb\n  n  Za\n      ss  n Zb\n Zb\ns20sZb\n \u00169\n\u0017spellbook of force bolt\nrs y 20s\u0017blessed spellbook of light\nrt s\u0007orc shaman\n\u0007mind flayer\nZb\nZb\n  .m.  .m.     Zc\n Zb\n    Za\n     n ZZZsbsm.   n Z20s   n  20s  Zb\n   n \u00166\n \u00176 eggs\nQ\u001b\u0007lichen\n\u0007dwarf\nt\u001bf \u001bt\u001bt\u001bt\u001bf \u001bi\u001b\u0007black dragon\n\u0007silver dragon\nsm..n.20s   #polyself\nred dragon\n   #monster\nh          .m"
+ },
+ "segments": [
+  {
+   "seed": 51250004,
+   "datetime": "20010502054958",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPm\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPol#levelchange\n14\n            \u0007black dragon\n\u0007black dragon\nsm.20s 20s  .h     \u0017wand of magic missile\napy        FlFb  \u0017blessed spellbook of drain life\nrq    ns\u0017blessed spellbook of sleep\nrr   n20s  n \u0007incubus\nZb\n  n  Za\n      ss  n Zb\n Zb\ns20sZb\n \u00169\n\u0017spellbook of force bolt\nrs y 20s\u0017blessed spellbook of light\nrt s\u0007orc shaman\n\u0007mind flayer\nZb\nZb\n  .m.  .m.     Zc\n Zb\n    Za\n     n ZZZsbsm.   n Z20s   n  20s  Zb\n   n \u00166\n \u00176 eggs\nQ\u001b\u0007lichen\n\u0007dwarf\nt\u001bf \u001bt\u001bt\u001bt\u001bf \u001bi\u001b\u0007black dragon\n\u0007silver dragon\nsm..n.20s   #polyself\nred dragon\n   #monster\nh          .m"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  \u00162\nFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu\u0006_ \u001b<.>_>.Fl_.> FjFjFj\u0006_>>,Fh_.Fh>FhFh_>>,Fh_.Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFh#pray\ny y    #enhance\nya\ng\n\u001b\u0006_>>.Fl_.Fh>FkFk_>>.Fk_,Fk>FkFk_>>,_.>mO>k\u001b\n\u0007little dog\n\u0017lichen corpse\ntbl \u0007yellow mold\n20sh\u001b.m.sm. .m.  n  sm. 20s \u0006_>.Fj_.m,Fl>FbFll _>. Fl_,  n Fb>FbFll _>,  Fl_.Fl>FlFb\u0007giant rat\n\u0017scroll of taming\nrf \u0007jackal\n\u0017scroll of taming\nrg h\u001b\u0017lichen corpse\ntbb b\u0006_>, _,Fl>FlFl_>.Fu_. Fl>FhFu_>.Fu_.Fl>FlFl\u00162\nO>>a\u001b\n\u0006_>,_.> \u0006_>._,@.> \u0006_>,Fu_."
+ },
+ "segments": [
+  {
+   "seed": 51250023,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=number_pad:3\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": "  \u00162\nFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu\u0006_ \u001b<.>_>.Fl_.> FjFjFj\u0006_>>,Fh_.Fh>FhFh_>>,Fh_.Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFh#pray\ny y    #enhance\nya\ng\n\u001b\u0006_>>.Fl_.Fh>FkFk_>>.Fk_,Fk>FkFk_>>,_.>mO>k\u001b\n\u0007little dog\n\u0017lichen corpse\ntbl \u0007yellow mold\n20sh\u001b.m.sm. .m.  n  sm. 20s \u0006_>.Fj_.m,Fl>FbFll _>. Fl_,  n Fb>FbFll _>,  Fl_.Fl>FlFb\u0007giant rat\n\u0017scroll of taming\nrf \u0007jackal\n\u0017scroll of taming\nrg h\u001b\u0017lichen corpse\ntbb b\u0006_>, _,Fl>FlFl_>.Fu_. Fl>FhFu_>.Fu_.Fl>FlFl\u00162\nO>>a\u001b\n\u0006_>,_.> \u0006_>._,@.> \u0006_>,Fu_."
+  }
+ ]
+}

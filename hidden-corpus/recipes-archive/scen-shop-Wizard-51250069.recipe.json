@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 speed boots\nWo\u0017blessed amulet of reflection\nPp\u0016?\n>w\u0006_ \u001b:#chat\nj#pray\ny y _{._.:qy_ooooooooo._ooo.,p_ooo.,p_oooooooo,,\u0014m.  s.\u00163\nlhk\u0016?\n>w\u0006byn#chat\nh_oooooooo.Fj_,,$kul#chat\nh_oooo.Fb_,@.,:_{,_,:qfm._oo._.,,p_oo._.>._ooo,_,:,$__,_.m.#chat\nk#pray\ny y \u00163\nbyu\u0016?\n>w\u0006ulk#chat\nnykj#chat\ny__,Fh_.Fh#chat\nh_{,Fh_,Fhqhnll#chat\nj_oooo._.:_ooo,_.;;,\u0017dilithium crystal\ndr\u00167\nnb   k\u0016?\n>w\u0006_oooooo._,,\u0017diamond\nds\u0016?\n>Bylj\u0016?\n>w\u0006lkb#chat\nu_{.Fb_.;<.Fbqg\u001b_{._,m.Fuq_oooooo,Fj_.;;Fy ,$_ooooo.    n    Fy   n _,  n    Fb   n   n  ,   n   n  p\u00167\n_oooooooo.,p_oooooo.,p_{.q_ooooooo.  n    nFl _,<.Fj   n   n  ,#chat\nn   n    n \u00166\n _{,q_oooo.,    n    n p_{.q\u0016?\ncl  yy\u001bny y ny  u"
+ },
+ "segments": [
+  {
+   "seed": 51250069,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=sortloot:full\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 speed boots\nWo\u0017blessed amulet of reflection\nPp\u0016?\n>w\u0006_ \u001b:#chat\nj#pray\ny y _{._.:qy_ooooooooo._ooo.,p_ooo.,p_oooooooo,,\u0014m.  s.\u00163\nlhk\u0016?\n>w\u0006byn#chat\nh_oooooooo.Fj_,,$kul#chat\nh_oooo.Fb_,@.,:_{,_,:qfm._oo._.,,p_oo._.>._ooo,_,:,$__,_.m.#chat\nk#pray\ny y \u00163\nbyu\u0016?\n>w\u0006ulk#chat\nnykj#chat\ny__,Fh_.Fh#chat\nh_{,Fh_,Fhqhnll#chat\nj_oooo._.:_ooo,_.;;,\u0017dilithium crystal\ndr\u00167\nnb   k\u0016?\n>w\u0006_oooooo._,,\u0017diamond\nds\u0016?\n>Bylj\u0016?\n>w\u0006lkb#chat\nu_{.Fb_.;<.Fbqg\u001b_{._,m.Fuq_oooooo,Fj_.;;Fy ,$_ooooo.    n    Fy   n _,  n    Fb   n   n  ,   n   n  p\u00167\n_oooooooo.,p_oooooo.,p_{.q_ooooooo.  n    nFl _,<.Fj   n   n  ,#chat\nn   n    n \u00166\n _{,q_oooo.,    n    n p_{.q\u0016?\ncl  yy\u001bny y ny  u"
+  }
+ ]
+}

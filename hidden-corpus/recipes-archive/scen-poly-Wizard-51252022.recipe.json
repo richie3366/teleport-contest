@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPpl\u0017oilskin cloak\nW\u001bs.s#polyself\nwarhorse\n #monster\ns20s\u0007stalker\n20sFjFj20ss  yny  y nn  s"
+ },
+ "segments": [
+  {
+   "seed": 51252022,
+   "datetime": "20011204033700",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of polymorph control\nPpl\u0017oilskin cloak\nW\u001bs.s#polyself\nwarhorse\n #monster\ns20s\u0007stalker\n20sFjFj20ss  yny  y nn  s"
+  }
+ ]
+}

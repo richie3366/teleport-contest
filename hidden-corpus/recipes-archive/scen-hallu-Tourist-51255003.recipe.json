@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPpr\u0017blessed +3 gray dragon scale mail\nWq  \u0017blessed amulet of life saving\nPr\u0017blessed leash\n\u0017blessed 20 daggers\nQt#levelchange\n20\n                   #wizintrinsic\nh\n \u0007soldier\n\u0007newt\nFb FbFj Fl Fl Fj \u0017wand of magic missile\nzuj  zuj  zuj  zub zuj    \u0017wand of magic missile\nzvj zvuzvh zvjzvu#wizintrinsic\nh\n\u0017spellbook of magic missile\nrw.Za\n :\u0018\u001bhbkj\u0017wand of lightning\nzxh zxjzxnzxyzx.\u0017potion of levitation\nqy.s#wizintrinsic\nh\n\u0017wand of striking\nzz.zznzzbzzk\u0007lichen\n\u0007grid bug\nsFkFk..\u0007yellow mold\n\u0007gnome\nsFlFkFktanfnfy\u0017scroll of teleportation\nrA#wizintrinsic\nh\n;m, \u001b>.E-#pray\ny y\u0017blessed spellbook of cause fear\nrBsZa\n#turn\n:\u0017blessed scroll of earth\nrC#wizintrinsic\nh\n\u0007sewer rat\n\u0007acid blob\nFhFhFuFhFufytakt$k\u0017potion of healing\nqD 20si\u001bllu\u0007sewer rat\n\u0007gnome\nFhFn Fb Fn#wizintrinsic\nh\nfh fy fh \u0007giant rat\n\u0007soldier\nFhFh Fh Fy Fb FyFh i\u001bk k b b \u0017wand of slow monster\nzEb zEb   zEb zEb #wizintrinsic\nh\ni\u001byuy\u0016?\n>>K     worthless piece of red glass\nj lh:20ssm. sm.\u0007owlbear\n\u0007kobold shaman\nFlFlFh    Fl Fy Fl #wizintrinsic\nh\n\u0017potion of hallucination\nqH.m. sh    \u0007soldi"
+ },
+ "segments": [
+  {
+   "seed": 51255003,
+   "datetime": "20041123081546",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPpr\u0017blessed +3 gray dragon scale mail\nWq  \u0017blessed amulet of life saving\nPr\u0017blessed leash\n\u0017blessed 20 daggers\nQt#levelchange\n20\n                   #wizintrinsic\nh\n \u0007soldier\n\u0007newt\nFb FbFj Fl Fl Fj \u0017wand of magic missile\nzuj  zuj  zuj  zub zuj    \u0017wand of magic missile\nzvj zvuzvh zvjzvu#wizintrinsic\nh\n\u0017spellbook of magic missile\nrw.Za\n :\u0018\u001bhbkj\u0017wand of lightning\nzxh zxjzxnzxyzx.\u0017potion of levitation\nqy.s#wizintrinsic\nh\n\u0017wand of striking\nzz.zznzzbzzk\u0007lichen\n\u0007grid bug\nsFkFk..\u0007yellow mold\n\u0007gnome\nsFlFkFktanfnfy\u0017scroll of teleportation\nrA#wizintrinsic\nh\n;m, \u001b>.E-#pray\ny y\u0017blessed spellbook of cause fear\nrBsZa\n#turn\n:\u0017blessed scroll of earth\nrC#wizintrinsic\nh\n\u0007sewer rat\n\u0007acid blob\nFhFhFuFhFufytakt$k\u0017potion of healing\nqD 20si\u001bllu\u0007sewer rat\n\u0007gnome\nFhFn Fb Fn#wizintrinsic\nh\nfh fy fh \u0007giant rat\n\u0007soldier\nFhFh Fh Fy Fb FyFh i\u001bk k b b \u0017wand of slow monster\nzEb zEb   zEb zEb #wizintrinsic\nh\ni\u001byuy\u0016?\n>>K     worthless piece of red glass\nj lh:20ssm. sm.\u0007owlbear\n\u0007kobold shaman\nFlFlFh    Fl Fy Fl #wizintrinsic\nh\n\u0017potion of hallucination\nqH.m. sh    \u0007soldi"
+  }
+ ]
+}

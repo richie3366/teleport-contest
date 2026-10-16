@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n             \u0017blessed +3 ring of aggravate monster\nPkr20ss20sR\u00173 10 daggers\n \u001b ,ss\u0017ring of warning\n\u0007wererat\nPlr.usnsm.R  FbFj\u0017cursed -1 rubber hose\nwmFhFhFhXFh20s\u0017cursed the Eyes of the Overworld\n wms.20s#invoke\nn\u001bss"
+ },
+ "segments": [
+  {
+   "seed": 51252016,
+   "datetime": "20010329072111",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n             \u0017blessed +3 ring of aggravate monster\nPkr20ss20sR\u00173 10 daggers\n \u001b ,ss\u0017ring of warning\n\u0007wererat\nPlr.usnsm.R  FbFj\u0017cursed -1 rubber hose\nwmFhFhFhXFh20s\u0017cursed the Eyes of the Overworld\n wms.20s#invoke\nn\u001bss"
+  }
+ ]
+}

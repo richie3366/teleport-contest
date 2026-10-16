@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPkr\u0017plate mail\n Wl20ss20s#polyself\nlichen\n  ss20ss   .m. #polyself\nmaster mind flayer\n 20ssm.20s sm..m.\u0017potion of polymorph\nqm yeti\n "
+ },
+ "segments": [
+  {
+   "seed": 51252024,
+   "datetime": "20210401113929",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of polymorph control\nPkr\u0017plate mail\n Wl20ss20s#polyself\nlichen\n  ss20ss   .m. #polyself\nmaster mind flayer\n 20ssm.20s sm..m.\u0017potion of polymorph\nqm yeti\n "
+  }
+ ]
+}

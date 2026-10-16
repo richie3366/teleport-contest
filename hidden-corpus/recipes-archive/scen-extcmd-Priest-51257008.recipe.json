@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\n wj\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                    \u0007sewer rat\n\u0016?\n>>N       cheap plastic imitation of the Amulet of Yendor\n\u0006#overview\n\u001b#conduct\n i\u001b#dip\nim#offer\n#pray\ny y     \u001b    #chat\nb    n #jump\n#wizdetect\n\u0006Fj  Fb   n  Fb   n   Fn   n     n \u00169\n_ \u001b.\u0007sewer rat\n#vanquished\n#genocided\nxan\n    n  i\u001b#name\n\u001b#adjust\nd\u001b#chat\nj   n     n #turn\n     n   \u001612\n#levelchange\n6\n     Fj   n    n   nFn    n   n    n Fn   yy\u001by   y y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 51257008,
+   "datetime": "20050501052422",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\n wj\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                    \u0007sewer rat\n\u0016?\n>>N       cheap plastic imitation of the Amulet of Yendor\n\u0006#overview\n\u001b#conduct\n i\u001b#dip\nim#offer\n#pray\ny y     \u001b    #chat\nb    n #jump\n#wizdetect\n\u0006Fj  Fb   n  Fb   n   Fn   n     n \u00169\n_ \u001b.\u0007sewer rat\n#vanquished\n#genocided\nxan\n    n  i\u001b#name\n\u001b#adjust\nd\u001b#chat\nj   n     n #turn\n     n   \u001612\n#levelchange\n6\n     Fj   n    n   nFn    n   n    n Fn   yy\u001by   y y\u001b  \u0016"
+  }
+ ]
+}

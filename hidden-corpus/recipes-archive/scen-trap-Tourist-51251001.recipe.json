@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             lly\u0017teleportation trap\nyny \u001b;.sjk\u0017statue trap\nkjsm..b#terrain\nb\n#force\n@.#invoke\n\u001b\u0018\u001b#levelchange\n6\n       kkl\u0017arrow trap\nhl 20s sm.l\u0017web\nl\u0007newt\nsm.20s  yy\u001by  nny  2"
+ },
+ "segments": [
+  {
+   "seed": 51251001,
+   "datetime": "20090119050347",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             lly\u0017teleportation trap\nyny \u001b;.sjk\u0017statue trap\nkjsm..b#terrain\nb\n#force\n@.#invoke\n\u001b\u0018\u001b#levelchange\n6\n       kkl\u0017arrow trap\nhl 20s sm.l\u0017web\nl\u0007newt\nsm.20s  yy\u001by  nny  2"
+  }
+ ]
+}

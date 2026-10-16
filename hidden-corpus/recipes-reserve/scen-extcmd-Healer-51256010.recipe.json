@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of reflection\nPk\u0017blessed +3 cloak of magic resistance\nWl  \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007soldier\n\u0016?\n>I\u0006#overview\n\u001b#conduct\n i\u001b#dip\nen \u001b#offer\n#pray\ny y            #chat\nu#jump\n#levelchange\n16\nFy Fn        FbFh   dc   n _ \u001b<. qe   \u0007gnome\n#vanquished\n #genocided\nettin\nj \u0018\u001b#name\ni\n#adjust\nd\u001b#chat\ny#turn\n#polyself\nleprechaun\n  #monster\n.m.  20s  Fn   Fn    n Fk Fu  Fy   __.      n Fh_,Fu #chat\ny\u0007sewer rat\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y                   #levelchange\n19\n  Fy    Fl    nFu   Fk 20s   _>.Fy   n _,Fk#version\n  #history\n                  \u0018\u001b#wipe\n #loot\ny#chat\ny#chat\nk#wizidentify\n\u001bFk    nFyFhFh\u0016?\n>>K      wand of make invisibl"
+ },
+ "segments": [
+  {
+   "seed": 51256010,
+   "datetime": "20130814100541",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed amulet of reflection\nPk\u0017blessed +3 cloak of magic resistance\nWl  \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007soldier\n\u0016?\n>I\u0006#overview\n\u001b#conduct\n i\u001b#dip\nen \u001b#offer\n#pray\ny y            #chat\nu#jump\n#levelchange\n16\nFy Fn        FbFh   dc   n _ \u001b<. qe   \u0007gnome\n#vanquished\n #genocided\nettin\nj \u0018\u001b#name\ni\n#adjust\nd\u001b#chat\ny#turn\n#polyself\nleprechaun\n  #monster\n.m.  20s  Fn   Fn    n Fk Fu  Fy   __.      n Fh_,Fu #chat\ny\u0007sewer rat\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y                   #levelchange\n19\n  Fy    Fl    nFu   Fk 20s   _>.Fy   n _,Fk#version\n  #history\n                  \u0018\u001b#wipe\n #loot\ny#chat\ny#chat\nk#wizidentify\n\u001bFk    nFyFhFh\u0016?\n>>K      wand of make invisibl"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\nwg\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007yellow mold\n#overview\n\u001b#conduct\n \u000f\u001b#dip\ndj \u001b#offer\n#pray\ny y   #chat\nh#polyself\npurple worm\n  #monster\n20s   s.Fh yuy_ \u001b@.#chat\n\u0007dwarf\n#vanquished\n #genocided\nshrieker\nf \u000f\u001b#name\nm\n#adjust\n.#chat\n#turn\n#wizmap\n\u0006FjFks_oooo,_.,\u001b#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n#pray\ny y    #wizintrinsic\nas\n  FyFys__.#chat\nl#version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\nj#chat\nh#jump\n#levelchange\n9\nkuh_oo._.,\u0007hill orc\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b\u001b#ride\nhy#turn\n#sit\n\u001b#jump\n#wizidentify\n\u001bFhFhs\u001612\n\u0006#vanquished\n #genocided\nvampire lord\n#annotate\nshiny\n\u0018\u001b#dip\nf#offer\n#pray\ny y #chat\nu#polyself\nleprechaun\n #monster\nsm. sm.Fj Fj  n  Fk Fk     n _<,Fu       _.  nFn\u0007kobold\n#chronicle\n  #terrain\n\u001b\u000f\u001b#name\nm\n#adjust\ndc #chat\ny    #turn\n#polyself\nmind flayer\n20s   .m.           n    nFh n        Fk    \u00161\njbh#invoke\n\u001b\u001b__.#chat\nl\u0007newt\n#v"
+ },
+ "segments": [
+  {
+   "seed": 51257021,
+   "datetime": "20220709165006",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\nwg\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007yellow mold\n#overview\n\u001b#conduct\n \u000f\u001b#dip\ndj \u001b#offer\n#pray\ny y   #chat\nh#polyself\npurple worm\n  #monster\n20s   s.Fh yuy_ \u001b@.#chat\n\u0007dwarf\n#vanquished\n #genocided\nshrieker\nf \u000f\u001b#name\nm\n#adjust\n.#chat\n#turn\n#wizmap\n\u0006FjFks_oooo,_.,\u001b#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n#pray\ny y    #wizintrinsic\nas\n  FyFys__.#chat\nl#version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\nj#chat\nh#jump\n#levelchange\n9\nkuh_oo._.,\u0007hill orc\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b\u001b#ride\nhy#turn\n#sit\n\u001b#jump\n#wizidentify\n\u001bFhFhs\u001612\n\u0006#vanquished\n #genocided\nvampire lord\n#annotate\nshiny\n\u0018\u001b#dip\nf#offer\n#pray\ny y #chat\nu#polyself\nleprechaun\n #monster\nsm. sm.Fj Fj  n  Fk Fk     n _<,Fu       _.  nFn\u0007kobold\n#chronicle\n  #terrain\n\u001b\u000f\u001b#name\nm\n#adjust\ndc #chat\ny    #turn\n#polyself\nmind flayer\n20s   .m.           n    nFh n        Fk    \u00161\njbh#invoke\n\u001b\u001b__.#chat\nl\u0007newt\n#v"
+  }
+ ]
+}

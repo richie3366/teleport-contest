@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPgr\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007gnome lord\n#dip\ndi \u001b#offer\n#pray\ny y     #chat\nh#jump\n#wizdetect\n\u0006FjFjFh#dip\nf_ \u001b<.#chat\nn#overview\n\u001b#conduct\n \u000f\u001b#name\no\n#adjust\nc\u001b#chat\nl#turn\n#jump\n#levelchange\n10\n         nlb__.#chat\nn#vanquished\n #genocided\nminotaur\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizintrinsic\nqa\n hlu#dip\nc_>.Fb_.\u0007hobbit\n#chronicle\n #terrain\n\u001b#annotate\nblessed\ni\u001b#wipe\n#loot\nl#chat\nl#chat\nl#levelchange\n15\n     Fl.._<._.#version\n  #history\n                  #annotate\n\u001bi\u001b#tip\n\u001b#ride\nby#turn\n#sit\n#jump\n#wizintrinsic\nf\n ybb#untrap\ny_>,_.#overview\n\u001b#conduct\n \u000f\u001b#dip\nh#offer\n#pray\ny y #chat\nu#polyself\nleprechaun\n  #monster\n.ssshun#rub\ne__,_,#chat\nj#vanquished\n #genocided\nkraken\nd#annotate\n\u001bi\u001b#n"
+ },
+ "segments": [
+  {
+   "seed": 51257038,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPgr\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007gnome lord\n#dip\ndi \u001b#offer\n#pray\ny y     #chat\nh#jump\n#wizdetect\n\u0006FjFjFh#dip\nf_ \u001b<.#chat\nn#overview\n\u001b#conduct\n \u000f\u001b#name\no\n#adjust\nc\u001b#chat\nl#turn\n#jump\n#levelchange\n10\n         nlb__.#chat\nn#vanquished\n #genocided\nminotaur\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizintrinsic\nqa\n hlu#dip\nc_>.Fb_.\u0007hobbit\n#chronicle\n #terrain\n\u001b#annotate\nblessed\ni\u001b#wipe\n#loot\nl#chat\nl#chat\nl#levelchange\n15\n     Fl.._<._.#version\n  #history\n                  #annotate\n\u001bi\u001b#tip\n\u001b#ride\nby#turn\n#sit\n#jump\n#wizintrinsic\nf\n ybb#untrap\ny_>,_.#overview\n\u001b#conduct\n \u000f\u001b#dip\nh#offer\n#pray\ny y #chat\nu#polyself\nleprechaun\n  #monster\n.ssshun#rub\ne__,_,#chat\nj#vanquished\n #genocided\nkraken\nd#annotate\n\u001bi\u001b#n"
+  }
+ ]
+}

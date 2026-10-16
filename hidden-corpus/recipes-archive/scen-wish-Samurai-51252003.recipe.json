@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00173 sack\naf\u001baf\u001b#tip\nf\u001b\u0017gray dragon scale mail\nW\u001b..s\u0017cursed diamond\n\u0007scorpion\naf\u001bFlFu   \u0017rubber hose\nwi   Fk   FlFl   yy\u001by  y y y\u001by  X"
+ },
+ "segments": [
+  {
+   "seed": 51252003,
+   "datetime": "20050904094352",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u00173 sack\naf\u001baf\u001b#tip\nf\u001b\u0017gray dragon scale mail\nW\u001b..s\u0017cursed diamond\n\u0007scorpion\naf\u001bFlFu   \u0017rubber hose\nwi   Fk   FlFl   yy\u001by  y y y\u001by  X"
+  }
+ ]
+}

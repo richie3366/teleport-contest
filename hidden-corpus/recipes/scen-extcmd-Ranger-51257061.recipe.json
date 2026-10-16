@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed amulet of reflection\nPg\u0017blessed ring of free action\nPhl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007lichen\n#pray\ny y   #chat\ny#levelchange\n20\n           Fl ss_ \u001b@.\u0007jackal\n#overview\n\u001b#conduct\n i\u001b#dip\nij \u001b#offer\n#chat\nu#turn\n#jump\n#polyself\nleprechaun\n   #monster\nsm.sm.FuFuFuFu_{.q\u0007jackal\n#vanquished\n #genocided\norc shaman\n\u000f\u001b#name\ni\n#adjust\nk\u001b#sit\n #pray\ny y       #jump\n#wizmap\n\u0006FlFuFl Fl \u0016?\n>t \u0006\u0007dwarf\n#chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#chat\nb#chat\nb #wizdetect\n\u0006Fb  \u001bFb#enhance\nyd\ne\n\u001b\u001625\n\u0006\u0007kobold shaman\n#version\n  #history\n                  #annotate\nshiny\ni\u001b#wipe\n#"
+ },
+ "segments": [
+  {
+   "seed": 51257061,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed amulet of reflection\nPg\u0017blessed ring of free action\nPhl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007lichen\n#pray\ny y   #chat\ny#levelchange\n20\n           Fl ss_ \u001b@.\u0007jackal\n#overview\n\u001b#conduct\n i\u001b#dip\nij \u001b#offer\n#chat\nu#turn\n#jump\n#polyself\nleprechaun\n   #monster\nsm.sm.FuFuFuFu_{.q\u0007jackal\n#vanquished\n #genocided\norc shaman\n\u000f\u001b#name\ni\n#adjust\nk\u001b#sit\n #pray\ny y       #jump\n#wizmap\n\u0006FlFuFl Fl \u0016?\n>t \u0006\u0007dwarf\n#chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#chat\nb#chat\nb #wizdetect\n\u0006Fb  \u001bFb#enhance\nyd\ne\n\u001b\u001625\n\u0006\u0007kobold shaman\n#version\n  #history\n                  #annotate\nshiny\ni\u001b#wipe\n#"
+  }
+ ]
+}

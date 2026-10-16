@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "Fn sFkFkFks100s100s150s100sFlFlFlFlFlFlFl.si\u001b100s\u0004y50s_ \u001b.>_>.>100sFhFhFhFk FhFkFkFkFk50s\u000f\u001b100s_>.>qd100s100sFh20s.50sFlFlFlFlFls_>,>_>,>\u0014ybu100sFh20ss100s\u000f\u001b\u0018\u001b50s Fl..50s\u0018\u001b150s100suuhjly100sFjFjFhFhss_>.>100s150s#chat\nblhl100sFhFh20s50s _>.>150sFl.20snljylu100si\u001bi\u001b50sef150sFhFhFhlhj100see100seeeeeeKYHK_>.><NHNJ_>.><NYNY_>.>jnjjykjnyyybukjnykjk#chat\nn#chat\nueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJHLL_>.>#untrap\nbrg y YLJJ_>,>olE- Elbereth\nBNUK_>,>KHBL_>.>BYHB_>.>Fjs20s #dip\nbdi\u001bLHUK_>.>Zb\nZb\nBHKY_>.>#loot\nW#name\nm\n20s10s t\u001bjj#chat\nn10st\u001be<#pray\ny #pray\ny  100s #pray\ny    y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 51250011,
+   "datetime": "20030124124830",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\n",
+   "moves": "Fn sFkFkFks100s100s150s100sFlFlFlFlFlFlFl.si\u001b100s\u0004y50s_ \u001b.>_>.>100sFhFhFhFk FhFkFkFkFk50s\u000f\u001b100s_>.>qd100s100sFh20s.50sFlFlFlFlFls_>,>_>,>\u0014ybu100sFh20ss100s\u000f\u001b\u0018\u001b50s Fl..50s\u0018\u001b150s100suuhjly100sFjFjFhFhss_>.>100s150s#chat\nblhl100sFhFh20s50s _>.>150sFl.20snljylu100si\u001bi\u001b50sef150sFhFhFhlhj100see100seeeeeeKYHK_>.><NHNJ_>.><NYNY_>.>jnjjykjnyyybukjnykjk#chat\nn#chat\nueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJHLL_>.>#untrap\nbrg y YLJJ_>,>olE- Elbereth\nBNUK_>,>KHBL_>.>BYHB_>.>Fjs20s #dip\nbdi\u001bLHUK_>.>Zb\nZb\nBHKY_>.>#loot\nW#name\nm\n20s10s t\u001bjj#chat\nn10st\u001be<#pray\ny #pray\ny  100s #pray\ny    y\u001by  y y y\u001b  1"
+  }
+ ]
+}

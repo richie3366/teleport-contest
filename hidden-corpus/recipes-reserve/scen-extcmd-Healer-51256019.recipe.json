@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 cloak of magic resistance\nWm\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007bugbear\n#wizmap\n\u0006FhFhFjFhdj\u00164\n\u0006#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#dip\npd#offer\n#pray\ny y #chat\nu#jump\n#polyself\nleprechaun\n  #monster\n.20sFlFlFlFlFlFl_ \u001b<.\u0007jackal\n#vanquished\n#genocided\nwerejackal\nk\u000f\u001b#name\n\u001b#adjust\nn\u001b#chat\nu#turn\n#wizidentify\n\u001bFlFuFlFuP\u001b_<.Fu_.Fl\u0007gnome\n#chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y     #jump\n#levelchange\n9\n   Fl Fl _<.Fu_.#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nj#chat\nn#jump\n#polyself\npurple worm\n#monster\n.20s20sFylkuri y \u001612\n \u0006#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nly#turn\n#sit\n #wizmap\n\u0006jul_<,_.,#vanquished\n #genocided\ngreen slime\n\u0018\u001b#dip\ndo \u001b#offer\n#pray\ny y  #chat\nh#wizdetect\n\u0006jhk#terrain\n\u001b_>._.#chronicle\n  #terrain\n\u001b\u000f\u001b#name\n\u001b#adjust\nc\u001b#chat\nn#turn\n#wizidentify\n\u001bnun_{._..qf#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n#wizidentify\n\u001bhkk_{,_.>.qe\u0007hill orc\n#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\nj#chat\nj#chat\nj#wizintrinsic\nga\n Fj FjFjFj\u001624\n \u0006\u0007yellow mold\n#vanquished\n #genocided\ntroll\n$bi\u001b#tip\n\u001b#ride\n"
+ },
+ "segments": [
+  {
+   "seed": 51256019,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 cloak of magic resistance\nWm\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007bugbear\n#wizmap\n\u0006FhFhFjFhdj\u00164\n\u0006#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#dip\npd#offer\n#pray\ny y #chat\nu#jump\n#polyself\nleprechaun\n  #monster\n.20sFlFlFlFlFlFl_ \u001b<.\u0007jackal\n#vanquished\n#genocided\nwerejackal\nk\u000f\u001b#name\n\u001b#adjust\nn\u001b#chat\nu#turn\n#wizidentify\n\u001bFlFuFlFuP\u001b_<.Fu_.Fl\u0007gnome\n#chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y     #jump\n#levelchange\n9\n   Fl Fl _<.Fu_.#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nj#chat\nn#jump\n#polyself\npurple worm\n#monster\n.20s20sFylkuri y \u001612\n \u0006#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nly#turn\n#sit\n #wizmap\n\u0006jul_<,_.,#vanquished\n #genocided\ngreen slime\n\u0018\u001b#dip\ndo \u001b#offer\n#pray\ny y  #chat\nh#wizdetect\n\u0006jhk#terrain\n\u001b_>._.#chronicle\n  #terrain\n\u001b\u000f\u001b#name\n\u001b#adjust\nc\u001b#chat\nn#turn\n#wizidentify\n\u001bnun_{._..qf#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n#wizidentify\n\u001bhkk_{,_.>.qe\u0007hill orc\n#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\nj#chat\nj#chat\nj#wizintrinsic\nga\n Fj FjFjFj\u001624\n \u0006\u0007yellow mold\n#vanquished\n #genocided\ntroll\n$bi\u001b#tip\n\u001b#ride\n"
+  }
+ ]
+}

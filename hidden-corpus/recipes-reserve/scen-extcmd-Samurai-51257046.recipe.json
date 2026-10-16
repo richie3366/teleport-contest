@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed ring of free action\nPfr\u0017blessed +3 speed boots\nWg \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007grid bug\n#dip\nhi \u001b#offer\n#pray\ny y #chat\nj#wizintrinsic\nqr\n FjFhFhs>_ \u001bm,#chat\nn#overview\n\u001b#conduct\n \u0018\u001b#name\na\n#adjust\nj\u001b#chat\nl#turn\n#jump\n#polyself\nxorn\n#monster\ns.s20sFj  20s20s_{.q\u0007troll\n#vanquished\n #genocided\nwood nymph\ndy\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y    #jump\n#wizmap\n\u0006Fl  Fl f   k_oooooo.,#chronicle\n #terrain\n\u001bi\u001b#wipe\n#loot\n#chat\nh#chat\nh#jump\n#wizidentify\n\u001byhhok_{._.qy\u0007yellow mold\n#version\n  #history\n                  \u0018\u001b#tip\n\u001b#ride\nyy#turn\n#sit\n#levelchange\n4\nFy  s._oo._.,\u001b,\u001b#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#dip\nf#offer\n#pray\ny y #chat\nl#jump\n#levelchange\n25\n                     uhb\u0004l_ooooo._,,\u001b\u0007newt\n#vanquished\n #genocided\nmaster mind flayer\nb#annotate\n\u001bi\u001b#name\nm\n#adjust\nm.shiny\n#chat\nl#turn\n#levelchange\n23\nhhl_ooooo.Fn_.Fn,\u0007giant rat\n#chronicle\n  #terrain\n\u001b#annotate\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y  #levelchange\n20\n FlFl20s20s_{._.qy#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nb#chat\nk#jump\n#polyself\nxorn\n.s.shul_<._,#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#tip\n\u001b#ride\nby#turn\n#sit\n#w"
+ },
+ "segments": [
+  {
+   "seed": 51257046,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed ring of free action\nPfr\u0017blessed +3 speed boots\nWg \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007grid bug\n#dip\nhi \u001b#offer\n#pray\ny y #chat\nj#wizintrinsic\nqr\n FjFhFhs>_ \u001bm,#chat\nn#overview\n\u001b#conduct\n \u0018\u001b#name\na\n#adjust\nj\u001b#chat\nl#turn\n#jump\n#polyself\nxorn\n#monster\ns.s20sFj  20s20s_{.q\u0007troll\n#vanquished\n #genocided\nwood nymph\ndy\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y    #jump\n#wizmap\n\u0006Fl  Fl f   k_oooooo.,#chronicle\n #terrain\n\u001bi\u001b#wipe\n#loot\n#chat\nh#chat\nh#jump\n#wizidentify\n\u001byhhok_{._.qy\u0007yellow mold\n#version\n  #history\n                  \u0018\u001b#tip\n\u001b#ride\nyy#turn\n#sit\n#levelchange\n4\nFy  s._oo._.,\u001b,\u001b#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#dip\nf#offer\n#pray\ny y #chat\nl#jump\n#levelchange\n25\n                     uhb\u0004l_ooooo._,,\u001b\u0007newt\n#vanquished\n #genocided\nmaster mind flayer\nb#annotate\n\u001bi\u001b#name\nm\n#adjust\nm.shiny\n#chat\nl#turn\n#levelchange\n23\nhhl_ooooo.Fn_.Fn,\u0007giant rat\n#chronicle\n  #terrain\n\u001b#annotate\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y  #levelchange\n20\n FlFl20s20s_{._.qy#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nb#chat\nk#jump\n#polyself\nxorn\n.s.shul_<._,#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#tip\n\u001b#ride\nby#turn\n#sit\n#w"
+  }
+ ]
+}

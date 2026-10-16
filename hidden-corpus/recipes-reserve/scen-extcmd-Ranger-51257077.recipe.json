@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPhl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007bugbear\n#dip\nkj \u001b#offer\n#pray\ny y   #chat\nn#wizidentify\n\u001bFj FnFn_ \u001b:q\u0007kobold shaman\n#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#name\nm\n#adjust\n,#chat\nj#turn\n#polyself\nred dragon\n    20ssyFj Fn  FjFn.s\u001622\n\u0006#vanquished\n #genocided\nfire vortex\n \u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #wizintrinsic\nsr\n jul<_>, Fl_.Fl#chronicle\n  #terrain\n\u001b\u000f\u001b#wipe\n#loot\nl#chat\nl #chat\nl#polyself\nvampire\n20ssm.Fl Fl FlFl\u0016?\n>D\u0006\u0007soldier\n#version\n  #history\n                  i\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n\u001b#wizidentify\n\u001bFh FhFh Fh\u0016?\n>y  \u0006\u0007kobold\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nc#offer\n#pra"
+ },
+ "segments": [
+  {
+   "seed": 51257077,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPhl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007bugbear\n#dip\nkj \u001b#offer\n#pray\ny y   #chat\nn#wizidentify\n\u001bFj FnFn_ \u001b:q\u0007kobold shaman\n#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#name\nm\n#adjust\n,#chat\nj#turn\n#polyself\nred dragon\n    20ssyFj Fn  FjFn.s\u001622\n\u0006#vanquished\n #genocided\nfire vortex\n \u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #wizintrinsic\nsr\n jul<_>, Fl_.Fl#chronicle\n  #terrain\n\u001b\u000f\u001b#wipe\n#loot\nl#chat\nl #chat\nl#polyself\nvampire\n20ssm.Fl Fl FlFl\u0016?\n>D\u0006\u0007soldier\n#version\n  #history\n                  i\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n\u001b#wizidentify\n\u001bFh FhFh Fh\u0016?\n>y  \u0006\u0007kobold\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nc#offer\n#pra"
+  }
+ ]
+}

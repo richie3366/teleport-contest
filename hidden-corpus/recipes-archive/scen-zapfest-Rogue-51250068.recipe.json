@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPjl\u0017blessed shield of reflection\nWk#levelchange\n20\n                   \u0017crossbow\nwl\u001715 crossbow bolts\nQm\u0007troll\n\u0007gnome\nfk tak fk tby fk \u0007baby red dragon\n\u0007baby red dragon\n.m.  n.m. sm. #polyself\nred dragon\n   #monster\nk   .k sm. #monster\nb   #monster\nh #monster\nb  Fh  Fb   \u0017blessed spellbook of drain life\nrn .m.\u0017blessed spellbook of light\nro  n sm.\u0007mind flayer\n\u0007aligned cleric\nnZZZZZZ\u001612\n\u00176 eggs\nQ-\u0007dwarf\ntbyf by l fy  fl     \u001614\n    i\u001b\u00176 javelins\nQr\u0007hill orc\nfl fl tql fl tml   fl\u0017potion of fruit juice\ntrl  \u0017blessed spellbook of magic missile\nrt   n 20s \u0007master mind flayer\nZZZZZ20s20s        nZZZsn20s         n  Z\u001610\n\u00169\n\u0017spellbook of sleep\nru.\u0007succubus\nZa\nZa\n      s20sZa\nZa\n20ssZa\n\u0007mind flayer\n\u0007aligned cleric\nn\u0017wand of cold\n.nzvk zvk   .m.   n 20s   n zvl     n sm.  n 20s  .m.   n .m.     n zvl   n .m.  \u00161\n\u0017wand of death\n\u0017wand of teleport"
+ },
+ "segments": [
+  {
+   "seed": 51250068,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPjl\u0017blessed shield of reflection\nWk#levelchange\n20\n                   \u0017crossbow\nwl\u001715 crossbow bolts\nQm\u0007troll\n\u0007gnome\nfk tak fk tby fk \u0007baby red dragon\n\u0007baby red dragon\n.m.  n.m. sm. #polyself\nred dragon\n   #monster\nk   .k sm. #monster\nb   #monster\nh #monster\nb  Fh  Fb   \u0017blessed spellbook of drain life\nrn .m.\u0017blessed spellbook of light\nro  n sm.\u0007mind flayer\n\u0007aligned cleric\nnZZZZZZ\u001612\n\u00176 eggs\nQ-\u0007dwarf\ntbyf by l fy  fl     \u001614\n    i\u001b\u00176 javelins\nQr\u0007hill orc\nfl fl tql fl tml   fl\u0017potion of fruit juice\ntrl  \u0017blessed spellbook of magic missile\nrt   n 20s \u0007master mind flayer\nZZZZZ20s20s        nZZZsn20s         n  Z\u001610\n\u00169\n\u0017spellbook of sleep\nru.\u0007succubus\nZa\nZa\n      s20sZa\nZa\n20ssZa\n\u0007mind flayer\n\u0007aligned cleric\nn\u0017wand of cold\n.nzvk zvk   .m.   n 20s   n zvl     n sm.  n 20s  .m.   n .m.     n zvl   n .m.  \u00161\n\u0017wand of death\n\u0017wand of teleport"
+  }
+ ]
+}

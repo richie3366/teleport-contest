@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 gauntlets of power\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007giant rat\n#overview\n\u001b#conduct\n \u000f\u001b#dip\ndi#offer\n#pray\ny y        #chat\nl#wizmap\n\u0006Fu Fu Fls_ \u001bm.\u0007acid blob\n#vanquished\n #genocided\nblack pudding\n\u0018\u001b#name\n\u001b#adjust\ne\u001b#chat\nj#turn\n#jump\n#wizdetect\n\u0006lljZ_ooooo,_,,#chronicle\n  #terrain\n\u001b#annotate\nshiny\n\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizmap\n\u0006nuh#loot\n\u0016?\np \u0006\u0007giant rat\n#version\n  #history\n                  #annotate\nFido\ni\u001b#wipe\n#loot\nk#chat\nk#chat\nk#jump\n#polyself\nfire giant\n #monster\nsu.m.Fk.hhh\\    _<._,<.\u0007jackal\n#overview\n\u001b#conduct\n #annotate\n\u001bi\u001b#tip\n\u001b#ride\nhy#"
+ },
+ "segments": [
+  {
+   "seed": 51257030,
+   "datetime": "20170901163108",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 gauntlets of power\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007giant rat\n#overview\n\u001b#conduct\n \u000f\u001b#dip\ndi#offer\n#pray\ny y        #chat\nl#wizmap\n\u0006Fu Fu Fls_ \u001bm.\u0007acid blob\n#vanquished\n #genocided\nblack pudding\n\u0018\u001b#name\n\u001b#adjust\ne\u001b#chat\nj#turn\n#jump\n#wizdetect\n\u0006lljZ_ooooo,_,,#chronicle\n  #terrain\n\u001b#annotate\nshiny\n\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizmap\n\u0006nuh#loot\n\u0016?\np \u0006\u0007giant rat\n#version\n  #history\n                  #annotate\nFido\ni\u001b#wipe\n#loot\nk#chat\nk#chat\nk#jump\n#polyself\nfire giant\n #monster\nsu.m.Fk.hhh\\    _<._,<.\u0007jackal\n#overview\n\u001b#conduct\n #annotate\n\u001bi\u001b#tip\n\u001b#ride\nhy#"
+  }
+ ]
+}

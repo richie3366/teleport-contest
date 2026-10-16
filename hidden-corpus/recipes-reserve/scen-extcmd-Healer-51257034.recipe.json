@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of life saving\nPk\u0017blessed +3 cloak of magic resistance\nWl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007sewer rat\n#wizintrinsic\nqa\n FjFhFh ._ \u001b,#chat\nk#overview\n\u001b#conduct\n #annotate\nshiny\ni\u001b#dip\nhd#offer\n#pray\ny y #chat\nk#jump\n#wizdetect\n\u0006nll\u001613\n\u0006#vanquished\n #genocided\nvampire bat\nh #annotate\nFido\n\u000f\u001b#name\n\u001b#adjust\nl\u001b#chat\nb#turn\n#levelchange\n7\n     lkh_{._.,qe\u0007newt\n#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #jump\n#polyself\nleprechaun\n #monster\n.m.20sFkFkFkFkFk>\u001619\n\u0006#version\n  #history\n                  #annotate\nfoo\n\u000f\u001b#wipe\n#loot\n#chat\ny#chat\nl#wizdetect\n\u0006ky n_ooo.,#overview\n\u001b#conduct\n #annotate\n\u001b\u0018\u001b#tip\n\u001b#ride\nuy#turn\n#sit\n#wizdetect\n\u0006FlFlFlFl #twoweapon\n_ooooo,,\u0007gnome\n#vanquished\n #genocided\nArchon\n\u0018\u001b#dip\nhe#offer\n#pray\ny y     #chat\nl#jump\n#wizmap\n\u0006FnFnFl#"
+ },
+ "segments": [
+  {
+   "seed": 51257034,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:mango\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of life saving\nPk\u0017blessed +3 cloak of magic resistance\nWl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007sewer rat\n#wizintrinsic\nqa\n FjFhFh ._ \u001b,#chat\nk#overview\n\u001b#conduct\n #annotate\nshiny\ni\u001b#dip\nhd#offer\n#pray\ny y #chat\nk#jump\n#wizdetect\n\u0006nll\u001613\n\u0006#vanquished\n #genocided\nvampire bat\nh #annotate\nFido\n\u000f\u001b#name\n\u001b#adjust\nl\u001b#chat\nb#turn\n#levelchange\n7\n     lkh_{._.,qe\u0007newt\n#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #jump\n#polyself\nleprechaun\n #monster\n.m.20sFkFkFkFkFk>\u001619\n\u0006#version\n  #history\n                  #annotate\nfoo\n\u000f\u001b#wipe\n#loot\n#chat\ny#chat\nl#wizdetect\n\u0006ky n_ooo.,#overview\n\u001b#conduct\n #annotate\n\u001b\u0018\u001b#tip\n\u001b#ride\nuy#turn\n#sit\n#wizdetect\n\u0006FlFlFlFl #twoweapon\n_ooooo,,\u0007gnome\n#vanquished\n #genocided\nArchon\n\u0018\u001b#dip\nhe#offer\n#pray\ny y     #chat\nl#jump\n#wizmap\n\u0006FnFnFl#"
+  }
+ ]
+}

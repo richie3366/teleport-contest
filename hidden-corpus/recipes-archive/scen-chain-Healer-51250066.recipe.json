@@ -1,0 +1,77 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " yydg..20sujkkkj#chat\nlLLYL_ \u001b@.>UYNU_>.>YNUN_>,>NUHL_>.>20s10sHJBJ_>.>Fj20ss\\ #tip\n\u001bYHUB_>.>kkkjjkkjuu#name\nf\nt10st$j20st\u001b\u000f\u001b50sllhFhFh20s100s_m.#quit\nyy\u001by  y y y\u001b \u0007Demogorgon\nyFlFj     Fj   yy\u001by  y y\u001by  Fyy   \u0007soldier ant\nFh Fh   yy\u001by   y y\u001by  FB JJY_ \u001bm,>FjFhFl<LKBL_>,>Fl20sFkNBKH_>.>\u000f\u001bhjhuFlFlFlFlFlFl  FlFlbbjndg20ss20sj 10s     #quit\nyy\u001by  y y y\u001b   Fn 20s.50s100scj150s100s150sFl20s._ \u001b>.>150sFlss50s150s100sFl.._>.>150s#monster\nPi\u001bnbk#sit\n\u001b100seeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b   #chat\ny    y\u001by  y y\u001b  1FkFkFkFk FkFkFkFkFnFnFnFnFnFnFnFnunblkj10shl#chat\nubhlkjklbukhltbb#chat\nkjydfsss#chat\nlLYNH_ \u001b,>Fkss<nnUBYK_>.>BNLH_>.>#offer\nw-\u000f\u001buu#name\ni\njbkj#chat\nltan_>,>\u0018\u001b150s100s100sFk FkFkFkFkFk  y\u001by  ny y\u001b  #FbFb FbFbFbFbFbFbFjFjFjFjFjFjFjFjFlFlFlFlFlFlFlFljjkjhbyljuhyt\u001blydhs20sst\u001b#chat\nunkkhFnFnFnFnFnFnFnFn#name\nf\n .dbsss10s10snnt\u001b#chat\nn20s10s#chat\nnt\u001bbljylndi..si\u001blul100s100s50sef50s\u000f\u001b100s100sFhs20s Fl20s.50s100sFl#quit\ny\u001b      #wizintrinsic\nd\n sm..hsusss20s   sm..hsm..m.20s sl20s20ssh yy\u001by  y ny\u001by  2",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51250066,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=sortloot:loot\nOPTIONS=runmode:run\nOPTIONS=pettype:none\n",
+   "moves": " yydg..20sujkkkj#chat\nlLLYL_ \u001b@.>UYNU_>.>YNUN_>,>NUHL_>.>20s10sHJBJ_>.>Fj20ss\\ #tip\n\u001bYHUB_>.>kkkjjkkjuu#name\nf\nt10st$j20st\u001b\u000f\u001b50sllhFhFh20s100s_m.#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51350066,
+   "datetime": "20240815171452",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007Demogorgon\nyFlFj     Fj   yy\u001by  y y\u001by  F"
+  },
+  {
+   "seed": 51450066,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "yy   \u0007soldier ant\nFh Fh   yy\u001by   y y\u001by  F"
+  },
+  {
+   "seed": 51550066,
+   "datetime": "20260213143024",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\n",
+   "moves": "B JJY_ \u001bm,>FjFhFl<LKBL_>,>Fl20sFkNBKH_>.>\u000f\u001bhjhuFlFlFlFlFlFl  FlFlbbjndg20ss20sj 10s     #quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51650066,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\n",
+   "moves": "  Fn 20s.50s100scj150s100s150sFl20s._ \u001b>.>150sFlss50s150s100sFl.._>.>150s#monster\nPi\u001bnbk#sit\n\u001b100seeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51750066,
+   "datetime": "20081209200349",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "  #chat\ny    y\u001by  y y\u001b  1"
+  },
+  {
+   "seed": 51850066,
+   "datetime": "20040905031513",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\n",
+   "moves": "FkFkFkFk FkFkFkFkFnFnFnFnFnFnFnFnunblkj10shl#chat\nubhlkjklbukhltbb#chat\nkjydfsss#chat\nlLYNH_ \u001b,>Fkss<nnUBYK_>.>BNLH_>.>#offer\nw-\u000f\u001buu#name\ni\njbkj#chat\nltan_>,>\u0018\u001b150s100s100sFk FkFkFkFkFk  y\u001by  ny y\u001b  #"
+  },
+  {
+   "seed": 51950066,
+   "datetime": "20190118221611",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "FbFb FbFbFbFbFbFbFjFjFjFjFjFjFjFjFlFlFlFlFlFlFlFljjkjhbyljuhyt\u001blydhs20sst\u001b#chat\nunkkhFnFnFnFnFnFnFnFn#name\nf\n .dbsss10s10snnt\u001b#chat\nn20s10s#chat\nnt\u001bbljylndi..si\u001blul100s100s50sef50s\u000f\u001b100s100sFhs20s Fl20s.50s100sFl#quit\ny\u001b    "
+  },
+  {
+   "seed": 52050066,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nd\n sm..hsusss20s   sm..hsm..m.20s sl20s20ssh yy\u001by  y ny\u001by  2"
+  }
+ ]
+}

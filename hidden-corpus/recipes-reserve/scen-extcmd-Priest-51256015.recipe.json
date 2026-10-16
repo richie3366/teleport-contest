@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\nwj  n  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold shaman\n_ \u001b:,#overview\n\u001b#conduct\n #annotate\nfoo\n\u000f\u001b#dip\nbm #offer\n#pray\ny y       #chat\nu#wizintrinsic\nr\n Fl Fu   Fl  \\  _>,\u0007soldier\n#vanquished\n #genocided\nbaby red dragon\nli\u001b#name\nd\n#adjust\ne\u001b#chat\nj#turn\n    n#wizmap\n\u0006Fj   nFj Fjz_oooooo.,  n#chronicle\n #terrain\n\u001b#annotate\n\u001b\u0018\u001b#twoweapon\n#invoke\nj#sit\n#pray\ny y     #wizidentify\n\u001bFjFjee__,#chat\nn#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nn#chat\nn#chat\ny#wizidentify\n\u001blyu_oooooo.,#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nuy#turn\n #sit\n\u001b#wizmap\n\u0006nbb#monster\n\u0016?\nq \u0006\u0007kobold\n#vanquished\n #genocided\nbrown pudding\n#annotate\nFido\ni\u001b#dip\nh#offer\n#pray\ny y   #chat\nk#wizdetect\n\u0006Fk FkFki\u001b__,#chat\nk\u0007yellow mold\n#chronicle\n #terrain\n\u001bi\u001b#name\nm\n#adjust\n.#chat\nj#turn\n#polyself\npurple worm\n    #monster\n.m..m.Fk Fk  Fj .sP\u001b__.#chat\n#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\nj#sit\n #pray\ny y  #wizmap\n\u0006kkk_oooo.,#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#wipe\n#loot\n#chat\n#chat\n#polyself\nfog cloud\n#monster\nss..jku_oooooo"
+ },
+ "segments": [
+  {
+   "seed": 51256015,
+   "datetime": "20040818033818",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\nwj  n  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold shaman\n_ \u001b:,#overview\n\u001b#conduct\n #annotate\nfoo\n\u000f\u001b#dip\nbm #offer\n#pray\ny y       #chat\nu#wizintrinsic\nr\n Fl Fu   Fl  \\  _>,\u0007soldier\n#vanquished\n #genocided\nbaby red dragon\nli\u001b#name\nd\n#adjust\ne\u001b#chat\nj#turn\n    n#wizmap\n\u0006Fj   nFj Fjz_oooooo.,  n#chronicle\n #terrain\n\u001b#annotate\n\u001b\u0018\u001b#twoweapon\n#invoke\nj#sit\n#pray\ny y     #wizidentify\n\u001bFjFjee__,#chat\nn#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nn#chat\nn#chat\ny#wizidentify\n\u001blyu_oooooo.,#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nuy#turn\n #sit\n\u001b#wizmap\n\u0006nbb#monster\n\u0016?\nq \u0006\u0007kobold\n#vanquished\n #genocided\nbrown pudding\n#annotate\nFido\ni\u001b#dip\nh#offer\n#pray\ny y   #chat\nk#wizdetect\n\u0006Fk FkFki\u001b__,#chat\nk\u0007yellow mold\n#chronicle\n #terrain\n\u001bi\u001b#name\nm\n#adjust\n.#chat\nj#turn\n#polyself\npurple worm\n    #monster\n.m..m.Fk Fk  Fj .sP\u001b__.#chat\n#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\nj#sit\n #pray\ny y  #wizmap\n\u0006kkk_oooo.,#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#wipe\n#loot\n#chat\n#chat\n#polyself\nfog cloud\n#monster\nss..jku_oooooo"
+  }
+ ]
+}

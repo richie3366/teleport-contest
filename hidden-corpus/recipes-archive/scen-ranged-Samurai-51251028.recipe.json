@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017bow\nwf\u001720 arrows\nQg\u0007gnome lord\nyyfnfl  fn\u0007hill orc\njbfu  fu fl fl flx #twoweapon\nFlFl kkj,#levelchange\n14\n     \u001710 daggers\nQh\u0007gnome lord\nub fl fk flfk FkFk \u0007lichen\njfufl\u0017potion of gain level\ntgu  \u0017bullwhip\nwj \u0007lichen\nbajl uy l,"
+ },
+ "segments": [
+  {
+   "seed": 51251028,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017bow\nwf\u001720 arrows\nQg\u0007gnome lord\nyyfnfl  fn\u0007hill orc\njbfu  fu fl fl flx #twoweapon\nFlFl kkj,#levelchange\n14\n     \u001710 daggers\nQh\u0007gnome lord\nub fl fk flfk FkFk \u0007lichen\njfufl\u0017potion of gain level\ntgu  \u0017bullwhip\nwj \u0007lichen\nbajl uy l,"
+  }
+ ]
+}

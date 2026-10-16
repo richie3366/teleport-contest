@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0006_ \u001b;>Fn s_>._,>_>._,>\u0006_>._.>_>._,>_>._,>\u0006_>,_.>_>,_,>_>._.>\u0006_>._.>_>._.>_>,_.>:L\u0017wand of digging\nzf<zfnnzfjj\u0006#levelchange\n30\n                 \u0017cursed land mine\n\u0007gray ooze\nag\u0017stethoscope\nahl\u0017cursed potion of water\nqi \u001b#dip\nhsm.s#levelchange\n8\n     \u0016?\np #twoweapon\n#untrap\n.#jump\n\u0006.20s\u0016?\nq\\   #ride\nuy#wipe\n;_.s.\u0016?\nh;m.\u0004j20s\u0006shsm.    \u0016?\n>I>#ride\njyahj;j,\u0006sm.s\u001623\n\u0017bag of holding\n\u0017locked large box\n\u0017wand of striking\n\u0017potion of sickness\n\u0017ring of poison resistance\naj\u001bakaj\u001baj\u001bdk    n  b    n\u0004u   n  i\u001b\u001611\n    \u0017wand of digging\n_>.zo>    zo>   n    sm.   h  h  n zok  k  n  zok   k_>.zo>   n   \u001616\n\\   \u00164\n\u0017Grimtooth\nwpFh    Fh  n    Fh    n   \u0007sergeant\nFk Fh Fk   n    \u0007master lich\nFy      n Fh         n Fk      n \u0007sewer rat\n#chat\nh         Fk   n     Fh     n  \u0007rust monster\nFk   Fk   n Fh   Fk    n Fh  uh   yy\u001b y   y y y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 51250073,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0006_ \u001b;>Fn s_>._,>_>._,>\u0006_>._.>_>._,>_>._,>\u0006_>,_.>_>,_,>_>._.>\u0006_>._.>_>._.>_>,_.>:L\u0017wand of digging\nzf<zfnnzfjj\u0006#levelchange\n30\n                 \u0017cursed land mine\n\u0007gray ooze\nag\u0017stethoscope\nahl\u0017cursed potion of water\nqi \u001b#dip\nhsm.s#levelchange\n8\n     \u0016?\np #twoweapon\n#untrap\n.#jump\n\u0006.20s\u0016?\nq\\   #ride\nuy#wipe\n;_.s.\u0016?\nh;m.\u0004j20s\u0006shsm.    \u0016?\n>I>#ride\njyahj;j,\u0006sm.s\u001623\n\u0017bag of holding\n\u0017locked large box\n\u0017wand of striking\n\u0017potion of sickness\n\u0017ring of poison resistance\naj\u001bakaj\u001baj\u001bdk    n  b    n\u0004u   n  i\u001b\u001611\n    \u0017wand of digging\n_>.zo>    zo>   n    sm.   h  h  n zok  k  n  zok   k_>.zo>   n   \u001616\n\\   \u00164\n\u0017Grimtooth\nwpFh    Fh  n    Fh    n   \u0007sergeant\nFk Fh Fk   n    \u0007master lich\nFy      n Fh         n Fk      n \u0007sewer rat\n#chat\nh         Fk   n     Fh     n  \u0007rust monster\nFk   Fk   n Fh   Fk    n Fh  uh   yy\u001b y   y y y\u001b  \u0017"
+  }
+ ]
+}

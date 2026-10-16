@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " yul\u0017pool\nub yl\u0017tree\nj\u0004k\u0004k\u0004kyn\u0017fountain\nqyy\u0017iron bars\njkkk:#wipe\n#tip\n\u001b#force\nhkb\u0017pool\n#dip\ncy  bu:lh\u0017chaotic altar\ndddc\u0017human corpse\n#offer\nf   e#enhance\nyq\nh\n\u001b20s"
+ },
+ "segments": [
+  {
+   "seed": 51251020,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " yul\u0017pool\nub yl\u0017tree\nj\u0004k\u0004k\u0004kyn\u0017fountain\nqyy\u0017iron bars\njkkk:#wipe\n#tip\n\u001b#force\nhkb\u0017pool\n#dip\ncy  bu:lh\u0017chaotic altar\ndddc\u0017human corpse\n#offer\nf   e#enhance\nyq\nh\n\u001b20s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "Y  NYL _ \u001b;>#chat\nhzf pick-axe\nH    YHH_>,>\u0014uUJKU_>,>#untrap\nbkULBJ_>.>KJKY_>,>Fj 20ssUHHH_>,>wb eUBLK_>.>\u0014E- ad aerarium\n<\u000f\u001b#name\ni\n#terrain\nb\n#chat\nm.100s    \u0018\u001b150sFjFj.150sFj.20s50s100shhj100syhnlyh100s100sFnFns100s50sFlFls50s\u0018\u001b\u000f\u001b\u000f\u001b100sFls20s150s  FlFl20s150s100sFjs.100s100sFl.s_>,>_>.>100s\u000f\u001b50sJhhk#turn\nJNHJ_>.>BU   BH_>.>NHLU_>,>Fj20s.HBBY_>,>#turn\n#tip\n\u001bLBLH_>,>U KLH _>,>#pray\ny ,\u001b>BBKU_>.>HL JU_>.>YBK B_>.>LKYU_>.>L KNU_>.>hlnW100s20s50s100s\\ 100s50skllFys.Fyss_>.>100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee:r\u001b#sit\n\u001beeee"
+ },
+ "segments": [
+  {
+   "seed": 51250083,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:explore\n",
+   "moves": "Y  NYL _ \u001b;>#chat\nhzf pick-axe\nH    YHH_>,>\u0014uUJKU_>,>#untrap\nbkULBJ_>.>KJKY_>,>Fj 20ssUHHH_>,>wb eUBLK_>.>\u0014E- ad aerarium\n<\u000f\u001b#name\ni\n#terrain\nb\n#chat\nm.100s    \u0018\u001b150sFjFj.150sFj.20s50s100shhj100syhnlyh100s100sFnFns100s50sFlFls50s\u0018\u001b\u000f\u001b\u000f\u001b100sFls20s150s  FlFl20s150s100sFjs.100s100sFl.s_>,>_>.>100s\u000f\u001b50sJhhk#turn\nJNHJ_>.>BU   BH_>.>NHLU_>,>Fj20s.HBBY_>,>#turn\n#tip\n\u001bLBLH_>,>U KLH _>,>#pray\ny ,\u001b>BBKU_>.>HL JU_>.>YBK B_>.>LKYU_>.>L KNU_>.>hlnW100s20s50s100s\\ 100s50skllFys.Fyss_>.>100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee:r\u001b#sit\n\u001beeee"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPfl\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b#levelchange\n14\n            \u0017blessed spellbook of force bolt\nrh.\u0007orc shaman\nZa\nZa\n Za\nZa\nZa\nZa\n\u0017spellbook of light\nri s\u0007mind flayer\n\u0007master lich\nZb\nsm.       20s   Zb\n  n Zb\n     n Za\n    n Za\n      n   Za\n  n Zb\n   20s    n slZa\n       n  sm.    n  20s   n  #turn\n\u001618\n\u001610\n\u0007incubus\n\u0007lich\n\u0017wand of magic missile\nsm.20s       zjbsm.zjb  zjbzjb  sm.zj  zj h       \u00178 spears\n Qk\u0007newt\n\u0007hobbit\nfhtkbtcb fb fbfb\u00176 eggs\nQ-\u0007dwarf\nf by bf k bfu  fjf \u001b\u001b\u00169\n\u0007black dragon\n20s  20s \u0017wand of lightning\namy      nFbs\u00174 cream pies\nQ\u001b\u001b\u0007jackal\n\u0007jackal\nf \u001b\u001btdb f \u001b\u001btdj f \u001b\u001bi\u001b\u0017blessed spellbook of sleep\nro 20s\u0007gnomish wizard\nZa\nZa\n  Za\nZZZZ#turn\n\u0017spellbook of fireball\nrp \u001b<. \u001b              sm.\u0017spellbook of c"
+ },
+ "segments": [
+  {
+   "seed": 51250092,
+   "datetime": "20221206190706",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPfl\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b#levelchange\n14\n            \u0017blessed spellbook of force bolt\nrh.\u0007orc shaman\nZa\nZa\n Za\nZa\nZa\nZa\n\u0017spellbook of light\nri s\u0007mind flayer\n\u0007master lich\nZb\nsm.       20s   Zb\n  n Zb\n     n Za\n    n Za\n      n   Za\n  n Zb\n   20s    n slZa\n       n  sm.    n  20s   n  #turn\n\u001618\n\u001610\n\u0007incubus\n\u0007lich\n\u0017wand of magic missile\nsm.20s       zjbsm.zjb  zjbzjb  sm.zj  zj h       \u00178 spears\n Qk\u0007newt\n\u0007hobbit\nfhtkbtcb fb fbfb\u00176 eggs\nQ-\u0007dwarf\nf by bf k bfu  fjf \u001b\u001b\u00169\n\u0007black dragon\n20s  20s \u0017wand of lightning\namy      nFbs\u00174 cream pies\nQ\u001b\u001b\u0007jackal\n\u0007jackal\nf \u001b\u001btdb f \u001b\u001btdj f \u001b\u001bi\u001b\u0017blessed spellbook of sleep\nro 20s\u0007gnomish wizard\nZa\nZa\n  Za\nZZZZ#turn\n\u0017spellbook of fireball\nrp \u001b<. \u001b              sm.\u0017spellbook of c"
+  }
+ ]
+}

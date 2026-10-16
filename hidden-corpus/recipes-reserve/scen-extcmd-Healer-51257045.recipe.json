@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\nwl\u0017blessed +3 silver dragon scale mail\nWm\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007gnome\n_ \u001b>.#chat\nb #overview\n\u001b#conduct\n \u000f\u001b#dip\nnd#offer\n#pray\ny y #chat\nj#levelchange\n21\nllj_oooo._.,#vanquished\n #genocided\ncobra\n\u0018\u001b#name\na\n#adjust\nk\u001b#chat\nn#turn\n#polyself\nmind flayer\n #monster\nss20s.llu_<,Fb   _.#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\nl#sit\n#pray\ny y #polyself\nred dragon\n   #monster\njs.sslnl_>.\u0007kobold shaman\n#version\n  #history\n                  \u000f\u001b#wipe\n #loot\n#chat\nl#chat\nl #jump\n#levelchange\n19\nFl .._{,qd\u0007troll\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\njy#turn\n#sit\n#levelchange\n4\n     Fj s P_<._.#vanquished\n #genocided\ngreen slime\n n\u000f\u001b#dip\nhe#offer\n#pray\ny y    #chat\nl  n #jump\n#polyself\nleprechaun\n #monster\nsm. sFlFl  .jj  j  n __.Fu "
+ },
+ "segments": [
+  {
+   "seed": 51257045,
+   "datetime": "20070101113526",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\nwl\u0017blessed +3 silver dragon scale mail\nWm\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007gnome\n_ \u001b>.#chat\nb #overview\n\u001b#conduct\n \u000f\u001b#dip\nnd#offer\n#pray\ny y #chat\nj#levelchange\n21\nllj_oooo._.,#vanquished\n #genocided\ncobra\n\u0018\u001b#name\na\n#adjust\nk\u001b#chat\nn#turn\n#polyself\nmind flayer\n #monster\nss20s.llu_<,Fb   _.#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\nl#sit\n#pray\ny y #polyself\nred dragon\n   #monster\njs.sslnl_>.\u0007kobold shaman\n#version\n  #history\n                  \u000f\u001b#wipe\n #loot\n#chat\nl#chat\nl #jump\n#levelchange\n19\nFl .._{,qd\u0007troll\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\njy#turn\n#sit\n#levelchange\n4\n     Fj s P_<._.#vanquished\n #genocided\ngreen slime\n n\u000f\u001b#dip\nhe#offer\n#pray\ny y    #chat\nl  n #jump\n#polyself\nleprechaun\n #monster\nsm. sFlFl  .jj  j  n __.Fu "
+  }
+ ]
+}

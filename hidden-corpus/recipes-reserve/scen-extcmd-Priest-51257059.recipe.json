@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPi\u0017blessed amulet of reflection\nPj\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n          \u0007kobold\n\u0016?\n>x\u0006#overview\n\u001b#conduct\n \u000f\u001b#dip\ngl#offer\n#pray\ny y  #chat\nj #jump\n#wizdetect\n\u0006Fj  Fj  _ \u001b@.#chat\nj  #vanquished\n#genocided\nflesh golem\nj #annotate\nshiny\ni\u001b#name\nm\n#adjust\n;#chat\nj #turn\n #jump\n#wizintrinsic\nf\n Fh20sFhFh__.#chat\nj\u0007bugbear\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizmap\n\u0006FhFh#force\n__,#chat\nj#version\n  #history\n                  i\u001b#wipe\n#loot\nh#chat\nh#chat\nh#levelchange\n13\nFhFh_oo.,\u0007hill orc\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\njy#turn\n  #sit\n #wizintri"
+ },
+ "segments": [
+  {
+   "seed": 51257059,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPi\u0017blessed amulet of reflection\nPj\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n          \u0007kobold\n\u0016?\n>x\u0006#overview\n\u001b#conduct\n \u000f\u001b#dip\ngl#offer\n#pray\ny y  #chat\nj #jump\n#wizdetect\n\u0006Fj  Fj  _ \u001b@.#chat\nj  #vanquished\n#genocided\nflesh golem\nj #annotate\nshiny\ni\u001b#name\nm\n#adjust\n;#chat\nj #turn\n #jump\n#wizintrinsic\nf\n Fh20sFhFh__.#chat\nj\u0007bugbear\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizmap\n\u0006FhFh#force\n__,#chat\nj#version\n  #history\n                  i\u001b#wipe\n#loot\nh#chat\nh#chat\nh#levelchange\n13\nFhFh_oo.,\u0007hill orc\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\njy#turn\n  #sit\n #wizintri"
+  }
+ ]
+}

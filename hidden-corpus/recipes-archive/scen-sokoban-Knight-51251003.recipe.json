@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0016?\n>DkFlkkkukj\u0017wand of striking\nzihjjjjjjjblll10slh\u0017scroll of earth\nrj  hhnnhy \u0017wand of digging\nzkkluulkh\u0017wand of digging\nzluuhuulb\u0017scroll of earth\nrm yyhuhlukluklluuyhh"
+ },
+ "segments": [
+  {
+   "seed": 51251003,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=sortloot:full\nOPTIONS=fruit:mango\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0016?\n>DkFlkkkukj\u0017wand of striking\nzihjjjjjjjblll10slh\u0017scroll of earth\nrj  hhnnhy \u0017wand of digging\nzkkluulkh\u0017wand of digging\nzluuhuulb\u0017scroll of earth\nrm yyhuhlukluklluuyhh"
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#quit\nyy FkFh Fk50sFj20s20sFj20ss100s100sFjFjFjFjFj20sFj.20si\u001b100s100sFjs._ \u001bm,>#terrain\n\u001b\u000f\u001b_>.>100s150sFj20s20sFjFj20sybjukj\u0018\u001bhkk150slbu100s Fjss100slhhFjFj.100s100sllhFjFnFnFjFjFj100s150shhndbsssdf.20ssk#name\n\u001bbudd20s20ssm.#name\n\u001bFjFjFjFjFjFjFjFjJHJN_>.>U JNN_>.>ULBL_>.>ZfjHBNY_>.>UBBB_>,>_<.sE- Elbereth Elbereth\nBKHJ_>,>Fk20ssYLJJ_>,>yubknhkn100s100sFlFl.50s50s Fl.s_>.>,#invoke\n\u001b50s_>.>100s100sFlFlFlFlFlFlbyj50s_>.>\u0004n100s20seeeeeeeeeeeeeeeeeeeujhlhlyyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b  lbulbjjhhh10shubhFh FhFhFhFhFhFhFhknyukljj_ \u001b,>hjlFyFyFyFy.s50s100shlu100si\u001b100sFhss_>,>i\u001b#loot\n150s\\ 150sFhFhFh150s100s_>,>yyl<100sFhFh20sjyn50synh100s100sFh20ss150s#enhance\n\u001b\\ 150snlu100sFyFyFhFhFy.nblYKKY_>.>JLLH_>.>q:NHKH_>.>YUKL_>.>FlFl.YBKN_>.>YHKK_>.>UJYK_>.>FyFyFy\u000f\u001bFyFyFyFyFyFyFyFy20skkyb#name\n\u001bnluyl#chat\nb#chat\nb  y\u001by  y ny\u001b  l",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51250082,
+   "datetime": "20200718052410",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 51350082,
+   "datetime": "20040209211851",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\n",
+   "moves": " FkFh Fk50sFj20s20sFj20ss100s100sFjFjFjFjFj20sFj.20si\u001b100s100sFjs._ \u001bm,>#terrain\n\u001b\u000f\u001b_>.>100s150sFj20s20sFjFj20sybjukj\u0018\u001bhkk150slbu100s Fjss100slhhFjFj.100s100sllhFjFnFnFjFjFj100s150shhndbsssdf.20ssk#name\n\u001bbudd20s20ssm.#name\n\u001bFjFjFjFjFjFjFjFjJHJN_>.>U JNN_>.>ULBL_>.>ZfjHBNY_>.>UBBB_>,>_<.sE- Elbereth Elbereth\nBKHJ_>,>Fk20ssYLJJ_>,>yubknhkn100s100sFlFl.50s50s Fl.s_>.>,#invoke\n\u001b50s_>.>100s100sFlFlFlFlFlFlbyj50s_>.>\u0004n100s20seeeeeeeeeeeeeeeeeeeujhlhlyyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51450082,
+   "datetime": "20180205111009",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\n",
+   "moves": " lbulbjjhhh10shubhFh FhFhFhFhFhFhFhknyukljj_ \u001b,>hjlFyFyFyFy.s50s100shlu100si\u001b100sFhss_>,>i\u001b#loot\n150s\\ 150sFhFhFh150s100s_>,>yyl<100sFhFh20sjyn50synh100s100sFh20ss150s#enhance\n\u001b\\ 150snlu100sFyFyFhFhFy.nblYKKY_>.>JLLH_>.>q:NHKH_>.>YUKL_>.>FlFl.YBKN_>.>YHKK_>.>UJYK_>.>FyFyFy\u000f\u001bFyFyFyFyFyFyFyFy20skkyb#name\n\u001bnluyl#chat\nb#chat\nb  y\u001by  y ny\u001b  l"
+  }
+ ]
+}

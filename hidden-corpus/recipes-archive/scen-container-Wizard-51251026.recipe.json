@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017cursed bag of holding\n\u0017ring of free action\n\u0017potion of fruit juice\n\u0017ring of aggravate monster\n#tip\np\u001bapi\n\u0017long sword\nwtdp#force\n..s\u0017skeleton key\ndmau.20s.s#loot\nr\n\u0017long sword\nwvdl#force\n20ss20s\u0017skeleton key\ndwao 20s 20s    s#loot\n\u001bSy\u001b nn#name\nm\n >.f a n#jump\ne,#terrain\nd\nn#offer\n:#loot\n#enhance\nyd\na\n\u001b: ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51251026,
+   "datetime": "20130118154028",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017cursed bag of holding\n\u0017ring of free action\n\u0017potion of fruit juice\n\u0017ring of aggravate monster\n#tip\np\u001bapi\n\u0017long sword\nwtdp#force\n..s\u0017skeleton key\ndmau.20s.s#loot\nr\n\u0017long sword\nwvdl#force\n20ss20s\u0017skeleton key\ndwao 20s 20s    s#loot\n\u001bSy\u001b"
+  },
+  {
+   "seed": 51751026,
+   "datetime": "20210601181954",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " nn#name\nm\n >.f a n#jump\ne,#terrain\nd\nn#offer\n:#loot\n#enhance\nyd\na\n\u001b: "
+  }
+ ]
+}

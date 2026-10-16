@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed shield of reflection\nW\u001b\u0017blessed +3 gray dragon scale mail\nWg    \u0017blessed amulet of life saving\nPh #levelchange\n10\n         \u0007silver dragon\n20s .m.sjFy Fy\u0007black dragon\nsm. 20s  \u0017wand of cold\naiy    Fh   Fh   \u0018\u001b\u0017wand of fire\n\u0017wand of slow monster\n\u0017wand of cancellation\n\u0007newt\nzlhzjh      zly  zjh   zjy      zly  n sk   zlh \u0017crossbow\nwm   \u001715 crossbow bolts\nQn\u0007kobold\n\u0007giant rat\nfhfj       fj    fbtaj  n   fl  tnh\u0007gnomish wizard\n\u0007mind flayer\n\u0017wand of cold\nzok    zolzoj    szoy   \u00176 javelins\nQp\u0007hill orc\n\u0007soldier\nfufb  tby   fl   n  fu   \u0007black dragon\n\u0007black dragon\n.nsm.Fh    Fb  \u0017spellbook of magic missile\nrq   20s   \u0017spellbook of finger of death\nrr \u001bm,  \u001b      n  20s \u0007aligned cleric\nnZ20s    20s  ZZZZZsm.20sZZZ#turn\n\u0017wand of death\n\u0017wand of lightning\n\u0007soldier\n\u0007hobbit\nztjzsb ztbztb   ztl  ztb  20s zsb  zsb    20s  n ztb   \u0017wand of cold\n\u0017wand of sleep\n\u0017wand of slow monster\n\u0007gnome lord\nzvb szwbzvb  zwb  n zubzwb20szwb"
+ },
+ "segments": [
+  {
+   "seed": 51250084,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed shield of reflection\nW\u001b\u0017blessed +3 gray dragon scale mail\nWg    \u0017blessed amulet of life saving\nPh #levelchange\n10\n         \u0007silver dragon\n20s .m.sjFy Fy\u0007black dragon\nsm. 20s  \u0017wand of cold\naiy    Fh   Fh   \u0018\u001b\u0017wand of fire\n\u0017wand of slow monster\n\u0017wand of cancellation\n\u0007newt\nzlhzjh      zly  zjh   zjy      zly  n sk   zlh \u0017crossbow\nwm   \u001715 crossbow bolts\nQn\u0007kobold\n\u0007giant rat\nfhfj       fj    fbtaj  n   fl  tnh\u0007gnomish wizard\n\u0007mind flayer\n\u0017wand of cold\nzok    zolzoj    szoy   \u00176 javelins\nQp\u0007hill orc\n\u0007soldier\nfufb  tby   fl   n  fu   \u0007black dragon\n\u0007black dragon\n.nsm.Fh    Fb  \u0017spellbook of magic missile\nrq   20s   \u0017spellbook of finger of death\nrr \u001bm,  \u001b      n  20s \u0007aligned cleric\nnZ20s    20s  ZZZZZsm.20sZZZ#turn\n\u0017wand of death\n\u0017wand of lightning\n\u0007soldier\n\u0007hobbit\nztjzsb ztbztb   ztl  ztb  20s zsb  zsb    20s  n ztb   \u0017wand of cold\n\u0017wand of sleep\n\u0017wand of slow monster\n\u0007gnome lord\nzvb szwbzvb  zwb  n zubzwb20szwb"
+  }
+ ]
+}

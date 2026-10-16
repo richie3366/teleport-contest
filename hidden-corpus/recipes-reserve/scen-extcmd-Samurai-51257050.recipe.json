@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPf\u0017blessed +3 helm of telepathy\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007bugbear\n#wizdetect\n\u0006FbFjFb _ \u001b;#chat\ny\u0007kobold shaman\n#overview\n\u001b#conduct\n i\u001b#dip\nji \u001b#offer\n#pray\ny y   #chat\nh#polyself\nfire giant\nsm..b Fk.lnl\u0016?\n>x\u0006#vanquished\n #genocided\ndust vortex\nji\u001b#name\ni\n#adjust\nb\u001b#chat\nu#turn\n#wizidentify\n\u001bFuss20s#jump\n_{,q#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y  #polyself\nvampire\n#monster\n     sm.sFuFuFuFu Fu\u0016?\n>>L      wand of fire\n\u0006#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nj#chat\nj#jump\n#wizintrinsic\nf\nFj   FlFj     __.#chat\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nky#turn\n#sit\n#jump\n#wizintrinsic\nf\nFkFk_oo,,\u0007yellow mold\n#vanquished\n #genocided\nfire giant\ni\u001b#dip\nk#offer\n#pray\ny y   #chat\n#jump\n#polyself\nleprechaun\n ss Fl   FnFl       n Fj #loot\nk\u0016?\nc\u0006m,#chronicle\n #terrain\n\u001b\u000f\u001b#name\nd\n#adjust\nc\u001b#chat\n#turn\n#wizmap\n<.\u0006@.FkFj  Fb   n   n \u00161\n_ooo.,   n    n \u00163\n#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\nk #sit\n#pray\ny"
+ },
+ "segments": [
+  {
+   "seed": 51257050,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPf\u0017blessed +3 helm of telepathy\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007bugbear\n#wizdetect\n\u0006FbFjFb _ \u001b;#chat\ny\u0007kobold shaman\n#overview\n\u001b#conduct\n i\u001b#dip\nji \u001b#offer\n#pray\ny y   #chat\nh#polyself\nfire giant\nsm..b Fk.lnl\u0016?\n>x\u0006#vanquished\n #genocided\ndust vortex\nji\u001b#name\ni\n#adjust\nb\u001b#chat\nu#turn\n#wizidentify\n\u001bFuss20s#jump\n_{,q#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y  #polyself\nvampire\n#monster\n     sm.sFuFuFuFu Fu\u0016?\n>>L      wand of fire\n\u0006#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nj#chat\nj#jump\n#wizintrinsic\nf\nFj   FlFj     __.#chat\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nky#turn\n#sit\n#jump\n#wizintrinsic\nf\nFkFk_oo,,\u0007yellow mold\n#vanquished\n #genocided\nfire giant\ni\u001b#dip\nk#offer\n#pray\ny y   #chat\n#jump\n#polyself\nleprechaun\n ss Fl   FnFl       n Fj #loot\nk\u0016?\nc\u0006m,#chronicle\n #terrain\n\u001b\u000f\u001b#name\nd\n#adjust\nc\u001b#chat\n#turn\n#wizmap\n<.\u0006@.FkFj  Fb   n   n \u00161\n_ooo.,   n    n \u00163\n#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\nk #sit\n#pray\ny"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold shaman\n#wizidentify\n\u001bFbFuFj Fl_ \u001b>.#chat\nb\u0007acid blob\n#overview\n\u001b#conduct\n i\u001b#dip\nk\u001b#offer\n#pray\ny y  #chat\nn#wizintrinsic\nfg\n FnFnFn,_>.#vanquished\n #genocided\ncouatl\n\u000f\u001b#name\n\u001b#adjust\ne\u001b#chat\nn#turn\n #wizidentify\n\u001bFj Fj\u0004u_<,#chronicle\n #terrain\n\u001b#annotate\nblessed\n\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #polyself\nmind flayer\n sssshln;_._<._.\u0007dwarf\n#version\n  #history\n                  #annotate\n\u001b\u0018\u001b#wipe\n#loot\n#chat\nu#chat\nu#jump\n#polyself\ntroll\n#monster\nsm..ysFlFl Fl#pray\ny y      _>,#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nky#turn\n  #sit\n\u001b#wizmap\n\u0006Fn .n_ooo.,\u0007bugbear\n#vanquished\n #genocided\ntengu\n#annotate\n\u001bi\u001b#dip\nid#offer\n#pray\ny y  #chat\nu#wizintrinsic\na\n Fk 20ss_<._.\u0007soldier\n#chronicle\n #terrain\n\u001b\u000f\u001b#name\n\u001b#adjust\ni\u001b#chat\nu#turn\n         #jump\n#polyself\nxorn\n#monster\n.m.  20s Fu  Fh Fu  Fu _oo._.,\u001b\u0007bugbear\n#version\n  #history\n                  i\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #wizdetect\n\u0006uhlE- Elbereth Elbereth\n_{.Fl_.>.qy y    \u0007jackal\n#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#wipe\n     #loot\nb#chat\nn     n   #chat\nh  n      n    n #jump\n\u001610\n#wizintrins"
+ },
+ "segments": [
+  {
+   "seed": 51257020,
+   "datetime": "20211119141435",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold shaman\n#wizidentify\n\u001bFbFuFj Fl_ \u001b>.#chat\nb\u0007acid blob\n#overview\n\u001b#conduct\n i\u001b#dip\nk\u001b#offer\n#pray\ny y  #chat\nn#wizintrinsic\nfg\n FnFnFn,_>.#vanquished\n #genocided\ncouatl\n\u000f\u001b#name\n\u001b#adjust\ne\u001b#chat\nn#turn\n #wizidentify\n\u001bFj Fj\u0004u_<,#chronicle\n #terrain\n\u001b#annotate\nblessed\n\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #polyself\nmind flayer\n sssshln;_._<._.\u0007dwarf\n#version\n  #history\n                  #annotate\n\u001b\u0018\u001b#wipe\n#loot\n#chat\nu#chat\nu#jump\n#polyself\ntroll\n#monster\nsm..ysFlFl Fl#pray\ny y      _>,#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nky#turn\n  #sit\n\u001b#wizmap\n\u0006Fn .n_ooo.,\u0007bugbear\n#vanquished\n #genocided\ntengu\n#annotate\n\u001bi\u001b#dip\nid#offer\n#pray\ny y  #chat\nu#wizintrinsic\na\n Fk 20ss_<._.\u0007soldier\n#chronicle\n #terrain\n\u001b\u000f\u001b#name\n\u001b#adjust\ni\u001b#chat\nu#turn\n         #jump\n#polyself\nxorn\n#monster\n.m.  20s Fu  Fh Fu  Fu _oo._.,\u001b\u0007bugbear\n#version\n  #history\n                  i\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #wizdetect\n\u0006uhlE- Elbereth Elbereth\n_{.Fl_.>.qy y    \u0007jackal\n#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#wipe\n     #loot\nb#chat\nn     n   #chat\nh  n      n    n #jump\n\u001610\n#wizintrins"
+  }
+ ]
+}

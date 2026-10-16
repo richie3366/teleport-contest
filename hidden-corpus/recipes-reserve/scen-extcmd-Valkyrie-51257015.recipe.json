@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nWe\u0017blessed +3 gauntlets of power\nWf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007acid blob\n#dip\ngh \u001b#offer\n#pray\ny y #chat\nn#jump\n#wizidentify\n\u001bFn20s.sq\u0016?\n>>Q\u0006#overview\n\u001b#conduct\n \u0018\u001b#name\nd\n#adjust\n#chat\nn#turn\n#jump\n#wizmap\n\u0006huu_ \u001b<.#vanquished\n #genocided\nPestilence\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #wizintrinsic\nf\n ljk#tip\n\u001b\u001613\n\u0006#chronicle\n  #terrain\n\u001b#annotate\nblessed\n\u0018\u001b#wipe\n#loot\n#chat\nu#chat\nn#wizidentify\nhln_>,\u0007kobold shaman\n#version\n  #history\n                  #annotate\n\u001b\u0018\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n\u001b#wizdetect\n\u0006nhn_{.q#overview\n\u001b#conduct\n \u000f\u001b#dip\n\u001b#offer\n#pray\ny y  #chat\nb#jump\n#levelchange\n6\n   FbFbf_<.Fh_.\u0007troll\n#vanquished\n #genocided\nfire giant\n\u001b\u0018\u001b#name\nd\n#adjust\n#chat\nk#turn\n#jump\n#wizdetect\n\u0006FhFh Fh Fk _ooo.,#c"
+ },
+ "segments": [
+  {
+   "seed": 51257015,
+   "datetime": "20030709083549",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=runmode:teleport\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nWe\u0017blessed +3 gauntlets of power\nWf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007acid blob\n#dip\ngh \u001b#offer\n#pray\ny y #chat\nn#jump\n#wizidentify\n\u001bFn20s.sq\u0016?\n>>Q\u0006#overview\n\u001b#conduct\n \u0018\u001b#name\nd\n#adjust\n#chat\nn#turn\n#jump\n#wizmap\n\u0006huu_ \u001b<.#vanquished\n #genocided\nPestilence\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #wizintrinsic\nf\n ljk#tip\n\u001b\u001613\n\u0006#chronicle\n  #terrain\n\u001b#annotate\nblessed\n\u0018\u001b#wipe\n#loot\n#chat\nu#chat\nn#wizidentify\nhln_>,\u0007kobold shaman\n#version\n  #history\n                  #annotate\n\u001b\u0018\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n\u001b#wizdetect\n\u0006nhn_{.q#overview\n\u001b#conduct\n \u000f\u001b#dip\n\u001b#offer\n#pray\ny y  #chat\nb#jump\n#levelchange\n6\n   FbFbf_<.Fh_.\u0007troll\n#vanquished\n #genocided\nfire giant\n\u001b\u0018\u001b#name\nd\n#adjust\n#chat\nk#turn\n#jump\n#wizdetect\n\u0006FhFh Fh Fk _ooo.,#c"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n10\n         \u0007purple worm\n#pray\ny y       .nFj   .Fk#pray\ny y FkFj#pray\ny y Fj FyFb#levelchange\n30\n                    \u0007purple worm\nsuFyFyFy#pray\ny y    FyFyFnFbs.Fb"
+ },
+ "segments": [
+  {
+   "seed": 51251012,
+   "datetime": "20260815215706",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n10\n         \u0007purple worm\n#pray\ny y       .nFj   .Fk#pray\ny y FkFj#pray\ny y Fj FyFb#levelchange\n30\n                    \u0007purple worm\nsuFyFyFy#pray\ny y    FyFyFnFbs.Fb"
+  }
+ ]
+}

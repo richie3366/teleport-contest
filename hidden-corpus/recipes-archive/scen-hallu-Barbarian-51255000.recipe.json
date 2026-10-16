@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed magic lamp\n\u0017blessed amulet of life saving\nPi\u0017blessed ring of free action\nPjl\u0017blessed +3 speed boots\nWk\u0017blessed 20 daggers\nQl#levelchange\n26\n                         #wizintrinsic\nh\n \u0017wand of magic missile\nzml zmy zmj zmli\u001bkkjy\u0017wand of magic missile\nznjznh znyznbznj\u0017wand of light\nzozozozo#wizintrinsic\nh\n\u0007gnome lord\nFbFb20s20ss20ss\u0007troll\nFlFl 20ss20sFn \u0007hill orc\nFlFl  FnFn.20s\u0017potion of hallucination\nqp20s#wizintrinsic\nh\n\u0017spellbook of light\nrqsZ\u001b#turn\n:\u0007troll\nFlFl Fl .s20s20s\u0017blessed spellbook of magic missile\nrr sZ\u001b:#wizintrinsic\nh\n\u0017blessed scroll of enchant weapon\nrs \u0017lump of royal jelly\net\u00167\n_ \u001b<.20s ss;m,E- Vlad was here\n#wizintrinsic\nh\n\u0007owlbear\n\u0007kobold shaman\nFnFnFh.\u0017blessed spellbook of cone of cold\nru.m.Za\n:\u0007sewer rat\n\u0007dwarf\nFyFjFlFyss"
+ },
+ "segments": [
+  {
+   "seed": 51255000,
+   "datetime": "20080528020148",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed magic lamp\n\u0017blessed amulet of life saving\nPi\u0017blessed ring of free action\nPjl\u0017blessed +3 speed boots\nWk\u0017blessed 20 daggers\nQl#levelchange\n26\n                         #wizintrinsic\nh\n \u0017wand of magic missile\nzml zmy zmj zmli\u001bkkjy\u0017wand of magic missile\nznjznh znyznbznj\u0017wand of light\nzozozozo#wizintrinsic\nh\n\u0007gnome lord\nFbFb20s20ss20ss\u0007troll\nFlFl 20ss20sFn \u0007hill orc\nFlFl  FnFn.20s\u0017potion of hallucination\nqp20s#wizintrinsic\nh\n\u0017spellbook of light\nrqsZ\u001b#turn\n:\u0007troll\nFlFl Fl .s20s20s\u0017blessed spellbook of magic missile\nrr sZ\u001b:#wizintrinsic\nh\n\u0017blessed scroll of enchant weapon\nrs \u0017lump of royal jelly\net\u00167\n_ \u001b<.20s ss;m,E- Vlad was here\n#wizintrinsic\nh\n\u0007owlbear\n\u0007kobold shaman\nFnFnFh.\u0017blessed spellbook of cone of cold\nru.m.Za\n:\u0007sewer rat\n\u0007dwarf\nFyFjFlFyss"
+  }
+ ]
+}

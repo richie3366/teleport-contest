@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  FyFyFk hny\\  150s100sFlFlFlcjnhl\u000f\u001b\\  ei  150si\u001b150sFlss100s100s_ \u001b<.>\\  100sFlss50si\u001b100sjyy100sFlFl.100s100s50sFl.s50s50s\\  #tip\n\u001bkjbujkyubFlFlFl50s#tip\n\u001b<#untrap\nlLKNU_>.>10s#chat\nbBHBY_>.>LHHN_>.>YNU  L_>,>LUNN_>.>\u000f\u001bUYJK_>.>b#invoke\n\u001bJBKH_>.>UUBB_>,>10srj ny#force\n150sFks20sFkFkFk100sFkFkFk#untrap\nu100sFksshhl100s#force\n100sbul100sFhsshlhhlbi\u001bhhy100s ljjFuss100sFuss150s ol100s_>.>yyj\u000f\u001b20s#chat\nj150seg50s100sehknh100s50sLKUH_>,>FlssNUBU_>.>20s,UUHU_>.>NBKY_>.>ks<HHHB_>,>LJYK_>.>HUHH_>.>YYKU_>.>#dip\nge#twoweapon\nBUYH_>.>#dip\nheZa\n;m,#conduct\n #dip\ngdegefubl100skyknjbeg\u000f\u001b\u000f\u001bdd100s_>.>\\  50s100s100sFl..unh150sFkss150sFl20ssyny50skju#twoweapon\n100sFls20si\u001b\u0018\u001b150s150sFl20s20s150sbub\u0018\u001b\\  50sFlFuFl150st\u001b#force\n#ride\n.NLKH_>.>\u0004j\u000f\u001bKHBB_>.>Fl Fn.KBHL_>.>BHBL  _>,>UNJB_>.>W#wipe\nJNLK_>.>Fk.sYHYK_>.>#chat\nu\u0014KKBB_>,>#twoweapon\n#jump\nJHLK_>.><ULJY_>.>Flss\u000f\u001bet  LNBY_>.>Flsj.m.#chat\nu#terrain\nc\n:#chat\nk10shjblnnk   u"
+ },
+ "segments": [
+  {
+   "seed": 51250059,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=sortloot:full\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "  FyFyFk hny\\  150s100sFlFlFlcjnhl\u000f\u001b\\  ei  150si\u001b150sFlss100s100s_ \u001b<.>\\  100sFlss50si\u001b100sjyy100sFlFl.100s100s50sFl.s50s50s\\  #tip\n\u001bkjbujkyubFlFlFl50s#tip\n\u001b<#untrap\nlLKNU_>.>10s#chat\nbBHBY_>.>LHHN_>.>YNU  L_>,>LUNN_>.>\u000f\u001bUYJK_>.>b#invoke\n\u001bJBKH_>.>UUBB_>,>10srj ny#force\n150sFks20sFkFkFk100sFkFkFk#untrap\nu100sFksshhl100s#force\n100sbul100sFhsshlhhlbi\u001bhhy100s ljjFuss100sFuss150s ol100s_>.>yyj\u000f\u001b20s#chat\nj150seg50s100sehknh100s50sLKUH_>,>FlssNUBU_>.>20s,UUHU_>.>NBKY_>.>ks<HHHB_>,>LJYK_>.>HUHH_>.>YYKU_>.>#dip\nge#twoweapon\nBUYH_>.>#dip\nheZa\n;m,#conduct\n #dip\ngdegefubl100skyknjbeg\u000f\u001b\u000f\u001bdd100s_>.>\\  50s100s100sFl..unh150sFkss150sFl20ssyny50skju#twoweapon\n100sFls20si\u001b\u0018\u001b150s150sFl20s20s150sbub\u0018\u001b\\  50sFlFuFl150st\u001b#force\n#ride\n.NLKH_>.>\u0004j\u000f\u001bKHBB_>.>Fl Fn.KBHL_>.>BHBL  _>,>UNJB_>.>W#wipe\nJNLK_>.>Fk.sYHYK_>.>#chat\nu\u0014KKBB_>,>#twoweapon\n#jump\nJHLK_>.><ULJY_>.>Flss\u000f\u001bet  LNBY_>.>Flsj.m.#chat\nu#terrain\nc\n:#chat\nk10shjblnnk   u"
+  }
+ ]
+}

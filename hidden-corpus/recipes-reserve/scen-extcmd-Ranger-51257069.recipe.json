@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed amulet of life saving\nPg\u0017blessed +3 helm of telepathy\nWh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007dwarf\n#wizintrinsic\nq\n FbFh FbFb#ride\nby_ \u001bm,qj\u0007newt\n#overview\n\u001b#conduct\n i\u001b#dip\nk#offer\n#pray\ny y     #chat\nh#levelchange\n4\n     FbFhFb#ride\nby_<.\u0007owlbear\n#vanquished\n #genocided\npony\n#annotate\nfoo\ni\u001b#name\nm\n#adjust\n:#chat\nh#turn\n#jump\n#levelchange\n14\n         Fh.Fy _<.Fh_.\u0007yellow mold\n#chronicle\n   #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y    #jump\n#levelchange\n18\n   FhFj.._>,#version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\nn#chat\nn#polyself\nmind flayer\n #monster\n.sssuhn_<._.#overview\n\u001b#conduct\n #annotate\n\u001b\u0018\u001b#tip\n\u001b#ride\nky#turn\n#sit\n#wizintrinsic\nqf\n nnk__,#chat\nu#vanquished\n #genocided\ngiant spider\n#annotate\n\u001bi\u001b#dip\nd#offer\n#pray\ny y #chat\ny#jump\n#polyself\nleprechaun\n  .ssslhyy\u00161\n\u0006#chronicle\n   #terrain\n\u001b\u0018\u001b#name\nm\n@.#adjust\ni\u001b#chat\nk#turn\n#jump\n#wizidentify\n\u001bFkFkFkFks__.#chat\nk#version\n  #history\n                  i\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #wizidentify\n\u001bFkFkFkFk:__,#chat\nk\u0007acid blob\n#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\nk#chat\nh#chat\nk#jump\n#lev"
+ },
+ "segments": [
+  {
+   "seed": 51257069,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed amulet of life saving\nPg\u0017blessed +3 helm of telepathy\nWh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007dwarf\n#wizintrinsic\nq\n FbFh FbFb#ride\nby_ \u001bm,qj\u0007newt\n#overview\n\u001b#conduct\n i\u001b#dip\nk#offer\n#pray\ny y     #chat\nh#levelchange\n4\n     FbFhFb#ride\nby_<.\u0007owlbear\n#vanquished\n #genocided\npony\n#annotate\nfoo\ni\u001b#name\nm\n#adjust\n:#chat\nh#turn\n#jump\n#levelchange\n14\n         Fh.Fy _<.Fh_.\u0007yellow mold\n#chronicle\n   #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y    #jump\n#levelchange\n18\n   FhFj.._>,#version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\nn#chat\nn#polyself\nmind flayer\n #monster\n.sssuhn_<._.#overview\n\u001b#conduct\n #annotate\n\u001b\u0018\u001b#tip\n\u001b#ride\nky#turn\n#sit\n#wizintrinsic\nqf\n nnk__,#chat\nu#vanquished\n #genocided\ngiant spider\n#annotate\n\u001bi\u001b#dip\nd#offer\n#pray\ny y #chat\ny#jump\n#polyself\nleprechaun\n  .ssslhyy\u00161\n\u0006#chronicle\n   #terrain\n\u001b\u0018\u001b#name\nm\n@.#adjust\ni\u001b#chat\nk#turn\n#jump\n#wizidentify\n\u001bFkFkFkFks__.#chat\nk#version\n  #history\n                  i\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #wizidentify\n\u001bFkFkFkFk:__,#chat\nk\u0007acid blob\n#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\nk#chat\nh#chat\nk#jump\n#lev"
+  }
+ ]
+}

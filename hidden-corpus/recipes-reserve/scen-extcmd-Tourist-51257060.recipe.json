@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gauntlets of power\nWq\u0017blessed amulet of reflection\nPr\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007newt\n#overview\n\u001b#conduct\n i\u001b#dip\nm#offer\n#pray\n#chat\n#wizintrinsic\nkl u_ \u001b:,#vanquished\n #genocided\ndust vortex\ni\u001b#name\ni\n#adjust\np\u001b#chat\nj#turn\n#wizintrinsic\ngf\n FbFj _{.qt\u0007yellow mold\n#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #jump\n#wizintrinsic\nq\n Fb.s_>,\u0007owlbear\n#version\n  #history\n                  #annotate\nFido\ni\u001b#wipe\n#loot\nb   n#chat\nb#chat\nb#levelchange\n2\nFb   n Fb   n Fb \u00161\n\u001613\n\u0006#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nby#turn\n#sit\n#jump\n#wizidentify\n\u001bFb  nFbFb   n ;b;\u001612\n __.#chat\ny#vanquished\n #genocided\nacid blob\ni\u001b#dip\nlj#offer\n#pray\ny y #chat\nu#polyself\nfog cloud\n #monster\ns  ss20s  Fj  Fj FjFj_<.\u0007hill orc\n#chronicle\n #terrain\n\u001b\u0018\u001b#name\ni\n#adjust\nk\u001b#chat\ny#turn\n#wiziden"
+ },
+ "segments": [
+  {
+   "seed": 51257060,
+   "datetime": "20020813221833",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gauntlets of power\nWq\u0017blessed amulet of reflection\nPr\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007newt\n#overview\n\u001b#conduct\n i\u001b#dip\nm#offer\n#pray\n#chat\n#wizintrinsic\nkl u_ \u001b:,#vanquished\n #genocided\ndust vortex\ni\u001b#name\ni\n#adjust\np\u001b#chat\nj#turn\n#wizintrinsic\ngf\n FbFj _{.qt\u0007yellow mold\n#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #jump\n#wizintrinsic\nq\n Fb.s_>,\u0007owlbear\n#version\n  #history\n                  #annotate\nFido\ni\u001b#wipe\n#loot\nb   n#chat\nb#chat\nb#levelchange\n2\nFb   n Fb   n Fb \u00161\n\u001613\n\u0006#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nby#turn\n#sit\n#jump\n#wizidentify\n\u001bFb  nFbFb   n ;b;\u001612\n __.#chat\ny#vanquished\n #genocided\nacid blob\ni\u001b#dip\nlj#offer\n#pray\ny y #chat\nu#polyself\nfog cloud\n #monster\ns  ss20s  Fj  Fj FjFj_<.\u0007hill orc\n#chronicle\n #terrain\n\u001b\u0018\u001b#name\ni\n#adjust\nk\u001b#chat\ny#turn\n#wiziden"
+  }
+ ]
+}

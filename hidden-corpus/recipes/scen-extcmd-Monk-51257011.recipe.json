@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nWj\u0017blessed amulet of life saving\nPk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n             \u0007grid bug\n_ \u001bm. ,\u0007newt\n#overview\n\u001b#conduct\n i\u001b#dip\nlm \u001b#offer\n#pray\ny y #chat\nu#jump\n#wizidentify\n\u001bFn ss.\u0016?\no \u0006#vanquished\n #genocided\ngiant mimic\n\u000f\u001b#name\nm\n#adjust\n@.#chat\nj#turn\n#levelchange\n6\n  hlh_>,_.\u0007grid bug\n#chronicle\n  #terrain\n\u001b#annotate\nfoo\n\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #wizmap\n\u0006Fl 20s__,_,#chat\nk#version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\nj#chat\nb#polyself\nvampire\n#monster\n    s.20sslll\u0016?\n>z\u0006\u0007soldier\n#overview\n\u001b#conduc"
+ },
+ "segments": [
+  {
+   "seed": 51257011,
+   "datetime": "20171028231737",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nWj\u0017blessed amulet of life saving\nPk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n             \u0007grid bug\n_ \u001bm. ,\u0007newt\n#overview\n\u001b#conduct\n i\u001b#dip\nlm \u001b#offer\n#pray\ny y #chat\nu#jump\n#wizidentify\n\u001bFn ss.\u0016?\no \u0006#vanquished\n #genocided\ngiant mimic\n\u000f\u001b#name\nm\n#adjust\n@.#chat\nj#turn\n#levelchange\n6\n  hlh_>,_.\u0007grid bug\n#chronicle\n  #terrain\n\u001b#annotate\nfoo\n\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #wizmap\n\u0006Fl 20s__,_,#chat\nk#version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\nj#chat\nb#polyself\nvampire\n#monster\n    s.20sslll\u0016?\n>z\u0006\u0007soldier\n#overview\n\u001b#conduc"
+  }
+ ]
+}

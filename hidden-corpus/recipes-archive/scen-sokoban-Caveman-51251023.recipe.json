@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u0016?\n>C\u0017blessed ring of levitation\nPfl Fy \u0017wand of striking\nzgk\u0017wand of striking\nzhk10sh\u0017wand of striking\nzij\u0017scroll of earth\nrj 10sllkylhuykkuuhyyyyhh\u0017wand of striking\nzkhy\u0017wand of digging\nzlkjulykk10sulu\u0017wand of striking\nzmlkh\u0017wand of striking\nznlkkyFulb\u0017scroll of earth\nro   yy\u001by   ny n  k"
+ },
+ "segments": [
+  {
+   "seed": 51251023,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0016?\n>C\u0017blessed ring of levitation\nPfl Fy \u0017wand of striking\nzgk\u0017wand of striking\nzhk10sh\u0017wand of striking\nzij\u0017scroll of earth\nrj 10sllkylhuykkuuhyyyyhh\u0017wand of striking\nzkhy\u0017wand of digging\nzlkjulykk10sulu\u0017wand of striking\nzmlkh\u0017wand of striking\nznlkkyFulb\u0017scroll of earth\nro   yy\u001by   ny n  k"
+  }
+ ]
+}

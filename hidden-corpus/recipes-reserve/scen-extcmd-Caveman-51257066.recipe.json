@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007kobold\nFjFl .\u001623\n\u0006\u0007hobbit\n#overview\n\u001b#conduct\n #annotate\nfoo\ni\u001b#dip\ngi#offer\n#pray\ny y #chat\ny#wizidentify\n\u001bbuj_ \u001b@.#vanquished\n #genocided\nelf-lord\n .\u0018\u001b#name\n\u001b#adjust\na\u001b#chat\nu#turn\n#jump\n#levelchange\n8\nbyl__._,#chat\nh\u0007hill orc\n#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #wizmap\n\u0006Fh    FhFh\u0016?\np \u0006#version\n  #history\n                  #annotate\nblessed\ni\u001b#wipe\n#loot\n#chat\nu#chat\nu#jump\n#wizmap\n\u0006yjyrj \u001b\u0016?\n>>L       dwarvish mithril-coat\n\u0006,\u0007troll\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nny#turn\n#sit\n#jump\n#wizmap\n@.\u0006:Fh     FhFl     n   Fh    _<,\u0007grid bug\n#vanquished\n #genocided\nxorn\n     n  \u000f\u001b#dip\ndi   #offer\n#pray\ny y            #chat\nk     n     n  \u00166\n#levelchange\n20\n            Fu    Fl    Fh       nFn     _<,#chronicle\n  #terrain\n\u001b\u000f\u001b#name\n\u001b#adjust\ne\u001b#chat\ny#turn\n#wizidentify\n\u001bFk       FyFb     n"
+ },
+ "segments": [
+  {
+   "seed": 51257066,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=sortloot:full\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007kobold\nFjFl .\u001623\n\u0006\u0007hobbit\n#overview\n\u001b#conduct\n #annotate\nfoo\ni\u001b#dip\ngi#offer\n#pray\ny y #chat\ny#wizidentify\n\u001bbuj_ \u001b@.#vanquished\n #genocided\nelf-lord\n .\u0018\u001b#name\n\u001b#adjust\na\u001b#chat\nu#turn\n#jump\n#levelchange\n8\nbyl__._,#chat\nh\u0007hill orc\n#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #wizmap\n\u0006Fh    FhFh\u0016?\np \u0006#version\n  #history\n                  #annotate\nblessed\ni\u001b#wipe\n#loot\n#chat\nu#chat\nu#jump\n#wizmap\n\u0006yjyrj \u001b\u0016?\n>>L       dwarvish mithril-coat\n\u0006,\u0007troll\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nny#turn\n#sit\n#jump\n#wizmap\n@.\u0006:Fh     FhFl     n   Fh    _<,\u0007grid bug\n#vanquished\n #genocided\nxorn\n     n  \u000f\u001b#dip\ndi   #offer\n#pray\ny y            #chat\nk     n     n  \u00166\n#levelchange\n20\n            Fu    Fl    Fh       nFn     _<,#chronicle\n  #terrain\n\u001b\u000f\u001b#name\n\u001b#adjust\ne\u001b#chat\ny#turn\n#wizidentify\n\u001bFk       FyFb     n"
+  }
+ ]
+}

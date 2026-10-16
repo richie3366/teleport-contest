@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWq\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007gnome\n_ \u001b>.qg #overview\n\u001b#conduct\n #annotate\nFido\n\u000f\u001b#dip\na#offer\n#pray\n#chat\n#wizmap\n\u0006 jkh_{.qs \u001b\u0007kobold\n#vanquished\n#genocided\nvampire bat\n \u0018\u001b#name\nm\n#adjust\n@.#chat\nu#turn\n#wizdetect\n\u0006Fus.wa_{.qf\u0007hobbit\n#chronicle\n #terrain\n\u001b#annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y    #levelchange\n5\n    Fy.20s_{.qh#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\ny#chat\nj#polyself\nred dragon\n   20s20s.slyk__._,#chat\nb#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\njy#turn\n#sit\n#levelchange\n2\nkkj#pray\ny y  _{,_,q\u0007owlbear\n#vanquished\n #genocided\nwood nymph\ni\u001b#dip\ni#offer\n#pray\ny y    #chat\nk#polyself\nvampire\n#monster\n     n  .k   n 20s Fk Fk  n \u001611\nFkFn _ooo,  nFk_.  n Fb,\u00167\n#chronicle\n #terrain\n\u001b#annotate\nFido\n\u0018\u001b#name\nd\n#adjust\ne\u001b#chat\nh#turn\n#jump\n#wizmap\n\u0006jkb_oooo,,\u0007gnome lord\n#version\n  #h"
+ },
+ "segments": [
+  {
+   "seed": 51257012,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWq\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007gnome\n_ \u001b>.qg #overview\n\u001b#conduct\n #annotate\nFido\n\u000f\u001b#dip\na#offer\n#pray\n#chat\n#wizmap\n\u0006 jkh_{.qs \u001b\u0007kobold\n#vanquished\n#genocided\nvampire bat\n \u0018\u001b#name\nm\n#adjust\n@.#chat\nu#turn\n#wizdetect\n\u0006Fus.wa_{.qf\u0007hobbit\n#chronicle\n #terrain\n\u001b#annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y    #levelchange\n5\n    Fy.20s_{.qh#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\ny#chat\nj#polyself\nred dragon\n   20s20s.slyk__._,#chat\nb#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\njy#turn\n#sit\n#levelchange\n2\nkkj#pray\ny y  _{,_,q\u0007owlbear\n#vanquished\n #genocided\nwood nymph\ni\u001b#dip\ni#offer\n#pray\ny y    #chat\nk#polyself\nvampire\n#monster\n     n  .k   n 20s Fk Fk  n \u001611\nFkFn _ooo,  nFk_.  n Fb,\u00167\n#chronicle\n #terrain\n\u001b#annotate\nFido\n\u0018\u001b#name\nd\n#adjust\ne\u001b#chat\nh#turn\n#jump\n#wizmap\n\u0006jkb_oooo,,\u0007gnome lord\n#version\n  #h"
+  }
+ ]
+}

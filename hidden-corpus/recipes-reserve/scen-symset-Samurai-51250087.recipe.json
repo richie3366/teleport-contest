@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " O>>p\u001b\nmO>>>u\u001b\n\u0006_ \u001b,>FhFb_>.Fb_.Fn>FhFlFn\u0006_>.Fu_,;>. Fh>FlFk_>.  Fb_.Fy>FkFu_>.Fk_.> FbFkb Fh< \u0006_>.> FkFyFj\u0006_>.Fj_.Fn>FkFkFl\u0006_>,Fj_,Fj>FnFkj _>.Fb_.Fn>FkFl_>.Fu_,Fy>FkFlFjFkFn\u0006_>>,Fn_>FuFu_>>,Fu_.Fj>FbFy_>>,Fy_.Fj>FyFyFkFyFl\u0006_>.Fy_,Fl>FkFy_>,Fy_.Fk>FjFj_>,Fy_.Fun >FyFlFlFkFy\u000f\u001bO>>>k\u001b\u001b\n\u00166\nFuFuFlFkFnFlFnFyFbFh\u001bFuFyFlFlFhFyFub FlFyFnFnFh\u001bFhFjFnFnFlFbFkn FnFlFbFh\u001bFhFyFlFbFh\u001bFbFyFnFuy FkFlFbFyFjFnFbFjFnFbFlFhFnFh\u001bFkFyFnFkFuFuFyFbFkFlFyFbFjFuFhFhFlFuFuFjFjFyFh\u001bFyFku FhFuFuFyFh\u001bFyFlFbFbFbFh\u001bFnFlFnFh\u001bFhFuFhFjFhFnFky FbFlFbFh\u001bFkFuFyFuh FlFbFh\u001bFnFbFyFbFuFhv i\u001bmO>>>>c\u001b\n#levelchange\n14\n            luu b\u0017lawful altar\ndc\u0017gnome corpse\n #offer\nf #pray\ny y bh\u001b\u0017tree\n#terrain\nf\n10sJ#enhance\nyl\nl\n\u001bsr\u001b>fh mO>>>>i\u001b\n\u0007horse\n\u0017meatball\ntbl \u0007tame jackal\n10s#name\nf\n\u0017food ration\ntdj #name\no\n\u0006_>.Fj_.<.Fj>FlFl_>,Fb_.Fb>FbFh\u001b_>.Fl_.Fk>FuFn\u0017\u001619\nmO>>e\u001b\n#levelchange\n6\n  bh\u001bbh\u001b\u0017chaotic altar\ndg\u0017jackal corpse\n#offer\ni   #pray\ny y kb y\u0017altar\nda \u0017jackal corpse\n#offer\nj   #pray\ny y   #terrain\n\u001bey20s#enhance\nym\ng\n\u001bO>"
+ },
+ "segments": [
+  {
+   "seed": 51250087,
+   "datetime": "20010424025811",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"uncursed\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " O>>p\u001b\nmO>>>u\u001b\n\u0006_ \u001b,>FhFb_>.Fb_.Fn>FhFlFn\u0006_>.Fu_,;>. Fh>FlFk_>.  Fb_.Fy>FkFu_>.Fk_.> FbFkb Fh< \u0006_>.> FkFyFj\u0006_>.Fj_.Fn>FkFkFl\u0006_>,Fj_,Fj>FnFkj _>.Fb_.Fn>FkFl_>.Fu_,Fy>FkFlFjFkFn\u0006_>>,Fn_>FuFu_>>,Fu_.Fj>FbFy_>>,Fy_.Fj>FyFyFkFyFl\u0006_>.Fy_,Fl>FkFy_>,Fy_.Fk>FjFj_>,Fy_.Fun >FyFlFlFkFy\u000f\u001bO>>>k\u001b\u001b\n\u00166\nFuFuFlFkFnFlFnFyFbFh\u001bFuFyFlFlFhFyFub FlFyFnFnFh\u001bFhFjFnFnFlFbFkn FnFlFbFh\u001bFhFyFlFbFh\u001bFbFyFnFuy FkFlFbFyFjFnFbFjFnFbFlFhFnFh\u001bFkFyFnFkFuFuFyFbFkFlFyFbFjFuFhFhFlFuFuFjFjFyFh\u001bFyFku FhFuFuFyFh\u001bFyFlFbFbFbFh\u001bFnFlFnFh\u001bFhFuFhFjFhFnFky FbFlFbFh\u001bFkFuFyFuh FlFbFh\u001bFnFbFyFbFuFhv i\u001bmO>>>>c\u001b\n#levelchange\n14\n            luu b\u0017lawful altar\ndc\u0017gnome corpse\n #offer\nf #pray\ny y bh\u001b\u0017tree\n#terrain\nf\n10sJ#enhance\nyl\nl\n\u001bsr\u001b>fh mO>>>>i\u001b\n\u0007horse\n\u0017meatball\ntbl \u0007tame jackal\n10s#name\nf\n\u0017food ration\ntdj #name\no\n\u0006_>.Fj_.<.Fj>FlFl_>,Fb_.Fb>FbFh\u001b_>.Fl_.Fk>FuFn\u0017\u001619\nmO>>e\u001b\n#levelchange\n6\n  bh\u001bbh\u001b\u0017chaotic altar\ndg\u0017jackal corpse\n#offer\ni   #pray\ny y kb y\u0017altar\nda \u0017jackal corpse\n#offer\nj   #pray\ny y   #terrain\n\u001bey20s#enhance\nym\ng\n\u001bO>"
+  }
+ ]
+}

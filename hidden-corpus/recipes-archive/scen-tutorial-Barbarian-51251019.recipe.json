@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " y   #sit\n\u001b>_ \u001b.ijunukjbnhujk#ride\njybbknkuyje:>nuk#twoweapon\nynb#name\nm\nkluykb_y:#sit\n\u001b>>:#enhance\n\u001bnjyd\u001b\u001bnyj__.ukhkkbkjns>:lby:#force\njlub<nhujkbqE\u001b\u001bhlhlhk_d,#offer\nojlly_>."
+ },
+ "segments": [
+  {
+   "seed": 51251019,
+   "datetime": "20050206182537",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=fruit:mango\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\n",
+   "moves": " y   #sit\n\u001b>_ \u001b.ijunukjbnhujk#ride\njybbknkuyje:>nuk#twoweapon\nynb#name\nm\nkluykb_y:#sit\n\u001b>>:#enhance\n\u001bnjyd\u001b\u001bnyj__.ukhkkbkjns>:lby:#force\njlub<nhujkbqE\u001b\u001bhlhlhk_d,#offer\nojlly_>."
+  }
+ ]
+}

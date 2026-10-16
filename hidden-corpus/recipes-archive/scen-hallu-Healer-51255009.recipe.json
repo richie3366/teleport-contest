@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPml\u0017blessed +3 helm of telepathy\nWn\u0017blessed amulet of life saving\nPo\u0017blessed +3 speed boots\nWp\u0017blessed bell of opening\n\u0017blessed 20 daggers\n Qr#levelchange\n14\n            #wizintrinsic\nh\n _ \u001b@.kl\u0017wand of lightning\nzsj zshzsk zskzsh\u0007bugbear\n\u0007hill orc\nFbFnFnFbFbFn\u001613\n_<,<\u0017blessed scroll of remove curse\nrt\u0017meatball\neu#wizintrinsic\nh\n\u0017wand of probing\nzv. zvlzvb zvb zvb fbfb;b,E- X marks the spot\n #chat\nb#pray\ny y  \u0016?\n>>Q  \u0014m,   20s#wizintrinsic\nh\n\u0017blessed scroll of magic mapping\nra\u0017apple\neb\u0016?\n>H bukb:  s20s\u0007owlbear\n\u0007bugbear\nsFh FlFh Fl  #wizintrinsic\nh\ntrh trl  n fl  trl \u0016?\ne_>.s.\u0017scroll of enchant armor\nru;_.E- X marks the spot\n   #chat\nh\u0017blessed spellbook of cone of cold\n rw20s    n Zb\n:  #wizintrinsic\nh\n;u,E- I am a fish\n       n #pray\ny y                \u0017wand of cold\nzxu   n     zxb   zxl  n      zxj   n   \u00168\n#wizintrinsic\nh\n\u0017blessed scroll of enchant armor\nry\u0017lizard corpse\nez \u0007kobold shaman\n\u0007hobbit\nFh  n FhFhF"
+ },
+ "segments": [
+  {
+   "seed": 51255009,
+   "datetime": "20030225152340",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPml\u0017blessed +3 helm of telepathy\nWn\u0017blessed amulet of life saving\nPo\u0017blessed +3 speed boots\nWp\u0017blessed bell of opening\n\u0017blessed 20 daggers\n Qr#levelchange\n14\n            #wizintrinsic\nh\n _ \u001b@.kl\u0017wand of lightning\nzsj zshzsk zskzsh\u0007bugbear\n\u0007hill orc\nFbFnFnFbFbFn\u001613\n_<,<\u0017blessed scroll of remove curse\nrt\u0017meatball\neu#wizintrinsic\nh\n\u0017wand of probing\nzv. zvlzvb zvb zvb fbfb;b,E- X marks the spot\n #chat\nb#pray\ny y  \u0016?\n>>Q  \u0014m,   20s#wizintrinsic\nh\n\u0017blessed scroll of magic mapping\nra\u0017apple\neb\u0016?\n>H bukb:  s20s\u0007owlbear\n\u0007bugbear\nsFh FlFh Fl  #wizintrinsic\nh\ntrh trl  n fl  trl \u0016?\ne_>.s.\u0017scroll of enchant armor\nru;_.E- X marks the spot\n   #chat\nh\u0017blessed spellbook of cone of cold\n rw20s    n Zb\n:  #wizintrinsic\nh\n;u,E- I am a fish\n       n #pray\ny y                \u0017wand of cold\nzxu   n     zxb   zxl  n      zxj   n   \u00168\n#wizintrinsic\nh\n\u0017blessed scroll of enchant armor\nry\u0017lizard corpse\nez \u0007kobold shaman\n\u0007hobbit\nFh  n FhFhF"
+  }
+ ]
+}

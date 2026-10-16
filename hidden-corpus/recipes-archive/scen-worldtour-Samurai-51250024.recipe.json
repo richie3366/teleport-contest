@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed Mjollnir\nwf\u0017blessed +3 speed boots\nWg \u0017blessed ring of free action\nPhr\u0016?\n>B_ \u001b@.>20s\u001615\njku:\u0016?\n>t llj    kj:20s   sm. 20s   \u0016?\n>ulnyl:\u0016?\n>>M       wand of probing\n#levelchange\n20\n\u00176 eggs\nQby\u00074 soldier\nyk              fj  n  f a j    \u001b        f \u001b\u0007owlbear\nh   f \u001bf \u001b\u0017potion of acid\ntdk \u0017bullwhip\nwm    \u0007giant rat\nhamj    n  uk  j  ,#enhance\nyf\nf\n\u001b20s \u00164\n\u0016?\na    \u0014,sm.   \u0016?\ne #chat\nu;u,\u0016?\naju                :\u0016?\nc#chat\nn;m,\u001615\n__.\u0016?\n\u001blj\u0016?\n\u001bjl\u0016?\n\u001bjy     \u001634\nu   n  j    n      jh: \u00161\n\u001612\n\u0017cursed potion of monster detection\nqnm.#dip\ng\u0017 s s \u0017 \u0017 . 20s \u0016 jk\u00161\n__..\u0016?\nb _>,\u0016?\n\u001bn    j \u00162\n_>.\u001623\n\u0014 nn \u001615\nuj  bnjj :sm.20ssl  n \u0016?\n\u001bnn\u0016?\n\u001bk    u\u00169\n__,>20s       n  .k    \u0016?\n\u001bnl      n\u00161\n_<.\u0016?\n\u001by  j\u001623\nu           nu        hb        n  u  :\u00165\n\u001630\n\u0006;_>,\u0016?\n\u001bjl\u0016?\n\u001bln  \u00169\n\u0004y 20s             n\u001615\nkuj    :20s   sm.\u001634\ny        n  nh       n    b               :sm.  n                  20s   n    "
+ },
+ "segments": [
+  {
+   "seed": 51250024,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed Mjollnir\nwf\u0017blessed +3 speed boots\nWg \u0017blessed ring of free action\nPhr\u0016?\n>B_ \u001b@.>20s\u001615\njku:\u0016?\n>t llj    kj:20s   sm. 20s   \u0016?\n>ulnyl:\u0016?\n>>M       wand of probing\n#levelchange\n20\n\u00176 eggs\nQby\u00074 soldier\nyk              fj  n  f a j    \u001b        f \u001b\u0007owlbear\nh   f \u001bf \u001b\u0017potion of acid\ntdk \u0017bullwhip\nwm    \u0007giant rat\nhamj    n  uk  j  ,#enhance\nyf\nf\n\u001b20s \u00164\n\u0016?\na    \u0014,sm.   \u0016?\ne #chat\nu;u,\u0016?\naju                :\u0016?\nc#chat\nn;m,\u001615\n__.\u0016?\n\u001blj\u0016?\n\u001bjl\u0016?\n\u001bjy     \u001634\nu   n  j    n      jh: \u00161\n\u001612\n\u0017cursed potion of monster detection\nqnm.#dip\ng\u0017 s s \u0017 \u0017 . 20s \u0016 jk\u00161\n__..\u0016?\nb _>,\u0016?\n\u001bn    j \u00162\n_>.\u001623\n\u0014 nn \u001615\nuj  bnjj :sm.20ssl  n \u0016?\n\u001bnn\u0016?\n\u001bk    u\u00169\n__,>20s       n  .k    \u0016?\n\u001bnl      n\u00161\n_<.\u0016?\n\u001by  j\u001623\nu           nu        hb        n  u  :\u00165\n\u001630\n\u0006;_>,\u0016?\n\u001bjl\u0016?\n\u001bln  \u00169\n\u0004y 20s             n\u001615\nkuj    :20s   sm.\u001634\ny        n  nh       n    b               :sm.  n                  20s   n    "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 helm of telepathy\nW\u001b\u0017long sword\n \u0017potion of water\n\u0017scroll of identify\n\u0007gnome\n#pray\ny y     #chat\nj #jump\n#wizintrinsic\ns\n l nl\u001623\n\u0006#overview\n\u001b#conduct\n \u000f\u001b#dip\nhl \u001b#offer\n#chat\nh#turn\n#levelchange\n14\n             hnl_ \u001b>.q#vanquished\n #genocided\nbaby red dragon\nf\u0018\u001b#name\nm\n#adjust\n>.#sit\n #pray\ny y    #polyself\ntroll\n #monster\nsm.20s Fb .hhk_<.Fh _,#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nl#chat\nk#wizdetect\n\u0006hhj_ooo._,,#version\n  #history\n                  #annotate\nFido\n\u000f\u001b#wipe\n#loot\n#turn\n#sit\n\u001b#wizidentify\n\u001blhl#ride\nyy__.#chat\nu#overview\n"
+ },
+ "segments": [
+  {
+   "seed": 51257004,
+   "datetime": "20060310230631",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=autodig\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 helm of telepathy\nW\u001b\u0017long sword\n \u0017potion of water\n\u0017scroll of identify\n\u0007gnome\n#pray\ny y     #chat\nj #jump\n#wizintrinsic\ns\n l nl\u001623\n\u0006#overview\n\u001b#conduct\n \u000f\u001b#dip\nhl \u001b#offer\n#chat\nh#turn\n#levelchange\n14\n             hnl_ \u001b>.q#vanquished\n #genocided\nbaby red dragon\nf\u0018\u001b#name\nm\n#adjust\n>.#sit\n #pray\ny y    #polyself\ntroll\n #monster\nsm.20s Fb .hhk_<.Fh _,#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nl#chat\nk#wizdetect\n\u0006hhj_ooo._,,#version\n  #history\n                  #annotate\nFido\n\u000f\u001b#wipe\n#loot\n#turn\n#sit\n\u001b#wizidentify\n\u001blhl#ride\nyy__.#chat\nu#overview\n"
+  }
+ ]
+}

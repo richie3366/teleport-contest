@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWp\u0017blessed +3 gauntlets of power\nWq\u0016?\n>w\u0006Fl FlFlFlFlFlhhh#chat\nj_ \u001b<.,pm.\u0016?\n>B kbn\u0016?\n>w  \u0006_oooo,Fh _.  nFy,\u0017diamond\ndr   n \u00162\n_oooo,,p_oooooooo._o.,#chat\nk_oooo._ooo,,p_ooooooo.,\u0017amulet of guarding\nds\u00163\nyly\u0016?\n>w\u0006_oooooo,,\u0017diamond\ndt_{. _.Fj   qj _ooooo.Fj _,Fj _oo.Fj_,Fj,$_{.Fn_, Fuqj_ooo.Fu _, Fu,\u0017amulet versus poison\ndu_oooooooo,Fl   _.Fu ,\u0014@.  20s  .m.\u00167\nuju\u0016?\n>w\u0006Fn  Fn Fn Fn FnFn\u00167\nj by\u0016?\n>w\u0006__.Fl _.  nFl#chat\nl #pray\ny y        _{, Fy      n_.     nFy     nq\u001611\n_{,qFu   Fu   n  Fu    n Fu  Fu   n   Fu \u001610\nFl    nFl   Fl Fl    nFl   Fl   n  \u00164\n_{.qFjFj  Fj   n Fj  Fj   n Fj  \u00164\n_oooooo.,\u0017flint stone\ndv_oooo.Fh   n _,,d\n    yy\u001by  y y y\u001b  p"
+ },
+ "segments": [
+  {
+   "seed": 51250093,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWp\u0017blessed +3 gauntlets of power\nWq\u0016?\n>w\u0006Fl FlFlFlFlFlhhh#chat\nj_ \u001b<.,pm.\u0016?\n>B kbn\u0016?\n>w  \u0006_oooo,Fh _.  nFy,\u0017diamond\ndr   n \u00162\n_oooo,,p_oooooooo._o.,#chat\nk_oooo._ooo,,p_ooooooo.,\u0017amulet of guarding\nds\u00163\nyly\u0016?\n>w\u0006_oooooo,,\u0017diamond\ndt_{. _.Fj   qj _ooooo.Fj _,Fj _oo.Fj_,Fj,$_{.Fn_, Fuqj_ooo.Fu _, Fu,\u0017amulet versus poison\ndu_oooooooo,Fl   _.Fu ,\u0014@.  20s  .m.\u00167\nuju\u0016?\n>w\u0006Fn  Fn Fn Fn FnFn\u00167\nj by\u0016?\n>w\u0006__.Fl _.  nFl#chat\nl #pray\ny y        _{, Fy      n_.     nFy     nq\u001611\n_{,qFu   Fu   n  Fu    n Fu  Fu   n   Fu \u001610\nFl    nFl   Fl Fl    nFl   Fl   n  \u00164\n_{.qFjFj  Fj   n Fj  Fj   n Fj  \u00164\n_oooooo.,\u0017flint stone\ndv_oooo.Fh   n _,,d\n    yy\u001by  y y y\u001b  p"
+  }
+ ]
+}

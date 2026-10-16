@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00167\nFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu\u0006_ \u001b@.>FuFu_>,Fn_>FjFj_>,Fy_.Fuj >FyFku FyFkj Fl\u0014,#sit\n\u001b\u0006_>>.Fn_>FuFy_>>.Fy_.Fk>FjFj_>>,Fu_,Fh>FhFyFnFnFuu #ride\nl #untrap\nh \u0006_>>.Fy_.Fy>FuFl_>>.Fl_,Fy>FlFy_>>.Fuy _,Fn>FnFnFn\u0006_>.Fu_,Fu>FuFn_>FyFn_>.Fl_.Fy>FuFnFnFkFk<\u0006_>>,Fn_>FnFn_>>.Fl_,Fu>FlFy_>>. Fln _.:Fj>FuFlFyFul Fu\u0006_>,Fy_,<.Fk>FhFh_>.Fy_,Fky >FuFl_>,Fj_.Fn>FlFuFkE- Elbereth Elbereth\nf  \u0006_>,Fy_,Flk >FlFu_>.Fl_.Fu>FnFll _>.Fn_>FlFlFhFlFlOc\u001b\nv\u001bi\u001bK#invoke\n\u001b\u00162\nFhFnFyFhFnFuy FuFnFnFyFnFkFkFhFnFuy FuFkFnFh\u001bFnFh\u001b"
+ },
+ "segments": [
+  {
+   "seed": 51250071,
+   "datetime": "20200202230425",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nBIND=v:inventory\n",
+   "moves": "\u00167\nFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu\u0006_ \u001b@.>FuFu_>,Fn_>FjFj_>,Fy_.Fuj >FyFku FyFkj Fl\u0014,#sit\n\u001b\u0006_>>.Fn_>FuFy_>>.Fy_.Fk>FjFj_>>,Fu_,Fh>FhFyFnFnFuu #ride\nl #untrap\nh \u0006_>>.Fy_.Fy>FuFl_>>.Fl_,Fy>FlFy_>>.Fuy _,Fn>FnFnFn\u0006_>.Fu_,Fu>FuFn_>FyFn_>.Fl_.Fy>FuFnFnFkFk<\u0006_>>,Fn_>FnFn_>>.Fl_,Fu>FlFy_>>. Fln _.:Fj>FuFlFyFul Fu\u0006_>,Fy_,<.Fk>FhFh_>.Fy_,Fky >FuFl_>,Fj_.Fn>FlFuFkE- Elbereth Elbereth\nf  \u0006_>,Fy_,Flk >FlFu_>.Fl_.Fu>FnFll _>.Fn_>FlFlFhFlFlOc\u001b\nv\u001bi\u001bK#invoke\n\u001b\u00162\nFhFnFyFhFnFuy FuFnFnFyFnFkFkFhFnFuy FuFkFnFh\u001bFnFh\u001b"
+  }
+ ]
+}

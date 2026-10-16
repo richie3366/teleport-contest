@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n12\n #wizintrinsic\nhk\n sm..m..sm.ss20ssm.s.n.sm.s.k .20s 20s..20ss20s\u0017unicorn horn\nagag#loot\n,#rub\n#rub\nE- I am a fish\n,20s.20s20s20s.#levelchange\n30\n                \u0017blessed spellbook of sleep\nrh20s\u0017blessed spellbook of finger of death\nri s+\u001b\u0007giant rat\nZb\nZa\nZb\nZb\nZa\n         Za\n#turn\n#enhance\nyr\nd\n\u001b#wizintrinsic\nig\n \u0017scroll of light\nrjuly;l: \u001b@..s.\u001626\n  \u00176 eggs\nQby\u0007gnome\nnkfkfl fjfl \u0017potion of see invisible\ntll  b uu,#enhance\nyh\nq\n\u001b\u0017500 gold pieces\n\u0016?\n    \u00165\n \u0006\u0017blessed potion of object detection\nqn_#chat\n#pray\ny y dlk_ooooooo._,_oo._,,,:__.#chat\ny#pray\ny y _ooooo,_.,,p_m.#chat\nk_oooooo,_., pf bn#tip\nf\u001b#conduct\n \u001623\n\u0018\u001b#levelchange\n8\n       \u0017blessed ring of polymorph control\nPpl#polyself\nbrown mold\n  #monster\n.    sl\u0007sergeant\nFjFl Flsm..m. .l  n #polyself\nsalamander\n#monster\n.m.sm.   sj  20s 20s #polyself\ncockatrice\n #monster\nsk   s  n 20s20s s  n\u001617\n\u000f\u001b\u00165\n\u0017blessed spellbook of healing\nrqs\u0017blessed spellbook of slow monster\nrr .+\u001bZb\nZb\nFh  nZb\nZa\n\u0007gnome\nZa\n\u0007grid bug\nZa\nZb\ni>\u001bafi\nafs\nol#tip\nf\u001bag ag qd    n #dip\nbm aehri y  sl snZa\n#sit\n   n\\  #pray\ny y         ol#jump\n,zoki\u001bP.m.20s sbRaeu   n   wb    Fy   n Fu Fl     n Xag ag   ni\u001b\u00167\n#levelchange\n12\n   \u0017uncursed scroll of identify\n\u0007hezrou\nrs i\n \u00173 drum of earthquake\n\u0007captain\nat   at   \u0017uncursed +0 ring of regeneration\nPul shs.m. R Fj   n   Fu.y20s   n  \u00166\n#levelchange\n8\n #wizintrinsic\nhld\n   sm.  n   20s  n .usj  n  .j.20s  yy\u001bnny y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 51250033,
+   "datetime": "20141002080045",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n12\n #wizintrinsic\nhk\n sm..m..sm.ss20ssm.s.n.sm.s.k .20s 20s..20ss20s\u0017unicorn horn\nagag#loot\n,#rub\n#rub\nE- I am a fish\n,20s.20s20s20s.#levelchange\n30\n                \u0017blessed spellbook of sleep\nrh20s\u0017blessed spellbook of finger of death\nri s+\u001b\u0007giant rat\nZb\nZa\nZb\nZb\nZa\n         Za\n#turn\n#enhance\nyr\nd\n\u001b#wizintrinsic\nig\n \u0017scroll of light\nrjuly;l: \u001b@..s.\u001626\n  \u00176 eggs\nQby\u0007gnome\nnkfkfl fjfl \u0017potion of see invisible\ntll  b uu,#enhance\nyh\nq\n\u001b\u0017500 gold pieces\n\u0016?\n    \u00165\n \u0006\u0017blessed potion of object detection\nqn_#chat\n#pray\ny y dlk_ooooooo._,_oo._,,,:__.#chat\ny#pray\ny y _ooooo,_.,,p_m.#chat\nk_oooooo,_., pf bn#tip\nf\u001b#conduct\n \u001623\n\u0018\u001b#levelchange\n8\n       \u0017blessed ring of polymorph control\nPpl#polyself\nbrown mold\n  #monster\n.    sl\u0007sergeant\nFjFl Flsm..m. .l  n #polyself\nsalamander\n#monster\n.m.sm.   sj  20s 20s #polyself\ncockatrice\n #monster\nsk   s  n 20s20s s  n\u001617\n\u000f\u001b\u00165\n\u0017blessed spellbook of healing\nrqs\u0017blessed spellbook of slow monster\nrr .+\u001bZb\nZb\nFh  nZb\nZa\n\u0007gnome\nZa\n\u0007grid bug\nZa\nZb\ni>\u001bafi\nafs\nol#tip\nf\u001bag ag qd    n #dip\nbm aehri y  sl snZa\n#sit\n   n\\  #pray\ny y         ol#jump\n,zoki\u001bP.m.20s sbRaeu   n   wb    Fy   n Fu Fl     n Xag ag   ni\u001b\u00167\n#levelchange\n12\n   \u0017uncursed scroll of identify\n\u0007hezrou\nrs i\n \u00173 drum of earthquake\n\u0007captain\nat   at   \u0017uncursed +0 ring of regeneration\nPul shs.m. R Fj   n   Fu.y20s   n  \u00166\n#levelchange\n8\n #wizintrinsic\nhld\n   sm.  n   20s  n .usj  n  .j.20s  yy\u001bnny y\u001by  2"
+  }
+ ]
+}

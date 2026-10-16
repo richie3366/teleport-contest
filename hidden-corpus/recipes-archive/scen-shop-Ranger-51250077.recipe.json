@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed ring of free action\nPil\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b:,\u0014m. s \u001b20s Fl   Fl  nFl  n  nFl Fl  n Fl  n \u001610\n_oo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndk\u00163\nlbl\u0016?\n>w\u0006_oooo,  nFu_.>.Fl_ooo,_.Fy ,p_ooooooo.Fk _,<.Fh ,:Fh  FhFhFhFhFh_oo.Fh _,Fh ,#chat\nh _{. Fy _,   Fu   n q__,Fh _.  Fy#chat\nl   n  #pray\ny y       _ooooooooo.  Fk  _.    Fl,p_ooooo,Fb  _, Fh    n  ,$_{.     n  Fy   _.  n   Fh   q\u00164\n_oooo,,#chat\nh  n  _ooooooooo.   nFb    n_.Fj ,   n  #chat\ny   yy\u001by   y y n  _"
+ },
+ "segments": [
+  {
+   "seed": 51250077,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed ring of free action\nPil\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b:,\u0014m. s \u001b20s Fl   Fl  nFl  n  nFl Fl  n Fl  n \u001610\n_oo.,\u0017cheap plastic imitation of the Amulet of Yendor\ndk\u00163\nlbl\u0016?\n>w\u0006_oooo,  nFu_.>.Fl_ooo,_.Fy ,p_ooooooo.Fk _,<.Fh ,:Fh  FhFhFhFhFh_oo.Fh _,Fh ,#chat\nh _{. Fy _,   Fu   n q__,Fh _.  Fy#chat\nl   n  #pray\ny y       _ooooooooo.  Fk  _.    Fl,p_ooooo,Fb  _, Fh    n  ,$_{.     n  Fy   _.  n   Fh   q\u00164\n_oooo,,#chat\nh  n  _ooooooooo.   nFb    n_.Fj ,   n  #chat\ny   yy\u001by   y y n  _"
+  }
+ ]
+}

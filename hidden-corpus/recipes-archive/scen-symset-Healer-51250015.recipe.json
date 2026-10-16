@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n        ub yuu lk \u0017throne\n#sit\n nnn#sit\n#sit\n l\u0017:\u001b\u0017s20sl\u0017dd\u0017:\u001b#terrain\n  zhy oj #sit\n O\u0007\u0017\u0007\u0017d.20s20s\u0017uk\u0017hun\u0017q\u0017:\u001bn\u0017dd\u0017#pray\nul h\u001b\u0017grave\n:\u0017pick-axe\nam >..ky \u0017throne\n#sit\n #terrain\n  #pray\ny y ri yE- Elbereth\nmO>k\u001b\n\u001614\nO>>>>l\u001b\n\u000f\u001b#offer\n#enhance\nyc\nc\n\u001bO>>d\u001b\n\u001616\n#tip\n\u001bP#conduct\n #invoke\n\u001bO>o2\n\u001b\n\u0007tame gnome lord\n\u0007housecat\n\u0017lichen corpse\nt$h #chat\nh di20sm. sh\u001b.j#name\nm\n .\u0017leash\naob ly h\u001bh\u001bly aoy 10s  #chat\nn \u0017tin whistle\nkn jjap #pray\ny y            zhn   #ride\nb #turn\n#turn\ni\u001bmO>>>>a\u001b\n#levelchange\n30\n                    lj lk kn n\u0017sink\nqy ky \u0017cloud\n:tay #monster\n<O>n\u001b\u001b\n\u00163\nFlFkFlFbFlj FlFlFjFnFjFuFlFjFkFyFjFjFbFul FlFlFyFnFuFuFhFhFuFuFjFhFyFbFlFjFlFbFbFnFjFuFbFbFbFjFlFkFkFhFyFjFyFyFyFuh FyFkj FkFjFbFh\u001bFkFnFuu FjFlFkFyFll FkFuFhFyFh\u001bFkFyFh\u001bFyFku FkFkFnFnFbFjFnFjFuFjFkFlFlFuFlFjFlFlFbFyFkFkFbFh\u001bFlFlFlFuFjFhFhFlFhFuFbFyFkFlFkFhFy\u00162\nmOa\u001b\n\u00167\n  v  i\u001b\u0007little dog\n\u0017lichen corpse\nt$k \u0007lic"
+ },
+ "segments": [
+  {
+   "seed": 51250015,
+   "datetime": "20170509110008",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=runmode:crawl\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nMSGTYPE=norep \"You hear\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n10\n        ub yuu lk \u0017throne\n#sit\n nnn#sit\n#sit\n l\u0017:\u001b\u0017s20sl\u0017dd\u0017:\u001b#terrain\n  zhy oj #sit\n O\u0007\u0017\u0007\u0017d.20s20s\u0017uk\u0017hun\u0017q\u0017:\u001bn\u0017dd\u0017#pray\nul h\u001b\u0017grave\n:\u0017pick-axe\nam >..ky \u0017throne\n#sit\n #terrain\n  #pray\ny y ri yE- Elbereth\nmO>k\u001b\n\u001614\nO>>>>l\u001b\n\u000f\u001b#offer\n#enhance\nyc\nc\n\u001bO>>d\u001b\n\u001616\n#tip\n\u001bP#conduct\n #invoke\n\u001bO>o2\n\u001b\n\u0007tame gnome lord\n\u0007housecat\n\u0017lichen corpse\nt$h #chat\nh di20sm. sh\u001b.j#name\nm\n .\u0017leash\naob ly h\u001bh\u001bly aoy 10s  #chat\nn \u0017tin whistle\nkn jjap #pray\ny y            zhn   #ride\nb #turn\n#turn\ni\u001bmO>>>>a\u001b\n#levelchange\n30\n                    lj lk kn n\u0017sink\nqy ky \u0017cloud\n:tay #monster\n<O>n\u001b\u001b\n\u00163\nFlFkFlFbFlj FlFlFjFnFjFuFlFjFkFyFjFjFbFul FlFlFyFnFuFuFhFhFuFuFjFhFyFbFlFjFlFbFbFnFjFuFbFbFbFjFlFkFkFhFyFjFyFyFyFuh FyFkj FkFjFbFh\u001bFkFnFuu FjFlFkFyFll FkFuFhFyFh\u001bFkFyFh\u001bFyFku FkFkFnFnFbFjFnFjFuFjFkFlFlFuFlFjFlFlFbFyFkFkFbFh\u001bFlFlFlFuFjFhFhFlFhFuFbFyFkFlFkFhFy\u00162\nmOa\u001b\n\u00167\n  v  i\u001b\u0007little dog\n\u0017lichen corpse\nt$k \u0007lic"
+  }
+ ]
+}

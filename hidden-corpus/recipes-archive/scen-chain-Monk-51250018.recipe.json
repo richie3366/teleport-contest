@@ -1,0 +1,70 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "Fu FuFuFuFuFuFuFuulyujkjlt\u001b10sdd.ss20snb20skj10skubulnny10sbuylNNNK_ \u001b>.>HKUJ_>.>NBNH_>.>\u000f\u001bknyy100s\\  150s50s1#quit\nyy\u001by  y y y\u001b hhnjUYUH_ \u001b,>FjFlFhNUKU_>.>BLYL_>.>kdf<nnBNJK_>,><jhhlllljuhbkFlFlFlFl FlFlFlFlBYKB_>.>NJNU_>#quit\n;#quit\nyy#wizintrinsic\ne\n sm.20ssm.ss20s   yy\u001by   ny\u001by  s  nk jbFl Fl   y\u001by  y y\u001b  F  \u0007cockatrice\nFuFy n Fy n Fy yy\u001by  y y\u001by  FFl FlFlFlFlFlFlFlkluuy#name\nm\n .tbhda.m.sm..h20sFl FlFlFl  y\u001by  y y y\u001b  FH   LJ   ny  y y\u001b  N",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51250018,
+   "datetime": "20170209130600",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\n",
+   "moves": "Fu FuFuFuFuFuFuFuulyujkjlt\u001b10sdd.ss20snb20skj10skubulnny10sbuylNNNK_ \u001b>.>HKUJ_>.>NBNH_>.>\u000f\u001bknyy100s\\  150s50s1#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51350018,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=pettype:cat\n",
+   "moves": "hhnjUYUH_ \u001b,>FjFlFhNUKU_>.>BLYL_>.>kdf<nnBNJK_>,><jhhlllljuhbkFlFlFlFl FlFlFlFlBYKB_>.>NJNU_>#quit\n;"
+  },
+  {
+   "seed": 51450018,
+   "datetime": "20060404082748",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 51550018,
+   "datetime": "20160229080243",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\ne\n sm.20ssm.ss20s   yy\u001by   ny\u001by  s"
+  },
+  {
+   "seed": 51650018,
+   "datetime": "20030113142251",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:mango\nOPTIONS=msg_window:reversed\n",
+   "moves": "  nk jbFl Fl   y\u001by  y y\u001b  F"
+  },
+  {
+   "seed": 51750018,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007cockatrice\nFuFy n Fy n Fy yy\u001by  y y\u001by  F"
+  },
+  {
+   "seed": 51850018,
+   "datetime": "20120112010808",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\n",
+   "moves": "Fl FlFlFlFlFlFlFlkluuy#name\nm\n .tbhda.m.sm..h20sFl FlFlFl  y\u001by  y y y\u001b  F"
+  },
+  {
+   "seed": 51950018,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "H   LJ   ny  y y\u001b  N"
+  }
+ ]
+}

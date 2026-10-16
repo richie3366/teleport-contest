@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017pick-axe\n\u00169\n\u0006_ \u001b.ag >jjagy y\u0006_oo,_.ag>ag>   .Sy\u001b n E- Vlad was here\n\\    ztculdeagn\u0007tame large dog\n\u0007yellow mold\n\u0017scroll of taming\nrc 20s\u0017magic whistle\nblkah  ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51251015,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017pick-axe\n\u00169\n\u0006_ \u001b.ag >jjagy y\u0006_oo,_.ag>ag>   .Sy\u001b"
+  },
+  {
+   "seed": 51751015,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": " n E- Vlad was here\n\\    ztculdeagn\u0007tame large dog\n\u0007yellow mold\n\u0017scroll of taming\nrc 20s\u0017magic whistle\nblkah  "
+  }
+ ]
+}

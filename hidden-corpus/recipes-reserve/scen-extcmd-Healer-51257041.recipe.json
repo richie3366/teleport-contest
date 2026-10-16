@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed Mjollnir\nwk\u0017blessed +3 speed boots\nWl \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007troll\nFk Fk Fh  Fk \u0016?\n>>L      scroll of identify\n\u0006\u0007acid blob\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nle#offer\n#pray\ny y               #chat\ny        #wizidentify\n\u001bFj  Fk   n Fn             n  #ride\njy\u001611\n\u001618\n\u0006\u001b,\u0007giant rat\n#vanquished\n #genocided\ngreen-elf\n#annotate\nFido\ni\u001b#name\nm\n#adjust\n>.#chat\n#turn\n#wizintrinsic\nr\n Fj Fj    Fk   n          db__,#chat\n\u0007kobold\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\np#sit\n#pray\ny y #levelchange\n19\nFk Fj   n  _{.qn           n \u0007yellow mold\n#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#wipe\n   #loot\n          n #chat\n"
+ },
+ "segments": [
+  {
+   "seed": 51257041,
+   "datetime": "20150603195519",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed Mjollnir\nwk\u0017blessed +3 speed boots\nWl \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007troll\nFk Fk Fh  Fk \u0016?\n>>L      scroll of identify\n\u0006\u0007acid blob\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nle#offer\n#pray\ny y               #chat\ny        #wizidentify\n\u001bFj  Fk   n Fn             n  #ride\njy\u001611\n\u001618\n\u0006\u001b,\u0007giant rat\n#vanquished\n #genocided\ngreen-elf\n#annotate\nFido\ni\u001b#name\nm\n#adjust\n>.#chat\n#turn\n#wizintrinsic\nr\n Fj Fj    Fk   n          db__,#chat\n\u0007kobold\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\np#sit\n#pray\ny y #levelchange\n19\nFk Fj   n  _{.qn           n \u0007yellow mold\n#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#wipe\n   #loot\n          n #chat\n"
+  }
+ ]
+}

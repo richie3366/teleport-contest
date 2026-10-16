@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 gauntlets of power\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007hill orc\n#dip\nii#offer\n#pray\ny y   #chat\nl#wizidentify\n\u001bFl 20sFns#chat\ny_ \u001b@.#chat\nb#overview\n\u001b#conduct\n \u0018\u001b#name\no\n#adjust\na\u001b#chat\ny#turn\n#jump\n#polyself\nxorn\n#monster\nss20s  Fh Fh20s#tip\n\u001b_{.qi#vanquished\n #genocided\nsoldier ant\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y #levelchange\n12\nkku_{,q\u0007sewer rat\n#chronicle\n  #terrain\n\u001b\u000f\u001b#wipe\n#loot\nb#chat\nb#chat\nb#jump\n#levelchange\n9\nFb  .n_>.#version\n  #history\n                  #annotate\nshiny\n\u0018\u001b#tip\n\u001b#ride\nyy#turn\n#sit\n\u001b#wizintrinsic\na\n yjkW__.#chat\nh#overview\n\u001b#conduct\n \u0018\u001b#dip\nb#offer\n#pray\ny y #chat\ny#jump\n#levelchange\n17\n       jyj_<._.#vanquished\n #genocided\ncockatrice\ni\u001b#name\nf\n#adjust\n,#chat\nk#turn\n#jump\n#wizintrinsic\nf\n lhu_oo._,,#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizidentify\n\u001bhlu__.#chat\ny#version\n  #history\n                  #annotate\n\u001bi\u001b#wipe"
+ },
+ "segments": [
+  {
+   "seed": 51256016,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 gauntlets of power\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007hill orc\n#dip\nii#offer\n#pray\ny y   #chat\nl#wizidentify\n\u001bFl 20sFns#chat\ny_ \u001b@.#chat\nb#overview\n\u001b#conduct\n \u0018\u001b#name\no\n#adjust\na\u001b#chat\ny#turn\n#jump\n#polyself\nxorn\n#monster\nss20s  Fh Fh20s#tip\n\u001b_{.qi#vanquished\n #genocided\nsoldier ant\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y #levelchange\n12\nkku_{,q\u0007sewer rat\n#chronicle\n  #terrain\n\u001b\u000f\u001b#wipe\n#loot\nb#chat\nb#chat\nb#jump\n#levelchange\n9\nFb  .n_>.#version\n  #history\n                  #annotate\nshiny\n\u0018\u001b#tip\n\u001b#ride\nyy#turn\n#sit\n\u001b#wizintrinsic\na\n yjkW__.#chat\nh#overview\n\u001b#conduct\n \u0018\u001b#dip\nb#offer\n#pray\ny y #chat\ny#jump\n#levelchange\n17\n       jyj_<._.#vanquished\n #genocided\ncockatrice\ni\u001b#name\nf\n#adjust\n,#chat\nk#turn\n#jump\n#wizintrinsic\nf\n lhu_oo._,,#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizidentify\n\u001bhlu__.#chat\ny#version\n  #history\n                  #annotate\n\u001bi\u001b#wipe"
+  }
+ ]
+}

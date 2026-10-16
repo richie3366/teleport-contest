@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 speed boots\nWi\u0017blessed +3 helm of telepathy\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n12\n           \u0007newt\n#overview\n\u001b#conduct\n #annotate\nFido\n\u000f\u001b#dip\njl#offer\n#pray\ny y #chat\nk#wizmap\n\u0006Fl 20s._m. \u001b@.s_<,\u0007hill orc\n#vanquished\n #genocided\nDeath\n\u001b\u0018\u001b#name\nm\n#adjust\n>.#chat\nu#turn\n#wizidentify\n\u001bFuFuFuFu_>,_.\u0007dwarf\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizdetect\n\u0006FlFlFlFl_ooo.Fl_.Fl,\u0007lichen\n#version\n  #history\n                  \u0018\u001b#wipe\n #loot\nl#chat\nl#chat\nl#levelchange\n15\n  Fl FlFl _>. Fl_,Fl\u0007kobold shaman\n#overview\n\u001b#conduct\n \u0018\u001b#tip\nh\u001b#ride\nly#turn\n#sit\n#polyself\npurple worm\n   #monster\n20s.m.Fl  Fh bjn_{.Fu _.qy\u0007kobold\n#vanquished\n #genocided\nblack light\n\u0018\u001b#dip\nml \u001b#offer\n#pray\ny y  #chat\nj#jump\n#wizintrinsic\ngf\n lly_{._.q#chronicle\n  #terrain\n\u001b\u000f\u001b#name\nm\n.#adjust\nf\u001b#chat\nb#turn\n#levelchange\n24\n        byy#sit\n\u001b__._.#chat\nb#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #polyself\nfire giant\n#monster\n.20s s.lybq\u0016?\n>>K      meatball\n\u0006m.#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\nn#chat\nn"
+ },
+ "segments": [
+  {
+   "seed": 51257000,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=fruit:lychee\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 speed boots\nWi\u0017blessed +3 helm of telepathy\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n12\n           \u0007newt\n#overview\n\u001b#conduct\n #annotate\nFido\n\u000f\u001b#dip\njl#offer\n#pray\ny y #chat\nk#wizmap\n\u0006Fl 20s._m. \u001b@.s_<,\u0007hill orc\n#vanquished\n #genocided\nDeath\n\u001b\u0018\u001b#name\nm\n#adjust\n>.#chat\nu#turn\n#wizidentify\n\u001bFuFuFuFu_>,_.\u0007dwarf\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizdetect\n\u0006FlFlFlFl_ooo.Fl_.Fl,\u0007lichen\n#version\n  #history\n                  \u0018\u001b#wipe\n #loot\nl#chat\nl#chat\nl#levelchange\n15\n  Fl FlFl _>. Fl_,Fl\u0007kobold shaman\n#overview\n\u001b#conduct\n \u0018\u001b#tip\nh\u001b#ride\nly#turn\n#sit\n#polyself\npurple worm\n   #monster\n20s.m.Fl  Fh bjn_{.Fu _.qy\u0007kobold\n#vanquished\n #genocided\nblack light\n\u0018\u001b#dip\nml \u001b#offer\n#pray\ny y  #chat\nj#jump\n#wizintrinsic\ngf\n lly_{._.q#chronicle\n  #terrain\n\u001b\u000f\u001b#name\nm\n.#adjust\nf\u001b#chat\nb#turn\n#levelchange\n24\n        byy#sit\n\u001b__._.#chat\nb#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #polyself\nfire giant\n#monster\n.20s s.lybq\u0016?\n>>K      meatball\n\u0006m.#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\nn#chat\nn"
+  }
+ ]
+}

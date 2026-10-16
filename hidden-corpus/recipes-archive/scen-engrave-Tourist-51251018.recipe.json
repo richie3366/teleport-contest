@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "kl\u0017diamond\nEm Vlad was here\n    : \u0017wand of create monster\nEngreen mold\n : \u0017towel\nEo\u0017wand of probing\nEp: lE- Elbereth Elbereth\n \u0007hill orc\nsm.sm.  20s   "
+ },
+ "segments": [
+  {
+   "seed": 51251018,
+   "datetime": "20140404035052",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "kl\u0017diamond\nEm Vlad was here\n    : \u0017wand of create monster\nEngreen mold\n : \u0017towel\nEo\u0017wand of probing\nEp: lE- Elbereth Elbereth\n \u0007hill orc\nsm.sm.  20s   "
+  }
+ ]
+}

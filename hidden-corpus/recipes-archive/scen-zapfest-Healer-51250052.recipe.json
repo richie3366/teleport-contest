@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWm\u0017blessed amulet of life saving\nPn\u0007lich\n\u0007mind flayer\n\u0007mind flayer\n\u0017wand of fire\nzolzou           zou   n    n zoy    n     n snsszo   n    n zo   n     n i\u001b\u00168\n\u0017wand of death\n\u0017wand of lightning\n\u0007jackal\n\u0007troll\nzquzqnzqn zpk n zqlzqlzpk n s\u001612\n\u0017wand of cold\n\u0017wand of striking\n\u0007kobold\nzsk zrlszrk  zrj    nzrj  nzrkzsbzs.  nzrn.\u00163\n\u0007kobold shaman\n\u0007lich\n\u0007master mind flayer\n\u0017wand of fire\nztu ztl   n   n ztu      yy\u001by  y ny\u001by  z"
+ },
+ "segments": [
+  {
+   "seed": 51250052,
+   "datetime": "20011006093920",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWm\u0017blessed amulet of life saving\nPn\u0007lich\n\u0007mind flayer\n\u0007mind flayer\n\u0017wand of fire\nzolzou           zou   n    n zoy    n     n snsszo   n    n zo   n     n i\u001b\u00168\n\u0017wand of death\n\u0017wand of lightning\n\u0007jackal\n\u0007troll\nzquzqnzqn zpk n zqlzqlzpk n s\u001612\n\u0017wand of cold\n\u0017wand of striking\n\u0007kobold\nzsk zrlszrk  zrj    nzrj  nzrkzsbzs.  nzrn.\u00163\n\u0007kobold shaman\n\u0007lich\n\u0007master mind flayer\n\u0017wand of fire\nztu ztl   n   n ztu      yy\u001by  y ny\u001by  z"
+  }
+ ]
+}

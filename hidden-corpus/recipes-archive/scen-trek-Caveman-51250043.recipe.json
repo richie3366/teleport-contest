@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "Fh ..ukk\u000f\u001b50s100s100sFuFuFu100s\\ 100subhFls.150snyu50sFh..100sbkl50s\u0018\u001bhjkjnn\u0004k\u0018\u001b100slhb50s100s150sFk20s20s50s150s u nkjknFh Fh20s100sFh..100s100s50s#sit\n\u001b#wipe\n#sit\ntbh20st\u001bh10slkNJKK_ \u001b;>E- I am a fish\n#sit\n\u001bUJJY_>.>FnssHNYU_>,>_>.s\u0004nKUBY_>.>#jump\n#ride\nlLBKY_>.>#rub\ncc20sJNJN_>.><nyz#chat\nyt\u001b10sjy20s10s10sJYJH_>.>#pray\ny \u000f\u001bLBBN_>.>FlFlFl#twoweapon\n#invoke\n\u001bYNBB_>,>\\ olBLYU_>,>#ride\nl,#invoke\n\u001bee#pray\ny #pray\ny #pray\ny   y\u001by  y y y\u001b  W"
+ },
+ "segments": [
+  {
+   "seed": 51250043,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "Fh ..ukk\u000f\u001b50s100s100sFuFuFu100s\\ 100subhFls.150snyu50sFh..100sbkl50s\u0018\u001bhjkjnn\u0004k\u0018\u001b100slhb50s100s150sFk20s20s50s150s u nkjknFh Fh20s100sFh..100s100s50s#sit\n\u001b#wipe\n#sit\ntbh20st\u001bh10slkNJKK_ \u001b;>E- I am a fish\n#sit\n\u001bUJJY_>.>FnssHNYU_>,>_>.s\u0004nKUBY_>.>#jump\n#ride\nlLBKY_>.>#rub\ncc20sJNJN_>.><nyz#chat\nyt\u001b10sjy20s10s10sJYJH_>.>#pray\ny \u000f\u001bLBBN_>.>FlFlFl#twoweapon\n#invoke\n\u001bYNBB_>,>\\ olBLYU_>,>#ride\nl,#invoke\n\u001bee#pray\ny #pray\ny #pray\ny   y\u001by  y y y\u001b  W"
+  }
+ ]
+}

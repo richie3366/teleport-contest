@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 silver dragon scale mail\nWl\u0017blessed +3 speed boots\nWm \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold\n#pray\ny y   #chat\nl#wizintrinsic\nsg\n FkFkFu#turn\n_ \u001b.#overview\n\u001b#conduct\n \u000f\u001b#dip\ndg#offer\n#chat\nj#turn\n#wizmap\n\u0006hyyP\u0016?\n\u001b\u0006#vanquished\n #genocided\nsandestin\n\u000f\u001b#name\n\u001b#adjust\nk\u001b#sit\n\u001b#pray\ny y #jump\n#polyself\ntroll\n #monster\n.sssyhncl_{,_.qg#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nk#chat\nk#wizmap\n\u0006jjj\\ _oooooo,_..,\u0007gnome\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nj#turn\n#sit\n\u001b#jump\n#levelchange\n13\n            Fj.s_ooo._,:,#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nny#pray\ny y #chat\nl#wizintrinsic\nqa\n jll\u0016?\n>A \u0006#vanquished\n #genocided\nyellow mold\n\u0018\u001b#dip\nbg#offer\n#chat\nk#turn\n#jump\n#wizidentify\n\u001bu  bu#jump\n_ooooo,,\u0007kobold shaman\n#chronicle\n  #terrain\n\u001b#annotate\nfoo\n\u000f\u001b#name\n\u001b#adjust\nm\u001b#sit\n#pray\ny y     #wizidentify\n\u001bFl Fh      _{.qg\u0007dwarf\n#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nh#chat\nh#jump\n#wizdetect\n\u0006FhFh    rh     _{.qo \u001b#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\nh#turn\n#sit\n#polyself\nxorn\n#monster\nsm.    .m.Fh      n   sn"
+ },
+ "segments": [
+  {
+   "seed": 51257053,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 silver dragon scale mail\nWl\u0017blessed +3 speed boots\nWm \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold\n#pray\ny y   #chat\nl#wizintrinsic\nsg\n FkFkFu#turn\n_ \u001b.#overview\n\u001b#conduct\n \u000f\u001b#dip\ndg#offer\n#chat\nj#turn\n#wizmap\n\u0006hyyP\u0016?\n\u001b\u0006#vanquished\n #genocided\nsandestin\n\u000f\u001b#name\n\u001b#adjust\nk\u001b#sit\n\u001b#pray\ny y #jump\n#polyself\ntroll\n #monster\n.sssyhncl_{,_.qg#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nk#chat\nk#wizmap\n\u0006jjj\\ _oooooo,_..,\u0007gnome\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nj#turn\n#sit\n\u001b#jump\n#levelchange\n13\n            Fj.s_ooo._,:,#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nny#pray\ny y #chat\nl#wizintrinsic\nqa\n jll\u0016?\n>A \u0006#vanquished\n #genocided\nyellow mold\n\u0018\u001b#dip\nbg#offer\n#chat\nk#turn\n#jump\n#wizidentify\n\u001bu  bu#jump\n_ooooo,,\u0007kobold shaman\n#chronicle\n  #terrain\n\u001b#annotate\nfoo\n\u000f\u001b#name\n\u001b#adjust\nm\u001b#sit\n#pray\ny y     #wizidentify\n\u001bFl Fh      _{.qg\u0007dwarf\n#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nh#chat\nh#jump\n#wizdetect\n\u0006FhFh    rh     _{.qo \u001b#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\nh#turn\n#sit\n#polyself\nxorn\n#monster\nsm.    .m.Fh      n   sn"
+  }
+ ]
+}

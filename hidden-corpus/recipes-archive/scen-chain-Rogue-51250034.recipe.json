@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " FyFysFk20s .100s     Fk.slnh\\ 50s#twoweapon\n50sFk20s._ \u001b,>50s50sFlFk20ss\\ 150si\u001bluj100s150s i\u001b100s     eh100s 150sFlFl20s _>.>\\ 100s FuFl20s100segyjyFyFkFy150s    150s  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeFjFjFjFjFjFj FjFjjhlkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeenhhleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nl#chat\nu#name\nd\nkbub#chat\nl10s#name\nm\nukkuFjFjFjFjFjFjFjFjhhkjkn10s  l#name\nd\ndb..sda..s20sFl  FlFlFlFlFlFlFlluknFlFlFlFlF#quit\nd   #wizintrinsic\nb\n sm.sss.h20s.u.sm.20s  syssss.m.  yy\u001by   y y\u001by  syy #wizintrinsic\nc\n .lsm. sm. sussss20s  sn  yy\u001by   ny\u001bn  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51250034,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:mango\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\n",
+   "moves": " FyFysFk20s .100s     Fk.slnh\\ 50s#twoweapon\n50sFk20s._ \u001b,>50s50sFlFk20ss\\ 150si\u001bluj100s150s i\u001b100s     eh100s 150sFlFl20s _>.>\\ 100s FuFl20s100segyjyFyFkFy150s    150s  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeFjFjFjFjFjFj FjFjjhlkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeenhhleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nl#chat\nu#name\nd\nkbub#chat\nl10s#name\nm\nukkuFjFjFjFjFjFjFjFjhhkjkn10s  l#name\nd\ndb..sda..s20sFl  FlFlFlFlFlFlFlluknFlFlFlFlF#quit\nd  "
+  },
+  {
+   "seed": 51350034,
+   "datetime": "20030828030239",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nb\n sm.sss.h20s.u.sm.20s  syssss.m.  yy\u001by   y y\u001by  s"
+  },
+  {
+   "seed": 51450034,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "yy #wizintrinsic\nc\n .lsm. sm. sussss20s  sn  yy\u001by   ny\u001bn  s"
+  }
+ ]
+}

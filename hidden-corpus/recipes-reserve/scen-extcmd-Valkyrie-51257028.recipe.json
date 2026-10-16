@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPer\u0017blessed +3 cloak of magic resistance\nWf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007lichen\n#dip\nb#offer\n#pray\n#chat\n#jump\n#wizidentify\ny u j #wipe\n_ q #overview\n#conduct\n\u0018 #name\n#adjust\n#chat\n#turn\n#levelchange\nbun_ \u001bm,#vanquished\n#genocided\nwatchman\n\u001b#annotate\nblessed\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizintrinsic\na\n Fh.s.#tip\n\u001b\u0016?\ne\u0006#chronicle\n  #terrain\n\u001b#annotate\nfoo\n\u000f\u001b#wipe\n#loot\n#chat\nh#chat\nk#jump\n#wizidentify\n\u001byhy\u0004h_{,qh   #version\n  #history\n                  #annotate\n\u001bi\u001b#tip\n\u001b#ride\nly#turn\n#sit\n #polyself\nleprechaun\n   #monster\n.    20s   Fu     Fj    Fb Fn _oooooo.,\u001b#overview\n\u001b#conduct\n i\u001b#dip\nb #offer\n#pray\ny y#chat\n#wizintrinsic\ngf\n Fj FkFkFj   #invoke\n\u001b__.#chat\nb#vanquished\n #genocided\nshrieker\n\u0018\u001b#name\nd\n#adjust\ng\u001b#chat\n#turn\n#wizidentify\n\u001bFjFkFj   Fl  n \u0016?\n\u001b\u0006#chronicle\n  #terrain\n\u001b#annotate\nblessed\n\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n#wizintrinsic\nas\n  ulu #turn\n\u001616\n     \u0006\u0007kobold\n#version\n  #history\n                  i\u001b#wipe\n#loot\n   n#chat\nb#chat\nu#wizintrinsic\nq\n FbFbFuFu  \u001612\n \u0006#overview\n\u001b#conduct\n #annotate\nshin"
+ },
+ "segments": [
+  {
+   "seed": 51257028,
+   "datetime": "20010205083627",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPer\u0017blessed +3 cloak of magic resistance\nWf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007lichen\n#dip\nb#offer\n#pray\n#chat\n#jump\n#wizidentify\ny u j #wipe\n_ q #overview\n#conduct\n\u0018 #name\n#adjust\n#chat\n#turn\n#levelchange\nbun_ \u001bm,#vanquished\n#genocided\nwatchman\n\u001b#annotate\nblessed\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizintrinsic\na\n Fh.s.#tip\n\u001b\u0016?\ne\u0006#chronicle\n  #terrain\n\u001b#annotate\nfoo\n\u000f\u001b#wipe\n#loot\n#chat\nh#chat\nk#jump\n#wizidentify\n\u001byhy\u0004h_{,qh   #version\n  #history\n                  #annotate\n\u001bi\u001b#tip\n\u001b#ride\nly#turn\n#sit\n #polyself\nleprechaun\n   #monster\n.    20s   Fu     Fj    Fb Fn _oooooo.,\u001b#overview\n\u001b#conduct\n i\u001b#dip\nb #offer\n#pray\ny y#chat\n#wizintrinsic\ngf\n Fj FkFkFj   #invoke\n\u001b__.#chat\nb#vanquished\n #genocided\nshrieker\n\u0018\u001b#name\nd\n#adjust\ng\u001b#chat\n#turn\n#wizidentify\n\u001bFjFkFj   Fl  n \u0016?\n\u001b\u0006#chronicle\n  #terrain\n\u001b#annotate\nblessed\n\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n#wizintrinsic\nas\n  ulu #turn\n\u001616\n     \u0006\u0007kobold\n#version\n  #history\n                  i\u001b#wipe\n#loot\n   n#chat\nb#chat\nu#wizintrinsic\nq\n FbFbFuFu  \u001612\n \u0006#overview\n\u001b#conduct\n #annotate\nshin"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " FyFy 20sFlFl20s150sjhjFkFks150slykynh150s150sFhFhFhFh.s\u0018\u001bnhlFyss50s150s50s150sFhFh._ \u001b<.>\u0018\u001b150s100sFh..W\u001bjny150sFhFhFhFhss150sFyFhFhFyFyFy  nnnnn  _"
+ },
+ "segments": [
+  {
+   "seed": 51250075,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\n",
+   "moves": " FyFy 20sFlFl20s150sjhjFkFks150slykynh150s150sFhFhFhFh.s\u0018\u001bnhlFyss50s150s50s150sFhFh._ \u001b<.>\u0018\u001b150s100sFh..W\u001bjny150sFhFhFhFhss150sFyFhFhFyFyFy  nnnnn  _"
+  }
+ ]
+}

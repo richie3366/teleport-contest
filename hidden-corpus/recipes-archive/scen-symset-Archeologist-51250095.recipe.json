@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u00163\nFnFlb FbFyFuFuFlFjFlFhFnFyFnFuj FlFnFbFuFbFh\u001bFnFjFuFyFnFbFjFnFjFnFlu FuFyFun FbFnFnFnFuFbFyFjFyFnFlFlFuFhFhFyFbFuFlFhFlFyFh\u001bFlFhFhFhFbFyFbFnFyFun FjFnFjFbFun FuFnFjFlFlFbFjFjFuFyFuy FnFjFbFlb FuFuFyFbFjFjFhFlFyFll FjFlFlFuFjFbFjFlFuFuFjFjFuFyFjFjFyFjFhFyFnFuFn#levelchange\nlb ny\u0017sink\nqy\u0017ring of free action\ndi  \u001b:ku \u0017pool\njn\u0017fountain\nqy \u001b\u0017long sword\n#dip\njy:#terrain\ne\nWWP\u00167\n#name\nm\n>.#wipe\n<#offer\n\u000f\u001btjk z\u0006_>.   Fu_,  Fb>FjFn_>FkFh_>.      Fy_.  Fh\u001b>FhFnFyFuFu\u0006_>.      Fy_,Fuk >FbFj_>,Fk_.,Fb>FnFy_>,Fh_.  Fl>FlFkFlFbFul \u0006_>>.Fk_.<.  Fy>FkFj_>>.   Fj_.Fu>FjFu_>>,Fl_.,Fy>FkFjFbFlj Fj\u0006_>,Fn_>FhFl_>,Fj_.<.Fb>FlFj_>.Fy_,Fb>FjFyFyFyFuj \u0006_>,"
+ },
+ "segments": [
+  {
+   "seed": 51250095,
+   "datetime": "20251205003448",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"uncursed\"=cyan\n",
+   "moves": "\u00163\nFnFlb FbFyFuFuFlFjFlFhFnFyFnFuj FlFnFbFuFbFh\u001bFnFjFuFyFnFbFjFnFjFnFlu FuFyFun FbFnFnFnFuFbFyFjFyFnFlFlFuFhFhFyFbFuFlFhFlFyFh\u001bFlFhFhFhFbFyFbFnFyFun FjFnFjFbFun FuFnFjFlFlFbFjFjFuFyFuy FnFjFbFlb FuFuFyFbFjFjFhFlFyFll FjFlFlFuFjFbFjFlFuFuFjFjFuFyFjFjFyFjFhFyFnFuFn#levelchange\nlb ny\u0017sink\nqy\u0017ring of free action\ndi  \u001b:ku \u0017pool\njn\u0017fountain\nqy \u001b\u0017long sword\n#dip\njy:#terrain\ne\nWWP\u00167\n#name\nm\n>.#wipe\n<#offer\n\u000f\u001btjk z\u0006_>.   Fu_,  Fb>FjFn_>FkFh_>.      Fy_.  Fh\u001b>FhFnFyFuFu\u0006_>.      Fy_,Fuk >FbFj_>,Fk_.,Fb>FnFy_>,Fh_.  Fl>FlFkFlFbFul \u0006_>>.Fk_.<.  Fy>FkFj_>>.   Fj_.Fu>FjFu_>>,Fl_.,Fy>FkFjFbFlj Fj\u0006_>,Fn_>FhFl_>,Fj_.<.Fb>FlFj_>.Fy_,Fb>FjFyFyFyFuj \u0006_>,"
+  }
+ ]
+}

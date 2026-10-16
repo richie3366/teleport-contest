@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017cursed worthless piece of red glass\ntbh\u0017Demonbane\nwjs20sFl#invoke\nj\u0017elven leather helm\nW\u001b.m.sm.20sFlFl\u0017blessed lock pick\nall.m.sj"
+ },
+ "segments": [
+  {
+   "seed": 51252004,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017cursed worthless piece of red glass\ntbh\u0017Demonbane\nwjs20sFl#invoke\nj\u0017elven leather helm\nW\u001b.m.sm.20sFlFl\u0017blessed lock pick\nall.m.sj"
+  }
+ ]
+}

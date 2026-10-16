@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWg\u0017blessed Mjollnir\n wh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007jackal\n#dip\ne\u001b#offer\n#pray\ny y   #chat\nj#wizidentify\n\u001bFlFu s_ \u001bm,#chat\nh#overview\n\u001b#conduct\n #annotate\nshiny\ni\u001b#name\ni\n#adjust\nd\u001b#chat\nl#turn\n#jump\n#wizmap\n\u0006nbu__.#chat\nl\u0007troll\n#vanquished\n #genocided\nhezrou\nfi\u001b#twoweapon\n#invoke\nh#sit\n\u001b#pray\ny y    #jump\n#wizintrinsic\nar\n Fl Fl Fl _{.qj \u001b#chronicle\n  #terrain\n\u001b\u000f\u001b#wipe\n  n #loot\nl#chat\nl#chat\nl#wizidentify\n\u001bFl Fl Fl Fl \u001614\n\u0006#version\n  #history\n                  #annotate\nblessed\n\u0018\u001b#tip\n\u001b#ride\nyy#turn\n#sit\n\u001b#levelchange\n12\nybu_>._.\u0007lichen\n#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#dip\nd#offer\n#pray\ny y #chat\nn#wizmap\n\u0006Fn .ss_{._.qy\u0007newt\n#vanquished\n #genocided\npit viper\n \u000f\u001b#name\n\u001b#adjust\nh\u001b#chat\nb#turn\n#polyself\ntroll\n .m.slsFb lkj#twoweapon\n__.Fn _.Fl#chat\nl#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\nh #sit\n\u001b#pray\ny y       #jump\n#wizdetect\n\u0006Fl  Fu #loot\nu_{.Fl _.qy#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\ny#chat\ny#polyself\nvampire\n#monster\n   s. Fl FlFlFlFlef  y_{,qy  n\u0007grid bug\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nly#turn\n#sit\n #wizdetect\n\u0006FnFj Fl Fj_{,qy\u0007jackal\n#van"
+ },
+ "segments": [
+  {
+   "seed": 51257037,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWg\u0017blessed Mjollnir\n wh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007jackal\n#dip\ne\u001b#offer\n#pray\ny y   #chat\nj#wizidentify\n\u001bFlFu s_ \u001bm,#chat\nh#overview\n\u001b#conduct\n #annotate\nshiny\ni\u001b#name\ni\n#adjust\nd\u001b#chat\nl#turn\n#jump\n#wizmap\n\u0006nbu__.#chat\nl\u0007troll\n#vanquished\n #genocided\nhezrou\nfi\u001b#twoweapon\n#invoke\nh#sit\n\u001b#pray\ny y    #jump\n#wizintrinsic\nar\n Fl Fl Fl _{.qj \u001b#chronicle\n  #terrain\n\u001b\u000f\u001b#wipe\n  n #loot\nl#chat\nl#chat\nl#wizidentify\n\u001bFl Fl Fl Fl \u001614\n\u0006#version\n  #history\n                  #annotate\nblessed\n\u0018\u001b#tip\n\u001b#ride\nyy#turn\n#sit\n\u001b#levelchange\n12\nybu_>._.\u0007lichen\n#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#dip\nd#offer\n#pray\ny y #chat\nn#wizmap\n\u0006Fn .ss_{._.qy\u0007newt\n#vanquished\n #genocided\npit viper\n \u000f\u001b#name\n\u001b#adjust\nh\u001b#chat\nb#turn\n#polyself\ntroll\n .m.slsFb lkj#twoweapon\n__.Fn _.Fl#chat\nl#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\nh #sit\n\u001b#pray\ny y       #jump\n#wizdetect\n\u0006Fl  Fu #loot\nu_{.Fl _.qy#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\ny#chat\ny#polyself\nvampire\n#monster\n   s. Fl FlFlFlFlef  y_{,qy  n\u0007grid bug\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nly#turn\n#sit\n #wizdetect\n\u0006FnFj Fl Fj_{,qy\u0007jackal\n#van"
+  }
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  kbuyhhjl;_. \u001b:  _>,>100s  Fk 20s20sFhs.100s#tip\n\u001b100sFhs20synb_>,>150s150sFkss100s  >juh150sFkFks50s100s150s50see  yP100sed50si\u001b100s100sFk.20sjlh#quit\nyy\u001by  y y y\u001b   knnbFu20sFu150s        Fk ss100s huu100sFjFj20s100s50sklj\u000f\u001b50sujb150s 50sljynyk150s eeeeeeeeeeeeeeeeeeeeee#name\ni\nkjdisss#name\nm\n @.t\u001bdlssseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet\u001byjnbynt\u001bdbsssuljubyykeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellhbuhjudms.snnbynuhhyjhnt\u001b10s#name\nm\nlbujlkuu10sdjss20s10suu#chat\nh#chat\nykjkj#chat\nlnhjyNYHN_>,>NK L#quit\nyy\u001by  y y y\u001b FlFlFl FlFlFlFlFlL NY L_ \u001b.>#chat\nn#rub\nNYBL_>.>#loot\n#monster\nHUJH_>.>KNLB_>,>hyblYLNL_>.>UJKJ_>,>YNJK_>.>H BNU_>.>FnFnFnYYJL_>.>FlFlFlNUH U_>.>#quit\nyy\u001by  y y y\u001b  \u0017wand of digging\nzj> szj> 20szj> szj>   n.zj> szj>   20sFlFkFu s.s20ss..#wizintrinsic\ne\n .m.20s20s   nsssss.s20sssss20s20sss20ssm. sm.sm.sm.sm.20ssm.  n 20s20s.m.sm..m.sm..m..m.  n.u20ssm..m.20s20s  yny  y nnn  .",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51250042,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  kbuyhhjl;_. \u001b:  _>,>100s  Fk 20s20sFhs.100s#tip\n\u001b100sFhs20synb_>,>150s150sFkss100s  >juh150sFkFks50s100s150s50see  yP100sed50si\u001b100s100sFk.20sjlh#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51350042,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=pettype:dog\n",
+   "moves": "  knnbFu20sFu150s        Fk ss100s huu100sFjFj20s100s50sklj\u000f\u001b50sujb150s 50sljynyk150s eeeeeeeeeeeeeeeeeeeeee#name\ni\nkjdisss#name\nm\n @.t\u001bdlssseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet\u001byjnbynt\u001bdbsssuljubyykeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellhbuhjudms.snnbynuhhyjhnt\u001b10s#name\nm\nlbujlkuu10sdjss20s10suu#chat\nh#chat\nykjkj#chat\nlnhjyNYHN_>,>NK L#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51450042,
+   "datetime": "20190123093612",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=runmode:crawl\n",
+   "moves": "FlFlFl FlFlFlFlFlL NY L_ \u001b.>#chat\nn#rub\nNYBL_>.>#loot\n#monster\nHUJH_>.>KNLB_>,>hyblYLNL_>.>UJKJ_>,>YNJK_>.>H BNU_>.>FnFnFnYYJL_>.>FlFlFlNUH U_>.>#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51550042,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of digging\nzj> szj> 20szj> szj>   n.zj> szj>   20sFlFkFu s.s20ss.."
+  },
+  {
+   "seed": 51650042,
+   "datetime": "20230526213845",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=runmode:walk\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\ne\n .m.20s20s   nsssss.s20sssss20s20sss20ssm. sm.sm.sm.sm.20ssm.  n 20s20s.m.sm..m.sm..m..m.  n.u20ssm..m.20s20s  yny  y nnn  ."
+  }
+ ]
+}

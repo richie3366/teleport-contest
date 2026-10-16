@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 silver dragon scale mail\nWe  \u0017blessed amulet of life saving\nPf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007hobbit\n#wizintrinsic\nr\n FuFk Fu s_ \u001b.#chat\nk#overview\n\u001b#conduct\n i\u001b#dip\nhh#offer\n#pray\ny y #chat\nu#jump\n#wizintrinsic\nf\n kky\u001611\n\u0006#vanquished\n #genocided\nsewer rat\nd\u0018\u001b#name\nm\n#adjust\n@.#chat\nu#turn\n#wizmap\n\u0006FuFu_{.qh#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y  #wizidentify\n\u001bluy\u0014@.__,#chat\nn#version\n  #history\n                  i\u001b#wipe\n#loot\nn  #chat\nn#chat\nn   #levelchange\n24\n               Fb  Fl  Fl#loot\nu   _oo.   Fu_,  Fl    ,#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nuy#turn\n#sit\n#jump\n#wizidentify\n\u001bFk Fh    Fy#conduct\n __.    Fy_,    Fk#chat\ny        \u0007soldier\n#vanquished\n #genocided\nbaby long worm\nb     #annotate\nblessed\n\u000f\u001b#dip\ne#offer\n#pray\ny y             #chat\nk#polyself\npurple worm\n   #monster\n.m.     sm.    FuFy     FyFk      Fu  n Fk    #wipe\n__,   Fh_.     n Fk   #chat\nh    \u0007bugbear\n#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u000f\u001b#name\nm\nm"
+ },
+ "segments": [
+  {
+   "seed": 51257068,
+   "datetime": "20250401111121",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:full\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0017blessed +3 silver dragon scale mail\nWe  \u0017blessed amulet of life saving\nPf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007hobbit\n#wizintrinsic\nr\n FuFk Fu s_ \u001b.#chat\nk#overview\n\u001b#conduct\n i\u001b#dip\nhh#offer\n#pray\ny y #chat\nu#jump\n#wizintrinsic\nf\n kky\u001611\n\u0006#vanquished\n #genocided\nsewer rat\nd\u0018\u001b#name\nm\n#adjust\n@.#chat\nu#turn\n#wizmap\n\u0006FuFu_{.qh#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y  #wizidentify\n\u001bluy\u0014@.__,#chat\nn#version\n  #history\n                  i\u001b#wipe\n#loot\nn  #chat\nn#chat\nn   #levelchange\n24\n               Fb  Fl  Fl#loot\nu   _oo.   Fu_,  Fl    ,#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nuy#turn\n#sit\n#jump\n#wizidentify\n\u001bFk Fh    Fy#conduct\n __.    Fy_,    Fk#chat\ny        \u0007soldier\n#vanquished\n #genocided\nbaby long worm\nb     #annotate\nblessed\n\u000f\u001b#dip\ne#offer\n#pray\ny y             #chat\nk#polyself\npurple worm\n   #monster\n.m.     sm.    FuFy     FyFk      Fu  n Fk    #wipe\n__,   Fh_.     n Fk   #chat\nh    \u0007bugbear\n#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u000f\u001b#name\nm\nm"
+  }
+ ]
+}

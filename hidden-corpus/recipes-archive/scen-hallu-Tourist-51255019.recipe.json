@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed bell of opening\n\u0017blessed +3 helm of telepathy\nWn\u0017blessed magic lamp\n\u0017blessed amulet of life saving\nPp\u0017blessed 20 daggers\nQq#wizintrinsic\nh\n \u0017scroll of light\nrr\u0017lizard corpse\nes fkt$lfyi\u001bhy\u0017scroll of light\nrt\u0007hobbit\nFjFjFj20sFlFlFl\u0007lichen\n\u0007lichen\nFlFuFlFl#wizintrinsic\nh\nfl   taufu #invoke\nm\u0017wand of teleportation\nzuhzuuzul\u0017wand of magic missile\nzv.  nzvjzvyzvu #wizintrinsic\nh\n\u001622\n#levelchange\n14\n            nhub\u0017dart trap\nh^lls20syl\u0017magic trap\nlh    sm.  20s  l u\u0017anti-magic field\nh\u0017squeaky board\n\u0017land mine\naw  j  b   H   n oh#pray\ny y        20s  .b    .m. #wizintrinsic\nh\n\u0007yellow mold\nFb Fh Fj   n Fb    Fb   Fj    \u0007dwarf\n\u0007soldier\nFj   Fj     Fb   Fb   n    Fj   Fh  Fb    #wizintrinsic\nh\n\u0017potion of sleeping\nqx     sm.  .m.   n   fh   fb  fj #invoke\nm \u0007grid bug\nFb   Fj     n Fh  Fb  Fj   Fj  Fj   #wizintrinsic\nh\n\u0016?\n>J     20 elven arrows\nyl  j   hnjk: \u0017spellbook of light\nrA  n        20s  Z#turn\n: \u0017potion of invisibility\n qB  .s\u001b#wizintrinsic\nh\n\u0007newt\nFjFj  n             Fh Fj "
+ },
+ "segments": [
+  {
+   "seed": 51255019,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed bell of opening\n\u0017blessed +3 helm of telepathy\nWn\u0017blessed magic lamp\n\u0017blessed amulet of life saving\nPp\u0017blessed 20 daggers\nQq#wizintrinsic\nh\n \u0017scroll of light\nrr\u0017lizard corpse\nes fkt$lfyi\u001bhy\u0017scroll of light\nrt\u0007hobbit\nFjFjFj20sFlFlFl\u0007lichen\n\u0007lichen\nFlFuFlFl#wizintrinsic\nh\nfl   taufu #invoke\nm\u0017wand of teleportation\nzuhzuuzul\u0017wand of magic missile\nzv.  nzvjzvyzvu #wizintrinsic\nh\n\u001622\n#levelchange\n14\n            nhub\u0017dart trap\nh^lls20syl\u0017magic trap\nlh    sm.  20s  l u\u0017anti-magic field\nh\u0017squeaky board\n\u0017land mine\naw  j  b   H   n oh#pray\ny y        20s  .b    .m. #wizintrinsic\nh\n\u0007yellow mold\nFb Fh Fj   n Fb    Fb   Fj    \u0007dwarf\n\u0007soldier\nFj   Fj     Fb   Fb   n    Fj   Fh  Fb    #wizintrinsic\nh\n\u0017potion of sleeping\nqx     sm.  .m.   n   fh   fb  fj #invoke\nm \u0007grid bug\nFb   Fj     n Fh  Fb  Fj   Fj  Fj   #wizintrinsic\nh\n\u0016?\n>J     20 elven arrows\nyl  j   hnjk: \u0017spellbook of light\nrA  n        20s  Z#turn\n: \u0017potion of invisibility\n qB  .s\u001b#wizintrinsic\nh\n\u0007newt\nFjFj  n             Fh Fj "
+  }
+ ]
+}

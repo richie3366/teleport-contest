@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007bugbear\n#pray\ny y #chat\nh#wizidentify\n\u001bybj10s_ \u001b<.#chat\nu\u0007sewer rat\n#overview\n\u001b#conduct\n \u0018\u001b#dip\ngl \u001b#offer\n#chat\ny#turn\n#jump\n#wizmap\n\u0006knk10s _oooooo.,#vanquished\n#genocided\nscorpion\n#annotate\nshiny\n\u0018\u001b#name\nm\n#adjust\n>.#sit\n #pray\ny y       #polyself\nvampire\n#monster\n      sm.su FhFh FhFj W__.#chat\nh #chronicle\n #terrain\n\u001b#annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#chat\nh#chat\nh #wizmap\n\u0006FhFj 10s __,#chat\nh\u0007jackal\n#version\n  #history\n                  \u000f\u001b#wipe\n #loot\n#turn\n#sit\n#levelchange\n15\n              Fh Fj _oooo,Fh _.Fh ,\u001b\u0007sewer rat\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nny#pray\ny y              #chat\nn  #jump\n#wizidentify\n\u001bFj   Fy  #ride\njy_{. Fy _.Fjq\u0007sewer rat\n#vanquished\n #genocided\nwatchman\nb  #annotate\n\u001b\u000f\u001b#dip\ni#offer\n#chat\nn #turn\n#jump\n#wizdetect\n\u0006Fj  Fn   nFkFn\u0016?\n>>P  \u0006#chronicle\n  #terrain\n\u001b\u000f\u001b#name\nm\nm.#adjust\n#sit\n\u001b#pray\ny y #jump\n#wizdetect\n\u0006knlW_oo,,\u0007troll\n#version\n "
+ },
+ "segments": [
+  {
+   "seed": 51257024,
+   "datetime": "20260518001703",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007bugbear\n#pray\ny y #chat\nh#wizidentify\n\u001bybj10s_ \u001b<.#chat\nu\u0007sewer rat\n#overview\n\u001b#conduct\n \u0018\u001b#dip\ngl \u001b#offer\n#chat\ny#turn\n#jump\n#wizmap\n\u0006knk10s _oooooo.,#vanquished\n#genocided\nscorpion\n#annotate\nshiny\n\u0018\u001b#name\nm\n#adjust\n>.#sit\n #pray\ny y       #polyself\nvampire\n#monster\n      sm.su FhFh FhFj W__.#chat\nh #chronicle\n #terrain\n\u001b#annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#chat\nh#chat\nh #wizmap\n\u0006FhFj 10s __,#chat\nh\u0007jackal\n#version\n  #history\n                  \u000f\u001b#wipe\n #loot\n#turn\n#sit\n#levelchange\n15\n              Fh Fj _oooo,Fh _.Fh ,\u001b\u0007sewer rat\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nny#pray\ny y              #chat\nn  #jump\n#wizidentify\n\u001bFj   Fy  #ride\njy_{. Fy _.Fjq\u0007sewer rat\n#vanquished\n #genocided\nwatchman\nb  #annotate\n\u001b\u000f\u001b#dip\ni#offer\n#chat\nn #turn\n#jump\n#wizdetect\n\u0006Fj  Fn   nFkFn\u0016?\n>>P  \u0006#chronicle\n  #terrain\n\u001b\u000f\u001b#name\nm\nm.#adjust\n#sit\n\u001b#pray\ny y #jump\n#wizdetect\n\u0006knlW_oo,,\u0007troll\n#version\n "
+  }
+ ]
+}

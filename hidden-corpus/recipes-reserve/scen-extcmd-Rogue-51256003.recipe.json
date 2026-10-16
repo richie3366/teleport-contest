@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nWh\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold shaman\n#dip\njd#offer\n#pray\ny y      #chat\nk#jump\n#polyself\nred dragon\n   20ssFn sbjh\u0004u\u00169\n\u0006\u0007acid blob\n#overview\n\u001b#conduct\n #annotate\nshiny\ni\u001b#name\nm\n m,shiny\n#adjust\nl\u001b#chat\nj#turn\n#wizidentify\n\u001bFj.._{,   Fh _.qk#vanquished\n #genocided\nrock piercer\nl \u001b#annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #jump\n#polyself\nfog cloud\ns.20s.lbn_{. _, qd  #chronicle\n #terrain\n\u001b\u000f\u001b#wipe\n #loot\n#chat\n#chat\n#jump\n#polyself\nmind flayer\n #monster\n.m.sm.Fl .buynynn_{.y_.q\u0007owlbear\n#version\n  #history\n                  #annotate\n\u001bi\u001b#tip\nf\u001b#ride\nhy#turn\n#sit\n #levelchange\n20\n                  Fh   20s..#enhance\nyn\nn\n\u001b__._.#chat\ny\u0007kobold\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nf#offer\n#pray\ny y  #chat\nn#jum"
+ },
+ "segments": [
+  {
+   "seed": 51256003,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nWh\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold shaman\n#dip\njd#offer\n#pray\ny y      #chat\nk#jump\n#polyself\nred dragon\n   20ssFn sbjh\u0004u\u00169\n\u0006\u0007acid blob\n#overview\n\u001b#conduct\n #annotate\nshiny\ni\u001b#name\nm\n m,shiny\n#adjust\nl\u001b#chat\nj#turn\n#wizidentify\n\u001bFj.._{,   Fh _.qk#vanquished\n #genocided\nrock piercer\nl \u001b#annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #jump\n#polyself\nfog cloud\ns.20s.lbn_{. _, qd  #chronicle\n #terrain\n\u001b\u000f\u001b#wipe\n #loot\n#chat\n#chat\n#jump\n#polyself\nmind flayer\n #monster\n.m.sm.Fl .buynynn_{.y_.q\u0007owlbear\n#version\n  #history\n                  #annotate\n\u001bi\u001b#tip\nf\u001b#ride\nhy#turn\n#sit\n #levelchange\n20\n                  Fh   20s..#enhance\nyn\nn\n\u001b__._.#chat\ny\u0007kobold\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nf#offer\n#pray\ny y  #chat\nn#jum"
+  }
+ ]
+}

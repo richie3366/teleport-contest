@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " FnFnFj hhynyh100si\u001b\u0018\u001b\u0018\u001b50s150s100s100s100slhl50sFhFhFh#terrain\nb\n\u001b>.100s_>.>_>,>150sFhss100snjy100s100sFhFhFh100s100s150sFyFyFhujb100s100seg100s150s150shnl50sFhFhsKLLU_>,><BKHY_>.>KBLU_>.>y\u000f\u001bHYNB_>,>Z#sit\n\u001bYNNK_>.><_>.>\u000f\u001bjkbnyhbkjFhFhs\\ 50s\u0018\u001b50s50s#conduct\n 100s100s150sFh20ss100seg100s#ride\n.150syhhknklnybhkaeh100s100s100s150s#rub\n100sFhFhs100s100seeeeeJUKH _>,>z#rub\nJK JL_>.>tbh_m.sNJJH_>.>#offer\nE- X marks the spot\n\u000f\u001b20si\u001bWeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#dip\nbd#name\nf\n#rub\n>.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHUYJ_>.>YKJU _>,>KBBY_>.><BBYK_>.>WeKJL Y_>,>\u000f\u001bf by n#dip\ndd_m,.KKUH _>.>UBHH_>.>FhsFbLBKY_>,>\u000f\u001b#ride\nj\u0014E- ad aerarium\njjk#pray\ny  100si\u001bi\u001b150sFyFy.:kjj50s50s#terrain\nb\n_>\u000f 150sFkFk20s\\  100s\u0018\u001b\\  \\  150sjkk150s150sFy20s20s150sjkj50s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeW#sit\n\u001bckJYHU_>.>FlFl.r\u001bWBJLU_>.>FlFl.KNJN_>,>BBUK_>.>FnssNLKJ_>,>KLBH _>,>UYNJ_>.>#force\nH <\u000f\u001b#turn\ne10sHJYH_>.>#jump\nPBUUL_>,><ULBJ_>,>JBKJ_>,>#tip\nf\u001bL YHKY_>.><\u000f\u001b20sblynkb10s jubjBULU_>.>BNH K_>,><#tip\nf\u001bLHH U_>.>UJ JJ_>,>HHYY_>.>\u000f\u001b#chat\nb\u0018\u001b_>,>j kj#pray\ny  \u000f\u001bi\u001b150s"
+ },
+ "segments": [
+  {
+   "seed": 51250003,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\n",
+   "moves": " FnFnFj hhynyh100si\u001b\u0018\u001b\u0018\u001b50s150s100s100s100slhl50sFhFhFh#terrain\nb\n\u001b>.100s_>.>_>,>150sFhss100snjy100s100sFhFhFh100s100s150sFyFyFhujb100s100seg100s150s150shnl50sFhFhsKLLU_>,><BKHY_>.>KBLU_>.>y\u000f\u001bHYNB_>,>Z#sit\n\u001bYNNK_>.><_>.>\u000f\u001bjkbnyhbkjFhFhs\\ 50s\u0018\u001b50s50s#conduct\n 100s100s150sFh20ss100seg100s#ride\n.150syhhknklnybhkaeh100s100s100s150s#rub\n100sFhFhs100s100seeeeeJUKH _>,>z#rub\nJK JL_>.>tbh_m.sNJJH_>.>#offer\nE- X marks the spot\n\u000f\u001b20si\u001bWeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#dip\nbd#name\nf\n#rub\n>.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHUYJ_>.>YKJU _>,>KBBY_>.><BBYK_>.>WeKJL Y_>,>\u000f\u001bf by n#dip\ndd_m,.KKUH _>.>UBHH_>.>FhsFbLBKY_>,>\u000f\u001b#ride\nj\u0014E- ad aerarium\njjk#pray\ny  100si\u001bi\u001b150sFyFy.:kjj50s50s#terrain\nb\n_>\u000f 150sFkFk20s\\  100s\u0018\u001b\\  \\  150sjkk150s150sFy20s20s150sjkj50s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeW#sit\n\u001bckJYHU_>.>FlFl.r\u001bWBJLU_>.>FlFl.KNJN_>,>BBUK_>.>FnssNLKJ_>,>KLBH _>,>UYNJ_>.>#force\nH <\u000f\u001b#turn\ne10sHJYH_>.>#jump\nPBUUL_>,><ULBJ_>,>JBKJ_>,>#tip\nf\u001bL YHKY_>.><\u000f\u001b20sblynkb10s jubjBULU_>.>BNH K_>,><#tip\nf\u001bLHH U_>.>UJ JJ_>,>HHYY_>.>\u000f\u001b#chat\nb\u0018\u001b_>,>j kj#pray\ny  \u000f\u001bi\u001b150s"
+  }
+ ]
+}

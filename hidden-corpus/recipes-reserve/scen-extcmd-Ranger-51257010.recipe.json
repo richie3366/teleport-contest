@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of reflection\nPg\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007soldier\n#dip\ngj#offer\n#pray\ny y       #chat\nu#wizidentify\n\u001bFh FuFh Fu  _ \u001b<.qj #overview\n\u001b#conduct\n i\u001b#name\ni\n#adjust\ng\u001b#chat\nh#turn\n#wizidentify\n\u001bFh   nFhFh #invoke\n\u001b_oooo.Fk _.Fu, #vanquished\n #genocided\nviolet fungus\n \u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n   n#pray\ny y   #polyself\nred dragon\n   #monster\nu   .m..m. Fu.hub_{.q\u0007dwarf\n#chronicle\n #terrain\n\u001bi\u001b#wipe\n#loot\n#chat\nl#chat\nl#jump\n#levelchange\n16\n       Fl.ss20s__.#chat\nj#version\n  #history\n                  \u0018\u001b#tip\n\u001b#ride\nny#turn\n#sit\n#wizmap\n\u0006kul__.#chat\nl#overview\n\u001b#conduct\n \u000f\u001b#dip\ni#offer\n#pray\ny y  #chat\nj#wizidentify\n\u001blnn#offer\n__.#chat\nl#vanquished\n #genocided\nimp\ni\u001b#name\ni\n#adjust\ni\u001b#chat\nb#turn\n#levelchange\n17\nhkn__,#chat\nj#chronicle\n  #terrain\n\u001b#annotate\nshiny\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y    #wizintrinsic\ng\n FuFu_oo,Fl_,Fn,#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nn#chat\nn#wizdetect\n\u0006FnFn20s#loot\n__.#chat\nl\u0007yellow mold\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\njy#turn\n#sit\n#jump\n#le"
+ },
+ "segments": [
+  {
+   "seed": 51257010,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of reflection\nPg\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007soldier\n#dip\ngj#offer\n#pray\ny y       #chat\nu#wizidentify\n\u001bFh FuFh Fu  _ \u001b<.qj #overview\n\u001b#conduct\n i\u001b#name\ni\n#adjust\ng\u001b#chat\nh#turn\n#wizidentify\n\u001bFh   nFhFh #invoke\n\u001b_oooo.Fk _.Fu, #vanquished\n #genocided\nviolet fungus\n \u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n   n#pray\ny y   #polyself\nred dragon\n   #monster\nu   .m..m. Fu.hub_{.q\u0007dwarf\n#chronicle\n #terrain\n\u001bi\u001b#wipe\n#loot\n#chat\nl#chat\nl#jump\n#levelchange\n16\n       Fl.ss20s__.#chat\nj#version\n  #history\n                  \u0018\u001b#tip\n\u001b#ride\nny#turn\n#sit\n#wizmap\n\u0006kul__.#chat\nl#overview\n\u001b#conduct\n \u000f\u001b#dip\ni#offer\n#pray\ny y  #chat\nj#wizidentify\n\u001blnn#offer\n__.#chat\nl#vanquished\n #genocided\nimp\ni\u001b#name\ni\n#adjust\ni\u001b#chat\nb#turn\n#levelchange\n17\nhkn__,#chat\nj#chronicle\n  #terrain\n\u001b#annotate\nshiny\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y    #wizintrinsic\ng\n FuFu_oo,Fl_,Fn,#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nn#chat\nn#wizdetect\n\u0006FnFn20s#loot\n__.#chat\nl\u0007yellow mold\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\njy#turn\n#sit\n#jump\n#le"
+  }
+ ]
+}

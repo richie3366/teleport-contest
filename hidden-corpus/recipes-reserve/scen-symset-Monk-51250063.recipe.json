@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " O>>>>n\u001b\u001b\n10s#jump\nj\u0007large dog\n\u0017fortune cookie\n t\u001b\u0007little dog\n\u0017carrot\nt\u001b\u0007gnome\nsm..m.   .m.  n   sm.20s  nsm. \u0007giant rat\n\u0017scroll of taming\nrk kl \u0007lichen\ns ss s20s.kk kk \u0007yellow mold\n..s20ss20s  \u00166\nO>>>>l\u001b\nO>>>>o5\n \u001b\n\u00165\nlk #chat\nk \u000f\u001b\u0018\u001b#jump\n;y, \u001b<.mO>>>e\u001b\n\u0007tame wolf\n#name\nm\n#name\nd\ndh.ss#name\na\n\u0017huge chunk of meat\nt\u001bdb20s.20s\u0017lichen corpse\nt\u001bi\u001bsdmnnll kl \u0017cloud\n:h\u001bn\u0017neutral altar\ndadl\u0017human corpse\n uj b\u0017chaotic altar\ndi\u0017lichen corpse\n#offer\nnno : ln j\u0017melting ice\n: #terrain\nf\na20s#name\nm\n\u00166\n v i\u001b\u0006_>>._,>_>>._,>_>>.Fu_,Fk>FkFkFkFkFk#turn\n:\u0006_>>.Fk_.Fk>FkFk_>>.Fk_.Fk>FkFk_>>.Fk_.Fk>FkFkFkFkFk\u0006_>,Fk_.Fk>FkFk_>.Fk_.Fk>FkFk_>.Fk_,Fk>FkFkFkFkFkE\u001b#terrain\nb\n \u0006_>.Fk_.Fk>FkFk_>.Fk_,Fk>FkFk_>.Fk_.Fk>FkFkFkFkFkz#offer\n\u0006_>,Fk_.Fk>FkFk_>.Fk_.Fk>FkFk_>.Fk_,Fk>FkFkFkFkFk\u0006_>,Fk_.Fk>FkFk_>.Fk_.Fk>FkFk_>.Fk_.Fk>FkFkFkFkFk\u000f\u001b#levelchange\n14\n               h\u001byjj\u0017tree\nkk j\u0017sink\nqy\u0017ring of see invisible\ndp \u001b:j\u0017throne\n#sit\n y h\u001by\u0017pool\nf \u001b#twowea"
+ },
+ "segments": [
+  {
+   "seed": 51250063,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nMENUCOLOR=\"uncursed\"=brown\n",
+   "moves": " O>>>>n\u001b\u001b\n10s#jump\nj\u0007large dog\n\u0017fortune cookie\n t\u001b\u0007little dog\n\u0017carrot\nt\u001b\u0007gnome\nsm..m.   .m.  n   sm.20s  nsm. \u0007giant rat\n\u0017scroll of taming\nrk kl \u0007lichen\ns ss s20s.kk kk \u0007yellow mold\n..s20ss20s  \u00166\nO>>>>l\u001b\nO>>>>o5\n \u001b\n\u00165\nlk #chat\nk \u000f\u001b\u0018\u001b#jump\n;y, \u001b<.mO>>>e\u001b\n\u0007tame wolf\n#name\nm\n#name\nd\ndh.ss#name\na\n\u0017huge chunk of meat\nt\u001bdb20s.20s\u0017lichen corpse\nt\u001bi\u001bsdmnnll kl \u0017cloud\n:h\u001bn\u0017neutral altar\ndadl\u0017human corpse\n uj b\u0017chaotic altar\ndi\u0017lichen corpse\n#offer\nnno : ln j\u0017melting ice\n: #terrain\nf\na20s#name\nm\n\u00166\n v i\u001b\u0006_>>._,>_>>._,>_>>.Fu_,Fk>FkFkFkFkFk#turn\n:\u0006_>>.Fk_.Fk>FkFk_>>.Fk_.Fk>FkFk_>>.Fk_.Fk>FkFkFkFkFk\u0006_>,Fk_.Fk>FkFk_>.Fk_.Fk>FkFk_>.Fk_,Fk>FkFkFkFkFkE\u001b#terrain\nb\n \u0006_>.Fk_.Fk>FkFk_>.Fk_,Fk>FkFk_>.Fk_.Fk>FkFkFkFkFkz#offer\n\u0006_>,Fk_.Fk>FkFk_>.Fk_.Fk>FkFk_>.Fk_,Fk>FkFkFkFkFk\u0006_>,Fk_.Fk>FkFk_>.Fk_.Fk>FkFk_>.Fk_.Fk>FkFkFkFkFk\u000f\u001b#levelchange\n14\n               h\u001byjj\u0017tree\nkk j\u0017sink\nqy\u0017ring of see invisible\ndp \u001b:j\u0017throne\n#sit\n y h\u001by\u0017pool\nf \u001b#twowea"
+  }
+ ]
+}

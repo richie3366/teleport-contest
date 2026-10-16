@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of reflection\nPi\u0017blessed ring of free action\nPjl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007giant rat\n#overview\n\u001b#conduct\n \u0018\u001b#dip\ned#offer\n#pray\ny y      #chat\nb#wizdetect\n\u0006FbFb_ \u001b<.,\u0007grid bug\n#vanquished\n #genocided\nincubus\n\u0018\u001b#name\n\u001b#adjust\nh\u001b#chat\nn #turn\n#wizidentify\n\u001bFls<y _"
+ },
+ "segments": [
+  {
+   "seed": 51257018,
+   "datetime": "20220520194811",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of reflection\nPi\u0017blessed ring of free action\nPjl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007giant rat\n#overview\n\u001b#conduct\n \u0018\u001b#dip\ned#offer\n#pray\ny y      #chat\nb#wizdetect\n\u0006FbFb_ \u001b<.,\u0007grid bug\n#vanquished\n #genocided\nincubus\n\u0018\u001b#name\n\u001b#adjust\nh\u001b#chat\nn #turn\n#wizidentify\n\u001bFls<y _"
+  }
+ ]
+}

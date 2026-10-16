@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed Mjollnir\nwj\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007soldier\n#dip\ngd#offer\n#pray\ny y       #chat\nk  #jump\n#wizidentify\n\u001bFk  Fu   n_ \u001b.\u0007yellow mold\n#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#name\nd\n#adjust\nb\u001b#chat\nu #turn\n   n#levelchange\n22\n                     Fk  Fu Fu s_ooo._.,\u0007bugbear\n#vanquished\n #genocided\nyellow light\n #annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\nj#sit\n #pray\ny y   #polyself\nfire giant\n#monster\n.u.m. FjFj hkj_{.qd#chronicle\n  #terrain\n\u001b\u0018\u001b#wipe\n#loot\n#chat\nh#chat\nb#polyself\nmind flayer\n #monster\nsss.klh\u0016?\n>G\u0006#version\n  #history\n                  \u0018\u001b#tip\n\u001b#ride\nly#turn\n#sit\n\u001b#jump\n#levelchange\n1\n       k"
+ },
+ "segments": [
+  {
+   "seed": 51257070,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed Mjollnir\nwj\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007soldier\n#dip\ngd#offer\n#pray\ny y       #chat\nk  #jump\n#wizidentify\n\u001bFk  Fu   n_ \u001b.\u0007yellow mold\n#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#name\nd\n#adjust\nb\u001b#chat\nu #turn\n   n#levelchange\n22\n                     Fk  Fu Fu s_ooo._.,\u0007bugbear\n#vanquished\n #genocided\nyellow light\n #annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\nj#sit\n #pray\ny y   #polyself\nfire giant\n#monster\n.u.m. FjFj hkj_{.qd#chronicle\n  #terrain\n\u001b\u0018\u001b#wipe\n#loot\n#chat\nh#chat\nb#polyself\nmind flayer\n #monster\nsss.klh\u0016?\n>G\u0006#version\n  #history\n                  \u0018\u001b#tip\n\u001b#ride\nly#turn\n#sit\n\u001b#jump\n#levelchange\n1\n       k"
+  }
+ ]
+}

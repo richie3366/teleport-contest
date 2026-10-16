@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of reflection\nPe\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold shaman\nFu FhFh Fh>_ \u001bm,\u0007soldier\n#overview\n\u001b#conduct\n i\u001b#dip\neh#offer\n#pray\ny y   #chat\nk#jump\n#polyself\nvampire\n#monster\n    .n 20s FuFk FuFkFu #pray\ny y      _{,Fk _.qh   n#vanquished\n #genocided\nrabid rat\ni   \u0018\u001b#name\nd\n#adjust\nf\u001b#chat\nu#turn\n#jump\n#levelchange\n24\n                       Fu Fu Fu Fu _{.q#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y   #wizintrinsic\nq\n Fu Fus#offer\n_{.q\u0007kobold\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\ny#chat\ny#chat\ny#wizidentify\n\u001bFy.s20s\u001622\n\u0006#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nby#turn\n#sit\n#levelchange\n15\n  ljl;_._>,_.#vanquished\n #genocided\ngold golem\nd  \u000f\u001b#dip\nb #offer\n#pray\ny y   #chat\nj #wizmap\n\u0006FjFj Fj Fj P\u001b__. Fj_. Fj#chat\nj \u0007dwarf\n#chroni"
+ },
+ "segments": [
+  {
+   "seed": 51257002,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed amulet of reflection\nPe\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold shaman\nFu FhFh Fh>_ \u001bm,\u0007soldier\n#overview\n\u001b#conduct\n i\u001b#dip\neh#offer\n#pray\ny y   #chat\nk#jump\n#polyself\nvampire\n#monster\n    .n 20s FuFk FuFkFu #pray\ny y      _{,Fk _.qh   n#vanquished\n #genocided\nrabid rat\ni   \u0018\u001b#name\nd\n#adjust\nf\u001b#chat\nu#turn\n#jump\n#levelchange\n24\n                       Fu Fu Fu Fu _{.q#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y   #wizintrinsic\nq\n Fu Fus#offer\n_{.q\u0007kobold\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\ny#chat\ny#chat\ny#wizidentify\n\u001bFy.s20s\u001622\n\u0006#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nby#turn\n#sit\n#levelchange\n15\n  ljl;_._>,_.#vanquished\n #genocided\ngold golem\nd  \u000f\u001b#dip\nb #offer\n#pray\ny y   #chat\nj #wizmap\n\u0006FjFj Fj Fj P\u001b__. Fj_. Fj#chat\nj \u0007dwarf\n#chroni"
+  }
+ ]
+}

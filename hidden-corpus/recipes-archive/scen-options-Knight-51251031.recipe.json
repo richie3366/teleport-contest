@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " mO>>>>hea\n yes\nc\n\u001b#jump\n \u001b@.O>jda\nj\n#untrap\nkmO>>>ap\n f  mO>>e\n#enhance\n\u001bmO"
+ },
+ "segments": [
+  {
+   "seed": 51251031,
+   "datetime": "20180415002244",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\n",
+   "moves": " mO>>>>hea\n yes\nc\n\u001b#jump\n \u001b@.O>jda\nj\n#untrap\nkmO>>>ap\n f  mO>>e\n#enhance\n\u001bmO"
+  }
+ ]
+}

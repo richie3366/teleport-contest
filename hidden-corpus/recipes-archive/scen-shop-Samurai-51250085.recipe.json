@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPh\u0016?\n>w  \u0006_ \u001b;, $ _oooooo.Fl    \u001b_._oo,Fn   \u001b  n_.,\u0017dilithium crystal\ndj  Fj Fj    n Fj  n Fj  n  nFj  n Fj  n  n  n\u00165\n_ooo.Fl  n  n_.>.Fl  n  n,    n \u0014:   n.j  y y\u001bnny y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 51250085,
+   "datetime": "20261012074037",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPh\u0016?\n>w  \u0006_ \u001b;, $ _oooooo.Fl    \u001b_._oo,Fn   \u001b  n_.,\u0017dilithium crystal\ndj  Fj Fj    n Fj  n Fj  n  nFj  n Fj  n  n  n\u00165\n_ooo.Fl  n  n_.>.Fl  n  n,    n \u0014:   n.j  y y\u001bnny y\u001by  ."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed Mjollnir\nwg \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007hobbit\n#overview\n\u001b#conduct\n #annotate\nblessed\n\u000f\u001b#dip\nkj \u001b#offer\n#pray\ny y     #chat\nu#jump\n#wizdetect\n\u0006Fu s#untrap\n.\u001614\n \u0006#vanquished\n #genocided\nKeystone Kop\nf  #annotate\nshiny\n\u0018\u001b#name\n\u001b#adjust\na\u001b#chat\nn#turn\n#wizintrinsic\nq\n hjk_ \u001b;#chat\nj#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\ng#sit\n#pray\ny y #wizmap\n\u0006jkj_{,q\u0007acid blob\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nn#chat\nn#chat\nn#wizintrinsic\nas\n  Fn ss20s_{.q#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#tip\n\u001b#"
+ },
+ "segments": [
+  {
+   "seed": 51257062,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed Mjollnir\nwg \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007hobbit\n#overview\n\u001b#conduct\n #annotate\nblessed\n\u000f\u001b#dip\nkj \u001b#offer\n#pray\ny y     #chat\nu#jump\n#wizdetect\n\u0006Fu s#untrap\n.\u001614\n \u0006#vanquished\n #genocided\nKeystone Kop\nf  #annotate\nshiny\n\u0018\u001b#name\n\u001b#adjust\na\u001b#chat\nn#turn\n#wizintrinsic\nq\n hjk_ \u001b;#chat\nj#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\ng#sit\n#pray\ny y #wizmap\n\u0006jkj_{,q\u0007acid blob\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nn#chat\nn#chat\nn#wizintrinsic\nas\n  Fn ss20s_{.q#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#tip\n\u001b#"
+  }
+ ]
+}

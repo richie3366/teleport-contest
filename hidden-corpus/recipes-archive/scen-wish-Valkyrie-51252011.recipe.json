@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0017cursed food ration\nee 20s20s\u0017blessed silver dragon scale mail\nWf...Tf\u00173 blindfold\nag\u0017lance\nwh.20s    Fh.s"
+ },
+ "segments": [
+  {
+   "seed": 51252011,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017cursed food ration\nee 20s20s\u0017blessed silver dragon scale mail\nWf...Tf\u00173 blindfold\nag\u0017lance\nwh.20s    Fh.s"
+  }
+ ]
+}

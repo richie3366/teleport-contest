@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPi\u0017blessed magic lamp\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed +3 speed boots\nWl\u0017blessed ring of free action\nPmr\u0017blessed 20 daggers\n Qn#levelchange\n26\n                         #wizintrinsic\nh\n \u0017wand of slow monster\nzohzohzokzok\u0007hill orc\n\u0007hill orc\nFh FhFuFk i\u001bybh_ \u001b:hl\u0017wand of sleep\nzpnzpuzpk zpk  #wizintrinsic\nh\n \u001612\n\u0006_<._. Fl   20s sb \u0007kobold shaman\nFl<.sss.\u0017blessed scroll of enchant weapon\nrq \u0016?\n>>K     potion of sickness\n\u0006_#wizintrinsic\n\u0017wand of lightning\nztjztj   ztnztb     zty  \u0007gnome\n\u0007gnome\nFh                      n  Fn             n      Fj     n           n          nFh"
+ },
+ "segments": [
+  {
+   "seed": 51255002,
+   "datetime": "20120314192235",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=fruit:durian\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPi\u0017blessed magic lamp\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed +3 speed boots\nWl\u0017blessed ring of free action\nPmr\u0017blessed 20 daggers\n Qn#levelchange\n26\n                         #wizintrinsic\nh\n \u0017wand of slow monster\nzohzohzokzok\u0007hill orc\n\u0007hill orc\nFh FhFuFk i\u001bybh_ \u001b:hl\u0017wand of sleep\nzpnzpuzpk zpk  #wizintrinsic\nh\n \u001612\n\u0006_<._. Fl   20s sb \u0007kobold shaman\nFl<.sss.\u0017blessed scroll of enchant weapon\nrq \u0016?\n>>K     potion of sickness\n\u0006_#wizintrinsic\n\u0017wand of lightning\nztjztj   ztnztb     zty  \u0007gnome\n\u0007gnome\nFh                      n  Fn             n      Fj     n           n          nFh"
+  }
+ ]
+}

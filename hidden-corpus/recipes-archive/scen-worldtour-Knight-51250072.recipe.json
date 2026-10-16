@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed amulet of life saving\nPi\u0017blessed +3 gauntlets of power\nW\u001b\u0016?\n>y  ul :\u001624\n_ \u001b<.\u001624\n\u0014@.\u0016?\n>>L      wand of sleep\nnu  u       k            :\u001613\n#levelchange\n6\n      \u0007yellow light\nFy  n    n    n     Fj  n    n   n  n   Fu  n  n   n  n  Fj  n  n   n     Fj Fj  n   yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51250072,
+   "datetime": "20160323004549",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed amulet of life saving\nPi\u0017blessed +3 gauntlets of power\nW\u001b\u0016?\n>y  ul :\u001624\n_ \u001b<.\u001624\n\u0014@.\u0016?\n>>L      wand of sleep\nnu  u       k            :\u001613\n#levelchange\n6\n      \u0007yellow light\nFy  n    n    n     Fj  n    n   n  n   Fu  n  n   n  n  Fj  n  n   n     Fj Fj  n   yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

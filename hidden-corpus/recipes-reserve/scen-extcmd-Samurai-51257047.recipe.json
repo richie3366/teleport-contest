@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWg \u0017blessed +3 cloak of magic resistance\nWhh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007gnome\n#polyself\ntroll\n #monster\nsbsFl Fnnubqj \u001b_ \u001b>.#chat\ny#overview\n\u001b#conduct\n i\u001b#dip\nf#offer\n#pray\ny y #chat\nb#levelchange\n24\n                       ukj\u0018\u001b_>.#vanquished\n #genocided\nnewt\nci\u001b#name\ni\nshiny\n#adjust\nb\u001b#chat\nh#turn\n#wizmap\n\u0006kkj_>.Fl_.Fj\u0007jackal\n#chronicle\n  #terrain\n\u001b#annotate\nfoo\n\u0018\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y   #wizmap\n\u0006Fks,_{,_,qy\u0007dwarf\n#version\n  #history\n                  #annotate\n\u001bi\u001b#wipe\n#loot\nu#chat\nu#chat\nu#wizmap\n\u0006Fu  .s#monster\n_ooo._,,#overview\n\u001b#conduct\n #annotate\n\u001bi\u001b#tip\n\u001b\u001b#ride\nyy#turn\n#sit\n\u001b#jump\n#polyself\nxorn\n#monster\nss.shhj20s_{._.qy\u0007newt\n#vanquished\n #genocided\nElvenking\n \u000f\u001b#dip\nly#offer\n#pray\ny y #chat\nj#polyself\nred dragon\n #monster\ny.sssjbuL\u00165\n\u0006#chronicle\n  #terrain\n\u001b#annotate\nblessed\n\u0018\u001b#name\n\u001b#adjust\nl\u001b#chat\nn#turn\n#wizidentify\n\u001blhh__.#chat\nl\u0007hobbit\n#version\n  #history\n                  #annotate"
+ },
+ "segments": [
+  {
+   "seed": 51257047,
+   "datetime": "20131201125535",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWg \u0017blessed +3 cloak of magic resistance\nWhh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007gnome\n#polyself\ntroll\n #monster\nsbsFl Fnnubqj \u001b_ \u001b>.#chat\ny#overview\n\u001b#conduct\n i\u001b#dip\nf#offer\n#pray\ny y #chat\nb#levelchange\n24\n                       ukj\u0018\u001b_>.#vanquished\n #genocided\nnewt\nci\u001b#name\ni\nshiny\n#adjust\nb\u001b#chat\nh#turn\n#wizmap\n\u0006kkj_>.Fl_.Fj\u0007jackal\n#chronicle\n  #terrain\n\u001b#annotate\nfoo\n\u0018\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y   #wizmap\n\u0006Fks,_{,_,qy\u0007dwarf\n#version\n  #history\n                  #annotate\n\u001bi\u001b#wipe\n#loot\nu#chat\nu#chat\nu#wizmap\n\u0006Fu  .s#monster\n_ooo._,,#overview\n\u001b#conduct\n #annotate\n\u001bi\u001b#tip\n\u001b\u001b#ride\nyy#turn\n#sit\n\u001b#jump\n#polyself\nxorn\n#monster\nss.shhj20s_{._.qy\u0007newt\n#vanquished\n #genocided\nElvenking\n \u000f\u001b#dip\nly#offer\n#pray\ny y #chat\nj#polyself\nred dragon\n #monster\ny.sssjbuL\u00165\n\u0006#chronicle\n  #terrain\n\u001b#annotate\nblessed\n\u0018\u001b#name\n\u001b#adjust\nl\u001b#chat\nn#turn\n#wizidentify\n\u001blhh__.#chat\nl\u0007hobbit\n#version\n  #history\n                  #annotate"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#untrap\nu#loot\nyf   n#tip\n\u001b\u001b#levelchange\n20\n                   unu\u0017grave\n: \u0017pick-axe\naf >  .s:un\u0017chaotic altar\ndadd\u0017floating eye corpse\n#offer\ng   #pray\ny y :  kj\u0017fountain\nqy y\u0017long sword\n#dip\nhde#chat\nj20s#levelchange\n10\n   ljnkny\u0017ice\n:n\u0017lawful altar\ndh\u0017lichen corpse\n#offer\ni nky  \u0017magic fountain\nqyqy qy yb\u0017altar\ndfdc\u0017human corpse\n #invoke\n\u001b\u001b#force\n_m, \u001b<.s\u0006_>>.Fb_.>FhFuFl\u0006_>>.Fn_.Fh>FuFy_>>.Fu_.Fy>FyFu_>>.Fh_.Fl>FhFkFuFkFu\u0006_>.Fy_,Fu>FuFb_>.Fb_.Fk>FbFk_>.Fj_.Fu>FkFlFjFnFy<\u000f\u001b\u00165\n \u0014,#untrap\nbmOa\u001b\nFhFjFnFyFbFyFnFjFjFlFlFjFyFjFlFjFjFjFhFnFjFbFhFhFyFnFyFjFyFyFbFbFbFy"
+ },
+ "segments": [
+  {
+   "seed": 51250047,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!verbose\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You hear\"\nMENUCOLOR=\"a potion\"=cyan\nBIND=v:inventory\n",
+   "moves": "#untrap\nu#loot\nyf   n#tip\n\u001b\u001b#levelchange\n20\n                   unu\u0017grave\n: \u0017pick-axe\naf >  .s:un\u0017chaotic altar\ndadd\u0017floating eye corpse\n#offer\ng   #pray\ny y :  kj\u0017fountain\nqy y\u0017long sword\n#dip\nhde#chat\nj20s#levelchange\n10\n   ljnkny\u0017ice\n:n\u0017lawful altar\ndh\u0017lichen corpse\n#offer\ni nky  \u0017magic fountain\nqyqy qy yb\u0017altar\ndfdc\u0017human corpse\n #invoke\n\u001b\u001b#force\n_m, \u001b<.s\u0006_>>.Fb_.>FhFuFl\u0006_>>.Fn_.Fh>FuFy_>>.Fu_.Fy>FyFu_>>.Fh_.Fl>FhFkFuFkFu\u0006_>.Fy_,Fu>FuFb_>.Fb_.Fk>FbFk_>.Fj_.Fu>FkFlFjFnFy<\u000f\u001b\u00165\n \u0014,#untrap\nbmOa\u001b\nFhFjFnFyFbFyFnFjFjFlFlFjFyFjFlFjFjFjFhFnFjFbFhFhFyFnFyFjFyFyFbFbFbFy"
+  }
+ ]
+}

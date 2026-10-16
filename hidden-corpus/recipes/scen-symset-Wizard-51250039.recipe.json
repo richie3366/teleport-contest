@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " Oalychee\n\u001b\n\u0006_ \u001b;>FbFb_>>.Fh_.Fj>FbFh_>>,Fy_,Fh>FyFlFbFhFy#wipe\n#twoweapon\n\u0006_>,Fb_,Fb>FbFy_>.Fy_.Fb>FbFl _>.Fh_.Fh>FyFbFyFbFh\u0018\u001bal \u0006_>.Fb_.Fh>FbFb_>,Fh_.Fh>FyFy_>.Fy_.Fb>FbFbFyFbFhri silver dragon\ns<\u0006_>.Fj_.  n Fy>FhFy  n _>.  n  Fy_.  n Fh>FbFy_>.Fh_.Fy>FbFyFh  FbFy\u0006_>,Fk_.Fu  n>FhFy_>.Fh_.Fu>FuFh_>,Fy_.> \u0006_>,_.> FhFuFu#untrap\nl#turn\n\u001614\n\u001610\n\u0006_>.>FjFb_>,>FbFn_>.>FbFu FlFb  Fn\u0006_>.>FnFu_>.>Fb  n Fj_>,>Fb  n Fy  n FuFh  nFh\u0006_>.>Fj  nFb_>.>Fj  nFu_>.>Fl  nFhFhFn   nFl  n\u0006_>,>FuFn  n_>.>FbFb  yy\u001by   y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 51250039,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:MACgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nMSGTYPE=norep \"The door\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " Oalychee\n\u001b\n\u0006_ \u001b;>FbFb_>>.Fh_.Fj>FbFh_>>,Fy_,Fh>FyFlFbFhFy#wipe\n#twoweapon\n\u0006_>,Fb_,Fb>FbFy_>.Fy_.Fb>FbFl _>.Fh_.Fh>FyFbFyFbFh\u0018\u001bal \u0006_>.Fb_.Fh>FbFb_>,Fh_.Fh>FyFy_>.Fy_.Fb>FbFbFyFbFhri silver dragon\ns<\u0006_>.Fj_.  n Fy>FhFy  n _>.  n  Fy_.  n Fh>FbFy_>.Fh_.Fy>FbFyFh  FbFy\u0006_>,Fk_.Fu  n>FhFy_>.Fh_.Fu>FuFh_>,Fy_.> \u0006_>,_.> FhFuFu#untrap\nl#turn\n\u001614\n\u001610\n\u0006_>.>FjFb_>,>FbFn_>.>FbFu FlFb  Fn\u0006_>.>FnFu_>.>Fb  n Fj_>,>Fb  n Fy  n FuFh  nFh\u0006_>.>Fj  nFb_>.>Fj  nFu_>.>Fl  nFhFhFn   nFl  n\u0006_>,>FuFn  n_>.>FbFb  yy\u001by   y y y\u001b  _"
+  }
+ ]
+}

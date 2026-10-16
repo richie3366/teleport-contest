@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nWl\u0017blessed +3 silver dragon scale mail\nWm\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007giant rat\n_ \u001b;#overview\n\u001b#conduct\n \u0018\u001b#dip\npg#offer\n#pray\ny y    #chat\nk#wizmap\n\u0006Fl20s._>,Fk_,Fk\u0007lichen\n#vanquished\n #genocided\nlieutenant\n \u000f\u001b#name\nm\n#adjust\n:#chat\nk#turn\n#wizidentify\n\u001bFh Fh\u001615\n\u0006#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y    #wizidentify\n\u001bFl Fl Fl >_ooo.,#version\n  #history\n                  #annotate\nfoo\n\u0018\u001b#wipe\n #loot\nl#chat\nl#chat\nl#wizidentify\n\u001bFl Fl Fl Fl __.#chat\nl#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nly#turn\n#sit\n #jump\n#levelchange\n17\n Fl Fl \u001612\n     \u0006#vanquished\n #genocided\nearth elemental\n#annotate\nFido\n\u000f\u001b#dip\ngg#offer\n#pray\ny y   #chat\nl#polyself\nleprechaun\n   #monster\nsm. sm.Fl  Fl FlFl   Fl  Fl      s_{.       n   Fy    _.      Fy     n  qo         \u00161\n#chronicle\n  #terrain\n\u001b\u000f\u001b#name\nm\nm,blessed\n#adjust\ne\u001b#chat\nn#turn\n#jump\n#wizintrinsic\ng\n hln_{.Fk_.Fyq#version\n  #history\n                  \u000f\u001b#twoweapon\n#invoke\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 51257075,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nWl\u0017blessed +3 silver dragon scale mail\nWm\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007giant rat\n_ \u001b;#overview\n\u001b#conduct\n \u0018\u001b#dip\npg#offer\n#pray\ny y    #chat\nk#wizmap\n\u0006Fl20s._>,Fk_,Fk\u0007lichen\n#vanquished\n #genocided\nlieutenant\n \u000f\u001b#name\nm\n#adjust\n:#chat\nk#turn\n#wizidentify\n\u001bFh Fh\u001615\n\u0006#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y    #wizidentify\n\u001bFl Fl Fl >_ooo.,#version\n  #history\n                  #annotate\nfoo\n\u0018\u001b#wipe\n #loot\nl#chat\nl#chat\nl#wizidentify\n\u001bFl Fl Fl Fl __.#chat\nl#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nly#turn\n#sit\n #jump\n#levelchange\n17\n Fl Fl \u001612\n     \u0006#vanquished\n #genocided\nearth elemental\n#annotate\nFido\n\u000f\u001b#dip\ngg#offer\n#pray\ny y   #chat\nl#polyself\nleprechaun\n   #monster\nsm. sm.Fl  Fl FlFl   Fl  Fl      s_{.       n   Fy    _.      Fy     n  qo         \u00161\n#chronicle\n  #terrain\n\u001b\u000f\u001b#name\nm\nm,blessed\n#adjust\ne\u001b#chat\nn#turn\n#jump\n#wizintrinsic\ng\n hln_{.Fk_.Fyq#version\n  #history\n                  \u000f\u001b#twoweapon\n#invoke\n\u001b"
+  }
+ ]
+}

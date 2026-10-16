@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>u hyubynu:\u001631\n\u0014 \u001bm,20s..\u001631\n#levelchange\n8\n   \u0017Trollsbane\nwk20sFkFk\u0007yellow mold\n;y,.m..sm.\u0007red dragon\n#chat\nkFkFj\u001642\n__.>\u0016?\n>B\u0014m,\u0016?\n>w#levelchange\n30\n                      \u00173 potion of sickness\nql#dip\nlls.\u0017uncursed +0 ring of cold resistance\nPmr. 20ss.20s\u0017cursed spellbook of finger of death\nrn \u001b       n 20s  20s Z\u0017cursed wand of cancellation\nzok\u0017uncursed heavy iron ball\n s\u001bwa   n shs\u00167\n\u0016?\ne_{.\u0016?\n>>M      Stormbringer\n  ly    h : \u001620\n#chat\n;j:  s 20s  n  \u0016?\n\u001bl    b \u0016?\ne u           n   k       n          n         n         n  u      n       n     hn:.m.     n          n       n    \u001610\n\u0016?\na    #levelchange\n20\n   j  n                         n                         \u001b  yny   y  y\u001b  u"
+ },
+ "segments": [
+  {
+   "seed": 51250008,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>u hyubynu:\u001631\n\u0014 \u001bm,20s..\u001631\n#levelchange\n8\n   \u0017Trollsbane\nwk20sFkFk\u0007yellow mold\n;y,.m..sm.\u0007red dragon\n#chat\nkFkFj\u001642\n__.>\u0016?\n>B\u0014m,\u0016?\n>w#levelchange\n30\n                      \u00173 potion of sickness\nql#dip\nlls.\u0017uncursed +0 ring of cold resistance\nPmr. 20ss.20s\u0017cursed spellbook of finger of death\nrn \u001b       n 20s  20s Z\u0017cursed wand of cancellation\nzok\u0017uncursed heavy iron ball\n s\u001bwa   n shs\u00167\n\u0016?\ne_{.\u0016?\n>>M      Stormbringer\n  ly    h : \u001620\n#chat\n;j:  s 20s  n  \u0016?\n\u001bl    b \u0016?\ne u           n   k       n          n         n         n  u      n       n     hn:.m.     n          n       n    \u001610\n\u0016?\na    #levelchange\n20\n   j  n                         n                         \u001b  yny   y  y\u001b  u"
+  }
+ ]
+}

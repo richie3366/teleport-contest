@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "Y LLL_ \u001b.>HJBL_>.>Fl .ss#untrap\nh<JUNJ_>,>KKYB_>,>kujhukjwai\u001bnlh100si\u001b100s#sit\n\u001b_>.>i\u001b50sFl20ss50sFh.s100sFns.hhl,z100skkjkkkFk.skkk\u000f\u001bjhli\u001b150sFjss100s50s100s\u0018\u001b50s100sFjFjFjFjFj.kyh50s_>,>UBYU_>.>\u0018\u001b\u0018\u001bBLHL_>.>HLKY_>.>10sdcssstbu10s20s20seg<100segjjj150seh50seh_>.>_<.#quit\nyy\u001by  y y y\u001b UUKJ_ \u001bm.><NJLJ_>,>Fk .sLNKK_>.>#enhance\n\u001b#monster\nNBJL_>.>FkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFk#quit\nyy\u001by  y y y\u001b  \u0017wand of lightning\nzl.  y y\u001by  ny\u001bn  s#wizintrinsic\nb\n sm.ss20s .ksm..y.20s sm.20s   .h  n20s.ss.ss20s s.s20s20s20ss.ss.20s..ss20s 20s  s.\u0017wand of fire\nzf.  nsss",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51250058,
+   "datetime": "20240326173641",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\n",
+   "moves": "Y LLL_ \u001b.>HJBL_>.>Fl .ss#untrap\nh<JUNJ_>,>KKYB_>,>kujhukjwai\u001bnlh100si\u001b100s#sit\n\u001b_>.>i\u001b50sFl20ss50sFh.s100sFns.hhl,z100skkjkkkFk.skkk\u000f\u001bjhli\u001b150sFjss100s50s100s\u0018\u001b50s100sFjFjFjFjFj.kyh50s_>,>UBYU_>.>\u0018\u001b\u0018\u001bBLHL_>.>HLKY_>.>10sdcssstbu10s20s20seg<100segjjj150seh50seh_>.>_<.#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51350058,
+   "datetime": "20250903164935",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\n",
+   "moves": "UUKJ_ \u001bm.><NJLJ_>,>Fk .sLNKK_>.>#enhance\n\u001b#monster\nNBJL_>.>FkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFk#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51450058,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of lightning\nzl.  y y\u001by  ny\u001bn  s"
+  },
+  {
+   "seed": 51550058,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n sm.ss20s .ksm..y.20s sm.20s   .h  n20s.ss.ss20s s.s20s20s20ss.ss.20s..ss20s 20s  s."
+  },
+  {
+   "seed": 51650058,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of fire\nzf.  nsss"
+  }
+ ]
+}

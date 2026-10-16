@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>y  _ \u001b;#chat\nh;h,_mmmm,Fk_,#chat\nj_mmmmm.  n Fn _.Fn #chat\nn  n _mmm.Fn  yy\u001by  y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 51251016,
+   "datetime": "20171231150054",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>y  _ \u001b;#chat\nh;h,_mmmm,Fk_,#chat\nj_mmmmm.  n Fn _.Fn #chat\nn  n _mmm.Fn  yy\u001by  y y y\u001b  _"
+  }
+ ]
+}

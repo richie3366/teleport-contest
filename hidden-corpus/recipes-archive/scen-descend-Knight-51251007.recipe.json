@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b@.>FjFj_>, Fb_.Fl>Fl 20s_>,Fh_.Fh>Fh20sFbFbFb\u0006_>>._,>_>>,_.>_>>._,>\u0006_>._.>_>._,>_>,_.>\u0006_>>._.>_>>,_.>_>>._,>#monster\n#name\n\u001b\u0006_>._,>_>,_.>_>._.>\u0006_>._.>_>,_.>_>._.>\u0006_>._.>_>._.>_>._.>"
+ },
+ "segments": [
+  {
+   "seed": 51251007,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " \u0006_ \u001b@.>FjFj_>, Fb_.Fl>Fl 20s_>,Fh_.Fh>Fh20sFbFbFb\u0006_>>._,>_>>,_.>_>>._,>\u0006_>._.>_>._,>_>,_.>\u0006_>>._.>_>>,_.>_>>._,>#monster\n#name\n\u001b\u0006_>._,>_>,_.>_>._.>\u0006_>._.>_>,_.>_>._.>\u0006_>._.>_>._.>_>._.>"
+  }
+ ]
+}

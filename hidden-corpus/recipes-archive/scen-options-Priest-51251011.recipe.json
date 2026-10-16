@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " Oal\nd\nqdmO>>>n\n#twoweapon\nqdOjk\nK#wipe\nOjna\nf\nt\u001bcjmO>>gvb\n #offer\n\u0018\u001b..mO>>>>>n\nm\n#monster\nmO>>>qn\n#pray\ny   #twoweapon\nOfgl\na\nf\n\u0014Oi\ne\n#jump\nohO>h\nh20s20ss"
+ },
+ "segments": [
+  {
+   "seed": 51251011,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=playmode:explore\n",
+   "moves": " Oal\nd\nqdmO>>>n\n#twoweapon\nqdOjk\nK#wipe\nOjna\nf\nt\u001bcjmO>>gvb\n #offer\n\u0018\u001b..mO>>>>>n\nm\n#monster\nmO>>>qn\n#pray\ny   #twoweapon\nOfgl\na\nf\n\u0014Oi\ne\n#jump\nohO>h\nh20s20ss"
+  }
+ ]
+}

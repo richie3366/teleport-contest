@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed ring of free action\nPor\u0017long sword\n\u0017potion of water\n \u0017scroll of identify\n\u0007owlbear\n_ \u001b,#chat\nn\u0007kobold\n#overview\n\u001b#conduct\n #annotate\nFido\n\u0018\u001b#dip\npf   n #offer\n#pray\ny y        #chat\nn  n#jump\n#wizmap\n\u0006Fn   n Fn #enhance\nyp\nn\n\u001b_<,\u0007jackal\n#vanquished\n #genocided\nearth elemental\n n  n\u0018\u001b\u00164\n#name\nd\n#adjust\nb\u001b#chat\ny#turn\n#wizidentify\n\u001bFhFb\u0016?\n>J     potion of levitation\n\u0006\u0007hobbit\n#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\nr#sit\n    \u001b  #pray\ny y                   #jump\n#levelchange\n6\n    Fl          n   Fu       n   Fu      n     n  #name\n\u001b\u001611\n\u0016?\n\u001b\u0006#version\n  #history\n                  \u0018\u001b#wipe\n   n       n  #loot\nb\u00161\n#chat\nl   n      n    \u001b  n #chat\nl   n "
+ },
+ "segments": [
+  {
+   "seed": 51257058,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed ring of free action\nPor\u0017long sword\n\u0017potion of water\n \u0017scroll of identify\n\u0007owlbear\n_ \u001b,#chat\nn\u0007kobold\n#overview\n\u001b#conduct\n #annotate\nFido\n\u0018\u001b#dip\npf   n #offer\n#pray\ny y        #chat\nn  n#jump\n#wizmap\n\u0006Fn   n Fn #enhance\nyp\nn\n\u001b_<,\u0007jackal\n#vanquished\n #genocided\nearth elemental\n n  n\u0018\u001b\u00164\n#name\nd\n#adjust\nb\u001b#chat\ny#turn\n#wizidentify\n\u001bFhFb\u0016?\n>J     potion of levitation\n\u0006\u0007hobbit\n#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\nr#sit\n    \u001b  #pray\ny y                   #jump\n#levelchange\n6\n    Fl          n   Fu       n   Fu      n     n  #name\n\u001b\u001611\n\u0016?\n\u001b\u0006#version\n  #history\n                  \u0018\u001b#wipe\n   n       n  #loot\nb\u00161\n#chat\nl   n      n    \u001b  n #chat\nl   n "
+  }
+ ]
+}

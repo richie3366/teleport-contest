@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007kobold shaman\nFl Fk#enhance\nyg\ne\n\u001b_ \u001b>.,\u0007hill orc\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nhi \u001b#offer\n#pray\ny y     #chat\nk #wizidentify\n\u001bFuFks_{.q\u0007dwarf\n#vanquished\n #genocided\nyellow mold\n#annotate\nfoo\ni\u001b#name\nf\n#adjust\n<.#chat\nb#turn\n#wizintrinsic\na\n hkk\u00166\n\u0006#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n#levelchange\n16\n        jjl_{._.Fbq#version\n  #history\n                  #annotate\nblessed\n\u000f\u001b#wipe\n #loot\nb#chat\nb#chat\nb#wizidentify\n\u001bFbs.s_{.Fl _.Flq\u0007grid bug\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nly#turn\n#sit\n\u001b#wizidentify\n\u001bFlFh20s\u0014>._{.Fk_.Fkq#vanquished\n #genocided\npyrolisk\nj #annotate\n\u001b\u0018\u001b#dip\na#offer\n#pray\ny y #chat\nk#jump\n#levelchange\n17\nFkFk20s._>,_.\u0007sewer rat\n#chronicle\n  #terrain\n\u001b\u0018\u001b#name\n\u001b#adjust\nb\u001b#chat\nj#turn\n#jump\n#wizidentify\n\u001bFj20s.s#force\n_oooooo,_.,#version\n  #history\n                  \u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n#wizmap\n\u0006kjk_{._.q#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\n#chat\nn#chat\ny#ju"
+ },
+ "segments": [
+  {
+   "seed": 51257007,
+   "datetime": "20050519021942",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007kobold shaman\nFl Fk#enhance\nyg\ne\n\u001b_ \u001b>.,\u0007hill orc\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nhi \u001b#offer\n#pray\ny y     #chat\nk #wizidentify\n\u001bFuFks_{.q\u0007dwarf\n#vanquished\n #genocided\nyellow mold\n#annotate\nfoo\ni\u001b#name\nf\n#adjust\n<.#chat\nb#turn\n#wizintrinsic\na\n hkk\u00166\n\u0006#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n#levelchange\n16\n        jjl_{._.Fbq#version\n  #history\n                  #annotate\nblessed\n\u000f\u001b#wipe\n #loot\nb#chat\nb#chat\nb#wizidentify\n\u001bFbs.s_{.Fl _.Flq\u0007grid bug\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nly#turn\n#sit\n\u001b#wizidentify\n\u001bFlFh20s\u0014>._{.Fk_.Fkq#vanquished\n #genocided\npyrolisk\nj #annotate\n\u001b\u0018\u001b#dip\na#offer\n#pray\ny y #chat\nk#jump\n#levelchange\n17\nFkFk20s._>,_.\u0007sewer rat\n#chronicle\n  #terrain\n\u001b\u0018\u001b#name\n\u001b#adjust\nb\u001b#chat\nj#turn\n#jump\n#wizidentify\n\u001bFj20s.s#force\n_oooooo,_.,#version\n  #history\n                  \u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n#wizmap\n\u0006kjk_{._.q#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\n#chat\nn#chat\ny#ju"
+  }
+ ]
+}

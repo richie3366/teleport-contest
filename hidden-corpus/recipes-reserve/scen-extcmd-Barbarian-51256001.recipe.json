@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed ring of free action\nPgr\u0017blessed +3 gauntlets of power\nWh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007acid blob\n#pray\ny y #chat\nj#levelchange\n21\nFjs#tip\n\u001b\u001b_ \u001bm,qj#overview\n\u001b#conduct\n #annotate\nFido\ni\u001b#dip\nk#offer\n#chat\nj#turn\n#jump\n#levelchange\n8\n    bbu\u001620\n\u0006#vanquished\n #genocided\nrothe\nk \u001bi\u001b#name\nm\n#adjust\n>.#sit\n\u001b#pray\ny y #levelchange\n4\n hykW_{.q#chronicle\n   #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b\u001b#chat\nl#chat\nh#wizintrinsic\ns\n bnl_{.q\u0007giant rat\n#version\n  #history\n                  #annotate\nshiny\n\u000f\u001b#wipe\n#loot\nk#turn\n#sit\n#jump\n#wizdetect\n\u0006FkFk20ssdg_{.q\u0007troll\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b\u001b#ride\nly#pray\ny y   #chat\nl#wizintrinsic\ns\n Fl  sef  _{,q#vanquished\n #genocided\npaper golem\nd #annotate\n\u001b\u000f\u001b#dip\ne#offer\n#chat\nn#turn\n#polyself\nfire giant\n#monster\ns.s.lkbZ_<. _.#chronicle\n   #terrain\n\u001b\u0018\u001b#"
+ },
+ "segments": [
+  {
+   "seed": 51256001,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=fruit:mango\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed ring of free action\nPgr\u0017blessed +3 gauntlets of power\nWh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007acid blob\n#pray\ny y #chat\nj#levelchange\n21\nFjs#tip\n\u001b\u001b_ \u001bm,qj#overview\n\u001b#conduct\n #annotate\nFido\ni\u001b#dip\nk#offer\n#chat\nj#turn\n#jump\n#levelchange\n8\n    bbu\u001620\n\u0006#vanquished\n #genocided\nrothe\nk \u001bi\u001b#name\nm\n#adjust\n>.#sit\n\u001b#pray\ny y #levelchange\n4\n hykW_{.q#chronicle\n   #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b\u001b#chat\nl#chat\nh#wizintrinsic\ns\n bnl_{.q\u0007giant rat\n#version\n  #history\n                  #annotate\nshiny\n\u000f\u001b#wipe\n#loot\nk#turn\n#sit\n#jump\n#wizdetect\n\u0006FkFk20ssdg_{.q\u0007troll\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b\u001b#ride\nly#pray\ny y   #chat\nl#wizintrinsic\ns\n Fl  sef  _{,q#vanquished\n #genocided\npaper golem\nd #annotate\n\u001b\u000f\u001b#dip\ne#offer\n#chat\nn#turn\n#polyself\nfire giant\n#monster\ns.s.lkbZ_<. _.#chronicle\n   #terrain\n\u001b\u0018\u001b#"
+  }
+ ]
+}

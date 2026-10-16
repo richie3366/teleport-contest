@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic lamp\n\u0017blessed ring of free action\nPhr\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed 20 daggers\nQj#wizintrinsic\nh\n ;l; \u001b:   E- X marks the spot\n\u001611\n\u0014<.\u0017blessed spellbook of fireball\nrk20sZa\n:\u0017wand of fire\nzlh   nzluzlj   nzlk   nzlj  n\u00164\n#wizintrinsic\nh\n fkfhfufh\u0017blessed scroll of enchant armor\nrm \u0017cockatrice corpse\n;>.E- ad aerarium\n#pray\ny y #wizintrinsic\nh\n\u0017scroll of enchant weapon\nro \u0017huge chunk of meat\n ey n\u0007troll\n\u0007gnome lord\nFkFk    nFk  n   n   nFk   n\u00168\n#wizintrinsic\nh\n\u001611\nl  nh luj j  nj:\u001612\n\u0017blessed scroll of earth\nrq    n   n \u0017fortune cookie\ner     n \u0017scroll of remove curse\nrs   yy\u001by   y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 51255007,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic lamp\n\u0017blessed ring of free action\nPhr\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed 20 daggers\nQj#wizintrinsic\nh\n ;l; \u001b:   E- X marks the spot\n\u001611\n\u0014<.\u0017blessed spellbook of fireball\nrk20sZa\n:\u0017wand of fire\nzlh   nzluzlj   nzlk   nzlj  n\u00164\n#wizintrinsic\nh\n fkfhfufh\u0017blessed scroll of enchant armor\nrm \u0017cockatrice corpse\n;>.E- ad aerarium\n#pray\ny y #wizintrinsic\nh\n\u0017scroll of enchant weapon\nro \u0017huge chunk of meat\n ey n\u0007troll\n\u0007gnome lord\nFkFk    nFk  n   n   nFk   n\u00168\n#wizintrinsic\nh\n\u001611\nl  nh luj j  nj:\u001612\n\u0017blessed scroll of earth\nrq    n   n \u0017fortune cookie\ner     n \u0017scroll of remove curse\nrs   yy\u001by   y y\u001by  \u0017"
+  }
+ ]
+}

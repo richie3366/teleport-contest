@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nWl\u0017blessed +3 gray dragon scale mail\nWm\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold\n#wizdetect\n\u0006FbFb#conduct\n _ \u001bm,#chat\nb#overview\n\u001b#conduct\n #annotate\nblessed\n\u000f\u001b#dip\nad#offer\n#pray\ny y   #chat\nb#wizmap\n\u0006Fb..Z\u001b_>,Fk _.Fu\u0007kobold shaman\n#vanquished\n #genocided\nwater nymph\ni\u001b#name\n\u001b#adjust\nb\u001b#chat\nk#turn\n#polyself\nmind flayer\n #monster\nssFk  shjk\u0016?\n>E\u0006#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #wizintrinsic\ng\n kbb<_<._,:#version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\nj#chat\nn#jump\n#wizintrinsic\nqr\n yyy_{.qe\u0007acid blob\n#overview\n\u001b#conduct\n #annotate\nFido\n\u0018\u001b#tip\n\u001b#ride\nky#turn\n#sit\n#levelchange\n15\n              Fksf n l__.#chat\nl\u0007kobold shaman\n#vanquished\n #genocided\nvampire lord\n#annotate\n\u001bi\u001b#dip\nod #offer\n#pray\ny y #chat\nb#jump\n#levelchange\n18\n  FbFb \\ \u0016?\n\u001b\u0006\u0007dwarf\n#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u0018\u001b#name\n\u001b#adjust\ng\u001b#chat\nl#turn\n#wizidentify\n\u001bFl  sss#enhance\nyp\np\n\u001b_<. _.#version\n  #history\n                "
+ },
+ "segments": [
+  {
+   "seed": 51256018,
+   "datetime": "20050121090659",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=sortloot:full\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nWl\u0017blessed +3 gray dragon scale mail\nWm\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold\n#wizdetect\n\u0006FbFb#conduct\n _ \u001bm,#chat\nb#overview\n\u001b#conduct\n #annotate\nblessed\n\u000f\u001b#dip\nad#offer\n#pray\ny y   #chat\nb#wizmap\n\u0006Fb..Z\u001b_>,Fk _.Fu\u0007kobold shaman\n#vanquished\n #genocided\nwater nymph\ni\u001b#name\n\u001b#adjust\nb\u001b#chat\nk#turn\n#polyself\nmind flayer\n #monster\nssFk  shjk\u0016?\n>E\u0006#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #wizintrinsic\ng\n kbb<_<._,:#version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\nj#chat\nn#jump\n#wizintrinsic\nqr\n yyy_{.qe\u0007acid blob\n#overview\n\u001b#conduct\n #annotate\nFido\n\u0018\u001b#tip\n\u001b#ride\nky#turn\n#sit\n#levelchange\n15\n              Fksf n l__.#chat\nl\u0007kobold shaman\n#vanquished\n #genocided\nvampire lord\n#annotate\n\u001bi\u001b#dip\nod #offer\n#pray\ny y #chat\nb#jump\n#levelchange\n18\n  FbFb \\ \u0016?\n\u001b\u0006\u0007dwarf\n#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u0018\u001b#name\n\u001b#adjust\ng\u001b#chat\nl#turn\n#wizidentify\n\u001bFl  sss#enhance\nyp\np\n\u001b_<. _.#version\n  #history\n                "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "i\u001blL>\u0014 \u001b;>#wipe\n,fl#offer\nZ10sjzZ#jump\nH#rub\nZ,#chat\nys#conduct\n \u0018\u001bt$h#jump\n#tip\n\u001b#terrain\nf\n#pray\ny y #rub\n#loot\n"
+ },
+ "segments": [
+  {
+   "seed": 51252013,
+   "datetime": "20031119214419",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "i\u001blL>\u0014 \u001b;>#wipe\n,fl#offer\nZ10sjzZ#jump\nH#rub\nZ,#chat\nys#conduct\n \u0018\u001bt$h#jump\n#tip\n\u001b#terrain\nf\n#pray\ny y #rub\n#loot\n"
+  }
+ ]
+}

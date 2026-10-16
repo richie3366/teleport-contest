@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 cloak of magic resistance\nWg\u0017blessed +3 gauntlets of power\nWh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007yellow mold\n#polyself\nred dragon\n  . 20sFj .byj#monster\n. \u001b_ \u001b<.,\u001b\u0007hill orc\n#overview\n\u001b#conduct\n i\u001b#dip\nid   #offer\n#pray\ny y     #chat\nj#wizintrinsic\ns\n Fj Fjj __.#chat\nj #vanquished\n #genocided\npurple worm\nk  #annotate\nshiny\n\u0018\u001b#name\nf\n#adjust\n<.\u001b#chat\nj#turn\n#polyself\nfog cloud\n#monster\n20s  snFj Fj Fj Fj _{.qd #chronicle\n  #terrain\n\u001b#annotate\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n  #pray\ny y     #jump\n#wizintrinsic\ng\n Fk  Fj   n q\u0016?\n\u001b\u0006\u0007bugbear\n#version\n  #history\n                  \u0018\u001b#wipe\n#loot\ny #chat\n#chat\n#wizidentify\n\u001bFyFyFyFy__.#chat\n \u0007newt\n#overview\n\u001b#conduct\n #annotate\nfoo\ni\u001b#tip\nf\u001b#ride\nhy#turn\n#sit\n #wizintrinsic\na\n FhFy#terrain\nd\n_#chat\n;#vanquished\n #genocided\nwinter wolf\nb  #annotate\n\u001b\u0018\u001b#dip\ni #offer\n#pray\ny y  #chat\n #jump\n#polyself\nfog cloud\n s  sm.FyFh FyFy_oooooo.Fy_.Fy,\u001b\u0007owlbear\n#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u0018\u001b#name\no\n#adjust\ni\u001b#chat\n #turn\n#polyself\nred dragon\n #monster\ny       sm. .m. Fy Fk Fk20sq\u001617\n   \u0006#version\n  #history\n                  i\u001b#twoweapon\n#invoke"
+ },
+ "segments": [
+  {
+   "seed": 51257039,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0017blessed +3 cloak of magic resistance\nWg\u0017blessed +3 gauntlets of power\nWh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007yellow mold\n#polyself\nred dragon\n  . 20sFj .byj#monster\n. \u001b_ \u001b<.,\u001b\u0007hill orc\n#overview\n\u001b#conduct\n i\u001b#dip\nid   #offer\n#pray\ny y     #chat\nj#wizintrinsic\ns\n Fj Fjj __.#chat\nj #vanquished\n #genocided\npurple worm\nk  #annotate\nshiny\n\u0018\u001b#name\nf\n#adjust\n<.\u001b#chat\nj#turn\n#polyself\nfog cloud\n#monster\n20s  snFj Fj Fj Fj _{.qd #chronicle\n  #terrain\n\u001b#annotate\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n  #pray\ny y     #jump\n#wizintrinsic\ng\n Fk  Fj   n q\u0016?\n\u001b\u0006\u0007bugbear\n#version\n  #history\n                  \u0018\u001b#wipe\n#loot\ny #chat\n#chat\n#wizidentify\n\u001bFyFyFyFy__.#chat\n \u0007newt\n#overview\n\u001b#conduct\n #annotate\nfoo\ni\u001b#tip\nf\u001b#ride\nhy#turn\n#sit\n #wizintrinsic\na\n FhFy#terrain\nd\n_#chat\n;#vanquished\n #genocided\nwinter wolf\nb  #annotate\n\u001b\u0018\u001b#dip\ni #offer\n#pray\ny y  #chat\n #jump\n#polyself\nfog cloud\n s  sm.FyFh FyFy_oooooo.Fy_.Fy,\u001b\u0007owlbear\n#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u0018\u001b#name\no\n#adjust\ni\u001b#chat\n #turn\n#polyself\nred dragon\n #monster\ny       sm. .m. Fy Fk Fk20sq\u001617\n   \u0006#version\n  #history\n                  i\u001b#twoweapon\n#invoke"
+  }
+ ]
+}

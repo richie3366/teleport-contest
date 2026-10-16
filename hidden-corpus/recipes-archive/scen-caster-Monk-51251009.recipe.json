@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n               \u0017blessed spellbook of cone of cold\nrk  .\u0017blessed spellbook of teleport away\nrl .\u0017spellbook of create familiar\nrm .+\u001bZc\nZd\nZb\n\u0007gnome lord\nZa\nFy\u0007gnome\nZd\nZa\n#turn\n#pray\ny y      "
+ },
+ "segments": [
+  {
+   "seed": 51251009,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n               \u0017blessed spellbook of cone of cold\nrk  .\u0017blessed spellbook of teleport away\nrl .\u0017spellbook of create familiar\nrm .+\u001bZc\nZd\nZb\n\u0007gnome lord\nZa\nFy\u0007gnome\nZd\nZa\n#turn\n#pray\ny y      "
+  }
+ ]
+}

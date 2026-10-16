@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n14\n     \u00174 cream pies\nQ\u001b\u0007gnome\nlbf \u001bf \u001bf \u001b\u0007giant rat\nun f \u001bf \u001bf \u001bf \u001bFy   Fh  \u0017potion of confusion\nt\u001b\u0017bardiche\nwl\u0007giant rat\nh alx   #twoweapon\nFk  Fknyk,\u001624\n\u0017blessed ring of polymorph control\nPml#polyself\ngrid bug\n  .20s\u0007couatl\nFkFl    Fk.s\u001b20s #polyself\ngold golem\n   #monster\nsm.    su     \u0007dwarf\nFn  Fh   Fhsm.  s .#polyself\nlichen\n . s\u001b.20s s\u001b#polyself\nlich\n#monster\n.s  s 20s  su\u0017wand of polymorph\nznn       n znb   \u0006_ \u001b,>Fh  Fk _>>, Fj _.    Fh   n  >Fh  Fj _>>. Fj _.   n Fh  >     Fh  Fj   Fl  aiy   n   znh  \u0006m._>>.   Fb   _.  n Fh  > Fk Fk   Fh    n \u0006_>>.  Fk _,   Fb    n >Fh  Fk _>>,  Fb    _. Fk  n  >Fj  Fb  _>>. Fh_.>#enhance\nye\ne\n\u001btlk\u0006_>,Fl   n_. Fl  >Fl Fl _>.Fl   n _, Fl  >Fl Fl_>,  n Fl_.Fh  >Fh FhFhFh  nFhi\u001b\u00168\n\u0007pony\n\u0017food ration\ntau\u0007pony\n\u0017apple\nt\u001b\u0017apple\nt\u001b\u0017leash\naqu kjk k aqb   n \u0017banana\nt\u001bb #name\ni\n\u0017Werebane\nws  Fb Fb Fn #invoke\ns   n \u0017jumping boots\n\u0007prisoner\nWt    20s sj.m.T  Fh  n Fl \u0017blessed large box\naus\nauo\n#tip\nu\u001b Fh Fh \u00173 potion of healing\n\u0007centipede\nqv .m. .m.\u001611\n\u0007mind flayer\nFuFy   Fy   sy    sn #pray\ny y       \u0007nurse\n.   yy\u001b y   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51250057,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n14\n     \u00174 cream pies\nQ\u001b\u0007gnome\nlbf \u001bf \u001bf \u001b\u0007giant rat\nun f \u001bf \u001bf \u001bf \u001bFy   Fh  \u0017potion of confusion\nt\u001b\u0017bardiche\nwl\u0007giant rat\nh alx   #twoweapon\nFk  Fknyk,\u001624\n\u0017blessed ring of polymorph control\nPml#polyself\ngrid bug\n  .20s\u0007couatl\nFkFl    Fk.s\u001b20s #polyself\ngold golem\n   #monster\nsm.    su     \u0007dwarf\nFn  Fh   Fhsm.  s .#polyself\nlichen\n . s\u001b.20s s\u001b#polyself\nlich\n#monster\n.s  s 20s  su\u0017wand of polymorph\nznn       n znb   \u0006_ \u001b,>Fh  Fk _>>, Fj _.    Fh   n  >Fh  Fj _>>. Fj _.   n Fh  >     Fh  Fj   Fl  aiy   n   znh  \u0006m._>>.   Fb   _.  n Fh  > Fk Fk   Fh    n \u0006_>>.  Fk _,   Fb    n >Fh  Fk _>>,  Fb    _. Fk  n  >Fj  Fb  _>>. Fh_.>#enhance\nye\ne\n\u001btlk\u0006_>,Fl   n_. Fl  >Fl Fl _>.Fl   n _, Fl  >Fl Fl_>,  n Fl_.Fh  >Fh FhFhFh  nFhi\u001b\u00168\n\u0007pony\n\u0017food ration\ntau\u0007pony\n\u0017apple\nt\u001b\u0017apple\nt\u001b\u0017leash\naqu kjk k aqb   n \u0017banana\nt\u001bb #name\ni\n\u0017Werebane\nws  Fb Fb Fn #invoke\ns   n \u0017jumping boots\n\u0007prisoner\nWt    20s sj.m.T  Fh  n Fl \u0017blessed large box\naus\nauo\n#tip\nu\u001b Fh Fh \u00173 potion of healing\n\u0007centipede\nqv .m. .m.\u001611\n\u0007mind flayer\nFuFy   Fy   sy    sn #pray\ny y       \u0007nurse\n.   yy\u001b y   y y y\u001by  F"
+  }
+ ]
+}
