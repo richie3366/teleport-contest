@@ -22,21 +22,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4030 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4031 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4030.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4030 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4031.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4031 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4031: (1–2) new display.js glyph_bank_attr(gid) (C tty_print_glyph :3930–36 + reset_glyphmap :2788–2835: pile ⟺ exact piletop banks — normal/generic/body/st Named: (1) MG_DETECT / MG_BW_LAVA/ICE/SINK in glyph_bank_attr (same standing as obj_map_attr; no 
 - D-4030: js/potion.js:152 only — added `FACE` to the existing `./const.js` import (body-part group). Named: none — one-name import; peffect_oil body untouched (whole per D-2860).
 - D-4029: js/dokick.js only — the wild-miss guard now calls the file-local `Levitation()` (C cite comment). Named: none — every kick_monster callee is live; no deferred arm (D-2042's kickdmg arm shipped se
 - D-4028: none — measurement (this commit). Named: none — no port; docs-only entry, no Ledger bullet (D-4016/D-3944 precedent).
@@ -51,5 +52,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-4019: js/mklev.js only — (1) `hellfill_rnd_halign/valign` (:85-93), `HELLFILL_PREFABS` (10 entries in lua order, map strings byte-exact — /tmp scratch compa Named: (1) hells[4] horizontal iron-bar floor replace (standing in-code + ledger omit); (2) hello
 - D-4018: js/const.js only — `MM_ASYNCGROUP = 0x02000000` (next free bit in the shared word) + corrected comment citing C + D-4018. Named: (1) `MM_ASYNC = 0x00100000` still aliases `MM_MINVIS` — dormant (zero js/ users since its 
 - D-4017: js/do_name.js only — the x_monnam priest arm now also saves/clears/restores the `u.Hallucination` sticky alongside EHalluc_resistance when !do_hallu ( Named: (1) Valkyrie-50362023 s1003 (RNG-full 43622/43622): JS appends «You survived that attempt 
-- D-4016: none — measurement (this commit). /tmp/cfgprobe-probe.mjs (kept out of tree): pinned recorder binary unmodified, /tmp install copy, fresh mkdtemp home Named: none — no port; docs-only entry, no Ledger bullet (D-3944/D-3961 precedent) — config_error
 <!-- landmarks:end -->
