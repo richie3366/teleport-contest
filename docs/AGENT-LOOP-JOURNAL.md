@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — audit 2853–2859 @6607c2f82: review D-4009..D-4017 (6A/1D/0Q, 1 Must-fix) + full rescore 557/1165 (0 PASS→FAIL)
+
+**Reviews:** 2853–2859: 6A/1D/0Q — only finding is 2857 (MM_ASYNCGROUP 0x00200000 collides GP_ALLOW_XY; Must-fix queued, latent). All D-log movement claims re-measured on HEAD — hold, 0 worse.
+**Score:** public 44/44; held-out 32/44 unchanged (window unjudged); board 557/1165 full:true (0 PASS→FAIL, +1 healed, 11 archived); tier 864+288+4478. Seeded ledger sample 5/5 whole.
+**Next:** Must-fix flag collision; then Valkyrie genocide arm.
 ## 2026-10-16 — D-4017 cliffs slimed_to_death writer: x_monnam priest arm hallu suppression defeated by the u.Hallucination sticky (done_in_by killer naming burned 5 display draws; Barbarian s911 + Wizard s320 + worldtour-Wizard s984 → PASS)
 
 **C locus:** do_name.c x_monnam `:886–904` priest/minion arm, esp `:889–899`: save EHalluc_resistance, force it when the true name is wanted (!do_hallu — m_monnam's EXACT_NAME ⊃ SUPPRESS_HALLUCINATION, or gameover), priestname, restore — so the Hallucination macro (youprop.h:120 `HHallucination && !Halluc_resistance`) reads false: rndmonnam/halu_gname take the true-name path, zero display draws. Called from end.c done_in_by `:271–274` (`m_monnam() ... overrides the effect of Hallucination on priestname()`), reached via mhitu.c mdamageu `:1925` (uhp<1) ← hitmu. priestname priest.c:301–367, halu_gname pray.c:2576–2624 (randrole(TRUE) ≡ display rn2(SIZE(roles)-1), rn2(9) slot, hallu_gods incl. "AnDoR dRaKoN"), rndmonnam do_name.c:1387–1411 all display-stream.

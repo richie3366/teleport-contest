@@ -22,20 +22,20 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-16** — full `sessions` on `d9747bd2c`
-(audit **2844–2852**). Fortress **44/44** (no throws; aggregates in the table).
+Score last measured: **2026-10-16** — full `sessions` on `6607c2f82`
+(audit **2853–2859**). Fortress **44/44** (no throws; aggregates in the table).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-16 01:37Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** (D-3978…D-4017 window unjudged) |
+| **Held-out (judge 2026-10-16 07:21Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** (window unjudged) |
 | **Fresh cohort (§10.20, scored on arrival)** | 50950000 ×159 @`a95d0eb7e`: **140/159 (88.1 %)**, RNG 98.8 %, screens 97.4 % — impaired/options 1/2 worst; questtour/symset/worldtour/zapfest 9/12, chain/sweep 10/12, shop 11/12; trek 12/12 + rest 100 % |
-| **Corpus board (worked, regression fortress)** | full rescore 2026-10-16 (audit 2844–2852): **572/1173** (**0 PASS→FAIL**, +2 healed); Grow #15 `score --new`: **562/901** (62.4 %); `tier` (§10.21) → **877 active + 289 reserve + 4465 archive** (12 out, 2 promoted) |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-16 (audit 2853–2859): **557/1165** (**0 PASS→FAIL**, +1 healed, 11 archived, `unrecorded` 0; RNG 95.2 %, screens 94.4 %); `tier` → **864 + 288 + 4478** (0 out, 1 promoted) |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `399+1.87/turn` (R² 0.81) |
+| Speed label | `397+1.77/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
@@ -52,10 +52,10 @@ Fresh−held-out gap now 15.4 pts (88.1 % vs 72.7 %), inside the §10.20 band �
 no calibration family (Grow #6 `symset` 15/240).
 **Corpus (Grow #15 `score --new` + `tier`, 2026-10-16, 901 rows):**
 562 PASS (62.4 %); RNG 94.86 %, screens 93.6 %; 877 active + 289 reserve + 4465 archive.
-Worst families `scen-questtour` 7/34, `scen-zapfest` 8/18, `scen-shop` 16/84,
-`scen-descend` 7/8, `scen-worldtour` 68/159, `scen-symset` 17/212,
-`scen-sweep` 143/278; next `scen-town` 11/15, rest ≥ 96.9 % RNG.
-Reviews 1225–2852 (index; no row 1618): 1453 ACCEPT, 63 WITH-DEBT, 111 QUALITY-RISK (2844–2852: 9A/0D/0Q, 0 Must-fix queued).
+Worst families `scen-questtour` 7/33, `scen-zapfest` 8/18, `scen-shop` 15/82,
+`scen-descend` 7/8, `scen-worldtour` 68/158, `scen-symset` 15/210,
+`scen-sweep` 141/272, `scen-town` 11/15, rest ≥ 96.9 % RNG.
+Reviews 1225–2859 (index; no row 1618): 1459 ACCEPT, 64 WITH-DEBT, 111 QUALITY-RISK (2853–2859: 6A/1D/0Q, 1 Must-fix queued).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
 Full rescore (audit only, §10.21): `record` + unfiltered `score` (active tier) + `archive` (+ quota), committed `full: true`; needs the C recorder.
@@ -147,7 +147,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** Valkyrie genocide arm; D-4016 parked.
+**Next:** Must-fix MM_ASYNCGROUP//GP_ALLOW_XY collision (review 2857); then Valkyrie genocide arm; D-4016 parked.
 
 ## Parked (diagnose only)
 
