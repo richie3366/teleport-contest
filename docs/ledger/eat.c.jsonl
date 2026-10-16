@@ -54,7 +54,7 @@
 {"fn":"fpostfx","c":"2510-2600","status":"ported","js":["js/eat.js:fpostfx"],"at":"2026-10-03@bbe63333a"}
 {"fn":"leather_cover","c":"2609-2618","status":"by-design","at":"2026-09-29@01a639d1b","note":"#if 0 not used (eat.c:2601): uncompiled; intended for poly spellbook-eating"}
 {"fn":"edibility_prompts","c":"2627-2731","status":"ported","js":["js/eat.js:edibility_prompts"],"d":["D-2690"],"at":"2026-10-03@bbe63333a"}
-{"fn":"doeat_nonfood","c":"2734-2813","status":"ported","js":["js/eat.js:doeat_nonfood"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"MAIL arm absent: C eat.c:2757-2761 SCR_MAIL basenutrit=0+nodelicious (MAIL_STRUCTURES live); JS gives oc_nutrition 5 (audit 2185-2194 sample)"}
+{"fn":"doeat_nonfood","c":"2734-2813","status":"partial","js":["js/eat.js:doeat_nonfood"],"omit":"poison arm skips eatspecial() on survived-fatal (C :2811 runs after done returns; JS returns 1 — D-3998 class; audit 2837-2843 follow-up)","d":["D-3405"],"at":"2026-10-16@28130c7ea","note":"MAIL arm absent: C eat.c:2757-2761 SCR_MAIL basenutrit=0+nodelicious (MAIL_STRUCTURES live); JS gives oc_nutrition 5 (audit 2185-2194 sample). Poison-arm D-3998-class gap (audit 2837-2843)."}
 {"fn":"doeat","c":"2817-3084","status":"ported","js":["js/eat.js:doeat"],"d":["D-3405","D-2361"],"at":"2026-10-04@198b7a2a7"}
 {"fn":"tinopen_ok","c":"3088-3094","status":"ported","js":["js/eat.js:tinopen_ok"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"use_tin_opener","c":"3098-3127","status":"ported","js":["js/eat.js:use_tin_opener"],"at":"2026-10-03@bbe63333a"}

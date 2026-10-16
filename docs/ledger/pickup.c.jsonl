@@ -36,7 +36,7 @@
 {"fn":"container_at","c":"2024-2038","status":"ported","js":["js/pickup.js:container_at"],"d":["D-3122"],"at":"2026-09-29@c983587e0"}
 {"fn":"able_to_loot","c":"2041-2069","status":"ported","js":["js/pickup.js:able_to_loot"],"d":["D-3213"],"at":"2026-10-01@b0eed7df4"}
 {"fn":"mon_beside","c":"2072-2085","status":"ported","js":["js/pickup.js:mon_beside"],"d":["D-3406","D-3135"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
-{"fn":"do_loot_cont","c":"2088-2162","status":"ported","js":["js/pickup.js:do_loot_cont"],"d":["D-2576"],"at":"seed@a30a7de84"}
+{"fn":"do_loot_cont","c":"2088-2162","status":"partial","js":["js/pickup.js:do_loot_cont"],"omit":"bag arm skips makeknown+abort_looting on survived-fatal (C :2157-2158 run after done returns; JS returns early — D-3998 class; audit 2837-2843 sample)","d":["D-2576"],"at":"2026-10-16@28130c7ea","note":"audit 2837-2843 sample: 4/5 seeded rows correct (randrace, mkcavearea, Cloak_off, magic_negation verified C-exact)"}
 {"fn":"doloot","c":"2166-2174","status":"ported","js":["js/pickup.js:doloot"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doloot_core","c":"2178-2346","status":"ported","js":["js/pickup.js:doloot_core"],"d":["D-3406","D-3213","D-1837"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"reverse_loot","c":"2350-2426","status":"ported","js":["js/pickup.js:reverse_loot"],"d":["D-2768"],"at":"seed@a30a7de84"}

@@ -21,6 +21,7 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **nhl_gamestate (D-3885 UNPORTABLE):** Priest-582706 s1166 steed-impossible needs C malloc reuse; recorder flaky there (ASLR). Never a port row (D-3895/D-3905).
 - **welcome/Enhanced-blank (D-3944 MEASURED):** C emits 56 UTF-8 glyphs @50059006 s0, nomux records 0 hi-bytes — writer = g_pututf8 hook (contest tooling). JS arm ID'd, moveless until re-record — do not port/replicate.
 - **do_screen_description travel (D-3962 FIXED):** flush-timing + never-arrived refuted (temp-C); shipped C0 raw-store + grid-drop + pile-inverse gate — 5/5 moved. Do not re-chase flush/pathing writers.
+- **D-3998 class (audit 2837–2843):** `do_loot_cont` bag arm + `doeat_nonfood` poison arm return early on survived-fatal, skipping post-done C (`makeknown`+`abort_looting` :2157-2158, `eatspecial` :2811) — both ledger partial with omits; ship via the generated block, not a hand row.
 
 ## Don't re-check (≤15)
 
