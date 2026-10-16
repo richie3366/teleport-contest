@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — D-4029 kick_monster Levitation wild-miss read the JS-only sticky instead of the C macro (3 probes FULL PASS)
+
+**C locus:** dokick.c kick_monster :153–159 (`if (Levitation && !rn2(3) && verysmall(mon->data) && !is_flyer(mon->data))`) + youprop.h :240 (`#define Levitation ((HLevitation || ELevitation) && !BLevitation)`).
+**JS:** 1 file (js/dokick.js:931–934 guard + comment), 1 test file (scripts/kick-monster-levitation.test.mjs: truncated 121-key replay pins C's step-121 topline + the macro-true/sticky-false split).
+**Change:** js/dokick.js only — the wild-miss guard now calls the file-local `Levitation()` (C cite comment). No new import, no signature change. Whole-body audit this iter: setmangry, reveal, Upolyd AT_KICK loop, encumbrance+goto, Fumbling/bulky (`oc_bulky` is `#define oc_bulky oc_big`, objclass.h:66, so `od?.oc_big` is exact), evade, kickdmg tail all arm-for-arm vs C :146–288; the sticky read was the only C-wrong predicate.
+**Verify:** focused test 0/1 pre-fix (actual = recorded JS «You kick the sewer rat. You float in the opposite direction. Ouch!») → 1/1 post-fix.
+**Named:** none — every kick_monster callee is live; no deferred arm (D-2042's kickdmg arm shipped separately).
+**Next:** generated blocks regenerate (row 6 leaves — 3 sessions join the fortress; dupe-rc rows + 95340 stay parked). Next port rows per regen: questtour-Archeologist-50250094 s52 / use_pick_axe / lspo_replace_terrain.
 ## 2026-10-16 — D-4028 [measure] unattributed sweep-Wizard-95340 s180: recorded frame embeds patch-006 SEQ=181 marker + garbage CX/CY mid-SGR (nomux_out overflow class — tooling, no js/)
 
 **C locus:** n/a game code (owner null, cEntry null, stepFns=[exercise] presence-only). Tooling: patch 006-nomux-capture OSC framing (`ESC ] 7777 ; KIND=input ; SEQ=… ; ANIM=… ; CX=… ; CY=… ; LEN=… BEL`) + the D-3684 nomux_out[6144] overflow class (D-3996 OSC-marker park precedent: LEN 6703, garbage CX/CY).
