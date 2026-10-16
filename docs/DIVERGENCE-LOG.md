@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4030 — Must-fix JS throw: lit-oil quaff read bare FACE with no import (one-name const.js fix; 51150073 step 0 → 1178)
+
+- **Status:** shipped (Must-fix FACE throw, ships alone; filed from Grow #17 fresh cohort @51150000 — no review cited, no stamp owed. Board owner `randomize_gem_colors` step 0 is the misattribution the row names: the throw voided the run with rngM/scrM 0, so scoring never left step 0.)
+- **Symptom:** `ReferenceError: FACE is not defined at peffect_oil (js/potion.js:403:50) ← peffects (:2161) ← dopotion` — every lit-oil quaff by a non-fire-liker threw. scen-sweep-Wizard-51150073 seg0 (1190 steps) voided: rngM 0/53545, scrM 0/1190 (`hidden-proxy show` first-hand this iter).
+- **C locus:** potion.c peffect_oil :1260–1294, lit + non-fire-liker arm :1272 `You("burn your %s.", body_part(FACE));` + d(2|4,4) + burn_away_slime; FACE = hack.h bodypart_types 2 (:129–133).
+- **JS was:** peffect_oil body already whole in C order (D-2860 port; ledger `ported`); only `body_part(FACE)` at :403 read a bare identifier — `js/const.js:583` already exports C-exact `FACE = 2`, and potion.js already imported the sibling selectors HAND/LEG/EYE/HEAD/FINGER/FOOT from const.js (:130–152). FACE was the one missing name.
+- **Fix:** js/potion.js:152 only — added `FACE` to the existing `./const.js` import (body-part group). No new module edge, no signature change, no body change.
+- **JS:** 1 line (js/potion.js:152) + scripts/peffect-oil-lit-face.test.mjs (full 1190-key replay pins step-989 «You burn your face.» + completion).
+- **Callers:** C potion.c:1412 (inside peffects) → JS js/potion.js:2161 (inside peffects; pre-existing, untouched — from the throw stack). Only C call site; decl :34.
+- **Verify:** authentic failure observed pre-fix (committed board error + `hidden-proxy show`: exact ReferenceError, rngM/scrM 0); focused test 1/1 post-fix. `node scripts/verify.mjs --fn peffect_oil` → syntax (1 file: js/potion.js) · rule2 · hidden note (no corpus session blocked on peffect_oil at baseline — the throw voided under owner randomize_gem_colors) · reach smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Movement: `node scripts/hidden-proxy.mjs verify randomize_gem_colors` → scen-sweep-Wizard-51150073 moved step 0 → one_characteristic at step 1178 (0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS) · reach 80/80 REACH-OK.
+- **Named omissions:** none — one-name import; peffect_oil body untouched (whole per D-2860).
+- **Ledger:** peffect_oil ported js=potion.js:peffect_oil
+- **Next:** generated blocks regenerate (randomize_gem_colors head leaves; 51150073 re-attributes to one_characteristic s1178). Next port rows per regen: look_here / use_pick_axe / questtour-Archeologist-50250094 s52.
+
 ## D-4029 — kick_monster Levitation wild-miss read the JS-only sticky instead of the C macro (3 probes FULL PASS)
 
 - **Status:** shipped (Open — cliffs row 6 `dokick.c` kick_monster @47e4f1e35; Must-fix empty; rows 1–3+5+7+8+11 skipped as D-4016 dupe-rc kin — re-verified first-hand this iteration: all seven symset-s0 recipes carry `OPTIONS=msg_window:reversed` twice and their cached C step-0 screens carry the compound-option error with distinct `/tmp/nh-rec-` mkdtemp paths; park falsifier unfired (D-4022..D-4028 skip-kin precedent). Row 4 (sweep-Wizard-95340 s180) is D-4028's RECORDER-ARTIFACT park — not re-popped. Read D-2042 once (kickdmg caitiff await — a different arm). No review cited — no stamp owed.)
