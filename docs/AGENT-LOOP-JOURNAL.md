@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — D-4028 [measure] unattributed sweep-Wizard-95340 s180: recorded frame embeds patch-006 SEQ=181 marker + garbage CX/CY mid-SGR (nomux_out overflow class — tooling, no js/)
+
+**C locus:** n/a game code (owner null, cEntry null, stepFns=[exercise] presence-only). Tooling: patch 006-nomux-capture OSC framing (`ESC ] 7777 ; KIND=input ; SEQ=… ; ANIM=… ; CX=… ; CY=… ; LEN=… BEL`) + the D-3684 nomux_out[6144] overflow class (D-3996 OSC-marker park precedent: LEN 6703, garbage CX/CY).
+**JS:** none.
+**Change:** none — measurement (this commit). First-hand forensics on the committed evidence (`.cache/hidden/sessions/scen-sweep-Wizard-95340.session.json` steps[180].screen, 6793 chars): at offset 6482 the NEXT step's marker `ESC ] 7777 ; KIND=input ; SEQ=181 ; ANIM=3 ; CX=1617769523 ; CY=1528528510 ; LEN=6800 BEL` sits mid-frame, splitting the live SGR run `ESC [ 3` … `[ 90 m` on map row 20. LEN=6800 > nomux_out[6144] (overflow); CX/CY are uninitialized-memory garbage (not 80×24 cursor coords — vary per run); SEQ is a harness counter.
+**Verify:** preflight `node scripts/verify.mjs --no-cohort` → VERIFY: PASS (clean tree, before diagnosis). `node scripts/hidden-proxy.mjs score --ids scen-sweep-Wizard-95344` → FULL PASS (57681/57681 RNG, 1670/1670 scr; board flip bundled, header →47e4f1e35 per D-4027 precedent). No `verify --fn` movement (no js/ — expected).
+**Named:** none — no port; docs-only entry, no Ledger bullet (D-4016/D-3944 precedent).
+**Next:** tooling/supervisor scope, not a port row: judge-side bounded serialization (D-3996 falsifier, void §1.1) or a re-record; else never a port row. Parked (LOOP-QUEUE Parked, this commit) — never re-pop for the marker-leak shape. Next port row per regen: kick_monster (row 7, history D-2042) after 95344 leaves. Falsifier: a re-recorded step-180 frame without the embedded marker/garbage, or any blocked session with this shape whose C frame lacks OSC bytes.
 ## 2026-10-16 — D-4027 cliffs-head rehumanize caller: passiveum AT_BOOM never called rehumanize (gas-spore hero explodes; Barbarian-620085 FULL PASS)
 
 **C locus:** mhitu.c passiveum :2526–2530 (AD_PHYS/AT_BOOM arm): `You("explode!"); rehumanize(); return assess_dmg(mtmp, tmp);` — KMH balance patch, a DIRECT rehumanize() call (not via losehp), "okay with unchanging". The rehumanize body itself is whole in JS (ported D-2079; brief-verified arm-for-arm this iter: stuck arm, del_light_source, polyman, uhp<1, nomul/botl, steed, retouch, selftouch).
