@@ -1,11 +1,11 @@
 {
- "commit": "99c3428ef",
- "at": "2026-10-16T22:08:28.527Z",
- "full": false,
- "fullCommit": "6aed804b1",
- "fullAt": "2026-10-16T18:46:43.707Z",
- "entries": 1255,
- "reserve": 371,
+ "commit": "5ce1212e7",
+ "at": "2026-10-16T22:36:29.683Z",
+ "full": true,
+ "fullCommit": "5ce1212e7",
+ "fullAt": "2026-10-16T22:36:29.683Z",
+ "entries": 1225,
+ "reserve": 294,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -1900,7 +1900,7 @@
    "passed": false,
    "rngM": 14120,
    "rngT": 14120,
-   "scrM": 579,
+   "scrM": 599,
    "scrT": 601,
    "kind": "screen",
    "step": 394,
@@ -1917,7 +1917,7 @@
    "passed": false,
    "rngM": 10402,
    "rngT": 10402,
-   "scrM": 580,
+   "scrM": 599,
    "scrT": 602,
    "kind": "screen",
    "step": 348,
@@ -1951,7 +1951,7 @@
    "passed": false,
    "rngM": 5701,
    "rngT": 5701,
-   "scrM": 598,
+   "scrM": 617,
    "scrT": 618,
    "kind": "screen",
    "step": 301,
@@ -2002,7 +2002,7 @@
    "passed": false,
    "rngM": 11040,
    "rngT": 11040,
-   "scrM": 702,
+   "scrM": 723,
    "scrT": 728,
    "kind": "screen",
    "step": 317,
@@ -4173,23 +4173,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-questtour-Archeologist-50157018": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 27757,
-   "rngT": 27757,
-   "scrM": 928,
-   "scrT": 928,
-   "kind": null,
-   "step": null,
-   "steps": 928,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-questtour-Archeologist-50250094": {
    "src": "corpus",
    "passed": true,
@@ -4224,29 +4207,12 @@
    "jsTopline": "That was probably a bad idea... The wand misses it.--More--",
    "error": null
   },
-  "scen-questtour-Archeologist-50550094": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 40262,
-   "rngT": 40262,
-   "scrM": 790,
-   "scrT": 790,
-   "kind": null,
-   "step": null,
-   "steps": 790,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-questtour-Barbarian-50255416": {
    "src": "corpus",
    "passed": false,
-   "rngM": 19769,
+   "rngM": 24905,
    "rngT": 24905,
-   "scrM": 790,
+   "scrM": 899,
    "scrT": 900,
    "kind": "screen",
    "step": 774,
@@ -4343,23 +4309,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-questtour-Barbarian-50950094": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 32253,
-   "rngT": 32253,
-   "scrM": 1060,
-   "scrT": 1060,
-   "kind": null,
-   "step": null,
-   "steps": 1060,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-questtour-Caveman-50750030": {
    "src": "corpus",
    "passed": false,
@@ -4394,23 +4343,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-questtour-Knight-50650022": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 27383,
-   "rngT": 27383,
-   "scrM": 981,
-   "scrT": 981,
-   "kind": null,
-   "step": null,
-   "steps": 981,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-questtour-Monk-50557003": {
    "src": "corpus",
    "passed": false,
@@ -4426,23 +4358,6 @@
    "jsOwner": null,
    "cTopline": "The xorn hits again! The xorn bites! The earth elemental hits!",
    "jsTopline": "The xorn hits again! The xorn bites! The earth elemental hits!",
-   "error": null
-  },
-  "scen-questtour-Priest-50150014": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 34572,
-   "rngT": 34572,
-   "scrM": 973,
-   "scrT": 973,
-   "kind": null,
-   "step": null,
-   "steps": 973,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
    "error": null
   },
   "scen-questtour-Priest-50255403": {
@@ -4479,23 +4394,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-questtour-Ranger-50255420": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 66191,
-   "rngT": 66191,
-   "scrM": 635,
-   "scrT": 635,
-   "kind": null,
-   "step": null,
-   "steps": 635,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-questtour-Rogue-50150006": {
    "src": "corpus",
    "passed": true,
@@ -4506,57 +4404,6 @@
    "kind": null,
    "step": null,
    "steps": 1053,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-questtour-Rogue-50150062": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 72061,
-   "rngT": 72061,
-   "scrM": 1030,
-   "scrT": 1030,
-   "kind": null,
-   "step": null,
-   "steps": 1030,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-questtour-Wizard-50157029": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 24248,
-   "rngT": 24248,
-   "scrM": 847,
-   "scrT": 847,
-   "kind": null,
-   "step": null,
-   "steps": 847,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-questtour-Wizard-50650062": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 26769,
-   "rngT": 26769,
-   "scrM": 890,
-   "scrT": 890,
-   "kind": null,
-   "step": null,
-   "steps": 890,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -4802,23 +4649,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-shop-Barbarian-49959636": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 30582,
-   "rngT": 30582,
-   "scrM": 647,
-   "scrT": 647,
-   "kind": null,
-   "step": null,
-   "steps": 647,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-shop-Barbarian-49959646": {
    "src": "corpus",
    "passed": true,
@@ -4853,23 +4683,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-shop-Barbarian-50360029": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 47249,
-   "rngT": 47249,
-   "scrM": 756,
-   "scrT": 756,
-   "kind": null,
-   "step": null,
-   "steps": 756,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-shop-Barbarian-50555504": {
    "src": "corpus",
    "passed": true,
@@ -4887,23 +4700,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-shop-Caveman-49959531": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 50780,
-   "rngT": 50780,
-   "scrM": 582,
-   "scrT": 582,
-   "kind": null,
-   "step": null,
-   "steps": 582,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-shop-Caveman-49959611": {
    "src": "corpus",
    "passed": true,
@@ -4914,23 +4710,6 @@
    "kind": null,
    "step": null,
    "steps": 556,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-shop-Caveman-50455534": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 47726,
-   "rngT": 47726,
-   "scrM": 654,
-   "scrT": 654,
-   "kind": null,
-   "step": null,
-   "steps": 654,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -5159,23 +4938,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-shop-Ranger-49959624": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 60141,
-   "rngT": 60141,
-   "scrM": 705,
-   "scrT": 705,
-   "kind": null,
-   "step": null,
-   "steps": 705,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-shop-Ranger-50360013": {
    "src": "corpus",
    "passed": false,
@@ -5312,23 +5074,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-shop-Tourist-50057016": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 25543,
-   "rngT": 25543,
-   "scrM": 703,
-   "scrT": 703,
-   "kind": null,
-   "step": null,
-   "steps": 703,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-shop-Tourist-50159024": {
    "src": "corpus",
    "passed": false,
@@ -5380,23 +5125,6 @@
    "jsTopline": "That light brown spellbook is a small mimic!",
    "error": null
   },
-  "scen-shop-Valkyrie-50255719": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 25595,
-   "rngT": 25595,
-   "scrM": 693,
-   "scrT": 693,
-   "kind": null,
-   "step": null,
-   "steps": 693,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-shop-Valkyrie-50455535": {
    "src": "corpus",
    "passed": true,
@@ -5407,23 +5135,6 @@
    "kind": null,
    "step": null,
    "steps": 734,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-shop-Wizard-49959521": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 22573,
-   "rngT": 22573,
-   "scrM": 670,
-   "scrT": 670,
-   "kind": null,
-   "step": null,
-   "steps": 670,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -5445,23 +5156,6 @@
    "loc": "fountain.c:300",
    "jsOwner": null,
    "cTopline": "The water is contaminated!--More--",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-shop-Wizard-50455537": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 42055,
-   "rngT": 42055,
-   "scrM": 737,
-   "scrT": 737,
-   "kind": null,
-   "step": null,
-   "steps": 737,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
    "jsTopline": "",
    "error": null
   },
@@ -5866,23 +5560,6 @@
    "kind": null,
    "step": null,
    "steps": 1029,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-sweep-Archeologist-50055100": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 53148,
-   "rngT": 53148,
-   "scrM": 1692,
-   "scrT": 1692,
-   "kind": null,
-   "step": null,
-   "steps": 1692,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -7270,9 +6947,9 @@
   "scen-sweep-Knight-50055042": {
    "src": "corpus",
    "passed": false,
-   "rngM": 36602,
+   "rngM": 36840,
    "rngT": 36840,
-   "scrM": 1758,
+   "scrM": 1771,
    "scrT": 1772,
    "kind": "screen",
    "step": 588,
@@ -7690,23 +7367,6 @@
    "jsOwner": null,
    "cTopline": "You start digging downward. You dig a pit in the floor.",
    "jsTopline": "You start digging downward. You dig a pit in the floor.",
-   "error": null
-  },
-  "scen-sweep-Monk-50362016": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 24060,
-   "rngT": 24060,
-   "scrM": 927,
-   "scrT": 927,
-   "kind": null,
-   "step": null,
-   "steps": 927,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
    "error": null
   },
   "scen-sweep-Monk-50456005": {
@@ -8146,7 +7806,7 @@
    "steps": 1279,
    "owner": "pleased",
    "loc": "pray.c:1126",
-   "jsOwner": "pleased(pray.js:1452)",
+   "jsOwner": "pleased(pray.js:1456)",
    "cTopline": "You finish your prayer. You feel that Mars is pleased.",
    "jsTopline": "You finish your prayer. You feel that Mars is pleased.",
    "error": null
@@ -9669,7 +9329,7 @@
    "passed": false,
    "rngM": 36337,
    "rngT": 36337,
-   "scrM": 532,
+   "scrM": 833,
    "scrT": 835,
    "kind": "screen",
    "step": 363,
@@ -9919,23 +9579,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-symset-Barbarian-50450087": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 8322,
-   "rngT": 8322,
-   "scrM": 712,
-   "scrT": 712,
-   "kind": null,
-   "step": null,
-   "steps": 712,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Barbarian-50950079": {
    "src": "corpus",
    "passed": true,
@@ -10004,23 +9647,6 @@
    "jsTopline": "Weapons",
    "error": null
   },
-  "scen-symset-Caveman-50555043": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 12566,
-   "rngT": 12566,
-   "scrM": 828,
-   "scrT": 828,
-   "kind": null,
-   "step": null,
-   "steps": 828,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Healer-50059079": {
    "src": "corpus",
    "passed": false,
@@ -10048,23 +9674,6 @@
    "kind": null,
    "step": null,
    "steps": 773,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-symset-Healer-50155049": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 16940,
-   "rngT": 16940,
-   "scrM": 703,
-   "scrT": 703,
-   "kind": null,
-   "step": null,
-   "steps": 703,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -10463,23 +10072,6 @@
    "jsTopline": "wall",
    "error": null
   },
-  "scen-symset-Ranger-50455068": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 10043,
-   "rngT": 10043,
-   "scrM": 896,
-   "scrT": 896,
-   "kind": null,
-   "step": null,
-   "steps": 896,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Ranger-50555006": {
    "src": "corpus",
    "passed": false,
@@ -10492,23 +10084,6 @@
    "steps": 998,
    "owner": "optfn_videocolors",
    "loc": "options.c:4560",
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-symset-Ranger-50555014": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 10206,
-   "rngT": 10206,
-   "scrM": 848,
-   "scrT": 848,
-   "kind": null,
-   "step": null,
-   "steps": 848,
-   "owner": null,
-   "loc": null,
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
@@ -10546,23 +10121,6 @@
    "jsOwner": null,
    "cTopline": "Weapons",
    "jsTopline": "Weapons",
-   "error": null
-  },
-  "scen-symset-Rogue-50359039": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 16471,
-   "rngT": 16471,
-   "scrM": 550,
-   "scrT": 550,
-   "kind": null,
-   "step": null,
-   "steps": 550,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
    "error": null
   },
   "scen-symset-Rogue-50455062": {
@@ -10643,23 +10201,6 @@
    "kind": null,
    "step": null,
    "steps": 968,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-symset-Tourist-50059066": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 10585,
-   "rngT": 10585,
-   "scrM": 443,
-   "scrT": 443,
-   "kind": null,
-   "step": null,
-   "steps": 443,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -10830,23 +10371,6 @@
    "kind": null,
    "step": null,
    "steps": 570,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-symset-Wizard-50155014": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 15775,
-   "rngT": 15775,
-   "scrM": 948,
-   "scrT": 948,
-   "kind": null,
-   "step": null,
-   "steps": 948,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -11340,23 +10864,6 @@
    "kind": null,
    "step": null,
    "steps": 281,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-town-Priest-51051022": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 12397,
-   "rngT": 12397,
-   "scrM": 285,
-   "scrT": 285,
-   "kind": null,
-   "step": null,
-   "steps": 285,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -13385,7 +12892,8 @@
    "jsOwner": null,
    "cTopline": "The Wizard of Yendor casts a spell at you! You suddenly feel weaker!--More--",
    "jsTopline": "The Wizard of Yendor casts a spell at you! You suddenly feel weaker!--More--",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-worldtour-Tourist-578104": {
    "src": "corpus",
@@ -14577,23 +14085,6 @@
    "jsTopline": "The Dungeons of Doom: levels 1 to 6",
    "error": null
   },
-  "scen-zapfest-Priest-50161001": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 20121,
-   "rngT": 20121,
-   "scrM": 715,
-   "scrT": 715,
-   "kind": null,
-   "step": null,
-   "steps": 715,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-zapfest-Priest-50161019": {
    "src": "corpus",
    "passed": true,
@@ -15135,8 +14626,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Archeologist-51257000": {
    "src": "corpus",
@@ -15171,8 +14661,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Archeologist-51257048": {
    "src": "corpus",
@@ -15225,8 +14714,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Barbarian-51256016": {
    "src": "corpus",
@@ -15243,8 +14731,7 @@
    "jsOwner": "get_lua_version_shuffle(pager.js:154)",
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Barbarian-51257002": {
    "src": "corpus",
@@ -15261,8 +14748,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Barbarian-51257038": {
    "src": "corpus",
@@ -15279,8 +14765,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Caveman-51256005": {
    "src": "corpus",
@@ -15297,8 +14782,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Caveman-51256008": {
    "src": "corpus",
@@ -15315,15 +14799,14 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Caveman-51257007": {
    "src": "corpus",
    "passed": false,
    "rngM": 17343,
    "rngT": 17343,
-   "scrM": 1035,
+   "scrM": 1073,
    "scrT": 1077,
    "kind": "screen",
    "step": 488,
@@ -15341,7 +14824,7 @@
    "passed": false,
    "rngM": 13413,
    "rngT": 13413,
-   "scrM": 921,
+   "scrM": 940,
    "scrT": 941,
    "kind": "screen",
    "step": 268,
@@ -15369,8 +14852,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Healer-51256009": {
    "src": "corpus",
@@ -15405,8 +14887,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Healer-51256018": {
    "src": "corpus",
@@ -15423,8 +14904,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Healer-51256019": {
    "src": "corpus",
@@ -15441,8 +14921,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Healer-51257014": {
    "src": "corpus",
@@ -15459,8 +14938,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Healer-51257034": {
    "src": "corpus",
@@ -15477,8 +14955,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Healer-51257041": {
    "src": "corpus",
@@ -15495,8 +14972,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Healer-51257045": {
    "src": "corpus",
@@ -15513,8 +14989,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Healer-51257052": {
    "src": "corpus",
@@ -15531,8 +15006,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Knight-51257043": {
    "src": "corpus",
@@ -15549,8 +15023,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Knight-51257056": {
    "src": "corpus",
@@ -15567,8 +15040,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Knight-51257063": {
    "src": "corpus",
@@ -15585,15 +15057,14 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Monk-51257013": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4395,
+   "rngM": 5282,
    "rngT": 5282,
-   "scrM": 548,
+   "scrM": 809,
    "scrT": 810,
    "kind": "screen",
    "step": 368,
@@ -15621,8 +15092,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Monk-51257049": {
    "src": "corpus",
@@ -15639,8 +15109,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Monk-51257064": {
    "src": "corpus",
@@ -15657,8 +15126,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Monk-51257071": {
    "src": "corpus",
@@ -15675,8 +15143,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Priest-51256014": {
    "src": "corpus",
@@ -15711,8 +15178,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Priest-51257020": {
    "src": "corpus",
@@ -15729,8 +15195,7 @@
    "jsOwner": "distfleeck(monmove.js:1180)",
    "cTopline": "You hear a door open. The grid bug misses! The grid bug misses!",
    "jsTopline": "The grid bug bites! You get zapped!",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Priest-51257036": {
    "src": "corpus",
@@ -15747,8 +15212,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Priest-51257057": {
    "src": "corpus",
@@ -15765,8 +15229,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Priest-51257059": {
    "src": "corpus",
@@ -15783,8 +15246,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Priest-51257070": {
    "src": "corpus",
@@ -15801,8 +15263,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Ranger-51256017": {
    "src": "corpus",
@@ -15819,8 +15280,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Ranger-51257010": {
    "src": "corpus",
@@ -15837,8 +15297,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Ranger-51257016": {
    "src": "corpus",
@@ -15855,8 +15314,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Ranger-51257021": {
    "src": "corpus",
@@ -15891,8 +15349,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Ranger-51257027": {
    "src": "corpus",
@@ -15909,8 +15366,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Ranger-51257037": {
    "src": "corpus",
@@ -15927,15 +15383,14 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Ranger-51257042": {
    "src": "corpus",
    "passed": false,
    "rngM": 6751,
    "rngT": 6751,
-   "scrM": 747,
+   "scrM": 766,
    "scrT": 771,
    "kind": "screen",
    "step": 373,
@@ -15963,8 +15418,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Ranger-51257069": {
    "src": "corpus",
@@ -15981,15 +15435,14 @@
    "jsOwner": null,
    "cTopline": "Do what with the arrows?",
    "jsTopline": "Do what with the arrows?",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Ranger-51257077": {
    "src": "corpus",
    "passed": false,
    "rngM": 15240,
    "rngT": 15240,
-   "scrM": 691,
+   "scrM": 710,
    "scrT": 712,
    "kind": "screen",
    "step": 461,
@@ -15999,8 +15452,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "Where do you want to travel to? (For instructions type a '?')",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Rogue-51256002": {
    "src": "corpus",
@@ -16017,15 +15469,14 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Rogue-51256003": {
    "src": "corpus",
    "passed": false,
    "rngM": 21140,
    "rngT": 21140,
-   "scrM": 787,
+   "scrM": 806,
    "scrT": 810,
    "kind": "screen",
    "step": 466,
@@ -16035,8 +15486,7 @@
    "jsOwner": null,
    "cTopline": "You try to ooze under the door, but can't squeeze your possessions through.",
    "jsTopline": "Ouch! You bump into a door.",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Rogue-51256013": {
    "src": "corpus",
@@ -16053,8 +15503,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Rogue-51257005": {
    "src": "corpus",
@@ -16071,8 +15520,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Rogue-51257009": {
    "src": "corpus",
@@ -16089,8 +15537,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Rogue-51257033": {
    "src": "corpus",
@@ -16143,8 +15590,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Rogue-51257079": {
    "src": "corpus",
@@ -16161,8 +15607,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Samurai-51256012": {
    "src": "corpus",
@@ -16179,8 +15624,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Samurai-51257003": {
    "src": "corpus",
@@ -16197,8 +15641,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Samurai-51257022": {
    "src": "corpus",
@@ -16233,8 +15676,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Samurai-51257030": {
    "src": "corpus",
@@ -16251,8 +15693,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Samurai-51257032": {
    "src": "corpus",
@@ -16269,15 +15710,14 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Samurai-51257046": {
    "src": "corpus",
    "passed": false,
    "rngM": 3940,
    "rngT": 5732,
-   "scrM": 497,
+   "scrM": 533,
    "scrT": 1144,
    "kind": "screen",
    "step": 493,
@@ -16305,8 +15745,7 @@
    "jsOwner": "maybe_generate_rnd_mon(allmain.js:401)",
    "cTopline": "This tepid water is tasteless.",
    "jsTopline": "This water gives you bad breath!",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Samurai-51257050": {
    "src": "corpus",
@@ -16323,8 +15762,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Tourist-51256004": {
    "src": "corpus",
@@ -16341,8 +15779,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Tourist-51257025": {
    "src": "corpus",
@@ -16359,8 +15796,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Tourist-51257053": {
    "src": "corpus",
@@ -16377,8 +15813,7 @@
    "jsOwner": null,
    "cTopline": "46: gained experience level 13",
    "jsTopline": "46: gained experience level 13",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Tourist-51257055": {
    "src": "corpus",
@@ -16395,8 +15830,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Tourist-51257060": {
    "src": "corpus",
@@ -16413,8 +15847,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Tourist-51257074": {
    "src": "corpus",
@@ -16431,8 +15864,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Tourist-51257075": {
    "src": "corpus",
@@ -16467,8 +15899,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Valkyrie-51257001": {
    "src": "corpus",
@@ -16485,8 +15916,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Valkyrie-51257015": {
    "src": "corpus",
@@ -16503,8 +15933,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Valkyrie-51257019": {
    "src": "corpus",
@@ -16521,8 +15950,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Valkyrie-51257028": {
    "src": "corpus",
@@ -16539,8 +15967,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Valkyrie-51257035": {
    "src": "corpus",
@@ -16557,8 +15984,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Valkyrie-51257044": {
    "src": "corpus",
@@ -16575,8 +16001,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Valkyrie-51257067": {
    "src": "corpus",
@@ -16593,8 +16018,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Valkyrie-51257068": {
    "src": "corpus",
@@ -16611,8 +16035,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Valkyrie-51257078": {
    "src": "corpus",
@@ -16629,8 +16052,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Wizard-51257012": {
    "src": "corpus",
@@ -16647,8 +16069,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Wizard-51257023": {
    "src": "corpus",
@@ -16665,8 +16086,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Wizard-51257031": {
    "src": "corpus",
@@ -16683,8 +16103,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Wizard-51257054": {
    "src": "corpus",
@@ -16701,8 +16120,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Wizard-51257058": {
    "src": "corpus",
@@ -16719,8 +16137,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-hallu-Valkyrie-51255008": {
    "src": "corpus",
@@ -17012,21 +16429,20 @@
   },
   "scen-shop-Archeologist-50650085": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 40898,
+   "passed": true,
+   "rngM": 63471,
    "rngT": 63471,
-   "scrM": 506,
+   "scrM": 842,
    "scrT": 842,
-   "kind": "screen",
-   "step": 499,
+   "kind": null,
+   "step": null,
    "steps": 842,
    "owner": null,
    "loc": null,
    "jsOwner": null,
    "cTopline": "",
-   "jsTopline": "You lash the werejackal. The werejackal changes into a jackal.--More--",
-   "error": null,
-   "tier": "reserve"
+   "jsTopline": "",
+   "error": null
   },
   "scen-shop-Barbarian-49959620": {
    "src": "corpus",
@@ -17048,21 +16464,20 @@
   },
   "scen-shop-Barbarian-49959621": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 57901,
+   "passed": true,
+   "rngM": 63768,
    "rngT": 63768,
-   "scrM": 684,
+   "scrM": 836,
    "scrT": 836,
-   "kind": "screen",
-   "step": 684,
+   "kind": null,
+   "step": null,
    "steps": 836,
    "owner": null,
    "loc": null,
    "jsOwner": null,
    "cTopline": "",
-   "jsTopline": "You miss the gnome lady. The dwarf throws a knife!--More--",
-   "error": null,
-   "tier": "reserve"
+   "jsTopline": "",
+   "error": null
   },
   "scen-shop-Barbarian-50350053": {
    "src": "corpus",
@@ -17084,39 +16499,37 @@
   },
   "scen-shop-Barbarian-50360010": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 18164,
+   "passed": true,
+   "rngM": 28599,
    "rngT": 28599,
-   "scrM": 409,
+   "scrM": 817,
    "scrT": 817,
-   "kind": "screen",
-   "step": 409,
+   "kind": null,
+   "step": null,
    "steps": 817,
    "owner": null,
    "loc": null,
    "jsOwner": null,
    "cTopline": "",
-   "jsTopline": "You kill the gnome!",
-   "error": null,
-   "tier": "reserve"
+   "jsTopline": "",
+   "error": null
   },
   "scen-shop-Barbarian-50550069": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 19663,
+   "passed": true,
+   "rngM": 29781,
    "rngT": 29781,
-   "scrM": 460,
+   "scrM": 854,
    "scrT": 854,
-   "kind": "screen",
-   "step": 455,
+   "kind": null,
+   "step": null,
    "steps": 854,
    "owner": null,
    "loc": null,
    "jsOwner": null,
    "cTopline": "",
-   "jsTopline": "You smite the gnome lord!",
-   "error": null,
-   "tier": "reserve"
+   "jsTopline": "",
+   "error": null
   },
   "scen-shop-Barbarian-51150021": {
    "src": "corpus",
@@ -21714,5 +21127,7 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "archivedAt": "2026-10-16T22:36:43.325Z",
+ "tieredAt": "2026-10-16T22:37:30.955Z"
 }

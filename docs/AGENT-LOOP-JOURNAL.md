@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — audit 2875–2882 @5ce1212e7: review D-4034..D-4041 (8A/0D/0Q, 0 Must-fix) + full rescore 654/1225 (0 PASS→FAIL)
+
+**Reviews:** 2875 make_vomiting mirror (potion.c:242-255, exact 2+0+0+0) · 2876 teleds newsym delete (teleport.c:536 + vision.c:850, exact 1+1+0+0) · 2877 door-arm HStun reads (hack.c:1100-1102/:1113-1114, exact 1+0+0+0) · 2878 Unchanging canonical (youprop.h:372, exact 0+1+0+0) · 2879 doname_base override_ID (objnam.c:632-639, 36+15 superset via D-4039, 0 worse) · 2880 history extcmd (cmd.c:1738-1739, exact 69+14+0+0) · 2881 bhitm nothing/knock (zap.c, exact 1+1+1+0) · 2882 revive makemon tail (makemon.c:1472-1507 + zap.c:1034-1049, exact 3+1+0+0). Every re-measure re-ran HEAD code with --no-reach; all D-log movement lines confirmed (2879 strictly better on HEAD). No C-wrongs, no queue prepends.
+**Score:** sessions 44/44 (RNG 792838/792838, screens 11405/11405, 394+1.80/turn R² 0.81) · held-out 32/44 unchanged (judge 19:19Z, window unjudged) · board full rescore 654/1225, 0 PASS→FAIL, 4 new PASS, 30 archived, unrecorded 0, RNG 96.9 % screens 93.6 %, tier 842+294+5017 (1 out, 78 back), full:true @5ce1212e7. Ledger snapshot appended; 5 ported rows sampled via JSONL (node 20 lacks node:sqlite for ledger.mjs sql) — all live, no set needed.
+**Next:** pop the regenerated cliffs head; Must-fix empty.
 ## 2026-10-16 — D-4041 revive_corpse/3 writer: zap.c revive never awaited makemon's deferred in-body appear+dochugw (stop printed after "rises" + troll attack; 3 PASS + shop-arm PASS)
 
 **C locus:** zap.c revive :883–1120 (makemon :985/:1008 with NO_MINVENT|MM_NOWAIT|MM_NOMSG[+gender][+MM_NOCOUNTBIRTH]); makemon.c :1472–1507 in-body — newsym :1473, Norep gated by MM_NOMSG :1474–1501, `if (go.occupation) dochugw(mtmp, FALSE)` :1502–1504 (outside the gate — fires under NOMSG); by_hero shop arm zap.c :1026–1062 (shk_your :1042 incl. shk_owns :5885–5898, corpse_xname CXN_NO_PFX :1045, stolen_value :1056–1058); montraits zap.c :713–827 (makemon :727 with MM_NOMSG).

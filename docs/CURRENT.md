@@ -22,20 +22,20 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-16** — full `sessions` on `6aed804b1`
-(audit **2868–2874**). Fortress **44/44** (no throws; aggregates in the table).
+Score last measured: **2026-10-16** — full `sessions` on `5ce1212e7`
+(audit **2875–2882**). Fortress **44/44** (no throws; aggregates in the table).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-16 13:26Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** (window unjudged) |
+| **Held-out (judge 2026-10-16 19:19Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** (unchanged; window unjudged) |
 | **Fresh cohort (§10.20, scored on arrival)** | 51250000 ×160 @`b608a104e`: **149/159 (93.7 %)**, RNG 99.7 %, screens 98.1 % — impaired 1/2, symset 8/12 worst; sweep/worldtour 10/12; zapfest 11/12; chain/shop/questtour/trek 12/12 + rest 100 % |
-| **Corpus board (worked, regression fortress)** | full rescore 2026-10-16 (audit 2868–2874): **592/1144** (**0 PASS→FAIL**, 18 healed+archived, 27 archived, `unrecorded` 0; RNG 96.2 %, screens 92.4 %); `tier` → **850 + 282 + 4819** (5 out, 19 back) |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-16 (audit 2875–2882): **654/1225** (**0 PASS→FAIL**, 4 new PASS, 30 archived, `unrecorded` 0; RNG 96.9 %, screens 93.6 %); `tier` → **842 + 294 + 5017** (1 out, 78 back) |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `400+1.79/turn` (R² 0.80) |
+| Speed label | `394+1.80/turn` (R² 0.81) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
@@ -56,7 +56,7 @@ calibration fired: `hallu` 18/20 not-held-out-like, `extcmd` 0/20 added
 Worst families `scen-zapfest` 8/20, `scen-symset` 29/210, `scen-shop` 25/79,
 `scen-questtour` 18/25, `scen-worldtour` 68/155, `scen-sweep` 149/268,
 `scen-extcmd` 0/99 (new), rest ≥ 96.9 % RNG.
-Reviews 1225–2874 (index; no row 1618): 1474 ACCEPT, 64 WITH-DEBT, 111 QUALITY-RISK (2868–2874: 7A/0D/0Q, 0 Must-fix).
+Reviews 1225–2882 (index; no row 1618): 1482 ACCEPT, 64 WITH-DEBT, 111 QUALITY-RISK (2875–2882: 8A/0D/0Q, 0 Must-fix).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
 Full rescore (audit only, §10.21): `record` + unfiltered `score` (active tier) + `archive` (+ quota), committed `full: true`; needs the C recorder.
@@ -148,7 +148,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** (this): revive_corpse/3 — writer = zap.c revive: JS never awaits makemon's deferred in-body appear+dochugw(FALSE) (makemon.c:1502-1504), so C's in-timers stop-occupation prints after "rises" + troll attack. Await makemon_appear_msg in revive's makemon arms; verify revive_corpse movement + REACH.
+**Next:** Must-fix empty (audit 2875–2882). Cliffs head is unattributed symset/sweep rows (triage D-4016 dupe-rc kin + D-4028 kin first-hand per precedent); first owned row is `artifact.c` arti_invoke (3 blocks, rn2(1000)@arti_invoke vs rn2(5)@drop_upon_death; history D-2805).
 
 ## Parked (diagnose only)
 
