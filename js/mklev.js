@@ -28322,7 +28322,8 @@ function hellfill_style_maze_wt1() {
 
 /**
  * hellfill.lua hells[4] — maze + iron bars / lava wall replace.
- * Named omit: horiz iron-bar floor replace.
+ * The cwid==1 horiz iron-bar floor replace (:366) runs the live whole
+ * lspo_replace_terrain (D-4033).
  */
 function hellfill_style_maze_wall_replace() {
     const cwid = lua_random2(1, 4); // math.random(4)
@@ -28344,9 +28345,11 @@ function hellfill_style_maze_wall_replace() {
     hellfill_replace_terrain_all(MATCH_WALL, wallterrain[0], 100);
     if (cwid === 1) {
         if (wallterrain[0] === IRONBARS && percent(80)) {
-            // replace some horizontal iron bars — named omission envelope
+            // hellfill.lua:366 — replace some horizontal iron bars walls
+            // with floor (chance = 25 * math.random(4) burns before the
+            // call, like the lua table constructor; D-4033).
             const chance = 25 * lua_random2(1, 4);
-            void chance;
+            lspo_replace_terrain({ mapfragment: '.\nF\n.', toterrain: '.', chance });
         } else if (percent(25)) { // hellfill.lua:367-369 (D-4019)
             hellfill_rnd_hell_prefab(false);
         }
