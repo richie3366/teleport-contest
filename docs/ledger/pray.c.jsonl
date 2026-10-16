@@ -1,9 +1,9 @@
 {"fn":"critically_low_hp","c":"116-156","status":"ported","js":["js/pray.js:critically_low_hp"],"at":"2026-10-03@bbe63333a"}
 {"fn":"stuck_in_wall","c":"161-181","status":"ported","js":["js/pray.js:stuck_in_wall"],"at":"2026-10-03@bbe63333a"}
-{"fn":"in_trouble","c":"198-284","status":"ported","js":["js/pray.js:in_trouble"],"d":["D-3838","D-3429"],"at":"2026-10-11@9aa67c471"}
+{"fn":"in_trouble","c":"198-284","status":"ported","js":["js/pray.js:in_trouble"],"d":["D-4037","D-3838","D-3429"],"at":"2026-10-16@47ef59f73"}
 {"fn":"worst_cursed_item","c":"288-346","status":"ported","js":["js/pray.js:worst_cursed_item"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fix_curse_trouble","c":"349-370","status":"ported","js":["js/pray.js:fix_curse_trouble"],"d":["D-3095"],"at":"2026-09-29@9fca9cdda"}
-{"fn":"fix_worst_trouble","c":"373-600","status":"ported","js":["js/pray.js:fix_worst_trouble"],"d":["D-3915"],"at":"2026-10-13@62b25e99c","note":"audit 2026-10-03: impossible() debug diagnostic for uncured hands omitted"}
+{"fn":"fix_worst_trouble","c":"373-600","status":"ported","js":["js/pray.js:fix_worst_trouble"],"d":["D-4037","D-3915"],"at":"2026-10-16@47ef59f73","note":"audit 2026-10-03: impossible() debug diagnostic for uncured hands omitted"}
 {"fn":"god_zaps_you","c":"610-691","status":"ported","js":["js/pray.js:god_zaps_you"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: gameover gates mirror C done()-returns fall-through"}
 {"fn":"fry_by_god","c":"694-701","status":"ported","js":["js/pray.js:fry_by_god"],"at":"2026-10-03@bbe63333a"}
 {"fn":"angrygods","c":"704-784","status":"ported","js":["js/pray.js:angrygods"],"d":["D-3994","D-3732","D-2332"],"at":"2026-10-15@384c02413"}
