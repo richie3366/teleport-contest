@@ -1,7 +1,7 @@
 {
- "commit": "d9747bd2c",
- "at": "2026-10-16T05:05:03.087Z",
- "full": true,
+ "commit": "b49276bf8",
+ "at": "2026-10-16T05:34:58.344Z",
+ "full": false,
  "fullCommit": "d9747bd2c",
  "fullAt": "2026-10-16T05:05:03.087Z",
  "entries": 1159,
@@ -5635,6 +5635,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-sweep-Archeologist-50255234": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 15122,
+   "rngT": 15122,
+   "scrM": 1443,
+   "scrT": 1443,
+   "kind": null,
+   "step": null,
+   "steps": 1443,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
   "scen-sweep-Archeologist-50255246": {
    "src": "corpus",
    "passed": true,
@@ -6075,6 +6092,23 @@
    "jsOwner": null,
    "cTopline": "It is suddenly very cold! It dies! Maybe not... It bites!--More--",
    "jsTopline": "It is suddenly very cold! It dies! Maybe not... It bites again!--More--",
+   "error": null
+  },
+  "scen-sweep-Barbarian-50750065": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 18405,
+   "rngT": 25326,
+   "scrM": 828,
+   "scrT": 1568,
+   "kind": "screen",
+   "step": 828,
+   "steps": 1568,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-sweep-Barbarian-582613": {
@@ -7624,6 +7658,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-sweep-Priest-50350049": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 106123,
+   "rngT": 106123,
+   "scrM": 1607,
+   "scrT": 1607,
+   "kind": null,
+   "step": null,
+   "steps": 1607,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
   "scen-sweep-Priest-50456019": {
    "src": "corpus",
    "passed": false,
@@ -8404,6 +8455,23 @@
    "jsOwner": null,
    "cTopline": "Your constitution was 18 (limit:18).",
    "jsTopline": "Your constitution was 18 (limit:18).",
+   "error": null
+  },
+  "scen-sweep-Samurai-50055053": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 16368,
+   "rngT": 16368,
+   "scrM": 1449,
+   "scrT": 1449,
+   "kind": null,
+   "step": null,
+   "steps": 1449,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-sweep-Samurai-50055059": {
@@ -12420,19 +12488,19 @@
   },
   "scen-worldtour-Barbarian-49955016": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 33932,
    "rngT": 33932,
-   "scrM": 913,
+   "scrM": 929,
    "scrT": 929,
-   "kind": "screen",
-   "step": 594,
+   "kind": null,
+   "step": null,
    "steps": 929,
-   "owner": "do_attack",
-   "loc": "uhitm.c:543",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You begin bashing monsters with your war hammer named Mjollnir.--More--",
-   "jsTopline": "The massive hammer hits the guardian Angel of Crom.--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-worldtour-Barbarian-49955028": {
@@ -13100,19 +13168,19 @@
   },
   "scen-worldtour-Rogue-578132": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 50797,
    "rngT": 50797,
-   "scrM": 1066,
+   "scrM": 1070,
    "scrT": 1070,
-   "kind": "screen",
-   "step": 984,
+   "kind": null,
+   "step": null,
    "steps": 1070,
-   "owner": "do_attack",
-   "loc": "uhitm.c:543",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You begin bashing monsters with your bullwhip. You miss it. It hits!--More--",
-   "jsTopline": "You miss it. It hits! It hits!--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-worldtour-Samurai-50358025": {
@@ -16154,23 +16222,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-sweep-Archeologist-50255234": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 15122,
-   "rngT": 15122,
-   "scrM": 1443,
-   "scrT": 1443,
-   "kind": null,
-   "step": null,
-   "steps": 1443,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-sweep-Barbarian-50055075": {
    "src": "corpus",
    "passed": false,
@@ -16260,23 +16311,6 @@
    "jsTopline": "(For instructions type a '?') Move cursor to anything of interest:",
    "error": null,
    "tier": "reserve"
-  },
-  "scen-sweep-Barbarian-50750065": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 18405,
-   "rngT": 25326,
-   "scrM": 828,
-   "scrT": 1568,
-   "kind": "screen",
-   "step": 828,
-   "steps": 1568,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
   },
   "scen-sweep-Barbarian-582716": {
    "src": "corpus",
@@ -16494,23 +16528,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-sweep-Priest-50350049": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 106123,
-   "rngT": 106123,
-   "scrM": 1607,
-   "scrT": 1607,
-   "kind": null,
-   "step": null,
-   "steps": 1607,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-sweep-Priest-50362007": {
    "src": "corpus",
    "passed": false,
@@ -16636,23 +16653,6 @@
    "jsTopline": "As you read the scroll, it disappears. Your hands begin to glow red.--More--",
    "error": null,
    "tier": "reserve"
-  },
-  "scen-sweep-Samurai-50055053": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 16368,
-   "rngT": 16368,
-   "scrM": 1449,
-   "scrT": 1449,
-   "kind": null,
-   "step": null,
-   "steps": 1449,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
   },
   "scen-sweep-Samurai-50255256": {
    "src": "corpus",
@@ -19990,7 +19990,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "archivedAt": "2026-10-16T05:05:20.305Z",
- "tieredAt": "2026-10-16T05:05:30.214Z"
+ }
 }
