@@ -217,6 +217,7 @@ rows now (`ledger.mjs set … --note "stale: …"`), not Parked lines.
 
 ### Diagnosed / misattributed / symptom owners (writer leads inside)
 
+- `cfgfiles.c` dupe-rc s0 (18 symset) — TOOLING-ENV 2026-10-16 (D-4016). Generator dupes msg_window; C pre-window raw_prints error + tmp path; recorder scrapes it as step 0. Falsifier: one of the 18 with a step-0 screen lacking the tmp path.
 - `pager.c` do_screen_description travel — SUPERSEDED D-3962 (D-3961 never-arrived refuted: C descends s21; writer was C0 emit-visibility + pile-inverse scope, row healed 5/5). Do not re-chase travel-blocking/pathing for this owner.
 - `do_statusline2` T+1 (12 shop) — DIAGNOSED D-3939 (C 2 rounds@553 moves 92 stale T:91; JS freshens@menu-open). Falsifier: gate menu-path freshen → verify do_statusline2 PASS; or C dump moves=91 re-queues round-trigger.
 - `do.c` flooreffects Healer s632 — SYMPTOM 2026-10-11 (D-3843). Temp-C fmon dump 14/14 identical; C holds paint+message behind --More--/gbuf, JS paints through (architectural). Falsifier: JS-633 flow topline (then canseemon ports) or a hold/buffer design moving `verify flooreffects`.
