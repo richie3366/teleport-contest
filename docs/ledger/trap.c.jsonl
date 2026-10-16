@@ -51,7 +51,7 @@
 {"fn":"force_launch_placement","c":"3244-3250","status":"ported","js":["js/trap.js:force_launch_placement"],"at":"2026-10-03@bbe63333a"}
 {"fn":"launch_obj","c":"3260-3575","status":"ported","js":["js/trap.js:launch_obj"],"d":["D-3428","D-3426","D-2330"],"at":"2026-10-04@e5a696ba4"}
 {"fn":"seetrap","c":"3578-3584","status":"ported","js":["js/trap.js:seetrap"],"at":"2026-10-03@bbe63333a"}
-{"fn":"feeltrap","c":"3588-3594","status":"ported","js":["js/trap.js:feeltrap"],"at":"2026-10-03@bbe63333a"}
+{"fn":"feeltrap","c":"3588-3594","status":"ported","js":["js/trap.js:feeltrap"],"d":["D-4008"],"at":"2026-10-16@39042e5a8"}
 {"fn":"find_random_launch_coord","c":"3599-3656","status":"ported","js":["js/trap.js:find_random_launch_coord"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: launchplace early path dead in both (no launchfrom in levels)"}
 {"fn":"mkroll_launch","c":"3659-3692","status":"ported","js":["js/trap.js:mkroll_launch"],"at":"2026-10-03@bbe63333a"}
 {"fn":"isclearpath","c":"3695-3722","status":"ported","js":["js/trap.js:isclearpath"],"at":"2026-10-03@bbe63333a"}
