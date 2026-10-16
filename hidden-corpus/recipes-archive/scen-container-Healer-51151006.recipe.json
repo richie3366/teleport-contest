@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed bag of holding\n\u0017sack\n\u0017ice box\n\u0017potion of polymorph\n\u0017ring of adornment\n\u0017wand of undead turning\n\u0017skeleton key\ndkaq..ss#loot\nb\nr\nc\ny \u0017credit card\ndlas.s.sm.  n #loot\na\no\n  yy\u001by  y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 51151006,
+   "datetime": "20261217101825",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed bag of holding\n\u0017sack\n\u0017ice box\n\u0017potion of polymorph\n\u0017ring of adornment\n\u0017wand of undead turning\n\u0017skeleton key\ndkaq..ss#loot\nb\nr\nc\ny \u0017credit card\ndlas.s.sm.  n #loot\na\no\n  yy\u001by  y y\u001by  \u0017"
+  }
+ ]
+}

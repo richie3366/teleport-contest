@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  al \u0014#ride\njzcu#turn\ne20s;. \u001b,i\u001bZa\nPdl#untrap\nulrh #rub\n;m,__,srl yy ,\u0004h#untrap\nj#turn\nHu#loot\ni\u001bam\u001bri W\u001b20ss20sqfPe .sswa..sXw-#enhance\n\u001bzcysL #twoweapon\n"
+ },
+ "segments": [
+  {
+   "seed": 51152024,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\n",
+   "moves": "  al \u0014#ride\njzcu#turn\ne20s;. \u001b,i\u001bZa\nPdl#untrap\nulrh #rub\n;m,__,srl yy ,\u0004h#untrap\nj#turn\nHu#loot\ni\u001bam\u001bri W\u001b20ss20sqfPe .sswa..sXw-#enhance\n\u001bzcysL #twoweapon\n"
+  }
+ ]
+}

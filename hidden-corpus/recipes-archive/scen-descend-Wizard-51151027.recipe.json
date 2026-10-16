@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Y YLL_ \u001b:>JKJN_>.>NUUH_>.>BHUK_>.>#loot\n#pray\ny <NLJN_>,>\u000f\u001bKUJY_>,>FlFl sJLJY_>.>#invoke\n\u001b#jump\n<nyYHYL_>.>#monster\n\u0004k<yy\u001bny ny\u001b B"
+ },
+ "segments": [
+  {
+   "seed": 51151027,
+   "datetime": "20201023103429",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=autodig\nOPTIONS=playmode:explore\n",
+   "moves": "Y YLL_ \u001b:>JKJN_>.>NUUH_>.>BHUK_>.>#loot\n#pray\ny <NLJN_>,>\u000f\u001bKUJY_>,>FlFl sJLJY_>.>#invoke\n\u001b#jump\n<nyYHYL_>.>#monster\n\u0004k<yy\u001bny ny\u001b B"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                    \u0017blessed +3 speed boots\nWp\u0017blessed amulet of life saving\nPq\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0016?\ne_ \u001b>.>\u00166\n__.<s20ss\u00166\n#chat\nj;<.\u0016?\n>>P _<.>.s\u001641\n\u0014,,\u0016?\n>>K     tin whistle\nlb   n:\u0016?\n\u001byu \u001641\n\u0007brown mold\nssm.sl .h     n 20s     n   sm.     \u0007shopkeeper\ny;n:  sm.     n   sm.      n 20s     \u00165\n\u00166\nh        nu    y        :\u001626\n\u0006_s 20s     n   \u0016?\n\u001bu      n u    n  \u001611\n\u0016?\n\u001bk      n y       n  \u001610\n\u001627\n\u0006_\u0016 k  n   l    n   \u00165\n\u001641\nu      n   kh     n  u    n    yy\u001by   y y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 51150072,
+   "datetime": "20050224133622",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                    \u0017blessed +3 speed boots\nWp\u0017blessed amulet of life saving\nPq\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0016?\ne_ \u001b>.>\u00166\n__.<s20ss\u00166\n#chat\nj;<.\u0016?\n>>P _<.>.s\u001641\n\u0014,,\u0016?\n>>K     tin whistle\nlb   n:\u0016?\n\u001byu \u001641\n\u0007brown mold\nssm.sl .h     n 20s     n   sm.     \u0007shopkeeper\ny;n:  sm.     n   sm.      n 20s     \u00165\n\u00166\nh        nu    y        :\u001626\n\u0006_s 20s     n   \u0016?\n\u001bu      n u    n  \u001611\n\u0016?\n\u001bk      n y       n  \u001610\n\u001627\n\u0006_\u0016 k  n   l    n   \u00165\n\u001641\nu      n   kh     n  u    n    yy\u001by   y y\u001b  \u0017"
+  }
+ ]
+}

@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\na\n sm.s20s20s20s20s20s20s .m..n20s20s...s.ssssssssss20s#quit\nyy jhynFhFhFhFhFh FhFhFh150sFhFhFhFhFh.100s\\ ynb_ \u001b@.>\\ i\u001b_>,>\u000f\u001b_>.>150sFuFus_>.>luukyn#chat\nu100swayykn\u000f\u001b100sFy FyFyFyFyFy#pray\ny #pray\ny Fy20ss50s100s  FyFyFyFy.s150s100sFj..50shlh50sFns20s50sFkFkFkFkFkFkFkFklhlhBUHH_>,>N NUY_>.>BHHJ _>.>BU NY_>,><HUN B_>.>#chat\nh<y N \u0017wand of digging\nzj> szj> 20s  zj>   n sm.zj>  20s zj>  20szj>    yy\u001by   nny  2",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51150090,
+   "datetime": "20110627062718",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\na\n sm.s20s20s20s20s20s20s .m..n20s20s...s.ssssssssss20s"
+  },
+  {
+   "seed": 51250090,
+   "datetime": "20130423185612",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 51350090,
+   "datetime": "20220318171714",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\n",
+   "moves": " jhynFhFhFhFhFh FhFhFh150sFhFhFhFhFh.100s\\ ynb_ \u001b@.>\\ i\u001b_>,>\u000f\u001b_>.>150sFuFus_>.>luukyn#chat\nu100swayykn\u000f\u001b100sFy FyFyFyFyFy#pray\ny #pray\ny Fy20ss50s100s  FyFyFyFy.s150s100sFj..50shlh50sFns20s50sFkFkFkFkFkFkFkFklhlhBUHH_>,>N NUY_>.>BHHJ _>.>BU NY_>,><HUN B_>.>#chat\nh<y N"
+  },
+  {
+   "seed": 51450090,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of digging\nzj> szj> 20s  zj>   n sm.zj>  20s zj>  20szj>    yy\u001by   nny  2"
+  }
+ ]
+}

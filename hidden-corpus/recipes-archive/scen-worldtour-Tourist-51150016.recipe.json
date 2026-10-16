@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed amulet of reflection\nPn\u0017blessed +3 helm of telepathy\nWo\u0017blessed +3 gray dragon scale mail\nWp\u0016?\n>C_ \u001b>.>\u0016?\n>Eklnjbub:\u0016?\n>u#levelchange\n20\n      \u0007mumak\n#chat\nlFjFl\u0007ghoul\n#chat\njFj Fn\u001632\nubbuk:\u0016?\n>>N       scroll of food detection\nbu  b   :\u0016?\ne_{,sm.  20s      \u001642\nl    n kyk:\u001624\n_<,\u001632\n\u0014.    \u0016?\na  y    j      n       nk   n        l                 :\u0016?\nej            \u001bl      n  n        un        n   n          :20s        20s     n      \u00169\n\u0016?\n\u001bl      h\u001624\n__.<\u0016?\n\u001bn           h   \u001b    n     \u0016?\n\u001bb         u\u0016?\n\u001buy      n        \u0016?\n\u001by  \u001b       n h         \u001635\n\u0004u       n   \u0016?\n\u001bl \u001b       h       n   \u001624\n\u0017rubber hose\nws       Fb       Fy   n      Fn        n X\u0007marilith\nsm.      sm.       n sl      .j                  sy             n       \u0007electric eel\nsh                n   20s                   .h      yy\u001by   y y  y\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 51150016,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed amulet of reflection\nPn\u0017blessed +3 helm of telepathy\nWo\u0017blessed +3 gray dragon scale mail\nWp\u0016?\n>C_ \u001b>.>\u0016?\n>Eklnjbub:\u0016?\n>u#levelchange\n20\n      \u0007mumak\n#chat\nlFjFl\u0007ghoul\n#chat\njFj Fn\u001632\nubbuk:\u0016?\n>>N       scroll of food detection\nbu  b   :\u0016?\ne_{,sm.  20s      \u001642\nl    n kyk:\u001624\n_<,\u001632\n\u0014.    \u0016?\na  y    j      n       nk   n        l                 :\u0016?\nej            \u001bl      n  n        un        n   n          :20s        20s     n      \u00169\n\u0016?\n\u001bl      h\u001624\n__.<\u0016?\n\u001bn           h   \u001b    n     \u0016?\n\u001bb         u\u0016?\n\u001buy      n        \u0016?\n\u001by  \u001b       n h         \u001635\n\u0004u       n   \u0016?\n\u001bl \u001b       h       n   \u001624\n\u0017rubber hose\nws       Fb       Fy   n      Fn        n X\u0007marilith\nsm.      sm.       n sl      .j                  sy             n       \u0007electric eel\nsh                n   20s                   .h      yy\u001by   y y  y\u001b  ."
+  }
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "FyFyFyFyFyFyFyFyhklkhjklFl  FlFlFlFlFlFlFljyln100sFuFus\\   50snlu100s100sFj20s.jhl100shuy,\u0018\u001bkul\u000f\u001b_ \u001b.>\u0018\u001b10#quit\nyy\u001by  y y y\u001b \u0017wand of lightning\nzm.  n...  #wizintrinsic\ne\n sm.s20s20s.y.sm.sm.20s .m.20s yny  y nny  .FuFuFuFuFuFuFuFuklub20s#chat\njt$yl20s FuFuFuFuFuFuFuFu20s10s #chat\nh#chat\nlkljbda...FuFuFuFuFu  FuFuFu#name\nm\n ,df20s   ny  y y\u001b  syy#wizintrinsic\ne\n sm.s20s    sm.sm.sm. sm. sm. .m.sm. .m. sb.m.sm.20s   sm.sm.  ynnny ny  s      nk lnFh  y\u001by  y y\u001b  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51150010,
+   "datetime": "20120927055944",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "FyFyFyFyFyFyFyFyhklkhjklFl  FlFlFlFlFlFlFljyln100sFuFus\\   50snlu100s100sFj20s.jhl100shuy,\u0018\u001bkul\u000f\u001b_ \u001b.>\u0018\u001b10#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51250010,
+   "datetime": "20250217065958",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of lightning\nzm.  n..."
+  },
+  {
+   "seed": 51350010,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\ne\n sm.s20s20s.y.sm.sm.20s .m.20s yny  y nny  ."
+  },
+  {
+   "seed": 51450010,
+   "datetime": "20000901054738",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\n",
+   "moves": "FuFuFuFuFuFuFuFuklub20s#chat\njt$yl20s FuFuFuFuFuFuFuFu20s10s #chat\nh#chat\nlkljbda...FuFuFuFuFu  FuFuFu#name\nm\n ,df20s   ny  y y\u001b  s"
+  },
+  {
+   "seed": 51550010,
+   "datetime": "20200217121541",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "yy#wizintrinsic\ne\n sm.s20s    sm.sm.sm. sm. sm. .m.sm. .m. sb.m.sm.20s   sm.sm.  ynnny ny  s"
+  },
+  {
+   "seed": 51650010,
+   "datetime": "20120514222444",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=runmode:crawl\n",
+   "moves": "      nk lnFh  y\u001by  y y\u001b  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   uyl\u0017cloud\nbbuuhn\u0017tree\nk\u0004j\u0004j\u0004 \u0017axe\naf j :kj\u0017grave\n:\u0017wand of digging\nzg>ssb\u0017sink\nqyk\u0004jy \u0004j\u0004j:#terrain\n\u001bji\u001b#loot\n\u0016?\ne\u000620s20s20s FkFl Fk nby b#turn\n,afl\u0006#levelchange\n30\n         \u0017scroll of earth\n\u0007cobra\nrhFl Fl   \u0017cursed potion of full healing\n\u0007barrow wight\nqi   Fb        Fb\u0017cursed dilithium crystal\n\u0007leprechaun\ntbl    \u0017uncursed 5 boomerangs\n\u0007yellow light\nQkfl  fj        fu  \u0017cursed amulet versus poison\n\u0007Archon\nPl       sm. sm.      n  .m.       suFb      Fj         \u0017blessed +3 fumble boots\nWm       n sm.     sl         .m.   Tm             .m.        n sj      \u001630\n     \\    \u00169\ni\u001bwfFk20s20sXWms..TewdsssWe20s20s.wc.s20swa20ss20swcJ#jump\n#invoke\n\u001bP,dh#pray\ny y #levelchange\n10\n      hynh\u0017magic portal\nh\u0007giant rat\n.l y\u001by   nnn ."
+ },
+ "segments": [
+  {
+   "seed": 51150001,
+   "datetime": "20220502222124",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   uyl\u0017cloud\nbbuuhn\u0017tree\nk\u0004j\u0004j\u0004 \u0017axe\naf j :kj\u0017grave\n:\u0017wand of digging\nzg>ssb\u0017sink\nqyk\u0004jy \u0004j\u0004j:#terrain\n\u001bji\u001b#loot\n\u0016?\ne\u000620s20s20s FkFl Fk nby b#turn\n,afl\u0006#levelchange\n30\n         \u0017scroll of earth\n\u0007cobra\nrhFl Fl   \u0017cursed potion of full healing\n\u0007barrow wight\nqi   Fb        Fb\u0017cursed dilithium crystal\n\u0007leprechaun\ntbl    \u0017uncursed 5 boomerangs\n\u0007yellow light\nQkfl  fj        fu  \u0017cursed amulet versus poison\n\u0007Archon\nPl       sm. sm.      n  .m.       suFb      Fj         \u0017blessed +3 fumble boots\nWm       n sm.     sl         .m.   Tm             .m.        n sj      \u001630\n     \\    \u00169\ni\u001bwfFk20s20sXWms..TewdsssWe20s20s.wc.s20swa20ss20swcJ#jump\n#invoke\n\u001bP,dh#pray\ny y #levelchange\n10\n      hynh\u0017magic portal\nh\u0007giant rat\n.l y\u001by   nnn ."
+  }
+ ]
+}

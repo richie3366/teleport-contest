@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Z\u0018\u001bE- X marks the spot\n#terrain\nb\n\u001b@.E-y ad aerarium\nf by y#terrain\nb\n;_.dd#sit\n#twoweapon\n_m,s#loot\nj;j:  i\u001bwaFj ssW...;.\\  #chat\ny,\u001b#dip\naz"
+ },
+ "segments": [
+  {
+   "seed": 51152009,
+   "datetime": "20191203041248",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\n",
+   "moves": "Z\u0018\u001bE- X marks the spot\n#terrain\nb\n\u001b@.E-y ad aerarium\nf by y#terrain\nb\n;_.dd#sit\n#twoweapon\n_m,s#loot\nj;j:  i\u001bwaFj ssW...;.\\  #chat\ny,\u001b#dip\naz"
+  }
+ ]
+}

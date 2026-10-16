@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017helm of opposite alignment\nWi.20s20sTi\u0007kraken\n20sFhs\u0007Archon\nsm.20s   s s  n   20s  .m.  n      \u0007paper golem\n;m. \u001b<.s  n   .  n .  n "
+ },
+ "segments": [
+  {
+   "seed": 51152001,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017helm of opposite alignment\nWi.20s20sTi\u0007kraken\n20sFhs\u0007Archon\nsm.20s   s s  n   20s  .m.  n      \u0007paper golem\n;m. \u001b<.s  n   .  n .  n "
+  }
+ ]
+}

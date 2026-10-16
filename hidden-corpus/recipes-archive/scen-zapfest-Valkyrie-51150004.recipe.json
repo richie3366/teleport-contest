@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed shield of reflection\nW\u001b\u001b\u0017blessed +3 gray dragon scale mail\nWf  #levelchange\n14\n             \u0007black dragon\n\u0007black dragon\nsm..m.       sm.      sm.\u0017wand of magic missile\nagy       Fb      Fb  n   \u0017spellbook of light\nrh          20s   \u0017blessed spellbook of force bolt\nri   20s    \u0007aligned cleric\ny\u0007aligned cleric\nnZsm. 20s  n    ZZsm. sm.Zsm.   sn Z.m.sb   Z#turn\n\u0007red dragon\nsm.s#polyself\ngold dragon\n  sm.   sm.    #monster\nu       n #monster\n#monster\nFl Fb         n \u00168\n\u0007red dragon\nsm.s20s #polyself\nsilver dragon\n#monster\ny  .j20s  #monster\n#monster\n#monster\n#monster\n\u0017wand of lightning\nas.\u001616\n   \u001720 darts\nQk\u0007hobbit\n\u0007hill orc\nfftff\u0017potion of enlightenment\nt\u001620\ni\u001b\u0007vampire\n\u0007vampire\n\u0017wand of striking\nzzzzzzsm.20s    zi\u001b\u0017blessed spellbook of finger of death\nrn sm.\u0007orc shaman\nZsu  sm.Z.ysm.  Z20s 20s Z20s20s ZZZ20s   sm. ZZ\u00169\n\u0007aligned cleric\ny\u0007lich\n\u0017wand of striking\nsm.sm.   z20s         sb     i\u001b\u0007baby red dragon\n\u0007red dragon\nsu20s   n  .m.  20s    Fh  n Fk\u00162\n\u0017blessed spellbook of light\nrp20s \u0017blessed spel"
+ },
+ "segments": [
+  {
+   "seed": 51150004,
+   "datetime": "20081229004149",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed shield of reflection\nW\u001b\u001b\u0017blessed +3 gray dragon scale mail\nWf  #levelchange\n14\n             \u0007black dragon\n\u0007black dragon\nsm..m.       sm.      sm.\u0017wand of magic missile\nagy       Fb      Fb  n   \u0017spellbook of light\nrh          20s   \u0017blessed spellbook of force bolt\nri   20s    \u0007aligned cleric\ny\u0007aligned cleric\nnZsm. 20s  n    ZZsm. sm.Zsm.   sn Z.m.sb   Z#turn\n\u0007red dragon\nsm.s#polyself\ngold dragon\n  sm.   sm.    #monster\nu       n #monster\n#monster\nFl Fb         n \u00168\n\u0007red dragon\nsm.s20s #polyself\nsilver dragon\n#monster\ny  .j20s  #monster\n#monster\n#monster\n#monster\n\u0017wand of lightning\nas.\u001616\n   \u001720 darts\nQk\u0007hobbit\n\u0007hill orc\nfftff\u0017potion of enlightenment\nt\u001620\ni\u001b\u0007vampire\n\u0007vampire\n\u0017wand of striking\nzzzzzzsm.20s    zi\u001b\u0017blessed spellbook of finger of death\nrn sm.\u0007orc shaman\nZsu  sm.Z.ysm.  Z20s 20s Z20s20s ZZZ20s   sm. ZZ\u00169\n\u0007aligned cleric\ny\u0007lich\n\u0017wand of striking\nsm.sm.   z20s         sb     i\u001b\u0007baby red dragon\n\u0007red dragon\nsu20s   n  .m.  20s    Fh  n Fk\u00162\n\u0017blessed spellbook of light\nrp20s \u0017blessed spel"
+  }
+ ]
+}

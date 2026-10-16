@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "L NBL_ \u001bm.>FlFh .KJJK_>.>HBJB_>,>e#wipe\nHYBK_>.>FnFnFn\u000f\u001b\u000f\u001b#chat\nn_>.20stbn#chat\nk#chat\njynlylb100s\\ \u0018\u001b150s\\ bhl_>.>100sFlFlshbb100s150sFjFjFjFj20ssubl100s150s 100seeeeeeeeeeeeeeeeeeeeee\\ W\u0014UHJU_>,_,><UYUY_>.Fu_,;m,Fk>Fk20ssBKUJ_>,_.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJUJK_>,>\u000f\u001bsBNLH_>.>KLUH_>,>s__.20s\u000f\u001b#chat\ny10stbh#name\nm\n#chat\n<.#pray\ny  150s_>.>150s  Fl..100s\u000f\u001b100sFkFkFkFkFk20s100s100sFk.20sunj50s\u000f\u001b\u0018\u001b50sFyss\\ 50s100s\u0018\u001b50sFkss\u000f\u001b#untrap\nn100s#loot\nhyh100sknhFuFushuj\u000f\u001b150s50sFkFkFkFk20s20s_>.>#name\no\nblessed\naghkjk#name\no\nshiny\ndfaek20sssdeess20s#chat\nkUKJK_>,>FhFjFjYYHK_>.>Fh20ssJBKL_>.>UKNY_>.>__.ssHKBY_>.>HNNK_>.>\u0018\u001bu#monster\nl#turn\nJKBY_>.>KHYK_>,>BLHH_>,>YJYK_>."
+ },
+ "segments": [
+  {
+   "seed": 51150067,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:explore\n",
+   "moves": "L NBL_ \u001bm.>FlFh .KJJK_>.>HBJB_>,>e#wipe\nHYBK_>.>FnFnFn\u000f\u001b\u000f\u001b#chat\nn_>.20stbn#chat\nk#chat\njynlylb100s\\ \u0018\u001b150s\\ bhl_>.>100sFlFlshbb100s150sFjFjFjFj20ssubl100s150s 100seeeeeeeeeeeeeeeeeeeeee\\ W\u0014UHJU_>,_,><UYUY_>.Fu_,;m,Fk>Fk20ssBKUJ_>,_.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJUJK_>,>\u000f\u001bsBNLH_>.>KLUH_>,>s__.20s\u000f\u001b#chat\ny10stbh#name\nm\n#chat\n<.#pray\ny  150s_>.>150s  Fl..100s\u000f\u001b100sFkFkFkFkFk20s100s100sFk.20sunj50s\u000f\u001b\u0018\u001b50sFyss\\ 50s100s\u0018\u001b50sFkss\u000f\u001b#untrap\nn100s#loot\nhyh100sknhFuFushuj\u000f\u001b150s50sFkFkFkFk20s20s_>.>#name\no\nblessed\naghkjk#name\no\nshiny\ndfaek20sssdeess20s#chat\nkUKJK_>,>FhFjFjYYHK_>.>Fh20ssJBKL_>.>UKNY_>.>__.ssHKBY_>.>HNNK_>.>\u0018\u001bu#monster\nl#turn\nJKBY_>.>KHYK_>,>BLHH_>,>YJYK_>."
+  }
+ ]
+}

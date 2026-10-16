@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nWe\u0017blessed ring of free action\nPfl\u0017blessed +3 helm of telepathy\nWg\u0016?\n>>M      ring of levitation\nku     b y h  y   j: .  n   20s s \u001619\nuj   nu : \u0016?\nc b   k  \u0017wand of slow monster\nEj I am a fish\n    : \u0017wand of striking\nEky Vlad was here\n     n  : \u0017wand of undead turning\nEln  Vlad was here\n    uE- Vlad was here\n       \u0007jackal\nsl20s            \u001b       s s 20s . \u0016?\n\u001by j              \u001610\nj            jbk  h   k  n    n   :sm.  s\u00161\n\u001610\nkbu: \u0016?\nb k b\u0017wand of create monster\nE:\u0017wand of lightning\nE\u0017wand of stasis\nE:y  \u0017wand of teleportation\nE\u0017wand of sleep\nE:E\u0007minotaur\n20s  20s  20sFuFl  \u0016?\n\u001bnb\u0016?\n\u001blj\u0016?\n\u001byn\u0016?\n\u001byy\u001632\njnk:\u001617\n_ \u001bm.   n >\u0016?\n\u001bul  \u001632\n#levelchange\n8\n  \u0007vrock\nFl    nFl   \u0007green slime\nFl    n  Fl  FlFn   n    Fl    n  Fh\u00169\n\u0016?\n\u001bjj\u001620\n#cha"
+ },
+ "segments": [
+  {
+   "seed": 51150000,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nWe\u0017blessed ring of free action\nPfl\u0017blessed +3 helm of telepathy\nWg\u0016?\n>>M      ring of levitation\nku     b y h  y   j: .  n   20s s \u001619\nuj   nu : \u0016?\nc b   k  \u0017wand of slow monster\nEj I am a fish\n    : \u0017wand of striking\nEky Vlad was here\n     n  : \u0017wand of undead turning\nEln  Vlad was here\n    uE- Vlad was here\n       \u0007jackal\nsl20s            \u001b       s s 20s . \u0016?\n\u001by j              \u001610\nj            jbk  h   k  n    n   :sm.  s\u00161\n\u001610\nkbu: \u0016?\nb k b\u0017wand of create monster\nE:\u0017wand of lightning\nE\u0017wand of stasis\nE:y  \u0017wand of teleportation\nE\u0017wand of sleep\nE:E\u0007minotaur\n20s  20s  20sFuFl  \u0016?\n\u001bnb\u0016?\n\u001blj\u0016?\n\u001byn\u0016?\n\u001byy\u001632\njnk:\u001617\n_ \u001bm.   n >\u0016?\n\u001bul  \u001632\n#levelchange\n8\n  \u0007vrock\nFl    nFl   \u0007green slime\nFl    n  Fl  FlFn   n    Fl    n  Fh\u00169\n\u0016?\n\u001bjj\u001620\n#cha"
+  }
+ ]
+}

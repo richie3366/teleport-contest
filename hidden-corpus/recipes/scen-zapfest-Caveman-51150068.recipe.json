@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed +3 speed boots\nWg\u0017blessed shield of reflection\nWhh#levelchange\n20\n                   \u0017blessed spellbook of drain life\nris\u0007gnomish wizard\n\u0007aligned cleric\nnZa\nZa\n Za\nZa\nsm.sZa\n20s sZa\nsm.sZa\ni\u001b\u0007black dragon\n\u0007silver dragon\nsm.s#polyself\nblack dragon\n   #monster\nk    sn20s   #monster\nu#monster\n#monster\n\u0017wand of fire\naFk      Fk    \u0007kobold shaman\n\u0007aligned cleric\ny\u0007master mind flayer\n\u0017wand of magic missile\nsm. 20s  \u001715 shuriken\nQl\u0007kobold shaman\n\u0007bugbear\nfu   fhtbh    n  fu      tlu            \u0018\u001b\u0017blessed spellbook of force bolt\nrm  n   20s   \u0017blessed spellbook of light\nrn      sy       \u0007gnomish wizard\n\u0007incubus\nZa\n    n  Za\n    Za\nZa\nZa\nZa\nZa\nZa\nZa\n#turn\n\u00161\n\u0017crossbow\nwo\u001715 crossbow bolts\nQp\u0007giant rat\nfk         flfl   futlu     n       tpu      \u0007black dragon\n"
+ },
+ "segments": [
+  {
+   "seed": 51150068,
+   "datetime": "20131101082252",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed +3 speed boots\nWg\u0017blessed shield of reflection\nWhh#levelchange\n20\n                   \u0017blessed spellbook of drain life\nris\u0007gnomish wizard\n\u0007aligned cleric\nnZa\nZa\n Za\nZa\nsm.sZa\n20s sZa\nsm.sZa\ni\u001b\u0007black dragon\n\u0007silver dragon\nsm.s#polyself\nblack dragon\n   #monster\nk    sn20s   #monster\nu#monster\n#monster\n\u0017wand of fire\naFk      Fk    \u0007kobold shaman\n\u0007aligned cleric\ny\u0007master mind flayer\n\u0017wand of magic missile\nsm. 20s  \u001715 shuriken\nQl\u0007kobold shaman\n\u0007bugbear\nfu   fhtbh    n  fu      tlu            \u0018\u001b\u0017blessed spellbook of force bolt\nrm  n   20s   \u0017blessed spellbook of light\nrn      sy       \u0007gnomish wizard\n\u0007incubus\nZa\n    n  Za\n    Za\nZa\nZa\nZa\nZa\nZa\nZa\n#turn\n\u00161\n\u0017crossbow\nwo\u001715 crossbow bolts\nQp\u0007giant rat\nfk         flfl   futlu     n       tpu      \u0007black dragon\n"
+  }
+ ]
+}

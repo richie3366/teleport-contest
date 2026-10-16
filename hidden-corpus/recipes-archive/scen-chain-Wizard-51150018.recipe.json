@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "ujkhhjuh100s150sFnFn20s100s100s Fnssllllbk100sybk100s#quit\nyy\u001by  y y y\u001b   lbjh#chat\nh#name\na\n#name\na\nbu10sbkkjuynnynkj#chat\nb#name\n\u001b#name\n\u001byyJLNK_ \u001b:>UBHB_>,>KUYJ_>.>NHUU_>.>L LNY_>.>qdPNBUU_>.>#dip\nfdi\u001b100s100s_>.>150sFhs20s1#quit\nyy\u001by  y y y\u001b  t$y10s#name\nd\nhjjku  Fj.si\u001b_ \u001b>.>50sFkFjsFj.FhFbFjsFnFl 20s\u0018\u001b\u000f\u001b100s15#quit\nyy\u001by  y y y\u001b  luklyhllFbFbFbFbFbFbFbFbbyblNKHU_ \u001bm.>FkFk sYKJB_>,>BULN_>.>waw-UYBL_>.>BBK B_>.>#offer\n20slhhlde.m.20#quit\nyy\u001by  y y y\u001b   \u0017wand of lightning\nzg.  y \u001b    y  syn  #wizintrinsic\nd\n 20ssu.m.   yyy  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51150018,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=pettype:none\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "ujkhhjuh100s150sFnFn20s100s100s Fnssllllbk100sybk100s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51250018,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\n",
+   "moves": "  lbjh#chat\nh#name\na\n#name\na\nbu10sbkkjuynnynkj#chat\nb#name\n\u001b#name\n\u001byyJLNK_ \u001b:>UBHB_>,>KUYJ_>.>NHUU_>.>L LNY_>.>qdPNBUU_>.>#dip\nfdi\u001b100s100s_>.>150sFhs20s1#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51350018,
+   "datetime": "20060728122244",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\n",
+   "moves": " t$y10s#name\nd\nhjjku  Fj.si\u001b_ \u001b>.>50sFkFjsFj.FhFbFjsFnFl 20s\u0018\u001b\u000f\u001b100s15#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51450018,
+   "datetime": "20040124125148",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\n",
+   "moves": " luklyhllFbFbFbFbFbFbFbFbbyblNKHU_ \u001bm.>FkFk sYKJB_>,>BULN_>.>waw-UYBL_>.>BBK B_>.>#offer\n20slhhlde.m.20#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51550018,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017wand of lightning\nzg.  y \u001b    y  s"
+  },
+  {
+   "seed": 51650018,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "yn  #wizintrinsic\nd\n 20ssu.m.   yyy  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0007horse\n\u0017fortune cookie\ntalk   n \u0017carrot\nt$ndc  n .l  n su.m.  n  \u0017apple\ntab   n djsb  n.l20s b  n \u00166\nO>c\u001b\n\u00165\n150s     100s 100s #pray\ny y yku#pray\ny y 100sFn FnFnFn   nFnFn FnFn Fnjln150snnhykj100s100si\u001b100s100s\\ nbk_ \u001bm.>buj150s150s eo100sem  \u0018\u001b100seg\u000f\u001b100s100s50si\u001b50sZ\u000f\u001bnbj#levelchange\n10\n         kujh\u0017ice\nh\u0017unaligned altar\ndfdk\u0017floating eye corpse\n#offer\nq  #terrain\nf\n\u0004hck\u00167\nv\u001bi\u001b\u0006_>>,Fj  \u001b_,Fj>Fj Fj_>>,Fj_.Fj>Fj Fj _>>,Fj_, Fk>FkFj FjFkFj\u0006_>>. Fk  n_.Fj>Fk Fj_>>. Fk _.Fk>FjFj_>>.Fk_.Fj>FjFjFjFjFj<\u0006_>>. Fj_.Fj  n>FkFj_>>.Fk_.Fk>FkFk  _>>. Fj_,Fj>FkFjFjFjFj\u0006_>>.Fj_.Fj>FjFj_>>. Fk_.  nFk>FjFk_>>, Fj _.Fk>Fk Fk FkFjFk\u0006_>, Fj_.Fj>FkFj_>.Fj_.  nFj>FjFk_>.Fj  _.Fk>FkFk FkFjFkok#offer\n\u0006_>.Fj_.Fk>FkFj _>.Fj_. Fk>FjFk  n _>,Fj_.Fk>FjFjFj Fj Fjalk 10s\u00161\nmO>>>e\u001b\nOc\u001b\n#levelchange\n30\n                    uulk\u0017ice\nh\u0017sink\nqy\u0017ring of gain strength\ndr  \u001b:#terrain\n\u001bi\u001b;l:  fb10s\\ mO>>t"
+ },
+ "segments": [
+  {
+   "seed": 51150063,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:plain\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nMENUCOLOR=\"cursed\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": " \u0007horse\n\u0017fortune cookie\ntalk   n \u0017carrot\nt$ndc  n .l  n su.m.  n  \u0017apple\ntab   n djsb  n.l20s b  n \u00166\nO>c\u001b\n\u00165\n150s     100s 100s #pray\ny y yku#pray\ny y 100sFn FnFnFn   nFnFn FnFn Fnjln150snnhykj100s100si\u001b100s100s\\ nbk_ \u001bm.>buj150s150s eo100sem  \u0018\u001b100seg\u000f\u001b100s100s50si\u001b50sZ\u000f\u001bnbj#levelchange\n10\n         kujh\u0017ice\nh\u0017unaligned altar\ndfdk\u0017floating eye corpse\n#offer\nq  #terrain\nf\n\u0004hck\u00167\nv\u001bi\u001b\u0006_>>,Fj  \u001b_,Fj>Fj Fj_>>,Fj_.Fj>Fj Fj _>>,Fj_, Fk>FkFj FjFkFj\u0006_>>. Fk  n_.Fj>Fk Fj_>>. Fk _.Fk>FjFj_>>.Fk_.Fj>FjFjFjFjFj<\u0006_>>. Fj_.Fj  n>FkFj_>>.Fk_.Fk>FkFk  _>>. Fj_,Fj>FkFjFjFjFj\u0006_>>.Fj_.Fj>FjFj_>>. Fk_.  nFk>FjFk_>>, Fj _.Fk>Fk Fk FkFjFk\u0006_>, Fj_.Fj>FkFj_>.Fj_.  nFj>FjFk_>.Fj  _.Fk>FkFk FkFjFkok#offer\n\u0006_>.Fj_.Fk>FkFj _>.Fj_. Fk>FjFk  n _>,Fj_.Fk>FjFjFj Fj Fjalk 10s\u00161\nmO>>>e\u001b\nOc\u001b\n#levelchange\n30\n                    uulk\u0017ice\nh\u0017sink\nqy\u0017ring of gain strength\ndr  \u001b:#terrain\n\u001bi\u001b;l:  fb10s\\ mO>>t"
+  }
+ ]
+}

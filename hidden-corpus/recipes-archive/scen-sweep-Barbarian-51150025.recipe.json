@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n14\n     \u0016?\n>y  _ \u001b;#chat\nn;n;_mmmm.  _, Fl#chat\nn;n;_m. Fl  _.#chat\ny\u0006_>>,  Fk   n _.  Fl>Fk Fn _>>,Fl_,Fn >FnFl_>>. Fn _,  >\u0016?\n>z#monster\nZ,\u001616\n\u0018\u001buuy\u0017falling rock trap\nk^jj  n shsku\u0017hole\ny^n\u0007newt\nsm..y.m. sm. #offer\ned  s#levelchange\n20\n      \u00173 spellbook of fireball\n\u0007genetic engineer\nre         sm.      sm.      nZ\u0017blessed katana\n\u0007ape\nwf    Fh    FhFy     XFk      Fj    \u0017ring of regeneration\nPgr      sm..y     .m.Fy      Fk     n 20s     20s    \u00161\n#levelchange\n30\n           \u0017uncursed the Master Key of Thievery\n ,\u001b\u0017blessed 20 shuriken\nQhfu    ffFu       Fu   \u0017uncursed tin opener\naiFn  nFb        \u0017uncursed spellbook of dig\n\u0007vampire bat\nrj     sm.      .m.      Z\u0017Giantslayer\nwk        Fl      Fj     n   Fh        #invoke\n\u001b.h       sm.          n\u00162\n#levelchange\n14\n     \u0007purple worm\nFu      Fk                  Fb        n    sm. FkFkFkFkFj  n         Fj      Fl  Fj\u001612\n\u0017two-handed sword\nwl Fj  n             Fj         Fh  \u0007giant rat\ns 20s s s   n             20s   sm.sm.           n 20s    \u0007barrow wight\n;y;20s     n    sm.            n  20s          \u0007master lich\nsm.      n  .m.         sm.       yny  y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 51150025,
+   "datetime": "20090504062840",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n14\n     \u0016?\n>y  _ \u001b;#chat\nn;n;_mmmm.  _, Fl#chat\nn;n;_m. Fl  _.#chat\ny\u0006_>>,  Fk   n _.  Fl>Fk Fn _>>,Fl_,Fn >FnFl_>>. Fn _,  >\u0016?\n>z#monster\nZ,\u001616\n\u0018\u001buuy\u0017falling rock trap\nk^jj  n shsku\u0017hole\ny^n\u0007newt\nsm..y.m. sm. #offer\ned  s#levelchange\n20\n      \u00173 spellbook of fireball\n\u0007genetic engineer\nre         sm.      sm.      nZ\u0017blessed katana\n\u0007ape\nwf    Fh    FhFy     XFk      Fj    \u0017ring of regeneration\nPgr      sm..y     .m.Fy      Fk     n 20s     20s    \u00161\n#levelchange\n30\n           \u0017uncursed the Master Key of Thievery\n ,\u001b\u0017blessed 20 shuriken\nQhfu    ffFu       Fu   \u0017uncursed tin opener\naiFn  nFb        \u0017uncursed spellbook of dig\n\u0007vampire bat\nrj     sm.      .m.      Z\u0017Giantslayer\nwk        Fl      Fj     n   Fh        #invoke\n\u001b.h       sm.          n\u00162\n#levelchange\n14\n     \u0007purple worm\nFu      Fk                  Fb        n    sm. FkFkFkFkFj  n         Fj      Fl  Fj\u001612\n\u0017two-handed sword\nwl Fj  n             Fj         Fh  \u0007giant rat\ns 20s s s   n             20s   sm.sm.           n 20s    \u0007barrow wight\n;y;20s     n    sm.            n  20s          \u0007master lich\nsm.      n  .m.         sm.       yny  y y y\u001b  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #conduct\n #dip\na#levelchange\nb uy\u0017moat\n#dip\nay   :hu\u0017magic fountain\nqyqy u\u0017ice\nei20sZ\u0007housecat\n\u0017tripe ration\n tby\u0007tame large dog\n#chat\nl#chat\ny\u0006_ \u001bm, >Fy   nFn  _>.     Fu_,Fh>Fj  nFk _>.Fj_,Fh>FbFldd20s  n .m.sm.\u0007gnome\n\u0017scroll of taming\nrj 20s10s\u00162\n\u0007tame jackal\n\u0007housecat\n\u0017fortune cookie\ntbl    \u0017leash\naly  ub u ball  n \u0007lichen\n20ssm.sm.sj .m.  n  .\u0007sewer rat\nsm.ss.m.sm.su\u0017newt corpse\ntbb\u0017leash\nanj k   bhl anyh\u0007lichen\n\u0017scroll of taming\nro #chat\nb\u00166\n#pray\ny y #terrain\nc\n@.em  ljkb\u0017fountain\nqy #dip\nky yb\u0017grave\n: \u0017pick-axe\nap >20ssm.h\u0017lawful altar\ndbdn\u0017gnome corpse\n #offer\nq    #pray\ny y       : stau : \u0007tame dingo\nndf20s sm..m.10s #name\nm\n\u0007\u0017scroll of taming\nrr \u0017fortune cookie\nt\u001bFj  Fn FjFlFb   FnFyFuFnFyFn FhFuFyFbFhFyFkFbFhFnFhFlFnFkFnFnFyFkFuFlFkFyFkFh FyFkFnFhFj FjFuFyFjFuFlFy  FuFlFkFkFhFkFjFbFyFkFl FhFnFhFuFkFy FkFbFhFk Fy  Fn  Fy FyFh FkFbFuFhFnFyFlFnFlFbFkFhFnFyFbFnFyFbFnFnFbFbFuFbFnFuFbFnFjFbFyFuFl FbFnFuFnFhFkFkFyFkFhFkFyFbFuO>"
+ },
+ "segments": [
+  {
+   "seed": 51150015,
+   "datetime": "20080404130732",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": " #conduct\n #dip\na#levelchange\nb uy\u0017moat\n#dip\nay   :hu\u0017magic fountain\nqyqy u\u0017ice\nei20sZ\u0007housecat\n\u0017tripe ration\n tby\u0007tame large dog\n#chat\nl#chat\ny\u0006_ \u001bm, >Fy   nFn  _>.     Fu_,Fh>Fj  nFk _>.Fj_,Fh>FbFldd20s  n .m.sm.\u0007gnome\n\u0017scroll of taming\nrj 20s10s\u00162\n\u0007tame jackal\n\u0007housecat\n\u0017fortune cookie\ntbl    \u0017leash\naly  ub u ball  n \u0007lichen\n20ssm.sm.sj .m.  n  .\u0007sewer rat\nsm.ss.m.sm.su\u0017newt corpse\ntbb\u0017leash\nanj k   bhl anyh\u0007lichen\n\u0017scroll of taming\nro #chat\nb\u00166\n#pray\ny y #terrain\nc\n@.em  ljkb\u0017fountain\nqy #dip\nky yb\u0017grave\n: \u0017pick-axe\nap >20ssm.h\u0017lawful altar\ndbdn\u0017gnome corpse\n #offer\nq    #pray\ny y       : stau : \u0007tame dingo\nndf20s sm..m.10s #name\nm\n\u0007\u0017scroll of taming\nrr \u0017fortune cookie\nt\u001bFj  Fn FjFlFb   FnFyFuFnFyFn FhFuFyFbFhFyFkFbFhFnFhFlFnFkFnFnFyFkFuFlFkFyFkFh FyFkFnFhFj FjFuFyFjFuFlFy  FuFlFkFkFhFkFjFbFyFkFl FhFnFhFuFkFy FkFbFhFk Fy  Fn  Fy FyFh FkFbFuFhFnFyFlFnFlFbFkFhFnFyFbFnFyFbFnFnFbFbFuFbFnFuFbFnFjFbFyFuFl FbFnFuFnFhFkFkFyFkFhFkFyFbFuO>"
+  }
+ ]
+}

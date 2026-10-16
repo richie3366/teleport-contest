@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " t$njluhnbyjtaldimsss20sl  20s#name\na\n10s10s#tip\n\u001b\u001b#jump\nHBJY_ \u001b>.>HBYH_>.>JUHL_>.>UB BJ_>.>FuFlFkKBUH_>.>YUYH_>.>\u000f\u001bJNKJ_>.>YJUH_>.>UHBN_>,>s#invoke\n\u001b\u001b<KHJL_>,>FlFk20s\u000f\u001bHUYK_>.>YYUK_>.>way#enhance\n\u001bLYHJ_>.>FjFjs\u000f\u001b>;n.>Fn.s\\ \\ 150sFlFjFlFlFk20suujunnFlsFn100s_>,>#monster\nkbyFnFl._>.>i\u001b\u0018\u001b50s\u0014yjk100s150seg 50s150s100sFjssFb20s Fj100s_>.>150s ed  y_>.>50si\u001b:100s100sFbs.jluJYBU_>.>FkFyFyBJYB_>,>#terrain\nd\ne KKLL_>.>Fb20ssdcm#conduct\n  NBLY_>.>UK UH_>.>NHYJ_>.>FusFn\u000f\u001bytau#force\nFlFls100seeybk100s50s100s Fjs.100s100s100s100sFk Fksi\u001b>100s_>.>ujh\u0018\u001b\\ \u0018\u001bbhb100s hlh_>.>\u000f\u001b_>,>50seblub50s100shlnzmOgresmasher\n100s efukl\u0018\u001b100seeUHH H_>,>HYKY_>,>HL HK_>,>ee #monster\nL JYJ_>.>HBLJ_>.>LYKB_>,>\u000f\u001b\u0004j#untrap\nyokUKUJ_>.>NUJB_>.>#ride\nn\u0004bUYHB_>.>U HBU_>.>KL KK_>.>N JKU _>.>i\u001bfbnhh100sjyb50s150s100s100s 50s100shjk100sZhkn150s10s100s150s i\u001b:150s nyl\u000f\u001bkun\\ i\u001bi\u001blby50s 100s100s ee100sublyjl100sylj150sFkFkFk50s100s100s100s150s_>.>i\u001b\u0018\u001blhyjkb100s150s eb et100s100sFbFbs50s\u000f\u001b50ss1"
+ },
+ "segments": [
+  {
+   "seed": 51150003,
+   "datetime": "20041229010637",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=runmode:teleport\nOPTIONS=playmode:explore\n",
+   "moves": " t$njluhnbyjtaldimsss20sl  20s#name\na\n10s10s#tip\n\u001b\u001b#jump\nHBJY_ \u001b>.>HBYH_>.>JUHL_>.>UB BJ_>.>FuFlFkKBUH_>.>YUYH_>.>\u000f\u001bJNKJ_>.>YJUH_>.>UHBN_>,>s#invoke\n\u001b\u001b<KHJL_>,>FlFk20s\u000f\u001bHUYK_>.>YYUK_>.>way#enhance\n\u001bLYHJ_>.>FjFjs\u000f\u001b>;n.>Fn.s\\ \\ 150sFlFjFlFlFk20suujunnFlsFn100s_>,>#monster\nkbyFnFl._>.>i\u001b\u0018\u001b50s\u0014yjk100s150seg 50s150s100sFjssFb20s Fj100s_>.>150s ed  y_>.>50si\u001b:100s100sFbs.jluJYBU_>.>FkFyFyBJYB_>,>#terrain\nd\ne KKLL_>.>Fb20ssdcm#conduct\n  NBLY_>.>UK UH_>.>NHYJ_>.>FusFn\u000f\u001bytau#force\nFlFls100seeybk100s50s100s Fjs.100s100s100s100sFk Fksi\u001b>100s_>.>ujh\u0018\u001b\\ \u0018\u001bbhb100s hlh_>.>\u000f\u001b_>,>50seblub50s100shlnzmOgresmasher\n100s efukl\u0018\u001b100seeUHH H_>,>HYKY_>,>HL HK_>,>ee #monster\nL JYJ_>.>HBLJ_>.>LYKB_>,>\u000f\u001b\u0004j#untrap\nyokUKUJ_>.>NUJB_>.>#ride\nn\u0004bUYHB_>.>U HBU_>.>KL KK_>.>N JKU _>.>i\u001bfbnhh100sjyb50s150s100s100s 50s100shjk100sZhkn150s10s100s150s i\u001b:150s nyl\u000f\u001bkun\\ i\u001bi\u001blby50s 100s100s ee100sublyjl100sylj150sFkFkFk50s100s100s100s150s_>.>i\u001b\u0018\u001blhyjkb100s150s eb et100s100sFbFbs50s\u000f\u001b50ss1"
+  }
+ ]
+}

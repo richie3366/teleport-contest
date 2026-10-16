@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPgl\u0017blessed +3 speed boots\nWh#levelchange\n10\n         \u0017blessed spellbook of cause fear\nris\u0017blessed spellbook of cone of cold\nrj .\u0007incubus\nZb\nZb\nZa\nZb\nZb\nZa\nsy.m.Za\nZb\n.m..m.#turn\n\u00162\n\u0018\u001b\u00174 cream pies\nQby\u0007soldier\nfjfj tbkfk   tlj  fki\u001b\u0017blessed spellbook of finger of death\nrm  .n\u0007kobold shaman\nZ\u001bZ\u001bZ\u001b20s .jZ\u001b..Z\u001bZ\u001bsj.u\u0007orc shaman\n\u0007aligned cleric\ny\u0017wand of cold\nznb   znh s20sznk \u001611\n\u0017blessed spellbook of sleep\nro s\u0007lich\nZc\nZc\nZb\nZb\nZa\nZa\n#turn\n\u0007silver dragon\n20ssb\u0017wand of magic missile\napy    n   Fy Fh\u0017wand of slow monster\n\u0017wand of magic missile\n\u0007grid bug\n\u0007newt\n\u0007kobold\nzqk 20s   zquzqk  zru   n     20s   zql  sm.zrh     n .jzru       zry  sh  \u00166\n\u00178 rocks\nQl\u0007hobbit\n\u0007giant rat\nfj fh  fj tlht\u001b\u0017potion of booze\nt\u001b\u0018\u001b\u0007baby red dragon\n\u0007black dragon\nsm..m.sm.  n  sm.  #polyself\ngold dragon\n   #monster\nh     .m.20s  #monster\n#monster\nFb   Fn   \u00164\n\u0017spellbook of force bolt\nru 20s\u0017spellbook of knock\nrv \u001bm,.\u0007gnomish wizard\n\u0007incubus\nZc\nZa\nZd\nZa\n20s  sm.Zd\nZd\nZb\n\u0007silver dragon\n.h .m.  n   \u0017wand of magic missile\nawy         Fj  n  Fj  \u001610\n\u0017wand of lightning\n\u0017wand of "
+ },
+ "segments": [
+  {
+   "seed": 51150036,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPgl\u0017blessed +3 speed boots\nWh#levelchange\n10\n         \u0017blessed spellbook of cause fear\nris\u0017blessed spellbook of cone of cold\nrj .\u0007incubus\nZb\nZb\nZa\nZb\nZb\nZa\nsy.m.Za\nZb\n.m..m.#turn\n\u00162\n\u0018\u001b\u00174 cream pies\nQby\u0007soldier\nfjfj tbkfk   tlj  fki\u001b\u0017blessed spellbook of finger of death\nrm  .n\u0007kobold shaman\nZ\u001bZ\u001bZ\u001b20s .jZ\u001b..Z\u001bZ\u001bsj.u\u0007orc shaman\n\u0007aligned cleric\ny\u0017wand of cold\nznb   znh s20sznk \u001611\n\u0017blessed spellbook of sleep\nro s\u0007lich\nZc\nZc\nZb\nZb\nZa\nZa\n#turn\n\u0007silver dragon\n20ssb\u0017wand of magic missile\napy    n   Fy Fh\u0017wand of slow monster\n\u0017wand of magic missile\n\u0007grid bug\n\u0007newt\n\u0007kobold\nzqk 20s   zquzqk  zru   n     20s   zql  sm.zrh     n .jzru       zry  sh  \u00166\n\u00178 rocks\nQl\u0007hobbit\n\u0007giant rat\nfj fh  fj tlht\u001b\u0017potion of booze\nt\u001b\u0018\u001b\u0007baby red dragon\n\u0007black dragon\nsm..m.sm.  n  sm.  #polyself\ngold dragon\n   #monster\nh     .m.20s  #monster\n#monster\nFb   Fn   \u00164\n\u0017spellbook of force bolt\nru 20s\u0017spellbook of knock\nrv \u001bm,.\u0007gnomish wizard\n\u0007incubus\nZc\nZa\nZd\nZa\n20s  sm.Zd\nZd\nZb\n\u0007silver dragon\n.h .m.  n   \u0017wand of magic missile\nawy         Fj  n  Fj  \u001610\n\u0017wand of lightning\n\u0017wand of "
+  }
+ ]
+}

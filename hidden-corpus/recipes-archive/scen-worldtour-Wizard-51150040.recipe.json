@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWo\u0017blessed amulet of life saving\nPp \u0017blessed amulet of reflection\nPq\u0016?\n>>K      the Sceptre of Might\n \u0007black pudding\nFbFk    Fk      Fy    Fk        sm.   sh      n\u0007wood nymph\nFb   Fy          s         Fh   s   n   .   \u0017cockatrice corpse\nwa\u0007giant rat\nFh   Fb Fb   \u00165\n\u0016?\n\u001bh   u  n  \u0016?\n\u001bu  l      \u0016?\n\u001bb      n l \u00169\n\u0004b    \u0016?\ne \u0006_ \u001b@.\u0016?\n\u001bbu \u001b\u0016?\n\u001bj  n j \u00169\n_<.<shss\u00169\n#chat\nu   n ;u:  20s 20s   n sm.   n \u00167\n\u0016?\n\u001byu\u0016?\n\u001bh  nl \u001635\nh  n lb  n \u0017pit\nn yy   n  sm.  n sm.u  n \u0017dart trap\nny   n 20s sh  n  u  yny   ny y\u001b  n"
+ },
+ "segments": [
+  {
+   "seed": 51150040,
+   "datetime": "20121205063923",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWo\u0017blessed amulet of life saving\nPp \u0017blessed amulet of reflection\nPq\u0016?\n>>K      the Sceptre of Might\n \u0007black pudding\nFbFk    Fk      Fy    Fk        sm.   sh      n\u0007wood nymph\nFb   Fy          s         Fh   s   n   .   \u0017cockatrice corpse\nwa\u0007giant rat\nFh   Fb Fb   \u00165\n\u0016?\n\u001bh   u  n  \u0016?\n\u001bu  l      \u0016?\n\u001bb      n l \u00169\n\u0004b    \u0016?\ne \u0006_ \u001b@.\u0016?\n\u001bbu \u001b\u0016?\n\u001bj  n j \u00169\n_<.<shss\u00169\n#chat\nu   n ;u:  20s 20s   n sm.   n \u00167\n\u0016?\n\u001byu\u0016?\n\u001bh  nl \u001635\nh  n lb  n \u0017pit\nn yy   n  sm.  n sm.u  n \u0017dart trap\nny   n 20s sh  n  u  yny   ny y\u001b  n"
+  }
+ ]
+}

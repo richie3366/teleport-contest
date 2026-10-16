@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "jyjb\u0017sleeping gas trap\ny\u0007grid bug\nsn       sm. sm.syy\u0017web\nbusjsm. \u0017land mine\nai l u #terrain\nd\n\u001bm,#offer\nqd#rub\n#levelchange\n30\n                             buu\u0017squeaky board\nl^hh20s sk\u0017rust trap\nb^uus20shy\u0017fire trap\nkj  20s.rg y Sy\u001b ny10sqd#monster\n#untrap\nk#force\n#rub\n#levelchange\n14\n     \u00178 rocks\nQ\u001b\u00072 jackal\nnf \u001bf \u001bf \u001bFh    20s\u0007giant rat\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51151021,
+   "datetime": "20251110163225",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "jyjb\u0017sleeping gas trap\ny\u0007grid bug\nsn       sm. sm.syy\u0017web\nbusjsm. \u0017land mine\nai l u #terrain\nd\n\u001bm,#offer\nqd#rub\n#levelchange\n30\n                             buu\u0017squeaky board\nl^hh20s sk\u0017rust trap\nb^uus20shy\u0017fire trap\nkj  20s.rg y Sy\u001b"
+  },
+  {
+   "seed": 51651021,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " ny10sqd#monster\n#untrap\nk#force\n#rub\n#levelchange\n14\n     \u00178 rocks\nQ\u001b\u00072 jackal\nnf \u001bf \u001bf \u001bFh    20s\u0007giant rat\n"
+  }
+ ]
+}

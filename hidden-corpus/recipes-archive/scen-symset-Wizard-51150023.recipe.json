@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "v  i\u001bO>>>>i\u001b\u001b\nv\u001bi\u001b\u0006_ \u001b.>FjFj_>,Fh_.Fl>FbFb_>.Fl_,Fh>FnFkn FkFyFy#force\n#sit\n\u001b\u0006_>.Fh_,Fy>FyFn_>.Fb_,Fuu >FbFn_>.Fn_>FjFbFnFlFb\u0006_>,Fl_.Fu>FlFb_>.Fj_,<.Fb>FyFb_>.Fb_.Fy>FnFjFlFlFk\u0006_>>,Fu_.Fj>FnFb_>>.Fn_>FhFh_>>,Fb_.Fkl >FhFnFkk FjFu\u0006_>>.Fh_.>.Fl>FuFk_>>.Fl_,Fj>FhFn_>FhFyFnFlFl\u0006_>>,Fn_>FyFku _>>.Fy_,Fub >FbFj_>>.  nFn_>FuFlFbFkb Fn\u0006_>,Fl_.Fk>FnFy_>.Fh_.Fy>FbFh\u001b_>.Fj_.;,Fj>FyFyFjFhFl#untrap\nn ,20s<FbFyFuFbFkk FlFyFh\u001bFyFll FlFyFnFuFlFyFkk FyFnFuFyFkj FbFnFjFlFhFhFlFuFnFyFkFkFnFuu FhFnFyFyFlk FhFjFjFuFyFjFbFuu FjFyFnFlFnFh\u001bFyFbFkFhFuFbFbFkFlFlFbFjFlFkFuFbFln FkFkFjFhFjFhFbFkn FjFuFbFh\u001bFkFbFjFjFyFh\u001bFnFyFbFyFjFyFbFkFlFbFbFnFyFbFh\u001bFuFhFjFkFuFbFh\u001bFuFlFlFhFkFjFhFuh\u001bnuk j\u0017lawful altar\ndj\u0017lichen corpse\n#offer\np  #pray\ny y : y\u0017tree\n: jb\u0017ice\n: #pray\ny y #conduct\n \u0004n \u00161\nZa\nt\u001bv\u001bi\u001bO>"
+ },
+ "segments": [
+  {
+   "seed": 51150023,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": "v  i\u001bO>>>>i\u001b\u001b\nv\u001bi\u001b\u0006_ \u001b.>FjFj_>,Fh_.Fl>FbFb_>.Fl_,Fh>FnFkn FkFyFy#force\n#sit\n\u001b\u0006_>.Fh_,Fy>FyFn_>.Fb_,Fuu >FbFn_>.Fn_>FjFbFnFlFb\u0006_>,Fl_.Fu>FlFb_>.Fj_,<.Fb>FyFb_>.Fb_.Fy>FnFjFlFlFk\u0006_>>,Fu_.Fj>FnFb_>>.Fn_>FhFh_>>,Fb_.Fkl >FhFnFkk FjFu\u0006_>>.Fh_.>.Fl>FuFk_>>.Fl_,Fj>FhFn_>FhFyFnFlFl\u0006_>>,Fn_>FyFku _>>.Fy_,Fub >FbFj_>>.  nFn_>FuFlFbFkb Fn\u0006_>,Fl_.Fk>FnFy_>.Fh_.Fy>FbFh\u001b_>.Fj_.;,Fj>FyFyFjFhFl#untrap\nn ,20s<FbFyFuFbFkk FlFyFh\u001bFyFll FlFyFnFuFlFyFkk FyFnFuFyFkj FbFnFjFlFhFhFlFuFnFyFkFkFnFuu FhFnFyFyFlk FhFjFjFuFyFjFbFuu FjFyFnFlFnFh\u001bFyFbFkFhFuFbFbFkFlFlFbFjFlFkFuFbFln FkFkFjFhFjFhFbFkn FjFuFbFh\u001bFkFbFjFjFyFh\u001bFnFyFbFyFjFyFbFkFlFbFbFnFyFbFh\u001bFuFhFjFkFuFbFh\u001bFuFlFlFhFkFjFhFuh\u001bnuk j\u0017lawful altar\ndj\u0017lichen corpse\n#offer\np  #pray\ny y : y\u0017tree\n: jb\u0017ice\n: #pray\ny y #conduct\n \u0004n \u00161\nZa\nt\u001bv\u001bi\u001bO>"
+  }
+ ]
+}

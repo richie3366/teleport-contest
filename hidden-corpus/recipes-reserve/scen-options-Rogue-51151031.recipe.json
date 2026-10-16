@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " mO>>adg\n  20snOi\nm\n#enhance\nym\ni\n\u001bO>jek\n>kOhek\n#offer\n10smO>>>>>j\no\n\\ #offer\nmO>>>>>>t\na\na\na\n\u001bi\u001b#chat\njOido\nh\ness mO>>>>jhi\n #rub\nOiod\nf\nqdOpgh\nc\n#tip\ne\u001b10sOnaf\nf\n__, \u001b;s#wipe\nmO>>>>>akb\nf\n on\n \u001b#force\nmO>t\n#rub\n20s20s  "
+ },
+ "segments": [
+  {
+   "seed": 51151031,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " mO>>adg\n  20snOi\nm\n#enhance\nym\ni\n\u001bO>jek\n>kOhek\n#offer\n10smO>>>>>j\no\n\\ #offer\nmO>>>>>>t\na\na\na\n\u001bi\u001b#chat\njOido\nh\ness mO>>>>jhi\n #rub\nOiod\nf\nqdOpgh\nc\n#tip\ne\u001b10sOnaf\nf\n__, \u001b;s#wipe\nmO>>>>>akb\nf\n on\n \u001b#force\nmO>t\n#rub\n20s20s  "
+  }
+ ]
+}

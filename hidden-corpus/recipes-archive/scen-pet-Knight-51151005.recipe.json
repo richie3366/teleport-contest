@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0007horse\n\u0017carrot\n tbh\u0017tin whistle\nl y    n y  ai \u0007gnome\nsm. 20s  n    sm.    n sk   .m.    n   sn20s   n \u0017lichen corpse\nt\u001b\u001b\u0007yellow mold\n\u0017scroll of taming\nrk 20s#name\na\nSy\u001b yn\u000f\u001b<#name\no\nFido\nf#force\nf \u001b\u001b,,air\u001b\u001bWynl\u0017sink\nqyh\u0004l\u0004l bj\u0017fountain\nqy\u0017long sword\n#dip\nby:ai#offer\n#pray\ny y ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51151005,
+   "datetime": "20010612175713",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007horse\n\u0017carrot\n tbh\u0017tin whistle\nl y    n y  ai \u0007gnome\nsm. 20s  n    sm.    n sk   .m.    n   sn20s   n \u0017lichen corpse\nt\u001b\u001b\u0007yellow mold\n\u0017scroll of taming\nrk 20s#name\na\nSy\u001b"
+  },
+  {
+   "seed": 51651005,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " yn\u000f\u001b<#name\no\nFido\nf#force\nf \u001b\u001b,,air\u001b\u001bWynl\u0017sink\nqyh\u0004l\u0004l bj\u0017fountain\nqy\u0017long sword\n#dip\nby:ai#offer\n#pray\ny y "
+  }
+ ]
+}

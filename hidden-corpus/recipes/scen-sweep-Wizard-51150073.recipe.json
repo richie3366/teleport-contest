@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0017blessed ring of polymorph control\nPor#polyself\nfire vortex\n #monster\nss\u0007pony\nFl.20s ...#polyself\nrust monster\n#monster\nsm.sb\u0007red naga\nFk Fy Fy sm. 20s .m.\u0017amulet of unchanging\nPp .m. .m. .bsm.\u001614\n\u0017bag of holding\n\u0017wand of undead turning\n\u0017potion of water\n\u0017potion of hallucination\n\u0017mace\nwudq#force\ns20s  n.m.ag\u0017mace\nwvdk #force\nsm..nsm.\u0017mace\nwwdu#force\nsm.sm.sm.de  n u\u0004b  i\u001b\u00166\n#levelchange\n14\n\u0016?\ne\u0006sss.Fl synyu#pray\ny y             ;b. \u001b@.#untrap\nl\u0018\u001b\u0017uncursed wand of polymorph\n\u0007red mold\nzx.  zxl    n   \u0017cursed scroll of stinking cloud\nry  ;     s   n   s      \u00173 scroll of blank paper\n\u0007cave spider\nrzs   n    s    \u0017towel\naA\u0017blessed +3 ring of see invisible\nPB   s  n   su     n .m.  \u0017potion of full healing\n\u0007floating eye\nqC     Fy        nFn  20s          n 20s    \u00167\n#levelchange\n20\n        \u0016?\n>y  _mmmmm.Fk_. Fl     n #chat\nn;l:_mm.#chat\nn_m.#chat\nl <\u000f\u001b#offer\n#levelchange\n14\n  \u001760 gold pieces\n\u0016?\nc\u0006_m.#chat\nb_mmm.#chat\nj_mm,#chat\nb_{. Fu _. Fk      n qg\u0014.#loot\nu#dip\nns\u0017pick-axe\n\u0016?\n>w\u0006_ooo.aDuy \u0006_o.aD> nnu\u0017grave\naD>20s   ns aD< aDn n\u001621\n\u0016?\n>Cl h  Fh j  n uFy l10sFkFk     n Fku\u0017wand of digging\nzEl lFkb10s   Fkk  n Fy FknFk   n  n FkFy  yny   y y y\u001b   F"
+ },
+ "segments": [
+  {
+   "seed": 51150073,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0017blessed ring of polymorph control\nPor#polyself\nfire vortex\n #monster\nss\u0007pony\nFl.20s ...#polyself\nrust monster\n#monster\nsm.sb\u0007red naga\nFk Fy Fy sm. 20s .m.\u0017amulet of unchanging\nPp .m. .m. .bsm.\u001614\n\u0017bag of holding\n\u0017wand of undead turning\n\u0017potion of water\n\u0017potion of hallucination\n\u0017mace\nwudq#force\ns20s  n.m.ag\u0017mace\nwvdk #force\nsm..nsm.\u0017mace\nwwdu#force\nsm.sm.sm.de  n u\u0004b  i\u001b\u00166\n#levelchange\n14\n\u0016?\ne\u0006sss.Fl synyu#pray\ny y             ;b. \u001b@.#untrap\nl\u0018\u001b\u0017uncursed wand of polymorph\n\u0007red mold\nzx.  zxl    n   \u0017cursed scroll of stinking cloud\nry  ;     s   n   s      \u00173 scroll of blank paper\n\u0007cave spider\nrzs   n    s    \u0017towel\naA\u0017blessed +3 ring of see invisible\nPB   s  n   su     n .m.  \u0017potion of full healing\n\u0007floating eye\nqC     Fy        nFn  20s          n 20s    \u00167\n#levelchange\n20\n        \u0016?\n>y  _mmmmm.Fk_. Fl     n #chat\nn;l:_mm.#chat\nn_m.#chat\nl <\u000f\u001b#offer\n#levelchange\n14\n  \u001760 gold pieces\n\u0016?\nc\u0006_m.#chat\nb_mmm.#chat\nj_mm,#chat\nb_{. Fu _. Fk      n qg\u0014.#loot\nu#dip\nns\u0017pick-axe\n\u0016?\n>w\u0006_ooo.aDuy \u0006_o.aD> nnu\u0017grave\naD>20s   ns aD< aDn n\u001621\n\u0016?\n>Cl h  Fh j  n uFy l10sFkFk     n Fku\u0017wand of digging\nzEl lFkb10s   Fkk  n Fy FknFk   n  n FkFy  yny   y y y\u001b   F"
+  }
+ ]
+}

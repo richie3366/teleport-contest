@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWf\u0017blessed shield of reflection\nW\u001b\u0017blessed ring of free action\nPhr\u0017wand of fire\n\u0017wand of lightning\n\u0007grid bug\n\u0007grid bug\n\u0007sewer rat\nzib zihsnzihzjlsm.zjl zjl.m.zilszjh\u0007baby red dragon\n\u0007silver dragon\n.m.sm.s20s#polyself\nsilver dragon\n   #monster\n.y   sm. #monster\n#monster\n#monster\n\u0017wand of cold\naFh    Fy  \u001715 shuriken\nQl\u0007gnome\n\u0007hill orc\nfffft\u0017potion of gain level\nt\u0018\u001b\u0017wand of digging\n\u0017wand of lightning\n\u0007newt\n\u0007hill orc\n\u0007lichen\nzsm.zzzsm.    nzob   n .m.  n  zn> .\u001611\n\u0017blessed spellbook of force bolt\nrp   nsm.\u0017blessed spellbook of finger of death\nrq sm.\u0007lich\nZZsm.sm.ZZsm.sm.  nZZZsjsm.    n Zsm..m.Z#turn\ni\u001b\u00164\n\u0017spellbook of force bolt\nrrs\u0017spellbook of fireball\nrs.\u0007incubus\nZa\nZa\n Za\nZa\n20s.m.  n Za\n.m..m.Za\n.m.sm.\u0007silver dragon\nsy  n20ssm.  n  .m.#polyself\nblack dragon\n  20s  sn#monster\n#monster\nFy  Fh  \u00169\n\u0007mind flayer\n\u0007incubus\n\u0017wand of cold\nzz20s    .m.     \u0017bow\nw\u001720 arrows\nQ-\u0007hobbit\n\u0007jackal\nffffft\u0017elven bow\nw\u001720 elven arrows\nQl\u0007hill orc\n\u0007sewer rat\nffffftf\u0007silver dragon\n\u0007black dragon\nsm.    n  .k      n 20s          n Fj      n  Fl     "
+ },
+ "segments": [
+  {
+   "seed": 51150092,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:full\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWf\u0017blessed shield of reflection\nW\u001b\u0017blessed ring of free action\nPhr\u0017wand of fire\n\u0017wand of lightning\n\u0007grid bug\n\u0007grid bug\n\u0007sewer rat\nzib zihsnzihzjlsm.zjl zjl.m.zilszjh\u0007baby red dragon\n\u0007silver dragon\n.m.sm.s20s#polyself\nsilver dragon\n   #monster\n.y   sm. #monster\n#monster\n#monster\n\u0017wand of cold\naFh    Fy  \u001715 shuriken\nQl\u0007gnome\n\u0007hill orc\nfffft\u0017potion of gain level\nt\u0018\u001b\u0017wand of digging\n\u0017wand of lightning\n\u0007newt\n\u0007hill orc\n\u0007lichen\nzsm.zzzsm.    nzob   n .m.  n  zn> .\u001611\n\u0017blessed spellbook of force bolt\nrp   nsm.\u0017blessed spellbook of finger of death\nrq sm.\u0007lich\nZZsm.sm.ZZsm.sm.  nZZZsjsm.    n Zsm..m.Z#turn\ni\u001b\u00164\n\u0017spellbook of force bolt\nrrs\u0017spellbook of fireball\nrs.\u0007incubus\nZa\nZa\n Za\nZa\n20s.m.  n Za\n.m..m.Za\n.m.sm.\u0007silver dragon\nsy  n20ssm.  n  .m.#polyself\nblack dragon\n  20s  sn#monster\n#monster\nFy  Fh  \u00169\n\u0007mind flayer\n\u0007incubus\n\u0017wand of cold\nzz20s    .m.     \u0017bow\nw\u001720 arrows\nQ-\u0007hobbit\n\u0007jackal\nffffft\u0017elven bow\nw\u001720 elven arrows\nQl\u0007hill orc\n\u0007sewer rat\nffffftf\u0007silver dragon\n\u0007black dragon\nsm.    n  .k      n 20s          n Fj      n  Fl     "
+  }
+ ]
+}

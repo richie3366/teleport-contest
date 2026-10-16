@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "H  KYY_ \u001b@.>Fn FjFb UKBN_>,>FkFksqh#terrain\nb\nLBYL_>KBLU_>LJKL_>_.#enhance\n\u001bUHB J_>.>Fk20s20s NYUK_>,>FbFb sUUUY_>.>Fb 20ssNHUL_>.>#invoke\n\u001bz<UNJ   B_>,><UY HH_>,>FuFlFl#pray\ny    #offer\nHNKK_>.>Fus.#invoke\n\u001bcj\u000f\u001bKBUU_>,>BKLB_>.>LJBJ_>,>#sit\n\u001b20s NHJU _>.>Fh .Fki\u001b,J  UKU_>,>\u000f\u001b#loot\n20sfk50s   50s \\ \\ 100s_>.>jbknnyFjFjFjFhFjFjFjFjFjFjFjFjFjFjFjFjFjFnFnFy FyFjFj FjFjFjFjFjFj FjFbFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFhFjFjFjFhFjFkFjFjFjFjFjFjFj FjFjFjFjFhFbFjFj Fj FjFjFyFkFjFjFj FjFjFjFkFjFj FkFjFjFjFjFkFjFjFjFjFjFjUUBJ_>.>FlFlFlBY HL _>.>HHBL _>.>FjFb s#offer\n#wipe\nHL B N_>.>\u000f\u001bHYUU_>.>ULNL_>.>BY KY_>.>dlhN NUB_>.>FlFlFlY  HJ L _>.>FkFjFj#jump\nZYLLU_>.>JBLJ_>.>\u000f\u001bNHYU _>.>FhFjFj #tip\n\u001b#turn\nJH BK _>.>UNHH  _>.>FlFkFuBUKL _>.>YNKL_>,>YJYY_>,>#force\nHLKJJ_>.>E- ad aerarium\n#terrain\nb\nYJLL_>#force\n@.#chat\nkJJY K _>.>J YLJ  _>,>FyFjFjFjFjFjFj FjFjFjFjFjFjFjFjFjFjFjFkFjFjFjFjFjFnFnFjFjFkFj    k"
+ },
+ "segments": [
+  {
+   "seed": 51150019,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "H  KYY_ \u001b@.>Fn FjFb UKBN_>,>FkFksqh#terrain\nb\nLBYL_>KBLU_>LJKL_>_.#enhance\n\u001bUHB J_>.>Fk20s20s NYUK_>,>FbFb sUUUY_>.>Fb 20ssNHUL_>.>#invoke\n\u001bz<UNJ   B_>,><UY HH_>,>FuFlFl#pray\ny    #offer\nHNKK_>.>Fus.#invoke\n\u001bcj\u000f\u001bKBUU_>,>BKLB_>.>LJBJ_>,>#sit\n\u001b20s NHJU _>.>Fh .Fki\u001b,J  UKU_>,>\u000f\u001b#loot\n20sfk50s   50s \\ \\ 100s_>.>jbknnyFjFjFjFhFjFjFjFjFjFjFjFjFjFjFjFjFjFnFnFy FyFjFj FjFjFjFjFjFj FjFbFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFhFjFjFjFhFjFkFjFjFjFjFjFjFj FjFjFjFjFhFbFjFj Fj FjFjFyFkFjFjFj FjFjFjFkFjFj FkFjFjFjFjFkFjFjFjFjFjFjUUBJ_>.>FlFlFlBY HL _>.>HHBL _>.>FjFb s#offer\n#wipe\nHL B N_>.>\u000f\u001bHYUU_>.>ULNL_>.>BY KY_>.>dlhN NUB_>.>FlFlFlY  HJ L _>.>FkFjFj#jump\nZYLLU_>.>JBLJ_>.>\u000f\u001bNHYU _>.>FhFjFj #tip\n\u001b#turn\nJH BK _>.>UNHH  _>.>FlFkFuBUKL _>.>YNKL_>,>YJYY_>,>#force\nHLKJJ_>.>E- ad aerarium\n#terrain\nb\nYJLL_>#force\n@.#chat\nkJJY K _>.>J YLJ  _>,>FyFjFjFjFjFjFj FjFjFjFjFjFjFjFjFjFjFjFkFjFjFjFjFjFnFnFjFjFkFj    k"
+  }
+ ]
+}

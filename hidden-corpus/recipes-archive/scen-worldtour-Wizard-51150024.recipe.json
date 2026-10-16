@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed ring of free action\nPor\u0017blessed +3 gauntlets of power\nWp\u0016?\n>>N       chest\n#levelchange\n8\n       \u0017flail\nwsFy   Fl  Fk  n    n   \u0007piranha\n.m.  n   n     n 20s  n   .m.  n   n  .k    n    20s  n   n  sm.    n   \u0007brown pudding\n20s    n     n   n sm.  n     yy\u001b y   nn  2"
+ },
+ "segments": [
+  {
+   "seed": 51150024,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed ring of free action\nPor\u0017blessed +3 gauntlets of power\nWp\u0016?\n>>N       chest\n#levelchange\n8\n       \u0017flail\nwsFy   Fl  Fk  n    n   \u0007piranha\n.m.  n   n     n 20s  n   .m.  n   n  .k    n    20s  n   n  sm.    n   \u0007brown pudding\n20s    n     n   n sm.  n     yy\u001b y   nn  2"
+  }
+ ]
+}

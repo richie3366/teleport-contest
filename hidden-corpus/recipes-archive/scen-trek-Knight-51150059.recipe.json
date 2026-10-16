@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "FlFlFl n100s100sFlss_ \u001b>.>_>.>P\u0018\u001b150s\u0018\u001b50sFl..150sFlFl.bkukhb50s150sFlss50s_>.>#force\n_>.>150si\u001b_>.>\u000f\u001bi\u001b#monster\n_>.>khhnhu50s100s 150sFlFlFlFlFlFlFlFlFlbjj100s100s150s  \\   nkyljlFl..i\u001bnuy\u0018\u001bbnui\u001b\\   sjky100s_>.>\\   50seghjnhyjhuk150seg50s50sFlFlFl100s\u000f\u001byklFl20ssehh150seh_>.>100s150sehljjlh#name\nf\njubu#chat\n;nn#twoweapon\ny#ride\nb#name\no\n#name\no\n10syulhbudbsss#twoweapon\n#ride\nk#terrain\nb\nYHLY_><NLHK_>KNNL_>HNBU_>>\u0004 100seg100seh100sFl..FlFlFlFls.i\u001bylb100s100seg:njjkky150sFl20s20sehFlFlFlFl.s<nyk#ride\nh50slbjljnFu Fu.50seheg\u000f\u001b\u0018\u001b_>,>150seht\u001b\u000f\u001b100sehNHHN_>.>HUK U_>.>NNJB _>,>NNNL_>.>Y UHN _>.>Z,b\n UJJL_>,>L#conduct\n NLKK_>,>Fk..<LJUY _>.>U NB H_>.>n_m.20s\u000f\u001bev  eh_>.>50s   y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 51150059,
+   "datetime": "20180512044128",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=autodig\n",
+   "moves": "FlFlFl n100s100sFlss_ \u001b>.>_>.>P\u0018\u001b150s\u0018\u001b50sFl..150sFlFl.bkukhb50s150sFlss50s_>.>#force\n_>.>150si\u001b_>.>\u000f\u001bi\u001b#monster\n_>.>khhnhu50s100s 150sFlFlFlFlFlFlFlFlFlbjj100s100s150s  \\   nkyljlFl..i\u001bnuy\u0018\u001bbnui\u001b\\   sjky100s_>.>\\   50seghjnhyjhuk150seg50s50sFlFlFl100s\u000f\u001byklFl20ssehh150seh_>.>100s150sehljjlh#name\nf\njubu#chat\n;nn#twoweapon\ny#ride\nb#name\no\n#name\no\n10syulhbudbsss#twoweapon\n#ride\nk#terrain\nb\nYHLY_><NLHK_>KNNL_>HNBU_>>\u0004 100seg100seh100sFl..FlFlFlFls.i\u001bylb100s100seg:njjkky150sFl20s20sehFlFlFlFl.s<nyk#ride\nh50slbjljnFu Fu.50seheg\u000f\u001b\u0018\u001b_>,>150seht\u001b\u000f\u001b100sehNHHN_>.>HUK U_>.>NNJB _>,>NNNL_>.>Y UHN _>.>Z,b\n UJJL_>,>L#conduct\n NLKK_>,>Fk..<LJUY _>.>U NB H_>.>n_m.20s\u000f\u001bev  eh_>.>50s   y\u001by  y y y\u001b  1"
+  }
+ ]
+}

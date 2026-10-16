@@ -1,11 +1,11 @@
 {
- "commit": "5dd745751",
- "at": "2026-10-16T16:41:41.372Z",
+ "commit": "8a259980c",
+ "at": "2026-10-16T16:49:06.048Z",
  "full": false,
  "fullCommit": "bf7208009",
  "fullAt": "2026-10-16T15:15:35.469Z",
- "entries": 1157,
- "reserve": 288,
+ "entries": 1171,
+ "reserve": 296,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -1044,6 +1044,24 @@
    "cTopline": "",
    "jsTopline": "Move cursor to the desired destination:",
    "error": null
+  },
+  "scen-chain-Wizard-51150058": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 61955,
+   "rngT": 61955,
+   "scrM": 1749,
+   "scrT": 1751,
+   "kind": "screen",
+   "step": 223,
+   "steps": 1751,
+   "owner": "list_genocided",
+   "loc": "insight.c:3038",
+   "jsOwner": null,
+   "cTopline": "Genocided species:",
+   "jsTopline": "Do you want a list of species genocided? [ynq] (n)",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-chain-Wizard-95420": {
    "src": "corpus",
@@ -2303,6 +2321,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-intrinsic-Healer-51152004": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 3094,
+   "rngT": 3356,
+   "scrM": 85,
+   "scrT": 139,
+   "kind": "rng",
+   "step": 84,
+   "steps": 139,
+   "owner": "exercise",
+   "loc": "attrib.c:509",
+   "jsOwner": "currency(invent.js:1447)",
+   "cTopline": "The feeling subsides. The tribble picks up a gold piece.",
+   "jsTopline": "The feeling subsides.",
+   "error": null
+  },
   "scen-intrinsic-Knight-50552025": {
    "src": "corpus",
    "passed": true,
@@ -3254,6 +3289,24 @@
    "cTopline": "Select run/travel display mode:",
    "jsTopline": "Select run/travel display mode:",
    "error": null
+  },
+  "scen-options-Rogue-51151031": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 4315,
+   "rngT": 4315,
+   "scrM": 191,
+   "scrT": 222,
+   "kind": "screen",
+   "step": 88,
+   "steps": 222,
+   "owner": "handler_rebind_keys",
+   "loc": "cmd.c:2432",
+   "jsOwner": null,
+   "cTopline": "Do what?",
+   "jsTopline": "Do what?",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-options-Rogue-94391": {
    "src": "corpus",
@@ -4581,6 +4634,24 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-shop-Barbarian-51150021": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 49223,
+   "rngT": 49223,
+   "scrM": 938,
+   "scrT": 968,
+   "kind": "screen",
+   "step": 190,
+   "steps": 968,
+   "owner": "glibr",
+   "loc": "do_wear.c:2617",
+   "jsOwner": null,
+   "cTopline": "a monkey corpse",
+   "jsTopline": "a hill orc corpse",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-shop-Caveman-49959611": {
    "src": "corpus",
    "passed": false,
@@ -4766,7 +4837,8 @@
    "jsOwner": null,
    "cTopline": "a watchman corpse (no travel path)",
    "jsTopline": "an iguana corpse (no travel path)",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-shop-Priest-49959522": {
    "src": "corpus",
@@ -5685,6 +5757,24 @@
    "cTopline": "",
    "jsTopline": "",
    "error": null
+  },
+  "scen-sweep-Archeologist-51150009": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 64010,
+   "rngT": 64010,
+   "scrM": 1178,
+   "scrT": 1180,
+   "kind": "screen",
+   "step": 1169,
+   "steps": 1180,
+   "owner": "one_characteristic",
+   "loc": "insight.c:926",
+   "jsOwner": null,
+   "cTopline": "Your constitution was 12 (limit:18).",
+   "jsTopline": "Your constitution was 12 (limit:18).",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-sweep-Archeologist-585417": {
    "src": "corpus",
@@ -9239,6 +9329,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-sweep-Wizard-51150073": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 0,
+   "rngT": 53545,
+   "scrM": 0,
+   "scrT": 1190,
+   "kind": "rng",
+   "step": 0,
+   "steps": 1190,
+   "owner": "randomize_gem_colors",
+   "loc": "o_init.c:89",
+   "jsOwner": null,
+   "cTopline": "Hello wizard, welcome to NetHack! You are a neutral male gnomish Wizard.",
+   "jsTopline": "",
+   "error": "ReferenceError: FACE is not defined |     at peffect_oil (file:///home/debian/dev/teleport-contest/js/potion.js:403:50) |     at peffects (file:///home/debian/d"
+  },
   "scen-sweep-Wizard-578137": {
    "src": "corpus",
    "passed": true,
@@ -9645,7 +9752,8 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "Hello wizard, welcome to NetHack! You are a neutral female human Barbarian.",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-symset-Barbarian-50650039": {
    "src": "corpus",
@@ -9868,6 +9976,23 @@
    "jsTopline": "\u0001a human or elf or you (gnomish healer called wizard)--More--",
    "error": null
   },
+  "scen-symset-Healer-51150079": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 17728,
+   "rngT": 17728,
+   "scrM": 215,
+   "scrT": 364,
+   "kind": "screen",
+   "step": 64,
+   "steps": 364,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
   "scen-symset-Knight-50155020": {
    "src": "corpus",
    "passed": false,
@@ -9917,7 +10042,8 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-symset-Knight-50555021": {
    "src": "corpus",
@@ -10104,6 +10230,23 @@
    "jsOwner": null,
    "cTopline": "Armor",
    "jsTopline": "Armor",
+   "error": null
+  },
+  "scen-symset-Monk-51150047": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 10808,
+   "rngT": 10808,
+   "scrM": 343,
+   "scrT": 629,
+   "kind": "screen",
+   "step": 86,
+   "steps": 629,
+   "owner": "look_here",
+   "loc": "invent.c:4302",
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-symset-Priest-50058519": {
@@ -10361,6 +10504,24 @@
    "jsTopline": "You move right into the jackal. The jackal misses!",
    "error": null
   },
+  "scen-symset-Rogue-51150039": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 38198,
+   "rngT": 38198,
+   "scrM": 957,
+   "scrT": 960,
+   "kind": "screen",
+   "step": 3,
+   "steps": 960,
+   "owner": "inuse_classify",
+   "loc": "invent.c:116",
+   "jsOwner": null,
+   "cTopline": "Weapons",
+   "jsTopline": "Weapons",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-symset-Samurai-50059033": {
    "src": "corpus",
    "passed": false,
@@ -10478,7 +10639,8 @@
    "jsOwner": null,
    "cTopline": "Unknown direction: 'l' (use '4', '2', '8', '6' or '.').",
    "jsTopline": "ettin zombie, asleep",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-symset-Tourist-50555058": {
    "src": "corpus",
@@ -10513,6 +10675,24 @@
    "cTopline": "",
    "jsTopline": "",
    "error": null
+  },
+  "scen-symset-Tourist-51150063": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 121917,
+   "rngT": 121917,
+   "scrM": 877,
+   "scrT": 882,
+   "kind": "screen",
+   "step": 203,
+   "steps": 882,
+   "owner": "inuse_classify",
+   "loc": "invent.c:116",
+   "jsOwner": null,
+   "cTopline": "Weapons",
+   "jsTopline": "Weapons",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-symset-Valkyrie-50059008": {
    "src": "corpus",
@@ -10666,6 +10846,24 @@
    "cTopline": "",
    "jsTopline": "",
    "error": null
+  },
+  "scen-symset-Wizard-51150055": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 10936,
+   "rngT": 10936,
+   "scrM": 562,
+   "scrT": 564,
+   "kind": "screen",
+   "step": 539,
+   "steps": 564,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "Done.",
+   "jsTopline": "stone",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-terrain-Archeologist-50551000": {
    "src": "corpus",
@@ -10835,6 +11033,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-tour-Healer-51152023": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 14375,
+   "rngT": 14375,
+   "scrM": 60,
+   "scrT": 121,
+   "kind": "screen",
+   "step": 60,
+   "steps": 121,
+   "owner": "getpos",
+   "loc": "getpos.c:844",
+   "jsOwner": null,
+   "cTopline": "Showing underlying terrain only... (For instructions type a '?')",
+   "jsTopline": "Showing underlying terrain only... (For instructions type a '?')",
    "error": null
   },
   "scen-tour-Healer-92042": {
@@ -12382,6 +12597,23 @@
    "jsOwner": "next_ident(mkobj.js:426)",
    "cTopline": "You materialize on a different level!--More--",
    "jsTopline": "You materialize on a different level!--More--",
+   "error": null
+  },
+  "scen-worldtour-Barbarian-51150080": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 49002,
+   "rngT": 49002,
+   "scrM": 668,
+   "scrT": 669,
+   "kind": "screen",
+   "step": 488,
+   "steps": 669,
+   "owner": "auto_describe",
+   "loc": "getpos.c:658",
+   "jsOwner": null,
+   "cTopline": "interior of the energy vortex (no travel path)",
+   "jsTopline": "interior of the energy vortex",
    "error": null
   },
   "scen-worldtour-Barbarian-578309": {
@@ -14271,6 +14503,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-zapfest-Caveman-51150068": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 6354,
+   "rngT": 7939,
+   "scrM": 586,
+   "scrT": 809,
+   "kind": "screen",
+   "step": 585,
+   "steps": 809,
+   "owner": "castmu",
+   "loc": "mcastu.c:217",
+   "jsOwner": null,
+   "cTopline": "The priest of Ishtar casts a spell! You stop searching.--More--",
+   "jsTopline": "The priest of Ishtar casts a spell!--More--",
+   "error": null
+  },
   "scen-zapfest-Healer-49959506": {
    "src": "corpus",
    "passed": true,
@@ -15114,8 +15363,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-questtour-Priest-50950030": {
    "src": "corpus",
@@ -15132,8 +15380,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-questtour-Rogue-50150006": {
    "src": "corpus",
@@ -16590,8 +16837,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Archeologist-50059023": {
    "src": "corpus",
@@ -19965,5 +20211,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-16T16:49:14.138Z"
 }

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "mO>>w\u001b\n\u0007tame dingo\n\u0017leash\naoj nuk kl ly aob \u0007sewer rat\n\u0017scroll of taming\nrp 10s\u0007newt\n\u0017scroll of taming\nrq \u0017tripe ration\nt\u001b#chat\ny mO>>c\u001b\nO>g\u001b\nOamango\n\u001b\n#levelchange\n30\n                             ln bnlk \u0017lawful altar\ndkdo\u0017jackal corpse\n#offer\ns  kj h\u001b\u0017unaligned altar\ndhdc\u0017jackal corpse\n#offer\nt  un \u0017moat\n#dip\nby     yb\u0017magic fountain\nqyqy #dip\ndy y#terrain\ne\n#sit\n #loot\nk <O>o6\n \u001b\nO>>>>b\u001b\n\u00165\n\u0006_ \u001b,>FuFk_>. Fu_. Fu>FhFk_>.Fy_. Fb>FyFln FnFlh Flam  10s\u0006_>.Fk_.    Fn>FbFyFnw\u000f\u001b\u0006_>.Fy_, Fuu >FkFu_>,Fl_.Fb>FyFj_>,Fl_.;,Fn>FyFlh Fy#name\nm\n,<\u000f\u001blu kb kl \u0017melting ic"
+ },
+ "segments": [
+  {
+   "seed": 51150055,
+   "datetime": "20230503154914",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=autodig\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=stop \"You see\"\nMENUCOLOR=\"a scroll\"=magenta\n",
+   "moves": "mO>>w\u001b\n\u0007tame dingo\n\u0017leash\naoj nuk kl ly aob \u0007sewer rat\n\u0017scroll of taming\nrp 10s\u0007newt\n\u0017scroll of taming\nrq \u0017tripe ration\nt\u001b#chat\ny mO>>c\u001b\nO>g\u001b\nOamango\n\u001b\n#levelchange\n30\n                             ln bnlk \u0017lawful altar\ndkdo\u0017jackal corpse\n#offer\ns  kj h\u001b\u0017unaligned altar\ndhdc\u0017jackal corpse\n#offer\nt  un \u0017moat\n#dip\nby     yb\u0017magic fountain\nqyqy #dip\ndy y#terrain\ne\n#sit\n #loot\nk <O>o6\n \u001b\nO>>>>b\u001b\n\u00165\n\u0006_ \u001b,>FuFk_>. Fu_. Fu>FhFk_>.Fy_. Fb>FyFln FnFlh Flam  10s\u0006_>.Fk_.    Fn>FbFyFnw\u000f\u001b\u0006_>.Fy_, Fuu >FkFu_>,Fl_.Fb>FyFj_>,Fl_.;,Fn>FyFlh Fy#name\nm\n,<\u000f\u001blu kb kl \u0017melting ic"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0007tame soldier ant\n\u0007tame jackal\n\u0007jackal\ns20s  .ss 20s #chat\nk l20s  df sss\u0007jackal\n\u0017scroll of taming\nrg \u0007tame wolf\n\u0007tame winter wolf cub\n\u0017tin whistle\nnnjah\u0017magic whistle\nhybai    \u0007gnome\n\u0017scroll of taming\nrj #chat\nk\u0017lichen corpse\ntcu  \u0007grid bug\n\u0017scroll of taming\nrl "
+ },
+ "segments": [
+  {
+   "seed": 51151025,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=fruit:durian\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007tame soldier ant\n\u0007tame jackal\n\u0007jackal\ns20s  .ss 20s #chat\nk l20s  df sss\u0007jackal\n\u0017scroll of taming\nrg \u0007tame wolf\n\u0007tame winter wolf cub\n\u0017tin whistle\nnnjah\u0017magic whistle\nhybai    \u0007gnome\n\u0017scroll of taming\nrj #chat\nk\u0017lichen corpse\ntcu  \u0007grid bug\n\u0017scroll of taming\nrl "
+  }
+ ]
+}

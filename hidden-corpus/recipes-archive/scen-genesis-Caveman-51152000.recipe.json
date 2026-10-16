@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017unicorn horn\nwfFb s20s\u0007red dragon\n20s.usm.s\u0007hell hound\nFbFb FhFbFh \u0007couatl\n;l: \u001bm,sm.  yy\u001by   y y y\u001bn  ."
+ },
+ "segments": [
+  {
+   "seed": 51152000,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017unicorn horn\nwfFb s20s\u0007red dragon\n20s.usm.s\u0007hell hound\nFbFb FhFbFh \u0007couatl\n;l: \u001bm,sm.  yy\u001by   y y y\u001bn  ."
+  }
+ ]
+}

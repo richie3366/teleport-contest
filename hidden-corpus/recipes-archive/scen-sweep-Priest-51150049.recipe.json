@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n20\n            \u0017spellbook of cure sickness\nrj y 20s \u0017blessed spellbook of magic missile\nrk s\u0017blessed spellbook of restore ability\nrl  .\u0017blessed spellbook of dig\nrm   20s  +\u001bZc\nZd\n\u0007sewer rat\nZe\nZe\nZb\n Zb\n\u0007gnome lord\nZc\n  n Ze\n#turn\n    #pray\ny y     i\u001b#levelchange\n14\n  \u0016?\nf    \u0006Fj  ssFk Fl  Fl   bbbn cl#invoke\n\u001b,   \u00162\n#levelchange\n20\n     \u0017Grayswandir\nwo FhFhFh#invoke\noX\u0007vampire lord\n;h; \u001b<..k.j20s\u0007plains centaur\nFk  Fk    n Fk   i\u001brk y   .m. 20s   Z\u001bZ\u001bwn  n   Fj   Fh  Fh    n rj y   20s  .uZ\u001bZ\u001brg y  .y.Z\u001brh y    n .h   20s  Z\u001bZ\u001brm y   20s   sm.  n  Z\u001bZ\u001b#name\nm\n#chat\n<.#loot\nbqd   okWi\u001b#untrap\nhi\u001brm   sy20s     n Z\u001bZ\u001bwnFj   Fj   Fb   wnFb   n  Fh    Fj   rg y    n .m.  .m. Z\u001bZ\u001brk y    n 20s  sm.  Z\u001bZ\u001brh y  .u.Z\u001bZ\u001b\u0006\u00169\n#levelchange\n12\n#wizintrinsic\nnrq\n  20s   n.m..m.sbsssss.j20sslssss.usm.sjsbsns.m. .u .m.sm.  n sh  20s 20s  sksm.20s #tip\n\u001b\\  am    n  \u0018\u001b#ride\nby\\  .b 20s 20s sm.ss\u00166\ni\u001bef    n snswnFh Fh Fhrh  sj20s Zb\naiy   n aiy  rk y  sm.20s Za\nZq  i\u001b#terrain\nd\nL\u000f df    yy\u001bnny n  #"
+ },
+ "segments": [
+  {
+   "seed": 51150049,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n20\n            \u0017spellbook of cure sickness\nrj y 20s \u0017blessed spellbook of magic missile\nrk s\u0017blessed spellbook of restore ability\nrl  .\u0017blessed spellbook of dig\nrm   20s  +\u001bZc\nZd\n\u0007sewer rat\nZe\nZe\nZb\n Zb\n\u0007gnome lord\nZc\n  n Ze\n#turn\n    #pray\ny y     i\u001b#levelchange\n14\n  \u0016?\nf    \u0006Fj  ssFk Fl  Fl   bbbn cl#invoke\n\u001b,   \u00162\n#levelchange\n20\n     \u0017Grayswandir\nwo FhFhFh#invoke\noX\u0007vampire lord\n;h; \u001b<..k.j20s\u0007plains centaur\nFk  Fk    n Fk   i\u001brk y   .m. 20s   Z\u001bZ\u001bwn  n   Fj   Fh  Fh    n rj y   20s  .uZ\u001bZ\u001brg y  .y.Z\u001brh y    n .h   20s  Z\u001bZ\u001brm y   20s   sm.  n  Z\u001bZ\u001b#name\nm\n#chat\n<.#loot\nbqd   okWi\u001b#untrap\nhi\u001brm   sy20s     n Z\u001bZ\u001bwnFj   Fj   Fb   wnFb   n  Fh    Fj   rg y    n .m.  .m. Z\u001bZ\u001brk y    n 20s  sm.  Z\u001bZ\u001brh y  .u.Z\u001bZ\u001b\u0006\u00169\n#levelchange\n12\n#wizintrinsic\nnrq\n  20s   n.m..m.sbsssss.j20sslssss.usm.sjsbsns.m. .u .m.sm.  n sh  20s 20s  sksm.20s #tip\n\u001b\\  am    n  \u0018\u001b#ride\nby\\  .b 20s 20s sm.ss\u00166\ni\u001bef    n snswnFh Fh Fhrh  sj20s Zb\naiy   n aiy  rk y  sm.20s Za\nZq  i\u001b#terrain\nd\nL\u000f df    yy\u001bnny n  #"
+  }
+ ]
+}

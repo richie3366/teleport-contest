@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "mO>pc\n #wipe\nmO>>>>la\n20s#force\nO>k\nj\nr\u001bmO>>>i\n #ride\n.y\u0018\u001bOcdg\nf\nokmO>>lbj\n  ck#enhance\nyb\nd\n\u001b20s.mO>>w\n#monster\n#ride\nhymO>>>>>>bh\nl\n#loot\nhmO>>>>>>n\na\na\na\n\u001b:#loot\nhOmdn\ni\u001bohO>hag\na\na\na\n\u001b#tip\n\u001bmOdb\nJOgie\nf\n#twoweapon\n,s."
+ },
+ "segments": [
+  {
+   "seed": 51151011,
+   "datetime": "20250206013757",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "mO>pc\n #wipe\nmO>>>>la\n20s#force\nO>k\nj\nr\u001bmO>>>i\n #ride\n.y\u0018\u001bOcdg\nf\nokmO>>lbj\n  ck#enhance\nyb\nd\n\u001b20s.mO>>w\n#monster\n#ride\nhymO>>>>>>bh\nl\n#loot\nhmO>>>>>>n\na\na\na\n\u001b:#loot\nhOmdn\ni\u001bohO>hag\na\na\na\n\u001b#tip\n\u001bmOdb\nJOgie\nf\n#twoweapon\n,s."
+  }
+ ]
+}

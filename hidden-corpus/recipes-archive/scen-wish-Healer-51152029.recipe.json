@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n          \u0017blessed spellbook of jumping\n\u0007master lich\nrk  sm.    sj    Zb\n   Za\n Fj  Fj\u0017unicorn horn\n\u0007xorn\nalal\u00173 potion of see invisible\nqm \u001b 20s   yny  y y\u001bn  ."
+ },
+ "segments": [
+  {
+   "seed": 51152029,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n          \u0017blessed spellbook of jumping\n\u0007master lich\nrk  sm.    sj    Zb\n   Za\n Fj  Fj\u0017unicorn horn\n\u0007xorn\nalal\u00173 potion of see invisible\nqm \u001b 20s   yny  y y\u001bn  ."
+  }
+ ]
+}

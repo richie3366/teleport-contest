@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " dg\\ \u0014,qdcjuW\u001bq:20sag,#force\nP\u0004j#enhance\n\u001bi\u001bda#tip\nf\u001b#turn\nE- X marks the spot\ni\u001baeyagafs\nafi\n#tip\nf\u001bwb20s.20sXW\u001b20s20s20sn#enhance\n\u001b10sl,#jump\n"
+ },
+ "segments": [
+  {
+   "seed": 51152008,
+   "datetime": "20170427035343",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": " dg\\ \u0014,qdcjuW\u001bq:20sag,#force\nP\u0004j#enhance\n\u001bi\u001bda#tip\nf\u001b#turn\nE- X marks the spot\ni\u001baeyagafs\nafi\n#tip\nf\u001bwb20s.20sXW\u001b20s20s20sn#enhance\n\u001b10sl,#jump\n"
+  }
+ ]
+}

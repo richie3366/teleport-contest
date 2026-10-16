@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b:>_>,_.> < #rub\n\u0006_>.> \u0006_>.Fk_.,Fh> \u0006_>._,> Fy FyFy \u0006_>. _.Fl  n>FlFl _>.Fl_.m.  n Fu >FuFu   n _>,Fl  n _,Fl   n >FuFl  nFlFuFu\u000f\u001b\u001611\n\u0006_>,>FnFn_>.>FlFn_>.>FlFlFnFnFn><\u0006_>.>FnFn_>.>Fn  nFn_>,>FnFnFnFnFyi\u001bh\u0006_>>,>Fn  nFy_>>,>Fn Fn _>>.>Fn Fy  n   nFn  Fy  Fy  \u0006_>.>Fy Fy  n  _>,>Fn Fy _>.>Fn   n Fy   Fn  Fn  n    Fy  n  <\u0006_>.>Fn Fn  _>.>Fn Fy _>.>Fy  n  Fy  Fn  Fy Fy \u001619\nO>>>c\u001b\n  yny  y y y\u001b  m"
+ },
+ "segments": [
+  {
+   "seed": 51150031,
+   "datetime": "20000919014217",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nMSGTYPE=stop \"You see\"\nMENUCOLOR=\"a potion\"=cyan\nBIND=v:inventory\n",
+   "moves": "\u0006_ \u001b:>_>,_.> < #rub\n\u0006_>.> \u0006_>.Fk_.,Fh> \u0006_>._,> Fy FyFy \u0006_>. _.Fl  n>FlFl _>.Fl_.m.  n Fu >FuFu   n _>,Fl  n _,Fl   n >FuFl  nFlFuFu\u000f\u001b\u001611\n\u0006_>,>FnFn_>.>FlFn_>.>FlFlFnFnFn><\u0006_>.>FnFn_>.>Fn  nFn_>,>FnFnFnFnFyi\u001bh\u0006_>>,>Fn  nFy_>>,>Fn Fn _>>.>Fn Fy  n   nFn  Fy  Fy  \u0006_>.>Fy Fy  n  _>,>Fn Fy _>.>Fn   n Fy   Fn  Fn  n    Fy  n  <\u0006_>.>Fn Fn  _>.>Fn Fy _>.>Fy  n  Fy  Fn  Fy Fy \u001619\nO>>>c\u001b\n  yny  y y y\u001b  m"
+  }
+ ]
+}

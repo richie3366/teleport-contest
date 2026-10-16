@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " FjFjFn \u0018\u001b100sjynFlFlFlFlss150s100subu150s50sFh20s.bnj\u0014_ \u001b>.>50s\u000f\u001b100s100s#rub\n150sFls.100s\u000f\u001b50s\u000f\u001b50s100s 100sFhFhFh<unh_>.>_>.>knh\\  \u000f\u001byby#pray\ny 100s\u0018\u001b>#force\n#dip\nif100s100sFl20s20s50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBUBU_>,>#invoke\n\u001b<<YBKK_>.>\u0004k#rub\nLKNH_>.><JL YL_>.>Fjs.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebjkuhjkj20sdb20s20s20sbh20s20sUYNJ_>.>FuFysYBKJ_>.>KHKK_>,>NKYL_>.>UBUL_>.><HBUU_>.>#ride\n.#enhance\n\u001b#pray\ny  YBJY_>.>JLHH_>.>KBHU_>,>KUKN_>.>\u000f\u001bUYKB_>.>KLYN_>,>E- Elbereth\n\u0004uNHYL_>.>B NKU_>,>Fbss\u0014eHYUU_>.>UBYH_>.>\u0014#pray\ny  KKLH_>.>150sFls20s100s100si\u001b100s100s100s FlFlFlFlFl.50s FlFl20s_>.>50sjjn150sFkFks_>.>100s150sFk..100sFhFhFh150slkni\u001blhh100s100s Fy Fys100subl#pray\ny  FyFy  y\u001by  y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 51150091,
+   "datetime": "20050903180950",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\n",
+   "moves": " FjFjFn \u0018\u001b100sjynFlFlFlFlss150s100subu150s50sFh20s.bnj\u0014_ \u001b>.>50s\u000f\u001b100s100s#rub\n150sFls.100s\u000f\u001b50s\u000f\u001b50s100s 100sFhFhFh<unh_>.>_>.>knh\\  \u000f\u001byby#pray\ny 100s\u0018\u001b>#force\n#dip\nif100s100sFl20s20s50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBUBU_>,>#invoke\n\u001b<<YBKK_>.>\u0004k#rub\nLKNH_>.><JL YL_>.>Fjs.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebjkuhjkj20sdb20s20s20sbh20s20sUYNJ_>.>FuFysYBKJ_>.>KHKK_>,>NKYL_>.>UBUL_>.><HBUU_>.>#ride\n.#enhance\n\u001b#pray\ny  YBJY_>.>JLHH_>.>KBHU_>,>KUKN_>.>\u000f\u001bUYKB_>.>KLYN_>,>E- Elbereth\n\u0004uNHYL_>.>B NKU_>,>Fbss\u0014eHYUU_>.>UBYH_>.>\u0014#pray\ny  KKLH_>.>150sFls20s100s100si\u001b100s100s100s FlFlFlFlFl.50s FlFl20s_>.>50sjjn150sFkFks_>.>100s150sFk..100sFhFhFh150slkni\u001blhh100s100s Fy Fys100subl#pray\ny  FyFy  y\u001by  y y y\u001b  s"
+  }
+ ]
+}

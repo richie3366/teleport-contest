@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed amulet of reflection\nPi\u0017blessed +3 cloak of magic resistance\nWj\u0016?\n>w\u0006_ \u001b<.q_oooooo.,\u0014.ssFjFjFjFjFjFj _oooo.,#chat\nu__._,#chat\nj#pray\ny y _ooooooo.,#chat\nlFlFlFlFlFlFl__,_.#chat\nu#pray\ny y _oooo.,\u0017loadstone\n dk_{._.;m,q_ooooooooo.,p_{,_,qy_oooooo,_oo.,p_oooo.,#chat\nl_ooooooooo,_ooo.,\u0017amulet of restful sleep\ndl_oooooo._ooo.,  p_oooooooo,,$_oooo._o.,p_{._.  q_oooooooo._oo,,\u0017diamond\ndmklh#chat\nlFl FlFlFlFlFl_ooo.Fu_,,#chat\nu  n __,Fu_.#chat\nl_ooooo._ooo.,p_ooo.,$\u0016?\ncnuk\u0016?\n>w\u0006__.Fj _.m.Fb#chat\nb_oooo,,\u0017amulet of flying\ndn__.Fb_.Fb#chat\nb_oooo._o.,$\u0016?\n>Blkh\u0016?\n>w   \u0006yju#chat\ny_oooooooo.,#chat\nk__.Fl  _.#chat\nk 400\n __.#chat\nj 200\n #pray\ny y  __.#chat\nu 0\n _ooooooo.,p_{._.,Fh qy _ooooo._oo,,p\u0016?\ncbnl\u0016?\n>w\u0006_{,Fl  _.Fl q\u00163\nly   nn\u0016?\n>w\u0006_oo,,\u0017ruby\ndo   n_{.Fh _,Fkq_oooooooo.,pFbFb   nFb  Fb   n Fb Fb   n \u00165\n__,Fh_,  nFb #chat\nj "
+ },
+ "segments": [
+  {
+   "seed": 51150005,
+   "datetime": "20110710030059",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed amulet of reflection\nPi\u0017blessed +3 cloak of magic resistance\nWj\u0016?\n>w\u0006_ \u001b<.q_oooooo.,\u0014.ssFjFjFjFjFjFj _oooo.,#chat\nu__._,#chat\nj#pray\ny y _ooooooo.,#chat\nlFlFlFlFlFlFl__,_.#chat\nu#pray\ny y _oooo.,\u0017loadstone\n dk_{._.;m,q_ooooooooo.,p_{,_,qy_oooooo,_oo.,p_oooo.,#chat\nl_ooooooooo,_ooo.,\u0017amulet of restful sleep\ndl_oooooo._ooo.,  p_oooooooo,,$_oooo._o.,p_{._.  q_oooooooo._oo,,\u0017diamond\ndmklh#chat\nlFl FlFlFlFlFl_ooo.Fu_,,#chat\nu  n __,Fu_.#chat\nl_ooooo._ooo.,p_ooo.,$\u0016?\ncnuk\u0016?\n>w\u0006__.Fj _.m.Fb#chat\nb_oooo,,\u0017amulet of flying\ndn__.Fb_.Fb#chat\nb_oooo._o.,$\u0016?\n>Blkh\u0016?\n>w   \u0006yju#chat\ny_oooooooo.,#chat\nk__.Fl  _.#chat\nk 400\n __.#chat\nj 200\n #pray\ny y  __.#chat\nu 0\n _ooooooo.,p_{._.,Fh qy _ooooo._oo,,p\u0016?\ncbnl\u0016?\n>w\u0006_{,Fl  _.Fl q\u00163\nly   nn\u0016?\n>w\u0006_oo,,\u0017ruby\ndo   n_{.Fh _,Fkq_oooooooo.,pFbFb   nFb  Fb   n Fb Fb   n \u00165\n__,Fh_,  nFb #chat\nj "
+  }
+ ]
+}

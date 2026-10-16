@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " y   : d\u001b: #rub\n<hjk#loot\n::_ \u001b>.bbk#terrain\nb\n<>ukk_.nky:Z:uun>#twoweapon\nhyh:jul<bnkunnJqhyyukljhl>hbk_>,t\u001bynl:_<,yjb::t\u001b10snnh>ubyq#chat\nnjhu>10s__.:"
+ },
+ "segments": [
+  {
+   "seed": 51151019,
+   "datetime": "20181016103451",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\n",
+   "moves": " y   : d\u001b: #rub\n<hjk#loot\n::_ \u001b>.bbk#terrain\nb\n<>ukk_.nky:Z:uun>#twoweapon\nhyh:jul<bnkunnJqhyyukljhl>hbk_>,t\u001bynl:_<,yjb::t\u001b10snnh>ubyq#chat\nnjhu>10s__.:"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWf  \u0017blessed amulet of life saving\nPg\u0017wand of slow monster\n\u0017wand of sleep\n\u0017wand of digging\n\u0007soldier\n\u0007acid blob\n\u0007lichen\nziuzhh zj>  zihzhkzj>  zih\u0017blessed spellbook of knock\nrk s\u0007gnomish wizard\n\u0007lich\nZa\nZa\nZa\nZa\nZa\nZa\nZa\n\u0007black dragon\n.m.su#polyself\nsilver dragon\n   #monster\n.bsk   #monster\n#monster\nFk  Fk       \u0018\u001b\u0017wand of fire\n\u0017wand of magic missile\n\u0017wand of cold\n\u0007yellow mold\n\u0007newt\nzzzsm.zzzzz\u0017wand of magic missile\n\u0017wand of death\n\u0017wand of polymorph\n\u0007lichen\n\u0007dwarf\nzzsm. zzzzz20s \u0007incubus\n\u0007lich\n\u0007lich\n\u0017wand of striking\nzzzz.m.  z\u00169\n i\u001b\u0007baby red dragon\n\u0007red dragon\n.m...Fn   Fy            \u001b \u0017spellbook of knock\nrs y     sm.      \u0007master mind flayer\n\u0007gnomish wizard\nZa\nZa\nZa\nsm.  n  sh   \u001b  n Za\n.m.  n  sm.     Za\nZa\n20s  n    20s  n\u001611\n\u0007gnomish wizard\n\u0007succubus\n\u0007master lich\n\u0017wand of cold\n20sztj         ztn    sm.   .m.ztj   n zty     \u001612\n    \u0018\u001b\u0017wand of magic missile\n\u0017wand of fire\n\u0007newt\nzuk   nsm.zvuzunzu..zvj"
+ },
+ "segments": [
+  {
+   "seed": 51150076,
+   "datetime": "20080103122106",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWf  \u0017blessed amulet of life saving\nPg\u0017wand of slow monster\n\u0017wand of sleep\n\u0017wand of digging\n\u0007soldier\n\u0007acid blob\n\u0007lichen\nziuzhh zj>  zihzhkzj>  zih\u0017blessed spellbook of knock\nrk s\u0007gnomish wizard\n\u0007lich\nZa\nZa\nZa\nZa\nZa\nZa\nZa\n\u0007black dragon\n.m.su#polyself\nsilver dragon\n   #monster\n.bsk   #monster\n#monster\nFk  Fk       \u0018\u001b\u0017wand of fire\n\u0017wand of magic missile\n\u0017wand of cold\n\u0007yellow mold\n\u0007newt\nzzzsm.zzzzz\u0017wand of magic missile\n\u0017wand of death\n\u0017wand of polymorph\n\u0007lichen\n\u0007dwarf\nzzsm. zzzzz20s \u0007incubus\n\u0007lich\n\u0007lich\n\u0017wand of striking\nzzzz.m.  z\u00169\n i\u001b\u0007baby red dragon\n\u0007red dragon\n.m...Fn   Fy            \u001b \u0017spellbook of knock\nrs y     sm.      \u0007master mind flayer\n\u0007gnomish wizard\nZa\nZa\nZa\nsm.  n  sh   \u001b  n Za\n.m.  n  sm.     Za\nZa\n20s  n    20s  n\u001611\n\u0007gnomish wizard\n\u0007succubus\n\u0007master lich\n\u0017wand of cold\n20sztj         ztn    sm.   .m.ztj   n zty     \u001612\n    \u0018\u001b\u0017wand of magic missile\n\u0017wand of fire\n\u0007newt\nzuk   nsm.zvuzunzu..zvj"
+  }
+ ]
+}

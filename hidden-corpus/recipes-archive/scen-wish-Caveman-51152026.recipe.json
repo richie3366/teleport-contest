@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017cursed -1 rubber hose\nwfFu FuFlFn .\u0017uncursed sprig of wolfsbane\neg.s\u0017uncursed +0 ring of hunger\n\u0007frost giant\nPhl20s    20s  sFnFn\u0017uncursed amulet of guarding\n\u0007giant eel\nPism..hsl20sFjFj\u0017scroll of enchant weapon\n\u0007pit fiend\nrj  \u001bFjFj  \u0017slime mold\neksl  yny   y y y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 51152026,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017cursed -1 rubber hose\nwfFu FuFlFn .\u0017uncursed sprig of wolfsbane\neg.s\u0017uncursed +0 ring of hunger\n\u0007frost giant\nPhl20s    20s  sFnFn\u0017uncursed amulet of guarding\n\u0007giant eel\nPism..hsl20sFjFj\u0017scroll of enchant weapon\n\u0007pit fiend\nrj  \u001bFjFj  \u0017slime mold\neksl  yny   y y y\u001by  2"
+  }
+ ]
+}

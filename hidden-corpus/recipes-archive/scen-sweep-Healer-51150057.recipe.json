@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          #levelchange\n30\n                  hhb\u0017rust trap\nkj.sk\u0017arrow trap\nny.20sn\u0017web\nlh20s   .m. n j \u0017magic portal\nk^jj y\u001by  y y y\u001b 2"
+ },
+ "segments": [
+  {
+   "seed": 51150057,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=fruit:durian\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n          #levelchange\n30\n                  hhb\u0017rust trap\nkj.sk\u0017arrow trap\nny.20sn\u0017web\nlh20s   .m. n j \u0017magic portal\nk^jj y\u001by  y y y\u001b 2"
+  }
+ ]
+}

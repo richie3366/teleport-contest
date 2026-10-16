@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                                \u0017blessed amulet of reflection\nPk\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\ni\u0017blessed +3 unicorn horn\nwmFy 20sFbFbFb\u0017cursed scroll of destroy armor\nrn FbFb\u0017spellbook of remove curse\nro .usm.Za\n\u00173 Magicbane\n\u0007master lich\nwp  FbFb   Fb#invoke\np    \u0017blessed scroll of scare monster\n\u0007brown mold\nrq  \u001b  \u0017blessed the Eyes of the Overworld\n  wpFk    Fb      \u001bFj    #invoke\nr \u001b    Fb         Fy    n  20s       .m.    \u0016?\n>>N       potion of full healing\n\u0004 20s   sh       n   sm.       n \u00164\n\u001637\n_ \u001b,sm. \u001b \u001b  20s     n   \u0016?\nc#chat\nb   ;k.\u0016?\n\u001byn  \u00166\n\u00178 spears\nQv\u00073 newt\ny     fbfj      FlFl             \u0007gnome\nu ufh   n       \u001b fy            fk                fk       \u0017potion of gain level\ntuju  jj ,s s s \u00166\n_<.\u001645\n_{.>s s    20s \u0016?\nd \u0006>._>.\u001645\ny   u    n    j             y     n           l n    n j       : \u00168\n\u0016?\na  k  n           h    n        n      n    k         l      n        j:\u00165\n\u001645\nu         n   \u001b      k      n    u           :20s  n         sm.        n        .n\u00166\n\u0006_<,.j20s \u001b           n            20s     ynny y n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 51150048,
+   "datetime": "20090323104436",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                                \u0017blessed amulet of reflection\nPk\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\ni\u0017blessed +3 unicorn horn\nwmFy 20sFbFbFb\u0017cursed scroll of destroy armor\nrn FbFb\u0017spellbook of remove curse\nro .usm.Za\n\u00173 Magicbane\n\u0007master lich\nwp  FbFb   Fb#invoke\np    \u0017blessed scroll of scare monster\n\u0007brown mold\nrq  \u001b  \u0017blessed the Eyes of the Overworld\n  wpFk    Fb      \u001bFj    #invoke\nr \u001b    Fb         Fy    n  20s       .m.    \u0016?\n>>N       potion of full healing\n\u0004 20s   sh       n   sm.       n \u00164\n\u001637\n_ \u001b,sm. \u001b \u001b  20s     n   \u0016?\nc#chat\nb   ;k.\u0016?\n\u001byn  \u00166\n\u00178 spears\nQv\u00073 newt\ny     fbfj      FlFl             \u0007gnome\nu ufh   n       \u001b fy            fk                fk       \u0017potion of gain level\ntuju  jj ,s s s \u00166\n_<.\u001645\n_{.>s s    20s \u0016?\nd \u0006>._>.\u001645\ny   u    n    j             y     n           l n    n j       : \u00168\n\u0016?\na  k  n           h    n        n      n    k         l      n        j:\u00165\n\u001645\nu         n   \u001b      k      n    u           :20s  n         sm.        n        .n\u00166\n\u0006_<,.j20s \u001b           n            20s     ynny y n  \u0016"
+  }
+ ]
+}

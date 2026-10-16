@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\najh\n  sm.s20s20s.k.u.20sss20s sm.sm.20s \u0017potion of enlightenment\nqm \u001b:\u000f\u001bE- Vlad was here\nqg E-n  Elbereth Elbereth\n ,ss.s.s"
+ },
+ "segments": [
+  {
+   "seed": 51152004,
+   "datetime": "20260403220051",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\najh\n  sm.s20s20s.k.u.20sss20s sm.sm.20s \u0017potion of enlightenment\nqm \u001b:\u000f\u001bE- Vlad was here\nqg E-n  Elbereth Elbereth\n ,ss.s.s"
+  }
+ ]
+}

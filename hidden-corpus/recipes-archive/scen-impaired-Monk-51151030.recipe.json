@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nj\n \u0017towel\nakZa\n\u0017cursed potion of full healing\nql#dip\nkeE- ad aerarium\ns.s#wizintrinsic\nli\n  ;<. \u001b,\u0017scroll of punishment\nrmE- Elbereth Elbereth\n\u0017newt corpse\nen 20s.."
+ },
+ "segments": [
+  {
+   "seed": 51151030,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=runmode:crawl\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nj\n \u0017towel\nakZa\n\u0017cursed potion of full healing\nql#dip\nkeE- ad aerarium\ns.s#wizintrinsic\nli\n  ;<. \u001b,\u0017scroll of punishment\nrmE- Elbereth Elbereth\n\u0017newt corpse\nen 20s.."
+  }
+ ]
+}

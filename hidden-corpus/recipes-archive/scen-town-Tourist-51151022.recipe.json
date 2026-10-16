@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n         \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqn \u001b._dd._.:Fj\u0004j_oo,_,,,$_ooo.Fj_.;:   ,p_oo,_.,,\u0014<._ooooooo.Fl_,>.Fl_ooo.Fl_.@.Fl,$_d,Fj  _.<.\u0004k\u0014,<>"
+ },
+ "segments": [
+  {
+   "seed": 51151022,
+   "datetime": "20050103130133",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n         \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqn \u001b._dd._.:Fj\u0004j_oo,_,,,$_ooo.Fj_.;:   ,p_oo,_.,,\u0014<._ooooooo.Fl_,>.Fl_ooo.Fl_.@.Fl,$_d,Fj  _.<.\u0004k\u0014,<>"
+  }
+ ]
+}

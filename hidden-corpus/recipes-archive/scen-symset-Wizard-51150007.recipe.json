@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0007large dog\n\u0017meatball\nt\u001b\u001b\u0017banana\nt\u001b\u001b#chat\nj\u0017leash\naplkukjapl  n10s\u0017carrot\nt\u001b\u001b\u001613\n\u0006_ \u001b>.>FlFj   n_>.Fn_.Fn>FnFn  n_>.Fn_.  nFn  n>FlFn  n Fl  nFlFl  n \u0006_>.  n Fn  n _.Fl  n>FnFl  n _>.  nFn   n_.  nFl>Fl  yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51150007,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "\u0007large dog\n\u0017meatball\nt\u001b\u001b\u0017banana\nt\u001b\u001b#chat\nj\u0017leash\naplkukjapl  n10s\u0017carrot\nt\u001b\u001b\u001613\n\u0006_ \u001b>.>FlFj   n_>.Fn_.Fn>FnFn  n_>.Fn_.  nFn  n>FlFn  n Fl  nFlFl  n \u0006_>.  n Fn  n _.Fl  n>FnFl  n _>.  nFn   n_.  nFl>Fl  yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

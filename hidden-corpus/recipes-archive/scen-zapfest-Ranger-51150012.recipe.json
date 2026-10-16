@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPh#levelchange\n10\n         \u0017wand of teleportation\n\u0017wand of sleep\n\u0007bugbear\n\u0007kobold\nzijsm.  zikzju zjlzjn szjn \u0017blessed spellbook of force bolt\nrk.\u0007master mind flayer\nZZZZZZ.b20s  Z\u0017blessed spellbook of force bolt\nrl   .m.  \u0007gnomish wizard\n\u0007incubus\nZZZZZ.m.         n .m.           n ZZZsm.   n .m.     n #turn\n\u00161\n\u0017wand of lightning\n\u0017wand of teleportation\n\u0017wand of magic missile\n\u0007hill orc\nzok      n znu    n zol    n zok      n znkznhzmuzm.  zmn\u00169\n\u0017wand of cold\n\u0017wand of striking\n\u0007lichen\nzpb.zplzphzph20s zqh zphzpu  nzp zqhzp zqb\u0018\u001b\u0017orcish bow\nwr\u001720 orcish arrows\nQs\u0007kobold\n\u0007lichen\ntalfl tdl tdh tdh i\u001b\u0017wand of lightning\n\u0017wand of digging\n\u0017wand of cold\n\u0007hill orc\nztlztl  zu"
+ },
+ "segments": [
+  {
+   "seed": 51150012,
+   "datetime": "20211119170221",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPh#levelchange\n10\n         \u0017wand of teleportation\n\u0017wand of sleep\n\u0007bugbear\n\u0007kobold\nzijsm.  zikzju zjlzjn szjn \u0017blessed spellbook of force bolt\nrk.\u0007master mind flayer\nZZZZZZ.b20s  Z\u0017blessed spellbook of force bolt\nrl   .m.  \u0007gnomish wizard\n\u0007incubus\nZZZZZ.m.         n .m.           n ZZZsm.   n .m.     n #turn\n\u00161\n\u0017wand of lightning\n\u0017wand of teleportation\n\u0017wand of magic missile\n\u0007hill orc\nzok      n znu    n zol    n zok      n znkznhzmuzm.  zmn\u00169\n\u0017wand of cold\n\u0017wand of striking\n\u0007lichen\nzpb.zplzphzph20s zqh zphzpu  nzp zqhzp zqb\u0018\u001b\u0017orcish bow\nwr\u001720 orcish arrows\nQs\u0007kobold\n\u0007lichen\ntalfl tdl tdh tdh i\u001b\u0017wand of lightning\n\u0017wand of digging\n\u0017wand of cold\n\u0007hill orc\nztlztl  zu"
+  }
+ ]
+}

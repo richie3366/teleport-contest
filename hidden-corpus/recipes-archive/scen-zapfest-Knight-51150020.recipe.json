@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPi\u0017blessed ring of free action\nPjl\u0007baby red dragon\n\u0007silver dragon\n20s    .m.  n  #polyself\nsilver dragon\n    #monster\nsm.   .m.#monster\n#monster\n#monster\n\u0017wand of lightning\naFh     Fj   \u00176 javelins\nQl\u0007gnome lord\n\u0007lichen\nfj  n  tlb  n   n fj   nfb   n  \u001617\n \u00168\n\u0017blessed spellbook of slow monster\nrm20s\u0017spellbook of sleep\nrn \u001b \u001bs\u0007master lich\n\u0007master mind flayer\nZa\nsu20s  n       n    Za\nZa\nZa\n20s  n   n   sm.   n   n Za\n.m.   n     sl   n  n   Za\nZa\n20s   yy\u001bny y y\u001bn  s"
+ },
+ "segments": [
+  {
+   "seed": 51150020,
+   "datetime": "20210205141542",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPi\u0017blessed ring of free action\nPjl\u0007baby red dragon\n\u0007silver dragon\n20s    .m.  n  #polyself\nsilver dragon\n    #monster\nsm.   .m.#monster\n#monster\n#monster\n\u0017wand of lightning\naFh     Fj   \u00176 javelins\nQl\u0007gnome lord\n\u0007lichen\nfj  n  tlb  n   n fj   nfb   n  \u001617\n \u00168\n\u0017blessed spellbook of slow monster\nrm20s\u0017spellbook of sleep\nrn \u001b \u001bs\u0007master lich\n\u0007master mind flayer\nZa\nsu20s  n       n    Za\nZa\nZa\n20s  n   n   sm.   n   n Za\n.m.   n     sl   n  n   Za\nZa\n20s   yy\u001bny y y\u001bn  s"
+  }
+ ]
+}

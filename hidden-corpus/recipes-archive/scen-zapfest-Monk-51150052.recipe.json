@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 speed boots\nWj \u0017blessed ring of free action\nPkr\u0017wand of cold\n\u0017wand of striking\n\u0007lichen\n\u0007owlbear\nzmnzlu zmu  sm.zmnzmnzljzll\u0007orc shaman\n\u0007succubus\n\u0007gnomish wizard\n\u0017wand of magic missile\nznlznl    y     20s.kznlsm.znl s20s\u0017sling\nwo\u001720 flint stones\nQp\u0007troll\n\u0007kobold shaman\nfkfk   fltpk fk\u0017wand of polymorph\n\u0017wand of fire\n\u0017wand of digging\n\u0007yellow mold\nzrk   n  zqu  sm.zs>  szqk    zs>   zqjzqn20szrl20s\u001613\n\u0017wand of polymorph\n\u0017wand of death\n\u0017wand of cancellation\n\u0007hobbit\nzvkzuk n nszuyzu.  nszvb20sztlzul \u00167\n\u0007master mind flayer\n\u0007incubus\n\u0007kobold shaman\n\u0017wand of striking\nzwbsm.   slzwk       .m..zwj     n    zwl    n zwj     n   zw      n zw    n   \u00165"
+ },
+ "segments": [
+  {
+   "seed": 51150052,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 speed boots\nWj \u0017blessed ring of free action\nPkr\u0017wand of cold\n\u0017wand of striking\n\u0007lichen\n\u0007owlbear\nzmnzlu zmu  sm.zmnzmnzljzll\u0007orc shaman\n\u0007succubus\n\u0007gnomish wizard\n\u0017wand of magic missile\nznlznl    y     20s.kznlsm.znl s20s\u0017sling\nwo\u001720 flint stones\nQp\u0007troll\n\u0007kobold shaman\nfkfk   fltpk fk\u0017wand of polymorph\n\u0017wand of fire\n\u0017wand of digging\n\u0007yellow mold\nzrk   n  zqu  sm.zs>  szqk    zs>   zqjzqn20szrl20s\u001613\n\u0017wand of polymorph\n\u0017wand of death\n\u0017wand of cancellation\n\u0007hobbit\nzvkzuk n nszuyzu.  nszvb20sztlzul \u00167\n\u0007master mind flayer\n\u0007incubus\n\u0007kobold shaman\n\u0017wand of striking\nzwbsm.   slzwk       .m..zwj     n    zwl    n zwj     n   zw      n zw    n   \u00165"
+  }
+ ]
+}

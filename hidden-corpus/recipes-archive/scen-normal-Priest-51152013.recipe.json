@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "s,\u0004lK#force\n,#enhance\n\u001b\\ #sit\n\u001b\u0014#offer\n__, \u001bm.syrg y #tip\n\u001b#enhance\n\u001b20s#ride\nbP\u0014f \u001b#tip\n\u001b#name\nm\nLwH<ah "
+ },
+ "segments": [
+  {
+   "seed": 51152013,
+   "datetime": "20091225162326",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "s,\u0004lK#force\n,#enhance\n\u001b\\ #sit\n\u001b\u0014#offer\n__, \u001bm.syrg y #tip\n\u001b#enhance\n\u001b20s#ride\nbP\u0014f \u001b#tip\n\u001b#name\nm\nLwH<ah "
+  }
+ ]
+}

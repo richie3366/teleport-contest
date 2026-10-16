@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u0007tame jackal\n\u0007housecat\n\u0017food ration\ntbn  \u0017food ration\ntbj  \u0017magic whistle\nkyuai   \u0017tin whistle\nj  n byaj  20s 10snhkyu\u0017grave\n:\u0017pick-axe\nak >..u \u0017cloud\n:y h \u0017lawful altar\ndd\u0017floating eye corpse\n#offer\nl  : #terrain\nd\n\u001b.#enhance\nyn\nd\n\u001bzeh\u0006_>,Fk _.Fk>  n Fk.s\u0006_>,_.>\u0006_>>. Fj_.Fj>zi\u001b\u0006_>, _,>#jump\nq\u001620\nv i\u001b#ride\n.yz#pray\ny y #terrain\nf\n\u001610\n#conduct\n #sit\n\u001bmO>>i\u001b\n100s100sFlFlFlFlFlFlFl  nFlFlFlFlFlFl s20sln yFj  nFjFjFjFj  n Fj  nFjFjFjFj  nFjFj  n FjFj  nFjFj 20s20slnl100s150sFhFh  20s  ybbbyj100s  100s  150s  \u0018\u001b100s  \u000f\u001b#pray\ny y  100s    olbhl100s  100s   FhFhFhFh s s\u001b_>.>#twoweapon\n50s   n FlFl  s\u001b100s \u001b\\ \u00168\nO>>g\u001b\n#levelchange\n20\n                  j hyu\u0017neutral altar\ndkdh\u0017human corpse\n : nb\u0017unaligned altar\ndmdc\u0017newt corpse\n#offer\no  : #terrain\nb\n#name\nm,\u0018\u001b#force\n\u0006_>,Fk_,Fl>FlFl_>.Fn_.<.> djtan\u0006_>.Fn_,Fn>FnFn_>.Fn _.Fn  n >FnFn_>.Fn_.Fn>FnFnPg#sit\n\u001b<\u0006_>>,Fj_,Fj>Fjs_>>._.>_>>,_.><O>a\u001b\nO>>>>a\u001b\nlhkk\u0017pool\njk : n\u0017grave\n: \u0017pick-axe\nap >.s:  #terrain\n\u001bP"
+ },
+ "segments": [
+  {
+   "seed": 51150039,
+   "datetime": "20070715034726",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nMENUCOLOR=\"uncursed\"=red\n",
+   "moves": "v i\u001b\u0007tame jackal\n\u0007housecat\n\u0017food ration\ntbn  \u0017food ration\ntbj  \u0017magic whistle\nkyuai   \u0017tin whistle\nj  n byaj  20s 10snhkyu\u0017grave\n:\u0017pick-axe\nak >..u \u0017cloud\n:y h \u0017lawful altar\ndd\u0017floating eye corpse\n#offer\nl  : #terrain\nd\n\u001b.#enhance\nyn\nd\n\u001bzeh\u0006_>,Fk _.Fk>  n Fk.s\u0006_>,_.>\u0006_>>. Fj_.Fj>zi\u001b\u0006_>, _,>#jump\nq\u001620\nv i\u001b#ride\n.yz#pray\ny y #terrain\nf\n\u001610\n#conduct\n #sit\n\u001bmO>>i\u001b\n100s100sFlFlFlFlFlFlFl  nFlFlFlFlFlFl s20sln yFj  nFjFjFjFj  n Fj  nFjFjFjFj  nFjFj  n FjFj  nFjFj 20s20slnl100s150sFhFh  20s  ybbbyj100s  100s  150s  \u0018\u001b100s  \u000f\u001b#pray\ny y  100s    olbhl100s  100s   FhFhFhFh s s\u001b_>.>#twoweapon\n50s   n FlFl  s\u001b100s \u001b\\ \u00168\nO>>g\u001b\n#levelchange\n20\n                  j hyu\u0017neutral altar\ndkdh\u0017human corpse\n : nb\u0017unaligned altar\ndmdc\u0017newt corpse\n#offer\no  : #terrain\nb\n#name\nm,\u0018\u001b#force\n\u0006_>,Fk_,Fl>FlFl_>.Fn_.<.> djtan\u0006_>.Fn_,Fn>FnFn_>.Fn _.Fn  n >FnFn_>.Fn_.Fn>FnFnPg#sit\n\u001b<\u0006_>>,Fj_,Fj>Fjs_>>._.>_>>,_.><O>a\u001b\nO>>>>a\u001b\nlhkk\u0017pool\njk : n\u0017grave\n: \u0017pick-axe\nap >.s:  #terrain\n\u001bP"
+  }
+ ]
+}

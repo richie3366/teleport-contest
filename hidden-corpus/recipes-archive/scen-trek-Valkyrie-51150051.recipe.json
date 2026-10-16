@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  bydbsssly#name\n\u001blylhl10s\u0004y#force\nut\u001bbh#chat\nkjnljyuubulKBJL_ \u001b<.>FhFh s#chat\nk,NHBU_>.>NHUJ_>.>KNYB_>.>JNYJ_>.>100s100s100sFlFlFlFlss100shuj50sFlFlshhh_>,>50s\\   100s100s50s50s150s100s ed50s100sFhFhs100s50s150s 100sFhFhs_>.>100s150s 100s\\   llh100sFl..luk100sFjs20s100sFjFjFjynh50s50s_>.>\\   100sFnFnFnaey 150s \\   150sFn20s.ylh100s100seeeeeeeeeeeeeeeeeeeeeeeehhhl#name\n\u001bdcssst\u001b20s#chat\nneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYHUU_>.>FyFy.r\u001bf \u001b<BKNU_>.>BUUK_>,>BBJN_>.>UNBJ_>.>Fj.sNKBY_>,>YLUK_>.>#pray\ny  \\   \u0018\u001bHHNH_>.Fh_.;;Fh >UKJN_>._.> NHKJ_>.>FhFh s<YBUJ_>.>20s\u000f\u001b<NHYU_>,>,r\u001b#terrain\n\u001bHBBK_>.>q>JJBJ_>,>okf \u001bULHJ_>,>BKBJ_>.>KYLK_>.>>da#loot\nP\\   100si\u001b100s50s_>,>100shhnoh_>.>50s Fu s20s50s100s_>,>50s100s 100s eeeeeeeeeeeeeeeeeeeeeee,#loot\n#ride\nbyb#chat\nl#chat\nyuhlh#name\nm\ndssseeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 51150051,
+   "datetime": "20151225133829",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:explore\n",
+   "moves": "  bydbsssly#name\n\u001blylhl10s\u0004y#force\nut\u001bbh#chat\nkjnljyuubulKBJL_ \u001b<.>FhFh s#chat\nk,NHBU_>.>NHUJ_>.>KNYB_>.>JNYJ_>.>100s100s100sFlFlFlFlss100shuj50sFlFlshhh_>,>50s\\   100s100s50s50s150s100s ed50s100sFhFhs100s50s150s 100sFhFhs_>.>100s150s 100s\\   llh100sFl..luk100sFjs20s100sFjFjFjynh50s50s_>.>\\   100sFnFnFnaey 150s \\   150sFn20s.ylh100s100seeeeeeeeeeeeeeeeeeeeeeeehhhl#name\n\u001bdcssst\u001b20s#chat\nneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYHUU_>.>FyFy.r\u001bf \u001b<BKNU_>.>BUUK_>,>BBJN_>.>UNBJ_>.>Fj.sNKBY_>,>YLUK_>.>#pray\ny  \\   \u0018\u001bHHNH_>.Fh_.;;Fh >UKJN_>._.> NHKJ_>.>FhFh s<YBUJ_>.>20s\u000f\u001b<NHYU_>,>,r\u001b#terrain\n\u001bHBBK_>.>q>JJBJ_>,>okf \u001bULHJ_>,>BKBJ_>.>KYLK_>.>>da#loot\nP\\   100si\u001b100s50s_>,>100shhnoh_>.>50s Fu s20s50s100s_>,>50s100s 100s eeeeeeeeeeeeeeeeeeeeeee,#loot\n#ride\nbyb#chat\nl#chat\nyuhlh#name\nm\ndssseeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

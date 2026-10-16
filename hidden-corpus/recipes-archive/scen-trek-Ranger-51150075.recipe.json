@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "BKLH_ \u001bm.>BKHH_>,>s#jump\nLHNH_>,>Fl s20sYNYL_>.>UNKB_>.><20slylbbjtcy10sBLBN _>,>FlFuFlHHNN_>.>KNHK_>.>ULYB_>.>#chat\nu10s10stblukda20s..#name\nd\n#dip\ne #tip\n\u001b#ride\n.LUKY_>.>BKyJB_>.><HJBL_>.>ck#loot\nHLJK_>,>#enhance\n\u001b;<.JKHH_>.>JHKyJ_>.>#untrap\nk\u001b,NYYKy_>,>YBYB_>.>KJyNU_>.>#untrap\nb#sit\n\u001bJBKN_>.>JBNY_>.>\u000f\u001bs#rub\nfj100s50sFl FlFlFlss150s\\  nlb_>.>100s  _>,>#terrain\nb\n100s 100skyn50s100sFl.s#twoweapon\n100synj\\  100s150s  FkFkFk Fk.seg<lll_>,>lllhhh50s150sFhFh.llh>llhi\u001bhlh100soh#conduct\n >hlllhl10s20sbhhldfsssLNYY_>.>FlFlFlUNJY_>.>Flss#monster\nqKNLL_>.>i\u001b#invoke\n\u001b<KUHL_>,>\u0004n\\  YHLY_>,>FhFh20s\u000f\u001b\u000f\u001bhhl150sFk.s150s50sFl.sFk20sshlh100sFuFuFuFusFu150slhlFkFkFk_>,>150s50sahlh\u000f\u001blhl100s_>.>100sFkFkFkhlh\u0018\u001b50s\u0018\u001blhl100s100sFkFks100s50s_>.>50sFkFkFkFkFk20s#chat\nlde.sshlhl10s#name\ni\n#name\nf\nuulh#name\n;h"
+ },
+ "segments": [
+  {
+   "seed": 51150075,
+   "datetime": "20250217095000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\n",
+   "moves": "BKLH_ \u001bm.>BKHH_>,>s#jump\nLHNH_>,>Fl s20sYNYL_>.>UNKB_>.><20slylbbjtcy10sBLBN _>,>FlFuFlHHNN_>.>KNHK_>.>ULYB_>.>#chat\nu10s10stblukda20s..#name\nd\n#dip\ne #tip\n\u001b#ride\n.LUKY_>.>BKyJB_>.><HJBL_>.>ck#loot\nHLJK_>,>#enhance\n\u001b;<.JKHH_>.>JHKyJ_>.>#untrap\nk\u001b,NYYKy_>,>YBYB_>.>KJyNU_>.>#untrap\nb#sit\n\u001bJBKN_>.>JBNY_>.>\u000f\u001bs#rub\nfj100s50sFl FlFlFlss150s\\  nlb_>.>100s  _>,>#terrain\nb\n100s 100skyn50s100sFl.s#twoweapon\n100synj\\  100s150s  FkFkFk Fk.seg<lll_>,>lllhhh50s150sFhFh.llh>llhi\u001bhlh100soh#conduct\n >hlllhl10s20sbhhldfsssLNYY_>.>FlFlFlUNJY_>.>Flss#monster\nqKNLL_>.>i\u001b#invoke\n\u001b<KUHL_>,>\u0004n\\  YHLY_>,>FhFh20s\u000f\u001b\u000f\u001bhhl150sFk.s150s50sFl.sFk20sshlh100sFuFuFuFusFu150slhlFkFkFk_>,>150s50sahlh\u000f\u001blhl100s_>.>100sFkFkFkhlh\u0018\u001b50s\u0018\u001blhl100s100sFkFks100s50s_>.>50sFkFkFkFkFk20s#chat\nlde.sshlhl10s#name\ni\n#name\nf\nuulh#name\n;h"
+  }
+ ]
+}

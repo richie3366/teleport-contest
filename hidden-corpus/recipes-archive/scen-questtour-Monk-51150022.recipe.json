@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nk_m,Fy_.#chat\nk_mmmm.Fh    n_.#chat\nl;l:  _mmm,#chat\nk_mmmm.Fl_,#chat\nu#levelchange\n20\n                      \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.Fk _,#chat\nl;k;_m. Fk _.#chat\nu_mm,   n Fk  _,#chat\nk    n;u:  \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWl     \u0017blessed +3 helm of telepathy\nWm    n\u0017wand of striking\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,  Fk_.Fu   FkFk FlFn   n Fu  znn,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_m, Fk_,#chat\nn\u0016?\n>A\u0006_mmm,   nFk _.FkFu     FuFu Fuznk  ,#chat\nk\u0016?\n>z\u0006_mmmmmm, Fk _.<.Fk   n Fu FkFu  FuFkFlznl ,\u0016?\n>A\u0006_mmmmmm.Fl _,FyFlFyFy,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fy_,FlFlFyFl  nFyFyFlFyznl ,\u001b\u0016?\n>A\u0006_mmm.Fy_.m.s20ss20s.s,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nl\u0016?\n>z\u0006_mm.20sss.20s,\u0016?\n>>\u001b\u0016?\n>y_m, Fl_.#chat\nl \u0016?\n>A\u0006_mmmm.Fl_.FlFl FlFls,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,Fl _.#chat\nl;l:  \u0016?\n>>\u001b\u0016?\n>z\u0006_mmm. Fl_,Fl Fl FlFl Fl,\u0016?\n>A\u0006_mmmmmmm,sss20s..,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fu_,  nFu#chat\nl\u0016?\n>z\u0006_mmmmmmm,Fl_.FuFlFuFuznl,#chat\nu\u0016?\n>A\u0006_mmmmm.Fu_.FuFlFuFu  sFlFl,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nl;l:  \u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,FlFl.sznu,#chat\nl\u0016?\n>A\u0006_mmmmm.ss.20sFlFlFl,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nl;l,\u0016?\n>z\u0006_mm"
+ },
+ "segments": [
+  {
+   "seed": 51150022,
+   "datetime": "20090705125706",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nk_m,Fy_.#chat\nk_mmmm.Fh    n_.#chat\nl;l:  _mmm,#chat\nk_mmmm.Fl_,#chat\nu#levelchange\n20\n                      \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.Fk _,#chat\nl;k;_m. Fk _.#chat\nu_mm,   n Fk  _,#chat\nk    n;u:  \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWl     \u0017blessed +3 helm of telepathy\nWm    n\u0017wand of striking\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,  Fk_.Fu   FkFk FlFn   n Fu  znn,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_m, Fk_,#chat\nn\u0016?\n>A\u0006_mmm,   nFk _.FkFu     FuFu Fuznk  ,#chat\nk\u0016?\n>z\u0006_mmmmmm, Fk _.<.Fk   n Fu FkFu  FuFkFlznl ,\u0016?\n>A\u0006_mmmmmm.Fl _,FyFlFyFy,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fy_,FlFlFyFl  nFyFyFlFyznl ,\u001b\u0016?\n>A\u0006_mmm.Fy_.m.s20ss20s.s,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nl\u0016?\n>z\u0006_mm.20sss.20s,\u0016?\n>>\u001b\u0016?\n>y_m, Fl_.#chat\nl \u0016?\n>A\u0006_mmmm.Fl_.FlFl FlFls,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,Fl _.#chat\nl;l:  \u0016?\n>>\u001b\u0016?\n>z\u0006_mmm. Fl_,Fl Fl FlFl Fl,\u0016?\n>A\u0006_mmmmmmm,sss20s..,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fu_,  nFu#chat\nl\u0016?\n>z\u0006_mmmmmmm,Fl_.FuFlFuFuznl,#chat\nu\u0016?\n>A\u0006_mmmmm.Fu_.FuFlFuFu  sFlFl,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nl;l:  \u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,FlFl.sznu,#chat\nl\u0016?\n>A\u0006_mmmmm.ss.20sFlFlFl,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nl;l,\u0016?\n>z\u0006_mm"
+  }
+ ]
+}

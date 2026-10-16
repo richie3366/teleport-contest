@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "B NYU_ \u001bm.>FjFj sBNJH_>,>#monster\nf by uKHLU_>.><UNYB_>.><\u0014NYKB_>.>junh#chat\nndadefu20s..dcss20shnjy10s#chat\ny#name\no\nFido\nbfynkun#name\nf\ndss20s10s#name\nm\nds20ssKBNH_>,>#chat\nb#pray\ny  NK JU_>.>KNYU_>.>FjFjss#conduct\n KYJH _>.>HNJH_>.>K YU U_>.>jjjkulun10s10s10s10sddgs20s20sbkklbklbKJYN_>.>NLUN_>,>HUNB_>#quit\n#wizintrinsic\ne\n 20ssm.ssssss.b...sm..m.20s   ns20ss.20sss20s.sssss20sssss20s20sss20ss.ss.sFnFn  FnFnFnFnFnFn50s50s_ \u001b;>#sit\n150slljjklFysshhh150s100s50sFl..150sFl20s20syjlnhy\\ 150shby100s_>.>100sbkblujuyh#untrap\nuykn\u0018\u001bi\u001b50s eeeeeeeeekhjn20sdfsss10slklkdas.s#chat\njeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeetbh20s#chat\nk#chat\ny10s20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b  hjlh#chat\nlly#chat\nn#name\ni\n#chat\nhtbj100s    FlFl .#turn\n150s150s100s50s i\u001b150s\\ 50seeeeeeeeeeeeeeeeeeeeeeeeeeeeenyjlujujNJYB_ \u001b;>KJJN_>,>#pray\ny #dip\nd<HHKK_>.>HUJH_>.>#force\n\u0018\u001bLKUN_>.>NJYH_>.>10s;<.UNHB_>,><,JLYU_>.>#pray\ny 20sNNUN_>.>#chat\nntbk#name\ni\ndd.20ss10skkkhbhdcs.20s20sdes20s .#chat\nybjuh#chat\nlbkhlkkbllhnyhlbjUJLJ_>.>#turn\n#rub\nNKUJ _>.>NNYU_>,>JBJB_>,>wai\u001b\u000f\u001bJNNL_>.>Ly  NYU_>.>LYLU_>.>NLYL_>.>\u000f\u001b#pray\ny  #turn\n_>.>#pray\ny 50s #pray\ny   y\u001by  y y y\u001b  1",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51150074,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\n",
+   "moves": "B NYU_ \u001bm.>FjFj sBNJH_>,>#monster\nf by uKHLU_>.><UNYB_>.><\u0014NYKB_>.>junh#chat\nndadefu20s..dcss20shnjy10s#chat\ny#name\no\nFido\nbfynkun#name\nf\ndss20s10s#name\nm\nds20ssKBNH_>,>#chat\nb#pray\ny  NK JU_>.>KNYU_>.>FjFjss#conduct\n KYJH _>.>HNJH_>.>K YU U_>.>jjjkulun10s10s10s10sddgs20s20sbkklbklbKJYN_>.>NLUN_>,>HUNB_>#quit\n"
+  },
+  {
+   "seed": 51250074,
+   "datetime": "20191218024857",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\ne\n 20ssm.ssssss.b...sm..m.20s   ns20ss.20sss20s.sssss20sssss20s20sss20ss.ss.s"
+  },
+  {
+   "seed": 51350074,
+   "datetime": "20000117193323",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "FnFn  FnFnFnFnFnFn50s50s_ \u001b;>#sit\n150slljjklFysshhh150s100s50sFl..150sFl20s20syjlnhy\\ 150shby100s_>.>100sbkblujuyh#untrap\nuykn\u0018\u001bi\u001b50s eeeeeeeeekhjn20sdfsss10slklkdas.s#chat\njeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeetbh20s#chat\nk#chat\ny10s20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51450074,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\n",
+   "moves": " hjlh#chat\nlly#chat\nn#name\ni\n#chat\nhtbj100s    FlFl .#turn\n150s150s100s50s i\u001b150s\\ 50seeeeeeeeeeeeeeeeeeeeeeeeeeeeenyjlujujNJYB_ \u001b;>KJJN_>,>#pray\ny #dip\nd<HHKK_>.>HUJH_>.>#force\n\u0018\u001bLKUN_>.>NJYH_>.>10s;<.UNHB_>,><,JLYU_>.>#pray\ny 20sNNUN_>.>#chat\nntbk#name\ni\ndd.20ss10skkkhbhdcs.20s20sdes20s .#chat\nybjuh#chat\nlbkhlkkbllhnyhlbjUJLJ_>.>#turn\n#rub\nNKUJ _>.>NNYU_>,>JBJB_>,>wai\u001b\u000f\u001bJNNL_>.>Ly  NYU_>.>LYLU_>.>NLYL_>.>\u000f\u001b#pray\ny  #turn\n_>.>#pray\ny 50s #pray\ny   y\u001by  y y y\u001b  1"
+  }
+ ]
+}

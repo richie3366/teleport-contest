@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "Y BBB_ \u001bm,>Fk FbFbJUYL_>,>FhFhFj b#jump\n>.HL BL_>.>BULU_>.>NK KN_>,>s#enhance\n\u001bBJJY_>,>#jump\n.><LHNJ_>,>LJNJ_>,><BYKL_>.>tbbE- Elbereth Elbereth\nBYBL_>,>#chat\nlde\u000f\u001b"
+ },
+ "segments": [
+  {
+   "seed": 51151007,
+   "datetime": "20030208235200",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:explore\n",
+   "moves": "Y BBB_ \u001bm,>Fk FbFbJUYL_>,>FhFhFj b#jump\n>.HL BL_>.>BULU_>.>NK KN_>,>s#enhance\n\u001bBJJY_>,>#jump\n.><LHNJ_>,>LJNJ_>,><BYKL_>.>tbbE- Elbereth Elbereth\nBYBL_>,>#chat\nlde\u000f\u001b"
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "K NNU_ \u001b>.>FhFhsNHBU_>.>am\u001b\u0014BHLN_>.>Fl.20s<LBYJ_>.>LKLY_>,>Fk .20sFhFhFhFhFhFhFhFhKHYH_>,>LNUY_>.>#pray\ny  nLBUN_>,>#terrain\nc\n<.W\u001bBHHY_>.>FnFnFnFnFnFnFnFnFnFnFn100s#untrap\nl#rub\nrj gelahobbit\n little dog\n#quit\nyy\u001by  y straw g  \u0017wand of fire\nzk.      y y\u001by  y y\u001by  s  FnFn 20sjyh<50s150s150sFnFls150s150s150s\u000f\u001b100s100s\u0018\u001b50s100s100s100s 100slbjFnFjFhFh  y\u001by  y y y\u001b  .FbFbFbFbFbFbFbFbFj FjFjFjFjFjFjFjbbybFlFlFlFlFlFlFlFl#name\nm\n :20s20s20syl#name\nm\nkuHYUB_>JKNN_>UUKB_>f#wipe\n\u000f\u001b#name\nm\nuunbds.sdh20s.m.20s#name\nm\nhu#name\n@.FlFlFlFlFlFlFlFlyylhjnyjknykFnFn.#twoweapon\n\\  #conduct\n _>.>100s100sFlFl20s\u000f\u001b\u0014100s100sFj20ss#turn\n#ride\nh50s_>.>100sFjs.150s50sFj..nkjzcj\u000f\u001b100s100s100s FlFlFlFls.hjj150s50s#wipe\nuhu_>,>\u0018\u001b150si\u001brl nyt\u001b#chat\nbjn10sku10st\u001bjlnjnuhhFk.s50s#quit\nyy\u001by  y y y\u001b Fk FkFkFkFkFkFkFkhubuFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFybhhkbklblynhuklFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFhFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlF#quit\ndFh FhFhFhFhFhFhFhhkundas.20s20skh#name\nd\n10sde20s20ssytbjlh#chat\nbhj#chat\nldc.m.sm.shdc20ssu.m.20sl FlFlFlFlFlFlFlFlHKBL_ \u001bm,><UULK_>,>HUUB_>.>_<.20saku#chat\nj10skj#chat\nkynbudd20s.20sbnyhh#quit\nyy\u001by  y y y\u001b  FnFn  FlFlFlFl150s\\   kynFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu FuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFlFlFlFlFlFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuBHUN_ \u001b>.>FyFyFy<NUHK_>.>YUNU_>,>ok:20sdg20s.m.sm.#chat\nl10slnjnjkynkhl#name\nm\nd20sssdc20sss100sFjFjFjFjss50s150sFjFjs15#quit\ny ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51150058,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\n",
+   "moves": "K NNU_ \u001b>.>FhFhsNHBU_>.>am\u001b\u0014BHLN_>.>Fl.20s<LBYJ_>.>LKLY_>,>Fk .20sFhFhFhFhFhFhFhFhKHYH_>,>LNUY_>.>#pray\ny  nLBUN_>,>#terrain\nc\n<.W\u001bBHHY_>.>FnFnFnFnFnFnFnFnFnFnFn100s#untrap\nl#rub\nrj gelahobbit\n little dog\n#quit\nyy\u001by  y straw g"
+  },
+  {
+   "seed": 51250058,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017wand of fire\nzk.      y y\u001by  y y\u001by  s"
+  },
+  {
+   "seed": 51350058,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "  FnFn 20sjyh<50s150s150sFnFls150s150s150s\u000f\u001b100s100s\u0018\u001b50s100s100s100s 100slbjFnFjFhFh  y\u001by  y y y\u001b  ."
+  },
+  {
+   "seed": 51450058,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\n",
+   "moves": "FbFbFbFbFbFbFbFbFj FjFjFjFjFjFjFjbbybFlFlFlFlFlFlFlFl#name\nm\n :20s20s20syl#name\nm\nkuHYUB_>JKNN_>UUKB_>f#wipe\n\u000f\u001b#name\nm\nuunbds.sdh20s.m.20s#name\nm\nhu#name\n@.FlFlFlFlFlFlFlFlyylhjnyjknykFnFn.#twoweapon\n\\  #conduct\n _>.>100s100sFlFl20s\u000f\u001b\u0014100s100sFj20ss#turn\n#ride\nh50s_>.>100sFjs.150s50sFj..nkjzcj\u000f\u001b100s100s100s FlFlFlFls.hjj150s50s#wipe\nuhu_>,>\u0018\u001b150si\u001brl nyt\u001b#chat\nbjn10sku10st\u001bjlnjnuhhFk.s50s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51550058,
+   "datetime": "20240704194308",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\n",
+   "moves": "Fk FkFkFkFkFkFkFkhubuFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFybhhkbklblynhuklFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFhFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlF#quit\nd"
+  },
+  {
+   "seed": 51650058,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\n",
+   "moves": "Fh FhFhFhFhFhFhFhhkundas.20s20skh#name\nd\n10sde20s20ssytbjlh#chat\nbhj#chat\nldc.m.sm.shdc20ssu.m.20sl FlFlFlFlFlFlFlFlHKBL_ \u001bm,><UULK_>,>HUUB_>.>_<.20saku#chat\nj10skj#chat\nkynbudd20s.20sbnyhh#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51750058,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": " FnFn  FlFlFlFl150s\\   kynFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu FuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFlFlFlFlFlFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuBHUN_ \u001b>.>FyFyFy<NUHK_>.>YUNU_>,>ok:20sdg20s.m.sm.#chat\nl10slnjnjkynkhl#name\nm\nd20sssdc20sss100sFjFjFjFjss50s150sFjFjs15#quit\ny "
+  }
+ ]
+}

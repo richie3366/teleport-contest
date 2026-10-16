@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017oilskin sack\n\u0017locked large box\n\u0017ring of shock resistance\n\u0017scroll of create monster\ndkl\u0004hy  \u0017skeleton key\ndban.s..#loot\n\u0017mace\nwodj#force\nsss\u0017lock pick\ndgap.s..#loot\ni\n"
+ },
+ "segments": [
+  {
+   "seed": 51151026,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017oilskin sack\n\u0017locked large box\n\u0017ring of shock resistance\n\u0017scroll of create monster\ndkl\u0004hy  \u0017skeleton key\ndban.s..#loot\n\u0017mace\nwodj#force\nsss\u0017lock pick\ndgap.s..#loot\ni\n"
+  }
+ ]
+}

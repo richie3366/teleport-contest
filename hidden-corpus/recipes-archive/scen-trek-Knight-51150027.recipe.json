@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "50suhkknhde_ \u001b@.>yhh_>,>lhlhhh_>.>hyn100s#force\n_>.>100s#tip\n\u001b100s150sFlFlFlFls20s150s50sFls.100s150sFlFlFl50s100shlyjyn150s#monster\n_>.>h50s_>.>100s50sFys20seh#name\na\ndf.20ssynlytbnjkjkhi\u001b#force\n50seh\u0018\u001b100sFn20ss50s egjkj100sehkjkjkj100seh50s#jump\n.i\u001bkjkjkj_>.>KhkjybuFhFhFh150seh\u0018\u001bynn_>.>50s eh_>,>_>.>blh100sehubjynyLYJK_>,>FnFnst\u001bsHYNU_>.>BHUN_>.>Flss#name\nm\nc\u000f\u001bUBHN_>.>qt\u001bKLBL_>,>KLJN_>,>\u000f\u001beg100s egkbh100sehh100seg50s eg\u0018\u001b_>.>klb100seht\u001b_>.>100seg_>,>_>,>100seh100seg150seh100s uhn100s Fk20s20seh100sFhFhs,W50s\u0018\u001b50s,,waFhs20s50s egi\u001b\u000f\u001b100s eglkb150segukk150seeeeeeeeeeeeeeeeeeeeeeeeeeeeLYHY_>,>ei\u001bYYKJ_>.>LULH_>.>YJLN_>,>>#enhance\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBLJL_>.>UNKH_>.>e#dip\ncNHLB_>.>KJL B_"
+ },
+ "segments": [
+  {
+   "seed": 51150027,
+   "datetime": "20141117234440",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=pettype:none\n",
+   "moves": "50suhkknhde_ \u001b@.>yhh_>,>lhlhhh_>.>hyn100s#force\n_>.>100s#tip\n\u001b100s150sFlFlFlFls20s150s50sFls.100s150sFlFlFl50s100shlyjyn150s#monster\n_>.>h50s_>.>100s50sFys20seh#name\na\ndf.20ssynlytbnjkjkhi\u001b#force\n50seh\u0018\u001b100sFn20ss50s egjkj100sehkjkjkj100seh50s#jump\n.i\u001bkjkjkj_>.>KhkjybuFhFhFh150seh\u0018\u001bynn_>.>50s eh_>,>_>.>blh100sehubjynyLYJK_>,>FnFnst\u001bsHYNU_>.>BHUN_>.>Flss#name\nm\nc\u000f\u001bUBHN_>.>qt\u001bKLBL_>,>KLJN_>,>\u000f\u001beg100s egkbh100sehh100seg50s eg\u0018\u001b_>.>klb100seht\u001b_>.>100seg_>,>_>,>100seh100seg150seh100s uhn100s Fk20s20seh100sFhFhs,W50s\u0018\u001b50s,,waFhs20s50s egi\u001b\u000f\u001b100s eglkb150segukk150seeeeeeeeeeeeeeeeeeeeeeeeeeeeLYHY_>,>ei\u001bYYKJ_>.>LULH_>.>YJLN_>,>>#enhance\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBLJL_>.>UNKH_>.>e#dip\ncNHLB_>.>KJL B_"
+  }
+ ]
+}

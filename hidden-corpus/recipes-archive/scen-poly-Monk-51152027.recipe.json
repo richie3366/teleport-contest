@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of polymorph control\nPll\u0017gauntlets of fumbling\nW\u001bs20ssm.#polyself\nstalker\n#monster\n.j.hsss#polyself\nqueen bee\n  #monster\nsssm.ss"
+ },
+ "segments": [
+  {
+   "seed": 51152027,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of polymorph control\nPll\u0017gauntlets of fumbling\nW\u001bs20ssm.#polyself\nstalker\n#monster\n.j.hsss#polyself\nqueen bee\n  #monster\nsssm.ss"
+  }
+ ]
+}
