@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — D-4026 domove_core run-stop fires under forcefight (D-0440's `!forcefight` vs measured C; questtour-Priest pair FULL PASS)
+
+**C locus:** hack.c domove_core `:2766–2776` — the run-stop (`mtmp && !is_safemon && run && (visible || sensemon)` → `nomul(0)`, `move=0`, silent return) has NO forcefight exemption in its condition, despite the `We should never get here if forcefight` comment. Path here: dotravel_target sets run=8 (cmd.c); travel ends clearing travel/multi/mv but NOT run; the F+j rhack prefix then runs domove with ff=1 + stale run=8 into the visible zombie → the stop fires. Temp-C dump (gated moves≤4 domove/do_attack/attack_checks/moves++ probes in the ignored recorder tree, truncated recipe to /tmp, reverted + rebuilt after — sources diff-clean, full re-record 912/912 screens + 32636/32636 draws identical): the F+j domove shows `moves=3 ff=1 run=8 m_at=human zombie`, no do_attack line ever runs, 0 draws.
+**JS:** 1 file (js/cmd.js:6785 condition + comment), 1 test file. No new imports. Rule #2 clean (first verify FAILed rule2 on the reflowed seed0002 comment line — identifiers removed from the comment).
+**Change:** js/cmd.js only — deleted the `!forcefight` guard so the condition matches C exactly (Blind/mon_visible/M_AP/sensemon/nomul/move=0 all already C-order); comment now cites hack.c:2766–2776 + the measurement. New focused test scripts/domove-runstop-forcefight.test.mjs (truncated questtour replay: step-32 topline empty, zombie HP untouched).
+**Verify:** focused test 0/1 pre-fix (`You hit the human zombie!--More--` vs empty) → 1/1 post-fix. `score --ids` both probes: 2 FULL PASS (50950030: 32636/32636 RNG, 912/912 scr; 50157004: 38857/38857 RNG, 1030/1030 scr). Movement line: `score: 2 PASS, 0 moved, 0 no-movement` (hidden `verify domove_core` vacuous — unattributed owners match no C fn; D-4015 precedent).
+**Named:** (1) domove_core's standing partial omits untouched: displacer swap, mundetected Wait!, full mon_visible Blind_telepat/Protection amulet prop (js/cmd.js:6778), D-3850 furniture run-stop park (end_running vs nomul). (2) D-0440's confdir/no-forcefight run-stop behavior preserved verbatim.
+**Next:** generated blocks regenerate (both questtour rows leave — sessions join the fortress; dupe-rc rows stay parked per D-4016).
 ## 2026-10-16 — audit 2860–2867 @bf7208009: review D-4018..D-4025 (8A/0D/0Q, 0 Must-fix) + full rescore 561/1157 (0 PASS→FAIL)
 
 **Reviews:** 2860–2867: 8A/0D/0Q, 0 Must-fix. All movement claims re-measured on HEAD — hold, 0 worse. Non-finding: D-4020's ledger note stale post-ternary — fold one `ledger.mjs set` into next real work.
