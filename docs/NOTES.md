@@ -25,21 +25,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4006 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4007 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4006.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4006 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4007.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4007 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4007: js/dig.js only — Blind() takes the D-0716 house shape verbatim (uroleplay.blind birth gate + live H/E minus B; cf. shk.js/do_wear.js). Named: (1) other sticky-Blind readers — ball.js:273, detect.js:137, allmain/cmd/apply inline `u.B
 - D-4006: js/display.js only — lastCol + lastRow extend past spaces with (attr & 0x7), mirroring the firstCol rule (D-0129); space-run CUF extended to trailing  Named: (1) mid-row inv/uline runs >4 stay literal — no session evidence C compresses them; (2) tr
 - D-4005: kludge spiral calls the live `dirtocoord(cc, j)` in both loops (added to the existing const.js import — no new edge; removed the now-unused xdir/ydir  Named: none in this unit — the kludge arms are now C-exact (assigning spiral, both rings, stay fa
 - D-4004: js/invent.js (+10/-1): capture `touched`, then `if (game.program_state?.gameover) return obj;` before the refuse/form-change arms (D-4001 idiom) — a f Named: none new — hold_another_object stays ported (guard only; standing doc omit perm_invent WIN
@@ -54,5 +55,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3995: `js/do_wear.js` only. (1) Blind() takes the D-0716 house shape verbatim (cf. shk.js Blind): uroleplay.blind birth-blind gate + live `((HBlinded||EBlin Named: none in-body (Blindf_off body already whole; this ships its Blind gate).
 - D-3994: pray.js Antimagic() → D-1089 uprops shape; sit.js rndcurse You() not You_feel (9 PASS + 2 moved). Named: zap/spell/trap Antimagic clones + other You/You_feel swaps ship only with session evidence.
 - D-3993: js/options.js — ported tty_preference_update whole (live arms; TTY_PERM_INVENT `:609–630` compiled out per config.h:612; genl `:461–469` empty); async Named: (1) The 2 unchanged worldtour sessions keep their own cause: C screens embed recorder `KIN
-- D-3992: `js/cmd.js` — deleted the domove-top write (dx/dy stay: C sets those in movecmd before domove); write `u.ux0/u.uy0` just before bhitpos at the C-:2780 Named: none new (domove_core keeps its audited D-3432 omit; no other gate touched).
 <!-- landmarks:end -->

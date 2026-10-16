@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — D-4007 file-head unattributed writer: dig.js Blind() read sticky mirrors, blindfold-wearing hero misread as seeing — zap_dig wall-glow where C silent (Barbarian-50750065 351→492)
+
+**C locus:** youprop.h Blind macro (HBlinded||EBlinded)&&!BBlinded, read by dig.c zap_dig `:1693/:1701/:1709` maze arms and the dighole grave arms. C blind since step 57 (recorded «wearing a blindfold», «Being blind» through step 328; no removal keys before 351) → silent. Terrain ruled out: geom-probe @351 shows 0 differing map cells (no hidden SDOOR; wall at map 33,13 same both sides).
+**JS:** js/dig.js Blind (+9/−1); scripts/zap-dig-blind-wall-glow.test.mjs (new — C-silence topline + EBlinded mechanism).
+**Change:** js/dig.js only — Blind() takes the D-0716 house shape verbatim (uroleplay.blind birth gate + live H/E minus B; cf. shk.js/do_wear.js). No new import edge (D-3995 shape-replication precedent, no cycle); no mirror re-sync (dig.js only reads — the sync lives in Blindf_off). Heals all 5 in-file sites (zap_dig wall/tree/rock + dighole grave zombie/mummy).
+**Verify:** new test FAIL→PASS («want C silence, got wall-glow» → green). Direct hidden-worker replay (reserve row, board-blind): 351→492 digactualhole map divergence (C trap vs JS floor — separate writer, next unit); `score --ids` refreshed header + 1 board row only. verify zap_dig,dighole: no live blocks (expected), REACH 44+24 OK, green 2/2, strict ×2, cohort 7/7, full 44/44 → VERIFY: PASS.
+**Named:** (1) other sticky-Blind readers — ball.js:273, detect.js:137, allmain/cmd/apply inline `u.Blind||u.ublind` gates — same class, ship only with session evidence (D-3995 rule); display.js:6081 already prefers props; (2) the s492 digactualhole divergence is a new owner, not this unit.
+**Next:** file head clears on regen (row re-ranked under digactualhole @492); the trap-paint writer there is the next unit.
 ## 2026-10-16 — D-4006 cliffs-head level_tele writer: serialize_for_scoring dropped the trailing inverse ghost space (lastCol/lastRow attr rule + trailing-run CUF) — Caveman-50350081 471→1926
 
 **C locus:** arrival docrt→see_monsters→newsym(!cansee)→display_monster(sightflags DETECTED; HDetect_monsters=56, ghost hostile/unseen) paints the ghost (' ' mlet, defsym.h GHOST) with MG_DETECT→ATR_INVERSE (wintty.c tty_print_glyph `:3930–3936`). Recorder nomux_capture_screen (patch 006) end-scan keeps trailing spaces with attr!=0; the harness compresses space runs >4 to CSI CUF (menu proof: ` \x1b[7m General\x1b[24C\x1b[0m`).

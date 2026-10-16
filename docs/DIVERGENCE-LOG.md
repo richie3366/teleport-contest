@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4007 — file-head unattributed writer: dig.js Blind() read sticky mirrors, blindfold-wearing hero misread as seeing — zap_dig wall-glow where C silent (Barbarian-50750065 351→492)
+
+- **Status:** shipped (Open — cliffs file head, unattributed reserve row scen-sweep-Barbarian-50750065 @committed board. zap_dig symptom owner proven whole — ledger ported D-3900, C body live in js/dig.js:1345 — not re-ported; the writer is dig.js's Blind predicate. Note: the session has no live-board row, so `show` fails for it; orient was hidden-worker on the cached session file + geom-probe + prefix probes.)
+- **Symptom:** step 351/1568 kind=screen, C «» vs JS «The wall glows then fades.» — zap_dig maze_dig nondiggable-wall arm (dig.c:1694). RNG in sync (C fired the beam too: rn2(18) @ zap_dig dig.c:1622).
+- **C locus:** youprop.h Blind macro (HBlinded||EBlinded)&&!BBlinded, read by dig.c zap_dig `:1693/:1701/:1709` maze arms and the dighole grave arms. C blind since step 57 (recorded «wearing a blindfold», «Being blind» through step 328; no removal keys before 351) → silent. Terrain ruled out: geom-probe @351 shows 0 differing map cells (no hidden SDOOR; wall at map 33,13 same both sides).
+- **JS was:** js/dig.js:225 Blind() returned `u.Blind || u.ublind` (D-3995 hysteresis class — cache + always-false). Measured EBlinded=524288 (blindfold worn) at every step 57–350, yet the predicate read seeing → printed.
+- **Fix:** js/dig.js only — Blind() takes the D-0716 house shape verbatim (uroleplay.blind birth gate + live H/E minus B; cf. shk.js/do_wear.js). No new import edge (D-3995 shape-replication precedent, no cycle); no mirror re-sync (dig.js only reads — the sync lives in Blindf_off). Heals all 5 in-file sites (zap_dig wall/tree/rock + dighole grave zombie/mummy). Rule #2 clean.
+- **JS:** js/dig.js Blind (+9/−1); scripts/zap-dig-blind-wall-glow.test.mjs (new — C-silence topline + EBlinded mechanism).
+- **Callers:** in-file only — zap_dig js/dig.js:1520/:1529/:1538, dighole js/dig.js:2034/:2052. C macro expands at each site; no cross-module wiring.
+- **Verify:** new test FAIL→PASS («want C silence, got wall-glow» → green). Direct hidden-worker replay (reserve row, board-blind): 351→492 digactualhole map divergence (C trap vs JS floor — separate writer, next unit); `score --ids` refreshed header + 1 board row only. verify zap_dig,dighole: no live blocks (expected), REACH 44+24 OK, green 2/2, strict ×2, cohort 7/7, full 44/44 → VERIFY: PASS.
+- **Named omissions:** (1) other sticky-Blind readers — ball.js:273, detect.js:137, allmain/cmd/apply inline `u.Blind||u.ublind` gates — same class, ship only with session evidence (D-3995 rule); display.js:6081 already prefers props; (2) the s492 digactualhole divergence is a new owner, not this unit.
+- **Ledger:** zap_dig ported; dighole ported
+- **Next:** file head clears on regen (row re-ranked under digactualhole @492); the trap-paint writer there is the next unit.
+
 ## D-4006 — cliffs-head level_tele writer: serialize_for_scoring dropped the trailing inverse ghost space (lastCol/lastRow attr rule + trailing-run CUF) — Caveman-50350081 471→1926
 
 - **Status:** shipped (Open — cliffs head `teleport.c` level_tele @2540a6635, live board — the prompt snapshot @2cf31268a is stale, its unattributed session archived by Grow #14 tiering. level_tele itself is ledger-ported and proven whole, not re-ported; the writer is the scoring serializer. First divergence names it: RNG fully in sync, one inverse cell differs.)
