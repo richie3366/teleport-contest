@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n20\n   \u0017blessed beartrap\n aiFlFk\u0017oilskin cloak\n\u0007winter wolf\nWj 20s.m.shTj\u0017blessed kicking boots\nWk 20s.m.sm.sm.sm.\u0017yumi\nwl \u001720 ya\nQm\u0007giant rat\njflfl fk  \u0007lichen\nufk  n  fn bk j,#enhance\nyq\np\n\u001b#levelchange\n30\n         \u0017the Eye of the Aethiopica\n \u0007doppelganger\n;k: \u001b;sm.20s  sm.\u0007plains centaur\nFl Fl   n Fu   Fl   k   u   n  l  n\u0017falling rock trap\nhu  \u0017teleportation trap\nWj     n #sit\n   >\u00163\n#levelchange\n30\n\u0017saddle\nanj#ride\nyy\u0007warhorse\n\u0017scroll of taming\nro \u0017saddle\napl #ride\nly \u0007horse\n\u0017scroll of taming\nrq \u0017saddle\narb #ride\n       #ride\nby.m.           #ride\nhy     yllllnk llj jy  \u000f\u001b\u0017blessed T-shirt\nW\u001b.m. 20s     n sm.   Te  Fl    Fl   \u0017uncursed amulet of change\nPt sss.\u0017wand of stasis\n\u0007fire elemental\nzuzusm.sm.\u0006#levelchange\n8\n          \u0017blessed ring of polymorph control\nPvl     #polyself\nwraith\n#monster\n.m.     20s \u0007xorn\nFl  Fl  n    Fb    n  sm. 20s  20s   n   #polyself\nyeti\n  #monster\n20s    .m.   n \u0007marilith\nFl Fb    n   Fb    n   sm.    n        n    sm.    n    .m.  n      yy\u001bny ny\u001bn  b"
+ },
+ "segments": [
+  {
+   "seed": 50850065,
+   "datetime": "20140524094454",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n20\n   \u0017blessed beartrap\n aiFlFk\u0017oilskin cloak\n\u0007winter wolf\nWj 20s.m.shTj\u0017blessed kicking boots\nWk 20s.m.sm.sm.sm.\u0017yumi\nwl \u001720 ya\nQm\u0007giant rat\njflfl fk  \u0007lichen\nufk  n  fn bk j,#enhance\nyq\np\n\u001b#levelchange\n30\n         \u0017the Eye of the Aethiopica\n \u0007doppelganger\n;k: \u001b;sm.20s  sm.\u0007plains centaur\nFl Fl   n Fu   Fl   k   u   n  l  n\u0017falling rock trap\nhu  \u0017teleportation trap\nWj     n #sit\n   >\u00163\n#levelchange\n30\n\u0017saddle\nanj#ride\nyy\u0007warhorse\n\u0017scroll of taming\nro \u0017saddle\napl #ride\nly \u0007horse\n\u0017scroll of taming\nrq \u0017saddle\narb #ride\n       #ride\nby.m.           #ride\nhy     yllllnk llj jy  \u000f\u001b\u0017blessed T-shirt\nW\u001b.m. 20s     n sm.   Te  Fl    Fl   \u0017uncursed amulet of change\nPt sss.\u0017wand of stasis\n\u0007fire elemental\nzuzusm.sm.\u0006#levelchange\n8\n          \u0017blessed ring of polymorph control\nPvl     #polyself\nwraith\n#monster\n.m.     20s \u0007xorn\nFl  Fl  n    Fb    n  sm. 20s  20s   n   #polyself\nyeti\n  #monster\n20s    .m.   n \u0007marilith\nFl Fb    n   Fb    n   sm.    n        n    sm.    n    .m.  n      yy\u001bny ny\u001bn  b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>EkFb ybjjhjnbjjjjjuknb\u0017wand of digging\nzibhujhyh10skkbkh\u0017wand of striking\nzjujjjjjjk\u0017scroll of earth\nrk   yy\u001by  y y y\u001b  b"
+ },
+ "segments": [
+  {
+   "seed": 50851023,
+   "datetime": "20111015020341",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>EkFb ybjjhjnbjjjjjuknb\u0017wand of digging\nzibhujhyh10skkbkh\u0017wand of striking\nzjujjjjjjk\u0017scroll of earth\nrk   yy\u001by  y y y\u001b  b"
+  }
+ ]
+}

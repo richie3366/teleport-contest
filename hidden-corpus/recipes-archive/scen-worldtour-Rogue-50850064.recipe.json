@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nWh\u001624\n\u0006_ \u001b<. sss\u001624\n#levelchange\n30\n         \u00173 scroll of food detection\nri .s\u0017uncursed sprig of wolfsbane\n\u0007sergeant\nej.sh\u0017wand of speed monster\n\u0007fire giant\nzklFkFk\u0017spellbook of identify\nrl .hsuZZFlFl\u0017cursed wand of magic missile\n\u0007aligned cleric\nnyzmk   n FlFl \u0017cursed skeleton key\nank 20s  n 20s \u00168\n\u001622\n\u0004usm.\u001614\n_<.sm.\u0016?\n>>K       mace\n#levelchange\n10\n      \u0017spellbook of knock\nrq  n sh     \u001b   \u0017blessed spellbook of restore ability\nrr       n20s                    \u001b          n    +\u0007gnome lord\nZ\u0007lichen\nZ\u0007giant rat\nZZ20s              \u001b                 sm.  n     sm.             \u001611\n\u001614\nl  n     n :sm.     n   \u001611\n\u0016?\nc #levelchange\n8\n\u0017gauntlets of fumbling\nWs     n sm.     n  sm.     n20s   Ts\u0007baluchitherium\n#chat\nl    n    n Fl    n    Fn  n    n      n \u0007dust vortex\nsm.    n    yy\u001bny y  y\u001b  ."
+ },
+ "segments": [
+  {
+   "seed": 50850064,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nWh\u001624\n\u0006_ \u001b<. sss\u001624\n#levelchange\n30\n         \u00173 scroll of food detection\nri .s\u0017uncursed sprig of wolfsbane\n\u0007sergeant\nej.sh\u0017wand of speed monster\n\u0007fire giant\nzklFkFk\u0017spellbook of identify\nrl .hsuZZFlFl\u0017cursed wand of magic missile\n\u0007aligned cleric\nnyzmk   n FlFl \u0017cursed skeleton key\nank 20s  n 20s \u00168\n\u001622\n\u0004usm.\u001614\n_<.sm.\u0016?\n>>K       mace\n#levelchange\n10\n      \u0017spellbook of knock\nrq  n sh     \u001b   \u0017blessed spellbook of restore ability\nrr       n20s                    \u001b          n    +\u0007gnome lord\nZ\u0007lichen\nZ\u0007giant rat\nZZ20s              \u001b                 sm.  n     sm.             \u001611\n\u001614\nl  n     n :sm.     n   \u001611\n\u0016?\nc #levelchange\n8\n\u0017gauntlets of fumbling\nWs     n sm.     n  sm.     n20s   Ts\u0007baluchitherium\n#chat\nl    n    n Fl    n    Fn  n    n      n \u0007dust vortex\nsm.    n    yy\u001bny y  y\u001b  ."
+  }
+ ]
+}

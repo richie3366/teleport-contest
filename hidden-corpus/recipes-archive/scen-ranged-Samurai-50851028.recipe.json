@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00178 rocks\nQ-\u0007lichen\nbnf by k f \u001bf \u001b\u0017potion of fruit juice\ntdk \u0007giant rat\nybf \u001bf \u001bf \u001b\u0017potion of hallucination\ntcl \u0007owlbear\nyf \u001bf \u001bf \u001bf \u001b\u0017potion of blindness\ntdj \u0017spetum\nwj\u0007yellow mold\nkaj \u001bm,kl  nk,Sy\u001b yy#dip\nfh#enhance\nyk\nq\n\u001b\u0018\u001b>_>,slk\u0014m,",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50851028,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178 rocks\nQ-\u0007lichen\nbnf by k f \u001bf \u001b\u0017potion of fruit juice\ntdk \u0007giant rat\nybf \u001bf \u001bf \u001b\u0017potion of hallucination\ntcl \u0007owlbear\nyf \u001bf \u001bf \u001bf \u001b\u0017potion of blindness\ntdj \u0017spetum\nwj\u0007yellow mold\nkaj \u001bm,kl  nk,Sy\u001b"
+  },
+  {
+   "seed": 51351028,
+   "datetime": "20090205003358",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " yy#dip\nfh#enhance\nyk\nq\n\u001b\u0018\u001b>_>,slk\u0014m,"
+  }
+ ]
+}

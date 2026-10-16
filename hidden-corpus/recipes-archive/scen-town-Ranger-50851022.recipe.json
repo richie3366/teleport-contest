@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>w\u0006\u0017blessed potion of object detection\nqg \u001b,_ooooooo.  _. Fk_ooo,Fl_.Fn ,p_ooooooo.Fk _,,_ooo._,,dca_{.Fk_,q#dip\ne_oooooo._.,dabr\u001b\u001b#pray\ny y s#levelchange\n30\n                             \u00172000 gold pieces\n\u0016?\n>w\u0006_oo._.,p_oooo._.,de_ooooooooo.Fk _. Fk_ooo, Fk_. Fk,p_oooo._.,#chat\nl_oo._.,\u0014m.ef#turn\n\u0014<."
+ },
+ "segments": [
+  {
+   "seed": 50851022,
+   "datetime": "20200723093750",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>w\u0006\u0017blessed potion of object detection\nqg \u001b,_ooooooo.  _. Fk_ooo,Fl_.Fn ,p_ooooooo.Fk _,,_ooo._,,dca_{.Fk_,q#dip\ne_oooooo._.,dabr\u001b\u001b#pray\ny y s#levelchange\n30\n                             \u00172000 gold pieces\n\u0016?\n>w\u0006_oo._.,p_oooo._.,de_ooooooooo.Fk _. Fk_ooo, Fk_. Fk,p_oooo._.,#chat\nl_oo._.,\u0014m.ef#turn\n\u0014<."
+  }
+ ]
+}

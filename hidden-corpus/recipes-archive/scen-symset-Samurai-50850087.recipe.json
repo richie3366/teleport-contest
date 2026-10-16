@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001bm.>FnFl_>,_.>_>,_.>\u0006_>>._,>_>>,_,>_>>._.>#untrap\ny#monster\n<\u0006_>._.>_>._,>_>._.>\u0006_>._.>_>._,>_>._.><H\u0006_>,_.>_>._.>_>._.>#turn\n#twoweapon\n\\    ubhjnn150s   hllFlFuFkFu.FuFksFkFks20sFks20s150s FhFys100s    Fus20s100s      Fl 20sFuFu FlFl ynu100s   _>.Fu_.>100s Fl.20s 150s       lhu\\    kjbynbjyl150s  50s   FksFk150s    eeeeeeeeO>>h\u001b\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0007kitten\n\u0017meatball\ntdl  \u0007kitten\n\u0017banana\ntck \u0007yellow mold\n.m. sm. ...s\u0006_>.Fk_,m.Fk>FkFk_>.Fy_,Fk>FkFk_>.Fh_,Fb>FbFb\u0007jackal\nsm..m.sm.20ssys\u0017food ration\ntdn  20s \u0017tin whistle\nnnyaiefeh   FhFkFhFb.FbFj.Fjb150s   FjFlsFnFnFlFkFkFlFkFkFlFuFkFuFuFlFuFlFlFkFuFlFuhhh150s100s       100s     FuFuFuFjFn20sFjFnsFu.FuFk.20sFlFuFuFuFl.100s   ch50s _>._.>#ride\nyy_>.Fu_,>\u0004hFlFuFuFlF"
+ },
+ "segments": [
+  {
+   "seed": 50850087,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=norep \"You miss\"\n",
+   "moves": " \u0006_ \u001bm.>FnFl_>,_.>_>,_.>\u0006_>>._,>_>>,_,>_>>._.>#untrap\ny#monster\n<\u0006_>._.>_>._,>_>._.>\u0006_>._.>_>._,>_>._.><H\u0006_>,_.>_>._.>_>._.>#turn\n#twoweapon\n\\    ubhjnn150s   hllFlFuFkFu.FuFksFkFks20sFks20s150s FhFys100s    Fus20s100s      Fl 20sFuFu FlFl ynu100s   _>.Fu_.>100s Fl.20s 150s       lhu\\    kjbynbjyl150s  50s   FksFk150s    eeeeeeeeO>>h\u001b\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0007kitten\n\u0017meatball\ntdl  \u0007kitten\n\u0017banana\ntck \u0007yellow mold\n.m. sm. ...s\u0006_>.Fk_,m.Fk>FkFk_>.Fy_,Fk>FkFk_>.Fh_,Fb>FbFb\u0007jackal\nsm..m.sm.20ssys\u0017food ration\ntdn  20s \u0017tin whistle\nnnyaiefeh   FhFkFhFb.FbFj.Fjb150s   FjFlsFnFnFlFkFkFlFkFkFlFuFkFuFuFlFuFlFlFkFuFlFuhhh150s100s       100s     FuFuFuFjFn20sFjFnsFu.FuFk.20sFlFuFuFuFl.100s   ch50s _>._.>#ride\nyy_>.Fu_,>\u0004hFlFuFuFlF"
+  }
+ ]
+}

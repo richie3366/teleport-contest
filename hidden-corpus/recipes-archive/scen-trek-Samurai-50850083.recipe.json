@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "   #name\nm\n ,20s#chat\nl20sk#chat\njdb.s20s150sFnsFl \u000f\u001b150sFy.s_>.>100sbnu150sr\u001b100sFyFys\u0004b50s100sFyFy.\u0018\u001b150s50sbul\u000f\u001b#loot\n50sFhFhs_>.>100sllh100sFhFh.#dip\nc#tip\n\u001b100slhlllllnk50si\u001b100sFjFjFj_>.>20shh#name\no\n#name\nm\n10s20sNUNK_>,>BKL Y_>.>JJUJ_>.>L LYK_>.><\u000f\u001b100s#tip\n\u001b100sFhFhFhlhl50sFlFlslhh150s50s\\    50s100s100s eeeeeeeeeeeeeeeeeeeeeeeeee#twoweapon\nr\u001bojeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeezf wand of death\n10s#untrap\n.NJBJ_>.>LYJK_>,>Fks.NYHL_>.>JHHY_>.>LKBN_>.>NKYL_>.>N YJH_>.>#ride\nboheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehJoltcu10sda.20sskkkkkkNUNN_>.>HKLB_>.>JYUN_>,>NNN"
+ },
+ "segments": [
+  {
+   "seed": 50850083,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:explore\n",
+   "moves": "   #name\nm\n ,20s#chat\nl20sk#chat\njdb.s20s150sFnsFl \u000f\u001b150sFy.s_>.>100sbnu150sr\u001b100sFyFys\u0004b50s100sFyFy.\u0018\u001b150s50sbul\u000f\u001b#loot\n50sFhFhs_>.>100sllh100sFhFh.#dip\nc#tip\n\u001b100slhlllllnk50si\u001b100sFjFjFj_>.>20shh#name\no\n#name\nm\n10s20sNUNK_>,>BKL Y_>.>JJUJ_>.>L LYK_>.><\u000f\u001b100s#tip\n\u001b100sFhFhFhlhl50sFlFlslhh150s50s\\    50s100s100s eeeeeeeeeeeeeeeeeeeeeeeeee#twoweapon\nr\u001bojeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeezf wand of death\n10s#untrap\n.NJBJ_>.>LYJK_>,>Fks.NYHL_>.>JHHY_>.>LKBN_>.>NKYL_>.>N YJH_>.>#ride\nboheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehJoltcu10sda.20sskkkkkkNUNN_>.>HKLB_>.>JYUN_>,>NNN"
+  }
+ ]
+}

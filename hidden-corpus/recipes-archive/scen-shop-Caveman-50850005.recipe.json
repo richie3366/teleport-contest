@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\n>w\u0006_ \u001b@.#chat\nh#pray\ny y  _{.Fk_,Fk  q__.Fk  n_, #chat\nl#pray\ny y _ooo._.,\u0014>.s20sFhFhFhFhFhFh\u0016?\nckju\u0016?\n>w\u0006_oo._..Fy_oo.Fl _.Fl,pFl Fl FlFlFl Fl_oooo,Fl_.Fl,:_oo. _. Fk_ooo.  n Fk  n_.  n Fu  n,p  \u00167\nFuFuFu FuFuFu_ooooo,_., \u0017amulet of life saving\ndi_oooo.Fh   n _._ooo,Fh  n_.,    n p\u001b\u00169\n   __,#chat\nb   n #pray\ny y     _ooooooooo.,:Fb  n Fb  n Fb  nFb  n Fb  n Fb  n_ooo.,p   uhn#chat\nk\u0016?\nchjy\u0016?\n>w\u0006_ooo._.<._oo._,, \u0017worthless piece of red glass\ndlknub#chat\nb_oooo.  F"
+ },
+ "segments": [
+  {
+   "seed": 50850005,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\n>w\u0006_ \u001b@.#chat\nh#pray\ny y  _{.Fk_,Fk  q__.Fk  n_, #chat\nl#pray\ny y _ooo._.,\u0014>.s20sFhFhFhFhFhFh\u0016?\nckju\u0016?\n>w\u0006_oo._..Fy_oo.Fl _.Fl,pFl Fl FlFlFl Fl_oooo,Fl_.Fl,:_oo. _. Fk_ooo.  n Fk  n_.  n Fu  n,p  \u00167\nFuFuFu FuFuFu_ooooo,_., \u0017amulet of life saving\ndi_oooo.Fh   n _._ooo,Fh  n_.,    n p\u001b\u00169\n   __,#chat\nb   n #pray\ny y     _ooooooooo.,:Fb  n Fb  n Fb  nFb  n Fb  n Fb  n_ooo.,p   uhn#chat\nk\u0016?\nchjy\u0016?\n>w\u0006_ooo._.<._oo._,, \u0017worthless piece of red glass\ndlknub#chat\nb_oooo.  F"
+  }
+ ]
+}

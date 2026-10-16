@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " Fu s.100s100skby100sFlFl.i\u001b50shhllyh100s50sFl20s20s_ \u001b>.>\u000f\u001b\u000f\u001b150si\u001b100sFkFk20sFksFkFk20s20s150sFks.100sFyFyFb100sybj100sFlss50si\u001b50sFh20ss150sed Fk20s.L_<,.aeuhbk#name\nd\n#chat\nbhnuhjkhnde20sssyy#enhance\n\u001b20s\u0018\u001bLUJU_>,>JYNN_>.>ohab  jNH BK_>,>N KYN_>.>#wipe\n20sYLUH_>.><UJJB_>.>b#pray\ny KHNU_>,>>W,hnj150syyhFhss150s#ride\nl100sFl.s100sFhFhs_>.>100sFh20s.#turn\njjji\u001b50sFhFhs150s150sFks.\\   150s100sFhssi\u001b_>.>100sFh..100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeokqeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\no\ndcssslh#name\na\nll#name\nm\n#chat\n@.10sH HYH_>,>LBLB_>,>FlFl s#force\n\\   NYUY_>,>>sUKNB_>,>#pray\ny #twoweapon\n\u0018\u001btah#jump\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nkk#chat\nkkk20s"
+ },
+ "segments": [
+  {
+   "seed": 50850035,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\n",
+   "moves": " Fu s.100s100skby100sFlFl.i\u001b50shhllyh100s50sFl20s20s_ \u001b>.>\u000f\u001b\u000f\u001b150si\u001b100sFkFk20sFksFkFk20s20s150sFks.100sFyFyFb100sybj100sFlss50si\u001b50sFh20ss150sed Fk20s.L_<,.aeuhbk#name\nd\n#chat\nbhnuhjkhnde20sssyy#enhance\n\u001b20s\u0018\u001bLUJU_>,>JYNN_>.>ohab  jNH BK_>,>N KYN_>.>#wipe\n20sYLUH_>.><UJJB_>.>b#pray\ny KHNU_>,>>W,hnj150syyhFhss150s#ride\nl100sFl.s100sFhFhs_>.>100sFh20s.#turn\njjji\u001b50sFhFhs150s150sFks.\\   150s100sFhssi\u001b_>.>100sFh..100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeokqeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\no\ndcssslh#name\na\nll#name\nm\n#chat\n@.10sH HYH_>,>LBLB_>,>FlFl s#force\n\\   NYUY_>,>>sUKNB_>,>#pray\ny #twoweapon\n\u0018\u001btah#jump\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nkk#chat\nkkk20s"
+  }
+ ]
+}

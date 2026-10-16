@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed +3 speed boots\nWi\u0017blessed amulet of life saving\nPj\u0016?\n>w\u0006_ \u001b>. #chat\nj_oooo.,phny#chat\nh_{.Fk _.qy_oooo,,\u0014<.s20s_ooooooo.,:jlj#chat\ny_{.Fn _.Flq_oooooo.,p_{.Fn_.m,Fnq_oooooo,,:_oo.,\u0017amulet of strangulation\ndkFnFnFnFnFnFn_{,Fn _.,     Fn q_ooooo,Fl_.,    n:_oooooooo.,:_ooooooo._ooo,,p_ooo.,pFj Fj   nFj   nFj FjFj   n  \u00169\n_oooooo,_oo,,p\u00163\njkl\u0016?\n>w\u0006_ooooooooo,,:_ooo.,$FuFu   n FuFuFu Fu   n \u00168\n_{.q_{.q_{,qFyFyFy Fy FyFy   n_ooooooo.,p_ooooooooo.,p_{.qFy Fy   nFy FyFy   nFy \u00163\n_{.q_oo._oo.,p_oooooo.,#chat\nn _{.q_oooooooo,,#chat\nn_{,q_{.qFnFn   nFn Fn   nFn Fn   n \u00165\n_{.q__.#chat\nk  n_ooo.Fk_,@.Fy ,$_ooooooooo.,p_oo.Fy_.,\u0017cheap plastic imitation o"
+ },
+ "segments": [
+  {
+   "seed": 50850069,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed +3 speed boots\nWi\u0017blessed amulet of life saving\nPj\u0016?\n>w\u0006_ \u001b>. #chat\nj_oooo.,phny#chat\nh_{.Fk _.qy_oooo,,\u0014<.s20s_ooooooo.,:jlj#chat\ny_{.Fn _.Flq_oooooo.,p_{.Fn_.m,Fnq_oooooo,,:_oo.,\u0017amulet of strangulation\ndkFnFnFnFnFnFn_{,Fn _.,     Fn q_ooooo,Fl_.,    n:_oooooooo.,:_ooooooo._ooo,,p_ooo.,pFj Fj   nFj   nFj FjFj   n  \u00169\n_oooooo,_oo,,p\u00163\njkl\u0016?\n>w\u0006_ooooooooo,,:_ooo.,$FuFu   n FuFuFu Fu   n \u00168\n_{.q_{.q_{,qFyFyFy Fy FyFy   n_ooooooo.,p_ooooooooo.,p_{.qFy Fy   nFy FyFy   nFy \u00163\n_{.q_oo._oo.,p_oooooo.,#chat\nn _{.q_oooooooo,,#chat\nn_{,q_{.qFnFn   nFn Fn   nFn Fn   n \u00165\n_{.q__.#chat\nk  n_ooo.Fk_,@.Fy ,$_ooooooooo.,p_oo.Fy_.,\u0017cheap plastic imitation o"
+  }
+ ]
+}

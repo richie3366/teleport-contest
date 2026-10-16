@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPhr\u0017blessed shield of reflection\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n14\n             \u0017wand of digging\n\u0017wand of fire\n\u0017wand of teleportation\n\u0007bugbear\n\u0007yellow mold\n\u0007giant rat\nzlh zlh zk> 20szmbzlyzlbzmyzls\u00174 cream pies\nQby\u0007soldier\n\u0007dwarf\nfyf \u001bf \u001bf \u001b\u0017potion of blindness\nt\u001b\u00166\n\u0018\u001b\u0017blessed spellbook of finger of death\nrp .b\u0007orc shaman\nZ.m.20sZsk  sm.Zsj.nZZ20s .m. ZZ20s sh  \u0017wand of cancellation\n\u0017wand of lightning\n\u0007troll\n\u0007newt\nzru   zrh  zry   n20szqkzry 20szry20szrk.zqkzr.zrzqki\u001b\u0017orcish bow\nws\u001720 orcish arrows\nQt\u0007jackal\nfkfkfu  takfk\u0007silver dragon\n\u0007silver dragon\nss#polyself\nsilver dragon\n   . s#monster\ny #monster\n#monster\nFy  Fy\u0017wand of digging\n\u0017wand of cancellation\n\u0017wand of sleep\n\u0007kobold\n\u0007sewer rat\n\u0007acid blob\nzwy  n   zvy 20s zu>  szvlzwlzwlzu> 20s\u0007master lich\n\u0007mind flayer\n\u0017wand of magic missile\nzxk. . \u0018\u001b\u0017wand of cancellation\n\u0017wand of death\n\u0007jackal\n\u0007lichen\nzykzzu     n s    zzk  .zzk     n    zyk   n   zyy    n   zyu    n   zyl  zyu  n  .  n \u001613\n \u00165\n\u0007aligned cleric\nyn\u0007mind flayer\n\u0007kobold shaman\n\u0017wand of striking\ns.   n  zAy   n zAk    n zAk    n zAj    n  zAk   n  \u0017wand of slow monster\n\u0017wand of striking\n\u0007hill orc\nzCy   "
+ },
+ "segments": [
+  {
+   "seed": 50850004,
+   "datetime": "20240603215128",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPhr\u0017blessed shield of reflection\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n14\n             \u0017wand of digging\n\u0017wand of fire\n\u0017wand of teleportation\n\u0007bugbear\n\u0007yellow mold\n\u0007giant rat\nzlh zlh zk> 20szmbzlyzlbzmyzls\u00174 cream pies\nQby\u0007soldier\n\u0007dwarf\nfyf \u001bf \u001bf \u001b\u0017potion of blindness\nt\u001b\u00166\n\u0018\u001b\u0017blessed spellbook of finger of death\nrp .b\u0007orc shaman\nZ.m.20sZsk  sm.Zsj.nZZ20s .m. ZZ20s sh  \u0017wand of cancellation\n\u0017wand of lightning\n\u0007troll\n\u0007newt\nzru   zrh  zry   n20szqkzry 20szry20szrk.zqkzr.zrzqki\u001b\u0017orcish bow\nws\u001720 orcish arrows\nQt\u0007jackal\nfkfkfu  takfk\u0007silver dragon\n\u0007silver dragon\nss#polyself\nsilver dragon\n   . s#monster\ny #monster\n#monster\nFy  Fy\u0017wand of digging\n\u0017wand of cancellation\n\u0017wand of sleep\n\u0007kobold\n\u0007sewer rat\n\u0007acid blob\nzwy  n   zvy 20s zu>  szvlzwlzwlzu> 20s\u0007master lich\n\u0007mind flayer\n\u0017wand of magic missile\nzxk. . \u0018\u001b\u0017wand of cancellation\n\u0017wand of death\n\u0007jackal\n\u0007lichen\nzykzzu     n s    zzk  .zzk     n    zyk   n   zyy    n   zyu    n   zyl  zyu  n  .  n \u001613\n \u00165\n\u0007aligned cleric\nyn\u0007mind flayer\n\u0007kobold shaman\n\u0017wand of striking\ns.   n  zAy   n zAk    n zAk    n zAj    n  zAk   n  \u0017wand of slow monster\n\u0017wand of striking\n\u0007hill orc\nzCy   "
+  }
+ ]
+}

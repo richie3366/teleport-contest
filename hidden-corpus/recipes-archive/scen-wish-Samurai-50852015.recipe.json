@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017uncursed tooled horn\nagyagy\u0017cursed -1 dunce cap\nWh20ss20s\u0017sling\nwi...Xss\u00173 20 shuriken\n \u001b\u0007erinys\n\u0017flail\nwkFk FkFk\u0017potion of blindness\nql#dip\ngs  ns"
+ },
+ "segments": [
+  {
+   "seed": 50852015,
+   "datetime": "20150720205321",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017uncursed tooled horn\nagyagy\u0017cursed -1 dunce cap\nWh20ss20s\u0017sling\nwi...Xss\u00173 20 shuriken\n \u001b\u0007erinys\n\u0017flail\nwkFk FkFk\u0017potion of blindness\nql#dip\ngs  ns"
+  }
+ ]
+}

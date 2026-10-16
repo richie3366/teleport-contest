@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  >\\  ,#invoke\n\u001bf \u001b#rub\nW\u001bKt\u001boj#enhance\n\u001bE- X marks the spot\n\u000f\u001bw-E-y Elbereth\ni\u001bqg Per  sk.m.suan\u001bwaFbFbFbqf#dip\nlhPdsssRdH#pray\ny  ezc#wipe\n10s"
+ },
+ "segments": [
+  {
+   "seed": 50852007,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "  >\\  ,#invoke\n\u001bf \u001b#rub\nW\u001bKt\u001boj#enhance\n\u001bE- X marks the spot\n\u000f\u001bw-E-y Elbereth\ni\u001bqg Per  sk.m.suan\u001bwaFbFbFbqf#dip\nlhPdsssRdH#pray\ny  ezc#wipe\n10s"
+  }
+ ]
+}

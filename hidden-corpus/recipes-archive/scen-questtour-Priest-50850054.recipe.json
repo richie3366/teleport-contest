@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nh;h._mmm.Fh_,.Fh#chat\nh;b,_mmm,  nFk   n _.#chat\nb_mmm.Fb   n _.#chat\nh;y._mmm,  nFl  _.#chat\nk  n  n#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.Fk _.#chat\nk _mmmmm,Fk _.#chat\nh _mmmmm.  n Fy _,#chat\nb;k.\u0017blessed +3 helm of telepathy\nWj \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017wand of death\n\u0016?\n>A\u0006_mmmm. Fb _.Fy  n  Fk FyFb Fj zlj   n,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nu;l;\u00169\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.Fl _.Fu Fu FlFjFh FuFu,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nu;u;\u0016?\n>z\u0006_mmmmmmm.Fu _,FhFjs20sszlk,#chat\nu\u0016?\n>A\u0006_mmmmmm.s.ss20sFjFj,\u0016?\n>A\u0006_mm.Fj_.,Fb   nFb FbFjFbsszlu,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.ssss..,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nh\u0016?\n>z\u0006_mmmmmmm,.s.20szlk,\u0016?\n>>\u001b\u0016?\n"
+ },
+ "segments": [
+  {
+   "seed": 50850054,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nh;h._mmm.Fh_,.Fh#chat\nh;b,_mmm,  nFk   n _.#chat\nb_mmm.Fb   n _.#chat\nh;y._mmm,  nFl  _.#chat\nk  n  n#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.Fk _.#chat\nk _mmmmm,Fk _.#chat\nh _mmmmm.  n Fy _,#chat\nb;k.\u0017blessed +3 helm of telepathy\nWj \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017wand of death\n\u0016?\n>A\u0006_mmmm. Fb _.Fy  n  Fk FyFb Fj zlj   n,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nu;l;\u00169\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.Fl _.Fu Fu FlFjFh FuFu,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nu;u;\u0016?\n>z\u0006_mmmmmmm.Fu _,FhFjs20sszlk,#chat\nu\u0016?\n>A\u0006_mmmmmm.s.ss20sFjFj,\u0016?\n>A\u0006_mm.Fj_.,Fb   nFb FbFjFbsszlu,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.ssss..,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nh\u0016?\n>z\u0006_mmmmmmm,.s.20szlk,\u0016?\n>>\u001b\u0016?\n"
+  }
+ ]
+}

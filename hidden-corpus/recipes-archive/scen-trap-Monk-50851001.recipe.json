@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n     ulb\u0017anti-magic field\nl^hh20s syu \u0017level teleporter\nl#untrap\nhk\u0017polymorph trap\ny#untrap\nnl\u0017web\nb #untrap\nuZa\nw\u001bee "
+ },
+ "segments": [
+  {
+   "seed": 50851001,
+   "datetime": "20121226055123",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n     ulb\u0017anti-magic field\nl^hh20s syu \u0017level teleporter\nl#untrap\nhk\u0017polymorph trap\ny#untrap\nnl\u0017web\nb #untrap\nuZa\nw\u001bee "
+  }
+ ]
+}

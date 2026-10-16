@@ -1,11 +1,11 @@
 {
- "commit": "6f501afe8",
- "at": "2026-10-16T02:00:14.955Z",
+ "commit": "7847e3f76",
+ "at": "2026-10-16T02:10:43.224Z",
  "full": false,
  "fullCommit": "28130c7ea",
  "fullAt": "2026-10-16T00:20:57.304Z",
- "entries": 1157,
- "reserve": 277,
+ "entries": 1173,
+ "reserve": 283,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -1912,6 +1912,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-genesis-Knight-50852027": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 3493,
+   "rngT": 3493,
+   "scrM": 32,
+   "scrT": 32,
+   "kind": null,
+   "step": null,
+   "steps": 32,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
   "scen-genesis-Knight-92002": {
    "src": "corpus",
    "passed": true,
@@ -2354,6 +2371,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-intrinsic-Rogue-50852003": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 3158,
+   "rngT": 3255,
+   "scrM": 121,
+   "scrT": 143,
+   "kind": "rng",
+   "step": 121,
+   "steps": 143,
+   "owner": "kick_monster",
+   "loc": "dokick.c:154",
+   "jsOwner": "kick_monster(dokick.js:1016)",
+   "cTopline": "Floating in the air, you miss wildly!--More--",
+   "jsTopline": "You kick the sewer rat. You float in the opposite direction. Ouch!",
+   "error": null
+  },
   "scen-kit-Archeologist-49952005": {
    "src": "corpus",
    "passed": true,
@@ -2743,7 +2777,8 @@
    "jsOwner": null,
    "cTopline": "What do you want to drop?",
    "jsTopline": "What do you want to drop? [a-i or ?*]",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-options-Archeologist-50557415": {
    "src": "corpus",
@@ -4088,6 +4123,40 @@
    "jsTopline": "The chieftain reads a scroll labeled PHOL ENDE WODAN!--More--",
    "error": null
   },
+  "scen-questtour-Barbarian-50850014": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 17916,
+   "rngT": 22659,
+   "scrM": 491,
+   "scrT": 612,
+   "kind": "rng",
+   "step": 486,
+   "steps": 612,
+   "owner": "noncoalignment",
+   "loc": "sp_lev.c:1856",
+   "jsOwner": "next_ident(mkobj.js:426)",
+   "cTopline": "You materialize on a different level!--More--",
+   "jsTopline": "You materialize on a different level!--More--",
+   "error": null
+  },
+  "scen-questtour-Barbarian-50850038": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 5555,
+   "rngT": 5555,
+   "scrM": 151,
+   "scrT": 153,
+   "kind": "screen",
+   "step": 11,
+   "steps": 153,
+   "owner": "level_tele",
+   "loc": "teleport.c:1427",
+   "jsOwner": null,
+   "cTopline": "You materialize on a different level!--More--",
+   "jsTopline": "You materialize on a different level!--More--",
+   "error": null
+  },
   "scen-questtour-Caveman-50750030": {
    "src": "corpus",
    "passed": false,
@@ -4902,7 +4971,8 @@
    "jsOwner": null,
    "cTopline": "The gnomish wizard points and curses at your displaced image.",
    "jsTopline": "The gnomish wizard points at you, then curses.",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-shop-Ranger-50360013": {
    "src": "corpus",
@@ -4936,6 +5006,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "You miss the gnome.",
+   "error": null
+  },
+  "scen-shop-Ranger-50850021": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 27620,
+   "rngT": 27620,
+   "scrM": 570,
+   "scrT": 571,
+   "kind": "screen",
+   "step": 461,
+   "steps": 571,
+   "owner": "cursetxt",
+   "loc": "mcastu.c:76",
+   "jsOwner": null,
+   "cTopline": "The gnomish wizard points and curses at your displaced image.",
+   "jsTopline": "The gnomish wizard points at you, then curses.",
    "error": null
   },
   "scen-shop-Rogue-49959603": {
@@ -6570,6 +6657,23 @@
    "jsTopline": "You materialize on a different level!--More--",
    "error": null
   },
+  "scen-sweep-Caveman-50850017": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 18110,
+   "rngT": 18110,
+   "scrM": 875,
+   "scrT": 876,
+   "kind": "screen",
+   "step": 172,
+   "steps": 876,
+   "owner": "x_monnam",
+   "loc": "do_name.c:882",
+   "jsOwner": null,
+   "cTopline": "You hear something hissing!",
+   "jsTopline": "An endless stream of snakes pours forth!",
+   "error": null
+  },
   "scen-sweep-Caveman-578202": {
    "src": "corpus",
    "passed": true,
@@ -6859,6 +6963,23 @@
    "jsTopline": "The kobold shaman points all around, then curses.--More--",
    "error": null
   },
+  "scen-sweep-Healer-50850089": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 30629,
+   "rngT": 30629,
+   "scrM": 1432,
+   "scrT": 1436,
+   "kind": "screen",
+   "step": 59,
+   "steps": 1436,
+   "owner": "xname_flags",
+   "loc": "objnam.c:864",
+   "jsOwner": null,
+   "cTopline": "The hill orc reads a scroll labeled KO BATE!--More--",
+   "jsTopline": "The hill orc reads a scroll labeled KO BATE!--More--",
+   "error": null
+  },
   "scen-sweep-Healer-578141": {
    "src": "corpus",
    "passed": true,
@@ -7027,7 +7148,8 @@
    "jsOwner": null,
    "cTopline": "The Wizard of Yendor casts a spell at you! You suddenly feel weaker!--More--",
    "jsTopline": "The Wizard of Yendor casts a spell at you! You suddenly feel weaker!--More--",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-sweep-Knight-50255235": {
    "src": "corpus",
@@ -9052,6 +9174,23 @@
    "jsTopline": "The sleep ray hits the nalfeshnee. The nalfeshnee zaps a balsa wand!--More--",
    "error": null
   },
+  "scen-sweep-Valkyrie-50850025": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 9481,
+   "rngT": 9481,
+   "scrM": 474,
+   "scrT": 475,
+   "kind": "screen",
+   "step": 222,
+   "steps": 475,
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
+   "jsOwner": null,
+   "cTopline": "You can no longer hold your shield! You find you must drop your whip!--More--",
+   "jsTopline": "You can no longer hold your shield! You find you must drop your whip!--More--",
+   "error": null
+  },
   "scen-sweep-Valkyrie-578204": {
    "src": "corpus",
    "passed": true,
@@ -10276,6 +10415,42 @@
    "jsTopline": "Armor",
    "error": null
   },
+  "scen-symset-Monk-50850031": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 6652,
+   "rngT": 12240,
+   "scrM": 102,
+   "scrT": 699,
+   "kind": "screen",
+   "step": 89,
+   "steps": 699,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "You miss the lichen. The lichen touches you!",
+   "error": null,
+   "tier": "reserve"
+  },
+  "scen-symset-Monk-50850071": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 16803,
+   "rngT": 16803,
+   "scrM": 997,
+   "scrT": 998,
+   "kind": "screen",
+   "step": 793,
+   "steps": 998,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "Where do you want to travel to? (For instructions type a '?')",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-symset-Priest-50058519": {
    "src": "corpus",
    "passed": false,
@@ -10530,6 +10705,24 @@
    "cTopline": "The jackal misses!",
    "jsTopline": "You move right into the jackal. The jackal misses!",
    "error": null
+  },
+  "scen-symset-Rogue-50850079": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 24176,
+   "rngT": 34573,
+   "scrM": 545,
+   "scrT": 992,
+   "kind": "screen",
+   "step": 540,
+   "steps": 992,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-symset-Samurai-50059033": {
    "src": "corpus",
@@ -11279,6 +11472,23 @@
    "jsTopline": "You kill the gnome!",
    "error": null
   },
+  "scen-town-Priest-50851002": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 7463,
+   "rngT": 9688,
+   "scrM": 157,
+   "scrT": 311,
+   "kind": "screen",
+   "step": 155,
+   "steps": 311,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "You hit the watchman. The watchman swings his knife.--More--",
+   "error": null
+  },
   "scen-town-Priest-94282": {
    "src": "corpus",
    "passed": true,
@@ -11668,6 +11878,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-trek-Monk-50850075": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 32558,
+   "rngT": 32558,
+   "scrM": 838,
+   "scrT": 839,
+   "kind": "screen",
+   "step": 319,
+   "steps": 839,
+   "owner": "readobjnam_postparse1",
+   "loc": "objnam.c:4288",
+   "jsOwner": null,
+   "cTopline": "You can get a genuine Amulet of Yendor by doing the following: --More--",
+   "jsTopline": "You can get a genuine Amulet of Yendor by doing the following: --More--",
    "error": null
   },
   "scen-trek-Monk-582619": {
@@ -14033,6 +14260,40 @@
    "jsTopline": "You materialize on a different level!",
    "error": null
   },
+  "scen-worldtour-Wizard-50850024": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 79622,
+   "rngT": 79622,
+   "scrM": 1117,
+   "scrT": 1118,
+   "kind": "screen",
+   "step": 998,
+   "steps": 1118,
+   "owner": "describe_decor",
+   "loc": "pickup.c:401",
+   "jsOwner": null,
+   "cTopline": "There is a small mimic here. You kick the small mimic.--More--",
+   "jsTopline": "There is the small mimic here. You kick the small mimic.--More--",
+   "error": null
+  },
+  "scen-worldtour-Wizard-50850040": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 8463,
+   "rngT": 86154,
+   "scrM": 360,
+   "scrT": 1060,
+   "kind": "rng",
+   "step": 354,
+   "steps": 1060,
+   "owner": "arti_invoke",
+   "loc": "artifact.c:2194",
+   "jsOwner": "getbones(bones.js:785)",
+   "cTopline": "Resetting time to move #2. You float gently to the floor.--More--",
+   "jsTopline": "Resetting time to move #2.--More--",
+   "error": null
+  },
   "scen-worldtour-Wizard-578116": {
    "src": "corpus",
    "passed": true,
@@ -14626,6 +14887,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-zapfest-Rogue-50850092": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 13491,
+   "rngT": 13491,
+   "scrM": 933,
+   "scrT": 939,
+   "kind": "screen",
+   "step": 773,
+   "steps": 939,
+   "owner": "setmnotwielded",
+   "loc": "weapon.c:1821",
+   "jsOwner": null,
+   "cTopline": "The long sword named Sunsword in the Aleax's hand stops shining.--More--",
+   "jsTopline": "The red dragon is caught in the fireball!--More--",
    "error": null
   },
   "scen-zapfest-Valkyrie-50650068": {
@@ -19954,5 +20232,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-16T02:10:43.622Z"
 }

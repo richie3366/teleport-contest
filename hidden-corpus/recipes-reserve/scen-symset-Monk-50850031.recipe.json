@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " mO>>d\u001b\n\u00161\n#terrain\nb\n\u001b@.>\u000f\u001b#twoweapon\nO>>p\u001b\n;n;#twoweapon\nv i\u001b\u0006_>.Fj_.<.Fj> FnFbFb\u0006_>,Fn_,> FbFyFhri nyrc\u0006_>.Fj_,Fh>FnFu_>.Fb_.Fu>FuFb_>,Fj_.Fh>FnFjFuFnFuWeh  \u000f\u001bmO>>>>e\u001b\n\u0006_>.Fu_.Fb>FnFn_>,Fj_.Fb>FnFu_>,Fh_.Fh>FbFhFhFbFudb#tip\n\u001b\u0006_>.Fn_,Fj>FbFb_>.Fb_.Fj>FnFn_>,Fn_.Fu>FjFhFbFjFn\u0006_>.Fn_.Fb>FuFn_>.Fj_.Fj>FjFh_>.Fb_.Fn>FnFbFbFhFhv i\u001bO>>>>n\u001b\u001b\nFnFhFnFlFhFuFuFlFlFlFlFnFnFlFlFhFnFnFnFhFlFhFuFuFlFuFlFhFuFhFlFhFlFnFnFnFnFuFlFnFhFnFnFuFlFnFuFnFuFlFlFhFlFuFlFnFuFuFuFnFlFuFhFuFuFnFnFhFlFuFnFuFnFlFnFhFnFuFuFnFnFhFhFhFuFlFlFuFnFhFuFnFnFuFhFuFuFuFuFnFlFnFuFhFuFlFnFnFhFhFuFlFnFuFnFhFlFlFlFnOl\u001b\nv i\u001boh#terrain\nc\nm,\u0006_>.Fu_.Fj>FuFj_>,Fh_.Fb>FnFn_>.Fu_.Fn>FhFhFhFnFj\u0006_>,Fh_.Fu>FjFh_>.Fu_,Fu>FuFn_>.Fj_.Fn>FjFhFbFn"
+ },
+ "segments": [
+  {
+   "seed": 50850031,
+   "datetime": "20051004225621",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You see\"\n",
+   "moves": " mO>>d\u001b\n\u00161\n#terrain\nb\n\u001b@.>\u000f\u001b#twoweapon\nO>>p\u001b\n;n;#twoweapon\nv i\u001b\u0006_>.Fj_.<.Fj> FnFbFb\u0006_>,Fn_,> FbFyFhri nyrc\u0006_>.Fj_,Fh>FnFu_>.Fb_.Fu>FuFb_>,Fj_.Fh>FnFjFuFnFuWeh  \u000f\u001bmO>>>>e\u001b\n\u0006_>.Fu_.Fb>FnFn_>,Fj_.Fb>FnFu_>,Fh_.Fh>FbFhFhFbFudb#tip\n\u001b\u0006_>.Fn_,Fj>FbFb_>.Fb_.Fj>FnFn_>,Fn_.Fu>FjFhFbFjFn\u0006_>.Fn_.Fb>FuFn_>.Fj_.Fj>FjFh_>.Fb_.Fn>FnFbFbFhFhv i\u001bO>>>>n\u001b\u001b\nFnFhFnFlFhFuFuFlFlFlFlFnFnFlFlFhFnFnFnFhFlFhFuFuFlFuFlFhFuFhFlFhFlFnFnFnFnFuFlFnFhFnFnFuFlFnFuFnFuFlFlFhFlFuFlFnFuFuFuFnFlFuFhFuFuFnFnFhFlFuFnFuFnFlFnFhFnFuFuFnFnFhFhFhFuFlFlFuFnFhFuFnFnFuFhFuFuFuFuFnFlFnFuFhFuFlFnFnFhFhFuFlFnFuFnFhFlFlFlFnOl\u001b\nv i\u001boh#terrain\nc\nm,\u0006_>.Fu_.Fj>FuFj_>,Fh_.Fb>FnFn_>.Fu_.Fn>FhFhFhFnFj\u0006_>,Fh_.Fu>FjFh_>.Fu_,Fu>FuFn_>.Fj_.Fn>FjFhFbFn"
+  }
+ ]
+}

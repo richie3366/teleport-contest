@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0016?\nk   \u0006_ \u001b:#chat\nh20s   sm.20s\u0004n#enhance\nyq\nj\n\u001b#rub\nca \u001760 gold pieces\n\u0016?\nc\u0006_mmm.Fu _,#chat\nh_mmm.#chat\ny_mmm,#chat\nb_{,Fh _,m,qJnn#invoke\n\u001b#chat\nlSy\u001b nna\u001br\u001bq#terrain\nc\nm,tbl  ynny y y y\u001by  #",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50851017,
+   "datetime": "20180408190637",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\nk   \u0006_ \u001b:#chat\nh20s   sm.20s\u0004n#enhance\nyq\nj\n\u001b#rub\nca \u001760 gold pieces\n\u0016?\nc\u0006_mmm.Fu _,#chat\nh_mmm.#chat\ny_mmm,#chat\nb_{,Fh _,m,qJnn#invoke\n\u001b#chat\nlSy\u001b"
+  },
+  {
+   "seed": 51351017,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " nna\u001br\u001bq#terrain\nc\nm,tbl  ynny y y y\u001by  #"
+  }
+ ]
+}

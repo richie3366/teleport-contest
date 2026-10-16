@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "mO>>l\u001b\n\u0006_ \u001b:>FyFn_>.Fb_,> FbFbFuf $ k#wipe\n\u0006_>,_.>_>._,Fl>FlFl_>._.>\u0006_>>._.>_>>._.>_>>.Fl_.>#turn\nwa\u0006_>,_,>_>,_.Fl>_>,Fl_,Fl >\u0006_>._.>_>,_.>_>._.>\u0006_>,_,>_>._.>_>._,>ej#untrap\nb\u000f\u001bjkly\u0017moat\nh\u0017grave\n:\u0017wand of digging\nzl>    n   s.:nl\u0017tree\n\u0004l#monster\n#sit\n\u001b\u00166\nFkFyFhFkFhFnFlFjFuFlFjFjFhFuFnFjFuFkFlFhFkFjFuFyFlFuFhFkFyFkFkFyFyFhFkFnFkFjFlFkFyFhFjFlFlFkFnFuFnFuFlFkFjFnFyFjFkFhFhFhFnFnFuFjFyFjFlFyFkFyFjFjFnFkFlFyFhFkFyFjFhFkFuFjFyFkFuFhFhFkFhFhFyFjFjFyFjFyFhFyFlFjFuFkFlFyFuFuFnFjFnFyFyFjFuFhFyFyFuFjv i\u001bv i\u001b10sWai Op\u001b\n\u0006_>.Fu_.Fu>FuFu_>.Fn_.Fk>FlFk_>.Fn_.Fu>FuFkFnFnFk\u0006_>.Fl_.Fu>FnFu_>.Fu_.Fl>FnFn_>,Fl_.Fl>FkFuFuFlFu\u0006_>>.Fk_.Fu>FkFu_>>,Fk_,Fn>FkFk_>>.Fn_, Fk>FkFkFkFlFl\u00163\nOb\u001b\u001b\nO>>>>h\u001b\n\u0004lwaP,Ob\u001b\u001b\n\u00163\nFjFjFnFjFyFjFjFnFk#pray\ny y    FhFbFbFhFbFhFnFhFhFjFlFhFyFhFnFjFjFhFjFjFkFjFyFy"
+ },
+ "segments": [
+  {
+   "seed": 50850055,
+   "datetime": "20091031120913",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": "mO>>l\u001b\n\u0006_ \u001b:>FyFn_>.Fb_,> FbFbFuf $ k#wipe\n\u0006_>,_.>_>._,Fl>FlFl_>._.>\u0006_>>._.>_>>._.>_>>.Fl_.>#turn\nwa\u0006_>,_,>_>,_.Fl>_>,Fl_,Fl >\u0006_>._.>_>,_.>_>._.>\u0006_>,_,>_>._.>_>._,>ej#untrap\nb\u000f\u001bjkly\u0017moat\nh\u0017grave\n:\u0017wand of digging\nzl>    n   s.:nl\u0017tree\n\u0004l#monster\n#sit\n\u001b\u00166\nFkFyFhFkFhFnFlFjFuFlFjFjFhFuFnFjFuFkFlFhFkFjFuFyFlFuFhFkFyFkFkFyFyFhFkFnFkFjFlFkFyFhFjFlFlFkFnFuFnFuFlFkFjFnFyFjFkFhFhFhFnFnFuFjFyFjFlFyFkFyFjFjFnFkFlFyFhFkFyFjFhFkFuFjFyFkFuFhFhFkFhFhFyFjFjFyFjFyFhFyFlFjFuFkFlFyFuFuFnFjFnFyFyFjFuFhFyFyFuFjv i\u001bv i\u001b10sWai Op\u001b\n\u0006_>.Fu_.Fu>FuFu_>.Fn_.Fk>FlFk_>.Fn_.Fu>FuFkFnFnFk\u0006_>.Fl_.Fu>FnFu_>.Fu_.Fl>FnFn_>,Fl_.Fl>FkFuFuFlFu\u0006_>>.Fk_.Fu>FkFu_>>,Fk_,Fn>FkFk_>>.Fn_, Fk>FkFkFkFlFl\u00163\nOb\u001b\u001b\nO>>>>h\u001b\n\u0004lwaP,Ob\u001b\u001b\n\u00163\nFjFjFnFjFyFjFjFnFk#pray\ny y    FhFbFbFhFbFhFnFhFhFjFlFhFyFhFnFjFjFhFjFjFkFjFyFy"
+  }
+ ]
+}

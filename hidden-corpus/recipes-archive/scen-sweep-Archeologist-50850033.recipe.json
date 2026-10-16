@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u00163\n#invoke\n\u001b#ride\njy#jump\n;j. \u001b>.\u000620ss\u0016?\nc#invoke\n\u001b#wipe\n\u0014@.;y;.s\u0016?\n>D#untrap\nholr\u001b;h. \u0006ss\u0016?\n>u #sit\n\u001b#sit\n\u001bi\u001b;<..si\u001b#levelchange\n6\n\u0017black dragon scale mail\nW\u001bs20s20s Tc\u0007cobra\nFy Fn  n     n      Fn    n       Fy   sm.  n        nsm.    n      #pray\ny y    n     \u0007shrieker\nFn  n    n      Fk  n     Fn   n   Fy  n   Fh  n      Fn     n        nFh       yy  s"
+ },
+ "segments": [
+  {
+   "seed": 50850033,
+   "datetime": "20030422084851",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u00163\n#invoke\n\u001b#ride\njy#jump\n;j. \u001b>.\u000620ss\u0016?\nc#invoke\n\u001b#wipe\n\u0014@.;y;.s\u0016?\n>D#untrap\nholr\u001b;h. \u0006ss\u0016?\n>u #sit\n\u001b#sit\n\u001bi\u001b;<..si\u001b#levelchange\n6\n\u0017black dragon scale mail\nW\u001bs20s20s Tc\u0007cobra\nFy Fn  n     n      Fn    n       Fy   sm.  n        nsm.    n      #pray\ny y    n     \u0007shrieker\nFn  n    n      Fk  n     Fn   n   Fy  n   Fh  n      Fn     n        nFh       yy  s"
+  }
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  hbnujyhyFlFlFlFlFlFlFlFl  bjub#name\nm\n @.20skk10s#name\nf\n#chat\nm.tbybnlnUHKU_>,>oji\u001bHLUU_>,>BLJU_>.>W#pray\ny  UULL_>.><\u000f\u001bhlhhhllhlhll20sdh.ssdgs.20s#chat\nuhhdbss20shhhhyjkyybdcs.20sdd.ss10s20s#chat\nh#name\nf\nm.\u001b#name\na\ndfss.kljnnl#chat\nullhbyude20s20ss20st\u001b20sylbjlh10sjujy10snubyLYYN_>.#quit\ny J LUL_ \u001b>.>FjFj .10s#conduct\n <HYLN_>,>s<LHNN_>.>FhFh.LHYH_>,>YBYY_>.>10s#pray\ny  HBBH_>.>#loot\n\u0014lllFlsshluFjFj20s150sFl.s100s\u000f\u001b50s100sdc100sFkFkFkFkFkFkbhlubh150s100s100s100sFlFls\\ hll50s100sFlFls100s100sFlFl.Fls20subhhhlhll50s50sluli\u001b#quit\nyy\u001by  y y y\u001b FkFkFk  Fk FkFkFkFk50sdeFn .s150s\\ nhl50s50s100s50sFlFl20subh100shnhFlss100s50s100sFlss_ \u001bm,>100s100s150sFls20s100s100s hlh50sFlssuyuFl.s150s100s150sFlss100s\u0018\u001bi\u001b_>,20sed bnbkej_>,>100s50s150sFls.kkj150subjjkl100sjhuFl.s150syjlhnyn100sed100s100s#conduct\n 10sFkFuFk150s#rub\ni \u0018\u001b\u0004u50sFuFuFu150s100sFlFlFlFl.suun1#quit\nyy\u001by  y y y\u001b  #wizintrinsic\nc\n sys.m.sy.m..sns20s .m.sm.snssss.u..sm..m.20s      ynnnn n  s #quit\nyy unjjFkFkFkFkFkFkFkFknynyBBNY_ \u001b<.>UHLL_>,>NLNK_>,>LHJK_>.>\u000f\u001b20s#chat\nn#chat\nn20sdd20sssjljyFlFlFl FlFlFl FlFl #chat\nj#name\no\ndb 20s sb.ktcbdes.20sFjFjFj100sllhlnu100sjnb#twoweapon\n150sFhFh20s100s150sFhFh20s150s150s100s_>.>100s100s#loot\n#wipe\n150sFhss150s 100sFhs.bhy50s150seeeeeeeeeeeeuhkulhbbNKLY_>,>Fbss<JKHY_>,>FjFj.LJJJ_>.>b;.JHBN_>.>u#terrain\nc\n:K NY L_>,>BYHJ_>.>Fj20ss#turn\n#tip\n\u001b\u000f\u001bllnl#chat\nutchhylnt\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJUBL_>.>NHLJ_>.>FyFkFkJUUJ_>.>KULL_>,>\\    E- Elbereth Elbereth\nLNNB_>.><KBUH_>,>HHJJ_>.>#dip\nc<yy\u001bny y y\u001b n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50850026,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "  hbnujyhyFlFlFlFlFlFlFlFl  bjub#name\nm\n @.20skk10s#name\nf\n#chat\nm.tbybnlnUHKU_>,>oji\u001bHLUU_>,>BLJU_>.>W#pray\ny  UULL_>.><\u000f\u001bhlhhhllhlhll20sdh.ssdgs.20s#chat\nuhhdbss20shhhhyjkyybdcs.20sdd.ss10s20s#chat\nh#name\nf\nm.\u001b#name\na\ndfss.kljnnl#chat\nullhbyude20s20ss20st\u001b20sylbjlh10sjujy10snubyLYYN_>.#quit\ny "
+  },
+  {
+   "seed": 50950026,
+   "datetime": "20200324184855",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "J LUL_ \u001b>.>FjFj .10s#conduct\n <HYLN_>,>s<LHNN_>.>FhFh.LHYH_>,>YBYY_>.>10s#pray\ny  HBBH_>.>#loot\n\u0014lllFlsshluFjFj20s150sFl.s100s\u000f\u001b50s100sdc100sFkFkFkFkFkFkbhlubh150s100s100s100sFlFls\\ hll50s100sFlFls100s100sFlFl.Fls20subhhhlhll50s50sluli\u001b#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51050026,
+   "datetime": "20130305004621",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "FkFkFk  Fk FkFkFkFk50sdeFn .s150s\\ nhl50s50s100s50sFlFl20subh100shnhFlss100s50s100sFlss_ \u001bm,>100s100s150sFls20s100s100s hlh50sFlssuyuFl.s150s100s150sFlss100s\u0018\u001bi\u001b_>,20sed bnbkej_>,>100s50s150sFls.kkj150subjjkl100sjhuFl.s150syjlhnyn100sed100s100s#conduct\n 10sFkFuFk150s#rub\ni \u0018\u001b\u0004u50sFuFuFu150s100sFlFlFlFl.suun1#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51150026,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nc\n sys.m.sy.m..sns20s .m.sm.snssss.u..sm..m.20s      ynnnn n  s"
+  },
+  {
+   "seed": 51250026,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " #quit\nyy"
+  },
+  {
+   "seed": 51350026,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\n",
+   "moves": " unjjFkFkFkFkFkFkFkFknynyBBNY_ \u001b<.>UHLL_>,>NLNK_>,>LHJK_>.>\u000f\u001b20s#chat\nn#chat\nn20sdd20sssjljyFlFlFl FlFlFl FlFl #chat\nj#name\no\ndb 20s sb.ktcbdes.20sFjFjFj100sllhlnu100sjnb#twoweapon\n150sFhFh20s100s150sFhFh20s150s150s100s_>.>100s100s#loot\n#wipe\n150sFhss150s 100sFhs.bhy50s150seeeeeeeeeeeeuhkulhbbNKLY_>,>Fbss<JKHY_>,>FjFj.LJJJ_>.>b;.JHBN_>.>u#terrain\nc\n:K NY L_>,>BYHJ_>.>Fj20ss#turn\n#tip\n\u001b\u000f\u001bllnl#chat\nutchhylnt\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJUBL_>.>NHLJ_>.>FyFkFkJUUJ_>.>KULL_>,>\\    E- Elbereth Elbereth\nLNNB_>.><KBUH_>,>HHJJ_>.>#dip\nc<yy\u001bny y y\u001b n"
+  }
+ ]
+}

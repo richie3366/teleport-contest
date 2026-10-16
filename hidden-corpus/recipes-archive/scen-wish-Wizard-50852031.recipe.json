@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0017potion of gain level\nqn\u0017credit card\n\u0007giant rat\naou \u0017cursed luckstone\n\u0007minotaur\napk Fk   yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50852031,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017potion of gain level\nqn\u0017credit card\n\u0007giant rat\naou \u0017cursed luckstone\n\u0007minotaur\napk Fk   yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nh_mmmmm,Fl_.#chat\nk;_._m,Fh_.#chat\ny_mmmm.#chat\nh#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.Fl _,#chat\nn_mm.#chat\ny_m,#chat\nl\u0017blessed +3 cloak of magic resistance\nWf\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of lightning\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,sss20s  20szhu,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\ny;.\u0016?\n>A\u0006_mmmm.s.20s20s.ss,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nn\u0016?\n>z\u0006_mmmmmmm.s20ss20ss,#chat\nj\u0016?\n>A\u0006_mmmm.ssss.,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.ss..zhy ,\u0016?\n>A\u0006_mmmmm..s.sssszhn,\u0016?\n>z\u0006_mmm..s.s20s20s,\u0016?\n>A\u0006_mm..ss.20s,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,20sss20s20s20s20szhl ,\u0016?\n>A\u0006_mmmm,..20sssss,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nn;<.\u0016?\n>z\u0006_mmmmmm.ss..ss20s,\u0016?\n>A\u0006_mmmm.ssss20sszhu,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.sss.s,#chat\nh\u0016?\n>A\u0006_mmm.sssszh,\u0016?\n>z\u0006_mmm,.s20ss.szh,\u0016?\n>A\u0006_mmm.20s20ssszh,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,20ss20sss20s,#chat\ny\u0016?\n>A\u0006_mmmm,sssss.20s,\u0016?\n>z\u0006_mmmmm.s20s.s.szh,\u0016?\n>A\u0006_mmm,.20s.sss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.sss20s20s,\u0016?\n>A\u0006_mmmmmmm,20s \u001bs.20sss,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nk\u0016?\n>z\u0006_mm.s.sszh,\u0016?\n>A\u0006_mm.20ss20s20s20ss,#chat\nj\u0016?\n"
+ },
+ "segments": [
+  {
+   "seed": 50850078,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nh_mmmmm,Fl_.#chat\nk;_._m,Fh_.#chat\ny_mmmm.#chat\nh#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.Fl _,#chat\nn_mm.#chat\ny_m,#chat\nl\u0017blessed +3 cloak of magic resistance\nWf\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of lightning\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,sss20s  20szhu,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\ny;.\u0016?\n>A\u0006_mmmm.s.20s20s.ss,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nn\u0016?\n>z\u0006_mmmmmmm.s20ss20ss,#chat\nj\u0016?\n>A\u0006_mmmm.ssss.,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.ss..zhy ,\u0016?\n>A\u0006_mmmmm..s.sssszhn,\u0016?\n>z\u0006_mmm..s.s20s20s,\u0016?\n>A\u0006_mm..ss.20s,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,20sss20s20s20s20szhl ,\u0016?\n>A\u0006_mmmm,..20sssss,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nn;<.\u0016?\n>z\u0006_mmmmmm.ss..ss20s,\u0016?\n>A\u0006_mmmm.ssss20sszhu,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.sss.s,#chat\nh\u0016?\n>A\u0006_mmm.sssszh,\u0016?\n>z\u0006_mmm,.s20ss.szh,\u0016?\n>A\u0006_mmm.20s20ssszh,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,20ss20sss20s,#chat\ny\u0016?\n>A\u0006_mmmm,sssss.20s,\u0016?\n>z\u0006_mmmmm.s20s.s.szh,\u0016?\n>A\u0006_mmm,.20s.sss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.sss20s20s,\u0016?\n>A\u0006_mmmmmmm,20s \u001bs.20sss,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nk\u0016?\n>z\u0006_mm.s.sszh,\u0016?\n>A\u0006_mm.20ss20s20s20ss,#chat\nj\u0016?\n"
+  }
+ ]
+}

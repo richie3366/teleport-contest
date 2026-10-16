@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "hj\u0017wand of enlightenment\nEg \u001b  Elbereth Elbereth\n: k\u0017wand of stasis\nEh I am a fish\n: n\u0017wand of light\nEi  ad aerarium\n: \u0017ruby\nEj  X marks the spot\n\u0017wand of digging\nEk n  I am a fish\n: \u00164\n#wizintrinsic\nlch\n  20s sm.s.m.sm.sm.20ssm..m.20ssm.s.m.sm.#force\n#pray\ny y  #dip\nkef#invoke\n\u001bW20ssbs .s .\u0006_ \u001b@.>Fl s_>>._.> \u0006_>._.>_>._.>_>,_.>#wipe\nE- ad aerarium\n\u0006_>._.>_>._,>_>._,>\u0006_>>._,>_>>._.>_>>._,>\u0006_>,_,>_>,_.>_>,_.>,wd\u0006_>>,_.>_>>._,>_>>,_.><\u000f\u001b\u001621\n\u0017Fire Brand\nwmss.#invoke\nm,    20sFk\u00173 Stormbringer\n  n\u0007ettin\nwn  n  Fk  Fk   n   nFk  n   nFh   n Fk    n \u0017tallow candle\nao   n   n #rub\n\u0017spellbook of protection\n\u0007killer bee\nrp   n   n .m.  n   n   n.l   n   n ZZ\u0017magic lamp\n\u0007giant rat\naq  yy\u001by  y y y\u001b  #"
+ },
+ "segments": [
+  {
+   "seed": 50850081,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "hj\u0017wand of enlightenment\nEg \u001b  Elbereth Elbereth\n: k\u0017wand of stasis\nEh I am a fish\n: n\u0017wand of light\nEi  ad aerarium\n: \u0017ruby\nEj  X marks the spot\n\u0017wand of digging\nEk n  I am a fish\n: \u00164\n#wizintrinsic\nlch\n  20s sm.s.m.sm.sm.20ssm..m.20ssm.s.m.sm.#force\n#pray\ny y  #dip\nkef#invoke\n\u001bW20ssbs .s .\u0006_ \u001b@.>Fl s_>>._.> \u0006_>._.>_>._.>_>,_.>#wipe\nE- ad aerarium\n\u0006_>._.>_>._,>_>._,>\u0006_>>._,>_>>._.>_>>._,>\u0006_>,_,>_>,_.>_>,_.>,wd\u0006_>>,_.>_>>._,>_>>,_.><\u000f\u001b\u001621\n\u0017Fire Brand\nwmss.#invoke\nm,    20sFk\u00173 Stormbringer\n  n\u0007ettin\nwn  n  Fk  Fk   n   nFk  n   nFh   n Fk    n \u0017tallow candle\nao   n   n #rub\n\u0017spellbook of protection\n\u0007killer bee\nrp   n   n .m.  n   n   n.l   n   n ZZ\u0017magic lamp\n\u0007giant rat\naq  yy\u001by  y y y\u001b  #"
+  }
+ ]
+}

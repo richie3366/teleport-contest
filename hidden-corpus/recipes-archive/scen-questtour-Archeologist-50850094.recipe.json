@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nu ;l._mmmmm.   n   n Fl    n_. Fj   n   #chat\nn   n _m,   n   nFk    n _,#chat\nj#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm. Fj  _.#chat\nk   _m,Fj  _,#chat\nk_m. Fu_,#chat\nu ;k.\u0017blessed Mjollnir\nwj  \u0017blessed +3 cloak of magic resistance\nWk\u0017blessed +3 gauntlets of power\nWl  n  \u0017wand of cold\n\u0016?\n>z\u0006_mmmmm. Fn  _.Fn  FlFu  Fk zmj ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.Fu FkFj Fj zmk,\u0016?\n>A\u0006_mmmmm,Fl _,ss.Fn  Fl Fl szml,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fl _.#chat\ny\u0016?\n>A\u0006_mmmmm,Fj _,:s20s..20s20ss,#chat\nl\u0016?\n>z\u0006_mm..ss20s.zmh,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.sssss20s,#chat\nn\u0016?\n>A\u0006_mm.sssFh zmh,\u0016?\n>A\u0006_mmmm..FhFhFh 20s"
+ },
+ "segments": [
+  {
+   "seed": 50850094,
+   "datetime": "20221218131719",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=fruit:lychee\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nu ;l._mmmmm.   n   n Fl    n_. Fj   n   #chat\nn   n _m,   n   nFk    n _,#chat\nj#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm. Fj  _.#chat\nk   _m,Fj  _,#chat\nk_m. Fu_,#chat\nu ;k.\u0017blessed Mjollnir\nwj  \u0017blessed +3 cloak of magic resistance\nWk\u0017blessed +3 gauntlets of power\nWl  n  \u0017wand of cold\n\u0016?\n>z\u0006_mmmmm. Fn  _.Fn  FlFu  Fk zmj ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.Fu FkFj Fj zmk,\u0016?\n>A\u0006_mmmmm,Fl _,ss.Fn  Fl Fl szml,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fl _.#chat\ny\u0016?\n>A\u0006_mmmmm,Fj _,:s20s..20s20ss,#chat\nl\u0016?\n>z\u0006_mm..ss20s.zmh,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.sssss20s,#chat\nn\u0016?\n>A\u0006_mm.sssFh zmh,\u0016?\n>A\u0006_mmmm..FhFhFh 20s"
+  }
+ ]
+}

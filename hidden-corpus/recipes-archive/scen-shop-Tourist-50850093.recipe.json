@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed amulet of reflection\nPm\u0017blessed +3 gauntlets of power\nWn\u0016?\n>w\u0006Fl FlFlFlFlFl_ \u001b,,p_oooo,,:_{.Fk_.qy_{.  n_,Flqh_ooo.Fl  _.Fu,\u0014: .hsk_oooooo._oo.  nFn _.   n Fn ,p\u00168\nFl   nFl Fl Fl Fl Fl_ooooooooo,  n Fj_,,b\np_ooooo._ooo,,e\np_ooooooo._oo.,a\npFj Fj FjFj   n  Fj Fj\u00163\nbjk\u0016?\n>w\u0006_oo.Fh_.  Fb ,pFyFyFyFyFy FyFuFuFuFuFuFu_oooooooo,_o.Fk   n _.,\u001b#chat\nk  _{. Fu_, Fj   qhFj Fj   Fj Fj   n  Fj      nFj       n\u00169\n_oooooooo,,p__.#chat\ny  _ooooooo._ooo,,p\u00163\n lll\u0016?\n>w  \u0006_oooooo.   n  Fj     n _,     nFk     n,$ \u00166\n_oooooo.     nFh   _,   y nny y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50850093,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed amulet of reflection\nPm\u0017blessed +3 gauntlets of power\nWn\u0016?\n>w\u0006Fl FlFlFlFlFl_ \u001b,,p_oooo,,:_{.Fk_.qy_{.  n_,Flqh_ooo.Fl  _.Fu,\u0014: .hsk_oooooo._oo.  nFn _.   n Fn ,p\u00168\nFl   nFl Fl Fl Fl Fl_ooooooooo,  n Fj_,,b\np_ooooo._ooo,,e\np_ooooooo._oo.,a\npFj Fj FjFj   n  Fj Fj\u00163\nbjk\u0016?\n>w\u0006_oo.Fh_.  Fb ,pFyFyFyFyFy FyFuFuFuFuFuFu_oooooooo,_o.Fk   n _.,\u001b#chat\nk  _{. Fu_, Fj   qhFj Fj   Fj Fj   n  Fj      nFj       n\u00169\n_oooooooo,,p__.#chat\ny  _ooooooo._ooo,,p\u00163\n lll\u0016?\n>w  \u0006_oooooo.   n  Fj     n _,     nFk     n,$ \u00166\n_oooooo.     nFh   _,   y nny y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "jn\u0017wand of polymorph\nEg Elbereth\n: \u0017wand of make invisible\nEh  Elbereth\n: \u0017wand of striking\nEiy Elbereth Elbereth\n : \u0017wand of create monster\nEjshrieker\n n  Elbereth\n: \u0017wand of locking\nEkn  X marks the spot\n: E-y I am a fish\n\u0007gnome lord\nsb20s sk"
+ },
+ "segments": [
+  {
+   "seed": 50851018,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "jn\u0017wand of polymorph\nEg Elbereth\n: \u0017wand of make invisible\nEh  Elbereth\n: \u0017wand of striking\nEiy Elbereth Elbereth\n : \u0017wand of create monster\nEjshrieker\n n  Elbereth\n: \u0017wand of locking\nEkn  X marks the spot\n: E-y I am a fish\n\u0007gnome lord\nsb20s sk"
+  }
+ ]
+}

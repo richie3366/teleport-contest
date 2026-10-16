@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u0017blessed ring of polymorph control\nPgl#polyself\nqueen bee\n    s.\u0007warg\nFhFhFhsm.sm.s#polyself\nlich\n20s sm.\u0007Wizard of Yendor\nyFj   Fj     Fh  sm.  n  sj      20s  n     \u001611\n\u0017T-shirt\nWh   su .nsl  n  \u0007troll\n20s     .m.    n  .b     n  20s       .m.  n   20s   n    sm.    n sm.  .m.  n  \u0007Archon\n20s   n  sm.       n  s  n      n s  n    n 20s     n   ynnny\u001b  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 50850009,
+   "datetime": "20130920072921",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u0017blessed ring of polymorph control\nPgl#polyself\nqueen bee\n    s.\u0007warg\nFhFhFhsm.sm.s#polyself\nlich\n20s sm.\u0007Wizard of Yendor\nyFj   Fj     Fh  sm.  n  sj      20s  n     \u001611\n\u0017T-shirt\nWh   su .nsl  n  \u0007troll\n20s     .m.    n  .b     n  20s       .m.  n   20s   n    sm.    n sm.  .m.  n  \u0007Archon\n20s   n  sm.       n  s  n      n s  n    n 20s     n   ynnny\u001b  \u0007"
+  }
+ ]
+}

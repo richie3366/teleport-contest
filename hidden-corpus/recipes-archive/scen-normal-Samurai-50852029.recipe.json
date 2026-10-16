@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \\    #enhance\n\u001bJ_m, \u001b<.sPs__.s#loot\nE- X marks the spot\n#loot\nf   l\u000f\u001b,20s#offer\nuPi\u001bwdyFj Fj.XWssswb.sswc..20s wa FlFjFj XWE-n  Vlad was here\n<yy\u001by  y y y\u001b f"
+ },
+ "segments": [
+  {
+   "seed": 50852029,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": " \\    #enhance\n\u001bJ_m, \u001b<.sPs__.s#loot\nE- X marks the spot\n#loot\nf   l\u000f\u001b,20s#offer\nuPi\u001bwdyFj Fj.XWssswb.sswc..20s wa FlFjFj XWE-n  Vlad was here\n<yy\u001by  y y y\u001b f"
+  }
+ ]
+}

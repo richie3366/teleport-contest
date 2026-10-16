@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nWi\u0017blessed amulet of life saving\nPj\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n10\n         \u0017spellbook of knock\nrl.\u0017blessed spellbook of cone of cold\nrm s\u0007master lich\nZa\nZa\n   Za\n Za\nZa\n Za\n  Za\n Za\n\u0017wand of death\n\u0017wand of polymorph\n\u0017wand of fire\n\u0007giant rat\n\u0007yellow mold\n\u0007hobbit\nzpj syzpl  znn sm.zoj znjzpk zny       zpl  . zpn      \u0007mind flayer\n\u0007orc shaman\n\u0007incubus\n\u0017wand of sleep\nzqb   \u0007red dragon\n\u0007baby red dragon\nsm.    n  .h     Fb   Fj       n \u00162\n\u001710 daggers\nQr\u0007owlbear\n\u0007lichen\ntbltrl   fj    n  tbj    fj fj   n   fl      n fj    tbl   n \u0017potion of oil\ntrl   \u00162\n\u0007red dragon\n\u0007silver dragon\n.m.sn   n   #polyself\nsilver dragon\n   #monster\nu         .m.     n   20s      n  #monster\n#monster\n#monster\n#monster\n\u0017wand of fire\naty           n Fn  Fk i\u001b\u00164\n\u0007orc shaman\n\u0007lich\n\u0017wand of striking\nzub\u0017blessed spellbook of slow monster\nrv sm.  \u0017blessed spellbook of knock\nrw y   n   .m.\u0007kobold shaman\nZa\n Za\n"
+ },
+ "segments": [
+  {
+   "seed": 50850092,
+   "datetime": "20010618181929",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nWi\u0017blessed amulet of life saving\nPj\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n10\n         \u0017spellbook of knock\nrl.\u0017blessed spellbook of cone of cold\nrm s\u0007master lich\nZa\nZa\n   Za\n Za\nZa\n Za\n  Za\n Za\n\u0017wand of death\n\u0017wand of polymorph\n\u0017wand of fire\n\u0007giant rat\n\u0007yellow mold\n\u0007hobbit\nzpj syzpl  znn sm.zoj znjzpk zny       zpl  . zpn      \u0007mind flayer\n\u0007orc shaman\n\u0007incubus\n\u0017wand of sleep\nzqb   \u0007red dragon\n\u0007baby red dragon\nsm.    n  .h     Fb   Fj       n \u00162\n\u001710 daggers\nQr\u0007owlbear\n\u0007lichen\ntbltrl   fj    n  tbj    fj fj   n   fl      n fj    tbl   n \u0017potion of oil\ntrl   \u00162\n\u0007red dragon\n\u0007silver dragon\n.m.sn   n   #polyself\nsilver dragon\n   #monster\nu         .m.     n   20s      n  #monster\n#monster\n#monster\n#monster\n\u0017wand of fire\naty           n Fn  Fk i\u001b\u00164\n\u0007orc shaman\n\u0007lich\n\u0017wand of striking\nzub\u0017blessed spellbook of slow monster\nrv sm.  \u0017blessed spellbook of knock\nrw y   n   .m.\u0007kobold shaman\nZa\n Za\n"
+  }
+ ]
+}

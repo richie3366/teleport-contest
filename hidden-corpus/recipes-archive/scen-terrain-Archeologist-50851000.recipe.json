@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             hbkn\u0017sink\nqy \u0017ring of invisibility\ndi  \u001by\u0004nj\u0017fountain\nqyqy y:#terrain\n\u001b\u0014 \u001b<.#tip\nh\u001b#conduct\n hhjj\u0017neutral altar\ndddb\u0017gnome corpse\n #offer\nj   n\u0017grave\n: \u0017wand of digging\nzk> .lsm.#terrain\n\u001b#sit\nqc"
+ },
+ "segments": [
+  {
+   "seed": 50851000,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             hbkn\u0017sink\nqy \u0017ring of invisibility\ndi  \u001by\u0004nj\u0017fountain\nqyqy y:#terrain\n\u001b\u0014 \u001b<.#tip\nh\u001b#conduct\n hhjj\u0017neutral altar\ndddb\u0017gnome corpse\n #offer\nj   n\u0017grave\n: \u0017wand of digging\nzk> .lsm.#terrain\n\u001b#sit\nqc"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " de20s  s20s#chat\nlda.ss20sjhYYKL_ \u001bm.>FhFj s,\u0018\u001bHNUJ_>,>#jump\n\u0018\u001b<NYUL_>.>UNBB_>,>LNBY_>,>#jump\nr\u001b10sW#name\nm\nljj100sE- Vlad was here\n50sllh150s100slky150sFh.20s\\    _>.>_>.>nyk100s_>.>100suhh\u0018\u001bljn_>.>100s_>.>100s_>,>100sFhFhs100sjbu100sFhFbs\\    jky50s150sFj20s.100s_>.>100sbun50s50sFbs20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#rub\n#offer\n#name\na\nHUUB_>.>f b#pray\ny  UBLJ_>.><BBK L_>,>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\nf\n#name\n;dd20ss.hj#chat\njbllhHBLU_>.>JJUY_>.>dc\u000f\u001bKJ BL_>,>\u000f\u001bK LHL _>.>NLYU_>.>UN LB_>,>\u000f\u001b#turn\n#monster\n#name\nm\n@.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJ oj;>.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#rub\n#chat\nk\u0004k#chat\nuulbublky#name\nd\nkj#chat\nnjhK YJN _>.>: #sit\nNBLJ_>,>Y K"
+ },
+ "segments": [
+  {
+   "seed": 50850091,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=runmode:run\nOPTIONS=msg_window:reversed\n",
+   "moves": " de20s  s20s#chat\nlda.ss20sjhYYKL_ \u001bm.>FhFj s,\u0018\u001bHNUJ_>,>#jump\n\u0018\u001b<NYUL_>.>UNBB_>,>LNBY_>,>#jump\nr\u001b10sW#name\nm\nljj100sE- Vlad was here\n50sllh150s100slky150sFh.20s\\    _>.>_>.>nyk100s_>.>100suhh\u0018\u001bljn_>.>100s_>.>100s_>,>100sFhFhs100sjbu100sFhFbs\\    jky50s150sFj20s.100s_>.>100sbun50s50sFbs20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#rub\n#offer\n#name\na\nHUUB_>.>f b#pray\ny  UBLJ_>.><BBK L_>,>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\nf\n#name\n;dd20ss.hj#chat\njbllhHBLU_>.>JJUY_>.>dc\u000f\u001bKJ BL_>,>\u000f\u001bK LHL _>.>NLYU_>.>UN LB_>,>\u000f\u001b#turn\n#monster\n#name\nm\n@.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJ oj;>.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#rub\n#chat\nk\u0004k#chat\nuulbublky#name\nd\nkj#chat\nnjhK YJN _>.>: #sit\nNBLJ_>,>Y K"
+  }
+ ]
+}

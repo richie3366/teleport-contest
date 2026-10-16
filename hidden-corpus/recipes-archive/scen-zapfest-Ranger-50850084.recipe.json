@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWg\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n14\n             \u0007lich\n\u0007master mind flayer\n\u0017wand of cold\nziuzik     ziusm.          sm.sziu     i\u001b\u00178 spears\nQj\u0007yellow mold\nfl fy   n  fu   n fk       n fk   n \u0017potion of full healing\ntdu    n \u00167\n\u0007baby red dragon\n.m.sm..m.\u0017wand of lightning\naly      n20ss\u0017bow\nwm\u001720 arrows\nQn\u0007yellow mold\nflfl tnntdutnntjb\u0017potion of gain energy\ntnu\u0017spellbook of sleep\nrps\u0017spellbook of slow monster\nrqs\u0007succubus\n\u0007incubus\nZZ.sZZs.ZZZ.   y   sZ\u00175 boomerangs\nQr\u0007giant rat\nfk trk fktbk tdk f n l fk\u0007succubus\n\u0007vampire\n\u0007master mind flayer\n\u0017wand of sleep\nzsk \u0007master lich\n\u0007gnomish wizard\n\u0007vampire\n\u0017wand of sleep\ns   n .  . ztu  s  s \u0007succubus\n\u0007mind flayer\n\u0007aligned cleric\nyn\u0017wand of fire\ns\u0017wand of polymorph\n\u0017wand of cold\n\u0017wand of sl"
+ },
+ "segments": [
+  {
+   "seed": 50850084,
+   "datetime": "20251118063835",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWg\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n14\n             \u0007lich\n\u0007master mind flayer\n\u0017wand of cold\nziuzik     ziusm.          sm.sziu     i\u001b\u00178 spears\nQj\u0007yellow mold\nfl fy   n  fu   n fk       n fk   n \u0017potion of full healing\ntdu    n \u00167\n\u0007baby red dragon\n.m.sm..m.\u0017wand of lightning\naly      n20ss\u0017bow\nwm\u001720 arrows\nQn\u0007yellow mold\nflfl tnntdutnntjb\u0017potion of gain energy\ntnu\u0017spellbook of sleep\nrps\u0017spellbook of slow monster\nrqs\u0007succubus\n\u0007incubus\nZZ.sZZs.ZZZ.   y   sZ\u00175 boomerangs\nQr\u0007giant rat\nfk trk fktbk tdk f n l fk\u0007succubus\n\u0007vampire\n\u0007master mind flayer\n\u0017wand of sleep\nzsk \u0007master lich\n\u0007gnomish wizard\n\u0007vampire\n\u0017wand of sleep\ns   n .  . ztu  s  s \u0007succubus\n\u0007mind flayer\n\u0007aligned cleric\nyn\u0017wand of fire\ns\u0017wand of polymorph\n\u0017wand of cold\n\u0017wand of sl"
+  }
+ ]
+}

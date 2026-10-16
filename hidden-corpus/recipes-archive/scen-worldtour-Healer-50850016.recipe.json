@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0016?\n>>N       potion of levitation\n\u0014 \u001b;.m.  \u0016?\ne\u0006_<.\u0016?\na    _<,<sm.   sm.      \u001b\u0016?\nclhn    n u    n          n         :20s  n           n sm.      n           20s       n           n \u001612\n\u001642\n#levelchange\n30\n\u0017spellbook of restore ability\nrm       n     sm.     n             n   \u0017blessed spellbook of sleep\nrn           n          n  s     n     \u0017spellbook of protection\nros    n      n   \u0017blessed spellbook of knock\nrp          yy\u001by   y y  y\u001b   s"
+ },
+ "segments": [
+  {
+   "seed": 50850016,
+   "datetime": "20181024223056",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n30\n                             \u0016?\n>>N       potion of levitation\n\u0014 \u001b;.m.  \u0016?\ne\u0006_<.\u0016?\na    _<,<sm.   sm.      \u001b\u0016?\nclhn    n u    n          n         :20s  n           n sm.      n           20s       n           n \u001612\n\u001642\n#levelchange\n30\n\u0017spellbook of restore ability\nrm       n     sm.     n             n   \u0017blessed spellbook of sleep\nrn           n          n  s     n     \u0017spellbook of protection\nros    n      n   \u0017blessed spellbook of knock\nrp          yy\u001by   y y  y\u001b   s"
+  }
+ ]
+}

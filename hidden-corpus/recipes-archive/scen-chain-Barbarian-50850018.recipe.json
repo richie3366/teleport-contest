@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Fb FbFbFbFbFbFbFbhhnlyntbnbk#name\no\n10snyJJYL_ \u001bm,>KBBN_>,>20sHJNHU_>.>KHUB_>.>LHBL_>,>YUJY_>.>#terrain\nc\n,r\u001bbknhUHYL_>.>YNYY_>.>BHYU_>.><LLHN_>.>JYLJ_>.>ULJU_>.>LBNN_>.>YUHU_>,>NNUN_>,><BNLJ_>,>:_<,20sJUJY_>,>hnby#chat\nyt\u001bjn10s#name\na\n#chat\nj#name\na\n#chat\nh#chat\nuyjyn#name\nf\n50s100sylh\\   150s\u000f\u001b50s150sFh..100sklj100s_>,>100s eg100s \\   150s100s 50s lyj\\   50sef  _>.>z100s ed100s100sFhs20slblW>50s150si\u001b15#quit\nyy\u001by  y y y\u001b #wizintrinsic\nc\n sm.s.m.20s.n20s.m..sm.sy.m.20s  n ssss.20sss.s.ss20s.ss.s20s.ss...ssssss20s  #wizintrinsic\nb\n 20s shsm.ss20ssm.sm.  yy  .FbFbFb  FbFbFbFbFb20s Fj ss100sbbjFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFndc20ss.10s#chat\nn#chat\nndbs20ss#chat\nn#name\na\nt\u001bFnFnFnFnFnFnFnFnt\u001bnukhykb10s10sluubnhjybk20skudd.s20s#chat\nb#chat\nubl>i\u001bnkk100sjnj_ \u001b,>100s\u000f\u001b#wipe\n_>.>100s50seeeeeeeeeeeeeeeeeeeeeeeeeeeeLKBB_>.>LHHY_>.>_m.20sckYUKN_>.><LNBH_>.>LHYY_>.>#tip\nf\u001br\u001bNNLH_>.>e#offer\nNJYB_>.>lhlht\u001b20s#name\ni\n10slyjkklhjKYHB_>.>YJUK_>.>#chat\nysLHLJ_>.>JYYY_>.>10s#jump\nt\u001b20st\u001bln20s t\u001b10st\u001bt\u001b#chat\nblj20s b 10st\u001b#name\na\nuynkkbklyn20s jybu#name\nm\nkht20s #pray\ny 150s #pray\ny   #pray\ny   y\u001by  y y y\u001b  1",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50850018,
+   "datetime": "20000125210643",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:loot\nOPTIONS=msg_window:reversed\n",
+   "moves": "Fb FbFbFbFbFbFbFbhhnlyntbnbk#name\no\n10snyJJYL_ \u001bm,>KBBN_>,>20sHJNHU_>.>KHUB_>.>LHBL_>,>YUJY_>.>#terrain\nc\n,r\u001bbknhUHYL_>.>YNYY_>.>BHYU_>.><LLHN_>.>JYLJ_>.>ULJU_>.>LBNN_>.>YUHU_>,>NNUN_>,><BNLJ_>,>:_<,20sJUJY_>,>hnby#chat\nyt\u001bjn10s#name\na\n#chat\nj#name\na\n#chat\nh#chat\nuyjyn#name\nf\n50s100sylh\\   150s\u000f\u001b50s150sFh..100sklj100s_>,>100s eg100s \\   150s100s 50s lyj\\   50sef  _>.>z100s ed100s100sFhs20slblW>50s150si\u001b15#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50950018,
+   "datetime": "20060125075630",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:crawl\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nc\n sm.s.m.20s.n20s.m..sm.sy.m.20s  n ssss.20sss.s.ss20s.ss.s20s.ss...ssssss20s"
+  },
+  {
+   "seed": 51050018,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nb\n 20s shsm.ss20ssm.sm.  yy  ."
+  },
+  {
+   "seed": 51150018,
+   "datetime": "20000822133434",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pettype:cat\n",
+   "moves": "FbFbFb  FbFbFbFbFb20s Fj ss100sbbjFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFndc20ss.10s#chat\nn#chat\nndbs20ss#chat\nn#name\na\nt\u001bFnFnFnFnFnFnFnFnt\u001bnukhykb10s10sluubnhjybk20skudd.s20s#chat\nb#chat\nubl>i\u001bnkk100sjnj_ \u001b,>100s\u000f\u001b#wipe\n_>.>100s50seeeeeeeeeeeeeeeeeeeeeeeeeeeeLKBB_>.>LHHY_>.>_m.20sckYUKN_>.><LNBH_>.>LHYY_>.>#tip\nf\u001br\u001bNNLH_>.>e#offer\nNJYB_>.>lhlht\u001b20s#name\ni\n10slyjkklhjKYHB_>.>YJUK_>.>#chat\nysLHLJ_>.>JYYY_>.>10s#jump\nt\u001b20st\u001bln20s t\u001b10st\u001bt\u001b#chat\nblj20s b 10st\u001b#name\na\nuynkkbklyn20s jybu#name\nm\nkht20s #pray\ny 150s #pray\ny   #pray\ny   y\u001by  y y y\u001b  1"
+  }
+ ]
+}

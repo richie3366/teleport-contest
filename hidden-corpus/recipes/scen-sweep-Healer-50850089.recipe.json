@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u001710 daggers\nQm\u00072 hill orc\nufh fh  fy                 fl      \u0007dwarf\nk                       n k  fl   fb          n      fy  \u00073 kobold\nb    fn      fu      n  Fj Fu      \u0017potion of gain ability\ntmj  \u0017glaive\nwo   \u0007grid bug\ny ao \u001b.x    n  #twoweapon\nFn      Fu      k ul ,\u00166\n\u0016?\n>EFkFkuuFkFk  n10sjkFkFkFkFkjuFklkkkkFyhuFklkFylFh\u0017scroll of earth\nrp hhhuuuuuyyuhlu\u0017wand of digging\nzqlhuulkk10snbkhkkh#levelchange\n12\n   \u0017uncursed potion of enlightenment\nqr \u001b\u0017blessed elven mithril-coat\nWss20ssss\u00173 scroll of enchant armor\n\u0007giant spider\nrt Fu Fu\u0017uncursed wand of create monster\nzusmall mimic\n zucobra\nFuFy  \u0017uncursed fortune cookie\nev   sl .m.  n Fl Fl .usm.\u0017cursed lenses\naw Fl   nFu \u0017blessed banana\n\u0007salamander\nex .m. \u001b .m.FuFl   n \u0017cloak of invisibility\nWy    sm.sjs\u0017uncursed +0 katana\n \u0007shopkeeper\nywz  Fu  FuFu    nX\u0017uncursed spellbook of magic mapping\nrA        n  20s sm. Zc\n  Zc\n  20ssm.  n    \u001625\n\u00165\n#levelchange\n6\n \u0017blessed spellbook of light\nrB .\u0017blessed spellbook of create monster\nrC s\u0017blessed spellbook of detect monsters\nrD 20s\u0017blessed spellbook of cause fear\nrE s+\u001bZf\nZs \u0007zombie\nZf\nZb\nZb\nZf\n#pray\n@.#enhance\nyd\nd\n\u001b\u0006_>.Fy_.Fy>FyFy_>.Fy_.Fy>FyFy_>.Fy_.Fy>Fy.\u0006_>>._,m,>_>>._.@.>_>>._,;; >Zb\n20s\u0006_>,_,>.>_>,_.;. >_>._.<.>W\u0004h\u0006_>>._,<.>_>>. _,:>_>>._.;m.Fy    >#wipe\nZb\n\u0006_>._.:>_>._.m.>_>,_.m.>\u0018\u001b>\u0006_>,_.;@. >_>._.>.>_>._.@.>\u0006_>>._,;m, >_>>._.m.>_>>._.:>\u0017sling\nwF\u001720 flint stones\nQG\u0007jackal\nnfb fbfn\u0017potion of s"
+ },
+ "segments": [
+  {
+   "seed": 50850089,
+   "datetime": "20230519114416",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u001710 daggers\nQm\u00072 hill orc\nufh fh  fy                 fl      \u0007dwarf\nk                       n k  fl   fb          n      fy  \u00073 kobold\nb    fn      fu      n  Fj Fu      \u0017potion of gain ability\ntmj  \u0017glaive\nwo   \u0007grid bug\ny ao \u001b.x    n  #twoweapon\nFn      Fu      k ul ,\u00166\n\u0016?\n>EFkFkuuFkFk  n10sjkFkFkFkFkjuFklkkkkFyhuFklkFylFh\u0017scroll of earth\nrp hhhuuuuuyyuhlu\u0017wand of digging\nzqlhuulkk10snbkhkkh#levelchange\n12\n   \u0017uncursed potion of enlightenment\nqr \u001b\u0017blessed elven mithril-coat\nWss20ssss\u00173 scroll of enchant armor\n\u0007giant spider\nrt Fu Fu\u0017uncursed wand of create monster\nzusmall mimic\n zucobra\nFuFy  \u0017uncursed fortune cookie\nev   sl .m.  n Fl Fl .usm.\u0017cursed lenses\naw Fl   nFu \u0017blessed banana\n\u0007salamander\nex .m. \u001b .m.FuFl   n \u0017cloak of invisibility\nWy    sm.sjs\u0017uncursed +0 katana\n \u0007shopkeeper\nywz  Fu  FuFu    nX\u0017uncursed spellbook of magic mapping\nrA        n  20s sm. Zc\n  Zc\n  20ssm.  n    \u001625\n\u00165\n#levelchange\n6\n \u0017blessed spellbook of light\nrB .\u0017blessed spellbook of create monster\nrC s\u0017blessed spellbook of detect monsters\nrD 20s\u0017blessed spellbook of cause fear\nrE s+\u001bZf\nZs \u0007zombie\nZf\nZb\nZb\nZf\n#pray\n@.#enhance\nyd\nd\n\u001b\u0006_>.Fy_.Fy>FyFy_>.Fy_.Fy>FyFy_>.Fy_.Fy>Fy.\u0006_>>._,m,>_>>._.@.>_>>._,;; >Zb\n20s\u0006_>,_,>.>_>,_.;. >_>._.<.>W\u0004h\u0006_>>._,<.>_>>. _,:>_>>._.;m.Fy    >#wipe\nZb\n\u0006_>._.:>_>._.m.>_>,_.m.>\u0018\u001b>\u0006_>,_.;@. >_>._.>.>_>._.@.>\u0006_>>._,;m, >_>>._.m.>_>>._.:>\u0017sling\nwF\u001720 flint stones\nQG\u0007jackal\nnfb fbfn\u0017potion of s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPol\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nW\u001b#levelchange\n14\n            \u0017wand of teleportation\n\u0017wand of lightning\n\u0007gnome\nzrnzsk zryzshszrjzryzrh\u0018\u001b\u0007baby red dragon\n\u0007silver dragon\ns.ss\u0017wand of magic missile\naty Fh  nFh\u0017wand of polymorph\n\u0017wand of slow monster\n\u0017wand of cold\n\u0007lichen\n\u0007acid blob\nzwn zwnzuh20s zwh   n 20s zwk zwlzuh\u0007black dragon\n\u0007black dragon\n..  n  ssFu  n Fl\u0018\u001b\u00162\n  \u0017wand of lightning\n\u0017wand of slow monster\n\u0007gnome\n\u0007gnome lord\nzyhzx.  zxb  n zynzylzxnzyl.zxl20szxlzyu\u0017bow\nwz\u001720 arrows\nQA\u0007kobold shaman\n\u0007jackal\nfyfhflflfnfb\u0017potion of water\ntan\u0018\u001b\u0017spellbook of cone of cold\nrCs\u0007master lich\nZa\nZb\n  Za\n Za\n  Za\n  s.  n Za\nZb\nZb\n.  n sZa\n \u00163\n\u0007aligned cleric\nyn\u0007master mind flayer\n\u0007master lich\n\u0017wand of magic missile\n.20s  \u00176 eggs\nQ-\u0007soldier\nf A h    n fy          tAk   n  fh   tAk    n  tAh    n   fk    n  \u00168\n\u0017wand of digging\n\u0017wand of fire\n\u0017wand of slow monster\n\u0007dwarf\nzF> zF> .zF> zGn   n zHnszGnzG. zHu\u0017wand of sleep\n\u0017wand of slow monster\n\u0007troll\n\u0007kobold\nzJ.zJhzJk  n zJk .zJkzIuzIk            \u0017wand of striking\n\u0017wand of digging\n\u0007hobbit\n\u0007owlb"
+ },
+ "segments": [
+  {
+   "seed": 50850068,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPol\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed shield of reflection\nW\u001b#levelchange\n14\n            \u0017wand of teleportation\n\u0017wand of lightning\n\u0007gnome\nzrnzsk zryzshszrjzryzrh\u0018\u001b\u0007baby red dragon\n\u0007silver dragon\ns.ss\u0017wand of magic missile\naty Fh  nFh\u0017wand of polymorph\n\u0017wand of slow monster\n\u0017wand of cold\n\u0007lichen\n\u0007acid blob\nzwn zwnzuh20s zwh   n 20s zwk zwlzuh\u0007black dragon\n\u0007black dragon\n..  n  ssFu  n Fl\u0018\u001b\u00162\n  \u0017wand of lightning\n\u0017wand of slow monster\n\u0007gnome\n\u0007gnome lord\nzyhzx.  zxb  n zynzylzxnzyl.zxl20szxlzyu\u0017bow\nwz\u001720 arrows\nQA\u0007kobold shaman\n\u0007jackal\nfyfhflflfnfb\u0017potion of water\ntan\u0018\u001b\u0017spellbook of cone of cold\nrCs\u0007master lich\nZa\nZb\n  Za\n Za\n  Za\n  s.  n Za\nZb\nZb\n.  n sZa\n \u00163\n\u0007aligned cleric\nyn\u0007master mind flayer\n\u0007master lich\n\u0017wand of magic missile\n.20s  \u00176 eggs\nQ-\u0007soldier\nf A h    n fy          tAk   n  fh   tAk    n  tAh    n   fk    n  \u00168\n\u0017wand of digging\n\u0017wand of fire\n\u0017wand of slow monster\n\u0007dwarf\nzF> zF> .zF> zGn   n zHnszGnzG. zHu\u0017wand of sleep\n\u0017wand of slow monster\n\u0007troll\n\u0007kobold\nzJ.zJhzJk  n zJk .zJkzIuzIk            \u0017wand of striking\n\u0017wand of digging\n\u0007hobbit\n\u0007owlb"
+  }
+ ]
+}

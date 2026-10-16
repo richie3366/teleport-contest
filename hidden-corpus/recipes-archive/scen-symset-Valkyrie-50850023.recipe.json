@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "ed#loot\nn ch v\u001bi\u001bmO>>>g\u001b\nO>>c\u001b\n\u0006_ \u001b,>FnFn_>, Fk_,Fu>FuFu_>.Fk_,Fk>FkFuFyFuu Fu\u0006_>,Fu_.Fk>FkFy_>,Fky _.Fk>FyFuk _>,Fk_.Fy>FyFyFyFkk Fu>#enhance\nyl\nf\n\u001b\u0006_>,Fk_.Fy>FyFku _>,Fb_,Fuy >FuFk_>,Fu_,Fy>FyFkk FuFkFk\u0006_>,Fu_,Fy>FkFu_>.Fu_.Fk>FuFy_>.Fy_.Fk>FyFuu FyFyFy\u0006_>.Fu_.Fk>FkFk_>.Fj_.Fu>FkFy_>.Fy_.Fy>FkFkFkFyFy:#turn\n\u0006_>.Fu_.Fu>FyFuy _>.Fu_.Fj>FuFy_>.Fy_,Fy>FkFuFyFyFy,_m,s\u0006_>.Fk_,Fk>FyFy_>.Fk_.Fy>FkFu_>.Fu_,Fk>FkFyFky FkFkwb #tip\n\u001bmO>>m\u001b\nv\u001bi\u001b\u00164\nFyFjFyFyFlFjFyFll FyFjFyFlj FlFyFjFuFjFyFyFlFuFlFyFyFlFuFlFjFlFuFlFuFjFuFlFlFjFjFjFuFlFuFlFyFyFuFuFlFlFjFuFlFyFyFjFuFuFjFlFjFyFuj FlFuFjFyFuu FyFjFjFjFuFjFuFuFuFyFll "
+ },
+ "segments": [
+  {
+   "seed": 50850023,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "ed#loot\nn ch v\u001bi\u001bmO>>>g\u001b\nO>>c\u001b\n\u0006_ \u001b,>FnFn_>, Fk_,Fu>FuFu_>.Fk_,Fk>FkFuFyFuu Fu\u0006_>,Fu_.Fk>FkFy_>,Fky _.Fk>FyFuk _>,Fk_.Fy>FyFyFyFkk Fu>#enhance\nyl\nf\n\u001b\u0006_>,Fk_.Fy>FyFku _>,Fb_,Fuy >FuFk_>,Fu_,Fy>FyFkk FuFkFk\u0006_>,Fu_,Fy>FkFu_>.Fu_.Fk>FuFy_>.Fy_.Fk>FyFuu FyFyFy\u0006_>.Fu_.Fk>FkFk_>.Fj_.Fu>FkFy_>.Fy_.Fy>FkFkFkFyFy:#turn\n\u0006_>.Fu_.Fu>FyFuy _>.Fu_.Fj>FuFy_>.Fy_,Fy>FkFuFyFyFy,_m,s\u0006_>.Fk_,Fk>FyFy_>.Fk_.Fy>FkFu_>.Fu_,Fk>FkFyFky FkFkwb #tip\n\u001bmO>>m\u001b\nv\u001bi\u001b\u00164\nFyFjFyFyFlFjFyFll FyFjFyFlj FlFyFjFuFjFyFyFlFuFlFyFyFlFuFlFjFlFuFlFuFjFuFlFlFjFjFjFuFlFuFlFyFyFuFuFlFlFjFuFlFyFyFjFuFuFjFlFjFyFuj FlFuFjFyFuu FyFjFjFjFuFjFuFuFuFyFll "
+  }
+ ]
+}

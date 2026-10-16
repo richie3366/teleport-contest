@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0007titanothere\n\u0017scroll of taming\nrl \u0017saddle\namk\u0017lance\nwn #ride\nuy\u0007tame saddled horse\n#ride\nuy\u0007pony\n\u0017scroll of taming\nro \u0017saddle\napu  #ride\nly\u0006_ \u001b:>Fk Fu  _>.    Fl_,Fh>FhFl_>.Fl_,m,Fh>FhFhhlhlbjh,\u0006_>,Fh_. Fl>FhFh_>.Fh_.Fh  yy\u001by  y y y\u001by  >"
+ },
+ "segments": [
+  {
+   "seed": 50851004,
+   "datetime": "20180521163009",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007titanothere\n\u0017scroll of taming\nrl \u0017saddle\namk\u0017lance\nwn #ride\nuy\u0007tame saddled horse\n#ride\nuy\u0007pony\n\u0017scroll of taming\nro \u0017saddle\napu  #ride\nly\u0006_ \u001b:>Fk Fu  _>.    Fl_,Fh>FhFl_>.Fl_,m,Fh>FhFhhlhlbjh,\u0006_>,Fh_. Fl>FhFh_>.Fh_.Fh  yy\u001by  y y y\u001by  >"
+  }
+ ]
+}

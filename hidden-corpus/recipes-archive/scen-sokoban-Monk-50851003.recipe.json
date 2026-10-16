@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>EbbbFk bbbububbbb\u0017wand of striking\nzjb\u0017scroll of earth\nrk   yy\u001by   y ny\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50851003,
+   "datetime": "20100116153100",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>EbbbFk bbbububbbb\u0017wand of striking\nzjb\u0017scroll of earth\nrk   yy\u001by   y ny\u001b  F"
+  }
+ ]
+}

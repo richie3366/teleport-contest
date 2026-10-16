@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nb\n 20s  sm.20s s.ysm.ssss\u0017scroll of punishment\nrk #turn\n#invoke\n\u001bzfn#terrain\nb\n\u001b@.qd<20s20s  n..ss"
+ },
+ "segments": [
+  {
+   "seed": 50852009,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nb\n 20s  sm.20s s.ysm.ssss\u0017scroll of punishment\nrk #turn\n#invoke\n\u001bzfn#terrain\nb\n\u001b@.qd<20s20s  n..ss"
+  }
+ ]
+}

@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "dbs20sshjkj#name\nm\n :lhknhhujhyjllhKL JB_>.>BK YB_>,>#terrain\nc\n>.clKYNJ_>.>NYBJ_>.>BJYL _>,>BBKU_>.>Fhssed ok100s_>.>100s100s_>.>nyb100sFhFhFyFy.s#monster\n\\   _>.>unhlhh100slhl150s100sFhs.50s100si\u001b_>,>\\   dalynyny150snyn100sFh Fh.ynynyn100sFhFhs100s_>,>150s150s#turn\n100sFhs.150s150sFhFhFh150s100sFhFhs50s150synyFbs._>,>150s_>.>nybFhFyFh_>.>\\   \u000f\u001b#invoke\n\u001b150sFh..150s\u000f\u001b150s\u0018\u001b\u000f\u001b50sFhFhFh,i\u001b100syhlnyn150synuFhss100sFh.20s50s_>,>nybFhFhFhFh.s\u0018\u001bi\u001bclZ100sFh.s#quit\nyy\u001by  y y y\u001b  uynjFkFkFk FkFkFkFkFkNULN_ \u001b:>BJKB_>.><NHHK_>,>FbssKYHB_>.>ULHB_>.>10s20snhjk#name\na\n#chat\nk10s10s10sYUKB_>.>JHUH_>.>YUJY_>.><BULU_>.>KUYL_>,>YUUK_>.>E- Elbereth\nZHYNN_>,>\u000f\u001byljulhkjbyyjjlllklyl100s_>.>100sFhs20s\u0018\u001b150s   ,hnji\u001bkyh_>.>150s 50sFhFh.100s150s50s100s 100s_>,s150seeeeeeeeeeeeeeeeeeenhkbLKLJ_>,>KULY_>.>BKJJ_>.>BBJU_>.>KH KK_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b #wizintrinsic\na\n sm.s20s20s20s20s20s20s      ssss20s 20s      ss20s   ..20s    ssm. 20s   s20s  ..20s   \u0007green slime\nFbFb FjFhFj FhFhFj  FhFhFh    yy\u001by   y y y\u001b y  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50850002,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=autodig\nOPTIONS=pettype:none\n",
+   "moves": "dbs20sshjkj#name\nm\n :lhknhhujhyjllhKL JB_>.>BK YB_>,>#terrain\nc\n>.clKYNJ_>.>NYBJ_>.>BJYL _>,>BBKU_>.>Fhssed ok100s_>.>100s100s_>.>nyb100sFhFhFyFy.s#monster\n\\   _>.>unhlhh100slhl150s100sFhs.50s100si\u001b_>,>\\   dalynyny150snyn100sFh Fh.ynynyn100sFhFhs100s_>,>150s150s#turn\n100sFhs.150s150sFhFhFh150s100sFhFhs50s150synyFbs._>,>150s_>.>nybFhFyFh_>.>\\   \u000f\u001b#invoke\n\u001b150sFh..150s\u000f\u001b150s\u0018\u001b\u000f\u001b50sFhFhFh,i\u001b100syhlnyn150synuFhss100sFh.20s50s_>,>nybFhFhFhFh.s\u0018\u001bi\u001bclZ100sFh.s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 50950002,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pettype:dog\n",
+   "moves": " uynjFkFkFk FkFkFkFkFkNULN_ \u001b:>BJKB_>.><NHHK_>,>FbssKYHB_>.>ULHB_>.>10s20snhjk#name\na\n#chat\nk10s10s10sYUKB_>.>JHUH_>.>YUJY_>.><BULU_>.>KUYL_>,>YUUK_>.>E- Elbereth\nZHYNN_>,>\u000f\u001byljulhkjbyyjjlllklyl100s_>.>100sFhs20s\u0018\u001b150s   ,hnji\u001bkyh_>.>150s 50sFhFh.100s150s50s100s 100s_>,s150seeeeeeeeeeeeeeeeeeenhkbLKLJ_>,>KULY_>.>BKJJ_>.>BBJU_>.>KH KK_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51050002,
+   "datetime": "20160806231452",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#wizintrinsic\na\n sm.s20s20s20s20s20s20s      ssss20s 20s      ss20s   ..20s    ssm. 20s   s20s  ..20s   "
+  },
+  {
+   "seed": 51150002,
+   "datetime": "20100920044149",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:mango\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007green slime\nFbFb FjFhFj FhFhFj  FhFhFh    yy\u001by   y y y\u001b y  F"
+  }
+ ]
+}

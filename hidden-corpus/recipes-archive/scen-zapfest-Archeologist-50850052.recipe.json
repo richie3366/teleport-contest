@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWj  \u0017blessed shield of reflection\nWk#levelchange\n14\n             \u0017yumi\nwl\u001720 ya\nQm\u0007troll\nflfn   fn fn\u00175 boomerangs\nQn\u0007sewer rat\ntnn fn   fn fnfnf m lfl\u00167\n\u0017blessed spellbook of light\nros\u0017blessed spellbook of slow monster\nrp .\u0007master mind flayer\n\u0007master lich\nZa\nZa\n            Za\n  n   Zb\n             .n .m.  n                   Za\n  n    20s \u001bsZa\n\u00163\n  \u0017blessed spellbook of finger of death\nrq 20s \u0017blessed spellbook of fireball\nrr  n   sm.  \u0007master lich\n\u0007vampire\nZa\n n 20s    20s Za\n       n sm.      sm.       n  Za\n     n sj    sm.      n  Za\n      n sl       .m.Zb\n   n     sm.   nsm.       Za\n    n  \u001612\n    \u0007baby red dragon\n\u0007black dragon\nsl 20s    n 20s   \u0017wand of lightning\nasFk   Fu     n \u0017blessed spellbook of drain life\nrt   .l  "
+ },
+ "segments": [
+  {
+   "seed": 50850052,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWj  \u0017blessed shield of reflection\nWk#levelchange\n14\n             \u0017yumi\nwl\u001720 ya\nQm\u0007troll\nflfn   fn fn\u00175 boomerangs\nQn\u0007sewer rat\ntnn fn   fn fnfnf m lfl\u00167\n\u0017blessed spellbook of light\nros\u0017blessed spellbook of slow monster\nrp .\u0007master mind flayer\n\u0007master lich\nZa\nZa\n            Za\n  n   Zb\n             .n .m.  n                   Za\n  n    20s \u001bsZa\n\u00163\n  \u0017blessed spellbook of finger of death\nrq 20s \u0017blessed spellbook of fireball\nrr  n   sm.  \u0007master lich\n\u0007vampire\nZa\n n 20s    20s Za\n       n sm.      sm.       n  Za\n     n sj    sm.      n  Za\n      n sl       .m.Zb\n   n     sm.   nsm.       Za\n    n  \u001612\n    \u0007baby red dragon\n\u0007black dragon\nsl 20s    n 20s   \u0017wand of lightning\nasFk   Fu     n \u0017blessed spellbook of drain life\nrt   .l  "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u00173 potion of sleeping\n\u0007human mummy\nqo   n  Fu  n Fl  n   \u0017cursed spellbook of chain lightning\nrp \u001bm, 20s.Za\nZa\n\u0017cursed -1 alchemy smock\n\u0007owlbear\nW\u001b.m.20s  yy\u001by  y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 50852017,
+   "datetime": "20071112165618",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u00173 potion of sleeping\n\u0007human mummy\nqo   n  Fu  n Fl  n   \u0017cursed spellbook of chain lightning\nrp \u001bm, 20s.Za\nZa\n\u0017cursed -1 alchemy smock\n\u0007owlbear\nW\u001b.m.20s  yy\u001by  y y y\u001by  s"
+  }
+ ]
+}

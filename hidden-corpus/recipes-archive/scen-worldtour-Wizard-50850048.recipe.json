@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWq\u001641\n   klnb\u0017web\nk  #untrap\njj  y  \u0017spiked pit\nk  \u0007grid bug\n20s   .jny.m.    sm.  n   n\u0017trap door\nk j   20s 20s  u\u0017squeaky board\nn#untrap\ny#terrain\ne\n#wipe\n   i\u001b\u0014 \u001b;  n   \u00168\n\u001641\n   _<,\u001641\n kj:s.\u00163\n  \u0006_>.Fj _. Fj   n\u0016?\ng nlk:\u0016?\nm #levelchange\n30\n         \u0017dunce cap\nWr  ss.k\u0007mumak\n;k,sh20ssm.\u0007hell hound\nFjFj Fk  n FkFkFj\u0007imp\n#chat\njFkFk\u0007kraken\nFkFj  nFkFjFk\u00165\n\u0016?\nm kjk:\u0016?\n>>N        gauntlets of fumbling\n\u0006_<,\u0016?\na    #chat\nu;u.\u00163\n_<.>\u0016?\ne_<,<\u0016?\na\u0014 n               \u00163\nj       n       \u001b    k           k   n      b             n  n                h:\u00166\n\u00163\nyyu     n                  n  j                        n            l     n       :\u00166\n\u00163\nb <.   h    \u0017wand of digging\nEu  Elbereth\n        n    \u0017wand of create monster\nEvbrown mold\n      n : \u0017wand of fire\nEw   X marks the spot\n            n : k               yy\u001bnny  y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50850048,
+   "datetime": "20051003234801",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWq\u001641\n   klnb\u0017web\nk  #untrap\njj  y  \u0017spiked pit\nk  \u0007grid bug\n20s   .jny.m.    sm.  n   n\u0017trap door\nk j   20s 20s  u\u0017squeaky board\nn#untrap\ny#terrain\ne\n#wipe\n   i\u001b\u0014 \u001b;  n   \u00168\n\u001641\n   _<,\u001641\n kj:s.\u00163\n  \u0006_>.Fj _. Fj   n\u0016?\ng nlk:\u0016?\nm #levelchange\n30\n         \u0017dunce cap\nWr  ss.k\u0007mumak\n;k,sh20ssm.\u0007hell hound\nFjFj Fk  n FkFkFj\u0007imp\n#chat\njFkFk\u0007kraken\nFkFj  nFkFjFk\u00165\n\u0016?\nm kjk:\u0016?\n>>N        gauntlets of fumbling\n\u0006_<,\u0016?\na    #chat\nu;u.\u00163\n_<.>\u0016?\ne_<,<\u0016?\na\u0014 n               \u00163\nj       n       \u001b    k           k   n      b             n  n                h:\u00166\n\u00163\nyyu     n                  n  j                        n            l     n       :\u00166\n\u00163\nb <.   h    \u0017wand of digging\nEu  Elbereth\n        n    \u0017wand of create monster\nEvbrown mold\n      n : \u0017wand of fire\nEw   X marks the spot\n            n : k               yy\u001bnny  y\u001b  \u0017"
+  }
+ ]
+}

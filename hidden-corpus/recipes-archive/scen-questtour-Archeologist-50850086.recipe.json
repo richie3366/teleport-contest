@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b,#chat\nh_mm._.  n Fk#chat\nh  n _mmmm,  n Fn_.Fl#chat\nl;l:  _mmmm.  n Fy    n _.Fb  n #chat\nl_mmmmm.#chat\nl#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.#chat\nb;l:  _mm. Fb _.#chat\nl\u0017blessed Mjollnir\nwj  \u0017blessed amulet of life saving\nPk \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017wand of cold\n\u0016?\n>z\u0006_mmmmm.Fj      Fj Fl  Fl  Fy FbFk   ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,Fb Fy .20s ,\u0016?\n>A\u0006_mmm.Fu _.Fu s.ssFk ,\u0016?\n>>\u001b\u0016?\n>y_mmm,Fk   n _.#chat\nk \u0016?\n>A\u0006_mmm.Fk _,Fk .ss20s Fj zmj,#chat\nl\u0016?\n>z\u0006_mm,20s...,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.sFk Fk Fk .,#chat\nh\u0016?\n>A\u0006_mmmmmmm.Fk_.Fk ss20sFk 20ss20s,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nj\u0016?\n>A\u0006_mmmmmmm.20sss.20s.zmy,#chat\nl\u0016?\n>z\u0006_mmmmmm.ssss20sszm.,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.s FkFk Fk 20sszmh,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj\u0016?\n>A\u0006_mmmmmmm.s.20s20sssszmn ,\u0016?\n>A\u0006_mmmmmm.s20sFkFkzmk,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nu\u0016?\n>z\u0006_mmmmmmm.20s20ss.s20szm,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.s. Fk Fk Fk ,#chat\nl\u0016?\n>A\u0006_mmmmmm..20s20sss.s,\u0016?\n>>\u001b\u0016?\n>y_mmm.Fk _,#chat\nu\u0016?\n>A\u0006_mm,.ss20sFk zm,\u0016?\n>z\u0006_mmmm,sssss,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nb;m,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,.20s..s20szm,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nh\u0016?\n>A\u0006_mmm,s20s20s.sss,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nb\u0016?\n>A\u0006_mmmmm,s20ss20szm,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nu\u0016?\n>z\u0006_mmm.20s.20s.,#"
+ },
+ "segments": [
+  {
+   "seed": 50850086,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b,#chat\nh_mm._.  n Fk#chat\nh  n _mmmm,  n Fn_.Fl#chat\nl;l:  _mmmm.  n Fy    n _.Fb  n #chat\nl_mmmmm.#chat\nl#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.#chat\nb;l:  _mm. Fb _.#chat\nl\u0017blessed Mjollnir\nwj  \u0017blessed amulet of life saving\nPk \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017wand of cold\n\u0016?\n>z\u0006_mmmmm.Fj      Fj Fl  Fl  Fy FbFk   ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,Fb Fy .20s ,\u0016?\n>A\u0006_mmm.Fu _.Fu s.ssFk ,\u0016?\n>>\u001b\u0016?\n>y_mmm,Fk   n _.#chat\nk \u0016?\n>A\u0006_mmm.Fk _,Fk .ss20s Fj zmj,#chat\nl\u0016?\n>z\u0006_mm,20s...,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.sFk Fk Fk .,#chat\nh\u0016?\n>A\u0006_mmmmmmm.Fk_.Fk ss20sFk 20ss20s,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nj\u0016?\n>A\u0006_mmmmmmm.20sss.20s.zmy,#chat\nl\u0016?\n>z\u0006_mmmmmm.ssss20sszm.,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.s FkFk Fk 20sszmh,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj\u0016?\n>A\u0006_mmmmmmm.s.20s20sssszmn ,\u0016?\n>A\u0006_mmmmmm.s20sFkFkzmk,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nu\u0016?\n>z\u0006_mmmmmmm.20s20ss.s20szm,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.s. Fk Fk Fk ,#chat\nl\u0016?\n>A\u0006_mmmmmm..20s20sss.s,\u0016?\n>>\u001b\u0016?\n>y_mmm.Fk _,#chat\nu\u0016?\n>A\u0006_mm,.ss20sFk zm,\u0016?\n>z\u0006_mmmm,sssss,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nb;m,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,.20s..s20szm,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nh\u0016?\n>A\u0006_mmm,s20s20s.sss,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nb\u0016?\n>A\u0006_mmmmm,s20ss20szm,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nu\u0016?\n>z\u0006_mmm.20s.20s.,#"
+  }
+ ]
+}

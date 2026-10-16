@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWk \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed spellbook of fireball\nrm s\u0007aligned cleric\ny\u0007gnomish wizard\nZa\nZa\nZa\nZa\nZb\nsm.     sm.\u0007silver dragon\n20s   \u001b   n   20s     n      #polyself\nsilver dragon\n    #monster\n.m.    .m.                   n  n #monster\n#monster\n#monster\n\u0017wand of lightning\nany      n  n   n Fj  n Fn  n \u00162\n\u0017wand of cold\n\u0017wand of slow monster\n\u0017wand of fire\n\u0007acid blob\nzqj     nzoy20s zphzpuszou20szpu\u00178 spears\nQr\u0007yellow mold\n\u0007grid bug\nfhfufkfhfkfhtry\u001710 daggers\nQs\u0007acid blob\n\u0007kobold\ntsktsufyfy\u0017blessed spellbook of force bolt\nrts\u0007incubus\nZa\nZb\nZb\nZb\nZa\n    ..Zb\nZb\nZb\n\u00166\n   \u00178 spears\nQr\u0007newt\nfnfkfl    n fu  n  fk    n fu    n  \u0017potion of speed\nt$u  n\u0007incubus\n\u0007lich\n\u0007vampire\n\u0017wand of magic missile\nzvu \u001620\n\u0017blessed spellbook of fireball\nrw.    \u0007incubus\n\u0007aligned cleric\nyy  yny   y ny\u001by  Z"
+ },
+ "segments": [
+  {
+   "seed": 50850020,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWk \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed spellbook of fireball\nrm s\u0007aligned cleric\ny\u0007gnomish wizard\nZa\nZa\nZa\nZa\nZb\nsm.     sm.\u0007silver dragon\n20s   \u001b   n   20s     n      #polyself\nsilver dragon\n    #monster\n.m.    .m.                   n  n #monster\n#monster\n#monster\n\u0017wand of lightning\nany      n  n   n Fj  n Fn  n \u00162\n\u0017wand of cold\n\u0017wand of slow monster\n\u0017wand of fire\n\u0007acid blob\nzqj     nzoy20s zphzpuszou20szpu\u00178 spears\nQr\u0007yellow mold\n\u0007grid bug\nfhfufkfhfkfhtry\u001710 daggers\nQs\u0007acid blob\n\u0007kobold\ntsktsufyfy\u0017blessed spellbook of force bolt\nrts\u0007incubus\nZa\nZb\nZb\nZb\nZa\n    ..Zb\nZb\nZb\n\u00166\n   \u00178 spears\nQr\u0007newt\nfnfkfl    n fu  n  fk    n fu    n  \u0017potion of speed\nt$u  n\u0007incubus\n\u0007lich\n\u0007vampire\n\u0017wand of magic missile\nzvu \u001620\n\u0017blessed spellbook of fireball\nrw.    \u0007incubus\n\u0007aligned cleric\nyy  yny   y ny\u001by  Z"
+  }
+ ]
+}

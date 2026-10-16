@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "20s 10s jju djs..dc20s     ssaey_>, \u001b@.sZFks.Fu.Fklny\\  100s           Fu .skjj\\  100s\u0018\u001b100s100s100s100s_>.>150seh #turn\ni\u001b100suhk150s 100s\u000f\u001b100sei_>,>50s150s \u000f\u001buhjjkj50sljh100s100s100sFhFhsFhFhFhFhs.i\u001blhk_>.>100s100sFhs.ljheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLBUY_>,>BUL U_>,>FbFhsHNJN_>.>\u0018\u001bZJYHH_>.>FnssLLYK_>.>,#twoweapon\nULHK_>.>YJYY_>,>#pray\ny udgs20ssll20s#chat\ny#chat\nyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#monster\nqd  J #chat\nb#name\nm\nkluluhd20ss20s>wb #terrain\nd\ne eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee<: qUYJL_>,>YHBH_>.><yny  y y y\u001b J"
+ },
+ "segments": [
+  {
+   "seed": 50850059,
+   "datetime": "20260327234352",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:explore\n",
+   "moves": "20s 10s jju djs..dc20s     ssaey_>, \u001b@.sZFks.Fu.Fklny\\  100s           Fu .skjj\\  100s\u0018\u001b100s100s100s100s_>.>150seh #turn\ni\u001b100suhk150s 100s\u000f\u001b100sei_>,>50s150s \u000f\u001buhjjkj50sljh100s100s100sFhFhsFhFhFhFhs.i\u001blhk_>.>100s100sFhs.ljheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLBUY_>,>BUL U_>,>FbFhsHNJN_>.>\u0018\u001bZJYHH_>.>FnssLLYK_>.>,#twoweapon\nULHK_>.>YJYY_>,>#pray\ny udgs20ssll20s#chat\ny#chat\nyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#monster\nqd  J #chat\nb#name\nm\nkluluhd20ss20s>wb #terrain\nd\ne eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee<: qUYJL_>,>YHBH_>.><yny  y y y\u001b J"
+  }
+ ]
+}

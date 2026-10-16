@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " y   E\u001b\u001bklj_ \u001b@.#tip\n\u001b\u001b:_d.#wipe\n;_.<jul>#untrap\ny:kjb\u000f\u001b#rub\n<;.#pray\ny kjknhkE\u001b\u001bubu\u000f\u001b__.<:<:ylh:::hjuljbjlj#turn\n_>.<:#twoweapon\n:khuyjljhh10s#pray\ny Zujbhhyr\u001b\u001ba:PjkbnS\u001b\u001b\u001b\u001b"
+ },
+ "segments": [
+  {
+   "seed": 50851019,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\n",
+   "moves": " y   E\u001b\u001bklj_ \u001b@.#tip\n\u001b\u001b:_d.#wipe\n;_.<jul>#untrap\ny:kjb\u000f\u001b#rub\n<;.#pray\ny kjknhkE\u001b\u001bubu\u000f\u001b__.<:<:ylh:::hjuljbjlj#turn\n_>.<:#twoweapon\n:khuyjljhh10s#pray\ny Zujbhhyr\u001b\u001ba:PjkbnS\u001b\u001b\u001b\u001b"
+  }
+ ]
+}

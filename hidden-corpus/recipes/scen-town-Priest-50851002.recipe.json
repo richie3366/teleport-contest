@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqi \u001bm,_mmmm,Fh_.#chat\nh_mmmm.#chat\nh_oooo,_.:Fy  ,p_mm.Fk_.Fk#chat\nk _oooooooo. _.  Fk  ,#chat\nj #chat\nj #conduct\n #rub\nSy\u001b nn20s _m,sm.dd \u0018\u001b,i\u001b10s \\ #ride\njy\u00174 cream pies\nQ$\u0007grid bug\nykfj  fj  fl    yy\u001by   y y y\u001by  x",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50851002,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqi \u001bm,_mmmm,Fh_.#chat\nh_mmmm.#chat\nh_oooo,_.:Fy  ,p_mm.Fk_.Fk#chat\nk _oooooooo. _.  Fk  ,#chat\nj #chat\nj #conduct\n #rub\nSy\u001b"
+  },
+  {
+   "seed": 51351002,
+   "datetime": "20001201061950",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " nn20s _m,sm.dd \u0018\u001b,i\u001b10s \\ #ride\njy\u00174 cream pies\nQ$\u0007grid bug\nykfj  fj  fl    yy\u001by   y y y\u001by  x"
+  }
+ ]
+}

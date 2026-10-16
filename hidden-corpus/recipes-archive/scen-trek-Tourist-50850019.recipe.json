@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "FbFbFl 100su100sFjFj20sbjy150s150s100sFlFlFlFlFl.\\ 100s100s50sFjFjFjFjFjFjFjss\u000f\u001b#rub\n100sklhFnFj FjFjFjs100snby100s150s100sFlFlFlFlss50s100see  yhjk100sda150sFlFlsullt$ljb#name\no\n10syb20st\u001b#chat\nk100s100sFlFlsi\u001b100s100sFlFlFlFlFl 20seb100sukj\\ #ride\nybub50s#loot\nf \u001b_ \u001b<.>100sFlFlFl;_.100s_>.>\u0018\u001bbjuFjFj.100shbkFjFj20s10s150s150sFlFlFlyhlhln100s50sFlFlFlFlFlFl#chat\nhLKLB_>.>HUKY_>.>ok#enhance\n\u001bJULN_>.>LKKH_>.>#force\n#name\ni\nJBBL_>,><#jump\n#conduct\n #offer\nNUNK_>.>KYUL_>.>#dip\ndfzHKYJ_>.>rg#turn\nNNUL_>,_.;;>>#invoke\n\u001bJNHL_>,_,>.>cjch_>,_..>50sFbFbsjkjkjkj100s100s150s  ebkbubhl100s 50s\u000f\u001b100s ujh100s _>,_.@.>150sFbssblk50sFbFbsjkj100skjk100sFbFbFbFbFbFb#pray\ny  y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 50850019,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=showrace\n",
+   "moves": "FbFbFl 100su100sFjFj20sbjy150s150s100sFlFlFlFlFl.\\ 100s100s50sFjFjFjFjFjFjFjss\u000f\u001b#rub\n100sklhFnFj FjFjFjs100snby100s150s100sFlFlFlFlss50s100see  yhjk100sda150sFlFlsullt$ljb#name\no\n10syb20st\u001b#chat\nk100s100sFlFlsi\u001b100s100sFlFlFlFlFl 20seb100sukj\\ #ride\nybub50s#loot\nf \u001b_ \u001b<.>100sFlFlFl;_.100s_>.>\u0018\u001bbjuFjFj.100shbkFjFj20s10s150s150sFlFlFlyhlhln100s50sFlFlFlFlFlFl#chat\nhLKLB_>.>HUKY_>.>ok#enhance\n\u001bJULN_>.>LKKH_>.>#force\n#name\ni\nJBBL_>,><#jump\n#conduct\n #offer\nNUNK_>.>KYUL_>.>#dip\ndfzHKYJ_>.>rg#turn\nNNUL_>,_.;;>>#invoke\n\u001bJNHL_>,_,>.>cjch_>,_..>50sFbFbsjkjkjkj100s100s150s  ebkbubhl100s 50s\u000f\u001b100s ujh100s _>,_.@.>150sFbssblk50sFbFbsjkj100skjk100sFbFbFbFbFbFb#pray\ny  y\u001by  y y y\u001b  1"
+  }
+ ]
+}

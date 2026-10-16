@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  unhnFyFyFyFyFyFyFyFyLJHU_ \u001bm.>FjFl 20sNNYY_>,>cjZKKHB_>.>__,.fuJHBJ_>.>LHBH_>.>LLHK_>.>Fh..:sNUJK_>,>hjjnhyjl#na#quit\nFkFkFk FkFkFkFkFknulu#name\nd\n20s#chat\nj#chat\ny#name\ni\nkbk50sFjFjs50si\u001b100s_ \u001b<.>f   lFj20ssnujFlFls_>.>150s_>.>#wipe\n50s50sFlFlFlFlFlFlFlFlFlFlFlFl100s100s_>.>150scl\u0014uhj100s_>,>50s\u0018\u001b50s50s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuhnlNBHU_>.>#quit\nyy\u001by  y y y\u001b Fl FlFlFlFlFlFlFljubu50s\u000f\u001b150sFj20ss50sljubkj#jump\n150s100sFhFh20s150slyhnyn100sFhs20s50s100s100sFlFlFl100si\u001b_ \u001b@.>150s yllFhFjFjFjFjFn\\ 100sjkjkjyi\u001b10#quit\nyy\u001by  y y y\u001b FlFlFlFlFlFlFlFlFl FlFlFlFlFlFlFl20s20sda20s.m.20s20sdf20ssm.20sFjFjFjFjFjFjFjFj100s_ \u001b@.>50s100sFjFjFnFj20ss100s#turn\n 100s50s\u000f\u001b150sljb100sFhFhs100s100sFhFhFhFhFhFh100sFh.20sFh20s.luu100#quit\nyy\u001by  y y y\u001b  hubuUBLN_ \u001b>.>BHUN_>.>#terrain\n\u001bf $ kUBKB_>.>#pray\ny #offer\nluybkb#name\nm\nllhblull20sKJHY_>.><BJYH_>.>JBBH_>,>KBYB_>,>UUNH_>.>FlFlFlBJYL_>,>Fl.sBHJJ_>.>HHKY_>,>,#force\nLNJB_>.>FuFkFk #in#quit\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50850042,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=autodig\n",
+   "moves": "  unhnFyFyFyFyFyFyFyFyLJHU_ \u001bm.>FjFl 20sNNYY_>,>cjZKKHB_>.>__,.fuJHBJ_>.>LHBH_>.>LLHK_>.>Fh..:sNUJK_>,>hjjnhyjl#na#quit\n"
+  },
+  {
+   "seed": 50950042,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\n",
+   "moves": "FkFkFk FkFkFkFkFknulu#name\nd\n20s#chat\nj#chat\ny#name\ni\nkbk50sFjFjs50si\u001b100s_ \u001b<.>f   lFj20ssnujFlFls_>.>150s_>.>#wipe\n50s50sFlFlFlFlFlFlFlFlFlFlFlFl100s100s_>.>150scl\u0014uhj100s_>,>50s\u0018\u001b50s50s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuhnlNBHU_>.>#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51050042,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=fruit:mango\nOPTIONS=msg_window:reversed\n",
+   "moves": "Fl FlFlFlFlFlFlFljubu50s\u000f\u001b150sFj20ss50sljubkj#jump\n150s100sFhFh20s150slyhnyn100sFhs20s50s100s100sFlFlFl100si\u001b_ \u001b@.>150s yllFhFjFjFjFjFn\\ 100sjkjkjyi\u001b10#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51150042,
+   "datetime": "20080112021749",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\n",
+   "moves": "FlFlFlFlFlFlFlFlFl FlFlFlFlFlFlFl20s20sda20s.m.20s20sdf20ssm.20sFjFjFjFjFjFjFjFj100s_ \u001b@.>50s100sFjFjFnFj20ss100s#turn\n 100s50s\u000f\u001b150sljb100sFhFhs100s100sFhFhFhFhFhFh100sFh.20sFh20s.luu100#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51250042,
+   "datetime": "20160108194647",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=msg_window:reversed\n",
+   "moves": " hubuUBLN_ \u001b>.>BHUN_>.>#terrain\n\u001bf $ kUBKB_>.>#pray\ny #offer\nluybkb#name\nm\nllhblull20sKJHY_>.><BJYH_>.>JBBH_>,>KBYB_>,>UUNH_>.>FlFlFlBJYL_>,>Fl.sBHJJ_>.>HHKY_>,>,#force\nLNJB_>.>FuFkFk #in#quit\n"
+  }
+ ]
+}

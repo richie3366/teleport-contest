@@ -1,0 +1,70 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nb\n sm..jsm.sss.m.sm.s20ssysm.sm.sm. sk sm..m...sm.s20s  20s  yy\u001bnnny\u001by  stcu#name\nm\n :10s20s tdl Fls20sFls20s\u0018\u001bjnu100shubFu.s50s100s#enhance\n\u001b#ride\nu100sFuFu20snyb100s150sFkss_>,>#quit\nyy\u001by  y y y\u001b yn#wizintrinsic\nd\n sm.20ssm. snsn20s  20ssm.  nsh  sm. sm.sm. 20ssm..m.sm.sk  sm. .m. n...s20ssss20s  sm.20s.ss 20s .ssss.byjyBKYB_ \u001b>.>FlFnFl PelL YLKL_>.>#monster\n#monster\nHKNH_>.>YUBU_>.>\u000f\u001b#chat\nkhbnkyj#chat\nn20sbylut\u001b100sllli\u001bjub_>,>zcFu20s20s150sblkhbu10sFjsFhFh20sFhyjyFjFjsnbl150sukn150s#rub\ns_>.>kjl\\  _>,>i\u001bjjjhul_>,>100s _>.>100sFh20s.50sFh2#quit\nyy\u001by  y y y\u001b n #wizintrinsic\na\n s.20s20s20s20s20s20ss20ss20s.sssss.20ss.sss.20ssFnFnFnFnFnFnFn Fnjnhk100s100s50sFlFlsi\u001b150s#enhance\n\u001b50snby100s100s150s FjFjFjFbFbFj#pray\ny #pray\ny  \u0018\u001b#pray\ny q_ \u001b<.>jhhjnh50s nlk150s Fhssblhu_>.>,\\   50s100s FhFh FjFhFhFh100sjky100sFls20s100shbynykkhjl20syl#name\nm\nbhnb#name\n>.#chat\nbdbsssjunnNNKJ_>.>#turn\n#pray\ny  UKUL_>.>Fj  Fj  Fj  H  \u001b     L uhlh#name\nm\n ;nkt\u001b10s#name\nm\n20sFlFlFl FlFlFlFlFldms20s20sjbybjk#name\nm\nt#chat\nb10shnllFyFyFyFyFyFyFyFyjhjk#name\nm\njunb#chat\n.HNBU_>,>FnFnFnUHYK_m.#quit\nyy\u001by  y y y\u001b  uk nk#chat\nb10s#name\n\u001b#chat\nb10sj  y\u001by  y y y\u001b  l",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50850058,
+   "datetime": "20080302223243",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=fruit:mango\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n sm..jsm.sss.m.sm.s20ssysm.sm.sm. sk sm..m...sm.s20s  20s  yy\u001bnnny\u001by  s"
+  },
+  {
+   "seed": 50950058,
+   "datetime": "20150823205114",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=pettype:none\n",
+   "moves": "tcu#name\nm\n :10s20s tdl Fls20sFls20s\u0018\u001bjnu100shubFu.s50s100s#enhance\n\u001b#ride\nu100sFuFu20snyb100s150sFkss_>,>#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51050058,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "yn#wizintrinsic\nd\n sm.20ssm. snsn20s  20ssm.  nsh  sm. sm.sm. 20ssm..m.sm.sk  sm. .m. n...s20ssss20s  sm.20s.ss 20s .ssss."
+  },
+  {
+   "seed": 51150058,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "byjyBKYB_ \u001b>.>FlFnFl PelL YLKL_>.>#monster\n#monster\nHKNH_>.>YUBU_>.>\u000f\u001b#chat\nkhbnkyj#chat\nn20sbylut\u001b100sllli\u001bjub_>,>zcFu20s20s150sblkhbu10sFjsFhFh20sFhyjyFjFjsnbl150sukn150s#rub\ns_>.>kjl\\  _>,>i\u001bjjjhul_>,>100s _>.>100sFh20s.50sFh2#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51250058,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "n #wizintrinsic\na\n s.20s20s20s20s20s20ss20ss20s.sssss.20ss.sss.20ss"
+  },
+  {
+   "seed": 51350058,
+   "datetime": "20120516111038",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:mango\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\n",
+   "moves": "FnFnFnFnFnFnFn Fnjnhk100s100s50sFlFlsi\u001b150s#enhance\n\u001b50snby100s100s150s FjFjFjFbFbFj#pray\ny #pray\ny  \u0018\u001b#pray\ny q_ \u001b<.>jhhjnh50s nlk150s Fhssblhu_>.>,\\   50s100s FhFh FjFhFhFh100sjky100sFls20s100shbynykkhjl20syl#name\nm\nbhnb#name\n>.#chat\nbdbsssjunnNNKJ_>.>#turn\n#pray\ny  UKUL_>.>Fj  Fj  Fj  H  \u001b     L"
+  },
+  {
+   "seed": 51450058,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\n",
+   "moves": " uhlh#name\nm\n ;nkt\u001b10s#name\nm\n20sFlFlFl FlFlFlFlFldms20s20sjbybjk#name\nm\nt#chat\nb10shnllFyFyFyFyFyFyFyFyjhjk#name\nm\njunb#chat\n.HNBU_>,>FnFnFnUHYK_m.#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51550058,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": " uk nk#chat\nb10s#name\n\u001b#chat\nb10sj  y\u001by  y y y\u001b  l"
+  }
+ ]
+}

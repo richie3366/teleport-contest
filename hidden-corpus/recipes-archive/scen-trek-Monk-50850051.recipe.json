@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " Fb ss50sFkFks100s_ \u001b<.>#name\na\nhky100s#conduct\n juy100s100s100snkk50s\u001450sjub\\  50sFn20ss100sbhn#jump\n#wipe\n150s\u000f\u001b\\  100s_>,>bnl100s50sFlss\u000f\u001b100seh50s#enhance\n\u001blub#rub\nyzk huge chunk of meat\nKUKN_>,>Fy ssNUBH_>,>YBBB_>.>\u000f\u001bjl20sdd...ujun20s10sjjuyef _>.>_>.>50s\u000f\u001bkln100s\u0018\u001b100s\u0018\u001b50sFks.i\u001b#offer\ni\u001b\u000f\u001b50sbbhkuyi\u001bulkFj.s50shhj100s_m.s100s_>.>\u000f\u001b100sFlss100sulh_>,>100s,50s100s100s\\  \u0014,#conduct\n LKKY_>.>JLYL_>.>LKKY_>,><NBBH_>.>NNLH_>,>UULK_>.>JLHB_>.>#terrain\nb\n#wipe\n@.20sun20st$bt\u001bt\u001b50sw\u001b\u0018\u001bkyn50s 100sFh20s20s150s  eg50s\u0018\u001b\u0018\u001b\u0018\u001b\u000f\u001bef__,s\u0018\u001b100s50snlhi\u001b100s 100s150s__.s100sFh.20suyn\u0018\u001b50sFhss\u000f\u001bW#terrain\nc\nm,jkb150s Fh20ss100sFh.20s100s#chat\nb20shlkblhldis..m. FyFhFh100s100s100sFu s20sFu20sFu50sFhs20sFu.s150skyu100sFhs.100s150sjkb100sFhFhs50s#"
+ },
+ "segments": [
+  {
+   "seed": 50850051,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=playmode:explore\n",
+   "moves": " Fb ss50sFkFks100s_ \u001b<.>#name\na\nhky100s#conduct\n juy100s100s100snkk50s\u001450sjub\\  50sFn20ss100sbhn#jump\n#wipe\n150s\u000f\u001b\\  100s_>,>bnl100s50sFlss\u000f\u001b100seh50s#enhance\n\u001blub#rub\nyzk huge chunk of meat\nKUKN_>,>Fy ssNUBH_>,>YBBB_>.>\u000f\u001bjl20sdd...ujun20s10sjjuyef _>.>_>.>50s\u000f\u001bkln100s\u0018\u001b100s\u0018\u001b50sFks.i\u001b#offer\ni\u001b\u000f\u001b50sbbhkuyi\u001bulkFj.s50shhj100s_m.s100s_>.>\u000f\u001b100sFlss100sulh_>,>100s,50s100s100s\\  \u0014,#conduct\n LKKY_>.>JLYL_>.>LKKY_>,><NBBH_>.>NNLH_>,>UULK_>.>JLHB_>.>#terrain\nb\n#wipe\n@.20sun20st$bt\u001bt\u001b50sw\u001b\u0018\u001bkyn50s 100sFh20s20s150s  eg50s\u0018\u001b\u0018\u001b\u0018\u001b\u000f\u001bef__,s\u0018\u001b100s50snlhi\u001b100s 100s150s__.s100sFh.20suyn\u0018\u001b50sFhss\u000f\u001bW#terrain\nc\nm,jkb150s Fh20ss100sFh.20s100s#chat\nb20shlkblhldis..m. FyFhFh100s100s100sFu s20sFu20sFu50sFhs20sFu.s150skyu100sFhs.100s150sjkb100sFhFhs50s#"
+  }
+ ]
+}

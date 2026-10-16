@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nh_mm,         \u001b_,      Fj #chat\ny_mm.      Fj     _,;:   Fl   #chat\nl_mmmm,  n    n Fn  _,   n   n    Fl  n    n#chat\nn    n #levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.      Fn_.#chat\nn _mmmm.   Fn_. Fn #chat\nj_mmmmm. Fj_.   nFn #chat\nh ;b.\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWg  \u0017wand of lightning\n\u0016?\n>A\u0006_mmmm.Fh _,Fl  FlFhFb  nFlFnFn.,\u0016?\n>z\u0006_mmmmmm,   _.  s  .ss,  \u0016?\n>A\u0006_mm.   _.       .ss  s20s 20s     szhn ,\u001b#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,Fn_. Fj      Fn      Fj    Fj FnFn ,\u001b\u0016?\n>A\u0006_mm.Fl  n  _.   Fl   Fl FjFj Fj20s20s,\u001b\u0016?\n>z\u0006_mmmmm,_,FbFbFbFbFbzhh ,\u0016?\n>A\u0006_mmmmm.Fb_,FhFbFbFb.ss,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,.sFkFkFk..zhk,#chat\nh\u0016?\n>A\u0006_mm,s.20s20s..zhb,#chat\ny\u0016?\n>z\u0006_mm.20sss20sFkFk,\u0016?\n>A\u0006_mm,FkFkFk.,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mm...20s..ss,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nk\u0016?\n>A\u0006_mmmmmmm,.s20sszhb,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nk\u0016?\n>z\u0006_mmm..20s.ss.,\u0016?\n>A\u0006_mmm...20s.s20ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,s20sss20s20s20szhl,\u0016?\n>A\u0006_mmmmm.20s.s20s20s.szh,\u0016?\n>>\u001b\u0016?\n>y_m.Fk_,Fy#chat\n"
+ },
+ "segments": [
+  {
+   "seed": 50850062,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nh_mm,         \u001b_,      Fj #chat\ny_mm.      Fj     _,;:   Fl   #chat\nl_mmmm,  n    n Fn  _,   n   n    Fl  n    n#chat\nn    n #levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.      Fn_.#chat\nn _mmmm.   Fn_. Fn #chat\nj_mmmmm. Fj_.   nFn #chat\nh ;b.\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWg  \u0017wand of lightning\n\u0016?\n>A\u0006_mmmm.Fh _,Fl  FlFhFb  nFlFnFn.,\u0016?\n>z\u0006_mmmmmm,   _.  s  .ss,  \u0016?\n>A\u0006_mm.   _.       .ss  s20s 20s     szhn ,\u001b#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,Fn_. Fj      Fn      Fj    Fj FnFn ,\u001b\u0016?\n>A\u0006_mm.Fl  n  _.   Fl   Fl FjFj Fj20s20s,\u001b\u0016?\n>z\u0006_mmmmm,_,FbFbFbFbFbzhh ,\u0016?\n>A\u0006_mmmmm.Fb_,FhFbFbFb.ss,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,.sFkFkFk..zhk,#chat\nh\u0016?\n>A\u0006_mm,s.20s20s..zhb,#chat\ny\u0016?\n>z\u0006_mm.20sss20sFkFk,\u0016?\n>A\u0006_mm,FkFkFk.,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mm...20s..ss,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nk\u0016?\n>A\u0006_mmmmmmm,.s20sszhb,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nk\u0016?\n>z\u0006_mmm..20s.ss.,\u0016?\n>A\u0006_mmm...20s.s20ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,s20sss20s20s20szhl,\u0016?\n>A\u0006_mmmmm.20s.s20s20s.szh,\u0016?\n>>\u001b\u0016?\n>y_m.Fk_,Fy#chat\n"
+  }
+ ]
+}

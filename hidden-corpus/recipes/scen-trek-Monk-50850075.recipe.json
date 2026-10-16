@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " 100s\u0018\u001b100s#offer\nljk150sFhssFhs20s150s_ \u001b<.>50s150s\u000f\u001b\u000f\u001b\\  100sFh20ss100s100sbhl100sybl50sFh20ss100sFh20s.\\  yujFh.sybu50s\u0018\u001bbkn\u0018\u001b150s150sFhFh20s100s100s 100sLLHN_>.>FhFh20sJYHL_>,>L\u0014HLLL_>.>qe#conduct\n JKNU_>.>JLLK_>.>#tip\n\u001b\u0014LLKK_>,>NJKB_>.>\u000f\u001bYBNU_>,>HYYJ_>.>LNNY_>.>KNLH_>.>NBUY_>.>B HKB_>.>HLBH_>.>KKB K_>.>\u000f\u001b100sei   #wipe\n50sei  100seg\\  hjjuby50s100sFhs20s50sjujFy.Fh100sFys20segsybu_>,>luh100sef 50sFh.s100s150sFh20s.lbl100shjy100sFh.20suby100s_>,>i\u001b50sFhss50s100s\\  nnynku150sFhss100sbjk\\  100sFh20s20si\u001b50s_>.>jub50sFh..150sFh ss\u0018\u001b100s50s100sFhssuny50s\\  100sFhs.i\u001bi\u001b\u000f\u001bkny\\  100s150s50s50sNNJH _>.>KKLB_>.>H LKH_>.>\u000f\u001bP<JUJK_>.>rc <.f \u001b#name\no\n#ride\nk,10sdhss20st\u001bjydf20ssm.20s#chat\nb10sbnhynt\u001bnkt\u001b50s100s ubn100sE- Vlad was here\n\\  hkjFy.s150s50sFh.skub100s150segunujjhkuh#twoweapon\n150s_>.>julbhnhuj_>.>i\u001b\u0004y\u000f\u001buuj\u0018\u001b100sei  _>.>100"
+ },
+ "segments": [
+  {
+   "seed": 50850075,
+   "datetime": "20100301201501",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\n",
+   "moves": " 100s\u0018\u001b100s#offer\nljk150sFhssFhs20s150s_ \u001b<.>50s150s\u000f\u001b\u000f\u001b\\  100sFh20ss100s100sbhl100sybl50sFh20ss100sFh20s.\\  yujFh.sybu50s\u0018\u001bbkn\u0018\u001b150s150sFhFh20s100s100s 100sLLHN_>.>FhFh20sJYHL_>,>L\u0014HLLL_>.>qe#conduct\n JKNU_>.>JLLK_>.>#tip\n\u001b\u0014LLKK_>,>NJKB_>.>\u000f\u001bYBNU_>,>HYYJ_>.>LNNY_>.>KNLH_>.>NBUY_>.>B HKB_>.>HLBH_>.>KKB K_>.>\u000f\u001b100sei   #wipe\n50sei  100seg\\  hjjuby50s100sFhs20s50sjujFy.Fh100sFys20segsybu_>,>luh100sef 50sFh.s100s150sFh20s.lbl100shjy100sFh.20suby100s_>,>i\u001b50sFhss50s100s\\  nnynku150sFhss100sbjk\\  100sFh20s20si\u001b50s_>.>jub50sFh..150sFh ss\u0018\u001b100s50s100sFhssuny50s\\  100sFhs.i\u001bi\u001b\u000f\u001bkny\\  100s150s50s50sNNJH _>.>KKLB_>.>H LKH_>.>\u000f\u001bP<JUJK_>.>rc <.f \u001b#name\no\n#ride\nk,10sdhss20st\u001bjydf20ssm.20s#chat\nb10sbnhynt\u001bnkt\u001b50s100s ubn100sE- Vlad was here\n\\  hkjFy.s150s50sFh.skub100s150segunujjhkuh#twoweapon\n150s_>.>julbhnhuj_>.>i\u001b\u0004y\u000f\u001buuj\u0018\u001b100sei  _>.>100"
+  }
+ ]
+}

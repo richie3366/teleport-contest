@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "FyFy.Fh s20sjnki\u001b150sFh20ss\u0018\u001b50sFh20ss\\ knl100sFkFkFkFkFks50skkk150sFj20s20s\u0018\u001b#turn\n100sFlss100s\u0018\u001b100s50s#sit\n\u001b50s50s100sFjFjFjlhli\u001b_ \u001bm,>bjk150s\\ E- Vlad was here\nFjFj20s100s "
+ },
+ "segments": [
+  {
+   "seed": 50851014,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\n",
+   "moves": "FyFy.Fh s20sjnki\u001b150sFh20ss\u0018\u001b50sFh20ss\\ knl100sFkFkFkFkFks50skkk150sFj20s20s\u0018\u001b#turn\n100sFlss100s\u0018\u001b100s50s#sit\n\u001b50s50s100sFjFjFjlhli\u001b_ \u001bm,>bjk150s\\ E- Vlad was here\nFjFj20s100s "
+  }
+ ]
+}

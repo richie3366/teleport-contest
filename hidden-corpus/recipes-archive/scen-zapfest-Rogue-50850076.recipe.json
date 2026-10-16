@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPgl\u0017blessed +3 speed boots\nWh\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017spellbook of force bolt\nrj \u001b<.20s\u0007master lich\n\u0007mind flayer\nZsm.20s     ZZZZZsm.sZ\u0017spellbook of cause fear\nrk     n   n20s   n  \u0017blessed spellbook of drain life\nrl  n      n    .m.  n  \u0007mind flayer\nZ.m.    n 20s   n     n  ZZZZZ.b20s  n   n    n ZZZ#turn\n\u0018\u001b\u00164\n\u0007red dragon\nsu.m.  n  20s20s  n  #polyself\nblack dragon\n   #monster\nsm. 20s #monster\n#monster\n#monster\n#monster\nFh   Fh  i\u001b\u001610\n\u00174 cream pies\nQby\u0007jackal\n\u0007kobold shaman\nftfftf\u0017potion of oil\nt\u0017wand of magic missile\n\u0017wand of sleep\n\u0017wand of cold\n\u0007hill or"
+ },
+ "segments": [
+  {
+   "seed": 50850076,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPgl\u0017blessed +3 speed boots\nWh\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017spellbook of force bolt\nrj \u001b<.20s\u0007master lich\n\u0007mind flayer\nZsm.20s     ZZZZZsm.sZ\u0017spellbook of cause fear\nrk     n   n20s   n  \u0017blessed spellbook of drain life\nrl  n      n    .m.  n  \u0007mind flayer\nZ.m.    n 20s   n     n  ZZZZZ.b20s  n   n    n ZZZ#turn\n\u0018\u001b\u00164\n\u0007red dragon\nsu.m.  n  20s20s  n  #polyself\nblack dragon\n   #monster\nsm. 20s #monster\n#monster\n#monster\n#monster\nFh   Fh  i\u001b\u001610\n\u00174 cream pies\nQby\u0007jackal\n\u0007kobold shaman\nftfftf\u0017potion of oil\nt\u0017wand of magic missile\n\u0017wand of sleep\n\u0017wand of cold\n\u0007hill or"
+  }
+ ]
+}

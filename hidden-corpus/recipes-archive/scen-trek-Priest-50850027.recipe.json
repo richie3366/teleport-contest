@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "UBUB_ \u001b:>FkFl sUHNL_>.>#turn\nnJUJN_>,><LLNU_>.>\u000f\u001bYUKL_>,>JUYH_>.>JYYU_>.>>#invoke\n\u001bUYKK_>,><NLNU_>.>qd#pray\ny 50s_>,>100si\u001b_>,>100sFjFyFyFyFyFy50shyu150s 150sFhFb Fh\u000f\u001b100shjk100subhFk20ss\u000f\u001b100s100s;>.bjkbjuuhj\u0018\u001b_>.>\u000f\u001b\u000f\u001b50s50s100s100sFhs20s\\  150sFbss#monster\ns#force\n50s100sFkFk20s100sFbFbFbFbFbFbFb Fbsee50sef50sFb20sFb\\  #monster\n50seeeeeeeeeeeeeeeeeeeeeeeeez#twoweapon\n#force\nt\u001bt\u001b#name\n\u001buluk20sbah 20soj#name\n\u001bybuh#chat\nyjynj#conduct\n \u000f\u001bqdeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0018\u001b,10sKJYY_>,>YUNH_>,>J YHK_>.>NNJ N_>.>#loot\nZ\u001bJNHU_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet\u001bjl#chat\nk10s20s#name\n\u001bBHNU_>.>f \u001b#conduct\n YLKL_>,>Fhssi\u001b#sit\n\u001bHNLJ_>.>U   HKJ  y\u001by  y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 50850027,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "UBUB_ \u001b:>FkFl sUHNL_>.>#turn\nnJUJN_>,><LLNU_>.>\u000f\u001bYUKL_>,>JUYH_>.>JYYU_>.>>#invoke\n\u001bUYKK_>,><NLNU_>.>qd#pray\ny 50s_>,>100si\u001b_>,>100sFjFyFyFyFyFy50shyu150s 150sFhFb Fh\u000f\u001b100shjk100subhFk20ss\u000f\u001b100s100s;>.bjkbjuuhj\u0018\u001b_>.>\u000f\u001b\u000f\u001b50s50s100s100sFhs20s\\  150sFbss#monster\ns#force\n50s100sFkFk20s100sFbFbFbFbFbFbFb Fbsee50sef50sFb20sFb\\  #monster\n50seeeeeeeeeeeeeeeeeeeeeeeeez#twoweapon\n#force\nt\u001bt\u001b#name\n\u001buluk20sbah 20soj#name\n\u001bybuh#chat\nyjynj#conduct\n \u000f\u001bqdeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0018\u001b,10sKJYY_>,>YUNH_>,>J YHK_>.>NNJ N_>.>#loot\nZ\u001bJNHU_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet\u001bjl#chat\nk10s20s#name\n\u001bBHNU_>.>f \u001b#conduct\n YLKL_>,>Fhssi\u001b#sit\n\u001bHNLJ_>.>U   HKJ  y\u001by  y y y\u001b  _"
+  }
+ ]
+}

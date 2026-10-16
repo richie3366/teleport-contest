@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b.>FlFl _>>,Fb_,Fn>FbFn_>>,Fn_.Fb>FnFnFnFnFn\u0006_>.Fb_.Fb>FbFb_>.Fb_.Fn>FnFn_>.Fn_.Fn>FbFnFbFbFn\u0006_>.Fb_.Fb>FnFb_>,Fn_.Fb>FnFb_>.Fb_,Fb>FbFnFnFbFb\u0004yP\u0006_>.Fn_,Fb>FbFn_>.Fn_,Fn>FnFb_>.Fb_.Fn>FbFnFnFbFn#terrain\nd\n#offer\n<.\u0006_>.Fn_.Fb>FbFb_>,Fb_.Fn>FnFb_>.Fb_.Fn>FnFbFbFnFn,P\u0006_>.Fn_,Fb>FnFn_>.Fb_.Fb>FbFn_>.Fb_.Fb>FnFnFbFbFn\u000f\u001bmO>>p\u001b\nO>>i\u001b\u001b\n\u0006_>.Fn_.Fn>FbFn_>.Fb_,Fn>FnFb_>.Fb_,Fb>FnFnFbFnFb\u0006_>.Fn_,Fb>FbFb_>.Fn_.Fn>FbFn_>,Fb_.Fn>FbFbFnFnFb\u0006_>.Fb_.Fn>FbFb_>.Fn_.Fn>FbFn_>,Fb_.Fb>FbFnFbFnFn\u0006_>,Fn_,Fn>FnFb_>.Fn_.Fb>FbFb_>,Fn_.Fb>FnFnFnFnFb\u0006_>.Fb_.Fb>FnFb_>.Fn_,Fb>FbFn_>.Fn_.Fn>FnFnFnFbFn<\u00162\nFuFuFyFuFyFkFkFyFuFuFkFyFkFyFuFyFuFyFuFyFkFyFuFyFyFuFyFyFyFkFyFyFuFuFuFyFyFkFkFkFuFuFuFuFyFuFkFkFkFyFyFuFkFyFyFkFuF"
+ },
+ "segments": [
+  {
+   "seed": 50850015,
+   "datetime": "20110709211119",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nMENUCOLOR=\"cursed\"=brown\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0006_ \u001b.>FlFl _>>,Fb_,Fn>FbFn_>>,Fn_.Fb>FnFnFnFnFn\u0006_>.Fb_.Fb>FbFb_>.Fb_.Fn>FnFn_>.Fn_.Fn>FbFnFbFbFn\u0006_>.Fb_.Fb>FnFb_>,Fn_.Fb>FnFb_>.Fb_,Fb>FbFnFnFbFb\u0004yP\u0006_>.Fn_,Fb>FbFn_>.Fn_,Fn>FnFb_>.Fb_.Fn>FbFnFnFbFn#terrain\nd\n#offer\n<.\u0006_>.Fn_.Fb>FbFb_>,Fb_.Fn>FnFb_>.Fb_.Fn>FnFbFbFnFn,P\u0006_>.Fn_,Fb>FnFn_>.Fb_.Fb>FbFn_>.Fb_.Fb>FnFnFbFbFn\u000f\u001bmO>>p\u001b\nO>>i\u001b\u001b\n\u0006_>.Fn_.Fn>FbFn_>.Fb_,Fn>FnFb_>.Fb_,Fb>FnFnFbFnFb\u0006_>.Fn_,Fb>FbFb_>.Fn_.Fn>FbFn_>,Fb_.Fn>FbFbFnFnFb\u0006_>.Fb_.Fn>FbFb_>.Fn_.Fn>FbFn_>,Fb_.Fb>FbFnFbFnFn\u0006_>,Fn_,Fn>FnFb_>.Fn_.Fb>FbFb_>,Fn_.Fb>FnFnFnFnFb\u0006_>.Fb_.Fb>FnFb_>.Fn_,Fb>FbFn_>.Fn_.Fn>FnFnFnFbFn<\u00162\nFuFuFyFuFyFkFkFyFuFuFkFyFkFyFuFyFuFyFuFyFkFyFuFyFyFuFyFyFyFkFyFyFuFuFuFyFyFkFkFkFuFuFuFuFyFuFkFkFkFyFyFuFkFyFyFkFuF"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u00164\n\u0014 \u001bm.\u0016?\n>>Qyukhj:\u00164\n\u0017magic lamp\n20s20ss\u00173 amulet of life saving\nPbs.s.R20ss\u0017uncursed the Heart of Ahriman\n \u0007rock piercer\nw\u001bFkFkFk#invoke\nc FkFksys\u001626\n\u0017Orcrist\nwdFlFl20s#invoke\ndX\u0007Yeenoghu\nyFjFj  20s Fh   \u0007gecko\nFj 20s  s s  20s   n\u0007titanothere\nFh     Fb    Fh  n Fh   \u0007baby red dragon\n#chat\nl   Fh     Fl    \u00167\n\u0016?\n>D \u0017oilskin cloak\nW\u001bs.20s\u0007water nymph\nFh Fhs..s\u0007green mold\nFkss.ss\u0007quantum mechanic\nFbFb Fb  , 20ssh @.\u0016?\nblkjuh:s.\u001626\n   \u0004js \u001bs\u0016?\n>E__.\u0016?\n>>K      banana\n__,<.ys  \u0016?\n\u001bu  h  \u0016?\n\u001by      b  n        \u00164\n_>,>\u001623\nb   n j j y  n        :\u0016?\n\u001bk y   \u0016?\ne __.\u0016?\nd#levelchange\n30\n         \u0017ring of hunger\nPrr    n.s .m.   \u0017cursed Vorpal Blade\nws    20s      n   Fk Fk   n #invoke\ns \u00173 bag of holding\n\u0007homunculus\nato\nats\n#tip\nt\u001b  Fj  Fk   n s           s \u00168\n\u0016?\nb_<.\u001623\nj       yk  u y  n  yy          :       \u0016?\n\u001bj   j \u00164\nh  n   n   k l b  n :   \u00166\n\u0016?\nb_{,>  s   n   s     n20s   \u00165\n\u0016?\ncu b   \u0017wand of digging\nEu I am a fish\n  :     \u0017diamond\nE: \u0017towel\nE:   n     E-    \u0007soldier ant\ns   s       n  s     yy\u001by   y y  y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50850040,
+   "datetime": "20200213072612",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u00164\n\u0014 \u001bm.\u0016?\n>>Qyukhj:\u00164\n\u0017magic lamp\n20s20ss\u00173 amulet of life saving\nPbs.s.R20ss\u0017uncursed the Heart of Ahriman\n \u0007rock piercer\nw\u001bFkFkFk#invoke\nc FkFksys\u001626\n\u0017Orcrist\nwdFlFl20s#invoke\ndX\u0007Yeenoghu\nyFjFj  20s Fh   \u0007gecko\nFj 20s  s s  20s   n\u0007titanothere\nFh     Fb    Fh  n Fh   \u0007baby red dragon\n#chat\nl   Fh     Fl    \u00167\n\u0016?\n>D \u0017oilskin cloak\nW\u001bs.20s\u0007water nymph\nFh Fhs..s\u0007green mold\nFkss.ss\u0007quantum mechanic\nFbFb Fb  , 20ssh @.\u0016?\nblkjuh:s.\u001626\n   \u0004js \u001bs\u0016?\n>E__.\u0016?\n>>K      banana\n__,<.ys  \u0016?\n\u001bu  h  \u0016?\n\u001by      b  n        \u00164\n_>,>\u001623\nb   n j j y  n        :\u0016?\n\u001bk y   \u0016?\ne __.\u0016?\nd#levelchange\n30\n         \u0017ring of hunger\nPrr    n.s .m.   \u0017cursed Vorpal Blade\nws    20s      n   Fk Fk   n #invoke\ns \u00173 bag of holding\n\u0007homunculus\nato\nats\n#tip\nt\u001b  Fj  Fk   n s           s \u00168\n\u0016?\nb_<.\u001623\nj       yk  u y  n  yy          :       \u0016?\n\u001bj   j \u00164\nh  n   n   k l b  n :   \u00166\n\u0016?\nb_{,>  s   n   s     n20s   \u00165\n\u0016?\ncu b   \u0017wand of digging\nEu I am a fish\n  :     \u0017diamond\nE: \u0017towel\nE:   n     E-    \u0007soldier ant\ns   s       n  s     yy\u001by   y y  y\u001b  F"
+  }
+ ]
+}

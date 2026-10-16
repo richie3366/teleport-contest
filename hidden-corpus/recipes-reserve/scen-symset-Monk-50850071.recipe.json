@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "rc  \u001b,:#levelchange\n14\n               hky\u0017neutral altar\ndd  df \u0017newt corpse\n#offer\nj  #pray\ny y kk\u0017pool\nhk\u0017cloud\n#terrain\nf\nn#conduct\n #terrain\nb\nO\u0007 \u0017tripe ration\nt\u001bu\u0007kobold\n\u0017scroll of taming\nrl \u0017food ration\n t\u001b\u0007sewer rat\n20s     ss.ss\u0007jackal\n\u0017scroll of taming\nrm \u0007kobold\n\u0017scroll of taming\nrn  \u0006_>>.Fk_.Fu>Fu ._>>,_.>_>>.Fu_.>i\u001bz\u0006_>,_.>_>._.>_>._.><\u0006_>._.>_>._.>_>._.Fl >\u0006_>._.>_>,_,>_>._.>#dip\nh10s\u0006_>,_,>_>._,>_>,_.><\u0006_>._,>_>._.>_>,_,>#turn\nHv\u001bi\u001b#untrap\nhi\u001b\u0007tame kitten\n\u0017newt corpse\nt\u001b\u0017huge chunk of meat\nt\u001b\u0007kobold\n\u0017scroll of taming\nrq \u0006_>>.Fk _.Fl >_>>._,>_>>,_.>\u0017leash\nar.u  lkharll\u0007newt\n\u0017scroll of taming\nrt #name\nf\n#enhance\n@.#untrap\nn\u0006_>._.>_>.Fl_.>_>._,>\u0006_>>._,>_>>._.>_>>,_,>\u0006_>,_.>_>._,>_>,_.>#ride\nby\u0004h\u0006_>._.>_>._,>_>._,>w\u001b\u0004b\u0006_>._.>_>,_.>_>. _.>#turn\narlmO>>>>f\u001b\n\u0006_>.Fh_.Fj>_>.Fj_.> \u0006_>.Fj_.Fj>FjFj_>,Fj_.Fj>FjFj_>.Fj_.Fj>FjFjFjFjFj<\u0006_>.Fj_.Fj>FjFj_>.Fj_.Fj>FjFj_>.Fj_,Fj>FjFjFjFjFj\u0006_>.Fj_.Fj>FjFj_>,Fj_.Fj >FjFj_>.Fj_.Fj>FjFjFjFjFj\u0006_>.Fj_,Fj>FjFj_>.Fj_.Fj>FjFj_>. Fj_.Fj>FlFjFlFjFl\u0006_>"
+ },
+ "segments": [
+  {
+   "seed": 50850071,
+   "datetime": "20010123184913",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=norep \"You hear\"\nBIND=v:inventory\n",
+   "moves": "rc  \u001b,:#levelchange\n14\n               hky\u0017neutral altar\ndd  df \u0017newt corpse\n#offer\nj  #pray\ny y kk\u0017pool\nhk\u0017cloud\n#terrain\nf\nn#conduct\n #terrain\nb\nO\u0007 \u0017tripe ration\nt\u001bu\u0007kobold\n\u0017scroll of taming\nrl \u0017food ration\n t\u001b\u0007sewer rat\n20s     ss.ss\u0007jackal\n\u0017scroll of taming\nrm \u0007kobold\n\u0017scroll of taming\nrn  \u0006_>>.Fk_.Fu>Fu ._>>,_.>_>>.Fu_.>i\u001bz\u0006_>,_.>_>._.>_>._.><\u0006_>._.>_>._.>_>._.Fl >\u0006_>._.>_>,_,>_>._.>#dip\nh10s\u0006_>,_,>_>._,>_>,_.><\u0006_>._,>_>._.>_>,_,>#turn\nHv\u001bi\u001b#untrap\nhi\u001b\u0007tame kitten\n\u0017newt corpse\nt\u001b\u0017huge chunk of meat\nt\u001b\u0007kobold\n\u0017scroll of taming\nrq \u0006_>>.Fk _.Fl >_>>._,>_>>,_.>\u0017leash\nar.u  lkharll\u0007newt\n\u0017scroll of taming\nrt #name\nf\n#enhance\n@.#untrap\nn\u0006_>._.>_>.Fl_.>_>._,>\u0006_>>._,>_>>._.>_>>,_,>\u0006_>,_.>_>._,>_>,_.>#ride\nby\u0004h\u0006_>._.>_>._,>_>._,>w\u001b\u0004b\u0006_>._.>_>,_.>_>. _.>#turn\narlmO>>>>f\u001b\n\u0006_>.Fh_.Fj>_>.Fj_.> \u0006_>.Fj_.Fj>FjFj_>,Fj_.Fj>FjFj_>.Fj_.Fj>FjFjFjFjFj<\u0006_>.Fj_.Fj>FjFj_>.Fj_.Fj>FjFj_>.Fj_,Fj>FjFjFjFjFj\u0006_>.Fj_.Fj>FjFj_>,Fj_.Fj >FjFj_>.Fj_.Fj>FjFjFjFjFj\u0006_>.Fj_,Fj>FjFj_>.Fj_.Fj>FjFj_>. Fj_.Fj>FlFjFlFjFl\u0006_>"
+  }
+ ]
+}

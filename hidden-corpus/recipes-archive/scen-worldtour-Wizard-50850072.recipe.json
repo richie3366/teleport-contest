@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed amulet of life saving\nPo\u0017blessed Mjollnir\nwp \u001637\n   #chat\nh;<. \u001b@.ss\u001636\n juh l   :\u00164\n\u001715 shuriken\nQq\u0007hill orc\nnfyfy fb        Fb s\u0017potion of levitation\ntqh\u0007jackal\nhflfbfkylj,\u0016?\n>>Q\u0004u\u001613\n#chat\nb;m,ss.\u0016?\n>>P  _<.>\u00164\n_{.\u0016?\nd _>.<\u001613\n_<.\u00168\n_>,Fj  _.\u0016?\n>t #levelchange\n12\n   \u0017Frost Brand\nwo  Fh .s#invoke\no<.     X\u0007newt\nFn         Fj   n    \u0007little dog\nFl     Fh  n    Fk Fk   n     Fy    n  Fu      \u0007guardian naga\nFjFj \u0007soldier\ns   n .m.         n    20s     .n   n      . sm.        n   20s            n \u00163\n\u0016?\n>I_{,<\u0016?\n>>N      ring of slow digestion\n#levelchange\n20\n       \u001710 daggers\nQu\u0007jackal\nk    y      fn          n   fy           fk            n  fkx #twoweapon\nFj Fj l   k    n     b          ,   n   #enhance\nn\u001b\u00164\n\u0016?\n\u001bj                n  k       n    \u001636\n\u00173 scroll of enchant armor\n\u0007stalker\nrv  \u001b           ynny y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50850072,
+   "datetime": "20241119041821",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed amulet of life saving\nPo\u0017blessed Mjollnir\nwp \u001637\n   #chat\nh;<. \u001b@.ss\u001636\n juh l   :\u00164\n\u001715 shuriken\nQq\u0007hill orc\nnfyfy fb        Fb s\u0017potion of levitation\ntqh\u0007jackal\nhflfbfkylj,\u0016?\n>>Q\u0004u\u001613\n#chat\nb;m,ss.\u0016?\n>>P  _<.>\u00164\n_{.\u0016?\nd _>.<\u001613\n_<.\u00168\n_>,Fj  _.\u0016?\n>t #levelchange\n12\n   \u0017Frost Brand\nwo  Fh .s#invoke\no<.     X\u0007newt\nFn         Fj   n    \u0007little dog\nFl     Fh  n    Fk Fk   n     Fy    n  Fu      \u0007guardian naga\nFjFj \u0007soldier\ns   n .m.         n    20s     .n   n      . sm.        n   20s            n \u00163\n\u0016?\n>I_{,<\u0016?\n>>N      ring of slow digestion\n#levelchange\n20\n       \u001710 daggers\nQu\u0007jackal\nk    y      fn          n   fy           fk            n  fkx #twoweapon\nFj Fj l   k    n     b          ,   n   #enhance\nn\u001b\u00164\n\u0016?\n\u001bj                n  k       n    \u001636\n\u00173 scroll of enchant armor\n\u0007stalker\nrv  \u001b           ynny y y y\u001b  F"
+  }
+ ]
+}
