@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — D-4039 cliffs-head `u_stuck_cannot_go` writer: EXT_CMDS lacked the `history` runner, typed #history fell to «unknown extended command» (83 extcmd → 69 PASS + 14 moved)
+
+**C locus:** nethack-c/upstream/src/cmd.c:1738–1739 extcmdlist «history» (IFBURIED|AUTOCOMPLETE|GENERALCMD → dohistory); pager.c:2960–2965 dohistory → display_file(HISTORY, TRUE).
+**JS:** 1 row (js/getline.js EXT_CMDS) + scripts/extcmd-history.test.mjs (runner resolves; typed-# exact match; autocomplete).
+**Change:** js/getline.js only — added the `history` EXT_CMDS row (version sibling shape: dynamic `./pager.js` import, edge already present; wiz:false, autocomplete:true per C flags) with C cite.
+**Verify:** node scripts/verify.mjs --fn u_stuck_cannot_go → VERIFY: PASS · verify u_stuck_cannot_go: 69 PASS, 14 moved past, 0 unchanged, 0 worse → PROGRESS (probe trio: Ranger-51257061 PASS, Rogue-51257076 → js-throw@599 was 521, Samurai-51257072 PASS; moved land strictly later: js-throw/drinkfountain/pluslvl) · REACH-OK (no RNG-tagged reach; smoke 24/24) · green 2/2 + strict ×2 + cohort 7/7 · scripts/extcmd-history.test.mjs 3/3 (2/3 pre-fix: runner test failed) · full skipped (no shared file changed per gate).
+**Named:** (1) other EXT_CMDS gaps audited, unwired: INTERNALCMD rows (clicklook/mouseaction/altadjust/alttakeoff/altunwield/altdip) correctly runnerless — extcmds_match skips them by design; MOVEMENTCMD move*/run*/rush* directionals (24) + PREFIXCMD fight/run/rush/reqmenu need typed-# prefix/key semantics review — no session types them. (2) GENERALCMD/typed mates call/redraw/remove/retravel/whatdoes/wizcast + wizbury (no JS callee) unwired — no board row names them; wire when a cliff does. (3) u_stuck_cannot_go body untouched (ledger ported stands).
+**Next:** the 14 moved sessions' new owners (later-step js-throw, drinkfountain, pluslvl) re-rank via the regenerated cliffs block.
 ## 2026-10-16 — D-4038 cliffs-head `display_pickinv` writer: doname_base never staged override_ID for pretty_base, wizid menu showed appearance names (51 extcmd → 1 PASS + 50 moved)
 
 **C locus:** `wizcmds.c:49–66` wiz_identify sets `iflags.override_ID` (cmd char, nonzero) around display_inventory; `invent.c:3322` formats each wizid row with `doname(otmp)`; `objnam.c:1247` doname_base starts `bp = xname(obj)`; `xname_flags :640–646` stages `known=dknown=bknown=TRUE, nn=1` under override_ID for its whole class switch (AMULET `:676–688`: nn → actualn); doname_base `:1255–1262` forces its own five prefix flags the same way.

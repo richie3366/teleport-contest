@@ -43,4 +43,4 @@
 {"fn":"domenucontrols","c":"2820-2827","status":"split","js":["js/dokeylist.js:domenucontrols_lines","js/pager.js:dohelp"],"at":"2026-10-02@ba7109db3","note":"stale: split-live domenucontrols_lines + dohelp ?l site (rev 1487 ACCEPT)"}
 {"fn":"dohelp","c":"2860-2899","status":"ported","js":["js/pager.js:dohelp"],"d":["D-3402"],"at":"2026-10-04@e77f3975a","note":"audit 2026-10-03: PORT_HELP item compiled out for unix (N/A)"}
 {"fn":"setopt_cmd","c":"2908-2957","status":"ported","js":["js/pager.js:setopt_cmd"],"d":["D-2837"],"at":"seed@a30a7de84"}
-{"fn":"dohistory","c":"2961-2965","status":"ported","js":["js/pager.js:dohistory"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dohistory","c":"2961-2965","status":"ported","js":["js/pager.js:dohistory"],"d":["D-4039"],"at":"2026-10-16@320a997bf"}
