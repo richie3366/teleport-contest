@@ -79,7 +79,7 @@ import { udeadinside } from './read.js';
 import { you_were } from './were.js';
 import {
     UNENCUMBERED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
-    NO_MM_FLAGS, Upolyd, LL_ACHIEVE, NHCORE_START_NEW_GAME, NHCORE_RESTORE_OLD_GAME,
+    NO_MM_FLAGS, MM_ASYNCGROUP, Upolyd, LL_ACHIEVE, NHCORE_START_NEW_GAME, NHCORE_RESTORE_OLD_GAME,
     NHCORE_MOVELOOP_TURN, NHCB_END_TURN, ESCAPED,
     ROLE_GENDMASK, ROLE_MALE, ROLE_FEMALE,
     UTOTYPE_NONE, TIMEOUT, REGENERATION, CLAIRVOYANT,
@@ -399,9 +399,13 @@ async function maybe_generate_rnd_mon() {
         rate = 50;
     }
     if (!rn2(rate)) {
-        const rndmon = makemon(null, 0, 0, NO_MM_FLAGS);
+        // MM_ASYNCGROUP (D-4014): C runs the mid-game group with member
+        // appears INLINE, so a member Norep --More-- splits the placements
+        // across replay steps (Valkyrie s146/s147 Uruk-hai group); the
+        // deferred tail in makemon_appear_msg preserves C draw order.
+        const rndmon = makemon(null, 0, 0, MM_ASYNCGROUP);
         // C: the appear Norep is inside makemon (:1476–1500).
-        if (rndmon) await makemon_appear_msg(rndmon, rndmon.mx | 0, rndmon.my | 0, NO_MM_FLAGS);
+        if (rndmon) await makemon_appear_msg(rndmon, rndmon.mx | 0, rndmon.my | 0, MM_ASYNCGROUP);
     }
 }
 

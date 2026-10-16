@@ -2432,6 +2432,12 @@ export const MM_NOMSG = 0x00020000;
 export const MM_NOEXCLAM = 0x00040000;
 export const MM_IGNORELAVA = 0x00080000;
 export const MM_ASYNC = 0x00100000;      // caller will await; store appear-message promise on monster
+// JS-only (no upstream counterpart): caller awaits makemon_appear_msg and
+// wants C's mid-game tail order there — group gates + group with member
+// appears awaited INLINE per member (a member Norep --More-- splits the
+// placements across replay steps, C makemon.c:1430-1473), then invent,
+// migrating deliver, primary newsym, then the primary's appear. D-4014.
+export const MM_ASYNCGROUP = 0x00200000;
 
 // Teleport target search flags (include/hack.h; src/teleport.c goodpos/enexto)
 // Runtime fields: teleport goodpos/enexto entflags/gpflags args
