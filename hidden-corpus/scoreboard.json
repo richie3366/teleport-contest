@@ -1,6 +1,6 @@
 {
- "commit": "b8862755e",
- "at": "2026-10-16T01:16:48.338Z",
+ "commit": "0bda6a2a2",
+ "at": "2026-10-16T01:26:33.301Z",
  "full": false,
  "fullCommit": "28130c7ea",
  "fullAt": "2026-10-16T00:20:57.304Z",
@@ -13713,19 +13713,19 @@
   "scen-worldtour-Wizard-50056058": {
    "src": "corpus",
    "passed": false,
-   "rngM": 0,
+   "rngM": 95794,
    "rngT": 95794,
-   "scrM": 0,
+   "scrM": 1098,
    "scrT": 1101,
-   "kind": "rng",
-   "step": 0,
+   "kind": "screen",
+   "step": 346,
    "steps": 1101,
-   "owner": "randomize_gem_colors",
-   "loc": "o_init.c:89",
+   "owner": "goto_level",
+   "loc": "do.c:1696",
    "jsOwner": null,
-   "cTopline": "Hello wizard, welcome to NetHack! You are a chaotic male orcish Wizard.",
-   "jsTopline": "",
-   "error": "TypeError: useup is not a function |     at hatch_egg (file:///home/debian/dev/teleport-contest/js/timeout.js:2591:9) |     at async run_timers (file:///home/de"
+   "cTopline": "goto_level: returning to discarded level?--More--",
+   "jsTopline": "goto_level: returning to discarded level?--More--",
+   "error": null
   },
   "scen-worldtour-Wizard-50056061": {
    "src": "corpus",

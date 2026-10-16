@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — D-4002 cliffs-head `randomize_gem_colors` writer: hatch_egg shadowed invent useup with eat.js undefined (worldtour Wizard-50056058 throw-void → goto_level@s346)
+
+**C locus:** `timeout.c` hatch_egg `:1017–1189`, carried-consumed arm `:1177–1178` (`else if (carried(egg)) useup(egg);`); `invent.c` useup `:1320–1333` (live js/invent.js:5134, unchanged).
+**JS:** js/timeout.js (1 line removed, 2 comment lines); scripts/hatch-egg-carried-useup.test.mjs (new node:test: prefix-895 replay pins 896 screens + «You see a killer bee fly out of your pack!»).
+**Change:** js/timeout.js only — deleted the shadowing dynamic import (replaced with a 2-line NB comment citing the static invent.js:54 import); the :2591 call now resolves to the live export. No signature, control-flow, or RNG change; the sibling dynamic imports in the same prologue (enexto/makemon/tamedog/m_at/hideunder) all resolve to real exports and are untouched. Rule #2 clean (no new edge — one fewer).
+**Verify:** focused test red pre-fix (TypeError at prefix 895; prefix 894 clean) → green post-fix (1/1). `node scripts/verify.mjs --fn randomize_gem_colors,hatch_egg` → PASS syntax (1 file js/timeout.js) · rule2 · `verify randomize_gem_colors: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (50056058 → goto_level at step 346, was 0) · reach randomize 80/80 (spread of 561) → REACH-OK · note hidden hatch_egg (writer, none blocked) · reach hatch_egg 4/4 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS. Movement: `verify randomize_gem_colors: 0 PASS, 1 moved, 0 no-movement`.
+**Named:** none new — hatch_egg stays ported (body untouched; standing doc omits SetVoice-before-Gleep + migrating #if 0, unchanged).
+**Next:** regenerated cliffs head (50056058 now blocked on goto_level@s346 — own cause, own pop). Do not re-port randomize_gem_colors (symptom owner, whole) or hatch_egg's body (whole). The `await import` of a non-exported name is a silent-undefined class: any future dynamic import must destructure names the target module exports (brief's sym table lists the live file per callee).
 ## 2026-10-16 — D-4001 cliffs-head `randomize_gem_colors` writer: mthrowu.c breamm resumed past fatal dobuzz where C's done() never returns (Tourist-50550074 PASS)
 
 **C locus:** `mthrowu.c` breamm `:1093–1150` — dobuzz `:1122–1127`, then `:1129` nomul(0), `:1132` `if (!utarget || !rn2(3))` mspec gate; `hack.c` losehp `:4287–4288` (done(DIED)); `end.c` done/terminate (noreturn on a true death — really_done keeps gameover set; lifesave/Die?-decline returns).
