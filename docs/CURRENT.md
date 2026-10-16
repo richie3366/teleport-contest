@@ -22,20 +22,20 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-16** — full `sessions` on `28130c7ea`
-(audit **2837–2843**). Fortress **44/44** (no throws; aggregates in the table).
+Score last measured: **2026-10-16** — full `sessions` on `d9747bd2c`
+(audit **2844–2852**). Fortress **44/44** (no throws; aggregates in the table).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-15 19:12Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** (D-3978…D-4008 window unjudged) |
+| **Held-out (judge 2026-10-16 01:37Z)** | **32 / 44**, 10,454 / 11,265 pts, RNG **93.5 %**, rngSteps 98.2 %, screens **92.8 %** (D-3978…D-4008 window unjudged) |
 | **Fresh cohort (§10.20, scored on arrival)** | 50850000 ×160 @`7847e3f76`: **144/160 (90.0 %)**, RNG 97.7 %, screens 97.6 % — town 1/2, genesis 2/3, intrinsic 2/3, sweep/symset 9/12 worst; questtour/worldtour 10/12, shop/trek/zapfest 11/12, chain 12/12 |
-| **Corpus board (worked, regression fortress)** | `score --new` 2026-10-16 (Grow #14): **563/897** (62.8 %); `tier` (§10.21) → **878 active + 283 reserve + 4311 archive** (144 PASS-on-arrival archived, reserve 277 → 283) |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-16 (audit 2844–2852): **572/1173** (**0 PASS→FAIL**, +2 healed); `tier` (§10.21) → **864 active + 279 reserve + 4325 archive** (14 out, 4 promoted) |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `392+1.81/turn` (R² 0.80) |
+| Speed label | `399+1.87/turn` (R² 0.81) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
@@ -50,12 +50,12 @@ fortress — it rises by construction). Fresh history: 79–91.8 %
 across 12 cohorts (Grow #5–14; previous 143/160 @50750000).
 Fresh−held-out gap now 17.3 pts (90.0 % vs 72.7 %), inside the §10.20 band —
 no calibration family (Grow #6 `symset` 15/240).
-**Corpus (Grow #14 `score --new`, 2026-10-16, 897 rows):**
-563 PASS (62.8 %); RNG 94.42 %, screens 93.4 %; 878 active + 283 reserve + 4311 archive.
+**Corpus (audit 2844–2852, 1159 rows):**
+558 PASS; RNG 93.05 %, screens 89.91 %; 864 + 279 + 4325.
 Worst families `scen-questtour` 7/31, `scen-zapfest` 8/15, `scen-shop` 16/83,
-`scen-worldtour` 66/157, `scen-descend` 7/8, `scen-symset` 20/213,
-`scen-sweep` 137/279; next `scen-town` 11/15, rest ≥ 96.9 % RNG.
-Reviews 1225–2843 (index; no row 1618): 1444 ACCEPT, 63 WITH-DEBT, 111 QUALITY-RISK (2837–2843: 7A/0D/0Q, 0 Must-fix queued).
+`scen-descend` 7/8, `scen-worldtour` 65/156, `scen-symset` 17/209,
+`scen-sweep` 142/276; next `scen-town` 11/15, rest ≥ 96.9 % RNG.
+Reviews 1225–2852 (index; no row 1618): 1453 ACCEPT, 63 WITH-DEBT, 111 QUALITY-RISK (2844–2852: 9A/0D/0Q, 0 Must-fix queued).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
 Full rescore (audit only, §10.21): `record` + unfiltered `score` (active tier) + `archive` (+ quota), committed `full: true`; needs the C recorder.
@@ -147,7 +147,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** digactualhole cliff → feeltrap writer (map_trap vision-override paint); verify digactualhole moves 4 probes.
+**Next:** Open — cliffs head `uhitm.c` do_attack (5 blocks @d9747bd2c; history D-2036 — read once, port the arm this divergence names).
 
 ## Parked (diagnose only)
 

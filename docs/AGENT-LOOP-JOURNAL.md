@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — audit 2844–2852 @d9747bd2c: review D-4000..D-4008 (9A/0D/0Q, 0 Must-fix) + full rescore 572/1173 (0 PASS→FAIL)
+
+**Reviews:** 9 cliff SHAs oldest-first, each re-measured on HEAD — all movement claims exact: 2844 drinksink+MB (2+0+0+0), 2845 breamm (1+1+0+0, 2nd move = D-4002), 2846 useup shadow (0+1+0+0), 2847 jingle-N (1+0+2+0; BSS offsets recompiled: 704/696/92/84), 2848 touch guard (frozen 3493+32 rechecked), 2849 kludge (1+0+0+0), 2850 attr serialize (0+1+2+0; nomux end-scan verified; D-4006 ledger loci clobber repaired in-review), 2851 dig Blind (351→492→828 chain), 2852 feeltrap (6+1+0+0). No Must-fix queued.
+**Score:** public 44/44 (792,838 RNG, 11,405 screens, 399+1.87/turn R² 0.81). Full rescore 572/1173 (93.11 % RNG, 90.02 % scr — up from committed 93.08/90.00; 0 PASS→FAIL, +2 healed) → archive → 864 active + 279 reserve + 4325 archive; post 558/1159, full:true. Held-out 32/44 rank 3 (window unjudged). Next head: uhitm.c do_attack ×5 (D-2036).
+**Ledger:** snapshot appended; seeded sample 5/5 stand (left_side measured-PARTIAL but body-read whole). Tooling: `ledger.mjs sql` needs node:sqlite (absent on Node 20) — grepped seed@ instead; null-owner "js-throw" label = `hidden-proxy.mjs:947` fallback (3rd confirmation).
 ## 2026-10-16 — D-4008 cliffs-head digactualhole writer: trap.c feeltrap omitted the map_trap(trap, 1) vision override — felt-but-unseen pits never painted (6 probe PASS, Barbarian 492→828)
 
 **C locus:** trap.c feeltrap `:3588–3594` ("like seetrap() but overrides vision"): `trap->tseen = 1; map_trap(trap, 1); newsym(...)`. display.c map_trap `:296–305` paints the trap glyph and records it in memory unconditionally; the trailing newsym re-covers it with any visible monster/object ("in case it's beneath something, redisplay the something"). At Knight s555 the pitted hero's digging beam skips the conjoined pit at (8,17) (zap_dig pitdig arm) and digs (9,17) onto a gnome C cannot see (!couldsee outside pit vision); digactualhole takes the !cansee madeby_u arm → feeltrap → C paints `^`.

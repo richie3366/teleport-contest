@@ -66,7 +66,7 @@
 {"fn":"g_pututf8","c":"3795-3803","status":"ported","js":["js/display.js:show_glyph_cell"],"d":["D-3945"],"at":"2026-10-14@5018ae760"}
 {"fn":"setclipped","c":"3809-3815","status":"ported","js":["js/display.js:setclipped"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact: clipping on, origin pan, extents at screen size minus statuslines."}
 {"fn":"tty_cliparound","c":"3818-3842","status":"ported","js":["js/display.js:tty_cliparound"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact hysteresis both axes + redraw_map on origin move."}
-{"fn":"tty_print_glyph","c":"3855-3977","status":"partial","js":["js/display.js:serialize_for_scoring"],"omit":"(1) mid-row inv/uline runs >4 stay literal — no session evidence C compresses them; (2) trailing colored-but-attrless spaces still dropped (C end-scan also keeps fg∉{7,0} — no session evidence); (3) the 2 unchanged level_tele sessions keep own writers (celldiff-measured): worldtour-Barbarian-504585…","d":["D-4006","D-3993","D-3963"],"at":"2026-10-16@2540a6635"}
+{"fn":"tty_print_glyph","c":"3855-3977","status":"partial","js":["js/display.js:show_glyph_cell","js/display.js:map_screen_cell","js/display.js:serialize_for_scoring"],"omit":"(1) mid-row inv/uline runs >4 stay literal — no session evidence C compresses them; (2) trailing colored-but-attrless spaces still dropped (C end-scan also keeps fg∉{7,0} — no session evidence); (3) the 2 unchanged level_tele sessions keep own writers (celldiff-measured): worldtour-Barbarian-504585…","d":["D-4006","D-3993","D-3963"],"at":"2026-10-16@d9747bd2c"}
 {"fn":"term_start_bgcolor","c":"3982-3985","status":"unknown"}
 {"fn":"term_curs_set","c":"3987-3990","status":"unknown"}
 {"fn":"tty_change_color","c":"3995-3998","status":"unknown"}
