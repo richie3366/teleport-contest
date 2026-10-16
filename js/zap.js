@@ -4096,10 +4096,16 @@ async function mimic_hit_msg(mtmp, otyp) {
  * SPE_HEALING/SPE_EXTRA_HEALING wand-duplicate weffects is D-1469.
  * zap_steed SPE_CURE_SICKNESS routes here (D-1480) but C has
  * no bhitm arm (default impossible; objects.h NODIR).
- * @returns {Promise<number>} 0 (non-stopping for bhit range)
+ * WAN_NOTHING (wake FALSE, `:545–547`); SPE_KNOCK ret 1 stops the beam
+ * in bhit (`:403`, `:4027–4033`); default impossible (`:548–551`).
+ * @returns {Promise<number>} 1 when SPE_KNOCK absorbed the beam (bhit
+ * stops), else 0
  */
 export async function bhitm(mtmp, otmp) {
     if (!mtmp || !otmp) return 0;
+    // C zap.c bhitm `:162` — nonzero return stops the ZAPPED_WAND beam
+    // in bhit (`:4027–4033`); only the SPE_KNOCK arm sets it (`:403`).
+    let ret = 0;
     let wake = true;
     let reveal_invis = false;
     let learn_it = false;
@@ -4407,6 +4413,11 @@ export async function bhitm(mtmp, otmp) {
         }
         break;
     }
+    case WAN_NOTHING:
+        // C zap.c bhitm :545–547 — a wand of nothing neither wakes nor
+        // angers the monster it hits (wake FALSE skips the wakeup tail).
+        wake = false;
+        break;
     case WAN_LIGHT:
         // C: broken-wand / IMMEDIATE light flash on monster
         if (await flash_hits_mon(mtmp, otmp)) {
@@ -4437,6 +4448,9 @@ export async function bhitm(mtmp, otmp) {
             }
             if (otyp === SPE_KNOCK) {
                 wake = true;
+                // C `:403` — the knock is absorbed: the beam stops here
+                // (bhit `:4027–4033` breaks on a nonzero fhitm return).
+                ret = 1;
                 if ((mtmp.data?.msize | 0) < MZ_HUMAN
                     && !m_is_steadfast(mtmp)) {
                     if (canseemon(mtmp)) {
@@ -4564,6 +4578,8 @@ export async function bhitm(mtmp, otmp) {
         break;
     }
     default:
+        // C zap.c bhitm :548–551 (bhito :6042–6045 sibling shape).
+        await impossible(`What an interesting effect (${otyp | 0})`);
         break;
     }
 
@@ -4586,7 +4602,8 @@ export async function bhitm(mtmp, otmp) {
         }
     }
     if (learn_it) learnwand(otmp);
-    return 0;
+    // C zap.c bhitm `:571` — nonzero (SPE_KNOCK) stops the beam in bhit.
+    return ret;
 }
 
 /** C youprop.h Unaware — multi < 0 && (unconscious || fainted). */
