@@ -107,4 +107,4 @@ Re-measured on HEAD code, `--base 24cf3a108~1 --no-reach`:
 
 Verdict: **ACCEPT-WITH-DEBT**
 
-**Addressed:** D-4018
+**Addressed:** D-4018 `8595ef25e`
