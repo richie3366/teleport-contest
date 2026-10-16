@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — Grow #16: fresh 148/160 (92.5 %) @51050000; +12 failing folded, 148 archived, no Must-fix, no full rescore
+
+**Fresh cohort:** 148/160 (92.5 %) on arrival @`1c7d7bc15` (160 authored+scored), RNG 98.8 %, screens 97.9 %. Worst: caster/town 1/2; symset 8/12; sweep/worldtour 10/12; shop/zapfest 11/12; chain/questtour/trek 12/12 + rest 100 %. Gap 19.8 pts vs held-out 72.7 % — inside the §10.20 band, no calibration family (prev 140/159 @50950000).
+**Fold:** +12 failing (8 active recipes + 4 direct-to-reserve over quota: symset inuse_classify/getpos/unattributed, worldtour one_characteristic), 148 PASS-on-arrival → recipes-archive/; `score --new` 571/896 (63.7 %), RNG 95.33 %, screens 94.4 %; `tier` 5 → reserve (4 new + worldtour-Barbarian-49955028), 6 promoted back (questtour-Knight-50650022, sweep-Archeologist-49956066, sweep-Ranger-578209, worldtour-Archeologist-95209, worldtour-Caveman-50255525, worldtour-Samurai-50358004); reserve 288 → 287; corpus 878 active + 287 reserve + 4626 archive. No full rescore (audit does it 1×/10 iters, §10.21). Periodic slot (cliffs held 12 rows) — no refill (§10.19).
+**Must-fix:** none — no JS throw in the 12 folded sessions (all error null).
+**Owners:** print_mapseen +1 (2x) and regen_hp +1 (2x) join multi-session; brand-new singletons gulpmu, demon_talk, hitmm; noncoalignment +1 (4x), inuse_classify/getpos/one_characteristic +1 each (34x/13x/12x); 3 unattributed (caster-Wizard-51051009 + town-Priest-51051022 active, symset-Priest-51050063 reserve).
+**Cliffs regen:** same head (unattributed symset-Rogue-50059025), denominators /1165 → /1177; fresh hitmm (sweep-Knight-51050073, 956 screens lost) enters row 2, kick_monster drops off.
 ## 2026-10-16 — D-4021 cliffs-head xname_flags writer: muse create-monster arms wired MM_ASYNCGROUP (mid-group More split; 4/4 PASS + 5 use_defensive) + deferred-tail birth-type gate (doppelganger)
 
 **C locus:** muse.c use_defensive MUSE_SCR_CREATE_MONSTER `:998–1036` (mreadmsg `:1015` → enexto/makemon loop `:1016–1024`); makemon.c tail `:1430–1500` (group gates `:1431/:1434`, per-member newsym+Norep `:1473/:1492`, each Norep's update_topl `:274` more() splitting placements); makemon.c `:1356–1367` (sync-prefix newcham swaps mtmp->data, clears allow_minvent; local `ptr` stays the BIRTH type for the gates `:1430` and invent predicates `:1443/:1447`).
