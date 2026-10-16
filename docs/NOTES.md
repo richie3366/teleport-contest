@@ -25,21 +25,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4000 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4001 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4000.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4000 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4001.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4001 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4001: js/mthrowu.js only — after the dobuzz try/finally, `if (game.program_state?.gameover) return M_ATTK_HIT;` before nomul(0) (C runs neither on the fatal Named: none new.
 - D-4000: (1) drain idiom in the else arm (needs_done → finish_losehp_done + gameover return; else finish_maybe_wail), monstunseesu after on survival (C order;  Named: (1) Amulet_on hadMB guard kept: equivalent to C's unconditional restore whenever confer wr
 - D-3999: the gate now reads the C-exact union `!!((u.HDeaf|0) || (u.EDeaf|0) || u.uroleplay?.deaf || u.Deaf)` (cuss shape, same file — no new edge); the doc om Named: none new — resurrect stays ported (whole-body audit vs C :715–780: fresh/migrating arms, W
 - D-3998: after `finish_losehp_done()`, return 1 only when `gameover` is still set (real death via really_done); survived → fall through like C (no maybe_wail — Named: none new — eatcorpse stays ported (full-body audit vs C :1855–2018: conduct/rotted/tainted
@@ -54,5 +55,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-3989: js/wizard.js only — deleted the local clone, imported the canonical `Protection_from_shape_changers` from were.js (`imports.mjs --can`: SAFE, hoisted  Named: (1) flats-only Protection reads in OTHER C functions ship only when a session names them (
 - D-3988: added the C :989-993 gate to all 17 inline loops (same `IS_STWALL||IS_TREE||IRONBARS` expression as sibling :4515; flags-mirror write kept per splev_n Named: none (C :985-995 whole at every application: shared per-cell :5131 + splev_non_diggable :4
 - D-3987: `export async function do_symset(rogueflag)` porting the whole C body: null-name read_sym_file list pick, both filter loops (rogue?primary:rogue, H_MA Named: none in-body — whole C body live (menu via select_menu_pick_one: create/start/end/select/d
-- D-3986: js/shk.js only — init `'a'` per decl.c:720 + corrected cite comment. Named: none new (sellobj/pay/money2u/splitobj/nextoid pre-wired and faithful — offers, splits, me
 <!-- landmarks:end -->
