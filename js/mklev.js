@@ -30000,7 +30000,9 @@ async function makerooms() {
             // the wrapper set/clear mirrors C :413/:417.
             g.in_mk_themerooms = true;
             g.themeroom_failed = false;
-            await themerooms_generate(depth_of_level(g.u?.uz));
+            // C themerms.lua is_eligible :890-902 reads nh.level_difficulty(),
+            // not depth() — EAggravate/amulet/builds_up arms gate mindiff.
+            await themerooms_generate(level_difficulty());
             g.in_mk_themerooms = false;
             if (g.themeroom_failed
                 && (themeroom_tries++ > 10
@@ -32434,8 +32436,9 @@ const THEMEROOM_FILL_BODIES = {
 };
 
 // C ref: themerms.lua themeroom_fill() — reservoir + dispatched fill bodies
+// (is_eligible reads nh.level_difficulty(), not depth() — :890-902).
 function themeroom_fill(croom) {
-    const difficulty = depth_of_level(game.u?.uz);
+    const difficulty = level_difficulty();
     let pick = null;
     let total_frequency = 0;
     for (const fill of THEMEROOM_FILLS) {
