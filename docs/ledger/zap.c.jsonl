@@ -6,10 +6,10 @@
 {"fn":"probe_monster","c":"626-640","status":"ported","js":["js/zap.js:probe_monster"],"at":"2026-10-03@bbe63333a"}
 {"fn":"get_obj_location","c":"654-689","status":"ported","js":["js/timeout.js:get_obj_location"],"d":["D-2977"],"at":"2026-09-27@25beec7af","note":"stale: js/timeout.js:1637"}
 {"fn":"get_mon_location","c":"692-709","status":"ported","js":["js/timeout.js:get_mon_location"],"d":["D-3408","D-2996"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
-{"fn":"montraits","c":"713-827","status":"ported","js":["js/zap.js:montraits"],"at":"2026-10-03@bbe63333a"}
+{"fn":"montraits","c":"713-827","status":"ported","js":["js/zap.js:montraits"],"d":["D-4041"],"at":"2026-10-16@99c3428ef"}
 {"fn":"get_container_location","c":"841-859","status":"ported","js":["js/zap.js:get_container_location"],"at":"2026-10-03@bbe63333a"}
 {"fn":"zombie_can_dig","c":"863-875","status":"ported","js":["js/zap.js:zombie_can_dig"],"d":["D-3408","D-3074"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
-{"fn":"revive","c":"884-1140","status":"ported","js":["js/zap.js:revive"],"at":"2026-10-03@bbe63333a"}
+{"fn":"revive","c":"884-1140","status":"ported","js":["js/zap.js:revive"],"d":["D-4041"],"at":"2026-10-16@99c3428ef"}
 {"fn":"revive_egg","c":"1143-1152","status":"ported","js":["js/zap.js:revive_egg"],"at":"2026-10-03@bbe63333a"}
 {"fn":"unturn_dead","c":"1156-1222","status":"ported","js":["js/zap.js:unturn_dead"],"d":["D-3425"],"at":"2026-10-04@c4d4e5278"}
 {"fn":"unturn_you","c":"1225-1235","status":"ported","js":["js/zap.js:unturn_you"],"at":"2026-10-03@bbe63333a"}

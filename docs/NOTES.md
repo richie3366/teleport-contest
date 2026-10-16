@@ -22,21 +22,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4040 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4041 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4040.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4040 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4041.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4041 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4041: js/zap.js only — import makemon_appear_msg (existing makemon.js edge, imports.mjs ALREADY) + await it right after each creation (montraits :3145, cant Named: none new — revive's makemon tail is now complete on all 3 arms; montraits standing omits (
 - D-4040: js/zap.js only — `let ret = 0` (`:162`); `case WAN_NOTHING: wake = false` (C-order, after SPE_DRAIN_LIFE); `ret = 1` in the SPE_KNOCK arm (`:403`); de Named: none in this unit — bhitm is now the full C body (all 17 switch arms + default + ret).
 - D-4039: js/getline.js only — added the `history` EXT_CMDS row (version sibling shape: dynamic `./pager.js` import, edge already present; wiz:false, autocomple Named: (1) other EXT_CMDS gaps audited, unwired: INTERNALCMD rows (clicklook/mouseaction/altadjus
 - D-4038: js/objnam.js only — doname_base stages `obj.known/dknown/bknown = 1` + `game.objects[otyp].oc_name_known = 1` before the base-name if/else and restore Named: (1) doname_base standing partial omits untouched (D-2483 by-design strings, doname_full ov
@@ -51,5 +52,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-4029: js/dokick.js only — the wild-miss guard now calls the file-local `Levitation()` (C cite comment). Named: none — every kick_monster callee is live; no deferred arm (D-2042's kickdmg arm shipped se
 - D-4028: none — measurement (this commit). Named: none — no port; docs-only entry, no Ledger bullet (D-4016/D-3944 precedent).
 - D-4027: replaced the deferral with `await rehumanize()` in C order (pline → rehumanize → assess_dmg return) with a C-citing comment. Named: (1) passiveum's other standing defers untouched (AD_ENCH drain_item :3101, mon_reflects :3
-- D-4026: js/cmd.js only — deleted the `!forcefight` guard so the condition matches C exactly (Blind/mon_visible/M_AP/sensemon/nomul/move=0 all already C-order) Named: (1) domove_core's standing partial omits untouched: displacer swap, mundetected Wait!, ful
 <!-- landmarks:end -->
