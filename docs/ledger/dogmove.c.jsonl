@@ -11,7 +11,7 @@
 {"fn":"score_targ","c":"738-835","status":"ported","js":["js/dogmove.js:score_targ"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd","note":"stale: js/dogmove.js:1136, whole C :737-835 incl rn2/rnd order + callers wired"}
 {"fn":"best_target","c":"838-885","status":"ported","js":["js/dogmove.js:best_target"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd","note":"stale: js/dogmove.js:1212, whole C body + callers :1247,:1444 wired"}
 {"fn":"pet_ranged_attk","c":"889-967","status":"ported","js":["js/dogmove.js:pet_ranged_attk"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
-{"fn":"dog_move","c":"977-1358","status":"ported","js":["js/dogmove.js:dog_move"],"d":["D-3416","D-2455","D-2119"],"at":"2026-10-04@a1eee6cb2"}
+{"fn":"dog_move","c":"977-1358","status":"ported","js":["js/dogmove.js:dog_move"],"d":["D-4005","D-3416","D-2455","D-2119"],"at":"2026-10-16@2cf31268a"}
 {"fn":"could_reach_item","c":"1362-1369","status":"ported","js":["js/dogmove.js:could_reach_item"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd"}
 {"fn":"can_reach_location","c":"1379-1414","status":"ported","js":["js/dogmove.js:can_reach_location"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd"}
 {"fn":"wantdoor","c":"1418-1427","status":"ported","js":["js/dogmove.js:dog_goal"],"at":"2026-10-02@1896adcef","note":"stale: C body complete as the do_clear_area arrow in dog_goal (js/dogmove.js:795-802; dist2(x,y,u.ux,u.uy) === distu macro hack.h:1531, {v} boxes int*); sole C call site dogmove.c:630; arrow shape review-blessed (review 754)"}
