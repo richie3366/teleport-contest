@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " FuFu Fh50sykbblk\u000f\u001b150sFhss100s\u000f\u001b100s_ \u001b.>50sFhs20s50sFhFh20s_>.>150s150s Fhss100s150sknyhhbFkFk._>.>150sFy20sFy100s150sFys.150sFy20ss150s100s100sFyFy.uyu\u0018\u001b150s100sB HHN_>,>Fh.20sHHHK_>.>FhFhsKJJU _>,>Fy20ss,\u001b#wipe\nHBKY_>.>Zb\nhKULJ_>.>HUKK_>,>NKUN_>.>Jt\u001b\u000f\u001befee100s eeeeeeeeee#quit\nyy\u001by  y y y\u001b  #chat\nbtbjdf..20s    10s ddsssdcs20s st\u001bl20s#chat\nk20s bt\u001bub150s        Fu s20snjhi\u001b100sFhs.150s50si\u001b100s100s_ \u001b>.>_>.>i\u001b100see eg50see150sFhFh20seeeeeeeeeeeeeeeeeeeknhk20snut\u001b#name\ni\n#name\no\nhjukKYNJ_>.>r\u001bZBNYH_>.>aahclBLJH_>,>\u000f\u001bKHLL_>.>JUUK_>.>YNUH_>,>NYNK_>.>JBKK_>.>erh UYKB_>.>NLJY_>.>ukulhhjkllhheeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b FhFhFhFhFhFhFhFhULJJ_ \u001b,>Fk ssY UUB_>,>UBHH_>,>NBLU_>,>LUNB_>.>HHKY_>.>KYYH_>.>lnkujkjb#chat\nu#chat\njdes20s.t\u001blyujhlhu10sdjgiant rat\nssskhyjYKJlarge mimic\nL_>.>;<._>,sYBUY_>,>#ride\nl10sBJbrown mold\nLY_>,>NKNazgul\ncnyBLshopkeeper\n_>,>YHHU_>.>JLNJ_>.>50skbu_>.>150sFhFh.100s 100s100s50sFhFhFhFh20s.kky100sFbFbFh\u0018\u001b_>.>\\  bln100s50s_>.>100s#force\n50s  100s Fh.20s150s100ss100sFhFhFhi\u001b_>,>jbuhbh100s50s\u0018\u001b50s150sNJLB_>.>#wipe\n#invoke\n\u001bHJUL_>.>KHUK_>.>zc#terrain\nc\n,JLYH_>.>Fjs.YLUH_>.>HYBB_>,>YJUB_>.>kulhynbknh20s#name\nf\n#chat\n;#name\nd\njk#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50950058,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:walk\n",
+   "moves": " FuFu Fh50sykbblk\u000f\u001b150sFhss100s\u000f\u001b100s_ \u001b.>50sFhs20s50sFhFh20s_>.>150s150s Fhss100s150sknyhhbFkFk._>.>150sFy20sFy100s150sFys.150sFy20ss150s100s100sFyFy.uyu\u0018\u001b150s100sB HHN_>,>Fh.20sHHHK_>.>FhFhsKJJU _>,>Fy20ss,\u001b#wipe\nHBKY_>.>Zb\nhKULJ_>.>HUKK_>,>NKUN_>.>Jt\u001b\u000f\u001befee100s eeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51050058,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=autodig\n",
+   "moves": " #chat\nbtbjdf..20s    10s ddsssdcs20s st\u001bl20s#chat\nk20s bt\u001bub150s        Fu s20snjhi\u001b100sFhs.150s50si\u001b100s100s_ \u001b>.>_>.>i\u001b100see eg50see150sFhFh20seeeeeeeeeeeeeeeeeeeknhk20snut\u001b#name\ni\n#name\no\nhjukKYNJ_>.>r\u001bZBNYH_>.>aahclBLJH_>,>\u000f\u001bKHLL_>.>JUUK_>.>YNUH_>,>NYNK_>.>JBKK_>.>erh UYKB_>.>NLJY_>.>ukulhhjkllhheeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51150058,
+   "datetime": "20030807202436",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\n",
+   "moves": "FhFhFhFhFhFhFhFhULJJ_ \u001b,>Fk ssY UUB_>,>UBHH_>,>NBLU_>,>LUNB_>.>HHKY_>.>KYYH_>.>lnkujkjb#chat\nu#chat\njdes20s.t\u001blyujhlhu10sdjgiant rat\nssskhyjYKJlarge mimic\nL_>.>;<._>,sYBUY_>,>#ride\nl10sBJbrown mold\nLY_>,>NKNazgul\ncnyBLshopkeeper\n_>,>YHHU_>.>JLNJ_>.>50skbu_>.>150sFhFh.100s 100s100s50sFhFhFhFh20s.kky100sFbFbFh\u0018\u001b_>.>\\  bln100s50s_>.>100s#force\n50s  100s Fh.20s150s100ss100sFhFhFhi\u001b_>,>jbuhbh100s50s\u0018\u001b50s150sNJLB_>.>#wipe\n#invoke\n\u001bHJUL_>.>KHUK_>.>zc#terrain\nc\n,JLYH_>.>Fjs.YLUH_>.>HYBB_>,>YJUB_>.>kulhynbknh20s#name\nf\n#chat\n;#name\nd\njk#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

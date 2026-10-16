@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n        hyub\u0017pit\nb\u0007lichen\nsh.sshy\u0017squeaky board\nb\u0007newt\nsm.s20sslu\u0017rolling boulder trap\nk\u0007newt\nsm.sssi\u001bPfljbk  \u0017rolling boulder trap\nn^yy   ssk\u0017level teleporter\nub 12\n s.y\u0017dart trap\nn^yy.s\u0017land mine\naguh#terrain\nd\n\u001bm,Sy\u001b y<20sq#monster\n>tdboj#conduct\n ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50951001,
+   "datetime": "20020401233633",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n        hyub\u0017pit\nb\u0007lichen\nsh.sshy\u0017squeaky board\nb\u0007newt\nsm.s20sslu\u0017rolling boulder trap\nk\u0007newt\nsm.sssi\u001bPfljbk  \u0017rolling boulder trap\nn^yy   ssk\u0017level teleporter\nub 12\n s.y\u0017dart trap\nn^yy.s\u0017land mine\naguh#terrain\nd\n\u001bm,Sy\u001b"
+  },
+  {
+   "seed": 51451001,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\n",
+   "moves": " y<20sq#monster\n>tdboj#conduct\n "
+  }
+ ]
+}

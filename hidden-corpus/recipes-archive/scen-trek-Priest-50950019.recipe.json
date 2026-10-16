@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " jj#chat\nuunllujkkyl10s10sJYKN_ \u001bm,>FuFu.BnyBYU_>.>LBNU_>.>HNLH_>,>Fhs20s#force\n#wipe\nJBNJ_>.>#chat\njPBJUy N_>._,>\u000f\u001bYYUH_>.>lzjscroll of enchant weapon\nJBYU_>.>JHYL_>,>YBUJ_>.>Fy20ssrg y  \u0014NJUH_>.>,#invoke\n\u001b\u001bYKBB_>.>NUUJ_>.>FuFu.uuby20s10st\u001b\u001bjhJKBB_>.>FlFu20s#tip\n\u001b\u001b<UNH B_>,>KBYB_>,>Fl.s#twoweapon\n#offer\nJLKJ_>.>UKUN_>.>HHUJ_>.>dl#loot\n#terrain\nb\n10s lj#chat\ny10sjl20sJUKH_>.>LYBL_>.>HYJY_>,>#twoweapon\n#sit\nYYHK_>,><LJYU_>.Fh_.m,>NYNJ_>.>UUKN_>,>#dip\nad#enhance\n\u001b\u000f\u001b#untrap\nycjqdJYYU_>.>kqd  y  J"
+ },
+ "segments": [
+  {
+   "seed": 50950019,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:explore\n",
+   "moves": " jj#chat\nuunllujkkyl10s10sJYKN_ \u001bm,>FuFu.BnyBYU_>.>LBNU_>.>HNLH_>,>Fhs20s#force\n#wipe\nJBNJ_>.>#chat\njPBJUy N_>._,>\u000f\u001bYYUH_>.>lzjscroll of enchant weapon\nJBYU_>.>JHYL_>,>YBUJ_>.>Fy20ssrg y  \u0014NJUH_>.>,#invoke\n\u001b\u001bYKBB_>.>NUUJ_>.>FuFu.uuby20s10st\u001b\u001bjhJKBB_>.>FlFu20s#tip\n\u001b\u001b<UNH B_>,>KBYB_>,>Fl.s#twoweapon\n#offer\nJLKJ_>.>UKUN_>.>HHUJ_>.>dl#loot\n#terrain\nb\n10s lj#chat\ny10sjl20sJUKH_>.>LYBL_>.>HYJY_>,>#twoweapon\n#sit\nYYHK_>,><LJYU_>.Fh_.m,>NYNJ_>.>UUKN_>,>#dip\nad#enhance\n\u001b\u000f\u001b#untrap\nycjqdJYYU_>.>kqd  y  J"
+  }
+ ]
+}

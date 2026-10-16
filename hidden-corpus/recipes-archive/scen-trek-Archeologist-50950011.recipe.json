@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  FkFk .jlk100s50sFhssbul100sol_ \u001bm,>\u000f\u001b100sFnss100s100sFnFnFn_>,>100sFkFks\u0018\u001b150sbhu100s100sFy20ssbuj20sklynbh100s150sFkFk._>.>100s_>.>150s50sujhFlFls150sFls20sHLUN_>.>FlFlsBHKN_>,>LKKK_>,>LJBU_>.>:E- Elbereth Elbereth\n#ride\nu150s\u0018\u001b#untrap\nuyly100sFjssjyy150s i\u001b150sFnFnsjku50s150sFns20sFnFjFj100s#force\n100sedjkj50s150sFkssjlh150sFlFls100skbkFns.100s100sljk_>.>hlk_>.>50sFjFj20s50sFj..hq\u0018\u001bN LBB_>.>FlFlsBBBK_>.>BH BU_>.>HBHH_>.>LJLN_>,>ULBU_>.>ULBH_>.>NLBK_>,>FussYYYJ_>,>U JBN_>.>NUYK_>.>HLYJ_>,>BKL J_>.>\u000f\u001bt\u001b\u001b20sulhl#chat\nk20s20s100sFhss_>.>50s100s50sP50sFh20ss100s_>.>50s#monster\n150sed   _m..llh150slhl150s50shlhhllFh20ss150s100s150sFlFlFl100s100sFlsskuj100syubh hhl\u0018\u001b100sFh.s100st\u001b\u001bt\u001b\u001bdc20s.b.t\u001b\u001bnbkk20s20sh\u0014#terrain\nc\n\u0018 KJBL _>.>FhFh.L NLU_>,>Z#turn\nYYJJ_>,>#force\n_>.sHHJJ_>.><JJKJ_>,>#turn\n20sKBNJ_>.>HLLU_>,>fk#offer\nojt\u001b\u001byj10s10shyhljydhhs20s.10s10sunnyhFhss150sed100s150s100sFls.ynb150s100sFl..150s100sFh.s50"
+ },
+ "segments": [
+  {
+   "seed": 50950011,
+   "datetime": "20120508160234",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\n",
+   "moves": "  FkFk .jlk100s50sFhssbul100sol_ \u001bm,>\u000f\u001b100sFnss100s100sFnFnFn_>,>100sFkFks\u0018\u001b150sbhu100s100sFy20ssbuj20sklynbh100s150sFkFk._>.>100s_>.>150s50sujhFlFls150sFls20sHLUN_>.>FlFlsBHKN_>,>LKKK_>,>LJBU_>.>:E- Elbereth Elbereth\n#ride\nu150s\u0018\u001b#untrap\nuyly100sFjssjyy150s i\u001b150sFnFnsjku50s150sFns20sFnFjFj100s#force\n100sedjkj50s150sFkssjlh150sFlFls100skbkFns.100s100sljk_>.>hlk_>.>50sFjFj20s50sFj..hq\u0018\u001bN LBB_>.>FlFlsBBBK_>.>BH BU_>.>HBHH_>.>LJLN_>,>ULBU_>.>ULBH_>.>NLBK_>,>FussYYYJ_>,>U JBN_>.>NUYK_>.>HLYJ_>,>BKL J_>.>\u000f\u001bt\u001b\u001b20sulhl#chat\nk20s20s100sFhss_>.>50s100s50sP50sFh20ss100s_>.>50s#monster\n150sed   _m..llh150slhl150s50shlhhllFh20ss150s100s150sFlFlFl100s100sFlsskuj100syubh hhl\u0018\u001b100sFh.s100st\u001b\u001bt\u001b\u001bdc20s.b.t\u001b\u001bnbkk20s20sh\u0014#terrain\nc\n\u0018 KJBL _>.>FhFh.L NLU_>,>Z#turn\nYYJJ_>,>#force\n_>.sHHJJ_>.><JJKJ_>,>#turn\n20sKBNJ_>.>HLLU_>,>fk#offer\nojt\u001b\u001byj10s10shyhljydhhs20s.10s10sunnyhFhss150sed100s150s100sFls.ynb150s100sFl..150s100sFh.s50"
+  }
+ ]
+}

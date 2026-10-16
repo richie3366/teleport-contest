@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                              yhj\u0017anti-magic field\nyn.syj\u0017falling rock trap\nh^l\u0007newt\nsm.20s  .m..m.yj\u0017dart trap\nkj sm.s#conduct\n #invoke\n\u001b>ykh\u0017pit\nhlssh\u0017squeaky board\nbuy s.Za\nzol"
+ },
+ "segments": [
+  {
+   "seed": 50951021,
+   "datetime": "20241130061054",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                              yhj\u0017anti-magic field\nyn.syj\u0017falling rock trap\nh^l\u0007newt\nsm.20s  .m..m.yj\u0017dart trap\nkj sm.s#conduct\n #invoke\n\u001b>ykh\u0017pit\nhlssh\u0017squeaky board\nbuy s.Za\nzol"
+  }
+ ]
+}

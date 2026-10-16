@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "Y UKJ_ \u001b>.>Fj..NUYU_>.>\u000f\u001b#wipe\nLKH U_>.>Fl20ss#loot\nwa100s Fn.20slhn_>,>100sFbFj Fb150sFhs20snublynyyj150s100skjh150sFlFl.lyj50sFlFlFlFlss_>,>uhj50sFlFlFlubblku100s50s50sbkj100s50s100s \\   #loot\nubj150s  ed100s#sit\n\u001b100sFlFls100snyljuhFjFjs100s_>,>150sFl20s.50sFlFlFl\u000f\u001b150shlukjy#offer\n150sFns.50s#enhance\n\u001b50s#name\n\u001b150s Fn20sFlFlFlFlFlFlFl_>.>\u0018\u001b150s100s150sFlss150sbbl150sFj20ss100sjuyuhj;>.olPLNLN_>,>Fy.sNKKK_>,>FjssYLJU_>.>YKLH_>.><HKNH_>,>#invoke\n\u001b\u0004hJJJH_>.>20s#dip\na<\u000f\u001be,#loot\nJJHK_>.>LBBL_>.>#offer\n#loot\n<nyHYJL_>.>JLLJ_>.>20sE- Elbereth Elbereth\nHYJB_>.>cldbJBKY_>.>HUHH_>.>\u000f\u001bUYNU_>.>YNHY_>.>#jump\n\\   LKKY_>.>\u000f\u001b50si\u001b50sFj 20ss100s150s100sFjFjsi\u001bt\u001bP_>,>100s 100seeeeeeeeeeeeeeeeeeeeeeeeee20su#name\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNKHL_>,>BNBJ_>.>J_<,sm.NUKK_>,Fb_.>UUKN_>.>HBNN_>,>Fk.s#ride\n.t\u001b10s#name\n\u001bujkht\u001bnyt\u001b#name\n\u001bt\u001bKKBU_>.>UHBB_>.>10s#chat\nyLYLY_>,><HYNK_>.>#pray\ny  <UYNK_>.>Fh.20s\u0014WUKNJ_>,>HLYY_>,>150s JFys.100s150s Fh20ssFhss100s50sFhFhFhkll50s50s#jump\n_>,>100sFh20"
+ },
+ "segments": [
+  {
+   "seed": 50950043,
+   "datetime": "20020317132214",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:explore\n",
+   "moves": "Y UKJ_ \u001b>.>Fj..NUYU_>.>\u000f\u001b#wipe\nLKH U_>.>Fl20ss#loot\nwa100s Fn.20slhn_>,>100sFbFj Fb150sFhs20snublynyyj150s100skjh150sFlFl.lyj50sFlFlFlFlss_>,>uhj50sFlFlFlubblku100s50s50sbkj100s50s100s \\   #loot\nubj150s  ed100s#sit\n\u001b100sFlFls100snyljuhFjFjs100s_>,>150sFl20s.50sFlFlFl\u000f\u001b150shlukjy#offer\n150sFns.50s#enhance\n\u001b50s#name\n\u001b150s Fn20sFlFlFlFlFlFlFl_>.>\u0018\u001b150s100s150sFlss150sbbl150sFj20ss100sjuyuhj;>.olPLNLN_>,>Fy.sNKKK_>,>FjssYLJU_>.>YKLH_>.><HKNH_>,>#invoke\n\u001b\u0004hJJJH_>.>20s#dip\na<\u000f\u001be,#loot\nJJHK_>.>LBBL_>.>#offer\n#loot\n<nyHYJL_>.>JLLJ_>.>20sE- Elbereth Elbereth\nHYJB_>.>cldbJBKY_>.>HUHH_>.>\u000f\u001bUYNU_>.>YNHY_>.>#jump\n\\   LKKY_>.>\u000f\u001b50si\u001b50sFj 20ss100s150s100sFjFjsi\u001bt\u001bP_>,>100s 100seeeeeeeeeeeeeeeeeeeeeeeeee20su#name\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNKHL_>,>BNBJ_>.>J_<,sm.NUKK_>,Fb_.>UUKN_>.>HBNN_>,>Fk.s#ride\n.t\u001b10s#name\n\u001bujkht\u001bnyt\u001b#name\n\u001bt\u001bKKBU_>.>UHBB_>.>10s#chat\nyLYLY_>,><HYNK_>.>#pray\ny  <UYNK_>.>Fh.20s\u0014WUKNJ_>,>HLYY_>,>150s JFys.100s150s Fh20ssFhss100s50sFhFhFhkll50s50s#jump\n_>,>100sFh20"
+  }
+ ]
+}

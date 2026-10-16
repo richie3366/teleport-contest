@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#name\nm\n .khbu20sdi20s20s20sbykhKHUN_>.>#loot\n\u0004hNHKB_>,>HKLL_>.>#tip\n\u001b#offer\nHUKB_>.><#ride\nj50sklhFl ss\u000f\u001bnkh100s\\ uuh_>.>nkb\\ 100s100s50sFlFuFu150sFkFk._>.>kjylju\u0018\u001bnyb100sFlFlFl#force\n50s_>.>_>,>150s\\ ynu#sit\n\u001bnjhFls.100sFl20ssllj#ride\nl100skjyj10s#name\ni\n10s#chat\nn20s#chat\nll10s10shut\u001b20shknlHYJK_>,>UKHN_>.>JKKH_>,>YBHH_>.>JNLJ_>,>UHJL_>.>KBUJ_>.>chsNYLU_>.>#name\nm\n,JLBN_>,><YLLK_>.>qd#wipe\n#offer\n50s100s150see100sFls.50sef100sFls.50seeeeeeeeeeeeeeeeeeeeeeeeeeeeehj#chat\nndbss20sjhhn#name\nf\nlb#chat\n;ybt\u001bdb.ssNBYL_>,><\\ LUJH_>.>20sf \u001bKBUN_>,>rg nn#rub\nUBYJ_>.>\u000f\u001bHBKY_>.>20s\u0018\u001b<NKYH_>,>Fl20sFl#turn\n  kNHUH_>,>FuFuFu20sjBYLL_>.>\u000f\u001bJBYN_>.>HH NU    \u001b     _"
+ },
+ "segments": [
+  {
+   "seed": 50950091,
+   "datetime": "20010318120308",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=runmode:run\nOPTIONS=fruit:mango\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\n",
+   "moves": "#name\nm\n .khbu20sdi20s20s20sbykhKHUN_>.>#loot\n\u0004hNHKB_>,>HKLL_>.>#tip\n\u001b#offer\nHUKB_>.><#ride\nj50sklhFl ss\u000f\u001bnkh100s\\ uuh_>.>nkb\\ 100s100s50sFlFuFu150sFkFk._>.>kjylju\u0018\u001bnyb100sFlFlFl#force\n50s_>.>_>,>150s\\ ynu#sit\n\u001bnjhFls.100sFl20ssllj#ride\nl100skjyj10s#name\ni\n10s#chat\nn20s#chat\nll10s10shut\u001b20shknlHYJK_>,>UKHN_>.>JKKH_>,>YBHH_>.>JNLJ_>,>UHJL_>.>KBUJ_>.>chsNYLU_>.>#name\nm\n,JLBN_>,><YLLK_>.>qd#wipe\n#offer\n50s100s150see100sFls.50sef100sFls.50seeeeeeeeeeeeeeeeeeeeeeeeeeeeehj#chat\nndbss20sjhhn#name\nf\nlb#chat\n;ybt\u001bdb.ssNBYL_>,><\\ LUJH_>.>20sf \u001bKBUN_>,>rg nn#rub\nUBYJ_>.>\u000f\u001bHBKY_>.>20s\u0018\u001b<NKYH_>,>Fl20sFl#turn\n  kNHUH_>,>FuFuFu20sjBYLL_>.>\u000f\u001bJBYN_>.>HH NU    \u001b     _"
+  }
+ ]
+}

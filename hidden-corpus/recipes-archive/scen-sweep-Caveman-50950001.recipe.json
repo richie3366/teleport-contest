@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0017sack\n\u0017wand of secret door detection\n\u0017potion of confusion\nafb\nX\n\u001b\u0017dagger\nwidf#force\ns.s\u0017skeleton key\ndjagy s.20s#loot\ni\n#tip\ny\u001ba\u001ba\u001b\u0017yumi\nwk\u001720 ya\nQl\u0007gnome lord\nlnfhfh  fh\u0017potion of healing\ntbb uj k,#enhance\nyr\np\n\u001b#levelchange\n20\n        \u001637\n   ;<. \u001b;;m,H20ss\u0016?\n>>\u001b\u0016?\nd\u0018\u001b#wipe\n#pray\ny y ;m.\u0006s.\u0016?\nk   #untrap\nli\u001b20s;m,s20s#levelchange\n12\n  \u0017blessed ring of polymorph control\nPol\u0017helm of brilliance\nWp20ssh 20sTp#polyself\nwater elemental\n .20s \u0007imp\nFhFlFhss20s#polyself\nmind flayer\n 20ssm.\u0007werejackal\nFu sm.ssss\u0017amulet of unchanging\nPq20s 20s20s20s\u0017locked large box\n \u0017bag of holding\n\u0017flint stone\n \u0017wand of cold\n\u0017wand of magic missile\n\u0017dagger\nwvdr#force\ny .m.sl20sds#loot\nr\n,a\nauy  \u0017dagger\nwi  dw#force\nsm..h  su#levelchange\n30\n                 \u001610\n#rub\nco20s 20s ;b:  \u000620s  sm.   n \u001632\n   #monster\n\u0014,10ssm.s\u001614\n#rub\ncd#turn\n#force\n\u0006.m.sm.\u0016?\n>t >#untrap\nk#rub\ncv;_..u20s\u0007tame gnome lord\n\u0007tame housecat\n\u0017newt corpse\ntak\u0017magic whistle\nuhkay #chat\nhdcss.\u0006_>>.Fb _,Fb >Fl     Fb_>>,Fb  n _,>_>>._.>do20s sm.20s l llh\u0017fire trap\nlh.20sll\u0017level teleporter\nl^h#untrap\nh#terrain\n\u001b\u0018\u001b_m, 6\n .b\u0017the Book of the Dead\nwv s20ssnX\u0007gray ooze\nsjsss20s\u0007pit fiend\n#chat\njFj  Fj   \u0007vampire lord\nFj   Fb      i\u001b\u0017amulet of strangulation\nPA.b     sm.  n sm.  20s  n  \u0017elven leather helm\nWB  .m. n  sm.  n sm. \u00173 wax candle\naC#rub\n\u00173 spellbook of finger of death\nrD20s  .h        n    n   Z."
+ },
+ "segments": [
+  {
+   "seed": 50950001,
+   "datetime": "20010316232541",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0017sack\n\u0017wand of secret door detection\n\u0017potion of confusion\nafb\nX\n\u001b\u0017dagger\nwidf#force\ns.s\u0017skeleton key\ndjagy s.20s#loot\ni\n#tip\ny\u001ba\u001ba\u001b\u0017yumi\nwk\u001720 ya\nQl\u0007gnome lord\nlnfhfh  fh\u0017potion of healing\ntbb uj k,#enhance\nyr\np\n\u001b#levelchange\n20\n        \u001637\n   ;<. \u001b;;m,H20ss\u0016?\n>>\u001b\u0016?\nd\u0018\u001b#wipe\n#pray\ny y ;m.\u0006s.\u0016?\nk   #untrap\nli\u001b20s;m,s20s#levelchange\n12\n  \u0017blessed ring of polymorph control\nPol\u0017helm of brilliance\nWp20ssh 20sTp#polyself\nwater elemental\n .20s \u0007imp\nFhFlFhss20s#polyself\nmind flayer\n 20ssm.\u0007werejackal\nFu sm.ssss\u0017amulet of unchanging\nPq20s 20s20s20s\u0017locked large box\n \u0017bag of holding\n\u0017flint stone\n \u0017wand of cold\n\u0017wand of magic missile\n\u0017dagger\nwvdr#force\ny .m.sl20sds#loot\nr\n,a\nauy  \u0017dagger\nwi  dw#force\nsm..h  su#levelchange\n30\n                 \u001610\n#rub\nco20s 20s ;b:  \u000620s  sm.   n \u001632\n   #monster\n\u0014,10ssm.s\u001614\n#rub\ncd#turn\n#force\n\u0006.m.sm.\u0016?\n>t >#untrap\nk#rub\ncv;_..u20s\u0007tame gnome lord\n\u0007tame housecat\n\u0017newt corpse\ntak\u0017magic whistle\nuhkay #chat\nhdcss.\u0006_>>.Fb _,Fb >Fl     Fb_>>,Fb  n _,>_>>._.>do20s sm.20s l llh\u0017fire trap\nlh.20sll\u0017level teleporter\nl^h#untrap\nh#terrain\n\u001b\u0018\u001b_m, 6\n .b\u0017the Book of the Dead\nwv s20ssnX\u0007gray ooze\nsjsss20s\u0007pit fiend\n#chat\njFj  Fj   \u0007vampire lord\nFj   Fb      i\u001b\u0017amulet of strangulation\nPA.b     sm.  n sm.  20s  n  \u0017elven leather helm\nWB  .m. n  sm.  n sm. \u00173 wax candle\naC#rub\n\u00173 spellbook of finger of death\nrD20s  .h        n    n   Z."
+  }
+ ]
+}

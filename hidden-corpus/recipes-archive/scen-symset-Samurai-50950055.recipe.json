@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  O>>>i\u001b\u001b\nFhsFhFyFyFk yhh\u0018\u001bi\u001b150s100sFk.s_ \u001b>.>\\    f   ni\u001b100s\\    kkj50s50s_>,>100swdytcyi\u001b50s_>.>#untrap\nb50s_>,>kubi\u001bulh150sFuFlFlhlukjbFbFhFhFhs.\u000f\u001b100sFbFhFh Fu Fu Fu #force\n#wipe\n \u0014, \u0007kitten\n\u0017newt corpse\ntdb   n\u0017leash\nahb lyyjahh   n\u0017tin whistle\nlhlai \u0007giant rat\nsm.  n.y.m..m.20ssm.#name\nf\n\u0007.m.  n susy.m.sh   nsm.\u0006_>,Fk_.Fb>Fk  n Fk_>,Fb_,Fk>FkFb  n _>.Fj_.Fj>FjFj\u00161\nmO>t\u001b\n\u00164\nO>>n\u001b\u001b\n\u0007tame housecat\n\u0007tame hill orc\n#name\nd\n10s  \u0006_>._,>_>,_.>_>._,Fn>FnFn\u0017lichen corpse\ntbn\u0007lichen\nsm.20s20sslsm.sm.\u0017leash\naklnbkn akl\u0018\u001bzmO>>m\u001b\nv i\u001b\u00161\n\u0006_>,Fl_.Fl>_>.Fl_.Fn>FlFl_>.Fn_,Fn>Fns#monster\nP\u0006_>>,Fj_.Fh>FhFh_>>,_.>_>>.Fh_.Fh >\u0006_>._.>_>,_.Fh >FhFl_>.Fl_,Fh  >FlFhFh  FlFl<q\u0006_>.Fl_.Fh >FlFu_>.Fl_,Fu>FlFu_>.Fh   n_.Fl>FlF"
+ },
+ "segments": [
+  {
+   "seed": 50950055,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You see\"\nMENUCOLOR=\"blessed\"=cyan\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  O>>>i\u001b\u001b\nFhsFhFyFyFk yhh\u0018\u001bi\u001b150s100sFk.s_ \u001b>.>\\    f   ni\u001b100s\\    kkj50s50s_>,>100swdytcyi\u001b50s_>.>#untrap\nb50s_>,>kubi\u001bulh150sFuFlFlhlukjbFbFhFhFhs.\u000f\u001b100sFbFhFh Fu Fu Fu #force\n#wipe\n \u0014, \u0007kitten\n\u0017newt corpse\ntdb   n\u0017leash\nahb lyyjahh   n\u0017tin whistle\nlhlai \u0007giant rat\nsm.  n.y.m..m.20ssm.#name\nf\n\u0007.m.  n susy.m.sh   nsm.\u0006_>,Fk_.Fb>Fk  n Fk_>,Fb_,Fk>FkFb  n _>.Fj_.Fj>FjFj\u00161\nmO>t\u001b\n\u00164\nO>>n\u001b\u001b\n\u0007tame housecat\n\u0007tame hill orc\n#name\nd\n10s  \u0006_>._,>_>,_.>_>._,Fn>FnFn\u0017lichen corpse\ntbn\u0007lichen\nsm.20s20sslsm.sm.\u0017leash\naklnbkn akl\u0018\u001bzmO>>m\u001b\nv i\u001b\u00161\n\u0006_>,Fl_.Fl>_>.Fl_.Fn>FlFl_>.Fn_,Fn>Fns#monster\nP\u0006_>>,Fj_.Fh>FhFh_>>,_.>_>>.Fh_.Fh >\u0006_>._.>_>,_.Fh >FhFl_>.Fl_,Fh  >FlFhFh  FlFl<q\u0006_>.Fl_.Fh >FlFu_>.Fl_,Fu>FlFu_>.Fh   n_.Fl>FlF"
+  }
+ ]
+}

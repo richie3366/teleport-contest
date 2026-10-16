@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nb;b._m.Fj _,#chat\nj_mmmm. Fl_,  n    nFl    n  #chat\nu_mmm.  n    n Fu   n    n _,#chat\nl#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.     Fl   _.   n   Fk     #chat\ny_mmmm.    n Fk   _. Fl   #chat\nl\u0017blessed +3 silver dragon scale mail\nWe        n     \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of magic missile\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.   Fk    _,    Fk  Fl Fy    Fk    Fl  ,\u0016?\n>>\u001b\u0016?\n>y_mmm. Fl _.#chat\nk;y:  \u0016?\n>z\u0006_mmm.  n Fy    _.Fy Fk  Fl FlFlFlFlzgu ,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_m.Fu_.#chat\nu\u0016?\n>A\u0006_mm. Fk  _.  Fu  Fl  Fk Fu FuFlFl Flzg.  n,\u0016?\n>A\u0006_mmmmm,Fj _. sssFk    Fk  Fk  Fk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm. Fu_,         FuFl    n          Fu   n             Fl              nFu           Fh   nFn       Fnzgn           yy\u001by   y y y\u001b  ,"
+ },
+ "segments": [
+  {
+   "seed": 50950062,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nb;b._m.Fj _,#chat\nj_mmmm. Fl_,  n    nFl    n  #chat\nu_mmm.  n    n Fu   n    n _,#chat\nl#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm.     Fl   _.   n   Fk     #chat\ny_mmmm.    n Fk   _. Fl   #chat\nl\u0017blessed +3 silver dragon scale mail\nWe        n     \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of magic missile\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.   Fk    _,    Fk  Fl Fy    Fk    Fl  ,\u0016?\n>>\u001b\u0016?\n>y_mmm. Fl _.#chat\nk;y:  \u0016?\n>z\u0006_mmm.  n Fy    _.Fy Fk  Fl FlFlFlFlzgu ,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_m.Fu_.#chat\nu\u0016?\n>A\u0006_mm. Fk  _.  Fu  Fl  Fk Fu FuFlFl Flzg.  n,\u0016?\n>A\u0006_mmmmm,Fj _. sssFk    Fk  Fk  Fk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm. Fu_,         FuFl    n          Fu   n             Fl              nFu           Fh   nFn       Fnzgn           yy\u001by   y y y\u001b  ,"
+  }
+ ]
+}

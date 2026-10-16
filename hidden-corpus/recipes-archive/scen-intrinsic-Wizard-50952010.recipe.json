@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      #wizintrinsic\nhse\n  sm.ss20s.m.sj20s sm..m.20s20s.m.sk20s;j; \u001b<.:dnzchet\u001b.m.sn.b20s .m.sm."
+ },
+ "segments": [
+  {
+   "seed": 50952010,
+   "datetime": "20110914072530",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      #wizintrinsic\nhse\n  sm.ss20s.m.sj20s sm..m.20s20s.m.sk20s;j; \u001b<.:dnzchet\u001b.m.sn.b20s .m.sm."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          #levelchange\n12\n\u0007Aleax\nFhFh \u0007wood nymph\nFb Fj     Fj Fl  Fh Fb\u0007electric eel\nFl  Fl   FjFj   n \u0017uncursed potion of speed\n\u0007plains centaur\nql   #dip\nde  \u0017blessed lenses\n\u0007ape\nam\u0017wand of fire\n\u0007lich\nznl  znh    \u00173 the Orb of Detection\n Fh   n Fh    \u0017uncursed scroll of teleportation\nro  \u001b;        Fh   Fbsm.  .h   n   \u001620\n\u00162\n  #levelchange\n30\n                  \u0017Magicbane\nwp   FnFn  Fn#invoke\np  \u0007blue jelly\nFnFjFnFj  n   \u0007mumak\nFl  FnFj   FlFn  Fn\u0007sandestin\n#chat\n    n Fl  Fl\u00166\n#levelchange\n12\n      \u0007baby long worm\n#chat\nbFb    n Fj\u0007titanothere\n#chat\njFj   Fh   \u0007winter wolf\n;b.20s   sm.20s   n  \u001611\n    \u0007tame wolf\n\u0007tame lichen\n\u0006_>>.Fu  _.@.Fu     >FuFu  _>>.Fh _.;,Fh          >Fu Fh _>>.   m,Fh_.,Fh>Fh  s\u0006_>>.  Fl_, Fj >_>>.  Fl _.   n Fl >FuFl _>>. Fl_,  Fk >\u0006;_>>.Fk   _.Fj>10s k #levelchange\n10\n\u0007pony\n\u0017scroll of taming\nrq\u0017saddle\nar.#ride\nky\u0007horse\n\u0017scroll of taming\nrq\u0017saddle\n asj  n #ride\nby\u0007tame saddled warhorse\n#ride\nbyu  k   b       nn  #ride\nuys #ride\nny#ride\nuy.   n#ride\nyyj hbbu  n k k  n    nhj\u0004u   n \u001624\n\u00166\n\u0017spellbook of finger of death\nrt..Za\n.Fl\u0017scroll of teleportation\nruFl20s \u0017uncursed scroll of create monster\nrv\u0017cursed tinning kit\n\u0007small mimic\naw     \u0017blessed +3 ring of protection\nPxr  n    s 20ss  n 20s s     \u0017cursed Orcrist\n\u0007umber hulk\nwy   yy\u001by   y y y\u001b   F"
+ },
+ "segments": [
+  {
+   "seed": 50950065,
+   "datetime": "20001022113304",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n          #levelchange\n12\n\u0007Aleax\nFhFh \u0007wood nymph\nFb Fj     Fj Fl  Fh Fb\u0007electric eel\nFl  Fl   FjFj   n \u0017uncursed potion of speed\n\u0007plains centaur\nql   #dip\nde  \u0017blessed lenses\n\u0007ape\nam\u0017wand of fire\n\u0007lich\nznl  znh    \u00173 the Orb of Detection\n Fh   n Fh    \u0017uncursed scroll of teleportation\nro  \u001b;        Fh   Fbsm.  .h   n   \u001620\n\u00162\n  #levelchange\n30\n                  \u0017Magicbane\nwp   FnFn  Fn#invoke\np  \u0007blue jelly\nFnFjFnFj  n   \u0007mumak\nFl  FnFj   FlFn  Fn\u0007sandestin\n#chat\n    n Fl  Fl\u00166\n#levelchange\n12\n      \u0007baby long worm\n#chat\nbFb    n Fj\u0007titanothere\n#chat\njFj   Fh   \u0007winter wolf\n;b.20s   sm.20s   n  \u001611\n    \u0007tame wolf\n\u0007tame lichen\n\u0006_>>.Fu  _.@.Fu     >FuFu  _>>.Fh _.;,Fh          >Fu Fh _>>.   m,Fh_.,Fh>Fh  s\u0006_>>.  Fl_, Fj >_>>.  Fl _.   n Fl >FuFl _>>. Fl_,  Fk >\u0006;_>>.Fk   _.Fj>10s k #levelchange\n10\n\u0007pony\n\u0017scroll of taming\nrq\u0017saddle\nar.#ride\nky\u0007horse\n\u0017scroll of taming\nrq\u0017saddle\n asj  n #ride\nby\u0007tame saddled warhorse\n#ride\nbyu  k   b       nn  #ride\nuys #ride\nny#ride\nuy.   n#ride\nyyj hbbu  n k k  n    nhj\u0004u   n \u001624\n\u00166\n\u0017spellbook of finger of death\nrt..Za\n.Fl\u0017scroll of teleportation\nruFl20s \u0017uncursed scroll of create monster\nrv\u0017cursed tinning kit\n\u0007small mimic\naw     \u0017blessed +3 ring of protection\nPxr  n    s 20ss  n 20s s     \u0017cursed Orcrist\n\u0007umber hulk\nwy   yy\u001by   y y y\u001b   F"
+  }
+ ]
+}

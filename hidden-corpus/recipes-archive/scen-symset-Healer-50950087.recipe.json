@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b>.>FkFy_>>.Fb_,m,Fj >FjFl_>>, Fb_.Fb>FkFhFyFkFh\u0006_>._.> < \u0006_>,> #untrap\nh#terrain\ne\n\u0006_>>,_.> FkFuFjZb\n#twoweapon\n\u0006_>,Fl_.Fy>FbFy_>.Fy_.Fb>FbFh_>.Fb_.Fh>FyFhFyFhFy\u0006_>.Fh_.Fh>FhFy_>.Fb_.Fb>FhFb_>,Fy_.Fb>FbFbFbFyFb\u0006_>>.Fy_,Fb>FhFy_>>,Fy_.Fh>FyFb_>>.Fy_.Fy>FhFbFhFbFb\u0006_>.Fh_,Fh>FhFy_>.Fb_,Fb>FyFy_>,Fy_,Fy>FyFyFbFhFh\u0006_>.Fh_.Fy>FyFy_>.Fh_.Fh>FhFh_>.Fy_.Fb>FyFyFbFhFy,f $ h\u0007large dog\n\u0017banana\nt$y\u0007pony\n\u0017huge chunk of meat\n t$n   n   n\u0017meatball\nt$y  n\u0017apple\n t$h   n\u0017leash\nanb   n  k  nyhyann \u0007acid blob\n\u0017scroll of taming\nro  #na"
+ },
+ "segments": [
+  {
+   "seed": 50950087,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0006_ \u001b>.>FkFy_>>.Fb_,m,Fj >FjFl_>>, Fb_.Fb>FkFhFyFkFh\u0006_>._.> < \u0006_>,> #untrap\nh#terrain\ne\n\u0006_>>,_.> FkFuFjZb\n#twoweapon\n\u0006_>,Fl_.Fy>FbFy_>.Fy_.Fb>FbFh_>.Fb_.Fh>FyFhFyFhFy\u0006_>.Fh_.Fh>FhFy_>.Fb_.Fb>FhFb_>,Fy_.Fb>FbFbFbFyFb\u0006_>>.Fy_,Fb>FhFy_>>,Fy_.Fh>FyFb_>>.Fy_.Fy>FhFbFhFbFb\u0006_>.Fh_,Fh>FhFy_>.Fb_,Fb>FyFy_>,Fy_,Fy>FyFyFbFhFh\u0006_>.Fh_.Fy>FyFy_>.Fh_.Fh>FhFh_>.Fy_.Fb>FyFyFbFhFy,f $ h\u0007large dog\n\u0017banana\nt$y\u0007pony\n\u0017huge chunk of meat\n t$n   n   n\u0017meatball\nt$y  n\u0017apple\n t$h   n\u0017leash\nanb   n  k  nyhyann \u0007acid blob\n\u0017scroll of taming\nro  #na"
+  }
+ ]
+}

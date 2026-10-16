@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017locked large box\n \u0017potion of enlightenment\n\u0017potion of extra healing\n #tip\nn\u001bdn#loot\n y, anr\na\n\u001bans\n\u0017large box\n\u0017ring of sustain ability\n\u0017potion of speed\n\u0017potion of sickness\n\u0017credit card\ndp at.y   sss#loot\no\ndg#loot\nb\nU\n$\n,a\n atu\u0017lock pick\ndqau.ys20s    s#loot\n y aul "
+ },
+ "segments": [
+  {
+   "seed": 50951026,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017locked large box\n \u0017potion of enlightenment\n\u0017potion of extra healing\n #tip\nn\u001bdn#loot\n y, anr\na\n\u001bans\n\u0017large box\n\u0017ring of sustain ability\n\u0017potion of speed\n\u0017potion of sickness\n\u0017credit card\ndp at.y   sss#loot\no\ndg#loot\nb\nU\n$\n,a\n atu\u0017lock pick\ndqau.ys20s    s#loot\n y aul "
+  }
+ ]
+}

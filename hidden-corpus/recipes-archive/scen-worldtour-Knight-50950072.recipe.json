@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed +3 speed boots\nWj \u00164\nukybb:sm.sm.s\u00167\n_ \u001b@.<\u0016?\n>H\u0014...\u00164\n_>.Fk _,,Fk <\u0016?\nf    \u0017wand of slow monster\nzkjzkk\u00173 scroll of enchant armor\nrl ss\u001720 flint stones\n Qbyfyf \u001bf \u001b\u0017blessed the Staff of Aesculapius\n , ss\u00164\n#levelchange\n8\n          \u0017speed boots\n W\u001b20s20s   nsm.Td\u0007aligned cleric\nnFh FkFh  nFk \u0007wumpus\n#chat\nhFlFh\u0007water demon\n#chat\nn Fn  Fl\u0007werewolf\nsn  .b  n20s  sm. \u00161\n\u00164\n_{.Fk _.Fu\u0016?\n>Iln   n llk    n:sm. sm.   \u00167\n\u001643\n   hbkyj   n   :\u0016?\nl jjjjk:\u001628\nyyhk   :\u0016?\n>>Q__.>\u0016?\n>J       20 shuriken\n\u0004n  sm.\u001643\n\u0004n    \u001627\nb   uy  ljy  n l:\u0016?\ne \u0017dunce cap\nWc  sm.     .nsm.  n   \u0007gray ooze\nFh           n  Fk              nFk       FkFk    n sm.20s         n \u0007Medusa\nnFj Fl  n    Fn    n Fk  20s  n    n20s #pray\ny y       .k  sk  ynny y  y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 50950072,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed +3 speed boots\nWj \u00164\nukybb:sm.sm.s\u00167\n_ \u001b@.<\u0016?\n>H\u0014...\u00164\n_>.Fk _,,Fk <\u0016?\nf    \u0017wand of slow monster\nzkjzkk\u00173 scroll of enchant armor\nrl ss\u001720 flint stones\n Qbyfyf \u001bf \u001b\u0017blessed the Staff of Aesculapius\n , ss\u00164\n#levelchange\n8\n          \u0017speed boots\n W\u001b20s20s   nsm.Td\u0007aligned cleric\nnFh FkFh  nFk \u0007wumpus\n#chat\nhFlFh\u0007water demon\n#chat\nn Fn  Fl\u0007werewolf\nsn  .b  n20s  sm. \u00161\n\u00164\n_{.Fk _.Fu\u0016?\n>Iln   n llk    n:sm. sm.   \u00167\n\u001643\n   hbkyj   n   :\u0016?\nl jjjjk:\u001628\nyyhk   :\u0016?\n>>Q__.>\u0016?\n>J       20 shuriken\n\u0004n  sm.\u001643\n\u0004n    \u001627\nb   uy  ljy  n l:\u0016?\ne \u0017dunce cap\nWc  sm.     .nsm.  n   \u0007gray ooze\nFh           n  Fk              nFk       FkFk    n sm.20s         n \u0007Medusa\nnFj Fl  n    Fn    n Fk  20s  n    n20s #pray\ny y       .k  sk  ynny y  y\u001b  s"
+  }
+ ]
+}

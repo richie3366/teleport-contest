@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n30\n                     \u0017blessed ring of polymorph control\nPil#polyself\ngold golem\n #monster\n20ss\u0007aligned cleric\nyFlFk                                         n Fu      .m.     sn20s       #polyself\nkraken\n master mind flayer\n #monster\n        20s     20s\u0007Elvenking\nFl  n     Fl     Fl s  n  20s s  n \u001611\n ju\u0017wand of stasis\nEj\u0017wand of digging\nEk: \u0017wand of opening\nEl\u00178 spears\nQm\u0007gnome\nbfkfkfkFks\u0007troll\nufnfj fl\u0017halberd\nwn\u0007giant rat\nb anyl j ,#enhance\nn\u001b\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo \u001b@.  n _mmm.#chat\nh_{.Fj _.  n Fbq_ooooooooo.Fj_,Fb,dh_mmmm,#chat\nj_oooo.  n Fj_.Fj_o.Fj_.Fj,$_oooooooo,  nFj_,Fj,p_{.Fj_.qfl\u0014m.#wipe\n\u00164\n\u0017fortune cookie\nep  ss\u0017blessed wand of magic missile\nzqy\u00173 scroll of taming\nrr.Fh \u0017uncursed Grimtooth\nwsFh  n Fhs\u0017uncursed crystal ball\n \u0007ogre king\nat...20s#levelchange\n12\n        \u0017blessed ring of polymorph control\nPu#polyself\nrock piercer\n   #monster\n   20s  n s20s.s#polyself\ngold dragon\n  #monster\nhssss.\u001628\n   \u0017bag of holding\n\u0017locked large box\n\u0017blessed bag of holding\n\u0017scroll of amnesia\n \u0017wand of locking\nadw#loot\n, aaa#levelchange\n8\n  \u0007hobbit\nss  n sss20s20s  n 20s .\u0007water nymph\nFh   nFh FhFhFh\u001610\n\u0007green slime\n.s   n FjFlFlsm.sy\u0007succubus\nFlFl Fu  FjFu   n  .    sm.\u0007cockatrice\nFk yy\u001b y   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50950033,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n30\n                     \u0017blessed ring of polymorph control\nPil#polyself\ngold golem\n #monster\n20ss\u0007aligned cleric\nyFlFk                                         n Fu      .m.     sn20s       #polyself\nkraken\n master mind flayer\n #monster\n        20s     20s\u0007Elvenking\nFl  n     Fl     Fl s  n  20s s  n \u001611\n ju\u0017wand of stasis\nEj\u0017wand of digging\nEk: \u0017wand of opening\nEl\u00178 spears\nQm\u0007gnome\nbfkfkfkFks\u0007troll\nufnfj fl\u0017halberd\nwn\u0007giant rat\nb anyl j ,#enhance\nn\u001b\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo \u001b@.  n _mmm.#chat\nh_{.Fj _.  n Fbq_ooooooooo.Fj_,Fb,dh_mmmm,#chat\nj_oooo.  n Fj_.Fj_o.Fj_.Fj,$_oooooooo,  nFj_,Fj,p_{.Fj_.qfl\u0014m.#wipe\n\u00164\n\u0017fortune cookie\nep  ss\u0017blessed wand of magic missile\nzqy\u00173 scroll of taming\nrr.Fh \u0017uncursed Grimtooth\nwsFh  n Fhs\u0017uncursed crystal ball\n \u0007ogre king\nat...20s#levelchange\n12\n        \u0017blessed ring of polymorph control\nPu#polyself\nrock piercer\n   #monster\n   20s  n s20s.s#polyself\ngold dragon\n  #monster\nhssss.\u001628\n   \u0017bag of holding\n\u0017locked large box\n\u0017blessed bag of holding\n\u0017scroll of amnesia\n \u0017wand of locking\nadw#loot\n, aaa#levelchange\n8\n  \u0007hobbit\nss  n sss20s20s  n 20s .\u0007water nymph\nFh   nFh FhFhFh\u001610\n\u0007green slime\n.s   n FjFlFlsm.sy\u0007succubus\nFlFl Fu  FjFu   n  .    sm.\u0007cockatrice\nFk yy\u001b y   y y y\u001by  F"
+  }
+ ]
+}

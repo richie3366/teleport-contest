@@ -1,0 +1,77 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #quit\nyyFhFhFhFhFhFhFhFhukhlhnjk10sn  hynlykdb20s20s#quit\nyy\u001by  y y y\u001b Fl FlFlFlFlFlFlFlYNJH_ \u001bm,>YHNK_>.>waWJNYB_>.>#rub\n#dip\ndy#quit\nyy\u001by  y y y\u001b  dks20s.10st\u001b20s   kkjljuFjFj FjFjFj FjFjFj10snhnlhhf \u001b50s_ \u001b@.>unyjlyFb 20ss_>.>#quit\nyy\u001by  y y y\u001b N KHY_ \u001b>.>HLJK_>.>BJBN_>,>NNHH_>.>W>JJNH_>,>s#loot\nLK BK_>.>Fj 20s20s<LNLH_>.>;m,Eg Elbereth\n#quit\nyy\u001by  y y y\u001b 20shhhb20sdfsss10s10suhFnFnFnFnFnFnFnFnbhujFl FlFlFlFlFlFlFlbyklBYYB_ \u001b@.>KYBJ_>.><BLUK_>.>BKNY#quit\ny\u001b    \u0007minotaur\nFhFk  n  nFj   yy\u001by   y y y\u001by  F  lklhFnFnFnFnFn FnFnFnkjlhFlFlFlFlFlFlFlFlknhkjlbu\u000f\u001blllbkhi\u001b100s100s100sFhs20s100slhl\\  \u000f\u001b#jump\ndb100s#quit\nyy\u001by   y y y\u001b   FkFh    2",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50950050,
+   "datetime": "20091104081019",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #quit\nyy"
+  },
+  {
+   "seed": 51050050,
+   "datetime": "20190326160255",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\n",
+   "moves": "FhFhFhFhFhFhFhFhukhlhnjk10sn  hynlykdb20s20s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51150050,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "Fl FlFlFlFlFlFlFlYNJH_ \u001bm,>YHNK_>.>waWJNYB_>.>#rub\n#dip\ndy#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51250050,
+   "datetime": "20261225094240",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=pettype:cat\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " dks20s.10st\u001b20s   kkjljuFjFj FjFjFj FjFjFj10snhnlhhf \u001b50s_ \u001b@.>unyjlyFb 20ss_>.>#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51350050,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\n",
+   "moves": "N KHY_ \u001b>.>HLJK_>.>BJBN_>,>NNHH_>.>W>JJNH_>,>s#loot\nLK BK_>.>Fj 20s20s<LNLH_>.>;m,Eg Elbereth\n#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51450050,
+   "datetime": "20260424234742",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "20shhhb20sdfsss10s10suhFnFnFnFnFnFnFnFnbhujFl FlFlFlFlFlFlFlbyklBYYB_ \u001b@.>KYBJ_>.><BLUK_>.>BKNY#quit\ny\u001b    "
+  },
+  {
+   "seed": 51550050,
+   "datetime": "20021031195316",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007minotaur\nFhFk  n  nFj   yy\u001by   y y y\u001by  F"
+  },
+  {
+   "seed": 51650050,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=pettype:cat\n",
+   "moves": "  lklhFnFnFnFnFn FnFnFnkjlhFlFlFlFlFlFlFlFlknhkjlbu\u000f\u001blllbkhi\u001b100s100s100sFhs20s100slhl\\  \u000f\u001b#jump\ndb100s#quit\nyy\u001by   y y y\u001b "
+  },
+  {
+   "seed": 51750050,
+   "datetime": "20250123014520",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\n",
+   "moves": "  FkFh    2"
+  }
+ ]
+}

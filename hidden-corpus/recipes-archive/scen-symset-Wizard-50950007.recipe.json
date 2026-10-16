@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "v i\u001b<yy\u001bnny\u001b #"
+ },
+ "segments": [
+  {
+   "seed": 50950007,
+   "datetime": "20190423083717",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=hide \"You miss\"\n",
+   "moves": "v i\u001b<yy\u001bnny\u001b #"
+  }
+ ]
+}

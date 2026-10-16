@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             khh\u0017grave\n: \u0017pick-axe\naf >    sm.sb\u0017magic fountain\nqy qy yq\u0017long sword\n#dip\ng:u\u0017moat\n#dip\ndy E- Elbereth\nZokO>>k\u001b\u001b\n\u0006_ \u001b,>Fj  Fk _>,Fy _.>_>,_.>e#pray\ny y <\u0006_>,_.>_>._,>_>._.Fl >\u0006_>._.>_>._.>_>._.>P#wipe\n\u0006_>._.>_>,_.>_>._,>#conduct\n i\u001b\u0006_>._,>_>,_.>_>,_,>\u0006_>._,>_>,_,>_>._,>\u0006_>._.>_>._.>_>,_.>\u000f\u001b\u0007kitten\n\u0017fortune cookie\ntgl\u0017fortune cookie\ntal\u0017tin whistle\nnhkai\u0017tripe ration\ntbk \u0007jackal\n\u0017scroll of taming\nrk \u0017apple\nt\u001b\u0017meatball\nt\u001bmO>>>>h\u001b\n#conduct\n \u0004kv  i\u001b#levelchange\n14\n     lny\u0017fountain\nqyqyjn\u0017cloud\njn\u0017melting ice\nZw-,100s   Fk   20ssujk 150s\u000f\u001b150s_>,_.>\\ yly100sn nj100s  \\ 100sFyFyFy FyFy .150s\\ _>.Fh _,Fh >Fh  Fh Fh Fh Fh Fh 50sFhFhFhFhFh s#pray\ny y #pray\ny y 20s150si\u001b#pra"
+ },
+ "segments": [
+  {
+   "seed": 50950039,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You kill\"\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n30\n                             khh\u0017grave\n: \u0017pick-axe\naf >    sm.sb\u0017magic fountain\nqy qy yq\u0017long sword\n#dip\ng:u\u0017moat\n#dip\ndy E- Elbereth\nZokO>>k\u001b\u001b\n\u0006_ \u001b,>Fj  Fk _>,Fy _.>_>,_.>e#pray\ny y <\u0006_>,_.>_>._,>_>._.Fl >\u0006_>._.>_>._.>_>._.>P#wipe\n\u0006_>._.>_>,_.>_>._,>#conduct\n i\u001b\u0006_>._,>_>,_.>_>,_,>\u0006_>._,>_>,_,>_>._,>\u0006_>._.>_>._.>_>,_.>\u000f\u001b\u0007kitten\n\u0017fortune cookie\ntgl\u0017fortune cookie\ntal\u0017tin whistle\nnhkai\u0017tripe ration\ntbk \u0007jackal\n\u0017scroll of taming\nrk \u0017apple\nt\u001b\u0017meatball\nt\u001bmO>>>>h\u001b\n#conduct\n \u0004kv  i\u001b#levelchange\n14\n     lny\u0017fountain\nqyqyjn\u0017cloud\njn\u0017melting ice\nZw-,100s   Fk   20ssujk 150s\u000f\u001b150s_>,_.>\\ yly100sn nj100s  \\ 100sFyFyFy FyFy .150s\\ _>.Fh _,Fh >Fh  Fh Fh Fh Fh Fh 50sFhFhFhFhFh s#pray\ny y #pray\ny y 20s150si\u001b#pra"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nW\u001b\u001b\u0017blessed ring of free action\nPjl\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b#levelchange\n10\n         \u0007aligned cleric\nn\u0007orc shaman\n\u0017wand of magic missile\nsm. 20s  zlk   zlk sm. zly    zlh   zlsm.\u0018\u001b\u0007baby red dragon\nsm..m.sjFkFk \u001618\n\u0017wand of lightning\n\u0017wand of slow monster\n \u0017wand of magic missile\n\u0007kobold shaman\n\u0007owlbear\nzobsm. zmjzmj zokszmbzmn.\u0007incubus\n\u0007aligned cleric\nny\u0017wand of cold\nzpj  nzpn zpnzplszpl\u0017blessed spellbook of finger of death\nrq20s\u0017blessed spellbook of force bolt\nrr20s\u0007master lich\n\u0007incubus\nZss     n Zs s    Zs s  ZZZi\u001b\u001720 darts\nQs\u0007yellow mold\nfn  n  fb   fl    n tsl"
+ },
+ "segments": [
+  {
+   "seed": 50950076,
+   "datetime": "20260425215042",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nW\u001b\u001b\u0017blessed ring of free action\nPjl\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b#levelchange\n10\n         \u0007aligned cleric\nn\u0007orc shaman\n\u0017wand of magic missile\nsm. 20s  zlk   zlk sm. zly    zlh   zlsm.\u0018\u001b\u0007baby red dragon\nsm..m.sjFkFk \u001618\n\u0017wand of lightning\n\u0017wand of slow monster\n \u0017wand of magic missile\n\u0007kobold shaman\n\u0007owlbear\nzobsm. zmjzmj zokszmbzmn.\u0007incubus\n\u0007aligned cleric\nny\u0017wand of cold\nzpj  nzpn zpnzplszpl\u0017blessed spellbook of finger of death\nrq20s\u0017blessed spellbook of force bolt\nrr20s\u0007master lich\n\u0007incubus\nZss     n Zs s    Zs s  ZZZi\u001b\u001720 darts\nQs\u0007yellow mold\nfn  n  fb   fl    n tsl"
+  }
+ ]
+}

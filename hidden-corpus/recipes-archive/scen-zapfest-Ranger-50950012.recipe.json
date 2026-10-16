@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWh#levelchange\n14\n             \u0017bow\nwi\u001720 arrows\nQj\u0007dwarf\nfbtbb fbfj tcb fb \u001618\n\u0007silver dragon\n.m.20s.20s\u0018\u001b\u0007silver dragon\nsm.20s  Fu   Fu\u0017wand of sleep\n\u0017wand of slow monster\n\u0017wand of striking\n\u0007troll\nzkh  n zku       zku sm.zmu  n  zml zmlzkl  .m.zku\u001611\n    \u0007kobold shaman\n\u0007succubus\n\u0017wand of sleep\nznj     \u001617\n\u00176 javelins\nQo\u0007owlbear\n\u0007soldier\nfb            fnfn  fl   nf ay l tdn    \u0017potion of hallucination\ntjh    \u0018\u001b\u0007mind flayer\n\u0007lich\n\u0007incubus\n\u0017wand of fire\nzqu     n    zqk         i\u001b\u0017wand of cancellation\n\u0017wand of magic missile\n\u0007jackal\n\u0007troll\n\u0007gnome\nzsy        n     zrb              nzry        su     n      zrb         sm.   n        zsh    n      sh    n        zrb   n         zsj       n        zrl      n    zsu     n      \u001610\n\u0007kobold shaman\n\u0007gnomish wizard\n\u0017wand of striking\n20s   sh      nztu    sm.   ztl    i\u001b\u0007black dragon\n\u0007silver dragon\nsm.    yny   y y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 50950012,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWh#levelchange\n14\n             \u0017bow\nwi\u001720 arrows\nQj\u0007dwarf\nfbtbb fbfj tcb fb \u001618\n\u0007silver dragon\n.m.20s.20s\u0018\u001b\u0007silver dragon\nsm.20s  Fu   Fu\u0017wand of sleep\n\u0017wand of slow monster\n\u0017wand of striking\n\u0007troll\nzkh  n zku       zku sm.zmu  n  zml zmlzkl  .m.zku\u001611\n    \u0007kobold shaman\n\u0007succubus\n\u0017wand of sleep\nznj     \u001617\n\u00176 javelins\nQo\u0007owlbear\n\u0007soldier\nfb            fnfn  fl   nf ay l tdn    \u0017potion of hallucination\ntjh    \u0018\u001b\u0007mind flayer\n\u0007lich\n\u0007incubus\n\u0017wand of fire\nzqu     n    zqk         i\u001b\u0017wand of cancellation\n\u0017wand of magic missile\n\u0007jackal\n\u0007troll\n\u0007gnome\nzsy        n     zrb              nzry        su     n      zrb         sm.   n        zsh    n      sh    n        zrb   n         zsj       n        zrl      n    zsu     n      \u001610\n\u0007kobold shaman\n\u0007gnomish wizard\n\u0017wand of striking\n20s   sh      nztu    sm.   ztl    i\u001b\u0007black dragon\n\u0007silver dragon\nsm.    yny   y y\u001by  ."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 speed boots\nWi\u001610\n#levelchange\n12\n      \u0017chain mail\nW\u001b20s.m.sk\u0007Nazgul\nFlFhFl  FhFy  \u0007umber hulk\n;h, \u001b..b20s sm.\u0007gecko\nFbFk\u0007giant mimic\n;k:  sm..m.20s \u001610\n_>.>\u0016?\n>zhhbl uh    l  :\u001610\n  __.<sk.m. sm. \u0016?\n>>Q\u0007Medusa\nyFj Fh n   Fj n    Fl n    n Fn n  n  n  n n  nFh n  n n  n sus#pray\ny y  n     \u0007cockatrice\nFb  yy  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50950000,
+   "datetime": "20121021171743",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 speed boots\nWi\u001610\n#levelchange\n12\n      \u0017chain mail\nW\u001b20s.m.sk\u0007Nazgul\nFlFhFl  FhFy  \u0007umber hulk\n;h, \u001b..b20s sm.\u0007gecko\nFbFk\u0007giant mimic\n;k:  sm..m.20s \u001610\n_>.>\u0016?\n>zhhbl uh    l  :\u001610\n  __.<sk.m. sm. \u0016?\n>>Q\u0007Medusa\nyFj Fh n   Fj n    Fl n    n Fn n  n  n  n n  nFh n  n n  n sus#pray\ny y  n     \u0007cockatrice\nFb  yy  y y y\u001b  F"
+  }
+ ]
+}

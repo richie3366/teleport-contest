@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " i\u001ban\u001bqgwas.srl y ssZa\nZa\nqfrk#pray\ny y e#terrain\nf\n#terrain\nf\n\u0014 \u001b@.i\u001b#terrain\nd\n#force\n:"
+ },
+ "segments": [
+  {
+   "seed": 50952028,
+   "datetime": "20140728102307",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " i\u001ban\u001bqgwas.srl y ssZa\nZa\nqfrk#pray\ny y e#terrain\nf\n#terrain\nf\n\u0014 \u001b@.i\u001b#terrain\nd\n#force\n:"
+  }
+ ]
+}

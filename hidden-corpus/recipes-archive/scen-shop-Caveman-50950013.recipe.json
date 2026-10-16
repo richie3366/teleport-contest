@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 cloak of magic resistance\nWgg\u0016\u00168\n\u0006_ \u001b>.  ,p_oooo.,p\u0016?\nclyb\u0016?\n>w\u0006_ooooooo.,:_{.Fn _,qy_ooooo._ooo.,\u0017worthless piece of red glass\ndhFnFnFnFn  n FnFn_{,Fn_. Fj q_ooooooo.Fu_.>.Fl ,p_{.  Fj_. Fbq_oooo.,p_oo._oo.,p__.Fu_. #chat\nl__._. Fh       n#chat\nh #pray\ny y   _ooo. Fj   n _.  n   Fn    n   n ,$\u00164\n_ooooooo.,\u0017luckstone\ndi\u0016?\ncbbn\u0016?\n>w\u0006_oooo._o.   nFb_.  n Fb,: \u001612\n_ooo._ooo,,: _ooo,_o.,p_oooo,,$\u00163\nlj  nk\u0016?\n>w\u0006_oooo.,: Fj  n FjFjFj  nFjFj\u001610\nb   nkj#chat\nj  n\u00162\nbub#chat\nb_oooooooo,,p_ooooo.,\u0014m,s  ns_oooooooo.,$_{,q_oooooo,,p_oooo.,#chat\nk_{.q_ooooooo.Fk  n _,,$_oo._ooo.,\u0017amulet of change\ndj_{.q_ooo.,#chat\nk  y\u001b   y  _"
+ },
+ "segments": [
+  {
+   "seed": 50950013,
+   "datetime": "20030228225933",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 cloak of magic resistance\nWgg\u0016\u00168\n\u0006_ \u001b>.  ,p_oooo.,p\u0016?\nclyb\u0016?\n>w\u0006_ooooooo.,:_{.Fn _,qy_ooooo._ooo.,\u0017worthless piece of red glass\ndhFnFnFnFn  n FnFn_{,Fn_. Fj q_ooooooo.Fu_.>.Fl ,p_{.  Fj_. Fbq_oooo.,p_oo._oo.,p__.Fu_. #chat\nl__._. Fh       n#chat\nh #pray\ny y   _ooo. Fj   n _.  n   Fn    n   n ,$\u00164\n_ooooooo.,\u0017luckstone\ndi\u0016?\ncbbn\u0016?\n>w\u0006_oooo._o.   nFb_.  n Fb,: \u001612\n_ooo._ooo,,: _ooo,_o.,p_oooo,,$\u00163\nlj  nk\u0016?\n>w\u0006_oooo.,: Fj  n FjFjFj  nFjFj\u001610\nb   nkj#chat\nj  n\u00162\nbub#chat\nb_oooooooo,,p_ooooo.,\u0014m,s  ns_oooooooo.,$_{,q_oooooo,,p_oooo.,#chat\nk_{.q_ooooooo.Fk  n _,,$_oo._ooo.,\u0017amulet of change\ndj_{.q_ooo.,#chat\nk  y\u001b   y  _"
+  }
+ ]
+}

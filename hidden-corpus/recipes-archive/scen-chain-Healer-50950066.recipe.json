@@ -1,0 +1,77 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of digging\nzl> 20szl> .zl> 20szl>  slzl .zl20s  sFysFysss.FhsL HBL_ \u001bm.>Fks20sUKKH_>.>KBKL_>.>HYNH_>,>JUHL_>.>KJHH_>.>,\\  ljb\u000f\u001bPlyjr\u001b150s#quit\nyy\u001by  y y y\u001b Fb FbFbFbFbFbFbFbB HHJ_ \u001b;>UN HJ_>,>YBBL _>.>BHKK_>,>\u000f\u001b#dip\nf \u000f\u001bhlluNNBU_>.>HHHN_>,>s_<..BL KyJ _>,>YNJY_>.>HyUKJ _>.>BUYY_>.>LLLN_>,>Z#turn\n<NLHY_>.>UJH L_>.>ohw-H HHU_>.>#quit\nyy\u001by  y y y\u001b FuFuFl100sFl Fhs_ \u001b>.>E- I am a fish\nuubyhnulb\\ _>,>50s150s#quit\nyy\u001by  y y y\u001b   nuukYJJU_ \u001b<.>FhFh 20sYBYK_>,>#ride\nu#tip\n\u001bKJKY_>.>BLJN_>,>JKYN_>.>100s100s 50shuuFk20ssnjh150s100sFkFk20s150suhnyFk.s100s  50s 100s100sFkFk20see100sFk#quit\nyy\u001by  y y y\u001b  Fu ss150s\u000f\u001b100sFh20ss\u000f\u001b_ \u001b,>kuhFhss100s50s_>.>100sFhFhFh100s100sjbyubl50s\\ #quit\ny\u001b     hynyJLHH_ \u001b;>ULKN_>,>f \u001bE- I am a fish\nKLJL_>,>\u000f\u001bHLUJ_>.>Fy 20s20s<YUHB_>,>JYJL_>.>LHYH_>.><UBUB_>,>#turn\n#force\nJUYB_>.>#quit\nyy\u001by  y y y\u001b  hnnuFhFhFhFhFhFhFh Fhkju150s 100s150s100shlnlluFns20s100shjb150s150s Fus.100s50seeeeeeeeeeeeeeeeeeee#quit\ny #wizintrinsic\nc\n .hsm.ss20ssm.20ssk.ksm.sssss20s     y y  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50950066,
+   "datetime": "20140617131722",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\nzl> 20szl> .zl> 20szl>  slzl .zl20s  sFysFysss.Fhs"
+  },
+  {
+   "seed": 51050066,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\n",
+   "moves": "L HBL_ \u001bm.>Fks20sUKKH_>.>KBKL_>.>HYNH_>,>JUHL_>.>KJHH_>.>,\\  ljb\u000f\u001bPlyjr\u001b150s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51150066,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\n",
+   "moves": "Fb FbFbFbFbFbFbFbB HHJ_ \u001b;>UN HJ_>,>YBBL _>.>BHKK_>,>\u000f\u001b#dip\nf \u000f\u001bhlluNNBU_>.>HHHN_>,>s_<..BL KyJ _>,>YNJY_>.>HyUKJ _>.>BUYY_>.>LLLN_>,>Z#turn\n<NLHY_>.>UJH L_>.>ohw-H HHU_>.>#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51250066,
+   "datetime": "20050205075709",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\n",
+   "moves": "FuFuFl100sFl Fhs_ \u001b>.>E- I am a fish\nuubyhnulb\\ _>,>50s150s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51350066,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "  nuukYJJU_ \u001b<.>FhFh 20sYBYK_>,>#ride\nu#tip\n\u001bKJKY_>.>BLJN_>,>JKYN_>.>100s100s 50shuuFk20ssnjh150s100sFkFk20s150suhnyFk.s100s  50s 100s100sFkFk20see100sFk#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51450066,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=sortloot:loot\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": " Fu ss150s\u000f\u001b100sFh20ss\u000f\u001b_ \u001b,>kuhFhss100s50s_>.>100sFhFhFh100s100sjbyubl50s\\ #quit\ny\u001b    "
+  },
+  {
+   "seed": 51550066,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": " hynyJLHH_ \u001b;>ULKN_>,>f \u001bE- I am a fish\nKLJL_>,>\u000f\u001bHLUJ_>.>Fy 20s20s<YUHB_>,>JYJL_>.>LHYH_>.><UBUB_>,>#turn\n#force\nJUYB_>.>#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51650066,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " hnnuFhFhFhFhFhFhFh Fhkju150s 100s150s100shlnlluFns20s100shjb150s150s Fus.100s50seeeeeeeeeeeeeeeeeeee#quit\ny "
+  },
+  {
+   "seed": 51750066,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nc\n .hsm.ss20ssm.20ssk.ksm.sssss20s     y y  s"
+  }
+ ]
+}

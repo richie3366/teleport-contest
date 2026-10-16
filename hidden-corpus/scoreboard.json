@@ -1,11 +1,11 @@
 {
- "commit": "a01cb7062",
- "at": "2026-10-16T07:24:06.636Z",
+ "commit": "a95d0eb7e",
+ "at": "2026-10-16T07:33:00.700Z",
  "full": false,
  "fullCommit": "d9747bd2c",
  "fullAt": "2026-10-16T05:05:03.087Z",
- "entries": 1159,
- "reserve": 279,
+ "entries": 1178,
+ "reserve": 289,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -688,6 +688,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-chain-Healer-50950082": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 40337,
+   "rngT": 55142,
+   "scrM": 927,
+   "scrT": 1086,
+   "kind": "screen",
+   "step": 481,
+   "steps": 1086,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "You miss it.",
+   "error": null
+  },
   "scen-chain-Knight-50456514": {
    "src": "corpus",
    "passed": true,
@@ -771,6 +788,23 @@
    "jsOwner": null,
    "cTopline": "b - a +1 crossbow (weapon in left hand).--More--",
    "jsTopline": "b - a +1 crossbow (weapon in left hand).--More--",
+   "error": null
+  },
+  "scen-chain-Priest-50950058": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 73925,
+   "rngT": 73925,
+   "scrM": 1192,
+   "scrT": 1193,
+   "kind": "screen",
+   "step": 803,
+   "steps": 1193,
+   "owner": "readobjnam_postparse2",
+   "loc": "objnam.c:4697",
+   "jsOwner": null,
+   "cTopline": "%a piece of food (a kitten corpse)",
+   "jsTopline": "%a cat or other feline (a kitten corpse)",
    "error": null
   },
   "scen-chain-Priest-95400": {
@@ -2184,6 +2218,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-impaired-Samurai-50951010": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 2736,
+   "rngT": 2736,
+   "scrM": 114,
+   "scrT": 115,
+   "kind": "screen",
+   "step": 108,
+   "steps": 115,
+   "owner": "chwepon",
+   "loc": "wield.c:940",
+   "jsOwner": null,
+   "cTopline": "Your intelligence was 12.",
+   "jsTopline": "Your intelligence was 12.",
+   "error": null
+  },
   "scen-impaired-Samurai-94130": {
    "src": "corpus",
    "passed": true,
@@ -2864,6 +2915,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-options-Caveman-50951031": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 3519,
+   "rngT": 3519,
+   "scrM": 93,
+   "scrT": 94,
+   "kind": "screen",
+   "step": 69,
+   "steps": 94,
+   "owner": "handler_msg_window",
+   "loc": "options.c:5867",
+   "jsOwner": null,
+   "cTopline": "Select message history display type:",
+   "jsTopline": "Select message history display type:",
+   "error": null
+  },
   "scen-options-Caveman-94011": {
    "src": "corpus",
    "passed": true,
@@ -2913,7 +2981,8 @@
    "jsOwner": null,
    "cTopline": "Select message history display type:",
    "jsTopline": "Select message history display type:",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-options-Healer-94271": {
    "src": "corpus",
@@ -4054,6 +4123,23 @@
    "jsTopline": "You materialize on a different level!--More--",
    "error": null
   },
+  "scen-questtour-Barbarian-50950094": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 32105,
+   "rngT": 32253,
+   "scrM": 1044,
+   "scrT": 1060,
+   "kind": "screen",
+   "step": 1044,
+   "steps": 1060,
+   "owner": "revive_corpse",
+   "loc": "do.c:2173",
+   "jsOwner": null,
+   "cTopline": "You stop searching. The troll rises from the dead!",
+   "jsTopline": "The troll rises from the dead! You stop searching. The troll hits!--More--",
+   "error": null
+  },
   "scen-questtour-Caveman-50750030": {
    "src": "corpus",
    "passed": false,
@@ -4190,6 +4276,24 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-questtour-Priest-50950030": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 4317,
+   "rngT": 32636,
+   "scrM": 32,
+   "scrT": 912,
+   "kind": "screen",
+   "step": 32,
+   "steps": 912,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "You hit the human zombie!--More--",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-questtour-Ranger-50255420": {
    "src": "corpus",
    "passed": false,
@@ -4256,6 +4360,23 @@
    "jsOwner": null,
    "cTopline": "You hear an F note squeak in the distance.--More--",
    "jsTopline": "You hear an F note squeak in the distance.--More--",
+   "error": null
+  },
+  "scen-questtour-Samurai-50950086": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 25715,
+   "rngT": 25715,
+   "scrM": 640,
+   "scrT": 643,
+   "kind": "screen",
+   "step": 554,
+   "steps": 643,
+   "owner": "use_defensive",
+   "loc": "muse.c:989",
+   "jsOwner": null,
+   "cTopline": "The roshi zaps a wand of create monster!--More--",
+   "jsTopline": "The roshi zaps a wand of create monster!--More--",
    "error": null
   },
   "scen-questtour-Wizard-50361014": {
@@ -5124,6 +5245,24 @@
    "cTopline": "The water is contaminated!--More--",
    "jsTopline": "",
    "error": null
+  },
+  "scen-shop-Wizard-50950037": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 95620,
+   "rngT": 95620,
+   "scrM": 822,
+   "scrT": 826,
+   "kind": "screen",
+   "step": 532,
+   "steps": 826,
+   "owner": "glibr",
+   "loc": "do_wear.c:2617",
+   "jsOwner": null,
+   "cTopline": "a newt corpse",
+   "jsTopline": "a giant bat corpse",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-sokoban-Archeologist-50356000": {
    "src": "corpus",
@@ -6876,6 +7015,24 @@
    "jsTopline": "The hill orc reads a scroll labeled KO BATE!--More--",
    "error": null
   },
+  "scen-sweep-Healer-50950065": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 48938,
+   "rngT": 48938,
+   "scrM": 1306,
+   "scrT": 1307,
+   "kind": "screen",
+   "step": 1295,
+   "steps": 1307,
+   "owner": "one_characteristic",
+   "loc": "insight.c:926",
+   "jsOwner": null,
+   "cTopline": "Your wisdom was 18 (limit:18).",
+   "jsTopline": "Your wisdom was 18 (limit:18).",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-sweep-Healer-578141": {
    "src": "corpus",
    "passed": true,
@@ -8015,6 +8172,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-sweep-Ranger-50950041": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 53803,
+   "rngT": 57615,
+   "scrM": 1104,
+   "scrT": 1220,
+   "kind": "rng",
+   "step": 1104,
+   "steps": 1220,
+   "owner": "m_move",
+   "loc": "monmove.c:1963",
+   "jsOwner": "m_move(monmove.js:2381)",
+   "cTopline": "You fly over a hole.",
+   "jsTopline": "Really fly into that hole? [yn] (n)",
+   "error": null
+  },
   "scen-sweep-Ranger-582637": {
    "src": "corpus",
    "passed": true,
@@ -9067,7 +9241,8 @@
    "jsOwner": null,
    "cTopline": "You can no longer hold your shield! You find you must drop your whip!--More--",
    "jsTopline": "You can no longer hold your shield! You find you must drop your whip!--More--",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-sweep-Valkyrie-578204": {
    "src": "corpus",
@@ -9817,6 +9992,23 @@
    "jsTopline": "You move right into the jackal. The jackal misses!",
    "error": null
   },
+  "scen-symset-Barbarian-50950079": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 7740,
+   "rngT": 7740,
+   "scrM": 617,
+   "scrT": 618,
+   "kind": "screen",
+   "step": 269,
+   "steps": 618,
+   "owner": "use_pick_axe",
+   "loc": "dig.c:1151",
+   "jsOwner": null,
+   "cTopline": "In what direction do you want to chop? [6>]",
+   "jsTopline": "In what direction do you want to chop? [l>]",
+   "error": null
+  },
   "scen-symset-Caveman-50059032": {
    "src": "corpus",
    "passed": true,
@@ -10497,6 +10689,24 @@
    "jsTopline": "You move right into the jackal. The jackal misses!",
    "error": null
   },
+  "scen-symset-Rogue-50950071": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 42368,
+   "rngT": 42368,
+   "scrM": 633,
+   "scrT": 668,
+   "kind": "screen",
+   "step": 142,
+   "steps": 668,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-symset-Samurai-50059033": {
    "src": "corpus",
    "passed": false,
@@ -10699,7 +10909,8 @@
    "jsOwner": null,
    "cTopline": "In what direction do you want to dig? [321>]",
    "jsTopline": "In what direction do you want to dig? [njb>]",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-symset-Valkyrie-50255052": {
    "src": "corpus",
@@ -10751,6 +10962,24 @@
    "cTopline": "Michael Toy's ghost touches you!",
    "jsTopline": "Michael Toy's ghost touches you!",
    "error": null
+  },
+  "scen-symset-Valkyrie-50950047": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 89413,
+   "rngT": 89413,
+   "scrM": 0,
+   "scrT": 865,
+   "kind": "screen",
+   "step": 0,
+   "steps": 865,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "Velkommen wizard, welcome to NetHack! You are a lawful dwarven Valkyrie.",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-symset-Wizard-50059040": {
    "src": "corpus",
@@ -11736,7 +11965,8 @@
    "jsOwner": null,
    "cTopline": "You hit the hobbit! The hobbit reads a scroll of create monster!--More--",
    "jsTopline": "You hit the hobbit! The hobbit reads a scroll of create monster!--More--",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-trek-Wizard-610139": {
    "src": "corpus",
@@ -12367,6 +12597,24 @@
    "jsTopline": "The barrow wight swings her long sword. The barrow wight hits!--More--",
    "error": null
   },
+  "scen-worldtour-Archeologist-50950008": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 50345,
+   "rngT": 50345,
+   "scrM": 984,
+   "scrT": 991,
+   "kind": "screen",
+   "step": 314,
+   "steps": 991,
+   "owner": "auto_describe",
+   "loc": "getpos.c:658",
+   "jsOwner": null,
+   "cTopline": "unexplored area (no travel path)",
+   "jsTopline": "unexplored (no travel path)",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-worldtour-Archeologist-587120": {
    "src": "corpus",
    "passed": false,
@@ -12756,6 +13004,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-worldtour-Healer-50950064": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 30339,
+   "rngT": 38265,
+   "scrM": 411,
+   "scrT": 571,
+   "kind": "screen",
+   "step": 411,
+   "steps": 571,
+   "owner": "mcast_weaken_you",
+   "loc": "mcastu.c:475",
+   "jsOwner": null,
+   "cTopline": "It hits! Something casts a spell at you! You suddenly feel weaker!--More--",
+   "jsTopline": "It hits! Something casts a spell at you! You suddenly feel weaker!--More--",
    "error": null
   },
   "scen-worldtour-Healer-578136": {
@@ -13283,6 +13548,23 @@
    "jsOwner": "maybe_generate_rnd_mon(allmain.js:401)",
    "cTopline": "What would you like to identify first?",
    "jsTopline": "That scroll is not implemented yet.",
+   "error": null
+  },
+  "scen-worldtour-Tourist-50950056": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 48041,
+   "rngT": 48041,
+   "scrM": 446,
+   "scrT": 452,
+   "kind": "screen",
+   "step": 357,
+   "steps": 452,
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
+   "jsOwner": null,
+   "cTopline": "The Wizard of Yendor casts a spell at you! You suddenly feel weaker!--More--",
+   "jsTopline": "The Wizard of Yendor casts a spell at you! You suddenly feel weaker!--More--",
    "error": null
   },
   "scen-worldtour-Tourist-578104": {
@@ -14475,6 +14757,24 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-zapfest-Caveman-50950044": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 9049,
+   "rngT": 9049,
+   "scrM": 838,
+   "scrT": 839,
+   "kind": "screen",
+   "step": 829,
+   "steps": 839,
+   "owner": "chwepon",
+   "loc": "wield.c:940",
+   "jsOwner": null,
+   "cTopline": "Your dexterity was 12.",
+   "jsTopline": "Your dexterity was 12.",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-zapfest-Healer-49959506": {
    "src": "corpus",
    "passed": true,
@@ -14577,6 +14877,23 @@
    "jsTopline": "Your constitution was 10.",
    "error": null
   },
+  "scen-zapfest-Priest-50950004": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 16605,
+   "rngT": 17183,
+   "scrM": 818,
+   "scrT": 888,
+   "kind": "screen",
+   "step": 817,
+   "steps": 888,
+   "owner": "nh_timeout",
+   "loc": "timeout.c:659",
+   "jsOwner": null,
+   "cTopline": "The housecat bites! The golden haze around you becomes less dense.--More--",
+   "jsTopline": "The housecat bites! You feel a bit steadier now.--More--",
+   "error": null
+  },
   "scen-zapfest-Rogue-50350028": {
    "src": "corpus",
    "passed": false,
@@ -14592,7 +14909,8 @@
    "jsOwner": null,
    "cTopline": "Your intelligence was 9.",
    "jsTopline": "Your intelligence was 9.",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-zapfest-Rogue-50550036": {
    "src": "corpus",
@@ -14660,6 +14978,23 @@
    "jsOwner": "tactics(wizard.js:556)",
    "cTopline": "You bite it. You hit it. You hit it. It suddenly arrives!",
    "jsTopline": "You bite it. You hit it. You hit it. It suddenly arrives close by!",
+   "error": null
+  },
+  "scen-zapfest-Wizard-50950084": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 3774,
+   "rngT": 3774,
+   "scrM": 525,
+   "scrT": 527,
+   "kind": "screen",
+   "step": 522,
+   "steps": 527,
+   "owner": "save_dungeon",
+   "loc": "dungeon.c:161",
+   "jsOwner": null,
+   "cTopline": "The Dungeons of Doom:",
+   "jsTopline": "The Dungeons of Doom:",
    "error": null
   },
   "tour-Archeologist-70010-d3-6-10-11-12": {
@@ -16489,8 +16824,7 @@
    "jsOwner": "do_attack(uhitm.js:4992)",
    "cTopline": "You stop. Your saddled pony is in the way!--More--",
    "jsTopline": "You cannot carry all that and also drag the heavy iron ball.--More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Monk-50556022": {
    "src": "corpus",
@@ -16579,8 +16913,7 @@
    "jsOwner": "do_attack(uhitm.js:4992)",
    "cTopline": "You stop. Your jackal is in the way! The warhorse kicks!--More--",
    "jsTopline": "You swap places with your jackal. The jackal bites the sewer rat.",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Ranger-578209": {
    "src": "corpus",
@@ -19990,5 +20323,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-16T07:33:07.790Z"
 }

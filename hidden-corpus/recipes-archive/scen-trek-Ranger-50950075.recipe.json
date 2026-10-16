@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " Fbss_ \u001b;>hhli\u001bnul150s100sFlFlsjub100s100sljy#force\n100si\u001bubu_>.>lby50sFj20sFjFj20ss50s100sFh.snju100s50sFhFhs100sjuhyln100s100s100sFhFhFy100s50s100sFhFhs#twoweapon\nKYBH_>,><K NUL_>.><LKKH_>.><YLYL_>.>#loot\n#chat\ny100sFhs.jju\u0018\u001b100s100s50sbyhFhFhsFhFhFh100seg#ride\nn150s50s100sFl20ss\\  unki\u001b\u0018\u001bhlh100sFh20s20s50sFhFhFhlhnjhl_>,>50s100s100sFuFuFuFu20sFuFu20ss50s_>.>50sFhFhs100s100sFh.s100si\u001b150s150sFh.shlhybyi\u001byhy150s50s\u000f\u001b50sFn20s.de100s ef\u0018\u001b50s#jump\njkj\u0018\u001bkjk_>.>\u0018\u001bkyhyly\u0018\u001b50sFyss_>.>150sFns.kjjnlli\u001b_>.>100s#chat\nhhnkj#name\nd\n#chat\nhyl#untrap\ny\u0014#turn\njkhnyn10s10skhYBYB_>.>#untrap\nh#ride\n.HLBN_>,>NLHJ_>.>\u0018\u001b\\  KYJH_>.>cl#pray\ny UJNL_>.>NBLN_>.>Fns20sYUHU_>,>Fn..BYYK_>,>dbi\u001bKUHY_>,>FhFhFhU"
+ },
+ "segments": [
+  {
+   "seed": 50950075,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=pettype:none\n",
+   "moves": " Fbss_ \u001b;>hhli\u001bnul150s100sFlFlsjub100s100sljy#force\n100si\u001bubu_>.>lby50sFj20sFjFj20ss50s100sFh.snju100s50sFhFhs100sjuhyln100s100s100sFhFhFy100s50s100sFhFhs#twoweapon\nKYBH_>,><K NUL_>.><LKKH_>.><YLYL_>.>#loot\n#chat\ny100sFhs.jju\u0018\u001b100s100s50sbyhFhFhsFhFhFh100seg#ride\nn150s50s100sFl20ss\\  unki\u001b\u0018\u001bhlh100sFh20s20s50sFhFhFhlhnjhl_>,>50s100s100sFuFuFuFu20sFuFu20ss50s_>.>50sFhFhs100s100sFh.s100si\u001b150s150sFh.shlhybyi\u001byhy150s50s\u000f\u001b50sFn20s.de100s ef\u0018\u001b50s#jump\njkj\u0018\u001bkjk_>.>\u0018\u001bkyhyly\u0018\u001b50sFyss_>.>150sFns.kjjnlli\u001b_>.>100s#chat\nhhnkj#name\nd\n#chat\nhyl#untrap\ny\u0014#turn\njkhnyn10s10skhYBYB_>.>#untrap\nh#ride\n.HLBN_>,>NLHJ_>.>\u0018\u001b\\  KYJH_>.>cl#pray\ny UJNL_>.>NBLN_>.>Fns20sYUHU_>,>Fn..BYYK_>,>dbi\u001bKUHY_>,>FhFhFhU"
+  }
+ ]
+}

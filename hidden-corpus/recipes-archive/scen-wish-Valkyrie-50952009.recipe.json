@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017potion of levitation\n\u0007human mummy\nqe#dip\nc\u0017wand of striking\n\u0007aligned cleric\nnzfn \u00173 Dragonbane\nwg  Fh Fh Fn\u00173 amulet of change\nPh  20s .l20s 20s FhFh \u0017uncursed spellbook of protection\nri .m. sm.Z\u0017uncursed blindfold\naj FjFj.s"
+ },
+ "segments": [
+  {
+   "seed": 50952009,
+   "datetime": "20170121162038",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017potion of levitation\n\u0007human mummy\nqe#dip\nc\u0017wand of striking\n\u0007aligned cleric\nnzfn \u00173 Dragonbane\nwg  Fh Fh Fn\u00173 amulet of change\nPh  20s .l20s 20s FhFh \u0017uncursed spellbook of protection\nri .m. sm.Z\u0017uncursed blindfold\naj FjFj.s"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            huuy\u0017tree\nu\u0004b\u0004b\u0004bn\u0017fountain\nqyqy y:u\u0017sink\nqyb\u0004u\u0004uly\u0017throne\n#sit\n #sit\n y:#terrain\nd\n\u001b.ch\u000f\u001b>Sy\u001b yni\u001b#force\nzW#pray\ny y #turn\n#invoke\n\u001b\u0014>.,h",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50951020,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            huuy\u0017tree\nu\u0004b\u0004b\u0004bn\u0017fountain\nqyqy y:u\u0017sink\nqyb\u0004u\u0004uly\u0017throne\n#sit\n #sit\n y:#terrain\nd\n\u001b.ch\u000f\u001b>Sy\u001b"
+  },
+  {
+   "seed": 51451020,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " yni\u001b#force\nzW#pray\ny y #turn\n#invoke\n\u001b\u0014>.,h"
+  }
+ ]
+}

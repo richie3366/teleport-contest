@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " 10sH#untrap\nhqh10s#turn\nq#invoke\n\u001b\\   \u0018\u001b#force\n#ride\nh#tip\n\u001bwa#twoweapon\n#name\n\u001bPae10sck#jump\nPdai\u001bedssae#rub\newb .FjsW.20s sT__, \u001bm,s#force\n>Zdb\\   "
+ },
+ "segments": [
+  {
+   "seed": 50952020,
+   "datetime": "20250314190958",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": " 10sH#untrap\nhqh10s#turn\nq#invoke\n\u001b\\   \u0018\u001b#force\n#ride\nh#tip\n\u001bwa#twoweapon\n#name\n\u001bPae10sck#jump\nPdai\u001bedssae#rub\newb .FjsW.20s sT__, \u001bm,s#force\n>Zdb\\   "
+  }
+ ]
+}

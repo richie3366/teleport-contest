@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPil\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n10\n         \u0017blessed spellbook of finger of death\nrk 20s\u0017blessed spellbook of slow monster\n rl s\u0007aligned cleric\ny\u0007orc shaman\nZa\n   Zb\n  Zb\n    Zb\n Zb\nZb\nssZb\nZa\n\u0007baby red dragon\n\u0007black dragon\n20ssm.sm.  \u0017wand of cold\namy       n ss\u0018\u001b\u0017blessed spellbook of force bolt\nrn .\u0007lich\nZb\n  .m. sm.  Za\nZa\nsm.sZa\nZc\nsm.sZc\n  sy  20s   Zb\nZb\nsm. .m.i\u001b\u0007red dragon\n\u0007black dragon\n20s   n  sl sh#polyself\ngold dragon\n    #monster\n.m. .l #monster\n#monster\n#monster\n#monster\n\u0017wand of cold\naFk Fk          \u001613\n\u00176 eggs\nQby\u0007gnome lord\nffffff\u0017potion of full healing\nt\u00166\n\u00175 boomerangs\nQr\u0007dwarf\n\u0007jackal\nttfff\u0017blessed spellbook of knock\nrs 20s \u0007succubus\nZc\nsm.20s Zb\nZa\nZa\nsh.Zc\nZb\n20s 20s   Zc\n Zc\n\u0017wand of magic missile\n\u0017wand of slow monster\n\u0007jackal\nzzzzzzzzzz\u00161\ni\u001b\u0007kobold shaman\n\u0007succubus\n\u0007succubus\n\u0017wand of cold\nsyi\u001b\u0017wand of lightning\n\u0017wand of polymorph\n\u0017wand of sleep\n\u0007gnome\n\u0007soldier\nzz20szzzzzzzz\u0007kobold shaman\n\u0007succubus\n\u0007succubus\n\u0017wand of cold\nsm.       \u00176 javelins\nQA\u0007giant rat\n\u0007gnome lord\ntftff\u0017potion of paralysis\nt\u0017spellbook of force bolt\nrC y   sm.   \u0017blessed spellbook of cone of cold\nrD    .m.   \u0007aligned c"
+ },
+ "segments": [
+  {
+   "seed": 50950092,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPil\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n10\n         \u0017blessed spellbook of finger of death\nrk 20s\u0017blessed spellbook of slow monster\n rl s\u0007aligned cleric\ny\u0007orc shaman\nZa\n   Zb\n  Zb\n    Zb\n Zb\nZb\nssZb\nZa\n\u0007baby red dragon\n\u0007black dragon\n20ssm.sm.  \u0017wand of cold\namy       n ss\u0018\u001b\u0017blessed spellbook of force bolt\nrn .\u0007lich\nZb\n  .m. sm.  Za\nZa\nsm.sZa\nZc\nsm.sZc\n  sy  20s   Zb\nZb\nsm. .m.i\u001b\u0007red dragon\n\u0007black dragon\n20s   n  sl sh#polyself\ngold dragon\n    #monster\n.m. .l #monster\n#monster\n#monster\n#monster\n\u0017wand of cold\naFk Fk          \u001613\n\u00176 eggs\nQby\u0007gnome lord\nffffff\u0017potion of full healing\nt\u00166\n\u00175 boomerangs\nQr\u0007dwarf\n\u0007jackal\nttfff\u0017blessed spellbook of knock\nrs 20s \u0007succubus\nZc\nsm.20s Zb\nZa\nZa\nsh.Zc\nZb\n20s 20s   Zc\n Zc\n\u0017wand of magic missile\n\u0017wand of slow monster\n\u0007jackal\nzzzzzzzzzz\u00161\ni\u001b\u0007kobold shaman\n\u0007succubus\n\u0007succubus\n\u0017wand of cold\nsyi\u001b\u0017wand of lightning\n\u0017wand of polymorph\n\u0017wand of sleep\n\u0007gnome\n\u0007soldier\nzz20szzzzzzzz\u0007kobold shaman\n\u0007succubus\n\u0007succubus\n\u0017wand of cold\nsm.       \u00176 javelins\nQA\u0007giant rat\n\u0007gnome lord\ntftff\u0017potion of paralysis\nt\u0017spellbook of force bolt\nrC y   sm.   \u0017blessed spellbook of cone of cold\nrD    .m.   \u0007aligned c"
+  }
+ ]
+}

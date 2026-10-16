@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0007mastodon\nFhFh Fj  Fh   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 50952031,
+   "datetime": "20251003233019",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0007mastodon\nFhFh Fj  Fh   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

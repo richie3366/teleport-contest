@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed ring of free action\nPol\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\nj\u0006_ \u001b,\u0016?\n>>L      20 flint stones\n_{,sks     \u0016?\n\u001bn    j  \u0016?\n\u001bk   n       n     \u001612\n\u0014.     n \u0016?\n\u001bh     h     \u00169\n__.\u0016?\n\u001bh j   n           \u0016?\n\u001bn    n              n  b    n   \u00168\n\u0016?\nd l j:\u0016?\n\u001bn k    n   \u001612\nl   n    n l    n    l   n  l  n    k   n     nn     n    :\u0016?\n\u001bu     n   j   n     n \u001612\n_{,\u00166\nj     yy\u001by   y  y\u001b  h"
+ },
+ "segments": [
+  {
+   "seed": 50950080,
+   "datetime": "20120812073253",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed ring of free action\nPol\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\nj\u0006_ \u001b,\u0016?\n>>L      20 flint stones\n_{,sks     \u0016?\n\u001bn    j  \u0016?\n\u001bk   n       n     \u001612\n\u0014.     n \u0016?\n\u001bh     h     \u00169\n__.\u0016?\n\u001bh j   n           \u0016?\n\u001bn    n              n  b    n   \u00168\n\u0016?\nd l j:\u0016?\n\u001bn k    n   \u001612\nl   n    n l    n    l   n  l  n    k   n     nn     n    :\u0016?\n\u001bu     n   j   n     n \u001612\n_{,\u00166\nj     yy\u001by   y  y\u001b  h"
+  }
+ ]
+}

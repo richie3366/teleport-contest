@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWi\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed +3 cloak of magic resistance\nWk \u0016?\n>>P  _ \u001b,<\u001620\nllku\u0017iron bars\nynnnun\u0017altar\nd\u001bd\u001b\u0017gnome corpse\n#offer\na   :l y\u0017unaligned altar\nd\u001b\u0017floating eye corpse\n#offer\nj \u0017throne\n#sit\n#sit\n#sit\n#terrain\nb\n#name\n>.#rub\n#turn\n\u0016?\n>H jjlhkuh:20s\u00161\n\u0017cursed potion of see invisible\n\u0007red mold\nql \u001b\u0017blessed spellbook of extra healing\n\u0007gold golem\nrm 20sskZZ\u0017uncursed scroll of charging\n rn f Fl Fh\u0017uncursed +0 plate mail\n\u0007giant beetle\nW\u001bsb sm.20s Tk \u00173 scroll of punishment\n \u0007earth elemental\nrp sm.sm.\u0016?\n>I  #chat\nn;<. \u001620\n  \u0004ls20s.\u001620\nbhk:s\u001615\n  uh:\u0016?\n>>L       jumping boots\n \u0004j   su  20s      n \u0016?\n\u001bh      n    n       \u0016?\n\u001bn     y                 n  \u001620\n#chat\nh          n;y:  20s        n  \u001612\n\u001633\n_<.\u0016?\n\u001bn        n   n      n  \u00167\n\u0016?\n\u001bk               nj     \u0016?\n\u001bn   n          h              n         n \u00169\n\u0016?\n\u001bj     n             nu       n              n        n             y\u001b      \u0016"
+ },
+ "segments": [
+  {
+   "seed": 50950008,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017blessed +3 gauntlets of power\nWi\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed +3 cloak of magic resistance\nWk \u0016?\n>>P  _ \u001b,<\u001620\nllku\u0017iron bars\nynnnun\u0017altar\nd\u001bd\u001b\u0017gnome corpse\n#offer\na   :l y\u0017unaligned altar\nd\u001b\u0017floating eye corpse\n#offer\nj \u0017throne\n#sit\n#sit\n#sit\n#terrain\nb\n#name\n>.#rub\n#turn\n\u0016?\n>H jjlhkuh:20s\u00161\n\u0017cursed potion of see invisible\n\u0007red mold\nql \u001b\u0017blessed spellbook of extra healing\n\u0007gold golem\nrm 20sskZZ\u0017uncursed scroll of charging\n rn f Fl Fh\u0017uncursed +0 plate mail\n\u0007giant beetle\nW\u001bsb sm.20s Tk \u00173 scroll of punishment\n \u0007earth elemental\nrp sm.sm.\u0016?\n>I  #chat\nn;<. \u001620\n  \u0004ls20s.\u001620\nbhk:s\u001615\n  uh:\u0016?\n>>L       jumping boots\n \u0004j   su  20s      n \u0016?\n\u001bh      n    n       \u0016?\n\u001bn     y                 n  \u001620\n#chat\nh          n;y:  20s        n  \u001612\n\u001633\n_<.\u0016?\n\u001bn        n   n      n  \u00167\n\u0016?\n\u001bk               nj     \u0016?\n\u001bn   n          h              n         n \u00169\n\u0016?\n\u001bj     n             nu       n              n        n             y\u001b      \u0016"
+  }
+ ]
+}

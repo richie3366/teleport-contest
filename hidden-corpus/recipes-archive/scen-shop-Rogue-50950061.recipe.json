@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWh\u0016?\n>w\u0006_ \u001b>. ,:_oooo,,p_oo.,p_ooooooo,_ooo.,p\u00167\njkj\u0016?\n>w\u0006_oooooooo,,\u0017amulet of guarding\ndi_oooooooo,,pFk Fk FkFkFk Fk _ooooo.Fh _,, p_oooooo._ooo,,\u0017amulet of life saving\ndk _oooooo.,p__,Fh_,Fh#chat\nh _oo.,$FhFhFhFh FhFh__, Fb_,:Fh    n    n  #chat\nh   n   n   n\u0016?\ncyny\u0016?\n>w\u0006\u00168\n_{.qd\u00167\nlll\u0016?\n>w\u0006_ooooooo.,p_oooooo,,\u0017touchstone\ndl__,  n Fu_.Fh#chat\nh_oooooo.,p_ooooooooo.  nFl_.Fy,p_{.Fh  n _.Fy  n q\u00161\n_oooooooo.,\u0014,  nss_ooooooo,Fb_,  nFb,$_ooo,Fb_.<.  nFb,p_ooooooo.Fb_.  nFb_oo.,$_ooo.Fb_.  nFb,p_ooooo,Fb_,Fb_ooo.Fb_.<.,\u0017ruby\ndmhbj#chat\nl_ooooooo,_.,$__,#chat\nl#pray\ny y_{.q_ooooooo,Fj_,,h\np_oooooo.,c\n#chat\nhbku#chat\nu_oooo,_,,a\n:  kbu#chat\nh\u00167\nlhl\u0016?\n>w\u0006ukk#chat\ny__,Fh_,Fh  n #chat\nh#pray\ny y    \u00163\nkny\u0016?\n>w\u0006__,_.Fh#chat\nh#pray\ny y  "
+ },
+ "segments": [
+  {
+   "seed": 50950061,
+   "datetime": "20120526132743",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWh\u0016?\n>w\u0006_ \u001b>. ,:_oooo,,p_oo.,p_ooooooo,_ooo.,p\u00167\njkj\u0016?\n>w\u0006_oooooooo,,\u0017amulet of guarding\ndi_oooooooo,,pFk Fk FkFkFk Fk _ooooo.Fh _,, p_oooooo._ooo,,\u0017amulet of life saving\ndk _oooooo.,p__,Fh_,Fh#chat\nh _oo.,$FhFhFhFh FhFh__, Fb_,:Fh    n    n  #chat\nh   n   n   n\u0016?\ncyny\u0016?\n>w\u0006\u00168\n_{.qd\u00167\nlll\u0016?\n>w\u0006_ooooooo.,p_oooooo,,\u0017touchstone\ndl__,  n Fu_.Fh#chat\nh_oooooo.,p_ooooooooo.  nFl_.Fy,p_{.Fh  n _.Fy  n q\u00161\n_oooooooo.,\u0014,  nss_ooooooo,Fb_,  nFb,$_ooo,Fb_.<.  nFb,p_ooooooo.Fb_.  nFb_oo.,$_ooo.Fb_.  nFb,p_ooooo,Fb_,Fb_ooo.Fb_.<.,\u0017ruby\ndmhbj#chat\nl_ooooooo,_.,$__,#chat\nl#pray\ny y_{.q_ooooooo,Fj_,,h\np_oooooo.,c\n#chat\nhbku#chat\nu_oooo,_,,a\n:  kbu#chat\nh\u00167\nlhl\u0016?\n>w\u0006ukk#chat\ny__,Fh_,Fh  n #chat\nh#pray\ny y    \u00163\nkny\u0016?\n>w\u0006__,_.Fh#chat\nh#pray\ny y  "
+  }
+ ]
+}

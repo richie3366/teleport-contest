@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed ring of polymorph control\nPgr\u0017red dragon scale mail\nW\u001b.m..m.sm.#polyself\nvampire bat\n  #monster\n20ssm.s20s.m.#polyself\nvampire lord\n #monster\ny  ss 20ss sm.#polyself\nshrieker\n  s s \u0007disenchanter\nFj FhFhsuss"
+ },
+ "segments": [
+  {
+   "seed": 50952002,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed ring of polymorph control\nPgr\u0017red dragon scale mail\nW\u001b.m..m.sm.#polyself\nvampire bat\n  #monster\n20ssm.s20s.m.#polyself\nvampire lord\n #monster\ny  ss 20ss sm.#polyself\nshrieker\n  s s \u0007disenchanter\nFj FhFhsuss"
+  }
+ ]
+}

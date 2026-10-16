@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed scroll of earth\n\u0007black light\nri . .\u0017cursed -1 ring of aggravate monster\nPjr20s.20s..\u0017potion of booze\nqk\u0017blessed water walking boots\nWl.sss."
+ },
+ "segments": [
+  {
+   "seed": 50952019,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed scroll of earth\n\u0007black light\nri . .\u0017cursed -1 ring of aggravate monster\nPjr20s.20s..\u0017potion of booze\nqk\u0017blessed water walking boots\nWl.sss."
+  }
+ ]
+}

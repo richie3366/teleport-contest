@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "N KKL_ \u001b@.>Fb .sYHNY_>,>qed HULU_>.>LULH_>.>BUBK_>,>f bna>\u0014lbu150s100sFb20s.50s150sFbFbFbFjFjFjnju50s150s100sFhFhs100s100sFh20ss50s150s100si\u001bjyyFj.sbkjjlh150shub#monster\nubynun50s100sFhFhsi\u001b150s\\   100sFh20s20s100synl100sujhFhssubl50si\u001b#offer\n\u0018\u001b100sFhFhFh150s100s20sFhss150s50si\u001bkjk100sjkk\\   _>.>100sFhFh.150s50sFhssbhynhb\u000f\u001b100seeeeeeeeedbcb.s20suk#name\no\nfoo\n\u001b\u001bdaas.sdcsss10sljjydc.sst\u001b\u001b20s20st\u001b\u001b10snkhl#chat\nht\u001b\u001b20sq#monster\n20sLYB H_>.>#wipe\n J<NHJJ_>,>YHYJ_>.>HJHU_>.>KKHJ_>.>L       KHU_>.>FlFl20s BJUN_>,>10s20s #dip\ncYUNJ_>,><#terrain\nc\nNHUB_>#chat\nz<NYKJ_>.>\u000f\u001bKBL  U_>.>Fh   FhFhNNYB_>.>#force\nE\u001b\u001b<YNKH _>.>BL HY_>.>KBLK_>.>Fl  FlFl  H   y\u001by  ny y\u001b  J"
+ },
+ "segments": [
+  {
+   "seed": 50950035,
+   "datetime": "20140415173753",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=autodig\n",
+   "moves": "N KKL_ \u001b@.>Fb .sYHNY_>,>qed HULU_>.>LULH_>.>BUBK_>,>f bna>\u0014lbu150s100sFb20s.50s150sFbFbFbFjFjFjnju50s150s100sFhFhs100s100sFh20ss50s150s100si\u001bjyyFj.sbkjjlh150shub#monster\nubynun50s100sFhFhsi\u001b150s\\   100sFh20s20s100synl100sujhFhssubl50si\u001b#offer\n\u0018\u001b100sFhFhFh150s100s20sFhss150s50si\u001bkjk100sjkk\\   _>.>100sFhFh.150s50sFhssbhynhb\u000f\u001b100seeeeeeeeedbcb.s20suk#name\no\nfoo\n\u001b\u001bdaas.sdcsss10sljjydc.sst\u001b\u001b20s20st\u001b\u001b10snkhl#chat\nht\u001b\u001b20sq#monster\n20sLYB H_>.>#wipe\n J<NHJJ_>,>YHYJ_>.>HJHU_>.>KKHJ_>.>L       KHU_>.>FlFl20s BJUN_>,>10s20s #dip\ncYUNJ_>,><#terrain\nc\nNHUB_>#chat\nz<NYKJ_>.>\u000f\u001bKBL  U_>.>Fh   FhFhNNYB_>.>#force\nE\u001b\u001b<YNKH _>.>BL HY_>.>KBLK_>.>Fl  FlFl  H   y\u001by  ny y\u001b  J"
+  }
+ ]
+}

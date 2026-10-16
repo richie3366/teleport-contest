@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "hh\u0017wand of sleep\nEe I am a fish\n\u0017wand of probing\nEfn  I am a fish\n: y\u0017wand of fire\nEg  X marks the spot\n : \u0017magic marker\nEh: \u0017wand of light\nEi hh\u0017athame\nEj Elbereth Elbereth\n: \u0017ruby\nEkn  Vlad was here\n: n\u0017wand of teleportation\nEl Elbereth Elbereth\nE-n  X marks the spot\n\u0007minotaur\nsk.m.  yy\u001by  y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 50951018,
+   "datetime": "20050917042103",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "hh\u0017wand of sleep\nEe I am a fish\n\u0017wand of probing\nEfn  I am a fish\n: y\u0017wand of fire\nEg  X marks the spot\n : \u0017magic marker\nEh: \u0017wand of light\nEi hh\u0017athame\nEj Elbereth Elbereth\n: \u0017ruby\nEkn  Vlad was here\n: n\u0017wand of teleportation\nEl Elbereth Elbereth\nE-n  X marks the spot\n\u0007minotaur\nsk.m.  yy\u001by  y y\u001by  s"
+  }
+ ]
+}

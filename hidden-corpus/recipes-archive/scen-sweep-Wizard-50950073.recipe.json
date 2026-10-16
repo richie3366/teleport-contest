@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      #levelchange\n30\n                      \u0017blessed ring of polymorph control\nPpl#polyself\nqueen bee\n   .s\u0007large mimic\nFhFhFks.jsm.#polyself\nvampire lord\n  #monster\n   sm..m.\u0007tengu\nFlFkFusm.s20s#polyself\njackal\n #monster\n.j  20ssh.m.su#polyself\ncrocodile\n#monster\nsm. sk .ysh.l\u0017potion of polymorph\nqq #dip\nlhi\u001b\u0017pick-axe\n\u00169\nn\u0017grave\narsm.sm.ar<_ \u001b>.ar>arl  nl\\   i\u001bPpls.sRrlri Per ss20sR zcjzcbarjarh E- Elbereth\ns#name\nm\n,sde#force\n_m,si\u001ban\u001bzcyrj aork  rm\u001612\n   #levelchange\n30\ny ykk\u0017magic trap\nj^kk20s     .  u\u0017level teleporter\ny\u0017hole\ny\u0017pit\n#terrain\nc\nm,dc  \u0004k      ,c\n  #levelchange\n8\n       \u0017lance\nws  nFj  Fj FjX\u0007succubus\n#chat\njFjFj      \u0007fire vortex\n20s      .. s     20s 20s \\   #wizintrinsic\nfh\n h un  n Z;h,\u0017wand of cold\nztu \u0017potion of water\nqu.s20s#levelchange\n30\n                    \u0017towel\nPv\u0016?\nh  \u0006s..ss.j  h     n nl 20s #invoke\n\u001b10s   n \u0006\u00162\n#levelchange\n8\n       \u0017gauntlets of power\nW\u001b..   n.\u0007imp\nFj    nFjFj    n\u0007plains centaur\nFlFj   nFn  Fj Fl  n  Fj  n \u0007fire giant\n;l,. 20s   n  .  n \u00161\ni\u001brm20s sZb\nZW   n . .  n . an\u001brls  yy\u001bnnny\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 50950073,
+   "datetime": "20120613190019",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      #levelchange\n30\n                      \u0017blessed ring of polymorph control\nPpl#polyself\nqueen bee\n   .s\u0007large mimic\nFhFhFks.jsm.#polyself\nvampire lord\n  #monster\n   sm..m.\u0007tengu\nFlFkFusm.s20s#polyself\njackal\n #monster\n.j  20ssh.m.su#polyself\ncrocodile\n#monster\nsm. sk .ysh.l\u0017potion of polymorph\nqq #dip\nlhi\u001b\u0017pick-axe\n\u00169\nn\u0017grave\narsm.sm.ar<_ \u001b>.ar>arl  nl\\   i\u001bPpls.sRrlri Per ss20sR zcjzcbarjarh E- Elbereth\ns#name\nm\n,sde#force\n_m,si\u001ban\u001bzcyrj aork  rm\u001612\n   #levelchange\n30\ny ykk\u0017magic trap\nj^kk20s     .  u\u0017level teleporter\ny\u0017hole\ny\u0017pit\n#terrain\nc\nm,dc  \u0004k      ,c\n  #levelchange\n8\n       \u0017lance\nws  nFj  Fj FjX\u0007succubus\n#chat\njFjFj      \u0007fire vortex\n20s      .. s     20s 20s \\   #wizintrinsic\nfh\n h un  n Z;h,\u0017wand of cold\nztu \u0017potion of water\nqu.s20s#levelchange\n30\n                    \u0017towel\nPv\u0016?\nh  \u0006s..ss.j  h     n nl 20s #invoke\n\u001b10s   n \u0006\u00162\n#levelchange\n8\n       \u0017gauntlets of power\nW\u001b..   n.\u0007imp\nFj    nFjFj    n\u0007plains centaur\nFlFj   nFn  Fj Fl  n  Fj  n \u0007fire giant\n;l,. 20s   n  .  n \u00161\ni\u001brm20s sZb\nZW   n . .  n . an\u001brls  yy\u001bnnny\u001by  s"
+  }
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " bkyjFlFl FlFlFl FlFlFllnubda.20ss#chat\nyhykjlubbkb10suj_ \u001b,>#loot\n_>.>huh150s150sFy 20ssi\u001byll50sFhs.jbh100si\u001b100sFkFks100s150#quit\nyy\u001by  y y y\u001b  nujl150syjuFb20s  Fh Fhs.\\ 50sFh20sskyj\\ 150s150s     Fh  FhsFbs.100sFjs.FhFjsF#quit\nfFbFbFb FbFbFbFbFbdg20s..dc20ss.#name\nf\n ,\u001b#name\no\n#chat\nbdh.20sskyljkbjhblyulhlh#name\na\n#chat\njhujbdc..s10s20s#name\nd\n#chat\nbdd.s20sdcsss#chat\nlhblh20suyllylhb#name\nd\n10sjyn#quit\nyy\u001by  y y y\u001b N JJK_ \u001b<.>Fjs.LBHN_>.>HKKK_>.>HLKN_>.>HKJB_>.>#offer\n#untrap\nh\u000f\u001b\u0018\u001b_>.>uhj_>.>100sFu20s   Fu FlFls150s150s100s100sFlFlFkkjk_>.>150skjjFkFks1#quit\ny\u001b    FlFlFlFlFlFlFlFlFhFhFhFhFhFhFhFhFl FlFlFlFlFlFlFljl10s10sdh20sss20suhbhyjJBKL_ \u001bm,>\\  ai KHBK_>,>##quit\n jby nUBYY_ \u001bm.>UYJH_>.>JNKY_>.>BKKJ_>.>Fus.jjlkjluyFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFllbhknk#chat\nn#name\nf\n20slnyuybnyyjyuhlFlFlFlFlFl FlFlFlYHJY_>.>HJUN_>.>FkFksYKKK_>,>FhFh .i\u001b100s\u0018\u001b100s\u0018\u001b100s\u000f\u001b150sFhFhFhFhssi\u001bi\u001b\\ 100s50sFhFh#quit\nyy\u001by  y y y\u001b nkbuFhFhFhFhFhFhFhFhJYUU_ \u001b<.>KLKJ_>,>KBUU_>.>;.#pray\ny  YJUN_>.>#rub\nzBJHN_>.>JJJK_>.>dcss20s20sjjtbh#chat\nj150s\u0018\u001b150sbub50s50s100s150s Fj FjFj50sFjss100s150sf \u001b50s Fjs20s100sedubu100s150s50s150sFks.50s_>.>:100s100sFkFks50sFk..bub50s \\   150sFjFj20s150s\\   \u0018\u001bulbuk jny50s#quit\nyy\u001by  y y y\u001b \u0007green slime\nFkFj Fh FjFk  Fjsu.l20s    yy\u001by   y y y\u001b y  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 50950010,
+   "datetime": "20251205215855",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": " bkyjFlFl FlFlFl FlFlFllnubda.20ss#chat\nyhykjlubbkb10suj_ \u001b,>#loot\n_>.>huh150s150sFy 20ssi\u001byll50sFhs.jbh100si\u001b100sFkFks100s150#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51050010,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=sortloot:full\nOPTIONS=runmode:walk\nOPTIONS=msg_window:reversed\n",
+   "moves": " nujl150syjuFb20s  Fh Fhs.\\ 50sFh20sskyj\\ 150s150s     Fh  FhsFbs.100sFjs.FhFjsF#quit\nf"
+  },
+  {
+   "seed": 51150010,
+   "datetime": "20130602230955",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=runmode:crawl\n",
+   "moves": "FbFbFb FbFbFbFbFbdg20s..dc20ss.#name\nf\n ,\u001b#name\no\n#chat\nbdh.20sskyljkbjhblyulhlh#name\na\n#chat\njhujbdc..s10s20s#name\nd\n#chat\nbdd.s20sdcsss#chat\nlhblh20suyllylhb#name\nd\n10sjyn#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51250010,
+   "datetime": "20030727012210",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=fruit:durian\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "N JJK_ \u001b<.>Fjs.LBHN_>.>HKKK_>.>HLKN_>.>HKJB_>.>#offer\n#untrap\nh\u000f\u001b\u0018\u001b_>.>uhj_>.>100sFu20s   Fu FlFls150s150s100s100sFlFlFkkjk_>.>150skjjFkFks1#quit\ny\u001b    "
+  },
+  {
+   "seed": 51350010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=runmode:walk\n",
+   "moves": "FlFlFlFlFlFlFlFlFhFhFhFhFhFhFhFhFl FlFlFlFlFlFlFljl10s10sdh20sss20suhbhyjJBKL_ \u001bm,>\\  ai KHBK_>,>##quit\n"
+  },
+  {
+   "seed": 51450010,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:mango\n",
+   "moves": " jby nUBYY_ \u001bm.>UYJH_>.>JNKY_>.>BKKJ_>.>Fus.jjlkjluyFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFllbhknk#chat\nn#name\nf\n20slnyuybnyyjyuhlFlFlFlFlFl FlFlFlYHJY_>.>HJUN_>.>FkFksYKKK_>,>FhFh .i\u001b100s\u0018\u001b100s\u0018\u001b100s\u000f\u001b150sFhFhFhFhssi\u001bi\u001b\\ 100s50sFhFh#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51550010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "nkbuFhFhFhFhFhFhFhFhJYUU_ \u001b<.>KLKJ_>,>KBUU_>.>;.#pray\ny  YJUN_>.>#rub\nzBJHN_>.>JJJK_>.>dcss20s20sjjtbh#chat\nj150s\u0018\u001b150sbub50s50s100s150s Fj FjFj50sFjss100s150sf \u001b50s Fjs20s100sedubu100s150s50s150sFks.50s_>.>:100s100sFkFks50sFk..bub50s \\   150sFjFj20s150s\\   \u0018\u001bulbuk jny50s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51650010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007green slime\nFkFj Fh FjFk  Fjsu.l20s    yy\u001by   y y y\u001b y  F"
+  }
+ ]
+}

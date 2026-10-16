@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0017blessed ring of polymorph control\nPir#polyself\nxorn\n#monster\n.s\u0007tengu\nFk .s20s.20s#polyself\ngreen slime\n  #monster\ns ssss#polyself\nnewt\n #monster\nsh 20s\u0007hobbit\nFj Fu Fj sm. .m.sm.#polyself\nmail daemon\n ki-rin\n mumak\nsn sb\u0007hill orc\nFuFh  Fks.."
+ },
+ "segments": [
+  {
+   "seed": 50952014,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0017blessed ring of polymorph control\nPir#polyself\nxorn\n#monster\n.s\u0007tengu\nFk .s20s.20s#polyself\ngreen slime\n  #monster\ns ssss#polyself\nnewt\n #monster\nsh 20s\u0007hobbit\nFj Fu Fj sm. .m.sm.#polyself\nmail daemon\n ki-rin\n mumak\nsn sb\u0007hill orc\nFuFh  Fks.."
+  }
+ ]
+}

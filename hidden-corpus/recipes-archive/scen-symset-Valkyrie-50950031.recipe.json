@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "FyFyFkFh ssuun\u0018\u001b100sFbss#sit\n\u001b_ \u001b,>nbb\u0018\u001b\u0018\u001bnju50s_>.>150sFys.150sllu100s50s#loot\nhyn\u000f\u001b\u0018\u001bukkbhhFkFbFbFbFbFbFbFbFbFbFbFbFkFbFbFbFbFbFbFbFbFbFbFbFbFkFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbmO>>c\u001b\n\u0007tame pony\n\u0007tame wolf\n\u0017leash\naflbul hafb\u0007jackal\ns20s 20ss20s s#chat\nb\u0006_>>,Fb_.Fl>FhFl_>>.Fh_.m,Fu> 20s   \u0006_>.Fj_.@.Fu>_>.Fj_.> FlFkFhFkFh  .100s50sFh20s20s150sed100s\\   \u0018\u001b100s#dip\ne100sFhFhsbnyuln100s_>,>50sbyjnkn100s#enhance\nyf\nn\n\u001bz50sFhss_>.>ykhnll100s150sFkFks\u0018\u001b\\   \u000f\u001bjjhFhFh FhFh FhFhFhFh.yhjO>>>g\u001b\nz>#invoke\n\u001b\u00164\nFys.100s100skyyFkFkFuFyFuFhFbFbFhFyFuFhFuFyFuFkFuFkFuFkFyFyFyFyFkFuFyFyFyFkFuFkFyFkFyFkFuFuFyFuFyFyFuFkFyFuFyFuFyFuFkFy FuFk  Fl  Fu   Fb   #pray\ny y            "
+ },
+ "segments": [
+  {
+   "seed": 50950031,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nMSGTYPE=hide \"The door\"\nBIND=v:inventory\n",
+   "moves": "FyFyFkFh ssuun\u0018\u001b100sFbss#sit\n\u001b_ \u001b,>nbb\u0018\u001b\u0018\u001bnju50s_>.>150sFys.150sllu100s50s#loot\nhyn\u000f\u001b\u0018\u001bukkbhhFkFbFbFbFbFbFbFbFbFbFbFbFkFbFbFbFbFbFbFbFbFbFbFbFbFkFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbmO>>c\u001b\n\u0007tame pony\n\u0007tame wolf\n\u0017leash\naflbul hafb\u0007jackal\ns20s 20ss20s s#chat\nb\u0006_>>,Fb_.Fl>FhFl_>>.Fh_.m,Fu> 20s   \u0006_>.Fj_.@.Fu>_>.Fj_.> FlFkFhFkFh  .100s50sFh20s20s150sed100s\\   \u0018\u001b100s#dip\ne100sFhFhsbnyuln100s_>,>50sbyjnkn100s#enhance\nyf\nn\n\u001bz50sFhss_>.>ykhnll100s150sFkFks\u0018\u001b\\   \u000f\u001bjjhFhFh FhFh FhFhFhFh.yhjO>>>g\u001b\nz>#invoke\n\u001b\u00164\nFys.100s100skyyFkFkFuFyFuFhFbFbFhFyFuFhFuFyFuFkFuFkFuFkFyFyFyFyFkFuFyFyFyFkFuFkFyFkFyFkFuFuFyFuFyFyFuFkFyFuFyFuFyFuFkFy FuFk  Fl  Fu   Fb   #pray\ny y            "
+  }
+ ]
+}

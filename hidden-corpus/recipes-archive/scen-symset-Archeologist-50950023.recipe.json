@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b<.>FkFy_>.Fkh _. Fj> FnFyFn\u0006_>>.>FnFky _>>.>FbFb_>>.>FnFyFnFnFn\u0006_>>.>FkFb_>>.>FbFn_>>.>FbFnFnFnFb\u0006_>.Fj_,> FnFkk Fk\u00164\nFyFh\u001bFhFkFbFjFyFyFkFbFbFhFbFbFjFkFjFyFbFhFkFjFyFjFyFbFyFkh FbFjFbFbFyFh\u001bFkFjFbFjFyFbFhFyFbFkFhFyFh\u001bFkFkFbFbFbFjFyFkh FbFyFhFkFyFyFhFyFh\u001bFyFh\u001bFbFyFkFbFbFbFjFhFhFyFbFkFhFyFyFjFkFbFyFkFyFh\u001bFyFh\u001bFkFbFbFhFbFbFbFh\u001bFbFyFhFkFjFyFky FjFyFh\u001bFhFjFbFbFjFhFbFkk FhFyFbFh\u0006_>.Fh_.> FjFlFn\u0006_>,>FbFl_>.>FbFl_>,>FlFkFuFnFn\u0006_>.Fy_.Fkh >FkFb_>.Fb_.Fk>FbFb_>.Fj_,Fk>FkFbFbFjFy\u0006_>>.Fk_.Fb>FhFb_>>.Fh\u001b_.Fh>FkFj_>>.Fh_,Fb>FbFyFhFjFk#invoke\n\u001b#turn\n\u0006_>>.Fj_,Fy>FhFh_>>.Fy_.Fb>FkFk_>>.Fy_.Fj>FjFbFjFyFy\u0006_>.Fb_.Fkj >FbFh\u001b_>.Fk_,Fh>FhFb_>.Fkh _.Fh>FjFhFkFyFb\u000f\u001b\u00166\nFkFbFky FbFyFkFbFyFbFh\u001bFbFbFbFkh FyFh\u001bFyFbFkFbFh\u001bFkFhFbFkh FbFyFbFbFyFyFkFhFyFh\u001bFbFh\u001bFyFbFbFh\u001bFkFbFyFbFkh FbFyFyFky FbFbFyFh\u001bFkF"
+ },
+ "segments": [
+  {
+   "seed": 50950023,
+   "datetime": "20000502114839",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": " \u0006_ \u001b<.>FkFy_>.Fkh _. Fj> FnFyFn\u0006_>>.>FnFky _>>.>FbFb_>>.>FnFyFnFnFn\u0006_>>.>FkFb_>>.>FbFn_>>.>FbFnFnFnFb\u0006_>.Fj_,> FnFkk Fk\u00164\nFyFh\u001bFhFkFbFjFyFyFkFbFbFhFbFbFjFkFjFyFbFhFkFjFyFjFyFbFyFkh FbFjFbFbFyFh\u001bFkFjFbFjFyFbFhFyFbFkFhFyFh\u001bFkFkFbFbFbFjFyFkh FbFyFhFkFyFyFhFyFh\u001bFyFh\u001bFbFyFkFbFbFbFjFhFhFyFbFkFhFyFyFjFkFbFyFkFyFh\u001bFyFh\u001bFkFbFbFhFbFbFbFh\u001bFbFyFhFkFjFyFky FjFyFh\u001bFhFjFbFbFjFhFbFkk FhFyFbFh\u0006_>.Fh_.> FjFlFn\u0006_>,>FbFl_>.>FbFl_>,>FlFkFuFnFn\u0006_>.Fy_.Fkh >FkFb_>.Fb_.Fk>FbFb_>.Fj_,Fk>FkFbFbFjFy\u0006_>>.Fk_.Fb>FhFb_>>.Fh\u001b_.Fh>FkFj_>>.Fh_,Fb>FbFyFhFjFk#invoke\n\u001b#turn\n\u0006_>>.Fj_,Fy>FhFh_>>.Fy_.Fb>FkFk_>>.Fy_.Fj>FjFbFjFyFy\u0006_>.Fb_.Fkj >FbFh\u001b_>.Fk_,Fh>FhFb_>.Fkh _.Fh>FjFhFkFyFb\u000f\u001b\u00166\nFkFbFky FbFyFkFbFyFbFh\u001bFbFbFbFkh FyFh\u001bFyFbFkFbFh\u001bFkFhFbFkh FbFyFbFbFyFyFkFhFyFh\u001bFbFh\u001bFyFbFbFh\u001bFkFbFyFbFkh FbFyFyFky FbFbFyFh\u001bFkF"
+  }
+ ]
+}

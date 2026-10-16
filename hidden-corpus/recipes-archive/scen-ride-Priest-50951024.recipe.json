@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0007red dragon\n\u0017scroll of taming\nrj \u0017saddle\nakb#ride\njy\u0007tame saddled pony\n#ride\njy\u0007tame saddled horse\n#ride\nhyy\u0004y  yy\u001bnny\u001bn  s"
+ },
+ "segments": [
+  {
+   "seed": 50951024,
+   "datetime": "20201011105818",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007red dragon\n\u0017scroll of taming\nrj \u0017saddle\nakb#ride\njy\u0007tame saddled pony\n#ride\njy\u0007tame saddled horse\n#ride\nhyy\u0004y  yy\u001bnny\u001bn  s"
+  }
+ ]
+}

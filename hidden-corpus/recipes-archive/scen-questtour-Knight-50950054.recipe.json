@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nn_mmmm.#chat\nn ;l;_m,Fh _,#chat\nb_m.#chat\nj;m,_m.#chat\nl#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nb_mmmm,#chat\nh_mmmmm.#chat\nl\u0017blessed amulet of reflection\nPi\u0017blessed +3 cloak of magic resistance\nWj\u0017wand of magic missile\n\u0016?\n>z\u0006_mmm.s20s.sss,\u0016?\n>>\u001b\u0016?\n>y_mm. Fn _.m,Fj #chat\nj;j:  \u0016?\n>A\u0006_mm. Fj_.FkFk Fb  Fn,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_m.    Fn   _.#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fj_,Fj  FhFj   Fj  Fj     n   zkb     ,#chat\nb\u0016?\n>A\u0006_mmm, Fk      _.Fk     Fj     n    Fy     Fj       zkn            ,\u0016?\n>z\u0006_mmm.       n  Fn       _.Fb  Fn            Fb         n  Fj           Fh           n  Fu       Fb ,#chat\nu\u00163\n\u0016?\n>A\u0006_mmmm.         Fy         _.Fk   n           Fb           Fy    n        Fk      Fk  Fy        n    ,#chat\nk\u00167\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.           Fh             n   _.Fk           Fj          Fb         Fy     n          zkl            ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.   n            Fh            _,#chat\nu;b,\u001611\n\u0016?\n>A\u0006_mmmm,   n          Fl             _.Fh              n   Fb           Fy          n  Fl            Fk        Fl Fk     n        ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.         Fu            _,#chat\nn;h,\u0016?\n>z\u0006_mmm,  ynnnnn  F"
+ },
+ "segments": [
+  {
+   "seed": 50950054,
+   "datetime": "20191031134743",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nn_mmmm.#chat\nn ;l;_m,Fh _,#chat\nb_m.#chat\nj;m,_m.#chat\nl#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.#chat\nb_mmmm,#chat\nh_mmmmm.#chat\nl\u0017blessed amulet of reflection\nPi\u0017blessed +3 cloak of magic resistance\nWj\u0017wand of magic missile\n\u0016?\n>z\u0006_mmm.s20s.sss,\u0016?\n>>\u001b\u0016?\n>y_mm. Fn _.m,Fj #chat\nj;j:  \u0016?\n>A\u0006_mm. Fj_.FkFk Fb  Fn,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_m.    Fn   _.#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fj_,Fj  FhFj   Fj  Fj     n   zkb     ,#chat\nb\u0016?\n>A\u0006_mmm, Fk      _.Fk     Fj     n    Fy     Fj       zkn            ,\u0016?\n>z\u0006_mmm.       n  Fn       _.Fb  Fn            Fb         n  Fj           Fh           n  Fu       Fb ,#chat\nu\u00163\n\u0016?\n>A\u0006_mmmm.         Fy         _.Fk   n           Fb           Fy    n        Fk      Fk  Fy        n    ,#chat\nk\u00167\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.           Fh             n   _.Fk           Fj          Fb         Fy     n          zkl            ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.   n            Fh            _,#chat\nu;b,\u001611\n\u0016?\n>A\u0006_mmmm,   n          Fl             _.Fh              n   Fb           Fy          n  Fl            Fk        Fl Fk     n        ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.         Fu            _,#chat\nn;h,\u0016?\n>z\u0006_mmm,  ynnnnn  F"
+  }
+ ]
+}

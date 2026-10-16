@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0006_ \u001bm,>Fu s_>._.>_>,_.><\u0006_>._,>_>._,>_>._.Fl>\u0006_>,Fj_.m,> #pray\ny y ;m.< \u0006_>,> \u0006_>.Fl _.Fl > Fl Fl  n  Fl #dip\nb10s\u0006_>.Fl _.Fl   n >Fy Fl_>,_.@.>_>._.>.>\u001618\n\u00167\n#levelchange\n12\n \u0007hezrou\n#chat\nnFnFn \u0007sewer rat\nFn FhFn Fn \u0007baby long worm\nFb FnFn  n i\u001b#polyself\ndust vortex\n .s\u0007yellow mold\nFbFbFbFb\u0007jackal\nFn Fn FjFh #levelchange\n12\n\u0016?\nf    _>,.m.acl\u0006.m..\u001629\n   #pray\ny y    tdb    n #force\n;u:  20s   .l\u0016?\n>x#loot\n#terrain\nf\n#dip\nf;>.20s20s\u001715 shuriken\nQg\u0007hill orc\nlfj  fhfhfh  fh\u0017lance\nwh\u0007sewer rat\nlah@.x #twoweapon\nFbsuju,#enhance\nyc\np\n\u001b\u00165\n\u0017amulet of flying\nPiss20s .20s 20s\u0017cursed spellbook of create familiar\n\u0007Kop Kaptain\nrk     nsm.sm.ZZFl Fl \u0017scroll of identify\nrl    Fl Fl \u0017cursed potion of healing\nqm #dip\ni\u0017blessed +3 tsurugi\nwn  Fk Fl   nFlXss \u001b\u0006\u00162\n\u0017potion of gain ability\nqo#dip\nf\u0017blessed wand of opening\nzpkzpus.\u0017gray stone\naqpss\u00173 wax candle\nar#rub\nqb\u0017spellbook of chain lightning\nrs ssZ\u001bZ\u001b\u0017potion of polymorph\nqt.s\u0017blessed wand of digging\n\u0007centipede\nzunzunFns\u00173 leather drum\n\u0007sergeant\nav  av\u0017cursed wand of stasis\nzwzwwgny.s\u001627\n#levelchange\n20\n      jhjh\u0017hole\njksj  20sbl\u0017statue trap\nh  \u0007gnome\nsm. sm.sm.    n  sm.  #terrain\nc\n#wipe\n  ,:\u001628\n  #levelchange\n30\n         #wizintri"
+ },
+ "segments": [
+  {
+   "seed": 50950041,
+   "datetime": "20201223162050",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0006_ \u001bm,>Fu s_>._.>_>,_.><\u0006_>._,>_>._,>_>._.Fl>\u0006_>,Fj_.m,> #pray\ny y ;m.< \u0006_>,> \u0006_>.Fl _.Fl > Fl Fl  n  Fl #dip\nb10s\u0006_>.Fl _.Fl   n >Fy Fl_>,_.@.>_>._.>.>\u001618\n\u00167\n#levelchange\n12\n \u0007hezrou\n#chat\nnFnFn \u0007sewer rat\nFn FhFn Fn \u0007baby long worm\nFb FnFn  n i\u001b#polyself\ndust vortex\n .s\u0007yellow mold\nFbFbFbFb\u0007jackal\nFn Fn FjFh #levelchange\n12\n\u0016?\nf    _>,.m.acl\u0006.m..\u001629\n   #pray\ny y    tdb    n #force\n;u:  20s   .l\u0016?\n>x#loot\n#terrain\nf\n#dip\nf;>.20s20s\u001715 shuriken\nQg\u0007hill orc\nlfj  fhfhfh  fh\u0017lance\nwh\u0007sewer rat\nlah@.x #twoweapon\nFbsuju,#enhance\nyc\np\n\u001b\u00165\n\u0017amulet of flying\nPiss20s .20s 20s\u0017cursed spellbook of create familiar\n\u0007Kop Kaptain\nrk     nsm.sm.ZZFl Fl \u0017scroll of identify\nrl    Fl Fl \u0017cursed potion of healing\nqm #dip\ni\u0017blessed +3 tsurugi\nwn  Fk Fl   nFlXss \u001b\u0006\u00162\n\u0017potion of gain ability\nqo#dip\nf\u0017blessed wand of opening\nzpkzpus.\u0017gray stone\naqpss\u00173 wax candle\nar#rub\nqb\u0017spellbook of chain lightning\nrs ssZ\u001bZ\u001b\u0017potion of polymorph\nqt.s\u0017blessed wand of digging\n\u0007centipede\nzunzunFns\u00173 leather drum\n\u0007sergeant\nav  av\u0017cursed wand of stasis\nzwzwwgny.s\u001627\n#levelchange\n20\n      jhjh\u0017hole\njksj  20sbl\u0017statue trap\nh  \u0007gnome\nsm. sm.sm.    n  sm.  #terrain\nc\n#wipe\n  ,:\u001628\n  #levelchange\n30\n         #wizintri"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#name\no\n#monster\n#chat\nj,\u0004h>#invoke\n\u001b#offer\nh,#force\n#loot\n#tip\n\u001b#jump\n,#offer\nah #dip\ncd,#jump\n\u000f\u001b:i\u001baclqezgnW20ss20sTwaFnFnFnekss#chat\nb#force\n#pray\ny  aj Wboj"
+ },
+ "segments": [
+  {
+   "seed": 50952022,
+   "datetime": "20111201091134",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\n",
+   "moves": "#name\no\n#monster\n#chat\nj,\u0004h>#invoke\n\u001b#offer\nh,#force\n#loot\n#tip\n\u001b#jump\n,#offer\nah #dip\ncd,#jump\n\u000f\u001b:i\u001baclqezgnW20ss20sTwaFnFnFnekss#chat\nb#force\n#pray\ny  aj Wboj"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "zac\u0006_>\u0006_>\u0006_>\u000fk\u0006_>\u0014\u0018\u0006_>\u0006_><\u000f\u0016njh100s150s100s100s150snjy150s100sjyj50s150s100s100s\\50s100s100sybnkyn100s100s100s_>50sbly50s\u0018100s100s150s100s#ride\nbkhW100sbnn50sjnjkbb\u001617\n\u0007little dog\n\u0017apple\ntby\u0007acid blob\n\u0017scroll of taming\nrf bb#chat\ny\u0006_ \u001bm,>_>. _.>_>._,>10s  n \u0006_>,_.>_>,_.  n >_>._.>\u00164\nO>p\u001b\n\u00162\n#turn\nynn50s\u0018\u001bkhh100s\\   150s100s50s\u0018\u001b100s_>.>kuu>nh nyyl_>.>_>.>nyk100s#monster\n100s100s150s#name\no\n100s_>,>150s150s100s100skky100s50s150s150sdc50s100sOm\u001b\n 150s150s      kyu100s100sbjb100s#untrap\nynbyWuujkh h\u0018\u001b50shbk100s150s150s100s#name\na\ni\u001b_>,>100sklut\u001b_>.>50s150si\u001byuk50suhy150s100s150s100s50s\u000f\u001b100s20s#offer\ns\u001616\n_>,>uhb100sP100s  50s edunj\u0018\u001b#twoweapon\na50sjlu150s #jump\n\u0018\u001bi\u001bhlyllk50s50s_>.>100s  yjy50s\u000f\u001b100suhu\\   100s 100s150s ee50s eeeeeeO>>>j\u001b\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehybk\u0017grave\n: \u0017pick-axe\nag >  20ssj\u0017melting ice\n: ul\u0017fountain\nqyqy \u001b y\u0017long swo"
+ },
+ "segments": [
+  {
+   "seed": 50950047,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": "zac\u0006_>\u0006_>\u0006_>\u000fk\u0006_>\u0014\u0018\u0006_>\u0006_><\u000f\u0016njh100s150s100s100s150snjy150s100sjyj50s150s100s100s\\50s100s100sybnkyn100s100s100s_>50sbly50s\u0018100s100s150s100s#ride\nbkhW100sbnn50sjnjkbb\u001617\n\u0007little dog\n\u0017apple\ntby\u0007acid blob\n\u0017scroll of taming\nrf bb#chat\ny\u0006_ \u001bm,>_>. _.>_>._,>10s  n \u0006_>,_.>_>,_.  n >_>._.>\u00164\nO>p\u001b\n\u00162\n#turn\nynn50s\u0018\u001bkhh100s\\   150s100s50s\u0018\u001b100s_>.>kuu>nh nyyl_>.>_>.>nyk100s#monster\n100s100s150s#name\no\n100s_>,>150s150s100s100skky100s50s150s150sdc50s100sOm\u001b\n 150s150s      kyu100s100sbjb100s#untrap\nynbyWuujkh h\u0018\u001b50shbk100s150s150s100s#name\na\ni\u001b_>,>100sklut\u001b_>.>50s150si\u001byuk50suhy150s100s150s100s50s\u000f\u001b100s20s#offer\ns\u001616\n_>,>uhb100sP100s  50s edunj\u0018\u001b#twoweapon\na50sjlu150s #jump\n\u0018\u001bi\u001bhlyllk50s50s_>.>100s  yjy50s\u000f\u001b100suhu\\   100s 100s150s ee50s eeeeeeO>>>j\u001b\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehybk\u0017grave\n: \u0017pick-axe\nag >  20ssj\u0017melting ice\n: ul\u0017fountain\nqyqy \u001b y\u0017long swo"
+  }
+ ]
+}

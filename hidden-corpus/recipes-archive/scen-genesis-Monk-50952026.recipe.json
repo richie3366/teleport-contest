@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0007red dragon\nFlFk FlFlFl  yy\u001by   y y y\u001by  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 50952026,
+   "datetime": "20060618155502",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007red dragon\nFlFk FlFlFl  yy\u001by   y y y\u001by  \u0007"
+  }
+ ]
+}

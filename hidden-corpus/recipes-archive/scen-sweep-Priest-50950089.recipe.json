@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqi \u001b;_{,_.@.qd_mmmm.Fl_,#chat\ny_oooo.Fh  _.Fh ,$_oo.Fh _.m,Fl  ,#chat\nh_mm,#chat\nh_mmm. Fh_.#chat\nh E- Elbereth Elbereth\n #conduct\n dc#levelchange\n8\n  \u0017dagger\nwj Fh   nFh Fh \u0007Kop Kaptain\n#chat\nh  Fl Fh\u0007dust vortex\nFh   nFh Fl Fl Fh     nFl \u001612\n#levelchange\n30\n                      \u0017uncursed tripe ration\n\u0007Orcus\nyek   .m. 20s  n  FlFl  \u0017blessed +3 bullwhip\n\u0007Elvenking\nwl  n  n Fn   n  Fn    Fl    \u0017scroll of taming\nrm   \u0017cursed spellbook of detect unseen\n\u0007Pestilence\nyrn        n .m. 20s   n  n ZZFn     nFn            n \u0017blessed spellbook of healing\n\u0007wood nymph\nro y       n   n   20s  >.     n     yy\u001by   y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 50950089,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqi \u001b;_{,_.@.qd_mmmm.Fl_,#chat\ny_oooo.Fh  _.Fh ,$_oo.Fh _.m,Fl  ,#chat\nh_mm,#chat\nh_mmm. Fh_.#chat\nh E- Elbereth Elbereth\n #conduct\n dc#levelchange\n8\n  \u0017dagger\nwj Fh   nFh Fh \u0007Kop Kaptain\n#chat\nh  Fl Fh\u0007dust vortex\nFh   nFh Fl Fl Fh     nFl \u001612\n#levelchange\n30\n                      \u0017uncursed tripe ration\n\u0007Orcus\nyek   .m. 20s  n  FlFl  \u0017blessed +3 bullwhip\n\u0007Elvenking\nwl  n  n Fn   n  Fn    Fl    \u0017scroll of taming\nrm   \u0017cursed spellbook of detect unseen\n\u0007Pestilence\nyrn        n .m. 20s   n  n ZZFn     nFn            n \u0017blessed spellbook of healing\n\u0007wood nymph\nro y       n   n   20s  >.     n     yy\u001by   y y y\u001by  s"
+  }
+ ]
+}

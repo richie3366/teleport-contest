@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "LJKJ_ \u001b<.><yny  y n H"
+ },
+ "segments": [
+  {
+   "seed": 50950051,
+   "datetime": "20220528003616",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "LJKJ_ \u001b<.><yny  y n H"
+  }
+ ]
+}

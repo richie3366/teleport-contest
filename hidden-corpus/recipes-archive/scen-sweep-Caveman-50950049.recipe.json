@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017dwarvish mattock\naf j jafh h\u0006_ \u001bm.af>  bhj\u0017grave\naf>20s20s\u0006_oo.af>\u0006_>,Fu_.Fh>FhFu_>,Fh_,Fu>FlFh_>,Fh_.:Fh>FlFhFhFl Fh  n\u0006_>.Fh_,Fh>FhFh_>.Fh_.Fh>FyFh_>.Fy_.Fy>Fy  nFhFhFh.#name\nm\nz\u0006_>._.> \u0006_>.Fl_.@.> #turn\n#jump\n\u0006_>>._.>_>>._.>_>>._,>\u0006_>._.>_>._.>_>._,>\u0006_>,_,>_>,_.>_>,_.>zwf\u000f\u001b\u00165\n\u00167\n\u0007watchman\n#chat\njFj Fj \u0007vampire\n;h,20s  n sk.b#levelchange\n14\n             nlj\u0017ice\nkj jj:h  \u0017unaligned altar\nde\u0017dwarf corpse\n#offer\ng    n    n  u j \u0017throne\n#sit\n n #sit\n y #sit\n :#tip\n\u001b#conduct\n #conduct\n \u001612\n\u00172000 gold pieces\n\u0016?\n>x\u0006_ooo,,dc _ooooooooo,, \u0014m._ooooo,,df_ooooo._o., db\u0004 ,f a b#levelchange\n20\n      \u0016?\n>G \u0004 >#loot\n;.20s  20s \u0016?\n>t ,10s df  n  ;m.20s 20s     n \u001616\n\\ ,#ride\nhy20s20s \u0016?\n>>M      wand of enlightenment\n#pray\ny y              <Zsm.      s \u0016?\n\u001b\u000f\u001b\u001612\n#levelchange\n8\n    \u0017blessed ring of polymorph control\nPjl  n          n        \u0017helm of opposite alignment\nWk    20s   n        s 20s  n     #polyself\nred dragon\n    sm.                              n       n . s .  20s  #polyself\nelectric eel\n #monster\nsj          s  n    20s  20s    .#polyself\nvampire\n   #monster\n         n         yy\u001by  y nn  s"
+ },
+ "segments": [
+  {
+   "seed": 50950049,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017dwarvish mattock\naf j jafh h\u0006_ \u001bm.af>  bhj\u0017grave\naf>20s20s\u0006_oo.af>\u0006_>,Fu_.Fh>FhFu_>,Fh_,Fu>FlFh_>,Fh_.:Fh>FlFhFhFl Fh  n\u0006_>.Fh_,Fh>FhFh_>.Fh_.Fh>FyFh_>.Fy_.Fy>Fy  nFhFhFh.#name\nm\nz\u0006_>._.> \u0006_>.Fl_.@.> #turn\n#jump\n\u0006_>>._.>_>>._.>_>>._,>\u0006_>._.>_>._.>_>._,>\u0006_>,_,>_>,_.>_>,_.>zwf\u000f\u001b\u00165\n\u00167\n\u0007watchman\n#chat\njFj Fj \u0007vampire\n;h,20s  n sk.b#levelchange\n14\n             nlj\u0017ice\nkj jj:h  \u0017unaligned altar\nde\u0017dwarf corpse\n#offer\ng    n    n  u j \u0017throne\n#sit\n n #sit\n y #sit\n :#tip\n\u001b#conduct\n #conduct\n \u001612\n\u00172000 gold pieces\n\u0016?\n>x\u0006_ooo,,dc _ooooooooo,, \u0014m._ooooo,,df_ooooo._o., db\u0004 ,f a b#levelchange\n20\n      \u0016?\n>G \u0004 >#loot\n;.20s  20s \u0016?\n>t ,10s df  n  ;m.20s 20s     n \u001616\n\\ ,#ride\nhy20s20s \u0016?\n>>M      wand of enlightenment\n#pray\ny y              <Zsm.      s \u0016?\n\u001b\u000f\u001b\u001612\n#levelchange\n8\n    \u0017blessed ring of polymorph control\nPjl  n          n        \u0017helm of opposite alignment\nWk    20s   n        s 20s  n     #polyself\nred dragon\n    sm.                              n       n . s .  20s  #polyself\nelectric eel\n #monster\nsj          s  n    20s  20s    .#polyself\nvampire\n   #monster\n         n         yy\u001by  y nn  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " mOa\n\\   mO>>>wu\n\u0018\u001bOhlp\n#turn\n  ,O>dap\ng\nj\nE- Elbereth Elbereth\nmO>sm\nW#tip\n\u001bs.O>gje\nLt$nmO>>gv\n #wipe\nOnj\nkO>nlb\nc\nf\nt\n\u001b\u001b#enhance\nyd\ni\n\u001bOip\nh\nzO>kd\nj\nu20s ."
+ },
+ "segments": [
+  {
+   "seed": 50951011,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " mOa\n\\   mO>>>wu\n\u0018\u001bOhlp\n#turn\n  ,O>dap\ng\nj\nE- Elbereth Elbereth\nmO>sm\nW#tip\n\u001bs.O>gje\nLt$nmO>>gv\n #wipe\nOnj\nkO>nlb\nc\nf\nt\n\u001b\u001b#enhance\nyd\ni\n\u001bOip\nh\nzO>kd\nj\nu20s ."
+  }
+ ]
+}

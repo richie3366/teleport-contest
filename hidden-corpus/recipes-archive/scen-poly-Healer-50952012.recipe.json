@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPkr#polyself\nnurse\n horned devil\n#monster\nss\u0007lieutenant\nFk   Fk Fk .m.  n.m.  n 20s  yy\u001bny y\u001by  #"
+ },
+ "segments": [
+  {
+   "seed": 50952012,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of polymorph control\nPkr#polyself\nnurse\n horned devil\n#monster\nss\u0007lieutenant\nFk   Fk Fk .m.  n.m.  n 20s  yy\u001bny y\u001by  #"
+  }
+ ]
+}

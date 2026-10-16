@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nh_mmmm.  Fy   n  n_.    nFb   n #chat\nb_m.  n   nFy    n  n _.#chat\nb#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm, Fk _,  Fu  #chat\nu;n:  _mmmm.Fl    n  _,   Fu     #chat\nk    n    _mmmm.       Fh  n        _.#chat\ny;h,\u0017blessed +3 helm of telepathy\nWm       n \u0017blessed +3 gauntlets of power\nWn        \u0017blessed Mjollnir\nwo     n      \u0017wand of cold\n\u0016?\n>z\u0006_mmmm,      n    Fb         n   _.Fu        Fk      yy\u001by  y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 50950006,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nh_mmmm.  Fy   n  n_.    nFb   n #chat\nb_m.  n   nFy    n  n _.#chat\nb#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm, Fk _,  Fu  #chat\nu;n:  _mmmm.Fl    n  _,   Fu     #chat\nk    n    _mmmm.       Fh  n        _.#chat\ny;h,\u0017blessed +3 helm of telepathy\nWm       n \u0017blessed +3 gauntlets of power\nWn        \u0017blessed Mjollnir\nwo     n      \u0017wand of cold\n\u0016?\n>z\u0006_mmmm,      n    Fb         n   _.Fu        Fk      yy\u001by  y y\u001b  F"
+  }
+ ]
+}

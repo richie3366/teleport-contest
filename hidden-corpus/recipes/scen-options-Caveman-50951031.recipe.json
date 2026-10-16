@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " mO>>>>cde\n\u001b 1\n 1\ndc#name\n\u001bO>p\n#pray\ny O>fnk\n#enhance\n\u001bafy mO>>>>>th\n\u001b \u001b10s#name\n\u001bmO>h\n\u0014s20s "
+ },
+ "segments": [
+  {
+   "seed": 50951031,
+   "datetime": "20180902135911",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\n",
+   "moves": " mO>>>>cde\n\u001b 1\n 1\ndc#name\n\u001bO>p\n#pray\ny O>fnk\n#enhance\n\u001bafy mO>>>>>th\n\u001b \u001b10s#name\n\u001bmO>h\n\u0014s20s "
+  }
+ ]
+}

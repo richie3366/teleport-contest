@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed amulet of reflection\nPi...ls\u0017blessed tinning kit\naj\u0017crossbow\nwk20sssX\u0017wand of probing\n\u0007jackal\nzll   zll   Fl Fn\u0017candy bar\n\u0007homunculus\nemsm.sm.\u00173 spellbook of clairvoyance\nrn sh20s Z\u001bZ\u001bFl Fj 20s sm.   "
+ },
+ "segments": [
+  {
+   "seed": 50952007,
+   "datetime": "20260305214207",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed amulet of reflection\nPi...ls\u0017blessed tinning kit\naj\u0017crossbow\nwk20sssX\u0017wand of probing\n\u0007jackal\nzll   zll   Fl Fn\u0017candy bar\n\u0007homunculus\nemsm.sm.\u00173 spellbook of clairvoyance\nrn sh20s Z\u001bZ\u001bFl Fj 20s sm.   "
+  }
+ ]
+}

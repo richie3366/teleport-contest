@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPkl\u0017blessed +3 speed boots\nWl#levelchange\n20\n                    \u0017wand of digging\n\u0017wand of magic missile\n\u0007troll\n\u0007kobold\nznb znyznb  znb zm>  znb zm> znj    n \u00165\n\u0017spellbook of cause fear\nro \u001b,      n sm. \u0007orc shaman\n\u0007incubus\nZa\nZa\n   Z.m.sm.   Zb\nZZ20s    n .m.  \u00162\n  \u0017spellbook of cone of cold\nrp   m, .\u0017spellbook of finger of death\nrq    20s\u0007vampire\n\u0007mind flayer\nZc\nZa\n    Zc\n   Zc\nZa\n    Zc\n   n   sm.   n    sm.   n   Zb\n   n  Zc\n    n   \u00167\n \u0017wand of striking\n\u0017wand of slow monster\n\u0007kobold shaman\nzrhzshzrh.jzsuzshzshzshi\u001b\u0017wand of death\n\u0017wand of slow monster\n\u0017wand of fire\n\u0007grid bug\n\u0007newt\n\u0007yellow mold\nzvy   zuhztj 20sztb zujzubztb nzuj\u0017blessed spellbook of force bolt\nrw  \u001bsm.\u0007master mind flayer\nZZZZZ#turn\n   \u0018\u001b\u0007orc shaman\n\u0007mind flayer\n\u0007vampire\n\u0017wand of sleep\n20s   n  20s   n     n  zxy         n   zxk         n  zxu        n  zxk     yy\u001by   y y y\u001by  z"
+ },
+ "segments": [
+  {
+   "seed": 50950004,
+   "datetime": "20020206154226",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPkl\u0017blessed +3 speed boots\nWl#levelchange\n20\n                    \u0017wand of digging\n\u0017wand of magic missile\n\u0007troll\n\u0007kobold\nznb znyznb  znb zm>  znb zm> znj    n \u00165\n\u0017spellbook of cause fear\nro \u001b,      n sm. \u0007orc shaman\n\u0007incubus\nZa\nZa\n   Z.m.sm.   Zb\nZZ20s    n .m.  \u00162\n  \u0017spellbook of cone of cold\nrp   m, .\u0017spellbook of finger of death\nrq    20s\u0007vampire\n\u0007mind flayer\nZc\nZa\n    Zc\n   Zc\nZa\n    Zc\n   n   sm.   n    sm.   n   Zb\n   n  Zc\n    n   \u00167\n \u0017wand of striking\n\u0017wand of slow monster\n\u0007kobold shaman\nzrhzshzrh.jzsuzshzshzshi\u001b\u0017wand of death\n\u0017wand of slow monster\n\u0017wand of fire\n\u0007grid bug\n\u0007newt\n\u0007yellow mold\nzvy   zuhztj 20sztb zujzubztb nzuj\u0017blessed spellbook of force bolt\nrw  \u001bsm.\u0007master mind flayer\nZZZZZ#turn\n   \u0018\u001b\u0007orc shaman\n\u0007mind flayer\n\u0007vampire\n\u0017wand of sleep\n20s   n  20s   n     n  zxy         n   zxk         n  zxu        n  zxk     yy\u001by   y y y\u001by  z"
+  }
+ ]
+}

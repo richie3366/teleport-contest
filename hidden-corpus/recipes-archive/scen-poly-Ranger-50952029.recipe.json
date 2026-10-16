@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of polymorph control\nPir#polyself\nlichen\n  #monster\nsss.s#polyself\ndog\n s.\u0007grey-elf\nFbFlFjsm.sh sh  yy\u001bny nny  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 50952029,
+   "datetime": "20151029073832",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of polymorph control\nPir#polyself\nlichen\n  #monster\nsss.s#polyself\ndog\n s.\u0007grey-elf\nFbFlFjsm.sh sh  yy\u001bny nny  \u0017"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "L  BLB_ \u001b@.>f $ n20sBNL Y_>.>YLUU_>.>\\ #monster\n<HNLJ_>.>Fh.Fhs#wipe\nNHUJ_>.>Fh.Fhai s#name\no\nBUBH_>.>Fhs20s\u000f\u001bE- Vlad was here\nBYLU_>.><i\u001bNYLU_>.><BULJ_>.>#jump\n\u0014JKLN_>.>KUYJ_>.>BNNY_>.>\u000f\u001bdb20s20s20skunlh#name\no\n#chat\nh#chat\nh20sUKKU_>.>FhFhFhYKNJ_>.>Fh.s#dip\niesNBLN_>.>#pray\ny  t$uBKNH_>.>#dip\ned chLLLL_>.>#monster\n#invoke\n\u001b<100sFhFhFh#pray\ny   y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 50950059,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=fruit:mango\n",
+   "moves": "L  BLB_ \u001b@.>f $ n20sBNL Y_>.>YLUU_>.>\\ #monster\n<HNLJ_>.>Fh.Fhs#wipe\nNHUJ_>.>Fh.Fhai s#name\no\nBUBH_>.>Fhs20s\u000f\u001bE- Vlad was here\nBYLU_>.><i\u001bNYLU_>.><BULJ_>.>#jump\n\u0014JKLN_>.>KUYJ_>.>BNNY_>.>\u000f\u001bdb20s20s20skunlh#name\no\n#chat\nh#chat\nh20sUKKU_>.>FhFhFhYKNJ_>.>Fh.s#dip\niesNBLN_>.>#pray\ny  t$uBKNH_>.>#dip\ned chLLLL_>.>#monster\n#invoke\n\u001b<100sFhFhFh#pray\ny   y\u001by  y y y\u001b  1"
+  }
+ ]
+}

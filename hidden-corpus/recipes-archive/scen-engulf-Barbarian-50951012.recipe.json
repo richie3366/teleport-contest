@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    \u0007steam vortex\nFusm. FkFj Fj sFh FuFls#pray\ny y  Fh#polyself\ntrapper\n ss\u0007sewer rat\nsFy20s20s \u0007jackal\nFkFn20s Fk "
+ },
+ "segments": [
+  {
+   "seed": 50951012,
+   "datetime": "20171214013637",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n    \u0007steam vortex\nFusm. FkFj Fj sFh FuFls#pray\ny y  Fh#polyself\ntrapper\n ss\u0007sewer rat\nsFy20s20s \u0007jackal\nFkFn20s Fk "
+  }
+ ]
+}
