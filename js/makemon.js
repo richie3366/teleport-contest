@@ -3793,7 +3793,7 @@ export function makemon(mdat, x, y, mmflags = 0) {
     if (!game.in_mklev && (mmflags & MM_ASYNCGROUP) !== 0) {
         // Stash the sync-computed tail inputs for the async half (deleted
         // there; JS-only field, never upstream).
-        mtmp._asyncTail = { anymon, allowMinvent: allow_minvent_local };
+        mtmp._asyncTail = { anymon, allowMinvent: allow_minvent_local, birthPtr: ptr };
         return mtmp;
     }
 
@@ -3907,7 +3907,15 @@ export async function makemon_appear_msg(mtmp, x, y, mmflags = 0) {
     if ((mmflags & MM_ASYNCGROUP) !== 0 && mtmp._asyncTail) {
         const deferred = mtmp._asyncTail;
         delete mtmp._asyncTail;
-        const ptr = mtmp.data;
+        // C makemon.c: the local `ptr` is the BIRTH type for the whole body:
+        // a shapechanger's sync-prefix newcham (:1356-1367) swaps mtmp->data
+        // (and clears allow_minvent) but ptr still gates the group block
+        // (:1430-1439) and the invent predicates (:1443/:1447). The stashed
+        // birthPtr preserves that; mtmp.data is the (possibly newcham'd)
+        // current form, which C uses only for member type (m_initgrp) and
+        // the appear below. Reading data here fired an orc-zombie SGROUP
+        // gate for a doppelganger birth (Tourist-50456027 s679).
+        const ptr = deferred.birthPtr || mtmp.data;
         if (deferred.anymon && (mmflags & MM_NOGRP) === 0) {
             if ((ptr.geno & G_SGROUP) && rn2(2)) {
                 await m_initgrp_async(mtmp, mtmp.mx, mtmp.my, 3, mmflags);

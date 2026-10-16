@@ -10,7 +10,7 @@
 {"fn":"find_defensive","c":"441-750","status":"ported","js":["js/muse.js:find_defensive"],"d":["D-1988"],"at":"2026-10-03@bbe63333a"}
 {"fn":"reveal_trap","c":"757-767","status":"ported","js":["js/muse.js:reveal_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mon_escape","c":"780-789","status":"ported","js":["js/muse.js:mon_escape"],"at":"2026-10-03@bbe63333a"}
-{"fn":"use_defensive","c":"796-1219","status":"ported","js":["js/muse.js:use_defensive"],"d":["D-3800","D-3245","D-1970","D-1809"],"at":"2026-10-10@1adc2a3cf"}
+{"fn":"use_defensive","c":"796-1219","status":"ported","js":["js/muse.js:use_defensive"],"d":["D-4021","D-3800","D-3245","D-1970","D-1809"],"at":"2026-10-16@d4c675cc7"}
 {"fn":"rnd_defensive_item","c":"1222-1270","status":"ported","js":["js/makemon.js:rnd_defensive_item"],"at":"2026-10-03@bbe63333a"}
 {"fn":"linedup_chk_corpse","c":"1294-1297","status":"ported","js":["js/muse.js:linedup_chk_corpse"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_use_undead_turning","c":"1300-1340","status":"ported","js":["js/muse.js:m_use_undead_turning"],"d":["D-2634"],"at":"seed@a30a7de84"}
