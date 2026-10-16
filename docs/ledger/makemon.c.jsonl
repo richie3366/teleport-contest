@@ -1,6 +1,6 @@
 {"fn":"is_home_elemental","c":"33-50","status":"ported","js":["js/makemon.js:is_home_elemental"],"at":"2026-10-03@bbe63333a"}
 {"fn":"wrong_elem_type","c":"56-75","status":"ported","js":["js/makemon.js:wrong_elem_type"],"at":"2026-10-03@bbe63333a"}
-{"fn":"m_initgrp","c":"79-145","status":"split","js":["js/makemon.js:m_initgrp"],"d":["D-4014","D-3426","D-3423","D-3410","D-3409","D-3408"],"at":"2026-10-16@d22d2e891","note":"audited D-3426: whole vs C"}
+{"fn":"m_initgrp","c":"79-145","status":"split","js":["js/makemon.js:m_initgrp"],"d":["D-4018","D-4014","D-3426","D-3423","D-3410","D-3409"],"at":"2026-10-16@43ec66a93","note":"audited D-3426: whole vs C"}
 {"fn":"m_initthrow","c":"148-158","status":"ported","js":["js/makemon.js:m_initthrow"],"d":["D-3408","D-3103"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"m_initweap","c":"161-572","status":"ported","js":["js/makemon.js:m_initweap"],"d":["D-1094","D-1088"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
 {"fn":"mkmonmoney","c":"576-586","status":"ported","js":["js/makemon.js:mkmonmoney"],"at":"2026-10-03@bbe63333a"}

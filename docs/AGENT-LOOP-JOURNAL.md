@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-16 — D-4018 Must-fix MM_ASYNCGROUP//GP_ALLOW_XY collision: JS-only group-deferral bit renumbered to 0x02000000 (flagged member placement took the enexto origin fallback where C returns FALSE)
+
+**C locus:** `hack.h:1162-1175` — MM_/GP_ share one word (*"if more MM_ flag masks are added, skip or renumber the GP_ one(s)"*; C uses 25 bits, through `GP_AVOID_MONPOS 0x01000000`); `makemon.c:131` `enexto_gpflags(&mm, …, mmflags)` straight passthrough; `teleport.c:219-276` enexto_core (`:227-229` GP_ALLOW_XY kept for the origin fallback, `:274-276` return FALSE).
+**JS:** 1 js file (js/const.js, +6/−1 value+comment) + scripts/mm-asyncgroup-allow-xy.test.mjs (3 tests: flag∩GP-word empty; crowded map — flagged enexto_gpflags, the exact js/makemon.js:3330 call shape — returns FALSE; GP_ALLOW_XY control still takes the origin; pre-fix 1/3, post-fix 3/3). Rule #2 clean, no DIAG/FORCE/seed gates.
+**Change:** js/const.js only — `MM_ASYNCGROUP = 0x02000000` (next free bit in the shared word) + corrected comment citing C + D-4018. Renumber, not a mask at the enexto call: C passes mmflags straight through (makemon.c:131), so masking would add JS-only divergence.
+**Verify:** `node scripts/verify.mjs --fn m_initgrp` → syntax 1 file (js/const.js) · rule2 PASS · hidden `verify m_initgrp: no corpus session blocked on it at baseline` (latent fix — expected, queue row names no sessions) · reach `m_initgrp: 228 baseline-PASS session(s) reach it (80 run, 92.7s): 80 PASS, 0 regressed → REACH-OK` (spread sample) · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Movement line: `verify m_initgrp: no blocked sessions (latent), REACH 80/80, 0 no-movement`.
+**Named:** (1) `MM_ASYNC = 0x00100000` still aliases `MM_MINVIS` — dormant (zero js/ users since its introduction; renaming it is a no-behavior churn, ships only if a caller appears). (2) No defensive mask at the makemon.js:3330 enexto call — the disjoint bit makes it dead code, and C's passthrough forbids it.
+**Next:** falsifier — a maybe_generate grouped spawn on a crowded level placing a member at the primary's square instead of skipping it (the pre-fix shape). The MM_ASYNC alias heals only with a first caller.
 ## 2026-10-16 — audit 2853–2859 @6607c2f82: review D-4009..D-4017 (6A/1D/0Q, 1 Must-fix) + full rescore 557/1165 (0 PASS→FAIL)
 
 **Reviews:** 2853–2859: 6A/1D/0Q — only finding is 2857 (MM_ASYNCGROUP 0x00200000 collides GP_ALLOW_XY; Must-fix queued, latent). All D-log movement claims re-measured on HEAD — hold, 0 worse.

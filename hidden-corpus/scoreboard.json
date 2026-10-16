@@ -1,7 +1,7 @@
 {
- "commit": "6607c2f82",
- "at": "2026-10-16T10:33:38.325Z",
- "full": true,
+ "commit": "43ec66a93",
+ "at": "2026-10-16T10:46:32.602Z",
+ "full": false,
  "fullCommit": "6607c2f82",
  "fullAt": "2026-10-16T10:33:38.325Z",
  "entries": 1165,
@@ -8950,6 +8950,23 @@
    "jsTopline": "Gold pieces appear next to you.",
    "error": null
   },
+  "scen-sweep-Valkyrie-50362023": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 43622,
+   "rngT": 43622,
+   "scrM": 1298,
+   "scrT": 1301,
+   "kind": "screen",
+   "step": 1003,
+   "steps": 1301,
+   "owner": "slimed_to_death",
+   "loc": "timeout.c:508",
+   "jsOwner": null,
+   "cTopline": "OK, so you don't die.--More--",
+   "jsTopline": "OK, so you don't die. You survived that attempt on your life.",
+   "error": null
+  },
   "scen-sweep-Valkyrie-50456001": {
    "src": "corpus",
    "passed": true,
@@ -16676,23 +16693,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-sweep-Valkyrie-50362023": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 43622,
-   "rngT": 43622,
-   "scrM": 1298,
-   "scrT": 1301,
-   "kind": "screen",
-   "step": 1003,
-   "steps": 1301,
-   "owner": "slimed_to_death",
-   "loc": "timeout.c:508",
-   "jsOwner": null,
-   "cTopline": "OK, so you don't die.--More--",
-   "jsTopline": "OK, so you don't die. You survived that attempt on your life.",
-   "error": null
-  },
   "scen-sweep-Valkyrie-50850025": {
    "src": "corpus",
    "passed": false,
@@ -20101,7 +20101,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "archivedAt": "2026-10-16T10:35:00.026Z",
- "tieredAt": "2026-10-16T10:35:05.703Z"
+ }
 }

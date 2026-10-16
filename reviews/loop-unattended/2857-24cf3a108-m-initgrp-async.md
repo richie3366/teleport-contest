@@ -106,3 +106,5 @@ Re-measured on HEAD code, `--base 24cf3a108~1 --no-reach`:
    mask at the enexto call + crowded-placement probe. Must-fix.
 
 Verdict: **ACCEPT-WITH-DEBT**
+
+**Addressed:** D-4018
