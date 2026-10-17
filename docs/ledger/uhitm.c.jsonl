@@ -6,7 +6,7 @@
 {"fn":"mon_maybe_unparalyze","c":"351-359","status":"ported","js":["js/uhitm.js:mon_maybe_unparalyze"],"at":"2026-10-03@bbe63333a"}
 {"fn":"find_roll_to_hit","c":"365-427","status":"ported","js":["js/uhitm.js:find_roll_to_hit"],"d":["D-2673"],"at":"2026-10-03@bbe63333a"}
 {"fn":"force_attack","c":"432-443","status":"ported","js":["js/uhitm.js:force_attack"],"at":"2026-10-03@bbe63333a"}
-{"fn":"do_attack","c":"448-583","status":"ported","js":["js/uhitm.js:do_attack"],"d":["D-3402","D-2036","D-1381"],"at":"2026-10-04@e77f3975a","note":"audit 2026-10-03: hostile path incl leprechaun/hmonas/hitum/atk_done complete"}
+{"fn":"do_attack","c":"448-583","status":"ported","js":["js/uhitm.js:do_attack"],"d":["D-4057","D-3402","D-2036","D-1381"],"at":"2026-10-17@9a68c6b90","note":"audit 2026-10-03: hostile path incl leprechaun/hmonas/hitum/atk_done complete"}
 {"fn":"hitum_cleave","c":"651-731","status":"ported","js":["js/uhitm.js:hitum_cleave"],"d":["D-2589"],"at":"seed@a30a7de84"}
 {"fn":"double_punch","c":"736-754","status":"ported","js":["js/uhitm.js:double_punch"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"hitum","c":"758-815","status":"ported","js":["js/uhitm.js:hitum"],"d":["D-1862"],"at":"2026-10-03@bbe63333a"}
