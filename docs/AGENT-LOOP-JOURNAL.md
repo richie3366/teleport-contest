@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — Grow #20 fresh 51550000 ×160: 149/160 (93.1 %) on arrival; +11 failing folded; no calibration (gap back inside band)
+
+**Fresh:** 149/160 (93.1 %), RNG 99.0 %, screens 99.1 % @`6ede25602`. Worst: hazard 0/1, sweep/worldtour 7/10; caster 1/2; hallu/extcmd 8/9; shop 9/10 + rest 100 %. 160 scored of 160. Gap 15.9 pts vs held-out 34/44 (77.3 %) — inside the §10.20 band, so step 5 skipped (judge moved 32→34 since 01:35Z, D-4048..D-4055 window, +194 pts; Held-out row + prose updated to the 07:10Z reading). Periodic slot (cliffs held 12 rows); step 4 skipped.
+**Fold:** 11 failing → hidden-corpus (9 active, 2 reserve over quota: worldtour-Wizard-51550010 goto_level, -51550050 newsym); 149 PASS → archive. `score --new` + `tier`: 5 → reserve, 5 promoted back, reserve 233 → 233. Files after fold: 856 active + 233 reserve + 5461 archive. Board: 608/877 (69.3 %), RNG 98.36 %, screens 97.6 %. No flips (no js/).
+**Owners:** new singletons use_pole (sweep-Samurai s424), level_tele (worldtour-Knight s537); joins: process_menu_window ×6 (sweep-Monk s723), goto_level ×5, dog_invent ×4 (shop-Monk s554), passivemm ×3 (sweep-Samurai s420), newsym ×4, losehp ×2 (caster-Samurai s33), hmonas ×2 (hazard-Priest s305); 2 unattributed (extcmd-Wizard s476, hallu-Wizard s921). All 11 kind=screen.
+**Must-fix:** none — 0 js-throws in 11 folded rows.
+**Next:** cliffs regen /1090→/1101: `display.c` newsym ×7 enters at rank 11 (history D-3861), symset-Barbarian-50555034 drops; other 11 unattributed rows unchanged — port pops the regen head.
 ## 2026-10-17 — D-4058 `pickup.c` do_loot_cont never drained the deferred wail: C's bite-time maybe_wail missing (Priest-50456019 s500→FULL PASS)
 
 **C locus:** pickup.c do_loot_cont `:2150–2160` (bite `:2154`, `losehp(Maybe_Half_Phys(rnd(10)))` `:2156`); hack.c losehp `:4289–4291` (`else if (n > 0 && u.uhp*10 < u.uhpmax) maybe_wail()` — blocks on the wail pline inside losehp); maybe_wail `:4222–4230` (elf `u.uhp == 1` → `pline("%s is about to die.")`).
