@@ -1,11 +1,11 @@
 {
- "commit": "e3ee99443",
- "at": "2026-10-17T14:09:15.786Z",
- "full": false,
- "fullCommit": "80a8469b3",
- "fullAt": "2026-10-17T10:02:02.484Z",
- "entries": 1092,
- "reserve": 229,
+ "commit": "662fc386f",
+ "at": "2026-10-17T14:33:23.025Z",
+ "full": true,
+ "fullCommit": "662fc386f",
+ "fullAt": "2026-10-17T14:33:23.025Z",
+ "entries": 1084,
+ "reserve": 222,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -2303,23 +2303,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-genesis-Wizard-50457508": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 3144,
-   "rngT": 3144,
-   "scrM": 73,
-   "scrT": 73,
-   "kind": null,
-   "step": null,
-   "steps": 73,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-hallu-Priest-51255006": {
    "src": "corpus",
    "passed": false,
@@ -3425,23 +3408,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-options-Knight-50355004": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 2890,
-   "rngT": 2890,
-   "scrM": 74,
-   "scrT": 80,
-   "kind": "screen",
-   "step": 74,
-   "steps": 80,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-options-Knight-50355037": {
    "src": "corpus",
    "passed": false,
@@ -3464,7 +3430,7 @@
    "passed": false,
    "rngM": 3991,
    "rngT": 3991,
-   "scrM": 161,
+   "scrM": 166,
    "scrT": 202,
    "kind": "screen",
    "step": 159,
@@ -3685,7 +3651,7 @@
    "passed": false,
    "rngM": 3522,
    "rngT": 3522,
-   "scrM": 155,
+   "scrM": 165,
    "scrT": 178,
    "kind": "screen",
    "step": 73,
@@ -6162,23 +6128,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-sweep-Barbarian-50456036": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 79256,
-   "rngT": 79256,
-   "scrM": 1692,
-   "scrT": 1692,
-   "kind": null,
-   "step": null,
-   "steps": 1692,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-sweep-Barbarian-50556029": {
    "src": "corpus",
    "passed": false,
@@ -7454,23 +7403,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-sweep-Monk-50055015": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 16040,
-   "rngT": 16040,
-   "scrM": 1414,
-   "scrT": 1414,
-   "kind": null,
-   "step": null,
-   "steps": 1414,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-sweep-Monk-50055039": {
    "src": "corpus",
    "passed": true,
@@ -7554,23 +7486,6 @@
    "jsOwner": null,
    "cTopline": "You now wield a lamp (lit). You smell smoke.",
    "jsTopline": "You now wield a lamp (lit). You see a puff of smoke.",
-   "error": null
-  },
-  "scen-sweep-Monk-50556001": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 45840,
-   "rngT": 45840,
-   "scrM": 1956,
-   "scrT": 1956,
-   "kind": null,
-   "step": null,
-   "steps": 1956,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
    "error": null
   },
   "scen-sweep-Monk-51550041": {
@@ -10004,23 +9919,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-symset-Healer-50555044": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 25860,
-   "rngT": 25860,
-   "scrM": 777,
-   "scrT": 777,
-   "kind": null,
-   "step": null,
-   "steps": 777,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Knight-50450039": {
    "src": "corpus",
    "passed": true,
@@ -10142,16 +10040,16 @@
   },
   "scen-symset-Monk-50455043": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 12533,
    "rngT": 12533,
-   "scrM": 779,
+   "scrM": 802,
    "scrT": 802,
-   "kind": "screen",
-   "step": 371,
+   "kind": null,
+   "step": null,
    "steps": 802,
-   "owner": "look_here",
-   "loc": "invent.c:4302",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
@@ -10446,35 +10344,18 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-symset-Tourist-50555058": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 25927,
-   "rngT": 25927,
-   "scrM": 715,
-   "scrT": 715,
-   "kind": null,
-   "step": null,
-   "steps": 715,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Valkyrie-50058502": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 10073,
    "rngT": 10073,
-   "scrM": 637,
+   "scrM": 639,
    "scrT": 639,
-   "kind": "screen",
-   "step": 355,
+   "kind": null,
+   "step": null,
    "steps": 639,
-   "owner": "look_here",
-   "loc": "invent.c:4302",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
@@ -13812,23 +13693,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-worldtour-Wizard-610012": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 98435,
-   "rngT": 98435,
-   "scrM": 870,
-   "scrT": 870,
-   "kind": null,
-   "step": null,
-   "steps": 870,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-worldtour-Wizard-610076": {
    "src": "corpus",
    "passed": true,
@@ -16326,8 +16190,7 @@
    "jsOwner": null,
    "cTopline": "You hit the pony. The tingling in your hands lessens.--More--",
    "jsTopline": "You hit the pony. Your hands no longer glow so brightly red.--More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Samurai-50255256": {
    "src": "corpus",
@@ -16992,8 +16855,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Knight-50155042": {
    "src": "corpus",
@@ -17208,8 +17070,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Priest-50455009": {
    "src": "corpus",
@@ -17406,8 +17267,7 @@
    "jsOwner": null,
    "cTopline": "You hear water falling on coins.",
    "jsTopline": "You hear water falling on coins.",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Rogue-50850079": {
    "src": "corpus",
@@ -17424,8 +17284,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Rogue-50950071": {
    "src": "corpus",
@@ -17514,8 +17373,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Samurai-50555018": {
    "src": "corpus",
@@ -17622,8 +17480,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Valkyrie-50059039": {
    "src": "corpus",
@@ -18801,5 +18658,7 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "archivedAt": "2026-10-17T14:33:29.477Z",
+ "tieredAt": "2026-10-17T14:33:41.096Z"
 }

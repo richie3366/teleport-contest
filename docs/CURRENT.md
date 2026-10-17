@@ -22,27 +22,29 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-17** — full `sessions` on `80a8469b3`
-(audit **2897–2903**). Fortress **44/44** (aggregates below).
+Score last measured: **2026-10-17** — full `sessions` on `662fc386f`
+(audit **2904–2908**). Fortress **44/44** (aggregates below).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-17 07:10Z)** | **34 / 44**, 10,741 / 11,265 pts, RNG **99.3 %**, rngSteps 98.7 %, screens **95.3 %** (+194; thru D-4055) |
+| **Held-out (judge 2026-10-17 13:14Z)** | **34 / 44**, 10,202 / 11,265 pts, RNG **97.1 %**, rngSteps 95.9 %, screens **90.6 %** (rank 5; thru D-4069 window) |
 | **Fresh cohort (§10.20, scored on arrival)** | 51650000 ×160 @`bc65b2e1a`: **149/159 (93.7 %)**, RNG 99.9 %, screens 99.0 % — sweep 7/10 worst; extcmd 7/9; shop 8/10; symset 8/9; hallu 7/8; worldtour 9/10 + rest 100 % |
-| **Corpus board (worked, regression fortress)** | full rescore 2026-10-17 (audit 2897–2903): **622/1101** (**0 PASS→FAIL**, 7 new PASS, 19 archived, `unrecorded` 0; RNG 98.2 %, screens 95.3 %); `tier` → **837 + 226 + 5480** (0 out, 7 back); worst hallu 0/5, symset 32/135, questtour 9/13, dig 9/10, worldtour 71/154, zapfest 8/19, sweep 156/265, shop 16/61, options 19/58, extcmd 6/36 |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-17 (audit 2904–2908): **618/1092** pre-archive (**0 PASS→FAIL**, 3 new PASS, 8 archived, `unrecorded` 0; RNG 98.9 %, screens 98.1 %); `tier` → **843 + 222 + 5637** (0 out, 7 back; archive count git-verified — prior 5480 undercounted); worst hallu 0/6, symset 38/134, questtour 9/13, dig 9/10, worldtour 70/154, zapfest 8/19, sweep 159/265, shop 16/63, options 19/57, extcmd 6/38 |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `397+1.83/turn` (R² 0.81) |
+| Speed label | `403+1.80/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
-pts = matched screens). Rank 2 (10,741; leader 11,264 at 43/44).
-34/44 at judge 07:10Z 2026-10-17 (+194 pts, screens 93.6→95.3 %,
-RNG 96.9→99.3 %): the D-4048..D-4055 window moved the judge again
-— cliffs score where they reach. **Three lines, read together:**
+pts = matched screens). Rank 5 (10,202; leader 11,264 at 43/44).
+34/44 at judge 13:14Z 2026-10-17 (RNG 97.1 %, screens 90.6 %):
+count held vs the 07:10Z read (34/44 at 10,741 pts); points read
+lower on the latest board (10,202; cause unattributed — judge
+rescored between reads).
+**Three lines, read together:**
 held-out (judge), fresh cohort
 (`fresh-cohort.mjs`, the local generalization estimate), board (the
 fortress — it rises by construction). Fresh history: 79–93.7 %
@@ -54,7 +56,7 @@ no step-5 family this grow (judge 32→34).
 Worst families `scen-hallu` 0/6, `scen-symset` 33/136, `scen-questtour` 9/13,
 `scen-dig` 9/10, `scen-worldtour` 71/155, `scen-zapfest` 8/19,
 `scen-sweep` 157/268, `scen-shop` 16/63, `scen-options` 19/58, `scen-extcmd` 6/38, rest ≥ 99.2 % RNG.
-Reviews 1225–2903 (index; no row 1618): 1503 ACCEPT, 64 WITH-DEBT, 111 QUALITY-RISK (2897–2903: 7A/0D/0Q, 0 Must-fix).
+Reviews 1225–2908 (index; no row 1618): 1508 ACCEPT, 64 WITH-DEBT, 111 QUALITY-RISK (2904–2908: 5A/0D/0Q, 0 Must-fix).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
 Full rescore (audit only, §10.21): `record` + unfiltered `score` (active tier) + `archive` (+ quota), committed `full: true`; needs the C recorder.
@@ -146,7 +148,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** D-4069 shipped doread writer seffect_confuse_monster altfeedback (dead u.Invisible flat → canonical Invis&&!See_invisible: Caveman PASS, Rogue 1060→nohandglow@1115; 4 light/mapping Shape-A stay as separate cause; ranks 22–25 stale PASSes recorded).
+**Next:** audit 2904–2908 done (5A/0D/0Q, 0 Must-fix; board 618/1092, 0 PASS→FAIL). Next port slot pops the regenerated head (/1084 @662fc386f — dupe-rc s0 crowd still leads, park-held per D-4016/D-4028; triage past held parks to the first actionable row, D-4069 discipline).
 
 ## Parked (diagnose only)
 
