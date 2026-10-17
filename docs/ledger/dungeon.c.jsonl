@@ -93,7 +93,7 @@
 {"fn":"load_mapseen","c":"2721-2754","status":"ported","js":["js/dungeon.js:load_mapseen"],"at":"2026-10-03@bbe63333a"}
 {"fn":"overview_stats","c":"2761-2801","status":"ported","js":["js/dungeon.js:overview_stats"],"d":["D-2975","D-2874"],"at":"2026-09-27@3b405b65a"}
 {"fn":"remdun_mapseen","c":"2811-2832","status":"ported","js":["js/dungeon.js:remdun_mapseen"],"d":["D-3401","D-3001"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
-{"fn":"init_mapseen","c":"2835-2871","status":"ported","js":["js/dungeon.js:init_mapseen"],"at":"2026-10-03@bbe63333a"}
+{"fn":"init_mapseen","c":"2835-2871","status":"ported","js":["js/dungeon.js:init_mapseen"],"d":["D-4073"],"at":"2026-10-17@0f110d1f2"}
 {"fn":"interest_mapseen","c":"2880-2923","status":"ported","js":["js/dungeon.js:interest_mapseen"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"update_lastseentyp","c":"2927-2938","status":"ported","js":["js/dungeon.js:update_lastseentyp"],"d":["D-1711"],"at":"2026-10-03@bbe63333a"}
 {"fn":"update_mapseen_for","c":"2943-2947","status":"ported","js":["js/dungeon.js:update_mapseen_for"],"at":"2026-10-03@bbe63333a"}
