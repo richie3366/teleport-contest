@@ -22,8 +22,8 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-17** — full `sessions` on `662fc386f`
-(audit **2904–2908**). Fortress **44/44** (aggregates below).
+Score last measured: **2026-10-17** — full `sessions` on `cb680e202`
+(audit **2909–2915**). Fortress **44/44** (aggregates below).
 
 ## Score
 
@@ -31,11 +31,11 @@ Score last measured: **2026-10-17** — full `sessions` on `662fc386f`
 |--------|------:|
 | **Held-out (judge 2026-10-17 13:14Z)** | **34 / 44**, 10,202 / 11,265 pts, RNG **97.1 %**, rngSteps 95.9 %, screens **90.6 %** (rank 5; thru D-4069 window) |
 | **Fresh cohort (§10.20, scored on arrival)** | 51750000 ×160 @`a959c88b6`: **150/160 (93.8 %)**, RNG 98.6 %, screens 98.1 % — options 1/2 worst; extcmd 6/9; normal 4/5; shop 8/10; hallu 8/9; symset 8/9; sweep 9/10 + rest 100 % |
-| **Corpus board (worked, regression fortress)** | full rescore 2026-10-17 (audit 2904–2908): **618/1092** pre-archive (**0 PASS→FAIL**, 3 new PASS, 8 archived, `unrecorded` 0; RNG 98.9 %, screens 98.1 %); `tier` → **843 + 222 + 5637** (0 out, 7 back; archive count git-verified — prior 5480 undercounted); worst hallu 0/6, symset 38/134, questtour 9/13, dig 9/10, worldtour 70/154, zapfest 8/19, sweep 159/265, shop 16/63, options 19/57, extcmd 6/38 |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-17 (audit 2909–2915): **628/1094** pre-archive (**0 PASS→FAIL**, 1 new PASS 50556502, 21 archived, `unrecorded` 0; RNG 99.14 %, screens 98.4 %); `tier` → **843 + 218 + 5808** (0 out, 0 back); worst hallu 1/7, symset 33/123, questtour 9/13, dig 9/10, worldtour 70/150, zapfest 8/19, sweep 161/263, shop 16/65, options 19/58, extcmd 6/40 |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `403+1.80/turn` (R² 0.80) |
+| Speed label | `403+1.83/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
@@ -57,7 +57,7 @@ Worst families `scen-symset` 45/135, `scen-questtour` 9/13,
 `scen-dig` 9/10, `scen-hallu` 1/7, `scen-zapfest` 8/19,
 `scen-worldtour` 73/154, `scen-sweep` 160/266, `scen-shop` 16/65,
 `scen-options` 19/58, `scen-extcmd` 6/41, rest ≥ 99.2 % RNG.
-Reviews 1225–2908 (index; no row 1618): 1508 ACCEPT, 64 WITH-DEBT, 111 QUALITY-RISK (2904–2908: 5A/0D/0Q, 0 Must-fix).
+Reviews 1225–2915 (index; no row 1618): 1515 ACCEPT, 64 WITH-DEBT, 111 QUALITY-RISK (2909–2915: 7A/0D/0Q, 0 Must-fix).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
 Full rescore (audit only, §10.21): `record` + unfiltered `score` (active tier) + `archive` (+ quota), committed `full: true`; needs the C recorder.

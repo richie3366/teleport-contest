@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — audit 2909–2915 @cb680e202: review D-4070..D-4077 (7A/0D/0Q, 0 Must-fix) + full rescore 628/1094 (0 PASS→FAIL)
+
+**Reviews:** 2909 litroom recalc(2) warns (vision.c:544-547/:728-824 + display.c:640; exact 1+2+1+0, js-throw label corroborated via show: error null screen@522) / 2910 Conflict gate (minion.c:507-508 + youprop.h:216-218; 1+0+0+0, new minion→mhitu edge) / 2911 init_mapseen dedupe cut (dungeon.c:2834-2871 + mklev.c:1582 + do.c:1654-1660; 2+0+3+0, split corroborated) / 2912 Bar-loca set_malign + class female=0 (sp_lev.c:2125-2129/:3350-3356 + Bar-loca.lua:80-88; 1+0+0+0) / 2913 vicinity 2nd loop over displayed glyph (detect.c:1566-1576 + display.h:776-793; 0+1+0+0, HEAD shows 1290 via D-4076) / 2914 hcolor clone→import (do_name.c:1460-1466 + do.c:380-382; 1+1+0+0, sym.mjs pasted, s1290 corroborated error-null) / 2915 nomul reason+buf (hack.c:4160-4173 line-for-line; 3+0+0+0). Every re-measure exact; one nit (D-4070 cite drift :2605–2609 vs :2611–2619, not queued). No Must-fix, no CURRENT Next change.
+**Score:** public 44/44 (RNG 792838/792838, screens 11405/11405, `403+1.83/turn`); corpus full rescore 628/1094 pre-archive (0 PASS→FAIL, 1 new PASS scen-worldtour-Wizard-50556502, 21 archived, unrecorded 0; RNG 99.14 %, screens 98.4 %); tier → 843 + 218 + 5808 (0 out, 0 back); held-out 34/44 rank 5 (judge 13:14Z, unchanged). `ledger.mjs sql` broken on node 20 (node:sqlite) — seeded-ported sample done via JSONL (sanitize_name/Boots_on/use_bell/badman/readentry, all whole, no set needed); snapshot appended.
+**Next:** port slot pops the regen'd cliffs head (dupe-rc file head stands unless the regen re-files it).
+
 ## 2026-10-17 — D-4077 cliffs-head lesshungry writer: JS nomul(0) cleared nomovemsg, C nomul never touches it (doorfind/mattacku ate the fullwarn line; 3/3 FULL PASS)
 
 **C locus:** hack.c nomul `:4161–4173` — guard, botl, uinvulnerable/usleep, multi=nval, nval==0 clears multi_reason + multireasonbuf, end_running, cmdq_clear; NO nomovemsg line anywhere (no contest patch touches nomul). Trigger call sites: detect.c:2048 (sdoor find) and mhitu.c:513 (melee `if (!ranged)`).
