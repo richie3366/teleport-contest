@@ -11,4 +11,4 @@
 {"fn":"lminion","c":"429-441","status":"ported","js":["js/minion.js:lminion"],"d":["D-3426","D-3250"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
 {"fn":"ndemon","c":"444-464","status":"ported","js":["js/minion.js:ndemon"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"lose_guardian_angel","c":"468-494","status":"ported","js":["js/minion.js:lose_guardian_angel"],"d":["D-3250"],"at":"2026-10-02@084395223"}
-{"fn":"gain_guardian_angel","c":"498-565","status":"ported","js":["js/minion.js:gain_guardian_angel"],"d":["D-3250","D-1608"],"at":"2026-10-02@084395223"}
+{"fn":"gain_guardian_angel","c":"498-565","status":"ported","js":["js/minion.js:gain_guardian_angel"],"d":["D-4072","D-3250","D-1608"],"at":"2026-10-17@0ffb89bf3"}
