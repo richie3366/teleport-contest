@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — audit 2883–2889 @b93dbc4d9: review D-4042..D-4048 (7A/0D/0Q, 0 Must-fix) + full rescore 642/1144 (0 PASS→FAIL)
+
+**Reviews:** 2883 getpos numpad (9+3+4+0) · 2884 pit wall_info (probe PASS) · 2885 arti revoke (0+3+0+0) · 2886 menucolor+slippery (34+4+0+0 HEAD) · 2887 HALRES talk (0+1+0+0) · 2888 NONCO multi-eval (3+1+0+0) · 2889 wall fg (probe PASS). All re-measures --no-reach on HEAD; every D-log line confirmed (2886 better: Rogue PASS via D-4048). No C-wrongs, no prepends.
+**Score:** sessions 44/44 (RNG 792838/792838, screens 11405/11405, 427+1.90/turn R² 0.81) · held-out 32/44, 10547 pts (+93, judge 01:35Z thru D-4047; rank 2) · board full rescore 642/1144, 0 PASS→FAIL, 7 new PASS, 81 archived, unrecorded 0, RNG 97.4 % screens 94.0 %, tier 838+241+5098 (1 out, 54 back), full:true @b93dbc4d9. Ledger snapshot appended; 5 seeded ported rows sampled via node-22 ledger.mjs sql (vamp_stone/merged ok; left_side/right_side/placebc whole with correct stale notes) — no set needed.
+**Next:** pop the regenerated cliffs head; Must-fix empty.
 ## 2026-10-17 — D-4048 cliffs row-11 wall-color writer: wall_cmap_color ignored the G_ customcolor stamp (MAC/mines walls JS-brown vs C-default; 50150039 s39→FULL PASS + 14)
 
 **C locus:** display.c wallcolors[] :2677 (all CLR_GRAY base) + reset_glyphmap wall arms :2943–2965 + wintty.c tty_print_glyph :3899–3909 (WC2_EXTRACOLORS basic-color readback: color.h:57 NH_BASIC_COLOR bit → color.h:59 COLORVAL); branch colors reach the tty ONLY via the stamped glyphmap customcolor (dat/symbols G_vwall_*..G_trwall_* rows, stamped by the live glyphs.c apply_customizations + coloratt.c set_map_customcolor). MACgraphics carries no G_ rows → C paints gray→default (TEMP-C cust=0x100000B measured on KNOX glyphs, D-3896). wincap2 EXTRACOLORS unconditional on unix tty (wintty.c:122); colorcount ≥ 256 (D-0283); map paint (not update_inventory) — all hold here, as in C.
