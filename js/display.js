@@ -13,7 +13,7 @@ import { bot_via_windowport, SCORE_ON_BOTL, botl_score, stat_update_time } from 
 import { rank_of } from './roles.js';
 import { cansee, couldsee, vision_recalc, vision_off_newsym_gbuf } from './vision.js';
 import { objects_at, sobj_at } from './mkobj.js';
-import { mdistu } from './mon.js'; // sensemon (same SCC; hoisted fn, runtime use only — imports.mjs SAFE)
+import { mdistu, ceiling_hider } from './mon.js'; // sensemon + feel_can_reach_floor ceiling arm (same SCC; hoisted fns, runtime use only — imports.mjs ALREADY)
 import { is_pool } from './hack.js'; // sensemon (same SCC; hoisted fn, runtime use only — imports.mjs SAFE)
 import {
     mcolors, mons, pmnames, infravision, infravisible, mindless, NUMMONS,
@@ -147,6 +147,8 @@ import {
     SYM_UNEXPLORED,
     SYM_BOULDER,
     SYM_INVISIBLE,
+    P_RIDING,
+    P_BASIC,
 } from './const.js';
 import {
     ILLOBJ_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS,
@@ -6278,10 +6280,9 @@ export function engr_can_be_felt(ep) {
  * reads the Levitation/Flying PROPERTIES (H||E, !B); the flat u.Levitation
  * / u.Flying mirrors are never set by set_uasmon (FROMFORM lands on H* +
  * uprops), so read the live mhitu.js exports (D-3825 pattern; imports.mjs
- * VERDICT: SAFE, hoisted functions, cycle-safe).
- * Named omission: usteed P_RIDING < P_BASIC (C :201); ceiling hider
- * (:203); msize >= MZ_HUGE (:206, TRUE-arm subsumed by the fallthrough
- * since check_pit is skipped for the FALSE arg).
+ * VERDICT: SAFE, hoisted functions, cycle-safe). Complete vs C :187–210:
+ * msize >= MZ_HUGE (:206) TRUE-arm is subsumed by the fallthrough (the
+ * check_pit arm it precedes is skipped for the FALSE arg).
  */
 function feel_can_reach_floor() {
     const u = game.u || {};
@@ -6297,6 +6298,17 @@ function feel_can_reach_floor() {
     if (Levitation() && !(Is_airlevel(u.uz) || Is_waterlevel(u.uz))) {
         return false;
     }
+    // C `:200–201` — restricted/unskilled riders can't reach the floor.
+    // Same read shape as the canonical engrave.js can_reach_floor
+    // (u.weapon_skills[P_RIDING], object-or-flat rank).
+    if (u.usteed) {
+        const sk = u.weapon_skills?.[P_RIDING];
+        const rank = typeof sk === 'object' ? (sk.skill ?? 0) : (sk ?? 0);
+        if (rank < P_BASIC) return false;
+    }
+    // C `:203` — undetected ceiling-hider can't reach the floor
+    // (game.youmonst?.data is the monmove.js:2017 house shape, D-3919).
+    if (u.uundetected && ceiling_hider(game.youmonst?.data)) return false;
     if (Flying()) return true;
     return true;
 }
@@ -6322,7 +6334,8 @@ export function suppress_map_output() {
  * dark adjust; then `:901–908` sensed mon overlay when !u_at (sensemon
  * includes MATCH_WARN D-1514) with is_worm_tail (D-1749). newsym
  * Detect_monsters skips tails; this overlay does not.
- * Named omissions: usteed P_RIDING in can_reach_floor (feel_can_reach_floor).
+ * feel_can_reach_floor is complete vs C engrave.c :187–210 (steed and
+ * ceiling-hider arms live; msize TRUE-arm subsumed by fallthrough).
  */
 export function feel_location(x, y) {
     // C `:754–758` — same mklev/save/restore gate as newsym/show_glyph.
