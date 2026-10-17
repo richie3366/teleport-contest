@@ -22,8 +22,8 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-17** — full `sessions` on `fa254e8f4`
-(audit **2890–2896**). Fortress **44/44** (aggregates below).
+Score last measured: **2026-10-17** — full `sessions` on `80a8469b3`
+(audit **2897–2903**). Fortress **44/44** (aggregates below).
 
 ## Score
 
@@ -31,11 +31,11 @@ Score last measured: **2026-10-17** — full `sessions` on `fa254e8f4`
 |--------|------:|
 | **Held-out (judge 2026-10-17 07:10Z)** | **34 / 44**, 10,741 / 11,265 pts, RNG **99.3 %**, rngSteps 98.7 %, screens **95.3 %** (+194; thru D-4055) |
 | **Fresh cohort (§10.20, scored on arrival)** | 51550000 ×160 @`6ede25602`: **149/160 (93.1 %)**, RNG 99.0 %, screens 99.1 % — hazard 0/1, sweep/worldtour 7/10 worst; caster 1/2; hallu/extcmd 8/9; shop 9/10 + rest 100 % |
-| **Corpus board (worked, regression fortress)** | full rescore 2026-10-17 (audit 2890–2896): **660/1155** (**0 PASS→FAIL**, 8 new PASS, 65 archived, `unrecorded` 0; RNG 97.8 %, screens 94.9 %); `tier` → **839 + 233 + 5312** (3 out, 9 back); worst hallu 0/4, symset 37/147, questtour 9/13, dig 9/10, worldtour 70/155, zapfest 8/19, sweep 147/262, shop 16/60, options 19/58, extcmd 6/35 |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-17 (audit 2897–2903): **622/1101** (**0 PASS→FAIL**, 7 new PASS, 19 archived, `unrecorded` 0; RNG 98.2 %, screens 95.3 %); `tier` → **837 + 226 + 5480** (0 out, 7 back); worst hallu 0/5, symset 32/135, questtour 9/13, dig 9/10, worldtour 71/154, zapfest 8/19, sweep 156/265, shop 16/61, options 19/58, extcmd 6/36 |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `398+1.79/turn` (R² 0.80) |
+| Speed label | `397+1.83/turn` (R² 0.81) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
@@ -54,7 +54,7 @@ no step-5 family this grow (judge 32→34).
 Worst families `scen-hallu` 0/5, `scen-symset` 42/147, `scen-questtour` 9/13,
 `scen-dig` 9/10, `scen-worldtour` 70/158, `scen-zapfest` 8/19,
 `scen-sweep` 150/265, `scen-shop` 16/61, `scen-options` 19/58, `scen-extcmd` 6/36, rest ≥ 99.2 % RNG.
-Reviews 1225–2896 (index; no row 1618): 1496 ACCEPT, 64 WITH-DEBT, 111 QUALITY-RISK (2890–2896: 7A/0D/0Q, 0 Must-fix).
+Reviews 1225–2903 (index; no row 1618): 1503 ACCEPT, 64 WITH-DEBT, 111 QUALITY-RISK (2897–2903: 7A/0D/0Q, 0 Must-fix).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
 Full rescore (audit only, §10.21): `record` + unfiltered `score` (active tier) + `archive` (+ quota), committed `full: true`; needs the C recorder.
@@ -146,7 +146,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** D-4062: parks hold (14 dupe-rc + 95340 re-verified); ships rank-16 maybe_wail writers (4 wail drains → 5/5 PASS).
+**Next:** audit 2897–2903: 7A/0D/0Q, 0 Must-fix. Next port pops the regen head.
 
 ## Parked (diagnose only)
 

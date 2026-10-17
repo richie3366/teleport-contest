@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — audit 2897–2903 @80a8469b3: review D-4056..D-4062 (7A/0D/0Q, 0 Must-fix) + full rescore 622/1101 (0 PASS→FAIL)
+
+**Reviews:** 2897 C0 emit (2+0+0+0) · 2898 live-ball Punished (2+0+0+0) · 2899 wail ×3 (1+0+0+0) · 2900 newsym !isok (0+3+0+0) · 2901 cprefx (1+0+0+0) · 2902 monflee (1+0+0+0) · 2903 wail ×4 (5+0+0+0). All movement re-measured exact. No Must-fix.
+**Score:** public 44/44 (792838/792838 RNG, 11405/11405 screens, 397+1.83/turn); held-out unchanged 34/44 (10741 pts, judge 07:10Z — D-4056..D-4062 unjudged); board 622/1101 pre-archive (7 new PASS: worldtour ×4/symset ×2/chain ×1, 0 PASS→FAIL; RNG 98.2 %, screens 95.3 %), tier → 837 + 226 + 5480 (0 out, 7 back; 2 promoted now PASS). `ledger.mjs sql` errors on this box (node:sqlite missing) — seeded sample taken via jsonl grep instead (5/5 live, no `set` needed).
+**Next:** port slot pops the regenerated cliffs head (post-archive board); Must-fix empty.
 ## 2026-10-17 — D-4062 cliffs rank-16 `maybe_wail` writers: four losehp sites never drained the deferred low-HP wail (losestr, do_pit ×2, use_grapple, muse earth-boulder → 5/5 FULL PASS)
 
 **C locus:** hack.c:4289–4291 losehp runs maybe_wail inline. The four damage sites, all losehp (C mdamageu mhitu.c:1902–1927 never wails — melee ruled out by code read): (1) attrib.c:244 losestr underflow (`while ustr<MIN: rn1(4,3)` :232–237, 18 draws on the probe) → losehp → wail, then :246–254 max-HP cut, :268–269 adjattrib; (2) music.c do_pit :312–316 fall arm + :323–333 jostle arm (latter same-function companion, no session yet); (3) apply.c use_grapple :3864–3867 self-hook; (4) read.c drop_boulder_on_player :2336–2337 via muse.c MUSE_SCR_EARTH (C s994 draws dmgval×2 + next_ident×2 with no to-hit roll — scroll-earth, not thitu/launch_obj).
