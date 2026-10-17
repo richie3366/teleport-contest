@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — audit 2890–2896 @fa254e8f4: review D-4049..D-4055 (7A/0D/0Q, 0 Must-fix) + full rescore 660/1155 (0 PASS→FAIL)
+
+**Reviews:** 2890 rest_stairs reversal (exact 1+0+0+0) · 2891 exerper hallu union (exact 1+0+0+0; D-log cite :570–575 is the block header, arm is :579–580 — prose nit) · 2892 knockback door guard (exact 0+1+1+0, Caveman arm-separate named) · 2893 explode AD_RBRE flip (exact 1+0+0+0) · 2894 BW lava/ice/sink (vacuous verify stated; probe FULL PASS 14163/14163 + 901/901 re-measured) · 2895 test_move :1014 (owned 0+0+3+0 separate-cause; probe 493→862 RNG-full re-measured) · 2896 improvised_notes (exact 1+2+0+0). Every movement line re-measured, all exact. No Must-fix, no queue prepend.
+**Score:** public 44/44 (792838/792838 RNG, 11405/11405 screens, 398+1.79/turn); held-out unchanged 32/44 (10547 pts, judge 01:35Z); board 660/1155 pre-archive (8 new PASS incl. extcmd ×2/options ×2/sweep/symset ×2/zapfest, 0 PASS→FAIL; RNG 97.8 %, screens 94.9 %), tier → 839 + 233 + 5312 (3 out, 9 back). `ledger.mjs sql` errors on this box (node:sqlite missing) — seeded sample taken via jsonl grep instead (5/5 live, no `set` needed).
+**Next:** port slot pops the regenerated cliffs head (post-archive board); Must-fix empty.
 ## 2026-10-17 — D-4055 cliffs row-11 `do_improvisation` writer: improvised_notes Unchanging read missed E+uprops, poly + unchanging amulet regenerated the tune (Rogue PASS, Caveman 1355→1484, Ranger 1047→1092)
 
 **C locus:** music.c improvised_notes :740 (`if (!(Unchanging && svc.context.jingle[0] != '\0'))` — new tune + FALSE vs keep + TRUE), :586 call site; youprop.h:372 `#define Unchanging (HUnchanging || EUnchanging)`; worn.c:117–125 setworn confers the amulet's oc_oprop (UNCHANGING) into EUnchanging. Ranger state per D-4037's /tmp probe: umonnum 290 (poly), uamul AMULET_OF_UNCHANGING, uprops[63].extrinsic W_AMUL, all flats unset — C's gate true, JS's false.
