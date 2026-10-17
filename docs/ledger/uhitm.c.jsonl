@@ -88,7 +88,7 @@
 {"fn":"gulpum","c":"4958-5195","status":"ported","js":["js/uhitm.js:gulpum"],"at":"2026-10-03@bbe63333a"}
 {"fn":"missum","c":"5198-5214","status":"ported","js":["js/uhitm.js:missum"],"d":["D-2124"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_is_steadfast","c":"5218-5243","status":"ported","js":["js/uhitm.js:m_is_steadfast"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mhitm_knockback","c":"5247-5420","status":"ported","js":["js/mhitm.js:mhitm_knockback"],"d":["D-2750","D-2347","D-2091","D-2035","D-1932","D-1921"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mhitm_knockback","c":"5247-5420","status":"ported","js":["js/mhitm.js:mhitm_knockback"],"d":["D-4051","D-2750","D-2347","D-2091","D-2035","D-1932"],"at":"2026-10-17@1b804a0c0"}
 {"fn":"hmonas","c":"5424-5860","status":"ported","js":["js/uhitm.js:hmonas"],"d":["D-1916","D-1233"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all aatyp arms+passive+knockback+passivedone verified; gv.vis global by-design per-arm checks"}
 {"fn":"passive","c":"5865-6120","status":"ported","js":["js/uhitm.js:passive"],"d":["D-3978","D-3924","D-3836","D-3256","D-3251","D-2142"],"at":"2026-10-15@dce47a27b"}
 {"fn":"passive_obj","c":"6127-6195","status":"ported","js":["js/uhitm.js:passive_obj"],"d":["D-3256","D-3251"],"at":"2026-10-02@2716a3ced"}
