@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nl_mm.Fj         n_.#chat\nl    n  _mmmm,  n    n    n  Fj     n    n  _.#chat\nj    n    n       n #levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.           Fh        n      _.#chat\nj              n   _mm.             Fj    n       _.#chat\nn           n ;j,_mmm.          Fl        n         _.#chat\nl          n  ;h:  \u0017blessed amulet of reflection\nPe           yy\u001bny y y\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 51750056,
+   "datetime": "20230514060606",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nl_mm.Fj         n_.#chat\nl    n  _mmmm,  n    n    n  Fj     n    n  _.#chat\nj    n    n       n #levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.           Fh        n      _.#chat\nj              n   _mm.             Fj    n       _.#chat\nn           n ;j,_mmm.          Fl        n         _.#chat\nl          n  ;h:  \u0017blessed amulet of reflection\nPe           yy\u001bny y y\u001b  \u0017"
+  }
+ ]
+}

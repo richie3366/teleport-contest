@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Fn 20s  syjk100sFys.\u0018\u001b\u000f\u001b100s\\  qlnbhku100s\\  100sFyFy20s\u000f\u001b100s_ \u001bm,>FhFhFh_>.>50slhhyhbhkj50snyujhn100sFhssi\u001bi\u001b_>.>100s100sFhs.i\u001b100s100s100s  i\u001b150s_>,>_>,>150sFh..kyk150s100s100sFhss50s\u000f\u001b\u000f\u001b150s50see_>.>\u000f\u001b150sFhFhsbjj#enhance\n\u001b50Sy\u001b #invoke\n\u001bztbl20s20s ;_.f \u001bw-",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51751014,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Fn 20s  syjk100sFys.\u0018\u001b\u000f\u001b100s\\  qlnbhku100s\\  100sFyFy20s\u000f\u001b100s_ \u001bm,>FhFhFh_>.>50slhhyhbhkj50snyujhn100sFhssi\u001bi\u001b_>.>100s100sFhs.i\u001b100s100s100s  i\u001b150s_>,>_>,>150sFh..kyk150s100s100sFhss50s\u000f\u001b\u000f\u001b150s50see_>.>\u000f\u001b150sFhFhsbjj#enhance\n\u001b50Sy\u001b"
+  },
+  {
+   "seed": 52251014,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": " #invoke\n\u001bztbl20s20s ;_.f \u001bw-"
+  }
+ ]
+}

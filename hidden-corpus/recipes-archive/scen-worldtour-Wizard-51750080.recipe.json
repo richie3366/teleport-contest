@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed amulet of reflection\nPo\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 speed boots\nWq\u0016?\n>>M      potion of levitation\n_ \u001b;\u00164\nkyk    k y       j y: \u0016?\nbjk   bu    l  ul :\u0016?\n\u001bn   n  l\u0016?\n\u001by  l\u001622\n#chat\ny;y.\u0016?\n\u001bub\u0016?\n\u001bj l\u0016?\n\u001by        n n             \u0016?\n\u001bj             n      n             \u0016?\n\u001bjh     n     n      \u001b \u00164\n\u0016?\n\u001bb        n        n   n               \u001610\n\u00164\n_<..h     n                   n             sm.            n   \u00163\n\u00164\nn       n                  n          u          n j            n    :\u001611\n\u001622\n#levelchange\n10\n       n     n         ynnnn  l"
+ },
+ "segments": [
+  {
+   "seed": 51750080,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed amulet of reflection\nPo\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 speed boots\nWq\u0016?\n>>M      potion of levitation\n_ \u001b;\u00164\nkyk    k y       j y: \u0016?\nbjk   bu    l  ul :\u0016?\n\u001bn   n  l\u0016?\n\u001by  l\u001622\n#chat\ny;y.\u0016?\n\u001bub\u0016?\n\u001bj l\u0016?\n\u001by        n n             \u0016?\n\u001bj             n      n             \u0016?\n\u001bjh     n     n      \u001b \u00164\n\u0016?\n\u001bb        n        n   n               \u001610\n\u00164\n_<..h     n                   n             sm.            n   \u00163\n\u00164\nn       n                  n          u          n j            n    :\u001611\n\u001622\n#levelchange\n10\n       n     n         ynnnn  l"
+  }
+ ]
+}

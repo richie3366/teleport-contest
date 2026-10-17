@@ -1,0 +1,63 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "ylbuKHNK_ \u001bm.>Fu 20s20s HYKY_>.>atbnHUL   B_>.>Fn.20s\\   E- I am a fish\n<BKKB_>,>HUBB_>.>NLBJ_>,>UJLJ_>.>\u000f\u001b\\   YHHK_>.><BJLB_>.>Fh#quit\nyy\u001by  y y y\u001b \u0017wand of lightning\nzi.  n.s20s#wizintrinsic\nb\n 20ssm.ss.m.sl.m.20sshs.m.sm.sm. 20s   ynny ny\u001by  .    FlFyFkFhFhFh #enhance\n\u001bukn50s150s _ \u001b>.>50sFhss\\  50s#ride\ny150si\u001blbn100syhl100sFhss100s50sjynFh.skuunubhbn\u0004uhlu100s#quit\nyy\u001by  y y y\u001b   ybhuuhhnFu 20ss100s\u0018\u001b100s\u000f\u001b100snhk100s100sFkFk.150s100sFhFh.100s100sFh20ssr\u001b100s150sFk20s20s_ \u001b,>jly\\ 100s_>.>#conduct\n \u0018\u001b\\ 150sFk20ss100s100seeeeeeeebynubhkjly#chat\nktbkt\u001bFyFyFyFyFyFyFyFyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b #quit\nyyyhhuUYBU_ \u001b@.>#conduct\n #force\nYLBU_>.>Fl s.HUJY_>.>HJYL_>.>NLBL_>,>LJYL_>.>E\u001b#pray\ny  NHNL_>,>JHKB_>,>ULHN_>,>NHJL_>,>\u000f\u001bynykuk10sdgsm..m.sm.jFjFjFjFjFjFjFjFj10s #chat\nbhyjn#name\n\u001bdism..m..m.FyFyFyFyFyFyFyFyFkFkFkFkFkFkFkFkFyFyFyFyFyFyFyFynbjkbknk100sE\u001b\u0018\u001b100sFhsFhFhssuhu50sblbFhFhFh\\  nhl#offer\n150s_>.>kyj100sFhFkFk150s100sFhs.\\  \u0018\u001b50s100s150s50s 150sFkFk s\u000f\u001b100s100sjlk100s#twoweapon\njkb150sFkFkshhli\u001blujk50s1#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51750082,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\n",
+   "moves": "ylbuKHNK_ \u001bm.>Fu 20s20s HYKY_>.>atbnHUL   B_>.>Fn.20s\\   E- I am a fish\n<BKKB_>,>HUBB_>.>NLBJ_>,>UJLJ_>.>\u000f\u001b\\   YHHK_>.><BJLB_>.>Fh#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51850082,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017wand of lightning\nzi.  n.s20s"
+  },
+  {
+   "seed": 51950082,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n 20ssm.ss.m.sl.m.20sshs.m.sm.sm. 20s   ynny ny\u001by  ."
+  },
+  {
+   "seed": 52050082,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "    FlFyFkFhFhFh #enhance\n\u001bukn50s150s _ \u001b>.>50sFhss\\  50s#ride\ny150si\u001blbn100syhl100sFhss100s50sjynFh.skuunubhbn\u0004uhlu100s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 52150082,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=autodig\n",
+   "moves": "  ybhuuhhnFu 20ss100s\u0018\u001b100s\u000f\u001b100snhk100s100sFkFk.150s100sFhFh.100s100sFh20ssr\u001b100s150sFk20s20s_ \u001b,>jly\\ 100s_>.>#conduct\n \u0018\u001b\\ 150sFk20ss100s100seeeeeeeebynubhkjly#chat\nktbkt\u001bFyFyFyFyFyFyFyFyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 52250082,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=runmode:crawl\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 52350082,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\n",
+   "moves": "yhhuUYBU_ \u001b@.>#conduct\n #force\nYLBU_>.>Fl s.HUJY_>.>HJYL_>.>NLBL_>,>LJYL_>.>E\u001b#pray\ny  NHNL_>,>JHKB_>,>ULHN_>,>NHJL_>,>\u000f\u001bynykuk10sdgsm..m.sm.jFjFjFjFjFjFjFjFj10s #chat\nbhyjn#name\n\u001bdism..m..m.FyFyFyFyFyFyFyFyFkFkFkFkFkFkFkFkFyFyFyFyFyFyFyFynbjkbknk100sE\u001b\u0018\u001b100sFhsFhFhssuhu50sblbFhFhFh\\  nhl#offer\n150s_>.>kyj100sFhFkFk150s100sFhs.\\  \u0018\u001b50s100s150s50s 150sFkFk s\u000f\u001b100s100sjlk100s#twoweapon\njkb150sFkFkshhli\u001blujk50s1#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

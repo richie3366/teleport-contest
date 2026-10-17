@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n        #wizintrinsic\nf\n .20s.s20ss20s  ...\u0017bell\nalal#pray\ny y zalcj#rub\n#enhance\nyk\nf\n\u001bs.s..s\u0017blessed spellbook of dig\nrm   ssZa\nZa\nFl 20s\u0017cursed Snickersnee\nwnss20s#invoke\nn..\u00173 potion of enlightenment\nqo \u001b#dip\nooss#levelchange\n12\n    \u0017potion of speed\nqp#dip\nles20s\u0017blessed wand of stasis\nzqqdzqqd\u0017wand of light\n\u0007master mind flayer\nzrzrFl        Fl   \u0017cursed cheap plastic imitation of the Amulet of Yendor\nPs   n .l  sm.ss\u0017uncursed spellbook of dig\n\u0007owlbear\nrt    n .m.    n   sm.    n Zb\n    n Zsm.   sm.\u00161\n#levelchange\n20\n         \u0007genetic engineer\nFn     n  Fl       n \u0007gray ooze\nFn        Fh          n  \u00161\n \u0017blessed ring of polymorph control\nPul#polyself\nstone golem\n#monster\ns.\u0007giant rat\nFbFb.20sss#polyself\nsandestin\n pit viper\n  #monster\n..\u0007nalfeshnee\nFhFhFh sm.ss#polyself\ncrocodile\n#monster\nsk.m.   \u0007grid bug\nFb  Fb   Fb   .m. .k20s#polyself\nlich\n20s  .m. .m.   .m.20s \u0017potion of polymorph\nqv giant rat\n    \u0017pick-axe\nauasj  aw hh\u0006_ \u001b,aw>\u0017bag of holding\n\u0017wand of slow monster\n\u0017ruby\n\u0017ring of increase accuracy\n\u0017wand of cancellation\n#tip\nx\u001b#tip\nx\u001b#tip\nx\u001bdx#loot\no\n,  #tip\nC\u001bi\u001b\u0007tame titanothere\n\u0017saddle\naDl \u0017lance\nwE#ride\nuy\u0007tame saddled warhorse\n#ride\nly \u0007tame saddled pony\n#ride\n        h      ny  \u0006_>,    Fl _.Fh       >Fh     n Fh     _>,  Fn_,m,>_>._.>\u0007gnome\nFl   20s.\u0006_>,_.>_>._.>_>._.  >\u001612\n\u0018\u001b\u0017800 gold pieces\n\u0016?\nc\u0006_mm.Fj _,Fh  #chat\nj _mm. Fj _,#chat\nj  n _mm. Fj  _.#ch"
+ },
+ "segments": [
+  {
+   "seed": 51750041,
+   "datetime": "20161205035238",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n        #wizintrinsic\nf\n .20s.s20ss20s  ...\u0017bell\nalal#pray\ny y zalcj#rub\n#enhance\nyk\nf\n\u001bs.s..s\u0017blessed spellbook of dig\nrm   ssZa\nZa\nFl 20s\u0017cursed Snickersnee\nwnss20s#invoke\nn..\u00173 potion of enlightenment\nqo \u001b#dip\nooss#levelchange\n12\n    \u0017potion of speed\nqp#dip\nles20s\u0017blessed wand of stasis\nzqqdzqqd\u0017wand of light\n\u0007master mind flayer\nzrzrFl        Fl   \u0017cursed cheap plastic imitation of the Amulet of Yendor\nPs   n .l  sm.ss\u0017uncursed spellbook of dig\n\u0007owlbear\nrt    n .m.    n   sm.    n Zb\n    n Zsm.   sm.\u00161\n#levelchange\n20\n         \u0007genetic engineer\nFn     n  Fl       n \u0007gray ooze\nFn        Fh          n  \u00161\n \u0017blessed ring of polymorph control\nPul#polyself\nstone golem\n#monster\ns.\u0007giant rat\nFbFb.20sss#polyself\nsandestin\n pit viper\n  #monster\n..\u0007nalfeshnee\nFhFhFh sm.ss#polyself\ncrocodile\n#monster\nsk.m.   \u0007grid bug\nFb  Fb   Fb   .m. .k20s#polyself\nlich\n20s  .m. .m.   .m.20s \u0017potion of polymorph\nqv giant rat\n    \u0017pick-axe\nauasj  aw hh\u0006_ \u001b,aw>\u0017bag of holding\n\u0017wand of slow monster\n\u0017ruby\n\u0017ring of increase accuracy\n\u0017wand of cancellation\n#tip\nx\u001b#tip\nx\u001b#tip\nx\u001bdx#loot\no\n,  #tip\nC\u001bi\u001b\u0007tame titanothere\n\u0017saddle\naDl \u0017lance\nwE#ride\nuy\u0007tame saddled warhorse\n#ride\nly \u0007tame saddled pony\n#ride\n        h      ny  \u0006_>,    Fl _.Fh       >Fh     n Fh     _>,  Fn_,m,>_>._.>\u0007gnome\nFl   20s.\u0006_>,_.>_>._.>_>._.  >\u001612\n\u0018\u001b\u0017800 gold pieces\n\u0016?\nc\u0006_mm.Fj _,Fh  #chat\nj _mm. Fj _,#chat\nj  n _mm. Fj  _.#ch"
+  }
+ ]
+}

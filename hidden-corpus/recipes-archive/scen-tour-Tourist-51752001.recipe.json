@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>>Q#force\n;<. \u001b,#offer\n;.ss\u0016?\n>J     scroll of blank paper\n#name\ni\n#offer\n#loot\nss \u001b \u001b \u00166\nu #jump\n>s                 n s    n"
+ },
+ "segments": [
+  {
+   "seed": 51752001,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>>Q#force\n;<. \u001b,#offer\n;.ss\u0016?\n>J     scroll of blank paper\n#name\ni\n#offer\n#loot\nss \u001b \u001b \u00166\nu #jump\n>s                 n s    n"
+  }
+ ]
+}

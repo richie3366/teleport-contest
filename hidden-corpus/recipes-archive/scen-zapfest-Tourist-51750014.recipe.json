@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed shield of reflection\nWm\u0017blessed +3 gray dragon scale mail\nWn\u0017blessed amulet of life saving\nPo#levelchange\n20\n                   \u0007silver dragon\n.m.20s  sm. .b  #polyself\nblack dragon\n   #monster\nl      .js#monster\nu  #monster\nk  #monster\nu #monster\nj 20s s \u00164\n\u0017spellbook of fireball\nrp .\u0017blessed spellbook of drain life\nrqs\u0007master lich\n\u0007kobold shaman\nZa\nZa\nZa\nZa\nZa\nZa\n20s    .m.    Za\nZa\nsm.      20s    Za\n \u0017blessed spellbook of light\nrr         sm.    \u0007succubus\nZa\n     sh n      20s    Za\n  Za\n   n      Za\n Za\n      #turn\n\u001612\n\u00164\n\u0017blessed spellbook of finger of death\nrs              n 20s  \u0007orc shaman\nZa\n .m.   sm.                  n    Za\nsm.          20s       Za\nZa\nZa\n20s    n                  n.m.   #turn\ni\u001b\u00169\n\u0007black dragon\nsm.   20s     n  "
+ },
+ "segments": [
+  {
+   "seed": 51750014,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed shield of reflection\nWm\u0017blessed +3 gray dragon scale mail\nWn\u0017blessed amulet of life saving\nPo#levelchange\n20\n                   \u0007silver dragon\n.m.20s  sm. .b  #polyself\nblack dragon\n   #monster\nl      .js#monster\nu  #monster\nk  #monster\nu #monster\nj 20s s \u00164\n\u0017spellbook of fireball\nrp .\u0017blessed spellbook of drain life\nrqs\u0007master lich\n\u0007kobold shaman\nZa\nZa\nZa\nZa\nZa\nZa\n20s    .m.    Za\nZa\nsm.      20s    Za\n \u0017blessed spellbook of light\nrr         sm.    \u0007succubus\nZa\n     sh n      20s    Za\n  Za\n   n      Za\n Za\n      #turn\n\u001612\n\u00164\n\u0017blessed spellbook of finger of death\nrs              n 20s  \u0007orc shaman\nZa\n .m.   sm.                  n    Za\nsm.          20s       Za\nZa\nZa\n20s    n                  n.m.   #turn\ni\u001b\u00169\n\u0007black dragon\nsm.   20s     n  "
+  }
+ ]
+}

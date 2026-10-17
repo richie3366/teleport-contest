@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "Of\u001b\n\u0006_ \u001b@.>Fu Fu_>,_,>_>._.>\u0006_>>._,>_>>._,>_>>,_.>\u0006_>._.>_>._.>_>,_,>\u0004nb\u0006_>._.>_>._.>_>._.><z\u0006_>,_.>_>,Fj_.>_>._.>\u001610\nmO>>m\u001b\nv i\u001bmO>>>>g\u001b\nOp\u001b\n\u00164\n_>.>\\ 100sFu.s100s#tip\n\u001b150s  50snkl_>.>100sjyn\u000f\u001bkhk100s150s150seeeeeeeeeeeeeeeeeeeeeeeO>>>>l\u001b\nO>>>>c\u001b\n\u00165\nkuj\u0017lawful altar\nde\u0017jackal corpse\n#offer\nf   b\u0017grave\n: \u0017wand of digging\nzg>  snsll\u0017chaotic altar\ndbdc\u0017human corpse\n#offer\nh      n :  l   n  l    n \u0017neutral altar\nda      n  \u0017lichen corpse\n#offer\ni         n   #pray\ny y        n :  #enhance\nyq\ng\n\u001bch#chat\nu     n  \u00164\n mO\u0007uydj   n   n     n20s     n  sn  "
+ },
+ "segments": [
+  {
+   "seed": 51750057,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "Of\u001b\n\u0006_ \u001b@.>Fu Fu_>,_,>_>._.>\u0006_>>._,>_>>._,>_>>,_.>\u0006_>._.>_>._.>_>,_,>\u0004nb\u0006_>._.>_>._.>_>._.><z\u0006_>,_.>_>,Fj_.>_>._.>\u001610\nmO>>m\u001b\nv i\u001bmO>>>>g\u001b\nOp\u001b\n\u00164\n_>.>\\ 100sFu.s100s#tip\n\u001b150s  50snkl_>.>100sjyn\u000f\u001bkhk100s150s150seeeeeeeeeeeeeeeeeeeeeeeO>>>>l\u001b\nO>>>>c\u001b\n\u00165\nkuj\u0017lawful altar\nde\u0017jackal corpse\n#offer\nf   b\u0017grave\n: \u0017wand of digging\nzg>  snsll\u0017chaotic altar\ndbdc\u0017human corpse\n#offer\nh      n :  l   n  l    n \u0017neutral altar\nda      n  \u0017lichen corpse\n#offer\ni         n   #pray\ny y        n :  #enhance\nyq\ng\n\u001bch#chat\nu     n  \u00164\n mO\u0007uydj   n   n     n20s     n  sn  "
+  }
+ ]
+}

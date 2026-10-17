@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n         \u0007hostile fog cloud\nFbFb Fk FuFkFjFjFuFlFh.Fk"
+ },
+ "segments": [
+  {
+   "seed": 51751012,
+   "datetime": "20220425160734",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=fruit:durian\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n         \u0007hostile fog cloud\nFbFb Fk FuFkFjFjFuFlFh.Fk"
+  }
+ ]
+}

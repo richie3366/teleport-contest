@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 gray dragon scale mail\nWn   \u0017blessed shield of reflection\nWo\u0017wand of death\n\u0017wand of lightning\n\u0007grid bug\n\u0007giant rat\nzpu zqk  zqy20szquzpbzql szqbzplzpyzph20szql\u0018\u001b\u0017spellbook of finger of death\nrr20s  \u0007vampire\nZZss  nZs.Zs.ZZZZZ20s20s   n\u0018\u001b\u001612\n\u0007black dragon\n\u0007red dragon\ns20s   n 20s#polyself\nsilver dragon\n   #monster\n20s s #monster\n#monster\n\u0017wand of lightning\naFn    n Fn  n   n\u00169\n\u00178 spears\nQt\u0007bugbear\nfkfbfhfyfyfy\u0017potion of gain ability\ntay  n\u0017blessed spellbook of force bolt\nrvs\u0017blessed spellbook of fireball\nrws\u0007vampire\nZZZZ20s20s  n ZZ#turn\n\u0017wand of cancellation\n\u0017wand of sleep\n\u0007gnome\n\u0007grid bug\n\u0007acid blob\nzyl   nzyl zykzxl  nzyk zyy  n zyk zyl  n 20s\u00169\n\u0017wand of digging\n\u0017wand of lightning\n\u0017wand of slow monster\n\u0007owlbear\n\u0007soldier\nzAl   n zAuzBhs  n"
+ },
+ "segments": [
+  {
+   "seed": 51750074,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=sortloot:none\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 gray dragon scale mail\nWn   \u0017blessed shield of reflection\nWo\u0017wand of death\n\u0017wand of lightning\n\u0007grid bug\n\u0007giant rat\nzpu zqk  zqy20szquzpbzql szqbzplzpyzph20szql\u0018\u001b\u0017spellbook of finger of death\nrr20s  \u0007vampire\nZZss  nZs.Zs.ZZZZZ20s20s   n\u0018\u001b\u001612\n\u0007black dragon\n\u0007red dragon\ns20s   n 20s#polyself\nsilver dragon\n   #monster\n20s s #monster\n#monster\n\u0017wand of lightning\naFn    n Fn  n   n\u00169\n\u00178 spears\nQt\u0007bugbear\nfkfbfhfyfyfy\u0017potion of gain ability\ntay  n\u0017blessed spellbook of force bolt\nrvs\u0017blessed spellbook of fireball\nrws\u0007vampire\nZZZZ20s20s  n ZZ#turn\n\u0017wand of cancellation\n\u0017wand of sleep\n\u0007gnome\n\u0007grid bug\n\u0007acid blob\nzyl   nzyl zykzxl  nzyk zyy  n zyk zyl  n 20s\u00169\n\u0017wand of digging\n\u0017wand of lightning\n\u0017wand of slow monster\n\u0007owlbear\n\u0007soldier\nzAl   n zAuzBhs  n"
+  }
+ ]
+}

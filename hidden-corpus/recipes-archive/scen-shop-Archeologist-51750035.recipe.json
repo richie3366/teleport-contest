@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed +3 gauntlets of power\nWk\u0016?\n>w\u0006_ \u001b:,:_oooooooo.,\u0014@.ss\u0016?\n>Bhhh\u0016?\n>w \u0006Fh Fh  Fh Fh   nFh   nFh  n \u001610\n_{.q\u0016?\nclhb\u0016?\n>w\u0006_{. Fk_.Fl q_ooooooooo,Fk _., p_ooooo.  Fl _.,Fl_o.Fl   n_.m.Fl   n,#chat\nl \u001612\n_ooooo.,pFl   nFl Fl   nFl FlFl\u00169\n_oooo.,:_oooo._o.,$_{.q_oooooooo,,p__,#chat\nn_oooooooo._oo.,:_oooooooo.,:nul#chat\nllnu#chat\nklhy#chat\nj\u0016?\nc jhy\u0016?\n>w\u0006hhl#chat\nn_oooooooo._.,pnhj#chat\ny_ooooo._,,p\u00163\nkjk\u0016?\n>w\u0006nhu#chat\ny__._.#chat\nl\u00163\nlhk\u0016?\n>w\u0006_ooooooooo._o.Fk_,Fk,$\u0016?\n>B nnb  \u0016?\n>w\u0006_ooooooo.Fu_.,#chat\nl_oooooo.,#c"
+ },
+ "segments": [
+  {
+   "seed": 51750035,
+   "datetime": "20010824035510",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed +3 gauntlets of power\nWk\u0016?\n>w\u0006_ \u001b:,:_oooooooo.,\u0014@.ss\u0016?\n>Bhhh\u0016?\n>w \u0006Fh Fh  Fh Fh   nFh   nFh  n \u001610\n_{.q\u0016?\nclhb\u0016?\n>w\u0006_{. Fk_.Fl q_ooooooooo,Fk _., p_ooooo.  Fl _.,Fl_o.Fl   n_.m.Fl   n,#chat\nl \u001612\n_ooooo.,pFl   nFl Fl   nFl FlFl\u00169\n_oooo.,:_oooo._o.,$_{.q_oooooooo,,p__,#chat\nn_oooooooo._oo.,:_oooooooo.,:nul#chat\nllnu#chat\nklhy#chat\nj\u0016?\nc jhy\u0016?\n>w\u0006hhl#chat\nn_oooooooo._.,pnhj#chat\ny_ooooo._,,p\u00163\nkjk\u0016?\n>w\u0006nhu#chat\ny__._.#chat\nl\u00163\nlhk\u0016?\n>w\u0006_ooooooooo._o.Fk_,Fk,$\u0016?\n>B nnb  \u0016?\n>w\u0006_ooooooo.Fu_.,#chat\nl_oooooo.,#c"
+  }
+ ]
+}

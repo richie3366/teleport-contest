@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPq\u0017blessed +3 gauntlets of power\nWr\u001624\nkjl:.ss\u001623\n\u0006_ \u001bm.\u001641\n   __.<s\u00164\nuyjjb:\u0016?\n>>K     potion of booze\nnk                  k        k     \u001b                 :         \u0016?\nc #levelchange\n12\n\u0017cursed 20 elven arrows\n\u0007fire vortex\nQ\u001bf \u001bf \u001bf \u001bs Fl  n  \u0017blessed 15 crossbow bolts\n\u0007black light\nQ\u001bf \u001bf \u001bf \u001b\u0017flint stone\ntvjs     .m.  \u0016?\nb #chat\nh;>.ss\u00164\nb nbbu :\u001624\nh  n y:\u0016?\n\u001bhn\u0016?\n\u001bhh\u0016?\n\u001bju  n \u001644\n_{.\u00164\nyk  n  n j:\u0016?\n\u001bl  n j  n  \u00164\n\u001616\n\u0017cursed potion of polymorph\n\u0007titanothere\nqx       Fh    Fu\u00173 magic lamp\n\u0007air elemental\nay    #rub\ny\u0017blessed food ration\n\u0007Kop Kaptain\nez   n   20s sm.\u0017blessed potion of enlightenment\nqA  \u001b#dip\nnf  n    n  \u0017flail\nwB    Fn  n    n Fu  Fu   n  X\u0017blessed +3 ring of fire resistance\nPCr   n  sm.   n sm.sm. R   n sm. slsm.\u0016?\n\u001bnj\u001641\n\u0014 n  n sn\u0016?\n\u001by   y\u001b     y"
+ },
+ "segments": [
+  {
+   "seed": 51750010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPq\u0017blessed +3 gauntlets of power\nWr\u001624\nkjl:.ss\u001623\n\u0006_ \u001bm.\u001641\n   __.<s\u00164\nuyjjb:\u0016?\n>>K     potion of booze\nnk                  k        k     \u001b                 :         \u0016?\nc #levelchange\n12\n\u0017cursed 20 elven arrows\n\u0007fire vortex\nQ\u001bf \u001bf \u001bf \u001bs Fl  n  \u0017blessed 15 crossbow bolts\n\u0007black light\nQ\u001bf \u001bf \u001bf \u001b\u0017flint stone\ntvjs     .m.  \u0016?\nb #chat\nh;>.ss\u00164\nb nbbu :\u001624\nh  n y:\u0016?\n\u001bhn\u0016?\n\u001bhh\u0016?\n\u001bju  n \u001644\n_{.\u00164\nyk  n  n j:\u0016?\n\u001bl  n j  n  \u00164\n\u001616\n\u0017cursed potion of polymorph\n\u0007titanothere\nqx       Fh    Fu\u00173 magic lamp\n\u0007air elemental\nay    #rub\ny\u0017blessed food ration\n\u0007Kop Kaptain\nez   n   20s sm.\u0017blessed potion of enlightenment\nqA  \u001b#dip\nnf  n    n  \u0017flail\nwB    Fn  n    n Fu  Fu   n  X\u0017blessed +3 ring of fire resistance\nPCr   n  sm.   n sm.sm. R   n sm. slsm.\u0016?\n\u001bnj\u001641\n\u0014 n  n sn\u0016?\n\u001by   y\u001b     y"
+  }
+ ]
+}

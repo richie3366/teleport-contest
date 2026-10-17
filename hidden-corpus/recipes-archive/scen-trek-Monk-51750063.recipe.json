@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  Fh ssjjn150sFj.sFjFj.50s_ \u001b@.>#rub\n100sylhkny150sFjssubulhb\\  100sFj..100s100sFjFjs100suyy\u001450shhk_>.>\\  hkb150sFhFh._>.>50s50sFhs.50s\\  50sFls20sef#untrap\nn<ee150s150sFl20s.50s_>.>150s\u000f\u001b150sFnssnkllubbyl100s100sFj.FbFb20ss150s100s150s100slkl,100sjyb_>.>\\  100s50sFb 20sFjFbss100suyl50si\u001blhbljuunjkbki\u001b100sKLJH_>.>BKBJ_>.><NHUU_>.>UKYL_>.>LNHY_>,>KBUU_>,>\u000f\u001bKHJH_>.>NKYB_>.>\u0018\u001b#rub\n<LYJN_>.>Fus20s#untrap\nlH#invoke\n\u001b150sFy.20s _>.>100sFys.100sFlssunyi\u001b150sFh20s.Fh20s20s150sunkFnssbly100see_>.>100s100s#loot\n50sFhsFnjju100syyy150sFbssi\u001b50sFb..150sFb.s100sjubkly#name\nf\n100s100si\u001blbk100s100s_>.>100s 150sFjFj20s50s150s150sFjssi\u001bnlu\u0018\u001b_>.>100sbjh"
+ },
+ "segments": [
+  {
+   "seed": 51750063,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\nOPTIONS=playmode:explore\n",
+   "moves": "  Fh ssjjn150sFj.sFjFj.50s_ \u001b@.>#rub\n100sylhkny150sFjssubulhb\\  100sFj..100s100sFjFjs100suyy\u001450shhk_>.>\\  hkb150sFhFh._>.>50s50sFhs.50s\\  50sFls20sef#untrap\nn<ee150s150sFl20s.50s_>.>150s\u000f\u001b150sFnssnkllubbyl100s100sFj.FbFb20ss150s100s150s100slkl,100sjyb_>.>\\  100s50sFb 20sFjFbss100suyl50si\u001blhbljuunjkbki\u001b100sKLJH_>.>BKBJ_>.><NHUU_>.>UKYL_>.>LNHY_>,>KBUU_>,>\u000f\u001bKHJH_>.>NKYB_>.>\u0018\u001b#rub\n<LYJN_>.>Fus20s#untrap\nlH#invoke\n\u001b150sFy.20s _>.>100sFys.100sFlssunyi\u001b150sFh20s.Fh20s20s150sunkFnssbly100see_>.>100s100s#loot\n50sFhsFnjju100syyy150sFbssi\u001b50sFb..150sFb.s100sjubkly#name\nf\n100s100si\u001blbk100s100s_>.>100s 150sFjFj20s50s150s150sFjssi\u001bnlu\u0018\u001b_>.>100sbjh"
+  }
+ ]
+}

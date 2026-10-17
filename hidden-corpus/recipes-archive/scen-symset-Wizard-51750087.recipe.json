@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  \u00166\nFl FjFbFjFyFbFjFbFjFbFnFbFjFnFyFjFjFyFbFnFnFnFyFnFbFyFjFlFy  nFnFyFyFn#pray\ny y   FlFbFyFlFjFnFjFyFjFyFnFb  nFj Fj Fy  nFjFyFh#pray\ny y      FbFnFyFh  nFj FyFj Fj Fh  nFhFn Fj  n FyFj FhFb  nFn Fh#pray\ny y      FyFjFj   nFhFyFjFnFy Fh  n FhFhFb  n FhFnFn#pray\ny y      FnFbFhFn FyFh  nFn Fb   nFhFjFnFbFbFyFbFbFyFbFyFjFyFyFyFn\u001610\n#levelchange\n30\n                             yhh\u0017fountain\nqy#dip\neykh\u0017neutral altar\ndndj\u0017dwarf corpse\n#offer\no #pray\ny y        : #terrain\nc\n\u001b:#dip\nhhewamO>c\u001b\nO>>>>n\u001b\u001b\nFu Fj Fl Fl Fk Fy FnFlFy Fj  n FlFu Fk FjFy #pray\ny y        Fj Fu Fk Fy FyFlFl  Fk Fk Fb  Fk  n Fl    #pray\ny y        #pray\ny y             Fn Fh Fk  n Fk Fl Fh FbFj Fl #pray\ny y               FnFb Fj  yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51750087,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nMENUCOLOR=\"blessed\"=red\nBIND=v:inventory\n",
+   "moves": "  \u00166\nFl FjFbFjFyFbFjFbFjFbFnFbFjFnFyFjFjFyFbFnFnFnFyFnFbFyFjFlFy  nFnFyFyFn#pray\ny y   FlFbFyFlFjFnFjFyFjFyFnFb  nFj Fj Fy  nFjFyFh#pray\ny y      FbFnFyFh  nFj FyFj Fj Fh  nFhFn Fj  n FyFj FhFb  nFn Fh#pray\ny y      FyFjFj   nFhFyFjFnFy Fh  n FhFhFb  n FhFnFn#pray\ny y      FnFbFhFn FyFh  nFn Fb   nFhFjFnFbFbFyFbFbFyFbFyFjFyFyFyFn\u001610\n#levelchange\n30\n                             yhh\u0017fountain\nqy#dip\neykh\u0017neutral altar\ndndj\u0017dwarf corpse\n#offer\no #pray\ny y        : #terrain\nc\n\u001b:#dip\nhhewamO>c\u001b\nO>>>>n\u001b\u001b\nFu Fj Fl Fl Fk Fy FnFlFy Fj  n FlFu Fk FjFy #pray\ny y        Fj Fu Fk Fy FyFlFl  Fk Fk Fb  Fk  n Fl    #pray\ny y        #pray\ny y             Fn Fh Fk  n Fk Fl Fh FbFj Fl #pray\ny y               FnFb Fj  yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nj_mmmm.#chat\nj_mmmm.#chat\nb;j:  _mmm.Fn _.  n Fk  n #chat\ny  n _mmmmm,#chat\ny  n #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm,#chat\nk_mmmmm,#chat\nb\u0017blessed Mjollnir\nwo \u0017blessed ring of free action\nPpl\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of death\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,Fb.Fj ss Fl  n zrn,\u0016?\n>A\u0006_mmmmm.s 20s .s zrn,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nn\u0016?\n>z\u0006_mmmmm,Fn  n s s s zrh   n , \u00168\n\u0016?\n>A\u0006_mmmmm.. s  s   n  .  ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.s  s  .  n   s   Fk zry   n ,#chat\nk  \u00161\n\u0016?\n>A\u0006_mmmmm.Fk Fh  20s   n Fy Fh Fj  s zr  ,#chat\nk\u0016?\n>z\u0006_mmm,Fk  n  . .  .  s    n 20s  s  zr ,\u00167\n\u0016?\n>A\u0006_mmmmmm.. s  n  s  Fy   20s  ,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.s    n Fk   20s  s  ,#chat\nh  \u0016?\n>A\u0006_mmmmmmm,.  yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51750026,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nj_mmmm.#chat\nj_mmmm.#chat\nb;j:  _mmm.Fn _.  n Fk  n #chat\ny  n _mmmmm,#chat\ny  n #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm,#chat\nk_mmmmm,#chat\nb\u0017blessed Mjollnir\nwo \u0017blessed ring of free action\nPpl\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of death\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,Fb.Fj ss Fl  n zrn,\u0016?\n>A\u0006_mmmmm.s 20s .s zrn,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nn\u0016?\n>z\u0006_mmmmm,Fn  n s s s zrh   n , \u00168\n\u0016?\n>A\u0006_mmmmm.. s  s   n  .  ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.s  s  .  n   s   Fk zry   n ,#chat\nk  \u00161\n\u0016?\n>A\u0006_mmmmm.Fk Fh  20s   n Fy Fh Fj  s zr  ,#chat\nk\u0016?\n>z\u0006_mmm,Fk  n  . .  .  s    n 20s  s  zr ,\u00167\n\u0016?\n>A\u0006_mmmmmm.. s  n  s  Fy   20s  ,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.s    n Fk   20s  s  ,#chat\nh  \u0016?\n>A\u0006_mmmmmmm,.  yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

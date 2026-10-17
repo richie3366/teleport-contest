@@ -1,11 +1,11 @@
 {
- "commit": "0f110d1f2",
- "at": "2026-10-17T16:26:03.506Z",
+ "commit": "a959c88b6",
+ "at": "2026-10-17T16:35:07.185Z",
  "full": false,
  "fullCommit": "662fc386f",
  "fullAt": "2026-10-17T14:33:23.025Z",
- "entries": 1084,
- "reserve": 222,
+ "entries": 1094,
+ "reserve": 218,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -2065,6 +2065,24 @@
    "jsTopline": "Do what with the arrows?",
    "error": null
   },
+  "scen-extcmd-Ranger-51750069": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 10866,
+   "rngT": 10866,
+   "scrM": 896,
+   "scrT": 899,
+   "kind": "screen",
+   "step": 507,
+   "steps": 899,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "Where do you want to travel to? (For instructions type a '?')",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-extcmd-Rogue-51256003": {
    "src": "corpus",
    "passed": false,
@@ -2150,6 +2168,24 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-extcmd-Samurai-51750009": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 9297,
+   "rngT": 9297,
+   "scrM": 1134,
+   "scrT": 1144,
+   "kind": "screen",
+   "step": 722,
+   "steps": 1144,
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
+   "jsOwner": null,
+   "cTopline": "You don't have that object.--More--",
+   "jsTopline": "You don't have that object.--More--",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-extcmd-Tourist-51257053": {
    "src": "corpus",
    "passed": false,
@@ -2183,6 +2219,24 @@
    "cTopline": "",
    "jsTopline": "Can't find dungeon feature '_'.",
    "error": null
+  },
+  "scen-extcmd-Wizard-51750059": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 21987,
+   "rngT": 21987,
+   "scrM": 1076,
+   "scrT": 1079,
+   "kind": "screen",
+   "step": 954,
+   "steps": 1079,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "Where do you want to travel to? (For instructions type a '?')",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-genesis-Archeologist-50052027": {
    "src": "corpus",
@@ -2320,6 +2374,23 @@
    "jsTopline": "You materialize on a different level!--More--",
    "error": null
   },
+  "scen-hallu-Priest-51750038": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 3313,
+   "rngT": 3313,
+   "scrM": 430,
+   "scrT": 431,
+   "kind": "screen",
+   "step": 188,
+   "steps": 431,
+   "owner": "furniture_detect",
+   "loc": "detect.c:1130",
+   "jsOwner": null,
+   "cTopline": "Tip: Farlooking or selecting a map location",
+   "jsTopline": "Tip: Farlooking or selecting a map location",
+   "error": null
+  },
   "scen-hallu-Ranger-51450008": {
    "src": "corpus",
    "passed": false,
@@ -2369,7 +2440,8 @@
    "jsOwner": null,
    "cTopline": "interior of the warhorse (no travel path)",
    "jsTopline": "interior of the warhorse",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-hallu-Wizard-51550088": {
    "src": "corpus",
@@ -3170,6 +3242,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-normal-Wizard-51752025": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 3944,
+   "rngT": 3944,
+   "scrM": 161,
+   "scrT": 162,
+   "kind": "screen",
+   "step": 151,
+   "steps": 162,
+   "owner": "one_characteristic",
+   "loc": "insight.c:926",
+   "jsOwner": null,
+   "cTopline": "Your wisdom was 13 (limit:18).",
+   "jsTopline": "Your wisdom was 13 (limit:18).",
+   "error": null
+  },
   "scen-options-Archeologist-49951031": {
    "src": "corpus",
    "passed": true,
@@ -3203,6 +3292,24 @@
    "cTopline": "You see your kitten. You see a lichen.",
    "jsTopline": "",
    "error": null
+  },
+  "scen-options-Archeologist-51751011": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 7728,
+   "rngT": 7728,
+   "scrM": 192,
+   "scrT": 193,
+   "kind": "screen",
+   "step": 49,
+   "steps": 193,
+   "owner": "choose_disco_sort",
+   "loc": "o_init.c:644",
+   "jsOwner": null,
+   "cTopline": "Ordering of discoveries",
+   "jsTopline": "Ordering of discoveries",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-options-Archeologist-94051": {
    "src": "corpus",
@@ -5176,6 +5283,24 @@
    "jsTopline": "You drown the watchman. The crossbow bolts rust! The kabuto rusts!--More--",
    "error": null
   },
+  "scen-shop-Samurai-51750085": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 29306,
+   "rngT": 29306,
+   "scrM": 846,
+   "scrT": 847,
+   "kind": "screen",
+   "step": 685,
+   "steps": 847,
+   "owner": "dotogglepickup",
+   "loc": "options.c:9263",
+   "jsOwner": null,
+   "cTopline": "Autopickup: ON, for % objects.",
+   "jsTopline": "Autopickup: ON, for 0bjects.",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-shop-Tourist-50050071": {
    "src": "corpus",
    "passed": true,
@@ -5226,6 +5351,24 @@
    "cTopline": "",
    "jsTopline": "",
    "error": null
+  },
+  "scen-shop-Tourist-51750095": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 33954,
+   "rngT": 33954,
+   "scrM": 931,
+   "scrT": 932,
+   "kind": "screen",
+   "step": 913,
+   "steps": 932,
+   "owner": "glibr",
+   "loc": "do_wear.c:2617",
+   "jsOwner": null,
+   "cTopline": "a watchman corpse",
+   "jsTopline": "a gecko corpse",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-shop-Valkyrie-49959654": {
    "src": "corpus",
@@ -6194,6 +6337,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-sweep-Barbarian-51750091": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 12621,
+   "rngT": 65947,
+   "scrM": 277,
+   "scrT": 1878,
+   "kind": "rng",
+   "step": 267,
+   "steps": 1878,
+   "owner": "peace_minded",
+   "loc": "makemon.c:2305",
+   "jsOwner": "peace_minded(makemon.js:2252)",
+   "cTopline": "You materialize on a different level!--More--",
+   "jsTopline": "You materialize on a different level!--More--",
    "error": null
   },
   "scen-sweep-Barbarian-582613": {
@@ -10412,6 +10572,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-symset-Samurai-51750037": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 14917,
+   "rngT": 14917,
+   "scrM": 977,
+   "scrT": 990,
+   "kind": "screen",
+   "step": 508,
+   "steps": 990,
+   "owner": "kick_dumb",
+   "loc": "dokick.c:868",
+   "jsOwner": null,
+   "cTopline": "You kick at empty space.",
+   "jsTopline": "You kick at empty space.",
+   "error": null
+  },
   "scen-symset-Tourist-50255025": {
    "src": "corpus",
    "passed": false,
@@ -13861,7 +14038,8 @@
    "jsOwner": null,
    "cTopline": "Your constitution was 14 (limit:16).",
    "jsTopline": "Your constitution was 14 (limit:16).",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-worldtour-Wizard-620020": {
    "src": "corpus",
@@ -15121,8 +15299,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-impaired-Knight-50751030": {
    "src": "corpus",
@@ -15985,8 +16162,7 @@
    "jsOwner": null,
    "cTopline": "The Elemental Planes:",
    "jsTopline": "The Elemental Planes:",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Barbarian-50456033": {
    "src": "corpus",
@@ -16021,8 +16197,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Caveman-49950025": {
    "src": "corpus",
@@ -16687,8 +16862,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Caveman-50155022": {
    "src": "corpus",
@@ -16723,8 +16897,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Caveman-50359035": {
    "src": "corpus",
@@ -16849,8 +17022,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Healer-50255014": {
    "src": "corpus",
@@ -16885,8 +17057,7 @@
    "jsOwner": null,
    "cTopline": "Showing known terrain, traps, and objects only...--More--",
    "jsTopline": "Showing known terrain, traps, and objects only...--More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Healer-50555035": {
    "src": "corpus",
@@ -17011,8 +17182,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Knight-50550015": {
    "src": "corpus",
@@ -17047,8 +17217,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50059063": {
    "src": "corpus",
@@ -17065,8 +17234,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50359009": {
    "src": "corpus",
@@ -17101,8 +17269,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50850071": {
    "src": "corpus",
@@ -17983,8 +18150,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Priest-51050040": {
    "src": "corpus",
@@ -18658,5 +18824,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-17T16:35:22.812Z"
 }

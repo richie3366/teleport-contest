@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " P#turn\n,>qdn#terrain\nb\n\u001bm.#jump\n#turn\nZa\neh  l#untrap\nyai #sit\n#offer\n\u0018\u001b#offer\n20s#terrain\nb\n#wipe\nm,i\u001beg20s20seh   sb20sW.m.20s20sWsm.20sslri y20ssm.Za\nqd;h:  E\u001b\u000f\u001b;h,10sP"
+ },
+ "segments": [
+  {
+   "seed": 51752029,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": " P#turn\n,>qdn#terrain\nb\n\u001bm.#jump\n#turn\nZa\neh  l#untrap\nyai #sit\n#offer\n\u0018\u001b#offer\n20s#terrain\nb\n#wipe\nm,i\u001beg20s20seh   sb20sW.m.20s20sWsm.20sslri y20ssm.Za\nqd;h:  E\u001b\u000f\u001b;h,10sP"
+  }
+ ]
+}

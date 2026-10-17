@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0007tengu\n#chat\nbFb Fb\u0007horned devil\n;h: \u001bm,.m.sm. sm.\u0007vampire bat\n#chat\nhFy  Fb   "
+ },
+ "segments": [
+  {
+   "seed": 51752015,
+   "datetime": "20040522040306",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0007tengu\n#chat\nbFb Fb\u0007horned devil\n;h: \u001bm,.m.sm. sm.\u0007vampire bat\n#chat\nhFy  Fb   "
+  }
+ ]
+}

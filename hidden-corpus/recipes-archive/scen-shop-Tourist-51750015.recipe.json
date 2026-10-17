@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nWl\u0017blessed Mjollnir\nwm\u0016?\n>w\u0006Fj Fj Fj Fj  Fj  nFj_ \u001bm.qg_{, Fh    n _.  n Fbqg   \u00167\nk k  ny\u0016?\n>w\u0006\u00168\nFl    n Fl   n    nFl Fl    n Fl Fl    n \u00161\n_{.q\u0016?\ncnb l  n  \u0016?\n>w  \u0006Fl Fl    nFl     nFl Fl     nFl    n\u00167\n__,     n Fl _,:Fu   y y  #"
+ },
+ "segments": [
+  {
+   "seed": 51750015,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nWl\u0017blessed Mjollnir\nwm\u0016?\n>w\u0006Fj Fj Fj Fj  Fj  nFj_ \u001bm.qg_{, Fh    n _.  n Fbqg   \u00167\nk k  ny\u0016?\n>w\u0006\u00168\nFl    n Fl   n    nFl Fl    n Fl Fl    n \u00161\n_{.q\u0016?\ncnb l  n  \u0016?\n>w  \u0006Fl Fl    nFl     nFl Fl     nFl    n\u00167\n__,     n Fl _,:Fu   y y  #"
+  }
+ ]
+}

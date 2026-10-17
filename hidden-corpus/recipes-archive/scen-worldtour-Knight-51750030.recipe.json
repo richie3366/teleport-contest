@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed ring of free action\nPil\u0017blessed amulet of reflection\nPj\u0016?\n>>L      ring of increase damage\n\u0014 \u001b.sm.20s    .m.  \u00168\n#chat\n;k.\u0016?\nb #levelchange\n12\n\u0017mummy wrapping\nWmsm. sm. .m.  n    \u0007prisoner\n20s .m.sm.  .m.    n sm.    sm.   .m.sm.   n         .n    n   \u0007kraken\n;h:  sysm.  n        n    n   sm.   n  \u0007electric eel\nFu Fk    n       n    n   n  Fb         n        n   n        Fu  yy\u001by   y y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 51750030,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed ring of free action\nPil\u0017blessed amulet of reflection\nPj\u0016?\n>>L      ring of increase damage\n\u0014 \u001b.sm.20s    .m.  \u00168\n#chat\n;k.\u0016?\nb #levelchange\n12\n\u0017mummy wrapping\nWmsm. sm. .m.  n    \u0007prisoner\n20s .m.sm.  .m.    n sm.    sm.   .m.sm.   n         .n    n   \u0007kraken\n;h:  sysm.  n        n    n   sm.   n  \u0007electric eel\nFu Fk    n       n    n   n  Fb         n        n   n        Fu  yy\u001by   y y\u001b  2"
+  }
+ ]
+}

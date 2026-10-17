@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  \u0017ice box\n\u0017blessed bag of holding\n\u0017wand of make invisible\ndi#loot\nb\nr\nb\n,a\n\u0017long sword\nwldi#force\n.s20sdaj\u0004k#tip\n\u001bajy     yy\u001by   y y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 51751006,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017ice box\n\u0017blessed bag of holding\n\u0017wand of make invisible\ndi#loot\nb\nr\nb\n,a\n\u0017long sword\nwldi#force\n.s20sdaj\u0004k#tip\n\u001bajy     yy\u001by   y y y\u001by  \u0017"
+  }
+ ]
+}

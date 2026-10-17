@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      i\u001bwb Fb s.wcFjs.wa .s.Xz#untrap\nh#pray\ny y i\u001bE- X marks the spot\ne#dip\ne ,\\    \u0017wand of digging\n\u00169\nzf> sybb\u0017grave\nzf> .20sjbzfh h y  k  #levelchange\n30\n                      \u0007white unicorn\n\u0017scroll of taming\nrg    \u0017saddle\nahh \u0017lance\nwi #ride\nly\u0007horse\n\u0017scroll of taming\nrj    \u0017saddle\n akh          #ride\nky\u0007tame saddled warhorse\n#ride\nyy#ride\nuysm.    #ride\nuy#ride\nyy20s      #ride\njysm.        sb     #ride\njy20s   n#ride\nuy#ride\nuy20s   #ride\nby#levelchange\n8\n       \u0016?\nf    #twoweapon\n#jump\n#name\nf\n ,\u0006.s\u0016?\nj#pray\ny y #name\nm\n_s;k;\u0006s20s\u0016?\nh#sit\n\u001b,j;u:  ss#levelchange\n6\n\u0016?\n>BFj\u0017wand of striking\nzll\u0017wand of striking\nzm>hj\u0017wand of striking\nznh\u0017wand of striking\nzoh\u0017wand of digging\nzpj\u0017wand of digging\nzqk\u0017wand of striking\nzrjk\u0017scroll of earth\nrs lbhhnhh10shyn\u0017wand of digging\nzthhy\u0017scroll of earth\nru blhhjhh10sbbb\u0017wand of striking\nzvh 10sbjjjbjn10snblj j \u0017wand of digging\nzwjbj j j b\u0017wand of digging\nzxb\u00165\n\u0017cloak of invisibility\nWy 20s.20s\u0017cockatrice corpse\n\u0007giant rat\nFlFlFl\u0007incubus\nFlFh Fh.ksn#levelchange\n10\n  \u0007tame jackal\n\u0017saddle\naAy#ride\nhy\u0007tame saddled warhorse\n#ride\nyy\u0007tame saddled horse\n#ride\nhy\u0006_>. Fk_.      Fu      >Fu      Fy  _>.   _.;m.>_>.Fl _,Fl>,\u0006_>,Fl_.Fl>_>._.,>_>._.m,Fl>Fl .ssyyyi\u001b#levelchange\n30\n                 "
+ },
+ "segments": [
+  {
+   "seed": 51750001,
+   "datetime": "20100405234925",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      i\u001bwb Fb s.wcFjs.wa .s.Xz#untrap\nh#pray\ny y i\u001bE- X marks the spot\ne#dip\ne ,\\    \u0017wand of digging\n\u00169\nzf> sybb\u0017grave\nzf> .20sjbzfh h y  k  #levelchange\n30\n                      \u0007white unicorn\n\u0017scroll of taming\nrg    \u0017saddle\nahh \u0017lance\nwi #ride\nly\u0007horse\n\u0017scroll of taming\nrj    \u0017saddle\n akh          #ride\nky\u0007tame saddled warhorse\n#ride\nyy#ride\nuysm.    #ride\nuy#ride\nyy20s      #ride\njysm.        sb     #ride\njy20s   n#ride\nuy#ride\nuy20s   #ride\nby#levelchange\n8\n       \u0016?\nf    #twoweapon\n#jump\n#name\nf\n ,\u0006.s\u0016?\nj#pray\ny y #name\nm\n_s;k;\u0006s20s\u0016?\nh#sit\n\u001b,j;u:  ss#levelchange\n6\n\u0016?\n>BFj\u0017wand of striking\nzll\u0017wand of striking\nzm>hj\u0017wand of striking\nznh\u0017wand of striking\nzoh\u0017wand of digging\nzpj\u0017wand of digging\nzqk\u0017wand of striking\nzrjk\u0017scroll of earth\nrs lbhhnhh10shyn\u0017wand of digging\nzthhy\u0017scroll of earth\nru blhhjhh10sbbb\u0017wand of striking\nzvh 10sbjjjbjn10snblj j \u0017wand of digging\nzwjbj j j b\u0017wand of digging\nzxb\u00165\n\u0017cloak of invisibility\nWy 20s.20s\u0017cockatrice corpse\n\u0007giant rat\nFlFlFl\u0007incubus\nFlFh Fh.ksn#levelchange\n10\n  \u0007tame jackal\n\u0017saddle\naAy#ride\nhy\u0007tame saddled warhorse\n#ride\nyy\u0007tame saddled horse\n#ride\nhy\u0006_>. Fk_.      Fu      >Fu      Fy  _>.   _.;m.>_>.Fl _,Fl>,\u0006_>,Fl_.Fl>_>._.,>_>._.m,Fl>Fl .ssyyyi\u001b#levelchange\n30\n                 "
+  }
+ ]
+}

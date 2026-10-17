@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "L LYY_ \u001b.>UJJY_>.>FnssBNYB_>.>>ck<\u000f\u001b100s                  _>.>150s              100s           150s           100s  FksFuFk.Fu50s_>.>kulFhFh.Fh.s100s          FbFjs100s            100s 100s FbFbFbegFbFnFn100s    100s  eghyl_>.>50s  50s    Fjs20s   eeeeeeeeeee#name\ni\nhlnjundes20s20shJYHB_>.><KKNB_>,>#name\no\nafs\nJBUU_>,>H LLK_>.>Fb 20s.B Y  KK_>.><nnY BBU _>.>LH BH_>.>\u000f\u001bejuyn100s         100s  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNH BN_>.>Fl.FlLYLU_>.>JNNJ_>.>\u000f\u001b_>.sJJLY_>.>#invoke\n\u001br\u001b<\u000f\u001bJLKJ_>.>YLBB_>,>FhFkFkLYLY_>,>YUKJ_>,>#untrap\n.#tip\nf\u001bHN JK _>,>Fn 20s20s#monster\n#name\na\nKNL H   yy\u001by  y y n  _"
+ },
+ "segments": [
+  {
+   "seed": 51750003,
+   "datetime": "20240513155754",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\n",
+   "moves": "L LYY_ \u001b.>UJJY_>.>FnssBNYB_>.>>ck<\u000f\u001b100s                  _>.>150s              100s           150s           100s  FksFuFk.Fu50s_>.>kulFhFh.Fh.s100s          FbFjs100s            100s 100s FbFbFbegFbFnFn100s    100s  eghyl_>.>50s  50s    Fjs20s   eeeeeeeeeee#name\ni\nhlnjundes20s20shJYHB_>.><KKNB_>,>#name\no\nafs\nJBUU_>,>H LLK_>.>Fb 20s.B Y  KK_>.><nnY BBU _>.>LH BH_>.>\u000f\u001bejuyn100s         100s  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNH BN_>.>Fl.FlLYLU_>.>JNNJ_>.>\u000f\u001b_>.sJJLY_>.>#invoke\n\u001br\u001b<\u000f\u001bJLKJ_>.>YLBB_>,>FhFkFkLYLY_>,>YUKJ_>,>#untrap\n.#tip\nf\u001bHN JK _>,>Fn 20s20s#monster\n#name\na\nKNL H   yy\u001by  y y n  _"
+  }
+ ]
+}

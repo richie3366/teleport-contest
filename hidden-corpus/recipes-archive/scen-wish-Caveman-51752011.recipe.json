@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017wand of digging\nzf> zfy\u0017cursed the Book of the Dead\nwaFyFj s#invoke\ngX\u00173 10 daggers\n \u001b\u0007Yeenoghu\ny.m.20s      "
+ },
+ "segments": [
+  {
+   "seed": 51752011,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017wand of digging\nzf> zfy\u0017cursed the Book of the Dead\nwaFyFj s#invoke\ngX\u00173 10 daggers\n \u001b\u0007Yeenoghu\ny.m.20s      "
+  }
+ ]
+}

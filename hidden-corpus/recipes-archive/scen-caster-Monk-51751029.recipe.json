@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed spellbook of charm monster\nrj 20s\u0017blessed spellbook of haste self\nrk20s +\u001b\u0007gnome\nZa\n \u0007grid bug\nZa\n Fk Za\nZa\nZa\n\u0007jackal\nZa\n#levelchange\n6\n     \u0017blessed spellbook of healing\nrl y20s\u0017blessed spellbook of stone to flesh\nrm .m.\u0017blessed spellbook of sleep\nrn sm.\u0017blessed spellbook of detect food\nro 20s +a\n\u0007ghoul\nZa\n"
+ },
+ "segments": [
+  {
+   "seed": 51751029,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed spellbook of charm monster\nrj 20s\u0017blessed spellbook of haste self\nrk20s +\u001b\u0007gnome\nZa\n \u0007grid bug\nZa\n Fk Za\nZa\nZa\n\u0007jackal\nZa\n#levelchange\n6\n     \u0017blessed spellbook of healing\nrl y20s\u0017blessed spellbook of stone to flesh\nrm .m.\u0017blessed spellbook of sleep\nrn sm.\u0017blessed spellbook of detect food\nro 20s +a\n\u0007ghoul\nZa\n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPp\u0017blessed amulet of life saving\nPq\u001635\n   _ \u001b;<\u001627\nhnbjk:.\u0016?\nl _>,ss\u0016?\n>>K       cockatrice corpse\nlk k:\u001627\nny   y :\u0016?\n\u001byb  n \u0016?\n\u001bjb  \u0016?\n\u001bj    n          n     n   \u00161\n\u001644\n\u0004b    n  20s       20s    n  .k       n  \u00167\n\u0016?\n\u001bk   u   n     \u001642\n\u0017cursed scroll of taming\n\u0007owlbear\nrt  \u001b     n      \u0017uncursed potion of polymorph\n\u0007xorn\nqu  n            n   \u00173 sprig of wolfsbane\nev            n    sm.       n    sh               n \u0017uncursed statue of a newt\nsm.             n   Fu       n Fu           \u0017uncursed spellbook of magic mapping\nry       yy\u001by   y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 51750070,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPp\u0017blessed amulet of life saving\nPq\u001635\n   _ \u001b;<\u001627\nhnbjk:.\u0016?\nl _>,ss\u0016?\n>>K       cockatrice corpse\nlk k:\u001627\nny   y :\u0016?\n\u001byb  n \u0016?\n\u001bjb  \u0016?\n\u001bj    n          n     n   \u00161\n\u001644\n\u0004b    n  20s       20s    n  .k       n  \u00167\n\u0016?\n\u001bk   u   n     \u001642\n\u0017cursed scroll of taming\n\u0007owlbear\nrt  \u001b     n      \u0017uncursed potion of polymorph\n\u0007xorn\nqu  n            n   \u00173 sprig of wolfsbane\nev            n    sm.       n    sh               n \u0017uncursed statue of a newt\nsm.             n   Fu       n Fu           \u0017uncursed spellbook of magic mapping\nry       yy\u001by   y y\u001b  s"
+  }
+ ]
+}

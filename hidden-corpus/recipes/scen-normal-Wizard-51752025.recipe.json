@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "clzcj,f \u001b20sojy#sit\n\u001b#offer\nPer jW\u001b#jump\n,#chat\nn #enhance\nyh\na\n\u001bt\u001b\u0018\u001bcj#loot\nn\u0014 \u001b, #name\nf\n#wipe\n<.i\u001bW\u001bsm. sm..rm y20s20sZb\nP sm.ssrl ysksZb\nrk   yy\u001by  y y y\u001by  z"
+ },
+ "segments": [
+  {
+   "seed": 51752025,
+   "datetime": "20151023132133",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "clzcj,f \u001b20sojy#sit\n\u001b#offer\nPer jW\u001b#jump\n,#chat\nn #enhance\nyh\na\n\u001bt\u001b\u0018\u001bcj#loot\nn\u0014 \u001b, #name\nf\n#wipe\n<.i\u001bW\u001bsm. sm..rm y20s20sZb\nP sm.ssrl ysksZb\nrk   yy\u001by  y y y\u001by  z"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b<.>Fh s_>>._,>_>>,_.>\u0006_>._.>_>,_.>_>,_.>\u0006_>._.>_>,_.>_>,_,>\u0004u#untrap\n.\u0006_>._.>_>,_.>_>._.>ck>\u0006_>>._.>_>>._.>_>>._.>\u0006_>>._.>_>>._.>_>>._.>\u0006_>>._.>_>>._,>_>>,_.><\u0006_>._.>_>._,>_>._.>E- ad aerarium\nf \u001b<\u0006_>>,_.>_>>._.>_>>._.>\u0006_>,_.>_>,_.>_>._,>\u0006_>,_.>_>._.>_>._.>sW\u001b\u0006_>>._.>_>>,_.>_>>,_,><100sFhssujk_<,s150s50slkj100sJ50samkjy150s100seeeeeeeeeeeeeeeeeeeeeeeeeev\u001bi\u001b\u0007tame winter wolf cub\n\u0017leash\nan.bkjhanu\u0007sewer rat\n\u0017scroll of taming\nro\u0006_>>._,>_>>,_.>_>>._.>#name\ni\n\u0007lichen\n\u0017scroll of taming\nrpdlss.\u0006_>.Fh_,Fh>_"
+ },
+ "segments": [
+  {
+   "seed": 51750077,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You feel\"\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "\u0006_ \u001b<.>Fh s_>>._,>_>>,_.>\u0006_>._.>_>,_.>_>,_.>\u0006_>._.>_>,_.>_>,_,>\u0004u#untrap\n.\u0006_>._.>_>,_.>_>._.>ck>\u0006_>>._.>_>>._.>_>>._.>\u0006_>>._.>_>>._.>_>>._.>\u0006_>>._.>_>>._,>_>>,_.><\u0006_>._.>_>._,>_>._.>E- ad aerarium\nf \u001b<\u0006_>>,_.>_>>._.>_>>._.>\u0006_>,_.>_>,_.>_>._,>\u0006_>,_.>_>._.>_>._.>sW\u001b\u0006_>>._.>_>>,_.>_>>,_,><100sFhssujk_<,s150s50slkj100sJ50samkjy150s100seeeeeeeeeeeeeeeeeeeeeeeeeev\u001bi\u001b\u0007tame winter wolf cub\n\u0017leash\nan.bkjhanu\u0007sewer rat\n\u0017scroll of taming\nro\u0006_>>._,>_>>,_.>_>>._.>#name\ni\n\u0007lichen\n\u0017scroll of taming\nrpdlss.\u0006_>.Fh_,Fh>_"
+  }
+ ]
+}

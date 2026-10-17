@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "UJHK_ \u001bm.>\u000f\u001b#rub\nKBHN_>.>HBKH_>.>KW<jkjldbs20ss20stcbjujkkhhlr\u001b#wipe\n;m,hju_>.>100shju\u0018\u001b:150s100s100s\u0018\u001bhju100s100shjk_>,>ef FjFjFj100slhlFb.Fj150s 100sFjss150s50s100s\\ 150sFjss100s50shhu\u0018\u001b150s50s Fj.s100s_m,sk#offer\nuj  nhlhll20s tdh 10s#chat\nhHHL  N_>.  Fy_.Fu>YNJN_>.Fh_.Fh>,#force\nJH LJ_>._.>LLUH_>.>#dip\nf#untrap\nbLHUK_>.>E- ad aerarium\nfl<BNYK_>,>NBJB_>,>50sW100sFhs.slkh100s150s150snyy100s150s#twoweapon\n150s\u0018\u001b100s150s100snjkW150sFh.s#sit\n\u001b50sFl20s20s_>.>;_.ynn150sFhFhs50s100sFhs20s\\ 100sFhFhFh100s ef\u000f\u001b100s50sFlss100s 100s100sFhFhFhyyn_>,>100s50sjuhhknh>50s100s #enhance\n\u001b\u000f\u001blyhi\u001b\u000f\u001btck>100s100sFjFjFjFjFj.hyuknu100s#conduct\n 50sjbu#ride\nh_>.>bhlwcyulhknn\\ a:#sit\n\u001b50s150sFls20skjy50shkn\u0018\u001b100sFhFh.100sefnyl#enhance\n\u001b\u000f\u001bE- Elbereth Elbereth\nunu_>.>100shhlLFn FnFjFns20s\\ 50s50s\\ 100s50sFh20s.100s100sFjFjFj\u0018\u001b100snhj50sFhFhFh150s50s\\ #name\nd\ntak#chat\njhklj#name\ni\n10sun10sNJUH_>.>NKJY_>.>KJLY_>,>10sdcHUJ B_>,>,\u001b\u0014Y J JJ_>.>\u000f\u001b100shkjFh  FhFhFhFhFhch150s"
+ },
+ "segments": [
+  {
+   "seed": 51750073,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=autodig\nOPTIONS=pettype:none\n",
+   "moves": "UJHK_ \u001bm.>\u000f\u001b#rub\nKBHN_>.>HBKH_>.>KW<jkjldbs20ss20stcbjujkkhhlr\u001b#wipe\n;m,hju_>.>100shju\u0018\u001b:150s100s100s\u0018\u001bhju100s100shjk_>,>ef FjFjFj100slhlFb.Fj150s 100sFjss150s50s100s\\ 150sFjss100s50shhu\u0018\u001b150s50s Fj.s100s_m,sk#offer\nuj  nhlhll20s tdh 10s#chat\nhHHL  N_>.  Fy_.Fu>YNJN_>.Fh_.Fh>,#force\nJH LJ_>._.>LLUH_>.>#dip\nf#untrap\nbLHUK_>.>E- ad aerarium\nfl<BNYK_>,>NBJB_>,>50sW100sFhs.slkh100s150s150snyy100s150s#twoweapon\n150s\u0018\u001b100s150s100snjkW150sFh.s#sit\n\u001b50sFl20s20s_>.>;_.ynn150sFhFhs50s100sFhs20s\\ 100sFhFhFh100s ef\u000f\u001b100s50sFlss100s 100s100sFhFhFhyyn_>,>100s50sjuhhknh>50s100s #enhance\n\u001b\u000f\u001blyhi\u001b\u000f\u001btck>100s100sFjFjFjFjFj.hyuknu100s#conduct\n 50sjbu#ride\nh_>.>bhlwcyulhknn\\ a:#sit\n\u001b50s150sFls20skjy50shkn\u0018\u001b100sFhFh.100sefnyl#enhance\n\u001b\u000f\u001bE- Elbereth Elbereth\nunu_>.>100shhlLFn FnFjFns20s\\ 50s50s\\ 100s50sFh20s.100s100sFjFjFj\u0018\u001b100snhj50sFhFhFh150s50s\\ #name\nd\ntak#chat\njhklj#name\ni\n10sun10sNJUH_>.>NKJY_>.>KJLY_>,>10sdcHUJ B_>,>,\u001b\u0014Y J JJ_>.>\u000f\u001b100shkjFh  FhFhFhFhFhch150s"
+  }
+ ]
+}

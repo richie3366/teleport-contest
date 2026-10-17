@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed amulet of reflection\nPk\u0017blessed ring of free action\nPll \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                    \u0007giant rat\n#dip\ned#offer\n#pray\ny y   #chat\nk#jump\n#wizmap\n\u0006Fk.#turn\n _ \u001b>.qn#overview\n\u001b#conduct\n \u000f\u001b#name\n\u001b#adjust\nk\u001b#chat\nk#turn\n #polyself\nair elemental\n s.20ssllh_<._.#vanquished\n #genocided\ngreen-elf\nyi\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y  #jump\n#levelchange\n13\n  hlh#ride\nby\u00169\n\u0006#chronicle\n  #terrain\n\u001b\u0018\u001b#wipe\n#loot\n#chat\nu#chat\nh#wizidentify\n\u001blbu_{._,qy\u0007soldier\n#version\n  #history\n                  #annotate\nFido\ni\u001b#tip\n\u001b#ride\nuy#turn\n #sit\n #wizintrinsic\ngr\n Fu Fu Fu\\  _oo.,#overview\n\u001b#conduct\n \u000f\u001b#dip\ngy #offer\n#pray\ny y   #chat\nu#jump\n#polyself\ntroll\n#monster\n20s sysFlFl Fl 20ss_>,_.#vanquished\n #genocided\nenergy vortex\nfi\u001b#name\n\u001b#adjust\ni\u001b#chat\nh#turn\n #wizmap\n\u0006jkl_<,_.#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizidentify\n\u001bnjl_ooooo._,,\u001b#version\n  #history\n    "
+ },
+ "segments": [
+  {
+   "seed": 51750089,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed amulet of reflection\nPk\u0017blessed ring of free action\nPll \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                    \u0007giant rat\n#dip\ned#offer\n#pray\ny y   #chat\nk#jump\n#wizmap\n\u0006Fk.#turn\n _ \u001b>.qn#overview\n\u001b#conduct\n \u000f\u001b#name\n\u001b#adjust\nk\u001b#chat\nk#turn\n #polyself\nair elemental\n s.20ssllh_<._.#vanquished\n #genocided\ngreen-elf\nyi\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y  #jump\n#levelchange\n13\n  hlh#ride\nby\u00169\n\u0006#chronicle\n  #terrain\n\u001b\u0018\u001b#wipe\n#loot\n#chat\nu#chat\nh#wizidentify\n\u001blbu_{._,qy\u0007soldier\n#version\n  #history\n                  #annotate\nFido\ni\u001b#tip\n\u001b#ride\nuy#turn\n #sit\n #wizintrinsic\ngr\n Fu Fu Fu\\  _oo.,#overview\n\u001b#conduct\n \u000f\u001b#dip\ngy #offer\n#pray\ny y   #chat\nu#jump\n#polyself\ntroll\n#monster\n20s sysFlFl Fl 20ss_>,_.#vanquished\n #genocided\nenergy vortex\nfi\u001b#name\n\u001b#adjust\ni\u001b#chat\nh#turn\n #wizmap\n\u0006jkl_<,_.#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizidentify\n\u001bnjl_ooooo._,,\u001b#version\n  #history\n    "
+  }
+ ]
+}

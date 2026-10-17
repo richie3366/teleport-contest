@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nd\n 20s20ssm..n20ssm.sl20s ns.20s20s20s20s.s20s.20s...20s..20s.m. sus.h s.sss.20ss20ss  #wizintrinsic\nc\n sm.s.m.sm.s20ssu.n.sm.s20s.m.20ssk.m.20s   yy\u001by   ny y\u001b y  sn #quit\nyy Fu s20sFk20s20s100s50s50s150s50sllki\u001bjkj100s50s50s_ \u001b@.>50s100sed50si\u001b\u000f\u001buylh50s100s\\  \u0018\u001b100s150seeeeeeeeeeeejkhkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeekhjkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellhbnuuj#name\nf\nyublt10shyjjukeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeejbnkdb...10shkkn20sljbleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee20s10st\u001b#name\nm\n#chat\n.dc.s.kbyubulkbbhkt\u001bt\u001b10slunyjnbubuyk#pray\ny ee#pray\ny #pray\ny  e#pray\ny    y\u001by  y y y\u001b  1yn \u0007cockatrice\nFhFh Fu Fu  Fl Fl Fu Fk Fl  yy\u001by  y y y\u001byy  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51750022,
+   "datetime": "20030214100659",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nd\n 20s20ssm..n20ssm.sl20s ns.20s20s20s20s.s20s.20s...20s..20s.m. sus.h s.sss.20ss20ss"
+  },
+  {
+   "seed": 51850022,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nc\n sm.s.m.sm.s20ssu.n.sm.s20s.m.20ssk.m.20s   yy\u001by   ny y\u001b y  s"
+  },
+  {
+   "seed": 51950022,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "n #quit\nyy"
+  },
+  {
+   "seed": 52050022,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": " Fu s20sFk20s20s100s50s50s150s50sllki\u001bjkj100s50s50s_ \u001b@.>50s100sed50si\u001b\u000f\u001buylh50s100s\\  \u0018\u001b100s150seeeeeeeeeeeejkhkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeekhjkeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellhbnuuj#name\nf\nyublt10shyjjukeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeejbnkdb...10shkkn20sljbleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee20s10st\u001b#name\nm\n#chat\n.dc.s.kbyubulkbbhkt\u001bt\u001b10slunyjnbubuyk#pray\ny ee#pray\ny #pray\ny  e#pray\ny    y\u001by  y y y\u001b  1"
+  },
+  {
+   "seed": 52150022,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "yn \u0007cockatrice\nFhFh Fu Fu  Fl Fl Fu Fk Fl  yy\u001by  y y y\u001byy  F"
+  }
+ ]
+}

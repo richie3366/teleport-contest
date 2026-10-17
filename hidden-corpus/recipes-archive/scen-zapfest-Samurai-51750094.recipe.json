@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWg \u0017blessed spellbook of light\nrhs\u0007master lich\nZa\nZa\nZa\nZa\nZa\nZa\ns.Za\nZa\n..\u0017yumi\nwi\u001720 ya\nQj\u0007hobbit\nfu   tdl   tdl   n tcl fufnfn\u0018\u001b\u0007black dragon\n.m.20s 20s  n Fu Fu\u0017wand of fire\n\u0017wand of lightning\n\u0017wand of slow monster\n\u0007grid bug\n\u0007dwarf\nzlh  n  zmk zkh  n sm.zlnsm.zkk   n    nzmu zkk zku   n zlk  \u001611\n\u00178 spears\n Qn\u0007yellow mold\nfntdlfnfl \u0017blessed spellbook of magic missile\nro .m. \u0007kobold shaman\nZa\nsm.  n sm. Za\n 20s   n20s  Za\n  Za\nZa\n.sbZa\nZa\n.m.  n su ZZ\u00166\n\u0017wand of sleep\n\u0017wand of teleportation\n\u0017wand of lightning\n\u0007troll\nzry .zp.  nzpy20szryszry.zpl zryzqyzry20s zqy\u0017blessed spellbook of fireball\nrs.\u0007orc shaman\nZa\nZa\nZa\n20ssZa\nZa\nZa\nZa\nZa\nZa\n20ss\u0017spellbook of drain life\nrt.\u0007succubus\n\u0007gnomish wizard\nZa\nZa\nZa\ns  n s   n   Za\nZa\n#turn\n\u0017wand of teleportation\n\u0017wand of polymorph\n\u0017wand of slow monster\n\u0007dwarf\n\u0007yellow mold\nzwy20s zwh.zwhzwyzwkzukzuhzuhszulzwy\u0017blessed spellbook of knock\nrx.\u0017blessed spellbook of light\nry20s\u0007vampire\nZa\n20s    n   20s Za\nZa\nZa\n   n Za\ns s Za\n   n 20s 20s #turn\n\u0007red dragon\n\u0007red dragon\n20s   yy\u001bn"
+ },
+ "segments": [
+  {
+   "seed": 51750094,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWg \u0017blessed spellbook of light\nrhs\u0007master lich\nZa\nZa\nZa\nZa\nZa\nZa\ns.Za\nZa\n..\u0017yumi\nwi\u001720 ya\nQj\u0007hobbit\nfu   tdl   tdl   n tcl fufnfn\u0018\u001b\u0007black dragon\n.m.20s 20s  n Fu Fu\u0017wand of fire\n\u0017wand of lightning\n\u0017wand of slow monster\n\u0007grid bug\n\u0007dwarf\nzlh  n  zmk zkh  n sm.zlnsm.zkk   n    nzmu zkk zku   n zlk  \u001611\n\u00178 spears\n Qn\u0007yellow mold\nfntdlfnfl \u0017blessed spellbook of magic missile\nro .m. \u0007kobold shaman\nZa\nsm.  n sm. Za\n 20s   n20s  Za\n  Za\nZa\n.sbZa\nZa\n.m.  n su ZZ\u00166\n\u0017wand of sleep\n\u0017wand of teleportation\n\u0017wand of lightning\n\u0007troll\nzry .zp.  nzpy20szryszry.zpl zryzqyzry20s zqy\u0017blessed spellbook of fireball\nrs.\u0007orc shaman\nZa\nZa\nZa\n20ssZa\nZa\nZa\nZa\nZa\nZa\n20ss\u0017spellbook of drain life\nrt.\u0007succubus\n\u0007gnomish wizard\nZa\nZa\nZa\ns  n s   n   Za\nZa\n#turn\n\u0017wand of teleportation\n\u0017wand of polymorph\n\u0017wand of slow monster\n\u0007dwarf\n\u0007yellow mold\nzwy20s zwh.zwhzwyzwkzukzuhzuhszulzwy\u0017blessed spellbook of knock\nrx.\u0017blessed spellbook of light\nry20s\u0007vampire\nZa\n20s    n   20s Za\nZa\nZa\n   n Za\ns s Za\n   n 20s 20s #turn\n\u0007red dragon\n\u0007red dragon\n20s   yy\u001bn"
+  }
+ ]
+}

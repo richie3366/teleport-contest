@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPn\u0017blessed +3 gauntlets of power\nWo\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007newt\n#dip\nbh  #offer\n#pray\ny y     #chat\nu#wizdetect\n\u0006Fl s._ \u001b@.#chat\nb\u0007sewer rat\n#overview\n\u001b#conduct\n #annotate\nfoo\ni\u001b#name\n\u001b#adjust\ng\u001b#chat\nk#turn\n#jump\n#wizidentify\n\u001bFks__.#chat\nj\u0007dwarf\n#vanquished\n #genocided\ncouatl\n\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y   #polyself\nfog cloud\n s 20sFhFhFhFhFh,\u001b\u00161\n\u0006#chronicle\n  #terrain\n\u001b\u0018\u001b#wipe\n #loot\nh#chat\nh#chat\nh #levelchange\n12\nFhFhFhFhb_oooooo.,\u001b#version\n  #history\n                  \u000f\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n  #polyself\npurple worm\n#monster\n20"
+ },
+ "segments": [
+  {
+   "seed": 51750079,
+   "datetime": "20070922214017",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPn\u0017blessed +3 gauntlets of power\nWo\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007newt\n#dip\nbh  #offer\n#pray\ny y     #chat\nu#wizdetect\n\u0006Fl s._ \u001b@.#chat\nb\u0007sewer rat\n#overview\n\u001b#conduct\n #annotate\nfoo\ni\u001b#name\n\u001b#adjust\ng\u001b#chat\nk#turn\n#jump\n#wizidentify\n\u001bFks__.#chat\nj\u0007dwarf\n#vanquished\n #genocided\ncouatl\n\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y   #polyself\nfog cloud\n s 20sFhFhFhFhFh,\u001b\u00161\n\u0006#chronicle\n  #terrain\n\u001b\u0018\u001b#wipe\n #loot\nh#chat\nh#chat\nh #levelchange\n12\nFhFhFhFhb_oooooo.,\u001b#version\n  #history\n                  \u000f\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n  #polyself\npurple worm\n#monster\n20"
+  }
+ ]
+}

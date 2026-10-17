@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPe\u0017blessed +3 speed boots\nWf#levelchange\n14\n             \u00175 boomerangs\nQg\u0007owlbear\ntbk fn tgnfn \u0017potion of monster detection\ntgn\u00174 cream pies\nQ-\u0007grid bug\n\u0007kobold\nf g n f \u001bt\u001bf \u001bf \u001bi\u001b\u0017spellbook of light\nrj  20s \u0017blessed spellbook of finger of death\nrk sm.\u0007gnomish wizard\n\u0007mind flayer\nZZZ.m. .m.   ZZZZ\u0018\u001b\u0017wand of striking\n\u0017wand of slow monster\n\u0017wand of fire\n\u0007grid bug\n\u0007dwarf\n\u0007owlbear\nzlk        zmu     znn       znu znj    n znj      n zml         n 20s      n   zll   n  znn   i\u001b\u00163\n\u0007baby red dragon\n20s.m.20s#polyself\nblack dragon\n    .jsy#monster\nl#monster\n#monster\n.s\u001611\n    \u0017blessed spellbook of light\nro  .m.\u0017blessed spellbook of slow monster\nrp  sm.   \u0007master lich\nZZsm..yZ20s     sm.  nZZZZZsm.sj    #turn\ni\u001b\u0017wand of"
+ },
+ "segments": [
+  {
+   "seed": 51750004,
+   "datetime": "20230214113951",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPe\u0017blessed +3 speed boots\nWf#levelchange\n14\n             \u00175 boomerangs\nQg\u0007owlbear\ntbk fn tgnfn \u0017potion of monster detection\ntgn\u00174 cream pies\nQ-\u0007grid bug\n\u0007kobold\nf g n f \u001bt\u001bf \u001bf \u001bi\u001b\u0017spellbook of light\nrj  20s \u0017blessed spellbook of finger of death\nrk sm.\u0007gnomish wizard\n\u0007mind flayer\nZZZ.m. .m.   ZZZZ\u0018\u001b\u0017wand of striking\n\u0017wand of slow monster\n\u0017wand of fire\n\u0007grid bug\n\u0007dwarf\n\u0007owlbear\nzlk        zmu     znn       znu znj    n znj      n zml         n 20s      n   zll   n  znn   i\u001b\u00163\n\u0007baby red dragon\n20s.m.20s#polyself\nblack dragon\n    .jsy#monster\nl#monster\n#monster\n.s\u001611\n    \u0017blessed spellbook of light\nro  .m.\u0017blessed spellbook of slow monster\nrp  sm.   \u0007master lich\nZZsm..yZ20s     sm.  nZZZZZsm.sj    #turn\ni\u001b\u0017wand of"
+  }
+ ]
+}

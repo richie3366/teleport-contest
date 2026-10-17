@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed leash\n\u0017blessed magic harp\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed bell of opening\n\u0017blessed 20 daggers\nQm#levelchange\n26\n                         #wizintrinsic\nh\n \u0017wand of magic missile\nzny znuznn znkznn \u0017blessed spellbook of slow monster\n ro.Za\n#turn\n:\u0017blessed scroll of enchant armor\nrp #wizintrinsic\nh\ntmjfhtmb\u0017wand of polymorph\nzqbzqyzqu\u0007giant rat\nFy20s20s..si\u001bykj;<. \u001bm.E- I am a fish\n#pray\ny y #wizintrinsic\nh\n\u0017blessed scroll of teleportation\nrr <.  \u0017wand of striking\nzsnzsuzs.zsh\u0007giant rat\nFuFu .20s.20s20s#wizintrinsic\nh\n _,hyufjfb fl \u0017potion of levitation\n qt   sm.sn\u0017wand of fire\nzuk   zuk zuk   zuk zuu \u0007gnome lord\nFyFyFyFyFy#wizintrinsic\nh\n\u0017blessed scroll of teleportation\nrv m. \u0017wand of striking\nzwy zwbzwbzwhzw;<.E-#chat\nn\u0007kobold\n\u0007giant rat\nFhFys.s#wizintrinsic\nh\n\u0017blessed scroll of mail\nrx ;>.E-#chat\nu\u0017spellbook of cause fear\nry sZa\n:;_.E-#chat\nl\u0017potion of see invisible\nqzss#wizintrinsic\nh\n;m,E-#pray\ny y \u0017spellbook of cause fear\nrA y .Zb\n:\u0017wand of lightning\nzBbzBn  zB.   n\u0017potion of gain energy\nqCs.#wizintrins"
+ },
+ "segments": [
+  {
+   "seed": 51750008,
+   "datetime": "20070619092147",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed leash\n\u0017blessed magic harp\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed bell of opening\n\u0017blessed 20 daggers\nQm#levelchange\n26\n                         #wizintrinsic\nh\n \u0017wand of magic missile\nzny znuznn znkznn \u0017blessed spellbook of slow monster\n ro.Za\n#turn\n:\u0017blessed scroll of enchant armor\nrp #wizintrinsic\nh\ntmjfhtmb\u0017wand of polymorph\nzqbzqyzqu\u0007giant rat\nFy20s20s..si\u001bykj;<. \u001bm.E- I am a fish\n#pray\ny y #wizintrinsic\nh\n\u0017blessed scroll of teleportation\nrr <.  \u0017wand of striking\nzsnzsuzs.zsh\u0007giant rat\nFuFu .20s.20s20s#wizintrinsic\nh\n _,hyufjfb fl \u0017potion of levitation\n qt   sm.sn\u0017wand of fire\nzuk   zuk zuk   zuk zuu \u0007gnome lord\nFyFyFyFyFy#wizintrinsic\nh\n\u0017blessed scroll of teleportation\nrv m. \u0017wand of striking\nzwy zwbzwbzwhzw;<.E-#chat\nn\u0007kobold\n\u0007giant rat\nFhFys.s#wizintrinsic\nh\n\u0017blessed scroll of mail\nrx ;>.E-#chat\nu\u0017spellbook of cause fear\nry sZa\n:;_.E-#chat\nl\u0017potion of see invisible\nqzss#wizintrinsic\nh\n;m,E-#pray\ny y \u0017spellbook of cause fear\nrA y .Zb\n:\u0017wand of lightning\nzBbzBn  zB.   n\u0017potion of gain energy\nqCs.#wizintrins"
+  }
+ ]
+}

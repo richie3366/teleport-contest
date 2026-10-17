@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nm\n \u0017towel\nak;h, \u001b;\u0017potion of object detection\nql,\u0017blessed scroll of confuse monster\nrm  \u001bulu.s20s#wizintrinsic\nlf\n ;k;b jl   Z\u0017blessed scroll of teleportation\nrn <.\u0017cursed scroll of charging\nro fs.s"
+ },
+ "segments": [
+  {
+   "seed": 51751010,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nm\n \u0017towel\nak;h, \u001b;\u0017potion of object detection\nql,\u0017blessed scroll of confuse monster\nrm  \u001bulu.s20s#wizintrinsic\nlf\n ;k;b jl   Z\u0017blessed scroll of teleportation\nrn <.\u0017cursed scroll of charging\nro fs.s"
+  }
+ ]
+}

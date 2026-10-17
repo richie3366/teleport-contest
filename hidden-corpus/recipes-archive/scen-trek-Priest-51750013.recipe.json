@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "FkFk s100s,100s150s150s\\ 150s100s150sFh20s.100sFhFhsnlynhhFy20ss150sFh20s20see\\ 50s\u0018\u001b150sFy20s20sef100sFy.20s150sFyFy20s\u000f\u001b100sFyFy.\u000f\u001b_ \u001b,>\u0018\u001b50see#sit\n\u001blnk\\ BHUU_>.>Fh.sLULN_>.>KJBJ_>,>FkFkFk;k,\\ NUNB_>,>Fh20sFh <YL  ny  ny y\u001b  K"
+ },
+ "segments": [
+  {
+   "seed": 51750013,
+   "datetime": "20130501160007",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\n",
+   "moves": "FkFk s100s,100s150s150s\\ 150s100s150sFh20s.100sFhFhsnlynhhFy20ss150sFh20s20see\\ 50s\u0018\u001b150sFy20s20sef100sFy.20s150sFyFy20s\u000f\u001b100sFyFy.\u000f\u001b_ \u001b,>\u0018\u001b50see#sit\n\u001blnk\\ BHUU_>.>Fh.sLULN_>.>KJBJ_>,>FkFkFk;k,\\ NUNB_>,>Fh20sFh <YL  ny  ny y\u001b  K"
+  }
+ ]
+}

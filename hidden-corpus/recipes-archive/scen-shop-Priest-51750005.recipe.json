@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed +3 gauntlets of power\nWi\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\n>w\u0006_ \u001b>.#chat\nb#pray\ny y _oooooooo,,p_{.Fj_,  qd _ooooooooo._o,,#chat\nu_ooooooooo._oo.,pnhy#chat\nk   n  _oooo.,#chat\nk    n \u00167\nky  b \u0016?\n>w\u0006_{.Fl_.m,Flqd_oooooooo.Fn _,,Fb,pnn l#chat\ny_{,Fy_.Fbqd_{,  nFh_,Fh     qd__.Fn   n_,Fl#chat\nl  n #pray\ny y      \u00166\n__,#chat\ny  n_ooooooo.,:_ooo.,\u0014m.20s.m.\u00167\nkkh\u0016?\n>w\u0006_oooooooo. _,_ooo,  _.Fb  n,p_ooooooo,Fn_.    nFn,:_ooooooooo.Fk _._o.Fl _,Fk,\u0017worthless piece of red glass\ndl   nFkFkFk  n Fk  Fk  nFk   n \u00162\n_{.q\u00163\njkj\u0016?\n>w\u0006_ooo.  nFn_,  nFu ,#chat\nn\u001612\nFuFuFuFuFuFu_oooooo.,$_{,q__,#chat\nj  _{.q_ooooooo.Fk_.,a\np_oooooo._o,  nFh_,>.Fb ,:_oooooooo,Fb _.Fj  yy\u001by  y y y\u001by  ,"
+ },
+ "segments": [
+  {
+   "seed": 51750005,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed +3 gauntlets of power\nWi\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\n>w\u0006_ \u001b>.#chat\nb#pray\ny y _oooooooo,,p_{.Fj_,  qd _ooooooooo._o,,#chat\nu_ooooooooo._oo.,pnhy#chat\nk   n  _oooo.,#chat\nk    n \u00167\nky  b \u0016?\n>w\u0006_{.Fl_.m,Flqd_oooooooo.Fn _,,Fb,pnn l#chat\ny_{,Fy_.Fbqd_{,  nFh_,Fh     qd__.Fn   n_,Fl#chat\nl  n #pray\ny y      \u00166\n__,#chat\ny  n_ooooooo.,:_ooo.,\u0014m.20s.m.\u00167\nkkh\u0016?\n>w\u0006_oooooooo. _,_ooo,  _.Fb  n,p_ooooooo,Fn_.    nFn,:_ooooooooo.Fk _._o.Fl _,Fk,\u0017worthless piece of red glass\ndl   nFkFkFk  n Fk  Fk  nFk   n \u00162\n_{.q\u00163\njkj\u0016?\n>w\u0006_ooo.  nFn_,  nFu ,#chat\nn\u001612\nFuFuFuFuFuFu_oooooo.,$_{,q__,#chat\nj  _{.q_ooooooo.Fk_.,a\np_oooooo._o,  nFh_,>.Fb ,:_oooooooo,Fb _.Fj  yy\u001by  y y y\u001by  ,"
+  }
+ ]
+}

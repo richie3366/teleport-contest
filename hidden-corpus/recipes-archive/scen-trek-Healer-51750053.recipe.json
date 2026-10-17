@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  Fn sshhlnhlf $ b150s\u000f\u001byhj150sFhFh20s\u000f\u001b_ \u001b;>ujni\u001b150s50sFhFhFhFh20ss50s#chat\nhlknkyn100s100s100sFhFh20si\u001b_>.>150s100s100s100s100s_>,>klj150sFhFhFhFhFhsek\u0014jlk100s150sek50s 100s100s FhFh20s FbFbsek#wipe\n50sjjk100s \u001b50sjhhyhb150sFkFkFk100seki\u001b50s100s_>.>hkk150sekFhFhFhFhs20s50s50sekFh..100seeeeeet$klnbybl#name\na\n10seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUJBK_>.>YUKU_>.>BUKY_>.>#name\no\n#turn\nKUJU_>.>#tip\n\u001b\u0014<KLBL _>.>BJJJ_>.><NBLN_>.>#ride\n.<UJBH_>.>Zb\n#offer\nJHUN_>,>YBBK_>.>\u000f\u001bE- Vlad was here\n\u0014#pray\ny  BJHN_>.>w-#twoweapon\nHNHK_>.>UUBK_>.>#turn\n#ride\nkKBBU_>,>HJHN_>,>\u000f\u001b20skuhjuhubujhl10s#chat\nnJBNU_>.>NLUB_>.>NYHJ_>,>Fh FhsUJUL_>,>#turn\nsHJHJ_>.>#loot\n,NJNK_>.>UUJB_>.>\u000f\u001b#pray\ny  100sFhFh20s\\ luujhl100sFhFhFh100sbubhlhlukjbui\u001b100s100s #jump\n150sFh20ss100s100sFhFhs100s50sFhFhFhFh.sFhFhFhFhFhFh\\ 150s100s\u000f\u001b100seeeeeeefk\u0004yaseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKHKN_>.>#invoke\n\u001bri ny<BNNB_>.>:rh y LNLJ_>.>FjFjFj;j,#dip\nareeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 51750053,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=fruit:durian\nOPTIONS=playmode:explore\n",
+   "moves": "  Fn sshhlnhlf $ b150s\u000f\u001byhj150sFhFh20s\u000f\u001b_ \u001b;>ujni\u001b150s50sFhFhFhFh20ss50s#chat\nhlknkyn100s100s100sFhFh20si\u001b_>.>150s100s100s100s100s_>,>klj150sFhFhFhFhFhsek\u0014jlk100s150sek50s 100s100s FhFh20s FbFbsek#wipe\n50sjjk100s \u001b50sjhhyhb150sFkFkFk100seki\u001b50s100s_>.>hkk150sekFhFhFhFhs20s50s50sekFh..100seeeeeet$klnbybl#name\na\n10seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUJBK_>.>YUKU_>.>BUKY_>.>#name\no\n#turn\nKUJU_>.>#tip\n\u001b\u0014<KLBL _>.>BJJJ_>.><NBLN_>.>#ride\n.<UJBH_>.>Zb\n#offer\nJHUN_>,>YBBK_>.>\u000f\u001bE- Vlad was here\n\u0014#pray\ny  BJHN_>.>w-#twoweapon\nHNHK_>.>UUBK_>.>#turn\n#ride\nkKBBU_>,>HJHN_>,>\u000f\u001b20skuhjuhubujhl10s#chat\nnJBNU_>.>NLUB_>.>NYHJ_>,>Fh FhsUJUL_>,>#turn\nsHJHJ_>.>#loot\n,NJNK_>.>UUJB_>.>\u000f\u001b#pray\ny  100sFhFh20s\\ luujhl100sFhFhFh100sbubhlhlukjbui\u001b100s100s #jump\n150sFh20ss100s100sFhFhs100s50sFhFhFhFh.sFhFhFhFhFhFh\\ 150s100s\u000f\u001b100seeeeeeefk\u0004yaseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKHKN_>.>#invoke\n\u001bri ny<BNNB_>.>:rh y LNLJ_>.>FjFjFj;j,#dip\nareeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

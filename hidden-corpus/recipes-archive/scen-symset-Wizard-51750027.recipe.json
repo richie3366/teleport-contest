@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  f \u001bwa#conduct\n ,#tip\n\u001b#ride\nuyoh#force\nbO>>>>j\u001b\ni\u001b\u0004lyok\u000f\u001b#conduct\n \u000f\u001b20s  v i\u001b\u00166\nFkFkFyFyFyFkFkFkFkFyFkFyFyFyFyFkFkFkFkFkFyFkFyFkFkFkFyFyFyFkFyFyFyFkFyFkFkFkFkFyFkFyFyFkFkFyFyFkFyFyFyFyFkFyFyFyFkFyFyFyFyFyFyFkFkFyFyFkFkFkFkFyFkFkFyFyFyFkFyFkFkFyFyFkFkFkFkFkFkFyFyFkFkFyFkFkFkFkFyFkFyFkFkFyFkFyFyFkFkFyFkFyFyFyFkFyFkFyFkFyO>>>j\u001b\n\u0004n,#untrap\njJv i\u001bnhyb\u0017ice\nu\u0017sink\nqy\u0017ring of sustain ability\ndm \u001bb\u0017grave\n:\u0017pick-axe\nan >.20sl\u0017neutral altar\ndd\u0017human corpse\n #pray\ny y >Za\n<#levelchange\n30\n                             yjl \u0017fountain\nqyh     \u0017melting ice\n: b\u0017throne\n#sit\n   ju     \u0017sink\nqy  \u001bm.  n   \u0017ring of polymorph control\ndp  \u001b   : aj       : #turn\n\u00163\nO>>l\u001b\nmOa\u001b\n,dc\u000f\u001b\u0007housecat\n\u0017huge chunk of meat\n tab\u0007acid blob\n\u0017scroll of taming\nrr  \u001b  ny\u0017banana\nt\u001b10s \u0017food ration\nt\u001b\u0017tin whistle\nhl bau Oamango\n\u001b\n\u00163\n\u00164\nFk FyFuFjFuFyFk FuFkFj FjFu  Fu Fy  Fy Fy   n Fy   Fy Fb Fh    n Fh Fy Fh  Fu   n Fb Fb  Fu Fb Fy   n Fu Fh  Fu    n Fu  Fk"
+ },
+ "segments": [
+  {
+   "seed": 51750027,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nMENUCOLOR=\"uncursed\"=brown\n",
+   "moves": "  f \u001bwa#conduct\n ,#tip\n\u001b#ride\nuyoh#force\nbO>>>>j\u001b\ni\u001b\u0004lyok\u000f\u001b#conduct\n \u000f\u001b20s  v i\u001b\u00166\nFkFkFyFyFyFkFkFkFkFyFkFyFyFyFyFkFkFkFkFkFyFkFyFkFkFkFyFyFyFkFyFyFyFkFyFkFkFkFkFyFkFyFyFkFkFyFyFkFyFyFyFyFkFyFyFyFkFyFyFyFyFyFyFkFkFyFyFkFkFkFkFyFkFkFyFyFyFkFyFkFkFyFyFkFkFkFkFkFkFyFyFkFkFyFkFkFkFkFyFkFyFkFkFyFkFyFyFkFkFyFkFyFyFyFkFyFkFyFkFyO>>>j\u001b\n\u0004n,#untrap\njJv i\u001bnhyb\u0017ice\nu\u0017sink\nqy\u0017ring of sustain ability\ndm \u001bb\u0017grave\n:\u0017pick-axe\nan >.20sl\u0017neutral altar\ndd\u0017human corpse\n #pray\ny y >Za\n<#levelchange\n30\n                             yjl \u0017fountain\nqyh     \u0017melting ice\n: b\u0017throne\n#sit\n   ju     \u0017sink\nqy  \u001bm.  n   \u0017ring of polymorph control\ndp  \u001b   : aj       : #turn\n\u00163\nO>>l\u001b\nmOa\u001b\n,dc\u000f\u001b\u0007housecat\n\u0017huge chunk of meat\n tab\u0007acid blob\n\u0017scroll of taming\nrr  \u001b  ny\u0017banana\nt\u001b10s \u0017food ration\nt\u001b\u0017tin whistle\nhl bau Oamango\n\u001b\n\u00163\n\u00164\nFk FyFuFjFuFyFk FuFkFj FjFu  Fu Fy  Fy Fy   n Fy   Fy Fb Fh    n Fh Fy Fh  Fu   n Fb Fb  Fu Fb Fy   n Fu Fh  Fu    n Fu  Fk"
+  }
+ ]
+}

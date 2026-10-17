@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nWf\u0016?\n>>M      potion of see invisible\nn         k      \u0017wand of locking\nE\u0017wand of digging\nE:\u0017wand of undead turning\nE:ysm.     \u001641\nu  n            n   u       u b  u   n    l              n  k                :\u00163\n\u001641\nb          n    h          n     n                        n     l       :   \u00165\n\u0016?\n\u001bn             n n          \u0016?\n\u001bb          n      n       \u001641\n\u0014 \u001bm. sm.    n   sm.          n   \u00164\n\u0016?\n\u001bn   n     \u0016?\na  \u0017cloak of protection\nWl .m.sl    n      20s            \u0007Medusa\nnFu          n                         nFn             FuFb           Fk  nFl                             n              Fh            sb   \u001b        yy\u001bny nn  2"
+ },
+ "segments": [
+  {
+   "seed": 51750020,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nWf\u0016?\n>>M      potion of see invisible\nn         k      \u0017wand of locking\nE\u0017wand of digging\nE:\u0017wand of undead turning\nE:ysm.     \u001641\nu  n            n   u       u b  u   n    l              n  k                :\u00163\n\u001641\nb          n    h          n     n                        n     l       :   \u00165\n\u0016?\n\u001bn             n n          \u0016?\n\u001bb          n      n       \u001641\n\u0014 \u001bm. sm.    n   sm.          n   \u00164\n\u0016?\n\u001bn   n     \u0016?\na  \u0017cloak of protection\nWl .m.sl    n      20s            \u0007Medusa\nnFu          n                         nFn             FuFb           Fk  nFl                             n              Fh            sb   \u001b        yy\u001bny nn  2"
+  }
+ ]
+}

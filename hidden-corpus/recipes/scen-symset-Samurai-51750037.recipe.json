@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "v i\u001blunn\u0017tree\n:ub\u0017iron bars\nbubub\u0017chaotic altar\ndadc\u0017newt corpse\n#offer\ng  #pray\ny y afr\u001bdfFhFnFuFnFnFkFyFnFyFkFlFjFjFhFkFnFnFlFuFyFjFhFjFjFyFhFj  FkFuFhFlFnFkFyFnFuFjFuFyFlFjFhFjFhFuFnFnFuFnFnFjFhFjFnFyFhFhFnFnFkFnFnFkFnFkFnFuFhFjFnFlFhFjFnFhFnFnFhFlFlFuFnFlFlFjFuFkFhFuFlFlFnFhFuFyFuFkFkFjFkFjFhFlFnFjFuFhFjFuFkFlFyFkFjFkFuFjFuFlFumOa\u001b\nv\u001bi\u001bO>e\u001b\n>#pray\ny y#turn\n\u001617\n O>>>>a\u001b\n\u00168\nOg\u001b\u001b\nbyk u\u0017ice\nn\u0017magic fountain\nqy#dip\nfyyy: n n\u0017cloud\nl\u0017unaligned altar\ndedbdf\u0017floating eye corpse\n#offer\nh  #terrain\nf\n#sit\nk\u0004hZ\u0014 \u001b@.bw-FuFk20sFkFbFjFbFjFjFjFuFhFbFbFnFjFnFbFjFnFjFbFbFbFbFnFnFbFjFjFnFbFbFjFnFnFnFbFbFnFnFbFjFbFnFnFnFnFbFbFjFnFbFjFbFjFnFjFjFjFjFbFnFbFjFbFnFnFnFjFnFnFnFnFjFbFbFbFnFjFjFbFnFjFjFjFbFjFnFbFbFnFjFnFjFnFjFjFnFnFnFbFnFnFnFjFbFnFbFjFbFbFnFjFbFjFjFbFbFjmO>>>>d\u001b\nmO>m\u001b\nv\u001bi\u001b\u00166\n\\    100sFnFuFkFbFhFjFlsFhFlFjFnFbFkFubFu20sFjFnFhFuFyFkFlFbsFbFjFlFuFkFhFnFy.sFyFkFjFlFhFnFuFb20sFyFjFbFkFnFlFuFhsFlFbFkFyFnFjFhFusFyFkFhFnFuFlFjFb20sFlFbFhFyFkFjFnFu20sFnFyFjFlFbFuFkFhsFyFjFhFnFuFkFlFbsFlFuF"
+ },
+ "segments": [
+  {
+   "seed": 51750037,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=playmode:debug\nMENUCOLOR=\"a scroll\"=brown\nBIND=v:inventory\n",
+   "moves": "v i\u001blunn\u0017tree\n:ub\u0017iron bars\nbubub\u0017chaotic altar\ndadc\u0017newt corpse\n#offer\ng  #pray\ny y afr\u001bdfFhFnFuFnFnFkFyFnFyFkFlFjFjFhFkFnFnFlFuFyFjFhFjFjFyFhFj  FkFuFhFlFnFkFyFnFuFjFuFyFlFjFhFjFhFuFnFnFuFnFnFjFhFjFnFyFhFhFnFnFkFnFnFkFnFkFnFuFhFjFnFlFhFjFnFhFnFnFhFlFlFuFnFlFlFjFuFkFhFuFlFlFnFhFuFyFuFkFkFjFkFjFhFlFnFjFuFhFjFuFkFlFyFkFjFkFuFjFuFlFumOa\u001b\nv\u001bi\u001bO>e\u001b\n>#pray\ny y#turn\n\u001617\n O>>>>a\u001b\n\u00168\nOg\u001b\u001b\nbyk u\u0017ice\nn\u0017magic fountain\nqy#dip\nfyyy: n n\u0017cloud\nl\u0017unaligned altar\ndedbdf\u0017floating eye corpse\n#offer\nh  #terrain\nf\n#sit\nk\u0004hZ\u0014 \u001b@.bw-FuFk20sFkFbFjFbFjFjFjFuFhFbFbFnFjFnFbFjFnFjFbFbFbFbFnFnFbFjFjFnFbFbFjFnFnFnFbFbFnFnFbFjFbFnFnFnFnFbFbFjFnFbFjFbFjFnFjFjFjFjFbFnFbFjFbFnFnFnFjFnFnFnFnFjFbFbFbFnFjFjFbFnFjFjFjFbFjFnFbFbFnFjFnFjFnFjFjFnFnFnFbFnFnFnFjFbFnFbFjFbFbFnFjFbFjFjFbFbFjmO>>>>d\u001b\nmO>m\u001b\nv\u001bi\u001b\u00166\n\\    100sFnFuFkFbFhFjFlsFhFlFjFnFbFkFubFu20sFjFnFhFuFyFkFlFbsFbFjFlFuFkFhFnFy.sFyFkFjFlFhFnFuFb20sFyFjFbFkFnFlFuFhsFlFbFkFyFnFjFhFusFyFkFhFnFuFlFjFb20sFlFbFhFyFkFjFnFu20sFnFyFjFlFbFuFkFhsFyFjFhFnFuFkFlFbsFlFuF"
+  }
+ ]
+}

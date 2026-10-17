@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed bell of opening\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed magic harp\n\u0017blessed 20 daggers\nQh#levelchange\n26\n                         #wizintrinsic\nh\n i\u001bklkfb thj#invoke\ne\u0017wand of fire\nzin zin zi.zi.\u0017blessed spellbook of slow monster\nrjsZa\n:;. \u001b,E- Vlad was here\n#pray\ny y #wizintrinsic\nh\nfyfn\u0017wand of fire\nzkkzkj zkn zku   n\u0017potion of booze\nql.20s\u0017wand of cold\nzmj zmk zmb zmy zm#wizintrinsic\nh\nfyfnfj;m,E-n  Elbereth Elbereth\n#chat\nn\u0017blessed scroll of light\nrn\u0017spellbook of cone of cold\nro 20sZb\n:#wizintrinsic\nh\n;<.E- ad aerarium\n#chat\nb\u0007newt\nFlss20sflfhfltbufl\u00167\n\u0004h..20s;_.E- Elbereth Elbereth\n#chat\nu\u001615\n \u0006_<._.@.#wizintrinsic\nh\n \u0007yellow mold\nFj.ss20sss\u0017potion of levitation\nqps\u0017spellbook of sleep\nrq 20sZ\u001b:\u0017scroll of light\nrr\u0017lembas wafer\nes  #wizintrinsic\nh\n \u0007grid bug\nFlssss\u0017scroll of remove curse\nrt \u0017potion of sleeping\nqussi\u001bhnj\u0007acid bl"
+ },
+ "segments": [
+  {
+   "seed": 51750048,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed bell of opening\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed magic harp\n\u0017blessed 20 daggers\nQh#levelchange\n26\n                         #wizintrinsic\nh\n i\u001bklkfb thj#invoke\ne\u0017wand of fire\nzin zin zi.zi.\u0017blessed spellbook of slow monster\nrjsZa\n:;. \u001b,E- Vlad was here\n#pray\ny y #wizintrinsic\nh\nfyfn\u0017wand of fire\nzkkzkj zkn zku   n\u0017potion of booze\nql.20s\u0017wand of cold\nzmj zmk zmb zmy zm#wizintrinsic\nh\nfyfnfj;m,E-n  Elbereth Elbereth\n#chat\nn\u0017blessed scroll of light\nrn\u0017spellbook of cone of cold\nro 20sZb\n:#wizintrinsic\nh\n;<.E- ad aerarium\n#chat\nb\u0007newt\nFlss20sflfhfltbufl\u00167\n\u0004h..20s;_.E- Elbereth Elbereth\n#chat\nu\u001615\n \u0006_<._.@.#wizintrinsic\nh\n \u0007yellow mold\nFj.ss20sss\u0017potion of levitation\nqps\u0017spellbook of sleep\nrq 20sZ\u001b:\u0017scroll of light\nrr\u0017lembas wafer\nes  #wizintrinsic\nh\n \u0007grid bug\nFlssss\u0017scroll of remove curse\nrt \u0017potion of sleeping\nqussi\u001bhnj\u0007acid bl"
+  }
+ ]
+}

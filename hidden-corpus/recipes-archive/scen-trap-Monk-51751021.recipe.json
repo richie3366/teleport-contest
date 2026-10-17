@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                                kly\u0017rust trap\nn#untrap\nyj\u0017spiked pit\ny\u0007lichen\n.m..sm..bu \u0017dart trap\nbu .sai #loot\n#terrain\nf\n#levelchange\n10\n       byyuy \u0017anti-magic field\nb\u0007jackal\nshss.m.l \u0017hole\nnyy  s.kb\u0017web\nb^uu..\u0017beartrap\najbhE\u001b#terrain\nb\n\u001b;\u000f\u001b"
+ },
+ "segments": [
+  {
+   "seed": 51751021,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                                kly\u0017rust trap\nn#untrap\nyj\u0017spiked pit\ny\u0007lichen\n.m..sm..bu \u0017dart trap\nbu .sai #loot\n#terrain\nf\n#levelchange\n10\n       byyuy \u0017anti-magic field\nb\u0007jackal\nshss.m.l \u0017hole\nnyy  s.kb\u0017web\nb^uu..\u0017beartrap\najbhE\u001b#terrain\nb\n\u001b;\u000f\u001b"
+  }
+ ]
+}

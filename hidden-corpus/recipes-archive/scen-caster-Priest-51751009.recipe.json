@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017spellbook of finger of death\nrj.\u0017blessed spellbook of create monster\nrk 20s\u0017blessed spellbook of cause fear\nrl s+\u001bZd\nZb\nZb\n.Zd\n#enhance\nyg\nb\n\u001bSy\u001b nee aj P#name\nm\n ;;j;ef#tip\n\u001b\u000f\u001b#offer\nkkj\u0017trap door\nk\u0007jackal\n20s s.sj \u0017magic trap\nk\u0017magic portal\n#terrain\ne\n\\",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51751009,
+   "datetime": "20130331023143",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017spellbook of finger of death\nrj.\u0017blessed spellbook of create monster\nrk 20s\u0017blessed spellbook of cause fear\nrl s+\u001bZd\nZb\nZb\n.Zd\n#enhance\nyg\nb\n\u001bSy\u001b"
+  },
+  {
+   "seed": 52251009,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " nee aj P#name\nm\n ;;j;ef#tip\n\u001b\u000f\u001b#offer\nkkj\u0017trap door\nk\u0007jackal\n20s s.sj \u0017magic trap\nk\u0017magic portal\n#terrain\ne\n\\"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "Z,Z#twoweapon\n#loot\ny#offer\n#untrap\nn#turn\n__. \u001b,sE- Elbereth Elbereth\ned#loot\nhE-n  Elbereth Elbereth\n#tip\n\u001b,ck10s#loot\nh\u0018\u001bwa#tip\n\u001bi\u001b#conduct\n \u000f\u001b#jump\n<f bn#jump\n"
+ },
+ "segments": [
+  {
+   "seed": 51752005,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": "Z,Z#twoweapon\n#loot\ny#offer\n#untrap\nn#turn\n__. \u001b,sE- Elbereth Elbereth\ned#loot\nhE-n  Elbereth Elbereth\n#tip\n\u001b,ck10s#loot\nh\u0018\u001bwa#tip\n\u001bi\u001b#conduct\n \u000f\u001b#jump\n<f bn#jump\n"
+  }
+ ]
+}

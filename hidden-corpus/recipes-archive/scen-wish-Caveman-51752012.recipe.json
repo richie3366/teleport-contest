@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u00173 potion of object detection\nqf \u001b@.\u00173 potion of restore ability\nqg \u001b\u0017spellbook of confuse monster\n\u0007prisoner\nrh   20s.m.ZZFu.ss"
+ },
+ "segments": [
+  {
+   "seed": 51752012,
+   "datetime": "20200201111331",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u00173 potion of object detection\nqf \u001b@.\u00173 potion of restore ability\nqg \u001b\u0017spellbook of confuse monster\n\u0007prisoner\nrh   20s.m.ZZFu.ss"
+  }
+ ]
+}

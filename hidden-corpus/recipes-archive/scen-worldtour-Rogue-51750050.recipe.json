@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed +3 gauntlets of power\nWi\u0017blessed amulet of life saving\nPj\u0017blessed +3 helm of telepathy\nWk\u0016?\nr lll:.20ss\u0016?\n>t\u0006_ \u001b:\u0016?\n>>N        dunce cap\n\u0004ysm.    \u001b.u\u0016?\nb\u0006._>,\u0016?\n\u001bl       j   \u001633\nh  u   y  h    h      n y      h    :\u001633\n\u0004y            n\u001633\ny                  j          n  : \u0016?\n\u001bnj        \u001633\n\u0014m.20s    n  \u0016?\n\u001bl  y  n  \u0016?\n\u001bh  n   b \u001633\n_<.20s   n     .m.      n       n  sm.     n   \u001611\n\u0016?\n\u001bu   n         n   l  n     \u00167\n\u0016?\n\u001bk            n   b  n         n             yy\u001bny y n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 51750050,
+   "datetime": "20030830202344",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed +3 gauntlets of power\nWi\u0017blessed amulet of life saving\nPj\u0017blessed +3 helm of telepathy\nWk\u0016?\nr lll:.20ss\u0016?\n>t\u0006_ \u001b:\u0016?\n>>N        dunce cap\n\u0004ysm.    \u001b.u\u0016?\nb\u0006._>,\u0016?\n\u001bl       j   \u001633\nh  u   y  h    h      n y      h    :\u001633\n\u0004y            n\u001633\ny                  j          n  : \u0016?\n\u001bnj        \u001633\n\u0014m.20s    n  \u0016?\n\u001bl  y  n  \u0016?\n\u001bh  n   b \u001633\n_<.20s   n     .m.      n       n  sm.     n   \u001611\n\u0016?\n\u001bu   n         n   l  n     \u00167\n\u0016?\n\u001bk            n   b  n         n             yy\u001bny y n  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPfl\u0017blessed amulet of life saving\nPg#levelchange\n20\n                   \u0017blessed spellbook of force bolt\nrh.\u0007orc shaman\nZa\nZa\nZa\nZa\nZa\nZa\n.sZa\nZa\n#turn\n\u0017wand of striking\n\u0017wand of magic missile\n\u0017wand of lightning\n\u0007grid bug\n\u0007yellow mold\nzjkzkl sm.zilzjl  zjk 20s zil sziy20szjkzju\u001720 darts\nQl\u0007giant rat\n\u0007giant rat\nfkfkfyfyfbfh\u0017blessed spellbook of cone of cold\nrm s\u0007master mind flayer\nZb\nsm.  suZb\n      n Za\n    n sy  .uZb\n    n ZZ#turn\n\u00168\n\u0017wand of death\n\u0017wand of cancellation\n\u0007giant rat\nzoh  zny   n sm.   n zoh   n  .b   n znyzob20sznkznyznb20s\u00168\n\u0017blessed spellbook of knock\nrp s  \u0007master mind flayer\nZb\nZb\n   n Z20s  20s   n ZZZZ\u00164\n\u0007master lich\n\u0007orc shaman\n\u0007gnomish wizard\n\u0017wand of sleep\nzql   zqu      n  zqb     n zql    n zqb    n  zqu     n  zqb     n \u0007lich\n\u0007lich\n\u0007succubus\n\u0017wand of cold\nzrb        yy\u001by   nnnn  z"
+ },
+ "segments": [
+  {
+   "seed": 51750044,
+   "datetime": "20130810103434",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPfl\u0017blessed amulet of life saving\nPg#levelchange\n20\n                   \u0017blessed spellbook of force bolt\nrh.\u0007orc shaman\nZa\nZa\nZa\nZa\nZa\nZa\n.sZa\nZa\n#turn\n\u0017wand of striking\n\u0017wand of magic missile\n\u0017wand of lightning\n\u0007grid bug\n\u0007yellow mold\nzjkzkl sm.zilzjl  zjk 20s zil sziy20szjkzju\u001720 darts\nQl\u0007giant rat\n\u0007giant rat\nfkfkfyfyfbfh\u0017blessed spellbook of cone of cold\nrm s\u0007master mind flayer\nZb\nsm.  suZb\n      n Za\n    n sy  .uZb\n    n ZZ#turn\n\u00168\n\u0017wand of death\n\u0017wand of cancellation\n\u0007giant rat\nzoh  zny   n sm.   n zoh   n  .b   n znyzob20sznkznyznb20s\u00168\n\u0017blessed spellbook of knock\nrp s  \u0007master mind flayer\nZb\nZb\n   n Z20s  20s   n ZZZZ\u00164\n\u0007master lich\n\u0007orc shaman\n\u0007gnomish wizard\n\u0017wand of sleep\nzql   zqu      n  zqb     n zql    n zqb    n  zqu     n  zqb     n \u0007lich\n\u0007lich\n\u0007succubus\n\u0017wand of cold\nzrb        yy\u001by   nnnn  z"
+  }
+ ]
+}

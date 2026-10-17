@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017elven bow\nwi\u001720 elven arrows\nQj\u0007owlbear\nyfj   yy\u001by  y y\u001by  f"
+ },
+ "segments": [
+  {
+   "seed": 51751008,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=fruit:durian\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017elven bow\nwi\u001720 elven arrows\nQj\u0007owlbear\nyfj   yy\u001by  y y\u001by  f"
+  }
+ ]
+}

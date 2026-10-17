@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nl_mm.#chat\nl_m.Fl _.#chat\nj#levelchange\n20\n                      \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm,#chat\nj_mmmmm.#chat\nn;m.\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nW\u001b\u0017wand of cold\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm...ss.znk  ,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nk;k;\u0016?\n>A\u0006_mmmmmm.FkFkFkFkFk,\u0016?\n>z\u0006_mm,Fj _,@.FjFjFj FjFbznj   ,#chat\nj   n  \u0016?\n>A\u0006_mmmm.  Fj_. FbFb FbFb   nFbss20sznl ,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fk_,FuFu Fy     Fb  Fb   Fb     Fu    n       Fy    n   ,\u00169\n\u0016?\n>A\u0006_mmmmm.     n    Fy      n   _.Fj   n Fj   n  Fh   n    n Fn    Fh  n s  n  znu   n   n,#chat\ny\u0016?\n\u0016?\n>y_m,#chat\nu\u001612\n\u0016?\n\u0016?\n\u0016?\n_>.    n   n _,        yy\u001by   y nn  F"
+ },
+ "segments": [
+  {
+   "seed": 51750076,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nl_mm.#chat\nl_m.Fl _.#chat\nj#levelchange\n20\n                      \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm,#chat\nj_mmmmm.#chat\nn;m.\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nW\u001b\u0017wand of cold\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm...ss.znk  ,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nk;k;\u0016?\n>A\u0006_mmmmmm.FkFkFkFkFk,\u0016?\n>z\u0006_mm,Fj _,@.FjFjFj FjFbznj   ,#chat\nj   n  \u0016?\n>A\u0006_mmmm.  Fj_. FbFb FbFb   nFbss20sznl ,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fk_,FuFu Fy     Fb  Fb   Fb     Fu    n       Fy    n   ,\u00169\n\u0016?\n>A\u0006_mmmmm.     n    Fy      n   _.Fj   n Fj   n  Fh   n    n Fn    Fh  n s  n  znu   n   n,#chat\ny\u0016?\n\u0016?\n>y_m,#chat\nu\u001612\n\u0016?\n\u0016?\n\u0016?\n_>.    n   n _,        yy\u001by   y nn  F"
+  }
+ ]
+}

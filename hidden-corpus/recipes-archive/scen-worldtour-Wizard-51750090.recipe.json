@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed amulet of reflection\nPp\u0017blessed +3 helm of telepathy\nWq\u0017blessed +3 gauntlets of power\nWr\u0016?\n>>L      pick-axe\n\u0006_ \u001b,20s    sm.    .\u0016?\nb n  y  b    n    k        n     n:\u001612\n\u001645\n\u0017yumi\nwu      \u001720 ya\nQv\u00073 soldier\nb   fh    fy    fk     nFy    Fb    \u0017bullwhip\nww\u0007sewer rat\ny               nawu     n y       ,#enhance\nyc\np\n\u001b\u001612\n\u0016?\n\u001buj    n      \u0016?\n\u001bj             k\u0016?\n\u001by     b   n    \u0016?\n\u001bn                     l    n     \u0016?\n\u001bn    k\u001645\n_>.\u0016?\n\u001bkn     \u001645\n\u0006._<,sm.   n      \u0016?\n\u001bl            n j                  \u001645\n\u0014:            n         \u0016?\n\u001bn    n    u      n        \u00169\n\u001645\nj            k\u0017magic marker\nEn\u0017wand of create monster\nEn\u0017wand of cold\nE: sl\u0016?\n\u001bkn\u001637\nj   n    b     j   n      : 20s      n      sm.        yy\u001by   y y n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 51750090,
+   "datetime": "20140628033737",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed amulet of reflection\nPp\u0017blessed +3 helm of telepathy\nWq\u0017blessed +3 gauntlets of power\nWr\u0016?\n>>L      pick-axe\n\u0006_ \u001b,20s    sm.    .\u0016?\nb n  y  b    n    k        n     n:\u001612\n\u001645\n\u0017yumi\nwu      \u001720 ya\nQv\u00073 soldier\nb   fh    fy    fk     nFy    Fb    \u0017bullwhip\nww\u0007sewer rat\ny               nawu     n y       ,#enhance\nyc\np\n\u001b\u001612\n\u0016?\n\u001buj    n      \u0016?\n\u001bj             k\u0016?\n\u001by     b   n    \u0016?\n\u001bn                     l    n     \u0016?\n\u001bn    k\u001645\n_>.\u0016?\n\u001bkn     \u001645\n\u0006._<,sm.   n      \u0016?\n\u001bl            n j                  \u001645\n\u0014:            n         \u0016?\n\u001bn    n    u      n        \u00169\n\u001645\nj            k\u0017magic marker\nEn\u0017wand of create monster\nEn\u0017wand of cold\nE: sl\u0016?\n\u001bkn\u001637\nj   n    b     j   n      : 20s      n      sm.        yy\u001by   y y n  \u0016"
+  }
+ ]
+}

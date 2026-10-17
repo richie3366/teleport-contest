@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " jh\u0017ruby\nEj I am a fish\n : \u0017wand of probing\nEk: \u0017towel\nEl: E- \u0007hill orc\n.ysm.sm.Flshl\u0017wand of sleep\nEm\u0017wand of fire\nEn   Vlad was here\n \u0017wand of enlightenment\nEo \u001b :  lE- I am a fish\n\u0007jackal\n.m..m.sm.  "
+ },
+ "segments": [
+  {
+   "seed": 51751018,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " jh\u0017ruby\nEj I am a fish\n : \u0017wand of probing\nEk: \u0017towel\nEl: E- \u0007hill orc\n.ysm.sm.Flshl\u0017wand of sleep\nEm\u0017wand of fire\nEn   Vlad was here\n \u0017wand of enlightenment\nEo \u001b :  lE- I am a fish\n\u0007jackal\n.m..m.sm.  "
+  }
+ ]
+}

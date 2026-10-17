@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed Mjollnir\nwj \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n             \u0007yellow mold\n#dip\nhm \u001b#offer\n#pray\ny y #chat\nl#wizintrinsic\nsq\n Fl ss.\u0016?\n>>N       amulet of flying\n\u0006#overview\n\u001b#conduct\n #annotate\nblessed\n\u0018\u001b#name\n\u001b#adjust\nc\u001b#chat\nu#turn\n#jump\n#wizidentify\n\u001bFuFu     \u001bFk           n #pray\ny y                 _ \u001b:qd       n    \u0007dwarf\n#vanquished\n #genocided\nrock piercer\ni\u001b#twoweapon\n#invoke\nj      n       n \u00163\n#sit\n#pray\ny y          \u001b         #levelchange\n21\n          Fh         n Fy        K_oooooo.,\u0007kobold shaman\n#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u000f\u001b#wipe\n   n        n#loot\nu\u00169\n#chat\ny        #chat\nh   n         n \u00162\n#levelchange\n17\n Fh       n   Fu       n      Fu   n        n    \u00166\n_{.qd       n \u0007kobold\n#version\n  #history\n                  \u0018\u001b#tip\n\u001b#ride\nky#turn\n#sit\n#wizidentify\n\u001bFk  \u001b      n    Fu         n     _ooooo.,\u0007grid bug\n#overview\n\u001b#conduct\n i\u001b#dip\ncd          yy\u001by   y y y\u001b  #"
+ },
+ "segments": [
+  {
+   "seed": 51750039,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed Mjollnir\nwj \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n             \u0007yellow mold\n#dip\nhm \u001b#offer\n#pray\ny y #chat\nl#wizintrinsic\nsq\n Fl ss.\u0016?\n>>N       amulet of flying\n\u0006#overview\n\u001b#conduct\n #annotate\nblessed\n\u0018\u001b#name\n\u001b#adjust\nc\u001b#chat\nu#turn\n#jump\n#wizidentify\n\u001bFuFu     \u001bFk           n #pray\ny y                 _ \u001b:qd       n    \u0007dwarf\n#vanquished\n #genocided\nrock piercer\ni\u001b#twoweapon\n#invoke\nj      n       n \u00163\n#sit\n#pray\ny y          \u001b         #levelchange\n21\n          Fh         n Fy        K_oooooo.,\u0007kobold shaman\n#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u000f\u001b#wipe\n   n        n#loot\nu\u00169\n#chat\ny        #chat\nh   n         n \u00162\n#levelchange\n17\n Fh       n   Fu       n      Fu   n        n    \u00166\n_{.qd       n \u0007kobold\n#version\n  #history\n                  \u0018\u001b#tip\n\u001b#ride\nky#turn\n#sit\n#wizidentify\n\u001bFk  \u001b      n    Fu         n     _ooooo.,\u0007grid bug\n#overview\n\u001b#conduct\n i\u001b#dip\ncd          yy\u001by   y y y\u001b  #"
+  }
+ ]
+}

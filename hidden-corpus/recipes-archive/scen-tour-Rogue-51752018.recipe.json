@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u001615\n>i\u001bk20s.\u0016?\n>>P  W#untrap\nnf\u0006.s\u0016?\nr  #pray\ny y   #twoweapon\n_>, \u001b;20ss  20s\u001615\n  #conduct\n #jump\nE- Elbereth\n\u0006ss\u0016?\n>w#dip\ngd#chat\nk\u0018\u001b.s"
+ },
+ "segments": [
+  {
+   "seed": 51752018,
+   "datetime": "20110606012920",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u001615\n>i\u001bk20s.\u0016?\n>>P  W#untrap\nnf\u0006.s\u0016?\nr  #pray\ny y   #twoweapon\n_>, \u001b;20ss  20s\u001615\n  #conduct\n #jump\nE- Elbereth\n\u0006ss\u0016?\n>w#dip\ngd#chat\nk\u0018\u001b.s"
+  }
+ ]
+}

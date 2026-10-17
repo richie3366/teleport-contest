@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPpr\u0017blessed leash\n\u0017blessed 20 daggers\nQr#levelchange\n20\n                   #wizintrinsic\nh\n \u0018\u001bkl\u0007acid blob\n\u0007soldier\nFbFh  Fb FjFj Fb \u0016?\nnybhybh  j: \u0017potion of extra healing\nqs s  \u0007bugbear\nFy FyFl Fl Fy Fy   nFy #wizintrinsic\nh\n i\u001bnjfk fk fk #invoke\n\u001b;k. \u001b:  E- X marks the spot\n \u0017wand of sleep\nztkztkztkztk\u0017wand of sleep\nzukzukzukzukzuk#wizintrinsic\nh\n\u0016?\nhjuhnhuj  n :\u0017blessed scroll of teleportation\nrv @.  n \u0017blessed spellbook of light\nrw  20s  Zb\n :#wizintrinsic\nh\n\u0017blessed scroll of fire\nrx  @.      \u0017blessed spellbook of cause fear\nry  n .l Zb\n :\u0007dwarf\nFb  n Fb Fb Fb  #wizintrinsic\nh\n\u0017potion of gain energy\nqz  .u.\u0017wand of striking\nzAj  zAb    n zAj  n  n  \u00163\n\u0007grid bug\nFk20s.s20ss#wizintrinsic\nh\n\u0007kobold\n\u0007sewer rat\nFlFhFkFlFlFl;<.E- I am a fish\n#chat\nu\u0017wand of polymorph\nzBlzBbzBuzBhfktrhfntrh#invoke\n\u001b#wizintrinsic\nh\n\u0017scroll of remove curse\nrC \u0017cram ration\neD\u0017scroll of teleportation\nrE <.  \u0017blessed spellbook of knock\nrF 20sZ\u001b: #wizintrinsic\nh\n_m.yk\u0017wand of polymorph\nzGuzGyzGbzGk\u0016?\nj\u0014@.\u0017wand of t"
+ },
+ "segments": [
+  {
+   "seed": 51750078,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=sortloot:full\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPpr\u0017blessed leash\n\u0017blessed 20 daggers\nQr#levelchange\n20\n                   #wizintrinsic\nh\n \u0018\u001bkl\u0007acid blob\n\u0007soldier\nFbFh  Fb FjFj Fb \u0016?\nnybhybh  j: \u0017potion of extra healing\nqs s  \u0007bugbear\nFy FyFl Fl Fy Fy   nFy #wizintrinsic\nh\n i\u001bnjfk fk fk #invoke\n\u001b;k. \u001b:  E- X marks the spot\n \u0017wand of sleep\nztkztkztkztk\u0017wand of sleep\nzukzukzukzukzuk#wizintrinsic\nh\n\u0016?\nhjuhnhuj  n :\u0017blessed scroll of teleportation\nrv @.  n \u0017blessed spellbook of light\nrw  20s  Zb\n :#wizintrinsic\nh\n\u0017blessed scroll of fire\nrx  @.      \u0017blessed spellbook of cause fear\nry  n .l Zb\n :\u0007dwarf\nFb  n Fb Fb Fb  #wizintrinsic\nh\n\u0017potion of gain energy\nqz  .u.\u0017wand of striking\nzAj  zAb    n zAj  n  n  \u00163\n\u0007grid bug\nFk20s.s20ss#wizintrinsic\nh\n\u0007kobold\n\u0007sewer rat\nFlFhFkFlFlFl;<.E- I am a fish\n#chat\nu\u0017wand of polymorph\nzBlzBbzBuzBhfktrhfntrh#invoke\n\u001b#wizintrinsic\nh\n\u0017scroll of remove curse\nrC \u0017cram ration\neD\u0017scroll of teleportation\nrE <.  \u0017blessed spellbook of knock\nrF 20sZ\u001b: #wizintrinsic\nh\n_m.yk\u0017wand of polymorph\nzGuzGyzGbzGk\u0016?\nj\u0014@.\u0017wand of t"
+  }
+ ]
+}

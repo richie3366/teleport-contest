@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "L   YHU_ \u001bm,>YKLL_>.>Fk .s<UUHH_>,>KKJJ_>.>KYBY_>.>JLUK_>.>\u000f\u001br\u001b150sjbyi\u001b50s\u000f\u001b100s  ZuhnFu.s100s10s100slub\u000f\u001bjkh100s150sFkFkFk\u000f\u001btbjwa#terrain\nb\n100s \\   100s50s50s100s150sFkFuFkbyy100s100sFlFls100snjyed100s150sdasm.20ssm.t\u001bl nhlly20s10s10s  y\u001by  y ny\u001b  t"
+ },
+ "segments": [
+  {
+   "seed": 51750043,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\n",
+   "moves": "L   YHU_ \u001bm,>YKLL_>.>Fk .s<UUHH_>,>KKJJ_>.>KYBY_>.>JLUK_>.>\u000f\u001br\u001b150sjbyi\u001b50s\u000f\u001b100s  ZuhnFu.s100s10s100slub\u000f\u001bjkh100s150sFkFkFk\u000f\u001btbjwa#terrain\nb\n100s \\   100s50s50s100s150sFkFuFkbyy100s100sFlFls100snjyed100s150sdasm.20ssm.t\u001bl nhlly20s10s10s  y\u001by  y ny\u001b  t"
+  }
+ ]
+}

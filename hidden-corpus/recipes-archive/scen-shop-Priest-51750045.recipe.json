@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed Mjollnir\nwj\u0017blessed +3 cloak of magic resistance\nW\u001b\u001b\u0016?\n>w\u0006_ \u001b.,p_ooo.,\u0014,>.ss_oooooo,_o,,$_ooooooooo,,#chat\nn__._,,#chat\nk__, Fn_,Fl#chat\nl \u00167\nhj n\u0016?\n>w\u0006_ooooooo,,p_ooooooooo._ooo.,\u0017amulet of guarding\ndli\u001bhhh#chat\nhynh#chat\nnlyj#chat\nk_ooooo,_._o,,p\u00167\nub k\u0016?\n>w\u0006kuj#chat\nu__,_.m.Fl#chat\nl_ooooo.Fl_.m,,plhh#chat\nn__,Fl_.  nFl#chat\nl_ooooooo,,p\u00163\nulj\u0016?\n>w\u0006_oooooooo._o.,p_ooooo._ooo.,\u0017loadstone\n dnuhy#chat\nl_ooooooo.,p_oooo.,:_ooooo.,:nkk#chat\nn_oooooo,,p_oooooooo._ooo,,p_ooooooooo,,p_{, Fh _.qy_ooooo.,:_oo,_ooo.,\u0017amulet of reflection\ndo$hny#chat\nh_oooooooo.,:_ooo._,,#chat\nkbnl#chat\ny_ooooo.,p_oooooo,_ooo.,#chat\ny_{.Fj _.Fj qd _ooooo,_o,,\u0017flint stone\ndp _ooooooooo., p__, Fj _, Fj #chat\nj #pray\ny y        \u0016?\ncnul\u0016?\n>w \u0006_oooooo._., $ _oooooo.,p\u001b\u00167\n   ynj\u0016?\n>w\u0006_ooooo._, ,$hlh  n   n #chat\nh  n   n  \u001612\n_oooooooo"
+ },
+ "segments": [
+  {
+   "seed": 51750045,
+   "datetime": "20020616180616",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed Mjollnir\nwj\u0017blessed +3 cloak of magic resistance\nW\u001b\u001b\u0016?\n>w\u0006_ \u001b.,p_ooo.,\u0014,>.ss_oooooo,_o,,$_ooooooooo,,#chat\nn__._,,#chat\nk__, Fn_,Fl#chat\nl \u00167\nhj n\u0016?\n>w\u0006_ooooooo,,p_ooooooooo._ooo.,\u0017amulet of guarding\ndli\u001bhhh#chat\nhynh#chat\nnlyj#chat\nk_ooooo,_._o,,p\u00167\nub k\u0016?\n>w\u0006kuj#chat\nu__,_.m.Fl#chat\nl_ooooo.Fl_.m,,plhh#chat\nn__,Fl_.  nFl#chat\nl_ooooooo,,p\u00163\nulj\u0016?\n>w\u0006_oooooooo._o.,p_ooooo._ooo.,\u0017loadstone\n dnuhy#chat\nl_ooooooo.,p_oooo.,:_ooooo.,:nkk#chat\nn_oooooo,,p_oooooooo._ooo,,p_ooooooooo,,p_{, Fh _.qy_ooooo.,:_oo,_ooo.,\u0017amulet of reflection\ndo$hny#chat\nh_oooooooo.,:_ooo._,,#chat\nkbnl#chat\ny_ooooo.,p_oooooo,_ooo.,#chat\ny_{.Fj _.Fj qd _ooooo,_o,,\u0017flint stone\ndp _ooooooooo., p__, Fj _, Fj #chat\nj #pray\ny y        \u0016?\ncnul\u0016?\n>w \u0006_oooooo._., $ _oooooo.,p\u001b\u00167\n   ynj\u0016?\n>w\u0006_ooooo._, ,$hlh  n   n #chat\nh  n   n  \u001612\n_oooooooo"
+  }
+ ]
+}

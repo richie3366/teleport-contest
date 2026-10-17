@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n6\n    \u0007disenchanter\nFj FnFnFnFnsm.20s#pray\ny y     \u0007mountain nymph\nFk Fk          Fn FnFn  yy  y y y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 51751013,
+   "datetime": "20020330160233",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n6\n    \u0007disenchanter\nFj FnFnFnFnsm.20s#pray\ny y     \u0007mountain nymph\nFk Fk          Fn FnFn  yy  y y y\u001by  2"
+  }
+ ]
+}

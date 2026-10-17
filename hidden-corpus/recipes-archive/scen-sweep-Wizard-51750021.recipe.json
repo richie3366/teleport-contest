@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n          \u0007soldier ant\nFkFy  Fh Fy  Fh .\u0007chickatrice\nFk Fh \u00162\n\u0017sack\n\u0017chest\n\u0017bag of tricks\n\u0017ring of protection from shape changers\n\u0017potion of full healing\napap\u0017dagger\nwtdo#force\ns20s 20saqFj  n Fj#tip\ny\u001bi\u001b#levelchange\n14\n \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqu \u001b>._d.Fj _.\u0004 __.Fb _, Fb   #chat\nb   #pray\ny y     _mmmm, Fl _.#chat\nl  _mmmm.  Fb  _.#chat\nb  _ooooo.  Fl  _. Fb  ,  :#force\n   n #pray\ny y     aq  #levelchange\n12\n\u0017plate mail\n,y       Fl      \u001b Fl         \u0017uncursed tin of lizard meat\n\u0007grey-elf\new20s           n         sm.        n               Fb   n                 n               n Fj              n                        n     \u0017blessed scroll of destroy armor\n\u0007xan\nrFj       Fn      20s    n    sm. \u001623\ni\u001b\u00166\n#levelchange\n8\n #wizintrinsic\ne\n sn.l20s.u.k.m.sn.m.sm.sm.sl sy sm.sPel #enhance\nyi\na\n\u001b#jump\n\u0014; E#force\n   n 20s  nsm.su sl 20ssm.\u000f\u001b\u00169\n#levelchange\n20\n            \u00174 cream pies\nQay\u0007kobold\nnffffFuFu\u0007lichen\njlffffFnFn\u0007kobold\nl   b     ffffFh Fl   n     b       h    n  k         n ,#enhance\nyq\na\n\u001b#levelchange\n10\n   \u0017blessed spellbook of turn undead\nrsn        n\u0017blessed spellbook of create monster\nr20s        +\u001bZa\n    yy\u001b y   y y y\u001by  Z"
+ },
+ "segments": [
+  {
+   "seed": 51750021,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n          \u0007soldier ant\nFkFy  Fh Fy  Fh .\u0007chickatrice\nFk Fh \u00162\n\u0017sack\n\u0017chest\n\u0017bag of tricks\n\u0017ring of protection from shape changers\n\u0017potion of full healing\napap\u0017dagger\nwtdo#force\ns20s 20saqFj  n Fj#tip\ny\u001bi\u001b#levelchange\n14\n \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqu \u001b>._d.Fj _.\u0004 __.Fb _, Fb   #chat\nb   #pray\ny y     _mmmm, Fl _.#chat\nl  _mmmm.  Fb  _.#chat\nb  _ooooo.  Fl  _. Fb  ,  :#force\n   n #pray\ny y     aq  #levelchange\n12\n\u0017plate mail\n,y       Fl      \u001b Fl         \u0017uncursed tin of lizard meat\n\u0007grey-elf\new20s           n         sm.        n               Fb   n                 n               n Fj              n                        n     \u0017blessed scroll of destroy armor\n\u0007xan\nrFj       Fn      20s    n    sm. \u001623\ni\u001b\u00166\n#levelchange\n8\n #wizintrinsic\ne\n sn.l20s.u.k.m.sn.m.sm.sm.sl sy sm.sPel #enhance\nyi\na\n\u001b#jump\n\u0014; E#force\n   n 20s  nsm.su sl 20ssm.\u000f\u001b\u00169\n#levelchange\n20\n            \u00174 cream pies\nQay\u0007kobold\nnffffFuFu\u0007lichen\njlffffFnFn\u0007kobold\nl   b     ffffFh Fl   n     b       h    n  k         n ,#enhance\nyq\na\n\u001b#levelchange\n10\n   \u0017blessed spellbook of turn undead\nrsn        n\u0017blessed spellbook of create monster\nr20s        +\u001bZa\n    yy\u001b y   y y y\u001by  Z"
+  }
+ ]
+}

@@ -1,0 +1,77 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " Fu 20sFl150s_ \u001b@.>150s  FlFlFl\\   50s50s50sFlFls150s100sylh#quit\nyy\u001by  y y y\u001b   \u0007soldier ant\nFjFu   yy\u001by  y y\u001by  FJ  JH    y\u001by  y ny\u001b  J  jjkbKJHH_ \u001b@.>YLL Y_>.>Fb s.YBJJ_>,>FhFh.::<ULNY_>.>FlFlFlee;.KHHJ_>.>#loot\nlHHHY_>,>FlFl20st\u001b\u001b,LUYB_>._.>#quit\nyy\u001by  y y y\u001b \u0007electric eel\nFyFysFkFk .20s.20s20ssssss.20ss.20ss.... \u0017wand of lightning\nzj.  y y\u001bny y\u001by  s  kl  hhFlFl  y\u001by  y y y\u001b  F #wizintrinsic\nb\n sm.20s20s  sm.  n.sssm.20s20s  sssss.20ss..s20s sss.20sss20sss.m.sy ss20ss20s. klynFj FjFjFjFjFjFjFjknhlyhjl20sdd20sssjukl#name\ni\n10s#chat\nbdb20s20s20sbl10subynyj100s\u000f\u001b50sFbFbFb150s_ \u001b>.>100sFb.20sFbFbFbFb.skhn100syln150sayjl50sFhs20s100snuybhy\u000f\u001b150s100s100s150sbubFl..50s100s100sFjFnFj50s _>.>150seeenulunkhnkhnb#chat\nbtcljht\u001bhuJHNY_>.>#dip\ne daJUKH_>.>HHHK_>,>#rub\n#wipe\nKHHU_>.>#offer\n10sNJUU_>,>YBYK_>.>Z#offer\nbujlFk FkFkFkFkFkFkFk10s#chat\nyt\u001bkjhnukbjuhub10s10s#name\no\n#name\nd\nFyFyFyFyFyFyFyFyt\u001bhulknnbyde20ss.t\u001b10sUHBN_>,>FuFlFlUUHK_>.>Fn20s20s   \\    #rub\nUBL H_>.>FkFk      Fk        f \u001b#loot\nhYB  nny y y\u001b  K",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51750002,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": " Fu 20sFl150s_ \u001b@.>150s  FlFlFl\\   50s50s50sFlFls150s100sylh#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51850002,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007soldier ant\nFjFu   yy\u001by  y y\u001by  F"
+  },
+  {
+   "seed": 51950002,
+   "datetime": "20250716204116",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=runmode:walk\nOPTIONS=pettype:dog\n",
+   "moves": "J  JH    y\u001by  y ny\u001b  J"
+  },
+  {
+   "seed": 52050002,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=fruit:mango\nOPTIONS=pettype:horse\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  jjkbKJHH_ \u001b@.>YLL Y_>.>Fb s.YBJJ_>,>FhFh.::<ULNY_>.>FlFlFlee;.KHHJ_>.>#loot\nlHHHY_>,>FlFl20st\u001b\u001b,LUYB_>._.>#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 52150002,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=!verbose\nOPTIONS=runmode:run\nOPTIONS=fruit:lychee\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007electric eel\nFyFysFkFk .20s.20s20ssssss.20ss.20ss...."
+  },
+  {
+   "seed": 52250002,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of lightning\nzj.  y y\u001bny y\u001by  s"
+  },
+  {
+   "seed": 52350002,
+   "datetime": "20050503040731",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\n",
+   "moves": "  kl  hhFlFl  y\u001by  y y y\u001b  F"
+  },
+  {
+   "seed": 52450002,
+   "datetime": "20090904201128",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nb\n sm.20s20s  sm.  n.sssm.20s20s  sssss.20ss..s20s sss.20sss20sss.m.sy ss20ss20s."
+  },
+  {
+   "seed": 52550002,
+   "datetime": "20090507132611",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\n",
+   "moves": " klynFj FjFjFjFjFjFjFjknhlyhjl20sdd20sssjukl#name\ni\n10s#chat\nbdb20s20s20sbl10subynyj100s\u000f\u001b50sFbFbFb150s_ \u001b>.>100sFb.20sFbFbFbFb.skhn100syln150sayjl50sFhs20s100snuybhy\u000f\u001b150s100s100s150sbubFl..50s100s100sFjFnFj50s _>.>150seeenulunkhnkhnb#chat\nbtcljht\u001bhuJHNY_>.>#dip\ne daJUKH_>.>HHHK_>,>#rub\n#wipe\nKHHU_>.>#offer\n10sNJUU_>,>YBYK_>.>Z#offer\nbujlFk FkFkFkFkFkFkFk10s#chat\nyt\u001bkjhnukbjuhub10s10s#name\no\n#name\nd\nFyFyFyFyFyFyFyFyt\u001bhulknnbyde20ss.t\u001b10sUHBN_>,>FuFlFlUUHK_>.>Fn20s20s   \\    #rub\nUBL H_>.>FkFk      Fk        f \u001b#loot\nhYB  nny y y\u001b  K"
+  }
+ ]
+}

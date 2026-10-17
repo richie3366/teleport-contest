@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>Cj\u0017wand of striking\nzj>Fk \u0017wand of digging\nzkl\u0017scroll of earth\nrl ukjkkk10sk\u0017wand of digging\nzmj10sj10sjjljkkjk10skljkujnkj10sjkkjynkkjjjjkkkjkjjkkkjk\u0016?\n>E\u0017blessed ring of levitation\nPnr kulhuuuukkukuyknu\u0017scroll of earth\nro   yny   y ny\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51751023,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>Cj\u0017wand of striking\nzj>Fk \u0017wand of digging\nzkl\u0017scroll of earth\nrl ukjkkk10sk\u0017wand of digging\nzmj10sj10sjjljkkjk10skljkujnkj10sjkkjynkkjjjjkkkjkjjkkkjk\u0016?\n>E\u0017blessed ring of levitation\nPnr kulhuuuukkukuyknu\u0017scroll of earth\nro   yny   y ny\u001b  F"
+  }
+ ]
+}

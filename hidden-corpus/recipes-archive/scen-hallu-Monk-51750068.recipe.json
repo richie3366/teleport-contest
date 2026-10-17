@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic lamp\n\u0017blessed leash\n\u0017blessed +3 helm of telepathy\nWl\u0017blessed ring of free action\nPmr\u0017blessed magic harp\n\u0017blessed 20 daggers\nQo#wizintrinsic\nh\n i\u001bhhhfjfjfb\u0017potion of sleeping\nqpsfjfktonfn\u0007lichen\n\u0007hobbit\nFlFns20s   s20s  \u0007troll\nFjFj Fj  n Fn    nFj   nFj \u00163\n#wizintrinsic\nh\n \u0007kobold shaman\nFk  n  nFl  Fk   nFk Fl \u00163\nfk fk  n tok \u0018\u001bjjujtokfk    n fk  fk   n #invoke\n\u001b\u00169\n#wizintrinsic\nh\n\u0017potion of confusion\nqq .h  n \u0017potion of confusion\nqr  sm. ;k, \u001bm.E- I am a fish\n   n #chat\nk #wizintrinsic\nh\n;k,E-n  ad aerarium\n  n #chat\nk  #pray\ny y     \u0017blessed spellbook of knock\nrs  sm.  n  Za\n  : #wizintrinsic\nh\n\u0007sewer rat\nFkFk   n  Fh  Fh   n Fk    yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51750068,
+   "datetime": "20090504171203",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic lamp\n\u0017blessed leash\n\u0017blessed +3 helm of telepathy\nWl\u0017blessed ring of free action\nPmr\u0017blessed magic harp\n\u0017blessed 20 daggers\nQo#wizintrinsic\nh\n i\u001bhhhfjfjfb\u0017potion of sleeping\nqpsfjfktonfn\u0007lichen\n\u0007hobbit\nFlFns20s   s20s  \u0007troll\nFjFj Fj  n Fn    nFj   nFj \u00163\n#wizintrinsic\nh\n \u0007kobold shaman\nFk  n  nFl  Fk   nFk Fl \u00163\nfk fk  n tok \u0018\u001bjjujtokfk    n fk  fk   n #invoke\n\u001b\u00169\n#wizintrinsic\nh\n\u0017potion of confusion\nqq .h  n \u0017potion of confusion\nqr  sm. ;k, \u001bm.E- I am a fish\n   n #chat\nk #wizintrinsic\nh\n;k,E-n  ad aerarium\n  n #chat\nk  #pray\ny y     \u0017blessed spellbook of knock\nrs  sm.  n  Za\n  : #wizintrinsic\nh\n\u0007sewer rat\nFkFk   n  Fh  Fh   n Fk    yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

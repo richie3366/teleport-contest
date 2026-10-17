@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " tbnt\u001b\u001bn10s     20s#chat\nk#sit\nf \u001b\u001bjBLLH_ \u001b>.>Fl.sNJLB_>.>#force\n#monster\nJJYK_>.>HKJU_>.><YKHK_>,>FuFjsL#sit\n\u001bBHJN_>.>FlFk 20sLPLKKY_>,>JHYY_>.>UHUB_>.>#ride\ny#rub\n\u000f\u001bJJYY_>.>KBUL_>.>NYBU_>.>ULHY_>,>\u000f\u001b\u0004u#chat\nn#monster\nnll150s\u0018\u001b100snkk100sFb..i\u001bjyn50skjy150s150sjhy100sFj..\\   _>.>\\   100s150s_>,>50sFjFjFjFjFjFjFjss_>,>ainn\\   yjh50s50s100s100s150sFjFjFj150sehjun150sNBJJ_>.>#name\nm\n<BKNY_>c:<KBNL_>.>HBUK_>.>HUBL_>,>FbssUJJJ_>,>FkFhFh\u000f\u001bUYLL_>.><NUYK_>.>k#turn\nYUYB_>,>#ride\ny;_.#chat\nkuhjb20st\u001b\u001bt\u001b\u001b#turn\nl#dip\niHJUN_>,>Fhss\u000f\u001b#force\nJBKY_>.>BYKK_>.>#invoke\n\u001b\u001b#jump\nUYUH_>.>NJJH_>.>YHHJ_>.>Fk..\u000f\u001blllh#chat\nl#name\nm\nnh#name\nm,BHHK_>,>#untrap\nucjHYYH_>,>r\u001b\u001b#jump\nLKHB_>,><BLNH_>.>\u0014ck#conduct\n #pray\ny  i\u001bybj_>.>150sFk20sFk\u000f\u001b150sblk100sFj..100sf \u001b\u001b150sFjFjFj_>.>\u0018\u001bjnhFl20ss100sFlFlFl_>,>150syklbnh#force\nhuu<\\   100s100s50sFjFjFjFjFj20si\u001b100sFk.20s100shjj100sk#force\n#ride\n.ehnyyjnyhlk50s100sFlFl.jhjkkjubj150sehi\u001bW100s50sunlFkFkFkW\u000f\u001b_>.>100seg#terrain\n\u001b_>,>50sehhkn_>.>150s\u0018\u001br\u001b\u001b100seghybyyj100sehnlkyjbf \u001b\u001b#offer\n#twoweapon\nybub20s20s#chat\njt\u001b\u001bb\u0018\u001b#conduct"
+ },
+ "segments": [
+  {
+   "seed": 51750023,
+   "datetime": "20160627020337",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\n",
+   "moves": " tbnt\u001b\u001bn10s     20s#chat\nk#sit\nf \u001b\u001bjBLLH_ \u001b>.>Fl.sNJLB_>.>#force\n#monster\nJJYK_>.>HKJU_>.><YKHK_>,>FuFjsL#sit\n\u001bBHJN_>.>FlFk 20sLPLKKY_>,>JHYY_>.>UHUB_>.>#ride\ny#rub\n\u000f\u001bJJYY_>.>KBUL_>.>NYBU_>.>ULHY_>,>\u000f\u001b\u0004u#chat\nn#monster\nnll150s\u0018\u001b100snkk100sFb..i\u001bjyn50skjy150s150sjhy100sFj..\\   _>.>\\   100s150s_>,>50sFjFjFjFjFjFjFjss_>,>ainn\\   yjh50s50s100s100s150sFjFjFj150sehjun150sNBJJ_>.>#name\nm\n<BKNY_>c:<KBNL_>.>HBUK_>.>HUBL_>,>FbssUJJJ_>,>FkFhFh\u000f\u001bUYLL_>.><NUYK_>.>k#turn\nYUYB_>,>#ride\ny;_.#chat\nkuhjb20st\u001b\u001bt\u001b\u001b#turn\nl#dip\niHJUN_>,>Fhss\u000f\u001b#force\nJBKY_>.>BYKK_>.>#invoke\n\u001b\u001b#jump\nUYUH_>.>NJJH_>.>YHHJ_>.>Fk..\u000f\u001blllh#chat\nl#name\nm\nnh#name\nm,BHHK_>,>#untrap\nucjHYYH_>,>r\u001b\u001b#jump\nLKHB_>,><BLNH_>.>\u0014ck#conduct\n #pray\ny  i\u001bybj_>.>150sFk20sFk\u000f\u001b150sblk100sFj..100sf \u001b\u001b150sFjFjFj_>.>\u0018\u001bjnhFl20ss100sFlFlFl_>,>150syklbnh#force\nhuu<\\   100s100s50sFjFjFjFjFj20si\u001b100sFk.20s100shjj100sk#force\n#ride\n.ehnyyjnyhlk50s100sFlFl.jhjkkjubj150sehi\u001bW100s50sunlFkFkFkW\u000f\u001b_>.>100seg#terrain\n\u001b_>,>50sehhkn_>.>150s\u0018\u001br\u001b\u001b100seghybyyj100sehnlkyjbf \u001b\u001b#offer\n#twoweapon\nybub20s20s#chat\njt\u001b\u001bb\u0018\u001b#conduct"
+  }
+ ]
+}

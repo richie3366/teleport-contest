@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "B UJN_ \u001b>.>Fl s.<JJYK_>,>UHUL_>.>LBBJ_>.>FyFys\u000f\u001bi\u001b<Sy\u001b eh\u0018\u001b\\   <#pray\ny  #twoweapon\nyok#levelchange\n\u0017\u0007.ss20s20ss20sss\u0007ssss.\u0007ss20s20ss",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51751007,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\n",
+   "moves": "B UJN_ \u001b>.>Fl s.<JJYK_>,>UHUL_>.>LBBJ_>.>FyFys\u000f\u001bi\u001b<Sy\u001b"
+  },
+  {
+   "seed": 52251007,
+   "datetime": "20130411034721",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\n",
+   "moves": " eh\u0018\u001b\\   <#pray\ny  #twoweapon\nyok#levelchange\n\u0017\u0007.ss20s20ss20sss\u0007ssss.\u0007ss20s20ss"
+  }
+ ]
+}

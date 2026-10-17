@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 cloak of magic resistance\nWg\u0017blessed +3 helm of telepathy\nWh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n          \u0007dwarf\n#wizidentify\n\u001bFh  Fh Fj Fh_ \u001b,qj#overview\n\u001b#conduct\n \u0018\u001b#dip\na#offer\n#pray\ny y #chat\nk#jump\n#wizdetect\n\u0006njy_>,s_{._,q#vanquished\n #genocided\nvampire lord\n\u000f\u001b#name\n\u001b#adjust\nf\u001b#chat\ny#turn\n#wizintrinsic\nsg\n uuni\u001b\u0016?\n\u001b\u0006#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n#wizdetect\n\u0006yjks_{.q\u0007bugbear\n#version\n  #history\n                  #annotate\nfoo\n\u000f\u001b#wipe\n#loot\n#chat\nn#chat\nn#polyself\nair elemental\n  .sFnFnFnFn\u001624\n\u0006#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nny#turn\n#sit\n#polyself\nmind flayer\n sm..bFh   Fl hby\u0018\u001b_>._.\u0007kobold shaman\n#vanquished\n #genocided\nmaster lich\nf#annotate\n\u001b\u0018\u001b#dip\nd#offer\n#pray\ny y #chat\nk#jump\n#polyself\ntroll\n#monster\nssFk.kub_>,_.: \u0007yellow mold\n#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u000f\u001b#name\ni\n#adjust\ni\u001b#chat\ny#turn\n#polyself\nred dragon\n #monster\nk.20s Fj Fjhby_ooo.Fn_.,\u0007hobbit\n#version\n  #history\n                  #annotate\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #wizidentify\n\u001bhuj_ooooo.Fu_.,Fk,#overview\n\u001b#conduct\n \u000f\u001b#wipe\n#loot\n#chat\nj#chat\nk#jump\n#polys"
+ },
+ "segments": [
+  {
+   "seed": 51750009,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:run\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 cloak of magic resistance\nWg\u0017blessed +3 helm of telepathy\nWh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n          \u0007dwarf\n#wizidentify\n\u001bFh  Fh Fj Fh_ \u001b,qj#overview\n\u001b#conduct\n \u0018\u001b#dip\na#offer\n#pray\ny y #chat\nk#jump\n#wizdetect\n\u0006njy_>,s_{._,q#vanquished\n #genocided\nvampire lord\n\u000f\u001b#name\n\u001b#adjust\nf\u001b#chat\ny#turn\n#wizintrinsic\nsg\n uuni\u001b\u0016?\n\u001b\u0006#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n#wizdetect\n\u0006yjks_{.q\u0007bugbear\n#version\n  #history\n                  #annotate\nfoo\n\u000f\u001b#wipe\n#loot\n#chat\nn#chat\nn#polyself\nair elemental\n  .sFnFnFnFn\u001624\n\u0006#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nny#turn\n#sit\n#polyself\nmind flayer\n sm..bFh   Fl hby\u0018\u001b_>._.\u0007kobold shaman\n#vanquished\n #genocided\nmaster lich\nf#annotate\n\u001b\u0018\u001b#dip\nd#offer\n#pray\ny y #chat\nk#jump\n#polyself\ntroll\n#monster\nssFk.kub_>,_.: \u0007yellow mold\n#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u000f\u001b#name\ni\n#adjust\ni\u001b#chat\ny#turn\n#polyself\nred dragon\n #monster\nk.20s Fj Fjhby_ooo.Fn_.,\u0007hobbit\n#version\n  #history\n                  #annotate\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #wizidentify\n\u001bhuj_ooooo.Fu_.,Fk,#overview\n\u001b#conduct\n \u000f\u001b#wipe\n#loot\n#chat\nj#chat\nk#jump\n#polys"
+  }
+ ]
+}

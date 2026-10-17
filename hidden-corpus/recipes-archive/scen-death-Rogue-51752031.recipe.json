@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of digging\nzi> szi> szi> 20szi>   yy\u001bny y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 51752031,
+   "datetime": "20231201034728",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\nzi> szi> szi> 20szi>   yy\u001bny y\u001by  ."
+  }
+ ]
+}
