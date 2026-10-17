@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nWg\u0016?\n>w\u0006_ \u001b,,\u0014;20s._ooooooo,,p\u00167\nhlk \u0016?\n>w\u0006__,   \u001b_.#chat\nb#pray\ny y  \u0016?\ncyyb\u0016?\n>w\u0006_oo,Fh_.,Fh_o.Fh _,Fh,$_ooooooo. Fh_.Fh,$__. \u001b_..#chat\nb\u0016?\n>Bhnb\u0016?\n>w\u0006kkj#chat\nj_oooooo,,#chat\nb_ooooooooo. Fb   n_.Fh,p_oo.Fj_,  nFj_ooo.Fj_.,,:_ooooooo._,.,p_ooo. _.;<.Fb,p__._.;,#chat\nn#pray\ny y ynk#chat\nh_ooo,_._ooo._,,p__._,:#chat\nl#pray\ny y __._.;m.#chat\ny#pray\ny y _oooo._.,\u001b: __._,,#chat\nl_oo,Fk_.@._oo._,,\u001b$lbu#chat\nkynb#chat\nl__._..#chat\nn#pray\ny y __._.m,#chat\nh_oooooo._,m,,p_oooo._,,\u001bpyju#chat\nnuku#chat\nh_oooooo._.;>.,\u0017amulet of ESP\ndi\u0016?\n>Bkjk\u0016?\n>w\u0006__._.<.#chat\nu_ooooooo._,_o._.:,\u0017gray stone\ndj__,_,;m,#chat\nj#pray\ny y _ooooooooo._._o._.,\u001bp_{._.m,\u001bqkyb#chat\nb_ooooo._,,phlh#chat\nk_{._.>.q\u0016?\n>Bnky\u0016?\n>w\u0006bnn#chat\nu_oooooooo.Fh_.@.Fh,#chat\nh_{,Fh_.>.q\u00167\nnlh\u0016?\n>w\u0006nyn#chat\ny_ooo"
+ },
+ "segments": [
+  {
+   "seed": 51850085,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nWg\u0016?\n>w\u0006_ \u001b,,\u0014;20s._ooooooo,,p\u00167\nhlk \u0016?\n>w\u0006__,   \u001b_.#chat\nb#pray\ny y  \u0016?\ncyyb\u0016?\n>w\u0006_oo,Fh_.,Fh_o.Fh _,Fh,$_ooooooo. Fh_.Fh,$__. \u001b_..#chat\nb\u0016?\n>Bhnb\u0016?\n>w\u0006kkj#chat\nj_oooooo,,#chat\nb_ooooooooo. Fb   n_.Fh,p_oo.Fj_,  nFj_ooo.Fj_.,,:_ooooooo._,.,p_ooo. _.;<.Fb,p__._.;,#chat\nn#pray\ny y ynk#chat\nh_ooo,_._ooo._,,p__._,:#chat\nl#pray\ny y __._.;m.#chat\ny#pray\ny y _oooo._.,\u001b: __._,,#chat\nl_oo,Fk_.@._oo._,,\u001b$lbu#chat\nkynb#chat\nl__._..#chat\nn#pray\ny y __._.m,#chat\nh_oooooo._,m,,p_oooo._,,\u001bpyju#chat\nnuku#chat\nh_oooooo._.;>.,\u0017amulet of ESP\ndi\u0016?\n>Bkjk\u0016?\n>w\u0006__._.<.#chat\nu_ooooooo._,_o._.:,\u0017gray stone\ndj__,_,;m,#chat\nj#pray\ny y _ooooooooo._._o._.,\u001bp_{._.m,\u001bqkyb#chat\nb_ooooo._,,phlh#chat\nk_{._.>.q\u0016?\n>Bnky\u0016?\n>w\u0006bnn#chat\nu_oooooooo.Fh_.@.Fh,#chat\nh_{,Fh_.>.q\u00167\nnlh\u0016?\n>w\u0006nyn#chat\ny_ooo"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic harp\n\u0017blessed bell of opening\n\u0017blessed magic lamp\n\u0017blessed leash\n\u0017blessed 20 daggers\nQj#levelchange\n20\n                   #wizintrinsic\nh\n \u0007gnome\nFh20sFh.\u0017potion of acid\nqks20s\u0007newt\nFl20sssss\u0017blessed scroll of identify\nrl j\n \u0017glob of green slime\nem #wizintrinsic\nh\n \u0017wand of striking\nznh znuzn.znhzn\u0017potion of see invisible\nqo sm.s\u0007hill orc\n\u0007dwarf\nFlFy Fy     n Fy   Fy#wizintrinsic\nh\n;l; \u001b.E- X marks the spot\n#pray\ny y     fl flfl fl\u0017blessed spellbook of cone of cold\nrp  20sZa\n:  #wizintrinsic\nh\n \u0017blessed spellbook of fireball\nrq sZa\n:  \u0017wand of digging\nzrjzruzrjzrj\u0007dwarf\nFhFh FhFu \u0007sewer rat\n\u0007lichen\nFk FlFhFuFu.20s#wizintrinsic\nh\n \u0007hill orc\nFlFlFlsss.\u0007troll\nFkFk Fj  Fj Fj Fk Fk   n\u00168\n  \u0006_<. Fl  _.Fl sm. 20s  \u0016?\n>>M      javelin\n\u0006m,_>.#wizintrinsic\nh\n\u0017potion of booze\nqu  n sm.      \u0017spellbook of cause fear\nrv        n s             n Z\u001b:                   n      n      \u00167\n#wizintrinsic\nh\n\u0017spellbook of cone of cold\nrws             n     Za\n  :  ;j;E#pray\ny yi\u001bl   n  u    n    k          \u00168\n#wizintrin"
+ },
+ "segments": [
+  {
+   "seed": 51850088,
+   "datetime": "20190113003927",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic harp\n\u0017blessed bell of opening\n\u0017blessed magic lamp\n\u0017blessed leash\n\u0017blessed 20 daggers\nQj#levelchange\n20\n                   #wizintrinsic\nh\n \u0007gnome\nFh20sFh.\u0017potion of acid\nqks20s\u0007newt\nFl20sssss\u0017blessed scroll of identify\nrl j\n \u0017glob of green slime\nem #wizintrinsic\nh\n \u0017wand of striking\nznh znuzn.znhzn\u0017potion of see invisible\nqo sm.s\u0007hill orc\n\u0007dwarf\nFlFy Fy     n Fy   Fy#wizintrinsic\nh\n;l; \u001b.E- X marks the spot\n#pray\ny y     fl flfl fl\u0017blessed spellbook of cone of cold\nrp  20sZa\n:  #wizintrinsic\nh\n \u0017blessed spellbook of fireball\nrq sZa\n:  \u0017wand of digging\nzrjzruzrjzrj\u0007dwarf\nFhFh FhFu \u0007sewer rat\n\u0007lichen\nFk FlFhFuFu.20s#wizintrinsic\nh\n \u0007hill orc\nFlFlFlsss.\u0007troll\nFkFk Fj  Fj Fj Fk Fk   n\u00168\n  \u0006_<. Fl  _.Fl sm. 20s  \u0016?\n>>M      javelin\n\u0006m,_>.#wizintrinsic\nh\n\u0017potion of booze\nqu  n sm.      \u0017spellbook of cause fear\nrv        n s             n Z\u001b:                   n      n      \u00167\n#wizintrinsic\nh\n\u0017spellbook of cone of cold\nrws             n     Za\n  :  ;j;E#pray\ny yi\u001bl   n  u    n    k          \u00168\n#wizintrin"
+  }
+ ]
+}

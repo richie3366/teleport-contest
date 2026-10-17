@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nji\n \u0017candy bar\nefE- Vlad was here\n\u0017blessed scroll of scare monster\nrg..s#wizintrinsic\nf\n \u0017potion of extra healing\nqhyyb\u0017candy bar\nei\u0017glob of green slime\nej    20s20s    n ."
+ },
+ "segments": [
+  {
+   "seed": 51851030,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  #wizintrinsic\nji\n \u0017candy bar\nefE- Vlad was here\n\u0017blessed scroll of scare monster\nrg..s#wizintrinsic\nf\n \u0017potion of extra healing\nqhyyb\u0017candy bar\nei\u0017glob of green slime\nej    20s20s    n ."
+  }
+ ]
+}

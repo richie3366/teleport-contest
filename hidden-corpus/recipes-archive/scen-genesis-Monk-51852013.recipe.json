@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \u0017gray dragon scale mail\nW\u001b..20s \u0007shade\nFh sys20s   ynnny y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51852013,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017gray dragon scale mail\nW\u001b..20s \u0007shade\nFh sys20s   ynnny y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed spellbook of create familiar\nrj   s\u0017blessed spellbook of stone to flesh\nrk s+\u001b\u0007kobold\nZd\nFl \u0007grid bug\nZc\n\u0007yellow mold\nZb\n\u001b: Za\n Zb\n\u0007sewer rat\nZd\nFu Zd\n\u0007hill orc\nZb\n#turn\n            yy\u001by  y y y\u001by  "
+ },
+ "segments": [
+  {
+   "seed": 51851029,
+   "datetime": "20100210133730",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed spellbook of create familiar\nrj   s\u0017blessed spellbook of stone to flesh\nrk s+\u001b\u0007kobold\nZd\nFl \u0007grid bug\nZc\n\u0007yellow mold\nZb\n\u001b: Za\n Zb\n\u0007sewer rat\nZd\nFu Zd\n\u0007hill orc\nZb\n#turn\n            yy\u001by  y y y\u001by  "
+  }
+ ]
+}

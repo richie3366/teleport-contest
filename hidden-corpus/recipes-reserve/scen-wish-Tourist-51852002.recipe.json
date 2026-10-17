@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u00173 Stormbringer\n wm Fkss#invoke\nm X\u0017jumping boots\nWns.sTn\u0017floating eye corpse\n\u0007jellyfish\neo  s.ss\u0017cursed -1 ring of adornment\n\u0007cobra\nPpl20ssk.m.\u0017blessed +3 ring of searching\n\u0007mind flayer\nPq   nsm.     sm.     sm.    n  20s   n  20s   yy\u001by   y y y\u001by  "
+ },
+ "segments": [
+  {
+   "seed": 51852002,
+   "datetime": "20130907025145",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u00173 Stormbringer\n wm Fkss#invoke\nm X\u0017jumping boots\nWns.sTn\u0017floating eye corpse\n\u0007jellyfish\neo  s.ss\u0017cursed -1 ring of adornment\n\u0007cobra\nPpl20ssk.m.\u0017blessed +3 ring of searching\n\u0007mind flayer\nPq   nsm.     sm.     sm.    n  20s   n  20s   yy\u001by   y y y\u001by  "
+  }
+ ]
+}

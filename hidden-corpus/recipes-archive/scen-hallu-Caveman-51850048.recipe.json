@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic harp\n\u0017blessed +3 helm of telepathy\nWg\u0017blessed leash\n\u0017blessed magic lamp\n\u0017blessed +3 speed boots\nWj\u0017blessed 20 daggers\nQk#wizintrinsic\nh\n \u0017blessed scroll of teleportation\n rl  \u001b>. \u0017spellbook of sleep\n rmsm.Z:  \u001617\n \u0006_<._..s;_.E- X marks the spot\n#chat\nn#pray\ny y#wizintrinsic\nh\n\u0017blessed spellbook of knock\nrnsZ: \u0007yellow mold\nsFj20s20s.20ss\u0017scroll of magic mapping\nro\u0017blessed spellbook of cause fear\nrpsZ: #wizintrinsic\nh\n \u0016?\n>J     potion of blindness\n_{,>;l.E- ad aerarium\n#chat\nl   \u0016?\nd\u0017cursed potion of oil\nqs\u0017cursed Sting\nwt   n    n   n Fl    n     n   n    n   Fj  n    n Fu   n   n   n   \u0017blessed grappling hook\nau\u0017blessed scroll of enchant weapon\n\u0007Aleax\nrv\u0017dwarvish mattock\nwwFkFj Fj  n     n FjFk.  n      s  yy\u001by   nny\u001b  #"
+ },
+ "segments": [
+  {
+   "seed": 51850048,
+   "datetime": "20190422051624",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic harp\n\u0017blessed +3 helm of telepathy\nWg\u0017blessed leash\n\u0017blessed magic lamp\n\u0017blessed +3 speed boots\nWj\u0017blessed 20 daggers\nQk#wizintrinsic\nh\n \u0017blessed scroll of teleportation\n rl  \u001b>. \u0017spellbook of sleep\n rmsm.Z:  \u001617\n \u0006_<._..s;_.E- X marks the spot\n#chat\nn#pray\ny y#wizintrinsic\nh\n\u0017blessed spellbook of knock\nrnsZ: \u0007yellow mold\nsFj20s20s.20ss\u0017scroll of magic mapping\nro\u0017blessed spellbook of cause fear\nrpsZ: #wizintrinsic\nh\n \u0016?\n>J     potion of blindness\n_{,>;l.E- ad aerarium\n#chat\nl   \u0016?\nd\u0017cursed potion of oil\nqs\u0017cursed Sting\nwt   n    n   n Fl    n     n   n    n   Fj  n    n Fu   n   n   n   \u0017blessed grappling hook\nau\u0017blessed scroll of enchant weapon\n\u0007Aleax\nrv\u0017dwarvish mattock\nwwFkFj Fj  n     n FjFk.  n      s  yy\u001by   nny\u001b  #"
+  }
+ ]
+}

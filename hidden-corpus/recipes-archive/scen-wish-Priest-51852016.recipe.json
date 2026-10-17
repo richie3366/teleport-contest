@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed the Candelabrum of Invocation\nwaFl 20ss#invoke\niX\u0017blessed gray stone\n\u0007vampire bat\nt\u001b\u0017cursed wand of slow monster\nzkk\u0017uncursed eucalyptus leaf\nel sj.m.\u0017wand of striking\nzmk \u0017ring of invisibility\nPnr   yy\u001by   y ny\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 51852016,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed the Candelabrum of Invocation\nwaFl 20ss#invoke\niX\u0017blessed gray stone\n\u0007vampire bat\nt\u001b\u0017cursed wand of slow monster\nzkk\u0017uncursed eucalyptus leaf\nel sj.m.\u0017wand of striking\nzmk \u0017ring of invisibility\nPnr   yy\u001by   y ny\u001by  s"
+  }
+ ]
+}

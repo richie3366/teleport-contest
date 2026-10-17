@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    \u001710 daggers\n Qby\u0007dwarf\nhufj fhfhfnhjl ,#enhance\nya\nb\n\u001b#levelchange\n14\n        \u0017yumi\nwi\u001720 ya\nQj\u0007owlbear\nbfk fk fk fk Fk Fk \u0007gnome\nj  ynny y\u001bn  f"
+ },
+ "segments": [
+  {
+   "seed": 51851028,
+   "datetime": "20130119024710",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n    \u001710 daggers\n Qby\u0007dwarf\nhufj fhfhfnhjl ,#enhance\nya\nb\n\u001b#levelchange\n14\n        \u0017yumi\nwi\u001720 ya\nQj\u0007owlbear\nbfk fk fk fk Fk Fk \u0007gnome\nj  ynny y\u001bn  f"
+  }
+ ]
+}

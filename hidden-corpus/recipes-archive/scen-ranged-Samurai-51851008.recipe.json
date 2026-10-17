@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00175 boomerangs\nQg\u00072 acid blob\nklfhfn\u0017potion of restore ability\ntcblhk,\u0017elven bow\nwi\u001720 elven arrows\nQj\u0007soldier\nnbfufkfk fuFn    yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51851008,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u00175 boomerangs\nQg\u00072 acid blob\nklfhfn\u0017potion of restore ability\ntcblhk,\u0017elven bow\nwi\u001720 elven arrows\nQj\u0007soldier\nnbfufkfk fuFn    yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

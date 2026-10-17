@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0017elven mithril-coat\nW\u001bsss\u0007wererat\nFuFuFlss20ss.\u0017300 gold pieces\n\u0007leprechaun\nFu Fu s.20sFk 20s20s20s#levelchange\n12\n \u0016?\nei\u001bzH ;_. \u001b>.\u000620ssm.\u0016?\nn i\u001bW\u001ba\u001b;m.\u0006s.\u0016?\n>Ie#turn\n#pray\ny y \u0006s20s\u001627\n   ll\u0017ruby\nEg I am a fish\n: \u0017wand of death\nEh \u0017wand of polymorph\nEi \u0017wand of make invisible\nEj  Elbereth\n: lE- X marks the spot\n\u0007hill orc\nsm..m.sh\u001612\n#levelchange\n8\n \u0017blessed ring of polymorph control\nPkl\u0017oilskin cloak\nWl sm. sm. sm. #polyself\npony\n  20s .u\u0007baby purple worm\nFb   Fl Fl  .m. sm.20s  #polyself\nmind flayer\n #monster\n    .m. sm. \u0007mumak\nFj  Fl  Fb       .m.20s .m.  n #polyself\nwater elemental\n#monster\n.s  20s .m.sm.  n#polyself\nred dragon\n #monster\nsm. su\u0007dwarf\nFj    Fb Fj  sl sks\u000f\u001b\u00165\n  \u0007giant beetle\n;h:  sm..m.20s\u0007Pestilence\ny.ysm..m. 20s        nsm.  20s   n    nsm.  .n    n 20s   n    \u0007bone devil\n;h.sm.   n    n20s  20s  n     n \u00163\nny\u0017wand of polymorph\nEm I am a fish\n   n\u0017wand of secret door detection\nEn n  I am a fish\n  : b\u0017wand of probing\nEo ad aerarium\n   n    n : \u001630\n   \u001611\ni\u001bt$b    namnn Wf    yy\u001bnny y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 51850041,
+   "datetime": "20151014175217",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0017elven mithril-coat\nW\u001bsss\u0007wererat\nFuFuFlss20ss.\u0017300 gold pieces\n\u0007leprechaun\nFu Fu s.20sFk 20s20s20s#levelchange\n12\n \u0016?\nei\u001bzH ;_. \u001b>.\u000620ssm.\u0016?\nn i\u001bW\u001ba\u001b;m.\u0006s.\u0016?\n>Ie#turn\n#pray\ny y \u0006s20s\u001627\n   ll\u0017ruby\nEg I am a fish\n: \u0017wand of death\nEh \u0017wand of polymorph\nEi \u0017wand of make invisible\nEj  Elbereth\n: lE- X marks the spot\n\u0007hill orc\nsm..m.sh\u001612\n#levelchange\n8\n \u0017blessed ring of polymorph control\nPkl\u0017oilskin cloak\nWl sm. sm. sm. #polyself\npony\n  20s .u\u0007baby purple worm\nFb   Fl Fl  .m. sm.20s  #polyself\nmind flayer\n #monster\n    .m. sm. \u0007mumak\nFj  Fl  Fb       .m.20s .m.  n #polyself\nwater elemental\n#monster\n.s  20s .m.sm.  n#polyself\nred dragon\n #monster\nsm. su\u0007dwarf\nFj    Fb Fj  sl sks\u000f\u001b\u00165\n  \u0007giant beetle\n;h:  sm..m.20s\u0007Pestilence\ny.ysm..m. 20s        nsm.  20s   n    nsm.  .n    n 20s   n    \u0007bone devil\n;h.sm.   n    n20s  20s  n     n \u00163\nny\u0017wand of polymorph\nEm I am a fish\n   n\u0017wand of secret door detection\nEn n  I am a fish\n  : b\u0017wand of probing\nEo ad aerarium\n   n    n : \u001630\n   \u001611\ni\u001bt$b    namnn Wf    yy\u001bnny y\u001by  ."
+  }
+ ]
+}

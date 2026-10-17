@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "yuu\u0017rust trap\nn#untrap\nyyl\u0017rolling boulder trap\nny20ssjh\u0017level teleporter\nl^h#untrap\nh;>. \u001b<.#untrap\nnz#levelchange\n30\n                             llhn\u0017trap door\nu^bb sy20sy\u0017fire trap\nh^ll..#terrain\nb\no:#sit\n"
+ },
+ "segments": [
+  {
+   "seed": 51851001,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "yuu\u0017rust trap\nn#untrap\nyyl\u0017rolling boulder trap\nny20ssjh\u0017level teleporter\nl^h#untrap\nh;>. \u001b<.#untrap\nnz#levelchange\n30\n                             llhn\u0017trap door\nu^bb sy20sy\u0017fire trap\nh^ll..#terrain\nb\no:#sit\n"
+  }
+ ]
+}

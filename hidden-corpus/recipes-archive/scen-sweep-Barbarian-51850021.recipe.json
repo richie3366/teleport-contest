@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u0017pick-axe\n_ \u001bm,ae >ael lae>s\u0006_oooo.ae>  aej juu\u0018\u001b#levelchange\n16\n        \u0016?\n>y  _mmmmm.Fj_,             n  Fh    #chat\nj_m.     n  Fb   _.#chat\nb   _mmmmm,   n Fn    _.#chat\nb   _mmmm.Fn  n    _,#chat\nl    _m.Fk   n    _.#chat\nb    ;k:  \u0006_>,     nFb  _.@.Fn    >Fj    n  Fj  _>.Fl    _,  n    Fn   >Fl      nFk   _>.Fu    _.   n   Fj    >Fl    n  Fy    \u0016?\n>zH:#turn\n\u00163\n\u0007tame housecat\n\u0007little dog\n\u0017huge chunk of meat\n tby      n#chat\nk\u0017magic whistle\nu        j       n  u      ag      \u0007grid bug\n20s    n  sj       sj      n 20s    .m.sm.   \u0007kobold\n\u0017scroll of taming\nrh       b         #chat\nj\u0017magic whistle\nh     b     lai         \\   #levelchange\n10\n  u h      n    l    n   \u0017fountain\nqy        qy    qy#dip\ney   k   \u0017throne\n#sit\n           #sit\n #sit\n    #sit\n    u       n\u0017moat\ny      n j   #twoweapon\n#rub\n#levelchange\n6\n h  yy\u001by  nny\u001b  k"
+ },
+ "segments": [
+  {
+   "seed": 51850021,
+   "datetime": "20070914044624",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=mention_walls\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u0017pick-axe\n_ \u001bm,ae >ael lae>s\u0006_oooo.ae>  aej juu\u0018\u001b#levelchange\n16\n        \u0016?\n>y  _mmmmm.Fj_,             n  Fh    #chat\nj_m.     n  Fb   _.#chat\nb   _mmmmm,   n Fn    _.#chat\nb   _mmmm.Fn  n    _,#chat\nl    _m.Fk   n    _.#chat\nb    ;k:  \u0006_>,     nFb  _.@.Fn    >Fj    n  Fj  _>.Fl    _,  n    Fn   >Fl      nFk   _>.Fu    _.   n   Fj    >Fl    n  Fy    \u0016?\n>zH:#turn\n\u00163\n\u0007tame housecat\n\u0007little dog\n\u0017huge chunk of meat\n tby      n#chat\nk\u0017magic whistle\nu        j       n  u      ag      \u0007grid bug\n20s    n  sj       sj      n 20s    .m.sm.   \u0007kobold\n\u0017scroll of taming\nrh       b         #chat\nj\u0017magic whistle\nh     b     lai         \\   #levelchange\n10\n  u h      n    l    n   \u0017fountain\nqy        qy    qy#dip\ney   k   \u0017throne\n#sit\n           #sit\n #sit\n    #sit\n    u       n\u0017moat\ny      n j   #twoweapon\n#rub\n#levelchange\n6\n h  yy\u001by  nny\u001b  k"
+  }
+ ]
+}

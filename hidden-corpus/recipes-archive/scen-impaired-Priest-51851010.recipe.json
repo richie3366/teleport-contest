@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\ngh\n \u0017blindfold\najZa\n ;m. \u001b:   lny\u0017wand of secret door detection\nzkzk\u0017scroll of stinking cloud\nrl.s."
+ },
+ "segments": [
+  {
+   "seed": 51851010,
+   "datetime": "20050412154226",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\ngh\n \u0017blindfold\najZa\n ;m. \u001b:   lny\u0017wand of secret door detection\nzkzk\u0017scroll of stinking cloud\nrl.s."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nW\u001b\u0017blessed +3 speed boots\nWj\u0017blessed +3 gray dragon scale mail\n W\u001b#levelchange\n14\n             \u0007mind flayer\n\u0007vampire\n\u0007aligned cleric\nn\u0017wand of cold\nzly   zly zly            \u0007vampire\n\u0007mind flayer\n\u0007incubus\n\u0017wand of sleep\nzmb      i\u001b\u0007black dragon\n\u0007baby red dragon\nsh        20s  n                 \u0017wand of lightning\nany              n Fn  Fl \u001611\n\u0007incubus\n\u0007master lich\n\u0007kobold shaman\n\u0017wand of cold\nzou  .m. zoy      zou zok     i\u001b\u0007black dragon\n\u0007silver dragon\nsm.     n .m.     sk   Fl  Fl \u001715 shuriken\nQp\u0007kobold\ntpk   tbl      fh  tpy tpufl   fh  n \u001614\ni\u001b\u0017spellbook of finger of death\nrq \u001b         n 20s \u0007gnomish wizard\n\u0007master lich\nZsm.20s  Zsm.sm.     ZZZsu     sm.\u0017spellbook of fireball\nrr  sm.     \u0007master lich\nZZZZshsh      nZZ\u0007lich\n\u0007aligned cleric\ny\u0017wand of striking\nsm.    20s     n zsy       zsb .m.     20s   n 20s zsk   .m...\u00161\n\u0007vampire\n\u0007aligned cleric\ny\u0007lich\n\u0017wand of cold\nztb   zty ztl      n sm.    \u0007vampire\n\u0007mind flayer\n\u0017wand of fire\nzul"
+ },
+ "segments": [
+  {
+   "seed": 51850064,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed shield of reflection\nW\u001b\u0017blessed +3 speed boots\nWj\u0017blessed +3 gray dragon scale mail\n W\u001b#levelchange\n14\n             \u0007mind flayer\n\u0007vampire\n\u0007aligned cleric\nn\u0017wand of cold\nzly   zly zly            \u0007vampire\n\u0007mind flayer\n\u0007incubus\n\u0017wand of sleep\nzmb      i\u001b\u0007black dragon\n\u0007baby red dragon\nsh        20s  n                 \u0017wand of lightning\nany              n Fn  Fl \u001611\n\u0007incubus\n\u0007master lich\n\u0007kobold shaman\n\u0017wand of cold\nzou  .m. zoy      zou zok     i\u001b\u0007black dragon\n\u0007silver dragon\nsm.     n .m.     sk   Fl  Fl \u001715 shuriken\nQp\u0007kobold\ntpk   tbl      fh  tpy tpufl   fh  n \u001614\ni\u001b\u0017spellbook of finger of death\nrq \u001b         n 20s \u0007gnomish wizard\n\u0007master lich\nZsm.20s  Zsm.sm.     ZZZsu     sm.\u0017spellbook of fireball\nrr  sm.     \u0007master lich\nZZZZshsh      nZZ\u0007lich\n\u0007aligned cleric\ny\u0017wand of striking\nsm.    20s     n zsy       zsb .m.     20s   n 20s zsk   .m...\u00161\n\u0007vampire\n\u0007aligned cleric\ny\u0007lich\n\u0017wand of cold\nztb   zty ztl      n sm.    \u0007vampire\n\u0007mind flayer\n\u0017wand of fire\nzul"
+  }
+ ]
+}

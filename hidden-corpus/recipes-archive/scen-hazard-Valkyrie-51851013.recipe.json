@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017bow\nweFbsFjX\u0017300 gold pieces\n\u0007leprechaun\nFb Fb  Fbss20sss.\u0007gelatinous cube\nFn  Fn   nFn Fn  FnFn    yy\u001by  y y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 51851013,
+   "datetime": "20050427030415",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017bow\nweFbsFjX\u0017300 gold pieces\n\u0007leprechaun\nFb Fb  Fbss20sss.\u0007gelatinous cube\nFn  Fn   nFn Fn  FnFn    yy\u001by  y y\u001by  ."
+  }
+ ]
+}

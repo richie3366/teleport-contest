@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWg\u0017blessed shield of reflection\nWh\u0007black dragon\n\u0007silver dragon\n20s.bFy  n Fk   n   n  \u00167\n\u00162\n\u0007silver dragon\nsm.s20s  n sl#polyself\nsilver dragon\n     #monster\n20s 20s   #monster\n#monster\n#monster\ns.\u0017wand of teleportation\n\u0017wand of death\n\u0007grid bug\n\u0007gnome\nzsm.zzzzzzz\u0017spellbook of finger of death\nrk \u001b;                  n  sm.\u0007orc shaman\n\u0007succubus\nZZsm.sm.  Z.m.    n 20s  ZZZZZ\u00163\n\u0017blessed spellbook of finger of death\nrl   n20s\u0007lich\nZZZZZZsj 20s  n  \u00169\n\u001611\n\u0017blessed spellbook of drain life\nrm .m.\u0017blessed spellbook of cone of cold\nrn 20s\u0007incubus\n\u0007mind flayer\nZZ.m.  n sh             n  ZZZZ.m.  n  .y\u001617\n\u00167\n\u00175 boomerangs\nQo\u0007jackal\n\u0007owlbear\nfn ton   n  ton   n  fh   n  n fh   yy\u001by   y y y\u001b  "
+ },
+ "segments": [
+  {
+   "seed": 51850044,
+   "datetime": "20130907014136",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWg\u0017blessed shield of reflection\nWh\u0007black dragon\n\u0007silver dragon\n20s.bFy  n Fk   n   n  \u00167\n\u00162\n\u0007silver dragon\nsm.s20s  n sl#polyself\nsilver dragon\n     #monster\n20s 20s   #monster\n#monster\n#monster\ns.\u0017wand of teleportation\n\u0017wand of death\n\u0007grid bug\n\u0007gnome\nzsm.zzzzzzz\u0017spellbook of finger of death\nrk \u001b;                  n  sm.\u0007orc shaman\n\u0007succubus\nZZsm.sm.  Z.m.    n 20s  ZZZZZ\u00163\n\u0017blessed spellbook of finger of death\nrl   n20s\u0007lich\nZZZZZZsj 20s  n  \u00169\n\u001611\n\u0017blessed spellbook of drain life\nrm .m.\u0017blessed spellbook of cone of cold\nrn 20s\u0007incubus\n\u0007mind flayer\nZZ.m.  n sh             n  ZZZZ.m.  n  .y\u001617\n\u00167\n\u00175 boomerangs\nQo\u0007jackal\n\u0007owlbear\nfn ton   n  ton   n  fh   n  n fh   yy\u001by   y y y\u001b  "
+  }
+ ]
+}

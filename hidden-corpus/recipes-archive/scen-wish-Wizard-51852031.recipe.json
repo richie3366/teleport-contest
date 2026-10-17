@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          \u0017wand of light\nzn\u0017blessed scroll of gold detection\nro  \u001b@.\u0017uncursed +0 shield of reflection\nW\u001b.m.20s sm.sm. 20s"
+ },
+ "segments": [
+  {
+   "seed": 51852031,
+   "datetime": "20131130065352",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n          \u0017wand of light\nzn\u0017blessed scroll of gold detection\nro  \u001b@.\u0017uncursed +0 shield of reflection\nW\u001b.m.20s sm.sm. 20s"
+  }
+ ]
+}

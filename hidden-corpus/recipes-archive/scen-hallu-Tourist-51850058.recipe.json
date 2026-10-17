@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 helm of telepathy\nWn\u0017blessed +3 speed boots\nWo\u0017blessed magic harp\n\u0017blessed +3 gray dragon scale mail\nWq\u0017blessed ring of free action\nPrr\u0017blessed 20 daggers\nQs#levelchange\n20\n                   #wizintrinsic\nh\n \u0017blessed scroll of fire\nrt  \u001bm,    \u0017sprig of wolfsbane\neu\u0017wand of lightning\nzvk zv.zvyzvhzvkzvl#wizintrinsic\nh\n\u0017wand of probing\nzwuzwkzw. zwk\u001610\n_>.\u0017wand of light\nzxv  zxv  zxv  zxv  zxx\u001620\n_<.\u0016?\n>>Q\u0006_<._,#wizintrinsic\nh\n\u0017blessed spellbook of light\nra20sZ#turn\n: \u0007sewer rat\n\u0007grid bug\n20s FbFhFnFn\u0017wand of slow monster\nzbhzbhzbh#wizintrinsic\nh\n\u0017wand of lightning\nzchzch zch   n zch  zch \u0007yellow mold\nFhsFyFyFyFyFyi\u001bknn\u0007sewer rat\n20sFjFj..s20s#wizintrinsic\nh\n\u0017potion of polymorph\nqd silver dragon\n20s.\u0007lichen\n\u0007bugbear\nFuFuFlFl\u0017wand of digging\nzelzelzelzelzel#wizintrinsic\nh\n\u0007soldier\n\u0007sewer rat\nFlFk Fu Fu\u0017wand of sleep\nzfu zflzfk \u0007newt\nFuFkFlFu FlFlFk f \u001b\u001bf \u001b\u001b\u0007soldier\nFyFlFbFuFy   n#wizintrinsic\nh\n\u0017blessed spellbook of sleep\nrg .m. Z#turn\n:;b,E- Elbereth Elbereth\n#"
+ },
+ "segments": [
+  {
+   "seed": 51850058,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 helm of telepathy\nWn\u0017blessed +3 speed boots\nWo\u0017blessed magic harp\n\u0017blessed +3 gray dragon scale mail\nWq\u0017blessed ring of free action\nPrr\u0017blessed 20 daggers\nQs#levelchange\n20\n                   #wizintrinsic\nh\n \u0017blessed scroll of fire\nrt  \u001bm,    \u0017sprig of wolfsbane\neu\u0017wand of lightning\nzvk zv.zvyzvhzvkzvl#wizintrinsic\nh\n\u0017wand of probing\nzwuzwkzw. zwk\u001610\n_>.\u0017wand of light\nzxv  zxv  zxv  zxv  zxx\u001620\n_<.\u0016?\n>>Q\u0006_<._,#wizintrinsic\nh\n\u0017blessed spellbook of light\nra20sZ#turn\n: \u0007sewer rat\n\u0007grid bug\n20s FbFhFnFn\u0017wand of slow monster\nzbhzbhzbh#wizintrinsic\nh\n\u0017wand of lightning\nzchzch zch   n zch  zch \u0007yellow mold\nFhsFyFyFyFyFyi\u001bknn\u0007sewer rat\n20sFjFj..s20s#wizintrinsic\nh\n\u0017potion of polymorph\nqd silver dragon\n20s.\u0007lichen\n\u0007bugbear\nFuFuFlFl\u0017wand of digging\nzelzelzelzelzel#wizintrinsic\nh\n\u0007soldier\n\u0007sewer rat\nFlFk Fu Fu\u0017wand of sleep\nzfu zflzfk \u0007newt\nFuFkFlFu FlFlFk f \u001b\u001bf \u001b\u001b\u0007soldier\nFyFlFbFuFy   n#wizintrinsic\nh\n\u0017blessed spellbook of sleep\nrg .m. Z#turn\n:;b,E- Elbereth Elbereth\n#"
+  }
+ ]
+}

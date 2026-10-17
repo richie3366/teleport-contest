@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": ">fu#dip\nfhfh#wipe\n#ride\nb#conduct\n :ri#terrain\n\u001b#wipe\n#wipe\nqhPrj#offer\n__, \u001b>.sL#conduct\n ,10sZi\u001b#tip\n\u001bolPi\u001b"
+ },
+ "segments": [
+  {
+   "seed": 51852008,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\n",
+   "moves": ">fu#dip\nfhfh#wipe\n#ride\nb#conduct\n :ri#terrain\n\u001b#wipe\n#wipe\nqhPrj#offer\n__, \u001b>.sL#conduct\n ,10sZi\u001b#tip\n\u001bolPi\u001b"
+  }
+ ]
+}

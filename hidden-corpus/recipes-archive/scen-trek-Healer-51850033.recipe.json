@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "YBUH _ \u001b>.>Fj FhFj#rub\n>HN NK_>.>Fl.20sJHLH_>.>FlFlFlNLLU_>.>UBKB _>,>FlFlFyFl .skul150s100sFhFhs#monster\n50s100sFhFhFh_>.>100sblj\u0018\u001buyh#monster\n150s100s FjFj20shju150sljjFuFuFuFuFus50s150sFh.s\u0018\u001bjku\\ \u000f\u001b50s_>.>100sbjkFbFbFhFbFbFhFhFhFh#pray\ny   y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 51850033,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=runmode:run\n",
+   "moves": "YBUH _ \u001b>.>Fj FhFj#rub\n>HN NK_>.>Fl.20sJHLH_>.>FlFlFlNLLU_>.>UBKB _>,>FlFlFyFl .skul150s100sFhFhs#monster\n50s100sFhFhFh_>.>100sblj\u0018\u001buyh#monster\n150s100s FjFj20shju150sljjFuFuFuFuFus50s150sFh.s\u0018\u001bjku\\ \u000f\u001b50s_>.>100sbjkFbFbFhFbFbFhFhFhFh#pray\ny   y\u001by  y y y\u001b  1"
+  }
+ ]
+}

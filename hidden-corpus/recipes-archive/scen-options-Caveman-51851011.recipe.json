@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " Omkn\n:sO>db\nj\n#monster\n,Op\n\\ mO>sf\n#monster\nO>ajm\nE- Elbereth\n\\ ss"
+ },
+ "segments": [
+  {
+   "seed": 51851011,
+   "datetime": "20070428225210",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:explore\n",
+   "moves": " Omkn\n:sO>db\nj\n#monster\n,Op\n\\ mO>sf\n#monster\nO>ajm\nE- Elbereth\n\\ ss"
+  }
+ ]
+}

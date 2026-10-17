@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " O>p\u001b\nv i\u001b\u001620\nmO>>>t\u001b\nOl\u001b\nOh\u001b\nOn\u001b\n\u0006_ \u001b:>FbFy_>. Fj _,.>_>._.:>#enhance\nyg\nm\n\u001b#name\nm\n\u0006_>._.m.>_>._.;<. >_>._,<.>\u0006_>._.<.>_>._..>_>._,.>\u0006_>,_.;;>_>._.<.>_>,_..>clr\u001b\u0006_>._.m,>_>,_,,>_>._.:><\u001618\n z20sq#name\ni\n\u00168\n\u0007tame pony\n\u0017tin whistle\nyjyaf10sj\u0017tin whistle\nhyyagdg20sss\u0017carrot\ntbn\u0007grid bug\n.m.sm. .m. 20sss\u0006_>.    Fj_,,Fb>Fj            nFb_>,Fu_,m,Fu >FyFl_>. Fk_,Fk   n >FkFk \u001612\n\u0006_>,Fh_.Fb  n   n>Fh  Fk  n    n _>,  nFb  _.   n    n Fh   n   n >Fb   n   nFu    n _>.  n   n    yny  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51850087,
+   "datetime": "20120108165733",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nMENUCOLOR=\"blessed\"=red\n",
+   "moves": " O>p\u001b\nv i\u001b\u001620\nmO>>>t\u001b\nOl\u001b\nOh\u001b\nOn\u001b\n\u0006_ \u001b:>FbFy_>. Fj _,.>_>._.:>#enhance\nyg\nm\n\u001b#name\nm\n\u0006_>._.m.>_>._.;<. >_>._,<.>\u0006_>._.<.>_>._..>_>._,.>\u0006_>,_.;;>_>._.<.>_>,_..>clr\u001b\u0006_>._.m,>_>,_,,>_>._.:><\u001618\n z20sq#name\ni\n\u00168\n\u0007tame pony\n\u0017tin whistle\nyjyaf10sj\u0017tin whistle\nhyyagdg20sss\u0017carrot\ntbn\u0007grid bug\n.m.sm. .m. 20sss\u0006_>.    Fj_,,Fb>Fj            nFb_>,Fu_,m,Fu >FyFl_>. Fk_,Fk   n >FkFk \u001612\n\u0006_>,Fh_.Fb  n   n>Fh  Fk  n    n _>,  nFb  _.   n    n Fh   n   n >Fb   n   nFu    n _>.  n   n    yny  y y y\u001by  F"
+  }
+ ]
+}

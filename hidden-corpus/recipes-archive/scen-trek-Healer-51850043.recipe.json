@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " 50shbkjly_ \u001b@.>#offer\n100s100sFlFlFl150s100sFlFlFl150s100sFlFlFl100sFhFhFh100sFhFjFj150si\u001b_>,>100sFhs20snnh<kyn\\ E- X marks the spot\n150s50s100sFlFlFlFlFls50syyn150sek_>,>yjk_>.>#invoke\n\u001b\u001b:\u000f\u001bUKBH_>.>Hrh nyLYYY_>.>LYUJ_>.>UYJU_>,>JJKJ_>,>YJYN_>.>#loot\n#force\nLKYU_>.>_>.>150sek100sek100s150sFj..\\ lbk100sek  ekFj FhFhFhs20s100seo ekbbb150slbu_>.>_>.>_>,>lhb100s\u0018\u001b100seeeeeeeeeeeeHKU U_>.>UKN U_>.>Za\n20sYYYU_>.>KUH N _>.>\u000f\u001bey eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeri nn\u0018\u001bLhnjknh#name\ni\nblessed\ngt#monster\n;>.>L BHU_>.>YBYH_>.>FhFhFh<JKKK_>.>BYNN_>.>JNLL_>.>debs.s#name\no\nshiny\nht$hdislsm..m.hLUBL_>.>Fhs.YHBK_>.>YNUN_>.>Fnss\u000f\u001bJU YJ_>,>holYBJH_>.>FyFyFy  y\u001by  y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 51850043,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=pettype:none\n",
+   "moves": " 50shbkjly_ \u001b@.>#offer\n100s100sFlFlFl150s100sFlFlFl150s100sFlFlFl100sFhFhFh100sFhFjFj150si\u001b_>,>100sFhs20snnh<kyn\\ E- X marks the spot\n150s50s100sFlFlFlFlFls50syyn150sek_>,>yjk_>.>#invoke\n\u001b\u001b:\u000f\u001bUKBH_>.>Hrh nyLYYY_>.>LYUJ_>.>UYJU_>,>JJKJ_>,>YJYN_>.>#loot\n#force\nLKYU_>.>_>.>150sek100sek100s150sFj..\\ lbk100sek  ekFj FhFhFhs20s100seo ekbbb150slbu_>.>_>.>_>,>lhb100s\u0018\u001b100seeeeeeeeeeeeHKU U_>.>UKN U_>.>Za\n20sYYYU_>.>KUH N _>.>\u000f\u001bey eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeri nn\u0018\u001bLhnjknh#name\ni\nblessed\ngt#monster\n;>.>L BHU_>.>YBYH_>.>FhFhFh<JKKK_>.>BYNN_>.>JNLL_>.>debs.s#name\no\nshiny\nht$hdislsm..m.hLUBL_>.>Fhs.YHBK_>.>YNUN_>.>Fnss\u000f\u001bJU YJ_>,>holYBJH_>.>FyFyFy  y\u001by  y y y\u001b  _"
+  }
+ ]
+}

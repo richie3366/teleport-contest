@@ -1,11 +1,11 @@
 {
- "commit": "72455a58c",
- "at": "2026-10-17T20:22:10.008Z",
+ "commit": "9478ae986",
+ "at": "2026-10-17T20:33:52.025Z",
  "full": false,
  "fullCommit": "cb680e202",
  "fullAt": "2026-10-17T18:25:20.908Z",
- "entries": 1073,
- "reserve": 218,
+ "entries": 1086,
+ "reserve": 216,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -1980,6 +1980,23 @@
    "jsTopline": "Where do you want to travel to? (For instructions type a '?')",
    "error": null
   },
+  "scen-extcmd-Knight-51850039": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 5673,
+   "rngT": 5673,
+   "scrM": 898,
+   "scrT": 899,
+   "kind": "screen",
+   "step": 331,
+   "steps": 899,
+   "owner": "do_mgivenname",
+   "loc": "do_name.c:222",
+   "jsOwner": null,
+   "cTopline": "This handsome creature is called wizard and cannot be renamed.",
+   "jsTopline": "This beautiful creature is called wizard and cannot be renamed.",
+   "error": null
+  },
   "scen-extcmd-Monk-51257011": {
    "src": "corpus",
    "passed": false,
@@ -2150,6 +2167,23 @@
    "jsTopline": "46: gained experience level 13",
    "error": null
   },
+  "scen-extcmd-Tourist-51850049": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 3428,
+   "rngT": 3428,
+   "scrM": 613,
+   "scrT": 614,
+   "kind": "screen",
+   "step": 417,
+   "steps": 614,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "Where do you want to travel to? (For instructions type a '?')",
+   "error": null
+  },
   "scen-extcmd-Wizard-51550039": {
    "src": "corpus",
    "passed": false,
@@ -2165,7 +2199,8 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "Can't find dungeon feature '_'.",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-genesis-Archeologist-50052027": {
    "src": "corpus",
@@ -2269,6 +2304,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-hallu-Barbarian-51850088": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 41483,
+   "rngT": 41483,
+   "scrM": 1026,
+   "scrT": 1028,
+   "kind": "screen",
+   "step": 713,
+   "steps": 1028,
+   "owner": "readobjnam",
+   "loc": "objnam.c:4983",
+   "jsOwner": null,
+   "cTopline": "That hooked polearm is a giant ant! The baby crochet hits!--More--",
+   "jsTopline": "That runed spear is a giant ant! The baby crochet hits!--More--",
+   "error": null
+  },
   "scen-hallu-Priest-51255006": {
    "src": "corpus",
    "passed": false,
@@ -2352,6 +2404,23 @@
    "jsOwner": null,
    "cTopline": "The door is consumed in flames! The blast reveals a secret door.--More--",
    "jsTopline": "The door is consumed in flames! Your blast reveals a secret door.--More--",
+   "error": null
+  },
+  "scen-hallu-Valkyrie-51850078": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 15397,
+   "rngT": 15397,
+   "scrM": 892,
+   "scrT": 897,
+   "kind": "screen",
+   "step": 892,
+   "steps": 897,
+   "owner": "freeinv_core",
+   "loc": "invent.c:1371",
+   "jsOwner": null,
+   "cTopline": "don't have silver bell? Program in disorder!--More--",
+   "jsTopline": "",
    "error": null
   },
   "scen-hallu-Wizard-51550088": {
@@ -4496,6 +4565,23 @@
    "jsTopline": "The xorn hits again! The xorn bites! The earth elemental hits!",
    "error": null
   },
+  "scen-questtour-Monk-51850016": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 24329,
+   "rngT": 24329,
+   "scrM": 1185,
+   "scrT": 1190,
+   "kind": "screen",
+   "step": 621,
+   "steps": 1190,
+   "owner": "dotravel",
+   "loc": "cmd.c:5333",
+   "jsOwner": null,
+   "cTopline": "Where do you want to travel to?",
+   "jsTopline": "Where do you want to travel to?",
+   "error": null
+  },
   "scen-questtour-Priest-50950030": {
    "src": "corpus",
    "passed": true,
@@ -5125,6 +5211,42 @@
    "jsTopline": "The gnomish wizard points at you, then curses.",
    "error": null
   },
+  "scen-shop-Ranger-51850055": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 51500,
+   "rngT": 51500,
+   "scrM": 616,
+   "scrT": 619,
+   "kind": "screen",
+   "step": 344,
+   "steps": 619,
+   "owner": "cursetxt",
+   "loc": "mcastu.c:76",
+   "jsOwner": null,
+   "cTopline": "Ogakhaun of Abaneuun points and curses at your displaced image.--More--",
+   "jsTopline": "Ogakhaun of Abaneuun points at you, then curses.--More--",
+   "error": null,
+   "tier": "reserve"
+  },
+  "scen-shop-Ranger-51850095": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 49959,
+   "rngT": 49959,
+   "scrM": 598,
+   "scrT": 599,
+   "kind": "screen",
+   "step": 348,
+   "steps": 599,
+   "owner": "glibr",
+   "loc": "do_wear.c:2617",
+   "jsOwner": null,
+   "cTopline": "a dwarf corpse",
+   "jsTopline": "a ranger corpse",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-shop-Rogue-49959603": {
    "src": "corpus",
    "passed": true,
@@ -5175,6 +5297,24 @@
    "cTopline": "You drown the watchman. You murderer!--More--",
    "jsTopline": "You drown the watchman. The crossbow bolts rust! The kabuto rusts!--More--",
    "error": null
+  },
+  "scen-shop-Samurai-51850085": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 48242,
+   "rngT": 48242,
+   "scrM": 856,
+   "scrT": 869,
+   "kind": "screen",
+   "step": 669,
+   "steps": 869,
+   "owner": "auto_describe",
+   "loc": "getpos.c:658",
+   "jsOwner": null,
+   "cTopline": "a watchman corpse (no travel path)",
+   "jsTopline": "a newt corpse (no travel path)",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-shop-Tourist-50050071": {
    "src": "corpus",
@@ -5260,6 +5400,24 @@
    "cTopline": "",
    "jsTopline": "",
    "error": null
+  },
+  "scen-shop-Valkyrie-51850045": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 49982,
+   "rngT": 49982,
+   "scrM": 738,
+   "scrT": 741,
+   "kind": "screen",
+   "step": 511,
+   "steps": 741,
+   "owner": "glibr",
+   "loc": "do_wear.c:2617",
+   "jsOwner": null,
+   "cTopline": "a gnome corpse",
+   "jsTopline": "a valkyrie corpse",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-shop-Wizard-50057049": {
    "src": "corpus",
@@ -5837,6 +5995,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-sweep-Archeologist-51850001": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 27455,
+   "rngT": 27455,
+   "scrM": 926,
+   "scrT": 960,
+   "kind": "screen",
+   "step": 168,
+   "steps": 960,
+   "owner": "test_move",
+   "loc": "hack.c:1096",
+   "jsOwner": null,
+   "cTopline": "You try to ooze under the door, but can't squeeze your possessions through.",
+   "jsTopline": "Ouch! You bump into a door.",
    "error": null
   },
   "scen-sweep-Archeologist-585417": {
@@ -8661,6 +8836,23 @@
    "jsTopline": "You uselessly attack an unknown obstacle.--More--",
    "error": null
   },
+  "scen-sweep-Samurai-51850071": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 37323,
+   "rngT": 37325,
+   "scrM": 502,
+   "scrT": 502,
+   "kind": "rng",
+   "step": 23,
+   "steps": 502,
+   "owner": "m_initinv",
+   "loc": "makemon.c:764",
+   "jsOwner": "m_initinv(makemon.js:3033)",
+   "cTopline": "You materialize on a different level!--More--",
+   "jsTopline": "You materialize on a different level!--More--",
+   "error": null
+  },
   "scen-sweep-Samurai-578121": {
    "src": "corpus",
    "passed": true,
@@ -8744,7 +8936,8 @@
    "jsOwner": null,
    "cTopline": "The Sokoban walls resist your ability.",
    "jsTopline": "It's a wall.",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-sweep-Samurai-95302": {
    "src": "corpus",
@@ -11942,6 +12135,24 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-wish-Tourist-51852002": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 4123,
+   "rngT": 4123,
+   "scrM": 278,
+   "scrT": 279,
+   "kind": "screen",
+   "step": 267,
+   "steps": 279,
+   "owner": "one_characteristic",
+   "loc": "insight.c:926",
+   "jsOwner": null,
+   "cTopline": "Your constitution was 15 (limit:18).",
+   "jsTopline": "Your constitution was 15 (limit:18).",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-wish-Tourist-91125": {
    "src": "corpus",
    "passed": true,
@@ -12093,7 +12304,8 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "You materialize on a different level!--More--",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-worldtour-Archeologist-95230": {
    "src": "corpus",
@@ -12756,6 +12968,23 @@
    "jsOwner": null,
    "cTopline": "Please report these messages to devteam@nethack.org.--More--",
    "jsTopline": "Program in disorder! (Saving and reloading may fix this problem.)--More--",
+   "error": null
+  },
+  "scen-worldtour-Ranger-51850060": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 15356,
+   "rngT": 15356,
+   "scrM": 132,
+   "scrT": 135,
+   "kind": "screen",
+   "step": 132,
+   "steps": 135,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-worldtour-Ranger-578308": {
@@ -15956,8 +16185,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Barbarian-50456033": {
    "src": "corpus",
@@ -17738,8 +17966,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Monk-50450080": {
    "src": "corpus",
@@ -17810,8 +18037,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Ranger-50050090": {
    "src": "corpus",
@@ -17918,8 +18144,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Wizard-49950064": {
    "src": "corpus",
@@ -17954,8 +18179,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Wizard-49955077": {
    "src": "corpus",
@@ -17972,8 +18196,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Wizard-50056035": {
    "src": "corpus",
@@ -18008,8 +18231,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Wizard-50056057": {
    "src": "corpus",
@@ -18044,8 +18266,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Wizard-50255529": {
    "src": "corpus",
@@ -18080,8 +18301,7 @@
    "jsOwner": null,
    "cTopline": "Wizard the Wizard's attributes:",
    "jsTopline": "Wizard the Wizard's attributes:",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Wizard-50358009": {
    "src": "corpus",
@@ -18134,8 +18354,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Wizard-578301": {
    "src": "corpus",
@@ -18467,5 +18686,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-17T20:34:07.817Z"
 }

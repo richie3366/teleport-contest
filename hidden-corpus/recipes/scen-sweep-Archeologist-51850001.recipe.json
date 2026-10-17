@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #wizintrinsic\ndsc\n  sm.ssss20s.m..n.k20s 20ssnsm..m. \u000f\u001bw-\\ \u000f\u001b#invoke\n\u001boj20s n   n .ss20s  s\u00168\n\u0017wand of digging\n_ \u001b@.zlhzyzlj\u0017grave\nz.shkzu\\ \u0006_>,_. >_>. _, >_>, _. >\u0006_>. _. >_>. _, >_>, _. >\u0006_>, _, >_>. _, >_>. _, ><\u0018\u001b#levelchange\n14\n      \u0016?\n>y  _mm,#chat\n_m.#chat\n;._mmm.#chat\n;._mmmmm,#chat\n#tip\nh\u001b#offer\nq\u0017the Magic Mirror of Merlin\n   \u0007cave spider\nFh Fh Fy  Fk Fk  \u0007trapper\n#chat\nyFy  Fn  \u0007green mold\nsm.s.b sm..m.  .u   i\u001b\u0017egg\nej    n   sm. 20s \u0017ring of polymorph control\nPkl.s\u001bs\u0017uncursed scroll of light\n rl \u00173 spellbook of invisibility\nrm s\u001bsZZ\u0017uncursed wand of nothing\nznkznk     n Fy   Fk   \u0017cursed potion of booze\n\u0007giant eel\nqo \u001b     n   sm. sm.\u00169\n#levelchange\n6\n  \u0017blindfold\nPp  n \u0016?\n\u0006Fu  n Fk Fy  n  Fy   n  Fy  n Fk l   n  h    n u  y>,,\u001617\n\u001610\n\u0007large dog\n\u0017newt corpse\ntak\u0007giant rat\n\u0017scroll of taming\nrr#chat\n\u0007lichen\n.20s s\u001bsss#name\na\n\u0017leash\nasjybbas\u0017leash\natulukat\u0006@._>.   n Fy   n _. Fl  n >Fu   nFl _>,   yy\u001by   y y y\u001b   F"
+ },
+ "segments": [
+  {
+   "seed": 51850001,
+   "datetime": "20070707202913",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #wizintrinsic\ndsc\n  sm.ssss20s.m..n.k20s 20ssnsm..m. \u000f\u001bw-\\ \u000f\u001b#invoke\n\u001boj20s n   n .ss20s  s\u00168\n\u0017wand of digging\n_ \u001b@.zlhzyzlj\u0017grave\nz.shkzu\\ \u0006_>,_. >_>. _, >_>, _. >\u0006_>. _. >_>. _, >_>, _. >\u0006_>, _, >_>. _, >_>. _, ><\u0018\u001b#levelchange\n14\n      \u0016?\n>y  _mm,#chat\n_m.#chat\n;._mmm.#chat\n;._mmmmm,#chat\n#tip\nh\u001b#offer\nq\u0017the Magic Mirror of Merlin\n   \u0007cave spider\nFh Fh Fy  Fk Fk  \u0007trapper\n#chat\nyFy  Fn  \u0007green mold\nsm.s.b sm..m.  .u   i\u001b\u0017egg\nej    n   sm. 20s \u0017ring of polymorph control\nPkl.s\u001bs\u0017uncursed scroll of light\n rl \u00173 spellbook of invisibility\nrm s\u001bsZZ\u0017uncursed wand of nothing\nznkznk     n Fy   Fk   \u0017cursed potion of booze\n\u0007giant eel\nqo \u001b     n   sm. sm.\u00169\n#levelchange\n6\n  \u0017blindfold\nPp  n \u0016?\n\u0006Fu  n Fk Fy  n  Fy   n  Fy  n Fk l   n  h    n u  y>,,\u001617\n\u001610\n\u0007large dog\n\u0017newt corpse\ntak\u0007giant rat\n\u0017scroll of taming\nrr#chat\n\u0007lichen\n.20s s\u001bsss#name\na\n\u0017leash\nasjybbas\u0017leash\natulukat\u0006@._>.   n Fy   n _. Fl  n >Fu   nFl _>,   yy\u001by   y y y\u001b   F"
+  }
+ ]
+}

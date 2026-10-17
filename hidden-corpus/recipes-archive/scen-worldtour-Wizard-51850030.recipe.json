@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u001615\nju:\u0016?\ne    #levelchange\n12\n\u0017the Platinum Yendorian Express Card\n \u0007red naga\nFnFj  ss\u0007Croesus\nysb20s  sm. sj   n   sbsm.    \u0016?\n>>M      wand of sleep\n\u0006_ \u001b:\u0016?\n\u001bhh   \u0016?\n\u001bh   n n     \u00162\nnb  j     uy  n     hy           n   :\u001612\n\u00167\nk  k yly    :sm.     n \u0016?\n\u001bh   nyy     n      \u0016?\nb h  n  j bk  h:\u0016?\n\u001bu     n j    n    n  \u00165\n\u00167\n#levelchange\n6\n k   n    n    n  u    n   n    y  l"
+ },
+ "segments": [
+  {
+   "seed": 51850030,
+   "datetime": "20111227045423",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u001615\nju:\u0016?\ne    #levelchange\n12\n\u0017the Platinum Yendorian Express Card\n \u0007red naga\nFnFj  ss\u0007Croesus\nysb20s  sm. sj   n   sbsm.    \u0016?\n>>M      wand of sleep\n\u0006_ \u001b:\u0016?\n\u001bhh   \u0016?\n\u001bh   n n     \u00162\nnb  j     uy  n     hy           n   :\u001612\n\u00167\nk  k yly    :sm.     n \u0016?\n\u001bh   nyy     n      \u0016?\nb h  n  j bk  h:\u0016?\n\u001bu     n j    n    n  \u00165\n\u00167\n#levelchange\n6\n k   n    n    n  u    n   n    y  l"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed bell of opening\n\u0017blessed magic lamp\n\u0017blessed +3 helm of telepathy\nWh\u0017blessed leash\n\u0017blessed +3 speed boots\nWj\u0017blessed 20 daggers\nQk#wizintrinsic\nh\n \u0017blessed scroll of enchant armor\nrl  \u0017blessed scroll of magic mapping\nrm\u001621\n_ \u001bm.>\u0007acid blob\nFkFkFkFuFk#wizintrinsic\nh\n\u0017blessed spellbook of light\nrn20sZ#turn\n:_@.luu\u0016?\nc\u0014<.sm.s20s\u0016?\n>Ehnynnb:;>.E- X marks the spot\n#wizintrinsic\nh\n\u0007soldier\n\u0007kobold\nFkFuFuFuFkFk;k,E-n  ad aerarium\n#chat\nk#pray\ny y   \u0018\u001bhk\u0017wand of striking\nzolzol  nzol#wizintrinsic\nh\n\u0007yellow mold\nFlFlFlFh\u0016?\n>>Q _{.20ssm.  n.m.\u0007newt\n\u0007gnome\nFyFn   nFy Fn\u0007owlbear\n\u0007yellow mold\nFnFu   n Fl   n Fh  Fl  nFn   n \u00161\n#wizintrinsic\nh\n\u0017wand of teleportation\nzal   n  zalzanzab\u0017wand of fire\nzbuzbl  nzbk  nzbuzbu\u001611\n\u0017spellbook of sleep\nrc.Za\n:#wizintrinsic\nh\n\u0016?\n>A  __,<\u0017spellbook of cone of cold\nrl     n s   n  Z#turn\n:   n     n   n \u0017potion of invisibility\nqm    yy\u001by   y y y\u001by    s"
+ },
+ "segments": [
+  {
+   "seed": 51850078,
+   "datetime": "20000117002953",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed bell of opening\n\u0017blessed magic lamp\n\u0017blessed +3 helm of telepathy\nWh\u0017blessed leash\n\u0017blessed +3 speed boots\nWj\u0017blessed 20 daggers\nQk#wizintrinsic\nh\n \u0017blessed scroll of enchant armor\nrl  \u0017blessed scroll of magic mapping\nrm\u001621\n_ \u001bm.>\u0007acid blob\nFkFkFkFuFk#wizintrinsic\nh\n\u0017blessed spellbook of light\nrn20sZ#turn\n:_@.luu\u0016?\nc\u0014<.sm.s20s\u0016?\n>Ehnynnb:;>.E- X marks the spot\n#wizintrinsic\nh\n\u0007soldier\n\u0007kobold\nFkFuFuFuFkFk;k,E-n  ad aerarium\n#chat\nk#pray\ny y   \u0018\u001bhk\u0017wand of striking\nzolzol  nzol#wizintrinsic\nh\n\u0007yellow mold\nFlFlFlFh\u0016?\n>>Q _{.20ssm.  n.m.\u0007newt\n\u0007gnome\nFyFn   nFy Fn\u0007owlbear\n\u0007yellow mold\nFnFu   n Fl   n Fh  Fl  nFn   n \u00161\n#wizintrinsic\nh\n\u0017wand of teleportation\nzal   n  zalzanzab\u0017wand of fire\nzbuzbl  nzbk  nzbuzbu\u001611\n\u0017spellbook of sleep\nrc.Za\n:#wizintrinsic\nh\n\u0016?\n>A  __,<\u0017spellbook of cone of cold\nrl     n s   n  Z#turn\n:   n     n   n \u0017potion of invisibility\nqm    yy\u001by   y y y\u001by    s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPfr\u0017blessed +3 speed boots\nWg\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of magic missile\n\u0017wand of striking\n\u0007giant rat\n\u0007owlbear\nzilzjhsm.zih ziuzjn  ziu20szjbziyzinszij\u0017wand of fire\n\u0017wand of lightning\n\u0017wand of cold\n\u0007lichen\n\u0007kobold shaman\nzlbzmnzlh  n zkh  nzml.zlnzlns\u00163\n   \u00161\n\u0007kobold shaman\n\u0007incubus\n\u0007master mind flayer\n\u0017wand of magic missile\nznus         sznh znh    n s  n  .  n  .  n  znh  n \u00166\n\u0017wand of fire\n\u0017wand of polymorph\n\u0017wand of digging\n\u0007kobold\n\u0007kobold\n\u0007newt\nzq> zo.  nzpb.zq> zpyzpyszq> zq> zq>    \u0007baby red dragon\n..s  n#polyself\nred dragon\n  #monster\nu ss#monster\n#monster\nFuFu\u001710 daggers\nQr\u0007kobold shaman\n\u0007bugbear\nftffft\u0017potion of booze\nt\u0017spellbook of fireball\nrts\u0007gnomish wizard\n\u0007orc shaman\nZZZZZZZ#turn\n\u0018\u001b\u001715 shuriken\nQu\u0007dwarf\n\u0007gnome lord\nfftffft\u0017potion of gain energy\nt\u0017wand of cancellation\n\u0017wand of striking\n\u0017wand of magic missile\n\u0007kobold\n\u0007gnome lord\nzzzzzsz.zzzs  z\u0017wand of sleep\n\u0017wand of magic missile\n\u0007gnome lord\nz.zs   zAl      n  n zAu     n zzn    n zzu  n    n .  y\u001b     z"
+ },
+ "segments": [
+  {
+   "seed": 51850074,
+   "datetime": "20140721212448",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPfr\u0017blessed +3 speed boots\nWg\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of magic missile\n\u0017wand of striking\n\u0007giant rat\n\u0007owlbear\nzilzjhsm.zih ziuzjn  ziu20szjbziyzinszij\u0017wand of fire\n\u0017wand of lightning\n\u0017wand of cold\n\u0007lichen\n\u0007kobold shaman\nzlbzmnzlh  n zkh  nzml.zlnzlns\u00163\n   \u00161\n\u0007kobold shaman\n\u0007incubus\n\u0007master mind flayer\n\u0017wand of magic missile\nznus         sznh znh    n s  n  .  n  .  n  znh  n \u00166\n\u0017wand of fire\n\u0017wand of polymorph\n\u0017wand of digging\n\u0007kobold\n\u0007kobold\n\u0007newt\nzq> zo.  nzpb.zq> zpyzpyszq> zq> zq>    \u0007baby red dragon\n..s  n#polyself\nred dragon\n  #monster\nu ss#monster\n#monster\nFuFu\u001710 daggers\nQr\u0007kobold shaman\n\u0007bugbear\nftffft\u0017potion of booze\nt\u0017spellbook of fireball\nrts\u0007gnomish wizard\n\u0007orc shaman\nZZZZZZZ#turn\n\u0018\u001b\u001715 shuriken\nQu\u0007dwarf\n\u0007gnome lord\nfftffft\u0017potion of gain energy\nt\u0017wand of cancellation\n\u0017wand of striking\n\u0017wand of magic missile\n\u0007kobold\n\u0007gnome lord\nzzzzzsz.zzzs  z\u0017wand of sleep\n\u0017wand of magic missile\n\u0007gnome lord\nz.zs   zAl      n  n zAu     n zzn    n zzu  n    n .  y\u001b     z"
+  }
+ ]
+}

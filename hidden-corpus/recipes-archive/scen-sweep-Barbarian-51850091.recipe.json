@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0017fumble boots\nWf.ssTf\u0007vampire bat\n#chat\nbFb Fh  \u0007grid bug\n#chat\nj  FbFj\u0007raven\n;l, \u001bm,20s.s\u0007hill orc\n.s20s20s..s20s\u0018\u001b\u0017spellbook of protection\n\u0017blessed spellbook of cause fear\n\u0017spellbook of cure blindness\n+ZFnZ\u0007kobold\nZZ\u0007lichen\nZ\u0007yellow mold\nZ#pray\ny y   #levelchange\n20\n            \u0007steam vortex\nFnFj Fk Fj    #pray\ny y   FjFnFbFn#pray\ny y    #pray\ny y    Fni\u001b#levelchange\n30\n         \u0017spellbook of sleep\n\u0017blessed spellbook of magic mapping\n\u0017blessed spellbook of create monster\n+Z.ZZ\u0007hill orc\nZZ.Z#enhance\nyn\nn\n\u001b\u001615\n\u0007Famine\nyy#chat\nuss\u0007paper golem\ns Fu   n\u0007cockatrice\n#chat\nuFu Fn   n\u00164\n\u0007tame housecat\n#name\nf\n\u0006_>.>_>.>_>,>\u0017tin whistle\n\u0007yellow mold\n\u0017scroll of taming\nh l    n \u0017leash\ni\u001b\u0017gauntlets of fumbling\n\u0007nurse\nFl .   FlFl \u0007skeleton\nFhFh   nFh \u0007hill orc\n;l;s.   n s \u0007erinys\n;y;20s   n.  .\u001610\n#levelchange\n12\n      \u0017wand of magic missile\n\u0007gelatinous cube\ns  n <.  Fb \u00173 spellbook of finger of death\n\u0007Kop Kaptain\n,   n \u0017cloak of displacement\n,   n Fj   n Fn    ns    n. \u001626\n   \u00163\n#levelchange\n20\n        \u0017spellbook of cone of cold\n\u0017spellbook of cancellation\n+Z\u0007ghoul\nZZZ#turn\n#enhance\nym\nn\n\u001b\u00166\n\u0006\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\n_oo,_ooo.,   n#chat\nb _ddd.  n Fb _.   n Fb \u0004h_ooooooo,_ooo,,#chat\nb_ooooooo.,$#enhance\nye\nj\n\u001bee    yy\u001by   y y y y\u001by  \u0018"
+ },
+ "segments": [
+  {
+   "seed": 51850091,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0017fumble boots\nWf.ssTf\u0007vampire bat\n#chat\nbFb Fh  \u0007grid bug\n#chat\nj  FbFj\u0007raven\n;l, \u001bm,20s.s\u0007hill orc\n.s20s20s..s20s\u0018\u001b\u0017spellbook of protection\n\u0017blessed spellbook of cause fear\n\u0017spellbook of cure blindness\n+ZFnZ\u0007kobold\nZZ\u0007lichen\nZ\u0007yellow mold\nZ#pray\ny y   #levelchange\n20\n            \u0007steam vortex\nFnFj Fk Fj    #pray\ny y   FjFnFbFn#pray\ny y    #pray\ny y    Fni\u001b#levelchange\n30\n         \u0017spellbook of sleep\n\u0017blessed spellbook of magic mapping\n\u0017blessed spellbook of create monster\n+Z.ZZ\u0007hill orc\nZZ.Z#enhance\nyn\nn\n\u001b\u001615\n\u0007Famine\nyy#chat\nuss\u0007paper golem\ns Fu   n\u0007cockatrice\n#chat\nuFu Fn   n\u00164\n\u0007tame housecat\n#name\nf\n\u0006_>.>_>.>_>,>\u0017tin whistle\n\u0007yellow mold\n\u0017scroll of taming\nh l    n \u0017leash\ni\u001b\u0017gauntlets of fumbling\n\u0007nurse\nFl .   FlFl \u0007skeleton\nFhFh   nFh \u0007hill orc\n;l;s.   n s \u0007erinys\n;y;20s   n.  .\u001610\n#levelchange\n12\n      \u0017wand of magic missile\n\u0007gelatinous cube\ns  n <.  Fb \u00173 spellbook of finger of death\n\u0007Kop Kaptain\n,   n \u0017cloak of displacement\n,   n Fj   n Fn    ns    n. \u001626\n   \u00163\n#levelchange\n20\n        \u0017spellbook of cone of cold\n\u0017spellbook of cancellation\n+Z\u0007ghoul\nZZZ#turn\n#enhance\nym\nn\n\u001b\u00166\n\u0006\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\n_oo,_ooo.,   n#chat\nb _ddd.  n Fb _.   n Fb \u0004h_ooooooo,_ooo,,#chat\nb_ooooooo.,$#enhance\nye\nj\n\u001bee    yy\u001by   y y y y\u001by  \u0018"
+  }
+ ]
+}

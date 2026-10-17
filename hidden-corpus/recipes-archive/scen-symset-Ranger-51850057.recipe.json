@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b:>FlFl_>.Fy_.>_>,Fh_.>ef#enhance\nyo\nc\n\u001b\u0006_>.Fy_.Fh\u001b>FhFh_>.Fh_,>_>._,>Lq\u0006_>._.>_>,Fy_.Fh\u001b>FhFh_>.Fy_,Fy>FyFyFyFyFy\u0006_>._,Fy>FyFy_>.Fh_,Fy>FyFy_>._.>\u00162\n\u00166\n100sFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjO>>>>b\u001b\nblj n\u0017grave\n: \u0017pick-axe\nah20sm..ybl j \u0017throne\n#sit\n k\u0017#dip\nbuj :  blj \u0017chaotic altar\ndddb\u0017lichen corpse\n#offer\ni   #pray\ny y  ss#name\na\n\u001614\n  O>>p\u001b\n10s#loot\n#ride\nk 20s#sit\n\u001bW\u0006_>>, Fh_.Fh>FhFh_>>.  nFh_,Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFh\u0006_>,  nFh_.Fh>FhFh_>,Fh_,Fh>FhFh_>"
+ },
+ "segments": [
+  {
+   "seed": 51850057,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\n",
+   "moves": "\u0006_ \u001b:>FlFl_>.Fy_.>_>,Fh_.>ef#enhance\nyo\nc\n\u001b\u0006_>.Fy_.Fh\u001b>FhFh_>.Fh_,>_>._,>Lq\u0006_>._.>_>,Fy_.Fh\u001b>FhFh_>.Fy_,Fy>FyFyFyFyFy\u0006_>._,Fy>FyFy_>.Fh_,Fy>FyFy_>._.>\u00162\n\u00166\n100sFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjFjO>>>>b\u001b\nblj n\u0017grave\n: \u0017pick-axe\nah20sm..ybl j \u0017throne\n#sit\n k\u0017#dip\nbuj :  blj \u0017chaotic altar\ndddb\u0017lichen corpse\n#offer\ni   #pray\ny y  ss#name\na\n\u001614\n  O>>p\u001b\n10s#loot\n#ride\nk 20s#sit\n\u001bW\u0006_>>, Fh_.Fh>FhFh_>>.  nFh_,Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFh\u0006_>,  nFh_.Fh>FhFh_>,Fh_,Fh>FhFh_>"
+  }
+ ]
+}

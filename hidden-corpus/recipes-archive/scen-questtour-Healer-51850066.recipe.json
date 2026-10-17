@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nb_mm.     n Fn_.#chat\nn  n_mmmm.#chat\nn _m.#chat\nn_mmm.#chat\nn  n#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.#chat\nn_mm.#chat\nn         \u0017blessed ring of free action\nPkl\u0017blessed +3 gray dragon scale mail\nWl \u0017blessed +3 cloak of magic resistance\nWm \u0017wand of death\n\u0016?\n>A\u0006_mm.sFjFj  FbFb,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nb\u0016?\n>A\u0006_mmmmmm,FhFhFhFb s    n znh,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nh\u0016?\n>z\u0006_mmmm.ss   ..,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nh;>.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm..FnFnFnFn ,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nn        n;b;\u0016?\n>A\u0006_mm,FjFbFuFuznu ,#chat\nn\u0016?\n>A\u0006_mmmmmmm.Fn FlFl   n Fu     s zny,\u0016?\n>z\u0006_mmmm..FlFl sFl Fl  n ,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.sFl FuFl  znk ,#chat\nu   \u0016?\n>A\u0006_mm,s.FlFl FuFl  n    zn.,\u0016?\n>A\u0006_mmmm.s  Fl FlFu    Fl    .Flznl,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nl\u0016?\n>z\u0006_mmmmmm.FlFn Fl Fu   n Fu Fn,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fn Fu Fu FuFn  z,\u0016?\n>A\u0006_mmmmmmm.FlFl Fl Fk    z,#chat\nu \u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nl  n   \u0016?\n>A\u0006_mmmm.Fn     FlFk s ,#chat\nk\u0016?\n>z\u0006_mmmmm,Fh Fy Fh  n Fy  Fh Fhz,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,Fh Fy Fy   FkFh,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nh \u0016?\n>A\u0006_mmmmmmm,F"
+ },
+ "segments": [
+  {
+   "seed": 51850066,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nb_mm.     n Fn_.#chat\nn  n_mmmm.#chat\nn _m.#chat\nn_mmm.#chat\nn  n#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.#chat\nn_mm.#chat\nn         \u0017blessed ring of free action\nPkl\u0017blessed +3 gray dragon scale mail\nWl \u0017blessed +3 cloak of magic resistance\nWm \u0017wand of death\n\u0016?\n>A\u0006_mm.sFjFj  FbFb,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nb\u0016?\n>A\u0006_mmmmmm,FhFhFhFb s    n znh,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nh\u0016?\n>z\u0006_mmmm.ss   ..,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nh;>.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm..FnFnFnFn ,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nn        n;b;\u0016?\n>A\u0006_mm,FjFbFuFuznu ,#chat\nn\u0016?\n>A\u0006_mmmmmmm.Fn FlFl   n Fu     s zny,\u0016?\n>z\u0006_mmmm..FlFl sFl Fl  n ,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.sFl FuFl  znk ,#chat\nu   \u0016?\n>A\u0006_mm,s.FlFl FuFl  n    zn.,\u0016?\n>A\u0006_mmmm.s  Fl FlFu    Fl    .Flznl,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nl\u0016?\n>z\u0006_mmmmmm.FlFn Fl Fu   n Fu Fn,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fn Fu Fu FuFn  z,\u0016?\n>A\u0006_mmmmmmm.FlFl Fl Fk    z,#chat\nu \u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nl  n   \u0016?\n>A\u0006_mmmm.Fn     FlFk s ,#chat\nk\u0016?\n>z\u0006_mmmmm,Fh Fy Fh  n Fy  Fh Fhz,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,Fh Fy Fy   FkFh,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nh \u0016?\n>A\u0006_mmmmmmm,F"
+  }
+ ]
+}

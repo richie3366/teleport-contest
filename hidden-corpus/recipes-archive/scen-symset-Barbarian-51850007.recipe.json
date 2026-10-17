@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "O>e\u001b\n#monster\n>\u000f\u001b\u001614\n   \u0007tame dingo\n\u0007kitten\n\u0017tripe ration\ntbj\u0007newt\n20s   20s    n .m. 20s  n  20s     n   n.m.   n  #name\n\u001b\u0006_ \u001bm,   n>Fj    nFj _>>,  nFn _.  nFj  >Fu  n Fj   _>>,   nFu_.Fy>FkFk\u0007lichen\nsm.20ssm.ss20s\u0017meatball\nt\u001b\u001b\u0017leash\nagylyklagy\u00166\n\u0007large dog\n\u0017lichen corpse\nt\u001b\u001b\u0007horse\n\u0017apple\nt\u001b\u001b\u0017lichen corpse\nt\u001b\u001b#name\nm\n\u0017\u0017carrot\nt\u001b\u001b#name\ni\nfoo\n\u001b\u001b\u0007jackal\nsm.ss20s  20s    nsm. u v\u001bi\u001b\u0006_>. Fn  n  _. Fu >Fj  n  Fj _>, Fn  n _. Fn>FuFu  yy  _"
+ },
+ "segments": [
+  {
+   "seed": 51850007,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a scroll\"=green\nBIND=v:inventory\n",
+   "moves": "O>e\u001b\n#monster\n>\u000f\u001b\u001614\n   \u0007tame dingo\n\u0007kitten\n\u0017tripe ration\ntbj\u0007newt\n20s   20s    n .m. 20s  n  20s     n   n.m.   n  #name\n\u001b\u0006_ \u001bm,   n>Fj    nFj _>>,  nFn _.  nFj  >Fu  n Fj   _>>,   nFu_.Fy>FkFk\u0007lichen\nsm.20ssm.ss20s\u0017meatball\nt\u001b\u001b\u0017leash\nagylyklagy\u00166\n\u0007large dog\n\u0017lichen corpse\nt\u001b\u001b\u0007horse\n\u0017apple\nt\u001b\u001b\u0017lichen corpse\nt\u001b\u001b#name\nm\n\u0017\u0017carrot\nt\u001b\u001b#name\ni\nfoo\n\u001b\u001b\u0007jackal\nsm.ss20s  20s    nsm. u v\u001bi\u001b\u0006_>. Fn  n  _. Fu >Fj  n  Fj _>, Fn  n _. Fn>FuFu  yy  _"
+  }
+ ]
+}

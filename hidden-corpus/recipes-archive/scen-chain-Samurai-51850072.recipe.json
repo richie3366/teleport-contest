@@ -1,0 +1,77 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "B KNH_ \u001b@.>JBUN_>.>LBLY_>.>\u0018\u001b\u000f\u001b<KHYK_>.><JUYB_>.>KUUU_>.><BHNJ_>.>dc20s ss#chat\nuulnlkkyn#chat\nu20s#name\nd\nkljn10s10sullb#name\niFido\nfoo\nblessed\n#quit\nyy\u001by  y y\u001b  #wizintrinsic\ne\n sm..m...sm.20ssnsys20s20s  ynnny\u001by  syn    #wizintrinsic\nd\n .b20ssksss.n20s20s20s  yy\u001by   nnyy  syy  #wizintrinsic\nb\n sm.sj sm. sysn 20s 20s 20s sm. sm.  yy\u001bny ny\u001bn  .\u0007minotaur\nFl Fn  yy\u001by  y y y\u001by  F   ju   nny y\u001b  b#quit\nyy\u0007Death\nyFuFu     yy\u001by  y y\u001by  Fn  \u0017wand of fire\nze.  ns..",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51850072,
+   "datetime": "20050509161940",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:dog\n",
+   "moves": "B KNH_ \u001b@.>JBUN_>.>LBLY_>.>\u0018\u001b\u000f\u001b<KHYK_>.><JUYB_>.>KUUU_>.><BHNJ_>.>dc20s ss#chat\nuulnlkkyn#chat\nu20s#name\nd\nkljn10s10sullb#name\niFido\nfoo\nblessed\n#quit\nyy\u001by  y y\u001b "
+  },
+  {
+   "seed": 51950072,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\ne\n sm..m...sm.20ssnsys20s20s  ynnny\u001by  s"
+  },
+  {
+   "seed": 52050072,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "yn    #wizintrinsic\nd\n .b20ssksss.n20s20s20s  yy\u001by   nnyy  s"
+  },
+  {
+   "seed": 52150072,
+   "datetime": "20250507153710",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "yy  #wizintrinsic\nb\n sm.sj sm. sysn 20s 20s 20s sm. sm.  yy\u001bny ny\u001bn  ."
+  },
+  {
+   "seed": 52250072,
+   "datetime": "20041010022528",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=sortloot:loot\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007minotaur\nFl Fn  yy\u001by  y y y\u001by  F"
+  },
+  {
+   "seed": 52350072,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=fruit:durian\n",
+   "moves": "   ju   nny y\u001b  b"
+  },
+  {
+   "seed": 52450072,
+   "datetime": "20181027161652",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 52550072,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007Death\nyFuFu     yy\u001by  y y\u001by  F"
+  },
+  {
+   "seed": 52650072,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "n  \u0017wand of fire\nze.  ns.."
+  }
+ ]
+}

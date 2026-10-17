@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0017blessed fortune cookie\n\u0007doppelganger\nee  sm.20s\u00173 Frost Brand\n\u0007wraith\nwf Fh Fh  Fj  #invoke\nf \u001b>.             FyFy\u0017blessed potion of confusion\nqgFyFy\u0017crystal ball\nahFyFy sm..m.\u0018\u001b\u0017uncursed +0 war hammer\nwi FyFyFy\u0017blessed leash\najy\u00173 scroll of confuse monster\n\u0007warg\nrk  sm.s\u001619\n\u0007tame dingo\n\u0017leash\naln u k  nklalh#name\nd\n20s  \u0017lichen corpse\ntfj   \u0007lichen\n\u0017scroll of taming\nrn \u0017banana\ntan    h  \u0017blessed bag of holding\n\u0017ice box\n\u0017bag of tricks\n\u0017ring of protection from shape changers\n\u0017ring of polymorph\nar   Fn  Fh\u0017long sword\nwudp#force\n20s        s.arFjFb\u0017dagger\nwvdr#force\ns.sah#levelchange\n30\n                   \u0016?\n    \u0006.20s      FjsFk.ll lu K #force\nq#levelchange\n12\n    \u0007ghost\n.sFyFy\u0007trapper\nsss.ss20s   .i\u001b#levelchange\n20\n       \u0007cave spider\nFkFjFjFjFk\u0007Death\nyy#chat\nFkFj#levelchange\n30\n         \u0017blessed ring of polymorph control\nPwl\u0017T-shirt\nWxs\u001bs.#polyself\nghost\n succubus\n20s\u001b.\u0007cave spider\nFk       Fh  Fn   s   n  s  20s  #polyself\nki-rin\n iron golem\n #monster\nk .    n20s   \u0007rabid rat\nFn   n  Fh   n  Fn   n  s  n   ns   n   ns    n\u0017potion of polymorph\nqy little dog\n        n \u001617\n\u00164\n#levelchange\n20\n  #wizintrinsic\nfl\n s   n  s   n   n  20s   ynnny y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 51850031,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0017blessed fortune cookie\n\u0007doppelganger\nee  sm.20s\u00173 Frost Brand\n\u0007wraith\nwf Fh Fh  Fj  #invoke\nf \u001b>.             FyFy\u0017blessed potion of confusion\nqgFyFy\u0017crystal ball\nahFyFy sm..m.\u0018\u001b\u0017uncursed +0 war hammer\nwi FyFyFy\u0017blessed leash\najy\u00173 scroll of confuse monster\n\u0007warg\nrk  sm.s\u001619\n\u0007tame dingo\n\u0017leash\naln u k  nklalh#name\nd\n20s  \u0017lichen corpse\ntfj   \u0007lichen\n\u0017scroll of taming\nrn \u0017banana\ntan    h  \u0017blessed bag of holding\n\u0017ice box\n\u0017bag of tricks\n\u0017ring of protection from shape changers\n\u0017ring of polymorph\nar   Fn  Fh\u0017long sword\nwudp#force\n20s        s.arFjFb\u0017dagger\nwvdr#force\ns.sah#levelchange\n30\n                   \u0016?\n    \u0006.20s      FjsFk.ll lu K #force\nq#levelchange\n12\n    \u0007ghost\n.sFyFy\u0007trapper\nsss.ss20s   .i\u001b#levelchange\n20\n       \u0007cave spider\nFkFjFjFjFk\u0007Death\nyy#chat\nFkFj#levelchange\n30\n         \u0017blessed ring of polymorph control\nPwl\u0017T-shirt\nWxs\u001bs.#polyself\nghost\n succubus\n20s\u001b.\u0007cave spider\nFk       Fh  Fn   s   n  s  20s  #polyself\nki-rin\n iron golem\n #monster\nk .    n20s   \u0007rabid rat\nFn   n  Fh   n  Fn   n  s  n   ns   n   ns    n\u0017potion of polymorph\nqy little dog\n        n \u001617\n\u00164\n#levelchange\n20\n  #wizintrinsic\nfl\n s   n  s   n   n  20s   ynnny y\u001by  2"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqj \u001b<._ooo.Fk_.Fk ,p_ddddd,_..\u0004k__._.;,#chat\nl_ooooooo._.@._ooo._,<.,p__._.@.#chat\nu_{,_..qdW<#invoke\n\u001bSy\u001b nt$n10st\u001b#force\nE- X marks the spot\ni\u001b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51851022,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqj \u001b<._ooo.Fk_.Fk ,p_ddddd,_..\u0004k__._.;,#chat\nl_ooooooo._.@._ooo._,<.,p__._.@.#chat\nu_{,_..qdW<#invoke\n\u001bSy\u001b"
+  },
+  {
+   "seed": 52351022,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " nt$n10st\u001b#force\nE- X marks the spot\ni\u001b"
+  }
+ ]
+}

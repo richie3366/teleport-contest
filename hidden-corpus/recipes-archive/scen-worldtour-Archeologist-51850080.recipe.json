@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u001617\n nbyulu:\u0016?\n>>L      potion of paralysis\n#chat\nb;b; \u001b@.\u001617\n\u0017crystal plate mail\n W\u001bsm.  .m. .Tc\u0007crocodile\n;k;s  . sm.     n   \u0007wraith\nFy      Fj  n       \u00169\n\u001617\n\u0017blessed spellbook of invisibility\n rl       20s   n       \u0017blessed spellbook of teleport away\nrm 20s    +ZZZ\u0007kobold\nZ#pray\ny y                       \u0016?\n\u001bn     k  n               \u001644\n\u0017cursed scroll of create monster\n rn red naga\nsalamander\nCroesus\nygreen slime\nplains centaur\nred naga\ndwarf lord\nsoldier\nkitten\ngnome lord\nchickatrice\nblue jelly\ndwarf\n    Fk     Fk     n    \u0017amulet versus poison\nPo s      \u001b          s         n         20s  .       R    n      \u0017potion of oil\nqp       n     Fk  Fk  \u0017blessed Trollsbane\nwq           n              n          Fk       n           n             n          Fj    n            n                      yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51850080,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u001617\n nbyulu:\u0016?\n>>L      potion of paralysis\n#chat\nb;b; \u001b@.\u001617\n\u0017crystal plate mail\n W\u001bsm.  .m. .Tc\u0007crocodile\n;k;s  . sm.     n   \u0007wraith\nFy      Fj  n       \u00169\n\u001617\n\u0017blessed spellbook of invisibility\n rl       20s   n       \u0017blessed spellbook of teleport away\nrm 20s    +ZZZ\u0007kobold\nZ#pray\ny y                       \u0016?\n\u001bn     k  n               \u001644\n\u0017cursed scroll of create monster\n rn red naga\nsalamander\nCroesus\nygreen slime\nplains centaur\nred naga\ndwarf lord\nsoldier\nkitten\ngnome lord\nchickatrice\nblue jelly\ndwarf\n    Fk     Fk     n    \u0017amulet versus poison\nPo s      \u001b          s         n         20s  .       R    n      \u0017potion of oil\nqp       n     Fk  Fk  \u0017blessed Trollsbane\nwq           n              n          Fk       n           n             n          Fj    n            n                      yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "mO>n\u001b\n\u0006_ \u001bm.>FbFj_>.  Fl_.Fl >FnFn_>,Fl_.> eh ,\u0006_>.Fu_,Fh>FjFn_>._.> FhFhFyE- ad aerarium\nb\u0006_>,Fb_.Fb>FbFb_>.Fb_,Fb>FbFb_>.Fb_.Fb>FbFbFbFbFb<\u0006_>.Fb_,Fb>FbFb_>.Fb_.Fb>FbFb_>,Fb_,Fb>FbFbFbFbFb\u0006_>.Fb_,Fb>FbFb_>,Fb_.Fb>FbFb_>,Fb_.Fb>FbFbFbFbFbO>>b\u001b\n\u0007housecat\n\u0017apple\n tbbdfsjsk.n#name\nm\nu\u000720ssm.  nsu20ssm.sm.\u0006_>.  nFk_,Fb   n>FkFb_>, Fk_.Fk>Fk  nFk_>,Fk_.Fk>Fb  n Fk\u0017tin whistle\nblhaj\u001610\nmO>s\u001b\n\u0006_>>.Fu_.> FjFkFk\u0006_>.  n Fk _,  nFy >Fy Fy  n _>.Fy   n_.Fk   n>FkFk_>._.> Fu Fl     nFu \u0006_>>. Fl   n  _..Fl    >Fy   n    Fy    n  _>>,Fy       n_. Fu     yy  >"
+ },
+ "segments": [
+  {
+   "seed": 51850017,
+   "datetime": "20190308135814",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nMENUCOLOR=\"blessed\"=green\n",
+   "moves": "mO>n\u001b\n\u0006_ \u001bm.>FbFj_>.  Fl_.Fl >FnFn_>,Fl_.> eh ,\u0006_>.Fu_,Fh>FjFn_>._.> FhFhFyE- ad aerarium\nb\u0006_>,Fb_.Fb>FbFb_>.Fb_,Fb>FbFb_>.Fb_.Fb>FbFbFbFbFb<\u0006_>.Fb_,Fb>FbFb_>.Fb_.Fb>FbFb_>,Fb_,Fb>FbFbFbFbFb\u0006_>.Fb_,Fb>FbFb_>,Fb_.Fb>FbFb_>,Fb_.Fb>FbFbFbFbFbO>>b\u001b\n\u0007housecat\n\u0017apple\n tbbdfsjsk.n#name\nm\nu\u000720ssm.  nsu20ssm.sm.\u0006_>.  nFk_,Fb   n>FkFb_>, Fk_.Fk>Fk  nFk_>,Fk_.Fk>Fb  n Fk\u0017tin whistle\nblhaj\u001610\nmO>s\u001b\n\u0006_>>.Fu_.> FjFkFk\u0006_>.  n Fk _,  nFy >Fy Fy  n _>.Fy   n_.Fk   n>FkFk_>._.> Fu Fl     nFu \u0006_>>. Fl   n  _..Fl    >Fy   n    Fy    n  _>>,Fy       n_. Fu     yy  >"
+  }
+ ]
+}

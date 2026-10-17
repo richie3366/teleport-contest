@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " FnFuu FnFyFkFuFuFkFkFuFnFuy FkFuFkFyFyFuFuFkFuFuFnFyFkFnFky FnFyFnFyFkFnFuk FuFnFun FyFnFuFnFnFuFnFnFuFnFky FkFkFnFnFyFyFuFyFuy FnFkn FkFkFyFku FyFuu FkFkFuFuFyFnFnFkn FyFkn FyFyFuFnFnFnFnFkFkFnFnFyFnFuFuFuFnFyFuFnFnFuFkFuFnFnFkFuFyFyFuFkFkFuFkFkFnFkk FnFun FyFyFkFnFkn H10s\u001619\n\u0006_ \u001b;>FlFl_>.Fh_,> FjFjFb#untrap\nj #force\n \u0006_>.      _,    m.Fj>FyFy_>.   ,Fk_,> \u0006_>>,Fu_.Fb>FhFh_>>,Fn_>FbFh\u001b_>>,Fh_.Fb>FhFhFuFuFn\u0006_>,Fn_>FuFn_>FuFh_>.Fu_.Fu>FuFbFbFuFh<\u0006_>.Fh_.Fh>FuFu_>.Fn_>FnFb_>,Fh_.Fb>FbFnFnFbFh:kb #turn\n#name\ni\nO>>>>f\u001b\n\u00169\nck #conduct\n #ride\nu <O>>>d\u001b\n\u0007tame hill orc\n\u0007tame lichen\n#chat\ny 10s#name\nf\n\u0017banana\nt\u001b\u0017fortune cookie\nt\u001b\u0017leash\naqj ylu kj naqn \u0017carrot\nt\u001b\u0006_>>. Fj_.     nFu>FyFn_>>.     n Fb_,        n Fj>FkFn_>FyFbFuFbFuu \u0006_>.Fb_.    n Fkb >FuFy_>,Fy_,     nFb>FyFky _>, Fb_.  nFky >FbFnFnFyFb#dip\nng  nE- Elbereth Elbereth\n   \u0006_>.   n Fj_.  nFn>FjFuFb\u001611\n#turn\nzcl t\u001bok 150s nybyjl_"
+ },
+ "segments": [
+  {
+   "seed": 51850027,
+   "datetime": "20201102041518",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=norep \"You feel\"\nMENUCOLOR=\"cursed\"=green\nBIND=v:inventory\n",
+   "moves": " FnFuu FnFyFkFuFuFkFkFuFnFuy FkFuFkFyFyFuFuFkFuFuFnFyFkFnFky FnFyFnFyFkFnFuk FuFnFun FyFnFuFnFnFuFnFnFuFnFky FkFkFnFnFyFyFuFyFuy FnFkn FkFkFyFku FyFuu FkFkFuFuFyFnFnFkn FyFkn FyFyFuFnFnFnFnFkFkFnFnFyFnFuFuFuFnFyFuFnFnFuFkFuFnFnFkFuFyFyFuFkFkFuFkFkFnFkk FnFun FyFyFkFnFkn H10s\u001619\n\u0006_ \u001b;>FlFl_>.Fh_,> FjFjFb#untrap\nj #force\n \u0006_>.      _,    m.Fj>FyFy_>.   ,Fk_,> \u0006_>>,Fu_.Fb>FhFh_>>,Fn_>FbFh\u001b_>>,Fh_.Fb>FhFhFuFuFn\u0006_>,Fn_>FuFn_>FuFh_>.Fu_.Fu>FuFbFbFuFh<\u0006_>.Fh_.Fh>FuFu_>.Fn_>FnFb_>,Fh_.Fb>FbFnFnFbFh:kb #turn\n#name\ni\nO>>>>f\u001b\n\u00169\nck #conduct\n #ride\nu <O>>>d\u001b\n\u0007tame hill orc\n\u0007tame lichen\n#chat\ny 10s#name\nf\n\u0017banana\nt\u001b\u0017fortune cookie\nt\u001b\u0017leash\naqj ylu kj naqn \u0017carrot\nt\u001b\u0006_>>. Fj_.     nFu>FyFn_>>.     n Fb_,        n Fj>FkFn_>FyFbFuFbFuu \u0006_>.Fb_.    n Fkb >FuFy_>,Fy_,     nFb>FyFky _>, Fb_.  nFky >FbFnFnFyFb#dip\nng  nE- Elbereth Elbereth\n   \u0006_>.   n Fj_.  nFn>FjFuFb\u001611\n#turn\nzcl t\u001bok 150s nybyjl_"
+  }
+ ]
+}

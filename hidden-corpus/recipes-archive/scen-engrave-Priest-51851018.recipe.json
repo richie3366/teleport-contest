@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "ku\u0017wand of cancellation\nEk Elbereth Elbereth\nk\u0017wand of secret door detection\nEl  X marks the spot\n: \u0017wand of nothing\nEmn  ad aerarium\n: uE- Vlad was here\n\u0007minotaur\nsn20s  yy  ."
+ },
+ "segments": [
+  {
+   "seed": 51851018,
+   "datetime": "20160205132449",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "ku\u0017wand of cancellation\nEk Elbereth Elbereth\nk\u0017wand of secret door detection\nEl  X marks the spot\n: \u0017wand of nothing\nEmn  ad aerarium\n: uE- Vlad was here\n\u0007minotaur\nsn20s  yy  ."
+  }
+ ]
+}

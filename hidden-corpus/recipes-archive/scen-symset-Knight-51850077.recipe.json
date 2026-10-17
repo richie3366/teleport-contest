@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u0006_ \u001b:>FyFk_>>._.>_>>,_.><\u0006_>>._,>_>>._.>_>>,_.>\u0006_>._,>_>._,>_>._.><\u0006_>,_.>_>._.>_>._,>E- I am a fish\n#wipe\nv\u001bi\u001bO>>>>d\u001b\n\u00166\nFjFj .50snhy  hFl Fl Fl Fl   n Fl FlFl Fl Fl Fl Fl   n  Fu Fu  n  Fl  Fu  #pray\ny y      Fl  Fu  n     nFl  Fu  Fu   n  Fu   n Fl  Fl  Fu   n  Fu  Fl   n  Fu   n Fu  Fl  n   Fu Fu    n Fl  Fu   n Fl   FuFlFlFlFuFuFuFuFuFus100s#pray\ny y 100sFhFhFl      nFlFhFhFhFl      nFhFl20sstbu100s50s50sFh20s.l  100s100s_>.>50s100sFl20ssjll\u000f\u001b\u001613\n    _>.>50swa150shby_>.>50sa150segbul100seh150s  eg150sehkjnFjFjFbFbFbFnFbFnFnFjFnFnFnFjFjFnFnFnFnFbFn FbFjFjFjFnFnFbFnFbFnFjFjFbFnFbFnFnFbFjFjFbFbFnFbFbFjFnegFjFbFjFjFbFbFjFbFnFnFnFnFnFnFjFjFnFbFjFjFbFbFjFbFbFnFjFbFj"
+ },
+ "segments": [
+  {
+   "seed": 51850077,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a scroll\"=cyan\nBIND=v:inventory\n",
+   "moves": "v i\u001b\u0006_ \u001b:>FyFk_>>._.>_>>,_.><\u0006_>>._,>_>>._.>_>>,_.>\u0006_>._,>_>._,>_>._.><\u0006_>,_.>_>._.>_>._,>E- I am a fish\n#wipe\nv\u001bi\u001bO>>>>d\u001b\n\u00166\nFjFj .50snhy  hFl Fl Fl Fl   n Fl FlFl Fl Fl Fl Fl   n  Fu Fu  n  Fl  Fu  #pray\ny y      Fl  Fu  n     nFl  Fu  Fu   n  Fu   n Fl  Fl  Fu   n  Fu  Fl   n  Fu   n Fu  Fl  n   Fu Fu    n Fl  Fu   n Fl   FuFlFlFlFuFuFuFuFuFus100s#pray\ny y 100sFhFhFl      nFlFhFhFhFl      nFhFl20sstbu100s50s50sFh20s.l  100s100s_>.>50s100sFl20ssjll\u000f\u001b\u001613\n    _>.>50swa150shby_>.>50sa150segbul100seh150s  eg150sehkjnFjFjFbFbFbFnFbFnFnFjFnFnFnFjFjFnFnFnFnFbFn FbFjFjFjFnFnFbFnFbFnFjFjFbFnFbFnFnFbFjFjFbFbFnFbFbFjFnegFjFbFjFjFbFbFjFbFnFnFnFnFnFnFjFjFnFbFjFjFbFbFjFbFbFnFjFbFj"
+  }
+ ]
+}

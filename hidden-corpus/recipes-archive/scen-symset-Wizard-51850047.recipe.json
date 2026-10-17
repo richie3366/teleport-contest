@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " Oo\u001b\u001b\n\u0007little dog\n\u0017newt corpse\nt\u001b\u0007pony\n\u0017carrot\nt\u001bdn20s 20s  n .m.   n de sb20s  n .uk b\u0017huge chunk of meat\nt\u001b\u0017tripe ration\nt\u001b\u001610\nmO>j\u001b\nmO>>>r\u001b\n\u0007little dog\n\u0017banana\nt\u001b\u0017leash\nary jub kb ly ary \u0017tin whistle\nub jh\u001bas\u0017fortune cookie\nt\u001b\u0007sewer rat\n.m.     n sm..m.  n sm.    nss  n \u0006_ \u001b;>FjFj_>,Fy_,  n Fh\u001b>FbFy_>.  n Fj_.> #name\ni\n\u00167\nblh ub 100sFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlF"
+ },
+ "segments": [
+  {
+   "seed": 51850047,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=number_pad\nMSGTYPE=norep \"You hear\"\nMENUCOLOR=\"cursed\"=magenta\n",
+   "moves": " Oo\u001b\u001b\n\u0007little dog\n\u0017newt corpse\nt\u001b\u0007pony\n\u0017carrot\nt\u001bdn20s 20s  n .m.   n de sb20s  n .uk b\u0017huge chunk of meat\nt\u001b\u0017tripe ration\nt\u001b\u001610\nmO>j\u001b\nmO>>>r\u001b\n\u0007little dog\n\u0017banana\nt\u001b\u0017leash\nary jub kb ly ary \u0017tin whistle\nub jh\u001bas\u0017fortune cookie\nt\u001b\u0007sewer rat\n.m.     n sm..m.  n sm.    nss  n \u0006_ \u001b;>FjFj_>,Fy_,  n Fh\u001b>FbFy_>.  n Fj_.> #name\ni\n\u00167\nblh ub 100sFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlF"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed ring of free action\nPhl\u0017blessed Mjollnir\nwi \u0016?\np _ \u001b;>s\u0016?\nrnlk:\u00161\n\u0007nalfeshnee\nFb  Fj    FjFjFjFj \u0007vampire lord\nFbFb   Fb Fb Fb \u0007Yeenoghu\nnFj   nFj Fb 20s  \u0007Yeenoghu\nnsm.ss20s    nsm.     n  20s    sm.    .u  n     \u00165\n \u0016?\n>>N       scroll of genocide\n\u0017potion of healing\n\u0007little dog\nql         Fk      n         Fy       n     \u00173 scroll of punishment\nrm                    n         20s  n   n  .    n   \u0017blessed potion of blindness\n\u0007disenchanter\nqn    n   \u0017cursed -1 levitation boots\n\u0007djinni\nWo  n   s   n   n 20s  .  n  \u0017uncursed amulet of change\n\u0007mastodon\nPp    y  2"
+ },
+ "segments": [
+  {
+   "seed": 51850010,
+   "datetime": "20041219095140",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed ring of free action\nPhl\u0017blessed Mjollnir\nwi \u0016?\np _ \u001b;>s\u0016?\nrnlk:\u00161\n\u0007nalfeshnee\nFb  Fj    FjFjFjFj \u0007vampire lord\nFbFb   Fb Fb Fb \u0007Yeenoghu\nnFj   nFj Fb 20s  \u0007Yeenoghu\nnsm.ss20s    nsm.     n  20s    sm.    .u  n     \u00165\n \u0016?\n>>N       scroll of genocide\n\u0017potion of healing\n\u0007little dog\nql         Fk      n         Fy       n     \u00173 scroll of punishment\nrm                    n         20s  n   n  .    n   \u0017blessed potion of blindness\n\u0007disenchanter\nqn    n   \u0017cursed -1 levitation boots\n\u0007djinni\nWo  n   s   n   n 20s  .  n  \u0017uncursed amulet of change\n\u0007mastodon\nPp    y  2"
+  }
+ ]
+}

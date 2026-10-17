@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nW\u001b\u0016?\n>Hklllh:\u001642\n_ \u001b,>\u0016?\n>x#chat\ny ;h.\u001617\n#chat\nh     ;h.\u0016?\n>t _<,<ss\u001642\n__.\u001614\n_<,_.20ss\u0016?\np ly:\u001642\n\u0017the Eye of the Aethiopica\n \u0007giant mimic\nssm.20s.m.sm.20s sm.s\u0007mail daemon\nFjFyFy Fy\u0007crocodile\n#chat\nuFyFu \u0007nalfeshnee\nsm.s20s.n  n    .m.   20s      n     \u00167\n\u0016?\n>A  \u0007grey-elf\nFl      n   Fh      Fb      Fl   n        \u0007aligned cleric\nyFl        Fh      n                   n   Fk          Fu    n           Fk       n       Fl   n    \u0007dust vortex\nFy   n       Fb   n      Fl  n       n   Fj     n   \u00165\n \u001616\n  #chat\nj;m.\u0016?\n\u001bj  j\u001617\n   k   njll:  \u0016?\n\u001bj   n  u "
+ },
+ "segments": [
+  {
+   "seed": 51850050,
+   "datetime": "20030810235044",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nW\u001b\u0016?\n>Hklllh:\u001642\n_ \u001b,>\u0016?\n>x#chat\ny ;h.\u001617\n#chat\nh     ;h.\u0016?\n>t _<,<ss\u001642\n__.\u001614\n_<,_.20ss\u0016?\np ly:\u001642\n\u0017the Eye of the Aethiopica\n \u0007giant mimic\nssm.20s.m.sm.20s sm.s\u0007mail daemon\nFjFyFy Fy\u0007crocodile\n#chat\nuFyFu \u0007nalfeshnee\nsm.s20s.n  n    .m.   20s      n     \u00167\n\u0016?\n>A  \u0007grey-elf\nFl      n   Fh      Fb      Fl   n        \u0007aligned cleric\nyFl        Fh      n                   n   Fk          Fu    n           Fk       n       Fl   n    \u0007dust vortex\nFy   n       Fb   n      Fl  n       n   Fj     n   \u00165\n \u001616\n  #chat\nj;m.\u0016?\n\u001bj  j\u001617\n   k   njll:  \u0016?\n\u001bj   n  u "
+  }
+ ]
+}

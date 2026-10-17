@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPe\u0017blessed bell of opening\n\u0017blessed magic lamp\n\u0017blessed +3 speed boots\nWh\u0017blessed leash\n\u0017blessed 20 daggers\nQj#levelchange\n20\n                   #wizintrinsic\nh\n ;l. \u001b:   E- Elbereth\n#pray\ny y \u0017potion of acid\nqk20s ;h:E-n  Elbereth\n#chat\nh\u0007yellow mold\n\u0007kobold\nFuFk Fl.ss20s#wizintrinsic\nh\n\u0017blessed spellbook of slow monster\nrlsZa\n: \u0017wand of digging\nzmhzmbzmbzmn\u0016?\nhhn  ubyl:s\u00168\nynk\u0017ice\nhllhl\u0017iron bars\njkkj:#terrain\nd\ne #terrain\ne\n#ride\nky#wizintrinsic\nh\n\u0007gnome\n\u0007kobold\nFyFjs20s20s\u0017potion of extra healing\nqns;>.E- Elbereth Elbereth\n;m.E-n  X marks the spot\n#chat\nh#wizintrinsic\nh\n i\u001bkyh\u0017potion of healing\nqo.\u0007soldier\n\u0007jackal\nFnFnFn Fl\u0007jackal\nFnFjs20s.\u0017potion of confusion\nqps#wizintrinsic\nh\n\u0007giant rat\n\u0007kobold shaman\nFbFjs.ss\u0017scroll of mail\nrq \u0017wand of sleep\nzruzryzrbzry      zrb\u0016?\nf    __,<#wizintrinsic\nh\n \u0017spellbook of slow monster\nrs y sZa\n:;l,E- Vlad was here\n\u0007hill orc\n\u0007kobold\nFjFlFls;m.E-n  Elbereth Elbereth\n#chat\nl#pray\ny y #wizintrinsic\nh\n\u0007owlbear\n\u0007kobold\nFhFnFbFbFb\u0007soldier\n\u0007bugbear\nFlFlFlFk  \u0007hill orc\n\u0007troll\nFkFyFu  Fu\u0007soldier\n\u0007acid blob\nFhFuFl    Fl Fu Fl#wizintrinsic\nh\n\u0017scroll of earth\nrt   \u0017blessed spellbook of fireball\nru .b Za\n#turn\n"
+ },
+ "segments": [
+  {
+   "seed": 51850028,
+   "datetime": "20190308073540",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed amulet of life saving\nPe\u0017blessed bell of opening\n\u0017blessed magic lamp\n\u0017blessed +3 speed boots\nWh\u0017blessed leash\n\u0017blessed 20 daggers\nQj#levelchange\n20\n                   #wizintrinsic\nh\n ;l. \u001b:   E- Elbereth\n#pray\ny y \u0017potion of acid\nqk20s ;h:E-n  Elbereth\n#chat\nh\u0007yellow mold\n\u0007kobold\nFuFk Fl.ss20s#wizintrinsic\nh\n\u0017blessed spellbook of slow monster\nrlsZa\n: \u0017wand of digging\nzmhzmbzmbzmn\u0016?\nhhn  ubyl:s\u00168\nynk\u0017ice\nhllhl\u0017iron bars\njkkj:#terrain\nd\ne #terrain\ne\n#ride\nky#wizintrinsic\nh\n\u0007gnome\n\u0007kobold\nFyFjs20s20s\u0017potion of extra healing\nqns;>.E- Elbereth Elbereth\n;m.E-n  X marks the spot\n#chat\nh#wizintrinsic\nh\n i\u001bkyh\u0017potion of healing\nqo.\u0007soldier\n\u0007jackal\nFnFnFn Fl\u0007jackal\nFnFjs20s.\u0017potion of confusion\nqps#wizintrinsic\nh\n\u0007giant rat\n\u0007kobold shaman\nFbFjs.ss\u0017scroll of mail\nrq \u0017wand of sleep\nzruzryzrbzry      zrb\u0016?\nf    __,<#wizintrinsic\nh\n \u0017spellbook of slow monster\nrs y sZa\n:;l,E- Vlad was here\n\u0007hill orc\n\u0007kobold\nFjFlFls;m.E-n  Elbereth Elbereth\n#chat\nl#pray\ny y #wizintrinsic\nh\n\u0007owlbear\n\u0007kobold\nFhFnFbFbFb\u0007soldier\n\u0007bugbear\nFlFlFlFk  \u0007hill orc\n\u0007troll\nFkFyFu  Fu\u0007soldier\n\u0007acid blob\nFhFuFl    Fl Fu Fl#wizintrinsic\nh\n\u0017scroll of earth\nrt   \u0017blessed spellbook of fireball\nru .b Za\n#turn\n"
+  }
+ ]
+}

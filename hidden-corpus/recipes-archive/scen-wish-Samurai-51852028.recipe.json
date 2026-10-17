@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0017magic marker\n\u0007ape\naf\u0017potion of full healing\nqg\u0017blessed spellbook of confuse monster\nrh .m.sm.Z\u0017blessed figurine of a newt\n\u0007centipede\naih  \u00173 can of grease\naj- sj20s"
+ },
+ "segments": [
+  {
+   "seed": 51852028,
+   "datetime": "20060110090249",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0017magic marker\n\u0007ape\naf\u0017potion of full healing\nqg\u0017blessed spellbook of confuse monster\nrh .m.sm.Z\u0017blessed figurine of a newt\n\u0007centipede\naih  \u00173 can of grease\naj- sj20s"
+  }
+ ]
+}

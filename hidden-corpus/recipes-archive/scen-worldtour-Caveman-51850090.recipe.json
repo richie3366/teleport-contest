@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 helm of telepathy\nWg\u001616\n\u0014 \u001b;s.s\u001616\n_<,<20s 20s  \u0016?\n>>L      scroll of light\nul   :\u0016?\n\u001bl   l\u0016?\n\u001bh  l  \u001616\nby   :\u00166\nbu      nllu j  n:\u001631\n#chat\nu;j:  sm.    \u001616\nbnl:\u001628\nu   u  h :\u001636\n_<,>\u0016?\n\u001bbl  n   \u0016?\n\u001bl    j\u0016?\n\u001bj   j  \u001628\n\u0006._<.\u0016?\n\u001bj   n    \u001638\nn j     n                 n        \u0017wand of make invisible\nE:\u0017wand of light\nE:\u0017wand of fire\nE:E\u0007soldier ant\nsm.          n      20s      n    20s               Fy    n           Fk    n       n    \u00161\n\u0016?\n\u001bu         n         h             n  \u00164\n\u00165\n_<.>.m.           n    .m.           n  20s      \u001b           n    \u00168\n\u0016?\n\u001bj        n     y    \u0016?\n\u001bj   yy\u001by   y y y\u001b  u"
+ },
+ "segments": [
+  {
+   "seed": 51850090,
+   "datetime": "20160502043729",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 helm of telepathy\nWg\u001616\n\u0014 \u001b;s.s\u001616\n_<,<20s 20s  \u0016?\n>>L      scroll of light\nul   :\u0016?\n\u001bl   l\u0016?\n\u001bh  l  \u001616\nby   :\u00166\nbu      nllu j  n:\u001631\n#chat\nu;j:  sm.    \u001616\nbnl:\u001628\nu   u  h :\u001636\n_<,>\u0016?\n\u001bbl  n   \u0016?\n\u001bl    j\u0016?\n\u001bj   j  \u001628\n\u0006._<.\u0016?\n\u001bj   n    \u001638\nn j     n                 n        \u0017wand of make invisible\nE:\u0017wand of light\nE:\u0017wand of fire\nE:E\u0007soldier ant\nsm.          n      20s      n    20s               Fy    n           Fk    n       n    \u00161\n\u0016?\n\u001bu         n         h             n  \u00164\n\u00165\n_<.>.m.           n    .m.           n  20s      \u001b           n    \u00168\n\u0016?\n\u001bj        n     y    \u0016?\n\u001bj   yy\u001by   y y y\u001b  u"
+  }
+ ]
+}

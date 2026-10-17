@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWg\u0017blessed amulet of life saving\nPh\u0017wand of sleep\n\u0017wand of magic missile\n\u0017wand of fire\n\u0007hill orc\nzklzkn zjjziuzkj     nszknzkbszj.\u0017wand of teleportation\n\u0017wand of striking\n\u0007giant rat\nzmuszmnzljzmbzlbzm.  n20szlhzly\u0017wand of sleep\n\u0017wand of polymorph\n\u0007newt\nznk    .m.zny  zny zny zoy.m.znzoy20szoysm.zokzoksjzozo\u0007incubus\n\u0007incubus\n\u0017wand of magic missile\nzpk   n20s  n          szpy s.szpy zpy zpy \u0017blessed spellbook of light\nrq       20s  n \u0007gnomish wizard\nZa\nZa\n20ssu Za\nsm.  n .m. Za\nsm. 20s  Za\n.jsm. Za\nsm.   n.m.Za\n\u00162\n\u00178 spears\nQr\u0007owlbear\n\u0007gnome\nfn fn   n  n trn   n fl  n    nfl   n fl   n \u00169\n\u0007succubus\n\u0007master mind flayer\n\u0017wand of striking\n.m..m.     n  zsn      n  zsy   ynny ny\u001bn  z"
+ },
+ "segments": [
+  {
+   "seed": 51850034,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWg\u0017blessed amulet of life saving\nPh\u0017wand of sleep\n\u0017wand of magic missile\n\u0017wand of fire\n\u0007hill orc\nzklzkn zjjziuzkj     nszknzkbszj.\u0017wand of teleportation\n\u0017wand of striking\n\u0007giant rat\nzmuszmnzljzmbzlbzm.  n20szlhzly\u0017wand of sleep\n\u0017wand of polymorph\n\u0007newt\nznk    .m.zny  zny zny zoy.m.znzoy20szoysm.zokzoksjzozo\u0007incubus\n\u0007incubus\n\u0017wand of magic missile\nzpk   n20s  n          szpy s.szpy zpy zpy \u0017blessed spellbook of light\nrq       20s  n \u0007gnomish wizard\nZa\nZa\n20ssu Za\nsm.  n .m. Za\nsm. 20s  Za\n.jsm. Za\nsm.   n.m.Za\n\u00162\n\u00178 spears\nQr\u0007owlbear\n\u0007gnome\nfn fn   n  n trn   n fl  n    nfl   n fl   n \u00169\n\u0007succubus\n\u0007master mind flayer\n\u0017wand of striking\n.m..m.     n  zsn      n  zsy   ynny ny\u001bn  z"
+  }
+ ]
+}

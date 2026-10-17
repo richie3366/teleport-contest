@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nk_mmmmm.Fy_.#chat\nk_mmmm.#chat\nk_mmmmm,_.#chat\ny#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.#chat\nh;<._mmmm._,#chat\nk;<.\u0017blessed amulet of life saving\nPi\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of cold\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm._.sFk   Fk Fk Fk Fk ,\u0016?\n>z\u0006_mm.                           Fy  _.  Fy   Fy  Fy  Fl  Fl  Fl   Fl  Fj  zkl  ,\u001b#chat\ny       n  \u0016?\n>A\u0006_mmm. Fk _. sFk    Fb    Fb       Fb        Fb      Fk   n   zkk       ,\u001b\u0016?\n>A\u0006_mmmmmm.    Fk   _.Fh      Fk     n   Fk       Fb      Fk   n    zkb    ,\u001b\u001611\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.     Fk     n _,     Fh        Fk     nFy     Fh      Fl     zkj     ,\u001b\u00163\n\u0016?\n>z\u0006_mm.  n     Fb    _.Fb     n  Fl     Fk    Fb      n  Fj   Fb   Fh    ,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmmm.  n     Fl    _.#chat\nk;k;\u00161\n\u0016?\n>A\u0006_mmmmmm.       nFb      _.Fb    Fb   Fj      n   Fl    Fj     Fl    zk  n      ,\u001b#chat\nj     \u0016?\n>>\u001b\u0016?\n>y_mmm.    Fu   n   _,   Fy   #chat\ny\u00163\n\u0016?\n>A\u0006_mmmmmm,   n   Fj   _.Fj      yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51850086,
+   "datetime": "20250308021229",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nk_mmmmm.Fy_.#chat\nk_mmmm.#chat\nk_mmmmm,_.#chat\ny#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.#chat\nh;<._mmmm._,#chat\nk;<.\u0017blessed amulet of life saving\nPi\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of cold\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm._.sFk   Fk Fk Fk Fk ,\u0016?\n>z\u0006_mm.                           Fy  _.  Fy   Fy  Fy  Fl  Fl  Fl   Fl  Fj  zkl  ,\u001b#chat\ny       n  \u0016?\n>A\u0006_mmm. Fk _. sFk    Fb    Fb       Fb        Fb      Fk   n   zkk       ,\u001b\u0016?\n>A\u0006_mmmmmm.    Fk   _.Fh      Fk     n   Fk       Fb      Fk   n    zkb    ,\u001b\u001611\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.     Fk     n _,     Fh        Fk     nFy     Fh      Fl     zkj     ,\u001b\u00163\n\u0016?\n>z\u0006_mm.  n     Fb    _.Fb     n  Fl     Fk    Fb      n  Fj   Fb   Fh    ,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmmm.  n     Fl    _.#chat\nk;k;\u00161\n\u0016?\n>A\u0006_mmmmmm.       nFb      _.Fb    Fb   Fj      n   Fl    Fj     Fl    zk  n      ,\u001b#chat\nj     \u0016?\n>>\u001b\u0016?\n>y_mmm.    Fu   n   _,   Fy   #chat\ny\u00163\n\u0016?\n>A\u0006_mmmmmm,   n   Fj   _.Fj      yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

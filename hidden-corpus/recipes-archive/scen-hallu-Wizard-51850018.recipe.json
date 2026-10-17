@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic lamp\n\u0017blessed magic harp\n\u0017blessed +3 helm of telepathy\nWq\u0017blessed bell of opening\n\u0017blessed ring of free action\nPsl\u0017blessed 20 daggers\nQt#levelchange\n26\n                         #wizintrinsic\nh\n \u0016?\nf    _ \u001bm.>\u0007grid bug\nFysss\u0017blessed scroll of identify\nru p\n \u001bfyfyfbfh\u0017scroll of mail\nrv \u0017candy bar\new#wizintrinsic\nh\n\u0017blessed scroll of mail\nrx \u0017lembas wafer\ney \u0017blessed spellbook of magic missile\nrz.m.Za\n:\u0017potion of sleeping\nqAsm.s#wizintrinsic\nh\n\u0017wand of slow monster\nzB.zBy zBlfy tty#invoke\nr;m,E- X marks the spot\n#chat\nj#pray\ny y \u0017potion of see invisible\nqC.#wizintrinsic\nh\n\u0007jackal\nFhss20s.\u001619\n\u0017ring of invisibility\nPD s..20ss\u0017blessed lock pick\n\u0007ghoul\naEb\u0017aklys\n\u0007ogre king\nwFFn  FnFn  X\u0017blessed +3 axe\nwG Fn   Fb FnsFj\u0017blessed wraith corpse\neH s20s Fjs\u0017cursed potion of speed\nqI20s Fn  20s sm. #wizintrinsic\nh\n\u0007giant rat\nFnFnFj     nFl tajtFj fj\u0017potion of hallucination\nqJ  20s  .m. \u0017wand of digging\nzKj zKjzKj#wizintrinsic\nh\n\u0017wand of lightning\nzLj  zLjzLb zLh zLlzLu\u0017potion of acid\nqM20s20s;>.E- X marks "
+ },
+ "segments": [
+  {
+   "seed": 51850018,
+   "datetime": "20070128190642",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic lamp\n\u0017blessed magic harp\n\u0017blessed +3 helm of telepathy\nWq\u0017blessed bell of opening\n\u0017blessed ring of free action\nPsl\u0017blessed 20 daggers\nQt#levelchange\n26\n                         #wizintrinsic\nh\n \u0016?\nf    _ \u001bm.>\u0007grid bug\nFysss\u0017blessed scroll of identify\nru p\n \u001bfyfyfbfh\u0017scroll of mail\nrv \u0017candy bar\new#wizintrinsic\nh\n\u0017blessed scroll of mail\nrx \u0017lembas wafer\ney \u0017blessed spellbook of magic missile\nrz.m.Za\n:\u0017potion of sleeping\nqAsm.s#wizintrinsic\nh\n\u0017wand of slow monster\nzB.zBy zBlfy tty#invoke\nr;m,E- X marks the spot\n#chat\nj#pray\ny y \u0017potion of see invisible\nqC.#wizintrinsic\nh\n\u0007jackal\nFhss20s.\u001619\n\u0017ring of invisibility\nPD s..20ss\u0017blessed lock pick\n\u0007ghoul\naEb\u0017aklys\n\u0007ogre king\nwFFn  FnFn  X\u0017blessed +3 axe\nwG Fn   Fb FnsFj\u0017blessed wraith corpse\neH s20s Fjs\u0017cursed potion of speed\nqI20s Fn  20s sm. #wizintrinsic\nh\n\u0007giant rat\nFnFnFj     nFl tajtFj fj\u0017potion of hallucination\nqJ  20s  .m. \u0017wand of digging\nzKj zKjzKj#wizintrinsic\nh\n\u0017wand of lightning\nzLj  zLjzLb zLh zLlzLu\u0017potion of acid\nqM20s20s;>.E- X marks "
+  }
+ ]
+}

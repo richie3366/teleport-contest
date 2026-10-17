@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017saddle\n aiu\u0017lance\nwj#ride\njy\u0007horse\n\u0017scroll of taming\nrk \u0017saddle\nalu #ride\nly\u0007tame saddled warhorse\n#ride\n   hlunk \u0006_ \u001b:>Fh  Fl_>.         Fl_,Fl>FlFl_>.Fl_,>\u0004h\u0004u,\u0007sewer rat\nFlFlFl"
+ },
+ "segments": [
+  {
+   "seed": 51851024,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017saddle\n aiu\u0017lance\nwj#ride\njy\u0007horse\n\u0017scroll of taming\nrk \u0017saddle\nalu #ride\nly\u0007tame saddled warhorse\n#ride\n   hlunk \u0006_ \u001b:>Fh  Fl_>.         Fl_,Fl>FlFl_>.Fl_,>\u0004h\u0004u,\u0007sewer rat\nFlFlFl"
+  }
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "yuhkFjFj  Fj Fj Fj FjFjFjlybuNNUN_ \u001b,>HBJJ_>.>LYNJ_>.>ky#name\nd\nnbhndd.ssl20s  FlFlFlFlFlFl FlFlFn FnFnFnFnFnFnFnt\u001b#quit\nyy\u001by  y y y\u001b  FjFj 20sFhFhFhFhFhFh150sbhh50s150s\u0018\u001b50sFls20shkhy#ride\nb150s150s50sFlFlFlFls20sFl..100s50s100snyn100suny150sFls20si\u001b150sjll50sFlFlFlFl.2#quit\nyy\u001by  y y y\u001b khbndesssbjkju#chat\nyljlyudbs20s20s20sFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu#quit\nyy\u001by  y y y\u001b yuynNLKL_ \u001b;>zcjw-KUUN_>,><NJBH_>.>JHBK_>.>YBKJ_>.>\u000f\u001bHYLB_>,><YLLK_>.>BBJY_>#quit\n, luybFl FlFlFlFlFlFlFlFhFhFhFhFhFhFhFhhlhbuh100sFj.s:100sybu100sFl20ss50sjyljljyly_ \u001b@.>bjk150sW100s100sunnFuFlFu150s100sFhs20shlk;m,150s50sFys20sFyssi\u001b\u000f\u001b100sFh.s50s_>.>100s100s150#quit\nyy\u001by  y y y\u001b FjFj FjFjFjFjFjFjLUKY_ \u001b;>JJBK_>.>#offer\n#terrain\nb\nHHUJ_>JJUH_>HUBL_>BNLK_>HNHU_>BNKU_><t 10s#name\nf\nds.sbnjh20s20s10sdas.suhbl20sdhs.20s#chat\nj100s100sFhFhs_>.>kkj_>,>150s100shunhnkFbFhFhjuki\u001b100#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51850032,
+   "datetime": "20260713011216",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "yuhkFjFj  Fj Fj Fj FjFjFjlybuNNUN_ \u001b,>HBJJ_>.>LYNJ_>.>ky#name\nd\nnbhndd.ssl20s  FlFlFlFlFlFl FlFlFn FnFnFnFnFnFnFnt\u001b#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51950032,
+   "datetime": "20200323182537",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=autodig\nOPTIONS=runmode:run\n",
+   "moves": " FjFj 20sFhFhFhFhFhFh150sbhh50s150s\u0018\u001b50sFls20shkhy#ride\nb150s150s50sFlFlFlFls20sFl..100s50s100snyn100suny150sFls20si\u001b150sjll50sFlFlFlFl.2#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 52050032,
+   "datetime": "20160815000552",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\nOPTIONS=pettype:cat\n",
+   "moves": "khbndesssbjkju#chat\nyljlyudbs20s20s20sFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 52150032,
+   "datetime": "20201210122352",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:none\n",
+   "moves": "yuynNLKL_ \u001b;>zcjw-KUUN_>,><NJBH_>.>JHBK_>.>YBKJ_>.>\u000f\u001bHYLB_>,><YLLK_>.>BBJY_>#quit\n,"
+  },
+  {
+   "seed": 52250032,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": " luybFl FlFlFlFlFlFlFlFhFhFhFhFhFhFhFhhlhbuh100sFj.s:100sybu100sFl20ss50sjyljljyly_ \u001b@.>bjk150sW100s100sunnFuFlFu150s100sFhs20shlk;m,150s50sFys20sFyssi\u001b\u000f\u001b100sFh.s50s_>.>100s100s150#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 52350032,
+   "datetime": "20081019170356",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=msg_window:reversed\n",
+   "moves": "FjFj FjFjFjFjFjFjLUKY_ \u001b;>JJBK_>.>#offer\n#terrain\nb\nHHUJ_>JJUH_>HUBL_>BNLK_>HNHU_>BNKU_><t 10s#name\nf\nds.sbnjh20s20s10sdas.suhbl20sdhs.20s#chat\nj100s100sFhFhs_>.>kkj_>,>150s100shunhnkFbFhFhjuki\u001b100#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

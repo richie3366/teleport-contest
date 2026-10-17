@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "nuy\u0017unaligned altar\nd$\u0017floating eye corpse\n#offer\nm  #pray\ny y nl\u0017grave\n: \u0017wand of digging\nzn> sn sb\u0017sink\nqy   \u0017ring of adornment\ndo  \u001bj\u0004k\u0004k\u0004k:#tip\n\u001b#jump\n\u0014 \u001b,hyb\u0017moat\n#dip\nay    kjhu\u0017pool\n#dip\ncy   hlj\u0017chaotic altar\ndd\u0017human corpse\n #pray\ny y : _m.20s10sK"
+ },
+ "segments": [
+  {
+   "seed": 51851000,
+   "datetime": "20230429175924",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "nuy\u0017unaligned altar\nd$\u0017floating eye corpse\n#offer\nm  #pray\ny y nl\u0017grave\n: \u0017wand of digging\nzn> sn sb\u0017sink\nqy   \u0017ring of adornment\ndo  \u001bj\u0004k\u0004k\u0004k:#tip\n\u001b#jump\n\u0014 \u001b,hyb\u0017moat\n#dip\nay    kjhu\u0017pool\n#dip\ncy   hlj\u0017chaotic altar\ndd\u0017human corpse\n #pray\ny y : _m.20s10sK"
+  }
+ ]
+}

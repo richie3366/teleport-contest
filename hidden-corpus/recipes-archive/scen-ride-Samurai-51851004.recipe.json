@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0007tame pony\n\u0017saddle\nafb#ride\nby\u0007tame saddled horse\n#ride\n \u0007horse\n\u0017scroll of taming\nrg \u0017saddle\nahl#ride\nly\u0007grid bug\nFl     FjFls.ss...s"
+ },
+ "segments": [
+  {
+   "seed": 51851004,
+   "datetime": "20241031232952",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0007tame pony\n\u0017saddle\nafb#ride\nby\u0007tame saddled horse\n#ride\n \u0007horse\n\u0017scroll of taming\nrg \u0017saddle\nahl#ride\nly\u0007grid bug\nFl     FjFls.ss...s"
+  }
+ ]
+}

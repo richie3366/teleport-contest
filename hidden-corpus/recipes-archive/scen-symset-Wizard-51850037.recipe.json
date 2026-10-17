@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "mO>>>>h\u001b\nO>>>>j\u001b\n#untrap\nu #sit\n#conduct\n dg\u0007kitten\n\u0017meatball\nt\u001b\u0006_ \u001bm. >FlFl_>>.  Fb_.Fb>FbFb_>>.Fb_,Fb>FbFb\u0007jackal\nsm.20sm..ss.\u0017meatball\nt\u001b\u0017magic whistle\njnyap \u0006_>.Fn_> \u0017leash\naqj bnlj baqj mOa\u001b\nO>>>k\u001b\u001b\n\u001617\ns\u000f\u001bv i\u001bO>>>g\u001b\n\u0006_>._.> \u0006_>,_,,>_>._.<.>_>._.;@.>\u0006_>,_,;m,>_>,_,@.>_>,_,m,>\u0006_>>._.@.>_>>._,.>_>>._.,>E- Vlad was here\n\u0014, \u0006_>,_,m,>_>._.m.>_>,_,<.>\u0006_>,_.>.>_>,_,m.>_>._,@.>\u0006_>>._,m,>_>>._.>_>>,_.>.>\u000f\u001b\u00165\n100s150sFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhv i\u001bFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFh\u001619\nO>>>h\u001b\n#conduct\n #untrap\nn O>>>b\u001b\nOd\u001b\n\u0006_>,_.> FbFbFb\u0006_>._.,>_>._.,>_>._..Fl>FlFlFlFlFl#enhance\ny"
+ },
+ "segments": [
+  {
+   "seed": 51850037,
+   "datetime": "20150521125404",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nMENUCOLOR=\"cursed\"=brown\n",
+   "moves": "mO>>>>h\u001b\nO>>>>j\u001b\n#untrap\nu #sit\n#conduct\n dg\u0007kitten\n\u0017meatball\nt\u001b\u0006_ \u001bm. >FlFl_>>.  Fb_.Fb>FbFb_>>.Fb_,Fb>FbFb\u0007jackal\nsm.20sm..ss.\u0017meatball\nt\u001b\u0017magic whistle\njnyap \u0006_>.Fn_> \u0017leash\naqj bnlj baqj mOa\u001b\nO>>>k\u001b\u001b\n\u001617\ns\u000f\u001bv i\u001bO>>>g\u001b\n\u0006_>._.> \u0006_>,_,,>_>._.<.>_>._.;@.>\u0006_>,_,;m,>_>,_,@.>_>,_,m,>\u0006_>>._.@.>_>>._,.>_>>._.,>E- Vlad was here\n\u0014, \u0006_>,_,m,>_>._.m.>_>,_,<.>\u0006_>,_.>.>_>,_,m.>_>._,@.>\u0006_>>._,m,>_>>._.>_>>,_.>.>\u000f\u001b\u00165\n100s150sFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhv i\u001bFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFh\u001619\nO>>>h\u001b\n#conduct\n #untrap\nn O>>>b\u001b\nOd\u001b\n\u0006_>,_.> FbFbFb\u0006_>._.,>_>._.,>_>._..Fl>FlFlFlFlFl#enhance\ny"
+  }
+ ]
+}

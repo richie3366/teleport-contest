@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n6\n    #polyself\nair elemental\n .s\u0007grid bug\nFhsFj.\u0007jackal\n.sFlFj"
+ },
+ "segments": [
+  {
+   "seed": 51851012,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n6\n    #polyself\nair elemental\n .s\u0007grid bug\nFhsFj.\u0007jackal\n.sFlFj"
+  }
+ ]
+}

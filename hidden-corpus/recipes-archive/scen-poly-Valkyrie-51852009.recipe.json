@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPel\u0017speed boots\nWf sss#polyself\nwater elemental\n  #monster\nss\u0007wumpus\n..20s.20s20s  #polyself\ndog\n#monster\nsm.sss.m.#polyself\nlong worm\nsl   .m.20s20ssj#polyself\nelf\n#monster\nsm.s\u0007nurse\nFk  FhFu20s20ssm."
+ },
+ "segments": [
+  {
+   "seed": 51852009,
+   "datetime": "20231208022753",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPel\u0017speed boots\nWf sss#polyself\nwater elemental\n  #monster\nss\u0007wumpus\n..20s.20s20s  #polyself\ndog\n#monster\nsm.sss.m.#polyself\nlong worm\nsl   .m.20s20ssj#polyself\nelf\n#monster\nsm.s\u0007nurse\nFk  FhFu20s20ssm."
+  }
+ ]
+}

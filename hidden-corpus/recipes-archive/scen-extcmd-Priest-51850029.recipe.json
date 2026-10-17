@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWj\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007jackal\n#pray\ny y     #chat\ny#jump\n#wizintrinsic\nr\n lujtlh \u0016?\nq \u0006#overview\n\u001b#conduct\n i\u001b#dip\nim#offer\n#chat\nb#turn\n #wizidentify\n\u001bjjj_ \u001b:qd#vanquished\n #genocided\nsalamander\nh \u0018\u001b#name\nm\n#adjust\n<.#sit\n\u001b#pray\ny y #wizmap\n\u0006jjk__.#chat\nu#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#chat\nb#chat\nl#polyself\nmind flayer\n .20s.sjkj\u001613\n     \u0006\u0007troll\n#version\n  #history\n                  i\u001b#wipe\n#loot\nl#turn\n   #sit\n #wizdetect\n\u0006FlFlFl_{,qm  n #overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nly#pray\ny y    #chat\nl#jump\n#"
+ },
+ "segments": [
+  {
+   "seed": 51850029,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWj\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007jackal\n#pray\ny y     #chat\ny#jump\n#wizintrinsic\nr\n lujtlh \u0016?\nq \u0006#overview\n\u001b#conduct\n i\u001b#dip\nim#offer\n#chat\nb#turn\n #wizidentify\n\u001bjjj_ \u001b:qd#vanquished\n #genocided\nsalamander\nh \u0018\u001b#name\nm\n#adjust\n<.#sit\n\u001b#pray\ny y #wizmap\n\u0006jjk__.#chat\nu#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#chat\nb#chat\nl#polyself\nmind flayer\n .20s.sjkj\u001613\n     \u0006\u0007troll\n#version\n  #history\n                  i\u001b#wipe\n#loot\nl#turn\n   #sit\n #wizdetect\n\u0006FlFlFl_{,qm  n #overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nly#pray\ny y    #chat\nl#jump\n#"
+  }
+ ]
+}

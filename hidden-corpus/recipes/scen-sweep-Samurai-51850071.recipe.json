@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    \u0016?\nk   \u0006_ \u001bm.#chat\nls20s  sm.\u0014. E- Elbereth\n#enhance\nyg\nj\n\u001b#levelchange\n8\n #wizintrinsic\nbe\n .m.sj 20ssm.20s s20s  sm.s20s   sm.s.u sm.  n        \u0017unicorn horn\naf  af      n P\u0018\u001bf            n        #pray\ny y       n      #sit\n            n      \u000f\u001b20s      n20s      sm.s20s    n     20s       \u00166\n\\    \u001612\n      #wizintrinsic\nqn\n sksm.  n  sm.   sk sb.m.20s  n  sb20s   sm.    n .m.         n    nsl   .m.   n  sm.   sm.   n  sl   sm.    n sm.   20s   n   20s   20s  y y\u001by  y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 51850071,
+   "datetime": "20071218080312",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n    \u0016?\nk   \u0006_ \u001bm.#chat\nls20s  sm.\u0014. E- Elbereth\n#enhance\nyg\nj\n\u001b#levelchange\n8\n #wizintrinsic\nbe\n .m.sj 20ssm.20s s20s  sm.s20s   sm.s.u sm.  n        \u0017unicorn horn\naf  af      n P\u0018\u001bf            n        #pray\ny y       n      #sit\n            n      \u000f\u001b20s      n20s      sm.s20s    n     20s       \u00166\n\\    \u001612\n      #wizintrinsic\nqn\n sksm.  n  sm.   sk sb.m.20s  n  sb20s   sm.    n .m.         n    nsl   .m.   n  sm.   sm.   n  sl   sm.    n sm.   20s   n   20s   20s  y y\u001by  y y y\u001b  s"
+  }
+ ]
+}

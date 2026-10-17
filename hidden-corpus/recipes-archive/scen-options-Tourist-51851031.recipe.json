@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "   mO>>>>dg\n1\n on\n#turn\n#turn\nO>f\nokrkmO>>>>>t\n\u001b#force\nOkj\nWmO>>>j\nck#untrap\nbO>cpd\n,bs20sOjf\n\u0018\u001bmO>ct\nP\u0018\u001bO>gen\n#dip\nliOmfe\nzo trident\nmO>>>>>f\non\nck<yny  ny\u001b 2"
+ },
+ "segments": [
+  {
+   "seed": 51851031,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=playmode:explore\n",
+   "moves": "   mO>>>>dg\n1\n on\n#turn\n#turn\nO>f\nokrkmO>>>>>t\n\u001b#force\nOkj\nWmO>>>j\nck#untrap\nbO>cpd\n,bs20sOjf\n\u0018\u001bmO>ct\nP\u0018\u001bO>gen\n#dip\nliOmfe\nzo trident\nmO>>>>>f\non\nck<yny  ny\u001b 2"
+  }
+ ]
+}

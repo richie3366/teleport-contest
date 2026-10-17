@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0017cursed potion of confusion\nqe\u001b\u0017cursed cockatrice corpse\n20s.\u0017wand of light\n\u0007horned devil\nzgzg  Fl  Fl.m.sm.  yy\u001by   y y\u001bn  "
+ },
+ "segments": [
+  {
+   "seed": 51852024,
+   "datetime": "20061013011105",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017cursed potion of confusion\nqe\u001b\u0017cursed cockatrice corpse\n20s.\u0017wand of light\n\u0007horned devil\nzgzg  Fl  Fl.m.sm.  yy\u001by   y y\u001bn  "
+  }
+ ]
+}

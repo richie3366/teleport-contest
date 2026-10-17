@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed leash\n\u0017blessed magic harp\n\u0017blessed magic lamp\n\u0017blessed 20 daggers\nQm#levelchange\n20\n                      #wizintrinsic\nh\n \u0017blessed spellbook of light\nrn.Za\n:\u0017potion of extra healing\nqo.s\u0017spellbook of sleep\nrp \u001b: \u001bsZa\n#turn\n:#wizintrinsic\nh\n \u0017blessed spellbook of slow monster\nrq   sZb\n:;.E- Elbereth Elbereth\n#chat\nu\u0017wand of probing\nzrnzruzrbzrb#wizintrinsic\nh\n\u0017wand of teleportation\nzs.m,zsjzsy;m,E- Vlad was here\n#chat\nh;m.E-n  Elbereth Elbereth\n#chat\nj#pray\ny y #wizintrinsic\nh\nfntmlfj\u0017potion of levitation\nqt._.nnj\u0017blessed spellbook of fireball\nru20sZb\n:i\u001bnyny\u0017blessed scroll of light\nrv #wizintrinsic\nh\n\u0016?\n>>K      banana\n\u0007mind flayer\nFhFh              Fb    n   Fb   n Fb   n   .m.    n    20s   n     \u0007gelatinous cube\nFb   n       Fk     n      n  Fy    n   sm.    n      20s    n     \u0007ape\nFy    n   Fk       n     Fl    n     sm.  n        yy\u001by   ny\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 51850008,
+   "datetime": "20100828022823",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed leash\n\u0017blessed magic harp\n\u0017blessed magic lamp\n\u0017blessed 20 daggers\nQm#levelchange\n20\n                      #wizintrinsic\nh\n \u0017blessed spellbook of light\nrn.Za\n:\u0017potion of extra healing\nqo.s\u0017spellbook of sleep\nrp \u001b: \u001bsZa\n#turn\n:#wizintrinsic\nh\n \u0017blessed spellbook of slow monster\nrq   sZb\n:;.E- Elbereth Elbereth\n#chat\nu\u0017wand of probing\nzrnzruzrbzrb#wizintrinsic\nh\n\u0017wand of teleportation\nzs.m,zsjzsy;m,E- Vlad was here\n#chat\nh;m.E-n  Elbereth Elbereth\n#chat\nj#pray\ny y #wizintrinsic\nh\nfntmlfj\u0017potion of levitation\nqt._.nnj\u0017blessed spellbook of fireball\nru20sZb\n:i\u001bnyny\u0017blessed scroll of light\nrv #wizintrinsic\nh\n\u0016?\n>>K      banana\n\u0007mind flayer\nFhFh              Fb    n   Fb   n Fb   n   .m.    n    20s   n     \u0007gelatinous cube\nFb   n       Fk     n      n  Fy    n   sm.    n      20s    n     \u0007ape\nFy    n   Fk       n     Fl    n     sm.  n        yy\u001by   ny\u001b  2"
+  }
+ ]
+}

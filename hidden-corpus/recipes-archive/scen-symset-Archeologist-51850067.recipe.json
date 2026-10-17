@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #sit\nsFlFhFbFyFjFyFnFlFuFlFuFlFjFuFyFuFnFnFbFnFnFbFlFnFlFbFlFlFnFlFbFbFyFyFnFbFyFnFjFnFnFyFnFyFu FjFnFjFnFjFbFyFbFbFbFyFjFuFuFbFnFnFuFyFbFyFuFjFuFbFbFuFnFuFnFyFjFjFjFbFyFuFuFjFbFjFnFyFbFyFuFnFnFyFuFyFuFyFnFjFyFyFuFyFbFjFbFuFjFbFyFbFnFjFyFnFnFjFbFy\u0007tame jackal\nde20sssb\u0007grid bug\n\u0017scroll of taming\n rj #name\nm\n .#chat\nb\u0017newt corpse\nt\u001b\u001618\nhjj\u0017iron bars\n:by\u0017pool\n#terrain\nf\n,>,O>>a\u001b\n\u00162\n\u0006_>,Fu_,m.Fn>FbFh_>.Fy_.m,Fu>FkFl_>.Fn_.m,Fh>FjFjFh\u0006_>>. Fy_.:Fh>Fhs_>>.Fu_.Fu>FnFu_>>.Fn_,Fu>FuFnFnFnFu<\u0006_>.Fn_.Fn>FnFn_>.Fn_,Fn>FnFj_>.Fu_,Fu>FuFnFuFnFn\u0006_>>.Fu_,Fu>FuFu_>>,Fu_,Fn>FnFn_>>,Fn_.Fu>FnFuFnFnFn\u0006_>.Fu_.Fn>FuFn_>.Fn_,Fn>FnFu_>.Fu_.Fn>FnFnFnFnFu\u0006_>>.Fu_.Fn>FuFu_>>.Fn_,Fn>FnFu_>>,Fu_,Fn>FnFuFnFuFu\u0006_>.Fn_.Fn>FnFn_>.Fn_,Fu>FnFu_>.Fn_,Fu>Fu FjFnFnFjr\u001bn#levelchange\n20\n                   nhl\u0017unaligned altar\ndcdg\u0017jackal corpse\n#offer\nl  #pray\ny y    hu\u0017neutral altar\ndd\u0017newt corpse\n#offer\nm  : #monster\nqzt\u001b#sit\n \u00161\n\u00167\nFnFnFbFnFhFkFhFnFlFbFb"
+ },
+ "segments": [
+  {
+   "seed": 51850067,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nMENUCOLOR=\"cursed\"=brown\n",
+   "moves": " #sit\nsFlFhFbFyFjFyFnFlFuFlFuFlFjFuFyFuFnFnFbFnFnFbFlFnFlFbFlFlFnFlFbFbFyFyFnFbFyFnFjFnFnFyFnFyFu FjFnFjFnFjFbFyFbFbFbFyFjFuFuFbFnFnFuFyFbFyFuFjFuFbFbFuFnFuFnFyFjFjFjFbFyFuFuFjFbFjFnFyFbFyFuFnFnFyFuFyFuFyFnFjFyFyFuFyFbFjFbFuFjFbFyFbFnFjFyFnFnFjFbFy\u0007tame jackal\nde20sssb\u0007grid bug\n\u0017scroll of taming\n rj #name\nm\n .#chat\nb\u0017newt corpse\nt\u001b\u001618\nhjj\u0017iron bars\n:by\u0017pool\n#terrain\nf\n,>,O>>a\u001b\n\u00162\n\u0006_>,Fu_,m.Fn>FbFh_>.Fy_.m,Fu>FkFl_>.Fn_.m,Fh>FjFjFh\u0006_>>. Fy_.:Fh>Fhs_>>.Fu_.Fu>FnFu_>>.Fn_,Fu>FuFnFnFnFu<\u0006_>.Fn_.Fn>FnFn_>.Fn_,Fn>FnFj_>.Fu_,Fu>FuFnFuFnFn\u0006_>>.Fu_,Fu>FuFu_>>,Fu_,Fn>FnFn_>>,Fn_.Fu>FnFuFnFnFn\u0006_>.Fu_.Fn>FuFn_>.Fn_,Fn>FnFu_>.Fu_.Fn>FnFnFnFnFu\u0006_>>.Fu_.Fn>FuFu_>>.Fn_,Fn>FnFu_>>,Fu_,Fn>FnFuFnFuFu\u0006_>.Fn_.Fn>FnFn_>.Fn_,Fu>FnFu_>.Fn_,Fu>Fu FjFnFnFjr\u001bn#levelchange\n20\n                   nhl\u0017unaligned altar\ndcdg\u0017jackal corpse\n#offer\nl  #pray\ny y    hu\u0017neutral altar\ndd\u0017newt corpse\n#offer\nm  : #monster\nqzt\u001b#sit\n \u00161\n\u00167\nFnFnFbFnFhFkFhFnFlFbFb"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWf\u0017blessed +3 speed boots\nWg  \u0016?\n>w\u0006FkFkFkFkFk Fk_ \u001bm,#chat\nh_oooooooo.,p__,_,#chat\nb_{.Fn _.qy _{,Fk _.<.Fh q_oooooooo._oo.,#chat\nj__. Fl  _, #chat\nn_oooooo,,$__,Fh_. Fh#chat\nh#pray\ny y    _ooooo.Fl_. Fl_o.   nFh_,   n Fl  ,\u0017amulet of life saving\ndi   n\u00163\nFl FlFl  Fl  Fl FlFn Fn FnFnFnFn_ooooo.Fy   n_.,a\n #chat\ny _ooooooo.Fh_.,\u0014@.s s__,#chat\nk#pray\ny y  \u00163\nyny\u0016?\n>w\u0006hhl#chat\nj_oooo._._ooo,Fh_.  Fk,\u0017amulet of reflection\ndl   _oooooo.,\u0017diamond\ndm    n_ooooo.  Fh_._o.Fh_,m,Fh  ,p_{.Fh   n _,"
+ },
+ "segments": [
+  {
+   "seed": 51850075,
+   "datetime": "20250509121043",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWf\u0017blessed +3 speed boots\nWg  \u0016?\n>w\u0006FkFkFkFkFk Fk_ \u001bm,#chat\nh_oooooooo.,p__,_,#chat\nb_{.Fn _.qy _{,Fk _.<.Fh q_oooooooo._oo.,#chat\nj__. Fl  _, #chat\nn_oooooo,,$__,Fh_. Fh#chat\nh#pray\ny y    _ooooo.Fl_. Fl_o.   nFh_,   n Fl  ,\u0017amulet of life saving\ndi   n\u00163\nFl FlFl  Fl  Fl FlFn Fn FnFnFnFn_ooooo.Fy   n_.,a\n #chat\ny _ooooooo.Fh_.,\u0014@.s s__,#chat\nk#pray\ny y  \u00163\nyny\u0016?\n>w\u0006hhl#chat\nj_oooo._._ooo,Fh_.  Fk,\u0017amulet of reflection\ndl   _oooooo.,\u0017diamond\ndm    n_ooooo.  Fh_._o.Fh_,m,Fh  ,p_{.Fh   n _,"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0016?\n>xhyyh:\u001630\n\u0006_ \u001b;\u001630\n\u0006_<.Fl _,;<.\u001630\n\u0006_<,_.<.\u00168\nlknl:20ss\u001634\n_{,Fl_.Fl\u001632\nylj kkll:\u001630\n_>.Fh_,Fb\u0016?\nm\u0006_>."
+ },
+ "segments": [
+  {
+   "seed": 51850060,
+   "datetime": "20041207090734",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0016?\n>xhyyh:\u001630\n\u0006_ \u001b;\u001630\n\u0006_<.Fl _,;<.\u001630\n\u0006_<,_.<.\u00168\nlknl:20ss\u001634\n_{,Fl_.Fl\u001632\nylj kkll:\u001630\n_>.Fh_,Fb\u0016?\nm\u0006_>."
+  }
+ ]
+}

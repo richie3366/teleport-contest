@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 speed boots\nWm\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007lichen\n#polyself\nair elemental\n #monster\n.sFusFk20s   FlFl_ \u001b:qf#overview\n\u001b#conduct\n i\u001b#dip\nco\u001b#offer\n#pray\ny y  #chat\nj#wizidentify\n\u001bknl__,#chat\ny\u0007giant rat\n#vanquished\n #genocided\nraven\np \u000f\u001b#name\ni\n#adjust\nd\u001b#chat\nl#turn\n#wizidentify\n\u001bFlFl  Flw-_{.qe#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y   #wizmap\n\u0006FkFl FyFltnb_{.qd\u0007bugbear\n#version\n  #history\n                  i\u001b#wipe\n#loot\ny#chat\nl#chat\nl#jump\n#polyself\nvampire\n#monster\n    .l syFlFyFyFlFl _>.Fy  _.;;Fj\u0007grid bug\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n  n #wizdetect\n\u0006FjFb Fj f $ b  n \u00163\n\u0006#vanquished\n #genocided\ngas spore\ni\u001b#dip\ndd#offer\n#pray\ny y #chat\nb#jump\n#wizmap\n\u0006yln#sit\n\u001b__,#chat\ny\u0007owlbear\n#chronicle\n #terrain\n\u001b\u0018\u001b#name\n\u001b#adjust\ng\u001b#chat\nk#turn\n#jump\n#levelchange\n11\n         Fk Fk Fk \u00168\n\u0006\u0007hobbit\n#version\n  #history\n                  #annotate\nblessed\n\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y        #levelchange\n5\n Fh    n Fj      n \u001612\n_{,_,qy y\u0007troll\n#overview\n\u001b#conduct\n \u0018\u001b#wipe\n #loot\nu#chat\nn  #chat\nb   n #jump\n#polyself\nxorn\nsh  20"
+ },
+ "segments": [
+  {
+   "seed": 51850059,
+   "datetime": "20060227044922",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 speed boots\nWm\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007lichen\n#polyself\nair elemental\n #monster\n.sFusFk20s   FlFl_ \u001b:qf#overview\n\u001b#conduct\n i\u001b#dip\nco\u001b#offer\n#pray\ny y  #chat\nj#wizidentify\n\u001bknl__,#chat\ny\u0007giant rat\n#vanquished\n #genocided\nraven\np \u000f\u001b#name\ni\n#adjust\nd\u001b#chat\nl#turn\n#wizidentify\n\u001bFlFl  Flw-_{.qe#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y   #wizmap\n\u0006FkFl FyFltnb_{.qd\u0007bugbear\n#version\n  #history\n                  i\u001b#wipe\n#loot\ny#chat\nl#chat\nl#jump\n#polyself\nvampire\n#monster\n    .l syFlFyFyFlFl _>.Fy  _.;;Fj\u0007grid bug\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n  n #wizdetect\n\u0006FjFb Fj f $ b  n \u00163\n\u0006#vanquished\n #genocided\ngas spore\ni\u001b#dip\ndd#offer\n#pray\ny y #chat\nb#jump\n#wizmap\n\u0006yln#sit\n\u001b__,#chat\ny\u0007owlbear\n#chronicle\n #terrain\n\u001b\u0018\u001b#name\n\u001b#adjust\ng\u001b#chat\nk#turn\n#jump\n#levelchange\n11\n         Fk Fk Fk \u00168\n\u0006\u0007hobbit\n#version\n  #history\n                  #annotate\nblessed\n\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y        #levelchange\n5\n Fh    n Fj      n \u001612\n_{,_,qy y\u0007troll\n#overview\n\u001b#conduct\n \u0018\u001b#wipe\n #loot\nu#chat\nn  #chat\nb   n #jump\n#polyself\nxorn\nsh  20"
+  }
+ ]
+}

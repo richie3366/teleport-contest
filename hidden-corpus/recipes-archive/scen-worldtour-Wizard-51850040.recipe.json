@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\n>>M      spellbook of haste self\n\u0004u\u0016?\n\u001bb     k\u001613\n\u0006\u001b;_<.\u001613\n#levelchange\n8\n    \u0017the Longbow of Diana\n wq   Fj   n        Fn     Fk #invoke\nq  n          X\u0007earth elemental\nFn     n        Fj  n    FkFk    \u0007mind flayer\nFk     n  Fk \u0007Wizard of Yendor\nnn   n ;k;sm.           20s        n 20s             n    \u00163\n\u0016?\n\u001bl  n                n    \u001613\nhk      n  y  : \u0016?\nc __.20s          sm.   n         n   \u00167\n\u0016?\n\u001bh               n    l        n         \u00169\n\u0016?\n\u001bj   n                 yy\u001by   y y\u001b  k"
+ },
+ "segments": [
+  {
+   "seed": 51850040,
+   "datetime": "20121103140410",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showrace\nOPTIONS=sortloot:full\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0016?\n>>M      spellbook of haste self\n\u0004u\u0016?\n\u001bb     k\u001613\n\u0006\u001b;_<.\u001613\n#levelchange\n8\n    \u0017the Longbow of Diana\n wq   Fj   n        Fn     Fk #invoke\nq  n          X\u0007earth elemental\nFn     n        Fj  n    FkFk    \u0007mind flayer\nFk     n  Fk \u0007Wizard of Yendor\nnn   n ;k;sm.           20s        n 20s             n    \u00163\n\u0016?\n\u001bl  n                n    \u001613\nhk      n  y  : \u0016?\nc __.20s          sm.   n         n   \u00167\n\u0016?\n\u001bh               n    l        n         \u00169\n\u0016?\n\u001bj   n                 yy\u001by   y y\u001b  k"
+  }
+ ]
+}

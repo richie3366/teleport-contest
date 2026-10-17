@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017the Candelabrum of Invocation\nw-.ss#invoke\niX\u0017cursed scroll of create monster\nrj vampire lord\n mind flayer\n skeleton\n green-elf\n disenchanter\n wraith\n flesh golem\n red dragon\n xan\n paper golem\ntroll\nxan\nstraw golem\nFl         yy\u001by  y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51852003,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017the Candelabrum of Invocation\nw-.ss#invoke\niX\u0017cursed scroll of create monster\nrj vampire lord\n mind flayer\n skeleton\n green-elf\n disenchanter\n wraith\n flesh golem\n red dragon\n xan\n paper golem\ntroll\nxan\nstraw golem\nFl         yy\u001by  y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017the Book of the Dead\nw\u001bFh ss\u0017wand of undead turning\nzk.\u0017scroll of create monster\nrl guard\ny\u0017uncursed Werebane\nwms20sFy#invoke\nm  n\u0017blessed potion of levitation\n\u0007xan\nqn   n\u0017ring of protection from shape changers\nPor   yy\u001bnny y\u001bn  2"
+ },
+ "segments": [
+  {
+   "seed": 51852001,
+   "datetime": "20130805115132",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017the Book of the Dead\nw\u001bFh ss\u0017wand of undead turning\nzk.\u0017scroll of create monster\nrl guard\ny\u0017uncursed Werebane\nwms20sFy#invoke\nm  n\u0017blessed potion of levitation\n\u0007xan\nqn   n\u0017ring of protection from shape changers\nPor   yy\u001bnny y\u001bn  2"
+  }
+ ]
+}

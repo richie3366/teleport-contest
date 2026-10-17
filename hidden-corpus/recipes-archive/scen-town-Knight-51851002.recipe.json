@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n10\n         \u0016?\n>w\u0006\u0017blessed potion of object detection\nqi \u001b>._dd.   \u001bFh_.\u0004h_mmmm._.   #chat\ny_oooo,_._o,  _.,  p_m,_.#chat\ny__, _,>.Fu#chat\nu #pray\ny y   _d.Fl _,Fb \u0004l      #invoke\n\u001b>#dip\ne"
+ },
+ "segments": [
+  {
+   "seed": 51851002,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n10\n         \u0016?\n>w\u0006\u0017blessed potion of object detection\nqi \u001b>._dd.   \u001bFh_.\u0004h_mmmm._.   #chat\ny_oooo,_._o,  _.,  p_m,_.#chat\ny__, _,>.Fu#chat\nu #pray\ny y   _d.Fl _,Fb \u0004l      #invoke\n\u001b>#dip\ne"
+  }
+ ]
+}

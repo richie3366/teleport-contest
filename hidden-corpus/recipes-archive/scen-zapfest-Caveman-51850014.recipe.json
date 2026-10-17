@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPfr\u0017blessed +3 speed boots\nWg#levelchange\n10\n         \u0007mind flayer\n\u0007kobold shaman\n\u0007vampire\n\u0017wand of magic missile\nzhl.m.zhy       zhl   zhlzhu   \u0017blessed spellbook of force bolt\nri     20s      n   \u0007mind flayer\nZ20s    n  sm.  n     n Zsm.     n sm.     n  ZZZ\u00165\n\u0017wand of striking\n\u0017wand of sleep\n\u0017wand of slow monster\n\u0007gnome\nzkh zkjzkj zkj20szjj.zjj\u0017wand of lightning\n\u0017wand of teleportation\n\u0007giant rat\nznbzmj  znlzm.zmbzn. \u001b.znjznzmy\u0017blessed spellbook of light\nros\u0017blessed spellbook of cause fear\nrp20s\u0007succubus\n\u0007gnomish wizard\nZZZZZZZZZZ.20s #turn\n\u00163\n\u0017wand of cold\n\u0017wand of teleportation\n\u0007dwarf\n\u0007gnome\n\u0007acid blob\nzrhzrnzqnzqnzqnzqnzrn20s zqhzql.\u0017wand of death\n\u0017wand of slow monster\n\u0007kobold\n\u0007hill orc\nzsj n zsyzs.  n20sztl20szskztkz"
+ },
+ "segments": [
+  {
+   "seed": 51850014,
+   "datetime": "20100112014018",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed ring of free action\nPfr\u0017blessed +3 speed boots\nWg#levelchange\n10\n         \u0007mind flayer\n\u0007kobold shaman\n\u0007vampire\n\u0017wand of magic missile\nzhl.m.zhy       zhl   zhlzhu   \u0017blessed spellbook of force bolt\nri     20s      n   \u0007mind flayer\nZ20s    n  sm.  n     n Zsm.     n sm.     n  ZZZ\u00165\n\u0017wand of striking\n\u0017wand of sleep\n\u0017wand of slow monster\n\u0007gnome\nzkh zkjzkj zkj20szjj.zjj\u0017wand of lightning\n\u0017wand of teleportation\n\u0007giant rat\nznbzmj  znlzm.zmbzn. \u001b.znjznzmy\u0017blessed spellbook of light\nros\u0017blessed spellbook of cause fear\nrp20s\u0007succubus\n\u0007gnomish wizard\nZZZZZZZZZZ.20s #turn\n\u00163\n\u0017wand of cold\n\u0017wand of teleportation\n\u0007dwarf\n\u0007gnome\n\u0007acid blob\nzrhzrnzqnzqnzqnzqnzrn20s zqhzql.\u0017wand of death\n\u0017wand of slow monster\n\u0007kobold\n\u0007hill orc\nzsj n zsyzs.  n20sztl20szskztkz"
+  }
+ ]
+}

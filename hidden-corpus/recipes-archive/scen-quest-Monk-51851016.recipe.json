@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n               \u0016?\n>y  _ \u001b;#chat\nn;n:  _mmmmm,Fl _.#chat\nl_m.Fj_,@.Fj#chat\nj\u0006_>>,_.Fj>Fj Fj_>>. Fj  yy\u001by   y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 51851016,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n               \u0016?\n>y  _ \u001b;#chat\nn;n:  _mmmmm,Fl _.#chat\nl_m.Fj_,@.Fj#chat\nj\u0006_>>,_.Fj>Fj Fj_>>. Fj  yy\u001by   y y y\u001b  _"
+  }
+ ]
+}

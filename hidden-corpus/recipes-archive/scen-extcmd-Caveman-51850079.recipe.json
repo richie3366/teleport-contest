@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007hobbit\n#wizintrinsic\nfg\n FjFjFjFh #name\nd\n_ \u001b;qi#overview\n\u001b#conduct\n i\u001b#dip\nh#offer\n#pray\ny y       #chat\nh#wizintrinsic\nq\n Fh Fh_ooo.Fk_,:Fu,#vanquished\n #genocided\nwater nymph\n\u0018\u001b#name\nd\n#adjust\nf\u001b#chat\nk#turn\n#jump\n#wizmap\n\u0006huh_{.q\u0007kobold\n#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y     #jump\n#polyself\npurple worm\n  #monster\n.m. sm. Fk Fk Fk Fk.Fu#turn\n__,Fl_.<.Fn#chat\n\u0007owlbear\n#version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\n#chat\n#wizintrinsic\nfs\n Fh Fh   _ooo,    Fh  n   _.  n Fh   n ,\u0007dwarf\n\u001611\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nby#turn\n#sit\n\u001b#wizidentify\n\u001bbubf __.#chat\nb#vanquished\n #genocided\npony\n i\u001b#dip\nb#offer\n#pray\ny y   #chat\nb#wizdetect\n\u0006FbFb_<.  nFh_.Fk\u0007gnome\n#chronicle\n #terrain\n\u001bi\u001b#name\nm\n#adjust\n,#chat\nk#turn\n#jump\n#wizidentify\n\u001bFuFkFu  n Fl \u000f\u001b_>.Fk  n_.Fh \u0007soldier\n#version\n  #history\n                  i\u001b#twoweapon\n#invoke\n\u001b#sit\n   n  #pray\ny y        #jump\n#wizidentify\n\u001bFn Fh   n Fj_{.Fj   n _. Fh   n q\u00163\n#overview\n\u001b#conduct\n i\u001b#wipe\n #loot\ny#ch"
+ },
+ "segments": [
+  {
+   "seed": 51850079,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007hobbit\n#wizintrinsic\nfg\n FjFjFjFh #name\nd\n_ \u001b;qi#overview\n\u001b#conduct\n i\u001b#dip\nh#offer\n#pray\ny y       #chat\nh#wizintrinsic\nq\n Fh Fh_ooo.Fk_,:Fu,#vanquished\n #genocided\nwater nymph\n\u0018\u001b#name\nd\n#adjust\nf\u001b#chat\nk#turn\n#jump\n#wizmap\n\u0006huh_{.q\u0007kobold\n#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y     #jump\n#polyself\npurple worm\n  #monster\n.m. sm. Fk Fk Fk Fk.Fu#turn\n__,Fl_.<.Fn#chat\n\u0007owlbear\n#version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\n#chat\n#wizintrinsic\nfs\n Fh Fh   _ooo,    Fh  n   _.  n Fh   n ,\u0007dwarf\n\u001611\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nby#turn\n#sit\n\u001b#wizidentify\n\u001bbubf __.#chat\nb#vanquished\n #genocided\npony\n i\u001b#dip\nb#offer\n#pray\ny y   #chat\nb#wizdetect\n\u0006FbFb_<.  nFh_.Fk\u0007gnome\n#chronicle\n #terrain\n\u001bi\u001b#name\nm\n#adjust\n,#chat\nk#turn\n#jump\n#wizidentify\n\u001bFuFkFu  n Fl \u000f\u001b_>.Fk  n_.Fh \u0007soldier\n#version\n  #history\n                  i\u001b#twoweapon\n#invoke\n\u001b#sit\n   n  #pray\ny y        #jump\n#wizidentify\n\u001bFn Fh   n Fj_{.Fj   n _. Fh   n q\u00163\n#overview\n\u001b#conduct\n i\u001b#wipe\n #loot\ny#ch"
+  }
+ ]
+}

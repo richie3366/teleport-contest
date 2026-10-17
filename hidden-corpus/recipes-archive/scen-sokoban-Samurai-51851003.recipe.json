@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n10\n        \u0016?\n>DFjyFj y10syhk10sn\u0017wand of digging\nzfl\u0017wand of digging\nzghjjk\u0017wand of striking\nzh>\u0017wand of striking\nzi>\u0017scroll of earth\nrj ujyjkkkyhyyyyjykjkjjkyjyjkkjjyykjuyhjkyyl\u0017wand of striking\nzkj Sy\u001b nsck#untrap\nn#tip\n\u001b:f   l",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51851003,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n10\n        \u0016?\n>DFjyFj y10syhk10sn\u0017wand of digging\nzfl\u0017wand of digging\nzghjjk\u0017wand of striking\nzh>\u0017wand of striking\nzi>\u0017scroll of earth\nrj ujyjkkkyhyyyyjykjkjjkyjyjkkjjyykjuyhjkyyl\u0017wand of striking\nzkj Sy\u001b"
+  },
+  {
+   "seed": 52351003,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " nsck#untrap\nn#tip\n\u001b:f   l"
+  }
+ ]
+}

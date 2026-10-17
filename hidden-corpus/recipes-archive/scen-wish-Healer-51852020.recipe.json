@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017aklys\nwl..20s\u0017blessed potion of enlightenment\nqm \u001bs20s\u00173 sack\nanb\nB\n\u001banr\n#tip\nn\u001bs20s\u0017cursed the Bell of Opening\nw-ssss..20s"
+ },
+ "segments": [
+  {
+   "seed": 51852020,
+   "datetime": "20050312202956",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017aklys\nwl..20s\u0017blessed potion of enlightenment\nqm \u001bs20s\u00173 sack\nanb\nB\n\u001banr\n#tip\nn\u001bs20s\u0017cursed the Bell of Opening\nw-ssss..20s"
+  }
+ ]
+}
