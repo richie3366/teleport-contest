@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — Port slot: cliffs head is the D-4016-parked dupe-rc family — falsifier re-verified (measured), no port, row stays at head
+
+**Assigned:** Open — cliffs head `?` unattributed scen-symset-Rogue-50059025 s0 (Must-fix empty; preflight `verify --no-cohort` PASS on a clean tree).
+**Measured:** D-4016 already [measure]d this exact session. Falsifier sweep over all 12 committed-block rows: all 11 symset s0 rows carry `msg_window×2` in `recipes-reserve/` (tier=reserve, kind=screen@0, owner null, C topline empty vs JS welcome); the probe's committed recording embeds the dup rc AND step-0 C bytes `\nOPTIONS=msg_window:reversed\n * Line 11: compound option specified multiple times: msg_window.\n\n1 error in /tmp/nh-rec-XXXXXX6u0T3p/home/.nethackrc.` (tmp path persists — falsifier half 1 holds); row 12 (sweep-95340 s180) is the D-4028 SEQ-marker park, marker still in the committed row text. The Oct-17 audit full rescore ran AFTER both parks and reproduced all 12 rows — both falsifiers re-tested on fresh recordings, held.
+**Why no port:** no portable writer exists — C step 0 is a pre-window raw_print error screen with a per-run path; JS emitting it would contradict C's terminal (D-3941) and the Rule-#2 raw_print omit (D-4016). A second [measure] on this session would be a re-audit (busywork); no D-entry, no `js/`, CURRENT/NOTES untouched (nothing changed). Falsified-hypothesis ending: the row stays at the head.
+**Next (supervisor scope):** the queue park-matcher misses owner-null rows — both parks name session IDs, so match unattributed rows by ID (or land D-4016 Next: generator dedupe + scorer env-classify) to clear the block; until then a port slot assigned this head should stop after the ≤3-call falsifier check (recipe dup + step-0 path) instead of spinning, and port slots need supervisor-assigned non-parked rows.
 ## 2026-10-17 — Grow #23: fresh 51850000 ×160 147/160 (91.9 %) on arrival; +13 failing folded (8 active, 5 reserve), cliffs /1086
 
 **Fresh:** @9478ae986, 160 scored of 160 authored: PASS 147/160 (91.9 %), RNG 100.0 %, screens 99.9 %. Worst shop 6/10, extcmd 7/9, hallu 7/9, sweep 8/10, questtour 8/9, worldtour 9/10, wish 12/13; rest 100 %. Gap fresh−held-out 14.6 pts (91.9 vs 77.3), inside the §10.20 band — no step-5 family; periodic slot so no step-4 top-up.
