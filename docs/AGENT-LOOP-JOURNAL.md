@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — D-4052 cliffs resist writer: explode() else-branch kept the AD_RBRE flip in a local, C reassigns the loop-carried adtyp (Monk-50050013 s1064→PASS)
+
+**C locus:** nethack-c/upstream/src/explode.c explode() :555–581 (DEADMONSTER tail; :578–579 `if (xkflg) adtyp = AD_RBRE` in the monkilled else-branch ONLY — :560 xkilled and :562–576 mdef arms leave adtyp alone); in-loop readers :511/:512/:525/:549/:551/:556, hero readers :606/:611/:613/:617/:619/:675/:682. Only in-loop adtyp mutation in the function (every other `adtyp =` is the :306–352 derivation).
+**JS:** js/explode.js (+6/−3). Rule #2 clean; no DIAG/FORCE/seed gates; no new module edges (same-file const + pre-existing dynamic monkilled import).
+**Change:** js/explode.js only — the else branch reassigns the loop-carried `let adtyp` itself (`if (xkflg) adtyp = AD_RBRE; /* no corpse */`, file-local const :126, no new import) and passes `adtyp` to monkilled, in C order. Every downstream reader already uses the same variable.
+**Verify:** `node scripts/verify.mjs --fn resist,explode` → hidden `verify resist: 1 PASS, 0 moved past, 0 unchanged, 0 worse` → PROGRESS (scen-sweep-Monk-50050013: PASS, full 1692 steps); reach resist 80/80 REACH-OK (spread sample of 185); verify explode note (0 blocked at baseline); reach explode smoke 24/24 REACH-OK; syntax (1 file) · rule2 · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Movement line: `verify resist: 1 PASS, 0 moved, 0 no-movement`.
+**Named:** none new — the :577–581 arm is now exact. Untouched pre-existing: `combat_ok` pre-loop gate (:590/:707) is computed before the loop from AD_FIRE, so the in-loop flip cannot affect it.
+**Next:** regen drops the resist row (sole session PASS); parked/stale head rows linger until the next rescore rewrites the board (D-4051 precedent).
 ## 2026-10-17 — Grow #19 fresh 51450000 ×160: 149/160 (93.1 %) on arrival; +11 failing folded; no calibration (Grow #18 did)
 
 **Fresh:** 149/160 (93.1 %), RNG 99.4 %, screens 99.5 % @`75e2e77e0`. Worst: options 1/2, extcmd 6/9; sweep 7/10; hallu 7/9; worldtour/zapfest 9/10 + rest 100 %. 160 scored of 160. Gap 20.4 pts vs held-out 32/44 (72.7 %) — outside the §10.20 band, but Grow #18 already calibrated (hallu/extcmd), so step 5 skipped. Periodic slot (cliffs held 12 rows); step 4 skipped.

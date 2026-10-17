@@ -22,21 +22,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4051 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4052 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4051.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4051 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4052.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4052 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4052: js/explode.js only — the else branch reassigns the loop-carried `let adtyp` itself (`if (xkflg) adtyp = AD_RBRE; /* no corpse */`, file-local const :1 Named: none new — the :577–581 arm is now exact.
 - D-4051: js/mhitm.js only — the door check now reads C's raw conjuncts `(defx - (magr?.mx | 0)) && (defy - (magr?.my | 0))` with a C cite; the `|0` maps JS's n Named: (1) Caveman-610084 screen@559 — RNG 97559/97559 FULL match; JS-only «A newt suddenly appea
 - D-4050: js/allmain.js only — the arm now reads `((u.HHallucination|0) && !hallucResisted(u))` (D-4046's house union: uprops intrinsic|extrinsic + Halluc/HHall Named: (1) exerper sibling arms unchanged, no session evidence (D-4012 precedent — ship when the 
 - D-4049: js/lev_json.js — new `export function rest_stairs_chain(src)`: fresh nodes (C allocs), every field incl. u_traversed (C `:980–982` stairway_at fixup)  Named: (1) the save-side relative-dlevel dance (save `:672–682` / restore `:972–976`) — file-form
@@ -51,5 +52,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-4040: js/zap.js only — `let ret = 0` (`:162`); `case WAN_NOTHING: wake = false` (C-order, after SPE_DRAIN_LIFE); `ret = 1` in the SPE_KNOCK arm (`:403`); de Named: none in this unit — bhitm is now the full C body (all 17 switch arms + default + ret).
 - D-4039: js/getline.js only — added the `history` EXT_CMDS row (version sibling shape: dynamic `./pager.js` import, edge already present; wiz:false, autocomple Named: (1) other EXT_CMDS gaps audited, unwired: INTERNALCMD rows (clicklook/mouseaction/altadjus
 - D-4038: js/objnam.js only — doname_base stages `obj.known/dknown/bknown = 1` + `game.objects[otyp].oc_name_known = 1` before the base-name if/else and restore Named: (1) doname_base standing partial omits untouched (D-2483 by-design strings, doname_full ov
-- D-4037: js/pray.js only — added `Unchanging` to the existing `./polyself.js` import (imports.mjs: edge already present, no new edge); :581 const and :792 fix- Named: (1) the 8 dupe-rc kin + 95340 keep their parks (D-4016/D-4028 falsifiers unfired, re-verif
 <!-- landmarks:end -->
