@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nWn\u0017blessed +3 helm of telepathy\nWo\u0016?\n>w\u0006_ \u001b@._oo.,#chat\nh_oo.,$_oooooo.,pm,_oooo,_ooo,,#chat\nl\u0016?\ncbhl\u0016?\n>w\u0006_{.Fl _, qh_oooooo,,\u0014:s20s _oooo.,pm._oooo,_ooo.,#chat\nh _ooo.,pm,_oooooooo.,p<._oooooooo._o.,\u0017amulet of magical breathing\ndp Fh Fh Fh Fh Fh Fh  _oooooo.,p:_oooo,,\u0017diamond\ndq_{.Fh _,Fh qh_oooooooo._oo.,\u0017ruby\ndr_oooooooo,,p<._oo.,$_ooooo.,p>._ooooooooo,_ooo.,p>._ooooo.,$_ooooooo._o.,\u0017luckstone\ndsFh  Fh Fh Fh Fh  Fh _ooooooooo,_o,, p,_{. Fh _.FlqFl  FlFl   Fl Fl  Fl  _{,   Fh   _. Fn   n   q_oo.,p,Fh  Fh     nFh  Fh   n   Fh  Fh    \u00162\n_ooo.,$_{.q_ooooooooo._oo,,pkjb#chat\nk__.#chat\njhub#chat\nj\u0016?\n>Bjul\u0016?\n>w\u0006__.Fk _.Fj#chat\nl   _oooooooo,,\u0017touchstone\ndt _oooo,,  p.\u00163\nulb\u0016?\n>w\u0006_oooooo.,pybn#chat\nh_{.  Fh _, Fk  q_{. Fu  _,Fu  q_oooo.,p,_ooooooooo._oo,,\u0017amulet of ESP\ndu  _ooo,,  p;_ooooooooo.,p,_oo._oo.,p<.__.Fn  _,.Fn #chat\nn #pray\ny y      _{.Fn   _. Fb  n  q\u00163\nubu\u0016?\n>w\u0006_{, _.Fl"
+ },
+ "segments": [
+  {
+   "seed": 51550025,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nWn\u0017blessed +3 helm of telepathy\nWo\u0016?\n>w\u0006_ \u001b@._oo.,#chat\nh_oo.,$_oooooo.,pm,_oooo,_ooo,,#chat\nl\u0016?\ncbhl\u0016?\n>w\u0006_{.Fl _, qh_oooooo,,\u0014:s20s _oooo.,pm._oooo,_ooo.,#chat\nh _ooo.,pm,_oooooooo.,p<._oooooooo._o.,\u0017amulet of magical breathing\ndp Fh Fh Fh Fh Fh Fh  _oooooo.,p:_oooo,,\u0017diamond\ndq_{.Fh _,Fh qh_oooooooo._oo.,\u0017ruby\ndr_oooooooo,,p<._oo.,$_ooooo.,p>._ooooooooo,_ooo.,p>._ooooo.,$_ooooooo._o.,\u0017luckstone\ndsFh  Fh Fh Fh Fh  Fh _ooooooooo,_o,, p,_{. Fh _.FlqFl  FlFl   Fl Fl  Fl  _{,   Fh   _. Fn   n   q_oo.,p,Fh  Fh     nFh  Fh   n   Fh  Fh    \u00162\n_ooo.,$_{.q_ooooooooo._oo,,pkjb#chat\nk__.#chat\njhub#chat\nj\u0016?\n>Bjul\u0016?\n>w\u0006__.Fk _.Fj#chat\nl   _oooooooo,,\u0017touchstone\ndt _oooo,,  p.\u00163\nulb\u0016?\n>w\u0006_oooooo.,pybn#chat\nh_{.  Fh _, Fk  q_{. Fu  _,Fu  q_oooo.,p,_ooooooooo._oo,,\u0017amulet of ESP\ndu  _ooo,,  p;_ooooooooo.,p,_oo._oo.,p<.__.Fn  _,.Fn #chat\nn #pray\ny y      _{.Fn   _. Fb  n  q\u00163\nubu\u0016?\n>w\u0006_{, _.Fl"
+  }
+ ]
+}

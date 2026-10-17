@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "K JBN_ \u001b,>FkFkFh#offer\n#terrain\nd\nBBJJ_>.Fl_.>FhFhFhLLLL_>,>Fj20sFjPbKKKB_>.>#tip\nf\u001b#sit\n\u001bHNHJ_>.>#untrap\nnzi potion of fruit juice\nNJNY_>,>#name\nm\ndKJYJ_>\u0014#name\nm\nYKNB_>_20swb <ULKK_>,>Fj.20sFhFhFjFj FhFhFh20ss50s50s100sFhFhFhjkj100s50s150sFk..kjjFkssblh100sbyy100s100s50sFjFjFlFj20sFl_>.>\u000f\u001b150s100s50sFhFj Fh FhFj._>.>jbk50s150suhbunb100sFuFys50sFy.._<..N BUK_>,>YUNY_>.>KKYH_>,>s\u0014<\u000f\u001b20sjn10sdd20ssm..m.#chat\nh#chat\nh20s10shbJKKJ_>.>FkssBLJL _>,>KcjKJ HK_>.>KNKJ_>.>Z;<.KBUH_>,><\u000f\u001b100seh FjFjs\\ 100sFl20ss100sFlFl20s100s50slljFbFl20s50s150s50sFhFh.100seg  150s150sFbFb.nyu\u0018\u001bhnj100seeeeeeeeeeeeeee10s20s20sykdas20sshhlnybjKUNY_>,>UJJK_>.>KLNK_>,>Fl Fls>#conduct\n KNNN_>,>#untrap\nh#twoweapon\nLUBB_>.>YUBB_>,>KHYJ_>.>#monster\n\\ <LBBY_>.>Fl    yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51550023,
+   "datetime": "20041010223417",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\n",
+   "moves": "K JBN_ \u001b,>FkFkFh#offer\n#terrain\nd\nBBJJ_>.Fl_.>FhFhFhLLLL_>,>Fj20sFjPbKKKB_>.>#tip\nf\u001b#sit\n\u001bHNHJ_>.>#untrap\nnzi potion of fruit juice\nNJNY_>,>#name\nm\ndKJYJ_>\u0014#name\nm\nYKNB_>_20swb <ULKK_>,>Fj.20sFhFhFjFj FhFhFh20ss50s50s100sFhFhFhjkj100s50s150sFk..kjjFkssblh100sbyy100s100s50sFjFjFlFj20sFl_>.>\u000f\u001b150s100s50sFhFj Fh FhFj._>.>jbk50s150suhbunb100sFuFys50sFy.._<..N BUK_>,>YUNY_>.>KKYH_>,>s\u0014<\u000f\u001b20sjn10sdd20ssm..m.#chat\nh#chat\nh20s10shbJKKJ_>.>FkssBLJL _>,>KcjKJ HK_>.>KNKJ_>.>Z;<.KBUH_>,><\u000f\u001b100seh FjFjs\\ 100sFl20ss100sFlFl20s100s50slljFbFl20s50s150s50sFhFh.100seg  150s150sFbFb.nyu\u0018\u001bhnj100seeeeeeeeeeeeeee10s20s20sykdas20sshhlnybjKUNY_>,>UJJK_>.>KLNK_>,>Fl Fls>#conduct\n KNNN_>,>#untrap\nh#twoweapon\nLUBB_>.>YUBB_>,>KHYJ_>.>#monster\n\\ <LBBY_>.>Fl    yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

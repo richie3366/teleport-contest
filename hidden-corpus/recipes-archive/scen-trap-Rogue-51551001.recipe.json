@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   uynl\u0017squeaky board\nl^hhys20slk\u0017pit\nyb\u0017falling rock trap\n\u0017land mine\naghy l P#monster\n#ride\nky#levelchange\n10\n   hyhy\u0017magic trap\nb#untrap\nulk \u0017statue trap\nk^jj 20ssk\u0017polymorph trap\nj^kkss\u0017land minring of sustain "
+ },
+ "segments": [
+  {
+   "seed": 51551001,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   uynl\u0017squeaky board\nl^hhys20slk\u0017pit\nyb\u0017falling rock trap\n\u0017land mine\naghy l P#monster\n#ride\nky#levelchange\n10\n   hyhy\u0017magic trap\nb#untrap\nulk \u0017statue trap\nk^jj 20ssk\u0017polymorph trap\nj^kkss\u0017land minring of sustain "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017the Eye of the Aethiopica\n w-FlFls\u0007nalfeshnee\nFyFyFy  Fy   Fy\u0007dust vortex\n#chat\ny  Fj Fk#levelchange\n30\n         \u0017blessed spellbook of confuse monster\nro20s  \u0017blessed spellbook of light\nrps \u0017blessed spellbook of cause fear\nrqs\u001b+ZFj ZZZZ\u0007kobold\nZ\u0018\u001b#wizintrinsic\nj\n Z\u0017potion of confusion\nqr \u0017wand of locking\nzs. jkk;k, \u001bm.20s s    n s \u0017elven mithril-coat\nWts\u001b. s \u0007captain\n#chat\nFjFk\u0007ape\nFkFjFk\u0007mail daemon\n;j:  20s  s 20s\u001b\u001628\n#levelchange\n12\n     #wizintrinsic\ngl\n  20s  ss  20s s  n    s   .20s   20s  n    n  \u001bs\u0017brass lantern\nau  n #rub\nu   n   i\u001bway   n #twoweapon\nyZ#twoweapon\n.h sm.  n  20s  n sm.    n 20s    n    \u001b  n sm. \u00168\n \\ \u00166\n\u00173 amulet of guarding\n\u0007crocodile\nPw  sh   n   sm. sm.   sy\u00173 10 daggers\n \u001b\u0017cursed scroll of confuse monster\n\u0007gold golem\nry \u001bFkFl  n\u0017uncursed potion of gain level\nqz #dip\nhg20s.u\u0018\u001b\u00165\n #levelchange\n30\n                \u0017blessed spellbook of teleport away\nrA            n  20s \u0017blessed spellbook of confuse monster\nrB        s    +Z\u0007giant rat\nZFj ZFh Z\u0007acid blob\nZ\u0007lichen\nZ#turn\n\u001618\n i\u001b#levelchange\n8\n      #wizintrinsic\nkfp\n s  yny   ny y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 51550001,
+   "datetime": "20140903030050",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017the Eye of the Aethiopica\n w-FlFls\u0007nalfeshnee\nFyFyFy  Fy   Fy\u0007dust vortex\n#chat\ny  Fj Fk#levelchange\n30\n         \u0017blessed spellbook of confuse monster\nro20s  \u0017blessed spellbook of light\nrps \u0017blessed spellbook of cause fear\nrqs\u001b+ZFj ZZZZ\u0007kobold\nZ\u0018\u001b#wizintrinsic\nj\n Z\u0017potion of confusion\nqr \u0017wand of locking\nzs. jkk;k, \u001bm.20s s    n s \u0017elven mithril-coat\nWts\u001b. s \u0007captain\n#chat\nFjFk\u0007ape\nFkFjFk\u0007mail daemon\n;j:  20s  s 20s\u001b\u001628\n#levelchange\n12\n     #wizintrinsic\ngl\n  20s  ss  20s s  n    s   .20s   20s  n    n  \u001bs\u0017brass lantern\nau  n #rub\nu   n   i\u001bway   n #twoweapon\nyZ#twoweapon\n.h sm.  n  20s  n sm.    n 20s    n    \u001b  n sm. \u00168\n \\ \u00166\n\u00173 amulet of guarding\n\u0007crocodile\nPw  sh   n   sm. sm.   sy\u00173 10 daggers\n \u001b\u0017cursed scroll of confuse monster\n\u0007gold golem\nry \u001bFkFl  n\u0017uncursed potion of gain level\nqz #dip\nhg20s.u\u0018\u001b\u00165\n #levelchange\n30\n                \u0017blessed spellbook of teleport away\nrA            n  20s \u0017blessed spellbook of confuse monster\nrB        s    +Z\u0007giant rat\nZFj ZFh Z\u0007acid blob\nZ\u0007lichen\nZ#turn\n\u001618\n i\u001b#levelchange\n8\n      #wizintrinsic\nkfp\n s  yny   ny y\u001by  2"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " mOa\n#loot\nlOkc\n#force\nt\u001bmO>>>>>>df\ns\n#offer\nO>e\nPP20s sm."
+ },
+ "segments": [
+  {
+   "seed": 51551031,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:explore\n",
+   "moves": " mOa\n#loot\nlOkc\n#force\nt\u001bmO>>>>>>df\ns\n#offer\nO>e\nPP20s sm."
+  }
+ ]
+}

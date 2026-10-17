@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed leash\n\u0017blessed amulet of life saving\nPk\u0017blessed +3 helm of telepathy\nWl\u0017blessed 20 daggers\nQm#levelchange\n20\n                      #wizintrinsic\nh\n \u0017spellbook of cone of cold\nrn \u001b, sm.Z\u001b#turn\n:\u0007newt\nFbsm.Fj .ss20s\u0007gnome lord\n\u0007bugbear\nFhFj     FhFhFj#wizintrinsic\nh\n \u0017spellbook of light\nro.jZ\u001b:fjtmj\u0007dwarf\nFb FbFj.ss.\u0017potion of gain energy\nqps\u0017wand of fire\nzql zq.  zqk  zqk  zqj#wizintrinsic\nh\n\u0017blessed scroll of earth\nrr \u001621\n_>,;.E- Vlad was here\n#chat\nl#pray\ny y fufn\u0007owlbear\nFhFh Fh Fh    Fhs#wizintrinsic\nh\n\u0017scroll of remove curse\nrs \u0017wand of striking\nztkztkztj\u001612\n_{.\u0007hill orc\nFhFh..20s \u0017scroll of fire\nru  <.     #wizintrinsic\nh\n\u0017potion of invisibility\nqv   sn   sh  ;j.E- X marks the spot\n #chat\nj  #pray\ny y                #wizintrinsic\nh\n\u0007jackal\nFl    FjFjFj\u0017"
+ },
+ "segments": [
+  {
+   "seed": 51550018,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed leash\n\u0017blessed amulet of life saving\nPk\u0017blessed +3 helm of telepathy\nWl\u0017blessed 20 daggers\nQm#levelchange\n20\n                      #wizintrinsic\nh\n \u0017spellbook of cone of cold\nrn \u001b, sm.Z\u001b#turn\n:\u0007newt\nFbsm.Fj .ss20s\u0007gnome lord\n\u0007bugbear\nFhFj     FhFhFj#wizintrinsic\nh\n \u0017spellbook of light\nro.jZ\u001b:fjtmj\u0007dwarf\nFb FbFj.ss.\u0017potion of gain energy\nqps\u0017wand of fire\nzql zq.  zqk  zqk  zqj#wizintrinsic\nh\n\u0017blessed scroll of earth\nrr \u001621\n_>,;.E- Vlad was here\n#chat\nl#pray\ny y fufn\u0007owlbear\nFhFh Fh Fh    Fhs#wizintrinsic\nh\n\u0017scroll of remove curse\nrs \u0017wand of striking\nztkztkztj\u001612\n_{.\u0007hill orc\nFhFh..20s \u0017scroll of fire\nru  <.     #wizintrinsic\nh\n\u0017potion of invisibility\nqv   sn   sh  ;j.E- X marks the spot\n #chat\nj  #pray\ny y                #wizintrinsic\nh\n\u0007jackal\nFl    FjFjFj\u0017"
+  }
+ ]
+}

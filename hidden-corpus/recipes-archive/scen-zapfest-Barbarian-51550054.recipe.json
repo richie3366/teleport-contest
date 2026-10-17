@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPel\u0017blessed amulet of life saving\nPf\u0017wand of cold\n\u0017wand of striking\n\u0007bugbear\nzgkzgh    zgl  n   nzgb  nzgzhyzhuzh.  nzgszg\u001611\n\u0017blessed spellbook of sleep\nris\u0007master mind flayer\nZa\nZa\nshsZa\n  shsZa\n  Za\n Za\n20s  20s  n       n Za\n    n \u001611\n \u0017wand of striking\n\u0017wand of cold\n\u0017wand of teleportation\n\u0007jackal\n\u0007gnome lord\nzjj zkk zlkzkk zlkzkk  n szlhzlyzkj  nzk\u001610\n\u0017spellbook of magic missile\nrm .\u0017blessed spellbook of finger of death\nrn.\u0007master mind flayer\n\u0007master mind flayer\nZ\u001b20s   sm.   n  Z\u001bZ\u001bZ\u001bZ\u001bsm.   n  20s   n  Z\u001bsb  n     n    nsm.     yny   y y y\u001b  Z"
+ },
+ "segments": [
+  {
+   "seed": 51550054,
+   "datetime": "20230426024709",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPel\u0017blessed amulet of life saving\nPf\u0017wand of cold\n\u0017wand of striking\n\u0007bugbear\nzgkzgh    zgl  n   nzgb  nzgzhyzhuzh.  nzgszg\u001611\n\u0017blessed spellbook of sleep\nris\u0007master mind flayer\nZa\nZa\nshsZa\n  shsZa\n  Za\n Za\n20s  20s  n       n Za\n    n \u001611\n \u0017wand of striking\n\u0017wand of cold\n\u0017wand of teleportation\n\u0007jackal\n\u0007gnome lord\nzjj zkk zlkzkk zlkzkk  n szlhzlyzkj  nzk\u001610\n\u0017spellbook of magic missile\nrm .\u0017blessed spellbook of finger of death\nrn.\u0007master mind flayer\n\u0007master mind flayer\nZ\u001b20s   sm.   n  Z\u001bZ\u001bZ\u001bZ\u001bsm.   n  20s   n  Z\u001bsb  n     n    nsm.     yny   y y y\u001b  Z"
+  }
+ ]
+}

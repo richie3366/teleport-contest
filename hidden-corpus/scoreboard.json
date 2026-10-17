@@ -1,10 +1,10 @@
 {
- "commit": "9db173202",
- "at": "2026-10-17T07:44:42.268Z",
+ "commit": "6ede25602",
+ "at": "2026-10-17T07:53:49.903Z",
  "full": false,
  "fullCommit": "fa254e8f4",
  "fullAt": "2026-10-17T06:36:15.597Z",
- "entries": 1090,
+ "entries": 1101,
  "reserve": 233,
  "unrecorded": 0,
  "sessions": {
@@ -533,6 +533,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-caster-Samurai-51551009": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 5422,
+   "rngT": 5455,
+   "scrM": 33,
+   "scrT": 49,
+   "kind": "screen",
+   "step": 33,
+   "steps": 49,
+   "owner": "losehp",
+   "loc": "hack.c:4287",
+   "jsOwner": null,
+   "cTopline": "You die...--More--",
+   "jsTopline": "Call a bronze spellbook:",
    "error": null
   },
   "scen-caster-Wizard-51051009": {
@@ -2046,7 +2063,8 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "Where do you want to travel to? (For instructions type a '?')",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-extcmd-Rogue-51256003": {
    "src": "corpus",
@@ -2148,6 +2166,23 @@
    "jsOwner": null,
    "cTopline": "46: gained experience level 13",
    "jsTopline": "46: gained experience level 13",
+   "error": null
+  },
+  "scen-extcmd-Wizard-51550039": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 4093,
+   "rngT": 4093,
+   "scrM": 670,
+   "scrT": 671,
+   "kind": "screen",
+   "step": 476,
+   "steps": 671,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "Can't find dungeon feature '_'.",
    "error": null
   },
   "scen-genesis-Archeologist-50052027": {
@@ -2337,6 +2372,23 @@
    "jsTopline": "As you read the scroll, it disappears. A lit field surrounds you!--More--",
    "error": null
   },
+  "scen-hallu-Wizard-51550088": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 16842,
+   "rngT": 20625,
+   "scrM": 921,
+   "scrT": 1096,
+   "kind": "screen",
+   "step": 921,
+   "steps": 1096,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
   "scen-hazard-Archeologist-94013": {
    "src": "corpus",
    "passed": true,
@@ -2386,6 +2438,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-hazard-Priest-51551013": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 4326,
+   "rngT": 4326,
+   "scrM": 320,
+   "scrT": 321,
+   "kind": "screen",
+   "step": 305,
+   "steps": 321,
+   "owner": "hmonas",
+   "loc": "uhitm.c:5544",
+   "jsOwner": null,
+   "cTopline": "You hit the pyrolisk! The pyrolisk bites!",
+   "jsTopline": "You hit the pyrolisk! The pyrolisk bites again!",
    "error": null
   },
   "scen-hazard-Priest-94213": {
@@ -4921,6 +4990,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-shop-Monk-51550075": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 34055,
+   "rngT": 34055,
+   "scrM": 574,
+   "scrT": 575,
+   "kind": "screen",
+   "step": 554,
+   "steps": 575,
+   "owner": "dog_invent",
+   "loc": "dogmove.c:460",
+   "jsOwner": null,
+   "cTopline": "The gnome lord picks up a morning star.",
+   "jsTopline": "The gnome lord picks up a rusty morning star.",
+   "error": null
+  },
   "scen-shop-Priest-49959522": {
    "src": "corpus",
    "passed": false,
@@ -6806,7 +6892,8 @@
    "jsOwner": null,
    "cTopline": "Contents of the bag of holding:",
    "jsTopline": "Contents of the bag of holding:",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-sweep-Healer-50556037": {
    "src": "corpus",
@@ -7418,6 +7505,23 @@
    "jsOwner": null,
    "cTopline": "Wish what?",
    "jsTopline": "Wish what?",
+   "error": null
+  },
+  "scen-sweep-Monk-51550041": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 30850,
+   "rngT": 30850,
+   "scrM": 736,
+   "scrT": 737,
+   "kind": "screen",
+   "step": 723,
+   "steps": 737,
+   "owner": "process_menu_window",
+   "loc": "wintty.c:1709",
+   "jsOwner": null,
+   "cTopline": "Contents of the large box:",
+   "jsTopline": "Contents of the large box:",
    "error": null
   },
   "scen-sweep-Monk-578207": {
@@ -8523,6 +8627,41 @@
    "jsOwner": null,
    "cTopline": "You hit the owlbear! The ogre lord picks up a mace.--More--",
    "jsTopline": "You hit the owlbear! The ogre lord picks up a corroded mace.--More--",
+   "error": null,
+   "tier": "reserve"
+  },
+  "scen-sweep-Samurai-51550021": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 44580,
+   "rngT": 44580,
+   "scrM": 884,
+   "scrT": 885,
+   "kind": "screen",
+   "step": 420,
+   "steps": 885,
+   "owner": "passivemm",
+   "loc": "mhitm.c:1405",
+   "jsOwner": null,
+   "cTopline": "It is suddenly very cold! It dies! Maybe not... It bites!--More--",
+   "jsTopline": "It is suddenly very cold! It dies! Maybe not... It bites again!--More--",
+   "error": null
+  },
+  "scen-sweep-Samurai-51550031": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 123562,
+   "rngT": 123562,
+   "scrM": 1517,
+   "scrT": 1538,
+   "kind": "screen",
+   "step": 424,
+   "steps": 1538,
+   "owner": "use_pole",
+   "loc": "apply.c:3550",
+   "jsOwner": null,
+   "cTopline": "You uselessly attack the branch staircase up.--More--",
+   "jsTopline": "You uselessly attack an unknown obstacle.--More--",
    "error": null
   },
   "scen-sweep-Samurai-578121": {
@@ -12486,6 +12625,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-worldtour-Knight-51550000": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 33065,
+   "rngT": 47698,
+   "scrM": 537,
+   "scrT": 741,
+   "kind": "screen",
+   "step": 537,
+   "steps": 741,
+   "owner": "level_tele",
+   "loc": "teleport.c:1427",
+   "jsOwner": null,
+   "cTopline": "You materialize on a different level! Well done, mortal!--More--",
+   "jsTopline": "dmonsfree: 0 removed doesn't match 2 pending on Plane of Earth--More--",
+   "error": null
+  },
   "scen-worldtour-Knight-578306": {
    "src": "corpus",
    "passed": true,
@@ -13607,6 +13763,42 @@
    "cTopline": "The Elemental Planes:",
    "jsTopline": "The Elemental Planes:",
    "error": null
+  },
+  "scen-worldtour-Wizard-51550010": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 75308,
+   "rngT": 75308,
+   "scrM": 911,
+   "scrT": 914,
+   "kind": "screen",
+   "step": 302,
+   "steps": 914,
+   "owner": "goto_level",
+   "loc": "do.c:1696",
+   "jsOwner": null,
+   "cTopline": "goto_level: returning to discarded level?--More--",
+   "jsTopline": "goto_level: returning to discarded level?--More--",
+   "error": null,
+   "tier": "reserve"
+  },
+  "scen-worldtour-Wizard-51550050": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 28479,
+   "rngT": 43521,
+   "scrM": 396,
+   "scrT": 702,
+   "kind": "screen",
+   "step": 396,
+   "steps": 702,
+   "owner": "newsym",
+   "loc": "display.c:934",
+   "jsOwner": null,
+   "cTopline": "newsym: attempting screen update for <0,0>--More--",
+   "jsTopline": "The long worm bites! The trapper hits!--More--",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-worldtour-Wizard-578116": {
    "src": "corpus",
@@ -16782,8 +16974,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Healer-50555020": {
    "src": "corpus",
@@ -17034,8 +17225,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "Hello wizard, welcome to NetHack! You are a lawful male human Monk.--More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50750095": {
    "src": "corpus",
@@ -17070,8 +17260,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50850071": {
    "src": "corpus",
@@ -17232,8 +17421,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Ranger-50359032": {
    "src": "corpus",
@@ -17417,21 +17605,20 @@
   },
   "scen-symset-Samurai-50155043": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 6333,
+   "passed": true,
+   "rngM": 9333,
    "rngT": 9333,
-   "scrM": 90,
+   "scrM": 523,
    "scrT": 523,
-   "kind": "screen",
-   "step": 68,
+   "kind": null,
+   "step": null,
    "steps": 523,
    "owner": null,
    "loc": null,
    "jsOwner": null,
-   "cTopline": "Done.",
-   "jsTopline": "unexplored area",
-   "error": null,
-   "tier": "reserve"
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
   },
   "scen-symset-Samurai-50455002": {
    "src": "corpus",
@@ -18771,5 +18958,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-17T07:53:54.018Z"
 }

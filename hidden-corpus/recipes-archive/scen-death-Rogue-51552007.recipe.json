@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  \u0007purple worm\nFh FlFl    n Fy    yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51552007,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007purple worm\nFh FlFl    n Fy    yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

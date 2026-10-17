@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0007tame pony\n\u0017saddle\n aib\u0017lance\nwj#ride\njy\u0007tame saddled warhorse\n#ride\n \u0007horse\n\u0017scroll of taming\nrk \u0017saddle\nall#ride\nhy#ride\n 20s#ride\nny\u0006_ \u001b:>Fk    Fl_>.    _,> hhkunyb u "
+ },
+ "segments": [
+  {
+   "seed": 51551004,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007tame pony\n\u0017saddle\n aib\u0017lance\nwj#ride\njy\u0007tame saddled warhorse\n#ride\n \u0007horse\n\u0017scroll of taming\nrk \u0017saddle\nall#ride\nhy#ride\n 20s#ride\nny\u0006_ \u001b:>Fk    Fl_>.    _,> hhkunyb u "
+  }
+ ]
+}

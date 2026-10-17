@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPh#levelchange\n14\n             \u0007incubus\n\u0007master mind flayer\n\u0007orc shaman\n\u0017wand of cold\nzijzih      su              zin    \u0017blessed spellbook of magic missile\nrj      .m.   n  \u0007gnomish wizard\n\u0007master mind flayer\nZsm.   sm.   n        n  Z20s   n      n  .m.   n    n  ZZsm.   n    n  .u   ZZZ#turn\n\u0018\u001b\u00162\n\u0007orc shaman\n\u0007master mind flayer\n\u0007succubus\n\u0017wand of striking\nsl.m.             n  zkj   sm.    n  zkn   n    sm.   n   20s     n    sm.   n    z.m.   yy\u001by  nnn  ."
+ },
+ "segments": [
+  {
+   "seed": 51550014,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPh#levelchange\n14\n             \u0007incubus\n\u0007master mind flayer\n\u0007orc shaman\n\u0017wand of cold\nzijzih      su              zin    \u0017blessed spellbook of magic missile\nrj      .m.   n  \u0007gnomish wizard\n\u0007master mind flayer\nZsm.   sm.   n        n  Z20s   n      n  .m.   n    n  ZZsm.   n    n  .u   ZZZ#turn\n\u0018\u001b\u00162\n\u0007orc shaman\n\u0007master mind flayer\n\u0007succubus\n\u0017wand of striking\nsl.m.             n  zkj   sm.    n  zkn   n    sm.   n   20s     n    sm.   n    z.m.   yy\u001by  nnn  ."
+  }
+ ]
+}

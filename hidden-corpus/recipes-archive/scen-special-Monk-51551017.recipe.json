@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                                \u0016?\nk   \u0006_ \u001b@.#chat\nnssu slP#invoke\n\u001b;b;"
+ },
+ "segments": [
+  {
+   "seed": 51551017,
+   "datetime": "20000831184120",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                                \u0016?\nk   \u0006_ \u001b@.#chat\nnssu slP#invoke\n\u001b;b;"
+  }
+ ]
+}

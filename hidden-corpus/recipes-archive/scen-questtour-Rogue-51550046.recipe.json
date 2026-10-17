@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nk_mmm.Fk_,#chat\nu_mmm.#chat\nk_m.#chat\ny_mmm,#chat\nh#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_m,#chat\ny_mmmm.#chat\nk\u0017blessed +3 speed boots\nWh\u0017blessed amulet of reflection\nPi\u0017blessed amulet of life saving\nPj\u0017wand of striking\n\u0016?\n>A\u0006_mm,s20sFl .sFbFb ,\u0016?\n>>\u001b\u0016?\n>y_m.Fb _,#chat\nb;b;\u0016?\n>A\u0006_mmmmmm.Fb FbFb FbFb   nFb Fb ,\u0016?\n>>\u001b\u0016?\n>y_mmm.Fb_.#chat\nn;.\u0016?\n>z\u0006_mmmm.sss20szkh,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.s20s  20sssszk.,#chat\ny\u0016?\n>A\u0006_mm,s..sszkh,\u0016?\n>A\u0006_mm.ss20ss20s   zkh,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nn\u0016?\n>z\u0006_mmmm,....,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.s20sss.20szku,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\ny\u0016?\n>A\u0006_mmmmmm.20ss20s.sszk,\u0016?\n>A\u0006_mmmmmmm,20s 20s.szk,\u0016?\n>z\u0006_mm,.s20s20sss.zk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.sss20s s20szk,\u0016?\n>A\u0006_mmmmm.20ssss,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nk;.\u0016?\n>A\u0006_mm..ss20s.sszk,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\ny\u0016?\n>z\u0006_mmmmmmm.s20ss.ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.ssss.20szk,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat"
+ },
+ "segments": [
+  {
+   "seed": 51550046,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nk_mmm.Fk_,#chat\nu_mmm.#chat\nk_m.#chat\ny_mmm,#chat\nh#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_m,#chat\ny_mmmm.#chat\nk\u0017blessed +3 speed boots\nWh\u0017blessed amulet of reflection\nPi\u0017blessed amulet of life saving\nPj\u0017wand of striking\n\u0016?\n>A\u0006_mm,s20sFl .sFbFb ,\u0016?\n>>\u001b\u0016?\n>y_m.Fb _,#chat\nb;b;\u0016?\n>A\u0006_mmmmmm.Fb FbFb FbFb   nFb Fb ,\u0016?\n>>\u001b\u0016?\n>y_mmm.Fb_.#chat\nn;.\u0016?\n>z\u0006_mmmm.sss20szkh,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.s20s  20sssszk.,#chat\ny\u0016?\n>A\u0006_mm,s..sszkh,\u0016?\n>A\u0006_mm.ss20ss20s   zkh,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nn\u0016?\n>z\u0006_mmmm,....,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.s20sss.20szku,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\ny\u0016?\n>A\u0006_mmmmmm.20ss20s.sszk,\u0016?\n>A\u0006_mmmmmmm,20s 20s.szk,\u0016?\n>z\u0006_mm,.s20s20sss.zk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.sss20s s20szk,\u0016?\n>A\u0006_mmmmm.20ssss,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nk;.\u0016?\n>A\u0006_mm..ss20s.sszk,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\ny\u0016?\n>z\u0006_mmmmmmm.s20ss.ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.ssss.20szk,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat"
+  }
+ ]
+}

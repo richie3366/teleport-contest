@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b<.>FuFu_>.Fh_.Fn>FyFkn Fh\u0006_>>,Fh_,Fh>FbFh\u001b_>>.Fh_.Fh>FyFkb _>>,Fj_.Fy>FbFjm.FhFkFj\u0006_>.Fy_.Fb>FbFy_>.Fh_.Fk>FkFb_>,Fn_.Fk>FkFbFyFhFk\u0018\u001bH\u0006_>,Fb_.Fb>FyFh\u001b_>.Fj_.Fy>FbFh\u001b_>.Fy_,Fy>FyFkn FbFkj Fh\u0006_>.Fb_.Fkh >FhFb_>.Fh\u001b_,Fk>FnFkj _>,Fk_,Fh>FjFyFkb FyFb#invoke\n\u001bn\u0006_>>,Fn_>FnFn_>>,Fy_.Fh\u001b>FhFb_>>,Fb_.Fb>FbFkn FyFkh Fk\u0006_>>.Fh_.Fh>FbFh\u001b_>>.Fn_>FnFj<._>>.Fk_.Fk>FkFnFj:FbFbyE- Elbereth Elbereth\nv\u001bi\u001b\u00163\n#levelchange\n14\n             j,kj j@.j<.\u0017melting ice\n:kj \u0017grave\n:\u0017pick-axe\nai >ssjm,\u0017throne\n#sit\n#sit\nh\u001bn\u0017pool\n#turn\n    n   #name\ni\nsO>g\u001b\n\u001618\n\u0006_>.Fh_,  Fl>FbFy_>.Fy_. Fb>FbFlk _>,Fk_.m.Fk>FkFyFyFyFuy \u0006_>.Fh_.Fy>FyFuu _>,Fu_.;<. Fu>FyFky _>.Fy_,Fy>FyFyFyFyFy\u0006_>.Fj_.m,Fy>FhFh_>.Fk_.Fn>FnFuk FuO>>j\u001b\n\u00168\n>>\u0018\u001b#untrap\ny v\u001bi\u001bi\u001bZmOa\u001b\nv\u001bi\u001b\u0006_>.Fj_,m,Fj>FbFkk _>.Fj_,.Fy>FjFj_>,Fk_,@.Fy>FhFyFjm.FhFy<\u0006_>,Fh_.m,Fb>FbFj:_>.Fj_.m.Fb>FhFk_>.Fh_,Fy>FkFkFjFyFy#dip\ne#rub\n<\u0006_>,Fb_.F"
+ },
+ "segments": [
+  {
+   "seed": 51550027,
+   "datetime": "20250813014145",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a potion\"=red\nBIND=v:inventory\n",
+   "moves": "\u0006_ \u001b<.>FuFu_>.Fh_.Fn>FyFkn Fh\u0006_>>,Fh_,Fh>FbFh\u001b_>>.Fh_.Fh>FyFkb _>>,Fj_.Fy>FbFjm.FhFkFj\u0006_>.Fy_.Fb>FbFy_>.Fh_.Fk>FkFb_>,Fn_.Fk>FkFbFyFhFk\u0018\u001bH\u0006_>,Fb_.Fb>FyFh\u001b_>.Fj_.Fy>FbFh\u001b_>.Fy_,Fy>FyFkn FbFkj Fh\u0006_>.Fb_.Fkh >FhFb_>.Fh\u001b_,Fk>FnFkj _>,Fk_,Fh>FjFyFkb FyFb#invoke\n\u001bn\u0006_>>,Fn_>FnFn_>>,Fy_.Fh\u001b>FhFb_>>,Fb_.Fb>FbFkn FyFkh Fk\u0006_>>.Fh_.Fh>FbFh\u001b_>>.Fn_>FnFj<._>>.Fk_.Fk>FkFnFj:FbFbyE- Elbereth Elbereth\nv\u001bi\u001b\u00163\n#levelchange\n14\n             j,kj j@.j<.\u0017melting ice\n:kj \u0017grave\n:\u0017pick-axe\nai >ssjm,\u0017throne\n#sit\n#sit\nh\u001bn\u0017pool\n#turn\n    n   #name\ni\nsO>g\u001b\n\u001618\n\u0006_>.Fh_,  Fl>FbFy_>.Fy_. Fb>FbFlk _>,Fk_.m.Fk>FkFyFyFyFuy \u0006_>.Fh_.Fy>FyFuu _>,Fu_.;<. Fu>FyFky _>.Fy_,Fy>FyFyFyFyFy\u0006_>.Fj_.m,Fy>FhFh_>.Fk_.Fn>FnFuk FuO>>j\u001b\n\u00168\n>>\u0018\u001b#untrap\ny v\u001bi\u001bi\u001bZmOa\u001b\nv\u001bi\u001b\u0006_>.Fj_,m,Fj>FbFkk _>.Fj_,.Fy>FjFj_>,Fk_,@.Fy>FhFyFjm.FhFy<\u0006_>,Fh_.m,Fb>FbFj:_>.Fj_.m.Fb>FhFk_>.Fh_,Fy>FkFkFjFyFy#dip\ne#rub\n<\u0006_>,Fb_.F"
+  }
+ ]
+}

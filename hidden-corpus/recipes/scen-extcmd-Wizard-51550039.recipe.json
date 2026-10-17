@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\nwp \u0017blessed amulet of life saving\nPq\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007newt\nFuFuFl  _ \u001b,qf\u0007grid bug\n#overview\n\u001b#conduct\n i\u001b#dip\nms \u001b#offer\n#pray\ny y      #chat\nu#wizintrinsic\nsg\n Fu FhFh_{.qg#vanquished\n #genocided\nfrost giant\na .#annotate\nfoo\ni\u001b#name\nm\n#adjust\nm.#chat\nb#turn\n#jump\n#polyself\nfog cloud\n #monster\nss20s20s  yul_<,  Fb_.Fb#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y #polyself\nfog cloud\n#monster\ns 20sFbFbFb.s__._.#chat\nk#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nu#chat\ny#wizidentify\n\u001bhyj_{.qh \u0007grid bug\n#overview\n\u001b#conduct\n #annotate\n\u001b\u0018\u001b#tip\n\u001b\u001b#ride\nhy#turn\n#sit\n\u001b#polyself\nmind flayer\n#mo"
+ },
+ "segments": [
+  {
+   "seed": 51550039,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\nwp \u0017blessed amulet of life saving\nPq\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007newt\nFuFuFl  _ \u001b,qf\u0007grid bug\n#overview\n\u001b#conduct\n i\u001b#dip\nms \u001b#offer\n#pray\ny y      #chat\nu#wizintrinsic\nsg\n Fu FhFh_{.qg#vanquished\n #genocided\nfrost giant\na .#annotate\nfoo\ni\u001b#name\nm\n#adjust\nm.#chat\nb#turn\n#jump\n#polyself\nfog cloud\n #monster\nss20s20s  yul_<,  Fb_.Fb#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y #polyself\nfog cloud\n#monster\ns 20sFbFbFb.s__._.#chat\nk#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nu#chat\ny#wizidentify\n\u001bhyj_{.qh \u0007grid bug\n#overview\n\u001b#conduct\n #annotate\n\u001b\u0018\u001b#tip\n\u001b\u001b#ride\nhy#turn\n#sit\n\u001b#polyself\nmind flayer\n#mo"
+  }
+ ]
+}

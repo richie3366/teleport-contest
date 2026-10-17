@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "ri nnyf $ b #wipe\nWO>>>>f\u001b\n#loot\nn #enhance\nyl\nk\n\u001bwa#sit\n\u00161\n#levelchange\n30\n                             uu yuu \u0017altar\ndg\u0017elf corpse\n#offer\nk   h\u001by\u0017tree\n: #terrain\nc\n\u001bm.#tip\n\u001b>qe\u0006_>,Fy_,Fkh >FnFj_>.Fj_,m,Fy>FyFj_>,Fk_,,Fl>FjFlFhFuFl\u0006_>,Fk_,.Fu>FyFlu _>,Fy_,Fn>FkFy_>.Fy_,>.Fn>FhFjFl#conduct\n fl \u0006_>.Fl_.;;Fl>FnFn_>,Fy_.Flk >FlFl_>.Fy_,Ful >FyFuk FnFjFh20s:\u0006_>.Fy_.Fn>FbFn_>.Fn_>FhFb_>.Fy_.Fb>FbFh\u001bFuFhFy#sit\nn<v  i\u001bmOa\u001b\n#levelchange\n6\n        yyh\u001blu \u0017throne\n#sit\n ny#sit\n bk\u0017:\u001bi#loot\n water elemental\n  silver dragon\nd$mO>>>>k\u001b\n\u00161\nv   i\u001bFyFun FuFjFbFbFbFjFnFjFnFbFbFkb FkFjFnFyFnFbFbFky FbFnFyFub FkFbFjFkFyFyFuFnFyFyFuk FyFuy FyFku FkFbFbFnFuj FbFuu FkFyFyFbFun FkFjFkFuFuFjFjFnFnFyFyFbFkk FnFjFkFuFkFjFuFyFnFjFuFnFnFkFyFuu FuFnFjFbFyFyFbFyFnFbFun FuFyFuk FbFuy FbFnFnFnFbFbFkFuFuFkFkFyFbFyFbFbFjFyFyFjFnFnOk\u001b\nO>i\u001b\u001b\n\u001614\n\u0007large dog\n\u0017apple\n t\u001b\u0017meatball\nt\u001bj#chat\nh #name\no\n"
+ },
+ "segments": [
+  {
+   "seed": 51550077,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:slime mold\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=stop \"You kill\"\n",
+   "moves": "ri nnyf $ b #wipe\nWO>>>>f\u001b\n#loot\nn #enhance\nyl\nk\n\u001bwa#sit\n\u00161\n#levelchange\n30\n                             uu yuu \u0017altar\ndg\u0017elf corpse\n#offer\nk   h\u001by\u0017tree\n: #terrain\nc\n\u001bm.#tip\n\u001b>qe\u0006_>,Fy_,Fkh >FnFj_>.Fj_,m,Fy>FyFj_>,Fk_,,Fl>FjFlFhFuFl\u0006_>,Fk_,.Fu>FyFlu _>,Fy_,Fn>FkFy_>.Fy_,>.Fn>FhFjFl#conduct\n fl \u0006_>.Fl_.;;Fl>FnFn_>,Fy_.Flk >FlFl_>.Fy_,Ful >FyFuk FnFjFh20s:\u0006_>.Fy_.Fn>FbFn_>.Fn_>FhFb_>.Fy_.Fb>FbFh\u001bFuFhFy#sit\nn<v  i\u001bmOa\u001b\n#levelchange\n6\n        yyh\u001blu \u0017throne\n#sit\n ny#sit\n bk\u0017:\u001bi#loot\n water elemental\n  silver dragon\nd$mO>>>>k\u001b\n\u00161\nv   i\u001bFyFun FuFjFbFbFbFjFnFjFnFbFbFkb FkFjFnFyFnFbFbFky FbFnFyFub FkFbFjFkFyFyFuFnFyFyFuk FyFuy FyFku FkFbFbFnFuj FbFuu FkFyFyFbFun FkFjFkFuFuFjFjFnFnFyFyFbFkk FnFjFkFuFkFjFuFyFnFjFuFnFnFkFyFuu FuFnFjFbFyFyFbFyFnFbFun FuFyFuk FbFuy FbFnFnFnFbFbFkFuFuFkFkFyFbFyFbFbFjFyFyFjFnFnOk\u001b\nO>i\u001b\u001b\n\u001614\n\u0007large dog\n\u0017apple\n t\u001b\u0017meatball\nt\u001bj#chat\nh #name\no\n"
+  }
+ ]
+}

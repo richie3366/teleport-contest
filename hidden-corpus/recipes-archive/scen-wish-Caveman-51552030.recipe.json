@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u00173 wooden harp\n\u0007Wizard of Yendor\nyafyafy   Fl Fk \u0017scroll of taming\nrg  \u001b    nFh.\u0017the Orb of Fate\n ,   Fu  n       n  Fu     yy\u001by   y y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 51552030,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u00173 wooden harp\n\u0007Wizard of Yendor\nyafyafy   Fl Fk \u0017scroll of taming\nrg  \u001b    nFh.\u0017the Orb of Fate\n ,   Fu  n       n  Fu     yy\u001by   y y y\u001by  \u0017"
+  }
+ ]
+}

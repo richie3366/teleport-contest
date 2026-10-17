@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 speed boots\nWg\u001613\n    \u0014 \u001b@.\u0016?\nj#chat\nb;<.\u0016?\ng \u0004l\u001644\n   bj\u0017magic marker\nEh X marks the spot\n: \u0017wand of striking\nEi  Elbereth\n: h\u0017wand of speed monster\nEj Elbereth\n: y\u0017wand of secret door detection\nEk  I am a fish\n\u0017wand of enlightenment\nEl \u001b y Elbereth Elbereth\nhss20s\u0016?\nl kjj:\u0016?\n>Gkkk:\u001644\n\u0006_>.Fk_,        .20s20s\u001629\n _{.<.m.sm.\u001613\n __,\u001640\n   hhklub:\u001641\n \u0006_<._,;;\u001642\nukj\u0017throne\n#sit\n #sit\n i\n \u001b#sit\nj\u0017altar\ndjdf\u0017floating eye corpse\n#offer\nm    #terrain\nb\n#turn\nm,#turn\n#wipe\n\u0016?\n>t#chat\nh   ;h:\u0016?\n>>Q\u0017the Tsurugi of Muramasa\n \u0007soldier ant\nsj20s.m.  n    .m..usm. sm.  20s  n     \u0007fire vortex\n20s sk   20s s\u001b20s \u001610\n\u0016?\n>>M      worthless piece of red glass\n#levelchange\n12\n  \u0017blessed +3 ring of shock resistance\nPcrsm.   n      sj           n  sm.         R      \u0017uncursed Fire Brand\nwd   n  Fj             n       Fk  Fk   n  #invoke\nd:                    FkFj \u0017uncursed potion of acid\nqe \u001b\u0017cursed wand of death\n\u0007cave spider\nzfj\u0017uncursed the Platinum Yendorian Express Card\n \u0007salamander\n,  n          .  n   sy            \u00165\n\u0016?\nclj  n        b      u     b : \u001632\nu n"
+ },
+ "segments": [
+  {
+   "seed": 51550020,
+   "datetime": "20110410083217",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=fruit:lychee\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 speed boots\nWg\u001613\n    \u0014 \u001b@.\u0016?\nj#chat\nb;<.\u0016?\ng \u0004l\u001644\n   bj\u0017magic marker\nEh X marks the spot\n: \u0017wand of striking\nEi  Elbereth\n: h\u0017wand of speed monster\nEj Elbereth\n: y\u0017wand of secret door detection\nEk  I am a fish\n\u0017wand of enlightenment\nEl \u001b y Elbereth Elbereth\nhss20s\u0016?\nl kjj:\u0016?\n>Gkkk:\u001644\n\u0006_>.Fk_,        .20s20s\u001629\n _{.<.m.sm.\u001613\n __,\u001640\n   hhklub:\u001641\n \u0006_<._,;;\u001642\nukj\u0017throne\n#sit\n #sit\n i\n \u001b#sit\nj\u0017altar\ndjdf\u0017floating eye corpse\n#offer\nm    #terrain\nb\n#turn\nm,#turn\n#wipe\n\u0016?\n>t#chat\nh   ;h:\u0016?\n>>Q\u0017the Tsurugi of Muramasa\n \u0007soldier ant\nsj20s.m.  n    .m..usm. sm.  20s  n     \u0007fire vortex\n20s sk   20s s\u001b20s \u001610\n\u0016?\n>>M      worthless piece of red glass\n#levelchange\n12\n  \u0017blessed +3 ring of shock resistance\nPcrsm.   n      sj           n  sm.         R      \u0017uncursed Fire Brand\nwd   n  Fj             n       Fk  Fk   n  #invoke\nd:                    FkFj \u0017uncursed potion of acid\nqe \u001b\u0017cursed wand of death\n\u0007cave spider\nzfj\u0017uncursed the Platinum Yendorian Express Card\n \u0007salamander\n,  n          .  n   sy            \u00165\n\u0016?\nclj  n        b      u     b : \u001632\nu n"
+  }
+ ]
+}

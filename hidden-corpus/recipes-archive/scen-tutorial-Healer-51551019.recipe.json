@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " nnkj,:bykjjn_ \u001b,bblhlk:unnynh,>:llujnykhn<Wnlubyl__.zhk  <:bbjlhbk:ynluhljul>:lhh#chat\nhdehhjlyn:jkk#tip\n\u001b_>.hljyby>i\u001bwaylbkby#dip\nbh ykjkyjnbuykw-"
+ },
+ "segments": [
+  {
+   "seed": 51551019,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pettype:none\n",
+   "moves": " nnkj,:bykjjn_ \u001b,bblhlk:unnynh,>:llujnykhn<Wnlubyl__.zhk  <:bbjlhbk:ynluhljul>:lhh#chat\nhdehhjlyn:jkk#tip\n\u001b_>.hljyby>i\u001bwaylbkby#dip\nbh ykjkyjnbuykw-"
+  }
+ ]
+}

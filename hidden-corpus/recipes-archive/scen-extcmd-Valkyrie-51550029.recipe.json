@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\nwe\u0017blessed amulet of life saving\nPf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007lichen\n#pray\ny y   #chat\nh#jump\n#wizintrinsic\nr\n Fh Fj  _ \u001bm.qh \u001b\u0007hill orc\n#overview\n\u001b#conduct\n \u000f\u001b#dip\ni#offer\n#chat\nl#turn\n#jump\n#wizmap\n\u0006Fl .20s.__.#chat\nh#vanquished\n #genocided\nhomunculus\n\u0018\u001b#name\n\u001b#adjust\ng\u001b#sit\n#pray\ny y #wizdetect\n\u0006jlh_{.q#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\ne#chat\nb#chat\nl#polyself\ntroll\ns20sssjjk__.#chat\nu\u0007troll\n#version\n  #history\n                  i\u001b#wipe\n#loot\nn#turn\n#sit\n #wizintrinsic\nga\n Fn Fn Fn 20s10s_<._,\u0007acid blob\n#overview\n\u001b#conduct\n #annotate\nfoo\n\u000f\u001b#tip\n\u001b\u001b#ride\nny#pray\ny y #chat\nn#levelchange\n21\n            FnFn ss#ride\nyy\u001615\n \u0006#vanquished\n #genocided\npurple worm\ni  \u000f\u001b#dip\nb#offer\n#chat\nh#turn\n#wizdetect\n\u0006nny_{,q#chronicle\n  #terrain\n\u001b#annotate\nfoo\ni\u001b#name\n\u001b#adjust\nb\u001b#sit\n\u001b#pray\ny y #wizintrinsic\ns\n jnyf g b_ooo.,\u0007gnome\n#version\n  #history\n                  \u000f\u001b#twoweapon\n#invoke\ne#chat\ny#chat\ny#wizidentify\n\u001buyn__._"
+ },
+ "segments": [
+  {
+   "seed": 51550029,
+   "datetime": "20070124192450",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\nwe\u0017blessed amulet of life saving\nPf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007lichen\n#pray\ny y   #chat\nh#jump\n#wizintrinsic\nr\n Fh Fj  _ \u001bm.qh \u001b\u0007hill orc\n#overview\n\u001b#conduct\n \u000f\u001b#dip\ni#offer\n#chat\nl#turn\n#jump\n#wizmap\n\u0006Fl .20s.__.#chat\nh#vanquished\n #genocided\nhomunculus\n\u0018\u001b#name\n\u001b#adjust\ng\u001b#sit\n#pray\ny y #wizdetect\n\u0006jlh_{.q#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\ne#chat\nb#chat\nl#polyself\ntroll\ns20sssjjk__.#chat\nu\u0007troll\n#version\n  #history\n                  i\u001b#wipe\n#loot\nn#turn\n#sit\n #wizintrinsic\nga\n Fn Fn Fn 20s10s_<._,\u0007acid blob\n#overview\n\u001b#conduct\n #annotate\nfoo\n\u000f\u001b#tip\n\u001b\u001b#ride\nny#pray\ny y #chat\nn#levelchange\n21\n            FnFn ss#ride\nyy\u001615\n \u0006#vanquished\n #genocided\npurple worm\ni  \u000f\u001b#dip\nb#offer\n#chat\nh#turn\n#wizdetect\n\u0006nny_{,q#chronicle\n  #terrain\n\u001b#annotate\nfoo\ni\u001b#name\n\u001b#adjust\nb\u001b#sit\n\u001b#pray\ny y #wizintrinsic\ns\n jnyf g b_ooo.,\u0007gnome\n#version\n  #history\n                  \u000f\u001b#twoweapon\n#invoke\ne#chat\ny#chat\ny#wizidentify\n\u001buyn__._"
+  }
+ ]
+}

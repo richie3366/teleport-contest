@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "mO>>q\u001b\n\u00163\n  FkFh Fhab   \u001b<.Fh s20s 100s        Fkss100s                   Fl.sjnbFjFnFn FjFnFjFnFbFbFb FnFnFnFbFb FbFnFbFnFnFbFjFbFbFhFjFnFnFb FnFj FbFnFjFjFnFnFn Fb FhFh FhFnFbFnFlFnFbFnFjFnFjFjFb FnFnFnFlFb Fj FnFbFbFb FnFnFnFnFb FbFbFjFbFbFnFjFnFnFnFn FjFbFjFjFj FbFjFbFnFbFbFjFnFjFnFnmO>>>e\u001b\n\u001617\n\u0007tame large dog\n\u0007tame hill orc\n#name\ni\n\u0017meatball\ntaj \u0017meatball\nt\u001b\u0017leash\najn   j  jhyajl     n    n#chat\nbu    \u00168\n\u0004l#wipe\n\u000f\u001bckv i\u001bv i\u001bO>>n\u001b\u001b\nmO>>>>k\u001b\n#turn\n#jump\n>.i\u001b#terrain\nc\n@.\u00169\nmO>>>>a\u001b\n#pray\ny y FjFbFnFbFnFnFjFjFbFnFbFnFbFnFnFnFjFbFnFjFnFlFjFlFjFbFbFnFbFbFjFjFbFnFbFjFjFbFj Fh  nFhFjFhFjFbFnFb FbFnFhFn Fj Fb FhFlFn Fb Fb Fj Fn Fj Fn Fb Fb  FhFhFhFlFb   nFn Fn Fh Fb Fh Fj FlFn FlFn Fb Fn Fn Fb Fl Fn Fb Fj FlFn FlFj Fn F"
+ },
+ "segments": [
+  {
+   "seed": 51550047,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"uncursed\"=magenta\n",
+   "moves": "mO>>q\u001b\n\u00163\n  FkFh Fhab   \u001b<.Fh s20s 100s        Fkss100s                   Fl.sjnbFjFnFn FjFnFjFnFbFbFb FnFnFnFbFb FbFnFbFnFnFbFjFbFbFhFjFnFnFb FnFj FbFnFjFjFnFnFn Fb FhFh FhFnFbFnFlFnFbFnFjFnFjFjFb FnFnFnFlFb Fj FnFbFbFb FnFnFnFnFb FbFbFjFbFbFnFjFnFnFnFn FjFbFjFjFj FbFjFbFnFbFbFjFnFjFnFnmO>>>e\u001b\n\u001617\n\u0007tame large dog\n\u0007tame hill orc\n#name\ni\n\u0017meatball\ntaj \u0017meatball\nt\u001b\u0017leash\najn   j  jhyajl     n    n#chat\nbu    \u00168\n\u0004l#wipe\n\u000f\u001bckv i\u001bv i\u001bO>>n\u001b\u001b\nmO>>>>k\u001b\n#turn\n#jump\n>.i\u001b#terrain\nc\n@.\u00169\nmO>>>>a\u001b\n#pray\ny y FjFbFnFbFnFnFjFjFbFnFbFnFbFnFnFnFjFbFnFjFnFlFjFlFjFbFbFnFbFbFjFjFbFnFbFjFjFbFj Fh  nFhFjFhFjFbFnFb FbFnFhFn Fj Fb FhFlFn Fb Fb Fj Fn Fj Fn Fb Fb  FhFhFhFlFb   nFn Fn Fh Fb Fh Fj FlFn FlFn Fb Fn Fn Fb Fl Fn Fb Fj FlFn FlFj Fn F"
+  }
+ ]
+}

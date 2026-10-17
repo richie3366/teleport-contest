@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPi\u0017blessed bell of opening\n\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed ring of free action\nPlr\u0017blessed +3 gray dragon scale mail\n W\u001b\u0017blessed 20 daggers\nQn#wizintrinsic\nh\n ;l. \u001b:   E- ad aerarium\n#chat\nl\u0016?\n>G__.>\u001611\n\u0014;s\u00164\nnkhuln:\u0018\u001blyj_;yn\u0017potion of speed\nqo 20s20s#wizintrinsic\nh\n\u001620\n_{.<\u0016?\np #chat\nu;_.tnlfn#invoke\nji\u001bjjyb\u0017potion of gain energy\nqp.i\u001bhhll\u0007grid bug\n\u0007giant rat\nFhFhFk Fh#wizintrinsic\nh\n\u0017potion of booze\nqq20s\u0017potion of sleeping\nqr   sm.  nsm.\u0007hobbit\n\u0007yellow mold\nFkFkFhFk   nFk#wizintrinsic\nh\ni\u001buyn\u0007giant rat\nFh   nFhFhFh  n\u00162\n\u0017potion of hallucination\nqs.;_.E- X marks the spot\n#chat\nn#wizintrinsic\nh\n;m.E-y I am a fish\n#pray\ny y \u0017spellbook of knock\nrt >.sZ:\u0017wand of digging\nzu.zujzu.\u0017wand of magic missile\nzvuzvhzv.  nzvl#wizintrinsic\nh\n\u00163\n__,20s20sfjfhfhfhi\u001bblb\u0017blessed spellbook of magic missile\nrwsZa\n#turn\n:;<.E#chat\nl#pray\ny y #wizintrinsic\nh\n\u0017wand of digging\nzxbzxhzxbzx.\u0016?\n>>L     amulet versus poison\n \u0014:\u0017potion of booze\nqA    sm.    n   n  \u001610\n#wizintrinsic\nh\nfh   n    n     fl      n   n  n     \u001611\n\u0007acid blo"
+ },
+ "segments": [
+  {
+   "seed": 51550048,
+   "datetime": "20201205065607",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showrace\nOPTIONS=runmode:crawl\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPi\u0017blessed bell of opening\n\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed ring of free action\nPlr\u0017blessed +3 gray dragon scale mail\n W\u001b\u0017blessed 20 daggers\nQn#wizintrinsic\nh\n ;l. \u001b:   E- ad aerarium\n#chat\nl\u0016?\n>G__.>\u001611\n\u0014;s\u00164\nnkhuln:\u0018\u001blyj_;yn\u0017potion of speed\nqo 20s20s#wizintrinsic\nh\n\u001620\n_{.<\u0016?\np #chat\nu;_.tnlfn#invoke\nji\u001bjjyb\u0017potion of gain energy\nqp.i\u001bhhll\u0007grid bug\n\u0007giant rat\nFhFhFk Fh#wizintrinsic\nh\n\u0017potion of booze\nqq20s\u0017potion of sleeping\nqr   sm.  nsm.\u0007hobbit\n\u0007yellow mold\nFkFkFhFk   nFk#wizintrinsic\nh\ni\u001buyn\u0007giant rat\nFh   nFhFhFh  n\u00162\n\u0017potion of hallucination\nqs.;_.E- X marks the spot\n#chat\nn#wizintrinsic\nh\n;m.E-y I am a fish\n#pray\ny y \u0017spellbook of knock\nrt >.sZ:\u0017wand of digging\nzu.zujzu.\u0017wand of magic missile\nzvuzvhzv.  nzvl#wizintrinsic\nh\n\u00163\n__,20s20sfjfhfhfhi\u001bblb\u0017blessed spellbook of magic missile\nrwsZa\n#turn\n:;<.E#chat\nl#pray\ny y #wizintrinsic\nh\n\u0017wand of digging\nzxbzxhzxbzx.\u0016?\n>>L     amulet versus poison\n \u0014:\u0017potion of booze\nqA    sm.    n   n  \u001610\n#wizintrinsic\nh\nfh   n    n     fl      n   n  n     \u001611\n\u0007acid blo"
+  }
+ ]
+}

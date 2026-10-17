@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "FbFb shljFnFbFbFbFjFjFbFbFbFjFnFnFnFnFjFbFbFnFjFbFnFbFjFjFnFbFjFbFbFnFbFnFbFbFjFbFjFjFnFbFnFbFbFjFnFnFjFbFnFnFbFnFjFbFnFbFjFjFbFbFbFbFjFbFbFnFnFbFbFbFbFjFjFbFbFnFjFnFjFnFnFbFjFjFbFbFnFjFjFjFnFbFbFjFbFnFnFbFnFjFnFnFnFnFbFjFnFnFjFnFnFbFbFb\u0006_ \u001b<.>_>>.Fu_.Fy>FuFu_>>.Fn_,Fn>FuFuFyFnFu\u0006_>>.Fy_.Fu>FyFu_>>.Fn_.Fu>FyFn_>>.Fn_,Fu>FyFnFnFuFy\u0006_>.Fy_,Fu>FyFu_>.Fn_,Fn>FuFn_>.Fy_.Fn>FyFuFyFyFn\u000f\u001b#monster\n\u0006_>,Fn_,Fy>FuFn_>.Fy_.Fn>FyFy_>.Fn_.Fy>FyFlFuFyFy\u0006_>>.Fy_.Fn>FuFn_>>.Fn_.Fu>FnFu_>>.Fu_.Fn>FyFnFuFuFnr\u001b,Og\u001b\u001b\nO>>l\u001b\n#levelchange\n30\n                             nhbl\u0017tree\nj\u0017throne\n#sit\n y#sit\n\u001b#sit\n\u001b#invoke\n\u001b#conduct\n 20smO>>>m\u001b\n\u0007tame winter wolf cub\n\u0007tame dingo\n#chat\nj\u0017lichen corpse\ntby\u0017food ration\ntbbdh20s20s20s \u0017carrot\ntbj10s\u0017food ration\ntbu10smO>>h\u001b\n#untrap\nlZ\u0018\u001b#levelchange\n20\n   hku\u0017tree\nyn\u0017throne\n#sit\n#sit\n #sit\n\u0004j__,s>#invoke\n\u001b#name\nm\n_.#force\n\u001611\n O>>>>f\u001b\n\u001616\n mO>>>>f\u001b\nFlFbFuFjFuFnFbFlFbFuFjFnFjFbFlFbFuFnFjFbFbFuFnFjFuFuFbFlFu  .100snln150si100s_>50s100s\u000f50s150sklukyn10"
+ },
+ "segments": [
+  {
+   "seed": 51550017,
+   "datetime": "20220901135700",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": "FbFb shljFnFbFbFbFjFjFbFbFbFjFnFnFnFnFjFbFbFnFjFbFnFbFjFjFnFbFjFbFbFnFbFnFbFbFjFbFjFjFnFbFnFbFbFjFnFnFjFbFnFnFbFnFjFbFnFbFjFjFbFbFbFbFjFbFbFnFnFbFbFbFbFjFjFbFbFnFjFnFjFnFnFbFjFjFbFbFnFjFjFjFnFbFbFjFbFnFnFbFnFjFnFnFnFnFbFjFnFnFjFnFnFbFbFb\u0006_ \u001b<.>_>>.Fu_.Fy>FuFu_>>.Fn_,Fn>FuFuFyFnFu\u0006_>>.Fy_.Fu>FyFu_>>.Fn_.Fu>FyFn_>>.Fn_,Fu>FyFnFnFuFy\u0006_>.Fy_,Fu>FyFu_>.Fn_,Fn>FuFn_>.Fy_.Fn>FyFuFyFyFn\u000f\u001b#monster\n\u0006_>,Fn_,Fy>FuFn_>.Fy_.Fn>FyFy_>.Fn_.Fy>FyFlFuFyFy\u0006_>>.Fy_.Fn>FuFn_>>.Fn_.Fu>FnFu_>>.Fu_.Fn>FyFnFuFuFnr\u001b,Og\u001b\u001b\nO>>l\u001b\n#levelchange\n30\n                             nhbl\u0017tree\nj\u0017throne\n#sit\n y#sit\n\u001b#sit\n\u001b#invoke\n\u001b#conduct\n 20smO>>>m\u001b\n\u0007tame winter wolf cub\n\u0007tame dingo\n#chat\nj\u0017lichen corpse\ntby\u0017food ration\ntbbdh20s20s20s \u0017carrot\ntbj10s\u0017food ration\ntbu10smO>>h\u001b\n#untrap\nlZ\u0018\u001b#levelchange\n20\n   hku\u0017tree\nyn\u0017throne\n#sit\n#sit\n #sit\n\u0004j__,s>#invoke\n\u001b#name\nm\n_.#force\n\u001611\n O>>>>f\u001b\n\u001616\n mO>>>>f\u001b\nFlFbFuFjFuFnFbFlFbFuFjFnFjFbFlFbFuFnFjFbFbFuFnFjFuFuFbFlFu  .100snln150si100s_>50s100s\u000f50s150sklukyn10"
+  }
+ ]
+}

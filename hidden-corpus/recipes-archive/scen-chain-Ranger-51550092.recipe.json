@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0007purple worm\nFbFb  Fb Fj  Fj    yy\u001by   y y y\u001b  F  \u0017wand of lightning\nzi.  y ny   y y\u001bn  s#quit\nyyFn FnFnFnFnFnFnFnjnyuFjFj FjFjFjFjFjFj50sFhFh20sFlFlFlbnu100suyh100s100shlhllhhll#turn\n100snjn#dip\nb#jump\n\u000f\u001b50snyuull50s50s150s50s100s  FhFhFhFhssk150s100skE- X marks the spot\n100s,100sllh10shlh100s10sllhhNBBH _ \u001bm.>FhFhFhUHLU_>,>FhFhsLHBH _>,>llhi\u001blll100sed 150sFhsslhls150s100s20sed100sdab50sFh20sFhFhFh.\\   150s100sFh.sluh100s100s  Fb Fb .jkk_>,>50s\u000f\u001bi\u001b\u000f\u001b\u0018\u001b100sFjs.100sFjs20s_>.>100sFjFjFj#chat\nn#quit\nyy\u001by  y y y\u001b J KUU_ \u001b>.>Fbss<NUKK_>,>FhFbFhKUUU_>,>J UJU_>.>LNH U  _>.>bulhbjyjtbj100s  Fh s20s100s100s\\   50sFhs20s#tip\n\u001b100s50s50sFnFnFjFjFjFj\u0018\u001bi\u001b#pray\ny w-\u0018\u001bknu150s_>,>\u0018\u001b100s#turn\n:jun#loot\n100s50sFh FhFhFhFh20s50s#ride\nk50s 100s\\   \\   100sFhs.dcs.s20s#chat\nhdas20ssm.#name\nf\nd.sb.m.kybl\u0014100s150s50sFhFh.\u000f\u001b50s100sedlhlhly100s\u000f\u001byby\\   50s100s100s  FhFb FbFb Fj20sdc150s50s#terrain\nc\n:150s_>,>100s150sFlss100sFjs20skjb_>.>100s_>,>nhkFlFlsynhFbFbFb15#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51550092,
+   "datetime": "20180301230136",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0007purple worm\nFbFb  Fb Fj  Fj    yy\u001by   y y y\u001b  F"
+  },
+  {
+   "seed": 51650092,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017wand of lightning\nzi.  y ny   y y\u001bn  s"
+  },
+  {
+   "seed": 51750092,
+   "datetime": "20110505220701",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 51850092,
+   "datetime": "20060319151455",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "Fn FnFnFnFnFnFnFnjnyuFjFj FjFjFjFjFjFj50sFhFh20sFlFlFlbnu100suyh100s100shlhllhhll#turn\n100snjn#dip\nb#jump\n\u000f\u001b50snyuull50s50s150s50s100s  FhFhFhFhssk150s100skE- X marks the spot\n100s,100sllh10shlh100s10sllhhNBBH _ \u001bm.>FhFhFhUHLU_>,>FhFhsLHBH _>,>llhi\u001blll100sed 150sFhsslhls150s100s20sed100sdab50sFh20sFhFhFh.\\   150s100sFh.sluh100s100s  Fb Fb .jkk_>,>50s\u000f\u001bi\u001b\u000f\u001b\u0018\u001b100sFjs.100sFjs20s_>.>100sFjFjFj#chat\nn#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51950092,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\n",
+   "moves": "J KUU_ \u001b>.>Fbss<NUKK_>,>FhFbFhKUUU_>,>J UJU_>.>LNH U  _>.>bulhbjyjtbj100s  Fh s20s100s100s\\   50sFhs20s#tip\n\u001b100s50s50sFnFnFjFjFjFj\u0018\u001bi\u001b#pray\ny w-\u0018\u001bknu150s_>,>\u0018\u001b100s#turn\n:jun#loot\n100s50sFh FhFhFhFh20s50s#ride\nk50s 100s\\   \\   100sFhs.dcs.s20s#chat\nhdas20ssm.#name\nf\nd.sb.m.kybl\u0014100s150s50sFhFh.\u000f\u001b50s100sedlhlhly100s\u000f\u001byby\\   50s100s100s  FhFb FbFb Fj20sdc150s50s#terrain\nc\n:150s_>,>100s150sFlss100sFjs20skjb_>.>100s_>,>nhkFlFlsynhFbFbFb15#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

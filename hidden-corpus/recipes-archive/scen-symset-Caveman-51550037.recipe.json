@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u001611\nFbFbFkFkFnFh FnFh FnFnFy Fn  n FkFb Fh  nFnFu Fu   nFj  Fl   nFl Fl  n Fl   nFk #pray\ny y           Fk   Fk   n   nFl    nFu   n Fb   n Fy    n Fl   n Fb   n Fk   n Fn   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51550037,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nMENUCOLOR=\"cursed\"=magenta\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "v i\u001b\u001611\nFbFbFkFkFnFh FnFh FnFnFy Fn  n FkFb Fh  nFnFu Fu   nFj  Fl   nFl Fl  n Fl   nFk #pray\ny y           Fk   Fk   n   nFl    nFu   n Fb   n Fy    n Fl   n Fb   n Fk   n Fn   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

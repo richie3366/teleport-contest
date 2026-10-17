@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nb;j:   _mmmmm.Fj_.#chat\ny_mmmm.#chat\ny_mmmm,#chat\ny_mm,#chat\nb#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fn _.#chat\nn_m,#chat\ny_mmm.#chat\nj\u0017blessed +3 gauntlets of power\nWg\u0017blessed +3 cloak of magic resistance\nWh\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of fire\n\u0016?\n>A\u0006_mmmm,ss.s20s..,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nh\u0016?\n>A\u0006_mmm..ss20sszjn,\u0016?\n>z\u0006_mmmmm.ss.s..,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,..sss.,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nl\u0016?\n>A\u0006_mmmmm.20s..szjb   , #chat\nb\u0016?\n>A\u0006_mmmmmm.  Fl  _, FnFu   Fl   FnFu zju ,\u0016?\n>z\u0006_mm.FlFl.s  s20s   ,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm, Fk_. Fk       Fk    FkFn     Fn      n Fy     FyFy   zjk  ,  \u0016?\n>A\u0006_mmmmmm.FnFn.s,\u0016?\n>A\u0006_mmm.20s.sFnzjn,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\ny\u0016?\n>z\u0006_mmmm,.ssszju,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nl;.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20sFjFjFjFjFj,#chat\nl\u0016?\n>A\u0006_mmmm.s20s.s,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nn;n;\u0016?\n>A\u0006_mmmm.FnFnFnFnFn,#chat\nk\u0016?\n>z\u0006_mmmmmmm.Fk_,FkFkFkFkFyFy,\u0016?\n>>\u001b\u0016?\n>y_mmm,Fk_."
+ },
+ "segments": [
+  {
+   "seed": 51550056,
+   "datetime": "20120223063416",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nb;j:   _mmmmm.Fj_.#chat\ny_mmmm.#chat\ny_mmmm,#chat\ny_mm,#chat\nb#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fn _.#chat\nn_m,#chat\ny_mmm.#chat\nj\u0017blessed +3 gauntlets of power\nWg\u0017blessed +3 cloak of magic resistance\nWh\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of fire\n\u0016?\n>A\u0006_mmmm,ss.s20s..,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nh\u0016?\n>A\u0006_mmm..ss20sszjn,\u0016?\n>z\u0006_mmmmm.ss.s..,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,..sss.,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nl\u0016?\n>A\u0006_mmmmm.20s..szjb   , #chat\nb\u0016?\n>A\u0006_mmmmmm.  Fl  _, FnFu   Fl   FnFu zju ,\u0016?\n>z\u0006_mm.FlFl.s  s20s   ,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm, Fk_. Fk       Fk    FkFn     Fn      n Fy     FyFy   zjk  ,  \u0016?\n>A\u0006_mmmmmm.FnFn.s,\u0016?\n>A\u0006_mmm.20s.sFnzjn,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\ny\u0016?\n>z\u0006_mmmm,.ssszju,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nl;.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20sFjFjFjFjFj,#chat\nl\u0016?\n>A\u0006_mmmm.s20s.s,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nn;n;\u0016?\n>A\u0006_mmmm.FnFnFnFnFn,#chat\nk\u0016?\n>z\u0006_mmmmmmm.Fk_,FkFkFkFkFyFy,\u0016?\n>>\u001b\u0016?\n>y_mmm,Fk_."
+  }
+ ]
+}

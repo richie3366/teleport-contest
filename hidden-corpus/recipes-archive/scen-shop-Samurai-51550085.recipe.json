@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 speed boots\nWf \u0017blessed amulet of life saving\nPg\u0016?\n>w\u0006_ \u001b,_oo.,p_{,  _,qyjyk#chat\nu_{,_.qy_oo._ooo.,p_ooo.,#chat\nk_ooooooooo.,p_oooo.,\u0014<.20ss_ooo.,p__,_.;,Fj #chat\nj \u0016?\n>Bjjb\u0016?\n>w\u0006FlFl  FlFlFlFl       n_ooooo,_o.,\u0017loadstone\n dhFl    nFl     nFlFl    n Fl     nFl  \u00168\nFb   n   nFb FbFbFbFb\u00165\n_oo,_ooo.,p_oooooooo.,:yun#chat\nubln#chat\nlhyn#chat\nb_oooo,_ooo,,p_ooo,,:huj#chat\ny__,#chat\nlFl        n FlFlFlFlFl__.#chat\nu_oooooooo,,p_oooooooo.,:FuFuFu  nFuFuFu_oooooo.,\u0017amulet versus poison\ndi _ooooooooo., #chat\nl__.#chat\ny\u00167\nllh\u0016?\n>w\u0006_oooooooo,,p__._.#chat\nj_ooooo._ooo.,:hhh#chat\nb__._.  n Fy #chat\nk  #pray\ny y      __,Fk _. Fk #chat\nk #pray\ny y        _{,Fk  _.Fyq_oo.,\u0017amu"
+ },
+ "segments": [
+  {
+   "seed": 51550085,
+   "datetime": "20260529170352",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 speed boots\nWf \u0017blessed amulet of life saving\nPg\u0016?\n>w\u0006_ \u001b,_oo.,p_{,  _,qyjyk#chat\nu_{,_.qy_oo._ooo.,p_ooo.,#chat\nk_ooooooooo.,p_oooo.,\u0014<.20ss_ooo.,p__,_.;,Fj #chat\nj \u0016?\n>Bjjb\u0016?\n>w\u0006FlFl  FlFlFlFl       n_ooooo,_o.,\u0017loadstone\n dhFl    nFl     nFlFl    n Fl     nFl  \u00168\nFb   n   nFb FbFbFbFb\u00165\n_oo,_ooo.,p_oooooooo.,:yun#chat\nubln#chat\nlhyn#chat\nb_oooo,_ooo,,p_ooo,,:huj#chat\ny__,#chat\nlFl        n FlFlFlFlFl__.#chat\nu_oooooooo,,p_oooooooo.,:FuFuFu  nFuFuFu_oooooo.,\u0017amulet versus poison\ndi _ooooooooo., #chat\nl__.#chat\ny\u00167\nllh\u0016?\n>w\u0006_oooooooo,,p__._.#chat\nj_ooooo._ooo.,:hhh#chat\nb__._.  n Fy #chat\nk  #pray\ny y      __,Fk _. Fk #chat\nk #pray\ny y        _{,Fk  _.Fyq_oo.,\u0017amu"
+  }
+ ]
+}

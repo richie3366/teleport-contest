@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "das.20s ldb.20ss#chat\nldg.ss10sJ HUU _ \u001b;>FjFjFj LUH  Y_>.>Fn20s           sUYUN_>.>Fjs.HKBB_>,>BJ YK  _>.>UL BB_>.>ZP\u000f\u001bP#twoweapon\neh150s           150sFjFjFj100sFjFjsFj20sFyW150s FyFy.50sFjFyFjFjFysFnFnFjFjFjFnkjk\\   50s100s              "
+ },
+ "segments": [
+  {
+   "seed": 51550093,
+   "datetime": "20081118031101",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=pettype:horse\n",
+   "moves": "das.20s ldb.20ss#chat\nldg.ss10sJ HUU _ \u001b;>FjFjFj LUH  Y_>.>Fn20s           sUYUN_>.>Fjs.HKBB_>,>BJ YK  _>.>UL BB_>.>ZP\u000f\u001bP#twoweapon\neh150s           150sFjFjFj100sFjFjsFj20sFyW150s FyFy.50sFjFyFjFjFysFnFnFjFjFjFnkjk\\   50s100s              "
+  }
+ ]
+}

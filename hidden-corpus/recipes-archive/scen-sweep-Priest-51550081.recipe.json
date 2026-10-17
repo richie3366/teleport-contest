@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           #wizintrinsic\ni\n 20s       .s20s   ...s.20s  .20s      \u0017scroll of fire\nrj Zb\n10s_>. \u001b>.s#rub\n#invoke\n\u001bf \u001bss..ss\u0017blessed scroll of enchant armor\nrk \u0017cursed spellbook of levitation\nrl s.Zb\nZa\n\u0017blessed +3 ring of teleport control\nPmr 20s20s     20s RFk 20sss#levelchange\n30\n                  \u0017cursed scroll of charging\n\u0007pit fiend\nrn \u001bFlFl \u0017uncursed scroll of enchant weapon\nro  Fl Fl \u0017huge chunk of meat\n \u0007werejackal\nep    n  20s sm. \u00173 spellbook of magic mapping\nrq    .m.20s Zb\n   n    Fu  Fl \u0017uncursed potion of confusion\nqr    #dip\nhd    20s Fj   n \u00173 wand of stasis\n\u0007sergeant\nzs zs .  n   s \u001627\n\u00169\n #levelchange\n30\n\u0007brown pudding\n#chat\nj20s      n  .\u0007kraken\ns 20s   \u001bs \u0007black light\n;m.s 20s   n s \u0007kitten\ns 20s   s \u0018\u001b\u00162\nyh\u0017wand of nothing\nEt I am a fish\n: l  n  \u0017wand of magic missile\nEu  X marks the spot\n:k \u0017wand of light\nEv  :E-\u0007jackal\ns s   n 20s \u00167\ni\u001b\u001612\n\u0017silver dragon scale mail\nW\u001b..20s \u0007ettin\ns   n s     n  \u0007ghost\ns   n 20s  s  n  s   n      n s       n  \u0007flesh golem\ns .  yny   ny n  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 51550081,
+   "datetime": "20210301183208",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           #wizintrinsic\ni\n 20s       .s20s   ...s.20s  .20s      \u0017scroll of fire\nrj Zb\n10s_>. \u001b>.s#rub\n#invoke\n\u001bf \u001bss..ss\u0017blessed scroll of enchant armor\nrk \u0017cursed spellbook of levitation\nrl s.Zb\nZa\n\u0017blessed +3 ring of teleport control\nPmr 20s20s     20s RFk 20sss#levelchange\n30\n                  \u0017cursed scroll of charging\n\u0007pit fiend\nrn \u001bFlFl \u0017uncursed scroll of enchant weapon\nro  Fl Fl \u0017huge chunk of meat\n \u0007werejackal\nep    n  20s sm. \u00173 spellbook of magic mapping\nrq    .m.20s Zb\n   n    Fu  Fl \u0017uncursed potion of confusion\nqr    #dip\nhd    20s Fj   n \u00173 wand of stasis\n\u0007sergeant\nzs zs .  n   s \u001627\n\u00169\n #levelchange\n30\n\u0007brown pudding\n#chat\nj20s      n  .\u0007kraken\ns 20s   \u001bs \u0007black light\n;m.s 20s   n s \u0007kitten\ns 20s   s \u0018\u001b\u00162\nyh\u0017wand of nothing\nEt I am a fish\n: l  n  \u0017wand of magic missile\nEu  X marks the spot\n:k \u0017wand of light\nEv  :E-\u0007jackal\ns s   n 20s \u00167\ni\u001b\u001612\n\u0017silver dragon scale mail\nW\u001b..20s \u0007ettin\ns   n s     n  \u0007ghost\ns   n 20s  s  n  s   n      n s       n  \u0007flesh golem\ns .  yny   ny n  \u0007"
+  }
+ ]
+}

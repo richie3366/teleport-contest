@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWj \u0017blessed leash\n\u0017blessed amulet of life saving\nPl\u0017blessed magic harp\n\u0017blessed 20 daggers\nQn#wizintrinsic\nh\n ;h, \u001bm.E- Elbereth Elbereth\n\u0017scroll of earth\nro fjtnj\u0017potion of sleeping\nqpsm.s\u0017scroll of teleportation\nrq :\u0017lembas wafer\ner  #wizintrinsic\nh\n\u0007hobbit\nFb20s20sss20s\u0017potion of booze\nqss\u0017wand of digging\nztlzthztnztkzt.\u0017blessed scroll of magic mapping\nru#wizintrinsic\nh\ntnkfyfkfj#invoke\n\u001b\u0017potion of confusion\nqv..;<.E- Vlad was here\n\u00167\n#chat\nn;.\u0016?\n\u001bjlhyl:\u0017blessed scroll of enchant weapon\nrw  #wizintrinsic\nh\n\u0007kobold\nFj20sss.s.\u0007yellow mold\nFjs..s.\u0018\u001bny\u0007kobold\nFh.20s.20s\u0017blessed spellbook of sleep\nrx sZa\n #turn\n: #wizintrinsic\nh\n;<.E- X marks t"
+ },
+ "segments": [
+  {
+   "seed": 51550028,
+   "datetime": "20110815052549",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWj \u0017blessed leash\n\u0017blessed amulet of life saving\nPl\u0017blessed magic harp\n\u0017blessed 20 daggers\nQn#wizintrinsic\nh\n ;h, \u001bm.E- Elbereth Elbereth\n\u0017scroll of earth\nro fjtnj\u0017potion of sleeping\nqpsm.s\u0017scroll of teleportation\nrq :\u0017lembas wafer\ner  #wizintrinsic\nh\n\u0007hobbit\nFb20s20sss20s\u0017potion of booze\nqss\u0017wand of digging\nztlzthztnztkzt.\u0017blessed scroll of magic mapping\nru#wizintrinsic\nh\ntnkfyfkfj#invoke\n\u001b\u0017potion of confusion\nqv..;<.E- Vlad was here\n\u00167\n#chat\nn;.\u0016?\n\u001bjlhyl:\u0017blessed scroll of enchant weapon\nrw  #wizintrinsic\nh\n\u0007kobold\nFj20sss.s.\u0007yellow mold\nFjs..s.\u0018\u001bny\u0007kobold\nFh.20s.20s\u0017blessed spellbook of sleep\nrx sZa\n #turn\n: #wizintrinsic\nh\n;<.E- X marks t"
+  }
+ ]
+}

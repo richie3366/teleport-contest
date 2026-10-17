@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017uncursed wand of slow monster\nzlys20s\u0017uncursed egg\n\u0007straw golem\nem.y20s Fl Fl \u0017cursed potion of blindness\n\u0007giant rat\nqn#dip\ned  yy\u001bnnny  s"
+ },
+ "segments": [
+  {
+   "seed": 51552002,
+   "datetime": "20211110214034",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017uncursed wand of slow monster\nzlys20s\u0017uncursed egg\n\u0007straw golem\nem.y20s Fl Fl \u0017cursed potion of blindness\n\u0007giant rat\nqn#dip\ned  yy\u001bnnny  s"
+  }
+ ]
+}

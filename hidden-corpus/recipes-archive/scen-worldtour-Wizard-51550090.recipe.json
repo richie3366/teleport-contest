@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u001630\n   ulljbb:\u0016?\n>H #levelchange\n6\n        \u0017blessed spellbook of detect treasure\nro s\u0017spellbook of slow monster\nrpy \u001bm. s\u0017blessed spellbook of cancellation\nrq 20s   +\u001b\u0007kobold\nZb\nZb\nZa\n  n Zb\nZa\n   n#turn\n#enhance\nyk\nj\n\u001b\u00161\n\u001629\n\u00173 spellbook of dig\nrry  \u001b \u001b   s.Za\nZa\n Fn Fn \u0017uncursed amulet of magical breathing\nPs shs20s    20s   \u0017cheap plastic imitation of the Amulet of Yendor\nPtsj20s  20s  20s  Fu Fu \u0017wand of striking\n\u0007salamander\nzuk \u0017scroll of blank paper\nrv   F"
+ },
+ "segments": [
+  {
+   "seed": 51550090,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u001630\n   ulljbb:\u0016?\n>H #levelchange\n6\n        \u0017blessed spellbook of detect treasure\nro s\u0017spellbook of slow monster\nrpy \u001bm. s\u0017blessed spellbook of cancellation\nrq 20s   +\u001b\u0007kobold\nZb\nZb\nZa\n  n Zb\nZa\n   n#turn\n#enhance\nyk\nj\n\u001b\u00161\n\u001629\n\u00173 spellbook of dig\nrry  \u001b \u001b   s.Za\nZa\n Fn Fn \u0017uncursed amulet of magical breathing\nPs shs20s    20s   \u0017cheap plastic imitation of the Amulet of Yendor\nPtsj20s  20s  20s  Fu Fu \u0017wand of striking\n\u0007salamander\nzuk \u0017scroll of blank paper\nrv   F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed bell of opening\n\u0017blessed +3 gray dragon scale mail\nWm\u0017blessed +3 helm of telepathy\nWn\u0017blessed 20 daggers\nQo#levelchange\n14\n             #wizintrinsic\nh\n \u0007sewer rat\nFl FkFk s\u0017wand of sleep\nzph        zplzpl\u0007owlbear\nFyFlFyFyFy \u0017spellbook of knock\nrq snZ:#wizintrinsic\nh\n \u0007giant rat\nFh Fh Fy Fy Fy Fy Fy \u0017wand of slow monster\nzry zry zryzry\u0017potion of extra healing\nqs sm.#wizintrinsic\nh\n ;y: \u001b>.E-\u0007soldier\nFy FyFy  Fu Fu  \u0017blessed scroll of fire\nrt  >.        n\u0017apple\neu;>.E- Elbereth Elbereth\n#pray\ny y #wizintrinsic\nh\n\u0016?\n>>Qnl:ss20s\u0017spellbook of magic missile\nrasZa\n:\u0016?\n>>K      blindfold\n\u0004j;j"
+ },
+ "segments": [
+  {
+   "seed": 51550008,
+   "datetime": "20260519072420",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed bell of opening\n\u0017blessed +3 gray dragon scale mail\nWm\u0017blessed +3 helm of telepathy\nWn\u0017blessed 20 daggers\nQo#levelchange\n14\n             #wizintrinsic\nh\n \u0007sewer rat\nFl FkFk s\u0017wand of sleep\nzph        zplzpl\u0007owlbear\nFyFlFyFyFy \u0017spellbook of knock\nrq snZ:#wizintrinsic\nh\n \u0007giant rat\nFh Fh Fy Fy Fy Fy Fy \u0017wand of slow monster\nzry zry zryzry\u0017potion of extra healing\nqs sm.#wizintrinsic\nh\n ;y: \u001b>.E-\u0007soldier\nFy FyFy  Fu Fu  \u0017blessed scroll of fire\nrt  >.        n\u0017apple\neu;>.E- Elbereth Elbereth\n#pray\ny y #wizintrinsic\nh\n\u0016?\n>>Qnl:ss20s\u0017spellbook of magic missile\nrasZa\n:\u0016?\n>>K      blindfold\n\u0004j;j"
+  }
+ ]
+}

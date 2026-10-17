@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\ny_mmmm,#chat\ny _mmmmm.Fh_,#chat\nh_mmmmm,_.#chat\nh_mmm.Fl_.#chat\ny#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_m,_,#chat\nh_mmmmm. Fj  _. Fb  #chat\nn\u0017blessed +3 cloak of magic resistance\nWi  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of cold\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.  Fj    n   _.   Fb     Fh     FnFb    Fj Fh      Fb    n   Fh          ,#chat\nn\u00164\n\u0016?\n>z\u0006_mm.      Fn     n      _,Fk        Fb        n   Fy         Fu         Fn          Fk    n                        n    ,\u00167\n\u0016?\n>A\u0006_mmmmmm.          Fu         n              _,Fk        Fb      n                  Fy        n      Fy        Fj         Fb    n         zkn         ,#chat\nh\u00163\n\u0016?\n>A\u0006_mmmmm.  n         Fk        _,Fu       Fb   n            Fu        Fk  ,\u00167\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.       n              n       Fy       n       _,Fk        Fu         yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51550016,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\ny_mmmm,#chat\ny _mmmmm.Fh_,#chat\nh_mmmmm,_.#chat\nh_mmm.Fl_.#chat\ny#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_m,_,#chat\nh_mmmmm. Fj  _. Fb  #chat\nn\u0017blessed +3 cloak of magic resistance\nWi  \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of cold\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.  Fj    n   _.   Fb     Fh     FnFb    Fj Fh      Fb    n   Fh          ,#chat\nn\u00164\n\u0016?\n>z\u0006_mm.      Fn     n      _,Fk        Fb        n   Fy         Fu         Fn          Fk    n                        n    ,\u00167\n\u0016?\n>A\u0006_mmmmmm.          Fu         n              _,Fk        Fb      n                  Fy        n      Fy        Fj         Fb    n         zkn         ,#chat\nh\u00163\n\u0016?\n>A\u0006_mmmmm.  n         Fk        _,Fu       Fb   n            Fu        Fk  ,\u00167\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.       n              n       Fy       n       _,Fk        Fu         yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

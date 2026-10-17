@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017the Platinum Yendorian Express Card\n , \u0017wand of make invisible\nzg.\u0017oilskin cloak\n\u0007electric eel\nW\u001b20s  20s sm.  \u0017uncursed wand of probing\nzij zij Fj 20s\u0017cursed lock pick\najus20s ..\u000f\u001bnu\u0017wand of striking\nEk Elbereth Elbereth\n : \u0017wand of digging\nEl   I am a fish\n: \u0017wand of teleportation\nEm  I am a fish\n\u0017wand of create monster\nEnhill orc\n n  Elbereth\n: kE- I am a fish\n\u0007jackal\nsm.sm.sm.FnFb\u0007gray ooze\nFkFnFkFkFn\u0007"
+ },
+ "segments": [
+  {
+   "seed": 51550091,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017the Platinum Yendorian Express Card\n , \u0017wand of make invisible\nzg.\u0017oilskin cloak\n\u0007electric eel\nW\u001b20s  20s sm.  \u0017uncursed wand of probing\nzij zij Fj 20s\u0017cursed lock pick\najus20s ..\u000f\u001bnu\u0017wand of striking\nEk Elbereth Elbereth\n : \u0017wand of digging\nEl   I am a fish\n: \u0017wand of teleportation\nEm  I am a fish\n\u0017wand of create monster\nEnhill orc\n n  Elbereth\n: kE- I am a fish\n\u0007jackal\nsm.sm.sm.FnFb\u0007gray ooze\nFkFnFkFkFn\u0007"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPil#polyself\nlizard\n   #monster\ns20s.ss#polyself\npiranha\nss\u0007ettin\nFjFjFj20s20s  sm.#polyself\nblack dragon\n  sm..m.\u0007grey-elf\nFj Fl  Fj 20s sm.sl #polyself\nlizard\n #monster\nsm.   sm..m.sj  yy\u001by  ny ny  2"
+ },
+ "segments": [
+  {
+   "seed": 51552019,
+   "datetime": "20220603143010",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPil#polyself\nlizard\n   #monster\ns20s.ss#polyself\npiranha\nss\u0007ettin\nFjFjFj20s20s  sm.#polyself\nblack dragon\n  sm..m.\u0007grey-elf\nFj Fl  Fj 20s sm.sl #polyself\nlizard\n #monster\nsm.   sm..m.sj  yy\u001by  ny ny  2"
+  }
+ ]
+}

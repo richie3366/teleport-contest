@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " r\u001b#conduct\n ed udd\u0014 \u001b:  s20s#jump\nclwe #invoke\n\u001bW#monster\nE- Elbereth Elbereth\n20s#monster\n#pray\ny y \u0018\u001b10s\u0018\u001bW"
+ },
+ "segments": [
+  {
+   "seed": 51552031,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " r\u001b#conduct\n ed udd\u0014 \u001b:  s20s#jump\nclwe #invoke\n\u001bW#monster\nE- Elbereth Elbereth\n20s#monster\n#pray\ny y \u0018\u001b10s\u0018\u001bW"
+  }
+ ]
+}

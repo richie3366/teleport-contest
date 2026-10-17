@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0018\u001bf bned  \u0004b10s#terrain\nc\n\u001b:#invoke\n\u001b#offer\n\u0004n>#name\nf\n#jump\n:q#monster\nW:_>.sf bn\u0018\u001b#dip\nei\u001bee  y.20s wb FjFj sW20s..ed y  y\u001by  y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 51552012,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": " \u0018\u001bf bned  \u0004b10s#terrain\nc\n\u001b:#invoke\n\u001b#offer\n\u0004n>#name\nf\n#jump\n:q#monster\nW:_>.sf bn\u0018\u001b#dip\nei\u001bee  y.20s wb FjFj sW20s..ed y  y\u001by  y y y\u001b  s"
+  }
+ ]
+}

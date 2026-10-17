@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>DFlFlFlFkyFh\u0017wand of striking\nzjhj\u0017scroll of earth\nrk lh10sknjuFlykh\u0017scroll of earth\nrl knuh10sjyjnnnkuh\u0017wand of striking\nzm>\u0017scroll of earth\nrn   yy\u001bny y n  F"
+ },
+ "segments": [
+  {
+   "seed": 51551003,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>DFlFlFlFkyFh\u0017wand of striking\nzjhj\u0017scroll of earth\nrk lh10sknjuFlykh\u0017scroll of earth\nrl knuh10sjyjnnnkuh\u0017wand of striking\nzm>\u0017scroll of earth\nrn   yy\u001bny y n  F"
+  }
+ ]
+}

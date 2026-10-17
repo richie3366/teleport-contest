@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "K  UYJ_ \u001b,>HKNK_>,>FlFlFnUKKH_>.>FlFl s,cjBYUJ_>.>JUJH_>,>\u000f\u001bhkuh\u000f\u001b150s Fhsshhl100sFh Fhs50s\u0018\u001bnjy100sFlFlFlFls.\u000f\u001b150s100sFlFlFlFl20s.150sjuy150sFh.20s100s50sFhFhFhFh20ss_>,>100snkhlnl100s100sed150sFhs20sybjkjh50s\\  100sWJYUY_>,>YNHK_>.>JYNK_>.>NULK_>.>FnFnFnK#sit\n\u001bJYKY_>,>\u000f\u001blbjkjkulYYJY_>.>BUUL_>,>NBJJ_>.>i\u001b>BLNY_>.>Fys.<JHJN_>.><nyi\u001bNHYU_>.>i\u001b#terrain\nc\n.\u000f\u001b100s#invoke\n\u001bdcljni\u001b150sFlFl.50s100s_>.>100sFl.si\u001b#quit\nyy\u001by  y y y\u001b #wizintrinsic\na\n s20s20s20s20s20s20s20ss20ss20s.20s20ssssss20s.20ss20sss.#quit\nyy  #quit\nyy",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51550062,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "K  UYJ_ \u001b,>HKNK_>,>FlFlFnUKKH_>.>FlFl s,cjBYUJ_>.>JUJH_>,>\u000f\u001bhkuh\u000f\u001b150s Fhsshhl100sFh Fhs50s\u0018\u001bnjy100sFlFlFlFls.\u000f\u001b150s100sFlFlFlFl20s.150sjuy150sFh.20s100s50sFhFhFhFh20ss_>,>100snkhlnl100s100sed150sFhs20sybjkjh50s\\  100sWJYUY_>,>YNHK_>.>JYNK_>.>NULK_>.>FnFnFnK#sit\n\u001bJYKY_>,>\u000f\u001blbjkjkulYYJY_>.>BUUL_>,>NBJJ_>.>i\u001b>BLNY_>.>Fys.<JHJN_>.><nyi\u001bNHYU_>.>i\u001b#terrain\nc\n.\u000f\u001b100s#invoke\n\u001bdcljni\u001b150sFlFl.50s100s_>.>100sFl.si\u001b#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51650062,
+   "datetime": "20060905004411",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=runmode:teleport\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\na\n s20s20s20s20s20s20s20ss20ss20s.20s20ssssss20s.20ss20sss."
+  },
+  {
+   "seed": 51750062,
+   "datetime": "20261007210444",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 51850062,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  #quit\nyy"
+  }
+ ]
+}

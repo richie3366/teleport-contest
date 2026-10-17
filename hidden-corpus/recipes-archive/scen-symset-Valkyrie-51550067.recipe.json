@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0007large dog\n\u0017lichen corpse\ntbb \u0017carrot\ntbh #chat\nb \u0007lichen\n\u0017scroll of taming\nrg dfsss10s\u0017leash\nahk nlk buk ahk ll 20s\u00163\nFbFjFyFbFyFyFyFyFyFbFjFyFjFjFbFjFyFjFyFjFyFbFyFyFjFyFjFbFyFbFyFyFyFbFyFbFbFyFbFbFbFjFbFyFyFjFbFjFjFjFbFyFyFbFjFjFyFyFjFbFbFyFjFjFyFbFbFyFbFjFyFyFyFbFjFbFjFbFyFbFbFyFbFyFyFyFbFjFyFbFyFjFbFbFjFyFbFbFbFjFjFyFjFyFjFbFbFbFyFyFjFbFbFbFbFjFbFjFjFjO>>>c\u001b\n\u0007kitten\n\u0017newt corpse\ntbj \u0017magic whistle\nkh jyaj     \u0017apple\ntbk #name\ni\n#chat\nk \u0007giant rat\nsm.  sjsuj sm. .m.20sm.\u0006_ \u001bm.  >FyFh\u001b_>,  n _. Fy> \u0007giant rat\n\u0017scroll of taming\nrl   \u001610\n  \u0006_>.Fj_. Fb>FlFl_>.Fj_.  Fy>FyFy_>,Fu_. >\u0006_>,_.Fl>FlFl_>.   Fl_.>_>._,>\u0014;\u0014.  \u0006_>._.>_>._,>_>._,>\u0006_>,_.>_>, _,Fl>FlFl_>,   Fl_,   Fl>FlFlFlFlFl#force\n #enhance\nyk\nm\n\u001b\u0006_>>,Fl_.>_>>.Fl_,Fl>FlFl_>>._.Fl>FlFlFlFlFl20sr\u001b\u0006_>,Fl_.Fl>FlFl_>._.Fl>FlFl_>._,Fl>FlFlFlFlFl\u0006_>,Fl_,Fl>FlFl_>,Fl_,Fl>FlFl_>,Fl_,Fl>FlFl"
+ },
+ "segments": [
+  {
+   "seed": 51550067,
+   "datetime": "20030124111822",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"You kill\"\nMENUCOLOR=\"a scroll\"=red\n",
+   "moves": "\u0007large dog\n\u0017lichen corpse\ntbb \u0017carrot\ntbh #chat\nb \u0007lichen\n\u0017scroll of taming\nrg dfsss10s\u0017leash\nahk nlk buk ahk ll 20s\u00163\nFbFjFyFbFyFyFyFyFyFbFjFyFjFjFbFjFyFjFyFjFyFbFyFyFjFyFjFbFyFbFyFyFyFbFyFbFbFyFbFbFbFjFbFyFyFjFbFjFjFjFbFyFyFbFjFjFyFyFjFbFbFyFjFjFyFbFbFyFbFjFyFyFyFbFjFbFjFbFyFbFbFyFbFyFyFyFbFjFyFbFyFjFbFbFjFyFbFbFbFjFjFyFjFyFjFbFbFbFyFyFjFbFbFbFbFjFbFjFjFjO>>>c\u001b\n\u0007kitten\n\u0017newt corpse\ntbj \u0017magic whistle\nkh jyaj     \u0017apple\ntbk #name\ni\n#chat\nk \u0007giant rat\nsm.  sjsuj sm. .m.20sm.\u0006_ \u001bm.  >FyFh\u001b_>,  n _. Fy> \u0007giant rat\n\u0017scroll of taming\nrl   \u001610\n  \u0006_>.Fj_. Fb>FlFl_>.Fj_.  Fy>FyFy_>,Fu_. >\u0006_>,_.Fl>FlFl_>.   Fl_.>_>._,>\u0014;\u0014.  \u0006_>._.>_>._,>_>._,>\u0006_>,_.>_>, _,Fl>FlFl_>,   Fl_,   Fl>FlFlFlFlFl#force\n #enhance\nyk\nm\n\u001b\u0006_>>,Fl_.>_>>.Fl_,Fl>FlFl_>>._.Fl>FlFlFlFlFl20sr\u001b\u0006_>,Fl_.Fl>FlFl_>._.Fl>FlFl_>._,Fl>FlFlFlFlFl\u0006_>,Fl_,Fl>FlFl_>,Fl_,Fl>FlFl_>,Fl_,Fl>FlFl"
+  }
+ ]
+}

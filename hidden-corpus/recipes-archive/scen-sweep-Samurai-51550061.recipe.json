@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n20\n\u0017blessed ring of polymorph control\nPfl\u0017kicking boots\nWg20s20s s#polyself\ntengu\n #monster\ns20ss.s#polyself\ngold golem\n#monster\n20s sm.\u0007chameleon\nFh   Fb    Fj    sm.sm. .m.  n #polyself\nlichen\n  #monster\n.     sn\u0007werejackal\nFn  Fn   n Fh  sbss#polyself\nvampire bat\n #monster\nsm.          n  .l  \u0007shopkeeper\nnFh  Fy     n Fk  .bsbsh  \u000f\u001b\u00166\n#levelchange\n8\n    \u0017dagger\nwhFj  n Fj Fj \u0007acid blob\n#chat\njFl Fh\u0007brown mold\n#chat\nlFlFl\u0007troll\n20s   n.m. susm. .m.   nsm. .u.ksm. \u0007vampire\n.m.  n.h 20s sj.m.  n .n \u00162\ni\u001bwdy FlFk   n Fk Xwb  FlFk   n Fl wcFk  Fk  n Fl H><\u0018\u001b#tip\n\u001b#wipe\n #tip\n\u001b#chat\nk  ni\u001bwdy Fl  Fl   nFk Xwdy Fl Fl   nFlwb FlFlFlwc  yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51550061,
+   "datetime": "20230517195807",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n20\n\u0017blessed ring of polymorph control\nPfl\u0017kicking boots\nWg20s20s s#polyself\ntengu\n #monster\ns20ss.s#polyself\ngold golem\n#monster\n20s sm.\u0007chameleon\nFh   Fb    Fj    sm.sm. .m.  n #polyself\nlichen\n  #monster\n.     sn\u0007werejackal\nFn  Fn   n Fh  sbss#polyself\nvampire bat\n #monster\nsm.          n  .l  \u0007shopkeeper\nnFh  Fy     n Fk  .bsbsh  \u000f\u001b\u00166\n#levelchange\n8\n    \u0017dagger\nwhFj  n Fj Fj \u0007acid blob\n#chat\njFl Fh\u0007brown mold\n#chat\nlFlFl\u0007troll\n20s   n.m. susm. .m.   nsm. .u.ksm. \u0007vampire\n.m.  n.h 20s sj.m.  n .n \u00162\ni\u001bwdy FlFk   n Fk Xwb  FlFk   n Fl wcFk  Fk  n Fl H><\u0018\u001b#tip\n\u001b#wipe\n #tip\n\u001b#chat\nk  ni\u001bwdy Fl  Fl   nFk Xwdy Fl Fl   nFlwb FlFlFlwc  yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

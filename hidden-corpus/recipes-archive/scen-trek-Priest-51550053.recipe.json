@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "lhl10st\u001b#name\nf\n ;\\ \\ 50sFh.Fh20s  Fh.Fh >\u000f\u001b100s_>,>\\ _>.>150s100sFkFkFkkyyW100sjkn100s100sFhss100skjn100sFh20s.150s\u000f\u001byjb100sFhs20shluuubt\u001bbukFl.20si\u001b150s100sFhFhFhLNNH_>.>FhFhs#invoke\n\u001b#ride\nlHKLH_>,>FhssKYJB_>,><\u000f\u001b#offer\n#dip\ndd#invoke\n\u001bHHNN_>,>LBLY_>.>ULLU_>.>FlFlFlBHHU_>.>FjFjFj<YH  y\u001by  y y y\u001b  H"
+ },
+ "segments": [
+  {
+   "seed": 51550053,
+   "datetime": "20070623175607",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=mention_walls\n",
+   "moves": "lhl10st\u001b#name\nf\n ;\\ \\ 50sFh.Fh20s  Fh.Fh >\u000f\u001b100s_>,>\\ _>.>150s100sFkFkFkkyyW100sjkn100s100sFhss100skjn100sFh20s.150s\u000f\u001byjb100sFhs20shluuubt\u001bbukFl.20si\u001b150s100sFhFhFhLNNH_>.>FhFhs#invoke\n\u001b#ride\nlHKLH_>,>FhssKYJB_>,><\u000f\u001b#offer\n#dip\ndd#invoke\n\u001bHHNN_>,>LBLY_>.>ULLU_>.>FlFlFlBHHU_>.>FjFjFj<YH  y\u001by  y y y\u001b  H"
+  }
+ ]
+}

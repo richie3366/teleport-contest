@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPj\u0017blessed ring of free action\nPkr\u0017spellbook of force bolt\nrl \u001b: \u001bs\u0017blessed spellbook of cone of cold\nrm s\u0007kobold shaman\nZa\nZZs  slZa\nZa\nZa\n\u0018\u001b\u00178 rocks\nQ\u001b\u0007grid bug\n\u0007giant rat\nf \u001bf \u001bf \u001bf \u001b\u0007vampire\n\u0007incubus\n\u0017wand of magic missile\nsm.20s   .uzoy        .m.   n   zoy    n    n20s  zol     n   i\u001b\u00167\n\u0017blessed spellbook of slow monster\nrp sm.  n \u0007master lich\nZ\u001bZ\u001bZ\u001bsl.m.  Z\u001bZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bsb.m.  n\u00166\n\u0017blessed spellbook of fireball\nrq sm.\u0017blessed spellbook of cone of cold\nrr y .j\u0007orc shaman\n\u0007succubus\nZb\nZa\nZa\n20s  n .m.         Zb\n Zc\nZa\n20s skZb\n  n Zb\n\u00168\n\u0017wand of lightning\n \u0017wand of digging\n\u0007owlbear\nzsl     n sm.  n    zsl.  n   n zt> szt>  nzskzsuzsuzsls"
+ },
+ "segments": [
+  {
+   "seed": 51550074,
+   "datetime": "20211108135225",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPj\u0017blessed ring of free action\nPkr\u0017spellbook of force bolt\nrl \u001b: \u001bs\u0017blessed spellbook of cone of cold\nrm s\u0007kobold shaman\nZa\nZZs  slZa\nZa\nZa\n\u0018\u001b\u00178 rocks\nQ\u001b\u0007grid bug\n\u0007giant rat\nf \u001bf \u001bf \u001bf \u001b\u0007vampire\n\u0007incubus\n\u0017wand of magic missile\nsm.20s   .uzoy        .m.   n   zoy    n    n20s  zol     n   i\u001b\u00167\n\u0017blessed spellbook of slow monster\nrp sm.  n \u0007master lich\nZ\u001bZ\u001bZ\u001bsl.m.  Z\u001bZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bZ\u001bsb.m.  n\u00166\n\u0017blessed spellbook of fireball\nrq sm.\u0017blessed spellbook of cone of cold\nrr y .j\u0007orc shaman\n\u0007succubus\nZb\nZa\nZa\n20s  n .m.         Zb\n Zc\nZa\n20s skZb\n  n Zb\n\u00168\n\u0017wand of lightning\n \u0017wand of digging\n\u0007owlbear\nzsl     n sm.  n    zsl.  n   n zt> szt>  nzskzsuzsuzsls"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 speed boots\nWo\u0017blessed +3 helm of telepathy\nWp\u0016?\n>>K      amulet of guarding\n#chat\nn;h; \u001b:  20s    sm.     \u0016?\n\u001bbj         n \u001613\n#levelchange\n12\n   \u0017potion of healing\nqs       \u0017land mine\n\u0007Aleax\nat  n      \u0017cursed spellbook of knock\n\u0007trapper\nru >.             n sm.     .h Za\nj \u0017blessed potion of sickness\n\u0007long worm\nqv \u0017uncursed chest\nawaw#tip\nw\u001bs s                       n     \u00164\n\u0016?\n\u001bb    n        b    \u001b   n           n \u00167\n\u0016?\n\u001bb     n        n  n    \u001b      n  \u00166\n\u0016?\n\u001bj           \u001b  n   u \u0016?\n\u001bk        n  k       n \u001611\n\u0016?\n\u001bkk\u001613\n__.<\u001613\nn     llh   n    \u0017sink\nqy         n  \u0017ring of slow digestion\ndx      j h      \u0017magic fountain\nqy    yy\u001b y   y y y\u001b  q"
+ },
+ "segments": [
+  {
+   "seed": 51550050,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 speed boots\nWo\u0017blessed +3 helm of telepathy\nWp\u0016?\n>>K      amulet of guarding\n#chat\nn;h; \u001b:  20s    sm.     \u0016?\n\u001bbj         n \u001613\n#levelchange\n12\n   \u0017potion of healing\nqs       \u0017land mine\n\u0007Aleax\nat  n      \u0017cursed spellbook of knock\n\u0007trapper\nru >.             n sm.     .h Za\nj \u0017blessed potion of sickness\n\u0007long worm\nqv \u0017uncursed chest\nawaw#tip\nw\u001bs s                       n     \u00164\n\u0016?\n\u001bb    n        b    \u001b   n           n \u00167\n\u0016?\n\u001bb     n        n  n    \u001b      n  \u00166\n\u0016?\n\u001bj           \u001b  n   u \u0016?\n\u001bk        n  k       n \u001611\n\u0016?\n\u001bkk\u001613\n__.<\u001613\nn     llh   n    \u0017sink\nqy         n  \u0017ring of slow digestion\ndx      j h      \u0017magic fountain\nqy    yy\u001b y   y y y\u001b  q"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #tip\n\u001bf  kE- Vlad was here\n P#name\nm\n ,#terrain\nc\nm,#invoke\n\u001b__..m. #jump\neP#turn\n#loot\ny#untrap\ny#monster\n\u0018\u001bi\u001btcy W..sTwa s.swb ..sa,Z#name\no\nsi\u001b#tip\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 51552000,
+   "datetime": "20021221165923",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\n",
+   "moves": " #tip\n\u001bf  kE- Vlad was here\n P#name\nm\n ,#terrain\nc\nm,#invoke\n\u001b__..m. #jump\neP#turn\n#loot\ny#untrap\ny#monster\n\u0018\u001bi\u001btcy W..sTwa s.swb ..sa,Z#name\no\nsi\u001b#tip\n\u001b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n           #levelchange\n30\n                 \u0007Juiblex\nnFbFuFu Fu\u0007trapper\nFuFhFu \u0007cave spider\n20ssm.20s.l  sm. sm.      n   s20s\u0007orc shaman\n#chat\nFl Fj\u0007ki-rin\ns  sm.   .m. 20s  s\u001b20s s\u001b.\u0007marilith\nFkFjFk\u0007baluchitherium\nFkFkFjFjFkFk\u0007air elemental\ns\u001bFk Fu  Fk  sh  s Fj   n Fb       sm.  Fk  n       20s   Fy   i\u001b\u00167\n\u0006_ \u001b;>Fu  n  Fu  _>.Fl  _.Fl    n>Fl   Fh  \u001b  _>,Fl  _,,Fl    n>Fl   Fl   Fl       n  Fn    Fl      n  \u0006_>.Fl    _.;,Fl  >Fl  Fl  n  _>.Fl  _. >_>,  _. >\u0006_>. _.Fl      >Fl    n   Fl   _>,   Fl    _.  n      Fl       n >Fl      Fh        n  _>.      Fl     n   _.      Fh    n    >Fl      Fl   n     Fh       n  Fh       Fh    n    <\u0006_>.     Fl   yy\u001by  y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 51550011,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:lychee\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n           #levelchange\n30\n                 \u0007Juiblex\nnFbFuFu Fu\u0007trapper\nFuFhFu \u0007cave spider\n20ssm.20s.l  sm. sm.      n   s20s\u0007orc shaman\n#chat\nFl Fj\u0007ki-rin\ns  sm.   .m. 20s  s\u001b20s s\u001b.\u0007marilith\nFkFjFk\u0007baluchitherium\nFkFkFjFjFkFk\u0007air elemental\ns\u001bFk Fu  Fk  sh  s Fj   n Fb       sm.  Fk  n       20s   Fy   i\u001b\u00167\n\u0006_ \u001b;>Fu  n  Fu  _>.Fl  _.Fl    n>Fl   Fh  \u001b  _>,Fl  _,,Fl    n>Fl   Fl   Fl       n  Fn    Fl      n  \u0006_>.Fl    _.;,Fl  >Fl  Fl  n  _>.Fl  _. >_>,  _. >\u0006_>. _.Fl      >Fl    n   Fl   _>,   Fl    _.  n      Fl       n >Fl      Fh        n  _>.      Fl     n   _.      Fh    n    >Fl      Fl   n     Fh       n  Fh       Fh    n    <\u0006_>.     Fl   yy\u001by  y y y\u001b  _"
+  }
+ ]
+}

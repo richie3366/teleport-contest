@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "jn l\u0017chaotic altar\ndedf\u0017elf corpse\n#offer\nl   #pray\ny y jy\u0017sink\nqyj\u0004ky #terrain\nc\n\u001b>.i\u001b;m, #name\na\nhllh\u0017sink\nqy    l\u0004 h l \u0017cloud\nll hhhh\u0017grave\n: \u0017wand of digging\nz20s     .hh\u0017moat\n#dip\ndy       ub_<. ss ;<."
+ },
+ "segments": [
+  {
+   "seed": 51551020,
+   "datetime": "20210722120736",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "jn l\u0017chaotic altar\ndedf\u0017elf corpse\n#offer\nl   #pray\ny y jy\u0017sink\nqyj\u0004ky #terrain\nc\n\u001b>.i\u001b;m, #name\na\nhllh\u0017sink\nqy    l\u0004 h l \u0017cloud\nll hhhh\u0017grave\n: \u0017wand of digging\nz20s     .hh\u0017moat\n#dip\ndy       ub_<. ss ;<."
+  }
+ ]
+}

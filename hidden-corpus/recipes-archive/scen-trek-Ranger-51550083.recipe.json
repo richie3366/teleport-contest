@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "L UNY_ \u001b<.>Fj s20sUNNJ_>.>LKKU_>.>BYNB_>,>\u000f\u001b100s50slhl50sFyFys150s100sFyFy20shlh\u0018\u001b100s150s50sFk20s20sFks.50sllhhlh#turn\nhkjFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhylullhtch#name\nm\nllln#name\n@.150sFhFbFhFbFbFh#pray\ny 50slhl150s 100shlh50sW100sFh20ss150sef#dip\nb 100si\u001b\\  50sFhFhFhFhs20s100slhl100s#dip\nghlhlhl150si\u001bhljFys20sknh 50si\u001b_>.>100sFhFhFh\u000f\u001b50sJYK N_>.>10sef  Y KHJ _>.>FhFj.YKYL_>,>#twoweapon\n,<LUYK_>.>#rub\n#conduct\n <NKNY_>.>FlFl.#dip\nb \\  YULJ_>.>;m,#invoke\n\u001bBKNH_>.>FhFhFhYYBU_>,>YHYU_>.>Fh.sr\u001b#dip\nf100s100s_>.>#pray\ny    FhFhFhFh.s150sFn..100s150s#wipe\n100sFhs20s50s 150snju150s lnh50s<sybu150s150s50s_>,>100s150s100shln_>.>150sbylFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFb"
+ },
+ "segments": [
+  {
+   "seed": 51550083,
+   "datetime": "20250805181054",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:explore\n",
+   "moves": "L UNY_ \u001b<.>Fj s20sUNNJ_>.>LKKU_>.>BYNB_>,>\u000f\u001b100s50slhl50sFyFys150s100sFyFy20shlh\u0018\u001b100s150s50sFk20s20sFks.50sllhhlh#turn\nhkjFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhylullhtch#name\nm\nllln#name\n@.150sFhFbFhFbFbFh#pray\ny 50slhl150s 100shlh50sW100sFh20ss150sef#dip\nb 100si\u001b\\  50sFhFhFhFhs20s100slhl100s#dip\nghlhlhl150si\u001bhljFys20sknh 50si\u001b_>.>100sFhFhFh\u000f\u001b50sJYK N_>.>10sef  Y KHJ _>.>FhFj.YKYL_>,>#twoweapon\n,<LUYK_>.>#rub\n#conduct\n <NKNY_>.>FlFl.#dip\nb \\  YULJ_>.>;m,#invoke\n\u001bBKNH_>.>FhFhFhYYBU_>,>YHYU_>.>Fh.sr\u001b#dip\nf100s100s_>.>#pray\ny    FhFhFhFh.s150sFn..100s150s#wipe\n100sFhs20s50s 150snju150s lnh50s<sybu150s150s50s_>,>100s150s100shln_>.>150sbylFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFbFb"
+  }
+ ]
+}

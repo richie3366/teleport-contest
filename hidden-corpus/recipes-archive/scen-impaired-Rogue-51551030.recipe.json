@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nmj\n \u0017scroll of magic mapping\nri\u0017potion of see invisible\nqj \u001b\u0017cursed wand of fire\nzk.  n \u0017scroll of scare monster\nrl \u001b\u0017blessed wand of create monster\nzmchameleon\nsksy.m.  ynny y\u001by  "
+ },
+ "segments": [
+  {
+   "seed": 51551030,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  #wizintrinsic\nmj\n \u0017scroll of magic mapping\nri\u0017potion of see invisible\nqj \u001b\u0017cursed wand of fire\nzk.  n \u0017scroll of scare monster\nrl \u001b\u0017blessed wand of create monster\nzmchameleon\nsksy.m.  ynny y\u001by  "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017blessed +3 cloak of magic resistance\nW\u001b\u001b\u0016?\n>H\u0004b\u001619\n\u0014 \u001b@.\u00162\n#levelchange\n14\n     yhn\u0017level teleporter\nh^ll.20shk\u0017statue trap\nlhsm.sju\u0017web\nhlsm.20s#terrain\ne\n#wipe\n#tip\n\u001b\u001b#jump\n20s.m..\u001624\n#levelchange\n6\n  \u0017spellbook of detect unseen\nrqy .y\u0017blessed spellbook of restore ability\nrr   20s    n  +\u001b\u0007gnome\nZb\n      n Zb\n  FkZa\nZb\n#pray\ny y \u00168\n\u0016?\n>C\u0006_<._.m.\u001611\nhhubkj:\u0016?\nq\u0017javelin\nws20s \u001b .s\u0007gelatinous cube\n;j..l.20s\u0007sergeant\nFkFkFjFk\u00162\n  \u0004b\u0016?\na_{,Fn  n_.Fn.m.20s  n 20s\u001612\n\u0016?\n>>Qkn:20ssm.\u00168\nkuunn:\u0016?\n>>L   spellbook of stone to flesh\n\u0006_\u0016 hh\u0016?\n\u001bbn\u001612\n\u0017blessed potion of polymorph\nqc ogre king\n\u0017Frost Brand\n\u0007quasit\nwdFl  Fl  Fn  \u0017spellbook of charm monster\nre   .m.   nsm. ZFu     nFn \u0017blessed ring of polymorph\n\u0007lichen\nPfl    n   20s    n.k .m.   n  R     nFh   Fy    n   n \u00173 the Book of the Dead\n\u0007master lich\nwdFj   nFj   n Fh       n#invoke\ng   n .k.m.    yy\u001by  nnn  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 51550070,
+   "datetime": "20130323121857",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017blessed +3 cloak of magic resistance\nW\u001b\u001b\u0016?\n>H\u0004b\u001619\n\u0014 \u001b@.\u00162\n#levelchange\n14\n     yhn\u0017level teleporter\nh^ll.20shk\u0017statue trap\nlhsm.sju\u0017web\nhlsm.20s#terrain\ne\n#wipe\n#tip\n\u001b\u001b#jump\n20s.m..\u001624\n#levelchange\n6\n  \u0017spellbook of detect unseen\nrqy .y\u0017blessed spellbook of restore ability\nrr   20s    n  +\u001b\u0007gnome\nZb\n      n Zb\n  FkZa\nZb\n#pray\ny y \u00168\n\u0016?\n>C\u0006_<._.m.\u001611\nhhubkj:\u0016?\nq\u0017javelin\nws20s \u001b .s\u0007gelatinous cube\n;j..l.20s\u0007sergeant\nFkFkFjFk\u00162\n  \u0004b\u0016?\na_{,Fn  n_.Fn.m.20s  n 20s\u001612\n\u0016?\n>>Qkn:20ssm.\u00168\nkuunn:\u0016?\n>>L   spellbook of stone to flesh\n\u0006_\u0016 hh\u0016?\n\u001bbn\u001612\n\u0017blessed potion of polymorph\nqc ogre king\n\u0017Frost Brand\n\u0007quasit\nwdFl  Fl  Fn  \u0017spellbook of charm monster\nre   .m.   nsm. ZFu     nFn \u0017blessed ring of polymorph\n\u0007lichen\nPfl    n   20s    n.k .m.   n  R     nFh   Fy    n   n \u00173 the Book of the Dead\n\u0007master lich\nwdFj   nFj   n Fh       n#invoke\ng   n .k.m.    yy\u001by  nnn  \u0016"
+  }
+ ]
+}

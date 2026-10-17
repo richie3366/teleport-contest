@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017cursed worthless piece of red glass\n\u0007fire giant\nag \u001715 crossbow bolts\n\u0007energy vortex\nQ\u001bf \u001bf \u001bf \u001b\u00173 Fire Brand\n\u0007blue jelly\nwl   yy\u001by   y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51552009,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017cursed worthless piece of red glass\n\u0007fire giant\nag \u001715 crossbow bolts\n\u0007energy vortex\nQ\u001bf \u001bf \u001bf \u001b\u00173 Fire Brand\n\u0007blue jelly\nwl   yy\u001by   y y\u001by  F"
+  }
+ ]
+}

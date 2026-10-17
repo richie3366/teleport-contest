@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b;#chat\nk_mmm.Fu _.#chat\ny_m,#chat\nk#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.#chat\nn;>._mmmmm,#chat\nu_mmmmm.#chat\nu\u0017blessed +3 speed boots\nWf \u0017blessed +3 cloak of magic resistance\nWgg\u0017\u0016?\n>A\u0006_mm,sss20s,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,s.ss20s.s,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nb\u0016?\n>z\u0006_mmm.s.20ss,#chat\ny\u0016?\n>A\u0006_mmmmmm..s20s..20s,\u0016?\n>A\u0006_mmmmmmm.Fk_,s20s.ss.s,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.20s20sss,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nl;.\u0016?\n>z\u0006_mmmmm.s.ss20s,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\ny\u0016?\n>A\u0006_mmmmmmm.ssss.,\u0016?\n>A\u0006_mmmmmmm,s.ssss,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.20sss20sFk,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_m.Fk_.#chat\nh\u0016?\n>z\u0006_mmm,20s..s20s.s,\u0016?\n>A\u0006_mm.s20ss.20s,\u0016?\n>A\u0006_mmmmmmm,sss20s \u001b,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,.ssss20sFk,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nk\u0016?\n>z\u0006_mmm.Fk_.Fks.ss,\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nj\u0016?\n>A\u0006_mmmm,20s .s   \u001b20s,#chat\nl\u0016?\n\u0016?\n\u0016?\n__,Fn_,    Fl\u0006_mm,Fu      \u001b_,<.FyFy Fh    FuFy  Fu  ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.  Fy_.Fl    n   Fb    Fk      Fy   Fy Fy  ,\u0016?\n>z\u0006_mmmm,Fn   n   _.Fu  FbFb  Fb ,#chat\nb\u0016?\n>A\u0006_mmmm.  Fh _.Fj  Fj  Fh  Fu "
+ },
+ "segments": [
+  {
+   "seed": 51550036,
+   "datetime": "20250919074604",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=fruit:mango\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b;#chat\nk_mmm.Fu _.#chat\ny_m,#chat\nk#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.#chat\nn;>._mmmmm,#chat\nu_mmmmm.#chat\nu\u0017blessed +3 speed boots\nWf \u0017blessed +3 cloak of magic resistance\nWgg\u0017\u0016?\n>A\u0006_mm,sss20s,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,s.ss20s.s,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nb\u0016?\n>z\u0006_mmm.s.20ss,#chat\ny\u0016?\n>A\u0006_mmmmmm..s20s..20s,\u0016?\n>A\u0006_mmmmmmm.Fk_,s20s.ss.s,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.20s20sss,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nl;.\u0016?\n>z\u0006_mmmmm.s.ss20s,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\ny\u0016?\n>A\u0006_mmmmmmm.ssss.,\u0016?\n>A\u0006_mmmmmmm,s.ssss,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nb\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.20sss20sFk,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_m.Fk_.#chat\nh\u0016?\n>z\u0006_mmm,20s..s20s.s,\u0016?\n>A\u0006_mm.s20ss.20s,\u0016?\n>A\u0006_mmmmmmm,sss20s \u001b,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,.ssss20sFk,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nk\u0016?\n>z\u0006_mmm.Fk_.Fks.ss,\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nj\u0016?\n>A\u0006_mmmm,20s .s   \u001b20s,#chat\nl\u0016?\n\u0016?\n\u0016?\n__,Fn_,    Fl\u0006_mm,Fu      \u001b_,<.FyFy Fh    FuFy  Fu  ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.  Fy_.Fl    n   Fb    Fk      Fy   Fy Fy  ,\u0016?\n>z\u0006_mmmm,Fn   n   _.Fu  FbFb  Fb ,#chat\nb\u0016?\n>A\u0006_mmmm.  Fh _.Fj  Fj  Fh  Fu "
+  }
+ ]
+}

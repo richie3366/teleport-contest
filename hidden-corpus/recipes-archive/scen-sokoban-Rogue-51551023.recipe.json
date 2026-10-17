@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  \u0016?\n>Ck\u0017wand of digging\nzih\u0017wand of digging\nzj> nubnnnnny\u0017wand of striking\nzkh\u0017scroll of earth\nrl   nubnlyujjkkblyyuuukk10shuyjjjjnj\u0017wand of digging\nzmnnbjyl10slllknunljhSy\u001b y#enhance\nyk\nk\n\u001b,dc#invoke\n\u001b;. \u001b,:yr\u001bnbjk\u0017melting ice\nllhlkh\u0017lawful altar\ndg\u0017lichen corpse\n#offer\ng  #pray\ny ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51551023,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0016?\n>Ck\u0017wand of digging\nzih\u0017wand of digging\nzj> nubnnnnny\u0017wand of striking\nzkh\u0017scroll of earth\nrl   nubnlyujjkkblyyuuukk10shuyjjjjnj\u0017wand of digging\nzmnnbjyl10slllknunljhSy\u001b"
+  },
+  {
+   "seed": 52051023,
+   "datetime": "20031109110400",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " y#enhance\nyk\nk\n\u001b,dc#invoke\n\u001b;. \u001b,:yr\u001bnbjk\u0017melting ice\nllhlkh\u0017lawful altar\ndg\u0017lichen corpse\n#offer\ng  #pray\ny "
+  }
+ ]
+}

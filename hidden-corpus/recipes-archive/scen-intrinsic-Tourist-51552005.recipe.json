@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      #wizintrinsic\nsl\n  ss.20ssss20s20ssm..lsm.#tip\n\u001bzw-\\ \u0014 \u001bm,amu.20s20s20s20s20s"
+ },
+ "segments": [
+  {
+   "seed": 51552005,
+   "datetime": "20231211154743",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      #wizintrinsic\nsl\n  ss.20ssss20s20ssm..lsm.#tip\n\u001bzw-\\ \u0014 \u001bm,amu.20s20s20s20s20s"
+  }
+ ]
+}

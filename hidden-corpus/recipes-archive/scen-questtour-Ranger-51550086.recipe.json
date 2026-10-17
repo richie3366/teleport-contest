@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>. \u001b#chat\nb_mmm.#chat\nb_mmmmm.#chat\nh_m.#chat\nh_m.#chat\nb#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nj_m.#chat\nj;j;_mmmmm.#chat\nj\u0017blessed +3 speed boots\nWh\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017wand of cold\n\u0016?\n>A\u0006_mmm.FhFbFjFjFbFbzjh,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.FjFbFbFbFbFj,\u0016?\n>z\u0006_mmmmmmm. \u001bFj_.ssss20sszjl ,\u0016?\n>A\u0006_mmmm.ss.ss,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nh\u0016?\n>A\u0006_mm,....20s \u001b,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fl _.20sFy Fy FyFy Fyzjn,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmm,Fb_.#chat\nh\u0016?\n>z\u0006_mmmm,FhFhFyFh zjh  , \u0016?\n>A\u0006_mmmm.Fj   n _. Fb Fh Fh Fb Fj Fy   zjh  n   ,\u00166\n\u0016?\n>A\u0006_mmmm. Fj _.Fh Fy   Fh Fy FbFy   n  zjy ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm, Fh _.Fy Fj FyFy Fy Fy zjj   n ,#chat\nb\u0016?\n>z\u0006_mmmmmmm. Fj _.Fb FbFb FjFh,\u0016?"
+ },
+ "segments": [
+  {
+   "seed": 51550086,
+   "datetime": "20061205042245",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>. \u001b#chat\nb_mmm.#chat\nb_mmmmm.#chat\nh_m.#chat\nh_m.#chat\nb#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nj_m.#chat\nj;j;_mmmmm.#chat\nj\u0017blessed +3 speed boots\nWh\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017wand of cold\n\u0016?\n>A\u0006_mmm.FhFbFjFjFbFbzjh,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.FjFbFbFbFbFj,\u0016?\n>z\u0006_mmmmmmm. \u001bFj_.ssss20sszjl ,\u0016?\n>A\u0006_mmmm.ss.ss,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nh\u0016?\n>A\u0006_mm,....20s \u001b,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fl _.20sFy Fy FyFy Fyzjn,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmm,Fb_.#chat\nh\u0016?\n>z\u0006_mmmm,FhFhFyFh zjh  , \u0016?\n>A\u0006_mmmm.Fj   n _. Fb Fh Fh Fb Fj Fy   zjh  n   ,\u00166\n\u0016?\n>A\u0006_mmmm. Fj _.Fh Fy   Fh Fy FbFy   n  zjy ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm, Fh _.Fy Fj FyFy Fy Fy zjj   n ,#chat\nb\u0016?\n>z\u0006_mmmmmmm. Fj _.Fb FbFb FjFh,\u0016?"
+  }
+ ]
+}

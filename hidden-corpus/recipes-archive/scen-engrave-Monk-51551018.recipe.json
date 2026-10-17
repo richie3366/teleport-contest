@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "uk\u0017wand of probing\nEk Vlad was here\ny\u0017wand of secret door detection\nEl  X marks the spot\n: \u0017athame\nEm  I am a fish\nE-\u0007gnome lord\n.hnn.m.20s juE- X marks the spot\n : u\u0017wand of stasis\nEn ad aerarium\n: \u0017wand of light\nEo n  Elbereth Elbereth\n : j"
+ },
+ "segments": [
+  {
+   "seed": 51551018,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "uk\u0017wand of probing\nEk Vlad was here\ny\u0017wand of secret door detection\nEl  X marks the spot\n: \u0017athame\nEm  I am a fish\nE-\u0007gnome lord\n.hnn.m.20s juE- X marks the spot\n : u\u0017wand of stasis\nEn ad aerarium\n: \u0017wand of light\nEo n  Elbereth Elbereth\n : j"
+  }
+ ]
+}

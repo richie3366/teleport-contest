@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 gauntlets of power\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007troll\n#pray\ny y   #chat\nn  n#wizintrinsic\nfq\n Fj   nFj Fj  n Fj   n_<, \u001b..m.  n\u00164\n_<,#overview\n\u001b#conduct\n i\u001b#dip\nai#offer\n#chat\nl#turn\n#wizintrinsic\nrf\n Fh  n Fh  n Fh  n Fh ;h,\u00168\n_{,qi#vanquished\n#genocided\nwater nymph\n  n \u0018\u001b#name\nm\n#adjust\n>.#sit\n#pray\ny y     #wizdetect\n\u0006Fj FjFj  n  nFj \u00163\n\u0016?\n>>N       spellbook of slow monster\n\u0006#chronicle\n #terrain\n\u001b#annotate\nfoo\n\u000f\u001b#twoweapon\n#invoke\nk  n #chat\nl#chat\ny      n   #jump\n#wizintrinsic\nfa\n Fu    n     n  yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51550069,
+   "datetime": "20130124150358",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 gauntlets of power\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007troll\n#pray\ny y   #chat\nn  n#wizintrinsic\nfq\n Fj   nFj Fj  n Fj   n_<, \u001b..m.  n\u00164\n_<,#overview\n\u001b#conduct\n i\u001b#dip\nai#offer\n#chat\nl#turn\n#wizintrinsic\nrf\n Fh  n Fh  n Fh  n Fh ;h,\u00168\n_{,qi#vanquished\n#genocided\nwater nymph\n  n \u0018\u001b#name\nm\n#adjust\n>.#sit\n#pray\ny y     #wizdetect\n\u0006Fj FjFj  n  nFj \u00163\n\u0016?\n>>N       spellbook of slow monster\n\u0006#chronicle\n #terrain\n\u001b#annotate\nfoo\n\u000f\u001b#twoweapon\n#invoke\nk  n #chat\nl#chat\ny      n   #jump\n#wizintrinsic\nfa\n Fu    n     n  yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

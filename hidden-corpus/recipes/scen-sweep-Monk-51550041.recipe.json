@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                      \u00174 cream pies\nQ\u001b\u0007soldier\nlf \u001bf \u001bf \u001bf \u001bFj  Fhjln \u001b;,#enhance\nn\u001b\u0017blessed bag of holding\n\u0017ice box\n\u0017large box\n\u0017ring of shock resistance\n\u0017potion of polymorph\nals\nan#tip\nyl\nanalo\nan\u001620\n  #levelchange\n6\n      \u0016?\nj\u0006\u0017leather drum\naq bh  n    naq hl\u0017wand of locking\nzrlnf \u001b#turn\n\u001612\n     #levelchange\n8\n  \u0017cursed scroll of stinking cloud\nrs  m.  s   20s  \u0017cursed spellbook of cause fear\n\u0007dust vortex\nrt : \u001b     s\u001bs   n Za\n Za\nFj   n   n  Fk\u0017blessed horn of plenty\n\u0007kobold shaman\nauau\u0017blessed fumble boots\nWx  .  n     n  .  n 20s  Tx  n   n      n   n 20s   n s   n \u001610\n\u0017locked large box\n\u0017locked chest\n\u0017potion of full healing\n\u0017dilithium crystal\n\u0007prisoner\n;<..20s s\u0007titanothere\nss .  n. s .  yy\u001b  y   y ny\u001bn  s"
+ },
+ "segments": [
+  {
+   "seed": 51550041,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                      \u00174 cream pies\nQ\u001b\u0007soldier\nlf \u001bf \u001bf \u001bf \u001bFj  Fhjln \u001b;,#enhance\nn\u001b\u0017blessed bag of holding\n\u0017ice box\n\u0017large box\n\u0017ring of shock resistance\n\u0017potion of polymorph\nals\nan#tip\nyl\nanalo\nan\u001620\n  #levelchange\n6\n      \u0016?\nj\u0006\u0017leather drum\naq bh  n    naq hl\u0017wand of locking\nzrlnf \u001b#turn\n\u001612\n     #levelchange\n8\n  \u0017cursed scroll of stinking cloud\nrs  m.  s   20s  \u0017cursed spellbook of cause fear\n\u0007dust vortex\nrt : \u001b     s\u001bs   n Za\n Za\nFj   n   n  Fk\u0017blessed horn of plenty\n\u0007kobold shaman\nauau\u0017blessed fumble boots\nWx  .  n     n  .  n 20s  Tx  n   n      n   n 20s   n s   n \u001610\n\u0017locked large box\n\u0017locked chest\n\u0017potion of full healing\n\u0017dilithium crystal\n\u0007prisoner\n;<..20s s\u0007titanothere\nss .  n. s .  yy\u001b  y   y ny\u001bn  s"
+  }
+ ]
+}

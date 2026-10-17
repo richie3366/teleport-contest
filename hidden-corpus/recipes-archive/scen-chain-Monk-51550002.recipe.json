@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "Y  J LL_ \u001b:>Fk Fl20s<BUKY_>.>YYHH_>,>UHUN_>.>\u000f\u001b#name\nm\n#chat\nm.t\u001b#chat\ny#chat\nbkkKLJY_>,>UKKH_>.>BKYH_>.>\u000f\u001b#quit\nyy\u001by   y y y\u001b FjFjFjFjFjFjFjFjjbuj10s#name\no\nblessed\nd  nn#chat\nkylynhn#chat\nyhlhuhhdgcn.ss10slljybFusFl 100s_ \u001bm,>\u0014hkj100s #dip\nbh50s\\ hly\u0018\u001b100s150sFhFhFhFhss#invoke\n\u001b\u001b#quit\nyy\u001by  y y y\u001b  kubn150sFk ss100sFh20ss\\ i\u001b_ \u001b@.>100s150s\u0004n\\ 100sFhssbuk100s150sFls20s100s50s_>.>50sFh.20s150s50s\\ 50s100s_>,>\\ _>.>50shyn150sed100s_>,>i\u001b_>.>150su#quit\nyy\u001by  y y y\u001b \u0007Demogorgon\nnFj Fk Fl    n FkFkFk  yy\u001by  y y y\u001by  F    FkFkFk    y\u001by  y y\u001b  1",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51550002,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "Y  J LL_ \u001b:>Fk Fl20s<BUKY_>.>YYHH_>,>UHUN_>.>\u000f\u001b#name\nm\n#chat\nm.t\u001b#chat\ny#chat\nbkkKLJY_>,>UKKH_>.>BKYH_>.>\u000f\u001b#quit\nyy\u001by   y y y\u001b "
+  },
+  {
+   "seed": 51650002,
+   "datetime": "20021109054631",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=!verbose\n",
+   "moves": "FjFjFjFjFjFjFjFjjbuj10s#name\no\nblessed\nd  nn#chat\nkylynhn#chat\nyhlhuhhdgcn.ss10slljybFusFl 100s_ \u001bm,>\u0014hkj100s #dip\nbh50s\\ hly\u0018\u001b100s150sFhFhFhFhss#invoke\n\u001b\u001b#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51750002,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=pettype:cat\n",
+   "moves": " kubn150sFk ss100sFh20ss\\ i\u001b_ \u001b@.>100s150s\u0004n\\ 100sFhssbuk100s150sFls20s100s50s_>.>50sFh.20s150s50s\\ 50s100s_>,>\\ _>.>50shyn150sed100s_>,>i\u001b_>.>150su#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51850002,
+   "datetime": "20220721145652",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007Demogorgon\nnFj Fk Fl    n FkFkFk  yy\u001by  y y y\u001by  F"
+  },
+  {
+   "seed": 51950002,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=fruit:slime mold\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\n",
+   "moves": "    FkFkFk    y\u001by  y y\u001b  1"
+  }
+ ]
+}

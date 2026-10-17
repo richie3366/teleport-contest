@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017uncursed potion of paralysis\nqg\u0017potion of monster detection\n\u0007ogre king\nqh     #dip\nd\u0017scroll of confuse monster\n\u0007Kop Kaptain\nri \u001bFh    Fk     \u0017uncursed luckstone\ntch      n \u0017spellbook of drain life\n\u0007succubus\nrk   sm.         n .m.  ZZ\u0017blessed +3 long sword\nwl  Fu    nFu   Fk  20s .k   n\u00169\ni\u001bwasm.20ssm.ajkwcy20s.m.suwb sm.s.m.X10s#monster\nz_>, \u001b;sm.#dip\nj\u000f\u001bL#turn\n\u001628\n   \u0007horse\n\u0017apple\ntmk\u0007tame soldier ant\n#chat\nk 10s   k     \u0017tripe ration\ntau    n #chat\nu 10s  i\u001b#levelchange\n12\n \u001635\n P\u001bjq.20s \u0016?\n>y  eo  #dip\nd\u000f\u001b;u:  \u000620s   sm. \u0016?\n>xohqoj;l,sm.   n .m.  \u0016?\nmef  #tip\n\u001bj 20s sy\u00164\n#levelchange\n14\nuul\u0017altar\ndf dn \u0017floating eye corpse\n#offer\nq   #pray\ny y       : yh \u0017ice\nj  k kkn \u0017lawful altar\ndj    nde    \u0017human corpse\n l  b    n \u0017tree\nn\u0004y \u0004y \u0004y W#force\nu\u00165\n\u00168\n #levelchange\n12\n\u0016?\n>>Q,r\u001b#tip\n\u001b\u0006.m.    n sm.\u0016?\n>>N       wand of teleportation\n#rub\n#untrap\nn<;n.slsm.      \u0016?\n\u001b\u001632\nw\u001b<#twoweapon\n;l,.ysm.      n \u001634\n#conduct\n q>.h    n   sm.     n   \u001618\n\u001610\ni\u001bzbb  n     zbh     n Pa       n 20s   yny   y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 51550071,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017uncursed potion of paralysis\nqg\u0017potion of monster detection\n\u0007ogre king\nqh     #dip\nd\u0017scroll of confuse monster\n\u0007Kop Kaptain\nri \u001bFh    Fk     \u0017uncursed luckstone\ntch      n \u0017spellbook of drain life\n\u0007succubus\nrk   sm.         n .m.  ZZ\u0017blessed +3 long sword\nwl  Fu    nFu   Fk  20s .k   n\u00169\ni\u001bwasm.20ssm.ajkwcy20s.m.suwb sm.s.m.X10s#monster\nz_>, \u001b;sm.#dip\nj\u000f\u001bL#turn\n\u001628\n   \u0007horse\n\u0017apple\ntmk\u0007tame soldier ant\n#chat\nk 10s   k     \u0017tripe ration\ntau    n #chat\nu 10s  i\u001b#levelchange\n12\n \u001635\n P\u001bjq.20s \u0016?\n>y  eo  #dip\nd\u000f\u001b;u:  \u000620s   sm. \u0016?\n>xohqoj;l,sm.   n .m.  \u0016?\nmef  #tip\n\u001bj 20s sy\u00164\n#levelchange\n14\nuul\u0017altar\ndf dn \u0017floating eye corpse\n#offer\nq   #pray\ny y       : yh \u0017ice\nj  k kkn \u0017lawful altar\ndj    nde    \u0017human corpse\n l  b    n \u0017tree\nn\u0004y \u0004y \u0004y W#force\nu\u00165\n\u00168\n #levelchange\n12\n\u0016?\n>>Q,r\u001b#tip\n\u001b\u0006.m.    n sm.\u0016?\n>>N       wand of teleportation\n#rub\n#untrap\nn<;n.slsm.      \u0016?\n\u001b\u001632\nw\u001b<#twoweapon\n;l,.ysm.      n \u001634\n#conduct\n q>.h    n   sm.     n   \u001618\n\u001610\ni\u001bzbb  n     zbh     n Pa       n 20s   yny   y y y\u001b  s"
+  }
+ ]
+}

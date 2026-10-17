@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "BUJK_ \u001b,>FjFjFjBKL H_>.>#twoweapon\n#enhance\n\u001b<LnyBYJ_>.>Fl s.\u0018\u001bsBJYB_>.>HHKB_>.>i\u001b#force\nJJL L_>.>ac#untrap\nl\u000f\u001b10s\u0014lLJNN_>.>10s__.snKBUN_>,>FbssLLNH_>.>J NUY_>,>\u000f\u001bhukjjl_m.s100s100sFlFlFlan\u001b150s100s100sFlFl20s150s50sFlFlFlFlFl20sFl.s50s50sFl20ss100s_>,>50s 100s100sFls20sFls.ykjblk150s:150s100sFnFnFnFnss50suujFussqf>.\u000f\u001b150skbu150sFlFl20s50s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeL KH H_>.>UULH_>,>Fhs20sLJYK_>.>Fj.sHUNL_>.>E- Vlad was here\nt\u001bKHK J_>.>BYU Y_>.>KBB  J_>,>_<..ew-Pel \u0014eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLBUL_>.>HHKN_>.>HYLL_>.>#sit\n\u001brl y NUJU_>.>#conduct\n Za\nBNKN_>,>UBKY_>,>K:YHLy B _>.>FlFbFbe#enhance\n\u001b\u000f\u001bYL LB_>,>J  HBB_>,>JK  KL_>,>KHKK_>,>FbFbsYNLB_>.>J#terra"
+ },
+ "segments": [
+  {
+   "seed": 51550043,
+   "datetime": "20030122105622",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=runmode:walk\nOPTIONS=fruit:mango\nOPTIONS=pettype:dog\n",
+   "moves": "BUJK_ \u001b,>FjFjFjBKL H_>.>#twoweapon\n#enhance\n\u001b<LnyBYJ_>.>Fl s.\u0018\u001bsBJYB_>.>HHKB_>.>i\u001b#force\nJJL L_>.>ac#untrap\nl\u000f\u001b10s\u0014lLJNN_>.>10s__.snKBUN_>,>FbssLLNH_>.>J NUY_>,>\u000f\u001bhukjjl_m.s100s100sFlFlFlan\u001b150s100s100sFlFl20s150s50sFlFlFlFlFl20sFl.s50s50sFl20ss100s_>,>50s 100s100sFls20sFls.ykjblk150s:150s100sFnFnFnFnss50suujFussqf>.\u000f\u001b150skbu150sFlFl20s50s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeL KH H_>.>UULH_>,>Fhs20sLJYK_>.>Fj.sHUNL_>.>E- Vlad was here\nt\u001bKHK J_>.>BYU Y_>.>KBB  J_>,>_<..ew-Pel \u0014eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLBUL_>.>HHKN_>.>HYLL_>.>#sit\n\u001brl y NUJU_>.>#conduct\n Za\nBNKN_>,>UBKY_>,>K:YHLy B _>.>FlFbFbe#enhance\n\u001b\u000f\u001bYL LB_>,>J  HBB_>,>JK  KL_>,>KHKK_>,>FbFbsYNLB_>.>J#terra"
+  }
+ ]
+}

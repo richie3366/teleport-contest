@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017ice box\n\u0017large box\n\u0017scroll of punishment\n\u0017wand of fire\n\u0017wand of light\nah#tip\ny\u001bahah\u0017credit card\ndh al.y s.s#loot\na\ni\n\u0017sack\n\u0017ring of shock resistance\n\u0017potion of hallucination\n\u0017wand of cancellation\n#tip\na\n #tip\na\n#tip\na\n#tip\nb\n"
+ },
+ "segments": [
+  {
+   "seed": 51551006,
+   "datetime": "20021209105638",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:durian\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017ice box\n\u0017large box\n\u0017scroll of punishment\n\u0017wand of fire\n\u0017wand of light\nah#tip\ny\u001bahah\u0017credit card\ndh al.y s.s#loot\na\ni\n\u0017sack\n\u0017ring of shock resistance\n\u0017potion of hallucination\n\u0017wand of cancellation\n#tip\na\n #tip\na\n#tip\na\n#tip\nb\n"
+  }
+ ]
+}

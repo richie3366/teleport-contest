@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed magic harp\n\u0017blessed amulet of life saving\nPl\u0017blessed leash\n\u0017blessed 20 daggers\nQn#wizintrinsic\nh\n ;l; \u001b,E- X marks the spot\n\u0017wand of probing\nzol  zoj zoh  fl fhfl \u0017potion of healing\nqp.m.\u0007sewer rat\n\u0007newt\nFkFu FkFu Fk .#wizintrinsic\nh\n\u0017blessed scroll of mail\nrq \u0017blessed spellbook of cause fear\nrr sZ\u001b:  \u0017wand of slow monster\nzsjzs.zs.#wizintrinsic\nh\n\u0017potion of booze\nqt.\u0017blessed spellbook of cone of cold\nru 20sZ\u001b:  \u0017spellbook of knock\n rv sZ\u001b:  #wizintrinsic\nh\n\u0017potion of hallucination\nqw \u001b s\u0017blessed scroll of enchant weapon\nrx \u0017eucalyptus leaf\ney\u0007kobold shaman\nFls.s#wizintrinsic\nh\n\u0017scroll of magic mapping\nrz\u0017wand of magic missile\nzAbzAjzAy zAn  \u0017potion of sleeping\nqB .;<.E-y Elbereth Elbereth\n"
+ },
+ "segments": [
+  {
+   "seed": 51550038,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed magic harp\n\u0017blessed amulet of life saving\nPl\u0017blessed leash\n\u0017blessed 20 daggers\nQn#wizintrinsic\nh\n ;l; \u001b,E- X marks the spot\n\u0017wand of probing\nzol  zoj zoh  fl fhfl \u0017potion of healing\nqp.m.\u0007sewer rat\n\u0007newt\nFkFu FkFu Fk .#wizintrinsic\nh\n\u0017blessed scroll of mail\nrq \u0017blessed spellbook of cause fear\nrr sZ\u001b:  \u0017wand of slow monster\nzsjzs.zs.#wizintrinsic\nh\n\u0017potion of booze\nqt.\u0017blessed spellbook of cone of cold\nru 20sZ\u001b:  \u0017spellbook of knock\n rv sZ\u001b:  #wizintrinsic\nh\n\u0017potion of hallucination\nqw \u001b s\u0017blessed scroll of enchant weapon\nrx \u0017eucalyptus leaf\ney\u0007kobold shaman\nFls.s#wizintrinsic\nh\n\u0017scroll of magic mapping\nrz\u0017wand of magic missile\nzAbzAjzAy zAn  \u0017potion of sleeping\nqB .;<.E-y Elbereth Elbereth\n"
+  }
+ ]
+}

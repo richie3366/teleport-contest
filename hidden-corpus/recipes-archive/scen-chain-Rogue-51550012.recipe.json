@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "FlFlFlFlFlFlFlFlYUBY_ \u001b,>KBLN_>.>UHLU_>,>Fy Fhscl#untrap\nuJY KY_>,><NBUK_>.>YUYH_>,>ljulBBJH_>,>YUHJ_>.>UKJH_>.>HBLJ_>,>#jump\nW<\u000f\u001bnllh100s\u0018\u001bhyy100skkbs_>,>150s 100sFjFjFjnyk\u0018\u001b\\ llynkkFlFlFlFlFlFlFlFls#monster\nbyn100s_>,>100sFjFjFj    1 #quit\nyy #wizintrinsic\nc\n sj.m.20ssm..n.sksm..m.sns20s      n .s.s20s    .s20s   s.20s     ss.ss.s.ss20ss20s .ss20s20s.sss",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51550012,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "FlFlFlFlFlFlFlFlYUBY_ \u001b,>KBLN_>.>UHLU_>,>Fy Fhscl#untrap\nuJY KY_>,><NBUK_>.>YUYH_>,>ljulBBJH_>,>YUHJ_>.>UKJH_>.>HBLJ_>,>#jump\nW<\u000f\u001bnllh100s\u0018\u001bhyy100skkbs_>,>150s 100sFjFjFjnyk\u0018\u001b\\ llynkkFlFlFlFlFlFlFlFls#monster\nbyn100s_>,>100sFjFjFj    1"
+  },
+  {
+   "seed": 51650012,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #quit\nyy"
+  },
+  {
+   "seed": 51750012,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nc\n sj.m.20ssm..n.sksm..m.sns20s      n .s.s20s    .s20s   s.20s     ss.ss.s.ss20ss20s .ss20s20s.sss"
+  }
+ ]
+}

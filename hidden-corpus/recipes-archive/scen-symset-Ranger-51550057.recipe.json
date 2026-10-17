@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b,>FbFb_>,Fh_,Fh>FhFh_>,Fh_,Fh>FhFhFhFhFhr\u001b10s\u0006_>.Fh_.m,Fh>FhFh_>,Fh_..Fh>FhFh_>.Fh_.>.Fh>FhFhFhFhFh#conduct\n :\u0006_>.Fh_,Fh>FhFh_>.Fh_,m.Fh>FhFh_>.Fh_.:Fh>FhFhFhFhFh\u0006_>>.Fh_.Fh>FhFh_>>,Fh_,Fh>FhFh_>>.Fh_.  nFh>FhFhFhFhFh\u0006_>.Fh_.Fh>FhFh_>.Fh_..Fh>FhFh_>,Fh_.Fh>FhFhFhFhFh<\u0006_>.Fh_.Fh>FhFh_>.Fh_.,Fh>FhFh_>.Fl_,m,Fh>FhFhFhFlFl\u0006_>.Fh_.Fl>FlFh_>.Fh_.:Fh>FhFh_>.Fh_.Fh>FhFhFhFhFhh\u001bjkh \u0017chaotic altar\ndf\u0017jackal corpse\n#offer\ng #pray\ny y : kh h\u001b\u0017sink\nqy\u0017ring of gain constitution\ndh  \u001b,f  \u0014m.mO>o\u001b\nE- Elbereth\nwb\u0006_>._.> FkFkFkoj \u000f\u001b\u0006_>,Fl_,Fn>FlFnFn<\u0006_>.Fn_>FlFl_>.Fn_>FlFl_>.Fl_,Fl>FlFlFlFlFn<\u0006_>,  nFn_>FnFn_>.Fn_>FlFl_>.Fl_,Fn>FlFnFln mOa\u001b\n\u001620\nO>>>n\u001b\u001b\nn#turn\n#jump\n100sFnFnFnFbFbFjFbFbFnFjFjFjFjFjFbFjFbFjFjFnFjFnFnFbFnFbFjFjFbFbFnFbFnFnFjFnFbFbFjFbFjFbFjFbFnFnFbFnFnFnFjFbFjFnFbFnFnFbFbFnFjFbFbFjFjFjFbF"
+ },
+ "segments": [
+  {
+   "seed": 51550057,
+   "datetime": "20030905225956",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nOPTIONS=msg_window:reversed\nMSGTYPE=norep \"You miss\"\nMENUCOLOR=\"cursed\"=red\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0006_ \u001b,>FbFb_>,Fh_,Fh>FhFh_>,Fh_,Fh>FhFhFhFhFhr\u001b10s\u0006_>.Fh_.m,Fh>FhFh_>,Fh_..Fh>FhFh_>.Fh_.>.Fh>FhFhFhFhFh#conduct\n :\u0006_>.Fh_,Fh>FhFh_>.Fh_,m.Fh>FhFh_>.Fh_.:Fh>FhFhFhFhFh\u0006_>>.Fh_.Fh>FhFh_>>,Fh_,Fh>FhFh_>>.Fh_.  nFh>FhFhFhFhFh\u0006_>.Fh_.Fh>FhFh_>.Fh_..Fh>FhFh_>,Fh_.Fh>FhFhFhFhFh<\u0006_>.Fh_.Fh>FhFh_>.Fh_.,Fh>FhFh_>.Fl_,m,Fh>FhFhFhFlFl\u0006_>.Fh_.Fl>FlFh_>.Fh_.:Fh>FhFh_>.Fh_.Fh>FhFhFhFhFhh\u001bjkh \u0017chaotic altar\ndf\u0017jackal corpse\n#offer\ng #pray\ny y : kh h\u001b\u0017sink\nqy\u0017ring of gain constitution\ndh  \u001b,f  \u0014m.mO>o\u001b\nE- Elbereth\nwb\u0006_>._.> FkFkFkoj \u000f\u001b\u0006_>,Fl_,Fn>FlFnFn<\u0006_>.Fn_>FlFl_>.Fn_>FlFl_>.Fl_,Fl>FlFlFlFlFn<\u0006_>,  nFn_>FnFn_>.Fn_>FlFl_>.Fl_,Fn>FlFnFln mOa\u001b\n\u001620\nO>>>n\u001b\u001b\nn#turn\n#jump\n100sFnFnFnFbFbFjFbFbFnFjFjFjFjFjFbFjFbFjFjFnFjFnFnFbFnFbFjFjFbFbFnFbFnFnFjFnFbFbFjFbFjFbFjFbFnFnFbFnFnFnFjFbFjFnFbFnFnFbFbFnFjFbFbFjFjFjFbF"
+  }
+ ]
+}

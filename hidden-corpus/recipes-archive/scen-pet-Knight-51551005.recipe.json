@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " bn#name\nm\n <.#chat\nkhk#chat\nhj10su#name\nd\ndh20s.20shhub#name\nf\n#chat\n,Sy\u001b  yy,tbj#enhance\n\u001b\\   :#conduct\n __.20s         da#rub\nkuh\u0017qq#dip\nc:l\u0017:\u0017ss:k\u0017jk jj:h\u0017ubuu:#terrain\nc\n:#monster",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51551005,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:explore\n",
+   "moves": " bn#name\nm\n <.#chat\nkhk#chat\nhj10su#name\nd\ndh20s.20shhub#name\nf\n#chat\n,Sy\u001b"
+  },
+  {
+   "seed": 52051005,
+   "datetime": "20031014040137",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:explore\n",
+   "moves": "  yy,tbj#enhance\n\u001b\\   :#conduct\n __.20s         da#rub\nkuh\u0017qq#dip\nc:l\u0017:\u0017ss:k\u0017jk jj:h\u0017ubuu:#terrain\nc\n:#monster"
+  }
+ ]
+}

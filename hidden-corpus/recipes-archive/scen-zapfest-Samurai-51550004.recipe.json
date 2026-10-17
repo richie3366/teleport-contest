@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed shield of reflection\nWf\u0017blessed ring of free action\nPgl\u0017blessed +3 speed boots\nWh \u0017spellbook of force bolt\nris\u0017blessed spellbook of sleep\nrj 20s\u0007lich\n\u0007master mind flayer\nZb\nZb\n Zb\nZa\n Zb\nZb\n.y20s       Za\n#turn\n\u0017wand of striking\n\u0017wand of cold\n\u0017wand of teleportation\n\u0007gnome lord\n\u0007soldier\n\u0007lichen\nzku        n  n  zmy      n zll         zkl su   n   n   zml zlu  skzmnzkh.zmk20s\u0018\u001b\u00164\n\u00178 rocks\nQby\u0007newt\nfjf \u001bf \u001btcytdy\u0017bow\nwo\u001720 arrows\nQp\u0007lichen\nflflfltduflfn\u0007baby red dragon\n\u0007baby red dragon\nsh.j 20s FjFj   n\u0017blessed spellbook of sleep\nrq sk\u0007master mind flayer\nZa\nZa\n    n  20s     n  sm.    n  Zb\n     n  20s   n 20s   Zsm.   n  sb   n  Zb\n "
+ },
+ "segments": [
+  {
+   "seed": 51550004,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed shield of reflection\nWf\u0017blessed ring of free action\nPgl\u0017blessed +3 speed boots\nWh \u0017spellbook of force bolt\nris\u0017blessed spellbook of sleep\nrj 20s\u0007lich\n\u0007master mind flayer\nZb\nZb\n Zb\nZa\n Zb\nZb\n.y20s       Za\n#turn\n\u0017wand of striking\n\u0017wand of cold\n\u0017wand of teleportation\n\u0007gnome lord\n\u0007soldier\n\u0007lichen\nzku        n  n  zmy      n zll         zkl su   n   n   zml zlu  skzmnzkh.zmk20s\u0018\u001b\u00164\n\u00178 rocks\nQby\u0007newt\nfjf \u001bf \u001btcytdy\u0017bow\nwo\u001720 arrows\nQp\u0007lichen\nflflfltduflfn\u0007baby red dragon\n\u0007baby red dragon\nsh.j 20s FjFj   n\u0017blessed spellbook of sleep\nrq sk\u0007master mind flayer\nZa\nZa\n    n  20s     n  sm.    n  Zb\n     n  20s   n 20s   Zsm.   n  sb   n  Zb\n "
+  }
+ ]
+}

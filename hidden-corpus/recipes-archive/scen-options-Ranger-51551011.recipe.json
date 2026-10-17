@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " O>enm\n#terrain\nc\n\u001b<.\\ mOa\nef#conduct\n O>bm\n#turn\namO>>>>>>ad\nyes\ns\nZ#untrap\nys20sO>bda\nd\n#jump\nLmO>>t\n\\ #dip\nfOmlo\ng\np\ns#sit\n\u001bmOa\n#name\nm\n#name\n<.mO>>>>>kt\nR\nn\n#invoke\n\u001b\u001b\\ mO>>>>dg\noff\n yes\nsss"
+ },
+ "segments": [
+  {
+   "seed": 51551011,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:none\n",
+   "moves": " O>enm\n#terrain\nc\n\u001b<.\\ mOa\nef#conduct\n O>bm\n#turn\namO>>>>>>ad\nyes\ns\nZ#untrap\nys20sO>bda\nd\n#jump\nLmO>>t\n\\ #dip\nfOmlo\ng\np\ns#sit\n\u001bmOa\n#name\nm\n#name\n<.mO>>>>>kt\nR\nn\n#invoke\n\u001b\u001b\\ mO>>>>dg\noff\n yes\nsss"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u0017elven leather helm\nWjsssTj\u0007gray ooze\nFhFh FhFhs20ss\u0007quantum mechanic\nFyFk Fy   \u001b:Fy Fy Fy Fy 20s20s\u0017helm of brilliance\nWk .lsm.s\u0007mind flayer\nFlFl      Fl     Fl      Fl      Fl      Fl      sm.     20s      #pray\ny y     \u0007chameleon\nFy    Fy      Fl     n Fl       FlFy.ysm.\u0007nurse\nFhF"
+ },
+ "segments": [
+  {
+   "seed": 51551013,
+   "datetime": "20040611183915",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                    \u0017elven leather helm\nWjsssTj\u0007gray ooze\nFhFh FhFhs20ss\u0007quantum mechanic\nFyFk Fy   \u001b:Fy Fy Fy Fy 20s20s\u0017helm of brilliance\nWk .lsm.s\u0007mind flayer\nFlFl      Fl     Fl      Fl      Fl      Fl      sm.     20s      #pray\ny y     \u0007chameleon\nFy    Fy      Fl     n Fl       FlFy.ysm.\u0007nurse\nFhF"
+  }
+ ]
+}

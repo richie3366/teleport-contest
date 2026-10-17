@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPgr#polyself\nblack light\n .s\u0007crocodile\nFh  Fb  Fb20ssm.20s#polyself\nghoul\n#monster\nsk20s sm..bsm.#polyself\nlichen\n #monster\n.    yy\u001by   y y y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 51552017,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPgr#polyself\nblack light\n .s\u0007crocodile\nFh  Fb  Fb20ssm.20s#polyself\nghoul\n#monster\nsk20s sm..bsm.#polyself\nlichen\n #monster\n.    yy\u001by   y y y\u001by  2"
+  }
+ ]
+}
