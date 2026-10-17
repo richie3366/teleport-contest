@@ -524,9 +524,10 @@ function hero_map_attr() {
  * showsyms copy.
  * Named omissions: the `:2934` has_rogue_color first-arm (ROGUESET +
  * IBM handling, never active on contest tty — same standing as in
- * litcorr_showsyms_white); the `:2897–2912` MG_BW_LAVA/ICE/SINK
- * chain (needs !use_color plus customized colliding symbols; no
- * corpus session reaches it).
+ * litcorr_showsyms_white). The `:2897–2912` MG_BW_LAVA/ICE/SINK
+ * chain it once named now lives in lava_ice_sink_map_attr below
+ * (its "no corpus session reaches it" falsifier fired:
+ * Samurai-50455026 s270).
  */
 function engrcorr_map_attr(gid) {
     if ((gid | 0) !== cmap_to_glyph(S_ENGRCORR)) return 0;
@@ -553,6 +554,56 @@ function engrcorr_map_attr(gid) {
         litcorr = nhsym_code(sh?.[S_LITCORR + SYM_OFF_P]);
     }
     if (sym !== corr && sym !== litcorr) return 0;
+    return use_inverse_opt() ? ATR_INVERSE : 0;
+}
+
+/**
+ * C ref: display.c reset_glyphmap `:2884–2917` (GLYPH_CMAP_B branch:
+ * S_lava/S_lavawall whose showsyms char equals the S_pool/S_water char
+ * → MG_BW_LAVA; S_ice whose char equals S_room/S_darkroom → MG_BW_ICE;
+ * S_sink whose char equals S_fountain → MG_BW_SINK; the whole switch
+ * under `:2890 if (!iflags.use_color)`) + wintty.c tty_print_glyph
+ * `:3930–3936` (special & MG_BW_* && use_inverse → ATR_INVERSE).
+ * Same twin shape as engrcorr_map_attr above: the flag is static per
+ * glyph id, so the attr is derived from the banked id at every paint
+ * and live, memory, detection and wizard paints inherit it. use_color
+ * ≡ wc_color (flag.h:507); the gate is the house `wc_color !== false`
+ * shape, and the collision reads go through live_showsyms (D-3950)
+ * so loaded symset carriers compare as C's showsyms does (RogueIBM
+ * leaves sink+fountain on the primary `{`, Samurai-50455026 s270).
+ * Named omissions: the `:2915–2917` has_rogue_color else-arm
+ * (cmap_to_roguecolor recolor when color is on — ROGUESET + IBM
+ * handling, never active on contest tty; same standing as the
+ * litcorr/engrcorr twins).
+ */
+function lava_ice_sink_map_attr(gid) {
+    // C `:2890`: the whole BW chain runs only with color off.
+    if (game.iflags?.wc_color !== false) return 0;
+    const g = gid | 0;
+    // C `:2897–2900` switch order: lava (+wall), ice, sink.
+    let cmap = -1;
+    if (g === cmap_to_glyph(S_LAVA_CMAP)) cmap = S_LAVA_CMAP;
+    else if (g === cmap_to_glyph(S_LAVAWALL_CMAP)) cmap = S_LAVAWALL_CMAP;
+    else if (g === cmap_to_glyph(S_ICE_CMAP)) cmap = S_ICE_CMAP;
+    else if (g === cmap_to_glyph(S_SINK_CMAP)) cmap = S_SINK_CMAP;
+    else return 0;
+    // C `:2886`: sym is this cmap's own showsyms char (lavawall reads
+    // its own slot, not lava's).
+    const sym = live_showsyms(cmap + SYM_OFF_P);
+    let hit = false;
+    if (cmap === S_LAVA_CMAP || cmap === S_LAVAWALL_CMAP) {
+        // C `:2898–2902`: collide with pool or water.
+        hit = sym === live_showsyms(S_POOL_CMAP + SYM_OFF_P)
+            || sym === live_showsyms(S_WATER_CMAP + SYM_OFF_P);
+    } else if (cmap === S_ICE_CMAP) {
+        // C `:2904–2907`: collide with room or dark room.
+        hit = sym === live_showsyms(S_ROOM_CMAP + SYM_OFF_P)
+            || sym === live_showsyms(S_DARKROOM + SYM_OFF_P);
+    } else {
+        // C `:2909–2911`: sink collides with fountain.
+        hit = sym === live_showsyms(S_FOUNTAIN_CMAP + SYM_OFF_P);
+    }
+    if (!hit) return 0;
     return use_inverse_opt() ? ATR_INVERSE : 0;
 }
 
@@ -5203,7 +5254,10 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
     // C tty layer derives ATR_INVERSE from the glyph id's MG_BW_ENGR flag
     // (reset_glyphmap `:2941–2946`) at every paint; OR it here so live,
     // memory, detection and wizard engrcorr paints all inherit, as in C.
+    // Same for the `:2884–2917` MG_BW_LAVA/ICE/SINK chain (gated on
+    // !use_color inside the helper, C `:2890`).
     attr |= engrcorr_map_attr(gid);
+    attr |= lava_ice_sink_map_attr(gid);
     // C tty_print_glyph `:3867` HUPSKIP (HANGUPHANDLING live,
     // global.h:278; g_pututf8 `:3795` + g_putch `:3745` carry the same
     // guard): under hangup the tty layer emits nothing (morc is
