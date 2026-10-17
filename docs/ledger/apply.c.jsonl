@@ -64,7 +64,7 @@
 {"fn":"grapple_range","c":"3686-3698","status":"ported","js":["js/apply.js:grapple_range"],"at":"2026-09-30@990da2b8d","note":"stale: js/apply.js:3900, both C callers wired (:3908, :3961)"}
 {"fn":"can_grapple_location","c":"3701-3704","status":"ported","js":["js/apply.js:can_grapple_location"],"at":"2026-10-03@bbe63333a"}
 {"fn":"display_grapple_positions","c":"3707-3726","status":"ported","js":["js/apply.js:display_grapple_positions"],"at":"2026-10-03@bbe63333a"}
-{"fn":"use_grapple","c":"3729-3873","status":"ported","js":["js/apply.js:use_grapple"],"d":["D-2213"],"at":"2026-10-03@bbe63333a"}
+{"fn":"use_grapple","c":"3729-3873","status":"partial","js":["js/apply.js:use_grapple"],"omit":"(1) music.js do_pit + apply.js use_grapple fatal path: C losehp→done is noreturn, JS still continues (into selftouch / ECMD_TIME return) — pre-existing shape, no session evidence, unchanged by this iteration (ledger partial on both).","d":["D-4062","D-2213"],"at":"2026-10-17@e4c933c90"}
 {"fn":"discard_broken_wand","c":"3876-3885","status":"ported","js":["js/apply.js:discard_broken_wand"],"d":["D-3416","D-3268"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"broken_wand_explode","c":"3888-3893","status":"ported","js":["js/apply.js:broken_wand_explode"],"at":"2026-10-03@bbe63333a"}
 {"fn":"maybe_dunk_boulders","c":"3897-3905","status":"ported","js":["js/dig.js:maybe_dunk_boulders"],"at":"2026-10-03@bbe63333a"}
