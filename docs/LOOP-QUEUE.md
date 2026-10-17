@@ -217,6 +217,7 @@ rows now (`ledger.mjs set … --note "stale: …"`), not Parked lines.
 
 ### Diagnosed / misattributed / symptom owners (writer leads inside)
 
+- `makemon.c` rndmonst_adj Wizard-49950016 s289 — DIAGNOSED D-4065 (sanctum erinys table; C nulled draw-free via silent G_GONE, no genocide trace; arms audited whole). Falsifier: temp-C mvitals[ERINYS] dump naming the G-source (or refuting M3).
 - `invent.c` dfeature_at Samurai-49956004 s830 — DIAGNOSED D-4064 (C-MEM-floor vs JS-MEM-'I'; positions/props/viz/display-streams all synced, TEMP-C dumped, paradox cornered to 4 vicinity-arm inputs). Falsifier: M2 TEMP-C gbuf-dump + glyph write-trace naming one writer.
 - `wintty.c` extracolor fountain (50059006 s320, 50155025 s404) — WRITER D-4031. G_fountain RGB → term_start_extracolor emits 38;5 (hardcoded ANSI); patch 006 lacks the hook → capture drops SGR (cell 8, zero 38;5 in corpus). Falsifier: 38;5 in any capture; port = captureDrop under term_start_extracolor.
 

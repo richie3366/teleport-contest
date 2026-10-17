@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — D-4065 [measure] rndmonst_adj/Wizard-49950016@289: sanctum erinys table — C nulled pm draw-free (silent G_GONE, no genocide trace) where JS spawns explicit; arms audited, paradox parked DIAGNOSED
+
+**C locus:** sp_lev.c lspo_monster table arm :3341–3358 (draw-free id/female/class reads) + :3382–3386 (id valid → class=monsym; synchronous create_monster); create_monster :1925–1990 (:1943 amask; :1949–1953 G_UNIQ+EXTINCT return / G_GONE→pm=0 draw-free; :1954–1958 mkclass — PROVEN draws rn2(9)/species via mkclass_aligned, excluded for draw-free M3; location skipped on packed coords); makemon.c :1204–1232 (explicit pm + G_GENOD → NULL; NULL → rndmonst loop before propagate/newmonst). do.c:2007 hellish_smoke_mesg; mkclass=mkclass_aligned wrapper :1872–1875.
+**JS:** none.
+**Change:** none ([measure] — no js/).
+**Verify:** preflight `verify.mjs --no-cohort` PASS (before work); post `verify.mjs --no-cohort` PASS (0 js/ files; fortress intact). `show scen-worldtour-Wizard-49950016` replays the fork live on HEAD (kind=rng @289 — not stale). No `verify --fn` (no fn ported).
+**Named:** none — no port; docs-only entry, no Ledger bullet (D-4016/D-4028/D-4064 precedent) — rndmonst_adj stays ported (D-2823 stands); create_monster stays split; r21/r23–27 reserve-unattributed symset rows left carried (below the worked row; tier machinery, not this path).
+**Next:** M3 falsifier (temp-C, D-4064 cdump_step recipe): log-only mvitals[PM_ERINYS] dump (mvflags+died+born) at the step-289 arrival boundary + the lspo/create_monster arg trace for the 3rd spawn. If C lacks G_GONE → M3 identification wrong, re-open with the dump (port the true null arm). If C has it → writer = the silent G-source (port the application path whole with movement). Then unpark + port (predict s289→later owner or PASS).
 ## 2026-10-17 — D-4064 [measure] dfeature_at/Samurai-49956004@830: C-MEM-floor vs JS-MEM-'I' (vicinity-arm paradox; TEMP-C dumped, writer cornered, parked DIAGNOSED)
 
 **C locus:** detect.c do_vicinity_map 1st loop (show_map_spot + map_monst/map_invisible arms) / 2nd loop (:1562–1578 `glyph_is_monster(newglyph) && != PM_LONG_WORM_TAIL` → `m_at==0 || !canspotmon` → map_invisible) + see_monsters→newsym !cansee arm (display.c:1046–1054, memory arm); display.c:377–385 map_invisible (writes GLYPH_INVISIBLE iff hero_memory); display.h:770 glyph_is_monster (normal|pet|ridden|detected — GLYPH_INVISIBLE excluded); monmove.c:1508 tail (newsym(old) only, no newsym(new)).
