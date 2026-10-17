@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nh_mmmmm.Fj _,#chat\nh_mm,#chat\nh;_._mmmmm.Fl _.   n Fl #chat\ny#levelchange\n20\n                    \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm. _.  #chat\nh_mmmmm.#chat\nb;_._mmmmm.#chat\ny\u0017blessed +3 helm of telepathy\nWo   \u0017blessed +3 speed boots\nWp    n \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of striking\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.   Fh _.Fn   Fn  Fh  Fb   zrk   ,\u0016?\n>A\u0006_mmm.  n    Fn  _.Fu Fb  Fl  Fl Fh  zrn ,\u0016?\n>A\u0006_mmm,  n  Fh  _,Fb Fl      Fk   FjFb    n Fy   ,\u0016?\n>>\u001b\u0016?\n>y_m,   Fk     _.#chat\nu     \u00164\n\u0016?\n>z\u0006_mmmmmm.    n   Fu    _.Fj Fn     Fu   Fy ,#chat\nu    n    \u001612\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.   Fb _.Fy     Fj  Fh      n    Fh     Fn    Fu ,\u0016?\n>>\u001b\u0016?\n>y_mmm.     n Fu   _,#chat\nh   \u00161\n\u0016?\n>A\u0006_mm,    Fj  _.Fy   n   Fb    Fj  Fh    zrh    ,\u0016?\n>A\u0006_mmmmmm.   n      Fk    _,Fb Fb     Fn    Fn  n  Fu     Fn   zrl    ,#chat\nh   \u0016?\n>>\u001b\u0016?\n>y_mmm.    Fu   _.#chat\nl  n       ;y;\u00161\n\u0016?\n>z\u0006_mmmmmmm,     Fu  _,Fn    Fh  n Fu        Fb      Fn    Fh    n   ,\u0016?\n>>\u001b\u0016?\n>y_mmm,    Fh   _.#chat"
+ },
+ "segments": [
+  {
+   "seed": 51650066,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nh_mmmmm.Fj _,#chat\nh_mm,#chat\nh;_._mmmmm.Fl _.   n Fl #chat\ny#levelchange\n20\n                    \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm. _.  #chat\nh_mmmmm.#chat\nb;_._mmmmm.#chat\ny\u0017blessed +3 helm of telepathy\nWo   \u0017blessed +3 speed boots\nWp    n \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of striking\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.   Fh _.Fn   Fn  Fh  Fb   zrk   ,\u0016?\n>A\u0006_mmm.  n    Fn  _.Fu Fb  Fl  Fl Fh  zrn ,\u0016?\n>A\u0006_mmm,  n  Fh  _,Fb Fl      Fk   FjFb    n Fy   ,\u0016?\n>>\u001b\u0016?\n>y_m,   Fk     _.#chat\nu     \u00164\n\u0016?\n>z\u0006_mmmmmm.    n   Fu    _.Fj Fn     Fu   Fy ,#chat\nu    n    \u001612\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.   Fb _.Fy     Fj  Fh      n    Fh     Fn    Fu ,\u0016?\n>>\u001b\u0016?\n>y_mmm.     n Fu   _,#chat\nh   \u00161\n\u0016?\n>A\u0006_mm,    Fj  _.Fy   n   Fb    Fj  Fh    zrh    ,\u0016?\n>A\u0006_mmmmmm.   n      Fk    _,Fb Fb     Fn    Fn  n  Fu     Fn   zrl    ,#chat\nh   \u0016?\n>>\u001b\u0016?\n>y_mmm.    Fu   _.#chat\nl  n       ;y;\u00161\n\u0016?\n>z\u0006_mmmmmmm,     Fu  _,Fn    Fh  n Fu        Fb      Fn    Fh    n   ,\u0016?\n>>\u001b\u0016?\n>y_mmm,    Fh   _.#chat"
+  }
+ ]
+}

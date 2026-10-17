@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "tbb20s  #chat\nlt\u001b20s  jj150s   Fl Fl.100s  Fj ss150s50sFlFnFj100s150si\u001b100skulFlFls100s50s100s50s100s_ \u001b:>150sbbb100sFks20sFk.s150s100sFk..nluFhFhFhi\u001b100s100sj100sFy.skunFh20s20s\u0018\u001by50s#chat\nl#chat\nhljdes.s#chat\nh#chat\nk#sit\n#loot\nz_>.>\u0018\u001b_>.>150sbhl_>.>\u0018\u001b100sFh20s._>.>ybh100sFlFlFlFls.100seeeeeeeeeeeeeeeeeeeeeeeeeUBYY_>.>BYBB_>.>#turn\n\u000f\u001bBL NK_>.>cj#dip\nc<nnBJYH_>,>LJYJ_>,>NHLL_>.>W>LBYB_>.>10s#enhance\n\u001bKNLK_>.>FlFl.HJJL_>.>\u000f\u001b#jump\nz:BBNU_>.>NYYU_>.>HUYU_>.>JHBN_>.>:\u0004nBLJH_>.>#force\naUBYU_>.>BNNU_>.>\u000f\u001b10s10skb#chat\nykhhb10st\u001bt\u001b#pray\ny #pray\ny  eee#pray\ny   y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 51650063,
+   "datetime": "20210927050222",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:run\nOPTIONS=pettype:dog\n",
+   "moves": "tbb20s  #chat\nlt\u001b20s  jj150s   Fl Fl.100s  Fj ss150s50sFlFnFj100s150si\u001b100skulFlFls100s50s100s50s100s_ \u001b:>150sbbb100sFks20sFk.s150s100sFk..nluFhFhFhi\u001b100s100sj100sFy.skunFh20s20s\u0018\u001by50s#chat\nl#chat\nhljdes.s#chat\nh#chat\nk#sit\n#loot\nz_>.>\u0018\u001b_>.>150sbhl_>.>\u0018\u001b100sFh20s._>.>ybh100sFlFlFlFls.100seeeeeeeeeeeeeeeeeeeeeeeeeUBYY_>.>BYBB_>.>#turn\n\u000f\u001bBL NK_>.>cj#dip\nc<nnBJYH_>,>LJYJ_>,>NHLL_>.>W>LBYB_>.>10s#enhance\n\u001bKNLK_>.>FlFl.HJJL_>.>\u000f\u001b#jump\nz:BBNU_>.>NYYU_>.>HUYU_>.>JHBN_>.>:\u0004nBLJH_>.>#force\naUBYU_>.>BNNU_>.>\u000f\u001b10s10skb#chat\nykhhb10st\u001bt\u001b#pray\ny #pray\ny  eee#pray\ny   y\u001by  y y y\u001b  1"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nmh\n  \u0017towel\nanZ;k; \u001b;\u0017potion of gain ability\nqo20ssm..m.#wizintrinsic\ni\n \u0017towel\nap\u0017scroll of create monster\nrqllh;.\u0017slime mold\ner\u0017tin of lizard meat\nes .20s 20s "
+ },
+ "segments": [
+  {
+   "seed": 51651010,
+   "datetime": "20050119121640",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nmh\n  \u0017towel\nanZ;k; \u001b;\u0017potion of gain ability\nqo20ssm..m.#wizintrinsic\ni\n \u0017towel\nap\u0017scroll of create monster\nrqllh;.\u0017slime mold\ner\u0017tin of lizard meat\nes .20s 20s "
+  }
+ ]
+}

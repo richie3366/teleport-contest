@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  :cj#twoweapon\n,#sit\nol\u0018\u001b#pray\ny n>hu#chat\nl#conduct\n Wi\u001brc  ee    sm.20sef  sb.lW.s20seh   ..qd#monster\n10s #turn\n\\  \u0004ky #monster\n"
+ },
+ "segments": [
+  {
+   "seed": 51652022,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\n",
+   "moves": "  :cj#twoweapon\n,#sit\nol\u0018\u001b#pray\ny n>hu#chat\nl#conduct\n Wi\u001brc  ee    sm.20sef  sb.lW.s20seh   ..qd#monster\n10s #turn\n\\  \u0004ky #monster\n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u00174 cream pies\nQby\u0007acid blob\nkfhf \u001bFhFh\u0017potion of blindness\nt\u001b\u0007soldier\nkf \u001bf \u001bf \u001b\u0017halberd\nwk\u0007gnome\nj akk jh   ynnny y\u001bn  ,"
+ },
+ "segments": [
+  {
+   "seed": 51651008,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u00174 cream pies\nQby\u0007acid blob\nkfhf \u001bFhFh\u0017potion of blindness\nt\u001b\u0007soldier\nkf \u001bf \u001bf \u001b\u0017halberd\nwk\u0007gnome\nj akk jh   ynnny y\u001bn  ,"
+  }
+ ]
+}

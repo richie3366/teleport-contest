@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "yhj\u0017sink\nqy   n\u0017ring of fire resistance\ndk  \u001b:nu\u0017iron bars\n,i\u001b#loot\nj\u00167\nFjFjFjFhFhFjFhFhFjFhFjFhFjFjFnFhFhFlFhFlFnFhFnFlFhFjFnFhFhFnFhFlFjFjFlFhFnFnFnFhFnFhFnFhFl FhFhFjFjFnFhFhFhFhFhFnFnFjFjFjFnFnFnFlFlFnFlFlFlFlFjFnFjFhFjFhFlFhFnFjFnFlFlFjFlFhFhFnFhFlFlFjFjFjFnFhFjFnFnFhFlFhFjFnFlFnFlFjFhFnFhFlFjFlFnFnFhFnFhFl#enhance\nyj\na\n\u001b;h: \u001bm.Ok\u001b\nklu\u0017chaotic altar\ndi \u0017lichen corpse\n#offer\nl j\u0017fountain\nqyqyk \u0017tree\n: #twoweapon\n<\u0018\u001b\u000f\u001bujjFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkF"
+ },
+ "segments": [
+  {
+   "seed": 51650037,
+   "datetime": "20040705144746",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "yhj\u0017sink\nqy   n\u0017ring of fire resistance\ndk  \u001b:nu\u0017iron bars\n,i\u001b#loot\nj\u00167\nFjFjFjFhFhFjFhFhFjFhFjFhFjFjFnFhFhFlFhFlFnFhFnFlFhFjFnFhFhFnFhFlFjFjFlFhFnFnFnFhFnFhFnFhFl FhFhFjFjFnFhFhFhFhFhFnFnFjFjFjFnFnFnFlFlFnFlFlFlFlFjFnFjFhFjFhFlFhFnFjFnFlFlFjFlFhFhFnFhFlFlFjFjFjFnFhFjFnFnFhFlFhFjFnFlFnFlFjFhFnFhFlFjFlFnFnFhFnFhFl#enhance\nyj\na\n\u001b;h: \u001bm.Ok\u001b\nklu\u0017chaotic altar\ndi \u0017lichen corpse\n#offer\nl j\u0017fountain\nqyqyk \u0017tree\n: #twoweapon\n<\u0018\u001b\u000f\u001bujjFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkF"
+  }
+ ]
+}

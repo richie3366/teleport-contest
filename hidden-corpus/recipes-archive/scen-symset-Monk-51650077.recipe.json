@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "s\u0014 \u001b:#rub\nZa\n#sit\n\u001bFyFyFyFhFyFhFhFyFyFyFyFhFu FhFhFyFu FhFhFyFhFyFhFhFyFyFyFhFyFyFyFyFyFyFyFyFhFhFyFyFhFhFhFhFyFyFyFhFyFhFhFhFyFyFhFyFyFyFyFhFhFhFyFhFyFyFhFhFhFyFyFhFhFyFyFyFyFhFhFhFhFyFyFhFyFyFyFyFhFhFhFhFyFhFhFyFyFyFyFhFyFyFhFhFyFhFyFhFyFyFhFhFyFhFhFyFyFhFyFh\u0006_>>.Fl_.> FyFyFb\u0006_>,Fn_.Fb>FnFj_>.Fh_.Fh>FhFh_>,Fl_.Fl>FuFlFnFlFu<\u0006_>,Fh_.Fy>FyFy_>.Fn_.Fn>FnFn_>.Fh_,Fh>FhFyFyFyFy\u0006_>.Fn_.Fn>FnFn_>.Fy_.Fh>FhFh_>.Fl_,Fl>FnFuFuFuFlmOa\u001b\nmO>>>>j\u001b\nmO>>>w\u001b\nO>>>>e\u001b\n\u00163\nFyFyFuFyFuFlFkFyFyFuFuFyFuFyFuFyFkFuFyFuFkFkFuFkFyFyFkFyFyFkFyFkFkFkFyFyFuFuFkFyFkFyFuFuFuFkFkFuFkFyFyFkF"
+ },
+ "segments": [
+  {
+   "seed": 51650077,
+   "datetime": "20130627121847",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You miss\"\nMENUCOLOR=\"a potion\"=green\n",
+   "moves": "s\u0014 \u001b:#rub\nZa\n#sit\n\u001bFyFyFyFhFyFhFhFyFyFyFyFhFu FhFhFyFu FhFhFyFhFyFhFhFyFyFyFhFyFyFyFyFyFyFyFyFhFhFyFyFhFhFhFhFyFyFyFhFyFhFhFhFyFyFhFyFyFyFyFhFhFhFyFhFyFyFhFhFhFyFyFhFhFyFyFyFyFhFhFhFhFyFyFhFyFyFyFyFhFhFhFhFyFhFhFyFyFyFyFhFyFyFhFhFyFhFyFhFyFyFhFhFyFhFhFyFyFhFyFh\u0006_>>.Fl_.> FyFyFb\u0006_>,Fn_.Fb>FnFj_>.Fh_.Fh>FhFh_>,Fl_.Fl>FuFlFnFlFu<\u0006_>,Fh_.Fy>FyFy_>.Fn_.Fn>FnFn_>.Fh_,Fh>FhFyFyFyFy\u0006_>.Fn_.Fn>FnFn_>.Fy_.Fh>FhFh_>.Fl_,Fl>FnFuFuFuFlmOa\u001b\nmO>>>>j\u001b\nmO>>>w\u001b\nO>>>>e\u001b\n\u00163\nFyFyFuFyFuFlFkFyFyFuFuFyFuFyFuFyFkFuFyFuFkFkFuFkFyFyFkFyFyFkFyFkFkFkFyFyFuFuFkFyFkFyFuFuFuFkFkFuFkFyFyFkF"
+  }
+ ]
+}

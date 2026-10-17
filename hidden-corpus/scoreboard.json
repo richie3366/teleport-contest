@@ -1,11 +1,11 @@
 {
- "commit": "11ace4c41",
- "at": "2026-10-17T10:44:16.286Z",
+ "commit": "bc65b2e1a",
+ "at": "2026-10-17T12:05:19.488Z",
  "full": false,
  "fullCommit": "80a8469b3",
  "fullAt": "2026-10-17T10:02:02.484Z",
- "entries": 1082,
- "reserve": 226,
+ "entries": 1092,
+ "reserve": 229,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -2099,6 +2099,24 @@
    "jsTopline": "Where do you want to travel to?",
    "error": null
   },
+  "scen-extcmd-Rogue-51650049": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 17093,
+   "rngT": 17093,
+   "scrM": 1197,
+   "scrT": 1198,
+   "kind": "screen",
+   "step": 439,
+   "steps": 1198,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "Where do you want to travel to? (For instructions type a '?')",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-extcmd-Samurai-51257006": {
    "src": "corpus",
    "passed": false,
@@ -2166,6 +2184,24 @@
    "cTopline": "46: gained experience level 13",
    "jsTopline": "46: gained experience level 13",
    "error": null
+  },
+  "scen-extcmd-Valkyrie-51650029": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 9373,
+   "rngT": 9373,
+   "scrM": 1117,
+   "scrT": 1118,
+   "kind": "screen",
+   "step": 427,
+   "steps": 1118,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "Where do you want to travel to? (For instructions type a '?')",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-extcmd-Wizard-51550039": {
    "src": "corpus",
@@ -2352,6 +2388,23 @@
    "jsOwner": null,
    "cTopline": "The barbed devil casts a spell!",
    "jsTopline": "The floating eye casts a spell!",
+   "error": null
+  },
+  "scen-hallu-Valkyrie-51650028": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 30961,
+   "rngT": 30961,
+   "scrM": 1157,
+   "scrT": 1159,
+   "kind": "screen",
+   "step": 666,
+   "steps": 1159,
+   "owner": "findit",
+   "loc": "detect.c:1825",
+   "jsOwner": null,
+   "cTopline": "The door is consumed in flames! The blast reveals a secret door.--More--",
+   "jsTopline": "The door is consumed in flames! Your blast reveals a secret door.--More--",
    "error": null
   },
   "scen-hallu-Wizard-51450068": {
@@ -5140,6 +5193,24 @@
    "jsOwner": null,
    "cTopline": "The gnomish wizard points and curses at your displaced image.",
    "jsTopline": "The gnomish wizard points at you, then curses.",
+   "error": null,
+   "tier": "reserve"
+  },
+  "scen-shop-Ranger-51650055": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 38351,
+   "rngT": 38351,
+   "scrM": 503,
+   "scrT": 505,
+   "kind": "screen",
+   "step": 439,
+   "steps": 505,
+   "owner": "cursetxt",
+   "loc": "mcastu.c:76",
+   "jsOwner": null,
+   "cTopline": "The gnomish wizard points and curses at your displaced image.",
+   "jsTopline": "The gnomish wizard points at you, then curses.",
    "error": null
   },
   "scen-shop-Rogue-49959603": {
@@ -5310,6 +5381,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-shop-Wizard-51650005": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 14809,
+   "rngT": 14809,
+   "scrM": 381,
+   "scrT": 382,
+   "kind": "screen",
+   "step": 173,
+   "steps": 382,
+   "owner": "that_is_a_mimic",
+   "loc": "uhitm.c:6235",
+   "jsOwner": null,
+   "cTopline": "That strange object is a large mimic!",
+   "jsTopline": "That spellbook of magic missile is a large mimic!",
    "error": null
   },
   "scen-sokoban-Archeologist-50356000": {
@@ -7165,6 +7253,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-sweep-Knight-51650041": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 66644,
+   "rngT": 66644,
+   "scrM": 1604,
+   "scrT": 1651,
+   "kind": "screen",
+   "step": 944,
+   "steps": 1651,
+   "owner": "mfind0",
+   "loc": "detect.c:2005",
+   "jsOwner": null,
+   "cTopline": "You feel an unseen monster! You feel an unseen monster!--More--",
+   "jsTopline": "You feel an unseen monster! You feel an unseen monster!--More--",
+   "error": null
+  },
   "scen-sweep-Knight-578215": {
    "src": "corpus",
    "passed": true,
@@ -8338,6 +8443,23 @@
    "jsTopline": "Your movements are only slowed slightly by your load.",
    "error": null
   },
+  "scen-sweep-Rogue-51650031": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 42740,
+   "rngT": 44745,
+   "scrM": 621,
+   "scrT": 647,
+   "kind": "rng",
+   "step": 616,
+   "steps": 647,
+   "owner": "distfleeck",
+   "loc": "monmove.c:538",
+   "jsOwner": "m_move(monmove.js:2381)",
+   "cTopline": "It bites!",
+   "jsTopline": "It bites!",
+   "error": null
+  },
   "scen-sweep-Rogue-578101": {
    "src": "corpus",
    "passed": true,
@@ -8931,6 +9053,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-sweep-Tourist-51650001": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 37949,
+   "rngT": 37949,
+   "scrM": 1330,
+   "scrT": 1331,
+   "kind": "screen",
+   "step": 609,
+   "steps": 1331,
+   "owner": "trapeffect_sqky_board",
+   "loc": "trap.c:1455",
+   "jsOwner": null,
+   "cTopline": "The gnome stops momentarily and appears to cringe.--More--",
+   "jsTopline": "A board beneath the gnome squeaks a B flat loudly.--More--",
    "error": null
   },
   "scen-sweep-Tourist-582711": {
@@ -10173,6 +10312,24 @@
    "cTopline": "",
    "jsTopline": "Hello wizard, welcome to NetHack! You are a chaotic male orcish Ranger.",
    "error": null
+  },
+  "scen-symset-Ranger-51650047": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 60605,
+   "rngT": 60605,
+   "scrM": 0,
+   "scrT": 825,
+   "kind": "screen",
+   "step": 0,
+   "steps": 825,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "Hello wizard, welcome to NetHack! You are a neutral male human Ranger.",
+   "error": null,
+   "tier": "reserve"
   },
   "scen-symset-Rogue-50059048": {
    "src": "corpus",
@@ -13591,6 +13748,23 @@
    "jsTopline": "newsym: attempting screen update for <0,0>--More--",
    "error": null
   },
+  "scen-worldtour-Wizard-51650070": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 96865,
+   "rngT": 96865,
+   "scrM": 852,
+   "scrT": 853,
+   "kind": "screen",
+   "step": 850,
+   "steps": 853,
+   "owner": "zhitu",
+   "loc": "zap.c:4569",
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
   "scen-worldtour-Wizard-578116": {
    "src": "corpus",
    "passed": true,
@@ -16351,8 +16525,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Archeologist-50350039": {
    "src": "corpus",
@@ -18628,5 +18801,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-17T12:05:25.615Z"
 }

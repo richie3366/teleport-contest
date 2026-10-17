@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " das20s20sh#name\nm\n m.shiny\nhtbnndcs.20sr\u001bW\u001b#offer\nFj .sFj s._>.>\u0018\u001b100shbb\u0018\u001b_>,>50s150s\\    100sFhFu.50sykl50s50sblh100s\u000f\u001b_>.>\u000f\u001b\u0018\u001b,50s100sFjs20s150sFj.s100snlk150s150sFks20s150s150sublFyss150s150shntdllhlh10stdb10s#untrap\nb#loot\n\u0014tdnuyjhyhnldes20s20sukukeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBHNY_>.>JKJH_>.>BBNB_>,><afE- ad aerarium\nNNNK_>.>_<..E- I am a fish\nYJ  HL  _>.>FjFjFjHNH Y_>,>BHJU_>.>e20sBJBL_>,>HUBU_>.>HLUN_>,>\u000f\u001be#pray\ny  150s100sFb.s#monster\n\\    150s100s\u0018\u001b100s50s100sFb20ss\u0018\u001b\u0018\u001b100skj  k100sFjss100s;>.kjk\\    100stdh\\    kuh\\    kkl50s FjFj20sljkjbbubu_>.>_>.>100s150sFhFy20s50s\u0004j50s50s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNY L  U_>.>YLKK_>.>BLYK_>.>LKKJ_>.>H JYK_>.>UHYU_>.>#wipe\n: i\u001b#chat\ny10sllbulnknnhyujj10skklh10s#name\nm\ntdfs.20slltdl #chat\nbdd20s ss#terrain\n\u001b#ride\nnE\u001bee"
+ },
+ "segments": [
+  {
+   "seed": 51650073,
+   "datetime": "20010326111811",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\n",
+   "moves": " das20s20sh#name\nm\n m.shiny\nhtbnndcs.20sr\u001bW\u001b#offer\nFj .sFj s._>.>\u0018\u001b100shbb\u0018\u001b_>,>50s150s\\    100sFhFu.50sykl50s50sblh100s\u000f\u001b_>.>\u000f\u001b\u0018\u001b,50s100sFjs20s150sFj.s100snlk150s150sFks20s150s150sublFyss150s150shntdllhlh10stdb10s#untrap\nb#loot\n\u0014tdnuyjhyhnldes20s20sukukeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBHNY_>.>JKJH_>.>BBNB_>,><afE- ad aerarium\nNNNK_>.>_<..E- I am a fish\nYJ  HL  _>.>FjFjFjHNH Y_>,>BHJU_>.>e20sBJBL_>,>HUBU_>.>HLUN_>,>\u000f\u001be#pray\ny  150s100sFb.s#monster\n\\    150s100s\u0018\u001b100s50s100sFb20ss\u0018\u001b\u0018\u001b100skj  k100sFjss100s;>.kjk\\    100stdh\\    kuh\\    kkl50s FjFj20sljkjbbubu_>.>_>.>100s150sFhFy20s50s\u0004j50s50s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNY L  U_>.>YLKK_>.>BLYK_>.>LKKJ_>.>H JYK_>.>UHYU_>.>#wipe\n: i\u001b#chat\ny10sllbulnknnhyujj10skklh10s#name\nm\ntdfs.20slltdl #chat\nbdd20s ss#terrain\n\u001b#ride\nnE\u001bee"
+  }
+ ]
+}

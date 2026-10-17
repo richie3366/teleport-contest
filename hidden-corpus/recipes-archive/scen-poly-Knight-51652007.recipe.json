@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0017blessed ring of polymorph control\nPir\u0017chain mail\n W\u001bs.sTc#polyself\nlizard\n  #monster\n..\u0007gecko\nFu Fl Fksss#polyself\nki-rin\n Nazgul\n giant spider\n  #monster\n20s  .\u0007winter wolf\nFkFkFu sm.20ssj#polyself\nAngel\n water nymph\n #monster\nsm.sm.20s  .m.20s#polyself\npit fiend\n#monster\nsm.sk\u0007lich\nFj Fl "
+ },
+ "segments": [
+  {
+   "seed": 51652007,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0017blessed ring of polymorph control\nPir\u0017chain mail\n W\u001bs.sTc#polyself\nlizard\n  #monster\n..\u0007gecko\nFu Fl Fksss#polyself\nki-rin\n Nazgul\n giant spider\n  #monster\n20s  .\u0007winter wolf\nFkFkFu sm.20ssj#polyself\nAngel\n water nymph\n #monster\nsm.sm.20s  .m.20s#polyself\npit fiend\n#monster\nsm.sk\u0007lich\nFj Fl "
+  }
+ ]
+}

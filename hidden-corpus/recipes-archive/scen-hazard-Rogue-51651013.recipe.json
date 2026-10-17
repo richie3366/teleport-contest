@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n6\n    \u0017bullwhip\nwjFhFhFhX\u0007gremlin\nFh Fj Fj Fj sm. .m.  yy\u001bnny ny  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 51651013,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n6\n    \u0017bullwhip\nwjFhFhFhX\u0007gremlin\nFh Fj Fj Fj sm. .m.  yy\u001bnny ny  \u0007"
+  }
+ ]
+}

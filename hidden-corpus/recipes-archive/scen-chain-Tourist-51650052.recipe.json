@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of digging\nzo> sm.zo> 20s  yny  nn y  z Fk .sjuj100s\u0018\u001b20s100s_ \u001b,>i\u001b150s100sFlsskbu150s_>,>llkbyyFjFjs#tip\n\u001b150sFbs20snyu100s50s50s150snby_>,>ynk50s50s\u0018\u001bljh_>,>50s Fbs20synn\u0004uunl_>.>_>.>ynnkkjjlnlyhkn#name\nm@.#quit\nyy\u001by  y y y\u001b UKBB_ \u001b.>LYLN_>.>#terrain\nb\nzJNUU_>BHYY_>KLHB_><YBBN_><BKKK_>r cjbubnFyFyFyFyFyFyFyFyFl FlFlFlFlFlFlFlFkFkFkFkFkFkFkFkhukhhnkhlujb\u000f\u001b50s\u000f\u001b\u0018\u001b_>.>100s100sFks20s100s150s jklE- I am a fish\nhny100sFl.s50slnli\u001blhh100s100sFh..150s\\ 1#quit\nyy\u001by  y y y\u001b n#wizintrinsic\nb\n sm..k 20s20s  sm.  yy\u001by  y y y\u001bn  . FyFy s_ \u001b.>100s150sFjFjFjbnnFl..\\ 100s50s100sFlFls50s_>,>50s150sFlFlFl_>.>\u0018\u001b100s100s100s100sFlFlFl_>,>150sFlFls150s100s150sFl.s100s100sbky50s_>.>100sFlFnFlFlFlFlFl20sFlJKJH_>.>JHYL_>.>Fl20ssJYNL_>.>Fl FlFjYJYJ_>.>Fks.sqdJLLB_>.>#untrap\n.P<HBHU_>,>dcs.20syy20sun20sdes20s.t\u001blyt\u001bt\u001bt\u001bt\u001bbhnjbubkjlbu50shjllkh150sFlFl20s150sFl20s20s100s\\ \u0018\u001b100sFl20s.100sef\u0018\u001b100seeeeeeeeeeeeeeeeeeeeeebkjuBYNL_>.>KKYN_>.>YNNY_>.>BJNL_>,>UBHB_>.>10s#dip\nidJJKU_>.>FnFnFnch>NKKH_>.>Fnss\u000f\u001b#name\nm\nhyblbnkybkykjblleee#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51650052,
+   "datetime": "20091109153021",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\nzo> sm.zo> 20s  yny  nn y  z"
+  },
+  {
+   "seed": 51750052,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": " Fk .sjuj100s\u0018\u001b20s100s_ \u001b,>i\u001b150s100sFlsskbu150s_>,>llkbyyFjFjs#tip\n\u001b150sFbs20snyu100s50s50s150snby_>,>ynk50s50s\u0018\u001bljh_>,>50s Fbs20synn\u0004uunl_>.>_>.>ynnkkjjlnlyhkn#name\nm@.#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51850052,
+   "datetime": "20121123105545",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "UKBB_ \u001b.>LYLN_>.>#terrain\nb\nzJNUU_>BHYY_>KLHB_><YBBN_><BKKK_>r cjbubnFyFyFyFyFyFyFyFyFl FlFlFlFlFlFlFlFkFkFkFkFkFkFkFkhukhhnkhlujb\u000f\u001b50s\u000f\u001b\u0018\u001b_>.>100s100sFks20s100s150s jklE- I am a fish\nhny100sFl.s50slnli\u001blhh100s100sFh..150s\\ 1#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 51950052,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=runmode:walk\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "n#wizintrinsic\nb\n sm..k 20s20s  sm.  yy\u001by  y y y\u001bn  ."
+  },
+  {
+   "seed": 52050052,
+   "datetime": "20130314142116",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:run\n",
+   "moves": " FyFy s_ \u001b.>100s150sFjFjFjbnnFl..\\ 100s50s100sFlFls50s_>,>50s150sFlFlFl_>.>\u0018\u001b100s100s100s100sFlFlFl_>,>150sFlFls150s100s150sFl.s100s100sbky50s_>.>100sFlFnFlFlFlFlFl20sFlJKJH_>.>JHYL_>.>Fl20ssJYNL_>.>Fl FlFjYJYJ_>.>Fks.sqdJLLB_>.>#untrap\n.P<HBHU_>,>dcs.20syy20sun20sdes20s.t\u001blyt\u001bt\u001bt\u001bt\u001bbhnjbubkjlbu50shjllkh150sFlFl20s150sFl20s20s100s\\ \u0018\u001b100sFl20s.100sef\u0018\u001b100seeeeeeeeeeeeeeeeeeeeeebkjuBYNL_>.>KKYN_>.>YNNY_>.>BJNL_>,>UBHB_>.>10s#dip\nidJJKU_>.>FnFnFnch>NKKH_>.>Fnss\u000f\u001b#name\nm\nhyblbnkybkykjblleee#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

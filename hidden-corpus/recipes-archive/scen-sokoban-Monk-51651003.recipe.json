@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>D\u0017scroll of earth\nrl luu\u0017scroll of earth\nrm k llkkkbbkuynylkkluulubyyuuj\u0017wand of digging\nznyhyy\u0017scroll of earth\nro   ynny y\u001b  h"
+ },
+ "segments": [
+  {
+   "seed": 51651003,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=fruit:slime mold\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>D\u0017scroll of earth\nrl luu\u0017scroll of earth\nrm k llkkkbbkuynylkkluulubyyuuj\u0017wand of digging\nznyhyy\u0017scroll of earth\nro   ynny y\u001b  h"
+  }
+ ]
+}

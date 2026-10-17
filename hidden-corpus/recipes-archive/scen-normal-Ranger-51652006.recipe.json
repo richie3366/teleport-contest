@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "P_<. \u001b;sm.P#terrain\nb\nc ok#pray\ny    #enhance\n\u001bucka#enhance\n\u001bP#terrain\nb\n#dip\n:#wipe\nWch\\ wdf  htak10s"
+ },
+ "segments": [
+  {
+   "seed": 51652006,
+   "datetime": "20170215064837",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "P_<. \u001b;sm.P#terrain\nb\nc ok#pray\ny    #enhance\n\u001bucka#enhance\n\u001bP#terrain\nb\n#dip\n:#wipe\nWch\\ wdf  htak10s"
+  }
+ ]
+}

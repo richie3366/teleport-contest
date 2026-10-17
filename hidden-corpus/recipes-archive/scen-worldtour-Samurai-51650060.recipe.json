@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>>M      spellbook of healing\nnn     l  j  k n h     n    : .\u0016?\nb\u0014 \u001b@.\u0016?\n\u001bb  k       n \u001643\nl  n   u  j  k   :\u0016?\n\u001bu  n    b \u0016?\n\u001bb b\u001643\n_<.\u0016?\n\u001bh   h\u0016?\n\u001bbk \u0016?\n\u001bbb\u0016?\n\u001bbh\u001643\n#chat\nl  ;n:  sm.\u0016?\n\u001byb\u0016?\n\u001bnh\u0016?\n\u001bbj\u0016?\n\u001buk\u001639\n_>,\u0016?\n\u001bbb\u001641\n_<.\u0016?\n\u001byu  n\u0016?\n\u001byk \u0016?\n\u001bn k\u0016?\n\u001bh  n k \u001641\nu      b y           nl l   hyy:\u0016?\n\u001byyyy\u0016?\n\u001byyynyy\u0016?\n\u001byyynyy\u001641\n\u0004b \u001621\n#levelchange\n20\n   bbnu   n       \u0017unaligned altar\ndf\u0017floating eye corpse\n#offer\ny          n u      \u0017chaotic altar\ndc     \u0017dwarf corpse\n#offer\nj   #pray\ny y                   #jump\nq#jump\nsn       \u00163\n\u001613\n\u0004l .j  .m.\u001613\njby     n jk   u  j  : \u001617\n\u0006@._>,\u0016?\ne #chat\nn;>..20s \u00167\n__.\u001630\ny  n n    hl    n  :\u001611\n\u0016?\na    _<.<sh sm.   n      .b        \u001621\ny           n      j       n      :sm.       n                    yny   y ny\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 51650060,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>>M      spellbook of healing\nnn     l  j  k n h     n    : .\u0016?\nb\u0014 \u001b@.\u0016?\n\u001bb  k       n \u001643\nl  n   u  j  k   :\u0016?\n\u001bu  n    b \u0016?\n\u001bb b\u001643\n_<.\u0016?\n\u001bh   h\u0016?\n\u001bbk \u0016?\n\u001bbb\u0016?\n\u001bbh\u001643\n#chat\nl  ;n:  sm.\u0016?\n\u001byb\u0016?\n\u001bnh\u0016?\n\u001bbj\u0016?\n\u001buk\u001639\n_>,\u0016?\n\u001bbb\u001641\n_<.\u0016?\n\u001byu  n\u0016?\n\u001byk \u0016?\n\u001bn k\u0016?\n\u001bh  n k \u001641\nu      b y           nl l   hyy:\u0016?\n\u001byyyy\u0016?\n\u001byyynyy\u0016?\n\u001byyynyy\u001641\n\u0004b \u001621\n#levelchange\n20\n   bbnu   n       \u0017unaligned altar\ndf\u0017floating eye corpse\n#offer\ny          n u      \u0017chaotic altar\ndc     \u0017dwarf corpse\n#offer\nj   #pray\ny y                   #jump\nq#jump\nsn       \u00163\n\u001613\n\u0004l .j  .m.\u001613\njby     n jk   u  j  : \u001617\n\u0006@._>,\u0016?\ne #chat\nn;>..20s \u00167\n__.\u001630\ny  n n    hl    n  :\u001611\n\u0016?\na    _<.<sh sm.   n      .b        \u001621\ny           n      j       n      :sm.       n                    yny   y ny\u001b  \u0016"
+  }
+ ]
+}

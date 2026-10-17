@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u0017the Master Key of Thievery\n \u0007water nymph\nFu Fj        20sFl  ss\u0007Famine\nyFbFb\u0007cobra\nFl   nFb   Fl  n   nFl   n Fb \u0007fire vortex\nsm.  nsu s\u001b.20s  .m.\u001622\n\u00164\n#levelchange\n14\n     nluk\u0017pit\nj\u0007kobold\n.l.m.   n.h.m.u\u0017trap door\nk   n j20s .m.  n #terrain\ne\n:20s s\u00166\n#levelchange\n30\n                #wizintrinsic\ne\n 20s 20s  n sm..u  n 20s .m.sm.  n.m.sm.  n20s .m.sm.  nsm.20s \u0017expensive camera\nagl  n \\    k>#enhance\nyn\nk\n\u001b\u0004y#terrain\nb\n  n 20s .m.  yn  ."
+ },
+ "segments": [
+  {
+   "seed": 51650021,
+   "datetime": "20231113115314",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u0017the Master Key of Thievery\n \u0007water nymph\nFu Fj        20sFl  ss\u0007Famine\nyFbFb\u0007cobra\nFl   nFb   Fl  n   nFl   n Fb \u0007fire vortex\nsm.  nsu s\u001b.20s  .m.\u001622\n\u00164\n#levelchange\n14\n     nluk\u0017pit\nj\u0007kobold\n.l.m.   n.h.m.u\u0017trap door\nk   n j20s .m.  n #terrain\ne\n:20s s\u00166\n#levelchange\n30\n                #wizintrinsic\ne\n 20s 20s  n sm..u  n 20s .m.sm.  n.m.sm.  n20s .m.sm.  nsm.20s \u0017expensive camera\nagl  n \\    k>#enhance\nyn\nk\n\u001b\u0004y#terrain\nb\n  n 20s .m.  yn  ."
+  }
+ ]
+}

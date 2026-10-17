@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " FbFb 20s100s100s150s100sull_ \u001bm,>FhFh20s_>,>150s50s50sFhsFhFhss\u000f\u001b100s100s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUKH L_>.>BJUY_>.>#untrap\n.\u0014YBKH_>,>#rub\n#terrain\nb\nBJBK_>BNNU_>\u000f ep  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#twoweapon\n#jump\n>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeennyjhuuky#chat\nh#chat\nyn ny  y y n  h"
+ },
+ "segments": [
+  {
+   "seed": 51650033,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\n",
+   "moves": " FbFb 20s100s100s150s100sull_ \u001bm,>FhFh20s_>,>150s50s50sFhsFhFhss\u000f\u001b100s100s eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUKH L_>.>BJUY_>.>#untrap\n.\u0014YBKH_>,>#rub\n#terrain\nb\nBJBK_>BNNU_>\u000f ep  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#twoweapon\n#jump\n>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeennyjhuuky#chat\nh#chat\nyn ny  y y n  h"
+  }
+ ]
+}

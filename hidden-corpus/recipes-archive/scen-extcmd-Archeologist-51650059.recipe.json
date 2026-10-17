@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWi\u0017blessed Mjollnir\nwj\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n12\n           \u0007owlbear\n#dip\nkl \u001b#offer\n#pray\ny y   #chat\nk#wizidentify\n\u001bFl   Fk_ \u001b@.\u0007owlbear\n#overview\n\u001b#conduct\n \u0018\u001b#name\nd\n#adjust\na\u001b#chat\nl #turn\n#polyself\nfire giant\n#monster\nsu  .m. FlFk   nFl 20sss_oooooo,,\u0007gnome lord\n#vanquished\n #genocided\nKeystone Kop\nkj\u0018\u001b#twoweapon\n#invoke\nj#sit\n #pray\ny y  #levelchange\n2\n   Fj s20ssP_ooooo._., \u0007newt\n#chronicle\n  #terrain\n\u001b\u000f\u001b#wipe\n#loot\nn#chat\nn#chat\nn#jump\n#polyself\nfog cloud\n  #monster\ns  sFnFn Fn Fn  Fn Fnf a n_oooo._,,\u0007#version\n #history\n                  \u0018\u001b#tip\nh\u001b#ride\nhy#turn\n#sit\n#jump\n#wizidentify\n\u001bbkj_m,.m._oooo,Fj_.,\u0007grid bug\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nn#offer\n#pray\ny y  #chat\nh#levelchange\n19\n                FhFhFh_<.Fk_,,\u001b#vanquished\n #genocided\nsalamander\nh\u001b\u000f\u001b#name\nf\n#a"
+ },
+ "segments": [
+  {
+   "seed": 51650059,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWi\u0017blessed Mjollnir\nwj\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n12\n           \u0007owlbear\n#dip\nkl \u001b#offer\n#pray\ny y   #chat\nk#wizidentify\n\u001bFl   Fk_ \u001b@.\u0007owlbear\n#overview\n\u001b#conduct\n \u0018\u001b#name\nd\n#adjust\na\u001b#chat\nl #turn\n#polyself\nfire giant\n#monster\nsu  .m. FlFk   nFl 20sss_oooooo,,\u0007gnome lord\n#vanquished\n #genocided\nKeystone Kop\nkj\u0018\u001b#twoweapon\n#invoke\nj#sit\n #pray\ny y  #levelchange\n2\n   Fj s20ssP_ooooo._., \u0007newt\n#chronicle\n  #terrain\n\u001b\u000f\u001b#wipe\n#loot\nn#chat\nn#chat\nn#jump\n#polyself\nfog cloud\n  #monster\ns  sFnFn Fn Fn  Fn Fnf a n_oooo._,,\u0007#version\n #history\n                  \u0018\u001b#tip\nh\u001b#ride\nhy#turn\n#sit\n#jump\n#wizidentify\n\u001bbkj_m,.m._oooo,Fj_.,\u0007grid bug\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nn#offer\n#pray\ny y  #chat\nh#levelchange\n19\n                FhFhFh_<.Fk_,,\u001b#vanquished\n #genocided\nsalamander\nh\u001b\u000f\u001b#name\nf\n#a"
+  }
+ ]
+}

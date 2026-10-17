@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017uncursed the Candelabrum of Invocation\nw-20ss20s#invoke\nfs20s\u0017blessed +3 ring of increase damage\nPgl.20ssR\u00173 bell\nahah.s"
+ },
+ "segments": [
+  {
+   "seed": 51652000,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017uncursed the Candelabrum of Invocation\nw-20ss20s#invoke\nfs20s\u0017blessed +3 ring of increase damage\nPgl.20ssR\u00173 bell\nahah.s"
+  }
+ ]
+}

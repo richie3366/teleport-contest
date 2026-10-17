@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b,#chat\nk_mm.#chat\nh_mmmm.#chat\ny;_.#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_m._,#chat\ny_mm.#chat\nh_mmmmm.Fj  _,#chat\nj;j:  \u0017blessed amulet of reflection\nPj\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of lightning\n\u0016?\n>A\u0006_mmmmmmm,Fj_.Fj Fj FjFjszll ,#chat\nj\u0016?\n>A\u0006_mmmmmm,s.20ss,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nu"
+ },
+ "segments": [
+  {
+   "seed": 51650036,
+   "datetime": "20010729093306",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b,#chat\nk_mm.#chat\nh_mmmm.#chat\ny;_.#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_m._,#chat\ny_mm.#chat\nh_mmmmm.Fj  _,#chat\nj;j:  \u0017blessed amulet of reflection\nPj\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of lightning\n\u0016?\n>A\u0006_mmmmmmm,Fj_.Fj Fj FjFjszll ,#chat\nj\u0016?\n>A\u0006_mmmmmm,s.20ss,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nu"
+  }
+ ]
+}

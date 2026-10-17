@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n       \u0017Trollsbane\nwfFb s.#invoke\nf\u0007mumak\nFhFhFhFhFh\u0007gecko\nFhFb\u0007paper golem\nFnFb   yy\u001by   y y y\u001by  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 51652004,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n       \u0017Trollsbane\nwfFb s.#invoke\nf\u0007mumak\nFhFhFhFhFh\u0007gecko\nFhFb\u0007paper golem\nFnFb   yy\u001by   y y y\u001by  \u0007"
+  }
+ ]
+}

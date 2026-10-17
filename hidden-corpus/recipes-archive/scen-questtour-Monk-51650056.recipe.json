@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nj_mmmmm.#chat\nj;n;_mmmm,   nFy   n  n_.   nFy   n#chat\nh#levelchange\n14\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.Fy_.#chat\nh_mm.Fh _,#chat\nb  ;h;_mmmmm.Fh_..Fu    n  #chat\ny  \u0017blessed +3 helm of telepathy\nWk    n\u0017blessed amulet of reflection\nPl \u0017blessed +3 speed boots\nWm   \u0017wand of cold\n\u0016?\n>z\u0006_mm.     _.sFjFj   FhFj   Fh   n  znj      ,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mm,     n Fh   _.#chat\ny    \u00166\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.    nFj   _.>.Fk   FyFb     nFb   FyFlFb,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.  Fh_,#chat\nb\u00162\n\u0016?\n>A\u0006_mmmmm,   nFn_.FjFu Fl   Fbznl  ,#chat\nb\u0016?\n>A\u0006_mmm.   nFb   _.Fu     Fn  FhFn   n  Fl  ,#chat\nj \u001610\n\u0016?\n>z\u0006_mmmmmmm.Fn _,FnFl    n Fl     Fn   n  Fb   Fl  yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51650056,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=runmode:teleport\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nj_mmmmm.#chat\nj;n;_mmmm,   nFy   n  n_.   nFy   n#chat\nh#levelchange\n14\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.Fy_.#chat\nh_mm.Fh _,#chat\nb  ;h;_mmmmm.Fh_..Fu    n  #chat\ny  \u0017blessed +3 helm of telepathy\nWk    n\u0017blessed amulet of reflection\nPl \u0017blessed +3 speed boots\nWm   \u0017wand of cold\n\u0016?\n>z\u0006_mm.     _.sFjFj   FhFj   Fh   n  znj      ,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mm,     n Fh   _.#chat\ny    \u00166\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.    nFj   _.>.Fk   FyFb     nFb   FyFlFb,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.  Fh_,#chat\nb\u00162\n\u0016?\n>A\u0006_mmmmm,   nFn_.FjFu Fl   Fbznl  ,#chat\nb\u0016?\n>A\u0006_mmm.   nFb   _.Fu     Fn  FhFn   n  Fl  ,#chat\nj \u001610\n\u0016?\n>z\u0006_mmmmmmm.Fn _,FnFl    n Fl     Fn   n  Fb   Fl  yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

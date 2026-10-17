@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed shield of reflection\nW\u001b\u0017blessed ring of free action\nPjl\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n20\n                   \u00175 boomerangs\nQl\u0007gnome lord\n\u0007kobold\nfutblfhtlhfh  fj \u0017potion of water\nt\u001b\u0017elven bow\nwn \u001720 elven arrows\nQo\u0007owlbear\ntah flfl  fh\u0007silver dragon\n\u0007silver dragon\nsn 20s  20s   n  .m.    Fk   Fy            n  i\u001b\u00161\n\u0017blessed spellbook of force bolt\nrp sm.\u0017spellbook of slow monster\nrq sm.\u0007aligned cleric\nnZZZsl  .uZZ20s    20s \u00161\n\u0007baby red dragon\nsm.20s  n  #polyself\ngold dragon\n   #monster\nk 20s sm.#monster\nh  #monster\ny#monster\nh   Fy   Fk\u0007kobold shaman\n\u0007gnomish wizard\n\u0017wand of magic missile\nzrb    20s  zrb        nsm. zrk.m.    sm.zrk    zrzr     n\u001612\n\u0018\u001b\u00164\n\u0017wand of sleep\n\u0017wand of magic missile\n\u0017wand of teleportation\n\u0007sewer rat\n\u0007jackal\nztlztk zsy zty zs.zsuztj zsj ztjztj\u0017wand of sleep\n\u0017wand of fire\n\u0007jackal\nzvn zwn s zwhzvk   nzvk zvyszvy  zwy  \u001b\u0017wand of slow monster\n\u0017wand of sleep\n\u0017wand of magic missile\n\u0007sewer rat\n\u0007yellow mold\n\u0007gnome lord\nzyu  nzyj       zzl  n.zyu szxuzxu\u0018\u001b\u00161\n\u0017wand of death\n\u0017wand of lightning\n\u0007gnome lord\n\u0007kobold shaman\nzBh zBj.z"
+ },
+ "segments": [
+  {
+   "seed": 51650094,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed shield of reflection\nW\u001b\u0017blessed ring of free action\nPjl\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n20\n                   \u00175 boomerangs\nQl\u0007gnome lord\n\u0007kobold\nfutblfhtlhfh  fj \u0017potion of water\nt\u001b\u0017elven bow\nwn \u001720 elven arrows\nQo\u0007owlbear\ntah flfl  fh\u0007silver dragon\n\u0007silver dragon\nsn 20s  20s   n  .m.    Fk   Fy            n  i\u001b\u00161\n\u0017blessed spellbook of force bolt\nrp sm.\u0017spellbook of slow monster\nrq sm.\u0007aligned cleric\nnZZZsl  .uZZ20s    20s \u00161\n\u0007baby red dragon\nsm.20s  n  #polyself\ngold dragon\n   #monster\nk 20s sm.#monster\nh  #monster\ny#monster\nh   Fy   Fk\u0007kobold shaman\n\u0007gnomish wizard\n\u0017wand of magic missile\nzrb    20s  zrb        nsm. zrk.m.    sm.zrk    zrzr     n\u001612\n\u0018\u001b\u00164\n\u0017wand of sleep\n\u0017wand of magic missile\n\u0017wand of teleportation\n\u0007sewer rat\n\u0007jackal\nztlztk zsy zty zs.zsuztj zsj ztjztj\u0017wand of sleep\n\u0017wand of fire\n\u0007jackal\nzvn zwn s zwhzvk   nzvk zvyszvy  zwy  \u001b\u0017wand of slow monster\n\u0017wand of sleep\n\u0017wand of magic missile\n\u0007sewer rat\n\u0007yellow mold\n\u0007gnome lord\nzyu  nzyj       zzl  n.zyu szxuzxu\u0018\u001b\u00161\n\u0017wand of death\n\u0017wand of lightning\n\u0007gnome lord\n\u0007kobold shaman\nzBh zBj.z"
+  }
+ ]
+}

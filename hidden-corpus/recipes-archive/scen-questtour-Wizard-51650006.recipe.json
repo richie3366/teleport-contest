@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nh_mm.#chat\nh;y,_mmmmm._.#chat\ny;m._mmmmm,Fl_.#chat\nk#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm,#chat\ny_mmm.Fy _.#chat\nb_mmm.#chat\nb\u0017blessed amulet of reflection\nPp\u0017blessed +3 gauntlets of power\nWq\u0017wand of death\n\u0016?\n>A\u0006_mmmmmmm,Fb_.FbFb20sFb20sFb20sFj,#chat\nb\u0016?\n>z\u0006_mmm.FbFj20s .Fhzrj,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nh;h;\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fh _.FkFuFy.sFyFyzrn ,#chat\ny  n \u0016?\n>A\u0006_mm.FyFb FyFhFbFk,#chat\ny\u0016?\n>A\u0006_mm.FyFhFyFy20s zry,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj\u0016?\n>z\u0006_mmmmm.20s  Fus.,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nn;m,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,s20s20sszrl,\u0016?\n>A\u0006_mmmmmm.s20sss Fh  zrh,#chat\nb\u0016?\n>A\u0006_mmm.20s20s20s20s20szrh,\u0016?\n>z\u0006_mmmm..20s.20s20szrj,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fh  _. Fh  Fh20ss.szrj,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_m,#"
+ },
+ "segments": [
+  {
+   "seed": 51650006,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nh_mm.#chat\nh;y,_mmmmm._.#chat\ny;m._mmmmm,Fl_.#chat\nk#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm,#chat\ny_mmm.Fy _.#chat\nb_mmm.#chat\nb\u0017blessed amulet of reflection\nPp\u0017blessed +3 gauntlets of power\nWq\u0017wand of death\n\u0016?\n>A\u0006_mmmmmmm,Fb_.FbFb20sFb20sFb20sFj,#chat\nb\u0016?\n>z\u0006_mmm.FbFj20s .Fhzrj,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nh;h;\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fh _.FkFuFy.sFyFyzrn ,#chat\ny  n \u0016?\n>A\u0006_mm.FyFb FyFhFbFk,#chat\ny\u0016?\n>A\u0006_mm.FyFhFyFy20s zry,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj\u0016?\n>z\u0006_mmmmm.20s  Fus.,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nn;m,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,s20s20sszrl,\u0016?\n>A\u0006_mmmmmm.s20sss Fh  zrh,#chat\nb\u0016?\n>A\u0006_mmm.20s20s20s20s20szrh,\u0016?\n>z\u0006_mmmm..20s.20s20szrj,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fh  _. Fh  Fh20ss.szrj,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_m,#"
+  }
+ ]
+}

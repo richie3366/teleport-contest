@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0016?\n>Ccl#offer\nZ..\u0016?\n>A  z#wipe\n#terrain\ne\n;y. \u001b>.sk               su         yny   y y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 51652015,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0016?\n>Ccl#offer\nZ..\u0016?\n>A  z#wipe\n#terrain\ne\n;y. \u001b>.sk               su         yny   y y\u001b  \u0016"
+  }
+ ]
+}

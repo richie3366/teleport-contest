@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "FkFkFkFhFl .100s,150s50s100s150s100s100sFkFkFk150s100s50s\u000f\u001b150sefhyn50s\\ yhh100slykjjl#name\nf\n ;\\ 50s100sFlss50s100s150sykjjlhFls20sFls20s150s100sFl20s.100sUUNL_>,>NULH_>.>Fh20s20s#twoweapon\n#conduct\n LLLK_>.><ef50s100sFjs._>,>#force\n50s100sFjs20s100skhl_>.>100s100sFjss_>.>50shlh\u000f\u001b150s100sFns20s\\ 100s50s_>.>100sFl..kjk_>.>jly100sef\u0018\u001b150stdn100si\u001bjkj\\ f  b#name\nd\n#twoweapon\n\u0018\u001b\\ Wkjk100s50sFj Fjs100sjkjkhl100shny100sef_>,>klhkln#conduct\n 50syyn_>.>#rub\nk50s100syunyuh100sFns.100sjkb150s50s#sit\n\u001b150sef150s\u000f\u001bhhh150sFn.s#enhance\n\u001bbyjkljFnFnskku50s100sljk100sFjFjs50sbuu150s\u000f\u001b50s50s kyb100seeeeeeeeeeeeeeeeeeeeeHNYK_>,>UNYL_>.>LNBY_>,>s#pray\ny UJBK_>,>#offer\n,JNYJ_>.>,#jump\nYYLY_>,>:ZtdyULHN_>.>Fjs20s#force\n\u000f\u001bKLUY_>.>LN LK_>.>Fj FjFjNBJB_>,>BBNB_>,><NBKJ_>.>Fj20ssJUHJ_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 51650093,
+   "datetime": "20100319021515",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "FkFkFkFhFl .100s,150s50s100s150s100s100sFkFkFk150s100s50s\u000f\u001b150sefhyn50s\\ yhh100slykjjl#name\nf\n ;\\ 50s100sFlss50s100s150sykjjlhFls20sFls20s150s100sFl20s.100sUUNL_>,>NULH_>.>Fh20s20s#twoweapon\n#conduct\n LLLK_>.><ef50s100sFjs._>,>#force\n50s100sFjs20s100skhl_>.>100s100sFjss_>.>50shlh\u000f\u001b150s100sFns20s\\ 100s50s_>.>100sFl..kjk_>.>jly100sef\u0018\u001b150stdn100si\u001bjkj\\ f  b#name\nd\n#twoweapon\n\u0018\u001b\\ Wkjk100s50sFj Fjs100sjkjkhl100shny100sef_>,>klhkln#conduct\n 50syyn_>.>#rub\nk50s100syunyuh100sFns.100sjkb150s50s#sit\n\u001b150sef150s\u000f\u001bhhh150sFn.s#enhance\n\u001bbyjkljFnFnskku50s100sljk100sFjFjs50sbuu150s\u000f\u001b50s50s kyb100seeeeeeeeeeeeeeeeeeeeeHNYK_>,>UNYL_>.>LNBY_>,>s#pray\ny UJBK_>,>#offer\n,JNYJ_>.>,#jump\nYYLY_>,>:ZtdyULHN_>.>Fjs20s#force\n\u000f\u001bKLUY_>.>LN LK_>.>Fj FjFjNBJB_>,>BBNB_>,><NBKJ_>.>Fj20ssJUHJ_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

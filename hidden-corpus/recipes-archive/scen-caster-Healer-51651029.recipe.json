@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017spellbook of create monster\nrk   sm. \u0017blessed spellbook of create familiar\nrl  20s +c\n\u0007acid blob\nZc\n  Zb\n Za\nZa\nFjZc\nFjSy\u001b n#wipe\nh\u000f\u001b,#chat\nn#terrain\nb\n\u001b,,kbl\u0017web\nl\u0007gnome\nsm. sm.su20sn\u0017statue trap\nhl 20ssm.bb\u0017fire trap\nlh   20ssm.ly",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51651029,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017spellbook of create monster\nrk   sm. \u0017blessed spellbook of create familiar\nrl  20s +c\n\u0007acid blob\nZc\n  Zb\n Za\nZa\nFjZc\nFjSy\u001b"
+  },
+  {
+   "seed": 52151029,
+   "datetime": "20060922222535",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " n#wipe\nh\u000f\u001b,#chat\nn#terrain\nb\n\u001b,,kbl\u0017web\nl\u0007gnome\nsm. sm.su20sn\u0017statue trap\nhl 20ssm.bb\u0017fire trap\nlh   20ssm.ly"
+  }
+ ]
+}

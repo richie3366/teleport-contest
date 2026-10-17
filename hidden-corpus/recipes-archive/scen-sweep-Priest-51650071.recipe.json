@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n6\n    \u0016?\n>EFh h\u0017wand of striking\nzjkhhl10s\u0017wand of digging\nzky yFh Fh bFk   nu10s Fhyyyyyy\u0017wand of digging\nzlyyyyyyyylk\u0017wand of digging\nzmjk\u0017wand of digging\nznk\u0017wand of digging\nzohbhbhhhbunh\u0017wand of digging\nzpl\u0017wand of striking\nzqk\u0017scroll of earth\nrr bluhknubknu#levelchange\n12\n     \u0007shopkeeper\nyy#chat\ny.20s\u0007baby red dragon\n20ss20s20s.20s20s20ss\u0007brown pudding\ns..\u0007Death\nyy;m. \u001b>.20ssm.   20s     n\u001621\n#levelchange\n30\n                  \u0017blessed ring of polymorph control\nPsl    #polyself\nfog cloud\n #monster\ns        n20s   20s   n  n20s   n   sy#polyself\nxorn\n#monster\n.m.        n .m.   n  .bsm.   sm.   n   n#polyself\nbalrog\n#monster\n20s           sm.   n  sm.   n  nsm.   n20s   n    y\u001b      \u0017"
+ },
+ "segments": [
+  {
+   "seed": 51650071,
+   "datetime": "20000926120310",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n6\n    \u0016?\n>EFh h\u0017wand of striking\nzjkhhl10s\u0017wand of digging\nzky yFh Fh bFk   nu10s Fhyyyyyy\u0017wand of digging\nzlyyyyyyyylk\u0017wand of digging\nzmjk\u0017wand of digging\nznk\u0017wand of digging\nzohbhbhhhbunh\u0017wand of digging\nzpl\u0017wand of striking\nzqk\u0017scroll of earth\nrr bluhknubknu#levelchange\n12\n     \u0007shopkeeper\nyy#chat\ny.20s\u0007baby red dragon\n20ss20s20s.20s20s20ss\u0007brown pudding\ns..\u0007Death\nyy;m. \u001b>.20ssm.   20s     n\u001621\n#levelchange\n30\n                  \u0017blessed ring of polymorph control\nPsl    #polyself\nfog cloud\n #monster\ns        n20s   20s   n  n20s   n   sy#polyself\nxorn\n#monster\n.m.        n .m.   n  .bsm.   sm.   n   n#polyself\nbalrog\n#monster\n20s           sm.   n  sm.   n  nsm.   n20s   n    y\u001b      \u0017"
+  }
+ ]
+}

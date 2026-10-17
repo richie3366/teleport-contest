@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPfl\u0017blessed +3 gauntlets of power\nWg\u0016?\n>w  \u0006_ \u001b.,\u0014<. 20s._oo.,p_{. _.qy_ooo._ooo.,p_ooooooooo,,:\u0016?\ncbkj\u0016?\n>w\u0006__._.#chat\nl#pray\ny y bly#chat\nyukj#chat\nu_ooooooo.Fb _.Fb,pyjk#chat\nhllu#chat\nh_ooooooooo. Fh  _. Fl ,    n #chat\nl   n \u00164\n   _ooooooo._oo,,$\u0016?\n>Byyb\u0016?\n>w\u0006_oooooooo,  n  Fj  n  n _.  n  nFj  n  _ooo.  n   n Fj  n   n_.  nFb  n ,p   \u00166\n_ooooooo,_ooo,Fb_,Fj,:_oo.Fj_, Fj  ,   n p\u001b_oooooooo.  y y\u001by  ny y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51650025,
+   "datetime": "20131229181121",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPfl\u0017blessed +3 gauntlets of power\nWg\u0016?\n>w  \u0006_ \u001b.,\u0014<. 20s._oo.,p_{. _.qy_ooo._ooo.,p_ooooooooo,,:\u0016?\ncbkj\u0016?\n>w\u0006__._.#chat\nl#pray\ny y bly#chat\nyukj#chat\nu_ooooooo.Fb _.Fb,pyjk#chat\nhllu#chat\nh_ooooooooo. Fh  _. Fl ,    n #chat\nl   n \u00164\n   _ooooooo._oo,,$\u0016?\n>Byyb\u0016?\n>w\u0006_oooooooo,  n  Fj  n  n _.  n  nFj  n  _ooo.  n   n Fj  n   n_.  nFb  n ,p   \u00166\n_ooooooo,_ooo,Fb_,Fj,:_oo.Fj_, Fj  ,   n p\u001b_oooooooo.  y y\u001by  ny y\u001by  F"
+  }
+ ]
+}
