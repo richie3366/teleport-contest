@@ -18,25 +18,26 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **nhl_gamestate s1166 (D-3885 UNPORTABLE):** Priest-582706 steed-impossible needs C malloc reuse; flaky recorder (ASLR); re-record aborts yet reads PASS pre-D-3930 — not a port fix for that symptom (restore arms portable: D-4009).
 - **welcome/Enhanced-blank (D-3944 MEASURED):** C emits 56 UTF-8 glyphs @50059006 s0, nomux records 0 hi-bytes — writer = g_pututf8 hook (contest tooling). JS arm ID'd, moveless until re-record — do not port/replicate. Kin: dupe-rc s0 PARKED D-4016 (18 symset, tmp path).
 - **do_screen_description travel (D-3962 FIXED):** flush-timing + never-arrived refuted (temp-C); shipped C0 raw-store + grid-drop + pile-inverse gate — 5/5 moved. Do not re-chase flush/pathing writers.
-- **D-3998 class:** `do_loot_cont`/`doeat_nonfood` skip post-done C on survived-fatal — ledger partial; ship via the generated block.
+- **D-3998 class:** `do_loot_cont`/`doeat_nonfood` skip post-done C on survived-fatal (ledger partial).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4046 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4047 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4046.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4046 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4047.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4047 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4047: `js/mklev.js` only — NONCO arm expanded to the macro's 3-test form in C order (fresh `noncoalignment(orig)` per test; `A_NONE`→`AM_NONE`, `A_LAWFUL`→` Named: none in this unit — `sp_amask_to_amask` now whole (all 4 arms faithful). (1) 51050016 `vam
 - D-4046: (1) new artifact.js halresTalk(removed, equipped) — the C talk half (restoring/Unaware gates, changed OR identical to the sync arm, removed→cosmic the Named: (1) halresTalk carrier sites not yet wired (same call, no corpus firer): wield_tool :281, 
 - D-4045: js/invent.js — get_menu_coloring + cattr_to_cell onto the existing options.js edge (imports.mjs ALREADY); new pickinv_menu_coloring(text) (:3726: C at Named: (1) other menu builders still don't apply windows.c add_menu :1803–1807 (no corpus session
 - D-4044: two envelope call sites in C order, dropx/zap pattern verbatim (`if (otmp.oartifact) await revoke_invoked_property(otmp)`): end.js right after extract Named: (1) live sync useup/useupall (invent.js:5121–5143) still lack the async half — sync, canno
@@ -51,5 +52,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-4035: deleted the extra newsym (+ C-cite comment). Named: none new — teleds stays ported (the deleted line was never in C).
 - D-4034: js/potion.js only — make_vomiting now mirrors TIMEOUT bits to uprops[VOMITING].intrinsic (slot created when absent), D-2396 sibling shape verbatim + C Named: none in this unit — make_vomiting is now the full C body + the house dual-store mirror (ol
 - D-4033: js/mklev.js only — the gate arm now calls the live whole same-module `lspo_replace_terrain({ mapfragment: '.\nF\n.', toterrain: '.', chance })` with t Named: (1) hellobjects/hellmonsters (defined but unused in lua — D-4019 standing); (2) hells[6] i
-- D-4032: the loop now runs in C order through the live exports — `cmd_from_dir(dir, MV_WALK)` per index 0..9, uswallow/movecmd-planar-filter/up-down arms with  Named: (1) Monk-50350087 step 612 (owner getpos): C «Unknown direction: 'j' (use '4', '2', '8', '
 <!-- landmarks:end -->
