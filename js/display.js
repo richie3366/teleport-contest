@@ -6561,12 +6561,60 @@ export function newsym_force(x, y) {
     mark_gbuf_dirty(x, y);
 }
 
+// C pline.c:584–634 — ordered microtask drain for newsym's !isok arm
+// (see the arm's comment for why the drain exists). One drain task at
+// a time; each impossible() is awaited to completion (latch cleared,
+// C order) before the next starts.
+let _newsymImpossibleQueue = [];
+let _newsymImpossibleDraining = false;
+function queueNewsymImpossible(x, y) {
+    _newsymImpossibleQueue.push([x, y]);
+    if (_newsymImpossibleDraining) return;
+    _newsymImpossibleDraining = true;
+    void (async () => {
+        while (_newsymImpossibleQueue.length) {
+            const [ix, iy] = _newsymImpossibleQueue.shift();
+            await impossible('newsym: attempting screen update for <%d,%d>', ix, iy);
+        }
+        _newsymImpossibleDraining = false;
+    })();
+}
+
 // ── newsym ──
 export function newsym(x, y) {
     // C display.c:928–929 — don't produce map output when the level is
     // in a state of flux (in_mklev/saving/restoring; same gate as
     // feel_location :754–758 and show_glyph).
     if (suppress_map_output()) return;
+    // C display.c:929–935 — !isok (isok cmd.c:4326–4330, x == 1 first
+    // column): off-map :932 panics (NORETURN, end.js throws), column-0
+    // misuse :933 is impossible; call :934 (same split as u_on_newpos).
+    if (!isok(x, y)) {
+        x = x | 0; y = y | 0;
+        if (x < 0 || y < 0 || x > COLNO - 1 || y > ROWNO - 1) {
+            panic('newsym: attempting screen update for <%d,%d>', x, y);
+        }
+        // C pline.c:584–634 impossible() via an ordered microtask drain:
+        // newsym is sync and one see_monsters pass can hit this arm 9×
+        // in a row (worldtour-Wizard-49950024: nine (0,0) mons via
+        // mv_bubble→mnearto→mon_leaving→unstuck→docrt, C steps 151–177).
+        // impossible() proper holds ps.in_impossible across `await
+        // pline`, so sequential fire-and-forget calls trip C's :591–592
+        // recursion panic (an async artifact — C completes each call
+        // before the next); and 27 sync-emitted plines outrun the
+        // chain/nesting/stop machinery built for occasional floaters
+        // (measured: pages 15+ lost). The drain below awaits each
+        // impossible() to completion before starting the next — exactly
+        // C's sequential semantics (latch, URGENT scope, disorder,
+        // report, support, sanity gate, fuzzer panic all live in
+        // impossible() proper, unduplicated). Order caveat: the drain
+        // links behind same-stretch post-burst sync emissions (the
+        // chain is FIFO by call); C orders the burst first. No session
+        // shows a post-burst sync emission on this path (the 151–177
+        // pages are pure burst), so the caveat is unobserved.
+        queueNewsymImpossible(x, y);
+        return;
+    }
     const loc = game.level?.at(x, y);
     if (!loc) return;
 
