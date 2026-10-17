@@ -22,21 +22,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4074 stand except Must-fix reviews 2145/2149; 2132/2136 closed. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4075 stand except Must-fix reviews 2145/2149; 2132/2136 closed. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4074.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4074 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4075.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4075 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4075: js/detect.js only — 2nd-loop predicate now C-order/short-circuit over the displayed glyph id: `if (!glyph_is_monster(newglyph.glyph) || glyph_to_mon(n Named: none in the ported predicate — the whole 2nd-loop guarded arm is now C-exact (both tests, 
 - D-4074: js/mklev.js only — `set_malign(mtmp)` inside the override arm (same shape/comment as the six D-3974 sites) + `else mtmp.female = 0` for class specs (C Named: (1) humidity-aware get_location for water-likers (standing doc omission, untouched). (2) m
 - D-4073: js/dungeon.js only — deleted the find/existing guard (body now C-order: alloc shape, lev, unconditional lastseentyp wipe, sorted insert); doc rewritte Named: (1) S3/S4 breath-killer writer — MEASURED both sides this iter: C «you, killed by a blast 
 - D-4072: js/minion.js — gate now calls the live `Conflict()` export (mhitu.js:225: flats || uprops[CONFLICT].intrinsic/extrinsic — covers ring + artifact + int Named: (1) The local `deaf` read (HDeaf/EDeaf flats + roleplay.deaf + u.Deaf) is kept — HDeaf fla
@@ -51,5 +52,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-4063: js/mklev.js only — both siege loops: on null pick, C-order random fallback inline (same-module live calls, no new imports/edges): `pm_to_humidity` → ` Named: (1) Mon-strt dart-trap loop :12597-12603 `!pos → continue` (C des.trap with (-1,-1) → rand
 - D-4062: one `await finish_maybe_wail()` per losehp in exact C order + cites: attrib.js:415 (after the fatal block — no-op on survived-fatal since the flag is  Named: (1) music.js do_pit + apply.js use_grapple fatal path: C losehp→done is noreturn, JS still
 - D-4061: js/fountain.js only — case 29 calls the live `monflee(mtmp, 0, false, false)` over fmon with a DEADMONSTER-exact guard (`(mhp|0) < 1`, monst.h:214); ` Named: (1) uhitm.c:4363/:4689 monflee(magr) arms (mhitm_ad_heal/mhitm_ad_sedu; no monflee call in
-- D-4060: js/eat.js only — `Unchanging` added to the existing ./polyself.js import (:140; imports.mjs: ALREADY edge, TDZ-neutral); the :852 read now calls canon Named: (1) flat-only Unchanging siblings (same class, no live row — ship when named, D-4012 prece
 <!-- landmarks:end -->
