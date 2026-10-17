@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — Grow #23: fresh 51850000 ×160 147/160 (91.9 %) on arrival; +13 failing folded (8 active, 5 reserve), cliffs /1086
+
+**Fresh:** @9478ae986, 160 scored of 160 authored: PASS 147/160 (91.9 %), RNG 100.0 %, screens 99.9 %. Worst shop 6/10, extcmd 7/9, hallu 7/9, sweep 8/10, questtour 8/9, worldtour 9/10, wish 12/13; rest 100 %. Gap fresh−held-out 14.6 pts (91.9 vs 77.3), inside the §10.20 band — no step-5 family; periodic slot so no step-4 top-up.
+**Fold:** 13 failing → 8 active (extcmd-Knight-51850039, extcmd-Tourist-51850049, hallu-Barbarian-51850088, hallu-Valkyrie-51850078, questtour-Monk-51850016, sweep-Archeologist-51850001, sweep-Samurai-51850071, worldtour-Ranger-51850060) + 5 reserve over quota (shop ×4, wish ×1); 147 PASS-on-arrival → archive. `score --new` + `tier`: reserve 218→216 (8 in incl. extcmd-Wizard-51550039 + sweep-Samurai-620029 + worldtour-Archeologist-95209 from active, 10 back incl. 9 worldtour). 0 js-throws, no Must-fix. Board 620/868 (71.4 %), RNG 99.49 %, screens 98.5 %; tiers 858 + 216 + 5955.
+**Owners:** new multi-session m_initinv (now 2); singletons do_mgivenname, readobjnam, freeinv_core, dotravel; folded into existing glibr (31), one_characteristic (17), auto_describe (16), cursetxt (13), test_move (4); 2 unattributed (extcmd-Tourist-51850049, worldtour-Ranger-51850060). Cliffs regen /1073→/1086: same 12 rows, count rebased, no entries/drops.
+**Next:** port slot pops the cliffs head (unattributed symset-Rogue-50059025 s0, screens lost 983); Must-fix empty.
 ## 2026-10-17 — D-4081 feel_can_reach_floor steed + ceiling arms (moverock_core row: Caveman PASS, Priest separate writer stays)
 
 **C locus:** engrave.c can_reach_floor :200–201 (`u.usteed && P_SKILL(P_RIDING) < P_BASIC` → FALSE — restricted/unskilled riders can't reach the floor; skills.h:95 P_BASIC=2 verified) and :203 (`u.uundetected && ceiling_hider` → FALSE), read by display.c feel_location :777 (FALSE → Levitation-Rules branch, which never maps small floor objects).
