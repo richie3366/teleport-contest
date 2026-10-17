@@ -28088,9 +28088,21 @@ function load_sanctum() {
     // Monsters — named with coords (random amask) then noalign clerics
     const placeNamed = (id, rx, ry, peaceful) => {
         const { mndx, female } = find_montype_gender(id);
-        const pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
+        let pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
         // C: no align → AM_SPLEV_RANDOM → induced_align(80)
         induced_align(80);
+        // C sp_lev.c create_monster :1947–1953 — an extinct unique never
+        // spawns; a genocided or extinct type falls through to a random
+        // monster (pm cleared, makemon(null) below). Same shape as
+        // splev_create_monster :22308–22317 and load_juiblex
+        // placeNamedAtAbs (D-4023).
+        if (pm) {
+            const g_mvflags = game.mvitals?.[mndx]?.mvflags ?? 0;
+            if (((pm?.geno ?? 0) & G_UNIQ) && (g_mvflags & G_EXTINCT))
+                return;
+            if (g_mvflags & G_GONE)
+                pm = null;
+        }
         let x = mx + rx, y = my + ry;
         if (pm) {
             // humidity path omitted for these dry demons

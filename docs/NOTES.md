@@ -22,21 +22,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4078 stand except Must-fix reviews 2145/2149; 2132/2136 closed. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4079 stand except Must-fix reviews 2145/2149; 2132/2136 closed. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4078.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4078 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4079.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4079 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4079: placeNamed now carries `:1947–1953` in C order (after the amask burn): G_UNIQ && G_EXTINCT → return; G_GONE → pm=null (random via makemon(null)). Named: none in the ported arms — `:1947–1953` now complete on this path (UNIQ-return + GONE-null,
 - D-4078: in that arm, when `!game._stale_map_flush && game._leave_gbuf_level`, `paint_gbuf_level_to_terminal(game._leave_gbuf_level)` (same-module, no new impo Named: none in the ported arm — C flush body otherwise already whole (suppress/delay/reentrancy/d
 - D-4077: deleted the spurious `game.nomovemsg = null`; added the C-arm's `game.multireasonbuf = ''`; doc rewritten with whole-body C-order cites (`:4163–4172`) Named: none in nomul (whole: guard/botl/u-inits/multi/reason+buf/end_running/cmdq).
 - D-4076: D-3640 shape — deleted the clone, added `hcolor` to the existing `./do_name.js` import (imports.mjs: edge ALREADY, no new edge). Named: (1) js/detect.js:283 + js/sit.js:218 hcolor clones untouched (other C files — D-3640 left 
@@ -51,5 +52,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-4067: js/options.js — bool arm now `await optfn_boolean_do_set(opt.name, simple_bool_value(opt), false)` (the shared fullscreen-doset mirror; all 22 simple  Named: (1) JS parseoptions bool dispatch stays a no-op (allopt bool optfn:null vs C :635) — the s
 - D-4066: js/dig.js only — removed all 5 extra newsyms (4 early arms → bare `return`s, tail → C-cite comment); pure removal, no new imports, signature kept so c Named: none — the 4 mtmp-arm removals ride with :1001 (same function, same C contradiction, REACH
 - D-4065: none ([measure] — no js/). Named: none — no port; docs-only entry, no Ledger bullet (D-4016/D-4028/D-4064 precedent) — rndmo
-- D-4064: none ([measure] — no js/). Named: none — no port; docs-only entry, no Ledger bullet (D-4016/D-4028 precedent) — dfeature_at 
 <!-- landmarks:end -->
