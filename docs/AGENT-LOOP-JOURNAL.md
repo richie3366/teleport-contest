@@ -7,6 +7,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — D-4054 test_move :1014 rock-phasing missing from travel BFS edge + domove: Xorn travel detoured through dark room, memorized unseen gold (extcmd-Samurai-51257046 s493→s862, RNG-full)
+
+**C locus:** hack.c test_move `:1011–1016` (`if (Passes_walls && may_passwall(x, y)) ;` — silent first branch, before Underwater :1017), BFS edge test_move TEST_TRAV `:1395`, domove_core DO_MOVE `:2843`; may_passwall `:931–936`; Passes_walls ≡ uprops (youprop.h:284–286, no B).
+**JS:** js/cmd.js (+14/−4); scripts/travel-rock-phase-xorn.test.mjs (new, RED pre-fix on the exact row-14 `# Agent loop journal
+
+Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
+Each agent process should add a short dated entry **at the top** (after
+this header) before exiting. Keep entries tight; detailed hypothesis
+lives in `NOTES.md` / `CURRENT.md`.
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+ bytes → GREEN post-fix).
+**Change:** js/cmd.js only — (1) travel_test_move: :1014 arm in C order (passWalls && may_passwall first; Underwater/IRONBARS/tunnels become else-if; may_passwall added to the existing mon.js import — ALREADY edge, no new import); (2) domove inline: phaseRock const (obstructed/bars + Passes_walls + may_passwall) gating tunnels/autodig/bump; doc omit notes updated (travel_test_move + findtravelpath_guess). No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** focused test RED→GREEN. `score --ids scen-extcmd-Samurai-51257046`: FAIL@493 ($/%) → FAIL@862 (travel-prompt topline, separate later cause): rngM 3940→5732/5732 FULL, scrM 533→1143/1144. `verify.mjs --fn test_move` → PASS syntax (1 file) · rule2 · hidden: 3 owned test_move sessions unchanged, 0 worse (ooze-door ×2 + sokoban-prose ×1 = live row 7, separate causes/rows — D-3940 precedent; probe is owner-null so --fn attribution is vacuous for it — D-4015 precedent, movement is the rescore above) · reach smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: FAIL solely on hidden-attribution (0 worse, all gates green).
+**Named:** (1) domove-inline closed-door Passes_walls/ooze/Underwater/tunnels/amorphous arms (ledger-noted; Knight-610057 separate row — untouched); (2) worm_cross + WAN_DIGGING-unknown + Known_wwalking/lwalking/WATERWALL/LAVAWALL in travel (code-named); (3) the @862 residual (travel-prompt display, later owner, separate row).
+**Next:** regen re-files the probe at 862 under its own cause; do NOT re-port :1014 (now live at all three split-sites); row-7 test_move (ooze/sokoban) rides its own iteration.
 ## 2026-10-17 — D-4053 display.c reset_glyphmap `:2884–2917` MG_BW_LAVA/ICE/SINK chain: colorless colliding lava/ice/sink paint inverse (Samurai-50455026 s270→FULL PASS)
 
 **C locus:** display.c reset_glyphmap `:2884–2917` (GLYPH_CMAP_B branch; `:2890 if (!iflags.use_color)`; switch `:2897–2913`: S_lava/S_lavawall colliding with S_pool/S_water → MG_BW_LAVA, S_ice with S_room/S_darkroom → MG_BW_ICE, S_sink with S_fountain → MG_BW_SINK; per-cmap own sym `:2886`) + wintty.c tty_print_glyph `:3930–3936` (special & MG_BW_* && use_inverse → term_start_attr(ATR_INVERSE)); use_color ≡ wc_color (flag.h:507); primary sink+fountain both `{` (defsym.h:133–134), RogueIBM overrides neither; every color-mutation path recomputes the flags (initoptions_finish :7348; doset opt_color :5399–5409 → reset_needed_visuals :8982), so per-paint derivation is exactly equivalent to C's stamped flags.
