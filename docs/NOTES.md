@@ -22,21 +22,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4068 stand except Must-fix reviews 2145/2149; 2132/2136 closed. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4069 stand except Must-fix reviews 2145/2149; 2132/2136 closed. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4068.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4068 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4069.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4069 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4069: js/read.js — one hoisted `const altfeedback = Blind || (Invis() && !See_invisible())` (C :1404 order, D-1999-cited) replacing all three dead-flat read Named: (1) Shape-A remainder (light×3 + mapping×1 — reveal-exposed 5-cell content diff, geom-prob
 - D-4068: js/zap.js only — the prompt item now spreads `...menu_prompt_style()` (live relayed-slot read, C-cited; correct under rc menu_headings overrides too); Named: none — prompt arm now C-exact; ring walk, empty-menu early return, pick-back ring math, an
 - D-4067: js/options.js — bool arm now `await optfn_boolean_do_set(opt.name, simple_bool_value(opt), false)` (the shared fullscreen-doset mirror; all 22 simple  Named: (1) JS parseoptions bool dispatch stays a no-op (allopt bool optfn:null vs C :635) — the s
 - D-4066: js/dig.js only — removed all 5 extra newsyms (4 early arms → bare `return`s, tail → C-cite comment); pure removal, no new imports, signature kept so c Named: none — the 4 mtmp-arm removals ride with :1001 (same function, same C contradiction, REACH
@@ -51,5 +52,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-4057: js/uhitm.js only (+5/−3) — the disjunct now reads the live ball `game.u?.uball` (codebase-wide Punished convention: trap.js:7501, do.js:1803, ball.js: Named: (1) do.js:1803/:2288 `u.uball || u.Punished` reads — the Punished disjunct is dead (never 
 - D-4056: both message-row writers now home + overwrite + cl_end with the C0 skip (D-3962 grid rule verbatim, `charCodeAt < 32 → continue`, column still advance Named: (1) menu/text/base-window C0 (tty_putstr NHW_MAP :2336–2347, NHW_BASE :2348–2364, NHW_MENU
 - D-4055: js/music.js only — `import { Unchanging } from './polyself.js'` (imports.mjs --can: IN-SCC, hoisted function, cycle-safe; music.js had no polyself edg Named: (1) the 9 dupe-rc kin + 95340 keep their parks (D-4016/D-4028 falsifiers unfired, re-verif
-- D-4054: js/cmd.js only — (1) travel_test_move: :1014 arm in C order (passWalls && may_passwall first; Underwater/IRONBARS/tunnels become else-if; may_passwall Named: (1) domove-inline closed-door Passes_walls/ooze/Underwater/tunnels/amorphous arms (ledger-
 <!-- landmarks:end -->

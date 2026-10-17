@@ -181,7 +181,7 @@ import { ART_SUNSWORD } from './generated/artifacts_data.js';
 import { readmail } from './mail.js';
 import { has_ceiling, avoid_ceiling } from './dungeon.js';
 import { explode } from './explode.js';
-import { burn_away_slime, artifact_light, arti_light_radius, end_burn } from './timeout.js';
+import { burn_away_slime, artifact_light, arti_light_radius, end_burn, Invis, See_invisible } from './timeout.js';
 import { snuff_lit } from './apply.js';
 import { impact_arti_light, make_stunned } from './potion.js';
 
@@ -1472,6 +1472,10 @@ async function seffect_confuse_monster(sobj) {
     const u = game.u || (game.u = {});
     const confused = !!((u.HConfusion | 0) || (u.Confusion | 0));
     const Blind = !!((u.Blinded | 0) || u.Blind || u.ublind);
+    // C :1404 altfeedback = (Blind || Invisible), Invisible ≡ Invis && !See_invisible
+    // (youprop.h:199). The u.Invisible flat has no writer in js/ — quaff/spell/wand
+    // invisibility lands in HInvis/uprops — so read the canonicals (D-1999).
+    const altfeedback = Blind || (Invis() && !See_invisible());
     const { body_part } = await import('./polyself.js');
     const { make_confused } = await import('./potion.js');
     const hands = makeplural(body_part(HAND));
@@ -1483,7 +1487,6 @@ async function seffect_confuse_monster(sobj) {
         await make_confused((u.HConfusion | 0) + rnd(100), false);
     } else if (confused) {
         if (!sblessed) {
-            const altfeedback = Blind || !!u.Invisible;
             if (altfeedback) {
                 await pline(`Your ${hands} begin to tingle.`);
             } else {
@@ -1491,7 +1494,6 @@ async function seffect_confuse_monster(sobj) {
             }
             await make_confused((u.HConfusion | 0) + rnd(100), false);
         } else {
-            const altfeedback = Blind || !!u.Invisible;
             if (altfeedback) {
                 await pline(`A faint buzz surrounds your ${body_part(HEAD)}.`);
             } else {
@@ -1501,7 +1503,6 @@ async function seffect_confuse_monster(sobj) {
         }
     } else {
         let incr = (sobj.oclass === SCROLL_CLASS) ? 3 : 0;
-        const altfeedback = Blind || !!u.Invisible;
         if (!sblessed) {
             if (altfeedback) {
                 await pline(`Your ${hands} tingle${u.umconf ? ' even more' : ''}.`);
