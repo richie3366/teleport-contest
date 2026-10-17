@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — D-4066 cliffs use_pick_axe2/Monk-50255213 s992 writer: digactualhole's 5 extra newsyms (C body has zero) burned display draws and resynced hallu glyphs — probe FULL PASS
+
+**C locus:** dig.c digactualhole :640–829 — the whole body issues ZERO newsym calls (verified: no `newsym` token in range; the pit-cell redraws come only from unearth_objs inside maketrap (trap.c:563 → dig.c:2086–2110 `del_engr_at`+`newsym`) and seetrap (trap.c `tseen=1`+`newsym`)); mtmp arms are bare `return`s (:805,:807,:817). display.h:933–935 random_obj_to_glyph (each hallu object map burns 1 display draw; statue display+memory = 3: random_monster+rng(2)+random otyp). allmain.c:453–509 (see_* runs before the occupation each iter, so the pit-iter burst shifts the next pass).
+**JS:** js/dig.js (+10/−5). scripts/digactualhole-no-tail-newsym.test.mjs (new focused prefix test: step-992 topline + row-6 `│···!··)·····│`; fails pre-fix with `│···)··(·····│`, passes post-fix).
+**Change:** js/dig.js only — removed all 5 extra newsyms (4 early arms → bare `return`s, tail → C-cite comment); pure removal, no new imports, signature kept so callers stay wired.
+**Verify:** focused test pre-fix FAIL (`got: "┘      #│···)··(·····│      ###"`), post-fix PASS (1/1). `verify use_pick_axe2: 1 PASS, 0 moved past, 0 unchanged, 0 worse` → scen-sweep-Monk-50255213: PASS (was screen@992, 485 lost). `verify digactualhole`: no corpus session blocked on it at baseline; reach 35 baseline-PASS reaching it, 35 PASS, 0 regressed → REACH-OK; reach use_pick_axe2: 3/3 PASS.
+**Named:** none — the 4 mtmp-arm removals ride with :1001 (same function, same C contradiction, REACH-guarded); no C in digactualhole left unported by this fix.
+**Next:** nothing queued off this row (probe PASS leaves on regen; Tourist flip leaves on regen). dfeature_at M2 (temp-C gbuf) and rndmonst_adj M3 (temp-C mvitals) still queued behind the held dupe-rc/95340 parks; next slot pops the regenerated head.
 ## 2026-10-17 — Grow #21: fresh 51650000 ×160 149/159 (93.7 %) on arrival; +10 failing folded (7 active, 3 reserve), cliffs /1092
 
 **Fresh:** @bc65b2e1a, 159 scored of 160 authored: PASS 149/159 (93.7 %), RNG 99.9 %, screens 99.0 %. Worst sweep 7/10, extcmd 7/9, shop 8/10, symset 8/9, hallu 7/8, worldtour 9/10; rest 100 %. Gap fresh−held-out 16.4 pts (93.7 vs 77.3), inside the §10.20 band — no step-5 family; periodic slot so no step-4 top-up.

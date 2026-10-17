@@ -10,7 +10,7 @@
 {"fn":"furniture_handled","c":"571-592","status":"ported","js":["js/dig.js:furniture_handled"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: fountain dryup, breaksink, drawbridge destroy live"}
 {"fn":"holetime","c":"597-602","status":"ported","js":["js/dig.js:holetime"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: occupation+ushops gate, (250-effort)/20 live"}
 {"fn":"fillholetyp","c":"606-637","status":"ported","js":["js/dig.js:fillholetyp"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: moat/pool/lava counts + fill_if_any priority live"}
-{"fn":"digactualhole","c":"640-829","status":"ported","js":["js/dig.js:digactualhole"],"d":["D-3237","D-1269"],"at":"2026-10-01@caf1b5991"}
+{"fn":"digactualhole","c":"640-829","status":"ported","js":["js/dig.js:digactualhole"],"d":["D-4066","D-3237","D-1269"],"at":"2026-10-17@fd325161e"}
 {"fn":"liquid_flow","c":"838-879","status":"ported","js":["js/dig.js:liquid_flow"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: deltrap, unearth, fillmsg, object+hero/mon damage order live"}
 {"fn":"dighole","c":"885-1024","status":"ported","js":["js/dig.js:dighole"],"d":["D-4007","D-2323"],"at":"2026-10-16@d93315e5e","note":"audit 2026-10-03: all terrain arms, boulder, grave, drawbridge, magic-trap disarm live"}
 {"fn":"dig_up_grave","c":"1027-1089","status":"ported","js":["js/dig.js:dig_up_grave"],"d":["D-3634","D-3237"],"at":"2026-10-07@468f6ccb1"}
