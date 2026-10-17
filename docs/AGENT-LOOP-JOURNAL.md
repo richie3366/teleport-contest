@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — Grow #19 fresh 51450000 ×160: 149/160 (93.1 %) on arrival; +11 failing folded; no calibration (Grow #18 did)
+
+**Fresh:** 149/160 (93.1 %), RNG 99.4 %, screens 99.5 % @`75e2e77e0`. Worst: options 1/2, extcmd 6/9; sweep 7/10; hallu 7/9; worldtour/zapfest 9/10 + rest 100 %. 160 scored of 160. Gap 20.4 pts vs held-out 32/44 (72.7 %) — outside the §10.20 band, but Grow #18 already calibrated (hallu/extcmd), so step 5 skipped. Periodic slot (cliffs held 12 rows); step 4 skipped.
+**Fold:** 11 failing → hidden-corpus (7 active, 4 reserve over quota); 149 PASS → archive. `score --new` + `tier`: 4 → reserve, 6 promoted back, reserve 241 → 239. Files after fold: 904 active + 239 reserve + 5247 archive. Board: 648/916 (70.7 %), RNG 98.31 %, screens 97.4 %. No flips (no js/).
+**Owners:** new singletons weldmsg (sweep-Ranger s493), m_initinv (worldtour-Valkyrie s204 rng), revive (zapfest-Ranger s275); joins: doread ×7, castmu ×3, use_mirror ×3, dog_invent ×3, vomiting_dialogue ×2; 3 unattributed extcmd.
+**Must-fix:** none — 0 js-throws in 11 folded rows.
+**Next:** cliffs regen is a pure renumber (/1144→/1155, same 12 rows: 10 unattributed + rloc_to_core + resist) — port pops the regen head.
 ## 2026-10-17 — D-4051 cliffs hmonas writer: knockback door-diagonal guard read u.ux-derived dx/dy, C reads raw magr->mx/my (youmonst BSS 0 — Monk-49950093 s1164→reveal_terrain@1279)
 
 **C locus:** uhitm.c mhitm_knockback :5301–5305 — the door-diagonal guard reads `magr->mx`/`magr->my` RAW (unlike dx/dy at :5295–5296, which use `u_agr ? u.ux : magr->mx`): `IS_DOOR(levl[defx][defy].typ) && (defx - magr->mx && defy - magr->my) && !doorless_door(...)`. gy.youmonst.mx/my are never written anywhere in C (zero `youmonst.mx =` / `.my =` in src/, no generic-pointer path reaches them; BSS 0 forever — light.c:17, polyself.c:9 "will always remain 0"), so for a hero attacker the guard is (defx && defy): here (38-0 && 7-0) with levl[38][7]=DOOR(23, rm.h:79) and !doorless → FALSE. Caller uhitm.c:5833, unconditional per attack.
