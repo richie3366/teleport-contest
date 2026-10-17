@@ -3636,7 +3636,14 @@ export function doname_base(obj, doname_flags = 0) {
             : isDoffing ? ' (being doffed)'
             : isDonning ? ' (being donned)'
             : ' (being worn)';
-        if (obj === u.uarmg && Glib()) bp = `${bp.slice(0, -1)}; slippery)`;
+        /* C `:1406` Concat(bp, 1, "; slippery)") is strncat (`:70`
+           Strncat ≡ strncat: appends at the NUL, so the delta-1
+           "replace the final character" header comment (`:72–74`)
+           does NOT hold here — the worn paren is kept, giving
+           "(being worn); slippery)" (recorded C bytes). Only this
+           site uses plain Concat with delta 1; the lit/aum/glow
+           sites are ConcatF (snprintf, true overwrite). */
+        if (obj === u.uarmg && Glib()) bp += '; slippery)';
         if (!Blind() && obj.lamplit && doname_artifact_light(obj)) {
             bp = `${bp.slice(0, -1)}, ${arti_light_description(obj)} lit)`;
         }
