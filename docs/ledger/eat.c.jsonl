@@ -20,7 +20,7 @@
 {"fn":"eating_conducts","c":"576-599","status":"ported","js":["js/eat.js:eating_conducts"],"d":["D-2907"],"at":"seed@a30a7de84"}
 {"fn":"eat_brains","c":"603-754","status":"ported","js":["js/eat.js:eat_brains"],"d":["D-3897","D-1306"],"at":"2026-10-12@9dea01ca0"}
 {"fn":"maybe_cannibal","c":"758-788","status":"ported","js":["js/eat.js:maybe_cannibal"],"at":"2026-10-03@bbe63333a"}
-{"fn":"cprefx","c":"791-864","status":"ported","js":["js/eat.js:cprefx"],"d":["D-1081"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
+{"fn":"cprefx","c":"791-864","status":"ported","js":["js/eat.js:cprefx"],"d":["D-4060","D-1081"],"at":"2026-10-17@ea2f190ba","note":"stale 2026-09-15"}
 {"fn":"fix_petrification","c":"867-877","status":"ported","js":["js/eat.js:fix_petrification"],"at":"2026-10-03@bbe63333a"}
 {"fn":"intrinsic_possible","c":"890-954","status":"ported","js":["js/eat.js:intrinsic_possible"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"should_givit","c":"961-989","status":"ported","js":["js/eat.js:should_givit"],"at":"2026-10-03@bbe63333a"}
