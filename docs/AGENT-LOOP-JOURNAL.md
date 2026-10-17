@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — audit 2916–2922 @335a8bfa9: review D-4078..D-4084 (7A/0D/0Q, 0 Must-fix) + full rescore 634/1086 (0 PASS→FAIL)
+
+Reviews 2916–2922 cover the 7 `js/` SHAs since the last audit file (08c934715, 6c90d1b8e, 72455a58c, 9478ae986, 6cfdf1605, ac8e66b73, 335a8bfa9): every C cite re-verified against pinned C, every movement line re-measured with `hidden-proxy verify --base …~1 --no-reach` (all exact; the one over-read — bg_enlightenment 3rd PASS — resolves to later window SHA D-4083, disclosed). Deepest audits: D-4082 (OPT sets kind-aware vs optlist.h + unix-hints CHANGE_COLOR + 18,271-item rc census re-run: 0 empty/long/unknown/abbreviated, exactly the 19 msg_window repeats) and D-4083 (grow≡ proof via selvar.c + isok cmd.c:4326). Fortress: public 44/44 (11,405/11,405 scr, 792,838/792,838 RNG); board 634/1086 pre-archive (6 new PASS, 18 archived, `tier` → 840+215+5973); held-out 34/44 (unchanged). Ledger snapshot + 5 seeded `ported` rows briefed (rndorcname, attack_checks, tiphat, does_block, racial_exception — all live, no `set` owed).
 ## 2026-10-17 — D-4084 drinkfountain case-21 non-poisRes: trailing losehp bail never drained — done()/Die? skipped, run ended at s241 (shop-Wizard-50057049 FULL PASS)
 
 **C locus:** fountain.c drinkfountain case 21 `:300–309` (poison_strdmg = attrib.c:276 losestr + :277 losehp); hack.c losehp `:4283–4288` (urgent "You die..." + done(DIED), noreturn-or-survive); end.c done `:1110–1116` (wizard Die? → savelife → survive → RETURN to exercise/dryup); topl.c update_topl `:262–274` ("You die" own-line + NEED_MORE→more) + tty_yn `:390–392` (entry more iff NEED_MORE) + clean_up `:539/:544` (prompt+answer rewrite, NON_EMPTY).
