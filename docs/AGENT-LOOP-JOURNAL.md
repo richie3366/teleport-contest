@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — Grow #21: fresh 51650000 ×160 149/159 (93.7 %) on arrival; +10 failing folded (7 active, 3 reserve), cliffs /1092
+
+**Fresh:** @bc65b2e1a, 159 scored of 160 authored: PASS 149/159 (93.7 %), RNG 99.9 %, screens 99.0 %. Worst sweep 7/10, extcmd 7/9, shop 8/10, symset 8/9, hallu 7/8, worldtour 9/10; rest 100 %. Gap fresh−held-out 16.4 pts (93.7 vs 77.3), inside the §10.20 band — no step-5 family; periodic slot so no step-4 top-up.
+**Fold:** 10 failing → recipes (7 active) + reserve (extcmd ×2, symset-Ranger over quota); 149 PASS-on-arrival → archive. `score --new` + `tier`: reserve 226→229 (4 in incl. shop-50850021 from active, 1 back: symset-50255064 promoted). 0 js-throws, no Must-fix. Board 605/867 (69.8 %), RNG 98.88 %, screens 97.9 %; tiers 851 + 229 + 5629.
+**Owners:** new multi-session cursetxt 4x, that_is_a_mimic 3x, zhitu 3x; singletons findit, mfind0, distfleeck, trapeffect_sqky_board; 3 unattributed (reserve). Cliffs regen /1082→/1092: same 12 unattributed rows except symset-Ranger-51650047 enters rank 6 (825 screens), Barbarian-50555034 drops.
+**Next:** port slot pops the cliffs head; Must-fix empty.
 ## 2026-10-17 — D-4065 [measure] rndmonst_adj/Wizard-49950016@289: sanctum erinys table — C nulled pm draw-free (silent G_GONE, no genocide trace) where JS spawns explicit; arms audited, paradox parked DIAGNOSED
 
 **C locus:** sp_lev.c lspo_monster table arm :3341–3358 (draw-free id/female/class reads) + :3382–3386 (id valid → class=monsym; synchronous create_monster); create_monster :1925–1990 (:1943 amask; :1949–1953 G_UNIQ+EXTINCT return / G_GONE→pm=0 draw-free; :1954–1958 mkclass — PROVEN draws rn2(9)/species via mkclass_aligned, excluded for draw-free M3; location skipped on packed coords); makemon.c :1204–1232 (explicit pm + G_GENOD → NULL; NULL → rndmonst loop before propagate/newmonst). do.c:2007 hellish_smoke_mesg; mkclass=mkclass_aligned wrapper :1872–1875.
