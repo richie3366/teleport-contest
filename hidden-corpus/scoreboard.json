@@ -1,7 +1,7 @@
 {
- "commit": "80a8469b3",
- "at": "2026-10-17T10:02:02.484Z",
- "full": true,
+ "commit": "f8b0467e1",
+ "at": "2026-10-17T10:29:00.741Z",
+ "full": false,
  "fullCommit": "80a8469b3",
  "fullAt": "2026-10-17T10:02:02.484Z",
  "entries": 1082,
@@ -1927,6 +1927,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-extcmd-Healer-51256009": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 9961,
+   "rngT": 9961,
+   "scrM": 932,
+   "scrT": 933,
+   "kind": "screen",
+   "step": 603,
+   "steps": 933,
+   "owner": "lookat",
+   "loc": "pager.c:766",
+   "jsOwner": null,
+   "cTopline": "fog/vapor cloud",
+   "jsTopline": "unexplored area",
    "error": null
   },
   "scen-extcmd-Healer-51257045": {
@@ -6043,6 +6060,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-sweep-Barbarian-50255242": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 32264,
+   "rngT": 32264,
+   "scrM": 1342,
+   "scrT": 1342,
+   "kind": null,
+   "step": null,
+   "steps": 1342,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
   "scen-sweep-Barbarian-50362004": {
    "src": "corpus",
    "passed": false,
@@ -7012,6 +7046,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-sweep-Knight-49956002": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 34872,
+   "rngT": 34872,
+   "scrM": 1630,
+   "scrT": 1630,
+   "kind": null,
+   "step": null,
+   "steps": 1630,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
   "scen-sweep-Knight-49956035": {
    "src": "corpus",
    "passed": true,
@@ -7354,19 +7405,19 @@
   },
   "scen-sweep-Monk-50055015": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 9766,
+   "passed": true,
+   "rngM": 16040,
    "rngT": 16040,
-   "scrM": 886,
+   "scrM": 1414,
    "scrT": 1414,
-   "kind": "rng",
-   "step": 885,
+   "kind": null,
+   "step": null,
    "steps": 1414,
-   "owner": "get_location",
-   "loc": "sp_lev.c:1233",
-   "jsOwner": "find_montype(mklev.js:31022)",
-   "cTopline": "You materialize on a different level!--More--",
-   "jsTopline": "You materialize on a different level!--More--",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-sweep-Monk-50055039": {
@@ -10106,6 +10157,23 @@
    "jsTopline": "The wolf pulls free of her leash! The wolf growls! You hit the wolf.--More--",
    "error": null
   },
+  "scen-symset-Ranger-50359032": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 12654,
+   "rngT": 12654,
+   "scrM": 0,
+   "scrT": 527,
+   "kind": "screen",
+   "step": 0,
+   "steps": 527,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "Hello wizard, welcome to NetHack! You are a chaotic male orcish Ranger.",
+   "error": null
+  },
   "scen-symset-Rogue-50059048": {
    "src": "corpus",
    "passed": true,
@@ -10120,6 +10188,23 @@
    "loc": null,
    "jsOwner": null,
    "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
+  "scen-symset-Rogue-50350015": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 22983,
+   "rngT": 22983,
+   "scrM": 710,
+   "scrT": 713,
+   "kind": "screen",
+   "step": 683,
+   "steps": 713,
+   "owner": "newsym",
+   "loc": "display.c:934",
+   "jsOwner": null,
+   "cTopline": "newsym: attempting screen update for <0,0>--More--",
    "jsTopline": "",
    "error": null
   },
@@ -12622,6 +12707,23 @@
    "jsTopline": "The Wizard of Yendor points at you, then curses. The djinni hits!--More--",
    "error": null
   },
+  "scen-worldtour-Ranger-50556518": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 230814,
+   "rngT": 230814,
+   "scrM": 678,
+   "scrT": 743,
+   "kind": "screen",
+   "step": 371,
+   "steps": 743,
+   "owner": "impossible",
+   "loc": "pline.c:616",
+   "jsOwner": null,
+   "cTopline": "Please report these messages to devteam@nethack.org.--More--",
+   "jsTopline": "Program in disorder! (Saving and reloading may fix this problem.)--More--",
+   "error": null
+  },
   "scen-worldtour-Ranger-578308": {
    "src": "corpus",
    "passed": true,
@@ -13470,6 +13572,23 @@
    "jsOwner": null,
    "cTopline": "The Elemental Planes:",
    "jsTopline": "The Elemental Planes:",
+   "error": null
+  },
+  "scen-worldtour-Wizard-51550050": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 43521,
+   "rngT": 43521,
+   "scrM": 672,
+   "scrT": 702,
+   "kind": "screen",
+   "step": 396,
+   "steps": 702,
+   "owner": "newsym",
+   "loc": "display.c:934",
+   "jsOwner": null,
+   "cTopline": "newsym: attempting screen update for <0,0>--More--",
+   "jsTopline": "newsym: attempting screen update for <0,0>--More--",
    "error": null
   },
   "scen-worldtour-Wizard-578116": {
@@ -14651,23 +14770,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-extcmd-Healer-51256009": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 9961,
-   "rngT": 9961,
-   "scrM": 932,
-   "scrT": 933,
-   "kind": "screen",
-   "step": 603,
-   "steps": 933,
-   "owner": "lookat",
-   "loc": "pager.c:766",
-   "jsOwner": null,
-   "cTopline": "fog/vapor cloud",
-   "jsTopline": "unexplored area",
-   "error": null
-  },
   "scen-extcmd-Monk-51257013": {
    "src": "corpus",
    "passed": false,
@@ -15730,23 +15832,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-sweep-Barbarian-50255242": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 32264,
-   "rngT": 32264,
-   "scrM": 1342,
-   "scrT": 1342,
-   "kind": null,
-   "step": null,
-   "steps": 1342,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-sweep-Barbarian-50456033": {
    "src": "corpus",
    "passed": false,
@@ -15926,23 +16011,6 @@
    "jsTopline": "Your wisdom was 18 (limit:18).",
    "error": null,
    "tier": "reserve"
-  },
-  "scen-sweep-Knight-49956002": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 34872,
-   "rngT": 34872,
-   "scrM": 1630,
-   "scrT": 1630,
-   "kind": null,
-   "step": null,
-   "steps": 1630,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
   },
   "scen-sweep-Knight-50156023": {
    "src": "corpus",
@@ -17078,23 +17146,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-symset-Ranger-50359032": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 12654,
-   "rngT": 12654,
-   "scrM": 0,
-   "scrT": 527,
-   "kind": "screen",
-   "step": 0,
-   "steps": 527,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "Hello wizard, welcome to NetHack! You are a chaotic male orcish Ranger.",
-   "error": null
-  },
   "scen-symset-Ranger-50455045": {
    "src": "corpus",
    "passed": false,
@@ -17166,23 +17217,6 @@
    "jsTopline": "Hello wizard, welcome to NetHack! You are a chaotic female human Rogue.",
    "error": null,
    "tier": "reserve"
-  },
-  "scen-symset-Rogue-50350015": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 22983,
-   "rngT": 22983,
-   "scrM": 710,
-   "scrT": 713,
-   "kind": "screen",
-   "step": 683,
-   "steps": 713,
-   "owner": "newsym",
-   "loc": "display.c:934",
-   "jsOwner": null,
-   "cTopline": "newsym: attempting screen update for <0,0>--More--",
-   "jsTopline": "",
-   "error": null
   },
   "scen-symset-Rogue-50750039": {
    "src": "corpus",
@@ -17994,23 +18028,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-worldtour-Ranger-50556518": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 230814,
-   "rngT": 230814,
-   "scrM": 678,
-   "scrT": 743,
-   "kind": "screen",
-   "step": 371,
-   "steps": 743,
-   "owner": "impossible",
-   "loc": "pline.c:616",
-   "jsOwner": null,
-   "cTopline": "Please report these messages to devteam@nethack.org.--More--",
-   "jsTopline": "Program in disorder! (Saving and reloading may fix this problem.)--More--",
-   "error": null
-  },
   "scen-worldtour-Samurai-50350064": {
    "src": "corpus",
    "passed": false,
@@ -18298,23 +18315,6 @@
    "jsTopline": "goto_level: returning to discarded level?--More--",
    "error": null,
    "tier": "reserve"
-  },
-  "scen-worldtour-Wizard-51550050": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 43521,
-   "rngT": 43521,
-   "scrM": 672,
-   "scrT": 702,
-   "kind": "screen",
-   "step": 396,
-   "steps": 702,
-   "owner": "newsym",
-   "loc": "display.c:934",
-   "jsOwner": null,
-   "cTopline": "newsym: attempting screen update for <0,0>--More--",
-   "jsTopline": "newsym: attempting screen update for <0,0>--More--",
-   "error": null
   },
   "scen-worldtour-Wizard-578301": {
    "src": "corpus",
@@ -18628,7 +18628,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "archivedAt": "2026-10-17T10:03:08.568Z",
- "tieredAt": "2026-10-17T10:03:20.955Z"
+ }
 }
