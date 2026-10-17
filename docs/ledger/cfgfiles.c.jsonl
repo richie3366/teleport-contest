@@ -71,11 +71,11 @@
 {"fn":"cnf_line_QT_COMPACT","c":"1281-1291","status":"split","js":["js/cfgfiles.js:cnf_line_nhUse"],"d":["D-3429","D-3426","D-3416","D-3408","D-3405","D-3152"],"at":"2026-10-04@77a859fd3","note":"audited D-3429: whole vs C"}
 {"fn":"parse_config_line","c":"1389-1439","status":"ported","js":["js/cfgfiles.js:parse_config_line"],"at":"2026-10-03@bbe63333a"}
 {"fn":"can_read_file","c":"1443-1446","status":"ported","js":["js/sounds.js:can_read_file"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: const false is env-correct: no fs under Rule #2 and VFS holds no sound assets"}
-{"fn":"config_error_init","c":"1470-1490","status":"ported","js":["js/cfgfiles.js:config_error_init"],"at":"2026-10-03@bbe63333a"}
+{"fn":"config_error_init","c":"1470-1490","status":"ported","js":["js/cfgfiles.js:config_error_init"],"d":["D-4082"],"at":"2026-10-17@e19ce00a9"}
 {"fn":"config_error_nextline","c":"1493-1512","status":"ported","js":["js/cfgfiles.js:config_error_nextline"],"d":["D-3014"],"at":"2026-09-28@8b6526ecd","note":"stale: js/cfgfiles.js:237, body complete + caller wired :781"}
 {"fn":"l_get_config_errors","c":"1516-1539","status":"ported","js":["js/cfgfiles.js:l_get_config_errors"],"d":["D-3405","D-3152"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}
 {"fn":"config_erradd","c":"1544-1589","status":"ported","js":["js/cfgfiles.js:config_erradd"],"d":["D-3633","D-3630","D-3405","D-3098"],"at":"2026-10-07@9f919260b","note":"D-3633: ready-arm windowed plines live (D-3630 ready-arm clause retired); doset-bypass clauses stand"}
-{"fn":"config_error_done","c":"1592-1621","status":"partial","js":["js/cfgfiles.js:config_error_done"],"omit":"wait_synch :1615 after error summary (windowed input boundary; parser stays sync, config_erradd precedent)","d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: remaining omit cannot ship"}
+{"fn":"config_error_done","c":"1592-1621","status":"partial","js":["js/cfgfiles.js:config_error_done"],"omit":"(1) C cursor frozen at [0,6,1] all 983 steps (recorder never re-arms after the raw phase — impossible as a live cursor; matching it would be trace tailoring, gains nothing behind the path row).","d":["D-4082","D-3405"],"at":"2026-10-17@e19ce00a9","note":"D-4082: rc-path wait shipped; D-3405 cannot-ship stands for the other callers only"}
 {"fn":"read_config_file","c":"1624-1647","status":"ported","js":["js/cfgfiles.js:read_config_file"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cnf_parser_init","c":"1662-1673","status":"ported","js":["js/cfgfiles.js:cnf_parser_init"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cnf_parser_done","c":"1677-1684","status":"ported","js":["js/cfgfiles.js:cnf_parser_done"],"d":["D-3405"],"at":"2026-10-04@198b7a2a7","note":"audited D-3405: whole vs C"}

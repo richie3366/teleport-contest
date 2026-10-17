@@ -20,7 +20,8 @@ import { getmailstatus } from './mail.js';
 import { try_restore_save } from './save.js';
 import { vision_init, vision_recalc, init_vision_globals } from './vision.js';
 import { parseNethackrc, set_playmode, init_fruit_chain, initoptions_init, RC_FILE_OPT, set_configfile_name } from './options.js';
-import { flush_screen, serialize_for_scoring, reset_display_messages, docrt, bot, pline } from './display.js';
+import { flush_pending_config_frame } from './cfgfiles.js';
+import { flush_screen, serialize_for_scoring, reset_display_messages, docrt, bot, pline, tty_wait_synch } from './display.js';
 import { GameDisplay } from './game_display.js';
 import { askname_if_needed } from './askname.js';
 import { player_selection } from './player_selection.js';
@@ -226,6 +227,17 @@ export class NethackGame {
 
         // Install capture hook
         this._installCaptureHook();
+
+        // C rcfile `:1943–1945` + config_error_done `:1615`: the rc error
+        // frame replays here — input and capture do not exist at parse
+        // time (display installs above), and C's prompt precedes all game
+        // output. Pre-window tty_wait_synch runs getret, which eats input
+        // to the first return (getline.c xwaitforspace `:230–257`).
+        // Clean rcs (config_errors 0) skip both, exactly as before.
+        if (opts.config_errors) {
+            flush_pending_config_frame();
+            await tty_wait_synch();
+        }
 
         // C unixmain.c:188–190 — #ifdef MAIL getmailstatus() after
         // init_nhwindows, before set_playmode. libnhmain.c:220 is the
