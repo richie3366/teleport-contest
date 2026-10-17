@@ -13,7 +13,7 @@
 {"fn":"restlevelstate","c":"742-749","status":"ported","js":["js/restore.js:restlevelstate"],"d":["D-3374"],"at":"2026-10-03@5046334ff"}
 {"fn":"restlevelfile","c":"755-771","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"dorecover","c":"789-951","status":"by-design","js":["js/save.js:try_restore_save"],"d":["D-3672","D-3662","D-3597","D-3584","D-3565"],"at":"2026-10-08@a49045429","note":"seed: former BY_DESIGN/SKIP_FN"}
-{"fn":"rest_stairs","c":"955-985","status":"split","js":["js/lev_json.js:deserLevel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: stairs blob passthrough + install assign; relative-to-absolute conversion vacuous (JSON absolute); u_traversed in blob"}
+{"fn":"rest_stairs","c":"955-985","status":"split","js":["js/lev_json.js:rest_stairs_chain","js/lev_json.js:deserLevel","js/do.js:goto_level"],"d":["D-4049"],"at":"2026-10-17@76d02da52","note":"D-4049: restore reversal (stairway_add prepend-per-node) ported as rest_stairs_chain + do.js revisit + deserLevel (dorecover/bones); relative-dlevel dance file-only"}
 {"fn":"restcemetery","c":"988-1017","status":"ported","js":["js/dungeon.js:restcemetery"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: CONVERTING/UNCONVERTING free arm omitted (no JSON conversion mode)"}
 {"fn":"rest_levl","c":"1021-1030","status":"split","js":["js/lev_json.js:deserLevel"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: locations overlay in deserLevel"}
 {"fn":"trickery","c":"1035-1042","status":"ported","js":["js/bones.js:trickery"],"at":"2026-10-03@bbe63333a"}
