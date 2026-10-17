@@ -106,6 +106,7 @@ import {
     Upolyd,
     H_IBM,
     HI_DOMESTIC,
+    NH_BASIC_COLOR,
     SYM_HERO_OVERRIDE,
     MALE,
     MON_OFFMAP,
@@ -1946,7 +1947,7 @@ function cmap_idx_to_tty(cmap_idx) {
         const tab = wall_glyph_table();
         const g = tab[idx] || tab[S_STONE];
         if (idx === S_STONE) return { ch: g.ch, color: g.color, dec: !!g.dec };
-        return { ch: g.ch, color: wall_cmap_color(), dec: !!g.dec };
+        return { ch: g.ch, color: wall_cmap_color(idx), dec: !!g.dec };
     }
     switch (idx) {
     case S_NDOOR:
@@ -4273,27 +4274,35 @@ function do_crwall(seenv, row) {
 }
 
 /**
- * C display.h cmap_walls_to_glyph + display.c wallcolors[] / reset_glyphmap
- * + the symset G_ wall-color customizations (dat/symbols): the base table
- * is all CLR_GRAY, but every graphical symset stamps G_vwall_*..G_trwall_*
- * overrides — mines /brown, gehennom /red, knox /yellow, sokoban /blue
- * (DECgraphics :732–775; same 44 in IBMgraphics/IBMGraphics_1/2/curses) —
- * via glyphs.c apply_customizations + coloratt.c set_map_customcolor, read
- * back as the tty fg in wintty.c tty_print_glyph (TEMP-C measured
- * cust=0x100000B on KNOX glyphs 3963/3964/3966 — answers D-0729's open
- * "why DEC emits color while wallcolors[] is gray"). Arm order mirrors
- * cmap_walls_to_glyph (mines → hell → knox → soko → main). Knox follows
- * the sokoban DEC gate: ASCII (no symset) carries no G_ entries, so C
- * paints gray there (D-0729).
+ * C display.c wallcolors[] :2677 (all CLR_GRAY) + reset_glyphmap wall arms
+ * (:2943–2965 wall_color) + wintty.c tty_print_glyph :3899–3909
+ * (WC2_EXTRACOLORS basic-color override): the base is gray on every
+ * branch; branch colors reach the tty ONLY through the stamped glyphmap
+ * customcolor (dat/symbols G_vwall_*..G_trwall_* rows — mines /brown,
+ * gehennom /red, knox /yellow, sokoban /blue — parsed by the live
+ * read_sym_file G_ row and stamped by glyphs.c apply_customizations +
+ * coloratt.c set_map_customcolor), read back per glyph (color.h:59
+ * COLORVAL when the color.h:57 NH_BASIC_COLOR bit is set; TEMP-C measured
+ * cust=0x100000B on KNOX glyphs 3963/3964/3966, D-3896). The glyph id comes
+ * from the same-module cmap_walls_to_glyph (display.h:598 bank order:
+ * mines → hell → knox → soko → main). Symsets without G_ rows
+ * (MACgraphics, AmigaFont, Rogue*, plain, Blank, ASCII default) stamp
+ * nothing, so C paints gray there (scen-symset-Archeologist-50150039 s39:
+ * MAC mines corners record default fg). C's further gates — wincap2
+ * EXTRACOLORS (unconditional on unix tty, wintty.c:122), colorcount ≥ 256
+ * (judge/recorder env, D-0283), !calling_from_update_inventory (map paint)
+ * — all hold here, as in C. RGB customcolors (Enhanced mines/knox) take
+ * C's :3903–3906 extracolor arm, which the recorder does not hook
+ * (D-4031 class): gray, C's own unappliable-customcolor fallback, stands
+ * in — named.
  */
-function wall_cmap_color() {
-    let color = CLR_GRAY;
-    const uz = game.u?.uz;
-    if (In_mines(uz)) color = CLR_BROWN;
-    else if (game.dungeons?.[uz?.dnum | 0]?.flags?.hellish) color = CLR_RED;
-    else if (Is_knox(uz) && use_decgraphics()) color = CLR_YELLOW;
-    else if (In_sokoban(uz) && use_decgraphics()) color = CLR_BLUE;
-    return color;
+function wall_cmap_color(idx) {
+    const gid = cmap_walls_to_glyph(idx); // C display.h:598 branch bank
+    // C wintty.c:3900 (absent glyphmap cell ≡ BSS-zero ≡ unstamped).
+    const cust = (game.glyphmap?.[gid]?.customcolor | 0) >>> 0;
+    if (cust !== 0 && (cust & NH_BASIC_COLOR) !== 0) // C :3907 basic bit
+        return cust & 0xffffff; // C color.h:59 COLORVAL
+    return CLR_GRAY; // C display.c:2677 wallcolors base
 }
 
 function wall_glyph(loc) {
@@ -4302,10 +4311,7 @@ function wall_glyph(loc) {
     const tab = wall_glyph_table();
     const g = tab[idx] || tab[S_STONE];
     if (idx === S_STONE) return g;
-    // Recorder: mines BROWN (D-0283), Gehennom RED (D-0801), Sokoban blue
-    // only under DECgraphics (D-0729), Knox YELLOW only under DECgraphics
-    // (D-3896; dat/symbols G_*_knox /yellow via the customcolor override).
-    return { ch: g.ch, color: wall_cmap_color(), dec: g.dec };
+    return { ch: g.ch, color: wall_cmap_color(idx), dec: g.dec };
 }
 
 /** C sym.h DARKROOMSYM — Rogue uses S_stone, else S_darkroom. */
