@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — D-4074 cliffs-head peace_minded writer: load_bar_loca des-monster placeMon missed the set_malign re-run (Barbarian-51750091 → PASS)
+
+**C locus:** `sp_lev.c` create_monster `:2125–2129` (`mtmp->female = m->female; if (m->peaceful > BOOL_RANDOM) { mtmp->mpeaceful = m->peaceful; set_malign(mtmp); }`); `dat/Bar-loca.lua:80–106` (27 des.monster, all peaceful=0-only, no female/asleep keys); parse-time gender `find_montype` `:3154–3156` rn2(2) + table-form safety net `:3355–3356` (class specs → 0).
+**JS:** js/mklev.js:13963–13975 (placeMon) + doc :13821–13825; scripts/des-monster-peaceful-malign.test.mjs (new `it`: Bar-loca ogre record 10).
+**Change:** js/mklev.js only — `set_malign(mtmp)` inside the override arm (same shape/comment as the six D-3974 sites) + `else mtmp.female = 0` for class specs (C :2125/:3355–3356; id specs already keep the find_montype gender, draws matched); doc omission line removed. No new import (`set_malign` already imported :120). Rule #2 clean.
+**Verify:** focused test 1/2 pre-fix (ogre ✖ record 1 — the bug; bat ✔ intact) → 2/2 post-fix. `node scripts/verify.mjs --fn peace_minded,create_monster` → PASS syntax (mklev.js) · rule2 · `verify peace_minded: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (51750091 PASS full) · reach peace_minded 80/80 → REACH-OK · note create_monster (writer, none blocked) · reach create_monster 21/21 → REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file) → VERIFY: PASS. Movement: `verify peace_minded: 1 PASS, 0 moved, 0 no-movement`.
+**Named:** (1) humidity-aware get_location for water-likers (standing doc omission, untouched). (2) mk_roamer peaceful path — different C locus (D-3974 omission, untouched).
+**Next:** regen heals the peace_minded row (1/1 PASS); pop the new cliffs head.
 ## 2026-10-17 — Grow #22: fresh 51750000 ×160 150/160 (93.8 %) on arrival; +10 failing folded (4 active, 6 reserve), cliffs /1094
 
 **Fresh:** @a959c88b6, 160 scored of 160 authored: PASS 150/160 (93.8 %), RNG 98.6 %, screens 98.1 %. Worst options 1/2, extcmd 6/9, normal 4/5, shop 8/10, hallu 8/9, symset 8/9, sweep 9/10; rest 100 %. Gap fresh−held-out 16.5 pts (93.8 vs 77.3), inside the §10.20 band — no step-5 family; periodic slot so no step-4 top-up.
