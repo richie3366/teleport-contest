@@ -36,7 +36,7 @@
 {"fn":"container_at","c":"2024-2038","status":"ported","js":["js/pickup.js:container_at"],"d":["D-3122"],"at":"2026-09-29@c983587e0"}
 {"fn":"able_to_loot","c":"2041-2069","status":"ported","js":["js/pickup.js:able_to_loot"],"d":["D-3213"],"at":"2026-10-01@b0eed7df4"}
 {"fn":"mon_beside","c":"2072-2085","status":"ported","js":["js/pickup.js:mon_beside"],"d":["D-3406","D-3135"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
-{"fn":"do_loot_cont","c":"2088-2162","status":"partial","js":["js/pickup.js:do_loot_cont"],"omit":"bag arm skips makeknown+abort_looting on survived-fatal (C :2157-2158 run after done returns; JS returns early — D-3998 class; audit 2837-2843 sample)","d":["D-2576"],"at":"2026-10-16@28130c7ea","note":"audit 2837-2843 sample: 4/5 seeded rows correct (randrace, mkcavearea, Cloak_off, magic_negation verified C-exact)"}
+{"fn":"do_loot_cont","c":"2088-2162","status":"partial","js":["js/pickup.js:do_loot_cont"],"omit":"(1) do_loot_cont survived-fatal makeknown+abort skip (ledger omit, D-3998 class — life-saved path, no session evidence; untouched).","d":["D-4058","D-2576"],"at":"2026-10-17@9db173202","note":"audit 2837-2843 sample: 4/5 seeded rows correct (randrace, mkcavearea, Cloak_off, magic_negation verified C-exact)"}
 {"fn":"doloot","c":"2166-2174","status":"ported","js":["js/pickup.js:doloot"],"at":"2026-10-03@bbe63333a"}
 {"fn":"doloot_core","c":"2178-2346","status":"ported","js":["js/pickup.js:doloot_core"],"d":["D-3406","D-3213","D-1837"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"reverse_loot","c":"2350-2426","status":"ported","js":["js/pickup.js:reverse_loot"],"d":["D-2768"],"at":"seed@a30a7de84"}
@@ -45,7 +45,7 @@
 {"fn":"is_boh_item_gone","c":"2510-2513","status":"ported","js":["js/pickup.js:is_boh_item_gone"],"at":"2026-10-03@bbe63333a"}
 {"fn":"do_boh_explosion","c":"2518-2534","status":"ported","js":["js/pickup.js:do_boh_explosion"],"at":"2026-10-03@bbe63333a"}
 {"fn":"boh_loss","c":"2537-2554","status":"ported","js":["js/pickup.js:boh_loss"],"d":["D-1938"],"at":"2026-10-03@bbe63333a"}
-{"fn":"in_container","c":"2558-2712","status":"ported","js":["js/pickup.js:in_container"],"d":["D-2596"],"at":"seed@a30a7de84"}
+{"fn":"in_container","c":"2558-2712","status":"ported","js":["js/pickup.js:in_container"],"d":["D-4058","D-2596"],"at":"2026-10-17@9db173202"}
 {"fn":"ck_bag","c":"2720-2723","status":"ported","js":["js/pickup.js:ck_bag"],"at":"2026-10-03@bbe63333a"}
 {"fn":"out_container","c":"2727-2777","status":"ported","js":["js/pickup.js:out_container"],"d":["D-2680"],"at":"2026-10-03@bbe63333a"}
 {"fn":"removed_from_icebox","c":"2781-2799","status":"ported","js":["js/muse.js:removed_from_icebox"],"at":"2026-10-03@bbe63333a"}
@@ -62,7 +62,7 @@
 {"fn":"tip_ok","c":"3481-3497","status":"ported","js":["js/pickup.js:tip_ok"],"at":"2026-10-03@bbe63333a"}
 {"fn":"choose_tip_container_menu","c":"3505-3558","status":"ported","js":["js/pickup.js:choose_tip_container_menu"],"d":["D-1679"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dotip","c":"3562-3677","status":"ported","js":["js/pickup.js:dotip"],"d":["D-3135"],"at":"2026-09-29@f292ec32c"}
-{"fn":"tipcontainer","c":"3688-3841","status":"ported","js":["js/pickup.js:tipcontainer"],"d":["D-3909","D-2612"],"at":"2026-10-13@54920355c"}
+{"fn":"tipcontainer","c":"3688-3841","status":"ported","js":["js/pickup.js:tipcontainer"],"d":["D-4058","D-3909","D-2612"],"at":"2026-10-17@9db173202"}
 {"fn":"count_target_containers","c":"3849-3864","status":"by-design","d":["D-3135"],"at":"2026-09-29@f292ec32c","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"tipcontainer_gettarget","c":"3871-3948","status":"ported","js":["js/pickup.js:tipcontainer_gettarget"],"d":["D-2082","D-2018"],"at":"2026-10-03@bbe63333a"}
 {"fn":"tipcontainer_checks","c":"3954-4055","status":"ported","js":["js/pickup.js:tipcontainer_checks"],"at":"2026-10-03@bbe63333a"}
