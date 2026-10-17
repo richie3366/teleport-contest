@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nWo\u0017blessed +3 helm of telepathy\nWp\u0016?\n>w\u0006_ \u001b<.,\u0017amulet of guarding\ndqFjFjFjFjFjFj_ooooooooo._o.,p__._,>.Fh  #chat\nh  #pray\ny y   _ooooooooo.,\u0017dilithium crystal\ndr _ooooooo., \u0014; 20s  n  20s __.  Fh_. Fh #chat\ny#pray\ny y          _ooooo.,:Fy Fy    Fy    n Fy  Fy    n  Fy     \u001612\n_oooo.Fb_, Fb  ,$__.#chat\nh  Fb FbFb Fb Fb Fb_{.qi Fb Fb Fb Fb FbFb__.#chat\nl_{.qiFl Fl FlFlFlFl Fl FlFl Fl Fl Fl\u00167\nljb\u0016?\n>w\u0006lhl#chat\nl_ooooo._. ,#chat\nh_oo.,p_{,_.Fkq_{.     Fl_.Flq_ooooooooo.,\u0017gray stone\n dt\u00163\njkl\u0016?\n>w\u0006Fb    Fb Fb   Fb   Fb Fb __,      Fb   n_.Fk    #chat\nk  _ooooooo,,\u0017dilithium crystal\ndr Fk     Fk   Fk  Fk    n  "
+ },
+ "segments": [
+  {
+   "seed": 51450095,
+   "datetime": "20070703070031",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nWo\u0017blessed +3 helm of telepathy\nWp\u0016?\n>w\u0006_ \u001b<.,\u0017amulet of guarding\ndqFjFjFjFjFjFj_ooooooooo._o.,p__._,>.Fh  #chat\nh  #pray\ny y   _ooooooooo.,\u0017dilithium crystal\ndr _ooooooo., \u0014; 20s  n  20s __.  Fh_. Fh #chat\ny#pray\ny y          _ooooo.,:Fy Fy    Fy    n Fy  Fy    n  Fy     \u001612\n_oooo.Fb_, Fb  ,$__.#chat\nh  Fb FbFb Fb Fb Fb_{.qi Fb Fb Fb Fb FbFb__.#chat\nl_{.qiFl Fl FlFlFlFl Fl FlFl Fl Fl Fl\u00167\nljb\u0016?\n>w\u0006lhl#chat\nl_ooooo._. ,#chat\nh_oo.,p_{,_.Fkq_{.     Fl_.Flq_ooooooooo.,\u0017gray stone\n dt\u00163\njkl\u0016?\n>w\u0006Fb    Fb Fb   Fb   Fb Fb __,      Fb   n_.Fk    #chat\nk  _ooooooo,,\u0017dilithium crystal\ndr Fk     Fk   Fk  Fk    n  "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "dc#jump\nw-#twoweapon\n#conduct\n dc#invoke\n\u001b#enhance\nyn\ne\n\u001b#terrain\nd\n\u001bm,,b#tip\n\u001brg y  P#wipe\nJajnGsootBEFGBesCsACADAGGsAsDEsEtFnsnCGECAoEGotAADEnnCAEBsoAFGAGDDtFGEBEFDBBAtnsFGFFBFGBEnseBEDGCsAtGoBAAGeEntAsGFotDDGteBCAnAsoEonoDCnesBECeFtDEBCGtFenEDBoBEnnEs\u0004seteCCEnBFGnEGAssCsGAeDAeoAGEtBCFGsEooEosoACGBtnFnoetBBEooDDCoFFA"
+ },
+ "segments": [
+  {
+   "seed": 51452017,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "dc#jump\nw-#twoweapon\n#conduct\n dc#invoke\n\u001b#enhance\nyn\ne\n\u001b#terrain\nd\n\u001bm,,b#tip\n\u001brg y  P#wipe\nJajnGsootBEFGBesCsACADAGGsAsDEsEtFnsnCGECAoEGotAADEnnCAEBsoAFGAGDDtFGEBEFDBBAtnsFGFFBFGBEnseBEDGCsAtGoBAAGeEntAsGFotDDGteBCAnAsoEonoDCnesBECeFtDEBCGtFenEDBoBEnnEs\u0004seteCCEnBFGnEGAssCsGAeDAeoAGEtBCFGsEooEosoACGBtnFnoetBBEooDDCoFFA"
+  }
+ ]
+}

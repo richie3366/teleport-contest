@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  \u00172000 gold pieces\n\u0017blessed amulet of reflection\nPm\u0017blessed ring of free action\nPnr\u0016?\n>w\u0006_ \u001b<. qh_{.Fh_.@.Fk   qh _oooooo.,$__.Fk _,Fh#chat\nh_ooooooo.,\u0014;20s  n  .m.FhFh   nFhFhFh  n Fh \u001610\n_{.q_ooooooooo.,p_{.q_ooo._ooo.,#chat\nu_{,q_ooo.,p_{.q_ooooo,  _. Fh    n ,p_ooooooooo.   nFj_,,pFj  Fj    nFj  FjFj  nFj\u00165\n_ooo.,:_ooooooo,_ooo,,p__.#chat\nb#pray\ny y _ooooooo.,#chat\nl_{.qFyFy  nFy FyFy  n Fy \u00168\n_oo.,#chat\nu__._.m.#chat\nb#pray\ny y bky#chat\ny_oooooo,,p__._.;,#chat\njhbu#chat\nn__._,m,#chat\nlyjl#chat\nn_oooo.,p_{._,.qbub#chat\nn_{,_,,FbqFbFbFbFb  nFb Fb_oooo._oo.,pFbFbFbFbFb  nFbFbFbFbFbFbFb\u00167\nbyh\u0016?\n>w\u0006__._,m,#chat\njkjk#chat\nk_ooo._ooo.,pkjk#chat\nu_ooooooooo._o.,p\u0016?\ncykk\u0016?\n>w\u0006_{,Fn _,Fj q_{.Fk   n_,Fj q__.    nFk_.Fj #chat\nk __.  nFj _.Fj #chat\nj   n#pray\ny y      __.Fj_.Fk   \u001b#chat\nk _oooooooo.,p_ooo,_oo,,\u0017diamond\ndp  yy\u001by  y y y\u001by  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 51450035,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00172000 gold pieces\n\u0017blessed amulet of reflection\nPm\u0017blessed ring of free action\nPnr\u0016?\n>w\u0006_ \u001b<. qh_{.Fh_.@.Fk   qh _oooooo.,$__.Fk _,Fh#chat\nh_ooooooo.,\u0014;20s  n  .m.FhFh   nFhFhFh  n Fh \u001610\n_{.q_ooooooooo.,p_{.q_ooo._ooo.,#chat\nu_{,q_ooo.,p_{.q_ooooo,  _. Fh    n ,p_ooooooooo.   nFj_,,pFj  Fj    nFj  FjFj  nFj\u00165\n_ooo.,:_ooooooo,_ooo,,p__.#chat\nb#pray\ny y _ooooooo.,#chat\nl_{.qFyFy  nFy FyFy  n Fy \u00168\n_oo.,#chat\nu__._.m.#chat\nb#pray\ny y bky#chat\ny_oooooo,,p__._.;,#chat\njhbu#chat\nn__._,m,#chat\nlyjl#chat\nn_oooo.,p_{._,.qbub#chat\nn_{,_,,FbqFbFbFbFb  nFb Fb_oooo._oo.,pFbFbFbFbFb  nFbFbFbFbFbFbFb\u00167\nbyh\u0016?\n>w\u0006__._,m,#chat\njkjk#chat\nk_ooo._ooo.,pkjk#chat\nu_ooooooooo._o.,p\u0016?\ncykk\u0016?\n>w\u0006_{,Fn _,Fj q_{.Fk   n_,Fj q__.    nFk_.Fj #chat\nk __.  nFj _.Fj #chat\nj   n#pray\ny y      __.Fj_.Fk   \u001b#chat\nk _oooooooo.,p_ooo,_oo,,\u0017diamond\ndp  yy\u001by  y y y\u001by  \u0016"
+  }
+ ]
+}

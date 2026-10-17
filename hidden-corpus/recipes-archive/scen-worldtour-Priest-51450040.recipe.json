@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u0017blessed ring of free action\nPjl\u0017blessed +3 gray dragon scale mail\nW\u001b\u001633\n   \u0004j\u0016?\n>>Q_ \u001b>.\u0016?\ni \u0014m.\u0016?\ni\u0014m,\u0016?\nilhlhh:\u001632\n   ybh    ul  :\u00163\n\u0004b\u0016?\n>w\u00178 rocks\nQ\u001b\u0007troll\nkkf \u001bf \u001b\u0017potion of gain level\nt\u001b\u0007acid blob\nnf \u001bf \u001bf \u001b\u0007giant rat\nh  nf \u001bf \u001bf \u001b\u0017grappling hook\nwn \u0007kobold\nyan@. x     n#twoweapon\nFl  Fj kkl,\u00163\n \u0016?\n>>M      20 elven arrows\nkl     nh        b  n k      n :      n \u00164\n\u0016?\n\u001bh y  n      n \u00165\n\u00163\n\u0004l     n \u0016?\n\u001by    n  y     \u001637\n_<..  n   .  n  \u00167\n\u0016?\nc__,ss  n \u0016?\ncy    n l      nj k: \u0016?\na   \u0014m,    n   20s     20s    yy\u001bny y  y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 51450040,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=runmode:run\nOPTIONS=fruit:kumquat\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n20\n                    \u0017blessed ring of free action\nPjl\u0017blessed +3 gray dragon scale mail\nW\u001b\u001633\n   \u0004j\u0016?\n>>Q_ \u001b>.\u0016?\ni \u0014m.\u0016?\ni\u0014m,\u0016?\nilhlhh:\u001632\n   ybh    ul  :\u00163\n\u0004b\u0016?\n>w\u00178 rocks\nQ\u001b\u0007troll\nkkf \u001bf \u001b\u0017potion of gain level\nt\u001b\u0007acid blob\nnf \u001bf \u001bf \u001b\u0007giant rat\nh  nf \u001bf \u001bf \u001b\u0017grappling hook\nwn \u0007kobold\nyan@. x     n#twoweapon\nFl  Fj kkl,\u00163\n \u0016?\n>>M      20 elven arrows\nkl     nh        b  n k      n :      n \u00164\n\u0016?\n\u001bh y  n      n \u00165\n\u00163\n\u0004l     n \u0016?\n\u001by    n  y     \u001637\n_<..  n   .  n  \u00167\n\u0016?\nc__,ss  n \u0016?\ncy    n l      nj k: \u0016?\na   \u0014m,    n   20s     20s    yy\u001bny y  y\u001b  s"
+  }
+ ]
+}

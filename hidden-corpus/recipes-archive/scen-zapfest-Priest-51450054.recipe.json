@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPjl\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n20\n                   \u0017blessed spellbook of light\nrl y.\u0007kobold shaman\n\u0007mind flayer\nZb\n Zb\n  sm. .m. Za\n Zb\n      Za\n   \u00162\n\u0017spellbook of finger of death\nrm \u001b              nsm.\u0007master lich\nZa\nZ20s.m.    Z20s   .n   Zb\n 20s    sm.  Za\n   sl20s  Za\n   n      20s    n      20s     n  Za\n        n \u00161\n \u0017blessed spellbook of fireball\nrn               n sm.\u0007kobold shaman\nZa\n   su   sm. Za\n    sm.    n  20s    ZZsm.   sm.   Za\n    \u00165\n\u0017elven bow\nwo    n    \u001720 elven arrows\nQp\u0007owlbear\ntak  tpk      fu    n       fu          n fh      fu     n \u0017potion of speed\ntpu      \u00165\n\u0007kobold shaman\n\u0007gnomish wizard\n\u0007vampire\n\u0017wand of sleep\nzrb     \u0017wand of striking\n\u0017wand of sleep\n\u0007giant rat\nzty       n    ztu        20s    n      zsl       zsb    n    zsh          n ztj                   ztn     yy\u001bnny y\u001b n  z"
+ },
+ "segments": [
+  {
+   "seed": 51450054,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPjl\u0017blessed +3 gray dragon scale mail\nW\u001b#levelchange\n20\n                   \u0017blessed spellbook of light\nrl y.\u0007kobold shaman\n\u0007mind flayer\nZb\n Zb\n  sm. .m. Za\n Zb\n      Za\n   \u00162\n\u0017spellbook of finger of death\nrm \u001b              nsm.\u0007master lich\nZa\nZ20s.m.    Z20s   .n   Zb\n 20s    sm.  Za\n   sl20s  Za\n   n      20s    n      20s     n  Za\n        n \u00161\n \u0017blessed spellbook of fireball\nrn               n sm.\u0007kobold shaman\nZa\n   su   sm. Za\n    sm.    n  20s    ZZsm.   sm.   Za\n    \u00165\n\u0017elven bow\nwo    n    \u001720 elven arrows\nQp\u0007owlbear\ntak  tpk      fu    n       fu          n fh      fu     n \u0017potion of speed\ntpu      \u00165\n\u0007kobold shaman\n\u0007gnomish wizard\n\u0007vampire\n\u0017wand of sleep\nzrb     \u0017wand of striking\n\u0017wand of sleep\n\u0007giant rat\nzty       n    ztu        20s    n      zsl       zsb    n    zsh          n ztj                   ztn     yy\u001bnny y\u001b n  z"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017ice box\n \u0017sack\n\u0017wand of cancellation\n\u0017wand of cancellation\ndf#loot\n\u001b,#tip\ne\u001baf\u001b\u0017dagger\n wb df#force\nss.dey\u0004nny\u0017locked chest\n\u0017large box\n \u0017bag of tricks\n\u0017wand of death\naiajdi#loot\n, \u0017dagger\nwmdi#force\ny 20s.. i\u001bSy\u001b yn #monster\n#monster\n#rub\ned agy #offer\n#chat\nj#wipe\ndas\u0007tame jackal\n\u0007tame hill orc\n\u0007sewer rat\n\u0017scroll of tam",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51451006,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=runmode:crawl\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017ice box\n \u0017sack\n\u0017wand of cancellation\n\u0017wand of cancellation\ndf#loot\n\u001b,#tip\ne\u001baf\u001b\u0017dagger\n wb df#force\nss.dey\u0004nny\u0017locked chest\n\u0017large box\n \u0017bag of tricks\n\u0017wand of death\naiajdi#loot\n, \u0017dagger\nwmdi#force\ny 20s.. i\u001bSy\u001b"
+  },
+  {
+   "seed": 51951006,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=runmode:crawl\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " yn #monster\n#monster\n#rub\ned agy #offer\n#chat\nj#wipe\ndas\u0007tame jackal\n\u0007tame hill orc\n\u0007sewer rat\n\u0017scroll of tam"
+  }
+ ]
+}

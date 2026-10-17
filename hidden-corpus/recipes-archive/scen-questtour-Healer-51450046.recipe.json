@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nb_mmm.Fb_.  nFk#chat\nb _mmmmm.  n  Fj _. Fb    n #chat\nb_mmmmm.Fj  n  n_,   n Fb#chat\nb  n ;b,#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m. Fb  _,#chat\nn _mm. Fn  _,#chat\nn  n ;n.\u0017blessed amulet of reflection\nPk    \u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed Mjollnir\nwm \u0017wand of striking\n\u0016?\n>z\u0006_mmm.Fh _,m.Fy   Fh  Fy ss.,\u0016?\n>A\u0006_mmmmmm._.:ss.s.zn.,\u0016?\n>A\u0006_mmmmm. _..20s    Fh   n Fh FhFh        s,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm._,.20sFh s20s znh,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mm,  _,;,#chat\nu\u0016?\n>z\u0006_mmmmmmm._.,Fh   sFh   nFh Fh   Fh  Fy   n zny      ,\u0016?\n>>\u001b\u0016?\n>y_mm.Fy _.   Fy #chat\nu\u00161\n\u0016?\n>A\u0006_mmm,Fh  n _. Fh   sss.,\u0016?\n>>\u001b\u0016?\n>y_m._.m,#chat\nk;.\u0016?\n>A\u0006_mmm,Fh _.m,.20sss.ss,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmm._,,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,_,.20s20s  FkFkznk,#chat\nb\u0016?\n>z\u0006_mmmm.Fb _.<..s20ss20s ,\u0016?\n>A\u0006_mmmmmmm,Fy   _,@.Fh Fh Fh ssss.znh,\u0016?\n>>\u001b\u0016?\n>y_mmmm._.@.#chat\nb\u0016?\n>A\u0006_mmmm._.,20sFh Fh Fh 20s znk,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_m._.m,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,"
+ },
+ "segments": [
+  {
+   "seed": 51450046,
+   "datetime": "20110612184906",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nb_mmm.Fb_.  nFk#chat\nb _mmmmm.  n  Fj _. Fb    n #chat\nb_mmmmm.Fj  n  n_,   n Fb#chat\nb  n ;b,#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m. Fb  _,#chat\nn _mm. Fn  _,#chat\nn  n ;n.\u0017blessed amulet of reflection\nPk    \u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed Mjollnir\nwm \u0017wand of striking\n\u0016?\n>z\u0006_mmm.Fh _,m.Fy   Fh  Fy ss.,\u0016?\n>A\u0006_mmmmmm._.:ss.s.zn.,\u0016?\n>A\u0006_mmmmm. _..20s    Fh   n Fh FhFh        s,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm._,.20sFh s20s znh,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mm,  _,;,#chat\nu\u0016?\n>z\u0006_mmmmmmm._.,Fh   sFh   nFh Fh   Fh  Fy   n zny      ,\u0016?\n>>\u001b\u0016?\n>y_mm.Fy _.   Fy #chat\nu\u00161\n\u0016?\n>A\u0006_mmm,Fh  n _. Fh   sss.,\u0016?\n>>\u001b\u0016?\n>y_m._.m,#chat\nk;.\u0016?\n>A\u0006_mmm,Fh _.m,.20sss.ss,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mmm._,,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,_,.20s20s  FkFkznk,#chat\nb\u0016?\n>z\u0006_mmmm.Fb _.<..s20ss20s ,\u0016?\n>A\u0006_mmmmmmm,Fy   _,@.Fh Fh Fh ssss.znh,\u0016?\n>>\u001b\u0016?\n>y_mmmm._.@.#chat\nb\u0016?\n>A\u0006_mmmm._.,20sFh Fh Fh 20s znk,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_m._.m,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,"
+  }
+ ]
+}

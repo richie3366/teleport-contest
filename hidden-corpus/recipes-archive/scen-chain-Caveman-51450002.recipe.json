@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  hjjndbs.sub20s lhlhhkklFl FlFlFlFlFlFlFl  y\u001by  y y y\u001b  U  #wizintrinsic\nb\n 20s20s  20s  n20ss20s    .m.sm.20s 20ssm.sm.sm.20ssm..ys.s  .s.s20s .m.sm..s20ss20sss...20ssssFkFk FkFkFkFkFkFk#name\no\n20s10shkjunkdis.syjyjli\u001b50s50si\u001b20s100s\\  100s 100s100sFjs.khnFh.s100s100sFj20s20sFjFj20si\u001b100sFjFjs150s150s khnFh20sFj100s100s100sz50sFj20ss100si\u001bynb100seguny100s\u0018\u001b\u0004nKJBL _ \u001b;>Fj20ss#wipe\nf \u001bKLJB_>.>#twoweapon\nkYKHN_>.>UKYN_>.>#enhance\n\u001bbKJKJ_>.>BBBN_>,>dh#twoweapon\n<BKUN_>,>\u000f\u001bkhlhlb20skjuhju20s20segbub10#quit\ny\u001b    \u0017wand of cold\nzo.  n20ss20s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51450002,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\n",
+   "moves": "  hjjndbs.sub20s lhlhhkklFl FlFlFlFlFlFlFl  y\u001by  y y y\u001b  U"
+  },
+  {
+   "seed": 51550002,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nb\n 20s20s  20s  n20ss20s    .m.sm.20s 20ssm.sm.sm.20ssm..ys.s  .s.s20s .m.sm..s20ss20sss...20ssss"
+  },
+  {
+   "seed": 51650002,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\n",
+   "moves": "FkFk FkFkFkFkFkFk#name\no\n20s10shkjunkdis.syjyjli\u001b50s50si\u001b20s100s\\  100s 100s100sFjs.khnFh.s100s100sFj20s20sFjFj20si\u001b100sFjFjs150s150s khnFh20sFj100s100s100sz50sFj20ss100si\u001bynb100seguny100s\u0018\u001b\u0004nKJBL _ \u001b;>Fj20ss#wipe\nf \u001bKLJB_>.>#twoweapon\nkYKHN_>.>UKYN_>.>#enhance\n\u001bbKJKJ_>.>BBBN_>,>dh#twoweapon\n<BKUN_>,>\u000f\u001bkhlhlb20skjuhju20s20segbub10#quit\ny\u001b    "
+  },
+  {
+   "seed": 51750002,
+   "datetime": "20000613172411",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of cold\nzo.  n20ss20s"
+  }
+ ]
+}

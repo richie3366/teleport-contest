@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n6\n     ujb\u0017sink\nqyj\u0004k:lh\u0017neutral altar\ndf\u0017jackal corpse\n#offer\np  l\u0017iron bars\n:k k\u0017magic fountain\nqy qy y#enhance\nyd\nc\n\u001bE- ad aerarium\nZa\n#levelchange\n10\n   yhb\u0017neutral altar\ndndd\u0017newt corpse\n#offer\nq  : jj\u0017cloud\nuuub:#terrain\n\u001b>#tip\n\u001bl"
+ },
+ "segments": [
+  {
+   "seed": 51451000,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n6\n     ujb\u0017sink\nqyj\u0004k:lh\u0017neutral altar\ndf\u0017jackal corpse\n#offer\np  l\u0017iron bars\n:k k\u0017magic fountain\nqy qy y#enhance\nyd\nc\n\u001bE- ad aerarium\nZa\n#levelchange\n10\n   yhb\u0017neutral altar\ndndd\u0017newt corpse\n#offer\nq  : jj\u0017cloud\nuuub:#terrain\n\u001b>#tip\n\u001bl"
+  }
+ ]
+}

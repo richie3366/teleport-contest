@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#offer\n,E- X marks the spot\n\u0004hnyi\u001bZ\u0014eg#offer\n#offer\n#twoweapon\n#turn\noh#tip\n\u001btbl\u0018\u001b>z#loot\nhyi\u001behsswa20s.sXW.ssajb#ride\njWsssTcegs20s #untrap\nb#turn\nr\u001b\u0014#enhance\n\u001b#dip\ng"
+ },
+ "segments": [
+  {
+   "seed": 51452010,
+   "datetime": "20211225210028",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\n",
+   "moves": "#offer\n,E- X marks the spot\n\u0004hnyi\u001bZ\u0014eg#offer\n#offer\n#twoweapon\n#turn\noh#tip\n\u001btbl\u0018\u001b>z#loot\nhyi\u001behsswa20s.sXW.ssajb#ride\njWsssTcegs20s #untrap\nb#turn\nr\u001b\u0014#enhance\n\u001b#dip\ng"
+  }
+ ]
+}

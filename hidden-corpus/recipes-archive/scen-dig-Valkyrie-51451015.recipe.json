@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of digging\n\u0006_ \u001bm.zf> zfnnh \u0017grave\nzf> s20s\u0017pick-axe\n_<._.ag >  lyj\u0017grave\nag>    20s  skyag>  sag>Sy\u001b nn<#enhance\nyp\nd\n\u001bdg,#jump\ni\u001b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51451015,
+   "datetime": "20210406114857",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\n\u0006_ \u001bm.zf> zfnnh \u0017grave\nzf> s20s\u0017pick-axe\n_<._.ag >  lyj\u0017grave\nag>    20s  skyag>  sag>Sy\u001b"
+  },
+  {
+   "seed": 51951015,
+   "datetime": "20211031121556",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " nn<#enhance\nyp\nd\n\u001bdg,#jump\ni\u001b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed spellbook of identify\nrjsm.sZZFns\u0017uncursed +0 jumping boots\n\u0007lurker above\nWksh20s.m.FlFl\u0017cursed the Magic Mirror of Merlin\n  yy\u001by  y y y\u001by  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 51452021,
+   "datetime": "20170424072021",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed spellbook of identify\nrjsm.sZZFns\u0017uncursed +0 jumping boots\n\u0007lurker above\nWksh20s.m.FlFl\u0017cursed the Magic Mirror of Merlin\n  yy\u001by  y y y\u001by  \u0007"
+  }
+ ]
+}

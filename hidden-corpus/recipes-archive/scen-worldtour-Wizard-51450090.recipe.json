@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u001616\n    #chat\nh;h, \u001b:    \u0016?\n>u jl     llnyn    :\u0016?\n>J      apple\n\u0017cursed scroll of create monster\nrs silver dragon\n guard\ny ice devil\n violet fungus\n Pestilence\ny paper golem\nhezrou\n Death\nn captain\n Medusa\ny raven\n chameleon\nape\n\u0017spellbook of light\n\u0007warg\nrt  n             .m. n      n              sl n       n       Zb\nh        n           n  nFb       n          n .m.     n   n   \u0017blessed spellbook of wizard lock\n\u0007ki-rin\nrusk   n     n   n   sm.   ynny y  n  Z"
+ },
+ "segments": [
+  {
+   "seed": 51450090,
+   "datetime": "20111105122151",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u001616\n    #chat\nh;h, \u001b:    \u0016?\n>u jl     llnyn    :\u0016?\n>J      apple\n\u0017cursed scroll of create monster\nrs silver dragon\n guard\ny ice devil\n violet fungus\n Pestilence\ny paper golem\nhezrou\n Death\nn captain\n Medusa\ny raven\n chameleon\nape\n\u0017spellbook of light\n\u0007warg\nrt  n             .m. n      n              sl n       n       Zb\nh        n           n  nFb       n          n .m.     n   n   \u0017blessed spellbook of wizard lock\n\u0007ki-rin\nrusk   n     n   n   sm.   ynny y  n  Z"
+  }
+ ]
+}

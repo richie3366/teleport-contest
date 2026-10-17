@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "KHLB_ \u001b@.>KNLY_>,>YLLL_>,>YBJY_>.>#invoke\n\u001byUHJB_>.>Fh20s20s_>.>_>.>_>.>llh#name\nd\n100s100s50s100sFh.s150s    100s   Fh.slhl50s_>.>hlh100sFh.20sllllhllhl\u0018\u001bhhh100seeeeeeeeeeeeeee#offer\ne,lllhhh10s20sda..20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeei\u001b\u0018\u001bseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee20s#name\nm\n#name\n.#chat\nk20stbb#name\nf\n:KLYN_>.>UH KN_>,>YNHU_>.>KUYN_>.>\u0014#rub\nJBYL_>.>NKKY_>,>HNHN_>,>qdi\u001b\u000f\u001bBKBU_>.>Fb .FnUKLY_>.>i\u001b,<J BBY_>.>UUUB_>.>JNLB_>,>wb #loot\nLLYU_>.>\u000f\u001bnjbuh20s #name\nd\n20sFkFh20s #pray\ny  150s150s Fl Fk Fl100s50s  uyh\u0018\u001bhylFjssFjss>150sFnFl20s50s150s_>,>100sFjss50s 50s\u000f\u001bljuhjh\u0018\u001bi\u001bbjj#monster\n100sFusFl i\u001b150sFkss\u0018\u001b100s#offer\n100sFh20s.100s#chat\nkykun#name\nd\ndc20sss#name\no\nJK NL_>.>NY UJ_>,>BBLL_>,>_m"
+ },
+ "segments": [
+  {
+   "seed": 51450003,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=autodig\n",
+   "moves": "KHLB_ \u001b@.>KNLY_>,>YLLL_>,>YBJY_>.>#invoke\n\u001byUHJB_>.>Fh20s20s_>.>_>.>_>.>llh#name\nd\n100s100s50s100sFh.s150s    100s   Fh.slhl50s_>.>hlh100sFh.20sllllhllhl\u0018\u001bhhh100seeeeeeeeeeeeeee#offer\ne,lllhhh10s20sda..20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeei\u001b\u0018\u001bseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee20s#name\nm\n#name\n.#chat\nk20stbb#name\nf\n:KLYN_>.>UH KN_>,>YNHU_>.>KUYN_>.>\u0014#rub\nJBYL_>.>NKKY_>,>HNHN_>,>qdi\u001b\u000f\u001bBKBU_>.>Fb .FnUKLY_>.>i\u001b,<J BBY_>.>UUUB_>.>JNLB_>,>wb #loot\nLLYU_>.>\u000f\u001bnjbuh20s #name\nd\n20sFkFh20s #pray\ny  150s150s Fl Fk Fl100s50s  uyh\u0018\u001bhylFjssFjss>150sFnFl20s50s150s_>,>100sFjss50s 50s\u000f\u001bljuhjh\u0018\u001bi\u001bbjj#monster\n100sFusFl i\u001b150sFkss\u0018\u001b100s#offer\n100sFh20s.100s#chat\nkykun#name\nd\ndc20sss#name\no\nJK NL_>.>NY UJ_>,>BBLL_>,>_m"
+  }
+ ]
+}

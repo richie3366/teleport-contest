@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "O>>>d\u001b\n\u0006_ \u001b.>FlFl_>>.Fy_,Fuy >FyFuy _>>. Fb_.Fj>FjFjFjFjFj\u0006_>,Fl_,m.>_>._.> \u0006_>>._,>_>>._,>_>>,_.>Jw\u001b\u0006_>._,>_>._.>_>._.>\u0006_>>._.>_>>,_,>_>>,_.>\u0004l P<\u0006_>>._.>_>>,_.>_>>._.>20s,\u0006_>._.>_>._.>_>,_.>\u0007tame hill orc\n\u0007large dog\n\u0017banana\nt\u001b\u0007sewer rat\nsm..kh sm..ly .m.20sm.dg20suh 20sb.lh #name\n\u001b\u0017tin whistle\nyyyal  n \u0017carrot\nt\u001b\u0017food ration\n t\u001bdl.m.20sm.20sm.  n\u00167\nOo\u001b\u001b\n#tip\n\u001b\u000f\u001b\u000f\u001b#monster\n\u00161\n\u0007housecat\n\u0017lichen corpse\nt\u001b\u0007tame hill orc\n\u0007yellow mold\n\u0017scroll of taming\nro dj..s#name\n\u001b#name\n\u001b#name\n\u001b\u0017leash\napj kl uk nkk apk mO>>>>i\u001b\n<#terrain\n\u001b\u00169\n\u00162\nFnFnFjFlFlFjFjFjFnFjFnFln FlFjFlFlFjFjFjFjFnFnFnFnFjFnFnFnFjFjFjFnFln FjFjFlFlFnFnFlFnFnFlFjFlFlFjFjFlFnFln FjFlFlFlFlFlFjFlFnFjFlFnFnFjFjFnFnFlFlFlFlFlFlFjFjFjFnFll FlFlFjFjFnFnFnFnFnFjFlFlFlFjFnFjFlFjFlFnFjFnFjFjFjFnFjFnFjFlFjFjFlFnFnFlFnFnFjFnFlj ,#twoweapon\napn O>>a\u001b\n\u0007tame little dog\n\u0017tin whistle\nbll ll aq  n\u0017leash\narj ylj un kn arl \u0017fortune cookie\n t\u001bll \u0006_>>.   Fl_.Fj>FjFh_>>.Fl_.  >_>>,_.>\u0006_>._.Fh>FhFh_>.Fh_.Fh>FhFh_>.Fh_.>\u0014,#loot\n#con"
+ },
+ "segments": [
+  {
+   "seed": 51450057,
+   "datetime": "20021113062254",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:plain\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=stop \"You miss\"\nBIND=v:inventory\n",
+   "moves": "O>>>d\u001b\n\u0006_ \u001b.>FlFl_>>.Fy_,Fuy >FyFuy _>>. Fb_.Fj>FjFjFjFjFj\u0006_>,Fl_,m.>_>._.> \u0006_>>._,>_>>._,>_>>,_.>Jw\u001b\u0006_>._,>_>._.>_>._.>\u0006_>>._.>_>>,_,>_>>,_.>\u0004l P<\u0006_>>._.>_>>,_.>_>>._.>20s,\u0006_>._.>_>._.>_>,_.>\u0007tame hill orc\n\u0007large dog\n\u0017banana\nt\u001b\u0007sewer rat\nsm..kh sm..ly .m.20sm.dg20suh 20sb.lh #name\n\u001b\u0017tin whistle\nyyyal  n \u0017carrot\nt\u001b\u0017food ration\n t\u001bdl.m.20sm.20sm.  n\u00167\nOo\u001b\u001b\n#tip\n\u001b\u000f\u001b\u000f\u001b#monster\n\u00161\n\u0007housecat\n\u0017lichen corpse\nt\u001b\u0007tame hill orc\n\u0007yellow mold\n\u0017scroll of taming\nro dj..s#name\n\u001b#name\n\u001b#name\n\u001b\u0017leash\napj kl uk nkk apk mO>>>>i\u001b\n<#terrain\n\u001b\u00169\n\u00162\nFnFnFjFlFlFjFjFjFnFjFnFln FlFjFlFlFjFjFjFjFnFnFnFnFjFnFnFnFjFjFjFnFln FjFjFlFlFnFnFlFnFnFlFjFlFlFjFjFlFnFln FjFlFlFlFlFlFjFlFnFjFlFnFnFjFjFnFnFlFlFlFlFlFlFjFjFjFnFll FlFlFjFjFnFnFnFnFnFjFlFlFlFjFnFjFlFjFlFnFjFnFjFjFjFnFjFnFjFlFjFjFlFnFnFlFnFnFjFnFlj ,#twoweapon\napn O>>a\u001b\n\u0007tame little dog\n\u0017tin whistle\nbll ll aq  n\u0017leash\narj ylj un kn arl \u0017fortune cookie\n t\u001bll \u0006_>>.   Fl_.Fj>FjFh_>>.Fl_.  >_>>,_.>\u0006_>._.Fh>FhFh_>.Fh_.Fh>FhFh_>.Fh_.>\u0014,#loot\n#con"
+  }
+ ]
+}

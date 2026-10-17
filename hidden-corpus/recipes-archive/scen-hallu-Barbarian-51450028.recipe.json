@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWh \u0017blessed ring of free action\nPir  \u0017blessed magic lamp\n\u0017blessed amulet of life saving\nPk\u0017blessed 20 daggers\nQl#levelchange\n14\n             #wizintrinsic\nh\n \u0007owlbear\n\u0007dwarf\nFlFk   FlFu.;. \u001b>.E- Elbereth Elbereth\n#pray\ny y fjtblfb\u0007newt\nFk..20s.s\u0017blessed spellbook of fireball\nrm.Za\n:  #wizintrinsic\nh\n i\u001bny\u0017spellbook of magic missile\nrn 20sZb\n:  ;<.E-n  I am a fish\n\u0007soldier\nFlFlFls.s\u0017wand of magic missile\nzob zonzok zou#wizintrinsic\nh\n\u0007owlbear\nFkFkFkFl20ss\u0017blessed spellbook of cone of cold\nrp 20sZc\n#turn\n:  i\u001bk kj  n\u0017spellbook of slow monster\nrq .Za\n#turn\n:  #wizintrinsic\nh\n \u0017spellbook of knock\nrr m.   .Zc\n:  \u0007gnome lord\nFuFuss.\u0007giant rat\nFu..s20s\u0017scroll of magic mapping\nrs#wizintrinsic\nh\n\u0017wand of polymorph\nztbztbztn\u0016?\n>H\u0004l\u0017blessed scroll of light\nru\u0017meatball\nev\u0017potion of hallucination\n qw \u001b  s.#wizintrinsic\nh\n\u0007hill orc\nFhFh20sss\u0007giant rat\nFl.ss\u0017blessed scroll of earth\nrx \u0017kelp frond\ney\u0007lichen\ns.ss.s#wizintrinsic\nh\n\u0018\u001bnnn\u0007soldier\n\u0007gnome\n20ss..\u0017wand of cold\nzzbzzbzzu;_.E- Elbereth Elber"
+ },
+ "segments": [
+  {
+   "seed": 51450028,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWh \u0017blessed ring of free action\nPir  \u0017blessed magic lamp\n\u0017blessed amulet of life saving\nPk\u0017blessed 20 daggers\nQl#levelchange\n14\n             #wizintrinsic\nh\n \u0007owlbear\n\u0007dwarf\nFlFk   FlFu.;. \u001b>.E- Elbereth Elbereth\n#pray\ny y fjtblfb\u0007newt\nFk..20s.s\u0017blessed spellbook of fireball\nrm.Za\n:  #wizintrinsic\nh\n i\u001bny\u0017spellbook of magic missile\nrn 20sZb\n:  ;<.E-n  I am a fish\n\u0007soldier\nFlFlFls.s\u0017wand of magic missile\nzob zonzok zou#wizintrinsic\nh\n\u0007owlbear\nFkFkFkFl20ss\u0017blessed spellbook of cone of cold\nrp 20sZc\n#turn\n:  i\u001bk kj  n\u0017spellbook of slow monster\nrq .Za\n#turn\n:  #wizintrinsic\nh\n \u0017spellbook of knock\nrr m.   .Zc\n:  \u0007gnome lord\nFuFuss.\u0007giant rat\nFu..s20s\u0017scroll of magic mapping\nrs#wizintrinsic\nh\n\u0017wand of polymorph\nztbztbztn\u0016?\n>H\u0004l\u0017blessed scroll of light\nru\u0017meatball\nev\u0017potion of hallucination\n qw \u001b  s.#wizintrinsic\nh\n\u0007hill orc\nFhFh20sss\u0007giant rat\nFl.ss\u0017blessed scroll of earth\nrx \u0017kelp frond\ney\u0007lichen\ns.ss.s#wizintrinsic\nh\n\u0018\u001bnnn\u0007soldier\n\u0007gnome\n20ss..\u0017wand of cold\nzzbzzbzzu;_.E- Elbereth Elber"
+  }
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " ujjbFyFyFyFyFyFyFyFyFjFjFjFjFjFjFjFjKLHN_ \u001b@.>HNBK_>.>NYYY_>,>\u000f\u001bbjtbnnh#name\nm\n#chat\n:#name\na\nnlyk#chat\njjjly10skjyuuhYHUH_>,>#dip\na\u0004lKBLH_>,>FjssLJYB_>.>FhFuFhBLUY_>.>Fy20s Fu <<YLNK_>.>KKUK_>.>#dip\nc#ride#quit\n #wizintrinsic\ne\n .m.sm.20ssm.s.u.snsb.m.sm.sss.m.sm..m. ynny y y\u001by  . jul l Fb Fb  y\u001by  y y\u001b  F  #wizintrinsic\nc\n 20s20s 20ssu20s   n 20s     ssssss.s..s.s.20s     .20s    sss.20s20s.20ssssss20s.s20sssss. \u0007soldier ant\nFlFn   yy\u001by   y y\u001by  FFkFkFkFk FkFkFkFkNNBL_ \u001b,>YNUY_>.>KYYN_>.>JHYL_>,>HUHL_>.>BNUL_>.>BNLH_>.>KNNU_>.>KJJY_>.>NUKL_>,>YLHH_>.><\u000f\u001bLUKL_>.>YUJK_>.>YYHU_>,>E- I am a fish\nwb BNUU_>.>BBYK_>.>UBHJ_>.><NUYY_>,>#offer\n#chat\nb\u000f\u001blhlbJJBK_>.>LULH_>,>NUYY_>.>UJJN_>.>,_>,sKYBJ_>.>Fys20sZ#enhance\n\u001b<NNHL_>.>FhFhFhFhFhFhFhFhFhFhFhlkjk\u000f\u001b50s\u0018\u001b50si\u001b_>,>150sFhs20s#enhance\n\u001bi\u001b100s50sFhFhs100s50s100sFhFhFh100s50sFhFhFhFhs.kkbnkl_>,>50s100s50sFhFhs\u000f\u001byhl\u0018\u001b#terrain\nc\n\u0018 #offer\ni\u001b100seh100sbkb50sjkjlnununk#chat\nbyyln#chat\nudggs.shklhhlllnubnNBUK_>.>HLNK_>.>r\u001b\u001b#tip\nf\u001bHBHH_>.>FnFnFnUHLU_>.>JHUB_>.>FbFhFh<YHJJ_>.>HNYH_>.>FhFhFhHBBL_>,>FkFkFkBBHK_>.>FuFlFuBBNY_>.>Fks.kn#chat\nydc.m.sm..n20s k  ny  nny\u001b  k",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51450032,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:teleport\n",
+   "moves": " ujjbFyFyFyFyFyFyFyFyFjFjFjFjFjFjFjFjKLHN_ \u001b@.>HNBK_>.>NYYY_>,>\u000f\u001bbjtbnnh#name\nm\n#chat\n:#name\na\nnlyk#chat\njjjly10skjyuuhYHUH_>,>#dip\na\u0004lKBLH_>,>FjssLJYB_>.>FhFuFhBLUY_>.>Fy20s Fu <<YLNK_>.>KKUK_>.>#dip\nc#ride#quit\n"
+  },
+  {
+   "seed": 51550032,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\ne\n .m.sm.20ssm.s.u.snsb.m.sm.sss.m.sm..m. ynny y y\u001by  ."
+  },
+  {
+   "seed": 51650032,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:horse\n",
+   "moves": " jul l Fb Fb  y\u001by  y y\u001b  F"
+  },
+  {
+   "seed": 51750032,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=fruit:kumquat\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nc\n 20s20s 20ssu20s   n 20s     ssssss.s..s.s.20s     .20s    sss.20s20s.20ssssss20s.s20sssss."
+  },
+  {
+   "seed": 51850032,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007soldier ant\nFlFn   yy\u001by   y y\u001by  F"
+  },
+  {
+   "seed": 51950032,
+   "datetime": "20170424093611",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=!verbose\nOPTIONS=autodig\n",
+   "moves": "FkFkFkFk FkFkFkFkNNBL_ \u001b,>YNUY_>.>KYYN_>.>JHYL_>,>HUHL_>.>BNUL_>.>BNLH_>.>KNNU_>.>KJJY_>.>NUKL_>,>YLHH_>.><\u000f\u001bLUKL_>.>YUJK_>.>YYHU_>,>E- I am a fish\nwb BNUU_>.>BBYK_>.>UBHJ_>.><NUYY_>,>#offer\n#chat\nb\u000f\u001blhlbJJBK_>.>LULH_>,>NUYY_>.>UJJN_>.>,_>,sKYBJ_>.>Fys20sZ#enhance\n\u001b<NNHL_>.>FhFhFhFhFhFhFhFhFhFhFhlkjk\u000f\u001b50s\u0018\u001b50si\u001b_>,>150sFhs20s#enhance\n\u001bi\u001b100s50sFhFhs100s50s100sFhFhFh100s50sFhFhFhFhs.kkbnkl_>,>50s100s50sFhFhs\u000f\u001byhl\u0018\u001b#terrain\nc\n\u0018 #offer\ni\u001b100seh100sbkb50sjkjlnununk#chat\nbyyln#chat\nudggs.shklhhlllnubnNBUK_>.>HLNK_>.>r\u001b\u001b#tip\nf\u001bHBHH_>.>FnFnFnUHLU_>.>JHUB_>.>FbFhFh<YHJJ_>.>HNYH_>.>FhFhFhHBBL_>,>FkFkFkBBHK_>.>FuFlFuBBNY_>.>Fks.kn#chat\nydc.m.sm..n20s k  ny  nny\u001b  k"
+  }
+ ]
+}

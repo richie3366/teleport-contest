@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of life saving\nPe\u0017blessed ring of free action\nPfl\u0007red dragon\n\u0007black dragon\nsm.ss#polyself\nblack dragon\n   #monster\n.m.     sm.   #monster\n#monster\n#monster\n\u0017wand of cold\nagy              n Fj   n   n   s  n  n  \u00162\n\u00169\n\u001715 shuriken\nQh\u0007bugbear\n\u0007sewer rat\nthnfn fb   nfbfbfn \u0018\u001b\u0017blessed spellbook of sleep\nri 20s  n\u0017spellbook of cone of cold\nrj    nsm.\u0007succubus\n\u0007mind flayer\nZZZZZZZZ20s.m.   n \u00164\n\u0007aligned cleric\ny\u0007master lich\n\u0017wand of sleep\n.k20s  n   sl.nzky  n zky  n   20s  n    sm.  n      zkk    n    sm..usm.zkh\u00165\ni\u001b\u0007succubus\n\u0007lich\n\u0007vampire\n\u0017wand of cold\n20s  nsm.   yny   y y n y  s"
+ },
+ "segments": [
+  {
+   "seed": 51450034,
+   "datetime": "20241117015926",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=runmode:teleport\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of life saving\nPe\u0017blessed ring of free action\nPfl\u0007red dragon\n\u0007black dragon\nsm.ss#polyself\nblack dragon\n   #monster\n.m.     sm.   #monster\n#monster\n#monster\n\u0017wand of cold\nagy              n Fj   n   n   s  n  n  \u00162\n\u00169\n\u001715 shuriken\nQh\u0007bugbear\n\u0007sewer rat\nthnfn fb   nfbfbfn \u0018\u001b\u0017blessed spellbook of sleep\nri 20s  n\u0017spellbook of cone of cold\nrj    nsm.\u0007succubus\n\u0007mind flayer\nZZZZZZZZ20s.m.   n \u00164\n\u0007aligned cleric\ny\u0007master lich\n\u0017wand of sleep\n.k20s  n   sl.nzky  n zky  n   20s  n    sm.  n      zkk    n    sm..usm.zkh\u00165\ni\u001b\u0007succubus\n\u0007lich\n\u0007vampire\n\u0017wand of cold\n20s  nsm.   yny   y y n y  s"
+  }
+ ]
+}

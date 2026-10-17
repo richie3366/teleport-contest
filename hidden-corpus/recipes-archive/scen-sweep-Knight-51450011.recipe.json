@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   #levelchange\n30\n         #wizintrinsic\ndmp\n  20s.m.20ssm.sm.sm.sm. nss20s s..s.sss20s  ss20sZ<yy\u001by   ny n e"
+ },
+ "segments": [
+  {
+   "seed": 51450011,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   #levelchange\n30\n         #wizintrinsic\ndmp\n  20s.m.20ssm.sm.sm.sm. nss20s s..s.sss20s  ss20sZ<yy\u001by   ny n e"
+  }
+ ]
+}

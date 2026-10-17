@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed leash\n\u0017blessed ring of free action\nPgl\u0017blessed amulet of life saving\nPh\u0017blessed bell of opening\n\u0017blessed 20 daggers\nQj#wizintrinsic\nh\n \u0017scroll of remove curse\nrk \u0016?\n>G\u0014 \u001b;;@.sm.sm.     n nsm.  n  n   n \u00166\nfj  n    n fb  n n  n fn  n   n  n#invoke\ni  n   n yy\u001by   y y\u001by  #"
+ },
+ "segments": [
+  {
+   "seed": 51450088,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed leash\n\u0017blessed ring of free action\nPgl\u0017blessed amulet of life saving\nPh\u0017blessed bell of opening\n\u0017blessed 20 daggers\nQj#wizintrinsic\nh\n \u0017scroll of remove curse\nrk \u0016?\n>G\u0014 \u001b;;@.sm.sm.     n nsm.  n  n   n \u00166\nfj  n    n fb  n n  n fn  n   n  n#invoke\ni  n   n yy\u001by   y y\u001by  #"
+  }
+ ]
+}

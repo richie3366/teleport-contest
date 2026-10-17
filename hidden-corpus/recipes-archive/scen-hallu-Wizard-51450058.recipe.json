@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed magic lamp\n\u0017blessed +3 helm of telepathy\nWo\u0017blessed +3 speed boots\nWp\u0017blessed leash\n\u0017blessed 20 daggers\nQr#wizintrinsic\nh\n fyfhfh#invoke\n\u001b\u0007troll\n\u0007newt\nFhFh  n Fy  n  nFy   n\u00164\n;k; \u001b.E- Elbereth\n  n #chat\nk   n #pray\ny y    \u00169\n#wizintrinsic\nh\n\u0017wand of striking\nzsh  n zsh  n  nzsh    nzsh \u001610\n\u0007kobold\n\u0007soldier\nFbFj   FbFb\u0007soldier\nFb FbFu FuFb    n#wizintrinsic\nh\n\u0007gnome\nFu  FbFn  Fu   nFb  \u0017blessed spellbook of magic missile\n rt   nsm. Zb\n   n:\u001610\n\u0017scroll of teleportation\nru <.  #wizintrinsic\nh\ni\u001bnntrkfk  trk   ni\u001bjyk b\u0007giant rat\n\u0007troll\nFu Fj     yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 51450058,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed magic lamp\n\u0017blessed +3 helm of telepathy\nWo\u0017blessed +3 speed boots\nWp\u0017blessed leash\n\u0017blessed 20 daggers\nQr#wizintrinsic\nh\n fyfhfh#invoke\n\u001b\u0007troll\n\u0007newt\nFhFh  n Fy  n  nFy   n\u00164\n;k; \u001b.E- Elbereth\n  n #chat\nk   n #pray\ny y    \u00169\n#wizintrinsic\nh\n\u0017wand of striking\nzsh  n zsh  n  nzsh    nzsh \u001610\n\u0007kobold\n\u0007soldier\nFbFj   FbFb\u0007soldier\nFb FbFu FuFb    n#wizintrinsic\nh\n\u0007gnome\nFu  FbFn  Fu   nFb  \u0017blessed spellbook of magic missile\n rt   nsm. Zb\n   n:\u001610\n\u0017scroll of teleportation\nru <.  #wizintrinsic\nh\ni\u001bnntrkfk  trk   ni\u001bjyk b\u0007giant rat\n\u0007troll\nFu Fj     yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

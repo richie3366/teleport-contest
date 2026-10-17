@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nW\u001b\u0017blessed ring of free action\nPfl#levelchange\n14\n             \u0007master lich\n\u0007lich\n\u0017wand of striking\nsm..m. zgh    zgk       sm.zgl   zgh      \u0007silver dragon\n20s  n     sm.    sm.     n   Fy         Fl     n     \u00162\n\u0017blessed spellbook of finger of death\nrh.j\u0017blessed spellbook of slow monster\nri sm.\u0007master lich\n\u0007master lich\nZZZZZ20s  sbZZ20s   20s    Zsm.20s       \u0017wand of cold\n\u0017wand of teleportation\n\u0017wand of lightning\n\u0007gnome\n\u0007jackal\n\u0007bugbear\nzln         n     zln         zku        zlj  zkk   n    sm.    zjl   zku  zkl    zly   \u00163\n\u0017wand of cancellation\n\u0017wand of striking\n\u0017wand of sleep\n\u0007lichen\n\u0007hobbit\n\u0007kobold\nzmlsm.zohsm.zmhzok  .m.zou sbzmk.zmkznks"
+ },
+ "segments": [
+  {
+   "seed": 51450094,
+   "datetime": "20110208163955",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=sortloot:loot\nOPTIONS=runmode:run\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nW\u001b\u0017blessed ring of free action\nPfl#levelchange\n14\n             \u0007master lich\n\u0007lich\n\u0017wand of striking\nsm..m. zgh    zgk       sm.zgl   zgh      \u0007silver dragon\n20s  n     sm.    sm.     n   Fy         Fl     n     \u00162\n\u0017blessed spellbook of finger of death\nrh.j\u0017blessed spellbook of slow monster\nri sm.\u0007master lich\n\u0007master lich\nZZZZZ20s  sbZZ20s   20s    Zsm.20s       \u0017wand of cold\n\u0017wand of teleportation\n\u0017wand of lightning\n\u0007gnome\n\u0007jackal\n\u0007bugbear\nzln         n     zln         zku        zlj  zkk   n    sm.    zjl   zku  zkl    zly   \u00163\n\u0017wand of cancellation\n\u0017wand of striking\n\u0017wand of sleep\n\u0007lichen\n\u0007hobbit\n\u0007kobold\nzmlsm.zohsm.zmhzok  .m.zou sbzmk.zmkznks"
+  }
+ ]
+}

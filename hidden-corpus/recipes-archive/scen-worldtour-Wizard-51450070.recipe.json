@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed amulet of life saving\nPp\u0017blessed +3 gauntlets of power\nWq\u001642\n   #chat\nu;l; \u001b>.\u001633\n \u0004jy\u0016?\n>>K       spellbook of magic mapping\nky  u   h  jl   n:\u0016?\n\u001bj y  n   \u0016?\n\u001bj b\u001615\njj:\u001626\ny   n n       n   h          ny   u        n   :\u00168\n\u0016?\n\u001bb        n    n b       n\u00167\n\u0016?\n\u001bl        y     n \u0016?\n\u001bl  j\u0016?\n\u001bk  n   n\u001638\n\u0017blessed spellbook of dig\nrt   nsm.      n    n\u0017blessed spellbook of slow monster\nru  20s    n \u0017blessed spellbook of turn undead\nrv   yy\u001by  y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 51450070,
+   "datetime": "20080103073426",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed amulet of life saving\nPp\u0017blessed +3 gauntlets of power\nWq\u001642\n   #chat\nu;l; \u001b>.\u001633\n \u0004jy\u0016?\n>>K       spellbook of magic mapping\nky  u   h  jl   n:\u0016?\n\u001bj y  n   \u0016?\n\u001bj b\u001615\njj:\u001626\ny   n n       n   h          ny   u        n   :\u00168\n\u0016?\n\u001bb        n    n b       n\u00167\n\u0016?\n\u001bl        y     n \u0016?\n\u001bl  j\u0016?\n\u001bk  n   n\u001638\n\u0017blessed spellbook of dig\nrt   nsm.      n    n\u0017blessed spellbook of slow monster\nru  20s    n \u0017blessed spellbook of turn undead\nrv   yy\u001by  y y y\u001b  s"
+  }
+ ]
+}

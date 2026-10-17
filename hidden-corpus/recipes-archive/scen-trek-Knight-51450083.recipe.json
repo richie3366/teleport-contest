@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #name\nm\n :10sdc.20sstbht\u001b20s   kh10suynb10sHJBN_>.>JJHY_>,>JKBB_>,>,#ride\nkBBJK_>,>FlFl s\\   \u0018\u001bJYKJ_>.>zWYLBN_>,>JJBJ_>.>f \u001bP\u000f\u001bns,yby\\   khk_>.>\u0018\u001b150s100s  50s100sWi\u001ba\u0004b_>.>100s  100sFlFl.nuj150skjkf \u001b#tip\n\u001b100sFjFjFjFjFjFjFjFjFjyll;.50s#conduct\n \\   50s100sFjFjs150s100seglbjbhj\\   100s eh100s eg\\   yynkyu_>,>hhh_>,>50s ei  jnl150sFlFls100s100s_>.>i\u001b150segFlss100s50sFlFl20s50seg50s\\   100s50sFlFlFlFlsseg#tip\n\u001b100shlkeh100sdd20ss.10sdd.s20s#chat\nl#name\nm\n#name\n:#chat\nl10sljkdgss.20seyey_>.>\u000f\u001b\u0004ublnlnk150s100seh150seh100s eh100seh_>.>50seh100sknh50seh100seh100s eh150s eeeeeeeeeeeeJUBN_>.>JKKB_>,>BBJL_>.>wa<ynny ny\u001b #"
+ },
+ "segments": [
+  {
+   "seed": 51450083,
+   "datetime": "20220826152427",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=fruit:lychee\n",
+   "moves": " #name\nm\n :10sdc.20sstbht\u001b20s   kh10suynb10sHJBN_>.>JJHY_>,>JKBB_>,>,#ride\nkBBJK_>,>FlFl s\\   \u0018\u001bJYKJ_>.>zWYLBN_>,>JJBJ_>.>f \u001bP\u000f\u001bns,yby\\   khk_>.>\u0018\u001b150s100s  50s100sWi\u001ba\u0004b_>.>100s  100sFlFl.nuj150skjkf \u001b#tip\n\u001b100sFjFjFjFjFjFjFjFjFjyll;.50s#conduct\n \\   50s100sFjFjs150s100seglbjbhj\\   100s eh100s eg\\   yynkyu_>,>hhh_>,>50s ei  jnl150sFlFls100s100s_>.>i\u001b150segFlss100s50sFlFl20s50seg50s\\   100s50sFlFlFlFlsseg#tip\n\u001b100shlkeh100sdd20ss.10sdd.s20s#chat\nl#name\nm\n#name\n:#chat\nl10sljkdgss.20seyey_>.>\u000f\u001b\u0004ublnlnk150s100seh150seh100s eh100seh_>.>50seh100sknh50seh100seh100s eh150s eeeeeeeeeeeeJUBN_>.>JKKB_>,>BBJL_>.>wa<ynny ny\u001b #"
+  }
+ ]
+}

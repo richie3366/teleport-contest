@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed +3 gauntlets of power\nWj\u0017blessed Mjollnir\nwk\u0016?\n>C_ \u001b,<\u0016?\nk   _{.s20s\u001635\n_>,.m.\u001643\n #levelchange\n12\n\u0017scroll of punishment\n rl \u0017cursed oil lamp\nam#rub\nm\u0017potion of gain energy\nqn\u0017amulet of life saving\nPosjs.m..\u0017wand of fire\n\u0007newt\nzpl \u0017tin of spinach\n\u0007grey-elf\neqsm.sm. .m.sm.\u001615\n  khybub:s.\u001615\nnbkjk:sm.20s\u0016?\n>>K       athame\n__.<\u001635\nl jh:\u0016?\n\u001bky  \u00163\n\u00178 spears\nQt\u0007kobold\nyj     fb    fy      Fb   Fh   \u0017potion of gain level\ntsb\u0007owlbear\nj          nk     fh      n  fn    fl    Fj    n  Fj     \u0017potion of see invisible\ntkj\u0017grappling hook\nww    \u0007sewer rat\ny            awm.    n      x        #twoweapon\nFj     n      Fj     u          n       l    l,sj  20s    n         sm.              n  \u00167\n\u001615\n__.\u0016?\n\u001by      n    b        n       n   \u00168\n\u0016?\n\u001bn         n         u  n         n      n  \u0016?\n\u001bn "
+ },
+ "segments": [
+  {
+   "seed": 51450000,
+   "datetime": "20051209202433",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed +3 gauntlets of power\nWj\u0017blessed Mjollnir\nwk\u0016?\n>C_ \u001b,<\u0016?\nk   _{.s20s\u001635\n_>,.m.\u001643\n #levelchange\n12\n\u0017scroll of punishment\n rl \u0017cursed oil lamp\nam#rub\nm\u0017potion of gain energy\nqn\u0017amulet of life saving\nPosjs.m..\u0017wand of fire\n\u0007newt\nzpl \u0017tin of spinach\n\u0007grey-elf\neqsm.sm. .m.sm.\u001615\n  khybub:s.\u001615\nnbkjk:sm.20s\u0016?\n>>K       athame\n__.<\u001635\nl jh:\u0016?\n\u001bky  \u00163\n\u00178 spears\nQt\u0007kobold\nyj     fb    fy      Fb   Fh   \u0017potion of gain level\ntsb\u0007owlbear\nj          nk     fh      n  fn    fl    Fj    n  Fj     \u0017potion of see invisible\ntkj\u0017grappling hook\nww    \u0007sewer rat\ny            awm.    n      x        #twoweapon\nFj     n      Fj     u          n       l    l,sj  20s    n         sm.              n  \u00167\n\u001615\n__.\u0016?\n\u001by      n    b        n       n   \u00168\n\u0016?\n\u001bn         n         u  n         n      n  \u0016?\n\u001bn "
+  }
+ ]
+}

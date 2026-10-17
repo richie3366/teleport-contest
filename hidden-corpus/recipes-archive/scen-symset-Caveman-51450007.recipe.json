@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u00162\nFyFnFnFbFhFbFnFyFnFbFkb FbFkk FlFyFbFyFbFjFhFlFbFjFjFkFnFyFuFbFnFkFbFjFbFh\u001bFyFh\u001bFhFnFbFhFlFjFyFkh FlFjFlFlFbFlh FhFuFlFlFnFuu FnFkl FkFnFh\u001bFhFjFyFnFyFyFjFlFjFyFh\u001bFbFun FhFyFku FhFnFbFjFjFhFuFbFjFkFlFuFkFjFnFh\u001bFlFnFh\u001bFbFh\u001bFlFhFhFnFbFkFbFjFhFhFuFuFlFnFnFbFjFbFbFlFnmO>m\u001b\nO>>>k\u001b\u001b\nv\u001bi\u001b\u0007kitten\n\u0017newt corpse\ntbh \u0007horse\n\u0017newt corpse\ntbn \u0006_ \u001b;>FyFub _>.Fh_. Fk>FyFh\u001b_>.Fk_,> \u0017magic whistle\njnuu ah\u0017leash\nain jkb lul aik \u0017newt corpse\ntby jda20s20s20s\u0017magic whistle\nbybaj#rub\ncgqH\u0006_>.Fy_,Fj>FnFh\u001b_>,Fh_.Fh>FhFh_>.Fb_.Fn>Fk"
+ },
+ "segments": [
+  {
+   "seed": 51450007,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nMSGTYPE=hide \"You kill\"\nMENUCOLOR=\"blessed\"=green\nBIND=v:inventory\n",
+   "moves": "  \u00162\nFyFnFnFbFhFbFnFyFnFbFkb FbFkk FlFyFbFyFbFjFhFlFbFjFjFkFnFyFuFbFnFkFbFjFbFh\u001bFyFh\u001bFhFnFbFhFlFjFyFkh FlFjFlFlFbFlh FhFuFlFlFnFuu FnFkl FkFnFh\u001bFhFjFyFnFyFyFjFlFjFyFh\u001bFbFun FhFyFku FhFnFbFjFjFhFuFbFjFkFlFuFkFjFnFh\u001bFlFnFh\u001bFbFh\u001bFlFhFhFnFbFkFbFjFhFhFuFuFlFnFnFbFjFbFbFlFnmO>m\u001b\nO>>>k\u001b\u001b\nv\u001bi\u001b\u0007kitten\n\u0017newt corpse\ntbh \u0007horse\n\u0017newt corpse\ntbn \u0006_ \u001b;>FyFub _>.Fh_. Fk>FyFh\u001b_>.Fk_,> \u0017magic whistle\njnuu ah\u0017leash\nain jkb lul aik \u0017newt corpse\ntby jda20s20s20s\u0017magic whistle\nbybaj#rub\ncgqH\u0006_>.Fy_,Fj>FnFh\u001b_>,Fh_.Fh>FhFh_>.Fb_.Fn>Fk"
+  }
+ ]
+}

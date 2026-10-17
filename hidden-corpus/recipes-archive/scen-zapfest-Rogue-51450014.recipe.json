@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPg\u0017blessed ring of free action\nPhr \u0017blessed +3 speed boots\nWi#levelchange\n20\n                   \u0017wand of digging\n\u0017wand of sleep\n\u0007troll\n\u0007hobbit\nzkj           zj>  zkj .nzj> zkjszkjszkjzj> \u0017wand of sleep\n\u0017wand of cancellation\n\u0007gnome\n\u0007gnome lord\nzlbzmnzmnzmbzmbzlbzln i\u001b\u0007aligned cleric\nn\u0007lich\n\u0007aligned cleric\ny\u0017wand of fire\nznl     znj       znnsyznjznb  znb \u0007succubus\n\u0007vampire\n\u0017wand of magic missile\nzob zoj     y          sm. sl zon            i\u001b\u0017blessed spellbook of fireball\nrp        n  20s   \u0007gnomish wizard\n\u0007vampire\nZZZZsm.      suZ20s   sb   n    #turn\n\u0018\u001b\u00161\n\u0017wand of lightning\n\u0017wand of slow monster\n\u0007sewer rat\n\u0007sewer rat\nzryzqk zqy zrlzqn zrlszrkzqj zrjs\u0007gnomish wizard\n\u0007orc shaman\n\u0007master lich\n\u0017wand of fire\nzs.\u0017spellbook of magic missile\nrt.\u0007incubus\n\u0007lich\nZZ.  ns  Z. .   Zs  20s  ZZs  n s   ZZs.Zss\u001612\n\u0007red dragon\nss 20s  n s#polyself\ngold dragon\n #monster\nk  .s #monster\nk #monster\nk #monster\n#monster\nFh Fk i\u001b\u0017orcish bow\nwu\u001720 orcish arrows\nQv\u0007gnome\nfk   nfh tbhfh tvk fk  n fy \u001616\n \u0018\u001b\u00161\n\u0007red dragon\ns20s  20s   ns\u0017wand of fire\nawy  y Fy Fy\u00178 rocks\nQv\u0007owlbear\nfk   nfk    fn  tvn   n  fh  \u00168\n\u0017wand of striking\n\u0017wand of magic missile\n\u0017wand of slow mon"
+ },
+ "segments": [
+  {
+   "seed": 51450014,
+   "datetime": "20201226165531",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPg\u0017blessed ring of free action\nPhr \u0017blessed +3 speed boots\nWi#levelchange\n20\n                   \u0017wand of digging\n\u0017wand of sleep\n\u0007troll\n\u0007hobbit\nzkj           zj>  zkj .nzj> zkjszkjszkjzj> \u0017wand of sleep\n\u0017wand of cancellation\n\u0007gnome\n\u0007gnome lord\nzlbzmnzmnzmbzmbzlbzln i\u001b\u0007aligned cleric\nn\u0007lich\n\u0007aligned cleric\ny\u0017wand of fire\nznl     znj       znnsyznjznb  znb \u0007succubus\n\u0007vampire\n\u0017wand of magic missile\nzob zoj     y          sm. sl zon            i\u001b\u0017blessed spellbook of fireball\nrp        n  20s   \u0007gnomish wizard\n\u0007vampire\nZZZZsm.      suZ20s   sb   n    #turn\n\u0018\u001b\u00161\n\u0017wand of lightning\n\u0017wand of slow monster\n\u0007sewer rat\n\u0007sewer rat\nzryzqk zqy zrlzqn zrlszrkzqj zrjs\u0007gnomish wizard\n\u0007orc shaman\n\u0007master lich\n\u0017wand of fire\nzs.\u0017spellbook of magic missile\nrt.\u0007incubus\n\u0007lich\nZZ.  ns  Z. .   Zs  20s  ZZs  n s   ZZs.Zss\u001612\n\u0007red dragon\nss 20s  n s#polyself\ngold dragon\n #monster\nk  .s #monster\nk #monster\nk #monster\n#monster\nFh Fk i\u001b\u0017orcish bow\nwu\u001720 orcish arrows\nQv\u0007gnome\nfk   nfh tbhfh tvk fk  n fy \u001616\n \u0018\u001b\u00161\n\u0007red dragon\ns20s  20s   ns\u0017wand of fire\nawy  y Fy Fy\u00178 rocks\nQv\u0007owlbear\nfk   nfk    fn  tvn   n  fh  \u00168\n\u0017wand of striking\n\u0017wand of magic missile\n\u0017wand of slow mon"
+  }
+ ]
+}

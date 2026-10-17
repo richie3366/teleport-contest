@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 helm of telepathy\nWl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n        \u0007troll\n#pray\ny y   #chat\nj #wizdetect\n\u0006Fh Fu_ \u001b@.#chat\nu  n\u0007kobold\n#overview\n\u001b#conduct\n \u0018\u001b#dip\nj#offer\n#chat\n#turn\n#polyself\ns . 20s s hkn_oooo.,\u0007troll\n#vanquished\n#genocided\nUruk-hai\nj y   n\u000f\u001b#name\n\u001b#adjust\nc\u001b#sit\n  #pray\ny y         #polyself\nfog cloud\n #monster\n.   n sm.   n Fh   nFh \u00169\nFj  n  Fj   nFkFk\u0018\u001b\u001611\n    _{.qe\u0007kobold shaman\n#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#chat\nk   n #chat\nh  #wizdetect\n\u0006Fj  n s #enhance\nya\na\n\u001b_oo,,\u0007kobold shaman\n#version\n  #history\n                  \u000f\u001b#wipe\n  n #loot\nh#turn\n#sit\n    n#wizdetect\n\u0006FyFkss  n __.#chat\nh\u0007gnome lord\n#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#tip\n\u001b#ride\nuy#pray\ny y   #chat\nj#wizmap\n\u0006yhl  n _<,   n_, #vanquished\n #genocided\nbugbear\n n#annotate\n\u001b\u000f\u001b#dip\nhd#offer\n#chat\nl  yy\u001by   y y y\u001b  #"
+ },
+ "segments": [
+  {
+   "seed": 51450009,
+   "datetime": "20161016234412",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 helm of telepathy\nWl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n        \u0007troll\n#pray\ny y   #chat\nj #wizdetect\n\u0006Fh Fu_ \u001b@.#chat\nu  n\u0007kobold\n#overview\n\u001b#conduct\n \u0018\u001b#dip\nj#offer\n#chat\n#turn\n#polyself\ns . 20s s hkn_oooo.,\u0007troll\n#vanquished\n#genocided\nUruk-hai\nj y   n\u000f\u001b#name\n\u001b#adjust\nc\u001b#sit\n  #pray\ny y         #polyself\nfog cloud\n #monster\n.   n sm.   n Fh   nFh \u00169\nFj  n  Fj   nFkFk\u0018\u001b\u001611\n    _{.qe\u0007kobold shaman\n#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#chat\nk   n #chat\nh  #wizdetect\n\u0006Fj  n s #enhance\nya\na\n\u001b_oo,,\u0007kobold shaman\n#version\n  #history\n                  \u000f\u001b#wipe\n  n #loot\nh#turn\n#sit\n    n#wizdetect\n\u0006FyFkss  n __.#chat\nh\u0007gnome lord\n#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#tip\n\u001b#ride\nuy#pray\ny y   #chat\nj#wizmap\n\u0006yhl  n _<,   n_, #vanquished\n #genocided\nbugbear\n n#annotate\n\u001b\u000f\u001b#dip\nhd#offer\n#chat\nl  yy\u001by   y y y\u001b  #"
+  }
+ ]
+}

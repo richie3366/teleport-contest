@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of reflection\nPj\u0017blessed +3 speed boots\nWk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007kobold shaman\n#pray\ny y      #chat\ny #levelchange\n9\n  FhFys#tip\n\u001b_ \u001b,#chat\nu#overview\n\u001b#conduct\n \u0018\u001b#dip\ncm#offer\n#chat\ny#turn\n #wizdetect\n\u0006ljh_>._.\u0007hill orc\n#vanquished\n #genocided\nxan\n\u000f\u001b#name\ni\n#adjust\nc\u001b#sit\n#pray\ny y   #levelchange\n7\nFy FyP\u0016?\n>w\u0006#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nu#chat\nb#jump\n#levelchange\n17\n          ulb__._,;,#chat\nk#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#turn\n #sit\n\u001b#jump\n#wizidentify\n\u001bhhh__.Fl_.Fl #chat\nl #overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nly#pray\ny y   #chat\nl #wizidentify\n\u001bFlFl Fl \u001623\n\u0006#vanquished\n #genocided\nsoldier\ne#annotate\nblessed\ni\u001b#dip\nj#offer\n#chat\n#turn\n#jump\n#wizintrinsic\nu kh_<,Fb_.,Fk\u0007bugbear\n#c"
+ },
+ "segments": [
+  {
+   "seed": 51450059,
+   "datetime": "20080721063938",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of reflection\nPj\u0017blessed +3 speed boots\nWk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007kobold shaman\n#pray\ny y      #chat\ny #levelchange\n9\n  FhFys#tip\n\u001b_ \u001b,#chat\nu#overview\n\u001b#conduct\n \u0018\u001b#dip\ncm#offer\n#chat\ny#turn\n #wizdetect\n\u0006ljh_>._.\u0007hill orc\n#vanquished\n #genocided\nxan\n\u000f\u001b#name\ni\n#adjust\nc\u001b#sit\n#pray\ny y   #levelchange\n7\nFy FyP\u0016?\n>w\u0006#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nu#chat\nb#jump\n#levelchange\n17\n          ulb__._,;,#chat\nk#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#turn\n #sit\n\u001b#jump\n#wizidentify\n\u001bhhh__.Fl_.Fl #chat\nl #overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nly#pray\ny y   #chat\nl #wizidentify\n\u001bFlFl Fl \u001623\n\u0006#vanquished\n #genocided\nsoldier\ne#annotate\nblessed\ni\u001b#dip\nj#offer\n#chat\n#turn\n#jump\n#wizintrinsic\nu kh_<,Fb_.,Fk\u0007bugbear\n#c"
+  }
+ ]
+}

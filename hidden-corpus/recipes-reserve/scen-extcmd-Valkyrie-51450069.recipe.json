@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 helm of telepathy\nWe\u0017blessed +3 cloak of magic resistance\nWf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007jackal\n#pray\ny y    #chat\nn#jump\n#wizidentify\n\u001bFnFjFkFl _ \u001bm,qh#overview\n\u001b#conduct\n #annotate\nfoo\n\u000f\u001b#dip\ne#offer\n#chat\nh#turn\n#levelchange\n17\n                yjni\u001b_<,_.#vanquished\n #genocided\nrothe\ni i\u001b#name\nf\n#adjust\n;#sit\n#pray\ny y #wizdetect\n\u0006nuned __,#chat\nk#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#chat\ny#chat\nj#polyself\ntroll\n#monster\n.s..lluq_ooooo._.,#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#turn\n#sit\n\u001b#wizintrinsic\ngq\n kbk_>,_.#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nhy#pray\ny y #chat\nn#wizdetect\n\u0006hhl#rub\n\u0016?\n\u001b\u0006#vanquished\n #genocided\nCroesus\n\u000f\u001b#dip\nb #offer\n#chat\nj#turn\n#jump\n#wizintrinsic\nr\n ukl_{,q\u0007soldier\n#chronicle\n  #terrain\n\u001b\u0018\u001b#name\n\u001b#adjust\nc\u001b#sit\n#pray\ny y  #wizidentify\n\u001bFu .20s_{,q#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nu#chat\nu#wizintrinsic\nqg\n  kjj_oooo,,#overview\n\u001b#conduct\n \u000f\u001b#wipe\n#loot\n#turn\n#sit\n#wizidentify\n\u001bynl_{.q#vanquished\n #genocided"
+ },
+ "segments": [
+  {
+   "seed": 51450069,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 helm of telepathy\nWe\u0017blessed +3 cloak of magic resistance\nWf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007jackal\n#pray\ny y    #chat\nn#jump\n#wizidentify\n\u001bFnFjFkFl _ \u001bm,qh#overview\n\u001b#conduct\n #annotate\nfoo\n\u000f\u001b#dip\ne#offer\n#chat\nh#turn\n#levelchange\n17\n                yjni\u001b_<,_.#vanquished\n #genocided\nrothe\ni i\u001b#name\nf\n#adjust\n;#sit\n#pray\ny y #wizdetect\n\u0006nuned __,#chat\nk#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#chat\ny#chat\nj#polyself\ntroll\n#monster\n.s..lluq_ooooo._.,#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#turn\n#sit\n\u001b#wizintrinsic\ngq\n kbk_>,_.#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nhy#pray\ny y #chat\nn#wizdetect\n\u0006hhl#rub\n\u0016?\n\u001b\u0006#vanquished\n #genocided\nCroesus\n\u000f\u001b#dip\nb #offer\n#chat\nj#turn\n#jump\n#wizintrinsic\nr\n ukl_{,q\u0007soldier\n#chronicle\n  #terrain\n\u001b\u0018\u001b#name\n\u001b#adjust\nc\u001b#sit\n#pray\ny y  #wizidentify\n\u001bFu .20s_{,q#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nu#chat\nu#wizintrinsic\nqg\n  kjj_oooo,,#overview\n\u001b#conduct\n \u000f\u001b#wipe\n#loot\n#turn\n#sit\n#wizidentify\n\u001bynl_{.q#vanquished\n #genocided"
+  }
+ ]
+}

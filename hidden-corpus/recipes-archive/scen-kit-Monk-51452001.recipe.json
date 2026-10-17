@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "i\u001bWsssTbrc  \u001b.  qd qe #dip\nkd   yy\u001by  y ny\u001by  e"
+ },
+ "segments": [
+  {
+   "seed": 51452001,
+   "datetime": "20060223095617",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "i\u001bWsssTbrc  \u001b.  qd qe #dip\nkd   yy\u001by  y ny\u001by  e"
+  }
+ ]
+}

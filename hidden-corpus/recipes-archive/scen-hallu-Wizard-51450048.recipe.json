@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic lamp\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPrl\u0017blessed amulet of life saving\nPs\u0017blessed +3 helm of telepathy\nWt\u0017blessed 20 daggers\n Qu#wizintrinsic\nh\n \u0017blessed scroll of earth\nrv  ;. \u001bm.E- Elbereth\n#chat\nj\u0017potion of confusion\nqws.\u0007giant rat\n\u0007lichen\nssss#wizintrinsic\nh\n\u0017wand of teleportation\nzxyzxyzxn\u0007bugbear\n\u0007grid bug\nFbFnFbFn Fn   Fn\u0007newt\n\u0007newt\nFn  nFnFnFn   nFnFb\u00162\n#wizintrinsic\nh\n\u0017wand of digging\nzyjzyjzyjzyjzyj\u0007kobold\nFl Fj Fj20s\u0017blessed scroll of enchant armor\nrz \u0017potion of invisibility\nqAs#wizintrinsic\nh\n\u0017wand of cold\nzB.  nzBlzBy  nzBh\u00169\nfyfh    nfy \u0017potion of polymorph\n qC  n  sm.  n .m.\u00161\n\u0007soldier\nFjFj FjFj#wizintrinsic\nh\n\u0017wand of sleep\nzDj    zDl      nzDj           nzDnzDn zD\u00161\n\u0017scroll of mai"
+ },
+ "segments": [
+  {
+   "seed": 51450048,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed magic lamp\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPrl\u0017blessed amulet of life saving\nPs\u0017blessed +3 helm of telepathy\nWt\u0017blessed 20 daggers\n Qu#wizintrinsic\nh\n \u0017blessed scroll of earth\nrv  ;. \u001bm.E- Elbereth\n#chat\nj\u0017potion of confusion\nqws.\u0007giant rat\n\u0007lichen\nssss#wizintrinsic\nh\n\u0017wand of teleportation\nzxyzxyzxn\u0007bugbear\n\u0007grid bug\nFbFnFbFn Fn   Fn\u0007newt\n\u0007newt\nFn  nFnFnFn   nFnFb\u00162\n#wizintrinsic\nh\n\u0017wand of digging\nzyjzyjzyjzyjzyj\u0007kobold\nFl Fj Fj20s\u0017blessed scroll of enchant armor\nrz \u0017potion of invisibility\nqAs#wizintrinsic\nh\n\u0017wand of cold\nzB.  nzBlzBy  nzBh\u00169\nfyfh    nfy \u0017potion of polymorph\n qC  n  sm.  n .m.\u00161\n\u0007soldier\nFjFj FjFj#wizintrinsic\nh\n\u0017wand of sleep\nzDj    zDl      nzDj           nzDnzDn zD\u00161\n\u0017scroll of mai"
+  }
+ ]
+}

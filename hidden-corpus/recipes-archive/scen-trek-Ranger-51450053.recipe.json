@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "N  BKB_ \u001b,>FbFbFjtbbi\u001bKJHH_>,>FnsFl NBHB_>.>NJLJ_>,>,#untrap\nlNNLY_>,>#jump\n#rub\nYHKY_>.>JHBB_>,>#tip\n\u001b#chat\nl#conduct\n 50sFkFk.W_>.>100s150sFlsskkl100s100sjllylbklk100s100s50s\u000f\u001bnlu_>.>hlhbbk150sFlFlshlj150sef50skhj100s_>.>#offer\nlhlFu20s20synybuu150s100sFj20ssnlh,JLJN_>.>\u0014>NKHU_>.>Fks.NLLU_>.>\\ <K BJY_>,>#tip\n\u001bZHYBY_>,>BUYU_>,>#untrap\ny#untrap\nh<NKLH_>.>#monster\n#name\nm\nYYLU_>UKUK_>Z#rub\nm,shiny\nKKUH_>,>okP<LNKN_>,>Fnss\u000f\u001bujk_>.>,nykylhnjk_>.>150s50sjbj_>.>150s100sFlss#ride\nj\u000f\u001b\u000f\u001b150s ef100sFl..100s\\ nyb100s  100s100sFuFu.100sFuFuFuFu..50s 50sFusskklFjs.lll100sFuFuFuFu..UBJH_>.>#enhance\n\u001bwcyJJLN_>.>LBJB_>.>K YHN_>.>10s#twoweapon\nNJYY_>,>NHJH _>.>NUHH_>,>J ,\u001b#untrap\nhNJNK _>.>Fh Fhs<YN UB_>.>#ride\nbckNJNJ_>,>BU LU_>.>Fu.s#twoweapon\n#wipe\n\u000f\u001b#ride\nb>#terrain\n\u001b#name\nm\nm,100sFuFu FuFu20s.\u000f\u001b\\ 100sFus.\u0018\u001b_>.>sdjybh\u0018\u001b\u0018\u001b100s150slhl\u000f\u001b100s100s150s100syj"
+ },
+ "segments": [
+  {
+   "seed": 51450053,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:explore\n",
+   "moves": "N  BKB_ \u001b,>FbFbFjtbbi\u001bKJHH_>,>FnsFl NBHB_>.>NJLJ_>,>,#untrap\nlNNLY_>,>#jump\n#rub\nYHKY_>.>JHBB_>,>#tip\n\u001b#chat\nl#conduct\n 50sFkFk.W_>.>100s150sFlsskkl100s100sjllylbklk100s100s50s\u000f\u001bnlu_>.>hlhbbk150sFlFlshlj150sef50skhj100s_>.>#offer\nlhlFu20s20synybuu150s100sFj20ssnlh,JLJN_>.>\u0014>NKHU_>.>Fks.NLLU_>.>\\ <K BJY_>,>#tip\n\u001bZHYBY_>,>BUYU_>,>#untrap\ny#untrap\nh<NKLH_>.>#monster\n#name\nm\nYYLU_>UKUK_>Z#rub\nm,shiny\nKKUH_>,>okP<LNKN_>,>Fnss\u000f\u001bujk_>.>,nykylhnjk_>.>150s50sjbj_>.>150s100sFlss#ride\nj\u000f\u001b\u000f\u001b150s ef100sFl..100s\\ nyb100s  100s100sFuFu.100sFuFuFuFu..50s 50sFusskklFjs.lll100sFuFuFuFu..UBJH_>.>#enhance\n\u001bwcyJJLN_>.>LBJB_>.>K YHN_>.>10s#twoweapon\nNJYY_>,>NHJH _>.>NUHH_>,>J ,\u001b#untrap\nhNJNK _>.>Fh Fhs<YN UB_>.>#ride\nbckNJNJ_>,>BU LU_>.>Fu.s#twoweapon\n#wipe\n\u000f\u001b#ride\nb>#terrain\n\u001b#name\nm\nm,100sFuFu FuFu20s.\u000f\u001b\\ 100sFus.\u0018\u001b_>.>sdjybh\u0018\u001b\u0018\u001b100s150slhl\u000f\u001b100s100s150s100syj"
+  }
+ ]
+}

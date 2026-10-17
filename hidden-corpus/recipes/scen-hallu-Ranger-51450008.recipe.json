@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPir\u0017blessed +3 helm of telepathy\nWj\u0017blessed +3 speed boots\nWk\u0017blessed 20 daggers\nQl#levelchange\n14\n             #wizintrinsic\nh\n \u0007newt\nFysss20sss\u0007acid blob\nFn Fnsss20s\u0017wand of light\nzmzmzmzmzm\u0017potion of levitation\nqns.\u001621\n\u0006_ \u001b.ss.#wizintrinsic\nh\n \u0017potion of hallucination\nqoss\u0017wand of sleep\nzp.  zplzplzpl\u0017wand of digging\nzqlzqlzqlzql\u0007dwarf\n\u0007jackal\nFkFlFkFlFkFl#wizintrinsic\nh\n;u.E-#chat\nu#pray\ny y    \u0017blessed spellbook of fireball\nrr sm.Z:fufl tdl  fl  fl fl \u0017blessed spellbook of sleep\nrs 20sZ#turn\n:#wizintrinsic\nh\n\u0017wand of slow monster\nztl ztyztl\u0017potion of extra healing\nqu   20ssm.\u0017blessed spellbook of cause fear\nrv  20sZ#turn\n:#wizintrinsic\nh\n \u0017potion of levitation\n qw  .bsm.\u0016?\ns \u0006_<.   _.m,\u0017potion of hallucination\nqxs\u0016?\n>>P  nnybh:\u0007dwarf\n\u0007kobold shaman\nFyFy FhFyFhFh "
+ },
+ "segments": [
+  {
+   "seed": 51450008,
+   "datetime": "20021129174058",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPir\u0017blessed +3 helm of telepathy\nWj\u0017blessed +3 speed boots\nWk\u0017blessed 20 daggers\nQl#levelchange\n14\n             #wizintrinsic\nh\n \u0007newt\nFysss20sss\u0007acid blob\nFn Fnsss20s\u0017wand of light\nzmzmzmzmzm\u0017potion of levitation\nqns.\u001621\n\u0006_ \u001b.ss.#wizintrinsic\nh\n \u0017potion of hallucination\nqoss\u0017wand of sleep\nzp.  zplzplzpl\u0017wand of digging\nzqlzqlzqlzql\u0007dwarf\n\u0007jackal\nFkFlFkFlFkFl#wizintrinsic\nh\n;u.E-#chat\nu#pray\ny y    \u0017blessed spellbook of fireball\nrr sm.Z:fufl tdl  fl  fl fl \u0017blessed spellbook of sleep\nrs 20sZ#turn\n:#wizintrinsic\nh\n\u0017wand of slow monster\nztl ztyztl\u0017potion of extra healing\nqu   20ssm.\u0017blessed spellbook of cause fear\nrv  20sZ#turn\n:#wizintrinsic\nh\n \u0017potion of levitation\n qw  .bsm.\u0016?\ns \u0006_<.   _.m,\u0017potion of hallucination\nqxs\u0016?\n>>P  nnybh:\u0007dwarf\n\u0007kobold shaman\nFyFy FhFyFhFh "
+  }
+ ]
+}

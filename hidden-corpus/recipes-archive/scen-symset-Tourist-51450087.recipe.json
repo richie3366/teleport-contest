@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u0006_ \u001bm,>FhFh_>>._.Fy>FyFy_>>._.>\u0006_>.Fk_.>_>,_.>_>._.>\u0006_>>._,Fy>FyFy_>>,_,Fy>FyFy_>>,_.Fy>FyFyFyFyFycl #ride\ny \u0006_>._.Fk>FkFk_>,Fu_.Fk>FkFk_>,_.>\u0014:#twoweapon\n\u0006_>>._.>_>>._.>_>>._,>mO>>>>b\u001b\n\u00166\n\u0006_>.Fb_.m,Fb>FbFb_>.Fb_,@.Fb>FbFb_>.Fb_.m,Fb>FbFbFbFbFb\u0006_>,Fb_,:Fb>FbFb_>,Fb_,,Fb>FbFb_>.Fb_.:Fb>FbFbFbFbFb\u0006_>.Fb_.>.Fb>FbFb_>,Fb_.<.Fb>FbFb_>.Fb_.;>. Fb>FbFbFbFbFb#untrap\nb #name\nd\nub h\u001blb b\u0017ice\n:ub \u0017chaotic altar\ndadg\u0017gnome corpse\n #offer\nq   #pray\ny y : lb b\u0017throne\n#sit\nyj\u0017sink\nqy#invoke\n\u001b,b\n:\u0007tame large dog\n\u0007kitten\n\u0017newt corpse\nt$k \u0017leash\nasu nlk bjasb \u0017banana\nt$b \u0006_>.Fu_.Fk>FbFb_>,Fu_,Fb>FbFuu _>,Fb_,Fb>FbFh\u001b10s   di20ss20sdf ss.\u00165\nlbykj kh j50s\u000f\u001bkb ky ku 100s_>.>50s150slyuj 50s\u0018\u001b50s150slkj y\u000f\u001b150s\u0018\u001b100s\u000f\u001b_>,>lyul kb yh\u001b100s150s150s\u0018\u001b_>,>Z100s100s150s\u000f\u001b100s_>,>lh\u001bl50s100s_>.>\u000f\u001b\u0018\u001b150su.kk kn i\u001b150s100sub yy150s150s50s\u0018\u001b100s_>.>cl 100sllub \u000f\u001b50s100s20s150sh\u001bu.l150st$n i\u001b\u0018\u001b100sh\u001buy yi\u001b_>,>100s50s150sqk50slkj y\u000f\u001bkb luj _>.>"
+ },
+ "segments": [
+  {
+   "seed": 51450087,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"a scroll\"=magenta\n",
+   "moves": "v i\u001b\u0006_ \u001bm,>FhFh_>>._.Fy>FyFy_>>._.>\u0006_>.Fk_.>_>,_.>_>._.>\u0006_>>._,Fy>FyFy_>>,_,Fy>FyFy_>>,_.Fy>FyFyFyFyFycl #ride\ny \u0006_>._.Fk>FkFk_>,Fu_.Fk>FkFk_>,_.>\u0014:#twoweapon\n\u0006_>>._.>_>>._.>_>>._,>mO>>>>b\u001b\n\u00166\n\u0006_>.Fb_.m,Fb>FbFb_>.Fb_,@.Fb>FbFb_>.Fb_.m,Fb>FbFbFbFbFb\u0006_>,Fb_,:Fb>FbFb_>,Fb_,,Fb>FbFb_>.Fb_.:Fb>FbFbFbFbFb\u0006_>.Fb_.>.Fb>FbFb_>,Fb_.<.Fb>FbFb_>.Fb_.;>. Fb>FbFbFbFbFb#untrap\nb #name\nd\nub h\u001blb b\u0017ice\n:ub \u0017chaotic altar\ndadg\u0017gnome corpse\n #offer\nq   #pray\ny y : lb b\u0017throne\n#sit\nyj\u0017sink\nqy#invoke\n\u001b,b\n:\u0007tame large dog\n\u0007kitten\n\u0017newt corpse\nt$k \u0017leash\nasu nlk bjasb \u0017banana\nt$b \u0006_>.Fu_.Fk>FbFb_>,Fu_,Fb>FbFuu _>,Fb_,Fb>FbFh\u001b10s   di20ss20sdf ss.\u00165\nlbykj kh j50s\u000f\u001bkb ky ku 100s_>.>50s150slyuj 50s\u0018\u001b50s150slkj y\u000f\u001b150s\u0018\u001b100s\u000f\u001b_>,>lyul kb yh\u001b100s150s150s\u0018\u001b_>,>Z100s100s150s\u000f\u001b100s_>,>lh\u001bl50s100s_>.>\u000f\u001b\u0018\u001b150su.kk kn i\u001b150s100sub yy150s150s50s\u0018\u001b100s_>.>cl 100sllub \u000f\u001b50s100s20s150sh\u001bu.l150st$n i\u001b\u0018\u001b100sh\u001buy yi\u001b_>,>100s50s150sqk50slkj y\u000f\u001bkb luj _>.>"
+  }
+ ]
+}

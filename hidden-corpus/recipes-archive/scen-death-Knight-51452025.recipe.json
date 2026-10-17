@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nd\n sy.m..20s20ssm.sm.20ssb20s20ssm.sy.m..n.m.20s20s20ssj20s.ysm.sm.sm.sn.m.  n nsm..m..m.sysl.m..m.susm.sj.jsh20s"
+ },
+ "segments": [
+  {
+   "seed": 51452025,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nd\n sy.m..20s20ssm.sm.20ssb20s20ssm.sy.m..n.m.20s20s20ssj20s.ysm.sm.sm.sn.m.  n nsm..m..m.sysl.m..m.susm.sj.jsh20s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Oa\no\nc\n#force\nO>e\n#wipe\n;k, \u001b>.Oohi\nd\n_m,sOok\no\nd\n#offer\n;l;mO>>>>e\n1\n\u0018\u001b.20smO>>>>bea\n on\n<yy\u001bny y\u001b m"
+ },
+ "segments": [
+  {
+   "seed": 51451031,
+   "datetime": "20211004030322",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "Oa\no\nc\n#force\nO>e\n#wipe\n;k, \u001b>.Oohi\nd\n_m,sOok\no\nd\n#offer\n;l;mO>>>>e\n1\n\u0018\u001b.20smO>>>>bea\n on\n<yy\u001bny y\u001b m"
+  }
+ ]
+}

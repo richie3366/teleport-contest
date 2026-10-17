@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00173 potion of gain ability\nql#dip\nll\u00173 cockatrice corpse\n\u0017tooled horn\nany anyFl20s\u0017blessed potion of full healing\nqoss\u0017spellbook of force bolt\n\u0007soldier\nrp sm..jZFl Fl   yy\u001by  y y y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 51452011,
+   "datetime": "20090615190740",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u00173 potion of gain ability\nql#dip\nll\u00173 cockatrice corpse\n\u0017tooled horn\nany anyFl20s\u0017blessed potion of full healing\nqoss\u0017spellbook of force bolt\n\u0007soldier\nrp sm..jZFl Fl   yy\u001by  y y y\u001by  ."
+  }
+ ]
+}

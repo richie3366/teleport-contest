@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic harp\n\u0017blessed amulet of life saving\nPf\u0017blessed ring of free action\nPgl\u0017blessed bell of opening\n\u0017blessed magic lamp\n\u0017blessed 20 daggers\nQj#levelchange\n14\n             #wizintrinsic\nh\n i\u001bjj\u0017spellbook of slow monster\nrksZ:\u0017blessed spellbook of fireball\nrlsm.Z:;_. \u001bm.E- X marks the spot\n#pray\ny y  #wizintrinsic\nh\n;>.E-y ad aerarium\n#chat\nj\u0016?\n>C_{.>\u0017wand of teleportation\nzmuzmjzm.m,zmj\u0017potion of hallucination\nqn20s20s#wizintrinsic\nh\n\u0018\u001bbykn\u0017potion of gain energy\nqosi\u001byyk\u00169\n#levelchange\n6\n  \u0007incubus\nFjFjFj   y   .m. 20s \u0007black pudding\nFj  Fl  Fl   Fj  Fl  Fl   Fj  .m. 20s #pray\ny y     #wizintrinsic\nh\n;b,E- ad aerarium\n     \u0007lichen\n\u0007jackal\nFl  FbFb  Fb  \u0017potion of booze\nqp   sh  n   \u0007soldier\nFl  Fh  Fl  Fb   Fj   #wizintrinsic\nh\n\u0017potion of confusion\nqq20s   .m.  \u0007lichen\n\u0007sewer rat\nFl   n   FjFhFj Fb FlFh   n\u00169\n\u0017blessed scroll of enchant armor\nrr  #wizintrinsic\nh\nfl fl tbb fl \u0017blessed scroll of remove curse\nrs  \u0016?\n\u001bbujh  nu :tjhfh fhfhi\u001bbl\u0017potion of levitation\nqt .m.20s #wizintrinsic\nh\n\u0017potion of invisibility\nqu"
+ },
+ "segments": [
+  {
+   "seed": 51450038,
+   "datetime": "20130131134001",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic harp\n\u0017blessed amulet of life saving\nPf\u0017blessed ring of free action\nPgl\u0017blessed bell of opening\n\u0017blessed magic lamp\n\u0017blessed 20 daggers\nQj#levelchange\n14\n             #wizintrinsic\nh\n i\u001bjj\u0017spellbook of slow monster\nrksZ:\u0017blessed spellbook of fireball\nrlsm.Z:;_. \u001bm.E- X marks the spot\n#pray\ny y  #wizintrinsic\nh\n;>.E-y ad aerarium\n#chat\nj\u0016?\n>C_{.>\u0017wand of teleportation\nzmuzmjzm.m,zmj\u0017potion of hallucination\nqn20s20s#wizintrinsic\nh\n\u0018\u001bbykn\u0017potion of gain energy\nqosi\u001byyk\u00169\n#levelchange\n6\n  \u0007incubus\nFjFjFj   y   .m. 20s \u0007black pudding\nFj  Fl  Fl   Fj  Fl  Fl   Fj  .m. 20s #pray\ny y     #wizintrinsic\nh\n;b,E- ad aerarium\n     \u0007lichen\n\u0007jackal\nFl  FbFb  Fb  \u0017potion of booze\nqp   sh  n   \u0007soldier\nFl  Fh  Fl  Fb   Fj   #wizintrinsic\nh\n\u0017potion of confusion\nqq20s   .m.  \u0007lichen\n\u0007sewer rat\nFl   n   FjFhFj Fb FlFh   n\u00169\n\u0017blessed scroll of enchant armor\nrr  #wizintrinsic\nh\nfl fl tbb fl \u0017blessed scroll of remove curse\nrs  \u0016?\n\u001bbujh  nu :tjhfh fhfhi\u001bbl\u0017potion of levitation\nqt .m.20s #wizintrinsic\nh\n\u0017potion of invisibility\nqu"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#enhance\nyg\nh\n\u001b\u0004bZ\u001615\nv\u001bi\u001bmO>l\u001b\nO>l\u001b\n\u00162\n\u0006_ \u001b;>FyFk_>,Fn_.Fb>FbFb_>,Fn_,Fb>Fh FnFnFbFb\u0006_>.Fb_.Fb>FnFb_>.Fn_.Fn>FnFb_>,Fb_,Fn>FbFbFbFbFn\u0006_>.Fn_.Fb>FnFn_>.Fb_.Fn>FnFn_>.Fb_.Fn>FnFbFnFnFn\u0006_>.Fn_,Fb>FbFn_>.Fb_,Fn>FnFn_>,Fb_.Fn>FnFbFnFnFn#loot\nu\u00163\nFyFkFkFuFjFhFuFbFbFjFuFy FlFhFyFkFuFyFlFlFnFkFuFkFkFkFkFlFjFbFjFnFkFlFyFjFbFbFbFjFhFlFnFlFjFyFlFlFbFuFyFjFuFyFbFyFbFbFuFlFhFkFhFnFkFbFnFhFhFhFjFuFuFyFjFlFlFyFnFjFkFyFyFlFjFbFnFnFuFbFkFbFnFuFyFhFjFyFnFuFbFbFbFuFnFjFnFlFnFkFnFkFhFkFlFuFbFlFhFlFuFjFjFuFlFbFjFuFbFnFjFkFnFuFbFkFnFuFyFyFlFjFuFhFyFnFuFkFnFj  nFnFkFnFbFyFlFyFjFnFuFnFbFhFlFyFnFnFkFkFlFlFlFyFkFbFjFnFbFjFjFjFbFbFjFbFkFkFuFyFuFuFyFuFnFjFlFhFhFbFhFyFuFlFlFyFlFyFuFbFbFyFkFlFyFlFbFbFhFnFuFjFuFbFkFnFyFhFlFnFyFnFhFhFnFuFjFjFjFlFj\u00169\nmO>>>>h\u001b\n\u0007tame winter wolf cub\n\u0007tame large dog\n\u0006_>>.Fb_.Fy   n>FnFj _>>, Fj  n_. Fh  >FuFb_>>. Fb_.Fn>FyFj\u0007lichen\n\u0017scroll of taming\nrf \u0017tripe ration\ntbj20s  #c"
+ },
+ "segments": [
+  {
+   "seed": 51450037,
+   "datetime": "20050930110042",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You feel\"\nBIND=v:inventory\n",
+   "moves": "#enhance\nyg\nh\n\u001b\u0004bZ\u001615\nv\u001bi\u001bmO>l\u001b\nO>l\u001b\n\u00162\n\u0006_ \u001b;>FyFk_>,Fn_.Fb>FbFb_>,Fn_,Fb>Fh FnFnFbFb\u0006_>.Fb_.Fb>FnFb_>.Fn_.Fn>FnFb_>,Fb_,Fn>FbFbFbFbFn\u0006_>.Fn_.Fb>FnFn_>.Fb_.Fn>FnFn_>.Fb_.Fn>FnFbFnFnFn\u0006_>.Fn_,Fb>FbFn_>.Fb_,Fn>FnFn_>,Fb_.Fn>FnFbFnFnFn#loot\nu\u00163\nFyFkFkFuFjFhFuFbFbFjFuFy FlFhFyFkFuFyFlFlFnFkFuFkFkFkFkFlFjFbFjFnFkFlFyFjFbFbFbFjFhFlFnFlFjFyFlFlFbFuFyFjFuFyFbFyFbFbFuFlFhFkFhFnFkFbFnFhFhFhFjFuFuFyFjFlFlFyFnFjFkFyFyFlFjFbFnFnFuFbFkFbFnFuFyFhFjFyFnFuFbFbFbFuFnFjFnFlFnFkFnFkFhFkFlFuFbFlFhFlFuFjFjFuFlFbFjFuFbFnFjFkFnFuFbFkFnFuFyFyFlFjFuFhFyFnFuFkFnFj  nFnFkFnFbFyFlFyFjFnFuFnFbFhFlFyFnFnFkFkFlFlFlFyFkFbFjFnFbFjFjFjFbFbFjFbFkFkFuFyFuFuFyFuFnFjFlFhFhFbFhFyFuFlFlFyFlFyFuFbFbFyFkFlFyFlFbFbFhFnFuFjFuFbFkFnFyFhFlFnFyFnFhFhFnFuFjFjFjFlFj\u00169\nmO>>>>h\u001b\n\u0007tame winter wolf cub\n\u0007tame large dog\n\u0006_>>.Fb_.Fy   n>FnFj _>>, Fj  n_. Fh  >FuFb_>>. Fb_.Fn>FyFj\u0007lichen\n\u0017scroll of taming\nrf \u0017tripe ration\ntbj20s  #c"
+  }
+ ]
+}

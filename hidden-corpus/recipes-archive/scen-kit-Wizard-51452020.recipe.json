@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " i\u001bPdl20s..Rqgrj ri captain\nqfwa.ss#name\nf\n m,#sit\n#dip\neh#sit\n_>,20s#chat\nb#monster\nni\u001brm y 20s20sZb\nZb\nan\u001brkPdrs.sRwas20s.rl y 20ssZa\nZb\n"
+ },
+ "segments": [
+  {
+   "seed": 51452020,
+   "datetime": "20070320163738",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " i\u001bPdl20s..Rqgrj ri captain\nqfwa.ss#name\nf\n m,#sit\n#dip\neh#sit\n_>,20s#chat\nb#monster\nni\u001brm y 20s20sZb\nZb\nan\u001brkPdrs.sRwas20s.rl y 20ssZa\nZb\n"
+  }
+ ]
+}

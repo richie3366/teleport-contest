@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017potion of fruit juice\nql \u001b#dip\nhe\u00173 amulet of life saving\nPmsss 20s   \u0017blessed ring of fire resistance\nPnlssss.ss"
+ },
+ "segments": [
+  {
+   "seed": 51452006,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017potion of fruit juice\nql \u001b#dip\nhe\u00173 amulet of life saving\nPmsss 20s   \u0017blessed ring of fire resistance\nPnlssss.ss"
+  }
+ ]
+}

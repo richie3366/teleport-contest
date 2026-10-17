@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " Oa\no\nl\n10sOe\n#loot\njmO>kr\nZOhpm\n#conduct\n mO>>>h\n\u0018\u001b#enhance\n\u001b20ss"
+ },
+ "segments": [
+  {
+   "seed": 51451011,
+   "datetime": "20151027101453",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\n",
+   "moves": " Oa\no\nl\n10sOe\n#loot\njmO>kr\nZOhpm\n#conduct\n mO>>>h\n\u0018\u001b#enhance\n\u001b20ss"
+  }
+ ]
+}

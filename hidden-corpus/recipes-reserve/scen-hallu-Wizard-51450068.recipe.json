@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of life saving\nPo\u0017blessed ring of free action\nPpr \u0017blessed +3 helm of telepathy\nWq \u0017blessed 20 daggers\nQr#levelchange\n20\n                   #wizintrinsic\nh\n \u0007gnome lord\nFnFn Fj   FnFnFl fhfytrj\u0016?\n>v _ \u001b>..\u0017wand of magic missile\nzshzsj zsyzsn zsu  ;<.E- Vlad was here\n#chat\nu#pray\ny y #wizintrinsic\nh\n\u0017wand of lightning\nztyztbztn ztl zth\u0017wand of digging\nzulzuhzuk\u0017potion of extra healing\nqv 20s#wizintrinsic\nh\n \u0016?\n>>M       scroll of punishment\n_>.i\u001buu    n l \u0007yellow mold\n\u0007kobold shaman\nFk     Fb    Fk    Fj   n #wizintrinsic\nh\n\u0017scroll of light\nry      \u0007jackal\nFj     Fj  Fj     n Fl         Fb         Fj Fk  n             \u00166\n#wizintrinsic\nh\ni\u001bb   n            b   \u0018\u001bj  n            l   n y          n          n   \u00167\n_:n           k  n   #wizintrinsic\nh\n\u0017potion of polymorph\nqz         20s  .   trk fj   n   fk    #invoke\nw;j,E#chat\n#pray\ny y \u0017wand of digging\nzAk zAj      zAj  n   zAj #wizintrinsic\nh\n\u0017blessed scroll"
+ },
+ "segments": [
+  {
+   "seed": 51450068,
+   "datetime": "20170211131251",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of life saving\nPo\u0017blessed ring of free action\nPpr \u0017blessed +3 helm of telepathy\nWq \u0017blessed 20 daggers\nQr#levelchange\n20\n                   #wizintrinsic\nh\n \u0007gnome lord\nFnFn Fj   FnFnFl fhfytrj\u0016?\n>v _ \u001b>..\u0017wand of magic missile\nzshzsj zsyzsn zsu  ;<.E- Vlad was here\n#chat\nu#pray\ny y #wizintrinsic\nh\n\u0017wand of lightning\nztyztbztn ztl zth\u0017wand of digging\nzulzuhzuk\u0017potion of extra healing\nqv 20s#wizintrinsic\nh\n \u0016?\n>>M       scroll of punishment\n_>.i\u001buu    n l \u0007yellow mold\n\u0007kobold shaman\nFk     Fb    Fk    Fj   n #wizintrinsic\nh\n\u0017scroll of light\nry      \u0007jackal\nFj     Fj  Fj     n Fl         Fb         Fj Fk  n             \u00166\n#wizintrinsic\nh\ni\u001bb   n            b   \u0018\u001bj  n            l   n y          n          n   \u00167\n_:n           k  n   #wizintrinsic\nh\n\u0017potion of polymorph\nqz         20s  .   trk fj   n   fk    #invoke\nw;j,E#chat\n#pray\ny y \u0017wand of digging\nzAk zAj      zAj  n   zAj #wizintrinsic\nh\n\u0017blessed scroll"
+  }
+ ]
+}

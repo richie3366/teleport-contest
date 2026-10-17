@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " O>>>c\u001b\n  #untrap\nu\u0018\u001b\u001618\n jbu\u0017grave\n: \u0017wand of digging\nzi>  ss:h\u0017sink\nqy\u0017ring of see invisible\ndj \u001b:#terrain\nf\n\u000f\u001b#name\nm\n .#jump\n#levelchange\n10\n         hb y\u0017magic fountain\nqyqy buy\u0017altar\ndf\u0017dwarf corpse\n#offer\nk    #pray\ny y uh\u0017grave\n:  \u0017wand of digging\nzl>20s.:  <de _>,.#force\n#ride\nuy20s\u001615\n  fy_>.>khnFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFy  Fy  Fy  Fy  n Fy FyFy  Fys20s150s_>,>150sFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu\u001610\n  #levelchange\n30\n                   jbyb\u0017neutral altar\ndl\u0017newt corpse\n#offer\nm  h\u0017magic fountain\nqy qy yq\u0017long sword\n#dip\nn#terrain\nf\ns#ride\nhy\u00164\n  Of\u001b\nO>>>e\u001b\n\u00165\n ed  \\ O>>>>a\u001b\nv\u001bi\u001bO>>c\u001b\n\u0006_>,_.:>_>,_.@.>_>,_,<.><\u0006_>,_.:>_>._.m.>_>._,<.>\u0006_>,_,.>_>._.,>_>,_.m,>\u0006_>>,_.m.>_>>._..>_>>._.m,>#pray\ny y #jump\n\u0006_>._,,>_>._.@.>_>._.:>O>>>k\u001b\u001b\nv\u001bi\u001bmO>>f\u001b\nv\u001bi\u001bO>>>>g\u001b\nO>>>>f\u001b\nO>>h\u001b\nO>>>>p\u001b\n\u0007pony\n\u0017banana\ntnn\u0007giant rat\n\u0017scroll o"
+ },
+ "segments": [
+  {
+   "seed": 51450017,
+   "datetime": "20010903195843",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=runmode:crawl\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": " O>>>c\u001b\n  #untrap\nu\u0018\u001b\u001618\n jbu\u0017grave\n: \u0017wand of digging\nzi>  ss:h\u0017sink\nqy\u0017ring of see invisible\ndj \u001b:#terrain\nf\n\u000f\u001b#name\nm\n .#jump\n#levelchange\n10\n         hb y\u0017magic fountain\nqyqy buy\u0017altar\ndf\u0017dwarf corpse\n#offer\nk    #pray\ny y uh\u0017grave\n:  \u0017wand of digging\nzl>20s.:  <de _>,.#force\n#ride\nuy20s\u001615\n  fy_>.>khnFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFy  Fy  Fy  Fy  n Fy FyFy  Fys20s150s_>,>150sFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu\u001610\n  #levelchange\n30\n                   jbyb\u0017neutral altar\ndl\u0017newt corpse\n#offer\nm  h\u0017magic fountain\nqy qy yq\u0017long sword\n#dip\nn#terrain\nf\ns#ride\nhy\u00164\n  Of\u001b\nO>>>e\u001b\n\u00165\n ed  \\ O>>>>a\u001b\nv\u001bi\u001bO>>c\u001b\n\u0006_>,_.:>_>,_.@.>_>,_,<.><\u0006_>,_.:>_>._.m.>_>._,<.>\u0006_>,_,.>_>._.,>_>,_.m,>\u0006_>>,_.m.>_>>._..>_>>._.m,>#pray\ny y #jump\n\u0006_>._,,>_>._.@.>_>._.:>O>>>k\u001b\u001b\nv\u001bi\u001bmO>>f\u001b\nv\u001bi\u001bO>>>>g\u001b\nO>>>>f\u001b\nO>>h\u001b\nO>>>>p\u001b\n\u0007pony\n\u0017banana\ntnn\u0007giant rat\n\u0017scroll o"
+  }
+ ]
+}

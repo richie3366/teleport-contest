@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic lamp\n\u0017blessed amulet of life saving\nPk\u0017blessed magic harp\n\u0017blessed +3 helm of telepathy\nWm\u0017blessed leash\n\u0017blessed 20 daggers\nQo#levelchange\n20\n                      #wizintrinsic\nh\n \u0007troll\nFnFn  FnFl   \u0007kobold\n\u0007newt\nFnFn Fl FnFnFus\u0017blessed scroll of remove curse\nrp \u0007acid blob\n\u0007bugbear\nFkFj  FjFjs.s#wizintrinsic\nh\n\u0017blessed scroll of earth\nrq  \u0017wand of teleportation\nzrnzrnzryzrk;<. \u001bm,E- Elbereth Elbereth\n#wizintrinsic\nh\n;>.E-n  I am a fish\n#chat\nl\u0017spellbook of fireball\nrs.Za\n  #turn\n: _m.njk\u00165\njkynjk:.\u0017blessed spellbook of slow monster\nrt sZb\n:#wizintrinsic\nh\n\u001614\n _<.>s\u0018\u001bhhhl\u0017scroll of fire\nru                 \u0017glob of green slime\nev        \u0007yellow mold\n\u0007jackal\nFlFh                Fn    "
+ },
+ "segments": [
+  {
+   "seed": 51450078,
+   "datetime": "20160101224018",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic lamp\n\u0017blessed amulet of life saving\nPk\u0017blessed magic harp\n\u0017blessed +3 helm of telepathy\nWm\u0017blessed leash\n\u0017blessed 20 daggers\nQo#levelchange\n20\n                      #wizintrinsic\nh\n \u0007troll\nFnFn  FnFl   \u0007kobold\n\u0007newt\nFnFn Fl FnFnFus\u0017blessed scroll of remove curse\nrp \u0007acid blob\n\u0007bugbear\nFkFj  FjFjs.s#wizintrinsic\nh\n\u0017blessed scroll of earth\nrq  \u0017wand of teleportation\nzrnzrnzryzrk;<. \u001bm,E- Elbereth Elbereth\n#wizintrinsic\nh\n;>.E-n  I am a fish\n#chat\nl\u0017spellbook of fireball\nrs.Za\n  #turn\n: _m.njk\u00165\njkynjk:.\u0017blessed spellbook of slow monster\nrt sZb\n:#wizintrinsic\nh\n\u001614\n _<.>s\u0018\u001bhhhl\u0017scroll of fire\nru                 \u0017glob of green slime\nev        \u0007yellow mold\n\u0007jackal\nFlFh                Fn    "
+  }
+ ]
+}

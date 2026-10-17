@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "H JYN_ \u001bm.>Fl s.BKUY_>,><KJLN_>,>NKUN_>.>\u000f\u001bi\u001b#monster\n#enhance\n\u001bhjb50s100sFyFyFjFjFj.hhn100s100sFjFjFnyyl100sjlu150sFj20ss100s150sFh.s150s50sol_>.>yllhnbFkFhFhFh20ssi\u001b100s#loot\n_>,>nnh50subk50shkbFns20sjhlull\\ i\u001bb150s50slyh150sfki\u001b\u000f\u001b_>.>fb150sbhkFnFbFb#pray\ny   y\u001by  y y y\u001b  y"
+ },
+ "segments": [
+  {
+   "seed": 51450013,
+   "datetime": "20211202023910",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\n",
+   "moves": "H JYN_ \u001bm.>Fl s.BKUY_>,><KJLN_>,>NKUN_>.>\u000f\u001bi\u001b#monster\n#enhance\n\u001bhjb50s100sFyFyFjFjFj.hhn100s100sFjFjFnyyl100sjlu150sFj20ss100s150sFh.s150s50sol_>.>yllhnbFkFhFhFh20ssi\u001b100s#loot\n_>,>nnh50subk50shkbFns20sjhlull\\ i\u001bb150s50slyh150sfki\u001b\u000f\u001b_>.>fb150sbhkFnFbFb#pray\ny   y\u001by  y y y\u001b  y"
+  }
+ ]
+}

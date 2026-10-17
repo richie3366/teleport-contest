@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  O>>h\u001b\nqq>\u00164\nFkFhFh FkFhFhFkFkFhFhFhFhFhFhFhFhFhFhFkFhFkFkFhFhFkFhFhFkFyFhFyFyFkFkFkFkFyFyFyFhFkFhFyFkFkFkFyFhFyFhFyFyFhFhFhFkFhFyFyFkFhFkFhFkFhFyFhFkFhFkFkFyFkFhFyFhFyFkFkFkFyFyFkFkFkFkFyFhFyFhFyFhFhFkFkFkFyFkFkFkFhFyFkFhFyFkFhFhFkFyFhFkFkFyFkFyFyFyFyFhzcj\u00168\nqq\u0006_ \u001b,>_>._,> \u0006_>._.:> \u0006_>.Fj_,    nFb>Fb Fb   n_>.Fn _,Fh >Fj Fh_>.   n  Fl   n       _.  n    nFh    n >Fy    n FyFl   n Fl Fn  n  \u0006_>>.  n Fb _.  Fj  n    >Fb   n    Fl   _>>,  nFn          n   _. Fl     yy\u001by   y y y\u001by  >"
+ },
+ "segments": [
+  {
+   "seed": 51450077,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"uncursed\"=green\n",
+   "moves": "  O>>h\u001b\nqq>\u00164\nFkFhFh FkFhFhFkFkFhFhFhFhFhFhFhFhFhFhFkFhFkFkFhFhFkFhFhFkFyFhFyFyFkFkFkFkFyFyFyFhFkFhFyFkFkFkFyFhFyFhFyFyFhFhFhFkFhFyFyFkFhFkFhFkFhFyFhFkFhFkFkFyFkFhFyFhFyFkFkFkFyFyFkFkFkFkFyFhFyFhFyFhFhFkFkFkFyFkFkFkFhFyFkFhFyFkFhFhFkFyFhFkFkFyFkFyFyFyFyFhzcj\u00168\nqq\u0006_ \u001b,>_>._,> \u0006_>._.:> \u0006_>.Fj_,    nFb>Fb Fb   n_>.Fn _,Fh >Fj Fh_>.   n  Fl   n       _.  n    nFh    n >Fy    n FyFl   n Fl Fn  n  \u0006_>>.  n Fb _.  Fj  n    >Fb   n    Fl   _>>,  nFn          n   _. Fl     yy\u001by   y y y\u001by  >"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nql \u001b<._ooo. Fl_..Fh_o,Fh_.;@.Fh,$_{,Fh_.Fh qf#dip\nie_ddddd,Fy_,Fk\u0004l_ooooooo.Fh_,@.Fk_oo.Fh_..Fl,p_oooooooo.Fk_.Fu,$ek#jump\n#ride\nuy"
+ },
+ "segments": [
+  {
+   "seed": 51451002,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nql \u001b<._ooo. Fl_..Fh_o,Fh_.;@.Fh,$_{,Fh_.Fh qf#dip\nie_ddddd,Fy_,Fk\u0004l_ooooooo.Fh_,@.Fk_oo.Fh_..Fl,p_oooooooo.Fk_.Fu,$ek#jump\n#ride\nuy"
+  }
+ ]
+}

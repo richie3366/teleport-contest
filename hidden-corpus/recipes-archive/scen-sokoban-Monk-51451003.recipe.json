@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n10\n          \u0016?\n>DFnFn \u0017wand of striking\nzlj\u0017wand of digging\nzmh\u0017wand of striking\nznl\u0017wand of digging\nzolbjbjhkbbbbbjhhnnh10snhubnllbbb10sy\u0017wand of digging\nzph\u0017wand of digging\nzqk\u0017wand of digging\nzrl\u0017wand of digging\nzsl\u0017scroll of earth\nrt hnhlbllb10slllyblnnh10s"
+ },
+ "segments": [
+  {
+   "seed": 51451003,
+   "datetime": "20021022184707",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n10\n          \u0016?\n>DFnFn \u0017wand of striking\nzlj\u0017wand of digging\nzmh\u0017wand of striking\nznl\u0017wand of digging\nzolbjbjhkbbbbbjhhnnh10snhubnllbbb10sy\u0017wand of digging\nzph\u0017wand of digging\nzqk\u0017wand of digging\nzrl\u0017wand of digging\nzsl\u0017scroll of earth\nrt hnhlbllb10slllyblnnh10s"
+  }
+ ]
+}

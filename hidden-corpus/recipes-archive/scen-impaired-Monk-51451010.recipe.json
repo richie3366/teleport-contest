@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\ngj\n \u0017towel\nak\u0017cursed scroll of create monster\nrl  human mummy\n acid blob\n scorpion\n small mimic\n little dog\n ettin\n iron golem\n energy vortex\n brown mold\n frost giant\n hobbit\n green slime\n kitten\n\u0017cursed wand of stsack\nSy\u001b yn     yn  #",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51451010,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\ngj\n \u0017towel\nak\u0017cursed scroll of create monster\nrl  human mummy\n acid blob\n scorpion\n small mimic\n little dog\n ettin\n iron golem\n energy vortex\n brown mold\n frost giant\n hobbit\n green slime\n kitten\n\u0017cursed wand of stsack\nSy\u001b"
+  },
+  {
+   "seed": 51951010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " yn     yn  #"
+  }
+ ]
+}

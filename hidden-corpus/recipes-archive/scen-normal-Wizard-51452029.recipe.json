@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\\  f \u001be#untrap\nu#untrap\nh#wipe\nt\u001b\u0004l #turn\n#ride\nl#offer\n;<. \u001b.#invoke\n\u001b#dip\nlgdo>#rub\n#sit\n#invoke\n\u001b: _<,st\u001bi\u001bqfrl y s.Z\u001bPdl..san\u001bqh\u001b#dip\negqg,\u001b;_.#turn\ndcPe#dip\nd "
+ },
+ "segments": [
+  {
+   "seed": 51452029,
+   "datetime": "20090413221153",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": "\\  f \u001be#untrap\nu#untrap\nh#wipe\nt\u001b\u0004l #turn\n#ride\nl#offer\n;<. \u001b.#invoke\n\u001b#dip\nlgdo>#rub\n#sit\n#invoke\n\u001b: _<,st\u001bi\u001bqfrl y s.Z\u001bPdl..san\u001bqh\u001b#dip\negqg,\u001b;_.#turn\ndcPe#dip\nd "
+  }
+ ]
+}

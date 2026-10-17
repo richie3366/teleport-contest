@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017cursed -1 chain mail\n\u0007cave spider\nW\u001b\u001bsksj.m. Fk Fh\u0017blessed the Magic Mirror of Merlin\n , ..\u00173 wand of stasis\nzggz..\u0006#levelchange\n8\n  \u0017the Longbow of Diana\n wh FhFh.\u0007soldier\n;u, \u001b,20s.m.sm.\u0007gnomish wizard\n20s .m.sm..m.  n\u0007long worm\nFk FlFu  Fl Fl Fk\u0007watchman\nFh FhFuFuFu\\   \u0007water nymph\nFhFhFh20s  n 20s \u0007yellow light\nFhFlFl            Fh 20s 20s#pray\ny y   \u0007black pudding\nFhFlFlFk20ss\u00164\n\\   #wizintrinsic\ng\n 20ssss...ss20s\u0017potion of extra healing\nqi#rub\n#wipe\n#twoweapon\n20s<t\u001b\u001b20s.m..m.su.m.sm.\\   #levelchange\n20\n           \u0007gray unicorn\n\u0017scroll of taming\nrj  \u0017saddle\nakh \u0017lance\nwl #ride\nky\u0007tame saddled warhorse\n#ride\nyy  \u0007warhorse\n\u0017scroll of taming\nrm  \u0017saddle\nanj#ride\n       n   u     j     n    y \u0006_>>.Fn_,>_>>._.>\u0007gnome\nFjFjFu\u0006_>.Fu_,m.Fb>FbFb_>.   \u001b_.>s20s#levelchange\n8\n    \u0017blessed ring of polymorph control\nPol#polyself\nviolet fungus\n #monster\ns.s.s #polyself\nraven\n#monster\n20s20s\u0007ki-rin\nFjFnFn   sm.sl20s #polyself\nblack light\n#monster\ns.ss    20s  n \u0017potion of polymorph\nqp orc shaman\n    n #dip\nki\u001b\u00167\n#wizintrinsic\nhj\n \u0017lump of royal jelly\neq \u0017cursed scroll of destroy armor\nrrE- Elbereth\nZ.ss#levelchange\n12\n    \u0017blessed ring of polymorph control\nPs\u0017red dragon scale mail\nWt   n 20s s.#polyself\nfloating eye\n#monster\n20s  s \u0007air elemental\nFh  n Fl     Fb . sm.  n sm. #polyself\nowlbear\n#monster\ns s \u0007earth elemental\nFj    Fn Fb   20s    n  sm.sl  \u0017wand of "
+ },
+ "segments": [
+  {
+   "seed": 51450071,
+   "datetime": "20250516191950",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=sortloot:loot\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017cursed -1 chain mail\n\u0007cave spider\nW\u001b\u001bsksj.m. Fk Fh\u0017blessed the Magic Mirror of Merlin\n , ..\u00173 wand of stasis\nzggz..\u0006#levelchange\n8\n  \u0017the Longbow of Diana\n wh FhFh.\u0007soldier\n;u, \u001b,20s.m.sm.\u0007gnomish wizard\n20s .m.sm..m.  n\u0007long worm\nFk FlFu  Fl Fl Fk\u0007watchman\nFh FhFuFuFu\\   \u0007water nymph\nFhFhFh20s  n 20s \u0007yellow light\nFhFlFl            Fh 20s 20s#pray\ny y   \u0007black pudding\nFhFlFlFk20ss\u00164\n\\   #wizintrinsic\ng\n 20ssss...ss20s\u0017potion of extra healing\nqi#rub\n#wipe\n#twoweapon\n20s<t\u001b\u001b20s.m..m.su.m.sm.\\   #levelchange\n20\n           \u0007gray unicorn\n\u0017scroll of taming\nrj  \u0017saddle\nakh \u0017lance\nwl #ride\nky\u0007tame saddled warhorse\n#ride\nyy  \u0007warhorse\n\u0017scroll of taming\nrm  \u0017saddle\nanj#ride\n       n   u     j     n    y \u0006_>>.Fn_,>_>>._.>\u0007gnome\nFjFjFu\u0006_>.Fu_,m.Fb>FbFb_>.   \u001b_.>s20s#levelchange\n8\n    \u0017blessed ring of polymorph control\nPol#polyself\nviolet fungus\n #monster\ns.s.s #polyself\nraven\n#monster\n20s20s\u0007ki-rin\nFjFnFn   sm.sl20s #polyself\nblack light\n#monster\ns.ss    20s  n \u0017potion of polymorph\nqp orc shaman\n    n #dip\nki\u001b\u00167\n#wizintrinsic\nhj\n \u0017lump of royal jelly\neq \u0017cursed scroll of destroy armor\nrrE- Elbereth\nZ.ss#levelchange\n12\n    \u0017blessed ring of polymorph control\nPs\u0017red dragon scale mail\nWt   n 20s s.#polyself\nfloating eye\n#monster\n20s  s \u0007air elemental\nFh  n Fl     Fb . sm.  n sm. #polyself\nowlbear\n#monster\ns s \u0007earth elemental\nFj    Fn Fb   20s    n  sm.sl  \u0017wand of "
+  }
+ ]
+}

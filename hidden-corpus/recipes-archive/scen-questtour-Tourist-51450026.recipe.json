@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nl;l,_mmmm,   Fj_.       n#chat\nk_mm,   _, Fh   n #chat\nh_mmmm,   nFj      n  _,    nFy   n    n#chat\nh    n   n #levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.     Fy    _.#chat\nk_m.     nFy    _.#chat\nh     _mmm.   n   Fh   _,#chat\nh     n  \u0017blessed amulet of reflection\nPm     \u0017blessed +3 silver dragon scale mail\nWn  n     \u0017wand of cold\n\u0016?\n>A\u0006_mm.    Fy     n _.Fk      Fy   n      Fy    n    Fh    yy\u001by  y y\u001b  z"
+ },
+ "segments": [
+  {
+   "seed": 51450026,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nl;l,_mmmm,   Fj_.       n#chat\nk_mm,   _, Fh   n #chat\nh_mmmm,   nFj      n  _,    nFy   n    n#chat\nh    n   n #levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.     Fy    _.#chat\nk_m.     nFy    _.#chat\nh     _mmm.   n   Fh   _,#chat\nh     n  \u0017blessed amulet of reflection\nPm     \u0017blessed +3 silver dragon scale mail\nWn  n     \u0017wand of cold\n\u0016?\n>A\u0006_mm.    Fy     n _.Fk      Fy   n      Fy    n    Fh    yy\u001by  y y\u001b  z"
+  }
+ ]
+}

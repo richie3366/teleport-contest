@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  K#rub\ng\u001b20s \u0018\u001bag\u001bh \u0018\u001b#rub\ng\u001b\\ j;u, \u001b;#turn\nz#dip\naq#twoweapon\n i\u001b#sit\n E- Elbereth Elbereth\n ckZ,i\u001bahs\nahs\n#tip\nh\u001bW20sssTbed 20ssaiwaFlFnFlag\u001bch#jump\n#loot\nl<,: "
+ },
+ "segments": [
+  {
+   "seed": 51452003,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "  K#rub\ng\u001b20s \u0018\u001bag\u001bh \u0018\u001b#rub\ng\u001b\\ j;u, \u001b;#turn\nz#dip\naq#twoweapon\n i\u001b#sit\n E- Elbereth Elbereth\n ckZ,i\u001bahs\nahs\n#tip\nh\u001bW20sssTbed 20ssaiwaFlFnFlag\u001bch#jump\n#loot\nl<,: "
+  }
+ ]
+}

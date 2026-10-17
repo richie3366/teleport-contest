@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \u0007tame jackal\n\u0007tame gnome lord\n\u0017tripe ration\nt\u001b\u0017carrot\nt\u001b\u0007newt\n\u0017scroll of taming\nrm \u0017tin whistle\njbjan#chat\nj\u0017magic whistle\nyhkao  \u0007horse\n\u0017food ration\n t\u001b\u0017tin whistle\nj jyap\u0017leash\naqk   hbnjaqk    n \u0006_ \u001b.>Fk Fl_>>.  yy\u001by   ny\u001bn  F"
+ },
+ "segments": [
+  {
+   "seed": 51451025,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007tame jackal\n\u0007tame gnome lord\n\u0017tripe ration\nt\u001b\u0017carrot\nt\u001b\u0007newt\n\u0017scroll of taming\nrm \u0017tin whistle\njbjan#chat\nj\u0017magic whistle\nyhkao  \u0007horse\n\u0017food ration\n t\u001b\u0017tin whistle\nj jyap\u0017leash\naqk   hbnjaqk    n \u0006_ \u001b.>Fk Fl_>>.  yy\u001by   ny\u001bn  F"
+  }
+ ]
+}

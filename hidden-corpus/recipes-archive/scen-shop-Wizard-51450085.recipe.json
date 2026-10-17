@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 gauntlets of power\nWq\u0016?\n>w\u0006_ \u001b.qg__,    _,   Fl   #chat\nj#pray\ny y         _oo.,     np_ooooooooo.,   #chat\nj   _ooooo.Fh _.,   #chat\nl Fu   Fu   Fu FuFuFu_ooooooo.Fl _., \u0014<.s._oooo._o.  _.Fj,:Fy Fy  Fy    FyFy Fy_{.Fk  _.    qf\u00163\njyb\u0016?\n>w\u0006_ooooooooo.  _. Fn, $_oo.  _,,\u001b#chat\nl_{,Fh  _. q__.Fl  _.m,Fy#chat\nhkhh#chat\nh _ooooo._oo,Fh_,   n  Fh     , :__.Fb_. Fh       n  #chat\nh   n #pray\ny y       \u00163\nyyh\u0016?\n>w   \u0006\u00166\n_oooo.,#chat\nj_ooooo._o.,\u0017diamond\ndt_{.qnku#chat\nn__,#chat\nu_oo.,p_oooooooo,_o,_,,pkub#chat\nh_oooooooo._oo.,p_ooooooo._oo,,p_ooooooo,,#chat\nn_{.qubj #chat\nykub#chat\nk"
+ },
+ "segments": [
+  {
+   "seed": 51450085,
+   "datetime": "20090119151947",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 gauntlets of power\nWq\u0016?\n>w\u0006_ \u001b.qg__,    _,   Fl   #chat\nj#pray\ny y         _oo.,     np_ooooooooo.,   #chat\nj   _ooooo.Fh _.,   #chat\nl Fu   Fu   Fu FuFuFu_ooooooo.Fl _., \u0014<.s._oooo._o.  _.Fj,:Fy Fy  Fy    FyFy Fy_{.Fk  _.    qf\u00163\njyb\u0016?\n>w\u0006_ooooooooo.  _. Fn, $_oo.  _,,\u001b#chat\nl_{,Fh  _. q__.Fl  _.m,Fy#chat\nhkhh#chat\nh _ooooo._oo,Fh_,   n  Fh     , :__.Fb_. Fh       n  #chat\nh   n #pray\ny y       \u00163\nyyh\u0016?\n>w   \u0006\u00166\n_oooo.,#chat\nj_ooooo._o.,\u0017diamond\ndt_{.qnku#chat\nn__,#chat\nu_oo.,p_oooooooo,_o,_,,pkub#chat\nh_oooooooo._oo.,p_ooooooo._oo,,p_ooooooo,,#chat\nn_{.qubj #chat\nykub#chat\nk"
+  }
+ ]
+}

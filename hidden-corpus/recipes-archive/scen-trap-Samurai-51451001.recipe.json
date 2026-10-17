@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            juln\u0017statue trap\ny^nnsjsu\u0017web\nh\u0007gnome\nslsn  .l sm.l\u0017sleeping gas trap\njksm.syj\u0017squeaky board\nhl20s20s#terrain\nd\n\u001b>.i\u001b#pray\ny y   ;y.Sy\u001b y ,#tip\n\u001br\u001bqz#tip\n\u001b#force\nzW",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51451001,
+   "datetime": "20120905164914",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            juln\u0017statue trap\ny^nnsjsu\u0017web\nh\u0007gnome\nslsn  .l sm.l\u0017sleeping gas trap\njksm.syj\u0017squeaky board\nhl20s20s#terrain\nd\n\u001b>.i\u001b#pray\ny y   ;y.Sy\u001b"
+  },
+  {
+   "seed": 51951001,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " y ,#tip\n\u001br\u001bqz#tip\n\u001b#force\nzW"
+  }
+ ]
+}

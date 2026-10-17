@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "ULJH_ \u001b@.>Fl s.BNLY_>.>YLKB_>.><BNLK_>,>LUHL_>.>JKKK_>.>JJBY_>.>#force\nPHHKU_>.>UNBU_>.>10s#loot\n#sit\n\u001b#chat\nlhyhj#chat\nhuhjnbh#offer\n20s>BYNB_>.>FyFhFhBNKB_>,>Fk20s20sKLHB_>,>YJKJ_>.>Fb.20sYHKL_>.>qd#loot\nUHUU_>.>aejokKKNN_>.>\u000f\u001b100shlh  y\u001by  y y y\u001b   \u0018"
+ },
+ "segments": [
+  {
+   "seed": 51450073,
+   "datetime": "20130506103809",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\n",
+   "moves": "ULJH_ \u001b@.>Fl s.BNLY_>.>YLKB_>.><BNLK_>,>LUHL_>.>JKKK_>.>JJBY_>.>#force\nPHHKU_>.>UNBU_>.>10s#loot\n#sit\n\u001b#chat\nlhyhj#chat\nhuhjnbh#offer\n20s>BYNB_>.>FyFhFhBNKB_>,>Fk20s20sKLHB_>,>YJKJ_>.>Fb.20sYHKL_>.>qd#loot\nUHUU_>.>aejokKKNN_>.>\u000f\u001b100shlh  y\u001by  y y y\u001b   \u0018"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#jump\nol \u0006_ \u001bm,>FuFj_>,Fb_,Fuj >FuFj_>.Fj_.Fj>FuFuFjFjFj\u0006_>>.Fn_>FnFuu _>>.Fn_>FuFn_>FnFnFnFuj Fu\\ #monster\n\u0006_>>.Fn_>FjFu_>>.Fn_>FuFn_>FbFbFbFbFu#turn\n t\u001b<\u0006_>.Fb_. Fn>FuFb_>, Fun _.Fb>FnFb_>,Fn_>FjFuFuFuFuZ\u001b#ride\nu <\u0006_>>,Fu_.Fu>FnFn_>>.Fu_.Fu>FbFuu _>>,Fu_.Fn>FnFuu Fu\u0006_>,Fu_.Fj>FuFu_>.Fu_,Fj>FjFn_>FuFjFuFuFu\u0006_>.Fn_>FnFn_>.Fu_,Fb>FuFn_>FuFuFnFbFu\u000f\u001b\u00164\nFyFnFyFll FyFkn FjFhFnFjFjFnFh\u001bFnFyFkFyFjFlFnFlj FlFkFuFnFyFlFbFyFlFhFjFhFkFlFhFlFlFkFjFkFlFbFjFbFh\u001bFlFhFjFjFhFyFuj FkFnFnFbFyFuFnFun FhFkFuFnFuj FjFnFnFkFhFyFyFkFhFyFlj FlFyFbFuFbFbFjFlFbFnFyFyFlFnFly FjFnFnFhFkFkFhFuFlFhFkFyFyFhFhFjFkFnFkb FyFbFlFlFnFbFjFuFkmO>>>>a\u001b\nO>>m\u001b\u001b\n\u00168\n#untrap\nj i\u001b#force\n\u001618\n \u0006_>.Fl_.Fj>FjFj_>.Fh_.Fu>FhFu_>.  nFn_>FhFhFnFnFh\u0006_>.Fn_>FuFu_>.Fu_.Fn>FhFnFn\u0006_>.  nFh_.Fu>FnFh\u001b_>.Fu_.  "
+ },
+ "segments": [
+  {
+   "seed": 51450067,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#jump\nol \u0006_ \u001bm,>FuFj_>,Fb_,Fuj >FuFj_>.Fj_.Fj>FuFuFjFjFj\u0006_>>.Fn_>FnFuu _>>.Fn_>FuFn_>FnFnFnFuj Fu\\ #monster\n\u0006_>>.Fn_>FjFu_>>.Fn_>FuFn_>FbFbFbFbFu#turn\n t\u001b<\u0006_>.Fb_. Fn>FuFb_>, Fun _.Fb>FnFb_>,Fn_>FjFuFuFuFuZ\u001b#ride\nu <\u0006_>>,Fu_.Fu>FnFn_>>.Fu_.Fu>FbFuu _>>,Fu_.Fn>FnFuu Fu\u0006_>,Fu_.Fj>FuFu_>.Fu_,Fj>FjFn_>FuFjFuFuFu\u0006_>.Fn_>FnFn_>.Fu_,Fb>FuFn_>FuFuFnFbFu\u000f\u001b\u00164\nFyFnFyFll FyFkn FjFhFnFjFjFnFh\u001bFnFyFkFyFjFlFnFlj FlFkFuFnFyFlFbFyFlFhFjFhFkFlFhFlFlFkFjFkFlFbFjFbFh\u001bFlFhFjFjFhFyFuj FkFnFnFbFyFuFnFun FhFkFuFnFuj FjFnFnFkFhFyFyFkFhFyFlj FlFyFbFuFbFbFjFlFbFnFyFyFlFnFly FjFnFnFhFkFkFhFuFlFhFkFyFyFhFhFjFkFnFkb FyFbFlFlFnFbFjFuFkmO>>>>a\u001b\nO>>m\u001b\u001b\n\u00168\n#untrap\nj i\u001b#force\n\u001618\n \u0006_>.Fl_.Fj>FjFj_>.Fh_.Fu>FhFu_>.  nFn_>FhFhFnFnFh\u0006_>.Fn_>FuFu_>.Fu_.Fn>FhFnFn\u0006_>.  nFh_.Fu>FnFh\u001b_>.Fu_.  "
+  }
+ ]
+}

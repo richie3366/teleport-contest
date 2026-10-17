@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nh ;h;_mmmmm.Fb   _,#chat\ny   n   n ;y;_mm.  n    n Fu    n   n   n   n _.#chat\ny    n   n   n ;b,_mm.   n   n   n   nFy   yy\u001by  y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 51450006,
+   "datetime": "20230111191340",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b.#chat\nh ;h;_mmmmm.Fb   _,#chat\ny   n   n ;y;_mm.  n    n Fu    n   n   n   n _.#chat\ny    n   n   n ;b,_mm.   n   n   n   nFy   yy\u001by  y y y\u001b  _"
+  }
+ ]
+}

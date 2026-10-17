@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n30\n                     #wizintrinsic\nlas\n   s20ss20ssss20s20ssss\u0017unicorn horn\nagag#rub\nE- ad aerarium\nf  buq#force\n.s20ss..\u001625\ni\u001b#wizintrinsic\nm\n s20ssm. su.b.ssu.sn<\u0004 #tip\n\u001b#sit\n20s.l20s sm.sl20s .b \u0006#levelchange\n8\n       \u0016?\n>E20szag;. \u001bm,s.\u001638\ni\u001bwd\u000f\u001b20ss\u0016?\n>>L      Grayswandir\ni\u001bZ#jump\n;b,sm.sm.     \u00165\n\u0017wand of digging\n\u0016?\n\u001bzj>       n20s      \u0006;_ooo.zj> \u0006_o.zj>        k   n          n   \u0017grave\nzj> 20s  .b      n   \u00161\ni\u001b\u001611\n#levelchange\n8\n\u0017Grimtooth\nwkFkFj  n      Fj  n        n    #invoke\nkk    \u0017blessed tallow candle\nal   n   #rub\n\u0017Hawaiian shirt\nW\u001bs. 20s     T.s\u0018\u001b\u001612\n#levelchange\n20\n           \u0016?\n\u001b\u0017wand of digging\nznlFk   n      \u0017scroll of earth\nro \u001b\u0017wand of digging\nzpl\u0017wand of digging\nzqkFk   n   l  Fk Fj   n   \u0017scroll of earth\nrr \u001b\u0017wand of striking\nzsj j Fj      Fu  n      10s Fj \u0017wand of striking\nztj n y  n          Fj  n       n  Fk  \u0017wand of digging\nzuk \u0017scroll of earth\nrvFj   b  n     \u0017wand of striking\nzwl    j        yy\u001by   y y  y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51450091,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n30\n                     #wizintrinsic\nlas\n   s20ss20ssss20s20ssss\u0017unicorn horn\nagag#rub\nE- ad aerarium\nf  buq#force\n.s20ss..\u001625\ni\u001b#wizintrinsic\nm\n s20ssm. su.b.ssu.sn<\u0004 #tip\n\u001b#sit\n20s.l20s sm.sl20s .b \u0006#levelchange\n8\n       \u0016?\n>E20szag;. \u001bm,s.\u001638\ni\u001bwd\u000f\u001b20ss\u0016?\n>>L      Grayswandir\ni\u001bZ#jump\n;b,sm.sm.     \u00165\n\u0017wand of digging\n\u0016?\n\u001bzj>       n20s      \u0006;_ooo.zj> \u0006_o.zj>        k   n          n   \u0017grave\nzj> 20s  .b      n   \u00161\ni\u001b\u001611\n#levelchange\n8\n\u0017Grimtooth\nwkFkFj  n      Fj  n        n    #invoke\nkk    \u0017blessed tallow candle\nal   n   #rub\n\u0017Hawaiian shirt\nW\u001bs. 20s     T.s\u0018\u001b\u001612\n#levelchange\n20\n           \u0016?\n\u001b\u0017wand of digging\nznlFk   n      \u0017scroll of earth\nro \u001b\u0017wand of digging\nzpl\u0017wand of digging\nzqkFk   n   l  Fk Fj   n   \u0017scroll of earth\nrr \u001b\u0017wand of striking\nzsj j Fj      Fu  n      10s Fj \u0017wand of striking\nztj n y  n          Fj  n       n  Fk  \u0017wand of digging\nzuk \u0017scroll of earth\nrvFj   b  n     \u0017wand of striking\nzwl    j        yy\u001by   y y  y\u001b  F"
+  }
+ ]
+}

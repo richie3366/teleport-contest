@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u0016?\n>ElFjlFjFn ljykyhh10s  10suknkyyhj10shhyyblFyhFk  nhl\u0017wand of digging\nznl h  nbFk hFk Fk  n FkFkl  n \u0017wand of digging\nzoh \u0017wand of striking\nzpjFy  n luFhFh  nju\u0017wand of digging\nzqy 10s   nlFh10s Fh  n yi\u001b\u001610\n#levelchange\n6\n\u0007tame little dog\n\u0017saddle\narj  n \u0017lance\nws #ride\njy\u0007horse\n\u0017scroll of taming\nrt  \u001b  n \u0017saddle\n auj   n    n #ride\nby\u0007tame saddled pony\n#ride\nby\u0007giant rat\nFb     n Fb      n  Fn       n  \u0006_ \u001b:>Fn   y\u001b     F"
+ },
+ "segments": [
+  {
+   "seed": 51450061,
+   "datetime": "20040419161943",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u0016?\n>ElFjlFjFn ljykyhh10s  10suknkyyhj10shhyyblFyhFk  nhl\u0017wand of digging\nznl h  nbFk hFk Fk  n FkFkl  n \u0017wand of digging\nzoh \u0017wand of striking\nzpjFy  n luFhFh  nju\u0017wand of digging\nzqy 10s   nlFh10s Fh  n yi\u001b\u001610\n#levelchange\n6\n\u0007tame little dog\n\u0017saddle\narj  n \u0017lance\nws #ride\njy\u0007horse\n\u0017scroll of taming\nrt  \u001b  n \u0017saddle\n auj   n    n #ride\nby\u0007tame saddled pony\n#ride\nby\u0007giant rat\nFb     n Fb      n  Fn       n  \u0006_ \u001b:>Fn   y\u001b     F"
+  }
+ ]
+}

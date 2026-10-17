@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of digging\nzl> sm.zl>   snzl>     nsm.zl> szl> .zl> sFlFlFlFl 20sss.ss \u0017wand of digging\nzf> .zf>  20szf> 20szf> .zf> szfsFk .sss20s20sFlsFyFuFuFuFuFuFuFuFu10suhlnde.s20stcybbklnky10s#chat\nk10sde.ssFhFhFhFhFhFhFhFhi\u001b50s Fbss#jump\n100s  Fj.sFjFjFh 150sFhFhFh150sujy_ \u001b,>hbn150s100s\\ ,50s50s_<.s\\ 100sFhss100s100sefnuy100s100s150sFhFhFh100s50s50slhl100s_>.>\u000f\u001b50s50s100s150shhbFy20s Fh100sef50s\\ 100s150si\u001b50sFhFhFhFh.sol150s100sblj100sZ100sFyFyFy150s efkkj100sjulhhl100s100sFh.s,150si\u001b50s100s50sFh20ss100synbHHYL_>.>, \u0018\u001bBLY L_>.><NBKB_>.>20s#monster\nBLUU_>.>Y H HK_>.>NHB L_>.>db#wipe\nKUKY_>.>\u000f\u001b50s hnyhhli\u001b\u000f\u001bhlhFn FnFn100s_>.>150s100sefbyn50s Fhssfb100s\u0018\u001b50sFhFhFhyhj;_.100shynkhn100s:\\ 50sFhFhFhFhFhFhFh.s150s150sFhFhFh100s100sFh.s150s100sbublFyFyFyFyFyFyFyFyFhFhFhFhFhFhFhFhuyhl100s50skb FbFbs150sFbFbFb100sFbss\u0018\u001b\u000f\u001b#enhance\n\u001b_>.>100sFbFbFb\u000f\u001bi\u001b20sFbFbsnbu150sFks20s\u000f\u001b\u000f\u001bi\u001b;m.100sFhss100sef50s\u0018\u001b_>.>100sjhkol100sFh20ss_>.>100sFhFhFhFhFhFhFhFhNJHH_>.>Fy.sLBLN_>.>LBUH_>,><#offer\n\u000f\u001btcydc.ssllhudjs.20slbtdn100s50sllu150sFh.._>.>hbu50snhynul#invoke\n\u001bkkj100s150sFhFhs100seeeeeeeeeeeeeeeeeeeeeeeekjylhlhnjhddssshjyj10skjknhkeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51450062,
+   "datetime": "20170308150806",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\nzl> sm.zl>   snzl>     nsm.zl> szl> .zl> sFlFlFlFl 20sss.ss"
+  },
+  {
+   "seed": 51550062,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of digging\nzf> .zf>  20szf> 20szf> .zf> szfsFk .sss20s20sFlsFy"
+  },
+  {
+   "seed": 51650062,
+   "datetime": "20030406092309",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "FuFuFuFuFuFuFuFu10suhlnde.s20stcybbklnky10s#chat\nk10sde.ssFhFhFhFhFhFhFhFhi\u001b50s Fbss#jump\n100s  Fj.sFjFjFh 150sFhFhFh150sujy_ \u001b,>hbn150s100s\\ ,50s50s_<.s\\ 100sFhss100s100sefnuy100s100s150sFhFhFh100s50s50slhl100s_>.>\u000f\u001b50s50s100s150shhbFy20s Fh100sef50s\\ 100s150si\u001b50sFhFhFhFh.sol150s100sblj100sZ100sFyFyFy150s efkkj100sjulhhl100s100sFh.s,150si\u001b50s100s50sFh20ss100synbHHYL_>.>, \u0018\u001bBLY L_>.><NBKB_>.>20s#monster\nBLUU_>.>Y H HK_>.>NHB L_>.>db#wipe\nKUKY_>.>\u000f\u001b50s hnyhhli\u001b\u000f\u001bhlhFn FnFn100s_>.>150s100sefbyn50s Fhssfb100s\u0018\u001b50sFhFhFhyhj;_.100shynkhn100s:\\ 50sFhFhFhFhFhFhFh.s150s150sFhFhFh100s100sFh.s150s100sbublFyFyFyFyFyFyFyFyFhFhFhFhFhFhFhFhuyhl100s50skb FbFbs150sFbFbFb100sFbss\u0018\u001b\u000f\u001b#enhance\n\u001b_>.>100sFbFbFb\u000f\u001bi\u001b20sFbFbsnbu150sFks20s\u000f\u001b\u000f\u001bi\u001b;m.100sFhss100sef50s\u0018\u001b_>.>100sjhkol100sFh20ss_>.>100sFhFhFhFhFhFhFhFhNJHH_>.>Fy.sLBLN_>.>LBUH_>,><#offer\n\u000f\u001btcydc.ssllhudjs.20slbtdn100s50sllu150sFh.._>.>hbu50snhynul#invoke\n\u001bkkj100s150sFhFhs100seeeeeeeeeeeeeeeeeeeeeeeekjylhlhnjhddssshjyj10skjknhkeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

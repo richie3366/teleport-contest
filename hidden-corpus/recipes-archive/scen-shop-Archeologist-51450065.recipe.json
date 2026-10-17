@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed amulet of reflection\nPi\u0017blessed +3 cloak of magic resistance\nWj\u0016?\n>w\u0006_ \u001b>. #chat\ny#pray\ny y _ooo.,p_oooooooo.,$_ooooo.,\u0017diamond\ndk_ooooooo.,p_ooooooo.,:_ooooooo.,p__,_,;;#chat\ny_oooo.,p_oooooooo.,p_ooooo._o,,p_{,_,qy_ooooooooo.,p_{,   _,qy _ooo,    n  Fy   n    n _,  n  Fn   n  ,p\u00163\n_ooooooooo._.,:\u00163\nblk\u0016?\n>w\u0006_ooooooooo.  Fl _.  n Fl  n  _oo.  n Fl  n _.  n Fl  n ,:\u00164\n_ooooooo.,\u0014.s20s_ooooooooo.,#chat\nb_ooo.,p_oooooo.,:_oooooo,,$ujj#chat\nk_{.qyhk#chat\nk __.#chat\nk_{.qFlFlFlFlFl Fl _{,q\u00163\njju\u0016?\n>w\u0006_ooooo,   n  n "
+ },
+ "segments": [
+  {
+   "seed": 51450065,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed amulet of reflection\nPi\u0017blessed +3 cloak of magic resistance\nWj\u0016?\n>w\u0006_ \u001b>. #chat\ny#pray\ny y _ooo.,p_oooooooo.,$_ooooo.,\u0017diamond\ndk_ooooooo.,p_ooooooo.,:_ooooooo.,p__,_,;;#chat\ny_oooo.,p_oooooooo.,p_ooooo._o,,p_{,_,qy_ooooooooo.,p_{,   _,qy _ooo,    n  Fy   n    n _,  n  Fn   n  ,p\u00163\n_ooooooooo._.,:\u00163\nblk\u0016?\n>w\u0006_ooooooooo.  Fl _.  n Fl  n  _oo.  n Fl  n _.  n Fl  n ,:\u00164\n_ooooooo.,\u0014.s20s_ooooooooo.,#chat\nb_ooo.,p_oooooo.,:_oooooo,,$ujj#chat\nk_{.qyhk#chat\nk __.#chat\nk_{.qFlFlFlFlFl Fl _{,q\u00163\njju\u0016?\n>w\u0006_ooooo,   n  n "
+  }
+ ]
+}

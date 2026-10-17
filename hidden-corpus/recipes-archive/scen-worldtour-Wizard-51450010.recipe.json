@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed Mjollnir\nwp\u0017blessed +3 helm of telepathy\nWq\u0016?\n>Gybj:\u0016?\n>>M      jumping boots\n\u0004l\u0016?\n\u001bu   y       \u00162\nh  l   n   l   y  j  b   n   b  : s     n  sy        \u00169\n\u00162\n_ \u001b,<\u001616\n\u0017ring of increase accuracy\nPtl .  n   s . \u0017amulet of magical breathing\nPu  n    .b       s  n     sm.         n    sm.     \u001b         Ru   n   \u0017ring of free action\nPv s s   n   s 20s  . \u00165\n\u0016?\nc hu  n  u u    :\u0016?\n\u001bj      n  k  \u0016?\n\u001by h  \u0016?\n\u001bhh\u0016?\n\u001bb   n h    \u0016?\n\u001bk j    n      \u0016?\n\u001by    h     \u0016?\n\u001bhn    n\u00162\nh bk     b    n    h :\u0016?\n\u001bj  j      yy\u001by   y y y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 51450010,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed Mjollnir\nwp\u0017blessed +3 helm of telepathy\nWq\u0016?\n>Gybj:\u0016?\n>>M      jumping boots\n\u0004l\u0016?\n\u001bu   y       \u00162\nh  l   n   l   y  j  b   n   b  : s     n  sy        \u00169\n\u00162\n_ \u001b,<\u001616\n\u0017ring of increase accuracy\nPtl .  n   s . \u0017amulet of magical breathing\nPu  n    .b       s  n     sm.         n    sm.     \u001b         Ru   n   \u0017ring of free action\nPv s s   n   s 20s  . \u00165\n\u0016?\nc hu  n  u u    :\u0016?\n\u001bj      n  k  \u0016?\n\u001by h  \u0016?\n\u001bhh\u0016?\n\u001bb   n h    \u0016?\n\u001bk j    n      \u0016?\n\u001by    h     \u0016?\n\u001bhn    n\u00162\nh bk     b    n    h :\u0016?\n\u001bj  j      yy\u001by   y y y\u001b  \u0016"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0017uncursed wand of enlightenment\nzk \u001bzk \u001bFl 20s\u0017cloak of magic resistance\nW\u001bsk20ssTb\u0017cursed potion of gain level\nqm \u001b\u0017wax candle\nan#rub\nis..20s"
+ },
+ "segments": [
+  {
+   "seed": 51452030,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0017uncursed wand of enlightenment\nzk \u001bzk \u001bFl 20s\u0017cloak of magic resistance\nW\u001bsk20ssTb\u0017cursed potion of gain level\nqm \u001b\u0017wax candle\nan#rub\nis..20s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007gnome\n#pray\ny y  #chat\nh#jump\n#wizintrinsic\nrq\n Fj  20s20sFl #enhance\nyg\nl\n\u001b_ \u001bm.#chat\nj#overview\n\u001b#conduct\n #annotate\nshiny\n\u0018\u001b#dip\ng#offer\n#chat\n#turn\n#wizdetect\n\u0006 b hn_oooooo.,\u0007dwarf\n#vanquished\n #genocided\nwinter wolf\nh\u000f\u001b#name\na\n#adjust\nb\u001b#sit\n#pray\ny y #levelchange\n3\n     hlh__,#chat\nk#chronicle\n   #terrain\n\u001b#annotate\n\u001bi\u001b#twoweapon\n#invoke\ng #chat\nk#chat\nk#polyself\nleprechaun\n #monster\n.sFh Fh .FhFhFhFhZ\u00165\n\u0006#version\n  #history\n                  i\u001b#wipe\n#loot\nl#turn\n#sit\n#jump\n"
+ },
+ "segments": [
+  {
+   "seed": 51450089,
+   "datetime": "20060322004814",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007gnome\n#pray\ny y  #chat\nh#jump\n#wizintrinsic\nrq\n Fj  20s20sFl #enhance\nyg\nl\n\u001b_ \u001bm.#chat\nj#overview\n\u001b#conduct\n #annotate\nshiny\n\u0018\u001b#dip\ng#offer\n#chat\n#turn\n#wizdetect\n\u0006 b hn_oooooo.,\u0007dwarf\n#vanquished\n #genocided\nwinter wolf\nh\u000f\u001b#name\na\n#adjust\nb\u001b#sit\n#pray\ny y #levelchange\n3\n     hlh__,#chat\nk#chronicle\n   #terrain\n\u001b#annotate\n\u001bi\u001b#twoweapon\n#invoke\ng #chat\nk#chat\nk#polyself\nleprechaun\n #monster\n.sFh Fh .FhFhFhFhZ\u00165\n\u0006#version\n  #history\n                  i\u001b#wipe\n#loot\nl#turn\n#sit\n#jump\n"
+  }
+ ]
+}

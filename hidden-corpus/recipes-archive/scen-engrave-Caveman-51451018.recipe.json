@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "bb\u0017towel\nEfu\u0017wand of sleep\nEg I am a fish\n\u0017wand of fire\nEh   I am a fish\n\u0017wand of striking\nEi: h\u0017wand of make invisible\nEj I am a fish\nE-y ad aerarium\n\u0007gnome lord\nsm..u sm.  Fj Fj "
+ },
+ "segments": [
+  {
+   "seed": 51451018,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=runmode:run\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "bb\u0017towel\nEfu\u0017wand of sleep\nEg I am a fish\n\u0017wand of fire\nEh   I am a fish\n\u0017wand of striking\nEi: h\u0017wand of make invisible\nEj I am a fish\nE-y ad aerarium\n\u0007gnome lord\nsm..u sm.  Fj Fj "
+  }
+ ]
+}

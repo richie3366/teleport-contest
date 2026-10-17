@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u00173 wand of striking\nzjjzjl\u0017scroll of create monster\nrk vampire\nFkFk\u0017uncursed scroll of scare monster\nrl  \u001bsm.s"
+ },
+ "segments": [
+  {
+   "seed": 51452012,
+   "datetime": "20220424132946",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                    \u00173 wand of striking\nzjjzjl\u0017scroll of create monster\nrk vampire\nFkFk\u0017uncursed scroll of scare monster\nrl  \u001bsm.s"
+  }
+ ]
+}
