@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — D-4077 cliffs-head lesshungry writer: JS nomul(0) cleared nomovemsg, C nomul never touches it (doorfind/mattacku ate the fullwarn line; 3/3 FULL PASS)
+
+**C locus:** hack.c nomul `:4161–4173` — guard, botl, uinvulnerable/usleep, multi=nval, nval==0 clears multi_reason + multireasonbuf, end_running, cmdq_clear; NO nomovemsg line anywhere (no contest patch touches nomul). Trigger call sites: detect.c:2048 (sdoor find) and mhitu.c:513 (melee `if (!ranged)`).
+**JS:** 1 file (hack.js +9/−8 doc+body); new maintained test scripts/nomul-nomovemsg-meal.test.mjs (Ranger segment replay pins C's recorded s301 «You find a hidden door.  You're finally finished.» — red pre-fix per probe v2's JS screen 301 = board jsTopline, green post-fix).
+**Change:** deleted the spurious `game.nomovemsg = null`; added the C-arm's `game.multireasonbuf = ''`; doc rewritten with whole-body C-order cites (`:4163–4172`). Restart-in-effect on the thin 17-line body, signature unchanged.
+**Verify:** focused test 1/1 post-fix. `node scripts/verify.mjs --fn lesshungry,nomul` → PASS syntax (1 file: js/hack.js) · rule2 · hidden `verify lesshungry: 3 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (Ranger/Arch/Monk ALL → FULL PASS) · reach both fns smoke 24/24 → REACH-OK (no RNG-tagged reach — neither draws RNG) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared file) → VERIFY: PASS. Movement line: `verify lesshungry: 3 PASS, 0 moved, 0 no-movement`.
+**Named:** none in nomul (whole: guard/botl/u-inits/multi/reason+buf/end_running/cmdq). Kept as-is: JS flags.botl vs C disp.botl shape (pre-existing house convention, untouched — not this cliff).
+**Next:** cliffs regen drops the lesshungry row; dupe-rc file head stands (tooling D-4016, falsifier: a step-0 screen without the tmp path).
 ## 2026-10-17 — D-4076 doaltarobj cliff writer: do.js hcolor was a no-draw local clone — canonical import realigns the Hallu display stream (D-3640 class; Valkyrie PASS, Samurai s1170→s1290)
 
 **C locus:** do.c doaltarobj :363–390 (`:380–382` There(an(hcolor(blessed ? NH_AMBER : NH_BLACK))…)); do_name.c hcolor :1461–1466 (`Hallucination || !colorpref ? hcolors[rn2_on_display_rng(SIZE(hcolors))] : colorpref`, table :1441, 74 entries). The draw is display-RNG — main RNG untouched, hence RNG matched through both steps. Same-file co-sites: do.c:627/:630 sink glows in dosinkring.

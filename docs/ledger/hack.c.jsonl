@@ -76,7 +76,7 @@
 {"fn":"crawl_destination","c":"4079-4101","status":"ported","js":["js/hack.js:crawl_destination"],"d":["D-3927","D-3404"],"at":"2026-10-13@6a5624c64"}
 {"fn":"monster_nearby","c":"4106-4127","status":"ported","js":["js/hack.js:monster_nearby"],"at":"2026-10-03@bbe63333a"}
 {"fn":"end_running","c":"4130-4158","status":"ported","js":["js/hack.js:end_running"],"at":"2026-10-03@bbe63333a"}
-{"fn":"nomul","c":"4161-4173","status":"ported","js":["js/hack.js:nomul"],"at":"2026-10-03@bbe63333a"}
+{"fn":"nomul","c":"4161-4173","status":"ported","js":["js/hack.js:nomul"],"d":["D-4077"],"at":"2026-10-17@710728768"}
 {"fn":"unmul","c":"4177-4208","status":"ported","js":["js/hack.js:unmul"],"d":["D-3264"],"at":"2026-10-02@d947745c9"}
 {"fn":"maybe_wail","c":"4211-4243","status":"ported","js":["js/hack.js:maybe_wail"],"d":["D-3816"],"at":"2026-10-11@0b7322b84"}
 {"fn":"showdamage","c":"4247-4253","status":"ported","js":["js/hack.js:showdamage"],"d":["D-3446","D-3388","D-3105"],"at":"2026-10-05@18c8a9f1a","note":"row restored D-3446: live js/hack.js:showdamage (D-3388 whole); refresh MISSING note retired (review 2343.1)"}
