@@ -7954,18 +7954,29 @@ function _buildScreenOutput() {
         // when msg is long). Trailing blanks erase a shrunk message.
         const msg = game._pending_message || '';
         const msgLines = msg.split('\n');
-        for (let c = 0; c < cols; c++)
-            display.setCell(c, 0, ' ', NO_COLOR, 0);
+        // C message paint is home + overwrite + cl_end (no blanket clear:
+        // wintty message window; getpos exits with msg_given=FALSE under
+        // autodescribe, getpos.c:889-890, so no clear_nhwindow either), and
+        // nomux drops ch < 32 (termcap.c nomux_putch, patch 006) — the
+        // capture keeps the stale cell (D-3962 grid rule, omission (1)).
+        // Mirror the drop: skip C0 writes (the column still advances),
+        // then cl_end the tail. C0-free lines paint identically to before.
         const line0 = msgLines[0] || '';
-        for (let c = 0; c < Math.min(line0.length, cols); c++)
+        for (let c = 0; c < Math.min(line0.length, cols); c++) {
+            if (line0.charCodeAt(c) < 32) continue; // stale cell kept
             display.setCell(c, 0, line0[c], NO_COLOR, 0);
+        }
+        for (let c = line0.length; c < cols; c++)
+            display.setCell(c, 0, ' ', NO_COLOR, 0);
         // C flush_screen never touches the message rows; JS arbitration:
         // a wrapped message owns screen row 1, so map row 0 stays.
         const msgOwnsRow1 = msgLines.length > 1;
         if (msgOwnsRow1) {
             const line1 = msgLines[1] || '';
-            for (let c = 0; c < Math.min(line1.length, cols); c++)
+            for (let c = 0; c < Math.min(line1.length, cols); c++) {
+                if (line1.charCodeAt(c) < 32) continue; // stale cell kept
                 display.setCell(c, 1, line1[c], NO_COLOR, 0);
+            }
             for (let c = line1.length; c < cols; c++)
                 display.setCell(c, 1, ' ', NO_COLOR, 0);
         }
@@ -8149,11 +8160,14 @@ function _paintToplineOnly() {
     // C putsyms + cl_end clears to end of line on BOTH rows (redotoplin,
     // more): a wrapped line1 blanks row 1's remainder (map cells there
     // are overwritten, repainted by docorner on unwrap — resync_map_row0).
-    for (let c = 0; c < cols; c++) display.setCell(c, 0, ' ', NO_COLOR, 0);
+    // Overwrite, never blanket-clear first: nomux drops ch < 32 (patch 006)
+    // and the capture keeps the stale cell (D-3962 grid rule, omission (1)).
     for (let r = 0; r < msgLines.length && r < 2; r++) {
         const line = msgLines[r];
-        for (let c = 0; c < Math.min(line.length, cols); c++)
+        for (let c = 0; c < Math.min(line.length, cols); c++) {
+            if (line.charCodeAt(c) < 32) continue; // stale cell kept
             display.setCell(c, r, line[c], NO_COLOR, 0);
+        }
         for (let c = line.length; c < cols; c++)
             display.setCell(c, r, ' ', NO_COLOR, 0);
     }

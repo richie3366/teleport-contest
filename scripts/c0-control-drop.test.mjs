@@ -14,6 +14,16 @@ const NS = await import("../js/gstate.js");
 const SESS = JSON.parse(readFileSync(
     new URL("../.cache/hidden/sessions/scen-symset-Caveman-50059032.session.json", import.meta.url),
 ));
+// D-3962 omission (1): the message-row (topline) path. Healer-50255063
+// step 256 ';' farlook paints putmixed "\x01        a human or elf
+// (human healer called wizard)" (RogueEpyx S_human 0x01 via encglyph +
+// decode_mixed showsyms). C home-overwrites without clearing (getpos
+// exits with msg_given=FALSE under autodescribe, getpos.c:889-890;
+// no clear_nhwindow on the path) and nomux drops the 0x01, so the
+// capture keeps the stale 'U' from step 255 "Unknown direction".
+const HEALER = JSON.parse(readFileSync(
+    new URL("../.cache/hidden/sessions/scen-symset-Healer-50255063.session.json", import.meta.url),
+));
 
 function sharedStorage() {
     const mem = new Map();
@@ -43,5 +53,23 @@ describe("C0 control-byte emit (D-3962)", () => {
         // Gbuf layer holds the raw C0 bytes (C show_glyph store).
         assert.equal(g.level.at(56, 3).disp_ch, "\x0f");
         assert.equal(g.level.at(55, 5).disp_ch, "\x01");
+    });
+
+    it("topline keeps stale cell under C0, raw byte in message", { timeout: 180000 }, async () => {
+        const seg = HEALER.segments[0];
+        await runSegment({
+            seed: seg.seed, datetime: seg.datetime,
+            nethackrc: seg.nethackrc, moves: [...seg.moves].slice(0, 256).join(""),
+            storage: sharedStorage(),
+        });
+        const g = NS.game;
+        // Message store keeps the raw C byte (C putmixed/decode_mixed).
+        assert.equal((g._pending_message || "")[0], "\x01");
+        // Grid row 0 col 0 keeps the stale 'U' (nomux ch<32 drop); the
+        // rest of the farlook line paints over the old message, tail
+        // cleared (C home + overwrite + cl_end).
+        let row0 = "";
+        for (let c = 0; c < 52; c++) row0 += g.nhDisplay.grid[0][c].ch;
+        assert.equal(row0, "U        a human or elf (human healer called wizard)");
     });
 });
