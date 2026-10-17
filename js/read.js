@@ -136,7 +136,7 @@ import {
     EXPL_FIERY, PLNMSG_TOWER_OF_FLAME, M_SEEN_FIRE, u_at, OBJ_AT,
     something, POLY_REVERT, POLYMORPH,
 } from './const.js';
-import { vision_recalc, do_clear_area, cansee, unblock_point } from './vision.js';
+import { vision_recalc, vision_off_newsym_gbuf, do_clear_area, cansee, unblock_point } from './vision.js';
 import { valid_cloud_pos, create_gas_cloud } from './region.js';
 import { getpos, getpos_sethilite } from './getpos.js';
 import { bcsign, BY_COOKIE, outrumor } from './rumors.js';
@@ -531,6 +531,17 @@ export async function litroom(on, obj) {
     }
 
     if (!Blind) {
+        // C vision.c:741–836 — vision_recalc(2) runs the main update loop
+        // (newsym prior IN_SIGHT/COULD_SEE while !cansee: Hallu warned
+        // mons burn display_warning rn2(5)s here, before the delayed
+        // full recalc repaints). JS vision_recalc skips that loop for
+        // control 2 (D-0852: unflushed-tty goto/docrt screens), so run
+        // the same newsym set via the D-0852 helper BEFORE the swap —
+        // D-3863/D-3658 precedent (gulpmu/movebubbles), ungated: the
+        // loop's paints land mid-turn and the post-rhack recalc(0)
+        // repaints everything before capture (no #992-class capture
+        // between, unlike docrt/goto).
+        vision_off_newsym_gbuf({ useLiveViz: true });
         vision_recalc(2);
 
         /* C `:2610–2612` — replace ball&chain after the forced redraw. */
