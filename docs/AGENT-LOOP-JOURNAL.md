@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-17 — Grow #22: fresh 51750000 ×160 150/160 (93.8 %) on arrival; +10 failing folded (4 active, 6 reserve), cliffs /1094
+
+**Fresh:** @a959c88b6, 160 scored of 160 authored: PASS 150/160 (93.8 %), RNG 98.6 %, screens 98.1 %. Worst options 1/2, extcmd 6/9, normal 4/5, shop 8/10, hallu 8/9, symset 8/9, sweep 9/10; rest 100 %. Gap fresh−held-out 16.5 pts (93.8 vs 77.3), inside the §10.20 band — no step-5 family; periodic slot so no step-4 top-up.
+**Fold:** 10 failing → 4 active (normal-Wizard-51752025, symset-Samurai-51750037, sweep-Barbarian-51750091, hallu-Priest-51750038) + 6 reserve over quota (extcmd ×3, shop ×2, options ×1); 150 PASS-on-arrival → archive. `score --new` + `tier`: reserve 222→218 (8 in incl. hallu-51450068 + worldtour-610136 from active, 12 back incl. 7 symset). 0 js-throws, no Must-fix. Board 622/884 (70.4 %), RNG 98.92 %, screens 98.1 %; tiers 864 + 218 + 5787.
+**Owners:** new multi-session furniture_detect (now 2); singletons peace_minded, kick_dumb; folded into existing do_statusline2 (13), one_characteristic (16), choose_disco_sort (6), dotogglepickup (5), glibr (29); 2 unattributed (extcmd Ranger/Wizard, both reserve). Cliffs regen /1084→/1094: peace_minded enters at head (RNG 53326, 1601 screens, sweep-Barbarian-51750091), symset-Priest-50455009 drops; other 11 rows unchanged.
+**Next:** port slot pops the cliffs head (peace_minded, ledger-ported D-1079 — read once, arm still open); Must-fix empty.
 ## 2026-10-17 — D-4073 cliffs rank-29 background_enlightenment writer: init_mapseen dedupe dropped C's re-created tutorial entry (worldtour-Wizard-49955007 + Priest-49950072 → PASS)
 
 **C locus:** dungeon.c init_mapseen :2834–2871 (unconditional alloc + sorted insert by (dnum,dlevel), lastseentyp memset every call — NO find/dedupe); sole caller mklev.c:1582 mklev (unconditional, before getbones). Double-entry mechanism: do.c:1654–1660 leaving_tutorial discards the tutorial level files (LFILE_EXISTS cleared) while remdun_mapseen keeps the entries flagged notreachable; a later wizard-mode re-entry re-mklevs → second node. Disclosure (show_overview why=2) prints every node (traverse_mapseenchn :3359 bypasses interest_mapseen when why != 0). Menu painter (wintty.c:1914 offx = max(10, cols−maxcol−1), map leftovers, `(end)`) proven faithful — rows 0–18 match.

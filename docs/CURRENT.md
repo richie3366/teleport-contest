@@ -30,7 +30,7 @@ Score last measured: **2026-10-17** — full `sessions` on `662fc386f`
 | Metric | Value |
 |--------|------:|
 | **Held-out (judge 2026-10-17 13:14Z)** | **34 / 44**, 10,202 / 11,265 pts, RNG **97.1 %**, rngSteps 95.9 %, screens **90.6 %** (rank 5; thru D-4069 window) |
-| **Fresh cohort (§10.20, scored on arrival)** | 51650000 ×160 @`bc65b2e1a`: **149/159 (93.7 %)**, RNG 99.9 %, screens 99.0 % — sweep 7/10 worst; extcmd 7/9; shop 8/10; symset 8/9; hallu 7/8; worldtour 9/10 + rest 100 % |
+| **Fresh cohort (§10.20, scored on arrival)** | 51750000 ×160 @`a959c88b6`: **150/160 (93.8 %)**, RNG 98.6 %, screens 98.1 % — options 1/2 worst; extcmd 6/9; normal 4/5; shop 8/10; hallu 8/9; symset 8/9; sweep 9/10 + rest 100 % |
 | **Corpus board (worked, regression fortress)** | full rescore 2026-10-17 (audit 2904–2908): **618/1092** pre-archive (**0 PASS→FAIL**, 3 new PASS, 8 archived, `unrecorded` 0; RNG 98.9 %, screens 98.1 %); `tier` → **843 + 222 + 5637** (0 out, 7 back; archive count git-verified — prior 5480 undercounted); worst hallu 0/6, symset 38/134, questtour 9/13, dig 9/10, worldtour 70/154, zapfest 8/19, sweep 159/265, shop 16/63, options 19/57, extcmd 6/38 |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
@@ -47,15 +47,16 @@ rescored between reads).
 **Three lines, read together:**
 held-out (judge), fresh cohort
 (`fresh-cohort.mjs`, the local generalization estimate), board (the
-fortress — it rises by construction). Fresh history: 79–93.7 %
-across 19 cohorts (Grow #5–21; previous 149/160 @51550000).
-Fresh−held-out gap now 16.4 pts (93.7 % vs 77.3 %), inside the §10.20 band —
-no step-5 family this grow (judge 32→34).
-**Corpus (Grow #21 `score --new` + `tier`, 2026-10-17, 867 rows):**
-605 PASS (69.8 %); RNG 98.88 %, screens 97.9 %; 851 active + 229 reserve + 5629 archive.
-Worst families `scen-hallu` 0/6, `scen-symset` 33/136, `scen-questtour` 9/13,
-`scen-dig` 9/10, `scen-worldtour` 71/155, `scen-zapfest` 8/19,
-`scen-sweep` 157/268, `scen-shop` 16/63, `scen-options` 19/58, `scen-extcmd` 6/38, rest ≥ 99.2 % RNG.
+fortress — it rises by construction). Fresh history: 79–93.8 %
+across 20 cohorts (Grow #5–22; previous 149/159 @51650000).
+Fresh−held-out gap now 16.5 pts (93.8 % vs 77.3 %), inside the §10.20 band —
+no step-5 family this grow (judge 34/44).
+**Corpus (Grow #22 `score --new` + `tier`, 2026-10-17, 884 rows):**
+622 PASS (70.4 %); RNG 98.92 %, screens 98.1 %; 864 active + 218 reserve + 5787 archive.
+Worst families `scen-symset` 45/135, `scen-questtour` 9/13,
+`scen-dig` 9/10, `scen-hallu` 1/7, `scen-zapfest` 8/19,
+`scen-worldtour` 73/154, `scen-sweep` 160/266, `scen-shop` 16/65,
+`scen-options` 19/58, `scen-extcmd` 6/41, rest ≥ 99.2 % RNG.
 Reviews 1225–2908 (index; no row 1618): 1508 ACCEPT, 64 WITH-DEBT, 111 QUALITY-RISK (2904–2908: 5A/0D/0Q, 0 Must-fix).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
