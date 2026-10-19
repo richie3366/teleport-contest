@@ -6565,6 +6565,17 @@ export function newsym(x, y) {
     // in a state of flux (in_mklev/saving/restoring; same gate as
     // feel_location :754–758 and show_glyph).
     if (suppress_map_output()) return;
+    // C `:928–935` — should never happen; same error handling as
+    // u_on_newpos(): off the map panics, column 0 (misuse, less severe)
+    // is impossible(). newsym is sync here, so the column-0 report is
+    // left pending for the awaiting caller (see_monsters, C `:1510`).
+    if (!isok(x, y)) {
+        if (x < 0 || y < 0 || x > COLNO - 1 || y > ROWNO - 1)
+            panic('newsym: attempting screen update for <%d,%d>', x, y);
+        else
+            game._newsym_misuse = { x: x | 0, y: y | 0 };
+        return;
+    }
     const loc = game.level?.at(x, y);
     if (!loc) return;
 
@@ -6916,11 +6927,20 @@ export async function see_monsters() {
     const warn_obj = (game.context?.warntype?.obj | 0) >>> 0;
     const warn_of_mon = Warn_of_mon();
     // C `:1505–1518` — no position guard: every live, arrived monster is
-    // newsym'd (newsym itself no-ops off-map) and counts for Sting.
+    // newsym'd and counts for Sting. A monster parked at <0,0> (bubble
+    // or migration limbo) hits newsym's column-0 impossible() here, in
+    // loop order, before the remaining monsters are redrawn.
+    game._newsym_misuse = null;
     for (const mon of game.fmon || []) {
         if (!mon || (mon.mhp != null && mon.mhp <= 0)) continue;
         if (((mon.mstate | 0) & MON_STILL_ARRIVING) !== 0) continue;
         newsym(mon.mx, mon.my);
+        if (game._newsym_misuse) {
+            const bad = game._newsym_misuse;
+            game._newsym_misuse = null;
+            await impossible('newsym: attempting screen update for <%d,%d>',
+                bad.x, bad.y);
+        }
         if (mon.wormno) see_wsegs(mon);
         if (warn_of_mon
             && (warn_obj & (mon.data?.mflags2 | 0)) !== 0) {
@@ -7246,7 +7266,7 @@ export async function docrt_flags(refresh_flags) {
             // C `:1758` — see what is to be seen.
             vision_recalc(0);
             // C `:1761` — overlay with monsters.
-            see_monsters();
+            await see_monsters();
         }
         // C `:1766–1772` post_map (every arm lands here): perm_invent
         // update + disp.botlx = TRUE ("caller needs to call bot() to
