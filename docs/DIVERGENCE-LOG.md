@@ -7,8 +7,7 @@
 - **C locus:** zap.c revive `:883–1140`: non-CORPSE impossible `:896–899`; norevive / S_EEL-not-in-pool twitch `:966–973`.
 - **JS was:** the twitch arm called `xname(corpse)`, which gives the bare object name «corpse» without the monster or the article, and capitalized it by hand. The non-CORPSE guard returned null silently, with no impossible().
 - **Fix:** the twitch arm is C's expression: `upstart(corpse_xname(corpse, null, CXN_PFX_THE))` (objnam.js corpse_xname, hacklib.js upstart). The non-CORPSE arm awaits `impossible('Attempting to revive %s?')` with xname, then returns null. I re-read the rest of the body against C `:900–1140` (location, container rules, enexto, gender mmflags, cant_revive / montraits / makemon arms, mundetected, seemimic, splitobj, shop glow and charge, ghost recorporealization, christen, oeaten, mrevived, the disposal switch) and found it matches.
-- **JS:** js/zap.js (revive :3318 impossible, :3402
-3405 twitch; CXN_PFX_THE import :389).
+- **JS:** js/zap.js (revive :3318 impossible, :3405 twitch; CXN_PFX_THE import :389).
 - **Callers:** none changed.
 - **Verify:** `node scripts/verify.mjs --fn revive` → PASS syntax (js/zap.js) · rule2 · verify revive: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep revive` → 669 baseline-PASS sessions re-run, 0 regressed → REACH-OK.
 - **Named omissions:** none new. cant_finish_meal stays as D-4041 left it.
