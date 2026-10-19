@@ -22,21 +22,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4083 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4084 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4083.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4083 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4084.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4084 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4084: `...menu_prompt_style()` on the prompt row (menu_prompt_style imported from options.js next to select_menu_pick_one). Named: the hard-coded ATR_INVERSE end_menu headers (audit 2915-2923's ~10 rows) still bypass menu
 - D-4083: unshift the prompt with `...menu_prompt_style()` and a `{ text: '', selectable: false }` blank item. Named: end_menu prompt headers outside js/options.js and js/getline.js are still unaudited (D-408
 - D-4082: the three headers take `...menu_prompt_style()` and are followed by the blank item (sibling shape). Named: prompt headers outside js/options.js were not audited for the blank item.
 - D-4081: add the blank non-selectable row after the title, and mark the item whose letter equals `game.flags.discosort` with `selected: true` (set_vanq_order s Named: C's PICK_ONE `n > 1` skip-preselected arm (`:650–652`) stays unported; select_menu_pick_on
@@ -51,5 +52,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-4072: the `finally` funnel calls `clear_nhwindow_message()` (display.js, the tty_clear_nhwindow(WIN_MESSAGE) port) when msg_given is set. Named: (1) the getpos-owned terrain-view rows (4) are the next getpos shape. (2) The two moved ro
 - D-4071: the three writers use `game._buzzer` (6 occurrences); no `game.buzzer` remains in js/. Named: worldtour-Valkyrie-587104 s634 (zhitu disintegration: C «You are not disintegrated.--More-
 - D-4070: drop the lookup; always allocate, insert after equal nodes (unchanged loop), and clear lastseentyp on every call (C `:2848`). find_mapseen still retur Named: shape B (grave killer text missing «exhaled by <monster>») is the next background_enlighte
-- D-4069: dodip uses the canonical objnam.js `is_plural` and wield.js `pair_of` (C obj.h macro, now exported; it was already faithful but file-local). Named: invent.js keeps its own `pair_of_inv` copy (same body); not merged without a session namin
 <!-- landmarks:end -->

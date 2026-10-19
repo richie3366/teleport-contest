@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4084 — zap.c wish_history_menu: the «Wish what?» end_menu prompt row carried no attr, so it drew plain where tty_end_menu paints tty_menu_promptstyle (inverse) (3 sessions → FULL PASS)
+- **Status:** shipped (board @511b97189. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: wish_history_menu ×3, each losing one screen with identical text. A raw row diff showed only row 0's `\e[7m`. No review stamp owed.)
+- **Symptom:** e.g. scen-sweep-Monk-50556001 s644: wish-history menu → C row 0 `\e[41C\e[7mWish what?\e[0m`, JS `\e[41CWish what?`.
+- **C locus:** zap.c wish_history_menu `:6298` `end_menu(win, "Wish what?")`; win/tty/wintty.c tty_end_menu `:2685–2689` adds the prompt with tty_menu_promptstyle (= menu_headings).
+- **JS was:** js/zap.js wish_history_menu already had the prompt + blank rows (D-4082/D-4083 shape) but `{ text: 'Wish what?', selectable: false }` had no attr. The other non-options end_menu headers (artifact.js, botl.js, dungeon.js, shk.js, weapon.js) hard-code ATR_INVERSE, so they draw the same on these recordings.
+- **Fix:** `...menu_prompt_style()` on the prompt row (menu_prompt_style imported from options.js next to select_menu_pick_one).
+- **JS:** js/zap.js (+4/−3); scripts/wish-history-menu-prompt-style.test.mjs (new: prefix replay to s644 asserts `\e[7mWish what?` on row 0 — RED pre-fix (plain), GREEN post-fix).
+- **Callers:** behavior-only; no RNG.
+- **Verify:** `node scripts/verify.mjs --fn wish_history_menu` → PASS syntax (js/zap.js) · rule2 · `verify wish_history_menu: 3 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep wish_history_menu,makewish` → 674 baseline-PASS sessions re-run, 0 regressed.
+- **Named omissions:** the hard-coded ATR_INVERSE end_menu headers (audit 2915-2923's ~10 rows) still bypass menu_prompt_style; they only differ when menu_headings is not inverse.
+- **Ledger:** wish_history_menu ported
+- **Next:** process_menu_window bag ×3 («Contents of the bag of holding:»); doclassdisco ×2; reveal_terrain ×2.
+
 ## D-4083 — cmd.c extcmd_via_menu: JS unshifted only the «Extended Command: %s» prompt, with no tty_menu_promptstyle and no blank item under it, so each entry rose one row and the first page held one more (5 sessions → FULL PASS, 1 moved past)
 - **Status:** shipped (board @092428e95. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: extcmd_via_menu ×4 (6 with every «Extended Command:» row), the same tty_end_menu shape as D-4082. No review stamp owed.)
 - **Symptom:** e.g. scen-options-Tourist-49951011 s176: `#` with extmenu → C rows 0–2 inverse «Extended Command: » / blank / «? - ? [list all extended commands]» and «(1 of 2)» at row 23; JS «Extended Command: » / «? - ?» / «a - adjust or annotate» … «(end)».

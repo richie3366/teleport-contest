@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4084 zap.c wish_history_menu: the «Wish what?» end_menu prompt row carried no attr, so it drew plain where tty_end_menu paints tty_menu_promptstyle (inverse) (3 sessions → FULL PASS)
+
+**C locus:** zap.c wish_history_menu `:6298` `end_menu(win, "Wish what?")`; win/tty/wintty.c tty_end_menu `:2685–2689` adds the prompt with tty_menu_promptstyle (= menu_headings).
+**JS:** js/zap.js (+4/−3); scripts/wish-history-menu-prompt-style.test.mjs (new: prefix replay to s644 asserts `\e[7mWish what?` on row 0 — RED pre-fix (plain), GREEN post-fix).
+**Change:** `...menu_prompt_style()` on the prompt row (menu_prompt_style imported from options.js next to select_menu_pick_one).
+**Verify:** `node scripts/verify.mjs --fn wish_history_menu` → PASS syntax (js/zap.js) · rule2 · `verify wish_history_menu: 3 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep wish_history_menu,makewish` → 674 baseline-PASS sessions re-run, 0 regressed.
+**Named:** the hard-coded ATR_INVERSE end_menu headers (audit 2915-2923's ~10 rows) still bypass menu_prompt_style; they only differ when menu_headings is not inverse.
+**Next:** process_menu_window bag ×3 («Contents of the bag of holding:»); doclassdisco ×2; reveal_terrain ×2.
 ## 2026-10-19 — D-4083 cmd.c extcmd_via_menu: JS unshifted only the «Extended Command: %s» prompt, with no tty_menu_promptstyle and no blank item under it, so each entry rose one row and the first page held one more (5 sessions → FULL PASS, 1 moved past)
 
 **C locus:** cmd.c extcmd_via_menu `:856–857` `end_menu(win, prompt)` with «Extended Command: %s»; win/tty/wintty.c tty_end_menu `:2680–2690` adds the prompt (tty_menu_promptstyle) over a blank item.
