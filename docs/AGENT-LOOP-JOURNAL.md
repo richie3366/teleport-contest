@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4115 cmd.c extcmdlist binds 'C' to "call" → docallcmd (`:1687–1688`), but JS's runner table (getline.js EXT_CMDS) had no "call" entry, so rhack's cmdbind_get('C') found the binding, got no runner, and printed «Unknown command 'C'.» where C opens «What do you want to name?»; "redraw", "remove", "retravel" (C('_')) and "whatdoes" had the same gap (2 extcmd sessions → FULL PASS)
+
+**C locus:** cmd.c extcmdlist `:1687–1688` (call), `:1818–1819` (redraw), `:1820–1821` (remove), `:1831–1832` (retravel), `:1934–1935` (whatdoes); rhack cmdbind_get dispatch; do_name.c docallcmd `:499–601`.
+**JS:** js/getline.js (EXT_CMDS :379–429), js/cmd.js (dotravel_target export :4931).
+**Change:** EXT_CMDS gains the five runners with C's flags (none AUTOCOMPLETE, none wizard-only): call → docallcmd, redraw → doredraw, remove → doremring, retravel → dotravel_target, whatdoes → dowhatdoes. cmd.js exports dotravel_target (body unchanged) so the runner imports the live function.
+**Verify:** `node scripts/verify.mjs --fn docallcmd` → PASS syntax (js/cmd.js js/getline.js) · rule2 · verify docallcmd: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7. `node frozen/ps_test_runner.mjs sessions` → 44/44. `hidden-proxy sweep rhack` → 667 baseline-PASS sessions re-run, 0 regressed → REACH-OK.
+**Named:** cmd.c extcmdlist "wizbury" (`:1945–1947`, wiz_debug_cmd_bury) and "wizcast" (`:1949–1950`, dowizcast) have no JS body, so typed `#wizbury` / `#wizcast` stay unknown. The movement / run / rush / fight / reqmenu entries have no EXT_CMDS runner: their keys go through rhack's arms, but typing them as `#movewest` etc. is still unknown.
+**Next:** cliffs block still all unattributed tooling rows. Next non-parked owners on the live queue: revive (1, «The troll corpse twitches feebly.» vs «Corpse …»), hitmsg (1), m_unleash (1, apply.js `mhis_leash` clone vs C mhis() `:732–733`), jump (1, «You are carrying too much to jump!»).
 ## 2026-10-19 — D-4114 sp_lev.c create_monster ends with `mtmp->female = m->female` (`:2125`), so a `des.monster("&")` / `"V"` / `"D"` / random pick is male whatever makemon chose, but Vlad's Tower's three hand-coded loaders called makemon directly and kept makemon's gender: a tower2 erinys (M2_FEMALE) and a tower3 barrow wight «swings her long sword» where C has «his» (2 sessions → FULL PASS)
 
 **C locus:** sp_lev.c create_monster `:1925–2187` (female `:2125`); lspo_monster `:3214–3400` (`tmpmons.female = 0` `:3230`; table form BOOL_RANDOM → 0 `:3355–3356`); dat/tower1.lua `:29–47`, tower2.lua `:30–34`, tower3.lua `:32–40`.

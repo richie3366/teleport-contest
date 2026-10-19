@@ -4928,7 +4928,7 @@ export async function is_valid_travelpt(x, y) {
  * C ref: cmd.c dotravel_target — travel to iflags.travelcc / u.tx,u.ty.
  * @returns {Promise<number>} ECMD_*
  */
-async function dotravel_target() {
+export async function dotravel_target() {
     if (!game.iflags) game.iflags = {};
     if (!game.iflags.travelcc) game.iflags.travelcc = { x: 0, y: 0 };
     const tcc = game.iflags.travelcc;
