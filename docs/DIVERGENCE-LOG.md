@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-4120 — timeout.c nh_timeout dissipates spell protection (`:652–661`) before the uprops `--` loop that expires BLINDED, so on the turn blindness runs out its `!Blind` still sees a blind hero and stays silent. JS ran the haze block after the loop, so it printed «The golden haze around you becomes less dense.» between two monster hits where C goes straight to the gas cloud's «Your eyes sting» (1 sweep session → FULL PASS)
+
+- **Status:** shipped (board @c39a259f0. Must-fix empty, cliffs block all unattributed tooling rows. Next live-queue owner after D-4118/D-4119: `hitmsg`, 1 session, 730 screens. hitmsg is only where the topline first differs; the writer is nh_timeout's order.)
+- **Symptom:** scen-sweep-Monk-587105 s501/1231: the hero, blind and unconscious from rotten food («The world spins and you slap against the floor», moves 43), is attacked. C «It hits!  Your eyes sting.  You cough!  You cough!  It touches you!--More--» vs JS «It hits!  The golden haze around you becomes less dense.--More--», with every later topline shifted by one screen. Core RNG fully matched.
+- **Measurement:** temporary traces (reverted) in eat.js rottenfood and timeout.js's haze block. At rottenfood (moves 43) HBlinded 1 and Blind() true. At the haze check (moves 44) HBlinded 0 and Blind() false, because the JS uprops loop had already expired the 1-turn blindness. JS's decay schedule matched C's (every uspmtime = 10 turns: 54, 64 … 104), so only the order within the turn differed.
+- **C locus:** timeout.c nh_timeout `:588–948`: mtimedone `:641–648`, ucreamed `:649–650`, spell protection `:652–661` (`if (!Blind) Norep(...)`), ugallop `:662–665`, was_flying `:667`, uprops loop `:670+` (BLINDED `:743`).
+- **JS was:** the usptime block sat after the uprops loop and the restartcham arm, just before run_timers (its comment: "JS uprops arms already ran above (pre-existing order)").
+- **Fix:** move the block, unchanged, to C's position between the ucreamed tick and the ugallop tick.
+- **JS:** js/timeout.js (nh_timeout :1061 usptime block).
+- **Callers:** none changed (allmain.js moveloop_core once-per-turn → nh_timeout).
+- **Verify:** `node scripts/verify.mjs --fn hitmsg` → PASS syntax (js/timeout.js) · rule2 · verify hitmsg: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep nh_timeout` → 677 baseline-PASS re-run, 0 regressed → REACH-OK. `node frozen/ps_test_runner.mjs sessions` → 44/44.
+- **Named omissions:** the haze test still uses timeout.js's file-local Blind() (`u.HBlind || u.EBlind || u.Blind || HBlinded&TIMEOUT || EBlinded`), a clone of the youprop.h `:103` macro that also reads the stale `u.Blind` mirror (D-4119 class). It agrees with C here and is left in place.
+- **Ledger:** nh_timeout ported
+- **Next:** pluslvl (2, a list-window line missing), xkilled (2, RNG lost 8864), m_unleash (1, apply.js `mhis_leash` clone vs C mhis() `:732–733`), jump (1).
+
 ## D-4119 — makemon.c makemon_rnd_goodpos's fallback scan skips its "not in sight" first pass only when `gi.in_mklev || Blind` (`:1100`), but JS read a local `u.ublind || u.Blind` copy. The stale `u.Blind` mirror was true for a seeing hero, so after 50 failed random tries a random newt took the first good square of the second pass, in plain view. C places it out of sight and prints nothing; JS printed «A newt suddenly appears close by!» (1 worldtour session → FULL PASS)
 
 - **Status:** shipped (board @40626768e. Second half of the lurker-above pair picked from the live queue after D-4118: `hmonas`, 1 session, 813 screens, parked MISATTRIBUTED since 2026-09-08. The writer turned out to be makemon_rnd_goodpos, not hmonas; the LOOP-QUEUE Parked row is marked RESOLVED.)

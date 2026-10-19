@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4120 timeout.c nh_timeout dissipates spell protection (`:652–661`) before the uprops `--` loop that expires BLINDED, so on the turn blindness runs out its `!Blind` still sees a blind hero and stays silent. JS ran the haze block after the loop, so it printed «The golden haze around you becomes less dense.» between two monster hits where C goes straight to the gas cloud's «Your eyes sting» (1 sweep session → FULL PASS)
+
+**C locus:** timeout.c nh_timeout `:588–948`: mtimedone `:641–648`, ucreamed `:649–650`, spell protection `:652–661` (`if (!Blind) Norep(...)`), ugallop `:662–665`, was_flying `:667`, uprops loop `:670+` (BLINDED `:743`).
+**JS:** js/timeout.js (nh_timeout :1061 usptime block).
+**Change:** move the block, unchanged, to C's position between the ucreamed tick and the ugallop tick.
+**Verify:** `node scripts/verify.mjs --fn hitmsg` → PASS syntax (js/timeout.js) · rule2 · verify hitmsg: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep nh_timeout` → 677 baseline-PASS re-run, 0 regressed → REACH-OK. `node frozen/ps_test_runner.mjs sessions` → 44/44.
+**Named:** the haze test still uses timeout.js's file-local Blind() (`u.HBlind || u.EBlind || u.Blind || HBlinded&TIMEOUT || EBlinded`), a clone of the youprop.h `:103` macro that also reads the stale `u.Blind` mirror (D-4119 class). It agrees with C here and is left in place.
+**Next:** pluslvl (2, a list-window line missing), xkilled (2, RNG lost 8864), m_unleash (1, apply.js `mhis_leash` clone vs C mhis() `:732–733`), jump (1).
 ## 2026-10-19 — D-4119 makemon.c makemon_rnd_goodpos's fallback scan skips its "not in sight" first pass only when `gi.in_mklev || Blind` (`:1100`), but JS read a local `u.ublind || u.Blind` copy. The stale `u.Blind` mirror was true for a seeing hero, so after 50 failed random tries a random newt took the first good square of the second pass, in plain view. C places it out of sight and prints nothing; JS printed «A newt suddenly appears close by!» (1 worldtour session → FULL PASS)
 
 **C locus:** makemon.c makemon_rnd_goodpos `:1076–1137` (fallback `:1093–1129`, `int bl = (gi.in_mklev || Blind) ? 1 : 0` `:1100`); youprop.h Blind `:103` `((HBlinded || EBlinded) && !BBlinded)`; makemon appear check `:1476–1500`.

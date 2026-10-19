@@ -1058,8 +1058,27 @@ export async function nh_timeout() {
     }
     // C `:649–650` — cream-pie blindness tick.
     if (u.ucreamed) u.ucreamed = (u.ucreamed | 0) - 1;
-    // C `:662–665` — gallop tick (the usptime haze block `:652–661`
-    // runs post-loop below, pre-existing D-1390 order).
+    /* C timeout.c :652–661 — dissipate SPE_PROTECTION (D-1390), after
+     * mtimedone / ucreamed and before ugallop and the uprops `--` loop:
+     * the !Blind test reads blindness before this turn's BLINDED timeout
+     * expires (D-4120). */
+    if (u.usptime) {
+        u.usptime = ((u.usptime | 0) - 1) & 0xff;
+        if (u.usptime === 0 && (u.uspellprot | 0)) {
+            u.usptime = u.uspmtime | 0;
+            u.uspellprot = ((u.uspellprot | 0) - 1) & 0xff;
+            find_ac();
+            if (!Blind()) {
+                const hgolden = hcolor('golden'); /* NH_GOLDEN */
+                await Norep(
+                    `The ${hgolden} haze around you ${
+                        u.uspellprot ? 'becomes less dense' : 'disappears'
+                    }.`,
+                );
+            }
+        }
+    }
+    // C `:662–665` — gallop tick.
     if (u.ugallop) {
         u.ugallop = (u.ugallop | 0) - 1;
         if (!(u.ugallop | 0) && u.usteed)
@@ -1572,26 +1591,6 @@ export async function nh_timeout() {
                 || (u.uprops?.[PROT_FROM_SHAPE_CHANGERS]?.intrinsic | 0)
                 || (u.uprops?.[PROT_FROM_SHAPE_CHANGERS]?.extrinsic | 0));
             if (!prot) restartcham();
-        }
-    }
-
-    /* C timeout.c :652–661 — dissipate SPE_PROTECTION (D-1390).
-     * After mtimedone / ucreamed; before ugallop / uprops in C.
-     * JS uprops arms already ran above (pre-existing order). */
-    if (u.usptime) {
-        u.usptime = ((u.usptime | 0) - 1) & 0xff;
-        if (u.usptime === 0 && (u.uspellprot | 0)) {
-            u.usptime = u.uspmtime | 0;
-            u.uspellprot = ((u.uspellprot | 0) - 1) & 0xff;
-            find_ac();
-            if (!Blind()) {
-                const hgolden = hcolor('golden'); /* NH_GOLDEN */
-                await Norep(
-                    `The ${hgolden} haze around you ${
-                        u.uspellprot ? 'becomes less dense' : 'disappears'
-                    }.`,
-                );
-            }
         }
     }
 
