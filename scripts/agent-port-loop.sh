@@ -71,7 +71,7 @@ Options:
                         (same snapshot as TUI /usage; env overrides below).
   --claude              Use Claude Code (`claude -p --output-format
                         stream-json --verbose`). Model defaults to
-                        claude-opus-5 at --effort high. AGENT_FORCE=1 maps
+                        claude-opus-5-5 at --effort high. AGENT_FORCE=1 maps
                         to --dangerously-skip-permissions. Mutually exclusive
                         with --muse / --codex. Observer reads the same iter-*.raw
                         (stdout only; stderr is iter-*.err).
@@ -419,11 +419,11 @@ fi
 # CLI id is grok-4.7-xhigh (no cursor- prefix; 4.6 still uses cursor-grok-4.6-*).
 # (list: agent --list-models | rg grok)
 # --muse: Muse spark contributor at reasoning-effort xhigh.
-# --claude: Claude Opus 5 at --effort high.
+# --claude: Claude Opus 5.5 at --effort high.
 if [[ "$USE_MUSE" == "1" ]]; then
   MODEL="${MODEL:-muse-spark-1.3-contributor}"
 elif [[ "$USE_CLAUDE" == "1" ]]; then
-  MODEL="${MODEL:-claude-opus-5}"
+  MODEL="${MODEL:-claude-opus-5-5}"
 elif [[ "$USE_CODEX" == "1" ]]; then
   MODEL="${MODEL:-}"
 else

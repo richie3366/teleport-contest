@@ -113,7 +113,7 @@ Muse (`--muse`): default slug `muse-spark-1.3-contributor` at
 `--reasoning-effort xhigh` (`MUSE_REASONING_EFFORT` override). `MODEL=` still
 overrides the slug.
 
-Claude (`--claude`): default slug `claude-opus-5` at `--effort high`
+Claude (`--claude`): default slug `claude-opus-5-5` at `--effort high`
 (`CLAUDE_EFFORT` override: `low|medium|high|xhigh|max`). The loop **must**
 pass `--model` — `~/.claude/settings.json` may default to another alias
 (e.g. Fable) and would otherwise ignore the table below. `MODEL=` still
@@ -463,7 +463,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 
 | Variable | Default | Meaning |
 |----------|---------|---------|
-| `MODEL` | `cursor-grok-4.6-xhigh` (Cursor) / `muse-spark-1.3-contributor` (`--muse`) / `claude-opus-5` (`--claude`) / configured Codex model (`--codex`) | Agent model slug |
+| `MODEL` | `cursor-grok-4.6-xhigh` (Cursor) / `muse-spark-1.3-contributor` (`--muse`) / `claude-opus-5-5` (`--claude`) / configured Codex model (`--codex`) | Agent model slug |
 | `AGENT_BIN` | `cursor-agent` or `agent` | Cursor CLI binary (ignored with `--muse` / `--claude` / `--codex`) |
 | `--muse` (CLI) | unset | Use `muse exec --json` instead of cursor-agent |
 | `LOOP_MUSE` | `0` | Same as `--muse` |
