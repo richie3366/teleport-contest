@@ -35,7 +35,7 @@
 {"fn":"num_genocides","c":"2953-2966","status":"ported","js":["js/insight.js:num_genocides"],"d":["D-3120"],"at":"2026-09-29@4e2ac5b98"}
 {"fn":"num_extinct","c":"2970-2981","status":"ported","js":["js/insight.js:num_extinct"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: skip uniques, (mvflags&G_GONE)==G_EXTINCT"}
 {"fn":"num_gone","c":"2985-3002","status":"ported","js":["js/insight.js:num_gone"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: skip uniques, mask match; array return == C buffer+count"}
-{"fn":"list_genocided","c":"3007-3131","status":"ported","js":["js/insight.js:list_genocided"],"d":["D-2412"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
+{"fn":"list_genocided","c":"3007-3131","status":"ported","js":["js/insight.js:list_genocided"],"d":["D-4075","D-2412"],"at":"2026-10-19@bdd0d4e9f","note":"stale 2026-09-25"}
 {"fn":"dogenocided","c":"3135-3139","status":"ported","js":["js/insight.js:dogenocided"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audit 2026-10-03: list_genocided + ECMD_OK; differs from C in flag handling"}
 {"fn":"doborn","c":"3145-3176","status":"ported","js":["js/insight.js:doborn"],"d":["D-3087"],"at":"2026-09-29@a1c4832f4","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"align_str","c":"3187-3200","status":"ported","js":["js/roles.js:align_str"],"d":["D-2985"],"at":"2026-09-27@406969f14"}

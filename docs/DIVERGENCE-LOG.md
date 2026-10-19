@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4075 — insight.c list_genocided/list_vanquished: JS simplified C's lone-entry `"ynq\033a"` to 'ynq', so the hidden 'a' answer rang the bell and the «Do you want a list of species genocided?» prompt stayed up while C listed «Genocided species:» (5 sessions → FULL PASS)
+- **Status:** shipped (board @bdd0d4e9f. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: list_genocided ×5, every row C «Genocided species:» vs JS still at the yn prompt. No review stamp owed.)
+- **Symptom:** e.g. scen-kit-Wizard-50552014 s74: final disclosure with one genocided species; keys `w`,`r` are rejected in both, then `a` → C opens the «Genocided species:» menu, JS rejects it and keeps «Do you want a list of species genocided? [ynq] (n)».
+- **C locus:** insight.c list_genocided `:3040–3041` `yn_function(buf, (ngone > 1) ? "ynaq" : "ynq\033a", defquery, TRUE)`; list_vanquished `:2836–2839` builds the same `ynqchars + "\033a"`. tty_yn_function prints the choices only up to the ESC but accepts any char in resp, so a lone entry still takes 'a' (listed without the sort menu).
+- **JS was:** js/insight.js passed plain 'ynq' at both sites, with "ESC-pad simplified" named in the comments. js/getline.js tty_yn_function already hides text after an ESC (`resp.replace(/\x1b[\s\S]*$/, '')`), so the simplification bought nothing.
+- **Fix:** both sites pass `'ynq\x1ba'`; the "simplified" notes (header + list_vanquished doc) were removed.
+- **JS:** js/insight.js (two choice strings + comments); scripts/list-genocided-hidden-a.test.mjs (new: prefix replay to s74 asserts «Genocided species:» — RED pre-fix (still at the yn prompt), GREEN post-fix).
+- **Callers:** behavior-only; no RNG. ESC still maps to 'q' (tty_yn_function checks the ESC key before the resp lookup).
+- **Verify:** `node scripts/verify.mjs --fn list_genocided` → PASS syntax (js/insight.js) · rule2 · `verify list_genocided: 5 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep list_genocided,list_vanquished` → 659 baseline-PASS sessions re-run, 0 regressed.
+- **Named omissions:** none.
+- **Ledger:** list_genocided ported
+- **Next:** near-pass groups: extcmd_via_menu ×4, choose_disco_sort ×4, dotogglepickup «%» ×4 («Autopickup: ON, for 0bjects.»), auto_describe «(no travel path)» ×4, down_gate «fly» ×3.
+
 ## D-4074 — mcastu.c cursetxt/castmu/summon: JS read the phantom u.Displaced/HDisplaced/EDisplaced (and u.Invis) flats instead of the youprop.h macros — a worn cloak of displacement never sets them, so casters aiming at the displaced image said «points at you, then curses» (11 sessions → FULL PASS)
 - **Status:** shipped (board @230e79dcc. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: cursetxt ×6 near-pass («points and curses at your displaced image» vs «points at you, then curses»), all scen-shop-Ranger rows. No review stamp owed.)
 - **Symptom:** e.g. scen-shop-Ranger-50850021 s461: a gnomish wizard casts while the hero wears a cloak of displacement and its mux/muy is off the hero → C «The gnomish wizard points and curses at your displaced image.», JS «The gnomish wizard points at you, then curses.».

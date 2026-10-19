@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4075 insight.c list_genocided/list_vanquished: JS simplified C's lone-entry `"ynq\033a"` to 'ynq', so the hidden 'a' answer rang the bell and the «Do you want a list of species genocided?» prompt stayed up while C listed «Genocided species:» (5 sessions → FULL PASS)
+
+**C locus:** insight.c list_genocided `:3040–3041` `yn_function(buf, (ngone > 1) ? "ynaq" : "ynq\033a", defquery, TRUE)`; list_vanquished `:2836–2839` builds the same `ynqchars + "\033a"`. tty_yn_function prints the choices only up to the ESC but accepts any char in resp, so a lone entry still takes 'a' (listed without the sort menu).
+**JS:** js/insight.js (two choice strings + comments); scripts/list-genocided-hidden-a.test.mjs (new: prefix replay to s74 asserts «Genocided species:» — RED pre-fix (still at the yn prompt), GREEN post-fix).
+**Change:** both sites pass `'ynq\x1ba'`; the "simplified" notes (header + list_vanquished doc) were removed.
+**Verify:** `node scripts/verify.mjs --fn list_genocided` → PASS syntax (js/insight.js) · rule2 · `verify list_genocided: 5 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep list_genocided,list_vanquished` → 659 baseline-PASS sessions re-run, 0 regressed.
+**Named:** none.
+**Next:** near-pass groups: extcmd_via_menu ×4, choose_disco_sort ×4, dotogglepickup «%» ×4 («Autopickup: ON, for 0bjects.»), auto_describe «(no travel path)» ×4, down_gate «fly» ×3.
 ## 2026-10-19 — D-4074 mcastu.c cursetxt/castmu/summon: JS read the phantom u.Displaced/HDisplaced/EDisplaced (and u.Invis) flats instead of the youprop.h macros — a worn cloak of displacement never sets them, so casters aiming at the displaced image said «points at you, then curses» (11 sessions → FULL PASS)
 
 **C locus:** mcastu.c cursetxt `:75–76` `else if (Displaced && (mtmp->mux != u.ux || mtmp->muy != u.uy))`; the same Invis/Displaced macro pair in castmu's cast message («at your displaced image») and the summon-nasty «by/around your displaced image» arm. youprop.h:204 `Displaced (HDisplaced || EDisplaced)` over u.uprops[DISPLACED].
