@@ -47,7 +47,7 @@
 {"fn":"set_mon_min_mhpmax","c":"2808-2823","status":"ported","js":["js/mhitm.js:set_mon_min_mhpmax"],"d":["D-3401","D-3317"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"mlifesaver","c":"2827-2836","status":"ported","js":["js/mhitm.js:mlifesaver"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
 {"fn":"lifesaved_monster","c":"2839-2884","status":"ported","js":["js/mhitm.js:lifesaved_monster"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: message/useup/genod arms match"}
-{"fn":"vamprises","c":"2890-2987","status":"ported","js":["js/mhitm.js:vamprises"],"d":["D-2273"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: revert/door/trap arms match"}
+{"fn":"vamprises","c":"2890-2987","status":"ported","js":["js/mhitm.js:vamprises"],"d":["D-4131","D-2273"],"at":"2026-10-19@21b56fbbb","note":"audit 2026-10-03: revert/door/trap arms match"}
 {"fn":"logdeadmon","c":"2997-3068","status":"ported","js":["js/mhitm.js:logdeadmon"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"anger_quest_guardians","c":"3072-3076","status":"ported","js":["js/mon.js:anger_quest_guardians"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: exact"}
 {"fn":"mondead","c":"3081-3177","status":"ported","js":["js/mhitm.js:mondead"],"d":["D-2231","D-2147"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: lifesave/vamp/kop/leader/mail arms match"}

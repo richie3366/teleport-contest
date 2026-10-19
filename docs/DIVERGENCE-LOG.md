@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4131 — mon.c vamprises words a vampire's revival with the youprop.h `Unaware` macro, `multi < 0 && (unconscious() || is_fainted())` (`:2915–2920`), but JS read a flat `u.Unaware` field that nothing keeps in sync. So for a hero who was asleep or fainted, C's «You dream that the seemingly dead wolf transforms and rises as a vampire lord!» came out as «The seemingly dead wolf suddenly transforms …» (1 worldtour session → FULL PASS)
+
+- **Status:** shipped. A near-pass row from the D-4126 scan (RNG fully matched, 1 screen lost); owner and writer are the same function. The cliffs block is still all parked tooling rows (D-4016, D-4028/D-4095).
+- **Symptom:** scen-worldtour-Barbarian-51050016 s546/916: C «You dream that the seemingly dead wolf transforms and rises as a vampire lord!» vs JS «The seemingly dead wolf suddenly transforms and rises as a vampire lord!». RNG fully matched.
+- **C locus:** mon.c vamprises `:2890–2987`: action `Snprintf` `:2913–2920` (`Unaware ? "you dream that " : ""`, `Unaware ? "" : "suddenly "`), door arm `else if (!Unaware)` and trap-kill `!Unaware`. youprop.h `:399` `#define Unaware (gm.multi < 0 && (unconscious() || is_fainted()))`.
+- **JS was:** `const unaware = !!(game.u?.Unaware)`, the flat field (its doc called it "the house u.Unaware field"). The rest of the body (G_GENOD gate, spec_mon / spec_death, ustuck release, newcham, cham fixup, canspotmon rise line, door smash and booby trap, newsym) already matched C.
+- **Fix:** `const unaware = Unaware()`, the live eat.js macro (`(game.multi | 0) < 0 && (unconscious() || is_fainted())`) that mhitm.js already imported for its hiding-monster arm. All three `Unaware` tests in the body read that local.
+- **JS:** js/mhitm.js (vamprises :3656, doc :3639–3640).
+- **Callers:** unchanged. mon.c mondead `:3097` `is_vampshifter(mtmp) && vamprises(mtmp)` → mhitm.js:3941.
+- **Verify:** verify vamprises: 1 PASS, 0 moved, 0 no-movement (scen-worldtour-Barbarian-51050016 916/916, 67370/67370 RNG); board 664 → 665. `node scripts/verify.mjs --fn vamprises` → syntax · rule2 · hidden 1 PASS → PROGRESS · reach 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep vamprises` → 664 baseline-PASS re-run in 113.6s, 0 regressed → REACH-OK.
+- **Named omissions:** none in vamprises. Other C files still read the flat `u.Unaware` field where C uses the macro: lock.js:1075, mhitu.js:659, muse.js:484, zap.js:4621 (`u.usleep || u.Unaware` helpers), monmove.js:1331, potion.js:873/:1145 (`u.Unaware || Unaware()`).
+- **Ledger:** vamprises ported
+- **Next:** the `u.Unaware` readers above, one C file each; spell.c study_book «Refresh your memory anyway?» prompt (JS adds «[yn] (n)»); spell.c «The spellbook of knock slams shut!» (scen-sweep-Archeologist-49956056 s1072, board owner glyphs.c parse_id).
+
 ## D-4130 — objnam.c xname_flags gives a corpse the plain FOOD_CLASS `actualn` («corpse», `:775–789`) and then the shared tail: pluralize, gameover suffix, and `" named " ONAME` (`:998–1009`). JS returned «corpse» early, so a named pet's corpse lost its name. C quoted «"For you, scum; 22 zorkmids for this corpse named Slasher."» where JS said «… for this corpse.» (1 shop session → FULL PASS; plus 1 sweep session D-4128 had already fixed)
 
 - **Status:** shipped. Near-pass rows from the D-4126 scan (RNG fully matched, 1 screen lost). The board owner was minion.c `demon_talk`; the quote is shk.c addtobill `:3576–3584` (`xname(obj)`, listed in `cMsgOwners`). A rescore first showed scen-sweep-Barbarian-49956047 («Your right foreclaw is empty.», wield.c can_twoweapon) already passing 578/578 since D-4128's `body_part(HAND)` fix; it is counted here because the board had not been rescored.
