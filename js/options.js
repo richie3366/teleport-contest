@@ -5833,7 +5833,9 @@ export async function dotogglepickup() {
     } else {
         buf = 'OFF';
     }
-    await pline(`Autopickup: ${buf}.`);
+    // C `:9272` — buf is an argument, not format text: a '%' class char
+    // must not reach vsnprintf (D-4076).
+    await pline('Autopickup: %s.', buf);
     return ECMD_OK;
 }
 

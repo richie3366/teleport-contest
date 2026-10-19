@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4076 — options.c dotogglepickup: JS interpolated buf into pline's format, so a '%' (food) pickup_types class hit vsnprintf as «% o» and printed «Autopickup: ON, for 0bjects.» (4 sessions → FULL PASS)
+- **Status:** shipped (board @99b6f0974. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: dotogglepickup ×4, all C «Autopickup: ON, for % objects.» vs JS «…for 0bjects.». No review stamp owed.)
+- **Symptom:** e.g. scen-symset-Knight-50555046 s461: `@` with pickup_types = `%` → C «Autopickup: ON, for % objects.», JS «Autopickup: ON, for 0bjects.».
+- **C locus:** options.c dotogglepickup `:9262–9272` — Sprintf builds buf, then `pline("Autopickup: %s.", buf)` passes it as an argument; pline.c vpline only formats the fmt string, so a '%' inside buf is literal.
+- **JS was:** js/options.js dotogglepickup called ``pline(`Autopickup: ${buf}.`)``, making buf part of the format; vpline (which formats any line containing '%', as C does) read `% o` as a space-flag octal of a missing argument → `0`.
+- **Fix:** `pline('Autopickup: %s.', buf)` — C's call shape.
+- **JS:** js/options.js (1 call + comment); scripts/dotogglepickup-percent-arg.test.mjs (new: prefix replay to s461 asserts «Autopickup: ON, for % objects.» — RED pre-fix «for 0bjects.», GREEN post-fix).
+- **Callers:** behavior-only; no RNG.
+- **Verify:** `node scripts/verify.mjs --fn dotogglepickup` → PASS syntax (js/options.js) · rule2 · `verify dotogglepickup: 4 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep dotogglepickup` → 664 baseline-PASS sessions re-run, 0 regressed.
+- **Named omissions:** other JS plines that template-interpolate runtime text into fmt (the same shape) were not audited; only this site reached the corpus.
+- **Ledger:** dotogglepickup ported
+- **Next:** near-pass groups: extcmd_via_menu ×4, choose_disco_sort ×4, auto_describe «(no travel path)» ×4, down_gate «fly» ×3, wish_history_menu ×3.
+
 ## D-4075 — insight.c list_genocided/list_vanquished: JS simplified C's lone-entry `"ynq\033a"` to 'ynq', so the hidden 'a' answer rang the bell and the «Do you want a list of species genocided?» prompt stayed up while C listed «Genocided species:» (5 sessions → FULL PASS)
 - **Status:** shipped (board @bdd0d4e9f. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: list_genocided ×5, every row C «Genocided species:» vs JS still at the yn prompt. No review stamp owed.)
 - **Symptom:** e.g. scen-kit-Wizard-50552014 s74: final disclosure with one genocided species; keys `w`,`r` are rejected in both, then `a` → C opens the «Genocided species:» menu, JS rejects it and keeps «Do you want a list of species genocided? [ynq] (n)».

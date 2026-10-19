@@ -205,7 +205,7 @@
 {"fn":"count_cond","c":"9179-9188","status":"ported","js":["js/options.js:count_cond"],"d":["D-3159"],"at":"2026-09-30@850d390ba","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"count_apes","c":"9191-9202","status":"ported","js":["js/options.js:count_apes"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"handle_add_list_remove","c":"9208-9251","status":"ported","js":["js/options.js:handle_add_list_remove"],"d":["D-3233"],"at":"2026-10-01@e5887aa2a","note":"stale: js/options.js:5490, whole C body in C order, 3 C callers wired (:5645,:5739,:5866); pick_cnt>1 arm documented unarisable"}
-{"fn":"dotogglepickup","c":"9256-9274","status":"ported","js":["js/options.js:dotogglepickup"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dotogglepickup","c":"9256-9274","status":"ported","js":["js/options.js:dotogglepickup"],"d":["D-4076"],"at":"2026-10-19@99b6f0974"}
 {"fn":"toggle_bool_option","c":"9278-9297","status":"ported","js":["js/options.js:toggle_bool_option"],"at":"2026-10-03@bbe63333a"}
 {"fn":"add_autopickup_exception","c":"9300-9346","status":"ported","js":["js/options.js:add_autopickup_exception"],"d":["D-3114"],"at":"2026-09-29@405ed7298"}
 {"fn":"remove_autopickup_exception","c":"9349-9369","status":"ported","js":["js/options.js:remove_autopickup_exception"],"at":"2026-09-30@deff666da","note":"stale: js/options.js:5994 whole body + caller :6079; review 1797 ACCEPT"}
