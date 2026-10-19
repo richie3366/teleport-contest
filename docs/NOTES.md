@@ -22,21 +22,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4122 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4123 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4122.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4122 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4123.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4123 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4123: restarted the body in C order on `glyph_at(x, y)`: the cmap arm uses `glyph_to_cmap(glyph)` with C's furniture / trapped-chest condition. Named: C's `assert(mndx >= LOW_PM && mndx <= HIGH_PM)` `:6250` is a comment only; `See_invisible_
 - D-4122: oinit now lives in o_init.js (its C home, exported) and mklev.js imports it (local copy removed, unused setgemprobs import dropped). goto_level calls  Named: none.
 - D-4121: after the inlined observe step, `if (obj.oartifact && obj.dknown && _find_artifact) _find_artifact(obj)`: the real dknown (not override_ID), same hook Named: (1) other menu builders still don't apply windows.c add_menu :1803–1807 (no corpus session
 - D-4120: move the block, unchanged, to C's position between the ucreamed tick and the ugallop tick. Named: the haze test still uses timeout.js's file-local Blind() (`u.HBlind || u.EBlind || u.Blind
@@ -51,5 +52,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-4111: look_here calls the ported `display_nhwindow_message()` (NEED_MORE → more() + clear; else toplin EMPTY, no wipe). Named: none new.
 - D-4110: really_done calls `display_nhwindow_message()` (the ported tty NHW_MESSAGE arm: NEED_MORE → more(), re-set NEED_MORE, clear; else toplin EMPTY) at C ` Named: the 5 symset look_here rows stay with D-3946 (fountain-customcolor capture, TOOLING-LIMIT)
 - D-4109: the corner painter, select_menu_pick_none and the inline painter now do C `:1919–1920`: `if (topline_need_more()) await display_nhwindow_message()`, i Named: tty_display_nhwindow stays partial: the TEXT/MAP/STATUS arms and the fullscreen MENU arm's
-- D-4108: get_mattk also records `_slots`, the permonst's mattk[] array. hitmsg requires `mattk._slots === prev._slots` before the index test, so both together  Named: none. hitmsg stays whole vs C `:29–81`, and getmattk vs C `:310–444`.
 <!-- landmarks:end -->

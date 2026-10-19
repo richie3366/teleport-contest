@@ -92,7 +92,7 @@
 {"fn":"hmonas","c":"5424-5860","status":"ported","js":["js/uhitm.js:hmonas"],"d":["D-4112","D-1916","D-1233"],"at":"2026-10-19@d49199189","note":"audit 2026-10-03: all aatyp arms+passive+knockback+passivedone verified; gv.vis global by-design per-arm checks"}
 {"fn":"passive","c":"5865-6120","status":"ported","js":["js/uhitm.js:passive"],"d":["D-3978","D-3924","D-3836","D-3256","D-3251","D-2142"],"at":"2026-10-15@dce47a27b"}
 {"fn":"passive_obj","c":"6127-6195","status":"ported","js":["js/uhitm.js:passive_obj"],"d":["D-3256","D-3251"],"at":"2026-10-02@2716a3ced"}
-{"fn":"that_is_a_mimic","c":"6201-6276","status":"ported","js":["js/uhitm.js:that_is_a_mimic"],"d":["D-3443"],"at":"2026-10-05@3483b7469"}
+{"fn":"that_is_a_mimic","c":"6201-6276","status":"ported","js":["js/uhitm.js:that_is_a_mimic"],"d":["D-4123","D-3443"],"at":"2026-10-19@9dac5358b"}
 {"fn":"stumble_onto_mimic","c":"6282-6297","status":"ported","js":["js/uhitm.js:stumble_onto_mimic"],"d":["D-2993"],"at":"2026-09-27@e74c75d1f"}
 {"fn":"disguised_as_non_mon","c":"6300-6305","status":"ported","js":["js/uhitm.js:disguised_as_non_mon"],"d":["D-3406"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"disguised_as_mon","c":"6308-6312","status":"ported","js":["js/uhitm.js:disguised_as_mon"],"at":"2026-10-03@bbe63333a"}
