@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4132 — spell.c study_book asks its two questions with `y_n()` = `yn_function(query, ynchars, 'n', TRUE)` (`:571`, `:593`). With `query_menu` on, cmd.c yn_menuable_resp (pointer identity on `ynchars`) turns the question into a menu, so C showed «Refresh your memory anyway?» as an inverse menu heading. spell.js passed the string literal `'yn'`, which fails the identity test, so JS printed the tty prompt «Refresh your memory anyway? [yn] (n)» (1 options session → FULL PASS)
+
+- **Status:** shipped. A near-pass row from the D-4126 scan (RNG fully matched, 1 screen lost). The cliffs block is still all parked tooling rows.
+- **Symptom:** scen-options-Priest-50355006 s149/175 (key `\n` after «You know "healing" quite well already.--More--»): C row 0 `ESC[41C ESC[7m Refresh your memory anyway? ESC[0m`, a right-aligned menu heading, vs JS «Refresh your memory anyway? [yn] (n)» on the topline. The session turned `query_menu` on through `O` earlier; step 147's getobj menu already matched.
+- **C locus:** spell.c study_book `:468–641`: `y_n("Refresh your memory anyway?")` `:571`, `y_n(qbuf)` (Wizard "difficult to comprehend. Continue?") `:593`. hack.h `:1329` `#define y_n(query) yn_function(query, ynchars, 'n', TRUE)`; cmd.c yn_menuable_resp `iflags.query_menu && window_inited && resp == ynchars || …` → yn_function_menu.
+- **JS was:** `yn_function('Refresh your memory anyway?', 'yn', 'n')` and `yn_function(qbuf, 'yn', 'n')`. getline.js already documents that an interned `'yn'` is not `ynchars` and exports `y_n` for exactly this.
+- **Fix:** both sites call getline.js `y_n(query)`.
+- **JS:** js/spell.js (import :131; study_book :1186, :1206).
+- **Callers:** unchanged. read.c doread `:609` → read.js:2481.
+- **Verify:** verify study_book: 1 PASS, 0 moved, 0 no-movement (scen-options-Priest-50355006 175/175, 2967/2967 RNG); board 665 → 666. `node scripts/verify.mjs --fn study_book` → syntax · rule2 · hidden 1 PASS → PROGRESS · reach 80/80 of 99 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep study_book` → 665 baseline-PASS re-run in 121.4s, 0 regressed → REACH-OK.
+- **Named omissions:** none in study_book. 23 other `yn_function(…, 'yn', …)` literal sites remain in other files (`grep -rn "'yn'" js/`); each one is a C `y_n` / ynchars site that skips the query_menu menu.
+- **Ledger:** study_book ported
+- **Next:** bones.c drop_upon_death calls `curse(otmp)` without `await` (end.js:1673; C bones.c `:290–291`), so book_cursed's «The spellbook of knock slams shut!» promise floats. Measured with a temp stack log on scen-sweep-Archeologist-49956056 s1072 («Save bones? y»): book_cursed ← curse (mkobj.js:668) ← drop_upon_death ← savebones; guard true (book 375 cursed, multi 0, occupation learn, same book). Board owner glyphs.c parse_id. After that, the remaining `'yn'` literal sites, one C file each.
+
 ## D-4131 — mon.c vamprises words a vampire's revival with the youprop.h `Unaware` macro, `multi < 0 && (unconscious() || is_fainted())` (`:2915–2920`), but JS read a flat `u.Unaware` field that nothing keeps in sync. So for a hero who was asleep or fainted, C's «You dream that the seemingly dead wolf transforms and rises as a vampire lord!» came out as «The seemingly dead wolf suddenly transforms …» (1 worldtour session → FULL PASS)
 
 - **Status:** shipped. A near-pass row from the D-4126 scan (RNG fully matched, 1 screen lost); owner and writer are the same function. The cliffs block is still all parked tooling rows (D-4016, D-4028/D-4095).
