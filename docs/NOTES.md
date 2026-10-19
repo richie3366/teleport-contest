@@ -22,21 +22,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4059 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4060 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4059.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4059 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4060.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4060 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4060: (1) case 29 calls the live `await monflee(mtmp, 0, false, false)` (monmove.js:1118; fountain.js already imports monmove.js — imports.mjs ALREADY, adde Named: (1) spell.c cursed_book case 5 (js/spell.js:699) calls poison_strdmg with no fatal-losehp 
 - D-4059: import the live `Unchanging(u)` (polyself.js:438, flats ∪ uprops; eat.js already imports polyself.js — imports.mjs ALREADY, no new edge) and use it at Named: (1) Wizard-50156033 s512 map `I`/`)` stays a cprefx-owned row for its own writer. (2) The 
 - D-4058: restart of the tail in C order — `export async function losehp`: every state change still runs before the first await (nothing awaits unless showdamag Named: (1) `done(DIED)` and `rehumanize()` stay deferred to finish_losehp_done / finish_losehp_re
 - D-4057: import the live `Punished()` (pray.js:255, `!!game.u.uball`) and call it in the foo predicate. Named: none in this arm. do.js:1803/2288 `u.uball || u.Punished` already gate on the live uball (
@@ -51,5 +52,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-4048: js/display.js only — wall_cmap_color(idx): glyph id from same-module cmap_walls_to_glyph (display.h:598 bank order mines→hell→knox→soko→main); read gl Named: (1) RGB extracolor arm → gray fallback (recorder gap, D-4031 class; Enhanced mines/knox). 
 - D-4047: `js/mklev.js` only — NONCO arm expanded to the macro's 3-test form in C order (fresh `noncoalignment(orig)` per test; `A_NONE`→`AM_NONE`, `A_LAWFUL`→` Named: none in this unit — `sp_amask_to_amask` now whole (all 4 arms faithful). (1) 51050016 `vam
 - D-4046: (1) new artifact.js halresTalk(removed, equipped) — the C talk half (restoring/Unaware gates, changed OR identical to the sync arm, removed→cosmic the Named: (1) halresTalk carrier sites not yet wired (same call, no corpus firer): wield_tool :281, 
-- D-4045: js/invent.js — get_menu_coloring + cattr_to_cell onto the existing options.js edge (imports.mjs ALREADY); new pickinv_menu_coloring(text) (:3726: C at Named: (1) other menu builders still don't apply windows.c add_menu :1803–1807 (no corpus session
 <!-- landmarks:end -->
