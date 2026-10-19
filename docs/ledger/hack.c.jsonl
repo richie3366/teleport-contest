@@ -76,8 +76,8 @@
 {"fn":"crawl_destination","c":"4079-4101","status":"ported","js":["js/hack.js:crawl_destination"],"d":["D-3927","D-3404"],"at":"2026-10-13@6a5624c64"}
 {"fn":"monster_nearby","c":"4106-4127","status":"ported","js":["js/hack.js:monster_nearby"],"at":"2026-10-03@bbe63333a"}
 {"fn":"end_running","c":"4130-4158","status":"ported","js":["js/hack.js:end_running"],"at":"2026-10-03@bbe63333a"}
-{"fn":"nomul","c":"4161-4173","status":"ported","js":["js/hack.js:nomul"],"at":"2026-10-03@bbe63333a"}
-{"fn":"unmul","c":"4177-4208","status":"ported","js":["js/hack.js:unmul"],"d":["D-3264"],"at":"2026-10-02@d947745c9"}
+{"fn":"nomul","c":"4161-4173","status":"ported","js":["js/hack.js:nomul"],"d":["D-4095"],"at":"2026-10-19@aa55e544d"}
+{"fn":"unmul","c":"4177-4208","status":"ported","js":["js/hack.js:unmul"],"d":["D-4095","D-3264"],"at":"2026-10-19@aa55e544d"}
 {"fn":"maybe_wail","c":"4211-4243","status":"ported","js":["js/hack.js:maybe_wail"],"d":["D-4058","D-3816"],"at":"2026-10-19@39314d84d"}
 {"fn":"showdamage","c":"4247-4253","status":"ported","js":["js/hack.js:showdamage"],"d":["D-4058","D-3446","D-3388","D-3105"],"at":"2026-10-19@39314d84d","note":"row restored D-3446: live js/hack.js:showdamage (D-3388 whole); refresh MISSING note retired (review 2343.1)"}
 {"fn":"losehp","c":"4256-4292","status":"split","js":["js/hack.js:losehp","js/end.js:finish_losehp_done","js/hack.js:finish_losehp_rehumanize"],"d":["D-4058","D-3821","D-3388","D-2051"],"at":"2026-10-19@39314d84d"}

@@ -1690,9 +1690,12 @@ export function nomul(nval) {
     game.u.uinvulnerable = false;
     game.u.usleep = 0;
     game.multi = nval;
+    /* C `:4169–4170` — only the reason is reset; nomovemsg survives until
+       unmul or done_eating prints it (lesshungry's "You're finally
+       finished." outlives the nomul(0) of an interrupted meal). */
     if (nval === 0) {
         game.multi_reason = null;
-        game.nomovemsg = null;
+        game.multireasonbuf = '';
     }
     end_running(true);
     if (game._cmdq_canned) game._cmdq_canned = [];
@@ -1822,6 +1825,7 @@ export async function unmul(msg_override) {
     if (!game.u) game.u = {};
     game.u.usleep = 0;
     game.multi_reason = null;
+    game.multireasonbuf = '';
     const f = game.afternmv;
     game.afternmv = null;
     if (typeof f === 'function') await f();

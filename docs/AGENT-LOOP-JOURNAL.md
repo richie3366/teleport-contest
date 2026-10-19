@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4095 hack.c nomul: JS nomul(0) cleared nomovemsg, which C's nomul never touches, so lesshungry's «You're finally finished.» was lost when a monster interrupted the meal and done_eating printed «You finish eating the …» instead (3 sessions → FULL PASS)
+
+**C locus:** eat.c lesshungry `:3314–3315` sets `gn.nomovemsg = "You're finally finished."`; the attack runs allmain/mhitu stop_occupation → maybe_finished_meal → eatfood → done_eating `:551–556`, which prints and clears the stored nomovemsg. stop_occupation's nomul(0) on the way is hack.c nomul `:4160–4173`, which resets only `multi_reason` and `multireasonbuf[0]`; nomovemsg is cleared only by unmul `:4196` and done_eating.
+**JS:** js/hack.js (+5/−1); js/eat.js (comment only); scripts/nomul-keeps-nomovemsg.test.mjs (new: prefix replay to s591 of Archeologist-50055004 asserts the topline «You're finally finished.»; RED pre-fix «You finish eating the cram ration.», GREEN post-fix).
+**Change:** nomul restarted to C's body: the nomovemsg clear is gone, and `multireasonbuf = ''` is added (C `:4170`). unmul gets the same `multireasonbuf` reset (C `:4198`). The stale lesshungry omission note is replaced.
+**Verify:** `node scripts/verify.mjs --fn lesshungry,nomul` → PASS syntax (js/hack.js) · rule2 · verify lesshungry: 3 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach smoke 24/24 ×2 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep nomul,unmul,lesshungry` → 702 baseline-PASS sessions re-run, 0 regressed → REACH-OK. Board: exactly the 3 rows flip to PASS.
+**Named:** none.
+**Next:** other near-pass groups from the same scan: describe_decor ×3 «There is a small mimic here» vs «There is the …»; monster-pickup erosion words ×5 (dog_invent ×3, readobjnam_postparse1, Priest-50150089: JS adds «cracked/rotted/corroded»); glibr/getpos autodescribe ×4.
 ## 2026-10-19 — D-4094 detect.c reveal_terrain_getglyph: JS modelled glyph_at's region overlay only for newsym's ACCESSIBLE/pool arm, missing the `_map_location(x, y, 1)` tail that show_region()s any visible region — a poison cloud over a tree drew as the tree in the terrain view (1 session → FULL PASS)
 
 **C locus:** detect.c reveal_terrain_getglyph `:2208` `glyph = glyph_at(x, y)`, and with keep_traps the gascloud is not stripped (`:2225–2229`). display.c newsym `:993–998` overlays a region only when `ACCESSIBLE(lev->typ) || (reg->visible && is_pool_or_lava)`; otherwise, with no shown monster/warning/I, `_map_location(x, y, 1)` runs, ending `if (show && !Blind && (_ml_reg = visible_region_at(x, y))) show_region(_ml_reg, x, y)` (`:470–471`) with no terrain gate.
