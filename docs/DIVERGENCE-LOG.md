@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4126 — write.c dowrite drops a magic marker from greasy fingers with `Tobjnam(pen, "slip")` + `fingers_or_gloves(FALSE)` (`:90–94`), but JS printed `doname(pen)` and a fixed "fingers". C said «The magic marker slips from your fingers.» where JS said «a magic marker (0:22) slips from your fingers.» (1 sweep session → FULL PASS)
+
+- **Status:** shipped. The cliffs block's 12 rows are all parked tooling rows (dupe-rc symset step 0, D-4016; OSC marker, D-4028/D-4095), so I took this owner from a near-pass scan of the board (RNG fully matched, 1 screen lost). The board named `use_grease` (apply.c:2609) as owner; `cMsgOwners` also listed `dowrite(write.c:91)`, and the session was applying a marker, so the writer is dowrite.
+- **Symptom:** scen-sweep-Wizard-50556038 s521/1038: C «The magic marker slips from your fingers. It hits! It hits!» vs JS «a magic marker (0:22) slips from your fingers. It hits! It hits!». RNG fully matched.
+- **C locus:** write.c dowrite `:74–385`: Glib arm `:90–94`; novel arm `Hallucination` `:205–213`; dry-out arm `:255–265` (spellbook branch calls update_inventory, scroll branch useup); success `hold_another_object(new_obj, "Oops!  %s out of your grasp!", The(aobjnam(new_obj, "slip")), NULL)` `:381–383`.
+- **JS was:** Glib arm read the flat `u.Glib` mirror and printed `doname(pen)` with a hard-coded "fingers" ("polish deferred"); the novel arm read the `u.Hallucination` mirror; the dry-out arm called update_inventory after both branches; the success drop message used `The ${doname(new_obj)} slips`; a file-local `Blind` clone.
+- **Fix:** Glib arm now `Glib()` (potion.js, youprop.h `:112`) + `Tobjnam(pen, 'slip')` + `fingers_or_gloves(false)`. The novel arm uses display.js `Hallucination()`. update_inventory moved into the spellbook branch as in C. The drop argument is `The(aobjnam(new_obj, 'slip'))`. The local Blind clone is deleted for invent.js `Blind`. The rest of the body was checked line by line against C and already matched.
+- **JS:** js/write.js (imports :16, :23, :33–35; dowrite Glib :168, novel :272, dry-out :337, hold_another_object :412).
+- **Callers:** unchanged. apply.c doapply MAGIC_MARKER → apply.js:2591.
+- **Verify:** verify dowrite: 0 PASS, 0 moved, 0 no-movement (the board row is owned by use_grease, so `--fn dowrite` finds no blocked session). Direct `hidden-proxy score --ids scen-sweep-Wizard-50556038` → PASS 1038/1038 screens, 35845/35845 RNG; board 656 → 657. `node scripts/verify.mjs --fn dowrite` → syntax · rule2 · reach 1/1 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep dowrite` → 656 baseline-PASS re-run in 116.3s, 0 regressed → REACH-OK.
+- **Named omissions:** none in dowrite. write.js keeps a local `Role_if` (urole.mnum compare, same as C `Role_switch == pm`).
+- **Ledger:** dowrite ported
+- **Next:** other near-pass rows from the same scan: apply.c m_unleash («its leash» vs «her leash», apply.js `mhis_leash` clone) and jump («You are carrying too much to jump!» arm order); wield.c weldmsg («Your 31 arrows») and can_twoweapon (missing «Your»); trap.c fire trap («You smell smoke» vs «You see a puff of smoke»); pickup.c container_contents («right foreclaw» body part).
+
 ## D-4125 — zap.c revive bumps the new monster off an occupied square with enexto (`:961–964`) before it tests the norevive / eel-off-water twitch arm (`:966–972`), but JS tested the corpse's own square first and ran enexto afterwards. So a norevive corpse under a monster skipped enexto's `rn2` and judged IS_POOL / cansee on the wrong square. The OBJ_INVENT disposal and destroy_items also used a zap.js `useup_invent` clone that only spliced `game.invent`, with no setnotworn, freeinv or obfree (Must-fix, review 2956)
 
 - **Status:** shipped. Must-fix from review 2956 (QUALITY-RISK on D-4116); no corpus session is blocked on revive or destroy_items at baseline, so this is a C-wrong fix checked by reach.

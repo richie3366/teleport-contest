@@ -109,4 +109,4 @@ its square, so (1) was not exercised.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-4125
+**Addressed:** D-4125 `b37c5a9d5`
