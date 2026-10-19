@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4104 [measure] unattributed sweep-Archeologist-610093 s336: the recorded C frame overflows nomux_out[6144] (LEN=7498), so the next step's patch-006 marker and garbage CX/CY land mid-SGR. Same class as D-4028; 15 of 7364 cached sessions have it (tooling, no js/)
+
+**C locus:** n/a game code (owner null, cEntry null, cMsgOwners [], stepFns=[exercise] presence-only). Tooling: patch 006 nomux_capture_screen's fixed 6144-byte buffer (the D-3684 / D-3996 / D-4028 class).
+**JS:** none.
+**Change:** none (measurement). No deterministic JS output can match run-varying uninitialized-memory CX/CY or an overflow splice offset (D-3944/D-4028 precedent), and emitting framing bytes would contradict C's terminal (D-3941 refusal).
+**Verify:** preflight `node scripts/verify.mjs --no-cohort` → VERIFY: PASS (clean tree, before diagnosis). No `verify --fn` movement (no js/, as expected). REACH N/A (nothing changed).
+**Named:** none. No port, docs-only entry, no Ledger bullet (D-4016/D-4028 precedent).
+**Next:** the 95340 Parked line is widened to this 15-session class (this commit). The generated cliffs block still lists unattributed parked shapes (hidden-proxy queue does not consult Parked for `?` rows), so a port slot should take the first non-parked owner from the board rather than the head. The real fix is in tooling: a patch-006 buffer large enough for a full SGR frame, plus a re-record. Falsifier: a re-recorded frame for any of the 15 without the embedded marker. Then re-queue it under whatever writer the new first divergence names.
 ## 2026-10-19 — D-4103 timeout.c obj_is_local: C panics on an object that is not on any chain (OBJ_FREE), JS returned "not local"; so a `^V` to a tutorial level while carrying a lit lamp printed «You materialize on a different level!» where C dies with «Oops...». Porting the panic exposed two writers that left timers/lights on freed objects: makemon.c set_mimic_sym skipped `obfree` on its throwaway appearance object, and nhl_gamestate's restore used a useupall clone without `obfree` (9 sessions → FULL PASS)
 
 **C locus:** timeout.c obj_is_local `:2560–2577` (`panic("obj_is_local")` `:2574`); light.c maybe_write_ls `:583` / save_light_sources `:450`; timeout.c timer_is_local `:2611`; makemon.c set_mimic_sym `:2505–2508` (`otmp = mkobj(s_sym, FALSE); appear = otmp->otyp; obfree(otmp, NULL);`); nhlua.c nhl_gamestate restore `:1742–1743` `while (gi.invent) useupall(gi.invent);`; invent.c useupall `:1312–1317` (setnotworn, freeinv, obfree → dealloc_obj → obj_stop_timers / del_light_source).
