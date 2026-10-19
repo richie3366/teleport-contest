@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — audit 2897–2905 @f619089e3: review D-4056..D-4064 (8A/1D/0Q, 0 Must-fix) + full rescore 646/1090 (0 PASS→FAIL)
+
+**Reviews:** 2897 topline putsyms C0 drop (x_monnam 2+0+2+0, wishymatch 1, lookat 1+0+4; Healer-50255063 is reserve; JSDoc placement + :302/:348 cite drift nits) · 2898 do_attack live Punished() (2+0+0+0; D-log's 5 PASS counts 2 worldtour rows already PASS in the committed board — stale local `.cache` rows) · 2899 losehp async (exact 1 + 5; 0 un-awaited `losehp(` call sites; WITH-DEBT: inert `_needs_maybe_wail`/`_losehp_showdamage` drains) · 2900 eat.c Unchanging 7/7 sites (eatcorpse 1 PASS; cprefx Wizard-50156033 named row unchanged) · 2901 drinkfountain (exact 1+1) · 2902 Mon-strt rndcoord (exact 1) · 2903 vicinity_map glyph (exact 0+1 → doaltarobj s1170; dead m_at fallback nit) · 2904 sanctum (exact 1) · 2905 digactualhole (exact 1). `verify` merges the uncommitted local `.cache` scores: `dfeature_at` / `digactualhole` showed 5 "working" blocks each — all archived PASS recipes, not regressions. No C-wrongs, no queue prepend.
+**Score:** public 44/44 (792838/792838 RNG, 11405/11405 screens, 88+0.36/turn on this host); held-out **34/44** (10741 pts, judge 10-19 07:18Z, +2); board 646/1090 pre-archive (1 new PASS Valkyrie-51450080, 0 PASS→FAIL) → 631/1075, RNG 98.9 %, screens 96.5 %; tier → 861 + 202 + 5327 (5 out, 36 back, 27 now PASS → next archive). Ledger snapshot appended; seeded sample done_in_by/use_whip/mkstairs/sink_into_lava/inv_weight 5/5 hold vs C (no `set`).
+**Next:** port slot pops the regenerated cliffs head; Must-fix empty.
 ## 2026-10-19 — D-4064 dig.c digactualhole: invented trailing newsym re-drew a hallucinated statue and shifted the display RNG by 3 draws (Monk-50255213 → FULL PASS)
 
 **C locus:** 

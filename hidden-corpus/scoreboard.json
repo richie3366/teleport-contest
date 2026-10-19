@@ -1,11 +1,11 @@
 {
- "commit": "503041958",
- "at": "2026-10-19T07:46:49.251Z",
- "full": false,
- "fullCommit": "fa254e8f4",
- "fullAt": "2026-10-17T06:36:15.597Z",
- "entries": 1090,
- "reserve": 233,
+ "commit": "f619089e3",
+ "at": "2026-10-19T07:55:32.401Z",
+ "full": true,
+ "fullCommit": "f619089e3",
+ "fullAt": "2026-10-19T07:55:32.401Z",
+ "entries": 1075,
+ "reserve": 202,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -370,7 +370,7 @@
    "passed": false,
    "rngM": 3001,
    "rngT": 3001,
-   "scrM": 249,
+   "scrM": 257,
    "scrT": 258,
    "kind": "screen",
    "step": 158,
@@ -387,7 +387,7 @@
    "passed": false,
    "rngM": 2981,
    "rngT": 2981,
-   "scrM": 249,
+   "scrM": 257,
    "scrT": 258,
    "kind": "screen",
    "step": 158,
@@ -404,7 +404,7 @@
    "passed": false,
    "rngM": 2981,
    "rngT": 2981,
-   "scrM": 249,
+   "scrM": 257,
    "scrT": 258,
    "kind": "screen",
    "step": 158,
@@ -1502,7 +1502,7 @@
    "jsOwner": "(no JS draw; last matched was moveloop_core)",
    "cTopline": "Hello wizard, the gnomish Archeologist, welcome back to NetHack!--More--",
    "jsTopline": "",
-   "error": "Error: relink_timers: no object 249 |     at relinkGlobalTimersLights (file:///home/debian/dev/teleport-contest/js/lev_json.js:712:19) |     at try_restore_save"
+   "error": "Error: relink_timers: no object 249 |     at relinkGlobalTimersLights (file:///Users/raphaelhervier/dev/teleport-contest-revisited/js/lev_json.js:712:19) |     "
   },
   "scen-dig-Archeologist-94035": {
    "src": "corpus",
@@ -2046,7 +2046,8 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "Where do you want to travel to? (For instructions type a '?')",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-extcmd-Rogue-51256003": {
    "src": "corpus",
@@ -3190,17 +3191,17 @@
   "scen-options-Barbarian-50351011": {
    "src": "corpus",
    "passed": false,
-   "rngM": 6053,
-   "rngT": 6219,
-   "scrM": 163,
+   "rngM": 6078,
+   "rngT": 6078,
+   "scrM": 177,
    "scrT": 181,
    "kind": "screen",
    "step": 161,
    "steps": 181,
-   "owner": "handler_rebind_keys",
-   "loc": "cmd.c:2432",
+   "owner": "handler_rebind_keys_add",
+   "loc": "cmd.c:2402",
    "jsOwner": null,
-   "cTopline": "Do what?",
+   "cTopline": "Key binding failed?!--More--",
    "jsTopline": "Changed key '<enter>' from \"rushsouth\" to \"adjust\".--More--",
    "error": null
   },
@@ -3667,16 +3668,16 @@
    "src": "corpus",
    "passed": false,
    "rngM": 6645,
-   "rngT": 6682,
-   "scrM": 144,
+   "rngT": 6645,
+   "scrM": 167,
    "scrT": 174,
    "kind": "screen",
    "step": 141,
    "steps": 174,
-   "owner": "handler_rebind_keys",
-   "loc": "cmd.c:2432",
+   "owner": "handler_rebind_keys_add",
+   "loc": "cmd.c:2402",
    "jsOwner": null,
-   "cTopline": "Do what?",
+   "cTopline": "Key binding failed?!--More--",
    "jsTopline": "Changed key '<enter>' from \"rushsouth\" to \"debugfuzzer\".--More--",
    "error": null
   },
@@ -3768,17 +3769,17 @@
   "scen-options-Valkyrie-50551011": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2505,
-   "rngT": 2662,
-   "scrM": 54,
+   "rngM": 2544,
+   "rngT": 2544,
+   "scrM": 115,
    "scrT": 121,
    "kind": "screen",
    "step": 47,
    "steps": 121,
-   "owner": "handler_rebind_keys",
-   "loc": "cmd.c:2432",
+   "owner": "handler_rebind_keys_add",
+   "loc": "cmd.c:2402",
    "jsOwner": null,
-   "cTopline": "Do what?",
+   "cTopline": "Key binding failed?!--More--",
    "jsTopline": "Changed key '<enter>' from \"rushsouth\" to \"down\".--More--",
    "error": null
   },
@@ -4405,7 +4406,7 @@
    "step": 58,
    "steps": 190,
    "owner": "m_move",
-   "loc": "monmove.c:1963",
+   "loc": "monmove.c:2003",
    "jsOwner": "pri_move(shk.js:4728)",
    "cTopline": "The club welds itself to the neanderthal's hand!--More--",
    "jsTopline": "The club welds itself to the neanderthal's hand!--More--",
@@ -4745,7 +4746,7 @@
    "step": 936,
    "steps": 961,
    "owner": "set_apparxy",
-   "loc": "monmove.c:2239",
+   "loc": "monmove.c:2280",
    "jsOwner": "distfleeck(monmove.js:1180)",
    "cTopline": "",
    "jsTopline": "",
@@ -5791,19 +5792,20 @@
   "scen-sweep-Archeologist-610093": {
    "src": "corpus",
    "passed": false,
-   "rngM": 55572,
-   "rngT": 55572,
+   "rngM": 55504,
+   "rngT": 55504,
    "scrM": 336,
-   "scrT": 366,
+   "scrT": 1643,
    "kind": "screen",
    "step": 336,
-   "steps": 366,
+   "steps": 1643,
    "owner": null,
    "loc": null,
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-sweep-Archeologist-620005": {
    "src": "corpus",
@@ -6437,13 +6439,13 @@
   "scen-sweep-Caveman-50055029": {
    "src": "corpus",
    "passed": false,
-   "rngM": 13074,
-   "rngT": 13074,
+   "rngM": 16965,
+   "rngT": 16965,
    "scrM": 98,
-   "scrT": 104,
+   "scrT": 105,
    "kind": "screen",
    "step": 98,
-   "steps": 104,
+   "steps": 105,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -6522,13 +6524,13 @@
   "scen-sweep-Caveman-50156010": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4362,
-   "rngT": 4362,
+   "rngM": 4552,
+   "rngT": 4552,
    "scrM": 77,
-   "scrT": 80,
+   "scrT": 81,
    "kind": "screen",
    "step": 77,
-   "steps": 80,
+   "steps": 81,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -7270,30 +7272,13 @@
   "scen-sweep-Monk-49956033": {
    "src": "corpus",
    "passed": false,
-   "rngM": 7291,
-   "rngT": 7291,
+   "rngM": 7163,
+   "rngT": 7163,
    "scrM": 86,
-   "scrT": 94,
+   "scrT": 95,
    "kind": "screen",
    "step": 86,
-   "steps": 94,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-sweep-Monk-50055011": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 63323,
-   "rngT": 63323,
-   "scrM": 1962,
-   "scrT": 1962,
-   "kind": null,
-   "step": null,
-   "steps": 1962,
+   "steps": 95,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -7627,13 +7612,13 @@
   "scen-sweep-Priest-50556014": {
    "src": "corpus",
    "passed": false,
-   "rngM": 39092,
-   "rngT": 39092,
+   "rngM": 39093,
+   "rngT": 39093,
    "scrM": 308,
-   "scrT": 310,
+   "scrT": 311,
    "kind": "screen",
    "step": 308,
-   "steps": 310,
+   "steps": 311,
    "owner": "getpos",
    "loc": "getpos.c:844",
    "jsOwner": null,
@@ -7775,7 +7760,8 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-sweep-Ranger-50050043": {
    "src": "corpus",
@@ -7958,7 +7944,7 @@
    "step": 1104,
    "steps": 1220,
    "owner": "m_move",
-   "loc": "monmove.c:1963",
+   "loc": "monmove.c:2003",
    "jsOwner": "m_move(monmove.js:2381)",
    "cTopline": "You fly over a hole.",
    "jsTopline": "Really fly into that hole? [yn] (n)",
@@ -8132,23 +8118,6 @@
    "jsOwner": null,
    "cTopline": "Genocided species:",
    "jsTopline": "Do you want a list of species genocided? [ynq] (n)",
-   "error": null
-  },
-  "scen-sweep-Rogue-50250081": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 16398,
-   "rngT": 16398,
-   "scrM": 855,
-   "scrT": 855,
-   "kind": null,
-   "step": null,
-   "steps": 855,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
    "error": null
   },
   "scen-sweep-Rogue-50456012": {
@@ -9278,7 +9247,7 @@
    "passed": false,
    "rngM": 111577,
    "rngT": 111577,
-   "scrM": 1469,
+   "scrM": 1475,
    "scrT": 1476,
    "kind": "screen",
    "step": 1323,
@@ -9579,23 +9548,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-symset-Archeologist-50455031": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 13713,
-   "rngT": 13713,
-   "scrM": 518,
-   "scrT": 518,
-   "kind": null,
-   "step": null,
-   "steps": 518,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Archeologist-50455067": {
    "src": "corpus",
    "passed": true,
@@ -9783,23 +9735,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-symset-Healer-50750015": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 12174,
-   "rngT": 12174,
-   "scrM": 965,
-   "scrT": 965,
-   "kind": null,
-   "step": null,
-   "steps": 965,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Knight-50450039": {
    "src": "corpus",
    "passed": true,
@@ -9885,23 +9820,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-symset-Monk-50255003": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 21926,
-   "rngT": 21926,
-   "scrM": 940,
-   "scrT": 940,
-   "kind": null,
-   "step": null,
-   "steps": 940,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Monk-50255071": {
    "src": "corpus",
    "passed": true,
@@ -9953,23 +9871,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-symset-Monk-50555048": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 7353,
-   "rngT": 7353,
-   "scrM": 515,
-   "scrT": 515,
-   "kind": null,
-   "step": null,
-   "steps": 515,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Monk-51150047": {
    "src": "corpus",
    "passed": true,
@@ -9980,23 +9881,6 @@
    "kind": null,
    "step": null,
    "steps": 629,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-symset-Monk-51250063": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 11469,
-   "rngT": 11469,
-   "scrM": 934,
-   "scrT": 934,
-   "kind": null,
-   "step": null,
-   "steps": 934,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -10208,23 +10092,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-symset-Samurai-50455061": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 29535,
-   "rngT": 29535,
-   "scrM": 727,
-   "scrT": 727,
-   "kind": null,
-   "step": null,
-   "steps": 727,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Tourist-50255025": {
    "src": "corpus",
    "passed": false,
@@ -10337,23 +10204,6 @@
    "kind": null,
    "step": null,
    "steps": 791,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-symset-Valkyrie-50155019": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 20515,
-   "rngT": 20515,
-   "scrM": 933,
-   "scrT": 933,
-   "kind": null,
-   "step": null,
-   "steps": 933,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -10701,23 +10551,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-tour-Monk-91117": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 23948,
-   "rngT": 23948,
-   "scrM": 162,
-   "scrT": 162,
-   "kind": null,
-   "step": null,
-   "steps": 162,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-tour-Priest-92235": {
    "src": "corpus",
    "passed": true,
@@ -10738,13 +10571,13 @@
   "scen-tour-Samurai-92032": {
    "src": "corpus",
    "passed": false,
-   "rngM": 14766,
-   "rngT": 14766,
+   "rngM": 20913,
+   "rngT": 20913,
    "scrM": 96,
-   "scrT": 106,
+   "scrT": 150,
    "kind": "screen",
    "step": 96,
-   "steps": 106,
+   "steps": 150,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -11704,23 +11537,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-wish-Knight-91034": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 3947,
-   "rngT": 3947,
-   "scrM": 246,
-   "scrT": 246,
-   "kind": null,
-   "step": null,
-   "steps": 246,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-wish-Priest-640030": {
    "src": "corpus",
    "passed": false,
@@ -11891,23 +11707,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-wish-Tourist-92067": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 5854,
-   "rngT": 5854,
-   "scrM": 234,
-   "scrT": 234,
-   "kind": null,
-   "step": null,
-   "steps": 234,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-wish-Valkyrie-50152027": {
    "src": "corpus",
    "passed": false,
@@ -12042,7 +11841,8 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "You materialize on a different level!--More--",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-worldtour-Archeologist-95230": {
    "src": "corpus",
@@ -12370,13 +12170,13 @@
   "scen-worldtour-Healer-50056004": {
    "src": "corpus",
    "passed": false,
-   "rngM": 33014,
-   "rngT": 33014,
+   "rngM": 33350,
+   "rngT": 33350,
    "scrM": 123,
-   "scrT": 126,
+   "scrT": 127,
    "kind": "screen",
    "step": 123,
-   "steps": 126,
+   "steps": 127,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -12506,15 +12306,15 @@
   "scen-worldtour-Monk-50056047": {
    "src": "corpus",
    "passed": false,
-   "rngM": 9407,
-   "rngT": 9407,
+   "rngM": 9447,
+   "rngT": 9447,
    "scrM": 89,
-   "scrT": 92,
+   "scrT": 93,
    "kind": "screen",
    "step": 89,
-   "steps": 92,
-   "owner": "do_statusline1",
-   "loc": "botl.c:85",
+   "steps": 93,
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
@@ -12625,30 +12425,13 @@
   "scen-worldtour-Priest-49950068": {
    "src": "corpus",
    "passed": false,
-   "rngM": 9752,
-   "rngT": 9752,
+   "rngM": 9791,
+   "rngT": 9791,
    "scrM": 119,
-   "scrT": 122,
+   "scrT": 123,
    "kind": "screen",
    "step": 119,
-   "steps": 122,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-worldtour-Priest-49955035": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 42337,
-   "rngT": 42337,
-   "scrM": 580,
-   "scrT": 580,
-   "kind": null,
-   "step": null,
-   "steps": 580,
+   "steps": 123,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -13030,23 +12813,6 @@
    "jsTopline": "You find an Olog-hai posing as a statue. You stop searching.--More--",
    "error": null
   },
-  "scen-worldtour-Valkyrie-51450080": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 132718,
-   "rngT": 132720,
-   "scrM": 1266,
-   "scrT": 1266,
-   "kind": "rng",
-   "step": 204,
-   "steps": 1266,
-   "owner": "m_initinv",
-   "loc": "makemon.c:764",
-   "jsOwner": "m_initinv(makemon.js:3033)",
-   "cTopline": "You materialize on a different level! It is hot here.--More--",
-   "jsTopline": "You materialize on a different level! It is hot here.--More--",
-   "error": null
-  },
   "scen-worldtour-Valkyrie-582628": {
    "src": "corpus",
    "passed": true,
@@ -13217,23 +12983,6 @@
    "jsTopline": "You hit it. You feel a bit steadier now.--More--",
    "error": null
   },
-  "scen-worldtour-Wizard-49955052": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 65478,
-   "rngT": 65478,
-   "scrM": 875,
-   "scrT": 875,
-   "kind": null,
-   "step": null,
-   "steps": 875,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-worldtour-Wizard-49955061": {
    "src": "corpus",
    "passed": true,
@@ -13300,7 +13049,8 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "You materialize on a different level!",
-   "error": null
+   "error": null,
+   "tier": "reserve"
   },
   "scen-worldtour-Wizard-50056058": {
    "src": "corpus",
@@ -13543,15 +13293,15 @@
   "scen-worldtour-Wizard-50556517": {
    "src": "corpus",
    "passed": false,
-   "rngM": 55295,
-   "rngT": 55295,
+   "rngM": 55397,
+   "rngT": 55397,
    "scrM": 111,
-   "scrT": 114,
+   "scrT": 115,
    "kind": "screen",
    "step": 111,
-   "steps": 114,
-   "owner": "do_statusline1",
-   "loc": "botl.c:85",
+   "steps": 115,
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
@@ -14802,8 +14552,7 @@
    "jsOwner": null,
    "cTopline": "fog/vapor cloud",
    "jsTopline": "unexplored area",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-extcmd-Monk-51257013": {
    "src": "corpus",
@@ -15000,8 +14749,7 @@
    "jsOwner": null,
    "cTopline": "As you read the scroll, it disappears. A lit field surrounds you!--More--",
    "jsTopline": "As you read the scroll, it disappears. A lit field surrounds you!--More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-impaired-Knight-50751030": {
    "src": "corpus",
@@ -15078,20 +14826,19 @@
   "scen-options-Caveman-50151031": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2770,
-   "rngT": 2770,
-   "scrM": 153,
+   "rngM": 2330,
+   "rngT": 2330,
+   "scrM": 16,
    "scrT": 182,
    "kind": "screen",
    "step": 16,
    "steps": 182,
-   "owner": "handler_rebind_keys",
-   "loc": "cmd.c:2432",
+   "owner": "handler_rebind_keys_add",
+   "loc": "cmd.c:2402",
    "jsOwner": null,
-   "cTopline": "Do what?",
+   "cTopline": "Key binding failed?!--More--",
    "jsTopline": "Changed key '<enter>' from \"rushsouth\" to \"conduct\".--More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-options-Healer-50355030": {
    "src": "corpus",
@@ -15162,8 +14909,7 @@
    "jsOwner": null,
    "cTopline": "Do what?",
    "jsTopline": "Do what?",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-options-Samurai-50355039": {
    "src": "corpus",
@@ -15864,8 +15610,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Barbarian-50456033": {
    "src": "corpus",
@@ -15900,8 +15645,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Caveman-49950025": {
    "src": "corpus",
@@ -16044,8 +15788,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Knight-50156023": {
    "src": "corpus",
@@ -16260,8 +16003,7 @@
    "jsOwner": null,
    "cTopline": "You can no longer hold your shield! You find you must drop your whip!--More--",
    "jsTopline": "You can no longer hold your shield! You find you must drop your whip!--More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Wizard-50362012": {
    "src": "corpus",
@@ -16332,8 +16074,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Archeologist-50155028": {
    "src": "corpus",
@@ -16368,8 +16109,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Archeologist-50350039": {
    "src": "corpus",
@@ -16404,8 +16144,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Archeologist-50555012": {
    "src": "corpus",
@@ -16584,8 +16323,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Caveman-50155022": {
    "src": "corpus",
@@ -16620,8 +16358,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Caveman-50359035": {
    "src": "corpus",
@@ -16656,8 +16393,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Caveman-50455060": {
    "src": "corpus",
@@ -16746,8 +16482,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Healer-50255014": {
    "src": "corpus",
@@ -16782,8 +16517,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Healer-50555020": {
    "src": "corpus",
@@ -16800,8 +16534,7 @@
    "jsOwner": null,
    "cTopline": "Showing known terrain, traps, and objects only...--More--",
    "jsTopline": "Showing known terrain, traps, and objects only...--More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Healer-50555035": {
    "src": "corpus",
@@ -16872,8 +16605,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Knight-50155042": {
    "src": "corpus",
@@ -16890,8 +16622,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Knight-50255078": {
    "src": "corpus",
@@ -16944,8 +16675,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Knight-50550015": {
    "src": "corpus",
@@ -16980,8 +16710,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50059063": {
    "src": "corpus",
@@ -16998,8 +16727,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50359009": {
    "src": "corpus",
@@ -17034,8 +16762,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "Hello wizard, welcome to NetHack! You are a lawful male human Monk.--More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50750095": {
    "src": "corpus",
@@ -17052,8 +16779,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50850031": {
    "src": "corpus",
@@ -17070,8 +16796,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50850071": {
    "src": "corpus",
@@ -17124,8 +16849,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Priest-50455009": {
    "src": "corpus",
@@ -17232,13 +16956,12 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Ranger-50359032": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3167,
+   "rngM": 12654,
    "rngT": 12654,
    "scrM": 0,
    "scrT": 527,
@@ -17250,8 +16973,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "Hello wizard, welcome to NetHack! You are a chaotic male orcish Ranger.",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Ranger-50455045": {
    "src": "corpus",
@@ -17268,8 +16990,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Ranger-50550039": {
    "src": "corpus",
@@ -17376,8 +17097,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Rogue-50950071": {
    "src": "corpus",
@@ -17430,8 +17150,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Samurai-50455002": {
    "src": "corpus",
@@ -17484,8 +17203,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Samurai-50555018": {
    "src": "corpus",
@@ -17592,8 +17310,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Valkyrie-50059039": {
    "src": "corpus",
@@ -17664,8 +17381,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Valkyrie-50950047": {
    "src": "corpus",
@@ -18222,8 +17938,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-worldtour-Valkyrie-49955041": {
    "src": "corpus",
@@ -18564,8 +18279,7 @@
    "jsOwner": null,
    "cTopline": "OK, so you don't die. You feel like a scarecrow. You feel stupid!--More--",
    "jsTopline": "OK, so you don't die. You feel like a scarecrow. You feel stupid!--More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "catchup-after-restore-seed0015-valk": {
    "src": "private",
@@ -18771,5 +18485,7 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "archivedAt": "2026-10-19T07:56:23.077Z",
+ "tieredAt": "2026-10-19T07:56:29.072Z"
 }
