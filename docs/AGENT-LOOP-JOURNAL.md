@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4069 potion.c dodip: shortestname skipped pair_of — a single pair of boots/gloves got «Dip it into the moat?» for «Dip them …» (worldtour-Monk-50650072 → FULL PASS)
+
+**C locus:** potion.c dodip `:2286–2287` `shortestname = (is_hands || is_plural(obj) || pair_of(obj)) ? "them" : "it"`; obj.h `:421–427` is_plural (quan != 1 or discovered Eyes of the Overworld), pair_of (LENSES / is_gloves / is_boots).
+**JS:** js/potion.js (+2 imports, 1 condition); js/wield.js (`pair_of` exported); scripts/dodip-pair-of-them.test.mjs (new: prefix replay to s942 asserts «Dip them into the moat?» — RED pre-fix «Dip it …», GREEN post-fix).
+**Change:** dodip uses the canonical objnam.js `is_plural` and wield.js `pair_of` (C obj.h macro, now exported; it was already faithful but file-local).
+**Verify:** `node scripts/verify.mjs --fn dodip` → PASS syntax (js/potion.js js/wield.js) · rule2 · `verify dodip: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (worldtour-Monk-50650072 FULL PASS, screens 1168/1168; it failed on the HEAD board) · reach: smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Extra sweep: every HEAD-board PASS session whose recipe has `#dip` (159) re-scored → 0 regressed, +1; board 637/879.
+**Named:** invent.js keeps its own `pair_of_inv` copy (same body); not merged without a session naming it.
+**Next:** back to the screens-lost ranking (background_enlightenment ×5, moverock_core ×2, newsym ×6).
 ## 2026-10-19 — D-4068 pager.c add_cmap_descr → waterbody_name: JS read do_name.js's sticky-first Hallucination, so the EHalluc_resistance = 1 override was ignored — hallucinated farlook said «A deep water.» for «A moat.» (Samurai-49956004, Wizard-587219 → FULL PASS)
 
 **C locus:** pager.c add_cmap_descr `:1162–1188`: for pool/moat/water/lava/ice matches it rewrites levl typ, sets `EHalluc_resistance = 1`, calls waterbody_name, then restores both. waterbody_name `:565` `hallucinate = Hallucination && !program_state.gameover` (youprop.h `:116–120` HHallucination && !Halluc_resistance) so it reads false and the MOAT arm `:582–598` returns «moat», not `deep <hliquid>`.

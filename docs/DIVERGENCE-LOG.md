@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4069 — potion.c dodip: shortestname skipped pair_of — a single pair of boots/gloves got «Dip it into the moat?» for «Dip them …» (worldtour-Monk-50650072 → FULL PASS)
+- **Status:** shipped (board @f73db3888. Screens-lost heads 610093 / 95340 are the parked D-4028 OSC-marker shape. Picked by sessions-to-PASS: D-4068's named next — the dodip row was the only remaining diff of worldtour-Monk-50650072 (s942, 1 screen, core RNG full 89998/89998). Writer = dodip. No review stamp owed.)
+- **Symptom:** s942 pool prompt with flags.verbose off: C «Dip them into the moat? [yn] (n)» vs JS «Dip it into the moat? [yn] (n)».
+- **C locus:** potion.c dodip `:2286–2287` `shortestname = (is_hands || is_plural(obj) || pair_of(obj)) ? "them" : "it"`; obj.h `:421–427` is_plural (quan != 1 or discovered Eyes of the Overworld), pair_of (LENSES / is_gloves / is_boots).
+- **JS was:** js/potion.js dodip tested `is_hands || quan != 1` with the comment «pair_of deferred».
+- **Fix:** dodip uses the canonical objnam.js `is_plural` and wield.js `pair_of` (C obj.h macro, now exported; it was already faithful but file-local).
+- **JS:** js/potion.js (+2 imports, 1 condition); js/wield.js (`pair_of` exported); scripts/dodip-pair-of-them.test.mjs (new: prefix replay to s942 asserts «Dip them into the moat?» — RED pre-fix «Dip it …», GREEN post-fix).
+- **Callers:** behavior-only; JS call sites unchanged.
+- **Verify:** `node scripts/verify.mjs --fn dodip` → PASS syntax (js/potion.js js/wield.js) · rule2 · `verify dodip: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (worldtour-Monk-50650072 FULL PASS, screens 1168/1168; it failed on the HEAD board) · reach: smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Extra sweep: every HEAD-board PASS session whose recipe has `#dip` (159) re-scored → 0 regressed, +1; board 637/879.
+- **Named omissions:** invent.js keeps its own `pair_of_inv` copy (same body); not merged without a session naming it.
+- **Ledger:** dodip ported
+- **Next:** back to the screens-lost ranking (background_enlightenment ×5, moverock_core ×2, newsym ×6).
+
 ## D-4068 — pager.c add_cmap_descr → waterbody_name: JS read do_name.js's sticky-first Hallucination, so the EHalluc_resistance = 1 override was ignored — hallucinated farlook said «A deep water.» for «A moat.» (Samurai-49956004, Wizard-587219 → FULL PASS)
 - **Status:** shipped (board @82ece8be2. Screens-lost heads 610093 / 95340 are the parked D-4028 OSC-marker shape. Picked by sessions-to-PASS rather than screens: the owner-null farlook row «A moat.» vs «A deep water.» was the only remaining diff of sweep-Samurai-49956004 (s1290, after D-4067) and sweep-Wizard-587219 (s522, after D-4065), 1 screen each. Writer = waterbody_name via add_cmap_descr. No review stamp owed.)
 - **Symptom:** a hallucinating hero farlooks a moat square: C «A moat.» vs JS «A deep water.». Core RNG matched in both sessions.
