@@ -1388,11 +1388,17 @@ function glyph_showsym_code(glyph) {
     if (glyph_is_monster(glyph)) {
         return mlet_showsym_code(mons(glyph_to_mon(glyph))?.mlet);
     }
-    if (glyph_is_statue(glyph) || glyph_is_body(glyph)) {
+    if (glyph_is_statue(glyph)) {
         const mnum = statue_body_mnum(glyph);
         const mlet = (mnum != null) ? mons(mnum)?.mlet : null;
         if (mlet) return mlet_showsym_code(mlet);
         return live_showsyms(ROCK_CLASS + SYM_OFF_O);
+    }
+    // C display.c reset_glyphmap `:2796–2797` / `:3004–3005` — both body
+    // ranges (plain and piletop) use objects[CORPSE].oc_class + SYM_OFF_O,
+    // the food '%', not the corpse's monster letter as statues do.
+    if (glyph_is_body(glyph)) {
+        return live_showsyms((game.objects?.[CORPSE]?.oc_class | 0) + SYM_OFF_O);
     }
     if (glyph_is_normal_object(glyph) || glyph_is_piletop_generic_obj(glyph)) {
         const oc = game.objects?.[glyph_to_obj(glyph)]?.oc_class;
