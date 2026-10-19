@@ -58,7 +58,7 @@ import { rnl, rn2, rnd } from './rng.js';
 import {
     newsym, pline, magic_map_background, map_background, obj_glyph,
     show_glyph_cell, display_self, map_trap, map_engraving, canspotmon, sensemon,
-    map_invisible, glyph_is_invisible, glyph_is_monster, warning_of, You_feel,
+    map_invisible, glyph_is_invisible, glyph_is_monster, glyph_to_mon, warning_of, You_feel,
     feel_location, feel_newsym, unmap_invisible, map_object, Norep, You_see,
     see_monsters, flush_screen, docrt, cls, more, set_msg_xy, unmap_object, flush_topl_more,
     remember_shown_glyph,
@@ -1210,6 +1210,13 @@ export async function do_vicinity_map(sobj) {
             if (u_at(zx, zy)) continue;
             const newglyph = glyph_at_disp(zx, zy);
             if (newglyph.kind !== 'monster') continue;
+            // C `glyph_to_mon(newglyph) != PM_LONG_WORM_TAIL` reads the
+            // DISPLAYED glyph: under Hallucination map_monst painted a
+            // display-RNG monster, and a worm-tail draw leaves the spot for
+            // see_monsters → newsym (remembered terrain), never 'I'
+            // (D-4062). m_at's mnum is the real monster (a tail segment's
+            // m_at is the worm head), kept only as the fallback.
+            if (glyph_to_mon(newglyph.glyph) === PM_LONG_WORM_TAIL) continue;
             const mtmp = m_at(zx, zy);
             const mnum = mtmp?.mnum ?? mtmp?.data?.mndx;
             if (mnum === PM_LONG_WORM_TAIL) continue;

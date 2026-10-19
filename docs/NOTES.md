@@ -22,21 +22,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4061 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4062 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4061.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4061 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4062.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4062 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4062: skip when `glyph_to_mon(newglyph.glyph) === PM_LONG_WORM_TAIL` (loc.disp_glyph is the numeric glyph show_glyph painted; display.js glyph_to_mon added  Named: (1) Samurai's new s1170 `doaltarobj` row (C «dancing flash» vs JS «amber flash» — a halluc
 - D-4061: siege loops call the faithful `splev_create_monster(name, undefined, coord)` (mklev.js, C create_monster in C order) with the rndcoord cell made relat Named: the same "null rndcoord → skip" shape remains in other level ports, each its own dat/*.lua
 - D-4060: (1) case 29 calls the live `await monflee(mtmp, 0, false, false)` (monmove.js:1118; fountain.js already imports monmove.js — imports.mjs ALREADY, adde Named: (1) spell.c cursed_book case 5 (js/spell.js:699) calls poison_strdmg with no fatal-losehp 
 - D-4059: import the live `Unchanging(u)` (polyself.js:438, flats ∪ uprops; eat.js already imports polyself.js — imports.mjs ALREADY, no new edge) and use it at Named: (1) Wizard-50156033 s512 map `I`/`)` stays a cprefx-owned row for its own writer. (2) The 
@@ -51,5 +52,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-4050: js/allmain.js only — the arm now reads `((u.HHallucination|0) && !hallucResisted(u))` (D-4046's house union: uprops intrinsic|extrinsic + Halluc/HHall Named: (1) exerper sibling arms unchanged, no session evidence (D-4012 precedent — ship when the 
 - D-4049: js/lev_json.js — new `export function rest_stairs_chain(src)`: fresh nodes (C allocs), every field incl. u_traversed (C `:980–982` stairway_at fixup)  Named: (1) the save-side relative-dlevel dance (save `:672–682` / restore `:972–976`) — file-form
 - D-4048: js/display.js only — wall_cmap_color(idx): glyph id from same-module cmap_walls_to_glyph (display.h:598 bank order mines→hell→knox→soko→main); read gl Named: (1) RGB extracolor arm → gray fallback (recorder gap, D-4031 class; Enhanced mines/knox). 
-- D-4047: `js/mklev.js` only — NONCO arm expanded to the macro's 3-test form in C order (fresh `noncoalignment(orig)` per test; `A_NONE`→`AM_NONE`, `A_LAWFUL`→` Named: none in this unit — `sp_amask_to_amask` now whole (all 4 arms faithful). (1) 51050016 `vam
 <!-- landmarks:end -->
