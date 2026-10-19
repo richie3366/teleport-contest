@@ -7,10 +7,10 @@
 {"fn":"dofindgem","c":"165-176","status":"ported","js":["js/fountain.js:dofindgem"],"d":["D-4111","D-3318"],"at":"2026-10-19@58769a7d5"}
 {"fn":"watchman_warn_fountain","c":"179-198","status":"ported","js":["js/fountain.js:watchman_warn_fountain"],"d":["D-3318","D-1105"],"at":"2026-10-02@1f248868c"}
 {"fn":"dryup","c":"201-239","status":"ported","js":["js/fountain.js:dryup"],"d":["D-3319","D-1106","D-1104","D-1096"],"at":"2026-10-02@e33fbee37"}
-{"fn":"drinkfountain","c":"243-390","status":"ported","js":["js/fountain.js:drinkfountain"],"d":["D-4111","D-4060","D-3852","D-3833","D-1359","D-1126"],"at":"2026-10-19@58769a7d5","note":"audit 2026-10-03: JS monflee exists but is not called here; poison killer-arg loss is the callee's row"}
+{"fn":"drinkfountain","c":"243-390","status":"partial","js":["js/fountain.js:drinkfountain"],"omit":"case 25 See invisible: Invisible read is a clone (u.HInvis||u.EInvis||u.Invis) missing !BInvis and !See_invisible (youprop.h:199); review 2951","d":["D-4111","D-4060","D-3852","D-3833","D-1359","D-1126"],"at":"2026-10-19@05281fb52","note":"audit 2026-10-03: JS monflee exists but is not called here; poison killer-arg loss is the callee's row"}
 {"fn":"dipfountain","c":"394-554","status":"ported","js":["js/fountain.js:dipfountain"],"d":["D-3319","D-2287","D-1134","D-1115","D-1114","D-1107"],"at":"2026-10-02@e33fbee37"}
 {"fn":"wash_hands","c":"558-577","status":"ported","js":["js/fountain.js:wash_hands"],"d":["D-4111","D-3319","D-1108"],"at":"2026-10-19@58769a7d5"}
 {"fn":"breaksink","c":"581-591","status":"ported","js":["js/fountain.js:breaksink"],"d":["D-3319"],"at":"2026-10-02@e33fbee37"}
-{"fn":"drinksink","c":"595-712","status":"ported","js":["js/fountain.js:drinksink"],"d":["D-4111","D-4000","D-3319","D-1124","D-1118"],"at":"2026-10-19@58769a7d5"}
+{"fn":"drinksink","c":"595-712","status":"partial","js":["js/fountain.js:drinksink"],"omit":"observe_object gate reads sticky u.Hallucination mirror, not live Hallucination() (fountain.c:644, D-1493); review 2951","d":["D-4111","D-4000","D-3319","D-1124","D-1118"],"at":"2026-10-19@05281fb52"}
 {"fn":"dipsink","c":"716-801","status":"ported","js":["js/fountain.js:dipsink"],"d":["D-3319","D-1113"],"at":"2026-10-02@e33fbee37"}
 {"fn":"sink_backs_up","c":"805-826","status":"ported","js":["js/fountain.js:sink_backs_up"],"d":["D-4111","D-3318"],"at":"2026-10-19@58769a7d5"}
