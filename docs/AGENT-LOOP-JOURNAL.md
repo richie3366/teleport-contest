@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4073 display.c flush_screen mid-goto_level: JS painted only topline/status while game.level was detached, so the leave vision_recalc(2) memory newsyms never reached the screen behind «goto_level: returning to discarded level?» (12 sessions → FULL PASS)
+
+**C locus:** do.c goto_level `:1631` vision_recalc(2) — its update loop newsyms every prior IN_SIGHT/COULD_SEE spot with viz empty, so seen monsters become memory in the level-independent gbuf; `:1694–1697` impossible() → pline.c vpline `:277–278` `if (u.ux) flush_screen(1)` prints those dirty gbuf cells before putmesg. (The `^V` menu's full-screen docrt at dismissal had redrawn the bats just before.)
+**JS:** js/display.js (+8: one guarded paint + comment); scripts/goto-level-leave-gbuf-flush.test.mjs (new: prefix replay to s346 asserts the impossible topline and floor at (67,12) and `#··` at (69–71,14) — RED pre-fix `B`, GREEN post-fix).
+**Change:** in that branch, when the level is detached (not the getbones `_stale_map_flush` path, which D-0583 handles), paint the leave level's dirty cells with the existing `paint_gbuf_level_to_terminal(game._leave_gbuf_level)` before topline/status — C's gbuf flush.
+**Verify:** `node scripts/verify.mjs --fn goto_level` → PASS syntax (js/display.js) · rule2 · `verify goto_level: 12 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (worldtour-Wizard-50350000 → enlightenment at s1322) · reach 38/38 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep goto_level,flush_screen` → 671 baseline-PASS sessions re-run, 0 regressed. PASS set vs HEAD board: 0 regressed, +12 (all on the HEAD board).
+**Named:** worldtour-Wizard-50350000 s1322 (enlightenment attributes screen) is the next owner of that row.
+**Next:** near-pass groups: cursetxt ×9 («points and curses at your displaced image» / «at you» vs «points at you, then curses»), list_genocided ×5, auto_describe «(no travel path)» ×5.
 ## 2026-10-19 — D-4072 getpos.c exitgetpos: JS pick arms returned before C's `if (msg_given) clear_nhwindow(WIN_MESSAGE)` — with autodescribe off the travel/getpos prompt stayed on the topline after the pick (28 sessions → FULL PASS)
 
 **C locus:** getpos.c getpos `:804` `msg_given = TRUE` (clear by default); `:890–891` reset to FALSE after each key only under iflags.autodescribe; `:1137` FALSE after «Done.»; `:895` TRUE on ESC; exitgetpos `:1156–1157` `if (msg_given) clear_nhwindow(WIN_MESSAGE)`. These sessions run with autodescribe off (C s597–598 show no auto_describe after the `o` moves), so the pick exits with msg_given TRUE and the prompt is cleared.

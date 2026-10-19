@@ -8941,6 +8941,14 @@ export async function flush_screen(mode) {
         else if (flags.time_botl) await timebot();
         // Mid goto_level / getbones: keep stale map cells like C gbuf.
         if (!game.level || game._stale_map_flush) {
+            // C gbuf is level-independent, so a pline between the leave
+            // vision_recalc(2) update loop and mklev/getlev (goto_level's
+            // «returning to discarded level?» impossible, do.c:1696)
+            // prints the cells it newsym'd: seen monsters → memory. JS
+            // keeps that gbuf on the detached leave level (D-4073).
+            if (!game.level && !game._stale_map_flush && game._leave_gbuf_level) {
+                paint_gbuf_level_to_terminal(game._leave_gbuf_level);
+            }
             _paintToplineAndStatus();
             return;
         }
