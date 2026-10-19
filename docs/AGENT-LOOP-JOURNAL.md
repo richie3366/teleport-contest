@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4067 do.c doaltarobj (+ sink/rndcurse/crystal ball/flip_through_book): local identity hcolor clones skipped C's Hallu display-RNG colour — «a black flash» for «a bistre flash» (Valkyrie-50156016 → FULL PASS, Samurai-49956004 1170→1290)
+
+**C locus:** do.c doaltarobj `:380–381` `an(hcolor(obj->blessed ? NH_AMBER : NH_BLACK))`; do_name.c hcolor `:1461–1466` returns `hcolors[rn2_on_display_rng(SIZE(hcolors))]` when Hallucination or the pref is NULL.
+**JS:** js/do.js, js/sit.js, js/detect.js, js/apply.js (−29/+9); scripts/doaltarobj-hallu-hcolor.test.mjs (new: prefix replay to s984 asserts «There is a bistre flash as» — RED pre-fix, GREEN post-fix).
+**Change:** delete the four clones; do.js, sit.js and detect.js import `hcolor` from './do_name.js'; apply.js calls the already-imported `hcolor`. apply.js flip_through_book's «Hallucination hcolor display-rng» named omission dropped.
+**Verify:** `node scripts/verify.mjs --fn doaltarobj,hcolor` → PASS syntax (4 files) · rule2 · `verify doaltarobj: 1 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (sweep-Valkyrie-50156016 FULL PASS, RNG 40775/40775, screens 1530/1530; sweep-Samurai-49956004 1170 → 1290, RNG now 53062/53062 full, screens 1536/1537 — verify labels it «js-throw at step 1290», but the row is owner-null kind=screen farlook «A moat.» vs «A deep water.», same mislabel as D-4014/D-4065) · reach: no RNG-tagged reach, smoke 24/24 ×2 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. Extra regression sweep (display-RNG change): every board-PASS hallu/symset/sweep session re-scored (215) → PASS set diff vs HEAD board: 0 regressed, +1 (Valkyrie-50156016); board 634/879.
+**Named:** (1) the farlook water name «A moat.» vs «A deep water.» now blocks Samurai-49956004 s1290 and Wizard-587219 s522 — next candidate. (2) Other local colour helpers (hliquid-style clones) were not audited.
+**Next:** farlook «A moat.» vs «A deep water.» (2 sessions, owner-null).
 ## 2026-10-19 — D-4066 minion.c gain_guardian_angel: phantom flat u.HConflict/u.EConflict missed a worn ring of conflict — Astral arrival lost «A voice booms:» and the hostile angels (worldtour-Wizard-50350024 → FULL PASS)
 
 **C locus:** minion.c gain_guardian_angel `:507` `if (Conflict)`; youprop.h `:216–218` Conflict = `u.uprops[CONFLICT].intrinsic || .extrinsic`. Caller do.c final_level `:2052`.

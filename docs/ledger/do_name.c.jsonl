@@ -45,7 +45,7 @@
 {"fn":"rndmonnam","c":"1389-1411","status":"ported","js":["js/do_name.js:rndmonnam"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"bogon_is_pname","c":"1415-1420","status":"ported","js":["js/do_name.js:bogon_is_pname"],"d":["D-3403","D-3274"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
 {"fn":"roguename","c":"1424-1439","status":"ported","js":["js/do_name.js:roguename"],"d":["D-3203","D-2088"],"at":"2026-10-01@a5f89dd93"}
-{"fn":"hcolor","c":"1461-1466","status":"split","js":["js/do_name.js:hcolor"],"d":["D-1135"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: ledger maps to js/detect.js:hcolor potion-palette clone (hallu deferred, wrong table); true C do_name.c hcolor port is js/do_name.js:hcolor (74-entry table, display rng)"}
+{"fn":"hcolor","c":"1461-1466","status":"split","js":["js/do_name.js:hcolor"],"d":["D-4067","D-1135"],"at":"2026-10-19@cce4c9e8b","note":"audit 2026-10-03: ledger maps to js/detect.js:hcolor potion-palette clone (hallu deferred, wrong table); true C do_name.c hcolor port is js/do_name.js:hcolor (74-entry table, display rng)"}
 {"fn":"rndcolor","c":"1470-1477","status":"ported","js":["js/do_name.js:rndcolor"],"d":["D-1147"],"at":"2026-10-03@bbe63333a"}
 {"fn":"hliquid","c":"1493-1510","status":"ported","js":["js/do_name.js:hliquid"],"d":["D-2951","D-2943"],"at":"seed@a30a7de84"}
 {"fn":"coyotename","c":"1526-1535","status":"ported","js":["js/do_name.js:coyotename"],"at":"2026-10-03@bbe63333a"}

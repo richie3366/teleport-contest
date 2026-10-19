@@ -89,7 +89,7 @@ import { resists_blnd } from './mondata.js';
 import { find_drawbridge, open_drawbridge } from './dbridge.js';
 import { expels, digests } from './mhitu.js';
 import { is_hider, hides_under } from './monsters.js';
-import { Monnam, x_monnam, x_monnam_tame, trycall, s_suffix } from './do_name.js';
+import { Monnam, x_monnam, x_monnam_tame, trycall, s_suffix, hcolor } from './do_name.js';
 import {
     objectNames, MAXOCLASSES, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
     AMULET_CLASS, TOOL_CLASS, FOOD_CLASS, POTION_CLASS, SCROLL_CLASS,
@@ -279,15 +279,7 @@ function poly_gender() {
     return game.flags?.female ? 1 : 0;
 }
 
-/** C potion.c hcolor — Hallucination synonym deferred; null → random. */
-function hcolor(colorword) {
-    if (colorword) return colorword;
-    const colors = [
-        'black', 'amber', 'golden', 'light blue', 'red', 'green',
-        'silver', 'blue', 'purple', 'white', 'orange',
-    ];
-    return colors[rn2(colors.length)];
-}
+/* hcolor: live js/do_name.js export — core-rn2 clone deleted (D-4067). */
 
 /* C mondata.c resists_blnd — live export from './mondata.js' (clone removed). */
 
