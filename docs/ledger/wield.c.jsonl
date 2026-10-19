@@ -10,7 +10,7 @@
 {"fn":"dowield","c":"355-457","status":"ported","js":["js/wield.js:dowield"],"d":["D-3933","D-3407","D-2099"],"at":"2026-10-13@4b12e08cd"}
 {"fn":"doswapweapon","c":"461-501","status":"ported","js":["js/wield.js:doswapweapon"],"d":["D-3933","D-2675"],"at":"2026-10-13@4b12e08cd"}
 {"fn":"dowieldquiver","c":"505-508","status":"ported","js":["js/wield.js:dowieldquiver"],"at":"2026-10-03@bbe63333a"}
-{"fn":"doquiver_core","c":"512-679","status":"ported","js":["js/wield.js:doquiver_core"],"d":["D-2044"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doquiver_core","c":"512-679","status":"ported","js":["js/wield.js:doquiver_core"],"d":["D-4102","D-2044"],"at":"2026-10-19@e384672c1"}
 {"fn":"wield_tool","c":"683-758","status":"ported","js":["js/wield.js:wield_tool"],"at":"2026-10-03@bbe63333a"}
 {"fn":"can_twoweapon","c":"761-804","status":"ported","js":["js/wield.js:can_twoweapon"],"d":["D-2076"],"at":"2026-10-03@bbe63333a"}
 {"fn":"drop_uswapwep","c":"809-831","status":"ported","js":["js/wield.js:drop_uswapwep"],"d":["D-2908"],"at":"seed@a30a7de84"}

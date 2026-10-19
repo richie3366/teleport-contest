@@ -4170,9 +4170,12 @@ export async function display_pickinv_reply(lets, out_cnt = null, xtra = null, o
     const query = opts?.query;
     if (query) {
         // C tty_end_menu `:2685–2689` calls tty_add_menu directly,
-        // bypassing windows.c add_menu — no menu-coloring here.
-        entries.unshift({ text: query, attr: 0 });
+        // bypassing windows.c add_menu — no menu-coloring here. Each call
+        // prepends (`:2621–2622`), so the blank goes in first and the
+        // prompt lands above it, in tty_menu_promptstyle (menu_headings,
+        // options.c:5790).
         entries.unshift({ text: '', attr: 0 });
+        entries.unshift({ text: query, attr: add_menu_heading_attr() });
     }
 
     // C ref: wintty.c tty_end_menu / process_menu_window PICK_ONE —
@@ -10836,8 +10839,9 @@ export async function display_used_invlets(avoidlet = 0) {
     const { entries, byLet } = build_used_invlets_items(avoidlet);
     // C wintty.c tty_end_menu `:2680–2690` — reverse then prepend
     // blank + prompt (non-selectable).
-    entries.unshift({ text: 'Inventory letters used:', attr: 0 });
+    // tty_add_menu prepends (`:2621–2622`): blank first, prompt above it.
     entries.unshift({ text: '', attr: 0 });
+    entries.unshift({ text: 'Inventory letters used:', attr: add_menu_heading_attr() });
 
     const rows = display()?.rows || 24;
     const lmax = Math.min(52, rows - 1);
