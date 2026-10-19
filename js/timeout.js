@@ -51,7 +51,7 @@ import { make_confused, make_deaf, make_hallucinated, make_sick, make_slimed, ma
 import { make_blinded } from './do.js';
 import { Fumbling, Fast, Very_fast, acurr, adjattrib, exercise, stone_luck, A_STR, A_DEX, A_CON } from './attrib.js';
 import { pline, You, Your, You_feel, You_see, newsym, canseemon, verbalize, Norep, see_monsters, impossible, urgent_pline, Hallucination, Warn_of_mon } from './display.js';
-import { inv_weight, update_inventory, useup, useupall } from './invent.js';
+import { inv_weight, update_inventory, useup, useupall, Blind } from './invent.js';
 import { doname, makeplural, xname, an, the, vtense, Yname2, shk_your } from './objnam.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import { objectNames } from './objects.js';
@@ -200,8 +200,8 @@ async function slip_or_trip() {
         let what;
         if ((game.iflags?.last_msg | 0) === PLNMSG_ONE_ITEM_HERE) {
             what = ((otmp.quan | 0) === 1) ? 'it'
-                : (u.Hallucination ? 'they' : 'them');
-        } else if (otmp.dknown || !u.Blind) {
+                : (Hallucination() ? 'they' : 'them');
+        } else if (otmp.dknown || !Blind()) {  // C timeout.c:1242–1243
             what = doname(otmp);
         } else {
             const rock = sobj_at(ROCK, u.ux | 0, u.uy | 0);
@@ -1723,12 +1723,6 @@ export function arti_light_radius(obj) {
     if (obj === game.u?.uskin) res = 1;
     else if ((obj.otyp | 0) === GOLD_DRAGON_SCALE_MAIL) res++;
     return res;
-}
-
-function Blind() {
-    const u = game.u || {};
-    return !!((u.HBlind | 0) || (u.EBlind | 0) || u.Blind
-        || ((u.HBlinded | 0) & TIMEOUT) || (u.EBlinded | 0));
 }
 
 const MUMMY_WRAPPING = objectNames.indexOf('MUMMY_WRAPPING');

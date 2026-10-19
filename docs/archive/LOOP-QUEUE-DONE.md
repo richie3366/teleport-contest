@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-10-19
+
+- [x] timeout.js:1728 file-local `Blind()` is a divergent clone of youprop.h:103 `(HBlinded || EBlinded) && !BBlinded`. It reads the stale `u.Blind` mirror (true for a seeing hero, D-4119), phantom `u.HBlind`/`u.EBlind`, masks HBlinded to TIMEOUT and ignores BBlinded. Its 5 callers are C `Blind` sites: slime :737, spell-protection haze :1071 (C :658), INVIS expiry :1347 (C :761), burn_object canseeit :2100, candle flames :2309. Import invent.js `Blind`, delete the clone, `sweep nh_timeout`. Source: reviews/loop-unattended/2960-1b20d976e-nh-timeout-haze-order.md **Addressed:** D-4124
+
 ## 2026-10-16
 
 - [x] JS throw (js-throw) `ReferenceError: FACE is not defined` in lit-oil quaff — blocks 1/1171 corpus sessions (scen-sweep-Wizard-51150073 seg0 1190 steps; rngM/scrM 0, run voided, misattributed to board owner `randomize_gem_colors` step 0): `ReferenceError: FACE is not defined at peffect_oil (js/potion.js:403:50) ← peffects` — `await You('burn your %s.', body_part(FACE))` reads bare `FACE` (only other mention is the :386 doc comment; no import/binding). C potion.c peffect_oil passes the FACE body-part constant. Repro: `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-sweep-Wizard-51150073.session.json`. Deliverable: the body-part constant reference (own `brief.mjs` at pop; potion.c peffect_oil) + a focused quaff-lit-oil regression test. Filed from Grow #17 fresh cohort @51150000; the throw is unfixed — pops next, ships alone. **Addressed:** D-4030 `090082355`

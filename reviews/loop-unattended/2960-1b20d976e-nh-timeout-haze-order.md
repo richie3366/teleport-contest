@@ -98,3 +98,5 @@ at the parent's board and pass on HEAD (later window SHAs included).
    `sweep nh_timeout` is the reach check.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-4124

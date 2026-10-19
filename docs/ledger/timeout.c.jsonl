@@ -5,23 +5,23 @@
 {"fn":"choke_dialogue","c":"295-314","status":"ported","js":["js/timeout.js:choke_dialogue"],"at":"2026-10-03@bbe63333a"}
 {"fn":"sickness_dialogue","c":"323-345","status":"ported","js":["js/timeout.js:sickness_dialogue"],"d":["D-2160"],"at":"2026-10-03@bbe63333a"}
 {"fn":"levitation_dialogue","c":"353-378","status":"ported","js":["js/timeout.js:levitation_dialogue"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: surface() rendered via hliquid water/lava; branches complete"}
-{"fn":"slime_dialogue","c":"389-443","status":"ported","js":["js/timeout.js:slime_dialogue"],"at":"2026-10-03@bbe63333a"}
+{"fn":"slime_dialogue","c":"389-443","status":"ported","js":["js/timeout.js:slime_dialogue"],"d":["D-4124"],"at":"2026-10-19@b942fce66"}
 {"fn":"burn_away_slime","c":"448-453","status":"ported","js":["js/timeout.js:burn_away_slime"],"at":"2026-10-03@bbe63333a"}
 {"fn":"slimed_to_death","c":"457-519","status":"ported","js":["js/timeout.js:slimed_to_death"],"d":["D-2396"],"at":"2026-10-11@b2dce99c3","note":"stale: 2026-09-08 MISATTRIBUTED park retired D-3821 — probe scen-death-Valkyrie-92229 PASS; owner timeout.c:508 is a C comment literal; 95231 writer was losehp's gameover marker (D-3821)"}
 {"fn":"phaze_dialogue","c":"534-543","status":"ported","js":["js/timeout.js:phaze_dialogue"],"at":"2026-10-03@bbe63333a"}
 {"fn":"region_dialogue","c":"554-569","status":"ported","js":["js/timeout.js:region_dialogue"],"d":["D-2914"],"at":"seed@a30a7de84"}
 {"fn":"done_timeout","c":"575-585","status":"ported","js":["js/timeout.js:done_timeout"],"at":"2026-10-03@bbe63333a"}
-{"fn":"nh_timeout","c":"588-948","status":"partial","js":["js/timeout.js:nh_timeout"],"omit":"haze/INVIS/slime/light-source Blind gates use timeout.js:1728 Blind() clone (stale u.Blind mirror, phantom u.HBlind, no !BBlinded) vs youprop.h:103; review 2960 Must-fix","d":["D-4120","D-3802","D-3789","D-3605","D-3407","D-2229"],"at":"2026-10-19@705415122","note":"audit 2026-10-03: luck/dialogues/mtimedone/usptime plus STONED/SLIMED/SICK/STRANGLED/ACID/STONE/DISPLACED/SLEEPY/FAST/CONFUSION/BLINDED/DEAF/FUMBLING/WOUNDED/STUNNED/HALLUC/DETECT/LEVITATION/INVIS arms live"}
+{"fn":"nh_timeout","c":"588-948","status":"ported","js":["js/timeout.js:nh_timeout"],"d":["D-4124","D-4120","D-3802","D-3789","D-3605","D-3407"],"at":"2026-10-19@b942fce66","note":"audit 2026-10-03: luck/dialogues/mtimedone/usptime plus STONED/SLIMED/SICK/STRANGLED/ACID/STONE/DISPLACED/SLEEPY/FAST/CONFUSION/BLINDED/DEAF/FUMBLING/WOUNDED/STUNNED/HALLUC/DETECT/LEVITATION/INVIS arms live"}
 {"fn":"fall_asleep","c":"951-974","status":"ported","js":["js/hack.js:fall_asleep"],"d":["D-2859"],"at":"seed@a30a7de84"}
 {"fn":"attach_egg_hatch_timeout","c":"981-1005","status":"ported","js":["js/mkobj.js:attach_egg_hatch_timeout"],"d":["D-1572"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"kill_egg","c":"1009-1013","status":"ported","js":["js/mkobj.js:kill_egg"],"at":"2026-10-03@bbe63333a"}
 {"fn":"hatch_egg","c":"1017-1189","status":"ported","js":["js/timeout.js:hatch_egg"],"d":["D-4002"],"at":"2026-10-16@0bda6a2a2","note":"audit 2026-10-03: SetVoice before Gleep deferred; all branches live"}
 {"fn":"learn_egg_type","c":"1193-1200","status":"ported","js":["js/timeout.js:learn_egg_type"],"d":["D-2241"],"at":"2026-10-03@bbe63333a"}
 {"fn":"attach_fig_transform_timeout","c":"1204-1218","status":"ported","js":["js/mkobj.js:attach_fig_transform_timeout"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
-{"fn":"slip_or_trip","c":"1222-1341","status":"ported","js":["js/timeout.js:slip_or_trip"],"at":"2026-10-03@bbe63333a"}
+{"fn":"slip_or_trip","c":"1222-1341","status":"ported","js":["js/timeout.js:slip_or_trip"],"d":["D-4124"],"at":"2026-10-19@b942fce66"}
 {"fn":"see_lamp_flicker","c":"1345-1356","status":"ported","js":["js/timeout.js:see_lamp_flicker"],"d":["D-3010"],"at":"2026-09-28@70c901367","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lantern_message","c":"1360-1376","status":"ported","js":["js/timeout.js:lantern_message"],"d":["D-3010"],"at":"2026-09-28@70c901367","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"burn_object","c":"1383-1680","status":"ported","js":["js/timeout.js:burn_object"],"d":["D-3097"],"at":"2026-09-29@773e13c9a"}
+{"fn":"burn_object","c":"1383-1680","status":"ported","js":["js/timeout.js:burn_object"],"d":["D-4124","D-3097"],"at":"2026-10-19@b942fce66"}
 {"fn":"begin_burn","c":"1712-1797","status":"ported","js":["js/timeout.js:begin_burn"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: named cosmetic omits only: update_inventory redraw, impossible() diagnostics; all timer/light state live"}
 {"fn":"end_burn","c":"1804-1822","status":"ported","js":["js/timeout.js:end_burn"],"d":["D-2914"],"at":"seed@a30a7de84"}
 {"fn":"cleanup_burn","c":"1828-1844","status":"ported","js":["js/timeout.js:cleanup_burn"],"d":["D-3068"],"at":"2026-09-28@b93547133","note":"refresh: no JS symbol (measured MISSING)"}

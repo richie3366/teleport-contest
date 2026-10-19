@@ -1,7 +1,7 @@
 {
- "commit": "705415122",
- "at": "2026-10-19T19:00:14.020Z",
- "full": true,
+ "commit": "b942fce66",
+ "at": "2026-10-19T19:06:38.317Z",
+ "full": false,
  "fullCommit": "705415122",
  "fullAt": "2026-10-19T19:00:14.020Z",
  "entries": 801,
@@ -6519,6 +6519,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-sweep-Knight-50156023": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 46693,
+   "rngT": 47848,
+   "scrM": 860,
+   "scrT": 896,
+   "kind": "screen",
+   "step": 860,
+   "steps": 896,
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
+   "jsOwner": null,
+   "cTopline": "The Wizard of Yendor casts a spell at you! You suddenly feel weaker!--More--",
+   "jsTopline": "The Wizard of Yendor casts a spell at you! You suddenly feel weaker!--More--",
+   "error": null
+  },
   "scen-sweep-Knight-50255235": {
    "src": "corpus",
    "passed": true,
@@ -9103,6 +9120,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-symset-Rogue-50350015": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 22983,
+   "rngT": 22983,
+   "scrM": 710,
+   "scrT": 713,
+   "kind": "screen",
+   "step": 683,
+   "steps": 713,
+   "owner": "newsym",
+   "loc": "display.c:934",
+   "jsOwner": null,
+   "cTopline": "newsym: attempting screen update for <0,0>--More--",
+   "jsTopline": "",
+   "error": null
+  },
   "scen-symset-Rogue-50555051": {
    "src": "corpus",
    "passed": true,
@@ -11296,6 +11330,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-worldtour-Ranger-50556518": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 230814,
+   "rngT": 230814,
+   "scrM": 743,
+   "scrT": 743,
+   "kind": null,
+   "step": null,
+   "steps": 743,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
   "scen-worldtour-Ranger-578308": {
    "src": "corpus",
    "passed": true,
@@ -11901,6 +11952,23 @@
    "kind": "screen",
    "step": 111,
    "steps": 115,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
+  "scen-worldtour-Wizard-50650088": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 64151,
+   "rngT": 64151,
+   "scrM": 1103,
+   "scrT": 1103,
+   "kind": null,
+   "step": null,
+   "steps": 1103,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -12842,23 +12910,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-sweep-Knight-50156023": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 46693,
-   "rngT": 47848,
-   "scrM": 860,
-   "scrT": 896,
-   "kind": "screen",
-   "step": 860,
-   "steps": 896,
-   "owner": "do_statusline2",
-   "loc": "botl.c:130",
-   "jsOwner": null,
-   "cTopline": "The Wizard of Yendor casts a spell at you! You suddenly feel weaker!--More--",
-   "jsTopline": "The Wizard of Yendor casts a spell at you! You suddenly feel weaker!--More--",
-   "error": null
-  },
   "scen-sweep-Monk-50556022": {
    "src": "corpus",
    "passed": false,
@@ -13219,23 +13270,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-symset-Rogue-50350015": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 22983,
-   "rngT": 22983,
-   "scrM": 710,
-   "scrT": 713,
-   "kind": "screen",
-   "step": 683,
-   "steps": 713,
-   "owner": "newsym",
-   "loc": "display.c:934",
-   "jsOwner": null,
-   "cTopline": "newsym: attempting screen update for <0,0>--More--",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Rogue-50750039": {
    "src": "corpus",
    "passed": false,
@@ -13398,23 +13432,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-worldtour-Ranger-50556518": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 230814,
-   "rngT": 230814,
-   "scrM": 743,
-   "scrT": 743,
-   "kind": null,
-   "step": null,
-   "steps": 743,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-worldtour-Valkyrie-49955041": {
    "src": "corpus",
    "passed": false,
@@ -13432,23 +13449,6 @@
    "jsTopline": "Your ruby ring turns to dust and vanishes!--More--",
    "error": null,
    "tier": "reserve"
-  },
-  "scen-worldtour-Wizard-50650088": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 64151,
-   "rngT": 64151,
-   "scrM": 1103,
-   "scrT": 1103,
-   "kind": null,
-   "step": null,
-   "steps": 1103,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
   },
   "scen-zapfest-Knight-50750084": {
    "src": "corpus",
@@ -13672,7 +13672,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "archivedAt": "2026-10-19T19:00:14.484Z",
- "tieredAt": "2026-10-19T19:00:17.792Z"
+ }
 }
