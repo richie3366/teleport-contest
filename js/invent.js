@@ -6397,8 +6397,10 @@ async function status_core_lines(final = 0, opts = {}) {
                 : blindfoldOnly ? 'deliberately'
                     : 'temporarily';
         let buf = `${kind} blind`;
-        // C: wizard && HBlinded == BlindedTimeout && !Blindfolded.
-        if (wizard && (hb & TIMEOUT) === hb && !u.ublindf) {
+        // C: wizard && HBlinded == BlindedTimeout && !Blindfolded, where
+        // youprop.h:96 Blindfolded ≡ EBlinded — worn lenses never set it,
+        // so not `!u.ublindf` (D-4088).
+        if (wizard && (hb & TIMEOUT) === hb && !(u.EBlinded | 0)) {
             buf += ` (${hb & TIMEOUT})`;
         }
         // C insight.c:1070-1071 — current form youmonst.data (set_uasmon

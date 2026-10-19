@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4088 insight.c status_enlightenment blind timeout: JS tested `!u.ublindf` for C's `!Blindfolded`, but youprop.h Blindfolded ≡ EBlinded and worn lenses never set it — wizard-mode disclosure lost « (44)» from «You were temporarily blind» (2 sessions → FULL PASS)
+
+**C locus:** insight.c status_enlightenment `:1059–1071` — `if (wizard && (HBlinded == BlindedTimeout && !Blindfolded)) Sprintf(eos(buf), " (%ld)", BlindedTimeout);`; youprop.h:96 `#define Blindfolded EBlinded` (towel/blindfold set [BLINDED].extrinsic, lenses don't).
+**JS:** js/invent.js (1 condition + comment); scripts/enlightenment-blind-lenses.test.mjs (new: prefix replay to s1295 asserts «You were temporarily blind (44).» — RED pre-fix, GREEN post-fix).
+**Change:** `!(u.EBlinded | 0)`, the same field the arm's own Blind/Blindfolded_only tests already read.
+**Verify:** `node scripts/verify.mjs --fn status_enlightenment` → PASS syntax (js/invent.js) · rule2 · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS (no hidden movement line: the rows are owned by one_characteristic). Direct `hidden-proxy score --ids` over the 24 attribute-screen rows: 2 → FULL PASS (sweep-Samurai-50055051, sweep-Healer-50950065), 22 unchanged. `hidden-proxy sweep status_enlightenment,enlightenment` → 723 baseline-PASS sessions re-run, 0 regressed.
+**Named:** the other 22 attribute-screen rows are other shapes, e.g. sweep-Healer-50055041 (missing «You hungered rapidly because of your ring of hunger.») and sweep-Tourist-95315 («You could swim» missing « from your creature form»).
+**Next:** attribute-screen rows: the ring-of-hunger line, from_what «from your creature form»; doclassdisco ×2; reveal_terrain ×2.
 ## 2026-10-19 — D-4087 read.c seffect_confuse_monster / uhitm.c nohandglow: altfeedback = (Blind || Invisible) read phantom flats (u.Invisible; uhitm's flat-only Invisible_you clone), so a worn-extrinsic invisible hero got the «glow red» texts instead of «tingle» (2 sessions → FULL PASS)
 
 **C locus:** read.c seffect_confuse_monster `:1405` and uhitm.c nohandglow `:6324` `altfeedback = (Blind || Invisible)`; youprop.h:199 Invisible = Invis && !See_invisible (uprops readers). uhitm.c start_engulf/end_engulf `:4936/:4951` read the same Invisible.

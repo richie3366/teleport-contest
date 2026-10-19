@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4088 — insight.c status_enlightenment blind timeout: JS tested `!u.ublindf` for C's `!Blindfolded`, but youprop.h Blindfolded ≡ EBlinded and worn lenses never set it — wizard-mode disclosure lost « (44)» from «You were temporarily blind» (2 sessions → FULL PASS)
+- **Status:** shipped (board @51ca98828. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: one_characteristic ×4 on the final-disclosure attributes screen. A raw row diff of sweep-Healer-50950065 s1295 showed only « (44)». Rescoring all 24 attribute-screen rows (one_characteristic/chwepon owners) moved 2. No review stamp owed.)
+- **Symptom:** e.g. scen-sweep-Healer-50950065 s1295: wizard mode, timed blindness HBlinded=44 while wearing lenses → C « You were temporarily blind (44).», JS « You were temporarily blind.».
+- **C locus:** insight.c status_enlightenment `:1059–1071` — `if (wizard && (HBlinded == BlindedTimeout && !Blindfolded)) Sprintf(eos(buf), " (%ld)", BlindedTimeout);`; youprop.h:96 `#define Blindfolded EBlinded` (towel/blindfold set [BLINDED].extrinsic, lenses don't).
+- **JS was:** js/invent.js status_core_lines used `!u.ublindf`, which is true for any worn eyewear, lenses included. pray.js and potion.js's Blindfolded clones already read EBlinded («never `|| ublindf`»).
+- **Fix:** `!(u.EBlinded | 0)`, the same field the arm's own Blind/Blindfolded_only tests already read.
+- **JS:** js/invent.js (1 condition + comment); scripts/enlightenment-blind-lenses.test.mjs (new: prefix replay to s1295 asserts «You were temporarily blind (44).» — RED pre-fix, GREEN post-fix).
+- **Callers:** behavior-only; no RNG; wizard-only text.
+- **Verify:** `node scripts/verify.mjs --fn status_enlightenment` → PASS syntax (js/invent.js) · rule2 · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS (no hidden movement line: the rows are owned by one_characteristic). Direct `hidden-proxy score --ids` over the 24 attribute-screen rows: 2 → FULL PASS (sweep-Samurai-50055051, sweep-Healer-50950065), 22 unchanged. `hidden-proxy sweep status_enlightenment,enlightenment` → 723 baseline-PASS sessions re-run, 0 regressed.
+- **Named omissions:** the other 22 attribute-screen rows are other shapes, e.g. sweep-Healer-50055041 (missing «You hungered rapidly because of your ring of hunger.») and sweep-Tourist-95315 («You could swim» missing « from your creature form»).
+- **Ledger:** status_enlightenment ported
+- **Next:** attribute-screen rows: the ring-of-hunger line, from_what «from your creature form»; doclassdisco ×2; reveal_terrain ×2.
+
 ## D-4087 — read.c seffect_confuse_monster / uhitm.c nohandglow: altfeedback = (Blind || Invisible) read phantom flats (u.Invisible; uhitm's flat-only Invisible_you clone), so a worn-extrinsic invisible hero got the «glow red» texts instead of «tingle» (2 sessions → FULL PASS)
 - **Status:** shipped (board @efe3d4c2c. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: doread ×2 «Your hands tingle.» vs «Your hands begin to glow red.». The fix moved sweep-Rogue-620093 to nohandglow s1115, the same macro pair, so both arms ship together. No review stamp owed.)
 - **Symptom:** e.g. scen-sweep-Caveman-50055067 s1272: invisible hero reads confuse monster → C «Your hands tingle.», JS «Your hands begin to glow red.»; scen-sweep-Rogue-620093 s1115 hit while umconf>1 → C «The tingling in your hands lessens.», JS «Your hands no longer glow so brightly red.».
