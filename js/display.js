@@ -5604,6 +5604,13 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
             glyph_shows_cloud =
                 !mon_overrides_region(mon_at_display(x, y), x, y);
         }
+    } else if (!swallowed && reg && cansee(x, y) && !hero_Blind()
+               && kind !== 'mon' && kind !== 'invisible') {
+        // C newsym's `_map_location(x, y, 1)` fallback (no shown monster
+        // or I) ends `if (show && !Blind && reg) show_region()`
+        // (display.c `:470–471`), with no ACCESSIBLE gate: a cloud over a
+        // tree or wall is still the displayed glyph (D-4094).
+        glyph_shows_cloud = true;
     }
     if (glyph_shows_cloud) {
         // C reg->glyph — the region's own cloud glyph (show_region

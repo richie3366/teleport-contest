@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4094 — detect.c reveal_terrain_getglyph: JS modelled glyph_at's region overlay only for newsym's ACCESSIBLE/pool arm, missing the `_map_location(x, y, 1)` tail that show_region()s any visible region — a poison cloud over a tree drew as the tree in the terrain view (1 session → FULL PASS)
+- **Status:** shipped (board @584fdf37d. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: reveal_terrain ×2 «Showing known terrain, traps, and objects only...»; sweep-Monk-49950093 is this shape, symset-Healer-50555020 another (C trap `^` vs JS object `%` memory). No review stamp owed.)
+- **Symptom:** scen-sweep-Monk-49950093 s1279: `#terrain` view c (terrain+traps+objects) → map (54,10), a tree under a 1-cell poison cloud: C bright-green `#`, JS the DEC tree glyph.
+- **C locus:** detect.c reveal_terrain_getglyph `:2208` `glyph = glyph_at(x, y)`, and with keep_traps the gascloud is not stripped (`:2225–2229`). display.c newsym `:993–998` overlays a region only when `ACCESSIBLE(lev->typ) || (reg->visible && is_pool_or_lava)`; otherwise, with no shown monster/warning/I, `_map_location(x, y, 1)` runs, ending `if (show && !Blind && (_ml_reg = visible_region_at(x, y))) show_region(_ml_reg, x, y)` (`:470–471`) with no terrain gate.
+- **JS was:** js/display.js reveal_terrain_getglyph's glyph_shows_cloud (the JS stand-in for «glyph_at is a cloud») covered only the ACCESSIBLE/pool arm. The live newsym already paints the cloud via _map_location, so the normal map matched and only the terrain view differed.
+- **Fix:** an else-arm sets glyph_shows_cloud when the cell is seen, a region covers it, the hero isn't Blind, and no monster/I is shown there (kind not 'mon'/'invisible'), which is C's _map_location tail.
+- **JS:** js/display.js (+8); scripts/reveal-terrain-cloud-maploc.test.mjs (new: prefix replay to s1279 asserts row 11 carries `\e[92m#` — RED pre-fix (green tree), GREEN post-fix).
+- **Callers:** behavior-only; no RNG; terrain view only.
+- **Verify:** `node scripts/verify.mjs --fn reveal_terrain_getglyph` → PASS syntax (js/display.js) · rule2 · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. Direct `hidden-proxy score --ids` over the 4 terrain-view rows: sweep-Monk-49950093 → FULL PASS; symset-Healer-50555020 and the two getpos rows unchanged. `hidden-proxy sweep reveal_terrain_getglyph,reveal_terrain` → 701 baseline-PASS sessions re-run, 0 regressed.
+- **Named omissions:** symset-Healer-50555020 s478 (C remembers a trap `^` where JS shows an object `%`, a memory-layer difference).
+- **Ledger:** reveal_terrain_getglyph ported
+- **Next:** symset-Healer-50555020 trap/object memory; town-Tourist-630002 doclassdisco; worldtour-Wizard-610136 blind timeout.
+
 ## D-4093 — uhitm.c hmon_hitmon_do_hit: JS's early cream-pie/blinding-venom block skipped C's `saved_oname = cxname(obj)` snapshot, whose xname observe_object()s the object, so a thrown splash of venom never reached disco[] and `\` dropped «Venoms / splash of venom» (1 session → FULL PASS)
 - **Status:** shipped (board @12a20993c. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: doclassdisco ×2; sweep-Caveman-50050055 is this shape, town-Tourist-630002 another. No review stamp owed.)
 - **Symptom:** scen-sweep-Caveman-50050055 s565: `\` after s227–228 `#invoke` Grimtooth (FLING_POISON → «The venom blinds the tengu!») → C rows 16–17 «Venoms» / «  splash of venom», JS ends after «Gems/Stones».
