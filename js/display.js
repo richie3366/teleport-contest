@@ -177,10 +177,8 @@ import { msgtype_type } from './options.js';
 import { mapxy_valid } from './getpos.js';
 import { mungspaces } from './getline.js';
 import { Unaware } from './eat.js';
-import { Levitation, Flying } from './mhitu.js'; // feel_can_reach_floor property reads (hoisted fns, runtime use only — imports.mjs SAFE)
-import { sticks } from './monmove.js'; // feel_can_reach_floor ustuck arm (canonical engrave.js binding via the monmove re-export; runtime body reads only — imports.mjs CHECK)
-import { attacktype } from './mondata.js'; // feel_can_reach_floor ustuck arm (hoisted fn — imports.mjs SAFE)
-import { AT_HUGS } from './mhitm.js'; // feel_can_reach_floor ustuck arm (const; runtime body reads only — imports.mjs CHECK)
+import { Levitation, Flying } from './mhitu.js'; // property reads (hoisted fns, runtime use only — imports.mjs SAFE)
+import { can_reach_floor } from './engrave.js'; // feel_location `:777` (hoisted fn, runtime use only — imports.mjs SAFE)
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 const STATUE_OTYP = objectNames.indexOf('STATUE');
@@ -6283,35 +6281,6 @@ export function engr_can_be_felt(ep) {
 }
 
 /**
- * Inline can_reach_floor(FALSE) for feel_location — avoid engrave↔display
- * import cycle (engrave.js imports newsym from display). C engrave.c:187
- * reads the Levitation/Flying PROPERTIES (H||E, !B); the flat u.Levitation
- * / u.Flying mirrors are never set by set_uasmon (FROMFORM lands on H* +
- * uprops), so read the live mhitu.js exports (D-3825 pattern; imports.mjs
- * VERDICT: SAFE, hoisted functions, cycle-safe).
- * Named omission: usteed P_RIDING < P_BASIC (C :201); ceiling hider
- * (:203); msize >= MZ_HUGE (:206, TRUE-arm subsumed by the fallthrough
- * since check_pit is skipped for the FALSE arg).
- */
-function feel_can_reach_floor() {
-    const u = game.u || {};
-    if (u.uswallow) return false;
-    // C `:192–197` — hug-held hero whose own form doesn't stick has pinned
-    // arms: can't reach the floor. Mirrors the canonical engrave.js
-    // can_reach_floor (display can't import it: engrave↔display cycle);
-    // sticks via the monmove.js re-export, attacktype/AT_HUGS live.
-    if (u.ustuck && !sticks(game.youmonst?.data)
-        && attacktype(u.ustuck.data, AT_HUGS)) {
-        return false;
-    }
-    if (Levitation() && !(Is_airlevel(u.uz) || Is_waterlevel(u.uz))) {
-        return false;
-    }
-    if (Flying()) return true;
-    return true;
-}
-
-/**
  * C ref: display.c suppress_map_output / _suppress_map_output.
  * gi.in_mklev || program_state.saving || program_state.restoring
  * (hangup done_hup still named).
@@ -6332,7 +6301,8 @@ export function suppress_map_output() {
  * dark adjust; then `:901–908` sensed mon overlay when !u_at (sensemon
  * includes MATCH_WARN D-1514) with is_worm_tail (D-1749). newsym
  * Detect_monsters skips tails; this overlay does not.
- * Named omissions: usteed P_RIDING in can_reach_floor (feel_can_reach_floor).
+ * `:777` reads the live engrave.js can_reach_floor (an unskilled rider
+ * can't feel what lies below; the local clone lacked that arm).
  */
 export function feel_location(x, y) {
     // C `:754–758` — same mklev/save/restore gate as newsym/show_glyph.
@@ -6354,7 +6324,7 @@ export function feel_location(x, y) {
 
     set_seenv(loc, u.ux | 0, u.uy | 0, x, y);
 
-    if (!feel_can_reach_floor()) {
+    if (!can_reach_floor(false)) {
         // C `:777–858` — Levitation Rules in C order: stone/walls/closed
         // doors felt as background; boulders felt before doorways (sobj_at
         // finds a boulder anywhere in the pile, not just the pile top);
