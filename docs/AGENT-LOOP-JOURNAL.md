@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4068 pager.c add_cmap_descr → waterbody_name: JS read do_name.js's sticky-first Hallucination, so the EHalluc_resistance = 1 override was ignored — hallucinated farlook said «A deep water.» for «A moat.» (Samurai-49956004, Wizard-587219 → FULL PASS)
+
+**C locus:** pager.c add_cmap_descr `:1162–1188`: for pool/moat/water/lava/ice matches it rewrites levl typ, sets `EHalluc_resistance = 1`, calls waterbody_name, then restores both. waterbody_name `:565` `hallucinate = Hallucination && !program_state.gameover` (youprop.h `:116–120` HHallucination && !Halluc_resistance) so it reads false and the MOAT arm `:582–598` returns «moat», not `deep <hliquid>`.
+**JS:** js/hack.js (+1 import name, 1 condition + comment); scripts/farlook-hallu-moat-name.test.mjs (new: prefix replay to s1290 asserts the topline starts «A moat.» — RED pre-fix «A deep water.», GREEN post-fix).
+**Change:** waterbody_name reads the canonical display.js `Hallucination` (imported as `youprop_Hallucination`, the alias do_name.js hliquid already uses).
+**Verify:** `node scripts/verify.mjs --fn waterbody_name,add_cmap_descr` → PASS syntax (js/hack.js) · rule2 · hidden: no corpus session owner-blocked on either name (the rows were owner-null) · reach: smoke 24/24 ×2 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. Direct re-score: sweep-Samurai-49956004 FULL PASS (RNG 53062/53062, screens 1537/1537), sweep-Wizard-587219 FULL PASS (screens 835/835); both failed on the HEAD board. Regression sweep: every HEAD-board PASS hallu/symset/sweep session re-scored (215) → PASS set diff vs HEAD: 0 regressed, +2; board 636/879.
+**Named:** (1) other JS callers of do_name.js's sticky-first `Hallucination` that C reaches through the youprop macro were not audited. (2) scen-worldtour-Monk-50650072 s942 «Dip them into the moat?» vs «Dip it …» is a different writer (dodip plural), still open.
+**Next:** dodip plural pronoun (Monk-50650072, 1 screen, last diff?).
 ## 2026-10-19 — D-4067 do.c doaltarobj (+ sink/rndcurse/crystal ball/flip_through_book): local identity hcolor clones skipped C's Hallu display-RNG colour — «a black flash» for «a bistre flash» (Valkyrie-50156016 → FULL PASS, Samurai-49956004 1170→1290)
 
 **C locus:** do.c doaltarobj `:380–381` `an(hcolor(obj->blessed ? NH_AMBER : NH_BLACK))`; do_name.c hcolor `:1461–1466` returns `hcolors[rn2_on_display_rng(SIZE(hcolors))]` when Hallucination or the pref is NULL.

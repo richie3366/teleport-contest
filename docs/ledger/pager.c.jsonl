@@ -7,7 +7,7 @@
 {"fn":"object_from_map","c":"284-377","status":"partial","js":["js/pager.js:object_from_map"],"omit":"CORPSE/STATUE corpsenm from body/statue glyphs (:346-350); cmap-glyph otyp fallback (CHEST/LARGE_BOX for trapped chest|door, :292-296)","d":["D-3402"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: remaining omit cannot ship"}
 {"fn":"look_at_object","c":"380-419","status":"ported","js":["js/pager.js:look_at_object"],"d":["D-2974"],"at":"2026-09-27@8a0963412"}
 {"fn":"look_at_monster","c":"422-555","status":"ported","js":["js/pager.js:look_at_monster"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
-{"fn":"waterbody_name","c":"561-611","status":"ported","js":["js/hack.js:waterbody_name"],"d":["D-3402","D-2761"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
+{"fn":"waterbody_name","c":"561-611","status":"ported","js":["js/hack.js:waterbody_name"],"d":["D-4068","D-3402","D-2761"],"at":"2026-10-19@82ece8be2","note":"audited D-3402: whole vs C"}
 {"fn":"ice_descr","c":"614-650","status":"ported","js":["js/trap.js:ice_descr"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lookat","c":"657-802","status":"ported","js":["js/pager.js:lookat"],"d":["D-3414","D-1848","D-1843","D-1787"],"at":"2026-10-04@3b3655fac","note":"stale (grouped)"}
 {"fn":"ia_checkfile","c":"807-815","status":"ported","js":["js/pager.js:ia_checkfile"],"at":"2026-10-03@bbe63333a"}

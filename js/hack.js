@@ -45,7 +45,7 @@ import {
     pline, vpline, You, You_cant, There, Norep, newsym, canspotmon, canseemon, map_invisible, You_feel,
     set_msg_xy, feel_location, map_object, unmap_object, glyph_is_invisible, glyph_to_obj, verbalize, curs_on_u,
     nh_delay_output, back_to_glyph, glyph_to_cmap, glyph_is_cmap, pline_dir,
-    impossible, raw_printf,
+    impossible, raw_printf, Hallucination as youprop_Hallucination,
 } from './display.js';
 import { cmdq_peek, ext_func_tab_from_func } from './cmd.js';
 import { dokick } from './dokick.js';
@@ -2218,7 +2218,9 @@ export function SURFACE_AT(x, y) {
  * use-or-copy, :558); JS returns a fresh string per call.
  */
 export function waterbody_name(x, y) {
-    const hallucinate = Hallucination() && !game.program_state?.gameover; // C :565
+    // C :565 youprop.h macro (display.js), not do_name.js's sticky-first
+    // reader: add_cmap_descr's EHalluc_resistance = 1 must win (D-4068).
+    const hallucinate = youprop_Hallucination() && !game.program_state?.gameover;
     if (!isok(x, y)) return 'drink'; // C :567-568, should never happen
     const ltyp = SURFACE_AT(x, y); // C :569 (D-1103 raised-drawbridge under-typ)
     if (ltyp === LAVAPOOL) { // C :571-574
