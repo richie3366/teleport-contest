@@ -22,21 +22,22 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 
 ## Don't re-check (≤15)
 
-- D-1790…D-4071 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-4072 stand except Must-fix reviews 2145/2149; reviews 2132 and 2136 closed by D-3182/D-3181. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Full scores need unfiltered `score`. Underwater-idiom sweep (D-3721…) reached no session — no pole-lava row.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4071.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4071 outside queued reviews 2145/2149.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-4072.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-4072 outside queued reviews 2145/2149.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 - D-3733: C-crash sessions 95244@507 + 95230@278 (C SIGABRTs ledger_to_dnum(-1) same step/path as the JS throw) — do not re-port mlevel_tele_trap/migrate/ledger; tooling Next in D-3733.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-4072: the `finally` funnel calls `clear_nhwindow_message()` (display.js, the tty_clear_nhwindow(WIN_MESSAGE) port) when msg_given is set. Named: (1) the getpos-owned terrain-view rows (4) are the next getpos shape. (2) The two moved ro
 - D-4071: the three writers use `game._buzzer` (6 occurrences); no `game.buzzer` remains in js/. Named: worldtour-Valkyrie-587104 s634 (zhitu disintegration: C «You are not disintegrated.--More-
 - D-4070: drop the lookup; always allocate, insert after equal nodes (unchanged loop), and clear lastseentyp on every call (C `:2848`). find_mapseen still retur Named: shape B (grave killer text missing «exhaled by <monster>») is the next background_enlighte
 - D-4069: dodip uses the canonical objnam.js `is_plural` and wield.js `pair_of` (C obj.h macro, now exported; it was already faithful but file-local). Named: invent.js keeps its own `pair_of_inv` copy (same body); not merged without a session namin
@@ -51,5 +52,4 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - D-4060: (1) case 29 calls the live `await monflee(mtmp, 0, false, false)` (monmove.js:1118; fountain.js already imports monmove.js — imports.mjs ALREADY, adde Named: (1) spell.c cursed_book case 5 (js/spell.js:699) calls poison_strdmg with no fatal-losehp 
 - D-4059: import the live `Unchanging(u)` (polyself.js:438, flats ∪ uprops; eat.js already imports polyself.js — imports.mjs ALREADY, no new edge) and use it at Named: (1) Wizard-50156033 s512 map `I`/`)` stays a cprefx-owned row for its own writer. (2) The 
 - D-4058: restart of the tail in C order — `export async function losehp`: every state change still runs before the first await (nothing awaits unless showdamag Named: (1) `done(DIED)` and `rehumanize()` stay deferred to finish_losehp_done / finish_losehp_re
-- D-4057: import the live `Punished()` (pray.js:255, `!!game.u.uball`) and call it in the foo predicate. Named: none in this arm. do.js:1803/2288 `u.uball || u.Punished` already gate on the live uball (
 <!-- landmarks:end -->
