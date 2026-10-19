@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4064 dig.c digactualhole: invented trailing newsym re-drew a hallucinated statue and shifted the display RNG by 3 draws (Monk-50255213 → FULL PASS)
+
+**C locus:** 
+**JS:** js/dig.js (−1 call, +3 comment lines); scripts/digactualhole-no-trailing-newsym.test.mjs (new: prefix replay to s992 asserts (42,6) `!` and (45,6) `)` — RED pre-fix on (42,6), GREEN post-fix).
+**Change:** removed the invented call; cite + comment at the function end. Non-hallucinated display is unaffected wherever maketrap/seetrap/vision_recalc already repainted the spot (REACH below).
+**Verify:** `node scripts/verify.mjs --fn use_pick_axe2,digactualhole --reach-all` → PASS syntax (js/dig.js) · rule2 · `verify use_pick_axe2: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (Monk-50255213 FULL PASS, RNG 40728/40728, screens 1552/1552) · reach use_pick_axe2 3/3 · `verify digactualhole: 0 PASS, 0 moved past, 0 unchanged, 0 worse` (its 5 blocks were uncached at verify time) · reach digactualhole all 36 baseline-PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. The 5 digactualhole blocks (sweep Archeologist-50255234, Priest-50350049, Ranger-50055018, Samurai-50055053, Valkyrie-50255236) recorded and run FULL PASS — and also FULL PASS with the fix stashed, so stale rows, not credit. Movement line: `verify use_pick_axe2: 1 PASS, 0 moved, 0 no-movement`.
+**Named:** none in this body. Tooling note: display-RNG divergences are invisible to the scored log; the `NETHACK_RNGLOG_DISP=1` measurement recording + a temp JS stack logger located this one in ~6 calls — worth a scripted probe if the class recurs.
+**Next:** use_pick_axe2 leaves on regen.
 ## 2026-10-19 — D-4063 sanctum.lua named demons: inline create_monster clone skipped the G_GONE arm — an extinct erinys was made instead of C's random monster (worldtour-Wizard-49950016 → FULL PASS)
 
 **C locus:** sp_lev.c create_monster `:1945–1953`: `pm = &mons[m->id]; g_mvflags = svm.mvitals[…].mvflags; if ((pm->geno & G_UNIQ) && (g_mvflags & G_EXTINCT)) return; if (g_mvflags & G_GONE) pm = NULL; /* make random monster */` → makemon(NULL) → rndmonst_adj. Also `:1958–1965` pm_to_humidity location and `:1968` enexto.
