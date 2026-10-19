@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4070 dungeon.c init_mapseen: JS deduped the mapseen node, C always allocates — re-made tutorial levels lost their second #overview entry in final disclosure (Wizard-49955007, Priest-49950072, Wizard-50556502 → FULL PASS)
+
+**C locus:** mklev.c mklev `:1582` calls init_mapseen every time a level is made; dungeon.c init_mapseen `:2835–2869` always allocates and insertion-sorts (after equal nodes), with no lookup. Leaving the tutorial deletes its level files and remdun_mapseen marks its nodes notreachable (do.c `:1640–1661`), so a wizard-mode level teleport back in re-makes the level and adds a second node. traverse_mapseenchn `:3355` prints every node when `why != 0` (final disclosure).
+**JS:** js/dungeon.js (doc + 3 lines removed); scripts/init-mapseen-no-dedupe.test.mjs (new: prefix replay to s502 asserts two «Level 2: [tut-2]» rows — RED pre-fix (1), GREEN post-fix).
+**Change:** drop the lookup; always allocate, insert after equal nodes (unchanged loop), and clear lastseentyp on every call (C `:2848`). find_mapseen still returns the first match, as C's does. ensure_mapseen keeps its own find-first guard.
+**Verify:** `node scripts/verify.mjs --fn init_mapseen,background_enlightenment` → PASS syntax (js/dungeon.js) · rule2 · `verify background_enlightenment: 2 PASS, 0 moved past, 3 unchanged, 0 worse → PROGRESS` (the 3 unchanged: shape B ×2 and questtour-Monk-50557003 s324, an RNG-lost map row) · reach: smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Full rescore (mklev runs on every level): 873/1075 corpus entries scored, PASS set vs HEAD board 0 regressed, +3 — worldtour-Wizard-49955007 (RNG 42911/42911, screens 506/506), worldtour-Priest-49950072 (RNG 59365/59365, screens 1120/1120), worldtour-Wizard-50556502 (stash check: fails at s325 without the fix, passes with it); board 639/873.
+**Named:** shape B (grave killer text missing «exhaled by <monster>») is the next background_enlightenment row.
+**Next:** shape B — the buzz breath killer name stored in the final resting place (51250064, Barbarian-50255201).
 ## 2026-10-19 — D-4069 potion.c dodip: shortestname skipped pair_of — a single pair of boots/gloves got «Dip it into the moat?» for «Dip them …» (worldtour-Monk-50650072 → FULL PASS)
 
 **C locus:** potion.c dodip `:2286–2287` `shortestname = (is_hands || is_plural(obj) || pair_of(obj)) ? "them" : "it"`; obj.h `:421–427` is_plural (quan != 1 or discovered Eyes of the Overworld), pair_of (LENSES / is_gloves / is_boots).
