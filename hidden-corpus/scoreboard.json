@@ -1,11 +1,11 @@
 {
- "commit": "e384672c1",
- "at": "2026-10-19T13:45:43.169Z",
- "full": false,
- "fullCommit": "cfce30f52",
- "fullAt": "2026-10-19T13:31:34.938Z",
- "entries": 864,
- "reserve": 63,
+ "commit": "ca5f00130",
+ "at": "2026-10-19T13:58:33.166Z",
+ "full": true,
+ "fullCommit": "ca5f00130",
+ "fullAt": "2026-10-19T13:58:33.166Z",
+ "entries": 855,
+ "reserve": 58,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -3170,23 +3170,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-options-Healer-50255907": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 3320,
-   "rngT": 3320,
-   "scrM": 169,
-   "scrT": 169,
-   "kind": null,
-   "step": null,
-   "steps": 169,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-options-Healer-94271": {
    "src": "corpus",
    "passed": true,
@@ -3697,29 +3680,12 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-options-Wizard-50457001": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 5741,
-   "rngT": 5741,
-   "scrM": 156,
-   "scrT": 156,
-   "kind": null,
-   "step": null,
-   "steps": 156,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-options-Wizard-50557409": {
    "src": "corpus",
    "passed": false,
    "rngM": 2988,
    "rngT": 2988,
-   "scrM": 177,
+   "scrM": 180,
    "scrT": 181,
    "kind": "screen",
    "step": 94,
@@ -4829,23 +4795,6 @@
    "kind": null,
    "step": null,
    "steps": 522,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-shop-Rogue-50050083": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 79151,
-   "rngT": 79151,
-   "scrM": 924,
-   "scrT": 924,
-   "kind": null,
-   "step": null,
-   "steps": 924,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -9103,23 +9052,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-symset-Barbarian-50250071": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 16038,
-   "rngT": 16038,
-   "scrM": 820,
-   "scrT": 820,
-   "kind": null,
-   "step": null,
-   "steps": 820,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Barbarian-50455049": {
    "src": "corpus",
    "passed": false,
@@ -9232,23 +9164,6 @@
    "kind": null,
    "step": null,
    "steps": 773,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-symset-Healer-50155029": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 9264,
-   "rngT": 9264,
-   "scrM": 886,
-   "scrT": 886,
-   "kind": null,
-   "step": null,
-   "steps": 886,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -9625,23 +9540,6 @@
    "steps": 550,
    "owner": "optfn_videocolors",
    "loc": "options.c:4560",
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-symset-Samurai-50059054": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 15249,
-   "rngT": 15249,
-   "scrM": 728,
-   "scrT": 728,
-   "kind": null,
-   "step": null,
-   "steps": 728,
-   "owner": null,
-   "loc": null,
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
@@ -10665,23 +10563,6 @@
    "jsOwner": null,
    "cTopline": "You can get a genuine Amulet of Yendor by doing the following: --More--",
    "jsTopline": "You can get a genuine Amulet of Yendor by doing the following: --More--",
-   "error": null
-  },
-  "scen-trek-Priest-587119": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 45233,
-   "rngT": 45233,
-   "scrM": 851,
-   "scrT": 851,
-   "kind": null,
-   "step": null,
-   "steps": 851,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
    "error": null
   },
   "scen-trek-Samurai-95502": {
@@ -11782,23 +11663,6 @@
    "kind": null,
    "step": null,
    "steps": 1192,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-worldtour-Monk-50458502": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 72175,
-   "rngT": 72175,
-   "scrM": 1069,
-   "scrT": 1069,
-   "kind": null,
-   "step": null,
-   "steps": 1069,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -13200,23 +13064,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-zapfest-Priest-50450076": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 12571,
-   "rngT": 12571,
-   "scrM": 711,
-   "scrT": 711,
-   "kind": null,
-   "step": null,
-   "steps": 711,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-zapfest-Priest-50950004": {
    "src": "corpus",
    "passed": false,
@@ -13634,8 +13481,7 @@
    "jsOwner": null,
    "cTopline": "What do you want to zap? [n or ?*]",
    "jsTopline": "A lit field surrounds you!",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-options-Archeologist-50457000": {
    "src": "corpus",
@@ -13652,8 +13498,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-options-Caveman-50151031": {
    "src": "corpus",
@@ -13706,8 +13551,7 @@
    "jsOwner": null,
    "cTopline": "Refresh your memory anyway?",
    "jsTopline": "Refresh your memory anyway? [yn] (n)",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-options-Wizard-50255903": {
    "src": "corpus",
@@ -13724,8 +13568,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Archeologist-610093": {
    "src": "corpus",
@@ -13904,8 +13747,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Wizard-50750057": {
    "src": "corpus",
@@ -14759,5 +14601,7 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "archivedAt": "2026-10-19T13:58:55.316Z",
+ "tieredAt": "2026-10-19T13:58:56.427Z"
 }
