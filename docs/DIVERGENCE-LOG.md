@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-4130 — objnam.c xname_flags gives a corpse the plain FOOD_CLASS `actualn` («corpse», `:775–789`) and then the shared tail: pluralize, gameover suffix, and `" named " ONAME` (`:998–1009`). JS returned «corpse» early, so a named pet's corpse lost its name. C quoted «"For you, scum; 22 zorkmids for this corpse named Slasher."» where JS said «… for this corpse.» (1 shop session → FULL PASS; plus 1 sweep session D-4128 had already fixed)
+
+- **Status:** shipped. Near-pass rows from the D-4126 scan (RNG fully matched, 1 screen lost). The board owner was minion.c `demon_talk`; the quote is shk.c addtobill `:3576–3584` (`xname(obj)`, listed in `cMsgOwners`). A rescore first showed scen-sweep-Barbarian-49956047 («Your right foreclaw is empty.», wield.c can_twoweapon) already passing 578/578 since D-4128's `body_part(HAND)` fix; it is counted here because the board had not been rescored.
+- **Symptom:** scen-shop-Caveman-51050085 s191/298: C «"For you, scum; 22 zorkmids for this corpse named Slasher."--More--» vs JS «"For you, scum; 22 zorkmids for this corpse."--More--». RNG fully matched.
+- **Measurement:** a temporary log at the JS quote (removed) showed the corpse with `dknown=1` and `oextra.oname = "Slasher"` (from the pet's `mgivenname`). `xname(obj)` still returned `"corpse"`, so the writer is xname_flags, not the corpse's creation.
+- **C locus:** objnam.c xname_flags `:581–1029`: `obj_is_pname` → nameit `:674–676`; FOOD_CLASS `:745–789` (SLIME_MOLD, `partly_eaten_hack` "partly eaten ", globby, else `Concat(actualn)`); pluralize; gameover suffix `:971–996`; `has_oname && dknown` → `" named "` + ONAME `:998–1009`; strip a leading "the " `:1011–1012`.
+- **JS was:** `if (n === 'CORPSE') return quan != 1 ? 'corpses' : 'corpse'` before the obj_is_pname arm, skipping partly_eaten_hack, the gameover suffix, the named arm and the "the " strip.
+- **Fix:** deleted the early return. The corpse base is now computed in the base-name step: `partly eaten ` under `iflags.partly_eaten_hack && oeaten`, then `corpse`. pretty_base's «<monster> corpse» arm is left for its doname caller. From there the corpse takes the shared tail in C order.
+- **JS:** js/objnam.js (xname_flags corpse base :1117–1119).
+- **Callers:** unchanged; every xname / cxname / yname / Tobjnam path now gives a named corpse its name as C does. doname builds the corpse name through corpse_xname / pretty_base and is unchanged.
+- **Verify:** verify xname_flags: 0 PASS, 0 moved, 0 no-movement (the row is owned by demon_talk). Direct `hidden-proxy score --ids scen-shop-Caveman-51050085` → PASS 298/298 screens, 13575/13575 RNG; `score --ids scen-sweep-Barbarian-49956047` → PASS 578/578; board 662 → 664. `node scripts/verify.mjs --fn xname_flags --full` → syntax · rule2 · reach 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep xname_flags,xname,addtobill` → 662 baseline-PASS re-run in 117.3s, 0 regressed → REACH-OK.
+- **Named omissions:** none in the corpse arm.
+- **Ledger:** xname_flags split js=objnam.js:xname_flags+objnam.js:pretty_base
+- **Next:** spell.c study_book «Refresh your memory anyway?» (JS adds «[yn] (n)»); vamprises «You dream that …» (unconscious arm); read.c/parse_id «The spellbook of knock slams shut!»; botl.c do_statusline2 rows.
+
 ## D-4129 — apply.c dorub tests the youprop.h `Blind` macro when a rubbed magic lamp only smokes (`:1833`), but apply.js read the flat `u.Blind` mirror, which was false for a blind hero. So C's «You smell smoke.» came out as «You see a puff of smoke.». Two more apply.c `Blind` sites (catch_lit, the blessed-eucalyptus arm of doapply) read the same kind of inline mirror, and the eucalyptus arm also skipped `hcolor` and `set_bknown` (1 sweep session → FULL PASS)
 
 - **Status:** shipped. A near-pass row from the D-4126 scan (RNG fully matched, 1 screen lost). The board owner was `trapeffect_fire_trap` (trap.c:1810), which prints the same «You smell smoke.». The session had just wielded a magic lamp through `wield_tool(obj, "rub")` → canned `dorub`, so the writer is dorub. The cliffs block is still all parked tooling rows.
