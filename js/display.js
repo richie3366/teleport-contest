@@ -5451,11 +5451,14 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
     if (hero_memory) {
         const mem = loc.remembered_glyph;
         levl_glyph = mem ? copy_glyph(mem) : copy_glyph(default_glyph);
-        // C levl[][].glyph is the remembered int; unseen BSS 0 is the stone
-        // int, same as default_id.
+        // C levl[][].glyph is the remembered int. A never-remembered spot
+        // keeps clear_level_structures' zerorm value GLYPH_UNEXPLORED
+        // (mklev.c:852), not stone: the swallowed `:2210` path shows it as
+        // is, and lookat names it "unexplored area" (pager.c:736).
         attach_glyph(
             levl_glyph,
-            mem && typeof mem.glyph === 'number' ? mem.glyph : default_id,
+            !mem ? GLYPH_UNEXPLORED
+                : typeof mem.glyph === 'number' ? mem.glyph : default_id,
         );
     } else {
         levl_glyph = seenv

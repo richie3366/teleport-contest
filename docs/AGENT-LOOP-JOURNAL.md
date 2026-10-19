@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4099 detect.c reveal_terrain_getglyph: for a hero-memory spot never remembered, JS used the stone glyph as levl[][].glyph, but C's clear_level_structures leaves GLYPH_UNEXPLORED there, so an engulfed hero's #terrain view described unseen spots as «unexplored» instead of «unexplored area» (2 sessions → FULL PASS)
+
+**C locus:** detect.c reveal_terrain `:2372` captures `swallowed = u.uswallow`; reveal_terrain_getglyph `:2202–2204` `levl_glyph = hero_memory ? levl[x][y].glyph : …` and `:2210` `glyph = !swallowed ? glyph_at(x, y) : levl_glyph`. A spot the hero never mapped still holds mklev.c clear_level_structures' `zerorm` glyph, GLYPH_UNEXPLORED (`:852`). pager.c lookat `:730–737` names a glyph_is_unexplored glyph «unexplored area»; the S_stone `!seenv` arm (`:779–782`) says «unexplored».
+**JS:** js/display.js (+6/−3); scripts/swallowed-terrain-unexplored.test.mjs (new: prefix replay to s314 asserts «unexplored area»; RED pre-fix «unexplored (no travel path)», GREEN post-fix).
+**Change:** the hero_memory arm attaches GLYPH_UNEXPLORED when there is no remembered glyph (mklev.c:852), and still uses the remembered int, or the stone default for an id-less memory, otherwise.
+**Verify:** `node scripts/verify.mjs --fn reveal_terrain_getglyph,auto_describe,lookat` → PASS syntax (js/display.js) · rule2 · smoke 24/24 ×3 → REACH-OK · verify auto_describe: 1 PASS, 0 moved past, 0 unchanged, 0 worse · verify lookat: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep reveal_terrain_getglyph,reveal_terrain` → 717 baseline-PASS sessions re-run, 0 regressed → REACH-OK. Board: exactly the 2 rows flip to PASS.
+**Named:** none.
+**Next:** symset-Priest-50058519 do_screen_description prefix bytes («fla» vs «·»); trek-Monk-50850075 readobjnam_postparse1; options-* near-pass rows (process_menu_window ×2, getobj prompt letters ×3).
 ## 2026-10-19 — D-4098 pager.c do_screen_description: JS read a corpse (body) glyph's symbol as the corpse's monster letter, like a statue, so the object-class scan never matched '%' and getpos autodescribe printed nothing over a corpse (4 sessions → FULL PASS)
 
 **C locus:** getpos.c getpos `:865–866` auto_describe → `:650` do_screen_description, where `:1268–1271` takes the sym from map_glyphinfo's ttychar. display.c reset_glyphmap `:2796–2797` (GLYPH_BODY_PILETOP_OFF) and `:3004–3005` (GLYPH_BODY_OFF) set `symidx = objects[CORPSE].oc_class + SYM_OFF_O`, so corpses carry the food symbol; only the statue ranges (`:2782`, `:2789`, …) use `mons[offset].mlet + SYM_OFF_M`. pager.c `:1356–1404` then matches '%' against FOOD_CLASS and lookat names the corpse.
