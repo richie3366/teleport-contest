@@ -7026,7 +7026,11 @@ export async function enlightenment(mode, final = 0) {
             ));
         }
         // C insight.c:1571-1580 — See_invisible before telepathic.
-        if ((u.HSee_invisible | 0) || (u.ESee_invisible | 0)) {
+        // youprop.h See_invisible ≡ uprops[SEE_INVIS] H || E; a worn ring
+        // sets only the uprops extrinsic, so read both stores (D-4091).
+        if ((u.HSee_invisible | 0) || (u.ESee_invisible | 0)
+            || (u.uprops?.[SEE_INVIS]?.intrinsic | 0)
+            || (u.uprops?.[SEE_INVIS]?.extrinsic | 0)) {
             if (!Blind()) {
                 lines.push(enlght_line_txt(
                     You_, final ? 'saw' : 'see', ' invisible',
@@ -8117,8 +8121,11 @@ export async function doattributes(enl_mode = null) {
                 from_what(BLND_RES),
             )));
         }
-        // C insight.c:1571-1580 — See_invisible (^X final=0 → "see").
-        if ((u.HSee_invisible | 0) || (u.ESee_invisible | 0)) {
+        // C insight.c:1571-1580 — See_invisible (^X final=0 → "see");
+        // both stores, as the disclosure arm (D-4091).
+        if ((u.HSee_invisible | 0) || (u.ESee_invisible | 0)
+            || (u.uprops?.[SEE_INVIS]?.intrinsic | 0)
+            || (u.uprops?.[SEE_INVIS]?.extrinsic | 0)) {
             if (!Blind()) {
                 lines.push(o(enlght_line_txt(
                     'You ', 'see', ' invisible', from_what(SEE_INVIS),
