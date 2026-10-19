@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4087 — read.c seffect_confuse_monster / uhitm.c nohandglow: altfeedback = (Blind || Invisible) read phantom flats (u.Invisible; uhitm's flat-only Invisible_you clone), so a worn-extrinsic invisible hero got the «glow red» texts instead of «tingle» (2 sessions → FULL PASS)
+- **Status:** shipped (board @efe3d4c2c. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: doread ×2 «Your hands tingle.» vs «Your hands begin to glow red.». The fix moved sweep-Rogue-620093 to nohandglow s1115, the same macro pair, so both arms ship together. No review stamp owed.)
+- **Symptom:** e.g. scen-sweep-Caveman-50055067 s1272: invisible hero reads confuse monster → C «Your hands tingle.», JS «Your hands begin to glow red.»; scen-sweep-Rogue-620093 s1115 hit while umconf>1 → C «The tingling in your hands lessens.», JS «Your hands no longer glow so brightly red.».
+- **C locus:** read.c seffect_confuse_monster `:1405` and uhitm.c nohandglow `:6324` `altfeedback = (Blind || Invisible)`; youprop.h:199 Invisible = Invis && !See_invisible (uprops readers). uhitm.c start_engulf/end_engulf `:4936/:4951` read the same Invisible.
+- **JS was:** js/read.js used a local `Blind` from the u.Blinded/u.Blind/u.ublind flats and `!!u.Invisible`, a field nothing writes (the only 3 readers port-wide). js/uhitm.js Invisible_you read only the u.Invis/HInvis/EInvis/See_invisible flats, while worn invisibility lives in uprops[INVIS].extrinsic.
+- **Fix:** read.js computes `altfeedback = Blind() || hero_Invisible()` once (invent.js Blind already imported, display.js hero_Invisible added). uhitm.js deletes Invisible_you and calls display.js hero_Invisible at all three sites (nohandglow, start_engulf, end_engulf).
+- **JS:** js/read.js (+3/−4), js/uhitm.js (+6/−11); scripts/confuse-monster-altfeedback.test.mjs (s1272 «Your hands tingle.») and scripts/nohandglow-altfeedback.test.mjs (s1115 «The tingling in your hands») — each RED pre-fix, GREEN post-fix.
+- **Callers:** behavior-only; message choice only. start_engulf/end_engulf's tmp_at gating now also follows the live macro.
+- **Verify:** `node scripts/verify.mjs --fn seffect_confuse_monster` → PASS syntax (js/read.js) · rule2 · reach 12/12 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS; `verify --fn nohandglow` → PASS syntax (js/read.js js/uhitm.js) · reach smoke 24/24 · green · strict · cohort → VERIFY: PASS. Direct `hidden-proxy score --ids`: sweep-Caveman-50055067, sweep-Rogue-620093 → FULL PASS. `hidden-proxy sweep seffect_confuse_monster,doread` and `sweep nohandglow,start_engulf,end_engulf` → 721 baseline-PASS sessions re-run each, 0 regressed.
+- **Named omissions:** none.
+- **Ledger:** seffect_confuse_monster ported
+- **Next:** one_characteristic ×4 («was 18 (limit:18)»); doclassdisco ×2; reveal_terrain ×2.
+
 ## D-4086 — region.c show_region: JS painted the gas-cloud '#' with no integer glyph, so glyph_at returned NO_GLYPH and getpos autodescribe named the hero's cloud-covered spot «unexplored area» instead of «fog/vapor cloud» (2 sessions → FULL PASS)
 - **Status:** shipped (board @5f9c42ea8 + `score --with-reserve` refresh. The getobj «dip them» ×2 near-pass pair turned out stale: reserve-tier rows that plain full rescores skip, already fixed by D-4069. A full `score --with-reserve` moved 37 stale reserve rows FAIL→PASS (0 PASS→FAIL), board 719/985. The next near-pass group, lookat ×2 «fog/vapor cloud» vs «unexplored area», is this fix. No review stamp owed.)
 - **Symptom:** e.g. scen-extcmd-Healer-51256009 s603: hero inside a 1-cell gas cloud, `_` then `<` → the cursor stays on the hero (66,16), drawn as the cloud `#` → C «fog/vapor cloud», JS «unexplored area».
