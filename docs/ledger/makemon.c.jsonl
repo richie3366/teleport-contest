@@ -38,5 +38,5 @@
 {"fn":"newmcorpsenm","c":"2370-2375","status":"ported","js":["js/makemon.js:newmcorpsenm"],"at":"2026-10-03@bbe63333a"}
 {"fn":"freemcorpsenm","c":"2379-2383","status":"ported","js":["js/makemon.js:freemcorpsenm"],"at":"2026-10-03@bbe63333a"}
 {"fn":"set_mimic_sym","c":"2393-2550","status":"ported","js":["js/makemon.js:set_mimic_sym"],"d":["D-4103","D-1564","D-1557","D-1556","D-1543","D-1536"],"at":"2026-10-19@e6fdf0e76"}
-{"fn":"bagotricks","c":"2554-2601","status":"ported","js":["js/apply.js:bagotricks"],"d":["D-2354"],"at":"2026-10-03@bbe63333a"}
+{"fn":"bagotricks","c":"2554-2601","status":"ported","js":["js/apply.js:bagotricks"],"d":["D-4106","D-2354"],"at":"2026-10-19@2dc300cbb"}
 {"fn":"summon_furies","c":"2605-2612","status":"ported","js":["js/makemon.js:summon_furies"],"d":["D-3103"],"at":"2026-09-29@73f4a382f","note":"refresh: no JS symbol (measured MISSING)"}

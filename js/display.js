@@ -628,18 +628,12 @@ const DEF_OC_SYM = {
 
 // C ref: drawing.c def_r_oc_syms + symbols.c init_rogue_symbols `:201`
 // (gr.rogue_syms[O] = def_r_oc_syms) swapped into showsyms by
-// assign_graphics ROGUESET (do.c goto_level; js do.js:1604). Rogue level
-// renders armor ']' (not '['), amulet ',' (not '"'), food ':' (not '%');
-// gold '*' via live_showsyms and VENOM/others are unchanged.
-const DEF_R_OC_SYM = {
-    [ARMOR_CLASS]: ']',
-    [AMULET_CLASS]: ',',
-    [FOOD_CLASS]: ':',
-};
+// assign_graphics ROGUESET (do.c goto_level; js do.js:1604). The table is
+// DEF_R_OC_SYM_FULL below: armor ']', amulet ',', food ':' and gold
+// GEM_SYM '*' (drawing.c `:79`) differ from def_oc_syms.
 function oc_display_sym(oclass) {
-    if ((game.currentgraphics | 0) === ROGUESET
-        && DEF_R_OC_SYM[oclass] != null)
-        return DEF_R_OC_SYM[oclass];
+    if ((game.currentgraphics | 0) === ROGUESET && DEF_R_OC_SYM_FULL[oclass])
+        return DEF_R_OC_SYM_FULL[oclass];
     return DEF_OC_SYM[oclass] || ']';
 }
 
@@ -2330,8 +2324,7 @@ function display_monster(x, y, mon, sightflags, worm_tail) {
 function objnum_to_display_glyph(onum) {
     const def = game.objects?.[onum | 0];
     const oclass = def?.oc_class ?? ILLOBJ_CLASS;
-    let ch = oc_display_sym(oclass);
-    if (oclass === COIN_CLASS) ch = String.fromCharCode(live_showsyms(COIN_CLASS + SYM_OFF_O));
+    const ch = oc_display_sym(oclass);
     const color = def?.oc_color ?? NO_COLOR;
     return { ch, color, dec: false, glyph: objnum_to_glyph(onum) };
 }
@@ -3581,7 +3574,7 @@ function showsyms_defaults(set) {
     for (let i = SYM_OFF_O; i < SYM_OFF_M; i++) {
         const c = i - SYM_OFF_O;
         if (rogue) {
-            d[i] = DEF_R_OC_SYM[c] ?? (c === COIN_CLASS ? '*' : null) ?? DEF_OC_SYM[c] ?? 0;
+            d[i] = DEF_R_OC_SYM_FULL[c] ?? 0;
         } else {
             d[i] = DEF_OC_SYM[c] ?? 0;
         }
@@ -3747,7 +3740,7 @@ function showsyms_table() {
 
 // C drawing.c def_r_oc_syms `:72–82` — the full 18-entry rogue object-class
 // table (index 0 is the '\0' random-class placeholder like primary).
-// DEF_R_OC_SYM above is the 3-diff partial for the display fast path.
+// Read by oc_display_sym, showsyms_defaults and init_rogue_symbols.
 const DEF_R_OC_SYM_FULL = [
     0, ']', ')', ']', '=', ',', '(', ':', '!', '?', '+',
     '/', '*', '*', '`', '0', '_', '.',

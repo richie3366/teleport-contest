@@ -7,6 +7,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4106 makemon.c bagotricks ran its random group through JS's sync makemon, so every member was placed before the first member's «suddenly appears» --More-- (C places them one by one); and display.c's Rogue-level object-class table lacked def_r_oc_syms' gold `*`, so a mimic posing as gold on the Rogue tribute level drew `# Agent loop journal
+
+Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
+Each agent process should add a short dated entry **at the top** (after
+this header) before exiting. Keep entries tight; detailed hypothesis
+lives in `NOTES.md` / `CURRENT.md`.
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+ (2 sweep sessions → FULL PASS)
+
+**C locus:** makemon.c bagotricks `:2554–2601` (`makemon((struct permonst *) 0, u.ux, u.uy, NO_MM_FLAGS)` `:2580`) → makemon `:1430–1439` → m_initgrp `:79–145` (member makemon `:1476–1500` inline appear Norep); drawing.c def_r_oc_syms `:72–82` (gold = GEM_SYM `:79`); display.c display_monster M_AP_OBJECT `:564–575` → map_object `:333–366`.
+**JS:** js/apply.js (bagotricks :5161, MM_ASYNCGROUP import), js/display.js (oc_display_sym :634, objnum_to_display_glyph, showsyms_defaults :3577, DEF_R_OC_SYM_FULL comment).
+**Change:** bagotricks passes `NO_MM_FLAGS | MM_ASYNCGROUP` to makemon and makemon_appear_msg. That is the D-4014 opt-in: the group, invent and primary newsym run in C order inside the awaited tail, and each member's appear is awaited inline. The partial `DEF_R_OC_SYM` is deleted. oc_display_sym reads the existing full 18-entry `DEF_R_OC_SYM_FULL` (C `:72–82`), which `init_rogue_symbols` already used, and so does showsyms_defaults.
+**Verify:** `node scripts/verify.mjs --fn makemon,bagotricks,map_object` → PASS syntax (js/apply.js js/display.js) · rule2 · verify makemon: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach makemon 80/80 (659 reach), bagotricks 6/6, map_object smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep rhack` → all 660 baseline-PASS sessions re-run, 0 regressed → REACH-OK. Board: exactly the 2 rows flip to PASS.
+**Named:** about 30 other mid-game callers still use the sync group tail, i.e. makemon + makemon_appear_msg without MM_ASYNCGROUP. Examples: read.js:3199 create_particular (random `^G`), pickup.js:4618, were.js:221, sit.js:880.
+**Next:** cliffs block still all parked. Next non-parked owners on the live queue: test_move (3 sessions, «You try to ooze under the door…» arm), passivemm (2), furniture_detect (1, s85), look_here (7, engraving read before «There are many objects»).
 ## 2026-10-19 — D-4105 hack.c moverock_core Blind arm read levl memory where C reads `glyph_at` (gbuf), and display.c feel_location used a `can_reach_floor` clone without the unskilled-rider arm, so a blind mumak rider "felt" a club dropped below (2 sweep sessions → FULL PASS)
 
 **C locus:** hack.c moverock_core `:358–363` (`glyph_to_obj(glyph_at(sx, sy)) != BOULDER`); display.c glyph_at `:2477–2483` (gg.gbuf); display.c feel_location `:777` → engrave.c can_reach_floor `:187–214`.
