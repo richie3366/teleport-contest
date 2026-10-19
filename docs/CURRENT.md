@@ -146,7 +146,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** D-4104 [measure]: cliffs head Archeologist-610093 s336 is the D-4028 nomux_out[6144] overflow (marker LEN=7498 mid-SGR, garbage CX/CY) — 15/7364 cached sessions carry the shape; cliffs block is all recorder/tooling parks (D-4016/D-4028/D-4104). Port slot needs a non-parked owner from the board, not the head.
+**Next:** cliffs block is all recorder/tooling parks (D-4016/D-4028/D-4104), so this slot takes the first non-parked board owner: `moverock_core` (2 sweep sessions, 346 screens). Its Blind arm read levl memory, where C reads `glyph_at` gbuf. The Caveman probe's real writer is `feel_location`'s `can_reach_floor` clone, which lacked the unskilled-rider arm (D-4105).
 
 ## Parked (diagnose only)
 
