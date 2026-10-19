@@ -137,6 +137,7 @@ import {
     WC2_HILITE_STATUS,
     WC2_FLUSH_STATUS,
     WC2_U_UTF8STR,
+    WC2_EXTRACOLORS,
     TTY_WINCAP2,
     PLNMSG_UNKNOWN,
     BUFSZ,
@@ -4358,10 +4359,9 @@ function do_crwall(seenv, row) {
  * MAC mines corners record default fg). C's further gates — wincap2
  * EXTRACOLORS (unconditional on unix tty, wintty.c:122), colorcount ≥ 256
  * (judge/recorder env, D-0283), !calling_from_update_inventory (map paint)
- * — all hold here, as in C. RGB customcolors (Enhanced mines/knox) take
- * C's :3903–3906 extracolor arm, which the recorder does not hook
- * (D-4031 class): gray, C's own unappliable-customcolor fallback, stands
- * in — named.
+ * — all hold here, as in C. RGB customcolors (Enhanced mines/knox) keep
+ * the gray base here; show_glyph_cell's extracolor arm (C :3903–3906,
+ * D-4117) paints them with the default fg the recorder captures.
  */
 function wall_cmap_color(idx) {
     const gid = cmap_walls_to_glyph(idx); // C display.h:598 branch bank
@@ -5281,6 +5281,29 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
     // (stores) below. Core validation + the map_glyphinfo resolve above
     // already ran, as in C.
     if (game.program_state?.done_hup) return;
+    // C tty_print_glyph `:3891–3913` extracolor arm: under use_color, with
+    // WC2_EXTRACOLORS (unconditional in tty_procs `:122`, the installed
+    // TTY_WINCAP2 word), a stamped glyphmap customcolor (glyphs.c
+    // apply_customizations → coloratt.c set_map_customcolor), colorcount
+    // >= 256 (the recorder/judge terminal, D-0283) and a map paint
+    // (!calling_from_update_inventory). A basic customcolor (color.h:57
+    // NH_BASIC_COLOR bit) replaces the color with COLORVAL (`:3909`). An
+    // RGB one goes to termcap.c term_start_extracolor (`:3904–3907`,
+    // `ESC[38;5;Nm`), which patch 006 never hooks. ttyDisplay->color is
+    // already NO_COLOR here (every paint ends with term_end_color and the
+    // reset, `:4022–4029`), so no term_end_color fires and the recorded
+    // cell keeps the default fg. gbuf keeps the C color; the grid writers
+    // paint NO_COLOR for disp_extracolor.
+    let extraColor = false;
+    if (game.iflags?.wc_color !== false
+            && (install_tty_wincap2() & WC2_EXTRACOLORS) !== 0
+            && gid >= 0 && gid < MAX_GLYPH) {
+        const cust = (game.glyphmap?.[gid]?.customcolor | 0) >>> 0;
+        if (cust !== 0) {
+            if ((cust & NH_BASIC_COLOR) === 0) extraColor = true; // C :3903
+            else color = cust & 0xffffff; // C :3909 COLORVAL
+        }
+    }
     // C tty_print_glyph `:3945–3953` + g_pututf8 `:3795–3803`
     // (ENHANCED_SYMBOLS live, config.h:368): with the port advertising
     // WC2_U_UTF8STR (tty_procs `:120`, the installed TTY_WINCAP2 word),
@@ -5324,6 +5347,7 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
     loc.disp_decgfx = !!decgfx;
     loc.disp_attr = attr | 0;
     loc.disp_capture_drop = captureDrop;
+    loc.disp_extracolor = extraColor;
     loc.disp_kind = kind;
     // Resolved first: two glyph ids can share one ttychar (altar and
     // fountain are both '{'), so the id is part of the change test below.
@@ -7313,7 +7337,8 @@ function render_map_row(y) {
     for (let x = firstCol; x <= lastCol; x++) {
         const loc = game.level.at(x, y);
         const ch = loc?.disp_ch ?? ' ';
-        const color = loc?.disp_color ?? NO_COLOR;
+        const color = loc?.disp_extracolor ? NO_COLOR
+            : (loc?.disp_color ?? NO_COLOR);
         const dec = !!loc?.disp_decgfx;
 
         if (ch === ' ') {
@@ -8304,7 +8329,9 @@ export function paint_gbuf_level_to_terminal(level) {
                 continue;
             }
             let ch = loc.disp_ch ?? ' ';
-            const color = loc.disp_color ?? NO_COLOR;
+            // Unhooked term_start_extracolor: default fg (show_glyph).
+            const color = loc.disp_extracolor ? NO_COLOR
+                : (loc.disp_color ?? NO_COLOR);
             const attr = loc.disp_attr ?? 0;
             // Same capture drops as _paint_gbuf_cell (nomux_putch ch < 32,
             // unhooked g_pututf8): the stale grid cell stays in place.
@@ -8374,7 +8401,9 @@ function _paint_gbuf_cell(mx, my) {
             && ch !== '|' && ch !== 'o' && ch !== 's')
             ch = uni;
     }
-    display.setCell(sc, sr, ch, loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
+    // Unhooked term_start_extracolor: default fg (show_glyph).
+    const color = loc.disp_extracolor ? NO_COLOR : (loc.disp_color ?? NO_COLOR);
+    display.setCell(sc, sr, ch, color, loc.disp_attr ?? 0);
 }
 
 /**

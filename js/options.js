@@ -9986,59 +9986,19 @@ function simple_bool_value(opt) {
     return !!v;
 }
 
-function simple_bool_toggle(opt) {
-    if (!game[opt.addr.obj]) game[opt.addr.obj] = {};
-    const bag = game[opt.addr.obj];
-    bag[opt.addr.key] = !simple_bool_value(opt);
-    // C options.c opt_hilite_pet `:5307–5308`: enabling with unset
-    // petattr stores wintype.h ATR_INVERSE (7). display.js maps that
-    // to terminal ATR_INVERSE.
-    if (opt.name === 'hilite_pet' && bag[opt.addr.key] && !bag.wc2_petattr) {
-        bag.wc2_petattr = MC_ATR_INVERSE;
-    }
-    // C doset_simple_menu `:8662` parseoptions("!name") → optfn_boolean
-    // do_set `:5350–5351` (optfn_boolean_do_set mirror): status options
-    // reassess fields + botl so the tty field path enables/disables them.
-    if (opt.name === 'terrainstatus') classify_terrain(); // C `:5332`
-    if (opt.name === 'terrainstatus' || opt.name === 'weaponstatus'
-        || opt.name === 'armorstatus') {
-        if (!wc2_supported(opt.name)) { // C `:5337–5342`
-            config_error_add("'%s' is not supported.", opt.name);
-            return;
-        }
-        if (via_windowport()) status_initialize(REASSESS_ONLY); // C `:5350`
-        if (!game.flags) game.flags = {};
-        game.flags.botl = true; // C `:5351` disp.botl
-    }
-    if (opt.name === 'showexp' || opt.name === 'time'
-        || opt.name === 'showscore' || opt.name === 'showvers') { // C `:5346–5351`
-        if (via_windowport()) status_initialize(REASSESS_ONLY);
-        if (!game.flags) game.flags = {};
-        game.flags.botl = true;
-    }
-    if (opt.name === 'hitpointbar' && via_windowport()) { // C `:5387–5390`
-        status_initialize(REASSESS_ONLY);
-        mark_opt_need_redraw();
-    }
-    // C optfn_boolean `:5376–5385` then doset_simple reset_needed_visuals.
-    if (OPT_GLYPH_RESET.has(opt.name)) {
-        mark_opt_need_redraw();
-        mark_opt_need_glyph_reset();
-    }
-    // C doset_simple_menu `:8654–8656` parseoptions("!name") → optfn_boolean
-    // do_set `:5411–5416` (optfn_boolean_do_set mirror): custom-data
-    // toggles re-stamp at the doset_simple `:8727` reset_needed_visuals
-    // (wired) — without the marker a customsymbols off-toggle never
-    // unstamps and map cells keep painting UTF8 after C fell back to
-    // the ASCII ttychar (20 symset sessions).
-    if (opt.name === 'customcolors') { // C `:5411–5413`
-        if (!game.go) game.go = {};
-        game.go.opt_reset_customcolors = true;
-    }
-    if (opt.name === 'customsymbols') { // C `:5414–5416`
-        if (!game.go) game.go = {};
-        game.go.opt_reset_customsymbols = true;
-    }
+/**
+ * C ref: options.c doset_simple_menu `:8659–8662` — a picked boolean
+ * builds `[!]name` from the current value (`*allopt[k].addr ? "!" : ""`)
+ * and parseoptions routes it to optfn_boolean. JS runs the same do_set
+ * body as doset (`optfn_boolean_do_set`, negated = current value):
+ * the store plus every after-change arm, e.g. color's
+ * opt_need_redraw + opt_need_glyph_reset (`:5399–5409`), which
+ * reset_needed_visuals turns into reglyph_darkroom + docrt. doset_simple
+ * keeps give_opt_msg false (`:8722`), so no toggle pline.
+ * @param {object} opt dosetSimpleOpts Bool row
+ */
+async function simple_bool_toggle(opt) {
+    await optfn_boolean_do_set(opt.name, simple_bool_value(opt), false);
 }
 
 async function format_simple_opt_line(opt, nameWidth, tabSep = false, dispName = null) {
@@ -10346,11 +10306,9 @@ async function doset_simple_menu() {
             game.simple_options_help = !game.simple_options_help;
             toggled_help = true; // C: goto redo_opt_help — rebuild in place
         } else if (opt?.opttyp === 'Bool') { // C `:8651–8657`
-            // C `:8654–8656` parseoptions("!name"|"name", FALSE, FALSE).
-            // JS parseoptions is a bool no-op (allopt bool rows carry
-            // optfn:null vs C &optfn_boolean, `:635` guard) — the live
-            // bag write below is the named-omission stand-in.
-            simple_bool_toggle(opt);
+            // C `:8654–8656` parseoptions("!name"|"name", FALSE, FALSE)
+            // → optfn_boolean do_set (simple_bool_toggle).
+            await simple_bool_toggle(opt);
             pickName = opt.name;
         } else if (opt?.opttyp === 'Comp' || opt?.opttyp === 'Othr') { // C `:8658–8686`
             abuf = await doset_compound_via_getlin(opt);
@@ -11146,8 +11104,10 @@ export async function optfn_boolean_do_set(name, negated, initial = false) {
         // `WINDOWPORT(tty) || WINDOWPORT(curses)`; scored build is tty.
         if (windowport_tty() || windowport_curses()) {
             if (!game.iflags) game.iflags = {};
+            // C wintype.h ATR_INVERSE (7), the C-domain value
+            // petattr_to_tty reads; terminal ATR_INVERSE is 1 (≡ BOLD there).
             if (game.iflags.wc_hilite_pet && !game.iflags.wc2_petattr)
-                game.iflags.wc2_petattr = ATR_INVERSE;
+                game.iflags.wc2_petattr = MC_ATR_INVERSE;
         }
         mark_opt_need_redraw(); // C `:5310`
     } else if (name === 'idlecheckpoint') {
