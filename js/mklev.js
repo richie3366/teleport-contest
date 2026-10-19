@@ -12594,32 +12594,38 @@ function load_mon_strt() {
         }
     }
 
+    // C nhlsel.c l_selection_rndcoord `:407–428`: an empty selection
+    // returns {x=-1, y=-1} (no rn2), and des.trap/des.monster then place
+    // at a random location (create_trap / create_monster
+    // get_location_coord). JS selection_rndcoord returns null there — it
+    // is "random", never "skip" (D-4061: spacelocs is only 2 cells, both
+    // darts take them, all 12 siege monsters spawn at random).
     // des.trap("dart", spacelocs:rndcoord(1)) × 2
     for (let i = 0; i < 2; i++) {
         const pos = selection_rndcoord(spacelocs, true);
-        if (!pos) continue;
+        if (!pos) {
+            splev_create_trap(DART_TRAP);
+            continue;
+        }
         const ttmp = maketrap(pos.x, pos.y, DART_TRAP);
         mktrap_seen_victim(ttmp, {});
     }
     // des.trap() × 4
     for (let i = 0; i < 4; i++) splev_create_trap();
 
-    // Monsters on siege duty: 8 earth elementals then 4 xorns
+    // Monsters on siege duty: 8 earth elementals then 4 xorns —
+    // des.monster(name, coord) → create_monster (sp_lev.c:1925–2050),
+    // coord relative to xstart/ystart like get_location_coord.
+    const siege_coord = (pos) => (pos
+        ? { rx: pos.x - (g.splev_xstart | 0), ry: pos.y - (g.splev_ystart | 0) }
+        : {});
     for (let i = 0; i < 8; i++) {
         const pos = selection_rndcoord(spacelocs, true);
-        const { mndx, female } = find_montype_gender('earth elemental');
-        induced_align(80);
-        if (!pos || mndx < 0 || mndx === NON_PM) continue;
-        const mtmp = makemon(mons(mndx), pos.x, pos.y, 0);
-        if (mtmp) mtmp.female = female;
+        splev_create_monster('earth elemental', undefined, siege_coord(pos));
     }
     for (let i = 0; i < 4; i++) {
         const pos = selection_rndcoord(spacelocs, true);
-        const { mndx, female } = find_montype_gender('xorn');
-        induced_align(80);
-        if (!pos || mndx < 0 || mndx === NON_PM) continue;
-        const mtmp = makemon(mons(mndx), pos.x, pos.y, 0);
-        if (mtmp) mtmp.female = female;
+        splev_create_monster('xorn', undefined, siege_coord(pos));
     }
 
     // des.object({ id="tin", coord = {29, 9}, quantity=2, montype="spinach" })
