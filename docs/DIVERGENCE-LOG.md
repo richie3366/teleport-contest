@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4097 — dokick.c kick_monster: revealing a hidden or mimicking target printed «There is the small mimic here.» because JS named it with mon_nam; C uses a_monnam (3 sessions → FULL PASS)
+- **Status:** shipped (board @55a780a3a. The cliffs block is still the 12 parked rows (D-4016 / D-4028). Near-pass fallback: the describe_decor ×3 group, which the region heuristic misattributed to pickup.c:401's "There is %s here." format. The writer is dokick.c. No review stamp owed.)
+- **Symptom:** scen-sweep-Barbarian-50556029 s897 and scen-worldtour-Wizard-50850024 s998: C «There is a small mimic here. You kick the small mimic.» vs JS «There is the small mimic here. …»; scen-worldtour-Archeologist-50056028 s463 the same for a hidden pit viper. Core RNG fully matched.
+- **C locus:** dokick.c kick_monster `:162–175`: when the target is mundetected or mimicking a non-monster, the reveal ends `There("is %s here.", canspotmon(mon) ? a_monnam(mon) : "something hidden")`.
+- **JS was:** js/dokick.js kick_monster's reveal block used `mon_nam(mon)` (definite article). The rest of the body is unchanged and matches C (ledger: audited 2026-10-03, D-2042/D-4029).
+- **Fix:** `a_monnam(mon)`, added to the existing do_name.js import (imports.mjs: edge already present).
+- **JS:** js/dokick.js (+3/−2); scripts/kick-reveal-a-monnam.test.mjs (new: prefix replay to s897 asserts «There is a small mimic here.»; RED pre-fix «There is the small mimic here.  You kick the small mimic.», GREEN post-fix).
+- **Callers:** none changed; kick_monster's one C caller, dokick.c dokick `:1410` (behind maybe_kick_monster `:1379`), is wired at js/dokick.js:1747 (:1712).
+- **Verify:** `node scripts/verify.mjs --fn kick_monster,describe_decor` → PASS syntax (js/dokick.js) · rule2 · reach kick_monster 33/33 → REACH-OK · verify describe_decor: 3 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep kick_monster` → 710 baseline-PASS sessions re-run, 0 regressed → REACH-OK. Board: exactly the 3 rows flip to PASS.
+- **Named omissions:** none.
+- **Ledger:** kick_monster ported
+- **Next:** glibr/getpos autodescribe ×4 (C «an orc corpse» vs JS «(For instructions type a '?')»); auto_describe/lookat «unexplored area» vs «unexplored» ×2; trek-Monk-50850075 readobjnam_postparse1.
+
 ## D-4096 — sp_lev.c create_object: the hand-rolled loaders' `des.object()` stand-ins (splev_create_object, splev_room_object) called mkobj_at + stackobj and skipped create_object's tail, so special-level objects kept mkobj_erosions' random damage that C resets («picks up a cracked crystal plate mail», «puts on a rotted leather armor») (5 sessions → FULL PASS)
 - **Status:** shipped (board @61e8795ff. The generated cliffs block is still the 12 parked rows (10 dupe-rc D-4016, 2 OSC-marker D-4028/D-4095). Near-pass fallback from D-4095's scan: the largest group, 5 sessions where JS adds an erosion word to an object a monster picks up or puts on, filed under dog_invent ×3, readobjnam_postparse1 ×1 and owner-null ×1. No review stamp owed.)
 - **Symptom:** scen-sweep-Valkyrie-50055061 s269 C «The fire giant picks up a crystal plate mail.» vs JS «… a cracked crystal plate mail.»; scen-sweep-Valkyrie-50456039 s510 «crested helmet» vs «corroded crested helmet»; scen-sweep-Samurai-51450041 s1312 «mace» vs «corroded mace»; scen-symset-Archeologist-50058510 s316 «The hobgoblin puts on a leather armor.» vs «… a rotted leather armor.»; scen-sweep-Priest-50150089 s234 «a splint mail» vs «a corroded splint mail». Core RNG fully matched in all five.

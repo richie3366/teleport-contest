@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4097 dokick.c kick_monster: revealing a hidden or mimicking target printed «There is the small mimic here.» because JS named it with mon_nam; C uses a_monnam (3 sessions → FULL PASS)
+
+**C locus:** dokick.c kick_monster `:162–175`: when the target is mundetected or mimicking a non-monster, the reveal ends `There("is %s here.", canspotmon(mon) ? a_monnam(mon) : "something hidden")`.
+**JS:** js/dokick.js (+3/−2); scripts/kick-reveal-a-monnam.test.mjs (new: prefix replay to s897 asserts «There is a small mimic here.»; RED pre-fix «There is the small mimic here.  You kick the small mimic.», GREEN post-fix).
+**Change:** `a_monnam(mon)`, added to the existing do_name.js import (imports.mjs: edge already present).
+**Verify:** `node scripts/verify.mjs --fn kick_monster,describe_decor` → PASS syntax (js/dokick.js) · rule2 · reach kick_monster 33/33 → REACH-OK · verify describe_decor: 3 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep kick_monster` → 710 baseline-PASS sessions re-run, 0 regressed → REACH-OK. Board: exactly the 3 rows flip to PASS.
+**Named:** none.
+**Next:** glibr/getpos autodescribe ×4 (C «an orc corpse» vs JS «(For instructions type a '?')»); auto_describe/lookat «unexplored area» vs «unexplored» ×2; trek-Monk-50850075 readobjnam_postparse1.
 ## 2026-10-19 — D-4096 sp_lev.c create_object: the hand-rolled loaders' `des.object()` stand-ins (splev_create_object, splev_room_object) called mkobj_at + stackobj and skipped create_object's tail, so special-level objects kept mkobj_erosions' random damage that C resets («picks up a cracked crystal plate mail», «puts on a rotted leather armor») (5 sessions → FULL PASS)
 
 **C locus:** sp_lev.c lspo_object `:3556–3755`: `des.object()` is the empty-table arm (nhlua.c lcheck_param_table `:229–230`, eroded/greased default 0), and `des.object("<c>")` is the one-letter arm (`:3594–3598`, zeroobject defaults). Both call create_object `:2193–2439`, which after `mkobj_at` runs `if (o->eroded) … else { otmp->oeroded = otmp->oeroded2 = 0; otmp->oerodeproof = 0; }` (`:2273–2283`) and `otmp->greased = o->greased ? 1 : 0` (`:2296`), so the random erosion, erodeproofing and grease from mkobj.c mkobj_erosions `:196–222` never survive on a des-file object.

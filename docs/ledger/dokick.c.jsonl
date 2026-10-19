@@ -1,6 +1,6 @@
 {"fn":"kickdmg","c":"34-123","status":"ported","js":["js/dokick.js:kickdmg"],"d":["D-1332"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: dmg formula, shade, caitiff, pet abuse, martial knockback, passive live"}
 {"fn":"maybe_kick_monster","c":"126-143","status":"ported","js":["js/dokick.js:maybe_kick_monster"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: bhitpos + forcefight + attack_checks/overexertion abort live"}
-{"fn":"kick_monster","c":"146-288","status":"ported","js":["js/dokick.js:kick_monster"],"d":["D-4029","D-2042"],"at":"2026-10-16@5dd745751","note":"audit 2026-10-03: levitate miss, reveal, poly AT_KICK loop, encumbrance, evade, kickdmg live"}
+{"fn":"kick_monster","c":"146-288","status":"ported","js":["js/dokick.js:kick_monster"],"d":["D-4097","D-4029","D-2042"],"at":"2026-10-19@55a780a3a","note":"audit 2026-10-03: levitate miss, reveal, poly AT_KICK loop, encumbrance, evade, kickdmg live"}
 {"fn":"ghitm","c":"295-407","status":"ported","js":["js/dokick.js:ghitm"],"d":["D-2106"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: wakeup/immobile/catch arms + shk/priest/guard/mercenary branches live"}
 {"fn":"container_impact_dmg","c":"412-485","status":"ported","js":["js/dokick.js:container_impact_dmg"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: glass/egg break, luck, shop billing, reweight live"}
 {"fn":"kick_object","c":"489-504","status":"ported","js":["js/dokick.js:kick_object"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: kickedobj set, killer_xname, really_kick, clear live"}
