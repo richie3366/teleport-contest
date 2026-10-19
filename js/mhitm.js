@@ -480,8 +480,10 @@ export function get_mattk(magr, i, mdef = undefined, prev_result = null) {
         adtyp: a.adtyp | 0,
         damn: a.damn | 0,
         damd: a.damd | 0,
-        // C: uses pointer+1 for "again" (D-0840).
+        // C: uses pointer+1 for "again" (D-0840) — the array identifies
+        // which permonst's mattk[] the pointer is into (newcham swaps it).
         _slot: a,
+        _slots: slots,
         _indx: i,
     };
     const mptr = magr.data;
