@@ -26,11 +26,11 @@
 {"fn":"snuff_candle","c":"1472-1491","status":"ported","js":["js/apply.js:snuff_candle"],"at":"2026-10-03@bbe63333a"}
 {"fn":"snuff_lit","c":"1497-1514","status":"ported","js":["js/apply.js:snuff_lit"],"at":"2026-10-03@bbe63333a"}
 {"fn":"splash_lit","c":"1518-1572","status":"ported","js":["js/apply.js:splash_lit"],"d":["D-2289","D-1337"],"at":"2026-10-03@bbe63333a"}
-{"fn":"catch_lit","c":"1577-1624","status":"ported","js":["js/apply.js:catch_lit"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2"}
+{"fn":"catch_lit","c":"1577-1624","status":"ported","js":["js/apply.js:catch_lit"],"d":["D-4129","D-3416"],"at":"2026-10-19@fad74b236"}
 {"fn":"use_lamp","c":"1628-1700","status":"ported","js":["js/apply.js:use_lamp"],"d":["D-3416","D-2355","D-2157"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"light_cocktail","c":"1703-1765","status":"ported","js":["js/apply.js:light_cocktail"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"rub_ok","c":"1770-1781","status":"ported","js":["js/apply.js:rub_ok"],"at":"2026-10-03@bbe63333a"}
-{"fn":"dorub","c":"1785-1843","status":"ported","js":["js/apply.js:dorub"],"d":["D-2333"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dorub","c":"1785-1843","status":"ported","js":["js/apply.js:dorub"],"d":["D-4129","D-2333"],"at":"2026-10-19@fad74b236"}
 {"fn":"dojump","c":"1847-1851","status":"ported","js":["js/apply.js:dojump"],"at":"2026-10-03@bbe63333a"}
 {"fn":"check_jump","c":"1862-1890","status":"ported","js":["js/apply.js:check_jump"],"at":"2026-10-03@bbe63333a"}
 {"fn":"is_valid_jump_pos","c":"1893-1956","status":"ported","js":["js/apply.js:is_valid_jump_pos"],"d":["D-4127"],"at":"2026-10-19@e04fdc62a"}
@@ -70,7 +70,7 @@
 {"fn":"maybe_dunk_boulders","c":"3897-3905","status":"ported","js":["js/dig.js:maybe_dunk_boulders"],"at":"2026-10-03@bbe63333a"}
 {"fn":"do_break_wand","c":"3909-4146","status":"ported","js":["js/apply.js:do_break_wand"],"d":["D-2346"],"at":"2026-10-03@bbe63333a"}
 {"fn":"apply_ok","c":"4151-4210","status":"ported","js":["js/apply.js:apply_ok"],"at":"2026-10-03@bbe63333a"}
-{"fn":"doapply","c":"4214-4425","status":"ported","js":["js/apply.js:doapply"],"d":["D-3416","D-3378"],"at":"2026-10-04@a1eee6cb2","note":"audit 2026-10-03: boolean return is the adapted caller interface (cmd.js tookTime); arti tail wired at all artifact-eligible arms"}
+{"fn":"doapply","c":"4214-4425","status":"ported","js":["js/apply.js:doapply"],"d":["D-4129","D-3416","D-3378"],"at":"2026-10-19@fad74b236","note":"audit 2026-10-03: boolean return is the adapted caller interface (cmd.js tookTime); arti tail wired at all artifact-eligible arms"}
 {"fn":"unfixable_trouble_count","c":"4431-4470","status":"ported","js":["js/apply.js:unfixable_trouble_count"],"at":"2026-10-03@bbe63333a"}
 {"fn":"flip_through_book","c":"4473-4524","status":"ported","js":["js/apply.js:flip_through_book"],"at":"seed@a30a7de84","note":"stale (grouped)"}
 {"fn":"flip_coin","c":"4527-4556","status":"ported","js":["js/apply.js:flip_coin"],"at":"seed@a30a7de84","note":"stale (grouped)"}
