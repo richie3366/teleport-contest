@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4078 — do.c goto_level descent: JS read the phantom u.Flying flat instead of the youprop.h Flying macro, so a hero flying by worn extrinsic got «You descend the stairs.» instead of «You fly down the stairs.» (3 sessions → FULL PASS)
+- **Status:** shipped (board @10c7b8166. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: down_gate ×3, all C «You fly down the stairs.--More--» vs JS «You descend the stairs.--More--». No review stamp owed.)
+- **Symptom:** e.g. scen-sweep-Ranger-50255200 s1308: `>` while Flying → C «You fly down the stairs.», JS «You descend the stairs.».
+- **C locus:** do.c goto_level `:1776–1779` `else if (Flying) { if (flags.verbose) You("fly down %s.", …) }`; youprop.h:253–255 Flying = (HFlying || EFlying || flying steed) && !BFlying over u.uprops[FLYING].
+- **JS was:** js/do.js goto_level tested `u.Flying`, a flat that worn extrinsics never write (confer_oc_oprop fills uprops[FLYING].extrinsic), so the arm never fired. The mhitu.js `Flying()` union reader was already imported into do.js.
+- **Fix:** `else if (Flying())`.
+- **JS:** js/do.js (1 condition + comment); scripts/goto-level-flying-descent.test.mjs (new: prefix replay to s1308 asserts «You fly down the stairs.» — RED pre-fix «You descend the stairs.--More--», GREEN post-fix).
+- **Callers:** behavior-only. The fall arm's rnd(3) losehp now also follows C for a burdened flying hero (Flying is checked first).
+- **Verify:** `node scripts/verify.mjs --fn goto_level` → PASS syntax (js/do.js) · rule2 · reach 38/38 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS (no hidden movement line: the rows are owned by dokick.c down_gate). Direct `hidden-proxy score --ids` on the 3 down_gate rows: 3 → FULL PASS (sweep-Ranger-50255200, sweep-Ranger-610049, sweep-Rogue-50456012). `hidden-proxy sweep goto_level,down_gate` → 678 baseline-PASS sessions re-run, 0 regressed.
+- **Named omissions:** other bare `u.Flying` reads left as-is (most already OR the slot readers): dig.js:1642, apply.js:3247, do_wear.js:3792, eat.js:1164, music.js:135, polyself.js:2522, sit.js:549, mon.js:2835, display.js:7588.
+- **Ledger:** goto_level ported
+- **Next:** auto_describe shop-corpse ×3; extcmd_via_menu ×4; choose_disco_sort ×4; wish_history_menu ×3.
+
 ## D-4077 — mkmaze.c movebubbles Plane of Air: C struct-copies air_pos into every cell (seenv 0), JS set only glyph/typ/lit — a stale seenv let an engulfed hero's travel validation succeed, dropping autodescribe's « (no travel path)» (10 sessions → FULL PASS)
 - **Status:** shipped (board @045044567. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: auto_describe ×4, all «interior of the air elemental (no travel path)» vs no suffix, all on the Plane of Air. No review stamp owed.)
 - **Symptom:** e.g. scen-worldtour-Tourist-49950060 s371: engulfed by an air elemental, `;` then `j` → C «interior of the air elemental (no travel path)», JS «interior of the air elemental». getloc_travelmode was still on in both from s159's «You are already here.» (dotravel_target returns before clearing it, C and JS alike).

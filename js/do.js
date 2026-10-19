@@ -2218,7 +2218,10 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
             // fall (rnd(3) losehp) / ordinary verbose climb-down.
             if (!(u.dz | 0)) {
                 ; // stayed on same level? (no transit effects)
-            } else if (u.Flying) {
+            } else if (Flying()) {
+                // C youprop.h Flying — live mhitu.js reader, not the
+                // phantom u.Flying flat (worn extrinsics never set it,
+                // D-4078).
                 if (game.flags?.verbose !== false) {
                     await pline(atLadder
                         ? 'You fly down along the ladder.'

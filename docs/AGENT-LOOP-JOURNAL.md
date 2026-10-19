@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4078 do.c goto_level descent: JS read the phantom u.Flying flat instead of the youprop.h Flying macro, so a hero flying by worn extrinsic got «You descend the stairs.» instead of «You fly down the stairs.» (3 sessions → FULL PASS)
+
+**C locus:** do.c goto_level `:1776–1779` `else if (Flying) { if (flags.verbose) You("fly down %s.", …) }`; youprop.h:253–255 Flying = (HFlying || EFlying || flying steed) && !BFlying over u.uprops[FLYING].
+**JS:** js/do.js (1 condition + comment); scripts/goto-level-flying-descent.test.mjs (new: prefix replay to s1308 asserts «You fly down the stairs.» — RED pre-fix «You descend the stairs.--More--», GREEN post-fix).
+**Change:** `else if (Flying())`.
+**Verify:** `node scripts/verify.mjs --fn goto_level` → PASS syntax (js/do.js) · rule2 · reach 38/38 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS (no hidden movement line: the rows are owned by dokick.c down_gate). Direct `hidden-proxy score --ids` on the 3 down_gate rows: 3 → FULL PASS (sweep-Ranger-50255200, sweep-Ranger-610049, sweep-Rogue-50456012). `hidden-proxy sweep goto_level,down_gate` → 678 baseline-PASS sessions re-run, 0 regressed.
+**Named:** other bare `u.Flying` reads left as-is (most already OR the slot readers): dig.js:1642, apply.js:3247, do_wear.js:3792, eat.js:1164, music.js:135, polyself.js:2522, sit.js:549, mon.js:2835, display.js:7588.
+**Next:** auto_describe shop-corpse ×3; extcmd_via_menu ×4; choose_disco_sort ×4; wish_history_menu ×3.
 ## 2026-10-19 — D-4077 mkmaze.c movebubbles Plane of Air: C struct-copies air_pos into every cell (seenv 0), JS set only glyph/typ/lit — a stale seenv let an engulfed hero's travel validation succeed, dropping autodescribe's « (no travel path)» (10 sessions → FULL PASS)
 
 **C locus:** mkmaze.c movebubbles `:1653–1654` `levl[x][y] = air_pos` — `{S_cloud glyph, AIR, seenv 0, flags 0, horizontal 0, lit 1, waslit 0, roomno 0, edge 0, candig 0}` every turn; vision then re-marks only what the hero sees, and engulfed it sees nothing. hack.c is_valid_travelpt → findtravelpath(TRAVP_VALID) needs `levl[nx][ny].seenv || (!Blind && couldsee(nx, ny))` for the target, which fails → getpos.c auto_describe `:657–658` appends « (no travel path)».
