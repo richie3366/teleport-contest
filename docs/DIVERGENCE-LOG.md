@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-4110 — end.c really_done skipped C's `display_nhwindow(WIN_MESSAGE, TRUE)` before the tombstone, so a NEED_MORE line left by savebones never got its --More--: drop_upon_death revoking an invoked Levitation artifact → float_down → pickup → look_here printed «There are several objects here.», and JS went straight to the RIP window (2 sessions → FULL PASS)
+
+- **Status:** shipped (board @0b6f04308. Must-fix empty, and the cliffs block is still all parked tooling rows, so this slot took the next non-parked owner on the live `hidden-proxy queue`: `look_here`, 7 sessions. Two have this topline shape. The other five (symset Enhanced1/2, IBMGraphics_1, AmigaFont: fountain `{` with C fg 8 vs JS 12, row text identical) are the parked fountain-customcolor TOOLING-LIMIT (D-3946, LOOP-QUEUE Parked), unchanged here.)
+- **Symptom:** scen-wish-Barbarian-49959107 s205/209 topline: C «There are several objects here.--More--» vs JS «» (the tombstone was already up). scen-sweep-Tourist-49956023 s484/488: C «You read: "wizard, killed by a quasit".  There are many objects here.--More--» vs JS «».
+- **Measurement:** temporary JS logs (reverted). The «You float gently to the stairs.» stack is drop_upon_death → revoke_invoked_property → arti_invoke → float_down → pickup(1) → check_here → look_here(obj_cnt 6, 6 objects at the hero's square). So JS did run the pile_limit skip arm and printed the line; it was never paged. C end.c `:1383` `display_nhwindow(WIN_MESSAGE, TRUE)` → wintty `:1874–1879` NEED_MORE → more() + clear before the tombstone window.
+- **C locus:** end.c really_done `:1374–1394` (wait_synch, free_pickinv_cache, WIN_INVEN destroy, `display_nhwindow(WIN_MESSAGE, TRUE)` `:1383`, then the NHW_TEXT outrip); bones.c drop_upon_death `:275` obj_extract_self → invent.c freeinv_core `:1383` set_artifact_intrinsic(W_ART) → artifact.c arti_invoke off → trap.c float_down `:4144` → `:4177` pickup(1) → invent.c look_here skip arm `:4251–4263`.
+- **JS was:** really_done went from free_pickinv_cache straight to show_death_rip_and_summary, with no message-window display in between.
+- **Fix:** really_done calls `display_nhwindow_message()` (the ported tty NHW_MESSAGE arm: NEED_MORE → more(), re-set NEED_MORE, clear; else toplin EMPTY) at C `:1383`, after free_pickinv_cache and before the tombstone.
+- **JS:** js/end.js (really_done :1370; display_nhwindow_message import).
+- **Callers:** none changed; this is a call inside really_done.
+- **Verify:** `node scripts/verify.mjs --fn look_here,really_done --full` → PASS syntax (js/end.js) · rule2 · verify look_here: 2 PASS, 0 moved past, 5 unchanged, 0 worse → PROGRESS · reach smoke 24/24 ×2 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep rhack` → all 668 baseline-PASS sessions re-run, 0 regressed → REACH-OK. Board: exactly the 2 rows flip to PASS.
+- **Named omissions:** the 5 symset look_here rows stay with D-3946 (fountain-customcolor capture, TOOLING-LIMIT). really_done's existing partial notes are unchanged.
+- **Ledger:** really_done ported
+- **Next:** cliffs block still all parked. Next non-parked owners on the live queue: x_monnam (2, «human knight called wizard» vs «»), mhitm_mgc_atk_negated (3), newsym (3), hmonas (parked MISATTRIBUTED).
+
 ## D-4109 — wintty.c tty_display_nhwindow(NHW_MENU) never calls flush_screen, but the JS corner-menu painter did a full flush before every menu, so a hallucinating hero's getpos_sethilite newsyms (re-rolled `(` / `D`) were painted under the first getpos tip where C still shows the old glyphs; the menu's NEED_MORE arm also lacked the tty_clear_nhwindow topline erase (1 sweep session → FULL PASS)
 
 - **Status:** shipped (board @f4dcc77fb. Must-fix empty, and the cliffs block is still all parked tooling rows, so this slot took the next non-parked owner on the live `hidden-proxy queue`: `furniture_detect`, 1 session, 1469 screens lost. The owner is the region heuristic, and the writer is the menu painter's flush.)
