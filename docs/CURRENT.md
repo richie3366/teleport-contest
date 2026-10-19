@@ -22,20 +22,20 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-19** — full `sessions` on `705415122`
-(audit **2953–2963**). Fortress **44/44** (aggregates below).
+Score last measured: **2026-10-19** — full `sessions` on `318b3a5e7`
+(audit **2964–2972**). Fortress **44/44** (aggregates below).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-19 13:17Z)** | **34 / 44**, 10,742 / 11,265 pts, RNG **99.3 %**, rngSteps 98.7 %, screens **95.4 %** (+1 pt vs 07:18Z; rank 2, leader 11,264 at 43/44) |
+| **Held-out (judge 2026-10-19 19:15Z)** | **35 / 44**, 10,849 / 11,265 pts, RNG **99.5 %**, rngSteps 99.0 %, screens **96.3 %** (+107 pts vs 13:17Z; rank 2, leader 11,264 at 43/44) |
 | **Fresh cohort (§10.20, scored on arrival)** | 51450000 ×160 @`75e2e77e0`: **149/160 (93.1 %)**, RNG 99.4 %, screens 99.5 % — options 1/2, extcmd 6/9 worst; sweep 7/10; hallu 7/9; worldtour/zapfest 9/10 + rest 100 % |
-| **Corpus board (worked, regression fortress)** | full rescore 2026-10-19 (audit 2953–2963 @`705415122`): **682/835** before (660 at the last audit + 22 window flips claimed by D-4113..D-4123) → rescore **690/835** (active 688/784 scored, 688/781 excl. 3 env-only; RNG 99.51 %, screens 98.8 %), **0 PASS→FAIL** vs the committed board → archive 34 PASS → **656/801** (`entries` 801, `unrecorded` 0); `tier` → 738 active + 47 reserve (4 promoted back, 2 now PASS); worst symset 33/69, questtour 8/11, shop 21/24, zapfest 8/11, chain 23/27, options 24/47, worldtour 88/102, sweep 177/213 |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-19 (audit 2964–2972 @`318b3a5e7`): **666/801** before (656 at the last audit + 10 window flips claimed by D-4126..D-4132) → rescore **667/801** (active 667/754 scored, 667/751 excl. 3 env-only; RNG 99.49 %, screens 98.8 %), **0 PASS→FAIL** vs the committed board → archive 12 PASS → **655/789** (`entries` 789, `unrecorded` 0); `tier` → 730 active + 47 reserve (0 out, 0 back); worst symset 33/68, questtour 8/11, shop 20/22, zapfest 8/11, chain 23/27, worldtour 86/99, options 25/47, sweep 178/207 |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `87+0.36/turn` (R² 0.81) |
+| Speed label | `87+0.36/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
@@ -54,7 +54,7 @@ but Grow #18 already calibrated, so no step-5 family this grow.
 Worst families `scen-hallu` 0/4, `scen-symset` 72/190, `scen-extcmd` 9/40,
 `scen-questtour` 11/15, `scen-sweep` 148/267, `scen-worldtour` 71/156,
 `scen-zapfest` 8/20, `scen-shop` 22/66, rest ≥ 96.9 % RNG.
-Reviews 1225–2963 (index; no row 1618): 1549 ACCEPT, 76 WITH-DEBT, 113 QUALITY-RISK (2953–2963: 6A/3D/2Q, 2 Must-fix: 2956 revive enexto order + useup_invent clone, 2960 timeout.js Blind() clone; debts 2953 newsym column-0 sync callers, 2954 hand loaders skip `:2125`, 2963 See_invisible_that mirror).
+Reviews 1225–2972 (index; no row 1618): 1557 ACCEPT, 77 WITH-DEBT, 113 QUALITY-RISK (2964–2972: 8A/1D/0Q, 0 Must-fix; both 2953–2963 Must-fix rows closed by D-4124/D-4125; 2964 debt = slip_or_trip u.Hallucination mirror ×3 + Stone_resistance flats, unreached, ledger partial).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
 Full rescore (audit only, §10.21): `record` + unfiltered `score` (active tier) + `archive` (+ quota), committed `full: true`; needs the C recorder.
@@ -146,7 +146,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** Must-fix (review 2960): timeout.js:1728 file-local `Blind()` → invent.js `Blind` at its 5 C `Blind` sites; then Must-fix (review 2956): revive enexto before the twitch arm + live `useup` + default panic. After that the cliffs head (still recorder/tooling parks D-4016/D-4028/D-4104 → first non-parked live `hidden-proxy queue` owner).
+**Next:** Must-fix empty. The cliffs block is still all recorder/tooling parks (D-4016/D-4028/D-4104), so port slots take a near-pass row from the board (the D-4126 scan: RNG fully matched, 1 screen lost; read `cMsgOwners` and the step command for the writer). Mirror-family hits (u.Blind/u.Hallucination/u.Unaware/u.See_invisible, `'yn'` literals) fix every site in that C file.
 
 ## Parked (diagnose only)
 
