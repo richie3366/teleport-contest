@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4105 hack.c moverock_core Blind arm read levl memory where C reads `glyph_at` (gbuf), and display.c feel_location used a `can_reach_floor` clone without the unskilled-rider arm, so a blind mumak rider "felt" a club dropped below (2 sweep sessions → FULL PASS)
+
+**C locus:** hack.c moverock_core `:358–363` (`glyph_to_obj(glyph_at(sx, sy)) != BOULDER`); display.c glyph_at `:2477–2483` (gg.gbuf); display.c feel_location `:777` → engrave.c can_reach_floor `:187–214`.
+**JS:** js/hack.js (glyph_at import; glyph_to_obj_is_boulder :1269), js/display.js (can_reach_floor import; feel_location :6307/:6327; clone removed), js/engrave.js (header comment only).
+**Change:** `glyph_to_obj_is_boulder` is now C's expression `glyph_to_obj(glyph_at(x, y)) === BOULDER`, using the live display.js glyph_at (gbuf = disp_glyph, D-1767). feel_location `:777` calls the live engrave.js `can_reach_floor(false)`, which already ports C `:187–214` whole. The clone and its three ustuck-only imports (sticks, attacktype, AT_HUGS) are removed; `imports.mjs --can display.js engrave.js can_reach_floor` → SAFE.
+**Verify:** direct replay: Priest-50556028 1911/1911 and Caveman-50055085 1532/1532 screens, RNG full (the moverock_core helper alone healed Priest; Caveman needed the feel_location writer). `node scripts/verify.mjs --fn moverock_core,feel_location` → syntax PASS · rule2 PASS · `verify moverock_core: 2 PASS, 0 moved, 0 no-movement` → PROGRESS · reach moverock_core 24/24 REACH-OK · feel_location: no baseline block, reach 24/24 REACH-OK · green 2/2 · strict PASS · cohort 7/7 · full 44/44 → VERIFY: PASS. Shared display.js changed, so I ran a full `hidden-proxy score` (797 entries, 578 s): 655/797 PASS vs 651 on the committed board, **0 PASS→FAIL**, 4 FAIL→PASS (the 2 probes, dig-Archeologist-630015, sweep-Archeologist-50156027).
+**Named:** none new. moverock_core stays whole vs C `:348–638`, and feel_location vs C `:745–909`.
+**Next:** cliffs block still all parked (D-4016 / D-4028 / D-4104). The next non-parked board owners are background_enlightenment (questtour-Monk-50557003 s324), newsym (6 worldtour/symset), mhitm_ad_fire, and do_screen_description (symset-Priest-50058519 s398).
 ## 2026-10-19 — D-4104 [measure] unattributed sweep-Archeologist-610093 s336: the recorded C frame overflows nomux_out[6144] (LEN=7498), so the next step's patch-006 marker and garbage CX/CY land mid-SGR. Same class as D-4028; 15 of 7364 cached sessions have it (tooling, no js/)
 
 **C locus:** n/a game code (owner null, cEntry null, cMsgOwners [], stepFns=[exercise] presence-only). Tooling: patch 006 nomux_capture_screen's fixed 6144-byte buffer (the D-3684 / D-3996 / D-4028 class).
