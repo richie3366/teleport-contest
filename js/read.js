@@ -136,7 +136,7 @@ import {
     EXPL_FIERY, PLNMSG_TOWER_OF_FLAME, M_SEEN_FIRE, u_at, OBJ_AT,
     something, POLY_REVERT, POLYMORPH,
 } from './const.js';
-import { vision_recalc, do_clear_area, cansee, unblock_point } from './vision.js';
+import { vision_recalc, do_clear_area, cansee, unblock_point, vision_off_newsym_gbuf } from './vision.js';
 import { valid_cloud_pos, create_gas_cloud } from './region.js';
 import { getpos, getpos_sethilite } from './getpos.js';
 import { bcsign, BY_COOKIE, outrumor } from './rumors.js';
@@ -531,6 +531,12 @@ export async function litroom(on, obj) {
     }
 
     if (!Blind) {
+        // C vision_recalc(2)'s update loop newsyms every prior IN_SIGHT
+        // spot while !cansee — under Hallucination a warned-of monster's
+        // display_warning draws rn2_on_display_rng(WARNCOUNT - 1). JS
+        // vision_recalc(2) skips that loop, so run its newsyms on the live
+        // viz first, Hallu-gated like docrt's D-0852 call (D-4065).
+        if (Hallucination()) vision_off_newsym_gbuf({ useLiveViz: true });
         vision_recalc(2);
 
         /* C `:2610–2612` — replace ball&chain after the forced redraw. */
