@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4082 — wintty.c tty_end_menu prompt: three options.c menus (handler_msg_window, query_msgtype, handler_msgtype) painted the end_menu prompt with no promptstyle and no blank item under it, so every entry sat one row high (3 sessions → FULL PASS, 2 moved past)
+- **Status:** shipped (board @d038cfd88. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: handler_msg_window ×3, all losing one screen on «Select message history display type:». The sibling header sites in js/options.js were then grepped; the two msgtype menus had the same shape. No review stamp owed.)
+- **Symptom:** e.g. scen-options-Monk-50457010 s39: `O` → msg_window → C rows 0–2 «Select message history display type:» / blank / «s * single …», JS «Select message history display type:» / «s * single …» / its second line.
+- **C locus:** win/tty/wintty.c tty_end_menu `:2680–2690` — a non-null prompt is added at the top as the prompt item (tty_menu_promptstyle, = menu_headings, inverse on these recordings) over a blank item; options.c handler_msg_window `:5867`, query_msgtype `:7719`, handler_msgtype `:6553–6555` all end_menu with a prompt.
+- **JS was:** js/options.js built those three raw menus with a bare `{ text: prompt, selectable: false }` header, while the other options menus (disclosure, pickup_burden, getloc filter, runmode, …) already use `...menu_prompt_style()` plus a `{ text: '', selectable: false }` blank item.
+- **Fix:** the three headers take `...menu_prompt_style()` and are followed by the blank item (sibling shape).
+- **JS:** js/options.js (+18/−6 over three menus); scripts/msg-window-menu-blank-row.test.mjs (new: prefix replay to s39 asserts prompt / blank / «s * single» — RED pre-fix, GREEN post-fix).
+- **Callers:** behavior-only; no RNG. query_msgtype and handler_msgtype have no corpus row of their own and are covered by the sweep only.
+- **Verify:** `node scripts/verify.mjs --fn handler_msg_window` → PASS syntax (js/options.js) · rule2 · `verify handler_msg_window: 3 PASS, 2 moved past, 0 unchanged, 0 worse → PROGRESS` (options-Valkyrie-50557405 → s94, options-Knight-50255908 → handler_rebind_keys_add s98) · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep handler_msg_window` and `sweep query_msgtype,handler_msgtype` → 714 baseline-PASS sessions re-run each, 0 regressed.
+- **Named omissions:** prompt headers outside js/options.js were not audited for the blank item.
+- **Ledger:** handler_msg_window ported
+- **Next:** extcmd_via_menu ×4; wish_history_menu ×3; process_menu_window bag ×3; options-Knight-50255908 handler_rebind_keys_add («Key binding failed?!»).
+
 ## D-4081 — o_init.c choose_disco_sort: JS menu had no blank row under «Ordering of discoveries» and no MENU_ITEMFLAGS_SELECTED preselection, so every entry sat one row high and the current sort showed «o -» instead of «o *» (3 sessions → FULL PASS, 2 moved past)
 - **Status:** shipped (board @4c6d7434f. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: choose_disco_sort ×4, all losing one screen on the `O` sortdiscoveries menu. No review stamp owed.)
 - **Symptom:** e.g. scen-options-Wizard-50162010 s39: `O` → sortdiscoveries → C rows 0–2 «Ordering of discoveries» / blank / «o * by order of discovery within each class», JS «Ordering of discoveries» / «o - by order …» / «s - …».
