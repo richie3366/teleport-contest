@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — audit 2906–2914 @ee925d524: review D-4065..D-4073 (7A/2D/0Q, 0 Must-fix) + full rescore 687/1075 (0 PASS→FAIL)
+
+**Reviews:** 2906 litroom Hallu update-loop replay (2+1+2 at HEAD; WITH-DEBT: trap.c:5121 / options.c:5371 `vision_recalc(2)` sites have no JS replay) · 2907 guardian-angel Conflict() (exact 1) · 2908 hcolor clones deleted (2 PASS; WITH-DEBT: do_name.js hcolor/rndcolor read the sticky-mirror `Hallucination`, which differs from youprop.h:120 only under the pager.c:1185 override) · 2909 waterbody_name (vacuous verify; both probes PASS at HEAD) · 2910 dodip pair_of (exact 1) · 2911 init_mapseen (3 PASS) · 2912 buzzer one field (16↔16 sites; zhitu 1+0+1) · 2913 getpos exitgetpos (owned rows NO MOVEMENT as stated, owner-null rows held) · 2914 detached gbuf flush (exact 12+1). No C-wrongs, no queue prepend.
+**Score:** public 44/44 (792838/792838 RNG, 11405/11405 screens, 93+0.38/turn); held-out 34/44 (judge 07:18Z, no newer run); board 687/1075 pre-archive (+4: trek-Priest-587119, wish-Priest-640030, zapfest-Monk-51050084, zapfest-Wizard-50950084; 0 PASS→FAIL) → 648/1035, RNG 99.1 %, screens 96.5 %; tier → 854 + 169 + 5367. Ledger snapshot; seeded sample lesshungry/Shirt_off/badman/vision_reset/chk_okdoor 5/5 hold.
+**Next:** port slot pops the regenerated cliffs head; Must-fix empty.
 ## 2026-10-19 — D-4073 display.c flush_screen mid-goto_level: JS painted only topline/status while game.level was detached, so the leave vision_recalc(2) memory newsyms never reached the screen behind «goto_level: returning to discarded level?» (12 sessions → FULL PASS)
 
 **C locus:** do.c goto_level `:1631` vision_recalc(2) — its update loop newsyms every prior IN_SIGHT/COULD_SEE spot with viz empty, so seen monsters become memory in the level-independent gbuf; `:1694–1697` impossible() → pline.c vpline `:277–278` `if (u.ux) flush_screen(1)` prints those dirty gbuf cells before putmesg. (The `^V` menu's full-screen docrt at dismissal had redrawn the bats just before.)
