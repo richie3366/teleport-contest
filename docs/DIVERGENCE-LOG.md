@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4081 — o_init.c choose_disco_sort: JS menu had no blank row under «Ordering of discoveries» and no MENU_ITEMFLAGS_SELECTED preselection, so every entry sat one row high and the current sort showed «o -» instead of «o *» (3 sessions → FULL PASS, 2 moved past)
+- **Status:** shipped (board @4c6d7434f. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: choose_disco_sort ×4, all losing one screen on the `O` sortdiscoveries menu. No review stamp owed.)
+- **Symptom:** e.g. scen-options-Wizard-50162010 s39: `O` → sortdiscoveries → C rows 0–2 «Ordering of discoveries» / blank / «o * by order of discovery within each class», JS «Ordering of discoveries» / «o - by order …» / «s - …».
+- **C locus:** o_init.c choose_disco_sort `:623–631` add_menu per disco_order_let with `(disco_order_let[i] == flags.discosort) ? MENU_ITEMFLAGS_SELECTED : MENU_ITEMFLAGS_NONE`; `:644` end_menu(tmpwin, "Ordering of discoveries") — tty end_menu adds the prompt then a blank line.
+- **JS was:** js/o_init.js choose_disco_sort passed only the inverse title row, and its doc named the preselection as having «no select_menu_pick_one equivalent». insight.js set_vanq_order already uses `selected:` plus a blank row with the same primitive.
+- **Fix:** add the blank non-selectable row after the title, and mark the item whose letter equals `game.flags.discosort` with `selected: true` (set_vanq_order shape); the doc now describes both.
+- **JS:** js/o_init.js (+3/−2 + doc); scripts/choose-disco-sort-menu.test.mjs (new: prefix replay to s39 asserts title / blank / «o * by order of discovery within each class» — RED pre-fix «o -» on row 1, GREEN post-fix).
+- **Callers:** behavior-only; no RNG. options.js (`O` handler), invent.js (`m\`` / dodiscovered) and o_init.js doclassdisco (mode 2) all share it.
+- **Verify:** `node scripts/verify.mjs --fn choose_disco_sort` → PASS syntax (js/o_init.js) · rule2 · `verify choose_disco_sort: 3 PASS, 2 moved past, 0 unchanged, 0 worse → PROGRESS` (options-Knight-50355037 → domonnoise s67, options-Wizard-50255903 → getobj s156) · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep choose_disco_sort,doclassdisco,dodiscovered` → 711 baseline-PASS sessions re-run, 0 regressed.
+- **Named omissions:** C's PICK_ONE `n > 1` skip-preselected arm (`:650–652`) stays unported; select_menu_pick_one returns one item.
+- **Ledger:** choose_disco_sort ported
+- **Next:** extcmd_via_menu ×4; handler_msg_window ×3 (same options-menu family); wish_history_menu ×3; process_menu_window bag ×3.
+
 ## D-4080 — trap.c animate_statue: JS's two makemon calls skipped the deferred makemon_appear_msg tail, so makemon.c's `if (go.occupation) dochugw(mtmp, FALSE)` never stopped a counted search before «You find %s posing as a statue.» (2 sessions → FULL PASS)
 - **Status:** shipped (board @205c9b107. Near-pass scan leftovers: animate_statue ×2, C «You stop searching.  You find a jabberwock/an Olog-hai posing as a statue.» vs JS the two messages swapped. No review stamp owed.)
 - **Symptom:** e.g. scen-worldtour-Wizard-610120 s88: `20s` beside a statue trap → C «You stop searching.  You find a jabberwock posing as a statue.», JS «You find a jabberwock posing as a statue.  You stop searching.».

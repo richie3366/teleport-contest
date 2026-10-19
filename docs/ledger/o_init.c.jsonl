@@ -16,7 +16,7 @@
 {"fn":"interesting_to_discover","c":"526-540","status":"ported","js":["js/o_init.js:interesting_to_discover"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: samurai + uname/(known|encountered)+descr live"}
 {"fn":"discovered_cmp","c":"553-564","status":"ported","js":["js/o_init.js:discovered_cmp"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"sortloot_descr","c":"567-591","status":"ported","js":["js/invent.js:sortloot_descr"],"at":"2026-09-30@e47a5e02a","note":"stale: js/invent.js:4884 local (C staticfn); zeroobj/dknown/known/corpsenm/slime-spe + loot_classify + %02d key all present, caller dodiscovered wired :4987, doclassdisco caller missing in JS"}
-{"fn":"choose_disco_sort","c":"611-657","status":"ported","js":["js/o_init.js:choose_disco_sort"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: sort menu + mode-2 note + discosort set live"}
+{"fn":"choose_disco_sort","c":"611-657","status":"ported","js":["js/o_init.js:choose_disco_sort"],"d":["D-4081"],"at":"2026-10-19@4c6d7434f","note":"audit 2026-10-03: sort menu + mode-2 note + discosort set live"}
 {"fn":"disco_typename","c":"661-689","status":"ported","js":["js/objnam.js:disco_typename"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: samurai [actualn] insert incl. harp arm live"}
 {"fn":"disco_append_typename","c":"694-721","status":"ported","js":["js/o_init.js:disco_append_typename"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: truncate-keep-paren + price quote live"}
 {"fn":"disco_fmt_uniq","c":"725-737","status":"ported","js":["js/o_init.js:disco_fmt_uniq"],"d":["D-3416"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
