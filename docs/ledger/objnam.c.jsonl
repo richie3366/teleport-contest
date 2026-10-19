@@ -39,7 +39,7 @@
 {"fn":"aobjnam","c":"2244-2258","status":"ported","js":["js/objnam.js:aobjnam"],"d":["D-2969"],"at":"2026-09-27@f02368fbc","note":"stale: js/objnam.js:2816"}
 {"fn":"yobjnam","c":"2262-2276","status":"ported","js":["js/objnam.js:yobjnam"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2885 (aobjnam+shk_your gate)"}
 {"fn":"Yobjnam2","c":"2280-2286","status":"ported","js":["js/objnam.js:Yobjnam2"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2895 (upstart(yobjnam))"}
-{"fn":"Tobjnam","c":"2290-2299","status":"ported","js":["js/wield.js:Tobjnam"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: complete port at js/objnam.js:Tobjnam; mapped clone lacks only Eyes-of-Overworld is_plural arm (unreachable: wield callers pass shining uwep)"}
+{"fn":"Tobjnam","c":"2290-2299","status":"ported","js":["js/objnam.js:Tobjnam"],"at":"2026-10-19@ad4604dad","note":"D-4128: wield.js clone deleted; live objnam.js body"}
 {"fn":"Doname2","c":"2303-2309","status":"ported","js":["js/objnam.js:Doname2"],"d":["D-3300"],"at":"2026-10-02@8859c7e6d","note":"stale: complete js/objnam.js:2872 (upstart(doname))"}
 {"fn":"paydoname","c":"2313-2355","status":"ported","js":["js/objnam.js:paydoname"],"d":["D-2667"],"at":"2026-10-03@bbe63333a"}
 {"fn":"yname","c":"2359-2374","status":"ported","js":["js/objnam.js:yname"],"d":["D-2958"],"at":"seed@a30a7de84"}
