@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-4122 — do.c goto_level reruns oinit() after getlev when returning to a visited level (`:1713`, "reassign level dependent obj probabilities"), but JS skipped it, so the gem odds stayed those of the last newly made level. A random death drop on revisited Mines level 4 rolled a citrine (yellow `*`) where C's same roll gives a red gem (1 shop session → FULL PASS)
+
+- **Status:** shipped (second writer of the `pluslvl` row after D-4121; this is scen-shop-Priest-49959522. The owner was only the region heuristic: the topline matched and a cell differed.)
+- **Symptom:** scen-shop-Priest-49959522 s420/807 («You kill the dwarf!  Welcome to experience level 3.»): map cell r11 c35 C `*` CLR_RED vs JS `*` CLR_YELLOW. A cell diff that ignores DEC vs Unicode line drawing showed only that cell. Core RNG fully matched.
+- **Measurement:** temporary traces (reverted): the top object there is CITRINE o_id 381, created at moves 66 on dnum 2 / dlevel 4 by xkilled_treasure_drop → mkobj(RANDOM_CLASS), above IRON_SHOES. With the same RNG, a different gem means a different GEM_CLASS oc_prob table. JS do.js's getlev arm marked `:1713` oinit as having "no counterpart on this path"; JS called setgemprobs only from makelevel / the sp_lev loader. Check: the session is 790/807 without the call and 807/807 with it.
+- **C locus:** do.c goto_level `:1702–1714` (`getlev(...)`; `oinit()` `:1713`); o_init.c oinit `:367–372` → setgemprobs(&u.uz) `:54–81` (ledger_no-dependent zeroing of the first 9 − lev/3 gems).
+- **JS was:** oinit was a file-local wrapper in mklev.js (called at makelevel and sp_lev `:6007`), and goto_level's revisit arm closed the level file without it.
+- **Fix:** oinit now lives in o_init.js (its C home, exported) and mklev.js imports it (local copy removed, unused setgemprobs import dropped). goto_level calls `oinit()` right after `close_nhfile`, C `:1712–1713`.
+- **JS:** js/o_init.js (oinit :116), js/mklev.js (import :108; callers unchanged), js/do.js (goto_level :2124, import).
+- **Callers:** all three C callers are wired: mklev.c makelevel `:1264` and sp_lev.c `:6007` (mklev.js, unchanged) and do.c goto_level `:1713` (do.js :2124, new).
+- **Verify:** `node frozen/ps_test_runner.mjs …scen-shop-Priest-49959522` → 807/807 PASS (790/807 with the change stashed). `node scripts/verify.mjs --fn pluslvl --full` (both D-4121 and this) → verify pluslvl: 2 PASS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep goto_level` → 678 baseline-PASS re-run, 0 regressed → REACH-OK.
+- **Named omissions:** none.
+- **Ledger:** oinit ported; goto_level ported
+- **Next:** xkilled (2, RNG lost 8864: a `)` vs `I` cell), m_unleash (1, apply.js `mhis_leash` clone vs C mhis() `:732–733`), jump (1), dismount_steed / cprefx / encumber_msg (map cells; cell diff first).
+
 ## D-4121 — objnam.c doname_base starts with `bp = xname(obj)`, and xname find_artifact()s a seen artifact (`:660–661`), but JS doname_base inlines xname's preamble and calls pretty_base directly, skipping that arm. So an artifact first seen through doname (a monster picking it up, `distant_name(otmp, doname)`) never got its «found …» livelog, and #chronicle lacked «56: found the Platinum Yendorian Express Card on the floor» (1 extcmd session → FULL PASS)
 
 - **Status:** shipped (board @1b20d976e. Next live-queue owner: `pluslvl`, 2 sessions, 697 screens; a region-heuristic owner with two unrelated writers. This is the Tourist one; the Priest one (gem odds after a level revisit) ships next as its own entry.)

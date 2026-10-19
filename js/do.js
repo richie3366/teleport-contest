@@ -11,6 +11,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, rnz, d, rn2_on_display_rng, reseed_random } from './rng.js';
+import { oinit } from './o_init.js';
 import { depth, builds_up, level_difficulty, upstart, dist2 } from './hacklib.js';
 import {
     STAIRS, LADDER, ECMD_OK, ECMD_TIME, ECMD_FAIL, ECMD_CANCEL,
@@ -2119,7 +2120,8 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         // (clear_level_structures only runs on mklev, not stash restore).
         game.Sokoban = !!(game.level?.flags?.sokoban_rules
             || game.level?.flags?.sokoban);
-        close_nhfile(nhfp); // C do.c:1712 — after getlev (`:1713` oinit has no counterpart on this path — pre-existing)
+        close_nhfile(nhfp); // C do.c:1712 — after getlev
+        oinit(); // C do.c:1713 — reassign level dependent obj probabilities
     }
 
     // C do.c:1715 — reglyph_darkroom() after the getlev/mklev join (fresh

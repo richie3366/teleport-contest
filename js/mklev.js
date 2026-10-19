@@ -105,7 +105,7 @@ import {
 } from './objects.js';
 import { shtypes, stock_room } from './shknam.js';
 import { nh_getenv } from './mail.js';
-import { setgemprobs } from './o_init.js';
+import { oinit } from './o_init.js';
 import { maketrap, t_at, undestroyable_trap, deltrap, reset_utrap, mintrap, set_levltyp, set_levltyp_lit } from './trap.js';
 import {
     mkobj, mksobj, mksobj_at, mk_tt_object, mksobj_migr_to_species, mkobj_at, mkgold,
@@ -2874,12 +2874,6 @@ export async function u_on_dnstairs() {
         return;
     }
     await u_on_sstairs(1);
-}
-
-// oinit — C ref: o_init.c oinit() → setgemprobs(&u.uz)
-// setgemprobs uses ledger_no(u.uz) to zero first (9 - lev/3) gems.
-function oinit() {
-    setgemprobs(game.u?.uz || null);
 }
 
 /* level_difficulty: canonical import from hacklib.js (dungeon.c:2026–2084). */

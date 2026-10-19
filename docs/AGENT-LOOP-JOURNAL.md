@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4122 do.c goto_level reruns oinit() after getlev when returning to a visited level (`:1713`, "reassign level dependent obj probabilities"), but JS skipped it, so the gem odds stayed those of the last newly made level. A random death drop on revisited Mines level 4 rolled a citrine (yellow `*`) where C's same roll gives a red gem (1 shop session → FULL PASS)
+
+**C locus:** do.c goto_level `:1702–1714` (`getlev(...)`; `oinit()` `:1713`); o_init.c oinit `:367–372` → setgemprobs(&u.uz) `:54–81` (ledger_no-dependent zeroing of the first 9 − lev/3 gems).
+**JS:** js/o_init.js (oinit :116), js/mklev.js (import :108; callers unchanged), js/do.js (goto_level :2124, import).
+**Change:** oinit now lives in o_init.js (its C home, exported) and mklev.js imports it (local copy removed, unused setgemprobs import dropped). goto_level calls `oinit()` right after `close_nhfile`, C `:1712–1713`.
+**Verify:** `node frozen/ps_test_runner.mjs …scen-shop-Priest-49959522` → 807/807 PASS (790/807 with the change stashed). `node scripts/verify.mjs --fn pluslvl --full` (both D-4121 and this) → verify pluslvl: 2 PASS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep goto_level` → 678 baseline-PASS re-run, 0 regressed → REACH-OK.
+**Named:** none.
+**Next:** xkilled (2, RNG lost 8864: a `)` vs `I` cell), m_unleash (1, apply.js `mhis_leash` clone vs C mhis() `:732–733`), jump (1), dismount_steed / cprefx / encumber_msg (map cells; cell diff first).
 ## 2026-10-19 — D-4121 objnam.c doname_base starts with `bp = xname(obj)`, and xname find_artifact()s a seen artifact (`:660–661`), but JS doname_base inlines xname's preamble and calls pretty_base directly, skipping that arm. So an artifact first seen through doname (a monster picking it up, `distant_name(otmp, doname)`) never got its «found …» livelog, and #chronicle lacked «56: found the Platinum Yendorian Express Card on the floor» (1 extcmd session → FULL PASS)
 
 **C locus:** objnam.c doname_base `:1223–1751` (`bp = xname(obj)` `:1247`), xname `:575–1029` (find_artifact `:640–661`); artifact.c find_artifact `:422–459`; mon.c mpickstuff `:1891–1899` (distant_name before obj_extract_self, so where is OBJ_FLOOR).
