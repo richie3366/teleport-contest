@@ -21,7 +21,7 @@
 {"fn":"any_visible_region","c":"660-670","status":"ported","js":["js/region.js:any_visible_region"],"at":"2026-10-03@bbe63333a"}
 {"fn":"visible_region_summary","c":"674-711","status":"ported","js":["js/region.js:visible_region_summary"],"d":["D-3108"],"at":"2026-09-29@ebd112f3b","note":"stale: js/region.js:149 complete per review 488, caller wiz_timeout_queue wired"}
 {"fn":"visible_region_at","c":"718-729","status":"ported","js":["js/region.js:visible_region_at"],"at":"2026-10-02@c944311a4","note":"stale: js/region.js:98"}
-{"fn":"show_region","c":"732-735","status":"ported","js":["js/region.js:show_region"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: glyph-int adapted to S_poisoncloud/S_cloud tag + color cell"}
+{"fn":"show_region","c":"732-735","status":"ported","js":["js/region.js:show_region"],"d":["D-4086"],"at":"2026-10-19@5f9c42ea8","note":"audit 2026-10-03: glyph-int adapted to S_poisoncloud/S_cloud tag + color cell"}
 {"fn":"save_regions","c":"741-795","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"rest_regions","c":"799-892","status":"ported","js":["js/region.js:rest_regions"],"d":["D-3793","D-2639"],"at":"2026-10-10@7b77f6f77","note":"stale: js/region.js:767 (whole :798-892 in stash arch; omits architectural: NHFILE format, Sfi_any passthrough, cmap glyph tag)"}
 {"fn":"region_stats","c":"899-922","status":"ported","js":["js/wizcmds.js:region_stats"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: signature adapted to tot-accumulator idiom; body complete"}

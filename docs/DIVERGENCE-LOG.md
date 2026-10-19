@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4086 — region.c show_region: JS painted the gas-cloud '#' with no integer glyph, so glyph_at returned NO_GLYPH and getpos autodescribe named the hero's cloud-covered spot «unexplored area» instead of «fog/vapor cloud» (2 sessions → FULL PASS)
+- **Status:** shipped (board @5f9c42ea8 + `score --with-reserve` refresh. The getobj «dip them» ×2 near-pass pair turned out stale: reserve-tier rows that plain full rescores skip, already fixed by D-4069. A full `score --with-reserve` moved 37 stale reserve rows FAIL→PASS (0 PASS→FAIL), board 719/985. The next near-pass group, lookat ×2 «fog/vapor cloud» vs «unexplored area», is this fix. No review stamp owed.)
+- **Symptom:** e.g. scen-extcmd-Healer-51256009 s603: hero inside a 1-cell gas cloud, `_` then `<` → the cursor stays on the hero (66,16), drawn as the cloud `#` → C «fog/vapor cloud», JS «unexplored area».
+- **C locus:** region.c show_region `:732–735` `show_glyph(x, y, reg->glyph)` — reg->glyph is cmap_to_glyph(S_cloud | S_poisoncloud), stored in gbuf; pager.c lookat's cmap arm then describes it with the defsyms explanation «fog/vapor cloud».
+- **JS was:** js/region.js show_region called `show_glyph_cell(x, y, '#', color, false)` with no glyph argument, so the cell's disp_glyph stayed non-numeric → display.js glyph_at returned NO_GLYPH (9624) → not a cmap glyph → «unexplored area».
+- **Fix:** pass `cmap_to_glyph(poison ? S_poisoncloud : S_cloud)` as show_glyph_cell's glyph argument (S_cloud/S_poisoncloud from const.js, cmap_to_glyph from display.js); the painted ch/color are unchanged.
+- **JS:** js/region.js (+8/−4: imports, doc, glyph arg); scripts/show-region-cloud-glyph.test.mjs (new: prefix replay to s603 asserts «fog/vapor cloud» — RED pre-fix «unexplored area», GREEN post-fix).
+- **Callers:** behavior-only; no RNG. show_region's callers (_map_location, newsym's cansee overlay) are unchanged.
+- **Verify:** `node scripts/verify.mjs --fn show_region` → PASS syntax (js/region.js) · rule2 · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS (no hidden movement line: the rows are owned by lookat). Direct `hidden-proxy score --ids`: extcmd-Healer-51256009, extcmd-Samurai-51257022 → FULL PASS. `hidden-proxy sweep show_region,lookat` → 680 baseline-PASS sessions re-run, 0 regressed.
+- **Named omissions:** none.
+- **Ledger:** show_region ported
+- **Next:** doclassdisco ×2; reveal_terrain ×2; doread «Your hands tingle» ×2; one_characteristic ×4 (con/wis «was 18 (limit:18)»).
+
 ## D-4085 — wintty.c tty_destroy_nhwindow corner menu: JS show_nhw_menu_text ran flush_screen(1) after the docorner erase, so a pending botl repainted the status lines that C leaves blank between final-disclosure container menus (3 sessions → FULL PASS)
 - **Status:** shipped (board @412137c41. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: process_menu_window ×3 «Contents of the bag of holding:». A raw row diff showed only rows 22–23 (JS status, C blank). Writer found by wrapping Terminal.setCell for row 22 and taking the stack: container_contents → show_nhw_menu_text → flush_screen(1) → bot. No review stamp owed.)
 - **Symptom:** e.g. scen-sweep-Healer-50055088 s774: death → disclose → the full-screen inventory is ESC'd (s773, status rows blank in both) → «Contents of the large box:» corner menu dismissed with SPC → «Contents of the bag of holding:»: C rows 22–23 still blank, JS repaints «Wizard the Dresser … / Dlvl:8 … HP:0(105) …».
