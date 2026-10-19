@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — audit 2934–2942 @cfce30f52: review D-4093..D-4101 (9A/0D/0Q, 0 Must-fix) + full rescore 725/936 (0 PASS→FAIL)
+
+**Reviews:** 2934 hmon_hitmon venom/pie cxname snapshot (exact 1; early block lacks C :1426 shade gate, pre-existing, unreached) · 2935 terrain-view cloud via _map_location tail (every newsym leaf walked; exact 1) · 2936 nomul(0) keeps nomovemsg (hack.c:4160–4173 line-for-line; exact 3) · 2937 des.object stand-ins → l_create_object (235 sites; class census clean; `(sym, croom)` is right via the string arm's room detection; exact 5) · 2938 kick reveal a_monnam (exact 3) · 2939 body glyph sym = CORPSE '%' (4 claimed, 6 real) · 2940 never-remembered levl glyph = GLYPH_UNEXPLORED (exact 2) · 2941 potionhit body_part(HEAD) (exact 2; Tobjnam_pot clone verified for potions, import debt only) · 2942 nomovemsg 0 → null (10 "" writers 1:1 with C; exact 2).
+**Score:** public 44/44 (792838/792838 RNG, 11405/11405 screens, 86+0.36/turn); held-out 34/44 (judge 07:18Z, no newer run); board 725/936 pre-archive (+25 vs 700, exactly the window's claimed flips) → 653/864, active tier 723/871, RNG 99.47 %, screens 98.7 %; tier → 789 + 63 + 5538. Ledger snapshot; seeded sample find_ac/cant_wield_corpse/convert_line/populate_nomakedefs/mstatusline 5/5 hold (mstatusline Wounded_legs reads flats, which set_wounded_legs dual-writes).
+**Next:** port slot pops the regenerated cliffs head; Must-fix empty.
 ## 2026-10-19 — D-4101 sounds.c domonnoise / polyself.c dogaze: C's `gn.nomovemsg = 0` (NULL, unmul's "You can move again." default) was ported as the number 0, which JS unmul neither defaults (`== null`) nor prints, so a skeleton-rattle freeze or a poly'd gaze freeze ended silently (2 sessions → FULL PASS)
 
 **C locus:** sounds.c domonnoise MS_BONES `:970–975` `nomul(-2); gm.multi_reason = "scared by rattling"; gn.nomovemsg = 0;` and polyself.c dogaze `:1746` the same NULL after a gaze freeze; hack.c unmul `:4181–4184` `else if (!gn.nomovemsg) gn.nomovemsg = You_can_move_again;` then prints it.
