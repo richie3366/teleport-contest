@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4066 — minion.c gain_guardian_angel: phantom flat u.HConflict/u.EConflict missed a worn ring of conflict — Astral arrival lost «A voice booms:» and the hostile angels (worldtour-Wizard-50350024 → FULL PASS)
+- **Status:** shipped (board @00c3dc399. Screens-lost ranking via the scratch ranker: heads scen-sweep-Archeologist-610093 and scen-sweep-Wizard-95340 are the parked D-4028 OSC-marker shape (95340 row 20 `ESC]7777;KIND=i…`, RNG full); next owner `minion.c` gain_guardian_angel, 1 session, 403 screens. Writer = gain_guardian_angel. No review stamp owed.)
+- **Symptom:** scen-worldtour-Wizard-50350024 s834 kind=topline: level-teleport to the Astral Plane wearing a ring of conflict; C «You sense alarm, hostility, and excitement in the air!  A voice booms:--More--» vs JS «You sense alarm, hostility, and excitement in the air!--More--», then RNG lost 72204/108429.
+- **C locus:** minion.c gain_guardian_angel `:507` `if (Conflict)`; youprop.h `:216–218` Conflict = `u.uprops[CONFLICT].intrinsic || .extrinsic`. Caller do.c final_level `:2052`.
+- **JS was:** js/minion.js gain_guardian_angel tested `u.HConflict || u.EConflict` — flat fields the worn-ring path never sets (prefix probe at s834: both undefined, uleft/uright worn, canonical `Conflict()` true). The Conflict arm was skipped; ualign.record ≤ 8 so nothing was said or made.
+- **Fix:** gain_guardian_angel calls the canonical `Conflict()` (js/mhitu.js:225, reads u.uprops[CONFLICT] as C does).
+- **JS:** js/minion.js (+1 import, 1 condition); scripts/guardian-angel-ring-conflict.test.mjs (new: prefix replay to s834 asserts «A voice booms:» — RED pre-fix, GREEN post-fix).
+- **Callers:** behavior-only. C gain_guardian_angel ← do.c:2052 (final_level) → JS caller unchanged.
+- **Verify:** `node scripts/verify.mjs --fn gain_guardian_angel` → PASS syntax (js/minion.js) · rule2 · `verify gain_guardian_angel: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (worldtour-Wizard-50350024 FULL PASS, RNG 108429/108429, screens 1237/1237; it failed at s834 on the board and in the pre-fix probe, so the PASS is new) · reach 9/9 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+- **Named omissions:** other flat-field Conflict reads remain — js/invent.js:7212 and :8331 (`(u.HConflict | 0) || (u.EConflict | 0)`); js/mondata.js hero_conflict adds non-C `game.Conflict`/`game.flags.Conflict` and a worn-ring fallback over the canonical uprops read. Not touched without a session naming them.
+- **Ledger:** gain_guardian_angel ported
+- **Next:** route the invent.js Conflict reads through `Conflict()` when a session lands on them.
+
 ## D-4065 — read.c litroom: C vision_recalc(2)'s update loop burns Hallu display_warning draws that JS skipped — scroll of light shifted the display RNG (doread ×3: Valkyrie-51255008 PASS, Wizard-51450068 565→845, Wizard-587219 363→522)
 - **Status:** shipped (post-audit 2897–2905 board @457930ec1, 0 Must-fix. Cliffs head scen-sweep-Archeologist-610093 s336 is the D-4028 OSC-marker shape (`ESC]7777;KIND=input…` mid-frame, RNG full) and 95340 its parked kin; the rest of the generated block is D-4016 dupe-rc. Next owner of the screens-lost ranking: `read.c` doread, 5 sessions, 426 screens — two shapes: scroll of light ×3 (this entry) and confuse-monster «Your hands tingle.» ×2 (not this cause). Writer = litroom. No review stamp owed.)
 - **Symptom:** after «As you read the scroll, it disappears.  A lit field surrounds you!» the hallucinated glyphs beside the hero differ (core RNG matched): scen-sweep-Wizard-587219 s363 (4,15) C `)` vs JS `/`; scen-hallu-Wizard-51450068 s565 (76,9) C `;@r` vs JS `@&b`; scen-hallu-Valkyrie-51255008 s203 (66,5) C `t@@` vs JS `E&@`.

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4066 minion.c gain_guardian_angel: phantom flat u.HConflict/u.EConflict missed a worn ring of conflict — Astral arrival lost «A voice booms:» and the hostile angels (worldtour-Wizard-50350024 → FULL PASS)
+
+**C locus:** minion.c gain_guardian_angel `:507` `if (Conflict)`; youprop.h `:216–218` Conflict = `u.uprops[CONFLICT].intrinsic || .extrinsic`. Caller do.c final_level `:2052`.
+**JS:** js/minion.js (+1 import, 1 condition); scripts/guardian-angel-ring-conflict.test.mjs (new: prefix replay to s834 asserts «A voice booms:» — RED pre-fix, GREEN post-fix).
+**Change:** gain_guardian_angel calls the canonical `Conflict()` (js/mhitu.js:225, reads u.uprops[CONFLICT] as C does).
+**Verify:** `node scripts/verify.mjs --fn gain_guardian_angel` → PASS syntax (js/minion.js) · rule2 · `verify gain_guardian_angel: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (worldtour-Wizard-50350024 FULL PASS, RNG 108429/108429, screens 1237/1237; it failed at s834 on the board and in the pre-fix probe, so the PASS is new) · reach 9/9 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+**Named:** other flat-field Conflict reads remain — js/invent.js:7212 and :8331 (`(u.HConflict | 0) || (u.EConflict | 0)`); js/mondata.js hero_conflict adds non-C `game.Conflict`/`game.flags.Conflict` and a worn-ring fallback over the canonical uprops read. Not touched without a session naming them.
+**Next:** route the invent.js Conflict reads through `Conflict()` when a session lands on them.
 ## 2026-10-19 — D-4065 read.c litroom: C vision_recalc(2)'s update loop burns Hallu display_warning draws that JS skipped — scroll of light shifted the display RNG (doread ×3: Valkyrie-51255008 PASS, Wizard-51450068 565→845, Wizard-587219 363→522)
 
 **C locus:** 
