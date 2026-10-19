@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4083 cmd.c extcmd_via_menu: JS unshifted only the «Extended Command: %s» prompt, with no tty_menu_promptstyle and no blank item under it, so each entry rose one row and the first page held one more (5 sessions → FULL PASS, 1 moved past)
+
+**C locus:** cmd.c extcmd_via_menu `:856–857` `end_menu(win, prompt)` with «Extended Command: %s»; win/tty/wintty.c tty_end_menu `:2680–2690` adds the prompt (tty_menu_promptstyle) over a blank item.
+**JS:** js/getline.js (+6/−2); scripts/extcmd-menu-blank-row.test.mjs (new: prefix replay to s176 asserts prompt / blank / «? - ? [list all extended commands]» — RED pre-fix, GREEN post-fix).
+**Change:** unshift the prompt with `...menu_prompt_style()` and a `{ text: '', selectable: false }` blank item.
+**Verify:** `node scripts/verify.mjs --fn extcmd_via_menu` → PASS syntax (js/getline.js) · rule2 · `verify extcmd_via_menu: 5 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (options-Rogue-50557417 → getobj s145) · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep extcmd_via_menu` → 669 baseline-PASS sessions re-run, 0 regressed; board PASS→FAIL vs pre-fix: 0.
+**Named:** end_menu prompt headers outside js/options.js and js/getline.js are still unaudited (D-4082 note).
+**Next:** wish_history_menu ×3; process_menu_window bag ×3; options-Rogue-50557417 getobj «What do you want to invoke? [*]».
 ## 2026-10-19 — audit 2915–2923 @092428e95: review D-4074..D-4082 (6A/3D/0Q, 0 Must-fix) + full rescore 719/1035 (0 PASS→FAIL)
 
 **Reviews:** 2915 mcastu Displaced/Invis youprop readers (cursetxt exact 11) · 2916 list_genocided `ynq\033a` (exact 5; JS tty_yn_function ESC cut checked) · 2917 dotogglepickup fmt arg (exact 4) · 2918 movebubbles air_pos copy (10 D-log rows PASS at HEAD; WITH-DEBT: water_pos arm still writes only glyph/typ/lit/seenv) · 2919 goto_level Flying() (down_gate exact 3; mhitu `Flying()` checks the u.Flying flat before BFlying = reader debt) · 2920 object_from_map body/statue arm (24 glibr + 3 auto_describe + 1 lookat PASS; WITH-DEBT: do_name.js:1694, pager.js:2007, uhitm.js:4604 that_is_a_mimic pass no glyph; the last is unnamed; parent board owned the 24 corpse-farlook rows by **glibr**, 4 still-blocked chain/sweep rows are the same autodescribe shape) · 2921 animate_statue makemon tail (exact 2) · 2922 choose_disco_sort (3+2; WITH-DEBT: prompt hard-coded ATR_INVERSE where D-4082 uses menu_prompt_style(); 10 such rows repo-wide) · 2923 end_menu prompts (3+2; Valkyrie-50557405 "js-throw" s94 is verify's `owner || 'js-throw'` label on an owner-null screen row, not a throw).

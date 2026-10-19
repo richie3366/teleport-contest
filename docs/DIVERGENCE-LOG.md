@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4083 — cmd.c extcmd_via_menu: JS unshifted only the «Extended Command: %s» prompt, with no tty_menu_promptstyle and no blank item under it, so each entry rose one row and the first page held one more (5 sessions → FULL PASS, 1 moved past)
+- **Status:** shipped (board @092428e95. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: extcmd_via_menu ×4 (6 with every «Extended Command:» row), the same tty_end_menu shape as D-4082. No review stamp owed.)
+- **Symptom:** e.g. scen-options-Tourist-49951011 s176: `#` with extmenu → C rows 0–2 inverse «Extended Command: » / blank / «? - ? [list all extended commands]» and «(1 of 2)» at row 23; JS «Extended Command: » / «? - ?» / «a - adjust or annotate» … «(end)».
+- **C locus:** cmd.c extcmd_via_menu `:856–857` `end_menu(win, prompt)` with «Extended Command: %s»; win/tty/wintty.c tty_end_menu `:2680–2690` adds the prompt (tty_menu_promptstyle) over a blank item.
+- **JS was:** js/getline.js extcmd_via_menu `raw.unshift({ text: prompt, selectable: false })`: no promptstyle and no blank item. The same file's yn_function_menu already uses `...menu_prompt_style()` plus a blank row.
+- **Fix:** unshift the prompt with `...menu_prompt_style()` and a `{ text: '', selectable: false }` blank item.
+- **JS:** js/getline.js (+6/−2); scripts/extcmd-menu-blank-row.test.mjs (new: prefix replay to s176 asserts prompt / blank / «? - ? [list all extended commands]» — RED pre-fix, GREEN post-fix).
+- **Callers:** behavior-only; no RNG.
+- **Verify:** `node scripts/verify.mjs --fn extcmd_via_menu` → PASS syntax (js/getline.js) · rule2 · `verify extcmd_via_menu: 5 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (options-Rogue-50557417 → getobj s145) · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep extcmd_via_menu` → 669 baseline-PASS sessions re-run, 0 regressed; board PASS→FAIL vs pre-fix: 0.
+- **Named omissions:** end_menu prompt headers outside js/options.js and js/getline.js are still unaudited (D-4082 note).
+- **Ledger:** extcmd_via_menu ported
+- **Next:** wish_history_menu ×3; process_menu_window bag ×3; options-Rogue-50557417 getobj «What do you want to invoke? [*]».
+
 ## D-4082 — wintty.c tty_end_menu prompt: three options.c menus (handler_msg_window, query_msgtype, handler_msgtype) painted the end_menu prompt with no promptstyle and no blank item under it, so every entry sat one row high (3 sessions → FULL PASS, 2 moved past)
 - **Status:** shipped (board @d038cfd88. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: handler_msg_window ×3, all losing one screen on «Select message history display type:». The sibling header sites in js/options.js were then grepped; the two msgtype menus had the same shape. No review stamp owed.)
 - **Symptom:** e.g. scen-options-Monk-50457010 s39: `O` → msg_window → C rows 0–2 «Select message history display type:» / blank / «s * single …», JS «Select message history display type:» / «s * single …» / its second line.
