@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-4119 — makemon.c makemon_rnd_goodpos's fallback scan skips its "not in sight" first pass only when `gi.in_mklev || Blind` (`:1100`), but JS read a local `u.ublind || u.Blind` copy. The stale `u.Blind` mirror was true for a seeing hero, so after 50 failed random tries a random newt took the first good square of the second pass, in plain view. C places it out of sight and prints nothing; JS printed «A newt suddenly appears close by!» (1 worldtour session → FULL PASS)
+
+- **Status:** shipped (board @40626768e. Second half of the lurker-above pair picked from the live queue after D-4118: `hmonas`, 1 session, 813 screens, parked MISATTRIBUTED since 2026-09-08. The writer turned out to be makemon_rnd_goodpos, not hmonas; the LOOP-QUEUE Parked row is marked RESOLVED.)
+- **Symptom:** scen-worldtour-Caveman-610084 s559/1372: a wizard-made lurker above stands next to the hero, `Fn` → C «You hit the lurker above.» vs JS «You hit the lurker above.  A newt suddenly appears close by!»; JS also draws the newt `:` at map (34,14) where C draws floor. Core RNG fully matched (the scan draws no RNG).
+- **Measurement:** temporary traces (reverted) in makemon_rnd_goodpos / makemon_appear_msg at moves 67. All 50 random tries failed (tryct 50, good false), so the scan ran with `bl` starting at 1: in_mklev false, `u.ublind` false, `u.Blind` true. 32 good unseen squares were available to the skipped pass. The scan picked (34,14) with viz 3 (in sight), so the appear check found canseemon true.
+- **C locus:** makemon.c makemon_rnd_goodpos `:1076–1137` (fallback `:1093–1129`, `int bl = (gi.in_mklev || Blind) ? 1 : 0` `:1100`); youprop.h Blind `:103` `((HBlinded || EBlinded) && !BBlinded)`; makemon appear check `:1476–1500`.
+- **JS was:** `const Blind = !!(game.u?.ublind || game.u?.Blind)`, a local clone reading two mirror fields. `u.Blind` is only written as a snapshot by do.js/do_wear.js and swapped temporarily by lock.js, so it goes stale.
+- **Fix:** use the live `Blind()` export, which makemon.js already imports from invent.js (C's macro: HBlinded/EBlinded/BBlinded, plus the roleplay arm).
+- **JS:** js/makemon.js (makemon_rnd_goodpos :3219).
+- **Callers:** none changed (makemon's random placement → maybe_generate_rnd_mon and every `makemon(NULL, 0, 0, …)`).
+- **Verify:** `node scripts/verify.mjs --fn hmonas` → PASS syntax (js/makemon.js) · rule2 · verify hmonas: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach 74/74 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep makemon_rnd_goodpos` → 676 baseline-PASS re-run, 0 regressed → REACH-OK.
+- **Named omissions:** `sym.mjs Blind` still lists 29 local Blind clones across js/ (the 294-clone drift family). Only this one was proven wrong by a session; the `u.Blind` mirror writers (do.js :3812, do_wear.js :2184, lock.js :1873–1877) stay.
+- **Ledger:** makemon_rnd_goodpos ported
+- **Next:** hitmsg (scen-sweep-Monk-587105 s501, 730: C «Your eyes sting. You cough!» vs JS «The golden haze … less dense»), pluslvl (2), xkilled (2, RNG-lost), m_unleash (1, `mhis_leash` clone), jump (1).
+
 ## D-4118 — pager.c lookat's self arm is skipped while monster detection has the engulfed hero "unconstrained" (`iflags.save_uswallow && glyph == mon_to_glyph(u.ustuck, …)`, `:666`), but JS compared the integer glyph with mon_to_glyph's banked record, so the test was always false and browsing the hero's own square printed «human tourist called wizard» where C prints «lurker above, engulfing you» (1 sweep session → FULL PASS)
 
 - **Status:** shipped (board @652d57407. Must-fix empty, and the cliffs block is still all unattributed tooling rows. Picked from the live queue as the lurker-above pair: `mstatusline` 529 screens + `hmonas` 813. A trace showed two different causes, so this ships the mstatusline one; hmonas is next.)
