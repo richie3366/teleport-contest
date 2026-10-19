@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4079 pager.c object_from_map: JS skipped the glyph_is_body/glyph_is_statue corpsenm arm, so a fake object made for a remembered corpse kept mksobj's random corpsenm — farlook/autodescribe named «an iguana corpse» where C said «a watchman corpse» (26 sessions → FULL PASS)
+
+**C locus:** pager.c object_from_map `:313–349` — no matching object at the spot → `mksobj(glyphotyp, FALSE, FALSE)` fake; `:346–349` `else if (otmp->otyp == CORPSE && glyph_is_body(glyph)) otmp->corpsenm = glyph_to_body_corpsenm(glyph); else if (STATUE && glyph_is_statue) … glyph_to_statue_corpsenm`.
+**JS:** js/pager.js (+2 imports, CORPSE/STATUE otyps, the arm, 3 call-site args); scripts/object-from-map-body-corpsenm.test.mjs (new: prefix replay to s689 asserts «a watchman corpse» — RED pre-fix «an iguana corpse», GREEN post-fix).
+**Change:** object_from_map gains an optional `glyph` argument and ports the body/statue arm after the mimic arm. look_at_object takes `glyph` too, and both lookat callers (lookat's object arm, the look_all list) pass the map glyph.
+**Verify:** `node scripts/verify.mjs --fn look_at_object` → PASS syntax (js/pager.js) · rule2 · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS (no hidden movement line: the rows are owned by auto_describe/getpos callers). Direct `hidden-proxy score --ids` over the 37 rows: 26 → FULL PASS (24 scen-shop, scen-trek-Barbarian-620019, scen-shop-Monk-50255708 …), 11 unchanged (other shapes). `hidden-proxy sweep look_at_object,object_from_map,lookat,auto_describe` → 681 baseline-PASS sessions re-run, 0 regressed; board PASS→FAIL vs pre-fix: 0.
+**Named:** do_name.js:1694 (#name/#call from the map) and mhidden_description's hidden_objfrommap still pass no glyph.
+**Next:** glibr ×3 (C names a corpse, JS «(For instructions type a '?')»/«unexplored area»); readobjnam_postparse2 ×2 («a piece of food» vs the class name); animate_statue ×2 («You stop searching.» prefix); extcmd_via_menu ×4; choose_disco_sort ×4.
 ## 2026-10-19 — D-4078 do.c goto_level descent: JS read the phantom u.Flying flat instead of the youprop.h Flying macro, so a hero flying by worn extrinsic got «You descend the stairs.» instead of «You fly down the stairs.» (3 sessions → FULL PASS)
 
 **C locus:** do.c goto_level `:1776–1779` `else if (Flying) { if (flags.verbose) You("fly down %s.", …) }`; youprop.h:253–255 Flying = (HFlying || EFlying || flying steed) && !BFlying over u.uprops[FLYING].

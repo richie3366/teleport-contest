@@ -37,6 +37,7 @@ import {
     GLYPH_STATUE_MALE_OFF, GLYPH_STATUE_FEM_OFF,
     GLYPH_STATUE_MALE_PILETOP_OFF, GLYPH_STATUE_FEM_PILETOP_OFF,
     GLYPH_BODY_OFF, GLYPH_BODY_PILETOP_OFF,
+    glyph_to_body_corpsenm, glyph_to_statue_corpsenm,
     set_bot_disabled, tty_nhbell, MG_FLAG_NOOVERRIDE, SYM_OFF_X, SYM_MAX,
     SYM_OFF_M, SYM_OFF_O, SYM_OFF_W, live_showsyms,
 } from './display.js';
@@ -132,6 +133,8 @@ const BOULDER_OTYP = objectNames.indexOf('BOULDER');
 const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
 const SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
 const LEASH = objectNames.indexOf('LEASH');
+const CORPSE = objectNames.indexOf('CORPSE');
+const STATUE = objectNames.indexOf('STATUE');
 
 /**
  * Contest Rule #2: no runtime filesystem. Texts are embedded via
@@ -1815,11 +1818,12 @@ function is_obj_mappear_look(mon, otyp) {
 
 /**
  * C ref: pager.c object_from_map `:284–377`.
- * JS has no integer glyph ids; callers pass glyphotyp (C glyph_to_obj).
- * cmap trapped-chest CHEST|LARGE_BOX, glyph_is_body / glyph_is_statue
- * corpsenm from glyph id named. Returns { fakeobj, otmp }.
+ * Callers pass glyphotyp (C glyph_to_obj); cmap trapped-chest
+ * CHEST|LARGE_BOX named. `glyph` (optional) is the map glyph, read by
+ * the `:346–349` body/statue corpsenm arm (D-4079); callers that omit it
+ * skip that arm. Returns { fakeobj, otmp }.
  */
-export function object_from_map(glyphotyp, x, y) {
+export function object_from_map(glyphotyp, x, y, glyph = null) {
     const otyp = glyphotyp | 0;
     let fakeobj = false;
     let mimic_obj = false;
@@ -1867,8 +1871,15 @@ export function object_from_map(glyphotyp, x, y) {
             } else {
                 otmp.corpsenm = MCORPSENM(mtmp) | 0;
             }
+        } else if (glyph != null && (otmp.otyp | 0) === CORPSE
+                   && glyph_is_body(glyph)) {
+            // C `:346–347` — fake corpse shows the remembered monster
+            otmp.corpsenm = glyph_to_body_corpsenm(glyph);
+        } else if (glyph != null && (otmp.otyp | 0) === STATUE
+                   && glyph_is_statue(glyph)) {
+            // C `:348–349`
+            otmp.corpsenm = glyph_to_statue_corpsenm(glyph);
         }
-        // glyph_is_body / glyph_is_statue corpsenm named (no integer glyphs)
         if ((otmp.otyp | 0) === LEASH) {
             otmp.leashmon = 0;
         }
@@ -1909,9 +1920,9 @@ function look_buf_cat(buf, extra) {
  * A fake is named, then `OBJ_FREE` + `dealloc_obj`, so the suffix chain
  * sees a null `otmp` and still applies terrain (tree before stone).
  */
-export function look_at_object(x, y, glyphotyp) {
+export function look_at_object(x, y, glyphotyp, glyph = null) {
     // C `:387` object_from_map(glyph, x, y, &otmp)
-    let { fakeobj, otmp } = object_from_map(glyphotyp, x, y);
+    let { fakeobj, otmp } = object_from_map(glyphotyp, x, y, glyph);
     let buf;
     if (otmp) {
         // C `:390–393` — STRANGE_OBJECT uses obj_descr[].oc_name
@@ -2164,7 +2175,7 @@ export function lookat(x, y) {
             buf = rndmonnam(null);
         }
     } else if (glyph_is_object(glyph)) {
-        buf = look_at_object(x, y, glyph_to_obj(glyph));
+        buf = look_at_object(x, y, glyph_to_obj(glyph), glyph);
     } else if (glyph_is_trap(glyph)) {
         buf = trap_description(glyph_to_trap(glyph), x, y);
     } else if (glyph_is_warning(glyph)) {
@@ -2322,7 +2333,7 @@ async function look_all(nearby, do_mons) {
                 }
             } else if (glyph_is_object(glyph)) { // C :2015-2016 !do_mons
                 const otyp = glyph_to_obj(glyph); // C :2017 via glyphotyp
-                lookbuf = look_at_object(x, y, otyp);
+                lookbuf = look_at_object(x, y, otyp, glyph);
                 glyphCh = shownCh || '?';
                 ++count; // C :2018
             }
