@@ -28064,25 +28064,14 @@ function load_sanctum() {
     for (let i = 0; i < 5; i++) splev_create_object(SCROLL_CLASS);
 
     // Monsters — named with coords (random amask) then noalign clerics
+    // des.monster({ id=…, x, y, peaceful=0 }) → create_monster
+    // (sp_lev.c:1925–2050) — the faithful splev_create_monster, like the
+    // clerics below: the inline clone skipped `:1949–1953` (an extinct
+    // unique never spawns; a genocided/extinct type becomes a random
+    // monster — C rndmonst for a genocided erinys, D-4063) and the
+    // pm_to_humidity location arm.
     const placeNamed = (id, rx, ry, peaceful) => {
-        const { mndx, female } = find_montype_gender(id);
-        const pm = (mndx >= 0 && mndx !== NON_PM) ? mons(mndx) : null;
-        // C: no align → AM_SPLEV_RANDOM → induced_align(80)
-        induced_align(80);
-        let x = mx + rx, y = my + ry;
-        if (pm) {
-            // humidity path omitted for these dry demons
-        }
-        if (m_at(x, y)) {
-            const cc = { x: 0, y: 0 };
-            if (enexto(cc, x, y, pm)) { x = cc.x; y = cc.y; }
-        }
-        const mtmp = makemon(pm, x, y, 0);
-        if (!mtmp) return;
-        mtmp.female = female;
-        if (peaceful != null && peaceful > BOOL_RANDOM)
-            mtmp.mpeaceful = peaceful;
-        set_malign(mtmp);
+        splev_create_monster(id, peaceful, { rx, ry });
     };
     const placeNoalignCleric = (rx, ry) => {
         // C: align=noalign → AM_NONE; create_monster → mk_roamer (D-1553)

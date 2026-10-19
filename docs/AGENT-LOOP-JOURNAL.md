@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4063 sanctum.lua named demons: inline create_monster clone skipped the G_GONE arm — an extinct erinys was made instead of C's random monster (worldtour-Wizard-49950016 → FULL PASS)
+
+**C locus:** sp_lev.c create_monster `:1945–1953`: `pm = &mons[m->id]; g_mvflags = svm.mvitals[…].mvflags; if ((pm->geno & G_UNIQ) && (g_mvflags & G_EXTINCT)) return; if (g_mvflags & G_GONE) pm = NULL; /* make random monster */` → makemon(NULL) → rndmonst_adj. Also `:1958–1965` pm_to_humidity location and `:1968` enexto.
+**JS:** js/mklev.js (placeNamed body + cite); scripts/sanctum-extinct-erinys-random.test.mjs (new: prefix replay to s289 asserts erinys G_EXTINCT, no erinys on the sanctum's fmon, rndmonst reservoir draws in the step — RED pre-fix «no erinys made in the sanctum», GREEN post-fix).
+**Change:** `placeNamed` now delegates to `splev_create_monster(id, peaceful, { rx, ry })` (C create_monster in C order, incl. `:1949–1953`); rx/ry relative to splev_xstart/ystart, which splev_apply_centered_map sets to load_sanctum's mx/my (same contract the clerics use).
+**Verify:** `node scripts/verify.mjs --fn rndmonst_adj,create_monster` → PASS syntax (js/mklev.js) · rule2 · `verify rndmonst_adj: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (worldtour-Wizard-49950016 FULL PASS, RNG 114187/114187, screens 815/815) · reach rndmonst_adj 640 reach, 80 run, 80 PASS, 0 regressed · reach create_monster 23/23 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (shared file) → VERIFY: PASS. Movement line: `verify rndmonst_adj: 1 PASS, 0 moved, 0 no-movement`.
+**Named:** load_wiz_strt's `placeNamedAt` / `placeClassAt` (mklev.js:6880/6894, dat/Wiz-strt.lua) are the same inline-clone shape (no G_GONE/extinct-unique arm) — another level file, next when a session names it.
+**Next:** rndmonst_adj leaves on regen. Wiz-strt clone as above.
 ## 2026-10-19 — D-4062 detect.c do_vicinity_map I-replace pass read the real monster, not the displayed glyph — hallucinated worm-tail draw became 'I' (Samurai-49956004 s830 → s1170)
 
 **C locus:** detect.c do_vicinity_map tail `:1563–1576`: for each spot except the hero's, `newglyph = glyph_at(zx, zy); if (glyph_is_monster(newglyph) && glyph_to_mon(newglyph) != PM_LONG_WORM_TAIL) { if (!m_at || !canspotmon) map_invisible(); }` then see_monsters(). The test reads the DISPLAYED glyph: under Hallucination the loop's map_monst painted a display-RNG random monster (not in the RNG log); a worm-tail draw skips map_invisible, and see_monsters → newsym of the unseen spot shows the remembered terrain (show_map_spot's floor).
