@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4092 do.c flooreffects boulder pit-crush: C's fatal losehp runs done() inline, before deletedwithboulder's reset_utrap, but JS deferred done to drop_boulder_on_player's later drain, so disclosure lost «You were trapped in a pit {6}.» (2 sessions → FULL PASS)
+
+**C locus:** do.c flooreffects `:231–234` `losehp(Maybe_Half_Phys(rnd(15)), "squished under a boulder", NO_KILLER_PREFIX); goto deletedwithboulder;`: a fatal losehp calls done(DIED) inline (disclosure inside, never returns). `:257–261` deletedwithboulder: delfloortrap + `if (u.utrap && u_at(x, y)) reset_utrap(FALSE)` runs only after a lifesave.
+**JS:** js/do.js (+10); scripts/flooreffects-crush-done-inline.test.mjs (new: prefix replay to s158 asserts «You were trapped in a pit {6}.» — RED pre-fix (absent), GREEN post-fix).
+**Change:** right after the squish losehp, flooreffects drains finish_maybe_wail + finish_losehp_done (the read.js/do.js drain idiom) and returns on gameover. A lifesave falls through to deletedwithboulder as in C, and read.js's later drain becomes a no-op.
+**Verify:** `node scripts/verify.mjs --fn flooreffects` → PASS syntax (js/do.js) · rule2 · reach 5/5 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. Direct `hidden-proxy score --ids`: sokoban-Ranger-50351023, sokoban-Samurai-50356023 → FULL PASS. `hidden-proxy sweep flooreffects,drop_boulder_on_player` → 744 baseline-PASS sessions re-run, 0 regressed.
+**Named:** last attribute-screen leftover: worldtour-Wizard-610136 blind timeout 103 vs 106.
+**Next:** worldtour-Wizard-610136 blind timeout; doclassdisco ×2; reveal_terrain ×2.
 ## 2026-10-19 — D-4091 insight.c attributes_enlightenment See_invisible: both JS copies (final disclosure and ^X doattributes) gated on the u.HSee_invisible/u.ESee_invisible flats, but a worn ring of see invisible sets uprops[SEE_INVIS].extrinsic, so «You saw invisible …» was dropped (3 sessions → FULL PASS)
 
 **C locus:** insight.c attributes_enlightenment `:1571–1580` `if (See_invisible) { if (!Blind) enl_msg(You_, "see", "saw", " invisible", from_what(SEE_INVIS)); … }`; youprop.h:152 See_invisible ≡ (HSee_invisible || ESee_invisible) over uprops[SEE_INVIS].

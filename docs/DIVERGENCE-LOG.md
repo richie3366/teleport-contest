@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4092 — do.c flooreffects boulder pit-crush: C's fatal losehp runs done() inline, before deletedwithboulder's reset_utrap, but JS deferred done to drop_boulder_on_player's later drain, so disclosure lost «You were trapped in a pit {6}.» (2 sessions → FULL PASS)
+- **Status:** shipped (board @773f8a162. D-4091's named leftovers: the pit line missing ×2 on the final attributes screen (sokoban Ranger/Samurai). A per-step utrap probe showed it zeroed between the «You are hit by a boulder!» and «falls into the pit with you» screens, i.e. inside flooreffects before done ran. No review stamp owed.)
+- **Symptom:** e.g. scen-sokoban-Ranger-50351023 s158: hero levitating-trapped in a pit (utrap 6) reads scroll of earth → boulder falls into the pit, crush death → C attributes list « You were trapped in a pit {6}.», JS omits it.
+- **C locus:** do.c flooreffects `:231–234` `losehp(Maybe_Half_Phys(rnd(15)), "squished under a boulder", NO_KILLER_PREFIX); goto deletedwithboulder;`: a fatal losehp calls done(DIED) inline (disclosure inside, never returns). `:257–261` deletedwithboulder: delfloortrap + `if (u.utrap && u_at(x, y)) reset_utrap(FALSE)` runs only after a lifesave.
+- **JS was:** js/hack.js losehp defers death via game._losehp_needs_done. js/do.js flooreffects went straight on to delfloortrap/reset_utrap, and read.js drop_boulder_on_player drained the done after flooreffects returned (its comment already notes the temp-C lifesave order for this session).
+- **Fix:** right after the squish losehp, flooreffects drains finish_maybe_wail + finish_losehp_done (the read.js/do.js drain idiom) and returns on gameover. A lifesave falls through to deletedwithboulder as in C, and read.js's later drain becomes a no-op.
+- **JS:** js/do.js (+10); scripts/flooreffects-crush-done-inline.test.mjs (new: prefix replay to s158 asserts «You were trapped in a pit {6}.» — RED pre-fix (absent), GREEN post-fix).
+- **Callers:** behavior-only; no RNG (the drain only moves when done runs). Other flooreffects callers (drop/throw/kick boulders) reach the arm only when the hero is in the pit.
+- **Verify:** `node scripts/verify.mjs --fn flooreffects` → PASS syntax (js/do.js) · rule2 · reach 5/5 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. Direct `hidden-proxy score --ids`: sokoban-Ranger-50351023, sokoban-Samurai-50356023 → FULL PASS. `hidden-proxy sweep flooreffects,drop_boulder_on_player` → 744 baseline-PASS sessions re-run, 0 regressed.
+- **Named omissions:** last attribute-screen leftover: worldtour-Wizard-610136 blind timeout 103 vs 106.
+- **Ledger:** flooreffects ported
+- **Next:** worldtour-Wizard-610136 blind timeout; doclassdisco ×2; reveal_terrain ×2.
+
 ## D-4091 — insight.c attributes_enlightenment See_invisible: both JS copies (final disclosure and ^X doattributes) gated on the u.HSee_invisible/u.ESee_invisible flats, but a worn ring of see invisible sets uprops[SEE_INVIS].extrinsic, so «You saw invisible …» was dropped (3 sessions → FULL PASS)
 - **Status:** shipped (board @4f11876a9. D-4090's named leftovers: the see-invisible line missing ×3 on the final attributes screen. No review stamp owed.)
 - **Symptom:** e.g. scen-sweep-Wizard-51150073 s1178: ring of see invisible worn → C « You saw invisible because of your ring of see invisible.» before « You had infravision innately.», JS skips it (the same shape in trek-Wizard-49950063 without the wizard suffix, and worldtour-Wizard-578301).

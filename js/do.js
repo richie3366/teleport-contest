@@ -843,6 +843,16 @@ export async function flooreffects(obj, x, y, verb) {
                     'squished under a boulder',
                     NO_KILLER_PREFIX,
                 );
+                // C: a fatal losehp runs done() inline, so disclosure
+                // sees the pit before deletedwithboulder's reset_utrap;
+                // drain JS's deferred wail/done here (D-4092). Lifesaved
+                // → falls through like C; a real death never returns.
+                await finish_maybe_wail();
+                if (game._losehp_needs_done || game.program_state?.gameover) {
+                    const { finish_losehp_done } = await import('./end.js');
+                    await finish_losehp_done();
+                }
+                if (game.program_state?.gameover) return true;
                 squished = true; // C: goto deletedwithboulder
             } else {
                 await reset_utrap(true);
