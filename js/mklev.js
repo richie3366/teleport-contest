@@ -22141,15 +22141,15 @@ function lua_random2(lo, hi) {
     return lo + rn2(hi - lo + 1);
 }
 
-// C ref: sp_lev.c create_object :2422–2423 — top-level .lev OBJECTs stack.
-// splev_create_object stands in for create_object on class-only lines
-// (containment is always 0 here, so the !SP_OBJ_CONTENT gate passes).
+// C ref: sp_lev.c lspo_object :3556–3755 for the hand-rolled loaders'
+// class-only lines: `des.object()` (null) is the empty-table arm
+// (lcheck_param_table, nhlua.c:229–230) and `des.object("<c>")` the
+// one-letter string arm (:3594–3598). Both reach create_object
+// :2193–2439, whose tail resets what mkobj gave a default record:
+// erosion and erodeproof (:2273–2283) and grease (:2296), then stackobj.
 function splev_create_object(oclass) {
-    const pos = get_location_random();
-    const otmp = (oclass == null)
-        ? mkobj_at(RANDOM_CLASS, pos.x, pos.y, true)
-        : mkobj_at(oclass, pos.x, pos.y, true);
-    if (otmp) stackobj(otmp);
+    if (oclass == null) l_create_object({});
+    else l_create_object(def_oc_syms[oclass].sym);
 }
 
 function splev_create_boulder() {
@@ -24260,15 +24260,13 @@ function get_location_coord_in_room(croom, humidity) {
 }
 
 /**
- * C ref: sp_lev.c create_object with croom (des.object inside des.room).
+ * C ref: sp_lev.c lspo_object → create_object(&tmpobj, coder->croom)
+ * (des.object inside des.room). Same two arms as splev_create_object;
+ * create_object's tail resets erosion/erodeproof/grease, then stackobj.
  */
 function splev_room_object(croom, oclass = null) {
-    // C create_object → get_location_coord(DRY) — includes coord double-try
-    const pos = get_location_coord_in_room(croom, DRY);
-    if (pos.x < 0) return;
-    // C sp_lev.c create_object :2422-2423 — stack non-content des OBJECTs
-    if (oclass == null) stackobj(mkobj_at(RANDOM_CLASS, pos.x, pos.y, true));
-    else stackobj(mkobj_at(oclass, pos.x, pos.y, true));
+    if (oclass == null) l_create_object({}, null, croom);
+    else l_create_object(def_oc_syms[oclass].sym, croom);
 }
 
 /**
