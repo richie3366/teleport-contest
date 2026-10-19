@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4121 objnam.c doname_base starts with `bp = xname(obj)`, and xname find_artifact()s a seen artifact (`:660–661`), but JS doname_base inlines xname's preamble and calls pretty_base directly, skipping that arm. So an artifact first seen through doname (a monster picking it up, `distant_name(otmp, doname)`) never got its «found …» livelog, and #chronicle lacked «56: found the Platinum Yendorian Express Card on the floor» (1 extcmd session → FULL PASS)
+
+**C locus:** objnam.c doname_base `:1223–1751` (`bp = xname(obj)` `:1247`), xname `:575–1029` (find_artifact `:640–661`); artifact.c find_artifact `:422–459`; mon.c mpickstuff `:1891–1899` (distant_name before obj_extract_self, so where is OBJ_FLOOR).
+**JS:** js/objnam.js (doname_base :3298).
+**Change:** after the inlined observe step, `if (obj.oartifact && obj.dknown && _find_artifact) _find_artifact(obj)`: the real dknown (not override_ID), same hook and position as xname_flags.
+**Verify:** `node scripts/verify.mjs --fn pluslvl` (with D-4122's change in the tree) → PASS syntax · rule2 · verify pluslvl: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS; this fix alone: Tourist-51257053 PASS (Priest-49959522 unchanged, D-4122). `hidden-proxy sweep goto_level` (both) → 678 baseline-PASS re-run, 0 regressed → REACH-OK.
+**Named:** (1) other menu builders still don't apply windows.c add_menu :1803–1807 (no corpus session blocks on them): spell/pickup/pager/do_name/teleport/detect/getpos/player_selection/iactions/allmain corner menus, weapon/dungeon/wizcmds select_menu_pick_none callers, display_minventory, query_objlist_pick_…
+**Next:** D-4122 (pluslvl's Priest-49959522: oinit after getlev), then xkilled (2, RNG lost 8864), m_unleash (1), jump (1).
 ## 2026-10-19 — D-4120 timeout.c nh_timeout dissipates spell protection (`:652–661`) before the uprops `--` loop that expires BLINDED, so on the turn blindness runs out its `!Blind` still sees a blind hero and stays silent. JS ran the haze block after the loop, so it printed «The golden haze around you becomes less dense.» between two monster hits where C goes straight to the gas cloud's «Your eyes sting» (1 sweep session → FULL PASS)
 
 **C locus:** timeout.c nh_timeout `:588–948`: mtimedone `:641–648`, ucreamed `:649–650`, spell protection `:652–661` (`if (!Blind) Norep(...)`), ugallop `:662–665`, was_flying `:667`, uprops loop `:670+` (BLINDED `:743`).

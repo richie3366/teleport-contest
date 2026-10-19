@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-4121 — objnam.c doname_base starts with `bp = xname(obj)`, and xname find_artifact()s a seen artifact (`:660–661`), but JS doname_base inlines xname's preamble and calls pretty_base directly, skipping that arm. So an artifact first seen through doname (a monster picking it up, `distant_name(otmp, doname)`) never got its «found …» livelog, and #chronicle lacked «56: found the Platinum Yendorian Express Card on the floor» (1 extcmd session → FULL PASS)
+
+- **Status:** shipped (board @1b20d976e. Next live-queue owner: `pluslvl`, 2 sessions, 697 screens; a region-heuristic owner with two unrelated writers. This is the Tourist one; the Priest one (gem odds after a level revisit) ships next as its own entry.)
+- **Symptom:** scen-extcmd-Tourist-51257053 s778/1088, `#chronicle`: C row 3 «   56: found the Platinum Yendorian Express Card on the floor» vs JS «» (JS's list stops at «55: entered Home 6, the Quest»). Core RNG fully matched.
+- **Measurement:** temporary traces (reverted). find_artifact/found_artifact were never called in the JS run. xname_flags never ran for an artifact. oname did make the card artifact 31 (create_object ← l_create_object ← load_tou_goal). The card was first named at s733 «The Master of Thieves picks up a credit card named the Platinum Yendorian Express Card» via monmove.js mpickstuff → distant_name(otmp, doname) → doname_base, which has no find_artifact call.
+- **C locus:** objnam.c doname_base `:1223–1751` (`bp = xname(obj)` `:1247`), xname `:575–1029` (find_artifact `:640–661`); artifact.c find_artifact `:422–459`; mon.c mpickstuff `:1891–1899` (distant_name before obj_extract_self, so where is OBJ_FLOOR).
+- **JS was:** doname_base re-implements xname's preamble (clear_unique_known_leak, cleric bknown, observe_object) and builds the base with pretty_base / the pname arm, without the find_artifact arm xname_flags has (objnam.js :1096).
+- **Fix:** after the inlined observe step, `if (obj.oartifact && obj.dknown && _find_artifact) _find_artifact(obj)`: the real dknown (not override_ID), same hook and position as xname_flags.
+- **JS:** js/objnam.js (doname_base :3298).
+- **Callers:** none changed. Every doname / doname_with_price / doname_vague_quan / distant_name(…, doname) caller now finds artifacts as C's xname does.
+- **Verify:** `node scripts/verify.mjs --fn pluslvl` (with D-4122's change in the tree) → PASS syntax · rule2 · verify pluslvl: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS; this fix alone: Tourist-51257053 PASS (Priest-49959522 unchanged, D-4122). `hidden-proxy sweep goto_level` (both) → 678 baseline-PASS re-run, 0 regressed → REACH-OK.
+- **Named omissions:** (1) other menu builders still don't apply windows.c add_menu :1803–1807 (no corpus session blocks on them): spell/pickup/pager/do_name/teleport/detect/getpos/player_selection/iactions/allmain corner menus, weapon/dungeon/wizcmds select_menu_pick_none callers, display_minventory, query_objlist_pick_…
+- **Ledger:** doname_base partial
+- **Next:** D-4122 (pluslvl's Priest-49959522: oinit after getlev), then xkilled (2, RNG lost 8864), m_unleash (1), jump (1).
+
 ## D-4120 — timeout.c nh_timeout dissipates spell protection (`:652–661`) before the uprops `--` loop that expires BLINDED, so on the turn blindness runs out its `!Blind` still sees a blind hero and stays silent. JS ran the haze block after the loop, so it printed «The golden haze around you becomes less dense.» between two monster hits where C goes straight to the gas cloud's «Your eyes sting» (1 sweep session → FULL PASS)
 
 - **Status:** shipped (board @c39a259f0. Must-fix empty, cliffs block all unattributed tooling rows. Next live-queue owner after D-4118/D-4119: `hitmsg`, 1 session, 730 screens. hitmsg is only where the topline first differs; the writer is nh_timeout's order.)
