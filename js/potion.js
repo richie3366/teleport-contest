@@ -4080,7 +4080,9 @@ export async function potionhit(mon, obj, how) {
         ty = u.uy | 0;
         distance = 0;
         // C: pline blocks through --More-- while m_throw tmp_at flash still shows
-        await pline(`The ${botlnam} crashes on your head and breaks into shards.`);
+        // C `:1636–1637` — body_part(HEAD): a headless or vortex form says
+        // "body" / "central core".
+        await pline(`The ${botlnam} crashes on your ${body_part(HEAD)} and breaks into shards.`);
         const killer = (how === POTHIT_OTHER_THROW)
             ? 'propelled potion'
             : 'thrown potion';
@@ -4126,12 +4128,9 @@ export async function potionhit(mon, obj, how) {
     }
 
     // oil doesn't instantly evaporate; Neither does a saddle hit
+    // C `:1678–1679` — one Tobjnam(obj, "evaporate") for hero and monster.
     if ((obj.otyp | 0) !== POT_OIL && !hit_saddle && cansee(tx, ty)) {
-        if (isyou) {
-            await pline(`The ${xname(obj)} evaporates.`);
-        } else {
-            await pline(`${Tobjnam_pot(obj, 'evaporate')}.`);
-        }
+        await pline(`${Tobjnam_pot(obj, 'evaporate')}.`);
     }
 
     if (isyou) {

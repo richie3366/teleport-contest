@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4100 potion.c potionhit: a potion hitting the hero «crashes on your head» was hardcoded in JS, but C names body_part(HEAD), so a headless polymorphed hero reads «body» and a vortex «central core» (2 sessions → FULL PASS; +2 stale D-4098 flips recorded)
+
+**C locus:** potion.c potionhit `:1633–1641`: the hero arm prints `pline_The("%s crashes on your %s and breaks into shards.", botlnam, body_part(HEAD))`; `:1678–1679` prints one `Tobjnam(obj, "evaporate")` for hero and monster alike.
+**JS:** js/potion.js (+5/−6); scripts/potionhit-body-part-head.test.mjs (new: prefix replay to s588 asserts «crashes on your body»; RED pre-fix «The bottle crashes on your head and breaks into shards.--More--», GREEN post-fix).
+**Change:** hero arm uses `body_part(HEAD)` (already imported from polyself.js); the evaporate line is the single C `Tobjnam_pot(obj, 'evaporate')` call (the file's local Tobjnam: The(xname) + otense).
+**Verify:** `node scripts/verify.mjs --fn potionhit` → PASS syntax (js/potion.js) · rule2 · verify potionhit: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach 73/73 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep potionhit` → 719 baseline-PASS sessions re-run, 0 regressed → REACH-OK. Board: these 2 rows plus the 2 stale D-4098 rows flip to PASS, nothing else changes.
+**Named:** none.
+**Next:** vomiting_dialogue ×2 («You can move again.» missing: sweep-Wizard-51450051 s1323, worldtour-Archeologist-610028 s158); that_is_a_mimic ×2 («That strange object …» vs «That tan spellbook …»); getobj prompt letters ×4 (options-*, sweep-Rogue-50450065).
 ## 2026-10-19 — D-4099 detect.c reveal_terrain_getglyph: for a hero-memory spot never remembered, JS used the stone glyph as levl[][].glyph, but C's clear_level_structures leaves GLYPH_UNEXPLORED there, so an engulfed hero's #terrain view described unseen spots as «unexplored» instead of «unexplored area» (2 sessions → FULL PASS)
 
 **C locus:** detect.c reveal_terrain `:2372` captures `swallowed = u.uswallow`; reveal_terrain_getglyph `:2202–2204` `levl_glyph = hero_memory ? levl[x][y].glyph : …` and `:2210` `glyph = !swallowed ? glyph_at(x, y) : levl_glyph`. A spot the hero never mapped still holds mklev.c clear_level_structures' `zerorm` glyph, GLYPH_UNEXPLORED (`:852`). pager.c lookat `:730–737` names a glyph_is_unexplored glyph «unexplored area»; the S_stone `!seenv` arm (`:779–782`) says «unexplored».
