@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4090 — insight.c status_enlightenment Hunger: JS tested only the u.HHunger/u.EHunger flats, but a worn ring of hunger sets uprops[HUNGER].extrinsic, so disclosure dropped «You hungered rapidly because of your ring of hunger.» (5 sessions → FULL PASS)
+- **Status:** shipped (board @16177d3a6. D-4089's named leftovers: the ring-of-hunger line missing ×5 on the final attributes screen. No review stamp owed.)
+- **Symptom:** e.g. scen-wish-Valkyrie-50152027 s153: ring of hunger worn at death → C « You hungered rapidly because of your ring of hunger.» before « You weren't hungry <832>.», JS skips straight to the hunger-status line.
+- **C locus:** insight.c status_enlightenment `:1190–1193` `if (Hunger) { if (magic || cause_known(HUNGER)) enl_msg(You_, "hunger", "hungered", " rapidly", from_what(HUNGER)); }`; youprop.h:145–147 Hunger ≡ (uprops[HUNGER].intrinsic || .extrinsic).
+- **JS was:** js/invent.js status_core_lines gated on `(u.HHunger | 0) || (u.EHunger | 0)`. Ring confer writes uprops[HUNGER].extrinsic only, so the arm never fired. eat.js's local Hunger() already ORs both stores.
+- **Fix:** the gate also reads `u.uprops[HUNGER].intrinsic || .extrinsic` (eat.js Hunger shape; that helper isn't exported).
+- **JS:** js/invent.js (+5/−1); scripts/enlightenment-hunger-uprops.test.mjs (new: prefix replay to s153 asserts the ring-of-hunger line — RED pre-fix (absent), GREEN post-fix).
+- **Callers:** behavior-only; no RNG.
+- **Verify:** `node scripts/verify.mjs --fn status_enlightenment` → PASS syntax (js/invent.js) · rule2 · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Direct `hidden-proxy score --ids` over the 11 remaining attribute-screen rows: 5 → FULL PASS (wish-Valkyrie-50152027, worldtour-Wizard-50850040, sweep-Archeologist-51150009, sweep-Healer-50055041, worldtour-Monk-50450080), 6 unchanged. `hidden-proxy sweep status_enlightenment` → 736 baseline-PASS sessions re-run, 0 regressed.
+- **Named omissions:** attribute-screen leftovers: «You were trapped in a pit {6}.» ×2 (sokoban Ranger-50351023/Samurai-50356023), see-invisible lines ×3 (sweep-Wizard-51150073, trek-Wizard-49950063, worldtour-Wizard-578301), blind timeout 103 vs 106 (worldtour-Wizard-610136).
+- **Ledger:** status_enlightenment ported
+- **Next:** pit «{6}» ×2; see-invisible ×3; doclassdisco ×2; reveal_terrain ×2.
+
 ## D-4089 — attrib.c is_innate/innately: JS returned FROM_NONE for any prop missing from its PROP_HFIELD table and read only the flat H-field, so wizard-mode disclosure lost from_what's « from your creature form» / « intrinsically» on flying, swimming, telepathy, fumbling (13 sessions → FULL PASS)
 - **Status:** shipped (board @52e432cc8. Follow-up to D-4088: a first-diff survey of the 22 remaining one_characteristic/chwepon attribute-screen rows showed 11 with a missing from_what suffix: «You were flying from your creature form.» ×7, «could swim from your creature form» ×2, «fumbled intrinsically», «telepathic intrinsically». No review stamp owed.)
 - **Symptom:** e.g. scen-sweep-Monk-50055080 s739: hero polymorphed into a flyer, wizard-mode final attributes → C « You were flying from your creature form.», JS « You were flying.».

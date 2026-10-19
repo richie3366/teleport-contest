@@ -6548,7 +6548,11 @@ async function status_core_lines(final = 0, opts = {}) {
         out.push(overlay ? ` ${line}` : line);
     }
     // C insight.c:1190-1194 — Hunger rapid (magic || cause_known).
-    if (((u.HHunger | 0) || (u.EHunger | 0)) && (magic || cause_known(HUNGER))) {
+    // youprop.h Hunger ≡ uprops[HUNGER] H || E; a worn ring sets only the
+    // uprops extrinsic, so read both stores (D-4090).
+    if (((u.HHunger | 0) || (u.EHunger | 0)
+        || (u.uprops?.[HUNGER]?.intrinsic | 0) || (u.uprops?.[HUNGER]?.extrinsic | 0))
+        && (magic || cause_known(HUNGER))) {
         const line = enlght_line_txt(
             You_,
             final ? 'hungered' : 'hunger',

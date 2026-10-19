@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4090 insight.c status_enlightenment Hunger: JS tested only the u.HHunger/u.EHunger flats, but a worn ring of hunger sets uprops[HUNGER].extrinsic, so disclosure dropped «You hungered rapidly because of your ring of hunger.» (5 sessions → FULL PASS)
+
+**C locus:** insight.c status_enlightenment `:1190–1193` `if (Hunger) { if (magic || cause_known(HUNGER)) enl_msg(You_, "hunger", "hungered", " rapidly", from_what(HUNGER)); }`; youprop.h:145–147 Hunger ≡ (uprops[HUNGER].intrinsic || .extrinsic).
+**JS:** js/invent.js (+5/−1); scripts/enlightenment-hunger-uprops.test.mjs (new: prefix replay to s153 asserts the ring-of-hunger line — RED pre-fix (absent), GREEN post-fix).
+**Change:** the gate also reads `u.uprops[HUNGER].intrinsic || .extrinsic` (eat.js Hunger shape; that helper isn't exported).
+**Verify:** `node scripts/verify.mjs --fn status_enlightenment` → PASS syntax (js/invent.js) · rule2 · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Direct `hidden-proxy score --ids` over the 11 remaining attribute-screen rows: 5 → FULL PASS (wish-Valkyrie-50152027, worldtour-Wizard-50850040, sweep-Archeologist-51150009, sweep-Healer-50055041, worldtour-Monk-50450080), 6 unchanged. `hidden-proxy sweep status_enlightenment` → 736 baseline-PASS sessions re-run, 0 regressed.
+**Named:** attribute-screen leftovers: «You were trapped in a pit {6}.» ×2 (sokoban Ranger-50351023/Samurai-50356023), see-invisible lines ×3 (sweep-Wizard-51150073, trek-Wizard-49950063, worldtour-Wizard-578301), blind timeout 103 vs 106 (worldtour-Wizard-610136).
+**Next:** pit «{6}» ×2; see-invisible ×3; doclassdisco ×2; reveal_terrain ×2.
 ## 2026-10-19 — D-4089 attrib.c is_innate/innately: JS returned FROM_NONE for any prop missing from its PROP_HFIELD table and read only the flat H-field, so wizard-mode disclosure lost from_what's « from your creature form» / « intrinsically» on flying, swimming, telepathy, fumbling (13 sessions → FULL PASS)
 
 **C locus:** attrib.c is_innate `:880–900` → innately(&u.uprops[propidx].intrinsic) `:864–877` (FROMEXPER/FROMRACE tables, FROMOUTSIDE → FROM_INTR, FROMFORM → FROM_FORM) for every propidx; from_what `:939–948` maps those to « innately» / « intrinsically» / « from your creature form».
