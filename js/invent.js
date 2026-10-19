@@ -9575,9 +9575,10 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
     }
 
     // C: display_nhwindow(WIN_MESSAGE, FALSE) then NHW_MENU putstr list.
-    // WIN_MESSAGE FALSE sets toplin EMPTY without wipe — getpos leftovers
-    // stay left of overlay; keep_message_leftover models that (D-0929).
-    await flush_topl_more();
+    // WIN_MESSAGE FALSE: NEED_MORE → more() + clear; else toplin EMPTY
+    // without wipe — getpos leftovers stay left of the overlay
+    // (keep_message_leftover) and survive the next parse() clear.
+    await display_nhwindow_message();
     const lines = [];
     if (dfeature && !skip_dfeature && fbuf) {
         lines.push(fbuf);

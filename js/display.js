@@ -2760,6 +2760,9 @@ const TOPLINE_SPECIAL_PROMPT = 3;
 const CTRL_P = 0x10;
 let _toplines = '';
 let _toplin = TOPLINE_EMPTY;
+// Text left visible on row 0 when mark_topline_empty set EMPTY without
+// a wipe (C tty_display_nhwindow NHW_MESSAGE non-NEED_MORE arm).
+let _stale_topline = null;
 // C wintty.h ttyDisplay->inread — getline/yn set this; command ^P is 0.
 let _tty_inread = 0;
 // C wintty.h DisplayDesc.intr — non-zero if inread was interrupted
@@ -3333,7 +3336,11 @@ export function hooked_getlin_epilogue(suppress_history) {
  * without going through pline's NEED_MORE path).
  */
 export function clear_nhwindow_message() {
-    if (_toplin === TOPLINE_EMPTY && !(game._pending_message)) {
+    // An EMPTY window whose visible text is the stale leftover
+    // mark_topline_empty recorded is C's no-op (toplin EMPTY → no erase);
+    // only a JS painter's un-flagged prompt takes the extension below.
+    if (_toplin === TOPLINE_EMPTY && (!(game._pending_message)
+            || game._pending_message === _stale_topline)) {
         if (_msg_cw) {
             _msg_cw.curx = 0;
             _msg_cw.cury = 0;
@@ -3377,6 +3384,7 @@ function topline_home_cl_end() {
  */
 export function mark_topline_empty() {
     _toplin = TOPLINE_EMPTY;
+    _stale_topline = game._pending_message || null;
     if (_msg_cw) {
         _msg_cw.curx = 0;
         _msg_cw.cury = 0;
