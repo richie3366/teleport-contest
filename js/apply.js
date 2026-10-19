@@ -28,7 +28,7 @@ import {
     M_AP_TYPE, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_NOTHING,
     ACCESSIBLE, IS_STWALL, IS_DOOR, IS_FURNITURE, IS_OBSTRUCTED, IS_WATERWALL,
     IS_AIR, AIR, CLOUD,
-    TELEDS_NO_FLAGS, TELEDS_ALLOW_DRAG, INTRINSIC, STONE, LAVAWALL, TT_PIT,
+    TELEDS_NO_FLAGS, TELEDS_ALLOW_DRAG, INTRINSIC, JUMPING, STONE, LAVAWALL, TT_PIT,
     TT_BEARTRAP, TT_WEB, TT_LAVA, TT_INFLOOR, FORCETRAP, TOOKPLUNGE,
     LEFT_SIDE, RIGHT_SIDE, UNENCUMBERED,
     EXT_ENCUMBER, COST_DSTROY, COST_DEGRD, COST_SPLAT, HEAD, HAND, NOSE, LEG, NON_PM, STOMACH,
@@ -1451,14 +1451,6 @@ function s_suffix_leash(s) {
     return `${buf}'s`;
 }
 
-/** C you.h mhis — hallu rn2 deferred (leash pull-free msg).
- * Exported: migrate_to_level's sync leash arm initiates the TRUE-arm
- * message while the live m_unleash(FALSE) runs the state clear (D-3281). */
-export function mhis_leash(mtmp) {
-    if (mtmp?.female) return 'her';
-    return 'his';
-}
-
 /**
  * C ref: wizard.c mon_has_amulet — minvent holds AMULET_OF_YENDOR.
  */
@@ -1528,7 +1520,7 @@ export async function m_unleash(mtmp, feedback) {
         if (canseemon(mtmp)) {
             await pline_mon(
                 mtmp,
-                `${Monnam(mtmp)} pulls free of ${mhis_leash(mtmp)} leash!`,
+                `${Monnam(mtmp)} pulls free of ${mhis(mtmp)} leash!`, // C apply.c:731–732
             );
         } else {
             await pline('Your leash falls slack.');
@@ -5301,10 +5293,22 @@ const J_HORZ = 1;
 const J_VERT = 2;
 const J_DIAG = 3;
 
-/** C: Jumping (HJumping || EJumping). */
-function Jumping() {
+/** C youprop.h:221 HJumping ≡ u.uprops[JUMPING].intrinsic; the Knight's
+ * innate FROMOUTSIDE is still written to the flat u.HJumping (u_init.js). */
+function HJumping() {
     const u = game.u || {};
-    return !!(u.HJumping || u.EJumping);
+    return (u.uprops?.[JUMPING]?.intrinsic | 0) | (u.HJumping | 0);
+}
+
+/** C youprop.h:222 EJumping ≡ u.uprops[JUMPING].extrinsic (jumping boots). */
+function EJumping() {
+    const u = game.u || {};
+    return (u.uprops?.[JUMPING]?.extrinsic | 0) | (u.EJumping | 0);
+}
+
+/** C youprop.h:223 Jumping ≡ (HJumping || EJumping). */
+function Jumping() {
+    return !!(HJumping() || EJumping());
 }
 
 /** C: Passes_walls — not needed for knight physical jump; stub false. */
@@ -5356,11 +5360,9 @@ function check_jump(traj, x, y) {
  */
 async function is_valid_jump_pos(x, y, magic, showmsg) {
     const u = game.u || {};
-    const HJumping = u.HJumping | 0;
-    const EJumping = u.EJumping | 0;
     // C: !magic && !(HJumping & ~INTRINSIC) && !EJumping && distu != 5
     // Knight FROMOUTSIDE is inside INTRINSIC → chess-only unless extrinsic.
-    if (!magic && !(HJumping & ~INTRINSIC) && !EJumping && distu_xy(x, y) !== 5) {
+    if (!magic && !(HJumping() & ~INTRINSIC) && !EJumping() && distu_xy(x, y) !== 5) {
         if (showmsg) await pline('Illegal move!');
         return false;
     } else if (distu_xy(x, y) > (magic ? 6 + magic * 3 : 9)) {
@@ -5419,9 +5421,7 @@ function get_valid_jump_position(x, y) {
  */
 function is_valid_jump_pos_sync(x, y, magic) {
     const u = game.u || {};
-    const HJumping = u.HJumping | 0;
-    const EJumping = u.EJumping | 0;
-    if (!magic && !(HJumping & ~INTRINSIC) && !EJumping && distu_xy(x, y) !== 5) {
+    if (!magic && !(HJumping() & ~INTRINSIC) && !EJumping() && distu_xy(x, y) !== 5) {
         return false;
     }
     if (distu_xy(x, y) > (magic ? 6 + magic * 3 : 9)) return false;

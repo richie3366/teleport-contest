@@ -9,7 +9,7 @@
 {"fn":"um_dist","c":"692-695","status":"ported","js":["js/apply.js:um_dist"],"at":"2026-10-03@bbe63333a"}
 {"fn":"number_leashed","c":"698-707","status":"ported","js":["js/apply.js:number_leashed"],"at":"2026-10-03@bbe63333a"}
 {"fn":"o_unleash","c":"711-722","status":"ported","js":["js/apply.js:o_unleash"],"at":"2026-10-03@bbe63333a"}
-{"fn":"m_unleash","c":"726-742","status":"ported","js":["js/apply.js:m_unleash"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mhis_leash lacks neuter 'its'/hallu arms; message corner only"}
+{"fn":"m_unleash","c":"726-742","status":"ported","js":["js/apply.js:m_unleash"],"d":["D-4127"],"at":"2026-10-19@e04fdc62a","note":"D-4127: live mondata.js mhis (pronoun_gender, hallu rn2, neuter its)"}
 {"fn":"unleash_all","c":"746-756","status":"ported","js":["js/apply.js:unleash_all"],"d":["D-3416","D-3268"],"at":"2026-10-04@a1eee6cb2","note":"audited D-3416: whole vs C"}
 {"fn":"leashable","c":"761-766","status":"ported","js":["js/apply.js:leashable"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_leash","c":"769-818","status":"ported","js":["js/apply.js:use_leash"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: mon_nam vs noit_mon_nam on swallowed path ('it' vs 'the X' corner)"}
@@ -33,10 +33,10 @@
 {"fn":"dorub","c":"1785-1843","status":"ported","js":["js/apply.js:dorub"],"d":["D-2333"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dojump","c":"1847-1851","status":"ported","js":["js/apply.js:dojump"],"at":"2026-10-03@bbe63333a"}
 {"fn":"check_jump","c":"1862-1890","status":"ported","js":["js/apply.js:check_jump"],"at":"2026-10-03@bbe63333a"}
-{"fn":"is_valid_jump_pos","c":"1893-1956","status":"ported","js":["js/apply.js:is_valid_jump_pos"],"at":"2026-10-03@bbe63333a"}
+{"fn":"is_valid_jump_pos","c":"1893-1956","status":"ported","js":["js/apply.js:is_valid_jump_pos"],"d":["D-4127"],"at":"2026-10-19@e04fdc62a"}
 {"fn":"get_valid_jump_position","c":"1959-1964","status":"ported","js":["js/apply.js:get_valid_jump_position"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: via exact sync mirror of the showmsg=FALSE path"}
 {"fn":"display_jump_positions","c":"1967-1985","status":"ported","js":["js/apply.js:display_jump_positions"],"at":"2026-10-03@bbe63333a"}
-{"fn":"jump","c":"1988-2164","status":"ported","js":["js/apply.js:jump"],"d":["D-2740"],"at":"seed@a30a7de84"}
+{"fn":"jump","c":"1988-2164","status":"ported","js":["js/apply.js:jump"],"d":["D-4127","D-2740"],"at":"2026-10-19@e04fdc62a"}
 {"fn":"tinnable","c":"2167-2174","status":"ported","js":["js/eat.js:tinnable"],"at":"2026-10-03@bbe63333a"}
 {"fn":"use_tinning_kit","c":"2177-2256","status":"ported","js":["js/apply.js:use_tinning_kit"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"use_unicorn_horn","c":"2259-2392","status":"ported","js":["js/apply.js:use_unicorn_horn"],"at":"2026-10-03@bbe63333a"}
