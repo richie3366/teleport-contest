@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4085 wintty.c tty_destroy_nhwindow corner menu: JS show_nhw_menu_text ran flush_screen(1) after the docorner erase, so a pending botl repainted the status lines that C leaves blank between final-disclosure container menus (3 sessions → FULL PASS)
+
+**C locus:** end.c container_contents → display_nhwindow + destroy_nhwindow; win/tty/wintty.c tty_destroy_nhwindow `:1999` → erase_menu_or_text → docorner(offx, maxrow+1) `:3650–3720`, whose only bot() is `:3716` when ymax reaches WIN_STATUS. Nothing on this path calls flush_screen.
+**JS:** js/pager.js (−1 line, comment rewritten); scripts/corner-menu-dismiss-no-flush.test.mjs (new: prefix replay to s774 asserts the bag title and blank rows 22–23 — RED pre-fix (status painted), GREEN post-fix).
+**Change:** drop the corner-arm flush_screen(1). docorner already writes its cells and runs C's own `:3716` bot() when the menu reached the status rows.
+**Verify:** `node scripts/verify.mjs --fn show_nhw_menu_text` → PASS syntax (js/pager.js) · rule2 · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS (no hidden movement line: the rows are owned by process_menu_window). Full `hidden-proxy score` (864 non-reserve entries): 677/864, PASS→FAIL 0, FAIL→PASS 2 (sweep-Caveman-50350081, sweep-Healer-50055088); reserve-tier sweep-Caveman-610105 scored by id → FULL PASS.
+**Named:** none.
+**Next:** doclassdisco ×2; reveal_terrain ×2; lookat «fog/vapor cloud» ×2; getobj «dip them» ×2.
 ## 2026-10-19 — D-4084 zap.c wish_history_menu: the «Wish what?» end_menu prompt row carried no attr, so it drew plain where tty_end_menu paints tty_menu_promptstyle (inverse) (3 sessions → FULL PASS)
 
 **C locus:** zap.c wish_history_menu `:6298` `end_menu(win, "Wish what?")`; win/tty/wintty.c tty_end_menu `:2685–2689` adds the prompt with tty_menu_promptstyle (= menu_headings).

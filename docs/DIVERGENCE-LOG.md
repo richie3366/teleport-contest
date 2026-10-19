@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4085 — wintty.c tty_destroy_nhwindow corner menu: JS show_nhw_menu_text ran flush_screen(1) after the docorner erase, so a pending botl repainted the status lines that C leaves blank between final-disclosure container menus (3 sessions → FULL PASS)
+- **Status:** shipped (board @412137c41. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: process_menu_window ×3 «Contents of the bag of holding:». A raw row diff showed only rows 22–23 (JS status, C blank). Writer found by wrapping Terminal.setCell for row 22 and taking the stack: container_contents → show_nhw_menu_text → flush_screen(1) → bot. No review stamp owed.)
+- **Symptom:** e.g. scen-sweep-Healer-50055088 s774: death → disclose → the full-screen inventory is ESC'd (s773, status rows blank in both) → «Contents of the large box:» corner menu dismissed with SPC → «Contents of the bag of holding:»: C rows 22–23 still blank, JS repaints «Wizard the Dresser … / Dlvl:8 … HP:0(105) …».
+- **C locus:** end.c container_contents → display_nhwindow + destroy_nhwindow; win/tty/wintty.c tty_destroy_nhwindow `:1999` → erase_menu_or_text → docorner(offx, maxrow+1) `:3650–3720`, whose only bot() is `:3716` when ymax reaches WIN_STATUS. Nothing on this path calls flush_screen.
+- **JS was:** js/pager.js show_nhw_menu_text ended `await erase_menu_or_text(offx, 0, maxrow, false); if (offx !== 0) await flush_screen(1);`. Its comment called the flush «screen cadence» but it had a side effect: flush_screen's `if (botl || botlx) bot()` repainted the status.
+- **Fix:** drop the corner-arm flush_screen(1). docorner already writes its cells and runs C's own `:3716` bot() when the menu reached the status rows.
+- **JS:** js/pager.js (−1 line, comment rewritten); scripts/corner-menu-dismiss-no-flush.test.mjs (new: prefix replay to s774 asserts the bag title and blank rows 22–23 — RED pre-fix (status painted), GREEN post-fix).
+- **Callers:** behavior-only; no RNG. show_nhw_menu_text has 24 call sites, so the board was fully rescored (below).
+- **Verify:** `node scripts/verify.mjs --fn show_nhw_menu_text` → PASS syntax (js/pager.js) · rule2 · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS (no hidden movement line: the rows are owned by process_menu_window). Full `hidden-proxy score` (864 non-reserve entries): 677/864, PASS→FAIL 0, FAIL→PASS 2 (sweep-Caveman-50350081, sweep-Healer-50055088); reserve-tier sweep-Caveman-610105 scored by id → FULL PASS.
+- **Named omissions:** none.
+- **Ledger:** tty_destroy_nhwindow split js=pager.js:show_nhw_menu_text
+- **Next:** doclassdisco ×2; reveal_terrain ×2; lookat «fog/vapor cloud» ×2; getobj «dip them» ×2.
+
 ## D-4084 — zap.c wish_history_menu: the «Wish what?» end_menu prompt row carried no attr, so it drew plain where tty_end_menu paints tty_menu_promptstyle (inverse) (3 sessions → FULL PASS)
 - **Status:** shipped (board @511b97189. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: wish_history_menu ×3, each losing one screen with identical text. A raw row diff showed only row 0's `\e[7m`. No review stamp owed.)
 - **Symptom:** e.g. scen-sweep-Monk-50556001 s644: wish-history menu → C row 0 `\e[41C\e[7mWish what?\e[0m`, JS `\e[41CWish what?`.

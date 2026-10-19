@@ -768,12 +768,12 @@ export async function show_nhw_menu_text(lines, opts = {}) {
     // C destroy_nhwindow → tty_destroy_nhwindow `:1999` →
     // erase_menu_or_text(clearscreen=FALSE): corner takes the docorner
     // arm (targeted replay, no docrt/overlay — D-3626), fullscreen
-    // docrt+flush. The corner flush keeps this helper's screen cadence
-    // (C writes the tty immediately); docorner touches no toplin state,
-    // so the D-0929 dismiss-time save/restore is dead (paint-time
+    // docrt+flush. destroy_nhwindow does no flush_screen of its own, so
+    // the corner arm adds none: a pending botl must not repaint status
+    // rows docorner left alone (D-4085). docorner touches no toplin
+    // state, so the D-0929 dismiss-time save/restore is dead (paint-time
     // keep_message_leftover above stays).
     await erase_menu_or_text(offx, 0, maxrow, false);
-    if (offx !== 0) await flush_screen(1);
 }
 
 /**
