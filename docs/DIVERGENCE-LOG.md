@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4077 — mkmaze.c movebubbles Plane of Air: C struct-copies air_pos into every cell (seenv 0), JS set only glyph/typ/lit — a stale seenv let an engulfed hero's travel validation succeed, dropping autodescribe's « (no travel path)» (10 sessions → FULL PASS)
+- **Status:** shipped (board @045044567. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: auto_describe ×4, all «interior of the air elemental (no travel path)» vs no suffix, all on the Plane of Air. No review stamp owed.)
+- **Symptom:** e.g. scen-worldtour-Tourist-49950060 s371: engulfed by an air elemental, `;` then `j` → C «interior of the air elemental (no travel path)», JS «interior of the air elemental». getloc_travelmode was still on in both from s159's «You are already here.» (dotravel_target returns before clearing it, C and JS alike).
+- **C locus:** mkmaze.c movebubbles `:1653–1654` `levl[x][y] = air_pos` — `{S_cloud glyph, AIR, seenv 0, flags 0, horizontal 0, lit 1, waslit 0, roomno 0, edge 0, candig 0}` every turn; vision then re-marks only what the hero sees, and engulfed it sees nothing. hack.c is_valid_travelpt → findtravelpath(TRAVP_VALID) needs `levl[nx][ny].seenv || (!Blind && couldsee(nx, ny))` for the target, which fails → getpos.c auto_describe `:657–658` appends « (no travel path)».
+- **JS was:** js/mklev.js movebubbles' air arm wrote remembered_glyph/typ/lit only (the water arm already zeroes seenv); (3,18) kept seenv 255 from s200, when the hero stood there, so the BFS reached it.
+- **Fix:** the air arm now zeroes the other struct rm fields too, as C's struct copy does: seenv, flags/doormask/wall_info (C's one flags field), horizontal, waslit, roomno, edge and candig.
+- **JS:** js/mklev.js (+12 in movebubbles' air arm); scripts/movebubbles-air-pos-seenv.test.mjs (new: prefix replay to s371 asserts the « (no travel path)» suffix — RED pre-fix, GREEN post-fix).
+- **Callers:** behavior-only; no RNG (the rn2 cloud draws are unchanged).
+- **Verify:** `node scripts/verify.mjs --fn movebubbles` → PASS syntax (js/mklev.js) · rule2 · reach 57/57 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS (no hidden movement line: the rows are owned by auto_describe). Direct `hidden-proxy score --ids` over the 15 auto_describe/air-elemental rows: 10 → FULL PASS (worldtour Barbarian-50458507, Barbarian-51150080, Tourist-49950060, Archeologist-51250008, Healer-50056034, Samurai-50350064, Wizard-50056035, Wizard-50056057, Wizard-587300; hallu-Wizard-51450068), 5 unchanged (other shapes). `hidden-proxy sweep movebubbles,auto_describe` → 668 baseline-PASS sessions re-run, 0 regressed.
+- **Named omissions:** auto_describe rows left: shop corpse names (Archeologist-50455533, Monk-50550061, Rogue-50555525: C «a watchman/priest corpse» vs JS another corpse), worldtour-Archeologist-50950008 («unexplored area» vs «unexplored»), symset-Rogue-51250079 (same topline, map diff).
+- **Ledger:** movebubbles ported
+- **Next:** auto_describe shop-corpse ×3; extcmd_via_menu ×4; choose_disco_sort ×4; down_gate «fly» ×3.
+
 ## D-4076 — options.c dotogglepickup: JS interpolated buf into pline's format, so a '%' (food) pickup_types class hit vsnprintf as «% o» and printed «Autopickup: ON, for 0bjects.» (4 sessions → FULL PASS)
 - **Status:** shipped (board @99b6f0974. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: dotogglepickup ×4, all C «Autopickup: ON, for % objects.» vs JS «…for 0bjects.». No review stamp owed.)
 - **Symptom:** e.g. scen-symset-Knight-50555046 s461: `@` with pickup_types = `%` → C «Autopickup: ON, for % objects.», JS «Autopickup: ON, for 0bjects.».

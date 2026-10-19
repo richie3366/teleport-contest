@@ -18786,8 +18786,10 @@ export async function movebubbles() {
         }
     } else if (Is_airlevel(uz)) {
         /* C `:1653–1654`: levl[x][y] = air_pos — glyph S_cloud, typ AIR,
-         * lit 1 — then recalc_block_point per cell (docrt paints
-         * lev->glyph for the whole map before vision). */
+         * lit 1, every other rm field 0 (seenv too: only vision re-marks
+         * what the hero sees, so engulfed nothing stays seen — D-4077) —
+         * then recalc_block_point per cell (docrt paints lev->glyph for
+         * the whole map before vision). */
         const airGlyph = { ch: '#', color: CLR_GRAY, decgfx: false };
         for (let x = 1; x <= COLNO - 1; x++) {
             for (let y = 0; y <= ROWNO - 1; y++) {
@@ -18795,7 +18797,16 @@ export async function movebubbles() {
                 if (!loc) continue;
                 loc.remembered_glyph = { ...airGlyph };
                 loc.typ = AIR;
+                loc.seenv = 0;
+                loc.flags = 0;
+                loc.doormask = 0;
+                loc.wall_info = 0;
+                loc.horizontal = false;
                 loc.lit = true;
+                loc.waslit = false;
+                loc.roomno = 0;
+                loc.edge = false;
+                if (loc.candig) loc.candig = 0;
                 recalc_block_point(x, y);
                 /* C `:1655–1663`: break up the all-air/all-cloud
                  * perimeter; CLOUD cells block. */
