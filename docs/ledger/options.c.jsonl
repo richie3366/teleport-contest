@@ -1,4 +1,4 @@
-{"fn":"ask_do_tutorial","c":"430-479","status":"ported","js":["js/allmain.js:ask_do_tutorial"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: rc basename hardcoded '.nethackrc'; menu loop exact"}
+{"fn":"ask_do_tutorial","c":"430-479","status":"ported","js":["js/allmain.js:ask_do_tutorial"],"d":["D-4109"],"at":"2026-10-19@f4dcc77fb","note":"audit 2026-10-03: rc basename hardcoded '.nethackrc'; menu loop exact"}
 {"fn":"parseoptions","c":"489-691","status":"ported","js":["js/options.js:parseoptions"],"d":["D-3416","D-3403","D-2561"],"at":"2026-10-04@a1eee6cb2"}
 {"fn":"check_misc_menu_command","c":"694-707","status":"ported","js":["js/options.js:check_misc_menu_command"],"at":"2026-10-03@bbe63333a"}
 {"fn":"opt2roleopt","c":"715-730","status":"ported","js":["js/options.js:opt2roleopt"],"at":"2026-09-30@990da2b8d","note":"stale: js/options.js:6964, exact C port, 3 C callers wired (:6983,:7008,:7033)"}

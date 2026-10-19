@@ -54,6 +54,7 @@ import {
     putmsghistory, impossible, tty_nhbell, tty_wait_synch,
     clear_nhwindow_message, Hallucination, set_bot_disabled,
     clear_committed_status, clear_message_window_menu_overlay,
+    topline_need_more, display_nhwindow_message, paint_message_window_only,
     erase_menu_or_text, dxdy_to_dist_descr, tty_map_color,
 } from './display.js';
 import { xprname, an, the, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, gloves_simple_name, set_not_fully_identified, makeplural, makesingular, body_part_latebound, corpse_xname, killer_xname, maybereleaseobuf, safe_qbuf } from './objnam.js';
@@ -3090,9 +3091,10 @@ export function dismiss_chargen_nhw_menu() {
  * entries: {text, attr}[] or string[]; morestr default "(end) ".
  */
 export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
-    // C ref: wintty.c tty_display_nhwindow(NHW_MENU) — flush NEED_MORE
-    // before corner paint (travel pline → tip --More--).
-    await flush_topl_more();
+    // C ref: wintty.c tty_display_nhwindow(NHW_MENU) `:1919–1920` —
+    // NEED_MORE → tty_display_nhwindow(WIN_MESSAGE, TRUE): more(), then
+    // the clear arm erases the topline (travel pline → tip --More--).
+    if (topline_need_more()) await display_nhwindow_message();
     const disp = display();
     if (!disp) return null;
     // C wintty.c tty_end_menu `:2728–2733` runs before display: cut
@@ -3126,7 +3128,11 @@ export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
         for (let c = 0; c < disp.cols; c++)
             disp.setCell(c, 0, ' ', NO_COLOR, 0);
     } else {
-        await flush_screen(1);
+        // C tty_display_nhwindow(NHW_MENU) does not flush_screen: the
+        // map keeps whatever was last flushed (a getpos_sethilite newsym
+        // stays unpainted under the getpos tip); only the message row is
+        // repainted from its state.
+        paint_message_window_only();
     }
 
     if (offx === 0) {
@@ -3323,7 +3329,9 @@ export async function select_menu_pick_none(entries) {
     const _botPrev = set_bot_disabled(true);
     let cancelled = false;
     try {
-    await flush_topl_more();
+    // C `:1919–1920` NEED_MORE → tty_display_nhwindow(WIN_MESSAGE, TRUE):
+    // more(), then the clear arm erases the topline.
+    if (topline_need_more()) await display_nhwindow_message();
     const rows = display()?.rows || 24;
     const lmax = Math.min(52, rows - 1);
     const nitems = entries.length;
@@ -8863,8 +8871,9 @@ export async function doattributes(enl_mode = null) {
     // a pending topline --More-- before painting any menu (the
     // select_menu_pick_none `:3271` / corner-painter `:3040` shape; this
     // inline painter lacked it, so an invoke-enlightenment covered the
-    // queued low-HP wail instead of paging it first).
-    await flush_topl_more();
+    // queued low-HP wail instead of paging it first). NEED_MORE →
+    // tty_display_nhwindow(WIN_MESSAGE, TRUE): more() + topline clear.
+    if (topline_need_more()) await display_nhwindow_message();
     const waitMenuKey = async () => {
         for (;;) {
             const c = await nhgetch();

@@ -3351,7 +3351,20 @@ export function clear_nhwindow_message() {
         _msg_cw.curx = 0;
         _msg_cw.cury = 0;
     }
+    topline_home_cl_end(); // C `:1050–1051` home(); cl_end()
     if (wrapped) resync_map_row0();
+}
+
+/**
+ * C wintty.c tty_clear_nhwindow NHW_MESSAGE `:1050–1051` home(); cl_end()
+ * — the visible erase of message row 0 (no wait for a later flush; the
+ * menu overlay paints without one).
+ */
+function topline_home_cl_end() {
+    const display = game?.nhDisplay;
+    if (!display?.setCell) return;
+    for (let c = 0; c < (display.cols | 0); c++)
+        display.setCell(c, 0, ' ', NO_COLOR, 0);
 }
 
 /**
@@ -3416,8 +3429,12 @@ export function clear_message_window_menu_overlay() {
         _msg_cw.cury = 0;
     }
     if (_toplin === TOPLINE_EMPTY) return;
+    // C `:1050–1053` home(); cl_end(); if (cw->cury) docorner(1, cury+1, 0)
+    const wrapped = (game._pending_message || '').includes('\n');
     _toplin = TOPLINE_EMPTY;
     game._pending_message = '';
+    topline_home_cl_end();
+    if (wrapped) resync_map_row0();
 }
 
 // ── ANSI color codes ──
@@ -8153,6 +8170,16 @@ function _paintToplineOnly() {
 }
 
 /**
+ * Message-window repaint without the map/status flush: the menu overlay
+ * (tty_display_nhwindow NHW_MENU) never calls flush_screen, so the core
+ * gbuf changes stay unpainted under it, as in C; only WIN_MESSAGE's
+ * visible state (the clear arm's home+cl_end) reaches the grid.
+ */
+export function paint_message_window_only() {
+    _paintToplineOnly();
+}
+
+/**
  * C getline.c show_topl / topl_putsym wrap at CO-1: cl_end the wrapped
  * message row so a corner menu's first item does not stay beside the
  * continuation. Ordinary `_paintToplineOnly` must not blank map row 1.
@@ -9370,6 +9397,11 @@ export async function message_menu(letch, how, mesg) {
         return _morc === 27 ? '\x1b' : String.fromCharCode(_morc);
     }
     return null;
+}
+
+/** C wintty.h `ttyDisplay->toplin == TOPLINE_NEED_MORE`. */
+export function topline_need_more() {
+    return _toplin === TOPLINE_NEED_MORE;
 }
 
 /** C ref: flush pending topline --More-- before menus / non-pline UI */

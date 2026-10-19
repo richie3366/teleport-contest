@@ -2886,8 +2886,6 @@ export async function do_look(mode = 0, click_cc = null) {
                 } else {
                     await pline(`Pick ${WHAT_IS_A_LOCATION}.`);
                 }
-                // Force --More-- before getpos when message is long
-                if ((game._pending_message || '').length > 40) await more();
                 // C: getpos(&cc, quick, …) — quick glance uses force=TRUE
                 ans = await getpos(cc, quick, WHAT_IS_A_LOCATION);
                 if (ans < 0 || cc.x < 0) break; /* done */
