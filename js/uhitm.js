@@ -659,7 +659,7 @@ async function corpse_chance(mon, magr = null, was_swallowed = false) {
             if (was_swallowed && magr) {
                 if (magr === game.youmonst || magr._youmonst) {
                     await pline(`There is an explosion in your ${body_part(STOMACH)}!`);
-                    losehp(maybe_half_phys(tmp),
+                    await losehp(maybe_half_phys(tmp),
                         `${s_suffix(pmname(mdat, mon.female ? FEMALE : MALE))} explosion`,
                         KILLED_BY_AN);
                 }

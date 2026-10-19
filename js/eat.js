@@ -1370,7 +1370,7 @@ async function touchfood(otmp) {
  */
 export async function poison_strdmg(strloss, dmg, knam, k_format) {
     await losestr(strloss, knam, k_format);
-    if (!game.program_state?.gameover) losehp(dmg, knam, k_format);
+    if (!game.program_state?.gameover) await losehp(dmg, knam, k_format);
 }
 
 /**
@@ -2583,7 +2583,7 @@ export async function eatcorpse(otmp) {
         // : "acidic glob", KILLED_BY_AN) — canonical: Upolyd/mh,
         // end_running, killer attribution, death path (D-2402 was inline).
         // Must call rnd() (logs rnd(N)=…) not 1+rn2 (logs rn2(N)=…).
-        losehp(rnd(15), !glob ? 'acidic corpse' : 'acidic glob', KILLED_BY_AN);
+        await losehp(rnd(15), !glob ? 'acidic corpse' : 'acidic glob', KILLED_BY_AN);
         if (game._losehp_needs_done || game.program_state?.gameover) {
             // C hack.c:4287–4288 — done(DIED) returns after lifesave or a
             // wizard/explore "Die?" decline (end.c:1113–1117); only a real
@@ -2636,7 +2636,7 @@ export async function eatcorpse(otmp) {
         // C eat.c:1942 losehp(rnd(8), !glob ? "cadaver" : "rotted glob",
         // KILLED_BY_AN) — canonical: Upolyd/mh, end_running, killer
         // attribution, death path (D-2402 was inline).
-        losehp(rnd(8), !glob ? 'cadaver' : 'rotted glob', KILLED_BY_AN);
+        await losehp(rnd(8), !glob ? 'cadaver' : 'rotted glob', KILLED_BY_AN);
         if (game._losehp_needs_done || game.program_state?.gameover) {
             // C hack.c:4287–4288 — done returns after lifesave or a
             // wizard/explore "Die?" decline (end.c:1113–1117); only a real

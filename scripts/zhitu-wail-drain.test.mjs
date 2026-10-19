@@ -49,8 +49,9 @@ describe('zhitu tail drains the low-HP wail (zap.c:4588)', () => {
         // Damage landed, hero alive: the losehp ran non-fatally.
         assert.ok((game.u.uhp | 0) < 11 && (game.u.uhp | 0) >= 1);
         assert.equal(!!game.program_state?.gameover, false);
-        // C maybe_wail ran: flag drained, wail stamped this move.
-        assert.equal(game._needs_maybe_wail, false);
+        // C maybe_wail ran: no pending flag (losehp wails inline since
+        // D-4058), wail stamped this move.
+        assert.ok(!game._needs_maybe_wail);
         assert.equal(game.wailmsg | 0, game.moves | 0);
     });
 });

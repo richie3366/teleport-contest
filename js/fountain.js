@@ -379,7 +379,7 @@ export async function drinksink() {
             // JS defers via _losehp_needs_done — drain like
             // peffect_oil/dothrow, then fall through to monstunseesu
             // on survival (C order; the wail is non-fatal only).
-            losehp(rnd(6), 'sipping boiling water', KILLED_BY);
+            await losehp(rnd(6), 'sipping boiling water', KILLED_BY);
             if (game._losehp_needs_done) {
                 await finish_losehp_done();
                 if (game.program_state?.gameover) return;
@@ -840,7 +840,7 @@ export async function drinkfountain() {
                 // (hack.c:4287-4288 urgent_pline("You die...") + done(DIED));
                 // on wizard lifesave C breaks to the dryup tail. Drain in C
                 // order (potion.js D-3608 oil idiom): fatal → done, else wail.
-                losehp(rnd(4), 'unrefrigerated sip of juice', KILLED_BY_AN);
+                await losehp(rnd(4), 'unrefrigerated sip of juice', KILLED_BY_AN);
                 if (game._losehp_needs_done) {
                     await finish_losehp_done();
                     if (game.program_state?.gameover) return;
