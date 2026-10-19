@@ -9,7 +9,7 @@
 {"fn":"montraits","c":"713-827","status":"ported","js":["js/zap.js:montraits"],"d":["D-4041"],"at":"2026-10-16@99c3428ef"}
 {"fn":"get_container_location","c":"841-859","status":"ported","js":["js/zap.js:get_container_location"],"at":"2026-10-03@bbe63333a"}
 {"fn":"zombie_can_dig","c":"863-875","status":"ported","js":["js/zap.js:zombie_can_dig"],"d":["D-3408","D-3074"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
-{"fn":"revive","c":"884-1140","status":"partial","js":["js/zap.js:revive"],"omit":"enexto runs after the norevive/S_EEL twitch arm (C :961–964 before :966–972); OBJ_INVENT disposal via zap.js useup_invent clone (no setnotworn/freeinv/obfree, C :1108 useup); buried/default arms break instead of panic (:1131–1137); review 2956 Must-fix","d":["D-4116","D-4041"],"at":"2026-10-19@705415122"}
+{"fn":"revive","c":"884-1140","status":"ported","js":["js/zap.js:revive"],"d":["D-4125","D-4116","D-4041"],"at":"2026-10-19@30448c32e"}
 {"fn":"revive_egg","c":"1143-1152","status":"ported","js":["js/zap.js:revive_egg"],"at":"2026-10-03@bbe63333a"}
 {"fn":"unturn_dead","c":"1156-1222","status":"ported","js":["js/zap.js:unturn_dead"],"d":["D-3425"],"at":"2026-10-04@c4d4e5278"}
 {"fn":"unturn_you","c":"1225-1235","status":"ported","js":["js/zap.js:unturn_you"],"at":"2026-10-03@bbe63333a"}
@@ -74,7 +74,7 @@
 {"fn":"inventory_resistance_check","c":"5710-5718","status":"ported","js":["js/invent.js:inventory_resistance_check"],"at":"2026-10-03@bbe63333a"}
 {"fn":"item_what","c":"5722-5763","status":"ported","js":["js/invent.js:item_what"],"d":["D-3408","D-3074"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"maybe_destroy_item","c":"5798-5954","status":"ported","js":["js/zap.js:maybe_destroy_item"],"d":["D-3795","D-3612","D-3408","D-2164","D-1368"],"at":"2026-10-10@6f999f526"}
-{"fn":"destroy_items","c":"5965-6097","status":"ported","js":["js/zap.js:destroy_items"],"d":["D-2454"],"at":"seed@a30a7de84"}
+{"fn":"destroy_items","c":"5965-6097","status":"ported","js":["js/zap.js:destroy_items"],"d":["D-4125","D-2454"],"at":"2026-10-19@30448c32e"}
 {"fn":"resist","c":"6100-6158","status":"split","js":["js/zap.js:resist","js/explode.js:resist","js/music.js:resist","js/pray.js:resist","js/mhitm.js:resist_poly"],"d":["D-3212","D-2366","D-2116"],"at":"2026-10-01@1eadda2ce"}
 {"fn":"wishcmdassist","c":"6165-6219","status":"ported","js":["js/zap.js:wishcmdassist"],"d":["D-2484"],"at":"2026-10-01@6e06fa8e7","note":"stale: js/zap.js:7240 whole C body present (D-2484); declared omits are siblings/caller not callees (wish_history_add/menu zap.c:6227/6275, MAXWISHTRY retry loop in makewish); caller wired zap.js:7391"}
 {"fn":"wish_history_add","c":"6227-6255","status":"ported","js":["js/zap.js:wish_history_add"],"d":["D-3309","D-2873"],"at":"2026-10-02@2bcda1027"}

@@ -108,3 +108,5 @@ its square, so (1) was not exercised.
    iteration.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-4125
