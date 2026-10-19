@@ -353,19 +353,6 @@ export function test_move_hero_passes_bars() {
 }
 
 /**
- * C hack.c test_move :1025–1028 — DO_MOVE rust/corr/metallivore chew
- * instead of occupying bars. Passes_walls already allowed the cell in
- * C's first branch, so skip chew. Named: Underwater obstacle; generic
- * rock Passes_walls / tunnels / autodig.
- */
-export function test_move_hero_chews_bars() {
-    if (Passes_walls_prop()) return false;
-    const data = game.youmonst?.data;
-    return !!(dmgtype(data, AD_RUST) || dmgtype(data, AD_CORR)
-        || metallivorous(data));
-}
-
-/**
  * C hack.c squeezeablylightinvent — empty pack or inv_weight() <= -WT_SQUEEZABLE_INV.
  */
 function squeezeablylightinvent() {
@@ -393,27 +380,6 @@ export function could_move_onto_boulder(sx, sy) {
     }
     if (verysmall(game.youmonst?.data)) return true;
     return squeezeablylightinvent();
-}
-
-/**
- * C hack.c test_move 1216 — outer boulder gate (Sokoban || !Passes_walls).
- */
-export function test_move_boulder_is_blocking(x, y) {
-    return !!(sobj_at(BOULDER, x, y) && (Sokoban_here() || !Passes_walls_prop()));
-}
-
-/**
- * C hack.c test_move 1217–1221 — run>=2 abort (mode != TEST_TRAV).
- * Caller prints pline_dir on DO_MOVE + flags.mention_walls (D-1226).
- */
-export function test_move_run_blocked_by_boulder(x, y) {
-    if (!test_move_boulder_is_blocking(x, y)) return false;
-    if ((game.context?.run | 0) < 2) return false;
-    const u = game.u || {};
-    const Blind = !!(u.Blind || u.ublind || Blind_im());
-    if (Blind || Hallucination()) return false;
-    if (could_move_onto_boulder(x, y)) return false;
-    return true;
 }
 
 /**
