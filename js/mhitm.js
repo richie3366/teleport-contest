@@ -378,8 +378,12 @@ const MR_ACID = 0x40;
 
 const NO_ATTK = { aatyp: AT_NONE, adtyp: AD_PHYS, damn: 0, damd: 0 };
 
-/** Per-attack visibility; set in mattackm like C gv.vis. */
+/** Per-attack visibility; C gv.vis (mattackm, mdisplacem, uhitm hmonas). */
 let _mm_vis = false;
+/** C gv.vis writer for uhitm.c hmonas `:5434` / `:5856`. */
+export function set_mm_vis(v) {
+    _mm_vis = !!v;
+}
 
 /** C ref: monmove.c / muse.c mdistu — squared distance to hero. */
 function mdistu(mtmp) {
@@ -2270,6 +2274,7 @@ export async function mdisplacem(magr, mdef, quietly) {
     finish_meating(mdef);
 
     const vis = !!(canspotmon(magr) && canspotmon(mdef));
+    _mm_vis = vis; // C `:222` gv.vis — a global the next mhitm_* reads
 
     if (touch_petrifies(pd) && !resists_ston(magr)) {
         if (!which_armor(magr, W_ARMG)) {

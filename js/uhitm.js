@@ -67,7 +67,7 @@ import {
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AT_TENT,
     AT_EXPL, AT_ENGL, AT_BREA, AT_GAZE, AD_PHYS, AD_POLY, AD_DRIN, AD_SLEE,
     AD_DRST, AD_DRDX, AD_DRCO, AD_SAMU, AD_DRLI, AD_SITM, AD_SEDU, AD_SSEX,
-    AD_CONF, AD_WERE, AD_FAMN,
+    AD_CONF, AD_WERE, AD_FAMN, set_mm_vis,
 } from './mhitm.js';
 import { resists_drli, resists_cold, resists_poison, destroy_items, resist, drain_item, exclam } from './zap.js';
 import {
@@ -4235,6 +4235,9 @@ export async function hmonas(mon) {
     const attk_count = { v: 0 };
     const role_roll_penalty = { v: 0 };
 
+    /* not used here but umpteen mhitm_ad_xxxx() need this */
+    set_mm_vis(canseemon(mon) || m_next2u(mon)); // C `:5434` gv.vis
+
     for (let i = 0; i < NATTK; i++) {
         const pre = get_mattk(ym, i, mon, sum);
         if (pre.aatyp === AT_WEAP) multi_weap++;
@@ -4477,6 +4480,7 @@ export async function hmonas(mon) {
         if ((game.multi | 0) < 0) break;
         if (skip_passive) break;
     }
+    set_mm_vis(false); // C `:5856` gv.vis = FALSE; /* reset */
     gt_twohits = 0;
     return (mon.mhp | 0) >= 1;
 }

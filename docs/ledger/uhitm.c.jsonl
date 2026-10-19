@@ -1,4 +1,4 @@
-{"fn":"mhitm_mgc_atk_negated","c":"75-99","status":"ported","js":["js/mhitm.js:mhitm_mgc_atk_negated"],"d":["D-2175","D-2155","D-2043","D-2005","D-1870"],"at":"2026-10-03@bbe63333a"}
+{"fn":"mhitm_mgc_atk_negated","c":"75-99","status":"ported","js":["js/mhitm.js:mhitm_mgc_atk_negated"],"d":["D-4112","D-2175","D-2155","D-2043","D-2005","D-1870"],"at":"2026-10-19@d49199189"}
 {"fn":"dynamic_multi_reason","c":"104-123","status":"ported","js":["js/uhitm.js:dynamic_multi_reason"],"at":"2026-09-29@2c9129a4b","note":"stale: js/uhitm.js:259"}
 {"fn":"erode_armor","c":"126-185","status":"ported","js":["js/mhitm.js:erode_armor"],"d":["D-2071","D-1883"],"at":"2026-10-03@bbe63333a"}
 {"fn":"attack_checks","c":"189-327","status":"ported","js":["js/uhitm.js:attack_checks"],"d":["D-2752","D-2747"],"at":"seed@a30a7de84"}
@@ -89,7 +89,7 @@
 {"fn":"missum","c":"5198-5214","status":"ported","js":["js/uhitm.js:missum"],"d":["D-2124"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_is_steadfast","c":"5218-5243","status":"ported","js":["js/uhitm.js:m_is_steadfast"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mhitm_knockback","c":"5247-5420","status":"ported","js":["js/mhitm.js:mhitm_knockback"],"d":["D-4051","D-2750","D-2347","D-2091","D-2035","D-1932"],"at":"2026-10-17@1b804a0c0"}
-{"fn":"hmonas","c":"5424-5860","status":"ported","js":["js/uhitm.js:hmonas"],"d":["D-1916","D-1233"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all aatyp arms+passive+knockback+passivedone verified; gv.vis global by-design per-arm checks"}
+{"fn":"hmonas","c":"5424-5860","status":"ported","js":["js/uhitm.js:hmonas"],"d":["D-4112","D-1916","D-1233"],"at":"2026-10-19@d49199189","note":"audit 2026-10-03: all aatyp arms+passive+knockback+passivedone verified; gv.vis global by-design per-arm checks"}
 {"fn":"passive","c":"5865-6120","status":"ported","js":["js/uhitm.js:passive"],"d":["D-3978","D-3924","D-3836","D-3256","D-3251","D-2142"],"at":"2026-10-15@dce47a27b"}
 {"fn":"passive_obj","c":"6127-6195","status":"ported","js":["js/uhitm.js:passive_obj"],"d":["D-3256","D-3251"],"at":"2026-10-02@2716a3ced"}
 {"fn":"that_is_a_mimic","c":"6201-6276","status":"ported","js":["js/uhitm.js:that_is_a_mimic"],"d":["D-3443"],"at":"2026-10-05@3483b7469"}
