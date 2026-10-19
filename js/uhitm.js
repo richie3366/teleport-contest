@@ -1924,6 +1924,10 @@ async function umconf_tail(mon, hand_to_hand) {
 async function hmon_hitmon(mon, obj, thrown, _dieroll) {
     // C hmon_hitmon_misc_obj CREAM_PIE / BLINDING_VENOM before weapon dmg
     if (obj && (obj.otyp === CREAM_PIE || obj.otyp === BLINDING_VENOM)) {
+        // C do_hit `:1410–1411` saved_oname = cxname(obj) precedes the
+        // misc_obj arm; xname's observe_object discovers the pie/venom
+        // type (disco[] for `\`) — this early block bypasses do_hit (D-4093).
+        cxname(obj);
         mon.msleeping = 0;
         const aatyp = obj.otyp === BLINDING_VENOM ? AT_SPIT : AT_WEAP;
         if (can_blnd(game.youmonst || youmonst, mon, aatyp, obj)) {

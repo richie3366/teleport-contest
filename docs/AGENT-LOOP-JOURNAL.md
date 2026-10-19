@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4093 uhitm.c hmon_hitmon_do_hit: JS's early cream-pie/blinding-venom block skipped C's `saved_oname = cxname(obj)` snapshot, whose xname observe_object()s the object, so a thrown splash of venom never reached disco[] and `\` dropped «Venoms / splash of venom» (1 session → FULL PASS)
+
+**C locus:** artifact.c invoke_fling_poison → dothrow.c throwit → thitmonst `:2256–2259` → hmon → uhitm.c hmon_hitmon_do_hit `:1410–1411` `Strcpy(hmd->saved_oname, cxname(obj))` → objnam.c xname_flags `:628` `if (!Blind && !gd.distantname) observe_object(obj)` → o_init.c discover_object(…, FALSE, TRUE) marks oc_encountered and adds the type to disco[]; only then does `:1429` misc_obj run the BLINDING_VENOM arm.
+**JS:** js/uhitm.js (+4); scripts/hmon-venom-observe.test.mjs (new: prefix replay to s565 asserts «splash of venom» in the discoveries list — RED pre-fix (absent), GREEN post-fix).
+**Change:** the early block calls `cxname(obj)` first, C's do_hit snapshot order, before the msleeping/can_blnd work.
+**Verify:** `node scripts/verify.mjs --fn hmon_hitmon` → PASS syntax (js/uhitm.js) · rule2 · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS (no hidden movement line: the row is owned by doclassdisco). Direct `hidden-proxy score --ids`: sweep-Caveman-50050055 → FULL PASS; town-Tourist-630002 unchanged (s228, other shape). `hidden-proxy sweep hmon_hitmon,hmon,thitmonst` → 700 baseline-PASS sessions re-run, 0 regressed.
+**Named:** town-Tourist-630002 doclassdisco s228 (multi-segment, not yet diffed).
+**Next:** town-Tourist-630002 doclassdisco; reveal_terrain ×2; worldtour-Wizard-610136 blind timeout.
 ## 2026-10-19 — audit 2924–2933 @12a20993c: review D-4083..D-4092 (9A/1D/0Q, 0 Must-fix) + full rescore 749/985 (0 PASS→FAIL)
 
 **Reviews:** 2924 extcmd_via_menu prompt style + blank (5+1) · 2925 wish_history_menu prompt style (exact 3) · 2926 corner-menu dismiss drops flush_screen (C erase_menu_or_text corner arm = docorner only; 3 PASS) · 2927 show_region integer cloud glyph (exact 2; its board commit also re-scored 39 stale reserve rows to PASS, unclaimed) · 2928 altfeedback Blind()/hero_Invisible, Invisible_you clone deleted (exact 2) · 2929 blind timeout !EBlinded (exact 2) · 2930 is_innate/innately over uprops (WITH-DEBT: board flips **11**, D-log says 13; 12/12 role/race table props mapped) · 2931 Hunger uprops gate (exact 5; inline macro copy) · 2932 See_invisible gates, both copies (exact 3) · 2933 flooreffects pit-crush done() inline (exact 2).

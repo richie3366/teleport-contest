@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-4093 — uhitm.c hmon_hitmon_do_hit: JS's early cream-pie/blinding-venom block skipped C's `saved_oname = cxname(obj)` snapshot, whose xname observe_object()s the object, so a thrown splash of venom never reached disco[] and `\` dropped «Venoms / splash of venom» (1 session → FULL PASS)
+- **Status:** shipped (board @12a20993c. Near-pass scan (≤6 screens lost, core RNG full, non-OSC) grouped by owner + topline pair: doclassdisco ×2; sweep-Caveman-50050055 is this shape, town-Tourist-630002 another. No review stamp owed.)
+- **Symptom:** scen-sweep-Caveman-50050055 s565: `\` after s227–228 `#invoke` Grimtooth (FLING_POISON → «The venom blinds the tengu!») → C rows 16–17 «Venoms» / «  splash of venom», JS ends after «Gems/Stones».
+- **C locus:** artifact.c invoke_fling_poison → dothrow.c throwit → thitmonst `:2256–2259` → hmon → uhitm.c hmon_hitmon_do_hit `:1410–1411` `Strcpy(hmd->saved_oname, cxname(obj))` → objnam.c xname_flags `:628` `if (!Blind && !gd.distantname) observe_object(obj)` → o_init.c discover_object(…, FALSE, TRUE) marks oc_encountered and adds the type to disco[]; only then does `:1429` misc_obj run the BLINDING_VENOM arm.
+- **JS was:** js/uhitm.js hmon_hitmon handles CREAM_PIE/BLINDING_VENOM in an early block that returns before hmon_hitmon_do_hit, so the cxname snapshot (and its observe side effect) never ran. JS xname's observe_object is ported (D-0469), and do_hit already takes the snapshot for every other object.
+- **Fix:** the early block calls `cxname(obj)` first, C's do_hit snapshot order, before the msleeping/can_blnd work.
+- **JS:** js/uhitm.js (+4); scripts/hmon-venom-observe.test.mjs (new: prefix replay to s565 asserts «splash of venom» in the discoveries list — RED pre-fix (absent), GREEN post-fix).
+- **Callers:** behavior-only; no RNG (xname's observe has no draws). Cream pies thrown or melee'd are now observed too, as in C.
+- **Verify:** `node scripts/verify.mjs --fn hmon_hitmon` → PASS syntax (js/uhitm.js) · rule2 · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS (no hidden movement line: the row is owned by doclassdisco). Direct `hidden-proxy score --ids`: sweep-Caveman-50050055 → FULL PASS; town-Tourist-630002 unchanged (s228, other shape). `hidden-proxy sweep hmon_hitmon,hmon,thitmonst` → 700 baseline-PASS sessions re-run, 0 regressed.
+- **Named omissions:** town-Tourist-630002 doclassdisco s228 (multi-segment, not yet diffed).
+- **Ledger:** hmon_hitmon ported
+- **Next:** town-Tourist-630002 doclassdisco; reveal_terrain ×2; worldtour-Wizard-610136 blind timeout.
+
 ## D-4092 — do.c flooreffects boulder pit-crush: C's fatal losehp runs done() inline, before deletedwithboulder's reset_utrap, but JS deferred done to drop_boulder_on_player's later drain, so disclosure lost «You were trapped in a pit {6}.» (2 sessions → FULL PASS)
 - **Status:** shipped (board @773f8a162. D-4091's named leftovers: the pit line missing ×2 on the final attributes screen (sokoban Ranger/Samurai). A per-step utrap probe showed it zeroed between the «You are hit by a boulder!» and «falls into the pit with you» screens, i.e. inside flooreffects before done ran. No review stamp owed.)
 - **Symptom:** e.g. scen-sokoban-Ranger-50351023 s158: hero levitating-trapped in a pit (utrap 6) reads scroll of earth → boulder falls into the pit, crush death → C attributes list « You were trapped in a pit {6}.», JS omits it.
