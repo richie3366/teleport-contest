@@ -7,7 +7,7 @@
 {"fn":"maketrap","c":"456-588","status":"ported","js":["js/trap.js:maketrap"],"d":["D-3985","D-3829","D-3437","D-3431","D-3430","D-3427"],"at":"2026-10-15@5a03cff3a","note":"audited D-3437: whole vs C"}
 {"fn":"clamp_hole_destination","c":"593-599","status":"ported","js":["js/trap.js:clamp_hole_destination"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fall_through","c":"602-696","status":"ported","js":["js/trap.js:fall_through"],"at":"2026-10-03@bbe63333a"}
-{"fn":"animate_statue","c":"726-900","status":"ported","js":["js/trap.js:animate_statue"],"d":["D-3426","D-3425"],"at":"2026-10-04@0d801c73f","note":"audit 2026-10-03: also a11y-only: set_msg_xy skipped"}
+{"fn":"animate_statue","c":"726-900","status":"ported","js":["js/trap.js:animate_statue"],"d":["D-4080","D-3426","D-3425"],"at":"2026-10-19@205c9b107","note":"audit 2026-10-03: also a11y-only: set_msg_xy skipped"}
 {"fn":"activate_statue_trap","c":"908-936","status":"ported","js":["js/trap.js:activate_statue_trap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"keep_saddle_with_steedcorpse","c":"939-967","status":"ported","js":["js/trap.js:keep_saddle_with_steedcorpse"],"d":["D-3076"],"at":"2026-09-29@3a3d73a50","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mu_maybe_destroy_web","c":"972-1014","status":"ported","js":["js/trap.js:mu_maybe_destroy_web"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: pline vs pline_mon: text identical, msg_loc only"}

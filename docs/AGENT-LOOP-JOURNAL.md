@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4080 trap.c animate_statue: JS's two makemon calls skipped the deferred makemon_appear_msg tail, so makemon.c's `if (go.occupation) dochugw(mtmp, FALSE)` never stopped a counted search before «You find %s posing as a statue.» (2 sessions → FULL PASS)
+
+**C locus:** trap.c animate_statue `:779–788` makemon(…, MM_NOMSG …) → makemon.c `:1502–1503` `if (go.occupation) (void) dochugw(mtmp, FALSE);` (outside the MM_NOMSG guard): the new hostile is a spotted threat, so stop_occupation prints «You stop searching.» inside makemon; animate_statue's own `:851` stop_occupation then finds no occupation.
+**JS:** js/trap.js (+6: two awaited tail calls + comments); scripts/animate-statue-makemon-occupation.test.mjs (new: prefix replay to s88 asserts «You stop searching.  You find a jabberwock posing as a statue.» — RED pre-fix (swapped), GREEN post-fix).
+**Change:** both animate_statue makemon calls are followed by `await makemon_appear_msg(mon, mon.mx, mon.my, mmflags)`; the doppelganger one runs before newcham, as in C.
+**Verify:** `node scripts/verify.mjs --fn animate_statue` → PASS syntax (js/trap.js) · rule2 · `verify animate_statue: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep animate_statue` → 709 baseline-PASS sessions re-run, 0 regressed.
+**Named:** none in trap.js. Other modules' sync makemon callers were not audited for a missing makemon_appear_msg.
+**Next:** glibr ×3; readobjnam_postparse2 ×2 («a piece of food» vs the class name); extcmd_via_menu ×4; choose_disco_sort ×4.
 ## 2026-10-19 — D-4079 pager.c object_from_map: JS skipped the glyph_is_body/glyph_is_statue corpsenm arm, so a fake object made for a remembered corpse kept mksobj's random corpsenm — farlook/autodescribe named «an iguana corpse» where C said «a watchman corpse» (26 sessions → FULL PASS)
 
 **C locus:** pager.c object_from_map `:313–349` — no matching object at the spot → `mksobj(glyphotyp, FALSE, FALSE)` fake; `:346–349` `else if (otmp->otyp == CORPSE && glyph_is_body(glyph)) otmp->corpsenm = glyph_to_body_corpsenm(glyph); else if (STATUE && glyph_is_statue) … glyph_to_statue_corpsenm`.
