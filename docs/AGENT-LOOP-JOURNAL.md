@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4118 pager.c lookat's self arm is skipped while monster detection has the engulfed hero "unconstrained" (`iflags.save_uswallow && glyph == mon_to_glyph(u.ustuck, …)`, `:666`), but JS compared the integer glyph with mon_to_glyph's banked record, so the test was always false and browsing the hero's own square printed «human tourist called wizard» where C prints «lurker above, engulfing you» (1 sweep session → FULL PASS)
+
+**C locus:** pager.c lookat `:657–700` (save_uswallow gate `:665–668`; monster arm `:707–711` → look_at_monster `:445–447` ", engulfing you"); detect.c unconstrain_map `:72–81` / reconstrain_map `:84–91`.
+**JS:** js/pager.js (lookat :2134).
+**Change:** compare against `.glyph`. what_mon still draws on the display RNG, as in C.
+**Verify:** `node scripts/verify.mjs --fn mstatusline` → PASS syntax (js/pager.js) · rule2 · verify mstatusline: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep lookat` → 675 baseline-PASS re-run, 0 regressed → REACH-OK.
+**Named:** none.
+**Next:** hmonas (scen-worldtour-Caveman-610084 s559, 813 screens: «You hit the lurker above.» then JS adds «A newt suddenly appears close by!» from the same-step maybe_generate_rnd_mon; parked MISATTRIBUTED). Then hitmsg, m_unleash, jump.
 ## 2026-10-19 — D-4117 look_here's 5 symset rows were two writers. (1) wintty.c tty_print_glyph's extracolor arm (`:3899–3913`) was unported: an Enhanced1/2 G_fountain RGB customcolor goes to term_start_extracolor, which patch 006 never captures, so C records the fountain with the default fg where JS painted base bright blue. (2) options.c doset_simple_menu toggles a boolean via parseoptions → optfn_boolean (`:8659–8662`), but JS used a partial copy with no `color` arm, so turning color off never reached reglyph_darkroom and remembered lit-room floor went blank where C redraws «.» (5 sessions → FULL PASS)
 
 **C locus:** wintty.c tty_print_glyph `:3891–3913` (extracolor arm), `:4022–4029` (end-of-paint reset); termcap.c term_start_extracolor `:1587–1595`; options.c doset_simple_menu `:8659–8662`, optfn_boolean `:5286`/`:5300–5311`/`:5399–5409`, reset_needed_visuals `:8997–9001`; display.c reglyph_darkroom `:1818–1854`.

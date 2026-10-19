@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-4118 — pager.c lookat's self arm is skipped while monster detection has the engulfed hero "unconstrained" (`iflags.save_uswallow && glyph == mon_to_glyph(u.ustuck, …)`, `:666`), but JS compared the integer glyph with mon_to_glyph's banked record, so the test was always false and browsing the hero's own square printed «human tourist called wizard» where C prints «lurker above, engulfing you» (1 sweep session → FULL PASS)
+
+- **Status:** shipped (board @652d57407. Must-fix empty, and the cliffs block is still all unattributed tooling rows. Picked from the live queue as the lurker-above pair: `mstatusline` 529 screens + `hmonas` 813. A trace showed two different causes, so this ships the mstatusline one; hmonas is next.)
+- **Symptom:** scen-sweep-Tourist-50255248 s603/1132: the hero, engulfed by a lurker above, quaffs monster detection. In detect.c's browse_map getpos, `@` autodescribes the hero's square: C «lurker above, engulfing you» vs JS «human tourist called wizard». Core RNG fully matched.
+- **Measurement:** a temporary log in lookat (reverted) at the hero's square showed uswallow 0, save_uswallow 1, ustuck lurker above, glyph 481, and `mon_to_glyph(u.ustuck)` = `{ ch: 't', …, glyph: 481 }`, an object. So `glyph === mon_to_glyph(...)` was false and the self arm ran.
+- **C locus:** pager.c lookat `:657–700` (save_uswallow gate `:665–668`; monster arm `:707–711` → look_at_monster `:445–447` ", engulfing you"); detect.c unconstrain_map `:72–81` / reconstrain_map `:84–91`.
+- **JS was:** `glyph === mon_to_glyph(u.ustuck, rn2_on_display_rng)`. display.js mon_to_glyph returns the banked tty record (`glyph_from_mnum`), whose integer id is `.glyph`. Every other JS caller uses the record.
+- **Fix:** compare against `.glyph`. what_mon still draws on the display RNG, as in C.
+- **JS:** js/pager.js (lookat :2134).
+- **Callers:** none changed. A scan of pager.js / detect.js / getpos.js for `=== *_to_glyph(` found one other compare, `cmap_to_glyph(S_stone)` (:1498), and cmap_to_glyph returns an integer.
+- **Verify:** `node scripts/verify.mjs --fn mstatusline` → PASS syntax (js/pager.js) · rule2 · verify mstatusline: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep lookat` → 675 baseline-PASS re-run, 0 regressed → REACH-OK.
+- **Named omissions:** none.
+- **Ledger:** lookat ported
+- **Next:** hmonas (scen-worldtour-Caveman-610084 s559, 813 screens: «You hit the lurker above.» then JS adds «A newt suddenly appears close by!» from the same-step maybe_generate_rnd_mon; parked MISATTRIBUTED). Then hitmsg, m_unleash, jump.
+
 ## D-4117 — look_here's 5 symset rows were two writers. (1) wintty.c tty_print_glyph's extracolor arm (`:3899–3913`) was unported: an Enhanced1/2 G_fountain RGB customcolor goes to term_start_extracolor, which patch 006 never captures, so C records the fountain with the default fg where JS painted base bright blue. (2) options.c doset_simple_menu toggles a boolean via parseoptions → optfn_boolean (`:8659–8662`), but JS used a partial copy with no `color` arm, so turning color off never reached reglyph_darkroom and remembered lit-room floor went blank where C redraws «.» (5 sessions → FULL PASS)
 
 - **Status:** shipped (board @afabc5140; asked for directly: `look_here`, 5 sessions, 1409 screens. Owner = region heuristic: in every row the text matches and toplines are empty. A cell diff split them into the two writers above. Resolves the D-4031 / D-3946 extracolor parks.)

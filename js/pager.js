@@ -2129,7 +2129,9 @@ export function lookat(x, y) {
         u_at(x, y) && canspotself()
         && !(save_uswallow
             && u.ustuck
-            && glyph === mon_to_glyph(u.ustuck, rn2_on_display_rng))
+            // C `:666` int compare; JS mon_to_glyph returns the
+            // banked record, its id is `.glyph`.
+            && glyph === mon_to_glyph(u.ustuck, rn2_on_display_rng).glyph)
         && (!terrainmode || (terrainmode & TER_MON) !== 0)
     ) {
         buf = self_lookat();
