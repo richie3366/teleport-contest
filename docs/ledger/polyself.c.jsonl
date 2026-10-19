@@ -18,7 +18,7 @@
 {"fn":"doremove","c":"1481-1494","status":"ported","js":["js/polyself.js:doremove"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dospinweb","c":"1497-1621","status":"ported","js":["js/polyself.js:dospinweb"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dosummon","c":"1624-1639","status":"ported","js":["js/polyself.js:dosummon"],"at":"2026-10-03@bbe63333a"}
-{"fn":"dogaze","c":"1642-1773","status":"ported","js":["js/polyself.js:dogaze"],"at":"2026-10-03@bbe63333a"}
+{"fn":"dogaze","c":"1642-1773","status":"ported","js":["js/polyself.js:dogaze"],"d":["D-4101"],"at":"2026-10-19@8ce8c49e8"}
 {"fn":"dohide","c":"1777-1874","status":"ported","js":["js/polyself.js:dohide"],"d":["D-2069"],"at":"2026-10-02@e42cd0047","note":"stale: js/polyself.js:2574 whole C body, all arms in C order (D-2069)"}
 {"fn":"dopoly","c":"1877-1890","status":"ported","js":["js/polyself.js:dopoly"],"at":"2026-10-03@bbe63333a"}
 {"fn":"domindblast","c":"1894-1938","status":"ported","js":["js/polyself.js:domindblast"],"d":["D-1901"],"at":"2026-10-03@bbe63333a"}

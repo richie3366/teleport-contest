@@ -14,7 +14,7 @@
 {"fn":"maybe_gasp","c":"546-610","status":"ported","js":["js/sounds.js:maybe_gasp"],"d":["D-1762"],"at":"2026-10-03@bbe63333a"}
 {"fn":"cry_sound","c":"617-655","status":"ported","js":["js/sounds.js:cry_sound"],"d":["D-3407","D-3109"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"mon_is_gecko","c":"659-674","status":"ported","js":["js/sounds.js:mon_is_gecko"],"d":["D-3407","D-3109"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
-{"fn":"domonnoise","c":"679-1242","status":"ported","js":["js/sounds.js:domonnoise"],"d":["D-1980","D-1979","D-1978","D-1977","D-1969","D-1808"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
+{"fn":"domonnoise","c":"679-1242","status":"ported","js":["js/sounds.js:domonnoise"],"d":["D-4101","D-1980","D-1979","D-1978","D-1977","D-1969"],"at":"2026-10-19@8ce8c49e8","note":"stale 2026-09-14"}
 {"fn":"dotalk","c":"1248-1254","status":"ported","js":["js/sounds.js:dotalk"],"d":["D-3407","D-3109"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"dochat","c":"1257-1409","status":"ported","js":["js/sounds.js:dochat"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audit 2026-10-03: all arms/messages/return codes present; only predicate narrowing in wall/statue arms"}
 {"fn":"responsive_mon_at","c":"1413-1423","status":"ported","js":["js/sounds.js:responsive_mon_at"],"at":"2026-10-03@bbe63333a"}

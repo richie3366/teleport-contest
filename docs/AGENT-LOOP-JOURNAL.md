@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4101 sounds.c domonnoise / polyself.c dogaze: C's `gn.nomovemsg = 0` (NULL, unmul's "You can move again." default) was ported as the number 0, which JS unmul neither defaults (`== null`) nor prints, so a skeleton-rattle freeze or a poly'd gaze freeze ended silently (2 sessions → FULL PASS)
+
+**C locus:** sounds.c domonnoise MS_BONES `:970–975` `nomul(-2); gm.multi_reason = "scared by rattling"; gn.nomovemsg = 0;` and polyself.c dogaze `:1746` the same NULL after a gaze freeze; hack.c unmul `:4181–4184` `else if (!gn.nomovemsg) gn.nomovemsg = You_can_move_again;` then prints it.
+**JS:** js/sounds.js (1 line); js/polyself.js (1 line); scripts/nomovemsg-null-default.test.mjs (new: prefix replay to s158 asserts «You can move again.»; RED pre-fix «The vampire bat's bite was poisoned!», GREEN post-fix).
+**Change:** both writers now assign `null` (C NULL), with a C cite.
+**Verify:** `node scripts/verify.mjs --fn vomiting_dialogue` → PASS syntax (js/polyself.js js/sounds.js) · rule2 · verify vomiting_dialogue: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach 16/16 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. A run with `--fn vomiting_dialogue,domonnoise` also listed the one row already blocked on domonnoise, scen-options-Knight-50355037 s67 (C adds «You see your saddled pony.» after «whickers.», a composed message from another path): unchanged, not worse; reach 35/35. `hidden-proxy sweep domonnoise,unmul` → 723 baseline-PASS sessions re-run, 0 regressed → REACH-OK.
+**Named:** none.
+**Next:** options-Knight-50355037 «You see your saddled pony.» writer; that_is_a_mimic ×2; getobj prompt letters ×4.
 ## 2026-10-19 — D-4100 potion.c potionhit: a potion hitting the hero «crashes on your head» was hardcoded in JS, but C names body_part(HEAD), so a headless polymorphed hero reads «body» and a vortex «central core» (2 sessions → FULL PASS; +2 stale D-4098 flips recorded)
 
 **C locus:** potion.c potionhit `:1633–1641`: the hero arm prints `pline_The("%s crashes on your %s and breaks into shards.", botlnam, body_part(HEAD))`; `:1678–1679` prints one `Tobjnam(obj, "evaporate")` for hero and monster alike.
