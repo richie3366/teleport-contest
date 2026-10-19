@@ -44,7 +44,7 @@
 {"fn":"insert_timer","c":"2467-2480","status":"ported","js":["js/mkobj.js:insert_timer"],"d":["D-3055"],"at":"2026-09-28@d30e99009"}
 {"fn":"remove_timer","c":"2483-2502","status":"ported","js":["js/mkobj.js:remove_timer"],"d":["D-2961"],"at":"seed@a30a7de84"}
 {"fn":"write_timer","c":"2505-2551","status":"ported","js":["js/mkobj.js:write_timer"],"d":["D-3867","D-3407","D-3055"],"at":"2026-10-12@0f2c814e2","note":"audited D-3407: whole vs C"}
-{"fn":"obj_is_local","c":"2560-2577","status":"ported","js":["js/mkobj.js:obj_is_local"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: unreachable panic arm returns false"}
+{"fn":"obj_is_local","c":"2560-2577","status":"ported","js":["js/mkobj.js:obj_is_local"],"d":["D-4103"],"at":"2026-10-19@e6fdf0e76","note":"audit 2026-10-03: unreachable panic arm returns false"}
 {"fn":"mon_is_local","c":"2584-2596","status":"ported","js":["js/mkobj.js:mon_is_local"],"at":"2026-10-03@bbe63333a"}
 {"fn":"timer_is_local","c":"2603-2618","status":"ported","js":["js/mkobj.js:timer_is_local"],"d":["D-3055"],"at":"2026-09-28@d30e99009"}
 {"fn":"maybe_write_timer","c":"2627-2651","status":"ported","js":["js/mkobj.js:maybe_write_timer"],"d":["D-3055"],"at":"2026-09-28@d30e99009","note":"refresh: no JS symbol (measured MISSING)"}

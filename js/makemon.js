@@ -189,7 +189,7 @@ import { mselftouch } from './trap.js';
 import { sticks } from './engrave.js';
 import { m_unleash, leashable } from './apply.js';
 import { update_inventory, Blind, count_unpaid } from './invent.js';
-import { subfrombill, find_objowner } from './shk.js';
+import { subfrombill, find_objowner, obfree } from './shk.js';
 import { set_apparxy, monflee, can_hide_under_obj, dochugw } from './monmove.js';
 import { cursed_object_at } from './dogmove.js';
 /* C topten.c classmon / get_rnd_toptenentry — hoisted, called only from
@@ -4159,9 +4159,10 @@ export function set_mimic_sym(mtmp) {
             } else if (s_sym === COIN_CLASS) {
                 appear = GOLD_PIECE;
             } else {
-                const otmp = mkobj(s_sym, false);
-                appear = otmp?.otyp ?? STRANGE_OBJECT;
-                // C: obfree — discard without floor/obj_resists
+                const otmp = mkobj(s_sym, false); // C :2505
+                appear = otmp.otyp; // C :2506
+                /* make sure container contents are free'ed */
+                obfree(otmp, null); // C :2508 — also stops its timers
             }
         }
     }

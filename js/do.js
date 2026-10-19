@@ -1103,19 +1103,6 @@ async function familiar_level_msg() {
 }
 
 /**
- * C invent.c useupall subset for nhl_gamestate restore — setnotworn+freeinv.
- * obfree contents / obj_resists deferred (do not delobj: that consumes rn2).
- */
-function useupall_gamestate(obj) {
-    if (!obj) return;
-    setnotworn(obj);
-    const inv = game.invent || [];
-    const idx = inv.indexOf(obj);
-    if (idx >= 0) inv.splice(idx, 1);
-    obj.where = OBJ_FREE;
-}
-
-/**
  * C ref: nhlua.c nhl_gamestate(false) via tutorial_enter / tutorial(TRUE).
  * Stash invent (preserve owornmask as restore flag) via setnotworn+freeinv
  * so extrinsics clear and find_ac → base 10. Backup u/disco/mvitals/spl_book
@@ -1152,7 +1139,7 @@ function tutorial_enter_gamestate() {
 
 /**
  * C ref: nhlua.c nhl_gamestate(true) via tutorial_leave / tutorial(FALSE).
- * useupall tutorial invent; addinv_nomerge stash + setworn from flag;
+ * useupall tutorial invent (live invent.js export); addinv_nomerge stash + setworn from flag;
  * memcpy u (keep uz/uz0) / disco / mvitals; clear oc_uname; init_uhunger;
  * free_tutorial; memcpy spl_book. Named omit: leftover obfree contents;
  * update_inventory redraw. `nhcore_call_available` disable is tutorial().
@@ -1166,10 +1153,13 @@ async function tutorial_leave_gamestate() {
     const inv = game.invent || (game.invent = []);
     // C nhlua.c:1742–1743 + invent.c:1383 + artifact.c:880–885 — useupall runs
     // freeinv_core, whose W_ART-off re-invokes a still-on property toggle
-    // (async half; dropx/zap envelope pattern).
+    // (async half; dropx/zap envelope pattern). The live useupall ends in
+    // obfree → dealloc_obj, which stops the item's timers and light source
+    // (a tutorial corpse or lit lamp would otherwise outlive it and reach
+    // obj_is_local's panic at the next savelev).
     while (inv.length) {
         const otmp = inv[0];
-        useupall_gamestate(otmp);
+        useupall(otmp); // C :1743.
         if (otmp.oartifact) await revoke_invoked_property(otmp);
     }
 
