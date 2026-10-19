@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-19 — D-4116 zap.c revive's norevive / eel-out-of-water arm prints `upstart(corpse_xname(corpse, NULL, CXN_PFX_THE))` (`:967–972`), but JS used `xname(corpse)` plus a hand-made capital, so a norevive troll corpse printed «Corpse twitches feebly.» where C prints «The troll corpse twitches feebly.» (1 zapfest session → FULL PASS)
+
+**C locus:** zap.c revive `:883–1140`: non-CORPSE impossible `:896–899`; norevive / S_EEL-not-in-pool twitch `:966–973`.
+**JS:** js/zap.js (revive :3318 impossible, :3402
+**Change:** the twitch arm is C's expression: `upstart(corpse_xname(corpse, null, CXN_PFX_THE))` (objnam.js corpse_xname, hacklib.js upstart). The non-CORPSE arm awaits `impossible('Attempting to revive %s?')` with xname, then returns null. I re-read the rest of the body against C `:900–1140` (location, container rules, enexto, gender mmflags, cant_revive / montraits / makemon arms, mundetected, seemimic, splitobj, shop glow and charge, ghost recorporealization, christen, oeaten, mrevived, the disposal switch) and found it matches.
+**Verify:** `node scripts/verify.mjs --fn revive` → PASS syntax (js/zap.js) · rule2 · verify revive: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep revive` → 669 baseline-PASS sessions re-run, 0 regressed → REACH-OK.
+**Named:** none new. cant_finish_meal stays as D-4041 left it.
+**Next:** cliffs block still all unattributed tooling rows. Next non-parked owners on the live queue: hitmsg (1, «Your eyes sting. You cough!» vs «The golden haze…»), m_unleash (1, apply.js `mhis_leash` clone vs C mhis() `:732–733`), jump (1, «You are carrying too much to jump!»).
 ## 2026-10-19 — D-4115 cmd.c extcmdlist binds 'C' to "call" → docallcmd (`:1687–1688`), but JS's runner table (getline.js EXT_CMDS) had no "call" entry, so rhack's cmdbind_get('C') found the binding, got no runner, and printed «Unknown command 'C'.» where C opens «What do you want to name?»; "redraw", "remove", "retravel" (C('_')) and "whatdoes" had the same gap (2 extcmd sessions → FULL PASS)
 
 **C locus:** cmd.c extcmdlist `:1687–1688` (call), `:1818–1819` (redraw), `:1820–1821` (remove), `:1831–1832` (retravel), `:1934–1935` (whatdoes); rhack cmdbind_get dispatch; do_name.c docallcmd `:499–601`.
