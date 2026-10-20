@@ -4,7 +4,7 @@
 {"fn":"winch_handler","c":"361-387","status":"unknown"}
 {"fn":"resize_tty","c":"392-467","status":"unknown"}
 {"fn":"newclipping","c":"471-486","status":"ported","js":["js/display.js:newclipping"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Full CLIPPING arms: small screen setclipped+cliparound when x, else unclip and zero offsets."}
-{"fn":"new_status_window","c":"491-507","status":"ported","js":["js/botl.js:new_status_window"],"d":["D-3993"],"at":"2026-10-15@7005cc234","note":"D-3993: both tty clears live (clear_status_window blanks buffer+grid rows 21-23, cache blanked); winch caller still named (no JS resize)"}
+{"fn":"new_status_window","c":"491-507","status":"ported","js":["js/botl.js:new_status_window"],"d":["D-4152","D-3993"],"at":"2026-10-20@6f89db05e","note":"D-4152: both tty clears blank only the window's own rows (statusWinRows from tty_status_init): old rows pre-destroy, new rows post-init"}
 {"fn":"tty_init_nhwindows","c":"511-593","status":"unknown"}
 {"fn":"tty_preference_update","c":"596-631","status":"ported","js":["js/options.js:preference_update"],"d":["D-3993"],"at":"2026-10-15@7005cc234"}
 {"fn":"tty_player_selection","c":"634-641","status":"unknown"}

@@ -5,6 +5,8 @@
 - D-entry: D-4151; Ledger: more ported
 - `js/` diff: js/display.js +6
 
+**Addressed:** D-4152
+
 ## Intent vs deliverable
 
 Promise: topl.c more() ends a wrapped message with `docorner(1,

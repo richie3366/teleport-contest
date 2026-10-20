@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-10-20
+
+- [x] **PASS→FAIL (archived fortress) — wintty.c tty_preference_update → new_status_window / newclipping repaint.** scen-symset-Monk-50255053 s558/864 (screens 863/864, RNG 8553/8553 intact; owner optfn_statuslines): after `O` `statuslines:6` («'statuslines:6' is invalid; must be 2 or 3.--More--»; wc2_statuslines stays 2), C still shows map row 20 (screen row 21, `#` col 62), JS blanks it. Bisected over 160 js/ commits: `384c02413~1` PASS 864/864, `384c02413` FAIL → D-3993 (made the statuslines arm live: js/options.js preference_update, js/display.js new_status_window / newclipping). C runs the arm for a rejected value too (doset ignores the optfn return, options.c :8688 / :8958), so the bug is in the JS repaint, not the call. C: wintty.c tty_preference_update :596–604, new_status_window, display.c newclipping. Source: reviews/loop-unattended/2991-184653034-more-docorner-cl-end.md **Addressed:** D-4152
+
 ## 2026-10-19
 
 - [x] `revive` (zap.c :883–1140) is not whole, though the ledger says ported. (a) C runs `MON_AT → enexto` (:961–964) **before** the norevive / S_EEL-off-pool twitch arm (:966–972). JS tests norevive/IS_POOL/cansee on the corpse's own square first and runs enexto only afterwards (zap.js:3398–3414), so a norevive corpse under a monster skips enexto's `rn2` and checks the wrong square. (b) The OBJ_INVENT disposal (:1108 `useup`) and destroy_items (:5931 `useup`) go through the zap.js:1546 `useup_invent` clone. It only splices `game.invent`: no setnotworn (a wielded revived corpse leaves `uwep` dangling), no freeinv_core/update_inventory, no obfree. Import invent.js `useup` and delete the clone. (c) OBJ_BURIED non-zombie / default must `panic("revive default case %d")` (:1131–1137), not `break`. Source: reviews/loop-unattended/2956-afabc5140-revive-twitch-corpse-xname.md **Addressed:** D-4125 `b37c5a9d5`
