@@ -567,7 +567,10 @@ async function regen_pw(wtcap) {
  * C ref: attrib.c exerper — hunger / encumbrance / status exercise ticks.
  * Named omissions: full Sick/Vomiting timeout bodies (flags only when set).
  */
-function exerper() {
+async function exerper() {
+    // C attrib.c exercise `:516–517` ends in encumber_msg for STR/CON,
+    // whose pline can block at a --More-- before exerper returns.
+    const ex = async (i, inc) => { const p = exercise(i, inc); if (p) await p; };
     const moves = game.moves || 0;
     const u = game.u || {};
     // C attrib.c:523–524 — exerper hunger/encumbrance ticks every 10 moves.
@@ -580,29 +583,29 @@ function exerper() {
             // C attrib.c:534–536 — SATIATED Monk also trains WIS
             if (isMonk) exercise(A_WIS, false);
         } else if (hunger > 150) {
-            exercise(A_CON, true);
+            await ex(A_CON, true);
         } else if (hunger > 50) {
             /* HUNGRY — no exercise in switch until WEAK */
         } else if (hunger > 0) {
-            exercise(A_STR, false);
+            await ex(A_STR, false);
             // C attrib.c:542–544 — WEAK fasting Monk trains WIS
             if (isMonk) exercise(A_WIS, true);
         } else {
-            exercise(A_CON, false);
+            await ex(A_CON, false);
         }
 
         // Encumbrance Checks
         switch (near_capacity()) {
         case MOD_ENCUMBER:
-            exercise(A_STR, true);
+            await ex(A_STR, true);
             break;
         case HVY_ENCUMBER:
-            exercise(A_STR, true);
+            await ex(A_STR, true);
             exercise(A_DEX, false);
             break;
         case EXT_ENCUMBER:
             exercise(A_DEX, false);
-            exercise(A_CON, false);
+            await ex(A_CON, false);
             break;
         default:
             break;
@@ -619,12 +622,12 @@ function exerper() {
         if (hasClair && !blockClair) exercise(A_WIS, true);
         const regenProp = u.uprops?.[REGENERATION];
         if ((u.HRegeneration | 0) || (regenProp?.intrinsic | 0)) {
-            exercise(A_STR, true);
+            await ex(A_STR, true);
         }
         // C: Confusion ≡ HConfusion (youprop.h:84); Hallucination ≡
         // HHallucination && !Halluc_resistance (:120), resistance H||E
         // (:119) via the house hallucResisted union (D-4046).
-        if (u.Sick || u.Vomiting) exercise(A_CON, false);
+        if (u.Sick || u.Vomiting) await ex(A_CON, false);
         if ((u.HConfusion | u.Confusion)
             || ((u.HHallucination | 0) && !hallucResisted(u))
             || u.Hallucination) {
@@ -662,7 +665,7 @@ const EXERTEXT = [
  */
 async function exerchk() {
     /* C `:602–604`: check out the periodic accumulations first. */
-    exerper();
+    await exerper();
     const g = game;
     const moves = g.moves || 0;
     if (!g.context) g.context = {};

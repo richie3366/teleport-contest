@@ -760,7 +760,7 @@ async function dopush(sx, sy, rx, ry, otmp, costly) {
                 `With ${easypush ? 'little' : 'great'} effort you move ${what}.`,
             );
         }
-        if (!easypush) exercise(A_STR, true);
+        if (!easypush) await exercise(A_STR, true);
     } else if (givemesg) {
         await pline(`${YMonnam(u.usteed)} moves ${what}.`);
     }
@@ -1552,7 +1552,7 @@ export async function carrying_too_much() {
     }
     if (wtcap < OVERLOADED) {
         await pline("You don't have enough stamina to move.");
-        exercise(A_CON, false);
+        await exercise(A_CON, false);
     } else {
         await pline('You collapse under your load.');
     }
@@ -1576,7 +1576,7 @@ export async function overexert_hp() {
         game.flags.botl = true;
     } else {
         await pline('You pass out from exertion!');
-        exercise(A_CON, false);
+        await exercise(A_CON, false);
         /* C hack.c:3045 — fall_asleep(-10, FALSE). */
         await fall_asleep(-10, false);
     }
@@ -3930,7 +3930,7 @@ export async function dosinkfall() {
                     await finish_losehp_done();
                     return;
                 }
-                exercise(A_CON, false);
+                await exercise(A_CON, false);
             }
         }
         u.ELevitation = save_ELev;

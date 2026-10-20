@@ -1203,7 +1203,12 @@ export async function encumber_msg() {
     // displayed (after this pline's own flush, before any later one).
     // The post-pline real sets below stay as the suppressed-message
     // backstop (a suppressed pline never reaches putmesg).
-    if (oldcap !== newcap) game._pending_botl = true;
+    // Only a crossing that prints: the decrease switch has no arm past
+    // HVY_ENCUMBER (pickup.c `:2001–2015`), so Overloaded → Overtaxed only
+    // sets disp.botl (below) and must not leave a pending commit for the
+    // next unrelated pline's putmesg (D-4173).
+    if (oldcap < newcap || (oldcap > newcap && newcap <= HVY_ENCUMBER))
+        game._pending_botl = true;
     if (oldcap < newcap) {
         switch (newcap) {
         case SLT_ENCUMBER:

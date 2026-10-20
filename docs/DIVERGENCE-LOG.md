@@ -1,5 +1,35 @@
 # Divergence log
 
+## D-4173 — attrib.c exercise ends with `if (moves > 0 && (i == A_STR || i == A_CON)) encumber_msg();` (`:516–517`), and that pline can block at a --More-- for the previous message before exercise returns. JS's exercise floated it (`void encumber_msg()`), so every caller ran on (find_ac, mdamageu, the next RNG draw) before the key was read, and the --More-- screen showed a later status line. Separately, JS encumber_msg left a pending botl commit (`_pending_botl`) on the message-less Overloaded → Overtaxed crossing, which the next unrelated pline's putmesg turned into a status repaint (3 corpus sessions → FULL PASS)
+
+- **Status:** shipped.
+- **Symptom:** the do_statusline2 cliff row (4 sessions, `toplines identical`, status row differs at a --More--):
+  - scen-zapfest-Knight-50750084 s556 «Your mail turns to dust…--More--»: C AC:5, JS AC:8.
+  - scen-sweep-Priest-50750049 s1061 «You are being squashed!--More--»: C HP:159, JS HP:149.
+  - scen-sweep-Valkyrie-50850025 s222 «…You find you must drop your whip!--More--»: C Overtaxed, JS Strained.
+  - scen-worldtour-Valkyrie-49955041 s543 (C HP:73, JS HP:65) has a different cause; see Next.
+- **Measurement:**
+  - **Zapfest.** C's step-556 RNG ends `rn2(19) @ exercise(attrib.c:509)` and the next step starts `rn2(76) @ moveloop_core(allmain.c:360)`. The --More-- is exerchk (`:356`) → exerper → exercise → encumber_msg «Your movements are now unencumbered.», before the once-per-input find_ac (`:453`). JS drew that rn2(76) before its wait (316 vs 315 calls). A field-write trap on `u.uac` named moveloop_core's find_ac as the 5 → 8 writer.
+  - **Priest.** C ends `d(2,6)=10 @ gulpmu(mhitu.c:1292)`, `rn2(2) @ exercise`. gulpmu's damage is applied after the exercise call, so C's HP is unchanged at the --More--.
+  - **Valkyrie.** A temporary `disp.botl` accessor showed two sets. One is the shield dropp → dropz → encumber_msg (Overloaded → Overtaxed: decrease, `default:` arm, no message, `disp.botl = TRUE` as in C). The other is the whip message's putmesg converting the `_pending_botl` that crossing left behind. The «You falter» pline's flush then repainted Strained before raising the --More--; C's flush sees botl already cleared by the whip pline's flush.
+- **C locus:** attrib.c exercise `:509`, `:516–517`; exerper `:520–580`; exerchk `:598–603`; pickup.c encumber_msg `:1975–2020` (decrease switch `:2001–2015` has no EXT/OVERLOADED arm); allmain.c `:356–360`, `:403`, `:453`; mhitu.c gulpmu `:1292`.
+- **JS was:** exercise ended `void encumber_msg();`. exerper (allmain.js) was sync. encumber_msg set `game._pending_botl` on every crossing.
+- **Fix:**
+  - exercise returns encumber_msg's promise (undefined otherwise). It stays sync for the sync callers that drop the value.
+  - exerper is async and awaits its 8 STR/CON exercise calls through a guard (`if (p) await p`); exerchk awaits exerper.
+  - All 96 STR/CON `exercise(...)` statements in async functions now `await` it (20 files, scripted: each is a plain statement inside an `async function`; none in a sync function).
+  - encumber_msg sets `_pending_botl` only when a message will print (`oldcap < newcap`, or a decrease to ≤ HVY_ENCUMBER).
+- **JS:** js/attrib.js exercise; js/allmain.js exerper/exerchk; js/invent.js encumber_msg; the awaiting callers in js/{artifact,ball,dokick,dothrow,eat,explode,fountain,hack,lock,mhitu,mthrowu,polyself,potion,pray,read,sit,timeout,trap,uhitm,zap}.js.
+- **Callers:** all 96 C-mirrored STR/CON exercise sites outside attrib.js are awaited; the A_DEX/A_WIS/A_INT/A_CHA calls never reach encumber_msg and are unchanged. encumber_msg's own callers (dropz, moveloop `:403`, pickup paths) are unchanged.
+- **Verify:**
+  - verify do_statusline2: 3 PASS, 0 moved past, 1 unchanged, 0 worse → PROGRESS.
+  - `score --ids` on the 58 failing rows vs committed HEAD board: **676/734** (+3: scen-zapfest-Knight-50750084, scen-sweep-Priest-50750049, scen-sweep-Valkyrie-50850025 FULL PASS; no other row moved, no regression).
+  - `node scripts/verify.mjs --fn do_statusline2,exercise,encumber_msg` → syntax · rule2 · reach REACH-OK ×3 (exercise: 80 of 660 reaching) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `hidden-proxy sweep moveloop_core` → 673 baseline-PASS re-run in 160.6s, 0 regressed → REACH-OK.
+- **Named omissions:** none in exercise/exerper/encumber_msg. Sync callers that drop exercise's promise (none among the C-mirrored STR/CON sites today) would still float the message.
+- **Ledger:** exercise ported; exerper ported; encumber_msg ported
+- **Next:** scen-worldtour-Valkyrie-49955041 s543. An electric-eel shock destroys a ruby ring, and C then runs an impossible() path: «Strange... I didn't know you had that ring.» / «Program in disorder!» (HP 73 shown until then; JS skips it and shows 65 at once). Port that C path faithfully (user rule: imitate C bugs), likely do_wear.c Ring_gone / destroy_items ordering.
+
 ## D-4172 — Two rumors.fal fortunes end in a literal `--More--` («You choke on the fortune cookie.  --More--» `:389`, «You can get a genuine Amulet of Yendor by doing the following:  --More--»). C prints them as plain plines; no more() runs. The next command's flush_screen(1) puts the cursor on the hero (display.c curs_on_u). JS's flush painter (_buildScreenOutput) and runSegment's capture hook both moved the cursor to the topline whenever the message text ended in `--More--`, so the one screen after such a fortune had the cursor on row 0 (2 corpus sessions → FULL PASS)
 
 - **Status:** shipped.

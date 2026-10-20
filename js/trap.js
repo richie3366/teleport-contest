@@ -2414,7 +2414,7 @@ async function trapeffect_pit(mtmp, trap, trflags) {
             }
             if (!conj_pit) await selftouch('Falling, you');
             game.vision_full_recalc = 1;
-            exercise(A_STR, false);
+            await exercise(A_STR, false);
             exercise(A_DEX, false);
         }
         return Trap_Effect_Finished;
@@ -3610,8 +3610,8 @@ export async function b_trapped(item, bodypart = NO_PART) {
     await wake_nearby(false);
     await losehp(maybe_half_phys(dmg), 'explosion', KILLED_BY_AN);
     if (await finish_hero_losehp()) return;
-    exercise(A_STR, false);
-    if ((bodypart | 0) !== NO_PART) exercise(A_CON, false);
+    await exercise(A_STR, false);
+    if ((bodypart | 0) !== NO_PART) await exercise(A_CON, false);
     const u = game.u || (game.u = {});
     await make_stunned(((u.HStun | 0) & TIMEOUT) + dmg, true);
 }
@@ -4157,7 +4157,7 @@ async function trapeffect_rocktrap(mtmp, trap, _trflags) {
         if (!harmless) {
             await losehp(maybe_half_phys(dmg), 'falling rock', KILLED_BY_AN);
             if (await finish_hero_losehp()) return Trap_Effect_Finished;
-            exercise(A_STR, false);
+            await exercise(A_STR, false);
         }
         return Trap_Effect_Finished;
     }
@@ -8204,7 +8204,7 @@ export async function chest_trap(obj, bodypart, disarm) {
             await wake_nearby(false);
             await losehp(maybe_half_phys(d(6, 6)), buf, KILLED_BY_AN);
             if (await finish_hero_losehp()) return chestgone;
-            exercise(A_STR, false);
+            await exercise(A_STR, false);
             if (costly && loss) {
                 if (insider) {
                     await pline(
@@ -8229,12 +8229,12 @@ export async function chest_trap(obj, bodypart, disarm) {
             } else {
                 await create_gas_cloud(obj.ox | 0, obj.oy | 0, 1, 8);
             }
-            exercise(A_CON, false);
+            await exercise(A_CON, false);
             break;
         case 16: case 15: case 14: case 13:
             await You_feel('a needle prick your %s.', body_part(bodypart));
             await poisoned('needle', A_CON, 'poisoned needle', 10, false);
-            exercise(A_CON, false);
+            await exercise(A_CON, false);
             break;
         case 12: case 11: case 10: case 9:
             await dofiretrap(obj);

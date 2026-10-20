@@ -1037,7 +1037,7 @@ export async function doopen_indir(x, y) {
         recalc_block_point(x, y);
         await vision_recalc(1);
     } else {
-        exercise(A_STR, true);
+        await exercise(A_STR, true);
         set_msg_xy(x, y); // C `:918`
         await pline('The door resists!');
     }
@@ -1233,7 +1233,7 @@ export async function doclose() {
             recalc_block_point(x, y); // C: block_point
             await vision_recalc(1);
         } else {
-            exercise(A_STR, true);
+            await exercise(A_STR, true);
             await pline('The door resists!');
         }
     }

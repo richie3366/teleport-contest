@@ -750,7 +750,7 @@ export async function thitmonst(mon, obj) {
 
     } else if (otyp === HEAVY_IRON_BALL) {
         // C dothrow.c:2234–2246 — STR always; DEX then hmon on a hit
-        exercise(A_STR, true);
+        await exercise(A_STR, true);
         if (tmp >= dieroll) {
             const was_swallowed = guaranteed_hit;
             exercise(A_DEX, true);
@@ -769,7 +769,7 @@ export async function thitmonst(mon, obj) {
 
     } else if (otyp === BOULDER) {
         // C dothrow.c:2248–2255 — same STR/DEX split; hmon result ignored
-        exercise(A_STR, true);
+        await exercise(A_STR, true);
         if (tmp >= dieroll) {
             exercise(A_DEX, true);
             await hmon(mon, obj, hmode, dieroll);
@@ -2340,7 +2340,7 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
         await pline(
             `You have so little stamina, ${the(xname(obj))} drops from your grasp.`,
         );
-        exercise(A_CON, false);
+        await exercise(A_CON, false);
         u.dx = 0;
         u.dy = 0;
         u.dz = 1;

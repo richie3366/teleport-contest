@@ -587,7 +587,7 @@ async function vomiting_dialogue() {
         break;
     }
     if (txt) await pline(`You ${txt}`);
-    exercise(A_CON, false);
+    await exercise(A_CON, false);
 }
 
 /* C timeout.c choke_texts[] / choke_texts2[] — Strangled TIMEOUT 1..5. */
@@ -629,7 +629,7 @@ async function choke_dialogue() {
             await stop_occupation();
         }
     }
-    exercise(A_STR, false);
+    await exercise(A_STR, false);
 }
 
 /* C timeout.c sickness_texts[] — odd remaining TIMEOUT, i = j/2. */
@@ -660,7 +660,7 @@ async function sickness_dialogue() {
         }
         await urgent_pline(buf);
     }
-    exercise(A_CON, false);
+    await exercise(A_CON, false);
 }
 
 /* C timeout.c levi_texts[] — last float_down message is not in this table. */
@@ -1387,7 +1387,7 @@ export async function nh_timeout() {
                 // C: You("have recovered from your illness.")
                 await pline('You have recovered from your illness.');
                 await make_sick(0, null, false, SICK_ALL);
-                exercise(A_CON, false);
+                await exercise(A_CON, false);
                 await adjattrib(A_CON, -1, 1);
             } else {
                 await urgent_pline('You die from your illness.');
