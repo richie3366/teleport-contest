@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — audit 2992–3000 @3fcdc917f: review D-4152..D-4160 (8A/1D/0Q, 0 Must-fix) + full rescore 660/751 (0 PASS→FAIL)
+
+**Reviews:** every owner re-measure (`verify <owner,fns> --base HASH~1 --no-reach`) reproduces its D-log: 13 owner rows PASS at HEAD (optfn_statuslines, mcast_weaken_you, zhitu, m_move ×2, encumber_msg, castmu, use_mirror ×3, pleased); the newsym row (scen-symset-Rogue-50350015 «newsym: attempting screen update for <0,0>») is pre-existing, not claimed. 2999 WITH-DEBT: D-4159's `if (vision_full_recalc) await vpline_flush_vision()` guard is neutral but masks an unawaited pline chain on the destroy_items cold path (probe: drop the guard → scen-sweep-Priest-95316 s679). 2994: D-4154's Named pray.js:1085 flat-only Disint_resistance is true → ledger god_zaps_you partial. 3000: D-4160's "same freeinv clone" in steal.js/steed.js overstates — steal's calls freeinv_core, steed's only frees saddles. 2993: losehp cites are recorder-tree lines (pinned :4271–4272).
+**Rescore:** `record` all present; unfiltered `score` 680/737 active (RNG 99.86 %, screens 99.3 %); vs committed board 0 PASS→FAIL, 0 unclaimed flips; archive 20 PASS → 660/751, unrecorded 0; tier 705 active + 33 reserve.
+**Score:** public 44/44 (792838 RNG, 11405 screens, 107+0.55/turn under rescore load); held-out 35/44, 10,849 pts (judge 13:17Z, +0). Ledger snapshot; seeded sample dotrap/create_polymon/autokey/help_monster_out/random_teleport_level 5/5 hold.
+**Next:** Must-fix empty → the cliffs head.
 ## 2026-10-20 — D-4160 dothrow.c throw_obj (`:267`) and throw_gold (`:2670`) take the thrown object out of inventory with invent.c `freeinv`, whose `freeinv_core` recomputes luck when the object confers it (`confers_luck → set_moreluck()`, `:1388–1390`). JS dothrow.js kept a local `freeinv` clone that only spliced the array, cleared `where` and handled gold. So throwing a cursed luckstone left `u.moreluck` at -3. Many turns later, pray.c pleased's favor roll `rn1(prayer_luck + 2, 1)` (`:1126`) used `prayer_luck` -1 in JS against C's 0 (1 sweep session → FULL PASS)
 
 **C locus:** dothrow.c throw_obj `:259–269` (splitobj + `freeinv(otmp)`), throw_gold `:2670`; invent.c freeinv `:1404–1411`, freeinv_core `:1356–1398` (luck arm `:1388–1390`); attrib.c set_moreluck `:439–451`; pray.c pleased `:1126`.
