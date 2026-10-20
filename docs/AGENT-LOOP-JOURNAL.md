@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — D-4176 With color off, display.c reset_glyphmap flags S_ice MG_BW_ICE (tty paints it inverse) only when its symbol equals `gs.showsyms[S_room]` or `gs.showsyms[S_darkroom]` (`:2904–2907`). C's showsyms[S_darkroom] is never a symset's own slot: reglyph_darkroom (`:1850–1853`) sets it to S_room's symbol when dark_room && use_color, else to SYM_NOTHING's blank. JS's collision test read the loaded symset's default `.` for S_darkroom. With RogueIBM loaded (S_room `\xfa`, S_ice and S_darkroom undefined → `.`) and color turned off in-game, JS painted ice inverse where C paints a plain `.` (1 corpus session → FULL PASS)
+
+**C locus:** display.c reset_glyphmap `:2884–2917` (BW lava/ice/sink chain, `!iflags.use_color`), reglyph_darkroom `:1818–1854`; options.c reset_needed_visuals `:8980–9009`, opt_color `:5399–5410`; wintty.c tty_print_glyph `:3922–3936`.
+**JS:** js/display.js darkroom_showsym, lava_ice_sink_map_attr.
+**Change:** a new `darkroom_showsym()` returns reglyph_darkroom's equate for the current flags (S_room's symbol if dark_room && use_color, else SYM_NOTHING's). lava_ice_sink_map_attr's ice test uses it. It is the only JS reader of C's showsyms[S_darkroom].
+**Verify:** - `score --ids` on the 55 failing rows vs committed board → **679/734** (+1: scen-symset-Rogue-50750039 269 → 926/926 FULL PASS; no other row moved, no regression).
+**Named:** darkroom_showsym reads the current flags. C's value lags only inside the color toggle's own reset_glyphmap, which runs before that redraw's reglyph_darkroom. reglyph_darkroom's callers (goto_level, reset_needed_visuals, restore) remain unwired.
+**Next:** cliffs head (re-rank): setmnotwielded; scen-worldtour-Valkyrie-49955041 s543 (D-4173 Next).
 ## 2026-10-20 — D-4175 vault.c clear_fcorr tests each fake-corridor square with `m_at(fcx, fcy)` (`:80`), which is `level.monsters[x][y]` with no DEADMONSTER check. At game end, paygd → mongone zeroes the guard's mhp (mon.c `:3272`) and calls grddead while he still stands in his corridor. clear_fcorr therefore finds him and returns FALSE, and grddead takes its relobj + parkguard arm: his armor drops on his square, then the corridor is cleared. JS's clear_fcorr scanned fmon for a live (`mhp > 0`) monster, missed the guard, and disposed the corridor at once. No drop happened, and mongone's mdrop_special_objs walked his six items (six extra rn2(100)) (1 corpus session → FULL PASS)
 
 **C locus:** vault.c clear_fcorr `:74–87`, grddead `:174–189`, paygd `:1206–1250`; mon.c mongone `:3267–3283`; rm.h `m_at` `:516` (no mburied/DEADMONSTER filter).

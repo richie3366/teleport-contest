@@ -572,6 +572,25 @@ function engrcorr_map_attr(gid) {
  * handling, never active on contest tty; same standing as the
  * litcorr/engrcorr twins).
  */
+/**
+ * C ref: display.c reglyph_darkroom `:1850–1853` — the
+ * `gs.showsyms[S_darkroom]` equate: S_room's symbol when dark_room and
+ * use_color are on, else SYM_NOTHING's (blank). JS keeps no showsyms slot
+ * for it (map_glyphinfo derives the darkroom paint live), so C readers of
+ * showsyms[S_darkroom] read this. It reflects the current flags; C's
+ * value is the one set at the last reglyph_darkroom call (startup,
+ * goto_level, restore, an option redraw), which only lags inside the
+ * color toggle's own reset_glyphmap (options.c `:8983` before `:8999`).
+ * @returns {number}
+ */
+function darkroom_showsym() {
+    const darkRoom = game.flags?.dark_room !== false;
+    const useColor = game.iflags?.wc_color !== false;
+    return (darkRoom && useColor)
+        ? live_showsyms(S_ROOM_CMAP + SYM_OFF_P)
+        : live_showsyms(SYM_NOTHING + SYM_OFF_X);
+}
+
 function lava_ice_sink_map_attr(gid) {
     // C `:2890`: the whole BW chain runs only with color off.
     if (game.iflags?.wc_color !== false) return 0;
@@ -592,9 +611,11 @@ function lava_ice_sink_map_attr(gid) {
         hit = sym === live_showsyms(S_POOL_CMAP + SYM_OFF_P)
             || sym === live_showsyms(S_WATER_CMAP + SYM_OFF_P);
     } else if (cmap === S_ICE_CMAP) {
-        // C `:2904–2907`: collide with room or dark room.
+        // C `:2904–2907`: collide with room or dark room. C's
+        // showsyms[S_darkroom] is the reglyph_darkroom equate, never the
+        // symset's own slot (D-4176).
         hit = sym === live_showsyms(S_ROOM_CMAP + SYM_OFF_P)
-            || sym === live_showsyms(S_DARKROOM + SYM_OFF_P);
+            || sym === darkroom_showsym();
     } else {
         // C `:2909–2911`: sink collides with fountain.
         hit = sym === live_showsyms(S_FOUNTAIN_CMAP + SYM_OFF_P);
