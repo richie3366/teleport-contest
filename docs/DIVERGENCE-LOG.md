@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4144 — uhitm.c mhitm_ad_fire's monster-vs-monster arm burns up a paper or straw golem with `monkilled(mdef, (char *) 0, AD_FIRE)` (`:2602`), after its own «%s burns completely!» line. mon.c monkilled prints «%s is destroyed!» only when `fltxt` is non-NULL (`:3384–3388`). JS passed `''`, which counts as non-NULL, so it added «The <golem> is destroyed!». That message pushed a `--More--` into the next turn, and the extra dismissal shifted the hero's `s`/`m`/`.` keys, so JS attacked where C rested (1 sweep session → FULL PASS)
+
+- **Status:** shipped. The cliffs block was all parked shapes again. The board's reserve rows had gone stale: `score --ids` on the 45 failing reserve rows flipped 8 to PASS (sweep-Monk-50556022, sweep-Priest-50362007, symset-Archeologist-50059023, symset-Caveman-50155022 / -50359035, symset-Valkyrie-50059039, symset-Wizard-50155018 / -50359004; earlier fixes, bundled here) and moved symset-Rogue-50750039 from s162 to s269 (`dosounds`). The re-ranked head was `mhitm_ad_fire`, scen-sweep-Monk-610013 (279 screens, 15k RNG lost).
+- **Symptom:** scen-sweep-Monk-610013 (hallucinating) s1081: both print «The rock piercer is on fire! The vampire bat burns completely!--More--». At s1082 C shows «The pit viper hits! You're on fire! The fire doesn't feel hot!», while JS shows «The black dragon is destroyed! The jackal hits! You're on fire!--More--» (monster names are hallucinated). C's s1083–1085 keys `s` `m` `.` refuse a search, then rest. JS was still dismissing `--More--`, so its first RNG at s1085 was `gethungry` → `hitum` where C's was the monster's `dochug rn2(40)` (first RNG mismatch at index 55086).
+- **C locus:** uhitm.c mhitm_ad_fire mhitm arm `:2588–2621`, completelyburns `monkilled(mdef, (char *) 0, AD_FIRE)` `:2602`; mon.c monkilled `:3377–3418` (`fltxt &&` gate `:3384`). The other `(char *) 0` callers in uhitm.c (`:2320` rust, `:2400` decay, `:6439` blind) are already `null` in JS (mhitm.js:1006, :4451; uhitm.js:4664).
+- **JS was:** js/mhitm.js mhitm_ad_fire passed `''`. JS monkilled already follows C (`fltxt != null`).
+- **Fix:** `monkilled(mdef, null, AD_FIRE)`.
+- **JS:** js/mhitm.js:1277.
+- **Callers:** unchanged (mdamagem AD_FIRE dispatch).
+- **Verify:** verify mhitm_ad_fire: 1 PASS, 0 moved, 0 no-movement (scen-sweep-Monk-610013 1360/1360, RNG 70411/70411). `node scripts/verify.mjs --fn mhitm_ad_fire --full` → syntax · rule2 · hidden 1 PASS → PROGRESS · reach 68 baseline-PASS run, 68 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+- **Named omissions:** none.
+- **Ledger:** mhitm_ad_fire ported
+- **Next:** board rows castmu (scen-zapfest-Caveman-51150068 s585), on_msg (scen-sweep-Barbarian-50456006 s1083), boulder_hits_pool (scen-worldtour-Wizard-50250008 s415).
+
 ## D-4143 — sp_lev.c lspo_region's selection form `des.region(selection.area(…), "lit")` grows the selection by one cell in every direction before lighting it (`selection_do_grow(sel, W_ANY)` `:5630–5631`, then `sel_set_lit` `:5632`). 18 hand-written JS level loaders lit only the bare rectangle: Wiz-strt, Wiz-loca, Pri-strt, Kni-loca, Kni-goal, Mon-strt, Arc-strt/loca/goal, Bar-loca, the eight Sokoban levels and the Plane of Air. On the Monk home, whose map edge is open floor, the stone column at x=2 stayed unlit. An earth elemental that phased into it was in view in C (vision.c `:755–758` sees a could-see cell when `lev->lit`) but not in JS (1 questtour session → FULL PASS)
 
 - **Status:** shipped. The generated cliffs block was all parked shapes (symset dupe-rc D-4016, OSC marker leak D-4028/D-4095), so I ranked the committed board's failing rows by screens lost, skipping those shapes. The head was `background_enlightenment`, scen-questtour-Monk-50557003 (343 screens, 9.3k RNG lost).

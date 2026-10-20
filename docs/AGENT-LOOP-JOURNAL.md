@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — D-4144 uhitm.c mhitm_ad_fire's monster-vs-monster arm burns up a paper or straw golem with `monkilled(mdef, (char *) 0, AD_FIRE)` (`:2602`), after its own «%s burns completely!» line. mon.c monkilled prints «%s is destroyed!» only when `fltxt` is non-NULL (`:3384–3388`). JS passed `''`, which counts as non-NULL, so it added «The <golem> is destroyed!». That message pushed a `--More--` into the next turn, and the extra dismissal shifted the hero's `s`/`m`/`.` keys, so JS attacked where C rested (1 sweep session → FULL PASS)
+
+**C locus:** uhitm.c mhitm_ad_fire mhitm arm `:2588–2621`, completelyburns `monkilled(mdef, (char *) 0, AD_FIRE)` `:2602`; mon.c monkilled `:3377–3418` (`fltxt &&` gate `:3384`). The other `(char *) 0` callers in uhitm.c (`:2320` rust, `:2400` decay, `:6439` blind) are already `null` in JS (mhitm.js:1006, :4451; uhitm.js:4664).
+**JS:** js/mhitm.js:1277.
+**Change:** `monkilled(mdef, null, AD_FIRE)`.
+**Verify:** verify mhitm_ad_fire: 1 PASS, 0 moved, 0 no-movement (scen-sweep-Monk-610013 1360/1360, RNG 70411/70411). `node scripts/verify.mjs --fn mhitm_ad_fire --full` → syntax · rule2 · hidden 1 PASS → PROGRESS · reach 68 baseline-PASS run, 68 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+**Named:** none.
+**Next:** board rows castmu (scen-zapfest-Caveman-51150068 s585), on_msg (scen-sweep-Barbarian-50456006 s1083), boulder_hits_pool (scen-worldtour-Wizard-50250008 s415).
 ## 2026-10-20 — D-4143 sp_lev.c lspo_region's selection form `des.region(selection.area(…), "lit")` grows the selection by one cell in every direction before lighting it (`selection_do_grow(sel, W_ANY)` `:5630–5631`, then `sel_set_lit` `:5632`). 18 hand-written JS level loaders lit only the bare rectangle: Wiz-strt, Wiz-loca, Pri-strt, Kni-loca, Kni-goal, Mon-strt, Arc-strt/loca/goal, Bar-loca, the eight Sokoban levels and the Plane of Air. On the Monk home, whose map edge is open floor, the stone column at x=2 stayed unlit. An earth elemental that phased into it was in view in C (vision.c `:755–758` sees a could-see cell when `lev->lit`) but not in JS (1 questtour session → FULL PASS)
 
 **C locus:** sp_lev.c lspo_region argc==2 arm `:5619–5637`; sel_set_lit `:5535–5540` (lava or rlit); selvar.c selection_do_grow `:321`. The table form's light_region `:2839–2861` widens a lit rectangle the same way (`lowx-1` clipped to 1 … `hiy+1` clipped to ROWNO-1, lava always lit), so for a rectangle the two arms give the same cells. vision.c `:755–758` lit test.
