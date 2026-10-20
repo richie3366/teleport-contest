@@ -72,7 +72,7 @@
 {"fn":"tty_change_color","c":"3995-3998","status":"unknown"}
 {"fn":"tty_raw_print","c":"4004-4018","status":"unknown"}
 {"fn":"tty_raw_print_bold","c":"4021-4042","status":"unknown"}
-{"fn":"tty_nhgetch","c":"4045-4112","status":"split","js":["js/input.js:nhgetch"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: WIN_STOP clear, key read, NEED_MORE->NON_EMPTY ported; resize/fuzzer/termcap/NUL-EOF-map unportable or dead."}
+{"fn":"tty_nhgetch","c":"4045-4112","status":"split","js":["js/input.js:nhgetch","js/display.js:tty_resize_mesg_arm"],"d":["D-4165"],"at":"2026-10-20@eea3dca81","note":"audit 2026-10-03: WIN_STOP clear, key read, NEED_MORE->NON_EMPTY ported; resize/fuzzer/termcap/NUL-EOF-map unportable or dead."}
 {"fn":"tty_nh_poskey","c":"4122-4149","status":"split","js":["js/input.js:nhgetch"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Live body is trivial tty_nhgetch wrapper (WIN32CON mouse arm compiled out); callers use nhgetch."}
 {"fn":"win_tty_init","c":"4152-4157","status":"unknown"}
 {"fn":"tty_update_positionbar","c":"4161-4166","status":"unknown"}

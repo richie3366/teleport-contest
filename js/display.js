@@ -3273,6 +3273,13 @@ export function reset_display_messages() {
     _nomux_raw_active = false;
     _nomux_raw_row = 0;
     _nomux_raw_col = 0;
+    // wintty statics a previous game's recorder overflow may have
+    // rewritten (nomux_wintty_poke); C starts each process at 0.
+    erasing_tty_screen = 0;
+    resize_mesg = 0;
+    clipping = false;
+    clipx = clipy = clipxmax = clipymax = 0;
+    _nomux_shadow.clear();
     _msg_cw = null;
     _snapshot_mesgs = null;
     _putmsghistory_initd = false;
@@ -3371,11 +3378,17 @@ export function clear_nhwindow_message() {
     const wrapped = (game._pending_message || '').includes('\n');
     _toplines = '';
     _toplin = TOPLINE_EMPTY;
-    game._pending_message = '';
     if (_msg_cw) {
         _msg_cw.curx = 0;
         _msg_cw.cury = 0;
     }
+    // C `:1049` the screen erase only `if (!erasing_tty_screen)`; else
+    // the text stays as stale pixels under EMPTY (mark_topline_empty).
+    if (erasing_tty_screen) {
+        _stale_topline = game._pending_message || null;
+        return;
+    }
+    game._pending_message = '';
     topline_home_cl_end(); // C `:1050–1051` home(); cl_end()
     if (wrapped) resync_map_row0();
 }
@@ -3458,6 +3471,10 @@ export function clear_message_window_menu_overlay() {
     // C `:1050–1053` home(); cl_end(); if (cw->cury) docorner(1, cury+1, 0)
     const wrapped = (game._pending_message || '').includes('\n');
     _toplin = TOPLINE_EMPTY;
+    if (erasing_tty_screen) { // C `:1049`, as in clear_nhwindow_message
+        _stale_topline = game._pending_message || null;
+        return;
+    }
     game._pending_message = '';
     topline_home_cl_end();
     if (wrapped) resync_map_row0();
@@ -8422,6 +8439,25 @@ function map_screen_cell(mx, my) {
  * (text, menus). Used by nomux_capture.js to rebuild the shadow buffer.
  */
 export function nomux_cell_gbuf(sc, sr, cell) {
+    const key = ((sr | 0) << 8) | (sc & 0xff);
+    const res = nomux_cell_gbuf_now(sc, sr, cell);
+    if (res) {
+        _nomux_shadow.set(key, { ch: cell.ch, color: cell.color, res });
+        return res;
+    }
+    // Under a CLIPPING pan the cells the pan leaves unpainted still hold
+    // the pre-pan map paint (and nomux's raw byte for it), which the
+    // current offsets no longer reach.
+    if (!clipping || !cell) return null;
+    const e = _nomux_shadow.get(key);
+    return (e && e.ch === cell.ch && e.color === cell.color) ? e.res : null;
+}
+
+// Recorder shadow (patch 006 nomux_putch keeps each cell's raw byte):
+// what nomux_cell_gbuf last matched per screen cell.
+const _nomux_shadow = new Map();
+
+function nomux_cell_gbuf_now(sc, sr, cell) {
     const mx = (sc | 0) + 1 + (clipping ? clipx : 0);
     const my = (sr | 0) - 1 + (clipping ? clipy : 0);
     if (mx < 1 || mx >= COLNO || my < 0 || my >= ROWNO) return null;
@@ -8692,6 +8728,57 @@ export async function redraw_map(cursor_on_u) {
 let clipping = false;
 let clipx = 0, clipxmax = 0;
 let clipy = 0, clipymax = 0;
+// C wintty.c `:174` `volatile int erasing_tty_screen` (term_clear_screen
+// → erase_tty_screen → tty_clear_nhwindow reentrancy flag) and `:356`
+// `volatile int resize_mesg` (RESIZABLE `:35–40`, set by the SIGWINCH
+// path). JS has neither path, so both stay 0 unless the recorder's
+// nomux_out overflow writes them (nomux_capture.js).
+let erasing_tty_screen = 0;
+let resize_mesg = 0;
+
+/**
+ * The wintty statics the contest recorder's nomux_out overflow reaches
+ * (nomux_capture.js), as C holds them: `clipping` is a schar.
+ * @returns {{ erasing_tty_screen: number, clipping: number, clipx: number,
+ *   clipy: number, clipxmax: number, clipymax: number, resize_mesg: number }}
+ */
+export function nomux_wintty_statics() {
+    return {
+        erasing_tty_screen,
+        clipping: clipping === true ? 1 : (clipping | 0),
+        clipx, clipy, clipxmax, clipymax,
+        resize_mesg,
+    };
+}
+
+/**
+ * Store the wintty statics after a recorder overflow rewrote them
+ * (nomux_capture.js overflow_wintty). C acts on whatever lands there.
+ * @param {object} v same shape as nomux_wintty_statics()
+ */
+export function nomux_wintty_poke(v) {
+    erasing_tty_screen = v.erasing_tty_screen | 0;
+    clipping = v.clipping | 0;
+    clipx = v.clipx | 0;
+    clipy = v.clipy | 0;
+    clipxmax = v.clipxmax | 0;
+    clipymax = v.clipymax | 0;
+    resize_mesg = v.resize_mesg | 0;
+}
+
+/**
+ * C wintty.c tty_nhgetch `:4154–4160` (RESIZABLE): after the key read,
+ * `if (resize_mesg) { resize_mesg = 0; tty_clear_nhwindow(WIN_MESSAGE);
+ * i = '\033'; }`. Returns true when the arm ran (the caller replaces
+ * the key by ESC).
+ * @returns {boolean}
+ */
+export function tty_resize_mesg_arm() {
+    if (!resize_mesg) return false;
+    resize_mesg = 0;
+    clear_message_window_menu_overlay(); // tty_clear_nhwindow(WIN_MESSAGE)
+    return true;
+}
 
 /**
  * C wintty.c CLIPPING file statics `:186–193` — read-only view for the
@@ -9173,7 +9260,9 @@ export async function cls() {
     if (!game.flags) game.flags = {};
     game.flags.botlx = true;
     const display = game?.nhDisplay;
-    if (display?.clearScreen) display.clearScreen();
+    // C tty_clear_nhwindow NHW_MAP `:1104–1109`: term_clear_screen
+    // only `if (!erasing_tty_screen)`.
+    if (display?.clearScreen && !erasing_tty_screen) display.clearScreen();
     // C: clear_glyph_buffer() after clear_nhwindow(WIN_MAP)
     clear_glyph_buffer();
     game._pending_message = '';

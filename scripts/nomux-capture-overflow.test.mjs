@@ -55,6 +55,27 @@ describe("nomux_out overflow (recorder patch 006)", () => {
         assert.ok(out.screen.includes("\x1b]7777;KIND=input;SEQ=9;ANIM=3;CX="));
     });
 
+    it("past 7472 rewrites wintty's erasing/clipping/resize_mesg statics", async () => {
+        const D = await import("../js/display.js");
+        D.reset_display_messages();
+        const st = { mem: new Uint8Array(12) };
+        const big = term(dense);
+        const bytes = nomux_capture_bytes(big);
+        assert.ok(bytes.length > 7504);
+        nomux_marker(st, big, [1, 1, 1]);
+        const v = D.nomux_wintty_statics();
+        assert.equal(v.erasing_tty_screen, int32le(bytes, 7472));
+        assert.equal(v.clipping, (bytes[7476] << 24) >> 24);
+        assert.equal(v.clipx, int32le(bytes, 7480));
+        assert.equal(v.clipymax, int32le(bytes, 7492));
+        // tty_nhgetch's RESIZABLE arm runs once, then resize_mesg is 0.
+        assert.equal(D.tty_resize_mesg_arm(), true);
+        assert.equal(D.tty_resize_mesg_arm(), false);
+        D.reset_display_messages();
+        assert.deepEqual(D.nomux_wintty_statics(), { erasing_tty_screen: 0,
+            clipping: 0, clipx: 0, clipy: 0, clipxmax: 0, clipymax: 0, resize_mesg: 0 });
+    });
+
     const ID = "scen-tour-Healer-51152023";
     const file = new URL(`../.cache/hidden/sessions/${ID}.session.json`, import.meta.url);
     it(`replays ${ID}: step 60's garbage cursor`, { skip: !existsSync(file) }, async () => {

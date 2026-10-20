@@ -1,5 +1,51 @@
 # Divergence log
 
+## D-4165 — The contest recorder's `nomux_out[6144]` overflow (D-4164) does not stop at obuf. Past payload byte 7472 it reaches wintty.c's own statics: `erasing_tty_screen` (+0x530), `boolean clipping` (schar, +0x534), `clipx/clipy/clipxmax/clipymax` (+0x538–0x547), `resize_mesg` (+0x54c), and then the `fieldorder` pointer and tty_status. C then acts on the screen text it finds there. A non-zero erasing_tty_screen stops tty_clear_nhwindow from erasing anything on screen (`:1073–1120`). A non-zero `clipping` turns the CLIPPING pan on, so the next moveloop cliparound (allmain.c `:546`) re-anchors clipx at ux−20 and redraw_map paints the map shifted left over a stale screen. A non-zero resize_mesg makes tty_nhgetch's RESIZABLE arm (`:4154–4160`) clear the message window and turn the key it just read into ESC. Every marker of the unchanged 7766-byte screen rewrites it, so from then on every key is ESC and the game stands still. JS now carries these statics through the overflow and honours them (2 corpus sessions → FULL PASS, +1,313 screens)
+
+- **Status:** shipped. Per the human rule of 2026-10-20 (port recorder bugs as recorded), this is the next layer of D-4164.
+- **Symptom:**
+  - **scen-sweep-Archeologist-610093.** From step 337 to the end (1306 screens) the C map is drawn 53 columns left: cols 0–24 hold map x 54..78, and cols 26–79 keep the step-336 `^F` paint. «You hear a slurping sound.» stays on the topline for 1300 steps, and the C RNG stops at 55504.
+  - **scen-sweep-Monk-49956033.** Steps 89–94 diverge the same way.
+- **Measurement:**
+  - **Recorded lengths.** The `LEN=` field of the leaked headers in every cached recording shows only two sessions with a payload past 7472: Archeologist 7498 at step 336 and then 7766 at each of steps 337–1642, and Monk 7554 at steps 86–94.
+  - **Static layout.** `nm -n` of the recorder: `obuf` 0x49d750, then erasing_tty_screen 0x49db50 (payload offset 7472), clipping 0x49db54, clipx 0x49db58, clipy 0x49db5c, clipxmax 0x49db60, clipymax 0x49db64, calling_from_update_inventory 0x49db68, resize_mesg 0x49db6c, fieldorder 0x49db70, tty_status 0x49db80. `boolean` is `schar` (global.h `:83`), and RESIZABLE is on (wintty.c `:35–40`: CLIPPING + SIGWINCH).
+  - **Step 336 bytes.** A temp log in nomux_marker showed JS's step-336 bytes 7472.. = `"52(52) AC:9 Xp:12 Stressed"`. That sets erasing "52(5", clipping '2', clipx "C:9 ", clipy "Xp:1", clipxmax "2 St" and clipymax "ress". The next cliparound therefore takes `clipx = max(0, 73−20) = 53`, `clipy = 0`, `clipymax = 21`, and redraws. That is the shift seen at step 337.
+- **C locus:**
+  - win/tty/wintty.c statics `:174`, `:190–192`, `:247`, `:356`;
+  - tty_clear_nhwindow `:1060–1125`;
+  - tty_curs CLIPPING `:2167–2172`;
+  - tty_cliparound `:3878–3903`;
+  - tty_print_glyph clip gate `:3929–3932`;
+  - tty_nhgetch RESIZABLE arm `:4154–4160`;
+  - recorder patch 006 termcap.c nomux_capture_screen `:795–862`.
+- **JS was:** nomux_capture.js modelled only raw_active/row/col and the obuf header (D-4164). The JS wintty statics could never change: JS has no SIGWINCH and no small screen, so `clipping` was always false.
+- **Fix:**
+  - **nomux_capture.js.** overflow_wintty keeps a per-game 48-byte image of erasing_tty_screen..tty_status. On each marker (input and animation) whose payload reaches 7472, it loads the live JS values, applies the overflow bytes and the `'\0'` terminator, and writes the result back.
+  - **display.js.**
+    - New `erasing_tty_screen` and `resize_mesg` statics beside the existing CLIPPING ones, with nomux_wintty_statics / nomux_wintty_poke accessors.
+    - tty_resize_mesg_arm ports the RESIZABLE arm.
+    - The tty_clear_nhwindow message arms (clear_nhwindow_message, clear_message_window_menu_overlay) and the NHW_MAP arm in cls skip the screen erase under erasing_tty_screen. The message text stays as stale pixels in EMPTY state (`_stale_topline`, the mark_topline_empty idiom), because JS's flush repaints row 0 from `_pending_message`.
+    - nomux_cell_gbuf keeps a per-screen-cell shadow of its last match. Under a pan, cells the pan no longer reaches report their pre-pan DEC byte, as nomux's shadow buffer does.
+    - reset_display_messages zeroes all of it per runSegment.
+  - **input.js.** nhgetch runs the RESIZABLE arm after the key read: on a hit the key becomes ESC.
+  - The existing tty_cliparound, redraw_map, map_screen_cell and flush cursor code already applied clipx/clipy and needed no change.
+- **JS:** js/nomux_capture.js (overflow_wintty, header comment), js/display.js (statics, accessors, tty_resize_mesg_arm, erase gates, nomux shadow, reset), js/input.js (RESIZABLE arm); scripts/nomux-capture-overflow.test.mjs (+1 test, 6/6).
+- **Callers:** nomux_marker, which jsmain.js captureBoundary and animationFrame already call; input.js nhgetch, the sole tty_nhgetch analog; the existing clear_nhwindow_message callers (cmd.js parse `:295/:298/:5186/:5463/:5483/:5979`, end.js `:2072/:2109`, invent.js `:1820`, display.js); and the cls callers (unchanged).
+- **Verify:**
+  - `score --ids` on all failing rows → **681/751** (+2: scen-sweep-Archeologist-610093 337 → 1643/1643 FULL PASS, scen-sweep-Monk-49956033 89 → 95/95 FULL PASS; no row lost). Screens 490610 → 491922.
+  - `node scripts/verify.mjs --fn moveloop_core --full` → reach 80/80 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `hidden-proxy sweep moveloop_core` → 679 baseline-PASS re-run in 141.4s, 0 regressed → REACH-OK.
+  - scripts/nomux-capture-overflow.test.mjs → 6/6.
+- **Named omissions:**
+  - calling_from_update_inventory (only read for WC2_EXTRACOLORS custom colours).
+  - The `fieldorder` pointer and tty_status contents. C would draw the status from garbage, or crash, on the next status render; neither recording renders one after the overwrite.
+  - erase_tty_screen's `erasing_tty_screen++`.
+  - The tty_clear_nhwindow NHW_STATUS cl_end gate (botl.js clear_status_window) and the NHW_MENU/NHW_TEXT erase_menu_or_text gate, plus the tty_dismiss_nhwindow menu-erase gate (`:2036`). No corpus session clears a status or menu window under erasing.
+- **Probable bugs to fix upstream:** as in D-4164, termcap.c nomux_capture_screen must bound writes to `nomux_out`. Here the overflow silently changes the game's input (keys become ESC) and the display (CLIPPING pan), not only the recorded marker.
+- **Ledger:** tty_nhgetch split js=input.js:nhgetch+display.js:tty_resize_mesg_arm
+- **Ledger:** tty_clear_nhwindow partial js=botl.js:clear_status_window+display.js:clear_nhwindow_message+display.js:clear_message_window_menu_overlay+display.js:cls
+- **Next:** the board's remaining garbage-cursor row, scen-sweep-Wizard-95340 s1044 (1 screen): the frozen runner passes it, so check why the board scorer disagrees. Then re-rank: the options rows (scen-options-Knight-50457009 s159, 41 screens, owner-null) head the real port cliffs.
+
 ## D-4164 — The contest recorder (patch 006, win/tty/termcap.c) renders every marker's screen into `static char nomux_out[24 * 256]` with no bound (nomux_capture_screen `:795–862`), then reads the cursor (nomux_emit_marker `:680–696`). A dense colour+DECgraphics screen (water levels: SGR and SO/SI on nearly every cell) is longer than 6144 bytes. Its tail overwrites the next statics, `int nomux_raw_active, nomux_raw_row, nomux_raw_col` (nm 0x49d620). raw_active turns non-zero, so every later marker reports CX=raw_col, CY=raw_row: status-line text read as ints. Past 6448 bytes the overflow reaches `obuf` (tty's setbuf(stdout) buffer), so the recorded screen itself contains the marker header and a second copy of the screen's first bytes (the parked "OSC marker leak" rows, D-4028). JS now models both, deterministically, from its own screen (14 corpus sessions → FULL PASS; 2,369 garbage-cursor screens in 17 recordings)
 
 - **Status:** shipped. Human decision 2026-10-20: port the C as recorded, recorder bugs included (memory/D-4162 follow-up). This supersedes the "do not replicate contest tooling" stance for this bug (D-3944 note).

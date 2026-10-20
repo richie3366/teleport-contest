@@ -3,7 +3,7 @@
 
 import { game } from './gstate.js';
 import { KEY_BINDINGS } from './terminal.js';
-import { clear_win_stop, mark_topline_seen } from './display.js';
+import { clear_win_stop, mark_topline_seen, tty_resize_mesg_arm } from './display.js';
 
 const _inputQueue = [];
 
@@ -42,6 +42,11 @@ export async function nhgetch() {
         } else {
             throw new Error('Input queue empty - test may be missing keystrokes');
         }
+        // C wintty.c tty_nhgetch `:4154–4160` (RESIZABLE): a pending
+        // resize message clears the message window and the key read
+        // becomes ESC. resize_mesg is only ever non-zero here when the
+        // contest recorder's nomux_out overflow wrote it (nomux_capture.js).
+        if (tty_resize_mesg_arm()) key = 0x1b;
     }
 
     // C: topline has been seen — NEED_MORE → NON_EMPTY

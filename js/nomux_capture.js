@@ -31,24 +31,47 @@
 // payload offset 6448 (the parked "OSC marker leak" rows; measured on
 // scen-sweep-Monk-49956033 SEQ 87: header at exactly 6448).
 //
+// Past obuf (payload offset 7472, 0x49db50) lie wintty.c's statics:
+// `volatile int erasing_tty_screen` (`:174`), `boolean clipping` (schar,
+// global.h `:83`), `int clipx, clipy, clipxmax, clipymax` (`:190–192`),
+// `boolean calling_from_update_inventory` (`:247`), `volatile int
+// resize_mesg` (`:356`), then the `fieldorder` pointer and tty_status.
+// A long enough payload rewrites them with screen text, and C then acts
+// on it (scen-sweep-Archeologist-610093 step 336, 7498 bytes): non-zero
+// erasing_tty_screen stops tty_clear_nhwindow from erasing anything on
+// screen (`:1073–1120`); a non-zero `clipping` turns the CLIPPING pan
+// on, so the next cliparound re-anchors clipx at ux-20 and redraw_map
+// paints the map shifted left, leaving the rest of the screen stale; a
+// non-zero resize_mesg makes tty_nhgetch (`:4154–4160`, RESIZABLE)
+// clear the message window and replace the key it just read by ESC.
+// Each marker of an unchanged 7766-byte screen rewrites resize_mesg, so
+// from there on every key is ESC and the game stands still. JS keeps a
+// byte image of these 48 bytes, loads the live JS values into it before
+// a marker's overflow and writes the result back (display.js
+// nomux_wintty_statics / nomux_wintty_poke).
+//
 // Named omissions: overflow bytes also overwrite termcap.c's `nilstring`
 // and `nulstr`, the emit256/emit24bit color scratch and the tty message
-// history statics (snapshot_mesgs, putmsghistory.initd) before obuf, and
-// past 7472 wintty.c's erasing_tty_screen, clipping/clipx/clipy/
-// clipxmax/clipymax, calling_from_update_inventory, resize_mesg,
-// fieldorder and tty_status; JS models none of their later effects.
+// history statics (snapshot_mesgs, putmsghistory.initd) before obuf;
+// past 7472 calling_from_update_inventory (read only for WC2_EXTRACOLORS
+// custom colours), the `fieldorder` pointer and tty_status (C would
+// render the status from garbage, or crash, on the next bot()); and
+// erase_tty_screen's `erasing_tty_screen++` (JS has no reentrant erase).
 // With raw_active stuck, C's raw_print path (nomux_raw_emit) skips
 // nomux_enter_raw_mode, so end-of-game raw output is not shadowed and
 // raw_putch bumps raw_col; not modelled. Animation-frame screens keep the
 // plain serialization (the supplemental frame metric).
 
 import { game } from './gstate.js';
-import { nomux_cell_gbuf } from './display.js';
+import { nomux_cell_gbuf, nomux_wintty_statics, nomux_wintty_poke }
+    from './display.js';
 
 const NOMUX_OUT_SIZE = 24 * 256;   // termcap.c `:795`
 const RAW_STATICS = 12;            // raw_active, raw_row, raw_col (3 × int)
 const OBUF_OFF = 0x130;            // obuf (0x49d750) − nomux_out end (0x49d620)
 const OBUF_SIZE = 1024;            // tty setbuf(stdout, obuf) BUFSIZ
+const WT_OFF = OBUF_OFF + OBUF_SIZE; // erasing_tty_screen (0x49db50)
+const WT_SIZE = 48;                // erasing_tty_screen .. tty_status
 const CLR_GRAY = 7;
 const NO_COLOR = 8;
 
@@ -139,10 +162,43 @@ function int32le(mem, off) {
         | (mem[off + 3] << 24));
 }
 
+function put32le(mem, off, v) {
+    for (let i = 0; i < 4; i++) mem[off + i] = (v >> (8 * i)) & 0xff;
+}
+
+// The wintty statics a payload reaches (layout in the header comment):
+// load the live values, apply the overflow bytes, write them back.
+function overflow_wintty(state, bytes) {
+    const len = bytes.length;
+    const base = NOMUX_OUT_SIZE + WT_OFF;
+    if (len < base) return;
+    const wt = state.wt || (state.wt = new Uint8Array(WT_SIZE));
+    const v = nomux_wintty_statics();
+    put32le(wt, 0, v.erasing_tty_screen);
+    wt[4] = v.clipping & 0xff;
+    put32le(wt, 8, v.clipx);
+    put32le(wt, 12, v.clipy);
+    put32le(wt, 16, v.clipxmax);
+    put32le(wt, 20, v.clipymax);
+    put32le(wt, 28, v.resize_mesg);
+    for (let i = base; i <= len && i < base + WT_SIZE; i++)
+        wt[i - base] = i < len ? bytes[i] : 0;
+    nomux_wintty_poke({
+        erasing_tty_screen: int32le(wt, 0),
+        clipping: (wt[4] << 24) >> 24,
+        clipx: int32le(wt, 8),
+        clipy: int32le(wt, 12),
+        clipxmax: int32le(wt, 16),
+        clipymax: int32le(wt, 20),
+        resize_mesg: int32le(wt, 28),
+    });
+}
+
 /**
  * One recorder marker: render the payload, apply its overflow to the
  * raw-mode statics, and return the cursor the marker reports (CX/CY).
- * @param {object} state per-game `{ mem: Uint8Array(12) }`
+ * @param {object} state per-game `{ mem: Uint8Array(12) }` (+ `wt`, the
+ *   wintty statics image, made on first reach)
  * @param {object} term Terminal
  * @param {Array|null} cursor the tty cursor [col, row, visible]
  * @param {object} [hdr] input markers: `{ kind, seq, anim }` — when the
@@ -156,6 +212,7 @@ export function nomux_marker(state, term, cursor, hdr) {
     // the statics; indices beyond len are untouched.
     for (let i = NOMUX_OUT_SIZE; i <= len && i < NOMUX_OUT_SIZE + RAW_STATICS; i++)
         state.mem[i - NOMUX_OUT_SIZE] = i < len ? bytes[i] : 0;
+    overflow_wintty(state, bytes);
     // nomux_get_cursor: raw mode reports the raw counters.
     let cx = cursor ? cursor[0] : 0;
     let cy = cursor ? cursor[1] : 0;
