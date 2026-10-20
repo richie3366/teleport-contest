@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-4178 — do_wear.c Ring_off_or_gone starts with `if (!(u.uprops[objects[obj->otyp].oc_oprop].extrinsic & mask)) impossible("Strange... I didn't know you had that ring.");` (`:1353–1354`). JS had no such arm and cleared the slot with two setworn calls plus a slot-identity fallback. When an electric eel's shock turned a worn ring of free action to dust (its FREE_ACTION extrinsic already 0 in both C and JS), C printed the impossible and its «Program in disorder!» / «Please report…» lines before mhitu applied the bite damage. JS skipped all three and painted the lower HP 3 screens early (1 corpus session → FULL PASS)
+
+- **Status:** shipped.
+- **Symptom:** scen-worldtour-Valkyrie-49955041 s543: «Your ruby ring turns to dust and vanishes!--More--» has HP:73 in C and HP:65 in JS. From s544, JS lacks «Strange... I didn't know you had that ring.», «Program in disorder!…» and «Please report these messages to devteam@nethack.org.» (owner region heuristic do_statusline2).
+- **Measurement:** a temp `console.error` at the JS Ring_off_or_gone head (removed) logged otyp 192 (RIN_FREE_ACTION), owornmask = mask = W_RINGR, `uprops[FREE_ACTION] = {extrinsic: 0}`, EFree_action 0, gone=true. That is the state C's impossible fires on, so the writer is the missing arm, not the extrinsic state.
+- **C locus:** do_wear.c Ring_off_or_gone `:1346–1437`, Ring_gone `:1446`; worn.c setworn `:73–145` (uprops[p] for every p, `:96–98`, `:120–121`), setnotworn `:150–184` (`:168–169`); zap.c maybe_destroy_item `:5918–5924`; pline.c impossible `:584–616`.
+- **JS was:** Ring_off_or_gone cleared W_RINGL/W_RINGR with setworn(null, …) whether gone or off, plus a slot-identity fallback when owornmask was already clear, and never tested the extrinsic. confer_oc_oprop returned before touching uprops when oc_oprop was 0. C still writes uprops[0].extrinsic there, and Ring_off_or_gone reads it for the four prop-0 rings (gain strength/constitution, increase accuracy/damage).
+- **Fix:** the Ring_off_or_gone head now follows C order: takeoff.mask clear, the extrinsic test + `impossible`, then `setnotworn(obj)` if gone, else `setworn(null, obj.owornmask)`. The fallback is gone (C's setworn(0, 0) does nothing). confer_oc_oprop now updates `uprops[p].extrinsic` before its `!p` return, so the prop-0 rings keep C's uprops[0] bits; the E* flats are unchanged.
+- **JS:** js/do_wear.js Ring_off_or_gone, confer_oc_oprop.
+- **Callers:** Ring_off ← do_wear.js Ring_off (R / A takeoff); Ring_gone ← zap.js (maybe_destroy_item), eat.js, mhitu.js ×2, read.js, steal.js (unchanged). confer_oc_oprop ← setworn (do_wear.js), setnotworn (do.js).
+- **Verify:**
+  - `node scripts/verify.mjs --fn do_statusline2,Ring_off_or_gone,setworn --full` → syntax · rule2 · `verify do_statusline2: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-worldtour-Valkyrie-49955041 1043/1043 FULL PASS) · reach REACH-OK ×3 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `hidden-proxy sweep moveloop_core` → 680 baseline-PASS re-run in 137.3s, 0 regressed → REACH-OK (every ring removal now runs the extrinsic test).
+- **Named omissions:** none.
+- **Ledger:** Ring_off_or_gone ported; setworn ported
+- **Next:** cliffs head (re-rank): recharge, scen-worldtour-Wizard-50255512 s525 («Your ring spins clockwise for a moment.» --More-- before «It misses!»).
+
 ## D-4177 — mon.c m_detach drops a dead monster's inventory through steal.c relobj (`:2779`), and relobj hands each item to mdrop_obj, whose extract_from_minvent ends with mwepgone for a wielded item (worn.c `:1414–1416`). For a lit Sunsword, mwepgone → setmnotwielded runs end_burn and prints «The long sword named Sunsword in the Aleax's hand stops shining.» JS's m_detach used relobj_on_death (mkobj.js), a partial clone that unlinked each item itself and cleared mw/owornmask by hand. So it skipped extract_from_minvent: no end_burn, no pline, no check_gear_next_turn, no obj_no_longer_held. relobj is now one export in steal.js, used by m_detach, grddead and dog_invent (1 corpus session → FULL PASS)
 
 - **Status:** shipped.

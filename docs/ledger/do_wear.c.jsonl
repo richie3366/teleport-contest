@@ -26,7 +26,7 @@
 {"fn":"learnring","c":"1193-1220","status":"ported","js":["js/do_wear.js:learnring"],"d":["D-2930"],"at":"seed@a30a7de84"}
 {"fn":"adjust_attrib","c":"1223-1239","status":"ported","js":["js/do_wear.js:adjust_attrib"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Ring_on","c":"1242-1344","status":"ported","js":["js/do_wear.js:Ring_on"],"at":"2026-10-03@bbe63333a"}
-{"fn":"Ring_off_or_gone","c":"1347-1446","status":"ported","js":["js/do_wear.js:Ring_off_or_gone"],"at":"2026-10-03@bbe63333a"}
+{"fn":"Ring_off_or_gone","c":"1347-1446","status":"ported","js":["js/do_wear.js:Ring_off_or_gone"],"d":["D-4178"],"at":"2026-10-20@9bb353bc2"}
 {"fn":"Ring_off","c":"1449-1452","status":"ported","js":["js/do_wear.js:Ring_off"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Ring_gone","c":"1455-1458","status":"ported","js":["js/do_wear.js:Ring_gone"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Blindf_on","c":"1461-1492","status":"ported","js":["js/do_wear.js:Blindf_on"],"at":"2026-10-03@bbe63333a"}
