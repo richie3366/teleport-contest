@@ -1,6 +1,6 @@
 {"fn":"newegd","c":"23-32","status":"ported","js":["js/makemon.js:newegd"],"at":"2026-10-03@bbe63333a"}
 {"fn":"free_egd","c":"35-42","status":"by-design","d":["D-3327"],"at":"2026-10-03@0e60ede85","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"clear_fcorr","c":"48-116","status":"ported","js":["js/vault.js:clear_fcorr"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
+{"fn":"clear_fcorr","c":"48-116","status":"ported","js":["js/vault.js:clear_fcorr"],"d":["D-4175","D-3429"],"at":"2026-10-20@ccc927c6c"}
 {"fn":"blackout","c":"123-141","status":"ported","js":["js/vault.js:blackout"],"at":"2026-10-03@bbe63333a"}
 {"fn":"restfakecorr","c":"144-151","status":"ported","js":["js/vault.js:restfakecorr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: uses mongone_guard subset for full mongone"}
 {"fn":"parkguard","c":"155-171","status":"ported","js":["js/vault.js:parkguard"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}

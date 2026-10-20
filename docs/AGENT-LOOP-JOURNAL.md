@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — D-4175 vault.c clear_fcorr tests each fake-corridor square with `m_at(fcx, fcy)` (`:80`), which is `level.monsters[x][y]` with no DEADMONSTER check. At game end, paygd → mongone zeroes the guard's mhp (mon.c `:3272`) and calls grddead while he still stands in his corridor. clear_fcorr therefore finds him and returns FALSE, and grddead takes its relobj + parkguard arm: his armor drops on his square, then the corridor is cleared. JS's clear_fcorr scanned fmon for a live (`mhp > 0`) monster, missed the guard, and disposed the corridor at once. No drop happened, and mongone's mdrop_special_objs walked his six items (six extra rn2(100)) (1 corpus session → FULL PASS)
+
+**C locus:** vault.c clear_fcorr `:74–87`, grddead `:174–189`, paygd `:1206–1250`; mon.c mongone `:3267–3283`; rm.h `m_at` `:516` (no mburied/DEADMONSTER filter).
+**JS:** js/vault.js clear_fcorr.
+**Change:** `monThere = m_at(fcx, fcy) || (grd placed at fc and not MON_OFFMAP ? grd : null)`. This models the one C window where a zero-mhp monster (mongone's guard) is still on the grid; it uses the existing vault.js `m_at` import and adds MON_OFFMAP to the const import.
+**Verify:** - `score --ids` on the 56 failing rows vs committed board → **678/734** (+1: scen-sweep-Tourist-610081 1740 → 1752/1752 FULL PASS; no other row moved, no regression).
+**Named:** JS m_at/level_mon_at keep their `mhp <= 0` skip; other C m_at readers inside the mongone → grddead window (none found in clear_fcorr's callees) would need the same grd test.
+**Next:** cliffs head (re-rank): dosounds, setmnotwielded; scen-worldtour-Valkyrie-49955041 s543 (D-4173 Next).
 ## 2026-10-20 — D-4174 vision.c vision_recalc's lit-wall arm (`:758–785`) admits a lit door/wall/SDOOR that blocks sight only when the square in front of it, toward the hero, is lit; otherwise it does `goto not_in_sight` (`:784`), which newsyms a spot that was in sight (`:821–836`). JS's port had no else there, so a wall leaving sight that way was never repainted: a ghost (S_ghost is a blank) standing in the wall stayed drawn after the hero stepped into the dark corridor, where C shows the remembered `│` (1 corpus session → FULL PASS)
 
 **C locus:** vision.c vision_recalc main loop `:740–838` (lit-wall arm `:758–785`, not_in_sight `:821–836`).

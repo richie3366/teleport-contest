@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4175 — vault.c clear_fcorr tests each fake-corridor square with `m_at(fcx, fcy)` (`:80`), which is `level.monsters[x][y]` with no DEADMONSTER check. At game end, paygd → mongone zeroes the guard's mhp (mon.c `:3272`) and calls grddead while he still stands in his corridor. clear_fcorr therefore finds him and returns FALSE, and grddead takes its relobj + parkguard arm: his armor drops on his square, then the corridor is cleared. JS's clear_fcorr scanned fmon for a live (`mhp > 0`) monster, missed the guard, and disposed the corridor at once. No drop happened, and mongone's mdrop_special_objs walked his six items (six extra rn2(100)) (1 corpus session → FULL PASS)
+
+- **Status:** shipped.
+- **Symptom:** scen-sweep-Tourist-610081 s1740–1751, after «Die? y» (green-slime death in a vault breach): C shows `[` on the hero's doorway square of the vault wall (map 76,15), JS the wall. JS also drew six rn2(100) after C's last RNG call.
+- **Measurement:** JS RNG trace for the tail: six `obj_resists_00 @ mon.js:1768`, i.e. mdrop_special_objs from mongone. C draws nothing after s1739. C mongone (`:3267–3283`) → grddead (vault.c `:174–189`) → clear_fcorr `:60–87`. The guard is on the first fakecorr square, so `m_at` returns him, `isgd` → return FALSE. relobj then empties his inventory onto that square, so mdrop_special_objs has nothing to roll.
+- **C locus:** vault.c clear_fcorr `:74–87`, grddead `:174–189`, paygd `:1206–1250`; mon.c mongone `:3267–3283`; rm.h `m_at` `:516` (no mburied/DEADMONSTER filter).
+- **JS was:** `for (m of fmon) if (m at fc && m.mhp > 0) monThere = m`. JS m_at/level_mon_at also skip `mhp <= 0`, standing in for mondead's grid removal.
+- **Fix:** `monThere = m_at(fcx, fcy) || (grd placed at fc and not MON_OFFMAP ? grd : null)`. This models the one C window where a zero-mhp monster (mongone's guard) is still on the grid; it uses the existing vault.js `m_at` import and adds MON_OFFMAP to the const import.
+- **JS:** js/vault.js clear_fcorr.
+- **Callers:** clear_fcorr's callers (grddead ×2, restfakecorr, gd_move paths) are unchanged; only the occupant test changed.
+- **Verify:**
+  - `score --ids` on the 56 failing rows vs committed board → **678/734** (+1: scen-sweep-Tourist-610081 1740 → 1752/1752 FULL PASS; no other row moved, no regression).
+  - `node scripts/verify.mjs --fn disclose,clear_fcorr,grddead` → syntax · rule2 · reach REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS; public `frozen/ps_test_runner.mjs sessions` 44/44.
+  - `hidden-proxy sweep moveloop_core` → 677 baseline-PASS re-run in 148.4s, 0 regressed → REACH-OK.
+- **Named omissions:** JS m_at/level_mon_at keep their `mhp <= 0` skip; other C m_at readers inside the mongone → grddead window (none found in clear_fcorr's callees) would need the same grd test.
+- **Ledger:** clear_fcorr ported
+- **Next:** cliffs head (re-rank): dosounds, setmnotwielded; scen-worldtour-Valkyrie-49955041 s543 (D-4173 Next).
+
 ## D-4174 — vision.c vision_recalc's lit-wall arm (`:758–785`) admits a lit door/wall/SDOOR that blocks sight only when the square in front of it, toward the hero, is lit; otherwise it does `goto not_in_sight` (`:784`), which newsyms a spot that was in sight (`:821–836`). JS's port had no else there, so a wall leaving sight that way was never repainted: a ghost (S_ghost is a blank) standing in the wall stayed drawn after the hero stepped into the dark corridor, where C shows the remembered `│` (1 corpus session → FULL PASS)
 
 - **Status:** shipped.
