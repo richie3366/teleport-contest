@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4147 — insight.c enlightenment runs basics_enlightenment only under `mode & BASICENLIGHTENMENT` (`:406–413`). The gold lines in basics call `currency()`, which draws `rn2` for a random currency name while hallucinating (invent.c `:1545–1554`). A potion of hallucination's blessed/uncursed enlightenment is MAGIC-only (potion.c `:707–712`), so C draws nothing there. JS doattributes built the wallet line (and ran find_ac) before checking the mode, so every MAGIC-only enlightenment while hallucinating spent one extra core `rn2` (2 sessions → FULL PASS)
+
+- **Status:** shipped. D-4146's **Next** (same session, now the board head at s1202).
+- **Symptom:** scen-sweep-Barbarian-50456006 s1200–1202 (quaff a potion of hallucination → «You perceive yourself...», enlightenment, «Your awareness re-normalizes.»): C's next RNG is `exercise rn2(19)` (`:712`); JS drew `rn2(21)` in currency (invent.js:1448) first. A temporary stack trace in currency (removed) showed peffect_hallucination → enlightenment → doattributes. scen-intrinsic-Healer-51152004 s84 (owner `exercise`, the same shape) also passes now.
+- **C locus:** insight.c enlightenment `:383–…`, BASIC block `:406–413`; basics_enlightenment find_ac `:772–777`, gold `:779–802` (currency `:788`, `:799`); invent.c currency `:1545–1554`; potion.c peffect_hallucination `:696–714`.
+- **JS was:** js/invent.js doattributes computed `wallet` / `walletCont` (currency) and called `find_ac()` at the top for every mode, and pushed the lines only under BASIC.
+- **Fix:** find_ac, acBuf and the gold lines now run inside the `mode & BASICENLIGHTENMENT` block, after background_enlightenment, in C's basics order. MAGIC-only callers (potion, fountain, wand, artifact) no longer roll currency or run find_ac.
+- **JS:** js/invent.js (doattributes).
+- **Callers:** unchanged (enlightenment non-final → doattributes; ^X doattributes BASIC(|MAGIC)).
+- **Verify:** verify exercise: 2 PASS, 0 moved, 0 no-movement (scen-sweep-Barbarian-50456006 1408/1408, RNG 110138/110138; scen-intrinsic-Healer-51152004 139/139, RNG 3356/3356). `node scripts/verify.mjs --fn exercise,enlightenment --full` → syntax · rule2 · hidden exercise 2 PASS → PROGRESS · reach exercise 80/80, enlightenment smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep doattributes,enlightenment` → 669 baseline-PASS re-run in 122.1s, 0 regressed → REACH-OK. Archived PASS sessions whose C screens show «'s attributes:» (2049, frozen runner): 2049 PASS, 0 fail.
+- **Named omissions:** none new; basics_enlightenment stays split across doattributes and enlightenment's final path (D-2579 omit unchanged).
+- **Ledger:** basics_enlightenment split js=invent.js:enlightenment+invent.js:doattributes; doattributes ported
+- **Next:** board rows boulder_hits_pool (scen-worldtour-Wizard-50250008 s415), ballfall (scen-chain-Archeologist-610102 s120), earth_sense (scen-sweep-Archeologist-620069 s1206).
+
 ## D-4146 — do_wear.c on_msg names the towel's spot with `body_part(HEAD)` (`:95`). JS hard-coded «around your head» (marked «poly deferred»), so a hero polymorphed into a worm read «towel around your head» where C says «around your anterior segment» (polyself.c worm_parts). The longer C line pushed «You can't see any more.» behind a `--More--` that JS never showed (1 sweep session moves s1083 → s1202)
 
 - **Status:** shipped. The cliffs block was all parked shapes again; re-ranked the board the D-4143 way. The head was `on_msg`, scen-sweep-Barbarian-50456006 (s1083, 205 screens).

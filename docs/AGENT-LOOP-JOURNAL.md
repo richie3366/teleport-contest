@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — D-4147 insight.c enlightenment runs basics_enlightenment only under `mode & BASICENLIGHTENMENT` (`:406–413`). The gold lines in basics call `currency()`, which draws `rn2` for a random currency name while hallucinating (invent.c `:1545–1554`). A potion of hallucination's blessed/uncursed enlightenment is MAGIC-only (potion.c `:707–712`), so C draws nothing there. JS doattributes built the wallet line (and ran find_ac) before checking the mode, so every MAGIC-only enlightenment while hallucinating spent one extra core `rn2` (2 sessions → FULL PASS)
+
+**C locus:** insight.c enlightenment `:383–…`, BASIC block `:406–413`; basics_enlightenment find_ac `:772–777`, gold `:779–802` (currency `:788`, `:799`); invent.c currency `:1545–1554`; potion.c peffect_hallucination `:696–714`.
+**JS:** js/invent.js (doattributes).
+**Change:** find_ac, acBuf and the gold lines now run inside the `mode & BASICENLIGHTENMENT` block, after background_enlightenment, in C's basics order. MAGIC-only callers (potion, fountain, wand, artifact) no longer roll currency or run find_ac.
+**Verify:** verify exercise: 2 PASS, 0 moved, 0 no-movement (scen-sweep-Barbarian-50456006 1408/1408, RNG 110138/110138; scen-intrinsic-Healer-51152004 139/139, RNG 3356/3356). `node scripts/verify.mjs --fn exercise,enlightenment --full` → syntax · rule2 · hidden exercise 2 PASS → PROGRESS · reach exercise 80/80, enlightenment smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep doattributes,enlightenment` → 669 baseline-PASS re-run in 122.1s, 0 regressed → REACH-OK.
+**Named:** none new; basics_enlightenment stays split across doattributes and enlightenment's final path (D-2579 omit unchanged).
+**Next:** board rows boulder_hits_pool (scen-worldtour-Wizard-50250008 s415), ballfall (scen-chain-Archeologist-610102 s120), earth_sense (scen-sweep-Archeologist-620069 s1206).
 ## 2026-10-20 — D-4146 do_wear.c on_msg names the towel's spot with `body_part(HEAD)` (`:95`). JS hard-coded «around your head» (marked «poly deferred»), so a hero polymorphed into a worm read «towel around your head» where C says «around your anterior segment» (polyself.c worm_parts). The longer C line pushed «You can't see any more.» behind a `--More--` that JS never showed (1 sweep session moves s1083 → s1202)
 
 **C locus:** do_wear.c on_msg `:75–99`, towel arm `:94–95`; polyself.c mbodypart S_WORM → worm_parts (`:2032–2036`); body_part `:2143`.
