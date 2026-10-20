@@ -712,6 +712,17 @@ function mon_at_display(x, y) {
     // is what newsym uses (display.c:969); skipping the bit too keeps
     // the vacated cell empty. The fmon scan is only for heads whose
     // grid slot was never written.
+    // C m_at (rm.h `:515–516`) has no DEADMONSTER test: a monster whose
+    // mhp is already 0 stays on level.monsters[][] until m_detach →
+    // remove_monster, so monstone's newsym (mon.c `:3360–3361`) still
+    // draws it (D-4156).
+    const cell = game._level_monsters?.get(`${x},${y}`);
+    if (cell && cell !== steed && (cell.mhp | 0) <= 0
+        && !((cell.mstate | 0) & MON_OFFMAP)
+        && (((cell.mx | 0) === (x | 0) && (cell.my | 0) === (y | 0))
+            || cell.wormno)) {
+        return cell;
+    }
     const seg = level_mon_at(x, y);
     if (seg && seg !== steed) return seg;
     for (const m of game.fmon || []) {
