@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-4169 — With `menu_tab_sep` on, options.c doset formats every row with `fmtstr_tab_doset` = `"%s%s\t[%s]"` (`:8760`, `:8822–8827`) and drops the four-space indent of the read-only booleans (`indent = (pass == 0 && !iflags.menu_tab_sep) ? "    " : ""`, `:8852`). tty's process_menu_window writes each byte with `putchar(*cp)` and `curx++`; the recorder's nomux_putch drops `ch < 32` (termcap.c patch 006 `:756–766`), so the tab cell keeps its cl_end blank. JS always used the padded `"%-Ns [%s]"` form with the indent, and its two menu painters wrote the tab byte into the cell (1 corpus session → FULL PASS)
+
+- **Status:** shipped.
+- **Symptom:** in scen-options-Samurai-50162003, after `O` toggles menu_tab_sep, the simple Options menu (s120) shows `fruit\t[slime mold]` cells where C shows `fruit [slime mold]` with one blank cell. The full `doset` menu (s146) shows `    blind\t[false]` where C shows `blind [false]` at column 1.
+- **Measurement:**
+  - **The C screen.** The C frame at s120 decodes `a - fruit [slime mold]`: exactly one blank cell for the tab.
+  - **The recorder.** Its process_menu_window loop (wintty.c `:1490–1530`) advances `curx` once per byte and calls nomux_putch, which returns on `ch < 32`.
+  - **The real tty.** C tty expands tabs only in the dlb text pager (`:2558` tabexpand), never in menus.
+- **C locus:** options.c doset `:8760`, `:8822–8827`, `:8852`; doset_add_menu `:9060–9062` (keeps its indent and uses the same fmtstr); win/tty/wintty.c process_menu_window per-byte putchar loop; recorder patch 006 termcap.c nomux_putch `:756–766`.
+- **JS was:** format_doset_opt_line ignored menu_tab_sep. The pass-0 bool rows passed `'    '` unconditionally. invent.js paint_overlay (fullscreen) and paint_corner_nhw_menu (corner) painted every char, C0 included.
+- **Fix:**
+  - format_doset_opt_line returns `` `${indent}${name}\t[${value}]` `` under menu_tab_sep, and the bool pass-0 caller passes `''` then. doset_add_menu's indent rule is unchanged, as in C.
+  - Both menu painters skip a char below 32, leaving the cleared cell. This is the same capture rule as the topline (topline_putsyms_cl_end) and the map (D-3962).
+- **JS:** js/options.js (format_doset_opt_line, doset bool pass-0 row), js/invent.js (paint_overlay, paint_corner_nhw_menu).
+- **Callers:** format_doset_opt_line serves doset's bool rows and doset_add_menu (Compounds `:8875`, Other settings `:8892`). The painters serve every select_menu_* overlay. doset_simple_menu's own `name\t[val]` form was already ported (format_simple_opt_line); only its tab cell paint was wrong.
+- **Verify:**
+  - `score --ids` on all failing rows → **687/751** (+1: scen-options-Samurai-50162003 120 → 165/165 FULL PASS; no row lost).
+  - verify doset_simple_menu: 1 PASS, 0 moved, 1 unchanged.
+  - `node scripts/verify.mjs --fn doset_simple_menu,doset --full` → syntax · rule2 · reach REACH-OK ×2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `hidden-proxy sweep moveloop_core` → 686 baseline-PASS re-run in 129.8s, 0 regressed → REACH-OK.
+- **Named omissions:** the corner and fullscreen painters still ignore other tty byte handling that menus never reach (no `\n` in menu strs).
+- **Unchanged row (different cause):** scen-options-Knight-50355037 s87 is the one `verify doset_simple_menu` lists as unchanged. After `O` → `o` (pickup_types) → Enter on the --More-- → the «Autopickup what?» menu → Enter, C goes straight back to the Options menu. JS first raises «You see your saddled pony.--More--» again: the stale-topline --More-- that every simple-menu pick raises (s70–s84 in both) fires a second time in JS. This is tty_display_nhwindow's message-window NEED_MORE handshake around NHW_MENU display (wintty.c `:1925–1960`); not measured further here.
+- **Ledger:** doset partial; process_menu_window partial js=invent.js:paint_corner_nhw_menu+invent.js:menu_show_obj_syms+invent.js:menu_objsym_cell+invent.js:paint_overlay
+- **Next:** scen-options-Knight-50355037 s87 (tty message-window --More-- after a nested option menu). Then re-rank: scen-chain-Healer-50950082 s661 (owner-null), scen-sweep-Tourist-610081 s1740 disclose.
+
 ## D-4168 — detect.c use_crystal_ball's explode arm (`:1246–1252`) prints «The glass orb explodes!», then `losehp(Maybe_Half_Phys(rnd(30)), "exploding crystal ball", KILLED_BY_AN)`. When that kills, C's losehp runs `urgent_pline("You die...")` and `done(DIED)` inline: --More--, wizard-mode «Die?», disclosure. JS's losehp defers the fatal arm: it sets `program_state.gameover` and `_losehp_needs_done` for the caller to drain with finish_losehp_done. use_crystal_ball never drained it, so runSegment's loop saw gameover and ended the game silently, before the explosion message was even shown (1 corpus session → FULL PASS)
 
 - **Status:** shipped.

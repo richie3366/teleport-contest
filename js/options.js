@@ -10766,8 +10766,13 @@ const DOSET_BOOL_DEFAULT_ON = new Set([
     'use_darkgray', 'use_inverse', 'verbose',
 ]);
 
-/** C options.c doset fmtstr_doset: "%s%-Ns [%s]" with indent for non-select. */
+/**
+ * C options.c doset fmtstr_doset: "%s%-Ns [%s]" with indent for
+ * non-select, or fmtstr_tab_doset "%s%s\t[%s]" under menu_tab_sep
+ * (`:8760`, `:8822–8827`).
+ */
 function format_doset_opt_line(name, value, indent = '') {
+    if (game.iflags?.menu_tab_sep) return `${indent}${name}\t[${value}]`;
     return `${indent}${String(name).padEnd(dosetSimpleNameWidth)} [${value}]`;
 }
 
@@ -11519,7 +11524,9 @@ export async function doset() {
         });
         for (const name of DOSET_BOOL_NONMOD) {
             if (doset_skip_unsupported(name)) continue;
-            const line = format_doset_opt_line(name, doset_bool_term(name), '    ');
+            // C `:8852` indent = (pass == 0 && !menu_tab_sep) ? "    " : "".
+            const line = format_doset_opt_line(name, doset_bool_term(name),
+                game.iflags?.menu_tab_sep ? '' : '    ');
             // C `:8855–8857` pass-0 enhance_menu_text (live no-op, wired for order).
             enhance_menu_text(line, line.length + 1, 0,
                 doset_bool_value(name), allopt[allopt_idx(name)]);

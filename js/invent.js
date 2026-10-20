@@ -3035,6 +3035,10 @@ function paint_overlay(lines, opts = {}) {
                 disp.setCell(col + i, r, objsym.ch, objsym.color, 0);
                 continue;
             }
+            // C process_menu_window putchar(*cp) + curx++ per byte; the
+            // recorder's nomux_putch drops ch < 32 (termcap.c patch 006),
+            // so a menu_tab_sep tab leaves its cell as cleared.
+            if (text.charCodeAt(i) < 32) continue;
             const pre = i < split || (i === 0 && text[0] === ' ');
             disp.setCell(col + i, r, text[i], pre ? NO_COLOR : color, pre ? 0 : attr);
         }
@@ -3221,6 +3225,9 @@ export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
                 disp.setCell(offx + 1 + i, r, objsym.ch, objsym.color, 0);
                 continue;
             }
+            // C0 byte (menu_tab_sep tab): dropped by nomux_putch, cell
+            // keeps the cl_end blank (paint_overlay comment).
+            if (text.charCodeAt(i) < 32) continue;
             const pre = i < split;
             disp.setCell(offx + 1 + i, r, text[i], pre ? NO_COLOR : color, pre ? 0 : attr);
         }

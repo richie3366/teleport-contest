@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — D-4169 With `menu_tab_sep` on, options.c doset formats every row with `fmtstr_tab_doset` = `"%s%s\t[%s]"` (`:8760`, `:8822–8827`) and drops the four-space indent of the read-only booleans (`indent = (pass == 0 && !iflags.menu_tab_sep) ? "    " : ""`, `:8852`). tty's process_menu_window writes each byte with `putchar(*cp)` and `curx++`; the recorder's nomux_putch drops `ch < 32` (termcap.c patch 006 `:756–766`), so the tab cell keeps its cl_end blank. JS always used the padded `"%-Ns [%s]"` form with the indent, and its two menu painters wrote the tab byte into the cell (1 corpus session → FULL PASS)
+
+**C locus:** options.c doset `:8760`, `:8822–8827`, `:8852`; doset_add_menu `:9060–9062` (keeps its indent and uses the same fmtstr); win/tty/wintty.c process_menu_window per-byte putchar loop; recorder patch 006 termcap.c nomux_putch `:756–766`.
+**JS:** js/options.js (format_doset_opt_line, doset bool pass-0 row), js/invent.js (paint_overlay, paint_corner_nhw_menu).
+**Change:** - format_doset_opt_line returns `` `${indent}${name}\t[${value}]` `` under menu_tab_sep, and the bool pass-0 caller passes `''` then. doset_add_menu's indent rule is unchanged, as in C.
+**Verify:** - `score --ids` on all failing rows → **687/751** (+1: scen-options-Samurai-50162003 120 → 165/165 FULL PASS; no row lost).
+**Named:** the corner and fullscreen painters still ignore other tty byte handling that menus never reach (no `\n` in menu strs).
+**Next:** scen-options-Knight-50355037 s87 (tty message-window --More-- after a nested option menu). Then re-rank: scen-chain-Healer-50950082 s661 (owner-null), scen-sweep-Tourist-610081 s1740 disclose.
 ## 2026-10-20 — D-4168 detect.c use_crystal_ball's explode arm (`:1246–1252`) prints «The glass orb explodes!», then `losehp(Maybe_Half_Phys(rnd(30)), "exploding crystal ball", KILLED_BY_AN)`. When that kills, C's losehp runs `urgent_pline("You die...")` and `done(DIED)` inline: --More--, wizard-mode «Die?», disclosure. JS's losehp defers the fatal arm: it sets `program_state.gameover` and `_losehp_needs_done` for the caller to drain with finish_losehp_done. use_crystal_ball never drained it, so runSegment's loop saw gameover and ended the game silently, before the explosion message was even shown (1 corpus session → FULL PASS)
 
 **C locus:** detect.c use_crystal_ball `:1246–1252`; hack.c losehp fatal arm (`urgent_pline("You die...")`, `done(DIED)`).
