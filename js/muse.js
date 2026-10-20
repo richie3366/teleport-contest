@@ -886,7 +886,7 @@ async function mbhitm(mtmp, otmp, hits_you) {
         break;
     }
     if (reveal_invis && mtmp && (mtmp.mhp | 0) >= 1) {
-        const bp = game._bhitpos;
+        const bp = game.bhitpos;
         if (bp && cansee(bp.x, bp.y) && !canspotmon(mtmp)) {
             map_invisible(bp.x, bp.y);
         }
@@ -929,7 +929,7 @@ async function fhito_loc(obj, tx, ty, fhito) {
  * map_invisible shipped above.
  */
 async function mbhit(mon, range, obj) {
-    const bhitpos = game._bhitpos || (game._bhitpos = { x: 0, y: 0 });
+    const bhitpos = game.bhitpos || (game.bhitpos = { x: 0, y: 0 });
     bhitpos.x = mon.mx;
     bhitpos.y = mon.my;
     const ddx = sgn((mon.mux ?? game.u?.ux) - mon.mx);

@@ -3997,8 +3997,8 @@ export async function probe_monster(mtmp) {
 
 /** C ref: zap.c miss — wand/spell miss message. */
 async function miss_msg(str, mtmp) {
-    const bx = game._bhitpos?.x ?? mtmp.mx;
-    const by = game._bhitpos?.y ?? mtmp.my;
+    const bx = game.bhitpos?.x ?? mtmp.mx;
+    const by = game.bhitpos?.y ?? mtmp.my;
     const whom = ((cansee(bx, by) || canspotmon(mtmp))
         && game.flags?.verbose !== false)
         ? mon_nam(mtmp) : 'it';
@@ -4124,7 +4124,7 @@ export async function bhitm(mtmp, otmp) {
     let zap_type_text = 'spell';
     const disguised_mimic = mtmp.data?.mlet === 'S_MIMIC'
         && M_AP_TYPE(mtmp) !== M_AP_NOTHING;
-    const bhitpos = game._bhitpos || (game._bhitpos = { x: 0, y: 0 });
+    const bhitpos = game.bhitpos || (game.bhitpos = { x: 0, y: 0 });
     game.notonhead = ((mtmp.mx | 0) !== (bhitpos.x | 0)
         || (mtmp.my | 0) !== (bhitpos.y | 0));
 
@@ -6318,7 +6318,7 @@ function bhit_skiprange(range) {
  */
 async function bhit(ddx, ddy, range, weapon, fhitm, fhito, pobj) {
     let obj = pobj?.obj;
-    const bhitpos = game._bhitpos || (game._bhitpos = { x: 0, y: 0 });
+    const bhitpos = game.bhitpos || (game.bhitpos = { x: 0, y: 0 });
     game.bhitpos = bhitpos;
     let r = range | 0;
     let result = null;
@@ -7165,7 +7165,7 @@ async function zap_steed(obj) {
     const steed = game.u?.usteed;
     if (!steed || !obj) return false;
     let steedhit = false;
-    const bhitpos = game._bhitpos || (game._bhitpos = { x: 0, y: 0 });
+    const bhitpos = game.bhitpos || (game.bhitpos = { x: 0, y: 0 });
     game.bhitpos = bhitpos;
     bhitpos.x = steed.mx | 0;
     bhitpos.y = steed.my | 0;

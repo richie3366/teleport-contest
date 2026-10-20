@@ -777,8 +777,10 @@ export async function flooreffects(obj, x, y, verb) {
     }
     obj.nobj = obj.nexthere = null;
 
-    const save = game._bhitpos ? { ...game._bhitpos } : null;
-    game._bhitpos = { x: x | 0, y: y | 0 };
+    // C `save_bhitpos = gb.bhitpos; gb.bhitpos.x = x, gb.bhitpos.y = y;`
+    // (gb.bhitpos is a zero-initialized static, so a first save is 0,0).
+    const save = { x: game.bhitpos?.x | 0, y: game.bhitpos?.y | 0 };
+    game.bhitpos = { x: x | 0, y: y | 0 };
 
     // C: struct trap *t; struct monst *mtmp; int ttyp = NO_TRAP, res = FALSE.
     // t/levl are read per-branch like C (no hoist past boulder_hits_pool).
@@ -966,8 +968,7 @@ export async function flooreffects(obj, x, y, verb) {
         }
     }
 
-    if (save) game._bhitpos = save;
-    else delete game._bhitpos;
+    game.bhitpos = save; // C `gb.bhitpos = save_bhitpos;`
     return res;
 }
 
