@@ -6758,12 +6758,9 @@ function load_wiz_strt() {
     lspo_replace_terrain_region(13, 5, 33, 15, CLOUD, ROOM, 100);
 
     // lit / unlit regions
-    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
-        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631) then sel_set_lit (:5632): light_region's +1 rect.
+    light_region(mx, my, mx + 75, my + 19, true);
     const unlitRect = (x1, y1, x2, y2) => {
         for (let y = my + y1; y <= my + y2 && y < ROWNO; y++) {
             for (let x = mx + x1; x <= mx + x2 && x < COLNO; x++) {
@@ -7024,12 +7021,9 @@ function load_wiz_loca() {
     lspo_replace_terrain_region(34, 1, 68, 19, MOAT, ROOM, 2);
 
     // des.region(selection.area(00,00,75,20), "lit")
-    for (let y = my; y <= my + 20 && y < ROWNO; y++) {
-        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631) then sel_set_lit (:5632): light_region's +1 rect.
+    light_region(mx, my, mx + 75, my + 20, true);
 
     const wizLocaAddIrregular = (x1, y1, lit, wallsOrRandom) => {
         const dx1 = mx + x1, dy1 = my + y1;
@@ -7510,12 +7504,9 @@ function load_pri_strt() {
     const my = g.splev_ystart ?? 0;
 
     // des.region(selection.area(00,00,75,19), "lit")
-    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
-        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631) then sel_set_lit (:5632): light_region's +1 rect.
+    light_region(mx, my, mx + 75, my + 19, true);
 
     // des.region({ region={24,06, 33,13}, lit=1, type="temple", filled=2 })
     {
@@ -8047,14 +8038,10 @@ function load_arc_strt() {
     const my = g.splev_ystart ?? 0;
 
     // des.region lit/unlit (map-relative; RNG-free)
-    const arcLit = (x1, y1, x2, y2, lit) => {
-        for (let y = y1; y <= y2; y++) {
-            for (let x = x1; x <= x2; x++) {
-                const loc = g.level.at(mx + x, my + y);
-                if (loc) loc.lit = lit;
-            }
-        }
-    };
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631), "unlit" does not; sel_set_lit (:5632) keeps lava lit.
+    const arcLit = (x1, y1, x2, y2, lit) =>
+        light_region(mx + x1, my + y1, mx + x2, my + y2, lit);
     arcLit(0, 0, 75, 19, true);
     arcLit(22, 6, 23, 6, false);
     arcLit(25, 6, 30, 6, false);
@@ -8260,14 +8247,10 @@ function load_arc_loca() {
     const my = g.splev_ystart ?? 0;
 
     // des.region lit/unlit (map-relative; RNG-free for fixed lit values)
-    const arcLit = (x1, y1, x2, y2, lit) => {
-        for (let y = y1; y <= y2; y++) {
-            for (let x = x1; x <= x2; x++) {
-                const loc = g.level.at(mx + x, my + y);
-                if (loc) loc.lit = lit;
-            }
-        }
-    };
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631), "unlit" does not; sel_set_lit (:5632) keeps lava lit.
+    const arcLit = (x1, y1, x2, y2, lit) =>
+        light_region(mx + x1, my + y1, mx + x2, my + y2, lit);
     arcLit(0, 0, 75, 19, true);
     arcLit(30, 4, 30, 16, true);
     arcLit(32, 4, 32, 16, false);
@@ -8492,14 +8475,10 @@ function load_arc_goal() {
     const my = g.splev_ystart ?? 0;
 
     // des.region lit/unlit (map-relative; RNG-free for fixed lit values)
-    const arcLit = (x1, y1, x2, y2, lit) => {
-        for (let y = y1; y <= y2; y++) {
-            for (let x = x1; x <= x2; x++) {
-                const loc = g.level.at(mx + x, my + y);
-                if (loc) loc.lit = lit;
-            }
-        }
-    };
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631), "unlit" does not; sel_set_lit (:5632) keeps lava lit.
+    const arcLit = (x1, y1, x2, y2, lit) =>
+        light_region(mx + x1, my + y1, mx + x2, my + y2, lit);
     arcLit(0, 0, 75, 19, true);
     arcLit(35, 2, 36, 3, false);
     arcLit(40, 2, 41, 3, false);
@@ -8885,12 +8864,9 @@ xxxxxxxxx.......xxxxxx.....xxxxxxxxxxxxx
     const my = g.splev_ystart ?? 0;
 
     // des.region(selection.area(00,00,39,11), "lit")
-    for (let y = my; y <= my + 11 && y < ROWNO; y++) {
-        for (let x = mx; x <= mx + 39 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631) then sel_set_lit (:5632): light_region's +1 rect.
+    light_region(mx, my, mx + 39, my + 11, true);
 
     // des.region({ region={09,02, 27,09}, lit=1, type="temple", filled=2 })
     let templeRoom = null;
@@ -9089,17 +9065,12 @@ function load_kni_goal() {
     const mx = g.splev_xstart ?? 1;
     const my = g.splev_ystart ?? 0;
 
-    // des.region lit / unlit
-    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
-        for (let x = mx; x <= mx + 14 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-        for (let x = mx + 15; x <= mx + 75 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = false;
-        }
-    }
+    // des.region(selection.area(00,00,14,19), "lit") then
+    // des.region(selection.area(15,00,75,19), "unlit"), in Lua order —
+    // C lspo_region argc=2 :5619-5637: "lit" grows W_ANY (:5630-5631),
+    // "unlit" does not; sel_set_lit (:5632) keeps lava lit.
+    light_region(mx, my, mx + 14, my + 19, true);
+    light_region(mx + 15, my, mx + 75, my + 19, false);
 
     // des.stair("up", 03,08)
     // C l_create_stairway: fixed scoord → SpLev_Map mark :4189 + force :4209–4210.
@@ -12453,12 +12424,9 @@ function load_mon_strt() {
     const my = g.splev_ystart ?? 0;
 
     // des.region(selection.area(00,00,75,19), "lit")
-    for (let y = my; y <= my + 19 && y < ROWNO; y++) {
-        for (let x = mx; x <= mx + 75 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631) then sel_set_lit (:5632): light_region's +1 rect.
+    light_region(mx, my, mx + 75, my + 19, true);
 
     // des.region({ region={24,06, 33,13}, lit=1, type="temple" }) — no
     // `filled` key: C lspo_region :5600 defaults needfill to 0 (Pri-strt
@@ -13839,14 +13807,10 @@ function load_bar_loca() {
     const my = g.splev_ystart ?? 0;
 
     // des.region lit/unlit (map-relative; RNG-free)
-    const barLit = (x1, y1, x2, y2, lit) => {
-        for (let y = y1; y <= y2; y++) {
-            for (let x = x1; x <= x2; x++) {
-                const loc = g.level.at(mx + x, my + y);
-                if (loc) loc.lit = lit;
-            }
-        }
-    };
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631), "unlit" does not; sel_set_lit (:5632) keeps lava lit.
+    const barLit = (x1, y1, x2, y2, lit) =>
+        light_region(mx + x1, my + y1, mx + x2, my + y2, lit);
     barLit(0, 0, 75, 19, true);
     barLit(24, 3, 26, 4, false);
     barLit(31, 8, 33, 9, false);
@@ -14807,12 +14771,9 @@ function load_soko1_1() {
     mkstairs(xstart + 1, ystart + 1, 0, null, true); // des.stair("down", 01, 01)
 
     // des.region(selection.area(00,00,25,17),"lit")
-    for (let y = ystart; y <= ystart + 17 && y < ROWNO; y++) {
-        for (let x = xstart; x <= xstart + 25 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631) then sel_set_lit (:5632): light_region's +1 rect.
+    light_region(xstart, ystart, xstart + 25, ystart + 17, true);
 
     // des.non_diggable / non_passwall — C set_wall_property on STWALL/TREE/bars
     for (let y = ystart; y <= ystart + 17 && y < ROWNO; y++) {
@@ -14994,12 +14955,9 @@ function load_soko1_2() {
     mkstairs(xstart + 6, ystart + 15, 0, null, true); // des.stair("down", 06, 15)
 
     // des.region(selection.area(00,00,25,16),"lit")
-    for (let y = ystart; y <= ystart + 16 && y < ROWNO; y++) {
-        for (let x = xstart; x <= xstart + 25 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631) then sel_set_lit (:5632): light_region's +1 rect.
+    light_region(xstart, ystart, xstart + 25, ystart + 16, true);
 
     for (let y = ystart; y <= ystart + 16 && y < ROWNO; y++) {
         for (let x = Math.max(1, xstart); x <= xstart + 25 && x < COLNO; x++) {
@@ -15172,12 +15130,9 @@ function load_soko3_1() {
     }
 
     // des.region(selection.area(00,00,28,11), "lit")
-    for (let y = ystart; y <= ystart + 11 && y < ROWNO; y++) {
-        for (let x = xstart; x <= xstart + 28 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631) then sel_set_lit (:5632): light_region's +1 rect.
+    light_region(xstart, ystart, xstart + 28, ystart + 11, true);
 
     for (let y = ystart; y <= ystart + 11 && y < ROWNO; y++) {
         for (let x = Math.max(1, xstart); x <= xstart + 28 && x < COLNO; x++) {
@@ -15278,12 +15233,9 @@ function load_soko3_2() {
     }
 
     // des.region(selection.area(00,00,25,13), "lit")
-    for (let y = ystart; y <= ystart + 13 && y < ROWNO; y++) {
-        for (let x = xstart; x <= xstart + 25 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631) then sel_set_lit (:5632): light_region's +1 rect.
+    light_region(xstart, ystart, xstart + 25, ystart + 13, true);
 
     for (let y = ystart; y <= ystart + 13 && y < ROWNO; y++) {
         for (let x = Math.max(1, xstart); x <= xstart + 25 && x < COLNO; x++) {
@@ -15385,12 +15337,9 @@ function load_soko4_1() {
     mkstairs(xstart + 6, ystart + 6, 1, null, true); // des.stair("up", 06, 06)
 
     // des.region(selection.area(00,00,13,12), "lit")
-    for (let y = ystart; y <= ystart + 12 && y < ROWNO; y++) {
-        for (let x = xstart; x <= xstart + 13 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631) then sel_set_lit (:5632): light_region's +1 rect.
+    light_region(xstart, ystart, xstart + 13, ystart + 12, true);
 
     for (let y = ystart; y <= ystart + 12 && y < ROWNO; y++) {
         for (let x = Math.max(1, xstart); x <= xstart + 13 && x < COLNO; x++) {
@@ -15505,12 +15454,9 @@ function load_soko4_2() {
     mkstairs(xstart + 1, ystart + 1, 1, null, true); // des.stair("up", 01, 01)
 
     // des.region(selection.area(00,00,14,10),"lit")
-    for (let y = ystart; y <= ystart + 10 && y < ROWNO; y++) {
-        for (let x = xstart; x <= xstart + 14 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631) then sel_set_lit (:5632): light_region's +1 rect.
+    light_region(xstart, ystart, xstart + 14, ystart + 10, true);
 
     for (let y = ystart; y <= ystart + 10 && y < ROWNO; y++) {
         for (let x = Math.max(1, xstart); x <= xstart + 14 && x < COLNO; x++) {
@@ -16051,12 +15997,9 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     });
 
     // des.region(selection.area(00,00,75,19),"lit") — map-relative
-    for (let y = ystart; y <= ystart + 19 && y < ROWNO; y++) {
-        for (let x = xstart; x <= xstart + 75 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631) then sel_set_lit (:5632): light_region's +1 rect.
+    light_region(xstart, ystart, xstart + 75, ystart + 19, true);
 
     const airMons = [
         ['air elemental', 0], ['air elemental', 0], ['air elemental', 0],
@@ -19154,12 +19097,9 @@ function load_soko2_1() {
     }
 
     // des.region(selection.area(00,00, 19,11), "lit")
-    for (let y = ystart; y <= ystart + 11 && y < ROWNO; y++) {
-        for (let x = xstart; x <= xstart + 19 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631) then sel_set_lit (:5632): light_region's +1 rect.
+    light_region(xstart, ystart, xstart + 19, ystart + 11, true);
 
     for (let y = ystart; y <= ystart + 11 && y < ROWNO; y++) {
         for (let x = Math.max(1, xstart); x <= xstart + 19 && x < COLNO; x++) {
@@ -19261,12 +19201,9 @@ function load_soko2_2() {
     }
 
     // des.region(selection.area(00,00,21,12), "lit")
-    for (let y = ystart; y <= ystart + 12 && y < ROWNO; y++) {
-        for (let x = xstart; x <= xstart + 21 && x < COLNO; x++) {
-            const loc = g.level.at(x, y);
-            if (loc) loc.lit = true;
-        }
-    }
+    // C lspo_region argc=2 :5619-5637: "lit" grows the selection W_ANY
+    // (:5630-5631) then sel_set_lit (:5632): light_region's +1 rect.
+    light_region(xstart, ystart, xstart + 21, ystart + 12, true);
 
     for (let y = ystart; y <= ystart + 12 && y < ROWNO; y++) {
         for (let x = Math.max(1, xstart); x <= xstart + 21 && x < COLNO; x++) {

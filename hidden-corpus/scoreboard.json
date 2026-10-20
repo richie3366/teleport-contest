@@ -1,7 +1,7 @@
 {
- "commit": "2cf72c412",
- "at": "2026-10-20T07:29:52.257Z",
- "full": true,
+ "commit": "b053dc710",
+ "at": "2026-10-20T07:53:26.385Z",
+ "full": false,
  "fullCommit": "2cf72c412",
  "fullAt": "2026-10-20T07:29:52.257Z",
  "entries": 778,
@@ -3051,6 +3051,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-options-Caveman-50151031": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 2330,
+   "rngT": 2330,
+   "scrM": 181,
+   "scrT": 182,
+   "kind": "screen",
+   "step": 40,
+   "steps": 182,
+   "owner": "status_hilite_menu_add",
+   "loc": "botl.c:4229",
+   "jsOwner": null,
+   "cTopline": "Choose attribute to always hilite experience:",
+   "jsTopline": "Choose attribute to always hilite experience:",
+   "error": null
+  },
   "scen-options-Caveman-94011": {
    "src": "corpus",
    "passed": true,
@@ -3078,6 +3095,23 @@
    "kind": null,
    "step": null,
    "steps": 15,
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
+  "scen-options-Knight-50255908": {
+   "src": "corpus",
+   "passed": true,
+   "rngM": 3417,
+   "rngT": 3417,
+   "scrM": 186,
+   "scrT": 186,
+   "kind": null,
+   "step": null,
+   "steps": 186,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -4056,19 +4090,19 @@
   },
   "scen-questtour-Monk-50557003": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 8301,
+   "passed": true,
+   "rngM": 17600,
    "rngT": 17600,
-   "scrM": 344,
+   "scrM": 687,
    "scrT": 687,
-   "kind": "screen",
-   "step": 324,
+   "kind": null,
+   "step": null,
    "steps": 687,
-   "owner": "background_enlightenment",
-   "loc": "insight.c:609",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The xorn hits again! The xorn bites! The earth elemental hits!",
-   "jsTopline": "The xorn hits again! The xorn bites! The earth elemental hits!",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-questtour-Priest-50950030": {
@@ -12429,40 +12463,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-options-Caveman-50151031": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 2330,
-   "rngT": 2330,
-   "scrM": 181,
-   "scrT": 182,
-   "kind": "screen",
-   "step": 40,
-   "steps": 182,
-   "owner": "status_hilite_menu_add",
-   "loc": "botl.c:4229",
-   "jsOwner": null,
-   "cTopline": "Choose attribute to always hilite experience:",
-   "jsTopline": "Choose attribute to always hilite experience:",
-   "error": null
-  },
-  "scen-options-Knight-50255908": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 3417,
-   "rngT": 3417,
-   "scrM": 186,
-   "scrT": 186,
-   "kind": null,
-   "step": null,
-   "steps": 186,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-sweep-Archeologist-610093": {
    "src": "corpus",
    "passed": false,
@@ -13279,7 +13279,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "archivedAt": "2026-10-20T07:30:57.368Z",
- "tieredAt": "2026-10-20T07:30:57.927Z"
+ }
 }
