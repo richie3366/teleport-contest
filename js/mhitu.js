@@ -1789,7 +1789,7 @@ async function gulpmu(mtmp, mattk) {
         // #992-class mid-screen regression possible at this site);
         // D-3807 precedent (departure gate removal).
         vision_off_newsym_gbuf({ useLiveViz: true });
-        vision_recalc(2);
+        await vision_recalc(2);
         u.uswallow = 1;
         if ((mattk.adtyp | 0) === AD_DGST) {
             tim_tmp = (acurr(A_CON) | 0) + 10 - (u.uac | 0) + rn2(20);

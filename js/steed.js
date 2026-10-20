@@ -480,7 +480,7 @@ async function teleds_simple(nux, nuy, _flags) {
     await u_on_newpos(nux, nuy);
     newsym(ox, oy);
     newsym(nux, nuy);
-    vision_recalc(1);
+    await vision_recalc(1);
     if (!game.flags) game.flags = {};
     game.flags.botl = true;
 }
@@ -1059,7 +1059,7 @@ export async function dismount_steed(reason) {
         if (!game.flags) game.flags = {};
         game.flags.botl = true;
         await encumber_msg();
-        vision_recalc(1);
+        await vision_recalc(1);
     } else {
         if (!game.flags) game.flags = {};
         game.flags.botl = true;

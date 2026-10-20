@@ -3137,7 +3137,7 @@ export async function hurtle_step(rangeArg, x, y) {
     // C dothrow.c:909 — u_on_newpos then newsym/vision/flush.
     await u_on_newpos(x, y);
     newsym(ox, oy);
-    vision_recalc(1);
+    await vision_recalc(1);
     flush_screen(1);
     if (ltyp !== originTyp) await switch_terrain();
 
@@ -3282,7 +3282,7 @@ async function mhurtle_step(mon, x, y) {
             u.ux0 = u.ux; u.uy0 = u.uy;
             await u_on_newpos(x, y);
             newsym(u.ux0, u.uy0); // C :1012 update old position
-            vision_recalc(0); // C :1013 new location => different sight lines
+            await vision_recalc(0); // C :1013 new location => different sight lines
         }
         flush_screen(1); // C :1015
         await nh_delay_output(); // C :1016

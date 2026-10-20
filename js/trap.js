@@ -6729,7 +6729,7 @@ export async function drown() {
             await unplacebc();
             await placebc();
         }
-        vision_recalc(2); /* unsee old position */
+        await vision_recalc(2); /* unsee old position */
         await set_uinwater(1); /* u.uinwater = 1 */
         await under_water(1);
         game.vision_full_recalc = 1;
@@ -7258,7 +7258,7 @@ export async function openholdingtrap(mon) {
         await pline(`${buf} released from ${whichSpaced}${trapdescr}.`);
         game.vision_full_recalc = 1;
         await reset_utrap(true);
-        if (game.vision_full_recalc) vision_recalc(0);
+        if (game.vision_full_recalc) await vision_recalc(0);
     } else {
         if (!(mon.mtrapped | 0)) return { happened: false, noticed: false };
         mon.mtrapped = 0;
@@ -7533,7 +7533,7 @@ async function move_into_trap(ttmp) {
         await u_on_newpos(x, y);
         u.umoved = true;
         newsym(ux0, uy0);
-        vision_recalc(1);
+        await vision_recalc(1);
         await check_leash(ux0, uy0);
         if (isPunished) move_bc(0, bc, bx, by, cx, cy);
         ttmp.tseen = 0; // hack for check_here()

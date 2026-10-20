@@ -536,7 +536,7 @@ export async function litroom(on, obj) {
         // vision_recalc(2) skips that loop, so run its newsyms on the live
         // viz first, Hallu-gated like docrt's D-0852 call (D-4065).
         if (Hallucination()) vision_off_newsym_gbuf({ useLiveViz: true });
-        vision_recalc(2);
+        await vision_recalc(2);
 
         /* C `:2610–2612` — replace ball&chain after the forced redraw. */
         if (u.uball && u.uchain && !on)
@@ -547,7 +547,7 @@ export async function litroom(on, obj) {
     /* C `:2615–2633` — after vision is current, monsters hit by the light
        take effect now (vision_recalc(0) first; can't delay after all). */
     if (gremlins.length) {
-        vision_recalc(0);
+        await vision_recalc(0);
         while (gremlins.length) {
             const grm = gremlins.shift();
             await light_hits_gremlin(grm, rnd(5));

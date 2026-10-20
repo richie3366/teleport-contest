@@ -941,7 +941,7 @@ export async function newgame() {
     init_vision_globals();
     initrack(); // C: allmain.c / cmd.c — clear hero track ring
     vision_reset();
-    vision_recalc(0);
+    await vision_recalc(0);
     await cls();
     await docrt();
     await flush_screen(1);
@@ -1094,7 +1094,7 @@ async function maybe_do_tutorial() {
     game.iflags.nofollowers = true;
     schedule_goto(sp.dlevel, UTOTYPE_NONE, 'Entering the tutorial.', null);
     await deferred_goto();
-    vision_recalc(0);
+    await vision_recalc(0);
     await docrt();
     game.iflags.nofollowers = false;
 }
@@ -1492,7 +1492,7 @@ export async function moveloop_core() {
             }
             // C :470–471 — inside the gate, after the see arms.
             if (g.vision_full_recalc) {
-                vision_recalc(0);
+                await vision_recalc(0);
             }
         }
     }
@@ -1595,7 +1595,7 @@ export async function moveloop_core() {
     // so next iteration's monsters see post-hero-action vision (D-1863:
     // pit fall restricts to 3×3 before the monsters move).
     if (g.vision_full_recalc) {
-        vision_recalc(0);
+        await vision_recalc(0);
         g.vision_full_recalc = 0;
     }
     // C allmain.c:543–547 — CLIPPING (config.h:538, compiled in):

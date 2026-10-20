@@ -27,7 +27,7 @@ import { objectNames } from './objects.js';
 import { do_light_sources } from './light.js';
 import { visible_region_at } from './region.js';
 import { detecting } from './detect.js';
-import { is_moat, is_pool } from './hack.js';
+import { is_moat, is_pool, notice_all_mons } from './hack.js';
 import { m_at } from './mon.js';
 import { objects_at } from './mkobj.js';
 
@@ -895,7 +895,7 @@ export async function do_clear_area(scol, srow, range, func, arg) {
         && (Is_waterlevel(u.uz) || Is_airlevel(u.uz));
 
     if (range < 1 || range >= circle_start.length) return;
-    if (game.vision_full_recalc) vision_recalc(0);
+    if (game.vision_full_recalc) await vision_recalc(0);
     const limitsStart = circle_start[range];
     let max_y = srow + range;
     if (max_y >= ROWNO) max_y = ROWNO - 1;
@@ -1079,8 +1079,10 @@ export function get_unused_cs() {
     return { rows, rmin, rmax };
 }
 
-// C ref: vision_recalc(control)
-export function vision_recalc(control = 0) {
+// C ref: vision_recalc(control). Async only for the `skip:` tail's
+// notice_all_mons(TRUE) (vision.c `:856`), which prints with spot_monsters
+// on; everything before it runs synchronously, as in C.
+export async function vision_recalc(control = 0) {
     const u = game.u;
     if (!u || !game.level) return;
     game.vision_full_recalc = 0;
@@ -1134,6 +1136,7 @@ export function vision_recalc(control = 0) {
         // one display-RNG (hero-object repaint); missing it desyncs every
         // later hallu glyph (scen-impaired-Healer-94190 step 198).
         if (!game.program_state?.panicking && (u.ux | 0) > 0) newsym(u.ux, u.uy);
+        await notice_all_mons(true); // C :856
         return;
     } else if (control !== 2) {
         // Is_rogue_level → rogue_vision; else Algorithm-C view_from.
@@ -1292,6 +1295,8 @@ export function vision_recalc(control = 0) {
 
     game._viz_rmin = next_rmin;
     game._viz_rmax = next_rmax;
+
+    await notice_all_mons(true); // C :856
 }
 
 // C ref: cansee(x, y)

@@ -11003,7 +11003,7 @@ export async function optfn_boolean(optidx, req, negated, opts) {
             if (!invlet_constant()) reassign();
             update_inventory();
         } else if (name === 'lit_corridor' || name === 'dark_room') {
-            vision_recalc(2); // C shut down vision
+            await vision_recalc(2); // C shut down vision
             game.vision_full_recalc = 1; // C `gv.vision_full_recalc` (vision.js:270)
             // C `:5373` `if (iflags.use_color)` reads TRUE on the
             // color-terminal build (tty TERM probes); JS has no probe
@@ -11176,7 +11176,7 @@ export async function optfn_boolean_do_set(name, negated, initial = false) {
     if (name === 'lit_corridor' || name === 'dark_room') {
         // C options.c optfn_boolean `:5362–5374` — the vision system is
         // set up here (not initializing: see the `initial` return above).
-        vision_recalc(2); // C shut down vision
+        await vision_recalc(2); // C shut down vision
         game.vision_full_recalc = 1; // C `gv.vision_full_recalc` (vision.js:270)
         // C `:5373` — unset means on (whole-optfn note above).
         if (game.iflags?.wc_color !== false) mark_opt_need_redraw();

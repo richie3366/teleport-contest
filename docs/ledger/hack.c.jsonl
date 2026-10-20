@@ -26,7 +26,7 @@
 {"fn":"u_rooted","c":"1694-1705","status":"ported","js":["js/cmd.js:u_rooted"],"d":["D-3404"],"at":"2026-10-04@e2943671c"}
 {"fn":"notice_mon","c":"1708-1732","status":"ported","js":["js/hack.js:notice_mon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"notice_mons_cmp","c":"1735-1741","status":"ported","js":["js/hack.js:notice_mons_cmp"],"d":["D-3404","D-3105"],"at":"2026-10-04@e2943671c","note":"audited D-3404: whole vs C"}
-{"fn":"notice_all_mons","c":"1744-1783","status":"partial","js":["js/hack.js:notice_all_mons"],"omit":"blocked: CURRENT.md Do not (fortress guard; newgame arm live D-1200)","at":"seed@a30a7de84"}
+{"fn":"notice_all_mons","c":"1744-1783","status":"ported","js":["js/hack.js:notice_all_mons"],"d":["D-4159"],"at":"2026-10-20@cc4fc3643"}
 {"fn":"impact_disturbs_zombies","c":"1787-1794","status":"ported","js":["js/hack.js:impact_disturbs_zombies"],"d":["D-1229"],"at":"2026-10-03@bbe63333a"}
 {"fn":"disturb_buried_zombies","c":"1798-1813","status":"ported","js":["js/hack.js:disturb_buried_zombies"],"d":["D-1214"],"at":"2026-10-03@bbe63333a"}
 {"fn":"u_locomotion","c":"1817-1829","status":"ported","js":["js/hack.js:u_locomotion"],"d":["D-3810","D-3404"],"at":"2026-10-11@e93d9c513"}

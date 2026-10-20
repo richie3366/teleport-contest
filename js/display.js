@@ -7290,7 +7290,7 @@ export async function docrt_flags(refresh_flags) {
                 }
             }
             // C `:1739` — shut down vision.
-            vision_recalc(2);
+            await vision_recalc(2);
             // C `:1741–1748` — cls() fills the physical screen with rock
             // and clears the glyph buffer.
             if (!nocls) await cls();
@@ -7299,7 +7299,7 @@ export async function docrt_flags(refresh_flags) {
                 for (let y = 0; y < ROWNO; y++)
                     show_memory_glyph(x, y);
             // C `:1758` — see what is to be seen.
-            vision_recalc(0);
+            await vision_recalc(0);
             // C `:1761` — overlay with monsters.
             await see_monsters();
         }
@@ -10385,12 +10385,12 @@ function putmesg(line) {
  * "Die?" prompt arrives with polymon's recalc pending, and the prompt's
  * flush is what clears the stale monster glyph for the eyeless hero.
  */
-export function vpline_flush_vision() {
+export async function vpline_flush_vision() {
     if (game.vision_full_recalc) {
         const _savedInPline = _vpline_in_pline;
         _vpline_in_pline = 0;
         try {
-            vision_recalc(0);
+            await vision_recalc(0);
         } finally {
             _vpline_in_pline = _savedInPline;
         }
@@ -10406,7 +10406,7 @@ async function pline_after_consume(msg, alreadyDumplogged = false) {
     if (suppress) return;
     // C pline.c vpline `:266–271` — flush before flush_screen (helper:
     // same statements, shared with the yn-prompt paint below).
-    vpline_flush_vision();
+    if (game.vision_full_recalc) await vpline_flush_vision();
     // C `:277–278` — if (u.ux) flush_screen(NO_CURS_ON_U ? 0 : 1).
     if (game.u?.ux) await flush_screen((gp.pline_flags & NO_CURS_ON_U) ? 0 : 1);
     // C `:276` putmesg(line). debug_prevent_pline returns before

@@ -468,7 +468,7 @@ async function kick_door(x, y, avrg_attrib) {
             await b_trapped('door', FOOT);
             feel_newsym(x, y); /* we know we broke it */
             recalc_block_point(x, y);
-            vision_recalc(1);
+            await vision_recalc(1);
         } else if (acurr(A_STR) > 18 && !rn2(5) && !shopdoor) {
             // C: Soundeffect before the message (draw-free no-op here).
             Soundeffect(se_kick_door_it_shatters, 50);
@@ -478,7 +478,7 @@ async function kick_door(x, y, avrg_attrib) {
             if (loc.flags !== undefined) loc.flags = loc.doormask;
             feel_newsym(x, y);
             recalc_block_point(x, y);
-            vision_recalc(1);
+            await vision_recalc(1);
         } else {
             // C: Soundeffect before the message (draw-free no-op here).
             Soundeffect(se_kick_door_it_crashes_open, 50);
@@ -488,7 +488,7 @@ async function kick_door(x, y, avrg_attrib) {
             if (loc.flags !== undefined) loc.flags = loc.doormask;
             feel_newsym(x, y);
             recalc_block_point(x, y);
-            vision_recalc(1);
+            await vision_recalc(1);
         }
         if (shopdoor) {
             const { add_damage, pay_for_damage } = await import('./shk.js');
