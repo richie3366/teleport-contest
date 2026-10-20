@@ -16,7 +16,7 @@
 {"fn":"mcast_lightning","c":"566-598","status":"ported","js":["js/mcastu.js:mcast_lightning"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mcast_psi_bolt","c":"601-621","status":"ported","js":["js/mcastu.js:mcast_psi_bolt"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mcast_open_wounds","c":"624-642","status":"ported","js":["js/mcastu.js:mcast_open_wounds"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mcast_insects","c":"645-726","status":"ported","js":["js/mcastu.js:mcast_insects"],"d":["D-3406","D-2835","D-2828"],"at":"2026-10-04@44ce1ba38"}
+{"fn":"mcast_insects","c":"645-726","status":"ported","js":["js/mcastu.js:mcast_insects"],"d":["D-4145","D-3406","D-2835","D-2828"],"at":"2026-10-20@c9067c28f"}
 {"fn":"mcast_blind_you","c":"729-743","status":"ported","js":["js/mcastu.js:mcast_blind_you"],"d":["D-1534"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mcast_paralyze","c":"746-768","status":"ported","js":["js/mcastu.js:mcast_paralyze"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mcast_confuse_you","c":"771-790","status":"ported","js":["js/mcastu.js:mcast_confuse_you"],"at":"2026-10-03@bbe63333a"}
