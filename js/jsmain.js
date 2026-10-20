@@ -20,7 +20,8 @@ import { getmailstatus } from './mail.js';
 import { try_restore_save } from './save.js';
 import { vision_init, vision_recalc, init_vision_globals } from './vision.js';
 import { parseNethackrc, set_playmode, init_fruit_chain, initoptions_init, RC_FILE_OPT, set_configfile_name } from './options.js';
-import { flush_screen, serialize_for_scoring, reset_display_messages, docrt, bot, pline } from './display.js';
+import { flush_screen, serialize_for_scoring, reset_display_messages, docrt, bot, pline, tty_wait_synch } from './display.js';
+import { config_error_init, config_error_done } from './cfgfiles.js';
 import { GameDisplay } from './game_display.js';
 import { nomux_marker } from './nomux_capture.js';
 import { askname_if_needed } from './askname.js';
@@ -165,9 +166,25 @@ export class NethackGame {
         // Stored now for future C time predicates; consumers remain incomplete.
         g.datetime = this._datetime;
 
+        // C termcap.c nomux_buf: the recorder's shadow screen exists before
+        // init_nhwindows (unixmain.c:174) allocates ttyDisplay, and every
+        // tty_nhgetch emits a marker, so a config error's raw_print and
+        // getret wait are captured on the pending display.
+        g._nomuxShadow = this._pendingDisplay;
+        this._installCaptureHook();
+        // C iflags.cbreak is 0 until tty_init_nhwindows → setftty
+        // (wintty.c:533): getret's xwaitforspace takes only return here.
+        g.iflags.cbreak = false;
+
         // Overlay the user rc on the initialized live option bags. No
         // defaults may be reapplied after the system configuration pass.
+        // C rcfile `:1943–1945`: no -nethackrc / NETHACKOPTIONS file, so
+        // nameval is NULL and the frame is not CONFIG_ERROR_SECURE.
+        config_error_init(true, null, false);
         const opts = parseNethackrc(this._nethackrc, true);
+        // C config_error_done `:1613–1615`: errors pline (raw_print, no
+        // window yet), then wait_synch → tty_wait_synch → getret.
+        if (config_error_done()) await tty_wait_synch();
         g.plname = opts.name;
         // C ref: options.c / symbols.c — default Primary ASCII; symset:DECgraphics
         // (or boolean DECgraphics) loads H_DEC showsyms. Never assume DEC.
@@ -229,11 +246,9 @@ export class NethackGame {
         // iflags.window_inited (yn_menuable_resp needs it; D-1728).
         if (!g.iflags) g.iflags = {};
         g.iflags.window_inited = !!g.nhDisplay;
+        g.iflags.cbreak = true; // C tty_init_nhwindows → setftty (wintty.c:533)
         // C nh_delay_output → contest animationFrame (throw/zap beams)
         g.animationFrame = this.animationFrame.bind(this);
-
-        // Install capture hook
-        this._installCaptureHook();
 
         // C unixmain.c:188–190 — #ifdef MAIL getmailstatus() after
         // init_nhwindows, before set_playmode. libnhmain.c:220 is the
@@ -316,7 +331,7 @@ export class NethackGame {
             // screen scoring is the Terminal: contestants drive it
             // however they like, judge reads back terminal.serialize()
             // and compares to the C session's recorded screen.
-            const disp = game?.nhDisplay;
+            const disp = game?.nhDisplay || game?._nomuxShadow;
             const term = disp?.terminal || disp;
             // Count / --More-- prompts: keep cursor on topline even if a
             // later flush reset it to the hero (C get_count / more()).

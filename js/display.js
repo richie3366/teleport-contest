@@ -3267,7 +3267,7 @@ export function reset_display_messages() {
     _tty_intr = 0;
     _tty_inmore = 0;
     _tty_rawprint = 0;
-    _nomux_raw_active = false;
+    _nomux_raw_active = 0;
     _nomux_raw_row = 0;
     _nomux_raw_col = 0;
     // wintty statics a previous game's recorder overflow may have
@@ -9503,14 +9503,43 @@ async function getret() {
 
 // C termcap.c NOMUX_CAPTURE raw shadow (`nomux_raw_active/row/col`
 // `:871–873`) — the recorder's view of tty_raw_print output. Entered on
-// the first non-empty raw_print and never left (`:875–883`).
-let _nomux_raw_active = false;
+// the first non-empty raw_print and never left (`:875–883`). C ints:
+// nomux_out overflows rewrite them (nomux_capture.js), and every marker
+// reports CX/CY from the raw counters once raw_active is non-zero
+// (nomux_get_cursor `:952–960`).
+let _nomux_raw_active = 0;
 let _nomux_raw_row = 0;
 let _nomux_raw_col = 0;
 
+/**
+ * The raw-mode statics as C holds them (nomux_capture.js loads them before
+ * a marker's overflow and reads the cursor from them).
+ * @returns {{ active: number, row: number, col: number }}
+ */
+export function nomux_raw_statics() {
+    return { active: _nomux_raw_active, row: _nomux_raw_row, col: _nomux_raw_col };
+}
+
+/**
+ * Store the raw-mode statics after a recorder overflow rewrote them.
+ * @param {{ active: number, row: number, col: number }} v
+ */
+export function nomux_raw_poke(v) {
+    _nomux_raw_active = v.active | 0;
+    _nomux_raw_row = v.row | 0;
+    _nomux_raw_col = v.col | 0;
+}
+
+// The recorder's shadow screen (termcap.c nomux_buf) exists before
+// init_nhwindows allocates ttyDisplay: until jsmain installs the display,
+// raw output lands on the pending display (game._nomuxShadow).
+function nomux_shadow() {
+    return game.nhDisplay || game._nomuxShadow || null;
+}
+
 /** C termcap.c nomux_raw_putch `:885–900`. */
 function nomux_raw_putch(ch, attr) {
-    const disp = game.nhDisplay;
+    const disp = nomux_shadow();
     if (ch === '\n') {
         _nomux_raw_row++;
         _nomux_raw_col = 0;
@@ -9531,10 +9560,10 @@ function nomux_raw_putch(ch, attr) {
  * The shadow's fg/attr carry no stale colour here (recorded plain text).
  */
 function nomux_raw_emit(s, bold) {
-    const disp = game.nhDisplay;
+    const disp = nomux_shadow();
     if (!_nomux_raw_active) {
-        if (disp && !s) return; // in-game flush (markers always on)
-        _nomux_raw_active = true; // nomux_enter_raw_mode
+        if (game.nhDisplay && !s) return; // in-game flush (markers always on)
+        _nomux_raw_active = 1; // nomux_enter_raw_mode
         _nomux_raw_row = 0;
         _nomux_raw_col = 0;
         disp?.clearScreen?.();
@@ -10135,10 +10164,9 @@ function vpline_truncate(line, ln) {
  * You_cant / pline_The / There / verbalize below, plus the file-idiom
  * prefixed `pline("You ...")` sites (hack.js/lock.js idiom) which now
  * flow through here via pline().
- * Named omissions: `raw_print` (pre-window/recursive terminal path —
- * C prints then sets last_msg UNKNOWN and jumps to pline_done; JS has
- * no scored pre-window surface, so it sets UNKNOWN and returns after
- * dumplog); `alloc` (prefixed accessiblemsg tmp — JS strings, GC);
+ * Named omissions: the recursive arm's `raw_print` (`:245` — the
+ * pre-window arm is live via tty_raw_print, the recorder's raw shadow);
+ * `alloc` (prefixed accessiblemsg tmp — JS strings, GC);
  * `maybe_play_sound` (USER_SOUNDS compiled out of the contest C).
  * `ln > BIGBUFSZ-1` throws (C panic stand-in; never hit).
  * `putmesg` is the file-local below (C staticfn); its one caller is
@@ -10189,7 +10217,7 @@ export async function vpline(fmt, ...args) {
             await _prevTail;
         }
         // C `:243–249` — `if (in_pline++ || !window_inited)`: raw_print
-        // path. C prints via raw_print (named omit above), sets
+        // path. C prints via raw_print (pre-window arm live), sets
         // last_msg UNKNOWN, and jumps to pline_done (SPEECH clear +
         // --in_pline). Post-chain in_pline is 0 unless nested (kept as
         // the backstop) or pre-window.
@@ -10197,6 +10225,10 @@ export async function vpline(fmt, ...args) {
         _vpline_in_pline++;
         try {
             if (_wasIn || !game.iflags?.window_inited) {
+                // C `:245` raw_print — live before the windows are up (config
+                // errors); the recursive arm stays named (JS nests where C
+                // does not, D-3830).
+                if (!_wasIn) tty_raw_print(line);
                 if (game.iflags) game.iflags.last_msg = PLNMSG_UNKNOWN;
                 return;
             }

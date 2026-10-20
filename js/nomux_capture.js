@@ -57,14 +57,17 @@
 // custom colours), the `fieldorder` pointer and tty_status (C would
 // render the status from garbage, or crash, on the next bot()); and
 // erase_tty_screen's `erasing_tty_screen++` (JS has no reentrant erase).
-// With raw_active stuck, C's raw_print path (nomux_raw_emit) skips
-// nomux_enter_raw_mode, so end-of-game raw output is not shadowed and
-// raw_putch bumps raw_col; not modelled. Animation-frame screens keep the
-// plain serialization (the supplemental frame metric).
+// The three raw statics are display.js's (nomux_raw_statics /
+// nomux_raw_poke), loaded before the overflow and written back, so a
+// raw_active the overflow set makes the next raw_print skip
+// nomux_enter_raw_mode, and one a real raw_print set (a config error
+// before init_nhwindows) keeps every later marker on the raw counters,
+// as in C. Animation-frame screens keep the plain serialization (the
+// supplemental frame metric).
 
 import { game } from './gstate.js';
-import { nomux_cell_gbuf, nomux_wintty_statics, nomux_wintty_poke }
-    from './display.js';
+import { nomux_cell_gbuf, nomux_wintty_statics, nomux_wintty_poke,
+    nomux_raw_statics, nomux_raw_poke } from './display.js';
 
 const NOMUX_OUT_SIZE = 24 * 256;   // termcap.c `:795`
 const RAW_STATICS = 12;            // raw_active, raw_row, raw_col (3 × int)
@@ -208,10 +211,16 @@ function overflow_wintty(state, bytes) {
 export function nomux_marker(state, term, cursor, hdr) {
     const bytes = nomux_capture_bytes(term);
     const len = bytes.length;
+    const raw = nomux_raw_statics();
+    put32le(state.mem, 0, raw.active);
+    put32le(state.mem, 4, raw.row);
+    put32le(state.mem, 8, raw.col);
     // Indices len (the '\0') and below that reach past nomux_out land in
     // the statics; indices beyond len are untouched.
     for (let i = NOMUX_OUT_SIZE; i <= len && i < NOMUX_OUT_SIZE + RAW_STATICS; i++)
         state.mem[i - NOMUX_OUT_SIZE] = i < len ? bytes[i] : 0;
+    nomux_raw_poke({ active: int32le(state.mem, 0), row: int32le(state.mem, 4),
+        col: int32le(state.mem, 8) });
     overflow_wintty(state, bytes);
     // nomux_get_cursor: raw mode reports the raw counters.
     let cx = cursor ? cursor[0] : 0;

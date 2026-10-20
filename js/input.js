@@ -35,8 +35,9 @@ export async function nhgetch() {
     } else if (_inputQueue.length > 0) {
         key = _inputQueue.shift();
     } else {
-        // Browser mode: wait for keypress from the display
-        const display = game?.nhDisplay;
+        // Browser mode: wait for keypress from the display (before
+        // init_nhwindows, the pending one: jsmain.js start).
+        const display = game?.nhDisplay || game?._nomuxShadow;
         if (display?.readKey) {
             key = await display.readKey({ bindings: KEY_BINDINGS.VI_KEYS });
         } else {

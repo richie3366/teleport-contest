@@ -249,7 +249,7 @@ import {
 import {
     clearrolefilter, setrolefilter, rolefilterstring,
 } from './player_selection.js';
-import { rcfile, read_config_file, config_error_init, config_error_done, config_error_add, assure_syscf_file, parse_conf_file } from './cfgfiles.js';
+import { rcfile, read_config_file, config_error_init, config_error_done, config_error_add, config_error_nextline, assure_syscf_file, parse_conf_file } from './cfgfiles.js';
 import { nh_terminate, panic } from './end.js';
 import { do_deferred_showpaths } from './files.js'; // C initoptions `:7112` (imports.mjs: hoisted fn, lazy reads only)
 
@@ -4974,7 +4974,7 @@ function parse_iflags_wizmgender(result, value) {
  * @param {string} op
  * @returns {number} optn_* result
  */
-function rc_do_set_role_family(canonName, optfn, negated, opts, op) {
+function rc_do_set_role_family(canonName, optfn, negated, opts, op, duplicate) {
     const matchidx = allopt_idx(canonName); // C parseoptions matchidx
     if (!game.go) game.go = {};
     const savedInitial = game.go.opt_initial;
@@ -4982,15 +4982,49 @@ function rc_do_set_role_family(canonName, optfn, negated, opts, op) {
     const savedDup = duplicateOpt;
     game.go.opt_initial = true; // C `:504` tinitial TRUE
     game.go.opt_from_file = true; // C `:505` tfrom_file TRUE
-    duplicateOpt = duplicate_opt_detection(matchidx); // C `:621`
-    if (duplicateOpt && matchidx >= 0 && matchidx < allopt.length
-        && !OPT_DUPEOK_YES.has(allopt[matchidx].name)) // C `:622`
-        complain_about_duplicate(matchidx); // C `:623`
+    // C `:621–623` — detected (and complained about) by rc_parseoptions_dups.
+    duplicateOpt = !!duplicate;
     const reslt = optfn(matchidx, REQ_DO_SET, negated, opts, op, true);
     duplicateOpt = savedDup;
     game.go.opt_initial = savedInitial;
     game.go.opt_from_file = savedFromFile;
     return reslt;
+}
+
+/**
+ * C options.c parseoptions `:513–623` for one OPTIONS= line, the part
+ * parseNethackrc (the startup stand-in for parse_config_line →
+ * parseoptions(bufp, TRUE, TRUE), cfgfiles.c `:1059`) does not run per
+ * option: the elements right to left (`:513–520` recursion), each trimmed
+ * (`:530–533`), matched (parseoptions_match), then duplicate_opt_detection
+ * and complain_about_duplicate (`:619–623`). Returns each element's
+ * `duplicate` by left-to-right index for the optfn dispatch.
+ * Named: `Option too long` (`:522`), `Empty statement` (`:535`) and the
+ * unknown-option / bad-negation errors (`:626`, `:662–684`) stay unreported.
+ * @param {string[]} elems the line's comma-separated elements
+ * @returns {boolean[]}
+ */
+function rc_parseoptions_dups(elems) {
+    const dups = elems.map(() => false);
+    if (!game.go) game.go = {};
+    const savedInitial = game.go.opt_initial;
+    const savedFromFile = game.go.opt_from_file;
+    game.go.opt_initial = true; // C `:504` tinitial TRUE
+    game.go.opt_from_file = true; // C `:505` tfrom_file TRUE
+    for (let k = elems.length - 1; k >= 0; k--) {
+        const opts = elems[k].trim();
+        if (!opts || opts.length > BUFSZ / 2) continue; // C `:522`, `:535`
+        usingAliasOpt = false; // C `:503`
+        const { gotMatch, matchidx } = parseoptions_match(opts);
+        if (!gotMatch || matchidx < 0 || matchidx >= OPTCOUNT // C `:619–620`
+            || allopt[matchidx].disregarded) continue;
+        dups[k] = !!duplicate_opt_detection(matchidx); // C `:621`
+        if (dups[k] && !OPT_DUPEOK_YES.has(allopt[matchidx].name)) // C `:622`
+            complain_about_duplicate(matchidx); // C `:623`
+    }
+    game.go.opt_initial = savedInitial;
+    game.go.opt_from_file = savedFromFile;
+    return dups;
 }
 
 export function parseNethackrc(rc, defaultsInitialized = false) {
@@ -5054,7 +5088,13 @@ export function parseNethackrc(rc, defaultsInitialized = false) {
     }
     if (!rc) return result;
 
-    for (const rawLine of rc.split('\n')) {
+    const rcLines = rc.split('\n');
+    if (rcLines[rcLines.length - 1] === '') rcLines.pop(); // fgets: no line after the last '\n'
+    for (const rawLine of rcLines) {
+        // C parse_conf_buf `:1726–1730`: trailing blanks trimmed, then every
+        // physical line (blank and comment lines too) advances the
+        // config-error frame (line_num, origline). No secure frame here.
+        config_error_nextline(rawLine.replace(/[ \t\r]+$/, ''));
         const line = rawLine.trim();
         if (!line || line.startsWith('#')) continue;
 
@@ -5113,8 +5153,10 @@ export function parseNethackrc(rc, defaultsInitialized = false) {
         const optMatch = line.match(/^OPTIONS=(.+)/i);
         if (!optMatch) continue;
 
-        for (const opt of optMatch[1].split(',')) {
-            const trimmed = opt.trim();
+        const elems = optMatch[1].split(',');
+        const dups = rc_parseoptions_dups(elems); // C parseoptions `:513–623`
+        for (let ei = 0; ei < elems.length; ei++) {
+            const trimmed = elems[ei].trim();
             if (!trimmed) continue;
 
             const negated = trimmed.startsWith('!');
@@ -5137,7 +5179,7 @@ export function parseNethackrc(rc, defaultsInitialized = false) {
                     // parseoptions `:621` sets duplicate first. OPTN_SILENTERR
                     // (parse_role_opt `:7987–7990`) keeps the previous spelling.
                     const reslt = rc_do_set_role_family(
-                        'role', optfn_role, negated, stripped, val);
+                        'role', optfn_role, negated, stripped, val, dups[ei]);
                     if (reslt !== OPTN_SILENTERR) {
                         result.role = val;
                         result.flags.initrole = game.flags?.initrole;
@@ -5146,7 +5188,7 @@ export function parseNethackrc(rc, defaultsInitialized = false) {
                 }
                 else if (key === 'race') {
                     const reslt = rc_do_set_role_family(
-                        'race', optfn_race, negated, stripped, val);
+                        'race', optfn_race, negated, stripped, val, dups[ei]);
                     if (reslt !== OPTN_SILENTERR) {
                         result.race = val;
                         result.flags.initrace = game.flags?.initrace;
@@ -5155,7 +5197,7 @@ export function parseNethackrc(rc, defaultsInitialized = false) {
                 }
                 else if (key === 'gender') {
                     const reslt = rc_do_set_role_family(
-                        'gender', optfn_gender, negated, stripped, val);
+                        'gender', optfn_gender, negated, stripped, val, dups[ei]);
                     if (reslt !== OPTN_SILENTERR) {
                         result.gender = val;
                         result.flags.initgend = game.flags?.initgend;
@@ -5165,7 +5207,7 @@ export function parseNethackrc(rc, defaultsInitialized = false) {
                 }
                 else if (key === 'align' || key === 'alignment') {
                     const reslt = rc_do_set_role_family(
-                        'alignment', optfn_alignment, negated, stripped, val);
+                        'alignment', optfn_alignment, negated, stripped, val, dups[ei]);
                     if (reslt !== OPTN_SILENTERR) {
                         result.align = val;
                         result.flags.initalign = game.flags?.initalign;
@@ -5678,19 +5720,19 @@ export function parseNethackrc(rc, defaultsInitialized = false) {
                     // C optfn_role do_set, valueless (opt_initial). `character`
                     // is the role alias, so the counter is the role row.
                     rc_do_set_role_family(
-                        'role', optfn_role, negated, stripped, EMPTY_OPTSTR);
+                        'role', optfn_role, negated, stripped, EMPTY_OPTSTR, dups[ei]);
                 }
                 else if (lname === 'race') {
                     rc_do_set_role_family(
-                        'race', optfn_race, negated, stripped, EMPTY_OPTSTR);
+                        'race', optfn_race, negated, stripped, EMPTY_OPTSTR, dups[ei]);
                 }
                 else if (lname === 'gender') {
                     rc_do_set_role_family(
-                        'gender', optfn_gender, negated, stripped, EMPTY_OPTSTR);
+                        'gender', optfn_gender, negated, stripped, EMPTY_OPTSTR, dups[ei]);
                 }
                 else if (lname === 'align' || lname === 'alignment') {
                     rc_do_set_role_family(
-                        'alignment', optfn_alignment, negated, stripped, EMPTY_OPTSTR);
+                        'alignment', optfn_alignment, negated, stripped, EMPTY_OPTSTR, dups[ei]);
                 }
                 else if (lname === 'disclose') {
                     // C optfn_disclose do_set, valueless (opt_initial):
@@ -13001,44 +13043,19 @@ export async function toggle_bool_option(p) {
     return ret; // C `:9296`
 }
 
-export function parseoptions(opts, tinitial, tfromFile) {
-    let negated = false, gotMatch = false, pfxMatch = false; // C `:496`
-    let matchidx = -1, optresult = OPTN_ERR, retval = true; // C `:499`
-
-    duplicateOpt = false; // C `:502`
-    usingAliasOpt = false; // C `:503`
-    if (!game.go) game.go = {};
-    game.go.opt_initial = !!tinitial; // C `:504`
-    game.go.opt_from_file = !!tfromFile; // C `:505`
-
-    if (tinitial) { // C `:513`
-        const comma = String(opts).indexOf(','); // C `strchr(opts, ',')`
-        if (comma >= 0) { // C `:513 != 0`
-            const rest = String(opts).slice(comma + 1); // C `:514 *op++ = 0`
-            opts = String(opts).slice(0, comma);
-            if (!parseoptions(rest, game.go.opt_initial, // C `:519`
-                    game.go.opt_from_file))
-                retval = false; // C `:520`
-        }
-    }
-    opts = String(opts);
-    if (opts.length > BUFSZ / 2) { // C `:522`
-        config_error_add('Option too long, max length is %i characters', // C `:523–524`
-            BUFSZ / 2);
-        return false; // C `:526`
-    }
-
-    let start = 0; // C `:530–531`
-    while (start < opts.length && isOptSpace(opts[start])) start++;
-    let end = opts.length; // C `:532–533`
-    while (end > start && isOptSpace(opts[end - 1])) end--;
-    opts = opts.slice(start, end);
-
-    if (!opts) { // C `:535`
-        config_error_add('Empty statement'); // C `:536`
-        return false; // C `:537`
-    }
-    negated = false; // C `:539`
+/**
+ * C options.c parseoptions `:539–613` — strip the negation prefixes, the
+ * name length without its value, then match allopt (prefix options,
+ * minmatch with the `Ambiguous option` complaint, aliases; sets the
+ * using_alias file static). Callers: parseoptions below, and
+ * rc_parseoptions_dups (parseNethackrc's per-element duplicate pass).
+ * @param {string} opts trimmed element
+ * @returns {{ opts: string, negated: boolean, gotMatch: boolean,
+ *   pfxMatch: boolean, matchidx: number }}
+ */
+function parseoptions_match(opts) {
+    let gotMatch = false, pfxMatch = false, matchidx = -1;
+    let negated = false; // C `:539`
     for (;;) { // C `:540`
         if (opts[0] === '!') { // C `*opts == '!'`
             opts = opts.slice(1); negated = !negated; // C `:541–542`
@@ -13087,6 +13104,48 @@ export function parseoptions(opts, tinitial, tfromFile) {
             }
         }
     }
+
+    return { opts, negated, gotMatch, pfxMatch, matchidx };
+}
+
+export function parseoptions(opts, tinitial, tfromFile) {
+    let negated = false, gotMatch = false, pfxMatch = false; // C `:496`
+    let matchidx = -1, optresult = OPTN_ERR, retval = true; // C `:499`
+
+    duplicateOpt = false; // C `:502`
+    usingAliasOpt = false; // C `:503`
+    if (!game.go) game.go = {};
+    game.go.opt_initial = !!tinitial; // C `:504`
+    game.go.opt_from_file = !!tfromFile; // C `:505`
+
+    if (tinitial) { // C `:513`
+        const comma = String(opts).indexOf(','); // C `strchr(opts, ',')`
+        if (comma >= 0) { // C `:513 != 0`
+            const rest = String(opts).slice(comma + 1); // C `:514 *op++ = 0`
+            opts = String(opts).slice(0, comma);
+            if (!parseoptions(rest, game.go.opt_initial, // C `:519`
+                    game.go.opt_from_file))
+                retval = false; // C `:520`
+        }
+    }
+    opts = String(opts);
+    if (opts.length > BUFSZ / 2) { // C `:522`
+        config_error_add('Option too long, max length is %i characters', // C `:523–524`
+            BUFSZ / 2);
+        return false; // C `:526`
+    }
+
+    let start = 0; // C `:530–531`
+    while (start < opts.length && isOptSpace(opts[start])) start++;
+    let end = opts.length; // C `:532–533`
+    while (end > start && isOptSpace(opts[end - 1])) end--;
+    opts = opts.slice(start, end);
+
+    if (!opts) { // C `:535`
+        config_error_add('Empty statement'); // C `:536`
+        return false; // C `:537`
+    }
+    ({ opts, negated, gotMatch, pfxMatch, matchidx } = parseoptions_match(opts)); // C `:539–613`
 
     if (!game.program_state) game.program_state = {};
     game.program_state.in_parseoptions = // C `:617`

@@ -7,7 +7,7 @@
 {"fn":"pline_dir","c":"114-123","status":"ported","js":["js/display.js:pline_dir"],"d":["D-3401"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"pline_xy","c":"126-135","status":"ported","js":["js/display.js:pline_xy"],"d":["D-3401","D-1215"],"at":"2026-10-03@1ae9cc180","note":"audited D-3401: whole vs C"}
 {"fn":"pline_mon","c":"138-150","status":"ported","js":["js/display.js:pline_mon"],"d":["D-2981"],"at":"2026-09-27@de27c57ac","note":"stale: js/display.js:7655"}
-{"fn":"vpline","c":"153-291","status":"ported","js":["js/display.js:vpline"],"d":["D-3830","D-3402","D-3401","D-2471","D-1807","D-1207"],"at":"2026-10-11@a73eaef26","note":"audited D-3402: whole vs C"}
+{"fn":"vpline","c":"153-291","status":"ported","js":["js/display.js:vpline"],"d":["D-4171","D-3830","D-3402","D-3401","D-2471","D-1807"],"at":"2026-10-20@efefc8f3f","note":"D-4171: pre-window raw_print :245 live (tty_raw_print → recorder raw shadow); recursive-arm raw_print named (JS nests where C does not, D-3830)"}
 {"fn":"custompline","c":"299-308","status":"ported","js":["js/display.js:custompline"],"at":"2026-10-03@bbe63333a"}
 {"fn":"urgent_pline","c":"315-324","status":"ported","js":["js/display.js:urgent_pline"],"at":"2026-10-03@bbe63333a"}
 {"fn":"Norep","c":"327-336","status":"ported","js":["js/display.js:Norep"],"at":"2026-10-03@bbe63333a"}

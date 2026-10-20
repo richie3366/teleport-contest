@@ -1,5 +1,47 @@
 # Divergence log
 
+## D-4171 — An rc that repeats a compound option (`OPTIONS=msg_window:reversed` twice) makes C's parseoptions complain (`:621–623` → complain_about_duplicate `:6803`). Before init_nhwindows (unixmain.c `:150` vs `:174`), config_erradd's plines are raw_print()s, and rcfile's config_error_done (`:1945`) prints «N error in <rc>.» and runs wait_synch → tty_wait_synch → getret, which takes keys until Enter (cbreak is still off). The recorder's nomux_raw_emit enters raw mode on that first raw_print and never leaves it, so every later marker reports the raw cursor (0,6). JS startup's parseNethackrc ran duplicate detection only for role/race/gender/align, never bracketed the rc with config_error_init/done, and dropped pre-window raw_print. It started the game at step 0 and lost every screen on the cursor (12 cliff rows, 18 corpus sessions: 0 → 491–963 screens each, RNG 100 %)
+
+- **Status:** shipped.
+- **Symptom:** the whole Open — cliffs block (12 `unattributed scen-symset-*` rows, C «» vs JS «…welcome to NetHack!» at step 0). The cause is the same in all 18 recipes whose rc has `msg_window:reversed` twice: scenario-gen's makeRc2 adds it 10 % of the time and symsetRc adds it again 30 % of the time. C s0–s15 show `\nOPTIONS=msg_window:reversed\n * Line N: compound option specified multiple times: msg_window.\n\n1 error in /var/folders/…/home/.` (the path is cut at col 80). The keys up to the first `\n` are swallowed and C reads RNG only from there on. The recorded cursor is `[0,6,1]` at every step of the game.
+- **Measurement:** recordings only (no rebuild).
+  - **Screen.** The C error text stays on screen for s0–s15 of scen-symset-Samurai-50555047, whose keys are `O ^F _ > ^F _ > #terrain\n`. s16 is the game's first screen, and the per-step RNG is 0 up to s16.
+  - **Cursor.** The set of distinct C cursors is `{[0,6,1]}` over all 938 steps.
+  - **Mechanism.** In patch 006 (termcap.c), nomux_raw_emit (`:916–946`) sets `nomux_raw_active` on any non-empty raw_print and nothing clears it. nomux_get_cursor (`:952–960`) then returns raw_col/raw_row. Rows 0–5 are the raw lines (origline, ` * Line…`, blank, «1 error…», plus puts' newline), which leaves raw_row 6.
+- **C locus:** options.c parseoptions `:513–623` (right-to-left comma recursion, match, duplicate_opt_detection, complain_about_duplicate `:6789–6809`); cfgfiles.c rcfile `:1943–1945`, parse_conf_buf `:1726–1730` (config_error_nextline per physical line), config_erradd `:1576–1588`, config_error_done `:1609–1615`; pline.c vpline `:243–249`; wintty.c tty_wait_synch `:3623–3647`, getret `:764–781`, tty_init_nhwindows → setftty `:529–533`; getline.c xwaitforspace `:230–257`; recorder patch 006 termcap.c nomux_raw_emit / nomux_get_cursor.
+- **JS was:**
+  - parseNethackrc called duplicate_opt_detection only inside rc_do_set_role_family.
+  - jsmain start had no config_error_init/done around parseNethackrc. config_erradd's pre-window arm therefore never counted errors, and nothing waited.
+  - configMsg called raw_printf, whose raw_print and vpline's pre-window raw_print were named omits.
+  - display.js kept its own boolean `_nomux_raw_active`, so nomux_capture.js read the raw cursor only from overflow bytes.
+- **Fix:**
+  - **Match helper.** parseoptions `:539–613` (negation strip, optlen, prefix/minmatch/alias match) moved verbatim into `parseoptions_match`, which parseoptions now calls.
+  - **Duplicate pass.** New `rc_parseoptions_dups(elems)` runs C's `:513–623` duplicate step for each element of one OPTIONS= line, right to left. parseNethackrc calls it per line, and rc_do_set_role_family takes the precomputed `duplicate` instead of detecting it again.
+  - **Line counter.** parseNethackrc calls config_error_nextline (now exported) for every physical line, with trailing blanks trimmed. The empty piece after the final `\n` is dropped, as fgets would never return it.
+  - **rcfile bracket.** jsmain start runs `config_error_init(true, null, false)` before parseNethackrc, then `if (config_error_done()) await tty_wait_synch();`. It also sets `iflags.cbreak = false` until the display install, which sets it true (setftty). The capture hook is installed before the rc pass, with `game._nomuxShadow` (the pending display) standing in for the recorder's nomux_buf until ttyDisplay exists. nhgetch and captureBoundary read from it before the install.
+  - **Pre-window prints.** configMsg calls `pline('%s', …)` pre-window; C's pline path runs the raw arm synchronously. vpline's pre-window arm calls tty_raw_print (C `:245`).
+  - **Raw statics.** The raw statics are now C ints with nomux_raw_statics/nomux_raw_poke. nomux_marker loads them into the 12-byte image, applies the overflow, reads the cursor and writes them back, so a real raw_print and an overflow share one copy. The old «raw_active stuck … not modelled» omission is now modelled.
+- **JS:** js/options.js (parseoptions_match, parseoptions, rc_parseoptions_dups, rc_do_set_role_family, parseNethackrc), js/cfgfiles.js (configMsg, config_error_nextline export), js/display.js (raw statics, nomux_shadow, nomux_raw_emit, vpline), js/nomux_capture.js (nomux_marker), js/jsmain.js (start, captureBoundary), js/input.js (nhgetch).
+- **Callers:**
+  - parseoptions_match: parseoptions (js/options.js) and rc_parseoptions_dups.
+  - rc_parseoptions_dups: parseNethackrc's OPTIONS= branch.
+  - The 8 rc_do_set_role_family sites pass `dups[ei]`.
+  - The config_error_done wait is wired only at the rcfile site (jsmain start). The sysconf pass (options.c `:7295/:7298`), parse_conf_str (`:1834`), earlyarg, read_wizkit and the windowed doset callers still do not wait.
+- **Verify:**
+  - Frozen runner on the 18 recordings: every one RNG-complete and cursors 100 % (353/354 on scen-symset-Wizard-50359017); screens Samurai-50555047 0 → 922/938, Rogue-50059025 0 → 963/983, Valkyrie-50950047 0 → 721/865, Ranger-50059028 0 → 491/580. The lost screens are the recorder-path row (C prints its own temp dir) plus later, unrelated divergences.
+  - `score --ids` on the 18 rows: every one is now `env:config-path` at s0 (the path row is the first difference), 11,819 screens matched where the board had ~0; board stays 671/734 (no row passes: each keeps its path rows).
+  - verify config_error_done: 0 PASS, 0 moved, 0 no-movement (owner-null rows; movement measured by the replay above).
+  - `node scripts/verify.mjs --fn config_error_done,parseoptions` → syntax · rule2 · reach REACH-OK ×2 (smoke spread) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `hidden-proxy sweep moveloop_core` → 671 baseline-PASS re-run in 151.5s, 0 regressed → REACH-OK.
+- **Named omissions:**
+  - The recorder's temp-dir path in «1 error in …» can't be reproduced; JS prints its own configfile name. Those rows are env:config-path once the first differing row is the path row.
+  - parseNethackrc still reports no other parseoptions element error (`Option too long`, `Empty statement`, `Ambiguous option`, unknown option, bad negation).
+  - The wait_synch of config_error_done stays unwired at its non-rcfile callers. Its windowed pline (`:1613`) stays named.
+  - vpline's recursive raw_print stays named.
+  - The cooked-tty line discipline of the pre-setftty getret (^U/^W editing, ^C/^T signals) is not modelled; every key is read.
+- **Ledger:** parseoptions split js=options.js:parseoptions+options.js:parseoptions_match; config_error_done partial; vpline ported
+- **Next:** re-rank. With these rows moved, the cliffs head is the next owner on the rescored board. scenario-gen's duplicate msg_window is a generator quirk; the shape is now ported, so it can stay.
+
 ## D-4170 — windows.c choose_classes_menu ends with `destroy_nhwindow(win)` (`:1746`). tty's tty_dismiss_nhwindow → erase_menu_or_text (wintty.c `:990–1008`) calls docrt() + flush_screen(1) only for a fullscreen menu (`offx == 0`); a corner menu is `docorner(offx, maxrow+1, 0)`, which reprints the gbuf and runs no vision_recalc. JS's choose_classes_menu dismissed every menu with docrt. With `spot_monsters` on, docrt → vision_recalc → notice_all_mons re-posts «You see your saddled pony.» (NEED_MORE), so the next menu raised a --More-- that C never shows after the corner «Autopickup what?» menu (1 corpus session → FULL PASS)
 
 - **Status:** shipped.
