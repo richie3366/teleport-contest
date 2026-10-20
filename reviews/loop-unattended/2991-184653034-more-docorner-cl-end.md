@@ -5,7 +5,7 @@
 - D-entry: D-4151; Ledger: more ported
 - `js/` diff: js/display.js +6
 
-**Addressed:** D-4152
+**Addressed:** D-4152 `3bd4e0041`
 
 ## Intent vs deliverable
 
