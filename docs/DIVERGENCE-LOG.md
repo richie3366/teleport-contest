@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4179 — steed.c dismount_steed moves the hero off the steed with the real teleds (`:765`), which runs `newsym(u.ux0, u.uy0); see_monsters(); vision_full_recalc = 1; vision_recalc(0);` before spoteffects (teleport.c teleds). JS called teleds_simple, a local subset (u_on_newpos + two newsyms + vision_recalc), and ended with an immediate `vision_recalc(1)` where C only sets `vision_full_recalc = 1` (`:815`). After polymorphing into a red dragon (infravision) while riding, C's dismount teleds see_monsters already shows an infravisible `h` next to the hero, under «You can no longer ride the saddled pony.--More--». JS showed it 2 screens later, at polymon's own see_monsters (1 corpus session → FULL PASS)
+
+- **Status:** shipped.
+- **Symptom:** scen-sweep-Barbarian-610041 s1017–1018: row 12 has `h` at col 59 in C and `·` in JS (toplines identical; owner region heuristic dismount_steed). JS paints it at s1019.
+- **Measurement:** a `Terminal.prototype.setCell` hook + temp `show_glyph_cell` log (removed) at map (60,11): JS's first `h` gbuf write was polymon's see_monsters (polyself.js, C polyself.c:1018) after the dismount. A temp log at teleds' see_monsters never fired, because dismount_steed called teleds_simple, not teleds.
+- **C locus:** steed.c dismount_steed `:575–822` (hero-first arm `:756–772`, tail `:808–815`); teleport.c teleds (newsym origin, see_monsters, vision_recalc, switch_terrain, vault guard, spoteffects, invocation_message, notice_mon_*); polyself.c polymon `:964` dismount_steed(DISMOUNT_POLY), `:1018` see_monsters.
+- **JS was:** `teleds_simple` (steed.js): ux0/uy0, u_on_newpos, newsym origin + destination, `vision_recalc(1)`, botl. No see_monsters, no spoteffects/switch_terrain/vault/invocation/notice_mon. The dismount tail ran `vision_recalc(1)` at once.
+- **Fix:** dismount_steed calls the live `teleds(cc.x, cc.y, TELEDS_ALLOW_DRAG)` (already imported in steed.js); teleds_simple is deleted. The tail sets `game.vision_full_recalc = 1` as C does. The unused `vision_recalc` import is dropped (`grep -anw` showed only the import).
+- **JS:** js/steed.js dismount_steed (teleds_simple removed, tail, header comment).
+- **Callers:** dismount_steed's callers unchanged (polymon DISMOUNT_POLY, uhitm/mhitm KNOCKED, doride BYCHOICE, …). teleds ← dismount_steed now joins its existing teleport.js callers.
+- **Verify:**
+  - Board note: an unfiltered `hidden-proxy score` on HEAD b9da9a8b4 (run by mistake with an empty `--ids`) rescored the active tier: the only change was scen-worldtour-Wizard-50255512 → PASS (756 → 760/760, healed by D-4178's Ring_off_or_gone arm via recharge's Ring_off), no regression. The board is committed with `full: true`.
+  - `node scripts/verify.mjs --fn dismount_steed,teleds --full` → syntax · rule2 · `verify dismount_steed: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-sweep-Barbarian-610041 1654/1654 FULL PASS) · reach REACH-OK (dismount_steed: 2 baseline-PASS reach, 2 PASS; teleds smoke 24 PASS) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `hidden-proxy sweep moveloop_core` → 681 baseline-PASS re-run in 139.7s, 0 regressed → REACH-OK.
+- **Named omissions:** none.
+- **Ledger:** dismount_steed ported
+- **Next:** cliffs head (re-rank): xkilled, scen-questtour-Archeologist-50361020 s400 (`)` vs `I` on row 11 — remembered-unseen vs object glyph).
+
 ## D-4178 — do_wear.c Ring_off_or_gone starts with `if (!(u.uprops[objects[obj->otyp].oc_oprop].extrinsic & mask)) impossible("Strange... I didn't know you had that ring.");` (`:1353–1354`). JS had no such arm and cleared the slot with two setworn calls plus a slot-identity fallback. When an electric eel's shock turned a worn ring of free action to dust (its FREE_ACTION extrinsic already 0 in both C and JS), C printed the impossible and its «Program in disorder!» / «Please report…» lines before mhitu applied the bite damage. JS skipped all three and painted the lower HP 3 screens early (1 corpus session → FULL PASS)
 
 - **Status:** shipped.
