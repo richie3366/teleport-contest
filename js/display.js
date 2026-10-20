@@ -2595,7 +2595,11 @@ export function map_object(obj, show) {
     const attr = obj_map_attr(obj);
     const pile = obj_is_piletop(obj);
     if (game.level?.flags?.hero_memory && loc) {
-        // C: Hallu+STATUE → levl glyph = random_obj_to_glyph (not display glyph)
+        // C: Hallu+STATUE → levl glyph = random_obj_to_glyph (not display
+        // glyph; display.h `:933–936`). The int rides with the memory:
+        // show_map_spot's `glyph_is_object(oldglyph)` restore (detect.c
+        // `:1410`) and newsym's memory paint read it, so an id-less record
+        // was wiped by magic mapping (scen-sweep-Barbarian-50055075 s564).
         if (game.u?.Hallucination && obj.otyp === STATUE_OTYP) {
             const otyp = rn2_on_display_rng(NUM_OBJECTS - FIRST_OBJECT)
                 + FIRST_OBJECT;
@@ -2609,6 +2613,7 @@ export function map_object(obj, show) {
                     decgfx: false,
                     objpile: pile,
                     otyp,
+                    glyph: mnum + GLYPH_BODY_OFF,
                 };
             } else {
                 const def = game.objects?.[otyp];
@@ -2621,6 +2626,7 @@ export function map_object(obj, show) {
                     otyp,
                     statue: otyp === STATUE_OTYP,
                     boulder: otyp === BOULDER_OTYP,
+                    glyph: objnum_to_glyph(otyp),
                 };
             }
             loc.remembered_glyph = mem;
