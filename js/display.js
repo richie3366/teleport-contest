@@ -8164,7 +8164,11 @@ function _buildScreenOutput() {
         // cursor — C leaves gt.toplines but parse() positions on the hero.
         if (msg.startsWith('Count:')) {
             display.setCursor(msg.length, 0);
-        } else if (msg.endsWith('--More--') && !msg.includes('\n')) {
+        } else if (_tty_inmore && msg.endsWith('--More--') && !msg.includes('\n')) {
+            // Inside more() (topl.c `:218–230`) the cursor stays after
+            // the --More-- putsyms wrote; otherwise flush_screen(1) puts it
+            // on the hero even when the message text itself ends in
+            // "--More--" (rumors.fal `:389` fortune, D-4172).
             display.setCursor(msg.length, 0);
         } else if (msg.includes('\n--More--')) {
             display.setCursor(8, 1);

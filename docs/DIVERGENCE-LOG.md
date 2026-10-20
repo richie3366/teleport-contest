@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-4172 — Two rumors.fal fortunes end in a literal `--More--` («You choke on the fortune cookie.  --More--» `:389`, «You can get a genuine Amulet of Yendor by doing the following:  --More--»). C prints them as plain plines; no more() runs. The next command's flush_screen(1) puts the cursor on the hero (display.c curs_on_u). JS's flush painter (_buildScreenOutput) and runSegment's capture hook both moved the cursor to the topline whenever the message text ended in `--More--`, so the one screen after such a fortune had the cursor on row 0 (2 corpus sessions → FULL PASS)
+
+- **Status:** shipped.
+- **Symptom:** scen-sweep-Rogue-50055025 s64 and scen-trek-Monk-50850075 s319. Cells are identical. C's cursor is on the hero ([71,17] / [64,5]); JS's is after the topline text ([42,0]). The next space is «Unknown command ' '.» in both, so neither side waited at a --More--. Each session lost only that one screen; the board's "screens lost" for these rows counted every screen after the first divergence.
+- **Measurement:** the recording has the cursor on the hero at the fortune step and the next key read as a command. The text is in dat/rumors.fal `:389` (`[cookie] You choke on the fortune cookie.  --More--`), not in any src/*.c message. Dropping the capture-hook arm alone still left JS at [42,0]. The flush painter's `msg.endsWith('--More--')` arm was the second writer.
+- **C locus:** win/tty/topl.c more() `:205–248` (the only place the cursor rests after a --More--: tty_curs + putsyms, then xwaitforspace); display.c flush_screen → curs_on_u; rumors.c outrumor (fortune cookie text via pline).
+- **JS was:**
+  - display.js _buildScreenOutput set the cursor to `(msg.length, 0)` for any single-line message ending in `--More--`.
+  - jsmain.js captureBoundary re-applied the same rule from grid row 0 («Count: / --More-- prompts: keep cursor on topline»).
+- **Fix:**
+  - The painter's arm now requires `_tty_inmore`, i.e. it applies only while more() is waiting, which is where C's cursor sits after `--More--`.
+  - The capture hook keeps its `Count:` arm and drops the `--More--` arm. JS's more() already leaves the cursor after the prompt: public 44/44 and the 671 corpus PASS rows are unchanged without the arm.
+- **JS:** js/display.js _buildScreenOutput (flush_screen painter); js/jsmain.js captureBoundary.
+- **Callers:** every flush_screen / docrt paint goes through _buildScreenOutput. captureBoundary runs at every nhgetch. Nothing else reads the arm.
+- **Verify:**
+  - `score --ids` on all 63 failing rows → **673/734** (+2: scen-sweep-Rogue-50055025 64 → 1444/1444 FULL PASS, scen-trek-Monk-50850075 319 → FULL PASS; no other row moved).
+  - `node scripts/verify.mjs --fn flush_screen,more` → syntax · rule2 · reach REACH-OK ×2 (smoke spread) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `hidden-proxy sweep moveloop_core` → 671 baseline-PASS re-run in 142.5s, 0 regressed → REACH-OK.
+- **Named omissions:** the two-line `\n--More--` cursor arms (painter and _paintToplineOnly) are still text-based; no corpus row reaches them with a literal `--More--` message.
+- **Ledger:** flush_screen ported
+- **Next:** re-rank. Cliffs head: do_statusline2 (parked: writer of «Overtaxed» vs «Strained»), dosounds, dismount_steed, xkilled.
+
 ## D-4171 — An rc that repeats a compound option (`OPTIONS=msg_window:reversed` twice) makes C's parseoptions complain (`:621–623` → complain_about_duplicate `:6803`). Before init_nhwindows (unixmain.c `:150` vs `:174`), config_erradd's plines are raw_print()s, and rcfile's config_error_done (`:1945`) prints «N error in <rc>.» and runs wait_synch → tty_wait_synch → getret, which takes keys until Enter (cbreak is still off). The recorder's nomux_raw_emit enters raw mode on that first raw_print and never leaves it, so every later marker reports the raw cursor (0,6). JS startup's parseNethackrc ran duplicate detection only for role/race/gender/align, never bracketed the rc with config_error_init/done, and dropped pre-window raw_print. It started the game at step 0 and lost every screen on the cursor (12 cliff rows, 18 corpus sessions: 0 → 491–963 screens each, RNG 100 %)
 
 - **Status:** shipped.

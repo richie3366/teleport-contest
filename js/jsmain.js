@@ -340,7 +340,7 @@ export class NethackGame {
                 for (let c = 0; c < (disp.cols || 80); c++)
                     row0 += disp.grid[0][c]?.ch || ' ';
                 const t = row0.trimEnd();
-                if (t.startsWith('Count:') || t.endsWith('--More--'))
+                if (t.startsWith('Count:'))
                     disp.setCursor(t.length, 0);
             }
             // C nomux_emit_marker: the recorder renders the screen into
