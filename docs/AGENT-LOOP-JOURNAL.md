@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — D-4148 do.c boulder_hits_pool's lava-splash arm calls `losehp(Maybe_Half_Phys(dmg), "molten lava", KILLED_BY)` (`:138–140`). On a fatal hit, C losehp prints «You die...» and runs `done(DIED)` inline (hack.c `:4325–4330`); in wizard mode, «Die? [yn]» → `n` returns and play goes on. JS losehp only sets `_losehp_needs_done` / `gameover` and leaves the rest to the caller's `finish_losehp_done()`, and boulder_hits_pool never called it. A fire giant's boulder that splashed lava onto a nearly dead hero ended the JS game silently: no «You are hit by molten lava!» screen, no «You die...», no «Die?» prompt (1 worldtour session → FULL PASS)
+
+**C locus:** do.c boulder_hits_pool `:50–155`, lava arm `:132–141`; hack.c losehp `:4298–4334`, fatal arm `:4325–4330`. Call path: mthrowu.c m_throw → ohitmon → drop_throw → do.c flooreffects → boulder_hits_pool.
+**JS:** js/do.js (boulder_hits_pool).
+**Change:** after the lava losehp: `finish_maybe_wail()`, then `finish_losehp_done()` when `_losehp_needs_done || gameover`, then `return true` only if the game really ended. A life-saved hero, or the wizard «Die? n» answer, falls through to `obfree` like C.
+**Verify:** verify boulder_hits_pool: 1 PASS, 0 moved, 0 no-movement (scen-worldtour-Wizard-50250008 612/612, RNG 36055/36055). `node scripts/verify.mjs --fn boulder_hits_pool --full` → syntax · rule2 · hidden 1 PASS → PROGRESS · reach 6 baseline-PASS run, 6 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+**Named:** none in boulder_hits_pool. A scan found 46 `await losehp(` sites across js/ with no `finish_losehp_done` within 12 lines (trap.js 15, ball.js 5, spell/sit/music/apply 3 each, …).
+**Next:** audit the undrained losehp sites one C file at a time against a session that dies there. Board rows: ballfall (scen-chain-Archeologist-610102 s120), earth_sense (scen-sweep-Archeologist-620069 s1206).
 ## 2026-10-20 — D-4147 insight.c enlightenment runs basics_enlightenment only under `mode & BASICENLIGHTENMENT` (`:406–413`). The gold lines in basics call `currency()`, which draws `rn2` for a random currency name while hallucinating (invent.c `:1545–1554`). A potion of hallucination's blessed/uncursed enlightenment is MAGIC-only (potion.c `:707–712`), so C draws nothing there. JS doattributes built the wallet line (and ran find_ac) before checking the mode, so every MAGIC-only enlightenment while hallucinating spent one extra core `rn2` (2 sessions → FULL PASS)
 
 **C locus:** insight.c enlightenment `:383–…`, BASIC block `:406–413`; basics_enlightenment find_ac `:772–777`, gold `:779–802` (currency `:788`, `:799`); invent.c currency `:1545–1554`; potion.c peffect_hallucination `:696–714`.

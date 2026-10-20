@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4148 — do.c boulder_hits_pool's lava-splash arm calls `losehp(Maybe_Half_Phys(dmg), "molten lava", KILLED_BY)` (`:138–140`). On a fatal hit, C losehp prints «You die...» and runs `done(DIED)` inline (hack.c `:4325–4330`); in wizard mode, «Die? [yn]» → `n` returns and play goes on. JS losehp only sets `_losehp_needs_done` / `gameover` and leaves the rest to the caller's `finish_losehp_done()`, and boulder_hits_pool never called it. A fire giant's boulder that splashed lava onto a nearly dead hero ended the JS game silently: no «You are hit by molten lava!» screen, no «You die...», no «Die?» prompt (1 worldtour session → FULL PASS)
+
+- **Status:** shipped. Board head after D-4147: `boulder_hits_pool`, scen-worldtour-Wizard-50250008 (s415, 197 screens, 6k RNG lost).
+- **Symptom:** scen-worldtour-Wizard-50250008 s413–418: «The fire giant throws a boulder! The boulder hits the jabberwock!» → «There is a large splash as the boulder falls into the molten lava.» (both match) → C «You are hit by molten lava!--More--», «You die...--More--», «Die? [yn] (n)», then `n` «OK, so you don't die. You survived that attempt on your life.». JS rolled the same `d(3,6)`=11 (RNG matched to 30067/36055), then showed blank toplines and emitted no more RNG. A state probe showed `gameover` true, uhp −9, killer «molten lava». A temporary log (removed) confirmed rx,ry=(10,4), hero (9,4), distu 1, so the arm itself was reached.
+- **C locus:** do.c boulder_hits_pool `:50–155`, lava arm `:132–141`; hack.c losehp `:4298–4334`, fatal arm `:4325–4330`. Call path: mthrowu.c m_throw → ohitmon → drop_throw → do.c flooreffects → boulder_hits_pool.
+- **JS was:** js/do.js boulder_hits_pool `await losehp(...)` with no drain. The same file's flooreffects boulder-squish (D-4092) and the mine-shaft fall already drain.
+- **Fix:** after the lava losehp: `finish_maybe_wail()`, then `finish_losehp_done()` when `_losehp_needs_done || gameover`, then `return true` only if the game really ended. A life-saved hero, or the wizard «Die? n» answer, falls through to `obfree` like C.
+- **JS:** js/do.js (boulder_hits_pool).
+- **Callers:** unchanged (flooreffects; dokick/hack pushing callers).
+- **Verify:** verify boulder_hits_pool: 1 PASS, 0 moved, 0 no-movement (scen-worldtour-Wizard-50250008 612/612, RNG 36055/36055). `node scripts/verify.mjs --fn boulder_hits_pool --full` → syntax · rule2 · hidden 1 PASS → PROGRESS · reach 6 baseline-PASS run, 6 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+- **Named omissions:** none in boulder_hits_pool. A scan found 46 `await losehp(` sites across js/ with no `finish_losehp_done` within 12 lines (trap.js 15, ball.js 5, spell/sit/music/apply 3 each, …). Many are probably drained by their callers. Two in do.js are unmeasured same-file candidates: goto_level's fall down the stairs/ladder (`losehp` then only finish_maybe_wail) and dodown's «contusion from a small passage».
+- **Ledger:** boulder_hits_pool ported
+- **Next:** audit the undrained losehp sites one C file at a time against a session that dies there. Board rows: ballfall (scen-chain-Archeologist-610102 s120), earth_sense (scen-sweep-Archeologist-620069 s1206).
+
 ## D-4147 — insight.c enlightenment runs basics_enlightenment only under `mode & BASICENLIGHTENMENT` (`:406–413`). The gold lines in basics call `currency()`, which draws `rn2` for a random currency name while hallucinating (invent.c `:1545–1554`). A potion of hallucination's blessed/uncursed enlightenment is MAGIC-only (potion.c `:707–712`), so C draws nothing there. JS doattributes built the wallet line (and ran find_ac) before checking the mode, so every MAGIC-only enlightenment while hallucinating spent one extra core `rn2` (2 sessions → FULL PASS)
 
 - **Status:** shipped. D-4146's **Next** (same session, now the board head at s1202).

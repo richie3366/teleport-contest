@@ -1069,6 +1069,16 @@ export async function boulder_hits_pool(otmp, rx, ry, pushing) {
             await burn_away_slime(); /* C do.c:137 — before the damage roll */
             const dmg = d(Fire_resistance ? 1 : 3, 6);
             await losehp(maybe_half_phys(dmg), 'molten lava', KILLED_BY);
+            // C losehp runs urgent_pline("You die...") + done(DIED) inline
+            // (hack.c `:4329–4330`); drain JS's deferred finisher here
+            // (D-4092 idiom). Lifesaved / wizard "Die? n" falls through to
+            // obfree like C; a real death never returns.
+            await finish_maybe_wail();
+            if (game._losehp_needs_done || game.program_state?.gameover) {
+                const { finish_losehp_done } = await import('./end.js');
+                await finish_losehp_done();
+            }
+            if (game.program_state?.gameover) return true;
         } else if (!fills_up && game.flags?.verbose
             && (pushing ? !Blind() : cansee(rx, ry))) {
             await pline('It sinks without a trace!');
