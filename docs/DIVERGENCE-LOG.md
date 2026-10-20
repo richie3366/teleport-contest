@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-4170 — windows.c choose_classes_menu ends with `destroy_nhwindow(win)` (`:1746`). tty's tty_dismiss_nhwindow → erase_menu_or_text (wintty.c `:990–1008`) calls docrt() + flush_screen(1) only for a fullscreen menu (`offx == 0`); a corner menu is `docorner(offx, maxrow+1, 0)`, which reprints the gbuf and runs no vision_recalc. JS's choose_classes_menu dismissed every menu with docrt. With `spot_monsters` on, docrt → vision_recalc → notice_all_mons re-posts «You see your saddled pony.» (NEED_MORE), so the next menu raised a --More-- that C never shows after the corner «Autopickup what?» menu (1 corpus session → FULL PASS)
+
+- **Status:** shipped.
+- **Symptom:** in scen-options-Knight-50355037 s87, after `O` → `o` (pickup_types) → the corner «Autopickup what?» menu → Enter, C shows the Options menu again and JS shows «You see your saddled pony.--More--» first (11 screens).
+- **Measurement:** I built a temp recorder with `backtrace()` probes in topl.c more(), update_topl, addtopl and redotoplin, on the recipe truncated to 90 keys.
+  - **Where C's --More--s come from.** Every one in s60–s90 is `tty_display_nhwindow(NHW_MENU)` meeting `toplin == TOPLINE_NEED_MORE` (wintty.c `:1969–1970`).
+  - **Who re-arms NEED_MORE.** Each re-arm is `update_topl ← You ← notice_mon ← notice_all_mons ← vision_recalc ← docrt_flags ← docrt ← erase_menu_or_text ← tty_dismiss_nhwindow ← select_menu ← doset_simple_menu`. These follow the fullscreen Options menu only; none follows the corner Autopickup menu.
+  - **The JS side.** A JS stack log in notice_mon showed the extra re-post coming from `docrt ← dismiss ← choose_classes_menu`.
+- **C locus:** windows.c choose_classes_menu `:1744–1746`; win/tty/wintty.c erase_menu_or_text `:990–1008`, tty_display_nhwindow NHW_MENU `:1969–1970`; display.c docrt_flags → vision_recalc → hack.c notice_all_mons / notice_mon.
+- **JS was:** choose_classes_menu's local `dismiss` cleared the overlay flag, then `docrt()` + `flush_screen(1)`, whatever the menu geometry.
+- **Fix:** `dismiss` calls the existing dismiss_nhw_menu (invent.js), which reads the geometry paint_corner_nhw_menu recorded. Fullscreen still gets docrt + flush; a corner menu gets erase_menu_or_text's docorner.
+- **JS:** js/options.js choose_classes_menu.
+- **Callers:** choose_classes_menu's five dismiss sites (ESC, Enter, PICK_ONE accelerator, `A` all-classes) all go through the new path. C callers optfn_pickup_types (`:3360`) and the other class-menu options are unchanged.
+- **Verify:**
+  - `score --ids` on all failing rows → **688/751** (+1: scen-options-Knight-50355037 87 → 161/161 FULL PASS; no row lost).
+  - verify doset_simple_menu: 1 PASS, 0 moved, 0 no-movement.
+  - `node scripts/verify.mjs --fn doset_simple_menu,choose_classes_menu --full` → syntax · rule2 · reach REACH-OK ×2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `hidden-proxy sweep moveloop_core` → 687 baseline-PASS re-run in 137.4s, 0 regressed → REACH-OK.
+- **Named omissions:** none in choose_classes_menu's dismiss. Other JS menus with a private docrt-always dismiss were not audited here.
+- **Ledger:** choose_classes_menu ported
+- **Next:** re-rank. Board head: scen-chain-Healer-50950082 s661 (owner-null, 7 screens), scen-sweep-Tourist-610081 s1740 disclose, scen-symset-Rogue-50750039 s269 dosounds, scen-zapfest-Rogue-50850092 s773 setmnotwielded.
+
 ## D-4169 — With `menu_tab_sep` on, options.c doset formats every row with `fmtstr_tab_doset` = `"%s%s\t[%s]"` (`:8760`, `:8822–8827`) and drops the four-space indent of the read-only booleans (`indent = (pass == 0 && !iflags.menu_tab_sep) ? "    " : ""`, `:8852`). tty's process_menu_window writes each byte with `putchar(*cp)` and `curx++`; the recorder's nomux_putch drops `ch < 32` (termcap.c patch 006 `:756–766`), so the tab cell keeps its cl_end blank. JS always used the padded `"%-Ns [%s]"` form with the indent, and its two menu painters wrote the tab byte into the cell (1 corpus session → FULL PASS)
 
 - **Status:** shipped.

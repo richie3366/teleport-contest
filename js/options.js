@@ -5933,10 +5933,12 @@ export async function choose_classes_menu(prompt, category, way, classList, clas
         await paint_corner_nhw_menu(entries, '(end) '); // C :1744 end_menu
         await flush_screen(1);
         const key = await nhgetch(); // C :1745 select_menu, way ? PICK_ANY : PICK_ONE
-        const dismiss = async () => { // C :1746 destroy_nhwindow
-            game._menu_overlay = false;
-            await docrt();
-            await flush_screen(1);
+        // C :1746 destroy_nhwindow → tty_dismiss_nhwindow →
+        // erase_menu_or_text: docrt only for a fullscreen menu (offx 0);
+        // a corner menu is docorner, which runs no vision_recalc, so no
+        // notice_mon re-post (scen-options-Knight-50355037 s87).
+        const dismiss = async () => {
+            await dismiss_nhw_menu();
         };
 
         // C process_menu_window: letter toggles stay inside the menu —

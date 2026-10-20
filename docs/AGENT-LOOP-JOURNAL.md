@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — D-4170 windows.c choose_classes_menu ends with `destroy_nhwindow(win)` (`:1746`). tty's tty_dismiss_nhwindow → erase_menu_or_text (wintty.c `:990–1008`) calls docrt() + flush_screen(1) only for a fullscreen menu (`offx == 0`); a corner menu is `docorner(offx, maxrow+1, 0)`, which reprints the gbuf and runs no vision_recalc. JS's choose_classes_menu dismissed every menu with docrt. With `spot_monsters` on, docrt → vision_recalc → notice_all_mons re-posts «You see your saddled pony.» (NEED_MORE), so the next menu raised a --More-- that C never shows after the corner «Autopickup what?» menu (1 corpus session → FULL PASS)
+
+**C locus:** windows.c choose_classes_menu `:1744–1746`; win/tty/wintty.c erase_menu_or_text `:990–1008`, tty_display_nhwindow NHW_MENU `:1969–1970`; display.c docrt_flags → vision_recalc → hack.c notice_all_mons / notice_mon.
+**JS:** js/options.js choose_classes_menu.
+**Change:** `dismiss` calls the existing dismiss_nhw_menu (invent.js), which reads the geometry paint_corner_nhw_menu recorded. Fullscreen still gets docrt + flush; a corner menu gets erase_menu_or_text's docorner.
+**Verify:** - `score --ids` on all failing rows → **688/751** (+1: scen-options-Knight-50355037 87 → 161/161 FULL PASS; no row lost).
+**Named:** none in choose_classes_menu's dismiss. Other JS menus with a private docrt-always dismiss were not audited here.
+**Next:** re-rank. Board head: scen-chain-Healer-50950082 s661 (owner-null, 7 screens), scen-sweep-Tourist-610081 s1740 disclose, scen-symset-Rogue-50750039 s269 dosounds, scen-zapfest-Rogue-50850092 s773 setmnotwielded.
 ## 2026-10-20 — D-4169 With `menu_tab_sep` on, options.c doset formats every row with `fmtstr_tab_doset` = `"%s%s\t[%s]"` (`:8760`, `:8822–8827`) and drops the four-space indent of the read-only booleans (`indent = (pass == 0 && !iflags.menu_tab_sep) ? "    " : ""`, `:8852`). tty's process_menu_window writes each byte with `putchar(*cp)` and `curx++`; the recorder's nomux_putch drops `ch < 32` (termcap.c patch 006 `:756–766`), so the tab cell keeps its cl_end blank. JS always used the padded `"%-Ns [%s]"` form with the indent, and its two menu painters wrote the tab byte into the cell (1 corpus session → FULL PASS)
 
 **C locus:** options.c doset `:8760`, `:8822–8827`, `:8852`; doset_add_menu `:9060–9062` (keeps its indent and uses the same fmtstr); win/tty/wintty.c process_menu_window per-byte putchar loop; recorder patch 006 termcap.c nomux_putch `:756–766`.
