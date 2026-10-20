@@ -3,8 +3,8 @@
 Scope: every `nethack-c/upstream/dat/*.lua` level script (126), themed rooms
 (`themerms.lua`), and the support files (`dungeon.lua`, `quest.lua`,
 `nhlib.lua`, `nhcore.lua`). Asked by the human: "have we ported all the
-custom levels?" Answer: **yes, all 126 are ported**. 107 are proven
-RNG-exact against C in the corpus, 19 are unreached and statically matched,
+custom levels?" Answer: **yes, all 126 are ported**. 108 are proven
+RNG-exact against C in the corpus, 18 are unreached and statically matched,
 and there is one confirmed C-wrong (F1) plus three follow-ups (F2–F4).
 
 Reproduce (both tools are read-only on `js/`):
@@ -26,9 +26,9 @@ node scripts/level-audit.mjs --report   # re-print the last run
 - Every `nhlib.lua` level helper is ported. The `nh_set/get_variables_string` save-state helpers have no JS equivalent, and they don't affect levels.
 
 **Dynamic (`level-audit.mjs`, 4785 cached corpus sessions, 0 errors).**
-- 107/126 levels were built (~7,900 builds). Every build made before a session's first RNG divergence matched C exactly. The 15 exceptions were all earlier, unrelated divergences, mostly the env-only `env:config-path` row at step 0.
+- 108/126 levels were built (~7,900 builds). Every build made before a session's first RNG divergence matched C exactly. The 15 exceptions were all earlier, unrelated divergences, mostly the env-only `env:config-path` row at step 0.
 - Every themed room and fill was picked at least 13 times (88k rooms in total), all RNG-exact.
-- Unreached (19): `Arc-fila Arc-filb Bar-filb Cav-fila Cav-filb Hea-fila Hea-filb Kni-fila Kni-filb Kni-loca Mon-fila Ran-filb Rog-fila Rog-filb Sam-fila Sam-filb Tou-fila Val-fila` (18 fillers + Kni-loca). Kni-loca was compared by hand: same map, region, altar, 45 magic traps, and monster list.
+- Unreached (18): `Arc-fila Arc-filb Bar-filb Cav-fila Cav-filb Hea-fila Hea-filb Kni-fila Kni-filb Kni-loca Mon-fila Ran-filb Rog-fila Rog-filb Sam-fila Sam-filb Tou-fila Val-fila` (17 fillers + Kni-loca). Kni-loca was compared by hand: same map, region, altar, 45 magic traps, and monster list.
 - Thin (1–3 builds): `Bar-fila Mon-filb Ran-fila Tou-filb Rog-goal Rog-loca Hea-loca Arc-loca Bar-loca Ran-loca Sam-goal Sam-loca Tou-loca Val-loca Val-filb`.
 
 Limits: RNG equality is location-blind (D-1849). Screens confirm placement only for scoreboard sessions, and only on cells the hero saw. Per-level branch coverage (which `percent()` arms ran) was not measured.
@@ -59,11 +59,11 @@ Limits: RNG equality is location-blind (D-1849). Screens confirm placement only 
 - **C:** the same epilogue runs for every level (`sp_lev.c :6464–6494`): link_doors_rooms → remove_boundary_syms → (ensure_way_out) → map_cleanup → wallification → flip_level_rnd → count_level_features → (solidify_map) → fixup_special → (premap_detect).
 - **JS:** each loader inlines its own copy. Measured counts: link_doors_rooms 16/126, remove_boundary_syms 15/126, map_cleanup 17/126, flip_level_rnd 93/126, fixup_special 126/126. count_level_features is already shared in `load_special_proto`. The skipped steps consume no RNG, so RNG-exact replay cannot see them. Room door lists, `horizontal` door orientation, CROSSWALL markers, and boulders, traps or engravings on liquid can all differ silently.
 - **Deliverable:** port the epilogue once, in C order, in `load_special_proto` (the dispatch wrapper), and delete the per-loader copies. Keep any genuinely level-specific step, such as lregion placement around the flip, where C puts it (`fixup_special` handles lregions). The noflip, solidify, premapped and inaccessibles flags come from the coder (`gc.coder`), as in C.
-- **Verify:** `node scripts/level-audit.mjs` must show the same 107 RNG-exact levels and no new exceptions, plus `python3 scripts/level-audit-static.py` (section 4 counts become 126/126) and a full `hidden-proxy sweep moveloop_core`.
+- **Verify:** `node scripts/level-audit.mjs` must show the same 108 RNG-exact levels and no new exceptions, plus `python3 scripts/level-audit-static.py` (section 4 counts become 126/126) and a full `hidden-proxy sweep moveloop_core`.
 - **Ride-along:** refresh the loaders' "Named omissions" headers. 124/126 carry them and many are stale: hellfill prefabs (shipped D-4019), "humidity-aware get_location" (`pm_to_humidity` is live in `splev_create_monster`), themerms "Water vault / Blocked center" (ported), castle BARRACKS and others (RNG-exact across 198 castle builds).
-- **Addressed:**
+- **Addressed:** D-4182
 
-### F4 — Coverage: 19 levels never built by the corpus, 15 built ≤ 3 times
+### F4 — Coverage: 18 levels never built by the corpus, 15 built ≤ 3 times
 
 - The quest filler levels sit between the quest locate and goal levels. `scen-questtour` and `scen-quest` level-teleport past them.
 - **Deliverable (grow slot, not a port):** a scenario family, or a questtour reshape, that walks `strt → fila → loca → filb → goal` for every role, and reaches Kni-loca. Then re-run `level-audit.mjs` until "unreached" is empty.

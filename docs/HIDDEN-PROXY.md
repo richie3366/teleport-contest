@@ -293,7 +293,7 @@ no candidates remain again — the next calibration grow mines another.
 
 **Coverage candidate (level audit 2026-10-20, F4 of
 `reviews/level-audit/2026-10-20-special-levels.md`).** The corpus never
-builds 19 special levels, the quest fillers `Arc/Cav/Hea/Kni/Ran/Rog/Sam
+builds 18 special levels, the quest fillers `Arc/Cav/Hea/Kni/Ran/Rog/Sam
 -fila|filb`, `Bar-filb`, `Mon-fila`, `Tou-fila`, `Val-fila` and `Kni-loca`,
 because questtour level-teleports past them. 15 more are built ≤ 3 times
 (`node scripts/level-audit.mjs` lists both). The candidate is a questtour

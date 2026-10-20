@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-4182 — sp_lev.c load_special runs the same epilogue head after every level script (`:6464–6471`: link_doors_rooms, remove_boundary_syms, ensure_way_out when "inaccessibles", map_cleanup). JS copied it into each per-level loader unevenly (link_doors_rooms 16/126, remove_boundary_syms 15/126, map_cleanup 17/126). A new load_special_head() ports the head once, and all 126 loaders now run it right before their wallification. Level-audit Must-fix F3: none of the head draws RNG except ensure_way_out (minetn-6 only, order kept), so all 108 corpus-built levels stay RNG-exact
+
+- **Status:** shipped.
+- **Symptom:** none in the corpus (non-RNG state: room door lists and door orientation, CROSSWALL markers, boulders/traps/engravings on liquid). Found by `scripts/level-audit-static.py` section 4.
+- **C locus:** sp_lev.c load_special `:6454–6502` (head `:6464–6471`), link_doors_rooms `:1121–1142`, remove_boundary_syms `:1015–1038`, ensure_way_out `:5216+`, map_cleanup `:327–356`; sp_lev.c lspo_finalize_level `:6014–6064` (des path, already whole in JS).
+- **JS was:**
+  - 14 loaders ran the full head: Bar-goal, Cav-loca, Wiz-strt, Wiz-loca, Wiz-goal, knox, medusa-2/3/4, astral, wizard3, hellfill (since D-4180), and fakewiz1–2 via load_fakewiz_tower.
+  - 9 ran a subset: Pri-loca and sanctum link_doors_rooms only; valley link+remove; Cav-strt remove_boundary_syms only; asmodeus, orcus and wizard1–2 map_cleanup only; minetn-6 ensure_way_out only.
+  - The other 103 ran none, including castle, oracle, every bigroom, sokoban, tower, minetn/minend level and most quest levels.
+- **Fix:**
+  - `load_special_head(check_inaccessibles)` in C order next to load_special_proto. It gates ensure_way_out on the argument or `game.gc.coder.check_inaccessibles`, the same gate as lspo_finalize_level.
+  - Every loader calls it once, immediately before its wallification (baalz, corrmaze: before its flip). soko1–3 call it through soko_load_epilogue, fakewiz1–2 through load_fakewiz_tower, and minetn-6 as `load_special_head(true)` (Lua "inaccessibles").
+  - The 49 scattered head calls are deleted.
+  - Ride-along: 90 loader header comments dropped their now-false "Named omissions: ensure_way_out / link_doors_rooms / map_cleanup / count_level_features" claims. Other claims (humidity get_location, failed-room, and so on) were left for per-loader proof.
+- **JS:** js/mklev.js load_special_head (new) + 120 call sites (126 loaders via soko_load_epilogue / load_fakewiz_tower) + loader header comments.
+- **Callers:** load_special_head ← every load_* special loader, soko_load_epilogue and load_fakewiz_tower; those ← load_special_proto_body ← load_special_proto ← makemaz / makelevel's special-level path (unchanged).
+- **Verify:**
+  - `node scripts/verify.mjs --fn load_special,link_doors_rooms,remove_boundary_syms,map_cleanup,ensure_way_out --full` → syntax · rule2 · reach REACH-OK ×5 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/level-audit.mjs` (all 4785 cached sessions, 0 errors) → 108/126 levels built, all builds RNG-exact; 31/31 themed rooms and 15/15 fills RNG-exact; 14 exceptions, all earlier unrelated divergences (env:config-path step 0, do_screen_description s398, slimed_to_death s1003), as in the baseline.
+  - `python3 scripts/level-audit-static.py` section 4 → link_doors_rooms / remove_boundary_syms / ensure_way_out / map_cleanup 126/126.
+  - `hidden-proxy sweep moveloop_core` → 668 baseline-PASS re-run in 145.7s, 0 regressed → REACH-OK.
+- **Named omissions:** (1) hellobjects/hellmonsters (defined but unused in lua — D-4019 standing); (2) hells[6] ice grow/filter fidelity (D-4019 standing); (3) Valkyrie residual mcast_weaken_you@493 — later owner, its own future row. The epilogue tail (wallification → flip_level_rnd → solidify → fixup_special → premap) stays per loader, because loaders place level-specific lregions between flip and fixup. Each tail matches its Lua flags (level-audit-static section 4: flip 93/126 = the non-noflip levels, solidify/premap on exactly the flagged levels).
+- **Ledger:** load_special partial js=mklev.js:load_special_proto+mklev.js:load_special_head+mklev.js:load_hellfill
+- **Next:** level-audit F4 is grow-slot work (quest fila/filb walk family). Port slots return to the Open — cliffs head (xkilled, scen-questtour-Archeologist-50361020 s400).
+
 ## D-4181 — C's `levl[][].flags` is one field with three names (rm.h:213–215: doormask ≡ wall_info ≡ flags). JS keeps three separate fields, and most readers OR wall_info with flags (D-0865). Four sites still read, cleared or assigned only one of them: hit_bars' acid `nodissolve`, moverock's hole-fill clear, skip_premap_detect's `||`, and every drawbridge assignment (create/close/open/destroy). A W_NONDIGGABLE written to `loc.flags` (tower, sokoban and bigroom solidify/non_diggable, ~23 mklev.js writers) was invisible to the first three, and a drawbridge DBWALL kept stale `flags` door bits (Must-fix F2 of the 2026-10-20 level audit)
 
 - **Status:** shipped.
