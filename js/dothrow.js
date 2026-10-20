@@ -68,7 +68,7 @@ import {
 import { acurr, acurrstr, A_CON, A_DEX, A_STR, change_luck, exercise, Fumbling } from './attrib.js';
 import {
     calc_capacity, fully_identify_obj, encumber_msg, getobj, prinv, cmdq_add_key,
-    inv_weight, weight_cap,
+    inv_weight, weight_cap, freeinv,
 } from './invent.js';
 import { add_to_minv, mpickobj, makemon, set_malign } from './makemon.js';
 import { finish_quest, is_quest_artifact } from './quest.js';
@@ -308,25 +308,21 @@ async function throwit_tether_end(tethered_weapon, backtrack) {
     await tmp_at(DISP_END, backtrack ? BACKTRACK : 0);
 }
 
-function freeinv(otmp) {
-    const inv = game.invent || [];
-    const idx = inv.indexOf(otmp);
-    if (idx >= 0) inv.splice(idx, 1);
-    if (otmp) {
-        otmp.nobj = null;
-        otmp.where = OBJ_FREE;
-        // C invent.c freeinv_core — COIN_CLASS → disp.botl = TRUE. JS botl
-        // `$:` reads the _goldCount cache (do.js), so decrement it on every
-        // gold freeinv here (throw split coins, whole stacks, throw_gold;
-        // D-2139). update_inventory/artifact/timer arms stay named omits.
-        if (otmp.oclass === COIN_CLASS) {
-            game._goldCount = Math.max(
-                0, (game._goldCount || 0) - (otmp.quan || 0),
-            );
-            if (!game.flags) game.flags = {};
-            game.flags.botl = true;
-        }
+/**
+ * C invent.c freeinv (the live invent.js export: extract, pickup_prev,
+ * freeinv_core's luck/artifact/loadstone/figurine/tin arms, update_inventory)
+ * for the three dothrow.c call sites (`:267`, `:2670`). The local clone it
+ * replaces skipped freeinv_core, so a thrown luckstone left u.moreluck stale.
+ * Extra here: botl `$:` reads the JS-only _goldCount cache (do.js), which
+ * every gold-removing site decrements itself (D-2139).
+ */
+function throw_freeinv(otmp) {
+    if (otmp?.oclass === COIN_CLASS) {
+        game._goldCount = Math.max(
+            0, (game._goldCount || 0) - (otmp.quan || 0),
+        );
     }
+    freeinv(otmp);
 }
 
 /** C ref: mondata.h befriend_with_obj — banana→monkey/ape; domestic+food. */
@@ -916,7 +912,7 @@ export async function throw_gold(obj) {
     }
     // Local freeinv above already decrements the _goldCount cache for
     // COIN_CLASS (C invent.c freeinv_core coin arm; D-2139).
-    freeinv(obj);
+    throw_freeinv(obj);
     if (u.uswallow) {
         let swallower = mon_nam(u.ustuck);
         // C :2674 — digests → s_suffix(mon_nam) + " entrails"
@@ -1178,7 +1174,7 @@ export async function throw_obj(obj, shotlimit) {
             otmp = splitobj(obj, 1);
             // C `:267` freeinv(otmp) after split — child may sit on the
             // invent nobj chain
-            if (otmp) freeinv(otmp);
+            if (otmp) throw_freeinv(otmp);
         } else { // C `:258–266` — last item leaves inventory
             otmp = obj;
             if (otmp.owornmask) { // C `:261` remove_worn_item(otmp, FALSE)
@@ -1190,7 +1186,7 @@ export async function throw_obj(obj, shotlimit) {
             const inv = game.invent || [];
             const idx = inv.indexOf(otmp);
             oldslot = (idx >= 0 && idx + 1 < inv.length) ? inv[idx + 1] : null;
-            freeinv(otmp); // C `:267`
+            throw_freeinv(otmp); // C `:267`
             // C `:265` — obj leaves inventory; nothing left to unsplit below
             obj = null;
         }

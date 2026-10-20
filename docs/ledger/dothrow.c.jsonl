@@ -1,5 +1,5 @@
 {"fn":"multishot_class_bonus","c":"39-83","status":"ported","js":["js/weapon.js:multishot_class_bonus"],"at":"2026-10-03@bbe63333a"}
-{"fn":"throw_obj","c":"87-293","status":"ported","js":["js/dothrow.js:throw_obj"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: getdir prompt lives in callers (same one prompt)"}
+{"fn":"throw_obj","c":"87-293","status":"ported","js":["js/dothrow.js:throw_obj"],"d":["D-4160"],"at":"2026-10-20@4189bfaf0","note":"audit 2026-10-03: getdir prompt lives in callers (same one prompt)"}
 {"fn":"ok_to_throw","c":"297-313","status":"ported","js":["js/dothrow.js:ok_to_throw"],"at":"2026-10-03@bbe63333a"}
 {"fn":"throw_ok","c":"317-348","status":"ported","js":["js/dothrow.js:throw_ok"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dothrow","c":"352-376","status":"ported","js":["js/dothrow.js:dothrow"],"at":"2026-10-03@bbe63333a"}
@@ -36,4 +36,4 @@
 {"fn":"breakobj","c":"2480-2574","status":"ported","js":["js/dothrow.js:breakobj"],"d":["D-3408","D-2531"],"at":"2026-10-04@c075fb861"}
 {"fn":"breaktest","c":"2582-2609","status":"ported","js":["js/dothrow.js:breaktest"],"at":"2026-10-03@bbe63333a"}
 {"fn":"breakmsg","c":"2612-2653","status":"ported","js":["js/dothrow.js:breakmsg"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C impossible debug-log for odd non-wand skipped; fallthrough behavior ported"}
-{"fn":"throw_gold","c":"2656-2731","status":"ported","js":["js/dothrow.js:throw_gold"],"d":["D-3408","D-1302"],"at":"2026-10-04@c075fb861"}
+{"fn":"throw_gold","c":"2656-2731","status":"ported","js":["js/dothrow.js:throw_gold"],"d":["D-4160","D-3408","D-1302"],"at":"2026-10-20@4189bfaf0"}
