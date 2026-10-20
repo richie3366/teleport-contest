@@ -15,7 +15,7 @@
 {"fn":"set_utrap","c":"1030-1042","status":"ported","js":["js/trap.js:set_utrap"],"at":"2026-10-03@bbe63333a"}
 {"fn":"reset_utrap","c":"1045-1057","status":"ported","js":["js/trap.js:reset_utrap"],"d":["D-3255"],"at":"2026-10-02@35e5e8f94"}
 {"fn":"floor_trigger","c":"1061-1082","status":"ported","js":["js/trap.js:floor_trigger"],"at":"2026-10-03@bbe63333a"}
-{"fn":"check_in_air","c":"1086-1094","status":"ported","js":["js/trap.js:check_in_air"],"at":"2026-10-03@bbe63333a"}
+{"fn":"check_in_air","c":"1086-1094","status":"ported","js":["js/trap.js:check_in_air"],"d":["D-4157"],"at":"2026-10-20@28f9d7a09"}
 {"fn":"wearing_iron_shoes","c":"1098-1102","status":"ported","js":["js/trap.js:wearing_iron_shoes"],"at":"2026-10-03@bbe63333a"}
 {"fn":"m_harmless_trap","c":"1106-1187","status":"ported","js":["js/trap.js:m_harmless_trap"],"d":["D-2194"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:585, all arms, impossible default named"}
 {"fn":"trapeffect_arrow_trap","c":"1190-1248","status":"ported","js":["js/trap.js:trapeffect_arrow_trap"],"d":["D-3426"],"at":"2026-10-04@0d801c73f"}
@@ -39,7 +39,7 @@
 {"fn":"trapeffect_rolling_boulder_trap","c":"2661-2707","status":"ported","js":["js/trap.js:trapeffect_rolling_boulder_trap"],"d":["D-3426","D-1874"],"at":"2026-10-04@0d801c73f"}
 {"fn":"trapeffect_magic_portal","c":"2710-2722","status":"ported","js":["js/trap.js:trapeffect_magic_portal"],"at":"2026-10-03@bbe63333a"}
 {"fn":"trapeffect_vibrating_square","c":"2725-2764","status":"ported","js":["js/trap.js:trapeffect_vibrating_square"],"d":["D-3426","D-2882"],"at":"2026-10-04@0d801c73f"}
-{"fn":"immune_to_trap","c":"2783-2934","status":"ported","js":["js/trap.js:immune_to_trap"],"d":["D-2689"],"at":"2026-10-03@bbe63333a"}
+{"fn":"immune_to_trap","c":"2783-2934","status":"ported","js":["js/trap.js:immune_to_trap"],"d":["D-4157","D-2689"],"at":"2026-10-20@28f9d7a09"}
 {"fn":"trapeffect_selector","c":"2937-2993","status":"ported","js":["js/trap.js:trapeffect_selector"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dotrap","c":"2996-3060","status":"ported","js":["js/trap.js:dotrap"],"d":["D-1924"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
 {"fn":"trapnote","c":"3063-3078","status":"ported","js":["js/trap.js:trapnote"],"at":"2026-09-29@3a3d73a50","note":"stale: js/trap.js:1161, an()=just_an+str, callers js/trap.js:4104,4121,4137"}

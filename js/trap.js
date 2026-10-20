@@ -126,6 +126,7 @@ import {
     maybe_half_phys, nomul, unmul, losehp, finish_maybe_wail, stop_occupation,
     in_rooms, set_uinwater, test_move, fall_asleep, You_hear, spot_checks,
     monst_to_any, check_capacity, u_locomotion, movobj,
+    Levitation_st as hero_Levitation, Flying_st as hero_Flying,
 } from './hack.js';
 import { goodpos, mlevel_tele_trap, mtele_trap, tele_trap, level_tele_trap, domagicportal, rloco, random_teleport_level, teleds, safe_teleds, noteleport_level, dotele, unconscious, single_level_branch } from './teleport.js';
 import { emits_light, del_light_source } from './light.js'; // mongone_statue_donor del arm (same SCC; hoisted fns, runtime use only)
@@ -1585,19 +1586,10 @@ function floor_trigger(ttyp) {
  * C ref: trap.c check_in_air — HURTLING / Levitation·floater /
  * Flying·flyer (!plunged). Clinger mundetected is m_in_air only, not here.
  * Hero Levitation/Flying are youprop.h macros, not sticky u.Levitation
- * / u.Flying (D-1070).
+ * / u.Flying (D-1070): hack.js Levitation_st/Flying_st, which also read
+ * u.uprops[LEVITATION/FLYING] — a worn amulet of flying sets only the
+ * uprops extrinsic (confer_oc_oprop), never the EFlying flat.
  */
-function hero_Levitation() {
-    const u = game.u || {};
-    return !!(((u.HLevitation | 0) || (u.ELevitation | 0))
-        && !(u.BLevitation | 0));
-}
-function hero_Flying() {
-    const u = game.u || {};
-    const steedFlyer = !!(u.usteed && is_flyer(u.usteed.data));
-    return !!(((u.HFlying | 0) || (u.EFlying | 0) || steedFlyer)
-        && !(u.BFlying | 0));
-}
 function check_in_air(mtmp, trflags) {
     const is_you = is_youmonst(mtmp);
     const plunged = (trflags & (TOOKPLUNGE | VIASITTING)) !== 0;
