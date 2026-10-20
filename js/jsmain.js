@@ -22,6 +22,7 @@ import { vision_init, vision_recalc, init_vision_globals } from './vision.js';
 import { parseNethackrc, set_playmode, init_fruit_chain, initoptions_init, RC_FILE_OPT, set_configfile_name } from './options.js';
 import { flush_screen, serialize_for_scoring, reset_display_messages, docrt, bot, pline } from './display.js';
 import { GameDisplay } from './game_display.js';
+import { nomux_marker } from './nomux_capture.js';
 import { askname_if_needed } from './askname.js';
 import { player_selection } from './player_selection.js';
 import { check_special_room } from './hack.js';
@@ -74,6 +75,10 @@ export class NethackGame {
         this._storage = opts.storage || createEphemeralStorage();
         this._screens = [];
         this._cursors = [];
+        // Recorder raw-mode statics hit by nomux_out overflows
+        // (nomux_capture.js); C zero-initialises them.
+        this._nomuxRaw = { mem: new Uint8Array(12) };
+        this._nomuxAnimId = 0; // C nomux_anim_id: anim markers so far
         this._rngSlices = [];
         // Animation frames captured during each step.  Outer index
         // matches _screens (one entry per input boundary); inner array
@@ -111,14 +116,17 @@ export class NethackGame {
     async animationFrame() {
         const disp = game?.nhDisplay;
         const term = disp?.terminal || disp;
+        // C nomux_capture_write_screen: an anim marker renders the screen
+        // too, so it can overflow nomux_out (nomux_capture.js).
         this._pendingAnimFrames.push({
             screen: term?.serialize ? term.serialize() : '',
-            cursor: term?.getCursor
-                ? term.getCursor()
-                : (disp
-                    ? [disp.cursorCol ?? 0, disp.cursorRow ?? 0,
-                        disp.cursorVisible ?? 1]
-                    : null),
+            cursor: (this._nomuxAnimId++, nomux_marker(this._nomuxRaw, term,
+                term?.getCursor
+                    ? term.getCursor()
+                    : (disp
+                        ? [disp.cursorCol ?? 0, disp.cursorRow ?? 0,
+                            disp.cursorVisible ?? 1]
+                        : null)).cursor),
         });
         if (typeof requestAnimationFrame === 'function') {
             await new Promise((resolve) => requestAnimationFrame(resolve));
@@ -320,19 +328,27 @@ export class NethackGame {
                 if (t.startsWith('Count:') || t.endsWith('--More--'))
                     disp.setCursor(t.length, 0);
             }
+            // C nomux_emit_marker: the recorder renders the screen into
+            // nomux_out before reading the cursor; an overflow there
+            // replaces the reported cursor and, past obuf, corrupts the
+            // recorded screen itself (nomux_capture.js).
+            const marker = nomux_marker(nhGame._nomuxRaw, term,
+                term?.getCursor
+                    ? term.getCursor()
+                    : (disp
+                        ? [disp.cursorCol ?? 0, disp.cursorRow ?? 0,
+                            disp.cursorVisible ?? 1]
+                        : null),
+                { kind: 'input', seq: nhGame._screens.length + 1,
+                    anim: nhGame._nomuxAnimId });
             nhGame._screens.push(
-                term?.grid
-                    ? serialize_for_scoring(term)
-                    : (term?.serialize ? term.serialize() : ''),
+                marker.screen != null ? marker.screen
+                    : (term?.grid
+                        ? serialize_for_scoring(term)
+                        : (term?.serialize ? term.serialize() : '')),
             );
             nhGame._rngSlices.push(slice);
-
-            const cursor = term?.getCursor
-                ? term.getCursor()
-                : (disp
-                    ? [disp.cursorCol ?? 0, disp.cursorRow ?? 0,
-                        disp.cursorVisible ?? 1]
-                    : null);
+            const cursor = marker.cursor;
             nhGame._cursors.push(cursor);
 
             // Commit animation frames accumulated since the previous

@@ -3510,6 +3510,8 @@ const S_BARS = 17;
 const S_TREE_CMAP = 18;
 const S_ROOM_CMAP = 19;
 const S_DARKROOM = 20;
+// defsym.h symbols whose color is CLR_BLACK (S_darkroom, S_pit, S_spiked_pit).
+const DEFSYM_CLR_BLACK = new Set([20, 59, 60]);
 const S_ENGROOM = 21;
 const S_CORR = 22;
 const S_LITCORR = 23;
@@ -5370,6 +5372,13 @@ export async function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false
     // fountain are both '{'), so the id is part of the change test below.
     const newGlyphId = typeof glyph === 'number' ? glyph | 0
         : (ch === 'I' && !decgfx) ? GLYPH_INVISIBLE : NO_GLYPH;
+    // Unmapped glyph color for the contest recorder's shadow cell, which
+    // keeps CLR_BLACK as dark gray (nomux_capture.js); tty_map_color drops
+    // it. Cmap painters pass the defsym.h CLR_BLACK symbols (S_darkroom
+    // `:113`, S_pit/S_spiked_pit `:167–168`) as NO_COLOR already, so the
+    // glyph id restores C's glyphmap color for those.
+    loc.disp_color_raw = (color === NO_COLOR && glyph_is_cmap(newGlyphId)
+        && DEFSYM_CLR_BLACK.has(glyph_to_cmap(newGlyphId))) ? CLR_BLACK : color;
     // C `:2031–2056` — gnew + span when the buffered glyphinfo
     // actually differs (glyph id, ttychar, gm color/flags/tile), or
     // unconditionally under iflags.use_background_glyph (FALSE on tty —
@@ -8404,6 +8413,39 @@ function map_screen_cell(mx, my) {
 }
 
 /**
+ * Contest recorder patch 006 (termcap.c nomux_putch / nomux_set_fg) keeps
+ * each map cell as the raw DECgraphics byte with a decgfx flag, in the
+ * glyph's own color; the Terminal keeps only the converted char and the
+ * tty_map_color'd color. For screen cell (sc, sr) still showing the gbuf
+ * glyph _paint_gbuf_cell painted (same char and color), return
+ * { dec: DEC byte or null, color: unmapped glyph color }; else null
+ * (text, menus). Used by nomux_capture.js to rebuild the shadow buffer.
+ */
+export function nomux_cell_gbuf(sc, sr, cell) {
+    const mx = (sc | 0) + 1 + (clipping ? clipx : 0);
+    const my = (sr | 0) - 1 + (clipping ? clipy : 0);
+    if (mx < 1 || mx >= COLNO || my < 0 || my >= ROWNO) return null;
+    const loc = game.level?.at(mx, my);
+    if (!loc || loc.disp_ch == null || loc.disp_ch === '') return null;
+    const raw = loc.disp_ch;
+    if (raw.charCodeAt(0) < 32 || loc.disp_capture_drop) return null;
+    let ch = raw;
+    if (loc.disp_decgfx) {
+        const uni = DEC_TO_UNICODE[raw];
+        if (uni && raw !== '{' && raw !== '`' && raw !== 'g'
+            && raw !== '|' && raw !== 'o' && raw !== 's')
+            ch = uni;
+    }
+    const color = loc.disp_extracolor ? NO_COLOR : (loc.disp_color ?? NO_COLOR);
+    if (!cell || cell.ch !== ch || cell.color !== color) return null;
+    return {
+        dec: loc.disp_decgfx ? raw : null,
+        color: loc.disp_extracolor ? NO_COLOR
+            : (loc.disp_color_raw ?? loc.disp_color ?? NO_COLOR),
+    };
+}
+
+/**
  * One gbuf cell onto the Terminal (C print_glyph / row_refresh).
  * @param {number} mx map x (1..COLNO-1)
  * @param {number} my map y (0..ROWNO-1)
@@ -9102,6 +9144,7 @@ export function clear_glyph_buffer() {
             if (!loc) continue;
             loc.disp_ch = ' ';
             loc.disp_color = NO_COLOR;
+            loc.disp_color_raw = NO_COLOR;
             loc.disp_decgfx = false;
             loc.disp_attr = 0;
             loc.disp_kind = 'unexplored';
