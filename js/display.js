@@ -5596,7 +5596,14 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
                         }
                     }
                 }
-                if (kind === 'other') {
+                if (kind === 'other' && glyph_at(x, y) === GLYPH_UNEXPLORED) {
+                    // C `:2209` glyph = glyph_at(x, y): an unexplored
+                    // displayed cell takes no strip arm and stays
+                    // unexplored, whatever seenv says (a blind hero's
+                    // unmapped neighbour; scen-sweep-Caveman-50055035
+                    // step 885 pool cell).
+                    glyph = attach_glyph(copy_glyph(default_cell), GLYPH_UNEXPLORED);
+                } else if (kind === 'other') {
                     // C glyph_at for terrain/engraving — prefer memory / back_to_glyph
                     // over disp_* (disp_color is already tty-mapped). The int id
                     // travels with the cell: C returns glyph_at untouched when no
@@ -5683,8 +5690,18 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
     if ((!keep_mons && kind === 'mon')) {
         glyph = copy_glyph_id(levl_glyph);
         was_mon = true;
-        if (glyph?.invisible) kind = 'invisible';
-        else {
+        // C `:2219–2231` test the int now in `glyph` (levl_glyph), not the
+        // live pile: a remembered object under the hero or a monster is
+        // stripped even when what lies there now is a different object
+        // (scen-chain-Monk-50450082 step 195: remembered `(` under `@`,
+        // a rock there now). The char match below is only for a memory
+        // that carries no int.
+        const memId = typeof glyph?.glyph === 'number' ? glyph.glyph | 0 : NO_GLYPH;
+        if (glyph?.invisible || memId === GLYPH_INVISIBLE) kind = 'invisible';
+        else if (memId !== NO_GLYPH) {
+            kind = glyph_is_object(memId) ? 'obj'
+                : glyph_is_trap(memId) ? 'trap' : 'other';
+        } else {
             const obj = objects_at(x, y);
             if (obj && !covers_objects(x, y)) {
                 const og = obj_glyph(obj);
