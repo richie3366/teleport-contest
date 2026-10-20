@@ -15,7 +15,7 @@
  *        [--family mixed|wish|genesis|poly|intrinsic|death|kit|tour|normal]
  *        [--family broad|terrain|trap|town|sokoban|ride|pet|container|descend|
  *                  ranged|caster|impaired|options|engulf|hazard|longrun|dig]
- *        [--family marathon|worldtour|sweep|chain|trek|zapfest|shop|questtour|symset|hallu|extcmd]
+ *        [--family marathon|worldtour|sweep|chain|trek|zapfest|shop|questtour|symset|hallu|extcmd|questwalk]
  *        [--out hidden-corpus/recipes] [--probe [--index i]]
  *
  * `broad` rotates evenly through the second-wave families (terrain … dig);
@@ -1261,8 +1261,8 @@ async function levelportTune(g, rng, target) {
    scen-* session above ran past 344 steps. These four families play that
    long. Debug games answer «Die?» with n, so a death mid-marathon costs one
    prompt, not the rest of the session. */
-const WAVE3 = ['worldtour', 'sweep', 'chain', 'trek', 'zapfest', 'shop', 'questtour', 'symset', 'hallu', 'extcmd'];
-const WAVE3_KEYS = { worldtour: [800, 1500], sweep: [1200, 2000], chain: [900, 1900], trek: [600, 1100], zapfest: [600, 1200], shop: [500, 1000], questtour: [600, 1200], symset: [500, 1000], hallu: [600, 1200], extcmd: [600, 1200] };
+const WAVE3 = ['worldtour', 'sweep', 'chain', 'trek', 'zapfest', 'shop', 'questtour', 'symset', 'hallu', 'extcmd', 'questwalk'];
+const WAVE3_KEYS = { worldtour: [800, 1500], sweep: [1200, 2000], chain: [900, 1900], trek: [600, 1100], zapfest: [600, 1200], shop: [500, 1000], questtour: [600, 1200], symset: [500, 1000], hallu: [600, 1200], extcmd: [600, 1200], questwalk: [500, 900] };
 /* symset (2026-10-14, §10.20 calibration): non-DEC symset candidates from
    dat/symbols, minus Blank (an invisible map is unplayable) */
 const SYMSET_ALT = ['curses', 'IBMgraphics', 'IBMGraphics_1', 'IBMGraphics_2', 'RogueIBM', 'RogueEpyx', 'RogueWindows', 'plain', 'MACgraphics', 'Enhanced1', 'Enhanced2', 'AmigaFont'];
@@ -1571,6 +1571,50 @@ async function runWave3Game(g, rng, family, { debug }) {
         await meetLeader(1);
         break;
     }
+    case 'questwalk': {
+        /* questwalk (2026-10-20, level audit F4 — coverage, not calibration):
+           the quest one level at a time. questtour reaches strt/loca/goal by
+           menu name, but the fillers have none: makelevel builds
+           <role>-fila above the locate level and <role>-filb below it
+           (mklev.c:1275–1284), and inside the quest a wizard ^V number is
+           quest-relative (teleport.c:1290). Home 1 refuses any descent until
+           the leader assigns the quest (do.c:1578 ok_to_quest), so enter at
+           the locate level by menu, then ^V 2..6 (fila, loca, filb, filb or
+           goal, goal) with a stop on each — map, walk, fight, loot, chat —
+           sometimes the stairs, sometimes a visit home (re-entered by menu). */
+        g.immortal = true;
+        await ext(g, rng, 'levelchange', { level: String(pick(rng, [14, 16, 20])) });
+        for (const w of shuffle(rng, TOUR_KIT).slice(0, 1 + Math.floor(rng() * 3))) {
+            const l = await wish(g, rng, w);
+            if (l) await typeCmd(g, rng, /amulet|ring/.test(w) ? 'P' : /Mjollnir/.test(w) ? 'w' : 'W', { letter: l });
+        }
+        const qport = async (cands) => {
+            for (const c of cands) if (await levelport(g, rng, c)) return true;
+            return false;
+        };
+        const into = () => qport(['-loca', '-goal']);
+        const atHome = () => /\bHome 1\b/.test(statusRows(g));
+        if (!(await into())) break;
+        const stop = async () => {
+            await mapLevel(g, rng);
+            const r = rng();
+            if (r < 0.35) {
+                await travelTo(g, rng, 'm'.repeat(1 + Math.floor(rng() * 5)));
+                await fight(g, rng, 3 + Math.floor(rng() * 4));
+            } else if (r < 0.55) await steps(g, rng, 3 + Math.floor(rng() * 6));
+            else if (r < 0.7) await typeCmd(g, rng, ',', { menuPick: true, yn: 'y' });
+            else if (r < 0.85) { await chat(g, rng); await look(g, rng); }
+            else await travelTo(g, rng, pick(rng, ['>', '<', '_']));
+        };
+        await untilFull(g, rng, async (i) => {
+            if (chance(rng, 0.25)) { await travelTo(g, rng, '>'); await typeCmd(g, rng, '>'); }
+            else if (!(await levelport(g, rng, 2 + (i % 5)))) await steps(g, rng, 2);
+            if (atHome()) await into();
+            await stop();
+            if (chance(rng, 0.12)) { await qport(['home', '-strt']); await chat(g, rng); await into(); }
+        });
+        break;
+    }
     case 'symset': {
         /* symset (2026-10-14, §10.20 calibration): a whole game under an
            exotic display rc — non-DEC symset, sometimes number_pad,
@@ -1762,7 +1806,9 @@ async function authorWave3({ seed, family, inst, trace }) {
     const games = family === 'chain' ? 3 + Math.floor(rng() * 7) : 1;
     try {
         for (let k = 0, used = 0; k < games && used < budget; k++) {
-            const role = family === 'worldtour' && chance(rng, 0.5) ? ROLES.find((r) => r[1] === 'Wizard') : pick(rng, ROLES);
+            const role = family === 'worldtour' && chance(rng, 0.5) ? ROLES.find((r) => r[1] === 'Wizard')
+                : family === 'questwalk' ? ROLES[seed % ROLES.length] /* consecutive seeds cover every role's quest */
+                : pick(rng, ROLES);
             firstRole ??= role;
             const mode = family === 'trek' ? pick(rng, ['normal', 'normal', 'explore'])
                 : family === 'chain' ? pick(rng, ['normal', 'normal', 'debug']) : 'debug';

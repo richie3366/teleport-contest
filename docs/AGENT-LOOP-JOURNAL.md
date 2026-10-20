@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — Grow #20 fresh 51650000 ×160: 156/160 (97.5 %) on arrival; +4 failing folded; questwalk coverage family (level audit F4)
+
+**Fresh:** 156/160 (97.5 %), RNG 99.83 %, screens 99.75 %. Worst: sweep 8/10 (distfleeck RNG s616, trapeffect_sqky_board s609), hallu 8/9 (findit s666), symset 8/9 (env-only). Gap to held-out 18.0 pts → no calibration.
+**Coverage:** new wave-3 `questwalk` (scripts/scenario-gen.mjs): enter the quest at `-loca` by ^V menu, then quest-relative ^V 2..6 and stairs. 26 sessions @51660000 (2 per role): 24/26 PASS on arrival; first corpus builds of all 17 quest fillers + Kni-loca. Folded failing: Barbarian-51660025 peace_minded s230 (RNG), Monk-51660016 obj_resists s97 (RNG).
+**Board:** 668/701 PASS; 684 active + 29 reserve + 5863 archive. Cliffs head now obj_resists / peace_minded / distfleeck (RNG losers).
 ## 2026-10-20 — D-4182 sp_lev.c load_special runs the same epilogue head after every level script (`:6464–6471`: link_doors_rooms, remove_boundary_syms, ensure_way_out when "inaccessibles", map_cleanup). JS copied it into each per-level loader unevenly (link_doors_rooms 16/126, remove_boundary_syms 15/126, map_cleanup 17/126). A new load_special_head() ports the head once, and all 126 loaders now run it right before their wallification. Level-audit Must-fix F3: none of the head draws RNG except ensure_way_out (minetn-6 only, order kept), so all 108 corpus-built levels stay RNG-exact
 
 **C locus:** sp_lev.c load_special `:6454–6502` (head `:6464–6471`), link_doors_rooms `:1121–1142`, remove_boundary_syms `:1015–1038`, ensure_way_out `:5216+`, map_cleanup `:327–356`; sp_lev.c lspo_finalize_level `:6014–6064` (des path, already whole in JS).

@@ -30,7 +30,7 @@ Score last measured: **2026-10-20** — full `sessions` on `878852b8f`
 | Metric | Value |
 |--------|------:|
 | **Held-out (judge 2026-10-20 19:11Z)** | **35 / 44**, 10,849 / 11,265 pts, RNG **99.5 %**, rngSteps 99.0 %, screens **96.3 %** (+0 vs 13:17Z; rank 2, leader 11,264 at 43/44) |
-| **Fresh cohort (§10.20, scored on arrival)** | 51450000 ×160 @`75e2e77e0`: **149/160 (93.1 %)**, RNG 99.4 %, screens 99.5 % — options 1/2, extcmd 6/9 worst; sweep 7/10; hallu 7/9; worldtour/zapfest 9/10 + rest 100 % |
+| **Fresh cohort (§10.20, scored on arrival)** | 51650000 ×160 @`8f2d00eae` (Grow #20): **156/160 (97.5 %)**, RNG 99.83 %, screens 99.75 % — sweep 8/10 worst (distfleeck RNG s616, trapeffect_sqky_board s609); hallu 8/9 (findit s666); symset 8/9 (env-only); rest 100 % |
 | **Corpus board (worked, regression fortress)** | full rescore 2026-10-20 (audit 3011–3019 @`878852b8f`): committed board **683/734** (671 at the last audit + 12 window flips claimed by D-4171..D-4179; D-4171 moved 18 symset rows 0 → 11,819 screens, still `env:config-path`) → rescore **682/708** (682/701 excl. 7 env-only; RNG 99.99 %, screens 99.98 %), `record`: all sessions present, **0 PASS→FAIL** → archive 15 PASS → **668/719** (`entries` 719, `unrecorded` 0); `tier` → 2 promoted back, reserve 26 → 28; worst options 25/30, symset 33/37, sweep 181/185, worldtour 87/89, shop 20/21, chain 24/25, extcmd 11/12, questtour 10/11, town 12/13 |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
@@ -45,10 +45,11 @@ RNG 93.5→96.9 %): the D-4042..D-4047 window moved the judge again
 — cliffs score where they reach. **Three lines, read together:**
 held-out (judge), fresh cohort
 (`fresh-cohort.mjs`, the local generalization estimate), board (the
-fortress — it rises by construction). Fresh history: 79–93.7 %
-across 17 cohorts (Grow #5–19; previous 149/159 @51250000).
-Fresh−held-out gap now 20.4 pts (93.1 % vs 72.7 %), outside the §10.20 band —
-but Grow #18 already calibrated, so no step-5 family this grow.
+fortress — it rises by construction). Fresh history: 79–97.5 %
+across 18 cohorts (Grow #5–20; previous 149/160 @51450000).
+Fresh−held-out gap now 18.0 pts (97.5 % vs 79.5 % = 35/44), inside the §10.20
+band — no calibration family; Grow #20 added the `questwalk` coverage family instead (level audit F4).
+**Corpus after Grow #20 (2026-10-20):** board 668/701 PASS (95.3 %, RNG 99.83 %, screens 99.8 %); 684 active + 29 reserve + 5863 archive.
 **Corpus (Grow #19 `score --new` + `tier`, 2026-10-17, 916 rows):**
 648 PASS (70.7 %); RNG 98.31 %, screens 97.4 %; 904 active + 239 reserve + 5247 archive.
 Worst families `scen-hallu` 0/4, `scen-symset` 72/190, `scen-extcmd` 9/40,
@@ -101,8 +102,8 @@ every second grow adds/reshapes a family (`HIDDEN-PROXY.md` §5c).
    IBM/curses). Extract or prove; a non-DEC `symset:` held-out rc breaks
    every map screen.
 3. Level loaders — audited 2026-10-20 (`reviews/level-audit/2026-10-20-special-levels.md`):
-   126/126 ported, maps byte-exact, 108 RNG-exact in corpus. F1–F3 done
-   (D-4180..D-4182). Open: F4 = grow slot (quest fila/filb + Kni-loca never built).
+   126/126 ported, maps byte-exact, 108 RNG-exact in corpus. F1–F4 done
+   (D-4180..D-4182; F4 = Grow #20 `questwalk`: every level now built in corpus).
    Re-prove: `level-audit-static.py` + `level-audit.mjs`.
 4. Message literals — `python3 scripts/c-literal-coverage.py`: 116 of
    4099 C message literals absent from `js/` (most env/error paths;

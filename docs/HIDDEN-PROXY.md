@@ -237,6 +237,7 @@ here). Candidates — public shapes the generator does not copy:
 | `questtour` | seed0361 / 0367 / 0373 quest tours | all 13 roles: `^V` home, `#chat` leader at low XL (badlevel) then after `#levelchange 14` (assignquest), locate/goal, nemesis fight with a wished kit, artifact pickup, return (offeredit, leader_last) | **probed 2026-10-14: 19/20 (95 %) — NOT held-out-like** (≥ 85 %); kept in WAVE3 (1 fail folded) |
 | `zapfest` | held-out has 2,959 animation frames vs public 1,483 | wand/spell/breath duels, thrown stacks, boomerangs, explosions, ranged monsters | **probed 2026-10-13: 18/20 (90 %) — NOT held-out-like** (≥ 85 %); kept in WAVE3 (2 fails folded) |
 | `options` | seed2600 binds, seed0200 `msg_window:reversed`, 7 public rc without DECgraphics | non-DEC symsets (14 in `dat/symbols`), `number_pad`, BIND, MSGTYPE / MENUCOLOR / status hilites | **added 2026-10-14 as wave-3 `symset`** (wave-2 owns the `options` name): probe 0/20 (0 %), 100 sessions (20 probe + 80 @50059000); in WAVE3 |
+| `questwalk` | (coverage, not a public shape: level audit F4) | quest ^V by menu to locate, then quest-relative ^V 2..6 / stairs: every role's fila/filb, loca, goal | **added 2026-10-20 (Grow #20): probe 24/26 (92.3 %) — not held-out-like; all 26 folded (2 failing: Barbarian peace_minded s230, Monk obj_resists s97); in WAVE3** |
 | `shop` | seed0116 wizard-wear-shop | `^V minetn`, buy / sell / price-id / #chat / steal / Kops / pay | **added 2026-10-13: probe 15/20 (75 %)**, 100 sessions (20 probe + 80 @49959600); in WAVE3 |
 | `human` | seed0002/0004/0006/0007/0009/0012/0014 | minimal rc, interactive chargen, legacy + tutorial prompt, wall-clock datetimes, 300–700 normal steps | start regime **measured fine** (68/68 probe); long tail ≈ `trek` (100 %) — low prior |
 | `hallu` | seed0383 / seed0399 hallucinate / hallu-actions | whole marathon tripping (`#wizintrinsic h` + scheduled re-trips): fights, wand barrages, scrolls, quaffs, throws, looks, casts, prayers, tours under scrambled glyphs | **probed 2026-10-16: 18/20 (90 %) — NOT held-out-like** (≥ 85 %); kept in WAVE3 (2 fails folded) |
@@ -301,7 +302,7 @@ reshape, or a `questwalk` family, that descends the quest one level at a
 time (`strt → fila → loca → filb → goal`) for all 13 roles. Probe it as
 above. Even at ≥ 85 % on arrival, fold its sessions: the point is proving
 those loaders against C, not calibration. Done when `level-audit.mjs`
-prints an empty "unreached" line.
+prints an empty "unreached" line. **Done 2026-10-20 (Grow #20):** `questwalk` (wave-3, 500–900 keys, role = seed % 13) entered by menu at `-loca` (Home 1 refuses descent before the quest is assigned, do.c:1578) then quest-relative ^V; 26 sessions @51660000 built all 17 fillers and Kni-loca, RNG-exact in every passing session.
 
 ## 6. Why not a state-dump patch or a fntrace build (yet)
 

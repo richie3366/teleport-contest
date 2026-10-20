@@ -67,4 +67,4 @@ Limits: RNG equality is location-blind (D-1849). Screens confirm placement only 
 
 - The quest filler levels sit between the quest locate and goal levels. `scen-questtour` and `scen-quest` level-teleport past them.
 - **Deliverable (grow slot, not a port):** a scenario family, or a questtour reshape, that walks `strt → fila → loca → filb → goal` for every role, and reaches Kni-loca. Then re-run `level-audit.mjs` until "unreached" is empty.
-- **Addressed:**
+- **Addressed:** Grow #20 (5cede00e8): `questwalk` family, 26 sessions @51660000 (24 PASS on arrival) build every filler and Kni-loca
