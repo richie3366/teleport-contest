@@ -291,6 +291,18 @@ owners `display_pickinv` (the Debug Identify menu, 14) and
 under 7 owners (quota keeps 10 active, 89 reserve). Both kept in WAVE3;
 no candidates remain again — the next calibration grow mines another.
 
+**Coverage candidate (level audit 2026-10-20, F4 of
+`reviews/level-audit/2026-10-20-special-levels.md`).** The corpus never
+builds 19 special levels, the quest fillers `Arc/Cav/Hea/Kni/Ran/Rog/Sam
+-fila|filb`, `Bar-filb`, `Mon-fila`, `Tou-fila`, `Val-fila` and `Kni-loca`,
+because questtour level-teleports past them. 15 more are built ≤ 3 times
+(`node scripts/level-audit.mjs` lists both). The candidate is a questtour
+reshape, or a `questwalk` family, that descends the quest one level at a
+time (`strt → fila → loca → filb → goal`) for all 13 roles. Probe it as
+above. Even at ≥ 85 % on arrival, fold its sessions: the point is proving
+those loaders against C, not calibration. Done when `level-audit.mjs`
+prints an empty "unreached" line.
+
 ## 6. Why not a state-dump patch or a fntrace build (yet)
 
 Both were considered. The RNG stream is already a near-perfect

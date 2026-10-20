@@ -100,9 +100,11 @@ every second grow adds/reshapes a family (`HIDDEN-PROXY.md` §5c).
 2. `dat/symbols` — 14 symsets; JS hand-codes DECgraphics (+ partial
    IBM/curses). Extract or prove; a non-DEC `symset:` held-out rc breaks
    every map screen.
-3. Level loaders — 126/126 scripts present; prove each whole (every
-   `des.*`, every random branch) — a per-script `des.*` count diff tool
-   is the cheap first step.
+3. Level loaders — audited 2026-10-20 (`reviews/level-audit/2026-10-20-special-levels.md`):
+   126/126 ported, maps byte-exact, 107 RNG-exact in corpus. Open: Must-fix
+   F1–F3 (hellfill boundary, wall_info readers, shared load_special
+   epilogue); F4 = grow slot (quest fila/filb + Kni-loca never built).
+   Re-prove: `level-audit-static.py` + `level-audit.mjs`.
 4. Message literals — `python3 scripts/c-literal-coverage.py`: 116 of
    4099 C message literals absent from `js/` (most env/error paths;
    gameplay: `dig.c` hole/bury ×10, `uhitm.c` ×6, `engrave.c`, `steal.c`).
