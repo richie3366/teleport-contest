@@ -1,5 +1,26 @@
 # Divergence log
 
+## D-4181 — C's `levl[][].flags` is one field with three names (rm.h:213–215: doormask ≡ wall_info ≡ flags). JS keeps three separate fields, and most readers OR wall_info with flags (D-0865). Four sites still read, cleared or assigned only one of them: hit_bars' acid `nodissolve`, moverock's hole-fill clear, skip_premap_detect's `||`, and every drawbridge assignment (create/close/open/destroy). A W_NONDIGGABLE written to `loc.flags` (tower, sokoban and bigroom solidify/non_diggable, ~23 mklev.js writers) was invisible to the first three, and a drawbridge DBWALL kept stale `flags` door bits (Must-fix F2 of the 2026-10-20 level audit)
+
+- **Status:** shipped.
+- **Symptom:** none in the corpus (non-RNG state). Found by the level audit's field-split check.
+- **C locus:** rm.h `:213–215`; mthrowu.c hit_bars `:1425`; hack.c moverock `:562`; detect.c skip_premap_detect `:2127`; dbridge.c create_drawbridge `:270`/`:275`, close_drawbridge `:810`, open_drawbridge `:862`, destroy_drawbridge `:942`.
+- **JS was:**
+  - hit_bars: `nodissolve = loc.wall_info & W_NONDIGGABLE`, so acid could dissolve non-diggable bars marked in `.flags`.
+  - moverock_core: the hole-fill arm cleared only `wall_info`.
+  - skip_premap_detect: `(wall_info) || (flags)` dropped `flags` whenever `wall_info` was non-zero.
+  - create/close_drawbridge set only `wall_info = W_NONDIGGABLE`; open/destroy_drawbridge set only `doormask = D_NODOOR`.
+- **Fix:** the readers OR both fields and the hole-fill arm clears both, as in D-0865. Where C assigns the shared field, JS now writes `wall_info`, `flags` and `doormask` to the same value, as C's single field holds it (a closed drawbridge's DBWALL reads doormask 8 in C too).
+- **JS:** js/mthrowu.js hit_bars; js/hack.js moverock_core; js/detect.js skip_premap_detect; js/dbridge.js close_drawbridge, open_drawbridge, destroy_drawbridge; js/mklev.js create_drawbridge.
+- **Callers:** unchanged (field writes/reads inside the bodies only).
+- **Verify:**
+  - `node scripts/verify.mjs --fn hit_bars,moverock,skip_premap_detect,close_drawbridge,open_drawbridge,destroy_drawbridge,create_drawbridge --full` → syntax · rule2 · no corpus session blocked (non-RNG) · reach REACH-OK ×7 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/level-audit.mjs --ids <the 509 sessions that build castle or valley>` → castle 198/198 RNG-exact (board screens 49/49), valley 397/397 (101/101). One exception, the baseline's unrelated soko4-1 row (board s1003 slimed_to_death).
+  - `hidden-proxy sweep moveloop_core` → 668 baseline-PASS re-run in 137.5s, 0 regressed → REACH-OK.
+- **Named omissions:** none. Other doormask-only writers on door squares (doors never carry W_* bits) are out of scope.
+- **Ledger:** hit_bars ported; moverock ported; skip_premap_detect ported; close_drawbridge ported; open_drawbridge ported; destroy_drawbridge ported; create_drawbridge ported
+- **Next:** Must-fix F3 (one shared load_special epilogue in load_special_proto).
+
 ## D-4180 — sp_lev.c load_special runs link_doors_rooms, remove_boundary_syms and map_cleanup after every level script (`:6464–6471`). JS load_hellfill skipped all three, so hellfill.lua's crosswall-temple prefab (`:207–219`) kept its `B` (CROSSWALL) boundary ring, which wallification then turned into a closed wall box around the temple where C has floor (Must-fix F1 of the 2026-10-20 level audit; no corpus session picks this prefab)
 
 - **Status:** shipped.

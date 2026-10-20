@@ -9,7 +9,7 @@
 {"fn":"is_db_wall","c":"170-173","status":"ported","js":["js/dbridge.js:is_db_wall"],"at":"2026-10-03@bbe63333a"}
 {"fn":"find_drawbridge","c":"180-205","status":"ported","js":["js/dbridge.js:find_drawbridge"],"at":"2026-09-28@70c901367","note":"stale: js/dbridge.js:160, body whole + all 11 C call sites wired in js (dig×2,dokick,trap,zap×3,detect,music,muse,dbridge:616)"}
 {"fn":"get_wall_for_db","c":"211-227","status":"ported","js":["js/dbridge.js:get_wall_for_db"],"at":"2026-09-29@2c9129a4b","note":"stale: js/dbridge.js:180"}
-{"fn":"create_drawbridge","c":"235-283","status":"ported","js":["js/mklev.js:create_drawbridge"],"d":["D-2708"],"at":"2026-10-03@bbe63333a"}
+{"fn":"create_drawbridge","c":"235-283","status":"ported","js":["js/mklev.js:create_drawbridge"],"d":["D-4181","D-2708"],"at":"2026-10-20@f4ad3fe0a"}
 {"fn":"e_at","c":"286-301","status":"ported","js":["js/dbridge.js:e_at"],"d":["D-3232","D-1943"],"at":"2026-10-01@516e71ff9","note":"stale: js/dbridge.js:212 whole body, do_entity wires all 6 sites :626-637; debugpline1/wait_synch compiled out without DEBUG/D_DEBUG"}
 {"fn":"m_to_e","c":"304-318","status":"ported","js":["js/dbridge.js:m_to_e"],"at":"2026-10-03@bbe63333a"}
 {"fn":"u_to_e","c":"321-327","status":"ported","js":["js/dbridge.js:u_to_e"],"at":"2026-10-03@bbe63333a"}
@@ -23,6 +23,6 @@
 {"fn":"e_jumps","c":"531-551","status":"ported","js":["js/dbridge.js:e_jumps"],"at":"2026-09-27@fa5382192","note":"stale: js/dbridge.js:535"}
 {"fn":"do_entity","c":"554-759","status":"ported","js":["js/dbridge.js:do_entity"],"d":["D-1967"],"at":"2026-10-03@bbe63333a"}
 {"fn":"nokiller","c":"763-769","status":"ported","js":["js/dbridge.js:nokiller"],"at":"2026-10-03@bbe63333a"}
-{"fn":"close_drawbridge","c":"775-834","status":"ported","js":["js/dbridge.js:close_drawbridge"],"d":["D-3714","D-3416"],"at":"2026-10-09@2c598e80b","note":"audit 2026-10-03: terrain/sound/revive/obj/trap/engr/vision/nokiller all live; only entity pass deferred"}
-{"fn":"open_drawbridge","c":"840-882","status":"ported","js":["js/dbridge.js:open_drawbridge"],"d":["D-3416","D-2316"],"at":"2026-10-04@a1eee6cb2","note":"audit 2026-10-03: terrain/sound/revive/obj/trap/engr/vision/stronghold/nokiller all live; only entity pass deferred"}
-{"fn":"destroy_drawbridge","c":"888-1019","status":"ported","js":["js/dbridge.js:destroy_drawbridge"],"at":"2026-10-03@bbe63333a"}
+{"fn":"close_drawbridge","c":"775-834","status":"ported","js":["js/dbridge.js:close_drawbridge"],"d":["D-4181","D-3714","D-3416"],"at":"2026-10-20@f4ad3fe0a","note":"audit 2026-10-03: terrain/sound/revive/obj/trap/engr/vision/nokiller all live; only entity pass deferred"}
+{"fn":"open_drawbridge","c":"840-882","status":"ported","js":["js/dbridge.js:open_drawbridge"],"d":["D-4181","D-3416","D-2316"],"at":"2026-10-20@f4ad3fe0a","note":"audit 2026-10-03: terrain/sound/revive/obj/trap/engr/vision/stronghold/nokiller all live; only entity pass deferred"}
+{"fn":"destroy_drawbridge","c":"888-1019","status":"ported","js":["js/dbridge.js:destroy_drawbridge"],"d":["D-4181"],"at":"2026-10-20@f4ad3fe0a"}

@@ -52,7 +52,7 @@ Limits: RNG equality is location-blind (D-1849). Screens confirm placement only 
   - `js/mthrowu.js` hit_bars: `nodissolve = loc.wall_info & W_NONDIGGABLE` (C `mthrowu.c:1425`) ignores `.flags`, so acid can dissolve non-diggable bars.
   - `js/hack.js` moverock_core: the boulder-fills-hole arm clears only `wall_info` (C `hack.c:562`), leaving a `.flags` W_NONDIGGABLE bit set.
 - **Deliverable:** both sites use the OR (read) or clear both fields, with a grep for any other single-field W_* reader or clearer.
-- **Addressed:**
+- **Addressed:** D-4181
 
 ### F3 — C-wrong (structural): the load_special epilogue is inlined per loader, unevenly
 

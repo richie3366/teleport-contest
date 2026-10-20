@@ -21907,12 +21907,17 @@ function create_drawbridge(x, y, dir, isOpen) {
     if (isOpen) { /* We want the bridge open */
         bridge.typ = DRAWBRIDGE_DOWN;
         wall.typ = DOOR;
-        wall.doormask = D_NODOOR;
+        wall.doormask = D_NODOOR; // C: the one flags field — clear the JS halves too
+        wall.flags = D_NODOOR;
+        wall.wall_info = D_NODOOR;
     } else {
         bridge.typ = DRAWBRIDGE_UP;
         wall.typ = DBWALL;
         /* Drawbridges are non-diggable. */
+        // C dbridge.c:275 assigns the one flags field (rm.h:213–215); JS keeps three.
         wall.wall_info = W_NONDIGGABLE;
+        wall.flags = W_NONDIGGABLE;
+        wall.doormask = W_NONDIGGABLE;
     }
     bridge.horizontal = !horiz;
     wall.horizontal = horiz;

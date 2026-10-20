@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — D-4181 C's `levl[][].flags` is one field with three names (rm.h:213–215: doormask ≡ wall_info ≡ flags). JS keeps three separate fields, and most readers OR wall_info with flags (D-0865). Four sites still read, cleared or assigned only one of them: hit_bars' acid `nodissolve`, moverock's hole-fill clear, skip_premap_detect's `||`, and every drawbridge assignment (create/close/open/destroy). A W_NONDIGGABLE written to `loc.flags` (tower, sokoban and bigroom solidify/non_diggable, ~23 mklev.js writers) was invisible to the first three, and a drawbridge DBWALL kept stale `flags` door bits (Must-fix F2 of the 2026-10-20 level audit)
+
+**C locus:** rm.h `:213–215`; mthrowu.c hit_bars `:1425`; hack.c moverock `:562`; detect.c skip_premap_detect `:2127`; dbridge.c create_drawbridge `:270`/`:275`, close_drawbridge `:810`, open_drawbridge `:862`, destroy_drawbridge `:942`.
+**JS:** js/mthrowu.js hit_bars; js/hack.js moverock_core; js/detect.js skip_premap_detect; js/dbridge.js close_drawbridge, open_drawbridge, destroy_drawbridge; js/mklev.js create_drawbridge.
+**Change:** the readers OR both fields and the hole-fill arm clears both, as in D-0865. Where C assigns the shared field, JS now writes `wall_info`, `flags` and `doormask` to the same value, as C's single field holds it (a closed drawbridge's DBWALL reads doormask 8 in C too).
+**Verify:** - `node scripts/verify.mjs --fn hit_bars,moverock,skip_premap_detect,close_drawbridge,open_drawbridge,destroy_drawbridge,create_drawbridge --full` → syntax · rule2 · no corpus session blocked (non-RNG) · reach REACH-OK ×7 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+**Named:** none. Other doormask-only writers on door squares (doors never carry W_* bits) are out of scope.
+**Next:** Must-fix F3 (one shared load_special epilogue in load_special_proto).
 ## 2026-10-20 — D-4180 sp_lev.c load_special runs link_doors_rooms, remove_boundary_syms and map_cleanup after every level script (`:6464–6471`). JS load_hellfill skipped all three, so hellfill.lua's crosswall-temple prefab (`:207–219`) kept its `B` (CROSSWALL) boundary ring, which wallification then turned into a closed wall box around the temple where C has floor (Must-fix F1 of the 2026-10-20 level audit; no corpus session picks this prefab)
 
 **C locus:** sp_lev.c load_special `:6454–6502` (head `:6464–6471`), remove_boundary_syms `:1015–1038`, link_doors_rooms `:1121–1142`, map_cleanup `:327–356`; dat/hellfill.lua `:207–219`.
