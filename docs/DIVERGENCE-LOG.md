@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-4167 — timeout.c hatch_egg makes each hatchling with `makemon(…, NO_MINVENT | MM_NOMSG)` (`:1047–1049`). makemon's tail, outside the MM_NOMSG guard, runs `if (go.occupation) (void) dochugw(mtmp, FALSE);` (makemon.c `:1502–1504`), so a hostile hatchling in view stops a counted search with «You stop searching.» before hatch_egg prints «You see a cave spider hatch.». JS splits that tail into the async makemon_appear_msg, which the caller of the sync makemon must await. hatch_egg never called it, so the search went on: the next turn's messages forced a --More-- and swallowed the following keys (1 corpus session → FULL PASS)
+
+- **Status:** shipped.
+- **Symptom:** in scen-symset-Rogue-50950071 at s219, during the second `100s` counted search, C's topline is «You stop searching.  You see a cave spider hatch.», and JS shows «You see a cave spider hatch.--More--» (18 screens lost). RNG matched for the whole session.
+- **Measurement:** I built a temp recorder with a `backtrace()` probe in allmain.c stop_occupation and recorded the recipe truncated to 222 keys. The second STOP (moves=289, occtxt «searching») has the stack `stop_occupation ← dochugw ← makemon ← hatch_egg ← run_timers ← nh_timeout ← moveloop_core`. Neither the occupation's `monster_nearby()` (nothing hostile is adjacent; the `@` beside the hero is the shopkeeper) nor anything in hatch_egg itself stops it.
+- **C locus:** timeout.c hatch_egg `:1046–1064`; makemon.c `:1502–1504`; monmove.c dochugw `:204–238` (chug FALSE: only the newly-spotted-threat check).
+- **JS was:** hatch_egg called makemon and went straight to tamedog. makemon_appear_msg (the appear Norep, skipped under MM_NOMSG, plus the occupation dochugw) never ran for hatchlings.
+- **Fix:** hatch_egg awaits `makemon_appear_msg(mon, mon.mx, mon.my, NO_MINVENT | MM_NOMSG)` right after each successful makemon, before tamedog: the C order, inside makemon.
+- **JS:** js/timeout.js hatch_egg (makemon_appear_msg import via the existing dynamic makemon.js import).
+- **Callers:** hatch_egg is the HATCH_EGG timer callback (run_timers), unchanged. makemon_appear_msg is the existing makemon-tail helper (65 call sites).
+- **Verify:**
+  - `score --ids` on all failing rows → **685/751** (+1: scen-symset-Rogue-50950071 219 → 668/668 FULL PASS; no row lost).
+  - verify dosearch: 1 PASS, 0 moved, 0 no-movement.
+  - `node scripts/verify.mjs --fn dosearch,hatch_egg --full` → syntax · rule2 · reach dosearch 24/24, hatch_egg 4/4 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `hidden-proxy sweep moveloop_core` → 684 baseline-PASS re-run in 139.7s, 0 regressed → REACH-OK.
+- **Named omissions:** other sync-makemon callers that never await makemon_appear_msg were not audited here. The same missed occupation check applies to any of them that runs while the hero has an occupation.
+- **Ledger:** hatch_egg ported
+- **Next:** re-rank. Board head: scen-wish-Barbarian-50152020 s34 explmm (17 screens, 36 RNG), then scen-options-Samurai-50162003 s120 (menu_tab_sep), scen-options-Knight-50355037 s87.
+
 ## D-4166 — tty paints every menu's end_menu prompt in `tty_menu_promptstyle` (wintty.c tty_end_menu `:2685–2689`) and every add_menu_heading row in the live `iflags.menu_headings` colour and attribute (windows.c `:1815–1828`). handler_menu_headings sets both (options.c `:5779–5792`, relayed by adjust_menu_promptstyle). JS hard-coded inverse in 21 menus, so after `O` → menu_headings → a colour, C draws the titles and headings orange/green + inverse and JS inverse only. Separately, the recorder's shadow buffer stores a pet's highlight by attribute enum (termcap.c nomux_set_attr `:768–774`: only INVERSE/BOLD/ULINE set a bit), so a pet highlighted italic records as plain. JS (D-2810) painted the real terminal's fallback, italic → underline and blink → bold (3 corpus sessions → FULL PASS, 2 moved)
 
 - **Status:** shipped.

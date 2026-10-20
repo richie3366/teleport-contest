@@ -2449,7 +2449,7 @@ export async function hatch_egg(egg, timeout) {
     if ((egg.corpsenm | 0) === NON_PM) return;
 
     const { enexto } = await import('./teleport.js');
-    const { makemon } = await import('./makemon.js');
+    const { makemon, makemon_appear_msg } = await import('./makemon.js');
     const { tamedog } = await import('./dog.js');
     // NB: useup is the static invent.js import (timeout.js:54); eat.js does
     // not export it — a dynamic re-import here shadowed it with undefined.
@@ -2483,6 +2483,12 @@ export async function hatch_egg(egg, timeout) {
                     || !(mon = makemon(ptr, cc.x, cc.y, NO_MINVENT | MM_NOMSG))) {
                     break;
                 }
+                // C makemon's tail (makemon.c `:1502–1504`): MM_NOMSG skips
+                // the appear message, but an occupation still gets the
+                // dochugw threat check, so a hatchling in view stops a
+                // counted search before the hatch message.
+                await makemon_appear_msg(mon, mon.mx | 0, mon.my | 0,
+                    NO_MINVENT | MM_NOMSG);
                 if ((yours && !silent)
                     || (carried(egg) && mon.data?.mlet === 'S_DRAGON')) {
                     if (await tamedog(mon, null, false)) {

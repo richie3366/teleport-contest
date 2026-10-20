@@ -15,7 +15,7 @@
 {"fn":"fall_asleep","c":"951-974","status":"ported","js":["js/hack.js:fall_asleep"],"d":["D-2859"],"at":"seed@a30a7de84"}
 {"fn":"attach_egg_hatch_timeout","c":"981-1005","status":"ported","js":["js/mkobj.js:attach_egg_hatch_timeout"],"d":["D-1572"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"kill_egg","c":"1009-1013","status":"ported","js":["js/mkobj.js:kill_egg"],"at":"2026-10-03@bbe63333a"}
-{"fn":"hatch_egg","c":"1017-1189","status":"ported","js":["js/timeout.js:hatch_egg"],"d":["D-4002"],"at":"2026-10-16@0bda6a2a2","note":"audit 2026-10-03: SetVoice before Gleep deferred; all branches live"}
+{"fn":"hatch_egg","c":"1017-1189","status":"ported","js":["js/timeout.js:hatch_egg"],"d":["D-4167","D-4002"],"at":"2026-10-20@1b6ad48c4","note":"audit 2026-10-03: SetVoice before Gleep deferred; all branches live"}
 {"fn":"learn_egg_type","c":"1193-1200","status":"ported","js":["js/timeout.js:learn_egg_type"],"d":["D-2241"],"at":"2026-10-03@bbe63333a"}
 {"fn":"attach_fig_transform_timeout","c":"1204-1218","status":"ported","js":["js/mkobj.js:attach_fig_transform_timeout"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"slip_or_trip","c":"1222-1341","status":"partial","js":["js/timeout.js:slip_or_trip"],"omit":"Egads/elbow/banana-peel arms read u.Hallucination mirror (C :1249/:1306/:1309 Hallucination macro); petrify test reads Stone_resistance flats, C youprop.h:65 uprops; unreached; review 2964","d":["D-4124"],"at":"2026-10-19@318b3a5e7"}
