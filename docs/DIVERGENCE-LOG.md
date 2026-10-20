@@ -1,5 +1,55 @@
 # Divergence log
 
+## D-4166 — tty paints every menu's end_menu prompt in `tty_menu_promptstyle` (wintty.c tty_end_menu `:2685–2689`) and every add_menu_heading row in the live `iflags.menu_headings` colour and attribute (windows.c `:1815–1828`). handler_menu_headings sets both (options.c `:5779–5792`, relayed by adjust_menu_promptstyle). JS hard-coded inverse in 21 menus, so after `O` → menu_headings → a colour, C draws the titles and headings orange/green + inverse and JS inverse only. Separately, the recorder's shadow buffer stores a pet's highlight by attribute enum (termcap.c nomux_set_attr `:768–774`: only INVERSE/BOLD/ULINE set a bit), so a pet highlighted italic records as plain. JS (D-2810) painted the real terminal's fallback, italic → underline and blink → bold (3 corpus sessions → FULL PASS, 2 moved)
+
+- **Status:** shipped.
+- **Symptom:** scen-options-Knight-50457009:
+  - from s159 its tame pony `u` carries underline in JS (petattr italic, picked at s158);
+  - from s162 the Options title and section headings lack C's `\x1b[91m` (orange, picked at s157);
+  - from s185 the «Select 'autounlock' actions:» prompt does too.
+
+  scen-options-Valkyrie-50557405 (s94), scen-options-Rogue-51151031 (s88 «Do what?»), scen-options-Rogue-50557410 (s73 «Select run/travel display mode:», then «Ordering of discoveries», «Status hilites:», «Current skills» and the skill headings) and scen-options-Barbarian-50355007 (s30 Options) show the same colour-less prompts and headings.
+- **Measurement:**
+  - **The colour pick works.** A temp log in query_color_attr showed `menu_headings` = `{attr:7, color:9}` after s158, so the pick itself was right. A log in menu_heading_style showed it was never called for the simple Options menu.
+  - **The C menus.** The C frames at s156–158 show the colour menu, then query_attr's «How to highlight menu headings:» attribute menu (Enter keeps the preselected inverse), then handler_petattr's «Select pet highlight attribute» (`d` = italic).
+  - **The recorder.** Its term_start_attr (`:1792–1803`) calls `nomux_set_attr(attr)` on the wintype enum before `s_atr2str`.
+  - **Prior measurement.** options.js cattr_to_cell had already recorded the same rule for menu attributes («dim/blink/italic record plain», scen-options-Caveman-94011 s59).
+- **C locus:** win/tty/wintty.c tty_end_menu `:2685–2689` (prompt row in tty_menu_promptstyle); src/windows.c add_menu_heading `:1815–1828`; options.c handler_menu_headings `:5779–5792`, doset_simple_menu `:8584–8585` / `:8642`; o_init.c choose_disco_sort `:644`; weapon.c enhance_weapon_skill `:1388`; recorder patch 006 win/tty/termcap.c nomux_set_attr `:768–774`, term_start_attr `:1792–1803`.
+- **JS was:** prompt and heading rows built with a literal `attr: ATR_INVERSE` (and no colour). weapon.js's PICK_NONE branch rebuilt its rows without `color`. petattr_to_tty followed s_atr2str's escape choice instead of what the scored shadow buffer records.
+- **Fix:**
+  - Every end_menu prompt row in options.js (doset_simple_menu, handler_menu_objsyms, handler_paranoid_confirmation, handler_whatis_coord, do_symset, handler_number_pad, handler_pickup_burden, handler_autounlock, handler_whatis_filter, handler_versinfo, choose_classes_menu, handler_perminv_mode, handle_add_list_remove «Do what?», handler_menu_colors, handler_runmode, handler_sortloot), plus o_init.js choose_disco_sort, botl.js cond_menu and hiliteMenuRows (status_hilite_menu*), and weapon.js enhance_weapon_skill, now spreads `menu_prompt_style()`.
+  - doset_simple_menu's section headings and weapon.js add_skills_to_menu's skill-range headings spread `menu_heading_style()` (live menu_headings, none when gameover).
+  - enhance_weapon_skill's PICK_NONE branch passes `color` through.
+  - display.js petattr_to_tty ports nomux_set_attr: inverse/bold/underline only, with italic/blink/dim/none → 0. This is recorder behaviour (named in the comment): the scored screen is the shadow buffer.
+- **JS:** js/options.js, js/o_init.js (+menu_prompt_style import), js/botl.js (+menu_prompt_style import), js/weapon.js (+menu_prompt_style/menu_heading_style imports), js/display.js (petattr_to_tty).
+- **Callers:** each prompt row lives inside its C function's own menu build. menu_prompt_style / menu_heading_style read the same relay handler_menu_headings writes (adjust_menu_promptstyle `:5790`, and allmain.js `:239` at startup). petattr_to_tty callers unchanged: mon_map_attr and glyph_tty_attr (tty_print_glyph pet arm `:3928`).
+- **Verify:**
+  - `score --ids` on all failing rows → **684/751** (+3: scen-options-Knight-50457009, scen-options-Valkyrie-50557405, scen-options-Rogue-50557410 FULL PASS; no row lost).
+  - Moved: scen-options-Barbarian-50355007 30 → 92 (save_dungeon), scen-options-Rogue-51151031 88 → 96 (inuse_classify).
+  - verify doset_simple_menu: 0 PASS, 1 moved, 2 unchanged; verify handler_runmode: 1 PASS; verify handler_rebind_keys: 0 PASS, 1 moved.
+  - `node scripts/verify.mjs --fn doset_simple_menu,handler_runmode,handler_rebind_keys --no-cohort` → syntax · rule2 · reach REACH-OK ×3 · green 2/2 · strict ×2 · full 44/44 → VERIFY: PASS. The earlier `--full` run of the same changes: cohort 7/7.
+  - `hidden-proxy sweep moveloop_core` → 681 baseline-PASS re-run in 146.2s, 0 regressed → REACH-OK.
+  - The petattr unit-test files fail exactly as on HEAD (initoptions-init 4, initoptions-startup 1, option-error-closure 1, wincap2-tty-bits 3: pre-existing). nomux-capture-overflow 6/6.
+  - `verify enhance_weapon_skill` → NO MOVEMENT. Its one blocked row (scen-options-Knight-50557414 s87, «Advance skills without practice?» missing ` [yn] (n)`) is a different cause.
+- **Named omissions:**
+  - About 30 more hard-coded inverse prompt or heading rows in other files, each still to be classified as an end_menu prompt, add_menu_heading, or a real inverse: artifact.js 3, cmd.js 5, dungeon.js 2, invent.js 5, pager.js 2, pickup.js 8, player_selection.js 3, spell.js 6, and one each in allmain, detect, do_name, getpos, insight, iactions, teleport, shk and wizcmds.
+  - scen-options-Samurai-50162003 s120 is a different cause (`menu_tab_sep` tab cells).
+- **Ledger:** doset_simple_menu ported
+- **Ledger:** choose_disco_sort ported
+- **Ledger:** cond_menu ported
+- **Ledger:** enhance_weapon_skill ported
+- **Ledger:** add_skills_to_menu ported
+- **Ledger:** handler_runmode ported
+- **Ledger:** handler_pickup_burden ported
+- **Ledger:** handler_autounlock ported
+- **Ledger:** handler_menu_colors ported
+- **Ledger:** handler_number_pad ported
+- **Ledger:** handler_paranoid_confirmation ported
+- **Ledger:** handler_perminv_mode ported
+- **Ledger:** choose_classes_menu ported
+- **Ledger:** tty_print_glyph split js=display.js:show_glyph_cell+display.js:map_screen_cell+display.js:serialize_for_scoring+display.js:glyph_bank_attr+display.js:petattr_to_tty
+- **Next:** sweep the other hard-coded prompts and headings (named above), whole, per C file. scen-options-Knight-50557414 s87 (enhance_weapon_skill yn suffix), scen-options-Samurai-50162003 s120 (menu_tab_sep), scen-options-Barbarian-50355007 s92 (save_dungeon), scen-options-Rogue-51151031 s96 (inuse_classify).
+
 ## D-4165 — The contest recorder's `nomux_out[6144]` overflow (D-4164) does not stop at obuf. Past payload byte 7472 it reaches wintty.c's own statics: `erasing_tty_screen` (+0x530), `boolean clipping` (schar, +0x534), `clipx/clipy/clipxmax/clipymax` (+0x538–0x547), `resize_mesg` (+0x54c), and then the `fieldorder` pointer and tty_status. C then acts on the screen text it finds there. A non-zero erasing_tty_screen stops tty_clear_nhwindow from erasing anything on screen (`:1073–1120`). A non-zero `clipping` turns the CLIPPING pan on, so the next moveloop cliparound (allmain.c `:546`) re-anchors clipx at ux−20 and redraw_map paints the map shifted left over a stale screen. A non-zero resize_mesg makes tty_nhgetch's RESIZABLE arm (`:4154–4160`) clear the message window and turn the key it just read into ESC. Every marker of the unchanged 7766-byte screen rewrites it, so from then on every key is ESC and the game stands still. JS now carries these statics through the overflow and honours them (2 corpus sessions → FULL PASS, +1,313 screens)
 
 - **Status:** shipped. Per the human rule of 2026-10-20 (port recorder bugs as recorded), this is the next layer of D-4164.

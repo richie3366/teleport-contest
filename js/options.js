@@ -2060,7 +2060,7 @@ export async function handler_menu_objsyms() {
     // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
     // then a blank separator item (pickup_burden precedent; D-3403).
     const raw = [
-        { text: 'Set object symbols in menus to what?', selectable: false, attr: ATR_INVERSE }, // C `:5818`
+        { text: 'Set object symbols in menus to what?', selectable: false, ...menu_prompt_style() }, // C `:5818`
         { text: '', selectable: false }, // C wintty.c blank item
     ];
     for (let i = 0; i < objsymvals.length; ++i) { // C `:5807`
@@ -2105,7 +2105,7 @@ export async function handler_paranoid_confirmation() {
     // default ATR_INVERSE), then a blank separator item (handler_menu_objsyms
     // precedent).
     const raw = [
-        { text: 'Actions requiring extra confirmation:', selectable: false, attr: ATR_INVERSE }, // C `:5992`
+        { text: 'Actions requiring extra confirmation:', selectable: false, ...menu_prompt_style() }, // C `:5992`
         { text: '', selectable: false }, // C wintty.c blank item
     ];
     for (let i = 0; paranoia[i].flagmask !== 0; ++i) { // C `:5966`
@@ -2377,7 +2377,7 @@ export async function handler_whatis_coord() {
     // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
     // then a blank separator item (pickup_burden precedent; D-3403).
     const raw = [
-        { text: 'Select coordinate display when auto-describing a map position:', selectable: false, attr: ATR_INVERSE }, // C `:6264–6265`
+        { text: 'Select coordinate display when auto-describing a map position:', selectable: false, ...menu_prompt_style() }, // C `:6264–6265`
         { text: '', selectable: false }, // C wintty.c blank item
     ];
     // C `:6219–6245` five add_menu rows: a_char + letter = GPCOORDS_*, gacc 0,
@@ -2495,7 +2495,7 @@ export async function do_symset(rogueflag) {
             defindx = 1; // C `:971`
         const prompt = `Select ${rogue ? 'rogue level ' : ''}symbol set:`; // C `:1003–1004`
         const raw = [
-            { text: prompt, selectable: false, attr: ATR_INVERSE }, // C `:1005`
+            { text: prompt, selectable: false, ...menu_prompt_style() }, // C `:1005`
             { text: '', selectable: false }, // C wintty.c blank row
             // C `:972–976` "Default Symbols" (a_int 1, SELECTED iff defindx)
             { text: 'Default Symbols', selectable: true, selected: 1 === defindx, a_int: 1 },
@@ -2728,7 +2728,7 @@ export async function handler_number_pad() {
     // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
     // then a blank separator item (handler_menu_objsyms precedent; D-3403).
     const raw = [
-        { text: 'Select number_pad mode:', selectable: false, attr: ATR_INVERSE }, // C `:5915`
+        { text: 'Select number_pad mode:', selectable: false, ...menu_prompt_style() }, // C `:5915`
         { text: '', selectable: false }, // C wintty.c blank item
     ];
     for (let i = 0; i < npchoices.length; ++i) { // C `:5910`
@@ -3101,7 +3101,7 @@ export async function handler_pickup_burden() {
     // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
     // then a blank separator, then the add_menu items (pickup.js precedent).
     const raw = [
-        { text: 'Select encumbrance level:', selectable: false, attr: ATR_INVERSE }, // C `:6103` end_menu prompt
+        { text: 'Select encumbrance level:', selectable: false, ...menu_prompt_style() }, // C `:6103` end_menu prompt
         { text: '', selectable: false }, // C wintty.c blank item
     ];
     for (let i = 0; i < BURDENTYPE.length; i++) { // C `:6097` SIZE(burdentype)
@@ -3238,7 +3238,7 @@ export async function handler_autounlock(optidx) {
     // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
     // then a blank separator item (pickup_burden/rebind_keys precedent).
     const raw = [
-        { text: `Select '${optname.slice(0, 20)}' actions:`, selectable: false, attr: ATR_INVERSE }, // C `:5648–5649`
+        { text: `Select '${optname.slice(0, 20)}' actions:`, selectable: false, ...menu_prompt_style() }, // C `:5648–5649`
         { text: '', selectable: false }, // C wintty.c blank item
     ];
     for (let i = 0; i < UNLOCKTYPES.length; ++i) { // C `:5639` SIZE(unlocktypes)
@@ -3378,7 +3378,7 @@ export async function handler_whatis_filter() {
     const raw = [{ // C `:6311–6312` end_menu prompt as header
         text: 'Select location filtering when going for next/previous map position:',
         selectable: false,
-        attr: ATR_INVERSE,
+        ...menu_prompt_style(),
     },
     { text: '', selectable: false }, // C wintty.c blank item
     ];
@@ -4474,7 +4474,7 @@ export async function handler_versinfo() {
     // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
     // then a blank separator item (pickup_burden precedent; D-3403).
     const raw = [
-        { text: 'Select version information flags:', selectable: false, attr: ATR_INVERSE }, // C `:6603`
+        { text: 'Select version information flags:', selectable: false, ...menu_prompt_style() }, // C `:6603`
         { text: '', selectable: false }, // C wintty.c blank item
         // C `:6585–6588` a_int = n = VI_NUMBER, letter 'n', gacc n+'0'.
         { text: 'version number', selectable: true, selected: (vi & VI_NUMBER) !== 0, a_int: VI_NUMBER, selector: 'n', gselector: '1' },
@@ -5902,7 +5902,7 @@ export async function choose_classes_menu(prompt, category, way, classList, clas
     for (;;) {
         // C: tty_end_menu prompt uses menu_headings (ATR_INVERSE)
         const entries = [
-            { text: prompt, attr: ATR_INVERSE },
+            { text: prompt, ...menu_prompt_style() },
             { text: '', attr: 0 },
         ];
         for (const it of items) {
@@ -6084,7 +6084,7 @@ async function handler_perminv_mode() {
         {
             text: 'Choose permanent inventory mode:',
             selectable: false,
-            attr: ATR_INVERSE,
+            ...menu_prompt_style(),
         },
         { text: '', selectable: false },
     ];
@@ -7254,7 +7254,7 @@ async function handle_add_list_remove(optname, numtotal) {
     // wintty.c `:2680–2689`, options.c `:7188–7189`), then a blank
     // separator item (wintty.c `:2685–2686`; pickup.js precedent).
     const raw = [
-        { text: 'Do what?', selectable: false, attr: ATR_INVERSE },
+        { text: 'Do what?', selectable: false, ...menu_prompt_style() },
         { text: '', selectable: false },
     ];
     let a_int = 0; // C: any = cg.zeroany → a_int starts 0
@@ -7561,7 +7561,7 @@ export async function handler_menu_colors() {
             // separator item (pickup_burden precedent; D-3403).
             const prompt = `${opt_idx === 1 ? 'List of' : 'Remove which'} menu colors`;
             raw.unshift({ text: '', selectable: false }); // C wintty.c blank item
-            raw.unshift({ text: prompt, selectable: false, attr: ATR_INVERSE });
+            raw.unshift({ text: prompt, selectable: false, ...menu_prompt_style() });
             let pick_list = null; // C :6452
             if (opt_idx === 1) { // C :6485–6487 PICK_NONE
                 pickCnt = await select_menu_pick_none(raw);
@@ -8315,7 +8315,7 @@ export async function handler_runmode() {
     // C tty_end_menu (wintty.c `:2685–2689`): promptstyle (= menu_headings,
     // default ATR_INVERSE) + blank separator, then items (pickup.js precedent).
     const raw = [
-        { text: 'Select run/travel display mode:', selectable: false, attr: ATR_INVERSE }, // C `:6142` end_menu prompt
+        { text: 'Select run/travel display mode:', selectable: false, ...menu_prompt_style() }, // C `:6142` end_menu prompt
         { text: '', selectable: false }, // C wintty.c blank item
     ];
     for (let i = 0; i < RUNMODES.length; i++) { // C `:6136`
@@ -8935,7 +8935,7 @@ export async function handler_sortloot() {
     // with tty_menu_promptstyle (= menu_headings, default ATR_INVERSE),
     // then a blank separator item (pickup_burden precedent; D-3403).
     const raw = [
-        { text: 'Select loot sorting type:', selectable: false, attr: ATR_INVERSE }, // C `:6188`
+        { text: 'Select loot sorting type:', selectable: false, ...menu_prompt_style() }, // C `:6188`
         { text: '', selectable: false }, // C wintty.c blank item
     ];
     for (let i = 0; i < SORTLTYPE.length; i++) { // C `:6179`
@@ -10235,9 +10235,10 @@ async function doset_simple_menu() {
     let toggled_help = false; // C `:8550`
 
     for (;;) {
-        // C: tty_end_menu prepends prompt then blank (via reverse+prepend)
+        // C: tty_end_menu prepends prompt then blank (via reverse+prepend),
+        // the prompt in tty_menu_promptstyle (wintty.c `:2685–2689`).
         const raw = [
-            { text: 'Options', attr: ATR_INVERSE, selectable: false },
+            { text: 'Options', selectable: false, ...menu_prompt_style() },
             { text: '', attr: 0, selectable: false },
         ];
         if (game.simple_options_help) {
@@ -10257,8 +10258,9 @@ async function doset_simple_menu() {
 
         for (const section of dosetSimpleSections) { // C `:8580`
             raw.push({ text: '', attr: 0, selectable: false }); // C `:8582`
-            // C `:8583` Sprintf(buf, " %-30s ", OptS_type[section]).
-            raw.push({ text: ` ${section.padEnd(30)} `, attr: ATR_INVERSE, selectable: false });
+            // C `:8584–8585` Sprintf(buf, " %-30s ", OptS_type[section]);
+            // add_menu_heading (windows.c `:1815–1828`: live menu_headings).
+            raw.push({ text: ` ${section.padEnd(30)} `, selectable: false, ...menu_heading_style() });
             for (const opt of dosetSimpleOpts) { // C `:8585`
                 if (opt.section !== section) continue; // C `:8586–8587`
                 // C `:8588–8590` wc/wc2 gate is outcome-dead on contest tty:

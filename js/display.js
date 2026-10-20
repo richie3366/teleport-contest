@@ -445,39 +445,36 @@ function hilite_pet_opt() {
 /**
  * C ref: wintype.h `:128–134` enum, stored by options.c optfn_petattr
  * `:3163` (`match_str2attr`). Paint is wintty.c tty_print_glyph
- * `:3928` `term_start_attr(iflags.wc2_petattr)`, which calls
- * termcap.c `s_atr2str` `:1339–1376` (`term_start_attr` `:1434`).
+ * `:3928` `term_start_attr(iflags.wc2_petattr)` (termcap.c `:1792–1803`).
  *
  * Frozen terminal.js is a bitfield, not that enum. wintype ATR_BOLD
  * is 1 and terminal ATR_INVERSE is 1, so a stored bold must not pass
- * through. The ANSI default tty (`termcap.c:157–160`) sets `nh_HI`,
- * `nh_US`, and `MR`. `ZH`, `MB`, `MD`, and `MH` stay null (`:46–47`).
- * `s_atr2str` then emits underline for italic, bold for blink, and
- * nothing for dim. Those strings are the terminal bits below.
+ * through.
+ *
+ * The scored screen is the contest recorder's shadow buffer (patch 006).
+ * term_start_attr records the cell attribute with `nomux_set_attr(attr)`
+ * (termcap.c `:768–774`) before `s_atr2str` picks the escape string. It
+ * switches on the wintype enum, and only ATR_INVERSE, ATR_BOLD and
+ * ATR_ULINE set a bit. Italic, blink and dim record nothing, even where
+ * `s_atr2str` would fall back to underline (italic) or bold (blink) on
+ * the real terminal (D-2810 modelled that fallback; the recording keeps
+ * the enum, scen-options-Knight-50457009 step 159). Recorder behaviour,
+ * not NetHack's; ported because the shadow buffer is what is scored.
  *
  * An unset field stands in for initoptions `:7264` (wintype ATR_INVERSE).
- * A stored 0 is ATR_NONE: `term_start_attr` `:1433` skips attr 0.
+ * A stored 0 is ATR_NONE: `term_start_attr` `:1795` skips attr 0.
  */
 function petattr_to_tty(a) {
     if (a == null) return ATR_INVERSE;
-    const n = a | 0;
-    // termcap.c s_atr2str :1340–1375. Capability tests are the ANSI
-    // default: ZH/MB/MD/MH null, nh_US/nh_HI/MR set.
-    switch (n) {
-    case 3: // wintype ATR_ITALIC — ZH null, fall through (:1343–1347)
-    case 5: // wintype ATR_BLINK
-    case 4: // wintype ATR_ULINE
-        // Blink: MB is null, so this arm does not return (:1349–1351).
-        // Italic and underline: nh_US is set (:1352–1356).
-        if (n !== 5) return ATR_UNDERLINE;
-        // FALLTHROUGH — blink only.
-    case 1: // wintype ATR_BOLD — MD null, nh_HI set (:1359–1364)
-        return ATR_BOLD;
-    case 7: // wintype ATR_INVERSE — MR set (:1366–1368)
+    // termcap.c nomux_set_attr :769–773.
+    switch (a | 0) {
+    case 7: // wintype ATR_INVERSE
         return ATR_INVERSE;
-    case 2: // wintype ATR_DIM — MH null, no fallthrough (:1370–1374)
-        return 0;
-    default: // wintype ATR_NONE and any other value → nulstr
+    case 1: // wintype ATR_BOLD
+        return ATR_BOLD;
+    case 4: // wintype ATR_ULINE
+        return ATR_UNDERLINE;
+    default: // ATR_NONE, ATR_DIM, ATR_ITALIC, ATR_BLINK: no shadow bit
         return 0;
     }
 }
