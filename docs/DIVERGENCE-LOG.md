@@ -1,5 +1,26 @@
 # Divergence log
 
+## D-4174 — vision.c vision_recalc's lit-wall arm (`:758–785`) admits a lit door/wall/SDOOR that blocks sight only when the square in front of it, toward the hero, is lit; otherwise it does `goto not_in_sight` (`:784`), which newsyms a spot that was in sight (`:821–836`). JS's port had no else there, so a wall leaving sight that way was never repainted: a ghost (S_ghost is a blank) standing in the wall stayed drawn after the hero stepped into the dark corridor, where C shows the remembered `│` (1 corpus session → FULL PASS)
+
+- **Status:** shipped.
+- **Symptom:** scen-chain-Healer-50950082 segment 7 (Monk), local step 26 (global 661). Row 5 col 53: C `│`, JS blank, for the last 7 screens.
+- **Measurement:** replayed segments 0–7 with one storage.
+  - At step 26 the hero is at (56,6) in the corridor. «Wizard's ghost» (mnum 287) is at (54,4), inside the room's east wall, from s24 through s26 (RNG identical).
+  - JS's cell is `typ` VWALL, remembered glyph the wall (3930), displayed glyph the ghost (670, disp_kind monster). `cansee(54,4)` is false and `couldsee` is true, and a manual `newsym(54,4)` paints the wall.
+  - So vision_recalc skipped the update. The front square (55,5) is an unlit corridor, which is exactly the `:784` goto.
+- **C locus:** vision.c vision_recalc main loop `:740–838` (lit-wall arm `:758–785`, not_in_sight `:821–836`).
+- **JS was:** `if (adjLoc?.lit || TEMP_LIT) { …in sight… }` with no else; the not_in_sight body existed only as the final else.
+- **Fix:** the not_in_sight body is a per-row local `not_in_sight(col, nv, ov)`, called from the final else and from the new else of the lit-wall test (C's goto). Same condition, same `col != 0` guard.
+- **JS:** js/vision.js vision_recalc.
+- **Callers:** vision_recalc's callers are unchanged; only its main loop changed.
+- **Verify:**
+  - `score --ids` on the 58 failing rows vs committed board → **677/734** (+1: scen-chain-Healer-50950082 661 → 1086/1086 FULL PASS; no other row moved, no regression).
+  - `node scripts/verify.mjs --fn vision_recalc` → syntax · rule2 · reach REACH-OK (smoke spread) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `hidden-proxy sweep moveloop_core` → 676 baseline-PASS re-run in 151.4s, 0 regressed → REACH-OK.
+- **Named omissions:** none in the changed arm.
+- **Ledger:** vision_recalc ported
+- **Next:** cliffs head (re-rank); scen-worldtour-Valkyrie-49955041 s543 (ring impossible() path, D-4173 Next) is still on the do_statusline2 row.
+
 ## D-4173 — attrib.c exercise ends with `if (moves > 0 && (i == A_STR || i == A_CON)) encumber_msg();` (`:516–517`), and that pline can block at a --More-- for the previous message before exercise returns. JS's exercise floated it (`void encumber_msg()`), so every caller ran on (find_ac, mdamageu, the next RNG draw) before the key was read, and the --More-- screen showed a later status line. Separately, JS encumber_msg left a pending botl commit (`_pending_botl`) on the message-less Overloaded → Overtaxed crossing, which the next unrelated pline's putmesg turned into a status repaint (3 corpus sessions → FULL PASS)
 
 - **Status:** shipped.

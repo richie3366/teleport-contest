@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — D-4174 vision.c vision_recalc's lit-wall arm (`:758–785`) admits a lit door/wall/SDOOR that blocks sight only when the square in front of it, toward the hero, is lit; otherwise it does `goto not_in_sight` (`:784`), which newsyms a spot that was in sight (`:821–836`). JS's port had no else there, so a wall leaving sight that way was never repainted: a ghost (S_ghost is a blank) standing in the wall stayed drawn after the hero stepped into the dark corridor, where C shows the remembered `│` (1 corpus session → FULL PASS)
+
+**C locus:** vision.c vision_recalc main loop `:740–838` (lit-wall arm `:758–785`, not_in_sight `:821–836`).
+**JS:** js/vision.js vision_recalc.
+**Change:** the not_in_sight body is a per-row local `not_in_sight(col, nv, ov)`, called from the final else and from the new else of the lit-wall test (C's goto). Same condition, same `col != 0` guard.
+**Verify:** - `score --ids` on the 58 failing rows vs committed board → **677/734** (+1: scen-chain-Healer-50950082 661 → 1086/1086 FULL PASS; no other row moved, no regression).
+**Named:** none in the changed arm.
+**Next:** cliffs head (re-rank); scen-worldtour-Valkyrie-49955041 s543 (ring impossible() path, D-4173 Next) is still on the do_statusline2 row.
 ## 2026-10-20 — D-4173 attrib.c exercise ends with `if (moves > 0 && (i == A_STR || i == A_CON)) encumber_msg();` (`:516–517`), and that pline can block at a --More-- for the previous message before exercise returns. JS's exercise floated it (`void encumber_msg()`), so every caller ran on (find_ac, mdamageu, the next RNG draw) before the key was read, and the --More-- screen showed a later status line. Separately, JS encumber_msg left a pending botl commit (`_pending_botl`) on the message-less Overloaded → Overtaxed crossing, which the next unrelated pline's putmesg turned into a status repaint (3 corpus sessions → FULL PASS)
 
 **C locus:** attrib.c exercise `:509`, `:516–517`; exerper `:520–580`; exerchk `:598–603`; pickup.c encumber_msg `:1975–2020` (decrease switch `:2001–2015` has no EXT/OVERLOADED arm); allmain.c `:356–360`, `:403`, `:453`; mhitu.c gulpmu `:1292`.

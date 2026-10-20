@@ -1242,6 +1242,16 @@ export async function vision_recalc(control = 0) {
                 : next_rmax[row];
             if (start > stop) continue;
             const dy = Math.sign(uy - row);
+            // C `:821–836` not_in_sight: update a spot that was in sight, or
+            // whose could-see state flipped (col != 0: col 0 is always stone,
+            // !isok — newsym would impossible()).
+            const not_in_sight = (col, nv, ov) => {
+                if (((ov & IN_SIGHT)
+                    || ((nv & COULD_SEE) ^ (ov & COULD_SEE)))
+                    && col !== 0) {
+                    newsym(col, row);
+                }
+            };
             for (let col = start; col <= stop; col++) {
                 const nv = next_row[col];
                 const ov = old_row[col];
@@ -1267,6 +1277,8 @@ export async function vision_recalc(control = 0) {
                             loc.seenv = (loc.seenv || 0) | new_angle(loc, sv, row, col);
                             if (!(ov & IN_SIGHT) || oldseenv !== loc.seenv)
                                 newsym(col, row);
+                        } else {
+                            not_in_sight(col, nv, ov); // C `:784` goto not_in_sight
                         }
                     } else {
                         next_row[col] |= IN_SIGHT;
@@ -1280,13 +1292,7 @@ export async function vision_recalc(control = 0) {
                     loc.waslit = 0;
                     newsym(col, row);
                 } else {
-                    // C vision.c not_in_sight: col != 0 guard — col 0
-                    // is always stone (!isok); newsym would impossible().
-                    if (((ov & IN_SIGHT)
-                        || ((nv & COULD_SEE) ^ (ov & COULD_SEE)))
-                        && col !== 0) {
-                        newsym(col, row);
-                    }
+                    not_in_sight(col, nv, ov);
                 }
             }
         }
