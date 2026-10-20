@@ -2465,11 +2465,18 @@ export function reset_commands(initial) {
  * Async only because JS menu/getlin/plines await input (Constitution §2);
  * C callers treat it as a plain blocking call. select_menu_pick_one
  * auto-letters selector-less rows ≡ tty_end_menu (helper cites wintty.c).
- * C `:2363`/`:2379` Strcat cmdstr onto the uninitialized buffer (upstream
- * wart — only sane as assignment) is a plain assignment below.
+ * C `:2356` `char cmdstr[BUFSZ];` is never initialized, and `:2363` /
+ * `:2379` Strcat the name onto it, so the result starts with whatever the
+ * stack held. In the recorder build that is never empty: every recorded
+ * «nothing» / plain-command pick ends in «Key binding failed?!» (5/5
+ * corpus sessions). REBIND_UNINIT_PREFIX stands for those leftover bytes;
+ * bind_key then matches no extcmd (`:2689–2693`) and returns FALSE with no
+ * side effect. The CMD_PARAM arm Snprintf's (`:2376`), so it binds.
  * Sole caller: handler_rebind_keys `:2440` (live below).
  * @param {boolean} keyfirst
  */
+const REBIND_UNINIT_PREFIX = '\x7f';
+
 async function handler_rebind_keys_add(keyfirst) {
     let key = 0; // C `:2300` uchar key = '\0'
 
@@ -2538,7 +2545,7 @@ async function handler_rebind_keys_add(keyfirst) {
     let cmdstr;
     if (i === -1) { // C `:2361`
         ec = null; // C `:2362`
-        cmdstr = 'nothing'; // C `:2363` (Strcat wart — see doc)
+        cmdstr = `${REBIND_UNINIT_PREFIX}nothing`; // C `:2363` Strcat (see doc)
         // C `:2364` goto bindit.
     } else {
         ec = EXTCMDLIST[i - 1]; // C `:2366` &extcmdlist[i-1]
@@ -2550,7 +2557,7 @@ async function handler_rebind_keys_add(keyfirst) {
             // C `:2376–2377`: Snprintf(cmdstr, BUFSZ-1, "%s(%s)") + NUL.
             cmdstr = `${ec.txt}(${parambuf})`.slice(0, BUFSZ - 1);
         } else {
-            cmdstr = ec.txt; // C `:2379` (Strcat wart — see doc)
+            cmdstr = `${REBIND_UNINIT_PREFIX}${ec.txt}`; // C `:2379` Strcat (see doc)
         }
     }
 // bindit: // C `:2382`
