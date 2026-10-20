@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4154 — zap.c zhitu's disintegration-breath arm tests `Disint_resistance` (`:4468`), which youprop.h defines as `u.uprops[DISINT_RES].intrinsic || .extrinsic` (`:38–40`). Worn armor that confers it (black dragon scales/mail) sets only the uprops extrinsic bit. JS zap.js kept a local `Disint_resistance()` that read only the flat `u.Disint_resistance` / `HDisint_resistance` / `EDisint_resistance` fields, unlike its explode.js and invent.js siblings. So a resistant Valkyrie hit by a black dragon's breath got the shield/armor-destruction arm instead of «You are not disintegrated.» (1 worldtour session → FULL PASS)
+
+- **Status:** shipped. Re-ranked board head: `zhitu`, scen-worldtour-Valkyrie-587104 (s634, 156 screens, 12.9k RNG lost).
+- **Symptom:** scen-worldtour-Valkyrie-587104 s634: «The blast of disintegration hits you!» then C «You are not disintegrated.--More--», JS «You hear crashing wood.». The `inventory_resistance_check` rn2(100) matched; JS then took the disintegrate_arm path. A state probe one step earlier showed `uprops[DISINT_RES] = {intrinsic 0, extrinsic 1}` and flat `HDisint_resistance` 0 / `EDisint_resistance` unset.
+- **C locus:** zap.c zhitu `:4401–…`, ZT_DEATH breath arm `:4464–4490` (Disint_resistance `:4468–4471`); youprop.h `:38–40`.
+- **JS was:** js/zap.js:621 `Disint_resistance()` flat-fields only (clone drift; js/explode.js:188 and js/invent.js:5924 hero_Disint_resistance already OR in uprops).
+- **Fix:** zap.js Disint_resistance ORs in `uprops[DISINT_RES].intrinsic || .extrinsic` (flats kept, matching explode.js).
+- **JS:** js/zap.js (Disint_resistance; sole caller zhitu `:2174`).
+- **Callers:** unchanged.
+- **Verify:** verify zhitu: 1 PASS, 0 moved, 0 no-movement (scen-worldtour-Valkyrie-587104 804/804, RNG 74188/74188). `node scripts/verify.mjs --fn zhitu --full` → syntax · rule2 · hidden 1 PASS → PROGRESS · reach 80/80 sampled → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy verify zhitu --reach-all` → 125 baseline-PASS run, 125 PASS → REACH-OK. `score --ids` on all 99 failing rows → only this row changes. Archived PASS sessions whose C screens mention «disintegrat» (116, frozen runner): 116 PASS, 0 fail.
+- **Named omissions:** none in zhitu. js/pray.js:1085 has the same flat-only `Disint_resistance()` (pray.c god_zaps_you `:672`); left for a pray.c iteration.
+- **Ledger:** zhitu ported
+- **Next:** re-rank. Board rows: m_move (scen-questtour-Caveman-50750030 s58), encumber_msg (scen-sweep-Rogue-51250033 s886). Also sweep the other youprop flat-only clones (pray.js Disint_resistance first).
+
 ## D-4153 — attrib.c losestr calls `losehp(dmg, …)` (`:244`); for a polymorphed hero whose mh drops below 1, C losehp runs `rehumanize()` inline (hack.c `:4314–4315`). So by `if (Upolyd)` (`:246`) and the Str-loss gate `num > 0 && (Upolyd || !waspolyd)` (`:268–269`), the hero is back in natural form, and neither the max-HP cut nor the Str loss happens. JS losehp defers rehumanize to `finish_losehp_rehumanize`, and losestr only drained it on the death path. A weaken spell that broke a polymorph left JS still `Upolyd`: it cut the dead form's mhmax, took the Str, and the next monster's `m_lined_up` rolled the `utarget && Upolyd && rn2(25)` concealment check (mthrowu.c `:1405`) that C skips (2 sessions → FULL PASS)
 
 - **Status:** shipped. Re-ranked board head: `mcast_weaken_you`, scen-worldtour-Healer-50950064 (s411, 160 screens, 7.9k RNG lost).

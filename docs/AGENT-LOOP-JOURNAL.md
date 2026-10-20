@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — D-4154 zap.c zhitu's disintegration-breath arm tests `Disint_resistance` (`:4468`), which youprop.h defines as `u.uprops[DISINT_RES].intrinsic || .extrinsic` (`:38–40`). Worn armor that confers it (black dragon scales/mail) sets only the uprops extrinsic bit. JS zap.js kept a local `Disint_resistance()` that read only the flat `u.Disint_resistance` / `HDisint_resistance` / `EDisint_resistance` fields, unlike its explode.js and invent.js siblings. So a resistant Valkyrie hit by a black dragon's breath got the shield/armor-destruction arm instead of «You are not disintegrated.» (1 worldtour session → FULL PASS)
+
+**C locus:** zap.c zhitu `:4401–…`, ZT_DEATH breath arm `:4464–4490` (Disint_resistance `:4468–4471`); youprop.h `:38–40`.
+**JS:** js/zap.js (Disint_resistance; sole caller zhitu `:2174`).
+**Change:** zap.js Disint_resistance ORs in `uprops[DISINT_RES].intrinsic || .extrinsic` (flats kept, matching explode.js).
+**Verify:** verify zhitu: 1 PASS, 0 moved, 0 no-movement (scen-worldtour-Valkyrie-587104 804/804, RNG 74188/74188). `node scripts/verify.mjs --fn zhitu --full` → syntax · rule2 · hidden 1 PASS → PROGRESS · reach 80/80 sampled → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy verify zhitu --reach-all` → 125 baseline-PASS run, 125 PASS → REACH-OK.
+**Named:** none in zhitu. js/pray.js:1085 has the same flat-only `Disint_resistance()` (pray.c god_zaps_you `:672`); left for a pray.c iteration.
+**Next:** re-rank. Board rows: m_move (scen-questtour-Caveman-50750030 s58), encumber_msg (scen-sweep-Rogue-51250033 s886). Also sweep the other youprop flat-only clones (pray.js Disint_resistance first).
 ## 2026-10-20 — D-4153 attrib.c losestr calls `losehp(dmg, …)` (`:244`); for a polymorphed hero whose mh drops below 1, C losehp runs `rehumanize()` inline (hack.c `:4314–4315`). So by `if (Upolyd)` (`:246`) and the Str-loss gate `num > 0 && (Upolyd || !waspolyd)` (`:268–269`), the hero is back in natural form, and neither the max-HP cut nor the Str loss happens. JS losehp defers rehumanize to `finish_losehp_rehumanize`, and losestr only drained it on the death path. A weaken spell that broke a polymorph left JS still `Upolyd`: it cut the dead form's mhmax, took the Str, and the next monster's `m_lined_up` rolled the `utarget && Upolyd && rn2(25)` concealment check (mthrowu.c `:1405`) that C skips (2 sessions → FULL PASS)
 
 **C locus:** attrib.c losestr `:221–270` (losehp `:244`, Upolyd max-HP arm `:246`, Str gate `:268–269`); hack.c losehp Upolyd arm `:4309–4318` (rehumanize `:4315`); mthrowu.c m_lined_up `:1396–…` (concealment roll `:1405`).

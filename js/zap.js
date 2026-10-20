@@ -617,10 +617,17 @@ function Acid_resistance() {
     return !!(u.Acid_resistance || u.HAcid_resistance || u.EAcid_resistance);
 }
 
-/** C ref: youprop.h Disint_resistance */
+/**
+ * C ref: youprop.h:38–40 Disint_resistance — HDisint_resistance ||
+ * EDisint_resistance ≡ uprops[DISINT_RES].intrinsic || .extrinsic.
+ * Worn black dragon scales/mail confer it through uprops only, so the
+ * flat fields alone miss it (D-4154); flats kept like explode.js.
+ */
 function Disint_resistance() {
     const u = game.u || {};
-    return !!(u.Disint_resistance || u.HDisint_resistance || u.EDisint_resistance);
+    const p = u.uprops?.[DISINT_RES];
+    return !!(u.Disint_resistance || u.HDisint_resistance || u.EDisint_resistance
+        || (p?.intrinsic | 0) || (p?.extrinsic | 0));
 }
 
 /**
