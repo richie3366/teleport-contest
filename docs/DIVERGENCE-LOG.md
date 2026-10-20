@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4133 — bones.c drop_upon_death curses each dropped object with `if (rn2(5)) curse(otmp);` (`:290–291`), and mkobj.c curse calls spell.c book_cursed for a spellbook (`:1813–1814`). JS called the async `curse(otmp)` without `await`. So when the hero died while studying and answered «Save bones? y», book_cursed's «The spellbook of knock slams shut!» ran detached and was lost, and only «You stop studying.» reached the topline (1 sweep session → FULL PASS)
+
+- **Status:** shipped. A near-pass row (RNG fully matched, 1 screen lost); the D-4132 **Next** bullet had already measured the chain. The cliffs block is still all parked tooling rows.
+- **Symptom:** scen-sweep-Archeologist-49956056 s1072/1076 (key `y` at «Save bones? [yn] (n)», after the hero died at s1058 while memorizing a wished-for spellbook of knock): C «The spellbook of knock slams shut!  You stop studying.--More--» vs JS «You stop studying.--More--». The board named glyphs.c parse_id (a `cMsgOwners` match on the object name), not the writer.
+- **C locus:** bones.c drop_upon_death `:258–303`, `if (rn2(5)) curse(otmp);` `:290–291`; mkobj.c curse `:1783–1819` → book_cursed `:1814`; spell.c book_cursed `:342–351` (`cursed && multi >= 0 && occupation == learn && spbook.book == book` → pline, set_bknown, stop_occupation).
+- **JS was:** `if (rn2(5)) curse(otmp);` in end.js drop_upon_death. curse (mkobj.js:636) is async and awaits book_cursed only when that arm is taken, so every other drop worked the same; this arm's pline was left floating while the drop loop and savebones went on.
+- **Fix:** `if (rn2(5)) await curse(otmp);`, in C order, before the mtmp / cont / give_to_nearby_mon / place_object arms.
+- **JS:** js/end.js (drop_upon_death :1675).
+- **Callers:** unchanged, all already await drop_upon_death: bones.c savebones `:463`/`:473`/`:486`/`:492` → end.js:1823/:1830/:1844/:1850; shk.c `:2754` → end.js:1423.
+- **Verify:** verify parse_id: 1 PASS, 0 moved, 0 no-movement (scen-sweep-Archeologist-49956056 1076/1076, RNG 21891/21891). `node scripts/verify.mjs --fn drop_upon_death,parse_id` → syntax · rule2 · drop_upon_death: no corpus session blocked at baseline · reach 80/80 of 105 → REACH-OK · parse_id 1 PASS → PROGRESS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `hidden-proxy sweep drop_upon_death` → 655 baseline-PASS re-run in 111.3s, 0 regressed → REACH-OK.
+- **Named omissions:** none in drop_upon_death. bones.c resetobjs `:170–189` (bones.js:312/:321/:325/:329) still calls `curse(otmp)` without `await` from a sync body (its comment cites the mksobj precedent). Only the Book of the Dead arm `:187–189` could reach book_cursed, and only if that book were still being studied when bones are saved. No session reaches it.
+- **Ledger:** drop_upon_death ported
+- **Next:** remaining near-pass rows: scen-symset-Ranger-50150023 do_symset («Select rogue level symbol set:» vs «Select symbol set:»), scen-options-Wizard-50557409 ready_weapon («a ) …» vs «a - …»), scen-impaired-Monk-51251030 getobj, then the 23 `'yn'` literal sites from D-4132, one C file each.
+
 ## D-4132 — spell.c study_book asks its two questions with `y_n()` = `yn_function(query, ynchars, 'n', TRUE)` (`:571`, `:593`). With `query_menu` on, cmd.c yn_menuable_resp (pointer identity on `ynchars`) turns the question into a menu, so C showed «Refresh your memory anyway?» as an inverse menu heading. spell.js passed the string literal `'yn'`, which fails the identity test, so JS printed the tty prompt «Refresh your memory anyway? [yn] (n)» (1 options session → FULL PASS)
 
 - **Status:** shipped. A near-pass row from the D-4126 scan (RNG fully matched, 1 screen lost). The cliffs block is still all parked tooling rows.

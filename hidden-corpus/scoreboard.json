@@ -1,7 +1,7 @@
 {
- "commit": "318b3a5e7",
- "at": "2026-10-19T20:00:49.813Z",
- "full": true,
+ "commit": "c8bb79ba1",
+ "at": "2026-10-20T05:56:38.701Z",
+ "full": false,
  "fullCommit": "318b3a5e7",
  "fullAt": "2026-10-19T20:00:49.813Z",
  "entries": 789,
@@ -5093,19 +5093,19 @@
   },
   "scen-sweep-Archeologist-49956056": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 21891,
    "rngT": 21891,
-   "scrM": 1075,
+   "scrM": 1076,
    "scrT": 1076,
-   "kind": "screen",
-   "step": 1072,
+   "kind": null,
+   "step": null,
    "steps": 1076,
-   "owner": "parse_id",
-   "loc": "glyphs.c:957",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The spellbook of knock slams shut! You stop studying.--More--",
-   "jsTopline": "You stop studying.--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-sweep-Archeologist-50055004": {
@@ -13468,7 +13468,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "archivedAt": "2026-10-19T20:00:50.213Z",
- "tieredAt": "2026-10-19T20:00:50.272Z"
+ }
 }
