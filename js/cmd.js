@@ -6629,7 +6629,7 @@ export async function earth_sense() {
     const u = game.u || {};
     // C: Race_if(PM_DWARF) — urace.mnum.
     if ((game.urace?.mnum | 0) !== PM_DWARF) return;
-    if (u.usteed || Flying() || Levitation() || Upolyd) return;
+    if (u.usteed || Flying() || Levitation() || Upolyd(u)) return; // C `:1554`
     const typ = game.level?.at?.(u.ux | 0, u.uy | 0)?.typ | 0;
     if (typ !== CORR && typ !== ROOM) return;
     const buried = game.level?.buriedobjlist;

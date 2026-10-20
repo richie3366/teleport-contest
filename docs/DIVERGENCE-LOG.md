@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4150 — dungeon.c earth_sense returns early `if (u.usteed || Flying || Levitation || Upolyd)` (`:1554`), where `Upolyd` is the you.h macro `u.umonnum != u.umonster`. JS wrote the same guard with the bare imported function `Upolyd`, which is always truthy, so earth_sense returned before its body for every hero. No dwarf ever sensed buried objects: C's «You sense something below your feet.» was missing (1 sweep session → FULL PASS)
+
+- **Status:** shipped. Board head after D-4149: `earth_sense`, scen-sweep-Archeologist-620069 (s1206, 180 screens, 2.3k RNG lost).
+- **Symptom:** scen-sweep-Archeologist-620069 s1205–1206 (dwarvish Archeologist steps onto a square with buried objects): C «You sense something below your feet. You see here 2 rocks.--More--», JS «You see here 2 rocks. The large dog bites! Croesus hits!--More--».
+- **C locus:** dungeon.c earth_sense `:1548–1565` (guard `:1554`); sole caller u_on_newpos `:1609`; you.h Upolyd.
+- **JS was:** js/cmd.js:6632 `… || Levitation() || Upolyd) return;`. `Upolyd` is `export function Upolyd(player)` (js/const.js:3201) and every other JS site calls it. The rest of the body already matched C.
+- **Fix:** `Upolyd(u)`.
+- **JS:** js/cmd.js (earth_sense).
+- **Callers:** unchanged (u_on_newpos via the domove re-position).
+- **Verify:** verify earth_sense: 1 PASS, 0 moved, 0 no-movement (scen-sweep-Archeologist-620069 1386/1386, RNG 24971/24971). `node scripts/verify.mjs --fn earth_sense --full` → syntax · rule2 · hidden 1 PASS → PROGRESS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. The function had never run, so I also ran `hidden-proxy sweep earth_sense` → 673 baseline-PASS re-run in 151.9s, 0 regressed → REACH-OK; and replayed the archived PASS sessions whose C screens mention «dwarvish» (750, frozen runner): 750 PASS, 0 fail.
+- **Named omissions:** none in earth_sense. js/do.js:3539 has the same bare `Upolyd &&` (do.c, `Upolyd && ceiling_hider(…) && u.uundetected`). There it is behavior-neutral, since an unpolymorphed hero's umonnum is never a ceiling hider; left for a do.c iteration.
+- **Ledger:** earth_sense ported
+- **Next:** re-rank. Board rows after this: mcast_weaken_you (scen-worldtour-Healer-50950064 s411), zhitu (scen-worldtour-Valkyrie-587104 s634). Also scan js/ for other imported predicate functions used without a call (`|| Fn)` / `Fn &&`).
+
 ## D-4149 — read.c has one drop_boulder_on_player and one drop_boulder_on_monster; muse.c's MUSE_SCR_EARTH calls them (`:1927`, `:1933`). JS kept a stale copy of both in js/muse.js. The read.js copies had since gained the inline death drain after the boulder `losehp` (C losehp → «You die...» + `done(DIED)`, hack.c `:4325–4330`), the engulfed-hero «You hear something hit …» arm and the full `Deaf` macro; the muse.js copies had none of these. So when a goblin's scroll of earth killed the hero, JS ended the game silently and the session moved on to its next segment where C showed «You die...» and the wizard-mode «Die?» prompt (1 chain session → FULL PASS)
 
 - **Status:** shipped. Board head after D-4148: `ballfall`, scen-chain-Archeologist-610102 (s120, 189 screens, 12k RNG lost). The owner `ballfall` was a message-owner match (same «You are hit by a boulder!» text); cMsgOwners named drop_boulder_on_player.

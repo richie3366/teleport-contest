@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — D-4150 dungeon.c earth_sense returns early `if (u.usteed || Flying || Levitation || Upolyd)` (`:1554`), where `Upolyd` is the you.h macro `u.umonnum != u.umonster`. JS wrote the same guard with the bare imported function `Upolyd`, which is always truthy, so earth_sense returned before its body for every hero. No dwarf ever sensed buried objects: C's «You sense something below your feet.» was missing (1 sweep session → FULL PASS)
+
+**C locus:** dungeon.c earth_sense `:1548–1565` (guard `:1554`); sole caller u_on_newpos `:1600`; you.h Upolyd.
+**JS:** js/cmd.js (earth_sense).
+**Change:** `Upolyd(u)`.
+**Verify:** verify earth_sense: 1 PASS, 0 moved, 0 no-movement (scen-sweep-Archeologist-620069 1386/1386, RNG 24971/24971). `node scripts/verify.mjs --fn earth_sense --full` → syntax · rule2 · hidden 1 PASS → PROGRESS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. The function had never run, so I also ran `hidden-proxy sweep earth_sense` → 673 baseline-PASS re-run in 151.9s, 0 regressed → REACH-OK; and replayed the archived PASS sessions whose C screens mention «dwarvish» (750, frozen runner): 750 PASS, 0 fail.
+**Named:** none in earth_sense. js/do.js:3539 has the same bare `Upolyd &&` (do.c, `Upolyd && ceiling_hider(…) && u.uundetected`). There it is behavior-neutral, since an unpolymorphed hero's umonnum is never a ceiling hider; left for a do.c iteration.
+**Next:** re-rank. Board rows after this: mcast_weaken_you (scen-worldtour-Healer-50950064 s411), zhitu (scen-worldtour-Valkyrie-587104 s634). Also scan js/ for other imported predicate functions used without a call (`|| Fn)` / `Fn &&`).
 ## 2026-10-20 — D-4149 read.c has one drop_boulder_on_player and one drop_boulder_on_monster; muse.c's MUSE_SCR_EARTH calls them (`:1927`, `:1933`). JS kept a stale copy of both in js/muse.js. The read.js copies had since gained the inline death drain after the boulder `losehp` (C losehp → «You die...» + `done(DIED)`, hack.c `:4325–4330`), the engulfed-hero «You hear something hit …» arm and the full `Deaf` macro; the muse.js copies had none of these. So when a goblin's scroll of earth killed the hero, JS ended the game silently and the session moved on to its next segment where C showed «You die...» and the wizard-mode «Die?» prompt (1 chain session → FULL PASS)
 
 **C locus:** read.c drop_boulder_on_player `:2294–2338`, drop_boulder_on_monster `:2341–2410`; muse.c use_offensive MUSE_SCR_EARTH `:1891–1937` (calls `:1927`, `:1933`); hack.c losehp `:4298–4334`.
