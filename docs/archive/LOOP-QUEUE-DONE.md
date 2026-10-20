@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-20
 
+- [x] **F1 hellfill load_special head.** `load_hellfill` never runs `link_doors_rooms` / `remove_boundary_syms` / `map_cleanup` (C `sp_lev.c` load_special `:6464–6471`, `remove_boundary_syms` `:1015–1038`), so the `hellfill.lua :207–219` crosswall-temple prefab keeps its `B` ring as CROSSWALL (then wallified) where C makes it ROOM. Deliverable: that head in C order for hellfill (or ship it via F3). Verify: `verify.mjs --fn remove_boundary_syms --full` + `node scripts/level-audit.mjs` (no new exception) + sweep. Source: reviews/level-audit/2026-10-20-special-levels.md F1. **Addressed:** D-4180
+
+
 - [x] **PASS→FAIL (archived fortress) — wintty.c tty_preference_update → new_status_window / newclipping repaint.** scen-symset-Monk-50255053 s558/864 (screens 863/864, RNG 8553/8553 intact; owner optfn_statuslines): after `O` `statuslines:6` («'statuslines:6' is invalid; must be 2 or 3.--More--»; wc2_statuslines stays 2), C still shows map row 20 (screen row 21, `#` col 62), JS blanks it. Bisected over 160 js/ commits: `384c02413~1` PASS 864/864, `384c02413` FAIL → D-3993 (made the statuslines arm live: js/options.js preference_update, js/display.js new_status_window / newclipping). C runs the arm for a rejected value too (doset ignores the optfn return, options.c :8688 / :8958), so the bug is in the JS repaint, not the call. C: wintty.c tty_preference_update :596–604, new_status_window, display.c newclipping. Source: reviews/loop-unattended/2991-184653034-more-docorner-cl-end.md **Addressed:** D-4152 `3bd4e0041`
 
 ## 2026-10-19

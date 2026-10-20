@@ -42,7 +42,7 @@ Limits: RNG equality is location-blind (D-1849). Screens confirm placement only 
 - **JS:** `load_hellfill` (`js/mklev.js`) goes straight to `wallification` and `fixup_special`. It never calls `link_doors_rooms`, `remove_boundary_syms` or `map_cleanup`, so the ring stays CROSSWALL and then gets wallified. The result is a closed wall box where C has an open temple.
 - **Reach:** Gehennom filler levels whose style rolls a prefab (hells 2/4/6, `percent(25)`), then about 1 in 10 prefabs. The corpus built hellfill 147 times without catching it.
 - **Deliverable:** run the load_special head in C order in `load_hellfill`, or under F3. Verify with `verify.mjs --fn remove_boundary_syms --full`, `node scripts/level-audit.mjs` (no new exception) and a sweep.
-- **Addressed:**
+- **Addressed:** D-4180
 
 ### F2 — C-wrong: two readers miss W_NONDIGGABLE written to `loc.flags`
 

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — D-4180 sp_lev.c load_special runs link_doors_rooms, remove_boundary_syms and map_cleanup after every level script (`:6464–6471`). JS load_hellfill skipped all three, so hellfill.lua's crosswall-temple prefab (`:207–219`) kept its `B` (CROSSWALL) boundary ring, which wallification then turned into a closed wall box around the temple where C has floor (Must-fix F1 of the 2026-10-20 level audit; no corpus session picks this prefab)
+
+**C locus:** sp_lev.c load_special `:6454–6502` (head `:6464–6471`), remove_boundary_syms `:1015–1038`, link_doors_rooms `:1121–1142`, map_cleanup `:327–356`; dat/hellfill.lua `:207–219`.
+**JS:** js/mklev.js load_hellfill.
+**Change:** after hellfill_populatemaze, run link_doors_rooms, remove_boundary_syms and map_cleanup in C order. hellfill never sets "inaccessibles", so ensure_way_out stays skipped, as in C. All three are the existing sp_lev.c ports in js/mklev.js; none draws RNG.
+**Verify:** - `node scripts/verify.mjs --fn remove_boundary_syms,map_cleanup,link_doors_rooms --full` → syntax · rule2 · no corpus session blocked (non-RNG change) · reach REACH-OK ×3 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+**Named:** (1) hellobjects/hellmonsters (defined but unused in lua — D-4019 standing); (2) hells[6] ice grow/filter fidelity (D-4019 standing); (3) Valkyrie residual mcast_weaken_you@493 — later owner, its own future row; (4) the other 125 loaders still inline this epilogue unevenly — Must-fix F3.
+**Next:** Must-fix F2 (W_NONDIGGABLE single-field readers in mthrowu.js hit_bars / hack.js moverock_core).
 ## 2026-10-20 — audit 3011–3019 @878852b8f: review D-4171..D-4179 (7A/2D/0Q, 0 Must-fix) + full rescore 668/719 (0 PASS→FAIL)
 
 **Reviews:** every owner re-measure (`verify … --base HASH~1 --no-reach`) reproduces its D-log: readobjnam_postparse1, do_statusline2 4 (incl. the D-4178 row), disclose, dosounds, setmnotwielded, do_statusline2, dismount_steed PASS. Owner-null claims were replayed with the frozen runner: D-4171's 18 symset recordings are RNG-complete at the cited screens (still `env:config-path`), and the D-4172 Rogue and D-4174 Healer rows PASS. Debt (no session): D-4171's other config_error_done waits and element errors; D-4175's JS m_at `mhp <= 0` skip.

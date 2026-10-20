@@ -28116,6 +28116,14 @@ async function load_hellfill() {
 
     hellfill_populatemaze();
 
+    // C sp_lev.c load_special :6464–6471, after the script: link_doors_rooms,
+    // remove_boundary_syms (the crosswall-temple prefab's 'B' ring,
+    // hellfill.lua :207–219, becomes ROOM), ensure_way_out only with the
+    // "inaccessibles" flag (never set here), map_cleanup.
+    link_doors_rooms();
+    remove_boundary_syms();
+    map_cleanup();
+
     if (!g.level.flags?.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     // des.level_flags noflip — skip flip_level_rnd

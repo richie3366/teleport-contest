@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4180 — sp_lev.c load_special runs link_doors_rooms, remove_boundary_syms and map_cleanup after every level script (`:6464–6471`). JS load_hellfill skipped all three, so hellfill.lua's crosswall-temple prefab (`:207–219`) kept its `B` (CROSSWALL) boundary ring, which wallification then turned into a closed wall box around the temple where C has floor (Must-fix F1 of the 2026-10-20 level audit; no corpus session picks this prefab)
+
+- **Status:** shipped.
+- **Symptom:** none in the corpus; found by `scripts/level-audit-static.py` (the only loader whose Lua map has `B` but no remove_boundary_syms). Reach: Gehennom filler levels whose style rolls a prefab (hells 2/4/6, `percent(25)`), then about 1 in 10 of the prefabs.
+- **Measurement:** on a scratch copy of js/, forced the crosswall prefab inside load_hellfill and replayed scen-tour-Wizard-91112 (builds hellfill at step 92). With the fix, all 24 ring cells end as ROOM (typ 25). Without it they end as HWALL/VWALL/corners (typ 1–6); in both cases one TEMPLE room is created by the irregular region.
+- **C locus:** sp_lev.c load_special `:6454–6502` (head `:6464–6471`), remove_boundary_syms `:1015–1038`, link_doors_rooms `:1121–1142`, map_cleanup `:327–356`; dat/hellfill.lua `:207–219`.
+- **JS was:** load_hellfill: populatemaze → wallification → fixup_special.
+- **Fix:** after hellfill_populatemaze, run link_doors_rooms, remove_boundary_syms and map_cleanup in C order. hellfill never sets "inaccessibles", so ensure_way_out stays skipped, as in C. All three are the existing sp_lev.c ports in js/mklev.js; none draws RNG.
+- **JS:** js/mklev.js load_hellfill.
+- **Callers:** load_hellfill ← load_special_proto_body (`protofile === 'hellfill'`), unchanged.
+- **Verify:**
+  - `node scripts/verify.mjs --fn remove_boundary_syms,map_cleanup,link_doors_rooms --full` → syntax · rule2 · no corpus session blocked (non-RNG change) · reach REACH-OK ×3 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/level-audit.mjs --ids <the 111 sessions that build hellfill>` → hellfill 147 builds, 147 RNG-exact, board screens 29/29, 0 exceptions (unchanged from the 2026-10-20 baseline).
+  - `hidden-proxy sweep moveloop_core` → 668 baseline-PASS re-run in 132.4s, 0 regressed → REACH-OK.
+- **Named omissions:** (1) hellobjects/hellmonsters (defined but unused in lua — D-4019 standing); (2) hells[6] ice grow/filter fidelity (D-4019 standing); (3) Valkyrie residual mcast_weaken_you@493 — later owner, its own future row; (4) the other 125 loaders still inline this epilogue unevenly — Must-fix F3.
+- **Ledger:** load_special partial js=mklev.js:load_hellfill
+- **Next:** Must-fix F2 (W_NONDIGGABLE single-field readers in mthrowu.js hit_bars / hack.js moverock_core).
+
 ## D-4179 — steed.c dismount_steed moves the hero off the steed with the real teleds (`:765`), which runs `newsym(u.ux0, u.uy0); see_monsters(); vision_full_recalc = 1; vision_recalc(0);` before spoteffects (teleport.c teleds). JS called teleds_simple, a local subset (u_on_newpos + two newsyms + vision_recalc), and ended with an immediate `vision_recalc(1)` where C only sets `vision_full_recalc = 1` (`:815`). After polymorphing into a red dragon (infravision) while riding, C's dismount teleds see_monsters already shows an infravisible `h` next to the hero, under «You can no longer ride the saddled pony.--More--». JS showed it 2 screens later, at polymon's own see_monsters (1 corpus session → FULL PASS)
 
 - **Status:** shipped.
