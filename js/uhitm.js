@@ -85,7 +85,7 @@ import {
     is_watch,
 } from './monsters.js';
 import {
-    mkobj, mksobj_at, place_object, stackobj, delobj, relobj_on_death, obj_extract_self,
+    mkobj, mksobj_at, place_object, stackobj, delobj, obj_extract_self,
     weight, obj_stop_timers, objects_at, splitobj, sobj_at, dealloc_obj,
 } from './mkobj.js';
 import {

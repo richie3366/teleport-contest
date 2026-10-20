@@ -22,7 +22,7 @@ import { livelog_printf } from './pline.js';
 import { rn2, rnd, rn1, d, rnl, rn2_on_display_rng } from './rng.js';
 import { rank_of } from './roles.js';
 import {
-    mksobj, place_object, weight, stackobj, dealloc_obj, relobj_on_death,
+    mksobj, place_object, weight, stackobj, dealloc_obj,
     is_flammable, is_rustprone, is_rottable, is_corrodeable, is_crackable,
     erosion_matters, delobj, mkcorpstat, add_to_container, obj_extract_self,
     objects_at, sobj_at, splitobj, nxtobj, add_to_migration,

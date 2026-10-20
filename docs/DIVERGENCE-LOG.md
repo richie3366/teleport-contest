@@ -1,5 +1,21 @@
 # Divergence log
 
+## D-4177 — mon.c m_detach drops a dead monster's inventory through steal.c relobj (`:2779`), and relobj hands each item to mdrop_obj, whose extract_from_minvent ends with mwepgone for a wielded item (worn.c `:1414–1416`). For a lit Sunsword, mwepgone → setmnotwielded runs end_burn and prints «The long sword named Sunsword in the Aleax's hand stops shining.» JS's m_detach used relobj_on_death (mkobj.js), a partial clone that unlinked each item itself and cleared mw/owornmask by hand. So it skipped extract_from_minvent: no end_burn, no pline, no check_gear_next_turn, no obj_no_longer_held. relobj is now one export in steal.js, used by m_detach, grddead and dog_invent (1 corpus session → FULL PASS)
+
+- **Status:** shipped.
+- **Symptom:** scen-zapfest-Rogue-50850092 s773: a broken wand of fire kills an Aleax wielding Sunsword. C shows «The long sword named Sunsword in the Aleax's hand stops shining.--More--»; JS goes straight to «The red dragon is caught in the fireball!--More--». RNG was identical, 6 screens lost.
+- **C locus:** steal.c relobj `:874–898`, mdrop_obj `:808–849`; worn.c extract_from_minvent `:1376–1417`; weapon.c mwepgone `:937–946`, setmnotwielded `:1813–1828`; mon.c m_detach `:2777–2780`; vault.c grddead `:174–189`; dogmove.c dog_invent `:420`.
+- **JS was:** three copies of relobj. mkobj.js relobj_on_death (m_detach, grddead) ran distant_name, obj_extract_self, `owornmask = 0`, `mw = null` and flooreffects/place, but not mdrop_obj/extract_from_minvent. grddead inlined the isgd gold arm. dogmove.js had a local relobj (mdrop_obj per head, no isgd arm).
+- **Fix:** steal.js `relobj(mtmp, show, is_pet)` ported whole in C order: isgd gold vanishes (canspotmon/canseemon pline, obfree), then `mdrop_obj` per head (`droppables` for a pet, verbosely = is_pet && verbose), then `newsym` when show && cansee. relobj_on_death is deleted, the dogmove clone is replaced by the import, and dogmove.js `droppables` is now exported.
+- **JS:** js/steal.js relobj (+ imports mdrop_obj, obfree, canseemon, droppables); js/mhitm.js m_detach, grddead; js/dogmove.js (droppables export, local relobj removed); js/mkobj.js (relobj_on_death removed); js/uhitm.js, js/trap.js (dead imports dropped; `grep -anw` showed only the import lines); js/steed.js (comment).
+- **Callers:** m_detach → `relobj(mtmp, 1, false)` (mhitm.js m_detach, C mon.c:2779); grddead → `relobj(grd, 0, false)` (mhitm.js grddead, C vault.c:181); dog_invent → `relobj(mtmp, minvis, true)` (dogmove.js, C dogmove.c:420).
+- **Verify:**
+  - `node scripts/verify.mjs --fn setmnotwielded,relobj,m_detach,grddead --full` → syntax · rule2 · `verify setmnotwielded: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-zapfest-Rogue-50850092 939/939 FULL PASS) · reach REACH-OK ×4 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `hidden-proxy sweep moveloop_core` → 679 baseline-PASS re-run in 138.5s, 0 regressed → REACH-OK (every monster death now runs extract_from_minvent).
+- **Named omissions:** none.
+- **Ledger:** relobj ported js=steal.js:relobj
+- **Next:** cliffs head (re-rank): do_statusline2, scen-worldtour-Valkyrie-49955041 s543 (an HP-value writer).
+
 ## D-4176 — With color off, display.c reset_glyphmap flags S_ice MG_BW_ICE (tty paints it inverse) only when its symbol equals `gs.showsyms[S_room]` or `gs.showsyms[S_darkroom]` (`:2904–2907`). C's showsyms[S_darkroom] is never a symset's own slot: reglyph_darkroom (`:1850–1853`) sets it to S_room's symbol when dark_room && use_color, else to SYM_NOTHING's blank. JS's collision test read the loaded symset's default `.` for S_darkroom. With RogueIBM loaded (S_room `\xfa`, S_ice and S_darkroom undefined → `.`) and color turned off in-game, JS painted ice inverse where C paints a plain `.` (1 corpus session → FULL PASS)
 
 - **Status:** shipped.
