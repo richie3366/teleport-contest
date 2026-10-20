@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4149 — read.c has one drop_boulder_on_player and one drop_boulder_on_monster; muse.c's MUSE_SCR_EARTH calls them (`:1927`, `:1933`). JS kept a stale copy of both in js/muse.js. The read.js copies had since gained the inline death drain after the boulder `losehp` (C losehp → «You die...» + `done(DIED)`, hack.c `:4325–4330`), the engulfed-hero «You hear something hit …» arm and the full `Deaf` macro; the muse.js copies had none of these. So when a goblin's scroll of earth killed the hero, JS ended the game silently and the session moved on to its next segment where C showed «You die...» and the wizard-mode «Die?» prompt (1 chain session → FULL PASS)
+
+- **Status:** shipped. Board head after D-4148: `ballfall`, scen-chain-Archeologist-610102 (s120, 189 screens, 12k RNG lost). The owner `ballfall` was a message-owner match (same «You are hit by a boulder!» text); cMsgOwners named drop_boulder_on_player.
+- **Symptom:** scen-chain-Archeologist-610102 s117–121 (segment 0 of 4): «The goblin reads a scroll labeled YUM YUM!» → «The ceiling rumbles above the goblin! The goblin is hit by a boulder!» → «Fortunately, the goblin is wearing a hard helmet.» → C «You are hit by a boulder! Your fedora does not protect you.--More--» → «You die...». At s120 JS already showed segment 1's «Hello wizard, welcome to NetHack! …».
+- **C locus:** read.c drop_boulder_on_player `:2294–2338`, drop_boulder_on_monster `:2341–2410`; muse.c use_offensive MUSE_SCR_EARTH `:1891–1937` (calls `:1927`, `:1933`); hack.c losehp `:4298–4334`.
+- **JS was:** js/muse.js:1198–1305 held a second `drop_boulder_on_player` (no finish_losehp_done after `losehp`) and `drop_boulder_on_monster` (no engulfed You_hear arm; Deaf read from u fields). The ledger mapped drop_boulder_on_monster to the muse.js copy and noted the duplicate.
+- **Fix:** both read.js functions are exported; the muse.js clones are deleted (−107 lines). MUSE_SCR_EARTH gets them with `await import('./read.js')`, because read.js already imports muse.js. Both ledger rows now point at read.js.
+- **JS:** js/read.js (export ×2), js/muse.js (clones removed; MUSE_SCR_EARTH import).
+- **Callers:** muse.js MUSE_SCR_EARTH (monster reads earth) and read.js seffect_earth / drop_boulder_on_monster's engulfed arm now run the same bodies.
+- **Verify:** verify ballfall: 1 PASS, 0 moved, 0 no-movement (scen-chain-Archeologist-610102 310/310, RNG 16549/16549). `node scripts/verify.mjs --fn ballfall,drop_boulder_on_player,drop_boulder_on_monster --full` → syntax ×2 · rule2 · hidden ballfall 1 PASS → PROGRESS · reach ballfall smoke 24/24, drop_boulder_on_player 4/4, drop_boulder_on_monster 2/2 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. Archived PASS sessions whose C screens show «rumbles» (425, frozen runner): 425 PASS, 0 fail.
+- **Named omissions:** none.
+- **Ledger:** drop_boulder_on_player ported; drop_boulder_on_monster ported
+- **Next:** board rows earth_sense (scen-sweep-Archeologist-620069 s1206), then the next re-rank. D-4148's undrained-losehp list still stands (46 sites; trap.js 15).
+
 ## D-4148 — do.c boulder_hits_pool's lava-splash arm calls `losehp(Maybe_Half_Phys(dmg), "molten lava", KILLED_BY)` (`:138–140`). On a fatal hit, C losehp prints «You die...» and runs `done(DIED)` inline (hack.c `:4325–4330`); in wizard mode, «Die? [yn]» → `n` returns and play goes on. JS losehp only sets `_losehp_needs_done` / `gameover` and leaves the rest to the caller's `finish_losehp_done()`, and boulder_hits_pool never called it. A fire giant's boulder that splashed lava onto a nearly dead hero ended the JS game silently: no «You are hit by molten lava!» screen, no «You die...», no «Die?» prompt (1 worldtour session → FULL PASS)
 
 - **Status:** shipped. Board head after D-4147: `boulder_hits_pool`, scen-worldtour-Wizard-50250008 (s415, 197 screens, 6k RNG lost).
