@@ -128,8 +128,8 @@
 {"fn":"here_cmd_menu","c":"4899-4903","status":"ported","js":["js/cmd.js:here_cmd_menu"],"at":"2026-10-03@bbe63333a"}
 {"fn":"click_to_cmd","c":"4906-4913","status":"ported","js":["js/cmd.js:click_to_cmd"],"at":"2026-10-03@bbe63333a"}
 {"fn":"domouseaction","c":"4916-5006","status":"ported","js":["js/cmd.js:domouseaction"],"d":["D-2698"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: full body all arms incl sloppy-click"}
-{"fn":"get_count","c":"5010-5090","status":"ported","js":["js/cmd.js:get_count"],"d":["D-1613"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: ESC hardcoded 27 vs gc.Cmd.spkeys[NHKF_ESC]; branches exact"}
-{"fn":"parse","c":"5096-5151","status":"ported","js":["js/cmd.js:parse"],"d":["D-2972"],"at":"2026-09-27@45ea89017"}
+{"fn":"get_count","c":"5010-5090","status":"ported","js":["js/cmd.js:get_count"],"d":["D-4137","D-1613"],"at":"2026-10-20@452065ef9","note":"audit 2026-10-03: ESC hardcoded 27 vs gc.Cmd.spkeys[NHKF_ESC]; branches exact"}
+{"fn":"parse","c":"5096-5151","status":"ported","js":["js/cmd.js:parse"],"d":["D-4137","D-2972"],"at":"2026-10-20@452065ef9"}
 {"fn":"hangup","c":"5159-5180","status":"ported","js":["js/cmd.js:hangup"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: nhwindows_hangup omitted (no JS windowport/signals)"}
 {"fn":"end_of_input","c":"5183-5209","status":"ported","js":["js/cmd.js:end_of_input"],"d":["D-2927"],"at":"seed@a30a7de84"}
 {"fn":"readchar_core","c":"5213-5272","status":"partial","js":["js/cmd.js:readchar_core"],"omit":"``nhwindows_hangup`` (windowport teardown — no JS windows layer, same class as end_of_input's omits); ``bind_mousebtn`` (cmd.c:2624 — no JS port, click queue arm inert); ``parse``/``get_count``/``getpos``/``getdir`` are ALTMETA-comment context only, not calls.","d":["D-3402","D-2625"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: remaining omit cannot ship"}
