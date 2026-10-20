@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " FjFj s100s50sjnk\u000f\u001b100stbn100snhyFbFbFbFbFbFlFnFbFbFnFnFnFbFbFnFnFnFnFbFnFnFbFbFbFnFnFnFbFbFbFbFnFbFnFnFnFnFbFnFnFnFnFnFnFbFbFbFnFbFbFbFbFnFbFnFnFbFnFbFbFbFnFnFbFnFkFbFnFnFnFbFnFnFnFnFbFnFbFbFbFbFnFnFnFnFnFbFbFnFnFnFnFnmOa\u001b\nv i\u001b10sZ_<. \u001bm..#levelchange\n14\n             nyj\u0017throne\n#sit\n y\u0017j\u0017:\u001bj\u0017#terrain\n  #jump\n#twoweapon\n#untrap\nymO>>>>g\u001b\n\u0006_>.  Fb_.>_>._.>_>,_.>#chat\nh20s\u0006_>>._,>_>>,_,>_>>.Fh  _. Fh  >Fh Fh   nFh Fh Fh  \u0006_>. Fh_.>_>._,>_>._.>\u000f\u001b\u0006_>,_.>_>._.>_>,_.>\u0006_>._,>_>._.>_>._,>\u0006_>._.>_>,_,>_>,_,>\u0018\u001b#sit\n\u001b#rub\n#ride\nby:\u001614\n#levelchange\n30\n               bjn"
+ },
+ "segments": [
+  {
+   "seed": 51650057,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " FjFj s100s50sjnk\u000f\u001b100stbn100snhyFbFbFbFbFbFlFnFbFbFnFnFnFbFbFnFnFnFnFbFnFnFbFbFbFnFnFnFbFbFbFbFnFbFnFnFnFnFbFnFnFnFnFnFnFbFbFbFnFbFbFbFbFnFbFnFnFbFnFbFbFbFnFnFbFnFkFbFnFnFnFbFnFnFnFnFbFnFbFbFbFbFnFnFnFnFnFbFbFnFnFnFnFnmOa\u001b\nv i\u001b10sZ_<. \u001bm..#levelchange\n14\n             nyj\u0017throne\n#sit\n y\u0017j\u0017:\u001bj\u0017#terrain\n  #jump\n#twoweapon\n#untrap\nymO>>>>g\u001b\n\u0006_>.  Fb_.>_>._.>_>,_.>#chat\nh20s\u0006_>>._,>_>>,_,>_>>.Fh  _. Fh  >Fh Fh   nFh Fh Fh  \u0006_>. Fh_.>_>._,>_>._.>\u000f\u001b\u0006_>,_.>_>._.>_>,_.>\u0006_>._,>_>._.>_>._,>\u0006_>._.>_>,_,>_>,_,>\u0018\u001b#sit\n\u001b#rub\n#ride\nby:\u001614\n#levelchange\n30\n               bjn"
+  }
+ ]
+}

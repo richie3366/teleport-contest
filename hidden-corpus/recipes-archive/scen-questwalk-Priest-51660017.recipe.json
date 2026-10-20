@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0016?\n>z _ \u001b.>\u0006,\u00163\n\u0006,\u00164\n\u0006_mm.Fl _.FlFlFlFn FyFy\u00165\n \u0006_<.Fl_,<.Fl_>,Fy_. Fl >\u0006_mmmmm.  Fl  _,Fl  Fl  n  Fy  \u00162\n\u0006jl lnh \u00163\n\u0006_m. Fl _.Fb  Fl  n  Fb  Fb  Fb        Fb \u0016?\n>>\u001b\u0016?\n>y #chat\nl\u0016?\n>z\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006_mmmm.Fh   _.Fl  Fl  nFh    Fh \u00166\n\u0016?\n>z\u0006_m.Fh  n _.FlFl   Fh   nFh   Fl  \u00166\n_>.    n Fl_, Fh  n >\u0016?\n>z\u0006_<,     n   nFl    n n  n _.   nFh n  n\u00163\n\u0016?\n>z\u0006l yny  y y y\u001b  k"
+ },
+ "segments": [
+  {
+   "seed": 51660017,
+   "datetime": "20051105101102",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                    \u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0016?\n>z _ \u001b.>\u0006,\u00163\n\u0006,\u00164\n\u0006_mm.Fl _.FlFlFlFn FyFy\u00165\n \u0006_<.Fl_,<.Fl_>,Fy_. Fl >\u0006_mmmmm.  Fl  _,Fl  Fl  n  Fy  \u00162\n\u0006jl lnh \u00163\n\u0006_m. Fl _.Fb  Fl  n  Fb  Fb  Fb        Fb \u0016?\n>>\u001b\u0016?\n>y #chat\nl\u0016?\n>z\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006_mmmm.Fh   _.Fl  Fl  nFh    Fh \u00166\n\u0016?\n>z\u0006_m.Fh  n _.FlFl   Fh   nFh   Fl  \u00166\n_>.    n Fl_, Fh  n >\u0016?\n>z\u0006_<,     n   nFl    n n  n _.   nFh n  n\u00163\n\u0016?\n>z\u0006l yny  y y y\u001b  k"
+  }
+ ]
+}

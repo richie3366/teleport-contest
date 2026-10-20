@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gauntlets of power\nWn\u0017blessed +3 silver dragon scale mail\nWo\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n      \u0007gnome lord\n#wizidentify\n\u001bFn FjFj_ \u001b,qq#overview\n\u001b#conduct\n \u0018\u001b#dip\nii#offer\n#pray\ny y #chat\nn#polyself\nleprechaun\n  #monster\n.s20s20s<.  hyn#ride\nby_oooooo._.,\u001b#vanquished\n #genocided\nfire elemental\ng\u0018\u001b#name\no\n#adjust\nm\u001b#chat\nk#turn\n#wizidentify\n\u001bkuh_oooo,,\u001b#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y #jump\n#wizintrinsic\nar\n lhkZ_{.qi#version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\nl#chat\nk#wizintrinsic\nas\n  bhbi\u001b\u0016?\n>>K      scroll of destroy armor\n\u0006"
+ },
+ "segments": [
+  {
+   "seed": 51650069,
+   "datetime": "20161230171829",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gauntlets of power\nWn\u0017blessed +3 silver dragon scale mail\nWo\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n      \u0007gnome lord\n#wizidentify\n\u001bFn FjFj_ \u001b,qq#overview\n\u001b#conduct\n \u0018\u001b#dip\nii#offer\n#pray\ny y #chat\nn#polyself\nleprechaun\n  #monster\n.s20s20s<.  hyn#ride\nby_oooooo._.,\u001b#vanquished\n #genocided\nfire elemental\ng\u0018\u001b#name\no\n#adjust\nm\u001b#chat\nk#turn\n#wizidentify\n\u001bkuh_oooo,,\u001b#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y #jump\n#wizintrinsic\nar\n lhkZ_{.qi#version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\nl#chat\nk#wizintrinsic\nas\n  bhbi\u001b\u0016?\n>>K      scroll of destroy armor\n\u0006"
+  }
+ ]
+}

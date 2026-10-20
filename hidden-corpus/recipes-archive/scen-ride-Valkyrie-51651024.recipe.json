@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0007pony\n\u0017scroll of taming\nrf \u0017saddle\nagn#ride\njy\u0007tame saddled pony\n#ride\nly \u0007tame saddled horse\n#ride\n hlhl.sljjjy yjn#levelchange\n10\n  \u0007tame saddled horse\n\u0017lance\nwh #ride\nhy\u0007pony\n\u0017scroll of taming\nri \u0017saddle\najy#ride\nly\u0007tame saddled horse\n#ride\n khy kubu\u0006_ \u001b;>Fj Fn  _>,  _,>_>._,>s20"
+ },
+ "segments": [
+  {
+   "seed": 51651024,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0007pony\n\u0017scroll of taming\nrf \u0017saddle\nagn#ride\njy\u0007tame saddled pony\n#ride\nly \u0007tame saddled horse\n#ride\n hlhl.sljjjy yjn#levelchange\n10\n  \u0007tame saddled horse\n\u0017lance\nwh #ride\nhy\u0007pony\n\u0017scroll of taming\nri \u0017saddle\najy#ride\nly\u0007tame saddled horse\n#ride\n khy kubu\u0006_ \u001b;>Fj Fn  _>,  _,>_>._,>s20"
+  }
+ ]
+}

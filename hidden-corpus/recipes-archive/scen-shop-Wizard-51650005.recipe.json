@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPol\u0017blessed +3 gauntlets of power\nWp\u0016?\n>w\u0006_ \u001b<._o.,pFyFyFyFyFyFy\u00167\nlhl\u0016?\n>w\u0006_ooooo._.,:jjy#chat\nh__,_.#chat\nj\u00167\nuyl\u0016?\n>w  \u0006__.Fb_,>.Fb#chat\nFbFbFbFbFbFb_oo.Fb    n _.,    n  n \u0017dilithium crystal\ndr  n  n \u001612\n   _{,qh   n _oooooo.,\u0014;  n   n  n.n  n20s  n \u001612\n_oooooooo.,\u0017flint stone\nds  n   _oooooo.,  n    n#chat\ny   n   y y\u001by  y nn  _"
+ },
+ "segments": [
+  {
+   "seed": 51650005,
+   "datetime": "20021217144245",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPol\u0017blessed +3 gauntlets of power\nWp\u0016?\n>w\u0006_ \u001b<._o.,pFyFyFyFyFyFy\u00167\nlhl\u0016?\n>w\u0006_ooooo._.,:jjy#chat\nh__,_.#chat\nj\u00167\nuyl\u0016?\n>w  \u0006__.Fb_,>.Fb#chat\nFbFbFbFbFbFb_oo.Fb    n _.,    n  n \u0017dilithium crystal\ndr  n  n \u001612\n   _{,qh   n _oooooo.,\u0014;  n   n  n.n  n20s  n \u001612\n_oooooooo.,\u0017flint stone\nds  n   _oooooo.,  n    n#chat\ny   n   y y\u001by  y nn  _"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Li\u001b20sPdl>#loot\n#name\na\n#loot\n#conduct\n ;<. \u001bm.,#invoke\n\u001b\u001410sW\u001b:Za\n\u0004ht\u001bf \u001b#jump\n"
+ },
+ "segments": [
+  {
+   "seed": 51652024,
+   "datetime": "20221029073210",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "Li\u001b20sPdl>#loot\n#name\na\n#loot\n#conduct\n ;<. \u001bm.,#invoke\n\u001b\u001410sW\u001b:Za\n\u0004ht\u001bf \u001b#jump\n"
+  }
+ ]
+}

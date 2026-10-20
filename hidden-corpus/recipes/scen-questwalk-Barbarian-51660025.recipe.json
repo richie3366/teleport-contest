@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 speed boots\nWg \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>z  _ \u001b@.>\u0006_mmmm.Fl _.FlFlFb ss.\u00163\n\u0006_m.Fl        _.      Fl  Fj    n  Fj   Fk Fk Fj_>,   nFj   _,:Fl   >\u0006,\u00165\n  \u0006_mmmm.Fl Fl   FlFu  n Fh  Fh\u00166\n\u0006_mmmmm, Fu_.    nFu  FyFh   Fy Fys\u00162\n\u0006ykyn\u00163\n \u0006,\u00164\n\u0006jl bk\u00165\n \u0006ju  jl\u00166\n\u0006l    nu   b    ul  ukk\u0016?\n>>\u001b\u0016?\n>y  #chat\ny\u0016?\n>z\u00162\n\u0016?\n>z\u0006_<,\u00163\n\u0016?\n>z\u0006nuu\u00164\n\u0016?\n>z\u0006_mm.Fh _. FhFhsssss\u00165\n\u0016?\n>z\u0006_m.s.20s s\u00166\n\u0016?\n>z\u0006#chat\nb;m.\u00162\n\u0016?\n>z\u0006_m,sss_>.  _,<.>\u0016?\n>z\u0006knln  l\u00164\n\u0016?\n>z\u0006_mmmmm.    n Fj   _.Fl   FlFl  FlFj  Fl   n \u00162\n_>,Fb _. Fj>\u0016?\n>z\u0006_mmmm.Fl  _.@"
+ },
+ "segments": [
+  {
+   "seed": 51660025,
+   "datetime": "20120211031650",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 speed boots\nWg \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>z  _ \u001b@.>\u0006_mmmm.Fl _.FlFlFb ss.\u00163\n\u0006_m.Fl        _.      Fl  Fj    n  Fj   Fk Fk Fj_>,   nFj   _,:Fl   >\u0006,\u00165\n  \u0006_mmmm.Fl Fl   FlFu  n Fh  Fh\u00166\n\u0006_mmmmm, Fu_.    nFu  FyFh   Fy Fys\u00162\n\u0006ykyn\u00163\n \u0006,\u00164\n\u0006jl bk\u00165\n \u0006ju  jl\u00166\n\u0006l    nu   b    ul  ukk\u0016?\n>>\u001b\u0016?\n>y  #chat\ny\u0016?\n>z\u00162\n\u0016?\n>z\u0006_<,\u00163\n\u0016?\n>z\u0006nuu\u00164\n\u0016?\n>z\u0006_mm.Fh _. FhFhsssss\u00165\n\u0016?\n>z\u0006_m.s.20s s\u00166\n\u0016?\n>z\u0006#chat\nb;m.\u00162\n\u0016?\n>z\u0006_m,sss_>.  _,<.>\u0016?\n>z\u0006knln  l\u00164\n\u0016?\n>z\u0006_mmmmm.    n Fj   _.Fl   FlFl  FlFj  Fl   n \u00162\n_>,Fb _. Fj>\u0016?\n>z\u0006_mmmm.Fl  _.@"
+  }
+ ]
+}

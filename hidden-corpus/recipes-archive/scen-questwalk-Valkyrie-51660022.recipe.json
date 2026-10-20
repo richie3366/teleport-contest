@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017blessed amulet of reflection\nPf\u0017blessed +3 speed boots\nWg   \u0016?\n>z  \u00162\n\u0006nnbbyhuj\u00163\n \u0006#chat\nj;. \u001bm,_>,Fu_,Fu>\u0006#chat\nu;u:  _>.Fu_.      \u001b Fl >\u0006_>,Fl _.Fl\u00166\n  \u0006_mm.Fu_,:FlFl Fk FlsFl Fl_>. Fl _, Fu    n  >\u0006_m.    Fl _,Fu FuFl Fl\u00163\n\u0006#chat\ny;>._>.   _.> \u0006uunbyub_>.Fy_,  Fy       n  >\u0006huky \u00166\n \u0006,\u0016?\n>>\u001b\u0016?\n>y  #chat\nn\u0016?\n>z\u00162\n\u0016?\n>z\u0006_<.\u00163\n\u0016?\n>z\u0006hh l    hj nhj \u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006#chat\ny;y:  _>.  Fk  n     _.   Fu  >\u0016?\n>z\u0006l u   nuy  y  \u00167\n\u00162\n\u0016?\n>z\u0006_mmmm.   Fb      _.  n     Fb      Fb   n     Fj            n Fb     \u00166\n_>.      n  "
+ },
+ "segments": [
+  {
+   "seed": 51660022,
+   "datetime": "20060424104446",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017blessed amulet of reflection\nPf\u0017blessed +3 speed boots\nWg   \u0016?\n>z  \u00162\n\u0006nnbbyhuj\u00163\n \u0006#chat\nj;. \u001bm,_>,Fu_,Fu>\u0006#chat\nu;u:  _>.Fu_.      \u001b Fl >\u0006_>,Fl _.Fl\u00166\n  \u0006_mm.Fu_,:FlFl Fk FlsFl Fl_>. Fl _, Fu    n  >\u0006_m.    Fl _,Fu FuFl Fl\u00163\n\u0006#chat\ny;>._>.   _.> \u0006uunbyub_>.Fy_,  Fy       n  >\u0006huky \u00166\n \u0006,\u0016?\n>>\u001b\u0016?\n>y  #chat\nn\u0016?\n>z\u00162\n\u0016?\n>z\u0006_<.\u00163\n\u0016?\n>z\u0006hh l    hj nhj \u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006#chat\ny;y:  _>.  Fk  n     _.   Fu  >\u0016?\n>z\u0006l u   nuy  y  \u00167\n\u00162\n\u0016?\n>z\u0006_mmmm.   Fb      _.  n     Fb      Fb   n     Fj            n Fb     \u00166\n_>.      n  "
+  }
+ ]
+}

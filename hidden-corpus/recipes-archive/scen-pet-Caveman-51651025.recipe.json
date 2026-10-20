@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "20suyubylhh10s#chat\nblbkh#chat\nl10s20sdae..sltbj#chat\nb"
+ },
+ "segments": [
+  {
+   "seed": 51651025,
+   "datetime": "20210509051402",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\n",
+   "moves": "20suyubylhh10s#chat\nblbkh#chat\nl10s20sdae..sltbj#chat\nb"
+  }
+ ]
+}

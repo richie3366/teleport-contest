@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "L  KKN_ \u001b:>KE- X marks the spot\nUKLH_>,>HJKH_>.>lE- Elbereth Elbereth\nLLL   Y_>.>BBHY_>,>LYNY_>.>Fl ss<bYNHK_>.>JBLH_>,>"
+ },
+ "segments": [
+  {
+   "seed": 51651007,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:explore\n",
+   "moves": "L  KKN_ \u001b:>KE- X marks the spot\nUKLH_>,>HJKH_>.>lE- Elbereth Elbereth\nLLL   Y_>.>BBHY_>,>LYNY_>.>Fl ss<bYNHK_>.>JBLH_>,>"
+  }
+ ]
+}

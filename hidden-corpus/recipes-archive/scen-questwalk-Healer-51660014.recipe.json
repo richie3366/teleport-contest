@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0017blessed +3 speed boots\nWm \u0017blessed amulet of life saving\nPn\u0016?\n>z  \u00162\n\u0006_ \u001b,\u00163\n\u0006,\u0016?\n>>\u001b\u0016?\n>y #chat\nk\u0016?\n>z\u00164\n\u0016?\n>z\u0006yjhuh_>,_,;m,>\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_mm.Fh_.FhFhFhFb Fb\u00162\n\u0016?\n>z\u0006uj    kj \u00163\n\u0016?\n>z\u0006#chat\ny;y._>.Fh_,<.Fh>\u0016?\n>z\u0006_<,_>._,>.Fh>\u0016?\n>z\u0006__.  Fy  _.     Fl   n \u00166\n\u0016?\n>z\u0006u  bub\u00162\n\u0016?\n>z\u0006_m.    n Fk  _.FkFuFl  n   FkFkFh\u00168\n\u00163\n\u0016?\n>z\u0006_mmm.Fk _.,FkFhFyFh FyFy Fy\u00164\n\u0016?\n>z\u0006l lk  n\u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00165\n\u0016?\n>z\u0006#chat\ny;h;\u0016?\n>>\u001b\u0016?\n>y#chat\ny\u0016?\n>z\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006#chat\ny;h;\u00163\n\u0016?\n>z\u0006nkjl_>.Fh_.>.Fh  >\u0016?\n>z\u0006_mmmm.  Fh_.FyFh FkFk FhFy  n\u00165\n\u0016?\n>z\u0006_<,Fh_.Fu\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00166\n\u0016?\n>z\u0006_<.Fh_,Fu\u0016"
+ },
+ "segments": [
+  {
+   "seed": 51660014,
+   "datetime": "20140513010437",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0017blessed +3 speed boots\nWm \u0017blessed amulet of life saving\nPn\u0016?\n>z  \u00162\n\u0006_ \u001b,\u00163\n\u0006,\u0016?\n>>\u001b\u0016?\n>y #chat\nk\u0016?\n>z\u00164\n\u0016?\n>z\u0006yjhuh_>,_,;m,>\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_mm.Fh_.FhFhFhFb Fb\u00162\n\u0016?\n>z\u0006uj    kj \u00163\n\u0016?\n>z\u0006#chat\ny;y._>.Fh_,<.Fh>\u0016?\n>z\u0006_<,_>._,>.Fh>\u0016?\n>z\u0006__.  Fy  _.     Fl   n \u00166\n\u0016?\n>z\u0006u  bub\u00162\n\u0016?\n>z\u0006_m.    n Fk  _.FkFuFl  n   FkFkFh\u00168\n\u00163\n\u0016?\n>z\u0006_mmm.Fk _.,FkFhFyFh FyFy Fy\u00164\n\u0016?\n>z\u0006l lk  n\u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00165\n\u0016?\n>z\u0006#chat\ny;h;\u0016?\n>>\u001b\u0016?\n>y#chat\ny\u0016?\n>z\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006#chat\ny;h;\u00163\n\u0016?\n>z\u0006nkjl_>.Fh_.>.Fh  >\u0016?\n>z\u0006_mmmm.  Fh_.FyFh FkFk FhFy  n\u00165\n\u0016?\n>z\u0006_<,Fh_.Fu\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00166\n\u0016?\n>z\u0006_<.Fh_,Fu\u0016"
+  }
+ ]
+}

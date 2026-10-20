@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   hbyj\u0017sleeping gas trap\nj^kk20s.ju\u0017anti-magic field\nj^kk20ssn\u0017trap door\nl\u0007kobold\nsm.s.b.m.Wt\u001b;l. \u001b:   ukyh\u0017hole\nh\u0007grid bug\n.m.20s20ssm.k\u0017teleportation trap\nuly \u0017rolling boulder trap\nl^h#untrap\nhbh\u0017falling rock trap\nj^kk.s\u0017beartrap\naikl ai#ride\nyyW"
+ },
+ "segments": [
+  {
+   "seed": 51651021,
+   "datetime": "20100423142604",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   hbyj\u0017sleeping gas trap\nj^kk20s.ju\u0017anti-magic field\nj^kk20ssn\u0017trap door\nl\u0007kobold\nsm.s.b.m.Wt\u001b;l. \u001b:   ukyh\u0017hole\nh\u0007grid bug\n.m.20s20ssm.k\u0017teleportation trap\nuly \u0017rolling boulder trap\nl^h#untrap\nhbh\u0017falling rock trap\nj^kk.s\u0017beartrap\naikl ai#ride\nyyW"
+  }
+ ]
+}

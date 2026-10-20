@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "10s #name\nf\n ;budd ssshykydes.sjn10s#chat\ny#chat\nntbuSy\u001b  nnWr\u001bwazf potion of hallucination\n#enhance\n\u001b\u0004u#conduct\n #loot\nb",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51651005,
+   "datetime": "20240207031427",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:explore\n",
+   "moves": "10s #name\nf\n ;budd ssshykydes.sjn10s#chat\ny#chat\nntbuSy\u001b"
+  },
+  {
+   "seed": 52151005,
+   "datetime": "20011219060320",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:explore\n",
+   "moves": "  nnWr\u001bwazf potion of hallucination\n#enhance\n\u001b\u0004u#conduct\n #loot\nb"
+  }
+ ]
+}

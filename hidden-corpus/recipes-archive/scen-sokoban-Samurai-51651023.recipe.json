@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>BFkFk j\u0017wand of digging\nzfk\u0017scroll of earth\nrg \u0017wand of striking\nzh>\u0017wand of digging\nzilkn10sn\u0017wand of digging\nzjl\u0017wand of digging\nzk> \u0017scroll of earth\nrl ybn\u0017wand of striking\nzmknnjjbhbknkkkb10s\u0017wand of digging\nznj\u0017wand of digging\nzoh\u0017wand of digging\nzpk\u0017wand of digging\nzq> \u0017scroll of earth\nrr   yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51651023,
+   "datetime": "20250723064820",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=runmode:teleport\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>BFkFk j\u0017wand of digging\nzfk\u0017scroll of earth\nrg \u0017wand of striking\nzh>\u0017wand of digging\nzilkn10sn\u0017wand of digging\nzjl\u0017wand of digging\nzk> \u0017scroll of earth\nrl ybn\u0017wand of striking\nzmknnjjbhbknkkkb10s\u0017wand of digging\nznj\u0017wand of digging\nzoh\u0017wand of digging\nzpk\u0017wand of digging\nzq> \u0017scroll of earth\nrr   yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

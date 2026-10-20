@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nWn\u0016?\n>z \u00162\n\u0006_ \u001b<.Fl FlFlFh   \u00163\n \u0006llky\u00164\n\u0006h b hj\u00165\n  \u0006ju   y b  n l    l ub  n   \u001612\n\u00166\n\u0006_m. Fn   _.Fh   n  Fj  Fn   Fb   n\u00166\n_>.>\u0006_>.\u00163\n\u0006,\u00164\n\u0006_m.Fl_,FnFl Fl  Fl\u00165\n  \u0006_mmmmm,  n   Fy      _.      nFj  Fj    Fj     Fb  n    \u00163\n\u00166\n \u0006#chat\nk     n;l;\u00162\n  \u0006,_>,Fn _.Fl >\u0006#chat\nl;l:  _>.Fn_.Fl>\u0006__.Fl_.  n Fb \u00165\n \u0006,_>,>\u0006_mm. Fk       _.Fu    n  Fb   Fh     nFh    \u001611\n_>.>\u0006_mm,     n Fk     _,Fn     Fk  n       Fl    \u001610\n\u00163\n\u0006_m, Fl   _.Fh   n  Fh  Fl  Fh   Fh  Fh \u00164\n\u0006l  j j   n ku\u00165\n \u0006_mmm. Fu _.  Fl  Fu Fu Fl     Fu Fl   \u00166\n\u0006_m.  yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51660010,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 helm of telepathy\nWn\u0016?\n>z \u00162\n\u0006_ \u001b<.Fl FlFlFh   \u00163\n \u0006llky\u00164\n\u0006h b hj\u00165\n  \u0006ju   y b  n l    l ub  n   \u001612\n\u00166\n\u0006_m. Fn   _.Fh   n  Fj  Fn   Fb   n\u00166\n_>.>\u0006_>.\u00163\n\u0006,\u00164\n\u0006_m.Fl_,FnFl Fl  Fl\u00165\n  \u0006_mmmmm,  n   Fy      _.      nFj  Fj    Fj     Fb  n    \u00163\n\u00166\n \u0006#chat\nk     n;l;\u00162\n  \u0006,_>,Fn _.Fl >\u0006#chat\nl;l:  _>.Fn_.Fl>\u0006__.Fl_.  n Fb \u00165\n \u0006,_>,>\u0006_mm. Fk       _.Fu    n  Fb   Fh     nFh    \u001611\n_>.>\u0006_mm,     n Fk     _,Fn     Fk  n       Fl    \u001610\n\u00163\n\u0006_m, Fl   _.Fh   n  Fh  Fl  Fh   Fh  Fh \u00164\n\u0006l  j j   n ku\u00165\n \u0006_mmm. Fu _.  Fl  Fu Fu Fl     Fu Fl   \u00166\n\u0006_m.  yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

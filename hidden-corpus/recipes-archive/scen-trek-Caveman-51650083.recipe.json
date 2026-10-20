@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  FyFkFhFkFk20sFusFu _ \u001b,>lul150slulkkj_>.>kjj150s50s50sFh20s20sFhs20s150s kkk150sH#tip\n\u001bi\u001b\u0018\u001bjjj50sde100sFh20sFk\u0018\u001b100s 100sFkFk.150sFk..100s150s Fkss50s100seeJJHJ_>.>BJUL_>.>KLLB_>,>Fkss#offer\n#tip\n\u001bLYHY_>,>NLNJ_>.>\u000f\u001bzf ring of stealth\n#monster\n__,sLJNK_>,>HKYK_>.>#dip\nb\u000f\u001bNBKN_>.>h#rub\ncbW\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee20sbh20sh10s#name\ni\nll#chat\nlyyll#name\nf\n#chat\n;#chat\nu\u0004k#rub\ncfJdgss20s 10s#name\no\nujnk10stbnNNKN_>.>KYJL_>,>BNKN_>.>#pray\ny #monster\nHUKK_>.>JJUB_>.>#rub\nccr\u001bULJK_>,>Fn.s<\u000f\u001bokr\u001b#twoweapon\nNYYJ_>.>Fl20s sHHBU_>.>J JYJ_>.>#enhance\n\u001bfl<LLBY_>,>;.#force\nBHNJ_>.>FlFlFl <#terrain\nc\n@._>.s#rub\ncat\u001bldd        sm.  y  s"
+ },
+ "segments": [
+  {
+   "seed": 51650083,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": "  FyFkFhFkFk20sFusFu _ \u001b,>lul150slulkkj_>.>kjj150s50s50sFh20s20sFhs20s150s kkk150sH#tip\n\u001bi\u001b\u0018\u001bjjj50sde100sFh20sFk\u0018\u001b100s 100sFkFk.150sFk..100s150s Fkss50s100seeJJHJ_>.>BJUL_>.>KLLB_>,>Fkss#offer\n#tip\n\u001bLYHY_>,>NLNJ_>.>\u000f\u001bzf ring of stealth\n#monster\n__,sLJNK_>,>HKYK_>.>#dip\nb\u000f\u001bNBKN_>.>h#rub\ncbW\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee20sbh20sh10s#name\ni\nll#chat\nlyyll#name\nf\n#chat\n;#chat\nu\u0004k#rub\ncfJdgss20s 10s#name\no\nujnk10stbnNNKN_>.>KYJL_>,>BNKN_>.>#pray\ny #monster\nHUKK_>.>JJUB_>.>#rub\nccr\u001bULJK_>,>Fn.s<\u000f\u001bokr\u001b#twoweapon\nNYYJ_>.>Fl20s sHHBU_>.>J JYJ_>.>#enhance\n\u001bfl<LLBY_>,>;.#force\nBHNJ_>.>FlFlFl <#terrain\nc\n@._>.s#rub\ncat\u001bldd        sm.  y  s"
+  }
+ ]
+}

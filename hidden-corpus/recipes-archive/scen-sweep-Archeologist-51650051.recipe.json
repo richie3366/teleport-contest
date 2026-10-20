@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       #levelchange\n10\n  \u0017spellbook of detect unseen\nrj  s\u0017blessed spellbook of cancellation\nrk.\u0017blessed spellbook of turn undead\nrl sm.+\u0007lichen\nZZ\u0007gnome lord\nZZZ\u0007ghoul\nZ\u0007zombie\nZZ#turn\n#enhance\nn\u001b\u0016?\n>Dhy ununnunnnnujjuuuuuuuuu\u0017scroll of earth\n rm lyyhh\u0017wand of digging\nznh\u0017wand of digging\nzok\u0017wand of digging\nzpyyu10syhk khlykkl\u0017wand of digging\nzqllyuhyyku10syhkkl\u0006_ \u001b>.>_>._,>.>_>,_.<.>\u0006_>._,@.>_>._.<.>_>,_.m,>#chat\nhE- I am a fish\n\u0006_>._.>.>_>,_.m,>_>,_,>.>\u0006_>._.m,>_>._.>.>_>._.@.>cjdb\u000f\u001b#levelchange\n10\n\u0017shield of reflection\nWr\u0016?\nh\u000620s Fk FkFk Fk  Fk u bu j  n  K b #tip\nh\u001b uy uk\u0017neutral altar\ndb\u0017dwarf corpse\n b\u0017iron bars\nbuuu:n y\u0017sink\nqy\u0017ring of polymorph control\ndt  \u001b  n j \u0004k ZP#enhance\nyg\ne\n\u001b#levelchange\n12\n \u0007disenchanter\n;u.20s .m.     n   sm.        \u0007couatl\n#chat\nb   n     Fh     n   Fk       n    \u0007wraith\nFb     n     Fk    n      \u0007kraken\n.b  n       n    .m.      n    20s     n  su     n    \u0006\u00164\n\u0017blessed ring of polymorph control\nPur    \u0017oilskin cloak\n Wv   n    20s     slsm.   n   Tv   #polyself\nred dragon\n     #monster\nl          sl   20s     \u0007green mold\nFlFu   Fn    n  20s sm.   sm.  n  #polyself\nkitten\n #monster\n.l      shs20s  .m. #polyself\ngiant spider\n #monster\n   sm. 20s  n    .u    yy  2"
+ },
+ "segments": [
+  {
+   "seed": 51650051,
+   "datetime": "20181030202941",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       #levelchange\n10\n  \u0017spellbook of detect unseen\nrj  s\u0017blessed spellbook of cancellation\nrk.\u0017blessed spellbook of turn undead\nrl sm.+\u0007lichen\nZZ\u0007gnome lord\nZZZ\u0007ghoul\nZ\u0007zombie\nZZ#turn\n#enhance\nn\u001b\u0016?\n>Dhy ununnunnnnujjuuuuuuuuu\u0017scroll of earth\n rm lyyhh\u0017wand of digging\nznh\u0017wand of digging\nzok\u0017wand of digging\nzpyyu10syhk khlykkl\u0017wand of digging\nzqllyuhyyku10syhkkl\u0006_ \u001b>.>_>._,>.>_>,_.<.>\u0006_>._,@.>_>._.<.>_>,_.m,>#chat\nhE- I am a fish\n\u0006_>._.>.>_>,_.m,>_>,_,>.>\u0006_>._.m,>_>._.>.>_>._.@.>cjdb\u000f\u001b#levelchange\n10\n\u0017shield of reflection\nWr\u0016?\nh\u000620s Fk FkFk Fk  Fk u bu j  n  K b #tip\nh\u001b uy uk\u0017neutral altar\ndb\u0017dwarf corpse\n b\u0017iron bars\nbuuu:n y\u0017sink\nqy\u0017ring of polymorph control\ndt  \u001b  n j \u0004k ZP#enhance\nyg\ne\n\u001b#levelchange\n12\n \u0007disenchanter\n;u.20s .m.     n   sm.        \u0007couatl\n#chat\nb   n     Fh     n   Fk       n    \u0007wraith\nFb     n     Fk    n      \u0007kraken\n.b  n       n    .m.      n    20s     n  su     n    \u0006\u00164\n\u0017blessed ring of polymorph control\nPur    \u0017oilskin cloak\n Wv   n    20s     slsm.   n   Tv   #polyself\nred dragon\n     #monster\nl          sl   20s     \u0007green mold\nFlFu   Fn    n  20s sm.   sm.  n  #polyself\nkitten\n #monster\n.l      shs20s  .m. #polyself\ngiant spider\n #monster\n   sm. 20s  n    .u    yy  2"
+  }
+ ]
+}

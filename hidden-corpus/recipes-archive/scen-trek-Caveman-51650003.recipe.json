@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "K NUH_ \u001b.>HLYB_>.>Fn 20sFj<LLBK_>.>FbFb20sKJLN_>.>\u000f\u001bhynFhFh.50s\u000f\u001bynnFy.s100s50s100sFyFhFhFhFk.150shhu50s#terrain\nb\n50s nby\u0004jWnnj50s50s_>.>_>.><hun150sFyFhFhFh.s150s\u000f\u001b50s100s100s\\ yby100s150sFk20s20sWBBLB_>.>f  b;m.<NKYU_>.>z#conduct\n NKNJ_>.>10s#offer\n\u000f\u001bchJyky#name\no\n#chat\nk#chat\nk20snjjj#dip\ne:#monster\nLHBJ_>,>FkssHYLH_>.>BHBJ_>.>KLJJ_>,>BNBU_>,>#twoweapon\ns<NHNU_>,>100s100sFkFksnhkyyl#dip\na #turn\nkklnbynlkhu100s eeeeeeeeeeeeeeeeeeeeeeeeeeetcljyljnkhbnb>#terrain\nc\nm,qHBNN_>.>#untrap\nk#sit\nBLYU_>.>UUHK_>.>FjFjFjNNHH_>.>\u000f\u001bNYKU_>.>LYBK_>.>JL LJ_>.>JBNU_>.><UJHB_>.>\u000f\u001b#wipe\nYUHB_>,>HJKL_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUYUK_>,>FbssLHYN_>,>\u000f\u001b\u0014UKHU_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUJYN _>.>JLYK_>.>FnFns#offer\ni\u001bNHHH_>.>ULNH_>.>JBBU_>.>BYJK _>.>HYKL_>.>\u000f\u001b#pray\ny e#pray\ny e#pray\ny e#pray\ny  #pray\ny    y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 51650003,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\n",
+   "moves": "K NUH_ \u001b.>HLYB_>.>Fn 20sFj<LLBK_>.>FbFb20sKJLN_>.>\u000f\u001bhynFhFh.50s\u000f\u001bynnFy.s100s50s100sFyFhFhFhFk.150shhu50s#terrain\nb\n50s nby\u0004jWnnj50s50s_>.>_>.><hun150sFyFhFhFh.s150s\u000f\u001b50s100s100s\\ yby100s150sFk20s20sWBBLB_>.>f  b;m.<NKYU_>.>z#conduct\n NKNJ_>.>10s#offer\n\u000f\u001bchJyky#name\no\n#chat\nk#chat\nk20snjjj#dip\ne:#monster\nLHBJ_>,>FkssHYLH_>.>BHBJ_>.>KLJJ_>,>BNBU_>,>#twoweapon\ns<NHNU_>,>100s100sFkFksnhkyyl#dip\na #turn\nkklnbynlkhu100s eeeeeeeeeeeeeeeeeeeeeeeeeeetcljyljnkhbnb>#terrain\nc\nm,qHBNN_>.>#untrap\nk#sit\nBLYU_>.>UUHK_>.>FjFjFjNNHH_>.>\u000f\u001bNYKU_>.>LYBK_>.>JL LJ_>.>JBNU_>.><UJHB_>.>\u000f\u001b#wipe\nYUHB_>,>HJKL_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUYUK_>,>FbssLHYN_>,>\u000f\u001b\u0014UKHU_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUJYN _>.>JLYK_>.>FnFns#offer\ni\u001bNHHH_>.>ULNH_>.>JBBU_>.>BYJK _>.>HYKL_>.>\u000f\u001b#pray\ny e#pray\ny e#pray\ny e#pray\ny  #pray\ny    y\u001by  y y y\u001b  1"
+  }
+ ]
+}

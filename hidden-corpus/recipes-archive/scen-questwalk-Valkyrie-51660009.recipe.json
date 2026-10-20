@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017blessed +3 silver dragon scale mail\nWe   \u0017blessed ring of free action\nPfl \u0016?\n>z  \u00162\n\u0006_ \u001b,sssssFj\u00163\n \u0006_mm.ss.\u00164\n\u0006_mmmm.  _.Fn  Fn  Fl Fj Fn   \u0016?\n>>\u001b\u0016?\n>y  #chat\ny\u0016?\n>z\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_m.Fy_,FyFyFy\u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006_mmmmm.s20sss\u00164\n\u0016?\n>z\u0006kblb \u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_mmm.  Fu _.      Fh   Fh      Fu   Fy  Fk    n Fk    Fk    \u00162\n\u0016?\n>z\u0006#chat\ny;k:  \u0016?\n>>\u001b\u0016?\n>y#chat\nk\u0016?\n>z\u00163\n\u0016?\n>z\u0006_m.    Fy     _,Fh    Fu  Fu Fy  \u00164\n\u0016?\n>z\u0006__.\u0016?\n>>\u001b\u0016?\n>y#chat\ny\u0016?\n>z\u00165\n\u0016?\n>z\u0006_mm.Fk   _.Fy  Fl     Fl  Fu   _>, \u001b  n Fh  _.Fh  >\u0016?\n>z\u0006_m.    Fk      _.Fj    FhFy    \u00162\n\u0016?\n>z\u0006#chat\ny    ;b,_>.    Fj  n     _,            Fn   >\u0016?\n>z\u0006_mmm.Fu   _.  Fn Fn    Fu   Fl      n "
+ },
+ "segments": [
+  {
+   "seed": 51660009,
+   "datetime": "20011221131137",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017blessed +3 silver dragon scale mail\nWe   \u0017blessed ring of free action\nPfl \u0016?\n>z  \u00162\n\u0006_ \u001b,sssssFj\u00163\n \u0006_mm.ss.\u00164\n\u0006_mmmm.  _.Fn  Fn  Fl Fj Fn   \u0016?\n>>\u001b\u0016?\n>y  #chat\ny\u0016?\n>z\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_m.Fy_,FyFyFy\u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006_mmmmm.s20sss\u00164\n\u0016?\n>z\u0006kblb \u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_mmm.  Fu _.      Fh   Fh      Fu   Fy  Fk    n Fk    Fk    \u00162\n\u0016?\n>z\u0006#chat\ny;k:  \u0016?\n>>\u001b\u0016?\n>y#chat\nk\u0016?\n>z\u00163\n\u0016?\n>z\u0006_m.    Fy     _,Fh    Fu  Fu Fy  \u00164\n\u0016?\n>z\u0006__.\u0016?\n>>\u001b\u0016?\n>y#chat\ny\u0016?\n>z\u00165\n\u0016?\n>z\u0006_mm.Fk   _.Fy  Fl     Fl  Fu   _>, \u001b  n Fh  _.Fh  >\u0016?\n>z\u0006_m.    Fk      _.Fj    FhFy    \u00162\n\u0016?\n>z\u0006#chat\ny    ;b,_>.    Fj  n     _,            Fn   >\u0016?\n>z\u0006_mmm.Fu   _.  Fn Fn    Fu   Fl      n "
+  }
+ ]
+}

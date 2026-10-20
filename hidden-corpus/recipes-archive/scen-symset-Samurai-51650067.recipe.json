@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "Fl ss50s50s50sFhFhsnhj\u0018\u001b\\    \u0018\u001b100shly100s Fy20ss\u0018\u001b50s100sFyFyFy50s100sFy20s.150sFys20si\u001b150sFyFks50sf   y100sFyFy20s150sFyFys<jlujly\u0018\u001b100sljhFyFyFyFyFy.uul\u0006_ \u001b@.>_>>.Fj_.>.Fj>FjFj_>>.Fk_.,Fh>FhFhFhFhFhr\u001bW<\u0006_>,Fh_,m,Fu>Fu._>,_.>_>,_.>\u0006_>._,>_>._.>_>._.>#untrap\nb>\u0006_>._.>_>._.>_>,_,>\u0006_>>,_.>_>>._.>_>>._,>\u0006_>>,Fk_.>_>>,_,>_>>,_,>fb#enhance\nyo\nd\n\u001b\u0006_>,_.>_>._.>_>,_,>#turn\n20s\u0006_>,Fk_.Fk>_>._,>_>,_,>\u0006_>,_.>_>._.>_>._,>\u0006_>,_.>_>._,>_>._.>\u0006_>,_,>_>,_.>_>,_,>\u0006_>>._,>_>>._,>_>>._,>#monster\nL<\u000f\u001b\u00165\nynuFhFh20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebhl\u0017melting ice\nhhlly\u0017magic fountain\nqyqy\u0017long"
+ },
+ "segments": [
+  {
+   "seed": 51650067,
+   "datetime": "20000409202240",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": "Fl ss50s50s50sFhFhsnhj\u0018\u001b\\    \u0018\u001b100shly100s Fy20ss\u0018\u001b50s100sFyFyFy50s100sFy20s.150sFys20si\u001b150sFyFks50sf   y100sFyFy20s150sFyFys<jlujly\u0018\u001b100sljhFyFyFyFyFy.uul\u0006_ \u001b@.>_>>.Fj_.>.Fj>FjFj_>>.Fk_.,Fh>FhFhFhFhFhr\u001bW<\u0006_>,Fh_,m,Fu>Fu._>,_.>_>,_.>\u0006_>._,>_>._.>_>._.>#untrap\nb>\u0006_>._.>_>._.>_>,_,>\u0006_>>,_.>_>>._.>_>>._,>\u0006_>>,Fk_.>_>>,_,>_>>,_,>fb#enhance\nyo\nd\n\u001b\u0006_>,_.>_>._.>_>,_,>#turn\n20s\u0006_>,Fk_.Fk>_>._,>_>,_,>\u0006_>,_.>_>._.>_>._,>\u0006_>,_.>_>._,>_>._.>\u0006_>,_,>_>,_.>_>,_,>\u0006_>>._,>_>>._,>_>>._,>#monster\nL<\u000f\u001b\u00165\nynuFhFh20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebhl\u0017melting ice\nhhlly\u0017magic fountain\nqyqy\u0017long"
+  }
+ ]
+}

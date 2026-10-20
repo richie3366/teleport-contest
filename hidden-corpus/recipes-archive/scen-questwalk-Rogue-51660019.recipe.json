@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed ring of free action\nPjr\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwl\u0016?\n>z  \u00162\n\u0006_ \u001b@.Fu  s.Fl Fl \u0016?\n>>\u001b\u0016?\n>y  #chat\nl\u0016?\n>z\u00163\n\u0016?\n>z\u0006_mm.ssss20s  \u00164\n\u0016?\n>z\u0006_<,\u00165\n\u0016?\n>z\u0006jjkkkkkb\u00166\n\u0016?\n>z\u0006lbnykjn\u00162\n\u0016?\n>z\u0006_mm..s20s  Fn \u00163\n\u0016?\n>z\u0006__._>._.Fl >\u0016?\n>z\u0006_mmmmm,.m.syFl  Fl \u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006jhul h l  n  \u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006_mm,Fb sm.sm.FnFnFn \u00164\n\u0016?\n>z\u0006#chat\nh;m,\u00165\n\u0016?\n>z\u0006#chat\nb;<.\u00166\n\u0016?\n>z\u0006lhhn\u00162\n\u0016?\n>z\u0006#chat\nh;m,\u00163\n\u0016?\n>z\u0006__.\u00164\n\u0016?\n>z\u0006_mm.s20ss.20ss\u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00165\n\u0016?\n>z\u0006_mmmmm.20ss20ss._>,_.>\u0016?\n>z\u0006ullby\u00162\n\u0016?\n>z\u0006_mmmmm.s20s ._>,_.>\u0016?\n>z\u0006_mmmm.ssss20s s\u00164\n\u0016?\n>z\u0006#chat\nj;.\u00165\n\u0016?\n>z\u0006#chat\nn;m.\u0016?\n>>\u001b\u0016?\n>y#c"
+ },
+ "segments": [
+  {
+   "seed": 51660019,
+   "datetime": "20070902134350",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:full\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed ring of free action\nPjr\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwl\u0016?\n>z  \u00162\n\u0006_ \u001b@.Fu  s.Fl Fl \u0016?\n>>\u001b\u0016?\n>y  #chat\nl\u0016?\n>z\u00163\n\u0016?\n>z\u0006_mm.ssss20s  \u00164\n\u0016?\n>z\u0006_<,\u00165\n\u0016?\n>z\u0006jjkkkkkb\u00166\n\u0016?\n>z\u0006lbnykjn\u00162\n\u0016?\n>z\u0006_mm..s20s  Fn \u00163\n\u0016?\n>z\u0006__._>._.Fl >\u0016?\n>z\u0006_mmmmm,.m.syFl  Fl \u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006jhul h l  n  \u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006_mm,Fb sm.sm.FnFnFn \u00164\n\u0016?\n>z\u0006#chat\nh;m,\u00165\n\u0016?\n>z\u0006#chat\nb;<.\u00166\n\u0016?\n>z\u0006lhhn\u00162\n\u0016?\n>z\u0006#chat\nh;m,\u00163\n\u0016?\n>z\u0006__.\u00164\n\u0016?\n>z\u0006_mm.s20ss.20ss\u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00165\n\u0016?\n>z\u0006_mmmmm.20ss20ss._>,_.>\u0016?\n>z\u0006ullby\u00162\n\u0016?\n>z\u0006_mmmmm.s20s ._>,_.>\u0016?\n>z\u0006_mmmm.ssss20s s\u00164\n\u0016?\n>z\u0006#chat\nj;.\u00165\n\u0016?\n>z\u0006#chat\nn;m.\u0016?\n>>\u001b\u0016?\n>y#c"
+  }
+ ]
+}

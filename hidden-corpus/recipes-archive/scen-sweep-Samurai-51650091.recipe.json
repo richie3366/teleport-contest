@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0006_ \u001bm,>Fl s_>._.>_>._,><\u0006_>._,>_>,_.>_>._.>\u0014<.#terrain\n\u001b\u0006_>._.>_>._,>_>._.>\u000f\u001b\u0018\u001b\u0017blessed ring of polymorph control\nPfl#polyself\ndjinni\n gelatinous cube\n ss20s20s.#polyself\nghost\n cobra\n  ssss.#polyself\nvampire\n s20s\u0007rock piercer\nFk  Fk Fk s.s#levelchange\n20\n   \u0017blessed ring of polymorph control\nPg\u0017elven mithril-coat\nWhss20s#polyself\nghoul\n#monster\n20ssm.\u0007gnomish wizard\nFy Fy Fy sm.sm.s#polyself\niron golem\n #monster\nl20s .m.\u0007fog cloud\nFyFkFk.b.20s#levelchange\n30\n         \u0007barrow wight\nFu   Fu   Fk    \u0007straw golem\nFk   Fu\u0007salamander\nFk    Fk                Fh         Fh         \u0007vampire bat\nFk         Fu         Fk        \u00167\n#levelchange\n20\n \u0017food ration\nei      sm.20s  n      Fb      Fh       \u0017blessed frost horn\najy h      n      ajy b       Fb      Fh    n    \u0017blessed +3 Hawaiian shirt\n\u0007leprechaun\nWk          sm.     sm.20s     sm.   n     .m.       \u001615\n \u00169\n#wizintrinsic\ndo\n .m...20s   sb  .m.     sm.     .u   n       .ysm.      .m.       n      20s      .m.      sm.  n        @. sm.       sj    n     sm.      sm.  n         su     n     20s      sm.  n      20s    n         #twoweapon\nohe\u001b#untrap\nj#conduct\n j   n   n      n20s    n     .m.   yy\u001by   y y ny  ."
+ },
+ "segments": [
+  {
+   "seed": 51650091,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0006_ \u001bm,>Fl s_>._.>_>._,><\u0006_>._,>_>,_.>_>._.>\u0014<.#terrain\n\u001b\u0006_>._.>_>._,>_>._.>\u000f\u001b\u0018\u001b\u0017blessed ring of polymorph control\nPfl#polyself\ndjinni\n gelatinous cube\n ss20s20s.#polyself\nghost\n cobra\n  ssss.#polyself\nvampire\n s20s\u0007rock piercer\nFk  Fk Fk s.s#levelchange\n20\n   \u0017blessed ring of polymorph control\nPg\u0017elven mithril-coat\nWhss20s#polyself\nghoul\n#monster\n20ssm.\u0007gnomish wizard\nFy Fy Fy sm.sm.s#polyself\niron golem\n #monster\nl20s .m.\u0007fog cloud\nFyFkFk.b.20s#levelchange\n30\n         \u0007barrow wight\nFu   Fu   Fk    \u0007straw golem\nFk   Fu\u0007salamander\nFk    Fk                Fh         Fh         \u0007vampire bat\nFk         Fu         Fk        \u00167\n#levelchange\n20\n \u0017food ration\nei      sm.20s  n      Fb      Fh       \u0017blessed frost horn\najy h      n      ajy b       Fb      Fh    n    \u0017blessed +3 Hawaiian shirt\n\u0007leprechaun\nWk          sm.     sm.20s     sm.   n     .m.       \u001615\n \u00169\n#wizintrinsic\ndo\n .m...20s   sb  .m.     sm.     .u   n       .ysm.      .m.       n      20s      .m.      sm.  n        @. sm.       sj    n     sm.      sm.  n         su     n     20s      sm.  n      20s    n         #twoweapon\nohe\u001b#untrap\nj#conduct\n j   n   n      n20s    n     .m.   yy\u001by   y y ny  ."
+  }
+ ]
+}

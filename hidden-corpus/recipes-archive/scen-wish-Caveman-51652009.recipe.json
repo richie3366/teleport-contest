@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u00173 scroll of stinking cloud\nrf   \u001b<.  \u0017spellbook of haste self\nrgs 20s  ZZ\u0017ring of sustain ability\n\u0007crocodile\nPhls ss 20s."
+ },
+ "segments": [
+  {
+   "seed": 51652009,
+   "datetime": "20120126014200",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u00173 scroll of stinking cloud\nrf   \u001b<.  \u0017spellbook of haste self\nrgs 20s  ZZ\u0017ring of sustain ability\n\u0007crocodile\nPhls ss 20s."
+  }
+ ]
+}

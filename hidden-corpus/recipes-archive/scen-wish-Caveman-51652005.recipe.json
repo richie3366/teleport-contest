@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017potion of object detection\nqf \u001b:Fk Fb\u0017cursed lembas wafer\negss\u00173 wand of death\nzhl\u0017potion of sleeping\nqi20s20s\u00173 towel\naj.20s"
+ },
+ "segments": [
+  {
+   "seed": 51652005,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017potion of object detection\nqf \u001b:Fk Fb\u0017cursed lembas wafer\negss\u00173 wand of death\nzhl\u0017potion of sleeping\nqi20s20s\u00173 towel\naj.20s"
+  }
+ ]
+}

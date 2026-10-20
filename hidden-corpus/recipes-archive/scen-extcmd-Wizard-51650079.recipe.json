@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nWp\u0017blessed +3 speed boots\nWq\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n16\n               \u0007owlbear\nFk Fy\u0016?\n>>M      potion of gain ability\n\u0006\u001b:#overview\n\u001b#conduct\n \u000f\u001b#dip\ncs#offer\n#pray\ny y           #chat\nl#jump\n#wizdetect\n\u0006m,Fk     Fk #jump\n\u0016?\ne \u0006\u0007kobold\n#vanquished\n #genocided\nape\n#annotate\nblessed\n\u0018\u001b#name\n\u001b#adjust\nf\u001b#chat\nk  n#turn\n#wizdetect\n\u0006Fu Fh    n cl\u0016?\n\u001b\u0006\u0007acid blob\n#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n  #pray\ny y         #wizintrinsic\naf\n Fk Fh_{,qh;  n  #version\n  #history\n                  #annotate\n\u001b\u000f\u001b#wipe\n   n #loot\nh    n \u00162\n#chat\nh#chat\nu#wizdetect\n\u0006Fh FhFy  n l   n \u00163\n__,#chat\nk#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n    n #polyself\ntroll\n#monster\n20s  20s   n Fy   n   n Fk  \u00164\nFu   n   n Fu    n\u00163\n\u0016?\n\u001b\u0006#vanquished\n #genocided\nhezrou\n #annotate\n\u001b\u000f\u001b#dip\nnf  n #offer\n#pray\ny y         #chat\ny#polyself\nair element"
+ },
+ "segments": [
+  {
+   "seed": 51650079,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nWp\u0017blessed +3 speed boots\nWq\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n16\n               \u0007owlbear\nFk Fy\u0016?\n>>M      potion of gain ability\n\u0006\u001b:#overview\n\u001b#conduct\n \u000f\u001b#dip\ncs#offer\n#pray\ny y           #chat\nl#jump\n#wizdetect\n\u0006m,Fk     Fk #jump\n\u0016?\ne \u0006\u0007kobold\n#vanquished\n #genocided\nape\n#annotate\nblessed\n\u0018\u001b#name\n\u001b#adjust\nf\u001b#chat\nk  n#turn\n#wizdetect\n\u0006Fu Fh    n cl\u0016?\n\u001b\u0006\u0007acid blob\n#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n  #pray\ny y         #wizintrinsic\naf\n Fk Fh_{,qh;  n  #version\n  #history\n                  #annotate\n\u001b\u000f\u001b#wipe\n   n #loot\nh    n \u00162\n#chat\nh#chat\nu#wizdetect\n\u0006Fh FhFy  n l   n \u00163\n__,#chat\nk#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n    n #polyself\ntroll\n#monster\n20s  20s   n Fy   n   n Fk  \u00164\nFu   n   n Fu    n\u00163\n\u0016?\n\u001b\u0006#vanquished\n #genocided\nhezrou\n #annotate\n\u001b\u000f\u001b#dip\nnf  n #offer\n#pray\ny y         #chat\ny#polyself\nair element"
+  }
+ ]
+}

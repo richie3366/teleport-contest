@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nl_mmmm,Fh  n_.Fj   n#chat\nh_mmmm.Fj  n_.  Fl  n#chat\ny _mmm.Fh  n _.#chat\nj  n   n #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm,  Fj  _,#chat\nl   _mmm,Fl _.#chat\nj _m.Fy _.#chat\nj \u0017blessed amulet of reflection\nPf\u0017blessed +3 speed boots\nWg  \u0017blessed ring of free action\nPhr \u0017wand of death\n\u0016?\n>A\u0006_mmmmm.Fj_,FhFy FhFb FhFy,#chat\nh  n \u0016?\n>>\u001b\u0016?\n>y_m.Fy_.#chat\nh;h:  \u0016?\n>A\u0006_mmmm.Fy_.FhFbFy FbFbFys,\u0016?\n>z\u0006_mm. Fb_.FjFjsFhFhFhzih,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20ss..,\u0016?\n>A\u0006_mmm.Fh_,m.FhFhFhFhszil,\u001b\u0016?\n>A\u0006_mmmm,s.20sszij ,\u001b\u0016?\n>z\u0006_mmmmmm,s.s.,\u001b#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nk;m.\u0016?\n>>\u001b\u0016?\n>z\u0006_"
+ },
+ "segments": [
+  {
+   "seed": 51650086,
+   "datetime": "20090617132446",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nl_mmmm,Fh  n_.Fj   n#chat\nh_mmmm.Fj  n_.  Fl  n#chat\ny _mmm.Fh  n _.#chat\nj  n   n #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm,  Fj  _,#chat\nl   _mmm,Fl _.#chat\nj _m.Fy _.#chat\nj \u0017blessed amulet of reflection\nPf\u0017blessed +3 speed boots\nWg  \u0017blessed ring of free action\nPhr \u0017wand of death\n\u0016?\n>A\u0006_mmmmm.Fj_,FhFy FhFb FhFy,#chat\nh  n \u0016?\n>>\u001b\u0016?\n>y_m.Fy_.#chat\nh;h:  \u0016?\n>A\u0006_mmmm.Fy_.FhFbFy FbFbFys,\u0016?\n>z\u0006_mm. Fb_.FjFjsFhFhFhzih,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20ss..,\u0016?\n>A\u0006_mmm.Fh_,m.FhFhFhFhszil,\u001b\u0016?\n>A\u0006_mmmm,s.20sszij ,\u001b\u0016?\n>z\u0006_mmmmmm,s.s.,\u001b#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nk;m.\u0016?\n>>\u001b\u0016?\n>z\u0006_"
+  }
+ ]
+}

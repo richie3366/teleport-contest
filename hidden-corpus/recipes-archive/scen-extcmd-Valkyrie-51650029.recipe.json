@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of reflection\nPe\u0017blessed +3 gray dragon scale mail\nWf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007bugbear\nFyFl s_ \u001b.qh#overview\n\u001b#conduct\n i\u001b#dip\nf#offer\n#pray\ny y    #chat\ny#wizdetect\n\u0006FyFyss_ooo,_., #vanquished\n #genocided\nwraith\n-\u0018\u001b#name\nm\n#adjust\n,#chat\nj#turn\n#levelchange\n9\nnuh#rub\n__,#chat\nn#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #wizidentify\n\u001bFns_{.Fn_.qy#version\n  #history\n                  #annotate\nFido\ni\u001b#wipe\n#loot\nj#chat\nj#chat\nj#wizintrinsic\nf\n FjFjs#dip\ney_{,qy\u0007hobbit\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n#wizdetect\n\u0006Fhs.\u0016?\nl \u0006#vanquished\n #genocided\ngreen mold\ni\u001b#dip\nb #offer\n#pray\ny y #chat\nk#wizdetect\n\u0006FkFkFk_>, Fh _,\u0007dwarf\n#chronicle\n #terrain\n\u001bi\u001b#name\nm\nm.foo\n#adjust\ni\u001b#chat\nj#turn\n#wizintrinsic\nr\n FjFjFj _oooooo.,\u0007hobbit\n#version\n  #history\n                  #annotate\nFido\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #wizidentify\n\u001bFjFk#offer\n__.#chat\nj#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\nj#chat\nj#chat\nj#wizintrinsic\na\n FjFj__.#chat\nj\u0007kobold shaman\n#vanquished\n #genocided\nAleax\n\u001b\u000f\u001b#tip\n\u001b#ride\nky#turn\n#sit\n\u001b#wizide"
+ },
+ "segments": [
+  {
+   "seed": 51650029,
+   "datetime": "20110916132033",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of reflection\nPe\u0017blessed +3 gray dragon scale mail\nWf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007bugbear\nFyFl s_ \u001b.qh#overview\n\u001b#conduct\n i\u001b#dip\nf#offer\n#pray\ny y    #chat\ny#wizdetect\n\u0006FyFyss_ooo,_., #vanquished\n #genocided\nwraith\n-\u0018\u001b#name\nm\n#adjust\n,#chat\nj#turn\n#levelchange\n9\nnuh#rub\n__,#chat\nn#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #wizidentify\n\u001bFns_{.Fn_.qy#version\n  #history\n                  #annotate\nFido\ni\u001b#wipe\n#loot\nj#chat\nj#chat\nj#wizintrinsic\nf\n FjFjs#dip\ney_{,qy\u0007hobbit\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n#wizdetect\n\u0006Fhs.\u0016?\nl \u0006#vanquished\n #genocided\ngreen mold\ni\u001b#dip\nb #offer\n#pray\ny y #chat\nk#wizdetect\n\u0006FkFkFk_>, Fh _,\u0007dwarf\n#chronicle\n #terrain\n\u001bi\u001b#name\nm\nm.foo\n#adjust\ni\u001b#chat\nj#turn\n#wizintrinsic\nr\n FjFjFj _oooooo.,\u0007hobbit\n#version\n  #history\n                  #annotate\nFido\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #wizidentify\n\u001bFjFk#offer\n__.#chat\nj#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\nj#chat\nj#chat\nj#wizintrinsic\na\n FjFj__.#chat\nj\u0007kobold shaman\n#vanquished\n #genocided\nAleax\n\u001b\u000f\u001b#tip\n\u001b#ride\nky#turn\n#sit\n\u001b#wizide"
+  }
+ ]
+}

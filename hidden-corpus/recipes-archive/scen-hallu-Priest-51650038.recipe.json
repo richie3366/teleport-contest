@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic harp\n\u0017blessed magic lamp\n\u0017blessed leash\n\u0017blessed 20 daggers\nQm#levelchange\n26\n                          #wizintrinsic\nh\n \u0007owlbear\n\u0007lichen\nFnFl Fl Fl Fl Fh Fj   n \u0007grid bug\nFl  Fu Fn   Fl Fl.s\u0007gnome lord\nFuFu  ss;m. \u001b<.E- I am a fish\n#chat\nk#pray\ny y #wizintrinsic\nh\n\u0017blessed spellbook of cause fear\n rn sZa\n#turn\n.: \u001616\nulh:\u00165\nluykl:\u0017potion of booze\nqo 20s.m.#wizintrinsic\nh\nfj  n fj tmj\u0017scroll of mail\nrp  ;j;E- Elbereth Elbereth\n#pray\ny y    \u0017blessed scroll of teleportation\nrq  2\n   #wizintrinsic\nh\n\u0007acid blob\n\u0007giant rat\nFuFkFuFk20sss;>.E- X marks the spot\n#chat\ntmnfj\u0016?\n>>N       scroll of earth\nnb   :.m.    n#wizintrinsic\nh\n\u0016?\na  h  u  h   :\u0016?\nc h  n k    \u0017wand of undead"
+ },
+ "segments": [
+  {
+   "seed": 51650038,
+   "datetime": "20060802193610",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic harp\n\u0017blessed magic lamp\n\u0017blessed leash\n\u0017blessed 20 daggers\nQm#levelchange\n26\n                          #wizintrinsic\nh\n \u0007owlbear\n\u0007lichen\nFnFl Fl Fl Fl Fh Fj   n \u0007grid bug\nFl  Fu Fn   Fl Fl.s\u0007gnome lord\nFuFu  ss;m. \u001b<.E- I am a fish\n#chat\nk#pray\ny y #wizintrinsic\nh\n\u0017blessed spellbook of cause fear\n rn sZa\n#turn\n.: \u001616\nulh:\u00165\nluykl:\u0017potion of booze\nqo 20s.m.#wizintrinsic\nh\nfj  n fj tmj\u0017scroll of mail\nrp  ;j;E- Elbereth Elbereth\n#pray\ny y    \u0017blessed scroll of teleportation\nrq  2\n   #wizintrinsic\nh\n\u0007acid blob\n\u0007giant rat\nFuFkFuFk20sss;>.E- X marks the spot\n#chat\ntmnfj\u0016?\n>>N       scroll of earth\nnb   :.m.    n#wizintrinsic\nh\n\u0016?\na  h  u  h   :\u0016?\nc h  n k    \u0017wand of undead"
+  }
+ ]
+}

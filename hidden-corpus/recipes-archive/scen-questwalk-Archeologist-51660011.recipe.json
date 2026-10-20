@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017blessed +3 gauntlets of power\nWj\u0017blessed Mjollnir\nwk\u0016?\n>z \u00162\n\u0006#chat\nj;j: \u001b>.\u00163\n\u0006hyj\u00164\n\u0006_mm.20sFh Fh s\u00165\n \u0006__,Fk  _,Fu _>.>\u0006_mmmmm. Fl  _, Fu     nFk  Fl  FlFu Fy\u00162\n\u0006yjjkubj_>._.>\u0006_mmm.sss_>, Fl _,Fl >\u0006,\u00165\n \u0006bhkb\u00166\n\u0006_mm.sFh  FhFh Fh _>,>\u0006knun\u00163\n\u0006#chat\nu;<._>.Fk _,Fu >\u0006_mmm,  nFb _,m,Fk Fl Fk Fl  Fy  FuFu   \u00165\n\u0006_m._.20s  Fu Fh  \u00166\n\u0006__.Fh   _.Fb _>.>\u0006bl   nullj  k\u00163\n\u0006_mmm.Fh _,m. Fb FhFb  Fh \u00164\n \u0006,\u00165\n\u0006#chat\nj;j;_>.>\u0006_m.  Fb     n  "
+ },
+ "segments": [
+  {
+   "seed": 51660011,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017blessed +3 gauntlets of power\nWj\u0017blessed Mjollnir\nwk\u0016?\n>z \u00162\n\u0006#chat\nj;j: \u001b>.\u00163\n\u0006hyj\u00164\n\u0006_mm.20sFh Fh s\u00165\n \u0006__,Fk  _,Fu _>.>\u0006_mmmmm. Fl  _, Fu     nFk  Fl  FlFu Fy\u00162\n\u0006yjjkubj_>._.>\u0006_mmm.sss_>, Fl _,Fl >\u0006,\u00165\n \u0006bhkb\u00166\n\u0006_mm.sFh  FhFh Fh _>,>\u0006knun\u00163\n\u0006#chat\nu;<._>.Fk _,Fu >\u0006_mmm,  nFb _,m,Fk Fl Fk Fl  Fy  FuFu   \u00165\n\u0006_m._.20s  Fu Fh  \u00166\n\u0006__.Fh   _.Fb _>.>\u0006bl   nullj  k\u00163\n\u0006_mmm.Fh _,m. Fb FhFb  Fh \u00164\n \u0006,\u00165\n\u0006#chat\nj;j;_>.>\u0006_m.  Fb     n  "
+  }
+ ]
+}

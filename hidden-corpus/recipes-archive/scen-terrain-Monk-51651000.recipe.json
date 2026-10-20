@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                      blhk\u0017magic fountain\nqyqy qy \u001b.\u0017long sword\n#dip\nkyj\u0017tree\ny\u0004n\u0004 k\u0017altar\ndb\u0017lichen corpse\n#offer\nl     #pray\ny y           #terrain\nb\nc yz"
+ },
+ "segments": [
+  {
+   "seed": 51651000,
+   "datetime": "20161220062625",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                      blhk\u0017magic fountain\nqyqy qy \u001b.\u0017long sword\n#dip\nkyj\u0017tree\ny\u0004n\u0004 k\u0017altar\ndb\u0017lichen corpse\n#offer\nl     #pray\ny y           #terrain\nb\nc yz"
+  }
+ ]
+}

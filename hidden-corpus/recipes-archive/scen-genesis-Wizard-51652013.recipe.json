@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u0007hezrou\n;j. \u001b;20s sm.  sk\u0007newt\n;l,sj sus\u0007yellow light\n20s 20s s. \u0007killer bee\nss .  yy\u001bny ny\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 51652013,
+   "datetime": "20260424143029",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u0007hezrou\n;j. \u001b;20s sm.  sk\u0007newt\n;l,sj sus\u0007yellow light\n20s 20s s. \u0007killer bee\nss .  yy\u001bny ny\u001by  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 helm of telepathy\nWk\u0017blessed magic harp\n\u0017blessed ring of free action\nPmr\u0017blessed 20 daggers\nQn#levelchange\n14\n            #wizintrinsic\nh\n \u0017scroll of remove curse\nro \u0017blessed spellbook of magic missile\nrpsm.Za\n:;l. \u001b;E- I am a fish\n#chat\nj#wizintrinsic\nh\nfjflfj\u0017blessed spellbook of knock\n rq sZa\n#turn\n: \u0017blessed spellbook of light\nrr20sZc\n#turn\n: #wizintrinsic\nh\n\u0007kobold shaman\n\u0007bugbear\nFjFl  Fl  Fl  fj     fl  fj  fj    \u0017potion of acid\nqs  sm. sm.     #wizintrinsic\nh\n;l.E-y I am a fish\n   #chat\nj #pray\ny y           \u0007newt\nFh Fl     Fl  Fjfl fl\u0016?\n>>Q\u0004u20s\u0017spellbook of cause fear\nra.Za\n:#wizintrinsic\nh\n\u0007yellow mold\n\u0007sewer rat\nFkFkFlFl\u0016?\ns  lh\u0017wand of cancellation\nEo X marks the spot\n \u0017ruby\nEs  Elbereth\nE- : l\u0017wand of probing\nEt"
+ },
+ "segments": [
+  {
+   "seed": 51650068,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 helm of telepathy\nWk\u0017blessed magic harp\n\u0017blessed ring of free action\nPmr\u0017blessed 20 daggers\nQn#levelchange\n14\n            #wizintrinsic\nh\n \u0017scroll of remove curse\nro \u0017blessed spellbook of magic missile\nrpsm.Za\n:;l. \u001b;E- I am a fish\n#chat\nj#wizintrinsic\nh\nfjflfj\u0017blessed spellbook of knock\n rq sZa\n#turn\n: \u0017blessed spellbook of light\nrr20sZc\n#turn\n: #wizintrinsic\nh\n\u0007kobold shaman\n\u0007bugbear\nFjFl  Fl  Fl  fj     fl  fj  fj    \u0017potion of acid\nqs  sm. sm.     #wizintrinsic\nh\n;l.E-y I am a fish\n   #chat\nj #pray\ny y           \u0007newt\nFh Fl     Fl  Fjfl fl\u0016?\n>>Q\u0004u20s\u0017spellbook of cause fear\nra.Za\n:#wizintrinsic\nh\n\u0007yellow mold\n\u0007sewer rat\nFkFkFlFl\u0016?\ns  lh\u0017wand of cancellation\nEo X marks the spot\n \u0017ruby\nEs  Elbereth\nE- : l\u0017wand of probing\nEt"
+  }
+ ]
+}

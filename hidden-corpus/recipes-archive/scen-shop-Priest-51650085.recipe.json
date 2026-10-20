@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed +3 speed boots\nWj\u0017blessed amulet of reflection\nPk\u0016?\n>w\u0006_ \u001b:#chat\nk_oooo._oo,,#chat\nk_ooooooooo,,p_oooo,,#chat\nl_oooooooo._ooo.,p_oooooooo.,\u0014@.20s s_oo._o.,p__,_,#chat\nykkj#chat\nu_oooooooo.,p_{. Fj_,,qd_oooooooo,,\u0017amulet of strangulation\ndl_oooo._ooo,_.,y p_ooooo.Fy_, ,   #chat\nu\u0016?\n>Bnyy\u0016?\n>w\u0006Fu Fu Fu   nFuFuFu\u00167\nbhl\u0016?\n>w\u0006__. _.#chat\nu_ooooo._.,#chat\nl_oooooooo._,,$\u00167\nl  n u  \u0016?\n>w\u0006_ooooooooo,,p\u0016?\ncnlu\u0016?\n>w  \u0006_ooooooooo, Fk_.Fn_oo.Fk_.,  $ FlFlFlFlFl Fl_ooo.Fl_.,p\u001bFl   n   n Fl   n     \u001b  nFl  n  n    n  nFl  n  n  n   nFl  n"
+ },
+ "segments": [
+  {
+   "seed": 51650085,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed +3 speed boots\nWj\u0017blessed amulet of reflection\nPk\u0016?\n>w\u0006_ \u001b:#chat\nk_oooo._oo,,#chat\nk_ooooooooo,,p_oooo,,#chat\nl_oooooooo._ooo.,p_oooooooo.,\u0014@.20s s_oo._o.,p__,_,#chat\nykkj#chat\nu_oooooooo.,p_{. Fj_,,qd_oooooooo,,\u0017amulet of strangulation\ndl_oooo._ooo,_.,y p_ooooo.Fy_, ,   #chat\nu\u0016?\n>Bnyy\u0016?\n>w\u0006Fu Fu Fu   nFuFuFu\u00167\nbhl\u0016?\n>w\u0006__. _.#chat\nu_ooooo._.,#chat\nl_oooooooo._,,$\u00167\nl  n u  \u0016?\n>w\u0006_ooooooooo,,p\u0016?\ncnlu\u0016?\n>w  \u0006_ooooooooo, Fk_.Fn_oo.Fk_.,  $ FlFlFlFlFl Fl_ooo.Fl_.,p\u001bFl   n   n Fl   n     \u001b  nFl  n  n    n  nFl  n  n  n   nFl  n"
+  }
+ ]
+}

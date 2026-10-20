@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqm \u001b;_d, Fj_,\u0004h_oooo.   n_, _ooo.   nFb _.Fj,p_ooooooo.  n Fb_. Fl_ooo,_,,dh_{._,m,qg10s#untrap\nb#twoweapon\n\u00165\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo<._d.Fh _,   Fh \u0004h __. Fh _. Fh  #chat\nh #pray\ny y     db _{.     Fh  _,   n  Fh  qg #dip\nd_oo, Fl _, Fl,a\n #chat\nl #offer\n#twoweapon\n#sit\n   n  \u00169\n\u0017blessed the Book of the Dead\n\u0007lich\nwayFhFh Fh #invoke\nq\u0017cursed worthless piece of red glass\n\u0007gas spore\ntnl\u0017wand of teleportation\n\u0007baluchitherium\nzthztl20s20s\u0006#wizintrinsic\nj\n s20sssss>..20s s  s#loot\nhatny  n 10s  n  W\u000f\u001bqsm.  n  20s  n    n20s   n sm.  n  nsm.  n sm.   n \u001618\n\u0016?\n>E\u0017wand of digging\nzuh\u0017wand of digging\nzv>\u0017wand of digging\nzwj\u0017wand of digging\nzx>\u0017scroll of earth\nry u\u0017scroll of earth\nrz kklyluk h kkukhhllyylnyhhnuuyulkuhkjl10shhykullbjluy\u0017wand of digging\nzAulhlli\u001b\u0017locked large box\n\u0017cursed bag of holding\n\u0017potion of enlightenment\naB\u0017long sword\nwEdB  #force\ns20ssalk\u0017credit card\ndC aF.s..#loot\n#tip\n \u001balni\u001byl\u0017wand of nothing\nEG  :  \u0017wand of create monster\nEH jackal\n :  n\u0017wand of speed monster\nEI  :  y\u0017magic marker\nEJ:  h\u0017wand of locking\nEK  :  E-\u0007soldier ant\nsssss\u0006#levelchange\n8\n    \u001615\nda #sit\n10sss\u0016?\n>J     worthless piece of red glass\nqD \u001bW\u001b;<.;_.20s     s\u0016?\n\u001b\u001630\nZs#turn\n\u0006.s    i\u001b#levelchange\n12\n    \u0017leather armor\nWN        y"
+ },
+ "segments": [
+  {
+   "seed": 51650001,
+   "datetime": "20040303132636",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqm \u001b;_d, Fj_,\u0004h_oooo.   n_, _ooo.   nFb _.Fj,p_ooooooo.  n Fb_. Fl_ooo,_,,dh_{._,m,qg10s#untrap\nb#twoweapon\n\u00165\n\u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo<._d.Fh _,   Fh \u0004h __. Fh _. Fh  #chat\nh #pray\ny y     db _{.     Fh  _,   n  Fh  qg #dip\nd_oo, Fl _, Fl,a\n #chat\nl #offer\n#twoweapon\n#sit\n   n  \u00169\n\u0017blessed the Book of the Dead\n\u0007lich\nwayFhFh Fh #invoke\nq\u0017cursed worthless piece of red glass\n\u0007gas spore\ntnl\u0017wand of teleportation\n\u0007baluchitherium\nzthztl20s20s\u0006#wizintrinsic\nj\n s20sssss>..20s s  s#loot\nhatny  n 10s  n  W\u000f\u001bqsm.  n  20s  n    n20s   n sm.  n  nsm.  n sm.   n \u001618\n\u0016?\n>E\u0017wand of digging\nzuh\u0017wand of digging\nzv>\u0017wand of digging\nzwj\u0017wand of digging\nzx>\u0017scroll of earth\nry u\u0017scroll of earth\nrz kklyluk h kkukhhllyylnyhhnuuyulkuhkjl10shhykullbjluy\u0017wand of digging\nzAulhlli\u001b\u0017locked large box\n\u0017cursed bag of holding\n\u0017potion of enlightenment\naB\u0017long sword\nwEdB  #force\ns20ssalk\u0017credit card\ndC aF.s..#loot\n#tip\n \u001balni\u001byl\u0017wand of nothing\nEG  :  \u0017wand of create monster\nEH jackal\n :  n\u0017wand of speed monster\nEI  :  y\u0017magic marker\nEJ:  h\u0017wand of locking\nEK  :  E-\u0007soldier ant\nsssss\u0006#levelchange\n8\n    \u001615\nda #sit\n10sss\u0016?\n>J     worthless piece of red glass\nqD \u001bW\u001b;<.;_.20s     s\u0016?\n\u001b\u001630\nZs#turn\n\u0006.s    i\u001b#levelchange\n12\n    \u0017leather armor\nWN        y"
+  }
+ ]
+}

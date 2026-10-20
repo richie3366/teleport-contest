@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed Mjollnir\n wi \u0016?\nc\u0014 \u001bm. s20ssn\u001624\n\u0017orcish bow\nwj\u001720 orcish arrows\nQk\u0007lichen\nlfjfjfj20s20s \u0007lichen\nhfufu\u0017potion of enlightenment\ntby\u0017spetum\nwm\u0007giant rat\nlamyjl,sm.20s\u001623\n\u0006_<._,\u0016?\n>Illh:\u0016?\n>>O       huge chunk of meat\n \u0006_>.\u0016?\na    ny         l  u       n:sm. .n.\u00168\nl   kb          n      h           k:sm.     n \u00165\n\u001614\n\u0014>.     \u0016?\na\u001710 daggers\nQp\u0007kobold\njkfl              n  fl         n         n fb           n fl     \u001b    n                   n \u0017potion of invisibility\ntil\u00072 owlbear\nyb        n                 fh   n        n        fl   n       n fb      n         yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51650080,
+   "datetime": "20251114171247",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed Mjollnir\n wi \u0016?\nc\u0014 \u001bm. s20ssn\u001624\n\u0017orcish bow\nwj\u001720 orcish arrows\nQk\u0007lichen\nlfjfjfj20s20s \u0007lichen\nhfufu\u0017potion of enlightenment\ntby\u0017spetum\nwm\u0007giant rat\nlamyjl,sm.20s\u001623\n\u0006_<._,\u0016?\n>Illh:\u0016?\n>>O       huge chunk of meat\n \u0006_>.\u0016?\na    ny         l  u       n:sm. .n.\u00168\nl   kb          n      h           k:sm.     n \u00165\n\u001614\n\u0014>.     \u0016?\na\u001710 daggers\nQp\u0007kobold\njkfl              n  fl         n         n fb           n fl     \u001b    n                   n \u0017potion of invisibility\ntil\u00072 owlbear\nyb        n                 fh   n        n        fl   n       n fb      n         yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

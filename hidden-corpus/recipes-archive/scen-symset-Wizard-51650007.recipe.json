@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "O>>l\u001b\n\u0006_ \u001bm,>FlFl_>.Fj_,> FnFnFn\u0006_>.Fb_.Fu>FuFb_>.Fb_,Fb>FyFh_>,Fy_,Fb>FhFhFhFhFk\u0006_>.Fh_.Fy>FhFk_>.Fk_,Fb>FkFu_>.Fh_.Fu>FyFhFyFbFu\u0006_>.Fu_,Fk>FyFy_>.Fu_.Fu>FyFk_>.Fh_,Fk>FkFhFhFyFy\u0006_>>.Fk_.Fy>FkFu_>>,Fy_.Fy>FyFy_>>.Fu_.Fu>FuFyFbFkFb\u0006_>,Fb_,Fy>FbFk_>.Fh_,Fu>FhFu_>,Fy_,Fb>FuFhFbFhFu\u0006_>>,Fb_.Fk>FkFy_>>.Fy_,Fy>FkFu_>>.Fb_.Fk>FyFhFhFkFy#chat\nyu\u00163\nO>>>>j\u001b\n#levelchange\n20\n                   ujj\u0017unaligned altar\ndm\u0017dwarf corpse\n #offer\no   k\u0017moat\n#dip\njy     :y\u0017sink\nqy\u0017ring of polymorph\ndp  \u001b:#untrap\nl#sit\n #w"
+ },
+ "segments": [
+  {
+   "seed": 51650007,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nMSGTYPE=hide \"You see\"\nMENUCOLOR=\"uncursed\"=brown\nBIND=v:inventory\n",
+   "moves": "O>>l\u001b\n\u0006_ \u001bm,>FlFl_>.Fj_,> FnFnFn\u0006_>.Fb_.Fu>FuFb_>.Fb_,Fb>FyFh_>,Fy_,Fb>FhFhFhFhFk\u0006_>.Fh_.Fy>FhFk_>.Fk_,Fb>FkFu_>.Fh_.Fu>FyFhFyFbFu\u0006_>.Fu_,Fk>FyFy_>.Fu_.Fu>FyFk_>.Fh_,Fk>FkFhFhFyFy\u0006_>>.Fk_.Fy>FkFu_>>,Fy_.Fy>FyFy_>>.Fu_.Fu>FuFyFbFkFb\u0006_>,Fb_,Fy>FbFk_>.Fh_,Fu>FhFu_>,Fy_,Fb>FuFhFbFhFu\u0006_>>,Fb_.Fk>FkFy_>>.Fy_,Fy>FkFu_>>.Fb_.Fk>FyFhFhFkFy#chat\nyu\u00163\nO>>>>j\u001b\n#levelchange\n20\n                   ujj\u0017unaligned altar\ndm\u0017dwarf corpse\n #offer\no   k\u0017moat\n#dip\njy     :y\u0017sink\nqy\u0017ring of polymorph\ndp  \u001b:#untrap\nl#sit\n #w"
+  }
+ ]
+}

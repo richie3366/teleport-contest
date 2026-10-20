@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 cloak of magic resistance\nWi\u0016?\n>z  _ \u001b,>\u0006_mm.Fy_.<.Fu  Fu Fu  Fu  Fk  Fy    \u00163\n\u0006_mm.    Fy   _.Fk     Fk Fu    \u0016?\n>>\u001b\u0016?\n>y  #chat\nl\u0016?\n>z\u00164\n\u0016?\n>z\u0006hb k   nyybu  h\u00165\n\u0016?\n>z\u0006_mmmm,Fn  Fl  Fl  Fl    \u00166\n\u0016?\n>z\u0006_>,    Fj    _.  Fn \u00162\n\u0016?\n>z\u0006#chat\nj;n.\u00163\n\u0016?\n>z\u0006_<.   Fl  _.m.    Fj  \u00164\n\u0016?\n>z\u0006#chat\nn;j.\u00165\n\u0016?\n>z\u0006#chat\nn;j,\u00166\n\u0016?\n>z\u0006_mmmmm. Fj   _. Fn  Fn  Fn   n Fj Fj Fb _>.Fh  _.   \u001bFb     >\u0016?\n>z\u0006_m,   Fb   _,FyFb    Fh      \u00163\n\u0016?\n>z\u0006l  n    k kl  l  \u0016?\n>>\u001b\u0016?\n>y#chat\nb\u0016?\n>z_>,Fb _.Fy  >\u0016?\n>z\u0006lk  k  \u00165\n\u0016?\n>z\u0006nnb  l bl\u00166\n\u0016?\n>z\u0006_mmmmm,   Fk    _.   Fk  Fy    n   Fy    Fy Fu    Fy     \u00162\n\u0016?\n>z\u0006#chat\nl;k:  \u00163\n\u0016?\n>z\u0006#chat\ny;y:  \u0016?\n>>\u001b\u0016?\n>y#chat\nl\u0016?\n>z\u00164\n\u0016?\n>z\u0006_mm.   Fl    _.Fl    Fy    Fy      Fy   FkFu    n   \u00165\n\u0016?\n>z\u0006_m,   Fu    _,Fy Fy     Fl    Fk     \u00166\n\u0016?\n>z\u0006_mmm.        n Fl      _.Fk    Fu  Fy     Fl      Fl    \u00162\n\u0016?"
+ },
+ "segments": [
+  {
+   "seed": 51660015,
+   "datetime": "20061103121317",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 cloak of magic resistance\nWi\u0016?\n>z  _ \u001b,>\u0006_mm.Fy_.<.Fu  Fu Fu  Fu  Fk  Fy    \u00163\n\u0006_mm.    Fy   _.Fk     Fk Fu    \u0016?\n>>\u001b\u0016?\n>y  #chat\nl\u0016?\n>z\u00164\n\u0016?\n>z\u0006hb k   nyybu  h\u00165\n\u0016?\n>z\u0006_mmmm,Fn  Fl  Fl  Fl    \u00166\n\u0016?\n>z\u0006_>,    Fj    _.  Fn \u00162\n\u0016?\n>z\u0006#chat\nj;n.\u00163\n\u0016?\n>z\u0006_<.   Fl  _.m.    Fj  \u00164\n\u0016?\n>z\u0006#chat\nn;j.\u00165\n\u0016?\n>z\u0006#chat\nn;j,\u00166\n\u0016?\n>z\u0006_mmmmm. Fj   _. Fn  Fn  Fn   n Fj Fj Fb _>.Fh  _.   \u001bFb     >\u0016?\n>z\u0006_m,   Fb   _,FyFb    Fh      \u00163\n\u0016?\n>z\u0006l  n    k kl  l  \u0016?\n>>\u001b\u0016?\n>y#chat\nb\u0016?\n>z_>,Fb _.Fy  >\u0016?\n>z\u0006lk  k  \u00165\n\u0016?\n>z\u0006nnb  l bl\u00166\n\u0016?\n>z\u0006_mmmmm,   Fk    _.   Fk  Fy    n   Fy    Fy Fu    Fy     \u00162\n\u0016?\n>z\u0006#chat\nl;k:  \u00163\n\u0016?\n>z\u0006#chat\ny;y:  \u0016?\n>>\u001b\u0016?\n>y#chat\nl\u0016?\n>z\u00164\n\u0016?\n>z\u0006_mm.   Fl    _.Fl    Fy    Fy      Fy   FkFu    n   \u00165\n\u0016?\n>z\u0006_m,   Fu    _,Fy Fy     Fl    Fk     \u00166\n\u0016?\n>z\u0006_mmm.        n Fl      _.Fk    Fu  Fy     Fl      Fl    \u00162\n\u0016?"
+  }
+ ]
+}

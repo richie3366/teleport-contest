@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWj\u0017blessed amulet of reflection\nPk\u0016?\n>z  \u00162\n\u0006,\u00163\n  \u0006ulhll \u00164\n\u0006,\u00165\n  \u0006_ \u001b,s. .s  .    \u00166\n\u0006_mmm.  Fk  _,Fj  Fn   n  Fn         Fk    n      Fh       n   Fn            n                Fn       n       \u00164\n\u00162\n\u0006_<, Fb   _,   n  Fh  \u00163\n  \u0006_mmm.           Fb   _.Fl    n   Fl    Fl     Fl   Fn    n  \u00169\n \u00164\n\u0006_m,  Fh   _.Fh   Fj   Fh   n   Fj    Fh   \u00165\n \u0006,\u00166\n\u0006,_>,>\u0006n        n  b      h  j   h n  l  n    \u00162\n\u00163\n  \u0006jk j \u00164\n\u0006_<,Fl  _.;>.Fl   n  \u0016?\n>>\u001b\u0016?\n>y  #chat\nn \u0016?\n>z_>,>\u0016?\n>z\u0006hl j  \u00166\n\u0016?\n>z\u0006_>.Fn_, Fn\u0016?\n>>\u001b\u0016?\n>y#chat\nn \u0016?\n>z_>,  Fn _. Fn   n >\u0016?\n>z\u0006_mm. Fl  _.<.Fl Fl Fl Fl\u00163\n\u0016?\n>z\u0006,_>.Fj _,<.Fj>\u0016?\n>z\u0006#chat\nj ;j:  _>. Fb_,Fb >\u0016?\n>z\u0006_mmmmm. Fb_.Fl Fl Fl Fl   n Fl  \u0016?\n>>\u001b\u0016?\n>y#chat\nl\u0016?\n>z\u00166\n\u0016?\n>z\u0006_>,Fn _.Fj_>.Fj_.Fb >\u0016?\n>z\u0006_m.Fb_."
+ },
+ "segments": [
+  {
+   "seed": 51660006,
+   "datetime": "20090430040327",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWj\u0017blessed amulet of reflection\nPk\u0016?\n>z  \u00162\n\u0006,\u00163\n  \u0006ulhll \u00164\n\u0006,\u00165\n  \u0006_ \u001b,s. .s  .    \u00166\n\u0006_mmm.  Fk  _,Fj  Fn   n  Fn         Fk    n      Fh       n   Fn            n                Fn       n       \u00164\n\u00162\n\u0006_<, Fb   _,   n  Fh  \u00163\n  \u0006_mmm.           Fb   _.Fl    n   Fl    Fl     Fl   Fn    n  \u00169\n \u00164\n\u0006_m,  Fh   _.Fh   Fj   Fh   n   Fj    Fh   \u00165\n \u0006,\u00166\n\u0006,_>,>\u0006n        n  b      h  j   h n  l  n    \u00162\n\u00163\n  \u0006jk j \u00164\n\u0006_<,Fl  _.;>.Fl   n  \u0016?\n>>\u001b\u0016?\n>y  #chat\nn \u0016?\n>z_>,>\u0016?\n>z\u0006hl j  \u00166\n\u0016?\n>z\u0006_>.Fn_, Fn\u0016?\n>>\u001b\u0016?\n>y#chat\nn \u0016?\n>z_>,  Fn _. Fn   n >\u0016?\n>z\u0006_mm. Fl  _.<.Fl Fl Fl Fl\u00163\n\u0016?\n>z\u0006,_>.Fj _,<.Fj>\u0016?\n>z\u0006#chat\nj ;j:  _>. Fb_,Fb >\u0016?\n>z\u0006_mmmmm. Fb_.Fl Fl Fl Fl   n Fl  \u0016?\n>>\u001b\u0016?\n>y#chat\nl\u0016?\n>z\u00166\n\u0016?\n>z\u0006_>,Fn _.Fj_>.Fj_.Fb >\u0016?\n>z\u0006_m.Fb_."
+  }
+ ]
+}

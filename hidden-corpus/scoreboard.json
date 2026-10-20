@@ -1,11 +1,11 @@
 {
- "commit": "36460d399",
- "at": "2026-10-20T20:41:22.536Z",
+ "commit": "8f2d00eae",
+ "at": "2026-10-20T21:09:40.140Z",
  "full": false,
  "fullCommit": "878852b8f",
  "fullAt": "2026-10-20T19:41:16.786Z",
- "entries": 719,
- "reserve": 28,
+ "entries": 725,
+ "reserve": 29,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -2116,6 +2116,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-hallu-Valkyrie-51650028": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 30961,
+   "rngT": 30961,
+   "scrM": 1157,
+   "scrT": 1159,
+   "kind": "screen",
+   "step": 666,
+   "steps": 1159,
+   "owner": "findit",
+   "loc": "detect.c:1825",
+   "jsOwner": null,
+   "cTopline": "The door is consumed in flames! The blast reveals a secret door.--More--",
+   "jsTopline": "The door is consumed in flames! Your blast reveals a secret door.--More--",
+   "error": null
+  },
   "scen-hallu-Wizard-51450068": {
    "src": "corpus",
    "passed": true,
@@ -3898,6 +3915,40 @@
    "loc": null,
    "jsOwner": null,
    "cTopline": "",
+   "jsTopline": "",
+   "error": null
+  },
+  "scen-questwalk-Barbarian-51660025": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 18934,
+   "rngT": 31429,
+   "scrM": 354,
+   "scrT": 614,
+   "kind": "rng",
+   "step": 230,
+   "steps": 614,
+   "owner": "peace_minded",
+   "loc": "makemon.c:2306",
+   "jsOwner": "peace_minded(makemon.js:2252)",
+   "cTopline": "You hear someone reading a scroll of create monster.",
+   "jsTopline": "You hear someone reading a scroll of create monster.",
+   "error": null
+  },
+  "scen-questwalk-Monk-51660016": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 3797,
+   "rngT": 20580,
+   "scrM": 111,
+   "scrT": 556,
+   "kind": "rng",
+   "step": 97,
+   "steps": 556,
+   "owner": "obj_resists",
+   "loc": "zap.c:1469",
+   "jsOwner": "distfleeck(monmove.js:1180)",
+   "cTopline": "You hear a crunching sound.",
    "jsTopline": "",
    "error": null
   },
@@ -6910,6 +6961,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-sweep-Rogue-51650031": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 42770,
+   "rngT": 49785,
+   "scrM": 621,
+   "scrT": 839,
+   "kind": "rng",
+   "step": 616,
+   "steps": 839,
+   "owner": "distfleeck",
+   "loc": "monmove.c:549",
+   "jsOwner": "m_move(monmove.js:2383)",
+   "cTopline": "It bites!",
+   "jsTopline": "It bites!",
+   "error": null
+  },
   "scen-sweep-Rogue-578101": {
    "src": "corpus",
    "passed": true,
@@ -7367,6 +7435,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-sweep-Tourist-51650001": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 37949,
+   "rngT": 37949,
+   "scrM": 1330,
+   "scrT": 1331,
+   "kind": "screen",
+   "step": 609,
+   "steps": 1331,
+   "owner": "trapeffect_sqky_board",
+   "loc": "trap.c:1455",
+   "jsOwner": null,
+   "cTopline": "The gnome stops momentarily and appears to cringe.--More--",
+   "jsTopline": "A board beneath the gnome squeaks a B flat loudly.--More--",
    "error": null
   },
   "scen-sweep-Tourist-582711": {
@@ -11911,6 +11996,24 @@
    "error": null,
    "tier": "reserve"
   },
+  "scen-symset-Ranger-51650047": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 60605,
+   "rngT": 60605,
+   "scrM": 820,
+   "scrT": 825,
+   "kind": "screen",
+   "step": 0,
+   "steps": 825,
+   "owner": "env:config-path",
+   "loc": "cfgfiles.c:0",
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
+   "error": null,
+   "tier": "reserve"
+  },
   "scen-symset-Rogue-50059025": {
    "src": "corpus",
    "passed": false,
@@ -12259,5 +12362,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-20T21:09:40.284Z"
 }

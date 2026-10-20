@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\ny_mmmmm,Fh_. Fu #chat\nu_mm.Fk  n_.Fl#chat\ny;y;#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm,Fy_.Fh #chat\ny_mm.Fy _,Fk#chat\nk_mmmm. Fl     n _,    n Fl   n  #chat\ny;<.\u0017blessed +3 speed boots\nWk    \u0017blessed +3 silver dragon scale mail\nWl       \u0017wand of lightning\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm. Fh_.Fb   FbFb   FhFb   zmb  ,   \u0016?\n>>\u001b\u0016?\n>y_mmm.Fb   _,#chat\nj\u0016?\n>A\u0006_mm,  Fj _.Fh     Fy Fj    Fj Fj  FyFy  zmy  ,  \u0016?\n>z\u0006_mmmmm.  Fn    _.Fy      Fy   FyFj  n    Fj    zmy     ,   #chat\nn\u0016?\n>A\u0006_mmmmm.   Fn_,  Fh  Fn   FhFn   Fh  Fn   Fj Fn        ,#chat\nj     n  \u0016?\n>>\u001b\u0016?\n>y_m.   Fn   _,#chat\nj      ;j,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.     Fj    _.Fh Fn    Fh Fh   Fn    Fj  n ,#chat\ny\u0016?\n>A\u0006_mmmm,     Fy    _,FhFy     Fl      Fh     ,\u0016?\n>z\u0006_mmmm.   Fj _.Fj        n   Fh     Fy Fh    Fj ,\u0016?\n>>\u001b\u0016?\n>y_mmmm.     Fj   n   \u001b  _.#chat\nn       \u001612\n\u0016?\n>A\u0006_mmmmmmm.       n  Fn    _.Fl  Fh     Fj   Fn     n    zmu     ,\u001611\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fh       n   _.Fh    Fj  Fh     n  Fy    Fy zmj       n  ,\u00168\n\u0016?\n>A\u0006_mmmmmm,Fl   n Fl FjFy   yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 51650076,
+   "datetime": "20241222200919",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\ny_mmmmm,Fh_. Fu #chat\nu_mm.Fk  n_.Fl#chat\ny;y;#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm,Fy_.Fh #chat\ny_mm.Fy _,Fk#chat\nk_mmmm. Fl     n _,    n Fl   n  #chat\ny;<.\u0017blessed +3 speed boots\nWk    \u0017blessed +3 silver dragon scale mail\nWl       \u0017wand of lightning\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm. Fh_.Fb   FbFb   FhFb   zmb  ,   \u0016?\n>>\u001b\u0016?\n>y_mmm.Fb   _,#chat\nj\u0016?\n>A\u0006_mm,  Fj _.Fh     Fy Fj    Fj Fj  FyFy  zmy  ,  \u0016?\n>z\u0006_mmmmm.  Fn    _.Fy      Fy   FyFj  n    Fj    zmy     ,   #chat\nn\u0016?\n>A\u0006_mmmmm.   Fn_,  Fh  Fn   FhFn   Fh  Fn   Fj Fn        ,#chat\nj     n  \u0016?\n>>\u001b\u0016?\n>y_m.   Fn   _,#chat\nj      ;j,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.     Fj    _.Fh Fn    Fh Fh   Fn    Fj  n ,#chat\ny\u0016?\n>A\u0006_mmmm,     Fy    _,FhFy     Fl      Fh     ,\u0016?\n>z\u0006_mmmm.   Fj _.Fj        n   Fh     Fy Fh    Fj ,\u0016?\n>>\u001b\u0016?\n>y_mmmm.     Fj   n   \u001b  _.#chat\nn       \u001612\n\u0016?\n>A\u0006_mmmmmmm.       n  Fn    _.Fl  Fh     Fj   Fn     n    zmu     ,\u001611\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fh       n   _.Fh    Fj  Fh     n  Fy    Fy zmj       n  ,\u00168\n\u0016?\n>A\u0006_mmmmmm,Fl   n Fl FjFy   yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

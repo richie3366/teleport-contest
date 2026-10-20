@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n         ybly\u0017tree\nl\u0004h\u0004hbl\u0017sink\nqyb\u0004u\u0004u\u0004u\u0004u#terrain\nb\n\u001b,f  #dip\nc,jny\u0017ice\nu uub:un\u0017fountain\nqy y#dip\nf #terrain\ne\n#turn\n #pray\ny y qSy\u001b yy<10ss10s#pray\ny y  #loot\nj#enhance\nyf\nm\n\u001b#chat\nj#offer\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 51651020,
+   "datetime": "20051119193152",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n         ybly\u0017tree\nl\u0004h\u0004hbl\u0017sink\nqyb\u0004u\u0004u\u0004u\u0004u#terrain\nb\n\u001b,f  #dip\nc,jny\u0017ice\nu uub:un\u0017fountain\nqy y#dip\nf #terrain\ne\n#turn\n #pray\ny y qSy\u001b"
+  },
+  {
+   "seed": 52151020,
+   "datetime": "20030806000713",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " yy<10ss10s#pray\ny y  #loot\nj#enhance\nyf\nm\n\u001b#chat\nj#offer\n"
+  }
+ ]
+}

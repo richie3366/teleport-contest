@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nWn\u0017blessed ring of free action\nPol\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>z  \u00162\n\u0006_ \u001b>.Fh Fh Fh Fh \u0016?\n>>\u001b\u0016?\n>y  #chat\nl \u0016?\n>z_>,>\u0016?\n>z\u0006#chat\nl ;l.\u00164\n\u0016?\n>z\u0006j   l u b     \u001b  j  j l u \u00165\n\u0016?\n>z\u0006j j  u  \u00166\n\u0016?\n>z\u0006,    \u00162\n\u0016?\n>z\u0006_m.  Fh         n_.Fb     Fy      Fb     _>.     Fb  n     _.     Fh     >\u0016?\n>z\u0006_mmm,   n      Fh      _.Fy        n  Fy    Fu       \u00161\n_>.      Fy   n       _.      Fb         >\u0016?\n>z\u0006,_>.       n   Fj      _.       Fb   n         >\u0016?\n>z\u0006_mm.        Fu     n       _.Fk       Fu         Fj   n             \u00167\n\u00166\n\u0016?\n>z\u0006_mm,       Fj         _.Fy   n         Fy         n  Fb          \u00162\n\u00162\n\u0016?\n>z\u0006j       k         n    j      l         y        y        n  j         \u001612\n\u00163\n\u0016?\n>z\u0006,        \u00164\n\u0016?\n>z\u0006_>.    F"
+ },
+ "segments": [
+  {
+   "seed": 51660021,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=fruit:lychee\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nWn\u0017blessed ring of free action\nPol\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>z  \u00162\n\u0006_ \u001b>.Fh Fh Fh Fh \u0016?\n>>\u001b\u0016?\n>y  #chat\nl \u0016?\n>z_>,>\u0016?\n>z\u0006#chat\nl ;l.\u00164\n\u0016?\n>z\u0006j   l u b     \u001b  j  j l u \u00165\n\u0016?\n>z\u0006j j  u  \u00166\n\u0016?\n>z\u0006,    \u00162\n\u0016?\n>z\u0006_m.  Fh         n_.Fb     Fy      Fb     _>.     Fb  n     _.     Fh     >\u0016?\n>z\u0006_mmm,   n      Fh      _.Fy        n  Fy    Fu       \u00161\n_>.      Fy   n       _.      Fb         >\u0016?\n>z\u0006,_>.       n   Fj      _.       Fb   n         >\u0016?\n>z\u0006_mm.        Fu     n       _.Fk       Fu         Fj   n             \u00167\n\u00166\n\u0016?\n>z\u0006_mm,       Fj         _.Fy   n         Fy         n  Fb          \u00162\n\u00162\n\u0016?\n>z\u0006j       k         n    j      l         y        y        n  j         \u001612\n\u00163\n\u0016?\n>z\u0006,        \u00164\n\u0016?\n>z\u0006_>.    F"
+  }
+ ]
+}

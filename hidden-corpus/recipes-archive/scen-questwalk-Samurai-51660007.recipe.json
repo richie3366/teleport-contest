@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed ring of free action\nPfl\u0017blessed amulet of reflection\nPg\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>z  _ \u001bm.>\u0006,\u00163\n\u0006_mmm. Fk_.  Fh  FlFl  Fl    n \u00164\n\u0006#chat\nl;m,\u0016?\n>>\u001b\u0016?\n>y  #chat\nk\u0016?\n>z\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_m.s20s \u001b20ss20s\u00162\n\u0016?\n>z\u0006_m.Fh_.      \u001b Fk  Fh   FkFk     Fh\u00163\n\u0016?\n>z\u0006l ny jk        n\u00164\n\u0016?\n>z\u0006_<.   Fh   _.@.Fk    \u00165\n\u0016?\n>z\u0006_<.\u00166\n\u0016?\n>z\u0006nu j  _>._.  >\u0016?\n>z\u0006_mm.   n  Fb _.   FbFh   FbFh    Fh    Fh   n   Fh \u00169\n\u00163\n\u0016?\n>z\u0006_mm,Fk _.   FhFk  Fh  n   Fh  Fh Fk \u00164\n\u0016?\n>z\u0006bnknk  n b\u00165\n\u0016?\n>z\u0006ybyj\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z"
+ },
+ "segments": [
+  {
+   "seed": 51660007,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n14\n            \u0017blessed ring of free action\nPfl\u0017blessed amulet of reflection\nPg\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>z  _ \u001bm.>\u0006,\u00163\n\u0006_mmm. Fk_.  Fh  FlFl  Fl    n \u00164\n\u0006#chat\nl;m,\u0016?\n>>\u001b\u0016?\n>y  #chat\nk\u0016?\n>z\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_m.s20s \u001b20ss20s\u00162\n\u0016?\n>z\u0006_m.Fh_.      \u001b Fk  Fh   FkFk     Fh\u00163\n\u0016?\n>z\u0006l ny jk        n\u00164\n\u0016?\n>z\u0006_<.   Fh   _.@.Fk    \u00165\n\u0016?\n>z\u0006_<.\u00166\n\u0016?\n>z\u0006nu j  _>._.  >\u0016?\n>z\u0006_mm.   n  Fb _.   FbFh   FbFh    Fh    Fh   n   Fh \u00169\n\u00163\n\u0016?\n>z\u0006_mm,Fk _.   FhFk  Fh  n   Fh  Fh Fk \u00164\n\u0016?\n>z\u0006bnknk  n b\u00165\n\u0016?\n>z\u0006ybyj\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z"
+  }
+ ]
+}

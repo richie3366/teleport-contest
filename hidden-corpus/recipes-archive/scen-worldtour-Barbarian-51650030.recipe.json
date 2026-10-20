@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u00163\njnkjj:\u0016?\nm \u0017blessed spellbook of turn undead\nre  sm.\u0017blessed spellbook of slow monster\nrf .m.  +Z\u0007giant rat\nZFn  \u0007hill orc\nZZ\u0016?\np\u0004bsss\u001642\n\u0014 \u001b,\u001642\n\u0014:20s20s\u00163\njuulkl:\u001616\n\u0006_<.Fn _.m. Fl\u0016?\n>J     crystal ball\nub      j     nl       l        n     :\u00169\n\u001611\n__.<20s      \u00165\nb            n y   yj        j   n         n  u   n :\u00161\n\u0016?\nak       y  n          b            n :\u001611\n\u00165\nb   \u001b    k      n              b       j  n    b  y    y    :\u001610\n\u0016?\n\u001bb        n           k         n  \u001612\n\u0016?\nd_{.>\u0016?\n\u001byj   n    \u0016?\na__.>.m.                \u0016?\ndu    n        j    n   n    \u0017throne\n#sit\n#sit\n#sit\nh y     n  \u0017altar\nde    \u0017lichen corpse\n#offer\nn           yy\u001by  nnn  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 51650030,
+   "datetime": "20090217180227",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u00163\njnkjj:\u0016?\nm \u0017blessed spellbook of turn undead\nre  sm.\u0017blessed spellbook of slow monster\nrf .m.  +Z\u0007giant rat\nZFn  \u0007hill orc\nZZ\u0016?\np\u0004bsss\u001642\n\u0014 \u001b,\u001642\n\u0014:20s20s\u00163\njuulkl:\u001616\n\u0006_<.Fn _.m. Fl\u0016?\n>J     crystal ball\nub      j     nl       l        n     :\u00169\n\u001611\n__.<20s      \u00165\nb            n y   yj        j   n         n  u   n :\u00161\n\u0016?\nak       y  n          b            n :\u001611\n\u00165\nb   \u001b    k      n              b       j  n    b  y    y    :\u001610\n\u0016?\n\u001bb        n           k         n  \u001612\n\u0016?\nd_{.>\u0016?\n\u001byj   n    \u0016?\na__.>.m.                \u0016?\ndu    n        j    n   n    \u0017throne\n#sit\n#sit\n#sit\nh y     n  \u0017altar\nde    \u0017lichen corpse\n#offer\nn           yy\u001by  nnn  \u0017"
+  }
+ ]
+}

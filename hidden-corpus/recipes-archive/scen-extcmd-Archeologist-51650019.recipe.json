@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of reflection\nPi\u0017blessed +3 speed boots\nWj\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n20\n                   \u0007gnome lord\nFl FbFb_ \u001b,ql\u0007hobbit\n#overview\n\u001b#conduct\n #annotate\nblessed\n\u0018\u001b#dip\nm#offer\n#pray\ny y   #chat\nb#wizintrinsic\na\n FbFbFb\u0016?\nn \u0006#vanquished\n #genocided\ngelatinous cube\n#annotate\nFido\ni\u001b#name\nd\n#adjust\na\u001b#chat\nh#turn\n#wizidentify\n\u001bukh#force\n\u0016?\n>>L     huge chunk of meat\n \u0006#chronicle\n  #terrain\n\u001b#annotate\nblessed\n\u000f\u001b#twoweapon\n#invoke\nn#sit\n    #pray\ny y                        #jump\n#wizintrinsic\naf\n Fj   n   Fj    #name\n\u001b__.#chat\nb          #version\n  #history\n                  \u0018\u001b#wipe\n #loo"
+ },
+ "segments": [
+  {
+   "seed": 51650019,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of reflection\nPi\u0017blessed +3 speed boots\nWj\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n20\n                   \u0007gnome lord\nFl FbFb_ \u001b,ql\u0007hobbit\n#overview\n\u001b#conduct\n #annotate\nblessed\n\u0018\u001b#dip\nm#offer\n#pray\ny y   #chat\nb#wizintrinsic\na\n FbFbFb\u0016?\nn \u0006#vanquished\n #genocided\ngelatinous cube\n#annotate\nFido\ni\u001b#name\nd\n#adjust\na\u001b#chat\nh#turn\n#wizidentify\n\u001bukh#force\n\u0016?\n>>L     huge chunk of meat\n \u0006#chronicle\n  #terrain\n\u001b#annotate\nblessed\n\u000f\u001b#twoweapon\n#invoke\nn#sit\n    #pray\ny y                        #jump\n#wizintrinsic\naf\n Fj   n   Fj    #name\n\u001b__.#chat\nb          #version\n  #history\n                  \u0018\u001b#wipe\n #loo"
+  }
+ ]
+}
