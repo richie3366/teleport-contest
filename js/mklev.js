@@ -6708,7 +6708,7 @@ function load_bar_strt() {
  * solidfill + cloud replace_terrain + tower clear + leader invent.
  * Map cells + stairs + doors carry the game SpLev_Map marks
  * (C :6292/:4189/:4661; D-3540).
- * Named omissions: spo_end_moninvent m_dowear; count_level_features /
+ * Named omissions: count_level_features /
  * level_finalize_topology / fill_special_room;
  * sp_lev.c lspo_reset_level / lspo_finalize_level still named
  * (cmd.c makemap_prepost post rndspot is D-1288).
@@ -6862,6 +6862,9 @@ function load_wiz_strt() {
                 obj_extract_self(otmp);
                 mpickobj(mtmp, otmp);
             }
+            // C: sp_lev.c spo_end_moninvent `:3032–3035` → m_dowear(TRUE) after
+            // Neferet custom invent (creation: sync-through, no messages/RNG).
+            m_dowear(mtmp, true);
         }
     }
 
@@ -8785,18 +8788,25 @@ async function load_kni_strt() {
         const mtmp = splev_create_monster('warhorse', 1);
         if (!mtmp) continue;
         splev_discard_default_minvent(mtmp);
-        if (!percent(50)) continue;
-        const pos = get_location_random();
-        const otmp = mksobj_at(SADDLE, pos.x, pos.y, true, true);
-        if (!otmp) continue;
-        otmp.oeroded = 0;
-        otmp.oeroded2 = 0;
-        otmp.oerodeproof = 0;
-        obj_extract_self(otmp);
-        if (otmp.otyp === SADDLE && can_saddle(mtmp))
-            put_saddle_on_mon(otmp, mtmp);
-        else
-            mpickobj(mtmp, otmp);
+        const otmp = percent(50)
+            ? (() => {
+                const pos = get_location_random();
+                return mksobj_at(SADDLE, pos.x, pos.y, true, true);
+            })()
+            : null;
+        if (otmp) {
+            otmp.oeroded = 0;
+            otmp.oeroded2 = 0;
+            otmp.oerodeproof = 0;
+            obj_extract_self(otmp);
+            if (otmp.otyp === SADDLE && can_saddle(mtmp))
+                put_saddle_on_mon(otmp, mtmp);
+            else
+                mpickobj(mtmp, otmp);
+        }
+        // C: sp_lev.c spo_end_moninvent `:3032–3035` → m_dowear(TRUE) after
+        // warhorse custom invent (creation: sync-through, no messages/RNG).
+        m_dowear(mtmp, true);
     }
 
     // des.levregion({ region={20,14,20,14}, type="branch" }) — store pre-flip
@@ -9155,7 +9165,7 @@ function load_kni_goal() {
  * Thieves). Solidfill + mazelevel/noteleport/hardfloor/nommap; 76×21 map;
  * shuffle four exits (stair vs mimics appear_as ter:staircase down);
  * floodfill streets; CUSTOM_INVENT; lua math.random wanderers.
- * Named omissions: humidity get_location; spo_end_moninvent m_dowear;
+ * Named omissions: humidity get_location;
  * ensure_way_out.
  */
 function load_rog_strt() {
@@ -9283,6 +9293,9 @@ function load_rog_strt() {
             quan: lua_random2(1, 4) + lua_random2(1, 4),
             buc: 'not-cursed',
         });
+        // C: sp_lev.c spo_end_moninvent `:3032–3035` → m_dowear(TRUE) after
+        // Master of Thieves custom invent (creation: sync-through, no messages/RNG).
+        if (mtmp) m_dowear(mtmp, true);
     }
     mksobj_at(CHEST, mx + 36, my + 11, true, true);
 
@@ -9730,6 +9743,9 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         };
         give({ id: BANDED_MAIL, spe: 5 });
         give({ id: LONG_SWORD, spe: 4 });
+        // C: sp_lev.c spo_end_moninvent `:3032–3035` → m_dowear(TRUE) after
+        // Norn custom invent (creation: sync-through, no messages/RNG).
+        if (mtmp) m_dowear(mtmp, true);
     }
     // des.object("chest", 36, 10)
     mksobj_at(CHEST, mx + 36, my + 10, true, true);
@@ -10197,6 +10213,9 @@ function load_sam_strt() {
         };
         give({ id: SPLINT_MAIL, spe: 5, eroded: -1, buc: 'not-cursed' });
         give({ id: KATANA, spe: 4, eroded: -1, buc: 'not-cursed' });
+        // C: sp_lev.c spo_end_moninvent `:3032–3035` → m_dowear(TRUE) after
+        // Lord Sato custom invent (creation: sync-through, no messages/RNG).
+        if (mtmp) m_dowear(mtmp, true);
     }
     // des.object("chest", 20, 04)
     mksobj_at(CHEST, mx + 20, my + 4, true, true);
@@ -10752,6 +10771,9 @@ PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
             mpickobj(mtmp, otmp);
         };
         give({ id: SILVER_DAGGER, spe: 5 });
+        // C: sp_lev.c spo_end_moninvent `:3032–3035` → m_dowear(TRUE) after
+        // Hippocrates custom invent (creation: sync-through, no messages/RNG).
+        if (mtmp) m_dowear(mtmp, true);
     }
     // des.object("chest", 37, 10)
     mksobj_at(CHEST, mx + 37, my + 10, true, true);
@@ -11280,6 +11302,9 @@ function load_tou_strt() {
         };
         give({ id: LOW_BOOTS, spe: 3 });
         give({ id: HAWAIIAN_SHIRT, spe: 3 });
+        // C: sp_lev.c spo_end_moninvent `:3032–3035` → m_dowear(TRUE) after
+        // Twoflower custom invent (creation: sync-through, no messages/RNG).
+        if (mtmp) m_dowear(mtmp, true);
     }
     // des.object("chest", 64, 03)
     mksobj_at(CHEST, mx + 64, my + 3, true, true);
@@ -11956,6 +11981,9 @@ async function load_ran_strt() {
         give({ id: 'leather armor', spe: 4 });
         give({ id: 'yumi', spe: 4 });
         give({ id: 'ya', spe: 4, quan: 50 });
+        // C: sp_lev.c spo_end_moninvent `:3032–3035` → m_dowear(TRUE) after
+        // Orion custom invent (creation: sync-through, no messages/RNG).
+        if (mtmp) m_dowear(mtmp, true);
     }
     // des.object("chest", 20, 10)
     mksobj_at(CHEST, mx + 20, my + 10, true, true);
@@ -12958,7 +12986,7 @@ async function load_mon_filb() {
  * whole-map non_diggable; 2 fixed pits + 4 random traps; 12 hostile
  * bugbears on siege duty.
  * Named omissions: humidity-aware get_location for water-likers;
- * ensure_way_out; spo_end_moninvent m_dowear.
+ * ensure_way_out.
  */
 function load_cav_strt() {
     const g = game;
@@ -13107,6 +13135,9 @@ function load_cav_strt() {
         };
         give({ id: 'leather armor', spe: 5 });
         give({ id: 'club', spe: 5 });
+        // C: sp_lev.c spo_end_moninvent `:3032–3035` → m_dowear(TRUE) after
+        // Shaman Karnov custom invent (creation: sync-through, no messages/RNG).
+        if (mtmp) m_dowear(mtmp, true);
     }
     // des.object("chest", 34,02)
     mksobj_at(CHEST, mx + 34, my + 2, true, true);
