@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4141 — cmd.c reset_commands binds the walk / run / rush keys from `Cmd.dirchars` (`:3433–3435`, `:3462–3467`), which is `sdir_swap_yz` («hzkulnjb») under the QWERTZ number_pad mode. So there 'z' walks northwest and 'y' is unbound: C answers 'y' with «Unknown command 'y'.» (`:3834`). JS's bind table already had 'y' unbound, but rhack's isMovementKey / isRunKey / rushDirFromCtrl hard-coded «hjklyubn», so JS walked northwest into a wall and printed nothing (1 options session → FULL PASS)
+
+- **Status:** shipped. From D-4140's **Next** list (near-pass scan).
+- **Symptom:** scen-options-Caveman-50162006 s129/169 (number_pad set to the swap-y/z mode through `O` at s95; `af` → «Are you really sure you want to break your wand of wishing? [yn] (n)», `n`, then `y`): C «Unknown command 'y'.» vs JS an empty topline (RNG matched; the walk was blocked). The board named update_rest_on_space. Temp `console.error` logs in rhack (removed) showed `Cmd.num_pad` false, `Cmd.dirchars` «hzkulnjb><», `cmdbind_get('y')` undefined and `cmdbind_get('z')` «movenorthwest», so JS's bindings matched C and only rhack's letter tests did not.
+- **C locus:** cmd.c reset_commands `:3343–3476`: swap_yz from `num_pad_mode & 1` with `!num_pad` `:3384`; ylist swap `:3389–3392`; `Cmd.dirchars = !num_pad ? (!swap_yz ? sdir : sdir_swap_yz) : …` `:3433–3435`; walk `bind_key_fn(dirchars[i], move_funcs[i][MV_WALK])` `:3463`, run highc `:3465–3466`, rush C() `:3467`. rhack's unbound-key arm `:3834`.
+- **JS was:** `isMovementKey` = `'hjklyubn'.includes(ch)` (!num_pad), `isRunKey` = `'HJKLYUBN'`, rushDirFromCtrl tested the letter through isMovementKey, and the walk/run arms used the letter itself as the DIR_DX key.
+- **Fix:** new `dirchar_sdir(ch)`: the key's index in `Cmd.dirchars` gives its sdir letter (move_funcs order; numpad_walk_dir under num_pad). isMovementKey, isRunKey (highc of a dirchar) and rushDirFromCtrl (C of a dirchar) use it, and the walk / run arms take their DIR_DX key from it.
+- **JS:** js/cmd.js (dirchar_sdir :3717; isMovementKey :3724; isRunKey :3732; rushDirFromCtrl :3740; rhack walk arm :5803, run arm :5862).
+- **Callers:** unchanged (all inside rhack).
+- **Verify:** verify update_rest_on_space: 1 PASS, 0 moved, 0 no-movement (scen-options-Caveman-50162006 169/169, RNG 3661/3661). `node scripts/verify.mjs --fn update_rest_on_space,rhack --full` → syntax · rule2 · hidden 1 PASS → PROGRESS · reach smoke 24/24 ×2 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep rhack` → 666 baseline-PASS re-run in 120.8s, 0 regressed → REACH-OK.
+- **Named omissions:** rhack_repeat_command / rhack_repeat_txt (the CQ_REPEAT record for `^A`) still map y/Y/z/Z by the default letters (`case 'y'` → move NW, `'z'` → zap, `'Z'` → cast), which is wrong under swap_yz; JS's reset_commands bind table has the right answer for them.
+- **Ledger:** rhack ported
+- **Next:** scen-options-Caveman-50151031 s40 status_hilite_menu_add (D-4140), scen-worldtour-Wizard-95207 probe_monster, and scen-sweep-Archeologist-50055049 «Die? [yn] (n)Contents of the chest:». Then the read.js Confusion/Hallucination mirrors (D-4136) and the objsym slot for the other object menus (D-4135).
+
 ## D-4140 — cmd.c handler_rebind_keys_add declares `char cmdstr[BUFSZ];` without initializing it (`:2356`), then builds the name with `Strcat(cmdstr, "nothing")` / `Strcat(cmdstr, ec->ef_txt)` (`:2363`, `:2379`). In the recorder build the stack bytes are never empty, so bind_key matches no extcmd and every recorded «nothing» / plain-command pick prints «Key binding failed?!». JS had «fixed» the wart into an assignment, so it bound the key and printed «Changed key '<enter>' from "rushsouth" to "adjust".» (5 options sessions: 4 → FULL PASS, 1 moved s16 → s40)
 
 - **Status:** shipped. From a fresh near-pass scan of the board (the cliffs block is still all parked tooling rows).
