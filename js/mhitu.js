@@ -1801,9 +1801,9 @@ async function gulpmu(mtmp, mattk) {
             tim_tmp = rnd((mtmp.m_lev | 0) + Math.trunc(10 / 2));
         }
         u.uswldtim = (tim_tmp < 2) ? 2 : tim_tmp;
-        // C: swallowed(1) — stomach map; Hallu burns what_mon per cell
-        // (C cls/bot inside swallowed; JS clears disp in swallowed(first))
-        swallowed(1);
+        // C: swallowed(1) — stomach map (cls + bot inside); Hallu burns
+        // what_mon per cell
+        await swallowed(1);
         if (!flaming(mtmp.data)) {
             /* C: snuff every lit invent item; nextobj pre-fetched (D-1242 shape) */
             const seen = new Set();

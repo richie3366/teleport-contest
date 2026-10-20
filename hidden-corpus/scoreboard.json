@@ -1,7 +1,7 @@
 {
- "commit": "3fcdc917f",
- "at": "2026-10-20T14:10:13.895Z",
- "full": true,
+ "commit": "6f94043d4",
+ "at": "2026-10-20T14:19:41.185Z",
+ "full": false,
  "fullCommit": "3fcdc917f",
  "fullAt": "2026-10-20T14:10:13.895Z",
  "entries": 751,
@@ -8527,19 +8527,19 @@
   },
   "scen-symset-Priest-51050015": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 19294,
    "rngT": 19294,
-   "scrM": 573,
+   "scrM": 646,
    "scrT": 646,
-   "kind": "screen",
-   "step": 506,
+   "kind": null,
+   "step": null,
    "steps": 646,
-   "owner": "gulpmu",
-   "loc": "mhitu.c:1450",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You are being squashed! You get released!--More--",
-   "jsTopline": "You are being squashed! You get released!--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-symset-Ranger-50359032": {
@@ -8663,19 +8663,19 @@
   },
   "scen-symset-Tourist-50255025": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 36521,
    "rngT": 36521,
-   "scrM": 787,
+   "scrM": 813,
    "scrT": 813,
-   "kind": "screen",
-   "step": 599,
+   "kind": null,
+   "step": null,
    "steps": 813,
-   "owner": "gulpmu",
-   "loc": "mhitu.c:1511",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You are freezing to death!",
-   "jsTopline": "You are freezing to death!",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-symset-Tourist-50255028": {
@@ -10973,6 +10973,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-worldtour-Valkyrie-49955041": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 49799,
+   "rngT": 49799,
+   "scrM": 1038,
+   "scrT": 1043,
+   "kind": "screen",
+   "step": 543,
+   "steps": 1043,
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
+   "jsOwner": null,
+   "cTopline": "Your ruby ring turns to dust and vanishes!--More--",
+   "jsTopline": "Your ruby ring turns to dust and vanishes!--More--",
+   "error": null
+  },
   "scen-worldtour-Valkyrie-50056020": {
    "src": "corpus",
    "passed": true,
@@ -12569,23 +12586,6 @@
    "error": null,
    "tier": "reserve"
   },
-  "scen-worldtour-Valkyrie-49955041": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 49799,
-   "rngT": 49799,
-   "scrM": 1038,
-   "scrT": 1043,
-   "kind": "screen",
-   "step": 543,
-   "steps": 1043,
-   "owner": "do_statusline2",
-   "loc": "botl.c:130",
-   "jsOwner": null,
-   "cTopline": "Your ruby ring turns to dust and vanishes!--More--",
-   "jsTopline": "Your ruby ring turns to dust and vanishes!--More--",
-   "error": null
-  },
   "scen-zapfest-Knight-50750084": {
    "src": "corpus",
    "passed": false,
@@ -12808,7 +12808,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "archivedAt": "2026-10-20T14:10:14.282Z",
- "tieredAt": "2026-10-20T14:10:15.906Z"
+ }
 }

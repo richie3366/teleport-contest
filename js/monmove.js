@@ -1871,7 +1871,7 @@ export async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, ca
         u.ux0 = u.ux;
         u.uy0 = u.uy;
         await u_on_newpos(mtmp.mx, mtmp.my); // C monmove.c:1653
-        swallowed(0); // C monmove.c:1654 — repaint the swallow 3x3
+        await swallowed(0); // C monmove.c:1654 — repaint the swallow 3x3
     } else if (mtmp.mx) {
         newsym(mtmp.mx, mtmp.my);
     }

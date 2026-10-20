@@ -1480,7 +1480,7 @@ export async function moveloop_core() {
                 await see_monsters();
                 see_objects();
                 see_traps();
-                if (u.uswallow) swallowed(0);
+                if (u.uswallow) await swallowed(0);
             } else {
                 // C youprop.h Unblind_telepat ≡ ETelepat
                 const Unblind_telepat = !!(u.ETelepat | 0)

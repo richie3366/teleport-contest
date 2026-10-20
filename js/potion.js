@@ -1207,7 +1207,7 @@ export async function make_hallucinated(xtime, talk, mask = 0) {
         /* C potion.c:416–418 — orange mimic's end message when hallu ends. */
         if (!hero_Hallucination()) eatmupdate();
         if (u.uswallow) {
-            swallowed(0); // C :421 redraw swallow display
+            await swallowed(0); // C :421 redraw swallow display
         } else {
             // C :425-427 see_* BEFORE the pline
             see_monsters();

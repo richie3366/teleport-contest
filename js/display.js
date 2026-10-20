@@ -6882,7 +6882,7 @@ function swallow_cell(x, y, part, swallowerMnum) {
     show_glyph_cell(x, y, g.ch, color, g.dec, 0, glyph);
 }
 
-export function swallowed(first = 0) {
+export async function swallowed(first = 0) {
     const u = game.u;
     if (!u?.ux || !u.ustuck) return;
     const ux = u.ux | 0;
@@ -6890,18 +6890,14 @@ export function swallowed(first = 0) {
     const swallower = u.ustuck.mnum ?? u.ustuck.data?.mndx ?? 0;
 
     if (first) {
-        // C `:1337–1339` — cls(); bot(). cls() is display.c:2196–2201:
-        // message flush + botlx + clear_nhwindow(WIN_MAP) +
-        // clear_glyph_buffer() (`:2200` — the gbuf wipe). The gulp path
-        // (mhitu.c:1396) calls swallowed(1) directly, not via docrt, so
-        // the wipe must live here: without it the pre-swallow glyphs
-        // (monsters the hero can no longer see) stay readable via
-        // glyph_at and getpos 'm' cycles to phantom squares (D-3579).
-        // The physical clear rides along: every cell is blanked + dirty
-        // below, so the next flush repaints blanks. The async cls()
-        // (terminal/message side) stays the docrt arm's; bot() runs
-        // sync-called as before.
-        clear_glyph_buffer();
+        // C `:1337–1339` — cls(); bot(). cls() is display.c:2190–2203:
+        // pending --More-- (message flush) + botlx + clear_nhwindow(WIN_MAP)
+        // + clear_glyph_buffer() (the gbuf wipe D-3579 needs: pre-swallow
+        // glyphs must not stay readable via glyph_at). Both callers reach
+        // it here — docrt's swallow arm and the gulp path (mhitu.c:1396) —
+        // so the physical screen is cleared too: monsters drawn before the
+        // engulf do not survive around the stomach box.
+        await cls();
         void bot();
     } else if (_swallow_lastx) {
         // C `:1341–1348` — clear the old 3x3 with show_glyph(x, y,
@@ -7260,12 +7256,8 @@ export async function docrt_flags(refresh_flags) {
             // no vision_recalc/cls), then post_map.
             await redraw_map(0);
         } else if (game.u.uswallow) {
-            // C `:1726–1728` — swallowed(1) does cls()+bot(). The async
-            // cls() stays here (terminal/message side); swallowed(first)
-            // wipes gbuf itself via clear_glyph_buffer (C :1338→:2200),
-            // which the direct gulp-path caller (mhitu.c:1396) needs.
-            await cls();
-            swallowed(1);
+            // C `:1726–1728` — swallowed(1) does cls()+bot().
+            await swallowed(1);
         } else if ((game.u.uinwater | 0) && !Is_waterlevel(game.u.uz)) {
             // C `:1730–1732` — engulfed-water map arm (Underwater ≡
             // u.uinwater, youprop.h:279; the water level has its routines).
