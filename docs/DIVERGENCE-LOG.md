@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4146 — do_wear.c on_msg names the towel's spot with `body_part(HEAD)` (`:95`). JS hard-coded «around your head» (marked «poly deferred»), so a hero polymorphed into a worm read «towel around your head» where C says «around your anterior segment» (polyself.c worm_parts). The longer C line pushed «You can't see any more.» behind a `--More--` that JS never showed (1 sweep session moves s1083 → s1202)
+
+- **Status:** shipped. The cliffs block was all parked shapes again; re-ranked the board the D-4143 way. The head was `on_msg`, scen-sweep-Barbarian-50456006 (s1083, 205 screens).
+- **Symptom:** scen-sweep-Barbarian-50456006 s1083, hero polymorphed into a worm puts on a towel: C «You are now wearing a towel around your anterior segment.--More--», JS «You are now wearing a towel around your head. You can't see any more.»
+- **C locus:** do_wear.c on_msg `:75–99`, towel arm `:94–95`; polyself.c mbodypart S_WORM → worm_parts (`:2032–2036`); body_part `:2143`.
+- **JS was:** js/do_wear.js on_msg set `how = ' around your head'`. JS mbodypart / body_part (js/polyself.js:539) already match C, and the other body_part sites in do_wear.js already called them.
+- **Fix:** `` how = ` around your ${body_part(HEAD)}` ``; HEAD added to the const.js import.
+- **JS:** js/do_wear.js (on_msg; import).
+- **Callers:** unchanged.
+- **Verify:** verify on_msg: 0 PASS, 1 moved, 0 no-movement (scen-sweep-Barbarian-50456006 s1083 → s1202, screens 1203 → 1205 of 1408; RNG 102653/110138 unchanged, since that RNG gap was already the s1202 one). `node scripts/verify.mjs --fn on_msg --full` → syntax · rule2 · hidden 1 moved → PROGRESS · reach smoke 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+- **Named omissions:** none.
+- **Ledger:** on_msg ported
+- **Next:** the same session at s1202 (RNG): «Your awareness re-normalizes.» (peffect_hallucination ending hallucination) is followed in JS by `currency()` `rn2(21)` (invent.js:1448, hallucinated currency name), where C goes straight to `exercise rn2(19)`. JS still treats the hero as hallucinating after C has cleared it, or calls currency where C doesn't. Board rows: boulder_hits_pool (scen-worldtour-Wizard-50250008 s415), ballfall (scen-chain-Archeologist-610102 s120).
+
 ## D-4145 — mcastu.c mcast_insects creates each insect with `makemon(pm, bypos.x, bypos.y, MM_ANGRY | MM_NOMSG)` (`:665`). The end of C makemon still runs, `MM_NOMSG` or not: `if (go.occupation) (void) dochugw(mtmp, FALSE);` (makemon.c `:1502–1504`), which stops the hero's occupation when a hostile newcomer is in view. JS makemon defers that tail to `makemon_appear_msg`, which every caller has to await, and JS mcast_insects never did. So a counted search (`20s`) went on through a summon-insects spell, and C's «You stop searching.» never printed (1 zapfest session → FULL PASS)
 
 - **Status:** shipped. The cliffs block was all parked shapes again, so I re-ranked the board the D-4143 way. The head was `castmu`, scen-zapfest-Caveman-51150068 (s585, 223 screens, 1.6k RNG lost).

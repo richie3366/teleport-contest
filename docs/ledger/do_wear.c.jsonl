@@ -1,6 +1,6 @@
 {"fn":"fingers_or_gloves","c":"60-65","status":"ported","js":["js/do_wear.js:fingers_or_gloves"],"d":["D-3321"],"at":"2026-10-02@0debd1ae2"}
 {"fn":"off_msg","c":"68-72","status":"ported","js":["js/do_wear.js:off_msg"],"at":"2026-10-03@bbe63333a"}
-{"fn":"on_msg","c":"76-99","status":"ported","js":["js/do_wear.js:on_msg"],"at":"2026-10-03@bbe63333a"}
+{"fn":"on_msg","c":"76-99","status":"ported","js":["js/do_wear.js:on_msg"],"d":["D-4146"],"at":"2026-10-20@af684ebfc"}
 {"fn":"toggle_stealth","c":"107-140","status":"ported","js":["js/do_wear.js:toggle_stealth"],"at":"2026-10-03@bbe63333a"}
 {"fn":"toggle_displacement","c":"148-178","status":"ported","js":["js/do_wear.js:toggle_displacement"],"d":["D-2897"],"at":"seed@a30a7de84"}
 {"fn":"Boots_on","c":"187-259","status":"ported","js":["js/do_wear.js:Boots_on"],"d":["D-2809","D-2803"],"at":"seed@a30a7de84"}
