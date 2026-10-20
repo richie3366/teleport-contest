@@ -22,8 +22,8 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-20** — full `sessions` on `2cf72c412`
-(audit **2973–2982**). Fortress **44/44** (aggregates below).
+Score last measured: **2026-10-20** — full `sessions` on `184653034`
+(audit **2983–2991**). Fortress **44/44** (aggregates below).
 
 ## Score
 
@@ -31,11 +31,11 @@ Score last measured: **2026-10-20** — full `sessions` on `2cf72c412`
 |--------|------:|
 | **Held-out (judge 2026-10-20 07:05Z)** | **35 / 44**, 10,849 / 11,265 pts, RNG **99.5 %**, rngSteps 99.0 %, screens **96.3 %** (+0 vs 2026-10-19 19:15Z; rank 2, leader 11,264 at 43/44) |
 | **Fresh cohort (§10.20, scored on arrival)** | 51450000 ×160 @`75e2e77e0`: **149/160 (93.1 %)**, RNG 99.4 %, screens 99.5 % — options 1/2, extcmd 6/9 worst; sweep 7/10; hallu 7/9; worldtour/zapfest 9/10 + rest 100 % |
-| **Corpus board (worked, regression fortress)** | full rescore 2026-10-20 (audit 2973–2982 @`2cf72c412`): **668/789** before (655 at the last audit + 13 window flips claimed by D-4133..D-4142) → rescore **669/789** (active 668/742 scored, 668/739 excl. 3 env-only; RNG 99.51 %, screens 98.8 %), **0 PASS→FAIL** vs the committed board, 1 unclaimed FAIL→PASS (scen-shop-Samurai-49959626, was xkilled s748) → archive 11 PASS → **658/778** (`entries` 778, `unrecorded` 0); `tier` → 719 active + 45 reserve (0 out, 2 back); worst symset 34/68, questtour 8/11, zapfest 8/11, intrinsic 7/8, shop 20/22, chain 23/27, worldtour 87/99, options 34/47, sweep 179/207 |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-20 (audit 2983–2991 @`184653034`): **676/778** before (658 at the last audit + 18 window flips claimed by D-4143..D-4151) → rescore **666/734 active** (666/731 excl. 3 env-only; RNG 99.74 %, screens 99.1 %) after unarchiving scen-symset-Monk-50255053 (drifted at D-3993 `384c02413`, FAIL s558 → Must-fix), **0 PASS→FAIL** vs the committed board, 0 unclaimed flips → archive 8 PASS → **668/771** (`entries` 771, `unrecorded` 0); `tier` → 714 active + 34 reserve (0 out, 11 back, 10 PASS); worst symset 41/67, questtour 9/11, options 27/40, worldtour 87/98, shop 20/21, chain 24/27, extcmd 10/12, sweep 183/206 |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `87+0.36/turn` (R² 0.81) |
+| Speed label | `93+0.38/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
@@ -54,7 +54,7 @@ but Grow #18 already calibrated, so no step-5 family this grow.
 Worst families `scen-hallu` 0/4, `scen-symset` 72/190, `scen-extcmd` 9/40,
 `scen-questtour` 11/15, `scen-sweep` 148/267, `scen-worldtour` 71/156,
 `scen-zapfest` 8/20, `scen-shop` 22/66, rest ≥ 96.9 % RNG.
-Reviews 1225–2982 (index; no row 1618): 1564 ACCEPT, 80 WITH-DEBT, 113 QUALITY-RISK (2973–2982: 7A/3D/0Q, 0 Must-fix; debts unreached → ledger partial: docallcmd select_menu clone (Enter/Space no-pick, lootabc letters), flooreffects/dobuzz/use_pole replace the `game.bhitpos` object instead of writing fields, process_menu_window objsym slot fed only by display_pickinv).
+Reviews 1225–2991 (index; no row 1618): 1572 ACCEPT, 81 WITH-DEBT, 113 QUALITY-RISK (2983–2991: 8A/1D/0Q; 1 Must-fix from the rescore — the archived symset-Monk drift bisected to D-3993; debt unreached → ledger partial: use_mirror self-look reads phantom `u.Upolyd`, zero writers).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
 Full rescore (audit only, §10.21): `record` + unfiltered `score` (active tier) + `archive` (+ quota), committed `full: true`; needs the C recorder.
@@ -146,7 +146,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** Must-fix empty. The cliffs block is still all recorder/tooling parks (D-4016/D-4028/D-4104), so port slots take a near-pass row from the board (the D-4126 scan: RNG fully matched, 1 screen lost; read `cMsgOwners` and the step command for the writer). Mirror-family hits (u.Blind/u.Hallucination/u.Unaware/u.See_invisible, `'yn'` literals) fix every site in that C file.
+**Next:** Must-fix: wintty.c tty_preference_update → new_status_window / newclipping repaint (D-3993 `384c02413`): after `O` statuslines:6 (rejected, stays 2) JS loses map row 20 (screen row 21, `#` col 62); probe scen-symset-Monk-50255053 s558 (review 2991). Then the cliffs head / near-pass rows. Mirror-family hits (u.Blind/u.Hallucination/u.Unaware/u.See_invisible/u.Upolyd, `'yn'` literals) fix every site in that C file.
 
 ## Parked (diagnose only)
 
