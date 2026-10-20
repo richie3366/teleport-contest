@@ -1,11 +1,11 @@
 {
- "commit": "41c8375a3",
- "at": "2026-10-20T07:23:27.887Z",
- "full": false,
- "fullCommit": "318b3a5e7",
- "fullAt": "2026-10-19T20:00:49.813Z",
- "entries": 789,
- "reserve": 47,
+ "commit": "2cf72c412",
+ "at": "2026-10-20T07:29:52.257Z",
+ "full": true,
+ "fullCommit": "2cf72c412",
+ "fullAt": "2026-10-20T07:29:52.257Z",
+ "entries": 778,
+ "reserve": 45,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -3000,23 +3000,6 @@
    "jsTopline": "You sit on the stairs. (south): Idefix eats a jackal corpse.",
    "error": null
   },
-  "scen-options-Barbarian-50351011": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 6078,
-   "rngT": 6078,
-   "scrM": 181,
-   "scrT": 181,
-   "kind": null,
-   "step": null,
-   "steps": 181,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-options-Barbarian-50355007": {
    "src": "corpus",
    "passed": false,
@@ -3068,23 +3051,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-options-Caveman-50162006": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 3661,
-   "rngT": 3661,
-   "scrM": 169,
-   "scrT": 169,
-   "kind": null,
-   "step": null,
-   "steps": 169,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-options-Caveman-94011": {
    "src": "corpus",
    "passed": true,
@@ -3112,23 +3078,6 @@
    "kind": null,
    "step": null,
    "steps": 15,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-options-Knight-50355004": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 2890,
-   "rngT": 2890,
-   "scrM": 80,
-   "scrT": 80,
-   "kind": null,
-   "step": null,
-   "steps": 80,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -3204,23 +3153,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-options-Monk-50355038": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 4019,
-   "rngT": 4019,
-   "scrM": 123,
-   "scrT": 123,
-   "kind": null,
-   "step": null,
-   "steps": 123,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-options-Monk-50457010": {
    "src": "corpus",
    "passed": true,
@@ -3248,23 +3180,6 @@
    "kind": null,
    "step": null,
    "steps": 72,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-options-Priest-50162016": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 3238,
-   "rngT": 3238,
-   "scrM": 53,
-   "scrT": 53,
-   "kind": null,
-   "step": null,
-   "steps": 53,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -3355,23 +3270,6 @@
    "jsOwner": null,
    "cTopline": "Select run/travel display mode:",
    "jsTopline": "Select run/travel display mode:",
-   "error": null
-  },
-  "scen-options-Rogue-50557417": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 3064,
-   "rngT": 3064,
-   "scrM": 166,
-   "scrT": 166,
-   "kind": null,
-   "step": null,
-   "steps": 166,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
    "error": null
   },
   "scen-options-Rogue-51151031": {
@@ -3622,23 +3520,6 @@
    "kind": null,
    "step": null,
    "steps": 55,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-options-Wizard-50557409": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 2988,
-   "rngT": 2988,
-   "scrM": 181,
-   "scrT": 181,
-   "kind": null,
-   "step": null,
-   "steps": 181,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -4700,23 +4581,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-shop-Samurai-49959626": {
-   "src": "corpus",
-   "passed": false,
-   "rngM": 27321,
-   "rngT": 36129,
-   "scrM": 750,
-   "scrT": 858,
-   "kind": "screen",
-   "step": 748,
-   "steps": 858,
-   "owner": "xkilled",
-   "loc": "mon.c:3660",
-   "jsOwner": null,
-   "cTopline": "You drown the watchman. You murderer!--More--",
-   "jsTopline": "You drown the watchman. The crossbow bolts rust! The kabuto rusts!--More--",
-   "error": null
-  },
   "scen-shop-Tourist-50050071": {
    "src": "corpus",
    "passed": true,
@@ -5084,23 +4948,6 @@
    "kind": null,
    "step": null,
    "steps": 1564,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-sweep-Archeologist-49956056": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 21891,
-   "rngT": 21891,
-   "scrM": 1076,
-   "scrT": 1076,
-   "kind": null,
-   "step": null,
-   "steps": 1076,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -8916,23 +8763,6 @@
    "jsTopline": "You are being squashed! You get released!--More--",
    "error": null
   },
-  "scen-symset-Ranger-50150023": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 27396,
-   "rngT": 27396,
-   "scrM": 992,
-   "scrT": 992,
-   "kind": null,
-   "step": null,
-   "steps": 992,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Ranger-50359032": {
    "src": "corpus",
    "passed": false,
@@ -11959,23 +11789,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-worldtour-Wizard-95207": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 55379,
-   "rngT": 55379,
-   "scrM": 644,
-   "scrT": 644,
-   "kind": null,
-   "step": null,
-   "steps": 644,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-worldtour-Wizard-95208": {
    "src": "corpus",
    "passed": true,
@@ -12631,8 +12444,7 @@
    "jsOwner": null,
    "cTopline": "Choose attribute to always hilite experience:",
    "jsTopline": "Choose attribute to always hilite experience:",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-options-Knight-50255908": {
    "src": "corpus",
@@ -12649,8 +12461,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Archeologist-610093": {
    "src": "corpus",
@@ -13468,5 +13279,7 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "archivedAt": "2026-10-20T07:30:57.368Z",
+ "tieredAt": "2026-10-20T07:30:57.927Z"
 }

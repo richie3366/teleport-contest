@@ -1,6 +1,6 @@
 {"fn":"dodrop","c":"29-43","status":"ported","js":["js/do.js:dodrop"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
 {"fn":"boulder_hits_pool","c":"50-155","status":"ported","js":["js/do.js:boulder_hits_pool"],"d":["D-3265","D-3261"],"at":"2026-10-02@c94c66b65"}
-{"fn":"flooreffects","c":"162-359","status":"ported","js":["js/do.js:flooreffects"],"d":["D-4142","D-4092","D-3727","D-3240"],"at":"2026-10-20@41c8375a3"}
+{"fn":"flooreffects","c":"162-359","status":"partial","js":["js/do.js:flooreffects"],"omit":"bhitpos save/restore replaces the game.bhitpos object (do.js:783/:971) instead of writing fields; C do.c:183-184/:358 is by-value, so a bhit-captured slot goes stale after rloco/mdrop_obj mid-beam — review 2982","d":["D-4142","D-4092","D-3727","D-3240"],"at":"2026-10-20@2cf72c412"}
 {"fn":"doaltarobj","c":"363-390","status":"ported","js":["js/do.js:doaltarobj"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
 {"fn":"trycall","c":"395-399","status":"ported","js":["js/do_name.js:trycall"],"at":"2026-10-03@bbe63333a"}
 {"fn":"polymorph_sink","c":"404-455","status":"ported","js":["js/fountain.js:polymorph_sink"],"at":"2026-10-03@bbe63333a"}

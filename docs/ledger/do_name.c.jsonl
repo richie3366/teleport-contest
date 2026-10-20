@@ -13,7 +13,7 @@
 {"fn":"objtyp_is_callable","c":"429-463","status":"ported","js":["js/do_name.js:objtyp_is_callable"],"at":"2026-09-29@d27c7b945","note":"stale: js/do_name.js:149 (D-1555)"}
 {"fn":"name_ok","c":"467-476","status":"ported","js":["js/do_name.js:name_ok"],"at":"2026-10-03@bbe63333a"}
 {"fn":"call_ok","c":"480-495","status":"ported","js":["js/do_name.js:call_ok"],"at":"2026-10-03@bbe63333a"}
-{"fn":"docallcmd","c":"499-601","status":"ported","js":["js/do_name.js:docallcmd"],"d":["D-4138","D-4115","D-3663","D-3203","D-1682","D-1671"],"at":"2026-10-20@c8aa62e0d","note":"stale: js/do_name.js:1640 + menu helper docallcmd_menu :1592"}
+{"fn":"docallcmd","c":"499-601","status":"partial","js":["js/do_name.js:docallcmd"],"omit":"docallcmd_menu select_menu clone: Enter/Space with no pick re-prompts where C returns 'q' (wintty.c:1617-1630); lootabc rows keep group accelerators where tty_end_menu assigns a,b,c (wintty.c:2723) — review 2978","d":["D-4138","D-4115","D-3663","D-3203","D-1682","D-1671"],"at":"2026-10-20@2cf72c412","note":"stale: js/do_name.js:1640 + menu helper docallcmd_menu :1592"}
 {"fn":"docall_xname","c":"605-633","status":"ported","js":["js/do_name.js:docall_xname"],"at":"2026-10-03@bbe63333a"}
 {"fn":"docall","c":"636-676","status":"ported","js":["js/do_name.js:docall"],"d":["D-1672"],"at":"2026-10-03@bbe63333a"}
 {"fn":"namefloorobj","c":"679-757","status":"ported","js":["js/do_name.js:namefloorobj"],"d":["D-1555"],"at":"2026-10-03@bbe63333a"}
