@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4168 — detect.c use_crystal_ball's explode arm (`:1246–1252`) prints «The glass orb explodes!», then `losehp(Maybe_Half_Phys(rnd(30)), "exploding crystal ball", KILLED_BY_AN)`. When that kills, C's losehp runs `urgent_pline("You die...")` and `done(DIED)` inline: --More--, wizard-mode «Die?», disclosure. JS's losehp defers the fatal arm: it sets `program_state.gameover` and `_losehp_needs_done` for the caller to drain with finish_losehp_done. use_crystal_ball never drained it, so runSegment's loop saw gameover and ended the game silently, before the explosion message was even shown (1 corpus session → FULL PASS)
+
+- **Status:** shipped.
+- **Symptom:** in scen-wish-Barbarian-50152020 (wish a cursed crystal ball, apply it), from s34 C shows «The glass orb explodes!--More--» and then the death sequence (17 screens, 36 RNG calls). JS produced no screen after s33 and threw no error.
+- **Measurement:** a runSegment replay of the full key list returned 34 screens. The runSegment drive loop (jsmain.js `:443–452`) stops on `program_state.gameover`, which only losehp's deferred-death marker (hack.js `:1919–1920`) had set: no finisher ran.
+- **C locus:** detect.c use_crystal_ball `:1246–1252`; hack.c losehp fatal arm (`urgent_pline("You die...")`, `done(DIED)`).
+- **JS was:** the explode arm called losehp and `break`, the same shape as before the deferred-death refactor.
+- **Fix:** after losehp, `if (game._losehp_needs_done) await finish_losehp_done();`, the apply.js wand-break precedent (`:1395–1398`). It imports finish_losehp_done from end.js (`imports.mjs --can`: SAFE, hoisted).
+- **JS:** js/detect.js use_crystal_ball (+end.js import).
+- **Callers:** apply.c `:4359` → js/apply.js `:2638`; artifact.c `:2143` (#invoke) → js/artifact.js `:2442`. Both unchanged; the finisher runs inside the callee at C's losehp point.
+- **Verify:**
+  - `score --ids` on all failing rows → **686/751** (+1: scen-wish-Barbarian-50152020 34 → 51/51, RNG 2204/2204 FULL PASS; no row lost).
+  - `node scripts/verify.mjs --fn use_crystal_ball --full` → syntax · rule2 · reach 2/2 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `hidden-proxy sweep moveloop_core` → 685 baseline-PASS re-run in 135.4s, 0 regressed → REACH-OK.
+- **Named omissions:** a scan for JS functions that call losehp with no finish_losehp_done / `_losehp_needs_done` in the same body lists 38. Many probably drain at a caller (trap effects via dotrap, for example), so it is a reading list, not a defect list: apply.js use_whip/use_grapple/jump; ball.js ballfall/drag_down/drop_ball; dig.js use_pick_axe2; do.js dodown; eat.js poison_strdmg; music.js do_pit/do_improvisation; pickup.js in_container/tipcontainer; potion.js peffect_gain_energy; pray.js prayer_done; read.js wand_explode; sit.js special_throne_effect/throne_sit_effect; spell.js cursed_book/spelleffects; trap.js (12 trapeffect/landmine/float_down/chest_trap sites); uhitm.js corpse_chance; zap.js zhitm/lightdamage.
+- **Ledger:** use_crystal_ball ported
+- **Next:** re-rank. Board head: scen-options-Samurai-50162003 s120 (menu_tab_sep tab cells), scen-options-Knight-50355037 s87, scen-chain-Healer-50950082 s661 (owner-null). Then the losehp-finisher reading list above.
+
 ## D-4167 — timeout.c hatch_egg makes each hatchling with `makemon(…, NO_MINVENT | MM_NOMSG)` (`:1047–1049`). makemon's tail, outside the MM_NOMSG guard, runs `if (go.occupation) (void) dochugw(mtmp, FALSE);` (makemon.c `:1502–1504`), so a hostile hatchling in view stops a counted search with «You stop searching.» before hatch_egg prints «You see a cave spider hatch.». JS splits that tail into the async makemon_appear_msg, which the caller of the sync makemon must await. hatch_egg never called it, so the search went on: the next turn's messages forced a --More-- and swallowed the following keys (1 corpus session → FULL PASS)
 
 - **Status:** shipped.
