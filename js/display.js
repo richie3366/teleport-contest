@@ -8166,6 +8166,12 @@ function resync_map_row0() {
     // y+clipy-offy (offy 1), x from xmin+clipx-offx (offx 0).
     const my = clipping ? clipy : 0;
     const x0 = 1 + (clipping ? clipx : 0);
+    // C docorner `:3742–3744` — tty_curs(BASE_WINDOW, 1, y) + cl_end()
+    // blanks the whole screen row before row_refresh, so cells the
+    // refresh leaves unpainted (unexplored, capture-dropped symset
+    // chars) end up blank rather than keeping the message's text.
+    const cols = display.cols || 80;
+    for (let c = 0; c < cols; c++) display.setCell(c, 1, ' ', NO_COLOR, 0);
     for (let x = x0; x <= COLNO - 1; x++) {
         const loc = game.level?.at(x, my);
         if (!loc) continue;

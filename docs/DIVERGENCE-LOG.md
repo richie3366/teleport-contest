@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-4151 — topl.c more() ends a wrapped (two-row) message with `docorner(1, cw->cury + 1, 0)` (`:240`). For each row, wintty.c docorner does `tty_curs(BASE_WINDOW, xmin, y); cl_end();` and then `row_refresh` (`:3741–3766`), so the whole row is blanked before the map row is replayed. JS's more() hands row 1 back through `resync_map_row0`, which repainted map row 0 cell by cell with no `cl_end`. Cells `_paint_gbuf_cell` leaves alone (unexplored squares, and symset chars that patch-006's capture drops) kept the message's letters. With a non-default symset, the second message row stayed on screen as fragments («     r up ( ranc» after a `;` farlook of a branch staircase) (2 symset sessions → FULL PASS)
+
+- **Status:** shipped. Board head after D-4150 (re-ranked the D-4143 way): owner-null reserve row scen-symset-Barbarian-50059022 (s177, 165 screens, RNG intact).
+- **Symptom:** scen-symset-Barbarian-50059022 (symset Enhanced2) s176–177: `;` `<` `.` farlook prints a two-row «< a staircase up or a ladder up or a branch staircase up or a branch / ladder up (branch staircase up)--More--». After the space, C's row 1 is blank and JS's row 1 shows «     r up ( ranc». A `Terminal.prototype.setCell` hook showed resync_map_row0 blanking cols 0 and 11 while nothing touched col 5 after more_wait_keys wrote «r». scen-symset-Barbarian-50555001 (s438, reserve) had the same shape.
+- **C locus:** topl.c more `:205–250`, wrapped-message docorner `:239–243`; wintty.c docorner `:3707–3778` (cl_end `:3744`, row_refresh `:3766`).
+- **JS was:** js/display.js resync_map_row0 (the docorner row-1 half used by more()): per-x `_paint_gbuf_cell` / blank-if-empty, with no row clear first. `_paint_gbuf_cell` returns without painting for capture-dropped chars (`< 32`, `disp_capture_drop`).
+- **Fix:** resync_map_row0 blanks screen row 1 from column 0 (C's `tty_curs(…, 1, y)` + `cl_end`) before the map-row replay.
+- **JS:** js/display.js (resync_map_row0).
+- **Callers:** unchanged (more() when the dismissed message wrapped).
+- **Verify:** owner-null rows, so there's no `verify --fn` movement line. `node scripts/hidden-proxy.mjs score --ids <all 104 failing rows>` → 2 FAIL→PASS (scen-symset-Barbarian-50059022 889/889, scen-symset-Barbarian-50555001 656/656), 0 worse. `node scripts/verify.mjs --full` → syntax · rule2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. `hidden-proxy sweep more` → 674 baseline-PASS re-run in 248.4s, 0 regressed → REACH-OK. Whole archive with a cached recording (4004 sessions, frozen runner): 4003 PASS, 1 fail. The failure, scen-symset-Monk-50255053 (863/864 screens, RNG 8553/8553), fails the same way on HEAD's js/display.js, so it's an archived PASS that drifted before this commit. The next audit should unarchive/rescore it.
+- **Named omissions:** resync_map_row0 still only covers a two-row message (row 1); C's docorner loop also handles `cury` > 1.
+- **Ledger:** more ported
+- **Next:** re-rank. Board rows: mcast_weaken_you (scen-worldtour-Healer-50950064 s411), zhitu (scen-worldtour-Valkyrie-587104 s634), m_move (scen-questtour-Caveman-50750030 s58).
+
 ## D-4150 — dungeon.c earth_sense returns early `if (u.usteed || Flying || Levitation || Upolyd)` (`:1554`), where `Upolyd` is the you.h macro `u.umonnum != u.umonster`. JS wrote the same guard with the bare imported function `Upolyd`, which is always truthy, so earth_sense returned before its body for every hero. No dwarf ever sensed buried objects: C's «You sense something below your feet.» was missing (1 sweep session → FULL PASS)
 
 - **Status:** shipped. Board head after D-4149: `earth_sense`, scen-sweep-Archeologist-620069 (s1206, 180 screens, 2.3k RNG lost).
