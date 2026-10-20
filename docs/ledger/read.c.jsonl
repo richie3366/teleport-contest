@@ -31,14 +31,14 @@
 {"fn":"seffect_enchant_weapon","c":"1627-1676","status":"ported","js":["js/read.js:seffect_enchant_weapon"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audit 2026-10-03: confused proof/repair + chwepon + cap_spe present"}
 {"fn":"seffect_taming","c":"1679-1719","status":"ported","js":["js/read.js:seffect_taming"],"at":"2026-10-03@bbe63333a"}
 {"fn":"seffect_genocide","c":"1722-1738","status":"ported","js":["js/read.js:seffect_genocide"],"at":"2026-10-03@bbe63333a"}
-{"fn":"seffect_light","c":"1741-1785","status":"ported","js":["js/read.js:seffect_light"],"d":["D-2592"],"at":"seed@a30a7de84"}
+{"fn":"seffect_light","c":"1741-1785","status":"ported","js":["js/read.js:seffect_light"],"d":["D-4136","D-2592"],"at":"2026-10-20@6f5963d7a"}
 {"fn":"seffect_charging","c":"1788-1827","status":"ported","js":["js/read.js:seffect_charging"],"at":"2026-10-03@bbe63333a"}
 {"fn":"seffect_amnesia","c":"1830-1847","status":"ported","js":["js/read.js:seffect_amnesia"],"at":"2026-10-03@bbe63333a"}
 {"fn":"seffect_fire","c":"1850-1916","status":"ported","js":["js/read.js:seffect_fire"],"d":["D-2032"],"at":"2026-10-03@bbe63333a"}
 {"fn":"seffect_earth","c":"1919-1973","status":"ported","js":["js/read.js:seffect_earth"],"at":"2026-10-03@bbe63333a"}
 {"fn":"seffect_punishment","c":"1976-1988","status":"ported","js":["js/read.js:seffect_punishment"],"at":"2026-10-03@bbe63333a"}
 {"fn":"seffect_stinking_cloud","c":"1991-2002","status":"ported","js":["js/read.js:seffect_stinking_cloud"],"at":"2026-10-03@bbe63333a"}
-{"fn":"seffect_blank_paper","c":"2005-2012","status":"ported","js":["js/read.js:seffect_blank_paper"],"at":"2026-10-03@bbe63333a"}
+{"fn":"seffect_blank_paper","c":"2005-2012","status":"ported","js":["js/read.js:seffect_blank_paper"],"d":["D-4136"],"at":"2026-10-20@6f5963d7a"}
 {"fn":"seffect_teleportation","c":"2015-2032","status":"ported","js":["js/read.js:seffect_teleportation"],"at":"2026-10-03@bbe63333a"}
 {"fn":"seffect_gold_detection","c":"2035-2043","status":"ported","js":["js/read.js:seffect_gold_detection"],"at":"2026-10-03@bbe63333a"}
 {"fn":"seffect_food_detection","c":"2046-2052","status":"ported","js":["js/read.js:seffect_food_detection"],"at":"2026-10-03@bbe63333a"}
@@ -50,7 +50,7 @@
 {"fn":"drop_boulder_on_monster","c":"2341-2410","status":"ported","js":["js/muse.js:drop_boulder_on_monster"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audit 2026-10-03: fuller copy at js/read.js:1709 has the arm"}
 {"fn":"wand_explode","c":"2414-2457","status":"ported","js":["js/read.js:wand_explode"],"d":["D-2986"],"at":"2026-09-27@9b244f090","note":"stale: js/read.js:811"}
 {"fn":"set_lit","c":"2471-2488","status":"ported","js":["js/read.js:set_lit"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: hates_light is C-exact gremlin check"}
-{"fn":"litroom","c":"2491-2635","status":"ported","js":["js/read.js:litroom"],"d":["D-4065","D-3414","D-2263"],"at":"2026-10-19@457930ec1"}
+{"fn":"litroom","c":"2491-2635","status":"ported","js":["js/read.js:litroom"],"d":["D-4136","D-4065","D-3414","D-2263"],"at":"2026-10-20@6f5963d7a"}
 {"fn":"do_class_genocide","c":"2638-2820","status":"ported","js":["js/read.js:do_class_genocide"],"d":["D-3407","D-2150"],"at":"2026-10-04@e3dc5ab18"}
 {"fn":"do_genocide","c":"2826-3016","status":"ported","js":["js/read.js:do_genocide"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18"}
 {"fn":"punish","c":"3019-3062","status":"ported","js":["js/read.js:punish"],"at":"2026-10-03@bbe63333a"}
