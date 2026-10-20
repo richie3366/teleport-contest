@@ -1,11 +1,11 @@
 {
- "commit": "0b24536c6",
- "at": "2026-10-20T17:29:47.186Z",
- "full": false,
- "fullCommit": "3fcdc917f",
- "fullAt": "2026-10-20T14:10:13.895Z",
- "entries": 751,
- "reserve": 33,
+ "commit": "6a4b8eb63",
+ "at": "2026-10-20T17:34:44.264Z",
+ "full": true,
+ "fullCommit": "6a4b8eb63",
+ "fullAt": "2026-10-20T17:34:44.264Z",
+ "entries": 734,
+ "reserve": 26,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -3068,23 +3068,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-options-Knight-50355037": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 4010,
-   "rngT": 4010,
-   "scrM": 161,
-   "scrT": 161,
-   "kind": null,
-   "step": null,
-   "steps": 161,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-options-Knight-50457009": {
    "src": "corpus",
    "passed": true,
@@ -3204,23 +3187,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-options-Rogue-50557410": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 3522,
-   "rngT": 3522,
-   "scrM": 178,
-   "scrT": 178,
-   "kind": null,
-   "step": null,
-   "steps": 178,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-options-Rogue-51151031": {
    "src": "corpus",
    "passed": false,
@@ -3248,23 +3214,6 @@
    "kind": null,
    "step": null,
    "steps": 193,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-options-Samurai-50162003": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 4132,
-   "rngT": 4132,
-   "scrM": 165,
-   "scrT": 165,
-   "kind": null,
-   "step": null,
-   "steps": 165,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -5601,23 +5550,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-sweep-Caveman-50055029": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 16965,
-   "rngT": 16965,
-   "scrM": 105,
-   "scrT": 105,
-   "kind": null,
-   "step": null,
-   "steps": 105,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-sweep-Caveman-50055035": {
    "src": "corpus",
    "passed": false,
@@ -5662,23 +5594,6 @@
    "kind": null,
    "step": null,
    "steps": 1112,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-sweep-Caveman-50156010": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 4552,
-   "rngT": 4552,
-   "scrM": 81,
-   "scrT": 81,
-   "kind": null,
-   "step": null,
-   "steps": 81,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -6179,23 +6094,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-sweep-Knight-50362021": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 26090,
-   "rngT": 26090,
-   "scrM": 217,
-   "scrT": 217,
-   "kind": null,
-   "step": null,
-   "steps": 217,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-sweep-Knight-50550057": {
    "src": "corpus",
    "passed": true,
@@ -6393,23 +6291,6 @@
    "kind": null,
    "step": null,
    "steps": 1122,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-sweep-Monk-49956033": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 7163,
-   "rngT": 7163,
-   "scrM": 95,
-   "scrT": 95,
-   "kind": null,
-   "step": null,
-   "steps": 95,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -6648,23 +6529,6 @@
    "kind": null,
    "step": null,
    "steps": 728,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-sweep-Priest-50556014": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 39093,
-   "rngT": 39093,
-   "scrM": 311,
-   "scrT": 311,
-   "kind": null,
-   "step": null,
-   "steps": 311,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -7447,23 +7311,6 @@
    "kind": null,
    "step": null,
    "steps": 1811,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-sweep-Tourist-50450057": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 37924,
-   "rngT": 37924,
-   "scrM": 617,
-   "scrT": 617,
-   "kind": null,
-   "step": null,
-   "steps": 617,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -8525,23 +8372,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-symset-Priest-51050015": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 19294,
-   "rngT": 19294,
-   "scrM": 646,
-   "scrT": 646,
-   "kind": null,
-   "step": null,
-   "steps": 646,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Ranger-50359032": {
    "src": "corpus",
    "passed": false,
@@ -8627,23 +8457,6 @@
    "jsTopline": "You hear water falling on coins.",
    "error": null
   },
-  "scen-symset-Rogue-50950071": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 42368,
-   "rngT": 42368,
-   "scrM": 668,
-   "scrT": 668,
-   "kind": null,
-   "step": null,
-   "steps": 668,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-symset-Samurai-50455026": {
    "src": "corpus",
    "passed": true,
@@ -8654,23 +8467,6 @@
    "kind": null,
    "step": null,
    "steps": 901,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-symset-Tourist-50255025": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 36521,
-   "rngT": 36521,
-   "scrM": 813,
-   "scrT": 813,
-   "kind": null,
-   "step": null,
-   "steps": 813,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -10463,23 +10259,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-worldtour-Healer-50056004": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 33350,
-   "rngT": 33350,
-   "scrM": 127,
-   "scrT": 127,
-   "kind": null,
-   "step": null,
-   "steps": 127,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-worldtour-Healer-50550000": {
    "src": "corpus",
    "passed": true,
@@ -10575,23 +10354,6 @@
    "kind": null,
    "step": null,
    "steps": 1037,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-worldtour-Monk-50056047": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 9447,
-   "rngT": 9447,
-   "scrM": 93,
-   "scrT": 93,
-   "kind": null,
-   "step": null,
-   "steps": 93,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -10701,23 +10463,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-worldtour-Priest-49950068": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 9791,
-   "rngT": 9791,
-   "scrM": 123,
-   "scrT": 123,
-   "kind": null,
-   "step": null,
-   "steps": 123,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-worldtour-Priest-587309": {
    "src": "corpus",
    "passed": true,
@@ -10745,23 +10490,6 @@
    "kind": null,
    "step": null,
    "steps": 543,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-worldtour-Ranger-50050090": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 102115,
-   "rngT": 102115,
-   "scrM": 1027,
-   "scrT": 1027,
-   "kind": null,
-   "step": null,
-   "steps": 1027,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -11357,23 +11085,6 @@
    "kind": null,
    "step": null,
    "steps": 835,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-worldtour-Wizard-50556517": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 55397,
-   "rngT": 55397,
-   "scrM": 115,
-   "scrT": 115,
-   "kind": null,
-   "step": null,
-   "steps": 115,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -12205,8 +11916,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Archeologist-610093": {
    "src": "corpus",
@@ -12223,8 +11933,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Barbarian-50055075": {
    "src": "corpus",
@@ -12241,8 +11950,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Caveman-49950025": {
    "src": "corpus",
@@ -12259,8 +11967,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Priest-50750049": {
    "src": "corpus",
@@ -12295,8 +12002,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-sweep-Rogue-50055025": {
    "src": "corpus",
@@ -12313,8 +12019,7 @@
    "jsOwner": null,
    "cTopline": "You choke on the fortune cookie. --More--",
    "jsTopline": "You choke on the fortune cookie. --More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Archeologist-50555012": {
    "src": "corpus",
@@ -12601,8 +12306,7 @@
    "jsOwner": null,
    "cTopline": "Your mail turns to dust and falls to the doorway!--More--",
    "jsTopline": "Your mail turns to dust and falls to the doorway!--More--",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "catchup-after-restore-seed0015-valk": {
    "src": "private",
@@ -12808,5 +12512,7 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "archivedAt": "2026-10-20T17:34:44.635Z",
+ "tieredAt": "2026-10-20T17:34:48.847Z"
 }

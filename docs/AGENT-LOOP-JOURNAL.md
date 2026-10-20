@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-20 — audit 3001–3010 @6a4b8eb63: review D-4161..D-4170 (7A/3D/0Q, 0 Must-fix) + full rescore 671/734 (0 PASS→FAIL)
+
+**Reviews:** every owner re-measure (`verify … --base HASH~1 --no-reach`) reproduces its D-log (gulpmu 2, getpos 3+1 moved, doset_simple_menu, handler_runmode, dosearch, explmm PASS; enhance_weapon_skill NO MOVEMENT as named). Owner-null claims (D-4163/4164/4165: 19 recordings incl. 2 reserve) replayed directly with the frozen runner: 19/19 PASS, cursors exact. D-4164/4165 recorder-overflow model checked line-for-line against patch 006 (SEQ/ANIM are JS's own counters, not trace reads; Rule #2 clean). WITH-DEBT: 3006 cond_menu "sorted" heading + autopickup-exception heading attr-only (menu_heading_attr drops colour), o_init.js rename_disco/doclassdisco keep ATR_INVERSE → ledger partial ×3; 3008 use_crystal_ball non-fatal path never drains `_losehp_needs_rehumanize` → ledger partial. All unreached.
+**Rescore:** `record` all present; unfiltered `score` 683/718 (RNG 99.86 %, screens 99.6 %); vs committed board 0 PASS→FAIL; archive 17 PASS → 671/734, unrecorded 0; tier 7 promoted back, reserve 33 → 26.
+**Score:** public 44/44 (792838 RNG, 11405 screens, 103+0.61/turn); held-out 35/44, 10,849 pts (judge 13:17Z, +0). Ledger snapshot; seeded sample interest_mapseen/mkcavepos/basic_menu_colors/init_objects/use_tinning_kit 5/5 hold.
+**Next:** Must-fix empty → the cliffs head.
 ## 2026-10-20 — D-4170 windows.c choose_classes_menu ends with `destroy_nhwindow(win)` (`:1746`). tty's tty_dismiss_nhwindow → erase_menu_or_text (wintty.c `:990–1008`) calls docrt() + flush_screen(1) only for a fullscreen menu (`offx == 0`); a corner menu is `docorner(offx, maxrow+1, 0)`, which reprints the gbuf and runs no vision_recalc. JS's choose_classes_menu dismissed every menu with docrt. With `spot_monsters` on, docrt → vision_recalc → notice_all_mons re-posts «You see your saddled pony.» (NEED_MORE), so the next menu raised a --More-- that C never shows after the corner «Autopickup what?» menu (1 corpus session → FULL PASS)
 
 **C locus:** windows.c choose_classes_menu `:1744–1746`; win/tty/wintty.c erase_menu_or_text `:990–1008`, tty_display_nhwindow NHW_MENU `:1969–1970`; display.c docrt_flags → vision_recalc → hack.c notice_all_mons / notice_mon.

@@ -22,8 +22,8 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-20** — full `sessions` on `3fcdc917f`
-(audit **2992–3000**). Fortress **44/44** (aggregates below).
+Score last measured: **2026-10-20** — full `sessions` on `6a4b8eb63`
+(audit **3001–3010**). Fortress **44/44** (aggregates below).
 
 ## Score
 
@@ -31,11 +31,11 @@ Score last measured: **2026-10-20** — full `sessions` on `3fcdc917f`
 |--------|------:|
 | **Held-out (judge 2026-10-20 13:17Z)** | **35 / 44**, 10,849 / 11,265 pts, RNG **99.5 %**, rngSteps 99.0 %, screens **96.3 %** (+0 vs 07:05Z; rank 2, leader 11,264 at 43/44) |
 | **Fresh cohort (§10.20, scored on arrival)** | 51450000 ×160 @`75e2e77e0`: **149/160 (93.1 %)**, RNG 99.4 %, screens 99.5 % — options 1/2, extcmd 6/9 worst; sweep 7/10; hallu 7/9; worldtour/zapfest 9/10 + rest 100 % |
-| **Corpus board (worked, regression fortress)** | full rescore 2026-10-20 (audit 2992–3000 @`3fcdc917f`): committed board **680/771** (668 at the last audit + 12 window flips claimed by D-4152..D-4160) → rescore **680/737 active** (680/734 excl. 3 env-only; RNG 99.86 %, screens 99.3 %), `record`: all sessions present, **0 PASS→FAIL**, 0 unclaimed flips → archive 20 PASS → **660/751** (`entries` 751, `unrecorded` 0); `tier` → 705 active + 33 reserve (0 out, 1 back); worst symset 33/59, options 23/33, worldtour 87/96, sweep 179/198, chain 24/27, extcmd 10/12, zapfest 9/11, tour 12/14 |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-20 (audit 3001–3010 @`6a4b8eb63`): committed board **688/751** (660 at the last audit + 28 window flips claimed by D-4161..D-4170) → rescore **683/718** (683/715 excl. 3 env-only; RNG 99.86 %, screens 99.6 %), `record`: all sessions present, **0 PASS→FAIL** → archive 17 PASS → **671/734** (`entries` 734, `unrecorded` 0); `tier` → 7 promoted back, reserve 33 → 26; worst symset 33/56 (RNG 92.8 %), options 25/30, sweep 183/192, worldtour 87/91, chain 25/27, zapfest 9/11, shop 20/21, extcmd 11/12 |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `107+0.55/turn` (R² 0.80; measured alongside the full rescore, so CPU-loaded) |
+| Speed label | `103+0.61/turn` (R² 0.88; measured alongside the full rescore, so CPU-loaded) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
@@ -54,7 +54,7 @@ but Grow #18 already calibrated, so no step-5 family this grow.
 Worst families `scen-hallu` 0/4, `scen-symset` 72/190, `scen-extcmd` 9/40,
 `scen-questtour` 11/15, `scen-sweep` 148/267, `scen-worldtour` 71/156,
 `scen-zapfest` 8/20, `scen-shop` 22/66, rest ≥ 96.9 % RNG.
-Reviews 1225–3000 (index; no row 1618): 1580 ACCEPT, 82 WITH-DEBT, 113 QUALITY-RISK (2992–3000: 8A/1D/0Q, 0 Must-fix; debt: D-4159's vpline guard masks an unawaited pline chain on the destroy_items cold path, probe scen-sweep-Priest-95316 s679; ledger god_zaps_you partial — pray.js:1085 flat-only Disint_resistance clone).
+Reviews 1225–3010 (index; no row 1618): 1587 ACCEPT, 85 WITH-DEBT, 113 QUALITY-RISK (3001–3010: 7A/3D/0Q, 0 Must-fix; debt, all unreached → ledger partial: cond_menu/autopickup-exception headings drop menu_headings colour (menu_heading_attr), o_init.js rename_disco/doclassdisco hard-code ATR_INVERSE, use_crystal_ball non-fatal path never drains `_losehp_needs_rehumanize`).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
 Full rescore (audit only, §10.21): `record` + unfiltered `score` (active tier) + `archive` (+ quota), committed `full: true`; needs the C recorder.
@@ -146,7 +146,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** Must-fix is empty (audit 2992–3000 queued none) — the **Open — cliffs** head. Mirror-family hits (u.Blind/u.Hallucination/u.Unaware/u.See_invisible/u.Upolyd, flat-only Flying/Levitation/Disint clones, `'yn'` literals) fix every site in that C file.
+**Next:** Must-fix is empty (audit 3001–3010 queued none) — the **Open — cliffs** head. Mirror-family hits (u.Blind/u.Hallucination/u.Unaware/u.See_invisible/u.Upolyd, flat-only Flying/Levitation/Disint clones, `'yn'` literals) fix every site in that C file.
 
 ## Parked (diagnose only)
 
