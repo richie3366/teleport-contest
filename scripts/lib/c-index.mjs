@@ -17,6 +17,36 @@ const C_DIRS = ['nethack-c/upstream/src', 'nethack-c/upstream/win/tty'].map((d) 
 
 let cached = null;
 
+/* Line index of the `{` that opens the body of the col-0 `name(` at line
+ * i, or -1 when the signature does not open a body within `span` lines.
+ * Braces inside comments do not count: zap.c zap_over_floor's parameter
+ * comment `{wand|spell|breath}` used to end the scan on a non-`{` line
+ * and drop the whole function. */
+export function bodyOpenLine(lines, i, span = 8) {
+  let inComment = false;
+  for (let j = i; j < lines.length && j - i <= span; j++) {
+    const s = lines[j];
+    let code = '';
+    for (let k = 0; k < s.length;) {
+      if (inComment) {
+        const e = s.indexOf('*/', k);
+        if (e < 0) break;
+        inComment = false;
+        k = e + 2;
+      } else if (s.startsWith('/*', k)) {
+        inComment = true;
+        k += 2;
+      } else if (s.startsWith('//', k)) {
+        break;
+      } else {
+        code += s[k++];
+      }
+    }
+    if (code.includes('{')) return code.trim().startsWith('{') ? j : -1;
+  }
+  return -1;
+}
+
 export function loadCIndex() {
   if (cached) return cached;
   const fns = new Map();
@@ -30,9 +60,8 @@ export function loadCIndex() {
     for (let i = 0; i < lines.length; i++) {
       const m = /^([A-Za-z_][\w]*)\s*\(/.exec(lines[i]);
       if (!m) continue;
-      let j = i;
-      while (j < lines.length && !lines[j].includes('{') && j - i < 8) j++;
-      if (j >= lines.length || !lines[j].trim().startsWith('{')) continue;
+      const j = bodyOpenLine(lines, i);
+      if (j < 0) continue;
       let end = j;
       for (let k = j + 1; k < lines.length; k++) {
         if (/^\}/.test(lines[k])) { end = k; break; }

@@ -16,6 +16,7 @@
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { bodyOpenLine } from './lib/c-index.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const cRoot = join(root, 'nethack-c/upstream');
@@ -52,9 +53,8 @@ function defs(name) {
     for (let i = 0; i < lines.length; i++) {
       if (!DEF(name).test(lines[i])) continue;
       // next non-blank line must open a body (NetHack puts `{` on its own line)
-      let j = i;
-      while (j < lines.length && !lines[j].includes('{') && j - i < 6) j++;
-      if (j >= lines.length || !lines[j].trim().startsWith('{')) continue;
+      const j = bodyOpenLine(lines, i);
+      if (j < 0) continue;
       // walk to the matching close brace at column 0
       let end = j;
       for (let k = j + 1; k < lines.length; k++) {
