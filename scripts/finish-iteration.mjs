@@ -140,11 +140,19 @@ const batch = (() => {
       return own ? own.replace(/^`[^`]+`:?\s*/, '') : S.named;
     };
     const omitFor = (spec) => { const t = namedFor(spec); return namesNoOmission(t) ? '' : firstSentence(t); };
-    const entries = parsed.map((e) => ({ ...e, d: [id], omit: e.status === 'partial' ? omitFor(e.spec) : e.status === 'audited' ? undefined : '' }));
+    /* §10.22 re-read manifest: every function it names and the bullet declares
+       was re-read whole against C, so it is stamped audited even when its JS
+       changed — otherwise the next re-read slice would hand it out again. A
+       partial stamped this way names only omissions that cannot ship. */
+    const reread = batch && batch.mode === 'reread' ? new Set(batch.fns.map((f) => f.fn)) : null;
+    const stamp = (e) => (reread && reread.has(e.spec.split(':').pop()) && ['ported', 'parity', 'split', 'partial'].includes(e.status)
+      ? { note: `audited ${id}: ${e.status === 'partial' ? 'remaining omit cannot ship' : 're-read whole vs C'}` } : {});
+    const entries = parsed.map((e) => ({ ...e, d: [id], omit: e.status === 'partial' ? omitFor(e.spec) : e.status === 'audited' ? undefined : '', ...stamp(e) }));
     if (jsChanged || batch) await reconcile(parsed);
     const res = await applySets(entries, { dryRun: DRY });
     if (res.errors.length) { for (const e of res.errors) console.error(`ledger: ${e}`); process.exit(1); }
     console.log(`  ledger: ${res.rows.map((r) => `${r.file}:${r.fn} ${r.status}`).join(', ')}${DRY ? ' (dry-run)' : ''}`);
+    if (reread) console.log(`  re-read: ${res.rows.filter((r) => String(r.note || '').startsWith(`audited ${id}`)).length} of ${batch.fns.length} manifest function(s) stamped audited ${id}`);
     const L = await load();
     const thin = res.rows.filter((r) => r.status === 'ported' && ['THIN', 'PARTIAL'].includes(L.byKey.get(`${r.file}:${r.fn}`)?.cover));
     if (thin.length) console.log(`  ledger warn: declared ported but measured thin/partial — confirm whole vs C or declare partial: ${thin.map((r) => r.fn).join(', ')}`);

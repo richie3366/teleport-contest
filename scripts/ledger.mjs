@@ -12,6 +12,11 @@
  *   node scripts/ledger.mjs batch [file.c…] [--max 100] [--write]
  *                                                        # one iteration's batch: whole gap of the top C file(s)
  *                                                        # (--write: .cache/batch.json, reconciled by finish)
+ *   node scripts/ledger.mjs batch --reread [file.c…] [--lines 1000] [--write]
+ *                                                        # re-read pass slice (§10.22): every unaudited fn of
+ *                                                        # one C file in C order, with margin notes
+ *   node scripts/ledger.mjs reread [--top N]             # re-read pass progress, next files, omit/flag census
+ *   node scripts/ledger.mjs defer                        # JS-only deferral flags, every site
  *   node scripts/ledger.mjs set <fn> <status> [--js a.js:sym,b.js:sym] [--omit "…"]
  *                               [--d D-NNNN] [--note "…"] [--no-queue]
  *   node scripts/ledger.mjs summary [--by-file] [--top N] [--snapshot]
@@ -34,6 +39,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSy
 import { join, relative } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { measure, jsFiles, ROOT, TTY_FILES, SKIP_FILES, QUEUE_SKIP_FILES } from './lib/coverage.mjs';
+import { pickReread, formatBatch, rereadStatus, deferCensus, REREAD_LINES } from './lib/reread.mjs';
 import {
   LEDGER_DIR, STATUSES, LIVE_STATUSES, OPEN_STATUSES, readLedger, writeLedgerFiles,
   resolveKey, mergeD, clipOmit, parseLedgerText, serialize,
@@ -117,7 +123,8 @@ function readDb(db) {
   const jsDefs = db.prepare('SELECT * FROM jsdef').all().map((d) => ({
     name: d.name, file: d.file, line: d.line, endLine: d.end_line, code: d.code, exported: !!d.exported,
   }));
-  return { rows, jsDefs, edges: null };
+  const edges = db.prepare('SELECT caller, callee FROM edge').all().map((e) => [e.caller, e.callee]);
+  return { rows, jsDefs, edges };
 }
 
 let loaded = null;
@@ -477,7 +484,7 @@ async function main(argv) {
   const rest = argv.slice(1);
   const pos = [];
   for (let i = 0; i < rest.length; i++) {
-    if (rest[i].startsWith('--')) { if (['--js', '--omit', '--d', '--note', '--min-c-lines', '--top', '--max'].includes(rest[i])) i++; continue; }
+    if (rest[i].startsWith('--')) { if (['--js', '--omit', '--d', '--note', '--min-c-lines', '--top', '--max', '--lines'].includes(rest[i])) i++; continue; }
     pos.push(rest[i]);
   }
   switch (cmd) {
@@ -528,6 +535,18 @@ async function main(argv) {
       return 0;
     }
     case 'batch': {
+      if (flag(rest, '--reread')) {
+        const L = await load();
+        const b = pickReread(L, { files: pos, lines: parseInt(opt(rest, '--lines', String(REREAD_LINES)), 10), head: head() });
+        if (!b.fns.length) { console.log(`re-read batch: nothing left${pos.length ? ` in ${pos.join(' ')}` : ''} — every live function is audited`); return 1; }
+        console.log(formatBatch(b));
+        if (flag(rest, '--write')) {
+          writeFileSync(BATCH_PATH, JSON.stringify(b, null, 1) + '\n');
+          console.log(`\nmanifest: ${relative(ROOT, BATCH_PATH)} — every function goes in the D-entry \`Ledger:\` bullet (audited | ported | partial | split | by-design) or in \`Left open:\` with a reason; finish stamps each declared one \`audited <D-id>\` (§10.22).`);
+        }
+        console.log('verify (only the functions whose JS you change): node scripts/verify.mjs --fn <fn,…>');
+        return 0;
+      }
       const max = parseInt(opt(rest, '--max', String(BATCH_MAX)), 10);
       const b = await pickBatch({ files: pos, max });
       if (!b.fns.length) { console.log(`batch: no gap left${pos.length ? ` in ${pos.join(' ')}` : ''} (open/partial/recheck)`); return 1; }
@@ -542,6 +561,14 @@ async function main(argv) {
         console.log(`\nmanifest: ${relative(ROOT, BATCH_PATH)} — finish-iteration requires each function in the D-entry \`Ledger:\` bullet (ported | partial | split | by-design | audited) or in \`Left open:\` with a reason.`);
       }
       console.log(`verify: node scripts/verify.mjs --fn ${b.fns.map((f) => f.fn).join(',')}`);
+      return 0;
+    }
+    case 'reread': {
+      console.log(rereadStatus(await load(), { top: parseInt(opt(rest, '--top', '12'), 10) }));
+      return 0;
+    }
+    case 'defer': {
+      console.log(deferCensus(await load()));
       return 0;
     }
     case 'set': {

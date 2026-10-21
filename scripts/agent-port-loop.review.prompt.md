@@ -50,7 +50,12 @@ sampled function gets its own verdict line in the Density section; the
 SHA verdict is the worst of them. A wrong `audited` or `ported` in the
 sample is a C-wrong (Must-fix naming the function) **and** triggers a
 second sample of 8 from the same SHA. A commit of ≤ 10 functions still
-gets the whole Method per function.
+gets the whole Method per function. A **re-read** commit (Constitution
+§10.22, title `Re-read <file.c> …`) is a batch: its sample is (a) every
+function its `Re-read:` bullet calls fixed, up to 12, and (b) 2 of its
+`audited` stamps drawn with `order by random()`, each read whole against C.
+A divergence missed in a stamped function is WITH-DEBT, and a Must-fix row
+when corpus sessions execute it.
 
 1. `git show --stat HASH` and the `js/` hunks. Quote what the subject
    **promises**. List what the diff **actually** adds (functions, helpers).

@@ -429,6 +429,18 @@ entry. Do not copy old crumbs by hand: `node scripts/check-hot-docs.mjs --fix`
 in the iter, and the supervisor runs `scripts/rotate-journal.mjs` if
 the live file is still over cap.
 
+### Re-read mode (branch `experimental`, Constitution §10.22)
+
+`scripts/agent-port-loop.reread.prompt.md` replaces the port prompt on the
+`experimental` branch: after Must-fix and the cliffs head, each iteration
+re-reads one slice of a C file (`ledger.mjs batch --reread --write`), and
+finish-iteration stamps the declared functions `audited D-NNNN`. Design,
+evidence and pilot: `docs/REREAD-PASS.md`. It runs interactively in the
+worktree `../teleport-contest-revisited-experimental` (its `CLAUDE.md`
+points there). Under the supervisor (untested) set
+`PROMPT_FILE=scripts/agent-port-loop.reread.prompt.md LOOP_GROWTH_MIN=0
+LOOP_GROW_EVERY=0`, so neither grow trigger fires.
+
 ### Logs
 
 Under `.agent-port-loop-logs/` (gitignored):

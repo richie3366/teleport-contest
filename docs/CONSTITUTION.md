@@ -602,6 +602,45 @@ case.
       flat for ~30 iterations while the cliffs head keeps moving sessions
       → the active tier hides the judge's owners; raise the quota or
       rescore `--with-reserve` once, before growing again.
+22. **Re-read pass (human decision 2026-10-21, branch `experimental`;
+    replaces the §10.18–21 picker and grow trigger there; the fortress,
+    REACH, whole-function, ledger and audit rules stand).** On
+    2026-10-21 every board session passed, and fresh cohorts failed 31×
+    less per screen than the judge (0.026 vs 0.80 failing sessions per
+    1,000 screens; held-out 35/44, RNG 99.5 %, screens 98.3 %). 63 port
+    commits had moved held-out by 0 points, then 15 display fixes by
+    +230. A 160-session grow found one failing owner. The code itself
+    carried 309 `named omit` comments, 163 of them behaviour gaps inside
+    functions the ledger called `ported`. Sampling had stopped finding
+    what the judge loses (`docs/REREAD-PASS.md`). Until a human closes it
+    in `CURRENT.md`:
+    - **The picker is the C file.** Must-fix, then the cliffs head (both
+      under the port prompt), then a deferral-flag unit when `CURRENT.md`
+      **Next** names one. Otherwise `ledger.mjs batch --reread`: the next
+      ~1,000 C code lines, in C order, of the first file in reach ×
+      loudness order that still holds a live, partial, open or undeclared
+      function not stamped `audited`.
+    - **Every function whole.** Each manifest function is read whole
+      against C and compared arm by arm, callee by callee, field by field
+      and message by message, in C order. The margin notes (mark, defer,
+      callees, copies, dups, float) say where to look first, never what to
+      conclude. Divergences are fixed C-literally in the iteration; what
+      cannot be finished goes to `Left open:` and comes back.
+    - **The stamp is the record.** finish-iteration stamps every manifest
+      function the Ledger bullet declares `audited D-NNNN`. A partial
+      stamped this way names only omissions that cannot ship. Code that
+      was not read is never declared.
+    - **Deferral flags are architecture.** A JS-only flag that postpones
+      work C does inline (`ledger.mjs defer`) is removed one flag per
+      iteration, at C's point, every set/drain pair at once.
+    - **No grow trigger.** A short cliffs block does not start a grow; the
+      fresh cohort runs when a human asks. Audits keep review + rescore,
+      and the review samples a re-read commit's fixed functions and two of
+      its stamps.
+    - **D-ids on the branch start at D-6001,** so both logs can merge.
+    - **Falsifier (human reads it):** fewer than 8 confirmed divergences
+      over the first 8 slices, or held-out flat for ~30 iterations →
+      shrink the pass to the omit and deferral lists, or close it.
 
 ---
 
