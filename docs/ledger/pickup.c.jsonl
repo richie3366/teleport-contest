@@ -23,8 +23,8 @@
 {"fn":"check_autopickup_exceptions","c":"913-927","status":"ported","js":["js/pickup.js:check_autopickup_exceptions"],"at":"2026-10-03@bbe63333a"}
 {"fn":"autopick_testobj","c":"930-965","status":"ported","js":["js/pickup.js:autopick_testobj"],"at":"2026-10-03@bbe63333a"}
 {"fn":"autopick","c":"975-1003","status":"ported","js":["js/pickup.js:autopick"],"at":"2026-10-03@bbe63333a"}
-{"fn":"query_objlist","c":"1025-1216","status":"ported","js":["js/pickup.js:query_objlist_pickup"],"d":["D-3968","D-3940","D-3938","D-3784","D-3753","D-3406"],"at":"2026-10-14@5e915757f","note":"audit 2026-10-03: menu + FEEL_COCKATRICE + count fixup present"}
-{"fn":"query_category","c":"1226-1508","status":"ported","js":["js/pickup.js:query_category"],"d":["D-2647"],"at":"seed@a30a7de84"}
+{"fn":"query_objlist","c":"1025-1216","status":"ported","js":["js/pickup.js:query_objlist"],"d":["D-4201","D-3968","D-3940","D-3938","D-3784","D-3753"],"at":"2026-10-21@52a916c0b","note":"audit 2026-10-03: menu + FEEL_COCKATRICE + count fixup present"}
+{"fn":"query_category","c":"1226-1508","status":"ported","js":["js/pickup.js:query_category"],"d":["D-4201","D-2647"],"at":"2026-10-21@52a916c0b"}
 {"fn":"count_categories","c":"1511-1536","status":"ported","js":["js/pickup.js:count_categories"],"d":["D-3406","D-3135"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"delta_cwt","c":"1544-1566","status":"ported","js":["js/pickup.js:delta_cwt"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: C panic surfaces as throw"}
 {"fn":"carry_count","c":"1570-1701","status":"ported","js":["js/pickup.js:carry_count"],"d":["D-3441","D-2617"],"at":"2026-10-05@9e1efbc82"}
@@ -38,7 +38,7 @@
 {"fn":"mon_beside","c":"2072-2085","status":"ported","js":["js/pickup.js:mon_beside"],"d":["D-3406","D-3135"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
 {"fn":"do_loot_cont","c":"2088-2162","status":"partial","js":["js/pickup.js:do_loot_cont"],"omit":"bag arm skips makeknown+abort_looting on survived-fatal (C :2157-2158 run after done returns; JS returns early — D-3998 class; audit 2837-2843 sample)","d":["D-2576"],"at":"2026-10-16@28130c7ea","note":"audit 2837-2843 sample: 4/5 seeded rows correct (randrace, mkcavearea, Cloak_off, magic_negation verified C-exact)"}
 {"fn":"doloot","c":"2166-2174","status":"ported","js":["js/pickup.js:doloot"],"at":"2026-10-03@bbe63333a"}
-{"fn":"doloot_core","c":"2178-2346","status":"ported","js":["js/pickup.js:doloot_core"],"d":["D-3406","D-3213","D-1837"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: whole vs C"}
+{"fn":"doloot_core","c":"2178-2346","status":"ported","js":["js/pickup.js:doloot_core"],"d":["D-4201","D-3406","D-3213","D-1837"],"at":"2026-10-21@52a916c0b","note":"audited D-3406: whole vs C"}
 {"fn":"reverse_loot","c":"2350-2426","status":"ported","js":["js/pickup.js:reverse_loot"],"d":["D-2768"],"at":"seed@a30a7de84"}
 {"fn":"loot_mon","c":"2431-2481","status":"ported","js":["js/pickup.js:loot_mon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mbag_explodes","c":"2488-2507","status":"ported","js":["js/pickup.js:mbag_explodes"],"at":"2026-10-03@bbe63333a"}
@@ -58,11 +58,11 @@
 {"fn":"use_container","c":"2972-3226","status":"split","js":["js/pickup.js:use_container","js/pickup.js:use_container_traditional_prompt"],"d":["D-3779","D-3541","D-3456","D-3199","D-2028"],"at":"2026-10-10@96615e374","note":"D-3541 repair: D-3456 omit (373) clipped at 300, restore-compacted to 256; both clauses re-verified (by-value callers pickup.js:4285/apply.js:2561; containerdone cknown :4196 w/o update_inventory; colon-path live js/end.js:755; reviews 2159/2237/1052 ACCEPT)."}
 {"fn":"traditional_loot","c":"3230-3261","status":"ported","js":["js/pickup.js:traditional_loot"],"d":["D-1581"],"at":"2026-10-03@bbe63333a"}
 {"fn":"menu_loot","c":"3265-3394","status":"ported","js":["js/pickup.js:menu_loot"],"at":"2026-10-03@bbe63333a"}
-{"fn":"in_or_out_menu","c":"3397-3477","status":"ported","js":["js/pickup.js:in_or_out_menu"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: toggle-off quirk outcomes equivalent to C defaults"}
+{"fn":"in_or_out_menu","c":"3397-3477","status":"ported","js":["js/pickup.js:in_or_out_menu"],"d":["D-4201"],"at":"2026-10-21@52a916c0b","note":"audit 2026-10-03: toggle-off quirk outcomes equivalent to C defaults"}
 {"fn":"tip_ok","c":"3481-3497","status":"ported","js":["js/pickup.js:tip_ok"],"at":"2026-10-03@bbe63333a"}
-{"fn":"choose_tip_container_menu","c":"3505-3558","status":"ported","js":["js/pickup.js:choose_tip_container_menu"],"d":["D-1679"],"at":"2026-10-03@bbe63333a"}
+{"fn":"choose_tip_container_menu","c":"3505-3558","status":"ported","js":["js/pickup.js:choose_tip_container_menu"],"d":["D-4201","D-1679"],"at":"2026-10-21@52a916c0b"}
 {"fn":"dotip","c":"3562-3677","status":"ported","js":["js/pickup.js:dotip"],"d":["D-3135"],"at":"2026-09-29@f292ec32c"}
 {"fn":"tipcontainer","c":"3688-3841","status":"ported","js":["js/pickup.js:tipcontainer"],"d":["D-3909","D-2612"],"at":"2026-10-13@54920355c"}
 {"fn":"count_target_containers","c":"3849-3864","status":"by-design","d":["D-3135"],"at":"2026-09-29@f292ec32c","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"tipcontainer_gettarget","c":"3871-3948","status":"ported","js":["js/pickup.js:tipcontainer_gettarget"],"d":["D-2082","D-2018"],"at":"2026-10-03@bbe63333a"}
+{"fn":"tipcontainer_gettarget","c":"3871-3948","status":"ported","js":["js/pickup.js:tipcontainer_gettarget"],"d":["D-4201","D-2082","D-2018"],"at":"2026-10-21@52a916c0b"}
 {"fn":"tipcontainer_checks","c":"3954-4055","status":"ported","js":["js/pickup.js:tipcontainer_checks"],"at":"2026-10-03@bbe63333a"}

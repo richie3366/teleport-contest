@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4201 — pickup.c menus paint their end_menu prompts in tty_menu_promptstyle and their class/engulfer headings through add_menu_heading. Both carry the live menu_headings colour (wintty.c `:2685–2689`, windows.c `:1815–1828`). JS hard-coded ATR_INVERSE with no colour at all seven sites, so after `O` set menu_headings white, #tip's «Where to tip the contents of …» prompt lost its colour. tipcontainer_gettarget is restarted on select_menu_pick_one; it was a hand loop that also skipped menucolors and re-dismissed the window on every key
+
+- **Status:** shipped.
+- **Symptom:** scen-options-Rogue-51151031 step 153 (cliffs head, owner tipcontainer_gettarget, region heuristic). Row 0 «Where to tip the contents of an empty uncursed sack» was C colour 15 + inverse, JS colour 8 (NO_COLOR) + inverse. The text was identical and RNG fully matched; a per-cell decode diff showed only the colour.
+- **C locus:** pickup.c tipcontainer_gettarget `:3871–3948` (end_menu `:3925`), query_objlist headings `:1125` / `:1153` and end_menu `:1166`, query_category end_menu `:1448`, in_or_out_menu end_menu `:3465`, doloot_core end_menu «Loot which containers?» `:2255`, choose_tip_container_menu end_menu `:3536`. wintty.c tty_end_menu prompt `:2685–2689`; windows.c add_menu_heading `:1815–1828`, add_menu menucolors `:1803–1807`.
+- **JS was:** js/pickup.js had `attr: ATR_INVERSE` on all seven rows. tipcontainer_gettarget ran its own paint/nhgetch/dismiss loop: plain `-`/`*` rows with no get_menu_coloring, the window dismissed and repainted after every key (C keeps it up, nhbell on an invalid key), and PICK_ONE emulated by toggling.
+- **Fix:** prompts spread `menu_prompt_style()`, headings spread `menu_heading_style()` (the D-4186 helpers). tipcontainer_gettarget is restarted in C order: the floor row (selector `-`, preselected), a blank, then the containers. Excluded targets are identifier-less rows with their menucolor. The prompt is the doname(box) line, and select_menu_pick_one does the paint, menucolors and PICK_ONE finish. Outcomes map to C's pick_list handling: Return → preselected floor, `-` → none → floor, another letter → that container (C's n>1 non-dummy pick), ESC → cancelled. The ATR_INVERSE import is dropped.
+- **JS:** js/pickup.js tipcontainer_gettarget (restart), query_objlist `:855–860` / `:924–928` / `:946`, query_category `:711`, in_or_out_menu `:2614`, loot_which_containers_menu `:4239`, choose_tip_container_menu `:5158`, import `:104`.
+- **Callers:** unchanged. tipcontainer (C `:3756`) → js/pickup.js tipcontainer `const picked = await tipcontainer_gettarget(box)`, with the same `{target, cancelled}` contract.
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-options-Rogue-51151031.session.json` → PASS (RNG 4315/4315, Screen 222/222).
+  - `node scripts/verify.mjs --fn tipcontainer_gettarget,query_objlist,query_category,in_or_out_menu,doloot_core,choose_tip_container_menu --full` → syntax · rule2 · `verify tipcontainer_gettarget: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach REACH-OK ×6 (doloot_core: 4 tagged sessions, the rest 24 smoke) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 674 baseline-PASS re-run in 128.3s, 0 regressed → REACH-OK.
+  - verify tipcontainer_gettarget: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in pickup.c. The remaining add_menu_heading drift from the D-4199 list is cmd.c `:674`, botl.c `:1411` (D-3631), o_init.c `:1169`, shk.c `:1699/:1707`, spell.c `:2117` and wizcmds.c `:1953`.
+- **Ledger:** tipcontainer_gettarget ported; query_objlist ported js=pickup.js:query_objlist; query_category ported; in_or_out_menu ported; doloot_core ported; choose_tip_container_menu ported
+- **Next:** the regenerated cliffs head.
+
 ## D-4200 — wintty.c set_item_state repaints a toggled entry's mark (`-`/`+`/`#` at str[2]) in the item's own attr and colour (`:1175–1194`). The page paint leaves the mark plain, because the attr starts at attr_n. Every runtime toggle calls it: toggle_menu_curr, set/unset_all_on_page, invert_all_on_page, for both select and deselect. JS select_menu_pick_any repainted the whole page with the mark always plain, so after `b` in query_attr's PICK_ANY menu C showed «b + bold» with a bold `+` and JS a plain one
 
 - **Status:** shipped.
