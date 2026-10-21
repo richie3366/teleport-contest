@@ -1,5 +1,21 @@
 # Divergence log
 
+## D-4190 — monmove.c postmov ends the MMOVE_MOVED arm with an unguarded `newsym(mtmp->mx, mtmp->my)` (`:1655–1657`). m_move's guard arm turns `gd_move() == 1` into `postmov(..., MMOVE_MOVED)` (`:1806–1826`). When gd_move_cleanup has just parked the guard at <0,0> (vault.c `:854`) and said «Suddenly, the guard disappears.», that newsym hits display.c's column-0 `impossible("newsym: attempting screen update for <%d,%d>")` (`:928–935`). That gives «Program in disorder!» and «Please report these messages…». JS wrapped the call in a JS-only `else if (mtmp.mx)` guard, so the C bug never showed. Ported as recorded (C bugs are ported faithfully)
+
+- **Status:** shipped.
+- **Symptom:** scen-symset-Rogue-50350015 step 683: C «newsym: attempting screen update for <0,0>--More--», then s684 «Program in disorder!  (Saving and reloading may fix this problem.)--More--» and s685 «Please report these messages to devteam@nethack.org.». JS printed nothing, then «Unknown command ' '.» ×2. The hero walks into a vault guard in its fake corridor («You stop.  The guard is in the way!  Suddenly, the guard disappears.», s682). Cliffs head row `newsym` (3 screens).
+- **C locus:** monmove.c postmov `:1655–1657`, m_move shk/gd/pri arm `:1806–1826`; vault.c gd_move_cleanup `:835–866` (parkguard `:854`); display.c newsym `:928–935`.
+- **JS was:** js/monmove.js postmov `} else if (mtmp.mx) { newsym(mtmp.mx, mtmp.my); }`. Also, JS newsym is sync and leaves the column-0 report pending in `game._newsym_misuse`, which only see_monsters drains.
+- **Fix:** an unguarded `newsym(mtmp.mx, mtmp.my)` as in C, then the see_monsters drain idiom: clear the flag, newsym, and if it is set, `await impossible('newsym: attempting screen update for <%d,%d>', x, y)`. `impossible` is now imported from display.js (the edge already existed).
+- **JS:** js/monmove.js postmov (`:1874–1889`), display.js import (`:86`).
+- **Callers:** unchanged (postmov ← m_move's shk/gd/pri arm `:2222–2234` and the normal move tail; dochug's `mon_offmap` / isgd `mx == 0` checks follow, as in C `:911–927`).
+- **Verify:**
+  - `node scripts/verify.mjs --fn newsym,postmov,impossible` → syntax · rule2 · hidden: verify newsym: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-symset-Rogue-50350015: PASS) · reach newsym REACH-OK (24 smoke), postmov 80/242 spread sample: 80 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44. `impossible` was probed as a possible same-cause companion: verify impossible: 0 PASS, 0 moved past, 1 unchanged, 0 worse → NO MOVEMENT (scen-worldtour-Archeologist-50056033 s963 is a different impossible() writer; its row stays open). That probe alone made the run print VERIFY: FAIL.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 669 baseline-PASS re-run in 133.4s, 0 regressed → REACH-OK.
+- **Named omissions:** the other JS newsym callers outside see_monsters still do not drain `_newsym_misuse`. Each is a C site that could report column 0 only on a parked monster, and no corpus session reaches one.
+- **Ledger:** m_move partial
+- **Next:** the regenerated cliffs head (findit s666, scen-hallu-Valkyrie-51650028).
+
 ## D-4189 — detect.c reveal_terrain_getglyph starts from `glyph = !swallowed ? glyph_at(x, y) : levl_glyph` (`:2209`), the *displayed* gbuf int, and every later arm classifies that int (`:2213–2231`). JS rebuilt the displayed layer from live state: hero, then a visible monster, then `I`, then any object under cansee, then a seen trap. A seen rock trap with a rock pile that arrived unseen still displays `^` in both C and JS, but the JS rebuild picked the object. So `#terrain` "known terrain, traps, and objects" drew `%` where C keeps `^`
 
 - **Status:** shipped.
