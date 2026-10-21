@@ -1,5 +1,21 @@
 # Divergence log
 
+## D-4192 — weapon.c enhance_weapon_skill asks the wizard-mode speedup with `y_n("Advance skills without practice?")` (`:1340`), that is `yn_function(query, ynchars, 'n', TRUE)`. cmd.c yn_menuable_resp offers the Yes/No menu only when `resp` *is* one of the shared tables (pointer compare, `:5393–5399`). JS passed the string literal `'yn'`, so with `query_menu` on, C showed the menu and JS the plain `[yn] (n)` topline prompt
+
+- **Status:** shipped.
+- **Symptom:** scen-options-Knight-50557414 step 87 (`#enhance` in debug mode; `query_menu` turned on through `O` earlier): C menu window at col 41 with «Advance skills without practice?» (inverse) / «y - Yes» / «n * No» / «(end)» vs JS topline «Advance skills without practice? [yn] (n)». Cliffs head row `enhance_weapon_skill` (2 screens).
+- **C locus:** weapon.c enhance_weapon_skill `:1340`; hack.h y_n; cmd.c yn_menuable_resp `:5393–5399`, yn_function_menu `:5416–5463`.
+- **JS was:** js/weapon.js enhance_weapon_skill `yn_function('Advance skills without practice?', 'yn', 'n')`. This is the `'yn'`-literal mirror family named in getline.js y_n's doc; it is the only yn site in weapon.js.
+- **Fix:** call the live `y_n()` (getline.js), which passes `ynchars` with addcmdq TRUE like C. The `yn_function` import is dropped (no other use in weapon.js).
+- **JS:** js/weapon.js (import `:18`, enhance_weapon_skill `:1134–1138`).
+- **Callers:** unchanged (enhance_weapon_skill ← `#enhance`, doextcmd).
+- **Verify:**
+  - `node scripts/verify.mjs --fn enhance_weapon_skill` → syntax · rule2 · hidden: verify enhance_weapon_skill: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-options-Knight-50557414: PASS) · reach REACH-OK (24 smoke) · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 671 baseline-PASS re-run in 134.7s, 0 regressed → REACH-OK.
+- **Named omissions:** none in the changed arm. Other C files still have `'yn'` literal sites (apply, bones, dokick, eat, fountain, potion, save, sit, teleport, shk); each is fixed with its own C file.
+- **Ledger:** enhance_weapon_skill ported
+- **Next:** the regenerated cliffs head (container_contents s1607, scen-sweep-Archeologist-50055049).
+
 ## D-4191 — zap.c zap_over_floor computes `yourzap = (type >= 0 && !exploding_wand_typ)` once (`:5378`). For a burning-oil or scroll-of-fire explosion, the `POT_OIL`/`SCR_FIRE` arm then clears `exploding_wand_typ` and leaves zapverb as "blast", and yourzap stays FALSE (`:5387–5394`, C comment: "the result will be 'the blast'"). JS recomputed `yourzap` after the clear, so a scroll of fire that revealed a secret door said «Your blast reveals a secret door.» where C says «The blast …»
 
 - **Status:** shipped.
