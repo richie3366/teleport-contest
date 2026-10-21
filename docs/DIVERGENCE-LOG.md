@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4205 — pager.c do_screen_description prefixes a farlook line with encglyph(glyph) (`:1271`). Under a UTF-8 symset, tty_putmixed turns that escape into the glyph's UTF-8 bytes (mixed_to_utf8, wintty.c `:4183–4187`), and topl_putsym writes them one byte, one column each. The capture hook (patch 006) receives topl_putsym's plain `char`, so on the x86_64 recorder those bytes are negative and dropped by `ch < 32`. Under Enhanced1 a floor farlook therefore leaves the two cells of the previous topline («fl») and shifts the text one column right. JS painted a single `·` and kept the text one column left
+
+- **Status:** shipped.
+- **Symptom:** scen-symset-Priest-50058519 step 398 (cliffs head, owner do_screen_description, parked SUPERSEDED for an older travel cause). `;` `l` `:` on a floor square with `symset:Enhanced1`: C row 0 «fl        a doorway or the floor of a room…» ('a' at col 10), JS «·        a doorway…» ('a' at col 9). RNG fully matched; a per-cell decode diff showed the one-column shift.
+- **C locus:** pager.c do_screen_description `:1266–1273` (looked → `Sprintf(prefix, "%s        ", encglyph(glyphinfo.glyph))`). windows.c encglyph `:1427–1434`. wintty.c tty_putmixed `:4170–4195` (WC2_U_UTF8STR && SYMHANDLING(H_UTF8) → mixed_to_utf8, topl_utf8 set so redotoplin's `/` g_putch kludge is skipped). utf8map.c mixed_to_utf8 `:83–145` (\G → `gm.u->utf8str` bytes). topl.c topl_putsym `:304–344` (curx++ per byte). Patch 006 topl_putsym hook `nomux_putch(c)` (`char c`) → nomux_putch `if (... ch < 32) return;`.
+- **JS was:** js/pager.js prefix = rendered_glyph_char (the decoded `·`, one cell). The topline painter skipped only C0.
+- **Fix:** display.js `topl_raw_utf8(str)` encodes a decoded utf8str with the live unicodeval_to_utf8str into one TOPL_RAW_BYTE char (U+F700+byte) per C byte ≥ 0x80, so the message keeps C's byte count. topline_putsyms_cl_end skips those chars exactly as it skips C0: the cell keeps its previous content and the column advances. pager.js `encglyph_message_prefix` uses it for a cell that show_glyph_cell drew through g_pututf8 (`disp_capture_drop`, the same H_UTF8 + WC2_U_UTF8STR + utf8str condition mixed_to_utf8 tests). Any other cell keeps rendered_glyph_char.
+- **JS:** js/display.js topl_raw_utf8 + TOPL_RAW_BYTE, topline_putsyms_cl_end, hacklib import. js/pager.js encglyph_message_prefix, do_screen_description prefix, display.js import.
+- **Callers:** unchanged (do_screen_description callers: lookat/do_look farlook and `/`).
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-symset-Priest-50058519.session.json` → PASS (RNG 59841/59841, Screen 838/838).
+  - `node scripts/verify.mjs --fn do_screen_description,topl_putsym --full` → syntax ×2 files · rule2 · `verify do_screen_description: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach REACH-OK ×2 (24 smoke) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 678 baseline-PASS re-run in 134.5s, 0 regressed → REACH-OK.
+  - verify do_screen_description: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** pager.c's other encglyph sites go to text/menu windows, not the topline: look_engrs / gather_symbols `:2059`, `:2102`, `:2126`, `:2190`, `:2215` keep rendered_glyph_char. Under a UTF-8 symset C drops those bytes in the menu hooks too (`nomux_putch(*cp)`), and the JS menu painters do not model that yet. This is a recorder quirk (signed `char` into `ch < 32`), modelled per the port-C-as-recorded rule; it is probably a capture bug to fix in the recorder later.
+- **Ledger:** do_screen_description ported
+- **Next:** the regenerated cliffs head (3 rows left after this one, so the next slot is a grow per §10.19–20).
+
 ## D-4204 — trap.c trapeffect_sqky_board's monster arm picks its witness message on the hero's Deaf macro (`:1445–1457`): a squeak when the hero can hear, otherwise «%s stops momentarily and appears to cringe.» for a non-mindless monster. JS tested the sticky `game.u.Deaf`, which nothing writes, so a hero deafened by the HDeaf timeout still "heard" «A board beneath the gnome squeaks a B flat loudly.» The same file's three sticky `u.Blind` reads go through trap.js's Blind() as well
 
 - **Status:** shipped.
