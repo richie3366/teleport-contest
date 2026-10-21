@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4203 — trap.c reads hero flight and levitation through the youprop.h macros. Flying is `(HFlying || EFlying || steed flyer) && !BFlying`, all stored in u.uprops[FLYING] (`:248–255`). JS trap.js kept flat-only clones: Flying_fu, Levitation_fd, fall_through's locals, and the bear-trap/landmine `u.Levitation || u.Flying` sticky reads. A hero whose flight lives only in the uprops slot therefore landed with «You float gently to the floor.» when levitation timed out after a declined death, where C says «You have stopped levitating and are now flying.»
+
+- **Status:** shipped.
+- **Symptom:** scen-sweep-Caveman-50055035 step 1109 (cliffs head, owner nh_timeout). After «You die… Die? n», C's topline is «OK, so you don't die.  You have stopped levitating and are now flying.--More--» and JS's is «… You float gently to the floor.--More--». RNG fully matched. This is not the comment-literal owner case (D-3821): the next C message differs in the same frame, and it is float_down's `:4049–4055` Flying arm.
+- **C locus:** trap.c float_down `:4024–4179` (Levitation gate `:4034`, `if (BFlying) { float_vs_flight(); if (Flying) … }` `:4049–4055`, `if (!Flying)` ustuck arm `:4086`). fall_through `:602–696`, trapeffect_bear_trap and trapeffect_landmine `(Levitation || Flying) && !forcetrap`. youprop.h `:237–255`.
+- **JS was:** js/trap.js Flying_fu read u.Flying / u.HFlying / u.EFlying / u.BFlying flats only, and float_down tested `u.BFlying | 0` only. Measured at float_down: u.uprops[FLYING] = {intrinsic 0, extrinsic 0x10000 (W_AMUL, a worn amulet of flying), blocked 0}, with the EFlying flat unset (confer_oc_oprop writes the slot only). Canonical Flying (mhitu.js / hack.js Flying_st) reads that slot; the clone did not. Levitation_fd, the fall_through locals and both trap-effect guards were the same flat-only (or sticky `u.Levitation`/`u.Flying`) mirror family.
+- **Fix:** delete the Flying_fu and Levitation_fd clones and use the imported live hack.js `hero_Flying` / `hero_Levitation` (Flying_st / Levitation_st: flat or slot H/E, either blocked source, steed flyer). float_down's BFlying test reads `u.BFlying || u.uprops[FLYING].blocked`; float_vs_flight writes the flat. fall_through's `Levitation`/`flying` and both `(Levitation || Flying) && !forcetrap` guards use the same readers. FLYING is imported from const.js.
+- **JS:** js/trap.js float_down (Levitation gate, BFlying/Flying arm, `!Flying` ustuck arm), fall_through locals, trapeffect_bear_trap and trapeffect_landmine guards, import `:112`.
+- **Callers:** unchanged.
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-sweep-Caveman-50055035.session.json` → PASS (RNG 45792/45792, Screen 1218/1218).
+  - `node scripts/verify.mjs --fn nh_timeout,float_down,fall_through,trapeffect_bear_trap,trapeffect_landmine --full` → syntax · rule2 · `verify nh_timeout: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach REACH-OK ×5 (nh_timeout 12, float_down 1, bear_trap 21, landmine 35 tagged; fall_through 24 smoke) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 676 baseline-PASS re-run in 129.6s, 0 regressed → REACH-OK.
+  - verify nh_timeout: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in trap.c (no flat-only Flying/Levitation read is left in js/trap.js). mhitu.js's exported `Levitation()` is still flat-only (mhitu.c's own copy; another C file).
+- **Ledger:** float_down ported; fall_through ported; trapeffect_bear_trap ported; trapeffect_landmine ported
+- **Next:** the regenerated cliffs head.
+
 ## D-4202 — do.c flooreffects saves gb.bhitpos, writes the drop square into it, and restores it before returning (`:182–183`, `:357`). That is a struct copy into one global, done so that a zap reaching it via rloco keeps its bolt position. JS replaced the `game.bhitpos` object on both the set and the restore. zap.js bhit advances an alias of that object, so after a bolt kill whose corpse drop went through mdrop_obj → flooreffects, the bolt moved on in a detached object while bhitm read the frozen copy. The next monster's miss mapped `I` on the dead student's square instead of the devil's
 
 - **Status:** shipped.

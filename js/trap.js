@@ -109,7 +109,7 @@ import {
     IS_OBSTRUCTED, IS_STWALL, IS_TREE, IRONBARS,
     HVY_ENCUMBER, EXT_ENCUMBER, UNENCUMBERED, SLT_ENCUMBER, WT_TOOMUCH_DIAGONAL,
     TELEDS_ALLOW_DRAG, TELEDS_TELEPORT, TELEPORT, TELEPORT_CONTROL,
-    WOUNDED_LEGS, LEVITATION,
+    WOUNDED_LEGS, LEVITATION, FLYING,
     ECMD_OK, ECMD_TIME, MON_DETACH, MON_ENDGAME_FREE, M_AP_NOTHING, M_AP_MONSTER,
     Is_container, Waterproof_container, Is_box,
     xytodir, DIR_180, DIR_ERR,
@@ -3278,13 +3278,6 @@ export async function rescued_from_terrain(how) {
 }
 
 /** C youprop.h Flying subset for float_up. */
-function Flying_fu() {
-    const u = game.u || {};
-    if (u.Flying) return true;
-    const blocked = (u.BFlying | 0);
-    return !!(((u.HFlying | 0) || (u.EFlying | 0)) && !blocked);
-}
-
 /**
  * C ref: trap.c float_up (`:3937–4006`) — gain levitation messages +
  * float_vs_flight + encumber_msg.
@@ -3299,7 +3292,7 @@ function Flying_fu() {
  * utraptype against trap-type WEB=18 (trap.h:77), not TT_WEB=3
  * (you.h:349), so a TT_WEB hero falls through to the bear-trap arm.
  * Flying via canonical mhitu.js export (C youprop.h:253–255 incl. steed
- * flyer); file-local Flying_fu stays for float_down and below.
+ * flyer).
  */
 export async function float_up() {
     const u = game.u || (game.u = {});
@@ -3421,7 +3414,7 @@ export async function float_down(hmask, emask) {
         (u.uprops[LEVITATION].intrinsic | 0) & ~(hmask | 0);
     u.uprops[LEVITATION].extrinsic =
         (u.uprops[LEVITATION].extrinsic | 0) & ~(emask | 0);
-    if (Levitation_fd()) return 0;
+    if (hero_Levitation()) return 0; /* maybe another ring/potion/boots */
 
     if (u.BLevitation | 0) {
         const trapped = (u.BLevitation | 0) === I_SPECIAL;
@@ -3444,10 +3437,13 @@ export async function float_down(hmask, emask) {
     if (game.flags) game.flags.botl = true;
     nomul(0);
 
-    if (u.BFlying | 0) {
+    // C `:4049` BFlying ≡ u.uprops[FLYING].blocked (youprop.h:252); the
+    // flat is float_vs_flight's store, the slot is the C home — read both.
+    if ((u.BFlying | 0) || (u.uprops?.[FLYING]?.blocked | 0)) {
         const { float_vs_flight } = await import('./polyself.js');
         float_vs_flight();
-        if (Flying_fu()) {
+        // C youprop.h Flying `:253–255` (H/E flat or slot, steed flyer).
+        if (hero_Flying()) {
             await pline('You have stopped levitating and are now flying.');
             await encumber_msg();
             return 1;
@@ -3479,7 +3475,7 @@ export async function float_down(hmask, emask) {
         game.vision_full_recalc = 1; /* in case the hero moved. */
     }
 
-    if (!Flying_fu()) {
+    if (!hero_Flying()) {
         if (!u.uswallow && u.ustuck) {
             // C `:4087–4094` — the falling hero breaks the hold.
             if (sticks(game.youmonst?.data)) {
@@ -3572,13 +3568,6 @@ export async function float_down(hmask, emask) {
     return 1;
 }
 
-/** Levitation for float_down (youprop.h). */
-function Levitation_fd() {
-    const u = game.u || {};
-    if (u.Levitation) return true;
-    return !!(((u.HLevitation | 0) || (u.ELevitation | 0))
-        && !(u.BLevitation | 0));
-}
 function Wwalking_fd() {
     const u = game.u || {};
     if (Is_waterlevel(u.uz)) return false;
@@ -3815,7 +3804,7 @@ async function trapeffect_bear_trap(mtmp, trap, trflags) {
     if (is_youmonst(mtmp)) {
         const u = game.u || {};
         const dmg = d(2, 4);
-        if ((u.Levitation || u.Flying) && !forcetrap) {
+        if ((hero_Levitation() || hero_Flying()) && !forcetrap) { // C youprop.h macros
             return Trap_Effect_Finished;
         }
         feeltrap(trap);
@@ -4290,9 +4279,9 @@ export async function fall_through(td, ftflags = 0) {
     const Sokoban = !!(game.level?.flags?.sokoban_rules
         || game.level?.flags?.sokoban || game.Sokoban);
     const Blind = !!(u.Blind || u.ublind);
-    const Levitation = !!u.Levitation;
-    const flying = !!(u.Flying
-        || (((u.HFlying | 0) || (u.EFlying | 0)) && !(u.BFlying | 0)));
+    // C youprop.h Levitation / Flying macros (flat or uprops slot).
+    const Levitation = hero_Levitation();
+    const flying = hero_Flying();
     const ptr = game.youmonst?.data;
     const ft = ftflags | 0;
     // C mondata.h ceiling_hider — clinger (not mimic) or flyer
@@ -5950,7 +5939,7 @@ async function trapeffect_landmine(mtmp, trap, trflags) {
         let steed_mid = 0;
         let saddle = null;
 
-        if ((u.Levitation || u.Flying) && !forcetrap) {
+        if ((hero_Levitation() || hero_Flying()) && !forcetrap) { // C youprop.h macros
             if (!already_seen && rn2(3)) return Trap_Effect_Finished;
             feeltrap(trap);
             await pline(
