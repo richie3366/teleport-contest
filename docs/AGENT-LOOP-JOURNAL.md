@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — D-4206 themerms.lua make_dig_engraving (the Buried treasure postprocess) computes «Dig N east/west M south/north» as `data.x - pos.x - 1, data.y - pos.y`. data is the chest's absolute ox/oy, but pos comes from `selection:rndcoord(0)`, which nhlsel.c l_selection_rndcoord returns in the Lua frame (`:413–421`): croom-relative under a coder subroom, else minus xstart/ystart, here 1/0 from themerooms_post_level_generate's reset_xystart_size. The Lua `- 1` cancels that xstart. JS took the absolute pos and still subtracted 1, so every east/west distance was one short: «Dig 46 east» where C engraves «Dig 47 east»
+
+**C locus:** 
+**JS:** js/mklev.js make_dig_engraving_postprocess.
+**Change:** convert pos into the Lua frame as l_selection_rndcoord does: update_croom(), then subtract the coder subroom's lx/ly if set, else game.splev_xstart/ystart. Then apply the Lua formula unchanged. The engraving is still placed at the absolute pos, since des.engraving's get_location_coord adds the same offset back.
+**Verify:** - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-symset-Priest-50059010.session.json` → PASS (RNG 23011/23011, Screen 993/993). `node scripts/hidden-proxy.mjs score --ids scen-symset-Priest-50059010` → board PASS.
+**Named:** the other Lua `rndcoord` consumers in js/mklev.js convert their frame per site (e.g. the siege `siege_coord`); no shared l_selection_rndcoord helper exists yet.
+**Next:** the regenerated cliffs head (2 rows left; the next slot is a grow per §10.19–20).
 ## 2026-10-21 — D-4205 pager.c do_screen_description prefixes a farlook line with encglyph(glyph) (`:1271`). Under a UTF-8 symset, tty_putmixed turns that escape into the glyph's UTF-8 bytes (mixed_to_utf8, wintty.c `:4183–4187`), and topl_putsym writes them one byte, one column each. The capture hook (patch 006) receives topl_putsym's plain `char`, so on the x86_64 recorder those bytes are negative and dropped by `ch < 32`. Under Enhanced1 a floor farlook therefore leaves the two cells of the previous topline («fl») and shifts the text one column right. JS painted a single `·` and kept the text one column left
 
 **C locus:** pager.c do_screen_description `:1266–1273` (looked → `Sprintf(prefix, "%s        ", encglyph(glyphinfo.glyph))`). windows.c encglyph `:1427–1434`. wintty.c tty_putmixed `:4170–4195` (WC2_U_UTF8STR && SYMHANDLING(H_UTF8) → mixed_to_utf8, topl_utf8 set so redotoplin's `/` g_putch kludge is skipped). utf8map.c mixed_to_utf8 `:83–145` (\G → `gm.u->utf8str` bytes). topl.c topl_putsym `:304–344` (curx++ per byte). Patch 006 topl_putsym hook `nomux_putch(c)` (`char c`) → nomux_putch `if (... ch < 32) return;`.

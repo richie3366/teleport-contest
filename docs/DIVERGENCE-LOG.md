@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4206 — themerms.lua make_dig_engraving (the Buried treasure postprocess) computes «Dig N east/west M south/north» as `data.x - pos.x - 1, data.y - pos.y`. data is the chest's absolute ox/oy, but pos comes from `selection:rndcoord(0)`, which nhlsel.c l_selection_rndcoord returns in the Lua frame (`:413–421`): croom-relative under a coder subroom, else minus xstart/ystart, here 1/0 from themerooms_post_level_generate's reset_xystart_size. The Lua `- 1` cancels that xstart. JS took the absolute pos and still subtracted 1, so every east/west distance was one short: «Dig 46 east» where C engraves «Dig 47 east»
+
+- **Status:** shipped.
+- **Symptom:** scen-symset-Priest-50059010 step 74 (cliffs row `unattributed`): C «You read: "Dig 47 east".», JS «"Dig 46 east"». RNG fully matched (the same rndcoord draw; only the arithmetic differs).
+- **Measured / named:** the only writer of «Dig» is themerms.lua `:1052–1070` make_dig_engraving, ported as js/mklev.js make_dig_engraving_postprocess. Its pos frame comes from nhlsel.c l_selection_rndcoord `:406–428`; the xstart value from mklev.c themerooms_post_level_generate `:1181` → sp_lev.c reset_xystart_size `:206–212`.
+- **JS was:** `tx = data.x - pos.x - 1` with absolute pos.x, a frame mismatch of exactly xstart (1). ty was right only because ystart is 0.
+- **Fix:** convert pos into the Lua frame as l_selection_rndcoord does: update_croom(), then subtract the coder subroom's lx/ly if set, else game.splev_xstart/ystart. Then apply the Lua formula unchanged. The engraving is still placed at the absolute pos, since des.engraving's get_location_coord adds the same offset back.
+- **JS:** js/mklev.js make_dig_engraving_postprocess.
+- **Callers:** unchanged (themerooms_post_level_generate's postprocess loop; pushed by themeroom_fill_buried_treasure).
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-symset-Priest-50059010.session.json` → PASS (RNG 23011/23011, Screen 993/993). `node scripts/hidden-proxy.mjs score --ids scen-symset-Priest-50059010` → board PASS.
+  - `node scripts/verify.mjs --fn themerooms_post_level_generate,l_selection_rndcoord --full` → syntax · rule2 · reach REACH-OK ×2 (24 smoke) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. The hidden step is vacuous for an owner-null row, so the replay and score above are the movement.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 679 baseline-PASS re-run in 135.4s, 0 regressed → REACH-OK.
+  - verify unattributed scen-symset-Priest-50059010: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** the other Lua `rndcoord` consumers in js/mklev.js convert their frame per site (e.g. the siege `siege_coord`); no shared l_selection_rndcoord helper exists yet.
+- **Ledger:** l_selection_rndcoord split js=mklev.js:selection_rndcoord+mklev.js:make_dig_engraving_postprocess
+- **Next:** the regenerated cliffs head (2 rows left; the next slot is a grow per §10.19–20).
+
 ## D-4205 — pager.c do_screen_description prefixes a farlook line with encglyph(glyph) (`:1271`). Under a UTF-8 symset, tty_putmixed turns that escape into the glyph's UTF-8 bytes (mixed_to_utf8, wintty.c `:4183–4187`), and topl_putsym writes them one byte, one column each. The capture hook (patch 006) receives topl_putsym's plain `char`, so on the x86_64 recorder those bytes are negative and dropped by `ch < 32`. Under Enhanced1 a floor farlook therefore leaves the two cells of the previous topline («fl») and shifts the text one column right. JS painted a single `·` and kept the text one column left
 
 - **Status:** shipped.

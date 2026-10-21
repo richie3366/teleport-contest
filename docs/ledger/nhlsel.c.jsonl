@@ -14,7 +14,7 @@
 {"fn":"l_selection_xor","c":"332-356","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"l_selection_sub","c":"361-385","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"l_selection_filter_percent","c":"389-402","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"l_selection_rndcoord","c":"407-428","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"l_selection_rndcoord","c":"407-428","status":"split","js":["js/mklev.js:selection_rndcoord","js/mklev.js:make_dig_engraving_postprocess"],"d":["D-4206"],"at":"2026-10-21@fa33f868e","note":"seed: no scored analogue (file)"}
 {"fn":"l_selection_room","c":"432-450","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"l_selection_getbounds","c":"454-467","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"params_sel_2coords","c":"476-503","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
