@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4209 — insight.c enlightenment shows the in-game `^X` attributes through select_menu(PICK_NONE) (`:451–460`), so tty process_menu_window's key switch applies (`:1604–1649`). Return/LF finishes the menu, space pages and finishes on the last page, and `>` `<` `^` `|` turn pages without finishing. JS doattributes kept an inline page loop that accepted only space/CR/LF/ESC, and Return advanced a page like space. So `^X` then `>` stayed on «(1 of 3)» where C shows «(2 of 3)», and `^X` then Return showed page 2 where C returns to the map
+
+- **Status:** shipped (measured off-queue: the cliffs block was empty after D-4208, and this is the divergence D-4207 named while probing).
+- **Symptom:** `geom-probe.mjs scen-worldtour-Wizard-610136 --step 360 --keys '\u0018>'`: C «(2 of 3)» page (Characteristics tail, Status, Attributes); JS still page 1 «(1 of 3)». With `'\u0018\r'` C dismisses to the map, while JS (by the old loop) went to page 2.
+- **C locus:** insight.c enlightenment `:451–460` (en_via_menu → end_menu + select_menu(PICK_NONE)); wintty.c process_menu_window `:1548–1551` (same page: cursor back + xwaitforspace, no repaint), `:1604–1614` ESC, `:1616–1620` `\0`/`\n`/`\r` finish, `:1622–1631` ' '/MENU_NEXT_PAGE (' ' finishes on the last page, '>' does not), `:1632–1649` previous/first/last page; getline.c xwaitforspace `:230–257`.
+- **JS was:** js/invent.js doattributes fullscreen branch: `for (p …) { paint; if (await waitMenuKey()) break; }`, where waitMenuKey returned on ESC (cancel) or space/CR/LF (next page) and swallowed every other key.
+- **Fix:** the fullscreen branch is restarted as C's page loop: the current page is repainted only when it changes; keys go through map_menu_cmd; ESC/CR/LF finish; space/`>` advance (space finishes on the last page); `<`/`^`/`|` go to the previous/first/last page; other keys leave the screen as is. The single-page corner branch already matched C (dmore → xwaitforspace) and keeps waitMenuKey. The comment that claimed only space/CR/LF advance now cites the C path.
+- **JS:** js/invent.js doattributes `:8940–9010` (fullscreen page loop).
+- **Callers:** unchanged (`^X` → doattributes; enlightenment(…, final=0) → doattributes).
+- **Verify:**
+  - Probes at step 360, C vs JS last screen: `\u0018>` SAME «(2 of 3)», `\u0018>>` SAME «(3 of 3)», `\u0018>><` SAME «(2 of 3)», `\u0018>|^` SAME «(1 of 3)», `\u0018 ` SAME, `\u0018\r` 0 cells differ under the scorer's decodeScreen+diffCell (the raw strings differ only in SO/SI shifts).
+  - `node scripts/verify.mjs --fn doattributes --full` → syntax · rule2 · reach REACH-OK (24 smoke) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. No corpus session is blocked on doattributes (off-queue), so the hidden step is vacuous.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 673 baseline-PASS re-run in 132.9s, 0 regressed → REACH-OK.
+  - verify doattributes: 0 PASS, 0 moved, 0 no-movement (no blocked rows; the probes above are the movement).
+- **Named omissions:** PICK_NONE counts, select/unselect-page commands and MENU_SEARCH change nothing on screen and are not modelled beyond "stay". The final-disclosure enlightenment (`final != 0`) uses display_nhwindow (not a menu) and is unchanged.
+- **Ledger:** enlightenment split js=invent.js:enlightenment+invent.js:doattributes
+- **Next:** cliffs and Must-fix are empty; the next slot is a grow (§10.19–20).
+
 ## D-4208 — hack.c moverock_core's m<dir>/travel arm (context.nopick) spends a turn on «There is a boulder in your way.» only when feeling the boulder changed `glyph_at(sx, sy)`, the gbuf glyph int (`:386–411`). JS compared a fingerprint string (glyph_at_fp) that also carried the remembered glyph's colour, which feel_location rewrites (8 → 7) while C's gbuf glyph stays the same. A blind hero travelling into a boulder therefore spent a turn on the first bump where C spends none, so the monster pass ran one hero move early. The set_apparxy draw it blocked was only the symptom
 
 - **Status:** shipped.
