@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — D-4214 mhitu.c doseduce's refused-payment line names the seducer through noit_mhim (`:2265–2266`), which is pronoun_gender(PRONOUN_NO_IT | PRONOUN_HALLU) and draws rn2(4) while the hero hallucinates (mondata.c `:1199–1200`). JS hard-coded `mon.female ? 'her' : 'him'`, so a hallucinating hero's «… demands that you pay her, but you refuse...» skipped that draw, and every later draw in the session was off by one
+
+**C locus:** mhitu.c doseduce `:1985–2305`, refused-payment arm `:2264–2266` (`noit_Monnam(mon), noit_mhim(mon)`); you.h `:328–329` noit_mhim; mondata.c pronoun_gender `:1188–1206`.
+**JS:** js/mhitu.js doseduce refused-payment arm `:1466–1471`, import `:90`.
+**Change:** the line calls the live mondata.js noit_mhim (one more name on mhitu.js's existing mondata.js import).
+**Verify:** - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-hallu-Healer-52850063.session.json` → PASS (RNG 12331/12331, Screen 1112/1112).
+**Named:** none in doseduce. Same family in other C files, not touched: monmove.js `:1222–1233` and mhitm.js mhis_disp `:2228–2236` are local mhis clones (mhitm's lacks pronoun_gender's canspotmon and type_is_pname arms and reads the flat game.u.Hallucination).
+**Next:** cliffs empty again; the next slot is a grow. The two mhis clones above are candidates if a hallucination cliff points at them.
 ## 2026-10-21 — Grow #23 @59ee75eee: fresh 52850000 ×160 159/160 (99.4 %) on arrival
 
 **Fresh:** RNG 100.0 %, screens 100.0 %; hallu 7/8, every other family 100 %. Gap to held-out 19.9 pts: no calibration family. First cohort on recorder patch 007 (contest rc path).

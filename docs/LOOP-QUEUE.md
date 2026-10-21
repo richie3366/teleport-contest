@@ -140,7 +140,6 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `mondata.c` pronoun_gender — blocks 1/710 corpus sessions (first at step 1086; RNG lost 489, screens lost 23): C draws `rn2(4)=1` in pronoun_gender, JS `rn2(25)=15` from doseduce(mhitu.js:1506). Probe: `node scripts/hidden-proxy.mjs verify pronoun_gender` (scen-hallu-Healer-52850063). @59ee75eee **[history: ledger: ported — read that D-entry once; the arm this divergence names is still open]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)

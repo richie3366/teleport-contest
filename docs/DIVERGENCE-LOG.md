@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4214 — mhitu.c doseduce's refused-payment line names the seducer through noit_mhim (`:2265–2266`), which is pronoun_gender(PRONOUN_NO_IT | PRONOUN_HALLU) and draws rn2(4) while the hero hallucinates (mondata.c `:1199–1200`). JS hard-coded `mon.female ? 'her' : 'him'`, so a hallucinating hero's «… demands that you pay her, but you refuse...» skipped that draw, and every later draw in the session was off by one
+
+- **Status:** shipped (cliffs head after Grow #23).
+- **Symptom:** scen-hallu-Healer-52850063 step 1086: C `rn2(4)=1 @ pronoun_gender(mondata.c:1200)`, JS `rn2(25)=15` (the worn-out roll at doseduce `:2300`). 489 draws and 23 screens lost.
+- **C locus:** mhitu.c doseduce `:1985–2305`, refused-payment arm `:2264–2266` (`noit_Monnam(mon), noit_mhim(mon)`); you.h `:328–329` noit_mhim; mondata.c pronoun_gender `:1188–1206`.
+- **JS was:** js/mhitu.js doseduce `mon.female ? 'her' : 'him'`. The function's other pronoun sites (mhe, noit_mon_nam, noit_Monnam) already used the live helpers.
+- **Fix:** the line calls the live mondata.js noit_mhim (one more name on mhitu.js's existing mondata.js import).
+- **JS:** js/mhitu.js doseduce refused-payment arm `:1466–1471`, import `:90`.
+- **Callers:** unchanged (mhitu AD_SSEX / SSEX seduction → doseduce).
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-hallu-Healer-52850063.session.json` → PASS (RNG 12331/12331, Screen 1112/1112).
+  - `node scripts/verify.mjs --fn pronoun_gender,doseduce --full` → `verify pronoun_gender: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach pronoun_gender 27/27, doseduce 20/20 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 709 baseline-PASS re-run in 137.5s, 0 regressed → REACH-OK.
+  - verify pronoun_gender: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in doseduce. Same family in other C files, not touched: monmove.js `:1222–1233` and mhitm.js mhis_disp `:2228–2236` are local mhis clones (mhitm's lacks pronoun_gender's canspotmon and type_is_pname arms and reads the flat game.u.Hallucination).
+- **Ledger:** doseduce ported
+- **Next:** cliffs empty again; the next slot is a grow. The two mhis clones above are candidates if a hallucination cliff points at them.
+
 ## D-4213 — detect.c detect_obj_traps, called by findone for each square of a #wizdetect / wand-of-secret-door-detection sweep, flashes the TRAPPED_CHEST glyph and then calls foundone for every trapped box it finds (`:937–947`). foundone's in-sight newsym shows what lies on the square: the box «(», not the trap. JS had dropped both calls as a named omit and kept only sense_trap, so the square was left as the sensed trap «^» where C draws «(»
 
 - **Status:** shipped (cliffs head after Grow #22).

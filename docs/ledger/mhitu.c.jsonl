@@ -21,7 +21,7 @@
 {"fn":"gazemu","c":"1668-1898","status":"ported","js":["js/mhitu.js:gazemu"],"d":["D-2132","D-1328"],"at":"2026-10-03@bbe63333a"}
 {"fn":"mdamageu","c":"1902-1927","status":"ported","js":["js/mhitu.js:mdamageu"],"at":"2026-10-03@bbe63333a"}
 {"fn":"could_seduce","c":"1934-1981","status":"ported","js":["js/mhitm.js:could_seduce"],"at":"2026-10-03@bbe63333a"}
-{"fn":"doseduce","c":"1985-2305","status":"ported","js":["js/mhitu.js:doseduce"],"d":["D-1758","D-1750"],"at":"2026-10-03@bbe63333a"}
+{"fn":"doseduce","c":"1985-2305","status":"ported","js":["js/mhitu.js:doseduce"],"d":["D-4214","D-1758","D-1750"],"at":"2026-10-21@4a4da3074"}
 {"fn":"mayberem","c":"2309-2352","status":"ported","js":["js/mhitu.js:mayberem"],"d":["D-3556"],"at":"2026-10-06@b39cb750e","note":"audited D-3556: whole vs C"}
 {"fn":"assess_dmg","c":"2355-2365","status":"ported","js":["js/mhitu.js:assess_dmg"],"at":"2026-10-03@bbe63333a"}
 {"fn":"ranged_attk_assessed","c":"2374-2387","status":"by-design","at":"2026-10-01@f572fe77c","note":"#if 0 in C mhitu.c:2367-2388; live equivalent ranged_attk_available (js/monmove.js)"}
