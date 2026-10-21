@@ -18,7 +18,7 @@
 {"fn":"tty_create_nhwindow","c":"850-961","status":"unknown"}
 {"fn":"erase_menu_or_text","c":"966-984","status":"ported","js":["js/display.js:erase_menu_or_text"],"d":["D-3627"],"at":"2026-10-07@8245e6151"}
 {"fn":"free_window_info","c":"987-1031","status":"unknown"}
-{"fn":"tty_clear_nhwindow","c":"1034-1110","status":"partial","js":["js/botl.js:clear_status_window","js/display.js:clear_nhwindow_message","js/display.js:clear_message_window_menu_overlay"],"omit":"NHW_MESSAGE home+cl_end and NHW_STATUS arms live (D-4109, D-3993); NHW_MAP/NHW_MENU/NHW_TEXT arms and the erasing_tty_screen gate not ported. Two worldtour sessions (Monk s90–92, Wizard s112–114) keep a recorder KIND=input marker cause (D-3993).","d":["D-4109","D-3993"],"at":"2026-10-19@0b6f04308"}
+{"fn":"tty_clear_nhwindow","c":"1034-1110","status":"partial","js":["js/botl.js:clear_status_window","js/display.js:clear_nhwindow_message","js/display.js:clear_message_window_menu_overlay"],"omit":"NHW_MESSAGE home+cl_end and NHW_STATUS arms live (D-4109, D-3993); NHW_MAP/NHW_MENU/NHW_TEXT arms and the erasing_tty_screen gate not ported. Two worldtour sessions (Monk s90–92, Wizard s112–114) keep a recorder KIND=input marker cause (D-3993). display.js clear_message_window_menu_overlay zeroes _…","d":["D-4109","D-3993"],"at":"2026-10-21@f0e447897"}
 {"fn":"toggle_menu_curr","c":"1114-1151","status":"ported","js":["js/invent.js:toggle_menu_curr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Selected/count transitions exact in all arms; set_item_state screen paints unportable."}
 {"fn":"dmore","c":"1154-1172","status":"unknown"}
 {"fn":"set_item_state","c":"1177-1194","status":"unknown"}

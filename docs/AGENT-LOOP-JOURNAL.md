@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — audit 3028–3037 @f0e447897: review D-4188..D-4197 (7A/3D/0Q, 0 Must-fix) + full rescore 671/714 (0 PASS→FAIL)
+
+**Reviews:** the owner re-measures (`verify … --base HASH~1 --no-reach`) reproduce every cliff D-log: slimed_to_death, reveal_terrain, newsym, findit, enhance_weapon_skill, container_contents, doclassdisco, impossible PASS. D-4196/4197 rows were unattributed (verify vacuous); hidden-worker on HEAD passes Rogue-51650031, Wizard-95340, container-Barbarian-94326. D-4196's own Verify claimed PASS from the frozen runner, which skips the final frame. That was false at 6918c5874, and D-4197 corrected and closed it in-window, so nothing is queued. Debt (no session): D-4193's callee clear_message_window_menu_overlay zeroes curx/cury even on EMPTY toplin (C wintty.c:1047–1056; now in the tty_clear_nhwindow ledger omit); D-4196 keeps settty's clear in really_done, not in tty_exit_nhwindows; D-4189 keeps the live reconstruction for GLYPH_UNEXPLORED. Tooling: `csym.mjs postmov` finds no definition (monmove.c:1454–1455), so postmov has no ledger row.
+**Rescore:** `record`: all sessions present. Unfiltered `score` gave 677/691 (677/688 excl. 3 env-only; RNG 99.99 %, screens 100.0 %), 0 PASS→FAIL vs the committed board. `archive` moved 6 PASS out → 671/714, unrecorded 0, reserve 29 → 29.
+**Score:** public 44/44 (792838 RNG, 11405 screens, 95+0.51/turn); held-out 35/44, 10,849 pts (judge 07:23Z, +0). Ledger snapshot taken. Seeded sample precheck/count_feat_lastseentyp/reverse_loot/m_consume_obj/mount_steed: 5/5 hold.
+**Next:** Must-fix is empty → the cliffs head.
+
 ## 2026-10-21 — D-4197 wintty.c tty_exit_nhwindows starts with tty_suspend_nhwindows(str), which ends `if (!str) tty_raw_print("")` (upstream `:808–813`). While ttyDisplay is up and raw mode is off, the recorder skips an empty raw print. After a nomux_out overflow has set raw_active it is a newline that advances the raw row. JS tty_exit_nhwindows skipped the call, so the final nh_terminate frame of a wizard death after an overflow reported raw row +2 where C has +3. D-4196 follow-up
 
 **C locus:** wintty.c tty_exit_nhwindows (upstream `:810`) → tty_suspend_nhwindows `:808–813` (settty, then `tty_raw_print("")` when str is NULL); recorder termcap.c nomux_raw_emit `:916–946` (the empty skip applies only while `!nomux_raw_active`).
