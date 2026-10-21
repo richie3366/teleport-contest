@@ -1,0 +1,53 @@
+# Rotated from AGENT-LOOP-JOURNAL.md (6 crumbs; live kept 10)
+
+## 2026-10-21 — D-4190 monmove.c postmov ends the MMOVE_MOVED arm with an unguarded `newsym(mtmp->mx, mtmp->my)` (`:1655–1657`). m_move's guard arm turns `gd_move() == 1` into `postmov(..., MMOVE_MOVED)` (`:1806–1826`). When gd_move_cleanup has just parked the guard at <0,0> (vault.c `:854`) and said «Suddenly, the guard disappears.», that newsym hits display.c's column-0 `impossible("newsym: attempting screen update for <%d,%d>")` (`:928–935`). That gives «Program in disorder!» and «Please report these messages…». JS wrapped the call in a JS-only `else if (mtmp.mx)` guard, so the C bug never showed. Ported as recorded (C bugs are ported faithfully)
+
+**C locus:** monmove.c postmov `:1655–1657`, m_move shk/gd/pri arm `:1806–1826`; vault.c gd_move_cleanup `:835–866` (parkguard `:854`); display.c newsym `:928–935`.
+**JS:** js/monmove.js postmov (`:1874–1889`), display.js import (`:86`).
+**Change:** an unguarded `newsym(mtmp.mx, mtmp.my)` as in C, then the see_monsters drain idiom: clear the flag, newsym, and if it is set, `await impossible('newsym: attempting screen update for <%d,%d>', x, y)`. `impossible` is now imported from display.js (the edge already existed).
+**Verify:** - `node scripts/verify.mjs --fn newsym,postmov,impossible` → syntax · rule2 · hidden: verify newsym: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-symset-Rogue-50350015: PASS) · reach newsym REACH-OK (24 smoke), postmov 80/242 spread sample: 80 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44. `impossible` was probed as a possible same-cause companion: verify impossible: 0 PASS, 0 moved past, 1 unchanged, 0 worse → NO MOVEMENT (scen-worldtour-Archeologist-50056033 s963 is a different impossible() writer; its row stays open). That probe alone made the run print VERIFY: FAIL.
+**Named:** the other JS newsym callers outside see_monsters still do not drain `_newsym_misuse`. Each is a C site that could report column 0 only on a parked monster, and no corpus session reaches one.
+**Next:** the regenerated cliffs head (findit s666, scen-hallu-Valkyrie-51650028).
+
+## 2026-10-21 — D-4189 detect.c reveal_terrain_getglyph starts from `glyph = !swallowed ? glyph_at(x, y) : levl_glyph` (`:2209`), the *displayed* gbuf int, and every later arm classifies that int (`:2213–2231`). JS rebuilt the displayed layer from live state: hero, then a visible monster, then `I`, then any object under cansee, then a seen trap. A seen rock trap with a rock pile that arrived unseen still displays `^` in both C and JS, but the JS rebuild picked the object. So `#terrain` "known terrain, traps, and objects" drew `%` where C keeps `^`
+
+**C locus:** detect.c reveal_terrain_getglyph `:2166–2288` (`:2209` glyph_at, `:2213–2218` monster/warning/swallow → levl_glyph, `:2219–2231` object/invisible/trap/gascloud on the int); display.c glyph_at `:2477–2483`.
+**JS:** js/display.js reveal_terrain_getglyph (`:5573–5576` locals, `:5611–5636` gbuf arm, cloud arm, swallow arm, `:5801` trap fallback guard).
+**Change:** read `glyph_at(x, y)` first. When it carries a real int (not NO_GLYPH / GLYPH_UNEXPLORED), the cell is the buffered glyphinfo (`disp_ch`, `disp_color_raw`, `disp_decgfx`, id) and the kind comes from the int, as in C: monster‖warning → mon, swallow → levl_glyph with was_mon whatever keep_mons says (C `:2213–2215`), GLYPH_INVISIBLE, object, trap. The gascloud test reads the int too (detect.c `:2162` macro).
+**Verify:** - `node scripts/verify.mjs --fn reveal_terrain,reveal_terrain_getglyph` → syntax · rule2 · hidden: verify reveal_terrain: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-symset-Healer-50555020: PASS) · reach REACH-OK ×2 (24 smoke each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+**Named:** the live-layer reconstruction stays for id-less gbuf cells (NO_GLYPH paints by JS-only callers) and for GLYPH_UNEXPLORED; C has no counterpart, since every C cell carries an int.
+**Next:** the regenerated cliffs head (newsym s683, scen-symset-Rogue-50350015).
+
+## 2026-10-21 — D-4188 do.c goto_level ends with the hole/trapdoor fall damage, `losehp(dmg, "falling down a mine shaft", KILLED_BY)`, then `pickup(1)` (`:1989–1996`). losehp runs done(DIED) inline, and done() *returns* when the hero is lifesaved or declines a wizard/explore «Die?». goto_level then goes on to pickup(1). JS drained the deferred finisher and then `return`ed unconditionally, as if losehp never returned. So after «OK, so you don't die.» a blind hero never got «You try to feel what is lying here on the floor.» / «You feel here a boulder.», and «You survived that attempt on your life.» was joined onto the OK line without the --More--
+
+**C locus:** do.c goto_level `:1989–1996` (fall damage `:1989–1994`, `pickup(1)` `:1996`); end.c done `:1104–1123` (Die? decline → savelife → return); hack.c losehp `:4287–4288`.
+**JS:** js/do.js goto_level fall-damage arm (`:2488–2510`).
+**Change:** use the D-4092 idiom that the two other do.c losehp sites in JS already use (boulder squish `:854`, lava boulder `:1077`): drain when `_losehp_needs_done || gameover`, and return only if `program_state.gameover` (a real death). Otherwise fall through to `pickup(1)` as C does.
+**Verify:** - `node scripts/verify.mjs --fn slimed_to_death,goto_level` → syntax · rule2 · hidden: verify slimed_to_death: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-sweep-Valkyrie-50362023: PASS) · reach REACH-OK (24 smoke; goto_level 43 baseline-PASS, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+**Named:** none in the changed arm.
+**Next:** the regenerated cliffs head (reveal_terrain s478, scen-symset-Healer-50555020).
+
+## 2026-10-21 — audit 3020–3027 @19efb0b18: review D-4180..D-4187 (6A/2D/0Q, 0 Must-fix) + full rescore 667/720 (0 PASS→FAIL)
+
+**Reviews:** D-4180..4182 are the level-audit Must-fix rows F1–F3 (non-RNG, so their verifies are vacuous by construction). level-audit-static section 4 re-run: load_special head 126/126. The owner re-measures (`verify … --base HASH~1 --no-reach`) reproduce every D-log: obj_resists, peace_minded, itemactions PASS; distfleeck moved past (Sanctum row → s838/839, owner null, replayed by the full score); inuse_classify 1 PASS + 1 moved to tipcontainer_gettarget s153. Debt (no session): D-4182 keeps the epilogue tail per loader (named), and load_special_proto's old docblock now sits orphaned above load_special_head (mklev.js:3270–3277). D-4185 leaves shk.js hero_invis (:594) and pay_for_damage's inline flat-Invis (:2253) clones, both named.
+**Rescore:** run in a worktree while a port session was live. `record`: all sessions present. Unfiltered `score` gave 672/696 (672/693 excl. 3 env-only; RNG 99.99 %, screens 100.0 %), 0 PASS→FAIL vs the committed board. `archive` moved 5 PASS out → 667/720, unrecorded 0, reserve 29 → 29.
+**Score:** public 44/44 (792838 RNG, 11405 screens, 99+0.53/turn); held-out 35/44, 10,849 pts (judge 2026-10-21 01:38Z, +0). Ledger snapshot taken. Seeded sample getspell/precheck/litter_scatter/readentry/singplur_compound: 5/5 hold (singplur_compound is flagged THIN at 7 JS lines vs 19 C, but the whole compounds table and loop are there).
+**Next:** Must-fix is empty → the cliffs head.
+
+## 2026-10-21 — D-4187 iactions.c itemactions builds the engrave row as "%s on the %s with %s" using `surface(u.ux, u.uy)` (`:439–445`). JS hard-coded "floor", following a stale comment that said surface existed only as four always-"floor" stubs. The whole dungeon.c surface (`:1750–1788`, all arms including On_stairs) has been the sit.js export since D-2008/D-2884. On stairs, an altar, a fountain, ice and so on, the context menu named the wrong surface
+
+**C locus:** iactions.c itemactions `:278–714` (engrave arm `:437–446`); dungeon.c surface `:1750–1788`.
+**JS:** js/iactions.js (import, itemactions engrave arm, header/doc comments).
+**Change:** import the live `surface` from sit.js and use `surface(u.ux, u.uy)` in the engrave row. Both stale omission notes are removed.
+**Verify:** - `node scripts/verify.mjs --fn itemactions,surface` → syntax · rule2 · hidden: verify itemactions: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-extcmd-Ranger-51257069: PASS) · reach REACH-OK ×2 · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+**Named:** doengrave non-hands stylus body; Traditional itemize yn (standing, unchanged).
+**Next:** the regenerated cliffs head (slimed_to_death, scen-sweep-Valkyrie-50362023 s1003).
+
+## 2026-10-21 — D-4186 windows.c add_menu_heading paints with `iflags.menu_headings.attr` *and* `.color`, both cleared to none during end-of-game disclosure (`:1816–1828`). tty_end_menu paints a menu's prompt with the relayed `tty_menu_promptstyle`, which adjust_menu_promptstyle copies from menu_headings with no gameover gate. JS invent.js hard-coded every invent.c heading as ATR_INVERSE with no colour: a local `add_menu_heading_attr()` plus four inline `gameover ? 0 : ATR_INVERSE` copies. The shared ports `menu_heading_style()` / `menu_prompt_style()` (options.js) already existed. A `menu_headings` colour set through `O` (scen-options) never reached inventory menus
+
+**C locus:** windows.c add_menu_heading `:1816–1828`, adjust_menu_promptstyle `:1769–1777`; wintty.c tty_end_menu prompt `:2685–2689`; invent.c display_pickinv headings `:3256/:3279/:3296/:3362`, wizard-ID pickinv headings, display_minventory / query_objlist titles and class headings, invdisp_nothing, display_used_invlets, reroll prompt `:2599`.
+**JS:** js/invent.js (import + 14 heading/prompt sites).
+**Change:** delete the local helper. Heading rows (class headers, "Miscellaneous"/"In use"/"Special", invdisp_nothing headers, Engulfed Creatures) spread `menu_heading_style()`. end_menu prompt/title rows spread `menu_prompt_style()`. The painters already read `entry.color` (invent.js `:3199/:3422/:4297`).
+**Verify:** - `node scripts/verify.mjs --fn inuse_classify,add_menu_heading` → syntax · rule2 · hidden: verify inuse_classify: 1 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (scen-options-Barbarian-49959007: PASS; scen-options-Rogue-51151031: moved → tipcontainer_gettarget at step 153, was 96) · reach REACH-OK ×2 · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+**Named:** dodiscovered's "Unique items or Relics" / class / "Discovered items" lines (invent.js `:5379–5433`) and o_init.js doclassdisco / rename_disco still hard-code ATR_INVERSE. They are o_init.c, another C file (review debt 3001–3010).
+**Next:** the regenerated cliffs head (itemactions s772 / slimed_to_death s1003; Rogue-51151031 now at tipcontainer_gettarget s153).

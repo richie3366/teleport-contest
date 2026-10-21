@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4199 — dungeon.c builds its menu headings with add_menu_heading: the overview's dungeon line (print_mapseen `:3553`) and the level-teleport menu's dungeon lines (print_dungeon `:2331`). add_menu_heading paints with the live `iflags.menu_headings` attr and colour, which are cleared during final disclosure (windows.c `:1815–1828`). JS hard-coded ATR_INVERSE with no colour, so after `O` set menu_headings to green the ^O overview showed «The Dungeons of Doom:» inverse-only where C draws it inverse green. The level-teleport prompt also gets tty_menu_promptstyle now, as end_menu gives it (`:2369`)
+
+- **Status:** shipped.
+- **Symptom:** scen-options-Barbarian-50355007 step 92 (cliffs head, owner label save_dungeon, parked MISATTRIBUTED). After an `O` round that set menu_headings, the ^O overview row 0 «The Dungeons of Doom:» was C colour 2 (green) + inverse, JS colour 8 (NO_COLOR) + inverse. The text was identical and RNG fully matched. A per-cell decode diff named the colour, and the overview's only C writer of that line is add_menu_heading.
+- **C locus:** dungeon.c print_mapseen `:3538–3554` (`add_menu_heading(win, buf)`), print_dungeon `:2330–2333` (bymenu → add_menu_heading, else putstr attr 0), `:2369` `end_menu(win, "Level teleport to where:")`. windows.c add_menu_heading `:1815–1828`.
+- **JS was:** js/dungeon.js print_mapseen heading `attr: why > 0 ? 0 : ctx.ATR_INVERSE`, a hand gameover gate with no colour. print_dungeon pushed `attr: ATR_INVERSE` for the dungeon headings and the prompt row.
+- **Fix:** both heading sites spread the live `menu_heading_style()` (options.js, the D-4186 port of add_menu_heading, gameover → none/no-colour inside). The prompt row spreads `menu_prompt_style()` (tty_menu_promptstyle, as in D-4186). show_overview passes the helper through `ctx`. The now-unused ATR_INVERSE import is dropped.
+- **JS:** js/dungeon.js print_mapseen `:3081–3086`, show_overview `:3274–3277`, print_dungeon `:3548–3554` and `:3585`.
+- **Callers:** unchanged. show_overview (dooverview, final disclosure) → traverse_mapseenchn → print_mapseen. print_dungeon (level_tele / #wizwhere). The bymenu=FALSE putstr path stays attr 0 as in C.
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-options-Barbarian-50355007.session.json` → PASS (RNG 2989/2989, Screen 97/97).
+  - `node scripts/verify.mjs --fn save_dungeon,print_mapseen,print_dungeon --full` → syntax · rule2 · `verify save_dungeon: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach REACH-OK ×3 (24 smoke) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 672 baseline-PASS re-run in 126.6s, 0 regressed → REACH-OK.
+  - verify save_dungeon: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in dungeon.c. Other C files' add_menu_heading callers still hard-code the style in JS: cmd.c `:674`, botl.c `:1411` (D-3631), o_init.c `:1169`, pickup.c `:1125/:1153`, shk.c `:1699/:1707`, spell.c `:2117`, wizcmds.c `:1953`. Each one is its own C file.
+- **Ledger:** print_mapseen ported; print_dungeon ported
+- **Next:** the regenerated cliffs head (status_hilite_menu_add s40 and tipcontainer_gettarget s153 are both region-heuristic heading rows, likely the same add_menu_heading drift in botl.c / pickup.c).
+
 ## D-4198 — wield.c ready_weapon sets disp.botl at its tail only when the bare-handed state changed **and** the opt-in `barehanded` status condition is enabled (`:270–271`). Every arm reaches that tail. JS set botl on any bare-handed change, without the condtests gate, so moveloop_core's botl arm (curs_on_u → flush_screen) painted the map one monster move early. A fireassist canned dowield followed by dofire's getdir --More-- then showed a grid bug a square ahead of C
 
 - **Status:** shipped.
