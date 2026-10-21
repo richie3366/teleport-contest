@@ -2582,7 +2582,7 @@ async function trapeffect_arrow_trap(mtmp, trap) {
             otmp = box.obj;
             if (otmp) {
                 place_object(otmp, u.ux, u.uy);
-                if (!u.Blind) observe_object(otmp);
+                if (!Blind()) observe_object(otmp); // C youprop.h Blind
                 stackobj(otmp);
                 newsym(u.ux, u.uy);
             }
@@ -4140,7 +4140,7 @@ async function trapeffect_rocktrap(mtmp, trap, _trflags) {
             await pline('It passes harmlessly through you.');
             harmless = true;
         }
-        if (!(u.Blind || u.ublind)) observe_object(otmp);
+        if (!Blind()) observe_object(otmp); // C youprop.h Blind
         stackobj(otmp);
         newsym(u.ux, u.uy);
         if (!harmless) {
@@ -4212,7 +4212,9 @@ async function trapeffect_sqky_board(mtmp, trap, trflags) {
     if (m_in_air(mtmp)) return Trap_Effect_Finished;
 
     if (in_sight) {
-        if (!game.u?.Deaf) {
+        // C `:1448` !Deaf — youprop.h HDeaf || EDeaf || uroleplay.deaf (the
+        // file-local Deaf(); the sticky u.Deaf is never written).
+        if (!Deaf()) {
             // C trap.c:1450 — mon_nam (ARTICLE_THE), not ARTICLE_YOUR:
             // even a tame pet prints "the kitten", never "your kitten".
             await pline_mon(mtmp,
@@ -4278,7 +4280,6 @@ export async function fall_through(td, ftflags = 0) {
     const uy = u.uy | 0;
     const Sokoban = !!(game.level?.flags?.sokoban_rules
         || game.level?.flags?.sokoban || game.Sokoban);
-    const Blind = !!(u.Blind || u.ublind);
     // C youprop.h Levitation / Flying macros (flat or uprops slot).
     const Levitation = hero_Levitation();
     const flying = hero_Flying();
@@ -4289,7 +4290,7 @@ export async function fall_through(td, ftflags = 0) {
         || is_flyer(ptr));
 
     // C: Blind && Levitation && !Sokoban → return early
-    if (Blind && Levitation && !Sokoban) return;
+    if (Blind() && Levitation && !Sokoban) return;
 
     // C trap.c:618 fall_through newlevel (+1 below C's ++ line) via live dunlev.
     const newlevel = dunlev(u.uz) + 1;

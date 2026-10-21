@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — D-4204 trap.c trapeffect_sqky_board's monster arm picks its witness message on the hero's Deaf macro (`:1445–1457`): a squeak when the hero can hear, otherwise «%s stops momentarily and appears to cringe.» for a non-mindless monster. JS tested the sticky `game.u.Deaf`, which nothing writes, so a hero deafened by the HDeaf timeout still "heard" «A board beneath the gnome squeaks a B flat loudly.» The same file's three sticky `u.Blind` reads go through trap.js's Blind() as well
+
+**C locus:** trap.c trapeffect_sqky_board `:1403–1476` (`if (!Deaf)` `:1448`, cringe `:1453–1455`). youprop.h Deaf `:123–125`. Blind at trap.c arrow-trap / rocktrap observe_object and fall_through `Blind && Levitation && !Sokoban`.
+**JS:** js/trap.js trapeffect_sqky_board, trapeffect_arrow_trap, trapeffect_rocktrap, fall_through.
+**Change:** the sqky_board branch reads `Deaf()`; the three Blind sites read `Blind()` (both file-local youprop readers, already used by trap.js's other Blind/Deaf sites). fall_through's local is inlined into its single use.
+**Verify:** - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-sweep-Tourist-51650001.session.json` → PASS (RNG 37949/37949, Screen 1331/1331).
+**Named:** none in trap.c. trap.js's local Blind() (like invent.js's exported one) still lacks C's Blindfolded / !haseyes / Eyes-of-the-Overworld terms (youprop.h Blind). That is the repo-wide Blind clone family (26 clones), not this row.
+**Next:** the regenerated cliffs head.
 ## 2026-10-21 — D-4203 trap.c reads hero flight and levitation through the youprop.h macros. Flying is `(HFlying || EFlying || steed flyer) && !BFlying`, all stored in u.uprops[FLYING] (`:248–255`). JS trap.js kept flat-only clones: Flying_fu, Levitation_fd, fall_through's locals, and the bear-trap/landmine `u.Levitation || u.Flying` sticky reads. A hero whose flight lives only in the uprops slot therefore landed with «You float gently to the floor.» when levitation timed out after a declined death, where C says «You have stopped levitating and are now flying.»
 
 **C locus:** trap.c float_down `:4024–4179` (Levitation gate `:4034`, `if (BFlying) { float_vs_flight(); if (Flying) … }` `:4049–4055`, `if (!Flying)` ustuck arm `:4086`). fall_through `:602–696`, trapeffect_bear_trap and trapeffect_landmine `(Levitation || Flying) && !forcetrap`. youprop.h `:237–255`.

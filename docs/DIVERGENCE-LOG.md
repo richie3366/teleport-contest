@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-4204 — trap.c trapeffect_sqky_board's monster arm picks its witness message on the hero's Deaf macro (`:1445–1457`): a squeak when the hero can hear, otherwise «%s stops momentarily and appears to cringe.» for a non-mindless monster. JS tested the sticky `game.u.Deaf`, which nothing writes, so a hero deafened by the HDeaf timeout still "heard" «A board beneath the gnome squeaks a B flat loudly.» The same file's three sticky `u.Blind` reads go through trap.js's Blind() as well
+
+- **Status:** shipped.
+- **Symptom:** scen-sweep-Tourist-51650001 step 609 (cliffs head, owner trapeffect_sqky_board). C «The gnome stops momentarily and appears to cringe.--More--», JS «A board beneath the gnome squeaks a B flat loudly.--More--». RNG fully matched.
+- **Measured:** a temp log at the witness branch showed HDeaf 7 (and 3 on a later squeak), EDeaf unset, `u.Deaf` undefined, uroleplay.deaf false. trap.js's own Deaf() (HDeaf || EDeaf || uroleplay.deaf || u.Deaf) was already true; only this site bypassed it.
+- **C locus:** trap.c trapeffect_sqky_board `:1403–1476` (`if (!Deaf)` `:1448`, cringe `:1453–1455`). youprop.h Deaf `:123–125`. Blind at trap.c arrow-trap / rocktrap observe_object and fall_through `Blind && Levitation && !Sokoban`.
+- **JS was:** js/trap.js trapeffect_sqky_board `if (!game.u?.Deaf)`. trapeffect_arrow_trap `if (!u.Blind)`, trapeffect_rocktrap `!(u.Blind || u.ublind)`, fall_through `const Blind = !!(u.Blind || u.ublind)` — the sticky mirror family, missing the HBlinded/EBlinded/BBlinded timeout flats that the file-local Blind() reads.
+- **Fix:** the sqky_board branch reads `Deaf()`; the three Blind sites read `Blind()` (both file-local youprop readers, already used by trap.js's other Blind/Deaf sites). fall_through's local is inlined into its single use.
+- **JS:** js/trap.js trapeffect_sqky_board, trapeffect_arrow_trap, trapeffect_rocktrap, fall_through.
+- **Callers:** unchanged.
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-sweep-Tourist-51650001.session.json` → PASS (RNG 37949/37949, Screen 1331/1331).
+  - `node scripts/verify.mjs --fn trapeffect_sqky_board,trapeffect_arrow_trap,trapeffect_rocktrap,fall_through --full` → syntax · rule2 · `verify trapeffect_sqky_board: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach REACH-OK ×4 (arrow_trap 4, rocktrap 42 tagged; sqky_board, fall_through 24 smoke) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 677 baseline-PASS re-run in 131.8s, 0 regressed → REACH-OK.
+  - verify trapeffect_sqky_board: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in trap.c. trap.js's local Blind() (like invent.js's exported one) still lacks C's Blindfolded / !haseyes / Eyes-of-the-Overworld terms (youprop.h Blind). That is the repo-wide Blind clone family (26 clones), not this row.
+- **Ledger:** trapeffect_sqky_board ported; trapeffect_arrow_trap ported; trapeffect_rocktrap ported; fall_through ported
+- **Next:** the regenerated cliffs head.
+
 ## D-4203 — trap.c reads hero flight and levitation through the youprop.h macros. Flying is `(HFlying || EFlying || steed flyer) && !BFlying`, all stored in u.uprops[FLYING] (`:248–255`). JS trap.js kept flat-only clones: Flying_fu, Levitation_fd, fall_through's locals, and the bear-trap/landmine `u.Levitation || u.Flying` sticky reads. A hero whose flight lives only in the uprops slot therefore landed with «You float gently to the floor.» when levitation timed out after a declined death, where C says «You have stopped levitating and are now flying.»
 
 - **Status:** shipped.
