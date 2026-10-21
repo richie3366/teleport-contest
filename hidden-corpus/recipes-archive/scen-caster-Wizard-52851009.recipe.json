@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed spellbook of wizard lock\nrn s\u0017spellbook of extra healing\nroy  s\u0017blessed spellbook of finger of death\nrps\u0017blessed spellbook of invisibility\nrq  s+\u001bZb\n\u0007ghoul\nZa\n\u0007grid bug\nZa\n Zb\nZb\nZb\n#pray\ny y    Sy\u001b yf \u001b#chat\nl qf   ;l; \u001b,zcl   y n  t",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 52851009,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=runmode:run\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0017blessed spellbook of wizard lock\nrn s\u0017spellbook of extra healing\nroy  s\u0017blessed spellbook of finger of death\nrps\u0017blessed spellbook of invisibility\nrq  s+\u001bZb\n\u0007ghoul\nZa\n\u0007grid bug\nZa\n Zb\nZb\nZb\n#pray\ny y    Sy\u001b"
+  },
+  {
+   "seed": 53351009,
+   "datetime": "20060826091927",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=runmode:run\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " yf \u001b#chat\nl qf   ;l; \u001b,zcl   y n  t"
+  }
+ ]
+}

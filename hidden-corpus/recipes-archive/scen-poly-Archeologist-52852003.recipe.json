@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of polymorph control\nPjr\u0017cloak of invisibility\nWk .20ssTk #polyself\njellyfish\n  20s20s \u0007cave spider\nFuFuFksm.slsn#polyself\nrust monster\n20ssm.20ssm.s#polyself\ntengu\nsl20s  \u0007gelatinous cube\nFy    Fk    Fy sk  yy\u001by  y nn  s"
+ },
+ "segments": [
+  {
+   "seed": 52852003,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of polymorph control\nPjr\u0017cloak of invisibility\nWk .20ssTk #polyself\njellyfish\n  20s20s \u0007cave spider\nFuFuFksm.slsn#polyself\nrust monster\n20ssm.20ssm.s#polyself\ntengu\nsl20s  \u0007gelatinous cube\nFy    Fk    Fy sk  yy\u001by  y nn  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWff   j\u0017blessed +3 speed boots\nWg \u0016?\n>w\u0006_ \u001b.,p__,Fk_, Fk#chat\nk __.Fk_.Fk#chat\nk __.Fl_,Fl#chat\nk #pray\ny y    _{.Fu_..qy\u00167\nbbl\u0016?\n>w\u0006FuFuFuFuFuFu_ooooooo.,\u0014,20s sy_oooo.,p\u0016?\n>Bnnu\u0016?\n>w\u0006_oo.,\u0017amulet of magical breathing\ndhfk__._,;<.Fl#chat\nu#pray\ny y     _ooooooooo.,#chat\nu  _ooooooooo,,$_ooooooo. _.,:lhl#chat\nh_ooooooooo.Fj _,_oo.,$_ooo._oo.,pFjFjFjFjFjFj_{,Fj_.:Fjq_oooo.,:FjFjFjFjFjFj_ooooooooo,,:_ooo.,$__. Fj_. Fj#chat\nj#pray\ny y    _oooooooo.,$__.Fj_.m,Fj #chat\nj FjFjFj FjFjFj_oooooo.,p_oooooooo.,p_oooooo.,p_ooooooo.,pFjFjFjFjFjFj_ooo.,:_ooooooooo.,pFjFjFjFjFjFj\u0016?\nckll\u0016?\n>w\u0006_{.Fj_.>.Fn  qy _ooooooo.  nFj  _,@.Fb,$_ooooooo, Fh  _.,:_{.Fh_,qjj  n k#chat\nj_oooo.Fj_.   n   nFn   n_o,Fj_.,:\u0016?\ncl   n nk\u0016?\n>w \u0006\u00166\nhyn#chat\nh_ooooo,,\u0017dilithium crystal\ndja\u001b\u001buyk#chat\nn__,#chat\nn#pray\ny y   _oooooooo.,p_ooooo.Fh_.Fy_ooo.,$FyFyFyFyFyFy\u0016?\n>Bunu\u0016?\n>"
+ },
+ "segments": [
+  {
+   "seed": 52850093,
+   "datetime": "20110104081041",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWff   j\u0017blessed +3 speed boots\nWg \u0016?\n>w\u0006_ \u001b.,p__,Fk_, Fk#chat\nk __.Fk_.Fk#chat\nk __.Fl_,Fl#chat\nk #pray\ny y    _{.Fu_..qy\u00167\nbbl\u0016?\n>w\u0006FuFuFuFuFuFu_ooooooo.,\u0014,20s sy_oooo.,p\u0016?\n>Bnnu\u0016?\n>w\u0006_oo.,\u0017amulet of magical breathing\ndhfk__._,;<.Fl#chat\nu#pray\ny y     _ooooooooo.,#chat\nu  _ooooooooo,,$_ooooooo. _.,:lhl#chat\nh_ooooooooo.Fj _,_oo.,$_ooo._oo.,pFjFjFjFjFjFj_{,Fj_.:Fjq_oooo.,:FjFjFjFjFjFj_ooooooooo,,:_ooo.,$__. Fj_. Fj#chat\nj#pray\ny y    _oooooooo.,$__.Fj_.m,Fj #chat\nj FjFjFj FjFjFj_oooooo.,p_oooooooo.,p_oooooo.,p_ooooooo.,pFjFjFjFjFjFj_ooo.,:_ooooooooo.,pFjFjFjFjFjFj\u0016?\nckll\u0016?\n>w\u0006_{.Fj_.>.Fn  qy _ooooooo.  nFj  _,@.Fb,$_ooooooo, Fh  _.,:_{.Fh_,qjj  n k#chat\nj_oooo.Fj_.   n   nFn   n_o,Fj_.,:\u0016?\ncl   n nk\u0016?\n>w \u0006\u00166\nhyn#chat\nh_ooooo,,\u0017dilithium crystal\ndja\u001b\u001buyk#chat\nn__,#chat\nn#pray\ny y   _oooooooo.,p_ooooo.Fh_.Fy_ooo.,$FyFyFyFyFyFy\u0016?\n>Bunu\u0016?\n>"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007sewer rat\n#wizintrinsic\nr\n FlFyFh 20s\\   _ \u001b;#chat\nn#overview\n\u001b#conduct\n \u000f\u001b#dip\ndj#offer\n#pray\ny y #chat\nh#jump\n#levelchange\n23\n  ylh_oooo.,\u0007acid blob\n#vanquished\n #genocided\ngecko\n#annotate\nFido\ni\u001b#name\ni\n#adjust\nd\u001b#chat\nl#turn\n#polyself\nfog cloud\n #monster\n20ssFlFl FlFl _{.qj#chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #wizidentify\n\u001bFl.20s#conduct\n _{,q#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nk#chat\nb#wizdetect\n\u0006hkk\u0004u__.#chat\nl\u0007owlbear\n#overview\n\u001b#conduct\n #"
+ },
+ "segments": [
+  {
+   "seed": 52850031,
+   "datetime": "20141107035223",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=sortloot:loot\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007sewer rat\n#wizintrinsic\nr\n FlFyFh 20s\\   _ \u001b;#chat\nn#overview\n\u001b#conduct\n \u000f\u001b#dip\ndj#offer\n#pray\ny y #chat\nh#jump\n#levelchange\n23\n  ylh_oooo.,\u0007acid blob\n#vanquished\n #genocided\ngecko\n#annotate\nFido\ni\u001b#name\ni\n#adjust\nd\u001b#chat\nl#turn\n#polyself\nfog cloud\n #monster\n20ssFlFl FlFl _{.qj#chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #wizidentify\n\u001bFl.20s#conduct\n _{,q#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nk#chat\nb#wizdetect\n\u0006hkk\u0004u__.#chat\nl\u0007owlbear\n#overview\n\u001b#conduct\n #"
+  }
+ ]
+}

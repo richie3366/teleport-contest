@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0007red mold\n;k: \u001b;.ss\u0007warg\n;l;sm..n20s"
+ },
+ "segments": [
+  {
+   "seed": 52852019,
+   "datetime": "20140606025511",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0007red mold\n;k: \u001b;.ss\u0007warg\n;l;sm..n20s"
+  }
+ ]
+}

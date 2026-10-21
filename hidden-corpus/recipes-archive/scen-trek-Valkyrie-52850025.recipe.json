@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "FlFlFlFnFj .100s100sFlFl.i\u001b50s50s100s#name\na\nE- X marks the spot\nw-100s\u0018\u001b#loot\n150sFls20s150s#invoke\n\u001bhby\u000f\u001b100s50sFlFls150s100s100s_ \u001b;>150sok100s\u0018\u001bjubynlFkFkFlFlFuFuFuFus50s100s_>.><#pray\ny #force\n#wipe\n100sFkFusFus20sed50snlu_>.>100s\\   50s100sFuFuFlFlFl20sr\u001b\u000f\u001b100s100sbhluub100sFlss100s150sujh#wipe\ns150s150s100sFl..100s100s100sFl.20s100s100sFls.150sedUYHJ_>,>BJJH_>.>f by yLLJNJ_>,>\u000f\u001b100s#terrain\nc\nm.i\u001b\u000f\u001b\u000f\u001b\u000f\u001b100sFk ss_>,>100sFkFkFkFkssybujkb\u0018\u001b100s100s50sFlFuFuFus.Phlk\u0018\u001b100s50sybjae150s50subl#turn\n150sFlFlFl50sFuFks_>.>100sFk20ss50sNHLJ_>.>FlFlFlYJYL_>.>FlssNBNY_>.>FlssYUUB_>,>NYNU_>,>tay10shj10s hjky#name\nd\noj#jump\n#force\nYULK_>.>FlFlFlqsUKBN_>,>clsKJKL_>.>FlFb.NBBL_>.>FyFusUBLK_>,>Fk20ssUNBB_>.>#loot\nw\u001bNNBL_>,><20s:#loot\nNNNL_>,>"
+ },
+ "segments": [
+  {
+   "seed": 52850025,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "FlFlFlFnFj .100s100sFlFl.i\u001b50s50s100s#name\na\nE- X marks the spot\nw-100s\u0018\u001b#loot\n150sFls20s150s#invoke\n\u001bhby\u000f\u001b100s50sFlFls150s100s100s_ \u001b;>150sok100s\u0018\u001bjubynlFkFkFlFlFuFuFuFus50s100s_>.><#pray\ny #force\n#wipe\n100sFkFusFus20sed50snlu_>.>100s\\   50s100sFuFuFlFlFl20sr\u001b\u000f\u001b100s100sbhluub100sFlss100s150sujh#wipe\ns150s150s100sFl..100s100s100sFl.20s100s100sFls.150sedUYHJ_>,>BJJH_>.>f by yLLJNJ_>,>\u000f\u001b100s#terrain\nc\nm.i\u001b\u000f\u001b\u000f\u001b\u000f\u001b100sFk ss_>,>100sFkFkFkFkssybujkb\u0018\u001b100s100s50sFlFuFuFus.Phlk\u0018\u001b100s50sybjae150s50subl#turn\n150sFlFlFl50sFuFks_>.>100sFk20ss50sNHLJ_>.>FlFlFlYJYL_>.>FlssNBNY_>.>FlssYUUB_>,>NYNU_>,>tay10shj10s hjky#name\nd\noj#jump\n#force\nYULK_>.>FlFlFlqsUKBN_>,>clsKJKL_>.>FlFb.NBBL_>.>FyFusUBLK_>,>Fk20ssUNBB_>.>#loot\nw\u001bNNBL_>,><20s:#loot\nNNNL_>,>"
+  }
+ ]
+}

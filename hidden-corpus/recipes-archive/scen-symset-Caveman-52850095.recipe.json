@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "_<. \u001b;.#enhance\nyg\ni\n\u001b\u000f\u001b\u0006_>.Fl_,> FjFnFn\u0006_>,Fh_.Fh>FhFh_>.Fj_.Fl>FlFl_>. Fj_.Fh>FlFlFlFhFj\u0006_>>,Fl_.m.Fl>FlFl_>>.Fl_.>FlFl_>>,Fl_.>FlFlFlFlFl\u0006_>.Fl_,>FhFh_>,Fh_.>FhFk_>.Fl_.>FkFkFkFlFl\u0006_>.Fk_.>FhFk_>,Fy_,> FyFyFy\u000f\u001b\u001616\nO>>>>k\u001b\u001b\n\u0018\u001bq#sit\n\u001bO>>>>a\u001b\nmOa\u001b\n\u0006_>.      n      Fl_.m,Fu>FyFuy _>.Fk_,,Fk>FkFk_>,  nFk_.>.Fu>FuFuFuFuFu\u0006_>.Fu_.>.Fl>FlFl_>,Fl_,Fl>FlFl_>.Fl_.Fb>FkFbFbFuFk\u0006_>.Fk_.   n Fk>FyFkk _>,Fy_.Fky >FyFy_>.Fk_.> #monster\ni\u001b\u0006_>._,> FjFjFj\u0006_>.Fh_. Fh>FhFh_>,Fh_,Fh>FhFh_>.Fh_,Fh>FhFhFhFhFh\u0006_>>,Fh_.Fh>FhFh_>>.Fh_.Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFh\u0006_>,Fh_.Fh>FhFh_>,Fh_.Fh>FhFh_>.Fh_,Fh>FhFhFhFhFh<\u00164\n\u00167\nmO>>>k\u001b\nmO>>>g\u001b\n\u001615\n \u00165\nFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFn#force\n#invoke\n\u001b#untrap\nn db#dip\na>mO>>>m\u001b\nw-#loot\nn jkn kn kn \u0017chaotic alt"
+ },
+ "segments": [
+  {
+   "seed": 52850095,
+   "datetime": "20040714020628",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=number_pad\n",
+   "moves": "_<. \u001b;.#enhance\nyg\ni\n\u001b\u000f\u001b\u0006_>.Fl_,> FjFnFn\u0006_>,Fh_.Fh>FhFh_>.Fj_.Fl>FlFl_>. Fj_.Fh>FlFlFlFhFj\u0006_>>,Fl_.m.Fl>FlFl_>>.Fl_.>FlFl_>>,Fl_.>FlFlFlFlFl\u0006_>.Fl_,>FhFh_>,Fh_.>FhFk_>.Fl_.>FkFkFkFlFl\u0006_>.Fk_.>FhFk_>,Fy_,> FyFyFy\u000f\u001b\u001616\nO>>>>k\u001b\u001b\n\u0018\u001bq#sit\n\u001bO>>>>a\u001b\nmOa\u001b\n\u0006_>.      n      Fl_.m,Fu>FyFuy _>.Fk_,,Fk>FkFk_>,  nFk_.>.Fu>FuFuFuFuFu\u0006_>.Fu_.>.Fl>FlFl_>,Fl_,Fl>FlFl_>.Fl_.Fb>FkFbFbFuFk\u0006_>.Fk_.   n Fk>FyFkk _>,Fy_.Fky >FyFy_>.Fk_.> #monster\ni\u001b\u0006_>._,> FjFjFj\u0006_>.Fh_. Fh>FhFh_>,Fh_,Fh>FhFh_>.Fh_,Fh>FhFhFhFhFh\u0006_>>,Fh_.Fh>FhFh_>>.Fh_.Fh>FhFh_>>.Fh_.Fh>FhFhFhFhFh\u0006_>,Fh_.Fh>FhFh_>,Fh_.Fh>FhFh_>.Fh_,Fh>FhFhFhFhFh<\u00164\n\u00167\nmO>>>k\u001b\nmO>>>g\u001b\n\u001615\n \u00165\nFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFn#force\n#invoke\n\u001b#untrap\nn db#dip\na>mO>>>m\u001b\nw-#loot\nn jkn kn kn \u0017chaotic alt"
+  }
+ ]
+}

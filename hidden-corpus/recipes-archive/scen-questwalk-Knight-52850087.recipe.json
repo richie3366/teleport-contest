@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017blessed Mjollnir\n wi \u0017blessed +3 gauntlets of power\n W\u001b\u0016?\n>z  _ \u001bm,>\u0006_mmmmm.Fh_. Fl      Fh   Fy  Fl  Fu      Fh   Fl  \u00163\n\u0006_mmm.  n Fl _.Fl Fl Fl  Fl Fl  Fl Fl \u00164\n\u0006__.\u00165\n\u0006jkbn n  \u00166\n  \u0006_<,Fk  _,    nFh  _>.>\u0006_<,    Fl     _,   Fb   \u00163\n\u0006#chat\nh;u._>,  n  Fk    _, Fn  >\u0006_mm.  Fn          n   _.Fh      Fh   Fn             n   \u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z\u00164\n_>.>\u0016?\n>z\u0006_mm. Fj   _.FjFj  Fh Fh Fh Fh \u00166\n\u0016?\n>z\u0006_mmm.sss\u00162\n\u0016?\n>z\u0006_mm..20sss\u00163\n\u0016?\n>z\u0006_<.\u00164\n\u0016?\n>z\u0006_mm.Fh  _.Fh Fh Fy   Fy  "
+ },
+ "segments": [
+  {
+   "seed": 52850087,
+   "datetime": "20250313081935",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017blessed Mjollnir\n wi \u0017blessed +3 gauntlets of power\n W\u001b\u0016?\n>z  _ \u001bm,>\u0006_mmmmm.Fh_. Fl      Fh   Fy  Fl  Fu      Fh   Fl  \u00163\n\u0006_mmm.  n Fl _.Fl Fl Fl  Fl Fl  Fl Fl \u00164\n\u0006__.\u00165\n\u0006jkbn n  \u00166\n  \u0006_<,Fk  _,    nFh  _>.>\u0006_<,    Fl     _,   Fb   \u00163\n\u0006#chat\nh;u._>,  n  Fk    _, Fn  >\u0006_mm.  Fn          n   _.Fh      Fh   Fn             n   \u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z\u00164\n_>.>\u0016?\n>z\u0006_mm. Fj   _.FjFj  Fh Fh Fh Fh \u00166\n\u0016?\n>z\u0006_mmm.sss\u00162\n\u0016?\n>z\u0006_mm..20sss\u00163\n\u0016?\n>z\u0006_<.\u00164\n\u0016?\n>z\u0006_mm.Fh  _.Fh Fh Fy   Fy  "
+  }
+ ]
+}

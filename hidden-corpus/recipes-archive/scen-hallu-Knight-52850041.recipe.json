@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed magic lamp\n\u0017blessed +3 speed boots\nWk \u0017blessed 20 daggers\nQl#wizintrinsic\nh\n \u0017blessed spellbook of fireball\nrm   20s Z:\u0007soldier\n\u0007bugbear\nFk   Fk   Fu   n  Fk   Fu\u0017blessed scroll of magic mapping\nrn  #wizintrinsic\nh\n\u0017wand of sleep\nzol       nzol  zouzol zou   zou    \u0007soldier\nFkFnFu  Fu  Fk\u0017scroll of light\nrp  #wizintrinsic\nh\n\u0017blessed scroll of light\nrq \u0016?\n>t _ \u001b;\u0017blessed scroll of remove curse\nrr \u0017blessed spellbook of knock\nrs  sm.  nZ:#wizintrinsic\nh\n\u0017potion of see invisible\nqt  20ssm.\u00167\nh   nl \u0017wand of undead turning\nEu I am a fish\n: \u0017wand of digging\nEv   Elbereth Elbereth\n  : \u0017wand of striking\nEw\u0017wand of light\nEx : k   n E-   n\u0007minotaur\nsm. .u  n  n .m.  n  n   n\u00165\n#wizintrinsic\nh\ntlh fh   nfh tbh     n\u001610\n\u0007hill orc\nFn Fk   n Fn   Fb   n Fb  .fn  yy\u001by   y y y\u001by  t"
+ },
+ "segments": [
+  {
+   "seed": 52850041,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed magic lamp\n\u0017blessed +3 speed boots\nWk \u0017blessed 20 daggers\nQl#wizintrinsic\nh\n \u0017blessed spellbook of fireball\nrm   20s Z:\u0007soldier\n\u0007bugbear\nFk   Fk   Fu   n  Fk   Fu\u0017blessed scroll of magic mapping\nrn  #wizintrinsic\nh\n\u0017wand of sleep\nzol       nzol  zouzol zou   zou    \u0007soldier\nFkFnFu  Fu  Fk\u0017scroll of light\nrp  #wizintrinsic\nh\n\u0017blessed scroll of light\nrq \u0016?\n>t _ \u001b;\u0017blessed scroll of remove curse\nrr \u0017blessed spellbook of knock\nrs  sm.  nZ:#wizintrinsic\nh\n\u0017potion of see invisible\nqt  20ssm.\u00167\nh   nl \u0017wand of undead turning\nEu I am a fish\n: \u0017wand of digging\nEv   Elbereth Elbereth\n  : \u0017wand of striking\nEw\u0017wand of light\nEx : k   n E-   n\u0007minotaur\nsm. .u  n  n .m.  n  n   n\u00165\n#wizintrinsic\nh\ntlh fh   nfh tbh     n\u001610\n\u0007hill orc\nFn Fk   n Fn   Fb   n Fb  .fn  yy\u001by   y y y\u001by  t"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWk \u0017blessed Mjollnir\nwl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n             \u0007troll\nFn Fj _ \u001b:,#overview\n\u001b#conduct\n #annotate\nfoo\n\u000f\u001b#dip\nkd#offer\n#pray\ny y    #chat\nj#wizidentify\n\u001bFjFj Fj  20s__.#chat\nk\u0007soldier\n#vanquished\n #genocided\nfire vortex\nm ni\u001b#name\nm\n#adjust\nm,Fido\n#chat\nn#turn\n#jump\n#wizidentify\n\u001bFnFn Fnaj\u001b_<,#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\nl#sit\n#pray\ny y #wizidentify\n\u001bhbh__.#chat\nn#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#wipe\n#loot\n#chat\nj#chat\nl#wizidentify\n\u001blnk#terrain\nc\n,_oo,_.,\u001b\u0007bugbear\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nly#turn\n#sit\n#wizintrinsic\na\n Fl Fl s.__,#chat\nu#vanquished\n #genocided\nnalfeshnee\n\u001b\u0018\u001b#dip\na#offer\n#pray\n#chat\n#polyself\ns 20s . s h lhaj\u001b_oooo._., \u0007newt\n#chronicle\n  #terrain\n\u001b\u0018\u001b#name\nd\n#adjust\ne\u001b#chat\nb#turn\n#wizidentify\n\u001bFb .20s__,#chat\nn\u0007kobold\n#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\nl#sit\n\u001b#pray\ny y     #wizdetect\n\u0006Fl .._{,qd\u0007lichen\n#overview\n\u001b#conduct\n \u000f\u001b#wipe\n#loot\nh#chat\nh#chat\nh#wizintrinsic\naq\n Fh  20s#loot\n__.#chat\nh\u0007lichen\n#vanquished\n #genocided\nkiller bee\n\u0018\u001b#tip\np\u001b#ride\nyy#turn\n#sit\n#jump\n#polyself\nfog cloud\n  20s s20ssnjh_{.qd#ch"
+ },
+ "segments": [
+  {
+   "seed": 52850053,
+   "datetime": "20110226232752",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWk \u0017blessed Mjollnir\nwl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n             \u0007troll\nFn Fj _ \u001b:,#overview\n\u001b#conduct\n #annotate\nfoo\n\u000f\u001b#dip\nkd#offer\n#pray\ny y    #chat\nj#wizidentify\n\u001bFjFj Fj  20s__.#chat\nk\u0007soldier\n#vanquished\n #genocided\nfire vortex\nm ni\u001b#name\nm\n#adjust\nm,Fido\n#chat\nn#turn\n#jump\n#wizidentify\n\u001bFnFn Fnaj\u001b_<,#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\nl#sit\n#pray\ny y #wizidentify\n\u001bhbh__.#chat\nn#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#wipe\n#loot\n#chat\nj#chat\nl#wizidentify\n\u001blnk#terrain\nc\n,_oo,_.,\u001b\u0007bugbear\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nly#turn\n#sit\n#wizintrinsic\na\n Fl Fl s.__,#chat\nu#vanquished\n #genocided\nnalfeshnee\n\u001b\u0018\u001b#dip\na#offer\n#pray\n#chat\n#polyself\ns 20s . s h lhaj\u001b_oooo._., \u0007newt\n#chronicle\n  #terrain\n\u001b\u0018\u001b#name\nd\n#adjust\ne\u001b#chat\nb#turn\n#wizidentify\n\u001bFb .20s__,#chat\nn\u0007kobold\n#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\nl#sit\n\u001b#pray\ny y     #wizdetect\n\u0006Fl .._{,qd\u0007lichen\n#overview\n\u001b#conduct\n \u000f\u001b#wipe\n#loot\nh#chat\nh#chat\nh#wizintrinsic\naq\n Fh  20s#loot\n__.#chat\nh\u0007lichen\n#vanquished\n #genocided\nkiller bee\n\u0018\u001b#tip\np\u001b#ride\nyy#turn\n#sit\n#jump\n#polyself\nfog cloud\n  20s s20ssnjh_{.qd#ch"
+  }
+ ]
+}

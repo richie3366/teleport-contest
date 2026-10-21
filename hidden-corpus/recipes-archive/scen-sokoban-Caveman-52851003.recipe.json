@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u0016?\n>E\u0017blessed ring of levitation\nPfr Fk\u0017wand of striking\nzg>h\u0017scroll of earth\nrh ybhnjyh\u0017wand of striking\nzikljnkuFb jjjjjjhnhhljhhhbnnljhbnhnbljjhl10sj10sjjhhnnbb"
+ },
+ "segments": [
+  {
+   "seed": 52851003,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=fruit:lychee\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0016?\n>E\u0017blessed ring of levitation\nPfr Fk\u0017wand of striking\nzg>h\u0017scroll of earth\nrh ybhnjyh\u0017wand of striking\nzikljnkuFb jjjjjjhnhhljhhhbnnljhbnhnbljjhl10sj10sjjhhnnbb"
+  }
+ ]
+}

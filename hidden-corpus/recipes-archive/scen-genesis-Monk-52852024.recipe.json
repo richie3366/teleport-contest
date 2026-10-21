@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n             \u0017Hawaiian shirt\nW\u001bsss\u0007prisoner\n20s.20s20s.\u0007rock piercer\n#chat\nlFlFl"
+ },
+ "segments": [
+  {
+   "seed": 52852024,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n             \u0017Hawaiian shirt\nW\u001bsss\u0007prisoner\n20s.20s20s.\u0007rock piercer\n#chat\nlFlFl"
+  }
+ ]
+}

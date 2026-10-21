@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  FbFbFjFhFj Fj Fj Fj.50sFj.s150s  FjFjFj Fjss50s50su\u000f\u001b_ \u001b,>100sbhl150s Fl Fl Fn Fl20s20sFhs20s FjFls100s          Fl20sFkFhFbsnbbkkj_>.>100s               FlFlsFls20sFls.FjFjFn50s  FjFn20s     Fl  FlFlFl20sFj FjFj  yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 52850036,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:explore\n",
+   "moves": "  FbFbFjFhFj Fj Fj Fj.50sFj.s150s  FjFjFj Fjss50s50su\u000f\u001b_ \u001b,>100sbhl150s Fl Fl Fn Fl20s20sFhs20s FjFls100s          Fl20sFkFhFbsnbbkkj_>.>100s               FlFlsFls20sFls.FjFjFn50s  FjFn20s     Fl  FlFlFl20sFj FjFj  yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

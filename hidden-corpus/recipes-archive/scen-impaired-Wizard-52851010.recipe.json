@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\ngm\n jyk\u0017scroll of confuse monster\n ri  E- Elbereth\nE-y Elbereth Elbereth\n20s.20s"
+ },
+ "segments": [
+  {
+   "seed": 52851010,
+   "datetime": "20190222080046",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\ngm\n jyk\u0017scroll of confuse monster\n ri  E- Elbereth\nE-y Elbereth Elbereth\n20s.20s"
+  }
+ ]
+}

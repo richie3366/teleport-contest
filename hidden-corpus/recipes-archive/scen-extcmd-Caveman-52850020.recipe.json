@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017blessed ring of free action\nPgr\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007hobbit\n#dip\nfi \u001b#offer\n#pray\ny y    #chat\nl#wizdetect\n\u0006Fl Fns_ \u001b<.q#overview\n\u001b#conduct\n \u000f\u001b#name\n\u001b#adjust\ng\u001b#chat\nh#turn\n#jump\n#wizidentify\n\u001bhhh_{.q#vanquished\n #genocided\nOracle\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y #jump\n#levelchange\n22\n              uylq_>._.#chronicle\n  #terrain\n\u001bi\u001b#wipe\n#loot\n#chat\nn#chat\nk#polyself\nfire giant\n#monster\ns...uhb_{.q\u0007jackal\n#version\n  #history\n                  #annotate\nfoo\n\u0018\u001b#tip\n\u001b\u001b#ride\nny#turn\n#sit\n\u001b#polyself\nxorn\n#monster\nsh.m.Flsnlu_>._.\u0007newt\n#overview\n\u001b#conduct\n i\u001b#dip\nf#offer\n#pray\ny y    #chat\nj#wizidentify\n\u001bFjFjddb_oooo._.,\u0007jackal\n#vanquished\n #genocided\nsandestin\nji\u001b#name\n\u001b#adjust\nh\u001b#chat\nh#turn\n#jump"
+ },
+ "segments": [
+  {
+   "seed": 52850020,
+   "datetime": "20120508123527",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017blessed ring of free action\nPgr\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007hobbit\n#dip\nfi \u001b#offer\n#pray\ny y    #chat\nl#wizdetect\n\u0006Fl Fns_ \u001b<.q#overview\n\u001b#conduct\n \u000f\u001b#name\n\u001b#adjust\ng\u001b#chat\nh#turn\n#jump\n#wizidentify\n\u001bhhh_{.q#vanquished\n #genocided\nOracle\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y #jump\n#levelchange\n22\n              uylq_>._.#chronicle\n  #terrain\n\u001bi\u001b#wipe\n#loot\n#chat\nn#chat\nk#polyself\nfire giant\n#monster\ns...uhb_{.q\u0007jackal\n#version\n  #history\n                  #annotate\nfoo\n\u0018\u001b#tip\n\u001b\u001b#ride\nny#turn\n#sit\n\u001b#polyself\nxorn\n#monster\nsh.m.Flsnlu_>._.\u0007newt\n#overview\n\u001b#conduct\n i\u001b#dip\nf#offer\n#pray\ny y    #chat\nj#wizidentify\n\u001bFjFjddb_oooo._.,\u0007jackal\n#vanquished\n #genocided\nsandestin\nji\u001b#name\n\u001b#adjust\nh\u001b#chat\nh#turn\n#jump"
+  }
+ ]
+}

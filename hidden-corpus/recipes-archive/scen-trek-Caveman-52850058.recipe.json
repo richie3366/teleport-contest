@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "FlFl FjFj.s100s100slbubun100s\u000f\u001b50sFnFnFn100sFnsFnFnFjFj100sFnFns100s100sFjFjFjFjss100s,100sFnFnFnFnFnFnjhk100slyjFls.\\ _ \u001b,>oj100shunFj.Fn50s100sFnFnFn100sFnss150sHJNU_>.>FjFjFjr\u001b#dip\neULJN_>.>FnFnsYHLN_>.>Fns20s\u000f\u001b<\u0014#twoweapon\n50s150s50sFn..\u000f\u001b100sbkh100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLLHK_>.>HBYY_>.>KKBN_>.><eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJHYH_>.><YBHL _>.>KJJJ_>,>#pray\ny \u0004bLYBJ_>.>JJJH _>.>\u000f\u001b20s#offer\n#terrain\nb\nNKHK_>UHLY_>HJNN_>#force\n:JUNKJ_>.>\u0014\u000f\u001bJLLK_>,>BKBU_>,>#enhance\n\u001b#terrain\nc\nm.,BULH_>.>YJNB_>.>YHNU_>.>KbKJJK_>,>Fls.<NYHB_>,>w-b#offer\newb KBUU_>.>20s#ride\nhUUYU_>.>UUNJ_>.>Fks20s dduUHBH_>,>r\u001bt$hKLNH_>,>\\ \\ NYUH_>.>Fl    FuFu<HH  y\u001bny y y\u001b  B"
+ },
+ "segments": [
+  {
+   "seed": 52850058,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\n",
+   "moves": "FlFl FjFj.s100s100slbubun100s\u000f\u001b50sFnFnFn100sFnsFnFnFjFj100sFnFns100s100sFjFjFjFjss100s,100sFnFnFnFnFnFnjhk100slyjFls.\\ _ \u001b,>oj100shunFj.Fn50s100sFnFnFn100sFnss150sHJNU_>.>FjFjFjr\u001b#dip\neULJN_>.>FnFnsYHLN_>.>Fns20s\u000f\u001b<\u0014#twoweapon\n50s150s50sFn..\u000f\u001b100sbkh100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLLHK_>.>HBYY_>.>KKBN_>.><eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeJHYH_>.><YBHL _>.>KJJJ_>,>#pray\ny \u0004bLYBJ_>.>JJJH _>.>\u000f\u001b20s#offer\n#terrain\nb\nNKHK_>UHLY_>HJNN_>#force\n:JUNKJ_>.>\u0014\u000f\u001bJLLK_>,>BKBU_>,>#enhance\n\u001b#terrain\nc\nm.,BULH_>.>YJNB_>.>YHNU_>.>KbKJJK_>,>Fls.<NYHB_>,>w-b#offer\newb KBUU_>.>20s#ride\nhUUYU_>.>UUNJ_>.>Fks20s dduUHBH_>,>r\u001bt$hKLNH_>,>\\ \\ NYUH_>.>Fl    FuFu<HH  y\u001bny y y\u001b  B"
+  }
+ ]
+}

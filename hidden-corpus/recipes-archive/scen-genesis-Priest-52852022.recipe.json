@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0007hill orc\n#chat\nbFbFh\u0007frost giant\nFh FhFh FhFhFh \u0007grid bug\n;n, \u001bm.sm.  yny   y ny\u001bn  s"
+ },
+ "segments": [
+  {
+   "seed": 52852022,
+   "datetime": "20070920024229",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0007hill orc\n#chat\nbFbFh\u0007frost giant\nFh FhFh FhFhFh \u0007grid bug\n;n, \u001bm.sm.  yny   y ny\u001bn  s"
+  }
+ ]
+}

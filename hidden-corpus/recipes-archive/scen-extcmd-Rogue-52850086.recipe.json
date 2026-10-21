@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWh\u0017blessed amulet of reflection\nPi\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007yellow mold\nFjFh_ \u001bm,\u0007acid blob\n#overview\n\u001b#conduct\n i\u001b#dip\nik#offer\n#pray\ny y #chat\nb#polyself\nxorn\nssFb  Fb  khj_{,qk\u0007gnome\n#vanquished\n #genocided\nblack pudding\nf\u001b#annotate\nFido\ni\u001b#name\nm\n#adjust\n>.#chat\nl#turn\n#wizintrinsic\nsg\n FlFl #force\n_ooooo,_.,#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizintrinsic\ng\n hbu\u0016?\n\u001b\u0006\u0007giant rat\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nb#chat\nb#chat\nb#polyself\ntroll\nsm.sFbFbjhb\u0016?\n\u001b\u0006\u0007grid bug\n#overview\n\u001b#conduct\n \u0018\u001b#tip\nf\u001b#ride\nhy#turn\n#sit\n\u001b#wizmap\n\u0006Fh  FlFls\u00161\n\u0006\u0007dwarf\n#vanquished\n #genocided\nsuccubus\ni\u001b#dip\nhd#offer\n#pray\ny y #chat\nk#jump\n#levelchange\n10\n        Fks.s>__.#chat\nb#chronicle\n  #terrain\n\u001b\u0018\u001b#name\n\u001b#adjust\ne\u001b#chat\nu#turn\n#wizintrinsic\nr\n yhk_{.qd#version\n  #history\n                  #annotate\nblessed\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizintrinsic\nq\n yuj#rub\n__.#chat\nk\u0007newt\n#overview\n\u001b#conduct\n \u0018\u001b#wipe\n#loot\nh#chat\nh#chat\nh#jump\n#levelchange\n19\n        Fh20s..#invoke\n\u001b_{.q#vanquished\n #genocided\nsandestin\nf\u001b\u0018\u001b#tip\nf\u001b#ride\njy#turn\n#sit\n#wizdetect\n\u0006lyb"
+ },
+ "segments": [
+  {
+   "seed": 52850086,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWh\u0017blessed amulet of reflection\nPi\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007yellow mold\nFjFh_ \u001bm,\u0007acid blob\n#overview\n\u001b#conduct\n i\u001b#dip\nik#offer\n#pray\ny y #chat\nb#polyself\nxorn\nssFb  Fb  khj_{,qk\u0007gnome\n#vanquished\n #genocided\nblack pudding\nf\u001b#annotate\nFido\ni\u001b#name\nm\n#adjust\n>.#chat\nl#turn\n#wizintrinsic\nsg\n FlFl #force\n_ooooo,_.,#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizintrinsic\ng\n hbu\u0016?\n\u001b\u0006\u0007giant rat\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nb#chat\nb#chat\nb#polyself\ntroll\nsm.sFbFbjhb\u0016?\n\u001b\u0006\u0007grid bug\n#overview\n\u001b#conduct\n \u0018\u001b#tip\nf\u001b#ride\nhy#turn\n#sit\n\u001b#wizmap\n\u0006Fh  FlFls\u00161\n\u0006\u0007dwarf\n#vanquished\n #genocided\nsuccubus\ni\u001b#dip\nhd#offer\n#pray\ny y #chat\nk#jump\n#levelchange\n10\n        Fks.s>__.#chat\nb#chronicle\n  #terrain\n\u001b\u0018\u001b#name\n\u001b#adjust\ne\u001b#chat\nu#turn\n#wizintrinsic\nr\n yhk_{.qd#version\n  #history\n                  #annotate\nblessed\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizintrinsic\nq\n yuj#rub\n__.#chat\nk\u0007newt\n#overview\n\u001b#conduct\n \u0018\u001b#wipe\n#loot\nh#chat\nh#chat\nh#jump\n#levelchange\n19\n        Fh20s..#invoke\n\u001b_{.q#vanquished\n #genocided\nsandestin\nf\u001b\u0018\u001b#tip\nf\u001b#ride\njy#turn\n#sit\n#wizdetect\n\u0006lyb"
+  }
+ ]
+}

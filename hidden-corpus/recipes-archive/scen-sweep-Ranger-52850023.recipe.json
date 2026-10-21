@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0007tame saddled horse\n#ride\nky\u0007horse\n\u0017scroll of taming\nrh \u0017saddle\naib#ride\n \u0007tame saddled pony\n#ride\nkylynh,s.yn\u0004nn\u0007gnome\nFjFuFl\u001619\n\u0006_ \u001b;>FlFl _>.  Fh_. Fb>Fy Fb_>,Fy_.:Fy >Fy  Fy Fy Fy Fy\u0006_>.Fy_,>.Fy >FhFu _>,Fh  _.<.Fy  >Fy  n Fy _>.Fu          _.         Fu     n >Fy       Fu  Fl     n  Fl  Fy  \u0006_>.     n Fy   _,  Fl     n  >Fy  Fl     _>,    n Fy  _.   Fu   >Fl Fl   n _>.  Fy  _.   n Fl >Fu  Fu  Fl    n   Fu Fy   n \u001620\n\u0018\u001b\u00168\n\u0007werewolf\nFb Fb Fj  \u0007werejackal\nsm.  n  sh  sl   n  sm. 20s   nsm.  sm.   n sm.  i\u001b\u00164\n#wizintrinsic\nfh\n \u0017cursed scroll of punishment\nrj   \u0017blessed wand of fire\nzkh   n \u0017blessed wand of cancellation\nzlb  Zsm.  sm. sl    yy\u001by   y y y\u001b  b"
+ },
+ "segments": [
+  {
+   "seed": 52850023,
+   "datetime": "20130827134821",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0007tame saddled horse\n#ride\nky\u0007horse\n\u0017scroll of taming\nrh \u0017saddle\naib#ride\n \u0007tame saddled pony\n#ride\nkylynh,s.yn\u0004nn\u0007gnome\nFjFuFl\u001619\n\u0006_ \u001b;>FlFl _>.  Fh_. Fb>Fy Fb_>,Fy_.:Fy >Fy  Fy Fy Fy Fy\u0006_>.Fy_,>.Fy >FhFu _>,Fh  _.<.Fy  >Fy  n Fy _>.Fu          _.         Fu     n >Fy       Fu  Fl     n  Fl  Fy  \u0006_>.     n Fy   _,  Fl     n  >Fy  Fl     _>,    n Fy  _.   Fu   >Fl Fl   n _>.  Fy  _.   n Fl >Fu  Fu  Fl    n   Fu Fy   n \u001620\n\u0018\u001b\u00168\n\u0007werewolf\nFb Fb Fj  \u0007werejackal\nsm.  n  sh  sl   n  sm. 20s   nsm.  sm.   n sm.  i\u001b\u00164\n#wizintrinsic\nfh\n \u0017cursed scroll of punishment\nrj   \u0017blessed wand of fire\nzkh   n \u0017blessed wand of cancellation\nzlb  Zsm.  sm. sl    yy\u001by   y y y\u001b  b"
+  }
+ ]
+}

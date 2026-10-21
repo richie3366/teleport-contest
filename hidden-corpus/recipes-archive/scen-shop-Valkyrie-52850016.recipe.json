@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed ring of free action\nPfr\u0017blessed +3 gray dragon scale mail\nWg \u0016?\n>w  \u0006_ \u001bm,,   #chat\nl_oooooo.Fu   _.,     n#chat\nn\u00163\n     jbk \u0016?\n>w\u0006Fn   n   \u001b Fn  n     Fn  n   nFn  Fn  n  Fn   n  \u00168\n_ooo,,#chat\nu_oooo,_oo.,#chat\nl   n _oo._oo.,p   _oooo.,p_{,q_ooo.,:__,#chat\nu_oooooooo.,\u0014. sm.sh_ooooooooo.,p_{.q_oo,,:\u0016?\ncljk\u0016?\n>w  \u0006_oooo. Fy  _,Fj , #chat\nj   n  _oooooo. Fj  _, Fj ,$__, Fb _.m.Fk     n#chat\nkFk  n Fk   n   n Fk Fk   n Fk   n   yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 52850016,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed ring of free action\nPfr\u0017blessed +3 gray dragon scale mail\nWg \u0016?\n>w  \u0006_ \u001bm,,   #chat\nl_oooooo.Fu   _.,     n#chat\nn\u00163\n     jbk \u0016?\n>w\u0006Fn   n   \u001b Fn  n     Fn  n   nFn  Fn  n  Fn   n  \u00168\n_ooo,,#chat\nu_oooo,_oo.,#chat\nl   n _oo._oo.,p   _oooo.,p_{,q_ooo.,:__,#chat\nu_oooooooo.,\u0014. sm.sh_ooooooooo.,p_{.q_oo,,:\u0016?\ncljk\u0016?\n>w  \u0006_oooo. Fy  _,Fj , #chat\nj   n  _oooooo. Fj  _, Fj ,$__, Fb _.m.Fk     n#chat\nkFk  n Fk   n   n Fk Fk   n Fk   n   yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

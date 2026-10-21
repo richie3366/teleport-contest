@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0007tame dingo\n\u0007tame gnome lord\n20s             \u0017apple\nt\u001b\u0017huge chunk of meat\n t\u001b20s          #chat\nu O>>>m\u001b\u001b\nmO>>>>e\u001b\n\u0007kitten\n\u0017fortune cookie\nt\u001b\u0017fortune cookie\nt\u001b#name\ni\n\u0017apple\nt\u001bb\u0017meatball\nt\u001b\u0017magic whistle\nhjnan     \u0017carrot\nt\u001b\u001611\n    \u0007little dog\n\u0017tripe ration\nt\u001b\u0017magic whistle\nkbuaq   \u0017food ration\nt\u001b\u0006_ \u001bm.    n >Fl    Fy  n  _>.  Fy  n   _. Fk >FbFl_>,Fj          _.;m,Fj>FbFy\u0017leash\nasyjubnasj\u0017leash\natkyujbatj\u0006_>>,Fh_,@.Fh> \u001615\n\u00164\n#ride\nky,FlFjFkFbFnFhFhFjFyFnFbFjFjFhFkFnFb Fh FnFlFuFbFkFjFuFbFuFjFuFhFhFkFjFyFbFyFbFlFlFjFnFuFbFlFkFuFhFjFl"
+ },
+ "segments": [
+  {
+   "seed": 52850062,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"You hear\"\nMENUCOLOR=\"blessed\"=green\nBIND=v:inventory\n",
+   "moves": "\u0007tame dingo\n\u0007tame gnome lord\n20s             \u0017apple\nt\u001b\u0017huge chunk of meat\n t\u001b20s          #chat\nu O>>>m\u001b\u001b\nmO>>>>e\u001b\n\u0007kitten\n\u0017fortune cookie\nt\u001b\u0017fortune cookie\nt\u001b#name\ni\n\u0017apple\nt\u001bb\u0017meatball\nt\u001b\u0017magic whistle\nhjnan     \u0017carrot\nt\u001b\u001611\n    \u0007little dog\n\u0017tripe ration\nt\u001b\u0017magic whistle\nkbuaq   \u0017food ration\nt\u001b\u0006_ \u001bm.    n >Fl    Fy  n  _>.  Fy  n   _. Fk >FbFl_>,Fj          _.;m,Fj>FbFy\u0017leash\nasyjubnasj\u0017leash\natkyujbatj\u0006_>>,Fh_,@.Fh> \u001615\n\u00164\n#ride\nky,FlFjFkFbFnFhFhFjFyFnFbFjFjFhFkFnFb Fh FnFlFuFbFkFjFuFbFuFjFuFhFhFkFjFyFbFyFbFlFlFjFnFuFbFlFkFuFhFjFl"
+  }
+ ]
+}

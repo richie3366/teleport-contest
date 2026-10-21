@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "H  BHY_ \u001b@.>HLUB_>,>NJKN_>.>BNJY_>.>\u0004k#jump\nJBNL_>.>KUYL_>.><KBNH_>.>#jump\n\\    Sy\u001b  y<e#loot\n#offer\nck#loot\nW#enhance\n\u001b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 52851027,
+   "datetime": "20010623135100",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\nOPTIONS=playmode:explore\n",
+   "moves": "H  BHY_ \u001b@.>HLUB_>,>NJKN_>.>BNJY_>.>\u0004k#jump\nJBNL_>.>KUYL_>.><KBNH_>.>#jump\n\\    Sy\u001b"
+  },
+  {
+   "seed": 53351027,
+   "datetime": "20210427084902",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\nOPTIONS=playmode:explore\n",
+   "moves": "  y<e#loot\n#offer\nck#loot\nW#enhance\n\u001b"
+  }
+ ]
+}

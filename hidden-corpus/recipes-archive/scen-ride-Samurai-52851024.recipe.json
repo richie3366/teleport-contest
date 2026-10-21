@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0007baby red dragon\n\u0017scroll of taming\nrf \u0017saddle\nagk\u0017lance\nwh#ride\nky\u0007tame saddled pony\n#ride\nby\u0007tame saddled pony\n#ride\n \u0004h,#ride\nky ys#ride\nkyjkj,ss"
+ },
+ "segments": [
+  {
+   "seed": 52851024,
+   "datetime": "20091213122756",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0007baby red dragon\n\u0017scroll of taming\nrf \u0017saddle\nagk\u0017lance\nwh#ride\nky\u0007tame saddled pony\n#ride\nby\u0007tame saddled pony\n#ride\n \u0004h,#ride\nky ys#ride\nkyjkj,ss"
+  }
+ ]
+}

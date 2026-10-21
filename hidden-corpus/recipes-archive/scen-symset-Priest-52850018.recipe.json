@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " O>>m\u001b\u001b\nO>>>>i\u001b\u001b\nO>a\u001b\n\u0007housecat\n\u0017huge chunk of meat\n t\u001b\u0007horse\n\u0017newt corpse\nt\u001b\u0006_ \u001b@.>Fh   n Fh    n _>.  nFl   n    n _.Fu   n >Fl   n    nFl   n _>, Fl  n    n _.   nFl >Fl  n    n Fl   n \u0007grid bug\n\u0017scroll of taming\nrl \u0006_>,Fl_,>_>._.Fu>_>.Fl_.Fl>Fks\u0017lichen corpse\nt\u001b\u0017leash\nanu  kbnhanl\u0017lichen corpse\nt\u001bu\u0007housecat\n\u0017apple\nt\u001b\u0017fortune cookie\nt\u001b#chat\nu  \u0017leash\naqlblk   yy\u001bny nny  b"
+ },
+ "segments": [
+  {
+   "seed": 52850018,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=showrace\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\nMENUCOLOR=\"cursed\"=green\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " O>>m\u001b\u001b\nO>>>>i\u001b\u001b\nO>a\u001b\n\u0007housecat\n\u0017huge chunk of meat\n t\u001b\u0007horse\n\u0017newt corpse\nt\u001b\u0006_ \u001b@.>Fh   n Fh    n _>.  nFl   n    n _.Fu   n >Fl   n    nFl   n _>, Fl  n    n _.   nFl >Fl  n    n Fl   n \u0007grid bug\n\u0017scroll of taming\nrl \u0006_>,Fl_,>_>._.Fu>_>.Fl_.Fl>Fks\u0017lichen corpse\nt\u001b\u0017leash\nanu  kbnhanl\u0017lichen corpse\nt\u001bu\u0007housecat\n\u0017apple\nt\u001b\u0017fortune cookie\nt\u001b#chat\nu  \u0017leash\naqlblk   yy\u001bny nny  b"
+  }
+ ]
+}

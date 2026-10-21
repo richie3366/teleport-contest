@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic lamp\n\u0017blessed magic harp\n\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed amulet of life saving\nPl\u0017blessed 20 daggers\n Qm#levelchange\n14\n             #wizintrinsic\nh\n \u0007bugbear\nFjFjFjFn FjFj\u0007soldier\nFh Fj  Fh Fh \u0017blessed scroll of teleportation\nrn  \u001b<.  \u0007lichen\nFn Fh       Fh Fj #wizintrinsic\nh\n\u0016?\n>wnyy\u0017pool\n#dip\ndy   hlbj\u0017magic fountain\nqy qy#dip\nhy y:\\ \u0017potion of confusion\nqo20s sb\u00165\n __,sm.20s #wizintrinsic\nh\n\u001610\n#levelchange\n20\n     \u0007captain\n;u;20s 20s   n   sm. \u0007piranha\nFh   n Fh     Fu    nFuFu   Fu  \u0007nalfeshnee\nFkFu          nFh  FuFh  Fh  \u001611\n#wizintrinsic\nh\n\u0017wand of light\nzpzp    n   zp      i\u001by   h   n   btml      fh    n \u0007lichen\nFy   Fl       n Fy   Fu    Fh     n    \u001611\n#wizintrinsic\nh\n\u0017scroll of enchant weapon\nrq        \u0017banana\ner   n       \u0017wand of cold\nzsl     zsk       n   zsl  #wizintrinsic\nh\n\u0017wand of striking\nztu    ztk    n ztk ztk zt \u0007newt\nFh FkFhFy\u0018\u001by    nkk\u0007hobbit\nFy  Fn     FjFjFjFj#wizintrinsic\nh\ntmlfjflfl\u0017wand of slow monster\nzun  nzunzunzunzu;n,E- Elbereth Elbereth\n#pray\ny y  \u0017potion of oil\nqv.ksm.#wizintrinsic\nh\n\u0017blessed scroll of light\nrw \u0017potion of speed\nqxsm.\u0017scroll of fire\nry  \u0017scroll of earth\nrz  #wizintrinsic\nh\n\u0017potion of gain energ"
+ },
+ "segments": [
+  {
+   "seed": 52850008,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic lamp\n\u0017blessed magic harp\n\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed amulet of life saving\nPl\u0017blessed 20 daggers\n Qm#levelchange\n14\n             #wizintrinsic\nh\n \u0007bugbear\nFjFjFjFn FjFj\u0007soldier\nFh Fj  Fh Fh \u0017blessed scroll of teleportation\nrn  \u001b<.  \u0007lichen\nFn Fh       Fh Fj #wizintrinsic\nh\n\u0016?\n>wnyy\u0017pool\n#dip\ndy   hlbj\u0017magic fountain\nqy qy#dip\nhy y:\\ \u0017potion of confusion\nqo20s sb\u00165\n __,sm.20s #wizintrinsic\nh\n\u001610\n#levelchange\n20\n     \u0007captain\n;u;20s 20s   n   sm. \u0007piranha\nFh   n Fh     Fu    nFuFu   Fu  \u0007nalfeshnee\nFkFu          nFh  FuFh  Fh  \u001611\n#wizintrinsic\nh\n\u0017wand of light\nzpzp    n   zp      i\u001by   h   n   btml      fh    n \u0007lichen\nFy   Fl       n Fy   Fu    Fh     n    \u001611\n#wizintrinsic\nh\n\u0017scroll of enchant weapon\nrq        \u0017banana\ner   n       \u0017wand of cold\nzsl     zsk       n   zsl  #wizintrinsic\nh\n\u0017wand of striking\nztu    ztk    n ztk ztk zt \u0007newt\nFh FkFhFy\u0018\u001by    nkk\u0007hobbit\nFy  Fn     FjFjFjFj#wizintrinsic\nh\ntmlfjflfl\u0017wand of slow monster\nzun  nzunzunzunzu;n,E- Elbereth Elbereth\n#pray\ny y  \u0017potion of oil\nqv.ksm.#wizintrinsic\nh\n\u0017blessed scroll of light\nrw \u0017potion of speed\nqxsm.\u0017scroll of fire\nry  \u0017scroll of earth\nrz  #wizintrinsic\nh\n\u0017potion of gain energ"
+  }
+ ]
+}

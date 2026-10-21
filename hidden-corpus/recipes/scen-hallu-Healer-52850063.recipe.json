@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPll\u0017blessed +3 speed boots\nWm\u0017blessed +3 gray dragon scale mail\nWn \u0017blessed magic harp\n\u0017blessed 20 daggers\nQp#levelchange\n20\n                   #wizintrinsic\nh\n \u0017blessed spellbook of light\n rq .Za\n:;l; \u001bm,E- ad aerarium\n#chat\nl\u0007dwarf\nFlFlFlFlflt$ltpj fl #wizintrinsic\nh\n\u0007newt\n\u0007owlbear\nFlFn  FuFl FnFn Fu;n.E-n  X marks the spot\n #chat\nn\u0016?\n>D#levelchange\n12\n  \u0007nurse\n;l:  20ssm.20s\u0007gray ooze\n;u:  20ssm..l 20s#wizintrinsic\nh\n\u0017wand of striking\nzruzrlzru zrlzrli\u001byb\u0017blessed spellbook of light\n rs y.m.Zc\n:\u0017potion of speed\nqt.m.sm.#wizintrinsic\nh\nflfl#invoke\n\u001b\u0016?\n>t #levelchange\n30\n                 \u0007gelatinous cube\n#chat\nlFlFl\u0007newt\nsm.susm.      sk20s  , .m.20s \u0007homunculus\n20s @. sm.s.m. m,s20ssss20s#wizintrinsic\nh\n\u0017blessed scroll of remove curse\nru    \u0017banana\nev\u0007hill orc\nFj   FlFl Fj\u0017wand of light\nzw  zwzw   zwzw    #wizintrinsic\nh\n\u0017blessed scroll of fire\nrx  .         n\u0017floating eye corpse\ney     ;l:  E- ad aerarium\n#pray\ny y                    #wizintrinsic\nh\n\u0007bugbear\n\u0007hill orc\nFj    FlFj       nFj       Fh  \u0007jackal\n\u0007newt\nFjFj           FlFl   yy       n     Fj     Fj     "
+ },
+ "segments": [
+  {
+   "seed": 52850063,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPll\u0017blessed +3 speed boots\nWm\u0017blessed +3 gray dragon scale mail\nWn \u0017blessed magic harp\n\u0017blessed 20 daggers\nQp#levelchange\n20\n                   #wizintrinsic\nh\n \u0017blessed spellbook of light\n rq .Za\n:;l; \u001bm,E- ad aerarium\n#chat\nl\u0007dwarf\nFlFlFlFlflt$ltpj fl #wizintrinsic\nh\n\u0007newt\n\u0007owlbear\nFlFn  FuFl FnFn Fu;n.E-n  X marks the spot\n #chat\nn\u0016?\n>D#levelchange\n12\n  \u0007nurse\n;l:  20ssm.20s\u0007gray ooze\n;u:  20ssm..l 20s#wizintrinsic\nh\n\u0017wand of striking\nzruzrlzru zrlzrli\u001byb\u0017blessed spellbook of light\n rs y.m.Zc\n:\u0017potion of speed\nqt.m.sm.#wizintrinsic\nh\nflfl#invoke\n\u001b\u0016?\n>t #levelchange\n30\n                 \u0007gelatinous cube\n#chat\nlFlFl\u0007newt\nsm.susm.      sk20s  , .m.20s \u0007homunculus\n20s @. sm.s.m. m,s20ssss20s#wizintrinsic\nh\n\u0017blessed scroll of remove curse\nru    \u0017banana\nev\u0007hill orc\nFj   FlFl Fj\u0017wand of light\nzw  zwzw   zwzw    #wizintrinsic\nh\n\u0017blessed scroll of fire\nrx  .         n\u0017floating eye corpse\ney     ;l:  E- ad aerarium\n#pray\ny y                    #wizintrinsic\nh\n\u0007bugbear\n\u0007hill orc\nFj    FlFj       nFj       Fh  \u0007jackal\n\u0007newt\nFjFj           FlFl   yy       n     Fj     Fj     "
+  }
+ ]
+}

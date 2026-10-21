@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n          \u0007giant spider\nFyFy FyFyFy\u0007rothe\n;y, \u001b:   20s sm. sn\u0007doppelganger\n#chat\nyFy Fl   "
+ },
+ "segments": [
+  {
+   "seed": 52852004,
+   "datetime": "20060722042548",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n          \u0007giant spider\nFyFy FyFyFy\u0007rothe\n;y, \u001b:   20s sm. sn\u0007doppelganger\n#chat\nyFy Fl   "
+  }
+ ]
+}

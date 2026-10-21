@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "mO>>>>>qmh\n\u001b u\n#turn\n#rub\nmOa\nyO>kcl\nf\ne\u0018\u001bmO>pn\n ;h: \u001b<.Oeic\nk\n10s#jump\n20ssmO>ot\n #loot\nOceh\n#enhance\n\u001bOj\n#tip\nf\u001bmO>>>d\n:chOd\n#untrap\ny20ssm."
+ },
+ "segments": [
+  {
+   "seed": 52851011,
+   "datetime": "20220617023706",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\n",
+   "moves": "mO>>>>>qmh\n\u001b u\n#turn\n#rub\nmOa\nyO>kcl\nf\ne\u0018\u001bmO>pn\n ;h: \u001b<.Oeic\nk\n10s#jump\n20ssmO>ot\n #loot\nOceh\n#enhance\n\u001bOj\n#tip\nf\u001bmO>>>d\n:chOd\n#untrap\ny20ssm."
+  }
+ ]
+}

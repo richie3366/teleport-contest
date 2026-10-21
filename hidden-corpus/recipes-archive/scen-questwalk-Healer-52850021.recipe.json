@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed ring of free action\nPml\u0017blessed +3 silver dragon scale mail\nWn    \u0016?\n>z \u00162\n\u0006_ \u001b@.Fy20ss_>.  _. Fb>\u0006#chat\nb;b:  \u00164\n\u0006,\u00165\n \u0006#chat\nh;>.\u0016?\n>>\u001b\u0016?\n>y #chat\ny\u0016?\n>z\u00166\n\u0016?\n>z\u0006hnykkbuj\u00162\n\u0016?\n>z\u0006_mmmm.  Fk   _,:Fy Fk Fk Fy Fy    Fy   \u00163\n\u0016?\n>z\u0006#chat\nh   ;h:   _>. Fb _.m. Fy   n  >\u0016?\n>z\u0006ulnjlk \u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00165\n\u0016?\n>z\u0006,_>.Fy _.Fb >\u0016?\n>z\u0006_m.Fy    _.Fy Fy FyFb\u0016?\n>>\u001b\u0016?\n>y#chat\nj  \u0016?\n>z\u00162\n\u0016?\n>z\u0006_mm. Fb_.FhFh FjFh Fj _>. Fb_.      n Fb >\u0016?\n>z\u0006_mmmm.Fh_.;<..ss\u00164\n\u0016?\n>z\u0006#chat\nu;m._>._..>\u0016?\n>z\u0006#chat\nb;.\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_mmmm. _.:s20ss   Fj Fj \u00163\n\u0016?\n>z\u0006_mmmmm,Fj_.Fj FjFjFjFjFj\u00164\n\u0016?\n>z\u0006_mmmm.Fl_.;@.FlFl FlFlFl  nFl\u00165\n\u0016?\n>z\u0006_<.Fl _.,\u00166\n\u0016?\n>z\u0006_mmm._,>.20ss.20ss\u00162\n\u0016?\n>z\u0006_>.Fj_.@.Fl\u00163\n\u0016?\n>z\u0006_mmmm,Fl_.m,s20s._>._.,>\u0016?\n>z\u0006_mmmmm,_.m.s FlFlFlFl\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_m,Fl_,FlFl  nFlFlFl\u00162\n\u0016?\n>z\u0006_m.Fl_.FlFlFlFl  nFl\u00163\n\u0016?\n>z\u0006uy"
+ },
+ "segments": [
+  {
+   "seed": 52850021,
+   "datetime": "20091209063038",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=runmode:crawl\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed ring of free action\nPml\u0017blessed +3 silver dragon scale mail\nWn    \u0016?\n>z \u00162\n\u0006_ \u001b@.Fy20ss_>.  _. Fb>\u0006#chat\nb;b:  \u00164\n\u0006,\u00165\n \u0006#chat\nh;>.\u0016?\n>>\u001b\u0016?\n>y #chat\ny\u0016?\n>z\u00166\n\u0016?\n>z\u0006hnykkbuj\u00162\n\u0016?\n>z\u0006_mmmm.  Fk   _,:Fy Fk Fk Fy Fy    Fy   \u00163\n\u0016?\n>z\u0006#chat\nh   ;h:   _>. Fb _.m. Fy   n  >\u0016?\n>z\u0006ulnjlk \u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00165\n\u0016?\n>z\u0006,_>.Fy _.Fb >\u0016?\n>z\u0006_m.Fy    _.Fy Fy FyFb\u0016?\n>>\u001b\u0016?\n>y#chat\nj  \u0016?\n>z\u00162\n\u0016?\n>z\u0006_mm. Fb_.FhFh FjFh Fj _>. Fb_.      n Fb >\u0016?\n>z\u0006_mmmm.Fh_.;<..ss\u00164\n\u0016?\n>z\u0006#chat\nu;m._>._..>\u0016?\n>z\u0006#chat\nb;.\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_mmmm. _.:s20ss   Fj Fj \u00163\n\u0016?\n>z\u0006_mmmmm,Fj_.Fj FjFjFjFjFj\u00164\n\u0016?\n>z\u0006_mmmm.Fl_.;@.FlFl FlFlFl  nFl\u00165\n\u0016?\n>z\u0006_<.Fl _.,\u00166\n\u0016?\n>z\u0006_mmm._,>.20ss.20ss\u00162\n\u0016?\n>z\u0006_>.Fj_.@.Fl\u00163\n\u0016?\n>z\u0006_mmmm,Fl_.m,s20s._>._.,>\u0016?\n>z\u0006_mmmmm,_.m.s FlFlFlFl\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_m,Fl_,FlFl  nFlFlFl\u00162\n\u0016?\n>z\u0006_m.Fl_.FlFlFlFl  nFl\u00163\n\u0016?\n>z\u0006uy"
+  }
+ ]
+}

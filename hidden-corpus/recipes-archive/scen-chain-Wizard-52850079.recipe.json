@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "FyFyFyFyFyFyFyFyHNNU_ \u001b;>Fj ss<NKHH_>,>E- X marks the spot\n_<.sKBLN_>,><HUHJ_>.>BHHB_>,>cl#dip\nbL L B L _ > J Y N J _ > #untrap\nw < klu150s\u000f\u001b\u000f\u001b100s #invoke\n\u001b100s100s\\  100s50s ,100snhu100sFlsFl100shub150s#p#quit\nFnFn FnFnFnFnFnFnbnk150s100sFy.s\\  100s100s100sFys20s\u0018\u001bhln100sFl20s.50s100s 100s100s \u0018\u001b100sFl20s.hyn100s\u000f\u001b100syyb50s100sknh100sFl Fl FuFuFk FhFh20s20s<100s100si\u001b50sFh20ss:yjuE- Elbereth\n#quit\ny\u001b     yjjhBHBN_ \u001b:>NYNN_>.>YNKU_>,>\u000f\u001b100s \\   100s   jjkFbs.150sFb.20sFjFjFjFn.Fn 50s100sFlFlFl150syhl150sFl20s20s100slhhl\u0018\u001bhhl_>.>50sFlss150s FlFl20s100s \\   hhh100s#conduct\n 100sFlFls50s\u0018\u001b50sFls20s\u000f\u001b100shhylnlhyjknlhlh#name\nm\n#name ;#quit\nyy\u001by  y y y\u001b FhFhFhFh FhFhFhFhjjku10sdfed 20ss20s20sbndacjss.t\u001b\u001bhuhl#name\nf\n;t\u001b\u001b10sdbshssjkjk#name\ni\nFido\nb10sFlFlFlFlFlFlFlFllhjuhlbkdhhs.st\u001b\u001b#name\nd\nbybu20s10sju_>.>100si\u001b,\\ 50s_>.>byynuj\u000f\u001b100s100s100sFls.150s _>.>100sFlFlFlFlFlFl  nnnnn  1 #wizintrinsic\nd\n 20s .m.20ssm.sss20ssm.sm.20ssm. ns..ssss20s20s20ss.20s.ss20s..s20ssss.20s20s.",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 52850079,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=showrace\n",
+   "moves": "FyFyFyFyFyFyFyFyHNNU_ \u001b;>Fj ss<NKHH_>,>E- X marks the spot\n_<.sKBLN_>,><HUHJ_>.>BHHB_>,>cl#dip\nbL L B L _ > J Y N J _ > #untrap\nw < klu150s\u000f\u001b\u000f\u001b100s #invoke\n\u001b100s100s\\  100s50s ,100snhu100sFlsFl100shub150s#p#quit\n"
+  },
+  {
+   "seed": 52950079,
+   "datetime": "20250321120006",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=autodig\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\n",
+   "moves": "FnFn FnFnFnFnFnFnbnk150s100sFy.s\\  100s100s100sFys20s\u0018\u001bhln100sFl20s.50s100s 100s100s \u0018\u001b100sFl20s.hyn100s\u000f\u001b100syyb50s100sknh100sFl Fl FuFuFk FhFh20s20s<100s100si\u001b50sFh20ss:yjuE- Elbereth\n#quit\ny\u001b    "
+  },
+  {
+   "seed": 53050079,
+   "datetime": "20240208143015",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\n",
+   "moves": " yjjhBHBN_ \u001b:>NYNN_>.>YNKU_>,>\u000f\u001b100s \\   100s   jjkFbs.150sFb.20sFjFjFjFn.Fn 50s100sFlFlFl150syhl150sFl20s20s100slhhl\u0018\u001bhhl_>.>50sFlss150s FlFl20s100s \\   hhh100s#conduct\n 100sFlFls50s\u0018\u001b50sFls20s\u000f\u001b100shhylnlhyjknlhlh#name\nm\n#name ;#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 53150079,
+   "datetime": "20081020030911",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\n",
+   "moves": "FhFhFhFh FhFhFhFhjjku10sdfed 20ss20s20sbndacjss.t\u001b\u001bhuhl#name\nf\n;t\u001b\u001b10sdbshssjkjk#name\ni\nFido\nb10sFlFlFlFlFlFlFlFllhjuhlbkdhhs.st\u001b\u001b#name\nd\nbybu20s10sju_>.>100si\u001b,\\ 50s_>.>byynuj\u000f\u001b100s100s100sFls.150s _>.>100sFlFlFlFlFlFl  nnnnn  1"
+  },
+  {
+   "seed": 53250079,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nd\n 20s .m.20ssm.sss20ssm.sm.20ssm. ns..ssss20s20s20ss.20s.ss20s..s20ssss.20s20s."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #offer\n#offer\nt\u001bdj_m. \u001b,s#pray\ny y 10sw-W\u001brl yy qf \u001b#invoke\n\u001bi\u001be\u0004n#ride\nly y#twoweapon\n>li\u001bri W\u001b.s20sTqh qg#dip\nnrk y 20ssZb\nZb\nwasFk 20s20sWb,#loot\nchy"
+ },
+ "segments": [
+  {
+   "seed": 52852021,
+   "datetime": "20190502005701",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #offer\n#offer\nt\u001bdj_m. \u001b,s#pray\ny y 10sw-W\u001brl yy qf \u001b#invoke\n\u001bi\u001be\u0004n#ride\nly y#twoweapon\n>li\u001bri W\u001b.s20sTqh qg#dip\nnrk y 20ssZb\nZb\nwasFk 20s20sWb,#loot\nchy"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n10\n        \u00178 rocks\nQ-\u0007grid bug\njf by u f \u001bf \u001bf \u001b\u0017potion of booze\ntdy \u0017grappling hook\nwi\u0007acid blob\nbai \u001bm,x  #twoweapon\nFhFhhln,\u001715 shuriken\nQj\u0007newt\nlhfhfkfhfnfy20ss\u0007hill orc\nuyfnfy\u0007gnome\nbufkfjfj \u0017bardiche\nwk \u0007kobolhorned devil\n ma"
+ },
+ "segments": [
+  {
+   "seed": 52851008,
+   "datetime": "20070216152347",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n10\n        \u00178 rocks\nQ-\u0007grid bug\njf by u f \u001bf \u001bf \u001b\u0017potion of booze\ntdy \u0017grappling hook\nwi\u0007acid blob\nbai \u001bm,x  #twoweapon\nFhFhhln,\u001715 shuriken\nQj\u0007newt\nlhfhfkfhfnfy20ss\u0007hill orc\nuyfnfy\u0007gnome\nbufkfjfj \u0017bardiche\nwk \u0007kobolhorned devil\n ma"
+  }
+ ]
+}

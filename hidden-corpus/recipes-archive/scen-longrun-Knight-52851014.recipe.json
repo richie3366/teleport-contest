@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  FkFkFhFh.20sFhFjFb 100s50s50sFhFhs50s50sFhFhFhFhss100sFhFhFh100sFuFuFu50s#name\nf\n ,yyhFb.s50sFbFbFb150s\u000f\u001bnly100s100s150s100sFlFlFlljl150sFh20sFh100si\u001b100sFlFls_>,>150sFlFls50sSy\u001b#monster\n#rub\n#ride\nl#untrap\nlPs#force\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 52851014,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\n",
+   "moves": "  FkFkFhFh.20sFhFjFb 100s50s50sFhFhs50s50sFhFhFhFhss100sFhFhFh100sFuFuFu50s#name\nf\n ,yyhFb.s50sFbFbFb150s\u000f\u001bnly100s100s150s100sFlFlFlljl150sFh20sFh100si\u001b100sFlFls_>,>150sFlFls50sSy\u001b"
+  },
+  {
+   "seed": 53351014,
+   "datetime": "20190110231325",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\n",
+   "moves": "#monster\n#rub\n#ride\nl#untrap\nlPs#force\n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  #name\ni\n10sjhnbykjbutbhlH YYJ_ \u001b;>Fu.sNBBK _>.>Fk s20s\u0014<JHNJ_>.>KJKL_>,>#pray\ny ed \u000f\u001b150s50s150s\u0018\u001b100sljnFks20s50sFk.s100s100s_>.>clnuh_>.>50snyn100sFyss150s50sFyFy.hybj100s_>.>uybukbi\u001b_>.>150si\u001b100si\u001b100sFu.20sFk.20sFuFk.hjkkjy,i\u001blNLLU_>,>FjFhFh#dip\ncPUJ HK_>.>KNHJ_>.>YBNB_>.>#tip\n\u001b\\   BYBK_>.>\u0018\u001b#chat\nhBHJY_>.>BBLY_>,>BHLN_>,>JKLB_>,>NHBB_>.>HJUK_>,>HJBY_>.>uuuhbunk#name\ni\n20st\u001bbybn#sit\n\u001b<#conduct\n L UBB _>.>Fk.FkjeNKNB_>.>FkFks,b\n#jump\nYHLJ_>.>10s#force\n>s:JL NL_>.>NLNY_>,>Fh 20s.#terrain\nc\n;#invoke\n\u001bKBLL_>.>50sFks.150sjlj100sFhs20s100sFys20s50sFy.s100s150sFy20ss\\   150sE- ad aerarium\n_>.>100s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10s#conduct\n 20sJJHN_>.>Fu20ssKUHJ_>,>UYYU_>.>JBYH_>,>YKYB_>,>20s#chat\nbL HKJ_>,>\u000f\u001bUNUB_>.>KKLB_>.>FyFyFyUNKN_>.>FbFbFbYBHU_>.>\u000f\u001bNYJN_>,>KJLL_>.>LKNN_>.>YBUY_>,>FjFjs#offer\nfjJ YJN _>.>K BJH_>.>#turn\nw-<JJLN_>,>Y   LBY_>,>Fls20s JNHH_>.>HKNN_>,>UY JU_>.>\u000f\u001bBNBL_>,>H  K  HU  _>.>Fj    "
+ },
+ "segments": [
+  {
+   "seed": 52850091,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\n",
+   "moves": "  #name\ni\n10sjhnbykjbutbhlH YYJ_ \u001b;>Fu.sNBBK _>.>Fk s20s\u0014<JHNJ_>.>KJKL_>,>#pray\ny ed \u000f\u001b150s50s150s\u0018\u001b100sljnFks20s50sFk.s100s100s_>.>clnuh_>.>50snyn100sFyss150s50sFyFy.hybj100s_>.>uybukbi\u001b_>.>150si\u001b100si\u001b100sFu.20sFk.20sFuFk.hjkkjy,i\u001blNLLU_>,>FjFhFh#dip\ncPUJ HK_>.>KNHJ_>.>YBNB_>.>#tip\n\u001b\\   BYBK_>.>\u0018\u001b#chat\nhBHJY_>.>BBLY_>,>BHLN_>,>JKLB_>,>NHBB_>.>HJUK_>,>HJBY_>.>uuuhbunk#name\ni\n20st\u001bbybn#sit\n\u001b<#conduct\n L UBB _>.>Fk.FkjeNKNB_>.>FkFks,b\n#jump\nYHLJ_>.>10s#force\n>s:JL NL_>.>NLNY_>,>Fh 20s.#terrain\nc\n;#invoke\n\u001bKBLL_>.>50sFks.150sjlj100sFhs20s100sFys20s50sFy.s100s150sFy20ss\\   150sE- ad aerarium\n_>.>100s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10s#conduct\n 20sJJHN_>.>Fu20ssKUHJ_>,>UYYU_>.>JBYH_>,>YKYB_>,>20s#chat\nbL HKJ_>,>\u000f\u001bUNUB_>.>KKLB_>.>FyFyFyUNKN_>.>FbFbFbYBHU_>.>\u000f\u001bNYJN_>,>KJLL_>.>LKNN_>.>YBUY_>,>FjFjs#offer\nfjJ YJN _>.>K BJH_>.>#turn\nw-<JJLN_>,>Y   LBY_>,>Fls20s JNHH_>.>HKNN_>,>UY JU_>.>\u000f\u001bBNBL_>,>H  K  HU  _>.>Fj    "
+  }
+ ]
+}

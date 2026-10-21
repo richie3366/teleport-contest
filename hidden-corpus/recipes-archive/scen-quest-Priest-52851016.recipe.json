@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0016?\n>y  _ \u001b:#chat\nh_mm.Fl_.,Fk #chat\nl_m.Fl_,#chat\nl;u:  _mmm.Fl_.Fl#chat\nl\u000f\u001bst\u001b#levelchange\n14\n\u0016?\n>y_m,Fl _.#chat\nl ;l:  _mmmm,Fh _,  n Fu#chat\nh;u:  _mm, Fu _.#chat\nh;l:  _mm.Fh _.#chat\nu_m.  yy\u001by  y y y\u001b   S"
+ },
+ "segments": [
+  {
+   "seed": 52851016,
+   "datetime": "20120915100536",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0016?\n>y  _ \u001b:#chat\nh_mm.Fl_.,Fk #chat\nl_m.Fl_,#chat\nl;u:  _mmm.Fl_.Fl#chat\nl\u000f\u001bst\u001b#levelchange\n14\n\u0016?\n>y_m,Fl _.#chat\nl ;l:  _mmmm,Fh _,  n Fu#chat\nh;u:  _mm, Fu _.#chat\nh;l:  _mm.Fh _.#chat\nu_m.  yy\u001by  y y y\u001b   S"
+  }
+ ]
+}

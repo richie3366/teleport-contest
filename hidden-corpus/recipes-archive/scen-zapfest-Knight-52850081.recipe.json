@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPir\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPk#levelchange\n10\n         \u0017blessed spellbook of drain life\nrl20s\u0017blessed spellbook of light\n rm  20s\u0007master lich\n\u0007mind flayer\nZa\n.m.        20s       Za\n      Za\n          Za\n        Za\n             Za\n     Za\n     #turn\n                     n            \u001615\n \u0007red dragon\n\u0007red dragon\nsm..m. Fh     n   Fh \u001616\n     \u0017blessed spellbook of cause fear\nrn20s\u0017blessed spellbook of knock\nro sm.\u0007aligned cleric\nn\u0007master mind flayer\nZa\n           Za\n      n  sm.          20s          Za\n         Za\n          n            20s     n sm.   n  Za\n         Za\n         Za\n          \u00164\n\u0007succubus\n\u0007aligned cleric\ny\u0017wand of sleep\n20s    \u001b\u0018\u001b\u0017blessed spellbook of cone of cold\nrq    s  n \u0007gnomish wizard\n"
+ },
+ "segments": [
+  {
+   "seed": 52850081,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPir\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPk#levelchange\n10\n         \u0017blessed spellbook of drain life\nrl20s\u0017blessed spellbook of light\n rm  20s\u0007master lich\n\u0007mind flayer\nZa\n.m.        20s       Za\n      Za\n          Za\n        Za\n             Za\n     Za\n     #turn\n                     n            \u001615\n \u0007red dragon\n\u0007red dragon\nsm..m. Fh     n   Fh \u001616\n     \u0017blessed spellbook of cause fear\nrn20s\u0017blessed spellbook of knock\nro sm.\u0007aligned cleric\nn\u0007master mind flayer\nZa\n           Za\n      n  sm.          20s          Za\n         Za\n          n            20s     n sm.   n  Za\n         Za\n         Za\n          \u00164\n\u0007succubus\n\u0007aligned cleric\ny\u0017wand of sleep\n20s    \u001b\u0018\u001b\u0017blessed spellbook of cone of cold\nrq    s  n \u0007gnomish wizard\n"
+  }
+ ]
+}

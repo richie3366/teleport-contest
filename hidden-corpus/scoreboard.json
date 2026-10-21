@@ -1,11 +1,11 @@
 {
- "commit": "138aeaed4",
- "at": "2026-10-21T16:02:40.238Z",
+ "commit": "59ee75eee",
+ "at": "2026-10-21T16:05:32.077Z",
  "full": false,
  "fullCommit": "1b2b2c8e3",
  "fullAt": "2026-10-21T14:05:06.214Z",
- "entries": 709,
- "reserve": 29,
+ "entries": 710,
+ "reserve": 0,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -2029,6 +2029,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-hallu-Healer-52850063": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 11842,
+   "rngT": 12331,
+   "scrM": 1089,
+   "scrT": 1112,
+   "kind": "rng",
+   "step": 1086,
+   "steps": 1112,
+   "owner": "pronoun_gender",
+   "loc": "mondata.c:1200",
+   "jsOwner": "doseduce(mhitu.js:1506)",
+   "cTopline": "That was a very educational experience. You feel more experienced.--More--",
+   "jsTopline": "That was a very educational experience. You feel more experienced.--More--",
    "error": null
   },
   "scen-hallu-Priest-51255006": {
@@ -11379,8 +11396,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "explore-seed2200-wizard-quaff-zap-read-26384efb": {
    "src": "corpus",
@@ -11397,8 +11413,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "explore-seed2200-wizard-quaff-zap-read-31a752ab": {
    "src": "corpus",
@@ -11415,8 +11430,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "explore-seed2200-wizard-quaff-zap-read-598f788e": {
    "src": "corpus",
@@ -11433,8 +11447,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "explore-seed2200-wizard-quaff-zap-read-62d780f0": {
    "src": "corpus",
@@ -11451,8 +11464,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "explore-seed2200-wizard-quaff-zap-read-89c6f201": {
    "src": "corpus",
@@ -11469,8 +11481,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "explore-seed2200-wizard-quaff-zap-read-91ea906e": {
    "src": "corpus",
@@ -11487,8 +11498,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "explore-seed2200-wizard-quaff-zap-read-ce85c080": {
    "src": "corpus",
@@ -11505,8 +11515,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "random-seed2200-wizard-quaff-zap-read-d38fcac6": {
    "src": "corpus",
@@ -11523,8 +11532,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "random-seed2200-wizard-quaff-zap-read-e46d5e21": {
    "src": "corpus",
@@ -11541,8 +11549,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Archeologist-50555012": {
    "src": "corpus",
@@ -11559,8 +11566,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Archeologist-50750063": {
    "src": "corpus",
@@ -11577,8 +11583,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Barbarian-50455049": {
    "src": "corpus",
@@ -11595,8 +11600,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Barbarian-50555034": {
    "src": "corpus",
@@ -11613,8 +11617,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Knight-50550015": {
    "src": "corpus",
@@ -11631,8 +11634,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Monk-50455038": {
    "src": "corpus",
@@ -11649,8 +11651,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Priest-50455009": {
    "src": "corpus",
@@ -11667,8 +11668,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Priest-50455051": {
    "src": "corpus",
@@ -11685,8 +11685,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Ranger-50059028": {
    "src": "corpus",
@@ -11703,8 +11702,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Ranger-50359032": {
    "src": "corpus",
@@ -11721,8 +11719,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Ranger-51650047": {
    "src": "corpus",
@@ -11739,8 +11736,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Rogue-50059025": {
    "src": "corpus",
@@ -11757,8 +11753,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Rogue-50250079": {
    "src": "corpus",
@@ -11775,8 +11770,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Samurai-50455025": {
    "src": "corpus",
@@ -11793,8 +11787,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Samurai-50555047": {
    "src": "corpus",
@@ -11811,8 +11804,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Valkyrie-50950047": {
    "src": "corpus",
@@ -11829,8 +11821,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Wizard-50255048": {
    "src": "corpus",
@@ -11847,8 +11838,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Wizard-50359002": {
    "src": "corpus",
@@ -11865,8 +11855,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-symset-Wizard-50359017": {
    "src": "corpus",
@@ -11883,8 +11872,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "catchup-after-restore-seed0015-valk": {
    "src": "private",
@@ -12090,5 +12078,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-21T16:05:37.549Z"
 }

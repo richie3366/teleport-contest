@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u001631\n   _ \u001bm,\u0016?\n>C_{.\u0016?\n>H\u0014>.sm.s\u001631\n yj   nny \u0017iron bars\nkkkk:bn\u0017cloud\nub  n b b  n :s#rub\n#loot\ny\u00169\n\u0016?\njunk\u0017grave\n: \u0017wand of digging\nzj>  s20s \u001b:j\u0017chaotic altar\nda\u0017lichen corpse\n#offer\nnk #pray\ny y    w-,\u001bZsm.20s\u0016?\ne\u0017cursed the Mitre of Holiness\n \u0017uncursed diamond\n\u0007incubus\naf\u001bFy Fy  n      \u0017blessed +3 black dragon scale mail\n\u0007Oracle\nyW\u001b.m. .n   n   .m.     n sm.  20s   \u001612\n\u0016?\n>yhuk:\u001645\nkkuh  n:\u0016?\nf#chat\nj;j,20s  \u0016?\n>>K       fumble boots\nhnn k       n:\u00163\n\u0014<.\u0016?\ne \u0004l\u0016?\ne#levelchange\n12\n\u0017frost horn\napy k     napy y         \u0017uncursed spellbook of detect treasure\nrq ym.  \u001b  n.nsm. \u001bZFy Fy  n\u0017blessed +3 athame\nwr FyFy   nFy\u0017wand of teleportation\nzs.>. zsy20ss20ssb\u00168\n\u00163\n\u0014;  nsm.s\u00167\nbb:\u001629\n_>,<sbs20s\u0016?\nb#levelchange\n30\n                 kljk\u0017lawful altar\ndg\u0017jackal corpse\n #offer\n#pray\ny y :hy\u0017neutral altar\ndb \u0017newt corpse\n#offer\n#pray\ny y   :l   nk  \u0017cloud\n:j  j  n   \u0017grave\n:\u0017pick-axe\n av .m. sm.  n #terrain\n\u001bq#twoweapon\n,\u00164\n\u0016?\n\u001bk u  n    yy\u001by   y y  y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 52850044,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u001631\n   _ \u001bm,\u0016?\n>C_{.\u0016?\n>H\u0014>.sm.s\u001631\n yj   nny \u0017iron bars\nkkkk:bn\u0017cloud\nub  n b b  n :s#rub\n#loot\ny\u00169\n\u0016?\njunk\u0017grave\n: \u0017wand of digging\nzj>  s20s \u001b:j\u0017chaotic altar\nda\u0017lichen corpse\n#offer\nnk #pray\ny y    w-,\u001bZsm.20s\u0016?\ne\u0017cursed the Mitre of Holiness\n \u0017uncursed diamond\n\u0007incubus\naf\u001bFy Fy  n      \u0017blessed +3 black dragon scale mail\n\u0007Oracle\nyW\u001b.m. .n   n   .m.     n sm.  20s   \u001612\n\u0016?\n>yhuk:\u001645\nkkuh  n:\u0016?\nf#chat\nj;j,20s  \u0016?\n>>K       fumble boots\nhnn k       n:\u00163\n\u0014<.\u0016?\ne \u0004l\u0016?\ne#levelchange\n12\n\u0017frost horn\napy k     napy y         \u0017uncursed spellbook of detect treasure\nrq ym.  \u001b  n.nsm. \u001bZFy Fy  n\u0017blessed +3 athame\nwr FyFy   nFy\u0017wand of teleportation\nzs.>. zsy20ss20ssb\u00168\n\u00163\n\u0014;  nsm.s\u00167\nbb:\u001629\n_>,<sbs20s\u0016?\nb#levelchange\n30\n                 kljk\u0017lawful altar\ndg\u0017jackal corpse\n #offer\n#pray\ny y :hy\u0017neutral altar\ndb \u0017newt corpse\n#offer\n#pray\ny y   :l   nk  \u0017cloud\n:j  j  n   \u0017grave\n:\u0017pick-axe\n av .m. sm.  n #terrain\n\u001bq#twoweapon\n,\u00164\n\u0016?\n\u001bk u  n    yy\u001by   y y  y\u001b  \u0016"
+  }
+ ]
+}

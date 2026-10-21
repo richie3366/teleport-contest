@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWi \u0017blessed magic lamp\n\u0017blessed leash\n\u0017blessed magic harp\n\u0017blessed ring of free action\nPml \u0017blessed 20 daggers\nQn#levelchange\n14\n             #wizintrinsic\nh\n \u0007bugbear\n\u0007lichen\nFuFjFjFuFuFu\u0007grid bug\nFu.sssss\u0017wand of slow monster\nzo.zolzoj\u00163\nhlybbb:sm..m. #wizintrinsic\nh\ni\u001bbbi\u001bbuk\u0007acid blob\nFl  Fl FjFj Fj FjFj \u0017wand of polymorph\nzpjzpjzpjzpjzpj\u0017blessed spellbook of magic missile\nrq suZ:#wizintrinsic\nh\ntnjfji\u001bnji\u001buufyflfu#invoke\n\u001b\u0017potion of levitation\nqrs;. \u001b;E-#chat\ny#pray\ny y \u0007newt\nFjFj20s..s#wizintrinsic\nh\n\u0018\u001bnl\u0017potion of healing\nqsss\u0017blessed scroll of teleportation\nrt @.\u0007lichen\n\u0007hill orc\nFjFjFhFh  #wizintrinsic\nh\n\u0007soldier\n\u0007jackal\nFjFjFhFh FjFh Fh i\u001bh jkj\u0017wand of polymorph\nzuy    zuyzuyzuy\u0007kobold shaman\n\u0007dwarf\nFk FkFk    n Fj  #wizintrinsic\nh\n\u0017blessed spellbook of cone of cold\nrv   sm.Z:_@.k  bj  t$ktnk   ntny  fjtny  fy\u0007kobold shaman\nFk FjFkFk20s#wizintrinsic\nh\n\u0017wand of slow monster\nzwyzwhzwnzwy\u0017potion of healing\nqx20ss\u0017potion of speed\nqysstnkfjtnlfn#invoke\n\u001b#wizintrinsic\nh\n\u0007newt\n\u0007acid blob\nFjFk .20s..f"
+ },
+ "segments": [
+  {
+   "seed": 52850074,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWi \u0017blessed magic lamp\n\u0017blessed leash\n\u0017blessed magic harp\n\u0017blessed ring of free action\nPml \u0017blessed 20 daggers\nQn#levelchange\n14\n             #wizintrinsic\nh\n \u0007bugbear\n\u0007lichen\nFuFjFjFuFuFu\u0007grid bug\nFu.sssss\u0017wand of slow monster\nzo.zolzoj\u00163\nhlybbb:sm..m. #wizintrinsic\nh\ni\u001bbbi\u001bbuk\u0007acid blob\nFl  Fl FjFj Fj FjFj \u0017wand of polymorph\nzpjzpjzpjzpjzpj\u0017blessed spellbook of magic missile\nrq suZ:#wizintrinsic\nh\ntnjfji\u001bnji\u001buufyflfu#invoke\n\u001b\u0017potion of levitation\nqrs;. \u001b;E-#chat\ny#pray\ny y \u0007newt\nFjFj20s..s#wizintrinsic\nh\n\u0018\u001bnl\u0017potion of healing\nqsss\u0017blessed scroll of teleportation\nrt @.\u0007lichen\n\u0007hill orc\nFjFjFhFh  #wizintrinsic\nh\n\u0007soldier\n\u0007jackal\nFjFjFhFh FjFh Fh i\u001bh jkj\u0017wand of polymorph\nzuy    zuyzuyzuy\u0007kobold shaman\n\u0007dwarf\nFk FkFk    n Fj  #wizintrinsic\nh\n\u0017blessed spellbook of cone of cold\nrv   sm.Z:_@.k  bj  t$ktnk   ntny  fjtny  fy\u0007kobold shaman\nFk FjFkFk20s#wizintrinsic\nh\n\u0017wand of slow monster\nzwyzwhzwnzwy\u0017potion of healing\nqx20ss\u0017potion of speed\nqysstnkfjtnlfn#invoke\n\u001b#wizintrinsic\nh\n\u0007newt\n\u0007acid blob\nFjFk .20s..f"
+  }
+ ]
+}

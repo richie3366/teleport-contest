@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>z  \u00162\n\u0006,\u00163\n \u0006#chat\nh;h. \u001b<._>.   _.   Fh     >\u0006#chat\nj;_._>. _.;@.>\u0006__. Fy_.   Fy  \u00166\n  \u0006#chat\nh ;h,\u00162\n\u0006_m,  n Fy  _.Fy  Fy.s_>,  Fb_,Fl>\u0006_mm.Fl _.m,FlsFlFlFlFlFb\u00164\n\u0006_m.  n Fn   _,Fj  FnFj    n   \u001611\n \u00165\n\u0006y  b  jl   n\u00166\n\u0006_mmmmm,  Fb_.     n Fb     Fb      n     Fu   n        nFb         n  Fl       n   Fn     n    Fn      n    \u001611\n_>.     n     Fl    n          n_,       y  F"
+ },
+ "segments": [
+  {
+   "seed": 52850032,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>z  \u00162\n\u0006,\u00163\n \u0006#chat\nh;h. \u001b<._>.   _.   Fh     >\u0006#chat\nj;_._>. _.;@.>\u0006__. Fy_.   Fy  \u00166\n  \u0006#chat\nh ;h,\u00162\n\u0006_m,  n Fy  _.Fy  Fy.s_>,  Fb_,Fl>\u0006_mm.Fl _.m,FlsFlFlFlFlFb\u00164\n\u0006_m.  n Fn   _,Fj  FnFj    n   \u001611\n \u00165\n\u0006y  b  jl   n\u00166\n\u0006_mmmmm,  Fb_.     n Fb     Fb      n     Fu   n        nFb         n  Fl       n   Fn     n    Fn      n    \u001611\n_>.     n     Fl    n          n_,       y  F"
+  }
+ ]
+}

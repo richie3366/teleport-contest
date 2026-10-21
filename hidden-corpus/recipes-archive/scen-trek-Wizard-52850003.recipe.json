@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " FkFk.hhu<100s      FuFlFhK150s#turn\nohhjn100s_ \u001b>.>100sFy..150s150sFys.150s150sFyFyFyFys.50s100sFysshuj150skyni\u001b_>.>buy_>,>150s 50s 150s  FhFjs100s  FhFhFhFhFhFh_>.>hhlFyss\\  50s  Fh.Fl\\  100syuh100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHUJ B_>.>FussBL KL_>,>FhFh.YKNU_>.>FyFbFb  JYUH_>.>FnFnFnLKYL_>,>:_m,20sLKYY_>,>\u000f\u001bYHHH_>,>f \u001b;>.UNKL_>,><JJLB_>.>Fu.s__,20s _>.20s NLHU_>.>JJLK_>.>JL   BJ_>.>Fh ssKYYU_>.>Za\ne#invoke\n\u001bt\u001bdfs.s#name\na\n#name\ni\nt\u001b10s rl y #ride\nheYNBJ_>,>Fh  y\u001by  y y y\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 52850003,
+   "datetime": "20010713021714",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=sortloot:full\nOPTIONS=pettype:horse\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " FkFk.hhu<100s      FuFlFhK150s#turn\nohhjn100s_ \u001b>.>100sFy..150s150sFys.150s150sFyFyFyFys.50s100sFysshuj150skyni\u001b_>.>buy_>,>150s 50s 150s  FhFjs100s  FhFhFhFhFhFh_>.>hhlFyss\\  50s  Fh.Fl\\  100syuh100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHUJ B_>.>FussBL KL_>,>FhFh.YKNU_>.>FyFbFb  JYUH_>.>FnFnFnLKYL_>,>:_m,20sLKYY_>,>\u000f\u001bYHHH_>,>f \u001b;>.UNKL_>,><JJLB_>.>Fu.s__,20s _>.20s NLHU_>.>JJLK_>.>JL   BJ_>.>Fh ssKYYU_>.>Za\ne#invoke\n\u001bt\u001bdfs.s#name\na\n#name\ni\nt\u001b10s rl y #ride\nheYNBJ_>,>Fh  y\u001by  y y y\u001b  2"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n10\n         \u0007mind flayer\nFk Fn Fn .jsm.\u0007ape\nFkFk Fl  FkFk FlFk sm.    sl#pray\ny y        \u0007black pudding\nFj     yy  F"
+ },
+ "segments": [
+  {
+   "seed": 52851013,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n10\n         \u0007mind flayer\nFk Fn Fn .jsm.\u0007ape\nFkFk Fl  FkFk FlFk sm.    sl#pray\ny y        \u0007black pudding\nFj     yy  F"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  #chat\nuylby10snynktajtajdk20sss#name\nm\n @.d$20ssm.sm. #name\nm\nby10sh10sSy\u001b #dip\ngf\u0018\u001bfnl #monster\n,\u001b\u0014ee #rub\n10sbnbl\u0017y^nnssy\u0017b\u0007s..sn\u0017h\u000720s.20ss#terrain\n\u001b#sit\n\u001bqgri",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 52851025,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "  #chat\nuylby10snynktajtajdk20sss#name\nm\n @.d$20ssm.sm. #name\nm\nby10sh10sSy\u001b"
+  },
+  {
+   "seed": 53351025,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": " #dip\ngf\u0018\u001bfnl #monster\n,\u001b\u0014ee #rub\n10sbnbl\u0017y^nnssy\u0017b\u0007s..sn\u0017h\u000720s.20ss#terrain\n\u001b#sit\n\u001bqgri"
+  }
+ ]
+}

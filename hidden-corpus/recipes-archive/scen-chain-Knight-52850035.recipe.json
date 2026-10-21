@@ -1,0 +1,49 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nb\n sm.20ssm.s20s  sm.  ynny y\u001bn  .kunlFbFbFbFbFbFbFbFbUYBU_ \u001b@.>YBnyNB_>,><LUBK_>.>UBJN_>.>JJYB_>.>Fls20s#sit\n\u001bZc\nHyLLK_>.>#offer\n\u0004h\u000f\u001bjulhlhbunuju#name\ni\n10sbkbu#chat\nnjkbubldg.s.uj#name\no\nnhFhFhFhFhFhFhFhFhnjukljhnkhnkkhu#name\no\nhu#name\no\nljjhnhuhhnhk50s   F#quit\ne\u0017wand of death\nzf.  y ny  y ny  sFkFk FkFkFkFkFkFk#name\nf\n :nb#chat\njjytbjtbukkjkjjkn\u000f\u001b\\ 100s100sFyss100s50s_>.>20ss150si\u001b\u000f\u001b100sFys.i\u001b100s150s Fys20s100s100s150sFyFyFy50sFyFy.100s\u0018\u001b50s_>.>hlu100s150sFh.s_>.>l50saeuhul100s100s#chat\nh20shhnyb#chat\nynjujynkb#name\nd\n20synhhkj#name\nf\nuh_>50si\u001b#force\n50sFk.20slkjlly50s,100sFh20ss_>.>_>.>100seh\u0018\u001b50subjylhjlk50s\\ 100sbll#untrap\nl50s100sFhFhskbyFjs.100s150s150sFhs.nuy50sFhFh.50s100subbkFhFhFhFhFhFhFhFh#name\nd\n10sujnb20s#name\ni\nklblYUUH_>#quit\nm,   jl  l   l dg.bsm. sm.   l lnhdfsysm.sm.df.ksm..unlylhhdhshsm.20s FhFh Fh FhFh FhFhFh FhFhFhFhFhFhFhFhh lbl20s20s#chat\nhlnynynlklhlbkjulJBKB_ \u001bm,>NUBL_>.>NNHJ_>.>HYKN_>,>FyFkFkLYNN_>.Fh_.m,Fy>FhFyFyW\\   BKUL_>,Fh  y\u001by  y y y\u001b  _",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 52850035,
+   "datetime": "20041221003652",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n sm.20ssm.s20s  sm.  ynny y\u001bn  ."
+  },
+  {
+   "seed": 52950035,
+   "datetime": "20261127171607",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pettype:horse\n",
+   "moves": "kunlFbFbFbFbFbFbFbFbUYBU_ \u001b@.>YBnyNB_>,><LUBK_>.>UBJN_>.>JJYB_>.>Fls20s#sit\n\u001bZc\nHyLLK_>.>#offer\n\u0004h\u000f\u001bjulhlhbunuju#name\ni\n10sbkbu#chat\nnjkbubldg.s.uj#name\no\nnhFhFhFhFhFhFhFhFhnjukljhnkhnkkhu#name\no\nhu#name\no\nljjhnhuhhnhk50s   F#quit\ne"
+  },
+  {
+   "seed": 53050035,
+   "datetime": "20160730070221",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of death\nzf.  y ny  y ny  s"
+  },
+  {
+   "seed": 53150035,
+   "datetime": "20010515022424",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=pettype:horse\n",
+   "moves": "FkFk FkFkFkFkFkFk#name\nf\n :nb#chat\njjytbjtbukkjkjjkn\u000f\u001b\\ 100s100sFyss100s50s_>.>20ss150si\u001b\u000f\u001b100sFys.i\u001b100s150s Fys20s100s100s150sFyFyFy50sFyFy.100s\u0018\u001b50s_>.>hlu100s150sFh.s_>.>l50saeuhul100s100s#chat\nh20shhnyb#chat\nynjujynkb#name\nd\n20synhhkj#name\nf\nuh_>50si\u001b#force\n50sFk.20slkjlly50s,100sFh20ss_>.>_>.>100seh\u0018\u001b50subjylhjlk50s\\ 100sbll#untrap\nl50s100sFhFhskbyFjs.100s150s150sFhs.nuy50sFhFh.50s100subbkFhFhFhFhFhFhFhFh#name\nd\n10sujnb20s#name\ni\nklblYUUH_>#quit\nm,"
+  },
+  {
+   "seed": 53250035,
+   "datetime": "20140627062758",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\n",
+   "moves": "   jl  l   l dg.bsm. sm.   l lnhdfsysm.sm.df.ksm..unlylhhdhshsm.20s FhFh Fh FhFh FhFhFh FhFhFhFhFhFhFhFhh lbl20s20s#chat\nhlnynynlklhlbkjulJBKB_ \u001bm,>NUBL_>.>NNHJ_>.>HYKN_>,>FyFkFkLYNN_>.Fh_.m,Fy>FhFyFyW\\   BKUL_>,Fh  y\u001by  y y y\u001b  _"
+  }
+ ]
+}

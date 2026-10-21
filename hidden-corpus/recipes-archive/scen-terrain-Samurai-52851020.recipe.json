@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "hukl\u0017magic fountain\nqy qy\u0017long sword\n#dip\nfyj\u0017sink\nqy\u0017ring of invisibility\ndg  \u001by\u0004nny\u0004ny \u0004nj\u0017grave\n: \u0017wand of digging\nzh>  s.c#terrain\nd\n\u001b@.Zhkby\u0017unaligned altar\ndf\u0017floating eye corpse\n#offer\ni  #pray\ny : j\u0017sink\nqy\u0017ring of protectscroll of remove"
+ },
+ "segments": [
+  {
+   "seed": 52851020,
+   "datetime": "20091129162424",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "hukl\u0017magic fountain\nqy qy\u0017long sword\n#dip\nfyj\u0017sink\nqy\u0017ring of invisibility\ndg  \u001by\u0004nny\u0004ny \u0004nj\u0017grave\n: \u0017wand of digging\nzh>  s.c#terrain\nd\n\u001b@.Zhkby\u0017unaligned altar\ndf\u0017floating eye corpse\n#offer\ni  #pray\ny : j\u0017sink\nqy\u0017ring of protectscroll of remove"
+  }
+ ]
+}

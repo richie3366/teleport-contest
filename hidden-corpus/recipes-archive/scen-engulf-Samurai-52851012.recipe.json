@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            #polyself\nochre jelly\n  ss\u0007newt\nFh sFuFu\u0007gnome\nFu 20s    FlFl\u0007fog cloud\nFlsFk.FlFkFk  FkFjFjFkFj"
+ },
+ "segments": [
+  {
+   "seed": 52851012,
+   "datetime": "20090305185212",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=!verbose\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n14\n            #polyself\nochre jelly\n  ss\u0007newt\nFh sFuFu\u0007gnome\nFu 20s    FlFl\u0007fog cloud\nFlsFk.FlFkFk  FkFjFjFkFj"
+  }
+ ]
+}

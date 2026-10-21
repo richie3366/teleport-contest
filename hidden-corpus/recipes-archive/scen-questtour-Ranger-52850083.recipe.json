@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\ny;y,_m,Fy_,#chat\nj_mmm,Fj_.#chat\nj;l, _mm,#chat\nh_mm.#chat\nh#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.Fn _,#chat\nh_mm.#chat\nh\u0017blessed Mjollnir\nwh \u0017blessed +3 gauntlets of power\nWi\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017wand of striking\n\u0016?\n>A\u0006_mmm.FyFhFhFy,\u0016?\n>z\u0006_mmmmmm.FyFyFyFyzky,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.FhFyFyFyFyFyFh,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\ny\u0016?\n>A\u0006_mmm.FyFyFyFyFyFy,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\ny\u0016?\n>A\u0006_mmmmm,FyFhFhFhFyFhFb zky,#chat\ny\u0016?\n>z\u0006_mm,FyFhFyFy,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,FhFhFyFh,\u0016?\n>A\u0006_mmmmmm.FyFhFyFyFhFyzky,\u0016?\n>A\u0006_mmmmmmm,FhFhFhFy,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm. _.  Fh#chat\nh\u0016?\n>z\u0006_mmmmm.Fn  _.FnFnFn Fn zkn, #chat\nh   \u0016?\n>>\u001b\u0016?\n>z\u0006_mm.Fn _,Fu  Fu 20s   Fu   Fu zkk, #chat\ny\u0016?\n>A\u0006_mm. Fy_, Fl   Fl  Fk    n Fl FkFkFkFkzkk,#chat\nk\u0016?\n>>\u001b\u0016?"
+ },
+ "segments": [
+  {
+   "seed": 52850083,
+   "datetime": "20220724090412",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\ny;y,_m,Fy_,#chat\nj_mmm,Fj_.#chat\nj;l, _mm,#chat\nh_mm.#chat\nh#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.Fn _,#chat\nh_mm.#chat\nh\u0017blessed Mjollnir\nwh \u0017blessed +3 gauntlets of power\nWi\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017wand of striking\n\u0016?\n>A\u0006_mmm.FyFhFhFy,\u0016?\n>z\u0006_mmmmmm.FyFyFyFyzky,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.FhFyFyFyFyFyFh,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\ny\u0016?\n>A\u0006_mmm.FyFyFyFyFyFy,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\ny\u0016?\n>A\u0006_mmmmm,FyFhFhFhFyFhFb zky,#chat\ny\u0016?\n>z\u0006_mm,FyFhFyFy,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,FhFhFyFh,\u0016?\n>A\u0006_mmmmmm.FyFhFyFyFhFyzky,\u0016?\n>A\u0006_mmmmmmm,FhFhFhFy,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm. _.  Fh#chat\nh\u0016?\n>z\u0006_mmmmm.Fn  _.FnFnFn Fn zkn, #chat\nh   \u0016?\n>>\u001b\u0016?\n>z\u0006_mm.Fn _,Fu  Fu 20s   Fu   Fu zkk, #chat\ny\u0016?\n>A\u0006_mm. Fy_, Fl   Fl  Fk    n Fl FkFkFkFkzkk,#chat\nk\u0016?\n>>\u001b\u0016?"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " hh\u0017wand of digging\nEm Vlad was here\n  \u0017wand of make invisible\nEn  Elbereth\n\u0017wand of death\nEon  Elbereth\n\u0017towel\nEp:lny\u0017wand of cold\nEq X marks the spot\n: \u0017wand of nothing\nErn  ad aerarium\n\u0017wand of locking\nEsy Elbereth Elbereth\n: \u0017wand of probing\nEtn  Elbereth\nE-y Vlad was here\n\u0007minotaur\nsls.m.  yy\u001bny y y\u001by  "
+ },
+ "segments": [
+  {
+   "seed": 52851018,
+   "datetime": "20250530014628",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " hh\u0017wand of digging\nEm Vlad was here\n  \u0017wand of make invisible\nEn  Elbereth\n\u0017wand of death\nEon  Elbereth\n\u0017towel\nEp:lny\u0017wand of cold\nEq X marks the spot\n: \u0017wand of nothing\nErn  ad aerarium\n\u0017wand of locking\nEsy Elbereth Elbereth\n: \u0017wand of probing\nEtn  Elbereth\nE-y Vlad was here\n\u0007minotaur\nsls.m.  yy\u001bny y y\u001by  "
+  }
+ ]
+}

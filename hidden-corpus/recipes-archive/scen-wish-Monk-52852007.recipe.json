@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                      \u0017blessed water walking boots\n\u0007frost giant\nWk.m.20sskTk \u0017cursed apple\n\u0007lieutenant\nel20s  yy\u001bny y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 52852007,
+   "datetime": "20130331135347",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                      \u0017blessed water walking boots\n\u0007frost giant\nWk.m.20sskTk \u0017cursed apple\n\u0007lieutenant\nel20s  yy\u001bny y\u001by  ."
+  }
+ ]
+}

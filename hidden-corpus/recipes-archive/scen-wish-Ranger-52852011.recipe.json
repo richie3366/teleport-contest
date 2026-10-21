@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017spellbook of detect monsters\nri \u001b,s20sZss\u00173 candy bar\nejs.\u0017silver dragon scale mail\nW\u001b20sssss\u00173 amulet of change\nPm 20ssss20ssn"
+ },
+ "segments": [
+  {
+   "seed": 52852011,
+   "datetime": "20100713074401",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017spellbook of detect monsters\nri \u001b,s20sZss\u00173 candy bar\nejs.\u0017silver dragon scale mail\nW\u001b20sssss\u00173 amulet of change\nPm 20ssss20ssn"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0017blessed ring of polymorph control\nPgr#polyself\nnewt\n  ..sss#polyself\nviolet fungus\n ..sss#polyself\njellyfish\n #monster\ns s\u0007winter wolf\nFl  FjFjslss"
+ },
+ "segments": [
+  {
+   "seed": 52852015,
+   "datetime": "20100630151827",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0017blessed ring of polymorph control\nPgr#polyself\nnewt\n  ..sss#polyself\nviolet fungus\n ..sss#polyself\njellyfish\n #monster\ns s\u0007winter wolf\nFl  FjFjslss"
+  }
+ ]
+}

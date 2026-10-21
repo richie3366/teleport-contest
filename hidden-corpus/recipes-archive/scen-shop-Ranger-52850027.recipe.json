@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed Mjollnir\nwg\u0017blessed +3 helm of telepathy\nWh\u0016?\n>w\u0006FuFuFu FuFu Fu_ \u001bm,q_oo.,\u0017amulet of flying\ndi Fh Fh  FhFhFh  nFh__,  Fy _. Fy#chat\ny#pray\ny y  _ooooooo,Fy _.,:_oooo,,$_oooooooo.,#chat\ny_{.Fl  _.@.Fk qFh   n  Fh  FhFhFh Fh\u0016?\n>Bylb\u0016?\n>w\u0006_{. _.qun y#chat\nn_ooooooooo, Fh _,<.Fh ,\u001bp_oooo,Fh_.;m.Fh  n,\u001b\u0014m...\u0016?\nc  jyy\u0016?\n>w\u0006Fy FyFyFyFyFy_ooooooooo, Fu _,Fu,\u001bpFl  FlFlFlFlFlFu  nFu FuFuFuFu_oooooo,_.,\u001bp_{,Fu _.qy _ooooooo,_,,\u001bp_oooooooo.Fl _.Fl ,:\u0016?\n>Bbny\u0016?\n>w  \u0006Fu    Fu FuFuFuFu \u00167\nhnk\u0016?\n>w\u0006jll#chat\nn_ooooooo. Fu_.,:_ooooooo, Fn "
+ },
+ "segments": [
+  {
+   "seed": 52850027,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed Mjollnir\nwg\u0017blessed +3 helm of telepathy\nWh\u0016?\n>w\u0006FuFuFu FuFu Fu_ \u001bm,q_oo.,\u0017amulet of flying\ndi Fh Fh  FhFhFh  nFh__,  Fy _. Fy#chat\ny#pray\ny y  _ooooooo,Fy _.,:_oooo,,$_oooooooo.,#chat\ny_{.Fl  _.@.Fk qFh   n  Fh  FhFhFh Fh\u0016?\n>Bylb\u0016?\n>w\u0006_{. _.qun y#chat\nn_ooooooooo, Fh _,<.Fh ,\u001bp_oooo,Fh_.;m.Fh  n,\u001b\u0014m...\u0016?\nc  jyy\u0016?\n>w\u0006Fy FyFyFyFyFy_ooooooooo, Fu _,Fu,\u001bpFl  FlFlFlFlFlFu  nFu FuFuFuFu_oooooo,_.,\u001bp_{,Fu _.qy _ooooooo,_,,\u001bp_oooooooo.Fl _.Fl ,:\u0016?\n>Bbny\u0016?\n>w  \u0006Fu    Fu FuFuFuFu \u00167\nhnk\u0016?\n>w\u0006jll#chat\nn_ooooooo. Fu_.,:_ooooooo, Fn "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017amulet of guarding\nPf.s20ssRs20s\u0017blessed wand of sleep\n\u0007homunculus\nzgyzgy  Fy  Fy\u0017uncursed fortune cookie\neh  sm.20s\u0017blessed crystal plate mail\n \u0007water nymph\nW\u001bsm.sm.sjT  \u0017red dragon scale mail\nWj  .m.sm.sm.T  sbs"
+ },
+ "segments": [
+  {
+   "seed": 52852023,
+   "datetime": "20220714061142",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017amulet of guarding\nPf.s20ssRs20s\u0017blessed wand of sleep\n\u0007homunculus\nzgyzgy  Fy  Fy\u0017uncursed fortune cookie\neh  sm.20s\u0017blessed crystal plate mail\n \u0007water nymph\nW\u001bsm.sm.sjT  \u0017red dragon scale mail\nWj  .m.sm.sm.T  sbs"
+  }
+ ]
+}

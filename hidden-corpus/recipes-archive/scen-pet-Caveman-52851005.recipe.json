@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#name\nd\nk20sll10s#chat\nhbtbl#chat\nk 20s ujynySy\u001b#untrap\nbdezr\u001b#name\nm\n <.e#levelchange\n\u0017\u0017\u0007lkfjfjfbFbFh\u0017\u0017x#twoweapon\n20s Fkhln,#enhance\n\u001b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 52851005,
+   "datetime": "20130303171522",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\n",
+   "moves": "#name\nd\nk20sll10s#chat\nhbtbl#chat\nk 20s ujynySy\u001b"
+  },
+  {
+   "seed": 53351005,
+   "datetime": "20180121035811",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\n",
+   "moves": "#untrap\nbdezr\u001b#name\nm\n <.e#levelchange\n\u0017\u0017\u0007lkfjfjfbFbFh\u0017\u0017x#twoweapon\n20s Fkhln,#enhance\n\u001b"
+  }
+ ]
+}

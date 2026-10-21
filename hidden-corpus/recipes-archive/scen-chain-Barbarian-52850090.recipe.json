@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "N HUU_ \u001b>.>JULY_>,>KLLY_>.>JBLB_>,>Fn Fk s\u0004j#wipe\nYBKL_>.>HHNB_>.>FyFkFkJYJB_>.>,ZlhknFjFjFjFjFjFjFjFjJYKN_>.>BLJB_>.>#dip\nb #pray\ny LNHK_>.>ULLK_>,>Fls.#loot\nE- Vlad was here\nJNBY_>,><LLUY_>.>\u000f\u001b,100s50sFl.s_>.>50sFlFlFl100sFlssbuhjkjbkui\u001b_>,>s150s blh50sk100s50s100sFuFlsjkj_>.>100sFusFuFkFk20skjkFl..50sed_>,>_>.>_>,>150s_>,>150sFjss\u000f\u001bububulhl50sFlFl20sFls20s100s50sFls.#conduct\n 50s1#quit\nyy\u001by  y y y\u001b  nhluYYBN_ \u001b<.>r\u001b#name\no\nKHUN_>.>#name\nd\n:BBLJ_>.>Fy.s,ZJHUN_>,>JJNK_>,>HUKJ_>.>Fhss\u0014#ride\nl<YLUN_>.>Fj20sFh\u000f\u001bFbFbFbFbFbFbFbFb#quit\nyy\u001by  y y y\u001b  #wizintrinsic\nc\n .m.20ssm.ss.j.20s sm.20s     yy\u001by   y n n  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 52850090,
+   "datetime": "20140614141154",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "N HUU_ \u001b>.>JULY_>,>KLLY_>.>JBLB_>,>Fn Fk s\u0004j#wipe\nYBKL_>.>HHNB_>.>FyFkFkJYJB_>.>,ZlhknFjFjFjFjFjFjFjFjJYKN_>.>BLJB_>.>#dip\nb #pray\ny LNHK_>.>ULLK_>,>Fls.#loot\nE- Vlad was here\nJNBY_>,><LLUY_>.>\u000f\u001b,100s50sFl.s_>.>50sFlFlFl100sFlssbuhjkjbkui\u001b_>,>s150s blh50sk100s50s100sFuFlsjkj_>.>100sFusFuFkFk20skjkFl..50sed_>,>_>.>_>,>150s_>,>150sFjss\u000f\u001bububulhl50sFlFl20sFls20s100s50sFls.#conduct\n 50s1#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 52950090,
+   "datetime": "20160706041121",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=fruit:mango\nOPTIONS=msg_window:reversed\n",
+   "moves": " nhluYYBN_ \u001b<.>r\u001b#name\no\nKHUN_>.>#name\nd\n:BBLJ_>.>Fy.s,ZJHUN_>,>JJNK_>,>HUKJ_>.>Fhss\u0014#ride\nl<YLUN_>.>Fj20sFh\u000f\u001bFbFbFbFbFbFbFbFb#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 53050090,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nc\n .m.20ssm.ss.j.20s sm.20s     yy\u001by   y n n  s"
+  }
+ ]
+}

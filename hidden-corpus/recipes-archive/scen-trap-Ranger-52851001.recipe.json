@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " uklj\u0017fire trap\nkj.syu\u0017trap door\nh#untrap\nlb\u0017hole\nkjy s.#terrain\nd\n\u001b.__.20s#invoke\n\u001bE- Elbereth Elbereth\n"
+ },
+ "segments": [
+  {
+   "seed": 52851001,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " uklj\u0017fire trap\nkj.syu\u0017trap door\nh#untrap\nlb\u0017hole\nkjy s.#terrain\nd\n\u001b.__.20s#invoke\n\u001bE- Elbereth Elbereth\n"
+  }
+ ]
+}

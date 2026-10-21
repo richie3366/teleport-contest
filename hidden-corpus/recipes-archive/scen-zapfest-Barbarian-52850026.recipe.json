@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWf\u0017blessed shield of reflection\nW\u001b#levelchange\n14\n             \u0007kobold shaman\n\u0007gnomish wizard\n\u0017wand of fire\n20s 20s       zhn zhn zhlsss20s \u001710 daggers\nQi\u0007kobold\n\u0007lichen\nfntblfltinfnfyfy\u0017potion of invisibility\ntin\u0017wand of polymorph\n\u0017wand of death\n\u0017wand of cancellation\n\u0007dwarf\n\u0007yellow mold\n\u0007sewer rat\nzml.m.zmjzmjzmjzmnzkl  zlj n zll.m.\u0017wand of death\n\u0017wand of magic missile\n\u0017wand of cancellation\n\u0007gnome lord\nzpnsm.zpjznnznlsm.znjzok 20szpyznj nszpyzpy20s\u0017blessed spellbook of light\nrqs\u0017blessed spellbook of cone of cold\nrrsy\u0007vampire\n\u0007master mind flayer\nZa\nZa\n.m.   .m.    Za\nZa\n      n  sm.   n   sm.     n  Za\n      n  ZZ\u001612\n \u0007mind flayer\n\u0007master lich\n\u0007mind flayer\n\u0017wand of magic missile\nzslzshzsu     n      n zsu   n      n  zsh   n      zs   n    n i\u001b\u00165\n\u0007incubus\n\u0007vampire\n\u0007vampire\n\u0017wand of fire\nztn20s "
+ },
+ "segments": [
+  {
+   "seed": 52850026,
+   "datetime": "20061027082126",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWf\u0017blessed shield of reflection\nW\u001b#levelchange\n14\n             \u0007kobold shaman\n\u0007gnomish wizard\n\u0017wand of fire\n20s 20s       zhn zhn zhlsss20s \u001710 daggers\nQi\u0007kobold\n\u0007lichen\nfntblfltinfnfyfy\u0017potion of invisibility\ntin\u0017wand of polymorph\n\u0017wand of death\n\u0017wand of cancellation\n\u0007dwarf\n\u0007yellow mold\n\u0007sewer rat\nzml.m.zmjzmjzmjzmnzkl  zlj n zll.m.\u0017wand of death\n\u0017wand of magic missile\n\u0017wand of cancellation\n\u0007gnome lord\nzpnsm.zpjznnznlsm.znjzok 20szpyznj nszpyzpy20s\u0017blessed spellbook of light\nrqs\u0017blessed spellbook of cone of cold\nrrsy\u0007vampire\n\u0007master mind flayer\nZa\nZa\n.m.   .m.    Za\nZa\n      n  sm.   n   sm.     n  Za\n      n  ZZ\u001612\n \u0007mind flayer\n\u0007master lich\n\u0007mind flayer\n\u0017wand of magic missile\nzslzshzsu     n      n zsu   n      n  zsh   n      zs   n    n i\u001b\u00165\n\u0007incubus\n\u0007vampire\n\u0007vampire\n\u0017wand of fire\nztn20s "
+  }
+ ]
+}

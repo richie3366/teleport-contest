@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nW\u001b\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\n>z \u00162\n\u0006_ \u001bm,FkFjFjFl Fj\u00163\n\u0006__.Fk_.Fl\u00164\n\u0006_>.Fb_.Fu_>.Fk_.Fh>\u0006_mm,Fh_,FyFh  Fy  nFbFbFb \u00166\n \u0006_<,Fh_,Fk\u0016?\n>>\u001b\u0016?\n>y #chat\nb\u0016?\n>z\u00162\n\u0016?\n>z\u0006_>,Fj_.Fl\u00163\n\u0016?\n>z\u0006_mmmm.Fh_.FhFhFhFh.Fl_>.Fl_,Fh  n>\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006#chat\nh;b;\u00166\n\u0016?\n>z\u0006#chat\nb;h;_>,Fh_.>.Fh>\u0016?\n>z\u0006_mmmmm.Fl_,FnFlFj FnFl\u00163\n\u0016?\n>z\u0006_mm,Fl_.Fl   n FhFnFh\u00164\n\u0016?\n>z\u0006#chat\nj;h,_>.Fn_. Fj >\u0016?\n>z\u0006_mmm.Fb_,Fl  n FbFl Fn Fb \u00166\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00162\n\u0016?\n>z\u0006_<.\u00163\n\u0016?\n>z\u0006__,Fb _,  n Fl\u00164\n\u0016?\n>z\u0006#chat\nj;j,\u00165\n\u0016?\n>z"
+ },
+ "segments": [
+  {
+   "seed": 52850076,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nW\u001b\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0016?\n>z \u00162\n\u0006_ \u001bm,FkFjFjFl Fj\u00163\n\u0006__.Fk_.Fl\u00164\n\u0006_>.Fb_.Fu_>.Fk_.Fh>\u0006_mm,Fh_,FyFh  Fy  nFbFbFb \u00166\n \u0006_<,Fh_,Fk\u0016?\n>>\u001b\u0016?\n>y #chat\nb\u0016?\n>z\u00162\n\u0016?\n>z\u0006_>,Fj_.Fl\u00163\n\u0016?\n>z\u0006_mmmm.Fh_.FhFhFhFh.Fl_>.Fl_,Fh  n>\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006#chat\nh;b;\u00166\n\u0016?\n>z\u0006#chat\nb;h;_>,Fh_.>.Fh>\u0016?\n>z\u0006_mmmmm.Fl_,FnFlFj FnFl\u00163\n\u0016?\n>z\u0006_mm,Fl_.Fl   n FhFnFh\u00164\n\u0016?\n>z\u0006#chat\nj;h,_>.Fn_. Fj >\u0016?\n>z\u0006_mmm.Fb_,Fl  n FbFl Fn Fb \u00166\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00162\n\u0016?\n>z\u0006_<.\u00163\n\u0016?\n>z\u0006__,Fb _,  n Fl\u00164\n\u0016?\n>z\u0006#chat\nj;j,\u00165\n\u0016?\n>z"
+  }
+ ]
+}

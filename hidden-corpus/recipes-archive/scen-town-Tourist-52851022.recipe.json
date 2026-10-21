@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u00172000 gold pieces\n\u0016?\n>w  \u0006\u0017blessed potion of object detection\nqm \u001b>._oo.Fh   _._o.Fj   _,,\u001b$ _m.  Fj  _,#chat\nj _oooo.  y y\u001by  y  nn  F"
+ },
+ "segments": [
+  {
+   "seed": 52851022,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=fruit:lychee\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u00172000 gold pieces\n\u0016?\n>w  \u0006\u0017blessed potion of object detection\nqm \u001b>._oo.Fh   _._o.Fj   _,,\u001b$ _m.  Fj  _,#chat\nj _oooo.  y y\u001by  y  nn  F"
+  }
+ ]
+}

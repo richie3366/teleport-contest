@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0007red dragon\n\u0017scroll of taming\nri \u0017saddle\najl  #ride\nhy\u0007warhorse\n\u0017scroll of taming\nrk   \u0017saddle\naln    #ride\nny\u0007horse\n\u0017scroll of taming\nrm \u0017saddle\nanl #ride\nly\u0007yellow mold\nFh FjFj #ride\n   s #ride\nly20s              s\u0007lichen\nFhFjFhlu#levelchange\n12\n   \u0007paper golem\nFh   Fb    Fh\u0007pyrolisk\nFh        Fh  Fb FjFb \u0007quasit\nFb        FjFjFjFb  \u0007bone devil\nFjFb        Fj        \u0017Trollsbane\n wo        n  Fj    Fj Fh    n     #invoke\no    X\u0007ki-rin\nFj Fj    n        Fb   n    \u0007dust vortex\nFj          n  Fj      n                        Fj  n         Fh      n          \u00165\n#levelchange\n8\n \u0017blessed +3 ring of searching\nPpl   n             20s  n      sm.  n  20s      n    Fk   n     Fl        n  \u0017uncursed the Master Key of Thievery\n \u0007fire elemental\n\u00173 magic lamp\naq   n        #rub\nq.j  yny   y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 52850089,
+   "datetime": "20231120063208",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n20\n                   \u0007red dragon\n\u0017scroll of taming\nri \u0017saddle\najl  #ride\nhy\u0007warhorse\n\u0017scroll of taming\nrk   \u0017saddle\naln    #ride\nny\u0007horse\n\u0017scroll of taming\nrm \u0017saddle\nanl #ride\nly\u0007yellow mold\nFh FjFj #ride\n   s #ride\nly20s              s\u0007lichen\nFhFjFhlu#levelchange\n12\n   \u0007paper golem\nFh   Fb    Fh\u0007pyrolisk\nFh        Fh  Fb FjFb \u0007quasit\nFb        FjFjFjFb  \u0007bone devil\nFjFb        Fj        \u0017Trollsbane\n wo        n  Fj    Fj Fh    n     #invoke\no    X\u0007ki-rin\nFj Fj    n        Fb   n    \u0007dust vortex\nFj          n  Fj      n                        Fj  n         Fh      n          \u00165\n#levelchange\n8\n \u0017blessed +3 ring of searching\nPpl   n             20s  n      sm.  n  20s      n    Fk   n     Fl        n  \u0017uncursed the Master Key of Thievery\n \u0007fire elemental\n\u00173 magic lamp\naq   n        #rub\nq.j  yny   y y y\u001by  s"
+  }
+ ]
+}

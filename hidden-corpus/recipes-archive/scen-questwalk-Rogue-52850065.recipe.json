@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nWh\u0017blessed ring of free action\nPir\u0016?\n>z \u00162\n\u0006_ \u001b.\u00163\n \u0006,\u00164\n\u0006bu bbu yb\u00165\n\u0006_mmm.Fh   _,Fb   ..._>. Fk _. Fk >  \u0006,_>.Fk _.Fk> \u0006n j  n  b ljnjk_>._.:Fy>\u0006#chat\ny;m.\u00164\n\u0006yjbh\u00165\n\u0006_m.Fj    _,m,.s20s20s\u00166\n \u0006,\u0016?\n>>\u001b\u0016?\n>y #chat\ny\u0016?\n>z\u00162\n\u0016?\n>z\u0006_mmmm..20sFyFy\u00163\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\ny\u0016?\n>z\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006_mmmm.Fy FyFy_>,Fy _.;<.Fy>\u0016?\n>z\u0006hhllkb_>.Fh_.;>.Fy>\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006#chat\ny;y:  \u00164\n\u0016?\n>z\u0006_mmmmm,Fy_.FyFyFy\u00165\n\u0016?\n>z\u0006_mmmm,FyFyFy\u00166\n\u0016?\n>z\u0006#ch"
+ },
+ "segments": [
+  {
+   "seed": 52850065,
+   "datetime": "20011217172113",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=sortloot:full\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 gauntlets of power\nWh\u0017blessed ring of free action\nPir\u0016?\n>z \u00162\n\u0006_ \u001b.\u00163\n \u0006,\u00164\n\u0006bu bbu yb\u00165\n\u0006_mmm.Fh   _,Fb   ..._>. Fk _. Fk >  \u0006,_>.Fk _.Fk> \u0006n j  n  b ljnjk_>._.:Fy>\u0006#chat\ny;m.\u00164\n\u0006yjbh\u00165\n\u0006_m.Fj    _,m,.s20s20s\u00166\n \u0006,\u0016?\n>>\u001b\u0016?\n>y #chat\ny\u0016?\n>z\u00162\n\u0016?\n>z\u0006_mmmm..20sFyFy\u00163\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\ny\u0016?\n>z\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006_mmmm.Fy FyFy_>,Fy _.;<.Fy>\u0016?\n>z\u0006hhllkb_>.Fh_.;>.Fy>\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006#chat\ny;y:  \u00164\n\u0016?\n>z\u0006_mmmmm,Fy_.FyFyFy\u00165\n\u0016?\n>z\u0006_mmmm,FyFyFy\u00166\n\u0016?\n>z\u0006#ch"
+  }
+ ]
+}

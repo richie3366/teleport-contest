@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "i\u001bwb sFh FhWsm.sh.m.wdFh FhFhwcy  y\u001by  y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 52852025,
+   "datetime": "20080105030028",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "i\u001bwb sFh FhWsm.sh.m.wdFh FhFhwcy  y\u001by  y y\u001b  s"
+  }
+ ]
+}

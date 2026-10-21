@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold shaman\n#dip\nb#offer\n#pray\n#chat\n#wizmap\n\u0006 n hnw-\u00164\n\u0006#overview\n\u001b#conduct\n i\u001b#name\n\u001b#adjust\ni\u001b#chat\nh#turn\n#jump\n#wizintrinsic\nqg\n ujl\u0014 \u001bm._oooooo,Fu_. Fk ,#vanquished\n #genocided\nstalker\nf \u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #levelchange\n10\n         jkh_>,_.#chronicle\n #terrain\n\u001bi\u001b#wipe\n#loot\n#chat\nu#chat\nn#jump\n#polyself\nvampire\ns20ss.nn n#untrap\n.__._,#chat\nj\u0007lichen\n#version\n  #history\n                  \u0018\u001b#tip\n\u001b#ride\nny#turn\n#sit\n #jump\n#levelchange\n6\n Fn .20ss#offer\n\u0016?\n>>L      scroll of amnesia\n\u0006\u0007hill orc\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nb#offer\n#pray\n#chat\n#jump\n#wizidentify\njk      b        #turn\n_>,\u0007hill orc\n#vanquished\n #genocided\nraven\nn        \u001b  \u000f\u001b#name\no\n#adjust\nb\u001b#chat\n#turn\n#levelchange\n11\n   Fj Fj  Fl        n      n \u00164\n_{.qj \u001b      #chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\nm#sit\n#pray\ny y  #wizintrinsic\naq\n Fj  n         n      Fk  n     , \u00165\n_oo,,\u0007hill orc\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nj#"
+ },
+ "segments": [
+  {
+   "seed": 52850064,
+   "datetime": "20000417183311",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=mention_walls\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold shaman\n#dip\nb#offer\n#pray\n#chat\n#wizmap\n\u0006 n hnw-\u00164\n\u0006#overview\n\u001b#conduct\n i\u001b#name\n\u001b#adjust\ni\u001b#chat\nh#turn\n#jump\n#wizintrinsic\nqg\n ujl\u0014 \u001bm._oooooo,Fu_. Fk ,#vanquished\n #genocided\nstalker\nf \u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #levelchange\n10\n         jkh_>,_.#chronicle\n #terrain\n\u001bi\u001b#wipe\n#loot\n#chat\nu#chat\nn#jump\n#polyself\nvampire\ns20ss.nn n#untrap\n.__._,#chat\nj\u0007lichen\n#version\n  #history\n                  \u0018\u001b#tip\n\u001b#ride\nny#turn\n#sit\n #jump\n#levelchange\n6\n Fn .20ss#offer\n\u0016?\n>>L      scroll of amnesia\n\u0006\u0007hill orc\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nb#offer\n#pray\n#chat\n#jump\n#wizidentify\njk      b        #turn\n_>,\u0007hill orc\n#vanquished\n #genocided\nraven\nn        \u001b  \u000f\u001b#name\no\n#adjust\nb\u001b#chat\n#turn\n#levelchange\n11\n   Fj Fj  Fl        n      n \u00164\n_{.qj \u001b      #chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\nm#sit\n#pray\ny y  #wizintrinsic\naq\n Fj  n         n      Fk  n     , \u00165\n_oo,,\u0007hill orc\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nj#"
+  }
+ ]
+}

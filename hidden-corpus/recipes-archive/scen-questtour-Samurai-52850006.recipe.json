@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nl;>._mmmmm,    n_,     #chat\nb_mmm,     n       Fk_.m,     n       n     Fk     #chat\nk      n    n   _mm.     n   Fu    n    n _,#chat\nu     n_mmmm.       nFu       n    n _,   n    n    yy\u001by  y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 52850006,
+   "datetime": "20120523092928",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nl;>._mmmmm,    n_,     #chat\nb_mmm,     n       Fk_.m,     n       n     Fk     #chat\nk      n    n   _mm.     n   Fu    n    n _,#chat\nu     n_mmmm.       nFu       n    n _,   n    n    yy\u001by  y y\u001b  F"
+  }
+ ]
+}

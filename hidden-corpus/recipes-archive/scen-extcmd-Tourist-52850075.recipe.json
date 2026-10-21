@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 silver dragon scale mail\nWm   \u0017blessed +3 speed boots\nWn\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007sewer rat\n#levelchange\n5\n   Fl Fk_ \u001b>.#chat\nk \u0007newt\n#overview\n\u001b#conduct\n #annotate\nblessed\n\u0018\u001b#dip\nbh#offer\n#pray\ny y     #chat\nj#wizmap\n\u0006uhl_ooo,,\u0007kobold shaman\n#vanquished\n #genocided\nMedusa\n\u0018\u001b#name\nm\n#adjust\n<.#chat\nl#turn\n#wizidentify\n\u001bjhuoj\u00164\n\u0006#chronicle\n #terrain\n\u001b#annotate\nfoo\n\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizintrinsic\na\n FlFj__._,#chat\nn\u0007hobbit\n#version\n  #history\n                  \u0018\u001b#wipe\n#loot\nj#chat\nj#chat\nj #polyself\nfog cloud\n  .20s       FjFhFj  FhFj_oo.Fh_,,\u0007soldier\n#overview\n\u001b#conduct\n #annotate\n\u001b\u0018\u001b#tip\n\u001b#ride\nky#turn\n#sit\n  #wizidentify\n\u001bFk  n Fk  F"
+ },
+ "segments": [
+  {
+   "seed": 52850075,
+   "datetime": "20250206024218",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 silver dragon scale mail\nWm   \u0017blessed +3 speed boots\nWn\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007sewer rat\n#levelchange\n5\n   Fl Fk_ \u001b>.#chat\nk \u0007newt\n#overview\n\u001b#conduct\n #annotate\nblessed\n\u0018\u001b#dip\nbh#offer\n#pray\ny y     #chat\nj#wizmap\n\u0006uhl_ooo,,\u0007kobold shaman\n#vanquished\n #genocided\nMedusa\n\u0018\u001b#name\nm\n#adjust\n<.#chat\nl#turn\n#wizidentify\n\u001bjhuoj\u00164\n\u0006#chronicle\n #terrain\n\u001b#annotate\nfoo\n\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizintrinsic\na\n FlFj__._,#chat\nn\u0007hobbit\n#version\n  #history\n                  \u0018\u001b#wipe\n#loot\nj#chat\nj#chat\nj #polyself\nfog cloud\n  .20s       FjFhFj  FhFj_oo.Fh_,,\u0007soldier\n#overview\n\u001b#conduct\n #annotate\n\u001b\u0018\u001b#tip\n\u001b#ride\nky#turn\n#sit\n  #wizidentify\n\u001bFk  n Fk  F"
+  }
+ ]
+}

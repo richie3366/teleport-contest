@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "ldbq#dip\nd#jump\ns#enhance\n\u001b>j>20sohE- Elbereth Elbereth\n#twoweapon\n,#loot\nk,\u0018\u001b#terrain\nc\n\u001b<.i\u001b_<.sdc>#monster\n"
+ },
+ "segments": [
+  {
+   "seed": 52852005,
+   "datetime": "20100822025613",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "ldbq#dip\nd#jump\ns#enhance\n\u001b>j>20sohE- Elbereth Elbereth\n#twoweapon\n,#loot\nk,\u0018\u001b#terrain\nc\n\u001b<.i\u001b_<.sdc>#monster\n"
+  }
+ ]
+}

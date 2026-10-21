@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWf\u0016?\n>>P\u0017cursed stethoscope\naal\u0017cursed -1 helm of telepathy\nWbsss\u0017cursed towel\nacs.\u0017potion of restore ability\n\u0007incubus\nqd \u001b\u0017blessed potion of gain energy\nqe .m.20s\u0016?\n>u  hlhlh:\u0016?\nj#levelchange\n14\n     \u0017spellbook of finger of death\nrg \u001b             \u001b            \u001b          s                                \u001b             n       n \u0017blessed spellbook of teleport away\nrh           sm.\u0017blessed spellbook of magic missile\nri           20s          \u0017blessed spellbook of detect food\nrj            sm.+\u0007newt\nZZZZ#turn\n\u00163\n\u00161\nlb:\u00166\nuyyynnk:\u00166\n#levelchange\n30\n                bbn\u0017magic trap\nubs sll\u0017hole\nu^bby ss#terrain\ne\n#untrap\ny#enhance\nyn\nm\n\u001bs\u0016?\na\u0006_ \u001bm,\u001642\n   kjkjkj   k:      \u00166\njkl  :sl20s .m.\u0016?\n>>L      amulet versus poison\n#levelchange\n30\n\u0017scroll of amnesia\nrm    \u0017cursed Cleaver\nwnFb          FkFj#invoke\nnXFk   n          Fy       \u00173 saddle\n ao#ride\njy\u0017blessed magic harp\napy             apy          \u0017blessed wand of make invisible\nzqb     zqu    n     .j           .s s    \u00167\n\u0016?\n\u001bb    n        k    n    \u00168\n\u00166\n#levelchange\n12\n      \u0007electric eel\n;l,s  n   n  20s        \u001b               "
+ },
+ "segments": [
+  {
+   "seed": 52850000,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 helm of telepathy\nWf\u0016?\n>>P\u0017cursed stethoscope\naal\u0017cursed -1 helm of telepathy\nWbsss\u0017cursed towel\nacs.\u0017potion of restore ability\n\u0007incubus\nqd \u001b\u0017blessed potion of gain energy\nqe .m.20s\u0016?\n>u  hlhlh:\u0016?\nj#levelchange\n14\n     \u0017spellbook of finger of death\nrg \u001b             \u001b            \u001b          s                                \u001b             n       n \u0017blessed spellbook of teleport away\nrh           sm.\u0017blessed spellbook of magic missile\nri           20s          \u0017blessed spellbook of detect food\nrj            sm.+\u0007newt\nZZZZ#turn\n\u00163\n\u00161\nlb:\u00166\nuyyynnk:\u00166\n#levelchange\n30\n                bbn\u0017magic trap\nubs sll\u0017hole\nu^bby ss#terrain\ne\n#untrap\ny#enhance\nyn\nm\n\u001bs\u0016?\na\u0006_ \u001bm,\u001642\n   kjkjkj   k:      \u00166\njkl  :sl20s .m.\u0016?\n>>L      amulet versus poison\n#levelchange\n30\n\u0017scroll of amnesia\nrm    \u0017cursed Cleaver\nwnFb          FkFj#invoke\nnXFk   n          Fy       \u00173 saddle\n ao#ride\njy\u0017blessed magic harp\napy             apy          \u0017blessed wand of make invisible\nzqb     zqu    n     .j           .s s    \u00167\n\u0016?\n\u001bb    n        k    n    \u00168\n\u00166\n#levelchange\n12\n      \u0007electric eel\n;l,s  n   n  20s        \u001b               "
+  }
+ ]
+}

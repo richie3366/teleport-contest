@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nWm\u0017blessed ring of free action\nPnl#levelchange\n20\n                   \u0007master lich\n\u0007succubus\n\u0007gnomish wizard\n\u0017wand of sleep\nsbzoy    sk  yy    . zoy         zob    i\u001b\u0017blessed spellbook of cause fear\nrp           n       sm.      \u0007gnomish wizard\nZb\n  n        Zb\n       n   20s          n sh       Za\n      n  sm.             n        .m.       n   Zc\n                 n      Z\u001612\n \u0017blessed spellbook of force bolt\nrq 20s   \u0007mind flayer\nZa\nZc\n    Zc\n      n  20s     n    \u001bsm.    n   ZZZ#turn\n\u00165\n\u00175 boomerangs\nQr\u0007lichen\nfltrlt$lfltrl\u0017wand of cold\n\u0017wand of slow monster\n\u0007bugbear\n\u0007troll\nztjztlztj20s ztj.m.zsj sm.zsl     n zsy 20sztbztusi\u001b\u0007silver dragon\n20s .m.  #polyself\nsilver dragon\n #monster\nj  ss#monster\nj#monster\nb  #monster\nl20s s\u0017blessed spellbook of slow monster\nru s\u0017blessed spellbook of fireball\nrv.\u0007mind flayer\n\u0007lich\nZc\nZZZZZ20s    n      n  sm.  n  Zsm.    yy\u001bny y ny  s"
+ },
+ "segments": [
+  {
+   "seed": 52850037,
+   "datetime": "20240502121634",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nWm\u0017blessed ring of free action\nPnl#levelchange\n20\n                   \u0007master lich\n\u0007succubus\n\u0007gnomish wizard\n\u0017wand of sleep\nsbzoy    sk  yy    . zoy         zob    i\u001b\u0017blessed spellbook of cause fear\nrp           n       sm.      \u0007gnomish wizard\nZb\n  n        Zb\n       n   20s          n sh       Za\n      n  sm.             n        .m.       n   Zc\n                 n      Z\u001612\n \u0017blessed spellbook of force bolt\nrq 20s   \u0007mind flayer\nZa\nZc\n    Zc\n      n  20s     n    \u001bsm.    n   ZZZ#turn\n\u00165\n\u00175 boomerangs\nQr\u0007lichen\nfltrlt$lfltrl\u0017wand of cold\n\u0017wand of slow monster\n\u0007bugbear\n\u0007troll\nztjztlztj20s ztj.m.zsj sm.zsl     n zsy 20sztbztusi\u001b\u0007silver dragon\n20s .m.  #polyself\nsilver dragon\n #monster\nj  ss#monster\nj#monster\nb  #monster\nl20s s\u0017blessed spellbook of slow monster\nru s\u0017blessed spellbook of fireball\nrv.\u0007mind flayer\n\u0007lich\nZc\nZZZZZ20s    n      n  sm.  n  Zsm.    yy\u001bny y ny  s"
+  }
+ ]
+}
