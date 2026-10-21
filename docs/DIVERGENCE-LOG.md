@@ -1,5 +1,21 @@
 # Divergence log
 
+## D-4187 — iactions.c itemactions builds the engrave row as "%s on the %s with %s" using `surface(u.ux, u.uy)` (`:439–445`). JS hard-coded "floor", following a stale comment that said surface existed only as four always-"floor" stubs. The whole dungeon.c surface (`:1750–1788`, all arms including On_stairs) has been the sit.js export since D-2008/D-2884. On stairs, an altar, a fountain, ice and so on, the context menu named the wrong surface
+
+- **Status:** shipped.
+- **Symptom:** scen-extcmd-Ranger-51257069 step 772, row 4: C «E - Write on the stairs with one of these items» vs JS «… on the floor …». Cliffs head row `itemactions` (3 screens).
+- **C locus:** iactions.c itemactions `:278–714` (engrave arm `:437–446`); dungeon.c surface `:1750–1788`.
+- **JS was:** js/iactions.js itemactions engrave arm `` `${verb} on the floor with …` ``. The file header and the itemactions doc also listed "surface terrain nouns" and the "cantwield skip of 'w'" as Named omissions. The cantwield arm has been live since then (`:783–788`, nohands || verysmall), and the ledger note "JS cantwield exists but is not consulted" was stale too.
+- **Fix:** import the live `surface` from sit.js and use `surface(u.ux, u.uy)` in the engrave row. Both stale omission notes are removed.
+- **JS:** js/iactions.js (import, itemactions engrave arm, header/doc comments).
+- **Callers:** unchanged (itemactions ← ddoinv / the `i` item-action menu).
+- **Verify:**
+  - `node scripts/verify.mjs --fn itemactions,surface` → syntax · rule2 · hidden: verify itemactions: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-extcmd-Ranger-51257069: PASS) · reach REACH-OK ×2 · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 671 baseline-PASS re-run in 141.7s, 0 regressed → REACH-OK.
+- **Named omissions:** doengrave non-hands stylus body; Traditional itemize yn (standing, unchanged).
+- **Ledger:** itemactions ported
+- **Next:** the regenerated cliffs head (slimed_to_death, scen-sweep-Valkyrie-50362023 s1003).
+
 ## D-4186 — windows.c add_menu_heading paints with `iflags.menu_headings.attr` *and* `.color`, both cleared to none during end-of-game disclosure (`:1816–1828`). tty_end_menu paints a menu's prompt with the relayed `tty_menu_promptstyle`, which adjust_menu_promptstyle copies from menu_headings with no gameover gate. JS invent.js hard-coded every invent.c heading as ATR_INVERSE with no colour: a local `add_menu_heading_attr()` plus four inline `gameover ? 0 : ATR_INVERSE` copies. The shared ports `menu_heading_style()` / `menu_prompt_style()` (options.js) already existed. A `menu_headings` colour set through `O` (scen-options) never reached inventory menus
 
 - **Status:** shipped.

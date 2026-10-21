@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — D-4187 iactions.c itemactions builds the engrave row as "%s on the %s with %s" using `surface(u.ux, u.uy)` (`:439–445`). JS hard-coded "floor", following a stale comment that said surface existed only as four always-"floor" stubs. The whole dungeon.c surface (`:1750–1788`, all arms including On_stairs) has been the sit.js export since D-2008/D-2884. On stairs, an altar, a fountain, ice and so on, the context menu named the wrong surface
+
+**C locus:** iactions.c itemactions `:278–714` (engrave arm `:437–446`); dungeon.c surface `:1750–1788`.
+**JS:** js/iactions.js (import, itemactions engrave arm, header/doc comments).
+**Change:** import the live `surface` from sit.js and use `surface(u.ux, u.uy)` in the engrave row. Both stale omission notes are removed.
+**Verify:** - `node scripts/verify.mjs --fn itemactions,surface` → syntax · rule2 · hidden: verify itemactions: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-extcmd-Ranger-51257069: PASS) · reach REACH-OK ×2 · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+**Named:** doengrave non-hands stylus body; Traditional itemize yn (standing, unchanged).
+**Next:** the regenerated cliffs head (slimed_to_death, scen-sweep-Valkyrie-50362023 s1003).
 ## 2026-10-21 — D-4186 windows.c add_menu_heading paints with `iflags.menu_headings.attr` *and* `.color`, both cleared to none during end-of-game disclosure (`:1816–1828`). tty_end_menu paints a menu's prompt with the relayed `tty_menu_promptstyle`, which adjust_menu_promptstyle copies from menu_headings with no gameover gate. JS invent.js hard-coded every invent.c heading as ATR_INVERSE with no colour: a local `add_menu_heading_attr()` plus four inline `gameover ? 0 : ATR_INVERSE` copies. The shared ports `menu_heading_style()` / `menu_prompt_style()` (options.js) already existed. A `menu_headings` colour set through `O` (scen-options) never reached inventory menus
 
 **C locus:** windows.c add_menu_heading `:1816–1828`, adjust_menu_promptstyle `:1769–1777`; wintty.c tty_end_menu prompt `:2685–2689`; invent.c display_pickinv headings `:3256/:3279/:3296/:3362`, wizard-ID pickinv headings, display_minventory / query_objlist titles and class headings, invdisp_nothing, display_used_invlets, reroll prompt `:2599`.
