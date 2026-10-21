@@ -1,5 +1,21 @@
 # Divergence log
 
+## D-4194 — o_init.c savenames/restnames write and read every `objects[i]` through `Sfo_objclass`/`Sfi_objclass` (`:387–389`, `:421–423`). In the recorder's historical format that is the whole `struct objclass`, including this variant's shop price-quote memory `oc_sell_minseen/maxseen`, `oc_buy_minseen/maxseen` (objclass.h `:108–111`, written by shk.c record_price_quote). JS savenames kept only the shuffled/discovery fields, so after a save and restore every quoted price was forgotten, and the discoveries list lost its «{buy N}» suffix
+
+- **Status:** shipped.
+- **Symptom:** scen-town-Tourist-630002 (two segments: save, then restore) step 228 = segment 2 step 21, `\` discoveries «by order of discovery within each class», row 14: C «potion (murky) {buy 250}» vs JS «potion (murky)». Cliffs head row `doclassdisco`: the region heuristic named the painter. The writer is the save/restore of the quote fields, so append_price_quote read the fresh unseen values.
+- **C locus:** o_init.c savenames `:374–407` (objclass loop `:387–389`), restnames `:410–437` (`:421–423`); objclass.h `:108–111`; shk.c record_price_quote / append_price_quote `:438–491`. The recorder's sfstruct.c maps `objclass` to `historical_sfo_objclass` / `historical_sfi_objclass` (whole-struct I/O).
+- **JS was:** js/o_init.js savenames per-entry record {oc_name_known, oc_descr_idx, oc_color, oc_tough, oc_material, oc_prob, oc_encountered, oc_uname}, and restnames overlaid the same set.
+- **Fix:** savenames also writes the four `oc_*seen` fields. restnames reads them back, and keeps the fresh table's values when an older save has no keys. JSON holds the PRICE_MIN_INIT 0xffffffff sentinel exactly.
+- **JS:** js/o_init.js savenames (`:365`, fields `:384–391`), restnames (`:404`, `:427–433`).
+- **Callers:** unchanged (savenames ← save.js dosave0/savegamestate, C save.c:325; restnames ← save.js try_restore_save, C restore.c:719).
+- **Verify:**
+  - `node scripts/verify.mjs --fn doclassdisco,savenames,restnames --full` → syntax · rule2 · hidden: verify doclassdisco: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-town-Tourist-630002: PASS, 244/244 screens) · reach REACH-OK ×3 (24 smoke each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 673 baseline-PASS re-run in 146.1s, 0 regressed → REACH-OK.
+- **Named omissions:** none (the other objclass fields are static tables on both ends, as before).
+- **Ledger:** savenames ported; restnames ported
+- **Next:** the regenerated cliffs head (impossible s963, scen-worldtour-Archeologist-50056033).
+
 ## D-4193 — wintty.c tty_display_nhwindow, NHW_MENU corner arm, calls `tty_clear_nhwindow(WIN_MESSAGE)` (`:1938–1941`). That erases the topline only when `toplin != TOPLINE_EMPTY` (`:1047–1058`). JS show_nhw_menu_text, which paints every putstr-only NHW_MENU window (container_contents, look_here, and about 20 more callers), blanked the topline unconditionally. Only look_here opted out, through a JS-only `keep_message_leftover` flag. After a death «Die? [yn] (n)» answered `y`, toplin is EMPTY but the prompt is still on row 0: C keeps it left of each «Contents of …» window, and JS wiped it
 
 - **Status:** shipped.
