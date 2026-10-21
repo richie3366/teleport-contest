@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-4186 — windows.c add_menu_heading paints with `iflags.menu_headings.attr` *and* `.color`, both cleared to none during end-of-game disclosure (`:1816–1828`). tty_end_menu paints a menu's prompt with the relayed `tty_menu_promptstyle`, which adjust_menu_promptstyle copies from menu_headings with no gameover gate. JS invent.js hard-coded every invent.c heading as ATR_INVERSE with no colour: a local `add_menu_heading_attr()` plus four inline `gameover ? 0 : ATR_INVERSE` copies. The shared ports `menu_heading_style()` / `menu_prompt_style()` (options.js) already existed. A `menu_headings` colour set through `O` (scen-options) never reached inventory menus
+
+- **Status:** shipped.
+- **Symptom:** scen-options-Barbarian-49959007 step 214 («Weapons» row 0: C `ESC[7m ESC[96m` inverse + bright cyan, JS `ESC[7m` only), scen-options-Rogue-51151031. Cliffs head row `inuse_classify` (region heuristic; the writer is the heading style).
+- **C locus:** windows.c add_menu_heading `:1816–1828`, adjust_menu_promptstyle `:1769–1777`; wintty.c tty_end_menu prompt `:2685–2689`; invent.c display_pickinv headings `:3256/:3279/:3296/:3362`, wizard-ID pickinv headings, display_minventory / query_objlist titles and class headings, invdisp_nothing, display_used_invlets, reroll prompt `:2599`.
+- **JS was:** js/invent.js `add_menu_heading_attr()` (ATR_INVERSE, gameover → 0, no colour) at invent_lines / pickinv_build_inuse / display_pickinv_reply; inline `game.program_state?.gameover ? 0 : ATR_INVERSE` in display_minventory, query_objlist_pick_none_binv, display_cinventory, build_used_invlets_items; literal ATR_INVERSE in reroll_menu and build_wizid_pickinv_items. The tty_end_menu titles (display_pickinv query, minventory hdr, binv title, "Inventory letters used:") were gameover-gated too, which C does not do.
+- **Fix:** delete the local helper. Heading rows (class headers, "Miscellaneous"/"In use"/"Special", invdisp_nothing headers, Engulfed Creatures) spread `menu_heading_style()`. end_menu prompt/title rows spread `menu_prompt_style()`. The painters already read `entry.color` (invent.js `:3199/:3422/:4297`).
+- **JS:** js/invent.js (import + 14 heading/prompt sites).
+- **Callers:** unchanged. The style helpers are read per menu build, so an in-game `O` change applies on the next menu (C reads iflags at add_menu time; promptstyle via the `:239` adjust relay).
+- **Verify:**
+  - `node scripts/verify.mjs --fn inuse_classify,add_menu_heading` → syntax · rule2 · hidden: verify inuse_classify: 1 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (scen-options-Barbarian-49959007: PASS; scen-options-Rogue-51151031: moved → tipcontainer_gettarget at step 153, was 96) · reach REACH-OK ×2 · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 670 baseline-PASS re-run in 133.5s, 0 regressed → REACH-OK.
+  - `node frozen/ps_test_runner.mjs sessions` → 44/44 passing (speed 93+0.50/turn).
+- **Named omissions:** dodiscovered's "Unique items or Relics" / class / "Discovered items" lines (invent.js `:5379–5433`) and o_init.js doclassdisco / rename_disco still hard-code ATR_INVERSE. They are o_init.c, another C file (review debt 3001–3010).
+- **Ledger:** add_menu_heading ported js=options.js:menu_heading_style
+- **Next:** the regenerated cliffs head (itemactions s772 / slimed_to_death s1003; Rogue-51151031 now at tipcontainer_gettarget s153).
+
 ## D-4185 — priest.c pri_move clears `avoid` for a peaceful priest when the hero is `Invis` (`:205–206`). `Invis` is the youprop.h macro: (HInvis || EInvis) && !BInvis. JS pri_move (shk.js) read the flat `game.u?.Invis`, which nothing writes, so an invisible hero never cleared `avoid`. move_special then skipped every NOTONL square (on a line with the hero). In Moloch's Sanctum the high priest went to (57,13) where C goes to (57,12) on the hero's row. Fifteen steps later a barbed devil's mtrack candidate (57,12) is free in JS and taken in C, so JS draws an extra `rn2(28)` in m_move. Same C file, same idiom: intemple's sanctum-voice test read the flat `u.Hallucination` (`:438`)
 
 - **Status:** shipped.
