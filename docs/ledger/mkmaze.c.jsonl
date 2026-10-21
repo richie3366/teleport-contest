@@ -11,7 +11,7 @@
 {"fn":"maze0xy","c":"309-314","status":"ported","js":["js/mklev.js:maze0xy"],"at":"2026-10-03@bbe63333a"}
 {"fn":"is_exclusion_zone","c":"317-332","status":"ported","js":["js/mklev.js:is_exclusion_zone"],"at":"2026-10-03@bbe63333a"}
 {"fn":"bad_location","c":"341-351","status":"ported","js":["js/mklev.js:bad_location"],"at":"2026-10-03@bbe63333a"}
-{"fn":"place_lregion","c":"356-410","status":"ported","js":["js/mklev.js:place_lregion"],"d":["D-2836","D-2831"],"at":"seed@a30a7de84"}
+{"fn":"place_lregion","c":"356-410","status":"ported","js":["js/mklev.js:place_lregion"],"d":["D-4195","D-2836","D-2831"],"at":"2026-10-21@238c3d4b6"}
 {"fn":"put_lregion_here","c":"413-469","status":"ported","js":["js/mklev.js:put_lregion_here"],"d":["D-2836"],"at":"2026-10-03@bbe63333a"}
 {"fn":"baalz_fixup","c":"475-566","status":"ported","js":["js/mklev.js:baalz_fixup"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fixup_special","c":"570-704","status":"partial","js":["js/mklev.js:fixup_special"],"omit":"The branch fallback still requires `!game.made_branch`.","d":["D-3406","D-2841"],"at":"2026-10-04@44ce1ba38","note":"audited D-3406: remaining omit cannot ship"}

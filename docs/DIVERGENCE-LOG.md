@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-4195 — mkmaze.c place_lregion ends a total failure with `impossible("Couldn't place lregion type %d!", rtype)` (`:409`). C's impossible prints all three lines («…», «Program in disorder!», «Please report these messages…») before place_lregion returns. JS place_lregion is sync and returns its placement Promise for callers to chain, but on failure it called the async impossible() without returning it, so the report floated. The level-teleport caller (u_on_rndspot → goto_level) ran ahead into docrt → cls → more() while the third line was still being printed. That more() ran with the second line's state, and «Please report…» was queued after it and cleared without its --More--
+
+- **Status:** shipped.
+- **Symptom:** scen-worldtour-Archeologist-50056033 step 963 (`^V` level teleport to the Astral Plane, LR_DOWNTELE region type 6 unplaceable): C «Please report these messages to devteam@nethack.org.--More--» vs JS blank row 0, then «Unknown command ' '.» at s964, because the --More-- key fell through to the command loop. Cliffs head row `impossible` (2 screens). In D-4190 this row did not move with the postmov fix: different writer.
+- **Measured (JS, temp logs via runSegment):** both report plines reach putmesg (wasIn 0, window_inited). The `_pending_message` overwrite trap names more() ← cls ← docrt ← goto_level ← deferred_goto. At cls entry the pending text was not yet «Please report», and the last more_wait_keys call carried «Program in disorder!». So the third pline landed after cls had already started: the floating `impossible()` promise.
+- **C locus:** mkmaze.c place_lregion `:356–410` (failure `:409`); pline.c impossible `:584–634`; dungeon.c u_on_rndspot `:1608–1634`; display.c cls `:2189–2202`.
+- **JS was:** js/mklev.js place_lregion tail `impossible("Couldn't place lregion type %d!", rtype);` with no return. Its doc said the failure "does not return that Promise (the message is not the placement result)".
+- **Fix:** `return impossible(...)`. Every caller already chains the return value (`await place_lregion`, `afterPending`, `isThenable`); none tests it as a placed boolean. So u_on_rndspot, fixup_special's place_it/branch, and the special-level loaders now wait for the whole report, as C's synchronous call does. Doc comment updated.
+- **JS:** js/mklev.js place_lregion (doc `:774–779`, failure `:831–832`).
+- **Callers:** unchanged signatures: u_on_rndspot (mklev.js `:746–762`, C dungeon.c:1620/1624/1630), fixup_special place_it/branch (`:2666`, `:2754`, C mkmaze.c:606/645), and the special-level loader lregion arms (`return place_lregion(…)`, chained through isThenable).
+- **Verify:**
+  - `node scripts/verify.mjs --fn impossible,place_lregion --full` → syntax · rule2 · hidden: verify impossible: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-worldtour-Archeologist-50056033: PASS) · reach impossible REACH-OK (24 smoke), place_lregion 433 baseline-PASS reach, 80 spread sample: 80 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 674 baseline-PASS re-run in 145.6s, 0 regressed → REACH-OK.
+- **Named omissions:** none (the LR_BRANCH-with-rooms arm's place_branch is sync, so there is nothing to chain).
+- **Ledger:** place_lregion ported
+- **Next:** the regenerated cliffs head (unattributed scen-sweep-Rogue-51650031 s838 «Since you were in wizard mode…»).
+
 ## D-4194 — o_init.c savenames/restnames write and read every `objects[i]` through `Sfo_objclass`/`Sfi_objclass` (`:387–389`, `:421–423`). In the recorder's historical format that is the whole `struct objclass`, including this variant's shop price-quote memory `oc_sell_minseen/maxseen`, `oc_buy_minseen/maxseen` (objclass.h `:108–111`, written by shk.c record_price_quote). JS savenames kept only the shuffled/discovery fields, so after a save and restore every quoted price was forgotten, and the discoveries list lost its «{buy N}» suffix
 
 - **Status:** shipped.
