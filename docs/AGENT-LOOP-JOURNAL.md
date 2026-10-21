@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — D-4211 options.c doset_add_menu prints every compound option's current value through its optfn get_val (`:9036–9044`). JS doset's compound list still painted three rows from literals: pile_limit «[5]», crash_urlmax «[-1]» and glyph «[(to be done)]». After `O` → pile_limit → «9» the option was stored (optfn_pile_limit is live), but the next `O` menu still showed «o - pile_limit [5]» where C shows «[9]»
+
+**C locus:** options.c doset_add_menu `:9018–9065` (get_val `:9038`, "unknown" unless OK and non-empty `:9043`); optfn_pile_limit get_val `:3430–3432`; optfn_crash_urlmax get_val `:1335`; optfn_glyph get_val `:1841` (to_be_done).
+**JS:** js/options.js doset compound table (`crash_urlmax`, `glyph`, `pile_limit` rows).
+**Change:** the three rows go through doset_compopt_get_val with their live optfns (optfn_pile_limit, optfn_crash_urlmax, optfn_glyph). glyph still prints «(to be done)», now from C's get_val. crash_urlmax now follows an rc `crash_urlmax:` value.
+**Verify:** - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-options-Healer-52451011.session.json` → PASS (RNG 3776/3776, Screen 146/146).
+**Named:** none in the compound table. The set_gameview rows (windowtype … pettype) already route through their optfns.
+**Next:** the regenerated cliffs head (peffect_acid, scen-options-Tourist-52451031).
 ## 2026-10-21 — D-4210 zap.c zapyourself tells every monster that sees the hero about a resistance it just showed. Each resistance arm (force bolt/striking, lightning, fire, cold, magic missile, sleep) calls shieldeff + monstseesu(M_SEEN_x) on a resisted self-zap and monstunseesu(M_SEEN_x) on a felt one (`:2716–2863`). JS had deferred all eighteen calls. So a Valkyrie who zapped a cursed wand of cold at herself («You feel a little chill.») left the watching silver dragon unaware, and 27 steps later the fleeing dragon still counted its frost breath as a ranged attack and breathed instead of retreating
 
 **C locus:** zap.c zapyourself `:2705–3013`: striking `:2716/:2718/:2726`, lightning `:2737/:2739/:2741`, fire `:2757/:2759/:2764`, cold `:2778/:2780/:2785`, magic missile `:2794/:2796/:2800`, sleep `:2855/:2857/:2863`; mondata.c monstseesu `:1558–1568`.

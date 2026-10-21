@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-4211 — options.c doset_add_menu prints every compound option's current value through its optfn get_val (`:9036–9044`). JS doset's compound list still painted three rows from literals: pile_limit «[5]», crash_urlmax «[-1]» and glyph «[(to be done)]». After `O` → pile_limit → «9» the option was stored (optfn_pile_limit is live), but the next `O` menu still showed «o - pile_limit [5]» where C shows «[9]»
+
+- **Status:** shipped (cliffs head; owner use_stethoscope was the region heuristic's painter guess, the row was the `O` menu).
+- **Symptom:** scen-options-Healer-52451011 step 88: menu row 14 C «o - pile_limit              [9]», JS «[5]». RNG fully matched.
+- **Measured / named:** the recipe sets pile_limit to 9 at steps 20–22 (screens match there). js/options.js doset's compound table had `{ name: 'pile_limit', val: '5' }`, so the stored flags.pile_limit was never read back. crash_urlmax and glyph had the same literal shape.
+- **C locus:** options.c doset_add_menu `:9018–9065` (get_val `:9038`, "unknown" unless OK and non-empty `:9043`); optfn_pile_limit get_val `:3430–3432`; optfn_crash_urlmax get_val `:1335`; optfn_glyph get_val `:1841` (to_be_done).
+- **JS was:** literal `val` strings for the three rows, while every neighbour row uses `get_val: () => doset_compopt_get_val(optfn_…)`.
+- **Fix:** the three rows go through doset_compopt_get_val with their live optfns (optfn_pile_limit, optfn_crash_urlmax, optfn_glyph). glyph still prints «(to be done)», now from C's get_val. crash_urlmax now follows an rc `crash_urlmax:` value.
+- **JS:** js/options.js doset compound table (`crash_urlmax`, `glyph`, `pile_limit` rows).
+- **Callers:** unchanged (`O` → doset).
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-options-Healer-52451011.session.json` → PASS (RNG 3776/3776, Screen 146/146).
+  - `node scripts/verify.mjs --fn use_stethoscope,doset_add_menu --full` → `verify use_stethoscope: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach REACH-OK ×2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 674 baseline-PASS re-run in 127.7s, 0 regressed → REACH-OK.
+  - verify use_stethoscope: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in the compound table. The set_gameview rows (windowtype … pettype) already route through their optfns.
+- **Ledger:** doset_add_menu split js=options.js:doset_add_menu+options.js:doset_compopt_get_val+options.js:doset
+- **Next:** the regenerated cliffs head (peffect_acid, scen-options-Tourist-52451031).
+
 ## D-4210 — zap.c zapyourself tells every monster that sees the hero about a resistance it just showed. Each resistance arm (force bolt/striking, lightning, fire, cold, magic missile, sleep) calls shieldeff + monstseesu(M_SEEN_x) on a resisted self-zap and monstunseesu(M_SEEN_x) on a felt one (`:2716–2863`). JS had deferred all eighteen calls. So a Valkyrie who zapped a cursed wand of cold at herself («You feel a little chill.») left the watching silver dragon unaware, and 27 steps later the fleeing dragon still counted its frost breath as a ranged attack and breathed instead of retreating
 
 - **Status:** shipped (cliffs head after Grow #21).

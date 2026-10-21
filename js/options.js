@@ -11653,10 +11653,10 @@ export async function doset() {
             { name: 'boulder', get_val: () => doset_compopt_get_val(optfn_boulder, 'boulder') },
             { name: 'crash_email', get_val: () => doset_compopt_get_val(optfn_crash_email, 'crash_email') || 'unknown' }, // C `:9043` "unknown" unless non-empty
             { name: 'crash_name', get_val: () => doset_compopt_get_val(optfn_crash_name, 'crash_name') || 'unknown' }, // C `:9043` "unknown" unless non-empty
-            { name: 'crash_urlmax', val: '-1' },
+            { name: 'crash_urlmax', get_val: () => doset_compopt_get_val(optfn_crash_urlmax, 'crash_urlmax') }, // C `:9038` → `:1335` gc.crash_urlmax
             { name: 'disclose', get_val: () => doset_compopt_get_val(optfn_disclose, 'disclose'), handler: true },
             { name: 'fruit', get_val: () => doset_compopt_get_val(optfn_fruit, 'fruit') || 'unknown' }, // C `:9043` "unknown" unless non-empty (optfn_fruit get_val `:1770` Sprintfs pl_fruit; was hardcoded 'slime mold')
-            { name: 'glyph', val: '(to be done)' },
+            { name: 'glyph', get_val: () => doset_compopt_get_val(optfn_glyph, 'glyph') }, // C `:9038` → `:1841` to_be_done
             { name: 'hilite_status', get_val: () => doset_compopt_get_val(optfn_hilite_status, 'hilite_status') },
             { name: 'menu_headings', get_val: () => doset_compopt_get_val(optfn_menu_headings, 'menu_headings'), handler: true },
             { name: 'menu_objsyms', get_val: () => doset_compopt_get_val(optfn_menu_objsyms, 'menu_objsyms'), handler: true },
@@ -11673,7 +11673,7 @@ export async function doset() {
             { name: 'petattr', get_val: () => doset_compopt_get_val(optfn_petattr, 'petattr'), handler: true },
             { name: 'pickup_burden', get_val: () => doset_compopt_get_val(optfn_pickup_burden, 'pickup_burden'), handler: true },
             { name: 'pickup_types', get_val: () => doset_compopt_get_val(optfn_pickup_types, 'pickup_types'), handler: true },
-            { name: 'pile_limit', val: '5' },
+            { name: 'pile_limit', get_val: () => doset_compopt_get_val(optfn_pile_limit, 'pile_limit') }, // C `:9038` → optfn_pile_limit `:3430–3432` flags.pile_limit (was a '5' literal)
             { name: 'roguesymset', get_val: () => doset_compopt_get_val(optfn_roguesymset, 'roguesymset'), handler: true }, // C has_handler (optlist.h) → handler_symset
             { name: 'runmode', get_val: () => doset_compopt_get_val(optfn_runmode, 'runmode'), handler: true },
             { name: 'scores', get_val: () => doset_compopt_get_val(optfn_scores, 'scores') },

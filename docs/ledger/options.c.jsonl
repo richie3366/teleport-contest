@@ -201,7 +201,7 @@
 {"fn":"term_for_boolean","c":"8738-8752","status":"ported","js":["js/options.js:term_for_boolean"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"doset","c":"8758-8975","status":"partial","js":["js/options.js:doset"],"d":["D-4169","D-3952","D-3888","D-3678","D-3669","D-3648"],"at":"2026-10-20@2a24f93e8","note":"audited D-3457: remaining omit cannot ship"}
 {"fn":"reset_needed_visuals","c":"8980-9014","status":"ported","js":["js/options.js:reset_needed_visuals"],"d":["D-3069"],"at":"2026-09-28@774d64d58"}
-{"fn":"doset_add_menu","c":"9018-9065","status":"split","js":["js/options.js:doset_add_menu","js/options.js:doset_compopt_get_val","js/options.js:doset"],"d":["D-3121"],"at":"2026-09-29@75eb7fe42"}
+{"fn":"doset_add_menu","c":"9018-9065","status":"split","js":["js/options.js:doset_add_menu","js/options.js:doset_compopt_get_val","js/options.js:doset"],"d":["D-4211","D-3121"],"at":"2026-10-21@0b2c76c03"}
 {"fn":"show_menu_controls","c":"9070-9174","status":"ported","js":["js/dokeylist.js:show_menu_controls"],"at":"2026-09-27@406969f14","note":"stale: js/dokeylist.js:128"}
 {"fn":"count_cond","c":"9179-9188","status":"ported","js":["js/options.js:count_cond"],"d":["D-3159"],"at":"2026-09-30@850d390ba","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"count_apes","c":"9191-9202","status":"ported","js":["js/options.js:count_apes"],"d":["D-3403"],"at":"2026-10-04@7a3ae7a92","note":"audited D-3403: whole vs C"}
