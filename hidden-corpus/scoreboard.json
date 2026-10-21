@@ -1,10 +1,10 @@
 {
- "commit": "7f4e4a57a",
- "at": "2026-10-21T07:04:26.669Z",
- "full": false,
- "fullCommit": "878852b8f",
- "fullAt": "2026-10-20T19:41:16.786Z",
- "entries": 725,
+ "commit": "19efb0b18",
+ "at": "2026-10-21T07:10:20.159Z",
+ "full": true,
+ "fullCommit": "19efb0b18",
+ "fullAt": "2026-10-21T07:10:20.159Z",
+ "entries": 720,
  "reserve": 29,
  "unrecorded": 0,
  "sessions": {
@@ -1776,23 +1776,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-extcmd-Archeologist-51256011": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 10085,
-   "rngT": 10085,
-   "scrM": 724,
-   "scrT": 724,
-   "kind": null,
-   "step": null,
-   "steps": 724,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-extcmd-Archeologist-51257051": {
    "src": "corpus",
    "passed": true,
@@ -1871,23 +1854,6 @@
    "kind": null,
    "step": null,
    "steps": 807,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-extcmd-Ranger-51257069": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 3917,
-   "rngT": 3917,
-   "scrM": 1137,
-   "scrT": 1137,
-   "kind": null,
-   "step": null,
-   "steps": 1137,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -3061,23 +3027,6 @@
    "kind": null,
    "step": null,
    "steps": 15,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
-  "scen-options-Knight-50457009": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 3991,
-   "rngT": 3991,
-   "scrM": 202,
-   "scrT": 202,
-   "kind": null,
-   "step": null,
-   "steps": 202,
    "owner": null,
    "loc": null,
    "jsOwner": null,
@@ -6570,23 +6519,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-sweep-Priest-50750049": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 44211,
-   "rngT": 44211,
-   "scrM": 1300,
-   "scrT": 1300,
-   "kind": null,
-   "step": null,
-   "steps": 1300,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-sweep-Priest-582714": {
    "src": "corpus",
    "passed": true,
@@ -10055,23 +9987,6 @@
    "jsTopline": "",
    "error": null
   },
-  "scen-worldtour-Barbarian-50650080": {
-   "src": "corpus",
-   "passed": true,
-   "rngM": 73175,
-   "rngT": 73175,
-   "scrM": 699,
-   "scrT": 699,
-   "kind": null,
-   "step": null,
-   "steps": 699,
-   "owner": null,
-   "loc": null,
-   "jsOwner": null,
-   "cTopline": "",
-   "jsTopline": "",
-   "error": null
-  },
   "scen-worldtour-Barbarian-578309": {
    "src": "corpus",
    "passed": true,
@@ -12362,5 +12277,7 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "archivedAt": "2026-10-21T07:10:20.500Z",
+ "tieredAt": "2026-10-21T07:10:20.536Z"
 }

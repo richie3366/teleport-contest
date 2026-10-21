@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — audit 3020–3027 @19efb0b18: review D-4180..D-4187 (6A/2D/0Q, 0 Must-fix) + full rescore 667/720 (0 PASS→FAIL)
+
+**Reviews:** D-4180..4182 are the level-audit Must-fix rows F1–F3 (non-RNG, so their verifies are vacuous by construction). level-audit-static section 4 re-run: load_special head 126/126. The owner re-measures (`verify … --base HASH~1 --no-reach`) reproduce every D-log: obj_resists, peace_minded, itemactions PASS; distfleeck moved past (Sanctum row → s838/839, owner null, replayed by the full score); inuse_classify 1 PASS + 1 moved to tipcontainer_gettarget s153. Debt (no session): D-4182 keeps the epilogue tail per loader (named), and load_special_proto's old docblock now sits orphaned above load_special_head (mklev.js:3270–3277). D-4185 leaves shk.js hero_invis (:594) and pay_for_damage's inline flat-Invis (:2253) clones, both named.
+**Rescore:** run in a worktree while a port session was live. `record`: all sessions present. Unfiltered `score` gave 672/696 (672/693 excl. 3 env-only; RNG 99.99 %, screens 100.0 %), 0 PASS→FAIL vs the committed board. `archive` moved 5 PASS out → 667/720, unrecorded 0, reserve 29 → 29.
+**Score:** public 44/44 (792838 RNG, 11405 screens, 99+0.53/turn); held-out 35/44, 10,849 pts (judge 2026-10-21 01:38Z, +0). Ledger snapshot taken. Seeded sample getspell/precheck/litter_scatter/readentry/singplur_compound: 5/5 hold (singplur_compound is flagged THIN at 7 JS lines vs 19 C, but the whole compounds table and loop are there).
+**Next:** Must-fix is empty → the cliffs head.
 ## 2026-10-21 — D-4187 iactions.c itemactions builds the engrave row as "%s on the %s with %s" using `surface(u.ux, u.uy)` (`:439–445`). JS hard-coded "floor", following a stale comment that said surface existed only as four always-"floor" stubs. The whole dungeon.c surface (`:1750–1788`, all arms including On_stairs) has been the sit.js export since D-2008/D-2884. On stairs, an altar, a fountain, ice and so on, the context menu named the wrong surface
 
 **C locus:** iactions.c itemactions `:278–714` (engrave arm `:437–446`); dungeon.c surface `:1750–1788`.
