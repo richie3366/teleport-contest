@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — D-4185 priest.c pri_move clears `avoid` for a peaceful priest when the hero is `Invis` (`:205–206`). `Invis` is the youprop.h macro: (HInvis || EInvis) && !BInvis. JS pri_move (shk.js) read the flat `game.u?.Invis`, which nothing writes, so an invisible hero never cleared `avoid`. move_special then skipped every NOTONL square (on a line with the hero). In Moloch's Sanctum the high priest went to (57,13) where C goes to (57,12) on the hero's row. Fifteen steps later a barbed devil's mtrack candidate (57,12) is free in JS and taken in C, so JS draws an extra `rn2(28)` in m_move. Same C file, same idiom: intemple's sanctum-voice test read the flat `u.Hallucination` (`:438`)
+
+**C locus:** priest.c pri_move `:177–216` (Invis arm `:205–206`), intemple `:410–538` (`:438`); youprop.h Invis / Hallucination; shk.c move_special NOTONL avoid.
+**JS:** js/shk.js pri_move; js/priest.js intemple.
+**Change:** `Invis()` and `Hallucination()` (live youprop exports) at those two sites.
+**Verify:** - `node scripts/verify.mjs --fn distfleeck,pri_move,intemple` → syntax · rule2 · hidden: verify distfleeck: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (scen-sweep-Rogue-51650031: moved to step 838 of 839, RNG 49785/49785; verify labels the owner-null row "js-throw", but `show` has error null) · reach distfleeck 80/80, pri_move 80/80, intemple 14/14 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+**Named:** none in pri_move / intemple. The same flat-Invis idiom remains in shk.c code (shk.js `:594–597` sticky-u.Invis helper, `:2253` inline).
+**Next:** the Rogue session's last screen (step 838): JS row 1 «Since you were in wizard mode, the score list will not be checked.» vs C blank (end.c, a new owner). Otherwise the regenerated cliffs head.
 ## 2026-10-21 — D-4184 sp_lev.c create_monster ends every des.monster with `mtmp->female = m->female`, then a peaceful override plus `set_malign` (`:2125–2129`). load_bar_loca's local placeMon stand-in did neither: it set `mpeaceful = 0` without resetting malign, and kept makemon's random female for class-only specs. Bar-loca's 14 `peaceful=0` ogres (Bar-loca.lua `:80+`) are coaligned with a chaotic Barbarian, so makemon had made them peaceful with malign −9 (`-3*max(3,|−3|)`). Turned hostile, C gives malign 3 and JS kept −9, so killing one cost 12 alignment points
 
 **C locus:** sp_lev.c create_monster `:1925–2187` (tail `:2125–2129`); lspo_monster female default `:3343–3356`; mon.c set_malign; dat/Bar-loca.lua `:80–102`.

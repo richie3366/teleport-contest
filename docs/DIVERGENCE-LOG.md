@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-4185 — priest.c pri_move clears `avoid` for a peaceful priest when the hero is `Invis` (`:205–206`). `Invis` is the youprop.h macro: (HInvis || EInvis) && !BInvis. JS pri_move (shk.js) read the flat `game.u?.Invis`, which nothing writes, so an invisible hero never cleared `avoid`. move_special then skipped every NOTONL square (on a line with the hero). In Moloch's Sanctum the high priest went to (57,13) where C goes to (57,12) on the hero's row. Fifteen steps later a barbed devil's mtrack candidate (57,12) is free in JS and taken in C, so JS draws an extra `rn2(28)` in m_move. Same C file, same idiom: intemple's sanctum-voice test read the flat `u.Hallucination` (`:438`)
+
+- **Status:** shipped.
+- **Symptom:** scen-sweep-Rogue-51650031 step 616 (Dlvl 51 = Gehennom 23, Sanctum; hero blind and invisible). C draws `rn2(5)=2 @ distfleeck`, JS `rn2(28)=21 @ m_move` (mtrack skip). Cliffs head row `distfleeck` (parked SYMPTOM, 218 screens).
+- **Measured (JS, temp dochug/m_move/rn2-stack logs via runSegment):** both C and JS give barbed devil m_id 853 the same draws at step 601: set_apparxy rn2(3), distfleeck, a draw-free m_move 57,12→56,12, then distfleeck. At step 616 its m_move from (56,12) has cnt 7 with (57,12) = mtrack[0] → `rn2(4*(7-0))`. C draws none, so (57,12) is not a candidate in C. The high cleric (peaceful, shrine-adjacent) moves at 601 with C draws rn2(3)=0, rn2(3)=1 → goal (shr.x−1, shr.y). JS sent it to (57,13). JS `avoid` stayed TRUE because `game.u.Invis` is undefined while the hero quaffed invisibility. C state is *inferred* from the absent draw; it was not dumped.
+- **C locus:** priest.c pri_move `:177–216` (Invis arm `:205–206`), intemple `:410–538` (`:438`); youprop.h Invis / Hallucination; shk.c move_special NOTONL avoid.
+- **JS was:** js/shk.js pri_move `} else if (game.u?.Invis) {`; js/priest.js intemple `if (sanctum && !u.Hallucination)`. Both modules already import the live `Invis` (timeout.js, shk.js:131) and `Hallucination` (display.js, priest.js:17).
+- **Fix:** `Invis()` and `Hallucination()` (live youprop exports) at those two sites.
+- **JS:** js/shk.js pri_move; js/priest.js intemple.
+- **Callers:** pri_move ← m_move's shk/gd/priest arm (monmove.js, unchanged). intemple ← check_special_room / spoteffects (unchanged).
+- **Verify:**
+  - `node scripts/verify.mjs --fn distfleeck,pri_move,intemple` → syntax · rule2 · hidden: verify distfleeck: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (scen-sweep-Rogue-51650031: moved to step 838 of 839, RNG 49785/49785; verify labels the owner-null row "js-throw", but `show` has error null) · reach distfleeck 80/80, pri_move 80/80, intemple 14/14 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 670 baseline-PASS re-run in 130.7s, 0 regressed → REACH-OK.
+- **Named omissions:** none in pri_move / intemple. The same flat-Invis idiom remains in shk.c code (shk.js `:594–597` sticky-u.Invis helper, `:2253` inline). That is another C file, so it is left for its own row.
+- **Ledger:** pri_move ported; intemple ported
+- **Next:** the Rogue session's last screen (step 838): JS row 1 «Since you were in wizard mode, the score list will not be checked.» vs C blank (end.c, a new owner). Otherwise the regenerated cliffs head.
+
 ## D-4184 — sp_lev.c create_monster ends every des.monster with `mtmp->female = m->female`, then a peaceful override plus `set_malign` (`:2125–2129`). load_bar_loca's local placeMon stand-in did neither: it set `mpeaceful = 0` without resetting malign, and kept makemon's random female for class-only specs. Bar-loca's 14 `peaceful=0` ogres (Bar-loca.lua `:80+`) are coaligned with a chaotic Barbarian, so makemon had made them peaceful with malign −9 (`-3*max(3,|−3|)`). Turned hostile, C gives malign 3 and JS kept −9, so killing one cost 12 alignment points
 
 - **Status:** shipped.
