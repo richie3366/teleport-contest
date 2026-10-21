@@ -15,7 +15,7 @@
 {"fn":"object_detect","c":"603-789","status":"ported","js":["js/detect.js:object_detect"],"d":["D-3941","D-1782"],"at":"2026-10-14@73801e55a","note":"audit 2026-10-03: display_nhwindow absence arm is a flush; illegal-class impossible silent"}
 {"fn":"monster_detect","c":"798-862","status":"ported","js":["js/detect.js:monster_detect"],"d":["D-3406","D-3404","D-2081"],"at":"2026-10-04@44ce1ba38","note":"audit 2026-10-03: scan/map/sense/browse arms live"}
 {"fn":"sense_trap","c":"865-897","status":"ported","js":["js/detect.js:sense_trap"],"d":["D-1753"],"at":"2026-10-03@bbe63333a"}
-{"fn":"detect_obj_traps","c":"907-953","status":"ported","js":["js/detect.js:detect_obj_traps"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: ft-arm flash_glyph_at/foundone visual-only calls omitted; counts live"}
+{"fn":"detect_obj_traps","c":"907-953","status":"ported","js":["js/detect.js:detect_obj_traps"],"d":["D-4213"],"at":"2026-10-21@d931910c2","note":"audit 2026-10-03: ft-arm flash_glyph_at/foundone visual-only calls omitted; counts live"}
 {"fn":"display_trap_map","c":"956-1003","status":"ported","js":["js/detect.js:display_trap_map"],"d":["D-3769"],"at":"2026-10-10@95e0c2693"}
 {"fn":"trap_detect","c":"1011-1088","status":"ported","js":["js/detect.js:trap_detect"],"at":"2026-10-03@bbe63333a"}
 {"fn":"furniture_detect","c":"1091-1134","status":"ported","js":["js/detect.js:furniture_detect"],"d":["D-3045"],"at":"2026-09-28@25bf764f0"}

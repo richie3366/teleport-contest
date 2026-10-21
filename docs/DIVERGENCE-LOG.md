@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-4213 — detect.c detect_obj_traps, called by findone for each square of a #wizdetect / wand-of-secret-door-detection sweep, flashes the TRAPPED_CHEST glyph and then calls foundone for every trapped box it finds (`:937–947`). foundone's in-sight newsym shows what lies on the square: the box «(», not the trap. JS had dropped both calls as a named omit and kept only sense_trap, so the square was left as the sensed trap «^» where C draws «(»
+
+- **Status:** shipped (cliffs head after Grow #22).
+- **Symptom:** scen-extcmd-Archeologist-52650042 step 387 (`#wizdetect`, «You reveal a trap!»): map row 5 C «│·(·│», JS «│·^·│». 9.8k RNG draws and 593 screens lost after.
+- **Measured / named:** a temporary log in JS foundone never fired during the sweep, although num_traps was 1, so the trap came from detect_obj_traps (a trapped box), not findone's t_at arm. JS detect_obj_traps had «flash_glyph_at / foundone when ft non-null named omit».
+- **C locus:** detect.c detect_obj_traps `:906–953` (trapglyph `:923`, flash `:937–939`, sense_trap `:940–943`, foundone + num_traps `:944–947`); foundone `:1610–1622`.
+- **JS was:** js/detect.js detect_obj_traps (sync) kept tknown/observe/result/sense_trap/num_traps only.
+- **Fix:** restarted in C order. trapglyph = trap_to_glyph(TRAPPED_CHEST) when ft is set, then `await flash_glyph_at` and foundone at C's positions. The function is now async, and all 13 call sites (findone ×4, display_trap_map ×4, trap_detect ×4, the contents recursion) await it. All are already in async functions in detect.js, and there are no other callers.
+- **JS:** js/detect.js detect_obj_traps `:2350–2398` and its call sites.
+- **Callers:** findone (`:643–646`), display_trap_map, trap_detect: all wired as before, now awaited.
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-extcmd-Archeologist-52650042.session.json` → PASS (RNG 13679/13679, Screen 1012/1012).
+  - `node scripts/verify.mjs --fn findit,detect_obj_traps --full` → `verify findit: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach REACH-OK ×2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 676 baseline-PASS re-run in 132.5s, 0 regressed → REACH-OK.
+  - verify findit: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none.
+- **Ledger:** detect_obj_traps ported
+- **Next:** cliffs empty again; the next slot is a grow.
+
 ## D-4212 — optlist.h stores the `safe_pet` boolean in flags.safe_dog (`:633–634`), and display.h is_safemon reads flags.safe_dog (`:159–161`). JS doset's boolean address map (DOSET_BOOL_ADDR) wrote `O`-menu toggles of safe_pet to a phantom flags.safe_pet that nothing reads. So after `O` turned safe_pet off, travelling onto the adjacent tame dog still treated it as safe: the run check in domove_core did not stop the hero, and domove_bump_mon printed «Pardon me, little dog.» where C stops silently and keeps «tame little dog» from getpos. The same map put eight_bit_tty in a phantom iflags.eight_bit_tty instead of C's iflags.wc_eight_bit_input (flag.h `:505`)
 
 - **Status:** shipped (cliffs head; owner peffect_acid was the message-owner guess).

@@ -140,7 +140,6 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `detect.c` findit — blocks 1/709 corpus sessions (first at step 387; RNG lost 9790, screens lost 593): toplines identical; first differing screen row 5: C «│·(·│» vs JS «│·^·│» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify findit` (scen-extcmd-Archeologist-52650042). @c085e5ef5 **[history: ledger: ported — read that D-entry once; the arm this divergence names is still open]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)
