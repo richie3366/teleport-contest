@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-4208 — hack.c moverock_core's m<dir>/travel arm (context.nopick) spends a turn on «There is a boulder in your way.» only when feeling the boulder changed `glyph_at(sx, sy)`, the gbuf glyph int (`:386–411`). JS compared a fingerprint string (glyph_at_fp) that also carried the remembered glyph's colour, which feel_location rewrites (8 → 7) while C's gbuf glyph stays the same. A blind hero travelling into a boulder therefore spent a turn on the first bump where C spends none, so the monster pass ran one hero move early. The set_apparxy draw it blocked was only the symptom
+
+- **Status:** shipped.
+- **Symptom:** scen-shop-Barbarian-49959679 step 936 (cliffs head, owner set_apparxy): C `rn2(3)=0` in set_apparxy, JS `rn2(5)=1` in distfleeck. Screens matched (screens lost 0, RNG lost 1954).
+- **Measured / named:** JS RNG log interleaved with set_apparxy calls: the divergent call is hill orc #240's dochug set_apparxy, where JS mux,muy = the hero's (58,14), so the u_at early return makes no draw. An accessor on its mux/muy showed set_apparxy itself as the only writer, at matched draws. A domove/movemon trace then showed that the RNG stream matched but its step boundaries did not. JS's travel at step 932 spent a turn on the boulder bump at moves 508 (80 draws). C's step 932 ends at 66770 with the message and no turn, and those 80 draws are C's step 934. The monster pass that C runs after the hero's step-936 `y` move to (57,13) therefore ran in JS with the hero still at (58,14). A temporary log at the in-way arm showed the first bump's fingerprint differ only in the remembered glyph's colour (`… \` 8 0` → `… \` 7 0`).
+- **C locus:** hack.c moverock_core `:386–411` (`oldglyph = glyph_at(sx, sy)` before feel_location; `if (glyph_at(sx, sy) != oldglyph) door_opened = move = TRUE`); display.c glyph_at = gg.gbuf glyph. domove_core `:2843–2847` keeps the move only with door_opened.
+- **JS was:** js/hack.js moverock_core compared `glyph_at_fp`: a string of disp_ch/colour/decgfx/attr **plus** remembered_glyph ch/colour/invisible, built on the premise "JS has no integer glyph IDs". The live display.js glyph_at (D-1767, the gbuf disp_glyph int) already existed and is used two functions below (glyph_to_obj_is_boulder).
+- **Fix:** both sites read `glyph_at(sx, sy)`, the gbuf glyph int, as C does. glyph_at_fp had no other caller and is deleted.
+- **JS:** js/hack.js moverock_core nopick arm `:930–953`; glyph_at_fp removed.
+- **Callers:** unchanged (moverock ← test_move DO_MOVE ← domove).
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-shop-Barbarian-49959679.session.json` → PASS (RNG 69014/69014, Screen 961/961).
+  - `node scripts/verify.mjs --fn set_apparxy,moverock_core --full` → syntax · rule2 · `verify set_apparxy: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach set_apparxy 80/104 sampled, 0 regressed · reach moverock_core REACH-OK (24 smoke) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 672 baseline-PASS re-run in 131.2s, 0 regressed → REACH-OK.
+  - verify set_apparxy: 1 PASS, 0 moved, 0 no-movement.
+  - D-4207 sweep, run after its commit: `hidden-proxy.mjs sweep moveloop_core` on 63129c79d → 672 baseline-PASS, 0 regressed → REACH-OK.
+- **Named omissions:** none in the nopick arm. The rest of moverock_core is unchanged (ledger ported, D-4105).
+- **Ledger:** moverock_core ported
+- **Next:** the cliffs block is empty after this, so the next slot is a grow (§10.19–20).
+
 ## D-4207 — mondata.c can_blnd refuses a raven's blinding when both attacker and defender are ravens (`:323–328`, «corvus oculum corvi non eruit»). JS built the comparand with `mons(PM_RAVEN)`, which returns a fresh record on every call, so `magr.data === raven` was never true. A hero polymorphed into a raven therefore took the raven's AD_BLND claw: +3 Blinded turns that C never adds, which surfaced 130 steps later as «You were temporarily blind (106).» in the final disclosure where C prints 103
 
 - **Status:** shipped.
