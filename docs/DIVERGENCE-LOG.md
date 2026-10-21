@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-4184 — sp_lev.c create_monster ends every des.monster with `mtmp->female = m->female`, then a peaceful override plus `set_malign` (`:2125–2129`). load_bar_loca's local placeMon stand-in did neither: it set `mpeaceful = 0` without resetting malign, and kept makemon's random female for class-only specs. Bar-loca's 14 `peaceful=0` ogres (Bar-loca.lua `:80+`) are coaligned with a chaotic Barbarian, so makemon had made them peaceful with malign −9 (`-3*max(3,|−3|)`). Turned hostile, C gives malign 3 and JS kept −9, so killing one cost 12 alignment points
+
+- **Status:** shipped.
+- **Symptom:** scen-questwalk-Barbarian-51660025 step 230 (Bar-loca, "Home 3"). C draws `rn2(19)` in peace_minded (makemon.c:2306, `16 + u.ualign.record` → record 3), JS draws `rn2(7)` (record −9). Cliffs head row `peace_minded` (260 screens lost).
+- **Measured (JS, temp `__WATCH`/adjalign/xkilled hooks via runSegment):** record 10 → −5 at step 162 (pet killed, −15; C prints the same thunder, screens match) → −14 at step 193 (`adjalign(malign)` = −9 for ogre m_id 143, mpeaceful 0) → −9 at step 221 (+5 ochre jelly). The ogre is `peace=0 malign=−9` from its first step on the level. C's 3 = −5 + 3 + 5: the same kills, with malign 3 for the hostile coaligned ogre. C state is *inferred* from the RNG argument; it was not dumped.
+- **C locus:** sp_lev.c create_monster `:1925–2187` (tail `:2125–2129`); lspo_monster female default `:3343–3356`; mon.c set_malign; dat/Bar-loca.lua `:80–102`.
+- **JS was:** js/mklev.js load_bar_loca `placeMon`: `if (spec.id) mtmp.female = female;` and `mtmp.mpeaceful = spec.peaceful` with no set_malign. Every other loader site that overrides mpeaceful already calls set_malign (grep of `mpeaceful =` in mklev.js: bar_strt, wiz_strt ×2, kni_goal, earth, minetn_1, tut1, splev_create_monster, mk_roamer, zoo/court).
+- **Fix:** placeMon writes `mtmp.female = female` always (0 for class specs, as C `:3355–3356`), and wraps the peaceful override with `set_malign(mtmp)` (C `:2128–2129`).
+- **JS:** js/mklev.js load_bar_loca placeMon.
+- **Callers:** placeMon ← load_bar_loca (14 ogres, O, 2×T, 7 rock trolls) ← load_special_proto ← makemaz (unchanged).
+- **Verify:**
+  - `node scripts/verify.mjs --fn peace_minded,create_monster` → syntax · rule2 · hidden: verify peace_minded: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-questwalk-Barbarian-51660025: PASS) · reach peace_minded 80/80 REACH-OK · reach create_monster 23/23 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 669 baseline-PASS re-run in 126.8s, 0 regressed → REACH-OK.
+- **Named omissions:** placeMon is still a stand-in for create_monster. Its asleep / name / appear / amask arms are unused by Bar-loca.lua, which sets only id/class, coord and peaceful.
+- **Ledger:** create_monster split js=mklev.js:splev_create_monster+mklev.js:l_create_monster
+- **Next:** the Open — cliffs head after regeneration (distfleeck, scen-sweep-Rogue-51650031 s616).
+
 ## D-4183 — sp_lev.c lspo_engraving always ends by writing `ep->guardobjects = guardobjs` (`:3930–3934`). That value is FALSE unless the Lua table names `guardobjects`, and no dat/*.lua does. This undoes make_engr_at's in_mklev rule that a level-gen "Elbereth" guards objects (engrave.c:446–447). Four hand-written JS loaders (Mon-loca, soko1-1, soko1-2, castle) called make_engr_at directly and skipped that tail. Their Elbereth kept guardobjects=1, so onscary() made the square scary while an object lay on it. Mon-loca.lua's own comment says the Elbereth is "a modest effort to prevent xorns from eating the tins". In C the effort fails, and a xorn walks onto the spinach tins and eats them
 
 - **Status:** shipped.

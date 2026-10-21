@@ -13980,10 +13980,15 @@ function load_bar_loca() {
         }
         const mtmp = makemon(pm, x, y, 0);
         if (!mtmp) return;
-        if (spec.id) mtmp.female = female;
-        // C: peaceful > BOOL_RANDOM → override (0 here)
-        if (spec.peaceful != null && spec.peaceful > BOOL_RANDOM)
+        // C sp_lev.c create_monster :2125 — mtmp->female = m->female for every
+        // spec; a class-only spec keeps lspo_monster's 0 (:3355–3356).
+        mtmp.female = female;
+        // C :2126–2129 — peaceful > BOOL_RANDOM → override (0 here), then
+        // set_malign: makemon's malign was computed for the old mpeaceful
+        if (spec.peaceful != null && spec.peaceful > BOOL_RANDOM) {
             mtmp.mpeaceful = spec.peaceful;
+            set_malign(mtmp);
+        }
     };
 
     for (const [rx, ry] of [
