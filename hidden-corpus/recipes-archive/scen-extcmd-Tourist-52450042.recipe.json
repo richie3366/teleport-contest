@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of reflection\nPo\u0017blessed +3 silver dragon scale mail\nWp\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007gnome lord\n#overview\n\u001b#conduct\n #annotate\nshiny\n\u000f\u001b#dip\nki#offer\n#pray\ny y  #chat\nu#jump\n#polyself\npurple worm\n 20ssbFl Fu  jkna_ \u001b>.#vanquished\n #genocided\nlarge mimic\n#annotate\n\u001b\u000f\u001b#name\nd\n#adjust\nr\u001b#chat\n#turn\n#levelchange\n4\n   hyk\u0016?\n>v \u0006\u0007hobbit\n#chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y          #wizmap\n\u0006Fl    Fh   s20s _>.\u0007sewer rat\n#version\n  #history\n                  \u000f\u001b#wipe\n  #loot\n#chat\n#chat\n#polyself\nfire giant\n#monster\n.m.  snFh Fh  Fb Fh   Fb  Fb   __, Fh  _.  n   Fb #chat\nh   \u0007dwarf\n#overview\n\u001b#conduct\n #annotate\nshiny\n\u0018\u001b#tip\n\u001b#ride\nly#turn\n#sit\n   n    n\u001612\n #wizintrinsic\na\n Fy Fy  nFy_<,\u0007jackal\n#vanquished\n #genoc"
+ },
+ "segments": [
+  {
+   "seed": 52450042,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of reflection\nPo\u0017blessed +3 silver dragon scale mail\nWp\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007gnome lord\n#overview\n\u001b#conduct\n #annotate\nshiny\n\u000f\u001b#dip\nki#offer\n#pray\ny y  #chat\nu#jump\n#polyself\npurple worm\n 20ssbFl Fu  jkna_ \u001b>.#vanquished\n #genocided\nlarge mimic\n#annotate\n\u001b\u000f\u001b#name\nd\n#adjust\nr\u001b#chat\n#turn\n#levelchange\n4\n   hyk\u0016?\n>v \u0006\u0007hobbit\n#chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y          #wizmap\n\u0006Fl    Fh   s20s _>.\u0007sewer rat\n#version\n  #history\n                  \u000f\u001b#wipe\n  #loot\n#chat\n#chat\n#polyself\nfire giant\n#monster\n.m.  snFh Fh  Fb Fh   Fb  Fb   __, Fh  _.  n   Fb #chat\nh   \u0007dwarf\n#overview\n\u001b#conduct\n #annotate\nshiny\n\u0018\u001b#tip\n\u001b#ride\nly#turn\n#sit\n   n    n\u001612\n #wizintrinsic\na\n Fy Fy  nFy_<,\u0007jackal\n#vanquished\n #genoc"
+  }
+ ]
+}

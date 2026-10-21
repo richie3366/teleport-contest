@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017blessed ring of polymorph control\nPil#polyself\nlurker above\n #monster\n.s.20ss#polyself\nlizard\n #monster\nsn sm.\u0007kobold shaman\nFl  Fk  Fl  .u   .m.20s  #polyself\nsandestin\n werejackal\n captain\n pyrolisk\n sl   sjsj  sm..m.#polyself\nhuman\n#monster\n.ysk\u0007Croesus\nyFh  Fn Fh .y20s sm.  n  "
+ },
+ "segments": [
+  {
+   "seed": 52452019,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017blessed ring of polymorph control\nPil#polyself\nlurker above\n #monster\n.s.20ss#polyself\nlizard\n #monster\nsn sm.\u0007kobold shaman\nFl  Fk  Fl  .u   .m.20s  #polyself\nsandestin\n werejackal\n captain\n pyrolisk\n sl   sjsj  sm..m.#polyself\nhuman\n#monster\n.ysk\u0007Croesus\nyFh  Fn Fh .y20s sm.  n  "
+  }
+ ]
+}

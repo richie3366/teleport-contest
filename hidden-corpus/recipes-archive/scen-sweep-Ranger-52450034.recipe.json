@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0007jackal\n20s shsh.jss.s\u0007minotaur\nsl..m.20s   n\u0007nurse\nsb20s sm.  n sk sm.   n .m.sm.   n .m. sm.   n \u0007elf-lord\nsm. sl sm.  n 20s \u001611\nhuuj\u0017fountain\nqyqy#dip\nayu\u0017chaotic altar\ndbde\u0017lichen corpse\n#offer\ng #pray\ny y : lb\u0017altar\ndf\u0017elf corpse\n #offer\nh  l\u0017sink\nqy\u0017ring of polymorph\ndi  \u001bu\u0004b \u0004b :20s E- Elbereth Elbereth\n#force\n\u0017blessed +3 silver dagger\n\u0007Demogorgon\nywjFl FbFb      X\u00173 splash of acid venom\n\u0007raven\n20s  \u0017scroll of charging\n\u0007elf-lord\nrlFu       Fjsk20s  n#wizintrinsic\nmj\n \u0017cream pie\nemE- X marks the spot\n\u0017cursed wand of stasis\nznzns20s20s\u0017locked large box\n\u0017wand of cancellation\n\u0017scroll of earth\n\u0017touchstone\nao\u0017mace\nwsdo#force\ny .s.apy  \u0017mace\nwtdr#force\ny   n  sks.l anan\\  bk\u0017wand of light\nEu I am a fish\n\u0017wand of secret door detection\nEv ad aerarium\nj\u0017wand of polymorph\nEw X marks the spot\n:   n \u0017wand of make invisible\nEx Elbereth Elbereth\n:      n\u0017wand of cold\nEy X marks the spot\n: E- I am a fish\n\u0007gnome lord\n20sssFbFbyh\u0017wand of locking\nEz I am a fish\n: \u0017wand of cancellation\nEA Elbereth Elbereth\n  n \u0017ruby\nEB I am a fish\n  :  h\u0017wand of polymorph\nEC I am a fish\n   n  :     n \u0017wand of create monster\nEDgas spore\n Elbereth\n\u00161\n#levelchange\n12\n    #wizintrinsic\nc\n 20s20s20ssm.sss.m..m.sm.sm.ss.b   n #conduct\n ,: PeW20s  20s  n  n 20s  yy\u001by   y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 52450034,
+   "datetime": "20051215124035",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0007jackal\n20s shsh.jss.s\u0007minotaur\nsl..m.20s   n\u0007nurse\nsb20s sm.  n sk sm.   n .m.sm.   n .m. sm.   n \u0007elf-lord\nsm. sl sm.  n 20s \u001611\nhuuj\u0017fountain\nqyqy#dip\nayu\u0017chaotic altar\ndbde\u0017lichen corpse\n#offer\ng #pray\ny y : lb\u0017altar\ndf\u0017elf corpse\n #offer\nh  l\u0017sink\nqy\u0017ring of polymorph\ndi  \u001bu\u0004b \u0004b :20s E- Elbereth Elbereth\n#force\n\u0017blessed +3 silver dagger\n\u0007Demogorgon\nywjFl FbFb      X\u00173 splash of acid venom\n\u0007raven\n20s  \u0017scroll of charging\n\u0007elf-lord\nrlFu       Fjsk20s  n#wizintrinsic\nmj\n \u0017cream pie\nemE- X marks the spot\n\u0017cursed wand of stasis\nznzns20s20s\u0017locked large box\n\u0017wand of cancellation\n\u0017scroll of earth\n\u0017touchstone\nao\u0017mace\nwsdo#force\ny .s.apy  \u0017mace\nwtdr#force\ny   n  sks.l anan\\  bk\u0017wand of light\nEu I am a fish\n\u0017wand of secret door detection\nEv ad aerarium\nj\u0017wand of polymorph\nEw X marks the spot\n:   n \u0017wand of make invisible\nEx Elbereth Elbereth\n:      n\u0017wand of cold\nEy X marks the spot\n: E- I am a fish\n\u0007gnome lord\n20sssFbFbyh\u0017wand of locking\nEz I am a fish\n: \u0017wand of cancellation\nEA Elbereth Elbereth\n  n \u0017ruby\nEB I am a fish\n  :  h\u0017wand of polymorph\nEC I am a fish\n   n  :     n \u0017wand of create monster\nEDgas spore\n Elbereth\n\u00161\n#levelchange\n12\n    #wizintrinsic\nc\n 20s20s20ssm.sss.m..m.sm.sm.ss.b   n #conduct\n ,: PeW20s  20s  n  n 20s  yy\u001by   y y y\u001by  s"
+  }
+ ]
+}

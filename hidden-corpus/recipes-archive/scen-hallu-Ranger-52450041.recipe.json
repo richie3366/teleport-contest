@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWg   \u0017blessed magic harp\n\u0017blessed amulet of life saving\nPi  \u0017blessed magic lamp\n\u0017blessed +3 helm of telepathy\nWk\u0017blessed 20 daggers\nQl#levelchange\n14\n             #wizintrinsic\nh\n \u0017scroll of earth\nrm  \u0007sewer rat\n\u0007kobold\nFuFh Fk Fyss\u0017blessed scroll of earth\nrn \u0017lembas wafer\neo  #wizintrinsic\nh\n\u0017blessed scroll of earth\nrp \u0017glob of green slime\neq  y \u0007acid blob\n\u0007soldier\nFb sj20ssm.\u001615\n    \u0004h#wizintrinsic\nh\nfhfhtlh#invoke\n\u001b\u0007yellow mold\nFjsm.20s           Fh Fh \u0017wand of magic missile\nzrh zrhzrh \u0017blessed scroll of identify\nrs l\n \u001b#wizintrinsic\nh\ni\u001bb  n  byk\u0017blessed spellbook of cone of cold\nrt .m.Z:\u0016?\n>A  hhhhl:20s    n  s20s\u0017wand of striking\nzul z"
+ },
+ "segments": [
+  {
+   "seed": 52450041,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed +3 speed boots\nWg   \u0017blessed magic harp\n\u0017blessed amulet of life saving\nPi  \u0017blessed magic lamp\n\u0017blessed +3 helm of telepathy\nWk\u0017blessed 20 daggers\nQl#levelchange\n14\n             #wizintrinsic\nh\n \u0017scroll of earth\nrm  \u0007sewer rat\n\u0007kobold\nFuFh Fk Fyss\u0017blessed scroll of earth\nrn \u0017lembas wafer\neo  #wizintrinsic\nh\n\u0017blessed scroll of earth\nrp \u0017glob of green slime\neq  y \u0007acid blob\n\u0007soldier\nFb sj20ssm.\u001615\n    \u0004h#wizintrinsic\nh\nfhfhtlh#invoke\n\u001b\u0007yellow mold\nFjsm.20s           Fh Fh \u0017wand of magic missile\nzrh zrhzrh \u0017blessed scroll of identify\nrs l\n \u001b#wizintrinsic\nh\ni\u001bb  n  byk\u0017blessed spellbook of cone of cold\nrt .m.Z:\u0016?\n>A  hhhhl:20s    n  s20s\u0017wand of striking\nzul z"
+  }
+ ]
+}

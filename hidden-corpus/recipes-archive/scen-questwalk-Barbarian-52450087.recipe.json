@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPh\u0017blessed Mjollnir\nwi\u0016?\n>z  _ \u001b.>\u0006khbhlu     bh\u00163\n\u0006_<,  n  Fn   _.  n  Fn    n\u00164\n\u00164\n\u0006_m,Fu_.Fk  Fk Fu 20s.s\u00165\n\u0006ublkbklj\u00166\n  \u0006#chat\nl;l:  \u00162\n\u0006_mm.  Fh_.Fh Fk Fk Fk Fk Fk \u00163\n \u0006blb\u00164\n\u0006_>.  \u001b_.:Fy\u00165\n\u0006_<.Fl _,   Fb   n\u00166\n \u0006_<,_,.\u00162\n\u0006#chat\nh;m.\u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z_>,>\u0016?\n>z\u0006_mm...20sss._>._,@.>\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006,_>._,m,>\u0016?\n>z\u0006_mmmm.ss20s20s. \u0016?\n>>\u001b\u0016?\n>y#chat\nj\u0016?\n>z\u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006ljhk\u00164\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00165\n\u0016?\n>z\u0006_>. Fj   _.  Fu      n\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006#chat\nj   ;u;_>.Fj   _.    n  Fn   >\u0016?\n>z\u0006l    n    n bj  k  \u0016?\n>>\u001b\u0016?\n>y#chat\nl\u0016?\n>z\u001610\n\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_m. Fu    n_,Fu   FjFl  Fj Fk Fj \u00163\n\u0016?\n>z\u0006#chat\nj;_.\u0016?\n>>\u001b\u0016?\n>y#chat\nn\u0016?\n>z\u00164\n\u0016?\n>z\u0006huy  lkh j \u0016?\n>>\u001b\u0016?\n>y#chat\nj    n\u0016?\n>z_>. Fl    _.Fl >\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_mmm,_.s"
+ },
+ "segments": [
+  {
+   "seed": 52450087,
+   "datetime": "20181014222026",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPh\u0017blessed Mjollnir\nwi\u0016?\n>z  _ \u001b.>\u0006khbhlu     bh\u00163\n\u0006_<,  n  Fn   _.  n  Fn    n\u00164\n\u00164\n\u0006_m,Fu_.Fk  Fk Fu 20s.s\u00165\n\u0006ublkbklj\u00166\n  \u0006#chat\nl;l:  \u00162\n\u0006_mm.  Fh_.Fh Fk Fk Fk Fk Fk \u00163\n \u0006blb\u00164\n\u0006_>.  \u001b_.:Fy\u00165\n\u0006_<.Fl _,   Fb   n\u00166\n \u0006_<,_,.\u00162\n\u0006#chat\nh;m.\u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z_>,>\u0016?\n>z\u0006_mm...20sss._>._,@.>\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006,_>._,m,>\u0016?\n>z\u0006_mmmm.ss20s20s. \u0016?\n>>\u001b\u0016?\n>y#chat\nj\u0016?\n>z\u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006ljhk\u00164\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00165\n\u0016?\n>z\u0006_>. Fj   _.  Fu      n\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006#chat\nj   ;u;_>.Fj   _.    n  Fn   >\u0016?\n>z\u0006l    n    n bj  k  \u0016?\n>>\u001b\u0016?\n>y#chat\nl\u0016?\n>z\u001610\n\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_m. Fu    n_,Fu   FjFl  Fj Fk Fj \u00163\n\u0016?\n>z\u0006#chat\nj;_.\u0016?\n>>\u001b\u0016?\n>y#chat\nn\u0016?\n>z\u00164\n\u0016?\n>z\u0006huy  lkh j \u0016?\n>>\u001b\u0016?\n>y#chat\nj    n\u0016?\n>z_>. Fl    _.Fl >\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_mmm,_.s"
+  }
+ ]
+}

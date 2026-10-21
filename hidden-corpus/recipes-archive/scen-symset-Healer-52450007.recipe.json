@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "mO>l\u001b\n mO>>g\u001b\n\u001616\n\u00166\nFjFuFkFhFlFkFyFhFyFkFlFhFhFuFnFjFhFuFj  nFlFnFnFkFhFlFnFyFyFuFlFjFnFlFhFuFyFbFlFnFhFjFbFjFlFuFyFbFnFyFhFuFnFbFyFjFnFnFnFjFyFnFuFbFnFlFhFyFjFyFkFyFuFlFuFyFlFjFkFuFnFuFuFlFjFhFuFyFlFkFhFbFuFbFbFkFkFbFbFhFkFjFyFnFhFhFyFuFbFnFuFbFlFhFkFnFlFnFnFhFbE- X marks the spot\nLO>c\u001b\n\u001615\n   \u0006_ \u001b>.>FnFu_>>,Fu_.Fk>FyFl_>>.Fl_.Fl>FlFkFkFuFy\u0006_>.Fl_.Fy>FlFu_>.Fk_.Fk>FnFn_>.Fy_,Fk>FlFlFbFnFkzguck\u0006_>.Fy_,Fy>FlFk_>.Fh_.Fb>FyFl_>.Fu_,Fb>FnFyFhFuFu\u0006_>.Fu_.Fk>FhFn_>.Fh_.Fk>FkFh_>,Fk_,Fu>FnFlFuFnFk\u000f\u001bek#tip\n\u001b\u001bv i\u001b\u0006_>.Fk_.Fh>FyFh_>.Fk_.Fy>FyFb_>.Fn_.Fn>FuFuFbFbFn<ol\u0006_>.Fu_.Fh>FuFb_>.Fy_.Fl>FyFh_>.Fn_,Fu>FuFnFkFhFn\u0006_>.Fh_.Fl>FkFh_>,Fn   n_,   nFk "
+ },
+ "segments": [
+  {
+   "seed": 52450007,
+   "datetime": "20190103005908",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "mO>l\u001b\n mO>>g\u001b\n\u001616\n\u00166\nFjFuFkFhFlFkFyFhFyFkFlFhFhFuFnFjFhFuFj  nFlFnFnFkFhFlFnFyFyFuFlFjFnFlFhFuFyFbFlFnFhFjFbFjFlFuFyFbFnFyFhFuFnFbFyFjFnFnFnFjFyFnFuFbFnFlFhFyFjFyFkFyFuFlFuFyFlFjFkFuFnFuFuFlFjFhFuFyFlFkFhFbFuFbFbFkFkFbFbFhFkFjFyFnFhFhFyFuFbFnFuFbFlFhFkFnFlFnFnFhFbE- X marks the spot\nLO>c\u001b\n\u001615\n   \u0006_ \u001b>.>FnFu_>>,Fu_.Fk>FyFl_>>.Fl_.Fl>FlFkFkFuFy\u0006_>.Fl_.Fy>FlFu_>.Fk_.Fk>FnFn_>.Fy_,Fk>FlFlFbFnFkzguck\u0006_>.Fy_,Fy>FlFk_>.Fh_.Fb>FyFl_>.Fu_,Fb>FnFyFhFuFu\u0006_>.Fu_.Fk>FhFn_>.Fh_.Fk>FkFh_>,Fk_,Fu>FnFlFuFnFk\u000f\u001bek#tip\n\u001b\u001bv i\u001b\u0006_>.Fk_.Fh>FyFh_>.Fk_.Fy>FyFb_>.Fn_.Fn>FuFuFbFbFn<ol\u0006_>.Fu_.Fh>FuFb_>.Fy_.Fl>FyFh_>.Fn_,Fu>FuFnFkFhFn\u0006_>.Fh_.Fl>FkFh_>,Fn   n_,   nFk "
+  }
+ ]
+}

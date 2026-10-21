@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 helm of telepathy\nWk\u0017blessed amulet of life saving\nPl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                      \u0007hobbit\n_ \u001bm,,#overview\n\u001b#conduct\n \u0018\u001b#dip\nld#offer\n#pray\ny y     #chat\nk#wizidentify\n\u001bFk  Fu.20s__,#chat\nu#vanquished\n #genocided\npyrolisk\nyy#annotate\nshiny\n\u0018\u001b#name\nd\n#adjust\nl\u001b#chat\nn#turn\n#jump\n#wizidentify\n\u001bulh_{,qd\u0007owlbear\n#chronicle\n  #terrain\n\u001b#annotate\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y    #wizintrinsic\nq\n FlFl__,#chat\nl\u0007kobold shaman\n#version\n  #history\n                  \u000f\u001b#wipe\n #loot\nl#chat\nh#chat\nh #wizintrinsic\nfa\n Fl Fh\u001624\n\u0006#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nky#turn\n#sit\n#wizintrinsic\ns\n ln"
+ },
+ "segments": [
+  {
+   "seed": 52450009,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 helm of telepathy\nWk\u0017blessed amulet of life saving\nPl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                      \u0007hobbit\n_ \u001bm,,#overview\n\u001b#conduct\n \u0018\u001b#dip\nld#offer\n#pray\ny y     #chat\nk#wizidentify\n\u001bFk  Fu.20s__,#chat\nu#vanquished\n #genocided\npyrolisk\nyy#annotate\nshiny\n\u0018\u001b#name\nd\n#adjust\nl\u001b#chat\nn#turn\n#jump\n#wizidentify\n\u001bulh_{,qd\u0007owlbear\n#chronicle\n  #terrain\n\u001b#annotate\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y    #wizintrinsic\nq\n FlFl__,#chat\nl\u0007kobold shaman\n#version\n  #history\n                  \u000f\u001b#wipe\n #loot\nl#chat\nh#chat\nh #wizintrinsic\nfa\n Fl Fh\u001624\n\u0006#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nky#turn\n#sit\n#wizintrinsic\ns\n ln"
+  }
+ ]
+}

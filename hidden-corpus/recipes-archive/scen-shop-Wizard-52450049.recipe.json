@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed amulet of life saving\nPq\u0017blessed +3 speed boots\nWr\u0016?\n>w\u0006_ \u001b<.#chat\nbylh#chat\nb\u00167\nylh\u0016?\n>w\u0006_oooooo.,\u0014@.20ssm.__.Fk_,Fh#chat\nk__,Fb_,Fj#chat\nb   __, Fb_.  nFk#chat\nh#pray\ny y       _{, Fh    n _.qh  n \u00164\n_ooooooo,_.,b\ny    p_oo.,a\n    n#chat\nl  n    n \u001610\nk y   nk#chat\nk_oooo.,   n$_oooo,,:_oooooo.,\u0017amulet of life saving\ndv    n    n\u00161\njhn#chat\nh_oooooooo._._o.Fl _,,:\u0016?\nclbu\u0016?\n>w\u0006jky#chat\nbkhl#chat\nb    n _oooo,_o,  Fb     n_.    n Fh   n  ,\u0017amulet of change\ndw   n    yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 52450049,
+   "datetime": "20170820013111",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed amulet of life saving\nPq\u0017blessed +3 speed boots\nWr\u0016?\n>w\u0006_ \u001b<.#chat\nbylh#chat\nb\u00167\nylh\u0016?\n>w\u0006_oooooo.,\u0014@.20ssm.__.Fk_,Fh#chat\nk__,Fb_,Fj#chat\nb   __, Fb_.  nFk#chat\nh#pray\ny y       _{, Fh    n _.qh  n \u00164\n_ooooooo,_.,b\ny    p_oo.,a\n    n#chat\nl  n    n \u001610\nk y   nk#chat\nk_oooo.,   n$_oooo,,:_oooooo.,\u0017amulet of life saving\ndv    n    n\u00161\njhn#chat\nh_oooooooo._._o.Fl _,,:\u0016?\nclbu\u0016?\n>w\u0006jky#chat\nbkhl#chat\nb    n _oooo,_o,  Fb     n_.    n Fh   n  ,\u0017amulet of change\ndw   n    yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

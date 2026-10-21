@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed amulet of reflection\nPg\u0017blessed Mjollnir\n wh\u0017blessed amulet of life saving\nPi\u00162\n\u0006_ \u001bm.\u001627\n\u0017bow\nwj\u001720 arrows\nQd\u0007gnome\nhfufu fl\u0017potion of fruit juice\ntcllk b,#enhance\nn\u001b\u0016?\n>J       brass lantern\nnl  k h        b     y      :       \u0016?\naj l   k     k   j :\u0016?\ne yn     :\u00163\n\u0017war hammer\nwn            n Fu  Fu        n  Fk          n  \u0007black pudding\nFu        n Fy              Fk   n        n Fy        .m.     n      .m.      n     #pray\ny y       \u0007cockatrice\nFy           n  Fy    Fk        n Fk          n .m.         n .m.         n \u0007yellow light\nFu       Fl   n     Fl  Fk   n   Fl   yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 52450000,
+   "datetime": "20180925230107",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed amulet of reflection\nPg\u0017blessed Mjollnir\n wh\u0017blessed amulet of life saving\nPi\u00162\n\u0006_ \u001bm.\u001627\n\u0017bow\nwj\u001720 arrows\nQd\u0007gnome\nhfufu fl\u0017potion of fruit juice\ntcllk b,#enhance\nn\u001b\u0016?\n>J       brass lantern\nnl  k h        b     y      :       \u0016?\naj l   k     k   j :\u0016?\ne yn     :\u00163\n\u0017war hammer\nwn            n Fu  Fu        n  Fk          n  \u0007black pudding\nFu        n Fy              Fk   n        n Fy        .m.     n      .m.      n     #pray\ny y       \u0007cockatrice\nFy           n  Fy    Fk        n Fk          n .m.         n .m.         n \u0007yellow light\nFu       Fl   n     Fl  Fk   n   Fl   yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

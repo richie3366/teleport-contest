@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWf\u0017blessed amulet of life saving\nPg\u0017blessed bell of opening\n\u0017blessed 20 daggers\nQi#wizintrinsic\nh\n \u0017blessed scroll of teleportation\nrj  \u001bm.fbtilfh#invoke\nh\u0018\u001bklu\u0016?\n>>L    dwarvish mithril-coat\nhy          h     n j  n      nn          n   nu  n    n   :    n  n    n  n  \u00169\n#wizintrinsic\nh\n;. E- Elbereth\n   n   n    n \u00161\nfn  n    yy\u001by   y y y\u001b  t"
+ },
+ "segments": [
+  {
+   "seed": 52450019,
+   "datetime": "20040120104400",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWf\u0017blessed amulet of life saving\nPg\u0017blessed bell of opening\n\u0017blessed 20 daggers\nQi#wizintrinsic\nh\n \u0017blessed scroll of teleportation\nrj  \u001bm.fbtilfh#invoke\nh\u0018\u001bklu\u0016?\n>>L    dwarvish mithril-coat\nhy          h     n j  n      nn          n   nu  n    n   :    n  n    n  n  \u00169\n#wizintrinsic\nh\n;. E- Elbereth\n   n   n    n \u00161\nfn  n    yy\u001by   y y y\u001b  t"
+  }
+ ]
+}

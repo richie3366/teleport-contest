@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " mO>>g\u001b\nOm\u001b\nFlFkFlFjFlFlFyFkb FyFjFbFln FlFlFjFuFyFjFjFjFuFuFyFnFjFkFuFkFyFyFuFjFjFlFbFbFbFnFbFbFuFlFyFbFlFbFjFbFbFyFuk FnFnFkFyFyFkFuFyFyFjFbFkb FuFjFjFlFbFlu FyFln FuFuFkFlFuFlFuFjFkFyFyFkFjFnFnFyFlb FlFbFyFuFkFbFkl FlFuFyFnFnFnFbFub FnFyFnFll FnFyFjFjFkFjFuFkFlFlFbFkl Fl\u00165\nz>\u0007tame soldier ant\n\u0007tame pony\n\u0017magic whistle\nlh lj nam   \u0017tin whistle\nln jh\u001ban#chat\nk \u0017tin whistle\nykj kn ao d$20s .s#chat\nh \u0017food ration\n tak \u0017newt corpse\ntak Oo\u001b\u001b\nO>>h\u001b\n\u001614\nmOa\u001b\nO>m\u001b\u001b\nO>>g\u001b\n\u00167\nFnFjFlFjFnFlu FhFyFbFbFuu FhFnFnFlFhFhFhFnFbFjFyFyFyFh\u001bFyFjFyFbFlFnFnFhFjFlFhFuFuFbFuj FkFbFlj FlFbFuy FyFjFlFlFyFyFuFbFjFjFbFlj FyFbFlFyFh\u001bFhFyFnFkFkFhFkFnFyFkFjFhFjFyFlk FyFjFbFbFjFlFkFkFnFul FhFhFuFuFuFnFnFyFnFhFkFyFh\u001bFyFbFkFkFbFh\u001bFyFjFyFbFnFbFyFnFuFuFyFjFymO>>s\u001b\nO>>>>j\u001b\n"
+ },
+ "segments": [
+  {
+   "seed": 52450040,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=runmode:teleport\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " mO>>g\u001b\nOm\u001b\nFlFkFlFjFlFlFyFkb FyFjFbFln FlFlFjFuFyFjFjFjFuFuFyFnFjFkFuFkFyFyFuFjFjFlFbFbFbFnFbFbFuFlFyFbFlFbFjFbFbFyFuk FnFnFkFyFyFkFuFyFyFjFbFkb FuFjFjFlFbFlu FyFln FuFuFkFlFuFlFuFjFkFyFyFkFjFnFnFyFlb FlFbFyFuFkFbFkl FlFuFyFnFnFnFbFub FnFyFnFll FnFyFjFjFkFjFuFkFlFlFbFkl Fl\u00165\nz>\u0007tame soldier ant\n\u0007tame pony\n\u0017magic whistle\nlh lj nam   \u0017tin whistle\nln jh\u001ban#chat\nk \u0017tin whistle\nykj kn ao d$20s .s#chat\nh \u0017food ration\n tak \u0017newt corpse\ntak Oo\u001b\u001b\nO>>h\u001b\n\u001614\nmOa\u001b\nO>m\u001b\u001b\nO>>g\u001b\n\u00167\nFnFjFlFjFnFlu FhFyFbFbFuu FhFnFnFlFhFhFhFnFbFjFyFyFyFh\u001bFyFjFyFbFlFnFnFhFjFlFhFuFuFbFuj FkFbFlj FlFbFuy FyFjFlFlFyFyFuFbFjFjFbFlj FyFbFlFyFh\u001bFhFyFnFkFkFhFkFnFyFkFjFhFjFyFlk FyFjFbFbFjFlFkFkFnFul FhFhFuFuFuFnFnFyFnFhFkFyFh\u001bFyFbFkFkFbFh\u001bFyFjFyFbFnFbFyFnFuFuFyFjFymO>>s\u001b\nO>>>>j\u001b\n"
+  }
+ ]
+}

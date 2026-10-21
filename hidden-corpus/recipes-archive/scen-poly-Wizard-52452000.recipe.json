@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0017blessed ring of polymorph control\nPpl\u0017alchemy smock\nW\u001bss.#polyself\nincubus\n#monster\n20s.\u0007marilith\nFj Fj   Fl   20s  .m.   n 20s  #polyself\nwater elemental\n #monster\n.   sm.   n sm.  sb  sm.  yy\u001by   nny\u001by  #"
+ },
+ "segments": [
+  {
+   "seed": 52452000,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0017blessed ring of polymorph control\nPpl\u0017alchemy smock\nW\u001bss.#polyself\nincubus\n#monster\n20s.\u0007marilith\nFj Fj   Fl   20s  .m.   n 20s  #polyself\nwater elemental\n #monster\n.   sm.   n sm.  sb  sm.  yy\u001by   nny\u001by  #"
+  }
+ ]
+}

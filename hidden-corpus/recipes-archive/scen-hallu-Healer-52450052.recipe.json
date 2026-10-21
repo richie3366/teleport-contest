@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPkl\u0017blessed leash\n\u0017blessed magic lamp\n\u0017blessed +3 gray dragon scale mail\nWn\u0017blessed 20 daggers\nQo#levelchange\n14\n            #wizintrinsic\nh\n \u0007sewer rat\n\u0007gnome lord\nFl Fn  Fy FnFnFy sm.\u0017potion of extra healing\n qp  .m.sm.\u0017wand of probing\n zqn \u001bzqn \u001bzqn \u001bzqn \u001b #wizintrinsic\nh\n fn   t$n \u0007troll\n\u0007grid bug\nFu Fu Fb  Fn Fb  Fn   Fb  \u0017blessed spellbook of magic missile\n rr .m.Zc\n   n:#wizintrinsic\nh\n;b; \u001b:   E- I am a fish\n #pray\ny y      \u0007owlbear\n\u0007yellow mold\nFn   Fh  Fy         n Fy    _,u   k    #wizintrinsic\nh\n\u0017potion of levitation\nqs    .u   20s    n   \u0007gnome\nFh   Fb   Fn  Fb    Fy     n Fh  Fh   \u0007gnome lord\n\u0007gnome\nFn  Fn    Fy     Fn    n  Fu   Fl    Fb    #wizintrinsic\nh\n\u0017potion of booze\nqt    .n   n  .y   \u0018\u001bk j  ;l,E-#chat\nn  \u0017spellbook of cone of cold\nru    sh  Za\n     n  :#wi"
+ },
+ "segments": [
+  {
+   "seed": 52450052,
+   "datetime": "20020227105444",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPkl\u0017blessed leash\n\u0017blessed magic lamp\n\u0017blessed +3 gray dragon scale mail\nWn\u0017blessed 20 daggers\nQo#levelchange\n14\n            #wizintrinsic\nh\n \u0007sewer rat\n\u0007gnome lord\nFl Fn  Fy FnFnFy sm.\u0017potion of extra healing\n qp  .m.sm.\u0017wand of probing\n zqn \u001bzqn \u001bzqn \u001bzqn \u001b #wizintrinsic\nh\n fn   t$n \u0007troll\n\u0007grid bug\nFu Fu Fb  Fn Fb  Fn   Fb  \u0017blessed spellbook of magic missile\n rr .m.Zc\n   n:#wizintrinsic\nh\n;b; \u001b:   E- I am a fish\n #pray\ny y      \u0007owlbear\n\u0007yellow mold\nFn   Fh  Fy         n Fy    _,u   k    #wizintrinsic\nh\n\u0017potion of levitation\nqs    .u   20s    n   \u0007gnome\nFh   Fb   Fn  Fb    Fy     n Fh  Fh   \u0007gnome lord\n\u0007gnome\nFn  Fn    Fy     Fn    n  Fu   Fl    Fb    #wizintrinsic\nh\n\u0017potion of booze\nqt    .n   n  .y   \u0018\u001bk j  ;l,E-#chat\nn  \u0017spellbook of cone of cold\nru    sh  Za\n     n  :#wi"
+  }
+ ]
+}

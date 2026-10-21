@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " mO>>>>>bok\nmango\nW\n9\nzfj O>ef\nsO>l\n#dip\nhddghmOa\nqe#rub\n20ssO>kg\nc\n\\ O>d\n#dip\njemO>>>>>n\ne\n#rub\nmO>>>rkf\n #wipe\n_m, \u001bm,sO>pab\nh\n#dip\nhe#chat\nl.."
+ },
+ "segments": [
+  {
+   "seed": 52451011,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\n",
+   "moves": " mO>>>>>bok\nmango\nW\n9\nzfj O>ef\nsO>l\n#dip\nhddghmOa\nqe#rub\n20ssO>kg\nc\n\\ O>d\n#dip\njemO>>>>>n\ne\n#rub\nmO>>>rkf\n #wipe\n_m, \u001bm,sO>pab\nh\n#dip\nhe#chat\nl.."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u0007little dog\n\u0017banana\ntbj\u0007tame gnome lord\n\u0017food ration\nt\u001b\u0017apple\nt\u001b#name\nd\n\u0017fortune cookie\nt\u001b\u0007lichen\nsb sss  ssn\u0007tame little dog\n\u0007little dog\n\u0017tripe ration\nt\u001b\u0006_ \u001b@.>Fh   Fk   _>. Fl _,>_>._.Fn>#chat\nl\u0017food ration\nt\u001b#chat\nn\u0007sewer ratpurple worm\n Dem"
+ },
+ "segments": [
+  {
+   "seed": 52451025,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007little dog\n\u0017banana\ntbj\u0007tame gnome lord\n\u0017food ration\nt\u001b\u0017apple\nt\u001b#name\nd\n\u0017fortune cookie\nt\u001b\u0007lichen\nsb sss  ssn\u0007tame little dog\n\u0007little dog\n\u0017tripe ration\nt\u001b\u0006_ \u001b@.>Fh   Fk   _>. Fl _,>_>._.Fn>#chat\nl\u0017food ration\nt\u001b#chat\nn\u0007sewer ratpurple worm\n Dem"
+  }
+ ]
+}

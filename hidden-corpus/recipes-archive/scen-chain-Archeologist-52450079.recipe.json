@@ -1,0 +1,63 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "FbFb FbFbFbFbFbFbNHHY_ \u001b;>E- X marks the spot\n\u000f\u001bKBBU_>.>JHNJ_>#quit\n;\u0017wand of fire\nzi.  y ny  y y\u001bn  .FlFl FlFlFlFlFlFlFkFkFkFkFkFkFkFkkkji\u001b50s_ \u001b,>;.150s  \u001b50s_>.>50sFl.sq100s50s100sq\\ 100s50s50slnj150s100sjlhlhy100sFuFuFuFu.#quit\nyy\u001by  y y y\u001b   \u0007master mind flayer\nFbFb          yy\u001by  y y\u001by  Fybnylynn#name\ni\nlkybjybukj10s#chat\nb10suhjudbs..jyjjbhkFlFlFlFlFlFlFlFl#pray\ny #pray\ny  buk\u000f\u001b100s100s_ \u001b,>50s150s_>.>50sFlFlFlFl20sFlFlFlFlFlFls\\ \\ bbluyl_>,>bhy_>,>blb100s,100sw-\u0018\u001b100skkn\u000f\u001b150s\u000f\u001b50sFk FkFuFuFuFu FuFuFu#pray\ny    y\u001by  y ny\u001b  #20s 20s lbnktbn#chat\nj#name\no\nshiny\njkjklbuknnylFhFhFhFhFhFhFhFhFu FuFuFuFuFuFuFujkdd.ss#name\ni\nFido\nacndcsssdcssskllht\u001b\u001blllh20sllub#name\nd\nhl\\  150sFu20ssFl20sFu100s\\  hhl100s\\  lhhFhs.hh#quit\nyy\u001by  y y y\u001b FkFkFk FkFkFkFkFklbujhnynkbkjdess20shkt\u001bKKUN_ \u001b.>FjFjs#invoke\n\u001b#ride\nyBYJY_>.>:#ride\nyKNJK_>.>HJHU_>,>NNKJ_>.>s,YLBH_>.>cl#terrain\nb\n<NJHU_>\u000f LJHY_>,>J\u0018\u001b<KKLY_>.><YKUH_>.>HJBY_>.>w-#jump\nBHLB_>,>UUJY_>.>#sit\n\u001b#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 52450079,
+   "datetime": "20200416001758",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\n",
+   "moves": "FbFb FbFbFbFbFbFbNHHY_ \u001b;>E- X marks the spot\n\u000f\u001bKBBU_>.>JHNJ_>#quit\n;"
+  },
+  {
+   "seed": 52550079,
+   "datetime": "20060916102804",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of fire\nzi.  y ny  y y\u001bn  ."
+  },
+  {
+   "seed": 52650079,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:walk\n",
+   "moves": "FlFl FlFlFlFlFlFlFkFkFkFkFkFkFkFkkkji\u001b50s_ \u001b,>;.150s  \u001b50s_>.>50sFl.sq100s50s100sq\\ 100s50s50slnj150s100sjlhlhy100sFuFuFuFu.#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 52750079,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007master mind flayer\nFbFb          yy\u001by  y y\u001by  F"
+  },
+  {
+   "seed": 52850079,
+   "datetime": "20140616053703",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=mention_walls\nOPTIONS=pettype:none\n",
+   "moves": "ybnylynn#name\ni\nlkybjybukj10s#chat\nb10suhjudbs..jyjjbhkFlFlFlFlFlFlFlFl#pray\ny #pray\ny  buk\u000f\u001b100s100s_ \u001b,>50s150s_>.>50sFlFlFlFl20sFlFlFlFlFlFls\\ \\ bbluyl_>,>bhy_>,>blb100s,100sw-\u0018\u001b100skkn\u000f\u001b150s\u000f\u001b50sFk FkFuFuFuFu FuFuFu#pray\ny    y\u001by  y ny\u001b  #"
+  },
+  {
+   "seed": 52950079,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=!verbose\nOPTIONS=runmode:run\n",
+   "moves": "20s 20s lbnktbn#chat\nj#name\no\nshiny\njkjklbuknnylFhFhFhFhFhFhFhFhFu FuFuFuFuFuFuFujkdd.ss#name\ni\nFido\nacndcsssdcssskllht\u001b\u001blllh20sllub#name\nd\nhl\\  150sFu20ssFl20sFu100s\\  hhl100s\\  lhhFhs.hh#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 53050079,
+   "datetime": "20130522091329",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "FkFkFk FkFkFkFkFklbujhnynkbkjdess20shkt\u001bKKUN_ \u001b.>FjFjs#invoke\n\u001b#ride\nyBYJY_>.>:#ride\nyKNJK_>.>HJHU_>,>NNKJ_>.>s,YLBH_>.>cl#terrain\nb\n<NJHU_>\u000f LJHY_>,>J\u0018\u001b<KKLY_>.><YKUH_>.>HJBY_>.>w-#jump\nBHLB_>,>UUJY_>.>#sit\n\u001b#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

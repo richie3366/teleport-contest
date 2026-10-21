@@ -1,10 +1,10 @@
 {
- "commit": "786cfe1ac",
- "at": "2026-10-21T14:40:11.956Z",
+ "commit": "d3187d477",
+ "at": "2026-10-21T14:43:02.270Z",
  "full": false,
  "fullCommit": "1b2b2c8e3",
  "fullAt": "2026-10-21T14:05:06.214Z",
- "entries": 705,
+ "entries": 708,
  "reserve": 29,
  "unrecorded": 0,
  "sessions": {
@@ -2966,6 +2966,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-options-Healer-52451011": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 3776,
+   "rngT": 3776,
+   "scrM": 144,
+   "scrT": 146,
+   "kind": "screen",
+   "step": 88,
+   "steps": 146,
+   "owner": "use_stethoscope",
+   "loc": "apply.c:416",
+   "jsOwner": null,
+   "cTopline": "a - fruit[slime mold]",
+   "jsTopline": "a - fruit[slime mold]",
+   "error": null
+  },
   "scen-options-Healer-94271": {
    "src": "corpus",
    "passed": true,
@@ -3100,6 +3117,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-options-Tourist-52451031": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 2896,
+   "rngT": 2896,
+   "scrM": 130,
+   "scrT": 131,
+   "kind": "screen",
+   "step": 45,
+   "steps": 131,
+   "owner": "peffect_acid",
+   "loc": "potion.c:1306",
+   "jsOwner": null,
+   "cTopline": "tame little dog",
+   "jsTopline": "Pardon me, little dog.",
    "error": null
   },
   "scen-options-Tourist-585611": {
@@ -7350,6 +7384,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-sweep-Valkyrie-52450012": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 8367,
+   "rngT": 44441,
+   "scrM": 511,
+   "scrT": 1503,
+   "kind": "rng",
+   "step": 506,
+   "steps": 1503,
+   "owner": "distfleeck",
+   "loc": "monmove.c:549",
+   "jsOwner": "breamm(mthrowu.js:500)",
+   "cTopline": "The silver dragon turns to flee. The Angel swings her long sword.--More--",
+   "jsTopline": "The silver dragon turns to flee. The silver dragon breathes frost!--More--",
    "error": null
   },
   "scen-sweep-Valkyrie-578204": {
@@ -12022,5 +12073,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-21T14:43:02.437Z"
 }

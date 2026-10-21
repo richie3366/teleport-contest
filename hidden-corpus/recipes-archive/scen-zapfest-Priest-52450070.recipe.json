@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed ring of free action\nPil\u0017blessed shield of reflection\nW\u001b\u0017blessed amulet of life saving\nPk\u0017wand of striking\n\u0017wand of slow monster\n\u0017wand of death\n\u0007hobbit\n\u0007owlbear\n\u0007troll\nzllzmu      n  znu   n znl zny  znk nznyznn  nznzmjzmb.\u00162\n\u0017wand of cancellation\n\u0017wand of magic missile\n\u0017wand of slow monster\n\u0007hobbit\n\u0007bugbear\nzqn.m.zonzonzqnzpl zqn  nzpn\u0017blessed spellbook of knock\nrr 20s\u0007kobold shaman\nZa\n\u001bm,Zc\nZb\nZb\nsm. 20s Za\nZZ\u0018 \u0017wand of digging\n\u0017wand of slow monster\n\u0007sewer rat\n\u0007jackal\nzs> ztlzs> zthzs> sztk20szt.20szty\u0017wand of death\n\u0017wand of striking\n\u0017wand of magic missile\n\u0007newt\nzwh zvyszv.  n20szvnzwkzwnzwu20si\u001b\u0007black dragon\nsys.#polyself\nsilver dragon\n  #monster\ny  s20s #monster\n#monster\n#monster\nFu  Fu    \u00178 rocks\nQ\u001b\u0007owlbear\nfftftt\u0017potion of oil\nt\u0017wand of striking\n\u0017wand of cold\n\u0007bugbear\n\u0007acid blob\nzzzzzsm. zz\u0017wand of cancellation\n\u0017wand of digging\n\u0017wand of striking\n\u0007owlbear\n\u0007yellow mold\n\u0007newt\nzzsm. zBy   n zBu   n    n zBy   n   n sm.   n zBn  n   n   zC>  zDn\u00162\n\u0007kobold shaman\n\u0007vampire\n\u0007kobold shaman\n\u0017wand of sleep\nzEhzEb   zE"
+ },
+ "segments": [
+  {
+   "seed": 52450070,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed ring of free action\nPil\u0017blessed shield of reflection\nW\u001b\u0017blessed amulet of life saving\nPk\u0017wand of striking\n\u0017wand of slow monster\n\u0017wand of death\n\u0007hobbit\n\u0007owlbear\n\u0007troll\nzllzmu      n  znu   n znl zny  znk nznyznn  nznzmjzmb.\u00162\n\u0017wand of cancellation\n\u0017wand of magic missile\n\u0017wand of slow monster\n\u0007hobbit\n\u0007bugbear\nzqn.m.zonzonzqnzpl zqn  nzpn\u0017blessed spellbook of knock\nrr 20s\u0007kobold shaman\nZa\n\u001bm,Zc\nZb\nZb\nsm. 20s Za\nZZ\u0018 \u0017wand of digging\n\u0017wand of slow monster\n\u0007sewer rat\n\u0007jackal\nzs> ztlzs> zthzs> sztk20szt.20szty\u0017wand of death\n\u0017wand of striking\n\u0017wand of magic missile\n\u0007newt\nzwh zvyszv.  n20szvnzwkzwnzwu20si\u001b\u0007black dragon\nsys.#polyself\nsilver dragon\n  #monster\ny  s20s #monster\n#monster\n#monster\nFu  Fu    \u00178 rocks\nQ\u001b\u0007owlbear\nfftftt\u0017potion of oil\nt\u0017wand of striking\n\u0017wand of cold\n\u0007bugbear\n\u0007acid blob\nzzzzzsm. zz\u0017wand of cancellation\n\u0017wand of digging\n\u0017wand of striking\n\u0007owlbear\n\u0007yellow mold\n\u0007newt\nzzsm. zBy   n zBu   n    n zBy   n   n sm.   n zBn  n   n   zC>  zDn\u00162\n\u0007kobold shaman\n\u0007vampire\n\u0007kobold shaman\n\u0017wand of sleep\nzEhzEb   zE"
+  }
+ ]
+}

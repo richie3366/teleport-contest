@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017blessed amulet of life saving\nPf\u0017blessed amulet of reflection\nPg\u0016?\n>z  \u00162\n\u0006yhbnhhj\u00163\n  \u0006,\u00164\n\u0006_ \u001b>.Fls.s20s_>._.m,>\u0006_<._,Fy\u00166\n  \u0006llhlllnl\u00162\n\u0006kbknhhnk\u00163\n  \u0006#chat\nl;m,\u00164\n\u0006_mmm.20ssss\u00165\n\u0006__.\u00166\n  \u0006,\u00162\n\u0006,\u00163\n  \u0006#chat\nk;>.\u00164\n\u0006,\u00165\n\u0006_mm.ss.ss20s\u00166\n  \u0006,\u00162\n\u0006#chat\ny;y,\u00163\n  \u0006#chat\ny;m,\u00164\n\u0006_mmmm,sm.20s FuFkFu\u0016?\n>>\u001b\u0016?\n>y  #chat\ny\u0016?\n>z_>.>\u0016?\n>z\u0006_mmmmm. _.    .  s    FlFl  \u00166\n\u0016?\n>z\u0006yj h \u00162\n\u0016?\n>z\u0006_mm, Fl _.>.Fu      Fu   FuFl   Fu   \u0016?\n>>\u001b\u0016?\n>y#chat\nl     n \u0016?\n>z_>.Fl   _.Fl  >\u0016?\n>z\u0006_mmmmm. Fk_. FyFhFhFhFh\u00164\n\u0016?\n>z\u0006_mmmm,Fy_,20sFu  nFu\u00165\n\u0016?\n>z\u0006luj\u00166\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\ny\u0016?\n>z\u00162\n\u0016?\n>z\u0006_<.  _.     \u00163\n\u0016?\n>z\u0006_m,        _.     20s   s     20s     20s   20s  s  \u00164\n\u0016?\n>z\u0006j  u  yklbu\u00165\n\u0016?\n>z\u0006_mmmmm.Fl   _. Fj  n Fj Fn FjFn Fj \u00166\n\u0016?\n>z\u0006__.\u0016?\n>>\u001b\u0016?\n>y#chat\nj \u0016?\n>z\u00162\n\u0016?\n>z\u0006#chat\nl;l.\u00163\n\u0016?\n>z\u0006h bbk \u00164\n\u0016?\n>z\u0006_mmmm.  nFj _.>.Fb Fb FbFhFbFbs\u00165\n\u0016?\n>z\u0006_mmm,Fl_.s20sFj "
+ },
+ "segments": [
+  {
+   "seed": 52450043,
+   "datetime": "20171215003534",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n16\n               \u0017blessed amulet of life saving\nPf\u0017blessed amulet of reflection\nPg\u0016?\n>z  \u00162\n\u0006yhbnhhj\u00163\n  \u0006,\u00164\n\u0006_ \u001b>.Fls.s20s_>._.m,>\u0006_<._,Fy\u00166\n  \u0006llhlllnl\u00162\n\u0006kbknhhnk\u00163\n  \u0006#chat\nl;m,\u00164\n\u0006_mmm.20ssss\u00165\n\u0006__.\u00166\n  \u0006,\u00162\n\u0006,\u00163\n  \u0006#chat\nk;>.\u00164\n\u0006,\u00165\n\u0006_mm.ss.ss20s\u00166\n  \u0006,\u00162\n\u0006#chat\ny;y,\u00163\n  \u0006#chat\ny;m,\u00164\n\u0006_mmmm,sm.20s FuFkFu\u0016?\n>>\u001b\u0016?\n>y  #chat\ny\u0016?\n>z_>.>\u0016?\n>z\u0006_mmmmm. _.    .  s    FlFl  \u00166\n\u0016?\n>z\u0006yj h \u00162\n\u0016?\n>z\u0006_mm, Fl _.>.Fu      Fu   FuFl   Fu   \u0016?\n>>\u001b\u0016?\n>y#chat\nl     n \u0016?\n>z_>.Fl   _.Fl  >\u0016?\n>z\u0006_mmmmm. Fk_. FyFhFhFhFh\u00164\n\u0016?\n>z\u0006_mmmm,Fy_,20sFu  nFu\u00165\n\u0016?\n>z\u0006luj\u00166\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\ny\u0016?\n>z\u00162\n\u0016?\n>z\u0006_<.  _.     \u00163\n\u0016?\n>z\u0006_m,        _.     20s   s     20s     20s   20s  s  \u00164\n\u0016?\n>z\u0006j  u  yklbu\u00165\n\u0016?\n>z\u0006_mmmmm.Fl   _. Fj  n Fj Fn FjFn Fj \u00166\n\u0016?\n>z\u0006__.\u0016?\n>>\u001b\u0016?\n>y#chat\nj \u0016?\n>z\u00162\n\u0016?\n>z\u0006#chat\nl;l.\u00163\n\u0016?\n>z\u0006h bbk \u00164\n\u0016?\n>z\u0006_mmmm.  nFj _.>.Fb Fb FbFhFbFbs\u00165\n\u0016?\n>z\u0006_mmm,Fl_.s20sFj "
+  }
+ ]
+}

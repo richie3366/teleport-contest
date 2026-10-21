@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of life saving\nPk\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n        \u0007newt\n#dip\nfn#offer\n#pray\ny y  #chat\nu#wizmap\n\u0006Fj Fu#chat\nh_ \u001b<.qd\u0007yellow mold\n#overview\n\u001b#conduct\n i\u001b#name\n\u001b#adjust\nf\u001b#chat\nh#turn\n#wizmap\n\u0006FhsZ\u001b__.#chat\ny\u0007soldier\n#vanquished\n #genocided\nsewer rat\ng#annotate\nshiny\n\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y    #levelchange\n2\n  Fn Fn Fn Fn _oooo.,#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u0018\u001b#wipe\n#loot\n#chat\nk#chat\nb#jump\n#wizmap\n\u0006lkji\u001b_>,_.\u0007bugbear\n#version\n  #history\n                  i\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n#levelchange\n9\n       Fh  \u001bFh20s._{._.qd#overview\n\u001b#conduct\n \u0018\u001b#dip\nmd#offer\n#pray\ny y #chat\nl#wizmap\n\u0006kuh__._.#chat\ny\u0007sewer rat\n#vanquished\n #genocided\nbarrow wight\ni \u0018\u001b#name\n\u001b#adjust\nn\u001b#chat\nk#turn\n#jump\n#levelchange\n6\n Fk s\u000f\u001b__._.#chat\nb#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #lev"
+ },
+ "segments": [
+  {
+   "seed": 52450031,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of life saving\nPk\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n        \u0007newt\n#dip\nfn#offer\n#pray\ny y  #chat\nu#wizmap\n\u0006Fj Fu#chat\nh_ \u001b<.qd\u0007yellow mold\n#overview\n\u001b#conduct\n i\u001b#name\n\u001b#adjust\nf\u001b#chat\nh#turn\n#wizmap\n\u0006FhsZ\u001b__.#chat\ny\u0007soldier\n#vanquished\n #genocided\nsewer rat\ng#annotate\nshiny\n\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y    #levelchange\n2\n  Fn Fn Fn Fn _oooo.,#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u0018\u001b#wipe\n#loot\n#chat\nk#chat\nb#jump\n#wizmap\n\u0006lkji\u001b_>,_.\u0007bugbear\n#version\n  #history\n                  i\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n#levelchange\n9\n       Fh  \u001bFh20s._{._.qd#overview\n\u001b#conduct\n \u0018\u001b#dip\nmd#offer\n#pray\ny y #chat\nl#wizmap\n\u0006kuh__._.#chat\ny\u0007sewer rat\n#vanquished\n #genocided\nbarrow wight\ni \u0018\u001b#name\n\u001b#adjust\nn\u001b#chat\nk#turn\n#jump\n#levelchange\n6\n Fk s\u000f\u001b__._.#chat\nb#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #lev"
+  }
+ ]
+}

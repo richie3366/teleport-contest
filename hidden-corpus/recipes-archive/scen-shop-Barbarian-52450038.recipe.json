@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg\u0016?\n>w\u0006_ \u001b<._o.,$lkk#chat\nh_ooo.,\u0014>.ss_ooooooo,_oo.,p\u0016?\n>Byln\u0016?\n>w\u0006_oo._ooo.,p\u00167\nyhl\u0016?\n>w\u0006_ooooooooo.,$_{,Fu_.Fuq_ooo._,_oo,,\u001bp__._,.#chat\ny#pray\ny y \u0016?\ncbly\u0016?\n>w\u0006_ooooo.Fl_,;<.,\u001bp_ooooooo,_._oo.,#chat\ny\u00167\nkhk\u0016?\n>w\u0006_ooooooooo._._o.,\u001bp\u0016?\n>Byll\u0016?\n>w\u0006_ooooooo,  _,Fk,pjjn#chat\nuhkk#chat\nkjjl#chat\njlhl#chat\nlhyn#chat\nkhkj#chat\nl_{,_,;.q_ooooo._., p_ooooooooo, Fj _,,p_oo._ooo._.,\u001bp_ooooooooo,,\u001bp__._.<. \u001b#chat\ny#pray\ny y __,_.@.#chat\nn#pray\ny y _oooooo._ooo,_.,\u001b\u0017amulet of life saving\ndjyhj#chat\nu_oooooooo,,:__._,<.#chat\nu_ooo._,,\u001bpkby#chat\nb_oooo,,p_ooooooooo"
+ },
+ "segments": [
+  {
+   "seed": 52450038,
+   "datetime": "20140906102912",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg\u0016?\n>w\u0006_ \u001b<._o.,$lkk#chat\nh_ooo.,\u0014>.ss_ooooooo,_oo.,p\u0016?\n>Byln\u0016?\n>w\u0006_oo._ooo.,p\u00167\nyhl\u0016?\n>w\u0006_ooooooooo.,$_{,Fu_.Fuq_ooo._,_oo,,\u001bp__._,.#chat\ny#pray\ny y \u0016?\ncbly\u0016?\n>w\u0006_ooooo.Fl_,;<.,\u001bp_ooooooo,_._oo.,#chat\ny\u00167\nkhk\u0016?\n>w\u0006_ooooooooo._._o.,\u001bp\u0016?\n>Byll\u0016?\n>w\u0006_ooooooo,  _,Fk,pjjn#chat\nuhkk#chat\nkjjl#chat\njlhl#chat\nlhyn#chat\nkhkj#chat\nl_{,_,;.q_ooooo._., p_ooooooooo, Fj _,,p_oo._ooo._.,\u001bp_ooooooooo,,\u001bp__._.<. \u001b#chat\ny#pray\ny y __,_.@.#chat\nn#pray\ny y _oooooo._ooo,_.,\u001b\u0017amulet of life saving\ndjyhj#chat\nu_oooooooo,,:__._,<.#chat\nu_ooo._,,\u001bpkby#chat\nb_oooo,,p_ooooooooo"
+  }
+ ]
+}

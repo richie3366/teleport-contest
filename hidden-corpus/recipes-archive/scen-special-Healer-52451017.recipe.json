@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0016?\nc\u0006_ \u001b>.#chat\nl_m.Fl_.Fl#chat\nl_mmm.  nFl_,#chat\nl_{,Fl_,qd#tip\n\u001b,;_.\u0016?\ne\u0006s20ss20sFl   Flbuhj#force\n>#sit\n "
+ },
+ "segments": [
+  {
+   "seed": 52451017,
+   "datetime": "20210719110609",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0016?\nc\u0006_ \u001b>.#chat\nl_m.Fl_.Fl#chat\nl_mmm.  nFl_,#chat\nl_{,Fl_,qd#tip\n\u001b,;_.\u0016?\ne\u0006s20ss20sFl   Flbuhj#force\n>#sit\n "
+  }
+ ]
+}

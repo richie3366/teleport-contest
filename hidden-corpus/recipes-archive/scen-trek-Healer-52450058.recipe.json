@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "YUYB_ \u001bm,>FussYHNB_>,>LUNK_>.>NBLY_>,>FyFkFk<hny#chat\nlylub#chat\nk#chat\nkYJ L J_>.>#invoke\n\u001b#monster\nUJBJ_>.>UYBJ_>,>hcjKJBY_>,><KLUK_>,>FlsFjE- Elbereth\nf $ kHNKJ_>.>FkFkFkzgnPNKYB_>.>\u000f\u001bUUHK_>,>UJ  KL _>.>FhFjsch#enhance\n\u001bKHBU_>.>HLLJ_>.>NUUN_>,><LKKL_>,>HNYL_>.>t$y#monster\n<\u000f\u001b_<.s#wipe\ni\u001bFl20sFl#conduct\n \u0014oluyn100s100s zg.    FjsFjFbFb.qe50sFhsFbFjFkFkFkFk20sFhssnhyFjFj si\u001b50s100s   _<.s150sFlss_>.>juuFj FhFj \u000f\u001b_>.>50s100sFks.100s_>,>150s\\ #conduct\n #ride\nj\\ knkFhFh.bny150shlh150sek50s ek ek\\ jju50sek150s100sFkFks\u0018\u001b\u0018\u001buhh50sek_>.>\\ nlk150s ek\u0014100s ekbkh150semeeeeeeeeaj >\u000f\u001bKUNN_>,>KYKL_>,>YBYU_>,>NNLY_>.>fj_>.sBJHK_>.>\u000f\u001bagUKLJ_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 52450058,
+   "datetime": "20241219101458",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "YUYB_ \u001bm,>FussYHNB_>,>LUNK_>.>NBLY_>,>FyFkFk<hny#chat\nlylub#chat\nk#chat\nkYJ L J_>.>#invoke\n\u001b#monster\nUJBJ_>.>UYBJ_>,>hcjKJBY_>,><KLUK_>,>FlsFjE- Elbereth\nf $ kHNKJ_>.>FkFkFkzgnPNKYB_>.>\u000f\u001bUUHK_>,>UJ  KL _>.>FhFjsch#enhance\n\u001bKHBU_>.>HLLJ_>.>NUUN_>,><LKKL_>,>HNYL_>.>t$y#monster\n<\u000f\u001b_<.s#wipe\ni\u001bFl20sFl#conduct\n \u0014oluyn100s100s zg.    FjsFjFbFb.qe50sFhsFbFjFkFkFkFk20sFhssnhyFjFj si\u001b50s100s   _<.s150sFlss_>.>juuFj FhFj \u000f\u001b_>.>50s100sFks.100s_>,>150s\\ #conduct\n #ride\nj\\ knkFhFh.bny150shlh150sek50s ek ek\\ jju50sek150s100sFkFks\u0018\u001b\u0018\u001buhh50sek_>.>\\ nlk150s ek\u0014100s ekbkh150semeeeeeeeeaj >\u000f\u001bKUNN_>,>KYKL_>,>YBYU_>,>NNLY_>.>fj_>.sBJHK_>.>\u000f\u001bagUKLJ_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

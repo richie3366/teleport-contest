@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0007vampire lord\nFyFy  Fn Fn Fn20s sm.\u0007owlbear\nFn Fn Fn   sm. sk   n   \u0007cobra\nFl    Fl    Fy    Fh  yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 52451013,
+   "datetime": "20170103205152",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=sortloot:loot\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0007vampire lord\nFyFy  Fn Fn Fn20s sm.\u0007owlbear\nFn Fn Fn   sm. sk   n   \u0007cobra\nFl    Fl    Fy    Fh  yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

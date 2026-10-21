@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#name\n\u001b#chat\njjynkhFb 20s.150s,khh#rub\n100sFl20s.100sFl20ss50s_ \u001b<.>sbkbnkk_>,>100s\u0018\u001by100s100sFj20sFlFls20s150sjhn150sjlb#sit\n\u001bt\u001byhk100sFlFl.kjnykj100s50sbkj150s Fl..100s150s wa<ag W100sFlFl.rg y  50s150sluh\u0018\u001b\u000f\u001bbujFus.qd100seeaiyhlkkyn50s_m.20s\u0018\u001b100seei\u001b50s100sjbl100s100shly100sFlFl20s efFls20sFksFuFks20s100seeee#terrain\n\u001b10s_m,20sbuuk20s10s20s jdcsssjjBJBK_>.>__..ckHYJK_>.>HHBH_>,>L    \u001bHHB_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee,qd\\ dh20s.st\u001b#name\n\u001bnljj#chat\nu#chat\nueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKUKY_>.>Fj20s 20sH JYH_>,>UU  ny  y y n  U"
+ },
+ "segments": [
+  {
+   "seed": 52450014,
+   "datetime": "20100325114940",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\n",
+   "moves": "#name\n\u001b#chat\njjynkhFb 20s.150s,khh#rub\n100sFl20s.100sFl20ss50s_ \u001b<.>sbkbnkk_>,>100s\u0018\u001by100s100sFj20sFlFls20s150sjhn150sjlb#sit\n\u001bt\u001byhk100sFlFl.kjnykj100s50sbkj150s Fl..100s150s wa<ag W100sFlFl.rg y  50s150sluh\u0018\u001b\u000f\u001bbujFus.qd100seeaiyhlkkyn50s_m.20s\u0018\u001b100seei\u001b50s100sjbl100s100shly100sFlFl20s efFls20sFksFuFks20s100seeee#terrain\n\u001b10s_m,20sbuuk20s10s20s jdcsssjjBJBK_>.>__..ckHYJK_>.>HHBH_>,>L    \u001bHHB_>.>\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee,qd\\ dh20s.st\u001b#name\n\u001bnljj#chat\nu#chat\nueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKUKY_>.>Fj20s 20sH JYH_>,>UU  ny  y y n  U"
+  }
+ ]
+}

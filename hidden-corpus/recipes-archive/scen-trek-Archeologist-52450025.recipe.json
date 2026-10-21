@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "FlFl .50sFl20ss150skll150si\u001b_ \u001b,>\u0018\u001b\\ i\u001bnjh50s  FhFhs150sFhsslkh\u0018\u001bykbfu\u0018\u001b,100s100sFb.si\u001b150sFb20ssu#wipe\n150s100sFjss100snyn_>,>\u000f\u001b100sFh..50s#wipe\ndb#sit\n\u001bUYNJ_>.>FuFu20sn#conduct\n LLUB_>.>t\u001b\u001b:LHBY_>.>UJLB_>._.>JHHN_>.>\u000f\u001bYUJK_>.>u#pray\ny  KLYB_>.>JLJK_>.><LNHK_>,>KKNH_>.><KUNB_>,>cj#monster\nBJLH_>,>FhFkFhJYYY_>,>LUHL_>.>KLJY_>.>JYNY_>.>LNKY_>.>i\u001bZ\u000f\u001bjk20s#name\n\u001bbb#name\n\u001bUHJU_>.>KLKL_>,><NNUB_>,><JHUK_>.><\u000f\u001bah\u001b#rub\ng\u001b\u001b#loot\nJBLJ_>,>YUNN_>,>NHHB_>.>BLNJ_>.>ch#offer\n100sjyubnk#pray\ny  i\u001b50s#monster\n100s_>.>100s\u0018\u001b#enhance\n\u001byhu_>.>\u000f\u001b100s50s50snhy50s100s\u000f\u001b50sunbed ljh50s,100sed100si\u001b50s 150s150skub100sfnz150sFk20ss150s50s Fk20sFk\u000f\u001b100s  hbb150sei ei150s150shhh150sFlssyny_>.>100s100sFlFls\u0018\u001bhjyed Fls20s150s\\ t\u001b\u001b150sed  150s_>,>_>,>jlllhuFj..100s_>.>150s_>.>50s#offer\naak#wipe\nKHYB_>.>NYHN_>.>LUBB_>.>BLNJ_>.>H UYY_>,>NH KY_>.>HBBK_>,>#turn\n,150s_>.>\u000f\u001b;m,ljb150sunbuuu100"
+ },
+ "segments": [
+  {
+   "seed": 52450025,
+   "datetime": "20140802214329",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=pettype:cat\n",
+   "moves": "FlFl .50sFl20ss150skll150si\u001b_ \u001b,>\u0018\u001b\\ i\u001bnjh50s  FhFhs150sFhsslkh\u0018\u001bykbfu\u0018\u001b,100s100sFb.si\u001b150sFb20ssu#wipe\n150s100sFjss100snyn_>,>\u000f\u001b100sFh..50s#wipe\ndb#sit\n\u001bUYNJ_>.>FuFu20sn#conduct\n LLUB_>.>t\u001b\u001b:LHBY_>.>UJLB_>._.>JHHN_>.>\u000f\u001bYUJK_>.>u#pray\ny  KLYB_>.>JLJK_>.><LNHK_>,>KKNH_>.><KUNB_>,>cj#monster\nBJLH_>,>FhFkFhJYYY_>,>LUHL_>.>KLJY_>.>JYNY_>.>LNKY_>.>i\u001bZ\u000f\u001bjk20s#name\n\u001bbb#name\n\u001bUHJU_>.>KLKL_>,><NNUB_>,><JHUK_>.><\u000f\u001bah\u001b#rub\ng\u001b\u001b#loot\nJBLJ_>,>YUNN_>,>NHHB_>.>BLNJ_>.>ch#offer\n100sjyubnk#pray\ny  i\u001b50s#monster\n100s_>.>100s\u0018\u001b#enhance\n\u001byhu_>.>\u000f\u001b100s50s50snhy50s100s\u000f\u001b50sunbed ljh50s,100sed100si\u001b50s 150s150skub100sfnz150sFk20ss150s50s Fk20sFk\u000f\u001b100s  hbb150sei ei150s150shhh150sFlssyny_>.>100s100sFlFls\u0018\u001bhjyed Fls20s150s\\ t\u001b\u001b150sed  150s_>,>_>,>jlllhuFj..100s_>.>150s_>.>50s#offer\naak#wipe\nKHYB_>.>NYHN_>.>LUBB_>.>BLNJ_>.>H UYY_>,>NH KY_>.>HBBK_>,>#turn\n,150s_>.>\u000f\u001b;m,ljb150sunbuuu100"
+  }
+ ]
+}

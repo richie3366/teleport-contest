@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\nwi\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n \u0007kobold shaman\n#wizintrinsic\ns\n Fy  Fh Fh \u0016?\nh\u0006#overview\n\u001b#conduct\n #annotate\nshiny\n\u000f\u001b#dip\ncl#offer\n#pray\ny y #chat\nu#jump\n#wizidentify\n\u001bFu Fu  n_ \u001b@.#chat\nu#vanquished\n #genocided\nyeti\n\u000f\u001b#name\n\u001b#adjust\nh\u001b#chat\nh  n #turn\n#polyself\nvampire\n#monster\n        n .m.   n   n 20s   nFu     nFl   n   n ,\u00166\n  jbh_{.ql\u0007grid bug\n#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #wizintrinsic\nfr\n FlFlFl_{.q#version\n  #history\n                  i\u001b#wipe\n#loot\nl#chat\nl#chat\nl#wizidentify\n\u001bFlFlFlFl\u0016?\n>w\u0006#overview\n\u001b#conduct\n \u000f\u001b#tip\nh\u001b#ride\njy#turn\n#sit\n#jump\n#polyself\nfire giant\n.sFuFuFuFuFu\u0016?\n>v \u0006\u0007sewer rat\n#vanquished\n #genocided\nsalamander\nh\u001b\u000f\u001b#dip\nf#offer\n#pray\ny y #chat\nk#wizintrinsic\nfa\n FkFkFkFk#untrap\nk__.Fy_.Fy#chat\ny#chronicle\n #terrain\n\u001b\u0018\u001b#name\ni\n#adjust\nd\u001b#chat\ny#turn\n#levelchange\n20\n                   FyFyFyFy_ooo.,\u0007hobbit\n#version\n  #history\n                  \u0018\u001b#twoweapon"
+ },
+ "segments": [
+  {
+   "seed": 52450086,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=fruit:slime mold\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\nwi\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n \u0007kobold shaman\n#wizintrinsic\ns\n Fy  Fh Fh \u0016?\nh\u0006#overview\n\u001b#conduct\n #annotate\nshiny\n\u000f\u001b#dip\ncl#offer\n#pray\ny y #chat\nu#jump\n#wizidentify\n\u001bFu Fu  n_ \u001b@.#chat\nu#vanquished\n #genocided\nyeti\n\u000f\u001b#name\n\u001b#adjust\nh\u001b#chat\nh  n #turn\n#polyself\nvampire\n#monster\n        n .m.   n   n 20s   nFu     nFl   n   n ,\u00166\n  jbh_{.ql\u0007grid bug\n#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #wizintrinsic\nfr\n FlFlFl_{.q#version\n  #history\n                  i\u001b#wipe\n#loot\nl#chat\nl#chat\nl#wizidentify\n\u001bFlFlFlFl\u0016?\n>w\u0006#overview\n\u001b#conduct\n \u000f\u001b#tip\nh\u001b#ride\njy#turn\n#sit\n#jump\n#polyself\nfire giant\n.sFuFuFuFuFu\u0016?\n>v \u0006\u0007sewer rat\n#vanquished\n #genocided\nsalamander\nh\u001b\u000f\u001b#dip\nf#offer\n#pray\ny y #chat\nk#wizintrinsic\nfa\n FkFkFkFk#untrap\nk__.Fy_.Fy#chat\ny#chronicle\n #terrain\n\u001b\u0018\u001b#name\ni\n#adjust\nd\u001b#chat\ny#turn\n#levelchange\n20\n                   FyFyFyFy_ooo.,\u0007hobbit\n#version\n  #history\n                  \u0018\u001b#twoweapon"
+  }
+ ]
+}

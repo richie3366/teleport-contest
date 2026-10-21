@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "H UHH_ \u001b<.>FjFb FkUHHB_>,>FnFnFn YNLJ_>,>KBUB_>,>#pray\ny JHLLL_>,>FhssNBKN_>.>Fk.sUNUH_>,>20s#chat\nn10s#chat\nnbuun10sybdbss.jhyjkylk150sFjss50s50sFhFhFhFh.20skklbuj50sFhs20sFlFlFl150s\u0018\u001b_>,>lkn100sFhFhs#name\ni\n\\ 100sFhFh20s\u0018\u001b50sFhFhs100s100sFuFks100sFh20s.kuhFbFjslbh100sFls20sFl..100sbky100sFk20s.150sed _>,>150sFj.s#quit\nyy\u001by  y y y\u001b \u0007Death\nnFbFb   Fj   yy\u001by  y y\u001by  FFyFy FyFyFyFyFyFyFjFjFjFjFjFjFjFjHKNK_ \u001b.>#dip\nad#loot\nLBBK_>.>YBLJ_>.>\u0014#turn\n<YBYL_>.>#tip\nf\u001bwaYJHN_>.>NNNB_>,>#chat\nudekujkblyk100sE- Elbereth Elbereth\n\u0018\u001boj\u0018\u001b100s\u000f\u001bW100s150s100sFy20sFylyh\\ hlhFhFhFhlln100s150s_>.>100sFhFh20sblb#chat\nk100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKJLB_>.>HUJY_>.>Fk.sNHHJ_>.>LKLN_>.>#pray\ny #conduct\n H #quit\nyy\u001by  y y y\u001b FnFnFnFnFnFnFnFnFlFlFlFlFlFlFl Fl  FjFjFjFjFjFjFjFjFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnjhyu10stbjj#name\nf\n >.hl#name\nm\nnk20stbubhnltbyhl20s20s20s#name\nd\nluknlj50s unl100s hyulhl_>,>blk100s Fh FhFb_>.>jby50s150s\u000f\u001b_>,20sFhFh20s50s100sFh20s.150s\u0018\u001bi\u001b\u000f\u001b1#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 52450090,
+   "datetime": "20100120232501",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\n",
+   "moves": "H UHH_ \u001b<.>FjFb FkUHHB_>,>FnFnFn YNLJ_>,>KBUB_>,>#pray\ny JHLLL_>,>FhssNBKN_>.>Fk.sUNUH_>,>20s#chat\nn10s#chat\nnbuun10sybdbss.jhyjkylk150sFjss50s50sFhFhFhFh.20skklbuj50sFhs20sFlFlFl150s\u0018\u001b_>,>lkn100sFhFhs#name\ni\n\\ 100sFhFh20s\u0018\u001b50sFhFhs100s100sFuFks100sFh20s.kuhFbFjslbh100sFls20sFl..100sbky100sFk20s.150sed _>,>150sFj.s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 52550090,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007Death\nnFbFb   Fj   yy\u001by  y y\u001by  F"
+  },
+  {
+   "seed": 52650090,
+   "datetime": "20101229180253",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\n",
+   "moves": "FyFy FyFyFyFyFyFyFjFjFjFjFjFjFjFjHKNK_ \u001b.>#dip\nad#loot\nLBBK_>.>YBLJ_>.>\u0014#turn\n<YBYL_>.>#tip\nf\u001bwaYJHN_>.>NNNB_>,>#chat\nudekujkblyk100sE- Elbereth Elbereth\n\u0018\u001boj\u0018\u001b100s\u000f\u001bW100s150s100sFy20sFylyh\\ hlhFhFhFhlln100s150s_>.>100sFhFh20sblb#chat\nk100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKJLB_>.>HUJY_>.>Fk.sNHHJ_>.>LKLN_>.>#pray\ny #conduct\n H #quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 52750090,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\n",
+   "moves": "FnFnFnFnFnFnFnFnFlFlFlFlFlFlFl Fl  FjFjFjFjFjFjFjFjFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnjhyu10stbjj#name\nf\n >.hl#name\nm\nnk20stbubhnltbyhl20s20s20s#name\nd\nluknlj50s unl100s hyulhl_>,>blk100s Fh FhFb_>.>jby50s150s\u000f\u001b_>,20sFhFh20s50s100sFh20s.150s\u0018\u001bi\u001b\u000f\u001b1#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

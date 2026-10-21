@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "K  LUB_ \u001b@.>#dip\ne :HJUY_>.>Fl 20ss#twoweapon\n#turn\nBBKB_>,><ULHN_>,><LKNK_>,>LHKL_>.>BBBL_>.>UBUJ_>,>KLJJ_>.>FjFjs<UJYY_>.>Fj Fj Fj "
+ },
+ "segments": [
+  {
+   "seed": 52451027,
+   "datetime": "20130210034010",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=playmode:explore\n",
+   "moves": "K  LUB_ \u001b@.>#dip\ne :HJUY_>.>Fl 20ss#twoweapon\n#turn\nBBKB_>,><ULHN_>,><LKNK_>,>LHKL_>.>BBBL_>.>UBUJ_>,>KLJJ_>.>FjFjs<UJYY_>.>Fj Fj Fj "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nWk\u0017blessed bell of opening\n\u0017blessed amulet of life saving\nPm\u0017blessed 20 daggers\nQn#levelchange\n26\n                            #wizintrinsic\nh\n ;k: \u001b>.E- ad aerarium\n\u0007soldier\nFyFh  Fy Fy Fy \u0017wand of sleep\nzoyzoyzoy zoy \u0017spellbook of cause fear\nrp sZa\n: #wizintrinsic\nh\n\u001614\n#chat\nk;.\u0007sewer rat\n\u0007dwarf\nFyFbFbFb\u0017wand of striking\nzqyzqbzqjzqbzq\u0017scroll of earth\nrr #wizintrinsic\nh\n\u0017blessed spellbook of slow monster\nrs sZc\n:\u0007hill orc\n\u0007bugbear\ns20ss20s.;<.E- Elbereth Elbereth\n#chat\ny#wizintrinsic\nh\n\u0017potion of sleeping\nqt.\u0018\u001bku\u0017potion of booze\nqu s.;m,E- Elbereth Elbereth\n#chat\ny\u0017blessed scroll of identify\nrv  #wizintrinsic\nh\n\u0007gnome lord\nFy20sFyFy20sss\u0017wand of probing\nzw.zwhzwbzwyzwjzw\u0017wand of magic missile\nzxbzxbzxbzxk#wizintrinsic\nh\n;>.E-n  ad aerarium\n\u0017wand of probing\nzyuzybzy.zy.zy\u0017potion of booze\nqzs\u0017blessed spellbook of cone of cold\nrA sZc\n#turn\n: #wizintrinsic\nh\n\u0017spellbook of sleep\nrB .Za\n: \u0017wand of digging\nzCkzCjzChzCbzC.;_.E-n  Elbereth Elbereth\n\u0017blessed spellbook of slow monster\nr"
+ },
+ "segments": [
+  {
+   "seed": 52450030,
+   "datetime": "20221212093952",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nWk\u0017blessed bell of opening\n\u0017blessed amulet of life saving\nPm\u0017blessed 20 daggers\nQn#levelchange\n26\n                            #wizintrinsic\nh\n ;k: \u001b>.E- ad aerarium\n\u0007soldier\nFyFh  Fy Fy Fy \u0017wand of sleep\nzoyzoyzoy zoy \u0017spellbook of cause fear\nrp sZa\n: #wizintrinsic\nh\n\u001614\n#chat\nk;.\u0007sewer rat\n\u0007dwarf\nFyFbFbFb\u0017wand of striking\nzqyzqbzqjzqbzq\u0017scroll of earth\nrr #wizintrinsic\nh\n\u0017blessed spellbook of slow monster\nrs sZc\n:\u0007hill orc\n\u0007bugbear\ns20ss20s.;<.E- Elbereth Elbereth\n#chat\ny#wizintrinsic\nh\n\u0017potion of sleeping\nqt.\u0018\u001bku\u0017potion of booze\nqu s.;m,E- Elbereth Elbereth\n#chat\ny\u0017blessed scroll of identify\nrv  #wizintrinsic\nh\n\u0007gnome lord\nFy20sFyFy20sss\u0017wand of probing\nzw.zwhzwbzwyzwjzw\u0017wand of magic missile\nzxbzxbzxbzxk#wizintrinsic\nh\n;>.E-n  ad aerarium\n\u0017wand of probing\nzyuzybzy.zy.zy\u0017potion of booze\nqzs\u0017blessed spellbook of cone of cold\nrA sZc\n#turn\n: #wizintrinsic\nh\n\u0017spellbook of sleep\nrB .Za\n: \u0017wand of digging\nzCkzCjzChzCbzC.;_.E-n  Elbereth Elbereth\n\u0017blessed spellbook of slow monster\nr"
+  }
+ ]
+}

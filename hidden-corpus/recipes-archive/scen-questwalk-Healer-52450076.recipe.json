@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017blessed +3 gray dragon scale mail\nWm \u0017blessed amulet of reflection\nPn\u0017blessed amulet of life saving\nPo\u0016?\n>z \u00162\n\u0006_ \u001b@.Fy ..sFb\u00163\n\u0006juk  b_>,Fl_,  Fu>\u0006_m.    Fk _,Fu   FuFl   FuFu  \u00165\n\u0006nkknyjkj  \u00166\n \u0006,\u0016?\n>>\u001b\u0016?\n>y #chat\nk\u0016?\n>z\u00162\n\u0016?\n>z\u0006,_>.Fh _.Fh >\u0016?\n>z\u0006__,Fh  _,;,Fu \u00164\n\u0016?\n>z\u0006ly j h    l k u\u0016?\n>>\u001b\u0016?\n>y#chat\nl    \u0016?\n>z_>.     Fj  n   _.Fl  >\u0016?\n>z\u0006__.Fu_.Fl\u00166\n\u0016?\n>z\u0006#chat\nu    ;l._>.Fj_.Fl>\u0016?\n>z\u0006_>. Fl   _.   Fu \u00163\n\u0016?\n>z\u0006_<.    Fu _,  n     Fh\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006_mmmmm.   Fl  _. Fu Fl  Fh   .s 20s    Fk  n \u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_mm,Fk   Fk Fk \u00163\n\u0016?\n>z\u0006_<.\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006uunk juju  \u00166\n\u0016?\n>z\u0006_mmmmm,s      n 20s     s  \u00162\n\u0016?\n>z\u0006,_>.  _.   >\u0016?\n>z\u0006u    nju  n_>.  _,   n  Fj>\u0016?\n>z\u0006_m,FjFjFj FjFj\u00165\n\u0016?\n>z\u0006_>.Fj   _.Fj _>. Fj _. > \u0016?\n>z\u0006#chat\nh;_.\u00162\n\u0016?\n>z\u0006_mmm,20s  s"
+ },
+ "segments": [
+  {
+   "seed": 52450076,
+   "datetime": "20161009122937",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017blessed +3 gray dragon scale mail\nWm \u0017blessed amulet of reflection\nPn\u0017blessed amulet of life saving\nPo\u0016?\n>z \u00162\n\u0006_ \u001b@.Fy ..sFb\u00163\n\u0006juk  b_>,Fl_,  Fu>\u0006_m.    Fk _,Fu   FuFl   FuFu  \u00165\n\u0006nkknyjkj  \u00166\n \u0006,\u0016?\n>>\u001b\u0016?\n>y #chat\nk\u0016?\n>z\u00162\n\u0016?\n>z\u0006,_>.Fh _.Fh >\u0016?\n>z\u0006__,Fh  _,;,Fu \u00164\n\u0016?\n>z\u0006ly j h    l k u\u0016?\n>>\u001b\u0016?\n>y#chat\nl    \u0016?\n>z_>.     Fj  n   _.Fl  >\u0016?\n>z\u0006__.Fu_.Fl\u00166\n\u0016?\n>z\u0006#chat\nu    ;l._>.Fj_.Fl>\u0016?\n>z\u0006_>. Fl   _.   Fu \u00163\n\u0016?\n>z\u0006_<.    Fu _,  n     Fh\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006_mmmmm.   Fl  _. Fu Fl  Fh   .s 20s    Fk  n \u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_mm,Fk   Fk Fk \u00163\n\u0016?\n>z\u0006_<.\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006uunk juju  \u00166\n\u0016?\n>z\u0006_mmmmm,s      n 20s     s  \u00162\n\u0016?\n>z\u0006,_>.  _.   >\u0016?\n>z\u0006u    nju  n_>.  _,   n  Fj>\u0016?\n>z\u0006_m,FjFjFj FjFj\u00165\n\u0016?\n>z\u0006_>.Fj   _.Fj _>. Fj _. > \u0016?\n>z\u0006#chat\nh;_.\u00162\n\u0016?\n>z\u0006_mmm,20s  s"
+  }
+ ]
+}

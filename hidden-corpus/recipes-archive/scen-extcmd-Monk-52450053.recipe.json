@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPkl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n        \u0007lichen\nFhFk 20s._ \u001b;#chat\nk\u0007dwarf\n#overview\n\u001b#conduct\n \u0018\u001b#dip\ned#offer\n#pray\ny y   #chat\nl#jump\n#wizidentify\n\u001bFlFl#invoke\n\u001b_oooooo,Fu_.,\u0007bugbear\n#vanquished\n #genocided\nkraken\ni\u001b#name\no\n#adjust\nm\u001b#chat\nj#turn\n#wizintrinsic\nr\n yny_>.\u0007sewer rat\n#chronicle\n #terrain\n\u001b#annotate\nfoo\n\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y    #jump\n#wizdetect\n\u0006Fns_{.qd#version\n  #history\n                  #annotate\n\u001bi\u001b#wipe\n#loot\n#chat\nl#chat\nh#jump\n#wizintrinsic\nf\n uh j_<._,#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n\u001b#wizidentify\n\u001bk k b_{.Fh_,Fbqm\u0007sewer rat\n#vanquished\n #genocided\nlittle dog\ni\u001b#dip\nhd#offer\n#pray\ny y   #chat\nj#wizidentify\n\u001bFjFj_{.qd#chronicle\n #terrain\n\u001b\u0018\u001b#name\nd\n#adjust\nb\u001b#chat\nj#turn\n#wizintrinsic\ng\n FjFjFji\u001b_{,Fl_,Fuqd\u0007giant rat\n#version\n  #history\n                  #annotate\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 52450053,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed ring of free action\nPkl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n        \u0007lichen\nFhFk 20s._ \u001b;#chat\nk\u0007dwarf\n#overview\n\u001b#conduct\n \u0018\u001b#dip\ned#offer\n#pray\ny y   #chat\nl#jump\n#wizidentify\n\u001bFlFl#invoke\n\u001b_oooooo,Fu_.,\u0007bugbear\n#vanquished\n #genocided\nkraken\ni\u001b#name\no\n#adjust\nm\u001b#chat\nj#turn\n#wizintrinsic\nr\n yny_>.\u0007sewer rat\n#chronicle\n #terrain\n\u001b#annotate\nfoo\n\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y    #jump\n#wizdetect\n\u0006Fns_{.qd#version\n  #history\n                  #annotate\n\u001bi\u001b#wipe\n#loot\n#chat\nl#chat\nh#jump\n#wizintrinsic\nf\n uh j_<._,#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n\u001b#wizidentify\n\u001bk k b_{.Fh_,Fbqm\u0007sewer rat\n#vanquished\n #genocided\nlittle dog\ni\u001b#dip\nhd#offer\n#pray\ny y   #chat\nj#wizidentify\n\u001bFjFj_{.qd#chronicle\n #terrain\n\u001b\u0018\u001b#name\nd\n#adjust\nb\u001b#chat\nj#turn\n#wizintrinsic\ng\n FjFjFji\u001b_{,Fl_,Fuqd\u0007giant rat\n#version\n  #history\n                  #annotate\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b"
+  }
+ ]
+}

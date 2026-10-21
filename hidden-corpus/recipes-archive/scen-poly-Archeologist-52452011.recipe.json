@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of polymorph control\nPir#polyself\nquasit\n #monster\n20s20s20s.ksm.#polyself\ncrocodile\n  #monster\nsm.20s\u0007straw golem\nFyFk Fysss#polyself\nrock piercer\n  #monster\n s20s \u0007blue jelly\n.s  Fh  s sm.sn"
+ },
+ "segments": [
+  {
+   "seed": 52452011,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of polymorph control\nPir#polyself\nquasit\n #monster\n20s20s20s.ksm.#polyself\ncrocodile\n  #monster\nsm.20s\u0007straw golem\nFyFk Fysss#polyself\nrock piercer\n  #monster\n s20s \u0007blue jelly\n.s  Fh  s sm.sn"
+  }
+ ]
+}

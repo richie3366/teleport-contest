@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u00165\nFlFlFk ynl50s  \\150shbh100sjjj_>yhj#jump\nFlFlFl  nFl  nFl  nFl  nFl  nFl  nFl#pray\ny y     Fl  nFl  nFl  nFlFl  nFl  nFl  n Fl  nFl  nFl Fl  nFl  yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 52450095,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u00165\nFlFlFk ynl50s  \\150shbh100sjjj_>yhj#jump\nFlFlFl  nFl  nFl  nFl  nFl  nFl  nFl#pray\ny y     Fl  nFl  nFl  nFlFl  nFl  nFl  n Fl  nFl  nFl Fl  nFl  yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

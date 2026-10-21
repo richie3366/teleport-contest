@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " lu\u0017wand of digging\nEi  Elbereth Elbereth\n\u0017wand of opening\nEj: \u0017wand of undead turning\nEk: E-: \u0017wand of make invisible\nEl  I am a fish\n: E-y I am a fish\n\u0007minotaur\nsus.j  n  yy\u001bnnny  F"
+ },
+ "segments": [
+  {
+   "seed": 52451018,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=runmode:run\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " lu\u0017wand of digging\nEi  Elbereth Elbereth\n\u0017wand of opening\nEj: \u0017wand of undead turning\nEk: E-: \u0017wand of make invisible\nEl  I am a fish\n: E-y I am a fish\n\u0007minotaur\nsus.j  n  yy\u001bnnny  F"
+  }
+ ]
+}

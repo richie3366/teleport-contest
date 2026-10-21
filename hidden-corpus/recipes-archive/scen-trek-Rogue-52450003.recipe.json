@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "H  HHK_ \u001b,>#offer\nw-YYLH_>,>YHHB_>,>\u0018\u001bsBUBU_>.>Fn FlsKUJY_>.>YLHB_>.><#monster\nJJKU_>,><#twoweapon\n>tak#chat\nn10s20s#name\no\n#chat\nj20s #chat\nhhntbn#name\nm\n10stbu10s  #name\na\nE- Elbereth Elbereth\ntbh#name\na\nljtbhtbh   uhulhljk#untrap\ny>;.nhu#dip\ngd100s100sjljjkk100s100s150si\u001bi\u001b150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLLYL_>.>UYNL_>.>\u0014#ride\nlLYJH_>.>oh#name\nd\nLJJH_>.>BKLK_>.>HUUH_>.>#conduct\n #invoke\n\u001bLKKL_>.>#loot\n#rub\n\u000f\u001b:>#rub\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10stbu#name\n"
+ },
+ "segments": [
+  {
+   "seed": 52450003,
+   "datetime": "20201016214127",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": "H  HHK_ \u001b,>#offer\nw-YYLH_>,>YHHB_>,>\u0018\u001bsBUBU_>.>Fn FlsKUJY_>.>YLHB_>.><#monster\nJJKU_>,><#twoweapon\n>tak#chat\nn10s20s#name\no\n#chat\nj20s #chat\nhhntbn#name\nm\n10stbu10s  #name\na\nE- Elbereth Elbereth\ntbh#name\na\nljtbhtbh   uhulhljk#untrap\ny>;.nhu#dip\ngd100s100sjljjkk100s100s150si\u001bi\u001b150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLLYL_>.>UYNL_>.>\u0014#ride\nlLYJH_>.>oh#name\nd\nLJJH_>.>BKLK_>.>HUUH_>.>#conduct\n #invoke\n\u001bLKKL_>.>#loot\n#rub\n\u000f\u001b:>#rub\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee10stbu#name\n"
+  }
+ ]
+}

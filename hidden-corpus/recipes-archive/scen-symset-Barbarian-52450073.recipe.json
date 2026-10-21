@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "v\u001bi\u001bO>>>>e\u001b\n#levelchange\n10\n         ull\u0017altar\ndf\u0017jackal corpse\n#offer\ng  #pray\ny y nj\u0017iron bars\nhn\u0017fountain\nqy#dip\nay:ju\u0017cloud\n:#terrain\nb\n\u001b<.z#terrain\nb\n#name\nm.mO>>>p\u001b\n\u001616\n\u0006_>._.> FbFjFb\u0006_>.Fj_.Fb>Fh Fn_>,Fy_.> FyFyFb\u0006_>.Fn_.  Fn>FnFl _>.Fu_.Fn>FlFn_>.Fj_,> FkFyFy\u00168\nmO>u\u001b\nO>>c\u001b\n#levelchange\n10\nyynh  \u0017sink\nqy\u0017ring of slow digestion\ndh \u001bjn\u0017throne\n#sit\n: hk\u0017tree\njj\u0017pool\n#dip\ncy   :#terrain\nc\n.\u0004 k#invoke\n\u001b\u00165\n O>o4\n \u001b\n\u0007pony\n\u0017apple\n tbn#chat\nb\u0017newt corpse\nt\u001b\u0017leash\najylh nnajb dj  n 20ssm.sm.dism.sm.sm.#chat\nh\u0007yellow mold\nsns.k.h.smO>>r\u001b\n\u0007tame jackal\n\u0007little dog\n\u0017banana\nt\u001b\u0017huge chunk of meat\n t\u001b#chat\ny de.m.20s.m. \u0007newt\nsm..nsm.sm.  n sn20s 20s \u0006_>. Fy_, Fn >Fjs_>.Fy_.Fy>Fh Fb_>.Fb_.m,Fb>FbFbFjFbFj\u000f\u001bt\u001b\u0006_>,Fb_.,Fj>FjFj_>.Fb_.;>. Fb>FjFb_>.Fj_,,Fj>FjFbFbFjFbH,\u0006_>.Fb_,>.Fj>FnFj_>.Fn_.>.Fj>FjFn_>,Fj_.,Fb>FjFbFjFjFn\u0006_>>.Fj_..Fn>FnFn_>>.Fn_.;>. Fn>FnFn_>>.Fn_.;m,Fn>FbFjFjFjFb\u0018\u001b#tip\n\u001b\u0006_"
+ },
+ "segments": [
+  {
+   "seed": 52450073,
+   "datetime": "20240115101431",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nMENUCOLOR=\"a potion\"=cyan\nBIND=v:inventory\n",
+   "moves": "v\u001bi\u001bO>>>>e\u001b\n#levelchange\n10\n         ull\u0017altar\ndf\u0017jackal corpse\n#offer\ng  #pray\ny y nj\u0017iron bars\nhn\u0017fountain\nqy#dip\nay:ju\u0017cloud\n:#terrain\nb\n\u001b<.z#terrain\nb\n#name\nm.mO>>>p\u001b\n\u001616\n\u0006_>._.> FbFjFb\u0006_>.Fj_.Fb>Fh Fn_>,Fy_.> FyFyFb\u0006_>.Fn_.  Fn>FnFl _>.Fu_.Fn>FlFn_>.Fj_,> FkFyFy\u00168\nmO>u\u001b\nO>>c\u001b\n#levelchange\n10\nyynh  \u0017sink\nqy\u0017ring of slow digestion\ndh \u001bjn\u0017throne\n#sit\n: hk\u0017tree\njj\u0017pool\n#dip\ncy   :#terrain\nc\n.\u0004 k#invoke\n\u001b\u00165\n O>o4\n \u001b\n\u0007pony\n\u0017apple\n tbn#chat\nb\u0017newt corpse\nt\u001b\u0017leash\najylh nnajb dj  n 20ssm.sm.dism.sm.sm.#chat\nh\u0007yellow mold\nsns.k.h.smO>>r\u001b\n\u0007tame jackal\n\u0007little dog\n\u0017banana\nt\u001b\u0017huge chunk of meat\n t\u001b#chat\ny de.m.20s.m. \u0007newt\nsm..nsm.sm.  n sn20s 20s \u0006_>. Fy_, Fn >Fjs_>.Fy_.Fy>Fh Fb_>.Fb_.m,Fb>FbFbFjFbFj\u000f\u001bt\u001b\u0006_>,Fb_.,Fj>FjFj_>.Fb_.;>. Fb>FjFb_>.Fj_,,Fj>FjFbFbFjFbH,\u0006_>.Fb_,>.Fj>FnFj_>.Fn_.>.Fj>FjFn_>,Fj_.,Fb>FjFbFjFjFn\u0006_>>.Fj_..Fn>FnFn_>>.Fn_.;>. Fn>FnFn_>>.Fn_.;m,Fn>FbFjFjFjFb\u0018\u001b#tip\n\u001b\u0006_"
+  }
+ ]
+}

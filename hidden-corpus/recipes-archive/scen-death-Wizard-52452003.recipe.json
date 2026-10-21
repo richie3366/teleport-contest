@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nd\n sm.20s.nskssss.ysm..m.sm..bsm.20s syss20s sm.sm.shss20s yy\u001by   y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 52452003,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nd\n sm.20s.nskssss.ysm..m.sm..bsm.20s syss20s sm.sm.shss20s yy\u001by   y y y\u001by  s"
+  }
+ ]
+}

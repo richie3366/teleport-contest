@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           \u0016?\n>B\u0017blessed ring of levitation\nPil FnFb kjjjjj\u0017scroll of earth\nrj jyjkj\u0017wand of digging\nzkjykkkykjkjkkkykyhjyyknkjny10skyjykjkyyyykjbjkkjy#levelchange\n20\n       \u0007baluchitherium\n.s\u0007silver dragon\n#chat\nhs20s\u0007vampire\n;m, \u001bm.sss\u0007gold golem\n;_.20s.s#levelchange\n30\n         \u0007titanothere\n20s 20s 20ss..20s\u0007air elemental\n#chat\nus20s\u0007ice devil\n.ss20s \u001b 20s sss\u0007hezrou\n20s ss\u00168\nkj\u0017wand of enlightenment\nEl  \u001b :\u0017wand of opening\nEm \u0017athame\nEn:E-\u0007gnome lord\n20ssjsm.\u0017uncursed wand of teleportation\n\u0007chameleon\nzokFnFn\u0017magic whistle\napap..\u0017cursed the Mitre of Holiness\n \u0007violet fungus\n,FnFnsm.s\u001619\n#levelchange\n14\n       \u0017blessed spellbook of extra healing\nrq sm.\u0017blessed spellbook of healing\nrr20s\u0017spellbook of magic missile\nrssm.\u0017spellbook of invisibility\nrt \u001b.+Z\u0007ghoul\nZZZ20s   ZZ#turn\n \u001614\n\u0018\u001b#polyself\nfire vortex\n  #monster\nss\u0007gnome\nFnFn20s s\u0007grid bug\nsFkFk s\u0017cursed potion of full healing\nqu .s\u0017spellbook of cone of cold\n\u0007bone devil\nrvs.ZZFkFk \u0017uncursed wooden flute\naassnn\u0017wand of probing\nE:\u0017wand of undead turning\nE:\u0017wand of locking\nE\u0017wand of striking\nE:E\u0007minotaur\n20s  20s  n   sm.  n  \u00169\n#levelchange\n6\n    \u0007hostile fog cloud\nFn  n   nFk   nFn   n  Fn  n   nFk    n   n Fk  n sm.  n   nFn   n   nFk    n Fk   yy\u001by   y nn  2"
+ },
+ "segments": [
+  {
+   "seed": 52450001,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           \u0016?\n>B\u0017blessed ring of levitation\nPil FnFb kjjjjj\u0017scroll of earth\nrj jyjkj\u0017wand of digging\nzkjykkkykjkjkkkykyhjyyknkjny10skyjykjkyyyykjbjkkjy#levelchange\n20\n       \u0007baluchitherium\n.s\u0007silver dragon\n#chat\nhs20s\u0007vampire\n;m, \u001bm.sss\u0007gold golem\n;_.20s.s#levelchange\n30\n         \u0007titanothere\n20s 20s 20ss..20s\u0007air elemental\n#chat\nus20s\u0007ice devil\n.ss20s \u001b 20s sss\u0007hezrou\n20s ss\u00168\nkj\u0017wand of enlightenment\nEl  \u001b :\u0017wand of opening\nEm \u0017athame\nEn:E-\u0007gnome lord\n20ssjsm.\u0017uncursed wand of teleportation\n\u0007chameleon\nzokFnFn\u0017magic whistle\napap..\u0017cursed the Mitre of Holiness\n \u0007violet fungus\n,FnFnsm.s\u001619\n#levelchange\n14\n       \u0017blessed spellbook of extra healing\nrq sm.\u0017blessed spellbook of healing\nrr20s\u0017spellbook of magic missile\nrssm.\u0017spellbook of invisibility\nrt \u001b.+Z\u0007ghoul\nZZZ20s   ZZ#turn\n \u001614\n\u0018\u001b#polyself\nfire vortex\n  #monster\nss\u0007gnome\nFnFn20s s\u0007grid bug\nsFkFk s\u0017cursed potion of full healing\nqu .s\u0017spellbook of cone of cold\n\u0007bone devil\nrvs.ZZFkFk \u0017uncursed wooden flute\naassnn\u0017wand of probing\nE:\u0017wand of undead turning\nE:\u0017wand of locking\nE\u0017wand of striking\nE:E\u0007minotaur\n20s  20s  n   sm.  n  \u00169\n#levelchange\n6\n    \u0007hostile fog cloud\nFn  n   nFk   nFn   n  Fn  n   nFk    n   n Fk  n sm.  n   nFn   n   nFk    n Fk   yy\u001by   y nn  2"
+  }
+ ]
+}

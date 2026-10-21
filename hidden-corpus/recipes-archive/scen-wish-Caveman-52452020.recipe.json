@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n           \u0017uncursed spellbook of haste self\n\u0007ape\nrf.sZa\nZa\n\u00173 Magicbane\nwg20s20ss#invoke\ngX20ss\u0017blessed scroll of food detection\nrh  \u001b.20s\u0017ring of regeneration\n\u0007gold golem\nPil20ssm..nR\u0017war hammer\nwjFy Fy Fy XFyFy\u0017flint stone\n \u0007rust monster\ntgh .m.."
+ },
+ "segments": [
+  {
+   "seed": 52452020,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n           \u0017uncursed spellbook of haste self\n\u0007ape\nrf.sZa\nZa\n\u00173 Magicbane\nwg20s20ss#invoke\ngX20ss\u0017blessed scroll of food detection\nrh  \u001b.20s\u0017ring of regeneration\n\u0007gold golem\nPil20ssm..nR\u0017war hammer\nwjFy Fy Fy XFyFy\u0017flint stone\n \u0007rust monster\ntgh .m.."
+  }
+ ]
+}

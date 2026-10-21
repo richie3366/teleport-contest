@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " yl h \u0017magic fountain\nqy qy    qy\u0017long sword\n#dip\niy yub\u0017unaligned altar\nda\u0017gnome corpse\n#offer\nj   #pray\ny uh\u0017throne\n#sit\n#sit\n:#terrain\ne\n__, \u001b,20s   #wipe\nab  ,Sy\u001b nnH\u0018\u001b#sit\nlE- I am a fish\ns#ride\nly#terrain\nf\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 52451020,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:run\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " yl h \u0017magic fountain\nqy qy    qy\u0017long sword\n#dip\niy yub\u0017unaligned altar\nda\u0017gnome corpse\n#offer\nj   #pray\ny uh\u0017throne\n#sit\n#sit\n:#terrain\ne\n__, \u001b,20s   #wipe\nab  ,Sy\u001b"
+  },
+  {
+   "seed": 52951020,
+   "datetime": "20250312084456",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:run\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " nnH\u0018\u001b#sit\nlE- I am a fish\ns#ride\nly#terrain\nf\n"
+  }
+ ]
+}

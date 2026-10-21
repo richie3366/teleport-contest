@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWn\u0017blessed +3 gray dragon scale mail\nWo#levelchange\n14\n             \u0017wand of death\n\u0017wand of teleportation\n\u0017wand of lightning\n\u0007sewer rat\n\u0007hill orc\nzrj  zqkszq. \u001b.zplszr.20szpnzruzpjzpy\u00169\n\u0018\u001b\u0017blessed spellbook of sleep\nrs.\u0007master lich\nZZ20s    n.  Z20s  .Z20s20s  ZZZ20ssZ.  s\u00176 eggs\nQ-\u0007bugbear\nf a ufufufht$ufkfhfutau\u0017potion of sickness\ntau\u0007lich\n\u0007master lich\n\u0017wand of striking\nzvk\u0017wand of striking\n\u0017wand of sleep\n\u0007troll\nzwhs   zwh    n   zwh  zxbzxl   szxy zxhzxh      nzwh    zxzwy  \u001613\n\u00165\n\u0007silver dragon\nssFhFb \u00175 boomerangs\nQy\u0007hobbit\n\u0007kobold shaman\nfbtyh fhfbtab\u0017potion of invisibility\ntyj  n \u0017wand of polymorph\n\u0017wand of digging\n\u0017wand of cold\n\u0007soldier\nzAjzAbzCbzB> .zAlzAb\u0007red dragon\n..  \u0017wand of cold\naDy     n Fh .\u001619\n  \u0007orc shaman\n\u0007kobold shaman\n\u0007aligned cleric\nny\u0017wand of cold\nzEyzEk zEkzEks20s s20s.zEjzEk \u0017wand of death\n\u0017wand of polymorph\n\u0017wand of magic missile\n\u0007sewer rat\n\u0007kobold\n\u0007hobbit\nzGkzGkzHk   n zGyzGb.  n zGy 20s\u0018\u001b\u001611\n\u0017orcish bow\nwI\u001720 orcish arrows\nQJ\u0007soldier\n\u0007dwarf\nfkfbfhfbfbfbfbfb\u0017potion of blindness\ntJh\u0017blessed spellbook of magic missile\nrLs\u0007kobold shaman\nZZZ20s .ZZ\u0018\u001b\u0017wand of death\n\u0017wand of sleep\n\u0017wand of fire\n\u0007yellow mold\n\u0007kobold s"
+ },
+ "segments": [
+  {
+   "seed": 52450092,
+   "datetime": "20090127034838",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWn\u0017blessed +3 gray dragon scale mail\nWo#levelchange\n14\n             \u0017wand of death\n\u0017wand of teleportation\n\u0017wand of lightning\n\u0007sewer rat\n\u0007hill orc\nzrj  zqkszq. \u001b.zplszr.20szpnzruzpjzpy\u00169\n\u0018\u001b\u0017blessed spellbook of sleep\nrs.\u0007master lich\nZZ20s    n.  Z20s  .Z20s20s  ZZZ20ssZ.  s\u00176 eggs\nQ-\u0007bugbear\nf a ufufufht$ufkfhfutau\u0017potion of sickness\ntau\u0007lich\n\u0007master lich\n\u0017wand of striking\nzvk\u0017wand of striking\n\u0017wand of sleep\n\u0007troll\nzwhs   zwh    n   zwh  zxbzxl   szxy zxhzxh      nzwh    zxzwy  \u001613\n\u00165\n\u0007silver dragon\nssFhFb \u00175 boomerangs\nQy\u0007hobbit\n\u0007kobold shaman\nfbtyh fhfbtab\u0017potion of invisibility\ntyj  n \u0017wand of polymorph\n\u0017wand of digging\n\u0017wand of cold\n\u0007soldier\nzAjzAbzCbzB> .zAlzAb\u0007red dragon\n..  \u0017wand of cold\naDy     n Fh .\u001619\n  \u0007orc shaman\n\u0007kobold shaman\n\u0007aligned cleric\nny\u0017wand of cold\nzEyzEk zEkzEks20s s20s.zEjzEk \u0017wand of death\n\u0017wand of polymorph\n\u0017wand of magic missile\n\u0007sewer rat\n\u0007kobold\n\u0007hobbit\nzGkzGkzHk   n zGyzGb.  n zGy 20s\u0018\u001b\u001611\n\u0017orcish bow\nwI\u001720 orcish arrows\nQJ\u0007soldier\n\u0007dwarf\nfkfbfhfbfbfbfbfb\u0017potion of blindness\ntJh\u0017blessed spellbook of magic missile\nrLs\u0007kobold shaman\nZZZ20s .ZZ\u0018\u001b\u0017wand of death\n\u0017wand of sleep\n\u0017wand of fire\n\u0007yellow mold\n\u0007kobold s"
+  }
+ ]
+}

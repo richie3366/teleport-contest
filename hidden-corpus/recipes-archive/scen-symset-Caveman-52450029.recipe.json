@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00167\nFnFn20s   byhk 50s 50s50s150s Fl FlFl#pray\ny y 150sjjk100s_ \u001b@.>lhj\u000f\u001b_>._.> 100slnu\u000f\u001bhhyFhFhFh #pray\ny y           Fh Fh  Fb  #pray\ny y         Fb FhFhFhs.b#turn\n\u000f\u001bylbyku100s_>,>i\u001b100s100s50s eee\u00169\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeO>>>f\u001b\nO>>p\u001b\n__,.f  k#monster\n#untrap\nb\u0006_>,Fh_,;,Fk > >#conduct\n \u0006>._>._. >_>,_,>_>._.>\u0006_>>,_.>_>>,_.>_>>._.>\u0006_>._,>_>._.>_>._.>r\u001b#offer\n\u0006_>._.>_>,_,>_>._.>\u0006_>>,_.>_>>,_.>_>>,_.>\u0006_>,_.>_>._,>_>,_.>#enhance\nym\ng\n\u001b10seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u001616\nO>h\u001b\n\u00163\neeeeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 52450029,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nMENUCOLOR=\"cursed\"=cyan\n",
+   "moves": "\u00167\nFnFn20s   byhk 50s 50s50s150s Fl FlFl#pray\ny y 150sjjk100s_ \u001b@.>lhj\u000f\u001b_>._.> 100slnu\u000f\u001bhhyFhFhFh #pray\ny y           Fh Fh  Fb  #pray\ny y         Fb FhFhFhs.b#turn\n\u000f\u001bylbyku100s_>,>i\u001b100s100s50s eee\u00169\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeO>>>f\u001b\nO>>p\u001b\n__,.f  k#monster\n#untrap\nb\u0006_>,Fh_,;,Fk > >#conduct\n \u0006>._>._. >_>,_,>_>._.>\u0006_>>,_.>_>>,_.>_>>._.>\u0006_>._,>_>._.>_>._.>r\u001b#offer\n\u0006_>._.>_>,_,>_>._.>\u0006_>>,_.>_>>,_.>_>>,_.>\u0006_>,_.>_>._,>_>,_.>#enhance\nym\ng\n\u001b10seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u001616\nO>h\u001b\n\u00163\neeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

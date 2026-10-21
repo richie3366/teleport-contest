@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "FlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl#tip\nh\u001b\u0014 \u001b;E- ad aerarium\n#ride\nk \u001617\nO>b\u001b\n\u00165\nFkFuFjFkFyFyFjFkFjFyFuk FyFkk FkFkFkFuFjFjFuFuFuFkFkFkFyFyFjFuFjFkFjFjFuFuFuFkFyFyFjFuFkFuFkFyFuk FjFkFkFuFuFyFjFuFyFuy FyFjFyFuk FjFuFkFyFuu FkFkFkFjFuFyFyFyFkk FuFuFkFyFjFyFjFjFyFuy FkFjFyFjFyFyFkFkFyFkj FkFkFkFkFkFjFyFyFuFuFyFkk FyFyFjFyFjFkFkFjFkFjFjFjFuFumO>>i\u001b\n\u00163\nFbFbFjFnFnFbFln FlFlFnFbFjFnFlb FnFjFlFlFbFnFlFjFbFbFjFnFnFbFjFbF"
+ },
+ "segments": [
+  {
+   "seed": 52450018,
+   "datetime": "20101124075726",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"uncursed\"=cyan\n",
+   "moves": "FlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFlFl#tip\nh\u001b\u0014 \u001b;E- ad aerarium\n#ride\nk \u001617\nO>b\u001b\n\u00165\nFkFuFjFkFyFyFjFkFjFyFuk FyFkk FkFkFkFuFjFjFuFuFuFkFkFkFyFyFjFuFjFkFjFjFuFuFuFkFyFyFjFuFkFuFkFyFuk FjFkFkFuFuFyFjFuFyFuy FyFjFyFuk FjFuFkFyFuu FkFkFkFjFuFyFyFyFkk FuFuFkFyFjFyFjFjFyFuy FkFjFyFjFyFyFkFkFyFkj FkFkFkFkFkFjFyFyFuFuFyFkk FyFyFjFyFjFkFkFjFkFjFjFjFuFumO>>i\u001b\n\u00163\nFbFbFjFnFnFbFln FlFlFnFbFjFnFlb FnFjFlFlFbFnFlFjFbFbFjFnFnFbFjFbF"
+  }
+ ]
+}

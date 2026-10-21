@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0007tame saddled white unicorn\n#ride\njyy\u0007tame saddled horse\n#ride\n\u0007tame saddled pony\n#ride\nuy,kjykb\u0007giant rat\nFl        FjFknyk\u001622\n#levelchange\n20\n                   \u0016?\n>JZa\nzhjt$k ;k: \u001b@.s.\u0016?\nn s#rub\n\u0018\u001b\u0006sns\u0016?\n>z  #force\n  #jump\n#enhance\nyc\nc\n\u001b.s\u001b\u0016?\ndj10s \u0018\u001b\u0006m,.20s \u0006>.ny\u0017wand of magic missile\nE\u001b: \u0017wand of lightning\nE\u001bb\u0017wand of slow monster\nE\u001b: E\u001b\u0007soldier ant\n20s ss\u001bFjFkuluh\u0017pool\n#dip\nle: jn\u0017iron bars\nyy\u0017lawful altar\ndadb\u0017lichen corpse\n#offer\n#rub\n10s\u001b_>. s\u0017trident\nwqFjFk   Fk   n   \u0007floating eye\nFn            n Fn           n Fn Fk sm. 20s #pray\ny y      \u0007lich\nFk   n Fj  Fn                   n  Fj Fk Fj   Fk  sm.     n .m.    \u00169\n#levelchange\n10\n   \u00175 boomerangs\nQr\u0007gnome\nbufjfh   f\u0007gnome\nk    ufj       nfj   Fh       Fj   x#twoweapon\nFh  Fh      l   k    n,#enhance\nn\u001b\u00165\n\u0006_>>._,> FhFhFh\u0006_>._,,>_>._.:>_>._..>\u0006_>,_.<.>_>._.>.>_>,_.<.>\u0006_>>._..>_>>._,;;>_>>,_,@.>df#conduct\n \u0006_>,_,m.>_>,_,<.>_>._.;>.>\u0006_>>._,.>_>>._.;>.>_>>,_..>\u0006_>._.>.>_>._.,>_>._.<.>llhl\u0017hole\nl\u0007lichen\n20s20sshsm.lh\u0017magic portal\nlh y\u001by  y y y\u001b ."
+ },
+ "segments": [
+  {
+   "seed": 52450089,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007tame saddled white unicorn\n#ride\njyy\u0007tame saddled horse\n#ride\n\u0007tame saddled pony\n#ride\nuy,kjykb\u0007giant rat\nFl        FjFknyk\u001622\n#levelchange\n20\n                   \u0016?\n>JZa\nzhjt$k ;k: \u001b@.s.\u0016?\nn s#rub\n\u0018\u001b\u0006sns\u0016?\n>z  #force\n  #jump\n#enhance\nyc\nc\n\u001b.s\u001b\u0016?\ndj10s \u0018\u001b\u0006m,.20s \u0006>.ny\u0017wand of magic missile\nE\u001b: \u0017wand of lightning\nE\u001bb\u0017wand of slow monster\nE\u001b: E\u001b\u0007soldier ant\n20s ss\u001bFjFkuluh\u0017pool\n#dip\nle: jn\u0017iron bars\nyy\u0017lawful altar\ndadb\u0017lichen corpse\n#offer\n#rub\n10s\u001b_>. s\u0017trident\nwqFjFk   Fk   n   \u0007floating eye\nFn            n Fn           n Fn Fk sm. 20s #pray\ny y      \u0007lich\nFk   n Fj  Fn                   n  Fj Fk Fj   Fk  sm.     n .m.    \u00169\n#levelchange\n10\n   \u00175 boomerangs\nQr\u0007gnome\nbufjfh   f\u0007gnome\nk    ufj       nfj   Fh       Fj   x#twoweapon\nFh  Fh      l   k    n,#enhance\nn\u001b\u00165\n\u0006_>>._,> FhFhFh\u0006_>._,,>_>._.:>_>._..>\u0006_>,_.<.>_>._.>.>_>,_.<.>\u0006_>>._..>_>>._,;;>_>>,_,@.>df#conduct\n \u0006_>,_,m.>_>,_,<.>_>._.;>.>\u0006_>>._,.>_>>._.;>.>_>>,_..>\u0006_>._.>.>_>._.,>_>._.<.>llhl\u0017hole\nl\u0007lichen\n20s20sshsm.lh\u0017magic portal\nlh y\u001by  y y y\u001b ."
+  }
+ ]
+}

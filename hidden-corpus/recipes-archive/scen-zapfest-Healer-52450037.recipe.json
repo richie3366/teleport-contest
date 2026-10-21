@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nWl\u0017blessed +3 gray dragon scale mail\nWm   \u0017wand of death\n\u0017wand of fire\n\u0007soldier\nznu .m.zok   zou znh    znk sznnznb znlsznj  zon.\u00176 javelins\n Qp\u0007grid bug\n\u0007giant rat\nfufl  t$l tplfkfl fl \u001614\n     \u0007mind flayer\n\u0007master mind flayer\n\u0017wand of striking\nslssszqy         \u0017blessed spellbook of finger of death\nrr  n   n   20s    n    n \u0017spellbook of magic missile\n rs \u001b. \u001b       n    n 20s   n     n \u0007orc shaman\nZc\n     n    n 20s     n     n 20s      n ZZ.l       n     n  y\u001b      s"
+ },
+ "segments": [
+  {
+   "seed": 52450037,
+   "datetime": "20200922151321",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=runmode:crawl\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nWl\u0017blessed +3 gray dragon scale mail\nWm   \u0017wand of death\n\u0017wand of fire\n\u0007soldier\nznu .m.zok   zou znh    znk sznnznb znlsznj  zon.\u00176 javelins\n Qp\u0007grid bug\n\u0007giant rat\nfufl  t$l tplfkfl fl \u001614\n     \u0007mind flayer\n\u0007master mind flayer\n\u0017wand of striking\nslssszqy         \u0017blessed spellbook of finger of death\nrr  n   n   20s    n    n \u0017spellbook of magic missile\n rs \u001b. \u001b       n    n 20s   n     n \u0007orc shaman\nZc\n     n    n 20s     n     n 20s      n ZZ.l       n     n  y\u001b      s"
+  }
+ ]
+}

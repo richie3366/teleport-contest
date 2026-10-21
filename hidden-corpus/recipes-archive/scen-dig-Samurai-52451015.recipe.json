@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017dwarvish mattock\n\u0016?\nc_ \u001b:ag > kjag> sm.kjagj  jagn  n\u0017pick-axe\n\u0006_oooo,ah > u\u0017grave\nah>  20s   .m.ah>  .m.ah> bnah> 20s ah>   yy\u001by  y y y\u001by  a"
+ },
+ "segments": [
+  {
+   "seed": 52451015,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017dwarvish mattock\n\u0016?\nc_ \u001b:ag > kjag> sm.kjagj  jagn  n\u0017pick-axe\n\u0006_oooo,ah > u\u0017grave\nah>  20s   .m.ah>  .m.ah> bnah> 20s ah>   yy\u001by  y y y\u001by  a"
+  }
+ ]
+}

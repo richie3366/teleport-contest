@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed leash\n\u0017blessed ring of free action\nPll\u0017blessed magic harp\n\u0017blessed amulet of life saving\nPn\u0017blessed 20 daggers\nQo#wizintrinsic\nh\n \u0017potion of healing\nqp.m.i\u001bylb\u0017blessed scroll of identify\nrq     i\u001bkjyh\u0017potion of gain energy\nqr20s s#wizintrinsic\nh\n\u0017blessed spellbook of slow monster\nrs20sZa\n:\u0017blessed spellbook of cause fear\nrt20sZa\n#turn\n:#wizintrinsic\nh\n\u0017potion of booze\nqu s;j: \u001b:    E- X marks the spot\n#chat\nj;j,E-y X marks the spot\n#pray\ny y      #wizintrinsic\nh\n_<.kb\u0017blessed spellbook of cause fear\nrv  sm.Za\n:\u0007hill orc\nFuFu  s.\u0018\u001bjnn\u0017blessed scroll of teleportation\nrw m,\u0017meatball\nex#wizintrinsic\nh\n\u0017blessed spellbook of cone of cold\nry sZa\n:\u0017blessed spellbook of fireball\nrz .Za\n#turn\n:\u0017blessed scroll of teleportation\nrA m,#wizintrinsic\nh\ni\u001bll\u0017blessed scroll of enchant armor\nrB \u0017wraith corpse\neC \u0017wand of fire\nzDjzDlzDlzDhzDui\u001bhl#wizintrin"
+ },
+ "segments": [
+  {
+   "seed": 52450085,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed leash\n\u0017blessed ring of free action\nPll\u0017blessed magic harp\n\u0017blessed amulet of life saving\nPn\u0017blessed 20 daggers\nQo#wizintrinsic\nh\n \u0017potion of healing\nqp.m.i\u001bylb\u0017blessed scroll of identify\nrq     i\u001bkjyh\u0017potion of gain energy\nqr20s s#wizintrinsic\nh\n\u0017blessed spellbook of slow monster\nrs20sZa\n:\u0017blessed spellbook of cause fear\nrt20sZa\n#turn\n:#wizintrinsic\nh\n\u0017potion of booze\nqu s;j: \u001b:    E- X marks the spot\n#chat\nj;j,E-y X marks the spot\n#pray\ny y      #wizintrinsic\nh\n_<.kb\u0017blessed spellbook of cause fear\nrv  sm.Za\n:\u0007hill orc\nFuFu  s.\u0018\u001bjnn\u0017blessed scroll of teleportation\nrw m,\u0017meatball\nex#wizintrinsic\nh\n\u0017blessed spellbook of cone of cold\nry sZa\n:\u0017blessed spellbook of fireball\nrz .Za\n#turn\n:\u0017blessed scroll of teleportation\nrA m,#wizintrinsic\nh\ni\u001bll\u0017blessed scroll of enchant armor\nrB \u0017wraith corpse\neC \u0017wand of fire\nzDjzDlzDlzDhzDui\u001bhl#wizintrin"
+  }
+ ]
+}

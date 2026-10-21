@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0007yellow light\nFnFl \u0007trapper\n#chat\nl20s   Fl"
+ },
+ "segments": [
+  {
+   "seed": 52452031,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0007yellow light\nFnFl \u0007trapper\n#chat\nl20s   Fl"
+  }
+ ]
+}

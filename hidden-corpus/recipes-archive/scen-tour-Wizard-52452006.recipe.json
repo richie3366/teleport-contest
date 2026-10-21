@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n          \u0016?\n>>P  #monster\n\u000f\u001b#pray\ny y 20ss\u0016?\nm >olqf;. \u001b@.ss\u0016?\n>>\u001b\u0016?\nl ohwat\u001b;m,\u0006ss\u001625\n nwa#wipe\n;_.20s s"
+ },
+ "segments": [
+  {
+   "seed": 52452006,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n          \u0016?\n>>P  #monster\n\u000f\u001b#pray\ny y 20ss\u0016?\nm >olqf;. \u001b@.ss\u0016?\n>>\u001b\u0016?\nl ohwat\u001b;m,\u0006ss\u001625\n nwa#wipe\n;_.20s s"
+  }
+ ]
+}

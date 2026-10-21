@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b>.  > FuFbFy\u0006_>.Fk_,:Fk>FkFk_>.Fk_,>.Fk>FkFk_>,Fk_,<.Fk>FyFyFyFkFy\u0006_>.Fy_..Fk>FyFy_>,Fk_.<.Fy>FyFy_>.Fk_,:Fk>FkFkFkFkFk20s#enhance\nyi\nc\n\u001b\u0006_>.Fy_.Fy>FkFb_>.Fk_,@.Fy>FkFy_>.Fy_.m,Fy>FkFkFyFyFy\u0006_>.Fk_.,Fk>FyFk_>.Fk_.,Fy>FyFk_>.Fk_.,Fk>FkFkFyFkFk\u0006_>.Fy_,>.Fy>FkFy_>.Fk_,,Fk>FkFy_>,Fk_,@.Fk>FyFyFyFkFk\u0006_>.Fk_.m.Fk>FkFy_>.Fk_.:Fk>FkFy_>.Fy_.<.Fy>FkFyFkFyFy<\u0007tame gnome lord\n\u0007tame jackal\n\u0007yellow mold\n.s  ssss\u0007grid bug\nsb20s ...s\u0017carrot\ntbk\u0007giant rat\n.m.sm. sn20s  .20s#chat\nk\u0006_>,Fy_,m,Fy>Fh Fk_>,Fy_.Fk>FkFk_>.Fk_,m.Fk>FyFk#chat\nkmO>>>j\u001b\n\u00162\nn#offer\nmO>d\u001b\n#conduct\n #conduct\n #tip\n\u001ba\u001614\n\u00162\nFjFnFbFkFnFlFnFnFyFjFhFkFyFjFhFjFnFyFuFkFhFnFyFyFhFnFlFbFbFlFkFnFuFkFbFuFbFnFhFlFlFnFkFlFyFnFbFhFbFuFyFbFjFhFuFkFkFnFuFyFhFbFuFnFy"
+ },
+ "segments": [
+  {
+   "seed": 52450084,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "\u0006_ \u001b>.  > FuFbFy\u0006_>.Fk_,:Fk>FkFk_>.Fk_,>.Fk>FkFk_>,Fk_,<.Fk>FyFyFyFkFy\u0006_>.Fy_..Fk>FyFy_>,Fk_.<.Fy>FyFy_>.Fk_,:Fk>FkFkFkFkFk20s#enhance\nyi\nc\n\u001b\u0006_>.Fy_.Fy>FkFb_>.Fk_,@.Fy>FkFy_>.Fy_.m,Fy>FkFkFyFyFy\u0006_>.Fk_.,Fk>FyFk_>.Fk_.,Fy>FyFk_>.Fk_.,Fk>FkFkFyFkFk\u0006_>.Fy_,>.Fy>FkFy_>.Fk_,,Fk>FkFy_>,Fk_,@.Fk>FyFyFyFkFk\u0006_>.Fk_.m.Fk>FkFy_>.Fk_.:Fk>FkFy_>.Fy_.<.Fy>FkFyFkFyFy<\u0007tame gnome lord\n\u0007tame jackal\n\u0007yellow mold\n.s  ssss\u0007grid bug\nsb20s ...s\u0017carrot\ntbk\u0007giant rat\n.m.sm. sn20s  .20s#chat\nk\u0006_>,Fy_,m,Fy>Fh Fk_>,Fy_.Fk>FkFk_>.Fk_,m.Fk>FyFk#chat\nkmO>>>j\u001b\n\u00162\nn#offer\nmO>d\u001b\n#conduct\n #conduct\n #tip\n\u001ba\u001614\n\u00162\nFjFnFbFkFnFlFnFnFyFjFhFkFyFjFhFjFnFyFuFkFhFnFyFyFhFnFlFbFbFlFkFnFuFkFbFuFbFnFhFlFlFnFkFlFyFnFbFhFbFuFyFbFjFhFuFkFkFnFuFyFhFbFuFnFy"
+  }
+ ]
+}

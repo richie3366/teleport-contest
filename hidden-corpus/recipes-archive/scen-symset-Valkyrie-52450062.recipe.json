@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " O>k\u001b\u001b\n\u00163\nFuFuFlFh FuFlFnFnFkFkFuFkFlFyFuFkFuFlFkFuFkFlFnFnFyFuFlFlFnFkFlFuFyFnFuFlFy FkFkFlFyFkFyFkFuFyFyFkFlFkFnFyFuFyFyFnFjFjFyFuFnFkFyFkFnFyFkFyFyFlFyFlFlFyFuFuFuFuFyFyFnFnFlFkFuFyFuFuFkFlFlFnFkFuFlFnFlFuFyFuFuFuFjFyFkFuFuFnFkFlFnFlFnFlFnFuFu#pray\ny y     \u001616\nv i\u001b\u0018\u001b#loot\nh#name\ni\nO>j\u001b\n\u00166\nFnFjFbFbFnFyFyFjFnFyFbFjFjFbFnFbFjFbFbFnFjFbFyFnFnFnFbFnFnFbFbFbFnFnFjFyFbFnFjFbFyFyFyFnFbFyFyFbFyFyFjFjFjFyFbFnFbFyFbFyFjFjFbFbFbFnFbFjFjFbFnFnFnFjFjFbFjFjFjFnFnFnFyFjFyFjFbFjFbFjFyFyFjFyFjFy FyFbFjFjFnFyFyFjFyFnFyFbFjFnFbFbFyFyFbFjFyFyFjFb\u001611\nmOa\u001b\n\u00167\nFjFbFbFbFhFhFbFjFhFnFjFnFnFjFjFbFnFbFbFjFjFbFjFnFnFbFjFnFjFjFjFjFjFnFbFnFjFnFnFbFjFnFbFbFjFjFbFjFbFjFnFbFjFjFjFjFhFjFjFn #pray\ny y        Fb Fn Fy FjFbFh#pray\ny y   #pray\ny y    #pray\ny y    FjFn  nFnFjFbFhFnFjFb#pray\ny y    FbFjFbFj  nFn Fn Fk Fu   n Fn Fb  Fu   n FyFy F"
+ },
+ "segments": [
+  {
+   "seed": 52450062,
+   "datetime": "20090821221738",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nMENUCOLOR=\"uncursed\"=brown\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " O>k\u001b\u001b\n\u00163\nFuFuFlFh FuFlFnFnFkFkFuFkFlFyFuFkFuFlFkFuFkFlFnFnFyFuFlFlFnFkFlFuFyFnFuFlFy FkFkFlFyFkFyFkFuFyFyFkFlFkFnFyFuFyFyFnFjFjFyFuFnFkFyFkFnFyFkFyFyFlFyFlFlFyFuFuFuFuFyFyFnFnFlFkFuFyFuFuFkFlFlFnFkFuFlFnFlFuFyFuFuFuFjFyFkFuFuFnFkFlFnFlFnFlFnFuFu#pray\ny y     \u001616\nv i\u001b\u0018\u001b#loot\nh#name\ni\nO>j\u001b\n\u00166\nFnFjFbFbFnFyFyFjFnFyFbFjFjFbFnFbFjFbFbFnFjFbFyFnFnFnFbFnFnFbFbFbFnFnFjFyFbFnFjFbFyFyFyFnFbFyFyFbFyFyFjFjFjFyFbFnFbFyFbFyFjFjFbFbFbFnFbFjFjFbFnFnFnFjFjFbFjFjFjFnFnFnFyFjFyFjFbFjFbFjFyFyFjFyFjFy FyFbFjFjFnFyFyFjFyFnFyFbFjFnFbFbFyFyFbFjFyFyFjFb\u001611\nmOa\u001b\n\u00167\nFjFbFbFbFhFhFbFjFhFnFjFnFnFjFjFbFnFbFbFjFjFbFjFnFnFbFjFnFjFjFjFjFjFnFbFnFjFnFnFbFjFnFbFbFjFjFbFjFbFjFnFbFjFjFjFjFhFjFjFn #pray\ny y        Fb Fn Fy FjFbFh#pray\ny y   #pray\ny y    #pray\ny y    FjFn  nFnFjFbFhFnFjFb#pray\ny y    FbFjFbFj  nFn Fn Fk Fu   n Fn Fb  Fu   n FyFy F"
+  }
+ ]
+}

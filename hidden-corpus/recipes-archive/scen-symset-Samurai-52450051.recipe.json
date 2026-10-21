@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " mOa\u001b\n\u0006_ \u001b<.>Fj ._>.Fb_..Fj>_>._,> #sit\n#dip\ne \u0006_>>._.> q\u0014m.\u0006_>,_,>_>._.>_>._.>\u000f\u001b\u00162\nO>i\u001b\u001b\nv i\u001b\u001612\nlkk\u0017chaotic altar\ndede\u0017human corpse\n yl\u0017cloud\nubbuu\u0017throne\n#sit\n#sit\n y#jump\n#enhance\nyr\ng\n\u001br\u001b\u00163\nbyn100s100s\u0018\u001b_>,_,>huu100sokbnk#sit\n\u001bPyjl50s\\    100s150snlu\\    _>._,>\u000f\u001blhl\u0014@.eeeeeeeeeeeeeeeeee#levelchange\n6\n    hknl\u0017unaligned altar\ndbda\u0017jackal corpse\n#offer\ng    #pray\ny u\u0017melting ice\nubb ukn\u0017pool\n#dip\ndy lh\u0018\u001b#dip\ngr\u001b\u00161\neg\u000f\u001b\u000f\u001b_>,Fh _.;>.> \u0018\u001b100s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehyy\u0017altar\ndcdd\u0017lichen corpse\n#offer\nh   #pray\ny y hn\u0017chaotic altar\nde\u0017floating eye corpse\n#offer\ni  :#terrain\ne\n:f \u001b#jump\n\u0006_>.Fy_.> ,#chat\nl\u0006_>,Fh_,m.Fk>FkFk_>._,> < \u0006_>,>  < \u0006_>>.> < \u0006_>.> \u0006_>. _,> \u0006_>.  _. Fl>Fl._>. _.m,Fu>_>. _,m,Fl >Fl.\u00163\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemOa\u001b\n\u0007tame hill orc\n #chat\nk\u0017tripe ration\nt\u001b\u0017apple\nt\u001b\u0017newt corpse\nt\u001b\u0007grid b"
+ },
+ "segments": [
+  {
+   "seed": 52450051,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"uncursed\"=green\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " mOa\u001b\n\u0006_ \u001b<.>Fj ._>.Fb_..Fj>_>._,> #sit\n#dip\ne \u0006_>>._.> q\u0014m.\u0006_>,_,>_>._.>_>._.>\u000f\u001b\u00162\nO>i\u001b\u001b\nv i\u001b\u001612\nlkk\u0017chaotic altar\ndede\u0017human corpse\n yl\u0017cloud\nubbuu\u0017throne\n#sit\n#sit\n y#jump\n#enhance\nyr\ng\n\u001br\u001b\u00163\nbyn100s100s\u0018\u001b_>,_,>huu100sokbnk#sit\n\u001bPyjl50s\\    100s150snlu\\    _>._,>\u000f\u001blhl\u0014@.eeeeeeeeeeeeeeeeee#levelchange\n6\n    hknl\u0017unaligned altar\ndbda\u0017jackal corpse\n#offer\ng    #pray\ny u\u0017melting ice\nubb ukn\u0017pool\n#dip\ndy lh\u0018\u001b#dip\ngr\u001b\u00161\neg\u000f\u001b\u000f\u001b_>,Fh _.;>.> \u0018\u001b100s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehyy\u0017altar\ndcdd\u0017lichen corpse\n#offer\nh   #pray\ny y hn\u0017chaotic altar\nde\u0017floating eye corpse\n#offer\ni  :#terrain\ne\n:f \u001b#jump\n\u0006_>.Fy_.> ,#chat\nl\u0006_>,Fh_,m.Fk>FkFk_>._,> < \u0006_>,>  < \u0006_>>.> < \u0006_>.> \u0006_>. _,> \u0006_>.  _. Fl>Fl._>. _.m,Fu>_>. _,m,Fl >Fl.\u00163\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemOa\u001b\n\u0007tame hill orc\n #chat\nk\u0017tripe ration\nt\u001b\u0017apple\nt\u001b\u0017newt corpse\nt\u001b\u0007grid b"
+  }
+ ]
+}

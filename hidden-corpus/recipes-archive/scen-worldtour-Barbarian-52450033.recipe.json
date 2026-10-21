@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed +3 cloak of magic resistance\nWe\u0017blessed +3 helm of telepathy\nWf \u0017blessed amulet of life saving\nPg\u001637\n   hblunkn:\u001639\n _ \u001b;\u0016?\n>A  \u0006_>.\u001637\nll:\u0016?\n>>K    tinning kit\n__.\u001637\nb y:\u0016?\n\u001buh\u0016?\n\u001byl\u0016?\n\u001bbn\u001624\n\u0014<.\u001621\n#levelchange\n6\n  nbk\u0017altar\ndgdi   \u0017lichen corpse\n#offer\n#pray\ny y   y\u0017ice\n:l\u0017chaotic altar\ndc\u0017gnome corpse\n #offer\nk   #pray\ny y  y  n\u0017tree\n:q<\u0018\u001bs\u0016?\n\u001bj h     n \u0016?\n\u001bk    n   h  \u0016?\n\u001bj   n n\u001624\nnbly  n  l  h  nj   n  :\u00168\n\u0016?\n\u001bk  n b\u001612\n_{,\u0016?\n\u001buk   n \u0016?\n\u001bll  \u001637\n\u0014>.   s\u001637\n#chat\nu;u.sh  n\u0016?\n\u001bhj\u0016?\n\u001bnj  n\u001624\n\u0014m.\u001623\nnhj nblb:\u001616\nllh\u0017altar\ndb dh \u0017newt corpse\n#offer\n#pray\ny y   : u\u0017cloud\nn\u0017moat\n#enhance\nyf\nh\n\u001bs,sm.s20s\u0016?\n\u001bk  nj\u0016?\n\u001bb    n n    \u0016?\n\u001bby  n\u0016?\n\u001bjy  \u0016?\n\u001bk  n  b\u0016?\n\u001bby   n  \u0016?\n\u001bh  y\u001b      n"
+ },
+ "segments": [
+  {
+   "seed": 52450033,
+   "datetime": "20141107074601",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed +3 cloak of magic resistance\nWe\u0017blessed +3 helm of telepathy\nWf \u0017blessed amulet of life saving\nPg\u001637\n   hblunkn:\u001639\n _ \u001b;\u0016?\n>A  \u0006_>.\u001637\nll:\u0016?\n>>K    tinning kit\n__.\u001637\nb y:\u0016?\n\u001buh\u0016?\n\u001byl\u0016?\n\u001bbn\u001624\n\u0014<.\u001621\n#levelchange\n6\n  nbk\u0017altar\ndgdi   \u0017lichen corpse\n#offer\n#pray\ny y   y\u0017ice\n:l\u0017chaotic altar\ndc\u0017gnome corpse\n #offer\nk   #pray\ny y  y  n\u0017tree\n:q<\u0018\u001bs\u0016?\n\u001bj h     n \u0016?\n\u001bk    n   h  \u0016?\n\u001bj   n n\u001624\nnbly  n  l  h  nj   n  :\u00168\n\u0016?\n\u001bk  n b\u001612\n_{,\u0016?\n\u001buk   n \u0016?\n\u001bll  \u001637\n\u0014>.   s\u001637\n#chat\nu;u.sh  n\u0016?\n\u001bhj\u0016?\n\u001bnj  n\u001624\n\u0014m.\u001623\nnhj nblb:\u001616\nllh\u0017altar\ndb dh \u0017newt corpse\n#offer\n#pray\ny y   : u\u0017cloud\nn\u0017moat\n#enhance\nyf\nh\n\u001bs,sm.s20s\u0016?\n\u001bk  nj\u0016?\n\u001bb    n n    \u0016?\n\u001bby  n\u0016?\n\u001bjy  \u0016?\n\u001bk  n  b\u0016?\n\u001bby   n  \u0016?\n\u001bh  y\u001b      n"
+  }
+ ]
+}

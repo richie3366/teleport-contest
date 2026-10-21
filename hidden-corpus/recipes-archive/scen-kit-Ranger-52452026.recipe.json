@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " i\u001beg20s 20swdFj FjFlef20s 20swb Fl s.wa s.Fheh  y20s .#monster\n#force\n\u0014 \u001b,,#loot\nj#name\nf\n#sit\n<.tbk"
+ },
+ "segments": [
+  {
+   "seed": 52452026,
+   "datetime": "20251107051734",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " i\u001beg20s 20swdFj FjFlef20s 20swb Fl s.wa s.Fheh  y20s .#monster\n#force\n\u0014 \u001b,,#loot\nj#name\nf\n#sit\n<.tbk"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed leash\n\u0017blessed magic lamp\n\u0017blessed +3 helm of telepathy\nW\u001b\u001b\u0017blessed +3 speed boots\nWm\u0017blessed 20 daggers\nQn#levelchange\n26\n                         #wizintrinsic\nh\n \u0016?\n>>Qyyky:\u0007troll\n\u0007grid bug\nFnFn  Fn Fh \u0017scroll of light\nra\u0007gnome\n\u0007bugbear\nFn Fl Fn Fn Fh   n #wizintrinsic\nh\nibu nb\u0017blessed spellbook of magic missile\nrb sm. Z:\u0017spellbook of fireball\nrc   n 20s Z#turn\n:#wizintrinsic\nh\n\u0017blessed scroll of identify\nrd  \u0017wand of slow monster\nzekzeu  zeuzek zek\u0017blessed spellbook of slow monster\nrf20s Z:#wizintrinsic\nh\n\u0017potion of hallucination\nqg.y  n sk  \u0007owlbear\n\u0007acid blob\nFj FjFj  Fl   n Fn Fn\u0017potion of hallucination\nqh  .n.m. #wizintrinsic\nh\ni\u001bu   n ki\u001bn  byk\u0017scroll of enchant weapon\nri \u0017huge chunk of meat\nej  \u0018\u001bnl n\u0016?\n>>N      wand of nothing\n#chat\nh ;h. \u001b<.#wizintrinsic\nh\n\u0017wand of teleportation\nzmh      nzmh  zmh     n\u001610\n\u0007soldier\nFh    Fh  n     nFb    Fh     n   Fj   n  Fb      n  \u001612\n#wizintrinsic\nh\nf \u001b\u001bt\u001b\u001bf \u001b\u001bf \u001b\u001b\u0017wand of cold\nznn       n    znb      n   znb         n      znh    yy"
+ },
+ "segments": [
+  {
+   "seed": 52450008,
+   "datetime": "20240921152104",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed leash\n\u0017blessed magic lamp\n\u0017blessed +3 helm of telepathy\nW\u001b\u001b\u0017blessed +3 speed boots\nWm\u0017blessed 20 daggers\nQn#levelchange\n26\n                         #wizintrinsic\nh\n \u0016?\n>>Qyyky:\u0007troll\n\u0007grid bug\nFnFn  Fn Fh \u0017scroll of light\nra\u0007gnome\n\u0007bugbear\nFn Fl Fn Fn Fh   n #wizintrinsic\nh\nibu nb\u0017blessed spellbook of magic missile\nrb sm. Z:\u0017spellbook of fireball\nrc   n 20s Z#turn\n:#wizintrinsic\nh\n\u0017blessed scroll of identify\nrd  \u0017wand of slow monster\nzekzeu  zeuzek zek\u0017blessed spellbook of slow monster\nrf20s Z:#wizintrinsic\nh\n\u0017potion of hallucination\nqg.y  n sk  \u0007owlbear\n\u0007acid blob\nFj FjFj  Fl   n Fn Fn\u0017potion of hallucination\nqh  .n.m. #wizintrinsic\nh\ni\u001bu   n ki\u001bn  byk\u0017scroll of enchant weapon\nri \u0017huge chunk of meat\nej  \u0018\u001bnl n\u0016?\n>>N      wand of nothing\n#chat\nh ;h. \u001b<.#wizintrinsic\nh\n\u0017wand of teleportation\nzmh      nzmh  zmh     n\u001610\n\u0007soldier\nFh    Fh  n     nFb    Fh     n   Fj   n  Fb      n  \u001612\n#wizintrinsic\nh\nf \u001b\u001bt\u001b\u001bf \u001b\u001bf \u001b\u001b\u0017wand of cold\nznn       n    znb      n   znb         n      znh    yy"
+  }
+ ]
+}

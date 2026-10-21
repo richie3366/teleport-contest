@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqf \u001b._ooo._._oo,_.,p_ooooo.Fb    _._ooo.  n Fk   n   _.  yy\u001by  y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 52451002,
+   "datetime": "20260220053828",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqf \u001b._ooo._._oo,_.,p_ooooo.Fb    _._ooo.  n Fk   n   _.  yy\u001by  y y\u001by  F"
+  }
+ ]
+}

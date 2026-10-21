@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0007nurse\nFlFlFlFl  yy\u001by  y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 52452027,
+   "datetime": "20041205145102",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007nurse\nFlFlFlFl  yy\u001by  y y\u001by  F"
+  }
+ ]
+}

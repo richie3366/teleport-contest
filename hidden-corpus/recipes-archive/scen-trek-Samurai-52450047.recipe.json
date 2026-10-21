@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "   byhjkntdhknhylh#name\no\n20s #rub\n;n. \u001b:  #untrap\nnBUBN_>.>LHJY_>.>Flss#dip\nb deHNNY_>,>BUBN_>.>\u000f\u001bf   k#enhance\n\u001b10s_>,>hlh 150s    \u001b    150s      Fy..\u0018\u001b\u0018\u001b#twoweapon\nuFl.FjFbFbFn100s  FlFhFlZ100s    Fl20s 20sFy s.#jump\n150s#invoke\n\u001b_>.>50s50s150s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLUKN_>.>\u0018\u001b_m.20sUKNH_>.>#chat\nj\u0018\u001bBHNK _>.>#dip\ne #monster\nUKUN_>,>\u0004j10sLUNN_>.>\u0014,NKYY_>,>\u000f\u001bE- Elbereth\n<yny  ny y\u001b z"
+ },
+ "segments": [
+  {
+   "seed": 52450047,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:explore\n",
+   "moves": "   byhjkntdhknhylh#name\no\n20s #rub\n;n. \u001b:  #untrap\nnBUBN_>.>LHJY_>.>Flss#dip\nb deHNNY_>,>BUBN_>.>\u000f\u001bf   k#enhance\n\u001b10s_>,>hlh 150s    \u001b    150s      Fy..\u0018\u001b\u0018\u001b#twoweapon\nuFl.FjFbFbFn100s  FlFhFlZ100s    Fl20s 20sFy s.#jump\n150s#invoke\n\u001b_>.>50s50s150s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLUKN_>.>\u0018\u001b_m.20sUKNH_>.>#chat\nj\u0018\u001bBHNK _>.>#dip\ne #monster\nUKUN_>,>\u0004j10sLUNN_>.>\u0014,NKYY_>,>\u000f\u001bE- Elbereth\n<yny  ny y\u001b z"
+  }
+ ]
+}

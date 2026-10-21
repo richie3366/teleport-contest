@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>. \u001b  #chat\nn_mmm.    n Fb   n  _,  n    nFb    n #chat\nj;b:  _mmmm,#chat\nj;b;_mmmmm.    nFj     n _.#chat\nj#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nj;j._m,  Fb   _.#chat\nj;j;_mmm.  Fj   _.#chat\nb   n  ;j.\u0017blessed +3 speed boots\nWi      \u0017blessed Mjollnir\nwj   \u0017wand of fire\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm, Fb   _.Fj     nFj   \u001bFb  Fj  Fj  Fb  zkb,\u0016?\n>A\u0006_mmmmmmm.FjFjFjFjFj,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nj;j;\u0016?\n>A\u0006_mmmmmm,FjFjFjFjFj,\u0016?\n>z\u0006_mmm.FjFjFjFjFjFjzkj  ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.FjFjFjFjFj,\u0016?\n>A\u0006_mmmmmm.FjFjFjFj,\u0016?\n>A\u0006_mmm.FjFjFjFjFj,#chat\nj\u0016?\n>z\u0006_mmmmmmm.FjFjFjFjFj,\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,FjFjFjFj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nj\u0016?\n>A\u0006_mm.FjFjFjFjFj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nj;j.\u0016?\n>A\u0006_mmmm,FjFjFjFjFj,#chat\nj\u0016?\n>z\u0006_mmmmmm,FjFjFjFjFjzkj   n,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nj;j,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,FjFjFjFjFjFj,#chat\nj\u0016?\n>A\u0006_mmmmm.FjFjFjFjFjFj,#chat\nj\u0016?\n>A\u0006_mm.FjFjFjFjFjFj,#chat\nj\u0016?\n>z\u0006_mmmmmmm.FjFjFjFjFjFjFjzkj ,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nj;j,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.FjFjFjFjFjFjFj,\u0016?\n>A\u0006_mmm.FjFjFjFjFjFjzkj ,#chat\nj\u0016?\n>A\u0006_mm,FjFjFjFj Fj  Fb "
+ },
+ "segments": [
+  {
+   "seed": 52450028,
+   "datetime": "20040108212325",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=sortloot:none\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>. \u001b  #chat\nn_mmm.    n Fb   n  _,  n    nFb    n #chat\nj;b:  _mmmm,#chat\nj;b;_mmmmm.    nFj     n _.#chat\nj#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nj;j._m,  Fb   _.#chat\nj;j;_mmm.  Fj   _.#chat\nb   n  ;j.\u0017blessed +3 speed boots\nWi      \u0017blessed Mjollnir\nwj   \u0017wand of fire\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm, Fb   _.Fj     nFj   \u001bFb  Fj  Fj  Fb  zkb,\u0016?\n>A\u0006_mmmmmmm.FjFjFjFjFj,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nj;j;\u0016?\n>A\u0006_mmmmmm,FjFjFjFjFj,\u0016?\n>z\u0006_mmm.FjFjFjFjFjFjzkj  ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.FjFjFjFjFj,\u0016?\n>A\u0006_mmmmmm.FjFjFjFj,\u0016?\n>A\u0006_mmm.FjFjFjFjFj,#chat\nj\u0016?\n>z\u0006_mmmmmmm.FjFjFjFjFj,\u0016?\n>>\u001b\u0016?\n>y_mmm,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mm,FjFjFjFj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nj\u0016?\n>A\u0006_mm.FjFjFjFjFj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nj;j.\u0016?\n>A\u0006_mmmm,FjFjFjFjFj,#chat\nj\u0016?\n>z\u0006_mmmmmm,FjFjFjFjFjzkj   n,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nj;j,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,FjFjFjFjFjFj,#chat\nj\u0016?\n>A\u0006_mmmmm.FjFjFjFjFjFj,#chat\nj\u0016?\n>A\u0006_mm.FjFjFjFjFjFj,#chat\nj\u0016?\n>z\u0006_mmmmmmm.FjFjFjFjFjFjFjzkj ,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nj;j,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.FjFjFjFjFjFjFj,\u0016?\n>A\u0006_mmm.FjFjFjFjFjFjzkj ,#chat\nj\u0016?\n>A\u0006_mm,FjFjFjFj Fj  Fb "
+  }
+ ]
+}

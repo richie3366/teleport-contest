@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017sack\n\u0017cursed bag of holding\n\u0017potion of levitation\n\u0017wand of cancellation\nafo\nags\ndf#loot\ni\n,dg#loot\ns\n,dfy\u0004ni\u001b\u0017oilskin sack\n\u0017ring of poison resistance\n\u0017scroll of earth\ndjj\u0004k\u0017credit card\ndaam.sss#loot\nuags\n\u0017credit card\ndian.20s s.#loot\nkamki\u001b"
+ },
+ "segments": [
+  {
+   "seed": 52451026,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017sack\n\u0017cursed bag of holding\n\u0017potion of levitation\n\u0017wand of cancellation\nafo\nags\ndf#loot\ni\n,dg#loot\ns\n,dfy\u0004ni\u001b\u0017oilskin sack\n\u0017ring of poison resistance\n\u0017scroll of earth\ndjj\u0004k\u0017credit card\ndaam.sss#loot\nuags\n\u0017credit card\ndian.20s s.#loot\nkamki\u001b"
+  }
+ ]
+}

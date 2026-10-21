@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0007red dragon\n\u0017scroll of taming\nro \u0017saddle\napu #ride\nly\u0007tame saddled horse\n#ride\nuy \u0007warhorse\n\u0017scroll of taming\nrq   \u0017saddle\nark#ride\n bybn\u0007kobold\nFhFuFk hkn y\u0004u \u0007newt\nFj   FnFn   "
+ },
+ "segments": [
+  {
+   "seed": 52451004,
+   "datetime": "20210628220722",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007red dragon\n\u0017scroll of taming\nro \u0017saddle\napu #ride\nly\u0007tame saddled horse\n#ride\nuy \u0007warhorse\n\u0017scroll of taming\nrq   \u0017saddle\nark#ride\n bybn\u0007kobold\nFhFuFk hkn y\u0004u \u0007newt\nFj   FnFn   "
+  }
+ ]
+}
