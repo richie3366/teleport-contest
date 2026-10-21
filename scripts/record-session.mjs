@@ -356,6 +356,9 @@ export function isRngCall(entry) {
 
 /** HACKDIR / NETHACKDIR: nh_getenv drops values with strlen > BUFSZ/2 (128). */
 const HACKDIR_MAX = 128;
+// Must equal js/options.js CONTEST_RECORDER_CONFIGFILE (D-0934).
+const CONTEST_CONFIGFILE =
+    '/Users/davidbau/git/mazesofmenace/teleport/maud/test/comparison/c-harness/results/.nethackrc';
 
 /**
  * Wipe playground residue. Segment 0 wipes save/, scorefiles, bones, and
@@ -457,6 +460,11 @@ async function recordSegment({
         NETHACK_RNGLOG: rngLogPath,
         NOMUX_MARKERS: '1',
         NETHACK_RAW_KEYS: '1',
+        // Patch 007: report the rc under the contest harness's path (the
+        // judge's recordings show it; js/options.js
+        // CONTEST_RECORDER_CONFIGFILE prints the same) instead of this
+        // run's random mkdtemp HOME.
+        NETHACK_CONFIGFILE_AS: CONTEST_CONFIGFILE,
     };
 
     // Some legacy sessions have steps[].key populated but moves

@@ -1,6 +1,6 @@
 # NetHack 5.0 recorder patches
 
-Six patch files that turn upstream NetHack 5.0 into a deterministic,
+Seven patch files that turn upstream NetHack 5.0 into a deterministic,
 reproducible "recorder" build whose run-to-run behavior is exactly
 what the JS port has to match.
 
@@ -12,6 +12,7 @@ what the JS port has to match.
 | 004 | `rng-log-lua-context` | Tag Lua-side PRNG calls with their `<file>:<line>` source location | Lua scripts (special levels) use the same PRNG; need to know which call is which |
 | 005 | `rng-display-logging` | Log the display/hallucination ISAAC64 stream to `NETHACK_RNGLOG_DISP` | Hallucination uses a separate stream so it doesn't perturb gameplay RNG |
 | 006 | `nomux-capture` | Deterministic 24×80 capture, including raw output and snapshots at input boundaries | Captures exact visible state when `tty_nhgetch` blocks |
+| 007 | `contest-configfile-name` | After opening the rc, report it under `NETHACK_CONFIGFILE_AS` (set by `scripts/record-session.mjs` to the contest harness's `.nethackrc` path) | Config-error and path messages otherwise print the recorder's random temp HOME, which no replay can match |
 
 ## Apply
 

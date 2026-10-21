@@ -1,0 +1,19 @@
+diff --git a/src/cfgfiles.c b/src/cfgfiles.c
+index eee2e50..7d02eb5 100644
+--- a/src/cfgfiles.c
++++ b/src/cfgfiles.c
+@@ -1628,6 +1628,14 @@ read_config_file(const char *filename, int src)
+ 
+     if (!(fp = fopen_config_file(filename, src)))
+         return FALSE;
++    /* recorder: report the config file under the contest harness's path
++       (NETHACK_CONFIGFILE_AS); the file read is still the real one */
++    if (src != set_in_sysconf) {
++        const char *cfg_as = nh_getenv("NETHACK_CONFIGFILE_AS");
++
++        if (cfg_as && *cfg_as)
++            set_configfile_name(cfg_as);
++    }
+ #ifndef SFCTOOL
+     /* begin detection of duplicate configfile options */
+     reset_duplicate_opt_detection();
