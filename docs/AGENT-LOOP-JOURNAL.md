@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — Grow #24 @a6f85db3a: fresh 1010000 ×159 157/159 (98.7 %) on arrival
+
+**Fresh:** RNG 100.0 %, screens 100.0 %; options 1/2, tour 2/3, every other family 100 % (mixed wrote 31/32). Gap to held-out 19.2 pts: no calibration family.
+**Folded:** scen-options-Wizard-1011011 (doterrain cmd.c:1152, screen s146, «View which?»); scen-tour-Priest-1012026 (next_ident mkobj.c:521 ← flip_level_rnd mklev.js:19780, RNG s151 after level teleport). 0 reserved. Board 710/712. No multi-session owners.
+**Next:** the cliffs head (doterrain / next_ident), else the re-read slice.
 ## 2026-10-21 — D-4214 mhitu.c doseduce's refused-payment line names the seducer through noit_mhim (`:2265–2266`), which is pronoun_gender(PRONOUN_NO_IT | PRONOUN_HALLU) and draws rn2(4) while the hero hallucinates (mondata.c `:1199–1200`). JS hard-coded `mon.female ? 'her' : 'him'`, so a hallucinating hero's «… demands that you pay her, but you refuse...» skipped that draw, and every later draw in the session was off by one
 
 **C locus:** mhitu.c doseduce `:1985–2305`, refused-payment arm `:2264–2266` (`noit_Monnam(mon), noit_mhim(mon)`); you.h `:328–329` noit_mhim; mondata.c pronoun_gender `:1188–1206`.

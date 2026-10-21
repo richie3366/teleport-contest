@@ -140,6 +140,8 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
+- [ ] `mkobj.c` next_ident — blocks 1/712 corpus sessions (first at step 151; RNG lost 496, screens lost 15): C draws `rnd(2)=2` in next_ident, JS `rn2(2)=1` from flip_level_rnd(mklev.js:19780). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-tour-Priest-1012026). @a6f85db3a **[history: archived — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `cmd.c` doterrain — blocks 1/712 corpus sessions (first at step 146; RNG lost 0, screens lost 4): toplines identical; first differing screen row 0: C «View which?» vs JS «View which?» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify doterrain` (scen-options-Wizard-1011011). @a6f85db3a **[history: ledger: ported D-3594 — read that D-entry once; the arm this divergence names is still open]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)
