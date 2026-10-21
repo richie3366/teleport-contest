@@ -1,7 +1,7 @@
 {
- "commit": "f0e447897",
- "at": "2026-10-21T10:37:10.814Z",
- "full": true,
+ "commit": "4d188a6ab",
+ "at": "2026-10-21T11:00:09.359Z",
+ "full": false,
  "fullCommit": "f0e447897",
  "fullAt": "2026-10-21T10:37:10.814Z",
  "entries": 714,
@@ -758,19 +758,19 @@
   },
   "scen-chain-Priest-50557210": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 86374,
    "rngT": 86374,
-   "scrM": 1218,
+   "scrM": 1219,
    "scrT": 1219,
-   "kind": "screen",
-   "step": 1048,
+   "kind": null,
+   "step": null,
    "steps": 1219,
-   "owner": "doname_base",
-   "loc": "objnam.c:1590",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "b - a +1 crossbow (weapon in left hand).--More--",
-   "jsTopline": "b - a +1 crossbow (weapon in left hand).--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-chain-Priest-95400": {
@@ -12175,7 +12175,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "archivedAt": "2026-10-21T10:37:11.166Z",
- "tieredAt": "2026-10-21T10:37:11.195Z"
+ }
 }

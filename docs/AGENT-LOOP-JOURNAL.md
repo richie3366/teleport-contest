@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — D-4198 wield.c ready_weapon sets disp.botl at its tail only when the bare-handed state changed **and** the opt-in `barehanded` status condition is enabled (`:270–271`). Every arm reaches that tail. JS set botl on any bare-handed change, without the condtests gate, so moveloop_core's botl arm (curs_on_u → flush_screen) painted the map one monster move early. A fireassist canned dowield followed by dofire's getdir --More-- then showed a grid bug a square ahead of C
+
+**C locus:** wield.c ready_weapon `:168–273`, tail `:270–271` `if ((had_wep != (uwep != 0)) && condtests[bl_bareh].enabled) disp.botl = TRUE;`. allmain.c moveloop_core `:473–479` (bot + curs_on_u only under botl/botlx/time_botl). topl.c tty_yn_function more() without a flush.
+**JS:** js/wield.js ready_weapon `:548–652`, tail `:647`, import `:41`.
+**Change:** restarted in C's single-exit shape. `res` starts at ECMD_OK, and the arms are the C if/else-if chain (no weapon / corpse / bimanual+shield / retouch / wield). `res |= arti_speak(wep)`.
+**Verify:** - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-chain-Priest-50557210.session.json` → PASS (RNG 86374/86374, Screen 1219/1219).
+**Named:** none. C `retouch_object(&wep, FALSE)` can null `wep`; JS passes the object by value, as before (artifact.js retouch_object signature).
+**Next:** the regenerated cliffs head.
 ## 2026-10-21 — audit 3028–3037 @f0e447897: review D-4188..D-4197 (7A/3D/0Q, 0 Must-fix) + full rescore 671/714 (0 PASS→FAIL)
 
 **Reviews:** the owner re-measures (`verify … --base HASH~1 --no-reach`) reproduce every cliff D-log: slimed_to_death, reveal_terrain, newsym, findit, enhance_weapon_skill, container_contents, doclassdisco, impossible PASS. D-4196/4197 rows were unattributed (verify vacuous); hidden-worker on HEAD passes Rogue-51650031, Wizard-95340, container-Barbarian-94326. D-4196's own Verify claimed PASS from the frozen runner, which skips the final frame. That was false at 6918c5874, and D-4197 corrected and closed it in-window, so nothing is queued. Debt (no session): D-4193's callee clear_message_window_menu_overlay zeroes curx/cury even on EMPTY toplin (C wintty.c:1047–1056; now in the tty_clear_nhwindow ledger omit); D-4196 keeps settty's clear in really_done, not in tty_exit_nhwindows; D-4189 keeps the live reconstruction for GLYPH_UNEXPLORED. Tooling: `csym.mjs postmov` finds no definition (monmove.c:1454–1455), so postmov has no ledger row.

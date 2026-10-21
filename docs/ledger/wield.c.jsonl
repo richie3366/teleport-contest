@@ -1,7 +1,7 @@
 {"fn":"setuwep","c":"100-135","status":"ported","js":["js/wield.js:setuwep"],"d":["D-4128","D-3411","D-3407","D-2876"],"at":"2026-10-19@ad4604dad","note":"stale :1103 omit dropped: hmon_hitmon_potion live js/uhitm.js:1839 (review 2361)"}
 {"fn":"cant_wield_corpse","c":"138-153","status":"ported","js":["js/wield.js:cant_wield_corpse"],"d":["D-2922"],"at":"seed@a30a7de84"}
 {"fn":"empty_handed","c":"158-166","status":"ported","js":["js/wield.js:empty_handed"],"at":"2026-10-03@bbe63333a"}
-{"fn":"ready_weapon","c":"169-273","status":"ported","js":["js/wield.js:ready_weapon"],"d":["D-4128","D-3933","D-2182"],"at":"2026-10-19@ad4604dad"}
+{"fn":"ready_weapon","c":"169-273","status":"ported","js":["js/wield.js:ready_weapon"],"d":["D-4198","D-4128","D-3933","D-2182"],"at":"2026-10-21@4d188a6ab"}
 {"fn":"setuqwep","c":"276-282","status":"ported","js":["js/wield.js:setuqwep"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"setuswapwep","c":"285-289","status":"ported","js":["js/wield.js:setuswapwep"],"d":["D-3407"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"ready_ok","c":"294-327","status":"ported","js":["js/wield.js:ready_ok"],"at":"2026-10-03@bbe63333a"}

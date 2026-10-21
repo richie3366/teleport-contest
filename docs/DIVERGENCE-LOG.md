@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4198 — wield.c ready_weapon sets disp.botl at its tail only when the bare-handed state changed **and** the opt-in `barehanded` status condition is enabled (`:270–271`). Every arm reaches that tail. JS set botl on any bare-handed change, without the condtests gate, so moveloop_core's botl arm (curs_on_u → flush_screen) painted the map one monster move early. A fireassist canned dowield followed by dofire's getdir --More-- then showed a grid bug a square ahead of C
+
+- **Status:** shipped.
+- **Symptom:** scen-chain-Priest-50557210 step 1048 (cliffs head, owner label doname_base, region heuristic). `f` with crossbow bolts quivered and the crossbow in pack runs dofire's fireassist arm. That queues doswapweapon, dowield `b` and dofire. At «b - a +1 crossbow (weapon in left hand).--More--» C still shows the grid bug at its pre-move square (row 10 «│····x»), and JS shows it one square west. RNG was identical.
+- **C locus:** wield.c ready_weapon `:168–273`, tail `:270–271` `if ((had_wep != (uwep != 0)) && condtests[bl_bareh].enabled) disp.botl = TRUE;`. allmain.c moveloop_core `:473–479` (bot + curs_on_u only under botl/botlx/time_botl). topl.c tty_yn_function more() without a flush.
+- **JS was:** js/wield.js ready_weapon set `game.flags.botl = true` on any had_wep change, with no condtests gate. The empty-hand, shield and retouch arms returned early and skipped the tail entirely. Measured: a field-write trap on `game.flags.botl` (armed at «You are bare handed») named ready_weapon (wield.js:648) as the only setter before moveloop_core's curs_on_u flush (allmain.js:1516). That flush painted the moved grid bug before getdir's --More--. In C, `barehanded` is off by default, so nothing flushes until the next pline.
+- **Fix:** restarted in C's single-exit shape. `res` starts at ECMD_OK, and the arms are the C if/else-if chain (no weapon / corpse / bimanual+shield / retouch / wield). `res |= arti_speak(wep)`. The `:270–271` tail is shared by every arm and gated on `condtests[0]?.enabled` (bl_bareh is enum 0; this is the do_wear.js:1126 idiom).
+- **JS:** js/wield.js ready_weapon `:548–652`, tail `:647`, import `:41`.
+- **Callers:** unchanged and all wired: dowield (C `:451`) → js/wield.js:857, doswapweapon (C `:483`) → js/wield.js:485, wield_tool (C `:742`) → js/wield.js:277.
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-chain-Priest-50557210.session.json` → PASS (RNG 86374/86374, Screen 1219/1219).
+  - `node scripts/verify.mjs --fn doname_base,ready_weapon --full` → syntax · rule2 · `verify doname_base: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach REACH-OK ×2 (24 smoke) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 671 baseline-PASS re-run in 127.8s, 0 regressed → REACH-OK.
+  - verify doname_base: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none. C `retouch_object(&wep, FALSE)` can null `wep`; JS passes the object by value, as before (artifact.js retouch_object signature).
+- **Ledger:** ready_weapon ported
+- **Next:** the regenerated cliffs head.
+
 ## D-4197 — wintty.c tty_exit_nhwindows starts with tty_suspend_nhwindows(str), which ends `if (!str) tty_raw_print("")` (upstream `:808–813`). While ttyDisplay is up and raw mode is off, the recorder skips an empty raw print. After a nomux_out overflow has set raw_active it is a newline that advances the raw row. JS tty_exit_nhwindows skipped the call, so the final nh_terminate frame of a wizard death after an overflow reported raw row +2 where C has +3. D-4196 follow-up
 
 - **Status:** shipped.
