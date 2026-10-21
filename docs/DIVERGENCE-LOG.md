@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-4197 — wintty.c tty_exit_nhwindows starts with tty_suspend_nhwindows(str), which ends `if (!str) tty_raw_print("")` (upstream `:808–813`). While ttyDisplay is up and raw mode is off, the recorder skips an empty raw print. After a nomux_out overflow has set raw_active it is a newline that advances the raw row. JS tty_exit_nhwindows skipped the call, so the final nh_terminate frame of a wizard death after an overflow reported raw row +2 where C has +3. D-4196 follow-up
+
+- **Status:** shipped.
+- **Symptom:** after D-4196, the corpus scorer (scripts/lib/hidden-worker.mjs, which also scores the final nh_terminate frame) still failed scen-sweep-Rogue-51650031 at frame 838 and scen-sweep-Wizard-95340 at 1044, with screens equal and cursors differing: C [0, 454000240] vs JS [0, 454000239] on Rogue.
+- **C locus:** wintty.c tty_exit_nhwindows (upstream `:810`) → tty_suspend_nhwindows `:808–813` (settty, then `tty_raw_print("")` when str is NULL); recorder termcap.c nomux_raw_emit `:916–946` (the empty skip applies only while `!nomux_raw_active`).
+- **JS was:** js/cmd.js tty_exit_nhwindows `void str;`. The suspend arm was described in a comment only.
+- **Fix:** `if (!str) tty_raw_print('');` at the head, in C order. The JS raw model already skips it when ttyDisplay is alive and raw mode is off (every non-overflow game), so the only effect is the overflowed raw row.
+- **JS:** js/cmd.js tty_exit_nhwindows (`:326–330`, import `:23`).
+- **Callers:** unchanged (really_done ×2, panic path).
+- **Verify:**
+  - `node scripts/lib/hidden-worker.mjs` → scen-sweep-Rogue-51650031, scen-sweep-Wizard-95340, scen-container-Barbarian-94326, scen-caster-Healer-50551009: all `passed: true`. `node scripts/hidden-proxy.mjs score --ids scen-sweep-Rogue-51650031,scen-sweep-Wizard-95340` → board PASS for both.
+  - `node scripts/verify.mjs --fn tty_exit_nhwindows,tty_suspend_nhwindows --full` → syntax · rule2 · reach REACH-OK ×2 (24 smoke) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 675 baseline-PASS re-run in 130.7s, 0 regressed → REACH-OK.
+- **Named omissions:** settty's `if (s) raw_print(s)` for a non-NULL str (no JS caller passes one).
+- **Ledger:** tty_exit_nhwindows ported
+- **Next:** the regenerated cliffs head (doname_base s1048, scen-chain-Priest-50557210).
+
 ## D-4196 — end.c really_done, with `toptenwin` off, calls exit_nhwindows *before* topten (`:1579–1580`), so topten_print's raw_print lines (topten.c `:165–181`) go out with ttyDisplay freed (recorder wintty.c `:863–864`, FREE_ALL_MEMORY). In the recorder they land in the nomux raw shadow (termcap.c nomux_raw_emit `:916–946`): enter raw mode (clear, home) unless `nomux_raw_active` is already set. A nomux_out overflow earlier in the game sets it to garbage (D-4164), and then the lines go to the overflow's off-screen row. JS topten painted its own panel instead (clear, rows from 0), so a wizard death after an overflow showed «Since you were in wizard mode, the score list will not be checked.» where C's final frame is blank. Recorder bug, ported as recorded
 
 - **Status:** shipped.
@@ -14,7 +31,7 @@
 - **JS:** js/end.js, js/topten.js, js/display.js, js/cmd.js, js/jsmain.js (line cites above).
 - **Callers:** really_done ← done (end.js `:2361`); render_topten_lines ← topten wizard arm, topten showwin, prscore; raw_print_blanks ← really_done; tty_display_free ← tty_exit_nhwindows (really_done ×2, panic path end.js `:1099`).
 - **Verify:**
-  - `node frozen/ps_test_runner.mjs` on scen-sweep-Rogue-51650031 (838/838) and scen-sweep-Wizard-95340 (1044/1044): both PASS. scen-caster-Healer-50551009 (notice on row 1) and scen-chain-Archeologist-49950050 (top-ten list) still PASS.
+  - `node frozen/ps_test_runner.mjs` on scen-sweep-Rogue-51650031 (838/838) and scen-sweep-Wizard-95340 (1044/1044) reported PASS, but the frozen runner does not score the final nh_terminate frame. The corpus scorer (hidden-worker, 839/1045 frames) still failed both on that frame's cursor: raw row +2 vs C +3. **Correction:** not healed by this commit; D-4197 closes it. scen-caster-Healer-50551009 (notice on row 1) and scen-chain-Archeologist-49950050 (top-ten list) still PASS.
   - First run: 43/44 (seed0398 cursor (0,2) vs (0,4)), sweep 1 regressed (scen-container-Barbarian-94326 js panic). Both fixed in the port (raw_print_blanks, NhTerminate) and re-run.
   - `node scripts/verify.mjs --fn topten,really_done,tty_exit_nhwindows --full` → syntax ×5 · rule2 · reach REACH-OK ×3 (24 smoke each; no corpus row blocked on these names, the rows were unattributed) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
   - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 675 baseline-PASS re-run in 132.2s, 0 regressed → REACH-OK.

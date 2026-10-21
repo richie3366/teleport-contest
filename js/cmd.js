@@ -20,6 +20,7 @@ import {
     look_shown_at, Norep, tty_doprev_message, putmsghistory, NO_GLYPH,
     unmap_invisible, map_invisible, custompline,
     Hallucination, raw_printf, feel_location, doredraw, tty_display_free,
+    tty_raw_print,
 } from './display.js';
 import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR, ICE,
          D_CLOSED, D_LOCKED, D_ISOPEN, SCORR, LAVAWALL,
@@ -322,8 +323,11 @@ export function tty_exit_nhwindows(str) {
     // C `:814` tty_suspend_nhwindows(str) → settty(str) and, when str is
     // NULL, tty_raw_print(""). term_shutdown (`:843`) is termcap teardown.
     // Those erase the tty. The scored grid is the capture already taken
-    // at nhgetch; this does not paint a second frame (D-1831).
-    void str;
+    // at nhgetch; this does not paint a second frame (D-1831). The
+    // `:812–813` raw_print("") still reaches the recorder's raw shadow: a
+    // no-op while ttyDisplay is up, unless an earlier nomux_out overflow
+    // set raw_active, whose raw row it then advances (D-4196).
+    if (!str) tty_raw_print('');
     free_pickinv_cache(); // C `:818`
     // C `:819–830` — wins[i] = NULL for i != BASE_WINDOW, then
     // WIN_MAP/MESSAGE/INVEN/STATUS = WIN_ERR. JS has no wins[] (the

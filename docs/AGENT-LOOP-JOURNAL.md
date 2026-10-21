@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — D-4197 wintty.c tty_exit_nhwindows starts with tty_suspend_nhwindows(str), which ends `if (!str) tty_raw_print("")` (upstream `:808–813`). While ttyDisplay is up and raw mode is off, the recorder skips an empty raw print. After a nomux_out overflow has set raw_active it is a newline that advances the raw row. JS tty_exit_nhwindows skipped the call, so the final nh_terminate frame of a wizard death after an overflow reported raw row +2 where C has +3. D-4196 follow-up
+
+**C locus:** wintty.c tty_exit_nhwindows (upstream `:810`) → tty_suspend_nhwindows `:808–813` (settty, then `tty_raw_print("")` when str is NULL); recorder termcap.c nomux_raw_emit `:916–946` (the empty skip applies only while `!nomux_raw_active`).
+**JS:** js/cmd.js tty_exit_nhwindows (`:326–330`, import `:23`).
+**Change:** `if (!str) tty_raw_print('');` at the head, in C order. The JS raw model already skips it when ttyDisplay is alive and raw mode is off (every non-overflow game), so the only effect is the overflowed raw row.
+**Verify:** - `node scripts/lib/hidden-worker.mjs` → scen-sweep-Rogue-51650031, scen-sweep-Wizard-95340, scen-container-Barbarian-94326, scen-caster-Healer-50551009: all `passed: true`. `node scripts/hidden-proxy.mjs score --ids scen-sweep-Rogue-51650031,scen-sweep-Wizard-95340` → board PASS for both.
+**Named:** settty's `if (s) raw_print(s)` for a non-NULL str (no JS caller passes one).
+**Next:** the regenerated cliffs head (doname_base s1048, scen-chain-Priest-50557210).
 ## 2026-10-21 — D-4196 end.c really_done, with `toptenwin` off, calls exit_nhwindows *before* topten (`:1579–1580`), so topten_print's raw_print lines (topten.c `:165–181`) go out with ttyDisplay freed (wintty.c `:863–864`, FREE_ALL_MEMORY). In the recorder they land in the nomux raw shadow (termcap.c nomux_raw_emit `:916–946`): enter raw mode (clear, home) unless `nomux_raw_active` is already set. A nomux_out overflow earlier in the game sets it to garbage (D-4164), and then the lines go to the overflow's off-screen row. JS topten painted its own panel instead (clear, rows from 0), so a wizard death after an overflow showed «Since you were in wizard mode, the score list will not be checked.» where C's final frame is blank. Recorder bug, ported as recorded
 
 **C locus:** end.c really_done `:1579–1589`, nh_terminate `:1674`; topten.c topten_print / topten_print_bold `:165–181`, wizard arm `:725–736`, outentry standout padding `:1075–1077` / `:1099–1102`; wintty.c tty_raw_print `:4065–4082`, tty_raw_print_bold `:4084–4108`, tty_exit_nhwindows `:837–867` (ttyDisplay freed `:863–864`); recorder termcap.c nomux_enter_raw_mode / nomux_raw_putch / nomux_raw_emit `:875–946`.
