@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — D-4191 zap.c zap_over_floor computes `yourzap = (type >= 0 && !exploding_wand_typ)` once (`:5378`). For a burning-oil or scroll-of-fire explosion, the `POT_OIL`/`SCR_FIRE` arm then clears `exploding_wand_typ` and leaves zapverb as "blast", and yourzap stays FALSE (`:5387–5394`, C comment: "the result will be 'the blast'"). JS recomputed `yourzap` after the clear, so a scroll of fire that revealed a secret door said «Your blast reveals a secret door.» where C says «The blast …»
+
+**C locus:** zap.c zap_over_floor `:5140–5497` (pinned only since the c-index comment-brace fix, c9787eb98) (yourzap/zapverb `:5376–5395`, SDOOR reveal `:5398–5409`, door-absorbs `:5459`); explode.c explode passes SCR_FIRE/POT_OIL as exploding_wand_typ.
+**JS:** js/zap.js zap_over_floor (`:1281–1288`).
+**Change:** delete the recompute. Only `exploding_wand_typ` is cleared, as in C. The door-absorbs text (`:5459`) reads the same flag and now says «the» too.
+**Verify:** - `node scripts/verify.mjs --fn findit,zap_over_floor` → syntax · rule2 · hidden: verify findit: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-hallu-Valkyrie-51650028: PASS) · reach findit REACH-OK (24 smoke), zap_over_floor 10 baseline-PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+**Named:** none in the changed arm.
+**Next:** the regenerated cliffs head (enhance_weapon_skill s87, scen-options-Knight-50557414).
 ## 2026-10-21 — D-4190 monmove.c postmov ends the MMOVE_MOVED arm with an unguarded `newsym(mtmp->mx, mtmp->my)` (`:1655–1657`). m_move's guard arm turns `gd_move() == 1` into `postmov(..., MMOVE_MOVED)` (`:1806–1826`). When gd_move_cleanup has just parked the guard at <0,0> (vault.c `:854`) and said «Suddenly, the guard disappears.», that newsym hits display.c's column-0 `impossible("newsym: attempting screen update for <%d,%d>")` (`:928–935`). That gives «Program in disorder!» and «Please report these messages…». JS wrapped the call in a JS-only `else if (mtmp.mx)` guard, so the C bug never showed. Ported as recorded (C bugs are ported faithfully)
 
 **C locus:** monmove.c postmov `:1655–1657`, m_move shk/gd/pri arm `:1806–1826`; vault.c gd_move_cleanup `:835–866` (parkguard `:854`); display.c newsym `:928–935`.

@@ -65,6 +65,7 @@
 {"fn":"melt_ice","c":"5040-5079","status":"ported","js":["js/zap.js:melt_ice"],"d":["D-3720"],"at":"2026-10-09@38bce8f45"}
 {"fn":"start_melt_ice_timeout","c":"5088-5111","status":"ported","js":["js/zap.js:start_melt_ice_timeout"],"at":"2026-10-03@bbe63333a"}
 {"fn":"melt_ice_away","c":"5119-5132","status":"ported","js":["js/zap.js:melt_ice_away"],"at":"2026-10-03@bbe63333a"}
+{"fn":"zap_over_floor","c":"5141-5497","status":"ported","js":["js/zap.js:zap_over_floor"],"d":["D-4191"],"at":"2026-10-21@aa8fedd2f"}
 {"fn":"mon_spell_hits_spot","c":"5501-5533","status":"ported","js":["js/zap.js:mon_spell_hits_spot"],"at":"2026-10-03@bbe63333a"}
 {"fn":"fracture_rock","c":"5537-5578","status":"ported","js":["js/dig.js:fracture_rock"],"d":["D-3408","D-2798"],"at":"2026-10-04@c075fb861"}
 {"fn":"break_statue","c":"5582-5605","status":"ported","js":["js/dig.js:break_statue"],"d":["D-2360"],"at":"2026-10-03@bbe63333a"}

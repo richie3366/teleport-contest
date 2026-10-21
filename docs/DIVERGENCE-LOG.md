@@ -1,5 +1,21 @@
 # Divergence log
 
+## D-4191 — zap.c zap_over_floor computes `yourzap = (type >= 0 && !exploding_wand_typ)` once (`:5378`). For a burning-oil or scroll-of-fire explosion, the `POT_OIL`/`SCR_FIRE` arm then clears `exploding_wand_typ` and leaves zapverb as "blast", and yourzap stays FALSE (`:5387–5394`, C comment: "the result will be 'the blast'"). JS recomputed `yourzap` after the clear, so a scroll of fire that revealed a secret door said «Your blast reveals a secret door.» where C says «The blast …»
+
+- **Status:** shipped.
+- **Symptom:** scen-hallu-Valkyrie-51650028 step 666 (read scroll of fire, s665 «… erupts in a tower of flame!  Boom!»): C «The door is consumed in flames!  The blast reveals a secret door.--More--» vs JS «… Your blast reveals a secret door.--More--», again at s667. Cliffs head row `findit`: the topline owner matched a findit literal. The writer is zap_over_floor's SDOOR arm (`:5398–5409`).
+- **C locus:** zap.c zap_over_floor `:5140–5497` (pinned only since the c-index comment-brace fix, c9787eb98) (yourzap/zapverb `:5376–5395`, SDOOR reveal `:5398–5409`, door-absorbs `:5459`); explode.c explode passes SCR_FIRE/POT_OIL as exploding_wand_typ.
+- **JS was:** js/zap.js zap_over_floor, POT_OIL/SCR_FIRE arm: `exploding_wand_typ = 0; yourzap = (type | 0) >= 0 && !exploding_wand_typ;` (the second statement has no C counterpart).
+- **Fix:** delete the recompute. Only `exploding_wand_typ` is cleared, as in C. The door-absorbs text (`:5459`) reads the same flag and now says «the» too.
+- **JS:** js/zap.js zap_over_floor (`:1281–1288`).
+- **Callers:** unchanged (zap_over_floor ← buzz, explode, zap_dig paths).
+- **Verify:**
+  - `node scripts/verify.mjs --fn findit,zap_over_floor` → syntax · rule2 · hidden: verify findit: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-hallu-Valkyrie-51650028: PASS) · reach findit REACH-OK (24 smoke), zap_over_floor 10 baseline-PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 670 baseline-PASS re-run in 134.8s, 0 regressed → REACH-OK.
+- **Named omissions:** none in the changed arm.
+- **Ledger:** zap_over_floor ported
+- **Next:** the regenerated cliffs head (enhance_weapon_skill s87, scen-options-Knight-50557414).
+
 ## D-4190 — monmove.c postmov ends the MMOVE_MOVED arm with an unguarded `newsym(mtmp->mx, mtmp->my)` (`:1655–1657`). m_move's guard arm turns `gd_move() == 1` into `postmov(..., MMOVE_MOVED)` (`:1806–1826`). When gd_move_cleanup has just parked the guard at <0,0> (vault.c `:854`) and said «Suddenly, the guard disappears.», that newsym hits display.c's column-0 `impossible("newsym: attempting screen update for <%d,%d>")` (`:928–935`). That gives «Program in disorder!» and «Please report these messages…». JS wrapped the call in a JS-only `else if (mtmp.mx)` guard, so the C bug never showed. Ported as recorded (C bugs are ported faithfully)
 
 - **Status:** shipped.
