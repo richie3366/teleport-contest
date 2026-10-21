@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-4207 — mondata.c can_blnd refuses a raven's blinding when both attacker and defender are ravens (`:323–328`, «corvus oculum corvi non eruit»). JS built the comparand with `mons(PM_RAVEN)`, which returns a fresh record on every call, so `magr.data === raven` was never true. A hero polymorphed into a raven therefore took the raven's AD_BLND claw: +3 Blinded turns that C never adds, which surfaced 130 steps later as «You were temporarily blind (106).» in the final disclosure where C prints 103
+
+- **Status:** shipped.
+- **Symptom:** scen-worldtour-Wizard-610136 step 503 (cliffs head, owner one_characteristic, parked MISATTRIBUTED): final-disclosure row 6 C «You were temporarily blind (103).», JS «(106).». RNG fully matched (the claw's d() is drawn either way; only the make_blinded call differs).
+- **Measured / named:** wizard `^X` probes (`geom-probe.mjs … --step N --keys '\u001b\u001b\u001b\u0018>'`) on C against the JS uprops[BLINDED].intrinsic at the same keys: equal at step 366 (24), C 25 vs JS 28 at step 377. An accessor trap on uprops[BLINDED].intrinsic from step 366 named the writer: step 371, hero is a raven (Aleax AD_POLY, step 369), mattacku → hitmu → mhitm_ad_blnd_u → can_blnd TRUE → make_blinded(24 + 3). C's can_blnd returns FALSE at `:327`.
+- **C locus:** mondata.c can_blnd `:305–398`, raven gate `:327–328` (`magr->data == &mons[PM_RAVEN] && mdef->data == &mons[PM_RAVEN]`).
+- **JS was:** js/uhitm.js can_blnd `const raven = mons(monsterNames.indexOf('PM_RAVEN'))` then object identity against magr.data / mdef.data; js/monsters.js mons() returns a new object per call, so the gate was dead.
+- **Fix:** compare the mons[] index: `monsndx(magr.data) === PM_RAVEN && monsndx(mdef.data) === PM_RAVEN` (module PM_RAVEN constant beside the file's other PM_ constants; monsndx imported from mondata.js, an existing edge). The rest of the body was already whole in C order.
+- **JS:** js/uhitm.js can_blnd `:369–375`, PM_RAVEN `:169`, mondata.js import `:117`.
+- **Callers:** unchanged (mhitu.js mhitm_ad_blnd_u, mhitm.js and uhitm.js mhitm_ad_blnd arms, the AT_SPIT/cream-pie/venom/potion sites).
+- **Verify:**
+  - `node scripts/verify.mjs --fn one_characteristic,can_blnd` → syntax · rule2 · `verify one_characteristic: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-worldtour-Wizard-610136: PASS) · reach REACH-OK ×2 (24 smoke) · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+  - verify one_characteristic: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in can_blnd. Seen while probing, not chased: in the JS replay `>` did not page the `^X` attributes window at step 360 (C went to page 2 of 3).
+- **Ledger:** can_blnd ported
+- **Next:** the regenerated cliffs head (set_apparxy, 1 row left), so the next slot is a grow per §10.19–20. Possible lead: the `^X` `>` paging gap above.
+
 ## D-4206 — themerms.lua make_dig_engraving (the Buried treasure postprocess) computes «Dig N east/west M south/north» as `data.x - pos.x - 1, data.y - pos.y`. data is the chest's absolute ox/oy, but pos comes from `selection:rndcoord(0)`, which nhlsel.c l_selection_rndcoord returns in the Lua frame (`:413–421`): croom-relative under a coder subroom, else minus xstart/ystart, here 1/0 from themerooms_post_level_generate's reset_xystart_size. The Lua `- 1` cancels that xstart. JS took the absolute pos and still subtracted 1, so every east/west distance was one short: «Dig 46 east» where C engraves «Dig 47 east»
 
 - **Status:** shipped.

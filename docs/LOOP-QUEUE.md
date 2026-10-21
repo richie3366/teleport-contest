@@ -140,8 +140,7 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `insight.c` one_characteristic — blocks 1/705 corpus sessions (first at step 503; RNG lost 0, screens lost 1): toplines identical; first differing screen row 6: C «You were temporarily blind (103).» vs JS «You were temporarily blind (106).» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify one_characteristic` (scen-worldtour-Wizard-610136). @1b2b2c8e3 **[parked: MISATTRIBUTED — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
-- [ ] `monmove.c` set_apparxy — blocks 1/705 corpus sessions (first at step 936; RNG lost 1954, screens lost 0): C draws `rn2(3)=0` in set_apparxy, JS `rn2(5)=1` from distfleeck(monmove.js:1180). Probe: `node scripts/hidden-proxy.mjs verify set_apparxy` (scen-shop-Barbarian-49959679). @1b2b2c8e3 **[history: archived D-3755 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `monmove.c` set_apparxy — blocks 1/705 corpus sessions (first at step 936; RNG lost 1954, screens lost 0): C draws `rn2(3)=0` in set_apparxy, JS `rn2(5)=1` from distfleeck(monmove.js:1180). Probe: `node scripts/hidden-proxy.mjs verify set_apparxy` (scen-shop-Barbarian-49959679). @a3ad6d2b1 **[history: archived D-3755 — read that D-entry once; the arm this divergence names is still open]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)

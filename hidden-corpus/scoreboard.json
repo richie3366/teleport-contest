@@ -1,7 +1,7 @@
 {
- "commit": "1b2b2c8e3",
- "at": "2026-10-21T14:05:06.214Z",
- "full": true,
+ "commit": "a3ad6d2b1",
+ "at": "2026-10-21T14:17:23.884Z",
+ "full": false,
  "fullCommit": "1b2b2c8e3",
  "fullAt": "2026-10-21T14:05:06.214Z",
  "entries": 705,
@@ -10839,19 +10839,19 @@
   },
   "scen-worldtour-Wizard-610136": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 50316,
    "rngT": 50316,
-   "scrM": 511,
+   "scrM": 512,
    "scrT": 512,
-   "kind": "screen",
-   "step": 503,
+   "kind": null,
+   "step": null,
    "steps": 512,
-   "owner": "one_characteristic",
-   "loc": "insight.c:926",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Your constitution was 14 (limit:16).",
-   "jsTopline": "Your constitution was 14 (limit:16).",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-worldtour-Wizard-95204": {
@@ -12022,7 +12022,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "archivedAt": "2026-10-21T14:05:06.573Z",
- "tieredAt": "2026-10-21T14:05:06.599Z"
+ }
 }
