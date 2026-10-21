@@ -4041,7 +4041,8 @@ export function symset_render_char(code, handling) {
     const h = handling | 0;
     let out;
     if (h === H_IBM || h === H_UTF8
-        || (game.iflags?.eight_bit_tty && (h !== H_DEC || (c & 0x7F) < 0x60))) {
+        || (game.iflags?.wc_eight_bit_input // C flag.h:505 eight_bit_tty
+            && (h !== H_DEC || (c & 0x7F) < 0x60))) {
         out = { ch: String.fromCharCode(c & 0x7F), dec: false };
     } else if (c & 0x80) {
         out = { ch: String.fromCharCode(c ^ 0x80), dec: true };

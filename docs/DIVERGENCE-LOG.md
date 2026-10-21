@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-4212 — optlist.h stores the `safe_pet` boolean in flags.safe_dog (`:633–634`), and display.h is_safemon reads flags.safe_dog (`:159–161`). JS doset's boolean address map (DOSET_BOOL_ADDR) wrote `O`-menu toggles of safe_pet to a phantom flags.safe_pet that nothing reads. So after `O` turned safe_pet off, travelling onto the adjacent tame dog still treated it as safe: the run check in domove_core did not stop the hero, and domove_bump_mon printed «Pardon me, little dog.» where C stops silently and keeps «tame little dog» from getpos. The same map put eight_bit_tty in a phantom iflags.eight_bit_tty instead of C's iflags.wc_eight_bit_input (flag.h `:505`)
+
+- **Status:** shipped (cliffs head; owner peffect_acid was the message-owner guess).
+- **Symptom:** scen-options-Tourist-52451031 step 45 (`_` travel, `m` to the dog, `.`): C topline «tame little dog», JS «Pardon me, little dog.». RNG fully matched, map identical; step 46 matches again.
+- **Measured / named:** dog diagonally adjacent (map 60,4; hero 59,5). A temporary log in findtravelpath_travel showed JS also refusing the adjacent shortcut (goodpos false on the occupied square), so both reach the BFS found-arm (`hack.c:1404–1409`: nomul(0), then run = 8, travel off). C then stops in domove_core `:2764–2777` (`mtmp && !is_safemon(mtmp)` + context.run + visible → nomul, move = 0, no message). JS's is_safemon (uhitm.js) reads flags.safe_dog, which was still TRUE, because step 11's `O` toggle had written flags.safe_pet through DOSET_BOOL_ADDR. Comparing DOSET_BOOL_ADDR with the allopt `addr` column over all 94 boolean options found one more mismatch: eight_bit_tty.
+- **C locus:** optlist.h `:633–634` NHOPTB(safe_pet … &flags.safe_dog), `:300–301` NHOPTB(eight_bit_tty … &iflags.wc_eight_bit_input); flag.h `:505` `#define eight_bit_tty wc_eight_bit_input`; display.h `:159–161` _is_safemon; wintty.c g_putch `:3754` (iflags.eight_bit_tty).
+- **JS was:** js/options.js DOSET_BOOL_ADDR `safe_pet → flags.safe_pet`, `eight_bit_tty → iflags.eight_bit_tty`. js/display.js symset_render_char read iflags.eight_bit_tty, while bones.js and cmd.js read wc_eight_bit_input, the field the rc path (allopt addr) writes.
+- **Fix:** DOSET_BOOL_ADDR maps safe_pet → flags.safe_dog and eight_bit_tty → iflags.wc_eight_bit_input, as in C's allopt addr. symset_render_char reads iflags.wc_eight_bit_input (C g_putch's eight_bit_tty macro). Each option now has a single home for rc, `O` and gameplay.
+- **JS:** js/options.js DOSET_BOOL_ADDR (eight_bit_tty, safe_pet rows); js/display.js symset_render_char `:4044`.
+- **Callers:** unchanged (doset bool toggle; is_safemon callers in domove_core/do_attack; g_putch path).
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-options-Tourist-52451031.session.json` → PASS (RNG 2896/2896, Screen 131/131).
+  - `node scripts/verify.mjs --fn peffect_acid,doset --full` → `verify peffect_acid: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach peffect_acid 9/9, doset REACH-OK (24 smoke) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 675 baseline-PASS re-run in 129.4s, 0 regressed → REACH-OK.
+  - verify peffect_acid: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none; the other 92 DOSET_BOOL_ADDR rows agree with the allopt addr column.
+- **Ledger:** doset partial; g_putch partial
+- **Next:** the cliffs block is empty after this; the next slot is a grow (§10.19–20).
+
 ## D-4211 — options.c doset_add_menu prints every compound option's current value through its optfn get_val (`:9036–9044`). JS doset's compound list still painted three rows from literals: pile_limit «[5]», crash_urlmax «[-1]» and glyph «[(to be done)]». After `O` → pile_limit → «9» the option was stored (optfn_pile_limit is live), but the next `O` menu still showed «o - pile_limit [5]» where C shows «[9]»
 
 - **Status:** shipped (cliffs head; owner use_stethoscope was the region heuristic's painter guess, the row was the `O` menu).

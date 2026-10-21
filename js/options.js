@@ -10737,7 +10737,7 @@ const DOSET_BOOL_ADDR = {
     debug_mongen: { obj: 'iflags', key: 'debug_mongen' }, // C optlist.h:279 &iflags.debug_mongen
     debug_overwrite_stairs: { obj: 'iflags', key: 'debug_overwrite_stairs' }, // C optlist.h:282 &iflags.debug_overwrite_stairs (no JS consumer yet)
     dropped_nopick: { obj: 'flags', key: 'nopick_dropped' },
-    eight_bit_tty: { obj: 'iflags', key: 'eight_bit_tty' },
+    eight_bit_tty: { obj: 'iflags', key: 'wc_eight_bit_input' }, // C optlist.h:300–301 &iflags.wc_eight_bit_input (flag.h:505 eight_bit_tty ≡ wc_eight_bit_input)
     extmenu: { obj: 'iflags', key: 'extmenu' },
     fireassist: { obj: 'iflags', key: 'fireassist' }, // C optlist.h:310 &iflags.fireassist
     fixinv: { obj: 'flags', key: 'invlet_constant' }, // C: flags.invlet_constant
@@ -10772,7 +10772,7 @@ const DOSET_BOOL_ADDR = {
     query_menu: { obj: 'iflags', key: 'query_menu' },
     quick_farsight: { obj: 'flags', key: 'quick_farsight' },
     rest_on_space: { obj: 'flags', key: 'rest_on_space' },
-    safe_pet: { obj: 'flags', key: 'safe_pet' },
+    safe_pet: { obj: 'flags', key: 'safe_dog' }, // C optlist.h:633–634 &flags.safe_dog (is_safemon reads safe_dog; the safe_pet key was a phantom)
     safe_wait: { obj: 'flags', key: 'safe_wait' },
     sanity_check: { obj: 'iflags', key: 'sanity_check' }, // C optlist.h:639 &iflags.sanity_check
     showdamage: { obj: 'iflags', key: 'showdamage' },

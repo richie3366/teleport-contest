@@ -62,7 +62,7 @@
 {"fn":"tty_wait_synch","c":"3624-3647","status":"ported","js":["js/display.js:tty_wait_synch"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: getret/rawprint + map/inmore/inread arms ported; fflush/HUPSKIP unportable."}
 {"fn":"docorner","c":"3650-3721","status":"ported","js":["js/display.js:docorner"],"d":["D-3993","D-3441"],"at":"2026-10-15@7005cc234","note":"audit 2026-10-03: cl_end loop, CLIPPING row_refresh, status bot() tail ported; RESIZABLE/PERMINV arms N/A."}
 {"fn":"end_glyphout","c":"3724-3737","status":"unknown"}
-{"fn":"g_putch","c":"3740-3790","status":"unknown"}
+{"fn":"g_putch","c":"3740-3790","status":"partial","js":["js/display.js:symset_render_char"],"omit":"the character-translation test (H_IBM/H_UTF8/eight_bit_tty/DEC) lives in symset_render_char; the xputc/graph_on-off output half is the terminal model's, not ported as a function (D-4212)","at":"2026-10-21@b74e939c7"}
 {"fn":"g_pututf8","c":"3795-3803","status":"ported","js":["js/display.js:show_glyph_cell"],"d":["D-3945"],"at":"2026-10-14@5018ae760"}
 {"fn":"setclipped","c":"3809-3815","status":"ported","js":["js/display.js:setclipped"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact: clipping on, origin pan, extents at screen size minus statuslines."}
 {"fn":"tty_cliparound","c":"3818-3842","status":"ported","js":["js/display.js:tty_cliparound"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Exact hysteresis both axes + redraw_map on origin move."}

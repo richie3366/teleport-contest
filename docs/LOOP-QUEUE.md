@@ -140,7 +140,6 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `potion.c` peffect_acid — blocks 1/708 corpus sessions (first at step 45; RNG lost 0, screens lost 1): C «tame little dog» vs JS «Pardon me, little dog.». Probe: `node scripts/hidden-proxy.mjs verify peffect_acid` (scen-options-Tourist-52451031). @0b2c76c03 **[history: ledger: ported D-3608 — read that D-entry once; the arm this divergence names is still open]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)
