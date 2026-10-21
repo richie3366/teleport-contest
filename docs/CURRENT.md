@@ -22,20 +22,20 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-21** — full `sessions` on `f0e447897`
-(audit **3028–3037**). Fortress **44/44** (aggregates below).
+Score last measured: **2026-10-21** — full `sessions` on `1b2b2c8e3`
+(audit **3038–3046**). Fortress **44/44** (aggregates below).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-21 07:23Z)** | **35 / 44**, 10,849 / 11,265 pts, RNG **99.5 %**, rngSteps 99.0 %, screens **96.3 %** (+0 vs 01:38Z; rank 2, leader 11,264 at 43/44) |
+| **Held-out (judge 2026-10-21 13:09Z)** | **35 / 44**, 11,079 / 11,265 pts, RNG **99.5 %**, rngSteps 99.2 %, screens **98.3 %** (+230 pts vs 07:23Z; rank 2, leader 11,264 at 43/44) |
 | **Fresh cohort (§10.20, scored on arrival)** | 51650000 ×160 @`8f2d00eae` (Grow #20): **156/160 (97.5 %)**, RNG 99.83 %, screens 99.75 % — sweep 8/10 worst (distfleeck RNG s616, trapeffect_sqky_board s609); hallu 8/9 (findit s666); symset 8/9 (env-only); rest 100 % |
-| **Corpus board (worked, regression fortress)** | full rescore 2026-10-21 (audit 3028–3037 @`f0e447897`): committed board **677/720** (667 at the last audit + 10 window flips claimed by D-4188..D-4197) → rescore **677/691** (677/688 excl. 3 env-only; RNG 99.99 %, screens 100.0 %), `record`: all sessions present, **0 PASS→FAIL** → archive 6 PASS → **671/714** (`entries` 714, `unrecorded` 0); `tier` → 0 promoted back, reserve 29 → 29; worst symset 33/35, options 25/28, sweep 182/184, worldtour 86/87, chain 24/25, shop 20/21, questtour 10/11 |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-21 (audit 3038–3046 @`1b2b2c8e3`): committed board **680/714** (671 at the last audit + 9 window flips claimed by D-4198..D-4206) → rescore **680/685** (680/682 excl. 3 env-only; RNG 99.99 %, screens 100.0 %), `record`: all sessions present, **0 PASS→FAIL** → archive 9 PASS → **671/705** (`entries` 705, `unrecorded` 0); `tier` → 0 promoted back, reserve 29 → 29; worst shop 20/21 (set_apparxy RNG s936), worldtour 85/86 (one_characteristic s503), every other family 100 % |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `95+0.51/turn` (R² 0.84) |
+| Speed label | `90+0.50/turn` (R² 0.86) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
@@ -148,7 +148,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** Must-fix is empty (audit 3028–3037 queued none) — the **Open — cliffs** head. Mirror-family hits (u.Blind/u.Hallucination/u.Unaware/u.See_invisible/u.Upolyd, flat-only Flying/Levitation/Disint clones, `'yn'` literals) fix every site in that C file.
+**Next:** Must-fix is empty (audit 3038–3046 queued none) — the **Open — cliffs** head. Mirror-family hits (u.Blind/u.Hallucination/u.Unaware/u.See_invisible/u.Upolyd, flat-only Flying/Levitation/Disint clones, `'yn'` literals) fix every site in that C file.
 
 ## Parked (diagnose only)
 

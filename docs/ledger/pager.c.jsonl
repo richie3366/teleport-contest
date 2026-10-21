@@ -12,7 +12,7 @@
 {"fn":"lookat","c":"657-802","status":"ported","js":["js/pager.js:lookat"],"d":["D-4118","D-3414","D-1848","D-1843","D-1787"],"at":"2026-10-19@652d57407","note":"stale (grouped)"}
 {"fn":"ia_checkfile","c":"807-815","status":"ported","js":["js/pager.js:ia_checkfile"],"at":"2026-10-03@bbe63333a"}
 {"fn":"checkfile","c":"830-1129","status":"split","js":["js/pager.js:checkfile","js/pager.js:checkfile_dbase_str","js/pager.js:checkfile_split_names","js/pager.js:lookup_data_base_entry"],"d":["D-3198","D-2451","D-2443","D-2098"],"at":"2026-10-01@c1022f867"}
-{"fn":"do_screen_description","c":"1247-1627","status":"ported","js":["js/pager.js:do_screen_description"],"d":["D-4205","D-4098","D-3956","D-3414","D-3402","D-2449"],"at":"2026-10-21@e2380344d"}
+{"fn":"do_screen_description","c":"1247-1627","status":"ported","js":["js/pager.js:do_screen_description"],"d":["D-4205","D-4098","D-3956","D-3414","D-3402","D-2449"],"at":"2026-10-21@1b2b2c8e3","note":"review 3045: the encglyph prefix's TOPL_RAW_BYTE chars (D-4205) are skipped only by the topline painter; msg_window full/reversed ^P history goes through invent.js paint_overlay/paint_corner_nhw_menu, which skip only C0 and would draw them (C drops >=0x80 there too). Unreached."}
 {"fn":"add_quoted_engraving","c":"1631-1667","status":"ported","js":["js/pager.js:add_quoted_engraving"],"at":"2026-10-03@bbe63333a"}
 {"fn":"do_look","c":"1673-1963","status":"ported","js":["js/pager.js:do_look"],"d":["D-4109","D-3868","D-3402","D-2468","D-1877"],"at":"2026-10-19@f4dcc77fb","note":"audited D-3402: whole vs C"}
 {"fn":"look_region_nearby","c":"1966-1974","status":"ported","js":["js/pager.js:look_region_nearby"],"at":"2026-10-03@bbe63333a"}

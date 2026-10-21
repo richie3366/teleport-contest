@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — audit 3038–3046 @1b2b2c8e3: review D-4198..D-4206 (8A/1D/0Q, 0 Must-fix) + full rescore 671/705 (0 PASS→FAIL)
+
+**Reviews:** the owner re-measures (`verify … --base HASH~1 --no-reach`) reproduce every cliff D-log: doname_base, save_dungeon, status_hilite_menu_add, tipcontainer_gettarget, xkilled, nh_timeout, trapeffect_sqky_board, do_screen_description PASS. D-4206's row was unattributed (verify vacuous); the frozen runner on HEAD passes scen-symset-Priest-50059010. One debt (D-4205): TOPL_RAW_BYTE prefix chars are skipped only by the topline painter, so msg_window full/reversed ^P history would draw them (ledger note on do_screen_description, unreached).
+**Rescore:** `record`: all sessions present. Unfiltered `score` gave 680/685 (680/682 excl. 3 env-only; RNG 99.99 %, screens 100.0 %), 0 PASS→FAIL vs the committed board. `archive` moved 9 PASS out → 671/705, unrecorded 0, reserve 29 → 29. Left: set_apparxy (shop s936), one_characteristic (worldtour s503) plus env-only rows.
+**Score:** public 44/44 (792838 RNG, 11405 screens, 90+0.50/turn); held-out 35/44, 11,079 pts (judge 13:09Z, +230). Ledger snapshot taken. Seeded sample dotrap/should_mulch_missile/newuhs/yn_function/peace_minded: 5/5 hold (peace_minded PARTIAL is a line-ratio artefact; body whole vs makemon.c:2267–2308).
+**Next:** Must-fix is empty → the cliffs head (2 attributed rows left; a short block means a grow slot, §10.19).
 ## 2026-10-21 — D-4206 themerms.lua make_dig_engraving (the Buried treasure postprocess) computes «Dig N east/west M south/north» as `data.x - pos.x - 1, data.y - pos.y`. data is the chest's absolute ox/oy, but pos comes from `selection:rndcoord(0)`, which nhlsel.c l_selection_rndcoord returns in the Lua frame (`:413–421`): croom-relative under a coder subroom, else minus xstart/ystart, here 1/0 from themerooms_post_level_generate's reset_xystart_size. The Lua `- 1` cancels that xstart. JS took the absolute pos and still subtracted 1, so every east/west distance was one short: «Dig 46 east» where C engraves «Dig 47 east»
 
 **C locus:** 
