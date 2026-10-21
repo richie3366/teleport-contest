@@ -30,7 +30,7 @@ Score last measured: **2026-10-21** — full `sessions` on `1b2b2c8e3`
 | Metric | Value |
 |--------|------:|
 | **Held-out (judge 2026-10-21 13:09Z)** | **35 / 44**, 11,079 / 11,265 pts, RNG **99.5 %**, rngSteps 99.2 %, screens **98.3 %** (+230 pts vs 07:23Z; rank 2, leader 11,264 at 43/44) |
-| **Fresh cohort (§10.20, scored on arrival)** | 52450000 ×160 (Grow #21): **157/160 (98.1 %)**, RNG 99.1 %, screens 98.9 % |
+| **Fresh cohort (§10.20, scored on arrival)** | 52650000 ×159 (Grow #22): **158/159 (99.4 %)**, RNG 99.7 %, screens 99.3 % |
 | **Corpus board (worked, regression fortress)** | full rescore 2026-10-21 (audit 3038–3046 @`1b2b2c8e3`): committed board **680/714** (671 at the last audit + 9 window flips claimed by D-4198..D-4206) → rescore **680/685** (680/682 excl. 3 env-only; RNG 99.99 %, screens 100.0 %), `record`: all sessions present, **0 PASS→FAIL** → archive 9 PASS → **671/705** (`entries` 705, `unrecorded` 0); `tier` → 0 promoted back, reserve 29 → 29; worst shop 20/21 (set_apparxy RNG s936), worldtour 85/86 (one_characteristic s503), every other family 100 % |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
@@ -45,9 +45,9 @@ RNG 93.5→96.9 %): the D-4042..D-4047 window moved the judge again
 — cliffs score where they reach. **Three lines, read together:**
 held-out (judge), fresh cohort
 (`fresh-cohort.mjs`, the local generalization estimate), board (the
-fortress — it rises by construction). Fresh history: 79–98.1 %
-across 18 cohorts (Grow #5–21; previous 156/160 @51650000).
-Fresh−held-out gap now 18.6 pts (98.1 % vs 79.5 % = 35/44), inside the §10.20
+fortress — it rises by construction). Fresh history: 79–99.4 %
+across 18 cohorts (Grow #5–22; previous 157/160 @52450000).
+Fresh−held-out gap now 19.9 pts (99.4 % vs 79.5 % = 35/44), inside the §10.20
 band — no calibration family; Grow #20 added the `questwalk` coverage family instead (level audit F4).
 **Corpus after Grow #20 (2026-10-20):** board 668/701 PASS (95.3 %, RNG 99.83 %, screens 99.8 %); 684 active + 29 reserve + 5863 archive.
 **Corpus (Grow #19 `score --new` + `tier`, 2026-10-17, 916 rows):**
