@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — D-4193 wintty.c tty_display_nhwindow, NHW_MENU corner arm, calls `tty_clear_nhwindow(WIN_MESSAGE)` (`:1938–1941`). That erases the topline only when `toplin != TOPLINE_EMPTY` (`:1047–1058`). JS show_nhw_menu_text, which paints every putstr-only NHW_MENU window (container_contents, look_here, and about 20 more callers), blanked the topline unconditionally. Only look_here opted out, through a JS-only `keep_message_leftover` flag. After a death «Die? [yn] (n)» answered `y`, toplin is EMPTY but the prompt is still on row 0: C keeps it left of each «Contents of …» window, and JS wiped it
+
+**C locus:** wintty.c tty_display_nhwindow `:1907–1946` (corner/fullscreen split `:1924–1942`), tty_clear_nhwindow NHW_MESSAGE `:1047–1058`; end.c container_contents `:1593–1670` (create/putstr/display/destroy, unchanged).
+**JS:** js/pager.js (import `:43`, show_nhw_menu_text `:629`, clear `:670–675`); js/invent.js look_here call `:9671` + comment.
+**Change:** fullscreen (offx 0) still blanks the message, as the C clear-screen arm does. A corner menu calls the existing exact port `clear_message_window_menu_overlay()` (display.js, already used by invent.js and tty_resize_mesg_arm), which returns early on TOPLINE_EMPTY. look_here gets the same result from C state: its display_nhwindow_message leaves toplin EMPTY. The opts flag and its doc are deleted.
+**Verify:** - `node scripts/verify.mjs --fn container_contents,look_here --full` → syntax ×2 · rule2 · hidden: verify container_contents: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-sweep-Archeologist-50055049: PASS) · reach REACH-OK ×2 (24 smoke each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+**Named:** tty_display_nhwindow stays partial: the TEXT/MAP/STATUS arms and the fullscreen MENU arm's own clear are untouched.
+**Next:** the regenerated cliffs head (doclassdisco s228, scen-town-Tourist-630002).
 ## 2026-10-21 — D-4192 weapon.c enhance_weapon_skill asks the wizard-mode speedup with `y_n("Advance skills without practice?")` (`:1340`), that is `yn_function(query, ynchars, 'n', TRUE)`. cmd.c yn_menuable_resp offers the Yes/No menu only when `resp` *is* one of the shared tables (pointer compare, `:5393–5399`). JS passed the string literal `'yn'`, so with `query_menu` on, C showed the menu and JS the plain `[yn] (n)` topline prompt
 
 **C locus:** weapon.c enhance_weapon_skill `:1340`; hack.h y_n; cmd.c yn_menuable_resp `:5393–5399`, yn_function_menu `:5416–5463`.

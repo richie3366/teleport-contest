@@ -9639,8 +9639,9 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
 
     // C: display_nhwindow(WIN_MESSAGE, FALSE) then NHW_MENU putstr list.
     // WIN_MESSAGE FALSE: NEED_MORE → more() + clear; else toplin EMPTY
-    // without wipe — getpos leftovers stay left of the overlay
-    // (keep_message_leftover) and survive the next parse() clear.
+    // without wipe — getpos leftovers stay left of the overlay (the
+    // corner menu's tty_clear_nhwindow(WIN_MESSAGE) is a no-op on EMPTY)
+    // and survive the next parse() clear.
     await display_nhwindow_message();
     const lines = [];
     if (dfeature && !skip_dfeature && fbuf) {
@@ -9667,7 +9668,7 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
         lines.push(doname_with_price(o));
     }
     const { show_nhw_menu_text } = await import('./pager.js');
-    await show_nhw_menu_text(lines, { keep_message_leftover: true });
+    await show_nhw_menu_text(lines);
     if (felt_cockatrice) await feel_cockatrice(felt_obj, false);
     {
         const { read_engr_at } = await import('./engrave.js');
