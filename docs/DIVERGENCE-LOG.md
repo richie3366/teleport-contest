@@ -1,5 +1,21 @@
 # Divergence log
 
+## D-4188 — do.c goto_level ends with the hole/trapdoor fall damage, `losehp(dmg, "falling down a mine shaft", KILLED_BY)`, then `pickup(1)` (`:1989–1996`). losehp runs done(DIED) inline, and done() *returns* when the hero is lifesaved or declines a wizard/explore «Die?». goto_level then goes on to pickup(1). JS drained the deferred finisher and then `return`ed unconditionally, as if losehp never returned. So after «OK, so you don't die.» a blind hero never got «You try to feel what is lying here on the floor.» / «You feel here a boulder.», and «You survived that attempt on your life.» was joined onto the OK line without the --More--
+
+- **Status:** shipped.
+- **Symptom:** scen-sweep-Valkyrie-50362023 step 1003 (Blind, Conf, wizard; zapped digging down, fell to Dlvl 4, d(1,6) fall damage killed the hero). C «OK, so you don't die.--More--», then s1004 «You try to feel what is lying here on the floor.--More--», s1005 «You feel here a boulder.  You survived that attempt on your life.». JS «OK, so you don't die.  You survived that attempt on your life.», then «Unknown command ' '.» ×2. Cliffs head row `slimed_to_death`: the topline-literal owner matched the C comment at timeout.c:508 (see D-3821). The real writer is goto_level's fall-damage arm.
+- **C locus:** do.c goto_level `:1989–1996` (fall damage `:1989–1994`, `pickup(1)` `:1996`); end.c done `:1104–1123` (Die? decline → savelife → return); hack.c losehp `:4287–4288`.
+- **JS was:** js/do.js goto_level: `if (game._losehp_needs_done) { await finish_losehp_done(); return; }`. The comment said "losehp is noreturn on death so skip pickup (D-1179)".
+- **Fix:** use the D-4092 idiom that the two other do.c losehp sites in JS already use (boulder squish `:854`, lava boulder `:1077`): drain when `_losehp_needs_done || gameover`, and return only if `program_state.gameover` (a real death). Otherwise fall through to `pickup(1)` as C does.
+- **JS:** js/do.js goto_level fall-damage arm (`:2488–2510`).
+- **Callers:** unchanged (goto_level ← deferred_goto / every level change). Same-file sweep: all three do.c losehp → done sites in JS now share the drain-then-gameover-return shape.
+- **Verify:**
+  - `node scripts/verify.mjs --fn slimed_to_death,goto_level` → syntax · rule2 · hidden: verify slimed_to_death: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-sweep-Valkyrie-50362023: PASS) · reach REACH-OK (24 smoke; goto_level 43 baseline-PASS, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 667 baseline-PASS re-run in 127.8s, 0 regressed → REACH-OK.
+- **Named omissions:** none in the changed arm.
+- **Ledger:** goto_level ported
+- **Next:** the regenerated cliffs head (reveal_terrain s478, scen-symset-Healer-50555020).
+
 ## D-4187 — iactions.c itemactions builds the engrave row as "%s on the %s with %s" using `surface(u.ux, u.uy)` (`:439–445`). JS hard-coded "floor", following a stale comment that said surface existed only as four always-"floor" stubs. The whole dungeon.c surface (`:1750–1788`, all arms including On_stairs) has been the sit.js export since D-2008/D-2884. On stairs, an altar, a fountain, ice and so on, the context menu named the wrong surface
 
 - **Status:** shipped.
