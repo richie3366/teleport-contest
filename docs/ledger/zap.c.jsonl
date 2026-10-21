@@ -33,7 +33,7 @@
 {"fn":"zap_ok","c":"2618-2623","status":"ported","js":["js/zap.js:zap_ok"],"at":"2026-10-02@1b5b36bb7","note":"stale: js/zap.js:2648 whole C body (WAND_CLASS SUGGEST else EXCLUDE) + cmd getdir caller wired"}
 {"fn":"dozap","c":"2627-2683","status":"ported","js":["js/zap.js:dozap"],"d":["D-3795","D-3408"],"at":"2026-10-10@6f999f526"}
 {"fn":"boxlock_invent","c":"2687-2702","status":"ported","js":["js/lock.js:boxlock_invent"],"d":["D-3074"],"at":"2026-09-29@107847759"}
-{"fn":"zapyourself","c":"2705-3013","status":"ported","js":["js/zap.js:zapyourself"],"d":["D-2065","D-1446","D-1435","D-1434","D-1433","D-1410"],"at":"2026-10-03@bbe63333a"}
+{"fn":"zapyourself","c":"2705-3013","status":"ported","js":["js/zap.js:zapyourself"],"d":["D-4210","D-2065","D-1446","D-1435","D-1434","D-1433"],"at":"2026-10-21@7c8ef97ce"}
 {"fn":"ubreatheu","c":"3017-3022","status":"ported","js":["js/zap.js:ubreatheu"],"at":"2026-10-03@bbe63333a"}
 {"fn":"lightdamage","c":"3026-3056","status":"ported","js":["js/zap.js:lightdamage"],"d":["D-3795","D-1366"],"at":"2026-10-10@6f999f526"}
 {"fn":"flashburn","c":"3060-3080","status":"ported","js":["js/zap.js:flashburn"],"d":["D-3408"],"at":"2026-10-04@c075fb861"}

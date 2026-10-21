@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-4210 — zap.c zapyourself tells every monster that sees the hero about a resistance it just showed. Each resistance arm (force bolt/striking, lightning, fire, cold, magic missile, sleep) calls shieldeff + monstseesu(M_SEEN_x) on a resisted self-zap and monstunseesu(M_SEEN_x) on a felt one (`:2716–2863`). JS had deferred all eighteen calls. So a Valkyrie who zapped a cursed wand of cold at herself («You feel a little chill.») left the watching silver dragon unaware, and 27 steps later the fleeing dragon still counted its frost breath as a ranged attack and breathed instead of retreating
+
+- **Status:** shipped (cliffs head after Grow #21).
+- **Symptom:** scen-sweep-Valkyrie-52450012 step 506 (owner distfleeck, parked SYMPTOM, jsOwner breamm mthrowu.js:500): C «The silver dragon turns to flee.  The Angel swings her long sword.», JS «… The silver dragon breathes frost!». RNG 8228/44441, 36k draws and 992 screens lost after.
+- **Measured / named:** a temporary stack at JS breamm showed dochug → mattacku → breamu → breamm for the fleeing dragon (mflee 1, mfleetim 0 from the drum's awaken_monsters). In C, dochug's MMOVE_MOVED arm (`monmove.c:944–948`) lets a monster that is not nearby attack only when ranged_attk_available (mhitu.c `:2413–2425`). That is false once m_seenres(M_SEEN_COLD) is set, so C returns 0 and the next monster's distfleeck follows. The only earlier cold event is step 479, the self-zap «You feel a little chill.» with the dragon adjacent. That is C zap.c `:2778–2780` shieldeff + monstseesu(M_SEEN_COLD), and JS's arm had neither.
+- **C locus:** zap.c zapyourself `:2705–3013`: striking `:2716/:2718/:2726`, lightning `:2737/:2739/:2741`, fire `:2757/:2759/:2764`, cold `:2778/:2780/:2785`, magic missile `:2794/:2796/:2800`, sleep `:2855/:2857/:2863`; mondata.c monstseesu `:1558–1568`.
+- **JS was:** js/zap.js zapyourself kept comments in each of those arms ("shieldeff / monstseesu deferred (no RNG)", "monstunseesu deferred"). The resisting hero showed no shield effect and taught no monster anything, and a felt hit made no monster forget.
+- **Fix:** each arm calls the live display.js shieldeff(u.ux, u.uy) and mondata.js monstseesu / monstunseesu (both already imported) at C's positions: shieldeff before the message, monstseesu after it and before ugolemeffects, and monstunseesu after the damage/exercise lines.
+- **JS:** js/zap.js zapyourself sleep `:4785–4800`, striking `:4843–4860`, fire/cold/lightning/magic-missile arms `:4965–5050`.
+- **Callers:** unchanged (dozap self-zap, weffects u.dz/self, spelleffects, do_break_wand, music fire/frost horn).
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-sweep-Valkyrie-52450012.session.json` → PASS (RNG 44441/44441, Screen 1503/1503).
+  - `node scripts/verify.mjs --fn distfleeck,zapyourself --full` → syntax · rule2 · `verify distfleeck: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach distfleeck 80/651 sampled, 0 regressed · reach zapyourself 27/27, 0 regressed · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 673 baseline-PASS re-run in 131.6s, 0 regressed → REACH-OK.
+  - verify distfleeck: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in the six arms.
+- **Ledger:** zapyourself ported
+- **Next:** the regenerated cliffs head (use_stethoscope pile_limit region row, then peffect_acid).
+
 ## D-4209 — insight.c enlightenment shows the in-game `^X` attributes through select_menu(PICK_NONE) (`:451–460`), so tty process_menu_window's key switch applies (`:1604–1649`). Return/LF finishes the menu, space pages and finishes on the last page, and `>` `<` `^` `|` turn pages without finishing. JS doattributes kept an inline page loop that accepted only space/CR/LF/ESC, and Return advanced a page like space. So `^X` then `>` stayed on «(1 of 3)» where C shows «(2 of 3)», and `^X` then Return showed page 2 where C returns to the map
 
 - **Status:** shipped (measured off-queue: the cliffs block was empty after D-4208, and this is the divergence D-4207 named while probing).

@@ -1,6 +1,6 @@
 {
- "commit": "d3187d477",
- "at": "2026-10-21T14:43:02.270Z",
+ "commit": "7c8ef97ce",
+ "at": "2026-10-21T14:49:40.153Z",
  "full": false,
  "fullCommit": "1b2b2c8e3",
  "fullAt": "2026-10-21T14:05:06.214Z",
@@ -7388,19 +7388,19 @@
   },
   "scen-sweep-Valkyrie-52450012": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 8367,
+   "passed": true,
+   "rngM": 44441,
    "rngT": 44441,
-   "scrM": 511,
+   "scrM": 1503,
    "scrT": 1503,
-   "kind": "rng",
-   "step": 506,
+   "kind": null,
+   "step": null,
    "steps": 1503,
-   "owner": "distfleeck",
-   "loc": "monmove.c:549",
-   "jsOwner": "breamm(mthrowu.js:500)",
-   "cTopline": "The silver dragon turns to flee. The Angel swings her long sword.--More--",
-   "jsTopline": "The silver dragon turns to flee. The silver dragon breathes frost!--More--",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-sweep-Valkyrie-578204": {
@@ -12073,6 +12073,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "tieredAt": "2026-10-21T14:43:02.437Z"
+ }
 }
