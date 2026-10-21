@@ -777,10 +777,14 @@ export async function flooreffects(obj, x, y, verb) {
     }
     obj.nobj = obj.nexthere = null;
 
-    // C `save_bhitpos = gb.bhitpos; gb.bhitpos.x = x, gb.bhitpos.y = y;`
+    // C `:182–183` `save_bhitpos = gb.bhitpos; gb.bhitpos.x = x, gb.bhitpos.y = y;`
     // (gb.bhitpos is a zero-initialized static, so a first save is 0,0).
+    // gb.bhitpos is one global: write its fields, never swap the object —
+    // zap.js bhit holds an alias it advances (bhitm reads game.bhitpos).
     const save = { x: game.bhitpos?.x | 0, y: game.bhitpos?.y | 0 };
-    game.bhitpos = { x: x | 0, y: y | 0 };
+    if (!game.bhitpos) game.bhitpos = { x: 0, y: 0 };
+    game.bhitpos.x = x | 0;
+    game.bhitpos.y = y | 0;
 
     // C: struct trap *t; struct monst *mtmp; int ttyp = NO_TRAP, res = FALSE.
     // t/levl are read per-branch like C (no hoist past boulder_hits_pool).
@@ -968,7 +972,9 @@ export async function flooreffects(obj, x, y, verb) {
         }
     }
 
-    game.bhitpos = save; // C `gb.bhitpos = save_bhitpos;`
+    // C `:357` `gb.bhitpos = save_bhitpos;` (struct copy into the global).
+    game.bhitpos.x = save.x;
+    game.bhitpos.y = save.y;
     return res;
 }
 

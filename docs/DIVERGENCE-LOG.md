@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-4202 — do.c flooreffects saves gb.bhitpos, writes the drop square into it, and restores it before returning (`:182–183`, `:357`). That is a struct copy into one global, done so that a zap reaching it via rloco keeps its bolt position. JS replaced the `game.bhitpos` object on both the set and the restore. zap.js bhit advances an alias of that object, so after a bolt kill whose corpse drop went through mdrop_obj → flooreffects, the bolt moved on in a detached object while bhitm read the frozen copy. The next monster's miss mapped `I` on the dead student's square instead of the devil's
+
+- **Status:** shipped.
+- **Symptom:** scen-questtour-Archeologist-50361020 step 400 (cliffs head, owner label xkilled, region heuristic). The hero at (41,9) zaps striking southwest: «You kill the student! You murderer!», then «The wand misses it.» on a horned devil at (39,11). JS showed `I` at (40,10), the student's square with its dropped `)`, where C keeps `)`. RNG fully matched.
+- **Measured:** a temp log in show_glyph_cell named bhitm's reveal_invis tail (zap.js `:4619`) mapping `I` at bhitpos (40,10) for a non-worm devil whose mx/my were (39,11) throughout (an mx/my accessor trap saw no move). A `game.bhitpos` accessor trap at turn 110 then showed flooreffects (do.js `:783` set, `:971` restore) swapping the object on every item of the student's inventory: mondead → m_detach → relobj → mdrop_obj → flooreffects.
+- **C locus:** do.c flooreffects `:162–359` (`save_bhitpos = gb.bhitpos; gb.bhitpos.x = x, gb.bhitpos.y = y;` … `gb.bhitpos = save_bhitpos;`, with the `:180–181` comment about wand zapping via rloco). zap.c bhit / bhitm `:563–566` read gb.bhitpos.
+- **JS was:** `game.bhitpos = { x, y }` and `game.bhitpos = save` (new objects). This was ledger-named by review 2982: «bhitpos save/restore replaces the game.bhitpos object … a bhit-captured slot goes stale after rloco/mdrop_obj mid-beam».
+- **Fix:** write the fields: x/y on set and on restore, creating the object only when it is missing (C's zeroed static).
+- **JS:** js/do.js flooreffects `:780–787` (set), `:973–975` (restore).
+- **Callers:** unchanged (every flooreffects caller; here mdrop_obj from relobj during mondead).
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-questtour-Archeologist-50361020.session.json` → PASS (RNG 30800/30800, Screen 952/952).
+  - `node scripts/verify.mjs --fn xkilled,flooreffects --full` → syntax · rule2 · `verify xkilled: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach xkilled REACH-OK (80 of 400 tagged, spread) · reach flooreffects REACH-OK (7 tagged) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 675 baseline-PASS re-run in 127.6s, 0 regressed → REACH-OK.
+  - verify xkilled: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in do.c. The same object-swap idiom remains in other C files, unreached by any failing row: zap.c dobuzz save/restore (zap.js `:2443`/`:2783`) and apply.c use_pole/use_grapple (apply.js `:3818`/`:3987`).
+- **Ledger:** flooreffects ported
+- **Next:** the regenerated cliffs head.
+
 ## D-4201 — pickup.c menus paint their end_menu prompts in tty_menu_promptstyle and their class/engulfer headings through add_menu_heading. Both carry the live menu_headings colour (wintty.c `:2685–2689`, windows.c `:1815–1828`). JS hard-coded ATR_INVERSE with no colour at all seven sites, so after `O` set menu_headings white, #tip's «Where to tip the contents of …» prompt lost its colour. tipcontainer_gettarget is restarted on select_menu_pick_one; it was a hand loop that also skipped menucolors and re-dismissed the window on every key
 
 - **Status:** shipped.

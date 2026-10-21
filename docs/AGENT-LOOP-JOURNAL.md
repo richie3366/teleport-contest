@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — D-4202 do.c flooreffects saves gb.bhitpos, writes the drop square into it, and restores it before returning (`:182–183`, `:357`). That is a struct copy into one global, done so that a zap reaching it via rloco keeps its bolt position. JS replaced the `game.bhitpos` object on both the set and the restore. zap.js bhit advances an alias of that object, so after a bolt kill whose corpse drop went through mdrop_obj → flooreffects, the bolt moved on in a detached object while bhitm read the frozen copy. The next monster's miss mapped `I` on the dead student's square instead of the devil's
+
+**C locus:** do.c flooreffects `:162–359` (`save_bhitpos = gb.bhitpos; gb.bhitpos.x = x, gb.bhitpos.y = y;` … `gb.bhitpos = save_bhitpos;`, with the `:180–181` comment about wand zapping via rloco). zap.c bhit / bhitm `:563–566` read gb.bhitpos.
+**JS:** js/do.js flooreffects `:780–787` (set), `:973–975` (restore).
+**Change:** write the fields: x/y on set and on restore, creating the object only when it is missing (C's zeroed static).
+**Verify:** - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-questtour-Archeologist-50361020.session.json` → PASS (RNG 30800/30800, Screen 952/952).
+**Named:** none in do.c. The same object-swap idiom remains in other C files, unreached by any failing row: zap.c dobuzz save/restore (zap.js `:2443`/`:2783`) and apply.c use_pole/use_grapple (apply.js `:3818`/`:3987`).
+**Next:** the regenerated cliffs head.
 ## 2026-10-21 — D-4201 pickup.c menus paint their end_menu prompts in tty_menu_promptstyle and their class/engulfer headings through add_menu_heading. Both carry the live menu_headings colour (wintty.c `:2685–2689`, windows.c `:1815–1828`). JS hard-coded ATR_INVERSE with no colour at all seven sites, so after `O` set menu_headings white, #tip's «Where to tip the contents of …» prompt lost its colour. tipcontainer_gettarget is restarted on select_menu_pick_one; it was a hand loop that also skipped menucolors and re-dismissed the window on every key
 
 **C locus:** pickup.c tipcontainer_gettarget `:3871–3948` (end_menu `:3925`), query_objlist headings `:1125` / `:1153` and end_menu `:1166`, query_category end_menu `:1448`, in_or_out_menu end_menu `:3465`, doloot_core end_menu «Loot which containers?» `:2255`, choose_tip_container_menu end_menu `:3536`. wintty.c tty_end_menu prompt `:2685–2689`; windows.c add_menu_heading `:1815–1828`, add_menu menucolors `:1803–1807`.
