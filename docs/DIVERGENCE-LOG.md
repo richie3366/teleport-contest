@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-4183 — sp_lev.c lspo_engraving always ends by writing `ep->guardobjects = guardobjs` (`:3930–3934`). That value is FALSE unless the Lua table names `guardobjects`, and no dat/*.lua does. This undoes make_engr_at's in_mklev rule that a level-gen "Elbereth" guards objects (engrave.c:446–447). Four hand-written JS loaders (Mon-loca, soko1-1, soko1-2, castle) called make_engr_at directly and skipped that tail. Their Elbereth kept guardobjects=1, so onscary() made the square scary while an object lay on it. Mon-loca.lua's own comment says the Elbereth is "a modest effort to prevent xorns from eating the tins". In C the effort fails, and a xorn walks onto the spinach tins and eats them
+
+- **Status:** shipped.
+- **Symptom:** scen-questwalk-Monk-51660016 step 97 (Mon-loca, "Home 3"). C draws `rn2(100)=64 @ obj_resists` → `rnd(25) @ meatmetal` and prints «You hear a crunching sound.». JS draws the next xorn's `rn2(5) @ distfleeck` instead. The cliffs head row (`obj_resists`, parked SYMPTOM, 445 screens lost).
+- **Measured (JS, temp `console.error` via `ps_test_runner --worker-session`):** the xorn at (16,8) has an empty mtrack, goal = hero (67,6), appr 1. Its mfndpos returned 7 squares, all but (17,7), which holds `tins` q2 and has `onscary(17,7)=true` from the Elbereth there (no scare scroll, no trap, no monster). (17,7) is the nearest square to the goal (dist2 2501 vs 2504 for (17,8)), so C moves there and meatmetal eats it. That fits the C draw sequence exactly: the two obj_resists calls, then rnd(25), then the next monster's distfleeck. C state is *inferred* from that RNG sequence; it was not dumped.
+- **C locus:** sp_lev.c lspo_engraving `:3881–3936` (tail `:3930–3934`; guardobjects default `:3910`, nowipeout = !degrade `:3909`); engrave.c make_engr_at `:446–447`; monmove.c onscary `:296–303`; dat/Mon-loca.lua `:62–67`, soko1-1.lua `:110`, soko1-2.lua `:112`, castle.lua `:151`.
+- **JS was:** `make_engr_at(x, y, 'Elbereth', null, 0, BURN)` with no tail in load_mon_loca, load_soko1_1, load_soko1_2 and load_castle. Other loader engraving sites already applied the tail's nowipeout (oracle-style `:8404`, minetn `:16861`, tut-1/tut-2 degrade=false). They carry no Elbereth, so guardobjects stays 0 there.
+- **Fix:** each of the four sites keeps the returned `ep` and applies lspo_engraving's tail: `guardobjects = 0`, `nowipeout = 0` (degrade default TRUE). The coder/croom path of lspo_engraving was not used, because these loaders don't set `game.gc.coder` / `splev_xstart`. The file's existing per-site idiom (`:8404`, `:16861`) was used instead.
+- **JS:** js/mklev.js load_mon_loca, load_soko1_1, load_soko1_2, load_castle.
+- **Callers:** des.engraving call sites = those four loaders ← load_special_proto ← makemaz / special-level path (unchanged). lspo_engraving itself (whole, D-3671) has no JS caller.
+- **Verify:**
+  - `node scripts/verify.mjs --fn obj_resists,lspo_engraving` → syntax · rule2 · hidden: verify obj_resists: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-questwalk-Monk-51660016: PASS) · reach obj_resists 80/80 REACH-OK · reach lspo_engraving 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 668 baseline-PASS re-run in 122.3s, 0 regressed → REACH-OK.
+- **Named omissions:** none. The castle/soko Elbereths also carry a cursed scare-monster scroll, so the change there only shows once that scroll leaves the square.
+- **Ledger:** lspo_engraving ported
+- **Next:** the Open — cliffs head after regeneration (peace_minded, scen-questwalk-Barbarian-51660025 s230).
+
 ## D-4182 — sp_lev.c load_special runs the same epilogue head after every level script (`:6464–6471`: link_doors_rooms, remove_boundary_syms, ensure_way_out when "inaccessibles", map_cleanup). JS copied it into each per-level loader unevenly (link_doors_rooms 16/126, remove_boundary_syms 15/126, map_cleanup 17/126). A new load_special_head() ports the head once, and all 126 loaders now run it right before their wallification. Level-audit Must-fix F3: none of the head draws RNG except ensure_way_out (minetn-6 only, order kept), so all 108 corpus-built levels stay RNG-exact
 
 - **Status:** shipped.

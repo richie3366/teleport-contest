@@ -1,6 +1,6 @@
 {
- "commit": "8f2d00eae",
- "at": "2026-10-20T21:09:40.140Z",
+ "commit": "2da587c1d",
+ "at": "2026-10-21T05:59:59.314Z",
  "full": false,
  "fullCommit": "878852b8f",
  "fullAt": "2026-10-20T19:41:16.786Z",
@@ -3937,18 +3937,18 @@
   },
   "scen-questwalk-Monk-51660016": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 3797,
+   "passed": true,
+   "rngM": 20580,
    "rngT": 20580,
-   "scrM": 111,
+   "scrM": 556,
    "scrT": 556,
-   "kind": "rng",
-   "step": 97,
+   "kind": null,
+   "step": null,
    "steps": 556,
-   "owner": "obj_resists",
-   "loc": "zap.c:1469",
-   "jsOwner": "distfleeck(monmove.js:1180)",
-   "cTopline": "You hear a crunching sound.",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
    "jsTopline": "",
    "error": null
   },
@@ -12362,6 +12362,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "tieredAt": "2026-10-20T21:09:40.284Z"
+ }
 }
