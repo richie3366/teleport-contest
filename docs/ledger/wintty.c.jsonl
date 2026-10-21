@@ -14,7 +14,7 @@
 {"fn":"tty_suspend_nhwindows","c":"784-790","status":"unknown"}
 {"fn":"tty_resume_nhwindows","c":"793-799","status":"unknown"}
 {"fn":"tty_get_color_string","c":"803-806","status":"unknown"}
-{"fn":"tty_exit_nhwindows","c":"810-845","status":"ported","js":["js/cmd.js:tty_exit_nhwindows"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: free_pickinv_cache, WIN_* sentinels, window_inited=0 ported; suspend/term teardown unportable, no wins[] to null."}
+{"fn":"tty_exit_nhwindows","c":"810-845","status":"ported","js":["js/cmd.js:tty_exit_nhwindows"],"d":["D-4196"],"at":"2026-10-21@c080d60bf","note":"audit 2026-10-03: free_pickinv_cache, WIN_* sentinels, window_inited=0 ported; suspend/term teardown unportable, no wins[] to null."}
 {"fn":"tty_create_nhwindow","c":"850-961","status":"unknown"}
 {"fn":"erase_menu_or_text","c":"966-984","status":"ported","js":["js/display.js:erase_menu_or_text"],"d":["D-3627"],"at":"2026-10-07@8245e6151"}
 {"fn":"free_window_info","c":"987-1031","status":"unknown"}
@@ -70,8 +70,8 @@
 {"fn":"term_start_bgcolor","c":"3982-3985","status":"unknown"}
 {"fn":"term_curs_set","c":"3987-3990","status":"unknown"}
 {"fn":"tty_change_color","c":"3995-3998","status":"unknown"}
-{"fn":"tty_raw_print","c":"4004-4018","status":"unknown"}
-{"fn":"tty_raw_print_bold","c":"4021-4042","status":"unknown"}
+{"fn":"tty_raw_print","c":"4004-4018","status":"partial","js":["js/display.js:tty_raw_print"],"omit":"tty_raw_print / tty_raw_print_bold model only the recorder's shadow and the rawprint/raw_printed counters: HUPSKIP and the real-tty bytes (print_vt_code2, term_start_raw_bold, fputs to stdout) are not modelled.","d":["D-4196"],"at":"2026-10-21@c080d60bf"}
+{"fn":"tty_raw_print_bold","c":"4021-4042","status":"partial","js":["js/display.js:tty_raw_print_bold"],"omit":"tty_raw_print / tty_raw_print_bold model only the recorder's shadow and the rawprint/raw_printed counters: HUPSKIP and the real-tty bytes (print_vt_code2, term_start_raw_bold, fputs to stdout) are not modelled.","d":["D-4196"],"at":"2026-10-21@c080d60bf"}
 {"fn":"tty_nhgetch","c":"4045-4112","status":"split","js":["js/input.js:nhgetch","js/display.js:tty_resize_mesg_arm"],"d":["D-4165"],"at":"2026-10-20@eea3dca81","note":"audit 2026-10-03: WIN_STOP clear, key read, NEED_MORE->NON_EMPTY ported; resize/fuzzer/termcap/NUL-EOF-map unportable or dead."}
 {"fn":"tty_nh_poskey","c":"4122-4149","status":"split","js":["js/input.js:nhgetch"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Live body is trivial tty_nhgetch wrapper (WIN32CON mouse arm compiled out); callers use nhgetch."}
 {"fn":"win_tty_init","c":"4152-4157","status":"unknown"}

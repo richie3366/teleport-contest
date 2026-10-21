@@ -3291,6 +3291,7 @@ export function reset_display_messages() {
     _nomux_raw_active = 0;
     _nomux_raw_row = 0;
     _nomux_raw_col = 0;
+    _tty_display_freed = 0;
     // wintty statics a previous game's recorder overflow may have
     // rewritten (nomux_wintty_poke); C starts each process at 0.
     erasing_tty_screen = 0;
@@ -9566,6 +9567,20 @@ async function getret() {
 let _nomux_raw_active = 0;
 let _nomux_raw_row = 0;
 let _nomux_raw_col = 0;
+// C wintty.c tty_exit_nhwindows (recorder tree `:863–864`; FREE_ALL_MEMORY, config.h:632)
+// frees ttyDisplay. JS keeps the grid (game.nhDisplay), so the raw-print
+// paths read this flag where C tests ttyDisplay.
+let _tty_display_freed = 0;
+
+/** C tty_exit_nhwindows `:863–864` — ttyDisplay = NULL. */
+export function tty_display_free() {
+    _tty_display_freed = 1;
+}
+
+/** C ttyDisplay != NULL (allocated by init_nhwindows, freed at exit). */
+function tty_display_alive() {
+    return !!game.nhDisplay && !_tty_display_freed;
+}
 
 /**
  * The raw-mode statics as C holds them (nomux_capture.js loads them before
@@ -9618,7 +9633,7 @@ function nomux_raw_putch(ch, attr) {
 function nomux_raw_emit(s, bold) {
     const disp = nomux_shadow();
     if (!_nomux_raw_active) {
-        if (game.nhDisplay && !s) return; // in-game flush (markers always on)
+        if (tty_display_alive() && !s) return; // in-game flush (markers always on)
         _nomux_raw_active = 1; // nomux_enter_raw_mode
         _nomux_raw_row = 0;
         _nomux_raw_col = 0;
@@ -9639,9 +9654,22 @@ function nomux_raw_emit(s, bold) {
  */
 export function tty_raw_print(str) {
     const s = String(str ?? '');
-    if (game.nhDisplay) _tty_rawprint++;
+    if (tty_display_alive()) _tty_rawprint++;
     else if (s && game.iflags) game.iflags.raw_printed = (game.iflags.raw_printed | 0) + 1;
     nomux_raw_emit(s, false);
+}
+
+/**
+ * C ref: wintty.c tty_raw_print_bold (upstream `:4021`; recorder `:4084–4108`) — same counters, then
+ * standout text; the recorder shadow takes it with the bold attr
+ * (nomux_raw_emit(str, 1)).
+ * @param {string} str
+ */
+export function tty_raw_print_bold(str) {
+    const s = String(str ?? '');
+    if (tty_display_alive()) _tty_rawprint++;
+    else if (s && game.iflags) game.iflags.raw_printed = (game.iflags.raw_printed | 0) + 1;
+    nomux_raw_emit(s, true);
 }
 
 /**

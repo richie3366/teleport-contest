@@ -19,7 +19,7 @@ import {
     glyph_is_warning, unmap_object, map_object,
     look_shown_at, Norep, tty_doprev_message, putmsghistory, NO_GLYPH,
     unmap_invisible, map_invisible, custompline,
-    Hallucination, raw_printf, feel_location, doredraw,
+    Hallucination, raw_printf, feel_location, doredraw, tty_display_free,
 } from './display.js';
 import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR, ICE,
          D_CLOSED, D_LOCKED, D_ISOPEN, SCORR, LAVAWALL,
@@ -329,12 +329,14 @@ export function tty_exit_nhwindows(str) {
     // WIN_MAP/MESSAGE/INVEN/STATUS = WIN_ERR. JS has no wins[] (the
     // terminal grid is the window; ids are sentinels from
     // init_sound_disp_gamewindows). FREE_ALL_MEMORY (config.h:632) also
-    // frees BASE_WINDOW and ttyDisplay; neither object exists here.
+    // frees BASE_WINDOW (no JS object) and ttyDisplay (`:863–864`): later
+    // raw prints see no ttyDisplay (display.js tty_display_free).
     game.WIN_MAP = WIN_ERR;
     game.WIN_MESSAGE = WIN_ERR;
     game.WIN_INVEN = WIN_ERR;
     game.WIN_STATUS = WIN_ERR;
     if (!game.iflags) game.iflags = {};
+    tty_display_free(); // C recorder wintty.c `:863–864`
     game.iflags.window_inited = 0; // C `:844`
 }
 
