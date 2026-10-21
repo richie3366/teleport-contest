@@ -5571,6 +5571,9 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
     let kind = 'other'; // mon | obj | trap | invisible | other
     let glyph;
     let was_mon = false;
+    // C `:2209` reads the displayed int; set when the gbuf carried one.
+    let fromGbuf = false;
+    let gbufId = NO_GLYPH;
 
     if (swallowed) {
         glyph = copy_glyph_id(levl_glyph);
@@ -5605,7 +5608,29 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
         }
     } else {
         const u = game.u || {};
-        if (u.ux === x && u.uy === y && canspotself()) {
+        // C `:2209` glyph = glyph_at(x, y): the buffered glyphinfo (gbuf,
+        // JS loc.disp_*), classified by its int like C `:2213–2231`. A
+        // seen trap the display still shows under an object pile that
+        // arrived unseen stays the trap (scen-symset-Healer-50555020
+        // step 478: rock trap `^` with rocks on it). An id-less paint
+        // (NO_GLYPH) or an unexplored cell has no int to classify; the
+        // live-layer reconstruction below stands in for those.
+        const gid = glyph_at(x, y);
+        if (gid !== NO_GLYPH && gid !== GLYPH_UNEXPLORED) {
+            fromGbuf = true;
+            gbufId = gid;
+            glyph = {
+                ch: loc.disp_ch,
+                color: loc.disp_color_raw ?? loc.disp_color ?? NO_COLOR,
+                dec: !!loc.disp_decgfx,
+                glyph: gid,
+            };
+            if (glyph_is_monster(gid) || glyph_is_warning(gid)) kind = 'mon';
+            else if (glyph_is_swallow(gid)) kind = 'swallow';
+            else if (gid === GLYPH_INVISIBLE) kind = 'invisible';
+            else if (glyph_is_object(gid)) kind = 'obj';
+            else if (glyph_is_trap(gid)) kind = 'trap';
+        } else if (u.ux === x && u.uy === y && canspotself()) {
             kind = 'mon';
             glyph = hero_display_glyph();
         } else {
@@ -5706,7 +5731,12 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
     // overlay there — but reg itself stays live for the !seenv
     // unexplored arm, like C.
     let glyph_shows_cloud = false;
-    if (!swallowed && reg && cansee(x, y) && (ACCESSIBLE(loc.typ | 0)
+    if (fromGbuf) {
+        // C detect.c:2162 glyph_is_gascloud on the displayed int.
+        glyph_shows_cloud = !!reg && glyph_is_cmap(gbufId)
+            && (glyph_to_cmap(gbufId) === S_poisoncloud
+                || glyph_to_cmap(gbufId) === S_cloud);
+    } else if (!swallowed && reg && cansee(x, y) && (ACCESSIBLE(loc.typ | 0)
                 || (reg.visible && is_pool_or_lava_disp(x, y)))) {
         const uu = game.u || {};
         if (uu.ux === x && uu.uy === y) {
@@ -5737,7 +5767,8 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
     }
 
     // C: !keep_mons && (monster|warning) || swallow → levl_glyph
-    if ((!keep_mons && kind === 'mon')) {
+    // `|| glyph_is_swallow(glyph)`, keep_mons or not (C `:2213–2215`).
+    if ((!keep_mons && kind === 'mon') || kind === 'swallow') {
         glyph = copy_glyph_id(levl_glyph);
         was_mon = true;
         // C `:2219–2231` test the int now in `glyph` (levl_glyph), not the
@@ -5767,7 +5798,7 @@ export function reveal_terrain_getglyph(x, y, swallowed, default_glyph, which_su
     }
 
     // C glyph_is_trap after memory/terrain pick (levl.glyph may be trap)
-    if (kind === 'other' && glyph_is_trap_at(glyph, x, y)) {
+    if (kind === 'other' && !fromGbuf && glyph_is_trap_at(glyph, x, y)) {
         kind = 'trap';
     }
 

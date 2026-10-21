@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-4189 — detect.c reveal_terrain_getglyph starts from `glyph = !swallowed ? glyph_at(x, y) : levl_glyph` (`:2209`), the *displayed* gbuf int, and every later arm classifies that int (`:2213–2231`). JS rebuilt the displayed layer from live state: hero, then a visible monster, then `I`, then any object under cansee, then a seen trap. A seen rock trap with a rock pile that arrived unseen still displays `^` in both C and JS, but the JS rebuild picked the object. So `#terrain` "known terrain, traps, and objects" drew `%` where C keeps `^`
+
+- **Status:** shipped.
+- **Symptom:** scen-symset-Healer-50555020 step 478 (`#terrain` → `c`), screen row 5 col 10 = map (11,4): C `^` vs JS `%` through the browse (steps 478–480). Cliffs head row `reveal_terrain` (region heuristic, 3 screens).
+- **Measured (JS, temp log in reveal_terrain_getglyph via runSegment):** at (11,4) `disp_glyph` 4028 (trap bank, `disp_ch '^'`), `remembered_glyph` the same trap, a ROCKTRAP (ttyp 3) with `tseen`, an object pile (otyp 265, two objects) on the square, cansee true, hero at (12,7). The rebuild classified `kind 'obj'` from `objects_at` + cansee.
+- **C locus:** detect.c reveal_terrain_getglyph `:2166–2288` (`:2209` glyph_at, `:2213–2218` monster/warning/swallow → levl_glyph, `:2219–2231` object/invisible/trap/gascloud on the int); display.c glyph_at `:2477–2483`.
+- **JS was:** js/display.js reveal_terrain_getglyph, non-swallowed branch: a live-layer reconstruction (hero_display_glyph / mon_at_display / objects_at+cansee / t_at_display / memory). It never read the gbuf int that the JS `glyph_at` already returns (`loc.disp_glyph`, D-1767).
+- **Fix:** read `glyph_at(x, y)` first. When it carries a real int (not NO_GLYPH / GLYPH_UNEXPLORED), the cell is the buffered glyphinfo (`disp_ch`, `disp_color_raw`, `disp_decgfx`, id) and the kind comes from the int, as in C: monster‖warning → mon, swallow → levl_glyph with was_mon whatever keep_mons says (C `:2213–2215`), GLYPH_INVISIBLE, object, trap. The gascloud test reads the int too (detect.c `:2162` macro). The ch-match trap fallback is skipped for gbuf cells. Id-less paints and unexplored cells keep the old reconstruction as a stand-in. show_glyph's map_glyphinfo re-derives ch from the id's symidx, so passing the buffered cell back through it is idempotent.
+- **JS:** js/display.js reveal_terrain_getglyph (`:5573–5576` locals, `:5611–5636` gbuf arm, cloud arm, swallow arm, `:5801` trap fallback guard).
+- **Callers:** unchanged (reveal_terrain ← doterrain; the detect.js browse_map autodescribe reads the cells it paints).
+- **Verify:**
+  - `node scripts/verify.mjs --fn reveal_terrain,reveal_terrain_getglyph` → syntax · rule2 · hidden: verify reveal_terrain: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-symset-Healer-50555020: PASS) · reach REACH-OK ×2 (24 smoke each) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 668 baseline-PASS re-run in 130.6s, 0 regressed → REACH-OK.
+- **Named omissions:** the live-layer reconstruction stays for id-less gbuf cells (NO_GLYPH paints by JS-only callers) and for GLYPH_UNEXPLORED; C has no counterpart, since every C cell carries an int.
+- **Ledger:** reveal_terrain_getglyph ported
+- **Next:** the regenerated cliffs head (newsym s683, scen-symset-Rogue-50350015).
+
 ## D-4188 — do.c goto_level ends with the hole/trapdoor fall damage, `losehp(dmg, "falling down a mine shaft", KILLED_BY)`, then `pickup(1)` (`:1989–1996`). losehp runs done(DIED) inline, and done() *returns* when the hero is lifesaved or declines a wizard/explore «Die?». goto_level then goes on to pickup(1). JS drained the deferred finisher and then `return`ed unconditionally, as if losehp never returned. So after «OK, so you don't die.» a blind hero never got «You try to feel what is lying here on the floor.» / «You feel here a boulder.», and «You survived that attempt on your life.» was joined onto the OK line without the --More--
 
 - **Status:** shipped.
