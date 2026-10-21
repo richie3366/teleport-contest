@@ -21,7 +21,7 @@
 {"fn":"tty_clear_nhwindow","c":"1034-1110","status":"partial","js":["js/botl.js:clear_status_window","js/display.js:clear_nhwindow_message","js/display.js:clear_message_window_menu_overlay"],"omit":"NHW_MESSAGE home+cl_end and NHW_STATUS arms live (D-4109, D-3993); NHW_MAP/NHW_MENU/NHW_TEXT arms and the erasing_tty_screen gate not ported. Two worldtour sessions (Monk s90–92, Wizard s112–114) keep a recorder KIND=input marker cause (D-3993). display.js clear_message_window_menu_overlay zeroes _…","d":["D-4109","D-3993"],"at":"2026-10-21@f0e447897"}
 {"fn":"toggle_menu_curr","c":"1114-1151","status":"ported","js":["js/invent.js:toggle_menu_curr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: Selected/count transitions exact in all arms; set_item_state screen paints unportable."}
 {"fn":"dmore","c":"1154-1172","status":"unknown"}
-{"fn":"set_item_state","c":"1177-1194","status":"unknown"}
+{"fn":"set_item_state","c":"1177-1194","status":"partial","js":["js/options.js:select_menu_pick_any","js/invent.js:paint_corner_nhw_menu","js/invent.js:paint_overlay"],"omit":"choose_classes' own PICK_ANY loop (js/options.js `:5953`) keeps a plain mark, which is net-identical because its items are always ATR_NONE/NO_COLOR. set_all_on_page's select arm is already `_retoggled`.","d":["D-4200"],"at":"2026-10-21@e86444f32"}
 {"fn":"set_all_on_page","c":"1198-1214","status":"unknown"}
 {"fn":"unset_all_on_page","c":"1218-1235","status":"unknown"}
 {"fn":"invert_all_on_page","c":"1239-1266","status":"unknown"}

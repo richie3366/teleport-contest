@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — D-4200 wintty.c set_item_state repaints a toggled entry's mark (`-`/`+`/`#` at str[2]) in the item's own attr and colour (`:1175–1194`). The page paint leaves the mark plain, because the attr starts at attr_n. Every runtime toggle calls it: toggle_menu_curr, set/unset_all_on_page, invert_all_on_page, for both select and deselect. JS select_menu_pick_any repainted the whole page with the mark always plain, so after `b` in query_attr's PICK_ANY menu C showed «b + bold» with a bold `+` and JS a plain one
+
+**C locus:** wintty.c set_item_state `:1175–1194`, called from toggle_menu_curr `:1126/:1132/:1140/:1145`, set_all_on_page `:1212`, unset_all_on_page `:1233`, invert_all_on_page `:1264`. The item attr/colour come from tty_add_menu `:2616–2617`, after windows.c add_menu's menucolor replacement `:1803–1807`.
+**JS:** js/options.js select_menu_pick_any (entry `markStyle`, toggle/unselect/search sites), invert_pick_any_matching; js/invent.js paint_corner_nhw_menu (corner + fullscreen markStyle), paint_overlay.
+**Change:** `_retoggled` now means "set_item_state repainted this entry since the last page paint". It is set on every set_item_state-equivalent action: a letter toggle when toggle_menu_curr returns true, invert (both arms), unselect page/all, and any entry a search changed. The page-change clear is unchanged.
+**Verify:** - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-options-Caveman-50151031.session.json` → PASS (RNG 2330/2330, Screen 182/182).
+**Named:** choose_classes' own PICK_ANY loop (js/options.js `:5953`) keeps a plain mark, which is net-identical because its items are always ATR_NONE/NO_COLOR. set_all_on_page's select arm is already `_retoggled`.
+**Next:** the regenerated cliffs head (tipcontainer_gettarget s153; pickup.c headings are one of the D-4199 add_menu_heading files).
 ## 2026-10-21 — D-4199 dungeon.c builds its menu headings with add_menu_heading: the overview's dungeon line (print_mapseen `:3553`) and the level-teleport menu's dungeon lines (print_dungeon `:2331`). add_menu_heading paints with the live `iflags.menu_headings` attr and colour, which are cleared during final disclosure (windows.c `:1815–1828`). JS hard-coded ATR_INVERSE with no colour, so after `O` set menu_headings to green the ^O overview showed «The Dungeons of Doom:» inverse-only where C draws it inverse green. The level-teleport prompt also gets tty_menu_promptstyle now, as end_menu gives it (`:2369`)
 
 **C locus:** dungeon.c print_mapseen `:3538–3554` (`add_menu_heading(win, buf)`), print_dungeon `:2330–2333` (bymenu → add_menu_heading, else putstr attr 0), `:2369` `end_menu(win, "Level teleport to where:")`. windows.c add_menu_heading `:1815–1828`.
