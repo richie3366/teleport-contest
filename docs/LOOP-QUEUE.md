@@ -140,6 +140,9 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
+- [ ] `monmove.c` distfleeck — blocks 1/708 corpus sessions (first at step 506; RNG lost 36074, screens lost 992): C draws `rn2(5)=4` in distfleeck, JS `rn2(3)=1` from breamm(mthrowu.js:500). Probe: `node scripts/hidden-proxy.mjs verify distfleeck` (scen-sweep-Valkyrie-52450012). @d3187d477 **[parked: SYMPTOM — deliverable is the writer the first divergence names, or this owner's [measure] row; not a re-port of the symptom owner]**
+- [ ] `apply.c` use_stethoscope — blocks 1/708 corpus sessions (first at step 88; RNG lost 0, screens lost 2): toplines identical; first differing screen row 14: C «o - pile_limit              [9]» vs JS «o - pile_limit              [5]» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify use_stethoscope` (scen-options-Healer-52451011). @d3187d477 **[history: archived D-3268 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `potion.c` peffect_acid — blocks 1/708 corpus sessions (first at step 45; RNG lost 0, screens lost 1): C «tame little dog» vs JS «Pardon me, little dog.». Probe: `node scripts/hidden-proxy.mjs verify peffect_acid` (scen-options-Tourist-52451031). @d3187d477 **[history: ledger: ported D-3608 — read that D-entry once; the arm this divergence names is still open]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)

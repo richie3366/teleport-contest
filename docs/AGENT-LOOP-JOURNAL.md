@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-21 — Grow #21 @d3187d477: fresh 52450000 ×160 157/160 (98.1 %) on arrival
+
+**Fresh:** RNG 99.1 %, screens 98.9 %; options 0/2, sweep 8/9, every other family 100 %. Gap to held-out 18.6 pts (79.5 % = 35/44): no calibration family.
+**Folded:** scen-sweep-Valkyrie-52450012 (distfleeck ← breamm mthrowu.js:500, s506, 36k RNG lost), scen-options-Healer-52451011 (use_stethoscope region row: `O` pile_limit [9] vs [5], s88), scen-options-Tourist-52451031 (peffect_acid owner, «tame little dog» vs «Pardon me, little dog.», s45). 157 archived, 0 reserved. Board 673/679 active.
+**Next:** the regenerated cliffs head (distfleeck/breamm).
 ## 2026-10-21 — D-4209 insight.c enlightenment shows the in-game `^X` attributes through select_menu(PICK_NONE) (`:451–460`), so tty process_menu_window's key switch applies (`:1604–1649`). Return/LF finishes the menu, space pages and finishes on the last page, and `>` `<` `^` `|` turn pages without finishing. JS doattributes kept an inline page loop that accepted only space/CR/LF/ESC, and Return advanced a page like space. So `^X` then `>` stayed on «(1 of 3)» where C shows «(2 of 3)», and `^X` then Return showed page 2 where C returns to the map
 
 **C locus:** insight.c enlightenment `:451–460` (en_via_menu → end_menu + select_menu(PICK_NONE)); wintty.c process_menu_window `:1548–1551` (same page: cursor back + xwaitforspace, no repaint), `:1604–1614` ESC, `:1616–1620` `\0`/`\n`/`\r` finish, `:1622–1631` ' '/MENU_NEXT_PAGE (' ' finishes on the last page, '>' does not), `:1632–1649` previous/first/last page; getline.c xwaitforspace `:230–257`.
