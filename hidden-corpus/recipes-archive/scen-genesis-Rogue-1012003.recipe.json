@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u0007pit fiend\nsm.s.m.sm.sssss\u0007black light\n;b; \u001bm,20s  .m.20s\u0007water demon\n;j,sm.ss\u0007mumak\n20s  .m.  n  sn20s  20s  sy sm.  n  20s  "
+ },
+ "segments": [
+  {
+   "seed": 1012003,
+   "datetime": "20130405135628",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u0007pit fiend\nsm.s.m.sm.sssss\u0007black light\n;b; \u001bm,20s  .m.20s\u0007water demon\n;j,sm.ss\u0007mumak\n20s  .m.  n  sn20s  20s  sy sm.  n  20s  "
+  }
+ ]
+}

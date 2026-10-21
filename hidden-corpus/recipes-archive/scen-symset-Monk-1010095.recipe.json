@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0007tame dingo\n\u0007large dog\n\u0017tripe ration\nt\u001by\u0017banana\nt\u001b\u0017leash\naml  uy  n  uuamn   \u0017leash\nanj lb ubanh#chat\nj\u0007yellow mold\nssss20s.\u0017fortune cookie\n t\u001bmOa\u001b\n\u0006_ \u001b,>FuFl  _>,Fj_,Fn>FjFj _>.Fj_,Fl>FjFnFjFlFl\u0006_>.Fl_,Fn>FlFn_>.Fl_.Fl>FlFl_>.Fn_,Fl>FnFnFnFnFn\u0006_>,Fl_,Fj>FlFn_>.Fn_.Fj>FnFl_>,Fl_,Fn>FnFnFlFnFj\u0006_>.Fl_,Fj>FnFl_>,Fj_.Fj>FjFn_>.Fl_.Fl>FjFnFnFlFj#levelchange\n6\n   bbyy\u0017lawful altar\nde\u0017human corpse\n l\u0017pool\nl\u0017iron bars\nh \u0017tree\n#enhance\nyg\nk\n\u001b<#monster\n\u0006_>._.;<. >_>._.:>_>,_.,>\u0006_>,_.m.>_>._.m.>_>,_.m,>\u0006_>>._.m.>_>>._,>.>_>>._.:>O>>>p\u001b\nOakumquat\n\u001b\nmO>>>>d\u001b\nO>>n\u001b\u001b\n\u00161\nJ#terrain\ne\n\u00165\n\u000f\u001bi\u001b_>.>jhkFjFlFlFjFjFnFnFnFjFlFjFnFjFnFlFjFnFnFjFjFnFjFjFjFnFjFnFjFjFjFjFjFjFjFjFnFjFnFnFnFjFnFnFnFjFjFjFnFjFjFnFjFnFnFnFjFnFjFjFjFnFnFnFnFnFnFnFjFnFnFjFjFnFnFnFjFjFjFjFnFjFjFjFjFnFnFjFjFjFjFnFjFjFnFnFjFnFnFnFjFjFjFnFnFjFjFjFnO>>h\u001b\nmO>>>p\u001b\n#jump\n#name\nm\n#jump\n:dlO>>>>p\u001b\nW20s\u000f\u001bZa\n\u0006_>.Fl_.> #tip\n\u001bP\u0006_>>,_.>_>>._,>_>>,_.>\u0006_>>._,>_>>._.>_>>,_,>\u0006_>._.>_>,_.>_>._.>f "
+ },
+ "segments": [
+  {
+   "seed": 1010095,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=msg_window:reversed\n",
+   "moves": " \u0007tame dingo\n\u0007large dog\n\u0017tripe ration\nt\u001by\u0017banana\nt\u001b\u0017leash\naml  uy  n  uuamn   \u0017leash\nanj lb ubanh#chat\nj\u0007yellow mold\nssss20s.\u0017fortune cookie\n t\u001bmOa\u001b\n\u0006_ \u001b,>FuFl  _>,Fj_,Fn>FjFj _>.Fj_,Fl>FjFnFjFlFl\u0006_>.Fl_,Fn>FlFn_>.Fl_.Fl>FlFl_>.Fn_,Fl>FnFnFnFnFn\u0006_>,Fl_,Fj>FlFn_>.Fn_.Fj>FnFl_>,Fl_,Fn>FnFnFlFnFj\u0006_>.Fl_,Fj>FnFl_>,Fj_.Fj>FjFn_>.Fl_.Fl>FjFnFnFlFj#levelchange\n6\n   bbyy\u0017lawful altar\nde\u0017human corpse\n l\u0017pool\nl\u0017iron bars\nh \u0017tree\n#enhance\nyg\nk\n\u001b<#monster\n\u0006_>._.;<. >_>._.:>_>,_.,>\u0006_>,_.m.>_>._.m.>_>,_.m,>\u0006_>>._.m.>_>>._,>.>_>>._.:>O>>>p\u001b\nOakumquat\n\u001b\nmO>>>>d\u001b\nO>>n\u001b\u001b\n\u00161\nJ#terrain\ne\n\u00165\n\u000f\u001bi\u001b_>.>jhkFjFlFlFjFjFnFnFnFjFlFjFnFjFnFlFjFnFnFjFjFnFjFjFjFnFjFnFjFjFjFjFjFjFjFjFnFjFnFnFnFjFnFnFnFjFjFjFnFjFjFnFjFnFnFnFjFnFjFjFjFnFnFnFnFnFnFnFjFnFnFjFjFnFnFnFjFjFjFjFnFjFjFjFjFnFnFjFjFjFjFnFjFjFnFnFjFnFnFnFjFjFjFnFnFjFjFjFnO>>h\u001b\nmO>>>p\u001b\n#jump\n#name\nm\n#jump\n:dlO>>>>p\u001b\nW20s\u000f\u001bZa\n\u0006_>.Fl_.> #tip\n\u001bP\u0006_>>,_.>_>>._,>_>>,_.>\u0006_>>._,>_>>._.>_>>,_,>\u0006_>._.>_>,_.>_>._.>f "
+  }
+ ]
+}

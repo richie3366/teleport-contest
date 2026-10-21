@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nl_mmmmm.#chat\nn_mm.#chat\nb;m,_mmmm.#chat\nj_m.#chat\nu#levelchange\n20\n                    \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm,#chat\ny_mmmm.#chat\nk\u0017blessed +3 gauntlets of power\nWo\u0017blessed ring of free action\nPpr\u0017wand of magic missile\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.s20s.s,#chat\nj\u0016?\n>A\u0006_mm.Fu_.  Fh. Fb   n  Fj   Fk    n  Fn    Fb   n  zqk   ,\u00162\n\u0016?\n>z\u0006_mmmmmm,Fl   Fk   n s  20s    .   n   ,#chat\ny\u00168\n\u0016?\n>A\u0006_mmmmmmm..   s     ns   .   ,#chat\nn   n  \u00168\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,s    s   n   Fn   s     20s  n     .   Fn   n    zqn    n  ,#chat\nn    \u0016?\n>>\u001b\u0016?\n>y_m.#chat\nn    n \u00164\n\u0016?\n>A\u0006_mm,Fn    s    n  .     s  n   s    n  ,"
+ },
+ "segments": [
+  {
+   "seed": 1010061,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nl_mmmmm.#chat\nn_mm.#chat\nb;m,_mmmm.#chat\nj_m.#chat\nu#levelchange\n20\n                    \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm,#chat\ny_mmmm.#chat\nk\u0017blessed +3 gauntlets of power\nWo\u0017blessed ring of free action\nPpr\u0017wand of magic missile\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.s20s.s,#chat\nj\u0016?\n>A\u0006_mm.Fu_.  Fh. Fb   n  Fj   Fk    n  Fn    Fb   n  zqk   ,\u00162\n\u0016?\n>z\u0006_mmmmmm,Fl   Fk   n s  20s    .   n   ,#chat\ny\u00168\n\u0016?\n>A\u0006_mmmmmmm..   s     ns   .   ,#chat\nn   n  \u00168\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,s    s   n   Fn   s     20s  n     .   Fn   n    zqn    n  ,#chat\nn    \u0016?\n>>\u001b\u0016?\n>y_m.#chat\nn    n \u00164\n\u0016?\n>A\u0006_mm,Fn    s    n  .     s  n   s    n  ,"
+  }
+ ]
+}

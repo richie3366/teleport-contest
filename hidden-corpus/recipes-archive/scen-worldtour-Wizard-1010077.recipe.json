@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed Mjollnir\nwo\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>>L      wand of magic missile\nhl           k         b   n            j  : s s   .  n \u001610\n\u001639\n\u0006_ \u001b>.sy        n  \u0016?\na   \u0006_>.\u0016?\nc \u0017chain mail\nW\u001bsm.    s 20s \u0007giant mimic\nFj   n        Fk   Fj   n         Fl   n         n  Fj          n   s 20s  \u0007wood nymph\nFk   Fu   n          Fj   n          n    Fb       n     . s \u0007Medusa\nyy   Fj   n  n     n    Fj Fj   n       20s     sm.   yy\u001bny ny\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 1010077,
+   "datetime": "20251024145308",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed Mjollnir\nwo\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>>L      wand of magic missile\nhl           k         b   n            j  : s s   .  n \u001610\n\u001639\n\u0006_ \u001b>.sy        n  \u0016?\na   \u0006_>.\u0016?\nc \u0017chain mail\nW\u001bsm.    s 20s \u0007giant mimic\nFj   n        Fk   Fj   n         Fl   n         n  Fj          n   s 20s  \u0007wood nymph\nFk   Fu   n          Fj   n          n    Fb       n     . s \u0007Medusa\nyy   Fj   n  n     n    Fj Fj   n       20s     sm.   yy\u001bny ny\u001b  s"
+  }
+ ]
+}

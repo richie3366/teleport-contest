@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  FkFkFkFk s.kul50sjby150sFhFhFhnukjylyknjjjFhFh20s#chat\nk\\ #tip\nh\u001b150sFhFhs10s#wipe\nkylynkFb.20s150sjylkjyhlnFhss50sP\u0018\u001b_ \u001b;>kbl_>,>\u000f\u001b150s jynhyjFbFbFyFhFh20s50sUHHJ_>.>r\u001b;m.<JBUB_>.>LYHH_>.>#invoke\n\u001b_<.sLUKL_>.>BKBH_>.>JULJ_>.>kh10s#chat\nh20s#name\ni\nYNUJ_>.>UYLK_>.>#conduct\n JHBJH_>.>BHNB_>,>LNHJ_>.>#untrap\nh#terrain\nb\n<JNJU_><#chat\n.r\u001b\\ t\u001b10st\u001b10sludds..t\u001bykZaiE- ad aerarium\nJHJL_>,>YBHN_>.><BJNK_>.>UHBJ_>.>Fy20s20sHBLL_>,>\u000f\u001bsdfehudj20s20s20s #name\nf\nyn#chat\nm.\u001b#name\nm\n;#chat\nl\u000f\u001b#enhance\n\u001b#conduct\n KUBH_>.>20s;l,LLBY_>.>Fl20ssUKJH_>,>BHJY_>.>HJNL_>,>\u0018\u001b100sylnyun\\ \u0018\u001b100s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0018\u001b\u0004k;>.20sdhss.di20ss.ky10sde sm.sm.sm.da.m.sm..m.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet\u001b#chat\nj   y\u001b     k"
+ },
+ "segments": [
+  {
+   "seed": 1010080,
+   "datetime": "20181109020200",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:explore\n",
+   "moves": "  FkFkFkFk s.kul50sjby150sFhFhFhnukjylyknjjjFhFh20s#chat\nk\\ #tip\nh\u001b150sFhFhs10s#wipe\nkylynkFb.20s150sjylkjyhlnFhss50sP\u0018\u001b_ \u001b;>kbl_>,>\u000f\u001b150s jynhyjFbFbFyFhFh20s50sUHHJ_>.>r\u001b;m.<JBUB_>.>LYHH_>.>#invoke\n\u001b_<.sLUKL_>.>BKBH_>.>JULJ_>.>kh10s#chat\nh20s#name\ni\nYNUJ_>.>UYLK_>.>#conduct\n JHBJH_>.>BHNB_>,>LNHJ_>.>#untrap\nh#terrain\nb\n<JNJU_><#chat\n.r\u001b\\ t\u001b10st\u001b10sludds..t\u001bykZaiE- ad aerarium\nJHJL_>,>YBHN_>.><BJNK_>.>UHBJ_>.>Fy20s20sHBLL_>,>\u000f\u001bsdfehudj20s20s20s #name\nf\nyn#chat\nm.\u001b#name\nm\n;#chat\nl\u000f\u001b#enhance\n\u001b#conduct\n KUBH_>.>20s;l,LLBY_>.>Fl20ssUKJH_>,>BHJY_>.>HJNL_>,>\u0018\u001b100sylnyun\\ \u0018\u001b100s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0018\u001b\u0004k;>.20sdhss.di20ss.ky10sde sm.sm.sm.da.m.sm..m.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeet\u001b#chat\nj   y\u001b     k"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed +3 silver dragon scale mail\nWq  \u0016?\n>z   _ \u001b<.>\u0006_mmmm.Fh_.FyFl   Fl Fl \u00163\n\u0006uynu\u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z\u00164\n\u0016?\n>z\u0006_<.\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006__,_>.Fh _.  Fh >\u0016?\n>z\u0006_m.   Fh_,Fh   Fl   Fh  _>.   Fl     _.   Fh  >\u0016?\n>z\u0006_mmmmm.    Fl        _,      Fb     Fb       n     Fu     Fb      _>.        Fy          _,  n          Fh         >\u0016?\n>z\u0006,\u001b\u00165\n\u0016?\n>z\u0006_mm,        Fl          n  _,Fn          Fu        Fl        Fj   n         \u001612\n\u00166\n\u0016?\n>z\u0006_mmm.        Fj       _,Fl        n     Fl          Fu           Fu       Fu  n          Fn        \u00167\n_>.            n  Fy        _,         Fj        n   >\u0016?\n>z\u0006,\u001b\u00164\n\u00163\n\u0016?\n>z\u0006#chat\nn        ;u;\u00164\n\u0016?\n>z\u0006#chat\nj;j:  \u00165\n\u0016?\n>z\u0006_mm,          Fj         n      _.Fj        Fh         Fl    n         Fl          Fn            n Fk          \u00167\n_>.      Fj         _.      n     Fk            >\u0016?\n>z\u0006_m.       Fb   n  "
+ },
+ "segments": [
+  {
+   "seed": 1010032,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed +3 silver dragon scale mail\nWq  \u0016?\n>z   _ \u001b<.>\u0006_mmmm.Fh_.FyFl   Fl Fl \u00163\n\u0006uynu\u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z\u00164\n\u0016?\n>z\u0006_<.\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006__,_>.Fh _.  Fh >\u0016?\n>z\u0006_m.   Fh_,Fh   Fl   Fh  _>.   Fl     _.   Fh  >\u0016?\n>z\u0006_mmmmm.    Fl        _,      Fb     Fb       n     Fu     Fb      _>.        Fy          _,  n          Fh         >\u0016?\n>z\u0006,\u001b\u00165\n\u0016?\n>z\u0006_mm,        Fl          n  _,Fn          Fu        Fl        Fj   n         \u001612\n\u00166\n\u0016?\n>z\u0006_mmm.        Fj       _,Fl        n     Fl          Fu           Fu       Fu  n          Fn        \u00167\n_>.            n  Fy        _,         Fj        n   >\u0016?\n>z\u0006,\u001b\u00164\n\u00163\n\u0016?\n>z\u0006#chat\nn        ;u;\u00164\n\u0016?\n>z\u0006#chat\nj;j:  \u00165\n\u0016?\n>z\u0006_mm,          Fj         n      _.Fj        Fh         Fl    n         Fl          Fn            n Fk          \u00167\n_>.      Fj         _.      n     Fk            >\u0016?\n>z\u0006_m.       Fb   n  "
+  }
+ ]
+}

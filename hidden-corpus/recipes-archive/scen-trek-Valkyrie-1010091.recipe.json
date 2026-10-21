@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  FhFhFh 100s\u0018\u001b100sFj.s50s50s\u000f\u001bi\u001b150s _ \u001bm,>FhFhFh100s50sFhFhFh50s50sFhs.150skjn100s#tip\n\u001b_>.>_>,>uhh150s\\   100sFlFlFlFlFlFlFlFl.100s100s,hlh\u000f\u001b\u000f\u001b\\   \u0018\u001bjjjy\u0014nbjkFus20sujk100s\u000f\u001b_>.>\\   150s   f by yFbFb20s100s100sFbFb.\u000f\u001bjbh100s50s100sedZ150s lub100shluFbsFbi\u001b50s150sbhlhlu100sFh.20s100s\u0018\u001bbub100sFh.s_>.>100s100sNLKN_>.>Fk.s>#twoweapon\n<K BNU_>.>Fh20ssHLLJ_>.>NBNY_>.>LB HN_>.>\u0014E- Elbereth Elbereth\nBKYY_>.>W,\u000f\u001b\u0018\u001b#invoke\n\u001b#force\n<100syyy\u0004l#sit\n \u0018\u001bi\u001b100s\u0018\u001b100s FhFh .\\   \u000f\u001b\u000f\u001b150s100s Fh.s#monster\n_>,>i\u001b50syyl\\   lububh_>.>lubFhFhFhFhFhFhz_>.>\u000f\u001b150s\\   _>.>hlu_>.>150s _>.>bhlNK JJ_>.>Fh.sUJYK_>.>LHKU_>.>#chat\nkddKBYH_>.>KKNH_>.>FuFu.<YHYJ_>,>\u0014#dip\ncHNJK_>.>:waH NYH_>,>Fys20sHNUN_>.>BNHB_>.>e#dip\nc\u000f\u001b20s#twoweapon\nzeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee>;>.#loot\nYNNU_>.>KUYL_>.>FkssKNLJ _>,>HL HY_>,>NNBY_>,>NKYH_>,>UKNK_>.><BJUN_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYJL N_>.>BBKH_>,>KKHN_"
+ },
+ "segments": [
+  {
+   "seed": 1010091,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  FhFhFh 100s\u0018\u001b100sFj.s50s50s\u000f\u001bi\u001b150s _ \u001bm,>FhFhFh100s50sFhFhFh50s50sFhs.150skjn100s#tip\n\u001b_>.>_>,>uhh150s\\   100sFlFlFlFlFlFlFlFl.100s100s,hlh\u000f\u001b\u000f\u001b\\   \u0018\u001bjjjy\u0014nbjkFus20sujk100s\u000f\u001b_>.>\\   150s   f by yFbFb20s100s100sFbFb.\u000f\u001bjbh100s50s100sedZ150s lub100shluFbsFbi\u001b50s150sbhlhlu100sFh.20s100s\u0018\u001bbub100sFh.s_>.>100s100sNLKN_>.>Fk.s>#twoweapon\n<K BNU_>.>Fh20ssHLLJ_>.>NBNY_>.>LB HN_>.>\u0014E- Elbereth Elbereth\nBKYY_>.>W,\u000f\u001b\u0018\u001b#invoke\n\u001b#force\n<100syyy\u0004l#sit\n \u0018\u001bi\u001b100s\u0018\u001b100s FhFh .\\   \u000f\u001b\u000f\u001b150s100s Fh.s#monster\n_>,>i\u001b50syyl\\   lububh_>.>lubFhFhFhFhFhFhz_>.>\u000f\u001b150s\\   _>.>hlu_>.>150s _>.>bhlNK JJ_>.>Fh.sUJYK_>.>LHKU_>.>#chat\nkddKBYH_>.>KKNH_>.>FuFu.<YHYJ_>,>\u0014#dip\ncHNJK_>.>:waH NYH_>,>Fys20sHNUN_>.>BNHB_>.>e#dip\nc\u000f\u001b20s#twoweapon\nzeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee>;>.#loot\nYNNU_>.>KUYL_>.>FkssKNLJ _>,>HL HY_>,>NNBY_>,>NKYH_>,>UKNK_>.><BJUN_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYJL N_>.>BBKH_>,>KKHN_"
+  }
+ ]
+}

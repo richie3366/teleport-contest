@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPm\u0017blessed +3 gray dragon scale mail\nWn#levelchange\n10\n         \u0017spellbook of light\nro.\u0007succubus\n\u0007gnomish wizard\nZa\nZa\n  20s   yn     20s     Za\nZa\n20s  sm. Za\n Za\n Za\n Za\n\u00168\n\u0017blessed spellbook of light\nrp y  .m. \u0007succubus\nZa\n  Za\n Za\nshsm.  n      Za\nZa\nZa\nZa\nZa\n\u0017wand of magic missile\n\u0017wand of cold\n\u0017wand of cancellation\n\u0007grid bug\nzsu  zru     zqu    zsu   zsl   zruzsyzql szsj\u00175 boomerangs\nQt\u0007gnome\n\u0007gnome\nt$ufufufkfkfji\u001b\u0007aligned cleric\nn\u0007orc shaman\n\u0017wand of striking\n20szuh sm.zuk.m.sm.\u0017spellbook of drain life\nrv 20s\u0007lich\n\u0007vampire\nZa\nZa\nZa\n20s 20s       Za\nZa\n.m.   20s     Za\n\u0007master mind flayer\n\u0007master lich\n\u0007master lich\n\u0017wand of sleep\nzwl    \u0007red dragon\n.m.     n   .m.  #polyself\nblack dragon\n 20s          20s     #monster\n#monster\nFl            Fu      \u001613\n\u0017bow\nw\u001720 arrows\nQa\u0007gnome\n\u0007kobold shaman\nffttff\u001614\n\u0017bow\nw\u001720 arrows\nQ-\u0007owlbear\nftftft\u001710 daggers\nQA\u0007grid bug\n\u0007newt\nttftf\u0007lich\n\u0007master mind flayer\n\u0017wand of fire\nz\u001615\n\u0018\u001b\u0007vampire\n\u0007incubus\n\u0017wand of fire\n20s sm.\u00175 boomerangs\nQD\u0007owlbear\n\u0007jackal\nfftffff\u001610\n\u0007mind flayer\n\u0007vampire\n\u0007succubus\n\u0017wand of fire\nz\u0007succubus\n\u0007lich\n\u0007gnomish wizard\n\u0017wand of cold\nzi\u001b\u00176 javelins\nQG\u0007jackal\nffftf"
+ },
+ "segments": [
+  {
+   "seed": 1010004,
+   "datetime": "20000131163834",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed amulet of life saving\nPm\u0017blessed +3 gray dragon scale mail\nWn#levelchange\n10\n         \u0017spellbook of light\nro.\u0007succubus\n\u0007gnomish wizard\nZa\nZa\n  20s   yn     20s     Za\nZa\n20s  sm. Za\n Za\n Za\n Za\n\u00168\n\u0017blessed spellbook of light\nrp y  .m. \u0007succubus\nZa\n  Za\n Za\nshsm.  n      Za\nZa\nZa\nZa\nZa\n\u0017wand of magic missile\n\u0017wand of cold\n\u0017wand of cancellation\n\u0007grid bug\nzsu  zru     zqu    zsu   zsl   zruzsyzql szsj\u00175 boomerangs\nQt\u0007gnome\n\u0007gnome\nt$ufufufkfkfji\u001b\u0007aligned cleric\nn\u0007orc shaman\n\u0017wand of striking\n20szuh sm.zuk.m.sm.\u0017spellbook of drain life\nrv 20s\u0007lich\n\u0007vampire\nZa\nZa\nZa\n20s 20s       Za\nZa\n.m.   20s     Za\n\u0007master mind flayer\n\u0007master lich\n\u0007master lich\n\u0017wand of sleep\nzwl    \u0007red dragon\n.m.     n   .m.  #polyself\nblack dragon\n 20s          20s     #monster\n#monster\nFl            Fu      \u001613\n\u0017bow\nw\u001720 arrows\nQa\u0007gnome\n\u0007kobold shaman\nffttff\u001614\n\u0017bow\nw\u001720 arrows\nQ-\u0007owlbear\nftftft\u001710 daggers\nQA\u0007grid bug\n\u0007newt\nttftf\u0007lich\n\u0007master mind flayer\n\u0017wand of fire\nz\u001615\n\u0018\u001b\u0007vampire\n\u0007incubus\n\u0017wand of fire\n20s sm.\u00175 boomerangs\nQD\u0007owlbear\n\u0007jackal\nfftffff\u001610\n\u0007mind flayer\n\u0007vampire\n\u0007succubus\n\u0017wand of fire\nz\u0007succubus\n\u0007lich\n\u0007gnomish wizard\n\u0017wand of cold\nzi\u001b\u00176 javelins\nQG\u0007jackal\nffftf"
+  }
+ ]
+}

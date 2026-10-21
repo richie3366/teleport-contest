@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n           \u00173 wand of create monster\n\u0007disenchanter\nzibrown mold\nzigas spore\n FjFj  \u0017cursed towel\najFyFk\u0017cursed potion of acid\nqk \u001b\u0017blessed spellbook of cure blindness\nrl .jsm.  yny   ny y\u001by  Z"
+ },
+ "segments": [
+  {
+   "seed": 1012006,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n           \u00173 wand of create monster\n\u0007disenchanter\nzibrown mold\nzigas spore\n FjFj  \u0017cursed towel\najFyFk\u0017cursed potion of acid\nqk \u001b\u0017blessed spellbook of cure blindness\nrl .jsm.  yny   ny y\u001by  Z"
+  }
+ ]
+}

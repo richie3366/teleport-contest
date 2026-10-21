@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWg\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007kobold shaman\n#pray\ny y   #chat\nl#jump\n#wizidentify\n\u001bFl FuFu_ \u001bm,#chat\nk\u0007acid blob\n#overview\n\u001b#conduct\n i\u001b#dip\nkj \u001b#offer\n#chat\nl#turn\n#wizidentify\n\u001bFlFlFlP\u001b_ooooo,_.,\u0007bugbear\n#vanquished\n #genocided\ndwarf lord\n\u0018\u001b#name\na\n#adjust\nd\u001b#sit\n #pray\ny y   #jump\n#wizdetect\n\u0006FuFuFuZ__.#chat\nu#chronicle\n #terrain\n\u001b#annotate\nFido\n\u000f\u001b#twoweapon\n#invoke\n\u001b#chat\nu#chat\nu#wizintrinsic\nq\n FuFuFuFui\u001b\u0016?\n>>N       potion of sickness\n\u0006\u0007giant rat\n#version\n  #history\n                  \u0018\u001b#wipe\n#loot\nj#turn\n#sit\n#wizdetect\n\u0006Fj    Fh  Fh   n  Fh      n\u000f\u001b\u00163\n\u0016?\nd\u0006>.\u0007newt\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\njy#pray\ny y         #chat\nh#jump\n#wizmap\nm.\u0006m.Fb   Fj  n  Fl  h\u001610\n\u0006;\u0007sewer rat\n#vanquished\n #genocided\nhuman mummy\n\u0018\u001b#dip\ncn \u001b#offer\n#chat\n#turn\n#polyself\nfog cloud\n    #monster\ns     .  n  Fj FjFjFj    Fj     n #turn\n_oooo.,\u0007jackal\n#chronicle\n  #terrain\n\u001b#annotate\nblessed\n\u000f\u001b#name\n\u001b#adjust\nc\u001b#sit\n  #pray\n"
+ },
+ "segments": [
+  {
+   "seed": 1010053,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWg\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007kobold shaman\n#pray\ny y   #chat\nl#jump\n#wizidentify\n\u001bFl FuFu_ \u001bm,#chat\nk\u0007acid blob\n#overview\n\u001b#conduct\n i\u001b#dip\nkj \u001b#offer\n#chat\nl#turn\n#wizidentify\n\u001bFlFlFlP\u001b_ooooo,_.,\u0007bugbear\n#vanquished\n #genocided\ndwarf lord\n\u0018\u001b#name\na\n#adjust\nd\u001b#sit\n #pray\ny y   #jump\n#wizdetect\n\u0006FuFuFuZ__.#chat\nu#chronicle\n #terrain\n\u001b#annotate\nFido\n\u000f\u001b#twoweapon\n#invoke\n\u001b#chat\nu#chat\nu#wizintrinsic\nq\n FuFuFuFui\u001b\u0016?\n>>N       potion of sickness\n\u0006\u0007giant rat\n#version\n  #history\n                  \u0018\u001b#wipe\n#loot\nj#turn\n#sit\n#wizdetect\n\u0006Fj    Fh  Fh   n  Fh      n\u000f\u001b\u00163\n\u0016?\nd\u0006>.\u0007newt\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\njy#pray\ny y         #chat\nh#jump\n#wizmap\nm.\u0006m.Fb   Fj  n  Fl  h\u001610\n\u0006;\u0007sewer rat\n#vanquished\n #genocided\nhuman mummy\n\u0018\u001b#dip\ncn \u001b#offer\n#chat\n#turn\n#polyself\nfog cloud\n    #monster\ns     .  n  Fj FjFjFj    Fj     n #turn\n_oooo.,\u0007jackal\n#chronicle\n  #terrain\n\u001b#annotate\nblessed\n\u000f\u001b#name\n\u001b#adjust\nc\u001b#sit\n  #pray\n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "L LKH_ \u001b;>Fhs20sZ#invoke\n\u001bLKNN_>,>FlFbFh _>,s#untrap\nyKLHJ_>.>HBBY_>.>LJHB_>.>KBLL_>.>10s>BLUH_>,>LYYK_>.>\u000f\u001bafny\u0004y>NUJN_>.>LYKK_>,>JNUJ_>.>H#loot\nJLKY_>.>BNJY_>.>LHHH_>,>BYUU_>,>\u000f\u001b100s\\ bun50sFlFu20s\u0018\u001b50s#twoweapon\n150sFjFjFj100sujj150s50skll50s_>.>50sbyl150s50sFlss100s100sFlFlFlFlFlsE- I am a fish\n100s_>,>100s100sFl.sw-150seeeeeeBULU_>,>LJNK_>.>HNUN_>.>BLKJ_>.>JKHH_>.>\\ dh#offer\neyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKLJY_>.>#tip\n\u001bokUUNJ_>.>HLHB_>.>\u000f\u001bei 100skny\u0018\u001b150sFl.s100s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\na\ndfssstautbbjllbnllllj\u0014i\u001b#jump\ndd20sss#name\n\u001bylny#name\n\u001b#jump\nokojJKHJ_>.>FlFlsLBNH_>,>FuFlFlBKYB_>,>FlFls#wipe\n#enhance\n\u001bNHNJ_>.>NNYY_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUJKU_>.><YBLL_>.>YLYY_>.>KNJB_>,>YKBU_>.>UHUB_>.>HyUNB_>.>#pray\ny  #name\n\u001b100s\\ \\ hhk100sy50shljFuFuFyFhFhFhjynFkss\\ lhy100sFus20s150shhjw\u001b\u0018\u001b150s Fls.\u000f\u001b100s100s \u0018\u001bkkj\u000f\u001b100s100s    100s FlFlFl100s150sFy20s20s100s150sFyss100s_>.>100s_>.>100sFl20ss150s\u000f\u001bkuh50sFl.20si\u001b150seeeeeeeeeeeeeeeeeeeeeeeeeeeKLLU_>.>LYHK_>.>__,s\\ JBLH_>.>NNNB_>.>KLKL_>.>KNBHny_>.>P#offer\n<LJ"
+ },
+ "segments": [
+  {
+   "seed": 1010069,
+   "datetime": "20100927235304",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:explore\n",
+   "moves": "L LKH_ \u001b;>Fhs20sZ#invoke\n\u001bLKNN_>,>FlFbFh _>,s#untrap\nyKLHJ_>.>HBBY_>.>LJHB_>.>KBLL_>.>10s>BLUH_>,>LYYK_>.>\u000f\u001bafny\u0004y>NUJN_>.>LYKK_>,>JNUJ_>.>H#loot\nJLKY_>.>BNJY_>.>LHHH_>,>BYUU_>,>\u000f\u001b100s\\ bun50sFlFu20s\u0018\u001b50s#twoweapon\n150sFjFjFj100sujj150s50skll50s_>.>50sbyl150s50sFlss100s100sFlFlFlFlFlsE- I am a fish\n100s_>,>100s100sFl.sw-150seeeeeeBULU_>,>LJNK_>.>HNUN_>.>BLKJ_>.>JKHH_>.>\\ dh#offer\neyeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeKLJY_>.>#tip\n\u001bokUUNJ_>.>HLHB_>.>\u000f\u001bei 100skny\u0018\u001b150sFl.s100s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#name\na\ndfssstautbbjllbnllllj\u0014i\u001b#jump\ndd20sss#name\n\u001bylny#name\n\u001b#jump\nokojJKHJ_>.>FlFlsLBNH_>,>FuFlFlBKYB_>,>FlFls#wipe\n#enhance\n\u001bNHNJ_>.>NNYY_>.>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUJKU_>.><YBLL_>.>YLYY_>.>KNJB_>,>YKBU_>.>UHUB_>.>HyUNB_>.>#pray\ny  #name\n\u001b100s\\ \\ hhk100sy50shljFuFuFyFhFhFhjynFkss\\ lhy100sFus20s150shhjw\u001b\u0018\u001b150s Fls.\u000f\u001b100s100s \u0018\u001bkkj\u000f\u001b100s100s    100s FlFlFl100s150sFy20s20s100s150sFyss100s_>.>100s_>.>100sFl20ss150s\u000f\u001bkuh50sFl.20si\u001b150seeeeeeeeeeeeeeeeeeeeeeeeeeeKLLU_>.>LYHK_>.>__,s\\ JBLH_>.>NNNB_>.>KLKL_>.>KNBHny_>.>P#offer\n<LJ"
+  }
+ ]
+}

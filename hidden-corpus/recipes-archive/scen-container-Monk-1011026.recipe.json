@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017bag of tricks\n\u0017wand of digging\najaj      dj#loot\n  ,Fu Fh ajFl  20s  \u0017chest\n\u0017cursed bag of holding\n\u0017wand of make invisible\n\u0017scroll of create monster\n\u0017wand of cancellation\nal\u0017long sword\nwq dl #force\ny 20s20s  n sm.\u0017dagger\nwrdm#force\ny sm.ssaky      aji\u001b"
+ },
+ "segments": [
+  {
+   "seed": 1011026,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017bag of tricks\n\u0017wand of digging\najaj      dj#loot\n  ,Fu Fh ajFl  20s  \u0017chest\n\u0017cursed bag of holding\n\u0017wand of make invisible\n\u0017scroll of create monster\n\u0017wand of cancellation\nal\u0017long sword\nwq dl #force\ny 20s20s  n sm.\u0017dagger\nwrdm#force\ny sm.ssaky      aji\u001b"
+  }
+ ]
+}

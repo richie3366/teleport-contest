@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed ring of free action\nPil\u0017blessed amulet of life saving\nPj\u0017blessed Mjollnir\nwk\u0016?\n>z \u00162\n\u0006_ \u001b.Fh       Fk  Fk    Fh Fy   Fh  _>. Fh _. Fh  >\u0006_mm,Fh  _.Fh   Fy Fk \u00164\n\u0006_mmmmm,Fn _,.Fh Fh FlFl \u00165\n \u0006_mmmm,Fl_.m.  Fy        Fh      Fl    Fh    Fy    n  \u00166\n\u0006__,   Fn   _.  Fn    _>.   n   Fl   _.   Fy    >\u0006n   n   b      b       nu    k    l     n  \u0016?\n>>\u001b\u0016?\n>y #chat\nk\u0016?\n>z\u00166\n_>.>\u0016?\n>z\u0006_mmmm,   Fu    _.Fy   n   Fh   Fl   \u00164\n\u0016?\n>z\u0006b      nb jhhy\u00165\n\u0016?\n>z\u0006jhk \u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_m.  n Fl  _.Fn  Fu FlFn  \u00163\n\u0016?\n>z\u0006#chat\nu;y;_>,  n  Fu _, Fy  >\u0016?\n>z\u0006_mm. Fy   n _.Fy  Fn  Fn   Fy  \u00169\n\u00165\n\u0016?\n>z\u0006_mmm,Fh  n _.Fk  Fl Fy   n Fh Fl  Fy  \u001611\n\u00166\n\u0016?\n>z\u0006b  nhl h\u00162\n\u0016?\n>z\u0006_mm. Fl _,FlFu Fy   n\u00163\n\u0016?\n>z\u0006_mmm,Fl _.Fk Fu Fl  Fk\u00164\n\u0016?\n>z\u0006lh  n"
+ },
+ "segments": [
+  {
+   "seed": 1010054,
+   "datetime": "20000816134911",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed ring of free action\nPil\u0017blessed amulet of life saving\nPj\u0017blessed Mjollnir\nwk\u0016?\n>z \u00162\n\u0006_ \u001b.Fh       Fk  Fk    Fh Fy   Fh  _>. Fh _. Fh  >\u0006_mm,Fh  _.Fh   Fy Fk \u00164\n\u0006_mmmmm,Fn _,.Fh Fh FlFl \u00165\n \u0006_mmmm,Fl_.m.  Fy        Fh      Fl    Fh    Fy    n  \u00166\n\u0006__,   Fn   _.  Fn    _>.   n   Fl   _.   Fy    >\u0006n   n   b      b       nu    k    l     n  \u0016?\n>>\u001b\u0016?\n>y #chat\nk\u0016?\n>z\u00166\n_>.>\u0016?\n>z\u0006_mmmm,   Fu    _.Fy   n   Fh   Fl   \u00164\n\u0016?\n>z\u0006b      nb jhhy\u00165\n\u0016?\n>z\u0006jhk \u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_m.  n Fl  _.Fn  Fu FlFn  \u00163\n\u0016?\n>z\u0006#chat\nu;y;_>,  n  Fu _, Fy  >\u0016?\n>z\u0006_mm. Fy   n _.Fy  Fn  Fn   Fy  \u00169\n\u00165\n\u0016?\n>z\u0006_mmm,Fh  n _.Fk  Fl Fy   n Fh Fl  Fy  \u001611\n\u00166\n\u0016?\n>z\u0006b  nhl h\u00162\n\u0016?\n>z\u0006_mm. Fl _,FlFu Fy   n\u00163\n\u0016?\n>z\u0006_mmm,Fl _.Fk Fu Fl  Fk\u00164\n\u0016?\n>z\u0006lh  n"
+  }
+ ]
+}

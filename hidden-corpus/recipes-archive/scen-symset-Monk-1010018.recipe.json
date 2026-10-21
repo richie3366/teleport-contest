@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "Ob\u001b\u001b\n#levelchange\n10\n          h\u001byb\u0017moat\n#dip\ncy  :yb\u0017grave\n: \u0017pick-axe\nak20ss: kl \u0017lawful altar\ndh\u0017lichen corpse\n#offer\nl     #pray\ny y   \u0004l #chat\nk #untrap\nk \u0006_ \u001b>.  >FhFh_>>.Fh_.Fb>FbFj_>>.  Fh_,Fj>FhFbFbFbFb\u0006_>,  Fy_.  Fb>FbFb_>.Fj_,  Fj>FhFh_>.Fy_.   Fy>FjFhFbFh\u001bFb\u0006_>>.  Fb_.  Fb>FbFb_>>.Fb_. Fy>FbFy_>>.  Fb_.   Fy>FbFbFbFyFb\u0006_>.  n  Fb_.   Fb>FbFy_>.Fh_. Fb>FhFb_>.Fy_,Fb>FhFyFyFbFy\u0006_>.   Fy_.Fy>FyFj_>.  Fy_.  Fb>FbFb_>.Fb_,   Fy>FjFyFyFyFb\u0006_>.   Fb_.  Fh\u001b>FbFb_>.Fb_,  Fb>FbFb_>.  Fb_.  n  Fb>FbFbFbFbFb\u000f\u001b\u001610\n\u00164\n\u0006_>.Fj_.  Fl>F"
+ },
+ "segments": [
+  {
+   "seed": 1010018,
+   "datetime": "20090604215245",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You miss\"\n",
+   "moves": "Ob\u001b\u001b\n#levelchange\n10\n          h\u001byb\u0017moat\n#dip\ncy  :yb\u0017grave\n: \u0017pick-axe\nak20ss: kl \u0017lawful altar\ndh\u0017lichen corpse\n#offer\nl     #pray\ny y   \u0004l #chat\nk #untrap\nk \u0006_ \u001b>.  >FhFh_>>.Fh_.Fb>FbFj_>>.  Fh_,Fj>FhFbFbFbFb\u0006_>,  Fy_.  Fb>FbFb_>.Fj_,  Fj>FhFh_>.Fy_.   Fy>FjFhFbFh\u001bFb\u0006_>>.  Fb_.  Fb>FbFb_>>.Fb_. Fy>FbFy_>>.  Fb_.   Fy>FbFbFbFyFb\u0006_>.  n  Fb_.   Fb>FbFy_>.Fh_. Fb>FhFb_>.Fy_,Fb>FhFyFyFbFy\u0006_>.   Fy_.Fy>FyFj_>.  Fy_.  Fb>FbFb_>.Fb_,   Fy>FjFyFyFyFb\u0006_>.   Fb_.  Fh\u001b>FbFb_>.Fb_,  Fb>FbFb_>.  Fb_.  n  Fb>FbFbFbFbFb\u000f\u001b\u001610\n\u00164\n\u0006_>.Fj_.  Fl>F"
+  }
+ ]
+}

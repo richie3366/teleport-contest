@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u00173 spellbook of teleport away\nrj \u001b. \u001b.sZa\nZa\n\u0017scroll of food detection\nrk  :.s\u0017blessed Hawaiian shirt\nW\u001b.s.\u0017cursed wand of polymorph\nzmk20s   yy\u001by   nnn  2"
+ },
+ "segments": [
+  {
+   "seed": 1012002,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u00173 spellbook of teleport away\nrj \u001b. \u001b.sZa\nZa\n\u0017scroll of food detection\nrk  :.s\u0017blessed Hawaiian shirt\nW\u001b.s.\u0017cursed wand of polymorph\nzmk20s   yy\u001by   nnn  2"
+  }
+ ]
+}

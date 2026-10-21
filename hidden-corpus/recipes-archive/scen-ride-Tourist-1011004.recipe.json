@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0007tame saddled red dragon\n#ride\nlyy\u0007tame saddled pony\n#ride\n\u0007horse\n\u0017scroll of taming\nrn  \u001b \u0017saddle\naon    #ride\nbyy\u0007sewer rat\nFl20s20s hnylnbk n\u0006_ \u001bm,>FlFk_>.  Fh_.Fl>FlFh_>,Fh_.> Sy\u001b yy:cl#twoweapon\n#untrap\nn#invoke\n\u001bfy#monster\naknokE-",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 1011004,
+   "datetime": "20210810012220",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0007tame saddled red dragon\n#ride\nlyy\u0007tame saddled pony\n#ride\n\u0007horse\n\u0017scroll of taming\nrn  \u001b \u0017saddle\naon    #ride\nbyy\u0007sewer rat\nFl20s20s hnylnbk n\u0006_ \u001bm,>FlFk_>.  Fh_.Fl>FlFh_>,Fh_.> Sy\u001b"
+  },
+  {
+   "seed": 1511004,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " yy:cl#twoweapon\n#untrap\nn#invoke\n\u001bfy#monster\naknokE-"
+  }
+ ]
+}

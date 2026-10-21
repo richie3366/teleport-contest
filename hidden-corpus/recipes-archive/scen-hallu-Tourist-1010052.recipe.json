@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPlr\u0017blessed +3 gray dragon scale mail\nWm\u0017blessed amulet of life saving\nPn\u0017blessed 20 daggers\nQo#levelchange\n26\n                         #wizintrinsic\nh\n \u0017wand of sleep\nzpk   zpk         zphzph \u0007soldier\n\u0007hobbit\nFhFy Fj  Fl   \u0017scroll of identify\nrq    #wizintrinsic\nh\n ;j; \u001bm,E- ad aerarium\n#pray\ny y          \u0017potion of extra healing\nqr   sl  \u0017potion of levitation\nqs yy\u001by   y y y\u001b 2"
+ },
+ "segments": [
+  {
+   "seed": 1010052,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPlr\u0017blessed +3 gray dragon scale mail\nWm\u0017blessed amulet of life saving\nPn\u0017blessed 20 daggers\nQo#levelchange\n26\n                         #wizintrinsic\nh\n \u0017wand of sleep\nzpk   zpk         zphzph \u0007soldier\n\u0007hobbit\nFhFy Fj  Fl   \u0017scroll of identify\nrq    #wizintrinsic\nh\n ;j; \u001bm,E- ad aerarium\n#pray\ny y          \u0017potion of extra healing\nqr   sl  \u0017potion of levitation\nqs yy\u001by   y y y\u001b 2"
+  }
+ ]
+}

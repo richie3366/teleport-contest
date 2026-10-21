@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed magic lamp\n\u0017blessed magic harp\n\u0017blessed leash\n\u0017blessed 20 daggers\nQm#levelchange\n14\n             #wizintrinsic\nh\n \u0017potion of hallucination\nqn.us\u0017blessed scroll of identify\nro l\n\u00166\n\u0017cursed Ogresmasher\nwpss.#invoke\np\u00173 wand of make invisible\n\u0007shrieker\nzqyzqn\u0017uncursed wand of magic missile\n\u0007vampire\nzrlFl   Fl \u0017amulet of restful sleep\n\u0007black pudding\nPs  .hsnss\u0017blessed scroll of create monster\nrt giant mimic\n    \u0017spellbook of create familiar\nru .m. sm.  n  Z.m.sm.   #wizintrinsic\nh\n\u0017blessed scroll of enchant weapon\nrv   \u0017newt corpse\new    \u001616\n\u0014 \u001b>.\u0007hobbit\nFyFyFy20sss.\u0017wand of teleportation\nzxjzxlzxjzxu#wizintrinsic\nh\n\u0017potion of confusion\nqy.\u0017wand of light\nzzzzzz\u0017potion of spe"
+ },
+ "segments": [
+  {
+   "seed": 1010030,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed magic lamp\n\u0017blessed magic harp\n\u0017blessed leash\n\u0017blessed 20 daggers\nQm#levelchange\n14\n             #wizintrinsic\nh\n \u0017potion of hallucination\nqn.us\u0017blessed scroll of identify\nro l\n\u00166\n\u0017cursed Ogresmasher\nwpss.#invoke\np\u00173 wand of make invisible\n\u0007shrieker\nzqyzqn\u0017uncursed wand of magic missile\n\u0007vampire\nzrlFl   Fl \u0017amulet of restful sleep\n\u0007black pudding\nPs  .hsnss\u0017blessed scroll of create monster\nrt giant mimic\n    \u0017spellbook of create familiar\nru .m. sm.  n  Z.m.sm.   #wizintrinsic\nh\n\u0017blessed scroll of enchant weapon\nrv   \u0017newt corpse\new    \u001616\n\u0014 \u001b>.\u0007hobbit\nFyFyFy20sss.\u0017wand of teleportation\nzxjzxlzxjzxu#wizintrinsic\nh\n\u0017potion of confusion\nqy.\u0017wand of light\nzzzzzz\u0017potion of spe"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017saddle\n aiu\u0017lance\nwj#ride\njy\u0007tame saddled pony\n#ride\n \u0007tame saddled horse\n#ride\nky#ride\n 20s  #ride\nhy\u0006_ \u001b,>_>.Fl_.Fh>FkFl_>.Fk_.Fk >FhFh\u0006_>.Fb_.> hyu bss\u0007tame jackal\n\u0017saddle\n akl#ride\n   \u0007tame saddled warhorse\n#ride\njy \u0007warhorsemind flayer\n sew"
+ },
+ "segments": [
+  {
+   "seed": 1011024,
+   "datetime": "20261202054619",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017saddle\n aiu\u0017lance\nwj#ride\njy\u0007tame saddled pony\n#ride\n \u0007tame saddled horse\n#ride\nky#ride\n 20s  #ride\nhy\u0006_ \u001b,>_>.Fl_.Fh>FkFl_>.Fk_.Fk >FhFh\u0006_>.Fb_.> hyu bss\u0007tame jackal\n\u0017saddle\n akl#ride\n   \u0007tame saddled warhorse\n#ride\njy \u0007warhorsemind flayer\n sew"
+  }
+ ]
+}

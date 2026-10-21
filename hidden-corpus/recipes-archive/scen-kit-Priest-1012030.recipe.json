@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "i\u001bwaFkFk.WsssTcai\u001brh y   20s .Za\nqdefssqdP\u001bz\u000f\u001b#monster\n\u0014#chat\nh#terrain\nc\n\u001bm,"
+ },
+ "segments": [
+  {
+   "seed": 1012030,
+   "datetime": "20201209075919",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "i\u001bwaFkFk.WsssTcai\u001brh y   20s .Za\nqdefssqdP\u001bz\u000f\u001b#monster\n\u0014#chat\nh#terrain\nc\n\u001bm,"
+  }
+ ]
+}

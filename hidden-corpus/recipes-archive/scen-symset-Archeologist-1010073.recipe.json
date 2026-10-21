@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u00163\n FjFj  Fl    nFj  Fj   n Fj  nFl    nFj  nFj  n  nFj  nFj  nFj  nFj  n  nFj  nFj  nFj  nFj  nFj  n  nFj  nFj  nFj  y y  F"
+ },
+ "segments": [
+  {
+   "seed": 1010073,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=fruit:lychee\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nMENUCOLOR=\"a scroll\"=brown\n",
+   "moves": "\u00163\n FjFj  Fl    nFj  Fj   n Fj  nFl    nFj  nFj  n  nFj  nFj  nFj  nFj  n  nFj  nFj  nFj  nFj  nFj  n  nFj  nFj  nFj  y y  F"
+  }
+ ]
+}

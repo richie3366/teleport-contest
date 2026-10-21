@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWi\u00163\nykhn\u0017fire trap\nb\u0007giant rat\nsm.s.m.   sn   k y\u0017statue trap\nb#untrap\nuk h\u0017squeaky board\nb#untrap\nul \u0017magic trap\nk  j  sm..m.sW\u001b#sit\n   n   \u001615\n    \u0014 \u001b>.20ss\u0016?\n>C\u0014:20s\u001621\n\u0006_<._.<.\u0016?\n>z#chat\nb;b;\u00169\n  \u00173 potion of fruit juice\nqj \u001b#dip\njjs.\u0017blessed +3 oilskin cloak\nW\u001b.20ss\u00173 spellbook of magic missile\nrls.Za\nZa\nFl Fl \u0017uncursed +0 ring of teleport control\nPml   sm.   n20s      syFl    Fl   \u0017uncursed the Book of the Dead\n\u0007black dragon\nwaFl   Fh     n    Fl   \u0017cursed -1 ring of increase damage\nPo.usjsm.  n     Ro.m.      20s     n    sm.    \u00161\n  \u0016?\n>>N       magic whistle\n#chat\nh;h,sb\u0016?\ney   n  h      nyn        n   k     n     n:20s              n.ysn           n     n\u00164\n\u0016?\na    \u0004b      \u0016?\nb\u0006:_>.20s   \u001621\n__.<\u0016?\n\u001bku      \u001634\nln  j      n \u0017magic portal\nh    \u0017pit\n#terrain\n\u001bZ\u001bual      n          sj           \u001612\n\u0016?\n\u001blj \u0016?\n\u001bk    n          b       yy\u001bnny  n  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 1010000,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWi\u00163\nykhn\u0017fire trap\nb\u0007giant rat\nsm.s.m.   sn   k y\u0017statue trap\nb#untrap\nuk h\u0017squeaky board\nb#untrap\nul \u0017magic trap\nk  j  sm..m.sW\u001b#sit\n   n   \u001615\n    \u0014 \u001b>.20ss\u0016?\n>C\u0014:20s\u001621\n\u0006_<._.<.\u0016?\n>z#chat\nb;b;\u00169\n  \u00173 potion of fruit juice\nqj \u001b#dip\njjs.\u0017blessed +3 oilskin cloak\nW\u001b.20ss\u00173 spellbook of magic missile\nrls.Za\nZa\nFl Fl \u0017uncursed +0 ring of teleport control\nPml   sm.   n20s      syFl    Fl   \u0017uncursed the Book of the Dead\n\u0007black dragon\nwaFl   Fh     n    Fl   \u0017cursed -1 ring of increase damage\nPo.usjsm.  n     Ro.m.      20s     n    sm.    \u00161\n  \u0016?\n>>N       magic whistle\n#chat\nh;h,sb\u0016?\ney   n  h      nyn        n   k     n     n:20s              n.ysn           n     n\u00164\n\u0016?\na    \u0004b      \u0016?\nb\u0006:_>.20s   \u001621\n__.<\u0016?\n\u001bku      \u001634\nln  j      n \u0017magic portal\nh    \u0017pit\n#terrain\n\u001bZ\u001bual      n          sj           \u001612\n\u0016?\n\u001blj \u0016?\n\u001bk    n          b       yy\u001bnny  n  \u0016"
+  }
+ ]
+}

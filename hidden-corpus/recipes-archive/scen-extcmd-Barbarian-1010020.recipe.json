@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPel\u0017blessed +3 gauntlets of power\nWf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007lichen\n#pray\ny y   #chat\nk#wizidentify\n\u001bFl .._ \u001b.qh \u001b\u0007gnome\n#overview\n\u001b#conduct\n \u0018\u001b#dip\ng#offer\n#chat\nk#turn\n#wizdetect\n\u0006Fks\u001623\n\u0006\u0007troll\n#vanquished\n #genocided\nsewer rat\nd #annotate\nfoo\n\u000f\u001b#name\n\u001b#adjust\nc\u001b#sit\n\u001b#pray\ny y    #jump\n#levelchange\n10\nFy FyE- Elbereth\n\u0016?\n>>Q\u0006#chronicle\n  #terrain\n\u001bi#twoweapon\n#invoke\n\u001b#chat\nj#chat\nl#wizdetect\n\u0006uub__.#chat\nu\u0007jackal\n#version\n  #history\n                  #annotate\nFido\ni#wipe\n#loot\nn#turn\n#sit\n#polyself\nxorn\n#monster\nsm.sm.Fn20subbe_<,_.\u0007sewer rat\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nby#pray\ny y"
+ },
+ "segments": [
+  {
+   "seed": 1010020,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPel\u0017blessed +3 gauntlets of power\nWf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007lichen\n#pray\ny y   #chat\nk#wizidentify\n\u001bFl .._ \u001b.qh \u001b\u0007gnome\n#overview\n\u001b#conduct\n \u0018\u001b#dip\ng#offer\n#chat\nk#turn\n#wizdetect\n\u0006Fks\u001623\n\u0006\u0007troll\n#vanquished\n #genocided\nsewer rat\nd #annotate\nfoo\n\u000f\u001b#name\n\u001b#adjust\nc\u001b#sit\n\u001b#pray\ny y    #jump\n#levelchange\n10\nFy FyE- Elbereth\n\u0016?\n>>Q\u0006#chronicle\n  #terrain\n\u001bi#twoweapon\n#invoke\n\u001b#chat\nj#chat\nl#wizdetect\n\u0006uub__.#chat\nu\u0007jackal\n#version\n  #history\n                  #annotate\nFido\ni#wipe\n#loot\nn#turn\n#sit\n#polyself\nxorn\n#monster\nsm.sm.Fn20subbe_<,_.\u0007sewer rat\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nby#pray\ny y"
+  }
+ ]
+}

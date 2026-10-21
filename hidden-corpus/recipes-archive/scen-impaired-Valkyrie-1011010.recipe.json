@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\ngh\n \u0017cursed wand of stasis\nzff by k  Z\u0017blessed scroll of earth\nrg   Zs.s#wizintrinsic\ni\n \u0017towel\nah\u0017blessed wand of nothing\nzilk  yu\u0017blessed wand of death\nzjy20s s.Sy\u001b ny#untrap\nh#twoweapon\nq_m, \u001b>.s#jump\n#loot\n\u0007large dog\n\u0017apple\nt\u001b\u0006_>.Fl_.,Fl>Fl  n Fl_>.Fl_..Fl  yy  >",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 1011010,
+   "datetime": "20131119173615",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:loot\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\ngh\n \u0017cursed wand of stasis\nzff by k  Z\u0017blessed scroll of earth\nrg   Zs.s#wizintrinsic\ni\n \u0017towel\nah\u0017blessed wand of nothing\nzilk  yu\u0017blessed wand of death\nzjy20s s.Sy\u001b"
+  },
+  {
+   "seed": 1511010,
+   "datetime": "20020207051558",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:loot\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " ny#untrap\nh#twoweapon\nq_m, \u001b>.s#jump\n#loot\n\u0007large dog\n\u0017apple\nt\u001b\u0006_>.Fl_.,Fl>Fl  n Fl_>.Fl_..Fl  yy  >"
+  }
+ ]
+}

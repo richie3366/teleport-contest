@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "J KKJ_ \u001bm.>Fk 20s.BBNK_>,>Fb..>qdNYNH_>.>10s#chat\nhNKBU_>.>z,LHUK_>.>UKHN_>.>\u000f\u001bjjh100s100sw\u001b150s150sukj50sjhl#offer\ns150sFbss100si\u001bhjk#name\n\u001bjjk100s\\  klk100sFj20s20see100sFj..100s150sFjFj Fb\u000f\u001b100s100sFj..s50si\u001b,db150s100sKNNJ_>.>Fjs.BULY_>.>YKKK_>.>#jump\nPKKJL_>.>LHYK_>,>\u000f\u001b10s20snu20s#chat\nk\u0004u\u0014\\  100s150sFl20ss150s100sFls.jhl100s100s 100s100skhh_>,>\u000f\u001b100s efnhui\u001b50s\\  50seh  100s eg50s50s50see#wipe\njkn100shly\u000f\u001b\u0018\u001bbkn_>,>i\u001bknl\u0018\u001blhyt\u001b#jump\n\\  YBUB_>.>JLHU_>.>UHUK_>.>HYNY_>,>#force\n_m,sBHNH_>,>NBLY_>.>,#name\n\u001b\u000f\u001bs#rub\n#tip\n\u001bYYLJ_>.>Fj.s#force\n#conduct\n BKBH_>.>#tip\n\u001bqdBUHU_>,>qd#rub\n\u000f\u001bYYYH_>.>NYBL_>,>\u000f\u001bdiJNNU_>.>q<YUBH_>,>\u000f\u001b50s50s150s50slulFn20ss150s\\  100sFlss100s\u0018\u001b150s i\u001bjly\\  \\  ch_>.>100s100s100see eglbl_>.>150sefyhn#force\n100see50syblhul150s_>,>bly150slnyl20st\u001b20sjhklHJKL_>.>Fj..k#offer\nJ UB U_>.>B BUL_>.>150sjhynhkFn 20ss_>,>100s#force\n\u000f\u001b\u000f\u001bZ\u001b150si\u001b100s100shhj50s100s100s#terrain\n\u001b100s150suhjFlFuskjy100sFl20ss100seehlj100s \u000f\u001b150s #conduct\n 50s100sFl.20skbk_>,>150s150sKKYN_>.>#twoweapon\n#pray\ny   UYHN_>.>FnssNBNK_>.>BNKH_>,>150s150s 50sFlFlFli\u001bnhknyj100s100s"
+ },
+ "segments": [
+  {
+   "seed": 1010003,
+   "datetime": "20010706222252",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "J KKJ_ \u001bm.>Fk 20s.BBNK_>,>Fb..>qdNYNH_>.>10s#chat\nhNKBU_>.>z,LHUK_>.>UKHN_>.>\u000f\u001bjjh100s100sw\u001b150s150sukj50sjhl#offer\ns150sFbss100si\u001bhjk#name\n\u001bjjk100s\\  klk100sFj20s20see100sFj..100s150sFjFj Fb\u000f\u001b100s100sFj..s50si\u001b,db150s100sKNNJ_>.>Fjs.BULY_>.>YKKK_>.>#jump\nPKKJL_>.>LHYK_>,>\u000f\u001b10s20snu20s#chat\nk\u0004u\u0014\\  100s150sFl20ss150s100sFls.jhl100s100s 100s100skhh_>,>\u000f\u001b100s efnhui\u001b50s\\  50seh  100s eg50s50s50see#wipe\njkn100shly\u000f\u001b\u0018\u001bbkn_>,>i\u001bknl\u0018\u001blhyt\u001b#jump\n\\  YBUB_>.>JLHU_>.>UHUK_>.>HYNY_>,>#force\n_m,sBHNH_>,>NBLY_>.>,#name\n\u001b\u000f\u001bs#rub\n#tip\n\u001bYYLJ_>.>Fj.s#force\n#conduct\n BKBH_>.>#tip\n\u001bqdBUHU_>,>qd#rub\n\u000f\u001bYYYH_>.>NYBL_>,>\u000f\u001bdiJNNU_>.>q<YUBH_>,>\u000f\u001b50s50s150s50slulFn20ss150s\\  100sFlss100s\u0018\u001b150s i\u001bjly\\  \\  ch_>.>100s100s100see eglbl_>.>150sefyhn#force\n100see50syblhul150s_>,>bly150slnyl20st\u001b20sjhklHJKL_>.>Fj..k#offer\nJ UB U_>.>B BUL_>.>150sjhynhkFn 20ss_>,>100s#force\n\u000f\u001b\u000f\u001bZ\u001b150si\u001b100s100shhj50s100s100s#terrain\n\u001b100s150suhjFlFuskjy100sFl20ss100seehlj100s \u000f\u001b150s #conduct\n 50s100sFl.20skbk_>,>150s150sKKYN_>.>#twoweapon\n#pray\ny   UYHN_>.>FnssNBNK_>.>BNKH_>,>150s150s 50sFlFlFli\u001bnhknyj100s100s"
+  }
+ ]
+}

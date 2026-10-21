@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0017blessed amulet of life saving\nPf\u0016?\n>z  \u00162\n\u0006,_ \u001b:>\u0006_mm.Fh_.Fu     FkFkFkFkFb \u00164\n\u0006__._>.Fn_.Fl>\u0006,\u00166\n  \u0006_mmm.Fb_.FjFjFj20s 20s FnFy      \u00162\n\u0006njnluy    \u00163\n  \u0006_mmmmm.    _.FyFyFy FnFn \u00164\n\u0006,\u0016?\n>>\u001b\u0016?\n>y   #chat\nj\u0016?\n>z\u00165\n\u0016?\n>z\u0006_mmmmm.Fb _,Fh     FlFn     Fl    \u00166\n\u0016?\n>z\u0006#chat\nj;h;\u00162\n\u0016?\n>z\u0006_mmmm.      nFn     _.FnFn     FhFb       n\u00168\n\u00163\n\u0016?\n>z\u0006#chat\nh     ;b:  \u00164\n\u0016?\n>z\u0006kkh     b      n n     b kb     \u0016?\n>>\u001b\u0016?\n>y#chat\nk     \u0016?\n>z\u00165\n\u0016?\n>z\u0006_mmm,  n      Fu       _.Fy       n    Fy      Fb     n   Fh      FhFy     n  \u00167\n_>.      Fn_.       Fn   n      >\u0016?\n>z\u0006j      l    n   k     h\u00168\n_>.     n  "
+ },
+ "segments": [
+  {
+   "seed": 1010076,
+   "datetime": "20250401170946",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0017blessed amulet of life saving\nPf\u0016?\n>z  \u00162\n\u0006,_ \u001b:>\u0006_mm.Fh_.Fu     FkFkFkFkFb \u00164\n\u0006__._>.Fn_.Fl>\u0006,\u00166\n  \u0006_mmm.Fb_.FjFjFj20s 20s FnFy      \u00162\n\u0006njnluy    \u00163\n  \u0006_mmmmm.    _.FyFyFy FnFn \u00164\n\u0006,\u0016?\n>>\u001b\u0016?\n>y   #chat\nj\u0016?\n>z\u00165\n\u0016?\n>z\u0006_mmmmm.Fb _,Fh     FlFn     Fl    \u00166\n\u0016?\n>z\u0006#chat\nj;h;\u00162\n\u0016?\n>z\u0006_mmmm.      nFn     _.FnFn     FhFb       n\u00168\n\u00163\n\u0016?\n>z\u0006#chat\nh     ;b:  \u00164\n\u0016?\n>z\u0006kkh     b      n n     b kb     \u0016?\n>>\u001b\u0016?\n>y#chat\nk     \u0016?\n>z\u00165\n\u0016?\n>z\u0006_mmm,  n      Fu       _.Fy       n    Fy      Fb     n   Fh      FhFy     n  \u00167\n_>.      Fn_.       Fn   n      >\u0016?\n>z\u0006j      l    n   k     h\u00168\n_>.     n  "
+  }
+ ]
+}

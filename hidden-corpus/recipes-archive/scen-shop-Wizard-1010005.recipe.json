@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed amulet of reflection\nPo\u0017blessed +3 gauntlets of power\nWp\u0016?\n>w\u0006_ \u001b.#chat\nh_oooooooo.,\u0014..ss_oooooooo._oo.,#chat\nh_ooooooooo,_oo.,p_oooooo.,:_ooooooo.,$_oooo._o,,p_ooooooo.,$Fh FhFhFhFhFh_ooooooooo.,p_ooo.,:_ooooooo.,\u0017worthless piece of red glass\ndqmhhl#chat\nk_ooooooooo._._ooo.,\u0017luckstone\ndrg\u0016llh\u0016?\n>w\u0006_oooooooo,,p_oooo,,p__. _.#chat\nl_ooo.Fk_,,p__. _.#chat\nu#pray\ny y \u0016?\n>Bjkk\u0016?\n>w\u0006_ooooooooo._._oo,, #chat\ny__,_,#chat\nj#pray\ny y \u00167\nujk\u0016?\n>w\u0006_oooooooo,_ooo.,$ljh#chat\nj\u0016?\ncllu\u0016?\n>w\u0006_oooooo.,#chat\nl_oooo._ooo.,pylh#chat\nb\u0016?\n>Blyh\u0016?\n>w\u0006_ooooooooo._ooo.,p_oo.,p_"
+ },
+ "segments": [
+  {
+   "seed": 1010005,
+   "datetime": "20260429152416",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed amulet of reflection\nPo\u0017blessed +3 gauntlets of power\nWp\u0016?\n>w\u0006_ \u001b.#chat\nh_oooooooo.,\u0014..ss_oooooooo._oo.,#chat\nh_ooooooooo,_oo.,p_oooooo.,:_ooooooo.,$_oooo._o,,p_ooooooo.,$Fh FhFhFhFhFh_ooooooooo.,p_ooo.,:_ooooooo.,\u0017worthless piece of red glass\ndqmhhl#chat\nk_ooooooooo._._ooo.,\u0017luckstone\ndrg\u0016llh\u0016?\n>w\u0006_oooooooo,,p_oooo,,p__. _.#chat\nl_ooo.Fk_,,p__. _.#chat\nu#pray\ny y \u0016?\n>Bjkk\u0016?\n>w\u0006_ooooooooo._._oo,, #chat\ny__,_,#chat\nj#pray\ny y \u00167\nujk\u0016?\n>w\u0006_oooooooo,_ooo.,$ljh#chat\nj\u0016?\ncllu\u0016?\n>w\u0006_oooooo.,#chat\nl_oooo._ooo.,pylh#chat\nb\u0016?\n>Blyh\u0016?\n>w\u0006_ooooooooo._ooo.,p_oo.,p_"
+  }
+ ]
+}

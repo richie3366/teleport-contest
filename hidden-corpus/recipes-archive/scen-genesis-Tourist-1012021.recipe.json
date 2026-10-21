@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0007violet fungus\n;y; \u001b<.syss\u0007giant rat\nsm.sm..m..hsm. ss20s.\u0007Nazgul\nFlFlFl \u0007earth elemental\n#chat\nl Fl  Fj "
+ },
+ "segments": [
+  {
+   "seed": 1012021,
+   "datetime": "20021101133934",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0007violet fungus\n;y; \u001b<.syss\u0007giant rat\nsm.sm..m..hsm. ss20s.\u0007Nazgul\nFlFlFl \u0007earth elemental\n#chat\nl Fl  Fj "
+  }
+ ]
+}

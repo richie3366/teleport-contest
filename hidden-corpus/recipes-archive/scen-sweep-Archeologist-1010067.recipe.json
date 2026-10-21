@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " hb\u0017towel\nEj\u0017wand of magic missile\nEk I am a fish\n: y\u0017wand of speed monster\nEl Elbereth Elbereth\n: k\u0017wand of create monster\nEmjellyfish\n  Elbereth Elbereth\nnE- Vlad was here\n\u0007soldier ant\n.m.20s .m.  n  Fj  n    nFj   \u00167\ni\u001bzkb zluzllW\u001bs20s.Tcae  kaekafWcs.sE- X marks the spot\nw-#tip\nh\u001bzkkE-y I am a fish\n#jump\n>#untrap\n.\u0006#levelchange\n20\n                   \u0016?\n>>L       figurine of a newt\n#loot\nhol#dip\nc;h. \u001bm.\u000620s    s      \u001618\nzlu  #chat\n#turn\n. s   \u0016?\nb #pray\ny y  E#turn\n;>.20s .m.\u001616\nsq#monster\n;y.sm.s#wizintrinsic\ni\n ;.Zj n    n h   n  nl20s 20s    n s  \u0018\u001b\u00167\n#wizintrinsic\nfi\n E\u0017scroll of teleportation\nrpl  b y\u0017potion of invisibility\nqq   #dip\nd\u0017scroll of teleportation\nrp20s   n  20ss#wizintrinsic\nfl\n \u0017blessed scroll of amnesia\nrrE\u0017cursed scroll of magic mapping\nrsEss   ns m,\u0006.#wizintrinsic\nih\n n     y   m. y\u0017blessed scroll of earth\nrt\u0017scroll of taming\nruZ\u0017egg\nev      <.;<.20s   n     s   n .  \u00168\n\u00168\ni\u001brtzkb  n    rped      .  n        .    nae   aeb    nzll      zlj    n     n    10s aj#chat\nb          yny   ny y\u001b  #"
+ },
+ "segments": [
+  {
+   "seed": 1010067,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " hb\u0017towel\nEj\u0017wand of magic missile\nEk I am a fish\n: y\u0017wand of speed monster\nEl Elbereth Elbereth\n: k\u0017wand of create monster\nEmjellyfish\n  Elbereth Elbereth\nnE- Vlad was here\n\u0007soldier ant\n.m.20s .m.  n  Fj  n    nFj   \u00167\ni\u001bzkb zluzllW\u001bs20s.Tcae  kaekafWcs.sE- X marks the spot\nw-#tip\nh\u001bzkkE-y I am a fish\n#jump\n>#untrap\n.\u0006#levelchange\n20\n                   \u0016?\n>>L       figurine of a newt\n#loot\nhol#dip\nc;h. \u001bm.\u000620s    s      \u001618\nzlu  #chat\n#turn\n. s   \u0016?\nb #pray\ny y  E#turn\n;>.20s .m.\u001616\nsq#monster\n;y.sm.s#wizintrinsic\ni\n ;.Zj n    n h   n  nl20s 20s    n s  \u0018\u001b\u00167\n#wizintrinsic\nfi\n E\u0017scroll of teleportation\nrpl  b y\u0017potion of invisibility\nqq   #dip\nd\u0017scroll of teleportation\nrp20s   n  20ss#wizintrinsic\nfl\n \u0017blessed scroll of amnesia\nrrE\u0017cursed scroll of magic mapping\nrsEss   ns m,\u0006.#wizintrinsic\nih\n n     y   m. y\u0017blessed scroll of earth\nrt\u0017scroll of taming\nruZ\u0017egg\nev      <.;<.20s   n     s   n .  \u00168\n\u00168\ni\u001brtzkb  n    rped      .  n        .    nae   aeb    nzll      zlj    n     n    10s aj#chat\nb          yny   ny y\u001b  #"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0017war hammer\nwhFbFhFjX\u0007incubus\nFhFj Fb Fb   yy\u001by   y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 1011013,
+   "datetime": "20141222112234",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017war hammer\nwhFbFhFjX\u0007incubus\nFhFj Fb Fb   yy\u001by   y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \u0006_ \u001bm,>FlFu_>.Fj_,> FlFyFb\u0006_>,Fy_,Fy>FyFb_>.Fl_,:Fl>FlFl_>.Fb_.Fb>FyFyFyFyFb#invoke\n\u001b10s\u0006_>,Fl_.;;Fl>FlFl_>.Fb_.Fy>FbFy_>,Fl_.Fl>FlFlFlFlFl\u00161\nv i\u001bs_>.sFyFjFkFuFlFbFjFlFkFnFjFuFjFjFnFuu FjFyFbFnFnFnFun FnFlFuFyFbFyFnFyFjFkFlFjFuFlFyFuk FyFyFbFnFyFkb FnFub FjFbFjFyFun FyFyFuFbFbFkFuFnFbFkFbFlFyFlFuFjFyFyFyFlFbFuu FnFbFkFkFnFlFyFkb FuFjFnFjFyFnFjFlFbFuk FlFnFjFbFbFkFlFbFub FkFnFbFjFjFuFlFnFnFkFyFkk FbFkk FbFlFkFyFub O>>f\u001b\n\u00169\nv i\u001b\u001620\n\u0006_>.Fb_.   n Fy>FuFn_>FlFu_>. Fh_.  nFj>FjFbFuy FjFh\u0004h 20s  n <\u0006_>,Fj_,  n Fu>   n FbFbFh\u0006_>, Fn_>FlFb_>.   nFh\u001b_, Fu>   n FbFly FyH#turn\n\u00167\nv i\u001b\u00162\n  FnFuu FuFnFlFlFuFuFuFnFul FuFuFuFlFnFnFlFlFnFnFlFnFlFlFlFuFnFlFuFlFlFuFnFnFlFuFnFuu FnFul FuFlFlFnFnFuFuFuFuFnFnFlFlFnFnFlFnFnFlFnFul FlFlFuFnFuu FlFuFuFlFnFnFnFlFlFlFuFuFnFlFuFuFuFuFnFul FnFnFuFlFnFlFuFnFun FuFuFuFnFnFnFnF"
+ },
+ "segments": [
+  {
+   "seed": 1010029,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad\n",
+   "moves": "  \u0006_ \u001bm,>FlFu_>.Fj_,> FlFyFb\u0006_>,Fy_,Fy>FyFb_>.Fl_,:Fl>FlFl_>.Fb_.Fb>FyFyFyFyFb#invoke\n\u001b10s\u0006_>,Fl_.;;Fl>FlFl_>.Fb_.Fy>FbFy_>,Fl_.Fl>FlFlFlFlFl\u00161\nv i\u001bs_>.sFyFjFkFuFlFbFjFlFkFnFjFuFjFjFnFuu FjFyFbFnFnFnFun FnFlFuFyFbFyFnFyFjFkFlFjFuFlFyFuk FyFyFbFnFyFkb FnFub FjFbFjFyFun FyFyFuFbFbFkFuFnFbFkFbFlFyFlFuFjFyFyFyFlFbFuu FnFbFkFkFnFlFyFkb FuFjFnFjFyFnFjFlFbFuk FlFnFjFbFbFkFlFbFub FkFnFbFjFjFuFlFnFnFkFyFkk FbFkk FbFlFkFyFub O>>f\u001b\n\u00169\nv i\u001b\u001620\n\u0006_>.Fb_.   n Fy>FuFn_>FlFu_>. Fh_.  nFj>FjFbFuy FjFh\u0004h 20s  n <\u0006_>,Fj_,  n Fu>   n FbFbFh\u0006_>, Fn_>FlFb_>.   nFh\u001b_, Fu>   n FbFly FyH#turn\n\u00167\nv i\u001b\u00162\n  FnFuu FuFnFlFlFuFuFuFnFul FuFuFuFlFnFnFlFlFnFnFlFnFlFlFlFuFnFlFuFlFlFuFnFnFlFuFnFuu FnFul FuFlFlFnFnFuFuFuFuFnFnFlFlFnFnFlFnFnFlFnFul FlFlFuFnFuu FlFuFuFlFnFnFnFlFlFlFuFuFnFlFuFuFuFuFnFul FnFnFuFlFnFlFuFnFun FuFuFuFnFnFnFnF"
+  }
+ ]
+}

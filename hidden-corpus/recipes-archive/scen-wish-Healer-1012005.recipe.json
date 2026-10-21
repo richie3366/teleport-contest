@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017the Candelabrum of Invocation\nw-sFl Fl#invoke\nlX20ss\u00173 potion of object detection\n\u0007lurker above\nqm \u001b.#dip\nme \u0017uncursed potion of enlightenment\nqn \u001b\u0017cursed 15 crossbow bolts\n\u0007human mummy\nQafbf $ j fj  yny  y y y\u001b y  F"
+ },
+ "segments": [
+  {
+   "seed": 1012005,
+   "datetime": "20041205215557",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017the Candelabrum of Invocation\nw-sFl Fl#invoke\nlX20ss\u00173 potion of object detection\n\u0007lurker above\nqm \u001b.#dip\nme \u0017uncursed potion of enlightenment\nqn \u001b\u0017cursed 15 crossbow bolts\n\u0007human mummy\nQafbf $ j fj  yny  y y y\u001b y  F"
+  }
+ ]
+}

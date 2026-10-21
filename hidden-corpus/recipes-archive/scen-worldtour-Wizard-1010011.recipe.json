@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                              \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwq\u001632\n   \u0014 \u001bm.\u001628\nhlnl y:\u0016?\n>>Q\u0017cursed spellbook of charm monster\n\u0007yellow light\nra ssZZ\u0017cheap plastic imitation of the Amulet of Yendor\nPb..ss20ss\u0017cursed -1 two-handed sword\nwc.s.X\u0017blessed +3 crossbow\nwds20s20sss\u0017uncursed potion of sickness\nqess\u0017uncursed bag of tricks\nafaf#tip\nf\u001bss20s.\u0016?\n>>M     potion of levitation\nub hy    n  n  y  b :  s   n \u00164\n\u001622\n_{,>\u0016?\n\u001bn n u   n \u00169\n\u0016?\n\u001bj  j      n     \u001622\n\u0014m.   \u001622\n#chat\nj;j,sm.     20s   n  \u001612\n\u0006,_<.\u0016?\n\u001by  n\u00165\n\u0004u\u0016?\na  \u0006_>,\u00165\n#chat\nu;<.20s .20s \u0016?\nb\u0004h20s\u001642\n\u0017amulet of restful sleep\nPi20s.yssj Fh Fj\u0017blessed helm of telepathy\nWj  n   .l  20s  n  sy \u00173 wand of light\nzk \u0017blessed cloak of displacement\n\u0007sewer rat\nWl 20s 20s .m.Tl    n Fb     n Fj \u0017uncursed potion of booze\nqm \u001b sm.  n sj\u001610\n\u0016?\n\u001by  n l\u0016?\n\u001bbk    \u001622\n_<.\u00162\nk  buy   \u0017anti-magic field\nn l  n\u0017pit\n#terrain\n\u001b10s>#jump\n\u001624\n__,>\u0016?\n\u001bbl\u0016?\n\u001bnu\u00162\nhy   nkkn:\u001629\n\u0014@.\u001644\n#levelchange\n10\n       njh  yy\u001by  y y  y\u001b  k"
+ },
+ "segments": [
+  {
+   "seed": 1010011,
+   "datetime": "20091104172259",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:teleport\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                              \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwq\u001632\n   \u0014 \u001bm.\u001628\nhlnl y:\u0016?\n>>Q\u0017cursed spellbook of charm monster\n\u0007yellow light\nra ssZZ\u0017cheap plastic imitation of the Amulet of Yendor\nPb..ss20ss\u0017cursed -1 two-handed sword\nwc.s.X\u0017blessed +3 crossbow\nwds20s20sss\u0017uncursed potion of sickness\nqess\u0017uncursed bag of tricks\nafaf#tip\nf\u001bss20s.\u0016?\n>>M     potion of levitation\nub hy    n  n  y  b :  s   n \u00164\n\u001622\n_{,>\u0016?\n\u001bn n u   n \u00169\n\u0016?\n\u001bj  j      n     \u001622\n\u0014m.   \u001622\n#chat\nj;j,sm.     20s   n  \u001612\n\u0006,_<.\u0016?\n\u001by  n\u00165\n\u0004u\u0016?\na  \u0006_>,\u00165\n#chat\nu;<.20s .20s \u0016?\nb\u0004h20s\u001642\n\u0017amulet of restful sleep\nPi20s.yssj Fh Fj\u0017blessed helm of telepathy\nWj  n   .l  20s  n  sy \u00173 wand of light\nzk \u0017blessed cloak of displacement\n\u0007sewer rat\nWl 20s 20s .m.Tl    n Fb     n Fj \u0017uncursed potion of booze\nqm \u001b sm.  n sj\u001610\n\u0016?\n\u001by  n l\u0016?\n\u001bbk    \u001622\n_<.\u00162\nk  buy   \u0017anti-magic field\nn l  n\u0017pit\n#terrain\n\u001b10s>#jump\n\u001624\n__,>\u0016?\n\u001bbl\u0016?\n\u001bnu\u00162\nhy   nkkn:\u001629\n\u0014@.\u001644\n#levelchange\n10\n       njh  yy\u001by  y y  y\u001b  k"
+  }
+ ]
+}

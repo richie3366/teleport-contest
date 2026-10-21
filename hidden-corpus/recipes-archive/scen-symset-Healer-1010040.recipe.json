@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b,>FjFj_>>.Fh_.> FyFbFn\u0006_>,>FbFb_>.>FbFj_>.>FnFnFbFjFu\u0014m.#conduct\n \u0006_>>,Fu_.> FbFh\u001bFl\u00167\nFyFlFjFlFbFkl FbFh\u001bFbFkk FhFbFnFlFjFuFnFnFuFbFjFuFnFyFjFuFyFh\u001bFuFkFnFh\u001bFbFjFhFjFhFuFkFbFh\u001bFbFjFkFnFlFjFbFyFyFlFkFuFlFbFnFlFjFkFnFlFnFku FlFnFkh FnFlFyFjFkFkFlFkFkFkFnFjFyFyFnFnFjFhFyFkk FlFuFyFnFnFkb FjFnFkl FkFbFlFuFjFyFbFjFyFh\u001bFbFbFlFkFjFbFnFlFnFyFnFlFkFjFn#levelchange\nkuy ub ub \u0017lawful altar\ndj \u0017elf corpse\n#offer\nm   #pray\ny y j\u0017unaligned altar\ndc\u0017human corpse\n #pray\ny  h\u001b\u0017altar\ndi \u0017elf corpse\n#offer\nno   : lu #pray\ny y   10sW#turn\n#turn\n\u0006_>.Fu_,>FlFl_>.Fl_.>FnFn_>.Fb_.>FuFjFjFyFky ,\u001bzgj \u0006_>.  nFh_.>FjFl_>.Fl_.>FyFn_>,Fl_.>FuFhFlFkFkbwa\u0006_>.Fl_.>FjFl_>,Fl_.>FyFy_>.Fj_.>FlFbFyFbFky \u0006_>.Fu_.>FnFlb _>,Fn_>FnFun _>.Fh_.>FuFbFln FuFj\u0006_>>.Fy_.>FlFh_>>,Fu_,>FlFj_>>,Fj_.>FkFnFbFkFkmOa\u001b\nt$b : ,\u001bjyj\u0017grave\n: \u0017wand of digging\nzp>sm..m.yh\u001b\u0017melting ice\n#terrain\nb\n #conduct\n <#turn\n#twowe"
+ },
+ "segments": [
+  {
+   "seed": 1010040,
+   "datetime": "20040407195809",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nMSGTYPE=norep \"You see\"\nMENUCOLOR=\"cursed\"=cyan\n",
+   "moves": "\u0006_ \u001b,>FjFj_>>.Fh_.> FyFbFn\u0006_>,>FbFb_>.>FbFj_>.>FnFnFbFjFu\u0014m.#conduct\n \u0006_>>,Fu_.> FbFh\u001bFl\u00167\nFyFlFjFlFbFkl FbFh\u001bFbFkk FhFbFnFlFjFuFnFnFuFbFjFuFnFyFjFuFyFh\u001bFuFkFnFh\u001bFbFjFhFjFhFuFkFbFh\u001bFbFjFkFnFlFjFbFyFyFlFkFuFlFbFnFlFjFkFnFlFnFku FlFnFkh FnFlFyFjFkFkFlFkFkFkFnFjFyFyFnFnFjFhFyFkk FlFuFyFnFnFkb FjFnFkl FkFbFlFuFjFyFbFjFyFh\u001bFbFbFlFkFjFbFnFlFnFyFnFlFkFjFn#levelchange\nkuy ub ub \u0017lawful altar\ndj \u0017elf corpse\n#offer\nm   #pray\ny y j\u0017unaligned altar\ndc\u0017human corpse\n #pray\ny  h\u001b\u0017altar\ndi \u0017elf corpse\n#offer\nno   : lu #pray\ny y   10sW#turn\n#turn\n\u0006_>.Fu_,>FlFl_>.Fl_.>FnFn_>.Fb_.>FuFjFjFyFky ,\u001bzgj \u0006_>.  nFh_.>FjFl_>.Fl_.>FyFn_>,Fl_.>FuFhFlFkFkbwa\u0006_>.Fl_.>FjFl_>,Fl_.>FyFy_>.Fj_.>FlFbFyFbFky \u0006_>.Fu_.>FnFlb _>,Fn_>FnFun _>.Fh_.>FuFbFln FuFj\u0006_>>.Fy_.>FlFh_>>,Fu_,>FlFj_>>,Fj_.>FkFnFbFkFkmOa\u001b\nt$b : ,\u001bjyj\u0017grave\n: \u0017wand of digging\nzp>sm..m.yh\u001b\u0017melting ice\n#terrain\nb\n #conduct\n <#turn\n#twowe"
+  }
+ ]
+}

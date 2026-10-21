@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPg\u0017blessed +3 speed boots\nWh \u0017wand of fire\n\u0017wand of teleportation\n\u0017wand of cancellation\n\u0007acid blob\nziuzklzil zkuzjyszjb\u0018\u001b\u0017sling\nwl\u001720 flint stones\nQm\u0007gnome\ntmntmnfnfnfn\u0017wand of striking\n\u0017wand of cold\n\u0007gnome\n\u0007grid bug\nznuzokznn zojzoyzo.   zohzok  n\u0007baby red dragon\n\u0007red dragon\nsh.m.sm.sFu Fu\u00175 boomerangs\nQp\u0007yellow mold\ntmu    nfn fufn  n  fn  n  \u001612\n\u00164\n\u00174 cream pies\nQm\u0007lichen\ntmufutputmutmutpu\u001710 daggers\n Qr\u0007sewer rat\n\u0007kobold shaman\nfy tmy flfy  fyfytmy\u0017spellbook of light\n rs \u001b. 20s \u0017blessed spellbook of cause fear\nrt sn\u0007kobold shaman\nZZ.b.Zsk.m. ZZsjsZZsm.suZ\u0017blessed spellbook of sleep\nru 20s\u0017blessed spellbook of force bolt\nrv .m.\u0007master lich\n\u0007orc shaman\nZZZZZ20s    20s     Z20s       sm.  n  Z\u00167\n\u0018\u001b\u0017wand of polymorph\n\u0017wand of digging\n\u0007kobold shaman\n\u0007gnome\n\u0007lichen\nzwbzwl  zx>  zwyzx>   zx>  zwk.zx> szwu\u0017wand of magic missile\n\u0017wand of lightning\n\u0017wand of digging\n\u0007hobbit\n\u0007gnome lord\nzyy  zzyzA> zzh   n zx>    zk>20szi>.zzkszzj  nzzs"
+ },
+ "segments": [
+  {
+   "seed": 1010059,
+   "datetime": "20220824223021",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPg\u0017blessed +3 speed boots\nWh \u0017wand of fire\n\u0017wand of teleportation\n\u0017wand of cancellation\n\u0007acid blob\nziuzklzil zkuzjyszjb\u0018\u001b\u0017sling\nwl\u001720 flint stones\nQm\u0007gnome\ntmntmnfnfnfn\u0017wand of striking\n\u0017wand of cold\n\u0007gnome\n\u0007grid bug\nznuzokznn zojzoyzo.   zohzok  n\u0007baby red dragon\n\u0007red dragon\nsh.m.sm.sFu Fu\u00175 boomerangs\nQp\u0007yellow mold\ntmu    nfn fufn  n  fn  n  \u001612\n\u00164\n\u00174 cream pies\nQm\u0007lichen\ntmufutputmutmutpu\u001710 daggers\n Qr\u0007sewer rat\n\u0007kobold shaman\nfy tmy flfy  fyfytmy\u0017spellbook of light\n rs \u001b. 20s \u0017blessed spellbook of cause fear\nrt sn\u0007kobold shaman\nZZ.b.Zsk.m. ZZsjsZZsm.suZ\u0017blessed spellbook of sleep\nru 20s\u0017blessed spellbook of force bolt\nrv .m.\u0007master lich\n\u0007orc shaman\nZZZZZ20s    20s     Z20s       sm.  n  Z\u00167\n\u0018\u001b\u0017wand of polymorph\n\u0017wand of digging\n\u0007kobold shaman\n\u0007gnome\n\u0007lichen\nzwbzwl  zx>  zwyzx>   zx>  zwk.zx> szwu\u0017wand of magic missile\n\u0017wand of lightning\n\u0017wand of digging\n\u0007hobbit\n\u0007gnome lord\nzyy  zzyzA> zzh   n zx>    zk>20szi>.zzkszzj  nzzs"
+  }
+ ]
+}

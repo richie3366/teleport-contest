@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPmr\u0017blessed bell of opening\n\u0017blessed +3 gray dragon scale mail\nWo\u0017blessed 20 daggers\nQp#levelchange\n20\n                   #wizintrinsic\nh\n \u0017wand of light\nzqzqzqzqzq\u0017blessed spellbook of knock\n rrsbZa\n:\u0017wand of polymorph\nzslzskzslzslzsh#wizintrinsic\nh\n\u0007bugbear\nFk Fk   Fks_ \u001b.lulh\u0017blessed scroll of identify\nrt q\n\u0017candy bar\neu\u0017wand of polymorph\nzvbzvlzvbzvyzv#wizintrinsic\nh\n\u0017wand of sleep\nzwyzwlzwbzwk\u0017potion of sleeping\nqxs.\u0017potion of speed\nqy s\u0017wand of sleep\nzzl  zzy zzyzzy#wizintrinsic\nh\n \u0007kobold shaman\n\u0007gnome lord\nFnFh FhFnFyFn_:jkk\u0007grid bug\n\u0007gnome\nFhFl Fj Fj Fj\u0017scroll of light\nrA #wizintrinsic\nh\n_@.ky h;n,E- Vlad was here\n\u0007gnome\nFlFjFb Fb\u0017scroll of teleportation\nrB , i\u001bbb;m,E- Elbereth\n#pray\ny y   #wizintrinsic\nh\n\u0017blessed spellbook of light\nrC .Zc\n: \u001618\nlhyh:;<.E- ad aerarium\n#chat\nj#pray\ny y \u001618\nhjyluhb:#wizintrinsic\nh\n\u0007jackal\n\u0007hobbit\nFj Fj FjFu FjFuFu\u0007giant rat\nFjFjss\u0017scroll of mail\nrD \u0017cram ration\neEt$nfbfl#wizintrinsic\nh\n\u0017potion of polymorph\nqF     20s\u001622\nkjunyy:fttf;m,Ei\u001bknkj\u0018\u001buj\u0017blessed spellbook of fireball\nrG sZd\n#turn\n:#wizintrinsic\nh\n\u0007grid bug\n\u0007kobold shaman\nFkFys.20sfffti\u001bhukb\u0017wand o"
+ },
+ "segments": [
+  {
+   "seed": 1010085,
+   "datetime": "20061102011631",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPmr\u0017blessed bell of opening\n\u0017blessed +3 gray dragon scale mail\nWo\u0017blessed 20 daggers\nQp#levelchange\n20\n                   #wizintrinsic\nh\n \u0017wand of light\nzqzqzqzqzq\u0017blessed spellbook of knock\n rrsbZa\n:\u0017wand of polymorph\nzslzskzslzslzsh#wizintrinsic\nh\n\u0007bugbear\nFk Fk   Fks_ \u001b.lulh\u0017blessed scroll of identify\nrt q\n\u0017candy bar\neu\u0017wand of polymorph\nzvbzvlzvbzvyzv#wizintrinsic\nh\n\u0017wand of sleep\nzwyzwlzwbzwk\u0017potion of sleeping\nqxs.\u0017potion of speed\nqy s\u0017wand of sleep\nzzl  zzy zzyzzy#wizintrinsic\nh\n \u0007kobold shaman\n\u0007gnome lord\nFnFh FhFnFyFn_:jkk\u0007grid bug\n\u0007gnome\nFhFl Fj Fj Fj\u0017scroll of light\nrA #wizintrinsic\nh\n_@.ky h;n,E- Vlad was here\n\u0007gnome\nFlFjFb Fb\u0017scroll of teleportation\nrB , i\u001bbb;m,E- Elbereth\n#pray\ny y   #wizintrinsic\nh\n\u0017blessed spellbook of light\nrC .Zc\n: \u001618\nlhyh:;<.E- ad aerarium\n#chat\nj#pray\ny y \u001618\nhjyluhb:#wizintrinsic\nh\n\u0007jackal\n\u0007hobbit\nFj Fj FjFu FjFuFu\u0007giant rat\nFjFjss\u0017scroll of mail\nrD \u0017cram ration\neEt$nfbfl#wizintrinsic\nh\n\u0017potion of polymorph\nqF     20s\u001622\nkjunyy:fttf;m,Ei\u001bknkj\u0018\u001buj\u0017blessed spellbook of fireball\nrG sZd\n#turn\n:#wizintrinsic\nh\n\u0007grid bug\n\u0007kobold shaman\nFkFys.20sfffti\u001bhukb\u0017wand o"
+  }
+ ]
+}

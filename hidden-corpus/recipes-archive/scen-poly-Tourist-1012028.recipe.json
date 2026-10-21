@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPmr#polyself\nwarhorse\n#monster\n20s20s20ssm..l#polyself\nrope golem\n #monster\n20s .\u0007elf-lord\nFn  Fn Fn   sm.sh20s       #polyself\nrope golem\n #monster\ns.    \u0007giant beetle\nFh     Fb  Fb  20s  .m.   .k"
+ },
+ "segments": [
+  {
+   "seed": 1012028,
+   "datetime": "20040608002843",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPmr#polyself\nwarhorse\n#monster\n20s20s20ssm..l#polyself\nrope golem\n #monster\n20s .\u0007elf-lord\nFn  Fn Fn   sm.sh20s       #polyself\nrope golem\n #monster\ns.    \u0007giant beetle\nFh     Fb  Fb  20s  .m.   .k"
+  }
+ ]
+}

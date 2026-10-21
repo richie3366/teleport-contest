@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "mO>>>>>u\nz\n#pray\ny   mO>s\n\u0014#twoweapon\n\u001bm.mO>>>>>rd\ne\n1\n#chat\nOme\n\u0004hOgne\nk\nLO>b\n#monster\nmO>>>>gbd\n on\n on\n#invoke\n\u001bs.O>cp\n#monster\nmO>vlh\n  #twoweapon\nak\n mOa\n\\  mO>>>>>>hdk\ns\nq\n#loot\nOm\n#offer\nymO>>>>cfd\nu\n 1\n off\n>mO>>h\n,.s"
+ },
+ "segments": [
+  {
+   "seed": 1011011,
+   "datetime": "20031216121945",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:run\n",
+   "moves": "mO>>>>>u\nz\n#pray\ny   mO>s\n\u0014#twoweapon\n\u001bm.mO>>>>>rd\ne\n1\n#chat\nOme\n\u0004hOgne\nk\nLO>b\n#monster\nmO>>>>gbd\n on\n on\n#invoke\n\u001bs.O>cp\n#monster\nmO>vlh\n  #twoweapon\nak\n mOa\n\\  mO>>>>>>hdk\ns\nq\n#loot\nOm\n#offer\nymO>>>>cfd\nu\n 1\n off\n>mO>>h\n,.s"
+  }
+ ]
+}

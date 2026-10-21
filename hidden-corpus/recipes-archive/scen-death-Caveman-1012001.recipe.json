@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\na\n s.20s20s20s20s20s20ssm..m..m.sm.20s.m.sm.sm.sm..u.su20s.m.sy20s  n .m.20ssm..m."
+ },
+ "segments": [
+  {
+   "seed": 1012001,
+   "datetime": "20091229011155",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\na\n s.20s20s20s20s20s20ssm..m..m.sm.20s.m.sm.sm.sm..u.su20s.m.sy20s  n .m.20ssm..m."
+  }
+ ]
+}

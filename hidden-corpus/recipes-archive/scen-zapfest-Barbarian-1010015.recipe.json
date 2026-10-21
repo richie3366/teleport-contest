@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nW\u001b\u001b\u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg#levelchange\n10\n         \u0017blessed spellbook of cone of cold\nrh s\u0007aligned cleric\nyZZZZZs20s ZZssZs.ZssZ#turn\n\u0017wand of slow monster\n\u0017wand of lightning\n\u0007sewer rat\n\u0007gnome lord\nzib  zjj zjbzihzihsb  zikzjk zjj\u0017blessed spellbook of slow monster\nrk.\u0007gnomish wizard\nZZZZ.sZZi\u001b\u0017blessed spellbook of sleep\nrl20s\u0017spellbook of light\nrms\u0007incubus\nZZZZs.  y    Z\u0007red dragon\n\u0007baby red dragon\n20s  s20s#polyself\nred dragon\n.s#monster\nu     #monster\n#monster\n#monster\n\u0017wand of magic missile\naFjFh  \u00176 javelins\nQo\u0007gnome\ntftfftt\u0017potion of extra healing\nt\u001720 darts\nQq\u0007gnome\nftff\u0017potion of sleeping\nt\u0007silver dragon\n.   .   s    20s    \u0017wand of lightning\nasy     n .Fyi\u001b\u0017blessed sp"
+ },
+ "segments": [
+  {
+   "seed": 1010015,
+   "datetime": "20101104231502",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nW\u001b\u001b\u0017blessed amulet of life saving\nPf\u0017blessed +3 speed boots\nWg#levelchange\n10\n         \u0017blessed spellbook of cone of cold\nrh s\u0007aligned cleric\nyZZZZZs20s ZZssZs.ZssZ#turn\n\u0017wand of slow monster\n\u0017wand of lightning\n\u0007sewer rat\n\u0007gnome lord\nzib  zjj zjbzihzihsb  zikzjk zjj\u0017blessed spellbook of slow monster\nrk.\u0007gnomish wizard\nZZZZ.sZZi\u001b\u0017blessed spellbook of sleep\nrl20s\u0017spellbook of light\nrms\u0007incubus\nZZZZs.  y    Z\u0007red dragon\n\u0007baby red dragon\n20s  s20s#polyself\nred dragon\n.s#monster\nu     #monster\n#monster\n#monster\n\u0017wand of magic missile\naFjFh  \u00176 javelins\nQo\u0007gnome\ntftfftt\u0017potion of extra healing\nt\u001720 darts\nQq\u0007gnome\nftff\u0017potion of sleeping\nt\u0007silver dragon\n.   .   s    20s    \u0017wand of lightning\nasy     n .Fyi\u001b\u0017blessed sp"
+  }
+ ]
+}

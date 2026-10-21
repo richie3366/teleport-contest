@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0007large dog\n\u0017meatball\nt\u001b\u0017banana\nt\u001b\u0017magic whistle\nlunam   yy\u001bnnnn  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 1011025,
+   "datetime": "20230724011740",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007large dog\n\u0017meatball\nt\u001b\u0017banana\nt\u001b\u0017magic whistle\nlunam   yy\u001bnnnn  \u0007"
+  }
+ ]
+}

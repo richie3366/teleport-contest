@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "jun\u0017throne\n#sit\n :\u001bk\u0017k\u0017:\u001bn\u0017d\u0017#pray\n y#ride\nhy#dip\nmt "
+ },
+ "segments": [
+  {
+   "seed": 1011000,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "jun\u0017throne\n#sit\n :\u001bk\u0017k\u0017:\u001bn\u0017d\u0017#pray\n y#ride\nhy#dip\nmt "
+  }
+ ]
+}

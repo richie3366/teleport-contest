@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #chat\njjbkylbtbl  kn20s      UKUK_ \u001bm.>FjFnsYUBN_>.>UBUU_>.>FjFlFj uqKULH_>.>\u000f\u001b#offer\n20s\u0004nKLUH_>.><yy\u001bny nn H"
+ },
+ "segments": [
+  {
+   "seed": 1010036,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:explore\n",
+   "moves": " #chat\njjbkylbtbl  kn20s      UKUK_ \u001bm.>FjFnsYUBN_>.>UBUU_>.>FjFlFj uqKULH_>.>\u000f\u001b#offer\n20s\u0004nKLUH_>.><yy\u001bny nn H"
+  }
+ ]
+}

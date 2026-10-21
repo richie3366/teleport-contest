@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       #levelchange\n30\n                     #wizintrinsic\ne\n sb.m.sm.20s  20s sm.ss20s    n..s20s s\u0017scroll of amnesia\nre \u001b_m. \u001b:s#terrain\n\u001b#offer\n,10s\u000f\u001b.m...sk20ssm.#wizintrinsic\ngm\n \u0017towel\naf;j.\u0017lizard corpse\neg Zbbk\u0017potion of healing\nqh20ssm.20s\u0017bullwhip\nwiFlFlFl\u0007giant beetle\nsyss.m.20s\u0007ice devil\n;l,.k20s.m.\u001629\n \u000f\u001b#levelchange\n12\n    \u0007Aleax\nFlFl     m, s\u0007gnomish wizard\n#chat\nkFkFk\u0007ettin\nFkFy  Fy  n \u0007baby red dragon\n;y.su .m.sm. \u00162\n#levelchange\n12\n#wizintrinsic\np\n ssssss.s.20s 20sss20s.20s.20ssm.20s 20s 20s \u0017tin opener\na\u0014<.t#dip\nd\u0004j\u0014.#force\n.20s.m.shs20s  \u00173 tin of lizard meat\nek sm..m.Fl s\u0017cursed scroll of destroy armor\nrl \u001b\u00173 spellbook of detect treasure\nrm s.Z\u001bZ\u001bs20s\u0018\u001b#levelchange\n30\n                \u00176 javelins\nQn\u00072 lichen\njffff\u0017potion of object detection\nt\u0007acid blob\nnfffubu,#enhance\nn\u001bi\u001bqo@.#dip\nb aawFhFkFh,o\\   #offer\ni\u001b#wipe\n\u0018\u001b#chat\nbi\u001bwsssaa\\   #levelchange\n20\n  \u0007pony\n\u0017scroll of taming\nrp \u0017saddle\na\u0017lance\nw#ride\nhy\u0007tame saddled warhorse\n#ride\nhy\u0007tame saddled pony\n#ride\nuy\u0004y,njybbny ,\u001618\n\u0006#levelchange\n20\n#wizintrinsic\ncdf\n  20s .y20s  20ssm..m.sm..m.20s snsm.  n  n .20s  20s u #tip\n\u001b#pray\ny y    J:>.m.sm.sk sl.m.sm.\u001610\n #levelchange\n10\n  \u00175000 gold pieces\n\u0016?\n>w \u0006\u0017blessed potion of object detection\nqsm,_ooooo. _.,p_mm.#chat\nk_ooooo,_._oo._.,\u0014;_ooooooo,_.,pE- Elbereth Elbereth\nK#offer\n#levelchange\n30\n      "
+ },
+ "segments": [
+  {
+   "seed": 1010056,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       #levelchange\n30\n                     #wizintrinsic\ne\n sb.m.sm.20s  20s sm.ss20s    n..s20s s\u0017scroll of amnesia\nre \u001b_m. \u001b:s#terrain\n\u001b#offer\n,10s\u000f\u001b.m...sk20ssm.#wizintrinsic\ngm\n \u0017towel\naf;j.\u0017lizard corpse\neg Zbbk\u0017potion of healing\nqh20ssm.20s\u0017bullwhip\nwiFlFlFl\u0007giant beetle\nsyss.m.20s\u0007ice devil\n;l,.k20s.m.\u001629\n \u000f\u001b#levelchange\n12\n    \u0007Aleax\nFlFl     m, s\u0007gnomish wizard\n#chat\nkFkFk\u0007ettin\nFkFy  Fy  n \u0007baby red dragon\n;y.su .m.sm. \u00162\n#levelchange\n12\n#wizintrinsic\np\n ssssss.s.20s 20sss20s.20s.20ssm.20s 20s 20s \u0017tin opener\na\u0014<.t#dip\nd\u0004j\u0014.#force\n.20s.m.shs20s  \u00173 tin of lizard meat\nek sm..m.Fl s\u0017cursed scroll of destroy armor\nrl \u001b\u00173 spellbook of detect treasure\nrm s.Z\u001bZ\u001bs20s\u0018\u001b#levelchange\n30\n                \u00176 javelins\nQn\u00072 lichen\njffff\u0017potion of object detection\nt\u0007acid blob\nnfffubu,#enhance\nn\u001bi\u001bqo@.#dip\nb aawFhFkFh,o\\   #offer\ni\u001b#wipe\n\u0018\u001b#chat\nbi\u001bwsssaa\\   #levelchange\n20\n  \u0007pony\n\u0017scroll of taming\nrp \u0017saddle\na\u0017lance\nw#ride\nhy\u0007tame saddled warhorse\n#ride\nhy\u0007tame saddled pony\n#ride\nuy\u0004y,njybbny ,\u001618\n\u0006#levelchange\n20\n#wizintrinsic\ncdf\n  20s .y20s  20ssm..m.sm..m.20s snsm.  n  n .20s  20s u #tip\n\u001b#pray\ny y    J:>.m.sm.sk sl.m.sm.\u001610\n #levelchange\n10\n  \u00175000 gold pieces\n\u0016?\n>w \u0006\u0017blessed potion of object detection\nqsm,_ooooo. _.,p_mm.#chat\nk_ooooo,_._oo._.,\u0014;_ooooooo,_.,pE- Elbereth Elbereth\nK#offer\n#levelchange\n30\n      "
+  }
+ ]
+}

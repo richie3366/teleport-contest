@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed spellbook of sleep\nrl s\u0017spellbook of detect treasure\nrm \u001bm, \u001bs\u0017blessed spellbook of magic missile\nrn s+\u001bZc\n.\u0007grid bug\nZa\nZa\nFhZc\n#turn\nSy\u001b y#twoweapon\n\u0018\u001beg,#invoke\n\u001b\u001bKcl\u0014,>.#ride\njy#untrap\nu#rub\n\u0007little dog\n\u0017fortune cookie\n t\u001b\u001bjdkeg20ssm.s#name\na\nb",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 1011029,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed spellbook of sleep\nrl s\u0017spellbook of detect treasure\nrm \u001bm, \u001bs\u0017blessed spellbook of magic missile\nrn s+\u001bZc\n.\u0007grid bug\nZa\nZa\nFhZc\n#turn\nSy\u001b"
+  },
+  {
+   "seed": 1511029,
+   "datetime": "20000913173714",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " y#twoweapon\n\u0018\u001beg,#invoke\n\u001b\u001bKcl\u0014,>.#ride\njy#untrap\nu#rub\n\u0007little dog\n\u0017fortune cookie\n t\u001b\u001bjdkeg20ssm.s#name\na\nb"
+  }
+ ]
+}

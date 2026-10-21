@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " lj\u0017wand of death\nEf Elbereth\n\u0017wand of probing\nEgy Vlad was here\n: \u0017ruby\nEh  Vlad was here\n kb\u0017wand of probing\nEi Elbereth\n: \u0017wand of magic missile\nEjy Vlad was here\n\u0017wand of locking\nEky X marks the spot\n:  E-n  Vlad was here\n\u0007solwater nymph\n xor"
+ },
+ "segments": [
+  {
+   "seed": 1011018,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " lj\u0017wand of death\nEf Elbereth\n\u0017wand of probing\nEgy Vlad was here\n: \u0017ruby\nEh  Vlad was here\n kb\u0017wand of probing\nEi Elbereth\n: \u0017wand of magic missile\nEjy Vlad was here\n\u0017wand of locking\nEky X marks the spot\n:  E-n  Vlad was here\n\u0007solwater nymph\n xor"
+  }
+ ]
+}

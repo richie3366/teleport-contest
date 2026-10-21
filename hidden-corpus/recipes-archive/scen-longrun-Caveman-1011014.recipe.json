@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " Fh ssljb100sFhFhFh\u0018\u001b_ \u001b,>_>.>50s100s50sFl20s.100s 100sFhFhs_>.>r\u001b\u001b_>.>100sylu100sFh.20s#name\no\nFido\nbe50si\u001bblhbkhi\u001b150s 100sFkFyFkbly_>.>100s_>.>;_.100s 150s FhFhsjub50sSy\u001b ;k;\u0018\u001b#sit\n#terrain\nc\n#enhance\ns#force\nawa\u0017\u0017\u0007hfufnfhluk,#enhance\n\u001b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 1011014,
+   "datetime": "20010509112646",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=mention_walls\n",
+   "moves": " Fh ssljb100sFhFhFh\u0018\u001b_ \u001b,>_>.>50s100s50sFl20s.100s 100sFhFhs_>.>r\u001b\u001b_>.>100sylu100sFh.20s#name\no\nFido\nbe50si\u001bblhbkhi\u001b150s 100sFkFyFkbly_>.>100s_>.>;_.100s 150s FhFhsjub50sSy\u001b"
+  },
+  {
+   "seed": 1511014,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=mention_walls\n",
+   "moves": " ;k;\u0018\u001b#sit\n#terrain\nc\n#enhance\ns#force\nawa\u0017\u0017\u0007hfufnfhluk,#enhance\n\u001b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0016?\n>>K     scroll of blank paper\n_ \u001b<.>\u0016?\n\u001bn y\u00166\n\u0004y    \u001614\n__,<sm.   20s  \u00166\n\u0014 n    sn\u0016?\n\u001bk       nj\u00166\nbk  bl:sm.    nsy     \u0016?\n\u001bh    h\u0016?\n\u001bh k  \u001613\nbl  n bl hn:\u0016?\n\u001bny    n \u001614\nlbjn:\u0016?\n\u001bk    y\u0016?\n\u001blb\u0016?\n\u001bnb\u0016?\n\u001bk  n n\u001612\n_<.<sjsm.   nsm. \u00166\n#chat\nh;h.\u001634\nbnn  n k  jbh:\u0016?\n\u001bl  n        nu     \u001611\n\u0016?\n\u001bl  n h\u0016?\n\u001bu      n\u00166\njju         n l nh:sbsm.     n 20s\u001612\n\u0016?\n\u001bbh\u0016?\n\u001bu        n\u0016?\n\u001bun           n \u001644\n\u0004k  n     n 20s      yy\u001bny n  s"
+ },
+ "segments": [
+  {
+   "seed": 1010044,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0016?\n>>K     scroll of blank paper\n_ \u001b<.>\u0016?\n\u001bn y\u00166\n\u0004y    \u001614\n__,<sm.   20s  \u00166\n\u0014 n    sn\u0016?\n\u001bk       nj\u00166\nbk  bl:sm.    nsy     \u0016?\n\u001bh    h\u0016?\n\u001bh k  \u001613\nbl  n bl hn:\u0016?\n\u001bny    n \u001614\nlbjn:\u0016?\n\u001bk    y\u0016?\n\u001blb\u0016?\n\u001bnb\u0016?\n\u001bk  n n\u001612\n_<.<sjsm.   nsm. \u00166\n#chat\nh;h.\u001634\nbnn  n k  jbh:\u0016?\n\u001bl  n        nu     \u001611\n\u0016?\n\u001bl  n h\u0016?\n\u001bu      n\u00166\njju         n l nh:sbsm.     n 20s\u001612\n\u0016?\n\u001bbh\u0016?\n\u001bu        n\u0016?\n\u001bun           n \u001644\n\u0004k  n     n 20s      yy\u001bny n  s"
+  }
+ ]
+}

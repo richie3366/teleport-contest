@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>y  _ \u001b,#chat\nl;l,_mmmmm._.#chat\ny_m.Fb _.#chat\nh_mmm.#chat\njyt\u001b#ride\nySy\u001b y#untrap\nl#monster\n#sit\n\u001b#untrap\nb,qd#turn\nqd#pray\ny y ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 1011016,
+   "datetime": "20100206201621",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>y  _ \u001b,#chat\nl;l,_mmmmm._.#chat\ny_m.Fb _.#chat\nh_mmm.#chat\njyt\u001b#ride\nySy\u001b"
+  },
+  {
+   "seed": 1511016,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " y#untrap\nl#monster\n#sit\n\u001b#untrap\nb,qd#turn\nqd#pray\ny y "
+  }
+ ]
+}

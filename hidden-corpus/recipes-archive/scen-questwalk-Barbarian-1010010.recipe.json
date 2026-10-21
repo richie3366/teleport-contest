@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed +3 gauntlets of power\nWg\u0017blessed Mjollnir\nwh\u0016?\n>z  \u00162\n\u0006hlybu\u00163\n \u0006_ \u001bm,Fk Fk 20sss\u00164\n\u0006_mm,   Fb     n_.   Fb   Fk     nFh      Fk     n  \u001612\n  \u00165\n\u0006bkh _>,Fk _.Fy>\u0006_mmmmm.FyFl  Fy  \u00162\n\u0006y  n ybjk\u00163\n \u0006_mmmm,Fl _.Fl FlFl s20s FlFl \u00164\n\u0006#chat\nu;m.\u00165\n\u0006_mm.20sFk Fk  20s\u00166\n \u0006hl hhlhhh\u00162\n\u0006uuj  nu\u00163\n \u0006,\u00164\n\u0006#chat\nb ;b:  \u00165\n\u0006_m,Fk _,FkFk 20sFk Fk   n  \u001bFk \u00166\n \u0006lhbylu   \u00162\n\u0006_>,Fn  _.\u00163\n \u0006k \u001bklj\u00164\n\u0006_mm,  Fl_.   FlFb Fl Fj  s\u0016?\n>>\u001b\u0016?\n>y  #chat\nl\u0016?\n>z_>.>\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_mmmmm,FlFlFlFl\u00162\n\u0016?\n>z\u0006_mmm.FlFlFlFl\u00163\n\u0016?\n>z\u0006_mmmmm.FlFlFlFlFlFl_>.    \u001bFn  _.Fb>\u0016?\n>z\u0006_m.  n   Fl "
+ },
+ "segments": [
+  {
+   "seed": 1010010,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed +3 gauntlets of power\nWg\u0017blessed Mjollnir\nwh\u0016?\n>z  \u00162\n\u0006hlybu\u00163\n \u0006_ \u001bm,Fk Fk 20sss\u00164\n\u0006_mm,   Fb     n_.   Fb   Fk     nFh      Fk     n  \u001612\n  \u00165\n\u0006bkh _>,Fk _.Fy>\u0006_mmmmm.FyFl  Fy  \u00162\n\u0006y  n ybjk\u00163\n \u0006_mmmm,Fl _.Fl FlFl s20s FlFl \u00164\n\u0006#chat\nu;m.\u00165\n\u0006_mm.20sFk Fk  20s\u00166\n \u0006hl hhlhhh\u00162\n\u0006uuj  nu\u00163\n \u0006,\u00164\n\u0006#chat\nb ;b:  \u00165\n\u0006_m,Fk _,FkFk 20sFk Fk   n  \u001bFk \u00166\n \u0006lhbylu   \u00162\n\u0006_>,Fn  _.\u00163\n \u0006k \u001bklj\u00164\n\u0006_mm,  Fl_.   FlFb Fl Fj  s\u0016?\n>>\u001b\u0016?\n>y  #chat\nl\u0016?\n>z_>.>\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_mmmmm,FlFlFlFl\u00162\n\u0016?\n>z\u0006_mmm.FlFlFlFl\u00163\n\u0016?\n>z\u0006_mmmmm.FlFlFlFlFlFl_>.    \u001bFn  _.Fb>\u0016?\n>z\u0006_m.  n   Fl "
+  }
+ ]
+}

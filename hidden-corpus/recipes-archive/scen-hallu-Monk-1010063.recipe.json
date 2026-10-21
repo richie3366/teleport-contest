@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic lamp\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed magic harp\n\u0017blessed 20 daggers\nQn#wizintrinsic\nh\n \u0007dwarf\n\u0007jackal\nFuFl  Fk FuFl \u0016?\no #chat\nu;<. \u001b@.\u0017blessed scroll of earth\nro \u0018\u001bbhhy\u0017blessed spellbook of sleep\nrp .Zb\n:#wizintrinsic\nh\n\u0007newt\n\u0007grid bug\n.s.20s\u0017scroll of remove curse\nrq \u0007hobbit\n\u0007troll\n.sss\u0017blessed scroll of identify\nrr k\n \u001b#wizintrinsic\nh\n\u0007troll\n20s  ssssss\u00161\n __,<\u0018\u001bkhyl\u00167\n\u0004k\u0016?\nc_{.<\u0017spellbook of magic missile\nrs 20sZb\n:\u0017potion of levitation\nqt 20s 20s#wizintrinsic\nh\n\u0017wand of polymorph\nzuk  n  n zukzukzuk   n   \u00167\n\u0017wand of cold\nzvjzvl    nzvjzvk  n\u00165\n\u0016?\nj\u0006_>.#wizintrinsic\nh\ntnbfbfytnh   n  n   n   n\u00166\n\u0017spellbook of magic missile\nrw y.Zb\n#turn\n:\u0007bugbear\n\u0007dwarf\nFlFuFl Fu  n#wizintrinsic\nh\ni\u001bybul;y,E- X marks the spot\n#pray\ny y      \u0017blessed spellbook of fireball\nrx   n 20s Za\n: #wizintrinsic\nh\n\u0017scroll of remove curse\nry \u0017tripe ration\nez   n\u0017wand "
+ },
+ "segments": [
+  {
+   "seed": 1010063,
+   "datetime": "20190126173123",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic lamp\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed magic harp\n\u0017blessed 20 daggers\nQn#wizintrinsic\nh\n \u0007dwarf\n\u0007jackal\nFuFl  Fk FuFl \u0016?\no #chat\nu;<. \u001b@.\u0017blessed scroll of earth\nro \u0018\u001bbhhy\u0017blessed spellbook of sleep\nrp .Zb\n:#wizintrinsic\nh\n\u0007newt\n\u0007grid bug\n.s.20s\u0017scroll of remove curse\nrq \u0007hobbit\n\u0007troll\n.sss\u0017blessed scroll of identify\nrr k\n \u001b#wizintrinsic\nh\n\u0007troll\n20s  ssssss\u00161\n __,<\u0018\u001bkhyl\u00167\n\u0004k\u0016?\nc_{.<\u0017spellbook of magic missile\nrs 20sZb\n:\u0017potion of levitation\nqt 20s 20s#wizintrinsic\nh\n\u0017wand of polymorph\nzuk  n  n zukzukzuk   n   \u00167\n\u0017wand of cold\nzvjzvl    nzvjzvk  n\u00165\n\u0016?\nj\u0006_>.#wizintrinsic\nh\ntnbfbfytnh   n  n   n   n\u00166\n\u0017spellbook of magic missile\nrw y.Zb\n#turn\n:\u0007bugbear\n\u0007dwarf\nFlFuFl Fu  n#wizintrinsic\nh\ni\u001bybul;y,E- X marks the spot\n#pray\ny y      \u0017blessed spellbook of fireball\nrx   n 20s Za\n: #wizintrinsic\nh\n\u0017scroll of remove curse\nry \u0017tripe ration\nez   n\u0017wand "
+  }
+ ]
+}

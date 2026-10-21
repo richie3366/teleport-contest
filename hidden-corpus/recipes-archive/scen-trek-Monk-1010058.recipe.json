@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "UH BUy   _ \u001b.>E- ad aerarium\nbLNJN_>.><YNJJ_>.>KJBH_>.>NU y  HY_>.>BNLL_>,>;<.Z\u001bBLYH_>,>Ly KBN_>,>BNKU_>,>\u000f\u001b#offer\nKHYY_>,>NBUL_>,>100s150s150s100s150s10sFkFks100sFks.50sbkyFl..100sFls.50s100s50s100skhj100s#name\nm\n\u000f_>,>nny100s100sFuFu.150sefknlhFuss100s150sFk20ss100s100s150si\u001bjubLJK U_>.>#turn\n#wipe\nUKJHy _>.>\u000f\u001b#sit\nJ ULH_>._.> BUBN_>.>KHUJ_>,>KKHJ_>.>\u0014#enhance\n\u001bHHKN_>,>#chat\nkdesssunylda.20sst\u001bt\u001bNBUB_>.>Pz<UJLY_>.>KLLL_>.>rj y hNNHB_>.>UNBN_>.>\u0004y#wipe\nNHYH_>.>f \u001b#rub\nYJKK_>,>\u000f\u001b,t\u001b<KHYL_>.>UNHK_>.>JBNL_>.>YN YY_>,>W\u000f\u001bNUNY_>,>Fj.20sf \u001b#twoweapon\nJHNB_>.>JJBB_>,>PegzHJNU_>.>LKNH_>,>HUNL_>.>UYYY_>,>UULJ_>.>dk20s20ss10s#name\nd\nt$yhht\u001b100si\u001b150s150sFh20ss100seg,lhjubjynj100s eh\u000f\u001b50skynyyn\\  _>.>100sei  150sehyhyoji\u001b\\  100s50sei  100sehjky100sef _>.>ljb150s100sFu.20s#chat\nylhlhlhllhh#name\nd\n#chat\nbllhl#name\na\nt\u001bW#conduct\n egLLJJ_>,>HYBU_>.>HJHB_>.>#twoweapon\n<#pray\ny  disss20s10slldbs20ssdg.sst$yhb,#monster\nKBBHK_>.>KJKK_>,>#tip\n\u001bbYBN"
+ },
+ "segments": [
+  {
+   "seed": 1010058,
+   "datetime": "20230724032359",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=fruit:kumquat\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\n",
+   "moves": "UH BUy   _ \u001b.>E- ad aerarium\nbLNJN_>.><YNJJ_>.>KJBH_>.>NU y  HY_>.>BNLL_>,>;<.Z\u001bBLYH_>,>Ly KBN_>,>BNKU_>,>\u000f\u001b#offer\nKHYY_>,>NBUL_>,>100s150s150s100s150s10sFkFks100sFks.50sbkyFl..100sFls.50s100s50s100skhj100s#name\nm\n\u000f_>,>nny100s100sFuFu.150sefknlhFuss100s150sFk20ss100s100s150si\u001bjubLJK U_>.>#turn\n#wipe\nUKJHy _>.>\u000f\u001b#sit\nJ ULH_>._.> BUBN_>.>KHUJ_>,>KKHJ_>.>\u0014#enhance\n\u001bHHKN_>,>#chat\nkdesssunylda.20sst\u001bt\u001bNBUB_>.>Pz<UJLY_>.>KLLL_>.>rj y hNNHB_>.>UNBN_>.>\u0004y#wipe\nNHYH_>.>f \u001b#rub\nYJKK_>,>\u000f\u001b,t\u001b<KHYL_>.>UNHK_>.>JBNL_>.>YN YY_>,>W\u000f\u001bNUNY_>,>Fj.20sf \u001b#twoweapon\nJHNB_>.>JJBB_>,>PegzHJNU_>.>LKNH_>,>HUNL_>.>UYYY_>,>UULJ_>.>dk20s20ss10s#name\nd\nt$yhht\u001b100si\u001b150s150sFh20ss100seg,lhjubjynj100s eh\u000f\u001b50skynyyn\\  _>.>100sei  150sehyhyoji\u001b\\  100s50sei  100sehjky100sef _>.>ljb150s100sFu.20s#chat\nylhlhlhllhh#name\nd\n#chat\nbllhl#name\na\nt\u001bW#conduct\n egLLJJ_>,>HYBU_>.>HJHB_>.>#twoweapon\n<#pray\ny  disss20s10slldbs20ssdg.sst$yhb,#monster\nKBBHK_>.>KJKK_>,>#tip\n\u001bbYBN"
+  }
+ ]
+}

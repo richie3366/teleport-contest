@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017Sunsword\nwi FkFk Fy#invoke\nikX\u0007soldier ant\n;k, \u001bm.sm..usm.\u0007green mold\n#chat\nhFy  Fy \u0007baluchitherium\nFh Fh  Fb    nFh   Fb  \u0007djinni\nsm.  n20s   .m.sm.  sj  yy\u001by   y y y\u001by  "
+ },
+ "segments": [
+  {
+   "seed": 1012017,
+   "datetime": "20110407012638",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017Sunsword\nwi FkFk Fy#invoke\nikX\u0007soldier ant\n;k, \u001bm.sm..usm.\u0007green mold\n#chat\nhFy  Fy \u0007baluchitherium\nFh Fh  Fb    nFh   Fb  \u0007djinni\nsm.  n20s   .m.sm.  sj  yy\u001by   y y y\u001by  "
+  }
+ ]
+}

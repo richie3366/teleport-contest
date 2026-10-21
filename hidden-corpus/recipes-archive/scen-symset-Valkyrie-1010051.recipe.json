@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b<.>FhFk_>.Fn_> FhFkFj\u0006_>.Fu_.Fj>FnFh\u001b_>,Fu_,Fb>FnFub _>.Fj_.Fl>FhFhFjFkFy\u0006_>>.Fn_>FnFlb _>>,Fk_.Fb>FbFy_>>,Fk_.Fu>FbFjFlFnFn\u0006_>>.Fj_,Fl>FnFj_>>.Fk_.Fb>FhFl_>>.Fl_.Fj>FbFh\u001bFnFlh Fy,\u0018\u001b\u0006_>.Fy_.Fy>FyFb_>.Fy_,Fuh >FlFh_>,Fl_.Fj>FkFyFbFlFn\u0006_>,Fb_,Fj>FnFb_>.Fn_>FuFu_>,Fl_.Fl>FkFnFyFjFn\u0006_>.Fy_.Fh\u001b>FkFl_>,Fu_,  nFl>FyFh\u001b_>,Fn_>FbFkl FbFbFued#chat\nj v\u001bi\u001bmO>>>s\u001b\n\u001619\nv\u001bi\u001bmO>>>u\u001b\nv\u001bi\u001b\u0007little dog\n\u0017newt corpse\ntbn \u0007tame little dog\n#name\nm\n\u0007kobold\n\u0017scroll of taming\nrg 20s20s#chat\nb #chat\nj \u00165\n  FbFnFhFyFyFyFub FkFhFhFkFkFhFkFjFyFlb FjFlFbFjFbFjFbFlj F"
+ },
+ "segments": [
+  {
+   "seed": 1010051,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"a potion\"=red\nBIND=v:inventory\n",
+   "moves": "\u0006_ \u001b<.>FhFk_>.Fn_> FhFkFj\u0006_>.Fu_.Fj>FnFh\u001b_>,Fu_,Fb>FnFub _>.Fj_.Fl>FhFhFjFkFy\u0006_>>.Fn_>FnFlb _>>,Fk_.Fb>FbFy_>>,Fk_.Fu>FbFjFlFnFn\u0006_>>.Fj_,Fl>FnFj_>>.Fk_.Fb>FhFl_>>.Fl_.Fj>FbFh\u001bFnFlh Fy,\u0018\u001b\u0006_>.Fy_.Fy>FyFb_>.Fy_,Fuh >FlFh_>,Fl_.Fj>FkFyFbFlFn\u0006_>,Fb_,Fj>FnFb_>.Fn_>FuFu_>,Fl_.Fl>FkFnFyFjFn\u0006_>.Fy_.Fh\u001b>FkFl_>,Fu_,  nFl>FyFh\u001b_>,Fn_>FbFkl FbFbFued#chat\nj v\u001bi\u001bmO>>>s\u001b\n\u001619\nv\u001bi\u001bmO>>>u\u001b\nv\u001bi\u001b\u0007little dog\n\u0017newt corpse\ntbn \u0007tame little dog\n#name\nm\n\u0007kobold\n\u0017scroll of taming\nrg 20s20s#chat\nb #chat\nj \u00165\n  FbFnFhFyFyFyFub FkFhFhFkFkFhFkFjFyFlb FjFlFbFjFbFjFbFlj F"
+  }
+ ]
+}

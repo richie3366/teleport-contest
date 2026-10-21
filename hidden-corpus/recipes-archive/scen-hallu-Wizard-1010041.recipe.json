@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPo\u0017blessed leash\n\u0017blessed ring of free action\nPqr\u0017blessed +3 speed boots\nWr  \u0017blessed 20 daggers\nQs#levelchange\n20\n                   #wizintrinsic\nh\n \u0017blessed spellbook of magic missile\nrt20sZa\n :tsyfhfn\u0017blessed scroll of enchant weapon\nru ;. \u001b<.E- Vlad was here\n#pray\ny y #wizintrinsic\nh\n\u0017potion of oil\nqvs20s\u0018\u001buljk\u0007dwarf\n\u0007grid bug\nFnFbFbFb\u0017wand of teleportation\nzwuzwjzwy_.hh\u0017spellbook of light\nrx .Zc\n  #turn\n:  #wizintrinsic\nh\n\u0016?\nn \u0017bullwhip\nwy20s20ss\u0007gremlin\nFhFhFh FhFh sb.m.\u0007floating eye\nFh FhFl  Flsm. sm.\u0007brown pudding\nFl   FhFl   FhFh Fh20s.m.#wizintrinsic\nh\n\u0017scroll of light\nrz\u0017tripe ration\neA\u0017blessed spellbook of sleep\nrBsm.Za\n:\u0017scroll of enchant weapon\nrC #wizintrinsic\nh\ntsltah fh#invoke\n\u001b;h;E- I am a fish\ntshfh\u0017blessed scroll of enchant weapon\nrD \u0017lizard corpse\neE  #wizintrinsic\nh\n\u0016?\n>E\u0004hs\u0016?\n>t _{.s.20s    i\u001bkjlh\u0017spellbook of light\nrF y  skZc\n      :\u0016?\n>G__.<\u0017potion of levitation\nqG   sm..m.  #wizintrinsic\nh\n\u0017spellbook of knock\nrH  .yZ"
+ },
+ "segments": [
+  {
+   "seed": 1010041,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPo\u0017blessed leash\n\u0017blessed ring of free action\nPqr\u0017blessed +3 speed boots\nWr  \u0017blessed 20 daggers\nQs#levelchange\n20\n                   #wizintrinsic\nh\n \u0017blessed spellbook of magic missile\nrt20sZa\n :tsyfhfn\u0017blessed scroll of enchant weapon\nru ;. \u001b<.E- Vlad was here\n#pray\ny y #wizintrinsic\nh\n\u0017potion of oil\nqvs20s\u0018\u001buljk\u0007dwarf\n\u0007grid bug\nFnFbFbFb\u0017wand of teleportation\nzwuzwjzwy_.hh\u0017spellbook of light\nrx .Zc\n  #turn\n:  #wizintrinsic\nh\n\u0016?\nn \u0017bullwhip\nwy20s20ss\u0007gremlin\nFhFhFh FhFh sb.m.\u0007floating eye\nFh FhFl  Flsm. sm.\u0007brown pudding\nFl   FhFl   FhFh Fh20s.m.#wizintrinsic\nh\n\u0017scroll of light\nrz\u0017tripe ration\neA\u0017blessed spellbook of sleep\nrBsm.Za\n:\u0017scroll of enchant weapon\nrC #wizintrinsic\nh\ntsltah fh#invoke\n\u001b;h;E- I am a fish\ntshfh\u0017blessed scroll of enchant weapon\nrD \u0017lizard corpse\neE  #wizintrinsic\nh\n\u0016?\n>E\u0004hs\u0016?\n>t _{.s.20s    i\u001bkjlh\u0017spellbook of light\nrF y  skZc\n      :\u0016?\n>G__.<\u0017potion of levitation\nqG   sm..m.  #wizintrinsic\nh\n\u0017spellbook of knock\nrH  .yZ"
+  }
+ ]
+}

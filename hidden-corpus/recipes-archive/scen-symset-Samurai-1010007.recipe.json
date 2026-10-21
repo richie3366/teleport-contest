@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0007little dog\n\u0017newt corpse\ntcn \u0007kobold\n20sku 20sm.syskk sm..lh 10s\u0007lichen\n\u0017scroll of taming\nrg y#chat\nh \u0006_ \u001b:>FhFl_>.Fy_,> FbFh\u001bFn\u0006_>>,>FuFj_>>,>FhFh_>>.>FyFbFuFkFyf   y K\u0006_>.Fn_>FnFb_>.Fb_.Fb>FbFb_>,Fb_.Fn>FbFnFnFnFb\u0006_>>.Fb_.Fb>FnFn_>>.Fb_,Fn>FbFb_>>.Fn_>FnFnFbFnFn\u0006_>,Fn_>FbFn_>,Fb_.Fb>FnFb_>.Fb_,Fuu >FnFnFuFnFub \u0006_>,Fb_,Fb>FnFn_>.Fb_,Fn>FbFb_>.Fl_,Fb>FnFlb FnFnFb\u0006_>.Fb_.Fn>FlFb_>.Fn_.Fn>FuFuFuh\u001bh\u001bh\u001by\u0017unaligned altar\ndcdf\u0017elf corpse\n #offer\nnh   nj\u0017moat\n#dip\nay  <#force\n<Oi\u001b\u001b\nOg\u001b\u001b\n\u00163\nFkFnFkk FhFhFlFjFhFlFhFnFbFjFuFuFjFuFkFyFyFuFuFkFyFnFyFkk FjFyFly FlFkFjFlFnFh\u001bFuFuFhFuFjFbFnFbFnFnFkj FbFkl FuFhFuFlFuFkFuFuFbFuk Fj"
+ },
+ "segments": [
+  {
+   "seed": 1010007,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nMENUCOLOR=\"a scroll\"=green\nBIND=v:inventory\n",
+   "moves": "\u0007little dog\n\u0017newt corpse\ntcn \u0007kobold\n20sku 20sm.syskk sm..lh 10s\u0007lichen\n\u0017scroll of taming\nrg y#chat\nh \u0006_ \u001b:>FhFl_>.Fy_,> FbFh\u001bFn\u0006_>>,>FuFj_>>,>FhFh_>>.>FyFbFuFkFyf   y K\u0006_>.Fn_>FnFb_>.Fb_.Fb>FbFb_>,Fb_.Fn>FbFnFnFnFb\u0006_>>.Fb_.Fb>FnFn_>>.Fb_,Fn>FbFb_>>.Fn_>FnFnFbFnFn\u0006_>,Fn_>FbFn_>,Fb_.Fb>FnFb_>.Fb_,Fuu >FnFnFuFnFub \u0006_>,Fb_,Fb>FnFn_>.Fb_,Fn>FbFb_>.Fl_,Fb>FnFlb FnFnFb\u0006_>.Fb_.Fn>FlFb_>.Fn_.Fn>FuFuFuh\u001bh\u001bh\u001by\u0017unaligned altar\ndcdf\u0017elf corpse\n #offer\nnh   nj\u0017moat\n#dip\nay  <#force\n<Oi\u001b\u001b\nOg\u001b\u001b\n\u00163\nFkFnFkk FhFhFlFjFhFlFhFnFbFjFuFuFjFuFkFyFyFuFuFkFyFnFyFkk FjFyFly FlFkFjFlFnFh\u001bFuFuFhFuFjFbFnFbFnFnFkj FbFkl FuFhFuFlFuFkFuFuFbFuk Fj"
+  }
+ ]
+}

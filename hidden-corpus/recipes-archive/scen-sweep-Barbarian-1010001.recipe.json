@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#polyself\npurple worm\n #monster\n.s\u0007yellow mold\nFhFk  s20s\u0007yellow mold\nFkFhs.#levelchange\n8\n       #wizintrinsic\nsr\n .s20ssssss..m.sm.sm.\u0017magic lamp\na#rub\n#dip\nei\u001b#ride\nlyou#force\n20s.m.sm.20s20ssu\u001621\n#levelchange\n30\n                      \u0016?\n>>\u001b\u0016?\n>v #jump\n#invoke\n\u001bE20s  20s\u0016?\n>E,10s,\u0006ss\u0016?\nb10s,\\   \u0006ss\u0016?\n>>N       scroll of earth\nJ#turn\n20s     sm.   20s    #levelchange\n12\n      \u0017blessed ring of polymorph control\nPhr    n     \u0017kicking boots\nWi     n   20s      n   20s       n    sm.     n    #polyself\nhomunculus\n #monster\n.m.       20s     n   sm.       .bsk  n #polyself\nchameleon\n jellyfish\n #monster\n.m.             n sm.      sk     n 20s   sk  n    #polyself\nair elemental\n#monster\n. .\u0007wraith\nFb FjFbs  su.m.#polyself\nenergy vortex\n#monster\n20s  \u001b     n sj \u001b \u0007mail daemon\nFj   n Fb Fj  .lsj.m.  n    \u00168\n\u0007barrow wight\nFj   n Fb \u0007umber hulk\n;j. \u001bm,sn20s    n  sm.   \u0007dwarf lord\nFb   yy\u001by  y y y  y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 1010001,
+   "datetime": "20040116145131",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=playmode:debug\n",
+   "moves": "#polyself\npurple worm\n #monster\n.s\u0007yellow mold\nFhFk  s20s\u0007yellow mold\nFkFhs.#levelchange\n8\n       #wizintrinsic\nsr\n .s20ssssss..m.sm.sm.\u0017magic lamp\na#rub\n#dip\nei\u001b#ride\nlyou#force\n20s.m.sm.20s20ssu\u001621\n#levelchange\n30\n                      \u0016?\n>>\u001b\u0016?\n>v #jump\n#invoke\n\u001bE20s  20s\u0016?\n>E,10s,\u0006ss\u0016?\nb10s,\\   \u0006ss\u0016?\n>>N       scroll of earth\nJ#turn\n20s     sm.   20s    #levelchange\n12\n      \u0017blessed ring of polymorph control\nPhr    n     \u0017kicking boots\nWi     n   20s      n   20s       n    sm.     n    #polyself\nhomunculus\n #monster\n.m.       20s     n   sm.       .bsk  n #polyself\nchameleon\n jellyfish\n #monster\n.m.             n sm.      sk     n 20s   sk  n    #polyself\nair elemental\n#monster\n. .\u0007wraith\nFb FjFbs  su.m.#polyself\nenergy vortex\n#monster\n20s  \u001b     n sj \u001b \u0007mail daemon\nFj   n Fb Fj  .lsj.m.  n    \u00168\n\u0007barrow wight\nFj   n Fb \u0007umber hulk\n;j. \u001bm,sn20s    n  sm.   \u0007dwarf lord\nFb   yy\u001by  y y y  y\u001b  F"
+  }
+ ]
+}

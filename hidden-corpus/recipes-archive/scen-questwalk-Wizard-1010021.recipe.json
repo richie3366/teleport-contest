@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed +3 speed boots\nWo\u0016?\n>z _ \u001bm.>\u0006_mmmmm,.sFk s\u00163\n\u0006jk kkkj\u00164\n\u0006_m,Fk _.Fl  Fl Fu  \u00165\n \u0006_m,Fy    _.FkFk  Fu   n    Fk    FjFk  \u00166\n\u0006_m.Fy  _.Fk    n  Fh    Fy  _>,>\u0006,\u00163\n\u0006,\u00164\n\u0006,_>. Fb    _,  Fb   n  >\u0006,_>. Fy_,   Fb    >\u0006#chat\nl    n;y,\u00162\n\u0006_mmmmm.Fk FlFy Fy \u00163\n \u0006#chat\nj;b:  \u00164\n\u0006_mmmmm,   Fk _,Fk Fh FkFyFy\u0016?\n>>\u001b\u0016?\n>y  #chat\nn\u0016?\n>z\u00165\n\u0016?\n>z\u0006#chat\nb;<.\u00166\n\u0016?\n>z\u0006_m..s.s_>.Fl_.   Fn   n    >\u0016?\n>z\u0006_mm.  Fn  _.Fl  Fl Fl   \u0016?\n>>\u001b\u0016?\n>y#chat\nu  \u0016?\n>z_>,  n Fl  _.Fn  >\u0016?\n>z\u0006_>.Fl _,,   Fj \u00164\n\u0016?\n>z\u0006_mmmmm,Fu _.  Fu   n   Fu   Fh   "
+ },
+ "segments": [
+  {
+   "seed": 1010021,
+   "datetime": "20201214061741",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed +3 speed boots\nWo\u0016?\n>z _ \u001bm.>\u0006_mmmmm,.sFk s\u00163\n\u0006jk kkkj\u00164\n\u0006_m,Fk _.Fl  Fl Fu  \u00165\n \u0006_m,Fy    _.FkFk  Fu   n    Fk    FjFk  \u00166\n\u0006_m.Fy  _.Fk    n  Fh    Fy  _>,>\u0006,\u00163\n\u0006,\u00164\n\u0006,_>. Fb    _,  Fb   n  >\u0006,_>. Fy_,   Fb    >\u0006#chat\nl    n;y,\u00162\n\u0006_mmmmm.Fk FlFy Fy \u00163\n \u0006#chat\nj;b:  \u00164\n\u0006_mmmmm,   Fk _,Fk Fh FkFyFy\u0016?\n>>\u001b\u0016?\n>y  #chat\nn\u0016?\n>z\u00165\n\u0016?\n>z\u0006#chat\nb;<.\u00166\n\u0016?\n>z\u0006_m..s.s_>.Fl_.   Fn   n    >\u0016?\n>z\u0006_mm.  Fn  _.Fl  Fl Fl   \u0016?\n>>\u001b\u0016?\n>y#chat\nu  \u0016?\n>z_>,  n Fl  _.Fn  >\u0016?\n>z\u0006_>.Fl _,,   Fj \u00164\n\u0016?\n>z\u0006_mmmmm,Fu _.  Fu   n   Fu   Fh   "
+  }
+ ]
+}

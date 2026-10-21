@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b:>FjFj_>.     _.> d$K\u0006_>._.>_>.Fh_.Fh>_>._,>\u0006_>._.> FhFhFh  yy\u001by  y y y\u001by  \u0006"
+ },
+ "segments": [
+  {
+   "seed": 1011027,
+   "datetime": "20220827012349",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0006_ \u001b:>FjFj_>.     _.> d$K\u0006_>._.>_>.Fh_.Fh>_>._,>\u0006_>._.> FhFhFh  yy\u001by  y y y\u001by  \u0006"
+  }
+ ]
+}

@@ -1,10 +1,10 @@
 {
- "commit": "4a4da3074",
- "at": "2026-10-21T16:09:50.158Z",
+ "commit": "a6f85db3a",
+ "at": "2026-10-21T17:33:04.980Z",
  "full": false,
  "fullCommit": "1b2b2c8e3",
  "fullAt": "2026-10-21T14:05:06.214Z",
- "entries": 710,
+ "entries": 712,
  "reserve": 0,
  "unrecorded": 0,
  "sessions": {
@@ -3457,6 +3457,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-options-Wizard-1011011": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 2813,
+   "rngT": 2813,
+   "scrM": 222,
+   "scrT": 226,
+   "kind": "screen",
+   "step": 146,
+   "steps": 226,
+   "owner": "doterrain",
+   "loc": "cmd.c:1152",
+   "jsOwner": null,
+   "cTopline": "View which?",
+   "jsTopline": "View which?",
    "error": null
   },
   "scen-options-Wizard-50162010": {
@@ -9103,6 +9120,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-tour-Priest-1012026": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 20691,
+   "rngT": 21187,
+   "scrM": 153,
+   "scrT": 168,
+   "kind": "rng",
+   "step": 151,
+   "steps": 168,
+   "owner": "next_ident",
+   "loc": "mkobj.c:521",
+   "jsOwner": "flip_level_rnd(mklev.js:19780)",
+   "cTopline": "You materialize on a different level!",
+   "jsTopline": "You materialize on a different level!",
+   "error": null
+  },
   "scen-tour-Priest-92235": {
    "src": "corpus",
    "passed": true,
@@ -12078,5 +12112,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-21T17:33:05.054Z"
 }
