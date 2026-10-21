@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u00173 scroll of blank paper\n\u0007frost giant\nriFj Fh  yy\u001by   y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 52652023,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u00173 scroll of blank paper\n\u0007frost giant\nriFj Fh  yy\u001by   y y\u001by  \u0017"
+  }
+ ]
+}

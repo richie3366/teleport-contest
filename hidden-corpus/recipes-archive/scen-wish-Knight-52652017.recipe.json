@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of lightning\n\u0007small mimic\nzi.  nzij  yy\u001by  ny\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 52652017,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of lightning\n\u0007small mimic\nzi.  nzij  yy\u001by  ny\u001by  \u0017"
+  }
+ ]
+}

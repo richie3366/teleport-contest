@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPer\u0017cloak of magic resistance\nWfss.hT#polyself\nvampire bat\n  20ss\u0007water demon\nFjFj Fjsm..jsm.#polyself\ntengu\n#monster\nsksm.\u0007Uruk-hai\nFj  Fk  Fj sm. .m.  yy\u001bnny ny  ."
+ },
+ "segments": [
+  {
+   "seed": 52652003,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of polymorph control\nPer\u0017cloak of magic resistance\nWfss.hT#polyself\nvampire bat\n  20ss\u0007water demon\nFjFj Fjsm..jsm.#polyself\ntengu\n#monster\nsksm.\u0007Uruk-hai\nFj  Fk  Fj sm. .m.  yy\u001bnny ny  ."
+  }
+ ]
+}

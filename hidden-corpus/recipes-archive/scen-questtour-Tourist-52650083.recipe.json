@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b,#chat\ny_mmmm.     Fn_.#chat\nn_mmm,Fl_.#chat\nn_mmmm,#chat\nb_mm.#chat\nk#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm,Fn _,Fl  #chat\nl_mmmmm.#chat\nl\u0017blessed +3 speed boots\nWo \u0017blessed amulet of life saving\nPp\u0017blessed +3 helm of telepathy\nWq\u0017wand of lightning\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm. Fk      _.FlFl  Fu  n Fl  Fl Fl Fl ,  n \u00167\n\u0016?\n>A\u0006_mm.     Fl   _,FyFl      nFl  Fh Fh   Fy     n  Fy   zru  ,     \u001612\n\u0016?\n>A\u0006_mmmm.  n     Fy   _,Fb   Fy   Fb  n  Fl     Fu   zrk,    n #chat\nh\u00168\n\u0016?\n>z\u0006_mmmmmmm.   Fl   _,   FuFl   n   Fh    Fl    n Fu    Fl  Fy    Fk   n  ,\u0016?\n>>\u001b\u0016?\n>y_mmm.     Fb_.#chat\ny   n       \u00169\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.      n    Fl      n   _,Fh       Fy     n   Fk    Fb     nFh     ,\u0016?\n>A\u0006_mm.   Fk     yy\u001by  y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 52650083,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b,#chat\ny_mmmm.     Fn_.#chat\nn_mmm,Fl_.#chat\nn_mmmm,#chat\nb_mm.#chat\nk#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm,Fn _,Fl  #chat\nl_mmmmm.#chat\nl\u0017blessed +3 speed boots\nWo \u0017blessed amulet of life saving\nPp\u0017blessed +3 helm of telepathy\nWq\u0017wand of lightning\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm. Fk      _.FlFl  Fu  n Fl  Fl Fl Fl ,  n \u00167\n\u0016?\n>A\u0006_mm.     Fl   _,FyFl      nFl  Fh Fh   Fy     n  Fy   zru  ,     \u001612\n\u0016?\n>A\u0006_mmmm.  n     Fy   _,Fb   Fy   Fb  n  Fl     Fu   zrk,    n #chat\nh\u00168\n\u0016?\n>z\u0006_mmmmmmm.   Fl   _,   FuFl   n   Fh    Fl    n Fu    Fl  Fy    Fk   n  ,\u0016?\n>>\u001b\u0016?\n>y_mmm.     Fb_.#chat\ny   n       \u00169\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.      n    Fl      n   _,Fh       Fy     n   Fk    Fb     nFh     ,\u0016?\n>A\u0006_mm.   Fk     yy\u001by  y y y\u001b  _"
+  }
+ ]
+}

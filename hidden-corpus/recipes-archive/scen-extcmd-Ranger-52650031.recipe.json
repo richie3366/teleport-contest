@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed amulet of life saving\nPg\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007giant rat\n_ \u001bm, #overview\n\u001b#conduct\n #annotate\nFido\n\u0018\u001b#dip\nij \u001b#offer\n#pray\ny y #chat\nk#levelchange\n16\n   Fk .s_{.q#vanquished\n #genocided\nbaby purple worm\nk \u001b#annotate\n\u001bi\u001b#name\ni\n#adjust\nb\u001b#chat\nn#turn\n#jump\n#levelchange\n16\nnhb\u000f\u001b__,#chat\ny\u0007bugbear\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n#levelchange\n25\n        unl#name\no\n_ooo.Fj_.>., #version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\nj#chat\nh#levelchange\n15\n   hl h#twoweapon\n_<,_,#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n#levelchange\n25\n         ujk#turn\n__.#chat\ny#vanquished\n #genocided\nincubus\n#annotate\n\u001bi\u001b#dip\nd#offer\n"
+ },
+ "segments": [
+  {
+   "seed": 52650031,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed amulet of life saving\nPg\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007giant rat\n_ \u001bm, #overview\n\u001b#conduct\n #annotate\nFido\n\u0018\u001b#dip\nij \u001b#offer\n#pray\ny y #chat\nk#levelchange\n16\n   Fk .s_{.q#vanquished\n #genocided\nbaby purple worm\nk \u001b#annotate\n\u001bi\u001b#name\ni\n#adjust\nb\u001b#chat\nn#turn\n#jump\n#levelchange\n16\nnhb\u000f\u001b__,#chat\ny\u0007bugbear\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n#levelchange\n25\n        unl#name\no\n_ooo.Fj_.>., #version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\nj#chat\nh#levelchange\n15\n   hl h#twoweapon\n_<,_,#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n#levelchange\n25\n         ujk#turn\n__.#chat\ny#vanquished\n #genocided\nincubus\n#annotate\n\u001bi\u001b#dip\nd#offer\n"
+  }
+ ]
+}

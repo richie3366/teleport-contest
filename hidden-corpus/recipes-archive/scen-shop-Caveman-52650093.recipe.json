@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b:,p__.   Fn_,>.Fb#chat\nb\u0016?\nchul\u0016?\n>w\u0006__.    Fh _.#chat\nh _oooo.,:_oooooo,,\u0014m,20s     ._ooooooooo.,$__, _.#chat\njyyk#chat\nj_oo.     Fu _.,\u001bplyu#chat\nj__.Fj_.#chat\nh#pray\ny y _oooooo.Fk  _.,   p\u001b_oo.Fy  n _.,     n    np\u001b\u001610\n    __.#chat\nj   n__,#chat\nj   n _{.q_ooo,,$_ooooooo.,\u0017worthless piece of red glass\ndj  n   n   n\u00166\n_{.q_ooooooooo._oo.,:_oo.,$\u0016?\nch  n yu  n   n   n \u0016?\n>w\u0006\u00163\nFh  n Fh  n Fh  n   y y\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 52650093,
+   "datetime": "20040216135350",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=sortloot:none\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b:,p__.   Fn_,>.Fb#chat\nb\u0016?\nchul\u0016?\n>w\u0006__.    Fh _.#chat\nh _oooo.,:_oooooo,,\u0014m,20s     ._ooooooooo.,$__, _.#chat\njyyk#chat\nj_oo.     Fu _.,\u001bplyu#chat\nj__.Fj_.#chat\nh#pray\ny y _oooooo.Fk  _.,   p\u001b_oo.Fy  n _.,     n    np\u001b\u001610\n    __.#chat\nj   n__,#chat\nj   n _{.q_ooo,,$_ooooooo.,\u0017worthless piece of red glass\ndj  n   n   n\u00166\n_{.q_ooooooooo._oo.,:_oo.,$\u0016?\nch  n yu  n   n   n \u0016?\n>w\u0006\u00163\nFh  n Fh  n Fh  n   y y\u001by  y y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " t$k20s20sklt\u001b10s   20s20st\u001bhlnbddsssSy\u001b  yy\u0018\u001b>f \u001bf \u001bW#conduct\n _m. \u001b:.#wipe\nZc\nk#levelchange\nuyyy\u0017jks20sjn\u0017kjss#turn\n#tip\n\u001b\u0004j",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 52651025,
+   "datetime": "20071106145621",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:explore\n",
+   "moves": " t$k20s20sklt\u001b10s   20s20st\u001bhlnbddsssSy\u001b"
+  },
+  {
+   "seed": 53151025,
+   "datetime": "20241020145228",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:explore\n",
+   "moves": "  yy\u0018\u001b>f \u001bf \u001bW#conduct\n _m. \u001b:.#wipe\nZc\nk#levelchange\nuyyy\u0017jks20sjn\u0017kjss#turn\n#tip\n\u001b\u0004j"
+  }
+ ]
+}

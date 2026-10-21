@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#chat\nuPj#terrain\nc\n\u001bm.P,,n#conduct\n W#terrain\nc\nm.#sit\n\u001bz#untrap\nhb#sit\n\u001bqdP#offer\n#twoweapon\n"
+ },
+ "segments": [
+  {
+   "seed": 52652019,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": "#chat\nuPj#terrain\nc\n\u001bm.P,,n#conduct\n W#terrain\nc\nm.#sit\n\u001bz#untrap\nhb#sit\n\u001bqdP#offer\n#twoweapon\n"
+  }
+ ]
+}

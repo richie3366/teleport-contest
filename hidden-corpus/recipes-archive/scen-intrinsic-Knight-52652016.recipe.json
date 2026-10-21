@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             #wizintrinsic\nf\n 20ssj 20s 20s20s.20s.ss\u0017potion of gain ability\nqitblr\u001b,:,,20s   .sss."
+ },
+ "segments": [
+  {
+   "seed": 52652016,
+   "datetime": "20100216062104",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             #wizintrinsic\nf\n 20ssj 20s 20s20s.20s.ss\u0017potion of gain ability\nqitblr\u001b,:,,20s   .sss."
+  }
+ ]
+}

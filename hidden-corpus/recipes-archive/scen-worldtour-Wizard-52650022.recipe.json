@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPo\u0017blessed ring of free action\nPpr\u0016?\nlnu:s20s \u00164\nyyhlnuh:.ss\u0016?\n>>N       potion of extra healing\n#chat\nb;b; \u001b,\u0016?\nel   \u001b  h     n j        n h :\u001610\n\u001630\njhky:\u001616\nn    n   khjl      n    u    :20s  n   sj\u00166\n\u00164\n_>.<\u001616\n#levelchange\n20\n      ku   hl   n     \u0017arrow trap\nj\u0017trap door\nk\u0017magic trap\nu   n   \u0017polymorph trap\n#terrain\nb\noq #terrain\nb\n\u0016 \u0016?\na  _<,.m. .n  n  \u00165\ny    n       l:20s  s s   n \u00165\n\u001636\n__,s.\u00164\n_<.\u001636\n__.<sn   s s   n     \u00164\nlnj l: \u0016?\nd_<.\u001640\n#chat\nn;n,\u0016?\n\u001bu  b   \u001631\nkj  n j   j   j       n j : 20s   s s   n \u00164\n\u0016?\n\u001bn   k\u0016?\ne__.<\u001616\n\u0014@.     \u0016?\ne_>,\u00164\n\u0014@.   n      \u001637\n#levelchange\n6\n     \u0007green mold\nFb   yy\u001by   y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 52650022,
+   "datetime": "20130124065142",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPo\u0017blessed ring of free action\nPpr\u0016?\nlnu:s20s \u00164\nyyhlnuh:.ss\u0016?\n>>N       potion of extra healing\n#chat\nb;b; \u001b,\u0016?\nel   \u001b  h     n j        n h :\u001610\n\u001630\njhky:\u001616\nn    n   khjl      n    u    :20s  n   sj\u00166\n\u00164\n_>.<\u001616\n#levelchange\n20\n      ku   hl   n     \u0017arrow trap\nj\u0017trap door\nk\u0017magic trap\nu   n   \u0017polymorph trap\n#terrain\nb\noq #terrain\nb\n\u0016 \u0016?\na  _<,.m. .n  n  \u00165\ny    n       l:20s  s s   n \u00165\n\u001636\n__,s.\u00164\n_<.\u001636\n__.<sn   s s   n     \u00164\nlnj l: \u0016?\nd_<.\u001640\n#chat\nn;n,\u0016?\n\u001bu  b   \u001631\nkj  n j   j   j       n j : 20s   s s   n \u00164\n\u0016?\n\u001bn   k\u0016?\ne__.<\u001616\n\u0014@.     \u0016?\ne_>,\u00164\n\u0014@.   n      \u001637\n#levelchange\n6\n     \u0007green mold\nFb   yy\u001by   y y\u001b  F"
+  }
+ ]
+}

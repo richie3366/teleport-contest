@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " mO>>>s\u001b\nOg\u001b\u001b\n\u0007tame wolf\n\u0007tame wolf\n\u0007sewer rat\n\u0017scroll of taming\nri dhsss#name\nd\n\u0017leash\najbhjbjajk\u0017leash\nakuyujhakl  mO>u\u001b\nFj  Fj FkFb FhFhFk  FjFu FnFlFyFjFjFjFhFyFhFbFbFjFhFlFhFkFlFlFuFbFn FhFnFjFbFhFnFhFuFbFnFbFbFbFbFjFnFjFjFbFhFuFnFuFlFlFbFkFyFhFlFhFyFkFhFyFbFbFkFjFuFhFkFjFjFj FhFkFkFb FnFhFuFnFbFuFbFbFhFbFbFhFjFb FlFnFyFlFnFuFhFlFkFbFhFlFjFkFkFh Fn FuFkFuFyFhFkFnFlFyFj\u0006_ \u001b:>FlFn_>,Fu_,> FhFkFb#loot\nji\u001b\u0006_>,Fy_. Fy>FbFy_>,Fh_.Fb>FyFb_>.Fl_.Fl>FyFyFlFhFk\u0006_>.Fb_.Fb>FkFb_>,Fl_.Fk>FkFu_>.Fy_.Fy>FhFkFyFbFh\u0006_>.Fb_.Fh >FhFu_>.Fh_.Fu>FhFu_>.Fh_.Fu>FuFhFhFhFu#dip\nji\u001b\u0006_>>.Fh_,Fb>FhFy_>>.Fh_,Fl>FuFh_>>.Fl_.Fy>FuFuFbFyFb\u0006_>,Fl_,Fb>FbFu_>.Fu_,Fh>FbFh_>,Fl_.Fb>FuFhFuFlFb#twoweapon\n#tip\n\u001b\u0006_>>. Fb_,Fb>FlFh_>>.Fy_,Fu>FhFb_>>. Fk_,Fk>FhFyFlFb"
+ },
+ "segments": [
+  {
+   "seed": 52650029,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You see\"\nBIND=v:inventory\n",
+   "moves": " mO>>>s\u001b\nOg\u001b\u001b\n\u0007tame wolf\n\u0007tame wolf\n\u0007sewer rat\n\u0017scroll of taming\nri dhsss#name\nd\n\u0017leash\najbhjbjajk\u0017leash\nakuyujhakl  mO>u\u001b\nFj  Fj FkFb FhFhFk  FjFu FnFlFyFjFjFjFhFyFhFbFbFjFhFlFhFkFlFlFuFbFn FhFnFjFbFhFnFhFuFbFnFbFbFbFbFjFnFjFjFbFhFuFnFuFlFlFbFkFyFhFlFhFyFkFhFyFbFbFkFjFuFhFkFjFjFj FhFkFkFb FnFhFuFnFbFuFbFbFhFbFbFhFjFb FlFnFyFlFnFuFhFlFkFbFhFlFjFkFkFh Fn FuFkFuFyFhFkFnFlFyFj\u0006_ \u001b:>FlFn_>,Fu_,> FhFkFb#loot\nji\u001b\u0006_>,Fy_. Fy>FbFy_>,Fh_.Fb>FyFb_>.Fl_.Fl>FyFyFlFhFk\u0006_>.Fb_.Fb>FkFb_>,Fl_.Fk>FkFu_>.Fy_.Fy>FhFkFyFbFh\u0006_>.Fb_.Fh >FhFu_>.Fh_.Fu>FhFu_>.Fh_.Fu>FuFhFhFhFu#dip\nji\u001b\u0006_>>.Fh_,Fb>FhFy_>>.Fh_,Fl>FuFh_>>.Fl_.Fy>FuFuFbFyFb\u0006_>,Fl_,Fb>FbFu_>.Fu_,Fh>FbFh_>,Fl_.Fb>FuFhFuFlFb#twoweapon\n#tip\n\u001b\u0006_>>. Fb_,Fb>FlFh_>>.Fy_,Fu>FhFb_>>. Fk_,Fk>FhFyFlFb"
+  }
+ ]
+}

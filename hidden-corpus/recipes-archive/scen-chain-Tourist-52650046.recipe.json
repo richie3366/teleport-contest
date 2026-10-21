@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #chat\nyy20s  t$l20s     #name\nm\n m,foo\nFlFlFlFlFlFlFlFlnlbkFlFlFlFlFlFlFlFlFhFh  y\u001by  y y\u001b  F\u0017wand of digging\nze> .ze> 20sze> 20sze> .ze> sze> 20sFhFhFj ss20s.s20ss #wizintrinsic\nb\n sm.s.m.sm.sss.nsm.20s.h.sm..m.syss.m.  yy\u001by  nnn  s hn y n Fh  FhFhFhFhFhFhFhnjt$jt\u001bhhkujujbhknuFhFhFhFhFhFhFhFhdgs20s shdisss#chat\nj#name\no\njFhFh FhFhFhFhFhFh #name\ni\nt\u001b#name\nm\n @.yklde20s ..t\u001b#name\ni\nFhFhFhFh FhFhFh FhyjjFlFjFlFn.20s 100s               FlFnFuFu   Fu.lubFu FkFlFlFls50s100sFkFks100s150s 100sFkFkFk>100shnyljkukk100sFkFkFkcj150sFkFksK100s 100s  L100sFj FjFj#dip\nhf#pray\ny  oj50seluhh50s150snukjkhlj#name\nm\nln#name\nm.uj10sda.ss20sdds..lkt\u001bt\u001bnynyjkjlyjlyjl#name\nm\n.#name\nm\n,t\u001bynhlhk#chat\nuNKBU_>,>KJH U_>.><KJLB_>,>_m.srj y YHHK_>.>#conduct\n qfBUJY_>.>\u000f\u001bBL UN_>.>UKNU_>.>JBJH _>,>BUUH_>.>\u000f\u001bjk#chat\ny#chat\nkt\u001b#name\nm\n,t\u001b#name\nm\nm,dksss#name\nm\n<.lb10st\u001blknyjh#chat\nb#name\nm\nm,10s lkjhi\u001b#pray\ny  lkn50s\u000f\u001b150sFn Fns100sFnFnFnFnFns100sFnFnFnFnFn20s150sulj150s  klb100sFbFbFbunl\\ 150sacuyjlFhFhshly_>.>50s\u0018\u001b10s_>,>50s nhyFbFbs100s  nkn100syhl150s100sjkjkFbFbFbFbFb  y\u001by  y y y\u001b  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 52650046,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showrace\n",
+   "moves": " #chat\nyy20s  t$l20s     #name\nm\n m,foo\nFlFlFlFlFlFlFlFlnlbkFlFlFlFlFlFlFlFlFhFh  y\u001by  y y\u001b  F"
+  },
+  {
+   "seed": 52750046,
+   "datetime": "20011021154811",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\nze> .ze> 20sze> 20sze> .ze> sze> 20sFhFhFj ss20s.s20ss"
+  },
+  {
+   "seed": 52850046,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nb\n sm.s.m.sm.sss.nsm.20s.h.sm..m.syss.m.  yy\u001by  nnn  s"
+  },
+  {
+   "seed": 52950046,
+   "datetime": "20240224014327",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=runmode:run\n",
+   "moves": " hn y n Fh  FhFhFhFhFhFhFhnjt$jt\u001bhhkujujbhknuFhFhFhFhFhFhFhFhdgs20s shdisss#chat\nj#name\no\njFhFh FhFhFhFhFhFh #name\ni\nt\u001b#name\nm\n @.yklde20s ..t\u001b#name\ni\nFhFhFhFh FhFhFh FhyjjFlFjFlFn.20s 100s               FlFnFuFu   Fu.lubFu FkFlFlFls50s100sFkFks100s150s 100sFkFkFk>100shnyljkukk100sFkFkFkcj150sFkFksK100s 100s  L100sFj FjFj#dip\nhf#pray\ny  oj50seluhh50s150snukjkhlj#name\nm\nln#name\nm.uj10sda.ss20sdds..lkt\u001bt\u001bnynyjkjlyjlyjl#name\nm\n.#name\nm\n,t\u001bynhlhk#chat\nuNKBU_>,>KJH U_>.><KJLB_>,>_m.srj y YHHK_>.>#conduct\n qfBUJY_>.>\u000f\u001bBL UN_>.>UKNU_>.>JBJH _>,>BUUH_>.>\u000f\u001bjk#chat\ny#chat\nkt\u001b#name\nm\n,t\u001b#name\nm\nm,dksss#name\nm\n<.lb10st\u001blknyjh#chat\nb#name\nm\nm,10s lkjhi\u001b#pray\ny  lkn50s\u000f\u001b150sFn Fns100sFnFnFnFnFns100sFnFnFnFnFn20s150sulj150s  klb100sFbFbFbunl\\ 150sacuyjlFhFhshly_>.>50s\u0018\u001b10s_>,>50s nhyFbFbs100s  nkn100syhl150s100sjkjkFbFbFbFbFb  y\u001by  y y y\u001b  F"
+  }
+ ]
+}

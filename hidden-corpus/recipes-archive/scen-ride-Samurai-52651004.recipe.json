@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0007tame little dog\n\u0017saddle\nafj\u0017lance\nwg#ride\nly\u0007warhorse\n\u0017scroll of taming\nrh  \u001b  \u0017saddle\naij #ride\nny\u0007warhorse\n\u0017scroll of taming\nrj \u0017saddle\nakn #ride\njy,\u0006_ \u001b,>Fl Fj  _>>, Fy _.Fy >Fy   Fy_>>.Fk_. Sy\u001b y >i\u001b#pray\ny y  nu#name\n\u001b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 52651004,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0007tame little dog\n\u0017saddle\nafj\u0017lance\nwg#ride\nly\u0007warhorse\n\u0017scroll of taming\nrh  \u001b  \u0017saddle\naij #ride\nny\u0007warhorse\n\u0017scroll of taming\nrj \u0017saddle\nakn #ride\njy,\u0006_ \u001b,>Fl Fj  _>>, Fy _.Fy >Fy   Fy_>>.Fk_. Sy\u001b"
+  },
+  {
+   "seed": 53151004,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " y >i\u001b#pray\ny y  nu#name\n\u001b"
+  }
+ ]
+}

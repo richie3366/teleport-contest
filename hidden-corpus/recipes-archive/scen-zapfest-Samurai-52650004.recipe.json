@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of life saving\nPg\u0017blessed +3 speed boots\nWh #levelchange\n20\n                   \u0017wand of teleportation\n\u0017wand of digging\n\u0007jackal\n\u0007hill orc\nzihzj>  ziyzj>  zj> sm.zibzj> s\u0007kobold shaman\n\u0007aligned cleric\ny\u0017wand of sleep\nzkh .m.  sm.zkh   zkl zkh.zkl      zkh\u0018\u001b\u0017crossbow\nwl\u001715 crossbow bolts\nQm\u0007grid bug\nflfltmlfhfhfl\u0017potion of acid\ntcl\u0017spellbook of force bolt\nro              20s  \u0017spellbook of knock\nrp   s\u0007master lich\n\u0007gnomish wizard\nZs .ZZZZZs   n .Z.20s   Z20s    n sZ\u0018\u001b\u00163\n \u0007succubus\n\u0007orc shaman\n\u0007mind flayer\n\u0017wand of fire\nzqk.    20s    .s   n   zqh  n  s    n \u00162\n\u0007black dragon\n\u0007baby red dragon\n.20s      s s#polyself\nsilver dragon\n    #monster\nj  . s#monster\nn #monster\ny#monster\nj   \u0017wand of cold\naFn Fyi\u001b\u0017wand of polymorph\n\u0017wand of cold\n\u0007hill orc\n\u0007kobold\nzzzzzzzzsz\u0017wand of lightning\n\u0017wand of polymorph\n\u0017wand of cancellation\n\u0007gnome lord\nzzzzzzzz20sz\u0017spellbook of light\nrxs\u0007vampire\nZZZs 20s  ZZZ"
+ },
+ "segments": [
+  {
+   "seed": 52650004,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of life saving\nPg\u0017blessed +3 speed boots\nWh #levelchange\n20\n                   \u0017wand of teleportation\n\u0017wand of digging\n\u0007jackal\n\u0007hill orc\nzihzj>  ziyzj>  zj> sm.zibzj> s\u0007kobold shaman\n\u0007aligned cleric\ny\u0017wand of sleep\nzkh .m.  sm.zkh   zkl zkh.zkl      zkh\u0018\u001b\u0017crossbow\nwl\u001715 crossbow bolts\nQm\u0007grid bug\nflfltmlfhfhfl\u0017potion of acid\ntcl\u0017spellbook of force bolt\nro              20s  \u0017spellbook of knock\nrp   s\u0007master lich\n\u0007gnomish wizard\nZs .ZZZZZs   n .Z.20s   Z20s    n sZ\u0018\u001b\u00163\n \u0007succubus\n\u0007orc shaman\n\u0007mind flayer\n\u0017wand of fire\nzqk.    20s    .s   n   zqh  n  s    n \u00162\n\u0007black dragon\n\u0007baby red dragon\n.20s      s s#polyself\nsilver dragon\n    #monster\nj  . s#monster\nn #monster\ny#monster\nj   \u0017wand of cold\naFn Fyi\u001b\u0017wand of polymorph\n\u0017wand of cold\n\u0007hill orc\n\u0007kobold\nzzzzzzzzsz\u0017wand of lightning\n\u0017wand of polymorph\n\u0017wand of cancellation\n\u0007gnome lord\nzzzzzzzz20sz\u0017spellbook of light\nrxs\u0007vampire\nZZZs 20s  ZZZ"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " O>>>>d\u001b\nv\u001bi\u001bv\u001bi\u001b\u001620\nv\u001bi\u001bmO>c\u001b\nO>>>o8\n \u001b\n\u001616\n_>. \u001b>.sy#twoweapon\n#rub\nO>>i\u001b\u001b\n\\  #invoke\n\u001bnjbj\u0017altar\ndldc\u0017jackal corpse\n#offer\no yh\u0017cloud\ny\u0017pool\nny :<#jump\n#invoke\n\u001b#chat\nki\u001bqft\u001bOp\u001b\nmO>>c\u001b\nFyFhFyFjFuFlFbFhFhFjFlFjFbFbFjFl FhFjFyFbFlFuFbFnFbFhFlFbFyFyFyFnFlFuFbFyFyFuFbFbFhFjFlFyFbFlFhFhFjFnFhFyFlFbFyFbFyFuFuFjFlFjFnFuFjFyFnFuFhFnFbFbFlFlFlFnFyFbFhFlFjFlFhFjFjFhFyFjFhFjFhFyFyFnFjFnFlFjFuFyFjFbFjFhFuFjFuFbFbFlFbFhFlFyFnFbFhFnFbFl#dip\na#ride\n#conduct\njkh\u0017melting ice\nlhlhlh\u0017lawful altar\nde\u0017human corpse\n : rk #conduct\n #tip\n\u001bv\u001bi\u001b\u0006_>,Fl_,<.Fu>FbFl_>.Fk_,;.Fn>FlFy_>.Fn_.@.Fn>FlFbFkFkFlz#ride\njy<\u0006_>.Fy_,<.Fb>FyFu_>.Fk_.<.Fn>FlFu_>,Fn_,>.Fb>FnFuFbFlFl<\u0006_>.Fj_,>.Fj>FkFb_>.Fu_.:Fn>FjFl_>.Fu_,,Fy>FkFuFlFjFj\u0006"
+ },
+ "segments": [
+  {
+   "seed": 52650040,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": " O>>>>d\u001b\nv\u001bi\u001bv\u001bi\u001b\u001620\nv\u001bi\u001bmO>c\u001b\nO>>>o8\n \u001b\n\u001616\n_>. \u001b>.sy#twoweapon\n#rub\nO>>i\u001b\u001b\n\\  #invoke\n\u001bnjbj\u0017altar\ndldc\u0017jackal corpse\n#offer\no yh\u0017cloud\ny\u0017pool\nny :<#jump\n#invoke\n\u001b#chat\nki\u001bqft\u001bOp\u001b\nmO>>c\u001b\nFyFhFyFjFuFlFbFhFhFjFlFjFbFbFjFl FhFjFyFbFlFuFbFnFbFhFlFbFyFyFyFnFlFuFbFyFyFuFbFbFhFjFlFyFbFlFhFhFjFnFhFyFlFbFyFbFyFuFuFjFlFjFnFuFjFyFnFuFhFnFbFbFlFlFlFnFyFbFhFlFjFlFhFjFjFhFyFjFhFjFhFyFyFnFjFnFlFjFuFyFjFbFjFhFuFjFuFbFbFlFbFhFlFyFnFbFhFnFbFl#dip\na#ride\n#conduct\njkh\u0017melting ice\nlhlhlh\u0017lawful altar\nde\u0017human corpse\n : rk #conduct\n #tip\n\u001bv\u001bi\u001b\u0006_>,Fl_,<.Fu>FbFl_>.Fk_,;.Fn>FlFy_>.Fn_.@.Fn>FlFbFkFkFlz#ride\njy<\u0006_>.Fy_,<.Fb>FyFu_>.Fk_.<.Fn>FlFu_>,Fn_,>.Fb>FnFuFbFlFl<\u0006_>.Fj_,>.Fj>FkFb_>.Fu_.:Fn>FjFl_>.Fu_,,Fy>FkFuFlFjFj\u0006"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " lynn10shk20st\u001b\u001b#turn\n#dip\neokn20sy10s10snlkkkk#chat\nhL100sFkFks50s100sFjs20s#conduct\n kjkFj ss,;m. \u001b>.100sFk..150sFkFk.100sFks20s100sFk20sFkkkjjkj100s100skkkkky100sFlss100sFl20s 20sed\u0018\u001b50sFlFl20s100sFnFl.100sFns.\\ #pray\ny kjyYNLN_>,>K LNL_>.>Fl20sFhKBYB_>,>Fl.s#wipe\n_<,20sLHJL_>.Fj_,Fj>Fjs20si\u001b#terrain\nb\n<NUKK_>aE UHUU_>,>:t\u001b\u001b\u000f\u001bNKUY_>,>JNKB_>.>BHNK_>.><KYLJ_>.>YYNU_>.>NNKU_>.>#sit\naayYHLK_>.>\u000f\u001b#turn\ni\u001bwaU L H N_>,>KUHN _>.>#twoweapon\nWKJJL_>.>FlFlFuBY JY_>,>FlFlFu#rub\ni,\u001b#jump\nNJNK_>,>FyFyFyNULK_>.>FhFhFhNKHJ_>.>Fhs20sr\u001b\u001b#enhance\n\u001b#turn\n100sed100slhli\u001b100s50s150sFkFkFkFkFkFkFks.100sK  100sFlFlFlFlFlFlFl.20s#pray\ny unb50sFlFl.H100s"
+ },
+ "segments": [
+  {
+   "seed": 52650036,
+   "datetime": "20041113231416",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": " lynn10shk20st\u001b\u001b#turn\n#dip\neokn20sy10s10snlkkkk#chat\nhL100sFkFks50s100sFjs20s#conduct\n kjkFj ss,;m. \u001b>.100sFk..150sFkFk.100sFks20s100sFk20sFkkkjjkj100s100skkkkky100sFlss100sFl20s 20sed\u0018\u001b50sFlFl20s100sFnFl.100sFns.\\ #pray\ny kjyYNLN_>,>K LNL_>.>Fl20sFhKBYB_>,>Fl.s#wipe\n_<,20sLHJL_>.Fj_,Fj>Fjs20si\u001b#terrain\nb\n<NUKK_>aE UHUU_>,>:t\u001b\u001b\u000f\u001bNKUY_>,>JNKB_>.>BHNK_>.><KYLJ_>.>YYNU_>.>NNKU_>.>#sit\naayYHLK_>.>\u000f\u001b#turn\ni\u001bwaU L H N_>,>KUHN _>.>#twoweapon\nWKJJL_>.>FlFlFuBY JY_>,>FlFlFu#rub\ni,\u001b#jump\nNJNK_>,>FyFyFyNULK_>.>FhFhFhNKHJ_>.>Fhs20sr\u001b\u001b#enhance\n\u001b#turn\n100sed100slhli\u001b100s50s150sFkFkFkFkFkFkFks.100sK  100sFlFlFlFlFlFlFl.20s#pray\ny unb50sFlFl.H100s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " ch cj #tip\n\u001bv i\u001b\u00166\nO>>>j\u001b\nv i\u001bE- Elbereth Elbereth\n#invoke\n\u001b#untrap\nj E-n  Elbereth\n\u00164\nFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFn\u0006_ \u001bm,>FjFj_>._,> \u0006_>.Fj_,@.Fy>FyFy_>.Fh_.Fh>FuFh_>.  nFh_.m.Fu>FhFhFuFhFh\u0006_>. Fu_.m.Fu>FhFu_>.  nFh_. Fh>FhFu_>,  nFu_.Fu>FuFhFuFuFh\u0006_>, Fh_.   nFu>FhFu_>.Fh_. Fu>FhFh_>,Fu_,  nFh>FuFuFuFhFu#dip\neuh \u0006_>.Fh_, Fu>FuFh_>, Fh_.  nFh>FhFu_>.Fu_,Fu>FhFhFhFhFu,\u0004u \u0006_>.Fu_,   nFy>FyFh\u001b_>.Fu_. Fh>FuFy_>. Fh\u001b_,  n  Fh>FhFhFuFhFy\u0006_>.   nFu_. Fb>FuFy_>.  nFb_.  Fh>FuFu_>, Fu_.  n   \u001bFl>FhFyFyFlFl\u00163\njm,ynuk \u0017magic fountain\nqy qy\u0017long sword\n#dip\niyh\u001b\u0017grave\n:\u0017pick-axe\n aj >  ys.#terrain\nb\n #sit\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 52650051,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nOPTIONS=number_pad\n",
+   "moves": " ch cj #tip\n\u001bv i\u001b\u00166\nO>>>j\u001b\nv i\u001bE- Elbereth Elbereth\n#invoke\n\u001b#untrap\nj E-n  Elbereth\n\u00164\nFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFn\u0006_ \u001bm,>FjFj_>._,> \u0006_>.Fj_,@.Fy>FyFy_>.Fh_.Fh>FuFh_>.  nFh_.m.Fu>FhFhFuFhFh\u0006_>. Fu_.m.Fu>FhFu_>.  nFh_. Fh>FhFu_>,  nFu_.Fu>FuFhFuFuFh\u0006_>, Fh_.   nFu>FhFu_>.Fh_. Fu>FhFh_>,Fu_,  nFh>FuFuFuFhFu#dip\neuh \u0006_>.Fh_, Fu>FuFh_>, Fh_.  nFh>FhFu_>.Fu_,Fu>FhFhFhFhFu,\u0004u \u0006_>.Fu_,   nFy>FyFh\u001b_>.Fu_. Fh>FuFy_>. Fh\u001b_,  n  Fh>FhFhFuFhFy\u0006_>.   nFu_. Fb>FuFy_>.  nFb_.  Fh>FuFu_>, Fu_.  n   \u001bFl>FhFyFyFlFl\u00163\njm,ynuk \u0017magic fountain\nqy qy\u0017long sword\n#dip\niyh\u001b\u0017grave\n:\u0017pick-axe\n aj >  ys.#terrain\nb\n #sit\n\u001b"
+  }
+ ]
+}

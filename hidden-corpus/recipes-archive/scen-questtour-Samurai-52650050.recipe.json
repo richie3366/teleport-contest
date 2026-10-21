@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\ny;y:   _mmmmm,Fu_.   #chat\ny;_._m.    Fl_.#chat\nj  n    ;k,_mmm,       n Fy   _,@.Fn        n    \u001b  n #chat\nb      n    n _mm,  n           n    n    n    Fn          n    _.#chat\nb         n       #levelchange\n20\n                  \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.        Fh      _,#chat\nk_m,   Fl    n       _.#chat\nn      \u0017blessed +3 helm of telepathy\nWg       n      \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwi       \u0017wand of fire\n\u0016?\n>z\u0006_mmmmmm.      Fu   n    _.Fn      Fj          FlFh    yy\u001by   y y y\u001b  z"
+ },
+ "segments": [
+  {
+   "seed": 52650050,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\ny;y:   _mmmmm,Fu_.   #chat\ny;_._m.    Fl_.#chat\nj  n    ;k,_mmm,       n Fy   _,@.Fn        n    \u001b  n #chat\nb      n    n _mm,  n           n    n    n    Fn          n    _.#chat\nb         n       #levelchange\n20\n                  \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.        Fh      _,#chat\nk_m,   Fl    n       _.#chat\nn      \u0017blessed +3 helm of telepathy\nWg       n      \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwi       \u0017wand of fire\n\u0016?\n>z\u0006_mmmmmm.      Fu   n    _.Fn      Fj          FlFh    yy\u001by   y y y\u001b  z"
+  }
+ ]
+}

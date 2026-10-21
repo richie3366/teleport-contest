@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0007tame saddled pony\n\u0017lance\nwo#ride\nhy\u0007tame saddled warhorse\n#ride\nhy\u0007horse\n\u0017scroll of taming\nrp  \u001b \u0017saddle\n aqb  #ride\njy  j  jj\u0004y 20s         sm.\u0007acid blob\nFh    sFh#wizintrinsic\nf\n \u0017cursed scroll of light\nrr \u0017scroll of charging\nrs n\u0017apple\net\u0017cursed scroll of charging\nru ns20ss\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqv \u001b<.__. _.#chat\nn__._.#chat\nk#pray\ny y dl  _d._,\u0004y   n_oooooooo,_.,db,#twoweapon\n#name\nm\n\u0006\u0017Trollsbane\nwws.20s #invoke\nw X\u0017uncursed potion of speed\nqx  \u0017blessed spellbook of extra healing\nry s20s  Za\n    20s   Fj  n     \u0017uncursed scroll of genocide\nrz  energy vortex\nFjFj   n \u0017cursed 20 arrows\nQafj    f o lf $ j   \u0017blessed spear\nwB  n     n     n Fn  FjFl  n   Xsb  n  20s  \u00167\n#levelchange\n20\n    bl l\u0017trap door\nh  n   ^ll   n20s sm.u\u0017hole\nkjy sksm.  n#terrain\n\u001bzcpit fiend\n ,#monster\n\u00164\n#levelchange\n20\n\u0017oilskin cloak\nW\u001b.m.snskT \u0007giant mimic\nFj FhFjFh  Fh    nFy   \u0007giant beetle\n;h:  .m.20s  sm.  n  \u0007homunculus\nFy    Fb  n    Fl    n  Fl FhFn    yy\u001by   y orc shaman\ny  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 52650056,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0007tame saddled pony\n\u0017lance\nwo#ride\nhy\u0007tame saddled warhorse\n#ride\nhy\u0007horse\n\u0017scroll of taming\nrp  \u001b \u0017saddle\n aqb  #ride\njy  j  jj\u0004y 20s         sm.\u0007acid blob\nFh    sFh#wizintrinsic\nf\n \u0017cursed scroll of light\nrr \u0017scroll of charging\nrs n\u0017apple\net\u0017cursed scroll of charging\nru ns20ss\u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqv \u001b<.__. _.#chat\nn__._.#chat\nk#pray\ny y dl  _d._,\u0004y   n_oooooooo,_.,db,#twoweapon\n#name\nm\n\u0006\u0017Trollsbane\nwws.20s #invoke\nw X\u0017uncursed potion of speed\nqx  \u0017blessed spellbook of extra healing\nry s20s  Za\n    20s   Fj  n     \u0017uncursed scroll of genocide\nrz  energy vortex\nFjFj   n \u0017cursed 20 arrows\nQafj    f o lf $ j   \u0017blessed spear\nwB  n     n     n Fn  FjFl  n   Xsb  n  20s  \u00167\n#levelchange\n20\n    bl l\u0017trap door\nh  n   ^ll   n20s sm.u\u0017hole\nkjy sksm.  n#terrain\n\u001bzcpit fiend\n ,#monster\n\u00164\n#levelchange\n20\n\u0017oilskin cloak\nW\u001b.m.snskT \u0007giant mimic\nFj FhFjFh  Fh    nFy   \u0007giant beetle\n;h:  .m.20s  sm.  n  \u0007homunculus\nFy    Fb  n    Fl    n  Fl FhFn    yy\u001by   y orc shaman\ny  \u0007"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed amulet of life saving\nPk\u0017blessed ring of free action\nPlr\u0017blessed +3 gauntlets of power\nWm\u0016?\n>z  \u00162\n\u0006_ \u001bm..sss_>.Fh_.Fb >\u0006_mmm.Fb_.ss.s\u00164\n\u0006#chat\nn;n,\u00165\n\u0006_m.Fy    _,Fl  Fy Fy \u00166\n  \u0006#chat\nj;j._>.>\u0006,\u00163\n\u0006__.Fy _.  Fy \u00164\n\u0006j k  j k  jk  y \u00165\n\u0006#chat\nk;y,\u00166\n \u0006_mmm. Fk    _,Fk  Fb Fb \u00162\n\u0006#chat\ny;y,\u0016?\n>>\u001b\u0016?\n>y  #chat\ny\u0016?\n>z\u00163\n\u0016?\n>z\u0006_mm.Fk _.Fl FnFlFhFhFl\u0016?\n>>\u001b\u0016?\n>y#chat\nl\u0016?\n>z\u00164\n\u0016?\n>z\u0006_mmmmm.Fh_.Fh20sFkFk\u00165\n\u0016?\n>z\u0006_m.Fk_,20sFlFls\u00166\n\u0016?\n>z\u0006nub_>.Fu_,Fl>\u0016?\n>z\u0006_mmmmm.Fl_.20s20sFlFls.\u00163\n\u0016?\n>z\u0006_mmm,ss.s20s\u00164\n\u0016?\n>z\u0006_>,_,\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006#chat\nb;._>._,>\u0016?\n>z\u0006nyubunhh_>.Fj_.Fj>\u0016?\n>z\u0006uyku\u00164\n\u0016?\n>z\u0006,_>.Fj_.Fk>\u0016?\n>z\u0006lkkb\u00166\n\u0016?\n>z\u0006#chat\nn;n:  \u0016?\n>>\u001b\u0016?\n>y#chat\nn\u0016?\n>z\u00162\n\u0016?\n>z\u0006_mmm.Fn_,.20ss.20s._>.Fj_.Fn>\u0016?\n>z\u0006_mmmmm.Fn Fj Fj   n\u00164\n\u0016?\n>z\u0006kuyluukl\u00165\n\u0016?\n>z\u0006#chat\nb;b:  _>.Fb_.Fb>\u0016?\n>z\u0006yukln\u00162\n\u0016?\n>z\u0006,_>,Fy_.Fk>\u0016?\n>z\u0006bnlhubyn\u00164\n\u0016?\n>z\u0006_>.Fb_"
+ },
+ "segments": [
+  {
+   "seed": 52650032,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\nOPTIONS=runmode:run\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed amulet of life saving\nPk\u0017blessed ring of free action\nPlr\u0017blessed +3 gauntlets of power\nWm\u0016?\n>z  \u00162\n\u0006_ \u001bm..sss_>.Fh_.Fb >\u0006_mmm.Fb_.ss.s\u00164\n\u0006#chat\nn;n,\u00165\n\u0006_m.Fy    _,Fl  Fy Fy \u00166\n  \u0006#chat\nj;j._>.>\u0006,\u00163\n\u0006__.Fy _.  Fy \u00164\n\u0006j k  j k  jk  y \u00165\n\u0006#chat\nk;y,\u00166\n \u0006_mmm. Fk    _,Fk  Fb Fb \u00162\n\u0006#chat\ny;y,\u0016?\n>>\u001b\u0016?\n>y  #chat\ny\u0016?\n>z\u00163\n\u0016?\n>z\u0006_mm.Fk _.Fl FnFlFhFhFl\u0016?\n>>\u001b\u0016?\n>y#chat\nl\u0016?\n>z\u00164\n\u0016?\n>z\u0006_mmmmm.Fh_.Fh20sFkFk\u00165\n\u0016?\n>z\u0006_m.Fk_,20sFlFls\u00166\n\u0016?\n>z\u0006nub_>.Fu_,Fl>\u0016?\n>z\u0006_mmmmm.Fl_.20s20sFlFls.\u00163\n\u0016?\n>z\u0006_mmm,ss.s20s\u00164\n\u0016?\n>z\u0006_>,_,\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006#chat\nb;._>._,>\u0016?\n>z\u0006nyubunhh_>.Fj_.Fj>\u0016?\n>z\u0006uyku\u00164\n\u0016?\n>z\u0006,_>.Fj_.Fk>\u0016?\n>z\u0006lkkb\u00166\n\u0016?\n>z\u0006#chat\nn;n:  \u0016?\n>>\u001b\u0016?\n>y#chat\nn\u0016?\n>z\u00162\n\u0016?\n>z\u0006_mmm.Fn_,.20ss.20s._>.Fj_.Fn>\u0016?\n>z\u0006_mmmmm.Fn Fj Fj   n\u00164\n\u0016?\n>z\u0006kuyluukl\u00165\n\u0016?\n>z\u0006#chat\nb;b:  _>.Fb_.Fb>\u0016?\n>z\u0006yukln\u00162\n\u0016?\n>z\u0006,_>,Fy_.Fk>\u0016?\n>z\u0006bnlhubyn\u00164\n\u0016?\n>z\u0006_>.Fb_"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017uncursed spellbook of finger of death\nri             .sZZ\u0017cursed potion of polymorph\nqj #dip\ni\u0017shield of reflection\n\u0007prisoner\nW\u001bsssTe.s"
+ },
+ "segments": [
+  {
+   "seed": 52652011,
+   "datetime": "20190524080606",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017uncursed spellbook of finger of death\nri             .sZZ\u0017cursed potion of polymorph\nqj #dip\ni\u0017shield of reflection\n\u0007prisoner\nW\u001bsssTe.s"
+  }
+ ]
+}

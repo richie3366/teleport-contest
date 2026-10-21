@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPir\u0017blessed +3 speed boots\nWj\u0017blessed bell of opening\n\u0017blessed magic lamp\n\u0017blessed 20 daggers\nQm#levelchange\n26\n                         #wizintrinsic\nh\n \u0017wand of teleportation\nznhznyznuznnfufhtmy#invoke\nkfjflfk\u0017blessed spellbook of magic missile\nro.Zb\n:#wizintrinsic\nh\n\u0007soldier\n\u0007kobold shaman\nFkFyFkFyFy ;y, \u001b,E- I am a fish\n;y,E-n  Elbereth Elbereth\n \u0007hill orc\nFh FyFy Fh Fy Fy Fy#wizintrinsic\nh\n\u0017wand of teleportation\nzp.,  zpyzpyzpn\u0017potion of invisibility\nqq.\u0017potion of acid\nqr.s\u0017scroll of identify\nrs p\n\u0017cream pie\net#wizintrinsic\nh\n\u0017blessed scroll of identify\nru p\n \u001b\u0007grid bug\n\u0007jackal\nFyFk.sss\u0007giant rat\nFhssss.s\u0007hobbit\n\u0007troll\nFyFkFk FkFk Fk Fk#wizintrinsic\nh\n\u0017wand of fire\nzvk  zvn zvh\u0017wand of sleep\nzwh    zwk  zwk zwk   "
+ },
+ "segments": [
+  {
+   "seed": 52650052,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPir\u0017blessed +3 speed boots\nWj\u0017blessed bell of opening\n\u0017blessed magic lamp\n\u0017blessed 20 daggers\nQm#levelchange\n26\n                         #wizintrinsic\nh\n \u0017wand of teleportation\nznhznyznuznnfufhtmy#invoke\nkfjflfk\u0017blessed spellbook of magic missile\nro.Zb\n:#wizintrinsic\nh\n\u0007soldier\n\u0007kobold shaman\nFkFyFkFyFy ;y, \u001b,E- I am a fish\n;y,E-n  Elbereth Elbereth\n \u0007hill orc\nFh FyFy Fh Fy Fy Fy#wizintrinsic\nh\n\u0017wand of teleportation\nzp.,  zpyzpyzpn\u0017potion of invisibility\nqq.\u0017potion of acid\nqr.s\u0017scroll of identify\nrs p\n\u0017cream pie\net#wizintrinsic\nh\n\u0017blessed scroll of identify\nru p\n \u001b\u0007grid bug\n\u0007jackal\nFyFk.sss\u0007giant rat\nFhssss.s\u0007hobbit\n\u0007troll\nFyFkFk FkFk Fk Fk#wizintrinsic\nh\n\u0017wand of fire\nzvk  zvn zvh\u0017wand of sleep\nzwh    zwk  zwk zwk   "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " tauu20sdd.s.10sdc20s20sst$jNLHN_ \u001b;>Flss#offer\nsLY JU_>.>Fj .FjojdoNHHY_>,>FnFnFb\u000f\u001b#name\ni\nn#pray\ny   NULH _>.>FkFbsUKYB_>,>W#invoke\n\u001bNKJJ_>,>#loot\nzq wand of secret door detection\nHBLN_>,>\u000f\u001byky_>.>100sFyFyFyFy.20s_>.>_>.>_>,>\u000f\u001b_>.>lnb#chat\nj100s150sFhFhFhFh20ss100s \u0018\u001b100s100sFhFhFhFh20s.100s100sFhFhFh150s150sujjFhFhFh\u000f\u001b100s150s  #pray\ny  yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 52650069,
+   "datetime": "20120319141626",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:explore\n",
+   "moves": " tauu20sdd.s.10sdc20s20sst$jNLHN_ \u001b;>Flss#offer\nsLY JU_>.>Fj .FjojdoNHHY_>,>FnFnFb\u000f\u001b#name\ni\nn#pray\ny   NULH _>.>FkFbsUKYB_>,>W#invoke\n\u001bNKJJ_>,>#loot\nzq wand of secret door detection\nHBLN_>,>\u000f\u001byky_>.>100sFyFyFyFy.20s_>.>_>.>_>,>\u000f\u001b_>.>lnb#chat\nj100s150sFhFhFhFh20ss100s \u0018\u001b100s100sFhFhFhFh20s.100s100sFhFhFh150s150sujjFhFhFh\u000f\u001b100s150s  #pray\ny  yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

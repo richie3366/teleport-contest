@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u001617\nnlj\u0017tree\n:bh\u0017neutral altar\ndc\u0017lichen corpse\n#offer\ni  #pray\ny y  ln\u0017altar\nda\u0017dwarf corpse\n#offer\nj   #pray\ny y  ky\u0017fountain\nqy qy y#terrain\nb\n\u001bm,20si\u001b#ride\njyv i\u001bFyFhFbFbFjFuFyFbFhFjFjFyFjFhFuFy FkFbFyFhFjFyFuFjFyFhFhFhFkFjFjFyFuFkFjFkFjFnFyFnFhFjFbFhFkFnFuFnFyFhFjFhFkFkFbFnFj FjFlFyFlFuFjFhFbFjFlFyFyFuFjFjFlFjFhFuFhFyFhFlFuFjFnFbFjFbFbFhFjFjFlFuFbFjFhFlFbFlFhFuFjFbFuFbFb    Fb FyFnFnFnFyFuFuFkFuFbFuFbFhFldb#invoke\n\u001b#dip\nf \u0006_>>,Fn_.,Fk>FyFy_>>.Fj_.;,Fb>FlFj_>>.Fu_.m,Fk>FlFnFuFnFbi\u001bs<\u0006_>,Fy_..Fu>FlFn_>.Fy_.<."
+ },
+ "segments": [
+  {
+   "seed": 52650084,
+   "datetime": "20230420233956",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMgraphics\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You feel\"\n",
+   "moves": "v i\u001b\u001617\nnlj\u0017tree\n:bh\u0017neutral altar\ndc\u0017lichen corpse\n#offer\ni  #pray\ny y  ln\u0017altar\nda\u0017dwarf corpse\n#offer\nj   #pray\ny y  ky\u0017fountain\nqy qy y#terrain\nb\n\u001bm,20si\u001b#ride\njyv i\u001bFyFhFbFbFjFuFyFbFhFjFjFyFjFhFuFy FkFbFyFhFjFyFuFjFyFhFhFhFkFjFjFyFuFkFjFkFjFnFyFnFhFjFbFhFkFnFuFnFyFhFjFhFkFkFbFnFj FjFlFyFlFuFjFhFbFjFlFyFyFuFjFjFlFjFhFuFhFyFhFlFuFjFnFbFjFbFbFhFjFjFlFuFbFjFhFlFbFlFhFuFjFbFuFbFb    Fb FyFnFnFnFyFuFuFkFuFbFuFbFhFldb#invoke\n\u001b#dip\nf \u0006_>>,Fn_.,Fk>FyFy_>>.Fj_.;,Fb>FlFj_>>.Fu_.m,Fk>FlFnFuFnFbi\u001bs<\u0006_>,Fy_..Fu>FlFn_>.Fy_.<."
+  }
+ ]
+}

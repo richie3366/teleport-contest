@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017blessed spellbook of dig\nrf 20s\u0017spellbook of force bolt\nrg s+\u001bZb\n\u0007gnome\nZa\nZb\nFlZa\ns#turn\n"
+ },
+ "segments": [
+  {
+   "seed": 52651009,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=fruit:mango\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017blessed spellbook of dig\nrf 20s\u0017spellbook of force bolt\nrg s+\u001bZb\n\u0007gnome\nZa\nZb\nFlZa\ns#turn\n"
+  }
+ ]
+}

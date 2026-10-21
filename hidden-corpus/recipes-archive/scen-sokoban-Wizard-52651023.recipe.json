@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    \u0016?\n>E\u0017scroll of earth\nro  n\u0017scroll of earth\nrp nkybk yly\u0017wand of striking\nzqh\u0017scroll of earth\nrr \u0017scroll of earth\nrs   nnjynnnnhhnn10sujyyhknkj10syu\u0017wand of striking\nzty10snhy\u0017wand of digging\nzuyyyhnynnnnnnhnuyl"
+ },
+ "segments": [
+  {
+   "seed": 52651023,
+   "datetime": "20170804075039",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n    \u0016?\n>E\u0017scroll of earth\nro  n\u0017scroll of earth\nrp nkybk yly\u0017wand of striking\nzqh\u0017scroll of earth\nrr \u0017scroll of earth\nrs   nnjynnnnhhnn10sujyyhknkj10syu\u0017wand of striking\nzty10snhy\u0017wand of digging\nzuyyyhnynnnnnnhnuyl"
+  }
+ ]
+}

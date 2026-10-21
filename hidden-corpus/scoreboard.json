@@ -1,10 +1,10 @@
 {
- "commit": "b74e939c7",
- "at": "2026-10-21T15:03:50.749Z",
+ "commit": "c085e5ef5",
+ "at": "2026-10-21T15:47:11.459Z",
  "full": false,
  "fullCommit": "1b2b2c8e3",
  "fullAt": "2026-10-21T14:05:06.214Z",
- "entries": 708,
+ "entries": 709,
  "reserve": 29,
  "unrecorded": 0,
  "sessions": {
@@ -1774,6 +1774,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-extcmd-Archeologist-52650042": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 3889,
+   "rngT": 13679,
+   "scrM": 419,
+   "scrT": 1012,
+   "kind": "screen",
+   "step": 387,
+   "steps": 1012,
+   "owner": "findit",
+   "loc": "detect.c:1865",
+   "jsOwner": null,
+   "cTopline": "You reveal a trap!",
+   "jsTopline": "You reveal a trap!",
    "error": null
   },
   "scen-extcmd-Caveman-51257040": {
@@ -12073,5 +12090,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-21T15:47:11.606Z"
 }

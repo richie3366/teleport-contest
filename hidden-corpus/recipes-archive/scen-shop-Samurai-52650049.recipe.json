@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPg\u0016?\n>w \u0006FyFyFyFyFyFy  _ \u001bm._oo.Fy_.   Fy ,p  Fy  FyFy  n Fy  n Fy  n  n Fy  n \u001612\n_{.q__.#chat\nl#pray\ny y k 9\n nb#chat\nkyku#chat\nl__.#chat\nl _oooooo,, p_ooooo._ooo.,  :_ooooooo._o.,:_ooooooooo.,$Fl  nFlFlFlFlFl _{.q\u00163\nyjj\u0016?\n>w\u0006__,_.#chat\nj__,_.#chat\nn_ooo.Fl_,Fj,\u0014@..j20sFjFjFjFjFjFj_{._,qy_oooooo.  n_,m,Fh,:Fh FhFhFhFhFh\u0016?\n>Bjkk\u0016?\n>w\u0006_ooooooooo.Fk_,Fk_o,_.,:_ooo.Fu   _._oo,Fk_,Fu,p_ooooo.Fu_.,Fk   ,p_ooo.  n Fu_.>.Fh     n,#chat\nh  \u00166\n_{,Fb   n _. Flq_ooo,_.  nFb ,p_oooooo,Fj  _.@.Fn _ooo.Fj_.,#chat\nb_ooooo.Fj _,  Fj_"
+ },
+ "segments": [
+  {
+   "seed": 52650049,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPg\u0016?\n>w \u0006FyFyFyFyFyFy  _ \u001bm._oo.Fy_.   Fy ,p  Fy  FyFy  n Fy  n Fy  n  n Fy  n \u001612\n_{.q__.#chat\nl#pray\ny y k 9\n nb#chat\nkyku#chat\nl__.#chat\nl _oooooo,, p_ooooo._ooo.,  :_ooooooo._o.,:_ooooooooo.,$Fl  nFlFlFlFlFl _{.q\u00163\nyjj\u0016?\n>w\u0006__,_.#chat\nj__,_.#chat\nn_ooo.Fl_,Fj,\u0014@..j20sFjFjFjFjFjFj_{._,qy_oooooo.  n_,m,Fh,:Fh FhFhFhFhFh\u0016?\n>Bjkk\u0016?\n>w\u0006_ooooooooo.Fk_,Fk_o,_.,:_ooo.Fu   _._oo,Fk_,Fu,p_ooooo.Fu_.,Fk   ,p_ooo.  n Fu_.>.Fh     n,#chat\nh  \u00166\n_{,Fb   n _. Flq_ooo,_.  nFb ,p_oooooo,Fj  _.@.Fn _ooo.Fj_.,#chat\nb_ooooo.Fj _,  Fj_"
+  }
+ ]
+}

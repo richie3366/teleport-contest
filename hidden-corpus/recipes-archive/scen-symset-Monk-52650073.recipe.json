@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \u0006_ \u001b@.>FyFh_>.Fk_,>FjFjFu\u0006_>,Fb_.Fn>FnFn_>.Fn_,Fn>FnFb_>.Fn_.Fn>FnFnFnFn  Fb\u0006_>>.Fb_,Fu>FnFb_>>,Fn_.Fb>FbFb_>>.Fb_,Fb>FnFbFnFbFbh#ride\nny\u0006_>.Fn_.Fb>FnFn_>.Fb_.Fb>FbFn_>.Fn_,Fb>FbFbFbFnFn#monster\n#offer\nZ\u001b;n,ehFnFnFnFnFnFbFnFnFnFbFnFnFnFnFbFnFnFnFnFnFnFnFbFbFnFnFbFnFbFnFnFnFnFbFbFnFnFbFbFbFbFbFnFnFnFnFbFbFbFbFnFbFbFnFbFbFbFbFbFnFbFbFbFbFbFbFbFbFnFnFbFnFbFnFbFnFnFnFnFbFbFnFnFbFnFnFbFbFnFnFbFnFnFnFbFbFbFbFbFbFnFnFnFbFbFnFnFbFbFnFbFbFnFbFbFbFnFnFnFb 10sei    #chat\nn#twoweapon\n\u001610\nO>>l\u001b\n\u00165\nFyFh  FyFhFk   n   nFh  n  #pray\ny y      Fy Fk  Fy  n  nFh  n  nFk  n  nFk  nFk  nFk  nFh  nFy "
+ },
+ "segments": [
+  {
+   "seed": 52650073,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You hear\"\nMENUCOLOR=\"blessed\"=cyan\n",
+   "moves": "  \u0006_ \u001b@.>FyFh_>.Fk_,>FjFjFu\u0006_>,Fb_.Fn>FnFn_>.Fn_,Fn>FnFb_>.Fn_.Fn>FnFnFnFn  Fb\u0006_>>.Fb_,Fu>FnFb_>>,Fn_.Fb>FbFb_>>.Fb_,Fb>FnFbFnFbFbh#ride\nny\u0006_>.Fn_.Fb>FnFn_>.Fb_.Fb>FbFn_>.Fn_,Fb>FbFbFbFnFn#monster\n#offer\nZ\u001b;n,ehFnFnFnFnFnFbFnFnFnFbFnFnFnFnFbFnFnFnFnFnFnFnFbFbFnFnFbFnFbFnFnFnFnFbFbFnFnFbFbFbFbFbFnFnFnFnFbFbFbFbFnFbFbFnFbFbFbFbFbFnFbFbFbFbFbFbFbFbFnFnFbFnFbFnFbFnFnFnFnFbFbFnFnFbFnFnFbFbFnFnFbFnFnFnFbFbFbFbFbFbFnFnFnFbFbFnFnFbFbFnFbFbFnFbFbFbFnFnFnFb 10sei    #chat\nn#twoweapon\n\u001610\nO>>l\u001b\n\u00165\nFyFh  FyFhFk   n   nFh  n  #pray\ny y      Fy Fk  Fy  n  nFh  n  nFk  n  nFk  nFk  nFk  nFh  nFy "
+  }
+ ]
+}

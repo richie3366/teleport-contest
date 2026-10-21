@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed bell of opening\n\u0017blessed leash\n\u0017blessed amulet of life saving\nPi\u0017blessed 20 daggers\nQj#levelchange\n26\n                         #wizintrinsic\nh\n \u0017blessed spellbook of sleep\nrk20sZ:\u0016?\nk   \u0006_ \u001b:i\u001blyn\u0017blessed scroll of earth\nrl \u0017eucalyptus leaf\nem#wizintrinsic\nh\n\u0017potion of booze\nqn20ss;m,E- ad aerarium\n#pray\ny y   \u0017wand of magic missile\nzol  zol zol zol  #wizintrinsic\nh\n\u0017spellbook of sleep\nrp.m.Z: fyflfyfl \u0017wand of polymorph\nzqlzqlzqnzqy  zqu\u0007lichen\n\u0007owlbear\nFnFn Fy  Fu #wizintrinsic\nh\n;l.E-y Vlad was here\n  #chat\ny\u0017potion of sleeping\nqr                    .m.   \u0017scroll of enchant weapon\nrs    \u0017egg\net#wizintrinsic\nh\n\u0017potion of healing\nqu   sm.sm.\u0017wand of cold\nzvl     zvl   zvy zvy zvu _m,kj \u0007grid bug\nFnFbFnFkFnFn#w"
+ },
+ "segments": [
+  {
+   "seed": 52650030,
+   "datetime": "20130416062631",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed bell of opening\n\u0017blessed leash\n\u0017blessed amulet of life saving\nPi\u0017blessed 20 daggers\nQj#levelchange\n26\n                         #wizintrinsic\nh\n \u0017blessed spellbook of sleep\nrk20sZ:\u0016?\nk   \u0006_ \u001b:i\u001blyn\u0017blessed scroll of earth\nrl \u0017eucalyptus leaf\nem#wizintrinsic\nh\n\u0017potion of booze\nqn20ss;m,E- ad aerarium\n#pray\ny y   \u0017wand of magic missile\nzol  zol zol zol  #wizintrinsic\nh\n\u0017spellbook of sleep\nrp.m.Z: fyflfyfl \u0017wand of polymorph\nzqlzqlzqnzqy  zqu\u0007lichen\n\u0007owlbear\nFnFn Fy  Fu #wizintrinsic\nh\n;l.E-y Vlad was here\n  #chat\ny\u0017potion of sleeping\nqr                    .m.   \u0017scroll of enchant weapon\nrs    \u0017egg\net#wizintrinsic\nh\n\u0017potion of healing\nqu   sm.sm.\u0017wand of cold\nzvl     zvl   zvy zvy zvu _m,kj \u0007grid bug\nFnFbFnFkFnFn#w"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u00173 Fire Brand\nwjFh 20ss#invoke\nj \u001bm,   X\u0017uncursed Cleaver\n\u0007tengu\nwkFjFjFj#invoke\nkX\u0017uncursed the Sceptre of Might\n ,  \u0017Grayswandir\n wlFjFjFj#invoke\nl .s\u0017blessed wand of cancellation\nzmns20s"
+ },
+ "segments": [
+  {
+   "seed": 52652008,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u00173 Fire Brand\nwjFh 20ss#invoke\nj \u001bm,   X\u0017uncursed Cleaver\n\u0007tengu\nwkFjFjFj#invoke\nkX\u0017uncursed the Sceptre of Might\n ,  \u0017Grayswandir\n wlFjFjFj#invoke\nl .s\u0017blessed wand of cancellation\nzmns20s"
+  }
+ ]
+}

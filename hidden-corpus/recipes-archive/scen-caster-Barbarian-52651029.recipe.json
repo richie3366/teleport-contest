@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed spellbook of detect food\nrf.\u0017blessed spellbook of protection\nrg s+b\nZb\nZa\n20s\u0007grid bug\nZb\nZa\n\u0007grid bug\nZb\n#levelchange\n6\n  \u0017blessed spellbook of levitation\nrh sm. \u0017blessed spellbook of invisibscroll of gold d"
+ },
+ "segments": [
+  {
+   "seed": 52651029,
+   "datetime": "20010504143118",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed spellbook of detect food\nrf.\u0017blessed spellbook of protection\nrg s+b\nZb\nZa\n20s\u0007grid bug\nZb\nZa\n\u0007grid bug\nZb\n#levelchange\n6\n  \u0017blessed spellbook of levitation\nrh sm. \u0017blessed spellbook of invisibscroll of gold d"
+  }
+ ]
+}

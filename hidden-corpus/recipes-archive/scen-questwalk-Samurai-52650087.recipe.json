@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed ring of free action\nPgl\u0017blessed amulet of life saving\nPh\u0016?\n>z  \u00162\n\u0006#chat\nu;h: \u001b:   \u00163\n  \u0006,\u0016?\n>>\u001b\u0016?\n>y  #chat\nl\u0016?\n>z\u00164\n\u0016?\n>z\u0006hlhhhlhl\u00165\n\u0016?\n>z\u0006_mmm._....s..\u00166\n\u0016?\n>z\u0006_m._.20s 20ssss\u00162\n\u0016?\n>z\u0006hlllkb_>._.m,>\u0016?\n>z\u0006lbunh\u00164\n\u0016?\n>z\u0006_mmmm.Fu           _,Fl              Fj  n          Fh   n            n  Fl            n   \u001611\n_>.    Fy_.   n   Fh        >\u0016?\n>z\u0006nh    n     l    l  lj\u00163\n\u00166\n\u0016?\n>z\u0006_mmm,Fy_.Fh         nFk      Fy     Fh  n       \u0016?\n>>\u001b\u0016?\n>y#chat\nk        \u0016?\n>z\u001611\n\u00162\n\u0016?\n>z\u0006,_>,   n    Fh        _..Fk     n      >\u0016?\n>z\u0006#chat\ny       ;y.\u00169\n\u00164\n\u0016?\n>z\u0006#chat\nh       n ;h,\u0016?\n>>\u001b\u0016?\n>y#chat\nk      \u0016?\n>z\u00165\n\u0016?\n>z\u0006lh     uuy     n  _>,     Fy        n_.     Fh     >\u0016?\n>z\u0006_mm.Fy    n   _.Fy     Fk      n Fy     Fh     \u00162\n\u0016?\n>z\u0006_mm.Fk    y\u001b      _"
+ },
+ "segments": [
+  {
+   "seed": 52650087,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=runmode:run\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed ring of free action\nPgl\u0017blessed amulet of life saving\nPh\u0016?\n>z  \u00162\n\u0006#chat\nu;h: \u001b:   \u00163\n  \u0006,\u0016?\n>>\u001b\u0016?\n>y  #chat\nl\u0016?\n>z\u00164\n\u0016?\n>z\u0006hlhhhlhl\u00165\n\u0016?\n>z\u0006_mmm._....s..\u00166\n\u0016?\n>z\u0006_m._.20s 20ssss\u00162\n\u0016?\n>z\u0006hlllkb_>._.m,>\u0016?\n>z\u0006lbunh\u00164\n\u0016?\n>z\u0006_mmmm.Fu           _,Fl              Fj  n          Fh   n            n  Fl            n   \u001611\n_>.    Fy_.   n   Fh        >\u0016?\n>z\u0006nh    n     l    l  lj\u00163\n\u00166\n\u0016?\n>z\u0006_mmm,Fy_.Fh         nFk      Fy     Fh  n       \u0016?\n>>\u001b\u0016?\n>y#chat\nk        \u0016?\n>z\u001611\n\u00162\n\u0016?\n>z\u0006,_>,   n    Fh        _..Fk     n      >\u0016?\n>z\u0006#chat\ny       ;y.\u00169\n\u00164\n\u0016?\n>z\u0006#chat\nh       n ;h,\u0016?\n>>\u001b\u0016?\n>y#chat\nk      \u0016?\n>z\u00165\n\u0016?\n>z\u0006lh     uuy     n  _>,     Fy        n_.     Fh     >\u0016?\n>z\u0006_mm.Fy    n   _.Fy     Fk      n Fy     Fh     \u00162\n\u0016?\n>z\u0006_mm.Fk    y\u001b      _"
+  }
+ ]
+}

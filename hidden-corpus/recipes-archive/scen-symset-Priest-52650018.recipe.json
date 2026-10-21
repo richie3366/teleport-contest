@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "O>>>b\u001b\n\u0006_ \u001b>. >FuFy_>>.Fy_,Fy>FuFu_>>.Fy _.Fu>FyFl FuFyFy\u0006_>.Fu_,Fu>FuFy_>,Fu_.Fy>FuFu_>.Fu_,Fu>FyFuFuFyFy\u0006_>.Fu_.Fu>FyFu_>.Fu_,Fu>FuFy_>.Fu_,Fu>FuFyFyFyFy\u0006_>,Fy_,Fu>FuFu_>,Fu_,Fy>FyFu_>.Fy_.Fy>FuFyFuFyFu\u0006_>.Fu_,Fu>FyFy_>.Fu_,Fu>FyFu_>.Fy_,Fu>FyFuFyFuFy\u0006_>.Fu_,Fu>FuFy_>.Fy_.Fy>FyFy_>.Fu_.Fy>FuFyFuFuFyO>l\u001b\nO>>>>m\u001b\u001b\n#levelchange\n6\n    nnyy\u0017unaligned altar\ndfdd\u0017floating eye corpse\n#offer\ni    n    n#pray\ny n\u0017pool\n#dip\ngy     l\u0017tree\nl\u0017sink\nqy>s#terrain\nb\n\u0016 \u0006_>>,Fh_.Fy>FyFy_>>.Fu_,Fu>FyFn_>>.Fu_,Fu>FyFyFyFuFy#invoke\n\u001bt\u001b\u0006_>.Fy_,Fn>FuFy_>.Fn_.Fy>FnFy_>.Fy_.Fn>FnFyFuFuFy\u0006_>,Fy_.Fn>FuFy_>.Fn_,Fu>FuFy_>,Fy_,Fy>FnFyFuFyFn\u0006_>,Fu_.Fu>FnFn_>.Fu_,Fu>FnFu_>.Fu_.Fy>FnFuFnFyFn\u0006_>.Fn_,Fn>FnFu_>.Fn_.Fu>FyFn_>.Fu_.Fn>FyFnFuFyFn\u000f\u001bO>>>>j\u001b\n\u00164\nlnj#terrain\nf\n50sFhFh20"
+ },
+ "segments": [
+  {
+   "seed": 52650018,
+   "datetime": "20061117020652",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nMSGTYPE=norep \"You hear\"\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "O>>>b\u001b\n\u0006_ \u001b>. >FuFy_>>.Fy_,Fy>FuFu_>>.Fy _.Fu>FyFl FuFyFy\u0006_>.Fu_,Fu>FuFy_>,Fu_.Fy>FuFu_>.Fu_,Fu>FyFuFuFyFy\u0006_>.Fu_.Fu>FyFu_>.Fu_,Fu>FuFy_>.Fu_,Fu>FuFyFyFyFy\u0006_>,Fy_,Fu>FuFu_>,Fu_,Fy>FyFu_>.Fy_.Fy>FuFyFuFyFu\u0006_>.Fu_,Fu>FyFy_>.Fu_,Fu>FyFu_>.Fy_,Fu>FyFuFyFuFy\u0006_>.Fu_,Fu>FuFy_>.Fy_.Fy>FyFy_>.Fu_.Fy>FuFyFuFuFyO>l\u001b\nO>>>>m\u001b\u001b\n#levelchange\n6\n    nnyy\u0017unaligned altar\ndfdd\u0017floating eye corpse\n#offer\ni    n    n#pray\ny n\u0017pool\n#dip\ngy     l\u0017tree\nl\u0017sink\nqy>s#terrain\nb\n\u0016 \u0006_>>,Fh_.Fy>FyFy_>>.Fu_,Fu>FyFn_>>.Fu_,Fu>FyFyFyFuFy#invoke\n\u001bt\u001b\u0006_>.Fy_,Fn>FuFy_>.Fn_.Fy>FnFy_>.Fy_.Fn>FnFyFuFuFy\u0006_>,Fy_.Fn>FuFy_>.Fn_,Fu>FuFy_>,Fy_,Fy>FnFyFuFyFn\u0006_>,Fu_.Fu>FnFn_>.Fu_,Fu>FnFu_>.Fu_.Fy>FnFuFnFyFn\u0006_>.Fn_,Fn>FnFu_>.Fn_.Fu>FyFn_>.Fu_.Fn>FyFnFuFyFn\u000f\u001bO>>>>j\u001b\n\u00164\nlnj#terrain\nf\n50sFhFh20"
+  }
+ ]
+}

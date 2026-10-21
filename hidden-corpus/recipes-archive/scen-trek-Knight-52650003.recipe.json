@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " Fh ss,150sFhFh20s_ \u001bm.>100s100s_>,>_>,>50s150s150s150s 100sFhss50s100seg100seg100seg100segjhl100seh\\   \u000f\u001b150seh100seh ehi\u001b100seo eh bhyblkHNBB_>.>NBYY_>,>HUYK_>.>ab  .#terrain\nc\n@.<\u000f\u001b\\   eo #enhance\n\u001bKBYK_>.>UUKU_>,><JHKH_>.>HJYJ_>.>,#pray\ny NHJJ_>,>\u000f\u001b\u0014q#loot\nkndds..#name\na\n10s10sub#force\neg#chat\nnKLLJ_>,>UHLN_>.>HBHK_>.>YLKB_>,>BKKL_>.>ULKY_>.>NLBJ_>.>JUJB_>.>HYBJ_>.>;>.\\   YKHU_>.><KBBU_>,>\u000f\u001bHKLH_>,>BHBK_>.>wb#wipe\nNJYJ_>,>tahynyk#chat\nnkjjkjnlkblegeheh50seg100segkbu100s50sFlFlseh100sFnFnFlFlFnFnFnFlFlFnFlFlFlFnFl#pray\ny    Fn FlFlbyn150s\u0018\u001b50sFl FlFuegFlFlFlFlFlFl#pray\ny   #pray\ny    Fl FlFu  nnnnn  5"
+ },
+ "segments": [
+  {
+   "seed": 52650003,
+   "datetime": "20070828161006",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\n",
+   "moves": " Fh ss,150sFhFh20s_ \u001bm.>100s100s_>,>_>,>50s150s150s150s 100sFhss50s100seg100seg100seg100segjhl100seh\\   \u000f\u001b150seh100seh ehi\u001b100seo eh bhyblkHNBB_>.>NBYY_>,>HUYK_>.>ab  .#terrain\nc\n@.<\u000f\u001b\\   eo #enhance\n\u001bKBYK_>.>UUKU_>,><JHKH_>.>HJYJ_>.>,#pray\ny NHJJ_>,>\u000f\u001b\u0014q#loot\nkndds..#name\na\n10s10sub#force\neg#chat\nnKLLJ_>,>UHLN_>.>HBHK_>.>YLKB_>,>BKKL_>.>ULKY_>.>NLBJ_>.>JUJB_>.>HYBJ_>.>;>.\\   YKHU_>.><KBBU_>,>\u000f\u001bHKLH_>,>BHBK_>.>wb#wipe\nNJYJ_>,>tahynyk#chat\nnkjjkjnlkblegeheh50seg100segkbu100s50sFlFlseh100sFnFnFlFlFnFnFnFlFlFnFlFlFlFnFl#pray\ny    Fn FlFlbyn150s\u0018\u001b50sFl FlFuegFlFlFlFlFlFl#pray\ny   #pray\ny    Fl FlFu  nnnnn  5"
+  }
+ ]
+}

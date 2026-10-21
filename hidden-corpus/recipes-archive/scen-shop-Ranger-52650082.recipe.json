@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  \u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWh\u0017blessed Mjollnir\nwi\u0016?\n>w\u0006_ \u001bm.#chat\nu#pray\ny y      _ooooo, Fk  n_,Fj  ,\u0014, sm.  n sn\u001612\n_ooo.,p_oooooo.,p\u0016?\ncubk\u0016?\n>w\u0006yhj#chat\nk_oooooooo,,p_oooooo.,$_oooo.,p_oo.,:_{.Fu _. qllh#chat\nl_ooooooo._,_oo._. ,\u0017amulet of life saving\ndj_ooooooo,Fh_.Fh_o,  nFh _.;:   ,#chat\nh__, _.m.Fu   #chat\nl\u0016?\n>Buku\u0016?\n>w\u0006_ooo.Fy    \u001b_.,p  yuu#chat\nh_{._.qy_ooooooooo, _.Fk     n ,   p\u001b_ooooooo. Fl _,    n Fn  n,\u0017amulet of flying\ndl\u00162\n   Fl  n    nFl   nFl     n Fl    n  FlFl  n \u00166\n_ooooo.Fl  n _.m.   Fn  n ,\u0017gray stone\ndm\u00162\n_oooooo._"
+ },
+ "segments": [
+  {
+   "seed": 52650082,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWh\u0017blessed Mjollnir\nwi\u0016?\n>w\u0006_ \u001bm.#chat\nu#pray\ny y      _ooooo, Fk  n_,Fj  ,\u0014, sm.  n sn\u001612\n_ooo.,p_oooooo.,p\u0016?\ncubk\u0016?\n>w\u0006yhj#chat\nk_oooooooo,,p_oooooo.,$_oooo.,p_oo.,:_{.Fu _. qllh#chat\nl_ooooooo._,_oo._. ,\u0017amulet of life saving\ndj_ooooooo,Fh_.Fh_o,  nFh _.;:   ,#chat\nh__, _.m.Fu   #chat\nl\u0016?\n>Buku\u0016?\n>w\u0006_ooo.Fy    \u001b_.,p  yuu#chat\nh_{._.qy_ooooooooo, _.Fk     n ,   p\u001b_ooooooo. Fl _,    n Fn  n,\u0017amulet of flying\ndl\u00162\n   Fl  n    nFl   nFl     n Fl    n  FlFl  n \u00166\n_ooooo.Fl  n _.m.   Fn  n ,\u0017gray stone\ndm\u00162\n_oooooo._"
+  }
+ ]
+}

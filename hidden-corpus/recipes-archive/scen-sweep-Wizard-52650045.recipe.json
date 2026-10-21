@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n16\n \u0016?\n>y _ \u001bm.#chat\nb;b,_mmmm.#chat\nb_mm,#chat\nl_mmm,Fu_.#chat\nu;u,_mmmm.#chat\nu\u0006_>,_,<.Fh >Fh Fh  _>.  Fh   _,  Fh  >Fh Fn  _>, Fh     n_.Fh >Fh Fl#terrain\n\u001b#invoke\n\u001b\u001bs#levelchange\n20\n    \u0017wand of opening\nzoh  zou  \u0017magic harp\napy   apy     \u0017cursed scroll of light\nrq \u0017spellbook of drain life\n\u0007blue jelly\nrr20s       20s       Z\u001bZ\u001bFl      nFbsnsm.\u00163\n#levelchange\n30\n         \u0007hostile dust vortex\n.k  Fj s\u001bFk Fy .  Fk   n Fu Fk  #pray\ny y           Fk #pray\ny y\u0017cursed -1 ring of gain constitution\nPsl. s s\u001bFjFk \u0017amulet versus poison\nPt  . s\u001bs20s s  Fy  \u0017cloak of magic resistance\n\u0007baby red dragon\nW\u001b\u001b20s s  s  T s\u001b.\u0018\u001bi>\u001bPd20s s  s  rl.  n s Z\u001bri  qf  Pesm.    .m.     syRd   rr   .m.     20s        Z\u001bZ\u001b#chat\nn       #rub\n#force\n       rk       w-  n     \u0018\u001b;u:  l        \u001623\n\u00168\n#levelchange\n30\n     \u0017blessed ring of polymorph control\nPv         #polyself\ncouatl\n.m.               20s        \u0007stalker\nFl Fj Fj sh  n sm..n#polyself\nnurse\n Kop Kaptain\n#monster\nsm.sm. \u0007Oracle\nnFn Fb  Fu   n .m.sm.sm.#polyself\ncouatl\n#monster\nsm.20s 20s .m.   .u  \u0006\u001611\n\u0017dwarvish mattock\naw   n_>.Fl _.m.Flaw> awkk\u0006_oo.aw> hj\u00168\n\\  i>\u001brm y sm. 20s Z\u001bZ\u001bPd20s  snsm.  n Rsan\u001b\u001brr sm..m.Z\u001bWb sm. 20s sm.  n Pe sm.sm. .m. #rub\n#jump\n20sJ<#rub\n20s   n \u0018\u001bi>\u001bapy     apy W\u001b\u001b20s    20ssua"
+ },
+ "segments": [
+  {
+   "seed": 52650045,
+   "datetime": "20041230123306",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n16\n \u0016?\n>y _ \u001bm.#chat\nb;b,_mmmm.#chat\nb_mm,#chat\nl_mmm,Fu_.#chat\nu;u,_mmmm.#chat\nu\u0006_>,_,<.Fh >Fh Fh  _>.  Fh   _,  Fh  >Fh Fn  _>, Fh     n_.Fh >Fh Fl#terrain\n\u001b#invoke\n\u001b\u001bs#levelchange\n20\n    \u0017wand of opening\nzoh  zou  \u0017magic harp\napy   apy     \u0017cursed scroll of light\nrq \u0017spellbook of drain life\n\u0007blue jelly\nrr20s       20s       Z\u001bZ\u001bFl      nFbsnsm.\u00163\n#levelchange\n30\n         \u0007hostile dust vortex\n.k  Fj s\u001bFk Fy .  Fk   n Fu Fk  #pray\ny y           Fk #pray\ny y\u0017cursed -1 ring of gain constitution\nPsl. s s\u001bFjFk \u0017amulet versus poison\nPt  . s\u001bs20s s  Fy  \u0017cloak of magic resistance\n\u0007baby red dragon\nW\u001b\u001b20s s  s  T s\u001b.\u0018\u001bi>\u001bPd20s s  s  rl.  n s Z\u001bri  qf  Pesm.    .m.     syRd   rr   .m.     20s        Z\u001bZ\u001b#chat\nn       #rub\n#force\n       rk       w-  n     \u0018\u001b;u:  l        \u001623\n\u00168\n#levelchange\n30\n     \u0017blessed ring of polymorph control\nPv         #polyself\ncouatl\n.m.               20s        \u0007stalker\nFl Fj Fj sh  n sm..n#polyself\nnurse\n Kop Kaptain\n#monster\nsm.sm. \u0007Oracle\nnFn Fb  Fu   n .m.sm.sm.#polyself\ncouatl\n#monster\nsm.20s 20s .m.   .u  \u0006\u001611\n\u0017dwarvish mattock\naw   n_>.Fl _.m.Flaw> awkk\u0006_oo.aw> hj\u00168\n\\  i>\u001brm y sm. 20s Z\u001bZ\u001bPd20s  snsm.  n Rsan\u001b\u001brr sm..m.Z\u001bWb sm. 20s sm.  n Pe sm.sm. .m. #rub\n#jump\n20sJ<#rub\n20s   n \u0018\u001bi>\u001bapy     apy W\u001b\u001b20s    20ssua"
+  }
+ ]
+}

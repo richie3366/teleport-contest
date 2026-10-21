@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWk \u0017blessed bell of opening\n\u0017blessed 20 daggers\nQm#levelchange\n20\n                      #wizintrinsic\nh\n _ \u001b<.uhl\u0007hobbit\nFbFl ssss;>.E- Vlad was here\n#chat\nni\u001bjbn\u001618\nnhlkbkh:;.E- ad aerarium\n#chat\nb#wizintrinsic\nh\n\u0017blessed scroll of enchant weapon\nrn \u0017apple\neo\u0007grid bug\n\u0007owlbear\nFnFl FlFl\u0007dwarf\nFlFlFbFb;b.E-n  X marks the spot\n#chat\nb #pray\ny y  #wizintrinsic\nh\n\u0017wand of probing\nzpb \u001b  zpl \u001b   zpb \u001bzpb \u001bzpl \u001bzpb \u001b  \u0017blessed scroll of identify\nrq    \u0017spellbook of cone of cold\nrr  20s Za\n: #wizintrinsic\nh\n\u0007troll\n\u0007newt\nFnFl Fl FhFb    n Fl  _.hbu i\u001bhjub\u0017blessed spellbook of sleep\nrs  sZa\n:\u0017potion of hallucination\nqts20s#wizintrinsic\nh\n\u0007dwarf\nFlFlFl FyFy\u0017potion of levitation\nqusjs_,kj_m,jk  ;h.E-#chat\nhi\u001bj k jk \u0007kobold\nFlFh  FjFl   Fh  #wizintrinsic\nh\n\u0007kobold shaman\n\u0007jackal\nFlFl   Fh   Fj\u001616\n b   n u h y :sm.20s \u0017blessed scroll of earth\nrv\u0007kobold\nFj  FjFj Fn#wizintrinsic\nh\n\u0017scroll of teleportation\nrw .;m,E-#chat\nk#pray\ny y tmbfy;.E-#chat\nj\u0007troll\n\u0007kobold\nFyFyFk Fy#wizintrinsic\nh\n;y.E-\u0017wand of light\nzx zxzx \u0007lichen\nFu Fy FyFy   n  \u0017spellbook of sleep\nry y 20s Z\u001b:\u0017wand of lightning\nzz"
+ },
+ "segments": [
+  {
+   "seed": 52650008,
+   "datetime": "20250930021302",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWk \u0017blessed bell of opening\n\u0017blessed 20 daggers\nQm#levelchange\n20\n                      #wizintrinsic\nh\n _ \u001b<.uhl\u0007hobbit\nFbFl ssss;>.E- Vlad was here\n#chat\nni\u001bjbn\u001618\nnhlkbkh:;.E- ad aerarium\n#chat\nb#wizintrinsic\nh\n\u0017blessed scroll of enchant weapon\nrn \u0017apple\neo\u0007grid bug\n\u0007owlbear\nFnFl FlFl\u0007dwarf\nFlFlFbFb;b.E-n  X marks the spot\n#chat\nb #pray\ny y  #wizintrinsic\nh\n\u0017wand of probing\nzpb \u001b  zpl \u001b   zpb \u001bzpb \u001bzpl \u001bzpb \u001b  \u0017blessed scroll of identify\nrq    \u0017spellbook of cone of cold\nrr  20s Za\n: #wizintrinsic\nh\n\u0007troll\n\u0007newt\nFnFl Fl FhFb    n Fl  _.hbu i\u001bhjub\u0017blessed spellbook of sleep\nrs  sZa\n:\u0017potion of hallucination\nqts20s#wizintrinsic\nh\n\u0007dwarf\nFlFlFl FyFy\u0017potion of levitation\nqusjs_,kj_m,jk  ;h.E-#chat\nhi\u001bj k jk \u0007kobold\nFlFh  FjFl   Fh  #wizintrinsic\nh\n\u0007kobold shaman\n\u0007jackal\nFlFl   Fh   Fj\u001616\n b   n u h y :sm.20s \u0017blessed scroll of earth\nrv\u0007kobold\nFj  FjFj Fn#wizintrinsic\nh\n\u0017scroll of teleportation\nrw .;m,E-#chat\nk#pray\ny y tmbfy;.E-#chat\nj\u0007troll\n\u0007kobold\nFyFyFk Fy#wizintrinsic\nh\n;y.E-\u0017wand of light\nzx zxzx \u0007lichen\nFu Fy FyFy   n  \u0017spellbook of sleep\nry y 20s Z\u001b:\u0017wand of lightning\nzz"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nWj\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007newt\n#pray\ny y   #chat\nn#levelchange\n25\n        FnFn sdl_ \u001b;#overview\n\u001b#conduct\n i\u001b#dip\ned#offer\n#chat\nu#turn\n#wizintrinsic\ns\n jjn\u0016?\nh\u0006#vanquished\n #genocided\nbarrow wight\nf\u001b\u0018\u001b#name\n\u001b#adjust\nh\u001b#sit\n #pray\ny y  #jump\n#wizdetect\n\u0006FjFkFk\u00161\n\u0006#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nk#chat\nl#wizintrinsic\ng\n yju10s_oooooo.Fj_.,Fl,#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#turn\n#sit\n#jump\n#polyself\nair elemental\n #monster\n20s.Fl.hhu_oooooo._, ,#overview\n\u001b#conduct\n #annotate\nshi"
+ },
+ "segments": [
+  {
+   "seed": 52650086,
+   "datetime": "20000128083553",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nWj\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007newt\n#pray\ny y   #chat\nn#levelchange\n25\n        FnFn sdl_ \u001b;#overview\n\u001b#conduct\n i\u001b#dip\ned#offer\n#chat\nu#turn\n#wizintrinsic\ns\n jjn\u0016?\nh\u0006#vanquished\n #genocided\nbarrow wight\nf\u001b\u0018\u001b#name\n\u001b#adjust\nh\u001b#sit\n #pray\ny y  #jump\n#wizdetect\n\u0006FjFkFk\u00161\n\u0006#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nk#chat\nl#wizintrinsic\ng\n yju10s_oooooo.Fj_.,Fl,#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#turn\n#sit\n#jump\n#polyself\nair elemental\n #monster\n20s.Fl.hhu_oooooo._, ,#overview\n\u001b#conduct\n #annotate\nshi"
+  }
+ ]
+}

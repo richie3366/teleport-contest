@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed bell of opening\n\u0017blessed +3 speed boots\nWh\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed magic lamp\n\u0017blessed 20 daggers\nQk#levelchange\n20\n                   #wizintrinsic\nh\n \u0017wand of slow monster\nzlkzlhzlhzlk\u0017potion of sleeping\nqms20s\u0017wand of cold\nznh zn.znhzny\u0017wand of striking\nzobzohzoyzoh#wizintrinsic\nh\n \u0017blessed scroll of earth\nrp \u0017floating eye corpse\neq  \u0017potion of acid\nqr20sfjfj#invoke\ng_ \u001b:jlk#wizintrinsic\nh\n\u0017blessed spellbook of magic missile\nrs.Za\n:\u0017potion of speed\nqt20s.\u0017blessed scroll of earth\nru #wizintrinsic\nh\n\u0017potion of sleeping\nqv20s20s\u0018\u001bk nl\u0017blessed scroll of earth\nrw \u0017cram ration\nexi\u001bjlh k\u0017wand of fire\nzyhzyj zyb  #wizintrinsic\nh\n ;<.E- Elbereth Elbereth\n#chat\nk#pray\ny y \u0017scroll of remove curse\nrz \u0017apple\neA\u001612\n    __.>.;>.E- Vlad was here\n#pray\ny y #wizintrinsic\nh\n\u0017wand of sleep\nzBnzBj zBjzB.zBn\u0017blessed spellbook of cone of cold\nrC .Za\n:\u0017wand of striking\nzDhzD.zDyzDbzDk#wizintrinsic\nh"
+ },
+ "segments": [
+  {
+   "seed": 52650063,
+   "datetime": "20161229044656",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed bell of opening\n\u0017blessed +3 speed boots\nWh\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed magic lamp\n\u0017blessed 20 daggers\nQk#levelchange\n20\n                   #wizintrinsic\nh\n \u0017wand of slow monster\nzlkzlhzlhzlk\u0017potion of sleeping\nqms20s\u0017wand of cold\nznh zn.znhzny\u0017wand of striking\nzobzohzoyzoh#wizintrinsic\nh\n \u0017blessed scroll of earth\nrp \u0017floating eye corpse\neq  \u0017potion of acid\nqr20sfjfj#invoke\ng_ \u001b:jlk#wizintrinsic\nh\n\u0017blessed spellbook of magic missile\nrs.Za\n:\u0017potion of speed\nqt20s.\u0017blessed scroll of earth\nru #wizintrinsic\nh\n\u0017potion of sleeping\nqv20s20s\u0018\u001bk nl\u0017blessed scroll of earth\nrw \u0017cram ration\nexi\u001bjlh k\u0017wand of fire\nzyhzyj zyb  #wizintrinsic\nh\n ;<.E- Elbereth Elbereth\n#chat\nk#pray\ny y \u0017scroll of remove curse\nrz \u0017apple\neA\u001612\n    __.>.;>.E- Vlad was here\n#pray\ny y #wizintrinsic\nh\n\u0017wand of sleep\nzBnzBj zBjzB.zBn\u0017blessed spellbook of cone of cold\nrC .Za\n:\u0017wand of striking\nzDhzD.zDyzDbzDk#wizintrinsic\nh"
+  }
+ ]
+}

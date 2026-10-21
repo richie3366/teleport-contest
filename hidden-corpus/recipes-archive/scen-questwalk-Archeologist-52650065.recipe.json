@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017blessed ring of free action\nPjr\u0016?\n>z  \u00162\n\u0006hbkjjlnu\u00163\n \u0006_ \u001b:Fn 20s s20s\u00164\n\u0006,\u00165\n  \u0006__._,  \u00166\n\u0006,\u00162\n  \u0006_>,Fj_,Fj \u00163\n \u0006#chat\nu;.\u00164\n\u0006_mm..20s Fy\u00165\n \u0006#chat\nj;>.\u00166\n\u0006_>,_>.>\u0006_<,Fu_,Fh  _>.>\u0006#chat\nh;h:  \u00164\n\u0006_mm,20s FuFuFuFuFu\u00165\n \u0006_mm.   n Fy  _,Fy  Fh  FyFyFh  nFy \u00163\n_>.Fh_, Fj>\u0006__.Fh_,Fj\u00162\n  \u0006_mm.20sFhFhs\u00163\n   \u0006_mm.sFkFk\u00164\n  \u0006#chat\nh;>._>.  nFl _.,Fl >\u0006_>,Fl _.Fl\u00166\n \u0006jnl   jk    nuny  \u0016?\n>>\u001b\u0016?\n>y  #chat\ny\u0016?\n>z\u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006_mmmm.Fu _, Fu FnFl   n  Fu   Fk_>,  Fl _.  n Fl  >\u0016?\n>z\u0006_mmmmm,      Fy  n   _.Fu      n      Fk    n Fk      n   \u00169\n\u00165\n\u0016?\n>z\u0006_m.     n  Fj         n          n    _.Fy     Fk   n  Fl      Fk  n        yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 52650065,
+   "datetime": "20260701040546",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017blessed ring of free action\nPjr\u0016?\n>z  \u00162\n\u0006hbkjjlnu\u00163\n \u0006_ \u001b:Fn 20s s20s\u00164\n\u0006,\u00165\n  \u0006__._,  \u00166\n\u0006,\u00162\n  \u0006_>,Fj_,Fj \u00163\n \u0006#chat\nu;.\u00164\n\u0006_mm..20s Fy\u00165\n \u0006#chat\nj;>.\u00166\n\u0006_>,_>.>\u0006_<,Fu_,Fh  _>.>\u0006#chat\nh;h:  \u00164\n\u0006_mm,20s FuFuFuFuFu\u00165\n \u0006_mm.   n Fy  _,Fy  Fh  FyFyFh  nFy \u00163\n_>.Fh_, Fj>\u0006__.Fh_,Fj\u00162\n  \u0006_mm.20sFhFhs\u00163\n   \u0006_mm.sFkFk\u00164\n  \u0006#chat\nh;>._>.  nFl _.,Fl >\u0006_>,Fl _.Fl\u00166\n \u0006jnl   jk    nuny  \u0016?\n>>\u001b\u0016?\n>y  #chat\ny\u0016?\n>z\u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006_mmmm.Fu _, Fu FnFl   n  Fu   Fk_>,  Fl _.  n Fl  >\u0016?\n>z\u0006_mmmmm,      Fy  n   _.Fu      n      Fk    n Fk      n   \u00169\n\u00165\n\u0016?\n>z\u0006_m.     n  Fj         n          n    _.Fy     Fk   n  Fl      Fk  n        yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

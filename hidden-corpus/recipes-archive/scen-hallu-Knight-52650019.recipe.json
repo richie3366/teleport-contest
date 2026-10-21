@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed bell of opening\n\u0017blessed amulet of life saving\nPk\u0017blessed 20 daggers\n Ql#wizintrinsic\nh\n \u0017wand of sleep\nzmbzm. zmnzmh zmzm\u0007kobold shaman\nFh20s..\u0017blessed scroll of mail\nrn tbltlbtll#wizintrinsic\nh\n \u0007grid bug\n\u0007owlbear\nFyFh    FhFhFh  nFh \u0017wand of slow monster\nzoh zohzoh  nzoh\u0017spellbook of cone of cold\n rp   n sm.Z:#wizintrinsic\nh\n;h, \u001b>.E- X marks the spot\n#chat\nh  n  n #pray\ny y    \u00169\ni\u001bjhhl\u0017potion of hallucination\n qq 20s#wizintrinsic\nh\n\u0017blessed spellbook of cause fear\n rr.lZ:\u0017blessed scroll of enchant armor\nrs  \u0017blessed scroll of fire\nrt  m,  n#wizintrinsic\nh\ni\u001bkhlb\u0017potion of sleeping\nqu  .m.\u00167\n__.;m.E- ad aerarium\n#chat\nh#pray\ny y \u0017blessed spellbook of fireball\nrvsZa\n:#wizintrinsic\nh\n\u0016?\n>z\u0004y\u0007jackal\n\u0007grid bug\nFj Fh Fh Fj   Fb Fb      n\u0017wand of teleportation\nzxb    zxn zxb zxj     n      zxb       n \u001612\n  #wizintrinsic\nh\n\u0007gnome lord\nFn    n Fy   n      n Fk     n  Fy    n      nFy     yy\u001by   y y y\u001b  ;"
+ },
+ "segments": [
+  {
+   "seed": 52650019,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed bell of opening\n\u0017blessed amulet of life saving\nPk\u0017blessed 20 daggers\n Ql#wizintrinsic\nh\n \u0017wand of sleep\nzmbzm. zmnzmh zmzm\u0007kobold shaman\nFh20s..\u0017blessed scroll of mail\nrn tbltlbtll#wizintrinsic\nh\n \u0007grid bug\n\u0007owlbear\nFyFh    FhFhFh  nFh \u0017wand of slow monster\nzoh zohzoh  nzoh\u0017spellbook of cone of cold\n rp   n sm.Z:#wizintrinsic\nh\n;h, \u001b>.E- X marks the spot\n#chat\nh  n  n #pray\ny y    \u00169\ni\u001bjhhl\u0017potion of hallucination\n qq 20s#wizintrinsic\nh\n\u0017blessed spellbook of cause fear\n rr.lZ:\u0017blessed scroll of enchant armor\nrs  \u0017blessed scroll of fire\nrt  m,  n#wizintrinsic\nh\ni\u001bkhlb\u0017potion of sleeping\nqu  .m.\u00167\n__.;m.E- ad aerarium\n#chat\nh#pray\ny y \u0017blessed spellbook of fireball\nrvsZa\n:#wizintrinsic\nh\n\u0016?\n>z\u0004y\u0007jackal\n\u0007grid bug\nFj Fh Fh Fj   Fb Fb      n\u0017wand of teleportation\nzxb    zxn zxb zxj     n      zxb       n \u001612\n  #wizintrinsic\nh\n\u0007gnome lord\nFn    n Fy   n      n Fk     n  Fy    n      nFy     yy\u001by   y y y\u001b  ;"
+  }
+ ]
+}

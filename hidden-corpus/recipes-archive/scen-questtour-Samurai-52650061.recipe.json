@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b,#chat\nb;b:   _mmmm.#chat\nb;j._mmmm,#chat\nj_mmmmm._,#chat\nk_mmm._,#chat\nn#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fk _,#chat\nh_mmm.#chat\nn\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWh \u0017wand of fire\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,ss.s20s zib ,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nb\u0016?\n>A\u0006_mmm,FbFb.ss.,#chat\ny\u0016?\n>A\u0006_mm.s.s.s20s20sziy ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.      _,   Fj  #chat\nj\u0016?\n>z\u0006_mmmmm.FjFjFjFjFj  n  ,\u001b\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.FjFjFjFhFhFhFjziy  n ,\u001b#chat\ny\u0016?\n>A\u0006_mmmmmm,FhFh FhFh20sszih,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nj\u0016?\n>A\u0006_mmm,ss.s,\u001b\u0016?\n>z\u0006_mmmmmmm.ss20ss,\u001b\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nh\u0016?\n>"
+ },
+ "segments": [
+  {
+   "seed": 52650061,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b,#chat\nb;b:   _mmmm.#chat\nb;j._mmmm,#chat\nj_mmmmm._,#chat\nk_mmm._,#chat\nn#levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm.Fk _,#chat\nh_mmm.#chat\nn\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWh \u0017wand of fire\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,ss.s20s zib ,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nb\u0016?\n>A\u0006_mmm,FbFb.ss.,#chat\ny\u0016?\n>A\u0006_mm.s.s.s20s20sziy ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.      _,   Fj  #chat\nj\u0016?\n>z\u0006_mmmmm.FjFjFjFjFj  n  ,\u001b\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.FjFjFjFhFhFhFjziy  n ,\u001b#chat\ny\u0016?\n>A\u0006_mmmmmm,FhFh FhFh20sszih,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nj\u0016?\n>A\u0006_mmm,ss.s,\u001b\u0016?\n>z\u0006_mmmmmmm.ss20ss,\u001b\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nh\u0016?\n>"
+  }
+ ]
+}

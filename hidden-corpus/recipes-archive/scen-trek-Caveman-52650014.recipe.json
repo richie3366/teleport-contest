@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #name\nf\n;tbh#name\ni\nfoo\ndesss20sdaa20sss#name\nm\ndsssdcck20ssm..t\u001b\u001bukuy#chat\nl10sohPt\u001b\u001b#wipe\n\u000f\u001bhny50s\\ 100s50s150s Fh..abbk100s  _>.>100s100s\\ 100s  eeeeeeeeeeeeeeeeeeeeeeeLYNL_>.>H LYB_>.>#monster\nchLJUB_>.>#enhance\n\u001b\u0018\u001bL LKB_>.>LL NY_>,>N LBH _>,>\u000f\u001bt\u001b\u001b#enhance\n\u001b20sKKBH_>.>\u000f\u001b\u0014BLJK_>,>UKHJ_>,>eeKULN_>.>Fb..JNNK_>.>LNNY_>.>#conduct\n \u000f\u001b\u000f\u001bee#pray\ny e#pray\ny  #pray\ny  eee#pray\ny     y\u001by  y y y\u001b  n"
+ },
+ "segments": [
+  {
+   "seed": 52650014,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\n",
+   "moves": " #name\nf\n;tbh#name\ni\nfoo\ndesss20sdaa20sss#name\nm\ndsssdcck20ssm..t\u001b\u001bukuy#chat\nl10sohPt\u001b\u001b#wipe\n\u000f\u001bhny50s\\ 100s50s150s Fh..abbk100s  _>.>100s100s\\ 100s  eeeeeeeeeeeeeeeeeeeeeeeLYNL_>.>H LYB_>.>#monster\nchLJUB_>.>#enhance\n\u001b\u0018\u001bL LKB_>.>LL NY_>,>N LBH _>,>\u000f\u001bt\u001b\u001b#enhance\n\u001b20sKKBH_>.>\u000f\u001b\u0014BLJK_>,>UKHJ_>,>eeKULN_>.>Fb..JNNK_>.>LNNY_>.>#conduct\n \u000f\u001b\u000f\u001bee#pray\ny e#pray\ny  #pray\ny  eee#pray\ny     y\u001by  y y y\u001b  n"
+  }
+ ]
+}

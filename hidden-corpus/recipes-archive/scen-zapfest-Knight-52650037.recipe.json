@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWi\u0017blessed ring of free action\nPjl\u0017blessed amulet of life saving\nPk#levelchange\n10\n         \u0017wand of fire\n\u0017wand of teleportation\n\u0017wand of digging\n\u0007gnome lord\nzmnzmlzmlzm. \u001b:zmuzn> zljzmlzl.\u0017spellbook of fireball\nro s\u0017blessed spellbook of finger of death\n rps\u0007aligned cleric\nyy\u0007gnomish wizard\nZ20s 20s  ZZZZZZ\u0017wand of striking\n\u0017wand of teleportation\n\u0007soldier\n\u0007newt\nzqy      zrbzqhzru  20s  n zql zqlzry.zqj zry \u0007master lich\n\u0007vampire\n\u0017wand of cold\ns. i\u001b\u0017wand of striking\n\u0017wand of magic missile\n\u0007kobold shaman\n\u0007soldier\n\u0007lichen\nzuy   n  zuk   zuh   n ztn zub   n  20s  zuj    n  zuy  ztn  \u00161\n\u0007lich\n\u0007succubus\n\u0007lich\n\u0017wand of fire\ns\u00178 spears\nQw\u0007grid bug\n\u0007dwarf\nfn    n tbb  twk    fu"
+ },
+ "segments": [
+  {
+   "seed": 52650037,
+   "datetime": "20030109021700",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWi\u0017blessed ring of free action\nPjl\u0017blessed amulet of life saving\nPk#levelchange\n10\n         \u0017wand of fire\n\u0017wand of teleportation\n\u0017wand of digging\n\u0007gnome lord\nzmnzmlzmlzm. \u001b:zmuzn> zljzmlzl.\u0017spellbook of fireball\nro s\u0017blessed spellbook of finger of death\n rps\u0007aligned cleric\nyy\u0007gnomish wizard\nZ20s 20s  ZZZZZZ\u0017wand of striking\n\u0017wand of teleportation\n\u0007soldier\n\u0007newt\nzqy      zrbzqhzru  20s  n zql zqlzry.zqj zry \u0007master lich\n\u0007vampire\n\u0017wand of cold\ns. i\u001b\u0017wand of striking\n\u0017wand of magic missile\n\u0007kobold shaman\n\u0007soldier\n\u0007lichen\nzuy   n  zuk   zuh   n ztn zub   n  20s  zuj    n  zuy  ztn  \u00161\n\u0007lich\n\u0007succubus\n\u0007lich\n\u0017wand of fire\ns\u00178 spears\nQw\u0007grid bug\n\u0007dwarf\nfn    n tbb  twk    fu"
+  }
+ ]
+}

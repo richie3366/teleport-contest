@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nWm\u0017blessed amulet of life saving\nPn#levelchange\n20\n                   \u0007master lich\n\u0007aligned cleric\ny\u0007mind flayer\n\u0017wand of cold\nzoy 20s         sm.          20s     n        sb     n    zob     n      zoh     n    zoh          zol   n    \u00162\n\u00161\n\u0017blessed spellbook of magic missile\nrp  s\u0007gnomish wizard\n\u0007lich\nZb\nsy     sy  ZZZ.m.    snZb\n  Zsj.m.#turn\n\u0017blessed spellbook of light\nrq  \u001b sm.\u0007vampire\nZa\n sm. sm. Za\n   Zb\n Zc\n ZZ\u00161\n \u0007lich\n\u0007gnomish wizard\n\u0017wand of sleep\n20s    sk sh  sm. .m. zry  \u0017blessed spellbook of magic missile\nrs y  20s \u0017blessed spellbook of slow monster\nrt  \u001b  .\u0007master lich\nZd\n   Zb\nsm. sZc\n  Za\n Zc\n ZZ#turn\ni\u001b\u0017wand of digging\n\u0017wand of fire\n\u0017wand of magic missile\n\u0007grid bug\n\u0007gnome lord\n\u0007acid blob\nzu> zwkzwh  zu> 20szvyzvl  zwu.i\u001b\u0007baby red dragon\n.m.sk#polyself\nred dragon\n   #monster\nk    20ssm.#monster\nk #monster\nk  #monster\nk    Fk Fk \u0007baby red dragon\n\u0007s"
+ },
+ "segments": [
+  {
+   "seed": 52650059,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nWm\u0017blessed amulet of life saving\nPn#levelchange\n20\n                   \u0007master lich\n\u0007aligned cleric\ny\u0007mind flayer\n\u0017wand of cold\nzoy 20s         sm.          20s     n        sb     n    zob     n      zoh     n    zoh          zol   n    \u00162\n\u00161\n\u0017blessed spellbook of magic missile\nrp  s\u0007gnomish wizard\n\u0007lich\nZb\nsy     sy  ZZZ.m.    snZb\n  Zsj.m.#turn\n\u0017blessed spellbook of light\nrq  \u001b sm.\u0007vampire\nZa\n sm. sm. Za\n   Zb\n Zc\n ZZ\u00161\n \u0007lich\n\u0007gnomish wizard\n\u0017wand of sleep\n20s    sk sh  sm. .m. zry  \u0017blessed spellbook of magic missile\nrs y  20s \u0017blessed spellbook of slow monster\nrt  \u001b  .\u0007master lich\nZd\n   Zb\nsm. sZc\n  Za\n Zc\n ZZ#turn\ni\u001b\u0017wand of digging\n\u0017wand of fire\n\u0017wand of magic missile\n\u0007grid bug\n\u0007gnome lord\n\u0007acid blob\nzu> zwkzwh  zu> 20szvyzvl  zwu.i\u001b\u0007baby red dragon\n.m.sk#polyself\nred dragon\n   #monster\nk    20ssm.#monster\nk #monster\nk  #monster\nk    Fk Fk \u0007baby red dragon\n\u0007s"
+  }
+ ]
+}

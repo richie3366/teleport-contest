@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed spellbook of cone of cold\nrl 20ssyZb\nZa\n\u0017blessed +3 levitation boots\nWm sm.20s20sTm  n FuFk\u0017cursed -1 ring of warning\nPnr sm.sns\u0017uncursed potion of extra healing\n \u0007Death\nyqeFk   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 52652012,
+   "datetime": "20061016004901",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed spellbook of cone of cold\nrl 20ssyZb\nZa\n\u0017blessed +3 levitation boots\nWm sm.20s20sTm  n FuFk\u0017cursed -1 ring of warning\nPnr sm.sns\u0017uncursed potion of extra healing\n \u0007Death\nyqeFk   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b,#chat\ny_m.Fl_,#chat\nn_m,Fj_,#chat\nj#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.Fb_.Fb#chat\nb_mmmm.#chat\nl\u0017blessed ring of free action\nPjl\u0017blessed +3 speed boots\nWk \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017wand of fire\n\u0016?\n>A\u0006_mm,Fj_.Fk  FhFhFhFb,#chat\nl\u0016?\n>z\u0006_mmmm.Fj_.FyFb FjFy FjFhFhFy ,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mm.Fy   n _,#chat\nn;h;\u0016?\n>A\u0006_mmmmmm,Fh_.FnFkFnFn FnFhFy,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fh_,FhFkFy FyFhFyFkzmy,\u0016?\n>A\u0006_mmmmmmm,FyFyFyFy,\u0016?\n>z\u0006_mmm,FyFyFyFy,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\ny\u0016?\n>A\u0006_mmmm.FyFyFyFyFyFy,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.FyFyFyFyzmy,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_m.#chat\ny\u0016?\n>A\u0006_mmmmm,FyFyFyFyFyFyFy,#chat\ny\u0016?\n>z\u0006_mmmmmm,FyFyFyFyFyFy,\u0016?\n>A\u0006_mmmmmm.FyFyFyFyFyFyFyzmy,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.FyFyFyFyzmy,#chat\ny\u0016?\n>A\u0006_mmmmm.FyFyFyFy,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\ny\u0016?\n>z\u0006_mmmmmmm,FyFyFyFyFyFyFyzm,#chat\ny\u0016?\n>A\u0006_mmmmmm.FyFyFyFyFyFkFkzm,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.Fh_.FjFhFhFjFjFjzm,\u0016?\n>A\u0006_mmm.FhFjFjFjFjFj,\u0016?\n>z\u0006_mmmm.FjFjFjFjFjFjzm,\u0016?\n>A\u0006_mmmmmmm,Fh_,FhFhFhss..s,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm._.20sFns20s20s20sszm,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmm,Fk_,>.Fb#chat\nb\u0016?\n>A\u0006_mmm.Fl_.m.FlFlFlFhFhzm,\u0016?\n>z\u0006_mmm.Fn_.m.Fj FnFkFb   nFnFb,\u0016?\n>"
+ },
+ "segments": [
+  {
+   "seed": 52650017,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b,#chat\ny_m.Fl_,#chat\nn_m,Fj_,#chat\nj#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mm.Fb_.Fb#chat\nb_mmmm.#chat\nl\u0017blessed ring of free action\nPjl\u0017blessed +3 speed boots\nWk \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017wand of fire\n\u0016?\n>A\u0006_mm,Fj_.Fk  FhFhFhFb,#chat\nl\u0016?\n>z\u0006_mmmm.Fj_.FyFb FjFy FjFhFhFy ,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mm.Fy   n _,#chat\nn;h;\u0016?\n>A\u0006_mmmmmm,Fh_.FnFkFnFn FnFhFy,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fh_,FhFkFy FyFhFyFkzmy,\u0016?\n>A\u0006_mmmmmmm,FyFyFyFy,\u0016?\n>z\u0006_mmm,FyFyFyFy,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\ny\u0016?\n>A\u0006_mmmm.FyFyFyFyFyFy,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.FyFyFyFyzmy,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_m.#chat\ny\u0016?\n>A\u0006_mmmmm,FyFyFyFyFyFyFy,#chat\ny\u0016?\n>z\u0006_mmmmmm,FyFyFyFyFyFy,\u0016?\n>A\u0006_mmmmmm.FyFyFyFyFyFyFyzmy,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.FyFyFyFyzmy,#chat\ny\u0016?\n>A\u0006_mmmmm.FyFyFyFy,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\ny\u0016?\n>z\u0006_mmmmmmm,FyFyFyFyFyFyFyzm,#chat\ny\u0016?\n>A\u0006_mmmmmm.FyFyFyFyFyFkFkzm,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.Fh_.FjFhFhFjFjFjzm,\u0016?\n>A\u0006_mmm.FhFjFjFjFjFj,\u0016?\n>z\u0006_mmmm.FjFjFjFjFjFjzm,\u0016?\n>A\u0006_mmmmmmm,Fh_,FhFhFhss..s,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm._.20sFns20s20s20sszm,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmm,Fk_,>.Fb#chat\nb\u0016?\n>A\u0006_mmm.Fl_.m.FlFlFlFhFhzm,\u0016?\n>z\u0006_mmm.Fn_.m.Fj FnFkFb   nFnFb,\u0016?\n>"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017jumping boots\nWfs20ss\u0007quantum mechanic\nFnFj Fn  Fn  \u001b:Fn .Fn @.Fns <.s @.\u0007owlbear\nFnFu Fu Fu Fus.s\u0017black dragon scale mail\nWgsys20s\u0007owlbear\nFnFbFbsm.20s \u0007Medusa\nyFj FjFj  yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 52651013,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017jumping boots\nWfs20ss\u0007quantum mechanic\nFnFj Fn  Fn  \u001b:Fn .Fn @.Fns <.s @.\u0007owlbear\nFnFu Fu Fu Fus.s\u0017black dragon scale mail\nWgsys20s\u0007owlbear\nFnFbFbsm.20s \u0007Medusa\nyFj FjFj  yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

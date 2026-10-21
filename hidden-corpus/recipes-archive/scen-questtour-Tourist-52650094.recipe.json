@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nu_m. Fl _,#chat\nl_mmm.  n_,   #chat\nb_m.Fu_,  nFu  #chat\nu_mmmmm.     \u001b Fy   n_.    n  Fl     n   n    n#chat\nh#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.    Fb     _.#chat\ny;h;_m,    Fl  n         _.#chat\nb\u0017blessed amulet of life saving\nPk    \u0017blessed +3 gray dragon scale mail\nWl        \u0017wand of death\n\u0016?\n>z\u0006_mmmmm.       Fb    _.Fu         n Fk     Fy      Fu           n,           #chat\ny\u00165\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.         n Fn         _.Fn     Fu   n           Fy         n   Fy       Fu        n  Fh         zmh        ,      n    #chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmm.          Fk           n _,#chat\nj;n:  \u0016?\n>A\u0006_mmmmmmm.         Fh       y\u001b     _"
+ },
+ "segments": [
+  {
+   "seed": 52650094,
+   "datetime": "20060909103735",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nu_m. Fl _,#chat\nl_mmm.  n_,   #chat\nb_m.Fu_,  nFu  #chat\nu_mmmmm.     \u001b Fy   n_.    n  Fl     n   n    n#chat\nh#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.    Fb     _.#chat\ny;h;_m,    Fl  n         _.#chat\nb\u0017blessed amulet of life saving\nPk    \u0017blessed +3 gray dragon scale mail\nWl        \u0017wand of death\n\u0016?\n>z\u0006_mmmmm.       Fb    _.Fu         n Fk     Fy      Fu           n,           #chat\ny\u00165\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.         n Fn         _.Fn     Fu   n           Fy         n   Fy       Fu        n  Fh         zmh        ,      n    #chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmm.          Fk           n _,#chat\nj;n:  \u0016?\n>A\u0006_mmmmmmm.         Fh       y\u001b     _"
+  }
+ ]
+}

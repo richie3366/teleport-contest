@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\njg\n hyn\u0017wand of locking\nzfhzfk\u0017wand of make invisible\nzg.E- Vlad was here\n\u0017glob of green slime\neh    20s20s   yy\u001by   nny\u001b y  s"
+ },
+ "segments": [
+  {
+   "seed": 52651010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\njg\n hyn\u0017wand of locking\nzfhzfk\u0017wand of make invisible\nzg.E- Vlad was here\n\u0017glob of green slime\neh    20s20s   yy\u001by   nny\u001b y  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               #levelchange\n20\n    \u0017the Eye of the Aethiopica\n wayFu Fl 20s#invoke\no ss\u0017tallow candle\naq#rub\ns20s\u0017spellbook of detect unseen\nrrs20sZa\nZa\nFuFu\u0017blessed Excalibur\n ws Fu.20s20ss20ss\u001618\n\u0006\u0007tame hill orc\n \u0017food ration\n t$nny \u0007acid blob\n20s         s .s.u20s \u0017meatball\ntan   n#chat\nn \u001630\n   #levelchange\n16\n \u0016?\n>z  _ \u001b>.#chat\nh _mm.  Fk  _. Fy             n    #chat\nh;h._mmm.Fy  _.  Fh    n #chat\ny  _mm,  Fy    n  _.#chat\nh   _m.       Fj   n   _,#chat\nj\u0006_>,        n  Fl   _,     n Fl      >Fh    Fl  n     _>.   Fn    n     _.      Fu         n    >Fh             n        Fl        n  _>.           Fh    n       _,     n   Fl         n >Fy  Fh  yy\u001by   y y y\u001b  k"
+ },
+ "segments": [
+  {
+   "seed": 52650023,
+   "datetime": "20020916160116",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               #levelchange\n20\n    \u0017the Eye of the Aethiopica\n wayFu Fl 20s#invoke\no ss\u0017tallow candle\naq#rub\ns20s\u0017spellbook of detect unseen\nrrs20sZa\nZa\nFuFu\u0017blessed Excalibur\n ws Fu.20s20ss20ss\u001618\n\u0006\u0007tame hill orc\n \u0017food ration\n t$nny \u0007acid blob\n20s         s .s.u20s \u0017meatball\ntan   n#chat\nn \u001630\n   #levelchange\n16\n \u0016?\n>z  _ \u001b>.#chat\nh _mm.  Fk  _. Fy             n    #chat\nh;h._mmm.Fy  _.  Fh    n #chat\ny  _mm,  Fy    n  _.#chat\nh   _m.       Fj   n   _,#chat\nj\u0006_>,        n  Fl   _,     n Fl      >Fh    Fl  n     _>.   Fn    n     _.      Fu         n    >Fh             n        Fl        n  _>.           Fh    n       _,     n   Fl         n >Fy  Fh  yy\u001by   y y y\u001b  k"
+  }
+ ]
+}

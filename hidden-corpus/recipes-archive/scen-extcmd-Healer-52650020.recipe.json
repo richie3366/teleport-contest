@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 silver dragon scale mail\nWl\u0017blessed ring of free action\nPml\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007sewer rat\nFl Fl Fj#monster\n_ \u001b:#overview\n\u001b#conduct\n \u0018\u001b#dip\nif#offer\n#pray\ny y #chat\nk#wizidentify\n\u001blkn__.#chat\nl\u0007owlbear\n#vanquished\n #genocided\nguard\ng#annotate\nFido\n\u000f\u001b#name\nm\n#adjust\nm.foo\n#chat\nj#turn\n#jump\n#polyself\npurple worm\n #monster\nsm.20sFj  Fj  bhj_<,_.\u0007hobbit\n#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y     #polyself\nfog cloud\n#monster\n20s  .m.FuFuFuFuFu__,#chat\nu #version\n  #history\n                  #annotate\n\u001b\u000f\u001b#wipe\n #loot\nu#chat\nu #chat\nu #wizdetect\n\u0006Fusss_{,_,qo#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nyy#turn\n#sit\n\u001b#wizdetect\n\u0006kjk_oo._,,\u001b#vanquished\n #genocided\nyeti\n i\u001b#dip\nnf#offer\n#pray\ny y #chat\ny#wizintrinsic\nrg\n lbji\u001b_{._,qd#chronicle\n #terrain\n\u001b\u000f\u001b#name\nm\nm,#adjust\nn\u001b#chat\nb#turn\n#jump\n#wizidentify\n\u001bkjk_oooooo,_,,\u001b#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #jump\n#wizintrinsic\nf\n b hy#twoweapon\n\u00161\n \u0006#overview\n\u001b#conduct\n \u0018\u001b#wipe\n#loot\n#chat\nn#chat\nu#wizintrinsic\nqr\n  l nb_>.Fb_.Fh\u0007dwarf\n#vanquished\n #genocided\nvampire bat\ng\u0018\u001b#tip\n\u001b#ride\nky#turn\n"
+ },
+ "segments": [
+  {
+   "seed": 52650020,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 silver dragon scale mail\nWl\u0017blessed ring of free action\nPml\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007sewer rat\nFl Fl Fj#monster\n_ \u001b:#overview\n\u001b#conduct\n \u0018\u001b#dip\nif#offer\n#pray\ny y #chat\nk#wizidentify\n\u001blkn__.#chat\nl\u0007owlbear\n#vanquished\n #genocided\nguard\ng#annotate\nFido\n\u000f\u001b#name\nm\n#adjust\nm.foo\n#chat\nj#turn\n#jump\n#polyself\npurple worm\n #monster\nsm.20sFj  Fj  bhj_<,_.\u0007hobbit\n#chronicle\n #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y     #polyself\nfog cloud\n#monster\n20s  .m.FuFuFuFuFu__,#chat\nu #version\n  #history\n                  #annotate\n\u001b\u000f\u001b#wipe\n #loot\nu#chat\nu #chat\nu #wizdetect\n\u0006Fusss_{,_,qo#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nyy#turn\n#sit\n\u001b#wizdetect\n\u0006kjk_oo._,,\u001b#vanquished\n #genocided\nyeti\n i\u001b#dip\nnf#offer\n#pray\ny y #chat\ny#wizintrinsic\nrg\n lbji\u001b_{._,qd#chronicle\n #terrain\n\u001b\u000f\u001b#name\nm\nm,#adjust\nn\u001b#chat\nb#turn\n#jump\n#wizidentify\n\u001bkjk_oooooo,_,,\u001b#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #jump\n#wizintrinsic\nf\n b hy#twoweapon\n\u00161\n \u0006#overview\n\u001b#conduct\n \u0018\u001b#wipe\n#loot\n#chat\nn#chat\nu#wizintrinsic\nqr\n  l nb_>.Fb_.Fh\u0007dwarf\n#vanquished\n #genocided\nvampire bat\ng\u0018\u001b#tip\n\u001b#ride\nky#turn\n"
+  }
+ ]
+}

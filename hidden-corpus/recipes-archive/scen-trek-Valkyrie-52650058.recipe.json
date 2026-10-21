@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  FhFh Fj FhFhs150sljb100s\u000f\u001blhu100sFhFhFhubnlyy150sjnl150sFlFl.150s50syhh100s150sFnss10s_ \u001b:>\u000f\u001b\u000f\u001bblukbb100sFhFh.uul100s100sFjs20s150s ed#loot\n_>.>150sFjFjFjbuh#dip\nd;<.20s#name\nm\n#chat\n<.10s#name\nm\n,da20s..#name\nm\n<.jnlhBUHJ_>.>\u0018\u001b#turn\nYNJJ_>.>s\u0014BJJL_>,>db#loot\nYNJB_>.>JUYL_>.>ed \u0018\u001bYYBU_>.>BYBJ_>.>\u000f\u001b20sbhjjhy#chat\nyhy150s#name\nm\n,_>,>hjk\u000f\u001bljb\u0018\u001b_>,>20sFlss50s\u000f\u001b100sFkFksr\u001b100s100s100sFlFlFlFlss50skulFls20sFlss100si\u001b100sFls20s150sFlss100sFlFlFl100sljjFk 20s20s100s_>.>_>.>150s150s#untrap\nun\u000f\u001bFuFkFlFuss100s100s 100s100s\u0018\u001b100sFk.s100s50s50slubulb_>.>50s100sFk.20s100s 150sFkFkFklkj\u000f\u001blkj\\   100s eeeeeeeeeeeeee\\   ZaBNUN_>.>YYYN_>.>UJBL_>.>BLJK_>,>NKHB_>.>HLHJ_>,>YBYH_>.>\u000f\u001bHKHK_>.>LHBH_>.>r\u001b#sit\n\u001bJLNH_>.>>#name\nm\n;JNNN_>.>#monster\n"
+ },
+ "segments": [
+  {
+   "seed": 52650058,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "  FhFh Fj FhFhs150sljb100s\u000f\u001blhu100sFhFhFhubnlyy150sjnl150sFlFl.150s50syhh100s150sFnss10s_ \u001b:>\u000f\u001b\u000f\u001bblukbb100sFhFh.uul100s100sFjs20s150s ed#loot\n_>.>150sFjFjFjbuh#dip\nd;<.20s#name\nm\n#chat\n<.10s#name\nm\n,da20s..#name\nm\n<.jnlhBUHJ_>.>\u0018\u001b#turn\nYNJJ_>.>s\u0014BJJL_>,>db#loot\nYNJB_>.>JUYL_>.>ed \u0018\u001bYYBU_>.>BYBJ_>.>\u000f\u001b20sbhjjhy#chat\nyhy150s#name\nm\n,_>,>hjk\u000f\u001bljb\u0018\u001b_>,>20sFlss50s\u000f\u001b100sFkFksr\u001b100s100s100sFlFlFlFlss50skulFls20sFlss100si\u001b100sFls20s150sFlss100sFlFlFl100sljjFk 20s20s100s_>.>_>.>150s150s#untrap\nun\u000f\u001bFuFkFlFuss100s100s 100s100s\u0018\u001b100sFk.s100s50s50slubulb_>.>50s100sFk.20s100s 150sFkFkFklkj\u000f\u001blkj\\   100s eeeeeeeeeeeeee\\   ZaBNUN_>.>YYYN_>.>UJBL_>.>BLJK_>,>NKHB_>.>HLHJ_>,>YBYH_>.>\u000f\u001bHKHK_>.>LHBH_>.>r\u001b#sit\n\u001bJLNH_>.>>#name\nm\n;JNNN_>.>#monster\n"
+  }
+ ]
+}

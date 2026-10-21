@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPel\u0017blessed shield of reflection\nW\u001b\u001b#levelchange\n10\n         \u00176 javelins\nQg\u0007giant rat\nfk fy fy  tbk fkfkfu\u0017potion of healing\nt\u001b\u001b\u0007red dragon\n\u0007silver dragon\n20s .lsk  Fk  Fy   n \u0017blessed spellbook of magic missile\nri   sm.\u0017blessed spellbook of force bolt\nrj   .m.\u0007lich\nZZsh   sm.Z.m.  n su ZZZZZ\u0007master lich\n\u0007master lich\n\u0007mind flayer\n\u0017wand of sleep\nzkk  zkyzkk   zku        \u0017blessed spellbook of magic missile\nrl  .j\u0017blessed spellbook of slow monster\nrm      n   .h\u0007gnomish wizard\n\u0007mind flayer\nZZZsb    .m.    ZZ.m.      n      20s       Zsm.   n   sm.   Z\u00169\n\u0007succubus\n\u0007kobold shaman\n\u0007mind flayer\n\u0017wand of striking\n20sznk \u0018\u001b\u0007silver dragon\n\u0007baby red dragon\nsm.20s \u0017wand of cold\naoy     sFu\u0017blessed spellbook of drain life\nrp       n sh\u0017spellbook of slow monster\nrq \u001b.    n sm.    n \u0007lich\nZsm.   n .hZZsm.   .m.    n ZZZi\u001b\u001612\n\u0007succubus\n\u0007kobold shaman\n\u0007kobold shaman\n\u0017wand of cold\n20s  20s zrysl20s    szrh .m.20s .m. \u0017wand of polymorph\n\u0017wand of death\n\u0007troll\nzsk ztk n  zth  zsy 20s zty   ztk  n"
+ },
+ "segments": [
+  {
+   "seed": 52650048,
+   "datetime": "20040819080337",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=runmode:run\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPel\u0017blessed shield of reflection\nW\u001b\u001b#levelchange\n10\n         \u00176 javelins\nQg\u0007giant rat\nfk fy fy  tbk fkfkfu\u0017potion of healing\nt\u001b\u001b\u0007red dragon\n\u0007silver dragon\n20s .lsk  Fk  Fy   n \u0017blessed spellbook of magic missile\nri   sm.\u0017blessed spellbook of force bolt\nrj   .m.\u0007lich\nZZsh   sm.Z.m.  n su ZZZZZ\u0007master lich\n\u0007master lich\n\u0007mind flayer\n\u0017wand of sleep\nzkk  zkyzkk   zku        \u0017blessed spellbook of magic missile\nrl  .j\u0017blessed spellbook of slow monster\nrm      n   .h\u0007gnomish wizard\n\u0007mind flayer\nZZZsb    .m.    ZZ.m.      n      20s       Zsm.   n   sm.   Z\u00169\n\u0007succubus\n\u0007kobold shaman\n\u0007mind flayer\n\u0017wand of striking\n20sznk \u0018\u001b\u0007silver dragon\n\u0007baby red dragon\nsm.20s \u0017wand of cold\naoy     sFu\u0017blessed spellbook of drain life\nrp       n sh\u0017spellbook of slow monster\nrq \u001b.    n sm.    n \u0007lich\nZsm.   n .hZZsm.   .m.    n ZZZi\u001b\u001612\n\u0007succubus\n\u0007kobold shaman\n\u0007kobold shaman\n\u0017wand of cold\n20s  20s zrysl20s    szrh .m.20s .m. \u0017wand of polymorph\n\u0017wand of death\n\u0007troll\nzsk ztk n  zth  zsy 20s zty   ztk  n"
+  }
+ ]
+}

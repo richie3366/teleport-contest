@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n10\n   \u0017blessed spellbook of charm monster\nrjs\u0017blessed spellbook of turn undead\nrk s\u0017blessed spellbook of knock\nrl s\u0017blessed spellbook of dig\nrm s+\u001bZb\n\u0007newt\nZd\n Fy  Zd\nZc\n\u0007zombie\nZd\n#turn\n\u001615\n\u000f\u001b#levelchange\n10\n\u0007fog cloud\nFkFkFkFkFkFkFk#pray\ny y  FkFu#pray\ny y      Fk\u001621\n\u000f\u001b#levelchange\n12\n \u0007owlbear\n20ssm..h20s.m.sm.  n \u0007wraith\nFl Fl  Fl Fu\u0007kraken\nFu   n Fu Fl  Fu Fl   n \u00165\n\u0006_ \u001b:>_>. Fn_.Fn>FnFn_>,Fn_,Fn>FnFnFnFnFn\u0006_>.Fn_.Fh>FhFn  n _>,Fh_.Fh>FnFh _>.Fn_,  nFn>FnFn FnFnFn  n#loot\nnq\u0006_>>,Fn n_,  nFn>FnFn  n_>>.Fn_.Fn n>Fn  nFn_>>.  nFn_,Fn n>Fn  nFnFnFn  nFn\u0006_>>.Fk_,Fk>FkFk _>>,Fj_.<.>\u0006_>._,m,>_>._,m,>_>,_,.>\u0006_>._.,>_>,_,<.>_>._.:>\u0006_>._.m.>_>._.:>_>._,m,>\u0004uwa\u000f\u001b\u0007Uruk-hai\n.n..sm.sm.sm.  yy\u001by  y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 52650067,
+   "datetime": "20221221194447",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n10\n   \u0017blessed spellbook of charm monster\nrjs\u0017blessed spellbook of turn undead\nrk s\u0017blessed spellbook of knock\nrl s\u0017blessed spellbook of dig\nrm s+\u001bZb\n\u0007newt\nZd\n Fy  Zd\nZc\n\u0007zombie\nZd\n#turn\n\u001615\n\u000f\u001b#levelchange\n10\n\u0007fog cloud\nFkFkFkFkFkFkFk#pray\ny y  FkFu#pray\ny y      Fk\u001621\n\u000f\u001b#levelchange\n12\n \u0007owlbear\n20ssm..h20s.m.sm.  n \u0007wraith\nFl Fl  Fl Fu\u0007kraken\nFu   n Fu Fl  Fu Fl   n \u00165\n\u0006_ \u001b:>_>. Fn_.Fn>FnFn_>,Fn_,Fn>FnFnFnFnFn\u0006_>.Fn_.Fh>FhFn  n _>,Fh_.Fh>FnFh _>.Fn_,  nFn>FnFn FnFnFn  n#loot\nnq\u0006_>>,Fn n_,  nFn>FnFn  n_>>.Fn_.Fn n>Fn  nFn_>>.  nFn_,Fn n>Fn  nFnFnFn  nFn\u0006_>>.Fk_,Fk>FkFk _>>,Fj_.<.>\u0006_>._,m,>_>._,m,>_>,_,.>\u0006_>._.,>_>,_,<.>_>._.:>\u0006_>._.m.>_>._.:>_>._,m,>\u0004uwa\u000f\u001b\u0007Uruk-hai\n.n..sm.sm.sm.  yy\u001by  y y y\u001by  s"
+  }
+ ]
+}

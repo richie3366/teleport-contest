@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007yellow mold\nFhFj .s_ \u001b,qh \u001b\u0007hill orc\n#overview\n\u001b#conduct\n \u000f\u001b#dip\ne#offer\n#pray\ny y   #chat\nb#levelchange\n3\n    FbFb20s_<.#vanquished\n #genocided\nraven\n #annotate\nblessed\ni\u001b#name\nf\n#adjust\n@.#chat\nh#turn\n#polyself\npurple worm\n #monster\nsu.m.Fh20snjj>__.#chat\n\u0007gnome\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y    #jump\n#wizintrinsic\ns\n FhFkFbFb_ooo._.,#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nn#chat\nb#wizidentify\n\u001bubl__.#chat\nb#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nuy#turn\n#sit\n\u001b#polyself\ntroll\n#monster\n...20shlb\u000f\u001b\u001617\n\u0006#vanquished\n #genocided\ndisenchanter\nj  \u0018\u001b#dip\ne#offer\n#pray\ny y #chat\nn#wizintrinsic\nfq\n ulu_>.  _, #chronicle\n  #terrain\n\u001bi\u001b#name\n\u001b#adjust\nb\u001b#chat\ny#turn\n#polyself\nair elemental\ns...hbb\u0016?\n>D\u0006\u0007kobold\n#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #jump\n#wizdetect\n\u0006FlFl20sZ__."
+ },
+ "segments": [
+  {
+   "seed": 52650053,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007yellow mold\nFhFj .s_ \u001b,qh \u001b\u0007hill orc\n#overview\n\u001b#conduct\n \u000f\u001b#dip\ne#offer\n#pray\ny y   #chat\nb#levelchange\n3\n    FbFb20s_<.#vanquished\n #genocided\nraven\n #annotate\nblessed\ni\u001b#name\nf\n#adjust\n@.#chat\nh#turn\n#polyself\npurple worm\n #monster\nsu.m.Fh20snjj>__.#chat\n\u0007gnome\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y    #jump\n#wizintrinsic\ns\n FhFkFbFb_ooo._.,#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nn#chat\nb#wizidentify\n\u001bubl__.#chat\nb#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nuy#turn\n#sit\n\u001b#polyself\ntroll\n#monster\n...20shlb\u000f\u001b\u001617\n\u0006#vanquished\n #genocided\ndisenchanter\nj  \u0018\u001b#dip\ne#offer\n#pray\ny y #chat\nn#wizintrinsic\nfq\n ulu_>.  _, #chronicle\n  #terrain\n\u001bi\u001b#name\n\u001b#adjust\nb\u001b#chat\ny#turn\n#polyself\nair elemental\ns...hbb\u0016?\n>D\u0006\u0007kobold\n#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #jump\n#wizdetect\n\u0006FlFl20sZ__."
+  }
+ ]
+}

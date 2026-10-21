@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.    #chat\nh;h:  _mmmmm.Fh _.m.  n Fh   n #chat\nh;h._mmm.   n Fh   n   n  n   n    n_.  n   n Fl   n    n   n#chat\nu;n.#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.   Fj     _.#chat\nh_mmmm.      n Fl                       n      _.#chat\nu\u0017blessed +3 gauntlets of power\nWp        \u0017blessed ring of free action\nPqr              ynnny\u001b  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 52650028,
+   "datetime": "20100823185213",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.    #chat\nh;h:  _mmmmm.Fh _.m.  n Fh   n #chat\nh;h._mmm.   n Fh   n   n  n   n    n_.  n   n Fl   n    n   n#chat\nu;n.#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.   Fj     _.#chat\nh_mmmm.      n Fl                       n      _.#chat\nu\u0017blessed +3 gauntlets of power\nWp        \u0017blessed ring of free action\nPqr              ynnny\u001b  \u0017"
+  }
+ ]
+}

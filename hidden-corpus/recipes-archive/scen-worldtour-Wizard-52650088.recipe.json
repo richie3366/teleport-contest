@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>u #chat\nj;j. \u001b<.\u001614\n__.<\u0016?\n>z\u0006_>.Fn_.,Fn\u0016?\n>A nh  ulyh j :  \u00165\nkj nnh lk:\u001614\n_<.     n Fh   _.  Fh   <\u0016?\ne_{.<\u0016?\n>Hbk:\u0016?\n>>M      scroll of blank paper\nl              n       k                n          u      n           n              n  :su                    n                 n 20s      \u001612\n\u00165\n\u0017flail\nwr        n      Fu              n     Fy          Fj     n               n      \u0007wood nymph\nFj     n         Fh    n         n Fu            n           yy\u001by   y y  y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 52650088,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n30\n                              \u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\n>u #chat\nj;j. \u001b<.\u001614\n__.<\u0016?\n>z\u0006_>.Fn_.,Fn\u0016?\n>A nh  ulyh j :  \u00165\nkj nnh lk:\u001614\n_<.     n Fh   _.  Fh   <\u0016?\ne_{.<\u0016?\n>Hbk:\u0016?\n>>M      scroll of blank paper\nl              n       k                n          u      n           n              n  :su                    n                 n 20s      \u001612\n\u00165\n\u0017flail\nwr        n      Fu              n     Fy          Fj     n               n      \u0007wood nymph\nFj     n         Fh    n         n Fu            n           yy\u001by   y y  y\u001b  F"
+  }
+ ]
+}
