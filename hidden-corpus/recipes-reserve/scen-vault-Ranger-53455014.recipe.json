@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWg\u0017blessed +3 cloak of magic resistance\nW\u001b\u001617\n\u0006\u00164\n\u0006\u0014 \u001b@HHJhhhhhhjjjjj. ,10ss10s20s20s nobody\n  d$kusi\u001b#dip\ne dd#turn\n#name\n\u001b\u001614\n\u0006#force\ns\u001618\n\u0006\u001620\n\u0006\u0014@LLLLLJlj. ,10ss10s20ss10s \u001b  d$hkhoj#invoke\n\u001b\u00162\n\u0006\u0014@HHHHhhhhhhj. ,10s10s nobody\n  ..ss20s  20s  na\u001btcn   n20s  n #loot\nl\u00167\n\u001613\n\u0006\u0014@HHHHHHHHhhhhhhkkkkk. ,20s ricky\n  \u0014,a\u001b\\ w-\u001611\n\u0006\u0014@.,20s ricky\n  d$bs\u001617\n\u0006<#offer\n\u001619\n\u0006\u00167\n\u0006\u001610\n\u0006\u00166\n\u0006i\u001b#jump\n\u00164\n\u0006f  h\u0014.\u00167\n\u0006\u001612\n  \u0006\u0014@HHHHHhhhjjj.  ,20s 10s  20s10s10s20s20ss#chat\n dc\u001612\n\u0006\u00166\n\u0006tab, \u001614\n\u0006\u001614\n\u0006\u00163\n  \u0006\u00164\n\u0006\u0014@HHhhhhjj.  , 10s 20s 20s 20s s s 10s s#sit\n #untrap\nl\u001610\n\u0006\u001616\n\u0006\u0014@Jlllljjjj.   n  ,s10ss20s20ss20s20s#enhance\n Z\u00165\n\u0006\u0014@LJlljjjjjj. ,20ss10s s10sss10s\u0016\u0006\u0016\u0006\u0016\u0006#pray\n <\u001617\n\u0006\u001612\n  \u0006\u00169\n\u0006\u00165\n\u0006\u001610\n\u0006\u001616\n\u0006#name\n\u001b#loot\nl\u001615\n     \u0006\u001616\n\u0006\u001617\n\u0006\u00169\n\u0006\u001610\n\u0006\u00163\n\u0006\u001620\n\u0006\u001614\n\u0006ef#ride\nhy\u00169\n\u0006\u00165\n\u0006\u00169\n\u0006\u001612\n\u0006\u001616\n\u0006\u00167\n\u0006#untrap\nj#tip\n\u001b\u001619\n \u0006\u001613\n\u0006\u001619\n\u0006#twoweapon\n<\u00164\n\u0006\u0014@HHH"
+ },
+ "segments": [
+  {
+   "seed": 53455014,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWg\u0017blessed +3 cloak of magic resistance\nW\u001b\u001617\n\u0006\u00164\n\u0006\u0014 \u001b@HHJhhhhhhjjjjj. ,10ss10s20s20s nobody\n  d$kusi\u001b#dip\ne dd#turn\n#name\n\u001b\u001614\n\u0006#force\ns\u001618\n\u0006\u001620\n\u0006\u0014@LLLLLJlj. ,10ss10s20ss10s \u001b  d$hkhoj#invoke\n\u001b\u00162\n\u0006\u0014@HHHHhhhhhhj. ,10s10s nobody\n  ..ss20s  20s  na\u001btcn   n20s  n #loot\nl\u00167\n\u001613\n\u0006\u0014@HHHHHHHHhhhhhhkkkkk. ,20s ricky\n  \u0014,a\u001b\\ w-\u001611\n\u0006\u0014@.,20s ricky\n  d$bs\u001617\n\u0006<#offer\n\u001619\n\u0006\u00167\n\u0006\u001610\n\u0006\u00166\n\u0006i\u001b#jump\n\u00164\n\u0006f  h\u0014.\u00167\n\u0006\u001612\n  \u0006\u0014@HHHHHhhhjjj.  ,20s 10s  20s10s10s20s20ss#chat\n dc\u001612\n\u0006\u00166\n\u0006tab, \u001614\n\u0006\u001614\n\u0006\u00163\n  \u0006\u00164\n\u0006\u0014@HHhhhhjj.  , 10s 20s 20s 20s s s 10s s#sit\n #untrap\nl\u001610\n\u0006\u001616\n\u0006\u0014@Jlllljjjj.   n  ,s10ss20s20ss20s20s#enhance\n Z\u00165\n\u0006\u0014@LJlljjjjjj. ,20ss10s s10sss10s\u0016\u0006\u0016\u0006\u0016\u0006#pray\n <\u001617\n\u0006\u001612\n  \u0006\u00169\n\u0006\u00165\n\u0006\u001610\n\u0006\u001616\n\u0006#name\n\u001b#loot\nl\u001615\n     \u0006\u001616\n\u0006\u001617\n\u0006\u00169\n\u0006\u001610\n\u0006\u00163\n\u0006\u001620\n\u0006\u001614\n\u0006ef#ride\nhy\u00169\n\u0006\u00165\n\u0006\u00169\n\u0006\u001612\n\u0006\u001616\n\u0006\u00167\n\u0006#untrap\nj#tip\n\u001b\u001619\n \u0006\u001613\n\u0006\u001619\n\u0006#twoweapon\n<\u00164\n\u0006\u0014@HHH"
+  }
+ ]
+}

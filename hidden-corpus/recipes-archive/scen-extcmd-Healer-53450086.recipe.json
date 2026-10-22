@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 silver dragon scale mail\nWl\u0017blessed +3 speed boots\nWm\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007gnome lord\nFkFlFk#sit\n _ \u001b,#overview\n\u001b#conduct\n i\u001b#dip\ned #offer\n#pray\ny y       #chat\nl #jump\n#wizdetect\n\u0006Fk s.20s_>._.#vanquished\n #genocided\nogre king\n#annotate\nshiny\n\u000f\u001b#name\ni\n#adjust\ne\u001b#chat\nl#turn\n#wizidentify\n\u001bjkj__,_,#chat\ny#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizmap\n\u0006kjk_{._.qe\u0007jackal\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nk#chat\nk#chat\nk#levelchange\n22\n                     Fks__,_.#chat\nj\u0007bugbear\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nky#turn\n#sit\n\u001b#wizintrinsic\ns\n FkFkFkFk_ooo,,\u0007owlbear\n#vanquished\n #genocided\nxorn\n\u000f\u001b#dip\npo \u001b#offer\n#pray\ny y      #chat\nl #jump\n#wizmap\n\u0006Fl Fk Fl taj _<. Fk_, Fl\u0007gnome\n#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u0018\u001b#name\ni\n#adjust\nl\u001b#chat\nl #turn\n#jump\n#levelchange\n15\n  FkFl FlFk _oooooo.Fl _,Fk ,\u0007gnome lord\n#version\n  #history\n                  \u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y       #wizidentify"
+ },
+ "segments": [
+  {
+   "seed": 53450086,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 silver dragon scale mail\nWl\u0017blessed +3 speed boots\nWm\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007gnome lord\nFkFlFk#sit\n _ \u001b,#overview\n\u001b#conduct\n i\u001b#dip\ned #offer\n#pray\ny y       #chat\nl #jump\n#wizdetect\n\u0006Fk s.20s_>._.#vanquished\n #genocided\nogre king\n#annotate\nshiny\n\u000f\u001b#name\ni\n#adjust\ne\u001b#chat\nl#turn\n#wizidentify\n\u001bjkj__,_,#chat\ny#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizmap\n\u0006kjk_{._.qe\u0007jackal\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nk#chat\nk#chat\nk#levelchange\n22\n                     Fks__,_.#chat\nj\u0007bugbear\n#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nky#turn\n#sit\n\u001b#wizintrinsic\ns\n FkFkFkFk_ooo,,\u0007owlbear\n#vanquished\n #genocided\nxorn\n\u000f\u001b#dip\npo \u001b#offer\n#pray\ny y      #chat\nl #jump\n#wizmap\n\u0006Fl Fk Fl taj _<. Fk_, Fl\u0007gnome\n#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u0018\u001b#name\ni\n#adjust\nl\u001b#chat\nl #turn\n#jump\n#levelchange\n15\n  FkFl FlFk _oooooo.Fl _,Fk ,\u0007gnome lord\n#version\n  #history\n                  \u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y       #wizidentify"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gauntlets of power\nWe\u0017blessed ring of free action\nPfr\u001619\n\u0006\u0014 \u001b@HHKhhhhhkkk. ,ss10s20s Creosote\n#loot\ncj\u001621\n\u0006\u0014@HHHHHHHHKkkk. ,10s10s nobody\n  d$jjsnsnsnsnsnn    z10s#enhance\nyk\n   \u001b  ;m.#turn\n\u001611\n\u0006\u0014@HHhhhhhhkkkkkk. ,10ss10s20s \u001b  d$uynllsnsnsn   #tip\n\u001b#loot\n#name\n\u001b\u001615\n\u0006\u00165\n\u0006#dip\ne #enhance\nyq\nn\n\u001b\u001611\n   \u0006\u0014@HHHhkkkkk.    ,20s20s Astrid\n  \u0014;#turn\n\u0004h oj#rub\n\u001617\n \u0006\u001619\n\u0006\u0014@HHHHHhhhhj. ,10s10s Astrid\n  \u0017wand of digging\nzgnbyyu\u00163\n\u0006\u00165\n\u0006\u001612\n    \u0006#rub\n#dip\na \u00167\n\u0006\u0016"
+ },
+ "segments": [
+  {
+   "seed": 53456037,
+   "datetime": "20170826190216",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gauntlets of power\nWe\u0017blessed ring of free action\nPfr\u001619\n\u0006\u0014 \u001b@HHKhhhhhkkk. ,ss10s20s Creosote\n#loot\ncj\u001621\n\u0006\u0014@HHHHHHHHKkkk. ,10s10s nobody\n  d$jjsnsnsnsnsnn    z10s#enhance\nyk\n   \u001b  ;m.#turn\n\u001611\n\u0006\u0014@HHhhhhhhkkkkkk. ,10ss10s20s \u001b  d$uynllsnsnsn   #tip\n\u001b#loot\n#name\n\u001b\u001615\n\u0006\u00165\n\u0006#dip\ne #enhance\nyq\nn\n\u001b\u001611\n   \u0006\u0014@HHHhkkkkk.    ,20s20s Astrid\n  \u0014;#turn\n\u0004h oj#rub\n\u001617\n \u0006\u001619\n\u0006\u0014@HHHHHhhhhj. ,10s10s Astrid\n  \u0017wand of digging\nzgnbyyu\u00163\n\u0006\u00165\n\u0006\u001612\n    \u0006#rub\n#dip\na \u00167\n\u0006\u0016"
+  }
+ ]
+}

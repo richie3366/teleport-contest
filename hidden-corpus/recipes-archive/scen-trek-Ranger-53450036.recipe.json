@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  tbuj10s dd...10snblhUH KJ _ \u001bm,>FnFkFuBU UL_>,>Fk ssHUBJ _>,><:  q#turn\nYBN L_>.>LYK Y_>,>YHJY_>.>YBHH_>.>\u000f\u001bNKKU_>,>HYLB_>,>FhFhFh,\u0018\u001bUBHY_>.>FhFhFhLYYB_>,>#name\ni\n#turn\nJNUK_>.>JBLN_>.>\u000f\u001b\u0004k>E- I am a fish\n_>.>100sFyss100s100sFh20s20s_>.>kby100sFyFys100s150s150sFyFysnyjFk.s100slhlubu100s\\  bhlFys.50s100sWhlu_>,>bhl150s150s100sFyFy.hlh_>.>i\u001b<100sef100sLY  YY_>.>N  KUU_>,>ef  y  y\u001by  y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 53450036,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\n",
+   "moves": "  tbuj10s dd...10snblhUH KJ _ \u001bm,>FnFkFuBU UL_>,>Fk ssHUBJ _>,><:  q#turn\nYBN L_>.>LYK Y_>,>YHJY_>.>YBHH_>.>\u000f\u001bNKKU_>,>HYLB_>,>FhFhFh,\u0018\u001bUBHY_>.>FhFhFhLYYB_>,>#name\ni\n#turn\nJNUK_>.>JBLN_>.>\u000f\u001b\u0004k>E- I am a fish\n_>.>100sFyss100s100sFh20s20s_>.>kby100sFyFys100s150s150sFyFysnyjFk.s100slhlubu100s\\  bhlFys.50s100sWhlu_>,>bhl150s150s100sFyFy.hlh_>.>i\u001b<100sef100sLY  YY_>.>N  KUU_>,>ef  y  y\u001by  y y y\u001b  s"
+  }
+ ]
+}

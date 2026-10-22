@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u001621\n\u0006\u0014 \u001b@LLLJllllllljjjj. ,s20s20s Creosote\n\u0014m,\u001619\n\u0006\u0014@HJhhhhjjjj. ,10ss Kroisos\nd$\u00166\n\u0006\u0014@HHJhhhhhhhjjjj. ,s20s Croesus\nd$\u001619\n\u0006\u0014@HHHJjjjjj. ,20s Caspar\n  FlFl  nFl  nFl  n20s  n i\u001b#rub\n#enhance\nyj\nc\n\u001b#dip\nfd  n\u00162\n\u00165\n\u0006\u00164\n\u0006\u001617\n \u0006z;m.\u001613\n \u0006\u0014@HHHHJhhjjjj. ,s10s Caspar\n  d$k#name\nm\nW;m,z#conduct\n \u001613\n\u0006\u00166\n\u0006\u0014@Jhhhj. ,10s  Caspar\n  .ss20s   n20s  n .m.  n#conduct\n #offer\n#offer\n\u00165\n\u001610\n\u0006t$ys\u001620\n\u0006_m.20s_<,sy\u001619\n\u0006ef t\u001b\u001612\n\u0006\u0014@LLLLKllll. ,20ss20s Caspar\n  ss20s   nsm.  n.m.  n.m.  n#wipe\n  n#dip\nbd  n#untrap\nl\u00164\n\u001610\n\u0006\u00163\n\u0006\u0014@HKhhhhhhhkkkkkk.   ,Croesus\n  \u0017wand of digging\nzkjkybn\u00164\n\u0006\u00164\n\u0006\u001611\n\u000620sw-\u00163\n"
+ },
+ "segments": [
+  {
+   "seed": 53455006,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u001621\n\u0006\u0014 \u001b@LLLJllllllljjjj. ,s20s20s Creosote\n\u0014m,\u001619\n\u0006\u0014@HJhhhhjjjj. ,10ss Kroisos\nd$\u00166\n\u0006\u0014@HHJhhhhhhhjjjj. ,s20s Croesus\nd$\u001619\n\u0006\u0014@HHHJjjjjj. ,20s Caspar\n  FlFl  nFl  nFl  n20s  n i\u001b#rub\n#enhance\nyj\nc\n\u001b#dip\nfd  n\u00162\n\u00165\n\u0006\u00164\n\u0006\u001617\n \u0006z;m.\u001613\n \u0006\u0014@HHHHJhhjjjj. ,s10s Caspar\n  d$k#name\nm\nW;m,z#conduct\n \u001613\n\u0006\u00166\n\u0006\u0014@Jhhhj. ,10s  Caspar\n  .ss20s   n20s  n .m.  n#conduct\n #offer\n#offer\n\u00165\n\u001610\n\u0006t$ys\u001620\n\u0006_m.20s_<,sy\u001619\n\u0006ef t\u001b\u001612\n\u0006\u0014@LLLLKllll. ,20ss20s Caspar\n  ss20s   nsm.  n.m.  n.m.  n#wipe\n  n#dip\nbd  n#untrap\nl\u00164\n\u001610\n\u0006\u00163\n\u0006\u0014@HKhhhhhhhkkkkkk.   ,Croesus\n  \u0017wand of digging\nzkjkybn\u00164\n\u0006\u00164\n\u0006\u001611\n\u000620sw-\u00163\n"
+  }
+ ]
+}

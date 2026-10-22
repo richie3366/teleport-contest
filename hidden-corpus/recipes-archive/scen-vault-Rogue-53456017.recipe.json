@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u001614\n\u0006\u0014 \u001b@HHHJhhhhhhhjjjjj. ,10s20s nobody\n  dbs#conduct\n \u00165\n\u0006\u001611\n    \u0006#untrap\n.>\u001610\n\u0006Jy\\ \u00169\n\u0006\u001612\n\u0006\u00168\n\u0006\u001616\n\u0006E- I am a fish\n#invoke\n\u001b\u00169\n\u0006\u001614\n\u0006\u001615\n \u0006h#dip\ndd\u00167\n\u0006\u0014@HHJhhhhj. ,10s10s10s robin\n  d$l<\u0018\u001b,#dip\nc\u001b\u001612\n\u0006\u001613\n\u0006\u001620\n\u0006E- Elbereth\nb\u00163\n\u0006\u00166\n\u0006\u0014@Jhjj. ,20s20s Croesus\nd$\u0004j\\ :20sr\u001b\u001618\n\u0006\u001620\n\u0006\u001617\n\u0006\u001617\n\u0006h:\u001619\n\u0006:K\u001620\n\u0006\u001611\n \u0006,,\u001616\n\u0006\u001614\n\u0006\u001614\n\u0006\u001619\n\u0006\u00166\n\u0006\u0014@LLLlljj. ,20s10s robin\n  d$uh\u00166\n\u0006\u001621\n\u0006\u001614\n\u0006\u001621\n\u0006r\u001bck\u001619\n\u0006\u001615\n\u0006ok\u0004j\u001620\n\u0006\u001613\n\u0006\u001621\n\u0006\u001620\n\u0006\u001611\n \u0006\u00166\n\u0006;m,i\u001b\u001617\n\u0006#force\n#ride\nyy\u001615\n\u0006\u001619\n\u0006\u00169\n\u0006_m,.#twoweapon\n\u001610\n\u0006\u001611\n \u0006\u00168\n\u0006\u00165\n\u0006\u001617\n\u0006\u001611\n \u0006\u001610\n\u0006\u00169\n\u0006#name\n\u001b10s\u00162\n \u0006\u00168\n\u0006\u001621\n\u0006\u001616\n\u0006\u00169\n\u0006\u00167\n\u0006t\u001bt\u001b\u001616\n\u000610st\u001b\u001612\n \u0006\u00167\n\u0006\u00164\n\u0006f \u001boh\u00167\n\u0006\u001611\n \u0006\u001618\n\u0006#terrain\nc\n@.e\u001614\n\u0006\u001621\n\u0006\u001611\n \u0006\u00169\n\u0006\u001615\n\u0006\u001621\n\u0006f \u001bP\u001611\n \u0006\u0014:#enhance\nyp"
+ },
+ "segments": [
+  {
+   "seed": 53456017,
+   "datetime": "20031016191731",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=fruit:mango\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u001614\n\u0006\u0014 \u001b@HHHJhhhhhhhjjjjj. ,10s20s nobody\n  dbs#conduct\n \u00165\n\u0006\u001611\n    \u0006#untrap\n.>\u001610\n\u0006Jy\\ \u00169\n\u0006\u001612\n\u0006\u00168\n\u0006\u001616\n\u0006E- I am a fish\n#invoke\n\u001b\u00169\n\u0006\u001614\n\u0006\u001615\n \u0006h#dip\ndd\u00167\n\u0006\u0014@HHJhhhhj. ,10s10s10s robin\n  d$l<\u0018\u001b,#dip\nc\u001b\u001612\n\u0006\u001613\n\u0006\u001620\n\u0006E- Elbereth\nb\u00163\n\u0006\u00166\n\u0006\u0014@Jhjj. ,20s20s Croesus\nd$\u0004j\\ :20sr\u001b\u001618\n\u0006\u001620\n\u0006\u001617\n\u0006\u001617\n\u0006h:\u001619\n\u0006:K\u001620\n\u0006\u001611\n \u0006,,\u001616\n\u0006\u001614\n\u0006\u001614\n\u0006\u001619\n\u0006\u00166\n\u0006\u0014@LLLlljj. ,20s10s robin\n  d$uh\u00166\n\u0006\u001621\n\u0006\u001614\n\u0006\u001621\n\u0006r\u001bck\u001619\n\u0006\u001615\n\u0006ok\u0004j\u001620\n\u0006\u001613\n\u0006\u001621\n\u0006\u001620\n\u0006\u001611\n \u0006\u00166\n\u0006;m,i\u001b\u001617\n\u0006#force\n#ride\nyy\u001615\n\u0006\u001619\n\u0006\u00169\n\u0006_m,.#twoweapon\n\u001610\n\u0006\u001611\n \u0006\u00168\n\u0006\u00165\n\u0006\u001617\n\u0006\u001611\n \u0006\u001610\n\u0006\u00169\n\u0006#name\n\u001b10s\u00162\n \u0006\u00168\n\u0006\u001621\n\u0006\u001616\n\u0006\u00169\n\u0006\u00167\n\u0006t\u001bt\u001b\u001616\n\u000610st\u001b\u001612\n \u0006\u00167\n\u0006\u00164\n\u0006f \u001boh\u00167\n\u0006\u001611\n \u0006\u001618\n\u0006#terrain\nc\n@.e\u001614\n\u0006\u001621\n\u0006\u001611\n \u0006\u00169\n\u0006\u001615\n\u0006\u001621\n\u0006f \u001bP\u001611\n \u0006\u0014:#enhance\nyp"
+  }
+ ]
+}

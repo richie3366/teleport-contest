@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\njr\n s.s20s.n.sysm..m.sj\u0017scroll of gold detection\nri  \u001b<.:\u0014;#turn\n  >\u0004h\u0014m, 20s.m.20s20s.l20s"
+ },
+ "segments": [
+  {
+   "seed": 53452002,
+   "datetime": "20111101160912",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\njr\n s.s20s.n.sysm..m.sj\u0017scroll of gold detection\nri  \u001b<.:\u0014;#turn\n  >\u0004h\u0014m, 20s.m.20s20s.l20s"
+  }
+ ]
+}

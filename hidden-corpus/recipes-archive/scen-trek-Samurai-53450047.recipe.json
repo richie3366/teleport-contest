@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " FhFh sbhjlkl\u000f\u001b\u0018\u001b50sFl.20si\u001b100s100sFlFl FlFlFls100sFlss100s\u0018\u001bde100s100sE- Vlad was here\n 150sFh.s50s150s50sFhss\\    50s50s50s50s50soj_ \u001b@.>50s\\    _>.>hhk\u000f\u001bnylPWf   hHLLU_>,>#name\nf\nPNJ HL _>,>NYKH_>,>HHUH_>.>UJHB_>,>#name\nm\nz\u000f100s100s50sFyFkseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefl#dip\nceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nuynkh#chat\nyhlhhblh#dip\nc\\    #jump\nhl#name\nm\nhnuhbkuheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUUJB_>,>JHBH_>.>#terrain\nc\n@.jLNJY_>.>YHHU_>.Fy_.m.Fh> UUNK_>,>KLJJ_>.>#turn\n#loot\n<HLJN_>.>10sPeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHLKN_>.>KJBN_>.>#chat\nbeNUUL_>.>LUYN_>.>dfE- I am a fish\nLNNJ_>,>FhFhFhULKU_>,><\u000f\u001b>e#monster\nBUNH_>,>FhFyFhBYKL_>.>FlFlFuew-YJBB_>.>UNUK_>.>Fb Fjs#name\no\ntcl<LHKK_>.>B HYL_>.>e#pray\ny   #pray\ny #pray\ny  150s100s_>.>100s#unt"
+ },
+ "segments": [
+  {
+   "seed": 53450047,
+   "datetime": "20100219224412",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": " FhFh sbhjlkl\u000f\u001b\u0018\u001b50sFl.20si\u001b100s100sFlFl FlFlFls100sFlss100s\u0018\u001bde100s100sE- Vlad was here\n 150sFh.s50s150s50sFhss\\    50s50s50s50s50soj_ \u001b@.>50s\\    _>.>hhk\u000f\u001bnylPWf   hHLLU_>,>#name\nf\nPNJ HL _>,>NYKH_>,>HHUH_>.>UJHB_>,>#name\nm\nz\u000f100s100s50sFyFkseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefl#dip\nceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#chat\nuynkh#chat\nyhlhhblh#dip\nc\\    #jump\nhl#name\nm\nhnuhbkuheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUUJB_>,>JHBH_>.>#terrain\nc\n@.jLNJY_>.>YHHU_>.Fy_.m.Fh> UUNK_>,>KLJJ_>.>#turn\n#loot\n<HLJN_>.>10sPeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeHLKN_>.>KJBN_>.>#chat\nbeNUUL_>.>LUYN_>.>dfE- I am a fish\nLNNJ_>,>FhFhFhULKU_>,><\u000f\u001b>e#monster\nBUNH_>,>FhFyFhBYKL_>.>FlFlFuew-YJBB_>.>UNUK_>.>Fb Fjs#name\no\ntcl<LHKK_>.>B HYL_>.>e#pray\ny   #pray\ny #pray\ny  150s100s_>.>100s#unt"
+  }
+ ]
+}

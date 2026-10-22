@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPgr\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007troll\n#pray\ny y   #chat\nh#levelchange\n1\nFh Fh   nFh Fh  n \u00167\n_ \u001b:qi  n \u0007lichen\n#overview\n\u001b#conduct\n i\u001b#dip\ng#offer\n#chat\nu#turn\n#polyself\nmind flayer\n #monster\nsm.sl    Fu.Fl  Fl    Fl \u0016?\n>>M      spellbook of levitation\n\u0006:\u0007giant rat\n#vanquished\n #genocided\npyrolisk\n n i\u001b#name\n\u001b#adjust\nc\u001b#sit\n    #pray\ny y               #jump\n#wizidentify\n\u001bFn      n  20s   s  n   n   \u00168\n__.#chat\nb#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\nk  n  #chat\nh    n #chat\nu   n  #jump\n\u00164\n#wizidentify\n\u001bb  n    n l    n  nj      n _>.#version\n  #history\n                  \u0018\u001b#wipe\n   #loot\nh#turn\n#sit\n#wizintrinsic\nga\n u  y\u001b      y"
+ },
+ "segments": [
+  {
+   "seed": 53450075,
+   "datetime": "20220622200830",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPgr\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007troll\n#pray\ny y   #chat\nh#levelchange\n1\nFh Fh   nFh Fh  n \u00167\n_ \u001b:qi  n \u0007lichen\n#overview\n\u001b#conduct\n i\u001b#dip\ng#offer\n#chat\nu#turn\n#polyself\nmind flayer\n #monster\nsm.sl    Fu.Fl  Fl    Fl \u0016?\n>>M      spellbook of levitation\n\u0006:\u0007giant rat\n#vanquished\n #genocided\npyrolisk\n n i\u001b#name\n\u001b#adjust\nc\u001b#sit\n    #pray\ny y               #jump\n#wizidentify\n\u001bFn      n  20s   s  n   n   \u00168\n__.#chat\nb#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\nk  n  #chat\nh    n #chat\nu   n  #jump\n\u00164\n#wizidentify\n\u001bb  n    n l    n  nj      n _>.#version\n  #history\n                  \u0018\u001b#wipe\n   #loot\nh#turn\n#sit\n#wizintrinsic\nga\n u  y\u001b      y"
+  }
+ ]
+}

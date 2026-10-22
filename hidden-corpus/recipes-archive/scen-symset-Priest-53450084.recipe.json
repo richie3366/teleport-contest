@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "ibZ\u0016#turn\n\\ mO>>k\u001b\nO>>>>b\u001b\n\u00163\n\\ 100s  j bb100s100s#invoke\n\u001b_ \u001bm.>ykjbluqd#pray\ny y 100slkuhku150sjly_>,>_>.>#dip\na100s 100s n j u 50s 100s j n y 100s 150s k l l W 150s u hj100s\\ 50s100s100s#wipe\n\\ 150sef\u0007tame wolf\ndgsss\u0007lichen\nsb .20s s20s  s\u0017tin whistle\nlhk ajdbss20s10s20s\u0017leash\nakyubkhak.\u0017magic whistle\nyyual  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u00166\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemOa\u001b\n#tip\n\u001b#jump\nckeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#tip\n\u001b\u000f\u001b#terrain\n\u001bO>i\u001b\u001b\nO>c\u001b\nO>>>k\u001b\u001b\nOm\u001b\n\u00167\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeO>>>j\u001b\n\u0006_>._.>_>._.>_>,_,><\u0006_>>._.>_>>._,>_>>._.>\u0006_>._.>_>._,>_>._.>\u0006_>,_.>_>._,>_>._,>\u0006_>._.>_>._,>_"
+ },
+ "segments": [
+  {
+   "seed": 53450084,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=fruit:slime mold\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"The door\"\nBIND=v:inventory\n",
+   "moves": "ibZ\u0016#turn\n\\ mO>>k\u001b\nO>>>>b\u001b\n\u00163\n\\ 100s  j bb100s100s#invoke\n\u001b_ \u001bm.>ykjbluqd#pray\ny y 100slkuhku150sjly_>,>_>.>#dip\na100s 100s n j u 50s 100s j n y 100s 150s k l l W 150s u hj100s\\ 50s100s100s#wipe\n\\ 150sef\u0007tame wolf\ndgsss\u0007lichen\nsb .20s s20s  s\u0017tin whistle\nlhk ajdbss20s10s20s\u0017leash\nakyubkhak.\u0017magic whistle\nyyual  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u00166\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemOa\u001b\n#tip\n\u001b#jump\nckeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#tip\n\u001b\u000f\u001b#terrain\n\u001bO>i\u001b\u001b\nO>c\u001b\nO>>>k\u001b\u001b\nOm\u001b\n\u00167\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeO>>>j\u001b\n\u0006_>._.>_>._.>_>,_,><\u0006_>>._.>_>>._,>_>>._.>\u0006_>._.>_>._,>_>._.>\u0006_>,_.>_>._,>_>._,>\u0006_>._.>_>._,>_"
+  }
+ ]
+}

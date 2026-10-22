@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u001621\n\u0006\u001618\n \u0006n<\u001621\n\u0006\u001619\n\u0006\u00163\n\u0006\u0014 \u001b@Lllll. ,s10s20s   Hippocrates\n  d$s\u001618\n\u0006ejE- I am a fish\n\u001617\n\u0006\u0014@HHHHHhjjjjjjj.,10s    s   20s  10ss10ss20sn t\u001b,\u001615\n\u0006\u0014@LLLLLLLj.,20ss10s Hippocrates\n  d$ksssjkh    \u001bssyssl  nssuksh  nkkl  nsslsssj  nj  nj  nj  nssssh  nl  nus\u001610\n\u001612\n\u0006\u001617\n\u0006\u0014@HHHHHHJhhhhj.,ss10s10s20ss20s10s#chat\nbWlzfk   \u001620\n\u0006\u0014@HHHHHHJhhjjjjjj. ,s10s20s  Kroisos\n\u00164\n\u0006\u0014@Hhhjjj.  ,10s20s Hippocrates\n  FjFj  nFj  nFj  n#jump\n,\u00164\n\u001618\n\u0006\u001619\n\u0006\u00168\n\u0006\u0014@HHHHHHhhjj. ,s20s nobody\n  ...20s   n20s  n .h#invoke\n\u001b#sit\n  y y\u001by  y y y\u001by  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 53456015,
+   "datetime": "20011117132648",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": " \u001621\n\u0006\u001618\n \u0006n<\u001621\n\u0006\u001619\n\u0006\u00163\n\u0006\u0014 \u001b@Lllll. ,s10s20s   Hippocrates\n  d$s\u001618\n\u0006ejE- I am a fish\n\u001617\n\u0006\u0014@HHHHHhjjjjjjj.,10s    s   20s  10ss10ss20sn t\u001b,\u001615\n\u0006\u0014@LLLLLLLj.,20ss10s Hippocrates\n  d$ksssjkh    \u001bssyssl  nssuksh  nkkl  nsslsssj  nj  nj  nj  nssssh  nl  nus\u001610\n\u001612\n\u0006\u001617\n\u0006\u0014@HHHHHHJhhhhj.,ss10s10s20ss20s10s#chat\nbWlzfk   \u001620\n\u0006\u0014@HHHHHHJhhjjjjjj. ,s10s20s  Kroisos\n\u00164\n\u0006\u0014@Hhhjjj.  ,10s20s Hippocrates\n  FjFj  nFj  nFj  n#jump\n,\u00164\n\u001618\n\u0006\u001619\n\u0006\u00168\n\u0006\u0014@HHHHHHhhjj. ,s20s nobody\n  ...20s   n20s  n .h#invoke\n\u001b#sit\n  y y\u001by  y y y\u001by  \u0016"
+  }
+ ]
+}

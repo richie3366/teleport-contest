@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u001619\n\u0006\u0014 \u001b@HHHhhjj. ,s20ss20s \u001b  \u0014;\u0014>. W#dip\nb\u001b#ride\nyy\u00163\n\u0006\u001619\n\u0006\u0014@HHHhhhhhhj.  ,10s20ss10s20ss20s20s \u00165\n\u0006\u0014@LLJlljjj. ,20s Fred\n  \u0014;\u001618\n\u0006ejW\u001616\n \u0006\u0014@HHHHhhhhjjjjj. ,20s20sssss10s Hippocrates\n  \u0014; qd#tip\n\u001b\u0018\u001b;.\u00164\n\u0006\u001612\n\u0006\u001621\n\u0006\u0014@Khhhh.   ,Kroisos\n  FjFj    nFj  nFj  n\u001610\n\u001614\n\u0006\u001613\n    \u0006\u001619\n\u0006\u0014@HHHHHHHhkkk.,20ss10s10ss20s20s10s\u001618\n  \u0006\u001612\n\u0006s#name\ni\n\u001621\n\u0006\u001610\n\u0006\u001617\n\u0006#loot\nw-\u00168\n\u0006#conduct\n #chat\nh\u001618\n\u0006Za\n#sit\n \u001615\n \u0006\u001616\n\u0006\u001621\n\u0006\u00165\n\u0006rg y  wa\u001618\n\u0006\u00163\n\u0006\u00162\n\u0006\u00163\n\u0006\u00163\n\u0006\u001621\n\u0006olqe\u00162\n\u0006\u00166\n\u0006\u001611\n\u0006\u001617\n\u000610s#offer\n\u001620\n\u0006\\ qd\u001621\n\u0006\u0014@Khhhk. ,20ss20ss10s10s20ssW<;>.#pray\ny y \u001619\n\u0006\u0014@HHHHHHHhhh. ,20s20ssss10s10ss\u001613\n  \u0006\u00167\n\u0006\u00163\n\u0006\u00165\n\u0006\u0014@LLLLLLJllljj.,20s20s10s10s10ssssri nn#dip\nce#name\nm\n#monster\n.\u001620\n\u0006P#sit\n\u001b\u001616\n\u0006\u001615\n\u0006\u00167\n  \u0006\u00168\n\u0006\u001620\n\u0006#chat\nk,\u00167\n\u0006\u00163\n\u0006#rub\n,\u001616\n\u0006#force\nE- I am a fish\n\u00169\n\u0006ch,\u001617\n\u0006\u00167\n\u0006\u001618\n\u0006#tip\n\u001b#twoweapon\n\u001615\n\u0006#monster\n#offer\n\u00162\n\u0006\u00162\n\u0006\u001614\n\u0006\u001620\n\u0006>E- Elbereth\n\u00163\n\u0006#name\nm\n;#dip\nje\u001621\n\u0006\u0014@HHHHHHHH"
+ },
+ "segments": [
+  {
+   "seed": 53456011,
+   "datetime": "20180823064533",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u001619\n\u0006\u0014 \u001b@HHHhhjj. ,s20ss20s \u001b  \u0014;\u0014>. W#dip\nb\u001b#ride\nyy\u00163\n\u0006\u001619\n\u0006\u0014@HHHhhhhhhj.  ,10s20ss10s20ss20s20s \u00165\n\u0006\u0014@LLJlljjj. ,20s Fred\n  \u0014;\u001618\n\u0006ejW\u001616\n \u0006\u0014@HHHHhhhhjjjjj. ,20s20sssss10s Hippocrates\n  \u0014; qd#tip\n\u001b\u0018\u001b;.\u00164\n\u0006\u001612\n\u0006\u001621\n\u0006\u0014@Khhhh.   ,Kroisos\n  FjFj    nFj  nFj  n\u001610\n\u001614\n\u0006\u001613\n    \u0006\u001619\n\u0006\u0014@HHHHHHHhkkk.,20ss10s10ss20s20s10s\u001618\n  \u0006\u001612\n\u0006s#name\ni\n\u001621\n\u0006\u001610\n\u0006\u001617\n\u0006#loot\nw-\u00168\n\u0006#conduct\n #chat\nh\u001618\n\u0006Za\n#sit\n \u001615\n \u0006\u001616\n\u0006\u001621\n\u0006\u00165\n\u0006rg y  wa\u001618\n\u0006\u00163\n\u0006\u00162\n\u0006\u00163\n\u0006\u00163\n\u0006\u001621\n\u0006olqe\u00162\n\u0006\u00166\n\u0006\u001611\n\u0006\u001617\n\u000610s#offer\n\u001620\n\u0006\\ qd\u001621\n\u0006\u0014@Khhhk. ,20ss20ss10s10s20ssW<;>.#pray\ny y \u001619\n\u0006\u0014@HHHHHHHhhh. ,20s20ssss10s10ss\u001613\n  \u0006\u00167\n\u0006\u00163\n\u0006\u00165\n\u0006\u0014@LLLLLLJllljj.,20s20s10s10s10ssssri nn#dip\nce#name\nm\n#monster\n.\u001620\n\u0006P#sit\n\u001b\u001616\n\u0006\u001615\n\u0006\u00167\n  \u0006\u00168\n\u0006\u001620\n\u0006#chat\nk,\u00167\n\u0006\u00163\n\u0006#rub\n,\u001616\n\u0006#force\nE- I am a fish\n\u00169\n\u0006ch,\u001617\n\u0006\u00167\n\u0006\u001618\n\u0006#tip\n\u001b#twoweapon\n\u001615\n\u0006#monster\n#offer\n\u00162\n\u0006\u00162\n\u0006\u001614\n\u0006\u001620\n\u0006>E- Elbereth\n\u00163\n\u0006#name\nm\n;#dip\nje\u001621\n\u0006\u0014@HHHHHHHH"
+  }
+ ]
+}

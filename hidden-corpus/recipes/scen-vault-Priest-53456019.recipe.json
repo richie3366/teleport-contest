@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u001621\n\u0006\u0014 \u001b@Kk.,s20s20s 10s  20sss20sn \u00168\n\u0006\u00166\n\u0006#tip\n\u001b\u001b#conduct\n \u00163\n\u0006#monster\n#conduct\n \u001617\n\u0006\u0014@HHHHHHHHJhhhjjj.,10s20s \u001b  lsbu lbus  nssj  nsssssk  nssusssslsssssnkb  nub  nysskb  n\u00169\n\u00163\n\u0006_m.s#loot\n\u001615\n\u0006\u0014@LLLLLllllk.,ss10s20s nobody\n  \u0017wand of digging\nzjyjkjb \u001615\n\u0006\u00162\n\u0006f $ j#dip\ndd\u00165\n\u0006\u0014@Jhhjj.,20ss10s Caspar\n  20s   nsm.  n20s  n sm.  nsm.  nsk\u00162\n\u001618\n\u0006\u00166\n\u0006\u00164\n \u0006\u0014@Jhhhhhjjjj.,  nobody\n  .s20s   nsm.  nsm.  nsm.  y nny y y\u001b  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 53456019,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u001621\n\u0006\u0014 \u001b@Kk.,s20s20s 10s  20sss20sn \u00168\n\u0006\u00166\n\u0006#tip\n\u001b\u001b#conduct\n \u00163\n\u0006#monster\n#conduct\n \u001617\n\u0006\u0014@HHHHHHHHJhhhjjj.,10s20s \u001b  lsbu lbus  nssj  nsssssk  nssusssslsssssnkb  nub  nysskb  n\u00169\n\u00163\n\u0006_m.s#loot\n\u001615\n\u0006\u0014@LLLLLllllk.,ss10s20s nobody\n  \u0017wand of digging\nzjyjkjb \u001615\n\u0006\u00162\n\u0006f $ j#dip\ndd\u00165\n\u0006\u0014@Jhhjj.,20ss10s Caspar\n  20s   nsm.  n20s  n sm.  nsm.  nsk\u00162\n\u001618\n\u0006\u00166\n\u0006\u00164\n \u0006\u0014@Jhhhhhjjjj.,  nobody\n  .s20s   nsm.  nsm.  nsm.  y nny y y\u001b  \u0016"
+  }
+ ]
+}

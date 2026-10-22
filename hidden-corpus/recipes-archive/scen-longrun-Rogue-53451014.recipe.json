@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "FlFl sllb_ \u001b<.>100s100sFuss150si\u001b50si\u001b100shkjnnu100s100sFk20ss100s#terrain\ne\n50s100s150s100sFkFksuny150s150sFhss50s100seeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 53451014,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "FlFl sllb_ \u001b<.>100s100sFuss150si\u001b50si\u001b100shkjnnu100s100sFk20ss100s#terrain\ne\n50s100s150s100sFkFksuny150s150sFhss50s100seeeeeeeeeee"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u001618\n\u0006Za\n\u001b<.ah \u001613\n\u0006\u0014@LLLKlkkkkk. ,ss10ss20s Caspar\n  #chat\nu;_.#ride\nby\u001619\n\u0006\u0014@HHHh. ,10s20s Creosote\n\u0017wand of digging\nzjbbubb\u001613\n\u0006t$h#untrap\nb\u001618\n\u0006\u001618\n\u0006\u00162\n\u0006\u0014@HHHHhhk. ,s20s20s  Caspar\n  buyksyssssub   nl   nsssssslssssssssssnsy  ny  nly  nusss,   n#conduct\n n#enhance\nya\nj\n\u001b\u001612\n\u001611\n\u0006\u00164\n\u0006\u0014@Kllllllkkkk. ,s10s20s Caspar\n  FhFhFh  nFh  n#terrain\n\u001b,#untrap\nh#enhance\nyf\nf\n\u001bch\u00169\n\u001619\n\u0006\u00166\n  \u0006\u001620\n\u0006\u00163\n\u0006L#chat\nn\u00167\n\u000610sP\u001618\n\u0006\u001619\n\u0006\u001615\n\u0006\u001620\n\u0006H#chat\nu\u00164\n\u0006\u001618\n\u0006\u001614\n\u0006\u001613\n\u0006\u00165\n\u0006\u001611\n\u0006\u00166\n\u0006\u001618\n\u0006P,\u001616\n     \u0006darg y ; \u001618\n\u0006\u00161"
+ },
+ "segments": [
+  {
+   "seed": 53456056,
+   "datetime": "20160115030513",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u001618\n\u0006Za\n\u001b<.ah \u001613\n\u0006\u0014@LLLKlkkkkk. ,ss10ss20s Caspar\n  #chat\nu;_.#ride\nby\u001619\n\u0006\u0014@HHHh. ,10s20s Creosote\n\u0017wand of digging\nzjbbubb\u001613\n\u0006t$h#untrap\nb\u001618\n\u0006\u001618\n\u0006\u00162\n\u0006\u0014@HHHHhhk. ,s20s20s  Caspar\n  buyksyssssub   nl   nsssssslssssssssssnsy  ny  nly  nusss,   n#conduct\n n#enhance\nya\nj\n\u001b\u001612\n\u001611\n\u0006\u00164\n\u0006\u0014@Kllllllkkkk. ,s10s20s Caspar\n  FhFhFh  nFh  n#terrain\n\u001b,#untrap\nh#enhance\nyf\nf\n\u001bch\u00169\n\u001619\n\u0006\u00166\n  \u0006\u001620\n\u0006\u00163\n\u0006L#chat\nn\u00167\n\u000610sP\u001618\n\u0006\u001619\n\u0006\u001615\n\u0006\u001620\n\u0006H#chat\nu\u00164\n\u0006\u001618\n\u0006\u001614\n\u0006\u001613\n\u0006\u00165\n\u0006\u001611\n\u0006\u00166\n\u0006\u001618\n\u0006P,\u001616\n     \u0006darg y ; \u001618\n\u0006\u00161"
+  }
+ ]
+}

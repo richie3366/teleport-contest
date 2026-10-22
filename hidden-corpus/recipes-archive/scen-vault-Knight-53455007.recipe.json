@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u001611\n\u0006\u001617\n\u0006\u0014 \u001b@LLkkkk.,10ss10s20s nobody\n  d$hussslhnnny  \u001614\n\u0006\u00162\n\u0006\u001619\n\u0006#chat\nl#terrain\n\u001b\u00162\n\u0006\u001617\n\u0006\u001620\n\u0006\u00168\n\u0006_<,.#invoke\n\u001b\u00164\n\u0006\u001621\n\u0006\u001611\n\u0006\u001612\n\u0006#pray\ny y #loot\n\u00166\n\u0006\u001616\n\u0006\u00167\n\u0006\u00166\n\u0006\u001619\n\u0006\u00162\n\u0006\u00169\n\u0006#turn\n ol\u00165\n\u0006\u001617\n\u0006#chat\njJ\u00167\n\u0006\u001614\n\u0006\u00164\n\u0006\u00162\n\u000610s\u000f\u001b\u001621\n\u0006\u00167\n\u0006\u001615\n\u0006\u001621\n\u0006\u000f\u001b20s\u00165\n\u0006\u00168\n\u0006\u00163\n\u0006#offer\neh\u00162\n\u0006\u00166\n\u0006\u00163\n\u0006\u001614\n\u0006\u001615\n\u0006\u001615\n\u0006\u001612\n\u000620ss\u00162\n\u0006\u001615\n\u0006l20s \u001615\n\u0006\u001610\n\u0006#invoke\n\u001bs\u00163\n\u0006:u\u00166\n\u0006\u00169\n\u0006E- Vlad was here\n>\u001621\n\u0006\u00165\n\u0006\u00166\n\u0006\u00167\n\u0006\u001621\n\u0006\u001615\n\u0006\u001612\n\u0006\u00162\n\u0006\u001612\n\u0006ehZ\u001621\n\u0006\u001618\n\u0006\u00169\n\u0006\u001610\n\u0006#invoke\n\u001b#wipe\n\u001611\n\u0006\u001610\n\u0006\u00168\n\u0006l#nam"
+ },
+ "segments": [
+  {
+   "seed": 53455007,
+   "datetime": "20261113102258",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u001611\n\u0006\u001617\n\u0006\u0014 \u001b@LLkkkk.,10ss10s20s nobody\n  d$hussslhnnny  \u001614\n\u0006\u00162\n\u0006\u001619\n\u0006#chat\nl#terrain\n\u001b\u00162\n\u0006\u001617\n\u0006\u001620\n\u0006\u00168\n\u0006_<,.#invoke\n\u001b\u00164\n\u0006\u001621\n\u0006\u001611\n\u0006\u001612\n\u0006#pray\ny y #loot\n\u00166\n\u0006\u001616\n\u0006\u00167\n\u0006\u00166\n\u0006\u001619\n\u0006\u00162\n\u0006\u00169\n\u0006#turn\n ol\u00165\n\u0006\u001617\n\u0006#chat\njJ\u00167\n\u0006\u001614\n\u0006\u00164\n\u0006\u00162\n\u000610s\u000f\u001b\u001621\n\u0006\u00167\n\u0006\u001615\n\u0006\u001621\n\u0006\u000f\u001b20s\u00165\n\u0006\u00168\n\u0006\u00163\n\u0006#offer\neh\u00162\n\u0006\u00166\n\u0006\u00163\n\u0006\u001614\n\u0006\u001615\n\u0006\u001615\n\u0006\u001612\n\u000620ss\u00162\n\u0006\u001615\n\u0006l20s \u001615\n\u0006\u001610\n\u0006#invoke\n\u001bs\u00163\n\u0006:u\u00166\n\u0006\u00169\n\u0006E- Vlad was here\n>\u001621\n\u0006\u00165\n\u0006\u00166\n\u0006\u00167\n\u0006\u001621\n\u0006\u001615\n\u0006\u001612\n\u0006\u00162\n\u0006\u001612\n\u0006ehZ\u001621\n\u0006\u001618\n\u0006\u00169\n\u0006\u001610\n\u0006#invoke\n\u001b#wipe\n\u001611\n\u0006\u001610\n\u0006\u00168\n\u0006l#nam"
+  }
+ ]
+}

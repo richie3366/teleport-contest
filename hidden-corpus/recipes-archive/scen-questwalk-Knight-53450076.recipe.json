@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed amulet of life saving\nPi\u0017blessed ring of free action\nPjl\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>z  \u00162\n\u0006_ \u001b>.     FyFy  Fy  Fl  Fl    Fy   \u0016?\n>>\u001b\u0016?\n>y  #chat\nj\u0016?\n>z\u00163\n\u0016?\n>z\u0006l n  uk l    n   \u00164\n\u0016?\n>z\u0006_mmmm.    Fh       _.     n   Fl        Fb      n   Fb      FnFl         n   Fl               n          Fb     n      \u00162\n\u00165\n\u0016?\n>z\u0006__.\u00166\n\u0016?\n>z\u0006_mmmm.       Fn      n      _.Fy        Fb    n                n     Fy         Fl      n     Fh          n  Fj         \u00169\n\u00162\n\u0016?\n>z\u0006_mmmm.      Fb    n            _.Fl     n     Fj       Fl   n           Fb       \u00168\n_>.Fj   n          _.  n        Fj     n      >\u0016?\n>z\u0006_m.        Fh    yy\u001by  y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 53450076,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed amulet of life saving\nPi\u0017blessed ring of free action\nPjl\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>z  \u00162\n\u0006_ \u001b>.     FyFy  Fy  Fl  Fl    Fy   \u0016?\n>>\u001b\u0016?\n>y  #chat\nj\u0016?\n>z\u00163\n\u0016?\n>z\u0006l n  uk l    n   \u00164\n\u0016?\n>z\u0006_mmmm.    Fh       _.     n   Fl        Fb      n   Fb      FnFl         n   Fl               n          Fb     n      \u00162\n\u00165\n\u0016?\n>z\u0006__.\u00166\n\u0016?\n>z\u0006_mmmm.       Fn      n      _.Fy        Fb    n                n     Fy         Fl      n     Fh          n  Fj         \u00169\n\u00162\n\u0016?\n>z\u0006_mmmm.      Fb    n            _.Fl     n     Fj       Fl   n           Fb       \u00168\n_>.Fj   n          _.  n        Fj     n      >\u0016?\n>z\u0006_m.        Fh    yy\u001by  y y y\u001b  _"
+  }
+ ]
+}

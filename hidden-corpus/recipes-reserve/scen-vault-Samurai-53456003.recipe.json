@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nWg\u001614\n\u0006\u0014 \u001b@LLLLLLLJlllllllj.,20s20s20s20ss20sss\u001614\n\u0006\u0014@LLLJlllllljj. ,ss20s10ss10s Musashi\n  d$ss\u0018\u001b;m.y#chat\ny\u001619\n\u0006\u0014@HHHhkkkk. ,s10s10s Musashi\n  \u0014<. \u001616\n\u0006\u00168\n\u0006\u0014@HHH. ,20sss10s20s \u001b  da;m,#terrain\n\u001b\u000f\u001b\u001618\n \u0006#chat\nb,\u00167\n\u0006\u0014@HHHHJhhhhhhhjjjjj. ,20s  Musashi\n  \u0017wand of digging\nzhllhlb\u001620\n\u0006cki\u001b\u00162\n\u0006\u00163\n\u0006\u001610\n\u0006\u0014@Lljjjjjjj. ,s10s20s Musashi\n  \u0014, \u001613\n\u0006\u001618\n\u0006\u001618\n\u0006\u001618\n\u0006\u00168\n\u0006\u00168\n\u0006\u00165\n\u0006\u001617\n\u0006__,sf l\u001619\n\u0006\u0014@HHHhjjjjjjj.  , s s 20s 20s 20s 10s s20s ;>.sdh \u00166\n\u0006\u001620\n \u0006#loot\nb#offer\n\u001612\n    \u0006\u00165\n\u0006\u001619\n\u0006\u0014@LLLLljjjjj.    n,10ss10s10s20s20s20ssL\u000f\u001bwb \u001611\n\u0006\u001619\n\u0006\u0014@HHHJhhjj. ,s10s10s20ssss20s\u001617\n \u0006\u00165\n\u0006q<\u001612\n \u0006e#tip\n\u001b\u001620\n\u000620s#turn\n\u001611\n\u0006\u001615\n\u0006\u0014@Klllllkk. ,20ssss20s Musashi\n  20s  sm.  n.n..20s  n #twoweapon\nz;k,\u00163\n\u001621\n\u0006\u0014@LLLLLLLLLkkkkk. ,20s Musashi\n  d$sub\u00168\n\u0006q#loot\n\u00164\n\u0006\u0014@LLLLLLlllkkk. ,10s Mu"
+ },
+ "segments": [
+  {
+   "seed": 53456003,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nWg\u001614\n\u0006\u0014 \u001b@LLLLLLLJlllllllj.,20s20s20s20ss20sss\u001614\n\u0006\u0014@LLLJlllllljj. ,ss20s10ss10s Musashi\n  d$ss\u0018\u001b;m.y#chat\ny\u001619\n\u0006\u0014@HHHhkkkk. ,s10s10s Musashi\n  \u0014<. \u001616\n\u0006\u00168\n\u0006\u0014@HHH. ,20sss10s20s \u001b  da;m,#terrain\n\u001b\u000f\u001b\u001618\n \u0006#chat\nb,\u00167\n\u0006\u0014@HHHHJhhhhhhhjjjjj. ,20s  Musashi\n  \u0017wand of digging\nzhllhlb\u001620\n\u0006cki\u001b\u00162\n\u0006\u00163\n\u0006\u001610\n\u0006\u0014@Lljjjjjjj. ,s10s20s Musashi\n  \u0014, \u001613\n\u0006\u001618\n\u0006\u001618\n\u0006\u001618\n\u0006\u00168\n\u0006\u00168\n\u0006\u00165\n\u0006\u001617\n\u0006__,sf l\u001619\n\u0006\u0014@HHHhjjjjjjj.  , s s 20s 20s 20s 10s s20s ;>.sdh \u00166\n\u0006\u001620\n \u0006#loot\nb#offer\n\u001612\n    \u0006\u00165\n\u0006\u001619\n\u0006\u0014@LLLLljjjjj.    n,10ss10s10s20s20s20ssL\u000f\u001bwb \u001611\n\u0006\u001619\n\u0006\u0014@HHHJhhjj. ,s10s10s20ssss20s\u001617\n \u0006\u00165\n\u0006q<\u001612\n \u0006e#tip\n\u001b\u001620\n\u000620s#turn\n\u001611\n\u0006\u001615\n\u0006\u0014@Klllllkk. ,20ssss20s Musashi\n  20s  sm.  n.n..20s  n #twoweapon\nz;k,\u00163\n\u001621\n\u0006\u0014@LLLLLLLLLkkkkk. ,20s Musashi\n  d$sub\u00168\n\u0006q#loot\n\u00164\n\u0006\u0014@LLLLLLlllkkk. ,10s Mu"
+  }
+ ]
+}

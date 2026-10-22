@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPk\u00165\n\u0006\u0014 \u001b@LLLJllllj. ,20s10s robin\n  \u0017wand of digging\nzlhjuhl\u001618\n\u0006\u001618\n\u0006\u001610\n\u0006\u0014@LLLLllllllljjjjj. ,10s robin\n  \u0014:\u001611\n\u0006<#wipe\n\u001620\n\u0006\u0014@HHhhh. ,20sss20s robin\n  s..sssZ#ride\nky\u001621\n\u0006\u001611\n\u0006\u001621\n\u0006\u00163\n\u0006\u00163\n\u0006#untrap\nuol\u001619\n\u0006\u0014@Hhhhhhhhkkkk. ,10s robin\n  d$skyylu#twoweapon\n\u001612\n\u0006\u00168\n\u0006\u00164\n\u0006\u001615\n\u0006\u001621\n\u0006qd  #force\n\u001610\n\u0006\u001615\n\u0006#dip\ni#tip\nf\u001b\u001615\n\u0006\u001611\n\u0006\u001617\n\u0006\u0014@HHHHHHHhhhhhhhj. ,20s20s Kroisos\nd$#ride\nky#monster\nf by b\u000f\u001b\u00166\n\u0006\u0014@LLlll. ,10ss10s robin\n  d$hhsysysyhkhsy   \u0014m.    oj\u001616\n \u0006\u00169\n\u0006\u001619\n\u0006\u001620\n\u0006#loot\nn#jump\n\u001620\n\u000620s     r\u001b\u001612\n\u0006\u001610\n\u0006\u001616\n\u0006,fh\u001621\n\u0006\u001617\n\u0006\u0014@HHHKhhhhhhk.  ,\u001bs20s10s \u001bdmsllllsnsnjnnjsnhsnsnsn   i\u001b#pray\ny y  \u001616\n\u0006\u00164\n\u0006\u00164\n\u0006#tip\nf\u001bdl\u00166\n   \u0006\u00167\n\u0006\u001616\n\u0006\u001617\n   \u0006\u0014@HHHHKhhkkkk.    ,10s10s20s robin\n  \u0014m. E- ad aerarium\n#na"
+ },
+ "segments": [
+  {
+   "seed": 53456060,
+   "datetime": "20070327204720",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPk\u00165\n\u0006\u0014 \u001b@LLLJllllj. ,20s10s robin\n  \u0017wand of digging\nzlhjuhl\u001618\n\u0006\u001618\n\u0006\u001610\n\u0006\u0014@LLLLllllllljjjjj. ,10s robin\n  \u0014:\u001611\n\u0006<#wipe\n\u001620\n\u0006\u0014@HHhhh. ,20sss20s robin\n  s..sssZ#ride\nky\u001621\n\u0006\u001611\n\u0006\u001621\n\u0006\u00163\n\u0006\u00163\n\u0006#untrap\nuol\u001619\n\u0006\u0014@Hhhhhhhhkkkk. ,10s robin\n  d$skyylu#twoweapon\n\u001612\n\u0006\u00168\n\u0006\u00164\n\u0006\u001615\n\u0006\u001621\n\u0006qd  #force\n\u001610\n\u0006\u001615\n\u0006#dip\ni#tip\nf\u001b\u001615\n\u0006\u001611\n\u0006\u001617\n\u0006\u0014@HHHHHHHhhhhhhhj. ,20s20s Kroisos\nd$#ride\nky#monster\nf by b\u000f\u001b\u00166\n\u0006\u0014@LLlll. ,10ss10s robin\n  d$hhsysysyhkhsy   \u0014m.    oj\u001616\n \u0006\u00169\n\u0006\u001619\n\u0006\u001620\n\u0006#loot\nn#jump\n\u001620\n\u000620s     r\u001b\u001612\n\u0006\u001610\n\u0006\u001616\n\u0006,fh\u001621\n\u0006\u001617\n\u0006\u0014@HHHKhhhhhhk.  ,\u001bs20s10s \u001bdmsllllsnsnjnnjsnhsnsnsn   i\u001b#pray\ny y  \u001616\n\u0006\u00164\n\u0006\u00164\n\u0006#tip\nf\u001bdl\u00166\n   \u0006\u00167\n\u0006\u001616\n\u0006\u001617\n   \u0006\u0014@HHHHKhhkkkk.    ,10s10s20s robin\n  \u0014m. E- ad aerarium\n#na"
+  }
+ ]
+}

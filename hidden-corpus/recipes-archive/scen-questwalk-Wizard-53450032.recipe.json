@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed Mjollnir\nwp\u0016?\n>z \u00162\n\u0006unl_ \u001b>.>\u0006_mm.sFy  20sFy .\u00164\n\u0006_mmmmm.Fl _, FlFl Fl   nFl Fl Fl 20s\u00165\n\u0006#chat\nh;h:  \u0016?\n>>\u001b\u0016?\n>y  #chat\nl\u0016?\n>z_>.>\u0016?\n>z\u0006uyny llbn\u00162\n\u0016?\n>z\u0006_<,\u00163\n\u0016?\n>z\u0006lk  n u\u00164\n\u0016?\n>z\u0006_m,ss20s Fn   Fh  Fn \u00165\n\u0016?\n>z\u0006_mmmmm,   n Fl_.s ss   n s s \u0016?\n>>\u001b\u0016?\n>y#chat\nj\u0016?\n>z\u00164\n\u00166\n\u0016?\n>z\u0006__._, _>,  n _, >\u0016?\n>z\u0006_mmmmm,. s 20s  n  .s \u00166\n\u00163\n\u0016?\n>z\u0006#chat\nl ;l._>.  n Fl_. Fl>\u0016?\n>z\u0006jb  n hh\u00163\n\u00165\n\u0016?\n>z\u0006#chat\ny;m.\u00166\n\u0016?\n>z\u0006ybykbybh_>. _.  n >\u0016?\n>z\u0006_mmmmm.20s s s s   n Fu\u00163\n\u00163\n\u0016?\n>z\u0006__,\u00164\n\u0016?\n>z\u0006hbhhn\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006#chat\nj   n ;y,\u00162\n\u0016?\n>z\u0006_mmmmm.Fy .   nFh.s 20s _>.  n Fb _. >\u0016?\n>z\u0006#chat\nk  n ;_.\u00168\n\u00164\n\u0016?\n>z\u0006"
+ },
+ "segments": [
+  {
+   "seed": 53450032,
+   "datetime": "20040710155819",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed Mjollnir\nwp\u0016?\n>z \u00162\n\u0006unl_ \u001b>.>\u0006_mm.sFy  20sFy .\u00164\n\u0006_mmmmm.Fl _, FlFl Fl   nFl Fl Fl 20s\u00165\n\u0006#chat\nh;h:  \u0016?\n>>\u001b\u0016?\n>y  #chat\nl\u0016?\n>z_>.>\u0016?\n>z\u0006uyny llbn\u00162\n\u0016?\n>z\u0006_<,\u00163\n\u0016?\n>z\u0006lk  n u\u00164\n\u0016?\n>z\u0006_m,ss20s Fn   Fh  Fn \u00165\n\u0016?\n>z\u0006_mmmmm,   n Fl_.s ss   n s s \u0016?\n>>\u001b\u0016?\n>y#chat\nj\u0016?\n>z\u00164\n\u00166\n\u0016?\n>z\u0006__._, _>,  n _, >\u0016?\n>z\u0006_mmmmm,. s 20s  n  .s \u00166\n\u00163\n\u0016?\n>z\u0006#chat\nl ;l._>.  n Fl_. Fl>\u0016?\n>z\u0006jb  n hh\u00163\n\u00165\n\u0016?\n>z\u0006#chat\ny;m.\u00166\n\u0016?\n>z\u0006ybykbybh_>. _.  n >\u0016?\n>z\u0006_mmmmm.20s s s s   n Fu\u00163\n\u00163\n\u0016?\n>z\u0006__,\u00164\n\u0016?\n>z\u0006hbhhn\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006#chat\nj   n ;y,\u00162\n\u0016?\n>z\u0006_mmmmm.Fy .   nFh.s 20s _>.  n Fb _. >\u0016?\n>z\u0006#chat\nk  n ;_.\u00168\n\u00164\n\u0016?\n>z\u0006"
+  }
+ ]
+}

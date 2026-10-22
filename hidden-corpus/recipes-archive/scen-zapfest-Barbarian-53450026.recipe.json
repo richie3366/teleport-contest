@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPel\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b#levelchange\n14\n             \u0007master mind flayer\n\u0007master mind flayer\n\u0017wand of sleep\nzghzgl          n    20s   n  zgh      n   zgh      n   sy     n sy.m.   n    n i\u001b\u00161\n\u0017wand of cold\n\u0017wand of fire\n\u0017wand of slow monster\n\u0007acid blob\nzib    n    n zhn        n zin    n  zhj      n zij    n zjj  zhj zihzizju20szi20s\u00163\n\u001610\n\u0017spellbook of light\nrk.\u0017blessed spellbook of slow monster\nrl 20s\u0007lich\nZb\n20s .Zb\ns.Za\nZa\nZb\n Za\nsm.s\u001611\n\u00176 eggs\nQby\u0007jackal\n\u0007newt\nfkf \u001b\u001bt\u001b\u001bt\u001b\u001bf \u001b\u001b\u0017spellbook of drain life\nrn \u001b: \u001bsj\u0017spellbook of cone of cold\nro \u001b   s\u0007orc shaman\nZa\nZa\nZb\ns20sZa\nZb\n20ssZa\nss\u00175 boomerangs\nQp\u0007gnome lord\n\u0007gnome\nfkfhfl fh\u0018\u001b\u0007red dragon\n\u0007baby red dragon\n20s .20ss#polyself\ngold dragon\n #monster\n20s 20s#monster\n#monster\n#monster\nFk  Fui\u001b\u0017s"
+ },
+ "segments": [
+  {
+   "seed": 53450026,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPel\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b#levelchange\n14\n             \u0007master mind flayer\n\u0007master mind flayer\n\u0017wand of sleep\nzghzgl          n    20s   n  zgh      n   zgh      n   sy     n sy.m.   n    n i\u001b\u00161\n\u0017wand of cold\n\u0017wand of fire\n\u0017wand of slow monster\n\u0007acid blob\nzib    n    n zhn        n zin    n  zhj      n zij    n zjj  zhj zihzizju20szi20s\u00163\n\u001610\n\u0017spellbook of light\nrk.\u0017blessed spellbook of slow monster\nrl 20s\u0007lich\nZb\n20s .Zb\ns.Za\nZa\nZb\n Za\nsm.s\u001611\n\u00176 eggs\nQby\u0007jackal\n\u0007newt\nfkf \u001b\u001bt\u001b\u001bt\u001b\u001bf \u001b\u001b\u0017spellbook of drain life\nrn \u001b: \u001bsj\u0017spellbook of cone of cold\nro \u001b   s\u0007orc shaman\nZa\nZa\nZb\ns20sZa\nZb\n20ssZa\nss\u00175 boomerangs\nQp\u0007gnome lord\n\u0007gnome\nfkfhfl fh\u0018\u001b\u0007red dragon\n\u0007baby red dragon\n20s .20ss#polyself\ngold dragon\n #monster\n20s 20s#monster\n#monster\n#monster\nFk  Fui\u001b\u0017s"
+  }
+ ]
+}

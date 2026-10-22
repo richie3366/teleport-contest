@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001bm.>_>._,>_>._.>\u0006_>._.>_>._,>_>._.>\u0006_>>._,>_>>._.>_>>._.>#chat\njZc\n<\u0006_>,_,>_>._.>_>._,>Zc\n#wipe\n\u0006_>>._.>_>>._.>_>>,_.>\u0006_>._.>_>,_,>_>,_.>_<.sf $ l\u0006_>._.>_>._,>_>._,>\u0014;fl\u0006_>._.>_>,_.>_>,_,>ck>\u0006_>._.>_>._.>_>,_.><"
+ },
+ "segments": [
+  {
+   "seed": 53451007,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0006_ \u001bm.>_>._,>_>._.>\u0006_>._.>_>._,>_>._.>\u0006_>>._,>_>>._.>_>>._.>#chat\njZc\n<\u0006_>,_,>_>._.>_>._,>Zc\n#wipe\n\u0006_>>._.>_>>._.>_>>,_.>\u0006_>._.>_>,_,>_>,_.>_<.sf $ l\u0006_>._.>_>._,>_>._,>\u0014;fl\u0006_>._.>_>,_.>_>,_,>ck>\u0006_>._.>_>._.>_>,_.><"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of reflection\nPo\u0017blessed amulet of life saving\nPp\u00168\n\u0006wany#pray\ny y \u001612\n     \u0006\u00168\n\u0006\u00168\n\u0006\u00164\n\u0006\u0014 \u001b@HHkkk. ,10s20s  Touristo\n  hssus jyss bsbsl bl   nsksssssyssbsssssbkssssj   ny\u001610\n\u00162\n\u0006\u001612\n \u0006\u000f\u001bz\u00169\n\u0006\u0014@LLLLlllllllj. ,  Touristo\n  \u0014@.\u001618\n\u0006\u00168\n\u0006\u00169\n\u0006\u001620\n\u0006L#turn\n\u001611\n\u0006\u0014@LLLLlllllllk.,s10s10s10s10s10s20ss\u00166\n\u0006\u0014@k. ,10ss20s nobody\n  FhFh  nFhFh  n\u001611\n\u001614\n\u0006\u0014@HHHHHHhhhhk. ,ss10s  Kroisos\n\u0017wand of digging\nzqbjkbu\u00161"
+ },
+ "segments": [
+  {
+   "seed": 53455004,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=runmode:walk\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of reflection\nPo\u0017blessed amulet of life saving\nPp\u00168\n\u0006wany#pray\ny y \u001612\n     \u0006\u00168\n\u0006\u00168\n\u0006\u00164\n\u0006\u0014 \u001b@HHkkk. ,10s20s  Touristo\n  hssus jyss bsbsl bl   nsksssssyssbsssssbkssssj   ny\u001610\n\u00162\n\u0006\u001612\n \u0006\u000f\u001bz\u00169\n\u0006\u0014@LLLLlllllllj. ,  Touristo\n  \u0014@.\u001618\n\u0006\u00168\n\u0006\u00169\n\u0006\u001620\n\u0006L#turn\n\u001611\n\u0006\u0014@LLLLlllllllk.,s10s10s10s10s10s20ss\u00166\n\u0006\u0014@k. ,10ss20s nobody\n  FhFh  nFhFh  n\u001611\n\u001614\n\u0006\u0014@HHHHHHhhhhk. ,ss10s  Kroisos\n\u0017wand of digging\nzqbjkbu\u00161"
+  }
+ ]
+}

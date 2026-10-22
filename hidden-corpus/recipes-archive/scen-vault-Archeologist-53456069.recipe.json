@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u001612\n\u0006\u0014 \u001b@HHHHHJhhhhhh. ,20s s10s Kroisos\n\u0017wand of digging\nziyynyn#offer\n#ride\n.yWt$kW\u001617\n \u0006\u001619\n\u0006\u00165\n  \u0006\u0014@HHHHHHHHHhkkkk. ,10s  Indiana\n  d$s\u001619\n\u0006\u001615\n\u0006\u0014@HHHHHHHJhhj. ,10s Indiana\n  \u0014@.\u00164\n\u0006\u00168\n\u0006\u00165\n  \u0006\u00167\n\u0006dbt$h\u00166\n\u0006\u00165\n\u0006#loot\n#chat\nb\u001617\n\u0006#name\n\u001b#enhance\nyl\ni\n\u001b\u001618\n\u0006\u0014@HHHHHHHHhhhk. ,s10s20s Indiana\n  lssssnsunusyssysb   nshsu   nskj  nush  nssbhshsysysl   nb   n#sit\n   n#invoke\n\u001b\u00161\n\u00166\n\u0006\u00168\n\u0006\u00165\n\u0006\u001611\n\u0006\u001617\n\u0006\u001611\n\u0006\u00164\n\u0006#enhance\nyb\no\n\u001b#turn\n\u00166\n\u0006#dip\nhZ\u00165\n \u0006#enhance\nye\ne\n\u001b#dip\nc\u001616\n\u0006\u00165\n\u0006P#jump\n\u001612\n\u0006"
+ },
+ "segments": [
+  {
+   "seed": 53456069,
+   "datetime": "20160717114100",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u001612\n\u0006\u0014 \u001b@HHHHHJhhhhhh. ,20s s10s Kroisos\n\u0017wand of digging\nziyynyn#offer\n#ride\n.yWt$kW\u001617\n \u0006\u001619\n\u0006\u00165\n  \u0006\u0014@HHHHHHHHHhkkkk. ,10s  Indiana\n  d$s\u001619\n\u0006\u001615\n\u0006\u0014@HHHHHHHJhhj. ,10s Indiana\n  \u0014@.\u00164\n\u0006\u00168\n\u0006\u00165\n  \u0006\u00167\n\u0006dbt$h\u00166\n\u0006\u00165\n\u0006#loot\n#chat\nb\u001617\n\u0006#name\n\u001b#enhance\nyl\ni\n\u001b\u001618\n\u0006\u0014@HHHHHHHHhhhk. ,s10s20s Indiana\n  lssssnsunusyssysb   nshsu   nskj  nush  nssbhshsysysl   nb   n#sit\n   n#invoke\n\u001b\u00161\n\u00166\n\u0006\u00168\n\u0006\u00165\n\u0006\u001611\n\u0006\u001617\n\u0006\u001611\n\u0006\u00164\n\u0006#enhance\nyb\no\n\u001b#turn\n\u00166\n\u0006#dip\nhZ\u00165\n \u0006#enhance\nye\ne\n\u001b#dip\nc\u001616\n\u0006\u00165\n\u0006P#jump\n\u001612\n\u0006"
+  }
+ ]
+}

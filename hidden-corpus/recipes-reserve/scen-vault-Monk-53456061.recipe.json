@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u00165\n\u0006\u001620\n\u0006\u0014 \u001b@HHHHHHHHhhhkkkkkk.,s20s20s Croesus\nd$z#terrain\n\u001b,ef\u001614\n    \u0006\u001619\n\u0006\u0014@HHHHhjjjjjj. ,10ss20s Kira\n  d$ysh uskysssbykbs n   nsljsssk  nsy  nsssssssbj   nssssl   ns\u0014,   n#force\n:20s  n cl\u001610\n\u001611\n\u0006\u001620\n\u0006\u0014@HHHHHHHhkk.,10s20s Kira\n  \u0014.\u00162\n\u0006\u001618\n\u0006\u0014@HHHHHhhhj. ,20s Kira\n  20s   n.usj  nsm.  n20s  n .m.  n\u0018\u001b,oj\u00166\n\u00166\n\u0006\u0014@LLLLLJlllllllj. ,20s \u001b  \u0014m. i\u001bw\u001b,\u00164\n\u0006\u00167\n\u0006<ef\u001619\n\u0006\u0014@LLjj. ,20s10s10s   sssss\u001612\n\u0006\u0014@Jhhhhjjjj. ,s20s20s nobody\n  FhFhFhFh  n\\  #loot\nhL\u00168\n\u0006\u00166\n\u0006\u0014@LLLLLLLJlljj. ,10s10s10s10ss20s20s20s#terrain\nb\n#chat\nm,#u"
+ },
+ "segments": [
+  {
+   "seed": 53456061,
+   "datetime": "20041123185459",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u00165\n\u0006\u001620\n\u0006\u0014 \u001b@HHHHHHHHhhhkkkkkk.,s20s20s Croesus\nd$z#terrain\n\u001b,ef\u001614\n    \u0006\u001619\n\u0006\u0014@HHHHhjjjjjj. ,10ss20s Kira\n  d$ysh uskysssbykbs n   nsljsssk  nsy  nsssssssbj   nssssl   ns\u0014,   n#force\n:20s  n cl\u001610\n\u001611\n\u0006\u001620\n\u0006\u0014@HHHHHHHhkk.,10s20s Kira\n  \u0014.\u00162\n\u0006\u001618\n\u0006\u0014@HHHHHhhhj. ,20s Kira\n  20s   n.usj  nsm.  n20s  n .m.  n\u0018\u001b,oj\u00166\n\u00166\n\u0006\u0014@LLLLLJlllllllj. ,20s \u001b  \u0014m. i\u001bw\u001b,\u00164\n\u0006\u00167\n\u0006<ef\u001619\n\u0006\u0014@LLjj. ,20s10s10s   sssss\u001612\n\u0006\u0014@Jhhhhjjjj. ,s20s20s nobody\n  FhFhFhFh  n\\  #loot\nhL\u00168\n\u0006\u00166\n\u0006\u0014@LLLLLLLJlljj. ,10s10s10s10ss20s20s20s#terrain\nb\n#chat\nm,#u"
+  }
+ ]
+}

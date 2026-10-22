@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n          \u0017the Staff of Aesculapius\n wkFj  20ss#invoke\nk \u0007silver dragon\n#chat\nhFh Fh\u0007giant mimic\n.usys.m. .j sh   n20s 20s sm. \u0007gold golem\nFb Fb  Fn   n  \u0007genetic engineer\nFn   Fn          Fn Fb     n Fb   \u001612\n#levelchange\n6\n  hhly\u0017pool\n#dip\niy     ubn\u0017neutral altar\ndgdc\u0017elf corpse\n#offer\nl  : j\u0017lawful altar\ndidd \u0017jackal corpse\n#offer\nm   #pray\ny y  : jb\u0017cloud\nhllldj20srh \u001621\n  i\u001b#levelchange\n20\n              \u0017blessed ring of polymorph control\nPnl\u0017cloak of displacement\nWo ..s#polyself\nlich\n#monster\n.s\u0007xan\nFkFk  Fk  snss#polyself\nhobbit\n   sm.  .l \u0007Aleax\nFh Fh  Fh   sl 20s sm.   #polyself\ngas spore\n#monster\n20s      n   sm.\u0007xorn\nFk Fk     Fb    n   sk sm.    .m. #polyself\nacid blob\n s     n       20s\u0007owlbear\nFlFb    n    Fk      sm.  n    sy   .m.    n  \u0017amulet of unchanging\nPp   .m.      n 20s    sm.   n    20s    \u00161\n\u00166\n\u0017sack\n\u0017ring of polymorph\n\u0017potion of confusion\n\u0017scroll of fire\naqs\naqb\nX\n\u001baqi\n\u0017dagger\nwu   n  dq  #force\nsu.m.  20s  dr    n #loot\nh,#tip\n\u001b\u00169\n  \u0017blessed ring of polymorph control\nPv   #polyself\nsm.s.m.  .m.  sm.   n #polyself\n#monster\n20s  sb  .m.20s  sm.   n \u0017wand of polymorph\nzwb  zwb    \u001b#levelchange\n12\n  \u0016?\nmah    n,;h: \u001b>.20s sn \u0016?\n>v Luwa     ;h:sm.   n.m.  \u0016?\n>>\u001b\u0016?\np#tip\n\u001brh    n #untrap\nk;k:\u0006.m.20s    y y\u001by   y ny\u001bn  #"
+ },
+ "segments": [
+  {
+   "seed": 53450089,
+   "datetime": "20060302065858",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n          \u0017the Staff of Aesculapius\n wkFj  20ss#invoke\nk \u0007silver dragon\n#chat\nhFh Fh\u0007giant mimic\n.usys.m. .j sh   n20s 20s sm. \u0007gold golem\nFb Fb  Fn   n  \u0007genetic engineer\nFn   Fn          Fn Fb     n Fb   \u001612\n#levelchange\n6\n  hhly\u0017pool\n#dip\niy     ubn\u0017neutral altar\ndgdc\u0017elf corpse\n#offer\nl  : j\u0017lawful altar\ndidd \u0017jackal corpse\n#offer\nm   #pray\ny y  : jb\u0017cloud\nhllldj20srh \u001621\n  i\u001b#levelchange\n20\n              \u0017blessed ring of polymorph control\nPnl\u0017cloak of displacement\nWo ..s#polyself\nlich\n#monster\n.s\u0007xan\nFkFk  Fk  snss#polyself\nhobbit\n   sm.  .l \u0007Aleax\nFh Fh  Fh   sl 20s sm.   #polyself\ngas spore\n#monster\n20s      n   sm.\u0007xorn\nFk Fk     Fb    n   sk sm.    .m. #polyself\nacid blob\n s     n       20s\u0007owlbear\nFlFb    n    Fk      sm.  n    sy   .m.    n  \u0017amulet of unchanging\nPp   .m.      n 20s    sm.   n    20s    \u00161\n\u00166\n\u0017sack\n\u0017ring of polymorph\n\u0017potion of confusion\n\u0017scroll of fire\naqs\naqb\nX\n\u001baqi\n\u0017dagger\nwu   n  dq  #force\nsu.m.  20s  dr    n #loot\nh,#tip\n\u001b\u00169\n  \u0017blessed ring of polymorph control\nPv   #polyself\nsm.s.m.  .m.  sm.   n #polyself\n#monster\n20s  sb  .m.20s  sm.   n \u0017wand of polymorph\nzwb  zwb    \u001b#levelchange\n12\n  \u0016?\nmah    n,;h: \u001b>.20s sn \u0016?\n>v Luwa     ;h:sm.   n.m.  \u0016?\n>>\u001b\u0016?\np#tip\n\u001brh    n #untrap\nk;k:\u0006.m.20s    y y\u001by   y ny\u001bn  #"
+  }
+ ]
+}

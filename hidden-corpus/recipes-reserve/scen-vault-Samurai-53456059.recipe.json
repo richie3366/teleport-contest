@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u001612\n\u0006#terrain\nb\n\u001b,#rub\n\u001616\n \u0006lda\u001619\n\u0006\u001612\n\u0006\u001619\n\u0006\u001611\n\u000620s\u0004n\u00169\n\u0006\u001619\n\u0006\u00169\n\u0006\u001616\n\u0006\u00162\n\u0006#loot\nj#monster\n\u001613\n\u0006\u0014@LLLLLLllllllkkkkk.,s10s10s 20ss10s  10s10sn  i\u001be\\    \\    \u00166\n  \u0006\u0014@LLLLLKlk.,s20s10ss20s Musashi\n  Fj  FjFj  nFj  nh   n<,j#conduct\n \u00169\n\u00166\n  \u0006\u00164\n\u0006e\u000f\u001b\u001615\n\u0006\u001614\n    \u0006\u0014@LLLLLLLllllk. ,20s Musashi\n  sss.20s    20s  n \u00163\n\u0006\u001612\n\u0006\u00162\n\u0006\u001617\n\u0006\u00166\n  \u0006\u0014.  \u000f\u001b\u00163\n  \u0006\u001618\n\u0006\u00166\n  \u0006\u0014@LLLLKlkk.,10ssss10s20ss10s#offer\n#chat\nj;_.\u00165\n\u0006#twoweapon\n#rub\n\u001620\n\u0006<#tip\n\u001b\u001614\n \u0006\u0014@Jhhhhjjj. ,s20s  ss10s20s20ssn \u00167\n\u0006\u001616\n\u0006\u00163\n\u0006\u001616\n\u0006\u00165\n\u0006\u00169\n\u0006\u001617\n\u0006\u00164\n\u0006\u00166\n\u0006\u0014@LLKlk. ,10s20s10ss10s10sssr\u001bWr\u001b\u001619\n\u0006\u001615\n\u0006wb \u0018\u001b\u00162\n\u0006\u001619\n\u0006\u001611\n\u0006\u001618\n\u0006\u001615\n\u0006#conduct\n \u0014,\u001611\n\u0006#loot\nch\u001616\n\u0006\u00164\n\u0006#enhance\nyi\nd\n\u001bf n\u001616\n\u0006tbkol\u00167\n\u0006"
+ },
+ "segments": [
+  {
+   "seed": 53456059,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u001612\n\u0006#terrain\nb\n\u001b,#rub\n\u001616\n \u0006lda\u001619\n\u0006\u001612\n\u0006\u001619\n\u0006\u001611\n\u000620s\u0004n\u00169\n\u0006\u001619\n\u0006\u00169\n\u0006\u001616\n\u0006\u00162\n\u0006#loot\nj#monster\n\u001613\n\u0006\u0014@LLLLLLllllllkkkkk.,s10s10s 20ss10s  10s10sn  i\u001be\\    \\    \u00166\n  \u0006\u0014@LLLLLKlk.,s20s10ss20s Musashi\n  Fj  FjFj  nFj  nh   n<,j#conduct\n \u00169\n\u00166\n  \u0006\u00164\n\u0006e\u000f\u001b\u001615\n\u0006\u001614\n    \u0006\u0014@LLLLLLLllllk. ,20s Musashi\n  sss.20s    20s  n \u00163\n\u0006\u001612\n\u0006\u00162\n\u0006\u001617\n\u0006\u00166\n  \u0006\u0014.  \u000f\u001b\u00163\n  \u0006\u001618\n\u0006\u00166\n  \u0006\u0014@LLLLKlkk.,10ssss10s20ss10s#offer\n#chat\nj;_.\u00165\n\u0006#twoweapon\n#rub\n\u001620\n\u0006<#tip\n\u001b\u001614\n \u0006\u0014@Jhhhhjjj. ,s20s  ss10s20s20ssn \u00167\n\u0006\u001616\n\u0006\u00163\n\u0006\u001616\n\u0006\u00165\n\u0006\u00169\n\u0006\u001617\n\u0006\u00164\n\u0006\u00166\n\u0006\u0014@LLKlk. ,10s20s10ss10s10sssr\u001bWr\u001b\u001619\n\u0006\u001615\n\u0006wb \u0018\u001b\u00162\n\u0006\u001619\n\u0006\u001611\n\u0006\u001618\n\u0006\u001615\n\u0006#conduct\n \u0014,\u001611\n\u0006#loot\nch\u001616\n\u0006\u00164\n\u0006#enhance\nyi\nd\n\u001bf n\u001616\n\u0006tbkol\u00167\n\u0006"
+  }
+ ]
+}

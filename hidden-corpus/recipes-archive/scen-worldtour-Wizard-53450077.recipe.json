@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n            \u0017blessed amulet of life saving\nPn\u0017blessed +3 gauntlets of power\nWo\u0017blessed ring of free action\nPpl\u0016?\n>>N       dilithium crystal\nny  j         k   :.m.   n        su\u0016?\nc _ \u001b>.\u0016?\n\u001bh      l      n     \u00165\n\u0006_<.\u0016?\n\u001bh         n      j              n        \u00163\n\u0016?\na   k        n h      k           k     n      :20s        n 20s          \u00167\n\u00165\nu    n      l     :\u001635\nh    n     n      l     n    kh:.j    \u00161\n\u001635\n_{.20s  n    \u0016?\nej  l   n b   h  n   h hu    n   :sm.  \u00161\n\u001642\n#levelchange\n12\n\u0017the Orb of Detection\n  n \u0007wumpus\nFu        Fl    n     Fn   yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 53450077,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n            \u0017blessed amulet of life saving\nPn\u0017blessed +3 gauntlets of power\nWo\u0017blessed ring of free action\nPpl\u0016?\n>>N       dilithium crystal\nny  j         k   :.m.   n        su\u0016?\nc _ \u001b>.\u0016?\n\u001bh      l      n     \u00165\n\u0006_<.\u0016?\n\u001bh         n      j              n        \u00163\n\u0016?\na   k        n h      k           k     n      :20s        n 20s          \u00167\n\u00165\nu    n      l     :\u001635\nh    n     n      l     n    kh:.j    \u00161\n\u001635\n_{.20s  n    \u0016?\nej  l   n b   h  n   h hu    n   :sm.  \u00161\n\u001642\n#levelchange\n12\n\u0017the Orb of Detection\n  n \u0007wumpus\nFu        Fl    n     Fn   yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

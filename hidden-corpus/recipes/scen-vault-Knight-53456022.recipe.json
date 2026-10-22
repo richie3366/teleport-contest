@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u00163\n\u0006\u001614\n\u0006\u00163\n\u0006r\u001b#rub\n\u00169\n\u0006\u001617\n\u0006\u001611\n\u0006#terrain\n\u001b#offer\n\u001619\n\u0006\u001618\n\u0006\u0014 \u001b@LLLLLLLLJlllllllj.,s10s20s Florian\n  d$sn#twoweapon\n\u0014<.#wipe\n\u00166\n\u0006\u0014@HHHJhhhhhhjj.,10s20s Florian\n  d$lsnnsssbussssh   nn  nssssssssuuusssssyssn  nbusj  ns\u00169\n\u001611\n\u0006#terrain\n\u001b#conduct\n \u001611\n\u000610s      n r\u001b\u00164\n\u0006\u0014@HHh. ,sss10s10s10s Florian\n  luslssssssy   nbsuksn  nssssssk  nsh  nsk  nssbsyl  nhsn  nsss\u00168\n\u001611\n\u0006\u00167\n\u0006\u00166\n\u0006\u0014@HHHHhhhhhjj. ,s10s20ss10ss20s20s\u00169\n\u0006\u001619\n\u0006\u001613\n\u0006z;>.\u001617\n\u0006\u00168\n\u0006\u00168\n\u0006\u00165\n\u0006\u001618\n\u0006\u0014@LLLLJl"
+ },
+ "segments": [
+  {
+   "seed": 53456022,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=sortloot:none\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00163\n\u0006\u001614\n\u0006\u00163\n\u0006r\u001b#rub\n\u00169\n\u0006\u001617\n\u0006\u001611\n\u0006#terrain\n\u001b#offer\n\u001619\n\u0006\u001618\n\u0006\u0014 \u001b@LLLLLLLLJlllllllj.,s10s20s Florian\n  d$sn#twoweapon\n\u0014<.#wipe\n\u00166\n\u0006\u0014@HHHJhhhhhhjj.,10s20s Florian\n  d$lsnnsssbussssh   nn  nssssssssuuusssssyssn  nbusj  ns\u00169\n\u001611\n\u0006#terrain\n\u001b#conduct\n \u001611\n\u000610s      n r\u001b\u00164\n\u0006\u0014@HHh. ,sss10s10s10s Florian\n  luslssssssy   nbsuksn  nssssssk  nsh  nsk  nssbsyl  nhsn  nsss\u00168\n\u001611\n\u0006\u00167\n\u0006\u00166\n\u0006\u0014@HHHHhhhhhjj. ,s10s20ss10ss20s20s\u00169\n\u0006\u001619\n\u0006\u001613\n\u0006z;>.\u001617\n\u0006\u00168\n\u0006\u00168\n\u0006\u00165\n\u0006\u001618\n\u0006\u0014@LLLLJl"
+  }
+ ]
+}

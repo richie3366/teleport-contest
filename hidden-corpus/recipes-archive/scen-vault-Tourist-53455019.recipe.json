@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u001611\n\u0006\u0014 \u001b@LJl. ,10s20s Touristo\n  d$u bP\u0014@.\u00166\n\u0006\u0014@HJhhhjjj. ,10s  Touristo\n  d$k\u001610\n\u0006\u0014@LLLLLLLllllj. ,10s Touristo\n  \u0014@.W,i\u001b\u00169\n\u0006fueb \u00167\n\u0006#force\nl\u001615\n\u0006\u001612\n\u0006\u00166\n\u0006\u001614\n     \u0006\u00163\n\u0006\u0014@HHHHHHHhhhhjjjjjjj.,    s10s 20s10ss10s ssdf   n W\u001610\n\u0006\u001616\n\u0006\u001612\n\u0006\u00165\n\u0006\u0014@HHjj. ,ss20s Touristo\n  \u0014>. qiuao\u001611\n\u0006\u00163\n\u0006\u0014@HHHHHHHkkkkkk.,y 20s20s20sss10s20ss#enhance\nyr\nb\n\u001b#chat\nkok\u00165\n\u0006\u0014@HHHHJhhjjj.  ,  10s    s s20s    s 20s    s 10sn#ride\n.ywann\u001611\n\u0006\u0014<.,\u001615\n\u0006#rub\n#untrap\n\u001621\n\u0006\u0014@HHHHJhhhhhjj. ,20s Fred\n   uss    nn   n    nnnslsssh    n ssshu  n    n l   n    nsy   n    nssssbl    n skssssssn   n    nsssss\u001617\n \u0006#twoweapon\n#turn\n\u001614\n \u0006\u001614\n\u0006\u00166\n\u0006\u001619\n\u0006\u00169\n\u0006\u00165\n\u0006\u0014@Jhhhhhhhjjjj.,s20ss10ss10s20s10s\u001621\n\u0006\u0014@HJhhhhhhhjjjjjj.     n    y y\u001b  ny ny\u001bn  ,"
+ },
+ "segments": [
+  {
+   "seed": 53455019,
+   "datetime": "20200215022216",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u001611\n\u0006\u0014 \u001b@LJl. ,10s20s Touristo\n  d$u bP\u0014@.\u00166\n\u0006\u0014@HJhhhjjj. ,10s  Touristo\n  d$k\u001610\n\u0006\u0014@LLLLLLLllllj. ,10s Touristo\n  \u0014@.W,i\u001b\u00169\n\u0006fueb \u00167\n\u0006#force\nl\u001615\n\u0006\u001612\n\u0006\u00166\n\u0006\u001614\n     \u0006\u00163\n\u0006\u0014@HHHHHHHhhhhjjjjjjj.,    s10s 20s10ss10s ssdf   n W\u001610\n\u0006\u001616\n\u0006\u001612\n\u0006\u00165\n\u0006\u0014@HHjj. ,ss20s Touristo\n  \u0014>. qiuao\u001611\n\u0006\u00163\n\u0006\u0014@HHHHHHHkkkkkk.,y 20s20s20sss10s20ss#enhance\nyr\nb\n\u001b#chat\nkok\u00165\n\u0006\u0014@HHHHJhhjjj.  ,  10s    s s20s    s 20s    s 10sn#ride\n.ywann\u001611\n\u0006\u0014<.,\u001615\n\u0006#rub\n#untrap\n\u001621\n\u0006\u0014@HHHHJhhhhhjj. ,20s Fred\n   uss    nn   n    nnnslsssh    n ssshu  n    n l   n    nsy   n    nssssbl    n skssssssn   n    nsssss\u001617\n \u0006#twoweapon\n#turn\n\u001614\n \u0006\u001614\n\u0006\u00166\n\u0006\u001619\n\u0006\u00169\n\u0006\u00165\n\u0006\u0014@Jhhhhhhhjjjj.,s20ss10ss10s20s10s\u001621\n\u0006\u0014@HJhhhhhhhjjjjjj.     n    y y\u001b  ny ny\u001bn  ,"
+  }
+ ]
+}

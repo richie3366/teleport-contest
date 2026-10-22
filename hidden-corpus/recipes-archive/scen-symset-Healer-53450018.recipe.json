@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u00164\nFy Fy Fh150s          Fh Fh FhFhFy Fh Fh.Fk Fk s20sFhFy sFh 20sFhFh Fh.100s_ \u001bm,>FkFk Fk150skjh#turn\n\u0004hlhhhby150s 150s   100sFjFjFj100sFh FhFbFh Fj FjFj Fj Fj\u000f\u001b100s100s llj100s Fh Fh20sFh Fh Fh Fh.s100s\\ 150sFh Fhs_>._.> ej\u001611\nv\u001bi\u001b\u0006_>>,  n Fh   n_.Fh  n    n >Fh   n Fj    n    n_>>.  _.>#turn\n,\u0006._>,   _.   n >\u0006m,_>>. Fb  _.>  \u0006;_>,_,> Fk   n .s\u001b\u0006@._>>._.   Fn  >  \u0006<._>._,>\u0006m._>>.  _,>>\u000f\u001b\u001610\nO>n\u001b\u001b\nOf\u001b\n\u001611\nnnu\u0017moat\n#dip\ney     u bn\u0017unaligned altar\ndagd\u0017newt corpse\n#offer\nl  #terrain\n\u001b#tip\n\u001b\\ #rub\n\u0007tame kitten\n\u0007tame large dog\n\u0017leash\namlkk n   namdf   .s\u001b20s  20s\u001b\u0017lichen corpse\nt$h\u0017apple\nt\u001b\u0006m,_>.  _.  >  \u0006_>. _.  >\u0006;_>>._.> Fh 20s\u001b.\u0006:_>>._, Fh ><\u0006,_>, Fn   n _,  n > Fy  FuFj  <\u0006m._>._.>\u0006@._>>. Fj_.  >#conduct\n : \u001b \u00169\n\u001611\nzdbk  nmO>>>>k\u001b\n #pray\ny y       Fj   n Fj   n   nFk    yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 53450018,
+   "datetime": "20000829003941",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You miss\"\nMENUCOLOR=\"a scroll\"=red\nBIND=v:inventory\n",
+   "moves": " \u00164\nFy Fy Fh150s          Fh Fh FhFhFy Fh Fh.Fk Fk s20sFhFy sFh 20sFhFh Fh.100s_ \u001bm,>FkFk Fk150skjh#turn\n\u0004hlhhhby150s 150s   100sFjFjFj100sFh FhFbFh Fj FjFj Fj Fj\u000f\u001b100s100s llj100s Fh Fh20sFh Fh Fh Fh.s100s\\ 150sFh Fhs_>._.> ej\u001611\nv\u001bi\u001b\u0006_>>,  n Fh   n_.Fh  n    n >Fh   n Fj    n    n_>>.  _.>#turn\n,\u0006._>,   _.   n >\u0006m,_>>. Fb  _.>  \u0006;_>,_,> Fk   n .s\u001b\u0006@._>>._.   Fn  >  \u0006<._>._,>\u0006m._>>.  _,>>\u000f\u001b\u001610\nO>n\u001b\u001b\nOf\u001b\n\u001611\nnnu\u0017moat\n#dip\ney     u bn\u0017unaligned altar\ndagd\u0017newt corpse\n#offer\nl  #terrain\n\u001b#tip\n\u001b\\ #rub\n\u0007tame kitten\n\u0007tame large dog\n\u0017leash\namlkk n   namdf   .s\u001b20s  20s\u001b\u0017lichen corpse\nt$h\u0017apple\nt\u001b\u0006m,_>.  _.  >  \u0006_>. _.  >\u0006;_>>._.> Fh 20s\u001b.\u0006:_>>._, Fh ><\u0006,_>, Fn   n _,  n > Fy  FuFj  <\u0006m._>._.>\u0006@._>>. Fj_.  >#conduct\n : \u001b \u00169\n\u001611\nzdbk  nmO>>>>k\u001b\n #pray\ny y       Fj   n Fj   n   nFk    yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of life saving\nPg\u0017blessed shield of reflection\nWh\u0017blessed spellbook of knock\nri 20s\u0007incubus\nZa\nZa\n.m.20sZa\nZa\nZa\nZa\n20s.n \u0017spellbook of finger of death\nrj \u001b   .\u0007orc shaman\n\u0007aligned cleric\nyyZa\nZa\nZa\n  n Za\nZa\ns 20s  n   n Za\n  n  ns  n .  nZa\n   n Za\n  n  nZa\n   n.   n 20s  n  \u001614\n\u00163\n\u0007gnomish wizard\n\u0007kobold shaman\n\u0007master mind flayer\n\u0017wand of sleep\nzkh  n. s    n      \u0007orc shaman\n\u0007vampire\n\u0017wand of sleep\nzlh    yy\u001bny y y\u001bn  ."
+ },
+ "segments": [
+  {
+   "seed": 53450092,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of life saving\nPg\u0017blessed shield of reflection\nWh\u0017blessed spellbook of knock\nri 20s\u0007incubus\nZa\nZa\n.m.20sZa\nZa\nZa\nZa\n20s.n \u0017spellbook of finger of death\nrj \u001b   .\u0007orc shaman\n\u0007aligned cleric\nyyZa\nZa\nZa\n  n Za\nZa\ns 20s  n   n Za\n  n  ns  n .  nZa\n   n Za\n  n  nZa\n   n.   n 20s  n  \u001614\n\u00163\n\u0007gnomish wizard\n\u0007kobold shaman\n\u0007master mind flayer\n\u0017wand of sleep\nzkh  n. s    n      \u0007orc shaman\n\u0007vampire\n\u0017wand of sleep\nzlh    yy\u001bny y y\u001bn  ."
+  }
+ ]
+}

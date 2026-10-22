@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017scroll of food detection\n\u0007skeleton\nrf  \u001b:FbFy \u0017wand of create monster\nzghomunculus\n  \u00173 spellbook of teleport away\nrh  yy\u001by  y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 53452000,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017scroll of food detection\n\u0007skeleton\nrf  \u001b:FbFy \u0017wand of create monster\nzghomunculus\n  \u00173 spellbook of teleport away\nrh  yy\u001by  y y y\u001by  s"
+  }
+ ]
+}

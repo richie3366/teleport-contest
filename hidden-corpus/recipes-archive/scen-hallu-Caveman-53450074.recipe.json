@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed ring of free action\nPfl\u0017blessed amulet of life saving\nPg\u0017blessed leash\n\u0017blessed +3 speed boots\nWi\u0017blessed +3 helm of telepathy\nWj\u0017blessed 20 daggers\nQk#levelchange\n20\n                   #wizintrinsic\nh\n i\u001buhn\u0017wand of fire\nzly zllzlj  zlb  zll\u0017wand of digging\nzmjzmnzmjzmuzmy\u0017wand of slow monster\nznjznyznu#wizintrinsic\nh\n;<. \u001bm,E- I am a fish\n#chat\nl\u0017blessed spellbook of magic missile\nrosZa\n:fbfnfu#invoke\n\u001b;m.E- Vlad was here\n#chat\nj#wizintrinsic\nh\ntkutkjfb#invoke\n\u001b;m.E-y I am a fish\n#chat\nh;.E-n  ad aerarium\n#chat\nn\u0007hill orc\n\u0007hobbit\nFlFlFlFy20sss#wizintrinsic\nh\n\u0017scroll of light\nrp;m,E-n  Vlad was here\n#chat\ny\u0007hobbit\nFuFu20sFks.\u0007sewer rat\nFyss20s.sstkkfu#wizintrinsic\nh\n\u0017spellbook of magic missile\nrq y ;  sZa\n:\u0017wand of digging\nzr.zr.zrnzrb\u0017wand of fire\nzsyzskzsj #wizintrinsic\nh\n\u0017potion of booze\nqt.;_.E- Elbereth\n#chat\nj\u0017spellbook of magic missile\n ru y sZa\n: \u0017wand of sleep\nzvk     zvu zvu zvu #wizintrinsic\nh\n\u0007owlbear\nFuFk FkFk Fk s\u0007dwarf\n\u0007gnome\nFk Fu  FkFk.\u0007grid bug\nFu.ss.\u0017scroll of identify\nrw "
+ },
+ "segments": [
+  {
+   "seed": 53450074,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed ring of free action\nPfl\u0017blessed amulet of life saving\nPg\u0017blessed leash\n\u0017blessed +3 speed boots\nWi\u0017blessed +3 helm of telepathy\nWj\u0017blessed 20 daggers\nQk#levelchange\n20\n                   #wizintrinsic\nh\n i\u001buhn\u0017wand of fire\nzly zllzlj  zlb  zll\u0017wand of digging\nzmjzmnzmjzmuzmy\u0017wand of slow monster\nznjznyznu#wizintrinsic\nh\n;<. \u001bm,E- I am a fish\n#chat\nl\u0017blessed spellbook of magic missile\nrosZa\n:fbfnfu#invoke\n\u001b;m.E- Vlad was here\n#chat\nj#wizintrinsic\nh\ntkutkjfb#invoke\n\u001b;m.E-y I am a fish\n#chat\nh;.E-n  ad aerarium\n#chat\nn\u0007hill orc\n\u0007hobbit\nFlFlFlFy20sss#wizintrinsic\nh\n\u0017scroll of light\nrp;m,E-n  Vlad was here\n#chat\ny\u0007hobbit\nFuFu20sFks.\u0007sewer rat\nFyss20s.sstkkfu#wizintrinsic\nh\n\u0017spellbook of magic missile\nrq y ;  sZa\n:\u0017wand of digging\nzr.zr.zrnzrb\u0017wand of fire\nzsyzskzsj #wizintrinsic\nh\n\u0017potion of booze\nqt.;_.E- Elbereth\n#chat\nj\u0017spellbook of magic missile\n ru y sZa\n: \u0017wand of sleep\nzvk     zvu zvu zvu #wizintrinsic\nh\n\u0007owlbear\nFuFk FkFk Fk s\u0007dwarf\n\u0007gnome\nFk Fu  FkFk.\u0007grid bug\nFu.ss.\u0017scroll of identify\nrw "
+  }
+ ]
+}

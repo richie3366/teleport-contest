@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPml\u0017blessed +3 speed boots\nWn\u00168\n\u0006\u0014 \u001b@HHHKhhhhhhh. ,10s10s10s20s Touristo\n  ss20s   n20s  n 20s  n sm.  n\u00168\n\u00166\n\u0006#name\nm\n#rub\n>.\u00164\n\u0006\u0014@LLllllljjjj. ,20s Kroisos\nd$\u001613\n\u0006\u00165\n\u0006#wipe\n<\u001617\n\u0006\u0014@HHjjjj.,10s20ss10s10s  20s10s20sn tal   nW\u00169\n\u00168\n\u0006\u0014@Llllllljj.,s10s  20ssssssn \u001621\n\u0006\u00164\n\u0006\u0014@Llllll. ,20s10s10s20s \u001b  \u001612\n\u0006\u0014@HHHHJhhhhhhjjj. ,10ss20s Touristo\n  d$slbsi\u001b>#invoke\n\u001b\u001620\n\u0006\u00167\n\u0006\u0018\u001b;.\u00168\n\u0006\u0014@Hhhhhkkkk. ,  n10sss10s  20ss20s10sni\u001b#wipe\n\u001612\n\u001614\n \u0006\u0004n#tip\n\u001b\u001614\n\u0006\u00164\n\u0006\u00163\n\u0006\u0014@LLlljjjj. ,20s20s10ss10s20s Touristo\n  \u0017wand of digging\nzokynjksqh:\u001612\n\u0006\u00165\n\u0006\u001611\n    \u0006\u0014@LLLJllll. ,s20s10s Touristo\n  \u0014.\u001619\n\u0006\u0014@LKllllkkkkkk. ,s20sssss20s20s#monster\n>lfjaoy       \u00165\n \u0006\u001617\n\u0006\u0014@HHHHHhjjjjjjj. ,10s10s20s   10s"
+ },
+ "segments": [
+  {
+   "seed": 53456063,
+   "datetime": "20130316055312",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPml\u0017blessed +3 speed boots\nWn\u00168\n\u0006\u0014 \u001b@HHHKhhhhhhh. ,10s10s10s20s Touristo\n  ss20s   n20s  n 20s  n sm.  n\u00168\n\u00166\n\u0006#name\nm\n#rub\n>.\u00164\n\u0006\u0014@LLllllljjjj. ,20s Kroisos\nd$\u001613\n\u0006\u00165\n\u0006#wipe\n<\u001617\n\u0006\u0014@HHjjjj.,10s20ss10s10s  20s10s20sn tal   nW\u00169\n\u00168\n\u0006\u0014@Llllllljj.,s10s  20ssssssn \u001621\n\u0006\u00164\n\u0006\u0014@Llllll. ,20s10s10s20s \u001b  \u001612\n\u0006\u0014@HHHHJhhhhhhjjj. ,10ss20s Touristo\n  d$slbsi\u001b>#invoke\n\u001b\u001620\n\u0006\u00167\n\u0006\u0018\u001b;.\u00168\n\u0006\u0014@Hhhhhkkkk. ,  n10sss10s  20ss20s10sni\u001b#wipe\n\u001612\n\u001614\n \u0006\u0004n#tip\n\u001b\u001614\n\u0006\u00164\n\u0006\u00163\n\u0006\u0014@LLlljjjj. ,20s20s10ss10s20s Touristo\n  \u0017wand of digging\nzokynjksqh:\u001612\n\u0006\u00165\n\u0006\u001611\n    \u0006\u0014@LLLJllll. ,s20s10s Touristo\n  \u0014.\u001619\n\u0006\u0014@LKllllkkkkkk. ,s20sssss20s20s#monster\n>lfjaoy       \u00165\n \u0006\u001617\n\u0006\u0014@HHHHHhjjjjjjj. ,10s10s20s   10s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPkr\u0017blessed Mjollnir\nwl\u0016?\n>w\u0006_ \u001b@.#chat\nhFhFh FhFhFh  Fh_oooooo.,\u0014>. 20s s _oooooo.,#chat\nllyb#chat\nh_ooooo,Fl _.,a\n$_{,_.qd_ooooooooo.,#chat\nj_oooooo.,$_ooooo,_,,puly#chat\nh_oooooo,_o,_., :_ooooo.,phuk#chat\nl__._.#chat\nu_{,_.qebyb#chat\nn_{._,qd_oooo._o.,p_oooo._oo,,:_oooooo,,:\u00163\nknh\u0016?\n>w\u0006_{.Fy    _.     Fy    n  qd       Fy   n Fy   n  Fy Fy  Fy Fy   n\u00166\n_{,Fk_.>.Fk qe _ooo._ooo.,p_{.Fk _.qy __,Fk _,m.Fy#chat\ny#pray\ny y      \u0016?\n>B jk  j    \u0016?\n>w\u0006ljb#chat\nb_{._.qy_oooooooo.Fk      n_,,   #chat\nk   n\u00161\n    __,#chat\nh   n _ooooooooo,Fh  n_,  n Fh  n ,\u0017amulet of strangulation\ndq   n   n\u001612\n_oooooooo,,:\u00163\nn  n    nub  n\u0016?\n>w\u0006_ooooooo,   y ny  nny\u001bn  F"
+ },
+ "segments": [
+  {
+   "seed": 53450060,
+   "datetime": "20060821040234",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPkr\u0017blessed Mjollnir\nwl\u0016?\n>w\u0006_ \u001b@.#chat\nhFhFh FhFhFh  Fh_oooooo.,\u0014>. 20s s _oooooo.,#chat\nllyb#chat\nh_ooooo,Fl _.,a\n$_{,_.qd_ooooooooo.,#chat\nj_oooooo.,$_ooooo,_,,puly#chat\nh_oooooo,_o,_., :_ooooo.,phuk#chat\nl__._.#chat\nu_{,_.qebyb#chat\nn_{._,qd_oooo._o.,p_oooo._oo,,:_oooooo,,:\u00163\nknh\u0016?\n>w\u0006_{.Fy    _.     Fy    n  qd       Fy   n Fy   n  Fy Fy  Fy Fy   n\u00166\n_{,Fk_.>.Fk qe _ooo._ooo.,p_{.Fk _.qy __,Fk _,m.Fy#chat\ny#pray\ny y      \u0016?\n>B jk  j    \u0016?\n>w\u0006ljb#chat\nb_{._.qy_oooooooo.Fk      n_,,   #chat\nk   n\u00161\n    __,#chat\nh   n _ooooooooo,Fh  n_,  n Fh  n ,\u0017amulet of strangulation\ndq   n   n\u001612\n_oooooooo,,:\u00163\nn  n    nub  n\u0016?\n>w\u0006_ooooooo,   y ny  nny\u001bn  F"
+  }
+ ]
+}

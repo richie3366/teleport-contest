@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "B  KNU_ \u001b@.>Fb s.YNLU_>.>BJLN_>,>UKNU_>,>zf wand of locking\n>\u000f\u001bUJJU_>.>NKYJ_>,>NKNY_>,>JYJN_>,>JJKH_>,>BJJN_>,>\\ lE- ad aerarium\n#chat\nldfs..yukljh#name\ni\n20s10s\u0014E- I am a fish\nwaKLHL_>,>LKUJ_>.>FlFlFltbn#loot\n<JHYJ_>,>BH LU_>.>Fj..YBUK_>.>;<.#twoweapon\n\u000f\u001b\\ 100s   \u001b150s100sFlss\u0018\u001b150s100sFlss_>,>\u000f\u001b\\ 150s_>.>q100s\u000f\u001b100sjkn150sFlFlFlFlFls100sFj20s20shjj100sFhssllk100s100sFlssi\u001byny_>,>\u000f\u001b50syjk50s50sFls20s100snynynh50sFkFk.r\u001b150s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedcsssde20s20s.lbt\u001bt\u001bt\u001bBUNL_>,>FyFy.KNJB_>.>i\u001b#ride\nnLYNJ_>,>BLNH _>,>JYYH_>,>NLNY_>,><ULH B_>,>\u000f\u001bt\u001blnt\u001bt\u001b#chat\nh#name\nf\nds20ss#untrap\n.t\u001b#wipe\ne#pray\ny #pray\ny   eeeee#pray\ny    ee#pray\ny     #pray\ny      ee#pray\ny    yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 53450091,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:explore\n",
+   "moves": "B  KNU_ \u001b@.>Fb s.YNLU_>.>BJLN_>,>UKNU_>,>zf wand of locking\n>\u000f\u001bUJJU_>.>NKYJ_>,>NKNY_>,>JYJN_>,>JJKH_>,>BJJN_>,>\\ lE- ad aerarium\n#chat\nldfs..yukljh#name\ni\n20s10s\u0014E- I am a fish\nwaKLHL_>,>LKUJ_>.>FlFlFltbn#loot\n<JHYJ_>,>BH LU_>.>Fj..YBUK_>.>;<.#twoweapon\n\u000f\u001b\\ 100s   \u001b150s100sFlss\u0018\u001b150s100sFlss_>,>\u000f\u001b\\ 150s_>.>q100s\u000f\u001b100sjkn150sFlFlFlFlFls100sFj20s20shjj100sFhssllk100s100sFlssi\u001byny_>,>\u000f\u001b50syjk50s50sFls20s100snynynh50sFkFk.r\u001b150s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedcsssde20s20s.lbt\u001bt\u001bt\u001bBUNL_>,>FyFy.KNJB_>.>i\u001b#ride\nnLYNJ_>,>BLNH _>,>JYYH_>,>NLNY_>,><ULH B_>,>\u000f\u001bt\u001blnt\u001bt\u001b#chat\nh#name\nf\nds20ss#untrap\n.t\u001b#wipe\ne#pray\ny #pray\ny   eeeee#pray\ny    ee#pray\ny     #pray\ny      ee#pray\ny    yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

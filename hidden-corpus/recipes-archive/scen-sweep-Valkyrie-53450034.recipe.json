@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   #levelchange\n14\n \u0017spellbook of drain life\nres\u0017blessed spellbook of teleport away\nrf 20s\u0017blessed spellbook of force bolt\nrg s+\u001b\u0007gnome lord\nZb\n\u0007grid bug\nZc\n \u0007ghoul\nZa\nFh\u0007gnome lord\nZb\nZc\nFu  Zb\nZa\n \u0017blessed ring of polymorph control\nPhl#polyself\nnewt\n  #monster\n20s sj\u0007giant rat\nFy Fu        n  Fy.m. sm. sl  #polyself\nred dragon\n  sy  sy \u0007violet fungus\nFj FkFnsm. sm. 20s \u0017potion of polymorph\nqi scorpion\n   #dip\nb \u0006\u0016?\n>Ebb10sybhhhyhyjhykhkhbjhyhyhyh10sh10syhyyhFbyFbFbFb y  jFhFh  n yFhFhnhyyy10sFkFkjFh Fh Fh Fk\u001613\n#levelchange\n14\n\u0016?\n>Eh Fkyy10syhkkhuyunnulbl\u0017scroll of earth\nrj b\u0017wand of striking\nzkbhlubkkkukyuuluhuukuuuuuj\u0017wand of striking\nzlhuub\u0017wand of digging\nzmjkuuuklybu#levelchange\n8\n \u001631\nP_>, \u001b;20sf bn;m,\u000620s.\u0016?\nb#offer\nw-#pray\ny y ;>.\u0006.s\u0016?\ng ,#dip\ne#terrain\nd\n;..s\u0017uncursed wand of stasis\nznnznk\u00173 crystal ball\nao.s\u00173 crystal ball\n\u0007Death\nyyap\u00173 potion of paralysis\nqq    n   n#dip\nqq    n\u00173 spellbook of restore ability\n\u0007xorn\nrrs   n  s  n  n   nZc\n  n   n   nZc\n  n   n   nFj   n  nFh  n   n  .  yny   y y ny  s"
+ },
+ "segments": [
+  {
+   "seed": 53450034,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   #levelchange\n14\n \u0017spellbook of drain life\nres\u0017blessed spellbook of teleport away\nrf 20s\u0017blessed spellbook of force bolt\nrg s+\u001b\u0007gnome lord\nZb\n\u0007grid bug\nZc\n \u0007ghoul\nZa\nFh\u0007gnome lord\nZb\nZc\nFu  Zb\nZa\n \u0017blessed ring of polymorph control\nPhl#polyself\nnewt\n  #monster\n20s sj\u0007giant rat\nFy Fu        n  Fy.m. sm. sl  #polyself\nred dragon\n  sy  sy \u0007violet fungus\nFj FkFnsm. sm. 20s \u0017potion of polymorph\nqi scorpion\n   #dip\nb \u0006\u0016?\n>Ebb10sybhhhyhyjhykhkhbjhyhyhyh10sh10syhyyhFbyFbFbFb y  jFhFh  n yFhFhnhyyy10sFkFkjFh Fh Fh Fk\u001613\n#levelchange\n14\n\u0016?\n>Eh Fkyy10syhkkhuyunnulbl\u0017scroll of earth\nrj b\u0017wand of striking\nzkbhlubkkkukyuuluhuukuuuuuj\u0017wand of striking\nzlhuub\u0017wand of digging\nzmjkuuuklybu#levelchange\n8\n \u001631\nP_>, \u001b;20sf bn;m,\u000620s.\u0016?\nb#offer\nw-#pray\ny y ;>.\u0006.s\u0016?\ng ,#dip\ne#terrain\nd\n;..s\u0017uncursed wand of stasis\nznnznk\u00173 crystal ball\nao.s\u00173 crystal ball\n\u0007Death\nyyap\u00173 potion of paralysis\nqq    n   n#dip\nqq    n\u00173 spellbook of restore ability\n\u0007xorn\nrrs   n  s  n  n   nZc\n  n   n   nZc\n  n   n   nFj   n  nFh  n   n  .  yny   y y ny  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017cursed -1 trident\n\u0007long worm\nwiFbFkFj\u0017blessed oilskin sack\n\u0007sewer rat\najr\na\najr\n#tip\nj\u001b\u00173 potion of gain level\nql #dip\nld \u0017ring of gain strength\n\u0007silver dragon\nPmrsm.sm.  yy\u001by  nny\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 53452031,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017cursed -1 trident\n\u0007long worm\nwiFbFkFj\u0017blessed oilskin sack\n\u0007sewer rat\najr\na\najr\n#tip\nj\u001b\u00173 potion of gain level\nql #dip\nld \u0017ring of gain strength\n\u0007silver dragon\nPmrsm.sm.  yy\u001by  nny\u001by  s"
+  }
+ ]
+}

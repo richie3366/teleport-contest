@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPk\u0017blessed +3 gray dragon scale mail\nW\u001b\u001616\n    \u0006\u00165\n\u0006\u00162\n\u0006\u001621\n \u0006\u00169\n\u0006#conduct\n \u0004l\u001615\n \u0006\u001611\n\u0006\u0014 \u001b@Llljjjjjjj. ,10ss20ss20s Kira\n  d$s\u001612\n\u0006\u0014@Hhhhhhhkk. ,10ss20s Kira\n  20s    sjs20s  n 20s  n 20s  n i\u001bw\u001b\u0014>. \u00169\n\u00163\n\u0006\u00164\n\u0006\u0014@HJhhhhjjjjjjj. ,s10s20s20s \u001b  d$l\u00167\n\u0006\u0014@LLlllllljjj. ,s20s Fred\n  \u0014,#sit\n\u001b#name\ni\n#pray\ny y ,\u001619\n\u0006\u001617\n\u0006\u00165\n\u0006\u00169\n\u0006,#name\nf\n\u0016\u0006\u001618\n\u0006\u00163\n\u0006,_m,20s\u00166\n\u0006\u00164\n\u0006\u00166\n\u0006#invoke\n\u001b#force\n\u001614\n\u0006\u0014@HHHHJhhhhhhjjjj. ,20s10s10s Kira\n "
+ },
+ "segments": [
+  {
+   "seed": 53456047,
+   "datetime": "20210318093403",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPk\u0017blessed +3 gray dragon scale mail\nW\u001b\u001616\n    \u0006\u00165\n\u0006\u00162\n\u0006\u001621\n \u0006\u00169\n\u0006#conduct\n \u0004l\u001615\n \u0006\u001611\n\u0006\u0014 \u001b@Llljjjjjjj. ,10ss20ss20s Kira\n  d$s\u001612\n\u0006\u0014@Hhhhhhhkk. ,10ss20s Kira\n  20s    sjs20s  n 20s  n 20s  n i\u001bw\u001b\u0014>. \u00169\n\u00163\n\u0006\u00164\n\u0006\u0014@HJhhhhjjjjjjj. ,s10s20s20s \u001b  d$l\u00167\n\u0006\u0014@LLlllllljjj. ,s20s Fred\n  \u0014,#sit\n\u001b#name\ni\n#pray\ny y ,\u001619\n\u0006\u001617\n\u0006\u00165\n\u0006\u00169\n\u0006,#name\nf\n\u0016\u0006\u001618\n\u0006\u00163\n\u0006,_m,20s\u00166\n\u0006\u00164\n\u0006\u00166\n\u0006#invoke\n\u001b#force\n\u001614\n\u0006\u0014@HHHHJhhhhhhjjjj. ,20s10s10s Kira\n "
+  }
+ ]
+}

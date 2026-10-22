@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " hb\u0017wand of nothing\nEf Elbereth Elbereth\n\u0017magic marker\nEg  ad aerarium\n: \u0017diamond\nEh  I am a fish\n: b\u0017athame\nEi X marks the spot\n: k\u0017wand of slow monster\nEj Elbereth Elbereth\n: E-n  X marks the spot\n\u0007minotaur\nsu.y.Fu  n Fu  n  n \u00161\n\u0017blessed spellbook of detect unseen\nrk  n  n sm.  n  n \u0017spellbook of jumping\nrl  n   n  n  n  nsm.  n  n\u0017blessed spellbook of haste self\nrm   n  yy\u001by  y y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 53450023,
+   "datetime": "20061105080639",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " hb\u0017wand of nothing\nEf Elbereth Elbereth\n\u0017magic marker\nEg  ad aerarium\n: \u0017diamond\nEh  I am a fish\n: b\u0017athame\nEi X marks the spot\n: k\u0017wand of slow monster\nEj Elbereth Elbereth\n: E-n  X marks the spot\n\u0007minotaur\nsu.y.Fu  n Fu  n  n \u00161\n\u0017blessed spellbook of detect unseen\nrk  n  n sm.  n  n \u0017spellbook of jumping\nrl  n   n  n  n  nsm.  n  n\u0017blessed spellbook of haste self\nrm   n  yy\u001by  y y\u001by  2"
+  }
+ ]
+}

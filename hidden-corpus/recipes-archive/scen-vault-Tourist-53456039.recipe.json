@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u00168\n\u0006\u0014 \u001b@Jhhhhjjjj. ,s10s 10s10s Fred\n  \u0017wand of digging\nzlbujky10s  #enhance\nyo\na\n\u001bfn  n Z;h,\u001610\n\u0006\u001618\n\u0006\u001616\n  \u0006\u001617\n\u0006w-#pray\ny y \u001610\n\u0006\u001619\n\u0006:#loot\n\u001614\n    \u0006\u0014@LJlljjjjj. ,20ss10s Kroisos\nd$#enhance\nye\nc\n\u001b#monster\nzlk#offer\n\u00168\n\u0006\u00168\n\u0006oh:\u001616\n\u0006\u001613\n\u0006\u0014@LLLKllkk. ,ss10s Fred\n  .s20s  20s.m.  nsm.#jump\n#conduct\n \u0014,   n20s\u00168\n\u001612\n\u0006\u00166\n\u0006\u0014@HHHhhhhhhhjjj.   ,Touristo\n  d$si\u001bed#dip\njg\u00166\n\u0006\u00167\n\u0006\u00167\n\u0006\u00165\n\u0006\u0014@HKhhkk. ,10s Touristo\n  d$s\u001614\n \u0006\u00163\n\u0006\u0014@LLLJlllljjjj. ,20s Touristo\n  d$h\u001610\n\u0006\u00166\n\u0006\u001616\n\u0006\u001618\n\u0006\u001620\n\u0006\u0014@HHHHHHKhk. ,20s Touristo\n  jsnbsbsujshk sushj   nsssssssusl   nssbssssksssss\u001612\n\u001613\n\u0006\u0014@LLLLllkkkk.    n"
+ },
+ "segments": [
+  {
+   "seed": 53456039,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u00168\n\u0006\u0014 \u001b@Jhhhhjjjj. ,s10s 10s10s Fred\n  \u0017wand of digging\nzlbujky10s  #enhance\nyo\na\n\u001bfn  n Z;h,\u001610\n\u0006\u001618\n\u0006\u001616\n  \u0006\u001617\n\u0006w-#pray\ny y \u001610\n\u0006\u001619\n\u0006:#loot\n\u001614\n    \u0006\u0014@LJlljjjjj. ,20ss10s Kroisos\nd$#enhance\nye\nc\n\u001b#monster\nzlk#offer\n\u00168\n\u0006\u00168\n\u0006oh:\u001616\n\u0006\u001613\n\u0006\u0014@LLLKllkk. ,ss10s Fred\n  .s20s  20s.m.  nsm.#jump\n#conduct\n \u0014,   n20s\u00168\n\u001612\n\u0006\u00166\n\u0006\u0014@HHHhhhhhhhjjj.   ,Touristo\n  d$si\u001bed#dip\njg\u00166\n\u0006\u00167\n\u0006\u00167\n\u0006\u00165\n\u0006\u0014@HKhhkk. ,10s Touristo\n  d$s\u001614\n \u0006\u00163\n\u0006\u0014@LLLJlllljjjj. ,20s Touristo\n  d$h\u001610\n\u0006\u00166\n\u0006\u001616\n\u0006\u001618\n\u0006\u001620\n\u0006\u0014@HHHHHHKhk. ,20s Touristo\n  jsnbsbsujshk sushj   nsssssssusl   nssbssssksssss\u001612\n\u001613\n\u0006\u0014@LLLLllkkkk.    n"
+  }
+ ]
+}

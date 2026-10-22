@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 helm of telepathy\nWi\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007soldier\n#wizdetect\n\u0006FyFl Fy _ \u001bm,qd\u0007acid blob\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nkd #offer\n#pray\ny y    #chat\ny #wizmap\n\u0006Fy Fu Fy_{,ql #vanquished\n #genocided\nnewt\nf i\u001b#name\n\u001b#adjust\nd\u001b#chat\ny  n#turn\n  #jump\n#levelchange\n24\n   Fy Fy_>._.\u0007giant rat\n#chronicle\n  #terrain\n\u001b#annotate\nblessed\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #polyself\nmind flayer\n #monster\n s20sFhsjkjy_{,_.qd\u0007lichen\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nb#chat\nb#chat\nb#wizintrinsic\na\n Fb.._>._.#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nuy#turn\n#sit\n\u001b#jump\n#wizidentify\n\u001bjbu\u0016?\n>H\u0006#vanquished\n #genocided\nxan\n \u0018\u001b#dip\ndd#offer\n#pray\ny y #chat\nn#wizmap\n\u0006yuh10s_{,qd#chronicle\n  #terrain\n\u001b\u000f\u001b#name\no\n#adjust\na\u001b#chat\nh#turn\n#levelchange\n4\n       lll\u0004k\u00164\n\u0006\u0007gnome\n#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #jump\n#levelchange\n24\n                    FbFb__.#chat\nb\u0007gnome lord\n#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\nb#chat\nj  #chat\nb #wizdetect\n\u0006Fb Fb Fj "
+ },
+ "segments": [
+  {
+   "seed": 53450009,
+   "datetime": "20230206165300",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 helm of telepathy\nWi\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007soldier\n#wizdetect\n\u0006FyFl Fy _ \u001bm,qd\u0007acid blob\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nkd #offer\n#pray\ny y    #chat\ny #wizmap\n\u0006Fy Fu Fy_{,ql #vanquished\n #genocided\nnewt\nf i\u001b#name\n\u001b#adjust\nd\u001b#chat\ny  n#turn\n  #jump\n#levelchange\n24\n   Fy Fy_>._.\u0007giant rat\n#chronicle\n  #terrain\n\u001b#annotate\nblessed\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #polyself\nmind flayer\n #monster\n s20sFhsjkjy_{,_.qd\u0007lichen\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nb#chat\nb#chat\nb#wizintrinsic\na\n Fb.._>._.#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nuy#turn\n#sit\n\u001b#jump\n#wizidentify\n\u001bjbu\u0016?\n>H\u0006#vanquished\n #genocided\nxan\n \u0018\u001b#dip\ndd#offer\n#pray\ny y #chat\nn#wizmap\n\u0006yuh10s_{,qd#chronicle\n  #terrain\n\u001b\u000f\u001b#name\no\n#adjust\na\u001b#chat\nh#turn\n#levelchange\n4\n       lll\u0004k\u00164\n\u0006\u0007gnome\n#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #jump\n#levelchange\n24\n                    FbFb__.#chat\nb\u0007gnome lord\n#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\nb#chat\nj  #chat\nb #wizdetect\n\u0006Fb Fb Fj "
+  }
+ ]
+}

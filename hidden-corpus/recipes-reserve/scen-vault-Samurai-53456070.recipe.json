@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 helm of telepathy\nWg\u001610\n \u0006\\    #sit\n\u001b\u00167\n\u0006\u0014 \u001b@HHHHHKhhhhhh. ,10ss10s10s20s \u001b  20s .lsk20s  n 20s  n sm.  n\u001610\n\u001621\n\u0006\u001619\n\u0006\u0014@HKhhhhkkkkkk. ,10s  \u001b  d$jy  uyu jn  uuuku jn  uuu jsnln   syun  nkjuhnk  n j  nusssbsns,>r\u001ba\u00162\n\u00165\n\u0006E- Elbereth Elbereth\n#terrain\nb\n\u0016 \u0006\u00163\n\u0006\u0014@HHHHhhhhhhhkk. ,ss10s20s10s10s Musashi\n  ss.s.s\u001610\n\u0006\u001614\n\u0006\u0014@LLLLLLLLJlllljjj. ,10s20s \u001b  d$skshbsksysyhsyysnyysssysylyhkssy      #jump\n  \u0014m,      #dip\nb   Z   \u00162\n\u0006\u0014@HHJhjjj. ,20ss10s20s Fred\n  d$suuusluusssubususususysus      \u00168\n\u0006\u00164\n\u0006\u000f\u001b#ride\nyy\u00165\n\u0006\u001618\n \u0006\u00168\n\u000610sW\u00169\n\u0006\u001619\n\u0006\u001611\n\u0006\u001614\n      \u0006  #chat\ny  10s  \u001612\n    \u0006:#name\nm\n\u0016\u0006\u001620\n\u0006\u001612\n \u0006\u001613\n\u0006\u00166\n\u0006\u001613\n\u0006\u001620\n\u0006\u001617\n\u0006\u001616\n\u0006\u0014@LLLLLLLKkkkk.  ,s10s 10ss10s Musashi\n  \u0014: \u0004u i\u001bf  \u001615\n\u0006\u00164\n\u0006\u00162\n      \u0006  \u0014@HHHHJhhhhhjjj.         ,Musashi\n  20s .ss .s\u00162\n\u0006\u001612\n  \u0006\u00166\n\u0006ll        n\u001616\n\u0006\u00167\n\u0006\u0014@HHHhhhhkkkkk.,20s  20s10s10s"
+ },
+ "segments": [
+  {
+   "seed": 53456070,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 helm of telepathy\nWg\u001610\n \u0006\\    #sit\n\u001b\u00167\n\u0006\u0014 \u001b@HHHHHKhhhhhh. ,10ss10s10s20s \u001b  20s .lsk20s  n 20s  n sm.  n\u001610\n\u001621\n\u0006\u001619\n\u0006\u0014@HKhhhhkkkkkk. ,10s  \u001b  d$jy  uyu jn  uuuku jn  uuu jsnln   syun  nkjuhnk  n j  nusssbsns,>r\u001ba\u00162\n\u00165\n\u0006E- Elbereth Elbereth\n#terrain\nb\n\u0016 \u0006\u00163\n\u0006\u0014@HHHHhhhhhhhkk. ,ss10s20s10s10s Musashi\n  ss.s.s\u001610\n\u0006\u001614\n\u0006\u0014@LLLLLLLLJlllljjj. ,10s20s \u001b  d$skshbsksysyhsyysnyysssysylyhkssy      #jump\n  \u0014m,      #dip\nb   Z   \u00162\n\u0006\u0014@HHJhjjj. ,20ss10s20s Fred\n  d$suuusluusssubususususysus      \u00168\n\u0006\u00164\n\u0006\u000f\u001b#ride\nyy\u00165\n\u0006\u001618\n \u0006\u00168\n\u000610sW\u00169\n\u0006\u001619\n\u0006\u001611\n\u0006\u001614\n      \u0006  #chat\ny  10s  \u001612\n    \u0006:#name\nm\n\u0016\u0006\u001620\n\u0006\u001612\n \u0006\u001613\n\u0006\u00166\n\u0006\u001613\n\u0006\u001620\n\u0006\u001617\n\u0006\u001616\n\u0006\u0014@LLLLLLLKkkkk.  ,s10s 10ss10s Musashi\n  \u0014: \u0004u i\u001bf  \u001615\n\u0006\u00164\n\u0006\u00162\n      \u0006  \u0014@HHHHJhhhhhjjj.         ,Musashi\n  20s .ss .s\u00162\n\u0006\u001612\n  \u0006\u00166\n\u0006ll        n\u001616\n\u0006\u00167\n\u0006\u0014@HHHhhhhkkkkk.,20s  20s10s10s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of reflection\nPf\u0017blessed +3 helm of telepathy\nWg\u001619\n\u0006\u0014 \u001b@LLLLLLLJljjjj. ,s20s10ssss20s Musashi\n  d$skshsysbnyyssyjsyss      \u001615\n \u0006\u001620\n\u0006\u00167\n\u0006\u0014@HHJhhhhhhhjjjjjj. ,10ss20ss10s Musashi\n  kshhshssnysjkks  nssssssbssssssssj  njsssbsbns#wipe\n  nf   na\u001b20s  n ,  n\u001612\n    \u001613\n\u0006\u0014@HJhhhhhhjjjjjj.   ,\u001bdbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb#invoke\n  \u000f\u001b;l,\u001617\n\u0006\u00166\n\u0006\u001610\n\u0006\u00167\n\u0006\u0014@LLJllllllljjj. ,10s10ss10ss20ss20sL#dip\nb#terrain\n\u001b#wipe\n\u001615\n\u0006dg<\u00167\n\u0006\u0014@HHHHHJjj. ,10ssss10ss10ss\u001619\n      \u0006  \u001616\n\u0006\u0014@LLLLjjjjjjj. ,s20s  Musashi\n  \u0014.\u00162\n\u0006\u00167\n\u0006\u0014@Jhhhhjjj. ,10s 20s    s  Musashi\n  20s 20s 20s 20s  n.usu#rub\n>#ride\nny#sit\n  n>\u00165\n\u001612\n \u0006\u001614\n\u0006#invoke\n\u001b\\    \u001618\n\u0006\u0014@HHhhhhhhjjj. ,  Musashi\n  kysssssjkjks   \u001bssssssbsssssssssssb  nssj  nsk   nnlss<#force\n   n;b;\u00163\n\u001610\n\u0006\u001613\n\u0006\u001615\n\u0006\u001615\n\u0006\u001617\n\u0006\u00169\n\u0006s#enhance\nyd\nd\n\u001b\u00163\n\u0006\u0014@LLLLLLJllllljjjj.   ,\u001b\u0017hhjb\u0016\u0006\u0016\u0006Wa\u0016\u0006\u0016\u0006\u0016\u0006<#untrap\n  \u00168\n\u0006\u0014@Hhhjj. ,10s10s10s Musashi"
+ },
+ "segments": [
+  {
+   "seed": 53456057,
+   "datetime": "20210710162146",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of reflection\nPf\u0017blessed +3 helm of telepathy\nWg\u001619\n\u0006\u0014 \u001b@LLLLLLLJljjjj. ,s20s10ssss20s Musashi\n  d$skshsysbnyyssyjsyss      \u001615\n \u0006\u001620\n\u0006\u00167\n\u0006\u0014@HHJhhhhhhhjjjjjj. ,10ss20ss10s Musashi\n  kshhshssnysjkks  nssssssbssssssssj  njsssbsbns#wipe\n  nf   na\u001b20s  n ,  n\u001612\n    \u001613\n\u0006\u0014@HJhhhhhhjjjjjj.   ,\u001bdbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb#invoke\n  \u000f\u001b;l,\u001617\n\u0006\u00166\n\u0006\u001610\n\u0006\u00167\n\u0006\u0014@LLJllllllljjj. ,10s10ss10ss20ss20sL#dip\nb#terrain\n\u001b#wipe\n\u001615\n\u0006dg<\u00167\n\u0006\u0014@HHHHHJjj. ,10ssss10ss10ss\u001619\n      \u0006  \u001616\n\u0006\u0014@LLLLjjjjjjj. ,s20s  Musashi\n  \u0014.\u00162\n\u0006\u00167\n\u0006\u0014@Jhhhhjjj. ,10s 20s    s  Musashi\n  20s 20s 20s 20s  n.usu#rub\n>#ride\nny#sit\n  n>\u00165\n\u001612\n \u0006\u001614\n\u0006#invoke\n\u001b\\    \u001618\n\u0006\u0014@HHhhhhhhjjj. ,  Musashi\n  kysssssjkjks   \u001bssssssbsssssssssssb  nssj  nsk   nnlss<#force\n   n;b;\u00163\n\u001610\n\u0006\u001613\n\u0006\u001615\n\u0006\u001615\n\u0006\u001617\n\u0006\u00169\n\u0006s#enhance\nyd\nd\n\u001b\u00163\n\u0006\u0014@LLLLLLJllllljjjj.   ,\u001b\u0017hhjb\u0016\u0006\u0016\u0006Wa\u0016\u0006\u0016\u0006\u0016\u0006<#untrap\n  \u00168\n\u0006\u0014@Hhhjj. ,10s10s10s Musashi"
+  }
+ ]
+}

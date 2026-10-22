@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#jump\n#dip\nc>\\  #loot\n#tip\n\u001b;m, \u001bm,cl#name\nm\njz#offer\nm.#jump\n#ride\n.r\u001bi\u001b#pray\ny zK#ride\nu#wipe\nZ#force\nq#name\nm\nm,>#offer\nda#jump\nW"
+ },
+ "segments": [
+  {
+   "seed": 53452013,
+   "datetime": "20080919132731",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "#jump\n#dip\nc>\\  #loot\n#tip\n\u001b;m, \u001bm,cl#name\nm\njz#offer\nm.#jump\n#ride\n.r\u001bi\u001b#pray\ny zK#ride\nu#wipe\nZ#force\nq#name\nm\nm,>#offer\nda#jump\nW"
+  }
+ ]
+}

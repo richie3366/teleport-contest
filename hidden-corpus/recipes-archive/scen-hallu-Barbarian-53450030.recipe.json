@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic lamp\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWg \u0017blessed magic harp\n\u0017blessed bell of opening\n\u0017blessed 20 daggers\nQj#wizintrinsic\nh\n \u0017potion of levitation\nqk20s20s\u0017wand of slow monster\nzllzlkzllzlk\u001623\n_ \u001bm,\u0017potion of hallucination\nqm.m.sm. #wizintrinsic\nh\nfjfkfjfk \u0016?\n>H\u0007cockatrice\nFl FlFlFlFlFlss\u0007ape\nFlFl Fl20s sm. #pray\ny y    ;l.E-#chat\nl #pray\ny y   #wizintrinsic\nh\n\u0016?\nj#levelchange\n10\n        \u0017bow\nwn\u001720 arrows\nQo\u0007jackal\nhfn fn  fn  \u0007giant rat\nhfk fk  fk  \u0017potion of gain level\ntok  \u0007owlbear\nbfk  fk  fl    Fl   n Fk  \u0017bullwhip\nwq  \u0007lichen\nyaqk   b nu   n     ,#enhance\nyq\nk\n\u001bsu20s  .m.  \u00164\n#wizintrinsic\nh\n\u0017spellbook of cone of cold\nrs     n.Z:\u0017wand of cold\nztnztnztkzt.\u0017blessed spellbook of cone of cold\nrusZ:#wizintrinsic\nh\n\u0007lichen\nsFhss.ss\u0017scroll of identify\nrv\u0017floating eye corpse\new  \u0017wand of slow monster\nzxjzxbzxy#wizintrinsic\nh\n\u0017potion of see invisible\nqy ss\u0017wand of magic missile\nzz.zznzzhzzk\u0007gnome lord\n\u0007hobbit\nFhFjFjFj#wizintrinsic\nh\n\u0017wand of sleep\nzAhzAhzAh zAh\u0017potion of oil\nqBs\u0017wand of teleportation\nzChzChzCnzCh\u0007bugbear\n\u0007s"
+ },
+ "segments": [
+  {
+   "seed": 53450030,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic lamp\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWg \u0017blessed magic harp\n\u0017blessed bell of opening\n\u0017blessed 20 daggers\nQj#wizintrinsic\nh\n \u0017potion of levitation\nqk20s20s\u0017wand of slow monster\nzllzlkzllzlk\u001623\n_ \u001bm,\u0017potion of hallucination\nqm.m.sm. #wizintrinsic\nh\nfjfkfjfk \u0016?\n>H\u0007cockatrice\nFl FlFlFlFlFlss\u0007ape\nFlFl Fl20s sm. #pray\ny y    ;l.E-#chat\nl #pray\ny y   #wizintrinsic\nh\n\u0016?\nj#levelchange\n10\n        \u0017bow\nwn\u001720 arrows\nQo\u0007jackal\nhfn fn  fn  \u0007giant rat\nhfk fk  fk  \u0017potion of gain level\ntok  \u0007owlbear\nbfk  fk  fl    Fl   n Fk  \u0017bullwhip\nwq  \u0007lichen\nyaqk   b nu   n     ,#enhance\nyq\nk\n\u001bsu20s  .m.  \u00164\n#wizintrinsic\nh\n\u0017spellbook of cone of cold\nrs     n.Z:\u0017wand of cold\nztnztnztkzt.\u0017blessed spellbook of cone of cold\nrusZ:#wizintrinsic\nh\n\u0007lichen\nsFhss.ss\u0017scroll of identify\nrv\u0017floating eye corpse\new  \u0017wand of slow monster\nzxjzxbzxy#wizintrinsic\nh\n\u0017potion of see invisible\nqy ss\u0017wand of magic missile\nzz.zznzzhzzk\u0007gnome lord\n\u0007hobbit\nFhFjFjFj#wizintrinsic\nh\n\u0017wand of sleep\nzAhzAhzAh zAh\u0017potion of oil\nqBs\u0017wand of teleportation\nzChzChzCnzCh\u0007bugbear\n\u0007s"
+  }
+ ]
+}

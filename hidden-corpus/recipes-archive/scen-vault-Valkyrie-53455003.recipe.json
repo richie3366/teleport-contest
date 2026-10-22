@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u00167\n\u0006\u00166\n\u0006\u001619\n\u0006\u0014 \u001b@HHHHJhhjj. ,ss20s20s Astrid\n  \u0014,i\u001b\u0014m. 20sj#wipe\n\u001611\n    \u0006\u0014@LLLlkk. ,20ss10s Astrid\n  d$bae<#tip\n\u001b#pray\ny y \u001619\n\u0006\u0014@HHHHHHJhhhhj. ,10s20s10s20s20s10s20ss\u001612\n\u0006\u001612\n\u0006\u001616\n\u0006\u0014@LLLkkkk. ,s10s20s Astrid\n  d$kbsyj\u001620\n\u0006\u0014@HKhhhhkkk.  ,10s 20ss10s  s10s20ss#pray\n #invoke\n\u001b#rub\ne __.  s#sit\n    n\u001614\n\u0006\u001620\n\u0006\u0014@LLLLLKllllk.    n,   n10s  20s20ss20s20ss20sn \u00166\n\u001621\n\u000610s<\u001611\n \u0006\u0014@LJlllljjj.,20s10s10s20s20s10s20s  sn \u001610\n\u0006,#turn\n\u00166\n\u0006\u00163\n\u0006\u00162\n\u0006\u00165\n\u0006\u00166\n\u0006;_.t$b\u001613\n\u0006\u0014@HHHHhkkk"
+ },
+ "segments": [
+  {
+   "seed": 53455003,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00167\n\u0006\u00166\n\u0006\u001619\n\u0006\u0014 \u001b@HHHHJhhjj. ,ss20s20s Astrid\n  \u0014,i\u001b\u0014m. 20sj#wipe\n\u001611\n    \u0006\u0014@LLLlkk. ,20ss10s Astrid\n  d$bae<#tip\n\u001b#pray\ny y \u001619\n\u0006\u0014@HHHHHHJhhhhj. ,10s20s10s20s20s10s20ss\u001612\n\u0006\u001612\n\u0006\u001616\n\u0006\u0014@LLLkkkk. ,s10s20s Astrid\n  d$kbsyj\u001620\n\u0006\u0014@HKhhhhkkk.  ,10s 20ss10s  s10s20ss#pray\n #invoke\n\u001b#rub\ne __.  s#sit\n    n\u001614\n\u0006\u001620\n\u0006\u0014@LLLLLKllllk.    n,   n10s  20s20ss20s20ss20sn \u00166\n\u001621\n\u000610s<\u001611\n \u0006\u0014@LJlllljjj.,20s10s10s20s20s10s20s  sn \u001610\n\u0006,#turn\n\u00166\n\u0006\u00163\n\u0006\u00162\n\u0006\u00165\n\u0006\u00166\n\u0006;_.t$b\u001613\n\u0006\u0014@HHHHhkkk"
+  }
+ ]
+}

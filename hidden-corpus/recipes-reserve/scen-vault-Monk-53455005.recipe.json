@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWj \u0017blessed +3 gauntlets of power\nW\u001b\u001621\n\u0006\u0014 \u001b@HHHHhh.,s20ss10ssss10sdfz\u001612\n\u0006\u001614\n\u0006\u001613\n\u0006\u0014@HHHhhhjj. ,ss Kira\n  d$kssssssjksn   nsssh  nssljjy  nbssshhsssyssssssn  njs#offer\nH#sit\n   n#untrap\nh#conduct\n \u001610\n\u001619\n\u0006\u001617\n\u0006\u001621\n\u0006\u0014@HHHHHHhhhhhhj.   ,Kira\n  \u0017wand of digging\nzlbbbub l_<,sn#offer\n\u001613\n\u0006\u0014@HHHJhjjj.   n,20s  20ss20s20s10ss10sn #twoweapon\n#enhance\ny\u001b#terrain\n\u001b#jump\n\u001611\n \u001610\n\u0006\u00163\n  \u0006#tip\n\u001b:\u00166\n\u0006\u001616\n\u0006\u0014@Llllllkkk. ,s20sss10s10s Croesus\n\u0014.\u00167\n\u0006\u0014@LLLLLlllllljjjj. ,10ss20s Kira\n  hskbsyussbskjssshss  nu  nsynh  nskysshsssssju  nsss\u00161\n\u00163\n\u0006\u00166\n\u0006\u00169"
+ },
+ "segments": [
+  {
+   "seed": 53455005,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWj \u0017blessed +3 gauntlets of power\nW\u001b\u001621\n\u0006\u0014 \u001b@HHHHhh.,s20ss10ssss10sdfz\u001612\n\u0006\u001614\n\u0006\u001613\n\u0006\u0014@HHHhhhjj. ,ss Kira\n  d$kssssssjksn   nsssh  nssljjy  nbssshhsssyssssssn  njs#offer\nH#sit\n   n#untrap\nh#conduct\n \u001610\n\u001619\n\u0006\u001617\n\u0006\u001621\n\u0006\u0014@HHHHHHhhhhhhj.   ,Kira\n  \u0017wand of digging\nzlbbbub l_<,sn#offer\n\u001613\n\u0006\u0014@HHHJhjjj.   n,20s  20ss20s20s10ss10sn #twoweapon\n#enhance\ny\u001b#terrain\n\u001b#jump\n\u001611\n \u001610\n\u0006\u00163\n  \u0006#tip\n\u001b:\u00166\n\u0006\u001616\n\u0006\u0014@Llllllkkk. ,s20sss10s10s Croesus\n\u0014.\u00167\n\u0006\u0014@LLLLLlllllljjjj. ,10ss20s Kira\n  hskbsyussbskjssshss  nu  nsynh  nskysshsssssju  nsss\u00161\n\u00163\n\u0006\u00166\n\u0006\u00169"
+  }
+ ]
+}

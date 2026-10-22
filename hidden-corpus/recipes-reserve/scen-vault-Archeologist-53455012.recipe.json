@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed +3 speed boots\nWk\u00165\n\u0006\u001614\n\u0006n#offer\n\u00163\n\u0006\u00162\n\u0006\u001611\n\u0006\u001620\n\u0006\u0014 \u001b@HHJjjj.,20s20s10s10s10s10s10ss#conduct\n #name\nm\n<<\u0016\u0006\u0014@LLJllll. ,20s10s10ssss10s Indiana\n  d$sr\u001b\\ #offer\n\u001621\n\u0006\u0014@LLLLllllkk. ,10ss20s \u001b  s20s  sm.  nsl  nshs\u00162\n\u001621\n\u0006\u0014@LLLLllll.    n,   n20s  10s20s10s20s20s20ssn __.sy\u000f\u001bi\u001b\\ \u001611\n\u00169\n\u0006\u001617\n\u0006;m,P\u001b\u00165\n\u0006\u001617\n\u0006\u001619\n\u0006P\u001b\u0014:\u001610\n\u0006\u001613\n\u0006\u0014@HHHHHhhkkk.   ,Kroisos\n  d$sbus#monster\naf#chat\nuq\u001618\n\u0006\u0014@HJhhhjjjjj. ,10ss10s Indiana\n  d$jsdeokok\u00169\n\u0006\u00169\n\u0006cj,\u00164\n\u0006\u0014@HJjj. ,ss20s \u001b  d$soh#rub\ng\u001b\u0018\u001bol>\u001611\n\u0006\u001615\n\u0006\u00164\n\u0006\u00169\n\u0006\u00164\n\u0006\u00162\n\u0006ch\u000f\u001b\u001621\n\u0006\u0014@LLLLLLLllllkkk.  ,  n10s  s10s20s10s10ss10sn \u00167\n\u0006\u0014@LLLLLLLLllllkkkkkk. ,10s20s Indiana\n  s20s  sjsl20s  n sm.  ndf   n#twoweapon\n: ed  n \u001610\n\u00162\n\u0006\u00167\n\u0006\u0014@LLLllllllkkkkk.   n,s10s  10ss20sss20sn \u001614\n\u0006diP\u001b\u001612\n    \u000620sW\u001b\u001620\n\u0006\u00166\n\u0006\u0014@HHKhhhhhhkkkk. ,ss10s20s20s Indiana\n"
+ },
+ "segments": [
+  {
+   "seed": 53455012,
+   "datetime": "20040523185358",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed +3 speed boots\nWk\u00165\n\u0006\u001614\n\u0006n#offer\n\u00163\n\u0006\u00162\n\u0006\u001611\n\u0006\u001620\n\u0006\u0014 \u001b@HHJjjj.,20s20s10s10s10s10s10ss#conduct\n #name\nm\n<<\u0016\u0006\u0014@LLJllll. ,20s10s10ssss10s Indiana\n  d$sr\u001b\\ #offer\n\u001621\n\u0006\u0014@LLLLllllkk. ,10ss20s \u001b  s20s  sm.  nsl  nshs\u00162\n\u001621\n\u0006\u0014@LLLLllll.    n,   n20s  10s20s10s20s20s20ssn __.sy\u000f\u001bi\u001b\\ \u001611\n\u00169\n\u0006\u001617\n\u0006;m,P\u001b\u00165\n\u0006\u001617\n\u0006\u001619\n\u0006P\u001b\u0014:\u001610\n\u0006\u001613\n\u0006\u0014@HHHHHhhkkk.   ,Kroisos\n  d$sbus#monster\naf#chat\nuq\u001618\n\u0006\u0014@HJhhhjjjjj. ,10ss10s Indiana\n  d$jsdeokok\u00169\n\u0006\u00169\n\u0006cj,\u00164\n\u0006\u0014@HJjj. ,ss20s \u001b  d$soh#rub\ng\u001b\u0018\u001bol>\u001611\n\u0006\u001615\n\u0006\u00164\n\u0006\u00169\n\u0006\u00164\n\u0006\u00162\n\u0006ch\u000f\u001b\u001621\n\u0006\u0014@LLLLLLLllllkkk.  ,  n10s  s10s20s10s10ss10sn \u00167\n\u0006\u0014@LLLLLLLLllllkkkkkk. ,10s20s Indiana\n  s20s  sjsl20s  n sm.  ndf   n#twoweapon\n: ed  n \u001610\n\u00162\n\u0006\u00167\n\u0006\u0014@LLLllllllkkkkk.   n,s10s  10ss20sss20sn \u001614\n\u0006diP\u001b\u001612\n    \u000620sW\u001b\u001620\n\u0006\u00166\n\u0006\u0014@HHKhhhhhhkkkk. ,ss10s20s20s Indiana\n"
+  }
+ ]
+}

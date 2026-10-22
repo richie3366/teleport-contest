@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nd\n .m..sm.s.m.sm.s.m.20s  sm.ss20s   sm..m.sm.20s ns..s20ss20ss20s   s.s.ssssssssss#quit\nyy#wizintrinsic\nd\n .m..slsss.m.sk.ysm.s.m.sm..m.20s.kslsm.sm.20s yny  y y\u001by  sUU   \u001b     L",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53450068,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nd\n .m..sm.s.m.sm.s.m.20s  sm.ss20s   sm..m.sm.20s ns..s20ss20ss20s   s.s.ssssssssss"
+  },
+  {
+   "seed": 53550068,
+   "datetime": "20240616070941",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 53650068,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nd\n .m..slsss.m.sk.ysm.s.m.sm..m.20s.kslsm.sm.20s yny  y y\u001by  s"
+  },
+  {
+   "seed": 53750068,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "UU   \u001b     L"
+  }
+ ]
+}

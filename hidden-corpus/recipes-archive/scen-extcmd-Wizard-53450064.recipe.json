@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\nwp\u0017blessed amulet of life saving\nPq\u0017long sword\n\u0017potion of water\n \u0017scroll of identify\n#levelchange\n16\n               \u0007troll\nFk  Fy Fy \u00169\n\u0006#overview\n\u001b#conduct\n #annotate\nblessed\n\u000f\u001b#dip\noh#offer\n#pray\ny y    #chat\nl#levelchange\n25\n         Fl Fl    Fl _ \u001b>.#chat\nl#vanquished\n #genocided\ncrocodile\n#annotate\n\u001b\u000f\u001b#name\no\n#adjust\nd\u001b#chat\nl#turn\n#wizidentify\n\u001bjlj_{,_..Fl qg #chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\np#sit\n #pray\ny y    #polyself\nfire giant\nsjsFl Fl   Fl   n Fl ss>__.#chat\ny#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nh#chat\nu#wizintrinsic\nr\n uly__.#chat\nk#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nly#turn\n#sit\n#jump\n#levelchange\n10\n     ukh_{._,<.qf#vanquished\n #genocided\nminotaur\n\u0018\u001b#dip\nlg#offer\n#pray\ny y #chat\ny#jump\n#levelchange\n22\n            kuh\u0014@._<._.Fk "
+ },
+ "segments": [
+  {
+   "seed": 53450064,
+   "datetime": "20070514111534",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\nwp\u0017blessed amulet of life saving\nPq\u0017long sword\n\u0017potion of water\n \u0017scroll of identify\n#levelchange\n16\n               \u0007troll\nFk  Fy Fy \u00169\n\u0006#overview\n\u001b#conduct\n #annotate\nblessed\n\u000f\u001b#dip\noh#offer\n#pray\ny y    #chat\nl#levelchange\n25\n         Fl Fl    Fl _ \u001b>.#chat\nl#vanquished\n #genocided\ncrocodile\n#annotate\n\u001b\u000f\u001b#name\no\n#adjust\nd\u001b#chat\nl#turn\n#wizidentify\n\u001bjlj_{,_..Fl qg #chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\np#sit\n #pray\ny y    #polyself\nfire giant\nsjsFl Fl   Fl   n Fl ss>__.#chat\ny#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nh#chat\nu#wizintrinsic\nr\n uly__.#chat\nk#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nly#turn\n#sit\n#jump\n#levelchange\n10\n     ukh_{._,<.qf#vanquished\n #genocided\nminotaur\n\u0018\u001b#dip\nlg#offer\n#pray\ny y #chat\ny#jump\n#levelchange\n22\n            kuh\u0014@._<._.Fk "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u001616\n\u0006\u0014 \u001b@LJl. ,10s20s merlin\n  d$ushhhhhhhsysybkhly   \u001617\n\u0006\u001617\n\u0006Pdl#chat\nk\u00164\n\u0006\u0014@HHHHHHHHkk. ,10ss10s10s merlin\n  d$llsnynnsnblsnsnlsnsn   e,#pray\ny y #wipe\ne\u001616\n   \u0006\u0014@LLLLLLLJlllllljjj.    ,s20s20s merlin\n  d$hhhhhhhhle#terrain\n\u001b#wipe\ns\u001616\n\u0006\u001619\n\u000620s  n #turn\n\u00166\n\u0006\u00169\n\u0006\u0014@LLLLLLJllllllljjjj. ,20sss10s merlin\n  \u0014;\u0018\u001b>qg  \u00163\n\u0006\u0014@LLLLLLll. ,10s merlin\n  #ride\nbye#force\n#ride\nuy\u001610\n\u0006\u00167\n\u0006\u0014@LLLLLLJllllj. ,20s merlin\n  s20s   nsm.  n20s20s  n su  n#invoke\n\u001bZa\n  n#monster\nacy       n\u00167\n"
+ },
+ "segments": [
+  {
+   "seed": 53456064,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u001616\n\u0006\u0014 \u001b@LJl. ,10s20s merlin\n  d$ushhhhhhhsysybkhly   \u001617\n\u0006\u001617\n\u0006Pdl#chat\nk\u00164\n\u0006\u0014@HHHHHHHHkk. ,10ss10s10s merlin\n  d$llsnynnsnblsnsnlsnsn   e,#pray\ny y #wipe\ne\u001616\n   \u0006\u0014@LLLLLLLJlllllljjj.    ,s20s20s merlin\n  d$hhhhhhhhle#terrain\n\u001b#wipe\ns\u001616\n\u0006\u001619\n\u000620s  n #turn\n\u00166\n\u0006\u00169\n\u0006\u0014@LLLLLLJllllllljjjj. ,20sss10s merlin\n  \u0014;\u0018\u001b>qg  \u00163\n\u0006\u0014@LLLLLLll. ,10s merlin\n  #ride\nbye#force\n#ride\nuy\u001610\n\u0006\u00167\n\u0006\u0014@LLLLLLJllllj. ,20s merlin\n  s20s   nsm.  n20s20s  n su  n#invoke\n\u001bZa\n  n#monster\nacy       n\u00167\n"
+  }
+ ]
+}

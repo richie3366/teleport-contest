@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u001612\n\u0006\u00169\n\u0006\u001619\n\u0006\u0014 \u001b@LLLLLLLKlllllllkk.,10s 20s  10ss10s20s20ssn   n \\ ee#enhance\nyk\nj\n\u001b#rub\n\u001610\n\u001619\n\u0006\u0014@LLLLLll.,20ss10s10s Caspar\n  d$dcshhjbbsbsbys   \u00166\n\u0006\u0014@LLLLLLLLKlllkkkkkkk.,sss10s20s Caspar\n  \u0014.,\u001621\n\u0006\u0014@LLLLLLLLlllkkkkkk.,10s10s Caspar\n  d$f \u001b\u001bshhl\u001617\n\u0006#terrain\n\u001bE- Elbereth Elbereth\n\u00167\n\u0006\u00166\n \u0006\u00165\n\u0006\u00165\n\u0006dfcby\u001617\n\u0006\u001617\n\u0006\u001615\n\u0006\u001621\n\u0006\u001614\n   \u0006\u0014@HHHHHHHJhj.,20s10s Creosote\n\u0017wand of digging\nzjyynyy#enhance\nya\nc\n\u001b;>.e\u001615\n\u0006i\u001b#force\n\u00167\n\u0006#offer\n#chat\nu\u00167\n\u0006\u001619\n  \u0006\u001619\n\u0006#jump\n:\u00162\n\u0006\u00165\n\u0006\u001617\n\u0006\u00167\n\u0006\u001610\n\u0006\u001617\n\u0006\u001616\n\u0006\u0014@LLLKllllk.,20sss20s  Caspar\n  d$$jju#rub\nwa_<.shqd\u00165\n\u0006\u00168\n\u0006\u001618\n\u0006\u001620\n\u0006i\u001b#pray\ny y \u00165\n\u0006\u00164\n\u0006\u00169\n\u0006\u0004h            #twoweapon\n\u001618\n\u0006\u00167\n\u0006#terrain\n\u001bi\u001b\u001621\n\u0006\u001611\n\u000620s#monster\n\u00162\n\u0006\u00167\n\u0006\u001613\n\u0006\u00168\n\u0006\u001619\n  \u0006#enhance\nyh\n   \u001b  Z\u001b\u00164\n\u0006\u00165\n\u0006\u00163\n\u0006\u001613\n\u0006\u00169\n\u0006\u00165\n\u0006\u001616\n\u0006\u00167\n\u0006cjW\u00165\n\u0006\u00164\n\u0006\u00163\n\u0006zjkzju\u00162\n\u0006ajy dddic\u001612\n\u0006\u001618\n\u0006\u00168\n\u0006\u001612\n\u0006dc20s\u00164\n\u0006rh y10s\u00163\n\u0006\u001615\n\u0006,l\u00162\n\u0006\u001614\n\u0006\u00165\n\u0006\u001616\n\u0006\u001619\n  \u0006\u00167\n\u0006\u00165\n \u0006\u00161"
+ },
+ "segments": [
+  {
+   "seed": 53456043,
+   "datetime": "20250415130120",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " \u001612\n\u0006\u00169\n\u0006\u001619\n\u0006\u0014 \u001b@LLLLLLLKlllllllkk.,10s 20s  10ss10s20s20ssn   n \\ ee#enhance\nyk\nj\n\u001b#rub\n\u001610\n\u001619\n\u0006\u0014@LLLLLll.,20ss10s10s Caspar\n  d$dcshhjbbsbsbys   \u00166\n\u0006\u0014@LLLLLLLLKlllkkkkkkk.,sss10s20s Caspar\n  \u0014.,\u001621\n\u0006\u0014@LLLLLLLLlllkkkkkk.,10s10s Caspar\n  d$f \u001b\u001bshhl\u001617\n\u0006#terrain\n\u001bE- Elbereth Elbereth\n\u00167\n\u0006\u00166\n \u0006\u00165\n\u0006\u00165\n\u0006dfcby\u001617\n\u0006\u001617\n\u0006\u001615\n\u0006\u001621\n\u0006\u001614\n   \u0006\u0014@HHHHHHHJhj.,20s10s Creosote\n\u0017wand of digging\nzjyynyy#enhance\nya\nc\n\u001b;>.e\u001615\n\u0006i\u001b#force\n\u00167\n\u0006#offer\n#chat\nu\u00167\n\u0006\u001619\n  \u0006\u001619\n\u0006#jump\n:\u00162\n\u0006\u00165\n\u0006\u001617\n\u0006\u00167\n\u0006\u001610\n\u0006\u001617\n\u0006\u001616\n\u0006\u0014@LLLKllllk.,20sss20s  Caspar\n  d$$jju#rub\nwa_<.shqd\u00165\n\u0006\u00168\n\u0006\u001618\n\u0006\u001620\n\u0006i\u001b#pray\ny y \u00165\n\u0006\u00164\n\u0006\u00169\n\u0006\u0004h            #twoweapon\n\u001618\n\u0006\u00167\n\u0006#terrain\n\u001bi\u001b\u001621\n\u0006\u001611\n\u000620s#monster\n\u00162\n\u0006\u00167\n\u0006\u001613\n\u0006\u00168\n\u0006\u001619\n  \u0006#enhance\nyh\n   \u001b  Z\u001b\u00164\n\u0006\u00165\n\u0006\u00163\n\u0006\u001613\n\u0006\u00169\n\u0006\u00165\n\u0006\u001616\n\u0006\u00167\n\u0006cjW\u00165\n\u0006\u00164\n\u0006\u00163\n\u0006zjkzju\u00162\n\u0006ajy dddic\u001612\n\u0006\u001618\n\u0006\u00168\n\u0006\u001612\n\u0006dc20s\u00164\n\u0006rh y10s\u00163\n\u0006\u001615\n\u0006,l\u00162\n\u0006\u001614\n\u0006\u00165\n\u0006\u001616\n\u0006\u001619\n  \u0006\u00167\n\u0006\u00165\n \u0006\u00161"
+  }
+ ]
+}

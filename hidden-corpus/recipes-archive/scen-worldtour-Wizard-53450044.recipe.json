@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                    \u0017blessed +3 speed boots\nWp\u0017blessed Mjollnir\nwq\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>D\u0014 \u001b:\u0016?\n>>N       ring of free action\nlk   hl     n:\u0016?\nbh n:\u001643\n#levelchange\n20\n\u0007fire giant\nsm. 20s .m.20s20s  n  sjsm.20s\u0007chameleon\n;k.sksl  sm.  n\u00168\n\u0016?\n\u001bhh\u0016?\n\u001bb   h\u0016?\n\u001bhj\u0016?\n\u001bk         h\u0016?\n\u001blb\u001622\n_{.20s  n  sl     nsm.\u001611\n\u0016?\n\u001blb\u001643\n\u0006<._<,\u0016?\n\u001blh \u001617\n\u0014, \u0016?\n\u001bu  n  h\u001639\n_<.\u001643\n__,\u001640\nun  l   n    l  n         n y   n       :\u00163\n\u0016?\n\u001byj\u0016?\n\u001bnu     n \u0016?\n\u001by         y  \u0016?\n\u001bb        n     n         n    n \u00169\n\u001610\n_>.>\u0016?\n\u001bj      n  l      n       \u001644\n\u0006>._<,\u0016?\n\u001bk        y\u001b      l"
+ },
+ "segments": [
+  {
+   "seed": 53450044,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                    \u0017blessed +3 speed boots\nWp\u0017blessed Mjollnir\nwq\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>D\u0014 \u001b:\u0016?\n>>N       ring of free action\nlk   hl     n:\u0016?\nbh n:\u001643\n#levelchange\n20\n\u0007fire giant\nsm. 20s .m.20s20s  n  sjsm.20s\u0007chameleon\n;k.sksl  sm.  n\u00168\n\u0016?\n\u001bhh\u0016?\n\u001bb   h\u0016?\n\u001bhj\u0016?\n\u001bk         h\u0016?\n\u001blb\u001622\n_{.20s  n  sl     nsm.\u001611\n\u0016?\n\u001blb\u001643\n\u0006<._<,\u0016?\n\u001blh \u001617\n\u0014, \u0016?\n\u001bu  n  h\u001639\n_<.\u001643\n__,\u001640\nun  l   n    l  n         n y   n       :\u00163\n\u0016?\n\u001byj\u0016?\n\u001bnu     n \u0016?\n\u001by         y  \u0016?\n\u001bb        n     n         n    n \u00169\n\u001610\n_>.>\u0016?\n\u001bj      n  l      n       \u001644\n\u0006>._<,\u0016?\n\u001bk        y\u001b      l"
+  }
+ ]
+}

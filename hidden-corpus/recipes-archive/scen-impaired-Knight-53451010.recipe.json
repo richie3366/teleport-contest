@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nm\n \u0017towel\nai\u0017tripe ration\nej ;m, \u001b;yyu.s20s#wizintrinsic\nh\n \u0017blindfold\nak E- X marks the spot\n\u0017cursed wand of digging\nzl> zlnyny.20s    .Sy\u001b  y #twoweapon\nJr\u001bs,#jump\n<.#force\n>#enhance\nym\nq\n\u001b\u00176 javelins\n Qj\u0007owlbear\nh l   yy\u001by   y y nn  f",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53451010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nm\n \u0017towel\nai\u0017tripe ration\nej ;m, \u001b;yyu.s20s#wizintrinsic\nh\n \u0017blindfold\nak E- X marks the spot\n\u0017cursed wand of digging\nzl> zlnyny.20s    .Sy\u001b"
+  },
+  {
+   "seed": 53951010,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  y #twoweapon\nJr\u001bs,#jump\n<.#force\n>#enhance\nym\nq\n\u001b\u00176 javelins\n Qj\u0007owlbear\nh l   yy\u001by   y y nn  f"
+  }
+ ]
+}

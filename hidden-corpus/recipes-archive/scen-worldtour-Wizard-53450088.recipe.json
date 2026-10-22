@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n            \u0017blessed +3 gauntlets of power\nWo\u0017blessed ring of free action\nPpl\u0016?\np _ \u001b>.>sss\u0016?\nd__.>\u001641\n   uhjbl:sm.   .m. .m.   \u0016?\n>Ihknluk  y      n   :\u0016?\n>v hh  l    :sm.  \u001641\n\u0014@.\u0016?\ni hhhhjbu:\u001634\n   __,\u0016?\n>>K      scroll of fire\n\u0014 nn \u0016?\n\u001bh   l     n   \u0016?\n\u001bu     j    n    \u001634\nu   n        n  k       j         n  :sm.      n   \u00169\n\u001641\n\u0017water walking boots\nWs          n   20s      nsy   .m.  n\u0007newt\n20s    nsm.      n 20s .  ns  s20s   n \u0007ape\n.  n s \u001b  n  20s s  yny   nnn  2"
+ },
+ "segments": [
+  {
+   "seed": 53450088,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n            \u0017blessed +3 gauntlets of power\nWo\u0017blessed ring of free action\nPpl\u0016?\np _ \u001b>.>sss\u0016?\nd__.>\u001641\n   uhjbl:sm.   .m. .m.   \u0016?\n>Ihknluk  y      n   :\u0016?\n>v hh  l    :sm.  \u001641\n\u0014@.\u0016?\ni hhhhjbu:\u001634\n   __,\u0016?\n>>K      scroll of fire\n\u0014 nn \u0016?\n\u001bh   l     n   \u0016?\n\u001bu     j    n    \u001634\nu   n        n  k       j         n  :sm.      n   \u00169\n\u001641\n\u0017water walking boots\nWs          n   20s      nsy   .m.  n\u0007newt\n20s    nsm.      n 20s .  ns  s20s   n \u0007ape\n.  n s \u001b  n  20s s  yny   nnn  2"
+  }
+ ]
+}

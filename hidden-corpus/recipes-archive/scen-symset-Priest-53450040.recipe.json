@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b;>FnFlu _>.Fl_.Fl>FlFl_>,Fh_.Fh>FlFlFlFhFlt\u001bW\u0006_>.Fl_.Fh>FlFh_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFlFlFlFl\u0006_>.Fl_.  nFl>FlFl_>,Fh_,Fh>FhFh_>.Fl_.Fl>FlFlFlFlFl<\u001614\n    \u0007tame wolf\n\u0007kitten\n\u0017meatball\nt\u001b\u0007newt\n\u0017scroll of taming\nrj \u0007yellow mold\n\u0017scroll of taming\nrk   #chat\nk 20s #chat\nb \u0007giant rat\n\u0017scroll of taming\nrl \u001612\n\u0007little dog\n\u0017apple\nt\u001b#chat\nn #name\nm\n\u0007lichen\n\u0017scroll of taming\nrn \u0017carrot\nt\u001b\u0007giant rat\nsm.  sm.   s    sm.  n  sh\u001bs#chat\ny \u00168\n Op\u001b\n\u0006_>.Fj_.> FuFhFj\u0006_>.Fl_.> FyFh\u001bFk\u0006_>>.Fh_.> FkFuFu\u0006_>>.Fy_,Fy>FyFy_>>,Fy_,Fy>FyFy_>>.Fy_.Fy>FyFyFyFyFy\u000f\u001bO>>>>e\u001b\nmO>>>d\u001b\nFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyv i\u001b\u001618\n \u00165\n FjFjFyFlFlFnFjFbFnFkFhFkFnFbFhFjFyFlFkFjFhFbFkb FkFnFnFlFnFnFjFbFh\u001bFyFlFhFlFkFhFhFnFkh FkFkFlFyFbFyFbFbFkj FnFnFbFjFhFnFh\u001bFlFhFy"
+ },
+ "segments": [
+  {
+   "seed": 53450040,
+   "datetime": "20100117225426",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=norep \"The door\"\n",
+   "moves": " \u0006_ \u001b;>FnFlu _>.Fl_.Fl>FlFl_>,Fh_.Fh>FlFlFlFhFlt\u001bW\u0006_>.Fl_.Fh>FlFh_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFlFlFlFl\u0006_>.Fl_.  nFl>FlFl_>,Fh_,Fh>FhFh_>.Fl_.Fl>FlFlFlFlFl<\u001614\n    \u0007tame wolf\n\u0007kitten\n\u0017meatball\nt\u001b\u0007newt\n\u0017scroll of taming\nrj \u0007yellow mold\n\u0017scroll of taming\nrk   #chat\nk 20s #chat\nb \u0007giant rat\n\u0017scroll of taming\nrl \u001612\n\u0007little dog\n\u0017apple\nt\u001b#chat\nn #name\nm\n\u0007lichen\n\u0017scroll of taming\nrn \u0017carrot\nt\u001b\u0007giant rat\nsm.  sm.   s    sm.  n  sh\u001bs#chat\ny \u00168\n Op\u001b\n\u0006_>.Fj_.> FuFhFj\u0006_>.Fl_.> FyFh\u001bFk\u0006_>>.Fh_.> FkFuFu\u0006_>>.Fy_,Fy>FyFy_>>,Fy_,Fy>FyFy_>>.Fy_.Fy>FyFyFyFyFy\u000f\u001bO>>>>e\u001b\nmO>>>d\u001b\nFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyFyv i\u001b\u001618\n \u00165\n FjFjFyFlFlFnFjFbFnFkFhFkFnFbFhFjFyFlFkFjFhFbFkb FkFnFnFlFnFnFjFbFh\u001bFyFlFhFlFkFhFhFnFkh FkFkFlFyFbFyFbFbFkj FnFnFbFjFhFnFh\u001bFlFhFy"
+  }
+ ]
+}

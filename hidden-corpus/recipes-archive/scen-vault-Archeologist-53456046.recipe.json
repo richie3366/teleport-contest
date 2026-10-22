@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwj\u001615\n \u0006\u001615\n\u0006\u00163\n\u0006\u001619\n\u0006f a ucj\u00168\n\u0006\u0014 \u001b@HHhhhhhhhjjjj.,20s10s Creosote\nd$diZz#untrap\ny\u001613\n\u0006\u0014@Hhhhjjjj.,s20s Kroisos\n\u0014m,\u0018\u001b#loot\ni\u001b\u001620\n\u0006\u0014@LLLLLLJlljjjjj. ,20s Indiana\n  d$s#pray\ny y s\u001615\n\u0006\u00162\n  \u0006\u001617\n\u0006#rub\ng\u001bw-\u001617\n\u0006\u001611\n\u0006\u0014@HHHHHJhhhjjjjjjj.,s10ssss20s Indiana\n  ss.20s  .m.  n.m.  n Z\u0018\u001br\u001b\u001611\n\u001616\n\u0006\u001621\n\u0006\u001617\n\u0006u#untrap\nb\u001621\n\u0006\u00168\n\u0006\u0014@LLlllllllj. ,10ss20s Creosote\n\u001611\n\u0006\u0014@HHHHHhhhhhhhjjjj.    n,10s  20s20s20sss10s20sn \u00164\n\u0006\u00165"
+ },
+ "segments": [
+  {
+   "seed": 53456046,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=autodig\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwj\u001615\n \u0006\u001615\n\u0006\u00163\n\u0006\u001619\n\u0006f a ucj\u00168\n\u0006\u0014 \u001b@HHhhhhhhhjjjj.,20s10s Creosote\nd$diZz#untrap\ny\u001613\n\u0006\u0014@Hhhhjjjj.,s20s Kroisos\n\u0014m,\u0018\u001b#loot\ni\u001b\u001620\n\u0006\u0014@LLLLLLJlljjjjj. ,20s Indiana\n  d$s#pray\ny y s\u001615\n\u0006\u00162\n  \u0006\u001617\n\u0006#rub\ng\u001bw-\u001617\n\u0006\u001611\n\u0006\u0014@HHHHHJhhhjjjjjjj.,s10ssss20s Indiana\n  ss.20s  .m.  n.m.  n Z\u0018\u001br\u001b\u001611\n\u001616\n\u0006\u001621\n\u0006\u001617\n\u0006u#untrap\nb\u001621\n\u0006\u00168\n\u0006\u0014@LLlllllllj. ,10ss20s Creosote\n\u001611\n\u0006\u0014@HHHHHhhhhhhhjjjj.    n,10s  20s20s20sss10s20sn \u00164\n\u0006\u00165"
+  }
+ ]
+}

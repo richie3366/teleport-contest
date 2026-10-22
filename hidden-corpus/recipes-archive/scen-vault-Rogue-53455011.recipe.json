@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u001615\n\u0006\\ #offer\n\u001617\n\u0006\u001621\n\u0006\u001621\n\u0006\u00167\n\u0006\u00163\n\u0006\u001621\n\u0006\u001614\n\u0006\u0014 \u001b@LLLLLLJjj. ,10s20s sss20s nobody\n  FyFyFy  nFy  nL#tip\nf\u001b  n#turn\n_<.  nsm.  nh   n\u00166\n\u001617\n\u0006\u001617\n\u0006\u001615\n\u0006\\ ag\u001610\n\u0006\u00163\n\u0006\u001618\n\u0006\u0014@LLLLLLLkkkkkkk.  ,s20s10s Creosote\n\u00163\n\u0006#terrain\nb\nt \u001620\n\u0006\u0014@HHHhhh.  ,20s Creosote\nd$\u001619\n\u0006\u0014@HHHKhhhhhk.  ,20s Croesus\nd$f by n#conduct\n #ride\nky#terrain\n\u001bi\u001b\u001621\n\u0006#conduct\n #dip\nc\u001b\u00162\n\u0006\u001617\n \u0006\u001621\n\u0006\u00162\n\u0006\u00164\n\u0006\u0014@HHHHHHHHJhhhhhhjjjjj.  ,s10s nobody\n  \u0014m,\u00163\n\u0006\u001620\n\u0006\u001616\n \u0006E- Elbereth Elbereth\n#offer\n\u00169\n\u0006\u001617\n  \u0006qdz\u00162\n\u0006#sit\n\u001bh\u00165\n\u0006\u00168\n\u0006\u0014@HHHHHKhhhhhkkkk.  ,20ss10ss20ss robin\n  \u0017wand of digging\nziuj kj  "
+ },
+ "segments": [
+  {
+   "seed": 53455011,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u001615\n\u0006\\ #offer\n\u001617\n\u0006\u001621\n\u0006\u001621\n\u0006\u00167\n\u0006\u00163\n\u0006\u001621\n\u0006\u001614\n\u0006\u0014 \u001b@LLLLLLJjj. ,10s20s sss20s nobody\n  FyFyFy  nFy  nL#tip\nf\u001b  n#turn\n_<.  nsm.  nh   n\u00166\n\u001617\n\u0006\u001617\n\u0006\u001615\n\u0006\\ ag\u001610\n\u0006\u00163\n\u0006\u001618\n\u0006\u0014@LLLLLLLkkkkkkk.  ,s20s10s Creosote\n\u00163\n\u0006#terrain\nb\nt \u001620\n\u0006\u0014@HHHhhh.  ,20s Creosote\nd$\u001619\n\u0006\u0014@HHHKhhhhhk.  ,20s Croesus\nd$f by n#conduct\n #ride\nky#terrain\n\u001bi\u001b\u001621\n\u0006#conduct\n #dip\nc\u001b\u00162\n\u0006\u001617\n \u0006\u001621\n\u0006\u00162\n\u0006\u00164\n\u0006\u0014@HHHHHHHHJhhhhhhjjjjj.  ,s10s nobody\n  \u0014m,\u00163\n\u0006\u001620\n\u0006\u001616\n \u0006E- Elbereth Elbereth\n#offer\n\u00169\n\u0006\u001617\n  \u0006qdz\u00162\n\u0006#sit\n\u001bh\u00165\n\u0006\u00168\n\u0006\u0014@HHHHHKhhhhhkkkk.  ,20ss10ss20ss robin\n  \u0017wand of digging\nziuj kj  "
+  }
+ ]
+}

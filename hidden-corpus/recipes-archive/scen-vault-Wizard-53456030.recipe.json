@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed Mjollnir\nwo\u0017blessed +3 silver dragon scale mail\nW\u001b\u001617\n \u0006\u001618\n\u0006;h; \u001b:  #tip\n\u001b\u001621\n\u0006>J\u00164\n\u0006\u001621\n\u0006\u00167\n\u0006\u00167\n\u0006W\u001btak\u00162\n\u0006\u0014@Kllllkkk. ,ssss20s10s Croesus\nd$#pray\ny y #tip\n\u001b#pray\ny y Z\u001b\u00167\n\u0006\u0014m,#terrain\n\u001b\u00164\n\u0006\u001616\n\u0006#twoweapon\n,\u001619\n \u0006\u001616\n\u0006\u00167\n\u0006E- Vlad was here\n#wipe\n\u00168\n\u0006\u001612\n\u000610s#force\n\u001618\n\u0006\u00162\n\u0006\u0014@HHHHHhhkk. ,10s20s  merlin\n  snysssskss  nsnyssb  nh  nl  nsslh  nssksusl  nh  nhssusssssk\u00166\n\u00163\n\u0006\u0014@Llkk. ,20s merlin\n  \u0014<. \u001612\n\u0006\u00169\n\u0006#sit\n\u001bf $ y\u001614\n    \u0006#jump\nok\u001621\n\u0006\u00165\n\u0006\u001617\n\u0006\u00163\n\u0006\u0014@LLKllkkkk. ,10s10s10sss20s10sszck#untrap\ny#terrain\nb\n#turn\n;#name\nm\n\u0016\u0006\u0014@.,s20sss10s10s s10s\u00165\n\u0006\u001612\n\u0006\u00164\n\u0006\u001615\n\u0006\u00169\n\u0006ch\u0004n\u001619\n\u0006Za\n:\u001618\n\u0006<10s   \u001616\n\u0006\u00168\n\u0006\u00164\n\u0006\u00166\n\u0006\u00165\n\u0006#chat\nlzcl \u001611\n\u0006\u001610\n\u0006\u0014@HHHHHHhhhkk.  ,   10s20s20ss20s20s20s20s,#ride"
+ },
+ "segments": [
+  {
+   "seed": 53456030,
+   "datetime": "20110502100804",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed Mjollnir\nwo\u0017blessed +3 silver dragon scale mail\nW\u001b\u001617\n \u0006\u001618\n\u0006;h; \u001b:  #tip\n\u001b\u001621\n\u0006>J\u00164\n\u0006\u001621\n\u0006\u00167\n\u0006\u00167\n\u0006W\u001btak\u00162\n\u0006\u0014@Kllllkkk. ,ssss20s10s Croesus\nd$#pray\ny y #tip\n\u001b#pray\ny y Z\u001b\u00167\n\u0006\u0014m,#terrain\n\u001b\u00164\n\u0006\u001616\n\u0006#twoweapon\n,\u001619\n \u0006\u001616\n\u0006\u00167\n\u0006E- Vlad was here\n#wipe\n\u00168\n\u0006\u001612\n\u000610s#force\n\u001618\n\u0006\u00162\n\u0006\u0014@HHHHHhhkk. ,10s20s  merlin\n  snysssskss  nsnyssb  nh  nl  nsslh  nssksusl  nh  nhssusssssk\u00166\n\u00163\n\u0006\u0014@Llkk. ,20s merlin\n  \u0014<. \u001612\n\u0006\u00169\n\u0006#sit\n\u001bf $ y\u001614\n    \u0006#jump\nok\u001621\n\u0006\u00165\n\u0006\u001617\n\u0006\u00163\n\u0006\u0014@LLKllkkkk. ,10s10s10sss20s10sszck#untrap\ny#terrain\nb\n#turn\n;#name\nm\n\u0016\u0006\u0014@.,s20sss10s10s s10s\u00165\n\u0006\u001612\n\u0006\u00164\n\u0006\u001615\n\u0006\u00169\n\u0006ch\u0004n\u001619\n\u0006Za\n:\u001618\n\u0006<10s   \u001616\n\u0006\u00168\n\u0006\u00164\n\u0006\u00166\n\u0006\u00165\n\u0006#chat\nlzcl \u001611\n\u0006\u001610\n\u0006\u0014@HHHHHHhhhkk.  ,   10s20s20ss20s20s20s20s,#ride"
+  }
+ ]
+}

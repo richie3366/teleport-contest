@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "lybu\u0017lawful altar\nda\u0017jackal corpse\n#offer\ng  un\u0017cloud\nlhhh  : bk\u0017grave\n: \u0017wand of digging\nzh> 20s  sm. y \u0017magic fountain\nqy#dip\nhy y#terrain\nd\n\u001b.Pok#chat\njujyh\u0017magic fountain\nqyqy\u0017long sword\n#dip\niy:h\u0017grave\n: \u0017pick-axe\naj > sh20snSy\u001b y #invoke\n\u001b#force\n P#invoke\n\u001b10s #monster\n#levelchange\n10\n         ujbh\u0017rust trap\nl^h\u0007acid blob\nssssu\u0017magic p",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53451020,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "lybu\u0017lawful altar\nda\u0017jackal corpse\n#offer\ng  un\u0017cloud\nlhhh  : bk\u0017grave\n: \u0017wand of digging\nzh> 20s  sm. y \u0017magic fountain\nqy#dip\nhy y#terrain\nd\n\u001b.Pok#chat\njujyh\u0017magic fountain\nqyqy\u0017long sword\n#dip\niy:h\u0017grave\n: \u0017pick-axe\naj > sh20snSy\u001b"
+  },
+  {
+   "seed": 53951020,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " y #invoke\n\u001b#force\n P#invoke\n\u001b10s #monster\n#levelchange\n10\n         ujbh\u0017rust trap\nl^h\u0007acid blob\nssssu\u0017magic p"
+  }
+ ]
+}

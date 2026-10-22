@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed amulet of reflection\nPj\u0017blessed +3 helm of telepathy\nW\u001b\u0016?\n>w\u0006Fk FkFkFk   n FkFk _ \u001b;q_oo.,p_{.  nFb_. Fj   nq\u00163\n_{,q_{.q_ooooo.,p_ooo,,:_ooooo.,$_ooooo.,$__.#chat\nu   n#pray\ny y         __.#chat\nn    n  __,#chat\nl  #pray\ny y             \u00167\nnk  nu\u0016?\n>w\u0006_{.Fk _. Fl   nq_{,Fk _,Fy  nq_ooo,,\u0017flint stone\ndl  _oo._oo., p_ooo.  nFj _.,#chat\n  n\u00166\n__.#chat\nb #pray\ny y         \u00167\nnlb\u0016?\n>w\u0006FhFh FhFhFhFh  n_ooo.Fj_,,Fj,\u0017ruby\ndm_ooooooo,Fn  n  _.Fn,p_ooo.   Fl _.   nFj ,p_ooooooo.  nFn _.,p_q   n_oo._o,,\u0017d_,$_,$_,:__,$n bj#chat\nk   yy\u001bny y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 53450038,
+   "datetime": "20101011071615",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed amulet of reflection\nPj\u0017blessed +3 helm of telepathy\nW\u001b\u0016?\n>w\u0006Fk FkFkFk   n FkFk _ \u001b;q_oo.,p_{.  nFb_. Fj   nq\u00163\n_{,q_{.q_ooooo.,p_ooo,,:_ooooo.,$_ooooo.,$__.#chat\nu   n#pray\ny y         __.#chat\nn    n  __,#chat\nl  #pray\ny y             \u00167\nnk  nu\u0016?\n>w\u0006_{.Fk _. Fl   nq_{,Fk _,Fy  nq_ooo,,\u0017flint stone\ndl  _oo._oo., p_ooo.  nFj _.,#chat\n  n\u00166\n__.#chat\nb #pray\ny y         \u00167\nnlb\u0016?\n>w\u0006FhFh FhFhFhFh  n_ooo.Fj_,,Fj,\u0017ruby\ndm_ooooooo,Fn  n  _.Fn,p_ooo.   Fl _.   nFj ,p_ooooooo.  nFn _.,p_q   n_oo._o,,\u0017d_,$_,$_,:__,$n bj#chat\nk   yy\u001bny y y\u001by  _"
+  }
+ ]
+}

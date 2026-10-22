@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u00167\n\u0006#rub\n20s\u001616\n\u0006\u0014 \u001b@LLLLLLLJljjjjj. ,10s10s10s nobody\n  d$s\u001617\n \u0006\u001621\n\u0006\u00169\n\u0006\u0014@Hhhhhhhhjjj. ,10s Hippocrates\n  d$lZ\u001bdalZ\u001b10s\u001620\n\u0006\u001617\n\u0006\u001620\n\u0006#untrap\njcl\u001611\n\u0006\u001613\n    \u0006\u0014@Lllllkkkk. ,20s Croesus\n\u0017wand of digging\nzmlyylh\u001621\n\u0006\u001615\n\u0006\u0014@HHHHHHHHJhhjjjjj. ,10s s20sss10s  20s10sn \u00168\n\u0006\u001613\n  \u0006\u00164\n\u0006_<..u#tip\n\u001b\u001615\n\u0006\u0014@HHJhhj. ,20ss10ss20s  10s10ssn amy       \u000f\u001bP\u001611\n \u0006\u00164\n\u0006ks\u001617\n\u0006\u001617\n\u0006\u00165\n\u0006\u00164\n\u0006\u001620\n\u0006#untrap\nbs\u001616\n\u0006\u001610\n\u0006\u00166\n\u0006\u00164\n\u0006f $ n#force\n\u001619\n\u0006k20s\u00163\n\u0006\u0014@LLLLLLLLllllljj. ,10s20s Hippocrates\n  \u0014m. #terrain\nc\n,#name\no\n\u001616\n\u000610sE- X marks the spot\n\u00162\n\u0006\u0016"
+ },
+ "segments": [
+  {
+   "seed": 53456073,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u00167\n\u0006#rub\n20s\u001616\n\u0006\u0014 \u001b@LLLLLLLJljjjjj. ,10s10s10s nobody\n  d$s\u001617\n \u0006\u001621\n\u0006\u00169\n\u0006\u0014@Hhhhhhhhjjj. ,10s Hippocrates\n  d$lZ\u001bdalZ\u001b10s\u001620\n\u0006\u001617\n\u0006\u001620\n\u0006#untrap\njcl\u001611\n\u0006\u001613\n    \u0006\u0014@Lllllkkkk. ,20s Croesus\n\u0017wand of digging\nzmlyylh\u001621\n\u0006\u001615\n\u0006\u0014@HHHHHHHHJhhjjjjj. ,10s s20sss10s  20s10sn \u00168\n\u0006\u001613\n  \u0006\u00164\n\u0006_<..u#tip\n\u001b\u001615\n\u0006\u0014@HHJhhj. ,20ss10ss20s  10s10ssn amy       \u000f\u001bP\u001611\n \u0006\u00164\n\u0006ks\u001617\n\u0006\u001617\n\u0006\u00165\n\u0006\u00164\n\u0006\u001620\n\u0006#untrap\nbs\u001616\n\u0006\u001610\n\u0006\u00166\n\u0006\u00164\n\u0006f $ n#force\n\u001619\n\u0006k20s\u00163\n\u0006\u0014@LLLLLLLLllllljj. ,10s20s Hippocrates\n  \u0014m. #terrain\nc\n,#name\no\n\u001616\n\u000610sE- X marks the spot\n\u00162\n\u0006\u0016"
+  }
+ ]
+}

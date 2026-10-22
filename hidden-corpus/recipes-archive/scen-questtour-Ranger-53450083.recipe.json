@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nb_mmmm.Fk   n    n _.   n   Fl   n    n     \u001b#chat\nb_mmmmm.  n  Fk  n  _,  n    Fb    n#chat\nl#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_m,  Fy   _.#chat\nh;u;_mmmmm.   Fu  n     _,  Fh   #chat\nl_m.  n   Fy    _,#chat\nn;u;\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPh        \u001b\u0017blessed Mjollnir\nwi \u0017wand of cold\n\u0016?\n>A\u0006_mmm.   Fy  n     _.         Fn     Fy  Fh Fy  Fn  n  Fy  Fn     ,\u001b\u0016?\n>>\u001b\u0016?\n>y_mm.          Fy     _,   n       Fy      #chat\nl        n     \u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.       Fb   _.   n Fb  Fl   Fb  Fb  Fl   n    Fj  Fj   Fb  ,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmmmm.   ynny ny\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 53450083,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=mention_walls\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b@.#chat\nb_mmmm.Fk   n    n _.   n   Fl   n    n     \u001b#chat\nb_mmmmm.  n  Fk  n  _,  n    Fb    n#chat\nl#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_m,  Fy   _.#chat\nh;u;_mmmmm.   Fu  n     _,  Fh   #chat\nl_m.  n   Fy    _,#chat\nn;u;\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of reflection\nPh        \u001b\u0017blessed Mjollnir\nwi \u0017wand of cold\n\u0016?\n>A\u0006_mmm.   Fy  n     _.         Fn     Fy  Fh Fy  Fn  n  Fy  Fn     ,\u001b\u0016?\n>>\u001b\u0016?\n>y_mm.          Fy     _,   n       Fy      #chat\nl        n     \u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.       Fb   _.   n Fb  Fl   Fb  Fb  Fl   n    Fj  Fj   Fb  ,\u001b\u0016?\n>>\u001b\u0016?\n>y_mmmmm.   ynny ny\u001b  F"
+  }
+ ]
+}

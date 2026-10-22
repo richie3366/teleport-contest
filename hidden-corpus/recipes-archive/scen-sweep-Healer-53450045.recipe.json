@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   #wizintrinsic\ni\n \u0017blindfold\nak\u0017potion of fruit juice\nql\u0017cursed potion of enlightenment\nqmjnj\u0017blessed scroll of fire\nrn.ss\u0017blessed ring of polymorph control\nPol\u0017gray dragon scale mail\nWp.ss Tp#polyself\nkiller bee\n #monster\ns.\u0007pit fiend\nFhFhFh20s  .s #polyself\nmarilith\n#monster\ns...s #polyself\njackal\n #monster\n20s  .\u0007cave spider\nFy Fy Fy     .  n ss #polyself\ngiant eel\n #monster\n.s  ss.\u001629\n   \\ \u0007tame saddled black unicorn\n\u0017lance\nwq #ride\nuy\u0007pony\n\u0017scroll of taming\nrr\u0017saddle\nas.#ride\n.y\u0007horse\n\u0017scroll of taming\nrr\u0017saddle\natu#ride\nky\u0004 #ride\nhys  n #ride\nyy\u0006_ \u001b<.  >\u0004 ,#levelchange\n10\n   #polyself\nair elemental\n  s .\u0007sewer rat\nFhFhFh Fh\u0007jackal\nFhFy  FyFu \u0016?\nj\u0006\u0017bugle\nakjakk W_<.     \u001b20s  n    #name\nm\n#levelchange\n:\u0017blessed ring of polymorph control\nPv   #polyself\ngelatinous cube\n #monster\ns  s   20s .m.  n .m.#polyself\nsuccubus\n#monster\nsm. sj  .j  n .m.sm.#polyself\ntengu\n#monster\n.h     .m.  n  sm. sm.  n   20s#polyself\nkraken\n centipede\n  #monster\nsm.     n .m. \u0007gray ooze\nFj  Fj   n   Fk    n .l20s 20s \u001611\n\u0006_>,  n Fl _.   n Fk >Fk  Fk  n _>.  Fh  n _.Fb  >Fb  n  Fl _>,   n   Fl   yy\u001by   y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 53450045,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   #wizintrinsic\ni\n \u0017blindfold\nak\u0017potion of fruit juice\nql\u0017cursed potion of enlightenment\nqmjnj\u0017blessed scroll of fire\nrn.ss\u0017blessed ring of polymorph control\nPol\u0017gray dragon scale mail\nWp.ss Tp#polyself\nkiller bee\n #monster\ns.\u0007pit fiend\nFhFhFh20s  .s #polyself\nmarilith\n#monster\ns...s #polyself\njackal\n #monster\n20s  .\u0007cave spider\nFy Fy Fy     .  n ss #polyself\ngiant eel\n #monster\n.s  ss.\u001629\n   \\ \u0007tame saddled black unicorn\n\u0017lance\nwq #ride\nuy\u0007pony\n\u0017scroll of taming\nrr\u0017saddle\nas.#ride\n.y\u0007horse\n\u0017scroll of taming\nrr\u0017saddle\natu#ride\nky\u0004 #ride\nhys  n #ride\nyy\u0006_ \u001b<.  >\u0004 ,#levelchange\n10\n   #polyself\nair elemental\n  s .\u0007sewer rat\nFhFhFh Fh\u0007jackal\nFhFy  FyFu \u0016?\nj\u0006\u0017bugle\nakjakk W_<.     \u001b20s  n    #name\nm\n#levelchange\n:\u0017blessed ring of polymorph control\nPv   #polyself\ngelatinous cube\n #monster\ns  s   20s .m.  n .m.#polyself\nsuccubus\n#monster\nsm. sj  .j  n .m.sm.#polyself\ntengu\n#monster\n.h     .m.  n  sm. sm.  n   20s#polyself\nkraken\n centipede\n  #monster\nsm.     n .m. \u0007gray ooze\nFj  Fj   n   Fk    n .l20s 20s \u001611\n\u0006_>,  n Fl _.   n Fk >Fk  Fk  n _>.  Fh  n _.Fb  >Fb  n  Fl _>,   n   Fl   yy\u001by   y y y\u001b  _"
+  }
+ ]
+}

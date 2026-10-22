@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nWg\u0017blessed ring of free action\nPhr\u0017blessed +3 speed boots\nWi#levelchange\n14\n             \u0017wand of digging\n\u0017wand of cancellation\n\u0007troll\n\u0007yellow mold\n\u0007hobbit\nzkb.k zkb zkkzkbzkksm.zkhzj>    n  sm. zj>  zk \u0017wand of cancellation\n\u0017wand of striking\n\u0017wand of digging\n\u0007acid blob\n\u0007lichen\n\u0007giant rat\nzlhzmh   20s zn>  zlb  n zn>  sm.zlj zn>   zlj\u0007aligned cleric\nn\u0007kobold shaman\n\u0007master lich\n\u0017wand of cold\nzok  nzoh zoh zob  zoh  zoh .m..n\u0007black dragon\n.m.20s  \u0017wand of lightning\napy             nFbFbi\u001b\u0007incubus\n\u0007lich\n\u0007kobold shaman\n\u0017wand of fire\nzqh   zqb zqh   sm. sm.20s    sm.sm.  sm.zqb   \u0017blessed spellbook of knock\nrr     n 20s  \u0007master mind flayer\n\u0007succubus\nZZZZZsm.sZ20s       20s        n ZZ.m.     .y\u001610\n\u0017wand of lightning\n\u0017wand of death\n\u0007bugbear\nzsh sm. ztl  zth ztb 20s ztbztb zsbsm.  n  zsl  zsl zsu ztk \u0007baby red dragon\n.y sk\u0017wand of fire\nauy       FbFb   n\u0007silver dragon\nsksu20s\u0017wand of lightning\navy     n   Fl       Fh  i\u001b\u0017spellbook of cause fear\nrw   n    20s  \u0017blessed spellbook of cone of cold\nrx20s \u0007vampire\n\u0007master mind flayer\nZ20s     n    s  n   ZZZZZ#turn\n\u00165\n\u0017wand o"
+ },
+ "segments": [
+  {
+   "seed": 53450070,
+   "datetime": "20110514182551",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nWg\u0017blessed ring of free action\nPhr\u0017blessed +3 speed boots\nWi#levelchange\n14\n             \u0017wand of digging\n\u0017wand of cancellation\n\u0007troll\n\u0007yellow mold\n\u0007hobbit\nzkb.k zkb zkkzkbzkksm.zkhzj>    n  sm. zj>  zk \u0017wand of cancellation\n\u0017wand of striking\n\u0017wand of digging\n\u0007acid blob\n\u0007lichen\n\u0007giant rat\nzlhzmh   20s zn>  zlb  n zn>  sm.zlj zn>   zlj\u0007aligned cleric\nn\u0007kobold shaman\n\u0007master lich\n\u0017wand of cold\nzok  nzoh zoh zob  zoh  zoh .m..n\u0007black dragon\n.m.20s  \u0017wand of lightning\napy             nFbFbi\u001b\u0007incubus\n\u0007lich\n\u0007kobold shaman\n\u0017wand of fire\nzqh   zqb zqh   sm. sm.20s    sm.sm.  sm.zqb   \u0017blessed spellbook of knock\nrr     n 20s  \u0007master mind flayer\n\u0007succubus\nZZZZZsm.sZ20s       20s        n ZZ.m.     .y\u001610\n\u0017wand of lightning\n\u0017wand of death\n\u0007bugbear\nzsh sm. ztl  zth ztb 20s ztbztb zsbsm.  n  zsl  zsl zsu ztk \u0007baby red dragon\n.y sk\u0017wand of fire\nauy       FbFb   n\u0007silver dragon\nsksu20s\u0017wand of lightning\navy     n   Fl       Fh  i\u001b\u0017spellbook of cause fear\nrw   n    20s  \u0017blessed spellbook of cone of cold\nrx20s \u0007vampire\n\u0007master mind flayer\nZ20s     n    s  n   ZZZZZ#turn\n\u00165\n\u0017wand o"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u001618\n\u0006\u001610\n\u0006\u0014 \u001b@LLLLLLlllllllkkkkk.,s10s20s10s Kira\n  \u0017wand of digging\nzjylbkj\u001620\n\u0006\u00165\n\u0006\u001621\n\u0006\u00169\n\u0006\u00166\n\u0006oj#offer\n\u00162\n\u0006#pray\ny y 10s\u001614\n\u0006\u00169\n\u0006\u00167\n\u0006\u001610\n\u0006\u001613\n    \u0006\u00167\n\u0006\u001619\n\u0006\u00169\n \u0006\u001610\n\u0006\u001614\n\u0006\u001613\n \u0006\u00168\n\u0006#ride\nky>\u001619\n\u0006#untrap\nkeg\u00166\n\u0006Za\neh  \u00167\n  \u0006\u001612\n\u0006\u00166\n\u0006\u001614\n\u0006\u001620\n\u0006\u001620\n\u0006\u001617\n \u0006\u00165\n\u0006ch__..\u001618\n\u0006\u001612\n\u0006riqd\u001615\n\u0006\u0014@LLLLlllllkkk.,10ss10s20s20s  20s20s10sn \u001616\n\u0006H>\u00162\n\u0006\u00163\n\u0006\u0014@LLLLLLLLJllljjjj. ,s20s20s Kira\n  \u0017wand of digging\nzmnnyny\u001618\n\u0006\u001617\n\u0006zmu10s\u00162\n\u0006\u00166\n  \u0006ajny#chat\n  \u00169\n\u0006\u00167\n\u0006zm.t$h\u00168\n\u0006\u001621\n\u0006ch#turn\n\u00164\n\u0006w\u001b#lo"
+ },
+ "segments": [
+  {
+   "seed": 53456054,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=runmode:walk\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u001618\n\u0006\u001610\n\u0006\u0014 \u001b@LLLLLLlllllllkkkkk.,s10s20s10s Kira\n  \u0017wand of digging\nzjylbkj\u001620\n\u0006\u00165\n\u0006\u001621\n\u0006\u00169\n\u0006\u00166\n\u0006oj#offer\n\u00162\n\u0006#pray\ny y 10s\u001614\n\u0006\u00169\n\u0006\u00167\n\u0006\u001610\n\u0006\u001613\n    \u0006\u00167\n\u0006\u001619\n\u0006\u00169\n \u0006\u001610\n\u0006\u001614\n\u0006\u001613\n \u0006\u00168\n\u0006#ride\nky>\u001619\n\u0006#untrap\nkeg\u00166\n\u0006Za\neh  \u00167\n  \u0006\u001612\n\u0006\u00166\n\u0006\u001614\n\u0006\u001620\n\u0006\u001620\n\u0006\u001617\n \u0006\u00165\n\u0006ch__..\u001618\n\u0006\u001612\n\u0006riqd\u001615\n\u0006\u0014@LLLLlllllkkk.,10ss10s20s20s  20s20s10sn \u001616\n\u0006H>\u00162\n\u0006\u00163\n\u0006\u0014@LLLLLLLLJllljjjj. ,s20s20s Kira\n  \u0017wand of digging\nzmnnyny\u001618\n\u0006\u001617\n\u0006zmu10s\u00162\n\u0006\u00166\n  \u0006ajny#chat\n  \u00169\n\u0006\u00167\n\u0006zm.t$h\u00168\n\u0006\u001621\n\u0006ch#turn\n\u00164\n\u0006w\u001b#lo"
+  }
+ ]
+}

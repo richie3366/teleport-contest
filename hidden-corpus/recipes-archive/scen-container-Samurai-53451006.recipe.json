@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017oilskin sack\n\u0017locked large box\n \u0017wand of teleportation\ndfn\u0004yagdel\u0004hde#loot\n,#tip\ng\u001bi\u001b\u0017sack\n\u0017ice box\n\u0017chest\n\u0017ring of poison resistance\nakais\n#tip\nyi\n#tip\nyi\n\u0017skeleton key\ndk am.y...#loot\na\nb\nA\n"
+ },
+ "segments": [
+  {
+   "seed": 53451006,
+   "datetime": "20040130061608",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017oilskin sack\n\u0017locked large box\n \u0017wand of teleportation\ndfn\u0004yagdel\u0004hde#loot\n,#tip\ng\u001bi\u001b\u0017sack\n\u0017ice box\n\u0017chest\n\u0017ring of poison resistance\nakais\n#tip\nyi\n#tip\nyi\n\u0017skeleton key\ndk am.y...#loot\na\nb\nA\n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       #levelchange\n10\n \u0007chickatrice\nFhFk  FhFhFh.b.\u0007shrieker\nFlFks20sss.j\u0007soldier ant\nFkFh FkFk  Fhs.20ss#levelchange\n8\n\u0007giant eel\n20s.b.m..sm.ss\u0007djinni\n#chat\nkFuFu\u0007giant spider\n20s .m.  nsm.20ssm.sysm. .m.sb#levelchange\n20\n           \u0007tame saddled titanothere\n\u0017lance\nwe #ride\nyy\u0007warhorse\n\u0017scroll of taming\nrf \u0017saddle\nagu  #ride\nky\u0007warhorse\n\u0017scroll of taming\nrh  \u0017saddle\naiu  #ride\nuy\u0004j y k     bjukn\u0007sewer rat\nFy  Fy  Fh , ,ss\u0017Werebane\n wk FlFkFl#invoke\nkFuFu\u0017cursed -1 ring of warning\nPlrss20sRFkFu\u0017amulet of life saving\n\u0007nurse\nPmsm..m..b20s\u00173 horn of plenty\nan  an  FhFbsm.s\u001627\n\u0006#levelchange\n20\n#wizintrinsic\nar\n ..sss20s.m.sm. s\u001bs#chat\n#chat\n#monster\n#invoke\nkP10s s\u001b20s       sm. s s .  n \u0017blessed ring of polymorph control\nPo  #polyself\nfire elemental\n      #monster\ns. \u001b.ss#polyself\nacid blob\n #monster\n.    s \u0007Medusa\nny FjFjFj  n .usm. n  sn#polyself\nred dragon\n  sm. n  20s \u0007paper golem\nFj Fh  Fk   sm..m. sm. #polyself\ncouatl\n#monster\nsm..m. \u0007umber hulk\nFj Fh     Fk20s s .\u00161\n\u001612\n\u0006_ \u001b;>_>. Fy _.Fy >Fb Fh_>. Fk  _.  Fu  >Fl    n  Fu   Fy   Fk     n  Fu   \u0006_>,   Fb _.   n Fu  >Fk Fk    _>.    \u001b  n  Fl   _.Fu   >Fy    n   Fl  _>.Fb   _,.Fu   >Fl  n    Fj  FjFu    n Fh   \u0006_>.Fl  _.Fj    n >Fb  Fk   _>,      n Fu   _,  Fu>Fj      nFh   _>.Fk   _.Fb    yy\u001by   y y y\u001by  >"
+ },
+ "segments": [
+  {
+   "seed": 53450067,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       #levelchange\n10\n \u0007chickatrice\nFhFk  FhFhFh.b.\u0007shrieker\nFlFks20sss.j\u0007soldier ant\nFkFh FkFk  Fhs.20ss#levelchange\n8\n\u0007giant eel\n20s.b.m..sm.ss\u0007djinni\n#chat\nkFuFu\u0007giant spider\n20s .m.  nsm.20ssm.sysm. .m.sb#levelchange\n20\n           \u0007tame saddled titanothere\n\u0017lance\nwe #ride\nyy\u0007warhorse\n\u0017scroll of taming\nrf \u0017saddle\nagu  #ride\nky\u0007warhorse\n\u0017scroll of taming\nrh  \u0017saddle\naiu  #ride\nuy\u0004j y k     bjukn\u0007sewer rat\nFy  Fy  Fh , ,ss\u0017Werebane\n wk FlFkFl#invoke\nkFuFu\u0017cursed -1 ring of warning\nPlrss20sRFkFu\u0017amulet of life saving\n\u0007nurse\nPmsm..m..b20s\u00173 horn of plenty\nan  an  FhFbsm.s\u001627\n\u0006#levelchange\n20\n#wizintrinsic\nar\n ..sss20s.m.sm. s\u001bs#chat\n#chat\n#monster\n#invoke\nkP10s s\u001b20s       sm. s s .  n \u0017blessed ring of polymorph control\nPo  #polyself\nfire elemental\n      #monster\ns. \u001b.ss#polyself\nacid blob\n #monster\n.    s \u0007Medusa\nny FjFjFj  n .usm. n  sn#polyself\nred dragon\n  sm. n  20s \u0007paper golem\nFj Fh  Fk   sm..m. sm. #polyself\ncouatl\n#monster\nsm..m. \u0007umber hulk\nFj Fh     Fk20s s .\u00161\n\u001612\n\u0006_ \u001b;>_>. Fy _.Fy >Fb Fh_>. Fk  _.  Fu  >Fl    n  Fu   Fy   Fk     n  Fu   \u0006_>,   Fb _.   n Fu  >Fk Fk    _>.    \u001b  n  Fl   _.Fu   >Fy    n   Fl  _>.Fb   _,.Fu   >Fl  n    Fj  FjFu    n Fh   \u0006_>.Fl  _.Fj    n >Fb  Fk   _>,      n Fu   _,  Fu>Fj      nFh   _>.Fk   _.Fb    yy\u001by   y y y\u001by  >"
+  }
+ ]
+}

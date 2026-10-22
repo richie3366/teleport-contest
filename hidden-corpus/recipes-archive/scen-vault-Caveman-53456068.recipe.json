@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 cloak of magic resistance\nWg\u00168\n\u0006E- X marks the spot\ny\u001611\n\u0006\u0014 \u001b@HHHHHHHhhhhhjj. ,s10s20s Fred\n  ohcl#terrain\n\u001b\u001614\n\u0006\u001612\n\u0006\u001613\n    \u0006s,\u00166\n\u0006#tip\n\u001b,\u001618\n \u0006\u001618\n\u0006#force\n#pray\ny y \u001614\n \u0006\u00162\n\u0006\u0014@LLKlllllllkkk. ,ss10sss20s Fred\n  d$shsbbbsbsbbbb   waZ#twoweapon\n\u001614\n\u0006\u00167\n\u0006\u0014@HHHhhhhhhkkkkkk. ,sssss10ss20s  Kroisos\nd$\u00164\n\u0006aok\u001616\n  \u0006\u001612\n\u0006\u00162\n   \u0006\u00164\n\u0006\u00162\n   \u0006\u001610\n\u0006\u001611\n\u0006f  b#rub\ncf\u001613\n \u0006#untrap\nl#jump\n\u001612\n\u0006\u001617\n\u0006\u00167\n\u0006\u0014@Hhhhhjjjjjj. ,20s10s Croesus\n\u0014.defk#dip\nf \u00168\n\u0006\u00163\n\u0006\u0014@HHHHJhhhhhhhj. ,20s Grok\n  d$slllllllll  "
+ },
+ "segments": [
+  {
+   "seed": 53456068,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 cloak of magic resistance\nWg\u00168\n\u0006E- X marks the spot\ny\u001611\n\u0006\u0014 \u001b@HHHHHHHhhhhhjj. ,s10s20s Fred\n  ohcl#terrain\n\u001b\u001614\n\u0006\u001612\n\u0006\u001613\n    \u0006s,\u00166\n\u0006#tip\n\u001b,\u001618\n \u0006\u001618\n\u0006#force\n#pray\ny y \u001614\n \u0006\u00162\n\u0006\u0014@LLKlllllllkkk. ,ss10sss20s Fred\n  d$shsbbbsbsbbbb   waZ#twoweapon\n\u001614\n\u0006\u00167\n\u0006\u0014@HHHhhhhhhkkkkkk. ,sssss10ss20s  Kroisos\nd$\u00164\n\u0006aok\u001616\n  \u0006\u001612\n\u0006\u00162\n   \u0006\u00164\n\u0006\u00162\n   \u0006\u001610\n\u0006\u001611\n\u0006f  b#rub\ncf\u001613\n \u0006#untrap\nl#jump\n\u001612\n\u0006\u001617\n\u0006\u00167\n\u0006\u0014@Hhhhhjjjjjj. ,20s10s Croesus\n\u0014.defk#dip\nf \u00168\n\u0006\u00163\n\u0006\u0014@HHHHJhhhhhhhj. ,20s Grok\n  d$slllllllll  "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWj\u0017blessed +3 helm of telepathy\nWk \u00169\n \u0006\u0014 \u001b@LLlllj. ,20ss20ss10s nobody\n  d$ssksklyssususuusbuuyslsks      \u00165\n\u0006\u001620\n\u0006\u00163\n\u0006\u0014@Llljjjjjj. ,ss20s10s10s20s \u001b  d$ulssusssusjbuussusu      ,   s  i\u001b  #invoke\n\u001b  #twoweapon\n   \u001617\n\u0006\u001620\n\u0006\u000f\u001b<\u00164\n\u0006\u0014@LLLLjjj. ,20s10ss10ss20s Caspar\n  \u00162\n\u0006#rub\nqd\u00162\n\u0006\u00164\n\u0006\u0014.#loot\n\u001613\n\u0006\u0014@HHHHHHHhhhhjjjjj. ,10ss10s20s20s Caspar\n  d$ly  u y lnnsl  yyyyyyk  lnnln  yyy ll  yyyyyy  llnl  yyyy lsZ#enhance\nyn\ng\n\u001b#force\n\u001616\n \u0006\u00166\n\u0006\u0014@LLLJllljjjj. ,20s20s10s20s Caspar\n  d$slhshsssyssysssyshjhbsy      #twoweapon\n   #conduct\n   \u00163\n        \u0006  \u00167\n\u0006\u0014@Kllllllkk.  ,"
+ },
+ "segments": [
+  {
+   "seed": 53455000,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0017blessed +3 speed boots\nWj\u0017blessed +3 helm of telepathy\nWk \u00169\n \u0006\u0014 \u001b@LLlllj. ,20ss20ss10s nobody\n  d$ssksklyssususuusbuuyslsks      \u00165\n\u0006\u001620\n\u0006\u00163\n\u0006\u0014@Llljjjjjj. ,ss20s10s10s20s \u001b  d$ulssusssusjbuussusu      ,   s  i\u001b  #invoke\n\u001b  #twoweapon\n   \u001617\n\u0006\u001620\n\u0006\u000f\u001b<\u00164\n\u0006\u0014@LLLLjjj. ,20s10ss10ss20s Caspar\n  \u00162\n\u0006#rub\nqd\u00162\n\u0006\u00164\n\u0006\u0014.#loot\n\u001613\n\u0006\u0014@HHHHHHHhhhhjjjjj. ,10ss10s20s20s Caspar\n  d$ly  u y lnnsl  yyyyyyk  lnnln  yyy ll  yyyyyy  llnl  yyyy lsZ#enhance\nyn\ng\n\u001b#force\n\u001616\n \u0006\u00166\n\u0006\u0014@LLLJllljjjj. ,20s20s10s20s Caspar\n  d$slhshsssyssysssyshjhbsy      #twoweapon\n   #conduct\n   \u00163\n        \u0006  \u00167\n\u0006\u0014@Kllllllkk.  ,"
+  }
+ ]
+}

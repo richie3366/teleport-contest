@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPil\u0017blessed +3 speed boots\nWj\u001611\n\u0006\u00163\n\u0006\u001614\n    \u0006\u001613\n\u0006dc#force\n\u001618\n\u0006\u001616\n\u0006\u001610\n\u0006\u00163\n\u0006\u00163\n\u0006\u001616\n\u0006\u001610\n\u0006\u00169\n \u0006\u0014 \u001b@Jhhhhjjjjjj.,s20s10s20s \u001b  \u0017wand of digging\nzkjjjkk\u00164\n\u0006\u001613\n\u0006\u001615\n\u0006\u00168\n\u0006#ride\nyy#chat\nn\u001617\n \u0006\u00166\n \u0006h\u0018\u001b\u001611\n\u0006\u001618\n\u0006\u001611\n\u0006cj\u0014<.\u001617\n\u0006\u001619\n\u0006\u001616\n\u0006\u00168\n\u0006\u00165\n\u0006#rub\ng$b\u001621\n\u0006\u001621\n\u0006\u001610\n\u0006#twoweapon\n#terrain\n\u001b\u00169\n\u0006#chat\nhcl\u001621\n\u0006\u00163\n\u0006\u001613\n\u0006\u001619\n\u0006\u001615\n\u0006\u00167\n\u0006#tip\nh\u001b#jump\n\u00168\n\u0006\u001612\n\u0006i\u001b#dip\ne\u001612\n\u0006\u001615\n\u0006\u00169\n\u0006\u001612\n\u0006db#wipe\n\u00168\n\u0006\u001617\n\u0006qwa\u00162\n\u0006\u0014@HHHHHHJhjjjjj. ,10s10sss20s20s Indiana\n  \u0017wand of digging\nzljjjkj\u00165\n\u0006\u001613\n \u0006#pray\ny y    #sit\n \u00164\n\u0006\u001611\n\u0006\u001610\n\u0006\u001613\n\u0006P#enhance\nyh\nl\n\u001b\u001613\n\u0006ohch\u001621\n\u0006#invoke\n\u001b#sit\n\u001b\u001618\n\u0006\u00166\n\u0006\u001615\n\u0006\u001618\n\u0006>fk\u001611\n\u0006\u001613\n\u0006\u001613\n\u0006#terrain\n\u001b_m.s\u00165\n\u0006#wipe\n#terrain\n\u001b\u001612\n \u0006\u001617\n\u0006\u00162\n\u0006\u001617\n\u0006\u00164\n\u0006\u001613\n\u0006#chat\nl#turn\n\u001618\n\u0006\u00162\n"
+ },
+ "segments": [
+  {
+   "seed": 53456013,
+   "datetime": "20100426214818",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=fruit:slime mold\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed ring of free action\nPil\u0017blessed +3 speed boots\nWj\u001611\n\u0006\u00163\n\u0006\u001614\n    \u0006\u001613\n\u0006dc#force\n\u001618\n\u0006\u001616\n\u0006\u001610\n\u0006\u00163\n\u0006\u00163\n\u0006\u001616\n\u0006\u001610\n\u0006\u00169\n \u0006\u0014 \u001b@Jhhhhjjjjjj.,s20s10s20s \u001b  \u0017wand of digging\nzkjjjkk\u00164\n\u0006\u001613\n\u0006\u001615\n\u0006\u00168\n\u0006#ride\nyy#chat\nn\u001617\n \u0006\u00166\n \u0006h\u0018\u001b\u001611\n\u0006\u001618\n\u0006\u001611\n\u0006cj\u0014<.\u001617\n\u0006\u001619\n\u0006\u001616\n\u0006\u00168\n\u0006\u00165\n\u0006#rub\ng$b\u001621\n\u0006\u001621\n\u0006\u001610\n\u0006#twoweapon\n#terrain\n\u001b\u00169\n\u0006#chat\nhcl\u001621\n\u0006\u00163\n\u0006\u001613\n\u0006\u001619\n\u0006\u001615\n\u0006\u00167\n\u0006#tip\nh\u001b#jump\n\u00168\n\u0006\u001612\n\u0006i\u001b#dip\ne\u001612\n\u0006\u001615\n\u0006\u00169\n\u0006\u001612\n\u0006db#wipe\n\u00168\n\u0006\u001617\n\u0006qwa\u00162\n\u0006\u0014@HHHHHHJhjjjjj. ,10s10sss20s20s Indiana\n  \u0017wand of digging\nzljjjkj\u00165\n\u0006\u001613\n \u0006#pray\ny y    #sit\n \u00164\n\u0006\u001611\n\u0006\u001610\n\u0006\u001613\n\u0006P#enhance\nyh\nl\n\u001b\u001613\n\u0006ohch\u001621\n\u0006#invoke\n\u001b#sit\n\u001b\u001618\n\u0006\u00166\n\u0006\u001615\n\u0006\u001618\n\u0006>fk\u001611\n\u0006\u001613\n\u0006\u001613\n\u0006#terrain\n\u001b_m.s\u00165\n\u0006#wipe\n#terrain\n\u001b\u001612\n \u0006\u001617\n\u0006\u00162\n\u0006\u001617\n\u0006\u00164\n\u0006\u001613\n\u0006#chat\nl#turn\n\u001618\n\u0006\u00162\n"
+  }
+ ]
+}

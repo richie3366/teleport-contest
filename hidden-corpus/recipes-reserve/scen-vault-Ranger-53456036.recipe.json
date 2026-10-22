@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWg\u0017blessed amulet of reflection\nPh\u001621\n\u0006\u0014 \u001b@LLLLLLLLKllkk.,20s20s 20s10s10s10s20ss\u001618\n \u0006#twoweapon\nl\u00169\n\u0006\u0014@Jhhjjj. ,20ss20s20s ricky\n  \u0014,\u00167\n\u0006\u00163\n\u0006\u001617\n\u0006\u001618\n\u0006\u00168\n\u0006\u0014@LJjjjjj. ,10s20s Creosote\nd$\u001619\n\u0006\u0014@HHHHHHhhhhjj. ,20s10s ricky\n  d$sh\u00162\n\u0006\u0014@LLLLLLllllkkk. ,20s ricky\n  d$jkjys#monster\n#invoke\n\u001b#terrain\nb\nlP \u00169\n\u0006a\u0018\u001b\u001620\n\u0006\u0014@HHHHHJhhhhhhhjj. , 10s20s \u001b  d$uss>#enhance\nyd\nk\n\u001b\u00163\n\u0006\u00162\n\u0006oh<\u00167\n\u0006\u001617\n\u0006\u001620\n\u0006\u001613\n\u0006wdef\u00168\n\u0006\u0014@HHHHHJhhhhhjjj. ,20ss10s10s10s ricky\n  d$ks\u001613\n\u0006\u00164\n\u0006\u0014@HJhhhjjjjjjj. ,s10s20s nobody\n  d$ks\u00168\n\u0006#offer\n#turn\n\u001620\n\u0006\u001610\n\u0006#turn\nef \u001612\n    \u0006\u0014@Khhhhhhhkkkk. ,10ss20ss10s10s ricky\n  Fn FnFn  nFn  n\u00162\n\u001621\n\u0006\u0014@LLLLLLLLK. ,10s20s \u001b  \u0017wand of digging\nzkuuuub\u001621\n\u0006E- Elbereth Elbereth\n  #conduct\n \u001616\n\u0006\u0014@HHhhjj. ,sss10s10s20s10s ricky\n  d$js10sE- Vlad was here\nn<#offer\n\u001619\n\u0006\u001610\n\u0006#o"
+ },
+ "segments": [
+  {
+   "seed": 53456036,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWg\u0017blessed amulet of reflection\nPh\u001621\n\u0006\u0014 \u001b@LLLLLLLLKllkk.,20s20s 20s10s10s10s20ss\u001618\n \u0006#twoweapon\nl\u00169\n\u0006\u0014@Jhhjjj. ,20ss20s20s ricky\n  \u0014,\u00167\n\u0006\u00163\n\u0006\u001617\n\u0006\u001618\n\u0006\u00168\n\u0006\u0014@LJjjjjj. ,10s20s Creosote\nd$\u001619\n\u0006\u0014@HHHHHHhhhhjj. ,20s10s ricky\n  d$sh\u00162\n\u0006\u0014@LLLLLLllllkkk. ,20s ricky\n  d$jkjys#monster\n#invoke\n\u001b#terrain\nb\nlP \u00169\n\u0006a\u0018\u001b\u001620\n\u0006\u0014@HHHHHJhhhhhhhjj. , 10s20s \u001b  d$uss>#enhance\nyd\nk\n\u001b\u00163\n\u0006\u00162\n\u0006oh<\u00167\n\u0006\u001617\n\u0006\u001620\n\u0006\u001613\n\u0006wdef\u00168\n\u0006\u0014@HHHHHJhhhhhjjj. ,20ss10s10s10s ricky\n  d$ks\u001613\n\u0006\u00164\n\u0006\u0014@HJhhhjjjjjjj. ,s10s20s nobody\n  d$ks\u00168\n\u0006#offer\n#turn\n\u001620\n\u0006\u001610\n\u0006#turn\nef \u001612\n    \u0006\u0014@Khhhhhhhkkkk. ,10ss20ss10s10s ricky\n  Fn FnFn  nFn  n\u00162\n\u001621\n\u0006\u0014@LLLLLLLLK. ,10s20s \u001b  \u0017wand of digging\nzkuuuub\u001621\n\u0006E- Elbereth Elbereth\n  #conduct\n \u001616\n\u0006\u0014@HHhhjj. ,sss10s10s20s10s ricky\n  d$js10sE- Vlad was here\nn<#offer\n\u001619\n\u0006\u001610\n\u0006#o"
+  }
+ ]
+}

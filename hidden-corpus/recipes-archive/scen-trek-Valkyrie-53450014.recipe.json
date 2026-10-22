@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "kh10s#chat\nldbss.#chat\nhKKBK_ \u001b,>FkFks<JJLN_>,>UYJB_>.>HBHN_>,>#jump\n#pray\ny UJHB_>.>FuFuFuBYBL_>.>FyFyFyBNLJ_>,>\u000f\u001b#name\nd\nkynnt\u001bdc.s.100s100s \u000f\u001b100sWluy100sFnFnsFn20s.\u0018\u001b100sFkFkFkFkFks#rub\nr\u001b\u000f\u001bnju150s50s_>,>_>,>\\   _>.>100s100sFlss_>.>100shll\u000f\u001b150s\\   150s100s_>.>100sFlFl20sFlFlFlFlFl20shhj\u0018\u001bz\u000f\u001b100sFus.\u000f\u001b\u000f\u001bi\u001b\\   \u000f\u001buhy50sFk.s50sFn.20s100sFnFns\u0018\u001b#loot\nhlh100sFuFu20s100sFl.sed50sFhFhs100s100s100slkj#invoke\n\u001b50s50s_>.>\u0014kjh_>.>50s\\   ,i\u001bi\u001b\u0018\u001b150sbkl\u000f\u001b50si\u001b100s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee<Zwahht\u001bllt\u001bubub20sdass20sKNHK_>,>JBHK_>.>FlFlFlKKYU_>.>FlFlFlKYUH_>,>FlFlFlojWNYNU_>.>UKKJ_>.><YNHY_>.>KLUJ_>,>NJNH_>.>FjFjFjck\\   LJYB_>,>;m,\\   UYKH_>,>JUKK_>,>LJLJ_>,>FyFyFhJJUN_>.>FhFyFhYNHH_>.>FhFh.LNUH_>.>#chat\nklykhhjjjbh10s #chat\nnjb20s 10s #name\nm\n:#invoke\n\u001b#tip\n\u001b#chat\nk,#pray\ny kuj150s   #pray\ny  #pray\ny  #pray\ny   y\u001by  y y y\u001b  5"
+ },
+ "segments": [
+  {
+   "seed": 53450014,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\nOPTIONS=pettype:none\n",
+   "moves": "kh10s#chat\nldbss.#chat\nhKKBK_ \u001b,>FkFks<JJLN_>,>UYJB_>.>HBHN_>,>#jump\n#pray\ny UJHB_>.>FuFuFuBYBL_>.>FyFyFyBNLJ_>,>\u000f\u001b#name\nd\nkynnt\u001bdc.s.100s100s \u000f\u001b100sWluy100sFnFnsFn20s.\u0018\u001b100sFkFkFkFkFks#rub\nr\u001b\u000f\u001bnju150s50s_>,>_>,>\\   _>.>100s100sFlss_>.>100shll\u000f\u001b150s\\   150s100s_>.>100sFlFl20sFlFlFlFlFl20shhj\u0018\u001bz\u000f\u001b100sFus.\u000f\u001b\u000f\u001bi\u001b\\   \u000f\u001buhy50sFk.s50sFn.20s100sFnFns\u0018\u001b#loot\nhlh100sFuFu20s100sFl.sed50sFhFhs100s100s100slkj#invoke\n\u001b50s50s_>.>\u0014kjh_>.>50s\\   ,i\u001bi\u001b\u0018\u001b150sbkl\u000f\u001b50si\u001b100s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee<Zwahht\u001bllt\u001bubub20sdass20sKNHK_>,>JBHK_>.>FlFlFlKKYU_>.>FlFlFlKYUH_>,>FlFlFlojWNYNU_>.>UKKJ_>.><YNHY_>.>KLUJ_>,>NJNH_>.>FjFjFjck\\   LJYB_>,>;m,\\   UYKH_>,>JUKK_>,>LJLJ_>,>FyFyFhJJUN_>.>FhFyFhYNHH_>.>FhFh.LNUH_>.>#chat\nklykhhjjjbh10s #chat\nnjb20s 10s #name\nm\n:#invoke\n\u001b#tip\n\u001b#chat\nk,#pray\ny kuj150s   #pray\ny  #pray\ny  #pray\ny   y\u001by  y y y\u001b  5"
+  }
+ ]
+}

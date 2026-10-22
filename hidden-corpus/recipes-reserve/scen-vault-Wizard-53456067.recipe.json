@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed amulet of life saving\nPp\u00163\n\u0006\u001619\n\u0006\u0014 \u001b@LJljj.,10ss20s10s10ss20ss#ride\njy#ride\njy#loot\njdj #turn\n\u001620\n\u0006\u0014@LLLLLLLJlllj. ,10ss10s20s merlin\n  d$hs\u001620\n\u0006\u001617\n\u0006s,\u001614\n\u0006\u0014@HHhhhhk. ,s20s10s merlin\n  d$kus\u0018\u001bPdl\u001617\n\u0006\u00166\n\u0006\u0014@Jll. ,s10s merlin\n  \u0017wand of digging\nzqulhh n#sit\n\u001b_m.s\u001617\n\u0006\u001621\n\u0006\u001617\n\u0006\u001615\n     \u0006<Pe\u001612\n\u0006qf,\u001612\n\u0006\u00169\n\u0006\u001618\n\u0006\u001612\n\u0006#conduct\n #chat\nu\u001616\n\u0006\u0014@HHHHHHJhhhhhhjjjjj.,10s20s Croesus\ns20s ss20ss\u0016\u0006\u0016\u0006\u0016\u0006#offer\n  >\u001610\n\u0006\u001617\n\u0006\u00163\n \u0006\u001621\n\u0006\u001617\n\u0006,f $ u        \u001616\n\u0006dndi  \u001612\n\u0006#dip\ngh oh\u00162\n\u0006\u0014@HHHJhhhjjj.,s20s20s20s merlin\n  FlFlFl  nFl  n\u00167\n\u00165\n\u0006\u001612\n\u0006\u001616\n\u0006\u0014@LJJllll.,20s10s10s20s10s10s10sskdc,\u001b\u001610\n\u0006\u00167\n\u0006\u0014@HHHHHhhhkkkk.   ,nobody\n  FlFlFl  nFl  nfy  n#na"
+ },
+ "segments": [
+  {
+   "seed": 53456067,
+   "datetime": "20100423004932",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed amulet of life saving\nPp\u00163\n\u0006\u001619\n\u0006\u0014 \u001b@LJljj.,10ss20s10s10ss20ss#ride\njy#ride\njy#loot\njdj #turn\n\u001620\n\u0006\u0014@LLLLLLLJlllj. ,10ss10s20s merlin\n  d$hs\u001620\n\u0006\u001617\n\u0006s,\u001614\n\u0006\u0014@HHhhhhk. ,s20s10s merlin\n  d$kus\u0018\u001bPdl\u001617\n\u0006\u00166\n\u0006\u0014@Jll. ,s10s merlin\n  \u0017wand of digging\nzqulhh n#sit\n\u001b_m.s\u001617\n\u0006\u001621\n\u0006\u001617\n\u0006\u001615\n     \u0006<Pe\u001612\n\u0006qf,\u001612\n\u0006\u00169\n\u0006\u001618\n\u0006\u001612\n\u0006#conduct\n #chat\nu\u001616\n\u0006\u0014@HHHHHHJhhhhhhjjjjj.,10s20s Croesus\ns20s ss20ss\u0016\u0006\u0016\u0006\u0016\u0006#offer\n  >\u001610\n\u0006\u001617\n\u0006\u00163\n \u0006\u001621\n\u0006\u001617\n\u0006,f $ u        \u001616\n\u0006dndi  \u001612\n\u0006#dip\ngh oh\u00162\n\u0006\u0014@HHHJhhhjjj.,s20s20s20s merlin\n  FlFlFl  nFl  n\u00167\n\u00165\n\u0006\u001612\n\u0006\u001616\n\u0006\u0014@LJJllll.,20s10s10s20s10s10s10sskdc,\u001b\u001610\n\u0006\u00167\n\u0006\u0014@HHHHHhhhkkkk.   ,nobody\n  FlFlFl  nFl  nfy  n#na"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n               \u0017blessed amulet of reflection\nPj\u0017blessed ring of free action\nPkr\u0017blessed amulet of life saving\nPl\u0016?\n>xhkjuby:\u0016?\nh_ \u001b>.\u001631\n   \u0004h \u001631\n \u0006_>,_,<.\u0016?\n>>P  \u0014m,  \u0016?\n>>L      potion of gain level\n\u0014m,\u001628\n__.\u001644\n_<,>\u00167\n\u00173 spellbook of magic missile\nrc y.     20s       sj      Z\u0017blessed potion of booze\nqd \u001b    \u0017wand of cold\nzejzek  Fy     Fu      n            \u0017uncursed wand of make invisible\nzfy      zfn       \u00173 potion of confusion\nqg    n           \u00173 wand of nothing\nzh   n        Fk                    s  n   s 20s   20s   \u00169\n\u0016?\n\u001bk b  n       \u0016?\n\u001bn n        n     j\u00164\n\u001640\n__,\u0016?\n\u001bky\u0016?\n\u001buu\u0016?\n\u001bu   u         \u0016?\n\u001byn \u00165\nk  n           b    n             k        n             : \u00168\n\u001639\n#levelchange\n30\n                \u0017bow\nwi \u001720 arrows\nQj\u0007newt\nn fjfjfjfj  fu    \u001b     n          Fj         "
+ },
+ "segments": [
+  {
+   "seed": 53450066,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n               \u0017blessed amulet of reflection\nPj\u0017blessed ring of free action\nPkr\u0017blessed amulet of life saving\nPl\u0016?\n>xhkjuby:\u0016?\nh_ \u001b>.\u001631\n   \u0004h \u001631\n \u0006_>,_,<.\u0016?\n>>P  \u0014m,  \u0016?\n>>L      potion of gain level\n\u0014m,\u001628\n__.\u001644\n_<,>\u00167\n\u00173 spellbook of magic missile\nrc y.     20s       sj      Z\u0017blessed potion of booze\nqd \u001b    \u0017wand of cold\nzejzek  Fy     Fu      n            \u0017uncursed wand of make invisible\nzfy      zfn       \u00173 potion of confusion\nqg    n           \u00173 wand of nothing\nzh   n        Fk                    s  n   s 20s   20s   \u00169\n\u0016?\n\u001bk b  n       \u0016?\n\u001bn n        n     j\u00164\n\u001640\n__,\u0016?\n\u001bky\u0016?\n\u001buu\u0016?\n\u001bu   u         \u0016?\n\u001byn \u00165\nk  n           b    n             k        n             : \u00168\n\u001639\n#levelchange\n30\n                \u0017bow\nwi \u001720 arrows\nQj\u0007newt\nn fjfjfjfj  fu    \u001b     n          Fj         "
+  }
+ ]
+}

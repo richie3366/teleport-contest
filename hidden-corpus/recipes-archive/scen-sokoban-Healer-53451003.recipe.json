@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>Dlhl\u0017wand of striking\nzlk\u0017wand of digging\nzml\u0017wand of digging\nzn> jjjlllhnnnny\u0017wand of digging\nzoh\u0017wand of striking\nzpjbj\u0017wand of striking\nzqk\u0017scroll of earth\nrr   nhllluhknkk yFuFuFullFjFkFb  yy\u001bny n  n"
+ },
+ "segments": [
+  {
+   "seed": 53451003,
+   "datetime": "20140518122953",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0016?\n>Dlhl\u0017wand of striking\nzlk\u0017wand of digging\nzml\u0017wand of digging\nzn> jjjlllhnnnny\u0017wand of digging\nzoh\u0017wand of striking\nzpjbj\u0017wand of striking\nzqk\u0017scroll of earth\nrr   nhllluhknkk yFuFuFullFjFkFb  yy\u001bny n  n"
+  }
+ ]
+}

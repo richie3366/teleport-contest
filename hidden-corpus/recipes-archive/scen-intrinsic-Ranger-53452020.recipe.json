@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nm\n s..m..m.sm.20s20ssm.20s.y#wipe\n_<, \u001b:.m.#dip\na#pray\ny y     wdi\u001bsm.20s.ush20ssl"
+ },
+ "segments": [
+  {
+   "seed": 53452020,
+   "datetime": "20111007234640",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nm\n s..m..m.sm.20s20ssm.20s.y#wipe\n_<, \u001b:.m.#dip\na#pray\ny y     wdi\u001bsm.20s.ush20ssl"
+  }
+ ]
+}

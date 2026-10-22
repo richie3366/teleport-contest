@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017the Tsurugi of Muramasa\n wiFj s20s20ss\u0017wand of make invisible\n\u0007plains centaur\nzjnzjn\u0017jumping boots\nWks..FnFn.s"
+ },
+ "segments": [
+  {
+   "seed": 53452011,
+   "datetime": "20230606192828",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017the Tsurugi of Muramasa\n wiFj s20s20ss\u0017wand of make invisible\n\u0007plains centaur\nzjnzjn\u0017jumping boots\nWks..FnFn.s"
+  }
+ ]
+}

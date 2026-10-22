@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " dgs20s s#name\nd\nj k  lljl#chat\nnjhlkbyHNHN_ \u001b>.>FnsFur\u001b#rub\nBNJB_>.>_m,s\u000f\u001bHLBU_>,>FbFjs\u000f\u001bUJJL_>.>YULJ_>.>YKLK_>.>oj#jump\n@.KLLN_>.>Fk ss<NUUH_>.>#force\nu<HUNH_>.>UUYB_>.>#dip\ncehFyFksyyn100sFhFhFhFhFhFh150slnl150sFhFhFhFh20s.50sFhFhFhFhFhFh#tip\n\u001b100sFhssFhs.50s50s100slnj50sFkFkFk100sFkss_>.>_>.>50shjui\u001b150sFksFkFkFk.#twoweapon\n100sjkjjyl50sjyb150seh100seh kjuhju50s eh\\   jyhq50seh100sFyFyFy100sehnkl100seh100sehbul100sehkjj150seh100seh\u000f\u001b100seh100s\u000f\u001b#pray\ny  Fk..100seeePE- Elbereth\nZeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBNNK _>.>JLK J_>,>Fyss<KYBH_>.>#chat\nhddNNHN_>.>KN NU_>.>s#terrain\nb\n\u000f #chat\nn10shy20s10ss\\   i\u001bdb20ssm.sm.10s20s#name\no\nh#name\nf\nth#name\nd\nuuyh#name\nm\n20st\u001b#chat\nlJNLJ_>.>FlFlFlLJYH_>.>FlFlsNKBY_>.>wa>LNHK_>.>wa;<.BL BH_>.>\u000f\u001bYNU J_>.>NBUH _>.>BNU K_>.>#rub\nlJH LK_>.>YHJN_>.>Fh20sFhKBUJ_>.>UUUU_>.>ly10sjlykuh20s #name\ni\nju   #chat\nh  n10sddsm..nsm.bjjlhlhlnlly j#chat\nj10s#chat\njd"
+ },
+ "segments": [
+  {
+   "seed": 53450069,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:explore\n",
+   "moves": " dgs20s s#name\nd\nj k  lljl#chat\nnjhlkbyHNHN_ \u001b>.>FnsFur\u001b#rub\nBNJB_>.>_m,s\u000f\u001bHLBU_>,>FbFjs\u000f\u001bUJJL_>.>YULJ_>.>YKLK_>.>oj#jump\n@.KLLN_>.>Fk ss<NUUH_>.>#force\nu<HUNH_>.>UUYB_>.>#dip\ncehFyFksyyn100sFhFhFhFhFhFh150slnl150sFhFhFhFh20s.50sFhFhFhFhFhFh#tip\n\u001b100sFhssFhs.50s50s100slnj50sFkFkFk100sFkss_>.>_>.>50shjui\u001b150sFksFkFkFk.#twoweapon\n100sjkjjyl50sjyb150seh100seh kjuhju50s eh\\   jyhq50seh100sFyFyFy100sehnkl100seh100sehbul100sehkjj150seh100seh\u000f\u001b100seh100s\u000f\u001b#pray\ny  Fk..100seeePE- Elbereth\nZeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBNNK _>.>JLK J_>,>Fyss<KYBH_>.>#chat\nhddNNHN_>.>KN NU_>.>s#terrain\nb\n\u000f #chat\nn10shy20s10ss\\   i\u001bdb20ssm.sm.10s20s#name\no\nh#name\nf\nth#name\nd\nuuyh#name\nm\n20st\u001b#chat\nlJNLJ_>.>FlFlFlLJYH_>.>FlFlsNKBY_>.>wa>LNHK_>.>wa;<.BL BH_>.>\u000f\u001bYNU J_>.>NBUH _>.>BNU K_>.>#rub\nlJH LK_>.>YHJN_>.>Fh20sFhKBUJ_>.>UUUU_>.>ly10sjlykuh20s #name\ni\nju   #chat\nh  n10sddsm..nsm.bjjlhlhlnlly j#chat\nj10s#chat\njd"
+  }
+ ]
+}

@@ -15,7 +15,7 @@
  *        [--family mixed|wish|genesis|poly|intrinsic|death|kit|tour|normal]
  *        [--family broad|terrain|trap|town|sokoban|ride|pet|container|descend|
  *                  ranged|caster|impaired|options|engulf|hazard|longrun|dig]
- *        [--family marathon|worldtour|sweep|chain|trek|zapfest|shop|questtour|symset|hallu|extcmd|questwalk]
+ *        [--family marathon|worldtour|sweep|chain|trek|zapfest|shop|questtour|symset|hallu|extcmd|questwalk|vault]
  *        [--out hidden-corpus/recipes] [--probe [--index i]]
  *
  * `broad` rotates evenly through the second-wave families (terrain … dig);
@@ -1261,8 +1261,8 @@ async function levelportTune(g, rng, target) {
    scen-* session above ran past 344 steps. These four families play that
    long. Debug games answer «Die?» with n, so a death mid-marathon costs one
    prompt, not the rest of the session. */
-const WAVE3 = ['worldtour', 'sweep', 'chain', 'trek', 'zapfest', 'shop', 'questtour', 'symset', 'hallu', 'extcmd', 'questwalk'];
-const WAVE3_KEYS = { worldtour: [800, 1500], sweep: [1200, 2000], chain: [900, 1900], trek: [600, 1100], zapfest: [600, 1200], shop: [500, 1000], questtour: [600, 1200], symset: [500, 1000], hallu: [600, 1200], extcmd: [600, 1200], questwalk: [500, 900] };
+const WAVE3 = ['worldtour', 'sweep', 'chain', 'trek', 'zapfest', 'shop', 'questtour', 'symset', 'hallu', 'extcmd', 'questwalk', 'vault'];
+const WAVE3_KEYS = { worldtour: [800, 1500], sweep: [1200, 2000], chain: [900, 1900], trek: [600, 1100], zapfest: [600, 1200], shop: [500, 1000], questtour: [600, 1200], symset: [500, 1000], hallu: [600, 1200], extcmd: [600, 1200], questwalk: [500, 900], vault: [400, 900] };
 /* symset (2026-10-14, §10.20 calibration): non-DEC symset candidates from
    dat/symbols, minus Blank (an invisible map is unplayable) */
 const SYMSET_ALT = ['curses', 'IBMgraphics', 'IBMGraphics_1', 'IBMGraphics_2', 'RogueIBM', 'RogueEpyx', 'RogueWindows', 'plain', 'MACgraphics', 'Enhanced1', 'Enhanced2', 'AmigaFont'];
@@ -1345,6 +1345,96 @@ async function untilFull(g, rng, body) {
         stalls = g.moves.length === before ? stalls + 1 : 0;
         if ((g.saves || 0) - saves >= 2 && g.immortal) await levelport(g, rng, 1 + Math.floor(rng() * 12));
     }
+}
+
+/* vault (2026-10-22, §10.20 calibration): public seed0012-monk-vault-escort
+   meets the vault guard; 5 of 6,167 corpus sessions do. After ^F a closed
+   vault is a 4x4 wall box around 2x2 floor; ^T into it (getpos from `@`),
+   pick up the gold, wait for the guard and answer him, then comply (drop
+   the gold, follow him out along his fake corridor) or not (keep it,
+   refuse, dig or teleport out, fight). */
+const VAULT_NAMES = ['Croesus', 'Kroisos', 'Creosote', 'Fred', 'nobody'];
+const VAULT_EXITS = ['follow', 'follow', 'follow', 'stay', 'dig', 'teleport', 'fight'];
+function findVault(s) {
+    for (let y = 1; y + 3 <= 21; y++) {
+        const r = s.rows[y] || '';
+        for (let x = r.indexOf('┌──┐'); x >= 0; x = r.indexOf('┌──┐', x + 1)) {
+            if ((s.rows[y + 3] || '').slice(x, x + 4) === '└──┘'
+                && /^│..│$/.test((s.rows[y + 1] || '').slice(x, x + 4))
+                && /^│..│$/.test((s.rows[y + 2] || '').slice(x, x + 4))) return { x: x + 1, y: y + 1 };
+        }
+    }
+    return null;
+}
+/* move a getpos cursor from the hero (`@`) to screen (x, y) and pick it */
+async function getposTo(g, x, y) {
+    await g.send('@');
+    let dx = x - g.s.cx, dy = y - g.s.cy;
+    while (Math.abs(dx) >= 8) { await g.send(dx > 0 ? 'L' : 'H'); dx -= Math.sign(dx) * 8; }
+    while (Math.abs(dy) >= 8) { await g.send(dy > 0 ? 'J' : 'K'); dy -= Math.sign(dy) * 8; }
+    for (; dx; dx -= Math.sign(dx)) await g.send(dx > 0 ? 'l' : 'h');
+    for (; dy; dy -= Math.sign(dy)) await g.send(dy > 0 ? 'j' : 'k');
+    await g.send('.');
+}
+async function teleportTo(g, rng, x, y) {
+    await settle(g, rng);
+    await g.send(K_TELE);
+    for (let i = 0; i < 6 && !g.full && (g.s.more || g.s.menu); i++) await g.send(g.s.menu ? ESC : ' ');
+    if (!/Where do you want|desired position|Move the cursor/.test(g.s.rows.join(' '))) { await settle(g, rng); return false; }
+    await getposTo(g, x, y);
+    await settle(g, rng);
+    return true;
+}
+/* the guard: nearest `@` on the map that is not the hero */
+function guardDir(s) {
+    let best = null;
+    for (let y = 1; y <= 21; y++) {
+        const r = s.rows[y] || '';
+        for (let x = r.indexOf('@'); x >= 0; x = r.indexOf('@', x + 1)) {
+            if (x === s.cx && y === s.cy) continue;
+            const d = Math.max(Math.abs(x - s.cx), Math.abs(y - s.cy));
+            if (!best || d < best.d) best = { x, y, d };
+        }
+    }
+    if (!best) return null;
+    const sx = Math.sign(best.x - s.cx), sy = Math.sign(best.y - s.cy);
+    const k = Object.keys(DIRS).find((c) => DIRS[c][0] === sx && DIRS[c][1] === sy);
+    return { k, d: best.d };
+}
+async function vaultGuard(g, rng) {
+    /* wait in the vault until the guard asks who we are */
+    for (let i = 0; i < 8 && !g.full && !/who are you\?/.test(g.s.top); i++) {
+        await g.send(pick(rng, ['20s', '10s', 's']));
+        for (let j = 0; j < 4 && !g.full && g.s.more; j++) await g.send(' ');
+    }
+    if (!/who are you\?/.test(g.s.top)) return false;
+    const who = chance(rng, 0.35) ? pick(rng, VAULT_NAMES) : chance(rng, 0.15) ? '' : (g.name || 'Fred');
+    await g.send(who ? who + '\n' : ESC);
+    for (let j = 0; j < 4 && !g.full && g.s.more; j++) await g.send(' ');
+    const how = pick(rng, VAULT_EXITS);
+    if (how === 'follow') {
+        if (chance(rng, 0.8)) await typeCmd(g, rng, 'd', { letter: '$' });
+        for (let i = 0; i < 40 && !g.full; i++) {
+            await settle(g, rng);
+            const gd = guardDir(g.s);
+            if (!gd) break;
+            if (gd.d <= 1 && chance(rng, 0.6)) await g.send('s');
+            else await g.send(gd.d <= 1 ? pick(rng, 'hjklyubn') : gd.k);
+            if (/Really attack/.test(g.s.top)) await g.send('n');
+        }
+    } else if (how === 'stay') {
+        await wait(g, rng, 6);
+    } else if (how === 'dig') {
+        const l = await wish(g, rng, 'wand of digging');
+        if (l) await typeCmd(g, rng, 'z', { letter: l, dir: pick(rng, 'hjklyubn') });
+        await steps(g, rng, 4);
+    } else if (how === 'teleport') {
+        await typeCmd(g, rng, K_TELE, { yn: 'n' });
+    } else {
+        const gd = guardDir(g.s);
+        if (gd && gd.d <= 1) for (let k = 0; k < 4 && !g.full; k++) { await g.send('F' + gd.k); await answer(g, rng, { yn: 'y' }); }
+    }
+    return true;
 }
 
 async function runWave3Game(g, rng, family, { debug }) {
@@ -1772,6 +1862,25 @@ async function runWave3Game(g, rng, family, { debug }) {
                 else await steps(g, rng, 3);
                 if (chance(rng, 0.4)) await ordinary(g, rng, 1);
             }
+        });
+        break;
+    }
+    case 'vault': {
+        g.immortal = true;
+        g.name = (/OPTIONS=name:([^,\n]+)/.exec(g.seg.nethackrc) || [])[1];
+        if (chance(rng, 0.5)) for (const w of shuffle(rng, TOUR_KIT).slice(0, 2)) {
+            const l = await wish(g, rng, w);
+            if (l) await typeCmd(g, rng, /amulet|ring/.test(w) ? 'P' : /Mjollnir/.test(w) ? 'w' : 'W', { letter: l });
+        }
+        await untilFull(g, rng, async () => {
+            await levelport(g, rng, 2 + Math.floor(rng() * 20));
+            await mapLevel(g, rng);
+            const v = findVault(g.s);
+            if (!v) { if (chance(rng, 0.3)) await ordinary(g, rng, 2); return; }
+            if (!await teleportTo(g, rng, v.x + Math.floor(rng() * 2), v.y + Math.floor(rng() * 2))) return;
+            await typeCmd(g, rng, ',', { menuPick: true });
+            await vaultGuard(g, rng);
+            if (chance(rng, 0.5)) await ordinary(g, rng, 2 + Math.floor(rng() * 4));
         });
         break;
     }

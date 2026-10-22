@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 helm of telepathy\nWg\u001615\n\u0006#terrain\n\u001bK\u001621\n\u0006\u0014 \u001b@LLJlljj. ,10s10s10sss20s Musashi\n  s\\    <r\u001b\\    \u001613\n\u0006\u0014@LLJllllljjjj. ,10s10s10s Creosote\nd$\u00167\n\u0006\u001614\n\u0006\u0014@HJhhhhhhhjjj. ,20s Musashi\n  Fh FhFhFhcjckck\u00169\n\u0006;m.#ride\nyy\u00162\n\u0006\u001611\n\u0006\u00166\n\u0006\u0018\u001b#name\n\u001b\u00166\n\u0006\u00167\n\u000610s#rub\n\u001614\n\u0006#turn\ntdj\u00163\n\u0006n\u0014,\u00167\n\u0006#invoke\n\u001bk\u001612\n    \u0006a\u001b;.\u001618\n\u0006\u00164\n\u0006\u00165\n\u0006wcb\u001613\n\u0006\u0014@LLLLLLLJlljjj. ,10s10s10s20s Musashi\n  hsjshhhssslyubysn buy  nyssssj   nssssssssl   nssh  nss\u0018\u001b\u0014:   n\u00165\n\u00162\n \u0006#pray\ny y s\u001612"
+ },
+ "segments": [
+  {
+   "seed": 53456051,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=runmode:crawl\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 helm of telepathy\nWg\u001615\n\u0006#terrain\n\u001bK\u001621\n\u0006\u0014 \u001b@LLJlljj. ,10s10s10sss20s Musashi\n  s\\    <r\u001b\\    \u001613\n\u0006\u0014@LLJllllljjjj. ,10s10s10s Creosote\nd$\u00167\n\u0006\u001614\n\u0006\u0014@HJhhhhhhhjjj. ,20s Musashi\n  Fh FhFhFhcjckck\u00169\n\u0006;m.#ride\nyy\u00162\n\u0006\u001611\n\u0006\u00166\n\u0006\u0018\u001b#name\n\u001b\u00166\n\u0006\u00167\n\u000610s#rub\n\u001614\n\u0006#turn\ntdj\u00163\n\u0006n\u0014,\u00167\n\u0006#invoke\n\u001bk\u001612\n    \u0006a\u001b;.\u001618\n\u0006\u00164\n\u0006\u00165\n\u0006wcb\u001613\n\u0006\u0014@LLLLLLLJlljjj. ,10s10s10s20s Musashi\n  hsjshhhssslyubysn buy  nyssssj   nssssssssl   nssh  nss\u0018\u001b\u0014:   n\u00165\n\u00162\n \u0006#pray\ny y s\u001612"
+  }
+ ]
+}

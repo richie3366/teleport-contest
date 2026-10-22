@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWi\u0017blessed amulet of reflection\nPj\u001614\n\u0006\u0004ny  :\u001616\n    \u0006\u0014 \u001b@HHHhhhhhhhjj. ,20sss20s10s Indiana\n  lssyssssssusysyuhlsbssssk  nshhn  nsbsssssssss#twoweapon\nZ\u00168\n\u001616\n \u0006\u0014@HHHHHHHhhk.    n,   ns10s  10s10ss20ss10sn \u00166\n\u001613\n\u0006\u0014@LLLLlllllll.   ,Croesus\n  \u0014m. ed \\ \u000f\u001b#enhance\nyj\ni\n\u001bae  y \u001620\n\u0006\u001619\n\u0006\u0014@LLlllkk. ,20sss20s10s Indiana\n  \u0014;\u00168\n\u0006\u00167\n\u0006\u001610\n\u0006ag$#turn\n\u00166\n\u0006\u001616\n \u0006\u0014@Jhjj.   n,10s  s10s20s10s10ss20sn \\ t$k  n;j.\u00167\n\u001617\n \u0006\u00169\n\u0006#enhance\nyc\nb\n\u001bL\u001615\n  \u0006\u001616\n \u0006\u0014@Jhhhhjjj.   n,10s  sss10s10s20s10sn #turn\nW<\u00162\n\u001620\n\u0006\u001617\n\u0006\u00162\n\u0006\u001612\n\u0006:s\u00169\n\u0006\u001614\n\u0006\u001620\n\u0006\u001621\n\u0006\u0014@Jjjj. ,20s20s20s Indiana\n  \u001619\n\u0006\u001618\n\u0006cl:\u001615\n\u0006\u001611\n\u0006#untrap\nb#name\nf\n\u0016\u0006Z#force\n\u001618\n\u0006#t"
+ },
+ "segments": [
+  {
+   "seed": 53456014,
+   "datetime": "20150805021736",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWi\u0017blessed amulet of reflection\nPj\u001614\n\u0006\u0004ny  :\u001616\n    \u0006\u0014 \u001b@HHHhhhhhhhjj. ,20sss20s10s Indiana\n  lssyssssssusysyuhlsbssssk  nshhn  nsbsssssssss#twoweapon\nZ\u00168\n\u001616\n \u0006\u0014@HHHHHHHhhk.    n,   ns10s  10s10ss20ss10sn \u00166\n\u001613\n\u0006\u0014@LLLLlllllll.   ,Croesus\n  \u0014m. ed \\ \u000f\u001b#enhance\nyj\ni\n\u001bae  y \u001620\n\u0006\u001619\n\u0006\u0014@LLlllkk. ,20sss20s10s Indiana\n  \u0014;\u00168\n\u0006\u00167\n\u0006\u001610\n\u0006ag$#turn\n\u00166\n\u0006\u001616\n \u0006\u0014@Jhjj.   n,10s  s10s20s10s10ss20sn \\ t$k  n;j.\u00167\n\u001617\n \u0006\u00169\n\u0006#enhance\nyc\nb\n\u001bL\u001615\n  \u0006\u001616\n \u0006\u0014@Jhhhhjjj.   n,10s  sss10s10s20s10sn #turn\nW<\u00162\n\u001620\n\u0006\u001617\n\u0006\u00162\n\u0006\u001612\n\u0006:s\u00169\n\u0006\u001614\n\u0006\u001620\n\u0006\u001621\n\u0006\u0014@Jjjj. ,20s20s20s Indiana\n  \u001619\n\u0006\u001618\n\u0006cl:\u001615\n\u0006\u001611\n\u0006#untrap\nb#name\nf\n\u0016\u0006Z#force\n\u001618\n\u0006#t"
+  }
+ ]
+}

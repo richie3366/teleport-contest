@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of reflection\nPi\u0017blessed +3 silver dragon scale mail\nW\u001b\u00167\n\u0006\u001611\n\u0006\u001619\n\u0006\u0014 \u001b@HHHHJhhhhjjjjj. ,ss10sss20s  Kroisos\nd$\u001620\n\u0006\u001612\n\u0006aeldc\u00164\n  \u0006\u0014@Jhhhjjj. ,20s robin\n  d$susulsusususu   \u001610\n\u0006\u001620\n\u0006\u001619\n\u0006\u0014@HHHHHHhhhjjjjjj. ,10s10s20s robin\n  #pray\ny y #offer\n\u0004k\u00168\n\u0006\u00168\n\u0006qd  #chat\nu\u00162\n\u0006\u00164\n   \u0006\u001616\n \u0006#loot\ntbk\u00167\n\u0006\u001618\n\u0006\u0014@LLJljjjjj. ,ss20s20s Creosote\nd$\u001611\n\u0006\u001614\n    \u0006\u001615\n\u0006\u00169\n\u0006olcl\u001619\n\u0006#enhance\nyo\ni\n\u001bcj\u001615\n\u0006#sit\n\u001btbj\u00162\n\u0006#pray\ny y #pray\ny y \u00165\n\u0006\u00167\n \u0006\u001617\n\u0006\u0014@HJhhhhhj. ,ss20s20s nobody\n  \u001612\n\u0006\u00162\n\u0006\u00167\n\u0006\u00167\n\u0006#terrain\n\u001b,\u001613\n\u0006Z#untrap\nj\u00168\n\u0006\u001611\n\u0006\u001612\n\u0006\u00167\n\u0006\u00166\n\u0006\u001613\n\u0006\u00162\n  \u0006#monster\n#terrain\n\u001b\u001611\n\u0006\u001618\n\u0006\u0014@LLJllllljjjjj. ,10s20s \u001b  jyny sssysysyl  nussssssysssusssssussksssuksE- Elbereth\n  n_<.  n20s  n \u001611\n\u001613\n\u0006\u001619\n\u0006\u001611\n\u0006\u00165\n\u0006\\  wa\u001618\n\u0006\u0014@LL.    n,10s  s20sss10s20s10sn <#pray\ny y    ,chw-  n \u001612\n\u001612\n\u0006E- X marks the spot\n wa \u001617\n\u0006#dip\nf#chat\nl\u001617\n\u0006#jump\naf\u001b\u00165\n\u0006\u001611\n\u0006\u00163\n\u0006\u0014@LL"
+ },
+ "segments": [
+  {
+   "seed": 53456077,
+   "datetime": "20091015225029",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of reflection\nPi\u0017blessed +3 silver dragon scale mail\nW\u001b\u00167\n\u0006\u001611\n\u0006\u001619\n\u0006\u0014 \u001b@HHHHJhhhhjjjjj. ,ss10sss20s  Kroisos\nd$\u001620\n\u0006\u001612\n\u0006aeldc\u00164\n  \u0006\u0014@Jhhhjjj. ,20s robin\n  d$susulsusususu   \u001610\n\u0006\u001620\n\u0006\u001619\n\u0006\u0014@HHHHHHhhhjjjjjj. ,10s10s20s robin\n  #pray\ny y #offer\n\u0004k\u00168\n\u0006\u00168\n\u0006qd  #chat\nu\u00162\n\u0006\u00164\n   \u0006\u001616\n \u0006#loot\ntbk\u00167\n\u0006\u001618\n\u0006\u0014@LLJljjjjj. ,ss20s20s Creosote\nd$\u001611\n\u0006\u001614\n    \u0006\u001615\n\u0006\u00169\n\u0006olcl\u001619\n\u0006#enhance\nyo\ni\n\u001bcj\u001615\n\u0006#sit\n\u001btbj\u00162\n\u0006#pray\ny y #pray\ny y \u00165\n\u0006\u00167\n \u0006\u001617\n\u0006\u0014@HJhhhhhj. ,ss20s20s nobody\n  \u001612\n\u0006\u00162\n\u0006\u00167\n\u0006\u00167\n\u0006#terrain\n\u001b,\u001613\n\u0006Z#untrap\nj\u00168\n\u0006\u001611\n\u0006\u001612\n\u0006\u00167\n\u0006\u00166\n\u0006\u001613\n\u0006\u00162\n  \u0006#monster\n#terrain\n\u001b\u001611\n\u0006\u001618\n\u0006\u0014@LLJllllljjjjj. ,10s20s \u001b  jyny sssysysyl  nussssssysssusssssussksssuksE- Elbereth\n  n_<.  n20s  n \u001611\n\u001613\n\u0006\u001619\n\u0006\u001611\n\u0006\u00165\n\u0006\\  wa\u001618\n\u0006\u0014@LL.    n,10s  s20sss10s20s10sn <#pray\ny y    ,chw-  n \u001612\n\u001612\n\u0006E- X marks the spot\n wa \u001617\n\u0006#dip\nf#chat\nl\u001617\n\u0006#jump\naf\u001b\u00165\n\u0006\u001611\n\u0006\u00163\n\u0006\u0014@LL"
+  }
+ ]
+}

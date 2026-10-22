@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nWl\u0017blessed amulet of life saving\nPm \u001610\n\u0006\u001616\n\u0006\u00169\n\u0006\u001615\n     \u0006\u0014 \u001b@LLLLLllkkkkkkk. ,20s10s Kroisos\n#pray\ny y E- Elbereth Elbereth\n#monster\n\u001616\n\u0006E- Elbereth\n#untrap\ny\u00164\n\u0006\u0014@LLLLllllllkk. ,sssss10s20s Creosote\nd$#name\nm\nE\u0014@.h\u001614\n\u0006\u0014@LLL.,20s  20ss20s20s10s20s10s   #jump\n#enhance\nyh\nl\n\u001b,\\ \u00165\n \u0006\u00165\n\u0006\u001621\n \u0006\u001619\n\u0006eb #offer\n\u00162\n \u0006\u00165\n\u0006\u001620\n\u0006\u00168\n\u0006\u0014@Llllkkkkk. ,10s20ss10s20s Fred\n  s20s  20ssn.m.  n.k \u00166\n\u0006\u0014@LLlllllk. ,20s Fred\n  d$yyshsysyyys      #loot\n   ck  \u00164\n\u0006\u0014@LLLLLkkk.,10s20s Touristo\n\u0017wand of digging\nzokynlh\u00165\n\u0006\u00165\n\u0006\u001616\n\u0006zo.P\u001615\n \u0006\u0014@Klllkkkkk.,20s10s Touristo\n  d$bshsbbbsbsbsbsbsb      20s                                                           #turn\n   #ride\nny  \u001616\n\u0006\u00168\n\u0006\u0014@LLLLLLKlllll.   n,10ss10s  s20ss10s10sn ,#enhance\nyk\nq\n\u001b#tip\n\u001bj#loot\ny\u00162\n\u00168\n\u0006\u0014@LLLlllljj.   n,20s  10s20sss20ss20sn \u001614\n  \u0006\u0014@Jjjjj. ,ss20s10s10ss10s20s #offer\n#ride\nky#dip\nag\u001613\n \u0006\u00169\n"
+ },
+ "segments": [
+  {
+   "seed": 53456001,
+   "datetime": "20030623140941",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nWl\u0017blessed amulet of life saving\nPm \u001610\n\u0006\u001616\n\u0006\u00169\n\u0006\u001615\n     \u0006\u0014 \u001b@LLLLLllkkkkkkk. ,20s10s Kroisos\n#pray\ny y E- Elbereth Elbereth\n#monster\n\u001616\n\u0006E- Elbereth\n#untrap\ny\u00164\n\u0006\u0014@LLLLllllllkk. ,sssss10s20s Creosote\nd$#name\nm\nE\u0014@.h\u001614\n\u0006\u0014@LLL.,20s  20ss20s20s10s20s10s   #jump\n#enhance\nyh\nl\n\u001b,\\ \u00165\n \u0006\u00165\n\u0006\u001621\n \u0006\u001619\n\u0006eb #offer\n\u00162\n \u0006\u00165\n\u0006\u001620\n\u0006\u00168\n\u0006\u0014@Llllkkkkk. ,10s20ss10s20s Fred\n  s20s  20ssn.m.  n.k \u00166\n\u0006\u0014@LLlllllk. ,20s Fred\n  d$yyshsysyyys      #loot\n   ck  \u00164\n\u0006\u0014@LLLLLkkk.,10s20s Touristo\n\u0017wand of digging\nzokynlh\u00165\n\u0006\u00165\n\u0006\u001616\n\u0006zo.P\u001615\n \u0006\u0014@Klllkkkkk.,20s10s Touristo\n  d$bshsbbbsbsbsbsbsb      20s                                                           #turn\n   #ride\nny  \u001616\n\u0006\u00168\n\u0006\u0014@LLLLLLKlllll.   n,10ss10s  s20ss10s10sn ,#enhance\nyk\nq\n\u001b#tip\n\u001bj#loot\ny\u00162\n\u00168\n\u0006\u0014@LLLlllljj.   n,20s  10s20sss20ss20sn \u001614\n  \u0006\u0014@Jjjjj. ,ss20s10s10ss10s20s #offer\n#ride\nky#dip\nag\u001613\n \u0006\u00169\n"
+  }
+ ]
+}

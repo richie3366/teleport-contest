@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed amulet of reflection\nPf\u0017blessed ring of free action\nPgl\u001610\n\u0006#twoweapon\n\u0004u\u001612\n\u0006#dip\ng>\u001621\n\u0006\u00168\n\u0006Z#monster\n\u00165\n\u0006\u001619\n\u0006\u00169\n\u0006\u00162\n\u0006#enhance\nyr\nn\n\u001bZ\u00168\n\u0006\u001614\n\u0006\u001611\n\u0006\u00165\n\u0006\u001619\n\u0006\u00165\n\u0006\u00162\n\u0006\u00164\n\u0006\u0014 \u001b@LLLLllllkkkkkk. ,10s10s10s10s Musashi\n  d$hysch#rub\nW\u00165\n\u0006\u00162\n\u0006\u001621\n\u0006#jump\n#offer\n\u00165\n\u0006\u001612\n\u0006\u00168\n\u0006\u001613\n\u0006ol#ride\nky\u001616\n\u0006\u001615\n     \u0006\u00166\n\u0006\u001613\n\u0006\u00168\n\u0006\u001620\n\u0006\u00165\n\u0006kE- Elbereth Elbereth\n\u001611\n\u000620s_m,sb\u001619\n\u0006\u00162\n\u0006\u00168\n\u0006\u001611\n\u0006\u001614\n\u0006\u001615\n \u0006\u001616\n\u0006#sit\n\u001bz\u00162\n\u0006\u001612\n\u0006#terrain\nc\n;>\u001611\n\u0006\u00167\n\u0006\u00166\n\u0006Z#jump\n\u001619\n\u0006\u001621\n\u0006\u001619\n\u0006\u001611\n\u0006\u001617\n\u0006\u0014@LLJljjj. ,10s10sss20s Musashi\n  d$s\u001613\n\u0006\u001611\n\u0006<#invoke\n\u001b\u00168\n\u0006#chat\nk#wipe\n\u00168\n\u0006\u001616\n\u0006\u001616\n\u0006\u001615\n \u0006\u00169\n\u0006\u00164\n\u0006\u00164\n\u0006\u001615\n \u0006\u001613\n\u0006\u001620\n\u0006<#tip\n\u001b\u00164\n\u0006\u001613\n\u0006\u001618\n\u0006z#force\n\u001621\n\u0006Zi\u001b\u001616\n\u0006\u001617\n\u0006\u001612\n\u0006>\u000f\u001b\u00164\n\u0006>s\u00168\n\u0006\u001612\n\u0006<r\u001b\u00162\n  \u0006\u001620\n\u0006\u001621\n\u0006\u00163\n\u0006\u00166\n\u0006\u001614\n\u0006#rub\nwc \u001620\n\u0006\u00169\n\u0006\u001612\n\u0006"
+ },
+ "segments": [
+  {
+   "seed": 53456035,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed amulet of reflection\nPf\u0017blessed ring of free action\nPgl\u001610\n\u0006#twoweapon\n\u0004u\u001612\n\u0006#dip\ng>\u001621\n\u0006\u00168\n\u0006Z#monster\n\u00165\n\u0006\u001619\n\u0006\u00169\n\u0006\u00162\n\u0006#enhance\nyr\nn\n\u001bZ\u00168\n\u0006\u001614\n\u0006\u001611\n\u0006\u00165\n\u0006\u001619\n\u0006\u00165\n\u0006\u00162\n\u0006\u00164\n\u0006\u0014 \u001b@LLLLllllkkkkkk. ,10s10s10s10s Musashi\n  d$hysch#rub\nW\u00165\n\u0006\u00162\n\u0006\u001621\n\u0006#jump\n#offer\n\u00165\n\u0006\u001612\n\u0006\u00168\n\u0006\u001613\n\u0006ol#ride\nky\u001616\n\u0006\u001615\n     \u0006\u00166\n\u0006\u001613\n\u0006\u00168\n\u0006\u001620\n\u0006\u00165\n\u0006kE- Elbereth Elbereth\n\u001611\n\u000620s_m,sb\u001619\n\u0006\u00162\n\u0006\u00168\n\u0006\u001611\n\u0006\u001614\n\u0006\u001615\n \u0006\u001616\n\u0006#sit\n\u001bz\u00162\n\u0006\u001612\n\u0006#terrain\nc\n;>\u001611\n\u0006\u00167\n\u0006\u00166\n\u0006Z#jump\n\u001619\n\u0006\u001621\n\u0006\u001619\n\u0006\u001611\n\u0006\u001617\n\u0006\u0014@LLJljjj. ,10s10sss20s Musashi\n  d$s\u001613\n\u0006\u001611\n\u0006<#invoke\n\u001b\u00168\n\u0006#chat\nk#wipe\n\u00168\n\u0006\u001616\n\u0006\u001616\n\u0006\u001615\n \u0006\u00169\n\u0006\u00164\n\u0006\u00164\n\u0006\u001615\n \u0006\u001613\n\u0006\u001620\n\u0006<#tip\n\u001b\u00164\n\u0006\u001613\n\u0006\u001618\n\u0006z#force\n\u001621\n\u0006Zi\u001b\u001616\n\u0006\u001617\n\u0006\u001612\n\u0006>\u000f\u001b\u00164\n\u0006>s\u00168\n\u0006\u001612\n\u0006<r\u001b\u00162\n  \u0006\u001620\n\u0006\u001621\n\u0006\u00163\n\u0006\u00166\n\u0006\u001614\n\u0006#rub\nwc \u001620\n\u0006\u00169\n\u0006\u001612\n\u0006"
+  }
+ ]
+}

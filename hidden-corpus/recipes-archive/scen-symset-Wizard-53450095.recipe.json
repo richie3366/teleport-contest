@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0007kitten\n\u0017banana\nt\u001by\u0017leash\napy uhnkaphb#name\nm\n :#name\nm\n\u0007\u0017apple\nt\u001b\u0007tame winter wolf cub\n\u0017leash\nark jbnbarh#chat\nu#name\ni\n\u0007newt\n\u0017scroll of taming\nrs \u0006_>>.Fk_,> FjFuFlFnFjFjFjFyFuFnFkFyFnFyFnFnFbFkFhFlFkFbFuFhFkFhFhFyFjFuFkFkFhFhFlFuFjFkFhFuFjFuFjFbFbFjFyFlFuFjFuFuFkFbFbFhFkFbFlFkFlFjFkFlFnFjFhFuFlFjFlFjFhFhFjFyFnFkFhFbFuFnFuFhFbFhFkFbFyFkFlFyFnFbFkFbFyFlFbFnFlFuFuFbFjFhFyFbFlFbFjFyFjFuFyFnFyFlFbFj\u0006_>.Fb_,Fk>FbFu_>.Fn_,Fu>FbFj_>,Fy_.Fj>FyFjFhFb Fj \u0006_>.  nFy_.>.Fk>Fj Fb _>.  n Fb _,Fl>FnFb_>.Fl_.> FhFyFj#sit\n#wipe\n\u0006_>.Fh_.<.Fj>FjFk_>.Fh_,:Fu>FkFh_>.Fh_..Fl>FhFjFyFkFu\u0006_>.Fb_,<.Fl>FlFj_>.Fy_.m, Fh>FjFn_>.Fl_,>.Fb"
+ },
+ "segments": [
+  {
+   "seed": 53450095,
+   "datetime": "20140131205431",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\nMENUCOLOR=\"a potion\"=cyan\nBIND=v:inventory\n",
+   "moves": " \u0007kitten\n\u0017banana\nt\u001by\u0017leash\napy uhnkaphb#name\nm\n :#name\nm\n\u0007\u0017apple\nt\u001b\u0007tame winter wolf cub\n\u0017leash\nark jbnbarh#chat\nu#name\ni\n\u0007newt\n\u0017scroll of taming\nrs \u0006_>>.Fk_,> FjFuFlFnFjFjFjFyFuFnFkFyFnFyFnFnFbFkFhFlFkFbFuFhFkFhFhFyFjFuFkFkFhFhFlFuFjFkFhFuFjFuFjFbFbFjFyFlFuFjFuFuFkFbFbFhFkFbFlFkFlFjFkFlFnFjFhFuFlFjFlFjFhFhFjFyFnFkFhFbFuFnFuFhFbFhFkFbFyFkFlFyFnFbFkFbFyFlFbFnFlFuFuFbFjFhFyFbFlFbFjFyFjFuFyFnFyFlFbFj\u0006_>.Fb_,Fk>FbFu_>.Fn_,Fu>FbFj_>,Fy_.Fj>FyFjFhFb Fj \u0006_>.  nFy_.>.Fk>Fj Fb _>.  n Fb _,Fl>FnFb_>.Fl_.> FhFyFj#sit\n#wipe\n\u0006_>.Fh_.<.Fj>FjFk_>.Fh_,:Fu>FkFh_>.Fh_..Fl>FhFjFyFkFu\u0006_>.Fb_,<.Fl>FlFj_>.Fy_.m, Fh>FjFn_>.Fl_,>.Fb"
+  }
+ ]
+}

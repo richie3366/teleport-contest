@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed Mjollnir\nwf\u0017blessed +3 silver dragon scale mail\nW\u001b\u001611\n\u0006\u001619\n\u0006\u0018\u001bW\u001b\u001620\n\u0006\u001610\n\u0006\u001617\n \u0006\u001621\n\u0006\u001612\n\u0006\u0014 \u001b@HHHHHhhhhhhhjj.  ,s20s10s10s10s  10s10ssn__,.m.#wipe\n#tip\n\u001b#wipe\n \u001620\n\u0006#dip\nb#dip\nc\u00169\n\u0006\u001618\n\u0006\u0014@LLLLLLLLllllllljjjjjjj. ,10s10s20s \u001b  d$bsq\\ #rub\ncg\u000f\u001b\u00162\n\u0006\u00168\n\u0006#jump\n#sit\n\u001b\u001621\n\u0006\u001620\n\u0006\u00169\n\u0006qe\u00162\n\u0006\u001611\n\u0006z#rub\ncc\u00164\n\u0006\u0014@Khhkkk. ,20s10s Grok\n  d$h\u001614\n\u0006\u0014@LLLlkk. ,20s Grok\n  \u0014,df#conduct\n 10s   \u001617\n\u0006\u00164\n\u0006\u001612\n\u0006\u0014@HHKk. ,20s \u001b  d$ly  \u00167\n\u0006\u001611\n\u0006\u001613\n\u0006w-20s \u00166\n\u0006:;>.\u00165\n\u0006\u00168\n\u0006Z_>.20s   \u001613\n\u0006\u001613\n\u0006\u00167\n\u0006s>\u001620\n\u0006\u000f\u001b#loot\n\u00164\n\u0006W\u001b;<.\u00164\n\u0006#terrain\n\u001bs\u001617\n\u0006#pray\ny y #rub\ncg\u00169\n\u0006\u001610\n\u0006\u00166\n\u0006\u00162\n\u0006\u001614\n\u0006\u001612\n\u0006\u00168\n\u0006\u00168\n\u0006\u001621\n\u0006\u00163\n\u0006\u001613\n\u0006;_.#conduct\n \u001618\n\u0006\u001610\n\u0006\u001610\n\u0006\u001616\n\u0006\u001618\n\u0006\u00166\n\u0006#twoweapon\n_<,s\u00166\n\u0006#chat\nk#wipe\n\u001615\n\u0006\u00163\n\u0006\u001610\n\u0006\u00161"
+ },
+ "segments": [
+  {
+   "seed": 53456053,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed Mjollnir\nwf\u0017blessed +3 silver dragon scale mail\nW\u001b\u001611\n\u0006\u001619\n\u0006\u0018\u001bW\u001b\u001620\n\u0006\u001610\n\u0006\u001617\n \u0006\u001621\n\u0006\u001612\n\u0006\u0014 \u001b@HHHHHhhhhhhhjj.  ,s20s10s10s10s  10s10ssn__,.m.#wipe\n#tip\n\u001b#wipe\n \u001620\n\u0006#dip\nb#dip\nc\u00169\n\u0006\u001618\n\u0006\u0014@LLLLLLLLllllllljjjjjjj. ,10s10s20s \u001b  d$bsq\\ #rub\ncg\u000f\u001b\u00162\n\u0006\u00168\n\u0006#jump\n#sit\n\u001b\u001621\n\u0006\u001620\n\u0006\u00169\n\u0006qe\u00162\n\u0006\u001611\n\u0006z#rub\ncc\u00164\n\u0006\u0014@Khhkkk. ,20s10s Grok\n  d$h\u001614\n\u0006\u0014@LLLlkk. ,20s Grok\n  \u0014,df#conduct\n 10s   \u001617\n\u0006\u00164\n\u0006\u001612\n\u0006\u0014@HHKk. ,20s \u001b  d$ly  \u00167\n\u0006\u001611\n\u0006\u001613\n\u0006w-20s \u00166\n\u0006:;>.\u00165\n\u0006\u00168\n\u0006Z_>.20s   \u001613\n\u0006\u001613\n\u0006\u00167\n\u0006s>\u001620\n\u0006\u000f\u001b#loot\n\u00164\n\u0006W\u001b;<.\u00164\n\u0006#terrain\n\u001bs\u001617\n\u0006#pray\ny y #rub\ncg\u00169\n\u0006\u001610\n\u0006\u00166\n\u0006\u00162\n\u0006\u001614\n\u0006\u001612\n\u0006\u00168\n\u0006\u00168\n\u0006\u001621\n\u0006\u00163\n\u0006\u001613\n\u0006;_.#conduct\n \u001618\n\u0006\u001610\n\u0006\u001610\n\u0006\u001616\n\u0006\u001618\n\u0006\u00166\n\u0006#twoweapon\n_<,s\u00166\n\u0006#chat\nk#wipe\n\u001615\n\u0006\u00163\n\u0006\u001610\n\u0006\u00161"
+  }
+ ]
+}

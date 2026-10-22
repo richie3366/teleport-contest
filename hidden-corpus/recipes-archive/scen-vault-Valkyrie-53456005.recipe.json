@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u00164\n\u0006\u0014 \u001b@LLLLLLKkkkkkk. ,s20s20s Astrid\n  \u0014,tbyi\u001b\u001618\n\u0006\u001611\n\u0006\u0014@LLKllllkkkkkk. ,10s Astrid\n  ss ssss\u00168\n\u0006#turn\n\\   \u001616\n \u0006\u00169\n\u0006\u0014@Llllllljj. ,ss10s Astrid\n  \u0017wand of digging\nzehhlbh #offer\n#force\nZj#force\n\u001618\n\u0006\u001619\n \u0006#terrain\n\u001b20s\u00163\n \u0006\u0014@HHHHhjjjjjj. ,10s10s10s Croesus\nd$\u00163\n\u0006\u0014@l. ,10s10s Creosote\n\u00165\n\u0006\u001612\n    \u0006\u001612\n\u0006\u001621\n\u0006\u00163\n\u0006\u0014@LLLJllllllljjj. ,10s10s Astrid\n  20s   sm.  nsj  nsm.  nsm.  nsm.>cj\u001611\n\u001610\n\u0006\u0014@HHhhhhhhh.   ,Astrid\n  sjnsusnsbsynsnsssjuly   nssyssssj  nsksssysj  nbku\u00164\n\u001618\n\u0006\u001617\n\u0006\u00164\n\u0006#jump\n#conduct\n \u001618\n\u0006\u001611\n\u0006\u001621\n\u0006\u00167\n\u0006\u0014@HHJhh"
+ },
+ "segments": [
+  {
+   "seed": 53456005,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u00164\n\u0006\u0014 \u001b@LLLLLLKkkkkkk. ,s20s20s Astrid\n  \u0014,tbyi\u001b\u001618\n\u0006\u001611\n\u0006\u0014@LLKllllkkkkkk. ,10s Astrid\n  ss ssss\u00168\n\u0006#turn\n\\   \u001616\n \u0006\u00169\n\u0006\u0014@Llllllljj. ,ss10s Astrid\n  \u0017wand of digging\nzehhlbh #offer\n#force\nZj#force\n\u001618\n\u0006\u001619\n \u0006#terrain\n\u001b20s\u00163\n \u0006\u0014@HHHHhjjjjjj. ,10s10s10s Croesus\nd$\u00163\n\u0006\u0014@l. ,10s10s Creosote\n\u00165\n\u0006\u001612\n    \u0006\u001612\n\u0006\u001621\n\u0006\u00163\n\u0006\u0014@LLLJllllllljjj. ,10s10s Astrid\n  20s   sm.  nsj  nsm.  nsm.  nsm.>cj\u001611\n\u001610\n\u0006\u0014@HHhhhhhhh.   ,Astrid\n  sjnsusnsbsynsnsssjuly   nssyssssj  nsksssysj  nbku\u00164\n\u001618\n\u0006\u001617\n\u0006\u00164\n\u0006#jump\n#conduct\n \u001618\n\u0006\u001611\n\u0006\u001621\n\u0006\u00167\n\u0006\u0014@HHJhh"
+  }
+ ]
+}

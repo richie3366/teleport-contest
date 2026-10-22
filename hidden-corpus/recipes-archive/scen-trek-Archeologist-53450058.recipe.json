@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " FlFl sFj.s50si\u001b50s50sFlFlFl150s50s_ \u001b,>50sFjFj.100s100s50sFlss50s_>.>100s100sFl.20s50sbby100sFlFls#enhance\n\u001b\u0018\u001b50s100sFl20s.jkn_>.>#turn\n50s50sFkFk20si\u001b150s_>.>w-qlW100s#terrain\n\u001b#enhance\n\u001b100sbubFjFj FjFkFkFk150s100s50sFlFlFlFlss\u000f\u001b\u0018\u001bkjk150s100s _>,>_>,>50s100sFl20sFnFjFnFjFnFjs100s150sFlFlFlFlFls50si\u001bhju50sFlFlFl50s100s50sFjFkFkFkFkFkjll100sed50s100s150sFjFjFjFjFj s50s50s#rub\ng\u001b150sFuFuFkFkFkFuFuFuskhn150s_>.>150sFhFhFhFhFhsi\u001b_>,>\u000f\u001byuni\u001b100s100sFbFbFbjhk150shhb\u0018\u001b\\ _>.>i\u001b\u0018\u001bulkFnFnFn50si\u001b\\ UHUH_>,>BYLL_>.>E- I am a fish\nedLBJU _>.>f a u#jump\nHBNJ_>.>#monster\nqYNBN_>.>#pray\ny  jJKHJ_>.>\u000f\u001b#pray\ny #ride\nb20s50sFkFkFkFuFuFkFuFuFuFuFuFuFuFuFuFuFuFu#pray\ny  #pray\ny  #pray\ny  #pray\ny    y\u001by  y y y\u001b  1"
+ },
+ "segments": [
+  {
+   "seed": 53450058,
+   "datetime": "20001209025953",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\n",
+   "moves": " FlFl sFj.s50si\u001b50s50sFlFlFl150s50s_ \u001b,>50sFjFj.100s100s50sFlss50s_>.>100s100sFl.20s50sbby100sFlFls#enhance\n\u001b\u0018\u001b50s100sFl20s.jkn_>.>#turn\n50s50sFkFk20si\u001b150s_>.>w-qlW100s#terrain\n\u001b#enhance\n\u001b100sbubFjFj FjFkFkFk150s100s50sFlFlFlFlss\u000f\u001b\u0018\u001bkjk150s100s _>,>_>,>50s100sFl20sFnFjFnFjFnFjs100s150sFlFlFlFlFls50si\u001bhju50sFlFlFl50s100s50sFjFkFkFkFkFkjll100sed50s100s150sFjFjFjFjFj s50s50s#rub\ng\u001b150sFuFuFkFkFkFuFuFuskhn150s_>.>150sFhFhFhFhFhsi\u001b_>,>\u000f\u001byuni\u001b100s100sFbFbFbjhk150shhb\u0018\u001b\\ _>.>i\u001b\u0018\u001bulkFnFnFn50si\u001b\\ UHUH_>,>BYLL_>.>E- I am a fish\nedLBJU _>.>f a u#jump\nHBNJ_>.>#monster\nqYNBN_>.>#pray\ny  jJKHJ_>.>\u000f\u001b#pray\ny #ride\nb20s50sFkFkFkFuFuFkFuFuFuFuFuFuFuFuFuFuFuFu#pray\ny  #pray\ny  #pray\ny  #pray\ny    y\u001by  y y y\u001b  1"
+  }
+ ]
+}

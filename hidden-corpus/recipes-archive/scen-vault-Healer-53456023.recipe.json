@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\nwl\u0017blessed +3 speed boots\nWm \u00168\n\u0006\u0014 \u001b@hhhhhhjjjjjjj. ,20sss20s20s Croesus\nd$ni\u001b;.Za\nE- I am a fish\n\u001614\n\u0006\u001613\n\u0006\u0014@Llllllllj. ,10ss10s Fred\n  ssbsshsjkyssusk   nssssj  nssny  ,#wipe\n\u00167\n\u001610\n\u0006\u00166\n\u0006\u00168\n\u0006\u001615\n\u0006;.#dip\nie\u001620\n\u0006i\u001b,\u001613\n\u0006;m,k\u00167\n\u0006\u00162\n\u0006\u00167\n\u0006\u00162\n\u0006\u00162\n\u0006\u001618\n\u0006\u001611\n\u0006Zk\u00168\n\u0006\u00167\n\u0006#terrain\n\u001b#loot\n\u00162\n\u0006#enhance\ny\u001b#twoweapon\n\u001611\n\u0006\u00169\n\u0006\u00162\n\u0006ckok\u00163\n\u0006zgb<\u00166\n\u0006\u001621\n\u0006\u001615\n\u0006\u001620\n\u0006sP\u001614\n\u0006\u00165\n\u0006>#sit\n\u001b\u00167\n\u0006\u001621\n\u0006\u001613\n\u0006\u00162\n\u0006\u001613\n\u0006#jump\n,\u00165\n\u0006\u001615\n\u0006\u00168\n\u0006\u00164\n\u0006\u00169\n\u0006\u0014m.\u0018\u001b\u00164\n\u0006\u00166\n\u0006\u00167\n\u0006\u001620\n\u0006\u00167\n\u0006\u00169\n\u0006\u001612\n\u0006\u00165\n\u0006\u00167\n\u0006#monster\nrh y \u00164\n\u0006\u00164\n\u0006#terrain\n\u001b#offer\n\u001611\n\u0006#conduct\n #jump\n\u00167\n\u0006Z\u001b#conduct\n \u00164\n\u0006\u001616\n\u0006\u001610\n\u0006\u00168\n\u0006\u00162\n\u0006>#untrap\nl\u001610\n\u0006#pray\ny y ri y \u00168\n\u0006oh#ride\nly\u001614\n\u0006\u001616\n\u0006\u001611\n\u0006Jcj\u00164\n\u0006\u001613\n\u0006\u00162\n\u0006\u00169\n\u0006\u00162\n\u0006\u00168\n\u0006\u001613\n\u0006#loot\n>\u00169\n\u0006qd#twowea"
+ },
+ "segments": [
+  {
+   "seed": 53456023,
+   "datetime": "20090403152804",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\nwl\u0017blessed +3 speed boots\nWm \u00168\n\u0006\u0014 \u001b@hhhhhhjjjjjjj. ,20sss20s20s Croesus\nd$ni\u001b;.Za\nE- I am a fish\n\u001614\n\u0006\u001613\n\u0006\u0014@Llllllllj. ,10ss10s Fred\n  ssbsshsjkyssusk   nssssj  nssny  ,#wipe\n\u00167\n\u001610\n\u0006\u00166\n\u0006\u00168\n\u0006\u001615\n\u0006;.#dip\nie\u001620\n\u0006i\u001b,\u001613\n\u0006;m,k\u00167\n\u0006\u00162\n\u0006\u00167\n\u0006\u00162\n\u0006\u00162\n\u0006\u001618\n\u0006\u001611\n\u0006Zk\u00168\n\u0006\u00167\n\u0006#terrain\n\u001b#loot\n\u00162\n\u0006#enhance\ny\u001b#twoweapon\n\u001611\n\u0006\u00169\n\u0006\u00162\n\u0006ckok\u00163\n\u0006zgb<\u00166\n\u0006\u001621\n\u0006\u001615\n\u0006\u001620\n\u0006sP\u001614\n\u0006\u00165\n\u0006>#sit\n\u001b\u00167\n\u0006\u001621\n\u0006\u001613\n\u0006\u00162\n\u0006\u001613\n\u0006#jump\n,\u00165\n\u0006\u001615\n\u0006\u00168\n\u0006\u00164\n\u0006\u00169\n\u0006\u0014m.\u0018\u001b\u00164\n\u0006\u00166\n\u0006\u00167\n\u0006\u001620\n\u0006\u00167\n\u0006\u00169\n\u0006\u001612\n\u0006\u00165\n\u0006\u00167\n\u0006#monster\nrh y \u00164\n\u0006\u00164\n\u0006#terrain\n\u001b#offer\n\u001611\n\u0006#conduct\n #jump\n\u00167\n\u0006Z\u001b#conduct\n \u00164\n\u0006\u001616\n\u0006\u001610\n\u0006\u00168\n\u0006\u00162\n\u0006>#untrap\nl\u001610\n\u0006#pray\ny y ri y \u00168\n\u0006oh#ride\nly\u001614\n\u0006\u001616\n\u0006\u001611\n\u0006Jcj\u00164\n\u0006\u001613\n\u0006\u00162\n\u0006\u00169\n\u0006\u00162\n\u0006\u00168\n\u0006\u001613\n\u0006#loot\n>\u00169\n\u0006qd#twowea"
+  }
+ ]
+}

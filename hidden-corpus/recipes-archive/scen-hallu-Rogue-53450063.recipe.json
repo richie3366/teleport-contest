@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWi\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed leash\n\u0017blessed amulet of life saving\nPl\u0017blessed +3 helm of telepathy\nWm\u0017blessed 20 daggers\n Qn#wizintrinsic\nh\n \u0017potion of oil\nqosm..u\u0007dwarf\nFlFlFlFl.ss;<. \u001b.E- Elbereth\n#pray\ny y \u0007acid blob\n\u0007sewer rat\nFhFyFy FlFh#wizintrinsic\nh\nfh fuflfh#invoke\n\u001b\u001b;.E- Elbereth Elbereth\n#chat\ny#pray\ny y tbl tby\u0017wand of sleep\nzpk         zplzpl#wizintrinsic\nh\n \u0017scroll of light\nrq\u0017floating eye corpse\ner fltnh fh fh \u0007gnome lord\n\u0007hobbit\nFlFk Fy FkFhFk;<.E-y Vlad was here\n#chat\ny#wizintrinsic\nh\n\u0017wand of striking\nzsuzsuzsl\u0017wand of teleportation\nztkztnzth\u0017scroll of enchant weapon\nru ;m.E-y Vlad was here\n#chat\nj#wizintrinsic\nh\ni\u001bkui\u001blhb\u0018\u001bkh\u0017wand of striking\nzvyzvlzvhzvjzvhzv.   \u0017blessed scroll of mail\nrw \u0017wand of digging\nzxlzxnzxk#wizintrinsic\nh\n\u0007gnome\n\u0007grid bug\nFkFbFb Fk\u0017scroll of teleportation\nry >.fbfbfb;m,E- Elbereth\n#chat\njfbfhf by nfk#invoke\n\u001b\u001b#wizintrinsic\nh\n;m.E-n  X marks the spot\nfbfhfkfh\u0017blessed spellbook of slow monster\nrAs"
+ },
+ "segments": [
+  {
+   "seed": 53450063,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWi\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed leash\n\u0017blessed amulet of life saving\nPl\u0017blessed +3 helm of telepathy\nWm\u0017blessed 20 daggers\n Qn#wizintrinsic\nh\n \u0017potion of oil\nqosm..u\u0007dwarf\nFlFlFlFl.ss;<. \u001b.E- Elbereth\n#pray\ny y \u0007acid blob\n\u0007sewer rat\nFhFyFy FlFh#wizintrinsic\nh\nfh fuflfh#invoke\n\u001b\u001b;.E- Elbereth Elbereth\n#chat\ny#pray\ny y tbl tby\u0017wand of sleep\nzpk         zplzpl#wizintrinsic\nh\n \u0017scroll of light\nrq\u0017floating eye corpse\ner fltnh fh fh \u0007gnome lord\n\u0007hobbit\nFlFk Fy FkFhFk;<.E-y Vlad was here\n#chat\ny#wizintrinsic\nh\n\u0017wand of striking\nzsuzsuzsl\u0017wand of teleportation\nztkztnzth\u0017scroll of enchant weapon\nru ;m.E-y Vlad was here\n#chat\nj#wizintrinsic\nh\ni\u001bkui\u001blhb\u0018\u001bkh\u0017wand of striking\nzvyzvlzvhzvjzvhzv.   \u0017blessed scroll of mail\nrw \u0017wand of digging\nzxlzxnzxk#wizintrinsic\nh\n\u0007gnome\n\u0007grid bug\nFkFbFb Fk\u0017scroll of teleportation\nry >.fbfbfb;m,E- Elbereth\n#chat\njfbfhf by nfk#invoke\n\u001b\u001b#wizintrinsic\nh\n;m.E-n  X marks the spot\nfbfhfkfh\u0017blessed spellbook of slow monster\nrAs"
+  }
+ ]
+}

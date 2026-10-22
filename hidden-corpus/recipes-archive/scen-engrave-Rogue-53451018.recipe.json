@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "bn\u0017wand of stasis\nEi I am a fish\n\u0017wand of magic missile\nEjn  Vlad was here\n: y\u0017wand of speed monster\nEk ad aerarium\n: \u0017diamond\nEl  ad aerarium\n: \u0017wand of death\nEm : E-\u0007minotaur\nsysls"
+ },
+ "segments": [
+  {
+   "seed": 53451018,
+   "datetime": "20010219004417",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "bn\u0017wand of stasis\nEi I am a fish\n\u0017wand of magic missile\nEjn  Vlad was here\n: y\u0017wand of speed monster\nEk ad aerarium\n: \u0017diamond\nEl  ad aerarium\n: \u0017wand of death\nEm : E-\u0007minotaur\nsysls"
+  }
+ ]
+}

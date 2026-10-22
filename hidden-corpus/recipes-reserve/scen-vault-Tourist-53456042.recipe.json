@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 helm of telepathy\nWm\u0017blessed +3 silver dragon scale mail\nWn  \u00163\n\u0006\u001613\n\u0006fbW\u001611\n\u0006\u00167\n\u0006\u001611\n\u0006\u00163\n\u0006\u001615\n\u0006\u0014 \u001b@HHHHHJjjjj.,20ss10sss20ss10s#monster\n#tip\n\u001b#dip\neh\u00167\n\u0006\u001619\n\u0006\u00165\n\u0006\u0014@LJllj. ,10s20s Touristo\n  FkFkFkFk\u001612\n\u0006\u0014@LLllllllk. ,s10s Touristo\n  d$kkkkkkk      \u00169\n\u0006\u00162\n\u0006#dip\nah20s\u001621\n\u0006ol#tip\n\u001b\u00168\n\u0006\u0014@lj. ,s20ss20s Touristo\n  \u0017wand of digging\nzojjkjj#name\no\n_m.. #invoke\n\u001b;<.#loot\n\u001620\n\u0006\u00164\n\u0006\u0014@LLLJlllllljjjjj. ,20s20s Kroisos\nd$\u001616\n\u0006\u001619\n\u0006\u001621\n\u0006\\ #tip\n\u001b\u00163\n\u0006\u00165\n\u0006\u001617\n  \u0006\u00166\n\u0006#terrain\n\u001bcl\u00168\n\u0006\u0014@HHHHHHHHhhhhhhkkkkkk. ,10ss10s20sss10s10s#loot\n#rub\n#tip\n\u001b\u001611\n\u0006<\u0014:              n\u001618\n \u0006>#monster\n\u00162\n\u0006#sit\n\u001bl\u001620\n\u0006\u001612\n        \u0006  \u001613\n\u0006\u001614\n    \u0006t$hri \u001614\n\u0006\u001615\n\u0006"
+ },
+ "segments": [
+  {
+   "seed": 53456042,
+   "datetime": "20010621211854",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 helm of telepathy\nWm\u0017blessed +3 silver dragon scale mail\nWn  \u00163\n\u0006\u001613\n\u0006fbW\u001611\n\u0006\u00167\n\u0006\u001611\n\u0006\u00163\n\u0006\u001615\n\u0006\u0014 \u001b@HHHHHJjjjj.,20ss10sss20ss10s#monster\n#tip\n\u001b#dip\neh\u00167\n\u0006\u001619\n\u0006\u00165\n\u0006\u0014@LJllj. ,10s20s Touristo\n  FkFkFkFk\u001612\n\u0006\u0014@LLllllllk. ,s10s Touristo\n  d$kkkkkkk      \u00169\n\u0006\u00162\n\u0006#dip\nah20s\u001621\n\u0006ol#tip\n\u001b\u00168\n\u0006\u0014@lj. ,s20ss20s Touristo\n  \u0017wand of digging\nzojjkjj#name\no\n_m.. #invoke\n\u001b;<.#loot\n\u001620\n\u0006\u00164\n\u0006\u0014@LLLJlllllljjjjj. ,20s20s Kroisos\nd$\u001616\n\u0006\u001619\n\u0006\u001621\n\u0006\\ #tip\n\u001b\u00163\n\u0006\u00165\n\u0006\u001617\n  \u0006\u00166\n\u0006#terrain\n\u001bcl\u00168\n\u0006\u0014@HHHHHHHHhhhhhhkkkkkk. ,10ss10s20sss10s10s#loot\n#rub\n#tip\n\u001b\u001611\n\u0006<\u0014:              n\u001618\n \u0006>#monster\n\u00162\n\u0006#sit\n\u001bl\u001620\n\u0006\u001612\n        \u0006  \u001613\n\u0006\u001614\n    \u0006t$hri \u001614\n\u0006\u001615\n\u0006"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 speed boots\nWm \u00167\n\u0006\u0014 \u001b@HHHHHhhhhhhkk. ,20s10ss10s10s  Kroisos\n\u0017wand of digging\nznjjjjj\u001615\n    \u0006\u001611\n\u0006\u00169\n\u0006\u0014@LLLLLJl. ,20sss20s10s Hippocrates\n  ksssbsssslslssj  nsslsb  nsyssssssl  nk   nbhskssssss\u00164\n\u00169\n\u0006\u0014@LLLLLLllllllkkk.    n,   n10s  s20ss20sss10sn \u00165\n\u001614\n\u0006\u00163\n  \u0006\u00164\n\u0006rj y i\u001b\u001611\n\u0006i\u001b#chat\ny\u001615\n \u0006\u00165\n  \u0006clznl\u00168\n\u0006\u00169\n\u0006\u0014@LLLlllkk.   n,20s  10s10s10s20s10sssn \u00162\n\u0006\u0014@HHHHHHHHhhhhjjjjjj. ,20s10s10ss20s Hippocrates\n  d$sskssusybuuulsssujsss   \u001619\n\u0006\u00166\n\u0006\u001612\n \u0006\u0014@LLLLLLllll"
+ },
+ "segments": [
+  {
+   "seed": 53456078,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 speed boots\nWm \u00167\n\u0006\u0014 \u001b@HHHHHhhhhhhkk. ,20s10ss10s10s  Kroisos\n\u0017wand of digging\nznjjjjj\u001615\n    \u0006\u001611\n\u0006\u00169\n\u0006\u0014@LLLLLJl. ,20sss20s10s Hippocrates\n  ksssbsssslslssj  nsslsb  nsyssssssl  nk   nbhskssssss\u00164\n\u00169\n\u0006\u0014@LLLLLLllllllkkk.    n,   n10s  s20ss20sss10sn \u00165\n\u001614\n\u0006\u00163\n  \u0006\u00164\n\u0006rj y i\u001b\u001611\n\u0006i\u001b#chat\ny\u001615\n \u0006\u00165\n  \u0006clznl\u00168\n\u0006\u00169\n\u0006\u0014@LLLlllkk.   n,20s  10s10s10s20s10sssn \u00162\n\u0006\u0014@HHHHHHHHhhhhjjjjjj. ,20s10s10ss20s Hippocrates\n  d$sskssusybuuulsssujsss   \u001619\n\u0006\u00166\n\u0006\u001612\n \u0006\u0014@LLLLLLllll"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWf \u0017blessed +3 cloak of magic resistance\nWg \u001612\nhjhujl:..s\u00169\n\u0014 \u001b:\u0016?\n>>P  \u0004b\u0016?\n>B \u0014>. 20ss\u001611\n#levelchange\n10\n \u0007nurse\nFlFlFl.bsm.\u0007gelatinous cube\nFlFuFu FlFlFl  Fl20ss\u001610\n\u0017red dragon scale mail\nW\u001b20s20s.Tg\u0007nurse\nFhFhFhFhsm.20s\u0007cobra\nFyFuFu Fus.\u0016?\nm kklhlhj:20s su\u001610\n_{._.20s\u001620\n_{.\u001632\n   uyj:\u001625\n#chat\nh;m.\u00169\nunlhbk:\u001617\n__.>\u001620\n\u0014>..\u001620\n_>.s..\u001625\n\u0004h\u001633\n   _<.<\u001610\n\u0014>. \u0016?\n>>O      potion of enlightenment\n_>,\u001617\n_{.<\u001612\n_{.<\u001629\n#chat\nj;.\u0016?\nbk  h :\u0016?\n\u001bln  \u0016?\n\u001bhj  \u001611\n\u0007Aleax\n;.20s20s  n  20s  n \u0007long worm\n20s s  n s  n20s \u0007black light\n20s Fl.  ns  \u00163\n\u001634\nl   h  n    l     nh   :   n   \u00166\n\u00164\nl  u  n   nn   n:   n   n  \u00161\n\u0016?\n\u001bl    n  b   n \u00161\n\u0016?\n\u001bk  \u001b  n n    yy\u001by  y nn  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 53450011,
+   "datetime": "20040508153916",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWf \u0017blessed +3 cloak of magic resistance\nWg \u001612\nhjhujl:..s\u00169\n\u0014 \u001b:\u0016?\n>>P  \u0004b\u0016?\n>B \u0014>. 20ss\u001611\n#levelchange\n10\n \u0007nurse\nFlFlFl.bsm.\u0007gelatinous cube\nFlFuFu FlFlFl  Fl20ss\u001610\n\u0017red dragon scale mail\nW\u001b20s20s.Tg\u0007nurse\nFhFhFhFhsm.20s\u0007cobra\nFyFuFu Fus.\u0016?\nm kklhlhj:20s su\u001610\n_{._.20s\u001620\n_{.\u001632\n   uyj:\u001625\n#chat\nh;m.\u00169\nunlhbk:\u001617\n__.>\u001620\n\u0014>..\u001620\n_>.s..\u001625\n\u0004h\u001633\n   _<.<\u001610\n\u0014>. \u0016?\n>>O      potion of enlightenment\n_>,\u001617\n_{.<\u001612\n_{.<\u001629\n#chat\nj;.\u0016?\nbk  h :\u0016?\n\u001bln  \u0016?\n\u001bhj  \u001611\n\u0007Aleax\n;.20s20s  n  20s  n \u0007long worm\n20s s  n s  n20s \u0007black light\n20s Fl.  ns  \u00163\n\u001634\nl   h  n    l     nh   :   n   \u00166\n\u00164\nl  u  n   nn   n:   n   n  \u00161\n\u0016?\n\u001bl    n  b   n \u00161\n\u0016?\n\u001bk  \u001b  n n    yy\u001by  y nn  \u0016"
+  }
+ ]
+}

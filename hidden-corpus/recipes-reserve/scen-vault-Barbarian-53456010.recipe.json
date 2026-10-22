@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPhl\u0017blessed +3 helm of telepathy\nWi\u00166\n\u0006\u0014 \u001b@HHHHhhhhjj. ,ss10ss10s10s Conan\n  \u0014:\u0018\u001b#force\n#sit\n\u001b#offer\n\u001611\n\u0006\u001618\n\u0006\u001619\n\u0006\u0014@LLLLLLJlllllljjj. ,10s Conan\n  FhFhFh  nFh  n\u00164\n\u001611\n\u0006\u00163\n\u0006\u00163\n\u0006\u001612\n\u0006\u001617\n \u0006\u00164\n\u0006\u0014@LLllljj. ,20s Conan\n  FyFyFy  nFy  nbbz#untrap\nk\u00161\n\u00169\n\u0006\u001616\n\u0006#twoweapon\nr\u001b\u00165\n\u0006\u00163\n\u0006\u001610\n\u0006\u00162\n\u0006\u00165\n\u0006\u001610\n\u0006\u00165\n\u0006\u001620\n\u0006\u0014@LLLLkk. ,20s nobody\n  \u001612\n\u0006\u001615\n\u0006\u00166\n\u0006\u001613\n \u0006#name\nm\n#force\n:\u001613\n\u000620s#ride\nky\u001621\n\u0006\u001611\n\u0006\u001616\n\u0006\u001614\n    \u0006\u0014@HHHHHHhhhkk. ,10s20s Conan\n  d$kksusuksu      \u001617\n\u0006#invoke\n\u001b#loot\n\u001619\n\u0006ae#twoweapon\n\u001618\n\u0006\u001611\n\u0006\u00166\n\u0006\u001613\n\u0006\u00167\n\u0006\u00162\n\u0006P\\   \u00167\n\u0006\u001621\n\u0006de\u0004u\u00162\n\u0006\u001616\n\u0006\u001619\n\u0006\u0014@LLLLLLLllljjjj.,20s20s10ss10ssss\u001611\n \u0006\u001612\n\u0006\u0004n#invoke\n\u001b\u001619\n\u0006\u0014@LJlllljjjjj.,10sss10s10ss20s20s   \u00169\n\u0006\u001611\n\u0006\\   #offer\n\u001620\n\u0006W#ride\njy\u001615\n\u0006P#name\nm\n,\u001620\n\u0006\u001617\n\u0006chf by n\u001610\n\u0006\u001614\n       \u0006  \u0014@HHHhhkkk.       ,10ssss20s Conan\n  ss...s\u001611\n\u0006\u001619\n\u0006\u0014@LLLLLLJllljj. ,20s20s"
+ },
+ "segments": [
+  {
+   "seed": 53456010,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPhl\u0017blessed +3 helm of telepathy\nWi\u00166\n\u0006\u0014 \u001b@HHHHhhhhjj. ,ss10ss10s10s Conan\n  \u0014:\u0018\u001b#force\n#sit\n\u001b#offer\n\u001611\n\u0006\u001618\n\u0006\u001619\n\u0006\u0014@LLLLLLJlllllljjj. ,10s Conan\n  FhFhFh  nFh  n\u00164\n\u001611\n\u0006\u00163\n\u0006\u00163\n\u0006\u001612\n\u0006\u001617\n \u0006\u00164\n\u0006\u0014@LLllljj. ,20s Conan\n  FyFyFy  nFy  nbbz#untrap\nk\u00161\n\u00169\n\u0006\u001616\n\u0006#twoweapon\nr\u001b\u00165\n\u0006\u00163\n\u0006\u001610\n\u0006\u00162\n\u0006\u00165\n\u0006\u001610\n\u0006\u00165\n\u0006\u001620\n\u0006\u0014@LLLLkk. ,20s nobody\n  \u001612\n\u0006\u001615\n\u0006\u00166\n\u0006\u001613\n \u0006#name\nm\n#force\n:\u001613\n\u000620s#ride\nky\u001621\n\u0006\u001611\n\u0006\u001616\n\u0006\u001614\n    \u0006\u0014@HHHHHHhhhkk. ,10s20s Conan\n  d$kksusuksu      \u001617\n\u0006#invoke\n\u001b#loot\n\u001619\n\u0006ae#twoweapon\n\u001618\n\u0006\u001611\n\u0006\u00166\n\u0006\u001613\n\u0006\u00167\n\u0006\u00162\n\u0006P\\   \u00167\n\u0006\u001621\n\u0006de\u0004u\u00162\n\u0006\u001616\n\u0006\u001619\n\u0006\u0014@LLLLLLLllljjjj.,20s20s10ss10ssss\u001611\n \u0006\u001612\n\u0006\u0004n#invoke\n\u001b\u001619\n\u0006\u0014@LJlllljjjjj.,10sss10s10ss20s20s   \u00169\n\u0006\u001611\n\u0006\\   #offer\n\u001620\n\u0006W#ride\njy\u001615\n\u0006P#name\nm\n,\u001620\n\u0006\u001617\n\u0006chf by n\u001610\n\u0006\u001614\n       \u0006  \u0014@HHHhhkkk.       ,10ssss20s Conan\n  ss...s\u001611\n\u0006\u001619\n\u0006\u0014@LLLLLLJllljj. ,20s20s"
+  }
+ ]
+}

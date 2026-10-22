@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b:#chat\nj_mm.Fj _.#chat\ny   n_mmmmm,Fy  n  _,  nFn    n    n#chat\nj;j.#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_m.        Fy   n        _,#chat\nh_mmmmm.   n      Fn       n  _.#chat\nn_mmmmm.      Fl    n      _,#chat\ny\u0017blessed ring of free action\nPer      n   \u0017blessed +3 speed boots\nWf         n      \u0017blessed +3 gray dragon scale mail\nWg       n \u0017wand of death\n\u0016?\n>z\u0006_mmmmmm.   Fn   _.   Fy    Fj    Fn      Fu   Fu  Fl     ,\u0016?\n>A\u0006_mmm. Fj     _.Fy   Fl        n    Fh      Fj    zhn  ,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,   Fh  _,Fj   Fy Fy   Fb zhb    ,\u0016?\n>A\u0006_mmmmm,  Fu _,  Fh    Fh   Fn Fl    Fn Fl   Fh Fb    n   ,#chat\nb\u0016?\n>z\u0006_mmm.       Fn      _.Fy      Fy       Fj   Fl zhb   ,\u0016?\n>A\u0006_mmm.  Fh     _.Fy  Fn      Fh  FlFl   Fj  ,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_m.Fy   _.#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.  n    Fh   _,   Fh   Fy  Fb FbFh ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm, Fb_. Fh #chat\nh   n;h;\u0016?\n>A\u0006_mmmmm. Fb_.F"
+ },
+ "segments": [
+  {
+   "seed": 53450028,
+   "datetime": "20200221032524",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b:#chat\nj_mm.Fj _.#chat\ny   n_mmmmm,Fy  n  _,  nFn    n    n#chat\nj;j.#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_m.        Fy   n        _,#chat\nh_mmmmm.   n      Fn       n  _.#chat\nn_mmmmm.      Fl    n      _,#chat\ny\u0017blessed ring of free action\nPer      n   \u0017blessed +3 speed boots\nWf         n      \u0017blessed +3 gray dragon scale mail\nWg       n \u0017wand of death\n\u0016?\n>z\u0006_mmmmmm.   Fn   _.   Fy    Fj    Fn      Fu   Fu  Fl     ,\u0016?\n>A\u0006_mmm. Fj     _.Fy   Fl        n    Fh      Fj    zhn  ,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,   Fh  _,Fj   Fy Fy   Fb zhb    ,\u0016?\n>A\u0006_mmmmm,  Fu _,  Fh    Fh   Fn Fl    Fn Fl   Fh Fb    n   ,#chat\nb\u0016?\n>z\u0006_mmm.       Fn      _.Fy      Fy       Fj   Fl zhb   ,\u0016?\n>A\u0006_mmm.  Fh     _.Fy  Fn      Fh  FlFl   Fj  ,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_m.Fy   _.#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.  n    Fh   _,   Fh   Fy  Fb FbFh ,#chat\nh\u0016?\n>>\u001b\u0016?\n>y_mmmmm, Fb_. Fh #chat\nh   n;h;\u0016?\n>A\u0006_mmmmm. Fb_.F"
+  }
+ ]
+}

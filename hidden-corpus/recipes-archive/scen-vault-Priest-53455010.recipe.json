@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPil\u0017blessed +3 gray dragon scale mail\nW\u001b\u00168\n\u0006\u001617\n\u0006\u0014 \u001b@LLLLlllllllkk. ,10s20s Caspar\n  d$h\u00169\n\u0006\u00169\n\u0006\u001618\n \u0006#turn\n20s\u00165\n  \u0006\u00166\n\u0006\u001611\n\u0006\u0018\u001b#turn\n\u00169\n\u0006\u00162\n\u0006\u001610\n\u0006dcch\u00166\n\u0006\u00165\n\u0006#offer\n,\u00162\n  \u0006\u00168\n\u0006\u00164\n\u0006\u001611\n\u0006\u001616\n \u0006#twoweapon\nW\u001b\u001612\n\u000610s   #turn\n     n \u001617\n\u0006\u00166\n\u0006\u001610\n\u0006\u00164\n\u0006\u001614\n\u0006\u0014@Jlljjjjjjj. ,20s10s Kroisos\n.ss.ssE- ad aerarium\nohW\u001b\u001615\n\u0006__.s#turn\n \u001618\n\u000610s\u0018\u001b\u001610\n\u0006\u001621\n\u0006\u0014@LLLLLLLLJjjjjjj. ,20s20s Caspar\n  s..s20s  n20s  n \u00162\n\u00162\n\u0006\u00162\n\u0006#rub\ni\u001b\u001616\n\u0006\u00168\n\u0006\u001615\n\u0006\u00165\n\u0006\u00166\n\u0006\u001611\n\u0006\u00167\n\u0006\u001615\n\u0006\u001620\n\u0006\u0014@LLLLLlllllll. ,s20s nobody"
+ },
+ "segments": [
+  {
+   "seed": 53455010,
+   "datetime": "20160923093623",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPil\u0017blessed +3 gray dragon scale mail\nW\u001b\u00168\n\u0006\u001617\n\u0006\u0014 \u001b@LLLLlllllllkk. ,10s20s Caspar\n  d$h\u00169\n\u0006\u00169\n\u0006\u001618\n \u0006#turn\n20s\u00165\n  \u0006\u00166\n\u0006\u001611\n\u0006\u0018\u001b#turn\n\u00169\n\u0006\u00162\n\u0006\u001610\n\u0006dcch\u00166\n\u0006\u00165\n\u0006#offer\n,\u00162\n  \u0006\u00168\n\u0006\u00164\n\u0006\u001611\n\u0006\u001616\n \u0006#twoweapon\nW\u001b\u001612\n\u000610s   #turn\n     n \u001617\n\u0006\u00166\n\u0006\u001610\n\u0006\u00164\n\u0006\u001614\n\u0006\u0014@Jlljjjjjjj. ,20s10s Kroisos\n.ss.ssE- ad aerarium\nohW\u001b\u001615\n\u0006__.s#turn\n \u001618\n\u000610s\u0018\u001b\u001610\n\u0006\u001621\n\u0006\u0014@LLLLLLLLJjjjjjj. ,20s20s Caspar\n  s..s20s  n20s  n \u00162\n\u00162\n\u0006\u00162\n\u0006#rub\ni\u001b\u001616\n\u0006\u00168\n\u0006\u001615\n\u0006\u00165\n\u0006\u00166\n\u0006\u001611\n\u0006\u00167\n\u0006\u001615\n\u0006\u001620\n\u0006\u0014@LLLLLlllllll. ,s20s nobody"
+  }
+ ]
+}

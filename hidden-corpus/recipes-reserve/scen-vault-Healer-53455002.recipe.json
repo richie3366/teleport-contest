@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 cloak of magic resistance\nWl\u0017blessed amulet of life saving\nPm\u001620\n\u0006\u00163\n\u0006#dip\nde #ride\nhy\u00168\n\u0006\u001621\n\u0006\u00163\n\u0006\u00166\n\u0006\u0014 \u001b@Jllllllj. ,10s20s  Croesus\n\u0017wand of digging\nznujkjl\u00165\n\u0006\u00168\n\u0006\u000f\u001b_m,sm.\u001618\n\u0006\u0014@HHHHJhhjjj. ,20s20s \u001b  nnyssksssss   skhsl  nysbussny  \u00166\n\u0006\u00167\n\u0006,P\u001611\n\u0006\u001616\n\u0006\u00164\n\u0006\u001613\n\u0006\u001611\n\u0006\u001614\n\u0006\u001618\n\u0006\u00163\n\u0006__.sk\u001618\n\u0006\u001611\n\u0006\u00165\n\u0006#ride\njy#wipe\n\u00164\n\u0006\u00167\n\u0006#chat\nhqf\u001616\n\u0006\u001613\n\u0006\u001615\n\u0006i\u001b#conduct\n \u001611\n\u0006ekrh ny\u00164\n\u0006d$#invoke\n\u001b\u00168\n\u0006\u001613\n\u0006#chat\ny#chat\nh\u001612\n\u0006\u00165\n\u0006\u001613\n\u0006t\u001bZ\u001b\u00162\n\u0006wa>\u00169\n\u0006\u001615\n\u0006\u00162\n\u0006#rub\noj\u00169\n\u0006#conduct\n \\ \u00167\n\u0006\u00164\n\u0006\u00169\n\u0006\u001616\n\u0006Z\u001bek\u001613\n\u0006"
+ },
+ "segments": [
+  {
+   "seed": 53455002,
+   "datetime": "20020411203558",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 cloak of magic resistance\nWl\u0017blessed amulet of life saving\nPm\u001620\n\u0006\u00163\n\u0006#dip\nde #ride\nhy\u00168\n\u0006\u001621\n\u0006\u00163\n\u0006\u00166\n\u0006\u0014 \u001b@Jllllllj. ,10s20s  Croesus\n\u0017wand of digging\nznujkjl\u00165\n\u0006\u00168\n\u0006\u000f\u001b_m,sm.\u001618\n\u0006\u0014@HHHHJhhjjj. ,20s20s \u001b  nnyssksssss   skhsl  nysbussny  \u00166\n\u0006\u00167\n\u0006,P\u001611\n\u0006\u001616\n\u0006\u00164\n\u0006\u001613\n\u0006\u001611\n\u0006\u001614\n\u0006\u001618\n\u0006\u00163\n\u0006__.sk\u001618\n\u0006\u001611\n\u0006\u00165\n\u0006#ride\njy#wipe\n\u00164\n\u0006\u00167\n\u0006#chat\nhqf\u001616\n\u0006\u001613\n\u0006\u001615\n\u0006i\u001b#conduct\n \u001611\n\u0006ekrh ny\u00164\n\u0006d$#invoke\n\u001b\u00168\n\u0006\u001613\n\u0006#chat\ny#chat\nh\u001612\n\u0006\u00165\n\u0006\u001613\n\u0006t\u001bZ\u001b\u00162\n\u0006wa>\u00169\n\u0006\u001615\n\u0006\u00162\n\u0006#rub\noj\u00169\n\u0006#conduct\n \\ \u00167\n\u0006\u00164\n\u0006\u00169\n\u0006\u001616\n\u0006Z\u001bek\u001613\n\u0006"
+  }
+ ]
+}

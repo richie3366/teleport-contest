@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nb;j:   _mm,#chat\nj_m._.#chat\nk#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm. \u001b \u001bFl_,Fl#chat\nl;l._mmmmm,Fh _. Fl#chat\nl_mmm.Fl_.Fl#chat\nk\u0017blessed amulet of life saving\nPg\u0017blessed Mjollnir\nwh     \u0017wand of striking\n\u0016?\n>z\u0006_mmm,     _.   s.    Fl         s     20s     Fl ,#chat\nu \u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fl FuFu 20sFuFl zil,\u0016?\n>A\u0006_mmmmm,Fl   _.Fl Fu ss.zij,\u0016?\n>A\u0006_mmmmm.Fl_.Fl .s.sss20szij,\u0016?\n>z\u0006_mmmm..ss20szi.,#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20ssss20s.,#chat\nh\u0016?\n>A\u0006_mmmm.20sss.s20sFlzil,#chat\nl\u0016?\n>A\u0006_mmmm.Fl_.FlFl 20sFl,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nl\u0016?\n>z\u0006_mmmmm.Fl _,.20s.sziu,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,20s.sszi,#chat\nj\u0016?\n>A\u0006_mm.ss.s.s,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nj\u0016?\n>A\u0006_mmmmmmm.s20sss20szi,#chat\nh\u0016?\n>z\u0006_mmmmmm.FhFhFhFhFj20szi,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.20s20sFlFlFl .zi,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nh\u0016?\n"
+ },
+ "segments": [
+  {
+   "seed": 53450006,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nb;j:   _mm,#chat\nj_m._.#chat\nk#levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm. \u001b \u001bFl_,Fl#chat\nl;l._mmmmm,Fh _. Fl#chat\nl_mmm.Fl_.Fl#chat\nk\u0017blessed amulet of life saving\nPg\u0017blessed Mjollnir\nwh     \u0017wand of striking\n\u0016?\n>z\u0006_mmm,     _.   s.    Fl         s     20s     Fl ,#chat\nu \u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fl FuFu 20sFuFl zil,\u0016?\n>A\u0006_mmmmm,Fl   _.Fl Fu ss.zij,\u0016?\n>A\u0006_mmmmm.Fl_.Fl .s.sss20szij,\u0016?\n>z\u0006_mmmm..ss20szi.,#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20ssss20s.,#chat\nh\u0016?\n>A\u0006_mmmm.20sss.s20sFlzil,#chat\nl\u0016?\n>A\u0006_mmmm.Fl_.FlFl 20sFl,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nl\u0016?\n>z\u0006_mmmmm.Fl _,.20s.sziu,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm,20s.sszi,#chat\nj\u0016?\n>A\u0006_mm.ss.s.s,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nj\u0016?\n>A\u0006_mmmmmmm.s20sss20szi,#chat\nh\u0016?\n>z\u0006_mmmmmm.FhFhFhFhFj20szi,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.20s20sFlFlFl .zi,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nh\u0016?\n"
+  }
+ ]
+}

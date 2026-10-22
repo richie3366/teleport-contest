@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPhl#polyself\nlurker above\n ss \u0007incubus\nFh Fk   Fy  sh.h.#polyself\nwraith\n#monster\n20s    .ss.\u0017potion of polymorph\nqi ettin\n"
+ },
+ "segments": [
+  {
+   "seed": 53452027,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPhl#polyself\nlurker above\n ss \u0007incubus\nFh Fk   Fy  sh.h.#polyself\nwraith\n#monster\n20s    .ss.\u0017potion of polymorph\nqi ettin\n"
+  }
+ ]
+}

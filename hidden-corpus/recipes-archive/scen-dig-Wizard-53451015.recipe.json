@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017pick-axe\nao > .nkao>sao>  _ \u001b<.ao>ao<\u0017pick-axe\n \u00165\nap <lhu\u0017grave\nap>  .hsl\u0006_ooo. _.ap>llap<"
+ },
+ "segments": [
+  {
+   "seed": 53451015,
+   "datetime": "20230527045159",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017pick-axe\nao > .nkao>sao>  _ \u001b<.ao>ao<\u0017pick-axe\n \u00165\nap <lhu\u0017grave\nap>  .hsl\u0006_ooo. _.ap>llap<"
+  }
+ ]
+}

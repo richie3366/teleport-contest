@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00162\nFhFhFbFj ssi\u001bbbnFbFnFjFbFjFnFjFnFjFbFbFjFjFjFnFjFnFnFjFbFbFnFnFbFbFhFnFbFbFjFhFbFnFbFjFnFbFnFh#pray\ny y FbFbFbFbFbFbFbFjFbFnFjFbFjFnFnFnFnFbFjFnFjFbFbFnFjFbFnFnFjFbFnFnFnFnFnFnFnFjFjFnFbFjFjFbFjFbFjFjFnFnFjFnFnFbFjFbFbFnFbFjFnFjFnFbFjFbFjFbFbFbFbFnFnFjFbFbFbFbFbFbFnFnFnFjFjFbFbFnFjFjFjFjFbFnFnFbFnFjFbFjFnFjFnFjFbFjFjFnFbFbFnFbFbFbFjFnFbFbFbFbFhFbFjFyFyFjFbFjFbFjFbFnFj  n FjFjFbFbFhFnFjFjFjFn  nFj FhFbFyFbFbFbFnFbFnFbFnFbFnFbFnFjFnFnFjFnFbFbFnFbFnFjFnFbFnFbFjFbFjFnFbFnFbFbFjFjFnFb\u00166\n\u0006_ \u001b,>FhFh_>.Fj_.Fy>FyFy_>.Fy_.Fy>FuFjFyFyFj\u0006_>.Fy_.Fu>FuFy_>.Fu_.Fy>FyFy_>,Fu_.Fu>FuFuFuFyFu\u0006_>>,Fy_.Fu>FyFy_>>.Fy_,Fy>FuFy_>>.Fy_,Fu>FyFyFuFyFu\u0006_>>.Fy_,Fy>FuFy_>>.Fu_.Fu>FyFu_>>.Fy_.Fu>FyFyFuFyFymO>>>>g\u001b\n\u00167\nFnFnFlFnFnFuFnFlFuFuFuFuFlFlFnFlFnFnFuFnFhFnFlFlFuFuFuFlFjFuFuFnFlFnFlFjFlFuFlFuFjFjFuFuFlFuFjFnFuFjFnFlFnFjFuFlFuFlFnFjFnFuFl#pray\ny y    FuFjFlFjFuFlFlFu  nFlFjFnFuFlFlFlFjFlFjFlFjFlFjFuFuFjFlFn#pray"
+ },
+ "segments": [
+  {
+   "seed": 53450007,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:AmigaFont\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\nMENUCOLOR=\"a potion\"=brown\nBIND=v:inventory\n",
+   "moves": "\u00162\nFhFhFbFj ssi\u001bbbnFbFnFjFbFjFnFjFnFjFbFbFjFjFjFnFjFnFnFjFbFbFnFnFbFbFhFnFbFbFjFhFbFnFbFjFnFbFnFh#pray\ny y FbFbFbFbFbFbFbFjFbFnFjFbFjFnFnFnFnFbFjFnFjFbFbFnFjFbFnFnFjFbFnFnFnFnFnFnFnFjFjFnFbFjFjFbFjFbFjFjFnFnFjFnFnFbFjFbFbFnFbFjFnFjFnFbFjFbFjFbFbFbFbFnFnFjFbFbFbFbFbFbFnFnFnFjFjFbFbFnFjFjFjFjFbFnFnFbFnFjFbFjFnFjFnFjFbFjFjFnFbFbFnFbFbFbFjFnFbFbFbFbFhFbFjFyFyFjFbFjFbFjFbFnFj  n FjFjFbFbFhFnFjFjFjFn  nFj FhFbFyFbFbFbFnFbFnFbFnFbFnFbFnFjFnFnFjFnFbFbFnFbFnFjFnFbFnFbFjFbFjFnFbFnFbFbFjFjFnFb\u00166\n\u0006_ \u001b,>FhFh_>.Fj_.Fy>FyFy_>.Fy_.Fy>FuFjFyFyFj\u0006_>.Fy_.Fu>FuFy_>.Fu_.Fy>FyFy_>,Fu_.Fu>FuFuFuFyFu\u0006_>>,Fy_.Fu>FyFy_>>.Fy_,Fy>FuFy_>>.Fy_,Fu>FyFyFuFyFu\u0006_>>.Fy_,Fy>FuFy_>>.Fu_.Fu>FyFu_>>.Fy_.Fu>FyFyFuFyFymO>>>>g\u001b\n\u00167\nFnFnFlFnFnFuFnFlFuFuFuFuFlFlFnFlFnFnFuFnFhFnFlFlFuFuFuFlFjFuFuFnFlFnFlFjFlFuFlFuFjFjFuFuFlFuFjFnFuFjFnFlFnFjFuFlFuFlFnFjFnFuFl#pray\ny y    FuFjFlFjFuFlFlFu  nFlFjFnFuFlFlFlFjFlFjFlFjFlFjFuFuFjFlFn#pray"
+  }
+ ]
+}

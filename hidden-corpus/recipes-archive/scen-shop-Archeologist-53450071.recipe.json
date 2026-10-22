@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed +3 speed boots\nWj\u0017blessed +3 helm of telepathy\nW\u001b\u0016?\n>w\u0006_ \u001b,#chat\nl#pray\ny y _oo.,$__._.#chat\nj#pray\ny y  __._.#chat\nj#pray\ny y  _ooooooo._ooo.,p\u0016?\ncnkk\u0016?\n>w\u0006_ooooooo._ooo.,p_{._,.q_ooo.,#chat\njbbk#chat\nh_ooo._ooo,,p_oo,_ooo.,:_ooo,,p_ooooooo.,p_ooooo.,p_oooo.,pyln#chat\nu_{.Fb_.Fb q__._.#chat\nh_oo,_o.,\u0017luckstone\ndl\u00163\nhnn\u0016?\n>w\u0006_{.Fl_.q_oo._.,$_ooo.,\u0017amulet versus poison\ndm_ooooo._.,\u0014m.sskkj#chat\nn_ooooooo._.,:_{.Fk_.q_ooooooo._.,p_ooooooo._._oo,,#chat\nu\u00167\njkn\u0016?\n>w\u0006_ooo,_.,p_ooooooooo,_,,p_ooooooo._._ooo,_.,$_{._.q__._.#chat\ny#pray\ny y nbu#chat\nl_ooooooo,_.,:kkk#chat\nu_ooooo._.,$\u00163\nuny\u0016?\n>w\u0006_ooo,_.,$_oo"
+ },
+ "segments": [
+  {
+   "seed": 53450071,
+   "datetime": "20090507222321",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed +3 speed boots\nWj\u0017blessed +3 helm of telepathy\nW\u001b\u0016?\n>w\u0006_ \u001b,#chat\nl#pray\ny y _oo.,$__._.#chat\nj#pray\ny y  __._.#chat\nj#pray\ny y  _ooooooo._ooo.,p\u0016?\ncnkk\u0016?\n>w\u0006_ooooooo._ooo.,p_{._,.q_ooo.,#chat\njbbk#chat\nh_ooo._ooo,,p_oo,_ooo.,:_ooo,,p_ooooooo.,p_ooooo.,p_oooo.,pyln#chat\nu_{.Fb_.Fb q__._.#chat\nh_oo,_o.,\u0017luckstone\ndl\u00163\nhnn\u0016?\n>w\u0006_{.Fl_.q_oo._.,$_ooo.,\u0017amulet versus poison\ndm_ooooo._.,\u0014m.sskkj#chat\nn_ooooooo._.,:_{.Fk_.q_ooooooo._.,p_ooooooo._._oo,,#chat\nu\u00167\njkn\u0016?\n>w\u0006_ooo,_.,p_ooooooooo,_,,p_ooooooo._._ooo,_.,$_{._.q__._.#chat\ny#pray\ny y nbu#chat\nl_ooooooo,_.,:kkk#chat\nu_ooooo._.,$\u00163\nuny\u0016?\n>w\u0006_ooo,_.,$_oo"
+  }
+ ]
+}

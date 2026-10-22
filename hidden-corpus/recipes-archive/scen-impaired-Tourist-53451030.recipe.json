@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nhl\n  \u0017scroll of destroy armor\nrn   \u0017scroll of create monster\nro minotaur\n\u0017wand of probing\nzp.   n  yny  y y\u001by  z"
+ },
+ "segments": [
+  {
+   "seed": 53451030,
+   "datetime": "20261022162451",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nhl\n  \u0017scroll of destroy armor\nrn   \u0017scroll of create monster\nro minotaur\n\u0017wand of probing\nzp.   n  yny  y y\u001by  z"
+  }
+ ]
+}

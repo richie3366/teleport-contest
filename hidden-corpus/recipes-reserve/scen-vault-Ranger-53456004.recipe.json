@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed amulet of reflection\nPh\u001616\n\u0006\u001617\n\u000610sP\u001b\u001b\u001614\n   \u0006\u001619\n\u0006\u0014 \u001b@LLLLLLLLk.,s20ss10s nobody\n  s.20s  .ysm.  n sj  ns#invoke\n\u001b\u001b\u00162\n\u00166\n\u0006\u00162\n\u0006\u001614\n\u0006\u00162\n\u0006\u001621\n\u0006\u0014@HHHHhhhj.,10s Creosote\n\u001620\n\u0006\u0014@LLLLLLJlllljjjj.,20s ricky\n  d$ef   hjusyuljhqcj_<,       s#chat\nh\u001614\n\u0006\u001612\n \u0006f  u <\u001620\n \u0006\u0014@Jllllljjj.,20s10s ricky\n  d$ef  y  n ylnyysysyjysy   \u001619\n\u0006\u0014@LLLLLllkkk.  n,20s  10s20ss10ss20s20sn #offer\n#dip\nd#enhance\nyi\nc\n\u001b\u001611\n\u00169\n\u0006\u001616\n\u0006\u001620\n    \u0006\u0014@Jllljj.   ,20s20s nobody\n  \u0017wand of digging\nzkbuuh l\u00167\n\u0006\u001611\n\u0006\u00162\n\u0006\u00167\n\u0006\u001617\n\u0006\u00164\n\u0006\u0014@Hhhkkkkkk.,20s \u001b  d$clsllsnjnnynnsn   #force\nr\u001b\u001b#name\n\u001b\u0018\u001b  n\u001619\n\u0006\u0014@LLLLjj.,ss20s10ss10s10s20s  \u0014;  #sit\n #wipe\n\u001612\n\u0006\u00169\n\u0006#loot\n,\u001621\n\u0006\u0014@HHHHHhhhhhhhjjjjj.,20s20s ricky\n20s.sss.;m.#wipe\n#sit\n\u001b\u00162\n\u0006h#name\nm\n\u0016\u0006\u001619\n\u0006\u0014@LLLLLlkk. ,ss20s 10s 20ss20s s\u001617\n\u0006\u001616\n\u0006,#loot\n\u001618\n\u0006#sit\n\u001b#rub\n\u001618\n\u0006\u001618\n\u0006\u001620\n\u0006\u00166\n\u0006\u001613"
+ },
+ "segments": [
+  {
+   "seed": 53456004,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed amulet of reflection\nPh\u001616\n\u0006\u001617\n\u000610sP\u001b\u001b\u001614\n   \u0006\u001619\n\u0006\u0014 \u001b@LLLLLLLLk.,s20ss10s nobody\n  s.20s  .ysm.  n sj  ns#invoke\n\u001b\u001b\u00162\n\u00166\n\u0006\u00162\n\u0006\u001614\n\u0006\u00162\n\u0006\u001621\n\u0006\u0014@HHHHhhhj.,10s Creosote\n\u001620\n\u0006\u0014@LLLLLLJlllljjjj.,20s ricky\n  d$ef   hjusyuljhqcj_<,       s#chat\nh\u001614\n\u0006\u001612\n \u0006f  u <\u001620\n \u0006\u0014@Jllllljjj.,20s10s ricky\n  d$ef  y  n ylnyysysyjysy   \u001619\n\u0006\u0014@LLLLLllkkk.  n,20s  10s20ss10ss20s20sn #offer\n#dip\nd#enhance\nyi\nc\n\u001b\u001611\n\u00169\n\u0006\u001616\n\u0006\u001620\n    \u0006\u0014@Jllljj.   ,20s20s nobody\n  \u0017wand of digging\nzkbuuh l\u00167\n\u0006\u001611\n\u0006\u00162\n\u0006\u00167\n\u0006\u001617\n\u0006\u00164\n\u0006\u0014@Hhhkkkkkk.,20s \u001b  d$clsllsnjnnynnsn   #force\nr\u001b\u001b#name\n\u001b\u0018\u001b  n\u001619\n\u0006\u0014@LLLLjj.,ss20s10ss10s10s20s  \u0014;  #sit\n #wipe\n\u001612\n\u0006\u00169\n\u0006#loot\n,\u001621\n\u0006\u0014@HHHHHhhhhhhhjjjjj.,20s20s ricky\n20s.sss.;m.#wipe\n#sit\n\u001b\u00162\n\u0006h#name\nm\n\u0016\u0006\u001619\n\u0006\u0014@LLLLLlkk. ,ss20s 10s 20ss20s s\u001617\n\u0006\u001616\n\u0006,#loot\n\u001618\n\u0006#sit\n\u001b#rub\n\u001618\n\u0006\u001618\n\u0006\u001620\n\u0006\u00166\n\u0006\u001613"
+  }
+ ]
+}

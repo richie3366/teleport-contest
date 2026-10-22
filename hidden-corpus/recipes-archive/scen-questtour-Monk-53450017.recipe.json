@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b,#chat\nn;n;_mmmm._.m,Fj  n #chat\nl  n;j:  _m.Fj    n    n_,#chat\nj_mmmmm.Fb   n_.   nFh   n   n#chat\nj   n_mm.   nFj    n   n  n_,#chat\nj   n   n  n#levelchange\n14\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm, Fh    yy\u001by   y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 53450017,
+   "datetime": "20020228144544",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b,#chat\nn;n;_mmmm._.m,Fj  n #chat\nl  n;j:  _m.Fj    n    n_,#chat\nj_mmmmm.Fb   n_.   nFh   n   n#chat\nj   n_mm.   nFj    n   n  n_,#chat\nj   n   n  n#levelchange\n14\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm, Fh    yy\u001by   y y\u001b  _"
+  }
+ ]
+}

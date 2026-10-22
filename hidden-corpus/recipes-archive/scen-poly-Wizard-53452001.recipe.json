@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed ring of polymorph control\nPol#polyself\ncockatrice\n  #monster\n.20s\u0007imp\nFbFlFj20s.s#polyself\nelectric eel\n 20ss20sss#polyself\nsoldier ant\n 20ss\u0007bone devil\nFlFb Fl  sm. sm. .m.#polyself\nkitten\n sm. 20s\u0007gray ooze\nFn  Fb  Fj  yy\u001by  y y y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 53452001,
+   "datetime": "20090130184327",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed ring of polymorph control\nPol#polyself\ncockatrice\n  #monster\n.20s\u0007imp\nFbFlFj20s.s#polyself\nelectric eel\n 20ss20sss#polyself\nsoldier ant\n 20ss\u0007bone devil\nFlFb Fl  sm. sm. .m.#polyself\nkitten\n sm. 20s\u0007gray ooze\nFn  Fb  Fj  yy\u001by  y y y\u001by  2"
+  }
+ ]
+}

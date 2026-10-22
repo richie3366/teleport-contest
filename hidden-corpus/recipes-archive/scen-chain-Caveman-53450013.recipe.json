@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "20s k20syjkn10s#name\nd\nKHHK_ \u001b.><NJKL _>.>#rub\nce\u000f\u001bYHUL_>.>Fn.sFjFjFjFjFjFjFjFjbljhblklli\u001b\u000f\u001btby100s     100s        100s    150sFk..blj150sFkFkFk 100sFkss150s50syuyFjFj.100si\u001b100sFk20ss#l#quit\n \u0017wand of death\nzk.  y ny  y y\u001bn  . FuFu .50s150s 150sFlFl20s50s#terrain\nb\n\u001bm.kuh150s150s Flss50s150s  FnFnFnFnFn.jny#monster\n#twoweapon\n100s100skjkjkjnlhFuFuFuFuFuFuFuFu s100scj\u000f\u001b150s_>,>150sFlFlFl150s150sllkFlFlFlFlFlFl FlFlFlFl.20sHY KL_>.>NBKY _>,>BKUL _>,>#conduct\n zHJKY_>.>BYJL_>.>__.s#terrain\nb\nHUYH_>JHUK_>c W50shkblkhi\u001bbun150sr\u001b150sFkFk.50si\u001b\u000f\u001b#pray\ny  100sFusslynhylubn150sFuFuFu#wipe\nhhl150s100sFuFuFuFu Fusoklyb50seeeeeeeeeeeublyjkbl10s20sdasm.sm.20s#name\na\nhulyj njlyH JJK _>.>JLHY_>.>JU JK _>,>NUH N_>.>ar\u001bHKNL_>,>F#quit\n Fk .s_ \u001b,>i\u001b100s 100s_>.>_>,>ujkFk.s150sP150sFkFks_>.>50s150s_>.>100sFk..l100s_>,>blyFks.50sai jlh\u0018\u001b#sit\n\u001bkny_>.>\u000f\u001b100s100sFksFk\u000f\u001b_>.>jyyFussljbulyhnyljynlyt\u001b#chat\nbdh.ssjynyt\u001bt\u001bnbun20s10s#chat\nk#name\ni\nkdcss20s#chat\njlynkjyhbuynbLJHK_>.>#monster\n,<JLLK_>.>HKJL_>,>i\u001b10sYUBH_:#quit\nyy\u001by   y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53450013,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=fruit:kumquat\n",
+   "moves": "20s k20syjkn10s#name\nd\nKHHK_ \u001b.><NJKL _>.>#rub\nce\u000f\u001bYHUL_>.>Fn.sFjFjFjFjFjFjFjFjbljhblklli\u001b\u000f\u001btby100s     100s        100s    150sFk..blj150sFkFkFk 100sFkss150s50syuyFjFj.100si\u001b100sFk20ss#l#quit\n"
+  },
+  {
+   "seed": 53550013,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of death\nzk.  y ny  y y\u001bn  ."
+  },
+  {
+   "seed": 53650013,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\n",
+   "moves": " FuFu .50s150s 150sFlFl20s50s#terrain\nb\n\u001bm.kuh150s150s Flss50s150s  FnFnFnFnFn.jny#monster\n#twoweapon\n100s100skjkjkjnlhFuFuFuFuFuFuFuFu s100scj\u000f\u001b150s_>,>150sFlFlFl150s150sllkFlFlFlFlFlFl FlFlFlFl.20sHY KL_>.>NBKY _>,>BKUL _>,>#conduct\n zHJKY_>.>BYJL_>.>__.s#terrain\nb\nHUYH_>JHUK_>c W50shkblkhi\u001bbun150sr\u001b150sFkFk.50si\u001b\u000f\u001b#pray\ny  100sFusslynhylubn150sFuFuFu#wipe\nhhl150s100sFuFuFuFu Fusoklyb50seeeeeeeeeeeublyjkbl10s20sdasm.sm.20s#name\na\nhulyj njlyH JJK _>.>JLHY_>.>JU JK _>,>NUH N_>.>ar\u001bHKNL_>,>F#quit\n"
+  },
+  {
+   "seed": 53750013,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\n",
+   "moves": " Fk .s_ \u001b,>i\u001b100s 100s_>.>_>,>ujkFk.s150sP150sFkFks_>.>50s150s_>.>100sFk..l100s_>,>blyFks.50sai jlh\u0018\u001b#sit\n\u001bkny_>.>\u000f\u001b100s100sFksFk\u000f\u001b_>.>jyyFussljbulyhnyljynlyt\u001b#chat\nbdh.ssjynyt\u001bt\u001bnbun20s10s#chat\nk#name\ni\nkdcss20s#chat\njlynkjyhbuynbLJHK_>.>#monster\n,<JLLK_>.>HKJL_>,>i\u001b10sYUBH_:#quit\nyy\u001by   y y y\u001b "
+  }
+ ]
+}

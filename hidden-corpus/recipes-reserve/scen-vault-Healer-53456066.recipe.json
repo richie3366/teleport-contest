@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u00169\n\u0006\u001612\n\u0006\u00168\n\u0006WK\u00168\n\u0006<#sit\n\u001b\u001621\n\u0006\u001612\n\u0006\u001616\n \u0006clck\u001618\n\u0006\u00166\n\u0006\u001611\n\u0006\u0014 \u001b@HKkk. ,s10s10s20s Hippocrates\n  nsskssunbusnkssnsjnyssssssh   nl  nusnlssksssskss,\u0004j   nel   n\u0014,   n\u0018\u001b\u00166\n\u00169\n\u0006\u001610\n\u0006el\u0014m,\u001621\n\u0006\u001614\n    \u0006\u001610\n\u0006\u00164\n\u0006,#invoke\n\u001b\u001621\n\u0006\u001618\n\u0006#twoweapon\n\u0018\u001b\u00164\n\u0006\u00167\n\u0006\u001619\n\u0006\u0014@LLLLLLLLK. ,20s10s nobody\n  d$s\u001615\n\u0006\u0014@HHjjj. ,20s Hippocrates\n  d$k\u001610\n\u0006\u001612\n\u0006\u00168\n\u0006Zc\n#jump\n\u00166\n\u0006\u001616\n\u0006\u00165\n\u0006ai #name\nm\n\u0016\u0006\u000f\u001bE- Vlad was here\n\u00169\n\u0006\u001615\n\u0006\u001616\n\u0006#monster\n:\u00163\n\u0006\u0014@LLLlj. ,s20s20s  Hippocrates\n  \u0017wand of digging\nzojhnbj\u00168\n\u0006\u001614\n \u0006\u001610\n\u0006\u001616\n\u0006\u001621\n\u0006\u00165\n\u0006\u00162\n\u0006\u0014@HHjjj. ,sss10ss10s20s \u001b  .sss..ak #enhance\nyp\np\n\u001bK   n\u00168\n\u0006\u00163\n\u0006#dip\nge  #monster\n\u00163\n\u0006\u0014@LLLLlllllljjjjj. ,20ss20sss10s10ss\u001615\n\u0006W,\u001615\n\u0006\u00167\n\u0006\u001610\n\u0006\u00166\n\u0006#conduct\n #twoweapon\n"
+ },
+ "segments": [
+  {
+   "seed": 53456066,
+   "datetime": "20210729053517",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u00169\n\u0006\u001612\n\u0006\u00168\n\u0006WK\u00168\n\u0006<#sit\n\u001b\u001621\n\u0006\u001612\n\u0006\u001616\n \u0006clck\u001618\n\u0006\u00166\n\u0006\u001611\n\u0006\u0014 \u001b@HKkk. ,s10s10s20s Hippocrates\n  nsskssunbusnkssnsjnyssssssh   nl  nusnlssksssskss,\u0004j   nel   n\u0014,   n\u0018\u001b\u00166\n\u00169\n\u0006\u001610\n\u0006el\u0014m,\u001621\n\u0006\u001614\n    \u0006\u001610\n\u0006\u00164\n\u0006,#invoke\n\u001b\u001621\n\u0006\u001618\n\u0006#twoweapon\n\u0018\u001b\u00164\n\u0006\u00167\n\u0006\u001619\n\u0006\u0014@LLLLLLLLK. ,20s10s nobody\n  d$s\u001615\n\u0006\u0014@HHjjj. ,20s Hippocrates\n  d$k\u001610\n\u0006\u001612\n\u0006\u00168\n\u0006Zc\n#jump\n\u00166\n\u0006\u001616\n\u0006\u00165\n\u0006ai #name\nm\n\u0016\u0006\u000f\u001bE- Vlad was here\n\u00169\n\u0006\u001615\n\u0006\u001616\n\u0006#monster\n:\u00163\n\u0006\u0014@LLLlj. ,s20s20s  Hippocrates\n  \u0017wand of digging\nzojhnbj\u00168\n\u0006\u001614\n \u0006\u001610\n\u0006\u001616\n\u0006\u001621\n\u0006\u00165\n\u0006\u00162\n\u0006\u0014@HHjjj. ,sss10ss10s20s \u001b  .sss..ak #enhance\nyp\np\n\u001bK   n\u00168\n\u0006\u00163\n\u0006#dip\nge  #monster\n\u00163\n\u0006\u0014@LLLLlllllljjjjj. ,20ss20sss10s10ss\u001615\n\u0006W,\u001615\n\u0006\u00167\n\u0006\u001610\n\u0006\u00166\n\u0006#conduct\n #twoweapon\n"
+  }
+ ]
+}

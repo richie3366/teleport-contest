@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed bell of opening\n\u0017blessed +3 helm of telepathy\nWg\u0017blessed magic lamp\n\u0017blessed 20 daggers\nQi#wizintrinsic\nh\n \u0017wand of slow monster\nzjnzjhzjkzjh\u0017potion of levitation\nqksm.;l; \u001b;E-#chat\nl\u0017blessed spellbook of slow monster\nrl.kZa\n#turn\n:#wizintrinsic\nh\n\u0007jackal\n\u0007owlbear\nFy  FlFy   n Fy  Fj   n  nFy\u00165\n\u0017blessed spellbook of sleep\nrmsjZa\n:\u0016?\ns #levelchange\n20\n                  \u00176 eggs\nQby\u0007gnome\nnfkf i k fk     s. \u0007grid bug\nyufjflfb fb   fb  \u0017lance\nwo \u0007giant rat\nyao,lhh,sy#wizintrinsic\nh\n\u0007gnome\n\u0007giant rat\nFl FlsFl Fl \u0017wand of cold\nzpl zp.  nzpk zpj  \u0018\u001bun;<.E-\u0017blessed scroll of enchant weapon\nrq #wizintrinsic\nh\nfnfjfj  \u0016?\n>>L     scroll of destroy armor\n uh u   k  n        :\u0007bugbear\nFh        Fl      FkFkFjFjFj#wizintrinsic\nh\n\u0017scroll of enchant armor\nrt  \u0017clove of garlic\neu ;j,E\u0007yellow mold\n\u0007acid blob\nFjFjFjFj Fb   Fk   n Fh    #wizintrinsic\nh\n\u0017potion of booze\n qv     s \u0017spellbook of cone of cold\nrw                               n   .y     Z\u001b: #wizintrinsic\nh\n\u0007sewer rat\nFk Fj             Fy    Fy           n          Fj                   \u0007sold"
+ },
+ "segments": [
+  {
+   "seed": 53450041,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed bell of opening\n\u0017blessed +3 helm of telepathy\nWg\u0017blessed magic lamp\n\u0017blessed 20 daggers\nQi#wizintrinsic\nh\n \u0017wand of slow monster\nzjnzjhzjkzjh\u0017potion of levitation\nqksm.;l; \u001b;E-#chat\nl\u0017blessed spellbook of slow monster\nrl.kZa\n#turn\n:#wizintrinsic\nh\n\u0007jackal\n\u0007owlbear\nFy  FlFy   n Fy  Fj   n  nFy\u00165\n\u0017blessed spellbook of sleep\nrmsjZa\n:\u0016?\ns #levelchange\n20\n                  \u00176 eggs\nQby\u0007gnome\nnfkf i k fk     s. \u0007grid bug\nyufjflfb fb   fb  \u0017lance\nwo \u0007giant rat\nyao,lhh,sy#wizintrinsic\nh\n\u0007gnome\n\u0007giant rat\nFl FlsFl Fl \u0017wand of cold\nzpl zp.  nzpk zpj  \u0018\u001bun;<.E-\u0017blessed scroll of enchant weapon\nrq #wizintrinsic\nh\nfnfjfj  \u0016?\n>>L     scroll of destroy armor\n uh u   k  n        :\u0007bugbear\nFh        Fl      FkFkFjFjFj#wizintrinsic\nh\n\u0017scroll of enchant armor\nrt  \u0017clove of garlic\neu ;j,E\u0007yellow mold\n\u0007acid blob\nFjFjFjFj Fb   Fk   n Fh    #wizintrinsic\nh\n\u0017potion of booze\n qv     s \u0017spellbook of cone of cold\nrw                               n   .y     Z\u001b: #wizintrinsic\nh\n\u0007sewer rat\nFk Fj             Fy    Fy           n          Fj                   \u0007sold"
+  }
+ ]
+}

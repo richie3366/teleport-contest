@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u001618\n\u0006\u001614\n    \u0006#tip\n\u001bPf\u00166\n\u0006\u00162\n\u0006\u00164\n\u0006\u0014 \u001b@LLLKlllll.  ,20ss20s  Musashi\n  20s   ns  n20s  n s  n20s  n s  n\u00164\n\u00162\n\u0006\u00166\n\u0006#force\n#offer\n\u00165\n\u0006\u0014@LLJlllj.  , 10s ss20s  20s20s20s20sn \u001619\n\u0006ZE- Elbereth Elbereth\n\u001610\n\u0006\u00166\n\u0006\u00169\n\u0006\u00163\n\u0006\u0014@LLLLLLLlllkkkkk.  ,s20sss20s  Kroisos\n\u0014@.\u001615\n \u0006\u001620\n\u0006\u0014@HHHHhhhhhhjjjjj.  ,20s  Musashi\n  \u0014;\u001619\n\u0006\u00162\n\u0006k#pray\ny y\u00165\n\u0006\u0014@Llljjjjjjj.  ,y  20s  s10s20s20s10s20s20sn  ,#turn\n__.20s   n #sit\n ;y,\u00169\n\u001612\n\u0006\u001613\n\u0006\u001617\n\u0006\u0014@LLLLLLJlllljjj.  ,s10s Creosote\nd$\u001615\n\u0006\\    k\u001620\n\u0006\u00169\n\u0006\u00165\n\u0006\u0014@HHHhhhhhhhjjjjjj. ,20s10s  10s20s20ssssn #loot\nu\u0018\u001b#force\n\u001614\n \u0006\u001620\n\u0006\u00166\n\u0006#invoke\n\u001b#chat\nb"
+ },
+ "segments": [
+  {
+   "seed": 53456034,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u001618\n\u0006\u001614\n    \u0006#tip\n\u001bPf\u00166\n\u0006\u00162\n\u0006\u00164\n\u0006\u0014 \u001b@LLLKlllll.  ,20ss20s  Musashi\n  20s   ns  n20s  n s  n20s  n s  n\u00164\n\u00162\n\u0006\u00166\n\u0006#force\n#offer\n\u00165\n\u0006\u0014@LLJlllj.  , 10s ss20s  20s20s20s20sn \u001619\n\u0006ZE- Elbereth Elbereth\n\u001610\n\u0006\u00166\n\u0006\u00169\n\u0006\u00163\n\u0006\u0014@LLLLLLLlllkkkkk.  ,s20sss20s  Kroisos\n\u0014@.\u001615\n \u0006\u001620\n\u0006\u0014@HHHHhhhhhhjjjjj.  ,20s  Musashi\n  \u0014;\u001619\n\u0006\u00162\n\u0006k#pray\ny y\u00165\n\u0006\u0014@Llljjjjjjj.  ,y  20s  s10s20s20s10s20s20sn  ,#turn\n__.20s   n #sit\n ;y,\u00169\n\u001612\n\u0006\u001613\n\u0006\u001617\n\u0006\u0014@LLLLLLJlllljjj.  ,s10s Creosote\nd$\u001615\n\u0006\\    k\u001620\n\u0006\u00169\n\u0006\u00165\n\u0006\u0014@HHHhhhhhhhjjjjjj. ,20s10s  10s20s20ssssn #loot\nu\u0018\u001b#force\n\u001614\n \u0006\u001620\n\u0006\u00166\n\u0006#invoke\n\u001b#chat\nb"
+  }
+ ]
+}

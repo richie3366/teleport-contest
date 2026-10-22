@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u001613\n   \u0006\u001615\n\u0006\u0014 \u001b@LLLLLLllllljj.,10ss20s10s Kira\n  .20s   nsbsss#wipe\n  n#turn\n,\u00168\n\u00165\n\u0006\u0014@HHhhj.,20s Kira\n  ssnyhbsssssssl  nsksshsyssssssusj  nsssl  nnsh  nsu  ns\u00167\n\u001618\n\u0006\u00167\n\u0006\u0014@HHhhhhh.  ,Kira\n  d$blns#enhance\nya\na\n\u001b\u0018\u001bai \u001617\n\u0006\u001612\n\u0006\u0014@HHHHHHhhhkkkk.,sss10s nobody\n  d$cyls\u001612\n\u0006\u001618\n\u0006\u001616\n\u0006\u00166\n\u0006\u001617\n\u0006\u001617\n\u0006qd\u0014m.\u001613\n\u0006,#monster\n\u00162\n\u0006\u0014@Khhhhkk.,10s20sss10s Kroisos\nd$g#ride\ny H\u001614\n\u0006\u00169\n\u0006\u00165\n\u0006\u0014@k.  n,10s  20s20s20ss10s20s10sn ,#chat\nl  nK;l;#monster\n\u001610\n\u001621\n\u0006;<.Za\n\u001615\n\u0006\u0014@Llllllllkk.  n,  ns10s  10"
+ },
+ "segments": [
+  {
+   "seed": 53456038,
+   "datetime": "20120224074418",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u001613\n   \u0006\u001615\n\u0006\u0014 \u001b@LLLLLLllllljj.,10ss20s10s Kira\n  .20s   nsbsss#wipe\n  n#turn\n,\u00168\n\u00165\n\u0006\u0014@HHhhj.,20s Kira\n  ssnyhbsssssssl  nsksshsyssssssusj  nsssl  nnsh  nsu  ns\u00167\n\u001618\n\u0006\u00167\n\u0006\u0014@HHhhhhh.  ,Kira\n  d$blns#enhance\nya\na\n\u001b\u0018\u001bai \u001617\n\u0006\u001612\n\u0006\u0014@HHHHHHhhhkkkk.,sss10s nobody\n  d$cyls\u001612\n\u0006\u001618\n\u0006\u001616\n\u0006\u00166\n\u0006\u001617\n\u0006\u001617\n\u0006qd\u0014m.\u001613\n\u0006,#monster\n\u00162\n\u0006\u0014@Khhhhkk.,10s20sss10s Kroisos\nd$g#ride\ny H\u001614\n\u0006\u00169\n\u0006\u00165\n\u0006\u0014@k.  n,10s  20s20s20ss10s20s10sn ,#chat\nl  nK;l;#monster\n\u001610\n\u001621\n\u0006;<.Za\n\u001615\n\u0006\u0014@Llllllllkk.  n,  ns10s  10"
+  }
+ ]
+}

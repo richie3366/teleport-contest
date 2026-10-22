@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  \u001720 darts\nQn\u0007giant rat\nyfl  fl fl fl\u0017potion of water\ntnn\u0007hill orc\nufhfjfh\u0017potion of booze\ntnh\u0007jackal\nylfb fh  fhfb  yy\u001by  y y y\u001by  f"
+ },
+ "segments": [
+  {
+   "seed": 53451028,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  \u001720 darts\nQn\u0007giant rat\nyfl  fl fl fl\u0017potion of water\ntnn\u0007hill orc\nufhfjfh\u0017potion of booze\ntnh\u0007jackal\nylfb fh  fhfb  yy\u001by  y y y\u001by  f"
+  }
+ ]
+}

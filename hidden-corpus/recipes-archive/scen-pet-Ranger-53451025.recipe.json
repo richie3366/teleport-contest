@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0007pony\n\u0017apple\ntdn \u0007tame jackal\n\u0017tin whistle\nby jah\u0017huge chunk of meat\ntdl \u0017food ration\ntcl  #chat\nl\u0017magic whistle\nunu ak  \u0017tin whistle\nbubalk\u0007tame lichen\n10s10s #name\nf\n .b  \u0017tin whistle\ny hbam \u0017magic whistle\nunkan  Sy\u001b yy#untrap\nnZs  #ride\nly<ei           \\ #pray\ny y #rub\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53451025,
+   "datetime": "20240207120822",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007pony\n\u0017apple\ntdn \u0007tame jackal\n\u0017tin whistle\nby jah\u0017huge chunk of meat\ntdl \u0017food ration\ntcl  #chat\nl\u0017magic whistle\nunu ak  \u0017tin whistle\nbubalk\u0007tame lichen\n10s10s #name\nf\n .b  \u0017tin whistle\ny hbam \u0017magic whistle\nunkan  Sy\u001b"
+  },
+  {
+   "seed": 53951025,
+   "datetime": "20210623141955",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " yy#untrap\nnZs  #ride\nly<ei           \\ #pray\ny y #rub\n"
+  }
+ ]
+}

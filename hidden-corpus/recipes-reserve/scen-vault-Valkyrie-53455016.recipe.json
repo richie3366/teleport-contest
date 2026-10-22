@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u001618\n\u0006j,\u00165\n\u0006\u00162\n\u0006\u0014 \u001b@HHHhhhhh. ,sss20s20s  Astrid\n  ssss20s  n.m.  n\u000f\u001b#rub\n#loot\nn\u00163\n \u00164\n\u0006\u000f\u001b_>,s\u001611\n\u0006\u001618\n\u0006#rub\n,\u001613\n    \u0006#untrap\nki\u001b\u001614\n\u0006\u001620\n\u0006\u0014@LLLLLllllllljjjjj. ,sss20sss10s Croesus\n\u00163\n\u0006\u0014@LLLJljjj. ,20s Astrid\n  \u0014<. \u00162\n\u0006\u0014@Hkkkkk.   n,  ns20s  10s20s10s20s20s20sn \u00163\n\u001611\n\u0006\u001621\n\u0006\u00164\n\u0006\u00165\n\u0006\u001615\n \u0006\u001619\n\u0006\u0014@HHHHHHHhhh. ,10sss10s20s \u001b  d$s#loot\n#force\nW\u001620\n\u0006\u0014@Llllllljj. ,ss20s Astrid\n  d$s10s#enhance\nyh\nb\n\u001b\\   \u001619\n\u0006\u001621\n\u0006q#force\n\u00163\n\u0006\u0014@LLLJlllllljjjjjjj. ,10s20s10ss20ss20s20s#name\n\u001b#rub\n#loot\nq\u001614\n\u0006\u001621\n\u0006\u001617\n\u0006\u00168\n\u0006\u00167\n\u0006\u00168\n\u0006PL\u00163\n\u0006\u0014@LLjj.,20s10s20s20s10s10s10ss\u00162\n\u0006\u0014@HHHKhhhhhhkkkk. ,10ss20ss10sss10s\u0014: #jump\n\u001616\n\u0006#untrap\njf by u\u001615\n\u0006a\u001b\\   \u001610\n\u0006\u0014@lk. , 20s Astrid\n  d$h\u00167\n\u0006\u001618\n\u0006\u00166\n\u0006\u001616\n\u0006P#monst"
+ },
+ "segments": [
+  {
+   "seed": 53455016,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u001618\n\u0006j,\u00165\n\u0006\u00162\n\u0006\u0014 \u001b@HHHhhhhh. ,sss20s20s  Astrid\n  ssss20s  n.m.  n\u000f\u001b#rub\n#loot\nn\u00163\n \u00164\n\u0006\u000f\u001b_>,s\u001611\n\u0006\u001618\n\u0006#rub\n,\u001613\n    \u0006#untrap\nki\u001b\u001614\n\u0006\u001620\n\u0006\u0014@LLLLLllllllljjjjj. ,sss20sss10s Croesus\n\u00163\n\u0006\u0014@LLLJljjj. ,20s Astrid\n  \u0014<. \u00162\n\u0006\u0014@Hkkkkk.   n,  ns20s  10s20s10s20s20s20sn \u00163\n\u001611\n\u0006\u001621\n\u0006\u00164\n\u0006\u00165\n\u0006\u001615\n \u0006\u001619\n\u0006\u0014@HHHHHHHhhh. ,10sss10s20s \u001b  d$s#loot\n#force\nW\u001620\n\u0006\u0014@Llllllljj. ,ss20s Astrid\n  d$s10s#enhance\nyh\nb\n\u001b\\   \u001619\n\u0006\u001621\n\u0006q#force\n\u00163\n\u0006\u0014@LLLJlllllljjjjjjj. ,10s20s10ss20ss20s20s#name\n\u001b#rub\n#loot\nq\u001614\n\u0006\u001621\n\u0006\u001617\n\u0006\u00168\n\u0006\u00167\n\u0006\u00168\n\u0006PL\u00163\n\u0006\u0014@LLjj.,20s10s20s20s10s10s10ss\u00162\n\u0006\u0014@HHHKhhhhhhkkkk. ,10ss20ss10sss10s\u0014: #jump\n\u001616\n\u0006#untrap\njf by u\u001615\n\u0006a\u001b\\   \u001610\n\u0006\u0014@lk. , 20s Astrid\n  d$h\u00167\n\u0006\u001618\n\u0006\u00166\n\u0006\u001616\n\u0006P#monst"
+  }
+ ]
+}

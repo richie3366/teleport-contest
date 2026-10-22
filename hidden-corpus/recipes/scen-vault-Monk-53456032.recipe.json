@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u00164\n\u0006\u001621\n\u0006\u0014 \u001b@LLLLllllllkkkk.,10ss20ss10s Kira\n  ss.20s  sm..m.  n\u00165\n\u0006\u001612\n\u0006\u00165\n\u0006\u001613\n\u0006\u0014@HHJhhhhjjjjj.,s20s Kira\n  \u0017wand of digging\nzjuubuu#untrap\n.zjbqd Wai \u001615\n   \u0006\u0014@LJllllljj.,10ss20s10s Kira\n  FhFhFh Fh  n\u001612\n\u0006#pray\ny y :\u00164\n\u0006\u001612\n\u0006#chat\nl,\u001619\n\u0006\u001619\n\u0006#turn\nef\u001612\n\u0006#chat\nl\\  \u001612\n\u0006\u001620\n\u0006\u00166\n\u0006\u001615\n\u0006\u001619\n \u0006\u001615\n \u0006\u00168\n\u0006\u00165\n\u0006\u001611\n\u0006\u00169\n\u0006\u0014@HHHHHHHHKhhhhhk.,10s20s10s Kira\n  #dip\nedl20s  \u00162\n\u0006\u001615\n\u0006\u001617\n\u0006\u001619\n\u0006\u001621\n\u0006\u0014@LLLLLLLljjj.,10ss10s 10s   10ss10s10sn#ride\njy#enhance\ny\u001bajy  #wipe\n\u00166\n\u0006_m.sm.W\u00163\n\u0006\u0014@HHHJhjjjj.,s10ss10s20s20s20s10s\u00163\n\u0006\u0014@hhhjjjjj.  ,  s20s  10s10sss10ssn  \u0014,#chat\nh"
+ },
+ "segments": [
+  {
+   "seed": 53456032,
+   "datetime": "20071128210449",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u00164\n\u0006\u001621\n\u0006\u0014 \u001b@LLLLllllllkkkk.,10ss20ss10s Kira\n  ss.20s  sm..m.  n\u00165\n\u0006\u001612\n\u0006\u00165\n\u0006\u001613\n\u0006\u0014@HHJhhhhjjjjj.,s20s Kira\n  \u0017wand of digging\nzjuubuu#untrap\n.zjbqd Wai \u001615\n   \u0006\u0014@LJllllljj.,10ss20s10s Kira\n  FhFhFh Fh  n\u001612\n\u0006#pray\ny y :\u00164\n\u0006\u001612\n\u0006#chat\nl,\u001619\n\u0006\u001619\n\u0006#turn\nef\u001612\n\u0006#chat\nl\\  \u001612\n\u0006\u001620\n\u0006\u00166\n\u0006\u001615\n\u0006\u001619\n \u0006\u001615\n \u0006\u00168\n\u0006\u00165\n\u0006\u001611\n\u0006\u00169\n\u0006\u0014@HHHHHHHHKhhhhhk.,10s20s10s Kira\n  #dip\nedl20s  \u00162\n\u0006\u001615\n\u0006\u001617\n\u0006\u001619\n\u0006\u001621\n\u0006\u0014@LLLLLLLljjj.,10ss10s 10s   10ss10s10sn#ride\njy#enhance\ny\u001bajy  #wipe\n\u00166\n\u0006_m.sm.W\u00163\n\u0006\u0014@HHHJhjjjj.,s10ss10s20s20s20s10s\u00163\n\u0006\u0014@hhhjjjjj.  ,  s20s  10s10sss10ssn  \u0014,#chat\nh"
+  }
+ ]
+}

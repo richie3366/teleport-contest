@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed +3 gauntlets of power\nWl\u0016?\n>z  \u00162\n\u0006_ \u001bm,sFh ss20s\u00163\n \u0006_<._.\u00164\n\u0006#chat\nj;m,_>,Fy_.:Fy>\u0006#chat\ny ;y,\u00166\n \u0006#chat\nk;<._>.>\u0006_<, _.    Fj\u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z_>.>\u0016?\n>z\u0006_mmmm,20sss \u00164\n\u0016?\n>z\u0006kl llh     l     n nn_>.     Fh    _. Fl   >\u0016?\n>z\u0006,   n \u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00166\n\u0016?\n>z\u0006_<.    Fl _.   Fh  \u00162\n\u0016?\n>z\u0006, _>. Fl   _.<.Fh  n  >\u0016?\n>z\u0006l     l k   u k   k       b   \u00164\n\u0016?\n>z\u0006_m,  Fn   _.Fj   n      Fj    Fk   Fk      n Fh     \u00167\n\u00165\n\u0016?\n>z\u0006u k    l    n  l    j l      k   b      \u00166\n\u0016?\n>z\u0006,_>.  Fj    _.  n       Fh     >\u0016?\n>z\u0006b       lkyh     b    n \u00168\n\u00163\n\u0016?\n>z\u0006n    n b        n   k          b    n        y        n n\u00167\n\u00164\n\u0016?\n>z\u0006b          nb     n   lj      u    n "
+ },
+ "segments": [
+  {
+   "seed": 53450043,
+   "datetime": "20120530052057",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed +3 gauntlets of power\nWl\u0016?\n>z  \u00162\n\u0006_ \u001bm,sFh ss20s\u00163\n \u0006_<._.\u00164\n\u0006#chat\nj;m,_>,Fy_.:Fy>\u0006#chat\ny ;y,\u00166\n \u0006#chat\nk;<._>.>\u0006_<, _.    Fj\u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z_>.>\u0016?\n>z\u0006_mmmm,20sss \u00164\n\u0016?\n>z\u0006kl llh     l     n nn_>.     Fh    _. Fl   >\u0016?\n>z\u0006,   n \u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00166\n\u0016?\n>z\u0006_<.    Fl _.   Fh  \u00162\n\u0016?\n>z\u0006, _>. Fl   _.<.Fh  n  >\u0016?\n>z\u0006l     l k   u k   k       b   \u00164\n\u0016?\n>z\u0006_m,  Fn   _.Fj   n      Fj    Fk   Fk      n Fh     \u00167\n\u00165\n\u0016?\n>z\u0006u k    l    n  l    j l      k   b      \u00166\n\u0016?\n>z\u0006,_>.  Fj    _.  n       Fh     >\u0016?\n>z\u0006b       lkyh     b    n \u00168\n\u00163\n\u0016?\n>z\u0006n    n b        n   k          b    n        y        n n\u00167\n\u00164\n\u0016?\n>z\u0006b          nb     n   lj      u    n "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nWl\u0017blessed amulet of reflection\nPm\u001618\n   \u0006\u0014 \u001b@HHKhk. ,10s20s Croesus\nd$#monster\nacy\u001610\n\u0006\u001614\n\u0006\u00164\n\u0006\u0014@HHHJhhhhhhjjjjjj. ,20s Hippocrates\n  d$ykshlyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy\u00162\n\u0006\u00165\n\u0006\u001618\n\u0006\u0014@LLLlllllk. ,10s Hippocrates\n  .ssss20s \u001614\n\u0006\u00164\n\u0006\u00164\n\u0006\u00162\n\u0006\u001613\n\u0006#pray\ny y    t$k\u00162\n\u0006\u00169\n\u0006\u00163\n\u0006\u001615\n\u0006\u001611\n\u0006\u0014@HHHHJh. ,s20s10s \u001b  \u0017wand of digging\nzouuuu b\u00162\n\u0006\u00162\n\u000610si\u001b\u001621\n\u0006#wipe\nZ\u001b\u001613\n \u0006k;j;\u001621\n\u0006\u001612\n    \u0006\u00169\n\u0006\u0018\u001b#tip\n\u001b\u00169\n\u0006\u001618\n\u0006\u0014@LLl.    n,   n20s  10s10s20s20s20sssn \u00169\n\u00163\n\u0006\u00166\n \u0006\u001621\n\u0006\u001617\n \u0006f $ h#tip\n\u001b\u00168\n\u0006#force\n#dip\nef\u001619\n\u0006;>.#loot\n\u001612\n \u0006\u001620\n\u0006\u0014@HHHHhhhhhhh. ,1"
+ },
+ "segments": [
+  {
+   "seed": 53456045,
+   "datetime": "20060921090242",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nWl\u0017blessed amulet of reflection\nPm\u001618\n   \u0006\u0014 \u001b@HHKhk. ,10s20s Croesus\nd$#monster\nacy\u001610\n\u0006\u001614\n\u0006\u00164\n\u0006\u0014@HHHJhhhhhhjjjjjj. ,20s Hippocrates\n  d$ykshlyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy\u00162\n\u0006\u00165\n\u0006\u001618\n\u0006\u0014@LLLlllllk. ,10s Hippocrates\n  .ssss20s \u001614\n\u0006\u00164\n\u0006\u00164\n\u0006\u00162\n\u0006\u001613\n\u0006#pray\ny y    t$k\u00162\n\u0006\u00169\n\u0006\u00163\n\u0006\u001615\n\u0006\u001611\n\u0006\u0014@HHHHJh. ,s20s10s \u001b  \u0017wand of digging\nzouuuu b\u00162\n\u0006\u00162\n\u000610si\u001b\u001621\n\u0006#wipe\nZ\u001b\u001613\n \u0006k;j;\u001621\n\u0006\u001612\n    \u0006\u00169\n\u0006\u0018\u001b#tip\n\u001b\u00169\n\u0006\u001618\n\u0006\u0014@LLl.    n,   n20s  10s10s20s20s20sssn \u00169\n\u00163\n\u0006\u00166\n \u0006\u001621\n\u0006\u001617\n \u0006f $ h#tip\n\u001b\u00168\n\u0006#force\n#dip\nef\u001619\n\u0006;>.#loot\n\u001612\n \u0006\u001620\n\u0006\u0014@HHHHhhhhhhh. ,1"
+  }
+ ]
+}

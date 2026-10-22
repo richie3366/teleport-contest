@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #chat\nhklkh#name\nm\n>.10s#chat\nb20szZ#twoweapon\nlhjkjhdfbs20ssllnht\u001b\u001bYUKJ_>.><NJBB_>,>FkFhFl\u0018\u001b#dip\ngLBLH_>.>FhFyFk <KHYN_>.>clr\u001b\u001bJUBN_>.>#enhance\n\u001bW<ynny ny\u001b K"
+ },
+ "segments": [
+  {
+   "seed": 53450025,
+   "datetime": "20000406171852",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\n",
+   "moves": " #chat\nhklkh#name\nm\n>.10s#chat\nb20szZ#twoweapon\nlhjkjhdfbs20ssllnht\u001b\u001bYUKJ_>.><NJBB_>,>FkFhFl\u0018\u001b#dip\ngLBLH_>.>FhFyFk <KHYN_>.>clr\u001b\u001bJUBN_>.>#enhance\n\u001bW<ynny ny\u001b K"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "U  LYH_ \u001b,>,\u000f\u001bNJYJ_>,>BLLY_>.>HJ LK _>.>Fb .s<HBJB_>,>YHKJ_>,>KYJK_>,>f bn#wipe\nLNLK_>,>JUHU_>,>WkBKKU_>,>JYYL     _>.>"
+ },
+ "segments": [
+  {
+   "seed": 53451027,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=playmode:explore\n",
+   "moves": "U  LYH_ \u001b,>,\u000f\u001bNJYJ_>,>BLLY_>.>HJ LK _>.>Fb .s<HBJB_>,>YHKJ_>,>KYJK_>,>f bn#wipe\nLNLK_>,>JUHU_>,>WkBKKU_>,>JYYL     _>.>"
+  }
+ ]
+}
