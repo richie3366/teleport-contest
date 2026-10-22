@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4228 — insight.c enlightenment shows ^X through `select_menu(en_win, PICK_NONE)` (`:451–460`, en_via_menu = !final). windows.c select_menu sets `gb.bot_disabled = TRUE` around win_select_menu (`:1856–1863`), and tty_select_menu dismisses the window inside that span (wintty.c `:2851`): erase_menu_or_text → docrt. With a vault guard parked at <0,0>, docrt's see_monsters raises the `<0,0>` newsym impossible(). Its pline's flush_screen calls bot(), which returns at once under bot_disabled, so the status rows that cls blanked stay blank through the --More--. js/invent.js doattributes painted, waited and dismissed with bot enabled, so the impossible's flush repainted both status rows
+
+- **Status:** shipped (cliffs head after D-4227).
+- **Symptom:** 3 process_menu_window rows (scen-vault-Caveman-53456079, Ranger-53456004, Wizard-53456040; e.g. Caveman step 256, ^X then ESC): toplines identical («newsym: attempting screen update for <0,0>--More--»), rows 22–23 C blank vs JS «Wizard the Troglodyte … St:18/02 …» / «Dlvl:16 $:0 HP:18(18) …». RNG full; 8 screens lost.
+- **Measured / named:** a setCell hook armed on «attributes:» caught the row-22 write as tty_putstatusfield ← render_status ← bot ← flush_screen (the impossible's pline), after docrt's cls had blanked the row. C's flush_screen has the same `botl || botlx` gate (display.c `:2240`), so the difference was bot()'s `gb.bot_disabled` return (botl.c `:255`).
+- **C locus:** insight.c doattributes `:2009–2019`, enlightenment `:385–462` (select_menu arm `:451–460`); windows.c select_menu `:1856–1864`; wintty.c tty_select_menu `:2832–2858` (dismiss `:2851`), erase_menu_or_text `:991–1008`; botl.c bot `:253–271`.
+- **JS was:** js/invent.js doattributes: NEED_MORE flush, page painter, key wait and docrt / erase_menu_or_text all ran with bot enabled.
+- **Fix:** `set_bot_disabled(true)` … `finally set_bot_disabled(prev)` spans the NEED_MORE flush, the pages, the wait and the dismissal (docrt or erase_menu_or_text). This is the select_menu_pick_none idiom (invent.js `:3405–3503`). The closing flush_screen(1) stays outside the span, like the command's next flush in C, which paints the status.
+- **JS:** js/invent.js doattributes `:8954–9066`.
+- **Callers:** unchanged (rhack ^X, getline `#attributes`, enlightenment's !final arm).
+- **Verify:**
+  - `node scripts/verify.mjs --fn process_menu_window,doattributes,enlightenment --full` → `verify process_menu_window: 3 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach smoke 24/24 ×3 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. Board 772/773.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 769 baseline-PASS re-run in 150.0s, 0 regressed → REACH-OK.
+  - verify process_menu_window: 3 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in doattributes.
+- **Ledger:** doattributes ported
+- **Next:** invault ×1 (scen-vault-Tourist-53456001: «You stop searching.» vs the guard's entry, message order). The block is now under 6 rows, so the next slot is a grow.
+
 ## D-4227 — teleport.c teleds calls see_monsters (`:537`) before `vision_recalc(0)` (`:541`). With a vault guard parked at <0,0>, see_monsters' newsym raises display.c's `<0,0>` impossible(), and its pline flushes the map while the hero's destination square still shows the remembered glyph (nothing newsyms it until vision_recalc). js/teleport.js called the async see_monsters without `await`, so its body ran only up to the impossible, vision_recalc painted the hero at the destination, and the impossible's flush then showed «@» where C shows «$»
 
 - **Status:** shipped (cliffs head after D-4226).

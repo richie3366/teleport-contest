@@ -8952,6 +8952,13 @@ export async function doattributes(enl_mode = null) {
     // inline painter lacked it, so an invoke-enlightenment covered the
     // queued low-HP wail instead of paging it first). NEED_MORE →
     // tty_display_nhwindow(WIN_MESSAGE, TRUE): more() + topline clear.
+    // C windows.c select_menu `:1858–1863` — gb.bot_disabled spans
+    // tty_select_menu: display, the key wait and tty_dismiss_nhwindow's
+    // erase_menu_or_text docrt. A pline from that docrt (a parked guard's
+    // <0,0> newsym impossible) flushes without bot(), so the status rows
+    // the menu covered stay blank until the command's next flush (D-4228).
+    const _botPrev = set_bot_disabled(true);
+    try {
     if (topline_need_more()) await display_nhwindow_message();
     const waitMenuKey = async () => {
         for (;;) {
@@ -9052,6 +9059,9 @@ export async function doattributes(enl_mode = null) {
         await docrt();
     } else {
         await erase_menu_or_text(offx, 0, lines.length + 1, false);
+    }
+    } finally {
+        set_bot_disabled(_botPrev);
     }
     await flush_screen(1);
     return ECMD_OK; // C insight.c:2018

@@ -140,8 +140,7 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `wintty.c` process_menu_window — blocks 3/773 corpus sessions (first at step 256; RNG lost 0, screens lost 10): toplines identical; first differing screen row 22: C «» vs JS «Wizard the Troglodyte          St:18/02 Dx:16 Co:16 In:8 Wi:7 Ch:9 Law» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify process_menu_window` (scen-vault-Caveman-53456079, scen-vault-Ranger-53456004, scen-vault-Wizard-53456040). @eac44aba5 **[history: archived — read that D-entry once; the arm this divergence names is still open]**
-- [ ] `vault.c` invault — blocks 1/773 corpus sessions (first at step 387; RNG lost 0, screens lost 1): C «You stop searching. Suddenly one of the Vault's guards enter» vs JS «Suddenly one of the Vault's guards enters! You stop searchin». Probe: `node scripts/hidden-proxy.mjs verify invault` (scen-vault-Tourist-53456001). @eac44aba5 **[history: archived D-3269 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `vault.c` invault — blocks 1/773 corpus sessions (first at step 387; RNG lost 0, screens lost 1): C «You stop searching. Suddenly one of the Vault's guards enter» vs JS «Suddenly one of the Vault's guards enters! You stop searchin». Probe: `node scripts/hidden-proxy.mjs verify invault` (scen-vault-Tourist-53456001). @22e31f276 **[history: archived D-3269 — read that D-entry once; the arm this divergence names is still open]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)
