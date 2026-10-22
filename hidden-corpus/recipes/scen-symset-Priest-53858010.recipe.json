@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " Fk FyFbFbFkFnFbFkFbFuFnFlFjFuFuFkFlFbFnFhFlFnFkFjFbFhFuFjFuFjFlFnFuFjFlFnFnFbFkFjFkFyFjFjFbFnFlFkFjFjFyFhFjFbFuFlFhFnFnFuFhFjFyFkFbFkFuFhFlFhFlFnFlFuFnFyFnFuFnFyFhFbFuFuFlFyFk#pray\ny y FlFuFnFlFhFhFyFyFkFjFnFkFhFkFhFkFnFkFlFjFbFuFkFlFnFjFhFlFnFn\u00164\nFhFuFyFnFlFnFuFnFhFjFyFyFnFlFuFhFyFjFhFjFuFnFbFlFlFyFjFuFnFjFhFyFuFnFlFuFnFuFjFhFyFlFhFyFuFjFjFlFnFhFlFhFbFjFhFhFhFnFhFyFuFlFyFuFbFjFlFbFhFlFyFyFyFlFnFlFhFyFlFlFnFhFnFhFbFyFuFjFnFbFuFlFlFyFbFuFnFlFbFlFuFuFlFbFyFyFlFbFuFuFbFuFjFbFnFuFuFjFyFymOa\u001b\nmO>d\u001b\n\u001610\n\u0006_ \u001bm.>FuFu_>>.Fu_,Fu>FlFu_>>.Fy_.Fl>FlFkFjFbFnL#chat\nh\u0006_>,Fb_.Fy>FyFl_>,Fb_,Fn>FjFb_>,Fn_.Fy>FjFlFjFbFn\u0006_>>.Fb_.Fu>FkFl_>>,Fu_.Fj>FkFl_>>,Fb_.Fl>FjFlFuFbFl\u0006_>>,Fu_.Fy>FyF"
+ },
+ "segments": [
+  {
+   "seed": 53858010,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=playmode:debug\n",
+   "moves": " Fk FyFbFbFkFnFbFkFbFuFnFlFjFuFuFkFlFbFnFhFlFnFkFjFbFhFuFjFuFjFlFnFuFjFlFnFnFbFkFjFkFyFjFjFbFnFlFkFjFjFyFhFjFbFuFlFhFnFnFuFhFjFyFkFbFkFuFhFlFhFlFnFlFuFnFyFnFuFnFyFhFbFuFuFlFyFk#pray\ny y FlFuFnFlFhFhFyFyFkFjFnFkFhFkFhFkFnFkFlFjFbFuFkFlFnFjFhFlFnFn\u00164\nFhFuFyFnFlFnFuFnFhFjFyFyFnFlFuFhFyFjFhFjFuFnFbFlFlFyFjFuFnFjFhFyFuFnFlFuFnFuFjFhFyFlFhFyFuFjFjFlFnFhFlFhFbFjFhFhFhFnFhFyFuFlFyFuFbFjFlFbFhFlFyFyFyFlFnFlFhFyFlFlFnFhFnFhFbFyFuFjFnFbFuFlFlFyFbFuFnFlFbFlFuFuFlFbFyFyFlFbFuFuFbFuFjFbFnFuFuFjFyFymOa\u001b\nmO>d\u001b\n\u001610\n\u0006_ \u001bm.>FuFu_>>.Fu_,Fu>FlFu_>>.Fy_.Fl>FlFkFjFbFnL#chat\nh\u0006_>,Fb_.Fy>FyFl_>,Fb_,Fn>FjFb_>,Fn_.Fy>FjFlFjFbFn\u0006_>>.Fb_.Fu>FkFl_>>,Fu_.Fj>FkFl_>>,Fb_.Fl>FjFlFuFbFl\u0006_>>,Fu_.Fy>FyF"
+  }
+ ]
+}

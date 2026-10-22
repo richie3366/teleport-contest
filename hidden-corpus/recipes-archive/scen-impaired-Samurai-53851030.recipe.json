@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\ngj\n \u0017towel\naf\u0017fortune cookie\neg  \u0017cursed wand of opening\nzhukhl\u0017blessed potion of gain level\nqisss"
+ },
+ "segments": [
+  {
+   "seed": 53851030,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  #wizintrinsic\ngj\n \u0017towel\naf\u0017fortune cookie\neg  \u0017cursed wand of opening\nzhukhl\u0017blessed potion of gain level\nqisss"
+  }
+ ]
+}

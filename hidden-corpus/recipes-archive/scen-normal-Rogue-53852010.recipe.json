@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  df#conduct\n 10s: #force\n#ride\nk10sj,;k: \u001bm,qd #untrap\nk\u000f\u001btbli\u001b#untrap\nk#jump\n#chat\nki\u001bW.m.sm.20sT  y\u001bny n  w"
+ },
+ "segments": [
+  {
+   "seed": 53852010,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "  df#conduct\n 10s: #force\n#ride\nk10sj,;k: \u001bm,qd #untrap\nk\u000f\u001btbli\u001b#untrap\nk#jump\n#chat\nki\u001bW.m.sm.20sT  y\u001bny n  w"
+  }
+ ]
+}

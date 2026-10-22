@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b<.>FbFb_>>._.> #conduct\n #turn\n\u0006_>>.Fj_.>_>>._.>_>>,_,>wa#ride\nny\u0006_>._.>_>,_,>_>,_,>\u0006_>>,_.>_>>.Fj_.Fj>FjFj_>>.Fj_.Fj>FjFjFjFjFj\u0006_>.Fj_.Fj>FjFj_>.Fj_.Fj>FjFj_>.Fj_.Fj>FjFjFjFjFj\u0006_>.Fj_.Fj>FjFj_>.Fj_.Fj>FjFj_>.Fj_,Fj>FjFjFjFjFj\u0006_>>,Fj_.Fj>FjFj_>>,Fj_,Fj>FjFj_>>.Fj_,Fj>FjFjFjFjFj\u0007tame hill orc\n\u0007tame little dog\n\u0017magic whistle\nhyn  ai  \u0007sewer rat\nsm.   .l20s 20s   sm.   .k \u0017magic whistle\njhkaj\u0006_>. Fj_.Fh>Fh Fh_>.Fj  _.Fh  >Fj Fj _>. Fj   _,Fj  >#chat\ny\u0017magic whistle\nj kuak#wipe\n20sW#monster\n#enhance\nyk\nl\n\u001b#chat\nu\u0006_>>._,>_>>._,>_>>._.>\u0006_>._.>_>._.>_>,_.>;>. #dip\nh<\u0006_>,_,>_>,_.>_>,_,>\u0006_>,_.>_>._.>_>._.>\u0006_>>,_,>_>>._.>_>>,_.>\u00163\n_>.>50skkbFlFlFuFlFuFlFlFlFlFlFlFuFlFuFlFuFuFlFlFlFlFlFuFlFlFlFuFlFuFuFlFuFlFlFlFuFuFuFlFlFuFlFuFlFlFlFuFlFlFuFuFlFuFuFlFlFlFlFlFuFlFuFuFlFlFuFlFuFuFlFlFuFlFuFlFlFlFuF"
+ },
+ "segments": [
+  {
+   "seed": 53858000,
+   "datetime": "20001202094215",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0006_ \u001b<.>FbFb_>>._.> #conduct\n #turn\n\u0006_>>.Fj_.>_>>._.>_>>,_,>wa#ride\nny\u0006_>._.>_>,_,>_>,_,>\u0006_>>,_.>_>>.Fj_.Fj>FjFj_>>.Fj_.Fj>FjFjFjFjFj\u0006_>.Fj_.Fj>FjFj_>.Fj_.Fj>FjFj_>.Fj_.Fj>FjFjFjFjFj\u0006_>.Fj_.Fj>FjFj_>.Fj_.Fj>FjFj_>.Fj_,Fj>FjFjFjFjFj\u0006_>>,Fj_.Fj>FjFj_>>,Fj_,Fj>FjFj_>>.Fj_,Fj>FjFjFjFjFj\u0007tame hill orc\n\u0007tame little dog\n\u0017magic whistle\nhyn  ai  \u0007sewer rat\nsm.   .l20s 20s   sm.   .k \u0017magic whistle\njhkaj\u0006_>. Fj_.Fh>Fh Fh_>.Fj  _.Fh  >Fj Fj _>. Fj   _,Fj  >#chat\ny\u0017magic whistle\nj kuak#wipe\n20sW#monster\n#enhance\nyk\nl\n\u001b#chat\nu\u0006_>>._,>_>>._,>_>>._.>\u0006_>._.>_>._.>_>,_.>;>. #dip\nh<\u0006_>,_,>_>,_.>_>,_,>\u0006_>,_.>_>._.>_>._.>\u0006_>>,_,>_>>._.>_>>,_.>\u00163\n_>.>50skkbFlFlFuFlFuFlFlFlFlFlFlFuFlFuFlFuFuFlFlFlFlFlFuFlFlFlFuFlFuFuFlFuFlFlFlFuFuFuFlFlFuFlFuFlFlFlFuFlFlFuFuFlFuFuFlFlFlFlFlFuFlFuFuFlFlFuFlFuFuFlFlFuFlFuFlFlFlFuF"
+  }
+ ]
+}

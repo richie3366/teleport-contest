@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n        \u0007grey-elf\n#chat\nhFhFh\u0007incubus\n;h. \u001b..m..m. .m. \u0007soldier ant\n.h.jsm.sm.   yny   ny\u001bn  ."
+ },
+ "segments": [
+  {
+   "seed": 53852003,
+   "datetime": "20080103153213",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n        \u0007grey-elf\n#chat\nhFhFh\u0007incubus\n;h. \u001b..m..m. .m. \u0007soldier ant\n.h.jsm.sm.   yny   ny\u001bn  ."
+  }
+ ]
+}

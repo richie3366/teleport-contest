@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed magic lamp\n\u0017blessed +3 helm of telepathy\nWj\u0017blessed ring of free action\nPkl\u0017blessed magic harp\n\u0017blessed 20 daggers\nQm#levelchange\n20\n                   #wizintrinsic\nh\n \u0017blessed spellbook of sleep\nrn20sZb\n grey-elf\n:_ \u001bm.yll\u0017potion of speed\nqo s\u0017blessed spellbook of sleep\nrp.kZa\n#turn\n:#wizintrinsic\nh\n\u0017potion of confusion\nqq20ssm.\u0017potion of polymorph\nqr  sm.s\u0017wand of teleportation\nzzz\u0017blessed scroll of fire\nr#wizintrinsic\nh\n\u0017potion of oil\nqu20s\u0007lichen\nFy FbFhFyFkFk\u0007jackal\n\u0007newt\nFb FyFy  FbFy Fh\u0017scroll of enchant weapon\nr#wizintrinsic\nh\n\u0016?\n\u001b#levelchange\n14\n  hkkn\u0017cloud\nl \u0017unaligned altar\ndt y\u0017floating eye corpse\n#offer\n#pray\ny #rub\ni#terrain\nb\n20ssm.#wizintrinsic\nh\n\u0016?\n>y  \u0004 s.\u0007soldier\n\u0007soldier\nFh FkFhFh  FhFk    Fk     \u0016?\n>>L     cloak of magic resistance\n#levelchange\n30\n                \u0017scroll of taming\n\u0007red naga\nrz Fj            Fy\u0017blessed katana\nwA                                   Fj Fk Fj \u0017wand of opening\n\u0007cave spider\nzBk  \u0017ring of stealth\n\u0007imp\nP"
+ },
+ "segments": [
+  {
+   "seed": 53850078,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed magic lamp\n\u0017blessed +3 helm of telepathy\nWj\u0017blessed ring of free action\nPkl\u0017blessed magic harp\n\u0017blessed 20 daggers\nQm#levelchange\n20\n                   #wizintrinsic\nh\n \u0017blessed spellbook of sleep\nrn20sZb\n grey-elf\n:_ \u001bm.yll\u0017potion of speed\nqo s\u0017blessed spellbook of sleep\nrp.kZa\n#turn\n:#wizintrinsic\nh\n\u0017potion of confusion\nqq20ssm.\u0017potion of polymorph\nqr  sm.s\u0017wand of teleportation\nzzz\u0017blessed scroll of fire\nr#wizintrinsic\nh\n\u0017potion of oil\nqu20s\u0007lichen\nFy FbFhFyFkFk\u0007jackal\n\u0007newt\nFb FyFy  FbFy Fh\u0017scroll of enchant weapon\nr#wizintrinsic\nh\n\u0016?\n\u001b#levelchange\n14\n  hkkn\u0017cloud\nl \u0017unaligned altar\ndt y\u0017floating eye corpse\n#offer\n#pray\ny #rub\ni#terrain\nb\n20ssm.#wizintrinsic\nh\n\u0016?\n>y  \u0004 s.\u0007soldier\n\u0007soldier\nFh FkFhFh  FhFk    Fk     \u0016?\n>>L     cloak of magic resistance\n#levelchange\n30\n                \u0017scroll of taming\n\u0007red naga\nrz Fj            Fy\u0017blessed katana\nwA                                   Fj Fk Fj \u0017wand of opening\n\u0007cave spider\nzBk  \u0017ring of stealth\n\u0007imp\nP"
+  }
+ ]
+}

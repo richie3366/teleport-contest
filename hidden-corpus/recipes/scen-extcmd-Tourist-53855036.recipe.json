@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPm\u0017blessed +3 helm of telepathy\nWn\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007bugbear\n#pray\ny y  #chat\nb#jump\n#wizdetect\n\u0006FuFuFu_ \u001b<.,\u0007acid blob\n#overview\n\u001b#conduct\n i\u001b#dip\nfh#offer\n#chat\nu#turn\n#wizidentify\n\u001bFy FuFu__.#chat\nh#vanquished\n#genocided\npaper golem\n\u0018\u001b#name\n\u001b#adjust\nq\u001b#sit\n#pray\ny y #jump\n#wizdetect\n\u0006Fh FkFk,_{,_.qp#chronicle\n  #terrain\n\u001b#annotate\nFido\n\u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nb#chat\nj#jump\n#polyself\nred dragon\n  #monster\nb20s20s20ssjjk__._,#chat\nn#version\n  #history\n                  #annotate\n\u001b\u0018\u001b#wipe\n#loot\n#turn\n#sit\n#jump\n#wizintrinsic\nq\n jjj#conduct\n _<._.#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nyy#pray\ny y  #chat\nu#jump\n#wizidentify\n\u001byjy#twoweapon\n__.#chat\nb#vanquished\n #genocided\nvampire bat\ni\u001b#dip\noh#offer\n#chat\nn#turn\n#polyself\nfire giant\n20ss20ssbyb#wipe\n_>."
+ },
+ "segments": [
+  {
+   "seed": 53855036,
+   "datetime": "20050401183900",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPm\u0017blessed +3 helm of telepathy\nWn\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007bugbear\n#pray\ny y  #chat\nb#jump\n#wizdetect\n\u0006FuFuFu_ \u001b<.,\u0007acid blob\n#overview\n\u001b#conduct\n i\u001b#dip\nfh#offer\n#chat\nu#turn\n#wizidentify\n\u001bFy FuFu__.#chat\nh#vanquished\n#genocided\npaper golem\n\u0018\u001b#name\n\u001b#adjust\nq\u001b#sit\n#pray\ny y #jump\n#wizdetect\n\u0006Fh FkFk,_{,_.qp#chronicle\n  #terrain\n\u001b#annotate\nFido\n\u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nb#chat\nj#jump\n#polyself\nred dragon\n  #monster\nb20s20s20ssjjk__._,#chat\nn#version\n  #history\n                  #annotate\n\u001b\u0018\u001b#wipe\n#loot\n#turn\n#sit\n#jump\n#wizintrinsic\nq\n jjj#conduct\n _<._.#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nyy#pray\ny y  #chat\nu#jump\n#wizidentify\n\u001byjy#twoweapon\n__.#chat\nb#vanquished\n #genocided\nvampire bat\ni\u001b#dip\noh#offer\n#chat\nn#turn\n#polyself\nfire giant\n20ss20ssbyb#wipe\n_>."
+  }
+ ]
+}

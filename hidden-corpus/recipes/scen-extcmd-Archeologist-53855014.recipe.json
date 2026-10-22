@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 cloak of magic resistance\nWjj\u0017blessed amulet of reflection\nPk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n8\n       \u0007giant rat\n#dip\nmm#offer\n#pray\ny y       #chat\nj#levelchange\n13\n     FnFnFls_ \u001b:#chat\nl\u0007kobold\n#overview\n\u001b#conduct\n \u0018\u001b#name\ni\nshiny\n#adjust\nc\u001b#chat\nn#turn\n#levelchange\n14\nFn.E- Vlad was here\n_{,_,qy#vanquished\n #genocided\nice devil\n i\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n #pray\ny y    #wizintrinsic\ns\n Flss._{,qy y\u0007kobold shaman\n#chronicle\n  #terrain\n\u001b\u000f\u001b#wipe\n#loot\nh#chat\nn #chat\nh#levelchange\n14\nFn FnFhFn_ooo.,\u0007yellow mold\n#version\n  #history\n                  #annotate\nshiny\ni\u001b#tip\nh\u001b#ride\nny#turn\n#sit\n #jump\n#wizintrinsic\nsf\n Fu Fn FuFu \\ _ooo.Fn_.,#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#dip\njm#offer\n#pray\ny y #chat\nn#wizdetect\n\u0006FnFn FnFnk_>.Fu_.Fk#vanquished\n #genocided\nyeti\nd#annotate\n\u001b\u0018\u001b#name\n\u001b#adjust\nc\u001b#chat\nu#turn\n#wizdetect\n\u0006Fu Fu _{,Fu_.:Fuqm\u0007sewer rat\n#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y      #wizintrinsic\nra\n FyFu\u0016?\n>E\u0006\u0007yellow mold\n#version\n  #history\n                  #annotate\nblessed\n\u000f\u001b#wipe\n#loot\n#chat\ny#chat\nk#levelchange\n1\n    kjk,\u001618\n\u0006\u0007kobold shama"
+ },
+ "segments": [
+  {
+   "seed": 53855014,
+   "datetime": "20071108224532",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=fruit:mango\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 cloak of magic resistance\nWjj\u0017blessed amulet of reflection\nPk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n8\n       \u0007giant rat\n#dip\nmm#offer\n#pray\ny y       #chat\nj#levelchange\n13\n     FnFnFls_ \u001b:#chat\nl\u0007kobold\n#overview\n\u001b#conduct\n \u0018\u001b#name\ni\nshiny\n#adjust\nc\u001b#chat\nn#turn\n#levelchange\n14\nFn.E- Vlad was here\n_{,_,qy#vanquished\n #genocided\nice devil\n i\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n #pray\ny y    #wizintrinsic\ns\n Flss._{,qy y\u0007kobold shaman\n#chronicle\n  #terrain\n\u001b\u000f\u001b#wipe\n#loot\nh#chat\nn #chat\nh#levelchange\n14\nFn FnFhFn_ooo.,\u0007yellow mold\n#version\n  #history\n                  #annotate\nshiny\ni\u001b#tip\nh\u001b#ride\nny#turn\n#sit\n #jump\n#wizintrinsic\nsf\n Fu Fn FuFu \\ _ooo.Fn_.,#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#dip\njm#offer\n#pray\ny y #chat\nn#wizdetect\n\u0006FnFn FnFnk_>.Fu_.Fk#vanquished\n #genocided\nyeti\nd#annotate\n\u001b\u0018\u001b#name\n\u001b#adjust\nc\u001b#chat\nu#turn\n#wizdetect\n\u0006Fu Fu _{,Fu_.:Fuqm\u0007sewer rat\n#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y      #wizintrinsic\nra\n FyFu\u0016?\n>E\u0006\u0007yellow mold\n#version\n  #history\n                  #annotate\nblessed\n\u000f\u001b#wipe\n#loot\n#chat\ny#chat\nk#levelchange\n1\n    kjk,\u001618\n\u0006\u0007kobold shama"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0017blessed amulet of life saving\nPo\u0016?\n>z _ \u001b<.>\u0006,_>.Fl_.Fk>\u0006_m,  Fj _.Fj Fj  Fu   Fj  Fj  \u00164\n\u0006_mmmmm,Fl_.m. Fl    Fl Fl Fl FlFl   n \u00165\n \u0006_m.Fk     _.Fl        Fu        n s    .    n   .    s   n   \u0016?\n>>\u001b\u0016?\n>y  #chat\nn\u0016?\n>z\u00168\n\u00166\n\u0016?\n>z\u0006ukjk\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00162\n\u0016?\n>z\u0006#chat\nn;.\u00163\n\u0016?\n>z\u0006_mmm.20s.s20sss_>._.>\u0016?\n>z\u0006__.  n _.\u0016?\n>>\u001b\u0016?\n>y#chat\nb\u0016?\n>z\u00165\n\u0016?\n>z\u0006_mmmmm.s.s\u00166\n\u0016?\n>z\u0006#chat\nn;m,\u00162\n\u0016?\n>z\u0006__.\u00163\n\u0016?\n>z\u0006bjubnb\u00164\n\u0016?\n>z\u0006__._>._.>\u0016?\n>z\u0006nuyu_>.Fj_.Fj>\u0016?\n>z\u0006_mm.FjFjFjFj_>.Fj  n_.Fj>\u0016?\n>z\u0006_<.Fj_,Fj\u00163\n\u0016?\n>z\u0006,_>.Fj_.Fj>\u0016?\n>z\u0006_mmmmm,Fj_.FjFjFjFj Fj.\u00165\n\u0016?\n>z\u0006_>._.._>._.<.>\u0016?\n>z\u0006_mmm.s20ss.20ss \u00162\n\u0016?\n>z\u0006kj ulllj j_>._.:>\u0016?\n>z\u0006_mm.20sss20s_>,_.m.>\u0016?\n>z\u0006lhj\u0016?\n>>\u001b\u0016?\n>y#chat\nb\u0016?\n>z\u00165\n\u0016?\n>z\u0006#chat\nk;.\u00166\n\u0016?\n>z\u0006nhhll_>._.:>\u0016?\n>z\u0006_>,_.,\u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00163\n\u0016?\n>z\u0006jub\u00164\n\u0016?\n>z\u0006jlyblll\u00165\n\u0016?\n>z\u0006hlhyuhjn\u00166\n\u0016?\n>z\u0006_mmm.ss"
+ },
+ "segments": [
+  {
+   "seed": 53850094,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0017blessed amulet of life saving\nPo\u0016?\n>z _ \u001b<.>\u0006,_>.Fl_.Fk>\u0006_m,  Fj _.Fj Fj  Fu   Fj  Fj  \u00164\n\u0006_mmmmm,Fl_.m. Fl    Fl Fl Fl FlFl   n \u00165\n \u0006_m.Fk     _.Fl        Fu        n s    .    n   .    s   n   \u0016?\n>>\u001b\u0016?\n>y  #chat\nn\u0016?\n>z\u00168\n\u00166\n\u0016?\n>z\u0006ukjk\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00162\n\u0016?\n>z\u0006#chat\nn;.\u00163\n\u0016?\n>z\u0006_mmm.20s.s20sss_>._.>\u0016?\n>z\u0006__.  n _.\u0016?\n>>\u001b\u0016?\n>y#chat\nb\u0016?\n>z\u00165\n\u0016?\n>z\u0006_mmmmm.s.s\u00166\n\u0016?\n>z\u0006#chat\nn;m,\u00162\n\u0016?\n>z\u0006__.\u00163\n\u0016?\n>z\u0006bjubnb\u00164\n\u0016?\n>z\u0006__._>._.>\u0016?\n>z\u0006nuyu_>.Fj_.Fj>\u0016?\n>z\u0006_mm.FjFjFjFj_>.Fj  n_.Fj>\u0016?\n>z\u0006_<.Fj_,Fj\u00163\n\u0016?\n>z\u0006,_>.Fj_.Fj>\u0016?\n>z\u0006_mmmmm,Fj_.FjFjFjFj Fj.\u00165\n\u0016?\n>z\u0006_>._.._>._.<.>\u0016?\n>z\u0006_mmm.s20ss.20ss \u00162\n\u0016?\n>z\u0006kj ulllj j_>._.:>\u0016?\n>z\u0006_mm.20sss20s_>,_.m.>\u0016?\n>z\u0006lhj\u0016?\n>>\u001b\u0016?\n>y#chat\nb\u0016?\n>z\u00165\n\u0016?\n>z\u0006#chat\nk;.\u00166\n\u0016?\n>z\u0006nhhll_>._.:>\u0016?\n>z\u0006_>,_.,\u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00163\n\u0016?\n>z\u0006jub\u00164\n\u0016?\n>z\u0006jlyblll\u00165\n\u0016?\n>z\u0006hlhyuhjn\u00166\n\u0016?\n>z\u0006_mmm.ss"
+  }
+ ]
+}

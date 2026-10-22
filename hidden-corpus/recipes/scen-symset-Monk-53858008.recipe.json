@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "uhb\u0017pool\n:hj\u0017unaligned altar\ndjdh\u0017floating eye corpse\n#offer\nk  hl \u0017altar\ndidb\u0017elf corpse\n #offer\nl   #pray\ny y  k;b: \u001b:    y\u00162\n\u0007tame gnome lord\n\u0017meatball\nt\u001b\u0017leash\nanukluhanb\u0007newt\n\u0017scroll of taming\nro y\u0007acid blob\n..ss20s  s\u0007grid bug\nsm.20sss..\u0017magic whistle\nj j hap    v i\u001b\u0006_>,    Fy_.Fh> Fj FhFnefdc\u0006_>>.Fb_.Fj>FuFk_>>,Fb_.Fb>FjFu_>>,Fk_.Fb>FkFyFnFyFn\u0006_>,Fu_,Fu>FyFu_>.Fj_,Fy>FnFn_>.Fu_.Fk>FyFkFbFbFy\u0006_>,Fn_.Fn>FyFu_>.Fy_,Fu>FyFy_>.Fu_.Fn>FbFkFjFuFuFuFjFnFbFbFnFnFyFjFbFjFuFkFkFnFkFnFjFyFyFbFyFuFjFyFuFjFyFnFjFjFkFkFkFkFnFbFjFyFnFjFy"
+ },
+ "segments": [
+  {
+   "seed": 53858008,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nMENUCOLOR=\"uncursed\"=brown\n",
+   "moves": "uhb\u0017pool\n:hj\u0017unaligned altar\ndjdh\u0017floating eye corpse\n#offer\nk  hl \u0017altar\ndidb\u0017elf corpse\n #offer\nl   #pray\ny y  k;b: \u001b:    y\u00162\n\u0007tame gnome lord\n\u0017meatball\nt\u001b\u0017leash\nanukluhanb\u0007newt\n\u0017scroll of taming\nro y\u0007acid blob\n..ss20s  s\u0007grid bug\nsm.20sss..\u0017magic whistle\nj j hap    v i\u001b\u0006_>,    Fy_.Fh> Fj FhFnefdc\u0006_>>.Fb_.Fj>FuFk_>>,Fb_.Fb>FjFu_>>,Fk_.Fb>FkFyFnFyFn\u0006_>,Fu_,Fu>FyFu_>.Fj_,Fy>FnFn_>.Fu_.Fk>FyFkFbFbFy\u0006_>,Fn_.Fn>FyFu_>.Fy_,Fu>FyFy_>.Fu_.Fn>FbFkFjFuFuFuFjFnFbFbFnFnFyFjFbFjFuFkFkFnFkFnFjFyFyFbFyFuFjFyFuFjFyFnFjFjFkFkFkFkFnFbFjFyFnFjFy"
+  }
+ ]
+}

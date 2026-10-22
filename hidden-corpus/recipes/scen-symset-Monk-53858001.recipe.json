@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \\  ol\u0004u#tip\n\u001b\u001b#tip\n\u001b\u001bjhn\u0017throne\n#sit\n n:nh\u0017unaligned altar\ndd \u0017lichen corpse\n#offer\nj   #pray\ny dei\u001b#dip\nbJ#twoweapon\nO>d\u001b\n\u0007kitten\n\u0017huge chunk of meat\nt\u001b\u001b\u0017apple\n t\u001b\u001b#chat\nn10s 20s \u0017carrot\nt\u001b\u001b#chat\nb\u0007horse\n\u0017newt corpse\nt\u001b\u001b\u0007kobold\n.m.20s   n sm.20ssm.sm.10s  n j\u0017newt corpse\nt\u001b\u001bdh   n .lsk  n sm.\u00168\nO>>e\u001b\n\u00162\nFnFjFl #pray\ny y FjFkFyFjFkFuFbFjFbFuFhFyFuFuFyFbFhFnFkFbFbFhFnFjFbFkFnFyFbFbFyFuFyFbFjFuFkFjFuFhFuFyFhFnFuFuFyFbFnFbFyFuFjFhFyFkFbFjFjFjFyFbFhFjFuFkFbFnFjFnFjFhFhFhFhFjFnFjFbFkFbFuFyFjFjFhFuFhFkFjFuFjFhFnFkFuFkFhFhFuFbFhFyFhFnFuFyFjFkFkFyFhFhFbO>n\u001b\u001b\n\u0006_ \u001b;>FkFh_>>.Fn_.Fy>FnFu_>>.Fy_.Fl>FkFlFyFjFj\u0006_>.Fj_.Fn>FkFy_>.Fj_.Fu>FlFu_>"
+ },
+ "segments": [
+  {
+   "seed": 53858001,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  \\  ol\u0004u#tip\n\u001b\u001b#tip\n\u001b\u001bjhn\u0017throne\n#sit\n n:nh\u0017unaligned altar\ndd \u0017lichen corpse\n#offer\nj   #pray\ny dei\u001b#dip\nbJ#twoweapon\nO>d\u001b\n\u0007kitten\n\u0017huge chunk of meat\nt\u001b\u001b\u0017apple\n t\u001b\u001b#chat\nn10s 20s \u0017carrot\nt\u001b\u001b#chat\nb\u0007horse\n\u0017newt corpse\nt\u001b\u001b\u0007kobold\n.m.20s   n sm.20ssm.sm.10s  n j\u0017newt corpse\nt\u001b\u001bdh   n .lsk  n sm.\u00168\nO>>e\u001b\n\u00162\nFnFjFl #pray\ny y FjFkFyFjFkFuFbFjFbFuFhFyFuFuFyFbFhFnFkFbFbFhFnFjFbFkFnFyFbFbFyFuFyFbFjFuFkFjFuFhFuFyFhFnFuFuFyFbFnFbFyFuFjFhFyFkFbFjFjFjFyFbFhFjFuFkFbFnFjFnFjFhFhFhFhFjFnFjFbFkFbFuFyFjFjFhFuFhFkFjFuFjFhFnFkFuFkFhFhFuFbFhFyFhFnFuFyFjFkFkFyFhFhFbO>n\u001b\u001b\n\u0006_ \u001b;>FkFh_>>.Fn_.Fy>FnFu_>>.Fy_.Fl>FkFlFyFjFj\u0006_>.Fj_.Fn>FkFy_>.Fj_.Fu>FlFu_>"
+  }
+ ]
+}

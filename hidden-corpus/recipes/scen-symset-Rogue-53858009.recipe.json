@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " mOa\u001b\n\u00163\nkuyFuFkFyFkFyFkFuFyFyFuFkFyFkFyFyFuFuFyFyFuFyFkFkFuFuFkFkFyFyFkFuFyFuFyFkFuFuFuFkFuFuFkFuFkFyFyFyFuFuFuFyFuFkFyFkFkFuFuFuFkFkFkFyFyFuFuFyFyFkFkFkFkFyFuFuFyFyFkFuFyFuFkFuFyFkFuFkFkFyFuFkFuFyFyFkFuFyFyFyFkFuFkFuFuFuFuFkFyFyFyFkFuFyFyFuFyFkmO>k\u001b\n\u00166\n\u0006_ \u001b>.>FbFb_>>.Fb_.<.Fb>FhFy_>>.Fh_.m,Fl>FlFlFlFlFl#twoweapon\n#ride\nly\u0006_>,Fl_.:Fl>FlFl_>.Fl_.>.Fl>FlFl_>,Fl_.;>. Fl>FlFlFlFlFl\u0006_>.Fl_.m,Fl>FlFl_>,Fl_.,Fl>FlFl_>,Fl_.m,Fl>FlFlFlFlFl\u0006_>.Fl_.m,Fl>FlFl_>.Fl_.m,Fl>FlFl_>.Fl_.@.Fl>FlFlFlFlFl;l,#offer\n\u000f\u001b\u0006_>.Fl_.:Fl>FlFl_>.Fl_.<.Fl>FlFl_>.Fl_.:Fl>FlFlFlFlFl\u0006_>>.Fl_,:Fl>FlFl_>>.Fl_,.Fl>FlFl_>>,Fl_,:Fl>FlFlFlFlFl;l:P<\u0006_>,Fl_.Fl>FlFl_>.Fl_.,Fl>FlFl_>.Fl_,m.Fl>FlFlFlFlFl\u0006_>>.Fl_.m.Fl>FlFl_>>,Fl_.;m.Fl>FlFl_>>.Fl_,.Fl>FlFlFlFlFl\u0006_>>.Fl_"
+ },
+ "segments": [
+  {
+   "seed": 53858009,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": " mOa\u001b\n\u00163\nkuyFuFkFyFkFyFkFuFyFyFuFkFyFkFyFyFuFuFyFyFuFyFkFkFuFuFkFkFyFyFkFuFyFuFyFkFuFuFuFkFuFuFkFuFkFyFyFyFuFuFuFyFuFkFyFkFkFuFuFuFkFkFkFyFyFuFuFyFyFkFkFkFkFyFuFuFyFyFkFuFyFuFkFuFyFkFuFkFkFyFuFkFuFyFyFkFuFyFyFyFkFuFkFuFuFuFuFkFyFyFyFkFuFyFyFuFyFkmO>k\u001b\n\u00166\n\u0006_ \u001b>.>FbFb_>>.Fb_.<.Fb>FhFy_>>.Fh_.m,Fl>FlFlFlFlFl#twoweapon\n#ride\nly\u0006_>,Fl_.:Fl>FlFl_>.Fl_.>.Fl>FlFl_>,Fl_.;>. Fl>FlFlFlFlFl\u0006_>.Fl_.m,Fl>FlFl_>,Fl_.,Fl>FlFl_>,Fl_.m,Fl>FlFlFlFlFl\u0006_>.Fl_.m,Fl>FlFl_>.Fl_.m,Fl>FlFl_>.Fl_.@.Fl>FlFlFlFlFl;l,#offer\n\u000f\u001b\u0006_>.Fl_.:Fl>FlFl_>.Fl_.<.Fl>FlFl_>.Fl_.:Fl>FlFlFlFlFl\u0006_>>.Fl_,:Fl>FlFl_>>.Fl_,.Fl>FlFl_>>,Fl_,:Fl>FlFlFlFlFl;l:P<\u0006_>,Fl_.Fl>FlFl_>.Fl_.,Fl>FlFl_>.Fl_,m.Fl>FlFlFlFlFl\u0006_>>.Fl_.m.Fl>FlFl_>>,Fl_.;m.Fl>FlFl_>>.Fl_,.Fl>FlFlFlFlFl\u0006_>>.Fl_"
+  }
+ ]
+}

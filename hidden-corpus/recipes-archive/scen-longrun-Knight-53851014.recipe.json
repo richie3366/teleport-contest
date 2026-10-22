@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " FlFl.FlFl .50s 100s\u0018\u001bbyyFbs20snuh100s 100sFhssjkl100shbb150sluu#tip\n\u001b150slll_ \u001bm.>FhFhFhFhFhs100sdd50slnu150sj150s\\   150sFhFh20s100sFhFh.50seh100snkuFn..100s "
+ },
+ "segments": [
+  {
+   "seed": 53851014,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": " FlFl.FlFl .50s 100s\u0018\u001bbyyFbs20snuh100s 100sFhssjkl100shbb150sluu#tip\n\u001b150slll_ \u001bm.>FhFhFhFhFhs100sdd50slnu150sj150s\\   150sFhFh20s100sFhFh.50seh100snkuFn..100s "
+  }
+ ]
+}

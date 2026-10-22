@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nhf\n \u0017potion of polymorph\nqj  \u0017wand of opening\nz\u0017cursed scroll of confuse monster\nr\u0017blessed scroll of earth\nr20s sksm.#wizintrinsic\nm\n \u0017towel\na\u0017cursed scroll of amnesia\nr\u0017blessed scroll of confuse monster\nr\u0017glob of g200 gold pieces\n"
+ },
+ "segments": [
+  {
+   "seed": 53856025,
+   "datetime": "20241229011427",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nhf\n \u0017potion of polymorph\nqj  \u0017wand of opening\nz\u0017cursed scroll of confuse monster\nr\u0017blessed scroll of earth\nr20s sksm.#wizintrinsic\nm\n \u0017towel\na\u0017cursed scroll of amnesia\nr\u0017blessed scroll of confuse monster\nr\u0017glob of g200 gold pieces\n"
+  }
+ ]
+}

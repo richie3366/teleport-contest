@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nj\n \u0017blindfold\nae\u0017cram ration\nef\u0017banana\neg E- Vlad was here\n\u0017blessed scroll of fire\nrh20s      20s20s     #wizintrinsic\nlj\n  \u0017cursed scroll of gold detection\nri\u0017cursed wand of stasis\nzj\u0017potion of water\nqk\u0017blessed scroll of genocide\nrl\u0017scroll of enchant armor\nrm.s."
+ },
+ "segments": [
+  {
+   "seed": 53856038,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=autodig\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nj\n \u0017blindfold\nae\u0017cram ration\nef\u0017banana\neg E- Vlad was here\n\u0017blessed scroll of fire\nrh20s      20s20s     #wizintrinsic\nlj\n  \u0017cursed scroll of gold detection\nri\u0017cursed wand of stasis\nzj\u0017potion of water\nqk\u0017blessed scroll of genocide\nrl\u0017scroll of enchant armor\nrm.s."
+  }
+ ]
+}

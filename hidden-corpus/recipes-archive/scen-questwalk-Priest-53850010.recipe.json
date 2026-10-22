@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017blessed amulet of reflection\nPi\u0017blessed ring of free action\nPjr\u0017blessed Mjollnir\n wk\u0016?\n>z  _ \u001b.>\u0006ulhjhbhk \u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z\u00163\n\u0016?\n>z\u0006_mmmmm,Fb  _.Fh Fh  Fj Fj sFj \u00164\n\u0016?\n>z\u0006bu  nkhl\u00165\n\u0016?\n>z\u0006knnyykkl\u00166\n\u0016?\n>z\u0006ybklbuy\u0016?\n>>\u001b\u0016?\n>y#chat\nn\u0016?\n>z\u00162\n\u0016?\n>z\u0006yyhuy\u00163\n\u0016?\n>z\u0006ubyjk_>.  nFh _,Fh >\u0016?\n>z\u0006kn uj  nnj\u0016?\n>>\u001b\u0016?\n>y#chat\ny\u0016?\n>z\u001610\n\u00165\n\u0016?\n>z\u0006__.Fh _.Fl \u00166\n\u0016?\n>z\u0006yljhkk\u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006#chat\nn ;j:  \u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006bkhbuh\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_mmmmm,Fu _.  nFl Fy Fu Fn  Fu  Fk    n\u00162\n\u00163\n\u0016?\n>z\u0006_mmmmm.Fh _.Fy Fl Fn     n Fh Fb Fh \u00164\n\u0016?\n>z\u0006_mmm,  n Fl  _.Fl Fh Fh Fn \u00165\n\u0016?\n>z\u0006__,Fl_,Fu\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00166\n\u0016?\n>z\u0006_mm,Fj _.Fk    nFj Fj Fj Fj \u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006lhnnbyl\u0016?\n>>\u001b\u0016?\n>y#chat\nn\u0016?\n>z\u00164\n\u0016?\n>z\u0006jhhn\u00165\n\u0016?\n>z\u0006bynjlbhn\u00166\n\u0016?\n>z\u0006_m,Fk _.Fk  Fu .s\u00162\n\u0016?\n>z\u0006_>.Fk _,m,Fk\u0016?\n>>\u001b\u0016?\n>y#chat\nk\u0016?\n>z\u00163\n\u0016?\n>z\u0006_m.Fk _.Fk ss\u0016?\n>>\u001b\u0016?\n>y#chat\nj\u0016?\n>z_>._.>\u0016?\n>z\u0006#chat\nu;<"
+ },
+ "segments": [
+  {
+   "seed": 53850010,
+   "datetime": "20200906000935",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017blessed amulet of reflection\nPi\u0017blessed ring of free action\nPjr\u0017blessed Mjollnir\n wk\u0016?\n>z  _ \u001b.>\u0006ulhjhbhk \u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z\u00163\n\u0016?\n>z\u0006_mmmmm,Fb  _.Fh Fh  Fj Fj sFj \u00164\n\u0016?\n>z\u0006bu  nkhl\u00165\n\u0016?\n>z\u0006knnyykkl\u00166\n\u0016?\n>z\u0006ybklbuy\u0016?\n>>\u001b\u0016?\n>y#chat\nn\u0016?\n>z\u00162\n\u0016?\n>z\u0006yyhuy\u00163\n\u0016?\n>z\u0006ubyjk_>.  nFh _,Fh >\u0016?\n>z\u0006kn uj  nnj\u0016?\n>>\u001b\u0016?\n>y#chat\ny\u0016?\n>z\u001610\n\u00165\n\u0016?\n>z\u0006__.Fh _.Fl \u00166\n\u0016?\n>z\u0006yljhkk\u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006#chat\nn ;j:  \u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006bkhbuh\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_mmmmm,Fu _.  nFl Fy Fu Fn  Fu  Fk    n\u00162\n\u00163\n\u0016?\n>z\u0006_mmmmm.Fh _.Fy Fl Fn     n Fh Fb Fh \u00164\n\u0016?\n>z\u0006_mmm,  n Fl  _.Fl Fh Fh Fn \u00165\n\u0016?\n>z\u0006__,Fl_,Fu\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00166\n\u0016?\n>z\u0006_mm,Fj _.Fk    nFj Fj Fj Fj \u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006lhnnbyl\u0016?\n>>\u001b\u0016?\n>y#chat\nn\u0016?\n>z\u00164\n\u0016?\n>z\u0006jhhn\u00165\n\u0016?\n>z\u0006bynjlbhn\u00166\n\u0016?\n>z\u0006_m,Fk _.Fk  Fu .s\u00162\n\u0016?\n>z\u0006_>.Fk _,m,Fk\u0016?\n>>\u001b\u0016?\n>y#chat\nk\u0016?\n>z\u00163\n\u0016?\n>z\u0006_m.Fk _.Fk ss\u0016?\n>>\u001b\u0016?\n>y#chat\nj\u0016?\n>z_>._.>\u0016?\n>z\u0006#chat\nu;<"
+  }
+ ]
+}

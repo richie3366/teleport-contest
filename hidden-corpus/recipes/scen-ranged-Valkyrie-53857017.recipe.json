@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u00176 javelins\nQe\u0007hill orc\nuy fjflfl\u0017potion of gain energy\nteu\u0017ranseur\nwg\u0007jackal\nhaglhh,#enhance\nn\u001b#levelchange\n10\n         \u001715 shuriken\nQh\u00072 gnome lord\nhbfh fl\u0017potion of water\ntbh \u00073 jackal\nnfhfhfl fl Fl Fh\u0007soldier\nh  flfhfh \u0017grappling hook\nwj  \u0007newt\nnaj \u001b>.   bnl   n ,b\n"
+ },
+ "segments": [
+  {
+   "seed": 53857017,
+   "datetime": "20240826204415",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u00176 javelins\nQe\u0007hill orc\nuy fjflfl\u0017potion of gain energy\nteu\u0017ranseur\nwg\u0007jackal\nhaglhh,#enhance\nn\u001b#levelchange\n10\n         \u001715 shuriken\nQh\u00072 gnome lord\nhbfh fl\u0017potion of water\ntbh \u00073 jackal\nnfhfhfl fl Fl Fh\u0007soldier\nh  flfhfh \u0017grappling hook\nwj  \u0007newt\nnaj \u001b>.   bnl   n ,b\n"
+  }
+ ]
+}

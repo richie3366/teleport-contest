@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u001715 shuriken\nQg\u0007hill orc\nhh  fn fhfk\u0017potion of healing\ntbj\u0007grid bug\njufj fjfj\u0017glaive\nwi\u0007jackal\nnai \u001b:ybk,#enhance\nyi\nk\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 53857006,
+   "datetime": "20260701170930",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u001715 shuriken\nQg\u0007hill orc\nhh  fn fhfk\u0017potion of healing\ntbj\u0007grid bug\njufj fjfj\u0017glaive\nwi\u0007jackal\nnai \u001b:ybk,#enhance\nyi\nk\n\u001b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\ni\n \u0017blessed potion of sleeping\nqm\u0017potion of full healing\nqn\u0017wand of probing\nzo.byy\u0017scroll of blank paper\nrps.s#wizintrinsic\nih\n  \u0017blindfold\naqjyjZ\u0017tin of lizard meat\ner ..20s "
+ },
+ "segments": [
+  {
+   "seed": 53856034,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\ni\n \u0017blessed potion of sleeping\nqm\u0017potion of full healing\nqn\u0017wand of probing\nzo.byy\u0017scroll of blank paper\nrps.s#wizintrinsic\nih\n  \u0017blindfold\naqjyjZ\u0017tin of lizard meat\ner ..20s "
+  }
+ ]
+}

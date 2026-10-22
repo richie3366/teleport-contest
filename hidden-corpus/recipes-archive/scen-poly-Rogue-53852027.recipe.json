@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of polymorph control\nPgr#polyself\nvampire bat\n  #monster\n20ss\u0007Demogorgon\nyFyFy   Fy    n sm.     n 20s   yy\u001bnnny  s"
+ },
+ "segments": [
+  {
+   "seed": 53852027,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of polymorph control\nPgr#polyself\nvampire bat\n  #monster\n20ss\u0007Demogorgon\nyFyFy   Fy    n sm.     n 20s   yy\u001bnnny  s"
+  }
+ ]
+}

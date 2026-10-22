@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nm\n \u0017blessed scroll of magic mapping\nrf\u0017sprig of wolfsbane\neg\u0017scroll of destroy armor\nrh   \u0017blessed scroll of amnesia\nri \u001b\u0017wand of striking\nzjh ssks"
+ },
+ "segments": [
+  {
+   "seed": 53856014,
+   "datetime": "20200426011518",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nm\n \u0017blessed scroll of magic mapping\nrf\u0017sprig of wolfsbane\neg\u0017scroll of destroy armor\nrh   \u0017blessed scroll of amnesia\nri \u001b\u0017wand of striking\nzjh ssks"
+  }
+ ]
+}

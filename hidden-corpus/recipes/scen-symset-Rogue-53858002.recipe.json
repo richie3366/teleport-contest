@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "v i\u001bFkFuFj FuFuFkFuFuFuFkFkFkFuFkFkFuFuFkFkFuFkFuFuFkFkFuFkFkFkFkFuFuFkFkFkFuFkFuFkFkFkFuFkFkFkFuFkFuFkFuFkFkFuFuFuFuFuFkFkFuFkFkFuFkFuFuFkFkFkFkFuFkFkFuFuFuFuFuFkFuFkFkFuFuFuFkFkFuFkFuFkFkFuFkFkFuFkFkFkFkFkFkFuFuFkFkFuFkFuFuFuFkFkFkFkFkFkFkFuFu\u0006_ \u001b;>FuFk_>.Fy_.Fu>FuFy_>.Fy_.Fu>FyFyFuFuFu<\u0006_>,Fu_.Fu>FuFy_>,Fu_.Fy>FyFu_>.Fu_.Fu>FyFuFyFuFu_>,s#pray\ny y \u0006_>.Fu_.Fu>FyFy_>.Fy_.Fu>FuFy_>,Fy_.Fy>FuFuFyFyFyf bnnE- ad aerarium\n<\u0006_>,Fu_,Fu>FyFu_>,Fy_.Fy>FuFy_>.Fy_.Fu>FyFyFyFuFy\u0006_>,Fu_.Fu>FyFy_>.Fy_.Fu>FyFu_>.Fu_.Fy>FuFuFuFuFy\u0006_>,Fu_,Fu>FyFu_>.Fu_.Fu>FuFu_>.Fy_,Fy>FyFyFuFyFu\u0006_>>,Fy_.Fy>FuFy_>>.Fy_.Fy>FuFy_>>.Fy_.Fu>FuFuFuFyFu\u000f\u001bv i\u001b\u00162\n  50s100snbk50s\u000f\u001b_>.>yub150sFuFuFlFuFlFlFuFuFuFuFuFu  nFuFuFuz50sqd  50sFlFlFlFlFlFuFlFuFlFlFu FlFlFlFlFlFlFl#pray\ny y   F"
+ },
+ "segments": [
+  {
+   "seed": 53858002,
+   "datetime": "20110506145507",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a potion\"=cyan\n",
+   "moves": "v i\u001bFkFuFj FuFuFkFuFuFuFkFkFkFuFkFkFuFuFkFkFuFkFuFuFkFkFuFkFkFkFkFuFuFkFkFkFuFkFuFkFkFkFuFkFkFkFuFkFuFkFuFkFkFuFuFuFuFuFkFkFuFkFkFuFkFuFuFkFkFkFkFuFkFkFuFuFuFuFuFkFuFkFkFuFuFuFkFkFuFkFuFkFkFuFkFkFuFkFkFkFkFkFkFuFuFkFkFuFkFuFuFuFkFkFkFkFkFkFkFuFu\u0006_ \u001b;>FuFk_>.Fy_.Fu>FuFy_>.Fy_.Fu>FyFyFuFuFu<\u0006_>,Fu_.Fu>FuFy_>,Fu_.Fy>FyFu_>.Fu_.Fu>FyFuFyFuFu_>,s#pray\ny y \u0006_>.Fu_.Fu>FyFy_>.Fy_.Fu>FuFy_>,Fy_.Fy>FuFuFyFyFyf bnnE- ad aerarium\n<\u0006_>,Fu_,Fu>FyFu_>,Fy_.Fy>FuFy_>.Fy_.Fu>FyFyFyFuFy\u0006_>,Fu_.Fu>FyFy_>.Fy_.Fu>FyFu_>.Fu_.Fy>FuFuFuFuFy\u0006_>,Fu_,Fu>FyFu_>.Fu_.Fu>FuFu_>.Fy_,Fy>FyFyFuFyFu\u0006_>>,Fy_.Fy>FuFy_>>.Fy_.Fy>FuFy_>>.Fy_.Fu>FuFuFuFyFu\u000f\u001bv i\u001b\u00162\n  50s100snbk50s\u000f\u001b_>.>yub150sFuFuFlFuFlFlFuFuFuFuFuFu  nFuFuFuz50sqd  50sFlFlFlFlFlFuFlFuFlFlFu FlFlFlFlFlFlFl#pray\ny y   F"
+  }
+ ]
+}

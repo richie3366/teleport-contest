@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017blessed amulet of life saving\nPe\u0017blessed Mjollnir\nwf\u0016?\n>z  \u00162\n\u0006,_ \u001b;>\u0006_mm, Fh_,Fu  FhFhFk \u00164\n\u0006_m._,>.             Fj 20s Fj  Fb Fb   \u00165\n  \u0006kjyn  \u00166\n\u0006_<.Fy _.Fn \u0016?\n>>\u001b\u0016?\n>y  #chat\ny\u0016?\n>z\u00162\n\u0016?\n>z\u0006#chat\nl;<.\u00163\n\u0016?\n>z\u0006_mmm,Fl    _,Fl   Fl .s \u00164\n\u0016?\n>z\u0006#chat\nj     n;j:  \u00165\n\u0016?\n>z\u0006__.\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006#chat\nl       n  ;j.\u00163\n\u0016?\n>z\u0006_<.\u0016?\n>>\u001b\u0016?\n>y#chat\nu        \u0016?\n>z\u00164\n\u0016?\n>z\u0006_mm.Fu   n          _,Fj    n          nFu         n Fj         n \u00164\n\u00165\n\u0016?\n>z\u0006#chat\nu          n;u.\u0016?\n>>\u001b\u0016?\n>y#chat\nu    \u0016?\n>z\u00166\n\u0016?\n>z\u0006_mm.   n    Fj            n    n_.Fu           Fn        n Fu         n Fn      n "
+ },
+ "segments": [
+  {
+   "seed": 53850080,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017blessed amulet of life saving\nPe\u0017blessed Mjollnir\nwf\u0016?\n>z  \u00162\n\u0006,_ \u001b;>\u0006_mm, Fh_,Fu  FhFhFk \u00164\n\u0006_m._,>.             Fj 20s Fj  Fb Fb   \u00165\n  \u0006kjyn  \u00166\n\u0006_<.Fy _.Fn \u0016?\n>>\u001b\u0016?\n>y  #chat\ny\u0016?\n>z\u00162\n\u0016?\n>z\u0006#chat\nl;<.\u00163\n\u0016?\n>z\u0006_mmm,Fl    _,Fl   Fl .s \u00164\n\u0016?\n>z\u0006#chat\nj     n;j:  \u00165\n\u0016?\n>z\u0006__.\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006#chat\nl       n  ;j.\u00163\n\u0016?\n>z\u0006_<.\u0016?\n>>\u001b\u0016?\n>y#chat\nu        \u0016?\n>z\u00164\n\u0016?\n>z\u0006_mm.Fu   n          _,Fj    n          nFu         n Fj         n \u00164\n\u00165\n\u0016?\n>z\u0006#chat\nu          n;u.\u0016?\n>>\u001b\u0016?\n>y#chat\nu    \u0016?\n>z\u00166\n\u0016?\n>z\u0006_mm.   n    Fj            n    n_.Fu           Fn        n Fu         n Fn      n "
+  }
+ ]
+}

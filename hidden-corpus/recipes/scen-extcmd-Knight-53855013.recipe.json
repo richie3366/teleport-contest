@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPir\u0017blessed +3 speed boots\nWj \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007kobold\nFk  FuFk_ \u001b>.#overview\n\u001b#conduct\n \u000f\u001b#dip\nkl \u001b#offer\n#pray\ny y  #chat\nl#polyself\nvampire\n s20s ssllh__.#chat\nj#vanquished\n #genocided\nfire elemental\n\u0018\u001b#name\ni\n#adjust\nk\u001b#chat\nn#turn\n#jump\nm,   #wizmap\n\u0006Fh  ssf\u0016?\n>v \u0006#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n<.#wizdetect\n\u0006ybl20s_>.#version\n  #history\n                  #annotate\nshiny\ni\u001b#wipe\n#loot\n#chat\ny#chat\nl#wizintrinsic\ngs\n ylb_{,q\u0007soldier\n#overview\n\u001b#conduct\n #annotate\n\u001bi\u001b#tip\n\u001b#ride\nuy#turn\n#sit\n   \u001b \u001b \u001b#wizidentify\n\u001bFuFu  \u001bFu Fu;u,\u0016?\n\u001b\u0006\u0007lichen\n#vanquished\n #genocided\nbone devil\n \u000f\u001b#dip\nd#offer\n#pray\ny y #chat\nh#jump\n.#levelchange\n2\n         FhFh _oo.,#chronicle\n   #terrain\n\u001b#annotate\nfoo\n\u0018\u001b#name\nm\n#adjust\nm.Fido\n#chat\nh#turn\n #wizidentify\n\u001bFhFh#jump\nm,\u0016?\n\u001b\u0006#version\n  #history\n                  #annotate\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #jump\n;#wizdetect\n\u0006Fh Fhf\u0016?\n>>M "
+ },
+ "segments": [
+  {
+   "seed": 53855013,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPir\u0017blessed +3 speed boots\nWj \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007kobold\nFk  FuFk_ \u001b>.#overview\n\u001b#conduct\n \u000f\u001b#dip\nkl \u001b#offer\n#pray\ny y  #chat\nl#polyself\nvampire\n s20s ssllh__.#chat\nj#vanquished\n #genocided\nfire elemental\n\u0018\u001b#name\ni\n#adjust\nk\u001b#chat\nn#turn\n#jump\nm,   #wizmap\n\u0006Fh  ssf\u0016?\n>v \u0006#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #jump\n<.#wizdetect\n\u0006ybl20s_>.#version\n  #history\n                  #annotate\nshiny\ni\u001b#wipe\n#loot\n#chat\ny#chat\nl#wizintrinsic\ngs\n ylb_{,q\u0007soldier\n#overview\n\u001b#conduct\n #annotate\n\u001bi\u001b#tip\n\u001b#ride\nuy#turn\n#sit\n   \u001b \u001b \u001b#wizidentify\n\u001bFuFu  \u001bFu Fu;u,\u0016?\n\u001b\u0006\u0007lichen\n#vanquished\n #genocided\nbone devil\n \u000f\u001b#dip\nd#offer\n#pray\ny y #chat\nh#jump\n.#levelchange\n2\n         FhFh _oo.,#chronicle\n   #terrain\n\u001b#annotate\nfoo\n\u0018\u001b#name\nm\n#adjust\nm.Fido\n#chat\nh#turn\n #wizidentify\n\u001bFhFh#jump\nm,\u0016?\n\u001b\u0006#version\n  #history\n                  #annotate\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #jump\n;#wizdetect\n\u0006Fh Fhf\u0016?\n>>M "
+  }
+ ]
+}

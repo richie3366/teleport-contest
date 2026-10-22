@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWi\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007jackal\n#pray\ny y    #chat\nu #wizdetect\n\u0006Fu Fl ss_ \u001b,,#overview\n\u001b#conduct\n \u000f\u001b#dip\nid#offer\n#chat\nl#turn\n#wizidentify\n\u001bylk#conduct\n _oo.Fl_..,\u001b\u0007lichen\n#vanquished\n #genocided\niron golem\n#annotate\nFido\n\u0018\u001b#name\nm\n#adjust\n:#sit\n\u001b#pray\ny y #jump\n#wizidentify\n\u001bkln\\  _oooo,,#chronicle\n  #terrain\n\u001b#annotate\n\u001bi\u001b#twoweapon\n#invoke\n\u001b\u001b#chat\nn#chat\ny#wizdetect\n\u0006hkk_<,_.#version\n  #history\n                  #annotate\n\u001b\u0018\u001b#wipe\n#loot\n#turn\n#sit\n#wizmap\n\u0006kkj\u001625\n\u0006#overview\n\u001b#conduct\n \u0018\u001b#tip\nf\u001b#ride\nly#pray\ny y #chat\nk#wizintrinsic\ngq\n nuhf k n_oo.,#vanquished\n #genocided\nqu"
+ },
+ "segments": [
+  {
+   "seed": 53855034,
+   "datetime": "20240618132046",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWi\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007jackal\n#pray\ny y    #chat\nu #wizdetect\n\u0006Fu Fl ss_ \u001b,,#overview\n\u001b#conduct\n \u000f\u001b#dip\nid#offer\n#chat\nl#turn\n#wizidentify\n\u001bylk#conduct\n _oo.Fl_..,\u001b\u0007lichen\n#vanquished\n #genocided\niron golem\n#annotate\nFido\n\u0018\u001b#name\nm\n#adjust\n:#sit\n\u001b#pray\ny y #jump\n#wizidentify\n\u001bkln\\  _oooo,,#chronicle\n  #terrain\n\u001b#annotate\n\u001bi\u001b#twoweapon\n#invoke\n\u001b\u001b#chat\nn#chat\ny#wizdetect\n\u0006hkk_<,_.#version\n  #history\n                  #annotate\n\u001b\u0018\u001b#wipe\n#loot\n#turn\n#sit\n#wizmap\n\u0006kkj\u001625\n\u0006#overview\n\u001b#conduct\n \u0018\u001b#tip\nf\u001b#ride\nly#pray\ny y #chat\nk#wizintrinsic\ngq\n nuhf k n_oo.,#vanquished\n #genocided\nqu"
+  }
+ ]
+}

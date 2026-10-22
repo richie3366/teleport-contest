@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed scroll of blank paper\n\u0007skeleton\nrj\u0017uncursed +0 ring of aggravate monster\nPkr   nsm.20s20s  yy\u001by   y y\u001by  R"
+ },
+ "segments": [
+  {
+   "seed": 53852000,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed scroll of blank paper\n\u0007skeleton\nrj\u0017uncursed +0 ring of aggravate monster\nPkr   nsm.20s20s  yy\u001by   y y\u001by  R"
+  }
+ ]
+}

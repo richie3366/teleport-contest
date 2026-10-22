@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "i\u001bW20s  sswb FlFj20swa FjFjFhX#enhance\nyc\nc\n\u001br\u001bdb#name\no\n\u0004bohZ#twoweapon\ni\u001bWsn.h20swaFuFjFl qd"
+ },
+ "segments": [
+  {
+   "seed": 53852011,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "i\u001bW20s  sswb FlFj20swa FjFjFhX#enhance\nyc\nc\n\u001br\u001bdb#name\no\n\u0004bohZ#twoweapon\ni\u001bWsn.h20swaFuFjFl qd"
+  }
+ ]
+}

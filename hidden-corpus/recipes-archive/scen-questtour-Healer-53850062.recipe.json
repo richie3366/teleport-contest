@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nb_mm.Fb_,Fu  n   #chat\nl   n;u;_m.   nFl_.#chat\nu  n ;l:  _m,   nFl  n _.#chat\nu_mm.  n Fu  n_.#chat\nl  #levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mm,   Fu _.#chat\nb _mm, Fu     _.#chat\nb    n \u0017blessed ring of free action\nPkl  \u0017blessed +3 gray dragon scale mail\nWl             \u0017blessed amulet of life saving\nPm    \u0017wand of lightning\n\u0016?\n>A\u0006_mm,Fl        _,Fh  Fb      Fh   Fh  ,\u0016?\n>>\u001b\u0016?\n>y_mm,  Fy   n  _.#chat\ny \u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.      Fk  _.  Fk Fu Fk  n Fu  Fk    Fk Fu        n znu  ,#chat\nu   \u001612\n\u0016?\n>z\u0006_mm.   Fu  n      _.Fk Fk  Fk  n    Fk    Fk ,\u0016?\n>>\u001b\u0016?\n>y_mmm.   n Fk     _.#chat\nu   \u0016?\n>A\u0006_mmmmm.  yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 53850062,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nb_mm.Fb_,Fu  n   #chat\nl   n;u;_m.   nFl_.#chat\nu  n ;l:  _m,   nFl  n _.#chat\nu_mm.  n Fu  n_.#chat\nl  #levelchange\n14\n            \u0016?\n>>\u001b\u0016?\n>y\u0006_mm,   Fu _.#chat\nb _mm, Fu     _.#chat\nb    n \u0017blessed ring of free action\nPkl  \u0017blessed +3 gray dragon scale mail\nWl             \u0017blessed amulet of life saving\nPm    \u0017wand of lightning\n\u0016?\n>A\u0006_mm,Fl        _,Fh  Fb      Fh   Fh  ,\u0016?\n>>\u001b\u0016?\n>y_mm,  Fy   n  _.#chat\ny \u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.      Fk  _.  Fk Fu Fk  n Fu  Fk    Fk Fu        n znu  ,#chat\nu   \u001612\n\u0016?\n>z\u0006_mm.   Fu  n      _.Fk Fk  Fk  n    Fk    Fk ,\u0016?\n>>\u001b\u0016?\n>y_mmm.   n Fk     _.#chat\nu   \u0016?\n>A\u0006_mmmmm.  yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nn_m,Fj _.#chat\nb_m._.#chat\nk_m,Fu   n _,#chat\nu   n#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_m, Fu _.#chat\nu_mmm.Fk _,#chat\nk ;k,_mmmmm,   n Fk_.#chat\nk\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwj  \u0017wand of death\n\u0016?\n>A\u0006_mm.    Fk    _.Fb   Fn  Fb   Fj   nFj .,\u0016?\n>z\u0006_mmm,Fj    _.   Fj    Fb  Fj   Fb Fh   n  zkj  ,  \u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fb    _,  Fb  Fj  Fb    Fb   n   Fb   Fj  ,#chat\nb\u0016?\n>A\u0006_mmm,Fb   Fj 20s20sFk zkk,#chat\nn\u0016?\n>A\u0006_mmmmmm...s20s.zkk,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nn\u0016?\n>z\u0006_mmmm.20s20s   \u001b s..20s zkk,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.s20s20s  Fh,\u0016?\n>A\u0006_mmm.Fh _.Fh Fh   n Fh  Fh.zkj,\u0016?\n>A\u0006_mmm._..sssss20szk,\u0016?\n>z\u0006_mmm,  Fk _.,   nFk FkFk ss20s.zk,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,20sss20s.zk,\u0016?\n>A\u0006_mmmmmm..20ss20s Fl zk ,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmmm, Fl    _.#chat\nl\u0016?\n>A\u0006_mmmmmmm. Fl  _,Fl   n  Fl Fl ss,\u0016?\n>z\u0006_mmm..ss.zk,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm..s20s....,#chat\ny\u0016?\n>A\u0006_mmmmm.ss20s20sss"
+ },
+ "segments": [
+  {
+   "seed": 53850076,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b:#chat\nn_m,Fj _.#chat\nb_m._.#chat\nk_m,Fu   n _,#chat\nu   n#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_m, Fu _.#chat\nu_mmm.Fk _,#chat\nk ;k,_mmmmm,   n Fk_.#chat\nk\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwj  \u0017wand of death\n\u0016?\n>A\u0006_mm.    Fk    _.Fb   Fn  Fb   Fj   nFj .,\u0016?\n>z\u0006_mmm,Fj    _.   Fj    Fb  Fj   Fb Fh   n  zkj  ,  \u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fb    _,  Fb  Fj  Fb    Fb   n   Fb   Fj  ,#chat\nb\u0016?\n>A\u0006_mmm,Fb   Fj 20s20sFk zkk,#chat\nn\u0016?\n>A\u0006_mmmmmm...s20s.zkk,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nn\u0016?\n>z\u0006_mmmm.20s20s   \u001b s..20s zkk,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm.s20s20s  Fh,\u0016?\n>A\u0006_mmm.Fh _.Fh Fh   n Fh  Fh.zkj,\u0016?\n>A\u0006_mmm._..sssss20szk,\u0016?\n>z\u0006_mmm,  Fk _.,   nFk FkFk ss20s.zk,#chat\nl\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,20sss20s.zk,\u0016?\n>A\u0006_mmmmmm..20ss20s Fl zk ,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmmmm, Fl    _.#chat\nl\u0016?\n>A\u0006_mmmmmmm. Fl  _,Fl   n  Fl Fl ss,\u0016?\n>z\u0006_mmm..ss.zk,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm..s20s....,#chat\ny\u0016?\n>A\u0006_mmmmm.ss20s20sss"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017blessed +3 speed boots\nWo\u0017blessed +3 silver dragon scale mail\nW\u001b\u00161\n_ \u001b.<yy\u001bny n \u0016"
+ },
+ "segments": [
+  {
+   "seed": 53850084,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017blessed +3 speed boots\nWo\u0017blessed +3 silver dragon scale mail\nW\u001b\u00161\n_ \u001b.<yy\u001bny n \u0016"
+  }
+ ]
+}

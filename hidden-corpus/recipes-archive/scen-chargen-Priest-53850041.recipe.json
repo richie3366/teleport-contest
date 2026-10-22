@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "Jun\ryy  nhhnjtcy#rub\n#rub\n#wipe\n>#invoke\n\u001bkknjr\u001bi\u001bknyhjuhlbhulujbubklbyknu#terrain\nc\n\u001b;:_m,sm.#ride\nl#monster\n,#sit\n bbyblyju:20skjll_m,20sck,bkjy_<,20shjlubhynkhln#force\nflnhhluhbh\\    \u0018\u001blkbubublq\u000f\u001b_<,s_>,sjlju#enhance\n\u001b#rub\n#turn\n10s\u000f\u001b#conduct\n hhnkluhlnybybjyla#offer\n#pray\ny   #enhance\n\u001bE- Elbereth\n20s#enhance\n\u001blknylok#offer\nhnkh_m,s_<,s_<,20s,\u0018\u001bj,\u0014_m,s_<.20sljulhnlyhjkholwdnybujjkuhn_<..#terrain\nb\n10"
+ },
+ "segments": [
+  {
+   "seed": 53850041,
+   "datetime": "20090727195214",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\n",
+   "moves": "Jun\ryy  nhhnjtcy#rub\n#rub\n#wipe\n>#invoke\n\u001bkknjr\u001bi\u001bknyhjuhlbhulujbubklbyknu#terrain\nc\n\u001b;:_m,sm.#ride\nl#monster\n,#sit\n bbyblyju:20skjll_m,20sck,bkjy_<,20shjlubhynkhln#force\nflnhhluhbh\\    \u0018\u001blkbubublq\u000f\u001b_<,s_>,sjlju#enhance\n\u001b#rub\n#turn\n10s\u000f\u001b#conduct\n hhnkluhlnybybjyla#offer\n#pray\ny   #enhance\n\u001bE- Elbereth\n20s#enhance\n\u001blknylok#offer\nhnkh_m,s_<,s_<,20s,\u0018\u001bj,\u0014_m,s_<.20sljulhnlyhjkholwdnybujjkuhn_<..#terrain\nb\n10"
+  }
+ ]
+}

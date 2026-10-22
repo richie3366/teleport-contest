@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "llnk\u0017fountain\nqy y#dip\nb bk\u0017moat\nlh :b\u0017iron bars\njkjk:#terrain\nb\n\u001bm.#force\nchf by uybj\u0017magic fountain\nqy qy y#dip\na:n\u0017unaligned altar\nde\u0017human corpse\n#offer\nf    #terrain\nb\n#loot\n;#untrap\nkol"
+ },
+ "segments": [
+  {
+   "seed": 53851000,
+   "datetime": "20120104115400",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "llnk\u0017fountain\nqy y#dip\nb bk\u0017moat\nlh :b\u0017iron bars\njkjk:#terrain\nb\n\u001bm.#force\nchf by uybj\u0017magic fountain\nqy qy y#dip\na:n\u0017unaligned altar\nde\u0017human corpse\n#offer\nf    #terrain\nb\n#loot\n;#untrap\nkol"
+  }
+ ]
+}

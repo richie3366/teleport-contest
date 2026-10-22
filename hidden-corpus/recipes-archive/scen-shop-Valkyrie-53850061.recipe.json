@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWe\u0017blessed +3 speed boots\nWf\u0016?\n>w\u0006_ \u001b.,p_oooooo.,:\u00167\nkkb\u0016?\n>w\u0006_ooo.,p_{.  _,qy_ooooo.,$_ooooo._ooo.,p:_{,_.<.qy \u00167\nunk\u0016?\n>w\u0006_ooooooo,,\u0017luckstone\ndh_ooooooooo,,p__, _.Fh     #chat\nh _ooo,,\u0014m,20s  sm._oooooo.,pm,_ooo,,#chat\nk   n _{.  n Fu   n _.@.Flq\u00162\n_{,q_oooooo._oo.  n Fk    n_.,Fk,p\u00166\n_oooooo.,p_ooooooooo,,$_oooooo,,\u0017amulet of strangulation\ndi  _oo,,pFb   n Fb     nFb     nFb  Fb   n Fb    n\u00161\n_oo, Fn_.>.Fl   n _ooo.,pFn  FnFn    nFn  FnFn   n \u001612\nFbFb FbFbFbFb_oo.Fn_,_o,Fj _.:Fl,p_ooooo.Fy_.Fl,:_ooooo.Fl _. Fl, \u0017cheap plastic imitation of the Amulet of Yendor\ndj _ooooooo,Fh_.m.Fu,\u0017amulet of guarding\ndk _ooooooo.Fk _.m, Fk,$_ooo,Fk_.Fy,#chat\nh__.#chat\ny _ooooooo,Fu  n_,Fu_o.Fl_.Fu,p\u0016?\ncnhj\u0016?\n>w\u0006_oooooo,,phub#chat\nh\u00163\nbhb\u0016"
+ },
+ "segments": [
+  {
+   "seed": 53850061,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:kumquat\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWe\u0017blessed +3 speed boots\nWf\u0016?\n>w\u0006_ \u001b.,p_oooooo.,:\u00167\nkkb\u0016?\n>w\u0006_ooo.,p_{.  _,qy_ooooo.,$_ooooo._ooo.,p:_{,_.<.qy \u00167\nunk\u0016?\n>w\u0006_ooooooo,,\u0017luckstone\ndh_ooooooooo,,p__, _.Fh     #chat\nh _ooo,,\u0014m,20s  sm._oooooo.,pm,_ooo,,#chat\nk   n _{.  n Fu   n _.@.Flq\u00162\n_{,q_oooooo._oo.  n Fk    n_.,Fk,p\u00166\n_oooooo.,p_ooooooooo,,$_oooooo,,\u0017amulet of strangulation\ndi  _oo,,pFb   n Fb     nFb     nFb  Fb   n Fb    n\u00161\n_oo, Fn_.>.Fl   n _ooo.,pFn  FnFn    nFn  FnFn   n \u001612\nFbFb FbFbFbFb_oo.Fn_,_o,Fj _.:Fl,p_ooooo.Fy_.Fl,:_ooooo.Fl _. Fl, \u0017cheap plastic imitation of the Amulet of Yendor\ndj _ooooooo,Fh_.m.Fu,\u0017amulet of guarding\ndk _ooooooo.Fk _.m, Fk,$_ooo,Fk_.Fy,#chat\nh__.#chat\ny _ooooooo,Fu  n_,Fu_o.Fl_.Fu,p\u0016?\ncnhj\u0016?\n>w\u0006_oooooo,,phub#chat\nh\u00163\nbhb\u0016"
+  }
+ ]
+}

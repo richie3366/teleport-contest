@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    \u0017orcish bow\nwf\u001720 orcish arrows\nQg\u0007gnome lord\nhfjfj flfj \u0007newt\nuu fjfjfjfj fn\u0007lichen\nnnfnfk\u0017potion of gain energy\ntch\u0017lance\nwi\u0007lichen\njai \u001bm,huj,"
+ },
+ "segments": [
+  {
+   "seed": 53857026,
+   "datetime": "20170718043327",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n    \u0017orcish bow\nwf\u001720 orcish arrows\nQg\u0007gnome lord\nhfjfj flfj \u0007newt\nuu fjfjfjfj fn\u0007lichen\nnnfnfk\u0017potion of gain energy\ntch\u0017lance\nwi\u0007lichen\njai \u001bm,huj,"
+  }
+ ]
+}

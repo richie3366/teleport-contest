@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00176 javelins\nQg\u0007newt\nhfl fjfb\u0007kobold\njfuf c   l  fh  \u0017ranseur\nwh\u0007lichen\nnah \u001b:ylh,#enhance\nya\na\n\u001b\u00176 eggs\nQ-\u0007gnome\nljfffff\u0007soldier\nuffs s\u0017lance\nwj\u0007grid bug\njajm.x  #twoweapon\nFh Fh   yy\u001by  y y y\u001by  n"
+ },
+ "segments": [
+  {
+   "seed": 53857004,
+   "datetime": "20260212105559",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u00176 javelins\nQg\u0007newt\nhfl fjfb\u0007kobold\njfuf c   l  fh  \u0017ranseur\nwh\u0007lichen\nnah \u001b:ylh,#enhance\nya\na\n\u001b\u00176 eggs\nQ-\u0007gnome\nljfffff\u0007soldier\nuffs s\u0017lance\nwj\u0007grid bug\njajm.x  #twoweapon\nFh Fh   yy\u001by  y y y\u001by  n"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    \u0017saddle\n ain#ride\nly#ride\n #ride\nhy#ride\n \u0007warhorse\n\u0017scroll of taming\nrj \u0017saddle\nakl#ride\nly#ride\n #ride\nhy#ride\n \u0007pony\n\u0017scroll of taming\nrl \u0017saddle\naml#ride\nly#ride\n #ride\nuy#ride\n kjub,,\u0004jySy\u001b yE- Elbereth\n#offer\nP\u0014 \u001b>. #offer\nE-y X marks the spot\n#dip\nh\u0007little dog\n\u0017newt corpse\ntbk \u0007tame little dog\n\u0006_",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53851004,
+   "datetime": "20241006121212",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n    \u0017saddle\n ain#ride\nly#ride\n #ride\nhy#ride\n \u0007warhorse\n\u0017scroll of taming\nrj \u0017saddle\nakl#ride\nly#ride\n #ride\nhy#ride\n \u0007pony\n\u0017scroll of taming\nrl \u0017saddle\naml#ride\nly#ride\n #ride\nuy#ride\n kjub,,\u0004jySy\u001b"
+  },
+  {
+   "seed": 54351004,
+   "datetime": "20110311215746",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " yE- Elbereth\n#offer\nP\u0014 \u001b>. #offer\nE-y X marks the spot\n#dip\nh\u0007little dog\n\u0017newt corpse\ntbk \u0007tame little dog\n\u0006_"
+  }
+ ]
+}

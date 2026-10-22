@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "H UUH_ \u001b:>Fj ssYHKN_>.>W#force\nULLJ_>,>\u000f\u001b_>.>ubl100si\u001b\u000f\u001b#loot\n\u000f\u001b\u000f\u001b150sFlFlFlFl20sFl\\  150sFhsskubuln_>.>100st\u001bhlk\u000f\u001boh150sFhs20s50s100s100s150sFlFlFlbkut\u001b_>.>\u000f\u001b50s50sjbu50sFlFl20s_>.>#enhance\n\u001bhhn50sFlss150s100shkn100s\\  50s  Fu.sFuss50suyl50s Fls20s Fls.100s100s eh100s _>.>_>.>#monster\n100sFh20ssefi\u001b_>.>150s100slnj100s100sFlss100s100sFj..uuh:100sNJHB_>.>#force\nzk Hawaiian shirt\nKNUK_>,>f \u001b,KNUN_>.>BUYU_>,>FnFjsNKYHnn_>.>BKyUK_>.>BYKY_>,><JNHL_>.>>rc KJJN_>.>JUKHy_>.>#terrain\n\u001b#invoke\n\u001bLNBY_>,><10shjybt$ht\u001b#chat\nllb10sddsssJJHY_>.>JHJU_>.>Fl.s#turn\n#terrain\n\u001bBLBU_>,>#jump\n,\u000f\u001b\\  50sFbss50s100s \u0018\u001b100s100sbjk100sef#jump\nuhl_>,>dk"
+ },
+ "segments": [
+  {
+   "seed": 53850017,
+   "datetime": "20161121213021",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=playmode:explore\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "H UUH_ \u001b:>Fj ssYHKN_>.>W#force\nULLJ_>,>\u000f\u001b_>.>ubl100si\u001b\u000f\u001b#loot\n\u000f\u001b\u000f\u001b150sFlFlFlFl20sFl\\  150sFhsskubuln_>.>100st\u001bhlk\u000f\u001boh150sFhs20s50s100s100s150sFlFlFlbkut\u001b_>.>\u000f\u001b50s50sjbu50sFlFl20s_>.>#enhance\n\u001bhhn50sFlss150s100shkn100s\\  50s  Fu.sFuss50suyl50s Fls20s Fls.100s100s eh100s _>.>_>.>#monster\n100sFh20ssefi\u001b_>.>150s100slnj100s100sFlss100s100sFj..uuh:100sNJHB_>.>#force\nzk Hawaiian shirt\nKNUK_>,>f \u001b,KNUN_>.>BUYU_>,>FnFjsNKYHnn_>.>BKyUK_>.>BYKY_>,><JNHL_>.>>rc KJJN_>.>JUKHy_>.>#terrain\n\u001b#invoke\n\u001bLNBY_>,><10shjybt$ht\u001b#chat\nllb10sddsssJJHY_>.>JHJU_>.>Fl.s#turn\n#terrain\n\u001bBLBU_>,>#jump\n,\u000f\u001b\\  50sFbss50s100s \u0018\u001b100s100sbjk100sef#jump\nuhl_>,>dk"
+  }
+ ]
+}

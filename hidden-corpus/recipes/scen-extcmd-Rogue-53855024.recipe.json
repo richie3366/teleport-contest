@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of reflection\nPj\u0017blessed +3 speed boots\nWk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007owlbear\nFkFkFh Fk> _ \u001b;#chat\nk\u0007bugbear\n#overview\n\u001b#conduct\n \u0018\u001b#dip\nad #offer\n#pray\ny y   #chat\nk #polyself\nxorn\n20s sk  Fy Fk lkkok\u0016?\nc\u0006#vanquished\n #genocided\nArchon\n\u001b#annotate\nFido\n\u000f\u001b#name\no\nshiny\n#adjust\nm\u001b#chat\nj#turn\n#jump\n#wizintrinsic\nga\n nubZ_{.Fu _,<.Fy qd  \u0007kobold shaman\n#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y    #jump\n#polyself\npurple worm\n #monster\n20s  sm.Fy    Fy Fy Fh  #pray\ny y             n__.  Fy _.Fy#chat\nh #version\n  #history\n                  \u0018\u001b#wipe\n #loot\nb#chat\nh   n#chat\ny #wizdetect\n\u0006FbFh Fh,\u001b__.Fh   _.  n Fy  #chat\nh  #overview\n\u001b#conduct\n i\u001b#tip\nf\u001b #ride\nyy#turn\n#sit\n  #wizdetect\n\u0006FhFyK_>.  n Fy_,  Fy \u0007troll\n#vanquished\n #genocided\nrabid rat\nn \u001b #annotate\n\u001b\u0018\u001b#dip\nfm   n#offer\n#pray\ny y        #chat\nb #wizintrinsic\nrs\n Fb  Fb __,#"
+ },
+ "segments": [
+  {
+   "seed": 53855024,
+   "datetime": "20131127064901",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of reflection\nPj\u0017blessed +3 speed boots\nWk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007owlbear\nFkFkFh Fk> _ \u001b;#chat\nk\u0007bugbear\n#overview\n\u001b#conduct\n \u0018\u001b#dip\nad #offer\n#pray\ny y   #chat\nk #polyself\nxorn\n20s sk  Fy Fk lkkok\u0016?\nc\u0006#vanquished\n #genocided\nArchon\n\u001b#annotate\nFido\n\u000f\u001b#name\no\nshiny\n#adjust\nm\u001b#chat\nj#turn\n#jump\n#wizintrinsic\nga\n nubZ_{.Fu _,<.Fy qd  \u0007kobold shaman\n#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y    #jump\n#polyself\npurple worm\n #monster\n20s  sm.Fy    Fy Fy Fh  #pray\ny y             n__.  Fy _.Fy#chat\nh #version\n  #history\n                  \u0018\u001b#wipe\n #loot\nb#chat\nh   n#chat\ny #wizdetect\n\u0006FbFh Fh,\u001b__.Fh   _.  n Fy  #chat\nh  #overview\n\u001b#conduct\n i\u001b#tip\nf\u001b #ride\nyy#turn\n#sit\n  #wizdetect\n\u0006FhFyK_>.  n Fy_,  Fy \u0007troll\n#vanquished\n #genocided\nrabid rat\nn \u001b #annotate\n\u001b\u0018\u001b#dip\nfm   n#offer\n#pray\ny y        #chat\nb #wizintrinsic\nrs\n Fb  Fb __,#"
+  }
+ ]
+}

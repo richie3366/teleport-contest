@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0007Demogorgon\nyFbFb   Fj  n    n   Fl   n  n   Fl   yy\u001by  y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 53852030,
+   "datetime": "20090208210520",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007Demogorgon\nyFbFb   Fj  n    n   Fl   n  n   Fl   yy\u001by  y y\u001by  F"
+  }
+ ]
+}

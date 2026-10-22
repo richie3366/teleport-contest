@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\ni\n ;. \u001b,\u0017cursed wand of magic missile\nzelzel\u0017eucalyptus leaf\nef;_.s20s    20s #wizintrinsic\ni\n \u0017towel\nag\u0017scroll of fire\nrh\u0017blessed wand of probing\nzibE- Elbereth Elbereth\ns20s   s"
+ },
+ "segments": [
+  {
+   "seed": 53856019,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=fruit:durian\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\ni\n ;. \u001b,\u0017cursed wand of magic missile\nzelzel\u0017eucalyptus leaf\nef;_.s20s    20s #wizintrinsic\ni\n \u0017towel\nag\u0017scroll of fire\nrh\u0017blessed wand of probing\nzibE- Elbereth Elbereth\ns20s   s"
+  }
+ ]
+}

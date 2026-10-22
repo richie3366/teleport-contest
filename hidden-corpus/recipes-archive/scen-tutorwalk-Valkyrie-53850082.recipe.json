@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorwalk",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " y   _ \u001b.s10ssss: 10s10s10sssss: 10s: s10ss10snuhj_@hk. s: : : : skuny:smumumymyjhhlsss:s::ss::hkh:mys10s:10s::smy::10s::jnj::::10s10s:slhbsmbmb:ss:mj10s"
+ },
+ "segments": [
+  {
+   "seed": 53850082,
+   "datetime": "20161123120913",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\n",
+   "moves": " y   _ \u001b.s10ssss: 10s10s10sssss: 10s: s10ss10snuhj_@hk. s: : : : skuny:smumumymyjhhlsss:s::ss::hkh:mys10s:10s::smy::10s::jnj::::10s10s:slhbsmbmb:ss:mj10s"
+  }
+ ]
+}

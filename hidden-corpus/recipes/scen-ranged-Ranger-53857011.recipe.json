@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u001715 shuriken\nQi\u0007sewer rat\nnfk  fk  fyubb,#levelchange\n20\n   \u0017yumi\nwj\u001720 ya\nQk\u0007hill orc\nhfl  fuflfl ss\u0017spetum\nwl\u0007jackal\nkal \u001b>.kuy,Sy\u001b yn#dip\ng\\  W<tjh#jump\n#wipe\n20s#rub\n#levelchange\n14\n  khn\u0017iron bars\nbbbu:j\u0017grave\n: \u0017pick-axe\naj >20s.m.: k\u0017la",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53857011,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u001715 shuriken\nQi\u0007sewer rat\nnfk  fk  fyubb,#levelchange\n20\n   \u0017yumi\nwj\u001720 ya\nQk\u0007hill orc\nhfl  fuflfl ss\u0017spetum\nwl\u0007jackal\nkal \u001b>.kuy,Sy\u001b"
+  },
+  {
+   "seed": 54357011,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " yn#dip\ng\\  W<tjh#jump\n#wipe\n20s#rub\n#levelchange\n14\n  khn\u0017iron bars\nbbbu:j\u0017grave\n: \u0017pick-axe\naj >20s.m.: k\u0017la"
+  }
+ ]
+}

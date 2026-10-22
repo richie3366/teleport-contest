@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "N LJU_ \u001b<.>YYJK_>.>#chat\nk#monster\nLYUL_>.>u#offer\nYLNH_>.>FhFhFhlhl100s\\ \\ hll_>.>100s_>,>50sFhFh20s50slll100shllhllllhhhh100s\\ 100shlllll\\ 100s_>.>i\u001b20s_>.>100s\u000f\u001b_>.>100sFhFhslhlFhs20s100sFlFlFl\\ _>.>kujt\u001b#sit\n\u001bed\u0018\u001b100s;<._>.>knl100sFhs20s_>.>100sFhFh.50s50s\\ \u0018\u001b50s150sey100shll50s 100sFlss50s100sFl20ss50sed100s\u0018\u001bi\u001b50sFhFhs100s100s100sFlFl._>.>150s50s100s:#untrap\nn#enhance\n\u001b#untrap\ny100shhl100s150s150sFhFhFh100sFhFh.150shlh\u000f\u001b\u0018\u001b100sFhFhs150sFhsslhldfhhl150s50s 50sFls20s150s\u0014unl lll#untrap\nji\u001b150sedhhl150s50s_>,>150s100s150sFlssKNKJ_>.>i\u001b#turn\nH LKN_>.>t\u001b\u0018\u001bL JUU_>,>HNKL_>.>\u000f\u001b150s     100s   50s edFhFhFhFh20ssi\u001bi\u001b50s100sFh20ssjhyhnj100sbyh\u0018\u001b100sFhFbFhFhsslbu100s 100skjn100s150s_>,>50sFhssubu100sJ50sFhFhFhlklhkh#ride\n.\u000f\u001b150skbk\u000f\u001b50s100sFbs.\u000f\u001bjyl150s150sFbFbFbFbFbFb100sjlh_>.>50sFhs.ae  . Fh.20sbuy100sFjs.nyn#turn\n\u0018\u001blkhnyl_>,>\u000f\u001bch50s\u000f\u001b_>,>100s\u0018\u001b100sFhFb FjFhss50s50sei 50sFhFhsi\u001b_>.>50sjhh_>.>100s150sbbu50sFbFbFb100sFb20ssahs\n100skjy_>,>>100suhnFbs.100s100sFjFjs100s100sFjs20s50s100seeeeeeeeeeeeKUUN_>.>YHHK_>.>KBJU_>,>dcLLLYJ_>.>NULB_>.>UKYU_>.>w-Wi\u001bHYB H_>,>KL BK_>.>BUYB_>.>UYHB_>.>NLUL_"
+ },
+ "segments": [
+  {
+   "seed": 53850031,
+   "datetime": "20030529150127",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=fruit:lychee\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:none\n",
+   "moves": "N LJU_ \u001b<.>YYJK_>.>#chat\nk#monster\nLYUL_>.>u#offer\nYLNH_>.>FhFhFhlhl100s\\ \\ hll_>.>100s_>,>50sFhFh20s50slll100shllhllllhhhh100s\\ 100shlllll\\ 100s_>.>i\u001b20s_>.>100s\u000f\u001b_>.>100sFhFhslhlFhs20s100sFlFlFl\\ _>.>kujt\u001b#sit\n\u001bed\u0018\u001b100s;<._>.>knl100sFhs20s_>.>100sFhFh.50s50s\\ \u0018\u001b50s150sey100shll50s 100sFlss50s100sFl20ss50sed100s\u0018\u001bi\u001b50sFhFhs100s100s100sFlFl._>.>150s50s100s:#untrap\nn#enhance\n\u001b#untrap\ny100shhl100s150s150sFhFhFh100sFhFh.150shlh\u000f\u001b\u0018\u001b100sFhFhs150sFhsslhldfhhl150s50s 50sFls20s150s\u0014unl lll#untrap\nji\u001b150sedhhl150s50s_>,>150s100s150sFlssKNKJ_>.>i\u001b#turn\nH LKN_>.>t\u001b\u0018\u001bL JUU_>,>HNKL_>.>\u000f\u001b150s     100s   50s edFhFhFhFh20ssi\u001bi\u001b50s100sFh20ssjhyhnj100sbyh\u0018\u001b100sFhFbFhFhsslbu100s 100skjn100s150s_>,>50sFhssubu100sJ50sFhFhFhlklhkh#ride\n.\u000f\u001b150skbk\u000f\u001b50s100sFbs.\u000f\u001bjyl150s150sFbFbFbFbFbFb100sjlh_>.>50sFhs.ae  . Fh.20sbuy100sFjs.nyn#turn\n\u0018\u001blkhnyl_>,>\u000f\u001bch50s\u000f\u001b_>,>100s\u0018\u001b100sFhFb FjFhss50s50sei 50sFhFhsi\u001b_>.>50sjhh_>.>100s150sbbu50sFbFbFb100sFb20ssahs\n100skjy_>,>>100suhnFbs.100s100sFjFjs100s100sFjs20s50s100seeeeeeeeeeeeKUUN_>.>YHHK_>.>KBJU_>,>dcLLLYJ_>.>NULB_>.>UKYU_>.>w-Wi\u001bHYB H_>,>KL BK_>.>BUYB_>.>UYHB_>.>NLUL_"
+  }
+ ]
+}

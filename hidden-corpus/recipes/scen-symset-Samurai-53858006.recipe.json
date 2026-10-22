@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "v i\u001bv\u001bi\u001b\u001619\nmO>>>j\u001b\n\u0006_ \u001b;>FnFll _>.Fn_>FnFn_>.Fn_>FbFbFuFnFb#chat\nn tbh \u0006_>,Fn_>FbFb_>.Fu_,Fl>FlFu_>.  nFn_>FnFnFnFnFuP#jump\n\u0006_>>.Fn_>FkFk_>>,Fb_. Fub >FhFb_>>, Fb_,Fh>FnFnFnFun Fb#conduct\n ,\u0006_>.Fn_>FnFkb _>,  nFu_.Fy>FnFy_>.Fu_.  nFn>FuFbFb\u0006_>.Fu_.Fy>FuFb_>.   nFuy _.  nFb>FbFuy _>.  nFb_. Fuu >FuFuFnFbFu<\u0006_>.  nFu_.Fn>FbFun Fuz#dip\nb \u0006_>.  nFn_>FbFn_>.Fn_>FnFb_>.Fn_>FuFuFbFnFn\u0016O>l\u001b\n#pray\ny y    FnFuu FnFbFuFnFnFuFbFnFuFbFuu FnFun FnFbFuFbFnFnFnFuFuFnFbFbFnFbFub FbFun FbFuu FbFnFnFbFbFnFuFbFbFuFnFbFbFnFbFnFuFnFbFnFun FnFbFnFbFbFuu FbFuu FuFnFuu FnFnFbFuu FuFbFun FuFnFub FnFuu F"
+ },
+ "segments": [
+  {
+   "seed": 53858006,
+   "datetime": "20140303170416",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"cursed\"=magenta\nBIND=v:inventory\n",
+   "moves": "v i\u001bv\u001bi\u001b\u001619\nmO>>>j\u001b\n\u0006_ \u001b;>FnFll _>.Fn_>FnFn_>.Fn_>FbFbFuFnFb#chat\nn tbh \u0006_>,Fn_>FbFb_>.Fu_,Fl>FlFu_>.  nFn_>FnFnFnFnFuP#jump\n\u0006_>>.Fn_>FkFk_>>,Fb_. Fub >FhFb_>>, Fb_,Fh>FnFnFnFun Fb#conduct\n ,\u0006_>.Fn_>FnFkb _>,  nFu_.Fy>FnFy_>.Fu_.  nFn>FuFbFb\u0006_>.Fu_.Fy>FuFb_>.   nFuy _.  nFb>FbFuy _>.  nFb_. Fuu >FuFuFnFbFu<\u0006_>.  nFu_.Fn>FbFun Fuz#dip\nb \u0006_>.  nFn_>FbFn_>.Fn_>FnFb_>.Fn_>FuFuFbFnFn\u0016O>l\u001b\n#pray\ny y    FnFuu FnFbFuFnFnFuFbFnFuFbFuu FnFun FnFbFuFbFnFnFnFuFuFnFbFbFnFbFub FbFun FbFuu FbFnFnFbFbFnFuFbFbFuFnFbFbFnFbFnFuFnFbFnFun FnFbFnFbFbFuu FbFuu FuFnFuu FnFnFbFuu FuFbFun FuFnFub FnFuu F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n            \u00174 cream pies\nQ-\u0007yellow mold\nhf by u  f \u001bf \u001bf \u001b\u0017potion of acid\ntdu \u0007troll\nyf \u001bf \u001bf \u001bf \u001bf \u001bFj Fn   \u0017potion of speed\ntdj \u0017bullwhip\nwi \u0007lichen\nkain  hkj,"
+ },
+ "segments": [
+  {
+   "seed": 53857012,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n            \u00174 cream pies\nQ-\u0007yellow mold\nhf by u  f \u001bf \u001bf \u001b\u0017potion of acid\ntdu \u0007troll\nyf \u001bf \u001bf \u001bf \u001bf \u001bFj Fn   \u0017potion of speed\ntdj \u0017bullwhip\nwi \u0007lichen\nkain  hkj,"
+  }
+ ]
+}

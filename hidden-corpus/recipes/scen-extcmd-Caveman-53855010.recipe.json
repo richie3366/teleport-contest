@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPfr\u0017blessed +3 gauntlets of power\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007hobbit\n#polyself\nxorn\n. sssujbtbn_ \u001b:,\u0007lichen\n#overview\n\u001b#conduct\n i\u001b#dip\nii#offer\n#pray\ny y #chat\nn#jump\n#wizidentify\n\u001bFksFl  _>.#vanquished\n #genocided\nprisoner\ngi\u001b#name\ni\n#adjust\nj\u001b#chat\nb#turn\n#wizidentify\n\u001blny__.#chat\nn#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #polyself\nmind flayer\n #monster\n20sss20sFk   Fk s.z_oo._.,y #version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nb#chat\nj#jump\n#wizidentify\n\u001bkjl__,#chat\nb#overview\n\u001b#conduct\n i\u001b#tip\n"
+ },
+ "segments": [
+  {
+   "seed": 53855010,
+   "datetime": "20060515054452",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPfr\u0017blessed +3 gauntlets of power\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007hobbit\n#polyself\nxorn\n. sssujbtbn_ \u001b:,\u0007lichen\n#overview\n\u001b#conduct\n i\u001b#dip\nii#offer\n#pray\ny y #chat\nn#jump\n#wizidentify\n\u001bFksFl  _>.#vanquished\n #genocided\nprisoner\ngi\u001b#name\ni\n#adjust\nj\u001b#chat\nb#turn\n#wizidentify\n\u001blny__.#chat\nn#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #polyself\nmind flayer\n #monster\n20sss20sFk   Fk s.z_oo._.,y #version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nb#chat\nj#jump\n#wizidentify\n\u001bkjl__,#chat\nb#overview\n\u001b#conduct\n i\u001b#tip\n"
+  }
+ ]
+}

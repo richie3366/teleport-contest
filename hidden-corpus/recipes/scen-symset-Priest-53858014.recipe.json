@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  \\  #terrain\nb\n\u001bm,#wipe\nOi\u001b\u001b\nmO>d\u001b\n\u001614\n\u0006_>.Fb_.Fb>FbFlb _>,Fb_,Fll >FbFb_>.  nFl_.Fb>FbFbFuFuFu\u0006_>.Fb_,  n Fy>FuFb_>.Fb_.Fb>FbFb_>.  nFb_.Fly >FbFbFlFbFb\u0006_>.Fb_.Fkk >FuFu_>,  nFb_.Fub >FbFb_>.Fl_.Fb>FbFub FbFbFb\u0006_>.Fl_,  nFk>FkFu_>.Fl_.  nFl>FbFul _>.Fl_.Fl>FlFkFbFbFk#force\n\\  \u0006_>,Fl_.Fl>FlFb_>.  nFuu _,Fl>FbFll _>.Fl_,Fl>FlFlFuFbFul #wipe\n#tip\n\u001b\u0006_>.Fb_,Fb>FbFb_>.  n Fb_.Fy>FlFy_>,Fkb _.  nFb>FbFlb FkFkFk\u0006_>>.Fk_.Fh>FbFb_>>. Fk_,    n Fk>FhFb_>>. Fb_, Fh>FlFkFbFh\u001bFb\u001612\n\u00165\ns#name\no\n#turn\n#levelchange\n20\n                    yyy\u0017grave\n: \u0017pick-axe\nak >  sm.20s :k \u0017melting ice\nh\u001b\u0017pool\nk \u0017magic fountain\nqy :#terrain\nf\nP#force\n ,mO>>m\u001b\n\u0006_>, Fl_. Fl>  FlFlFlP\u0004 \u0006_>, _.>_>._,>_>._.>\u0006_>>.Fl_.Fn>FlFlFlakl #jump\n<\u0006_>>.Fn_>FnFn_"
+ },
+ "segments": [
+  {
+   "seed": 53858014,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"a scroll\"=brown\n",
+   "moves": "  \\  #terrain\nb\n\u001bm,#wipe\nOi\u001b\u001b\nmO>d\u001b\n\u001614\n\u0006_>.Fb_.Fb>FbFlb _>,Fb_,Fll >FbFb_>.  nFl_.Fb>FbFbFuFuFu\u0006_>.Fb_,  n Fy>FuFb_>.Fb_.Fb>FbFb_>.  nFb_.Fly >FbFbFlFbFb\u0006_>.Fb_.Fkk >FuFu_>,  nFb_.Fub >FbFb_>.Fl_.Fb>FbFub FbFbFb\u0006_>.Fl_,  nFk>FkFu_>.Fl_.  nFl>FbFul _>.Fl_.Fl>FlFkFbFbFk#force\n\\  \u0006_>,Fl_.Fl>FlFb_>.  nFuu _,Fl>FbFll _>.Fl_,Fl>FlFlFuFbFul #wipe\n#tip\n\u001b\u0006_>.Fb_,Fb>FbFb_>.  n Fb_.Fy>FlFy_>,Fkb _.  nFb>FbFlb FkFkFk\u0006_>>.Fk_.Fh>FbFb_>>. Fk_,    n Fk>FhFb_>>. Fb_, Fh>FlFkFbFh\u001bFb\u001612\n\u00165\ns#name\no\n#turn\n#levelchange\n20\n                    yyy\u0017grave\n: \u0017pick-axe\nak >  sm.20s :k \u0017melting ice\nh\u001b\u0017pool\nk \u0017magic fountain\nqy :#terrain\nf\nP#force\n ,mO>>m\u001b\n\u0006_>, Fl_. Fl>  FlFlFlP\u0004 \u0006_>, _.>_>._,>_>._.>\u0006_>>.Fl_.Fn>FlFlFlakl #jump\n<\u0006_>>.Fn_>FnFn_"
+  }
+ ]
+}

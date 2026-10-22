@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\ng\n ;b. \u001b,kkh\u0017blessed scroll of scare monster\nre   \u001b;m,. 20s.#wizintrinsic\ng\n \u0017wand of striking\nzfl\u0017cursed scroll of fire\nrg  nlyE- Elbereth\n\u0017scroll of charging\nrh   \u001bs20s20sSy\u001b n f bn#pray\ny y #ride\nly#chat\nk r\u001b\u001b#offer\n#loot\nlq#twoweapon\n#name\nm\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53856012,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\ng\n ;b. \u001b,kkh\u0017blessed scroll of scare monster\nre   \u001b;m,. 20s.#wizintrinsic\ng\n \u0017wand of striking\nzfl\u0017cursed scroll of fire\nrg  nlyE- Elbereth\n\u0017scroll of charging\nrh   \u001bs20s20sSy\u001b"
+  },
+  {
+   "seed": 54356012,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": " n f bn#pray\ny y #ride\nly#chat\nk r\u001b\u001b#offer\n#loot\nlq#twoweapon\n#name\nm\n"
+  }
+ ]
+}

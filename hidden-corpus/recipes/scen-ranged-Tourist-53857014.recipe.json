@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n6\n    \u001710 daggers\nQm\u0007gnome lord\nufj fjfyfy\u0007kobold\nhbflflflfhulj ,#enhance\nya\nm\n\u001b#levelchange\n10\n    \u0017yumi\nwp\u001720 ya\nQq\u0007troll\nuhfh fh fh   yy\u001by  y y y\u001by  f"
+ },
+ "segments": [
+  {
+   "seed": 53857014,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=runmode:crawl\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n6\n    \u001710 daggers\nQm\u0007gnome lord\nufj fjfyfy\u0007kobold\nhbflflflfhulj ,#enhance\nya\nm\n\u001b#levelchange\n10\n    \u0017yumi\nwp\u001720 ya\nQq\u0007troll\nuhfh fh fh   yy\u001by  y y y\u001by  f"
+  }
+ ]
+}

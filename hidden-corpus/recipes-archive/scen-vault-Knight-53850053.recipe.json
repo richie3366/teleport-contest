@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 cloak of magic resistance\nWi\u0017blessed +3 gray dragon scale mail\nW\u001b\u001610\n\u0006\u00169\n\u0006\u0014 \u001b@HHHHHHKhkkkkkk. ,10ss10sss20s Florian\n  \u0017wand of digging\nzkkkkk ji\u001b\u0004l #turn\n \u000f\u001b;m.\u00166\n\u0006\u0014@HHHhjjjjjj. , 20ss20s Florian\n  \u0017wand of digging\nzlknyjleg#conduct\n #wipe\n\u00164\n\u0006\u00168\n\u0006\u001619\n\u0006\u001621\n\u0006\u00167\n\u0006\u001616\n\u0006\u00168\n\u0006\u001620\n\u0006\u001610\n\u0006#untrap\nyeg\u001614\n\u0006L#ride\n.y\u00168\n\u0006\u001617\n\u0006E- Elbereth\nL\u00165\n\u0006\u00169\n\u0006\u0014@HHHHHhhhhhhhkkkkk.,20s20ss10s10ssss\u001610\n\u0006E- Elbereth\n#rub\n\u001619\n\u0006kW\u001b\u00164\n\u0006\u001620\n\u0006\u00163\n\u0006\u0014@LLKlllllkkkkkk. ,20s10s Croesus\nd$#terrain\n\u001b#turn\n\u00168\n\u0006q#chat\nb\u001611\n    \u0006\u001618\n \u0006\u00162\n\u000610s#chat\nu\u00168\n  \u0006\u001617\n\u0006\u001610\n\u0006\u001611\n \u0006\u001615\n\u0006tbnE- Vlad was here\n\u00168\n  \u0006\u001614\n\u0006<zll\u00167\n\u0006\u00167\n\u0006\u00169\n\u0006\u0014@HHhhhhhhhk. ,10s20sss10s20s10ss;m.W\u001b#monster\n#twoweapon\n#name\n\u001b\u001611\n \u0006#tip\n\u001bl\u001615\n\u0006\u001616\n\u0006q#offer\n\u00165\n\u0006\u001617\n\u0006\u001614\n\u0006\u00169\n\u0006\u0014@HHHHHHKhkkkkk. ,s10s20ss20s20sss#ride\n.y;m.#turn\n#chat\nj#loot\n\u001616\n\u0006\u001617\n\u0006\u001614\n\u0006\u001618\n\u0006#rub\n#monster\n\u001611\n \u0006\u001621\n\u0006#enhance\nyj\nh\n\u001b#tip\n\u001b\u001611\n \u0006\u001615\n\u0006\u00165\n\u0006\u001621\n\u0006\u001610\n\u0006\u00168\n\u0006\u00162\n\u0006\u001620\n\u0006\u001619\n\u0006"
+ },
+ "segments": [
+  {
+   "seed": 53850053,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 cloak of magic resistance\nWi\u0017blessed +3 gray dragon scale mail\nW\u001b\u001610\n\u0006\u00169\n\u0006\u0014 \u001b@HHHHHHKhkkkkkk. ,10ss10sss20s Florian\n  \u0017wand of digging\nzkkkkk ji\u001b\u0004l #turn\n \u000f\u001b;m.\u00166\n\u0006\u0014@HHHhjjjjjj. , 20ss20s Florian\n  \u0017wand of digging\nzlknyjleg#conduct\n #wipe\n\u00164\n\u0006\u00168\n\u0006\u001619\n\u0006\u001621\n\u0006\u00167\n\u0006\u001616\n\u0006\u00168\n\u0006\u001620\n\u0006\u001610\n\u0006#untrap\nyeg\u001614\n\u0006L#ride\n.y\u00168\n\u0006\u001617\n\u0006E- Elbereth\nL\u00165\n\u0006\u00169\n\u0006\u0014@HHHHHhhhhhhhkkkkk.,20s20ss10s10ssss\u001610\n\u0006E- Elbereth\n#rub\n\u001619\n\u0006kW\u001b\u00164\n\u0006\u001620\n\u0006\u00163\n\u0006\u0014@LLKlllllkkkkkk. ,20s10s Croesus\nd$#terrain\n\u001b#turn\n\u00168\n\u0006q#chat\nb\u001611\n    \u0006\u001618\n \u0006\u00162\n\u000610s#chat\nu\u00168\n  \u0006\u001617\n\u0006\u001610\n\u0006\u001611\n \u0006\u001615\n\u0006tbnE- Vlad was here\n\u00168\n  \u0006\u001614\n\u0006<zll\u00167\n\u0006\u00167\n\u0006\u00169\n\u0006\u0014@HHhhhhhhhk. ,10s20sss10s20s10ss;m.W\u001b#monster\n#twoweapon\n#name\n\u001b\u001611\n \u0006#tip\n\u001bl\u001615\n\u0006\u001616\n\u0006q#offer\n\u00165\n\u0006\u001617\n\u0006\u001614\n\u0006\u00169\n\u0006\u0014@HHHHHHKhkkkkk. ,s10s20ss20s20sss#ride\n.y;m.#turn\n#chat\nj#loot\n\u001616\n\u0006\u001617\n\u0006\u001614\n\u0006\u001618\n\u0006#rub\n#monster\n\u001611\n \u0006\u001621\n\u0006#enhance\nyj\nh\n\u001b#tip\n\u001b\u001611\n \u0006\u001615\n\u0006\u00165\n\u0006\u001621\n\u0006\u001610\n\u0006\u00168\n\u0006\u00162\n\u0006\u001620\n\u0006\u001619\n\u0006"
+  }
+ ]
+}

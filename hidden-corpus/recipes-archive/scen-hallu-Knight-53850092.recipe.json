@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPi\u0017blessed magic harp\n\u0017blessed leash\n\u0017blessed +3 speed boots\nWl\u0017blessed 20 daggers\n Qm#wizintrinsic\nh\n \u0007troll\n\u0007soldier\nFjFjFl Fn     Fj   n fj     n   fn   n     fj   n\u00169\n\u0017potion of gain energy\nqn 20s  n  #wizintrinsic\nh\n\u0017wand of slow monster\nzoj     n zou    n zoj   n \u00164\n\u0018\u001bkh  n fj     nfjfn   n \u001611\n;j, \u001bm.E- Elbereth Elbereth\n    n#wizintrinsic\nh\n\u0017scroll of identify\nrp l\n\u0017sprig of wolfsbane\neq\u0016?\n>v #levelchange\n30\n                             \u0017potion of restore ability\n\u0007black pudding\nqr   #dip\njFl Fk\u0017cursed wand of slow monster\nzsu    zsk   Fu Fh     \u0017cursed Cleaver\n\u0007raven\nwtFu   n  Fu  Fh#invoke\ntFu Fk  \u0017cursed lump of royal jelly\neusm.   n .m.\u0017blessed scroll of create monster\nrv  nalfeshnee\n floating eye\nfire giant\nbrown mold\nUruk-hai\ngiant spider\nyeti\ngenetic engineer\nenergy vortex\nOracle\nylittle dog\nfire elemental\npony\n  Fh     Fk sns\u00163\n#wizintrinsic\nh\ntml  n  fl fj  fjfj ttj\u0017wand of probing\nzwjzwlzwj\u0017blessed spellbook of sleep\nrx.j  yy\u001bny y ny  Z"
+ },
+ "segments": [
+  {
+   "seed": 53850092,
+   "datetime": "20130925224207",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPi\u0017blessed magic harp\n\u0017blessed leash\n\u0017blessed +3 speed boots\nWl\u0017blessed 20 daggers\n Qm#wizintrinsic\nh\n \u0007troll\n\u0007soldier\nFjFjFl Fn     Fj   n fj     n   fn   n     fj   n\u00169\n\u0017potion of gain energy\nqn 20s  n  #wizintrinsic\nh\n\u0017wand of slow monster\nzoj     n zou    n zoj   n \u00164\n\u0018\u001bkh  n fj     nfjfn   n \u001611\n;j, \u001bm.E- Elbereth Elbereth\n    n#wizintrinsic\nh\n\u0017scroll of identify\nrp l\n\u0017sprig of wolfsbane\neq\u0016?\n>v #levelchange\n30\n                             \u0017potion of restore ability\n\u0007black pudding\nqr   #dip\njFl Fk\u0017cursed wand of slow monster\nzsu    zsk   Fu Fh     \u0017cursed Cleaver\n\u0007raven\nwtFu   n  Fu  Fh#invoke\ntFu Fk  \u0017cursed lump of royal jelly\neusm.   n .m.\u0017blessed scroll of create monster\nrv  nalfeshnee\n floating eye\nfire giant\nbrown mold\nUruk-hai\ngiant spider\nyeti\ngenetic engineer\nenergy vortex\nOracle\nylittle dog\nfire elemental\npony\n  Fh     Fk sns\u00163\n#wizintrinsic\nh\ntml  n  fl fj  fjfj ttj\u0017wand of probing\nzwjzwlzwj\u0017blessed spellbook of sleep\nrx.j  yy\u001bny y ny  Z"
+  }
+ ]
+}

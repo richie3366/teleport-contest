@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0006_ \u001bm.>FkFh _>,Fj_.> \u0006_>>,_,>_>>._.>_>>._.>#invoke\n\u001b10s\u0006_>._.>_>,_.>_>,_,>\u0006_>,_.>_>,_.>_>._.>\u0006_>._,>_>._.>_>,_.>#monster\ncl\u0006_>>,_.>_>>,_.>_>>,_.>#dip\na#rub\ncc\u0006_>._,>_>._.>_>,_.>\u0017pick-axe\naf l laf>.af>  llaf>  20s \u0006_ooo.af>  afk k#wizintrinsic\ner\n sm..b.k  sm.20s  n20s sm..bsm.20s20s20s sm.20s\u0017scroll of scare monster\nrg  \u001bf  l#sit\n\u001b#invoke\n\u001b#wipe\nkP.m.sy.y20s20ssm.  n \u001611\n#levelchange\n10\n   \u0007tame black unicorn\n\u0017saddle\nahu#ride\nun#ride\nsm.#ride\n.y\u0006_>,Fu _,  >_>._.>.>_>._,>jjhn\u0006_>. n _.m,>_>._.>_>._,:>\u0006_>._.>.>_>,_.,>_>._.,>\u000f\u001b#levelchange\n30\n                   \u0017blessed ring of polymorph control\nPil\u0017water walking boots\nWj 20s   ssTj#polyself\ndisenchanter\n #monster\ns.\u0007Orcus\nyFjFj ss20s      sn#polyself\ngold golem\n #monster\nsb    sm.20s 20ss\u00166\n#levelchange\n12\n      \u0007werewolf\n;n;sm.20s 20s \u0007small mimic\n20s 20ssu.m.sm. \u0016?\n>Ehbkulyl10sll\u0017wand of striking\nzkl\u0017scroll of earth\nrl llnj\u0017scroll of earth\nrm yhlluuk ykuuyyukhlllyhhhllluyukykhukuukh10syku\u0016?\n>B\u0017scroll of earth\nrn jk jjk k k 10s k jk jjk hk jb10sk ujjjbjjj\u0017wand of digging\nzokjk jjk \u0017wand of striking\nzpjk k \u0017scroll of earth\nrq jjk k hk jbk k k yjyk hk n\u0017wand of striking\nzrjnk \u000f\u001b#levelchange\n16\n    \u0016?\n>y  _m.#chat\nh_mmmmm,#chat\ny;_._mmmm.#chat\nl;m,ohr\u001b>\u0006_>,Fh _.Fh >FhFh_>.Fh _.Fh >Fh Fb_>,Fh_.  nFb >Fh FhFhFbFb_>. sm.#loot\nh\u0006_>.Fh_,Fj>F"
+ },
+ "segments": [
+  {
+   "seed": 53850085,
+   "datetime": "20130125153907",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0006_ \u001bm.>FkFh _>,Fj_.> \u0006_>>,_,>_>>._.>_>>._.>#invoke\n\u001b10s\u0006_>._.>_>,_.>_>,_,>\u0006_>,_.>_>,_.>_>._.>\u0006_>._,>_>._.>_>,_.>#monster\ncl\u0006_>>,_.>_>>,_.>_>>,_.>#dip\na#rub\ncc\u0006_>._,>_>._.>_>,_.>\u0017pick-axe\naf l laf>.af>  llaf>  20s \u0006_ooo.af>  afk k#wizintrinsic\ner\n sm..b.k  sm.20s  n20s sm..bsm.20s20s20s sm.20s\u0017scroll of scare monster\nrg  \u001bf  l#sit\n\u001b#invoke\n\u001b#wipe\nkP.m.sy.y20s20ssm.  n \u001611\n#levelchange\n10\n   \u0007tame black unicorn\n\u0017saddle\nahu#ride\nun#ride\nsm.#ride\n.y\u0006_>,Fu _,  >_>._.>.>_>._,>jjhn\u0006_>. n _.m,>_>._.>_>._,:>\u0006_>._.>.>_>,_.,>_>._.,>\u000f\u001b#levelchange\n30\n                   \u0017blessed ring of polymorph control\nPil\u0017water walking boots\nWj 20s   ssTj#polyself\ndisenchanter\n #monster\ns.\u0007Orcus\nyFjFj ss20s      sn#polyself\ngold golem\n #monster\nsb    sm.20s 20ss\u00166\n#levelchange\n12\n      \u0007werewolf\n;n;sm.20s 20s \u0007small mimic\n20s 20ssu.m.sm. \u0016?\n>Ehbkulyl10sll\u0017wand of striking\nzkl\u0017scroll of earth\nrl llnj\u0017scroll of earth\nrm yhlluuk ykuuyyukhlllyhhhllluyukykhukuukh10syku\u0016?\n>B\u0017scroll of earth\nrn jk jjk k k 10s k jk jjk hk jb10sk ujjjbjjj\u0017wand of digging\nzokjk jjk \u0017wand of striking\nzpjk k \u0017scroll of earth\nrq jjk k hk jbk k k yjyk hk n\u0017wand of striking\nzrjnk \u000f\u001b#levelchange\n16\n    \u0016?\n>y  _m.#chat\nh_mmmmm,#chat\ny;_._mmmm.#chat\nl;m,ohr\u001b>\u0006_>,Fh _.Fh >FhFh_>.Fh _.Fh >Fh Fb_>,Fh_.  nFb >Fh FhFhFbFb_>. sm.#loot\nh\u0006_>.Fh_,Fj>F"
+  }
+ ]
+}

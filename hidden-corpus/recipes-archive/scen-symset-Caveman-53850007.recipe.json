@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "FjFkFnFkFnFlFkFbFbFj FnFnFbFj  Fj Fj Fj Fj Fj Fk FjFlFbFlFnFjFbFbFbFkFnFlFbFjFjFbFnFlFbFbFkFbFjFbFjFlFkFnFnFlFjFlFkFlFlFnFbFbFbFnFnFbFnFbFbFbFlFnFjFnFlFjFbFlFbFbFjFbFjFbFnFnFlFnFjFbFlFnFlFnFlFjFlFjFlFlFnFlFbFbFbFlFlFnFbFbFnFbFnFbFjFlFjFnFjFnFjFnFjFl\u00166\nO>c\u001b\n\u0007tame housecat\n\u0007tame dingo\n\u0006_ \u001b>.>Fn Fk_>, Fn _. Fh  n>FhFh_>.Fh_.:Fb>FbFn\u0017fortune cookie\ntbndass.#chat\nh#name\n\u001b\u0017tripe ration\nt\u001bdes..\u001614\nO>>>>c\u001b\nO>>>>m\u001b\u001b\nW#ride\nly\u001610\n\u0006_>._.>_>._.>_>._,>#tip\n\u001b#chat\ny\u0006_>,_.>_>._.>_>,_.>\u0006_>>._.>_>>._.>_>>,_,>\u0006_>._.>_>._,>_>._.>#pray\ny y  #monster\n\u0006_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFl_>,_,>W\u0014m.O>>>>m\u001b\u001b\nw\u001b#conduct\n r\u001bW\u0014m.\u00162\n  FuFyFyFyFyFu"
+ },
+ "segments": [
+  {
+   "seed": 53850007,
+   "datetime": "20190910172027",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "FjFkFnFkFnFlFkFbFbFj FnFnFbFj  Fj Fj Fj Fj Fj Fk FjFlFbFlFnFjFbFbFbFkFnFlFbFjFjFbFnFlFbFbFkFbFjFbFjFlFkFnFnFlFjFlFkFlFlFnFbFbFbFnFnFbFnFbFbFbFlFnFjFnFlFjFbFlFbFbFjFbFjFbFnFnFlFnFjFbFlFnFlFnFlFjFlFjFlFlFnFlFbFbFbFlFlFnFbFbFnFbFnFbFjFlFjFnFjFnFjFnFjFl\u00166\nO>c\u001b\n\u0007tame housecat\n\u0007tame dingo\n\u0006_ \u001b>.>Fn Fk_>, Fn _. Fh  n>FhFh_>.Fh_.:Fb>FbFn\u0017fortune cookie\ntbndass.#chat\nh#name\n\u001b\u0017tripe ration\nt\u001bdes..\u001614\nO>>>>c\u001b\nO>>>>m\u001b\u001b\nW#ride\nly\u001610\n\u0006_>._.>_>._.>_>._,>#tip\n\u001b#chat\ny\u0006_>,_.>_>._.>_>,_.>\u0006_>>._.>_>>._.>_>>,_,>\u0006_>._.>_>._,>_>._.>#pray\ny y  #monster\n\u0006_>.Fl_.Fl>FlFl_>.Fl_.Fl>FlFl_>,_,>W\u0014m.O>>>>m\u001b\u001b\nw\u001b#conduct\n r\u001bW\u0014m.\u00162\n  FuFyFyFyFyFu"
+  }
+ ]
+}

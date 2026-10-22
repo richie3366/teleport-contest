@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nm\n \u0017blindfold\naejhj\u0017cursed wand of striking\nzfjzfu\u0017cursed scroll of create monster\nrgZZhubsss#wizintrinsic\nfg\n \u0017cursed wand of secret door detection\nzhzhlbhE- Elbereth\nsss"
+ },
+ "segments": [
+  {
+   "seed": 53856031,
+   "datetime": "20040331113213",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nm\n \u0017blindfold\naejhj\u0017cursed wand of striking\nzfjzfu\u0017cursed scroll of create monster\nrgZZhubsss#wizintrinsic\nfg\n \u0017cursed wand of secret door detection\nzhzhlbhE- Elbereth\nsss"
+  }
+ ]
+}

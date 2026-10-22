@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " mO>>f\u001b\nv\u001bi\u001bO>>i\u001b\u001b\n#invoke\n\u001b#loot\nlr\u001bmO>>>o\u001b\nv\u001bi\u001b\u0018\u001bW#turn\n10sO>>j\u001b\nOj\u001b\n\u0006_ \u001b<.>FnFl_>._,>_>._.Fu>Fu .\\  __,s\u0006_>._.>_>._.>_>._.>\u0006_>>._.>_>>._,>_>>,_.>\u0006_>._,>_>,_.>_>,_.>\u0006_>._,>_>._.>_>,_,>\u0004n20s#chat\nj,\u0006_>,_,>_>._,>_>._,>P;m,\u0006_>._.>_>,_,>_>,_.>\u0006_>,_.>_>._.>_>._.>50s100s FhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhyubn\u0017grave\n:\u0017wand of digging\nze> .syj\u0017chaotic altar\ndeda\u0017newt corpse\n#offer\nf #terrain\nf\n\u0018\u001b\u0004y#twoweapon\n#levelchange\n30\n                             kuu\u0017sink\nqy \u0017ring of protection\ndg  \u001b:byj\u0017pool\n#dip\ndy   :uh\u0017ice\n#terrain\ne\n#sit\ntbkt\u001b\u00165\nFhFbFu  FlFu Fl Fl Fn Fh Fn Fk Fj Fu  n Fl Fb Fl Fn Fu   nFj FjFj FkFy  Fy    nFh  Fh  FbFj  Fj  n  Fy  #pray\ny y     Fk  FhFj   n F"
+ },
+ "segments": [
+  {
+   "seed": 53858032,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nBIND=v:inventory\n",
+   "moves": " mO>>f\u001b\nv\u001bi\u001bO>>i\u001b\u001b\n#invoke\n\u001b#loot\nlr\u001bmO>>>o\u001b\nv\u001bi\u001b\u0018\u001bW#turn\n10sO>>j\u001b\nOj\u001b\n\u0006_ \u001b<.>FnFl_>._,>_>._.Fu>Fu .\\  __,s\u0006_>._.>_>._.>_>._.>\u0006_>>._.>_>>._,>_>>,_.>\u0006_>._,>_>,_.>_>,_.>\u0006_>._,>_>._.>_>,_,>\u0004n20s#chat\nj,\u0006_>,_,>_>._,>_>._,>P;m,\u0006_>._.>_>,_,>_>,_.>\u0006_>,_.>_>._.>_>._.>50s100s FhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhFhyubn\u0017grave\n:\u0017wand of digging\nze> .syj\u0017chaotic altar\ndeda\u0017newt corpse\n#offer\nf #terrain\nf\n\u0018\u001b\u0004y#twoweapon\n#levelchange\n30\n                             kuu\u0017sink\nqy \u0017ring of protection\ndg  \u001b:byj\u0017pool\n#dip\ndy   :uh\u0017ice\n#terrain\ne\n#sit\ntbkt\u001b\u00165\nFhFbFu  FlFu Fl Fl Fn Fh Fn Fk Fj Fu  n Fl Fb Fl Fn Fu   nFj FjFj FkFy  Fy    nFh  Fh  FbFj  Fj  n  Fy  #pray\ny y     Fk  FhFj   n F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\nwk\u0017blessed +3 silver dragon scale mail\nWl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007dwarf\n#overview\n\u001b#conduct\n i\u001b#dip\nbd #offer\n#pray\ny y   #chat\nk#wizintrinsic\nf\n Fy  s20s.Z_ \u001b<.#chat\nj#vanquished\n #genocided\ncobra\n\u000f\u001b#name\ni\nFido\n#adjust\nk\u001b#chat\nl#turn\n#wizidentify\n\u001bFlFl_>.\u0007lichen\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\nk#sit\n\u001b#pray\ny y #jump\n#wizintrinsic\nq\n FhFhFhFh_ooooo.Fh _.,#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nn#chat\nn#polyself\nfire giant\n#monster\n20ss20ssbul#invoke\nk_<._.#overview\n\u001b#conduct\n i\u001b#tip\n\u001b\u001b#ride\nly#turn\n#sit\n #wizintrinsic\nq\n hhh_{.qn \u001b\u0007lichen\n#vanquished\n #genocided\nguard\nh \u0018\u001b#dip\nie#offer\n#pray\ny y #chat\nk#levelchange\n23\n  jkn#sit\n\u001619\n\u0006#chronicle\n  #terrain\n\u001b\u000f\u001b#name\nm\n#adjust\n:#chat\nj#turn\n#wizintrinsic\nas\n  uhy__.#chat\nk\u0007giant rat\n#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\nk#sit\n#pray\ny y   #wizintrinsic\ngf\n FjFjFj \u001615\n \u0006#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\n#chat\nu#chat\nj#levelchange\n12\n    jyu__.#chat\ny#vanquished\n #genocided\ntitanothere\n\u000f\u001b#tip\n\u001b\u001b#r"
+ },
+ "segments": [
+  {
+   "seed": 53855003,
+   "datetime": "20260625112741",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\nwk\u0017blessed +3 silver dragon scale mail\nWl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007dwarf\n#overview\n\u001b#conduct\n i\u001b#dip\nbd #offer\n#pray\ny y   #chat\nk#wizintrinsic\nf\n Fy  s20s.Z_ \u001b<.#chat\nj#vanquished\n #genocided\ncobra\n\u000f\u001b#name\ni\nFido\n#adjust\nk\u001b#chat\nl#turn\n#wizidentify\n\u001bFlFl_>.\u0007lichen\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\nk#sit\n\u001b#pray\ny y #jump\n#wizintrinsic\nq\n FhFhFhFh_ooooo.Fh _.,#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nn#chat\nn#polyself\nfire giant\n#monster\n20ss20ssbul#invoke\nk_<._.#overview\n\u001b#conduct\n i\u001b#tip\n\u001b\u001b#ride\nly#turn\n#sit\n #wizintrinsic\nq\n hhh_{.qn \u001b\u0007lichen\n#vanquished\n #genocided\nguard\nh \u0018\u001b#dip\nie#offer\n#pray\ny y #chat\nk#levelchange\n23\n  jkn#sit\n\u001619\n\u0006#chronicle\n  #terrain\n\u001b\u000f\u001b#name\nm\n#adjust\n:#chat\nj#turn\n#wizintrinsic\nas\n  uhy__.#chat\nk\u0007giant rat\n#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\nk#sit\n#pray\ny y   #wizintrinsic\ngf\n FjFjFj \u001615\n \u0006#overview\n\u001b#conduct\n i\u001b#wipe\n#loot\n#chat\nu#chat\nj#levelchange\n12\n    jyu__.#chat\ny#vanquished\n #genocided\ntitanothere\n\u000f\u001b#tip\n\u001b\u001b#r"
+  }
+ ]
+}

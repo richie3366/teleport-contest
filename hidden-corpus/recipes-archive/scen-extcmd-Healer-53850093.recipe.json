@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed amulet of life saving\nPn\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007hobbit\n_ \u001b,#chat\nj#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#dip\nad #offer\n#pray\ny y       #chat\nl #jump\n#wizdetect\n\u0006FnFlFn\u001615\n\u0006#vanquished\n #genocided\ncaptain\n\u0018\u001b#name\n\u001b#adjust\ni\u001b#chat\nl#turn\n#levelchange\n19\n                  FlFn f $ l_oooooo._.,#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizidentify\n\u001bhhl_oooo,,#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nj#chat\nk#wizidentify\n\u001bbnh__,#chat\nb\u0007newt\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nyy#turn\n#sit\n\u001b#wizidentify\n\u001bFy20s20s_<,Fh _.;;#vanqui"
+ },
+ "segments": [
+  {
+   "seed": 53850093,
+   "datetime": "20050915021643",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed amulet of life saving\nPn\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007hobbit\n_ \u001b,#chat\nj#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#dip\nad #offer\n#pray\ny y       #chat\nl #jump\n#wizdetect\n\u0006FnFlFn\u001615\n\u0006#vanquished\n #genocided\ncaptain\n\u0018\u001b#name\n\u001b#adjust\ni\u001b#chat\nl#turn\n#levelchange\n19\n                  FlFn f $ l_oooooo._.,#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizidentify\n\u001bhhl_oooo,,#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#chat\nj#chat\nk#wizidentify\n\u001bbnh__,#chat\nb\u0007newt\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nyy#turn\n#sit\n\u001b#wizidentify\n\u001bFy20s20s_<,Fh _.;;#vanqui"
+  }
+ ]
+}

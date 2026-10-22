@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed ring of free action\nPgr\u0017blessed +3 gauntlets of power\nWh\u0016?\n>z  \u00162\n\u0006_ \u001bm,FyFbFyFhFb\u00163\n  \u0006bnhk  \u00164\n\u0006_mm.s20ss\u00165\n  \u0006_mmmmm.Fu   _,Fu    Fu       \u001bFu   Fu          n  Fu      Fk  \u00166\n\u0006l \u001bb  j ky n  y\u00162\n\u0006_mm.     Fb  _,  Fh   Fh        Fl     Fl \u00163\n  \u0006_mm.s20s20s   .Fk   \u0016?\n>>\u001b\u0016?\n>y  #chat\nn\u0016?\n>z\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_mm.FuFy FjFk  Fl  Fy _>. Fy   n _.Fu  >\u0016?\n>z\u0006hhhhhhhl\u00163\n\u0016?\n>z\u0006_mmmmm.Fl  _,Fn Fy Fy \u00164\n\u0016?\n>z\u0006hbk bj hul_>. \u001bFy  _.    nFu   >\u0016?\n>z\u0006_mmmm.Fb Fk  Fb   n Fb  Fj \u0016?\n>>\u001b\u0016?\n>y#chat\nb\u0016?\n>z\u00161\n\u00166\n\u0016?\n>z\u0006#chat\nk;j;\u00162\n\u0016?\n>z\u0006_mmm.Fu_,;@.FjFkFuFuFkFb\u00163\n\u0016?\n>z\u0006_mmmmm.FbFbFkFnFb\u0016?\n>>\u001b\u0016?\n>y#chat\nj\u0016?\n>z\u00164\n\u0016?\n>z\u0006#chat\nn;j.\u00165\n\u0016?\n>z\u0006hhh\u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00166\n\u0016?\n>z\u0006_>.  Fu _,@.Fj _>. Fk   _. Fu >\u0016?\n>z\u0006nl  h  y  \u00163\n\u0016?\n>z\u0006hhhh    n   y\u00164\n\u0016?\n>z\u0006_m, Fy  _.Fn  Fy   Fn   Fu    n  Fj  Fn   \u00165\n\u0016?\n>z\u0006_>.   Fn   _,  Fl     n \u00166\n\u0016?\n>z\u0006jnnbb\u0016?\n>>\u001b\u0016?\n>y#chat\nb\u0016"
+ },
+ "segments": [
+  {
+   "seed": 53850024,
+   "datetime": "20070720211403",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:durian\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed ring of free action\nPgr\u0017blessed +3 gauntlets of power\nWh\u0016?\n>z  \u00162\n\u0006_ \u001bm,FyFbFyFhFb\u00163\n  \u0006bnhk  \u00164\n\u0006_mm.s20ss\u00165\n  \u0006_mmmmm.Fu   _,Fu    Fu       \u001bFu   Fu          n  Fu      Fk  \u00166\n\u0006l \u001bb  j ky n  y\u00162\n\u0006_mm.     Fb  _,  Fh   Fh        Fl     Fl \u00163\n  \u0006_mm.s20s20s   .Fk   \u0016?\n>>\u001b\u0016?\n>y  #chat\nn\u0016?\n>z\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_mm.FuFy FjFk  Fl  Fy _>. Fy   n _.Fu  >\u0016?\n>z\u0006hhhhhhhl\u00163\n\u0016?\n>z\u0006_mmmmm.Fl  _,Fn Fy Fy \u00164\n\u0016?\n>z\u0006hbk bj hul_>. \u001bFy  _.    nFu   >\u0016?\n>z\u0006_mmmm.Fb Fk  Fb   n Fb  Fj \u0016?\n>>\u001b\u0016?\n>y#chat\nb\u0016?\n>z\u00161\n\u00166\n\u0016?\n>z\u0006#chat\nk;j;\u00162\n\u0016?\n>z\u0006_mmm.Fu_,;@.FjFkFuFuFkFb\u00163\n\u0016?\n>z\u0006_mmmmm.FbFbFkFnFb\u0016?\n>>\u001b\u0016?\n>y#chat\nj\u0016?\n>z\u00164\n\u0016?\n>z\u0006#chat\nn;j.\u00165\n\u0016?\n>z\u0006hhh\u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00166\n\u0016?\n>z\u0006_>.  Fu _,@.Fj _>. Fk   _. Fu >\u0016?\n>z\u0006nl  h  y  \u00163\n\u0016?\n>z\u0006hhhh    n   y\u00164\n\u0016?\n>z\u0006_m, Fy  _.Fn  Fy   Fn   Fu    n  Fj  Fn   \u00165\n\u0016?\n>z\u0006_>.   Fn   _,  Fl     n \u00166\n\u0016?\n>z\u0006jnnbb\u0016?\n>>\u001b\u0016?\n>y#chat\nb\u0016"
+  }
+ ]
+}

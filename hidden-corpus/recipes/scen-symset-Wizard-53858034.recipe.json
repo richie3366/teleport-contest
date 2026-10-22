@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "v i\u001bmOa\u001b\nmOa\u001b\n\u0014 \u001b,<#loot\n#invoke\n\u001b\u0006_>,Fl_.Fn>FuFu_>.Fl_.Fl>Fl20s_>.Fu_,> FkFuFu< \u0006_>,> FlFnFy\u0006_>,Fl_,Fj>FlFj_>.Fy_.Fl>FjFj_>.Fu  n_,Fu>FnFjFuFyFu \u0006_>.Fj  n _.Fy >Fy   nFu _>.Fj_,  nFn >Fu Fl_>.Fb_.Fh>FbFlFhFbFb\u00162\n\u0007tame winter wolf cub\n\u0007jackal\n20s .m.  n.m.20ssm.sj\u0017tripe ration\nt\u001b#chat\nky \u0017newt corpse\nt\u001b\u0017newt corpse\nt\u001b\u0007grid bug\n\u0017scroll of taming\nrs O>>d\u001b\n #loot\nu#sit\n\u001b\u00167\nFhFyFjFlFnFkFnFhFyFuFyFlFkFkFyFnFbFuFbFlFhFnFnFhFkFlFuFkFnFbFlFlFlFjFnFbFlFhFnFyFyFkFyFbFnFnFjFyFjFuFkFuFnFlFlFkFyFbFnFlFyFuFhFkFhFhFnFbFkFhFlFkFhFnFyFlFkFjFjFkFnFuFyFjFuFlFlFkFbFuFyFbFbFuFnFkFuFhFkFkFyFnFlFyFkFlFnFnFuFjFkFkFjFyFbFbFlFbFuFjOg\u001b\u001b\n\u0006_>.Fk_.:Fk>F"
+ },
+ "segments": [
+  {
+   "seed": 53858034,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"uncursed\"=red\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "v i\u001bmOa\u001b\nmOa\u001b\n\u0014 \u001b,<#loot\n#invoke\n\u001b\u0006_>,Fl_.Fn>FuFu_>.Fl_.Fl>Fl20s_>.Fu_,> FkFuFu< \u0006_>,> FlFnFy\u0006_>,Fl_,Fj>FlFj_>.Fy_.Fl>FjFj_>.Fu  n_,Fu>FnFjFuFyFu \u0006_>.Fj  n _.Fy >Fy   nFu _>.Fj_,  nFn >Fu Fl_>.Fb_.Fh>FbFlFhFbFb\u00162\n\u0007tame winter wolf cub\n\u0007jackal\n20s .m.  n.m.20ssm.sj\u0017tripe ration\nt\u001b#chat\nky \u0017newt corpse\nt\u001b\u0017newt corpse\nt\u001b\u0007grid bug\n\u0017scroll of taming\nrs O>>d\u001b\n #loot\nu#sit\n\u001b\u00167\nFhFyFjFlFnFkFnFhFyFuFyFlFkFkFyFnFbFuFbFlFhFnFnFhFkFlFuFkFnFbFlFlFlFjFnFbFlFhFnFyFyFkFyFbFnFnFjFyFjFuFkFuFnFlFlFkFyFbFnFlFyFuFhFkFhFhFnFbFkFhFlFkFhFnFyFlFkFjFjFkFnFuFyFjFuFlFlFkFbFuFyFbFbFuFnFkFuFhFkFkFyFnFlFyFkFlFnFnFuFjFkFkFjFyFbFbFlFbFuFjOg\u001b\u001b\n\u0006_>.Fk_.:Fk>F"
+  }
+ ]
+}

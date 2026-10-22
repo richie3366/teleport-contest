@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nhj\n \u0017towel\nakyby;l. \u001b,Za\n\u0017potion of acid\nql\u0017cockatrice egg\nem20s .m.20s  yy\u001bny y\u001bn  S"
+ },
+ "segments": [
+  {
+   "seed": 53856007,
+   "datetime": "20071214092325",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nhj\n \u0017towel\nakyby;l. \u001b,Za\n\u0017potion of acid\nql\u0017cockatrice egg\nem20s .m.20s  yy\u001bny y\u001bn  S"
+  }
+ ]
+}

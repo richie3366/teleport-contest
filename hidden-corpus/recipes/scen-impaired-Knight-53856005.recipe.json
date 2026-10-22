@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nli\n  \u0017blindfold\nai\u0017scroll of confuse monster\nrj\u0017wand of enlightenment\nzk \u001b\u0017scroll of fire\nrlsss#wizintrinsic\nfi\n ;k: \u001b.Z\u0017cursed scroll of gold detection\nrmE- Elbereth Elbereth\n\u0017cursed scroll of amnesia\nrn20s   s.Sy\u001b y,n:  #conduct\n #monster\ni\u001bskky\u0017lawful altar\ndacj\u0017newt corpse\n#offer\na#pray\ny yk\u0017moat\nny k\u0017fountain\nqy \u001b yyqq",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53856005,
+   "datetime": "20220625201002",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nli\n  \u0017blindfold\nai\u0017scroll of confuse monster\nrj\u0017wand of enlightenment\nzk \u001b\u0017scroll of fire\nrlsss#wizintrinsic\nfi\n ;k: \u001b.Z\u0017cursed scroll of gold detection\nrmE- Elbereth Elbereth\n\u0017cursed scroll of amnesia\nrn20s   s.Sy\u001b"
+  },
+  {
+   "seed": 54356005,
+   "datetime": "20250228084654",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " y,n:  #conduct\n #monster\ni\u001bskky\u0017lawful altar\ndacj\u0017newt corpse\n#offer\na#pray\ny yk\u0017moat\nny k\u0017fountain\nqy \u001b yyqq"
+  }
+ ]
+}

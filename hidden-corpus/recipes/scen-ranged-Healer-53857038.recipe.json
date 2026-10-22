@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017bow\nwk\u001720 arrows\nQl\u0007gnome\nulflfyfbFb Fbx#twoweapon\nFb skbk,#enhance\nyg\nl\n\u001b#levelchange\n14\n            \u0017orcish bow\nwm\u001720 orcish arrows\nQn\u0007soldier\nuflfhfh\u0017potion of gain energy\ntnh \u0007dwarf\nyfj fnfj fj \u0017potion of water\ntkn \u0007acid blobwater nymph\n gen"
+ },
+ "segments": [
+  {
+   "seed": 53857038,
+   "datetime": "20140319040712",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017bow\nwk\u001720 arrows\nQl\u0007gnome\nulflfyfbFb Fbx#twoweapon\nFb skbk,#enhance\nyg\nl\n\u001b#levelchange\n14\n            \u0017orcish bow\nwm\u001720 orcish arrows\nQn\u0007soldier\nuflfhfh\u0017potion of gain energy\ntnh \u0007dwarf\nyfj fnfj fj \u0017potion of water\ntkn \u0007acid blobwater nymph\n gen"
+  }
+ ]
+}

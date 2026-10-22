@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0007hill orc\n#chat\njFjFj \u0007succubus\nFjFj        ss.s\u0007Wizard of Yendor\nyFhFh    \u0007incubus\n;k, \u001b;20s  yny  y y y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 53852022,
+   "datetime": "20210326021149",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007hill orc\n#chat\njFjFj \u0007succubus\nFjFj        ss.s\u0007Wizard of Yendor\nyFhFh    \u0007incubus\n;k, \u001b;20s  yny  y y y\u001by  ."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u00163\nddh#tip\n\u001b;>. \u001b@.20ss\u0016?\n>z#enhance\nyc\nr\n\u001bf  u  :.h   sm. \u0016?\n>Cw-u\u0014,;j. 20ss\u0016?\n>>N       wooden flute\n#jump\n#turn\n_<,sm.s.m.   "
+ },
+ "segments": [
+  {
+   "seed": 53852008,
+   "datetime": "20200309142105",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u00163\nddh#tip\n\u001b;>. \u001b@.20ss\u0016?\n>z#enhance\nyc\nr\n\u001bf  u  :.h   sm. \u0016?\n>Cw-u\u0014,;j. 20ss\u0016?\n>>N       wooden flute\n#jump\n#turn\n_<,sm.s.m.   "
+  }
+ ]
+}

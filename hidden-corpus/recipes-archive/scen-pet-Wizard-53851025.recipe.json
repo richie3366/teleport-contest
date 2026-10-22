@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "20s t\u001bt\u001bdjs.sj10sda s20ssldd20s.20s   unhk20sujylt\u001bSy\u001b  yy#rub\n#jump\n \u001b,i\u001b\\  E- X marks the spot\ns20s#chat\nnt\u001bt\u001bt\u001bjj",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53851025,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:none\nOPTIONS=runmode:teleport\nOPTIONS=playmode:explore\n",
+   "moves": "20s t\u001bt\u001bdjs.sj10sda s20ssldd20s.20s   unhk20sujylt\u001bSy\u001b"
+  },
+  {
+   "seed": 54351025,
+   "datetime": "20040621053817",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:none\nOPTIONS=runmode:teleport\nOPTIONS=playmode:explore\n",
+   "moves": "  yy#rub\n#jump\n \u001b,i\u001b\\  E- X marks the spot\ns20s#chat\nnt\u001bt\u001bt\u001bjj"
+  }
+ ]
+}

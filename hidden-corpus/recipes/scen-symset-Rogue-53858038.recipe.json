@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0007tame pony\n\u0007tame pony\n\u0007grid bug\nsyss20s  20ss\u0006_ \u001bm.>FnFl_>>.Fj_,> \u0007kobold\n\u0017scroll of taming\nrh \u0017leash\nainujkhaih#chat\nk\u0017meatball\ntbyO>>>>a\u001b\nO>>j\u001b\n\u0006_>,Fh_,Fu>FuFu_>,Fu_.Fn>FnFu_>.Fu_.Fn>FuFuFuFuFu\u0006_>.Fu_.Fn>FnFu_>.Fu_.Fu>FuFu_>.Fn_,Fn>FnFnFuFuFu\u0014;#invoke\n\u001b\u0006_>,Fn_,Fu>FuFn_>.Fn_.Fu>FnFn_>,Fn_.Fn>FnFuFuFuFn\u0006_>>.Fu_.Fn>FnFn_>>,Fn_.Fu>FnFn_>>.Fu_,Fu>FuFuFuFnFu\u0006_>,Fn_.Fu>FuFn_>,Fn_.Fu>FuFn_>,Fu_,Fn>FuFuFuFuFu\u0006_>>.Fn_.Fn>FnFn_>>.Fu_.Fn>FnFn_>>,Fn_.Fu>FuFuFuFnFuaiu<\u0006_>.Fn_,Fu>FnFu_>,Fn_.Fu>FnFu_>,Fu_,Fn>FuFuFuFnFn\u0004kW\u000f\u001b\u001612\n\u0007kitten\n\u0017huge chunk of meat\n tbj   \u0007pony\n\u0017banana\ntbk10s   n \u0017leash\namk   n h  n l  n b  n  u  n    amy  n   ny   n     n   n#name\nm\n\u0017\u0017leash\nanl    n b nh   n u  n    n anb  yy\u001by   y ny\u001bn  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 53858038,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": " \u0007tame pony\n\u0007tame pony\n\u0007grid bug\nsyss20s  20ss\u0006_ \u001bm.>FnFl_>>.Fj_,> \u0007kobold\n\u0017scroll of taming\nrh \u0017leash\nainujkhaih#chat\nk\u0017meatball\ntbyO>>>>a\u001b\nO>>j\u001b\n\u0006_>,Fh_,Fu>FuFu_>,Fu_.Fn>FnFu_>.Fu_.Fn>FuFuFuFuFu\u0006_>.Fu_.Fn>FnFu_>.Fu_.Fu>FuFu_>.Fn_,Fn>FnFnFuFuFu\u0014;#invoke\n\u001b\u0006_>,Fn_,Fu>FuFn_>.Fn_.Fu>FnFn_>,Fn_.Fn>FnFuFuFuFn\u0006_>>.Fu_.Fn>FnFn_>>,Fn_.Fu>FnFn_>>.Fu_,Fu>FuFuFuFnFu\u0006_>,Fn_.Fu>FuFn_>,Fn_.Fu>FuFn_>,Fu_,Fn>FuFuFuFuFu\u0006_>>.Fn_.Fn>FnFn_>>.Fu_.Fn>FnFn_>>,Fn_.Fu>FuFuFuFnFuaiu<\u0006_>.Fn_,Fu>FnFu_>,Fn_.Fu>FnFu_>,Fu_,Fn>FuFuFuFnFn\u0004kW\u000f\u001b\u001612\n\u0007kitten\n\u0017huge chunk of meat\n tbj   \u0007pony\n\u0017banana\ntbk10s   n \u0017leash\namk   n h  n l  n b  n  u  n    amy  n   ny   n     n   n#name\nm\n\u0017\u0017leash\nanl    n b nh   n u  n    n anb  yy\u001by   y ny\u001bn  \u0007"
+  }
+ ]
+}

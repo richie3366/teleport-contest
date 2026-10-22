@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           \u00173 potion of hallucination\nqe#dip\neeFj Fb\u0017amulet of flying\n\u0007pyrolisk\nPfsm.ss20s  \u00173 potion of sickness\nqg  \u0017blessed leash\nahb 20s20s"
+ },
+ "segments": [
+  {
+   "seed": 53852016,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           \u00173 potion of hallucination\nqe#dip\neeFj Fb\u0017amulet of flying\n\u0007pyrolisk\nPfsm.ss20s  \u00173 potion of sickness\nqg  \u0017blessed leash\nahb 20s20s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "Kael\ryy   nblyj_m, \u001b@.20s\u000f\u001b#terrain\n\u001bhjnhlhlnlljk hljj__.snhljjnhl#twoweapon\noljjnkyljjkkhk:__,snhlj_m.sykny#jump\n@.hkkhnykny#monster\n<kkkj_>.20s  #tip\n\u001b#pray\ny  hlhh\u0018\u001b\u0004y_>,syhly#rub\n#name\n\u001bkjkujluljjjns#pray\ny   _<..lr\u001b#tip\n\u001b#tip\n\u001bknbuljyl#twoweapon\n#force\n\u0018\u001b#untrap\nh#turn\n #terrain\n\u001bjjkkybhbPWyjkb_<.20syklj#force\nwahlkj#enh"
+ },
+ "segments": [
+  {
+   "seed": 53850013,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Kael\ryy   nblyj_m, \u001b@.20s\u000f\u001b#terrain\n\u001bhjnhlhlnlljk hljj__.snhljjnhl#twoweapon\noljjnkyljjkkhk:__,snhlj_m.sykny#jump\n@.hkkhnykny#monster\n<kkkj_>.20s  #tip\n\u001b#pray\ny  hlhh\u0018\u001b\u0004y_>,syhly#rub\n#name\n\u001bkjkujluljjjns#pray\ny   _<..lr\u001b#tip\n\u001b#tip\n\u001bknbuljyl#twoweapon\n#force\n\u0018\u001b#untrap\nh#turn\n #terrain\n\u001bjjkkybhbPWyjkb_<.20syklj#force\nwahlkj#enh"
+  }
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \u0007electric eel\nFl ss20s.s20ss20ss.20s.s20s20ss20ss.20s.ss.  \u0007soldier ant\nFuFus20sFl20sss20ss20s..s20sFlFlFlFlFls..s20sFkFk FkFkFkFkFkFk100s100s150sunu100s 100s100skbn150s  100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUHKB_ \u001bm,>HYYN_>,>NBBU_>.>UKYJ_>,>KKYJ_>,>hlyheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYNLnyJ_>,><KKHH_>,>NBNB_>.>yhlleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b FkFk FkFkFkFkFkFkFnFnFnFnFnFnFnFnlunkFbFbFbFbFbFbFbFbljhjllkjJUYL_ \u001b:>NNJJ_>,>NUUH _>.>ch#untrap\nbJUNN_>.><KLNJ_>.>NLYB_>.>#wipe\n10syjky150s100s150s100sFyFyFyFys20s\u0018\u001b_>.>nlh100s_>.>100sFy20s20sFyFyFy_>.>100seg#turn\n50shnb150sFuFls100snu u150sFhss50sFhFhscl\u000f\u001bnkj#loot\n100sFhFhsljl100sFk20ss150s100s#quit\nyy\u001by  y y y\u001b Fh FhFhFhFhFhFhFh10snuknuhnbkbkYBUU_ \u001bm,>HBJN_>.>NNYJ_>.>W#sit\n\u001bBYUK_>.>ee  cl<hlnhi\u001bZnubulnjlui\u001b100s100s,jnllybkbk100sFhs.100s 50s100s150sFhFhFhFhss_>.>50s150sFhs20slbl50sbub50s50s150s uln150s 150sFlFl.yul100sed100s#sit\n\u001bhhjFlFlFlFlFlFlFlFlFjFjFjFjFjFjFjFj100s100sE- Elbereth Elbereth\n\u000f\u001b#ride\nl50sFjFj20s100s i\u001b#untrap\nh150sP100sFlss100s150s100s100sFl20ss50s100s150sFjFlFl#invoke\n\u001bi\u001b100s150s kkjFhss_>.>ulji\u001bkyj100s#terrain\nb\nkjb150s \u0018\u001byubFysFji\u001bwa100s_>,>100sFhss50sFhFhs150sef150s\u000f\u001b\\  #quit\nyy\u001by  y y y\u001b FuFuFuFuFuFuFuFuyjuk10s20sjlkndf20ss.kljyJBNH_ \u001bm,>#jump\n#jump\nUBLL_>,>,\u0004j<KBYK_>,>LBBL_>.><NHBH_>.><ny10sjkknddss20sde.20sslut\u001bkhnu_>.>50s\u000f\u001b50s150s100s_>.>100s150s_>,>_>,>50s 150s eh  ck50s#loot\nbkllhh\\  100seh  100seh  #force\n100segi\u001b50slln50s eg#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53850086,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007electric eel\nFl ss20s.s20ss20ss.20s.s20s20ss20ss.20s.ss."
+  },
+  {
+   "seed": 53950086,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007soldier ant\nFuFus20sFl20sss20ss20s..s20sFlFlFlFlFls..s20s"
+  },
+  {
+   "seed": 54050086,
+   "datetime": "20060510053029",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:durian\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "FkFk FkFkFkFkFkFk100s100s150sunu100s 100s100skbn150s  100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeUHKB_ \u001bm,>HYYN_>,>NBBU_>.>UKYJ_>,>KKYJ_>,>hlyheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeYNLnyJ_>,><KKHH_>,>NBNB_>.>yhlleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 54150086,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:kumquat\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\n",
+   "moves": "FkFk FkFkFkFkFkFkFnFnFnFnFnFnFnFnlunkFbFbFbFbFbFbFbFbljhjllkjJUYL_ \u001b:>NNJJ_>,>NUUH _>.>ch#untrap\nbJUNN_>.><KLNJ_>.>NLYB_>.>#wipe\n10syjky150s100s150s100sFyFyFyFys20s\u0018\u001b_>.>nlh100s_>.>100sFy20s20sFyFyFy_>.>100seg#turn\n50shnb150sFuFls100snu u150sFhss50sFhFhscl\u000f\u001bnkj#loot\n100sFhFhsljl100sFk20ss150s100s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 54250086,
+   "datetime": "20111029224124",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=fruit:mango\nOPTIONS=pettype:horse\n",
+   "moves": "Fh FhFhFhFhFhFhFh10snuknuhnbkbkYBUU_ \u001bm,>HBJN_>.>NNYJ_>.>W#sit\n\u001bBYUK_>.>ee  cl<hlnhi\u001bZnubulnjlui\u001b100s100s,jnllybkbk100sFhs.100s 50s100s150sFhFhFhFhss_>.>50s150sFhs20slbl50sbub50s50s150s uln150s 150sFlFl.yul100sed100s#sit\n\u001bhhjFlFlFlFlFlFlFlFlFjFjFjFjFjFjFjFj100s100sE- Elbereth Elbereth\n\u000f\u001b#ride\nl50sFjFj20s100s i\u001b#untrap\nh150sP100sFlss100s150s100s100sFl20ss50s100s150sFjFlFl#invoke\n\u001bi\u001b100s150s kkjFhss_>.>ulji\u001bkyj100s#terrain\nb\nkjb150s \u0018\u001byubFysFji\u001bwa100s_>,>100sFhss50sFhFhs150sef150s\u000f\u001b\\  #quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 54350086,
+   "datetime": "20241218082103",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\n",
+   "moves": "FuFuFuFuFuFuFuFuyjuk10s20sjlkndf20ss.kljyJBNH_ \u001bm,>#jump\n#jump\nUBLL_>,>,\u0004j<KBYK_>,>LBBL_>.><NHBH_>.><ny10sjkknddss20sde.20sslut\u001bkhnu_>.>50s\u000f\u001b50s150s100s_>.>100s150s_>,>_>,>50s 150s eh  ck50s#loot\nbkllhh\\  100seh  100seh  #force\n100segi\u001b50slln50s eg#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

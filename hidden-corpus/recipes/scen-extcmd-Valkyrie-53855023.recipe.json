@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 helm of telepathy\nWe\u0017blessed Mjollnir\nwf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007gnome lord\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nhh#offer\n#pray\ny y #chat\nh#polyself\nvampire\n20s.20sFj  ylb_ \u001bm.qh#vanquished\n #genocided\nwerewolf\nb i\u001b#name\nd\n#adjust\ng\u001b#chat\nj#turn\n#wizidentify\n\u001bkkj_{,q\u0007dwarf\n#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\nf#sit\n\u001b#pray\ny  #jump\n#wizdetect\n\u0006Fu Fu Fu20s _<,_.#version\n  #history\n                  #annotate\nFido\n\u000f\u001b#wipe\n#loot\n#chat\nh#chat\nu#polyself\nxorn\n#monster\nsss20s yhb__. _,m.#chat\nj#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nuy#turn\n#sit\n #jump\n#wizdetect\n\u0006lkki\u001b_{.q\u0007yellow mold\n#vanquished\n #genocided\nlichen\ni\u001b#dip\ne#offer\n#pray\ny y #chat\nj#polyself\npurple worm\n  #monster\n....jyj#rub\n_<._.#chronicle\n  #te"
+ },
+ "segments": [
+  {
+   "seed": 53855023,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 helm of telepathy\nWe\u0017blessed Mjollnir\nwf\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007gnome lord\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nhh#offer\n#pray\ny y #chat\nh#polyself\nvampire\n20s.20sFj  ylb_ \u001bm.qh#vanquished\n #genocided\nwerewolf\nb i\u001b#name\nd\n#adjust\ng\u001b#chat\nj#turn\n#wizidentify\n\u001bkkj_{,q\u0007dwarf\n#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\nf#sit\n\u001b#pray\ny  #jump\n#wizdetect\n\u0006Fu Fu Fu20s _<,_.#version\n  #history\n                  #annotate\nFido\n\u000f\u001b#wipe\n#loot\n#chat\nh#chat\nu#polyself\nxorn\n#monster\nsss20s yhb__. _,m.#chat\nj#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nuy#turn\n#sit\n #jump\n#wizdetect\n\u0006lkki\u001b_{.q\u0007yellow mold\n#vanquished\n #genocided\nlichen\ni\u001b#dip\ne#offer\n#pray\ny y #chat\nj#polyself\npurple worm\n  #monster\n....jyj#rub\n_<._.#chronicle\n  #te"
+  }
+ ]
+}

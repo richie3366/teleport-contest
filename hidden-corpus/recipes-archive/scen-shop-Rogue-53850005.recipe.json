@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017blessed amulet of reflection\nPj\u0016?\n>w\u0006_ \u001b>.qd  _oooo,,\u0017loadstone\n dk_oo,_ooo.,\u0017amulet of restful sleep\ndlFyFyFyFyFyFy_ooo,_oo.,   n:__.Fj _.Fj #chat\nh _oooooooo,,\u0014,@.20s.Fj FjFjFjFjFjFhFhFhFhFhFh_{._.;<.q_{,_.m,q_ooooooooo._.,\u001bp_oo,,\u001bp__,_,m,#chat\nj#pray\ny y _oooooooo,,#chat\ny_ooooooo._.,\u001b: yhl#chat\nu_{._.:q_ooooo._,,\u001bp_ooooo,_ooo,,\u001b#chat\nn__._.;m.#chat\nlhhh#chat\nj_oooooo._ooo._,,\u001bp_oo.,\u001b\u0017flint stone\ndmaki_ooooo.,\u001b$\u0016?\ncukj\u0016?\n>w\u0006lky#chat\nk_oo"
+ },
+ "segments": [
+  {
+   "seed": 53850005,
+   "datetime": "20180204185831",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017blessed amulet of reflection\nPj\u0016?\n>w\u0006_ \u001b>.qd  _oooo,,\u0017loadstone\n dk_oo,_ooo.,\u0017amulet of restful sleep\ndlFyFyFyFyFyFy_ooo,_oo.,   n:__.Fj _.Fj #chat\nh _oooooooo,,\u0014,@.20s.Fj FjFjFjFjFjFhFhFhFhFhFh_{._.;<.q_{,_.m,q_ooooooooo._.,\u001bp_oo,,\u001bp__,_,m,#chat\nj#pray\ny y _oooooooo,,#chat\ny_ooooooo._.,\u001b: yhl#chat\nu_{._.:q_ooooo._,,\u001bp_ooooo,_ooo,,\u001b#chat\nn__._.;m.#chat\nlhhh#chat\nj_oooooo._ooo._,,\u001bp_oo.,\u001b\u0017flint stone\ndmaki_ooooo.,\u001b$\u0016?\ncukj\u0016?\n>w\u0006lky#chat\nk_oo"
+  }
+ ]
+}

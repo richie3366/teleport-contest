@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017bow\nwg\u001720 arrows\nQh\u0007troll\nufj  fj  fj \u0007soldier\nlfh fj   fh    yy\u001by   y y y\u001by  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 53857024,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017bow\nwg\u001720 arrows\nQh\u0007troll\nufj  fj  fj \u0007soldier\nlfh fj   fh    yy\u001by   y y y\u001by  \u0007"
+  }
+ ]
+}

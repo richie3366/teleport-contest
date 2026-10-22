@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u001715 shuriken\nQi\u0007lichen\nnfkfhfh fy\u0017potion of booze\ntbu\u0007newt\nhflflfh\u0017potion of polymorph\ntbjx #twoweapon\n20s20sk nh ,\u001b\u00178 rocks\nQi\u0007kobold\nlnfyfufk\u0007giant rat\nkfjfjfjfj\u0007lichen\nufhf by n\u0017potion of oil\nSy\u001b yy_>, \u001b:20s#dip\njn  \u001bfk#name\na\n#turn\n#terrain\nf\n\u000f\u001b#tip\nf\u001bqd  #rub\nZ\u0007nurse\nFbFbFjFbFbFbsm..m.\u0007disenchanter\nFbF",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53851028,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u001715 shuriken\nQi\u0007lichen\nnfkfhfh fy\u0017potion of booze\ntbu\u0007newt\nhflflfh\u0017potion of polymorph\ntbjx #twoweapon\n20s20sk nh ,\u001b\u00178 rocks\nQi\u0007kobold\nlnfyfufk\u0007giant rat\nkfjfjfjfj\u0007lichen\nufhf by n\u0017potion of oil\nSy\u001b"
+  },
+  {
+   "seed": 54351028,
+   "datetime": "20161005000905",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": " yy_>, \u001b:20s#dip\njn  \u001bfk#name\na\n#turn\n#terrain\nf\n\u000f\u001b#tip\nf\u001bqd  #rub\nZ\u0007nurse\nFbFbFjFbFbFbsm..m.\u0007disenchanter\nFbF"
+  }
+ ]
+}

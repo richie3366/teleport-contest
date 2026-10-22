@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                              \u0017blessed spellbook of drain life\nrj s\u0017spellbook of create monster\nrk 20s+\u001bZa\nZa\nZa\nZa\nZa\n#turn\n #pray\ny y  "
+ },
+ "segments": [
+  {
+   "seed": 53851009,
+   "datetime": "20110628110401",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                              \u0017blessed spellbook of drain life\nrj s\u0017spellbook of create monster\nrk 20s+\u001bZa\nZa\nZa\nZa\nZa\n#turn\n #pray\ny y  "
+  }
+ ]
+}

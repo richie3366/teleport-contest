@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#turn\n#name\nd\n>#untrap\nn#turn\nscki\u001b#rub\n#turn\nwc#ride\nkyu#chat\nhdf#wipe\n\u0018\u001bdci\u001bwdy20ssswb .ssW.m..syTwaFnFnFnX#terrain\nc\n\u001b;#loot\n#force\ntbn#sit\n\u001bZ"
+ },
+ "segments": [
+  {
+   "seed": 53852015,
+   "datetime": "20240417034133",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#turn\n#name\nd\n>#untrap\nn#turn\nscki\u001b#rub\n#turn\nwc#ride\nkyu#chat\nhdf#wipe\n\u0018\u001bdci\u001bwdy20ssswb .ssW.m..syTwaFnFnFnX#terrain\nc\n\u001b;#loot\n#force\ntbn#sit\n\u001bZ"
+  }
+ ]
+}

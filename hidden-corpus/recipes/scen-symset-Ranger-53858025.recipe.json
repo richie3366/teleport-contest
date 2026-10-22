@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00164\nFnFn .\\ 100s \\ _ \u001b;>100sFhFhsnbn100s100s50s 150s50sFl20s20si\u001bhjn#wipe\n;<.ujhuujhluylllnnhkjybl100sFhFhFhFhFhsjyh100sjyk50sFhs20sq100s50slny100s FhFhFh100sO>>>o2\n\u001b\n\u0006_>,Fl_,> ,#dip\nf\u0006_>._.Fh>_>._.>_>,_.>\u0006_>._,>_>._.>_>._.>s_<,.\u0006_>._.>_>,_.>_>._.>#tip\n\u001b#terrain\n\u001b\u0006_>._.>_>._,>_>._,>\u0006_>._.>_>._,>_>._.>\u0018\u001btcj\u0006_>,_.>_>._.>_>,_.>\u000f\u001b\u0006_>._,>_>,_,>_>._.>\u0006_>>._,>_>>._,>_>>,_,>#tip\n\u001bdd\u0006_>,_.>_>._.>_>._,>tbyq\u0006_>>._,>_>>._.>_>>,_.>#force\nb<\u0006_>>,_,>_>>,_,>_>>,_.>\u0006_>._.>_>._.>_>._,>O>b\u001b\nOd\u001b\ns#chat\nhdf\u001615\n    \u0006_>>,_.>_>>,_.>_>>,_.>\u0006_>._.>_>,_.>_>._.>\u0006_>._.>_>,_,>_>._.>\u0006_>,_.>_>._.>_>._.>\u0006_>._.>_>,_.>_>._.>O>i\u001b\u001b\n\u00164\nulyynkFu.snhhhnn_>._.> \\  \\  \\  100s100s eeeeeeeeeeeeeeeeeeeeeeeeeeeee\u001620\n,#offer\n#twoweapon\n#name\nm\nOmO\u0016Oo\u001b\u001b\nv i\u001b\u0006_>>.Fk _.> \u0006_>.Fn_.  n Fj  n >Fk Fk  n _>.  nFj_.  n Fj  n   n >Fk   n Fj  n _>.   nFk   n _,  nFj >Fh  n Fk  n  Fl  n   n Fk  yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 53858025,
+   "datetime": "20200426121941",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nMENUCOLOR=\"a scroll\"=cyan\n",
+   "moves": "\u00164\nFnFn .\\ 100s \\ _ \u001b;>100sFhFhsnbn100s100s50s 150s50sFl20s20si\u001bhjn#wipe\n;<.ujhuujhluylllnnhkjybl100sFhFhFhFhFhsjyh100sjyk50sFhs20sq100s50slny100s FhFhFh100sO>>>o2\n\u001b\n\u0006_>,Fl_,> ,#dip\nf\u0006_>._.Fh>_>._.>_>,_.>\u0006_>._,>_>._.>_>._.>s_<,.\u0006_>._.>_>,_.>_>._.>#tip\n\u001b#terrain\n\u001b\u0006_>._.>_>._,>_>._,>\u0006_>._.>_>._,>_>._.>\u0018\u001btcj\u0006_>,_.>_>._.>_>,_.>\u000f\u001b\u0006_>._,>_>,_,>_>._.>\u0006_>>._,>_>>._,>_>>,_,>#tip\n\u001bdd\u0006_>,_.>_>._.>_>._,>tbyq\u0006_>>._,>_>>._.>_>>,_.>#force\nb<\u0006_>>,_,>_>>,_,>_>>,_.>\u0006_>._.>_>._.>_>._,>O>b\u001b\nOd\u001b\ns#chat\nhdf\u001615\n    \u0006_>>,_.>_>>,_.>_>>,_.>\u0006_>._.>_>,_.>_>._.>\u0006_>._.>_>,_,>_>._.>\u0006_>,_.>_>._.>_>._.>\u0006_>._.>_>,_.>_>._.>O>i\u001b\u001b\n\u00164\nulyynkFu.snhhhnn_>._.> \\  \\  \\  100s100s eeeeeeeeeeeeeeeeeeeeeeeeeeeee\u001620\n,#offer\n#twoweapon\n#name\nm\nOmO\u0016Oo\u001b\u001b\nv i\u001b\u0006_>>.Fk _.> \u0006_>.Fn_.  n Fj  n >Fk Fk  n _>.  nFj_.  n Fj  n   n >Fk   n Fj  n _>.   nFk   n _,  nFj >Fh  n Fk  n  Fl  n   n Fk  yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

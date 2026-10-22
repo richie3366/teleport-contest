@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  mO>k\u001b\nynbuu \u0017grave\n:\u0017pick-axe\naj >  sm..m.nh\u001b\u0017sink\nqy  n \u0017ring of gain strength\ndk  \u001b#terrain\ne\n#turn\n\u0004k Pv\u001bi\u001b\u00164\nzde\u0006_ \u001b.>FjFy_>,Fl_.<.Fb> Fh\u001bFuFh\u000f\u001b:< \u0006_>.> FuFjFjr\u001b#enhance\nyg\nd\n\u001b\u0006_>,Fn_>FuFu_>,Fn_>FuFu_>.Fu_.Fn>FnFun Fu\u0006_>>,Fn_>FuFn_>FnFuu _>>.Fn_>FnFnFuFnFuu #rub\ng\u001bcl \u0006_>>.Fn_>FuFu_>>,Fn_>FnFuu _>>,Fu_,Fu>FnFnFnFnFn\u0006_>.Fu_,Fn>FuFuFuf a u #offer\n<\u000f\u001b20sE- ad aerarium\n10s\u00169\nmOa\u001b\n\u0006_>,Fh_,Fy>FyFy_>,Fy_, Fly >FlFl_>,Fl_.Fl>FyFyFyFyFl\u0006_>,Fy_, Fy>FlFy_>, Fy_.Fl> FyFyFy\u0006_>,  nFy_, Fy>FyFly _>.Fl_.Fl>FyFy_>.Fl_.Fy>  n Fly FyFy\u000f\u001b#terrain\nc\n>.\u0006_>,Fy_. Fy>FyFy_>.Fl_.Fy>  n Fll FlFl\u0006_>.Fy_, Fly >FyFy_>,Fl_.Fl>  nFlFlFy\u0006_>,Fl_.Fl>FlFy_>,Fy_.Fy>  nFly FlFy\u001610\n\u00166\nO>>>l\u001b\nmO>>>i\u001b\n\u0006_>.Fu_.> FlFbFnr\u001b#chat\nb \u0006_>.Fl_.Fn>FkFkFy\\ fk \u0006_>,Fn_>FnFn_>.Fl_,Fl>FnFj_>.Fn_>FjFnFnFjF"
+ },
+ "segments": [
+  {
+   "seed": 53858029,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"a potion\"=red\nBIND=v:inventory\n",
+   "moves": "  mO>k\u001b\nynbuu \u0017grave\n:\u0017pick-axe\naj >  sm..m.nh\u001b\u0017sink\nqy  n \u0017ring of gain strength\ndk  \u001b#terrain\ne\n#turn\n\u0004k Pv\u001bi\u001b\u00164\nzde\u0006_ \u001b.>FjFy_>,Fl_.<.Fb> Fh\u001bFuFh\u000f\u001b:< \u0006_>.> FuFjFjr\u001b#enhance\nyg\nd\n\u001b\u0006_>,Fn_>FuFu_>,Fn_>FuFu_>.Fu_.Fn>FnFun Fu\u0006_>>,Fn_>FuFn_>FnFuu _>>.Fn_>FnFnFuFnFuu #rub\ng\u001bcl \u0006_>>.Fn_>FuFu_>>,Fn_>FnFuu _>>,Fu_,Fu>FnFnFnFnFn\u0006_>.Fu_,Fn>FuFuFuf a u #offer\n<\u000f\u001b20sE- ad aerarium\n10s\u00169\nmOa\u001b\n\u0006_>,Fh_,Fy>FyFy_>,Fy_, Fly >FlFl_>,Fl_.Fl>FyFyFyFyFl\u0006_>,Fy_, Fy>FlFy_>, Fy_.Fl> FyFyFy\u0006_>,  nFy_, Fy>FyFly _>.Fl_.Fl>FyFy_>.Fl_.Fy>  n Fly FyFy\u000f\u001b#terrain\nc\n>.\u0006_>,Fy_. Fy>FyFy_>.Fl_.Fy>  n Fll FlFl\u0006_>.Fy_, Fly >FyFy_>,Fl_.Fl>  nFlFlFy\u0006_>,Fl_.Fl>FlFy_>,Fy_.Fy>  nFly FlFy\u001610\n\u00166\nO>>>l\u001b\nmO>>>i\u001b\n\u0006_>.Fu_.> FlFbFnr\u001b#chat\nb \u0006_>.Fl_.Fn>FkFkFy\\ fk \u0006_>,Fn_>FnFn_>.Fl_,Fl>FnFj_>.Fn_>FjFnFnFjF"
+  }
+ ]
+}

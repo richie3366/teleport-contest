@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "HHUL_ \u001b:>BHJK_>.>#monster\n,KJUN_>.>JBJL_>.>\u000f\u001bBJUL_>.>10sokLHKU_>.>JLBY_>.>#twoweapon\n\\ YYJK_>.>HNHU_>.>YBYU_>.>#enhance\n\u001bzhb  JNNB_>.>Zb\nW"
+ },
+ "segments": [
+  {
+   "seed": 53851007,
+   "datetime": "20220620042300",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "HHUL_ \u001b:>BHJK_>.>#monster\n,KJUN_>.>JBJL_>.>\u000f\u001bBJUL_>.>10sokLHKU_>.>JLBY_>.>#twoweapon\n\\ YYJK_>.>HNHU_>.>YBYU_>.>#enhance\n\u001bzhb  JNNB_>.>Zb\nW"
+  }
+ ]
+}

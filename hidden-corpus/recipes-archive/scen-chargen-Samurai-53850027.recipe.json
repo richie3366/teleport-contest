@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "Fen\ryy  nK#rub\njyhl__, \u001bm.s10snlyj_>.skjl  ujllkb_<,20s  20s#monster\nnbykcli\u001b#invoke\n\u001b#sit\n\u001b#name\ni\n#terrain\nb\njhlki E- ad aerarium\nyyhbuhlh_>,.s_<, sjhjynll  n#conduct\n #wipe\n_<..__.20syynl_>..lklllhub:\u0018\u001bhbjy_m.20skbyjq#invoke\n\u001b#jump\n:#twoweap"
+ },
+ "segments": [
+  {
+   "seed": 53850027,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Fen\ryy  nK#rub\njyhl__, \u001bm.s10snlyj_>.skjl  ujllkb_<,20s  20s#monster\nnbykcli\u001b#invoke\n\u001b#sit\n\u001b#name\ni\n#terrain\nb\njhlki E- ad aerarium\nyyhbuhlh_>,.s_<, sjhjynll  n#conduct\n #wipe\n_<..__.20syynl_>..lklllhub:\u0018\u001bhbjy_m.20skbyjq#invoke\n\u001b#jump\n:#twoweap"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " ah\u001bwa#rub\ng\u001b#levelchange\n6\n     h\u001bkk y\u0017throne\n#sit\n ny:y\u0017cloud\nkk ln \u0017neutral altar\nde\u0017newt corpse\n#offer\ni :  b\u0017grave\n:  \u0017pick-axe\naj >s20s #terrain\n\u001bJ;u; \u001b@.#conduct\n FyFlFnFnFnFjFlFyFyFnFjFjFuFnFnFyFjFnFyFyFuy FbFlFjFyFuj FbFyFnFnFnFnFyFnFuFuFbFnFnFnFnFjFyFbFlFnFun FbFjFjFuFnFul FlFyFyFyFuu FlFbFbFuFlFbFlFbFlFbFnFbFun FlFnFnFyFlFlFbFnFuFuFyFjFnFnFuFjFlFjFyFbFjFuFyFyFyFlFbFlFyFjFyFlFjFuFbFun FyFbFnFlFbFnFjFlFyFjFyFnFumO>l\u001b\nah\u001b#invoke\n\u001b\u00165\nFhFlFkFyFlFuFnFlFyFkj FbFlFlFjFyFbFhFlFlFbFuu FyFyFkFjFbFbFkFhFbFjFkFyFjFhFuFlFyFnFuFyFbFuFbFku FkFkFyFuh FyFuh FkFjFnFyFuFhFkFuFbFkj FbFh\u001bFbFyFnFuu FbFkn FlFhFhFyFjFjFnFkl FuFuFnFnFy"
+ },
+ "segments": [
+  {
+   "seed": 53858033,
+   "datetime": "20031002081928",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=stop \"You see\"\nBIND=v:inventory\n",
+   "moves": " ah\u001bwa#rub\ng\u001b#levelchange\n6\n     h\u001bkk y\u0017throne\n#sit\n ny:y\u0017cloud\nkk ln \u0017neutral altar\nde\u0017newt corpse\n#offer\ni :  b\u0017grave\n:  \u0017pick-axe\naj >s20s #terrain\n\u001bJ;u; \u001b@.#conduct\n FyFlFnFnFnFjFlFyFyFnFjFjFuFnFnFyFjFnFyFyFuy FbFlFjFyFuj FbFyFnFnFnFnFyFnFuFuFbFnFnFnFnFjFyFbFlFnFun FbFjFjFuFnFul FlFyFyFyFuu FlFbFbFuFlFbFlFbFlFbFnFbFun FlFnFnFyFlFlFbFnFuFuFyFjFnFnFuFjFlFjFyFbFjFuFyFyFyFlFbFlFyFjFyFlFjFuFbFun FyFbFnFlFbFnFjFlFyFjFyFnFumO>l\u001b\nah\u001b#invoke\n\u001b\u00165\nFhFlFkFyFlFuFnFlFyFkj FbFlFlFjFyFbFhFlFlFbFuu FyFyFkFjFbFbFkFhFbFjFkFyFjFhFuFlFyFnFuFyFbFuFbFku FkFkFyFuh FyFuh FkFjFnFyFuFhFkFuFbFkj FbFh\u001bFbFyFnFuu FbFkn FlFhFhFyFjFjFnFkl FuFuFnFnFy"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nhg\n \u0017towel\naf\u0017clove of garlic\neg\u0017potion of enlightenment\nqh\u0017tin of lizard meat\neislsm..m.#wizintrinsic\nl\n \u0017cursed potion of levitation\nqj n  \u0017scroll of earth\nrk  ;l; \u001bm. ;l.sm..y20s"
+ },
+ "segments": [
+  {
+   "seed": 53856000,
+   "datetime": "20101126154951",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nhg\n \u0017towel\naf\u0017clove of garlic\neg\u0017potion of enlightenment\nqh\u0017tin of lizard meat\neislsm..m.#wizintrinsic\nl\n \u0017cursed potion of levitation\nqj n  \u0017scroll of earth\nrk  ;l; \u001bm. ;l.sm..y20s"
+  }
+ ]
+}

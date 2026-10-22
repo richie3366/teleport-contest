@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "N NYJ    _ \u001b@.>FksFj#offer\n#invoke\n\u001bYNLL_>,>FlFlFnUHUJ_>.>FjFjFl\u000f\u001b100s FlsFnFlss150s50sFlFl Fl i\u001b100s  FlFls#untrap\nn100s\u0018\u001b150s      eh  yFlFl20s\\ 150seqFl.s150sFlFjFl100sFns.\u0018\u001b_>.>kkn100sFlFl20s_>.>100sebFjFjFhFj.sbnk20sFj20sFlep ef_>,>50s100sed  FnFl20sFnFj FjFj  y\u001by  y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 53850059,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "N NYJ    _ \u001b@.>FksFj#offer\n#invoke\n\u001bYNLL_>,>FlFlFnUHUJ_>.>FjFjFl\u000f\u001b100s FlsFnFlss150s50sFlFl Fl i\u001b100s  FlFls#untrap\nn100s\u0018\u001b150s      eh  yFlFl20s\\ 150seqFl.s150sFlFjFl100sFns.\u0018\u001b_>.>kkn100sFlFl20s_>.>100sebFjFjFhFj.sbnk20sFj20sFlep ef_>,>50s100sed  FnFl20sFnFj FjFj  y\u001by  y y y\u001b  s"
+  }
+ ]
+}

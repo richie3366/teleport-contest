@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n      \u0007soldier\n#pray\ny y   #chat\nj#levelchange\n1\n  Fj  FkFk_ \u001b;\u0007hobbit\n#overview\n\u001b#conduct\n i\u001b#dip\nci#offer\n#chat\nj  n#turn\n#jump\n#wizmap\n\u0006FkFk_{.Fk_.  nFuqi\u0007hobbit\n#vanquished\n #genocided\nfloating eye\n n\u0018\u001b#name\nm\n#adjust\n<.blessed\n#sit\n#pray\ny y   #levelchange\n21\n                   FlFlFb#chat\nh_>. _.Fh#chronicle\n   #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b\u001b#chat\nu#chat\nl#levelchange\n5\n     klnZ_>._.\u0007hobbit\n#version\n  #history\n                  #annotate\nFido\n\u0018\u001b#wipe\n#loot\nn#turn\n#sit\n\u001b#jump\n#polyself\nvampire\n#monster\n  sl.m.FnFnFnFnFn_{.Fn_.Fnq#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b\u001b#ride\nny#pray\ny y     #chat\nn#jump\n#levelchange\n7\n Fn.20ss\u000f\u001b\u0016?\n>u\u0006\u0007hobbit\n#vanquished\n #genocided\nyellow mold\ngi#dip\nf#offer\n#chat\nk #turn\n#jump\n#levelchange\n16\n         Fk Fk   n_ooooo.Fu _.,#chronicle\n    #terrain\n\u001b\u0018\u001b#name\nm\n#adjust\nh#sit\n   n#pray\ny y         n    #jump\n\u00168\n#polyself\nmind flayer\n20s20s  FjFj Fj   nFj "
+ },
+ "segments": [
+  {
+   "seed": 53855016,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 silver dragon scale mail\nW\u001b\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n      \u0007soldier\n#pray\ny y   #chat\nj#levelchange\n1\n  Fj  FkFk_ \u001b;\u0007hobbit\n#overview\n\u001b#conduct\n i\u001b#dip\nci#offer\n#chat\nj  n#turn\n#jump\n#wizmap\n\u0006FkFk_{.Fk_.  nFuqi\u0007hobbit\n#vanquished\n #genocided\nfloating eye\n n\u0018\u001b#name\nm\n#adjust\n<.blessed\n#sit\n#pray\ny y   #levelchange\n21\n                   FlFlFb#chat\nh_>. _.Fh#chronicle\n   #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b\u001b#chat\nu#chat\nl#levelchange\n5\n     klnZ_>._.\u0007hobbit\n#version\n  #history\n                  #annotate\nFido\n\u0018\u001b#wipe\n#loot\nn#turn\n#sit\n\u001b#jump\n#polyself\nvampire\n#monster\n  sl.m.FnFnFnFnFn_{.Fn_.Fnq#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b\u001b#ride\nny#pray\ny y     #chat\nn#jump\n#levelchange\n7\n Fn.20ss\u000f\u001b\u0016?\n>u\u0006\u0007hobbit\n#vanquished\n #genocided\nyellow mold\ngi#dip\nf#offer\n#chat\nk #turn\n#jump\n#levelchange\n16\n         Fk Fk   n_ooooo.Fu _.,#chronicle\n    #terrain\n\u001b\u0018\u001b#name\nm\n#adjust\nh#sit\n   n#pray\ny y         n    #jump\n\u00168\n#polyself\nmind flayer\n20s20s  FjFj Fj   nFj "
+  }
+ ]
+}

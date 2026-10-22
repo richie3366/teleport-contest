@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nl\n nbl\u0017wand of lightning\nzjy \u0017scroll of food detection\n rk  \u001b:\u0017egg\nels.s#wizintrinsic\nlj\n  \u0017blindfold\namuuy;m,E- Elbereth\n\u0017scroll of magic mapping\nrn\u0017scroll of teleportation\nro20ss20s"
+ },
+ "segments": [
+  {
+   "seed": 53856027,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nl\n nbl\u0017wand of lightning\nzjy \u0017scroll of food detection\n rk  \u001b:\u0017egg\nels.s#wizintrinsic\nlj\n  \u0017blindfold\namuuy;m,E- Elbereth\n\u0017scroll of magic mapping\nrn\u0017scroll of teleportation\nro20ss20s"
+  }
+ ]
+}

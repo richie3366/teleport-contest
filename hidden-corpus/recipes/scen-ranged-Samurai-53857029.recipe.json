@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n        \u00174 cream pies\nQ-\u0007owlbear\nhf by u f \u001bf \u001bFuFu\u0017potion of fruit juice\ntck \u0007yellow mold\ny bf \u001bf \u001bf \u001bf \u001bhhk,\u00175 boomerangs\nQh\u0007dwarf\nkkfj fjfbkjk,Sy\u001b y#conduct\n i\u001bl>#terrain\ne\n>#dip\ndg#conduct\n ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53857029,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n10\n        \u00174 cream pies\nQ-\u0007owlbear\nhf by u f \u001bf \u001bFuFu\u0017potion of fruit juice\ntck \u0007yellow mold\ny bf \u001bf \u001bf \u001bf \u001bhhk,\u00175 boomerangs\nQh\u0007dwarf\nkkfj fjfbkjk,Sy\u001b"
+  },
+  {
+   "seed": 54357029,
+   "datetime": "20221026150232",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " y#conduct\n i\u001bl>#terrain\ne\n>#dip\ndg#conduct\n "
+  }
+ ]
+}

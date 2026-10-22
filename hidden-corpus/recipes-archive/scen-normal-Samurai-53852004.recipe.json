@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \\    h<r\u001b#offer\n#pray\ny   #jump\n#wipe\n#turn\nZ#loot\nbE- Elbereth Elbereth\n#tip\n\u001b\u0014;h, \u001b;okWW,E-n  I am a fish\n#twoweapon\ntdy #enhance\n\u001bP#ride\nh"
+ },
+ "segments": [
+  {
+   "seed": 53852004,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "  \\    h<r\u001b#offer\n#pray\ny   #jump\n#wipe\n#turn\nZ#loot\nbE- Elbereth Elbereth\n#tip\n\u001b\u0014;h, \u001b;okWW,E-n  I am a fish\n#twoweapon\ntdy #enhance\n\u001bP#ride\nh"
+  }
+ ]
+}

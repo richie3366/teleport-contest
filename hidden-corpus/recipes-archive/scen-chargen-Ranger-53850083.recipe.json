@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "Corin\rnrofn*hly   nqdc_m. \u001b;.m.#jump\n#dip\nc\u0014\\   #chat\nk \u0018\u001buhlj\\   aklbu,,20s<\u0018\u001btbylluulull#name\nm\n#rub\n:_>,sulbhnnkl jyyynullnunuhbjklhhulbybW20s#untrap\nh#chat\nh__.20s#dip\nd#twoweapon\nlkhjr\u001bq\u0018\u001b#name\nm\nm.shiny\n_m.20sW#ride\nh:klnyt\u001b#tip\n\u001bWuPch__,.b"
+ },
+ "segments": [
+  {
+   "seed": 53850083,
+   "datetime": "20020330003615",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Corin\rnrofn*hly   nqdc_m. \u001b;.m.#jump\n#dip\nc\u0014\\   #chat\nk \u0018\u001buhlj\\   aklbu,,20s<\u0018\u001btbylluulull#name\nm\n#rub\n:_>,sulbhnnkl jyyynullnunuhbjklhhulbybW20s#untrap\nh#chat\nh__.20s#dip\nd#twoweapon\nlkhjr\u001bq\u0018\u001b#name\nm\nm.shiny\n_m.20sW#ride\nh:klnyt\u001b#tip\n\u001bWuPch__,.b"
+  }
+ ]
+}

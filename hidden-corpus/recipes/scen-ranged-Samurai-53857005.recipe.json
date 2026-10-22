@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u001720 darts\nQf\u0007lichen\nbnfufuflFl s\u0007kobold\nkfyfhn k j ,a\n#enhance\nn\u001b#levelchange\n6\n    \u00174 cream pies\nQf\u0007yellow mold\nhk fhfhfhfhfhsFh\u0007jackal\nkfbfbfbfjfj\u0007newt\nyflfjfl\u0017potion of healing\ntfl\u0017glaive\nwi\u0007sewer rat\nhai \u001b;jjj,"
+ },
+ "segments": [
+  {
+   "seed": 53857005,
+   "datetime": "20140203201746",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u001720 darts\nQf\u0007lichen\nbnfufuflFl s\u0007kobold\nkfyfhn k j ,a\n#enhance\nn\u001b#levelchange\n6\n    \u00174 cream pies\nQf\u0007yellow mold\nhk fhfhfhfhfhsFh\u0007jackal\nkfbfbfbfjfj\u0007newt\nyflfjfl\u0017potion of healing\ntfl\u0017glaive\nwi\u0007sewer rat\nhai \u001b;jjj,"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nWf\u0017blessed ring of free action\nPgl\u0017blessed amulet of life saving\nPh#levelchange\n10\n         \u0017spellbook of finger of death\nri \u001b20s\u0007lich\nZ20ssm. Z..ZZZZs.Z\u0018\u001b\u0017wand of teleportation\n\u0017wand of striking\n\u0017wand of magic missile\n\u0007yellow mold\nzlh .zkyzky  zjlzlyzky20s zjy\u0017wand of magic missile\n\u0017wand of striking\n\u0017wand of death\n\u0007yellow mold\n\u0007grid bug\nzolzoyzmyznlznbzokzok.zm.20sznjzm.szouzos\u0017wand of magic missile\n\u0017wand of cancellation\n\u0017wand of lightning\n\u0007sewer rat\n\u0007giant rat\n\u0007giant rat\nzpyzrh  zqkzqkzqyzpk20s zpyzpb.\u0007black dragon\n\u0007baby red dragon\nss#polyself\nred dragon\n  #monster\nl ss#monster\nk#monster\n#monster\n#monster\n\u0017wand of fire\naFl Fk \u0017blessed spellbook of light\nrt20s\u0007succubus\n\u0007kobold shaman\nZZs20s  ZZ20s   20s  ZZ#turn\n\u0017blessed spellbook of knock\nru20s\u0017blessed spellbook of slow monster\nrvs\u0007mind flayer\nZZZ.s    n ZZZs      s   n  ZZ\u00169\n\u0017blessed spellbook of light\nrws\u0007master lich\nZs20s ZZZZZZs.\u001618\n \u00178 rocks\n Qx\u0007newt\nf fufu fu futcu\u0017potion of monster detection\ntdy \u0007orc shaman\n\u0007incubus\n\u0007lich\n\u0017wand of cold\nzzuzzbzzy        \u0017blessed spellbook of fireball\nrA20s\u0007succubus\n\u0007orc s"
+ },
+ "segments": [
+  {
+   "seed": 53850060,
+   "datetime": "20121208063306",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nWf\u0017blessed ring of free action\nPgl\u0017blessed amulet of life saving\nPh#levelchange\n10\n         \u0017spellbook of finger of death\nri \u001b20s\u0007lich\nZ20ssm. Z..ZZZZs.Z\u0018\u001b\u0017wand of teleportation\n\u0017wand of striking\n\u0017wand of magic missile\n\u0007yellow mold\nzlh .zkyzky  zjlzlyzky20s zjy\u0017wand of magic missile\n\u0017wand of striking\n\u0017wand of death\n\u0007yellow mold\n\u0007grid bug\nzolzoyzmyznlznbzokzok.zm.20sznjzm.szouzos\u0017wand of magic missile\n\u0017wand of cancellation\n\u0017wand of lightning\n\u0007sewer rat\n\u0007giant rat\n\u0007giant rat\nzpyzrh  zqkzqkzqyzpk20s zpyzpb.\u0007black dragon\n\u0007baby red dragon\nss#polyself\nred dragon\n  #monster\nl ss#monster\nk#monster\n#monster\n#monster\n\u0017wand of fire\naFl Fk \u0017blessed spellbook of light\nrt20s\u0007succubus\n\u0007kobold shaman\nZZs20s  ZZ20s   20s  ZZ#turn\n\u0017blessed spellbook of knock\nru20s\u0017blessed spellbook of slow monster\nrvs\u0007mind flayer\nZZZ.s    n ZZZs      s   n  ZZ\u00169\n\u0017blessed spellbook of light\nrws\u0007master lich\nZs20s ZZZZZZs.\u001618\n \u00178 rocks\n Qx\u0007newt\nf fufu fu futcu\u0017potion of monster detection\ntdy \u0007orc shaman\n\u0007incubus\n\u0007lich\n\u0017wand of cold\nzzuzzbzzy        \u0017blessed spellbook of fireball\nrA20s\u0007succubus\n\u0007orc s"
+  }
+ ]
+}

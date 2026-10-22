@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "af\u001b#monster\n#offer\n#sit\n#ride\nlz#ride\nl\u000f\u001b#jump\n#turn\n#sit\nw-#ride\nl_>. \u001b;s#conduct\n qd  P#offer\n#wipe\n#rub\n#wipe\n#offer\ni\u001bwb FkFu.Xaenwasssaf\u001baf\u001b#tip\nf\u001bqZ20sch,,"
+ },
+ "segments": [
+  {
+   "seed": 53852001,
+   "datetime": "20130307193549",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "af\u001b#monster\n#offer\n#sit\n#ride\nlz#ride\nl\u000f\u001b#jump\n#turn\n#sit\nw-#ride\nl_>. \u001b;s#conduct\n qd  P#offer\n#wipe\n#rub\n#wipe\n#offer\ni\u001bwb FkFu.Xaenwasssaf\u001baf\u001b#tip\nf\u001bqZ20sch,,"
+  }
+ ]
+}

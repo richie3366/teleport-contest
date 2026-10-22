@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic lamp\n\u0017blessed bell of opening\n\u0017blessed ring of free action\nPgr\u0017blessed amulet of life saving\nPh\u0017blessed 20 daggers\nQi#levelchange\n20\n                   #wizintrinsic\nh\n \u0007gnome lord\nFhFk FhFhi\u001bnh\u0007acid blob\nFuss.s;>. \u001b@.E- X marks the spot\n\u0017scroll of enchant weapon\nrj #wizintrinsic\nh\ni\u001bjhk\u0007giant rat\nFu  Fh20s  s.FhFh \u0007gnome lord\n\u0007dwarf\nFlFlFhFh  FhFbFb\u0017scroll of light\nrk\u0007gnome\nFl. ss.s#wizintrinsic\nh\n\u0007hobbit\nFy20s..20s s20s\u0017scroll of light\nrl \u0017wand of fire\nzmhzmnzmyzmj zmj\u0017wand of striking\nznyznu znl #wizintrinsic\nh\n;_.E- Elbereth Elbereth\n#chat\nn\u0016?\n>>M      wand of stasis\n_>.<20s  slsm.       \u0016?\nc __.\u001613\n#chat\nh     ;y;sl        sn      20s       #wizintrinsic\nh\n\u00166\n_{.\u0017blessed scroll of fire\nrq  m. \u0017scroll of identify\nrr \u001b      n \u0017tin of lizard meat\nes      #wizintrinsic\nh\n\u0007gnome\nFkFu       Fk      n    Fy    Fb    n   \u00167\n\u0007hobbit\nFk    Fk  nFh    Fy \u0017potion of hallucination\nqt         n   20s        n \u001611\n#wizintrinsic\nh\n\u0017wand of polymorph\nzub     zul        n  zuk            n  zuh   "
+ },
+ "segments": [
+  {
+   "seed": 53850008,
+   "datetime": "20171008193218",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic lamp\n\u0017blessed bell of opening\n\u0017blessed ring of free action\nPgr\u0017blessed amulet of life saving\nPh\u0017blessed 20 daggers\nQi#levelchange\n20\n                   #wizintrinsic\nh\n \u0007gnome lord\nFhFk FhFhi\u001bnh\u0007acid blob\nFuss.s;>. \u001b@.E- X marks the spot\n\u0017scroll of enchant weapon\nrj #wizintrinsic\nh\ni\u001bjhk\u0007giant rat\nFu  Fh20s  s.FhFh \u0007gnome lord\n\u0007dwarf\nFlFlFhFh  FhFbFb\u0017scroll of light\nrk\u0007gnome\nFl. ss.s#wizintrinsic\nh\n\u0007hobbit\nFy20s..20s s20s\u0017scroll of light\nrl \u0017wand of fire\nzmhzmnzmyzmj zmj\u0017wand of striking\nznyznu znl #wizintrinsic\nh\n;_.E- Elbereth Elbereth\n#chat\nn\u0016?\n>>M      wand of stasis\n_>.<20s  slsm.       \u0016?\nc __.\u001613\n#chat\nh     ;y;sl        sn      20s       #wizintrinsic\nh\n\u00166\n_{.\u0017blessed scroll of fire\nrq  m. \u0017scroll of identify\nrr \u001b      n \u0017tin of lizard meat\nes      #wizintrinsic\nh\n\u0007gnome\nFkFu       Fk      n    Fy    Fb    n   \u00167\n\u0007hobbit\nFk    Fk  nFh    Fy \u0017potion of hallucination\nqt         n   20s        n \u001611\n#wizintrinsic\nh\n\u0017wand of polymorph\nzub     zul        n  zuk            n  zuh   "
+  }
+ ]
+}

@@ -1,0 +1,56 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017wand of lightning\nzg.  nsssFnFnFnFnFnFnFnFn FlFjs150sFlFnFl50sFlsFlFjFj s\u000f\u001b_ \u001b,>njy\u0018\u001b_>.>50sFj..\u000f\u001b100s50sFlFlFl#pray\ny 50s100si\u001b50s50s150si\u001bnlu\u0018\u001b50sFjFj.ah bkk\\  20s100s100s5#quit\nyy\u001by  y y y\u001b   dnj20ss.u#chat\ny#name\nm\n.#chat\nhunyylhbkjbuuHLNH _>.>YBHJ_>.>UNUL_>.>KYHN_>.>#wipe\n\u0014lhuh,nhh150s  100s  100sFlss150s150sFlFlFlFlFlFllhl150slhl100shyl100sjujFu 20sFl50sFls.>Hlku_>,>\u000f\u001b150s20s\\  jbk100sFl20s20s#turn\n50s eeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b #wizintrinsic\nc\n 20ssm..n20s20s.m.sy20s    n  ..20s     ss.ss. 20ss......20s s.20s20s  20ss.20s20s.b .h20s .m. ss.s.sFk FkFkFkFkFkFkFktbhyh20slhnkdas.sdd.20s.#chat\ny#chat\nut\u001bt\u001bhnjhKJJL_ \u001b;>HLYL_>,>Fjs.#dip\nc#offer\nLKNJ_>,>BYBN_>.>khnkFlFlFlFlFlFlFlFl10sdcsm..m.sm.20s10sjhyjht\u001bFlFlFlFlFlFlFlFlUBJY_>.>JNLH_>.>#dip\ne,YNUK_>,>K#quit\nyy\u001by  y y y\u001b  \u0017wand of lightning\nzn.  y nny y\u001by  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53850030,
+   "datetime": "20151011110420",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of lightning\nzg.  nsss"
+  },
+  {
+   "seed": 53950030,
+   "datetime": "20201221030257",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "FnFnFnFnFnFnFnFn FlFjs150sFlFnFl50sFlsFlFjFj s\u000f\u001b_ \u001b,>njy\u0018\u001b_>.>50sFj..\u000f\u001b100s50sFlFlFl#pray\ny 50s100si\u001b50s50s150si\u001bnlu\u0018\u001b50sFjFj.ah bkk\\  20s100s100s5#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 54050030,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\n",
+   "moves": "  dnj20ss.u#chat\ny#name\nm\n.#chat\nhunyylhbkjbuuHLNH _>.>YBHJ_>.>UNUL_>.>KYHN_>.>#wipe\n\u0014lhuh,nhh150s  100s  100sFlss150s150sFlFlFlFlFlFllhl150slhl100shyl100sjujFu 20sFl50sFls.>Hlku_>,>\u000f\u001b150s20s\\  jbk100sFl20s20s#turn\n50s eeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 54150030,
+   "datetime": "20160908143943",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nc\n 20ssm..n20s20s.m.sy20s    n  ..20s     ss.ss. 20ss......20s s.20s20s  20ss.20s20s.b .h20s .m. ss.s.s"
+  },
+  {
+   "seed": 54250030,
+   "datetime": "20190721180731",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\n",
+   "moves": "Fk FkFkFkFkFkFkFktbhyh20slhnkdas.sdd.20s.#chat\ny#chat\nut\u001bt\u001bhnjhKJJL_ \u001b;>HLYL_>,>Fjs.#dip\nc#offer\nLKNJ_>,>BYBN_>.>khnkFlFlFlFlFlFlFlFl10sdcsm..m.sm.20s10sjhyjht\u001bFlFlFlFlFlFlFlFlUBJY_>.>JNLH_>.>#dip\ne,YNUK_>,>K#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 54350030,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of lightning\nzn.  y nny y\u001by  s"
+  }
+ ]
+}

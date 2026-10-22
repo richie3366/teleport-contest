@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u001710 daggers\nQf\u00074 soldier\nujfl   fy  \u0007jackal\nknfy    fh   fh   fh   yy\u001by  y y\u001by  f"
+ },
+ "segments": [
+  {
+   "seed": 53857007,
+   "datetime": "20000514192309",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=sortloot:loot\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u001710 daggers\nQf\u00074 soldier\nujfl   fy  \u0007jackal\nknfy    fh   fh   fh   yy\u001by  y y\u001by  f"
+  }
+ ]
+}

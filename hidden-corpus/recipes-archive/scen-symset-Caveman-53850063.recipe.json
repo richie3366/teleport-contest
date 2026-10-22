@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "O>f\u001b\nv\u001bi\u001b\u0007kitten\n\u0017carrot\ntbj \u0017fortune cookie\ntbb \u0017huge chunk of meat\n tby \u0007lichen\n\u0017scroll of taming\nri \u0017tin whistle\nnh\u001bh\u001baj #chat\ny \u0017leash\nakn h\u001bjbuu aky \u0017tin whistle\nun ly nal\u0017huge chunk of meat\ntbn \u00167\nFyFuk FuFlFlFjFkFlFjFkFjFnFnFuFjFkFnFjFkFuFuFnFnFjFlFkFkFyFyFyFnFjFjFnFkk FyFnFlFjFuFnFnFkFkFjFlFyFkl FuFlFyFlk FkFuFlFkFkFuFlFjFuFuFuFlFjFnFlu FyFjFjFjFjFjFuFjFuFlFkFnFjFjFjFuFyFjFuFlFkFnFkl FjFuFyFkj FjFjFyFnFyFky FuFnFuu FkFlFkFjFyFul FuFuFlFyFjFuFyFjFuFlFyO>c\u001b\n\u0006_ \u001b>.          >FkFk_>>.Fh_.@.Fk>FkFh_>>,Fh_.Fh>FhFuFuFyFh\u001b<\u0006_>,Fy_.Fky >FuFh_>,Fk_.Fk>FhFk_>.  nFh_.Fk>FhFyFky FuFy\u0004j #monster\n\u0006_>.Fy_.>.Fh>FyFh\u001b_>,Fk_.Fu>FuFu_>.Fk_,Fk>FyFuk FhFyFkh #enhance\nyo\np\n\u001bi\u001b\u0006_>,  nFu_.:Fh>FhFh_"
+ },
+ "segments": [
+  {
+   "seed": 53850063,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=norep \"You miss\"\nBIND=v:inventory\n",
+   "moves": "O>f\u001b\nv\u001bi\u001b\u0007kitten\n\u0017carrot\ntbj \u0017fortune cookie\ntbb \u0017huge chunk of meat\n tby \u0007lichen\n\u0017scroll of taming\nri \u0017tin whistle\nnh\u001bh\u001baj #chat\ny \u0017leash\nakn h\u001bjbuu aky \u0017tin whistle\nun ly nal\u0017huge chunk of meat\ntbn \u00167\nFyFuk FuFlFlFjFkFlFjFkFjFnFnFuFjFkFnFjFkFuFuFnFnFjFlFkFkFyFyFyFnFjFjFnFkk FyFnFlFjFuFnFnFkFkFjFlFyFkl FuFlFyFlk FkFuFlFkFkFuFlFjFuFuFuFlFjFnFlu FyFjFjFjFjFjFuFjFuFlFkFnFjFjFjFuFyFjFuFlFkFnFkl FjFuFyFkj FjFjFyFnFyFky FuFnFuu FkFlFkFjFyFul FuFuFlFyFjFuFyFjFuFlFyO>c\u001b\n\u0006_ \u001b>.          >FkFk_>>.Fh_.@.Fk>FkFh_>>,Fh_.Fh>FhFuFuFyFh\u001b<\u0006_>,Fy_.Fky >FuFh_>,Fk_.Fk>FhFk_>.  nFh_.Fk>FhFyFky FuFy\u0004j #monster\n\u0006_>.Fy_.>.Fh>FyFh\u001b_>,Fk_.Fu>FuFu_>.Fk_,Fk>FyFuk FhFyFkh #enhance\nyo\np\n\u001bi\u001b\u0006_>,  nFu_.:Fh>FhFh_"
+  }
+ ]
+}

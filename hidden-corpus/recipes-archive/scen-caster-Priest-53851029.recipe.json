@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017spellbook of identify\nrj \u001bm,  \u001b20s\u0017blessed spellbook of slow monster\nrk 20s\u0017blessed spellbook of drain life\nrl .+\u001bZd\nZb\n\u0007jackal\nZc\nZb\nZc\n#pray\ny y   \u0017blessed spellbook of haste self\nrm 20s\u0017blessed spellbook of chain lightning\nrn .y\u0017blessed spellbook of jumping\nro .n+\u001bZd\n\u0007ghoul\nZc\n\u0007grid bug\nZc\nZd\n\u0007gnome lord\nZb\n\u0007sewer "
+ },
+ "segments": [
+  {
+   "seed": 53851029,
+   "datetime": "20071014062422",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=sortloot:loot\nOPTIONS=runmode:walk\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017spellbook of identify\nrj \u001bm,  \u001b20s\u0017blessed spellbook of slow monster\nrk 20s\u0017blessed spellbook of drain life\nrl .+\u001bZd\nZb\n\u0007jackal\nZc\nZb\nZc\n#pray\ny y   \u0017blessed spellbook of haste self\nrm 20s\u0017blessed spellbook of chain lightning\nrn .y\u0017blessed spellbook of jumping\nro .n+\u001bZd\n\u0007ghoul\nZc\n\u0007grid bug\nZc\nZd\n\u0007gnome lord\nZb\n\u0007sewer "
+  }
+ ]
+}

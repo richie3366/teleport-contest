@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "v i\u001b\u0006_ \u001b.>Fn Fn _>.Fk_.Fb>FnFn_>,Fb_.Fn>FbFk FbFbFb\u0006_>.Fb_,Fb>FnFb_>.Fb_,Fn>FbFn_>,Fn_.Fb>FnFk FnFnFb\u0006_>>.Fb_,Fb>FnFn_>>.Fn_.Fb>FbFb_>>,Fn_.Fb>FbFnFbFnFb\u0006_>,Fb_.Fn>FnFn_>.Fb_.Fb>FnFb_>.Fb_.Fn>FbFnFnFnFnch\u0018\u001b\u0006_>,Fn_.Fb>FbFn_>.Fn_,Fb>FbFn_>,Fb_.Fb>FbFnFnFbFn\u0006_>.Fn_.Fb>FbFn_>,Fb_,Fb>FnFb_>.Fn_.Fb>FnFnFbFbFn\u0006_>,Fb_,Fn>FnFb_>,Fn_,Fn>FnFn_>,Fb_.Fb>FnFnFnFbFnv i\u001br\u001b#jump\n>.#monster\n\u00165\n,nnlFjFjFbFnFnFjFnFbFjFjFjFbFjFjFnFjFjFbFjFnFbFbFnFjFbFjFbFbFbFnFbFbFjFbFjFbFbFjFbFjFbFbFnFbFbFbFnFjFnFbFjFn FbFbFbFjFnFjFjFnFjFjFjFjFbFjFnFnFjFbFnFbFjFbFjFjFjFnFnFnFbFjFbFn FbFnFnFjFnFnFbFnFnFnFjFnFjFjFnFjFjFbFbFnFnFjFjFjFnFbFnFbFnFjzz\u001613\n;y,20sbqJ\u00161\nO>>>d\u001b\nv i\u001bv i\u001b\u0007tame dingo\n\u0017magic whistle\nylnai \u0007jackal\n\u0017scroll of taming\nrj  \u001b10s\u0017tin whistle\njuuak\u0007lichen\nsm.20s sm. sm. sm. sh \u001617\n\u00167\nFnFjFjFb FjFnFbFbFjFu FuFbFbFnFnFjFnFbFn FuFjFbFnFbFu  FbFbFjFjFbFbFnFjFbFbFbFnFnFnFbFnFjFnFnFjFjFnFnFbFbFbFjFbFbFnFjFbFnFbFnFnFjFjFbFbFnFnFnFjFnFbFnFbFjFnFnFbFbFbFjFjFjFbFnFnFjFjFjFnFjFjFnFnFjFjFbFjFjFbFjFnFjFnFjFbFjFbFnFnFnFbFn"
+ },
+ "segments": [
+  {
+   "seed": 53858030,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You miss\"\n",
+   "moves": "v i\u001b\u0006_ \u001b.>Fn Fn _>.Fk_.Fb>FnFn_>,Fb_.Fn>FbFk FbFbFb\u0006_>.Fb_,Fb>FnFb_>.Fb_,Fn>FbFn_>,Fn_.Fb>FnFk FnFnFb\u0006_>>.Fb_,Fb>FnFn_>>.Fn_.Fb>FbFb_>>,Fn_.Fb>FbFnFbFnFb\u0006_>,Fb_.Fn>FnFn_>.Fb_.Fb>FnFb_>.Fb_.Fn>FbFnFnFnFnch\u0018\u001b\u0006_>,Fn_.Fb>FbFn_>.Fn_,Fb>FbFn_>,Fb_.Fb>FbFnFnFbFn\u0006_>.Fn_.Fb>FbFn_>,Fb_,Fb>FnFb_>.Fn_.Fb>FnFnFbFbFn\u0006_>,Fb_,Fn>FnFb_>,Fn_,Fn>FnFn_>,Fb_.Fb>FnFnFnFbFnv i\u001br\u001b#jump\n>.#monster\n\u00165\n,nnlFjFjFbFnFnFjFnFbFjFjFjFbFjFjFnFjFjFbFjFnFbFbFnFjFbFjFbFbFbFnFbFbFjFbFjFbFbFjFbFjFbFbFnFbFbFbFnFjFnFbFjFn FbFbFbFjFnFjFjFnFjFjFjFjFbFjFnFnFjFbFnFbFjFbFjFjFjFnFnFnFbFjFbFn FbFnFnFjFnFnFbFnFnFnFjFnFjFjFnFjFjFbFbFnFnFjFjFjFnFbFnFbFnFjzz\u001613\n;y,20sbqJ\u00161\nO>>>d\u001b\nv i\u001bv i\u001b\u0007tame dingo\n\u0017magic whistle\nylnai \u0007jackal\n\u0017scroll of taming\nrj  \u001b10s\u0017tin whistle\njuuak\u0007lichen\nsm.20s sm. sm. sm. sh \u001617\n\u00167\nFnFjFjFb FjFnFbFbFjFu FuFbFbFnFnFjFnFbFn FuFjFbFnFbFu  FbFbFjFjFbFbFnFjFbFbFbFnFnFnFbFnFjFnFnFjFjFnFnFbFbFbFjFbFbFnFjFbFnFbFnFnFjFjFbFbFnFnFnFjFnFbFnFbFjFnFnFbFbFbFjFjFjFbFnFnFjFjFjFnFjFjFnFnFjFjFbFjFjFbFjFnFjFnFjFbFjFbFnFnFnFbFn"
+  }
+ ]
+}

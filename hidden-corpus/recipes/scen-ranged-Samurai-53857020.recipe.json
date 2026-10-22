@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00178 rocks\nQ-\u00072 giant rat\njnf by yf \u001bf \u001bFyFy\u0007hill orc\nbhf \u001bf \u001bf \u001bf \u001bf \u001b\u00072 hill orc\nkk  f \u001bf \u001bf \u001bbhj,"
+ },
+ "segments": [
+  {
+   "seed": 53857020,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00178 rocks\nQ-\u00072 giant rat\njnf by yf \u001bf \u001bFyFy\u0007hill orc\nbhf \u001bf \u001bf \u001bf \u001bf \u001b\u00072 hill orc\nkk  f \u001bf \u001bf \u001bbhj,"
+  }
+ ]
+}

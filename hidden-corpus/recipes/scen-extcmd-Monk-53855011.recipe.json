@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed amulet of reflection\nPl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007lichen\n\u0016?\n>>P  \u0006\u0007gnome lord\n#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#dip\n\u001b#offer\n#pray\ny y      #chat\nk#wizidentify\nFlFk \u0016?\n>J     scroll of teleportation\n\u0006#vanquished\n #genocided\nred dragon\nb  y \u001bm,\u000f\u001b#name\n\u001b#adjust\na\u001b#chat\nj#turn\n#wizidentify\n\u001bluu_<.\u0007gnome\n#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\na  @.#sit\n   >.#pray\ny y      #levelchange\n13\n              Fy      >.     FyFb   ym,__. Fh_.Fh   n  #chat\nh    #version\n  #history\n                  #annotate\nfoo\n\u0018\u001b#wipe\n    #loot\nh#chat\nh#chat\nh    n #wizidentify\n\u001bFh FhFh   _m.   n    .h  _{,q#overview\n\u001b#conduct\n #annotate\n\u001bi\u001b#tip\n\u001b#ride\nly#turn\n#sit\n\u001b#jump\n#wizmap\n\u0006Fh      n    Fl    Fh     n  Fh       \u001610\n\u001615\n\u0006#vanquished\n #genocided\njackal\n   n i\u001b#dip\na#offer\n#pray\ny y        #chat\nh        #jump\n#wizmap\n\u0006Fh     Fl   n    _{,q#chronicle\n  #terrain\n\u001b\u0018\u001b#name\n\u001b#adjust\na\u001b#chat\nk#turn\n#polyself\nfire giant\n#monster\ns.. 20s    k   b  n   l_{.q#version\n  #history"
+ },
+ "segments": [
+  {
+   "seed": 53855011,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 cloak of magic resistance\nW\u001b\u0017blessed amulet of reflection\nPl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007lichen\n\u0016?\n>>P  \u0006\u0007gnome lord\n#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#dip\n\u001b#offer\n#pray\ny y      #chat\nk#wizidentify\nFlFk \u0016?\n>J     scroll of teleportation\n\u0006#vanquished\n #genocided\nred dragon\nb  y \u001bm,\u000f\u001b#name\n\u001b#adjust\na\u001b#chat\nj#turn\n#wizidentify\n\u001bluu_<.\u0007gnome\n#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\na  @.#sit\n   >.#pray\ny y      #levelchange\n13\n              Fy      >.     FyFb   ym,__. Fh_.Fh   n  #chat\nh    #version\n  #history\n                  #annotate\nfoo\n\u0018\u001b#wipe\n    #loot\nh#chat\nh#chat\nh    n #wizidentify\n\u001bFh FhFh   _m.   n    .h  _{,q#overview\n\u001b#conduct\n #annotate\n\u001bi\u001b#tip\n\u001b#ride\nly#turn\n#sit\n\u001b#jump\n#wizmap\n\u0006Fh      n    Fl    Fh     n  Fh       \u001610\n\u001615\n\u0006#vanquished\n #genocided\njackal\n   n i\u001b#dip\na#offer\n#pray\ny y        #chat\nh        #jump\n#wizmap\n\u0006Fh     Fl   n    _{,q#chronicle\n  #terrain\n\u001b\u0018\u001b#name\n\u001b#adjust\na\u001b#chat\nk#turn\n#polyself\nfire giant\n#monster\ns.. 20s    k   b  n   l_{.q#version\n  #history"
+  }
+ ]
+}

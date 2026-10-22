@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#pray\ny y W#untrap\nyzFuFkFyFhFjFhFuFkFlFhFuFuFnFuFyFkFnFuFnFjFuFlFnFbFkFuFuFuFjFjFuFhFyFlFuFlFnFbFkFhFuFhFkFhFbFhFjFjFyFlFbFjFlFyFkFuFjFbFbFhFhFlFnFhFyFuFyFnFkFjFlFkFyFuFkFuFyFyFkFlFjFlFjFuFyFkFbFyFuFkFlFuFuFjFbFbFlFkFyFnFbFlFk FkFuFyFlFyFyFuFyFkFkFnFyFuFyFuFnFjFhFjFhFhFuFhFnFnFuFnFbFkFnFlFhFbFhFyFhFlFhFhFjFhFhFbFlFhFuFuFbFuFnFuFjFjFjFkFhFkFbFbFuFjFhFkFhFuFkFkFbFkFbFuFnFjFlFkFjFkFnFuFhFyFhFnFnFuFuFbFjFlFyFlFuFnFnFnFjFjFlFyFhFnFyFbFlFlFlFlFhFnFuFuFuFnFjFjFbFlFlFlFuFbFjFuFhFjFhFuFkFyFlFbFhFyFhFnFjFj\u0006_ \u001b;>FkFj_>>.Fh_.>.Fh>FhFh_>>.Fh_.> FnFk"
+ },
+ "segments": [
+  {
+   "seed": 53858028,
+   "datetime": "20160303233025",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "#pray\ny y W#untrap\nyzFuFkFyFhFjFhFuFkFlFhFuFuFnFuFyFkFnFuFnFjFuFlFnFbFkFuFuFuFjFjFuFhFyFlFuFlFnFbFkFhFuFhFkFhFbFhFjFjFyFlFbFjFlFyFkFuFjFbFbFhFhFlFnFhFyFuFyFnFkFjFlFkFyFuFkFuFyFyFkFlFjFlFjFuFyFkFbFyFuFkFlFuFuFjFbFbFlFkFyFnFbFlFk FkFuFyFlFyFyFuFyFkFkFnFyFuFyFuFnFjFhFjFhFhFuFhFnFnFuFnFbFkFnFlFhFbFhFyFhFlFhFhFjFhFhFbFlFhFuFuFbFuFnFuFjFjFjFkFhFkFbFbFuFjFhFkFhFuFkFkFbFkFbFuFnFjFlFkFjFkFnFuFhFyFhFnFnFuFuFbFjFlFyFlFuFnFnFnFjFjFlFyFhFnFyFbFlFlFlFlFhFnFuFuFuFnFjFjFbFlFlFlFuFbFjFuFhFjFhFuFkFyFlFbFhFyFhFnFjFj\u0006_ \u001b;>FkFj_>>.Fh_.>.Fh>FhFh_>>.Fh_.> FnFk"
+  }
+ ]
+}

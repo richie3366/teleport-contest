@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\nwf\u0017blessed amulet of life saving\nPg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007newt\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nii#offer\n#pray\ny y      #chat\nl#wizidentify\n\u001bFlFjFl #turn\n\u001619\n\u0006\u0007lichen\n#vanquished\n#genocided\nguard\n\u001b\u000f\u001b#name\nm\n :#adjust\nb\u001b#chat\nn#turn\n#wizintrinsic\nq\n bjj#jump\n_{.qi#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\nf #sit\n#pray\ny y   #wizidentify\n\u001bFyFy<__.#chat\ny\u0007sewer rat\n#version\n  #history\n                  #annotate\nFido\n\u000f\u001b#wipe\n#loot\nk#chat\nk#chat\nk#wizintrinsic\nfq\n FkFkFk_{,q#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nyy#turn\n#sit\n#jump\n#wizidentify\n\u001bFkFyFyFk_{.q#vanquished\n#genocided\nmarilith\nj \u001bi\u001b#dip\ne #offer\n#pray\ny y    #chat\ny#polyself\nair elemental\n  #monster\n.sFyFyFyFy__,#chat\n#chronicle\n #terrain\n\u001b\u000f\u001b#name\nm\n#adjust\n.#chat\n#turn\n#jump\n#wizidentify\n\u001bFyFyFyFy_{.q#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny"
+ },
+ "segments": [
+  {
+   "seed": 53855033,
+   "datetime": "20261021005547",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\nwf\u0017blessed amulet of life saving\nPg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007newt\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nii#offer\n#pray\ny y      #chat\nl#wizidentify\n\u001bFlFjFl #turn\n\u001619\n\u0006\u0007lichen\n#vanquished\n#genocided\nguard\n\u001b\u000f\u001b#name\nm\n :#adjust\nb\u001b#chat\nn#turn\n#wizintrinsic\nq\n bjj#jump\n_{.qi#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\nf #sit\n#pray\ny y   #wizidentify\n\u001bFyFy<__.#chat\ny\u0007sewer rat\n#version\n  #history\n                  #annotate\nFido\n\u000f\u001b#wipe\n#loot\nk#chat\nk#chat\nk#wizintrinsic\nfq\n FkFkFk_{,q#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nyy#turn\n#sit\n#jump\n#wizidentify\n\u001bFkFyFyFk_{.q#vanquished\n#genocided\nmarilith\nj \u001bi\u001b#dip\ne #offer\n#pray\ny y    #chat\ny#polyself\nair elemental\n  #monster\n.sFyFyFyFy__,#chat\n#chronicle\n #terrain\n\u001b\u000f\u001b#name\nm\n#adjust\n.#chat\n#turn\n#jump\n#wizidentify\n\u001bFyFyFyFy_{.q#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nm\n ZE- Elbereth Elbereth\n\u0017slime mold\nejE-n  Vlad was here\n.ss#wizintrinsic\nm\n \u0017cursed scroll of create monster\n rk electric eel\n energy vortex\n electric eel\n soldier ant\n air elemental\n red naga\n ogre king\n water nymph\n ettin\n hezrou\n rust monster\n sewer rat\n leprechaun\nk    yy\u001by  nn  h"
+ },
+ "segments": [
+  {
+   "seed": 53856017,
+   "datetime": "20190101104702",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nm\n ZE- Elbereth Elbereth\n\u0017slime mold\nejE-n  Vlad was here\n.ss#wizintrinsic\nm\n \u0017cursed scroll of create monster\n rk electric eel\n energy vortex\n electric eel\n soldier ant\n air elemental\n red naga\n ogre king\n water nymph\n ettin\n hezrou\n rust monster\n sewer rat\n leprechaun\nk    yy\u001by  nn  h"
+  }
+ ]
+}

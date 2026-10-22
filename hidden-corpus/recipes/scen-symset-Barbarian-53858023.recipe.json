@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u00162\nFbFbFlFkFj FyFbFkFbFjFjFlFjFnFuFuFkFuFlFnFhFnFjFjFyFkFnFuFlFnFuFnFyFyFkFnFlFkFnFhFyFlFyFyFjFkFnFbFbFkFkFbFhFuFkFuFbFhFuFkFyFyFkFhFbFkFyFjFjFnFnFjFkFuFyFkFnFuFbFbFjFkFbFbFnFkFhFyFuFkFnFhFnFuFjFhFnFhFkFjFjFhFhFjFyFhFyFkFnFnFuFhFjFjFnFkFuFnFbFhv i\u001b\u0006_ \u001b@.>FbFk_>._.>_>._,>#invoke\n\u001b_m,20s\u0006_>,Fn_.Fn>FlFl_>.Fl_.Fl>FlFl_>,Fl_,>\u0006_>._.>_>._,>_>,_.>\u0006_>>._.>_>>,_,>_>>._,>W#monster\n\u0006_>>._,>_>>._.>_>>,_,>,#ride\nyy\u0006_>>._.>_>>,_.>_>>._.>ab  ni\u001b\u0006_>>._,>_>>._,>_>>._.>\u000f\u001b\u00164\n  FnFjFbFbFbFnFbFjFnFbFjFbFjFbFjFbFnFbFbFnFjFbFnFnFbFbFnFjFnFbFjFnFbFjFjFnFnFjFjFnFnFbFbFjFnFnFjFbFbFnFnFjFjFnFnFjFnFjFnFbFjFbFbFnFjFjFnFjFbFjFjFnFnFbFjFbFbFjFbFbFjFnFnFbFjFbFjFnFnFjFjFbFnFnFbFjFjFbFnFnFbFnFjFnFjFnFbFnFjFnFjFjFnFjFjFjFnFnFjFn#offer\n#conduct\n O>>f\u001b\nFnFnFnFbFnFnFjFjFnFnFjFjFbFbFbFbFjFjFnFnFnFjFjFjFjFbFjFnFjFnFjF"
+ },
+ "segments": [
+  {
+   "seed": 53858023,
+   "datetime": "20221208191720",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u00162\nFbFbFlFkFj FyFbFkFbFjFjFlFjFnFuFuFkFuFlFnFhFnFjFjFyFkFnFuFlFnFuFnFyFyFkFnFlFkFnFhFyFlFyFyFjFkFnFbFbFkFkFbFhFuFkFuFbFhFuFkFyFyFkFhFbFkFyFjFjFnFnFjFkFuFyFkFnFuFbFbFjFkFbFbFnFkFhFyFuFkFnFhFnFuFjFhFnFhFkFjFjFhFhFjFyFhFyFkFnFnFuFhFjFjFnFkFuFnFbFhv i\u001b\u0006_ \u001b@.>FbFk_>._.>_>._,>#invoke\n\u001b_m,20s\u0006_>,Fn_.Fn>FlFl_>.Fl_.Fl>FlFl_>,Fl_,>\u0006_>._.>_>._,>_>,_.>\u0006_>>._.>_>>,_,>_>>._,>W#monster\n\u0006_>>._,>_>>._.>_>>,_,>,#ride\nyy\u0006_>>._.>_>>,_.>_>>._.>ab  ni\u001b\u0006_>>._,>_>>._,>_>>._.>\u000f\u001b\u00164\n  FnFjFbFbFbFnFbFjFnFbFjFbFjFbFjFbFnFbFbFnFjFbFnFnFbFbFnFjFnFbFjFnFbFjFjFnFnFjFjFnFnFbFbFjFnFnFjFbFbFnFnFjFjFnFnFjFnFjFnFbFjFbFbFnFjFjFnFjFbFjFjFnFnFbFjFbFbFjFbFbFjFnFnFbFjFbFjFnFnFjFjFbFnFnFbFjFjFbFnFnFbFnFjFnFjFnFbFnFjFnFjFjFnFjFjFjFnFnFjFn#offer\n#conduct\n O>>f\u001b\nFnFnFnFbFnFnFjFjFnFnFjFjFbFbFbFbFjFjFnFnFnFjFjFjFjFbFjFnFjFnFjF"
+  }
+ ]
+}

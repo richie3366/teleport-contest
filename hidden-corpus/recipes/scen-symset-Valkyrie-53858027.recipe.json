@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b:>FhFh_>.Fl_,Fu>FuFu_>.Fu_,>\u0006_>.Fl_.>_>._.>_>._,>#dip\na\u0004h \u0006_>,_,>_>._.Fu>FuFu_>._,>\u0006_>._.>_>._,>_>._,>\u0006_>,_.>_>.Fk_.>_>._,Fl>FlFlFlFlFl#terrain\n\u001b#terrain\n\u001b\u0006_>,Fk_,>_>.Fk_,>_>,_,>\u0006_>._,>_>._.>_>,_.>ck #terrain\n\u001b#sit\n \u0014m,#turn\nv i\u001b\u001620\n10skk ,f by b v i\u001bv i\u001b\u0007tame wolf\n\u0017leash\nafk h\u001bnuk uk afk #chat\nk \u0007acid blob\n\u0017scroll of taming\nrg dd..s#chat\nk \u001620\n\u0006_>, _,> :,\u0006_>>.Fh_.Fb>FbFb_>>.Fj_.;<. Fj>FjFj_>>.Fb_. Fb>FbFbFbFbFb<\u0006_>.Fh_,<.Fh>FhFh_>.Fh_,m,Fh>FhFh_>.Fh_.<.Fh>FhFhFhFhFhdb \u000f\u001b\u0006_>>, Fh_, Fh>FhFh_>>. Fh_, Fh>FhFh_>>. Fh_.   nFh>FhFhFhFhFh<\u0006_>. Fh_. Fh>FhFh_>, Fh_. Fh>FhFh_>. Fh_.Fh>FhFhFhFhFh\u0006_>. Fh_.   nFh>FhFh_>, Fh_, "
+ },
+ "segments": [
+  {
+   "seed": 53858027,
+   "datetime": "20080730213952",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:plain\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nOPTIONS=msg_window:reversed\n",
+   "moves": "\u0006_ \u001b:>FhFh_>.Fl_,Fu>FuFu_>.Fu_,>\u0006_>.Fl_.>_>._.>_>._,>#dip\na\u0004h \u0006_>,_,>_>._.Fu>FuFu_>._,>\u0006_>._.>_>._,>_>._,>\u0006_>,_.>_>.Fk_.>_>._,Fl>FlFlFlFlFl#terrain\n\u001b#terrain\n\u001b\u0006_>,Fk_,>_>.Fk_,>_>,_,>\u0006_>._,>_>._.>_>,_.>ck #terrain\n\u001b#sit\n \u0014m,#turn\nv i\u001b\u001620\n10skk ,f by b v i\u001bv i\u001b\u0007tame wolf\n\u0017leash\nafk h\u001bnuk uk afk #chat\nk \u0007acid blob\n\u0017scroll of taming\nrg dd..s#chat\nk \u001620\n\u0006_>, _,> :,\u0006_>>.Fh_.Fb>FbFb_>>.Fj_.;<. Fj>FjFj_>>.Fb_. Fb>FbFbFbFbFb<\u0006_>.Fh_,<.Fh>FhFh_>.Fh_,m,Fh>FhFh_>.Fh_.<.Fh>FhFhFhFhFhdb \u000f\u001b\u0006_>>, Fh_, Fh>FhFh_>>. Fh_, Fh>FhFh_>>. Fh_.   nFh>FhFhFhFhFh<\u0006_>. Fh_. Fh>FhFh_>, Fh_. Fh>FhFh_>. Fh_.Fh>FhFhFhFhFh\u0006_>. Fh_.   nFh>FhFh_>, Fh_, "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "ujy\u0017cloud\nyynnyy\u0017neutral altar\nddde\u0017gnome corpse\n #offer\nf   l\u0017altar\ndb\u0017dwarf corpse\n #offer\ng   j b \u0017tree\nu  n  \u0004b   n  \u0017axe\nah #tip\n\u001b#turn\nfl  yy\u001by   ny\u001bn  "
+ },
+ "segments": [
+  {
+   "seed": 53851020,
+   "datetime": "20010612045308",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "ujy\u0017cloud\nyynnyy\u0017neutral altar\nddde\u0017gnome corpse\n #offer\nf   l\u0017altar\ndb\u0017dwarf corpse\n #offer\ng   j b \u0017tree\nu  n  \u0004b   n  \u0017axe\nah #tip\n\u001b#turn\nfl  yy\u001by   ny\u001bn  "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n         \u00176 javelins\nQf\u0007acid blob\nkfb fnfn\u0017potion of fruit juice\ntbn\u00073 jackal\nufhfjfj\u0017potion of monster detection\nt\u001b\u0007gnome\nujf \u001bf \u001bf \u001bFjsyhh,\u001715 shuriken\nQi\u0007gnome lord\nnfkfkflfn\u0017potion of blindness\ntih\u0007giant rat\nybflfk\u0017potion of monster detection\ntib\u0017spetum\nwk\u0007acid blob\nuak \u001b@.jkj,"
+ },
+ "segments": [
+  {
+   "seed": 53857002,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n         \u00176 javelins\nQf\u0007acid blob\nkfb fnfn\u0017potion of fruit juice\ntbn\u00073 jackal\nufhfjfj\u0017potion of monster detection\nt\u001b\u0007gnome\nujf \u001bf \u001bf \u001bFjsyhh,\u001715 shuriken\nQi\u0007gnome lord\nnfkfkflfn\u0017potion of blindness\ntih\u0007giant rat\nybflfk\u0017potion of monster detection\ntib\u0017spetum\nwk\u0007acid blob\nuak \u001b@.jkj,"
+  }
+ ]
+}

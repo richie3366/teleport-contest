@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u001720 darts\nQo\u00073 troll\nlu   yny  ny\u001by  f"
+ },
+ "segments": [
+  {
+   "seed": 53857039,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u001720 darts\nQo\u00073 troll\nlu   yny  ny\u001by  f"
+  }
+ ]
+}

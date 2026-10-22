@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed Mjollnir\nwe\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007yellow mold\n#pray\ny y    #chat\nk#levelchange\n21\nFj  20ss20s#sit\n_ \u001b;#chat\nk#overview\n\u001b#conduct\n \u0018\u001b#dip\nah \u001b#offer\n#chat\ny#turn\n#wizintrinsic\nsf\n Fhss_ooo._.,#vanquished\n #genocided\nwraith\ng\u0018\u001b#name\no\n#adjust\nc\u001b#sit\n\u001b#pray\ny y #levelchange\n5\n     hhb\u0016?\np \u0006#chronicle\n   #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\ne#chat\nn#chat\nu#wizintrinsic\nr\n lyk_ooooo,,#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#turn\n#sit\n\u001b#wizintrinsic\ns\n yul   n  \u0018\u001b_{,q\u0007grid bug\n#overview\n\u001b#conduct\n #annotate\nfoo\n\u000f\u001b#tip\n\u001b#ride\nky#pray\ny y   #chat\nk#jump\n#wizintrinsic\nr\n Fk sss__.#chat\nl#vanquished\n #genocided\nJuiblex\nn  i\u001b#dip\nf#offer\n#chat\nn#turn\n#wizintrinsic\nq\n hykz_{.q\u0007kobold shaman\n#chronicle\n   #terrain\n\u001b\u0018\u001b#name\nm\n#adjust\n>.#sit\n#p"
+ },
+ "segments": [
+  {
+   "seed": 53850009,
+   "datetime": "20251007074016",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed Mjollnir\nwe\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007yellow mold\n#pray\ny y    #chat\nk#levelchange\n21\nFj  20ss20s#sit\n_ \u001b;#chat\nk#overview\n\u001b#conduct\n \u0018\u001b#dip\nah \u001b#offer\n#chat\ny#turn\n#wizintrinsic\nsf\n Fhss_ooo._.,#vanquished\n #genocided\nwraith\ng\u0018\u001b#name\no\n#adjust\nc\u001b#sit\n\u001b#pray\ny y #levelchange\n5\n     hhb\u0016?\np \u0006#chronicle\n   #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\ne#chat\nn#chat\nu#wizintrinsic\nr\n lyk_ooooo,,#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#turn\n#sit\n\u001b#wizintrinsic\ns\n yul   n  \u0018\u001b_{,q\u0007grid bug\n#overview\n\u001b#conduct\n #annotate\nfoo\n\u000f\u001b#tip\n\u001b#ride\nky#pray\ny y   #chat\nk#jump\n#wizintrinsic\nr\n Fk sss__.#chat\nl#vanquished\n #genocided\nJuiblex\nn  i\u001b#dip\nf#offer\n#chat\nn#turn\n#wizintrinsic\nq\n hykz_{.q\u0007kobold shaman\n#chronicle\n   #terrain\n\u001b\u0018\u001b#name\nm\n#adjust\n>.#sit\n#p"
+  }
+ ]
+}

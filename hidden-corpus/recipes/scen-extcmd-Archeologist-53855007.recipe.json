@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\nwj\u0017blessed ring of free action\nPkl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n \u0007hobbit\nFh FhFh#invoke\nj\u0016?\np \u0006#overview\n\u001b#conduct\n \u000f\u001b#dip\ngm#offer\n#pray\ny y #chat\nl#polyself\ntroll\ns.m.Fy Fy    jk    n k   n   n #name\nm\n <.\u00161\n_{,qm   n    n   n\u0007kobold\n\u00169\n#vanquished\n #genocided\nstraw golem\ni\u001b#name\nf\n#adjust\nm.#chat\nl#turn\n#wizmap\n\u0006Fh   n   nFh    n    n   n  Fh  n   n   n   n   yy\u001by  y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 53855007,
+   "datetime": "20160519230326",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\nwj\u0017blessed ring of free action\nPkl\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n \u0007hobbit\nFh FhFh#invoke\nj\u0016?\np \u0006#overview\n\u001b#conduct\n \u000f\u001b#dip\ngm#offer\n#pray\ny y #chat\nl#polyself\ntroll\ns.m.Fy Fy    jk    n k   n   n #name\nm\n <.\u00161\n_{,qm   n    n   n\u0007kobold\n\u00169\n#vanquished\n #genocided\nstraw golem\ni\u001b#name\nf\n#adjust\nm.#chat\nl#turn\n#wizmap\n\u0006Fh   n   nFh    n    n   n  Fh  n   n   n   n   yy\u001by  y y y\u001by  _"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nW\u001b\u0017blessed ring of free action\nPpr#levelchange\n10\n        \u0017wand of fire\n\u0017wand of lightning\n\u0007gnome lord\n\u0007lichen\n\u0007newt\nzqu  zrk    zrn   nzqlzqkzrk  nzquzrk  nszr.   nzrzq\u001616\n    \u00167\n  \u0017blessed spellbook of sleep\nrss\u0007mind flayer\n\u0007succubus\nZb\ns     s Za\n    Za\n   n .  n .   n Za\n   n 20s   n 20s    n Zb\n   n Za\n  s  n  .  n Zb\n    n \u00161\n \u00176 eggs\nQ\u001b\u0007dwarf\n\u0007kobold shaman\nt\u001bf \u001bf \u001bt\u001bt\u001b\u0017wand of cancellation\n\u0017wand of fire\n\u0017wand of striking\n\u0007owlbear\nzulzvb zwn zwn   n zwnzwnzun  n  s\u001611\ni\u001b\u0017wand of slow monster\n\u0017wand of polymorph\n\u0007yellow mold\n\u0007lichen\nzxls zyyzxyzyb20szxbszyys  ynnny y\u001b  z"
+ },
+ "segments": [
+  {
+   "seed": 53850088,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nW\u001b\u0017blessed ring of free action\nPpr#levelchange\n10\n        \u0017wand of fire\n\u0017wand of lightning\n\u0007gnome lord\n\u0007lichen\n\u0007newt\nzqu  zrk    zrn   nzqlzqkzrk  nzquzrk  nszr.   nzrzq\u001616\n    \u00167\n  \u0017blessed spellbook of sleep\nrss\u0007mind flayer\n\u0007succubus\nZb\ns     s Za\n    Za\n   n .  n .   n Za\n   n 20s   n 20s    n Zb\n   n Za\n  s  n  .  n Zb\n    n \u00161\n \u00176 eggs\nQ\u001b\u0007dwarf\n\u0007kobold shaman\nt\u001bf \u001bf \u001bt\u001bt\u001b\u0017wand of cancellation\n\u0017wand of fire\n\u0017wand of striking\n\u0007owlbear\nzulzvb zwn zwn   n zwnzwnzun  n  s\u001611\ni\u001b\u0017wand of slow monster\n\u0017wand of polymorph\n\u0007yellow mold\n\u0007lichen\nzxls zyyzxyzyb20szxbszyys  ynnny y\u001b  z"
+  }
+ ]
+}

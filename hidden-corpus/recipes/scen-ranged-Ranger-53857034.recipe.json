@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017sling\nwg\u001720 flint stones\nQh\u0007gnome\nkfj fj fbFjFjklh,\u0017bow\nwi\u001720 arrows\nQd\u0007owlbear\nbfl fl   yy\u001by  y y y\u001by  f"
+ },
+ "segments": [
+  {
+   "seed": 53857034,
+   "datetime": "20011203171744",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017sling\nwg\u001720 flint stones\nQh\u0007gnome\nkfj fj fbFjFjklh,\u0017bow\nwi\u001720 arrows\nQd\u0007owlbear\nbfl fl   yy\u001by  y y y\u001by  f"
+  }
+ ]
+}

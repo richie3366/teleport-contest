@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       #polyself\nfog cloud\n ss\u0007gnome\nFl  Fk FnFl\u0007acid blob\nFnFlFnFk\u00168\n#levelchange\n6\n\u0007Juiblex\nyFj20s  sm.FkFj Fk  n Fn  Fn   n Fk Fu Fk  n Fn  \u001624\n\u00161\n#levelchange\n6\nyl l   n  l    \u0017throne\n#sit\n #sit\n     #sit\n n  n  :l \u0017sink\nqy  \u0017ring of gain constitution\ndj  \u001b  n j    \u0004k     \u0004k      n \u000f\u001b#rub\ni    u\u00162\n\u00163\n#levelchange\n14\n        \u0016?\n>D\u0017wand of digging\nzkk Fh FhFhFh \u0017wand of digging\nzl> Fkn\u0017wand of digging\nzml10sFkFk\u0017wand of striking\nznk lk10su10skFbkn\u0017scroll of earth\n ro h10syFbFb10syFbnj bFknFyk n\u0017scroll of earth\nrp   n FhFhFhly10sbk10sbukhukb\u0017wand of striking\nzqy bhk\u0017Orcrist\nwrFyFyFy#invoke\nr\u0007green slime\n#chat\ny FyFy\u0007Nazgul\nFyFyFy Fy FyFy \u0007xan\n#chat\nyFy Fy \u0007troll\n#chat\ny Fy Fy#wizintrinsic\nci\n .m.20ssm.20s.ksm.ssss.h20ssm.20s\u0017beartrap\nas #turn\n#loot\nyi\u001bt\u001b,Zsm..jsm..bsksm.#levelchange\n20\n           \u0016?\nk   \u0006_ \u001bm,#chat\nj.m..m.sm.,,P\\  \u0017yumi\nwt \u001720 ya\nQu\u0007gnome\nh ufnfb fn fn Fb Fj  n x   #twoweapon\nFn Fj l   h        n  u  ,      n   #enhance\nyi\ng\n\u001b\u001624\n\u00161\n#levelchange\n10\n   njbu\u0017teleportation trap\nbum,20sslk\u0017spiked pit\nb#untrap\nucj#twoweapon\n;_.#wizintrinsic\nce\n .m.sm..m.sl20s s20s sm..m.sm.20s   n  n ss20s #pray\ny y    cwn Z#conduct\n .m.sn20s20ssy20si\u001b\u00168\ni\u001bwuyFj Fj  Fj wuyFl FlFl ttjww Fj FjFjXwr FjFj  nFjwuyFj FjFjXtwb\u0018\u001b,#dip\nu_>,20sj txy,i\u001bag\u001bwr FjFu Fjwv  nFuFu Fj wr FuFuFuwvFuFuFuw-Fu FuFu\u001616\n #wizintrinsic\npa\n  20ssy.y..susm.20s.b20s20s20s  yny   y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 53850043,
+   "datetime": "20161001034449",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       #polyself\nfog cloud\n ss\u0007gnome\nFl  Fk FnFl\u0007acid blob\nFnFlFnFk\u00168\n#levelchange\n6\n\u0007Juiblex\nyFj20s  sm.FkFj Fk  n Fn  Fn   n Fk Fu Fk  n Fn  \u001624\n\u00161\n#levelchange\n6\nyl l   n  l    \u0017throne\n#sit\n #sit\n     #sit\n n  n  :l \u0017sink\nqy  \u0017ring of gain constitution\ndj  \u001b  n j    \u0004k     \u0004k      n \u000f\u001b#rub\ni    u\u00162\n\u00163\n#levelchange\n14\n        \u0016?\n>D\u0017wand of digging\nzkk Fh FhFhFh \u0017wand of digging\nzl> Fkn\u0017wand of digging\nzml10sFkFk\u0017wand of striking\nznk lk10su10skFbkn\u0017scroll of earth\n ro h10syFbFb10syFbnj bFknFyk n\u0017scroll of earth\nrp   n FhFhFhly10sbk10sbukhukb\u0017wand of striking\nzqy bhk\u0017Orcrist\nwrFyFyFy#invoke\nr\u0007green slime\n#chat\ny FyFy\u0007Nazgul\nFyFyFy Fy FyFy \u0007xan\n#chat\nyFy Fy \u0007troll\n#chat\ny Fy Fy#wizintrinsic\nci\n .m.20ssm.20s.ksm.ssss.h20ssm.20s\u0017beartrap\nas #turn\n#loot\nyi\u001bt\u001b,Zsm..jsm..bsksm.#levelchange\n20\n           \u0016?\nk   \u0006_ \u001bm,#chat\nj.m..m.sm.,,P\\  \u0017yumi\nwt \u001720 ya\nQu\u0007gnome\nh ufnfb fn fn Fb Fj  n x   #twoweapon\nFn Fj l   h        n  u  ,      n   #enhance\nyi\ng\n\u001b\u001624\n\u00161\n#levelchange\n10\n   njbu\u0017teleportation trap\nbum,20sslk\u0017spiked pit\nb#untrap\nucj#twoweapon\n;_.#wizintrinsic\nce\n .m.sm..m.sl20s s20s sm..m.sm.20s   n  n ss20s #pray\ny y    cwn Z#conduct\n .m.sn20s20ssy20si\u001b\u00168\ni\u001bwuyFj Fj  Fj wuyFl FlFl ttjww Fj FjFjXwr FjFj  nFjwuyFj FjFjXtwb\u0018\u001b,#dip\nu_>,20sj txy,i\u001bag\u001bwr FjFu Fjwv  nFuFu Fj wr FuFuFuwvFuFuFuw-Fu FuFu\u001616\n #wizintrinsic\npa\n  20ssy.y..susm.20s.b20s20s20s  yny   y y y\u001by  s"
+  }
+ ]
+}

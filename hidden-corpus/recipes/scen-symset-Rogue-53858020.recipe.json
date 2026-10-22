@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " Oj\u001b\n\u0007little dog\n\u0017apple\ntby\u0007tame jackal\n\u0007kobold\n\u0017scroll of taming\nrj h\u001by#chat\nh\u0007acid blob\ns.20s  s.20s\u0017banana\ntbk\u0017meatball\ntbkmO>>f\u001b\n\u00164\nh\u001bulky\u0017neutral altar\ndl  \u0017lichen corpse\n#offer\nm     : b\u0017lawful altar\ndgdc\u0017newt corpse\n#offer\nn  #pray\ny y y\u0017moat\n:#terrain\nf\n#terrain\nc\n\u001b,20s\u0014,@.\u001614\nO>>>>p\u001b\nO>a\u001b\n\u001620\nO>>>k\u001b\u001b\n20s\\ #invoke\n\u001b\u001b\u0018\u001bv i\u001bFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFk\u001614\n#sit\n\u001by:#name\na\n\u00169\nv i\u001bv i\u001b\u0006_>.Fn_>FbFb_>.Fl_.>FyFyFb\u0006_>,Fj_.  Fh>FhFh_>. Fh_.   nFh>FbFlb_>,"
+ },
+ "segments": [
+  {
+   "seed": 53858020,
+   "datetime": "20140303181756",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=stop \"You miss\"\n",
+   "moves": " Oj\u001b\n\u0007little dog\n\u0017apple\ntby\u0007tame jackal\n\u0007kobold\n\u0017scroll of taming\nrj h\u001by#chat\nh\u0007acid blob\ns.20s  s.20s\u0017banana\ntbk\u0017meatball\ntbkmO>>f\u001b\n\u00164\nh\u001bulky\u0017neutral altar\ndl  \u0017lichen corpse\n#offer\nm     : b\u0017lawful altar\ndgdc\u0017newt corpse\n#offer\nn  #pray\ny y y\u0017moat\n:#terrain\nf\n#terrain\nc\n\u001b,20s\u0014,@.\u001614\nO>>>>p\u001b\nO>a\u001b\n\u001620\nO>>>k\u001b\u001b\n20s\\ #invoke\n\u001b\u001b\u0018\u001bv i\u001bFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFkFk\u001614\n#sit\n\u001by:#name\na\n\u00169\nv i\u001bv i\u001b\u0006_>.Fn_>FbFb_>.Fl_.>FyFyFb\u0006_>,Fj_.  Fh>FhFh_>. Fh_.   nFh>FbFlb_>,"
+  }
+ ]
+}

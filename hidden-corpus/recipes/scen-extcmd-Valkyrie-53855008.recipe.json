@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed ring of free action\nPfr\u0017blessed +3 helm of telepathy\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007dwarf\n#wizdetect\n\u0006FyFh FyFy_ \u001b<.#chat\ny#overview\n\u001b#conduct\n \u0018\u001b#dip\nhi#offer\n#pray\ny y #chat\nn#wizintrinsic\nsq\n kky_<,Fk_.#vanquished\n #genocided\nhorned devil\n#annotate\nfoo\ni\u001b#name\ni\nshiny\n#adjust\nh\u001b#chat\nu#turn\n#wizidentify\n\u001bhly#enhance\nym\nn\n\u001b_{._,Fh qi \u001b#chronicle\n #terrain\n\u001b#annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y #wizintrinsic\na\n jky;>._oooooo,_,,\u0007hobbit\n#version\n  #history\n                  #annotate\n\u001bi\u001b#wipe\n#loot\ny#chat\ny#chat\nh#jump\n#wizintrinsic\ng\n yhj_>.Fj_,>.Fj#overview\n\u001b#conduct\n i\u001b#tip\n\u001b\u001b#ride\njy#turn\n#sit\n\u001b#jump\n#levelchange\n18\n         hun_<..\u0016?\no\u0006\u0007soldier\n#vanquished\n #genocided\nsilver dragon\nhf by l \u0018\u001b#dip\nk#offer\n#pray\ny "
+ },
+ "segments": [
+  {
+   "seed": 53855008,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed ring of free action\nPfr\u0017blessed +3 helm of telepathy\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007dwarf\n#wizdetect\n\u0006FyFh FyFy_ \u001b<.#chat\ny#overview\n\u001b#conduct\n \u0018\u001b#dip\nhi#offer\n#pray\ny y #chat\nn#wizintrinsic\nsq\n kky_<,Fk_.#vanquished\n #genocided\nhorned devil\n#annotate\nfoo\ni\u001b#name\ni\nshiny\n#adjust\nh\u001b#chat\nu#turn\n#wizidentify\n\u001bhly#enhance\nym\nn\n\u001b_{._,Fh qi \u001b#chronicle\n #terrain\n\u001b#annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y #wizintrinsic\na\n jky;>._oooooo,_,,\u0007hobbit\n#version\n  #history\n                  #annotate\n\u001bi\u001b#wipe\n#loot\ny#chat\ny#chat\nh#jump\n#wizintrinsic\ng\n yhj_>.Fj_,>.Fj#overview\n\u001b#conduct\n i\u001b#tip\n\u001b\u001b#ride\njy#turn\n#sit\n\u001b#jump\n#levelchange\n18\n         hun_<..\u0016?\no\u0006\u0007soldier\n#vanquished\n #genocided\nsilver dragon\nhf by l \u0018\u001b#dip\nk#offer\n#pray\ny "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \u0017cursed -1 ring of cold resistance\nPfr20ssss20s\u0017wand of lightning\nzg.  yy\u001by   y ny  F"
+ },
+ "segments": [
+  {
+   "seed": 53852012,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017cursed -1 ring of cold resistance\nPfr20ssss20s\u0017wand of lightning\nzg.  yy\u001by   y ny  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007jackal\n\u0016?\n>E\u0006\u0007grid bug\n#overview\n\u001b#conduct\n \u0018\u001b#dip\nii#offer\n#pray\ny y     #chat\nj #wizidentify\n\u001bFj s20s20s_ \u001b@.\u0007troll\n#vanquished\n #genocided\ngiant rat\n\u001b#annotate\nblessed\n\u0018\u001b#name\nd\n#adjust\nj\u001b#chat\ny#turn\n#levelchange\n9\nFy  \u001bFy  \u001625\n\u0006\u0007kobold\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y #wizidentify\n\u001bFyFnFyFy_{,qi\u0007kobold\n#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#wipe\n  n #loot\nn#chat\ny#chat\nn#polyself\npurple worm\n #monster\nsm.sm. FyFnbnh_{.q\u0007sewer rat\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nky#turn\n#sit\n#polyself\nmind flayer\n sy.m.Fl.jkl_{.q#vanquished\n #genocided\njellyfish\n l\u000f\u001b#dip\ng#offer\n#pray\n"
+ },
+ "segments": [
+  {
+   "seed": 53855018,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 gauntlets of power\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n       \u0007jackal\n\u0016?\n>E\u0006\u0007grid bug\n#overview\n\u001b#conduct\n \u0018\u001b#dip\nii#offer\n#pray\ny y     #chat\nj #wizidentify\n\u001bFj s20s20s_ \u001b@.\u0007troll\n#vanquished\n #genocided\ngiant rat\n\u001b#annotate\nblessed\n\u0018\u001b#name\nd\n#adjust\nj\u001b#chat\ny#turn\n#levelchange\n9\nFy  \u001bFy  \u001625\n\u0006\u0007kobold\n#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y #wizidentify\n\u001bFyFnFyFy_{,qi\u0007kobold\n#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#wipe\n  n #loot\nn#chat\ny#chat\nn#polyself\npurple worm\n #monster\nsm.sm. FyFnbnh_{.q\u0007sewer rat\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nky#turn\n#sit\n#polyself\nmind flayer\n sy.m.Fl.jkl_{.q#vanquished\n #genocided\njellyfish\n l\u000f\u001b#dip\ng#offer\n#pray\n"
+  }
+ ]
+}

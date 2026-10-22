@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u00165\nFnFu FyFyFjFlFl FjFbFhFnFlFuFbFnFk  nFkFnFl FbFyFjFyFu  nFyFlFbFyFnFk#pray\ny y    FkFhFhFyFuFhFuFuFbFjFuFbFbFyFnFyFnFkFbFlFyFuFhFuFuFnFbFbFnFbFnFuFbFhFuFyFuFbFuFhFkFlFjFkFbFnFkFbFhFbFyFkFuFyFhFkFuFhFyFbFnFjFkFbFbFjFnFjFjFuFhFbFuFhFyFyFkFbFuFjFuFnFbFbFlFuFl\u00168\n \u00167\nFbFlFuFnFlFkFlFjFbFjFuFuFyFkFnFlFuFlFnFbFyFkFyFhFnFuFjFbFlFnFyFuFyFkFuFuFhFlFjFnFhFjFlFyFlFkFjFkFkFjFkFkFkFkFuFnFjFjFnFjFnFhFhFuFhFjFhFbFlFjFyFjFlFjFbFnFnFhFyFjFhFyFhFbFjFkFyFbFhFlFlFbFuFyFjFlFjFjFhFkFuFjFlFnFjFhFyFkFuFnFuFbFhFuFjFkFnFhFyFb\u00166\nFhFjFyFlFhFkFkFyFyFuFjFyFbFuFhFnFlFkFlFnFuFhFlFyFkFlFhFjFkFbFbFhFnFuFyFkFjFkFyFlFuFyFlFhFnFbFuFkFlFjFjFlFbFjFkFnFyFjFnFjFuFyFuFnFyFlFhFbFuFlFyFjFhFhFjFjFyFbFyFbFlFnFjFjFyFhFlFhFkFyFyFbFuFlFnFlFbFbFhFyFyFkFnFuFjFuFbFuFjFjFnFkFuFbFbFbFhFjFhFk\u0006_"
+ },
+ "segments": [
+  {
+   "seed": 53858039,
+   "datetime": "20141115164624",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\nMSGTYPE=norep \"You see\"\nMENUCOLOR=\"a potion\"=green\n",
+   "moves": "\u00165\nFnFu FyFyFjFlFl FjFbFhFnFlFuFbFnFk  nFkFnFl FbFyFjFyFu  nFyFlFbFyFnFk#pray\ny y    FkFhFhFyFuFhFuFuFbFjFuFbFbFyFnFyFnFkFbFlFyFuFhFuFuFnFbFbFnFbFnFuFbFhFuFyFuFbFuFhFkFlFjFkFbFnFkFbFhFbFyFkFuFyFhFkFuFhFyFbFnFjFkFbFbFjFnFjFjFuFhFbFuFhFyFyFkFbFuFjFuFnFbFbFlFuFl\u00168\n \u00167\nFbFlFuFnFlFkFlFjFbFjFuFuFyFkFnFlFuFlFnFbFyFkFyFhFnFuFjFbFlFnFyFuFyFkFuFuFhFlFjFnFhFjFlFyFlFkFjFkFkFjFkFkFkFkFuFnFjFjFnFjFnFhFhFuFhFjFhFbFlFjFyFjFlFjFbFnFnFhFyFjFhFyFhFbFjFkFyFbFhFlFlFbFuFyFjFlFjFjFhFkFuFjFlFnFjFhFyFkFuFnFuFbFhFuFjFkFnFhFyFb\u00166\nFhFjFyFlFhFkFkFyFyFuFjFyFbFuFhFnFlFkFlFnFuFhFlFyFkFlFhFjFkFbFbFhFnFuFyFkFjFkFyFlFuFyFlFhFnFbFuFkFlFjFjFlFbFjFkFnFyFjFnFjFuFyFuFnFyFlFhFbFuFlFyFjFhFhFjFjFyFbFyFbFlFnFjFjFyFhFlFhFkFyFyFbFuFlFnFlFbFbFhFyFyFkFnFuFjFuFbFuFjFjFnFkFuFbFbFbFhFjFhFk\u0006_"
+  }
+ ]
+}

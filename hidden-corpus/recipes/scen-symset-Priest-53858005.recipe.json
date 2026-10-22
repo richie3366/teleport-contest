@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b,>FlFh _>.Fl_.Fn>FnFn_>.Fk_,Fy>FlFkFnFnFn<#rub\n\u0006_>,Fu_.Fy>FlFu_>.Fu_.Fy>FnFl_>,Fl_.Fy>FkFyFyFlFy\u0006_>,Fu_,Fy>FkFk_>,Fk_,Fu>FlFu_>.Fl_,Fk>FnFlFnFlFk\u000f\u001bmO>>v\u001b\n\u0006_>,Fl_.Fu>FlFk_>.Fk_,Fl>FkFl_>.Fn_.Fu>FkFyFkFnFn\u0006_>.Fk_.Fn>FkFy_>.Fu_.Fl>FlFn_>,Fy_.Fu>FlFuFyFnFu\u0006_>.Fy_.Fy>FkFu_>.Fn_,Fl>FkFl_>.Fn_.Fl>FuFnFnFuFk\u0006_>>.Fn_.Fk>FnFl_>>.Fy_,Fl>FnFn_>>,Fl_.Fu>FyFkFkFlFn#wipe\n\u0004k;n,#chat\ny\u00164\n100s100s\u0018\u001b#terrain\nc\n:100s100s 100sFhFhsuknFnFyFlFkFkFyFnFlFnFuFkFuFyFuFlFuFuFyFyFnFuFkFyFyFyFnFnFyFnFuFnFnFuFyFuFkFyFkFuFnFyFlFlFyFnFnFuFnFkFyFkFnFlFlFuFuFyFnFkFkFkFyFyFnFkFyFlFyFuFnFnFnFuFuFyFyFuFyFkFnFlFuFlFnFlFlFyFkFuFlFyFnFnOl\u001b\nO>>>i\u001b\u001b\n\u00162\nFkFkFuFkFyFyFyFyFkFyFuFyFkFuFyFkFkFuFkFuFkFyFyFuFkFuFuFkFyFyFuFyFyFkFkFyFyFuFyFuFkFyFkFkFyFyFuFkFuFyFyFuFyFkFyFk"
+ },
+ "segments": [
+  {
+   "seed": 53858005,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:MACgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You feel\"\nBIND=v:inventory\n",
+   "moves": " \u0006_ \u001b,>FlFh _>.Fl_.Fn>FnFn_>.Fk_,Fy>FlFkFnFnFn<#rub\n\u0006_>,Fu_.Fy>FlFu_>.Fu_.Fy>FnFl_>,Fl_.Fy>FkFyFyFlFy\u0006_>,Fu_,Fy>FkFk_>,Fk_,Fu>FlFu_>.Fl_,Fk>FnFlFnFlFk\u000f\u001bmO>>v\u001b\n\u0006_>,Fl_.Fu>FlFk_>.Fk_,Fl>FkFl_>.Fn_.Fu>FkFyFkFnFn\u0006_>.Fk_.Fn>FkFy_>.Fu_.Fl>FlFn_>,Fy_.Fu>FlFuFyFnFu\u0006_>.Fy_.Fy>FkFu_>.Fn_,Fl>FkFl_>.Fn_.Fl>FuFnFnFuFk\u0006_>>.Fn_.Fk>FnFl_>>.Fy_,Fl>FnFn_>>,Fl_.Fu>FyFkFkFlFn#wipe\n\u0004k;n,#chat\ny\u00164\n100s100s\u0018\u001b#terrain\nc\n:100s100s 100sFhFhsuknFnFyFlFkFkFyFnFlFnFuFkFuFyFuFlFuFuFyFyFnFuFkFyFyFyFnFnFyFnFuFnFnFuFyFuFkFyFkFuFnFyFlFlFyFnFnFuFnFkFyFkFnFlFlFuFuFyFnFkFkFkFyFyFnFkFyFlFyFuFnFnFnFuFuFyFyFuFyFkFnFlFuFlFnFlFlFyFkFuFlFyFnFnOl\u001b\nO>>>i\u001b\u001b\n\u00162\nFkFkFuFkFyFyFyFyFkFyFuFyFkFuFyFkFkFuFkFuFkFyFyFuFkFuFuFkFyFyFuFyFyFkFkFyFyFuFyFuFkFyFkFkFyFyFuFkFuFyFyFuFyFkFyFk"
+  }
+ ]
+}

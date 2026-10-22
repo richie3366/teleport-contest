@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b;>FjFj _>._.>_>._.>>,\u0006_>,_.>_>._.>_>,_.><\u0006_>,_.>_>._.>_>._,>\u0006_>,_.>_>,_.>_>.Fh_,Fh>FhFh  nFhss\u0006_>>._.>_>>,_.>_>>,_.>\u0006_>._.>_>,_.>_>,_.>qhE- I am a fish\n\u001614\nOb\u001b\u001b\n\u001620\nmO>>u\u001b\n\u001610\nv i\u001b\u0006_>,Fh_.Fh>FhFh  n_>,Fh_.Fb>Fk   n Fk _>,   nFj _.   n Fl >Fl   nFl Fb   n Fh Fh  n \u0006_>,   n Fn   n _.   n Fu   n  >Fh  n    nFn _>,   n  Fk   y\u001b   y  _"
+ },
+ "segments": [
+  {
+   "seed": 53858021,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:Enhanced2\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0006_ \u001b;>FjFj _>._.>_>._.>>,\u0006_>,_.>_>._.>_>,_.><\u0006_>,_.>_>._.>_>._,>\u0006_>,_.>_>,_.>_>.Fh_,Fh>FhFh  nFhss\u0006_>>._.>_>>,_.>_>>,_.>\u0006_>._.>_>,_.>_>,_.>qhE- I am a fish\n\u001614\nOb\u001b\u001b\n\u001620\nmO>>u\u001b\n\u001610\nv i\u001b\u0006_>,Fh_.Fh>FhFh  n_>,Fh_.Fb>Fk   n Fk _>,   nFj _.   n Fl >Fl   nFl Fb   n Fh Fh  n \u0006_>,   n Fn   n _.   n Fu   n  >Fh  n    nFn _>,   n  Fk   y\u001b   y  _"
+  }
+ ]
+}

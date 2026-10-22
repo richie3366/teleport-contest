@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " i\u001bWss.wb s.sWss.Teehsswa ...We20s20s sm.u#monster\n#conduct\n q#name\nd\n\u0018\u001b#loot\nh#pray\ny y i\u001bwaFhFh.Ws20s20sTfeg20ssWfsssTdWd20s20s.TeWe20s20s.Tc "
+ },
+ "segments": [
+  {
+   "seed": 53852031,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " i\u001bWss.wb s.sWss.Teehsswa ...We20s20s sm.u#monster\n#conduct\n q#name\nd\n\u0018\u001b#loot\nh#pray\ny y i\u001bwaFhFh.Ws20s20sTfeg20ssWfsssTdWd20s20s.TeWe20s20s.Tc "
+  }
+ ]
+}

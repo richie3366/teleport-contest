@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nf\n \u0017lizard corpse\nei    \u0017blessed scroll of confuse monster\nrj  \u001b \u0017blessed potion of booze\nqk   tooled horn\n\u0017slime mold\nem\u0017cream pie\nenss.#wizintrinsic\nhi\n  \u0017blessed scroll of fire\nro\u0017blessed scroll of charging\nrp\u0017wraith corpse\neq Zss."
+ },
+ "segments": [
+  {
+   "seed": 53856016,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nf\n \u0017lizard corpse\nei    \u0017blessed scroll of confuse monster\nrj  \u001b \u0017blessed potion of booze\nqk   tooled horn\n\u0017slime mold\nem\u0017cream pie\nenss.#wizintrinsic\nhi\n  \u0017blessed scroll of fire\nro\u0017blessed scroll of charging\nrp\u0017wraith corpse\neq Zss."
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gauntlets of power\nWg\u0017blessed +3 cloak of magic resistance\nWh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007troll\nFl FhZ\u0016?\ng \u0006#overview\n\u001b#conduct\n \u000f\u001b#dip\nkj \u001b#offer\n#pray\ny y    #chat\nk #wizintrinsic\nag\n FkFk >\u0016?\nf    \u0006#vanquished\n #genocided\ncouatl\n\u000f\u001b#name\nm\n m.Fido\n#adjust\nk\u001b#chat\ny#turn\n#levelchange\n24\n   FyFys20s_{,Fh_.m,Fh  n qd #chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y    #levelchange\n1\n       Fh  n Fh  n Fh  n Fh  n \u001610\n \u00162\n \u0006#version\n  #history\n                  #annotate\nshiny\n\u000f\u001b#wipe\n#loot\n   n #chat\nh  n #chat\nh  n\u00164\n #wizidentify\n\u001bFb  nFbk__,#chat\nb\u0007troll\n#overview\n\u001b#conduct\n \u000f\u001b#tip\nf\u001b#ride\njy#turn\n#sit\n  n   n \u00163\n#levelchange\n16\n               Fj  Fj  Fj\u0016?\np \u0006\u0007kobold shaman\n#vanquished\n #genocided\nprisoner\ni\u001b#dip\ng #offer\n#pray\ny y  n  #chat\nb #wizi"
+ },
+ "segments": [
+  {
+   "seed": 53855031,
+   "datetime": "20061126120002",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gauntlets of power\nWg\u0017blessed +3 cloak of magic resistance\nWh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007troll\nFl FhZ\u0016?\ng \u0006#overview\n\u001b#conduct\n \u000f\u001b#dip\nkj \u001b#offer\n#pray\ny y    #chat\nk #wizintrinsic\nag\n FkFk >\u0016?\nf    \u0006#vanquished\n #genocided\ncouatl\n\u000f\u001b#name\nm\n m.Fido\n#adjust\nk\u001b#chat\ny#turn\n#levelchange\n24\n   FyFys20s_{,Fh_.m,Fh  n qd #chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y    #levelchange\n1\n       Fh  n Fh  n Fh  n Fh  n \u001610\n \u00162\n \u0006#version\n  #history\n                  #annotate\nshiny\n\u000f\u001b#wipe\n#loot\n   n #chat\nh  n #chat\nh  n\u00164\n #wizidentify\n\u001bFb  nFbk__,#chat\nb\u0007troll\n#overview\n\u001b#conduct\n \u000f\u001b#tip\nf\u001b#ride\njy#turn\n#sit\n  n   n \u00163\n#levelchange\n16\n               Fj  Fj  Fj\u0016?\np \u0006\u0007kobold shaman\n#vanquished\n #genocided\nprisoner\ni\u001b#dip\ng #offer\n#pray\ny y  n  #chat\nb #wizi"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "v i\u001bv i\u001b#loot\nltby#sit\nv i\u001b#levelchange\n30\n                             yuk\u0017throne\n#sit\n  :h\u0017ice\n:bb\u0017magic fountain\nqy  qy :#terrain\nd\n\u001b<.WWi\u001bFkFlFjFnFkFjFlFnFlFjFjFjFu FjFuFnFkFuFlFhFkFlFlFuFkFjFuFjFlFjFlFjFjFkFnFnFkFuFlFkFkFkFlFjFlFlFuFkFhFuFnFnFnFuFuFhFnFuFuFkFnFuFuFuFlFlFuFnFhFjFhFuFjFkFlFuFhFkFuFlFjFlFlFnFkFhFlFkFuFkFnFnFkFnFkFnFhFjFlFkFjFkFhFuFkFlFjFlFhFkFlFnFkFuFuFjFuFnFjFl\u00169\nv  i\u001bukkh\u0017pool\n#dip\ney  h\u0017magic fountain\nqyqyqy#dip\nay un\u0017sink\nqy \u0017ring of stealth\ndf  \u001b lj\u0017ice\n#terrain\nc\nZ\u0018 :mOa\u001b\n#untrap\njPZmO>>e\u001b\nmO>>s\u001b\n\u00168\nmO>>>m\u001b\n  e#ride\nyy#rub\n\u000f\u001b\u001617\n\u0007tame gnome lord\n\u0007tame winter wolf cub\n\u0017newt corpse\ntdn  \u0017newt corpse\ntdj  dcsk.m.sj \u0007lichen\n20s shsh20s .m..l \u0017magic whistle\nhhlai \u0017carrot\ntdh  #name\nd\nmO>>g\u001b\n\u0006_>>,Fl _.Fl >Fh Fl _>>.Fh  _,Fh    n >Fh  Fh  _>>, Fh_, Fh  >FlFh  FlFh  Fh  \u0006_>.Fh  _.  n  Fh  "
+ },
+ "segments": [
+  {
+   "seed": 53850035,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"a scroll\"=red\n",
+   "moves": "v i\u001bv i\u001b#loot\nltby#sit\nv i\u001b#levelchange\n30\n                             yuk\u0017throne\n#sit\n  :h\u0017ice\n:bb\u0017magic fountain\nqy  qy :#terrain\nd\n\u001b<.WWi\u001bFkFlFjFnFkFjFlFnFlFjFjFjFu FjFuFnFkFuFlFhFkFlFlFuFkFjFuFjFlFjFlFjFjFkFnFnFkFuFlFkFkFkFlFjFlFlFuFkFhFuFnFnFnFuFuFhFnFuFuFkFnFuFuFuFlFlFuFnFhFjFhFuFjFkFlFuFhFkFuFlFjFlFlFnFkFhFlFkFuFkFnFnFkFnFkFnFhFjFlFkFjFkFhFuFkFlFjFlFhFkFlFnFkFuFuFjFuFnFjFl\u00169\nv  i\u001bukkh\u0017pool\n#dip\ney  h\u0017magic fountain\nqyqyqy#dip\nay un\u0017sink\nqy \u0017ring of stealth\ndf  \u001b lj\u0017ice\n#terrain\nc\nZ\u0018 :mOa\u001b\n#untrap\njPZmO>>e\u001b\nmO>>s\u001b\n\u00168\nmO>>>m\u001b\n  e#ride\nyy#rub\n\u000f\u001b\u001617\n\u0007tame gnome lord\n\u0007tame winter wolf cub\n\u0017newt corpse\ntdn  \u0017newt corpse\ntdj  dcsk.m.sj \u0007lichen\n20s shsh20s .m..l \u0017magic whistle\nhhlai \u0017carrot\ntdh  #name\nd\nmO>>g\u001b\n\u0006_>>,Fl _.Fl >Fh Fl _>>.Fh  _,Fh    n >Fh  Fh  _>>, Fh_, Fh  >FlFh  FlFh  Fh  \u0006_>.Fh  _.  n  Fh  "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017yumi\nwi\u001720 ya\nQj\u0007acid blob\nkfnfj \u0017potion of booze\ntbyx#twoweapon\n20s.bub,\u0017sling\nwl\u001720 flint stones\nQm\u00074 jackal\nhfu fl fn  Fn   yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 53857018,
+   "datetime": "20250208003358",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017yumi\nwi\u001720 ya\nQj\u0007acid blob\nkfnfj \u0017potion of booze\ntbyx#twoweapon\n20s.bub,\u0017sling\nwl\u001720 flint stones\nQm\u00074 jackal\nhfu fl fn  Fn   yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

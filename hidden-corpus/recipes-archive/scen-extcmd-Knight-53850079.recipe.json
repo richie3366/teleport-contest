@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed amulet of life saving\nPj\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007gnome\nFjFj 20ssy_ \u001b,#overview\n\u001b#conduct\n \u0018\u001b#dip\njl#offer\n#pray\ny y #chat\ny#levelchange\n10\n  blu\u0016?\n>>M      Mjollnir\n\u0006<.#vanquished\n #genocided\nKop Kaptain\n \u000f\u001b#name\n\u001b#adjust\na\u001b#chat\nl  #turn\n       #jump\n#wizintrinsic\nf\n Fj        n  Fj __,#chat\n\u0007acid blob\n#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\no  n   #sit\n#pray\ny y #levelchange\n8\nFjFj   n Fb       Fj   n   W\u001b\u00167\n__.#chat\n\u0007acid blob\n#version\n  #history\n                  \u000f\u001b#wipe\n   n   #loot\nj  #chat\nb#chat\nn#jump\n#wizintrinsic\nr\n Fj       n Fn           n Fh     n  z\u001612\n_{.ql#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nj#turn\n     n  #sit\n      #polyself\nfire giant\n20s  20s Fh Fl   Fj Fj_{.q\u0007gnome lord\n#vanquished\n #genocided\nhorned devil\nn    \u000f\u001b#dip\nh#offer\n#pray\ny y #chat\n#wizdetect\n\u0006m,FjFj Fj  n    #i"
+ },
+ "segments": [
+  {
+   "seed": 53850079,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed amulet of life saving\nPj\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007gnome\nFjFj 20ssy_ \u001b,#overview\n\u001b#conduct\n \u0018\u001b#dip\njl#offer\n#pray\ny y #chat\ny#levelchange\n10\n  blu\u0016?\n>>M      Mjollnir\n\u0006<.#vanquished\n #genocided\nKop Kaptain\n \u000f\u001b#name\n\u001b#adjust\na\u001b#chat\nl  #turn\n       #jump\n#wizintrinsic\nf\n Fj        n  Fj __,#chat\n\u0007acid blob\n#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\no  n   #sit\n#pray\ny y #levelchange\n8\nFjFj   n Fb       Fj   n   W\u001b\u00167\n__.#chat\n\u0007acid blob\n#version\n  #history\n                  \u000f\u001b#wipe\n   n   #loot\nj  #chat\nb#chat\nn#jump\n#wizintrinsic\nr\n Fj       n Fn           n Fh     n  z\u001612\n_{.ql#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nj#turn\n     n  #sit\n      #polyself\nfire giant\n20s  20s Fh Fl   Fj Fj_{.q\u0007gnome lord\n#vanquished\n #genocided\nhorned devil\nn    \u000f\u001b#dip\nh#offer\n#pray\ny y #chat\n#wizdetect\n\u0006m,FjFj Fj  n    #i"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPjr\u0017blessed amulet of life saving\nPk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007sewer rat\n#polyself\npurple worm\n #monster\n20ssFl   20suubZa\n\u001bm,\u0016?\n>x\u0006\u0007jackal\n#overview\n\u001b#conduct\n \u0018\u001b#dip\ned#offer\n#pray\ny y    #chat\ny#wizmap\n\u0006Fy   s    Fy   n\u0016?\nc\u0006#vanquished\n #genocided\nyellow light\n#annotate\nfoo\ni\u001b#name\ni\n#adjust\nh\u001b#chat\nu#turn\n   n #jump\n#wizidentify\n\u001bFuFk20s20suy_<.Fh_.Fk\u0007hobbit\n#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n  n#pray\ny y    #wizidentify\n\u001bFyFkFh  n qm_>,Fk  n_.Fu\u0007soldier\n#version\n  #history\n                  \u0018\u001b#wipe\n#loot\nl#chat\nl#chat\nl#jump\n#levelchange\n9\n        FlFuFu_oo.,#overview\n\u001b#conduct\n #annotate\n\u001bi\u001b#tip"
+ },
+ "segments": [
+  {
+   "seed": 53855019,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPjr\u0017blessed amulet of life saving\nPk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007sewer rat\n#polyself\npurple worm\n #monster\n20ssFl   20suubZa\n\u001bm,\u0016?\n>x\u0006\u0007jackal\n#overview\n\u001b#conduct\n \u0018\u001b#dip\ned#offer\n#pray\ny y    #chat\ny#wizmap\n\u0006Fy   s    Fy   n\u0016?\nc\u0006#vanquished\n #genocided\nyellow light\n#annotate\nfoo\ni\u001b#name\ni\n#adjust\nh\u001b#chat\nu#turn\n   n #jump\n#wizidentify\n\u001bFuFk20s20suy_<.Fh_.Fk\u0007hobbit\n#chronicle\n #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n  n#pray\ny y    #wizidentify\n\u001bFyFkFh  n qm_>,Fk  n_.Fu\u0007soldier\n#version\n  #history\n                  \u0018\u001b#wipe\n#loot\nl#chat\nl#chat\nl#jump\n#levelchange\n9\n        FlFuFu_oo.,#overview\n\u001b#conduct\n #annotate\n\u001bi\u001b#tip"
+  }
+ ]
+}

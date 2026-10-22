@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    nku b\u0017moat\n#dip\ngy  :j \u001b>.\u0017tree\nbh\u001b\u0017chaotic altar\ndh\u0017gnome corpse\n#offer\ni   #pray\ny y : n\u0017grave\n: \u0017pick-axe\naj >s.#terrain\nf\nK,\u000f\u001bmO>a\u001b\nmO>f\u001b\nck \u0018\u001b\u0007large dog\n\u0017carrot\n tah \u0007pony\n\u0017lichen corpse\n tan \u0017meatball\ntbb \u0017leash\namn h\u001bbkj yamn 10s  \u0007gnome\nsm.  .m.  sh\u001b.m.  suj sy\u0017tin whistle\nly jban \u0017food ration\ntab FjFlFy#pray\ny y        Flk FjFkFjFlFhFhFbFuh FlFjFnFh\u001bFuFjFuFuFnFh\u001bFnFnFnFnFlFlFnFku FbFuk FkFuFkFyFh\u001bFlFuFkFyFbFhFkFlFbFuk FkFhFuFbFbFyFh\u001bFjFuFkFnFul FkFlFuFyFjFhFjFyFbFlFkFnFlk FlFuFkFbFlu FhFhFkFbFh\u001bFbFlu FyFlb FlFlFhFuFlFuFlFbFul FnFkj FkFlFhFlFuFbFh\u001bFhFhFbFbFnFyFuFuFuFhFuFjFl\u0006_>.Fh_.>.Fj>FjFn_>FyFuy _>.Fn_>FuFjFuFjFltbb 20s\u0006_>.Fj_.Fh>FlFh_>,Fb_.Fj>FjFj_>,Fj_..Fj>FjFjFjFjFj\u0006_>.  nFy_. Fkk >FjFk_>.Fh_,Fl>FyFh\u001b_>.Fk_.Fu>FuFuFuFuFu\u0006_>.Fk_.Fk>FkFk_>.Fk_..Fu>FuFu_>.Fh_.Fb>FbFh\u001bFhFyFkh \u0006_>.Fk_.;:   Fj>FyFuu _>.Fl_.>.Fh>FnFkh _>.Fb_"
+ },
+ "segments": [
+  {
+   "seed": 53858022,
+   "datetime": "20100507164254",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=runmode:teleport\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad\n",
+   "moves": "#levelchange\n6\n    nku b\u0017moat\n#dip\ngy  :j \u001b>.\u0017tree\nbh\u001b\u0017chaotic altar\ndh\u0017gnome corpse\n#offer\ni   #pray\ny y : n\u0017grave\n: \u0017pick-axe\naj >s.#terrain\nf\nK,\u000f\u001bmO>a\u001b\nmO>f\u001b\nck \u0018\u001b\u0007large dog\n\u0017carrot\n tah \u0007pony\n\u0017lichen corpse\n tan \u0017meatball\ntbb \u0017leash\namn h\u001bbkj yamn 10s  \u0007gnome\nsm.  .m.  sh\u001b.m.  suj sy\u0017tin whistle\nly jban \u0017food ration\ntab FjFlFy#pray\ny y        Flk FjFkFjFlFhFhFbFuh FlFjFnFh\u001bFuFjFuFuFnFh\u001bFnFnFnFnFlFlFnFku FbFuk FkFuFkFyFh\u001bFlFuFkFyFbFhFkFlFbFuk FkFhFuFbFbFyFh\u001bFjFuFkFnFul FkFlFuFyFjFhFjFyFbFlFkFnFlk FlFuFkFbFlu FhFhFkFbFh\u001bFbFlu FyFlb FlFlFhFuFlFuFlFbFul FnFkj FkFlFhFlFuFbFh\u001bFhFhFbFbFnFyFuFuFuFhFuFjFl\u0006_>.Fh_.>.Fj>FjFn_>FyFuy _>.Fn_>FuFjFuFjFltbb 20s\u0006_>.Fj_.Fh>FlFh_>,Fb_.Fj>FjFj_>,Fj_..Fj>FjFjFjFjFj\u0006_>.  nFy_. Fkk >FjFk_>.Fh_,Fl>FyFh\u001b_>.Fk_.Fu>FuFuFuFuFu\u0006_>.Fk_.Fk>FkFk_>.Fk_..Fu>FuFu_>.Fh_.Fb>FbFh\u001bFhFyFkh \u0006_>.Fk_.;:   Fj>FyFuu _>.Fl_.>.Fh>FnFkh _>.Fb_"
+  }
+ ]
+}

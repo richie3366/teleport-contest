@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0007tame large dog\n10s#chat\nj#name\nd\n\u0017magic whistle\njkyaj  \u0006_ \u001b@.>FyFn_>.Fh_.Fu>FbFb_>,Fk_,Fu>FnFn\u0006_>>,Fb_.Fb>FnFn_>>.Fu_.Fb>FkFk_>>.Fb_.Fk>FnFnFnFbFn\u0006_>.Fn_.Fk>FbFu_>.Fu_.Fb>FnFk_>.Fn_,Fu>FbFkFnFbFk\u0006_>.Fk_.Fu>FuFu  _>.Fk_.Fb>FbFk_>,Fb_.Fb>FnFkFbFbFu\u0006_>.Fk_.Fn>FbFu_>,Fb_.Fk>FbFb_>.Fu_.Fn>FnFnFnFkFn\u0006_>.Fn_.Fk>FnFb_>. Fn_,Fb>FbFu_>.Fb_.Fn>FbFuFk  FuFn\u0006_>.Fn_,Fb>FuFn_>,Fb_.Fb>FuFn_>.Fu_.Fn>FnFuFuFbFu\u0018\u001bz\u0006_>.Fb_.Fb>FbFn_>.Fb_.Fu>FuFb_>,Fu_.Fb>FuFbFnFnFn#conduct\n #rub\n\u0006_>.Fu_.Fb>FnFb_>.Fu_.Fu>FuFu_>.Fn_.Fu>FuFuFbFnFb#jump\n,\u0006_>.Fn_,Fb>FbFu_>,Fb_.Fu>FuFu_>.Fu_,Fb>FbFbFuFnFu\u0006_>.Fb_,Fn>FbFb_>.Fb_.Fu>FbFu_>.Fu_.Fn>FnFuFuFbFn \u000f\u001bv i\u001bmO>>>>c\u001b\n\u0006_>.Fj_.Fb>FbFn_>,Fn_.Fn>FbFj_>.Fy_.  nFh>FyFhFhFlFh\u0006_>.Fb_,@.Fb>Fh"
+ },
+ "segments": [
+  {
+   "seed": 53850049,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\n",
+   "moves": " \u0007tame large dog\n10s#chat\nj#name\nd\n\u0017magic whistle\njkyaj  \u0006_ \u001b@.>FyFn_>.Fh_.Fu>FbFb_>,Fk_,Fu>FnFn\u0006_>>,Fb_.Fb>FnFn_>>.Fu_.Fb>FkFk_>>.Fb_.Fk>FnFnFnFbFn\u0006_>.Fn_.Fk>FbFu_>.Fu_.Fb>FnFk_>.Fn_,Fu>FbFkFnFbFk\u0006_>.Fk_.Fu>FuFu  _>.Fk_.Fb>FbFk_>,Fb_.Fb>FnFkFbFbFu\u0006_>.Fk_.Fn>FbFu_>,Fb_.Fk>FbFb_>.Fu_.Fn>FnFnFnFkFn\u0006_>.Fn_.Fk>FnFb_>. Fn_,Fb>FbFu_>.Fb_.Fn>FbFuFk  FuFn\u0006_>.Fn_,Fb>FuFn_>,Fb_.Fb>FuFn_>.Fu_.Fn>FnFuFuFbFu\u0018\u001bz\u0006_>.Fb_.Fb>FbFn_>.Fb_.Fu>FuFb_>,Fu_.Fb>FuFbFnFnFn#conduct\n #rub\n\u0006_>.Fu_.Fb>FnFb_>.Fu_.Fu>FuFu_>.Fn_.Fu>FuFuFbFnFb#jump\n,\u0006_>.Fn_,Fb>FbFu_>,Fb_.Fu>FuFu_>.Fu_,Fb>FbFbFuFnFu\u0006_>.Fb_,Fn>FbFb_>.Fb_.Fu>FbFu_>.Fu_.Fn>FnFuFuFbFn \u000f\u001bv i\u001bmO>>>>c\u001b\n\u0006_>.Fj_.Fb>FbFn_>,Fn_.Fn>FbFj_>.Fy_.  nFh>FyFhFhFlFh\u0006_>.Fb_,@.Fb>Fh"
+  }
+ ]
+}

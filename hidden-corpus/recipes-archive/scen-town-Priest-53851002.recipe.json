@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\n>w\u0006\u0017blessed potion of object detection\nqj \u001bm,_oooooo. _.,p_oooooo._,Fl_oo.Fu _,,p_mmm._.m.#chat\nh__.Fb _,Fb #chat\nb dc_oooooooo,Fb _.Fb,dc#force\n#force\n#wipe\n"
+ },
+ "segments": [
+  {
+   "seed": 53851002,
+   "datetime": "20240322065256",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=runmode:crawl\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0016?\n>w\u0006\u0017blessed potion of object detection\nqj \u001bm,_oooooo. _.,p_oooooo._,Fl_oo.Fu _,,p_mmm._.m.#chat\nh__.Fb _,Fb #chat\nb dc_oooooooo,Fb _.Fb,dc#force\n#force\n#wipe\n"
+  }
+ ]
+}

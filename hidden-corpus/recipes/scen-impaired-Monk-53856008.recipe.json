@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nl\n ;b, \u001b;\u0017cockatrice corpse\nek  y y\u001by   y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 53856008,
+   "datetime": "20061110065508",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nl\n ;b, \u001b;\u0017cockatrice corpse\nek  y y\u001by   y y\u001by  \u0017"
+  }
+ ]
+}

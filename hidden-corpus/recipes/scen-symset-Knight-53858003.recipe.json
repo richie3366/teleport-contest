@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "unj\u0017moat\n:y\u0017unaligned altar\ndd\u0017floating eye corpse\n#offer\ni  l\u0017magic fountain\nqyqyqy#untrap\nk\\   #monster\nmO>k\u001b\n \u001614\n\u00165\nFnFh FlFlFuFnFuFuFnFuFlFnFuFuFnFuFlFlFuFl FnFlFuFlFnFlFnFlFuFlFnFlFlFnFlFuFlFuFlFlFuFnFlFlFnFuFnFnFnFlFnFuFuFlFuFnFnFlFuFlFlFlFnFnFlFlFnFlFlFlFuFuFnFlFuFlFnFnFlFlFnFuFlFnFnFlFuFlFnFlFuFnFnFlFnFnFnFlFnFuFuFuFlFuFlFuFuFuFuFuFuFnFuFuFuFu FuFlFuFl\u0006_ \u001b;>FlFu_>,Fb_.Fh>FnFj_>.Fy_,Fj>FhFbFjFhFj\u0006_>.Fh_.Fh>FnFb_>.Fn_,Fn>FhFy_>.Fb_.Fb>FbFhFhFyFy\u0006_>>.Fb_,Fh>FnFj_>>,Fh_.Fy>FbFh_>>,Fj_,Fj>FbFyFhFjFh\u0006_>,Fh_,Fh>FnFh_>.Fb_.Fh>FnFn_>.Fj_.Fj>FjFnFbFnFn<\u0006_>.Fh_.Fj>FhFy_>.Fb_.Fy>FnFn_>,Fh_,Fy>FjFnFbFbFy,tbh\u0006_>.Fn_.Fb>FjFh _>.Fy_,Fb>FnFb_>.Fy_.Fh>FnFjFbFjFb\u0006_>.Fb_,Fy>FjFb_>,Fn_,Fn>FjFj_>,Fn_,Fn>FnFbFnFjFneh#wipe\nmO>>>>c\u001b\nO>c\u001b\nmO>>>f\u001b\n_m,.;j,__.20s#turn\n \u00167\n100s20s100s100s100s100s50seh\\   100seg150seg_>,>qhjnFbFnFnFnFnFnFbFbFnFnFjFnFbFbFjFjFjFjFnFbFnFnFbFjFnFjFnFjFnFjFjFbFnFbFnFnFnFjFnFjFbFbFjFbFbFbFbFbehFbFnFbFbFbFbFj"
+ },
+ "segments": [
+  {
+   "seed": 53858003,
+   "datetime": "20070725020545",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMENUCOLOR=\"uncursed\"=green\n",
+   "moves": "unj\u0017moat\n:y\u0017unaligned altar\ndd\u0017floating eye corpse\n#offer\ni  l\u0017magic fountain\nqyqyqy#untrap\nk\\   #monster\nmO>k\u001b\n \u001614\n\u00165\nFnFh FlFlFuFnFuFuFnFuFlFnFuFuFnFuFlFlFuFl FnFlFuFlFnFlFnFlFuFlFnFlFlFnFlFuFlFuFlFlFuFnFlFlFnFuFnFnFnFlFnFuFuFlFuFnFnFlFuFlFlFlFnFnFlFlFnFlFlFlFuFuFnFlFuFlFnFnFlFlFnFuFlFnFnFlFuFlFnFlFuFnFnFlFnFnFnFlFnFuFuFuFlFuFlFuFuFuFuFuFuFnFuFuFuFu FuFlFuFl\u0006_ \u001b;>FlFu_>,Fb_.Fh>FnFj_>.Fy_,Fj>FhFbFjFhFj\u0006_>.Fh_.Fh>FnFb_>.Fn_,Fn>FhFy_>.Fb_.Fb>FbFhFhFyFy\u0006_>>.Fb_,Fh>FnFj_>>,Fh_.Fy>FbFh_>>,Fj_,Fj>FbFyFhFjFh\u0006_>,Fh_,Fh>FnFh_>.Fb_.Fh>FnFn_>.Fj_.Fj>FjFnFbFnFn<\u0006_>.Fh_.Fj>FhFy_>.Fb_.Fy>FnFn_>,Fh_,Fy>FjFnFbFbFy,tbh\u0006_>.Fn_.Fb>FjFh _>.Fy_,Fb>FnFb_>.Fy_.Fh>FnFjFbFjFb\u0006_>.Fb_,Fy>FjFb_>,Fn_,Fn>FjFj_>,Fn_,Fn>FnFbFnFjFneh#wipe\nmO>>>>c\u001b\nO>c\u001b\nmO>>>f\u001b\n_m,.;j,__.20s#turn\n \u00167\n100s20s100s100s100s100s50seh\\   100seg150seg_>,>qhjnFbFnFnFnFnFnFbFbFnFnFjFnFbFbFjFjFjFjFnFbFnFnFbFjFnFjFnFjFnFjFjFbFnFbFnFnFnFjFnFjFbFbFjFbFbFbFbFbehFbFnFbFbFbFbFj"
+  }
+ ]
+}

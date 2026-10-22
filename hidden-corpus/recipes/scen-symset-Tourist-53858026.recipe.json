@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "O>>g\u001b\n\u0006_ \u001b>. >FyFh\u001b_>>.Fb_,Fh\u001b>FyFy_>>,Fb_.Fy>FyFbFhFyFboh #ride\nh \u0006_>.Fh_,Fy>FyFh\u001b_>,Fh_.  nFb>FhFh_>.Fb_.Fh\u001b>FbFh\u001bFhFhFh\u0006_>>.Fy_.Fb>FbFb_>>.Fy_.Fb>FyFy_>>,Fy_,Fy>FhFyFh\u001bFhFh\u000f\u001bO>p\u001b\n\u00168\n\u0007large dog\n\u0017newt corpse\nt$u 10s#chat\nj #name\no\n10s\u0017magic whistle\nlb h\u001bkj am  n\u0007acid blob\n\u0017scroll of taming\nrn #name\nm\nmO>>a\u001b\nO>>>>a\u001b\n\u00163\n\u0006_>.Fy_.Fuu >FyFy_>.Fy_.Fy>FuFy_>.Fuy _.Fy>FyFyFuFuFuy\u000f\u001b\u0006_>.Fy_.Fy>FuFu_>.Fu_,Fu>FyFuu _>,Fu_.Fy>FuFuFuFyFy#ride\ny z\u0006_>.Fy_.Fy>FuFy_>.Fy_.Fu>FyFuu _>,Fy_.Fy>FyFyFuFuFu\u0006_>.Fu_,Fy>FuFy_>.Fy_.Fu>FuFu_>.Fu_.Fu>FuFuFyFyFy:#turn\nec #terrain\n\u001b\u0006_>.Fu_,Fu>FyFy_>.Fj_,Fy>FyFy_>.Fu_,Fy>FuFyFyFyFuy \u0006_>>.Fu_.Fu>FuFu_>>,Fu_.Fu>FyFj_>>.Fu_.Fy>FuFuFyFyFy\u0006_>,Fu_.Fy>FyFj_>.Fu_.Fu>FuFj_>,Fu_,Fu>FuFjFyFuj Fj#offer\nz\u0006_>.F"
+ },
+ "segments": [
+  {
+   "seed": 53858026,
+   "datetime": "20180902104021",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "O>>g\u001b\n\u0006_ \u001b>. >FyFh\u001b_>>.Fb_,Fh\u001b>FyFy_>>,Fb_.Fy>FyFbFhFyFboh #ride\nh \u0006_>.Fh_,Fy>FyFh\u001b_>,Fh_.  nFb>FhFh_>.Fb_.Fh\u001b>FbFh\u001bFhFhFh\u0006_>>.Fy_.Fb>FbFb_>>.Fy_.Fb>FyFy_>>,Fy_,Fy>FhFyFh\u001bFhFh\u000f\u001bO>p\u001b\n\u00168\n\u0007large dog\n\u0017newt corpse\nt$u 10s#chat\nj #name\no\n10s\u0017magic whistle\nlb h\u001bkj am  n\u0007acid blob\n\u0017scroll of taming\nrn #name\nm\nmO>>a\u001b\nO>>>>a\u001b\n\u00163\n\u0006_>.Fy_.Fuu >FyFy_>.Fy_.Fy>FuFy_>.Fuy _.Fy>FyFyFuFuFuy\u000f\u001b\u0006_>.Fy_.Fy>FuFu_>.Fu_,Fu>FyFuu _>,Fu_.Fy>FuFuFuFyFy#ride\ny z\u0006_>.Fy_.Fy>FuFy_>.Fy_.Fu>FyFuu _>,Fy_.Fy>FyFyFuFuFu\u0006_>.Fu_,Fy>FuFy_>.Fy_.Fu>FuFu_>.Fu_.Fu>FuFuFyFyFy:#turn\nec #terrain\n\u001b\u0006_>.Fu_,Fu>FyFy_>.Fj_,Fy>FyFy_>.Fu_,Fy>FuFyFyFyFuy \u0006_>>.Fu_.Fu>FuFu_>>,Fu_.Fu>FyFj_>>.Fu_.Fy>FuFuFyFyFy\u0006_>,Fu_.Fy>FyFj_>.Fu_.Fu>FuFj_>,Fu_,Fu>FuFjFyFuj Fj#offer\nz\u0006_>.F"
+  }
+ ]
+}

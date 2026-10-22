@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "Jun\ryy   n#invoke\n\u001br\u001b_<, \u001b>.sm._m,20sjluylhlhf  y#turn\nhbbyulhbr\u001btcjjlljn#monster\nP10s#invoke\n\u001b<fk\u000f\u001bh#jump\nynyn_m.20s,#chat\nk_m,  .  _<,.#pray\ny bhhk__.s#terrain\nb\n10s uljnjynlubul_m.sykbj__,stcl#untrap\nj,Pa#loot\nhjhlykyljkjynbhn_m,s#dip\nb#loot\n;<.,_m.20s\u0018\u001b\\ yhbjlhlk_<.suqjjlbhlkbq#"
+ },
+ "segments": [
+  {
+   "seed": 53850055,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "Jun\ryy   n#invoke\n\u001br\u001b_<, \u001b>.sm._m,20sjluylhlhf  y#turn\nhbbyulhbr\u001btcjjlljn#monster\nP10s#invoke\n\u001b<fk\u000f\u001bh#jump\nynyn_m.20s,#chat\nk_m,  .  _<,.#pray\ny bhhk__.s#terrain\nb\n10s uljnjynlubul_m.sykbj__,stcl#untrap\nj,Pa#loot\nhjhlykyljkjynbhn_m,s#dip\nb#loot\n;<.,_m.20s\u0018\u001b\\ yhbjlhlk_<.suqjjlbhlkbq#"
+  }
+ ]
+}

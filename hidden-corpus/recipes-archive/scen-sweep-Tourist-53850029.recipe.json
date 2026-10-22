@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   #levelchange\n8\n   \u0017cursed magic flute\nalyaly\u00173 Cleaver\nwmFh .s#invoke\nm\u0017sprig of wolfsbane\nen20ss.s\u0017blessed amulet of change\n\u0007prisoner\nPo 20s  20sshsu.20s#levelchange\n8\n\u0007grid bug\n#chat\nlFl20s\u0007kobold shaman\nFuFuFu    Fl\u0007straw golem\nFlFl \u0007giant rat\n20s20s20s.m. \u0006_ \u001b>. >Fl Fk   n _>>. Fk_.Fl>_>>,_.> \u0006_>.Fl _,>_>._,Fl>_>._.>\u0006_>._.>_>._,>_>,_.>\u0006_>>,_,>_>>,_,>_>>,_,>jW\u0006_>,_,>_>._,>_>._.>\u0006_>,_.>_>,_,>_>._,>\u0006_>>,_,>_>>._,>_>>._.>\u000f\u001b\u001613\n\u00173 potion of extra healing\n qg.20s\u00173 amulet of life saving\nPps20sss\u00173 wand of death\n\u0007xorn\nzqk\u00173 loadstone\n ara\u0017blessed silver saber\nwss20s.ss\u0017cursed wraith corpse\n\u0007pyrolisk\net  .m.  20s        Fu             Fl      n     20s         n     .b\u001612\nbl\u0017ruby\nEu X marks the spot\n : \u0017wand of magic missile\nEv E-   : bE- I am a fish\n\u0007minotaur\n20s   n   sm.  n     n  20s  n     n  i\u001b\u001611\n#levelchange\n12\n \u0017uncursed +0 ring of protection\nPwlsssRs20s\u0017scroll of earth\nrx \u00173 spellbook of cause fear\nrys.Za\nZa\nss\u00173 spellbook of detect unseen\n.20s\u0017blessed splash of acid venom\nsss\u0017uncursed brass lantern\n,a\ny .sss#levelchange\n20\n        \u0007white unicorn\n\u0017scroll of taming\nr\u0017saddle\na#ride\nun#ride\nkn#ride\nun#ride\n.n\u0007pony\n\u0017scroll of taming\nr\u0017saddle\n#ride\nyn#ride\n.n#ride\nnn#ride\nyn\u0007tame saddled horse\n#ride\nhn#ride\n.n#ride\nkn#ride\nnn#ride\nlys#ride\nny\u0004 \u0006_>>. _.>_>>,_,>_>>._.>\u0006_>._.>_>._,>_>,_.>,\u001bs20s "
+ },
+ "segments": [
+  {
+   "seed": 53850029,
+   "datetime": "20241218215526",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   #levelchange\n8\n   \u0017cursed magic flute\nalyaly\u00173 Cleaver\nwmFh .s#invoke\nm\u0017sprig of wolfsbane\nen20ss.s\u0017blessed amulet of change\n\u0007prisoner\nPo 20s  20sshsu.20s#levelchange\n8\n\u0007grid bug\n#chat\nlFl20s\u0007kobold shaman\nFuFuFu    Fl\u0007straw golem\nFlFl \u0007giant rat\n20s20s20s.m. \u0006_ \u001b>. >Fl Fk   n _>>. Fk_.Fl>_>>,_.> \u0006_>.Fl _,>_>._,Fl>_>._.>\u0006_>._.>_>._,>_>,_.>\u0006_>>,_,>_>>,_,>_>>,_,>jW\u0006_>,_,>_>._,>_>._.>\u0006_>,_.>_>,_,>_>._,>\u0006_>>,_,>_>>._,>_>>._.>\u000f\u001b\u001613\n\u00173 potion of extra healing\n qg.20s\u00173 amulet of life saving\nPps20sss\u00173 wand of death\n\u0007xorn\nzqk\u00173 loadstone\n ara\u0017blessed silver saber\nwss20s.ss\u0017cursed wraith corpse\n\u0007pyrolisk\net  .m.  20s        Fu             Fl      n     20s         n     .b\u001612\nbl\u0017ruby\nEu X marks the spot\n : \u0017wand of magic missile\nEv E-   : bE- I am a fish\n\u0007minotaur\n20s   n   sm.  n     n  20s  n     n  i\u001b\u001611\n#levelchange\n12\n \u0017uncursed +0 ring of protection\nPwlsssRs20s\u0017scroll of earth\nrx \u00173 spellbook of cause fear\nrys.Za\nZa\nss\u00173 spellbook of detect unseen\n.20s\u0017blessed splash of acid venom\nsss\u0017uncursed brass lantern\n,a\ny .sss#levelchange\n20\n        \u0007white unicorn\n\u0017scroll of taming\nr\u0017saddle\na#ride\nun#ride\nkn#ride\nun#ride\n.n\u0007pony\n\u0017scroll of taming\nr\u0017saddle\n#ride\nyn#ride\n.n#ride\nnn#ride\nyn\u0007tame saddled horse\n#ride\nhn#ride\n.n#ride\nkn#ride\nnn#ride\nlys#ride\nny\u0004 \u0006_>>. _.>_>>,_,>_>>._.>\u0006_>._.>_>._,>_>,_.>,\u001bs20s "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u001614\n\u0006#name\n\u001b#sit\n\u001b\u001613\n    \u0006\u00165\n\u0006\u001619\n\u0006\u00166\n\u0006\u0014 \u001b@HHKhk. ,ss20s10s Creosote\nd$\u001618\n\u0006\u0014@LLlllllkkkk. ,10s20s Hippocrates\n  s20s   n20s  n sb  n20s  n 20s20s  n 20s,  n#invoke\n\u001b\u00164\n\u00162\n  \u0006\u00163\n\u0006\u0014m.oh\u001610\n\u0006#ride\n.y#chat\nu\u00164\n\u0006\u001617\n\u0006#jump\n#untrap\nk\u001621\n\u0006H#offer\n\u00164\n\u0006\u001615\n \u0006#chat\nls\u00166\n\u0006\u0014@HHHHHHKkkk. ,20s20s \u001b  d$ub\u001614\n\u0006#conduct\n \u0004j\u00162\n\u0006s#force\n\u001621\n\u0006\u001613\n \u0006ej20s\u001611\n\u0006\u001614\n\u0006\u001619\n\u0006\u00167\n\u0006\u0014m,ck\u001613\n  \u000620s#offer\n\u001610\n\u0006\u00162\n  \u0006\u001611\n\u0006\u001611\n\u0006i\u001b#dip\ngd\u001612\n\u0006\u001614\n\u0006\u00164\n\u0006:\u0018\u001b\u00163\n\u0006\u00169\n\u0006\u001610\n\u0006Wdc\u00167\n\u0006\u001619\n\u0006\u001611\n\u0006\u001616\n\u0006\u0014@Khhhhkkkk. ,s10s20s Hip"
+ },
+ "segments": [
+  {
+   "seed": 53850081,
+   "datetime": "20070819214243",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u001614\n\u0006#name\n\u001b#sit\n\u001b\u001613\n    \u0006\u00165\n\u0006\u001619\n\u0006\u00166\n\u0006\u0014 \u001b@HHKhk. ,ss20s10s Creosote\nd$\u001618\n\u0006\u0014@LLlllllkkkk. ,10s20s Hippocrates\n  s20s   n20s  n sb  n20s  n 20s20s  n 20s,  n#invoke\n\u001b\u00164\n\u00162\n  \u0006\u00163\n\u0006\u0014m.oh\u001610\n\u0006#ride\n.y#chat\nu\u00164\n\u0006\u001617\n\u0006#jump\n#untrap\nk\u001621\n\u0006H#offer\n\u00164\n\u0006\u001615\n \u0006#chat\nls\u00166\n\u0006\u0014@HHHHHHKkkk. ,20s20s \u001b  d$ub\u001614\n\u0006#conduct\n \u0004j\u00162\n\u0006s#force\n\u001621\n\u0006\u001613\n \u0006ej20s\u001611\n\u0006\u001614\n\u0006\u001619\n\u0006\u00167\n\u0006\u0014m,ck\u001613\n  \u000620s#offer\n\u001610\n\u0006\u00162\n  \u0006\u001611\n\u0006\u001611\n\u0006i\u001b#dip\ngd\u001612\n\u0006\u001614\n\u0006\u00164\n\u0006:\u0018\u001b\u00163\n\u0006\u00169\n\u0006\u001610\n\u0006Wdc\u00167\n\u0006\u001619\n\u0006\u001611\n\u0006\u001616\n\u0006\u0014@Khhhhkkkk. ,s10s20s Hip"
+  }
+ ]
+}

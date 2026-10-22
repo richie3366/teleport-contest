@@ -1,0 +1,77 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "FhFh 20sFk20s._ \u001b>.>#offer\n150s100sFhFhFhFhFhs100s<yy\u001by  y nn h \u0007Demogorgon\nnFkFy   yy\u001by  y y\u001by  Fyy   \u0017wand of death\nzf.  y y\u001bny y\u001by  .FkFkFkFkFkFkFkFkjyjkFkFkFkFkFkFkFkFk50sklhjklFlFl20s100s Fj.20s\u0018\u001bbnbFkss\u000f\u001b100sFlsFluyu150sFj..50s FkFkFuluj150sFnFls100seeFj   nnnnn  . 100s100slnu100sFk20s.50s150sn100sch\u0018\u001b150sFu20s20seh100sFkFkFkjkk150s Fk.20seh100sFls20sFls.eg50segf  yhk100seg150seh100sFns20si\u001b#monster\n150seh#invoke\n\u001b100sLYJN_ \u001b<.>#quit\nyy\u001by  y y y\u001b  ljhhFl FlFlFlFlFlFlFl#chat\nydes20s20skb10stbyuhlhlhlhlhlhlh#name\no\nlhlh20slh#name\no\n10s#name\ni\nlhl100s100sFl.20s\u000f\u001b\u000f\u001b\u000f\u001b150snlh100syhl100s50s100s150s #quit\nyy\u001by  y y y\u001b n\u0007Demogorgon\nnFk Fb   n Fh   yy\u001by  y y y\u001byy  F bytbk  #name\no\nk tbj  #name\na\nhjkjkunynynltblujnu#name\no\n10stbb100s\u0018\u001b100s150sFlFlFl_ \u001bm,>byl100s_>,>150s50s_>,>hkh<50s150s eh eg \u000f\u001b100s#conduct\n 100s 50s100s100s100sFjs20s50si\u001b_>,>50sFj20s.hnlFl20s.eh nju150s100sFlFlFlFlFl.50sjhk150seg150s_>.>50s100s50sFlss_>.>ukh_>.>_>.>150s_>.>_>.>50s100sjkb50s100sulj100sFjFnFj100sFls20s100sjhl50sFlFlFlFuFusf by l100s100s150seeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b n\u0017wand of lightning\nzf.  y n  .",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53850044,
+   "datetime": "20050219074232",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=msg_window:reversed\n",
+   "moves": "FhFh 20sFk20s._ \u001b>.>#offer\n150s100sFhFhFhFhFhs100s<yy\u001by  y nn h"
+  },
+  {
+   "seed": 53950044,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007Demogorgon\nnFkFy   yy\u001by  y y\u001by  F"
+  },
+  {
+   "seed": 54050044,
+   "datetime": "20241101134337",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:durian\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "yy   \u0017wand of death\nzf.  y y\u001bny y\u001by  ."
+  },
+  {
+   "seed": 54150044,
+   "datetime": "20010916130839",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\n",
+   "moves": "FkFkFkFkFkFkFkFkjyjkFkFkFkFkFkFkFkFk50sklhjklFlFl20s100s Fj.20s\u0018\u001bbnbFkss\u000f\u001b100sFlsFluyu150sFj..50s FkFkFuluj150sFnFls100seeFj   nnnnn  ."
+  },
+  {
+   "seed": 54250044,
+   "datetime": "20081129012309",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\n",
+   "moves": " 100s100slnu100sFk20s.50s150sn100sch\u0018\u001b150sFu20s20seh100sFkFkFkjkk150s Fk.20seh100sFls20sFls.eg50segf  yhk100seg150seh100sFns20si\u001b#monster\n150seh#invoke\n\u001b100sLYJN_ \u001b<.>#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 54350044,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:run\n",
+   "moves": " ljhhFl FlFlFlFlFlFlFl#chat\nydes20s20skb10stbyuhlhlhlhlhlhlh#name\no\nlhlh20slh#name\no\n10s#name\ni\nlhl100s100sFl.20s\u000f\u001b\u000f\u001b\u000f\u001b150snlh100syhl100s50s100s150s #quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 54450044,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "n\u0007Demogorgon\nnFk Fb   n Fh   yy\u001by  y y y\u001byy  F"
+  },
+  {
+   "seed": 54550044,
+   "datetime": "20180414015520",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\n",
+   "moves": " bytbk  #name\no\nk tbj  #name\na\nhjkjkunynynltblujnu#name\no\n10stbb100s\u0018\u001b100s150sFlFlFl_ \u001bm,>byl100s_>,>150s50s_>,>hkh<50s150s eh eg \u000f\u001b100s#conduct\n 100s 50s100s100s100sFjs20s50si\u001b_>,>50sFj20s.hnlFl20s.eh nju150s100sFlFlFlFlFl.50sjhk150seg150s_>.>50s100s50sFlss_>.>ukh_>.>_>.>150s_>.>_>.>50s100sjkb50s100sulj100sFjFnFj100sFls20s100sjhl50sFlFlFlFuFusf by l100s100s150seeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 54650044,
+   "datetime": "20040623065832",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "n\u0017wand of lightning\nzf.  y n  ."
+  }
+ ]
+}

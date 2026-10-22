@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWj\u0017blessed Mjollnir\nwk\u001625\n kjk   kjkj:\u0016?\nr \u0017alchemy smock\nW\u001b.20s  20s Tb\u0007gold golem\nFhFh \u0007cobra\nFh Fh    Fh  Fk Fk    n \u001642\nubjku:\u001618\n  nhunn:\u0016?\n>>Q\u0014 \u001bm,\u0016?\n>>P  #levelchange\n8\n    \u0007master lich\nFhFh Fh Fh \u0007black pudding\nFhFlFl  nFl20ssm.\u001628\nhnhjbl:\u0016?\n>G \u0014@.\u0016?\ng\u0004lss.\u0016?\n>y  hhl:\u001628\n_<,s.\u00169\n\u0017amulet of change\nPm ss20s20s20s.\u00173 scroll of fire\n\u0007gnomish wizard\nrn  \u0017blessed wand of teleportation\nzohzon\u0017scroll of scare monster\nrp  \u001bs20s\u0017potion of polymorph\nqqssss\u00169\nujkbu:\u001618\njlhkn:\u0016?\n>>K      potion of sickness\nln h   y    :\u0016?\n\u001bn     n   y        \u001643\n#levelchange\n8\n    \u0017uncursed Mjollnir\nwt  n        n  Fn                   n   Fk          n  Fh             n     #invoke\nr       n   \u00173 scroll of teleportation\nru\u0017blessed scroll of amnesia\nrv\u0017Excalibur\nww    n      ns             n    20s    n    s    n    #invoke\nw  n     "
+ },
+ "segments": [
+  {
+   "seed": 53850014,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 gauntlets of power\nWj\u0017blessed Mjollnir\nwk\u001625\n kjk   kjkj:\u0016?\nr \u0017alchemy smock\nW\u001b.20s  20s Tb\u0007gold golem\nFhFh \u0007cobra\nFh Fh    Fh  Fk Fk    n \u001642\nubjku:\u001618\n  nhunn:\u0016?\n>>Q\u0014 \u001bm,\u0016?\n>>P  #levelchange\n8\n    \u0007master lich\nFhFh Fh Fh \u0007black pudding\nFhFlFl  nFl20ssm.\u001628\nhnhjbl:\u0016?\n>G \u0014@.\u0016?\ng\u0004lss.\u0016?\n>y  hhl:\u001628\n_<,s.\u00169\n\u0017amulet of change\nPm ss20s20s20s.\u00173 scroll of fire\n\u0007gnomish wizard\nrn  \u0017blessed wand of teleportation\nzohzon\u0017scroll of scare monster\nrp  \u001bs20s\u0017potion of polymorph\nqqssss\u00169\nujkbu:\u001618\njlhkn:\u0016?\n>>K      potion of sickness\nln h   y    :\u0016?\n\u001bn     n   y        \u001643\n#levelchange\n8\n    \u0017uncursed Mjollnir\nwt  n        n  Fn                   n   Fk          n  Fh             n     #invoke\nr       n   \u00173 scroll of teleportation\nru\u0017blessed scroll of amnesia\nrv\u0017Excalibur\nww    n      ns             n    20s    n    s    n    #invoke\nw  n     "
+  }
+ ]
+}

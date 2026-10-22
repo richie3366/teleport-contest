@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPil\u0017blessed +3 gauntlets of power\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007grid bug\n#wizidentify\n\u001bFb Fl._ \u001bm,ql \u001b\u0007dwarf\n#overview\n\u001b#conduct\n i\u001b#dip\nf #offer\n#pray\ny y #chat\nk#jump\n.#polyself\nred dragon\n    #monster\nk 20s.m.Fj20sljk#dip\nk__.#chat\nh\u0007troll\n#vanquished\n #genocided\ndwarf\ng#annotate\nFido\n\u0018\u001b#name\n\u001b#adjust\nj\u001b#chat\nh  #turn\n  #wizintrinsic\nf\n Fh Fj  _{.q#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n  #pray\ny y     #wizidentify\n\u001bFn Fh Fh Wj  n  \u0016?\ni\u0006\u0007sewer rat\n#version\n  #history\n                  #annotate\nFido\ni\u001b#wipe\n #loot\nn#chat\ny#chat\ny #wizidentify\n\u001bFn Fk  FkFk  n  \u0016?\nq \u0006\u0007kobold shaman\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nny#turn\n #sit\n    #wizidentify\n\u001bFlFl  FlFn   n_oooo.,\u0007yellow mold\n#vanquished\n #genocided\nstraw golem\nbl\u0018\u001b#dip\nj #offer\n#pray\ny y   #chat\nl#wizidentify\n\u001bFlFl __,#chat\nl#chronicle\n  #terrain\n\u001b\u0018\u001b#name\nm\n#adjust\n,#chat\ny  n#turn\n #jump\n.#levelchange\n15\n  FlFlFyFl cl   n_{.q\u0007soldier\n#version\n  #history\n                  #annotate\nfoo\n\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y        #wiziden"
+ },
+ "segments": [
+  {
+   "seed": 53855029,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPil\u0017blessed +3 gauntlets of power\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007grid bug\n#wizidentify\n\u001bFb Fl._ \u001bm,ql \u001b\u0007dwarf\n#overview\n\u001b#conduct\n i\u001b#dip\nf #offer\n#pray\ny y #chat\nk#jump\n.#polyself\nred dragon\n    #monster\nk 20s.m.Fj20sljk#dip\nk__.#chat\nh\u0007troll\n#vanquished\n #genocided\ndwarf\ng#annotate\nFido\n\u0018\u001b#name\n\u001b#adjust\nj\u001b#chat\nh  #turn\n  #wizintrinsic\nf\n Fh Fj  _{.q#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n  #pray\ny y     #wizidentify\n\u001bFn Fh Fh Wj  n  \u0016?\ni\u0006\u0007sewer rat\n#version\n  #history\n                  #annotate\nFido\ni\u001b#wipe\n #loot\nn#chat\ny#chat\ny #wizidentify\n\u001bFn Fk  FkFk  n  \u0016?\nq \u0006\u0007kobold shaman\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nny#turn\n #sit\n    #wizidentify\n\u001bFlFl  FlFn   n_oooo.,\u0007yellow mold\n#vanquished\n #genocided\nstraw golem\nbl\u0018\u001b#dip\nj #offer\n#pray\ny y   #chat\nl#wizidentify\n\u001bFlFl __,#chat\nl#chronicle\n  #terrain\n\u001b\u0018\u001b#name\nm\n#adjust\n,#chat\ny  n#turn\n #jump\n.#levelchange\n15\n  FlFlFyFl cl   n_{.q\u0007soldier\n#version\n  #history\n                  #annotate\nfoo\n\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y        #wiziden"
+  }
+ ]
+}

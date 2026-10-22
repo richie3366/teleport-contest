@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nh\n \u0017towel\nafZZ\u0017scroll of stinking cloud\nrg   \u001b@. \u0017scroll of fire\nrh\u0017cursed scroll of teleportation\nris 20s     s #wizintrinsic\nig\n \u0017blessed wand of cold\nzjh  n \u0017blessed scroll of teleportation\nrk\u0017scroll of enchant arring of teleport"
+ },
+ "segments": [
+  {
+   "seed": 53856022,
+   "datetime": "20170222104135",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#wizintrinsic\nh\n \u0017towel\nafZZ\u0017scroll of stinking cloud\nrg   \u001b@. \u0017scroll of fire\nrh\u0017cursed scroll of teleportation\nris 20s     s #wizintrinsic\nig\n \u0017blessed wand of cold\nzjh  n \u0017blessed scroll of teleportation\nrk\u0017scroll of enchant arring of teleport"
+  }
+ ]
+}

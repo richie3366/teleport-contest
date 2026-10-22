@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed amulet of life saving\nPm\u0017blessed +3 speed boots\nWn\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n      \u0007kobold\n_ \u001b<.#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#dip\nk\u001b#offer\n#pray\ny y  #chat\nl#levelchange\n23\n               Fu ss_{.qd\u0007troll\n#vanquished\n #genocided\nrothe\n\u0018\u001b#name\nm\n#adjust\n<.#chat\nk#turn\n#jump\n#wizintrinsic\ngf\n FkFk Fk Fk __,#chat\nk#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y    #wizintrinsic\nsr\n Fk Fk __,#chat\nk#version\n  #history\n                  i\u001b#wipe\n #loot\n#chat\nk#chat\nk#wizintrinsic\nfs\n Fk   Fk FkFk __,#chat\nk#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nky#turn\n#sit\n#jump\n#levelchange\n2\n      Fk  n Fk  n Fk   n\u001611\n _oooooo.,\u0007bugbear\n#vanquished\n #ge"
+ },
+ "segments": [
+  {
+   "seed": 53855002,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed amulet of life saving\nPm\u0017blessed +3 speed boots\nWn\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n      \u0007kobold\n_ \u001b<.#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#dip\nk\u001b#offer\n#pray\ny y  #chat\nl#levelchange\n23\n               Fu ss_{.qd\u0007troll\n#vanquished\n #genocided\nrothe\n\u0018\u001b#name\nm\n#adjust\n<.#chat\nk#turn\n#jump\n#wizintrinsic\ngf\n FkFk Fk Fk __,#chat\nk#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y    #wizintrinsic\nsr\n Fk Fk __,#chat\nk#version\n  #history\n                  i\u001b#wipe\n #loot\n#chat\nk#chat\nk#wizintrinsic\nfs\n Fk   Fk FkFk __,#chat\nk#overview\n\u001b#conduct\n i\u001b#tip\n\u001b#ride\nky#turn\n#sit\n#jump\n#levelchange\n2\n      Fk  n Fk  n Fk   n\u001611\n _oooooo.,\u0007bugbear\n#vanquished\n #ge"
+  }
+ ]
+}

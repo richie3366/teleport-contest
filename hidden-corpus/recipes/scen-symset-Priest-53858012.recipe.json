@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0007little dog\n\u0017lichen corpse\nt\u001b\u0007pony\n\u0017apple\nt\u001b\u0017banana\nt\u001b\u0017lichen corpse\nt\u001b\u0017newt corpse\nt\u001b\u0017fortune cookie\nt\u001b\u0017lichen corpse\nt\u001b\u0017food ration\nt\u001b\u0007lichen\n.m..sm.  20s sm.  n20s #chat\nh O>>p\u001b\nkj jj\u0017chaotic altar\ndm  \u0017human corpse\n : uk \u0017melting ice\n: un kn \u0017lawful altar\nde   n \u0017human corpse\n #terrain\nf\n#untrap\nk cj ah   mO>b\u001b\nmO>>>>f\u001b\nFkFhFhFjFlFyFbFkFhFnFbFhFuFnFbFuFlFuFyFh\u001bFnFyFnFjFyFuu FhFkFnFuu FbFnFjFnFjFjFlFhFjFhFnFnFbFyFlFbFnFlFyFh\u001bFlFhFuFkFkFkFyFjFnFkj FnFlj FlFkFjFlFbFbFuFlFnFh\u001bFuFuFhFnFyFuFbFyFnFnFhFyFjFkFyFnFnFyFlFbFlb FhFkFlFhFhFkFkFhFjFnFyFlFnFnFbFjFnFjFyFll FbFlj FjFhFbFh\u001bFbv i\u001b\u00165\n\u0006_ \u001b:>FyFj_>, Fl_,Fb>FbFb_>. Fb_.Fj>FjFlFbFbFb\u0006_>>.Fl_,  n Fh>FhFl_>>.   Fh_.  n  Fb>FlFn_>FbFh\u001bFnFll Fl\u0006_>.  n   Fk_,   n Fk>FhFn"
+ },
+ "segments": [
+  {
+   "seed": 53858012,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueIBM\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nMENUCOLOR=\"cursed\"=red\n",
+   "moves": " \u0007little dog\n\u0017lichen corpse\nt\u001b\u0007pony\n\u0017apple\nt\u001b\u0017banana\nt\u001b\u0017lichen corpse\nt\u001b\u0017newt corpse\nt\u001b\u0017fortune cookie\nt\u001b\u0017lichen corpse\nt\u001b\u0017food ration\nt\u001b\u0007lichen\n.m..sm.  20s sm.  n20s #chat\nh O>>p\u001b\nkj jj\u0017chaotic altar\ndm  \u0017human corpse\n : uk \u0017melting ice\n: un kn \u0017lawful altar\nde   n \u0017human corpse\n #terrain\nf\n#untrap\nk cj ah   mO>b\u001b\nmO>>>>f\u001b\nFkFhFhFjFlFyFbFkFhFnFbFhFuFnFbFuFlFuFyFh\u001bFnFyFnFjFyFuu FhFkFnFuu FbFnFjFnFjFjFlFhFjFhFnFnFbFyFlFbFnFlFyFh\u001bFlFhFuFkFkFkFyFjFnFkj FnFlj FlFkFjFlFbFbFuFlFnFh\u001bFuFuFhFnFyFuFbFyFnFnFhFyFjFkFyFnFnFyFlFbFlb FhFkFlFhFhFkFkFhFjFnFyFlFnFnFbFjFnFjFyFll FbFlj FjFhFbFh\u001bFbv i\u001b\u00165\n\u0006_ \u001b:>FyFj_>, Fl_,Fb>FbFb_>. Fb_.Fj>FjFlFbFbFb\u0006_>>.Fl_,  n Fh>FhFl_>>.   Fh_.  n  Fb>FlFn_>FbFh\u001bFnFll Fl\u0006_>.  n   Fk_,   n Fk>FhFn"
+  }
+ ]
+}

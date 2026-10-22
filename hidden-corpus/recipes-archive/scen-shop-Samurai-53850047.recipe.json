@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001bm.,p_oooooo,,\u0014,s._oooo.,p_ooooooo.,p_ooooooooo,,p_ooooooo.,$_oo,,p_{.Fu  _.qy _ooooooo.,#chat\nu __.    nFb_,>.Fj#chat\nj Fj  nFjFjFjFjFj__.Fl _.:Fl #chat\nl Fl   nFl FlFlFl Fl __.Fy_.#chat\nbnhy#chat\nbynu#chat\nh_oo.Fn_.Fn ,\u001b$_{,Fn_.>.Fj  q_oo.Fk _._oo.Fy_,Fb,\u0017amulet of guarding\ndh FbFb   FbFbFbFb_ooooooooo.Fn_.Fl,y pull#chat\nh_oo,_.,\u001b$_oooooo. Fk_.Fk   ,#chat\nu_ooooo._._ooo,     n Fh _.,  #chat\nh  _ooooooooo,   n  Fh   _. Fh   n   ,p\u001610\n_ooooo.,p_oooooo.,p\u00167\nllh\u0016?\n>w\u0006_ooo,   Fh  _. Fh   ,p_oooo.  Fh  n  _,   Fh   ,:_oooo.  n  Fh   _.   Fh  ,p_ooooooo,,#chat\nh    _ooo.      n Fh   _,    _ooo. _.,p_ooooo,_,,pll l#chat\nk__,_,#chat\nb#pray\ny y \u0016?\ncbub\u0016?\n>w\u0006kby#chat\nl_{.Fh_,   Fh  q_oooooooo.    Fy_.._o._.,\u0017amulet of strangulation\ndl__. Fu       n    n   _.#chat\nu  n    \u00161\n _oooo._ooo.,p_oooooo,,: \u00167\n hlh\u0016?\n>w\u0006_oooo. _,_oo,   Fh   n _.,p;_oooo.   Fb  _, Fl   ,p>._oooooooo.   n   Fb  _. Fl"
+ },
+ "segments": [
+  {
+   "seed": 53850047,
+   "datetime": "20040609055350",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001bm.,p_oooooo,,\u0014,s._oooo.,p_ooooooo.,p_ooooooooo,,p_ooooooo.,$_oo,,p_{.Fu  _.qy _ooooooo.,#chat\nu __.    nFb_,>.Fj#chat\nj Fj  nFjFjFjFjFj__.Fl _.:Fl #chat\nl Fl   nFl FlFlFl Fl __.Fy_.#chat\nbnhy#chat\nbynu#chat\nh_oo.Fn_.Fn ,\u001b$_{,Fn_.>.Fj  q_oo.Fk _._oo.Fy_,Fb,\u0017amulet of guarding\ndh FbFb   FbFbFbFb_ooooooooo.Fn_.Fl,y pull#chat\nh_oo,_.,\u001b$_oooooo. Fk_.Fk   ,#chat\nu_ooooo._._ooo,     n Fh _.,  #chat\nh  _ooooooooo,   n  Fh   _. Fh   n   ,p\u001610\n_ooooo.,p_oooooo.,p\u00167\nllh\u0016?\n>w\u0006_ooo,   Fh  _. Fh   ,p_oooo.  Fh  n  _,   Fh   ,:_oooo.  n  Fh   _.   Fh  ,p_ooooooo,,#chat\nh    _ooo.      n Fh   _,    _ooo. _.,p_ooooo,_,,pll l#chat\nk__,_,#chat\nb#pray\ny y \u0016?\ncbub\u0016?\n>w\u0006kby#chat\nl_{.Fh_,   Fh  q_oooooooo.    Fy_.._o._.,\u0017amulet of strangulation\ndl__. Fu       n    n   _.#chat\nu  n    \u00161\n _oooo._ooo.,p_oooooo,,: \u00167\n hlh\u0016?\n>w\u0006_oooo. _,_oo,   Fh   n _.,p;_oooo.   Fb  _, Fl   ,p>._oooooooo.   n   Fb  _. Fl"
+  }
+ ]
+}

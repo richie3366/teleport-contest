@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gauntlets of power\nWe\u0017blessed +3 cloak of magic resistance\nWf \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007acid blob\n#levelchange\n21\n    Fj Fksda\u0016?\n>u \u0006\u0007lichen\n#overview\n\u001b#conduct\n \u0018\u001b#dip\ne#offer\n#pray\n#chat\n#wizintrinsic\nk j u #twoweapon\n_ #chat\n#vanquished\n#genocided\n#annotate\ni#name\nm\n @.#adjust\nd\u001b#chat\nl#turn\n#levelchange\n24\n  Fl ..__.#chat\ny#chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #jump\n#wizmap\n\u0006Fls20sqh \u0016?\n>B\u0006\u0007yellow mold\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nj#chat\nj#chat\nj#jump\n#wizintrinsic\ngf\n FjFjFjFj _ooo.,\u0007acid blob\n#overview\n\u001b#conduct\n #annotate\nfoo\ni\u001b#tip\n\u001b#ride\njy#turn\n#sit\n#jump\n#polyself\nair elemental\n  #monster\nssFbFbFbFb#sit\n \u00169\n \u0006\u0007gnome lord\n#vanquished\n #genocided\nguard\n#annotate\nFido\n\u0018\u001b#dip\ng#offer\n#pray\ny y   #chat\nk#wizdetect\n\u0006FkFk#conduct\n __,#chat\nk#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u0018\u001b#name\nm\n#adjust\n>.#chat\nk#turn\n#wizintrinsic\nfg\n FkFkFkFk_{.q\u0007troll\n#version\n  #history\n                  \u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y      #wizintrinsic\naf\n Fk Fl Fk cj _"
+ },
+ "segments": [
+  {
+   "seed": 53855015,
+   "datetime": "20111026022556",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=runmode:crawl\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gauntlets of power\nWe\u0017blessed +3 cloak of magic resistance\nWf \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007acid blob\n#levelchange\n21\n    Fj Fksda\u0016?\n>u \u0006\u0007lichen\n#overview\n\u001b#conduct\n \u0018\u001b#dip\ne#offer\n#pray\n#chat\n#wizintrinsic\nk j u #twoweapon\n_ #chat\n#vanquished\n#genocided\n#annotate\ni#name\nm\n @.#adjust\nd\u001b#chat\nl#turn\n#levelchange\n24\n  Fl ..__.#chat\ny#chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y   #jump\n#wizmap\n\u0006Fls20sqh \u0016?\n>B\u0006\u0007yellow mold\n#version\n  #history\n                  \u000f\u001b#wipe\n#loot\nj#chat\nj#chat\nj#jump\n#wizintrinsic\ngf\n FjFjFjFj _ooo.,\u0007acid blob\n#overview\n\u001b#conduct\n #annotate\nfoo\ni\u001b#tip\n\u001b#ride\njy#turn\n#sit\n#jump\n#polyself\nair elemental\n  #monster\nssFbFbFbFb#sit\n \u00169\n \u0006\u0007gnome lord\n#vanquished\n #genocided\nguard\n#annotate\nFido\n\u0018\u001b#dip\ng#offer\n#pray\ny y   #chat\nk#wizdetect\n\u0006FkFk#conduct\n __,#chat\nk#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u0018\u001b#name\nm\n#adjust\n>.#chat\nk#turn\n#wizintrinsic\nfg\n FkFkFkFk_{.q\u0007troll\n#version\n  #history\n                  \u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y      #wizintrinsic\naf\n Fk Fl Fk cj _"
+  }
+ ]
+}
