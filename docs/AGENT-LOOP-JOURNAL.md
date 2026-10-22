@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — D-4217 nhlua.c nhl_text, behind nhcore.lua's show_getpos_tip, adds each line of the tip with add_menu_str (`:836`), so windows.c add_menu applies menucolors to every line (`:1803–1807`). JS painted the tip's lines as bare strings, so after a menucolor «e» → white, the first-getpos tip («Tip: Farlooking or selecting a map location» and its body) stayed gray where C paints it white
+
+**C locus:** nhlua.c nhl_text `:810–851` (line split `:824–837`, add_menu_str `:836`, end_menu with no prompt `:845`, select_menu PICK_NONE `:846`); nhcore.lua show_getpos_tip `:108–120`; windows.c add_menu `:1803–1807`, add_menu_str `:1832–1838`.
+**JS:** js/getpos.js show_getpos_tip `:1324–1343`, import `:78`; js/options.js menu_row_coloring export `:6291`.
+**Change:** each line becomes a row carrying menu_row_coloring(str), the add_menu_str colouring from D-4216, which is now exported from options.js (an existing import edge). The line split is unchanged: the 8 lines equal nhl_text's split of the nhcore.lua text (every line is under 76 chars).
+**Verify:** - `node scripts/verify.mjs --fn furniture_detect,show_getpos_tip --full` → `verify furniture_detect: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-options-Priest-53051011 → save_dungeon at step 111, was 87) · reach REACH-OK ×2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+**Named:** nhl_text's generic 76-column word wrap is not ported; JS keeps the pre-split lines of its sole scored caller.
+**Next:** this session's step 111 is the end-of-game dungeon overview («Level 1: <- You were here.», «Final resting place for…»): dungeon.c identifier-less overview rows without menucolors. Then show_gamelog / polymorph_sink.
 ## 2026-10-22 — D-4216 options.c doset adds its help text with add_menu_str (`:8798–8802`), its non-settable booleans with a zero-identifier add_menu (`:8851–8860`), and its gameview compounds through doset_add_menu with indexoffset 0 (`:9060–9065`). windows.c add_menu applies menucolors to all of these (`:1803–1807`); only add_menu_heading skips them. JS painted those identifier-less rows plain, so after a menucolor «e» → white, «    blind  [false]» and the help lines stayed gray in the full `O` menu where C paints them white
 
 **C locus:** options.c doset `:8758–8960` (helptext loop `:8790–8810`, pass-0 bools `:8851–8860`, compounds `:8871–8880`); doset_add_menu `:9026–9065`; windows.c add_menu `:1803–1807`, add_menu_str `:1832–1838`, add_menu_heading `:1816–1828` (SKIPMENUCOLORS).

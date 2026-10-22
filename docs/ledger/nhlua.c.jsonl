@@ -25,7 +25,7 @@
 {"fn":"nhl_get_config","c":"678-689","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_getlin","c":"695-711","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_menu","c":"721-806","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
-{"fn":"nhl_text","c":"810-851","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_text","c":"810-851","status":"split","js":["js/getpos.js:show_getpos_tip"],"d":["D-4217"],"at":"2026-10-22@3f14fd3c8","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_makeplural","c":"855-865","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_makesingular","c":"869-879","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
 {"fn":"nhl_s_suffix","c":"883-893","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}

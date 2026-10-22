@@ -6288,7 +6288,7 @@ export function get_menu_coloring(str) {
  * @param {string} str
  * @returns {{color?:number,attr?:number}}
  */
-function menu_row_coloring(str) {
+export function menu_row_coloring(str) {
     const mc = get_menu_coloring(str);
     return mc ? { color: mc.color, attr: cattr_to_cell(mc.attr) } : {};
 }
