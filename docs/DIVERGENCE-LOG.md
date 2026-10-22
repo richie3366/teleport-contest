@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-4231 — monmove.c m_move sends a long worm with segments straight to `not_special` (`if (mtmp->wormno) goto not_special;`, `:1769–1770`), after set_apparxy and the can_* setup and before the mtame arm. A segmented worm, tame or not, skips dog_move, the covetous arm, shk/gd/pri, the mail daemon and the tengu teleport, and moves with the normal AI. js/monmove.js had no counterpart, so a tame long worm (dog.c tamedog keeps `wormno`) moved through dog_move, with different RNG and a different target
+
+- **Status:** shipped (Must-fix row 1 from audit 3047–3070; review 3065).
+- **Symptom:** none on the board (774/774); the review read the gap from the C body. Only a tame segmented worm reaches a different arm: no long worm is covetous, a shopkeeper/guard/priest, the mail daemon or a tengu.
+- **C locus:** monmove.c m_move `:1714–2075`, gate `:1769–1770`, special arms `:1771–1848`, not_special `:1849–1854`.
+- **JS was:** js/monmove.js m_move ran the mtame / covetous / shk-gd-pri / mail daemon / tengu arms for every monster.
+- **Fix:** the special arms sit inside `if (!mtmp.wormno) { … }`, C's goto as a block. The not_special uswallow return and the origin re-read stay after it, as in C.
+- **JS:** js/monmove.js m_move `:2183–2267` (gate `:2186`).
+- **Callers:** unchanged (dochug, dog_move fallbacks, mon_tele paths).
+- **Verify:**
+  - `node scripts/verify.mjs --fn m_move` → `verify m_move: no corpus session blocked on it at baseline` · reach m_move: 644 baseline-PASS reach it (80 run): 80 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 681 baseline-PASS re-run in 132.1s, 0 regressed → REACH-OK.
+  - verify m_move: 0 PASS, 0 moved, 0 no-movement (no corpus row blocked; Must-fix from review).
+- **Named omissions:** none in m_move.
+- **Ledger:** m_move ported
+- **Next:** Must-fix row 2 (P_BOW in potion.js, ESCAPED / ASCENDED in pray.js), then row 3 (process_menu_window counting).
+
 ## D-4230 — steed.c dismount_steed's thrown/knocked/fell arm calls `losehp(rn1(10, 10), "riding accident")` and then, unconditionally, `set_wounded_legs(BOTH_SIDES, HWounded_legs + rn1(5, 5))` (`:610–616`). When the hero dies and declines wizard mode's «Die?», done() → savelife returns and C goes on: the rn1(5, 5) draw, the landing and the rest of the dismount, with savelife's «You survived that attempt on your life.» left as nomovemsg for the next turn. js/steed.js ran finish_losehp_done() and then `return`ed even when the hero survived, so the leg draw was missing and the turn ended early
 
 - **Status:** shipped (the one row folded by Grow #27's `ride` reshape).
