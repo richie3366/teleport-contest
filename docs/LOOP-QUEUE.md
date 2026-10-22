@@ -140,7 +140,6 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `trap.c` chest_trap — blocks 1/845 corpus sessions (first at step 113; RNG lost 0, screens lost 1): toplines identical; first differing screen row 1: C «ball» vs JS «» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify chest_trap` (scen-impaired-Wizard-53851010). @cf961e775 **[history: archived D-3437 — read that D-entry once; the arm this divergence names is still open]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)

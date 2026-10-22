@@ -1,6 +1,6 @@
 {"fn":"tty_doprev_message","c":"20-119","status":"ported","js":["js/display.js:tty_doprev_message"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 4 modes (s/f/c/r) with exact ring loops via helpers"}
 {"fn":"redotoplin","c":"122-141","status":"ported","js":["js/display.js:redotoplin"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: show str + NEED_MORE + conditional more(); terminal cursor ops adapted to virtual-screen paint"}
-{"fn":"show_topl","c":"145-166","status":"ported","js":["js/display.js:show_topl"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: STOP/NOSTOP gate, one-shot clear, cury clear, hard-wrap cursor, NEED_MORE/NON_EMPTY"}
+{"fn":"show_topl","c":"145-166","status":"ported","js":["js/display.js:show_topl"],"d":["D-4237"],"at":"2026-10-22@bb1815bbd","note":"audit 2026-10-03: STOP/NOSTOP gate, one-shot clear, cury clear, hard-wrap cursor, NEED_MORE/NON_EMPTY"}
 {"fn":"remember_topl","c":"170-191","status":"ported","js":["js/display.js:remember_topl"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: LOCKHISTORY/empty guard, ring store, checkpoint arm"}
 {"fn":"addtopl","c":"194-202","status":"ported","js":["js/display.js:addtopl"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: append + NEED_MORE + paint"}
 {"fn":"more","c":"205-248","status":"ported","js":["js/display.js:more"],"d":["D-4151","D-3439"],"at":"2026-10-20@215135828","note":"audit 2026-10-03: inmore guard, --More-- placement, xwaitforspace+ESC-STOP+dismiss via more_wait_keys"}

@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4237 — tty show_topl (topl.c `:145–166`) paints an ATR_NOHISTORY message through addtopl → putsyms → topl_putsym, and topl_putsym breaks the line by itself: a character that would land at `curx == CO - 1` first emits `topl_putsym('\n')` (`:305–343`). An 84-character autodescribe line therefore shows 79 columns on row 0 and « ball» from row 1 column 0. js/display.js show_topl ran the same loop to set cw.curx / cury but handed the unbroken string to the painter, which breaks only on '\n' and clips at the right margin, so everything past column 79 was lost
+
+- **Status:** shipped (cliffs head, last row; 1 session from Grow #28).
+- **Symptom:** scen-impaired-Wizard-53851010 step 113: `;` then `m` (getpos next-monster) on a blind, punished, gas-clouded gnomish wizard: getpos.c auto_describe's `custompline(SUPPRESS_HISTORY | …)` line «gnomish wizard called wizard, in a cloud of poison gas, chained to a heavy iron ball» (84 chars). C row 1 « ball», JS row 1 empty. RNG matched; the owner tag chest_trap was the region heuristic.
+- **Measurement:** C and JS rows 0–1 at steps 112–114 side by side: only step 113 differed (row 1), and step 114's word-wrapped lookat («…in a cloud of» / «poison gas, …--More--», update_topl's split) already matched, so the gap was the ATR_NOHISTORY hard wrap, not update_topl.
+- **C locus:** win/tty/topl.c show_topl `:145–166`, addtopl, putsyms, topl_putsym `:305–343`; pline.c putmesg `:75–77` (SUPPRESS_HISTORY → ATR_NOHISTORY with WC2_SUPPRESS_HIST); getpos.c auto_describe `:640–662`.
+- **JS was:** `game._pending_message = text` after counting the wraps only for the cursor.
+- **Fix:** show_topl builds the painted text in the same loop that counts the cursor, inserting '\n' wherever topl_putsym would, and paints that. cw.curx / cury, the TOPLINE state and `_toplines` (untouched, as in C) are unchanged.
+- **JS:** js/display.js show_topl `:10530–10575`.
+- **Callers:** unchanged (tty_putstr NHW_MESSAGE ATR_NOHISTORY arm ← putmesg ← every SUPPRESS_HISTORY custompline: auto_describe, getpos help, …).
+- **Verify:**
+  - `node scripts/verify.mjs --fn chest_trap --full` → verify chest_trap: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach chest_trap 2/2, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 844 baseline-PASS re-run in 153.7s, 0 regressed → REACH-OK; board 845/845.
+  - verify chest_trap: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** redotoplin (display.js `:3195`) paints its text as-is too and only guesses cury from `length >= CO`; update_topl has already split the line at spaces, so it differs from C only for a single token wider than CO-1, which no session reaches.
+- **Ledger:** show_topl ported
+- **Next:** the cliffs block is empty (845/845): the next slot grows (§10.19).
+
 ## D-4236 — restore.c restgamestate rebuilds the worn pointers with one walk, `for (otmp = invent; …) if (otmp->owornmask) setworn(otmp, otmp->owornmask);`, then `otmp = uwep; uwep = 0; setuwep(otmp);` (`:687–699`). It never places a slot twice, so the restored `u.twoweap` survives. js/save.js restWornFromInvent ran the same walk (JS setworn's worn[] table holds uwep / uswapwep / uquiver too), then called setuswapwep(swap) and setuqwep(quiver) again on a stale «setworn does not place W_WEP/SWAP/QUIVER» premise. The second setworn found uswapwep already in its slot and ran setworn's `if (u.twoweap && (oobj->owornmask & (W_WEP | W_SWAPWEP))) set_twoweap(FALSE)` arm (worn.c), so every save/restore silently ended two-weapon combat
 
 - **Status:** shipped (cliffs head, 1 session from Grow #28).
