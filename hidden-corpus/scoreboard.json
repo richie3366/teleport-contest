@@ -1,6 +1,6 @@
 {
- "commit": "46b68e26c",
- "at": "2026-10-22T11:05:34.256Z",
+ "commit": "76cc70042",
+ "at": "2026-10-22T11:11:06.462Z",
  "full": false,
  "fullCommit": "1b2b2c8e3",
  "fullAt": "2026-10-21T14:05:06.214Z",
@@ -4226,19 +4226,19 @@
   },
   "scen-ride-Knight-53660014": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 7286,
+   "passed": true,
+   "rngM": 9210,
    "rngT": 9210,
-   "scrM": 225,
+   "scrM": 245,
    "scrT": 245,
-   "kind": "screen",
-   "step": 225,
+   "kind": null,
+   "step": null,
    "steps": 245,
-   "owner": "slimed_to_death",
-   "loc": "timeout.c:508",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "OK, so you don't die.--More--",
-   "jsTopline": "OK, so you don't die. You survived that attempt on your life.",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-ride-Knight-94415": {
@@ -13166,6 +13166,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "tieredAt": "2026-10-22T11:05:34.377Z"
+ }
 }

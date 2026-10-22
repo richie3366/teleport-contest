@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — D-4230 steed.c dismount_steed's thrown/knocked/fell arm calls `losehp(rn1(10, 10), "riding accident")` and then, unconditionally, `set_wounded_legs(BOTH_SIDES, HWounded_legs + rn1(5, 5))` (`:610–616`). When the hero dies and declines wizard mode's «Die?», done() → savelife returns and C goes on: the rn1(5, 5) draw, the landing and the rest of the dismount, with savelife's «You survived that attempt on your life.» left as nomovemsg for the next turn. js/steed.js ran finish_losehp_done() and then `return`ed even when the hero survived, so the leg draw was missing and the turn ended early
+
+**C locus:** steed.c dismount_steed `:567–760` (thrown/knocked/fell arm `:602–617`, losehp `:612`, set_wounded_legs `:614`); end.c savelife `:695–745` (nomovemsg, multi = -1).
+**JS:** js/steed.js dismount_steed `:874–883`.
+**Change:** return only `if (game.program_state?.gameover)` after finish_losehp_done, the do.js idiom (do.js `:853–857`). A surviving hero falls through to set_wounded_legs and the rest of the dismount, as in C.
+**Verify:** - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-ride-Knight-53660014.session.json` → PASS (RNG 9210/9210, Screen 245/245).
+**Named:** none in dismount_steed. Ten other `await finish_losehp_done(); return;` sites in other C files' ports may bail where C falls through after a declined «Die?»: attrib, eat, hack ×2 (dosinkfall, both losehp arms), mcastu, monmove, mthrowu, pickup, region, sit.
+**Next:** the cliffs block is empty again (774/774). The next calibration needs a shape the public set does not show (HIDDEN-PROXY §5c, fifth probes).
 ## 2026-10-22 — Grow #27 probes @46b68e26c: tutorwalk 20/20, chargen 20/20, ride reshape 19/20
 
 **Mined by reach:** public RNG-drawing C functions (by name) against 6,447 corpus recordings; zero-reach were pick_role/race/align, mount_steed, familiar_level_msg. New wave-3 `tutorwalk` and `chargen`, wave-2 `ride` now declines the forced mount. All ≥ 85 % on arrival (HIDDEN-PROXY §5c). 1 failing folded: scen-ride-Knight-53660014 (slimed_to_death, «OK, so you don't die.» after dismount_steed).

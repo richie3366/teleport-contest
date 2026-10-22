@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-4230 — steed.c dismount_steed's thrown/knocked/fell arm calls `losehp(rn1(10, 10), "riding accident")` and then, unconditionally, `set_wounded_legs(BOTH_SIDES, HWounded_legs + rn1(5, 5))` (`:610–616`). When the hero dies and declines wizard mode's «Die?», done() → savelife returns and C goes on: the rn1(5, 5) draw, the landing and the rest of the dismount, with savelife's «You survived that attempt on your life.» left as nomovemsg for the next turn. js/steed.js ran finish_losehp_done() and then `return`ed even when the hero survived, so the leg draw was missing and the turn ended early
+
+- **Status:** shipped (the one row folded by Grow #27's `ride` reshape).
+- **Symptom:** scen-ride-Knight-53660014 step 225 (wizard Knight kicks his steed: «You are thrown off of the saddled pony!», «You die...», «Die?» n): C «OK, so you don't die.--More--» vs JS «OK, so you don't die.  You survived that attempt on your life.». First RNG mismatch at 7188: C `rn2(5)=4 @ dismount_steed(steed.c:614)`, JS `rn2(5) @ distfleeck`. 20 screens lost; the slimed_to_death owner is the timeout.c:508 comment-literal misattribution.
+- **Measured / named:** a JS RNG trace with callers showed kick_steed's rnd(20) and dismount_steed's rn2(10) equal, then JS moving straight to the next monster turn. The early `return` after finish_losehp_done is the shape D-4188 fixed in goto_level.
+- **C locus:** steed.c dismount_steed `:567–760` (thrown/knocked/fell arm `:602–617`, losehp `:612`, set_wounded_legs `:614`); end.c savelife `:695–745` (nomovemsg, multi = -1).
+- **JS was:** js/steed.js dismount_steed `await finish_losehp_done(); return;` inside `if (game._losehp_needs_done)`.
+- **Fix:** return only `if (game.program_state?.gameover)` after finish_losehp_done, the do.js idiom (do.js `:853–857`). A surviving hero falls through to set_wounded_legs and the rest of the dismount, as in C.
+- **JS:** js/steed.js dismount_steed `:874–883`.
+- **Callers:** unchanged (kick_steed, mhitu knock-off, polymorph, engulf, bones paths).
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-ride-Knight-53660014.session.json` → PASS (RNG 9210/9210, Screen 245/245).
+  - `node scripts/verify.mjs --fn slimed_to_death,dismount_steed --full` → `verify slimed_to_death: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach dismount_steed 2/2, smoke 24/24 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. Board 774/774.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 773 baseline-PASS re-run in 155.0s, 0 regressed → REACH-OK.
+  - verify slimed_to_death: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in dismount_steed. Ten other `await finish_losehp_done(); return;` sites in other C files' ports may bail where C falls through after a declined «Die?»: attrib, eat, hack ×2 (dosinkfall, both losehp arms), mcastu, monmove, mthrowu, pickup, region, sit. Each must be checked against its C caller before changing it.
+- **Ledger:** dismount_steed ported
+- **Next:** the cliffs block is empty again (774/774). The next calibration needs a shape the public set does not show (HIDDEN-PROXY §5c, fifth probes).
+
 ## D-4229 — vault.c invault summons the guard with `makemon(&mons[PM_GUARD], x, y, MM_EGD | MM_NOMSG)` (`:500`) and only then sets isgd / mpeaceful. makemon's tail (makemon.c `:1502–1504`, outside the MM_NOMSG gate) runs `if (go.occupation) dochugw(mtmp, FALSE)`. Against the still-hostile guard that threat check stops a counted search, so C prints «You stop searching.» before «Suddenly one of the Vault's guards enters!», and invault's own stop_occupation (`:494`) finds no occupation. js/vault.js called the sync makemon without its async tail (makemon_appear_msg), so the search was stopped only at `:494`, after the entry line
 
 - **Status:** shipped (the last cliffs row after D-4228).
