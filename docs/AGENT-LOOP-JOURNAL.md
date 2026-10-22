@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — Grow #27 @1f9aec9ab: fresh 53650000 ×160 160/160 (100.0 %) on arrival
+
+**Fresh:** RNG 100.0 %, screens 100.0 %, every family 100 %; nothing folded, 160 archived. `tier` promoted the 42 reserve rows back (no failing owners). Board 773/773 after D-4226..D-4229. Gap to held-out 20.5 pts, but Grow #26 did the calibration, so none this time; no §5c candidate is left, so the next calibration grow mines a new public shape.
+**Next:** the cliffs block is empty: a port slot has nothing to pop until a new shape is authored.
+
 ## 2026-10-22 — D-4229 vault.c invault summons the guard with `makemon(&mons[PM_GUARD], x, y, MM_EGD | MM_NOMSG)` (`:500`) and only then sets isgd / mpeaceful. makemon's tail (makemon.c `:1502–1504`, outside the MM_NOMSG gate) runs `if (go.occupation) dochugw(mtmp, FALSE)`. Against the still-hostile guard that threat check stops a counted search, so C prints «You stop searching.» before «Suddenly one of the Vault's guards enters!», and invault's own stop_occupation (`:494`) finds no occupation. js/vault.js called the sync makemon without its async tail (makemon_appear_msg), so the search was stopped only at `:494`, after the entry line
 
 **C locus:** vault.c invault `:380–620` (makemon `:500`, isgd/mpeaceful `:502–503`, entry pline `:534`, stop_occupation `:494`… in C order the guard-arrival block); makemon.c makemon tail `:1476–1504`; monmove.c dochugw.
