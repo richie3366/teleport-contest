@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4236 — restore.c restgamestate rebuilds the worn pointers with one walk, `for (otmp = invent; …) if (otmp->owornmask) setworn(otmp, otmp->owornmask);`, then `otmp = uwep; uwep = 0; setuwep(otmp);` (`:687–699`). It never places a slot twice, so the restored `u.twoweap` survives. js/save.js restWornFromInvent ran the same walk (JS setworn's worn[] table holds uwep / uswapwep / uquiver too), then called setuswapwep(swap) and setuqwep(quiver) again on a stale «setworn does not place W_WEP/SWAP/QUIVER» premise. The second setworn found uswapwep already in its slot and ran setworn's `if (u.twoweap && (oobj->owornmask & (W_WEP | W_SWAPWEP))) set_twoweap(FALSE)` arm (worn.c), so every save/restore silently ended two-weapon combat
+
+- **Status:** shipped (cliffs head, 1 session from Grow #28).
+- **Symptom:** scen-ranged-Rogue-53851028 (Rogue, #twoweapon in segment 1, save, restore) step 310, F-attack on a nurse: C rolls twice, «You miss the nurse.  You hit the nurse.» (rnd(20)=15 misses the primary at the two-weapon skill penalty, then passive rn2(3), then rnd(20)=6 with the swap weapon); JS one attack, «You hit the nurse.» (to-hit 24 single-weapon, rn2(19) exercise next). RNG lost 687, screens 34.
+- **Measurement:** a temp find_roll_to_hit log showed JS `twoweap false`, tmp 24. A per-step watch on `u.twoweap` / `uswapwep` (jsmain.js hook, restored) had it true from step 138 of segment 1 and false at step 0 of segment 2; a temp log in try_restore_save showed the payload's `twoweap: true`, and an accessor on the restored `u.twoweap` named the write: set_twoweap ← setworn (do_wear.js `:687`) ← setuswapwep ← restWornFromInvent (save.js `:462`). save.js restored.
+- **C locus:** restore.c restgamestate `:525–736` (worn walk + setuwep `:687–699`); worn.c setworn `:72–145` (twoweap arm `:89–90`).
+- **JS was:** walk, then setuswapwep(swap) / setuqwep(quiver), then `setuwep(wep || u.uwep)`.
+- **Fix:** restWornFromInvent is C's sequence: the setworn walk, then `otmp = u.uwep; u.uwep = null; setuwep(otmp)`, then the pick-axe / grapple unweapon override. The unused setuswapwep / setuqwep / W_WEP / W_SWAPWEP / W_QUIVER imports are dropped (no other use in save.js).
+- **JS:** js/save.js restWornFromInvent `:443–465`.
+- **Callers:** unchanged (try_restore_save, the dorecover analogue).
+- **Verify:**
+  - `node scripts/verify.mjs --fn passive --full` → syntax · rule2 · verify passive: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach passive: 553 baseline-PASS (80 run), 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 843 baseline-PASS re-run in 150.1s, 0 regressed → REACH-OK; board 844/845.
+  - verify passive: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in the worn walk. restgamestate stays `by-design` (JSON payload in place of the Sfi_* reads).
+- **Ledger:** restgamestate by-design
+- **Next:** last cliffs row chest_trap (trap.c, scen-impaired-Wizard-53851010 step 113); after it the block is empty and the next slot grows.
+
 ## D-4235 — sit.c calls losehp six times, and C's losehp runs `urgent_pline("You die..."); done(DIED);` inline (hack.c `:4287–4288`). done() returns when the hero survives (lifesaving, or a declined wizard «Die?»), and the sit code goes on. JS losehp defers that done behind `_losehp_needs_done` and a JS-only gameover marker, so every caller must drain it with finish_losehp_done. throne_sit_effect's cases 1 and 3 and special_throne_effect's acid arm called raw losehp and never drained it: the electric chair's fatal shock ended the game silently, with no «A massive electric shock…--More--», no «You die...», no «Die?». sit.js's own drain helper, sit_losehp, also reported a survived death as fatal, so dosit's spike and lava arms returned before C's exercise(A_STR) / the rest of the arm
 
 - **Status:** shipped (cliffs head, 1 session from Grow #28).
