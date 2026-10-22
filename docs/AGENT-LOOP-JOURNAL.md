@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — Grow #28 @edb51ab20: fresh 53850000 ×160 156/160 (97.5 %) on arrival
+
+**Fresh:** RNG 99.5 %, screens 99.7 %; worst ranged 1/2 (RNG 92.1 %), impaired 1/2, symset 6/7 (RNG 81.1 %), extcmd 6/7; every other family 100 %. 4 folded (extcmd wiz_intrinsic s777, impaired chest_trap s113, ranged passive s310, symset throne_sit_effect s670), 156 archived, 0 reserved. The cliffs block was empty, so step 4 authored 160 more in those families (×40 @53855000–53858000): 158/160 PASS, the 2 failures both extcmd wiz_intrinsic (now a 3-session owner, `[41]` vs `[43]` timeout on the #wizintrinsic menu). Board 839/845. Gap to held-out 18.0 pts, inside the band; no calibration (Grow #27 did one).
+**Next:** the cliffs block holds 4 owners: wiz_intrinsic (3) heads it, then throne_sit_effect, passive, chest_trap.
+
 ## 2026-10-22 — D-4233 wintty.c process_menu_window keeps C's count state in every menu, PICK_NONE included: xwaitforspace accepts digits and ESC on every page (`:1533`), digits build a count (`:1563–1603`), and ESC while counting only stops the count and leaves the menu up (`:1604–1614`). The state resets at the top of each key pass (`:1395–1399`). js/invent.js select_menu_pick_none and doattributes' fullscreen loop and corner wait closed the menu on the ESC after a digit, so «^X 5 ESC» dismissed the attributes screen where C keeps it
 
 **C locus:** wintty.c process_menu_window `:1329–1768` (state `:1343–1345`, loop-top reset `:1395–1399`, resp `:1533`, digit arm `:1563–1603`, ESC arm `:1604–1614`); getline.c xwaitforspace `:230–257`.

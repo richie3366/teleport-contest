@@ -140,6 +140,10 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
+- [ ] `sit.c` throne_sit_effect — blocks 1/845 corpus sessions (first at step 670; RNG lost 20011, screens lost 216): C «A massive electric shock shoots through your body!--More--» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify throne_sit_effect` (scen-symset-Ranger-53850077). @edb51ab20 **[history: ledger: ported D-1084 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `uhitm.c` passive — blocks 1/845 corpus sessions (first at step 310; RNG lost 673, screens lost 33): C draws `rn2(3)=1` in passive, JS `rn2(19)=0` from exercise(attrib.js:238). Probe: `node scripts/hidden-proxy.mjs verify passive` (scen-ranged-Rogue-53851028). @edb51ab20 **[history: archived D-3256 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `wizcmds.c` wiz_intrinsic — blocks 3/845 corpus sessions (first at step 777; RNG lost 0, screens lost 11): toplines identical; first differing screen row 20: C «r - very fast                   [41]» vs JS «r - very fast                   [43]» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify wiz_intrinsic` (scen-extcmd-Barbarian-53850009, scen-extcmd-Barbarian-53855009, scen-extcmd-Rogue-53855005). @edb51ab20 **[history: archived D-1998 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `trap.c` chest_trap — blocks 1/845 corpus sessions (first at step 113; RNG lost 0, screens lost 1): toplines identical; first differing screen row 1: C «ball» vs JS «» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify chest_trap` (scen-impaired-Wizard-53851010). @edb51ab20 **[history: archived D-3437 — read that D-entry once; the arm this divergence names is still open]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)
