@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-22
 
-- [x] `wintty.c` process_menu_window PICK_NONE counting — ESC while `counting` only stops the count (`:1395–1399`, `:1601–1614`); js/invent.js doattributes (fullscreen loop and corner waitMenuKey) and select_menu_pick_none (`:3451`) finish the menu on ESC after a digit. Track counting/reset_count as C, or route doattributes' !final arm through select_menu_pick_none once that has it. Source: reviews/loop-unattended/3049-d3187d477-enlightenment-menu-page-keys.md **Addressed:** D-4233
+- [x] `wintty.c` process_menu_window PICK_NONE counting — ESC while `counting` only stops the count (`:1395–1399`, `:1601–1614`); js/invent.js doattributes (fullscreen loop and corner waitMenuKey) and select_menu_pick_none (`:3451`) finish the menu on ESC after a digit. Track counting/reset_count as C, or route doattributes' !final arm through select_menu_pick_none once that has it. Source: reviews/loop-unattended/3049-d3187d477-enlightenment-menu-page-keys.md **Addressed:** D-4233 `edb51ab20`
 
 
 - [x] Missing imports that throw `ReferenceError` when reached: js/potion.js is_ammo_dip `:3312` reads `P_BOW` (oil weapon-dip arm); js/pray.js offer_real_amulet `:2698/:2709/:2722` calls `done(ESCAPED|ASCENDED)` (offering the Amulet; C pray.c `:1526–1589`). Neither name is defined or imported in its file; both date from 6b304d1a2. One import line each, then a scan for the same family (`node --check` doesn't catch it). Source: reviews/loop-unattended/3061-19281aa6e-buzzmonst-eye-import.md **Addressed:** D-4232 `ed93d10d2`

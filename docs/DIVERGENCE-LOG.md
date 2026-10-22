@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-4234 — wizcmds.c wiz_intrinsic's default arm raises a timed property with `incr_itimeout(&u.uprops[p].intrinsic, amt)` (`:1072–1074`), and C has one storage per property (youprop.h:374 `#define HFast u.uprops[FAST].intrinsic`). JS keeps a flat H* mirror beside each slot, and wizcmds.js mirrored through its own PROP_FLAT table, a 14-entry clone of timeout.js TIMEOUT_FLAT that lacked FAST. «#wizintrinsic r» therefore raised only `uprops[FAST].intrinsic`, the flat `u.HFast` kept its old timeout, and nh_timeout's FAST arm, which reads `HFast | slot`, decremented the OR of the two: 22 | 52 = 54 → 53, so the timeout grew on the next turn
+
+- **Status:** shipped (cliffs head, 3 sessions from Grow #28).
+- **Symptom:** scen-extcmd-Barbarian-53850009 step 777, the #wizintrinsic menu: C «r - very fast [41]» vs JS «[43]» (RNG 9678/9678 matched); scen-extcmd-Barbarian-53855009 step 623 [49] vs [57]; scen-extcmd-Rogue-53855005 step 627 [42] vs [44].
+- **Measurement:** `geom-probe.mjs <id> --step N --keys '\u001b\u001b\u001b#wizintrinsic\n'` reads both sides' Fast timeout at step N: equal at 687 (52), C 51 vs JS 53 at 688. A temp `__WATCH` hook in jsmain.js with an accessor on `uprops[FAST].intrinsic` (jsmain.js restored) named the write 52 → 53 in set_HFast ← nh_timeout (timeout.js FAST arm) on the turn after «Timeout for very fast increased by 30.».
+- **C locus:** wizcmds.c wiz_intrinsic `:948–1096`, def_feedback `:1072–1079`; timeout.c nh_timeout case FAST `:725`; youprop.h `:374`.
+- **JS was:** js/wizcmds.js PROP_FLAT (SLEEPY … REGENERATION; no FAST, GLIB, DETECT_MONSTERS, PASSES_WALLS, MAGICAL_BREATHING, ACID_RES, STONE_RES, DISPLACED, STONED, SLIMED, VOMITING, SICK, STRANGLED) used by prop_old_timeout and incr_prop_timeout.
+- **Fix:** the clone is deleted; timeout.js exports TIMEOUT_FLAT and wizcmds.js prop_old_timeout / incr_prop_timeout read and write through it, so every timed property raised by the default arm keeps the slot and the flat equal, as every other writer (set_HFast, adjabil) does.
+- **JS:** js/timeout.js `:99` (export); js/wizcmds.js prop_old_timeout `:112`, incr_prop_timeout `:120`.
+- **Callers:** unchanged (wiz_intrinsic from the #wizintrinsic extcmd).
+- **Verify:**
+  - `node scripts/verify.mjs --fn wiz_intrinsic` → syntax ×2 · rule2 · verify wiz_intrinsic: 3 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach wiz_intrinsic: 13 baseline-PASS run, 13 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 839 baseline-PASS re-run in 151.9s, 0 regressed → REACH-OK.
+  - `node frozen/ps_test_runner.mjs sessions` → 44/44 (93+0.51/turn).
+  - verify wiz_intrinsic: 3 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in wiz_intrinsic. The dual storage itself stays: mhitu.js u_slow_down `:513` writes `u.HFast = 0` to the flat only (mhitu.c `HFast = 0L` clears the one field), and the FAST readers OR the two copies (timeout.js `:1262`, attrib.js `:1213`, do_wear.js `:1710`, potion.js `:620`, zap.js `:5101`). No failing session reaches them.
+- **Ledger:** wiz_intrinsic ported
+- **Next:** cliffs head throne_sit_effect (sit.c, scen-symset-Ranger-53850077 step 670), then passive, chest_trap.
+
 ## D-4233 — wintty.c process_menu_window keeps C's count state in every menu, PICK_NONE included: xwaitforspace accepts digits and ESC on every page (`:1533`), digits build a count (`:1563–1603`), and ESC while counting only stops the count and leaves the menu up (`:1604–1614`). The state resets at the top of each key pass (`:1395–1399`). js/invent.js select_menu_pick_none and doattributes' fullscreen loop and corner wait closed the menu on the ESC after a digit, so «^X 5 ESC» dismissed the attributes screen where C keeps it
 
 - **Status:** shipped (Must-fix row 3 from audit 3047–3070; review 3049).

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — D-4234 wizcmds.c wiz_intrinsic's default arm raises a timed property with `incr_itimeout(&u.uprops[p].intrinsic, amt)` (`:1072–1074`), and C has one storage per property (youprop.h:374 `#define HFast u.uprops[FAST].intrinsic`). JS keeps a flat H* mirror beside each slot, and wizcmds.js mirrored through its own PROP_FLAT table, a 14-entry clone of timeout.js TIMEOUT_FLAT that lacked FAST. «#wizintrinsic r» therefore raised only `uprops[FAST].intrinsic`, the flat `u.HFast` kept its old timeout, and nh_timeout's FAST arm, which reads `HFast | slot`, decremented the OR of the two: 22 | 52 = 54 → 53, so the timeout grew on the next turn
+
+**C locus:** wizcmds.c wiz_intrinsic `:948–1096`, def_feedback `:1072–1079`; timeout.c nh_timeout case FAST `:725`; youprop.h `:374`.
+**JS:** js/timeout.js `:99` (export); js/wizcmds.js prop_old_timeout `:112`, incr_prop_timeout `:120`.
+**Change:** the clone is deleted; timeout.js exports TIMEOUT_FLAT and wizcmds.js prop_old_timeout / incr_prop_timeout read and write through it, so every timed property raised by the default arm keeps the slot and the flat equal, as every other writer (set_HFast, adjabil) does.
+**Verify:** - `node scripts/verify.mjs --fn wiz_intrinsic` → syntax ×2 · rule2 · verify wiz_intrinsic: 3 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach wiz_intrinsic: 13 baseline-PASS run, 13 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+**Named:** none in wiz_intrinsic. The dual storage itself stays: mhitu.js u_slow_down `:513` writes `u.HFast = 0` to the flat only (mhitu.c `HFast = 0L` clears the one field), and the FAST readers OR the two copies (timeout.js `:1262`, attrib.js `:1213`, do_wear.js `:1710`, potion.js `:620`, zap.js `:5101`).
+**Next:** cliffs head throne_sit_effect (sit.c, scen-symset-Ranger-53850077 step 670), then passive, chest_trap.
 ## 2026-10-22 — Grow #28 @edb51ab20: fresh 53850000 ×160 156/160 (97.5 %) on arrival
 
 **Fresh:** RNG 99.5 %, screens 99.7 %; worst ranged 1/2 (RNG 92.1 %), impaired 1/2, symset 6/7 (RNG 81.1 %), extcmd 6/7; every other family 100 %. 4 folded (extcmd wiz_intrinsic s777, impaired chest_trap s113, ranged passive s310, symset throne_sit_effect s670), 156 archived, 0 reserved. The cliffs block was empty, so step 4 authored 160 more in those families (×40 @53855000–53858000): 158/160 PASS, the 2 failures both extcmd wiz_intrinsic (now a 3-session owner, `[41]` vs `[43]` timeout on the #wizintrinsic menu). Board 839/845. Gap to held-out 18.0 pts, inside the band; no calibration (Grow #27 did one).
