@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-4225 — monmove.c m_move re-reads the monster's origin at `not_special:` (`omx = mtmp->mx; omy = mtmp->my;`, `:1853–1854`), because gd_move / shk_move / pri_move may relocate it before returning -1 («treat as an ordinary monster»). JS took `const omx/omy` once at entry. A vault guard that gd_move `rloc`s (the hero teleported out carrying gold, `vault.c:990–998`) then ran the normal AI from its new square while JS kept the old one: the stale cell went into mtrack, so the next move's track-avoidance `rn2(4*(cnt-j))` was skipped, and remove_monster cleared the wrong cell
+
+- **Status:** shipped (cliffs head after D-4224).
+- **Symptom:** 20 corpus sessions (scen-vault-*, e.g. Monk-53456032 step 150, «The damaged vault's walls are magically restored!»): C `rn2(16)=13 @ m_move(monmove.c:2003)` (the mtrack check), JS `rn2(5) @ distfleeck`. 386k RNG draws and 4,987 screens lost.
+- **Measured / named:** a temporary log over Monk-53456032: guard m_id 419 at (51,15). gd_move `rloc`s it (stack m_move → gd_move vault.js:1193 → rloc → rloc_to, which clears the track), returns -1, the normal AI steps it to (24,14), and `mon_track_add(51,15)` records the pre-rloc origin. C records (24,15).
+- **C locus:** monmove.c m_move `:1720–2075` (omx init `:1731`, shk/gd/pri `:1806–1826` with -1 → MMOVE_NOTHING and fall through, not_special re-read `:1850–1854`, track add `:2062`); vault.c gd_move rloc arms `:916–924`, `:990–1004`.
+- **JS was:** js/monmove.js m_move `const omx = mtmp.mx; const omy = mtmp.my;` and no re-read at not_special.
+- **Fix:** `let omx/omy`, re-read after the not_special uswallow check, as in C. should_see, gettrack, nix/niy, remove_monster and mon_track_add all now see the post-relocation origin.
+- **JS:** js/monmove.js m_move `:2136–2137`, not_special `:2263–2271`.
+- **Callers:** unchanged (dochug → m_move).
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-vault-Monk-53456032.session.json` → PASS (RNG 70665/70665, Screen 561/561).
+  - `node scripts/verify.mjs --fn m_move,newsym,distfleeck --full` → `verify m_move: 18 PASS, 2 moved past, 0 unchanged, 0 worse → PROGRESS` · `verify distfleeck: 1 PASS` · `verify newsym: 0 PASS, 1 moved past, 6 unchanged` (another writer: both sides print the `<0,0>` impossible, the screen differs elsewhere) · reach m_move 80/694, distfleeck 80/713 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 735 baseline-PASS re-run in 141.2s, 0 regressed → REACH-OK. The m_move/monmove unit tests fail only where they already fail on HEAD (4).
+  - verify m_move: 18 PASS, 2 moved, 0 no-movement.
+- **Named omissions:** none in m_move.
+- **Ledger:** m_move ported
+- **Next:** the cliffs head (newsym `<0,0>` after the guard parks, gd_letknow, impossible, process_menu_window).
+
 ## D-4224 — vault.c invault asks the guard's question with getlin in a `do { … } while (!buf[0] && --trycount > 0)` loop (`:501–505`). tty getlin returns "\033" when the player presses ESC, which is non-empty, so the loop ends and the guard goes on («"I don't know you."» …). JS turned the ESC into an empty answer (`if (buf === '\x1b') buf = ''`) and asked «"Hello stranger, who are you?" -» again, up to five times, so every vault escort answered with ESC desynced at the question
 
 - **Status:** shipped (cliffs head after Grow #26's `vault` calibration family).

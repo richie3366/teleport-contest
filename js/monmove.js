@@ -2133,8 +2133,8 @@ export async function m_move(mtmp, after) {
     let can_tunnel;
     let can_open;
     let can_unlock;
-    const omx = mtmp.mx;
-    const omy = mtmp.my;
+    let omx = mtmp.mx;
+    let omy = mtmp.my;
 
     // C: mtrapped → mintrap before meating / dog_move (pets included)
     if (mtmp.mtrapped) {
@@ -2265,6 +2265,10 @@ export async function m_move(mtmp, after) {
     if (game.u?.uswallow && !mtmp.mflee && game.u?.ustuck !== mtmp) {
         return MMOVE_MOVED;
     }
+    // C `:1853–1854`: re-read the origin — gd_move / shk_move / pri_move
+    // returning -1 may have relocated the monster (gd_move rloc).
+    omx = mtmp.mx;
+    omy = mtmp.my;
 
     let ggx = mtmp.mux;
     let ggy = mtmp.muy;

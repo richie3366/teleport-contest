@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — D-4225 monmove.c m_move re-reads the monster's origin at `not_special:` (`omx = mtmp->mx; omy = mtmp->my;`, `:1853–1854`), because gd_move / shk_move / pri_move may relocate it before returning -1 («treat as an ordinary monster»). JS took `const omx/omy` once at entry. A vault guard that gd_move `rloc`s (the hero teleported out carrying gold, `vault.c:990–998`) then ran the normal AI from its new square while JS kept the old one: the stale cell went into mtrack, so the next move's track-avoidance `rn2(4*(cnt-j))` was skipped, and remove_monster cleared the wrong cell
+
+**C locus:** monmove.c m_move `:1720–2075` (omx init `:1731`, shk/gd/pri `:1806–1826` with -1 → MMOVE_NOTHING and fall through, not_special re-read `:1850–1854`, track add `:2062`); vault.c gd_move rloc arms `:916–924`, `:990–1004`.
+**JS:** js/monmove.js m_move `:2136–2137`, not_special `:2263–2271`.
+**Change:** `let omx/omy`, re-read after the not_special uswallow check, as in C. should_see, gettrack, nix/niy, remove_monster and mon_track_add all now see the post-relocation origin.
+**Verify:** - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-vault-Monk-53456032.session.json` → PASS (RNG 70665/70665, Screen 561/561).
+**Named:** none in m_move.
+**Next:** the cliffs head (newsym `<0,0>` after the guard parks, gd_letknow, impossible, process_menu_window).
 ## 2026-10-22 — D-4224 vault.c invault asks the guard's question with getlin in a `do { … } while (!buf[0] && --trycount > 0)` loop (`:501–505`). tty getlin returns "\033" when the player presses ESC, which is non-empty, so the loop ends and the guard goes on («"I don't know you."» …). JS turned the ESC into an empty answer (`if (buf === '\x1b') buf = ''`) and asked «"Hello stranger, who are you?" -» again, up to five times, so every vault escort answered with ESC desynced at the question
 
 **C locus:** vault.c invault `:380–620`, getlin loop `:499–505`; tty getlin ESC → "\033" (getline.c hooked_tty_getlin).
