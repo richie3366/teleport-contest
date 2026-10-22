@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-22
 
-- [x] `monmove.c` m_move — port the `if (mtmp->wormno) goto not_special;` gate (`:1769–1770`) after set_apparxy / the can_* setup and before the mtame dog_move arm: a segmented long worm (tame included) skips dog_move, covetous, shk/gd/pri, the mail daemon and tengu and runs the not_special AI. The ledger row m_move is not `ported` until then (D-4225 promoted it with "Named omissions: none"). Source: reviews/loop-unattended/3065-a90aa83e6-m-move-origin-reread.md **Addressed:** D-4231
+- [x] Missing imports that throw `ReferenceError` when reached: js/potion.js is_ammo_dip `:3312` reads `P_BOW` (oil weapon-dip arm); js/pray.js offer_real_amulet `:2698/:2709/:2722` calls `done(ESCAPED|ASCENDED)` (offering the Amulet; C pray.c `:1526–1589`). Neither name is defined or imported in its file; both date from 6b304d1a2. One import line each, then a scan for the same family (`node --check` doesn't catch it). Source: reviews/loop-unattended/3061-19281aa6e-buzzmonst-eye-import.md **Addressed:** D-4232
+
+
+- [x] `monmove.c` m_move — port the `if (mtmp->wormno) goto not_special;` gate (`:1769–1770`) after set_apparxy / the can_* setup and before the mtame dog_move arm: a segmented long worm (tame included) skips dog_move, covetous, shk/gd/pri, the mail daemon and tengu and runs the not_special AI. The ledger row m_move is not `ported` until then (D-4225 promoted it with "Named omissions: none"). Source: reviews/loop-unattended/3065-a90aa83e6-m-move-origin-reread.md **Addressed:** D-4231 `2405f46e7`
 
 
 - [x] `zap.c` buzzmonst — `ReferenceError: EYE is not defined` at js/zap.js:2543 (disintegration-resurrect «body reintegrates before your eyes» arm; `EYE` never imported from const.js) voids scen-worldtour-Wizard-53250033 (rngM 0/scrM 0, misattributed owner randomize_gem_colors step 0) @aabaf289f **Addressed:** D-4221 `19281aa6e`

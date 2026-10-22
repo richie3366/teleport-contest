@@ -33,7 +33,7 @@ import {
     FIRE_RES, ANTIMAGIC, LEVITATION, FLYING, WWALKING, SWIMMING,
     MAGICAL_BREATHING, I_SPECIAL, ECMD_TIME,
 } from './const.js';
-import { objects_at, sobj_at, mksobj, obj_extract_self, place_object } from './mkobj.js';
+import { objects_at, sobj_at, mksobj, obj_extract_self, place_object, delobj } from './mkobj.js';
 import { objectNames, SPBOOK_CLASS } from './objects.js';
 import {
     amorphous, throws_rocks, is_flyer, is_floater, is_swimmer, likes_lava,
@@ -74,7 +74,7 @@ import { uhis } from './roles.js';
  * seetrap + clamp_hole_destination (trap.js), mon_has_amulet + m_unleash
  * (apply.js), mhis (mondata.js), is_home_elemental (makemon.js). Local onscary
  * stays (D-1110). */
-import { seetrap, clamp_hole_destination, t_at, reset_utrap } from './trap.js';
+import { seetrap, clamp_hole_destination, t_at, reset_utrap, deltrap } from './trap.js';
 import { mon_has_amulet, m_unleash } from './apply.js';
 import { is_home_elemental } from './makemon.js';
 /* dog.js back-edge (same SCC; hoisted function, call-time use only). */

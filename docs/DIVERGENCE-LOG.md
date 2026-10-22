@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4232 — ten names that js/ reads but never defines or imports, each a ReferenceError the first time its arm runs: P_BOW in potion.js is_ammo_dip (potion.c potion_dip's oil weapon-dip arm, obj.h is_ammo), ESCAPED / ASCENDED in pray.js offer_real_amulet (pray.c `:1526–1589`, done() when the Amulet is offered), plus seven found by a no-undef scan of all 158 modules: TT_NONE in hack.js trapmove's switch, In_V_tower in muse.js find_defensive's dig arm, def_char_to_objclass in o_init.js doclassdisco, bigmonst in pickup.js in_container's statue check, deltrap / delobj in teleport.js migrate_to_level's pinned-boulder arm, and show_text_pages in wizcmds.js wiz_mon_diff / wiz_show_vision
+
+- **Status:** shipped (Must-fix row 2 from audit 3047–3070; review 3061).
+- **Symptom:** none on the board (774/774); every arm is unreached in the corpus. `node --check` cannot see these. trapmove's `case TT_NONE:` throws whenever utraptype matches none of the earlier cases.
+- **Measured / named:** ESLint 9's `Linter` with only `no-undef` (browser + node + es2024 globals), run from a scratch script outside the repo: 10 findings before the fix, 0 after. Every name is an existing export, and every edge but wizcmds.js → pager.js already exists (`imports.mjs --can`: the same shape as existing edges).
+- **C locus:** potion.c potion_dip (oil arm), obj.h is_ammo; pray.c offer_real_amulet `:1526–1589`; hack.c trapmove; muse.c find_defensive (dig, `In_V_tower`); o_init.c doclassdisco (`def_char_to_objclass`); pickup.c in_container (`bigmonst`); mon.c mon_leaving_level `:2724` fill_pit (inlined in JS migrate_to_level); wizcmds.c wiz_mon_diff / wiz_show_vision (display_nhwindow).
+- **JS was:** each name used, never defined or imported in its file.
+- **Fix:** each name is added to the file's existing import from its home module (const.js, objects.js, monsters.js, trap.js, mkobj.js). wizcmds.js gains `import { show_text_pages } from './pager.js'`. No function body changed.
+- **JS:** js/potion.js `:152`; js/pray.js `:149`; js/hack.js `:42`; js/muse.js `:91`; js/o_init.js `:58`; js/pickup.js `:118`; js/teleport.js `:36`, `:77`; js/wizcmds.js `:102`.
+- **Callers:** unchanged.
+- **Verify:**
+  - `node scripts/verify.mjs --fn dodip,offer_real_amulet,trapmove,find_defensive,doclassdisco,in_container,migrate_to_level,wiz_mon_diff,wiz_show_vision --full` → no corpus session blocked on any of them · reach trapmove 2/2, find_defensive 80/80 (of 108), smoke 24/24 for the rest, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 681 baseline-PASS re-run in 128.3s, 0 regressed → REACH-OK.
+  - verify trapmove: 0 PASS, 0 moved, 0 no-movement (no corpus row blocked; Must-fix from review).
+- **Named omissions:** none for the imports. migrate_to_level's boulder arm stays an inline extract + deltrap + delobj where C runs fill_pit → flooreffects("settle") with its messages. Its comment says the function is sync, which is stale (it is async now), but mklev.js `:2516` calls it without await, so moving to the async fill_pit is its own change.
+- **Ledger:** potion_dip ported; offer_real_amulet ported; trapmove ported; find_defensive ported; in_container ported; wiz_mon_diff ported; wiz_show_vision ported
+- **Next:** Must-fix row 3 (process_menu_window counting + ESC, review 3049).
+
 ## D-4231 — monmove.c m_move sends a long worm with segments straight to `not_special` (`if (mtmp->wormno) goto not_special;`, `:1769–1770`), after set_apparxy and the can_* setup and before the mtame arm. A segmented worm, tame or not, skips dog_move, the covetous arm, shk/gd/pri, the mail daemon and the tengu teleport, and moves with the normal AI. js/monmove.js had no counterpart, so a tame long worm (dog.c tamedog keeps `wormno`) moved through dog_move, with different RNG and a different target
 
 - **Status:** shipped (Must-fix row 1 from audit 3047–3070; review 3065).

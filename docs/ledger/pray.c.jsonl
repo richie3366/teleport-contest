@@ -18,7 +18,7 @@
 {"fn":"consume_offering","c":"1446-1475","status":"ported","js":["js/pray.js:consume_offering"],"at":"2026-10-03@bbe63333a"}
 {"fn":"offer_too_soon","c":"1480-1498","status":"ported","js":["js/pray.js:offer_too_soon"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"desecrate_altar","c":"1501-1523","status":"ported","js":["js/pray.js:desecrate_altar"],"d":["D-2309"],"at":"2026-10-03@bbe63333a"}
-{"fn":"offer_real_amulet","c":"1529-1589","status":"ported","js":["js/pray.js:offer_real_amulet"],"d":["D-2345"],"at":"2026-10-03@bbe63333a"}
+{"fn":"offer_real_amulet","c":"1529-1589","status":"ported","js":["js/pray.js:offer_real_amulet"],"d":["D-4232","D-2345"],"at":"2026-10-22@2405f46e7"}
 {"fn":"offer_negative_valued","c":"1592-1599","status":"ported","js":["js/pray.js:offer_negative_valued"],"at":"2026-10-03@bbe63333a"}
 {"fn":"offer_fake_amulet","c":"1602-1627","status":"ported","js":["js/pray.js:offer_fake_amulet"],"at":"2026-10-03@bbe63333a"}
 {"fn":"offer_different_alignment_altar","c":"1631-1695","status":"ported","js":["js/pray.js:offer_different_alignment_altar"],"d":["D-2343"],"at":"2026-10-03@bbe63333a"}

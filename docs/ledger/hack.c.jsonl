@@ -22,7 +22,7 @@
 {"fn":"test_move","c":"991-1255","status":"partial","js":["js/hack.js:test_move","js/cmd.js:travel_test_move"],"omit":"test_move stays partial only for the travel clone: cmd.js `travel_test_move` still code-names worm_cross / WAN_DIGGING-unknown / Known_wwalking-lwalking / WATERWALL-LAVAWALL, and the @862 travel-prompt residual remains.","d":["D-4107","D-4054","D-4036","D-3840","D-3839","D-3819"],"at":"2026-10-19@373c1973f"}
 {"fn":"findtravelpath","c":"1266-1523","status":"split","js":["js/cmd.js:findtravelpath_bfs","js/cmd.js:findtravelpath_travel","js/cmd.js:findtravelpath_guess","js/cmd.js:travelmap_ensure"],"d":["D-3856","D-3806","D-3198","D-2382","D-1971","D-1897"],"at":"2026-10-11@b25b42ecf"}
 {"fn":"is_valid_travelpt","c":"1526-1544","status":"ported","js":["js/cmd.js:is_valid_travelpt"],"d":["D-3404"],"at":"2026-10-04@e2943671c"}
-{"fn":"trapmove","c":"1550-1691","status":"ported","js":["js/hack.js:trapmove"],"d":["D-2029"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
+{"fn":"trapmove","c":"1550-1691","status":"ported","js":["js/hack.js:trapmove"],"d":["D-4232","D-2029"],"at":"2026-10-22@2405f46e7","note":"stale 2026-09-09"}
 {"fn":"u_rooted","c":"1694-1705","status":"ported","js":["js/cmd.js:u_rooted"],"d":["D-3404"],"at":"2026-10-04@e2943671c"}
 {"fn":"notice_mon","c":"1708-1732","status":"ported","js":["js/hack.js:notice_mon"],"at":"2026-10-03@bbe63333a"}
 {"fn":"notice_mons_cmp","c":"1735-1741","status":"ported","js":["js/hack.js:notice_mons_cmp"],"d":["D-3404","D-3105"],"at":"2026-10-04@e2943671c","note":"audited D-3404: whole vs C"}

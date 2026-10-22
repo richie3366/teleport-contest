@@ -122,7 +122,6 @@ review (and on the archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep'd C-wrongs here (not under Open).
 
-- [ ] Missing imports that throw `ReferenceError` when reached: js/potion.js is_ammo_dip `:3312` reads `P_BOW` (oil weapon-dip arm); js/pray.js offer_real_amulet `:2698/:2709/:2722` calls `done(ESCAPED|ASCENDED)` (offering the Amulet; C pray.c `:1526–1589`). Neither name is defined or imported in its file; both date from 6b304d1a2. One import line each, then a scan for the same family (`node --check` doesn't catch it). Source: reviews/loop-unattended/3061-19281aa6e-buzzmonst-eye-import.md
 - [ ] `wintty.c` process_menu_window PICK_NONE counting — ESC while `counting` only stops the count (`:1395–1399`, `:1601–1614`); js/invent.js doattributes (fullscreen loop and corner waitMenuKey) and select_menu_pick_none (`:3451`) finish the menu on ESC after a digit. Track counting/reset_count as C, or route doattributes' !final arm through select_menu_pick_none once that has it. Source: reviews/loop-unattended/3049-d3187d477-enlightenment-menu-page-keys.md
 
 A **JS throw** in any corpus session (`hidden-proxy status` owner

@@ -18,7 +18,7 @@
 {"fn":"wiz_fuzzer","c":"549-564","status":"ported","js":["js/wizcmds.js:wiz_fuzzer"],"d":["D-3142"],"at":"2026-09-30@6c8474344","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_polyself","c":"568-572","status":"ported","js":["js/polyself.js:wiz_polyself"],"d":["D-3408"],"at":"2026-10-04@c075fb861","note":"audit 2026-10-03: js/wizcmds.js:wiz_polyself is a thin re-export wrapper over this impl"}
 {"fn":"wiz_show_seenv","c":"576-617","status":"ported","js":["js/wizcmds.js:wiz_show_seenv"],"d":["D-3408","D-2779"],"at":"2026-10-04@c075fb861"}
-{"fn":"wiz_show_vision","c":"621-653","status":"ported","js":["js/wizcmds.js:wiz_show_vision"],"d":["D-3092","D-3085"],"at":"2026-09-29@da4f12710","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_show_vision","c":"621-653","status":"ported","js":["js/wizcmds.js:wiz_show_vision"],"d":["D-4232","D-3092","D-3085"],"at":"2026-10-22@2405f46e7","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_show_wmodes","c":"657-689","status":"ported","js":["js/wizcmds.js:wiz_show_wmodes"],"d":["D-3100"],"at":"2026-09-29@9798beecd","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_map_levltyp","c":"693-835","status":"ported","js":["js/wizcmds.js:wiz_map_levltyp"],"d":["D-3941","D-2516"],"at":"2026-10-14@73801e55a","note":"stale: js/wizcmds.js:1026 — whole C body live incl dsc chain + branch else; Sprintf/Strcat/eos via inline appends, strncmpi via inline /^the /i strip (omit outdated: eos/strncmpi exports now exist)"}
 {"fn":"wiz_levltyp_legend","c":"841-877","status":"ported","js":["js/wizcmds.js:wiz_levltyp_legend"],"d":["D-2516"],"at":"2026-10-01@c1c0d92f4","note":"stale: js/wizcmds.js:1141 whole body; caller js/cmd.js doterrain"}
@@ -41,7 +41,7 @@
 {"fn":"wiz_show_stats","c":"1616-1697","status":"ported","js":["js/wizcmds.js:wiz_show_stats"],"d":["D-3408","D-2975"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"wiz_display_macros","c":"1705-1778","status":"ported","js":["js/wizcmds.js:wiz_display_macros"],"d":["D-3408","D-3020"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"wiz_show_nhuuid","c":"1782-1786","status":"partial","js":["js/wizcmds.js:wiz_show_nhuuid"],"omit":"- `wiz_show_nhuuid`: svn.nhuuid value itself unported (platform get_nhuuid; JS prints game.svn?.nhuuid ?? ''; doc js/wizcmds.js:2273-2278).","d":["D-3430","D-3423","D-3410","D-3409","D-3408","D-3142"],"at":"2026-10-05@adae017b4","note":"audited D-3430: remaining omit cannot ship"}
-{"fn":"wiz_mon_diff","c":"1790-1828","status":"ported","js":["js/wizcmds.js:wiz_mon_diff"],"d":["D-3092","D-3085"],"at":"2026-09-29@da4f12710","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_mon_diff","c":"1790-1828","status":"ported","js":["js/wizcmds.js:wiz_mon_diff"],"d":["D-4232","D-3092","D-3085"],"at":"2026-10-22@2405f46e7","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_objprobs","c":"1832-1868","status":"ported","js":["js/wizcmds.js:wiz_objprobs"],"d":["D-3100"],"at":"2026-09-29@9798beecd","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_migrate_mons","c":"1873-1930","status":"ported","js":["js/wizcmds.js:wiz_migrate_mons"],"d":["D-3187","D-2779"],"at":"2026-10-01@c1c0d92f4"}
 {"fn":"wiz_custom","c":"1934-1984","status":"ported","js":["js/wizcmds.js:wiz_custom"],"d":["D-3408","D-3091","D-3089"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}

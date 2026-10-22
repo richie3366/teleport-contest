@@ -59,7 +59,7 @@
 {"fn":"dip_into","c":"2379-2405","status":"ported","js":["js/potion.js:dip_into"],"d":["D-1500"],"at":"2026-10-03@bbe63333a"}
 {"fn":"poof","c":"2408-2413","status":"ported","js":["js/potion.js:poof"],"d":["D-3402"],"at":"2026-10-04@e77f3975a","note":"audited D-3402: whole vs C"}
 {"fn":"dip_potion_explosion","c":"2417-2438","status":"ported","js":["js/potion.js:dip_potion_explosion"],"d":["D-3608"],"at":"2026-10-07@86d1e780b"}
-{"fn":"potion_dip","c":"2442-2792","status":"ported","js":["js/potion.js:potion_dip"],"d":["D-3881","D-1509","D-1499","D-1498","D-1497","D-1486"],"at":"2026-10-12@e2ad2a926"}
+{"fn":"potion_dip","c":"2442-2792","status":"ported","js":["js/potion.js:potion_dip"],"d":["D-4232","D-3881","D-1509","D-1499","D-1498","D-1497"],"at":"2026-10-22@2405f46e7"}
 {"fn":"mongrantswish","c":"2796-2812","status":"ported","js":["js/fountain.js:mongrantswish"],"at":"2026-10-03@bbe63333a"}
 {"fn":"djinni_from_bottle","c":"2815-2868","status":"ported","js":["js/potion.js:djinni_from_bottle"],"d":["D-1144"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: SetVoice sound-only omit"}
 {"fn":"split_mon","c":"2873-2915","status":"ported","js":["js/sit.js:split_mon"],"d":["D-1095"],"at":"2026-10-03@bbe63333a"}
