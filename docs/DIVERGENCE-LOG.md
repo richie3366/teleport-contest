@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4233 — wintty.c process_menu_window keeps C's count state in every menu, PICK_NONE included: xwaitforspace accepts digits and ESC on every page (`:1533`), digits build a count (`:1563–1603`), and ESC while counting only stops the count and leaves the menu up (`:1604–1614`). The state resets at the top of each key pass (`:1395–1399`). js/invent.js select_menu_pick_none and doattributes' fullscreen loop and corner wait closed the menu on the ESC after a digit, so «^X 5 ESC» dismissed the attributes screen where C keeps it
+
+- **Status:** shipped (Must-fix row 3 from audit 3047–3070; review 3049).
+- **Symptom:** none on the board (774/774). Two C recordings built from the seed8000 Tourist recipe show it. Probe 1 adds `^X 5 ESC ESC ^X 12 ESC sp sp ^X 0 ESC s` after the original keys: HEAD 27/31 screens, fixed 31/31 (RNG 3116/3116 both). Probe 2 is `ll #enhance 7 ESC ESC #overview 30 ESC ESC #enhance 4 CR s`: HEAD 39/41, fixed 41/41 (RNG 3009/3009 both). The recordings stay out of the corpus (no self-filed rows).
+- **C locus:** wintty.c process_menu_window `:1329–1768` (state `:1343–1345`, loop-top reset `:1395–1399`, resp `:1533`, digit arm `:1563–1603`, ESC arm `:1604–1614`); getline.c xwaitforspace `:230–257`.
+- **JS was:** select_menu_pick_none ended on any ESC and bell'd digits; doattributes' fullscreen loop broke on ESC; its corner waitMenuKey returned on ESC.
+- **Fix:** select_menu_pick_none carries counting / count / reset_count like the PICK_ONE/ANY loop at invent.js `:4271` (append_long_digit, digits consume the key, ESC while counting continues). doattributes gets one menu_count_key closure for both its paths: C's loop-top reset, then the digit and ESC-while-counting arms.
+- **JS:** js/invent.js select_menu_pick_none `:3404–3529`; doattributes menu_count_key `:8988–9015`, corner waitMenuKey `:9016–9024`, fullscreen key arm `:9035`.
+- **Callers:** unchanged (show_overview, display_minventory, display_cinventory, query_objlist PICK_NONE, options lists, spell / weapon skill lists, wizcmds; doattributes from rhack ^X / #attributes / enlightenment).
+- **Verify:**
+  - Probe 1 and probe 2 above (`node scripts/record-session.mjs` on the edited recipe, then `node frozen/ps_test_runner.mjs`): both FAIL on HEAD's invent.js and PASS after.
+  - `node scripts/verify.mjs --fn process_menu_window,doattributes --full` → no corpus session blocked on either · reach smoke 24/24 ×2, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 681 baseline-PASS re-run in 134.8s, 0 regressed → REACH-OK.
+  - verify process_menu_window: 0 PASS, 0 moved, 0 no-movement (no corpus row blocked; Must-fix from review).
+- **Named omissions:** process_menu_window's objsym slot is live only for menus whose entries carry `identifier`/`glyphinfo`, which is only display_pickinv so far.
+- **Ledger:** doattributes ported; process_menu_window partial
+- **Next:** Must-fix is empty and so is the cliffs block (774/774). The next port slot takes the coverage head (do_name.c docallcmd), or a grow runs (§10.19).
+
 ## D-4232 — ten names that js/ reads but never defines or imports, each a ReferenceError the first time its arm runs: P_BOW in potion.js is_ammo_dip (potion.c potion_dip's oil weapon-dip arm, obj.h is_ammo), ESCAPED / ASCENDED in pray.js offer_real_amulet (pray.c `:1526–1589`, done() when the Amulet is offered), plus seven found by a no-undef scan of all 158 modules: TT_NONE in hack.js trapmove's switch, In_V_tower in muse.js find_defensive's dig arm, def_char_to_objclass in o_init.js doclassdisco, bigmonst in pickup.js in_container's statue check, deltrap / delobj in teleport.js migrate_to_level's pinned-boulder arm, and show_text_pages in wizcmds.js wiz_mon_diff / wiz_show_vision
 
 - **Status:** shipped (Must-fix row 2 from audit 3047–3070; review 3061).

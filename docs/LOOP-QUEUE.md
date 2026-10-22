@@ -122,8 +122,6 @@ review (and on the archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep'd C-wrongs here (not under Open).
 
-- [ ] `wintty.c` process_menu_window PICK_NONE counting — ESC while `counting` only stops the count (`:1395–1399`, `:1601–1614`); js/invent.js doattributes (fullscreen loop and corner waitMenuKey) and select_menu_pick_none (`:3451`) finish the menu on ESC after a digit. Track counting/reset_count as C, or route doattributes' !final arm through select_menu_pick_none once that has it. Source: reviews/loop-unattended/3049-d3187d477-enlightenment-menu-page-keys.md
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are
