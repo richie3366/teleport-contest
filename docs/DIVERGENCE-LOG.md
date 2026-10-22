@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-4220 — do.c polymorph_sink tracks a `sym` per outcome and names it with `an(defsyms[sym].explanation)` (`:449–450`). For S_throne that explanation is the PCHAR2 desc «opulent throne» (defsym.h `:132`). JS hard-coded «throne», so a ring of polymorph dropped down a sink printed «The sink transforms into a throne!» where C prints «…into an opulent throne!»
+
+- **Status:** shipped (cliffs head after D-4219).
+- **Symptom:** scen-symset-Wizard-53050007 step 325: topline C «The sink transforms into an opulent throne!--More--», JS «…into a throne!--More--».
+- **C locus:** do.c polymorph_sink `:402–455` (sym `:406`, arms `:418–446`, message `:449–452`); defsym.h PCHAR2 `:75` (desc → explanation), S_throne `:132`.
+- **JS was:** js/fountain.js polymorph_sink kept a literal `expl` per arm. Its doc said «PCHAR strings (not PCHAR2 extra)», which is wrong: defsyms takes PCHAR2's desc.
+- **Fix:** C's `sym` (S_sink, then S_fountain / S_throne / S_altar / S_room / S_grave) named through uhitm.js defsym_explanation, the live defsyms[].explanation table, which already holds «opulent throne».
+- **JS:** js/fountain.js polymorph_sink `:1022–1071`, imports `:84–86`.
+- **Callers:** fountain.js dipsink POT_POLYMORPH, do.js dosinkring RIN_POLYMORPH (unchanged).
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-symset-Wizard-53050007.session.json` → PASS (RNG 8466/8466, Screen 506/506).
+  - `node scripts/verify.mjs --fn polymorph_sink --full` → `verify polymorph_sink: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach polymorph_sink 1/1 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - verify polymorph_sink: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none.
+- **Ledger:** polymorph_sink ported
+- **Next:** cliffs empty after Grow #24's three folds (D-4215..D-4220); the next slot is a grow.
+
 ## D-4219 — u_init.c u_init_misc zeroes the whole `struct you` (`:954` memset), so u.uconduct exists with every counter at 0 from the first turn (you.h `:147–167`). JS created u.uconduct lazily at about 20 sites, and do.c doaltarobj's `!gnostic++` arm (`:370–373`) was guarded by `if (uc)`. With no conduct broken yet, the object did not exist, so dropping 4 cram rations on a wished-for altar at turn 3 never livelogged «eschewed atheism, by dropping … on an altar», and #chronicle lacked C's «3: eschewed atheism…» row
 
 - **Status:** shipped (cliffs head after D-4218).

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — D-4220 do.c polymorph_sink tracks a `sym` per outcome and names it with `an(defsyms[sym].explanation)` (`:449–450`). For S_throne that explanation is the PCHAR2 desc «opulent throne» (defsym.h `:132`). JS hard-coded «throne», so a ring of polymorph dropped down a sink printed «The sink transforms into a throne!» where C prints «…into an opulent throne!»
+
+**C locus:** do.c polymorph_sink `:402–455` (sym `:406`, arms `:418–446`, message `:449–452`); defsym.h PCHAR2 `:75` (desc → explanation), S_throne `:132`.
+**JS:** js/fountain.js polymorph_sink `:1027–1069`, imports `:84–85`.
+**Change:** C's `sym` (S_sink, then S_fountain / S_throne / S_altar / S_room / S_grave) named through uhitm.js defsym_explanation, the live defsyms[].explanation table, which already holds «opulent throne».
+**Verify:** - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-symset-Wizard-53050007.session.json` → PASS (RNG 8466/8466, Screen 506/506).
+**Named:** none.
+**Next:** cliffs empty after Grow #24's three folds (D-4215..D-4220); the next slot is a grow.
 ## 2026-10-22 — D-4219 u_init.c u_init_misc zeroes the whole `struct you` (`:954` memset), so u.uconduct exists with every counter at 0 from the first turn (you.h `:147–167`). JS created u.uconduct lazily at about 20 sites, and do.c doaltarobj's `!gnostic++` arm (`:370–373`) was guarded by `if (uc)`. With no conduct broken yet, the object did not exist, so dropping 4 cram rations on a wished-for altar at turn 3 never livelogged «eschewed atheism, by dropping … on an altar», and #chronicle lacked C's «3: eschewed atheism…» row
 
 **C locus:** u_init.c u_init_misc `:944–1036` (memset `:954`); you.h struct u_conduct `:147–167`; do.c doaltarobj `:363–390` (conduct `:368–373`).
