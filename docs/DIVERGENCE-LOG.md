@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4235 — sit.c calls losehp six times, and C's losehp runs `urgent_pline("You die..."); done(DIED);` inline (hack.c `:4287–4288`). done() returns when the hero survives (lifesaving, or a declined wizard «Die?»), and the sit code goes on. JS losehp defers that done behind `_losehp_needs_done` and a JS-only gameover marker, so every caller must drain it with finish_losehp_done. throne_sit_effect's cases 1 and 3 and special_throne_effect's acid arm called raw losehp and never drained it: the electric chair's fatal shock ended the game silently, with no «A massive electric shock…--More--», no «You die...», no «Die?». sit.js's own drain helper, sit_losehp, also reported a survived death as fatal, so dosit's spike and lava arms returned before C's exercise(A_STR) / the rest of the arm
+
+- **Status:** shipped (cliffs head, 1 session from Grow #28).
+- **Symptom:** scen-symset-Ranger-53850077 step 670 (wizard, «#sit» on a wished throne, effect 3 chosen at the getlin): C «A massive electric shock shoots through your body!--More--», «You die...--More--», «Die? [yn] (n)», «OK, so you don't die.», then exercise and the vanish `rn2(3)` (sit.c `:225`). JS showed nothing after the getlin: losehp set gameover and the replay ended (RNG lost 20011, screens 216).
+- **Measurement:** a JS replay with accessors on `program_state.gameover` and `u.uhp` (temp `__WATCH` hook in jsmain.js, restored) named the write: uhp 14 → −1 and gameover true in losehp (hack.js `:1904`) ← throne_sit_effect case 3 (sit.js `:826`), with no finish_losehp_done after it.
+- **C locus:** sit.c throne_sit_effect `:38–234` (losehp `:71`, `:79`); special_throne_effect `:237–` (losehp `:339`); dosit `:400–565` (losehp `:476`, `:491`, `:548`); hack.c losehp `:4287–4288`.
+- **JS was:** cases 1 / 3 / acid arm: `await losehp(…)` with nothing after it. sit_losehp: `return true` whenever a death had been pending, survived or not.
+- **Fix:** sit_losehp drains the deferred done and returns `!!gameover`, the do.js / steed.js idiom (D-4230). All six C losehp sites now go through it; throne cases 1 and 3 and the acid arm return on a real death (C done does not return) and otherwise go on in C order: case 3 to exercise(A_CON), all three to the vanish roll.
+- **JS:** js/sit.js sit_losehp `:611–624`; special_throne_effect case 12 `:763–774`; throne_sit_effect case 1 `:817–820`, case 3 `:821–836`.
+- **Callers:** unchanged (dosit → throne_sit_effect; throne_sit_effect → special_throne_effect in Vlad's Tower).
+- **Verify:**
+  - `node scripts/verify.mjs --fn throne_sit_effect,dosit,special_throne_effect --full` → verify throne_sit_effect: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach throne_sit_effect 19/19, dosit 2/2, special_throne_effect smoke 24/24, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 842 baseline-PASS re-run in 148.6s, 0 regressed → REACH-OK; board 843/845.
+  - verify throne_sit_effect: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in the sit.c losehp sites. special_throne_effect has no ledger row (its C body opens `{` on the signature line, `:238`), so it is not in the Ledger bullet.
+- **Ledger:** throne_sit_effect ported; dosit ported
+- **Next:** cliffs head passive (uhitm.c, scen-ranged-Rogue-53851028 step 310), then chest_trap.
+
 ## D-4234 — wizcmds.c wiz_intrinsic's default arm raises a timed property with `incr_itimeout(&u.uprops[p].intrinsic, amt)` (`:1072–1074`), and C has one storage per property (youprop.h:374 `#define HFast u.uprops[FAST].intrinsic`). JS keeps a flat H* mirror beside each slot, and wizcmds.js mirrored through its own PROP_FLAT table, a 14-entry clone of timeout.js TIMEOUT_FLAT that lacked FAST. «#wizintrinsic r» therefore raised only `uprops[FAST].intrinsic`, the flat `u.HFast` kept its old timeout, and nh_timeout's FAST arm, which reads `HFast | slot`, decremented the OR of the two: 22 | 52 = 54 → 53, so the timeout grew on the next turn
 
 - **Status:** shipped (cliffs head, 3 sessions from Grow #28).
