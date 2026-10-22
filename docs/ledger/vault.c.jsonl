@@ -3,7 +3,7 @@
 {"fn":"clear_fcorr","c":"48-116","status":"ported","js":["js/vault.js:clear_fcorr"],"d":["D-4175","D-3429"],"at":"2026-10-20@ccc927c6c"}
 {"fn":"blackout","c":"123-141","status":"ported","js":["js/vault.js:blackout"],"at":"2026-10-03@bbe63333a"}
 {"fn":"restfakecorr","c":"144-151","status":"ported","js":["js/vault.js:restfakecorr"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: uses mongone_guard subset for full mongone"}
-{"fn":"parkguard","c":"155-171","status":"ported","js":["js/vault.js:parkguard"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
+{"fn":"parkguard","c":"155-171","status":"ported","js":["js/vault.js:parkguard"],"d":["D-4226","D-3429"],"at":"2026-10-22@a90aa83e6"}
 {"fn":"grddead","c":"175-189","status":"ported","js":["js/mhitm.js:grddead"],"at":"2026-10-03@bbe63333a"}
 {"fn":"in_fcorridor","c":"192-201","status":"ported","js":["js/vault.js:in_fcorridor"],"at":"2026-10-03@bbe63333a"}
 {"fn":"findgd","c":"204-234","status":"ported","js":["js/vault.js:findgd"],"at":"2026-10-03@bbe63333a"}

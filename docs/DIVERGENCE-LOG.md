@@ -1,5 +1,25 @@
 # Divergence log
 
+## D-4226 — vault.c parkguard places the guard at <0,0> only when `m_at(0, 0) != grd` (`:165–166`), and C `m_at` is the raw grid cell (rm.h:516). findgd's migrating arm (`:216–230`) relinks a guard that a level teleporter had sent off its own level back onto fmon with mx = my = 0 and calls parkguard, whose place_monster (steed.c `:931`) sets `mstate = MON_FLOOR`. JS read mon.js m_at, whose fmon coordinate scan found the relinked guard itself at <0,0>, so place_monster was skipped and MON_MIGRATING stayed set. movemon_singlemon's parked-guard arm (mon.c `:1233`, `!(mstate & MON_MIGRATING)`) then never ran gd_move, the guard was never mongone'd, and mdrop_special_objs's five `obj_resists(0,0)` rn2(100) draws were missing
+
+- **Status:** shipped (cliffs head after a rescore of the 19 failing board rows: 5 were stale after D-4224/D-4225 and now PASS, including the old head gd_letknow).
+- **Symptom:** scen-vault-Samurai-53456057 (reserve) step 562, after the `newsym <0,0>` impossible that both sides print: C `rn2(100)=59 @ obj_resists(zap.c:1469)` ×5, JS `rn2(5)=4 @ distfleeck`. 29k RNG draws and 321 screens lost (parked SYMPTOM row).
+- **Measured / named:** a temporary C recorder (fprintf in clear_fcorr, backtrace in obj_resists) showed the draws at turn 189 as obj_resists ← mdrop_special_objs ← mongone ← restfakecorr ← gd_move_cleanup ← gd_move ← movemon_singlemon, and C/JS clear_fcorr agreeing through turn 45. In JS the DL7 guard (gdlevel 7) took a level teleporter at turn 178 (mlevel_tele_trap → migrate_to_level, ledger 8). findgd brought it back, and at turn 189 it was on fmon at <0,0> with `mstate 4` (MON_MIGRATING), not on migrating_mons, so the parked arm skipped it.
+- **C locus:** vault.c parkguard `:155–172`, findgd `:204–232`; steed.c place_monster `:898–932`; rm.h m_at `:516`; mon.c movemon_singlemon parked arm `:1233–1239`, mongone `:3267–3283`; steal.c mdrop_special_objs `:852–872`.
+- **JS was:** js/vault.js parkguard `if (m_at(0, 0) !== grd) place_monster(grd, 0, 0);` with mon.js m_at (grid, then a live-fmon coordinate fallback).
+- **Fix:** parkguard tests worm.js level_mon_at(0, 0), the JS reading of C's `level.monsters[x][y]` that steed.js place_monster already uses. The relinked guard is placed and gets MON_FLOOR, as in C.
+- **JS:** js/vault.js parkguard; import `level_mon_at` from ./worm.js (`imports.mjs --can vault.js worm.js level_mon_at` → SAFE).
+- **Callers:** unchanged. gd_move_cleanup, grddead, findgd and the invault guard-away paths all call parkguard.
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-vault-Samurai-53456057.session.json` → PASS (RNG 70123/70123, Screen 887/887).
+  - `node scripts/verify.mjs --fn obj_resists,parkguard --full` → `verify obj_resists: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach obj_resists 80/670 PASS, parkguard smoke 24/24 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 754 baseline-PASS re-run in 153.5s, 0 regressed → REACH-OK.
+  - `hidden-proxy score --ids <19 failing>` before the port: 759/773; board after verify 760/773.
+  - verify obj_resists: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in parkguard. teleport.js relmon's `mon_m_at(0, 0) === mtmp` (mon.c relmon) has the same m_at reading but belongs to another C file; it is left alone.
+- **Ledger:** parkguard ported
+- **Next:** the cliffs head (newsym 7 rows, impossible 3, process_menu_window 2, invault 1). The block is now under 6 rows, so the next slot is a grow.
+
 ## D-4225 — monmove.c m_move re-reads the monster's origin at `not_special:` (`omx = mtmp->mx; omy = mtmp->my;`, `:1853–1854`), because gd_move / shk_move / pri_move may relocate it before returning -1 («treat as an ordinary monster»). JS took `const omx/omy` once at entry. A vault guard that gd_move `rloc`s (the hero teleported out carrying gold, `vault.c:990–998`) then ran the normal AI from its new square while JS kept the old one: the stale cell went into mtrack, so the next move's track-avoidance `rn2(4*(cnt-j))` was skipped, and remove_monster cleared the wrong cell
 
 - **Status:** shipped (cliffs head after D-4224).

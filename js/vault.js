@@ -63,6 +63,7 @@ import { is_fainted, reset_faint, carried } from './eat.js';
 import { Punished } from './pray.js';
 
 import { remove_monster, place_monster } from './steed.js';
+import { level_mon_at } from './worm.js';
 import { obfree, money_cnt } from './shk.js';
 import { monsterNames, mons, pmnames } from './monsters.js';
 import { m_canseeu, mhe, noit_mhis, is_silent } from './mondata.js';
@@ -248,7 +249,11 @@ async function restfakecorr(grd) {
 
 /**
  * C ref: vault.c parkguard — park escort at <0,0> until corridor clears.
- * Named omission: polearm.hitmon clear; level.monsters[][] grid.
+ * C `m_at(0, 0)` is the raw grid cell (rm.h:516), so the test reads
+ * level_mon_at, not mon.js m_at: its fmon coordinate scan would find a
+ * guard findgd just relinked from migrating_mons (mx = my = 0) and
+ * skip place_monster, leaving MON_MIGRATING set, so movemon never gave
+ * the parked guard its gd_move (D-4226).
  */
 export function parkguard(grd) {
     if (!grd) return;
@@ -261,8 +266,8 @@ export function parkguard(grd) {
         remove_monster(grd.mx, grd.my);
         newsym(grd.mx, grd.my);
     }
-    // C `:165–166` — off-map hold at <0,0>.
-    if (m_at(0, 0) !== grd) place_monster(grd, 0, 0);
+    // C `:165–166` — off-map hold at <0,0>; place_monster sets MON_FLOOR.
+    if (level_mon_at(0, 0) !== grd) place_monster(grd, 0, 0);
     // C `:170–171` — EGD og follows mx,my (0,0 via place_monster).
     const egrd = EGD(grd);
     if (egrd) {
