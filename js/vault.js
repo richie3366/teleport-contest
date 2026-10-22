@@ -782,7 +782,8 @@ export async function invault() {
                 ? 'You are required to supply your name. -'
                 : '"Hello stranger, who are you?" -',
         );
-        if (buf === '\x1b') buf = '';
+        // C `:504–505`: tty getlin returns "\033" on ESC — non-empty, so
+        // the loop ends and the ESC is the answer («I don't know you.»).
         buf = mungspaces(buf);
     } while (!buf && --trycount > 0);
 

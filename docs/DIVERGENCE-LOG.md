@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4224 — vault.c invault asks the guard's question with getlin in a `do { … } while (!buf[0] && --trycount > 0)` loop (`:501–505`). tty getlin returns "\033" when the player presses ESC, which is non-empty, so the loop ends and the guard goes on («"I don't know you."» …). JS turned the ESC into an empty answer (`if (buf === '\x1b') buf = ''`) and asked «"Hello stranger, who are you?" -» again, up to five times, so every vault escort answered with ESC desynced at the question
+
+- **Status:** shipped (cliffs head after Grow #26's `vault` calibration family).
+- **Symptom:** 35 corpus sessions (scen-vault-*, e.g. Priest-53456019 step 117, key ESC): topline C «"I don't know you."--More--», JS «"Hello stranger, who are you?" -». 1.08M RNG draws and 13,275 screens lost.
+- **C locus:** vault.c invault `:380–620`, getlin loop `:499–505`; tty getlin ESC → "\033" (getline.c hooked_tty_getlin).
+- **JS was:** js/vault.js invault's loop had a JS-only `if (buf === '\x1b') buf = '';` before mungspaces.
+- **Fix:** the line is removed; the loop is C's: mungspaces, then `!buf && --trycount > 0`.
+- **JS:** js/vault.js invault `:631–927`, getlin loop `:780–790`.
+- **Callers:** unchanged (moveloop → invault).
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-vault-Priest-53456019.session.json` → PASS (RNG 50144/50144, Screen 423/423).
+  - `node scripts/verify.mjs --fn invault --full` → `verify invault: 19 PASS, 15 moved past, 1 unchanged, 0 worse → PROGRESS` · reach REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 716 baseline-PASS re-run in 140.7s, 0 regressed → REACH-OK. The 6 vault unit tests pass.
+  - verify invault: 19 PASS, 15 moved, 1 no-movement.
+- **Named omissions:** none in invault. The 1 unchanged session (scen-vault-Tourist-53456001 step 387) is another writer: C ends the counted search («You stop searching.») before invault's «Suddenly one of the Vault's guards enters!», and JS prints them in the opposite order. That is the moveloop interrupt order, not invault.
+- **Ledger:** invault ported
+- **Next:** the cliffs head (m_move / newsym / impossible / gd_letknow from the vault family).
+
 ## D-4223 — dothrow.c hero_breaks decides whether the hero sees a breakage from youprop.h Blind ≡ (HBlinded || EBlinded) && !BBlinded (`:2424`). js/dothrow.js gated its sight checks on a local Blind() clone that read the phantom fields u.Blind / u.ublind, so a blindfolded, levitating hero whose wished-for potion slipped to the floor read «A potion shatters!» where C prints «You hear something shatter!». Clearing the mirror family in the same file also fixes throw_obj's multishot gate (phantom u.Confusion / u.Stunned / game.Fumbling, on an RNG path) and folds three divergent Deaf copies into one C-exact Deaf
 
 - **Status:** shipped (cliffs head after D-4222).

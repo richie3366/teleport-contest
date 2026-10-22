@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — D-4224 vault.c invault asks the guard's question with getlin in a `do { … } while (!buf[0] && --trycount > 0)` loop (`:501–505`). tty getlin returns "\033" when the player presses ESC, which is non-empty, so the loop ends and the guard goes on («"I don't know you."» …). JS turned the ESC into an empty answer (`if (buf === '\x1b') buf = ''`) and asked «"Hello stranger, who are you?" -» again, up to five times, so every vault escort answered with ESC desynced at the question
+
+**C locus:** vault.c invault `:380–620`, getlin loop `:499–505`; tty getlin ESC → "\033" (getline.c hooked_tty_getlin).
+**JS:** js/vault.js invault `:631–`, getlin loop `:780–790`.
+**Change:** the line is removed; the loop is C's: mungspaces, then `!buf && --trycount > 0`.
+**Verify:** - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-vault-Priest-53456019.session.json` → PASS (RNG 50144/50144, Screen 423/423).
+**Named:** none in invault. The 1 unchanged session (scen-vault-Tourist-53456001 step 387) is another writer: C ends the counted search («You stop searching.») before invault's «Suddenly one of the Vault's guards enters!», and JS prints them in the opposite order.
+**Next:** the cliffs head (m_move / newsym / impossible / gd_letknow from the vault family).
 ## 2026-10-22 — Grow #26 @3b74ec586: fresh 53450000 ×160 160/160 (100.0 %) on arrival; calibration family `vault`
 
 **Fresh:** RNG 100.0 %, screens 100.0 %, every family 100 %; nothing folded. Gap to held-out 20.5 pts > 20: added wave-3 `vault` (public seed0012 vault escort): probe 8/20 (40 %), +80 @53456000 35/80. 57 failing folded under 6 owners (invault 35, m_move 12, newsym 4, gd_letknow 3, impossible 2, domonnoise 1); 42 to reserve. Board 716/773.
