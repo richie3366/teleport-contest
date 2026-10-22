@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — D-4222 polyself.c poly_gender returns 2 (no gender) while the hero is polymorphed into a neuter or non-humanoid form (`:2149–2157`), and apply.c beautiful picks «handsome»/«amiable» for anything but 1 (`:1003–1011`). JS beautiful called a local poly_gender clone that returned flags.female only, so a polymorphed female hero refusing to rename herself (#name on her own square) read «This beautiful creature is called wizard…» where C says «This handsome creature…». Three more clones (detect.js, dokick.js, sounds.js) had the same gap, sounds.js's on an RNG path
+
+**C locus:** polyself.c poly_gender `:2149–2157`; apply.c beautiful `:997–1013`; do_name.c do_mgivenname `:222–223`. Other poly_gender callers whose JS used clones: detect.c (the «babe»/«dude» crystal-ball line), dokick.c (gend), sounds.c (domonnoise seduction swval, rn2(3)).
+**JS:** js/apply.js beautiful `:670–680`, import `:142`; js/detect.js import `:79` (use `:2710`); js/dokick.js import `:136` (use `:738`); js/sounds.js import `:50` (uses `:1685–1687`).
+**Change:** the four clones are deleted, and each file imports the live polyself.js poly_gender (all four already import polyself.js). beautiful itself was already C-shaped.
+**Verify:** - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-extcmd-Healer-53250042.session.json` → PASS (RNG 12921/12921, Screen 1113/1113).
+**Named:** none.
+**Next:** the cliffs head (hornoplenty).
 ## 2026-10-22 — D-4221 zap.c dobuzz's Rider arm (the `buzzmonst:` label, a closure in JS dobuzz), when a death ray from a breath disintegrates a Rider, prints «%s body reintegrates before your %s!» with body_part(EYE) (`:4887–4897`). JS used `EYE` without importing it from const.js, so the first Rider hit by a breathed death ray threw `ReferenceError: EYE is not defined` and voided the rest of the session
 
 **C locus:** zap.c dobuzz `:4780–5037`, Rider / ZT_BREATH(ZT_DEATH) arm `:4887–4899` (body_part(EYE) `:4895–4896`); you.h/const EYE.

@@ -140,8 +140,7 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `do_name.c` do_mgivenname — blocks 1/716 corpus sessions (first at step 1103; RNG lost 0, screens lost 1): C «This handsome creature is called wizard and cannot be rename» vs JS «This beautiful creature is called wizard and cannot be renam». Probe: `node scripts/hidden-proxy.mjs verify do_mgivenname` (scen-extcmd-Healer-53250042). @a1646cc4c **[history: ledger: ported D-1638 — read that D-entry once; the arm this divergence names is still open]**
-- [ ] `mkobj.c` hornoplenty — blocks 1/716 corpus sessions (first at step 900; RNG lost 0, screens lost 1): C «Oops! The potion drops to the floor! You hear something shat» vs JS «Oops! The potion drops to the floor! A potion shatters!--Mor». Probe: `node scripts/hidden-proxy.mjs verify hornoplenty` (scen-sweep-Rogue-53250089). @a1646cc4c **[history: archived D-2156 — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `mkobj.c` hornoplenty — blocks 1/716 corpus sessions (first at step 900; RNG lost 0, screens lost 1): C «Oops! The potion drops to the floor! You hear something shat» vs JS «Oops! The potion drops to the floor! A potion shatters!--Mor». Probe: `node scripts/hidden-proxy.mjs verify hornoplenty` (scen-sweep-Rogue-53250089). @19281aa6e **[history: archived D-2156 — read that D-entry once; the arm this divergence names is still open]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)

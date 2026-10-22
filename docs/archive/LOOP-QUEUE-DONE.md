@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-10-22
 
-- [x] `zap.c` buzzmonst — `ReferenceError: EYE is not defined` at js/zap.js:2543 (disintegration-resurrect «body reintegrates before your eyes» arm; `EYE` never imported from const.js) voids scen-worldtour-Wizard-53250033 (rngM 0/scrM 0, misattributed owner randomize_gem_colors step 0) @aabaf289f **Addressed:** D-4221
+- [x] `zap.c` buzzmonst — `ReferenceError: EYE is not defined` at js/zap.js:2543 (disintegration-resurrect «body reintegrates before your eyes» arm; `EYE` never imported from const.js) voids scen-worldtour-Wizard-53250033 (rngM 0/scrM 0, misattributed owner randomize_gem_colors step 0) @aabaf289f **Addressed:** D-4221 `19281aa6e`
 
 ## 2026-10-20
 

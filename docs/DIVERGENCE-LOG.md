@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4222 — polyself.c poly_gender returns 2 (no gender) while the hero is polymorphed into a neuter or non-humanoid form (`:2149–2157`), and apply.c beautiful picks «handsome»/«amiable» for anything but 1 (`:1003–1011`). JS beautiful called a local poly_gender clone that returned flags.female only, so a polymorphed female hero refusing to rename herself (#name on her own square) read «This beautiful creature is called wizard…» where C says «This handsome creature…». Three more clones (detect.js, dokick.js, sounds.js) had the same gap, sounds.js's on an RNG path
+
+- **Status:** shipped (cliffs head after D-4221).
+- **Symptom:** scen-extcmd-Healer-53250042 step 1103 (`#name` at the hero's square, polymorphed): topline C «This handsome creature is called wizard and cannot be renamed.», JS «This beautiful creature…».
+- **C locus:** polyself.c poly_gender `:2149–2157`; apply.c beautiful `:997–1013`; do_name.c do_mgivenname `:222–223`. Other poly_gender callers whose JS used clones: detect.c (the «babe»/«dude» crystal-ball line), dokick.c (gend), sounds.c (domonnoise seduction swval, rn2(3)).
+- **JS was:** js/apply.js, js/detect.js, js/dokick.js and js/sounds.js each had a local `function poly_gender() { return flags.female ? 1 : 0 }` (the neuter/non-humanoid → 2 arm named as an omission or «deferred»). js/polyself.js already exported the C-exact body.
+- **Fix:** the four clones are deleted, and each file imports the live polyself.js poly_gender (all four already import polyself.js). beautiful itself was already C-shaped.
+- **JS:** js/apply.js beautiful `:670–680`, import `:142`; js/detect.js import `:79` (use `:2710`); js/dokick.js import `:136` (use `:738`); js/sounds.js import `:50` (uses `:1685–1687`).
+- **Callers:** unchanged call sites; each now reaches the live export.
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-extcmd-Healer-53250042.session.json` → PASS (RNG 12921/12921, Screen 1113/1113).
+  - `node scripts/verify.mjs --fn do_mgivenname,beautiful,poly_gender --full` → `verify do_mgivenname: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach REACH-OK ×3 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 714 baseline-PASS re-run in 136.2s, 0 regressed → REACH-OK.
+  - verify do_mgivenname: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none.
+- **Ledger:** beautiful ported; poly_gender ported
+- **Next:** the cliffs head (hornoplenty).
+
 ## D-4221 — zap.c dobuzz's Rider arm (the `buzzmonst:` label, a closure in JS dobuzz), when a death ray from a breath disintegrates a Rider, prints «%s body reintegrates before your %s!» with body_part(EYE) (`:4887–4897`). JS used `EYE` without importing it from const.js, so the first Rider hit by a breathed death ray threw `ReferenceError: EYE is not defined` and voided the rest of the session
 
 - **Status:** shipped (Must-fix from Grow #25, §10.14 JS throw).
