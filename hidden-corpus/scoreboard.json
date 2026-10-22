@@ -1,6 +1,6 @@
 {
- "commit": "fbbb271b4",
- "at": "2026-10-22T08:51:42.468Z",
+ "commit": "a1646cc4c",
+ "at": "2026-10-22T08:56:02.507Z",
  "full": false,
  "fullCommit": "1b2b2c8e3",
  "fullAt": "2026-10-21T14:05:06.214Z",
@@ -11383,20 +11383,20 @@
   },
   "scen-worldtour-Wizard-53250033": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 0,
+   "passed": true,
+   "rngM": 25253,
    "rngT": 25253,
-   "scrM": 0,
+   "scrM": 246,
    "scrT": 246,
-   "kind": "rng",
-   "step": 0,
+   "kind": null,
+   "step": null,
    "steps": 246,
-   "owner": "randomize_gem_colors",
-   "loc": "o_init.c:89",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Hello wizard, welcome to NetHack! You are a neutral female human Wizard.",
+   "cTopline": "",
    "jsTopline": "",
-   "error": "ReferenceError: EYE is not defined |     at buzzmonst (file:///Users/raphaelhervier/dev/teleport-contest-revisited/js/zap.js:2543:72) |     at async dobuzz (fil"
+   "error": null
   },
   "scen-worldtour-Wizard-578116": {
    "src": "corpus",
@@ -12180,6 +12180,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "tieredAt": "2026-10-22T08:51:42.607Z"
+ }
 }

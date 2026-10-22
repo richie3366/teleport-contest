@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-10-22
+
+- [x] `zap.c` buzzmonst — `ReferenceError: EYE is not defined` at js/zap.js:2543 (disintegration-resurrect «body reintegrates before your eyes» arm; `EYE` never imported from const.js) voids scen-worldtour-Wizard-53250033 (rngM 0/scrM 0, misattributed owner randomize_gem_colors step 0) @aabaf289f **Addressed:** D-4221
+
 ## 2026-10-20
 
 - [x] **F3 shared load_special epilogue.** C runs one epilogue for every level (`sp_lev.c :6464–6494`: link_doors_rooms → remove_boundary_syms → ensure_way_out? → map_cleanup → wallification → flip_level_rnd → count_level_features → solidify? → fixup_special → premap?); JS inlines it per loader (link_doors_rooms 16/126, remove_boundary_syms 15/126, map_cleanup 17/126, flip 93/126). Non-RNG, so replay cannot see it. Deliverable: port it once in `load_special_proto` in C order (flags from the coder), delete the per-loader copies, refresh the stale loader "Named omissions" headers. Verify: `level-audit-static.py` section 4 → 126/126, `level-audit.mjs` still 107 RNG-exact / no new exception, full sweep. Source: reviews/level-audit/2026-10-20-special-levels.md F3. **Addressed:** D-4182 `8f2d00eae`

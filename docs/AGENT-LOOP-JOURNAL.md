@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — D-4221 zap.c dobuzz's Rider arm (the `buzzmonst:` label, a closure in JS dobuzz), when a death ray from a breath disintegrates a Rider, prints «%s body reintegrates before your %s!» with body_part(EYE) (`:4887–4897`). JS used `EYE` without importing it from const.js, so the first Rider hit by a breathed death ray threw `ReferenceError: EYE is not defined` and voided the rest of the session
+
+**C locus:** zap.c dobuzz `:4780–5037`, Rider / ZT_BREATH(ZT_DEATH) arm `:4887–4899` (body_part(EYE) `:4895–4896`); you.h/const EYE.
+**JS:** js/zap.js import `:389`.
+**Change:** `EYE` added to zap.js's const.js import (const.js `:582`, same edge). The arm is otherwise C-shaped.
+**Verify:** - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-worldtour-Wizard-53250033.session.json` → PASS (RNG 25253/25253, Screen 246/246).
+**Named:** none. D-4220's Verify gains its sweep line here (run after its commit: 713 re-run, 0 regressed).
+**Next:** the cliffs head (do_mgivenname / hornoplenty).
 ## 2026-10-22 — Grow #25 @fbbb271b4: fresh 53250000 ×160 157/160 (98.1 %) on arrival
 
 **Fresh:** RNG 99.4 %, screens 99.7 %; extcmd 7/8, sweep 8/9, worldtour 8/9, every other family 100 %. Gap to held-out 18.6 pts: no calibration family.

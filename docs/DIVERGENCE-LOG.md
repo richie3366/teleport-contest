@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4221 — zap.c dobuzz's Rider arm (the `buzzmonst:` label, a closure in JS dobuzz), when a death ray from a breath disintegrates a Rider, prints «%s body reintegrates before your %s!» with body_part(EYE) (`:4887–4897`). JS used `EYE` without importing it from const.js, so the first Rider hit by a breathed death ray threw `ReferenceError: EYE is not defined` and voided the rest of the session
+
+- **Status:** shipped (Must-fix from Grow #25, §10.14 JS throw).
+- **Symptom:** scen-worldtour-Wizard-53250033 (wizard mode): ps_test_runner `error: "EYE is not defined"` at js/zap.js:2543 buzzmonst ← dobuzz ← mthrowu.js breamm. rngM 0/25253, scrM 0/246; the board misattributed the owner to randomize_gem_colors at step 0.
+- **C locus:** zap.c dobuzz `:4780–5037`, Rider / ZT_BREATH(ZT_DEATH) arm `:4887–4899` (body_part(EYE) `:4895–4896`); you.h/const EYE.
+- **JS was:** js/zap.js buzzmonst `:2541–2543` read `EYE`, which was missing from the const.js import list.
+- **Fix:** `EYE` added to zap.js's const.js import (const.js `:582`, same edge). The arm is otherwise C-shaped.
+- **JS:** js/zap.js import `:389`.
+- **Callers:** unchanged.
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-worldtour-Wizard-53250033.session.json` → PASS (RNG 25253/25253, Screen 246/246).
+  - `node scripts/verify.mjs --fn buzzmonst,randomize_gem_colors --full` → `verify randomize_gem_colors: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach REACH-OK ×2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 713 baseline-PASS re-run in 141.0s, 0 regressed → REACH-OK.
+  - verify randomize_gem_colors: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none. D-4220's Verify gains its sweep line here (run after its commit: 713 re-run, 0 regressed).
+- **Ledger:** dobuzz ported
+- **Next:** the cliffs head (do_mgivenname / hornoplenty).
+
 ## D-4220 — do.c polymorph_sink tracks a `sym` per outcome and names it with `an(defsyms[sym].explanation)` (`:449–450`). For S_throne that explanation is the PCHAR2 desc «opulent throne» (defsym.h `:132`). JS hard-coded «throne», so a ring of polymorph dropped down a sink printed «The sink transforms into a throne!» where C prints «…into an opulent throne!»
 
 - **Status:** shipped (cliffs head after D-4219).
@@ -12,6 +30,7 @@
 - **Verify:**
   - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-symset-Wizard-53050007.session.json` → PASS (RNG 8466/8466, Screen 506/506).
   - `node scripts/verify.mjs --fn polymorph_sink --full` → `verify polymorph_sink: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach polymorph_sink 1/1 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` (run on fbbb271b4 after the commit) → 713 baseline-PASS re-run in 138.5s, 0 regressed → REACH-OK.
   - verify polymorph_sink: 1 PASS, 0 moved, 0 no-movement.
 - **Named omissions:** none.
 - **Ledger:** polymorph_sink ported
