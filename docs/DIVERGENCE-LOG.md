@@ -34,6 +34,7 @@
   - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 772 baseline-PASS re-run in 148.8s, 0 regressed → REACH-OK.
   - verify invault: 1 PASS, 0 moved, 0 no-movement.
 - **Named omissions:** none in invault's guard-arrival arm.
+- **Audit correction (review 3069, 2026-10-22):** the mechanism above is wrong. PM_GUARD is M2_PEACEFUL (monsters.h:2724), so the guard is already peaceful out of makemon. The stop came from dochugw's `Hallucination ||` arm: the Tourist was hallucinating («Hallu» on the status line). The fix is unchanged: C runs makemon's tail inside makemon. The vault.js:695–698 comment still states the wrong reason (debt for the next port that touches vault.js).
 - **Ledger:** invault ported
 - **Next:** the cliffs block is empty (active board 773/773). The next slot is a grow (§10.19). The reserve tier (42 rows) is unscored since Grow #26; `score --ids <failing reserve ids>` first.
 

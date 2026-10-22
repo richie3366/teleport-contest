@@ -19,7 +19,7 @@ Parks: `LOOP-QUEUE.md` **Parked**. Live hypotheses only:
 - **Recorder bugs are ported (human 2026-10-20, D-4164):** port C as recorded, bugs included; patch-006 `nomux_out[6144]` overflow lives in js/nomux_capture.js (garbage cursors + OSC leak). Open: >7472-byte overflow into wintty.c clipping statics (Monk-49956033 s89).
 - **welcome/Enhanced-blank (D-3944 MEASURED):** C emits 56 UTF-8 glyphs @50059006 s0, nomux records 0 hi-bytes — writer = g_pututf8 hook (contest tooling). JS arm ID'd, moveless until re-record — do not port/replicate. Kin: dupe-rc s0 PARKED D-4016 (18 symset, tmp path).
 - **do_screen_description travel (D-3962 FIXED):** shipped C0 raw-store + grid-drop + pile-inverse gate — 5/5 moved. Do not re-chase.
-- **D-3998 class:** `do_loot_cont`/`doeat_nonfood` skip post-done C on survived-fatal (ledger partial).
+- **D-3998 class (survived-fatal):** `do_loot_cont`/`doeat_nonfood` skip post-done C (ledger partial); D-4188 goto_level and D-4230 dismount_steed fixed. 10 `await finish_losehp_done(); return;` sites remain (attrib, eat, hack ×2, mcastu, monmove, mthrowu, pickup, region, sit); check each against C.
 
 ## Don't re-check (≤15)
 

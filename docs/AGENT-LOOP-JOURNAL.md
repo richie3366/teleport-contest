@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — Audit 3047–3070 @be3c60cd0: 24 reviews (16 A / 6 D / 2 Q), 3 Must-fix; corpus 774/774
+
+**Score:** public 44/44 (RNG 792,838/792,838, screens 11,405/11,405, `92+0.50/turn`); full rescore 774/774, 0 PASS→FAIL, archive 93 → 669 active fortress; held-out 35/44, 11,079 (judge 07:15Z, before this window). Ledger sample 5/5 seeded `ported` rows match C; detect_obj_traps note fixed.
+**Must-fix:** m_move wormno gate (3065, D-4225 overclaimed `ported`); P_BOW / ESCAPED / ASCENDED unimported (3061 family, latent ReferenceErrors); process_menu_window count+ESC (3049 raised to QUALITY-RISK: off-queue lead, no movement). D-4229's stated mechanism corrected (guard is M2_PEACEFUL; Hallucination arm).
+**Next:** the first Must-fix row.
+
 ## 2026-10-22 — D-4230 steed.c dismount_steed's thrown/knocked/fell arm calls `losehp(rn1(10, 10), "riding accident")` and then, unconditionally, `set_wounded_legs(BOTH_SIDES, HWounded_legs + rn1(5, 5))` (`:610–616`). When the hero dies and declines wizard mode's «Die?», done() → savelife returns and C goes on: the rn1(5, 5) draw, the landing and the rest of the dismount, with savelife's «You survived that attempt on your life.» left as nomovemsg for the next turn. js/steed.js ran finish_losehp_done() and then `return`ed even when the hero survived, so the leg draw was missing and the turn ended early
 
 **C locus:** steed.c dismount_steed `:567–760` (thrown/knocked/fell arm `:602–617`, losehp `:612`, set_wounded_legs `:614`); end.c savelife `:695–745` (nomovemsg, multi = -1).

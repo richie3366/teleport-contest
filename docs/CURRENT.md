@@ -22,20 +22,20 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-10-21** — full `sessions` on `1b2b2c8e3`
-(audit **3038–3046**). Fortress **44/44** (aggregates below).
+Score last measured: **2026-10-22** — full `sessions` on `be3c60cd0`
+(audit **3047–3070**). Fortress **44/44** (aggregates below).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge 2026-10-21 13:09Z)** | **35 / 44**, 11,079 / 11,265 pts, RNG **99.5 %**, rngSteps 99.2 %, screens **98.3 %** (+230 pts vs 07:23Z; rank 2, leader 11,264 at 43/44) |
+| **Held-out (judge 2026-10-22 07:15Z)** | **35 / 44**, 11,079 / 11,265 pts, RNG **99.5 %**, rngSteps 99.2 %, screens **98.3 %** (unchanged since 2026-10-21 13:09Z; rank 2, leader 11,264 at 43/44; the D-4219..D-4230 window is not scored yet) |
 | **Fresh cohort (§10.20, scored on arrival)** | 53650000 ×160 (Grow #27): **160/160 (100.0 %)**, RNG 100.0 %, screens 100.0 % |
-| **Corpus board (worked, regression fortress)** | full rescore 2026-10-21 (audit 3038–3046 @`1b2b2c8e3`): committed board **680/714** (671 at the last audit + 9 window flips claimed by D-4198..D-4206) → rescore **680/685** (680/682 excl. 3 env-only; RNG 99.99 %, screens 100.0 %), `record`: all sessions present, **0 PASS→FAIL** → archive 9 PASS → **671/705** (`entries` 705, `unrecorded` 0); `tier` → 0 promoted back, reserve 29 → 29; worst shop 20/21 (set_apparxy RNG s936), worldtour 85/86 (one_characteristic s503), every other family 100 % |
+| **Corpus board (worked, regression fortress)** | full rescore 2026-10-22 (audit 3047–3070 @`be3c60cd0`): committed board **774/774** → rescore **774/774** (RNG 100.00 %, screens 100.0 %, 0 env-only), `record`: all sessions present, **0 PASS→FAIL** → archive 93 PASS → **681 entries** (669 active fortress: test 390 / family 183 / cover 96; `unrecorded` 0); `tier` → reserve 0; every family 100 % |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `90+0.50/turn` (R² 0.86) |
+| Speed label | `92+0.50/turn` (R² 0.86) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`, ranked by
@@ -49,8 +49,8 @@ fortress — it rises by construction). Fresh history: 79–99.4 %
 across 22 cohorts (Grow #5–27; prev 160/160).
 Fresh−held-out gap now 20.5 pts (100.0 % vs 79.5 % = 35/44), over the §10.20
 band — Grow #26 added the `vault` calibration family (probe 8/20, 35/80 authored; HIDDEN-PROXY §5c); Grow #27 probed `tutorwalk` 20/20, `chargen` 20/20 and a real-mount `ride` reshape 19/20 (all ≥ 85 %: not held-out shapes; §5c).
-**Corpus after Grow #27 (2026-10-22):** board 773/774 PASS (RNG 99.99 %, screens 100.0 %); 762 active + 0 reserve + 7093 archive.
-Reviews 1225–3010 (index; no row 1618): 1587 ACCEPT, 85 WITH-DEBT, 113 QUALITY-RISK (3001–3010: 7A/3D/0Q, 0 Must-fix; debt, all unreached → ledger partial: cond_menu/autopickup-exception headings drop menu_headings colour (menu_heading_attr), o_init.js rename_disco/doclassdisco hard-code ATR_INVERSE, use_crystal_ball non-fatal path never drains `_losehp_needs_rehumanize`).
+**Corpus after audit 3047–3070 (2026-10-22):** board 774/774 PASS (RNG 100.00 %, screens 100.0 %); 669 active + 0 reserve + 7186 archive.
+Reviews 1225–3070 (index; no row 1618). Audit 3047–3070: 16 ACCEPT / 6 WITH-DEBT / 2 QUALITY-RISK, 3 Must-fix (m_move wormno gate; P_BOW / ESCAPED / ASCENDED missing imports; process_menu_window count+ESC). Earlier totals to 3010: 1587 ACCEPT, 85 WITH-DEBT, 113 QUALITY-RISK (3001–3010: 7A/3D/0Q, 0 Must-fix; debt, all unreached → ledger partial: cond_menu/autopickup-exception headings drop menu_headings colour (menu_heading_attr), o_init.js rename_disco/doclassdisco hard-code ATR_INVERSE, use_crystal_ball non-fatal path never drains `_losehp_needs_rehumanize`).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).
 Full rescore (audit only, §10.21): `record` + unfiltered `score` (active tier) + `archive` (+ quota), committed `full: true`; needs the C recorder.
@@ -143,7 +143,7 @@ painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
 lua `lspo_reset_level` / RANGE_LEVEL / binary NHFILE; dump_fmtstr /
 paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 **Cohort after shared change:** green + seed1500/1800/0012/0004/0007/2200/0383 + strict.
-**Next:** Must-fix is empty (audit 3038–3046 queued none) — the **Open — cliffs** head. Mirror-family hits (u.Blind/u.Hallucination/u.Unaware/u.See_invisible/u.Upolyd, flat-only Flying/Levitation/Disint clones, `'yn'` literals) fix every site in that C file.
+**Next:** Must-fix holds 3 rows from audit 3047–3070. Pop the first (m_move's `wormno → not_special` gate, review 3065), then the missing imports (3061), then process_menu_window counting (3049). The cliffs block is empty (774/774). Mirror-family hits (u.Blind/u.Hallucination/u.Unaware/u.See_invisible/u.Upolyd, flat-only Flying/Levitation/Disint clones, `'yn'` literals) fix every site in that C file.
 
 ## Parked (diagnose only)
 
