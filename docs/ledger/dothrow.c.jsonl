@@ -1,5 +1,5 @@
 {"fn":"multishot_class_bonus","c":"39-83","status":"ported","js":["js/weapon.js:multishot_class_bonus"],"at":"2026-10-03@bbe63333a"}
-{"fn":"throw_obj","c":"87-293","status":"ported","js":["js/dothrow.js:throw_obj"],"d":["D-4160"],"at":"2026-10-20@4189bfaf0","note":"audit 2026-10-03: getdir prompt lives in callers (same one prompt)"}
+{"fn":"throw_obj","c":"87-293","status":"ported","js":["js/dothrow.js:throw_obj"],"d":["D-4223","D-4160"],"at":"2026-10-22@29a956c8f","note":"audit 2026-10-03: getdir prompt lives in callers (same one prompt)"}
 {"fn":"ok_to_throw","c":"297-313","status":"ported","js":["js/dothrow.js:ok_to_throw"],"at":"2026-10-03@bbe63333a"}
 {"fn":"throw_ok","c":"317-348","status":"ported","js":["js/dothrow.js:throw_ok"],"at":"2026-10-03@bbe63333a"}
 {"fn":"dothrow","c":"352-376","status":"ported","js":["js/dothrow.js:dothrow"],"at":"2026-10-03@bbe63333a"}
@@ -30,7 +30,7 @@
 {"fn":"should_mulch_missile","c":"1976-2002","status":"ported","js":["js/weapon.js:should_mulch_missile"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"thitmonst","c":"2011-2304","status":"ported","js":["js/dothrow.js:thitmonst"],"d":["D-3764","D-3408","D-2804","D-1324","D-1312"],"at":"2026-10-10@1311dbb62"}
 {"fn":"gem_accept","c":"2309-2382","status":"ported","js":["js/dothrow.js:gem_accept"],"d":["D-2517"],"at":"seed@a30a7de84"}
-{"fn":"hero_breaks","c":"2417-2436","status":"ported","js":["js/dothrow.js:hero_breaks"],"at":"2026-10-03@bbe63333a"}
+{"fn":"hero_breaks","c":"2417-2436","status":"ported","js":["js/dothrow.js:hero_breaks"],"d":["D-4223"],"at":"2026-10-22@29a956c8f"}
 {"fn":"breaks","c":"2444-2454","status":"ported","js":["js/dothrow.js:breaks"],"at":"2026-10-03@bbe63333a"}
 {"fn":"release_camera_demon","c":"2457-2470","status":"ported","js":["js/dothrow.js:release_camera_demon"],"d":["D-2986"],"at":"2026-09-27@9b244f090","note":"stale: js/dothrow.js:1377"}
 {"fn":"breakobj","c":"2480-2574","status":"ported","js":["js/dothrow.js:breakobj"],"d":["D-3408","D-2531"],"at":"2026-10-04@c075fb861"}

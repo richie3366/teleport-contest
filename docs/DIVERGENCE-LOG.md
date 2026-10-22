@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-4223 — dothrow.c hero_breaks decides whether the hero sees a breakage from youprop.h Blind ≡ (HBlinded || EBlinded) && !BBlinded (`:2424`). js/dothrow.js gated its sight checks on a local Blind() clone that read the phantom fields u.Blind / u.ublind, so a blindfolded, levitating hero whose wished-for potion slipped to the floor read «A potion shatters!» where C prints «You hear something shatter!». Clearing the mirror family in the same file also fixes throw_obj's multishot gate (phantom u.Confusion / u.Stunned / game.Fumbling, on an RNG path) and folds three divergent Deaf copies into one C-exact Deaf
+
+- **Status:** shipped (cliffs head after D-4222).
+- **Symptom:** scen-sweep-Rogue-53250089 step 900 (wizard wish «uncursed potion of object detection», Blind + Lev): topline C «Oops!  The potion drops to the floor!  You hear something shatter!--More--», JS «… A potion shatters!». The queue owner hornoplenty was only the hold_another_object drop_fmt label.
+- **Measured / named:** a temporary log in JS breakmsg at step 900 showed in_view true, local Blind() false, EBlinded 524288 (worn blindfold), HBlinded 0. The live invent.js Blind() is true there. Path: makewish → hold_another_object drop_it → hitfloor → hero_breaks → breakmsg.
+- **C locus:** dothrow.c hero_breaks `:2417–2436` (in_view `:2424`), breaks `:2444–2455`, breakmsg `:2612–2650`; throw_obj multishot `:158–176` (`!(Confusion || Stunned)`, `Fumbling`); youprop.h Blind `:103`, Confusion `:84`, Stunned `:81`, Fumbling `:129`, Deaf `:125`.
+- **JS was:** js/dothrow.js had `function Blind() { return !!(u.Blind || u.ublind) }`, which is false for any real blindness, and used it at 13 sight gates (hero_breaks, breaks, breakmsg callers, potion/venom arms, boomhit, throwit). throw_obj's multishot gate read `u.Confusion || u.Stunned || game.Confusion || game.Stunned` and `game.Fumbling || u.Fumbling`. throw_impaired OR'd the same phantoms after the real fields. Three Deaf copies read different stores: Deaf (HDeaf || phantom u.Deaf), Deaf_youprop (uprops[DEAF] only, which music.js's HDeaf-only writes leave stale) and Deaf_boom (+ u.Deaf).
+- **Fix:** the Blind clone is deleted and dothrow.js imports the live invent.js Blind (an existing import edge). throw_obj gates on HConfusion / HStun and the live attrib.js Fumbling(). throw_impaired drops the phantoms. Deaf is C's `HDeaf || EDeaf || uroleplay.deaf`, used by thitmonst `:649`, boomhit «Klonk!» `:2160` and throwit `:2510`. Deaf_youprop / Deaf_boom and the now-unused DEAF import are removed.
+- **JS:** js/dothrow.js imports `:56`, `:71`; throw_obj `:1094–1099`; Deaf `:1197–1201`; throw_impaired `:1783–1790`; hero_breaks `:1503–1517` (body unchanged).
+- **Callers:** unchanged; all sites now read the live state.
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-sweep-Rogue-53250089.session.json` → PASS (RNG 29057/29057, Screen 1373/1373).
+  - `node scripts/verify.mjs --fn hornoplenty,hero_breaks,throw_obj --full` → `verify hornoplenty: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach hornoplenty 2/2, hero_breaks 24/24, throw_obj 80/110 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 715 baseline-PASS re-run in 131.4s, 0 regressed → REACH-OK. The 10 dothrow unit tests pass.
+  - verify hornoplenty: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in dothrow.js. The other 25 Blind clones and 13 Deaf clones in other files are not touched (sym.mjs lists them).
+- **Ledger:** hero_breaks ported; throw_obj ported
+- **Next:** cliffs empty after Grow #25's three folds (D-4221..D-4223); the next slot is a grow.
+
 ## D-4222 — polyself.c poly_gender returns 2 (no gender) while the hero is polymorphed into a neuter or non-humanoid form (`:2149–2157`), and apply.c beautiful picks «handsome»/«amiable» for anything but 1 (`:1003–1011`). JS beautiful called a local poly_gender clone that returned flags.female only, so a polymorphed female hero refusing to rename herself (#name on her own square) read «This beautiful creature is called wizard…» where C says «This handsome creature…». Three more clones (detect.js, dokick.js, sounds.js) had the same gap, sounds.js's on an RNG path
 
 - **Status:** shipped (cliffs head after D-4221).
