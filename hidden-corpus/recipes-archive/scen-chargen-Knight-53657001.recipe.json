@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "Bree\rna*my  nl#chat\nhkhbyukbj#enhance\n\u001b#pray\ny #dip\nbP#ride\nl,hnluyynkjyjh__. \u001b,._<,.#loot\nh\u0018\u001bWt\u001byylh20sbbhulkkhj\\ \u0018\u001b_m,sq>_m,20s#wipe\n\u0014bylhdeed jluhlnknfl10s_m..ujkbhkjlyjlbuykj_<.s<nn#chat\nb20s#loot\nk_>.s#invoke\n\u001b#loot\nkahi\nsyyhu__.s#loot\n#conduct\n #chat\nunjuhhnlyy>#enhance\n\u001b__..fu#enhance\n\u001bjbjkfyclbhlkknuj:\\ kbkhqoj_<..ylyl_m..blhjukubklbb#wipe\nzly"
+ },
+ "segments": [
+  {
+   "seed": 53657001,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Bree\rna*my  nl#chat\nhkhbyukbj#enhance\n\u001b#pray\ny #dip\nbP#ride\nl,hnluyynkjyjh__. \u001b,._<,.#loot\nh\u0018\u001bWt\u001byylh20sbbhulkkhj\\ \u0018\u001b_m,sq>_m,20s#wipe\n\u0014bylhdeed jluhlnknfl10s_m..ujkbhkjlyjlbuykj_<.s<nn#chat\nb20s#loot\nk_>.s#invoke\n\u001b#loot\nkahi\nsyyhu__.s#loot\n#conduct\n #chat\nunjuhhnlyy>#enhance\n\u001b__..fu#enhance\n\u001bjbjkfyclbhlkknuj:\\ kbkhqoj_<..ylyl_m..blhjukubklbb#wipe\nzly"
+  }
+ ]
+}

@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — Grow #27 probes @46b68e26c: tutorwalk 20/20, chargen 20/20, ride reshape 19/20
+
+**Mined by reach:** public RNG-drawing C functions (by name) against 6,447 corpus recordings; zero-reach were pick_role/race/align, mount_steed, familiar_level_msg. New wave-3 `tutorwalk` and `chargen`, wave-2 `ride` now declines the forced mount. All ≥ 85 % on arrival (HIDDEN-PROXY §5c). 1 failing folded: scen-ride-Knight-53660014 (slimed_to_death, «OK, so you don't die.» after dismount_steed).
+**Next:** that row.
+
 ## 2026-10-22 — Grow #27 @1f9aec9ab: fresh 53650000 ×160 160/160 (100.0 %) on arrival
 
 **Fresh:** RNG 100.0 %, screens 100.0 %, every family 100 %; nothing folded, 160 archived. `tier` promoted the 42 reserve rows back (no failing owners). Board 773/773 after D-4226..D-4229. Gap to held-out 20.5 pts, but Grow #26 did the calibration, so none this time; no §5c candidate is left, so the next calibration grow mines a new public shape.

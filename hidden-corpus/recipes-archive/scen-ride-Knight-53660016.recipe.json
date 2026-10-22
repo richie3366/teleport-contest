@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0007tame saddled little dog\n\u0017lance\nwi#ride\nhn,#ride\n   s#ride\nyybkjk\u0004ny\u0004ny#ride\n s#ride\njy\u0004y "
+ },
+ "segments": [
+  {
+   "seed": 53660016,
+   "datetime": "20070122203947",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007tame saddled little dog\n\u0017lance\nwi#ride\nhn,#ride\n   s#ride\nyybkjk\u0004ny\u0004ny#ride\n s#ride\njy\u0004y "
+  }
+ ]
+}

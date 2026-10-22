@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "Nox\rnvh*y  nyklbjjjl_>. \u001b<.20suybubbnhunhj<#enhance\n\u001bkhbys\u000f\u001bnyhlZayhuknlklhbubkhnhbhuynnnyyulnyjkj_<,.njkjtbj\u0018\u001bkkykljjylhyhn10sol#invoke\n\u001bluhh__,.nyjhbblunbll_m,.dd\u0018\u001bzw-knybulhbuljytanw\u001blkbb__.s\u0018\u001bz10s\u0014_>,20s uyjybkby<#dip\nca#name\nf\n_s>#conduct\n lkly#offer\nP#dip\nc\u0014hbjynnbllunlZ#pray\ny  hyjkcj#turn\nknhkhhujyhlnz,\u0014#conduct\n #tip\n\u001bE\u001blluknyny20s#wipe\nbkbk_m,.\u0014dcknybyhjhunub_<.sf \u001b#jump\nuybj#tip\n\u001bE\u001buybnhuyb"
+ },
+ "segments": [
+  {
+   "seed": 53657010,
+   "datetime": "20140307070152",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "Nox\rnvh*y  nyklbjjjl_>. \u001b<.20suybubbnhunhj<#enhance\n\u001bkhbys\u000f\u001bnyhlZayhuknlklhbubkhnhbhuynnnyyulnyjkj_<,.njkjtbj\u0018\u001bkkykljjylhyhn10sol#invoke\n\u001bluhh__,.nyjhbblunbll_m,.dd\u0018\u001bzw-knybulhbuljytanw\u001blkbb__.s\u0018\u001bz10s\u0014_>,20s uyjybkby<#dip\nca#name\nf\n_s>#conduct\n lkly#offer\nP#dip\nc\u0014hbjynnbllunlZ#pray\ny  hyjkcj#turn\nknhkhhujyhlnz,\u0014#conduct\n #tip\n\u001bE\u001blluknyny20s#wipe\nbkbk_m,.\u0014dcknybyhjhunub_<.sf \u001b#jump\nuybj#tip\n\u001bE\u001buybnhuyb"
+  }
+ ]
+}

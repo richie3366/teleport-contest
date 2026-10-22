@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Bree\ryy  nl#invoke\n\u001b#twoweapon\n#invoke\n\u001b_m. \u001b.20sjljk#ride\nkafi\nuhuj_>,sujhlylbu_m.._<.s#enhance\n\u001b_<,.20s#twoweapon\nhnn nW\u001b#force\nbujhhlllhhubukknbnhllluylkbynybhjyyynjubulbh_>,20slhubknkj;h.#invoke\n\u001bllbu\u0004l#loot\nhbjhlkuuj_<,20s#tip\nf\u001b"
+ },
+ "segments": [
+  {
+   "seed": 53657013,
+   "datetime": "20220930083341",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Bree\ryy  nl#invoke\n\u001b#twoweapon\n#invoke\n\u001b_m. \u001b.20sjljk#ride\nkafi\nuhuj_>,sujhlylbu_m.._<.s#enhance\n\u001b_<,.20s#twoweapon\nhnn nW\u001b#force\nbujhhlllhhubukknbnhllluylkbynybhjyyynjubulbh_>,20slhubknkj;h.#invoke\n\u001bllbu\u0004l#loot\nhbjhlkuuj_<,20s#tip\nf\u001b"
+  }
+ ]
+}

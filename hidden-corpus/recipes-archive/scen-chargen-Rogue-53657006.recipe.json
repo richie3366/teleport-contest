@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "Mira\ryy  n#jump\n#wipe\n\u0014#ride\nbjyyujbujnhkk\u0018\u001b#terrain\nb\n\u001b>.klhj#rub\ncd#invoke\n\u001bkjkl#monster\nWhhnbylhy#turn\nWnhlbbhlkhujntbj\u0004h#rub\ncdwauyyneE- X marks the spot\njnly_m.s#invoke\n\u001bq#tip\n\u001b;u:"
+ },
+ "segments": [
+  {
+   "seed": 53657006,
+   "datetime": "20070903110551",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\n",
+   "moves": "Mira\ryy  n#jump\n#wipe\n\u0014#ride\nbjyyujbujnhkk\u0018\u001b#terrain\nb\n\u001b>.klhj#rub\ncd#invoke\n\u001bkjkl#monster\nWhhnbylhy#turn\nWnhlbbhlkhujntbj\u0004h#rub\ncdwauyyneE- X marks the spot\njnly_m.s#invoke\n\u001bq#tip\n\u001b;u:"
+  }
+ ]
+}

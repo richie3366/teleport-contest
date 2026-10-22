@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorwalk",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " y   _ \u001b<.suj:_@h. : 10s: s10sss10ss: 10sss: 10ss10s: : sss10s10s10ss10s: : : 10s: s10ss: 10ss: : 10s10s10s10ss10s10ss: : : : s: : 10s10skuj10ss:10ss:10s:10ss10ssss:10ss"
+ },
+ "segments": [
+  {
+   "seed": 53655005,
+   "datetime": "20130715161748",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:dog\n",
+   "moves": " y   _ \u001b<.suj:_@h. : 10s: s10sss10ss: 10sss: 10ss10s: : sss10s10s10ss10s: : : 10s: s10ss: 10ss: : 10s10s10s10ss10s10ss: : : : s: : 10s10skuj10ss:10ss:10s:10ss10ssss:10ss"
+  }
+ ]
+}

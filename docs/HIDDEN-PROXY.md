@@ -243,6 +243,9 @@ here). Candidates — public shapes the generator does not copy:
 | `hallu` | seed0383 / seed0399 hallucinate / hallu-actions | whole marathon tripping (`#wizintrinsic h` + scheduled re-trips): fights, wand barrages, scrolls, quaffs, throws, looks, casts, prayers, tours under scrambled glyphs | **probed 2026-10-16: 18/20 (90 %) — NOT held-out-like** (≥ 85 %); kept in WAVE3 (2 fails folded) |
 | `vault` | seed0012 monk-vault-escort | levelport + `^F` + `^T` into a closed vault, gold, the guard's «who are you?», drop + follow / refuse / dig / teleport / fight | **added 2026-10-22 (Grow #26): probe 8/20 (40 %), 100 sessions (20 probe @53455000 + 80 @53456000, 35/80 PASS); 57 failing folded; in WAVE3** |
 | `extcmd` | seed0106 priest-extcmd-sweep, seed4500 knight-coverage (1814 keys) | systematic `#` rotation in varied contexts (altar / shop / stairs / tour / fountain × info / item / social / wiz phases: `#wizidentify`, `#wizdetect` / `#wizmap`, `#polyself` carousel, `#levelchange` ping-pong) | **added 2026-10-16**: probe 0/20 (0 %), 100 sessions (20 probe @51256000 + 80 @51257000, 1/80 PASS); 99 failing folded; in WAVE3 |
+| `tutorwalk` | seed0009 swimmer-mforce | normal mode, tutorial accepted: travel to each engraving on the tutorial map (read underfoot), kick doors, `m`-moves into wall glyphs | **probed 2026-10-22 (Grow #27): 20/20 (100 %) — NOT held-out-like**; 19/20 entered the tutorial and read 4–29 engravings; no wall plunge or kick landed; all 20 archived; in WAVE3 |
+| `chargen` | seed0002/0004/0006/0007/0009/0077 interactive starts | nameless rc (`-u ''`): «Who are you?», «Shall I pick…» y / n, «Is this ok?», role / race / gender / alignment menus (item or `*`), then normal play | **probed 2026-10-22 (Grow #27): 20/20 (100 %) — NOT held-out-like**; reaches pick_role / pick_race / pick_align (0 of 6,447 corpus recordings did); all 20 archived; in WAVE3 |
+| `ride` (reshape) | seed0103/0104 knight-ride | decline wizard mode's «Force the mount to succeed?» (60 %) and retry, so mount_steed's slip roll runs (the forced mount skipped it: 0 corpus recordings reached mount_steed) | **reshaped 2026-10-22 (Grow #27): probe 19/20 (95 %) @53660000 — NOT held-out-like**; 15/20 reach mount_steed, 6 slip; 1 failing folded (slimed_to_death / dismount_steed) |
 
 Since 2026-10-13 `scenario-gen` also draws half its datetimes from any
 second of 2000–2026 (it had five fixed values).
@@ -306,6 +309,21 @@ Probe 8/20 (40.0 %, RNG 72.0 %, screens 62.8 %, no throws) — a held-out
 shape; +80 @53456000 35/80 (43.8 %). 57 failing folded under 6 owners
 (`invault` 35, `m_move` 12, `newsym` 4, `gd_letknow` 3, `impossible` 2,
 `domonnoise` 1; quota sends 42 to reserve). In WAVE3.
+
+**Fifth calibration probes (Grow #27, 2026-10-22, fresh gap 100.0 −
+79.5 = 20.5 pts; run on request although Grow #26 had calibrated).** The
+shapes were mined by reach rather than by eye: every C function that draws
+RNG in the 44 public sessions, keyed by name, was counted over the 6,447
+cached corpus recordings. Only five had no corpus reach: `pick_role`,
+`pick_race`, `pick_align` (interactive random chargen, 6 public sessions),
+`mount_steed` (a real mount, 2) and `familiar_level_msg` (1); the next
+were `use_cream_pie` 6, `trapmove` 10, `pick_gend` 12. A topline census
+(public sentences seen in < 5 recordings) also flagged the tutorial
+walkthrough (seed0009). Three probes, all ≥ 85 %: `tutorwalk` 20/20,
+`chargen` 20/20, `ride` reshaped 19/20 (one fold). The port already handles
+those starts and mounts; the held-out gap is not in reach coverage of the
+public functions. The next calibration needs a shape the public set does
+not show at all.
 
 **Coverage candidate (level audit 2026-10-20, F4 of
 `reviews/level-audit/2026-10-20-special-levels.md`).** The corpus never

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "Quill\rnadfy    n#sit\n#untrap\nnbbhkwa#name\na\n20s20s_m. \u001bm.slybkz#wipe\nynlhi\u001b>hjky_m..yyuu#wipe\nqukbubjjksZ#turn\n#rub\ng\u001bdg\\ jhlhhllhhjnnyyjl__,20s      lnlybunjbujyhujhknbkkubl,qckPunnlnuh jW\u0014#name\na\nP_<,s:#enhance\n\u001bZ#enhance\n\u001b_m.20s#jump\n#tip\nh\u001blbljknbl_>,s#ride\nhw-#force\n#tip\nh\u001bhlyunublnkky:#conduct\n #ride\nn#pray\ny nbbkjukh\\ #chat\n"
+ },
+ "segments": [
+  {
+   "seed": 53657019,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\n",
+   "moves": "Quill\rnadfy    n#sit\n#untrap\nnbbhkwa#name\na\n20s20s_m. \u001bm.slybkz#wipe\nynlhi\u001b>hjky_m..yyuu#wipe\nqukbubjjksZ#turn\n#rub\ng\u001bdg\\ jhlhhllhhjnnyyjl__,20s      lnlybunjbujyhujhknbkkubl,qckPunnlnuh jW\u0014#name\na\nP_<,s:#enhance\n\u001bZ#enhance\n\u001b_m.20s#jump\n#tip\nh\u001blbljknbl_>,s#ride\nhw-#force\n#tip\nh\u001bhlyunublnkky:#conduct\n #ride\nn#pray\ny nbbkjukh\\ #chat\n"
+  }
+ ]
+}

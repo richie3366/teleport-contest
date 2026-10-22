@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0007gray unicorn\n\u0017scroll of taming\nri  \u001b\u0017saddle\n ajl  \u0017lance\nwk#ride\nhn\u0004ny\u0007gnome\nFjsslllnss\u0007jackal\nFu20s20s.shyujh#levelchange\n20\n                   \u0017saddle\nal.#ride\n #ride\nhnhjk#ride\n s#ride\njyhyn#ride\n s#ride\nkySy\u001b yyr\u001b:#twoweapon\nak \u001b.tal\\   #twoweapon\neh#enhance\nyc\np\n\u001bnlh\u0017grave\n: \u0017wand of digging\nzi> 20s20sy\u0017tree\ny\u0004ny\u0017ax",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53660009,
+   "datetime": "20050926134846",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007gray unicorn\n\u0017scroll of taming\nri  \u001b\u0017saddle\n ajl  \u0017lance\nwk#ride\nhn\u0004ny\u0007gnome\nFjsslllnss\u0007jackal\nFu20s20s.shyujh#levelchange\n20\n                   \u0017saddle\nal.#ride\n #ride\nhnhjk#ride\n s#ride\njyhyn#ride\n s#ride\nkySy\u001b"
+  },
+  {
+   "seed": 54160009,
+   "datetime": "20120219081634",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " yyr\u001b:#twoweapon\nak \u001b.tal\\   #twoweapon\neh#enhance\nyc\np\n\u001bnlh\u0017grave\n: \u0017wand of digging\nzi> 20s20sy\u0017tree\ny\u0004ny\u0017ax"
+  }
+ ]
+}

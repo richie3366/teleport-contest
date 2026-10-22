@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Tam\rn*hf*nphf*y    n#turn\n __, \u001b;sm._m.sm.lbunununnhbynjjh<n_m.20subukynjb_m.s_>,sukubuhklqd,nhbkhnuy\u0018\u001bt\u001bhnuybubu qd z_>..m. bu bn20sk__.20s_>,sm.ybuhyjnhhyun#jump\n#conduct\n \u000f\u001b#untrap\nyubhb\u0018\u001bj\u0004k;u,_>,sm.s#enhance\n\u001brg y ag n#pray\ny llln#wipe\n#jump\njhkb#dip\nfd,luyh__,20s_m.snbkj>:kyhlyhhy\u0014#dip\ned:#monster\n__..#turn\n20subbnnnluoj20s_m.20s_<,20snynbnhlnyhjlrg y y#sit\nPPquljbh  y\u001bny "
+ },
+ "segments": [
+  {
+   "seed": 53657005,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "Tam\rn*hf*nphf*y    n#turn\n __, \u001b;sm._m.sm.lbunununnhbynjjh<n_m.20subukynjb_m.s_>,sukubuhklqd,nhbkhnuy\u0018\u001bt\u001bhnuybubu qd z_>..m. bu bn20sk__.20s_>,sm.ybuhyjnhhyun#jump\n#conduct\n \u000f\u001b#untrap\nyubhb\u0018\u001bj\u0004k;u,_>,sm.s#enhance\n\u001brg y ag n#pray\ny llln#wipe\n#jump\njhkb#dip\nfd,luyh__,20s_m.snbkj>:kyhlyhhy\u0014#dip\ned:#monster\n__..#turn\n20subbnnnluoj20s_m.20s_<,20snynbnhlnyhjlrg y y#sit\nPPquljbh  y\u001bny "
+  }
+ ]
+}

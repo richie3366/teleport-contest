@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorwalk",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " n:s:ss10suhsss:10s:bybmbmj::lu10s10slllkhby10s\u0004u10s10s10s10s\u0004u10ss\u0004u10s:s:10s10s10ssmk::10s ss:s:10s  10s:s10ssmys:s10ssnbkynjyb:s10s 10sss:10slu::kumlkj jb10s10s"
+ },
+ "segments": [
+  {
+   "seed": 53655016,
+   "datetime": "20081125012310",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\n",
+   "moves": " n:s:ss10suhsss:10s:bybmbmj::lu10s10slllkhby10s\u0004u10s10s10s10s\u0004u10ss\u0004u10s:s:10s10s10ssmk::10s ss:s:10s  10s:s10ssmys:s10ssnbkynjyb:s10s 10sss:10slu::kumlkj jb10s10s"
+  }
+ ]
+}

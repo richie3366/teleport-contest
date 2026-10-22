@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0007tame saddled horse\n\u0017lance\nwf#ride\nhy#ride\n #ride\nly#ride\nuy\u0007tame saddled pony\n#ride\n #ride\nky#ride\nky#ride\nhy\u0007warhorse\n\u0017scroll of taming\nrg \u0017saddle\nahu#ride\n  #ride\nky#ride\nky#ride\nky\u0007gnome\nFk     Sy\u001b n#jump\n:W#untrap\nki\u001b#loot\nk\u0018\u001b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53660018,
+   "datetime": "20060128161614",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0007tame saddled horse\n\u0017lance\nwf#ride\nhy#ride\n #ride\nly#ride\nuy\u0007tame saddled pony\n#ride\n #ride\nky#ride\nky#ride\nhy\u0007warhorse\n\u0017scroll of taming\nrg \u0017saddle\nahu#ride\n  #ride\nky#ride\nky#ride\nky\u0007gnome\nFk     Sy\u001b"
+  },
+  {
+   "seed": 54160018,
+   "datetime": "20060209031451",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": " n#jump\n:W#untrap\nki\u001b#loot\nk\u0018\u001b"
+  }
+ ]
+}

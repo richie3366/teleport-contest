@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n             \u0007baby red dragon\n\u0017scroll of taming\nrh \u0017saddle\naij#ride\nbn#ride\njn#ride\njn#ride\nbn\u0007pony\n\u0017scroll of taming\nrj \u0017saddle\nakb #ride\njn#ride\nhn #ride\n   #ride\nln\u0007tame saddled pony\n#ride\nnn #ride\n #ride\nln  #ride\n  \u0007lichen\nFk  Fu Fu   ,,\u0006_ \u001b;>Fu   Fn_>. Fh  _.Fh>Fl20s _>.Fh_,Fh >FnFn,"
+ },
+ "segments": [
+  {
+   "seed": 53660003,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n             \u0007baby red dragon\n\u0017scroll of taming\nrh \u0017saddle\naij#ride\nbn#ride\njn#ride\njn#ride\nbn\u0007pony\n\u0017scroll of taming\nrj \u0017saddle\nakb #ride\njn#ride\nhn #ride\n   #ride\nln\u0007tame saddled pony\n#ride\nnn #ride\n #ride\nln  #ride\n  \u0007lichen\nFk  Fu Fu   ,,\u0006_ \u001b;>Fu   Fn_>. Fh  _.Fh>Fl20s _>.Fh_,Fh >FnFn,"
+  }
+ ]
+}

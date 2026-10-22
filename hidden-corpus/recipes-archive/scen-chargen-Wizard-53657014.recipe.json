@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Orr\ryn**y  nblhy\\   ab   \u001b,lnyu#wipe\nP_m.20s10s#invoke\n\u001bbukj_<,._<.20s#force\n#rub\nhukuhkuhzcl<#enhance\n\u001bbbyjjbjl<\u0018\u001bs>#sit\n\u001btauok#name\no\n\u000f\u001bW,#offer\n_m.20s yhjh_<.20sjyny#untrap\nn__,shhhlykkk>:kkyn_m,syljjz#turn\njjjjnjubhkjhhlhh_<. s_<.s#conduct\n _m.sbybhlubkhlbl_m,.ffab,#loot\nly hhlhz#jump\nlhkl_m.ss20s"
+ },
+ "segments": [
+  {
+   "seed": 53657014,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\n",
+   "moves": "Orr\ryn**y  nblhy\\   ab   \u001b,lnyu#wipe\nP_m.20s10s#invoke\n\u001bbukj_<,._<.20s#force\n#rub\nhukuhkuhzcl<#enhance\n\u001bbbyjjbjl<\u0018\u001bs>#sit\n\u001btauok#name\no\n\u000f\u001bW,#offer\n_m.20s yhjh_<.20sjyny#untrap\nn__,shhhlykkk>:kkyn_m,syljjz#turn\njjjjnjubhkjhhlhh_<. s_<.s#conduct\n _m.sbybhlubkhlbl_m,.ffab,#loot\nly hhlhz#jump\nlhkl_m.ss20s"
+  }
+ ]
+}

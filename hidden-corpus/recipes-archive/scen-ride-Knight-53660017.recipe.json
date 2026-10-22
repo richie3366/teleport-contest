@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0007tame saddled baby red dragon\n\u0017lance\nwi#ride\nhy#ride\n  #ride\nny#ride\n \u0007warhorse\n\u0017scroll of taming\nrj \u0017saddle\nakn#ride\njy#ride\n #ride\nly#ride\n \u0007tame saddled horse\n#ride\njy#ride\n  #ride\nky  #ride\n lk,\u0006_ \u001bm,>Fh Fl_>. Fh_,Fh>FbFh_>.Fb_.Fh>FhFh#ride\nhy20s#ride\n  ,"
+ },
+ "segments": [
+  {
+   "seed": 53660017,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007tame saddled baby red dragon\n\u0017lance\nwi#ride\nhy#ride\n  #ride\nny#ride\n \u0007warhorse\n\u0017scroll of taming\nrj \u0017saddle\nakn#ride\njy#ride\n #ride\nly#ride\n \u0007tame saddled horse\n#ride\njy#ride\n  #ride\nky  #ride\n lk,\u0006_ \u001bm,>Fh Fl_>. Fh_,Fh>FbFh_>.Fb_.Fh>FhFh#ride\nhy20s#ride\n  ,"
+  }
+ ]
+}

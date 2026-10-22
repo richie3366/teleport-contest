@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "Corin\rn*dmy   nPE- I am a fish\njjun uuj knub jyhnyubuj#ride\nk\u0018\u001b#sit\n\u001b#force\nllblyjhk;l, \u001b;#offer\nH\\ lnhyi\u001btbnbjkk#name\no\nhlbkja\\ E- Vlad was here\nsjjjy_>.s#wipe\nt\u001b#conduct\n ckhhyka#wipe\nkjkj#conduct\n >kkkj#chat\nna_>.s#turn\n\u0004bi\u001b#jump\n#conduct\n #tip\n\u001bklbjjjkkjkkunkhn_>"
+ },
+ "segments": [
+  {
+   "seed": 53657018,
+   "datetime": "20231016223451",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Corin\rn*dmy   nPE- I am a fish\njjun uuj knub jyhnyubuj#ride\nk\u0018\u001b#sit\n\u001b#force\nllblyjhk;l, \u001b;#offer\nH\\ lnhyi\u001btbnbjkk#name\no\nhlbkja\\ E- Vlad was here\nsjjjy_>.s#wipe\nt\u001b#conduct\n ckhhyka#wipe\nkjkj#conduct\n >kkkj#chat\nna_>.s#turn\n\u0004bi\u001b#jump\n#conduct\n #tip\n\u001bklbjjjkkjkkunkhn_>"
+  }
+ ]
+}

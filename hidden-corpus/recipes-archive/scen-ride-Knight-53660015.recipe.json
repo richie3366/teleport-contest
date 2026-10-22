@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017saddle\naiu\u0017lance\nwj#ride\nhn\u0007gnome\nFu.ss.\u0004nn\u0004ny#levelchange\n20\n    \u0007tame mumak\n\u0017saddle\n aku\u0017lance\nwl#ride\n#ride\nuyy#ride\n   #ride\nly \u0007tame saddled horse\n#ride\n  #ride\njyy#ride\n#ride\nny\u0007large mimic\nSy\u001b y:\\   #pray\ny y hL\u000f\u001bP",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53660015,
+   "datetime": "20260208035819",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017saddle\naiu\u0017lance\nwj#ride\nhn\u0007gnome\nFu.ss.\u0004nn\u0004ny#levelchange\n20\n    \u0007tame mumak\n\u0017saddle\n aku\u0017lance\nwl#ride\n#ride\nuyy#ride\n   #ride\nly \u0007tame saddled horse\n#ride\n  #ride\njyy#ride\n#ride\nny\u0007large mimic\nSy\u001b"
+  },
+  {
+   "seed": 54160015,
+   "datetime": "20140511092709",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " y:\\   #pray\ny y hL\u000f\u001bP"
+  }
+ ]
+}

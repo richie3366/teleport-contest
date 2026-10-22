@@ -15,7 +15,7 @@
  *        [--family mixed|wish|genesis|poly|intrinsic|death|kit|tour|normal]
  *        [--family broad|terrain|trap|town|sokoban|ride|pet|container|descend|
  *                  ranged|caster|impaired|options|engulf|hazard|longrun|dig]
- *        [--family marathon|worldtour|sweep|chain|trek|zapfest|shop|questtour|symset|hallu|extcmd|questwalk|vault]
+ *        [--family marathon|worldtour|sweep|chain|trek|zapfest|shop|questtour|symset|hallu|extcmd|questwalk|vault|tutorwalk|chargen]
  *        [--out hidden-corpus/recipes] [--probe [--index i]]
  *
  * `broad` rotates evenly through the second-wave families (terrain … dig);
@@ -689,6 +689,19 @@ function makeRc2(rng, role, { mode, pet, tutorial = false }) {
     return lines.join('\n') + '\n';
 }
 
+/* public seed0002/0004/0006/0007/0009/0077 rc: no name or role, so the
+   game asks «Who are you?» and offers to pick the character */
+const CHARGEN_NAMES = ['Ash', 'Bree', 'Corin', 'Dax', 'Elin', 'Fen', 'Gale', 'Hob', 'Ivo', 'Jun', 'Kael', 'Lark', 'Mira', 'Nox', 'Orr', 'Pim', 'Quill', 'Rook', 'Sable', 'Tam'];
+function chargenRc(rng) {
+    const lines = [];
+    if (chance(rng, 0.4)) lines.push('OPTIONS=!autopickup');
+    if (chance(rng, 0.3)) lines.push(`OPTIONS=suppress_alert:${pick(rng, ['3.4.3', '3.3.1'])}`);
+    lines.push('OPTIONS=symset:DECgraphics');
+    if (chance(rng, 0.2)) lines.push(`OPTIONS=disclose:${pick(rng, ['yi ya yv yg yc yo', '-i -a -v -g -c -o'])}`);
+    if (chance(rng, 0.15)) lines.push(`OPTIONS=pettype:${pick(rng, ['none', 'cat', 'dog', 'horse'])}`);
+    return lines.join('\n') + '\n';
+}
+
 function dirWhere(s, rng, re) {
     if (!s || s.cy < 1 || s.cy > 21) return null;
     const m = neighbors(s).filter((n) => re.test(n.ch));
@@ -913,11 +926,18 @@ async function runWave2(g, rng, family, { debug }) {
         else if (chance(rng, 0.5)) await genesis(g, rng, `tame saddled ${steed}`);
         else { await genesis(g, rng, `tame ${steed}`); await saddleUp(); }
         if (chance(rng, 0.3)) { const l = await wish(g, rng, 'lance'); if (l) await typeCmd(g, rng, 'w', { letter: l, yn: 'y' }); }
-        await ext(g, rng, 'ride', { yn: 'y' });
+        /* public seed0103/0104 mount for real: declining wizard mode's
+           «Force the mount to succeed?» keeps mount_steed's slip roll
+           (steed.c:145), which the forced mount skips; retry on a slip */
+        const force = chance(rng, 0.4) ? 'y' : 'n';
+        const mount = async () => {
+            for (let t = 0; t < 4 && !/You mount|riding/.test(screenText(g)) && !g.full; t++) await ext(g, rng, 'ride', { yn: force });
+        };
+        await mount();
         for (let t = 0; t < 2 && !/You mount|riding/.test(screenText(g)) && !g.full; t++) {
             const horse = pick(rng, ['pony', 'horse', 'warhorse']);
             if (chance(rng, 0.5)) { await tameBy(horse); await saddleUp(); } else await genesis(g, rng, `tame saddled ${horse}`);
-            await ext(g, rng, 'ride', { yn: 'y' });
+            await mount();
         }
         for (let i = 0; i < 4 + Math.floor(rng() * 4) && !g.full; i++) {
             const act = pick(rng, ['walk', 'walk', 'fight', 'kick', 'pickup', 'stairs', 'dismount', 'wait']);
@@ -1261,8 +1281,8 @@ async function levelportTune(g, rng, target) {
    scen-* session above ran past 344 steps. These four families play that
    long. Debug games answer «Die?» with n, so a death mid-marathon costs one
    prompt, not the rest of the session. */
-const WAVE3 = ['worldtour', 'sweep', 'chain', 'trek', 'zapfest', 'shop', 'questtour', 'symset', 'hallu', 'extcmd', 'questwalk', 'vault'];
-const WAVE3_KEYS = { worldtour: [800, 1500], sweep: [1200, 2000], chain: [900, 1900], trek: [600, 1100], zapfest: [600, 1200], shop: [500, 1000], questtour: [600, 1200], symset: [500, 1000], hallu: [600, 1200], extcmd: [600, 1200], questwalk: [500, 900], vault: [400, 900] };
+const WAVE3 = ['worldtour', 'sweep', 'chain', 'trek', 'zapfest', 'shop', 'questtour', 'symset', 'hallu', 'extcmd', 'questwalk', 'vault', 'tutorwalk', 'chargen'];
+const WAVE3_KEYS = { worldtour: [800, 1500], sweep: [1200, 2000], chain: [900, 1900], trek: [600, 1100], zapfest: [600, 1200], shop: [500, 1000], questtour: [600, 1200], symset: [500, 1000], hallu: [600, 1200], extcmd: [600, 1200], questwalk: [500, 900], vault: [400, 900], tutorwalk: [200, 500], chargen: [150, 450] };
 /* symset (2026-10-14, §10.20 calibration): non-DEC symset candidates from
    dat/symbols, minus Blank (an invisible map is unplayable) */
 const SYMSET_ALT = ['curses', 'IBMgraphics', 'IBMGraphics_1', 'IBMGraphics_2', 'RogueIBM', 'RogueEpyx', 'RogueWindows', 'plain', 'MACgraphics', 'Enhanced1', 'Enhanced2', 'AmigaFont'];
@@ -1884,6 +1904,85 @@ async function runWave3Game(g, rng, family, { debug }) {
         });
         break;
     }
+    case 'chargen': {
+        /* interactive start: name at «Who are you?», then «Shall I pick
+           character's race, role, gender and alignment for you?» y (accept
+           or reject «Is this ok?») or n and the role / race / gender /
+           alignment menus (an item, or * for random); then normal play */
+        g.immortal = false;
+        let named = false;
+        for (let i = 0; i < 40 && !g.full && !g.ended; i++) {
+            const t = screenText(g);
+            /* the prompt row stays on screen under the next question */
+            if (!named && /Who are you\?/.test(t)) { await g.send(pick(rng, CHARGEN_NAMES) + '\r'); named = true; continue; }
+            if (/Shall I pick/.test(t)) { await g.send(chance(rng, 0.5) ? 'y' : 'n'); continue; }
+            if (/Is this ok\?/.test(t)) { await g.send(chance(rng, 0.8) ? 'y' : 'n'); continue; }
+            if (/Do you want a tutorial/.test(t)) { await g.send(chance(rng, 0.85) ? 'n' : 'y'); continue; }
+            if (g.s.menu && /Pick (a|an) /.test(t)) {
+                const items = menuItems(g.s).filter((it) => !/quit/i.test(it.text));
+                await g.send(!items.length || chance(rng, 0.3) ? '*' : pick(rng, items).letter);
+                continue;
+            }
+            if (g.s.more) { await g.send(' '); continue; }
+            if (g.s.menu) { await g.send(ESC); continue; }
+            break;
+        }
+        await untilFull(g, rng, async () => {
+            const r = rng();
+            if (r < 0.45) await steps(g, rng, 4);
+            else if (r < 0.6) await travel(g, rng);
+            else await ordinary(g, rng, 2);
+        });
+        break;
+    }
+    case 'tutorwalk': {
+        /* public seed0009-swimmer-mforce: take the tutorial (normal mode) and
+           walk its level: travel to each engraving (` on the map; read
+           underfoot), kick the doors next to the path, and force-move (m)
+           into adjacent wall glyphs, which is how the walls of water and
+           lava look; plunging in may end the game, as in the public one */
+        g.immortal = false;
+        for (let i = 0; i < 12 && !g.full; i++) {
+            if (/Do you want a tutorial/.test(screenText(g))) { await g.send(chance(rng, 0.9) ? 'y' : 'n'); break; }
+            if (g.s.more) await g.send(' '); else break;
+        }
+        const seen = new Set();
+        await untilFull(g, rng, async () => {
+            await settle(g, rng);
+            const s = g.s;
+            const at = (k) => (s.rows[s.cy + DIRS[k][1]] || '')[s.cx + DIRS[k][0]] || ' ';
+            const adj = (re) => Object.keys(DIRS).filter((k) => re.test(at(k)));
+            const doors = adj(/[+▒]/), walls = adj(/[│─]/);
+            const r = rng();
+            if (doors.length && r < 0.4) { await typeCmd(g, rng, K_KICK, { dir: pick(rng, doors) }); return; }
+            if (walls.length && r < 0.12) {
+                const d = pick(rng, walls);
+                for (let t = 0; t < 1 + Math.floor(rng() * 2) && !g.full && !g.ended; t++) { await g.send('m' + d); await answer(g, rng); }
+                return;
+            }
+            const targets = [];
+            for (let y = 1; y <= 21; y++) {
+                const row = s.rows[y] || '';
+                for (let x = row.indexOf('`'); x >= 0; x = row.indexOf('`', x + 1)) {
+                    if (!seen.has(x + ',' + y)) targets.push({ x, y, d: Math.max(Math.abs(x - s.cx), Math.abs(y - s.cy)) });
+                }
+            }
+            if (targets.length && r < 0.85) {
+                targets.sort((a, b) => a.d - b.d);
+                const t = chance(rng, 0.7) ? targets[0] : pick(rng, targets);
+                seen.add(t.x + ',' + t.y);
+                await g.send('_');
+                for (let i = 0; i < 3 && g.s.more && !g.full; i++) await g.send(' ');
+                if (!/instructions|travel|Where/i.test(g.s.top)) { await settle(g, rng); return; }
+                await getposTo(g, t.x, t.y);
+                await answer(g, rng);
+                return;
+            }
+            if (r < 0.92) await g.send(pick(rng, ['s', '10s', ':']));
+            else await steps(g, rng, 2 + Math.floor(rng() * 3));
+        });
+        break;
+    }
     case 'chain': default: {
         /* one game of the chain: played for its budget, then ended on purpose */
         if (debug) { g.immortal = false; await runScenario(g, rng, 'death'); break; }
@@ -1920,10 +2019,12 @@ async function authorWave3({ seed, family, inst, trace }) {
                 : pick(rng, ROLES);
             firstRole ??= role;
             const mode = family === 'trek' ? pick(rng, ['normal', 'normal', 'explore'])
-                : family === 'chain' ? pick(rng, ['normal', 'normal', 'debug']) : 'debug';
+                : family === 'chain' ? pick(rng, ['normal', 'normal', 'debug'])
+                : family === 'tutorwalk' || family === 'chargen' ? 'normal' : 'debug';
             const pet = chance(rng, 0.3) ? pick(rng, ['none', 'cat', 'dog', 'horse']) : null;
-            let nethackrc = makeRc2(rng, role, { mode, pet });
+            let nethackrc = makeRc2(rng, role, { mode, pet, tutorial: family === 'tutorwalk' });
             if (family === 'symset') nethackrc = symsetRc(rng, nethackrc);
+            if (family === 'chargen') nethackrc = chargenRc(rng);
             const seg = { seed: seed + 100000 * k, datetime: pickDatetime(rng), timezone: PIN_TZ, nethackrc, moves: '' };
             const share = family === 'chain'
                 ? Math.max(60, Math.min(budget - used, Math.round((budget - used) / (games - k) * (0.6 + 0.8 * rng()))))

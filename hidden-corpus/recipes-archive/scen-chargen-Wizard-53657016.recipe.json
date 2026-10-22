@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Kael\rn*fy  nhjlhjuunkhnb#wipe\n#terrain\nb\n\u001b.knly_>.shhnyhjuh#monster\nZsdg\u0014alh#pray\ny \u0014knbuWfy#offer\nP#untrap\njJ__.._m,snjkuuybjuuhbakh ,lknbyjjn#pray\ny  #wipe\nllhnynjk_m.sjulhq10sZrikyhlhlhh__,s#offer\n,\u0004kollykuhulbs#rub\nway#turn\nee #enhance\n\u001bPeb  jkkjoj#enhance\n\u001b_>, shbhynyny__.20sjnlkyjyljjky_m,sjnuunlkj\u0004ut$l>#twoweapon\n__,sbyju#dip\nd20sbhnkkknbkkby_<,s_>.  ._<,sbjkj#rub\ncj#offer\n#jump\nkjkj#invoke\n\u001b\u000f\u001b_>,20s :akjfu#tip\n\u001b_<.snljnlj jyb"
+ },
+ "segments": [
+  {
+   "seed": 53657016,
+   "datetime": "20181112054243",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Kael\rn*fy  nhjlhjuunkhnb#wipe\n#terrain\nb\n\u001b.knly_>.shhnyhjuh#monster\nZsdg\u0014alh#pray\ny \u0014knbuWfy#offer\nP#untrap\njJ__.._m,snjkuuybjuuhbakh ,lknbyjjn#pray\ny  #wipe\nllhnynjk_m.sjulhq10sZrikyhlhlhh__,s#offer\n,\u0004kollykuhulbs#rub\nway#turn\nee #enhance\n\u001bPeb  jkkjoj#enhance\n\u001b_>, shbhynyny__.20sjnlkyjyljjky_m,sjnuunlkj\u0004ut$l>#twoweapon\n__,sbyju#dip\nd20sbhnkkknbkkby_<,s_>.  ._<,sbjkj#rub\ncj#offer\n#jump\nkjkj#invoke\n\u001b\u000f\u001b_>,20s :akjfu#tip\n\u001b_<.snljnlj jyb"
+  }
+ ]
+}

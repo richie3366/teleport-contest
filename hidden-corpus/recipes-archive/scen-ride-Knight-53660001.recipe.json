@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0007little dog\n\u0017scroll of taming\nri \u0017saddle\n ajn#ride\nhy#ride\n #ride\nhy#ride\n \u0007tame saddled pony\n#ride\nuy#ride\nuy#ride\nuy#ride\nuy\u0007tame saddled horse\n#ride\nly#ride\n #ride\nhy#ride\n ss,buu,"
+ },
+ "segments": [
+  {
+   "seed": 53660001,
+   "datetime": "20110719174415",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0007little dog\n\u0017scroll of taming\nri \u0017saddle\n ajn#ride\nhy#ride\n #ride\nhy#ride\n \u0007tame saddled pony\n#ride\nuy#ride\nuy#ride\nuy#ride\nuy\u0007tame saddled horse\n#ride\nly#ride\n #ride\nhy#ride\n ss,buu,"
+  }
+ ]
+}

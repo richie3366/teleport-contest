@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "Dax\ryn*fy  njljh#enhance\n\u001bqunnj_>, \u001b>..\\    #wipe\nhhykkunl\\    ol_m..ljlkhlklkkbbubjlbukk_<.sjujlunjnyhhb#conduct\n W#chat\nkabkny#rub\nuq#wipe\n#rub\n#twoweapon\n_>,20s_<,slnhnunhy#dip\nb#sit\n\u001b\u0004ydayjuhH\u000f\u001bnjkb#wipe\n#twowea"
+ },
+ "segments": [
+  {
+   "seed": 53657002,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "Dax\ryn*fy  njljh#enhance\n\u001bqunnj_>, \u001b>..\\    #wipe\nhhykkunl\\    ol_m..ljlkhlklkkbbubjlbukk_<.sjujlunjnyhhb#conduct\n W#chat\nkabkny#rub\nuq#wipe\n#rub\n#twoweapon\n_>,20s_<,slnhnunhy#dip\nb#sit\n\u001b\u0004ydayjuhH\u000f\u001bnjkb#wipe\n#twowea"
+  }
+ ]
+}

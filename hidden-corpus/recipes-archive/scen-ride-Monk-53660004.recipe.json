@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n     \u0017saddle\najl#ride\nln#ride\nln#ride\nln#ride\nln\u0007tame saddled pony\n#ride\nln#ride\nln#ride\nynkun\u0004nyhby\u0004yljkh\u0006_ \u001b;>_>._,>_>. Fl_,>#levelchange\n14\n         \u0007warhorse\n\u0017scroll of taming\nrk \u0017saddle\nalh\u0017lance\nwm#ride\n #ride\nhy#ride\n #ride\nuy\u0007tame saddled warhorse\n#ride\n #ride\njy#ride\n #ride\njy  \u0007warhorse\n\u0017scroll"
+ },
+ "segments": [
+  {
+   "seed": 53660004,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:durian\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n     \u0017saddle\najl#ride\nln#ride\nln#ride\nln#ride\nln\u0007tame saddled pony\n#ride\nln#ride\nln#ride\nynkun\u0004nyhby\u0004yljkh\u0006_ \u001b;>_>._,>_>. Fl_,>#levelchange\n14\n         \u0007warhorse\n\u0017scroll of taming\nrk \u0017saddle\nalh\u0017lance\nwm#ride\n #ride\nhy#ride\n #ride\nuy\u0007tame saddled warhorse\n#ride\n #ride\njy#ride\n #ride\njy  \u0007warhorse\n\u0017scroll"
+  }
+ ]
+}

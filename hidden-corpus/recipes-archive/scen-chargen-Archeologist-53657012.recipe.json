@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "Kael\rn*hmnncd*y  nlkuy#force\n:kybjnllnynkhlhhlW#ride\nj_<. \u001b,s__,s_<..hjnjknyykbhj_<,.oh#invoke\n\u001b#wipe\n#monster\n#force\n#sit\nlbuu__,shbhh#jump\noj\u0014#ride\njoh#tip\n\u001b_>..\u000f\u001bj_>.suhjjkbjh>#monster\n\\ E- X marks the spot\naW_m.20sE-n  I am a fish\n#wipe\nujukuujn:#wipe\nr\u001b#loot\n#terrain\nb\n#ride\n:nyjlhkjk__.20s#ride\nh\u0014jllhr\u001b,_<,.#name\nm\n#pray\n>.hjkb_>.sq#ride\nkdd#untrap\nkbjbklhubjkju#loot\n#untrap\njhubb#untrap\ny#"
+ },
+ "segments": [
+  {
+   "seed": 53657012,
+   "datetime": "20211117232202",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "Kael\rn*hmnncd*y  nlkuy#force\n:kybjnllnynkhlhhlW#ride\nj_<. \u001b,s__,s_<..hjnjknyykbhj_<,.oh#invoke\n\u001b#wipe\n#monster\n#force\n#sit\nlbuu__,shbhh#jump\noj\u0014#ride\njoh#tip\n\u001b_>..\u000f\u001bj_>.suhjjkbjh>#monster\n\\ E- X marks the spot\naW_m.20sE-n  I am a fish\n#wipe\nujukuujn:#wipe\nr\u001b#loot\n#terrain\nb\n#ride\n:nyjlhkjk__.20s#ride\nh\u0014jllhr\u001b,_<,.#name\nm\n#pray\n>.hjkb_>.sq#ride\nkdd#untrap\nkbjbklhubjkju#loot\n#untrap\njhubb#untrap\ny#"
+  }
+ ]
+}

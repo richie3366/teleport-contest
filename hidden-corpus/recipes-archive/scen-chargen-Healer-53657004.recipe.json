@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "Quill\ryy  nhunlyhuhlbnljynk#monster\nZ#terrain\nb\n\u001b<.a\u0014r\u001bbubl#dip\nd\u0014,#chat\nh_m..\u0004jr\u001bhkju_m.20s_>..#invoke\n\u001b#twoweapon\nhnky_m.shbbknlhy<\u0018\u001bylhyZ#loot\n_>,shbkhlhhh#terrain\nc\n.\u000f\u001b#jump\n#rub\nllhhhbhhhbkl#monster\n#enhance\n\u001bhlbj#pray\ny  z#terrain\nc\n<.#jump\nhlkur\u001b#monster\nn#rid"
+ },
+ "segments": [
+  {
+   "seed": 53657004,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Quill\ryy  nhunlyhuhlbnljynk#monster\nZ#terrain\nb\n\u001b<.a\u0014r\u001bbubl#dip\nd\u0014,#chat\nh_m..\u0004jr\u001bhkju_m.20s_>..#invoke\n\u001b#twoweapon\nhnky_m.shbbknlhy<\u0018\u001bylhyZ#loot\n_>,shbkhlhhh#terrain\nc\n.\u000f\u001b#jump\n#rub\nllhhhbhhhbkl#monster\n#enhance\n\u001bhlbj#pray\ny  z#terrain\nc\n<.#jump\nhlkur\u001b#monster\nn#rid"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorwalk",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " y   _ \u001b,s10s10s: 10s10sss: syyblkn_@lj. : s: 10s: : s: 10s: : s10s10s10ss: sbkbys10s:ss10s:sssmb:::ss:sss10ssssss10ssnlny:10s10syh10s10s:::10s::10ss10smbmb:s"
+ },
+ "segments": [
+  {
+   "seed": 53655019,
+   "datetime": "20030719082819",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:mango\n",
+   "moves": " y   _ \u001b,s10s10s: 10s10sss: syyblkn_@lj. : s: 10s: : s: 10s: : s10s10s10ss: sbkbys10s:ss10s:sssmb:::ss:sss10ssssss10ssnlny:10s10syh10s10s:::10s::10ss10smbmb:s"
+  }
+ ]
+}

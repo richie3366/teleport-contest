@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n10\n         \u0007little dog\n\u0017scroll of taming\nri \u0017saddle\n ajl#ride\nln\u0006_ \u001b.>Fjs_>._.Fj>_>._.Fj >jn\u0004ny,,"
+ },
+ "segments": [
+  {
+   "seed": 53660013,
+   "datetime": "20210228062227",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n10\n         \u0007little dog\n\u0017scroll of taming\nri \u0017saddle\n ajl#ride\nln\u0006_ \u001b.>Fjs_>._.Fj>_>._.Fj >jn\u0004ny,,"
+  }
+ ]
+}

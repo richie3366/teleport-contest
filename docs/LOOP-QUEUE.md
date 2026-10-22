@@ -140,6 +140,7 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
+- [ ] `timeout.c` slimed_to_death — blocks 1/774 corpus sessions (first at step 225; RNG lost 1924, screens lost 20): C «OK, so you don't die.--More--» vs JS «OK, so you don't die. You survived that attempt on your life». Probe: `node scripts/hidden-proxy.mjs verify slimed_to_death` (scen-ride-Knight-53660014). @46b68e26c **[history: archived D-2396 — read that D-entry once; the arm this divergence names is still open]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)

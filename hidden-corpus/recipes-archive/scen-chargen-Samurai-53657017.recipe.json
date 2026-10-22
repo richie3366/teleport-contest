@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "Orr\rnkfy    n\u000f\u001b>_m. \u001b,.kln yn_<.slE- I am a fish\nf  #terrain\nb\nkuhl#invoke\n@.\u0014_m,.jhhlynynynhknhkn_m.20swbynhkcl#wipe\nz\u000f\u001bnynhknhk_>,sck,nhkjf#terrain\nb\n_20s #pray\ny #sit\n\u001b_m.sknlllhhh_m.sP<_m.20shknl_>.shhkjZ10s;l.#monster\nknlhlhllujkk_<, "
+ },
+ "segments": [
+  {
+   "seed": 53657017,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Orr\rnkfy    n\u000f\u001b>_m. \u001b,.kln yn_<.slE- I am a fish\nf  #terrain\nb\nkuhl#invoke\n@.\u0014_m,.jhhlynynynhknhkn_m.20swbynhkcl#wipe\nz\u000f\u001bnynhknhk_>,sck,nhkjf#terrain\nb\n_20s #pray\ny #sit\n\u001b_m.sknlllhhh_m.sP<_m.20shknl_>.shhkjZ10s;l.#monster\nknlhlhllujkk_<, "
+  }
+ ]
+}

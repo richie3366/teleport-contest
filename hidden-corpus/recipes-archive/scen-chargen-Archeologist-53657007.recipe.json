@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "Quill\ryna*fny   n#wipe\nhbjkjnlhy#conduct\n i\u001b>q#tip\nh\u001b#invoke\n\u001bjybhlllybnylhuuj<cl#sit\n\u001b#pray\ny lhjjyubksch__, \u001b:s_m,s\u0004l#monster\n_<,sz\u0018\u001bnjhndhi\u001b10sE- Elbereth\n#conduct\n s#loot\ni\n#jump\nlbhhyjyn\u0004y#jump\n__,sylbl#offer\n:yuhnujkj#wipe\ncl_m.s_m,skujjdfchnhlh20s#jump\nlubulhyk_m.sed de_m.s#monster\n;m,jyybnjyl_m.sok#sit\n\u001bujlh#name\no\n#conduct\n lnbulhyyjkbj#enhance\n\u001bwahlubjlynhynk\u0004l10s\u0004y\u000f\u001bbulyuubnyjjj"
+ },
+ "segments": [
+  {
+   "seed": 53657007,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "Quill\ryna*fny   n#wipe\nhbjkjnlhy#conduct\n i\u001b>q#tip\nh\u001b#invoke\n\u001bjybhlllybnylhuuj<cl#sit\n\u001b#pray\ny lhjjyubksch__, \u001b:s_m,s\u0004l#monster\n_<,sz\u0018\u001bnjhndhi\u001b10sE- Elbereth\n#conduct\n s#loot\ni\n#jump\nlbhhyjyn\u0004y#jump\n__,sylbl#offer\n:yuhnujkj#wipe\ncl_m.s_m,skujjdfchnhlh20s#jump\nlubulhyk_m.sed de_m.s#monster\n;m,jyybnjyl_m.sok#sit\n\u001bujlh#name\no\n#conduct\n lnbulhyyjkbj#enhance\n\u001bwahlubjlynhynk\u0004l10s\u0004y\u000f\u001bbulyuubnyjjj"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0007tame jackal\n\u0017saddle\nafh\u0017lance\nwg#ride\nhn#ride\nhn#ride\nhn#ride\nhn\u0007tame saddled pony\n#ride\nbn#ride\nbnkhl\u0006_ \u001b,>_>>._.>_>>,_.>\u0004y\u0007grid bug\nFuFu20s#ride\n 20s  #ride\njy\u0004n,"
+ },
+ "segments": [
+  {
+   "seed": 53660006,
+   "datetime": "20260528154021",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=runmode:crawl\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007tame jackal\n\u0017saddle\nafh\u0017lance\nwg#ride\nhn#ride\nhn#ride\nhn#ride\nhn\u0007tame saddled pony\n#ride\nbn#ride\nbnkhl\u0006_ \u001b,>_>>._.>_>>,_.>\u0004y\u0007grid bug\nFuFu20s#ride\n 20s  #ride\njy\u0004n,"
+  }
+ ]
+}

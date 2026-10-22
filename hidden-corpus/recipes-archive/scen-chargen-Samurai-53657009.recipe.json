@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "Ivo\ryy   nPel#terrain\nc\n\u001b@.__,20snt\u001bj b lk20s _>,sm. j hynykbknnlyjynbjlyj kkhn_m.sdg;_.klkjhhkuE- Vlad was here\nL#ride\n.cjybjk:Za\njlhn_m,subklhjkjohZb\n de;<.ukblyljy_>,s#enhance\n\u001b\\  #invoke\n\u001bu_<,20sbbynkjykjnuhf \u001bW\u001bZb\nf \u001bol,W\u001bs#conduct\n #sit\n\u001bj #wipe\n_m.20sck#enhance\n\u001b#jump\nf \u001bkklb<#jump\nknkh;m.#pray\ny esnkjkE- ad aerarium\nzcjyynh  y\u001by   y y y\u001b   u"
+ },
+ "segments": [
+  {
+   "seed": 53657009,
+   "datetime": "20231226150235",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Ivo\ryy   nPel#terrain\nc\n\u001b@.__,20snt\u001bj b lk20s _>,sm. j hynykbknnlyjynbjlyj kkhn_m.sdg;_.klkjhhkuE- Vlad was here\nL#ride\n.cjybjk:Za\njlhn_m,subklhjkjohZb\n de;<.ukblyljy_>,s#enhance\n\u001b\\  #invoke\n\u001bu_<,20sbbynkjykjnuhf \u001bW\u001bZb\nf \u001bol,W\u001bs#conduct\n #sit\n\u001bj #wipe\n_m.20sck#enhance\n\u001b#jump\nf \u001bkklb<#jump\nknkh;m.#pray\ny esnkjkE- ad aerarium\nzcjyynh  y\u001by   y y y\u001b   u"
+  }
+ ]
+}

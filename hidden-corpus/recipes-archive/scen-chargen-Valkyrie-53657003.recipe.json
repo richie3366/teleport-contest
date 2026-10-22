@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "Quill\ryy  nljjhyjnu__, \u001b>.suulhblbkunbj_<,snknn#pray\ny 10s#chat\njZjkkked 10s_>.s_m,s_<,.jjjhynhy#enhance\n\u001buhllj__..;<.jujldbda#terrain\nb\n#turn\n.hkhjhykjq#twoweapon\nnuyujnbubkyb_>.20s#turn\nf \u001b__,s,,hlhhyknk#wipe\n#untrap\nl_<.s#name\ni\n#ride\nbnhllhhnk#chat\nj#invoke\n\u001bhhyl#chat\nl#jump\n#untrap\ny\u000f\u001bblbuhublnybj#turn\n\u0018\u001bhhyjububulhujjuh\u000f\u001bP__,s,#chat\njhykl#loot\n#conduct\n #jump\n#invoke\n\u001b\u0018\u001bolnnnyhbubkhbk_<. .w\u001bz_<,.a__.20s#jump\n,#turn\n#turn\ni\u001b#ri"
+ },
+ "segments": [
+  {
+   "seed": 53657003,
+   "datetime": "20220110160858",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Quill\ryy  nljjhyjnu__, \u001b>.suulhblbkunbj_<,snknn#pray\ny 10s#chat\njZjkkked 10s_>.s_m,s_<,.jjjhynhy#enhance\n\u001buhllj__..;<.jujldbda#terrain\nb\n#turn\n.hkhjhykjq#twoweapon\nnuyujnbubkyb_>.20s#turn\nf \u001b__,s,,hlhhyknk#wipe\n#untrap\nl_<.s#name\ni\n#ride\nbnhllhhnk#chat\nj#invoke\n\u001bhhyl#chat\nl#jump\n#untrap\ny\u000f\u001bblbuhublnybj#turn\n\u0018\u001bhhyjububulhujjuh\u000f\u001bP__,s,#chat\njhykl#loot\n#conduct\n #jump\n#invoke\n\u001b\u0018\u001bolnnnyhbubkhbk_<. .w\u001bz_<,.a__.20s#jump\n,#turn\n#turn\ni\u001b#ri"
+  }
+ ]
+}

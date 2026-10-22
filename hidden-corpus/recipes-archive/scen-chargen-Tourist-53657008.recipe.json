@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "Rook\ryy    nhhhned wakhhljnkk#dip\ngi\u001boldijynynhny#dip\nfsnkynqi\u001b,#jump\ni\u001bdajjkjhlhl_m, \u001b,sed  y  y\u001by  y y\u001b  y"
+ },
+ "segments": [
+  {
+   "seed": 53657008,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "Rook\ryy    nhhhned wakhhljnkk#dip\ngi\u001boldijynynhny#dip\nfsnkynqi\u001b,#jump\ni\u001bdajjkjhlhl_m, \u001b,sed  y  y\u001by  y y\u001b  y"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "Elin\ryncg*y  n\u0014#enhance\n\u001blbjkjkuby#jump\n\u0014#tip\n\u001blhln_<. \u001bm,20snbnblkbklykbhnyk __,sw-#conduct\n #name\nd\n#name\nd\nhjjnkkkulblhbhkuj zl#turn\nyhl jnnkkknjb_<.sklhnnuklbnjh#turn\nf  hbl kbklly_<.20s_>,.l#enhance\n\u001bllnjjyuj#jump\n20s bujykjub:kbyjulknbubjklhkljykyhn"
+ },
+ "segments": [
+  {
+   "seed": 53657011,
+   "datetime": "20080105112111",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Elin\ryncg*y  n\u0014#enhance\n\u001blbjkjkuby#jump\n\u0014#tip\n\u001blhln_<. \u001bm,20snbnblkbklykbhnyk __,sw-#conduct\n #name\nd\n#name\nd\nhjjnkkkulblhbhkuj zl#turn\nyhl jnnkkknjb_<.sklhnnuklbnjh#turn\nf  hbl kbklly_<.20s_>,.l#enhance\n\u001bllnjjyuj#jump\n20s bujykjub:kbyjulknbubjklhkljykyhn"
+  }
+ ]
+}

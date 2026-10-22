@@ -48,8 +48,8 @@ held-out (judge), fresh cohort
 fortress — it rises by construction). Fresh history: 79–99.4 %
 across 22 cohorts (Grow #5–27; prev 160/160).
 Fresh−held-out gap now 20.5 pts (100.0 % vs 79.5 % = 35/44), over the §10.20
-band — Grow #26 added the `vault` calibration family (probe 8/20, 35/80 authored; HIDDEN-PROXY §5c); Grow #27 skipped calibration (every second grow) and no fresh family failed.
-**Corpus after Grow #27 (2026-10-22):** board 773/773 PASS (100 %, RNG 100.00 %, screens 100.0 %); 761 active + 0 reserve + 7034 archive.
+band — Grow #26 added the `vault` calibration family (probe 8/20, 35/80 authored; HIDDEN-PROXY §5c); Grow #27 probed `tutorwalk` 20/20, `chargen` 20/20 and a real-mount `ride` reshape 19/20 (all ≥ 85 %: not held-out shapes; §5c).
+**Corpus after Grow #27 (2026-10-22):** board 773/774 PASS (RNG 99.99 %, screens 100.0 %); 762 active + 0 reserve + 7093 archive.
 Reviews 1225–3010 (index; no row 1618): 1587 ACCEPT, 85 WITH-DEBT, 113 QUALITY-RISK (3001–3010: 7A/3D/0Q, 0 Must-fix; debt, all unreached → ledger partial: cond_menu/autopickup-exception headings drop menu_headings colour (menu_heading_attr), o_init.js rename_disco/doclassdisco hard-code ATR_INVERSE, use_crystal_ball non-fatal path never drains `_losehp_needs_rehumanize`).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorwalk",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  y   _ \u001b@.: 10s: 10ss: 10s10sss: s: 10ss: 10ss: 10s10sunj_@hhk. 10ss10s: : s10s: s10s: : 10s10s: s: ssslyyllnubbnl10smu:mnmn10s:10smussss10ss10smumu:10smusmumu10s:10s:smlmlmn10s:s:s"
+ },
+ "segments": [
+  {
+   "seed": 53655012,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "  y   _ \u001b@.: 10s: 10ss: 10s10sss: s: 10ss: 10ss: 10s10sunj_@hhk. 10ss10s: : s10s: s10s: : 10s10s: s: ssslyyllnubbnl10smu:mnmn10s:10smussss10ss10smumu:10smusmumu10s:10s:smlmlmn10s:s:s"
+  }
+ ]
+}

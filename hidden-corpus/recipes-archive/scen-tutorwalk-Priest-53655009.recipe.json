@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorwalk",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  y   _ \u001b;sss: 10ss: 10s10ss: s10s10ss10s: : 10s10s10s10s10shh_@ll. : 10sbyksss10sshu10s10slbjlby10s10s10snjs:shubu10s:10s:sjlu::10ss::::ubh10s10s10ss:10s10s:10s10ssskbkbmhmh:ss:"
+ },
+ "segments": [
+  {
+   "seed": 53655009,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:kumquat\n",
+   "moves": "  y   _ \u001b;sss: 10ss: 10s10ss: s10s10ss10s: : 10s10s10s10s10shh_@ll. : 10sbyksss10sshu10s10slbjlby10s10s10snjs:shubu10s:10s:sjlu::10ss::::ubh10s10s10ss:10s10s:10s10ssskbkbmhmh:ss:"
+  }
+ ]
+}

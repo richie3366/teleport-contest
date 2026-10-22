@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n14\n            \u0007little dog\n\u0017scroll of taming\nrg \u0017saddle\nahb#ride\nln#ride\nln#ride\nln#ride\nln\u0007warhorse\n\u0017scroll of taming\nri \u0017saddle\n aju #ride\njn#ride\njn#ride\nln,,\u0007gnome\nFbFu .,"
+ },
+ "segments": [
+  {
+   "seed": 53660005,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=fruit:durian\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n14\n            \u0007little dog\n\u0017scroll of taming\nrg \u0017saddle\nahb#ride\nln#ride\nln#ride\nln#ride\nln\u0007warhorse\n\u0017scroll of taming\nri \u0017saddle\n aju #ride\njn#ride\njn#ride\nln,,\u0007gnome\nFbFu .,"
+  }
+ ]
+}
