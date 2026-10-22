@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  #twoweapon\n#invoke\n\u001bmO>q\u001b\n\u00162\n  \u0006_ \u001b,>FjFb_>.Fl  _.   nFy   n   n>Fk  nFu  n _>,Fj  n _,Fb>FjFkFyFhFbf bny  k#dip\nbd\u0006_>>,Fn_,Fh>FjFj_>>,Fj_.Fh>FhFh_>>.Fn_.Fh>FkFjFnFbFj\u0006_>,Fn_,Fb>FyFh_>,Fj_,Fn>FbFk_>.Fb_.Fh>FnFkFjFhFy;y; #untrap\ny\u0006_>,Fb_,Fy>FnFh_>,Fb_,Fj>FbFk_>.Fn_,Fy>FnFhFyFyFy\u00163\nyll\u0017tree\njj\u0017ice\n:uj\u0017grave\n: \u0017wand of digging\nzg> ss:#terrain\ne\nqdtbn,\u001b\u00166\n\u00165\nFjFhFnFjFbFlFlFuFbFhFyFjFkFjFbFlFnFuFjFyFbFyFyFjFbFkFkFnFnFuFhFyFkFhFuFuFbFjFkFkFbFnFbFjFuFjFnFyFhFjFjFuFuFbFkFuFnFbFnFnFyFbFlFbFjFuFbFlFkFbFkFbFnFuFuFuFyFnFbFhFhFkFkFkFkFjFhFhFjFuFyFnFnFnFyFjFyFhFkFbFhFlFuFlFyFlFuFbFbFhFuFlFnFnFyFkFlFhFkFlv i\u001b\u0006_>>.Fy_,@.Fh>FjFj_>>,Fj_,.Fh>FkFj_>>.Fb_.m.Fk>FjFhFkFbFye#pray\ny y \u0006_>>.Fk_,m.Fj>FbFj_>>.Fy_.>.Fh>FjFy_>>.Fy_.,Fk>FyFbFhFhFybh\u0006_>,Fj_,>.Fy>FkFj_>,Fj_..Fh>FjFh_>.Fj_.:Fk>FjFkFyFyFh\u0006_>.Fb_.:Fk>FyFb_>.Fy_,m.Fy>FhFh_>.Fh_.:Fk>FbFkFbFbFj\u0006_>,Fk_.:Fy>FkFy_>.Fh_.;:   Fj>FkFh_>.Fb_,;m.Fy>FkFkFbFbFk#sit\n\u001b,\u000f\u001b\u00169\n\u0006_>.Fb_.Fb>FbFb_>.Fj_.Fj>FlFl_>.Fu_,Fn>FnFlFjFbFb\u0006_>>.Fj_.Fj>FbFk_>>.Fk_.Fk>FkFu_"
+ },
+ "segments": [
+  {
+   "seed": 53250007,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  #twoweapon\n#invoke\n\u001bmO>q\u001b\n\u00162\n  \u0006_ \u001b,>FjFb_>.Fl  _.   nFy   n   n>Fk  nFu  n _>,Fj  n _,Fb>FjFkFyFhFbf bny  k#dip\nbd\u0006_>>,Fn_,Fh>FjFj_>>,Fj_.Fh>FhFh_>>.Fn_.Fh>FkFjFnFbFj\u0006_>,Fn_,Fb>FyFh_>,Fj_,Fn>FbFk_>.Fb_.Fh>FnFkFjFhFy;y; #untrap\ny\u0006_>,Fb_,Fy>FnFh_>,Fb_,Fj>FbFk_>.Fn_,Fy>FnFhFyFyFy\u00163\nyll\u0017tree\njj\u0017ice\n:uj\u0017grave\n: \u0017wand of digging\nzg> ss:#terrain\ne\nqdtbn,\u001b\u00166\n\u00165\nFjFhFnFjFbFlFlFuFbFhFyFjFkFjFbFlFnFuFjFyFbFyFyFjFbFkFkFnFnFuFhFyFkFhFuFuFbFjFkFkFbFnFbFjFuFjFnFyFhFjFjFuFuFbFkFuFnFbFnFnFyFbFlFbFjFuFbFlFkFbFkFbFnFuFuFuFyFnFbFhFhFkFkFkFkFjFhFhFjFuFyFnFnFnFyFjFyFhFkFbFhFlFuFlFyFlFuFbFbFhFuFlFnFnFyFkFlFhFkFlv i\u001b\u0006_>>.Fy_,@.Fh>FjFj_>>,Fj_,.Fh>FkFj_>>.Fb_.m.Fk>FjFhFkFbFye#pray\ny y \u0006_>>.Fk_,m.Fj>FbFj_>>.Fy_.>.Fh>FjFy_>>.Fy_.,Fk>FyFbFhFhFybh\u0006_>,Fj_,>.Fy>FkFj_>,Fj_..Fh>FjFh_>.Fj_.:Fk>FjFkFyFyFh\u0006_>.Fb_.:Fk>FyFb_>.Fy_,m.Fy>FhFh_>.Fh_.:Fk>FbFkFbFbFj\u0006_>,Fk_.:Fy>FkFy_>.Fh_.;:   Fj>FkFh_>.Fb_,;m.Fy>FkFkFbFbFk#sit\n\u001b,\u000f\u001b\u00169\n\u0006_>.Fb_.Fb>FbFb_>.Fj_.Fj>FlFl_>.Fu_,Fn>FnFlFjFbFb\u0006_>>.Fj_.Fj>FbFk_>>.Fk_.Fk>FkFu_"
+  }
+ ]
+}

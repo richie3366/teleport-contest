@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWi\u0017blessed Mjollnir\nwj\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007jackal\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nil#offer\n#pray\ny y    #chat\nn#levelchange\n2\nkby_ \u001b:,\u0007kobold shaman\n#vanquished\n #genocided\nettin\ng\u0018\u001b#name\no\n#adjust\nl\u001b#chat\nh#turn\n#polyself\nred dragon\n   #monster\nsm.sFh 20sbnl__,#chat\nb#chronicle\n #terrain\n\u001b#annotate\nblessed\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #jump\n#wizidentify\n\u001bFh._{._.qy\u0007kobold shaman\n#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#wipe\n #loot\nu#chat\nu #chat\nk#polyself\nair elemental\n#monster\nsss20s Fl20s20s _<.Fl_.Fl\u0007gnome\n#overview\n\u001b#conduct\n #annotate\n\u001b\u0018\u001b#tip\nf\u001b#ride\nny#turn\n#sit\n#levelchange\n19\n                 juyz_{,Fj_,ql\u0007soldier\n#vanquished\n #genocided\npit fiend\n   \u000f\u001b#dip\nny#offer\n#pray\ny y   #chat\ny #jump\n#polyself\nleprechaun\n sj sjFyFy FuFu  \u0016?\n>E\u0006\u0007troll\n#chronicle\n  #terrain\n\u001b\u0018\u001b#name\na\n#adjust\nm\u001b#chat\nu#turn\n#wizdetect\n\u0006FhFu \u0018\u001b_oooooo.,#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n   n#pray\ny y       #jump\n#wizidentify\n\u001bFh FhFu _<.  n  20s _oooo.,\u0007hi"
+ },
+ "segments": [
+  {
+   "seed": 53250064,
+   "datetime": "20020630113530",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWi\u0017blessed Mjollnir\nwj\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007jackal\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nil#offer\n#pray\ny y    #chat\nn#levelchange\n2\nkby_ \u001b:,\u0007kobold shaman\n#vanquished\n #genocided\nettin\ng\u0018\u001b#name\no\n#adjust\nl\u001b#chat\nh#turn\n#polyself\nred dragon\n   #monster\nsm.sFh 20sbnl__,#chat\nb#chronicle\n #terrain\n\u001b#annotate\nblessed\ni\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #jump\n#wizidentify\n\u001bFh._{._.qy\u0007kobold shaman\n#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#wipe\n #loot\nu#chat\nu #chat\nk#polyself\nair elemental\n#monster\nsss20s Fl20s20s _<.Fl_.Fl\u0007gnome\n#overview\n\u001b#conduct\n #annotate\n\u001b\u0018\u001b#tip\nf\u001b#ride\nny#turn\n#sit\n#levelchange\n19\n                 juyz_{,Fj_,ql\u0007soldier\n#vanquished\n #genocided\npit fiend\n   \u000f\u001b#dip\nny#offer\n#pray\ny y   #chat\ny #jump\n#polyself\nleprechaun\n sj sjFyFy FuFu  \u0016?\n>E\u0006\u0007troll\n#chronicle\n  #terrain\n\u001b\u0018\u001b#name\na\n#adjust\nm\u001b#chat\nu#turn\n#wizdetect\n\u0006FhFu \u0018\u001b_oooooo.,#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n   n#pray\ny y       #jump\n#wizidentify\n\u001bFh FhFu _<.  n  20s _oooo.,\u0007hi"
+  }
+ ]
+}

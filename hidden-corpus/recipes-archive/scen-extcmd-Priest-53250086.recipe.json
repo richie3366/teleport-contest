@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of life saving\nPj\u0017blessed +3 helm of telepathy\nWk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold shaman\n#pray\ny y     #chat\nl #wizidentify\n\u001bFlFj_ \u001b>.qd#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#dip\nhd#offer\n#chat\nu#turn\n#polyself\nxorn\n#monster\nss.sbyjee_oooooo.Fn _.,\u0007gnome\n#vanquished\n #genocided\nscorpion\n#annotate\n\u001b\u0018\u001b#name\nf\n#adjust\n:#sit\n\u001b#pray\ny y   #polyself\ntroll\n#monster\n20s20sFlsjkj#chat\nu_{.qm#chronicle\n #terrain\n\u001b#annotate\n\u001bi\u001b#twoweapon\n#invoke\n\u001b\u001b#chat\nk#chat\nh#wizmap\n\u0006nyb\u0016?\n>>K     the Magic Mirror of Merlin\n \u0006\u0007 #version\n  #history\n                  #annotate\nblessed\n\u000f\u001b#wipe\n#loot\nh#turn\n            n      n    n  #sit\n   n  n     n  n #jump\n\u001612\n#wizintrinsic\nr\n Fk  n    n  Fb   n    n  Fk  n  n    n Fy  n  n     n_m.      yy\u001bnnny\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 53250086,
+   "datetime": "20130212041059",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=sortloot:none\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of life saving\nPj\u0017blessed +3 helm of telepathy\nWk\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007kobold shaman\n#pray\ny y     #chat\nl #wizidentify\n\u001bFlFj_ \u001b>.qd#overview\n\u001b#conduct\n #annotate\nfoo\n\u0018\u001b#dip\nhd#offer\n#chat\nu#turn\n#polyself\nxorn\n#monster\nss.sbyjee_oooooo.Fn _.,\u0007gnome\n#vanquished\n #genocided\nscorpion\n#annotate\n\u001b\u0018\u001b#name\nf\n#adjust\n:#sit\n\u001b#pray\ny y   #polyself\ntroll\n#monster\n20s20sFlsjkj#chat\nu_{.qm#chronicle\n #terrain\n\u001b#annotate\n\u001bi\u001b#twoweapon\n#invoke\n\u001b\u001b#chat\nk#chat\nh#wizmap\n\u0006nyb\u0016?\n>>K     the Magic Mirror of Merlin\n \u0006\u0007 #version\n  #history\n                  #annotate\nblessed\n\u000f\u001b#wipe\n#loot\nh#turn\n            n      n    n  #sit\n   n  n     n  n #jump\n\u001612\n#wizintrinsic\nr\n Fk  n    n  Fb   n    n  Fk  n  n    n Fy  n  n     n_m.      yy\u001bnnny\u001b  s"
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#chat\nh#name\nf\n ;hdc.ssu#name\no\n#chat\nhFhFhFh FhFhFhFhFhtbbdd...kh10s#chat\nnyhln10suhjht\u001bde...t\u001b#chat\nh#name\nf\nykukKJNL_>UBYH_>#twoweapon\n<.i\u001bHNHY_>.>LHHH_>.>FkFkFkHBLH_>._.> az\u000f\u001bHNHJ_>.>UJYY_>,><BYKJ_>,>NUYK_>,>JLNJ_>.>\u000f\u001b100sPhkuFhFhFh100s bku100s100sFk20ss100s150s 100sFkFkFkFkss__.s\u000f\u001b50s _>.>100s z50sFb20s20sFks.yjh#untrap\nh100s\\ lnb100sFks20s50s50sFy.s#tip\n\u001b150si\u001bujulhuFb20s.100st\u001b10sde.ss#name\na\nkjt\u001b#name\ni\n#chat\nb20s10s#name\ni\nKYNH_>.>r\u001bW<JUUJ_>.>UYBN_>.>BUBH_>.>HNYL_>.>KBLH_>,>Z:\u000f\u001bda20sss#chat\nl#chat\nujj#name\nf\n>.kj#chat\nb10s#chat\nkdes..20st\u001b#pray\ny  150sFl Fls_>.>\\ \u000f\u001b\u0018\u001b#dip\nekjkjkj100s_>.>50s#name\ni\nkjkK50s150sFls2#quit\nyy\u001by  y y y\u001b  kkjbkkubFjFjFjFjFjFjFjFjFh.sFn ss100sFus20s_ \u001bm,>100sFu20sFyFyFyFyFyFys#pray\ny hnj#loot\n#pray\ny #pray\ny \\  100s10sFk20sshkbFkss50sujl150s100sFkFk.150s_>.>ylb100st\u001b100slhui\u001b150s100s\u000f\u001b150s100s\u000f\u001bklbFkFkFkFkFk  y\u001by  y y y\u001b  FB  YUU_ \u001b:>YJYY_>.>FkFkFl>10sYUUN_>,>JNUU_>,>i\u001b\u0004lKKBU_>.>#turn\n#enhance\n\u001b100s 50s100sjnl50s   FlFkFhFk FlFl#tip\n\u001b100s               FlFlFuFlFlsFl s20sFh.sklnFh20s._>.>ujutbk\u0018\u001b100s100sFlFls100sFl.20s100snub100sehlhh:_>.>100sFlFls,100shly150sjylFh.sjkhhhlyde20ssm.sb10s20st\u001b10slhllFhFhFhFhFhFhFhFhYBYU_>.>#dip\ne#wipe\nBKBU_>.>E- I am a fish\n#twoweapon\nBBKL_>.>FyFhFh#terrain\nc\nm.\u0014JNBY_>,>JYBU_>,>JBBN_>.>KULL_>.>#offer\n#terrain\nc\n.\u000f\u001b#chat\njhlt\u001bt\u001b10sjnujkkjjukj20s#name\nf\nds20s skFnFnFnFnFnFnFnFnegeheg100sFl.s_>.>jkji\u001b_>.>50sFls.\u0004j150seg100sFlss100seh100segkkj_>.>100sFb20s20sehFlFls\u000f\u001b#untrap\nj50seg\\   ;.#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53250057,
+   "datetime": "20050825061605",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\n",
+   "moves": "#chat\nh#name\nf\n ;hdc.ssu#name\no\n#chat\nhFhFhFh FhFhFhFhFhtbbdd...kh10s#chat\nnyhln10suhjht\u001bde...t\u001b#chat\nh#name\nf\nykukKJNL_>UBYH_>#twoweapon\n<.i\u001bHNHY_>.>LHHH_>.>FkFkFkHBLH_>._.> az\u000f\u001bHNHJ_>.>UJYY_>,><BYKJ_>,>NUYK_>,>JLNJ_>.>\u000f\u001b100sPhkuFhFhFh100s bku100s100sFk20ss100s150s 100sFkFkFkFkss__.s\u000f\u001b50s _>.>100s z50sFb20s20sFks.yjh#untrap\nh100s\\ lnb100sFks20s50s50sFy.s#tip\n\u001b150si\u001bujulhuFb20s.100st\u001b10sde.ss#name\na\nkjt\u001b#name\ni\n#chat\nb20s10s#name\ni\nKYNH_>.>r\u001bW<JUUJ_>.>UYBN_>.>BUBH_>.>HNYL_>.>KBLH_>,>Z:\u000f\u001bda20sss#chat\nl#chat\nujj#name\nf\n>.kj#chat\nb10s#chat\nkdes..20st\u001b#pray\ny  150sFl Fls_>.>\\ \u000f\u001b\u0018\u001b#dip\nekjkjkj100s_>.>50s#name\ni\nkjkK50s150sFls2#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 53350057,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": " kkjbkkubFjFjFjFjFjFjFjFjFh.sFn ss100sFus20s_ \u001bm,>100sFu20sFyFyFyFyFyFys#pray\ny hnj#loot\n#pray\ny #pray\ny \\  100s10sFk20sshkbFkss50sujl150s100sFkFk.150s_>.>ylb100st\u001b100slhui\u001b150s100s\u000f\u001b150s100s\u000f\u001bklbFkFkFkFkFk  y\u001by  y y y\u001b  F"
+  },
+  {
+   "seed": 53450057,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\n",
+   "moves": "B  YUU_ \u001b:>YJYY_>.>FkFkFl>10sYUUN_>,>JNUU_>,>i\u001b\u0004lKKBU_>.>#turn\n#enhance\n\u001b100s 50s100sjnl50s   FlFkFhFk FlFl#tip\n\u001b100s               FlFlFuFlFlsFl s20sFh.sklnFh20s._>.>ujutbk\u0018\u001b100s100sFlFls100sFl.20s100snub100sehlhh:_>.>100sFlFls,100shly150sjylFh.sjkhhhlyde20ssm.sb10s20st\u001b10slhllFhFhFhFhFhFhFhFhYBYU_>.>#dip\ne#wipe\nBKBU_>.>E- I am a fish\n#twoweapon\nBBKL_>.>FyFhFh#terrain\nc\nm.\u0014JNBY_>,>JYBU_>,>JBBN_>.>KULL_>.>#offer\n#terrain\nc\n.\u000f\u001b#chat\njhlt\u001bt\u001b10sjnujkkjjukj20s#name\nf\nds20s skFnFnFnFnFnFnFnFnegeheg100sFl.s_>.>jkji\u001b_>.>50sFls.\u0004j150seg100sFlss100seh100segkkj_>.>100sFb20s20sehFlFls\u000f\u001b#untrap\nj50seg\\   ;.#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0016?\nh\u0006FnFyFuFnFh  Fhkkll  yy\u001by  ny\u001b  r"
+ },
+ "segments": [
+  {
+   "seed": 53251017,
+   "datetime": "20021112091527",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n30\n                             \u0016?\nh\u0006FnFyFuFnFh  Fhkkll  yy\u001by  ny\u001b  r"
+  }
+ ]
+}

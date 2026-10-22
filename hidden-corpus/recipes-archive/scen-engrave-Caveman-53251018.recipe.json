@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "ly\u0017wand of slow monster\nEf Vlad was here\n: E-y X marks the spot\n: \u0017ruby\nEg  ad aerarium\nE-\u0007minotaur\n20s  yy\u001by  y ny  2"
+ },
+ "segments": [
+  {
+   "seed": 53251018,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=sortloot:full\nOPTIONS=runmode:walk\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "ly\u0017wand of slow monster\nEf Vlad was here\n: E-y X marks the spot\n: \u0017ruby\nEg  ad aerarium\nE-\u0007minotaur\n20s  yy\u001by  y ny  2"
+  }
+ ]
+}

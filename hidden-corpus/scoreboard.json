@@ -1,10 +1,10 @@
 {
- "commit": "0ddc83e7b",
- "at": "2026-10-22T08:44:38.417Z",
+ "commit": "fbbb271b4",
+ "at": "2026-10-22T08:51:42.468Z",
  "full": false,
  "fullCommit": "1b2b2c8e3",
  "fullAt": "2026-10-21T14:05:06.214Z",
- "entries": 713,
+ "entries": 716,
  "reserve": 0,
  "unrecorded": 0,
  "sessions": {
@@ -2029,6 +2029,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-extcmd-Healer-53250042": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 12921,
+   "rngT": 12921,
+   "scrM": 1112,
+   "scrT": 1113,
+   "kind": "screen",
+   "step": 1103,
+   "steps": 1113,
+   "owner": "do_mgivenname",
+   "loc": "do_name.c:222",
+   "jsOwner": null,
+   "cTopline": "This handsome creature is called wizard and cannot be renamed.",
+   "jsTopline": "This beautiful creature is called wizard and cannot be renamed.",
    "error": null
   },
   "scen-extcmd-Rogue-51256003": {
@@ -7029,6 +7046,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-sweep-Rogue-53250089": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 29057,
+   "rngT": 29057,
+   "scrM": 1372,
+   "scrT": 1373,
+   "kind": "screen",
+   "step": 900,
+   "steps": 1373,
+   "owner": "hornoplenty",
+   "loc": "mkobj.c:2905",
+   "jsOwner": null,
+   "cTopline": "Oops! The potion drops to the floor! You hear something shatter!--More--",
+   "jsTopline": "Oops! The potion drops to the floor! A potion shatters!--More--",
+   "error": null
+  },
   "scen-sweep-Rogue-578101": {
    "src": "corpus",
    "passed": true,
@@ -11347,6 +11381,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-worldtour-Wizard-53250033": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 0,
+   "rngT": 25253,
+   "scrM": 0,
+   "scrT": 246,
+   "kind": "rng",
+   "step": 0,
+   "steps": 246,
+   "owner": "randomize_gem_colors",
+   "loc": "o_init.c:89",
+   "jsOwner": null,
+   "cTopline": "Hello wizard, welcome to NetHack! You are a neutral female human Wizard.",
+   "jsTopline": "",
+   "error": "ReferenceError: EYE is not defined |     at buzzmonst (file:///Users/raphaelhervier/dev/teleport-contest-revisited/js/zap.js:2543:72) |     at async dobuzz (fil"
+  },
   "scen-worldtour-Wizard-578116": {
    "src": "corpus",
    "passed": true,
@@ -12129,5 +12180,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-22T08:51:42.607Z"
 }

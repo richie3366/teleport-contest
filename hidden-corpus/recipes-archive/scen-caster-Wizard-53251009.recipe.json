@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed spellbook of healing\nro s\u0017spellbook of identify\nrpy s+\u001bZb\nZb\nZb\nZa\n\u0007lichen\nZd\n\u0007gnome\nZd\n#pray\ny y   #enhance\nyf\na\n\u001b#levelchange\n20\n                   \u0017blessed spellbook of cancellation\nrq   .m.\u0017blessed spellbook of identify\nrr ysl\u0017blessed spellbook of detect unseen\nrs  s\u0017blessed spellbook of detect food\nrt  s+"
+ },
+ "segments": [
+  {
+   "seed": 53251009,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed spellbook of healing\nro s\u0017spellbook of identify\nrpy s+\u001bZb\nZb\nZb\nZa\n\u0007lichen\nZd\n\u0007gnome\nZd\n#pray\ny y   #enhance\nyf\na\n\u001b#levelchange\n20\n                   \u0017blessed spellbook of cancellation\nrq   .m.\u0017blessed spellbook of identify\nrr ysl\u0017blessed spellbook of detect unseen\nrs  s\u0017blessed spellbook of detect food\nrt  s+"
+  }
+ ]
+}

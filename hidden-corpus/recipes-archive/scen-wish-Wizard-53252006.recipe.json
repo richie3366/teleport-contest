@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                    \u0017uncursed land mine\nap20ss\u00173 amulet of guarding\nPq.20ss.R20ss\u0017cursed potion of monster detection\nqr \u001b..20s\u0017cursed meatball\n\u0007cockatrice\nessj20s \u0017chest\nsm. sm.sm. "
+ },
+ "segments": [
+  {
+   "seed": 53252006,
+   "datetime": "20130213172209",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                    \u0017uncursed land mine\nap20ss\u00173 amulet of guarding\nPq.20ss.R20ss\u0017cursed potion of monster detection\nqr \u001b..20s\u0017cursed meatball\n\u0007cockatrice\nessj20s \u0017chest\nsm. sm.sm. "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  #untrap\nn #sit\n\u0004y \u0014 \u001b;;n;#force\n#force\nZ\u00162\nFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnln bn\u0017grave\n: \u0017pick-axe\naj > sysm. l j j\u0017pool\n#jump\n#turn\n10s\u0006_>, Fk_,Fy>FyFkk _>.Fk_.<.Fy>FyFy_>,Fh_.;m,Fh>FhFhFhFhFh#wipe\nz<\u0006_>,Fh_.>.Fh>FhFh_>.Fh_,.Fh>FhFh_>,Fu_..Fh>FnFjFhFhFh\u0006_>,Fb_.Fh\u001b>FhFn_>FyFb_>.Fk_.@.Fy>FkFkFyFyFy\u0006_>>.Fy_.Fh\u001b>FhFk_>>.Fh_,Fy>FyFh\u001b_>>.Fh_.Fu>FyFh\u001bFuFuFy\u0006_>.Fu_.<.Fk> \u0006_>,_.> \u0006_>._.<.>_>._.m,>_>,_.@.>\u0006_>,Fl"
+ },
+ "segments": [
+  {
+   "seed": 53250040,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nMENUCOLOR=\"cursed\"=cyan\n",
+   "moves": "  #untrap\nn #sit\n\u0004y \u0014 \u001b;;n;#force\n#force\nZ\u00162\nFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnln bn\u0017grave\n: \u0017pick-axe\naj > sysm. l j j\u0017pool\n#jump\n#turn\n10s\u0006_>, Fk_,Fy>FyFkk _>.Fk_.<.Fy>FyFy_>,Fh_.;m,Fh>FhFhFhFhFh#wipe\nz<\u0006_>,Fh_.>.Fh>FhFh_>.Fh_,.Fh>FhFh_>,Fu_..Fh>FnFjFhFhFh\u0006_>,Fb_.Fh\u001b>FhFn_>FyFb_>.Fk_.@.Fy>FkFkFyFyFy\u0006_>>.Fy_.Fh\u001b>FhFk_>>.Fh_,Fy>FyFh\u001b_>>.Fh_.Fu>FyFh\u001bFuFuFy\u0006_>.Fu_.<.Fk> \u0006_>,_.> \u0006_>._.<.>_>._.m,>_>,_.@.>\u0006_>,Fl"
+  }
+ ]
+}

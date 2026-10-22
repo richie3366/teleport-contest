@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n8\n      \u0017quarterstaff\nwiFjFj s\u0007soldier ant\nFnFnFn FnFn\u0007Medusa\nn;b, \u001b@..l  20s   n20s \u0007horned devil\n20s20s     nsy.m.  sm.     nsl.m.  sm.   sm.    n\u00168\n\u0017uncursed dilithium crystal\ntiy \u0017cursed wand of probing\nzky \u001b Fy  Fy     n \u0017cursed the Book of the Dead\nwaFy   Fy   Fy    n #invoke\nl \u0017cursed -1 ring of increase accuracy\nPml    sj   n.m.snFl Fk   \u0017uncursed the Sceptre of Might\n  n \u0017blessed +3 war hammer\nwn    Fl  Fk Fk   n sm. 20s \u00163\n\u00167\n\u0006_>. Fk _, Fu  n >Fu Fu _>.Fl _..Fn   n>Fn Fn_>,_.m,Fy>FyFy\u0006_>,_,<.>_>._.>.>_>,Fk_.m.Fk>Fks\u0006_>._..>_>._.>.Fk>FkFk_>,Fk_,Fk>FkFk\u00169\n#levelchange\n20\n            \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo_,\u0014@.__,Fn_.#chat\nl_ooooooooo.Fn_.@.Fy_oo,Fu_,Fk,daal _ooo.Fh_.Fu ,#chat\ny  n _oooooo,Fk_.Fy  ,$#terrain\n\u001b#force\n #invoke\nl  n\u001611\ni\u001b\u00169\n\u0017spellbook of healing\nrp .m.\u0017blessed spellbook of detect unseen\nrq20s\u0017spellbook of confuse monster\nrr  sm.+\u001b\u0007jackal\nZc\n Zc\n Zc\n\u0007kobold\nZb\n n #turn\n  #pray\ny y             #enhance\nna\n#levelchange\n12\n   \u001615\n#offer\n\u0014,m.#untrap\ny;.\u0006ss\u001633\n#loot\n#pray\ny y  qd20s20s\u001641\n#rub\nP,;h;\u0006sm..m.\u0007tame winter wolf cub\n20s\u0017leash\nasj  llb    nask \u0017carrot\ntak\u0017lichen corpse\nt$u\u0006_>.>FnFh _>,>Fy   nFl_>,>Fy Fy\u00173 the Platinum Yendorian Express Card\n wnFh Fl Fh #invoke\nv  yy\u001by   ny y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 53250012,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n8\n      \u0017quarterstaff\nwiFjFj s\u0007soldier ant\nFnFnFn FnFn\u0007Medusa\nn;b, \u001b@..l  20s   n20s \u0007horned devil\n20s20s     nsy.m.  sm.     nsl.m.  sm.   sm.    n\u00168\n\u0017uncursed dilithium crystal\ntiy \u0017cursed wand of probing\nzky \u001b Fy  Fy     n \u0017cursed the Book of the Dead\nwaFy   Fy   Fy    n #invoke\nl \u0017cursed -1 ring of increase accuracy\nPml    sj   n.m.snFl Fk   \u0017uncursed the Sceptre of Might\n  n \u0017blessed +3 war hammer\nwn    Fl  Fk Fk   n sm. 20s \u00163\n\u00167\n\u0006_>. Fk _, Fu  n >Fu Fu _>.Fl _..Fn   n>Fn Fn_>,_.m,Fy>FyFy\u0006_>,_,<.>_>._.>.>_>,Fk_.m.Fk>Fks\u0006_>._..>_>._.>.Fk>FkFk_>,Fk_,Fk>FkFk\u00169\n#levelchange\n20\n            \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo_,\u0014@.__,Fn_.#chat\nl_ooooooooo.Fn_.@.Fy_oo,Fu_,Fk,daal _ooo.Fh_.Fu ,#chat\ny  n _oooooo,Fk_.Fy  ,$#terrain\n\u001b#force\n #invoke\nl  n\u001611\ni\u001b\u00169\n\u0017spellbook of healing\nrp .m.\u0017blessed spellbook of detect unseen\nrq20s\u0017spellbook of confuse monster\nrr  sm.+\u001b\u0007jackal\nZc\n Zc\n Zc\n\u0007kobold\nZb\n n #turn\n  #pray\ny y             #enhance\nna\n#levelchange\n12\n   \u001615\n#offer\n\u0014,m.#untrap\ny;.\u0006ss\u001633\n#loot\n#pray\ny y  qd20s20s\u001641\n#rub\nP,;h;\u0006sm..m.\u0007tame winter wolf cub\n20s\u0017leash\nasj  llb    nask \u0017carrot\ntak\u0017lichen corpse\nt$u\u0006_>.>FnFh _>,>Fy   nFl_>,>Fy Fy\u00173 the Platinum Yendorian Express Card\n wnFh Fl Fh #invoke\nv  yy\u001by   ny y\u001b  F"
+  }
+ ]
+}

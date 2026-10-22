@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  \u0016?\n>CFlFlyyhFlFlkkhuhhhhhh10shuyyynhukjuuhhh10shhluuulFlub\u0017wand of striking\nzilukn\u0017scroll of earth\nrj \u0017scroll of earth\nrk   nujhh10sFlhFluFj\u0016?\n>ChFluuyyuubjhhhhhhhhhhlFuFl \u0017wand of digging\nzll\u0017wand of digging\nzmk\u0017scroll of earth\nrn uhhhuh10sulkhhulhh\u0017scroll of earth\nro yluyhylnkju\u0017wand of striking\nzplhk\u0017wand of diggi"
+ },
+ "segments": [
+  {
+   "seed": 53251023,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0016?\n>CFlFlyyhFlFlkkhuhhhhhh10shuyyynhukjuuhhh10shhluuulFlub\u0017wand of striking\nzilukn\u0017scroll of earth\nrj \u0017scroll of earth\nrk   nujhh10sFlhFluFj\u0016?\n>ChFluuyyuubjhhhhhhhhhhlFuFl \u0017wand of digging\nzll\u0017wand of digging\nzmk\u0017scroll of earth\nrn uhhhuh10sulkhhulhh\u0017scroll of earth\nro yluyhylnkju\u0017wand of striking\nzplhk\u0017wand of diggi"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006FlFl FlFlFlFl_ \u001b<. qd FkFkFkFkFkFk_{,_.qd_oooooooo.,plhl#chat\nu_oooo.,#chat\nu_ooooooooo._._ooo.,y p_{._.qd_oooo,_.>._o._,Fn ,$_{.   nFn _.Flq_oooo. Fb _. Fb   n_o.Fh_.,\u001bp\u0016?\nc nkl \u0016?\n>w\u0006_oo,_,Fh ,pFh Fh     n         Fh   n   Fh          n        nFh        n  Fh        n      \u00162\n_oooooooo,,\u0014,.._ooooooo,_,,p__._.#chat\nk_oooooo,,p__,#chat\nb#pray\ny y _oooooooo.,#chat\nu__.#chat\ny#pray\ny y \u0016?\n>Bblh\u0016?\n>w\u0006_{,Fj  n  _,   n Fj   q\u00163\nu bn#chat\ny_ooooooo,_,,p_oooooooo.,$_ooo,_o.,p_oooooooo._o.,p_oooooo.,$\u00163\nuk   n\u0016?\n>w\u0006_oooooooo.Fh  n _,Fk_ooo,Fk _.  nFy ,p\u00167\nlkl\u0016?\n>w\u0006\u00163\n_oo._o._.,#chat\nb_oooooo._o.  _.>.  ,a\np_{.qn \u001b _ooooooo._.  nFu_oo.Fu_.Fk,a\np_{._.  q_ooooooo,_._o,_.,b\n$_oooooo.   _,.,b\n$_{,q_oooooo,Fb_,  n   Fj,b\np_{.q_oo.Fb   \u001b_.,p_{.q\u0016?\n>Bkkb\u0016?\n>w\u0006_ooooooo,_.,#chat\nu_oooooo,_.,$_ooooooooo._._oo,_,,$_ooooooooo._.,$jkj#chat\njFjFjFjFjFjFj_oooooo._,,phlk#chat\nk_oooo,_o,_,,"
+ },
+ "segments": [
+  {
+   "seed": 53250016,
+   "datetime": "20000426204109",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006FlFl FlFlFlFl_ \u001b<. qd FkFkFkFkFkFk_{,_.qd_oooooooo.,plhl#chat\nu_oooo.,#chat\nu_ooooooooo._._ooo.,y p_{._.qd_oooo,_.>._o._,Fn ,$_{.   nFn _.Flq_oooo. Fb _. Fb   n_o.Fh_.,\u001bp\u0016?\nc nkl \u0016?\n>w\u0006_oo,_,Fh ,pFh Fh     n         Fh   n   Fh          n        nFh        n  Fh        n      \u00162\n_oooooooo,,\u0014,.._ooooooo,_,,p__._.#chat\nk_oooooo,,p__,#chat\nb#pray\ny y _oooooooo.,#chat\nu__.#chat\ny#pray\ny y \u0016?\n>Bblh\u0016?\n>w\u0006_{,Fj  n  _,   n Fj   q\u00163\nu bn#chat\ny_ooooooo,_,,p_oooooooo.,$_ooo,_o.,p_oooooooo._o.,p_oooooo.,$\u00163\nuk   n\u0016?\n>w\u0006_oooooooo.Fh  n _,Fk_ooo,Fk _.  nFy ,p\u00167\nlkl\u0016?\n>w\u0006\u00163\n_oo._o._.,#chat\nb_oooooo._o.  _.>.  ,a\np_{.qn \u001b _ooooooo._.  nFu_oo.Fu_.Fk,a\np_{._.  q_ooooooo,_._o,_.,b\n$_oooooo.   _,.,b\n$_{,q_oooooo,Fb_,  n   Fj,b\np_{.q_oo.Fb   \u001b_.,p_{.q\u0016?\n>Bkkb\u0016?\n>w\u0006_ooooooo,_.,#chat\nu_oooooo,_.,$_ooooooooo._._oo,_,,$_ooooooooo._.,$jkj#chat\njFjFjFjFjFjFj_oooooo._,,phlk#chat\nk_oooo,_o,_,,"
+  }
+ ]
+}

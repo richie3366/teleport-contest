@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed shield of reflection\nWf\u0017blessed ring of free action\nPgr\u0017blessed spellbook of fireball\nrh.\u0017blessed spellbook of magic missile\nri .\u0007succubus\nZb\nZb\nZa\nZa\nZa\nZb\n20s  y      .#turn\n\u0017spellbook of fireball\nrj y .\u0007aligned cleric\ny\u0007succubus\nZb\nZa\nZb\nsm.sZb\nZb\nsm.       20s   n   Za\nZb\nZa\nsm.   n    sm.   n  i\u001b\u001610\n \u0017wand of teleportation\n\u0017wand of digging\n\u0007gnome\n\u0007giant rat\nzku.m.zkkzl> .zl> zl> zkyzkyzkks\u00174 cream pies\nQ-\u0007soldier\ntdh f by htch   nf \u001bf \u001b\u0007vampire\n\u0007mind flayer\n\u0007aligned cleric\ny\u0017wand of fire\nzny  znh  znk    \u00169\n\u0007succubus\n\u0007orc shaman\n\u0007aligned cleric\nn\u0017wand of striking\nzoj sm.     .ysm.zolzol zo.\u001715 shuriken\nQp\u0007soldier\nflfl tpltdl    nfl \u0017blessed spellbook of cone of cold\n rq .m.\u0017blessed spellbook of cause fear\nrr   n sm.\u0007master mind flayer\n\u0007gnomish wizard\nZa\n.m.          20s    n  Z20s      n         "
+ },
+ "segments": [
+  {
+   "seed": 53250048,
+   "datetime": "20261110041608",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed shield of reflection\nWf\u0017blessed ring of free action\nPgr\u0017blessed spellbook of fireball\nrh.\u0017blessed spellbook of magic missile\nri .\u0007succubus\nZb\nZb\nZa\nZa\nZa\nZb\n20s  y      .#turn\n\u0017spellbook of fireball\nrj y .\u0007aligned cleric\ny\u0007succubus\nZb\nZa\nZb\nsm.sZb\nZb\nsm.       20s   n   Za\nZb\nZa\nsm.   n    sm.   n  i\u001b\u001610\n \u0017wand of teleportation\n\u0017wand of digging\n\u0007gnome\n\u0007giant rat\nzku.m.zkkzl> .zl> zl> zkyzkyzkks\u00174 cream pies\nQ-\u0007soldier\ntdh f by htch   nf \u001bf \u001b\u0007vampire\n\u0007mind flayer\n\u0007aligned cleric\ny\u0017wand of fire\nzny  znh  znk    \u00169\n\u0007succubus\n\u0007orc shaman\n\u0007aligned cleric\nn\u0017wand of striking\nzoj sm.     .ysm.zolzol zo.\u001715 shuriken\nQp\u0007soldier\nflfl tpltdl    nfl \u0017blessed spellbook of cone of cold\n rq .m.\u0017blessed spellbook of cause fear\nrr   n sm.\u0007master mind flayer\n\u0007gnomish wizard\nZa\n.m.          20s    n  Z20s      n         "
+  }
+ ]
+}

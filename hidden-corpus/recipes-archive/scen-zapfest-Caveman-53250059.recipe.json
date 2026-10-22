@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWf\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPhr#levelchange\n20\n                   \u0017blessed spellbook of light\nris\u0007lich\n\u0007aligned cleric\nyZa\nsm.      s Za\nZa\n20s  sZa\n20s   n  20s  Za\nZa\nZa\n #turn\n\u0017wand of striking\n\u0017wand of fire\n\u0007lichen\nzjk  n  .zkk s   zkk   n .   zjkzkk   zkyzjkzjk\u001613\n\u001611\n     \u0007master lich\n\u0007gnomish wizard\n\u0017wand of fire\nzlk\u0017wand of fire\n\u0017wand of teleportation\n\u0007owlbear\n\u0007jackal\nzmk   nznb   s zmlznl   20s  znk.zmk   n zm.   \u00168\n \u0017spellbook of force bolt\nro20s\u0017spellbook of knock\nrp20s\u0007master mind flayer\nZa\n. .Za\nZa\n Za\n 20s sZa\n  n.        n .  n Za\n  n Za\n  n Za\n  n \u00163\n\u0007"
+ },
+ "segments": [
+  {
+   "seed": 53250059,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWf\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPhr#levelchange\n20\n                   \u0017blessed spellbook of light\nris\u0007lich\n\u0007aligned cleric\nyZa\nsm.      s Za\nZa\n20s  sZa\n20s   n  20s  Za\nZa\nZa\n #turn\n\u0017wand of striking\n\u0017wand of fire\n\u0007lichen\nzjk  n  .zkk s   zkk   n .   zjkzkk   zkyzjkzjk\u001613\n\u001611\n     \u0007master lich\n\u0007gnomish wizard\n\u0017wand of fire\nzlk\u0017wand of fire\n\u0017wand of teleportation\n\u0007owlbear\n\u0007jackal\nzmk   nznb   s zmlznl   20s  znk.zmk   n zm.   \u00168\n \u0017spellbook of force bolt\nro20s\u0017spellbook of knock\nrp20s\u0007master mind flayer\nZa\n. .Za\nZa\n Za\n 20s sZa\n  n.        n .  n Za\n  n Za\n  n Za\n  n \u00163\n\u0007"
+  }
+ ]
+}

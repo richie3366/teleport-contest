@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "   FnFyFk Fk 20ss_ \u001bm,>100s100s150s\u0018\u001b\\ nll\u0018\u001b#twoweapon\n50s\u000f\u001bhlh_>,>100s  i\u001b50suyhi\u001b150s100sf  50s  Fh  20s20s FhFhFhnbh100s _>.>150s#jump\n50sFhFhFhFh..100si\u001byhh150sFhFhFhFhFhFhkbjhknkn#name\nf\n20s10sh #name\ni\n10s10skhu h#chat\nnef FhFhFlFhFhFh#pray\ny  150s<uny100sFhFhFh Fh Fj Fj FjFhFhFhFhs150sFhFh.50s\u000f\u001b100s100sFhFhFhFhFh.100sFhFhs<150sef\\ 100s#untrap\n.llj100sFhss\\ 100s100s100sFhFh.hnylhu50s50sdds.s#name\nm\nd.ssbbjy#chat\njunhl#chat\ny#name\nm\nd.20ss#name\nm\nylYKBJ_>UUUH_>NNKJ_>BUYU_>UJUK_>\u000f\u0014_>.>100s \\ 100sFh.s100sFhFhFh_>,>nlh100s150s#loot\n150sFhFhschhujhhyFhFhFhFh..50s150s100sFhFhFh150s\u0018\u001b100sFh20s.#dip\nhyhh_>.>50sFjFjFjFjFjFjFjFjFj100s100s_>.>100slh nHHUJ _>.>FhFhFhYNBB_>.>FkFkFkKBNN_>,>FkFkFkJKUB_>,>YHBK_>.><NBHB_>,>tcy"
+ },
+ "segments": [
+  {
+   "seed": 53250003,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=playmode:explore\n",
+   "moves": "   FnFyFk Fk 20ss_ \u001bm,>100s100s150s\u0018\u001b\\ nll\u0018\u001b#twoweapon\n50s\u000f\u001bhlh_>,>100s  i\u001b50suyhi\u001b150s100sf  50s  Fh  20s20s FhFhFhnbh100s _>.>150s#jump\n50sFhFhFhFh..100si\u001byhh150sFhFhFhFhFhFhkbjhknkn#name\nf\n20s10sh #name\ni\n10s10skhu h#chat\nnef FhFhFlFhFhFh#pray\ny  150s<uny100sFhFhFh Fh Fj Fj FjFhFhFhFhs150sFhFh.50s\u000f\u001b100s100sFhFhFhFhFh.100sFhFhs<150sef\\ 100s#untrap\n.llj100sFhss\\ 100s100s100sFhFh.hnylhu50s50sdds.s#name\nm\nd.ssbbjy#chat\njunhl#chat\ny#name\nm\nd.20ss#name\nm\nylYKBJ_>UUUH_>NNKJ_>BUYU_>UJUK_>\u000f\u0014_>.>100s \\ 100sFh.s100sFhFhFh_>,>nlh100s150s#loot\n150sFhFhschhujhhyFhFhFhFh..50s150s100sFhFhFh150s\u0018\u001b100sFh20s.#dip\nhyhh_>.>50sFjFjFjFjFjFjFjFjFj100s100s_>.>100slh nHHUJ _>.>FhFhFhYNBB_>.>FkFkFkKBNN_>,>FkFkFkJKUB_>,>YHBK_>.><NBHB_>,>tcy"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nWf\u0017blessed amulet of reflection\nPg\u0017blessed amulet of life saving\nPh\u0016?\n>z  \u00162\n\u0006jujnylnu\u00163\n  \u0006#chat\nl;l: \u001b@.\u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z_>,>\u0016?\n>z\u0006_mm,      _,   ss       .    Fk         Fk     Fy    \u00165\n\u0016?\n>z\u0006__.           Fy   _.;;Fk     _>,Fl  n           _.      Fk     n    >\u0016?\n>z\u0006#chat\nk            ;h.\u00165\n\u00162\n\u0016?\n>z\u0006_<.         Fl  n       _.      Fu_>.       n     Fk    _,>.Fh       n  >\u0016?\n>z\u0006,\u001b\u001611\n\u00164\n\u0016?\n>z\u0006,\u001b\u0016?\n>>\u001b\u0016?\n>y#chat\ny      \u0016?\n>z\u00165\n\u0016?\n>z\u0006bb       u       nk     k    hy\u00166\n\u0016?\n>z\u0006_mmmm.    Fn  _,;;Fj      Fj Fn     Fn      Fj\u00162\n\u0016?\n>z\u0006h hh   lu_>,Fn    _,  >\u0016?\n>z\u0006#chat\nu;<._>.   _, Fh  n>\u0016?\n>z\u0006ujunklju\u0016?\n>>\u001b\u0016?\n>y#chat\nb\u0016?\n>z\u00165\n\u0016?\n>z\u0006__,\u00166\n\u0016?\n>z\u0006_m,Fh_,Fb    Fb FjFh  \u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006n jk  \u00164\n\u0016?\n>z\u0006__,\u0016?\n>>\u001b\u0016?\n>y#chat\nh  \u0016?\n>z_>.  Fh  n   _. Fy  >\u0016?\n>z\u0006_<.  Fb  _,  Fy\u00166"
+ },
+ "segments": [
+  {
+   "seed": 53250076,
+   "datetime": "20090503093255",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 cloak of magic resistance\nWf\u0017blessed amulet of reflection\nPg\u0017blessed amulet of life saving\nPh\u0016?\n>z  \u00162\n\u0006jujnylnu\u00163\n  \u0006#chat\nl;l: \u001b@.\u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z_>,>\u0016?\n>z\u0006_mm,      _,   ss       .    Fk         Fk     Fy    \u00165\n\u0016?\n>z\u0006__.           Fy   _.;;Fk     _>,Fl  n           _.      Fk     n    >\u0016?\n>z\u0006#chat\nk            ;h.\u00165\n\u00162\n\u0016?\n>z\u0006_<.         Fl  n       _.      Fu_>.       n     Fk    _,>.Fh       n  >\u0016?\n>z\u0006,\u001b\u001611\n\u00164\n\u0016?\n>z\u0006,\u001b\u0016?\n>>\u001b\u0016?\n>y#chat\ny      \u0016?\n>z\u00165\n\u0016?\n>z\u0006bb       u       nk     k    hy\u00166\n\u0016?\n>z\u0006_mmmm.    Fn  _,;;Fj      Fj Fn     Fn      Fj\u00162\n\u0016?\n>z\u0006h hh   lu_>,Fn    _,  >\u0016?\n>z\u0006#chat\nu;<._>.   _, Fh  n>\u0016?\n>z\u0006ujunklju\u0016?\n>>\u001b\u0016?\n>y#chat\nb\u0016?\n>z\u00165\n\u0016?\n>z\u0006__,\u00166\n\u0016?\n>z\u0006_m,Fh_,Fb    Fb FjFh  \u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006n jk  \u00164\n\u0016?\n>z\u0006__,\u0016?\n>>\u001b\u0016?\n>y#chat\nh  \u0016?\n>z_>.  Fh  n   _. Fy  >\u0016?\n>z\u0006_<.  Fb  _,  Fy\u00166"
+  }
+ ]
+}

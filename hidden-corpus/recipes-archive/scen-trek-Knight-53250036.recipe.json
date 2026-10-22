@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "UYUK_ \u001b@.>FjFlFnBLLU_>.>Fh s20sBK BN_>.>LLNL_>,>UY HK_>,>#terrain\nc\n,#name\no\nuehzN YBU_>.>N KHN_>,>LUJB_>.>JY HH_>.>n#pray\ny  YJUB_>.>df20s20ssbl10sdg.s.hkul#chat\nh\u000f\u001bi\u001b#tip\n\u001bi\u001b150s100s\\   \\   _>.>hbj\u000f\u001b150s  kun\u000f\u001b#pray\ny #invoke\n\u001b100s 100slyk50s eh100s eh_>.>i\u001b150s    ehluy100s eh100sehnlk100seh50seh100seh100s#enhance\n\u001bZ#jump\n@.KYHK_>.>JL KK_>.><UNNL_>.>NBKH_>.>KN BK_>.>LYHB_>,>dessstbuulujt\u001bt\u001bujdassseheh#wipe\nknk150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeB YLL_>.>B UYL_>.>JKLN_>.>NLLB_>.>LJJJ_>,>s#wipe\nNJBL_>.>20s\\   ,cl#loot\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLHKN_>.>JY KK_>.>#wipe\n#wipe\nHBYN_>.>YBKU_>,>LKLB_>.>HYYK_>,>JLJN_>.>LKYJ_>,>NBUU_>.>UUJL_>.>,#terrain\nc\nm.ole#pray\ny   e#pray\ny   #pray\ny  #pray\ny #pray\ny  #pray\ny  #pray\ny       e#pray\ny  y\u001by  y y y\u001b  \u0018"
+ },
+ "segments": [
+  {
+   "seed": 53250036,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:horse\n",
+   "moves": "UYUK_ \u001b@.>FjFlFnBLLU_>.>Fh s20sBK BN_>.>LLNL_>,>UY HK_>,>#terrain\nc\n,#name\no\nuehzN YBU_>.>N KHN_>,>LUJB_>.>JY HH_>.>n#pray\ny  YJUB_>.>df20s20ssbl10sdg.s.hkul#chat\nh\u000f\u001bi\u001b#tip\n\u001bi\u001b150s100s\\   \\   _>.>hbj\u000f\u001b150s  kun\u000f\u001b#pray\ny #invoke\n\u001b100s 100slyk50s eh100s eh_>.>i\u001b150s    ehluy100s eh100sehnlk100seh50seh100seh100s#enhance\n\u001bZ#jump\n@.KYHK_>.>JL KK_>.><UNNL_>.>NBKH_>.>KN BK_>.>LYHB_>,>dessstbuulujt\u001bt\u001bujdassseheh#wipe\nknk150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeB YLL_>.>B UYL_>.>JKLN_>.>NLLB_>.>LJJJ_>,>s#wipe\nNJBL_>.>20s\\   ,cl#loot\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLHKN_>.>JY KK_>.>#wipe\n#wipe\nHBYN_>.>YBKU_>,>LKLB_>.>HYYK_>,>JLJN_>.>LKYJ_>,>NBUU_>.>UUJL_>.>,#terrain\nc\nm.ole#pray\ny   e#pray\ny   #pray\ny  #pray\ny #pray\ny  #pray\ny  #pray\ny       e#pray\ny  y\u001by  y y y\u001b  \u0018"
+  }
+ ]
+}

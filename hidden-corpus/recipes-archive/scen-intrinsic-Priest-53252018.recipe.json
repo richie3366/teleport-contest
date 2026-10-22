@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nk\n .ss20s20ssm.20ssk.y20ssjs.s20s 20ssss. s.#chat\nl\u0018\u001b#force\n#tip\n\u001b,#chat\nyssksm.ss.m."
+ },
+ "segments": [
+  {
+   "seed": 53252018,
+   "datetime": "20140503124821",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nk\n .ss20s20ssm.20ssk.y20ssjs.s20s 20ssss. s.#chat\nl\u0018\u001b#force\n#tip\n\u001b,#chat\nyssksm.ss.m."
+  }
+ ]
+}

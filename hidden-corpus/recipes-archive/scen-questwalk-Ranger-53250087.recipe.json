@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed Mjollnir\nwg\u0016?\n>z  \u00162\n\u0006_ \u001bm,Fj Fn  Fu Fu  Fj    \u00163\n  \u0006lubu \u00164\n\u0006,_>,  _. Fk     n>\u0006l u k          n      nj      lk    \u0016?\n>>\u001b\u0016?\n>y  #chat\nl\u0016?\n>z\u001610\n\u00166\n\u0016?\n>z\u0006#chat\nl;j,\u00162\n\u0016?\n>z\u0006_mmmmm.FlFlFj FjFn \u00163\n\u0016?\n>z\u0006,_>.Fj_.Fl>\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006,_>.Fn _,   n  Fn   >\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_mmmmm.  Fj    n _.Fn   Fu   Fl    n Fy Fl   Fu  \u00166\n_>,  Fj   n  _.  Fy   >\u0016?\n>z\u0006hl b  h     l   kl \u00164\n\u0016?\n>z\u0006#chat\nn;l.\u00165\n\u0016?\n>z\u0006#chat\nn;j;\u00166\n\u0016?\n>z\u0006b  n  ubk   j        n\u00162\n\u00162\n\u0016?\n>z\u0006k    j  k   b        n _>.    Fu       n  _.    Fj   >\u0016?\n>z\u0006_mmm.Fy      n Fh    Fh      \u001612\n\u00164\n\u0016?\n>z\u0006b   khk\u00165\n\u0016?\n>z\u0006#chat\ny;y.\u00166\n\u0016?\n>z\u0006_<,\u00162\n\u0016?\n>z\u0006_mmmmm.    \u001b    n   Fn      _.     Fn     n Fh   Fl     Fu    Fk    n"
+ },
+ "segments": [
+  {
+   "seed": 53250087,
+   "datetime": "20241030004059",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed Mjollnir\nwg\u0016?\n>z  \u00162\n\u0006_ \u001bm,Fj Fn  Fu Fu  Fj    \u00163\n  \u0006lubu \u00164\n\u0006,_>,  _. Fk     n>\u0006l u k          n      nj      lk    \u0016?\n>>\u001b\u0016?\n>y  #chat\nl\u0016?\n>z\u001610\n\u00166\n\u0016?\n>z\u0006#chat\nl;j,\u00162\n\u0016?\n>z\u0006_mmmmm.FlFlFj FjFn \u00163\n\u0016?\n>z\u0006,_>.Fj_.Fl>\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006,_>.Fn _,   n  Fn   >\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_mmmmm.  Fj    n _.Fn   Fu   Fl    n Fy Fl   Fu  \u00166\n_>,  Fj   n  _.  Fy   >\u0016?\n>z\u0006hl b  h     l   kl \u00164\n\u0016?\n>z\u0006#chat\nn;l.\u00165\n\u0016?\n>z\u0006#chat\nn;j;\u00166\n\u0016?\n>z\u0006b  n  ubk   j        n\u00162\n\u00162\n\u0016?\n>z\u0006k    j  k   b        n _>.    Fu       n  _.    Fj   >\u0016?\n>z\u0006_mmm.Fy      n Fh    Fh      \u001612\n\u00164\n\u0016?\n>z\u0006b   khk\u00165\n\u0016?\n>z\u0006#chat\ny;y.\u00166\n\u0016?\n>z\u0006_<,\u00162\n\u0016?\n>z\u0006_mmmmm.    \u001b    n   Fn      _.     Fn     n Fh   Fl     Fu    Fk    n"
+  }
+ ]
+}

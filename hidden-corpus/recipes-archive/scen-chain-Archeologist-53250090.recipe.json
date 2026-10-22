@@ -1,0 +1,77 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " ku 10s10shlhbbbnFhFhFhFhFhFh FhFhlhhldb20s..t\u001b20s20s10syubn#chat\nkdb20sss#chat\nlt\u001bhk10sulhubuubLHBL_ \u001b@.#quit\nyy\u001by  y y y\u001b  #wizintrinsic\nd\n 20s.m.sm.20s20s  nsm.sy.m.20ssm.sm..n20s20s  yy\u001bnnnn  . lluyFjFj FjFjFjFjFjFjhhjknkbuFhFhFhFhFhFhFhFh##quit\n yjkjFlFlFl Fl FlFlFlFl Fk20ss150sFl20s.\\ 150sFnFlsklb100s150s   Fl Fl  Fn_ \u001b<.>100sFj#quit\nyy\u001by  y y y\u001b #wizintrinsic\na\n ss20s20s20s20s20s20s .20ss20s  .m.sm.sm. sm.sssss20s....ss \u0017wand of fire\nzj.   y y  syy  #quit\nyyY YHY_ \u001b:><UKUH_>,>FkFj sLUJK_>.>Fbs.,#offer\n150skjjFk.s\u0018\u001b100s100skkh150slkn100sFbFb.100s_>.>_>.>100s FbFb._>,>150suhlFhss100s150sylb100s150sFjFj20s150sed#name\ni\n100s 100sFj..100s_>.>bkkFjsFjFjFjFjtbunny50subbuFjFjFjFjFjFjFjFjFlFlFlFlFlFlFlFl#chat\nkda20s suskde sm..m.  y\u001by  nnn  . bhh h#chat\nkuklu10sdgs20ss#chat\nnbj20s 10suh lu FjFjFjFjFjFjFjFjFj FjFjFjFjFjFjFjt\u001b10sbbnyubby#chat\njdbss20s10sYUKN_ \u001bm.>NUYN_>,>BUKB_>,>#ride\nj#untrap\nhJNNJ_>.>UUJK_>,>BUJJ_>.>\\ 100s100sFyFyFyFyFyFy_>,>50sFys20s100sFyFy.100sFyFyFy100s\\ 100s_>,>50sjkbjnh_>.>_>,>kkl\\ 100s100sFk20ss100sef20s100see_>.>100seeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53250090,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\n",
+   "moves": " ku 10s10shlhbbbnFhFhFhFhFhFh FhFhlhhldb20s..t\u001b20s20s10syubn#chat\nkdb20sss#chat\nlt\u001bhk10sulhubuubLHBL_ \u001b@.#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 53350090,
+   "datetime": "20250227140230",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nd\n 20s.m.sm.20s20s  nsm.sy.m.20ssm.sm..n20s20s  yy\u001bnnnn  ."
+  },
+  {
+   "seed": 53450090,
+   "datetime": "20240804175225",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": " lluyFjFj FjFjFjFjFjFjhhjknkbuFhFhFhFhFhFhFhFh##quit\n"
+  },
+  {
+   "seed": 53550090,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\n",
+   "moves": " yjkjFlFlFl Fl FlFlFlFl Fk20ss150sFl20s.\\ 150sFnFlsklb100s150s   Fl Fl  Fn_ \u001b<.>100sFj#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 53650090,
+   "datetime": "20200105021312",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\na\n ss20s20s20s20s20s20s .20ss20s  .m.sm.sm. sm.sssss20s....ss"
+  },
+  {
+   "seed": 53750090,
+   "datetime": "20061123021743",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of fire\nzj.   y y  s"
+  },
+  {
+   "seed": 53850090,
+   "datetime": "20150127163548",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "yy  #quit\nyy"
+  },
+  {
+   "seed": 53950090,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:durian\n",
+   "moves": "Y YHY_ \u001b:><UKUH_>,>FkFj sLUJK_>.>Fbs.,#offer\n150skjjFk.s\u0018\u001b100s100skkh150slkn100sFbFb.100s_>.>_>.>100s FbFb._>,>150suhlFhss100s150sylb100s150sFjFj20s150sed#name\ni\n100s 100sFj..100s_>.>bkkFjsFjFjFjFjtbunny50subbuFjFjFjFjFjFjFjFjFlFlFlFlFlFlFlFl#chat\nkda20s suskde sm..m.  y\u001by  nnn  ."
+  },
+  {
+   "seed": 54050090,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=autodig\nOPTIONS=fruit:kumquat\n",
+   "moves": " bhh h#chat\nkuklu10sdgs20ss#chat\nnbj20s 10suh lu FjFjFjFjFjFjFjFjFj FjFjFjFjFjFjFjt\u001b10sbbnyubby#chat\njdbss20s10sYUKN_ \u001bm.>NUYN_>,>BUKB_>,>#ride\nj#untrap\nhJNNJ_>.>UUJK_>,>BUJJ_>.>\\ 100s100sFyFyFyFyFyFy_>,>50sFys20s100sFyFy.100sFyFyFy100s\\ 100s_>,>50sjkbjnh_>.>_>,>kkl\\ 100s100sFk20ss100sef20s100see_>.>100seeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  }
+ ]
+}

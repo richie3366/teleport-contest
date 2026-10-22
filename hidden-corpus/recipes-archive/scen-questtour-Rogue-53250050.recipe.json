@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nb_mm.#chat\nh_mmm.#chat\ny#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nh_mm,#chat\nb\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWi\u0017wand of death\n\u0016?\n>z\u0006_mm.Fu  .s.sszjh n ,\u0016?\n>A\u0006_mmm,.ss.ss.,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nn;<.\u0016?\n>A\u0006_mmmmmmm.s.20s  FlFlFlFlzjl,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.sFlFl Fl Fl  n Fu   zju   n ,#chat\nl\u001611\n\u0016?\n>z\u0006_mmmmmm.FuFuFu Fu Fu  ,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mm.  n Fl  _,#chat\nl\u0016?\n>A\u0006_mmmmmmm,Fu_.FuFu  n  Fu.m.sjs20s ,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nl\u0016?\n>A\u0006_mmm.su20sFj  nFjFjFbzjb n,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\ny\u00167\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.20sss.zj,\u0016?\n>z\u0006_mmm...s.ss.zj,#chat\ny\u0016?\n>A\u0006_mmmmmm.s20sFlFlFlFlzj,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nl\u0016?\n>A\u0006_mmmm.FlFlFlFlFlzj,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fl_.FlFls20s20szj,\u0016?\n>z\u0006_mmmmmmm,ss20s20s.,#chat\nl\u0016?\n>A\u0006_mmmmm.ss.ssszj,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\ny\u0016?\n>A\u0006_mmmm,ss20s ..,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mm..20sss,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\ny\u0016?\n>z\u0006_mmmmmmm,.20sss20s.zj,#chat\nj\u0016?\n>A\u0006_mm..20ssszj,#chat\nl\u0016?\n>A\u0006_mmmmm.s20s  FnFnFn,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20s.s20sss20s,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nu;>.\u0016?\n>z\u0006_mmmmm.20ssssssszj,\u0016?\n>A\u0006_mmmmmmm.s20ss20sss20szj,\u0016?\n>A\u0006_mmmmmm.s2"
+ },
+ "segments": [
+  {
+   "seed": 53250050,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nb_mm.#chat\nh_mmm.#chat\ny#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nh_mm,#chat\nb\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWi\u0017wand of death\n\u0016?\n>z\u0006_mm.Fu  .s.sszjh n ,\u0016?\n>A\u0006_mmm,.ss.ss.,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,#chat\nn;<.\u0016?\n>A\u0006_mmmmmmm.s.20s  FlFlFlFlzjl,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.sFlFl Fl Fl  n Fu   zju   n ,#chat\nl\u001611\n\u0016?\n>z\u0006_mmmmmm.FuFuFu Fu Fu  ,#chat\nu\u0016?\n>>\u001b\u0016?\n>y_mm.  n Fl  _,#chat\nl\u0016?\n>A\u0006_mmmmmmm,Fu_.FuFu  n  Fu.m.sjs20s ,\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nl\u0016?\n>A\u0006_mmm.su20sFj  nFjFjFbzjb n,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\ny\u00167\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.20sss.zj,\u0016?\n>z\u0006_mmm...s.ss.zj,#chat\ny\u0016?\n>A\u0006_mmmmmm.s20sFlFlFlFlzj,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nl\u0016?\n>A\u0006_mmmm.FlFlFlFlFlzj,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fl_.FlFls20s20szj,\u0016?\n>z\u0006_mmmmmmm,ss20s20s.,#chat\nl\u0016?\n>A\u0006_mmmmm.ss.ssszj,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\ny\u0016?\n>A\u0006_mmmm,ss20s ..,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mm..20sss,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\ny\u0016?\n>z\u0006_mmmmmmm,.20sss20s.zj,#chat\nj\u0016?\n>A\u0006_mm..20ssszj,#chat\nl\u0016?\n>A\u0006_mmmmm.s20s  FnFnFn,#chat\nn\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20s.s20sss20s,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nu;>.\u0016?\n>z\u0006_mmmmm.20ssssssszj,\u0016?\n>A\u0006_mmmmmmm.s20ss20sss20szj,\u0016?\n>A\u0006_mmmmmm.s2"
+  }
+ ]
+}

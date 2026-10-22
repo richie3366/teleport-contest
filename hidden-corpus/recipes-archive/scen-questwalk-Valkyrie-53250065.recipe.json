@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed +3 silver dragon scale mail\nWe\u0017blessed amulet of life saving\nPf\u0016?\n>z  \u00162\n\u0006_ \u001b>.FbFb Fbs_>.Fk  _. Fy>\u0006__.\u00164\n\u0006_mm.   _.Fh  Fk Fh Fh20s  Fh \u00165\n\u0006bulhkkk\u00166\n  \u0006,\u00162\n\u0006jlyj\u00163\n \u0006_m.Fl       \u001b   _.Fu  Fk       Fn       Fl \u00164\n\u0006#chat\nj;<.\u00165\n\u0006__,_>._,> \u0006_mm.20s    \u001bs.20s  \u00162\n\u0006_<. Fl _.Fl\u00163\n \u0006_<.Fh_,\u00164\n\u0006hlhnnnu\u00165\n\u0006_m,   Fk _,Fk Fk.sFj \u00166\n \u0006#chat\nu;>.\u00162\n\u0006hb h\u00163\n \u0006_>. Fh_.       Fj   \u00164\n\u0006_mmmmm._,.sFyFy _>. Fh    _,   n  >\u0006,_>,Fn_.  Fn  >\u0006jjn_>.Fy  _.Fy>\u0006_mm.Fy_.Fh  nFyFyFhFhFy\u00163\n\u0006l j y\u00164\n\u0006,_>.Fy _.<.Fy  >\u0006__.Fh_,\u00166\n \u0006_m.              \u001b  Fh    n  _.FhFy Fb Fk   Fh   FhFh _>.      Fk  _.    n    Fh   >\u0006_mmmmm,   Fk  n      _.    Fb   n    Fb    Fu    n Fu Fk       Fk    \u001611\n\u00163\n\u0006_<. \u001b_.\u00164\n\u0006_>.Fl_"
+ },
+ "segments": [
+  {
+   "seed": 53250065,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed +3 silver dragon scale mail\nWe\u0017blessed amulet of life saving\nPf\u0016?\n>z  \u00162\n\u0006_ \u001b>.FbFb Fbs_>.Fk  _. Fy>\u0006__.\u00164\n\u0006_mm.   _.Fh  Fk Fh Fh20s  Fh \u00165\n\u0006bulhkkk\u00166\n  \u0006,\u00162\n\u0006jlyj\u00163\n \u0006_m.Fl       \u001b   _.Fu  Fk       Fn       Fl \u00164\n\u0006#chat\nj;<.\u00165\n\u0006__,_>._,> \u0006_mm.20s    \u001bs.20s  \u00162\n\u0006_<. Fl _.Fl\u00163\n \u0006_<.Fh_,\u00164\n\u0006hlhnnnu\u00165\n\u0006_m,   Fk _,Fk Fk.sFj \u00166\n \u0006#chat\nu;>.\u00162\n\u0006hb h\u00163\n \u0006_>. Fh_.       Fj   \u00164\n\u0006_mmmmm._,.sFyFy _>. Fh    _,   n  >\u0006,_>,Fn_.  Fn  >\u0006jjn_>.Fy  _.Fy>\u0006_mm.Fy_.Fh  nFyFyFhFhFy\u00163\n\u0006l j y\u00164\n\u0006,_>.Fy _.<.Fy  >\u0006__.Fh_,\u00166\n \u0006_m.              \u001b  Fh    n  _.FhFy Fb Fk   Fh   FhFh _>.      Fk  _.    n    Fh   >\u0006_mmmmm,   Fk  n      _.    Fb   n    Fb    Fu    n Fu Fk       Fk    \u001611\n\u00163\n\u0006_<. \u001b_.\u00164\n\u0006_>.Fl_"
+  }
+ ]
+}

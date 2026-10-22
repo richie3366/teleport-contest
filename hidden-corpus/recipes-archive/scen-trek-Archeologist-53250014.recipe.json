@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "J LBL_ \u001b:>FlFls#offer\nqYLJJ_>,>#pray\ny #sit\n\u001b<KKYY_>.>we \u0014LYLB_>.>KJBK_>.>UJNJ_>,>#sit\n\u001b#sit\n\u001b\u0018\u001bYHNY_>.>HLKH_>,><JBBH_>.>NKHJ_>.>FjsFh JNBB_>,>#rub\niae  b f a n20s_>.>100s100s100sFy Fy._>,>50s\u0018\u001b150s\\ 100s100sed150s100s100sylh\u0014#conduct\n 100sFbFbFbFbs20s50sFbFhFb\u000f\u001b100s100s_>.>\u0018\u001b\u0018\u001b50s100s10s100s100sFlss_>.>100s100s#jump\nK\u000f\u001bbklhlbkj#name\nm\nds.20s10s ed Fbss\u000f\u001b150sFbFb.150sFbFbFbnhk100s150sFbsskjk#ride\nb150sFjs20s150seki\u001b100sFjFj.\u0018\u001bjubklbi\u001b100s50s100s100s_m.20snyni\u001bhly150s100sFbFbs150s\\ \\ jly\u000f\u001bi\u001b#twoweapon\n#jump\ni\u001b100s Fb20s.150sed100sFbFb20s100sFbFj.z100sFbFb.150sFbFjs_>.>,10s#enhance\n\u001b50sFbFbFb150sFb20sFbFb.s#chat\ny100sFbFj20sFbss\u000f\u001bubkLFbs20subl150s100s100sFhFh20s100sFhFhFh\\ 150sUKHL_>.>FhFhs#loot\n#enhanc"
+ },
+ "segments": [
+  {
+   "seed": 53250014,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=pettype:cat\n",
+   "moves": "J LBL_ \u001b:>FlFls#offer\nqYLJJ_>,>#pray\ny #sit\n\u001b<KKYY_>.>we \u0014LYLB_>.>KJBK_>.>UJNJ_>,>#sit\n\u001b#sit\n\u001b\u0018\u001bYHNY_>.>HLKH_>,><JBBH_>.>NKHJ_>.>FjsFh JNBB_>,>#rub\niae  b f a n20s_>.>100s100s100sFy Fy._>,>50s\u0018\u001b150s\\ 100s100sed150s100s100sylh\u0014#conduct\n 100sFbFbFbFbs20s50sFbFhFb\u000f\u001b100s100s_>.>\u0018\u001b\u0018\u001b50s100s10s100s100sFlss_>.>100s100s#jump\nK\u000f\u001bbklhlbkj#name\nm\nds.20s10s ed Fbss\u000f\u001b150sFbFb.150sFbFbFbnhk100s150sFbsskjk#ride\nb150sFjs20s150seki\u001b100sFjFj.\u0018\u001bjubklbi\u001b100s50s100s100s_m.20snyni\u001bhly150s100sFbFbs150s\\ \\ jly\u000f\u001bi\u001b#twoweapon\n#jump\ni\u001b100s Fb20s.150sed100sFbFb20s100sFbFj.z100sFbFb.150sFbFjs_>.>,10s#enhance\n\u001b50sFbFbFb150sFb20sFbFb.s#chat\ny100sFbFj20sFbss\u000f\u001bubkLFbs20subl150s100s100sFhFh20s100sFhFhFh\\ 150sUKHL_>.>FhFhs#loot\n#enhanc"
+  }
+ ]
+}

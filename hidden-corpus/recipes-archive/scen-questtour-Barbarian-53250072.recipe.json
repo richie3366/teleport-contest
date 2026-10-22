@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b<.#chat\nh_mmm.  Fy    n  _,  nFy  n  n #chat\nk  n    n_m.  n  n  n  Fj  n  n   n_.#chat\nn  n   n _mmm.  n  yy\u001bny y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 53250072,
+   "datetime": "20151110014722",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001b<.#chat\nh_mmm.  Fy    n  _,  nFy  n  n #chat\nk  n    n_m.  n  n  n  Fj  n  n   n_.#chat\nn  n   n _mmm.  n  yy\u001bny y y\u001b  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "20s  10stcbdes..de.ss20sdgs.s150s Fj FkFk150sFk20s20s150sFks.150sFk20s.__. \u001bm,20s\\    150sFkss\u0018\u001b50s150sFkss\\    r\u001b\\    i\u001b150s_>,>10s150s100seeeeeeeeeeeeeeeBLJJ_>.>\u0014#wipe\nHYUK_>.>KLJN_>.>LYUY_>,>#enhance\n\u001bK\u000f\u001bZ#wipe\nJeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#offer\nz\u0014eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBUUU_>.>NNHB_>,>FhFh.LNUB_>,>af#offer\n<H YJU_>,>\\    zKYYK_>.>YNYH _>.>LH LN_>.>Fk20ssLLKH _>.><KUKK_>.><LBJB_>,>BL NY_>.>BKYH _>,>#ride\nh#name\nd\n\u000f\u001be#pray\ny  \\    150sFhFhFh100s50si\u001b100s 150sFhss\u0018\u001b\u000f\u001bljl50s100sFhFhFh100s100s100sFhsskjb_>.>100sFnFn.50s100sllh\u000f\u001bch50sFl.sjuh150s\u0018\u001b100s Fj20ss150s eehl20sunbj#chat\nu#chat\nu#name\nf\nblkutwb i\u001b#dip\nfLHNY_>,>YKH Y_>,>YH KU_>.>FlFlFlYJUL_>,>YBLN _>,><#chat\nyda.s.ybyhlnlykbnl#name\na\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeh#loot\n#jump\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#untrap\nk#jump\n#wipe\nNL  B"
+ },
+ "segments": [
+  {
+   "seed": 53250080,
+   "datetime": "20181207001003",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\n",
+   "moves": "20s  10stcbdes..de.ss20sdgs.s150s Fj FkFk150sFk20s20s150sFks.150sFk20s.__. \u001bm,20s\\    150sFkss\u0018\u001b50s150sFkss\\    r\u001b\\    i\u001b150s_>,>10s150s100seeeeeeeeeeeeeeeBLJJ_>.>\u0014#wipe\nHYUK_>.>KLJN_>.>LYUY_>,>#enhance\n\u001bK\u000f\u001bZ#wipe\nJeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#offer\nz\u0014eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeBUUU_>.>NNHB_>,>FhFh.LNUB_>,>af#offer\n<H YJU_>,>\\    zKYYK_>.>YNYH _>.>LH LN_>.>Fk20ssLLKH _>.><KUKK_>.><LBJB_>,>BL NY_>.>BKYH _>,>#ride\nh#name\nd\n\u000f\u001be#pray\ny  \\    150sFhFhFh100s50si\u001b100s 150sFhss\u0018\u001b\u000f\u001bljl50s100sFhFhFh100s100s100sFhsskjb_>.>100sFnFn.50s100sllh\u000f\u001bch50sFl.sjuh150s\u0018\u001b100s Fj20ss150s eehl20sunbj#chat\nu#chat\nu#name\nf\nblkutwb i\u001b#dip\nfLHNY_>,>YKH Y_>,>YH KU_>.>FlFlFlYJUL_>,>YBLN _>,><#chat\nyda.s.ybyhlnlykbnl#name\na\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeh#loot\n#jump\neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#untrap\nk#jump\n#wipe\nNL  B"
+  }
+ ]
+}

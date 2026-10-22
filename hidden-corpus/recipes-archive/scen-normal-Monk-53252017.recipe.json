@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "dbw\u001b#ride\nyi\u001b_m. \u001b:20s#monster\n#terrain\nc\n@.<nyokdbri ny#loot\n\u0018\u001bhdb#invoke\n\u001b#jump\nai >\\  #untrap\nn#dip\ngd#sit\n\u001b#chat\nldg#terrain\nc\n,,#offer\n#tip\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 53252017,
+   "datetime": "20210302120957",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\n",
+   "moves": "dbw\u001b#ride\nyi\u001b_m. \u001b:20s#monster\n#terrain\nc\n@.<nyokdbri ny#loot\n\u0018\u001bhdb#invoke\n\u001b#jump\nai >\\  #untrap\nn#dip\ngd#sit\n\u001b#chat\nldg#terrain\nc\n,,#offer\n#tip\n\u001b"
+  }
+ ]
+}

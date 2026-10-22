@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "bbb\u0017lawful altar\ndc\u0017human corpse\n : kb \u0017altar\ndc\u0017jackal corpse\n#offer\nng  : ykj \u0017chaotic altar\nde\u0017jackal corpse\n#offer\nnh  #pray\ny y ku \u0017melting ice\n#terrain\nb\n\u001b;#conduct\n ey #twoweapon\nO>a\u001b\nmOa\u001b\n\u0006_>. Fk_.m.Fh> FyFnFh\u0006_>. Fu_,Fy>FbFy_>.Fb_,Fb>FyFy_>,Fy_.Fb>FyFyFyFbFb\u0006_>,Fb_,Fb>FyFb_>.Fb_,Fb>FyFb_>.Fb_.Fy>FbFyFyFbFyPL\u0006_>,Fy_, Fy>FbFb_>.Fy_.Fy>FbFb_>,Fy_.Fy>FyFyFyFbFb\u0006_>,Fy_.Fb>FyFb_>.Fb_.Fb>FbFy_>.Fb_.Fy>FbFyFyFyFbFyFyFyFyFbFbFyFbFbFbFbFyFyFyFbFyFyFyFbFbFyFbFbFbFbFbFbFbFbFyFbFyFyFyFyFyFyFbFyFyFbFbFyFbFyFbFyFyFyFbFyFbFbFyFyFbFyFbFbFyFyFyFyFyFbFbFyFyFyFbFyFbFbFbFyFyFyFbFyFyFyFbFyFyFyFyFyFyFyFbFbFyFyFbFyFyFyFyFbFyFyFbFbFyFyFbFyFyFbFbFyFbFyFbFyFyFbFyFyFyO>>>>a\u001b\n\u0006_>,Fy_,Fb>FbFy_>.Fy_.Fb>FbFb_>,Fy_.Fb>FyFbFbFyFyW\u0018\u001b<\u0006_>.Fb_.Fb>FbFb_>.Fb_.Fy>FyFy_>.Fy_,Fy>FyFyFbF"
+ },
+ "segments": [
+  {
+   "seed": 53250073,
+   "datetime": "20030314082926",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"blessed\"=green\n",
+   "moves": "bbb\u0017lawful altar\ndc\u0017human corpse\n : kb \u0017altar\ndc\u0017jackal corpse\n#offer\nng  : ykj \u0017chaotic altar\nde\u0017jackal corpse\n#offer\nnh  #pray\ny y ku \u0017melting ice\n#terrain\nb\n\u001b;#conduct\n ey #twoweapon\nO>a\u001b\nmOa\u001b\n\u0006_>. Fk_.m.Fh> FyFnFh\u0006_>. Fu_,Fy>FbFy_>.Fb_,Fb>FyFy_>,Fy_.Fb>FyFyFyFbFb\u0006_>,Fb_,Fb>FyFb_>.Fb_,Fb>FyFb_>.Fb_.Fy>FbFyFyFbFyPL\u0006_>,Fy_, Fy>FbFb_>.Fy_.Fy>FbFb_>,Fy_.Fy>FyFyFyFbFb\u0006_>,Fy_.Fb>FyFb_>.Fb_.Fb>FbFy_>.Fb_.Fy>FbFyFyFyFbFyFyFyFyFbFbFyFbFbFbFbFyFyFyFbFyFyFyFbFbFyFbFbFbFbFbFbFbFbFyFbFyFyFyFyFyFyFbFyFyFbFbFyFbFyFbFyFyFyFbFyFbFbFyFyFbFyFbFbFyFyFyFyFyFbFbFyFyFyFbFyFbFbFbFyFyFyFbFyFyFyFbFyFyFyFyFyFyFyFbFbFyFyFbFyFyFyFyFbFyFyFbFbFyFyFbFyFyFbFbFyFbFyFbFyFyFbFyFyFyO>>>>a\u001b\n\u0006_>,Fy_,Fb>FbFy_>.Fy_.Fb>FbFb_>,Fy_.Fb>FyFbFbFyFyW\u0018\u001b<\u0006_>.Fb_.Fb>FbFb_>.Fb_.Fy>FyFy_>.Fy_,Fy>FyFyFbF"
+  }
+ ]
+}

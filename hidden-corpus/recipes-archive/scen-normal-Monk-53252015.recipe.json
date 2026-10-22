@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#terrain\nb\n\u001b;#chat\njeh  ;l;t\u001b\u0014#loot\nl,#name\ni\n>\\  t\u001b#offer\n#loot\nlcj20s#turn\n,ch#sit\n#pray\ny  #name\nm\nW,h"
+ },
+ "segments": [
+  {
+   "seed": 53252015,
+   "datetime": "20011224231112",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "#terrain\nb\n\u001b;#chat\njeh  ;l;t\u001b\u0014#loot\nl,#name\ni\n>\\  t\u001b#offer\n#loot\nlcj20s#turn\n,ch#sit\n#pray\ny  #name\nm\nW,h"
+  }
+ ]
+}

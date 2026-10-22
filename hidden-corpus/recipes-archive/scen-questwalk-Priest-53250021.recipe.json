@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed Mjollnir\n wj\u0016?\n>z  \u00162\n\u0006_ \u001b,Fu Fh   Fl Fl Fl \u00163\n  \u0006hlhh\u00164\n\u0006_>.Fn _.Fk \u00165\n  \u0006_mmmm,Fu  Fl ..s_>.>\u0006,_>.>\u0006_mm,   Fn_.m.Fh Fh FhFh Fh Fh   n\u00163\n\u0006_mm,  Fn     \u001b_.Fu   Fn  Fu   Fl   Fk       Fu   \u00164\n\u0006_>.   n Fh       _.       Fy    n\u001610\n \u00165\n\u0006j l nbbbk   _>.>\u0006__,_>.>\u0006__.\u00163\n\u0006,\u00164\n\u0006#chat\nh;n.\u00165\n \u0006#chat\nb;u:  \u00166\n\u0006_mmm.  Fh   n  _.Fh    Fu  Fj      n   Fb Fy \u00163\n_>.Fh      _.Fu>\u0006#chat\nk  n ;l.\u00163\n\u0006_>,Fk   _,:Fk  \u00164\n\u0006#chat\nj ;l.\u00165\n \u0006,_>,>\u0006_<.Fh_.<.Fh \u00162\n\u0006bhy_>.Fl _,Fl>\u0006_mmmmm.Fl _.s20s20s20s_>.Fh_."
+ },
+ "segments": [
+  {
+   "seed": 53250021,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:mango\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed Mjollnir\n wj\u0016?\n>z  \u00162\n\u0006_ \u001b,Fu Fh   Fl Fl Fl \u00163\n  \u0006hlhh\u00164\n\u0006_>.Fn _.Fk \u00165\n  \u0006_mmmm,Fu  Fl ..s_>.>\u0006,_>.>\u0006_mm,   Fn_.m.Fh Fh FhFh Fh Fh   n\u00163\n\u0006_mm,  Fn     \u001b_.Fu   Fn  Fu   Fl   Fk       Fu   \u00164\n\u0006_>.   n Fh       _.       Fy    n\u001610\n \u00165\n\u0006j l nbbbk   _>.>\u0006__,_>.>\u0006__.\u00163\n\u0006,\u00164\n\u0006#chat\nh;n.\u00165\n \u0006#chat\nb;u:  \u00166\n\u0006_mmm.  Fh   n  _.Fh    Fu  Fj      n   Fb Fy \u00163\n_>.Fh      _.Fu>\u0006#chat\nk  n ;l.\u00163\n\u0006_>,Fk   _,:Fk  \u00164\n\u0006#chat\nj ;l.\u00165\n \u0006,_>,>\u0006_<.Fh_.<.Fh \u00162\n\u0006bhy_>.Fl _,Fl>\u0006_mmmmm.Fl _.s20s20s20s_>.Fh_."
+  }
+ ]
+}

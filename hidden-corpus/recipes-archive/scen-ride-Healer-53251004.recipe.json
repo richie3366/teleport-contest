@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0007tame jackal\n\u0017saddle\namy\u0017lance\nwn#ride\nhy\u0007warhorse\n\u0017scroll of taming\nro \u0017saddle\napy#ride\nhy\u0007tame saddled warhorse\n#ride\n \u0004jy,\u0007gnome\nFy  Fy  Fj\u0006_ \u001bm. >FnFj_>.         Fh_,Fh>FhFh  _>.Fh_.Fh>Fh   Fh    \u0007sewer rat\nFh  Fh  Fh   "
+ },
+ "segments": [
+  {
+   "seed": 53251004,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0007tame jackal\n\u0017saddle\namy\u0017lance\nwn#ride\nhy\u0007warhorse\n\u0017scroll of taming\nro \u0017saddle\napy#ride\nhy\u0007tame saddled warhorse\n#ride\n \u0004jy,\u0007gnome\nFy  Fy  Fj\u0006_ \u001bm. >FnFj_>.         Fh_,Fh>FhFh  _>.Fh_.Fh>Fh   Fh    \u0007sewer rat\nFh  Fh  Fh   "
+  }
+ ]
+}

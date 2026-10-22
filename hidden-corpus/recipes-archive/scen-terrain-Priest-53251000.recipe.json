@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             hbj \u0017grave\n: \u0017wand of digging\nzi> .20sjb\u0017pool\n#dip\ngy   lhjk\u0017melting ice\njjkkrh\u000f\u001b#enhance\nyr\no\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 53251000,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             hbj \u0017grave\n: \u0017wand of digging\nzi> .20sjb\u0017pool\n#dip\ngy   lhjk\u0017melting ice\njjkkrh\u000f\u001b#enhance\nyr\no\n\u001b"
+  }
+ ]
+}

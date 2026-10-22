@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\n W\u001b\u0017blessed ring of free action\nPjr\u0016?\n>w\u0006_ \u001b:,p_oooo.,\u0014>.s20s    __.   Fy_.Fk#chat\nu     #pray\ny y        Fk  n       Fk   n      Fk  FkFk     n  Fk  \u001610\n_ooooo.Fh   n_.,p_oooooooo.,:\u00163\nhln\u0016?\n>w\u0006_ooo,Fj_.Fj,\u0017amulet of unchanging\ndk_oooooooo.Fj_, Fy      n _o.Fu   _,,    n p\u00164\n__.#chat\ny_oooo._ooo.,p_oooooo,_oo.,$_ooooo,_ooo,,\u0017flint stone\ndm_ooooooooo,_ooo.,:_oooo.,\u0017loadstone\n dn\u00167\nkkb\u0016?\n>w\u0006bln#chat\nh_oo.  nFk _.   n Fu     n _oo,   n  Fk   n      n_,  Fn   n  ,#chat\nu     n\u001612\nkjl #chat\nk_{,q_oooo,_ooo.  n Fk_.Fh,\u0017amulet of reflection\ndo Fk   yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 53250027,
+   "datetime": "20150621064714",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 silver dragon scale mail\n W\u001b\u0017blessed ring of free action\nPjr\u0016?\n>w\u0006_ \u001b:,p_oooo.,\u0014>.s20s    __.   Fy_.Fk#chat\nu     #pray\ny y        Fk  n       Fk   n      Fk  FkFk     n  Fk  \u001610\n_ooooo.Fh   n_.,p_oooooooo.,:\u00163\nhln\u0016?\n>w\u0006_ooo,Fj_.Fj,\u0017amulet of unchanging\ndk_oooooooo.Fj_, Fy      n _o.Fu   _,,    n p\u00164\n__.#chat\ny_oooo._ooo.,p_oooooo,_oo.,$_ooooo,_ooo,,\u0017flint stone\ndm_ooooooooo,_ooo.,:_oooo.,\u0017loadstone\n dn\u00167\nkkb\u0016?\n>w\u0006bln#chat\nh_oo.  nFk _.   n Fu     n _oo,   n  Fk   n      n_,  Fn   n  ,#chat\nu     n\u001612\nkjl #chat\nk_{,q_oooo,_ooo.  n Fk_.Fh,\u0017amulet of reflection\ndo Fk   yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

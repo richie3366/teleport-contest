@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPj\u0017blessed ring of free action\nPkl #levelchange\n14\n             \u0007master mind flayer\n\u0007lich\n\u0017wand of sleep\nsm.20s          sm.          sm.          sm.20s           20s            \u00167\n\u0007lich\n\u0007succubus\n\u0017wand of cold\nzml  \u0017spellbook of sleep\nrn 20s        \u0007kobold shaman\n\u0007succubus\nZss ZZZZ\u00161\n\u00178 spears\nQo\u0007giant rat\nfj fufj fj \u0017potion of gain energy\nton \u0017wand of sleep\n\u0017wand of cold\n\u0017wand of cancellation\n\u0007hobbit\n\u0007lichen\nzrusm. zrl zsj  n .m.zqkzqj    sm.zqj zqkzrj \u0007red dragon\n\u0007baby red dragon\nsb.m.20s  Fj Fl\u001617\n\u0007master mind flayer\n\u0007vampire\n\u0007orc shaman\n\u0017wand of striking\n20s   n      ztk             ztj     ztj             \u0007silver dragon\n.m..sm.   n #polyself\nblack dragon\n sm.           sm.     n  #monster\nk     n  #monster\ny     #monster\nh#monster\n..\u001612\n\u00178 rocks\nQo\u0007jackal\n\u0007dwarf\ntttfff\u0017blessed spellbook of force bolt\nrv sm.\u0007succubus\nZ.m.sm. ZZ.m.  sl   ZZ20s     sn ZZZZ\u0007master mind flayer\n\u0007vampire\n\u0007vampire\n\u0017wand of striking\nsm.                20s         n      .u     .m. \u0017orcish bow\nwx     n   \u001720 orcish arrows\nQy\u0007s"
+ },
+ "segments": [
+  {
+   "seed": 53250070,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPj\u0017blessed ring of free action\nPkl #levelchange\n14\n             \u0007master mind flayer\n\u0007lich\n\u0017wand of sleep\nsm.20s          sm.          sm.          sm.20s           20s            \u00167\n\u0007lich\n\u0007succubus\n\u0017wand of cold\nzml  \u0017spellbook of sleep\nrn 20s        \u0007kobold shaman\n\u0007succubus\nZss ZZZZ\u00161\n\u00178 spears\nQo\u0007giant rat\nfj fufj fj \u0017potion of gain energy\nton \u0017wand of sleep\n\u0017wand of cold\n\u0017wand of cancellation\n\u0007hobbit\n\u0007lichen\nzrusm. zrl zsj  n .m.zqkzqj    sm.zqj zqkzrj \u0007red dragon\n\u0007baby red dragon\nsb.m.20s  Fj Fl\u001617\n\u0007master mind flayer\n\u0007vampire\n\u0007orc shaman\n\u0017wand of striking\n20s   n      ztk             ztj     ztj             \u0007silver dragon\n.m..sm.   n #polyself\nblack dragon\n sm.           sm.     n  #monster\nk     n  #monster\ny     #monster\nh#monster\n..\u001612\n\u00178 rocks\nQo\u0007jackal\n\u0007dwarf\ntttfff\u0017blessed spellbook of force bolt\nrv sm.\u0007succubus\nZ.m.sm. ZZ.m.  sl   ZZ20s     sn ZZZZ\u0007master mind flayer\n\u0007vampire\n\u0007vampire\n\u0017wand of striking\nsm.                20s         n      .u     .m. \u0017orcish bow\nwx     n   \u001720 orcish arrows\nQy\u0007s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " FyFyFyFyFlFbFhFlFjFuFhFkFuFn FlFjFjFbFyFnFnFlFuFjFkFbFyFlFyFjFjFnFnFlFyFuFjFbFnFyFjFjFnFbFbFhFkFlFbFhFuFhFuFuFjFuFkFhFkFkFhFjFkFnFbFbFbFhFhFnFjFbFyFbFkFhFbFlFkFkFuFnFyFnFbFlFhFnFbFjFkFkFuFyFlFbFnFjFnFkFuFhFlFkFkFjFhFhFuFkFkFjFyFhFjFhFnFbFbFhi\u001b#terrain\nc\n\u001b;rm#ride\nuyFyFjFjFnFbFnFjFhFbFyFhFkFuFbFuFbFlFnFjFbFlFuFbFnFlFuFbFjFbFhFhFlFbFlFuFuFbFuFlFnFkFuFkFkFyFnFkFnFjFbFbFnFbFyFnFhFlFjFbFkFkFjFuFjFkFnFnFnFkFhFnFlFnFuFbFbFnFyFjFjFhFlFyFlFlFlFhFlFjFjFnFnFhFkFkFlFjFkFbFuFjFbFkFkFuFyFjFkFlFhFbFyFkFjFhFbFlFyFnFlFuFkFkFnFhFyFuFhFnFuFnFnFyFyFlFlFuFnFkFhFlFnFbFbFjFuFuFlFyFyFkFjFhFhFnFbFhFlFkFkFkFkFhFbFlFkFbFyFkFyFhFbFbFuFyFjFjFuFhF"
+ },
+ "segments": [
+  {
+   "seed": 53250095,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " FyFyFyFyFlFbFhFlFjFuFhFkFuFn FlFjFjFbFyFnFnFlFuFjFkFbFyFlFyFjFjFnFnFlFyFuFjFbFnFyFjFjFnFbFbFhFkFlFbFhFuFhFuFuFjFuFkFhFkFkFhFjFkFnFbFbFbFhFhFnFjFbFyFbFkFhFbFlFkFkFuFnFyFnFbFlFhFnFbFjFkFkFuFyFlFbFnFjFnFkFuFhFlFkFkFjFhFhFuFkFkFjFyFhFjFhFnFbFbFhi\u001b#terrain\nc\n\u001b;rm#ride\nuyFyFjFjFnFbFnFjFhFbFyFhFkFuFbFuFbFlFnFjFbFlFuFbFnFlFuFbFjFbFhFhFlFbFlFuFuFbFuFlFnFkFuFkFkFyFnFkFnFjFbFbFnFbFyFnFhFlFjFbFkFkFjFuFjFkFnFnFnFkFhFnFlFnFuFbFbFnFyFjFjFhFlFyFlFlFlFhFlFjFjFnFnFhFkFkFlFjFkFbFuFjFbFkFkFuFyFjFkFlFhFbFyFkFjFhFbFlFyFnFlFuFkFkFnFhFyFuFhFnFuFnFnFyFyFlFlFuFnFkFhFlFnFbFbFjFuFuFlFyFyFkFjFhFhFnFbFhFlFkFkFkFkFhFbFlFkFbFyFkFyFhFbFbFuFyFjFjFuFhF"
+  }
+ ]
+}

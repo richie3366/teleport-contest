@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\nwq\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                    \u0007giant rat\n#pray\ny y   #chat\nn #levelchange\n9\n    Fl   FnFn ._ \u001b;qf\u0007bugbear\n#overview\n\u001b#conduct\n i\u001b#dip\nqg#offer\n#chat\nb#turn\n#levelchange\n6\n Fb sss_{.qg#vanquished\n#genocided\ngenetic engineer\nj\u000f\u001b#name\nm\n#adjust\n:#sit\n\u001b#pray\ny y #wizintrinsic\ng\n ykk_oooo,_.,#chronicle\n   #terrain\n\u001bi\u001b#twoweapon\n#invoke\nq#chat\nk#chat\ny#polyself\nfog cloud\n #monster\n20sss20s Fy  FyFyFy_{,Fy_.Fyqt \u001b#version\n  #history\n                  i\u001b#wipe\n#loot\n#turn\n#sit\n #levelchange\n25\n                  kuy__.ny_.yy#chat\nl\u0007gnome\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b\u001b#ride\nly#pray\ny y   #chat\nl#wizdetect\n\u0006FlFlFl_oo._.,\u0007sewer rat\n#vanquished\n #genocided\nrust monster\ni\u001b#dip\njh#offer\n#chat\nh#turn\n#wizmap\n\u0006FhFh_oo,_,,\u001b#chronicle\n   #terrain\n\u001b#annotate\nblessed\n\u000f\u001b#name\nm\n#adjust\nv   #sit\n#pray\ny y #wizidentify\n\u001bhyj_{,qh#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b\u001b#chat\nn#chat\nn#jump\n#levelchange\n5\n  "
+ },
+ "segments": [
+  {
+   "seed": 53250009,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\nwq\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                    \u0007giant rat\n#pray\ny y   #chat\nn #levelchange\n9\n    Fl   FnFn ._ \u001b;qf\u0007bugbear\n#overview\n\u001b#conduct\n i\u001b#dip\nqg#offer\n#chat\nb#turn\n#levelchange\n6\n Fb sss_{.qg#vanquished\n#genocided\ngenetic engineer\nj\u000f\u001b#name\nm\n#adjust\n:#sit\n\u001b#pray\ny y #wizintrinsic\ng\n ykk_oooo,_.,#chronicle\n   #terrain\n\u001bi\u001b#twoweapon\n#invoke\nq#chat\nk#chat\ny#polyself\nfog cloud\n #monster\n20sss20s Fy  FyFyFy_{,Fy_.Fyqt \u001b#version\n  #history\n                  i\u001b#wipe\n#loot\n#turn\n#sit\n #levelchange\n25\n                  kuy__.ny_.yy#chat\nl\u0007gnome\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b\u001b#ride\nly#pray\ny y   #chat\nl#wizdetect\n\u0006FlFlFl_oo._.,\u0007sewer rat\n#vanquished\n #genocided\nrust monster\ni\u001b#dip\njh#offer\n#chat\nh#turn\n#wizmap\n\u0006FhFh_oo,_,,\u001b#chronicle\n   #terrain\n\u001b#annotate\nblessed\n\u000f\u001b#name\nm\n#adjust\nv   #sit\n#pray\ny y #wizidentify\n\u001bhyj_{,qh#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b\u001b#chat\nn#chat\nn#jump\n#levelchange\n5\n  "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPil\u0017blessed +3 speed boots\nWj\u0017blessed magic lamp\n\u0017blessed magic harp\n\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed 20 daggers\n Qn#levelchange\n20\n                   #wizintrinsic\nh\n fkfufk;u: \u001b>.E- Elbereth Elbereth\n#chat\nu\u0017potion of levitation\nqo 20ss\u0007troll\n\u0007giant rat\nFkFj FkFk  .#wizintrinsic\nh\ntbl     fu   tnl  ;u,E-i\u001byn\u0017wand of slow monster\nzpl zpkzpkzpk\u0007hobbit\n\u0007jackal\nFy Fl  n  FkFk#wizintrinsic\nh\n\u0017wand of fire\nzqk  zqyzqk ;>.E-#pray\ny y \u0007kobold\nFl  Fnsss20ss\u0016?\nj\u0014@.\u0017potion of oil\nqrs\u0017spellbook of cause fear\nrs , 20sZ:#wizintrinsic\nh\n\u0017potion of sleeping\nqt s\u001bs\u0017spellbook of slow monster\nru ,  .Z:\u0017potion of speed\nqvs\u0017blessed scroll of earth\nrw      #wizintrinsic\nh\n\u0007sewer rat\n\u0007troll\nFjFjFj    FnFb     FnFj\u0007lichen\nFj  Fn FjFjFj    nfj  tnj\u0017potion of extra healing\nqxsm.#wizintrinsic\nh\n _,bun\u0017potion of gain energy\nqysm. \u0007gnome lord\nFu  FuFu  Fh\u0017potion of sleeping\nqz20s \u0007jackal\n\u0007newt\nFuFlFlFhFl#wizintrinsic\nh\n\u001624\n\u0014,s\u0017potion of hallucination\nqA \u001b  .jsm.i\u001bhhh\u0007newt\nFlsFlFlFl;l;E- Elbereth Elbereth\n\u0017potion of acid\nqB sj#wizintrinsic\nh\n\u0017potion of extra healing\nqC20stnlflfltnl\u0017wand of fire\nzDlzDj    nzDyzD. zDj  \u0017scroll of earth\nrE \u0017g"
+ },
+ "segments": [
+  {
+   "seed": 53250074,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPil\u0017blessed +3 speed boots\nWj\u0017blessed magic lamp\n\u0017blessed magic harp\n\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed 20 daggers\n Qn#levelchange\n20\n                   #wizintrinsic\nh\n fkfufk;u: \u001b>.E- Elbereth Elbereth\n#chat\nu\u0017potion of levitation\nqo 20ss\u0007troll\n\u0007giant rat\nFkFj FkFk  .#wizintrinsic\nh\ntbl     fu   tnl  ;u,E-i\u001byn\u0017wand of slow monster\nzpl zpkzpkzpk\u0007hobbit\n\u0007jackal\nFy Fl  n  FkFk#wizintrinsic\nh\n\u0017wand of fire\nzqk  zqyzqk ;>.E-#pray\ny y \u0007kobold\nFl  Fnsss20ss\u0016?\nj\u0014@.\u0017potion of oil\nqrs\u0017spellbook of cause fear\nrs , 20sZ:#wizintrinsic\nh\n\u0017potion of sleeping\nqt s\u001bs\u0017spellbook of slow monster\nru ,  .Z:\u0017potion of speed\nqvs\u0017blessed scroll of earth\nrw      #wizintrinsic\nh\n\u0007sewer rat\n\u0007troll\nFjFjFj    FnFb     FnFj\u0007lichen\nFj  Fn FjFjFj    nfj  tnj\u0017potion of extra healing\nqxsm.#wizintrinsic\nh\n _,bun\u0017potion of gain energy\nqysm. \u0007gnome lord\nFu  FuFu  Fh\u0017potion of sleeping\nqz20s \u0007jackal\n\u0007newt\nFuFlFlFhFl#wizintrinsic\nh\n\u001624\n\u0014,s\u0017potion of hallucination\nqA \u001b  .jsm.i\u001bhhh\u0007newt\nFlsFlFlFl;l;E- Elbereth Elbereth\n\u0017potion of acid\nqB sj#wizintrinsic\nh\n\u0017potion of extra healing\nqC20stnlflfltnl\u0017wand of fire\nzDlzDj    nzDyzD. zDj  \u0017scroll of earth\nrE \u0017g"
+  }
+ ]
+}

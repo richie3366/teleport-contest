@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #rub\nce:E- Vlad was here\n#name\nm\n @.#wipe\nJ#loot\n\u0004hz\u0018\u001b#dip\nc__.s#loot\n: #turn\nr\u001bek,Z"
+ },
+ "segments": [
+  {
+   "seed": 53252019,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": " #rub\nce:E- Vlad was here\n#name\nm\n @.#wipe\nJ#loot\n\u0004hz\u0018\u001b#dip\nc__.s#loot\n: #turn\nr\u001bek,Z"
+  }
+ ]
+}

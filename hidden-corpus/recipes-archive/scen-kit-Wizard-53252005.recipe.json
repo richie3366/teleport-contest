@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "kit",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " i\u001bany any rk y .m.20sZb\nZb\nwaFkFl sri zckqg#conduct\n am\u001bK\u0018\u001b,,#monster\nzch"
+ },
+ "segments": [
+  {
+   "seed": 53252005,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " i\u001bany any rk y .m.20sZb\nZb\nwaFkFl sri zckqg#conduct\n am\u001bK\u0018\u001b,,#monster\nzch"
+  }
+ ]
+}

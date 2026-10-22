@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed ring of free action\nPir\u0017blessed +3 speed boots\nWj   \u0017blessed amulet of reflection\nPk\u001643\n    jybj hyn:.n\u0016?\n>>P  \u0004u\u0016?\n>x _ \u001b:\u001643\n_{.\u001643\n__.\u001643\n#chat\nk;<.\u0016?\no _>.<ss sm.\u001630\n_{.\u0016?\no\u0006_<.Fj _.   Flsm.\u00167\n\u0014. .m.  n \u0016?\ndk j k kh:\u001615\n__.sys20s  n \u0016?\n>>K     wand of fire\nkh :    s   s   n     \u0016?\nb\u0006:_<,\u0016?\n\u001bl      u\u0016?\n\u001bl  n  n \u0016?\n\u001bl h\u0016?\n\u001buj  \u0016?\n\u001bnl   \u0016?\n\u001bhj  \u001635\n#levelchange\n12\n\u0007winter wolf\n#chat\nl.s\u0007green mold\n20s s  n20s.s \u001635\n_>,\u001643\n_{.>\u0016?\n\u001bbn\u0016?\n\u001bkh \u0016?\n\u001bnb   n \u0016?\n\u001bj  j       n\u0016?\n\u001bh   n   n    n   \u00161\n\u001642\n_>.s   s     n s \u001615\n\u00175 boomerangs\nQn\u0007acid blob\nj      n    n   j      fn     n   fn    nfb   \u0007owlbear\ny  j       n   fy      yy\u001by  y y y y\u001b  f"
+ },
+ "segments": [
+  {
+   "seed": 53250011,
+   "datetime": "20130622091924",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            \u0017blessed ring of free action\nPir\u0017blessed +3 speed boots\nWj   \u0017blessed amulet of reflection\nPk\u001643\n    jybj hyn:.n\u0016?\n>>P  \u0004u\u0016?\n>x _ \u001b:\u001643\n_{.\u001643\n__.\u001643\n#chat\nk;<.\u0016?\no _>.<ss sm.\u001630\n_{.\u0016?\no\u0006_<.Fj _.   Flsm.\u00167\n\u0014. .m.  n \u0016?\ndk j k kh:\u001615\n__.sys20s  n \u0016?\n>>K     wand of fire\nkh :    s   s   n     \u0016?\nb\u0006:_<,\u0016?\n\u001bl      u\u0016?\n\u001bl  n  n \u0016?\n\u001bl h\u0016?\n\u001buj  \u0016?\n\u001bnl   \u0016?\n\u001bhj  \u001635\n#levelchange\n12\n\u0007winter wolf\n#chat\nl.s\u0007green mold\n20s s  n20s.s \u001635\n_>,\u001643\n_{.>\u0016?\n\u001bbn\u0016?\n\u001bkh \u0016?\n\u001bnb   n \u0016?\n\u001bj  j       n\u0016?\n\u001bh   n   n    n   \u00161\n\u001642\n_>.s   s     n s \u001615\n\u00175 boomerangs\nQn\u0007acid blob\nj      n    n   j      fn     n   fn    nfb   \u0007owlbear\ny  j       n   fy      yy\u001by  y y y y\u001b  f"
+  }
+ ]
+}

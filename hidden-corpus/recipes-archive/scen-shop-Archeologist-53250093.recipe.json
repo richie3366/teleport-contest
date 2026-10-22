@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed amulet of life saving\nPi\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b<.,#chat\nl _ooooo,_oo,,#chat\nl    Fn    nFn Fn   nFn Fn  n Fn \u001611\n_oooooooo.,\u0014m.s20s_ooooo,_,m.,p_oooo._._ooo,_., #chat\nb__.#chat\ny#pray\ny y __.#chat\nj_oooooo._ooo._.,:_ooooooooo,_ooo.,pFl   nFlFl FlFl  nFl\u00167\n_ooo,_ooo.,pFyFyFyFyFyFy_oooooo.,$__.#chat\nu#pray\ny y _ooo,Fl_._oo,,a\np_ooooooooo,,a\np_oooo.,     np\u0016?\ncblu\u0016?\n>w\u0006__,_.#chat\nh\u0016?\n>Bj  uj\u0016?\n>w\u0006yhl#chat\nb__,   n Fl    n  _,    nFu    n #chat\nu   n  #pray\ny y         \u00162\n_{.q_{.q_ooooooooo,_,_o._,,p_{._.q__._,#chat\ny_oooooooo.,#chat\nh_ooooooo,_,,#chat\nl_ooo._.,:\u0016?\n>Bulu\u0016?\n>w\u0006_ooooooo,_oo,,$_ooooooooo.,p\u0016?\n>Blkb\u0016?\n>w\u0006_ooooo,,:_ooo,_o.,p_ooooooooo,_oo.,p_ooooooo,,p_ooooo,_oo.,p_oooo,,p_ooooo._oo.,p_oooooo._o.,#chat\nu\u00167\nhhj\u0016?\n>w\u0006_oooooooo.,pkjj#chat\nlkyy#chat\nj_oo.,:_ooooooo.,:_ooooo._oo,,pjnk#chat\nkbly#chat\nh_ooooooo,_oo.,p_oooooo.,:_oooooooo.,#chat\nh\u0016?\ncyk   n b\u0016?\n"
+ },
+ "segments": [
+  {
+   "seed": 53250093,
+   "datetime": "20160909044427",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed amulet of life saving\nPi\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b<.,#chat\nl _ooooo,_oo,,#chat\nl    Fn    nFn Fn   nFn Fn  n Fn \u001611\n_oooooooo.,\u0014m.s20s_ooooo,_,m.,p_oooo._._ooo,_., #chat\nb__.#chat\ny#pray\ny y __.#chat\nj_oooooo._ooo._.,:_ooooooooo,_ooo.,pFl   nFlFl FlFl  nFl\u00167\n_ooo,_ooo.,pFyFyFyFyFyFy_oooooo.,$__.#chat\nu#pray\ny y _ooo,Fl_._oo,,a\np_ooooooooo,,a\np_oooo.,     np\u0016?\ncblu\u0016?\n>w\u0006__,_.#chat\nh\u0016?\n>Bj  uj\u0016?\n>w\u0006yhl#chat\nb__,   n Fl    n  _,    nFu    n #chat\nu   n  #pray\ny y         \u00162\n_{.q_{.q_ooooooooo,_,_o._,,p_{._.q__._,#chat\ny_oooooooo.,#chat\nh_ooooooo,_,,#chat\nl_ooo._.,:\u0016?\n>Bulu\u0016?\n>w\u0006_ooooooo,_oo,,$_ooooooooo.,p\u0016?\n>Blkb\u0016?\n>w\u0006_ooooo,,:_ooo,_o.,p_ooooooooo,_oo.,p_ooooooo,,p_ooooo,_oo.,p_oooo,,p_ooooo._oo.,p_oooooo._o.,#chat\nu\u00167\nhhj\u0016?\n>w\u0006_oooooooo.,pkjj#chat\nlkyy#chat\nj_oo.,:_ooooooo.,:_ooooo._oo,,pjnk#chat\nkbly#chat\nh_ooooooo,_oo.,p_oooooo.,:_oooooooo.,#chat\nh\u0016?\ncyk   n b\u0016?\n"
+  }
+ ]
+}

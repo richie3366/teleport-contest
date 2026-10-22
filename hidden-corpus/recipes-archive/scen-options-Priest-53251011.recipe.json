@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " Ooe\nc\n,mO>>>sdp\n w-mO>>>>>ft\noff\nl\n\u0018\u001bOa\na\ng\na\n\u001b#force\nefmO>>>v\n\u0018\u001b\u000f\u001bmO>>>>>cdj\nmango\nn\n$\")[%?+!=/(*`0_\nah 20s     20sOao\nd\ny#force\nO>khn\nl\n#tip\n\u001b\u001b__. \u001b<.smO>>>>hba\n a\na\n#loot\nhOcim\nj\n#jump\nss"
+ },
+ "segments": [
+  {
+   "seed": 53251011,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=sortloot:none\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": " Ooe\nc\n,mO>>>sdp\n w-mO>>>>>ft\noff\nl\n\u0018\u001bOa\na\ng\na\n\u001b#force\nefmO>>>v\n\u0018\u001b\u000f\u001bmO>>>>>cdj\nmango\nn\n$\")[%?+!=/(*`0_\nah 20s     20sOao\nd\ny#force\nO>khn\nl\n#tip\n\u001b\u001b__. \u001b<.smO>>>>hba\n a\na\n#loot\nhOcim\nj\n#jump\nss"
+  }
+ ]
+}

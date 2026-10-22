@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "ull\u0017spiked pit\nl\u0007acid blob\n.s.sb\u0017level teleporter\nbu\u0017statue trap\nk\u0017rolling boulder trap\n<#jump\ned lll\u0017magic portal\nl^h#untrap\nhl\u0017arrow trap\nl\u0007grid bug\nsm.sssln\u0017pit\ny^nnsm.20sy\u0017rust trap\ny^nn .m.20s\u0017beartrap\naell#terrain\nc\n\u001b>.db#terrain\nb\n\u0014 "
+ },
+ "segments": [
+  {
+   "seed": 53251021,
+   "datetime": "20140717050653",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "ull\u0017spiked pit\nl\u0007acid blob\n.s.sb\u0017level teleporter\nbu\u0017statue trap\nk\u0017rolling boulder trap\n<#jump\ned lll\u0017magic portal\nl^h#untrap\nhl\u0017arrow trap\nl\u0007grid bug\nsm.sssln\u0017pit\ny^nnsm.20sy\u0017rust trap\ny^nn .m.20s\u0017beartrap\naell#terrain\nc\n\u001b>.db#terrain\nb\n\u0014 "
+  }
+ ]
+}

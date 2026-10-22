@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       #levelchange\n30\n                      \u0007Nazgul\n#chat\nlFb  Fl\u0007mail daemon\n#chat\nbFyFb\u0007plains centaur\nFuFy  Fl  Fb    Fu Fl#wizintrinsic\nml\n  \u0017blessed scroll of destroy armor\n ri c \u0017scroll of fire\n rj    k bn\u0017blessed scroll of teleportation\n rk  \u001b.   \u0017scroll of identify\n rl   20s sm.  n sm. h ynj \u0017rolling boulder trap\ny  \u0007kobold\n20s .ysm. .m.     nl \u0017magic trap\nlh    sm.  sm.   #terrain\nb\n20s #enhance\nyp\no\n\u001br\u001b#levelchange\n20\n  luh l\u0017melting ice\nnyny   n k   \u0017sink\nqy   \u0017ring of increase damage\ndm  \u001b y\u0004 \u0004 b           n j   \u0017neutral altar\ndg    dd  \u0017jackal corpse\n#offer\nn       #pray\ny y          yh\u0017unaligned altar\ndh\u0017newt corpse\n#offer\no    #pray\ny y       #terrain\nd\nt t\u001bE\u001b\u00168\n i\u001bW.20s20sT ae  j                 \u001baeh   af\u0004n   \u000f\u001b\u0004l   #dip\ne#name\na\nl#monster\nz\u001614\n\\  \u0007succubus\nFuFlFu FlFu  n Fu Fu sm..m. \u0007vampire lord\nFl Fk  FlFk   Fk  Fk    n Fl  20s   .m. \u00165\n\u001611\n#levelchange\n30\n                   \u001632\n   #terrain\ne\n\u0014;s\u0006.j sh\u0016?\n>>O       wand of cold\n>>k;n;sm..k   \u0016?\n\u001b\u0016?\n\u001b\u001618\n\u0017ring of warning\nPrl      sm.  n    sk.m.   n    R    n  Fn   n   Fn     \u00173 spellbook of cancellation\n\u0007black pudding\nrs   n     sysZZFj   n     Fn   n   \u0017scroll of amnesia\n rt         n \u0017blessed katana\nwu        FlFn        Fj\u0017cursed potion of restore ability\nqv \u001b     n   Fl     Fk\u0017blessed scroll of amnesia\n\u0007imp\nrw    20s       yny   y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 53250023,
+   "datetime": "20191201084248",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       #levelchange\n30\n                      \u0007Nazgul\n#chat\nlFb  Fl\u0007mail daemon\n#chat\nbFyFb\u0007plains centaur\nFuFy  Fl  Fb    Fu Fl#wizintrinsic\nml\n  \u0017blessed scroll of destroy armor\n ri c \u0017scroll of fire\n rj    k bn\u0017blessed scroll of teleportation\n rk  \u001b.   \u0017scroll of identify\n rl   20s sm.  n sm. h ynj \u0017rolling boulder trap\ny  \u0007kobold\n20s .ysm. .m.     nl \u0017magic trap\nlh    sm.  sm.   #terrain\nb\n20s #enhance\nyp\no\n\u001br\u001b#levelchange\n20\n  luh l\u0017melting ice\nnyny   n k   \u0017sink\nqy   \u0017ring of increase damage\ndm  \u001b y\u0004 \u0004 b           n j   \u0017neutral altar\ndg    dd  \u0017jackal corpse\n#offer\nn       #pray\ny y          yh\u0017unaligned altar\ndh\u0017newt corpse\n#offer\no    #pray\ny y       #terrain\nd\nt t\u001bE\u001b\u00168\n i\u001bW.20s20sT ae  j                 \u001baeh   af\u0004n   \u000f\u001b\u0004l   #dip\ne#name\na\nl#monster\nz\u001614\n\\  \u0007succubus\nFuFlFu FlFu  n Fu Fu sm..m. \u0007vampire lord\nFl Fk  FlFk   Fk  Fk    n Fl  20s   .m. \u00165\n\u001611\n#levelchange\n30\n                   \u001632\n   #terrain\ne\n\u0014;s\u0006.j sh\u0016?\n>>O       wand of cold\n>>k;n;sm..k   \u0016?\n\u001b\u0016?\n\u001b\u001618\n\u0017ring of warning\nPrl      sm.  n    sk.m.   n    R    n  Fn   n   Fn     \u00173 spellbook of cancellation\n\u0007black pudding\nrs   n     sysZZFj   n     Fn   n   \u0017scroll of amnesia\n rt         n \u0017blessed katana\nwu        FlFn        Fj\u0017cursed potion of restore ability\nqv \u001b     n   Fl     Fk\u0017blessed scroll of amnesia\n\u0007imp\nrw    20s       yny   y y y\u001b  s"
+  }
+ ]
+}

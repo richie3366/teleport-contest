@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " nudd  sm.susy dks20s20s20s20s20snnkjFyFkFkFk 20ss100s50s100s\u000f\u001bylnyjl100sFls._ \u001bm.>150shlhFls.50si\u001b_>.>100s100s \u000f\u001b150sFyFyFy50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeekjllNULU_>.>YBJY_>.>t$j#name\no\nYBKU_>.>jhjhBBJK_>,>YYYB_>.><JKUB_>.>YBLL_>,>#chat\nkai BBKN_>,>NNNN_>.>ubhlynynuh10sbkt\u001bnyylbheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeekljneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehybuujlujbyujnyl#pray\ny #pray\ny  eeeee#pray\ny   y\u001by  y y y\u001b  1 t$bnhujjk#name\nm\n .hjkjFkFkFkFkFkFkFkFkFuFuFuFu FuFuFuFujulhFkFkFkFkFkFkFkFklkbyul#chat\nulhjuhn#chat\nhnhyjdfss.klnbde20s.20st\u001bt\u001b10shyblyhujjlykbnybuu150s\\ \u000f\u001b100s100sFlFlFl_>.>100s50s\\ nynFls20suby100sqd>lbjybk100sFl20s20s150s50sFlss150s#ride\nl150sek:#twoweapon\n_>.>\u000f\u001b50s100sek100s_>.>150sekFbFbFbFbFbFbFbFbFlFlFlFlFlFlFlFlLJBK_>.>HKLH_>.>UNHY_>.>LJHH_>,>NNYB_>,>#loot\n>ekek150sekubuFks20s100sFkFkFkFk20sseeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b  \u0017wand of fire\nzj.   n.ss",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53250068,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\n",
+   "moves": " nudd  sm.susy dks20s20s20s20s20snnkjFyFkFkFk 20ss100s50s100s\u000f\u001bylnyjl100sFls._ \u001bm.>150shlhFls.50si\u001b_>.>100s100s \u000f\u001b150sFyFyFy50seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeekjllNULU_>.>YBJY_>.>t$j#name\no\nYBKU_>.>jhjhBBJK_>,>YYYB_>.><JKUB_>.>YBLL_>,>#chat\nkai BBKN_>,>NNNN_>.>ubhlynynuh10sbkt\u001bnyylbheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeekljneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehybuujlujbyujnyl#pray\ny #pray\ny  eeeee#pray\ny   y\u001by  y y y\u001b  1"
+  },
+  {
+   "seed": 53350068,
+   "datetime": "20140904001504",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " t$bnhujjk#name\nm\n .hjkjFkFkFkFkFkFkFkFkFuFuFuFu FuFuFuFujulhFkFkFkFkFkFkFkFklkbyul#chat\nulhjuhn#chat\nhnhyjdfss.klnbde20s.20st\u001bt\u001b10shyblyhujjlykbnybuu150s\\ \u000f\u001b100s100sFlFlFl_>.>100s50s\\ nynFls20suby100sqd>lbjybk100sFl20s20s150s50sFlss150s#ride\nl150sek:#twoweapon\n_>.>\u000f\u001b50s100sek100s_>.>150sekFbFbFbFbFbFbFbFbFlFlFlFlFlFlFlFlLJBK_>.>HKLH_>.>UNHY_>.>LJHH_>,>NNYB_>,>#loot\n>ekek150sekubuFks20s100sFkFkFkFk20sseeeeeeeeeeeeeeeeeeeeeeeeeee#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 53450068,
+   "datetime": "20190722203704",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of fire\nzj.   n.ss"
+  }
+ ]
+}

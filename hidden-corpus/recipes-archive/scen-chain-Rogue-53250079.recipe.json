@@ -1,0 +1,63 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  Fy s20s 100sFhFhFh100sFhs20sFyss50suly150s100sFhFhs100suhhnlk150shll100s Fh20ssr\u001b150s#conduct\n 50s100s\u0018\u001b150shnu50sFhFbFh1#quit\nyy\u001by  y y y\u001b  #wizintrinsic\nd\n 20ssns20s20s sm.sm..m. yy\u001by  y y\u001by  . Fj s20skbh50s150shkn100s\u000f\u001b100sFyFy.100sFy20sFylhlnnh100s150s\u000f\u001b100s150s Fk20s20s50s eh  150s eh  150seh  \\  uun100s 50seeyjb\u000f\u001b<_ \u001b@.>50skny_>,>nhkblh100s20#quit\ny Fy FyFyFyFyFyFyFyLNHY_ \u001b,>BJKL_>.><KUYL_>,>dd#monster\nNUHB_>,>JBNK_>.>#turn\n#force\nYUNK_>,>hblu_>.>100s150s_>.>150s#quit\nyy\u001by  y y y\u001b  bnykFhFhFhFhFhFhFhFhFlFlFlFlFlFlFlFlFlFj20s FnFlFnFnFnFnFn ss100si\u001b\u000f\u001b150s50sFhFhshbb_ \u001b;>150s#wipe\n50#quit\nyy\u001by  y y y\u001b  jhn y Fl Fl  y\u001by  y y\u001b  F#wizintrinsic\nb\n susssssssss.k20s .bsm.s.m.sm.20s.m.  y\u001b    y  .",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53250079,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\n",
+   "moves": "  Fy s20s 100sFhFhFh100sFhs20sFyss50suly150s100sFhFhs100suhhnlk150shll100s Fh20ssr\u001b150s#conduct\n 50s100s\u0018\u001b150shnu50sFhFbFh1#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 53350079,
+   "datetime": "20250628082251",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nd\n 20ssns20s20s sm.sm..m. yy\u001by  y y\u001by  ."
+  },
+  {
+   "seed": 53450079,
+   "datetime": "20131104042942",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\n",
+   "moves": " Fj s20skbh50s150shkn100s\u000f\u001b100sFyFy.100sFy20sFylhlnnh100s150s\u000f\u001b100s150s Fk20s20s50s eh  150s eh  150seh  \\  uun100s 50seeyjb\u000f\u001b<_ \u001b@.>50skny_>,>nhkblh100s20#quit\ny "
+  },
+  {
+   "seed": 53550079,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:dog\n",
+   "moves": "Fy FyFyFyFyFyFyFyLNHY_ \u001b,>BJKL_>.><KUYL_>,>dd#monster\nNUHB_>,>JBNK_>.>#turn\n#force\nYUNK_>,>hblu_>.>100s150s_>.>150s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 53650079,
+   "datetime": "20230222062725",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:dog\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " bnykFhFhFhFhFhFhFhFhFlFlFlFlFlFlFlFlFlFj20s FnFlFnFnFnFnFn ss100si\u001b\u000f\u001b150s50sFhFhshbb_ \u001b;>150s#wipe\n50#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 53750079,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:lychee\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": " jhn y Fl Fl  y\u001by  y y\u001b  F"
+  },
+  {
+   "seed": 53850079,
+   "datetime": "20091111223320",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n susssssssss.k20s .bsm.s.m.sm.20s.m.  y\u001b    y  ."
+  }
+ ]
+}

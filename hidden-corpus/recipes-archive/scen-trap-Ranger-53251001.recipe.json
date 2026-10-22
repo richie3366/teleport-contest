@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " kbhk\u0017falling rock trap\nh#untrap\nljn\u0017hole\ny^nnys.#wipe\nw-#conduct\n #levelchange\n6\n    jnl\u0017sleeping gas trap\nlhs.u\u0017fire trap\nk^j\u0007yellow mold\n20s     sss\u0017beartrap\naghb__. \u001bm,s#pray\ny y s"
+ },
+ "segments": [
+  {
+   "seed": 53251001,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " kbhk\u0017falling rock trap\nh#untrap\nljn\u0017hole\ny^nnys.#wipe\nw-#conduct\n #levelchange\n6\n    jnl\u0017sleeping gas trap\nlhs.u\u0017fire trap\nk^j\u0007yellow mold\n20s     sss\u0017beartrap\naghb__. \u001bm,s#pray\ny y s"
+  }
+ ]
+}

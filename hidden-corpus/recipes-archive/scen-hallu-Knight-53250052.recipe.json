@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPi\u0017blessed ring of free action\nPjr\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed 20 daggers\n Ql#levelchange\n20\n                   #wizintrinsic\nh\n \u0007kobold shaman\nFk  FkFh20s \u0007kobold shaman\nFhFhFhFh\u0017blessed spellbook of slow monster\nrm20sZa\n:#wizintrinsic\nh\n\u0017blessed spellbook of light\nrn  sZa\n#turn\n :\u0007acid blob\n\u0007soldier\nFhFkFyFyFyFy\u0007owlbear\n\u0007yellow mold\nFy Fh Fy    Fk  Fk     Fy  #wizintrinsic\nh\n\u0017spellbook of knock\nro  sm.  Zb\n  :\u0017wand of digging\nzpy  n    zpy zpk  zpy  \u001611\n_ \u001b;>\u0017spellbook of light\nrq y .m.  nZb\n :#wizintrinsic\nh\n\u0007soldier\n\u0007dwarf\nFj    Fj Fj              Fk     Fl;l.E- ad aerarium\n  n                   #pray\ny y              #wizintrinsic\nh\n;j,E-y ad aerarium\n    n      #chat\nu      n            n #pray\ny y                 \u00163\n\u0007gnome\n\u0007yellow mold\nFl   Fb      Fj     n       Fj    Fh      n  Fn       n\u00162\n#wizintrinsic\nh\n\u00161\n\u0006_>.Fh _.Fh  ;h,E- Elbereth Elbereth\n#pray\ny y      \u0017wand of slow monster\nzrb   zrh zrh     nzrh     zrh  zrb  n     \u00167\n#wizintrinsic\nh\n\u0017blessed spellbook of slow monster\nrs y          n  .h   Za\n      n  #turn\n           n       :\u00161\n#wizintrinsic\nh\n\u0016?\n>Hh   huy:\u0017wand of digging\nzth        ztl "
+ },
+ "segments": [
+  {
+   "seed": 53250052,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPi\u0017blessed ring of free action\nPjr\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed 20 daggers\n Ql#levelchange\n20\n                   #wizintrinsic\nh\n \u0007kobold shaman\nFk  FkFh20s \u0007kobold shaman\nFhFhFhFh\u0017blessed spellbook of slow monster\nrm20sZa\n:#wizintrinsic\nh\n\u0017blessed spellbook of light\nrn  sZa\n#turn\n :\u0007acid blob\n\u0007soldier\nFhFkFyFyFyFy\u0007owlbear\n\u0007yellow mold\nFy Fh Fy    Fk  Fk     Fy  #wizintrinsic\nh\n\u0017spellbook of knock\nro  sm.  Zb\n  :\u0017wand of digging\nzpy  n    zpy zpk  zpy  \u001611\n_ \u001b;>\u0017spellbook of light\nrq y .m.  nZb\n :#wizintrinsic\nh\n\u0007soldier\n\u0007dwarf\nFj    Fj Fj              Fk     Fl;l.E- ad aerarium\n  n                   #pray\ny y              #wizintrinsic\nh\n;j,E-y ad aerarium\n    n      #chat\nu      n            n #pray\ny y                 \u00163\n\u0007gnome\n\u0007yellow mold\nFl   Fb      Fj     n       Fj    Fh      n  Fn       n\u00162\n#wizintrinsic\nh\n\u00161\n\u0006_>.Fh _.Fh  ;h,E- Elbereth Elbereth\n#pray\ny y      \u0017wand of slow monster\nzrb   zrh zrh     nzrh     zrh  zrb  n     \u00167\n#wizintrinsic\nh\n\u0017blessed spellbook of slow monster\nrs y          n  .h   Za\n      n  #turn\n           n       :\u00161\n#wizintrinsic\nh\n\u0016?\n>Hh   huy:\u0017wand of digging\nzth        ztl "
+  }
+ ]
+}

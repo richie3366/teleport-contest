@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017chest\n\u0017bag of holding\n\u0017locked chest\n\u0017wand of enlightenment\n\u0017wand of speed monster\n#tip\ny\u001b  di  #loot\na\n,\u001b\u0017credit card\ndman.y20ss20s#loot\na\n\u001b\u0017lock pick\ndjao.y20s  .s#loot\na\n\u001bde#loot\na\n\u001b,\u001bSy\u001b nn#ride\nly#loot\n#conduct\n ddZ#invoke\n\u001b<ohn#enhance\nya\na\n\u001b#levelchange\n14\n             \u0017quarterstaff\nwi20ss.\u0007y",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53251026,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017chest\n\u0017bag of holding\n\u0017locked chest\n\u0017wand of enlightenment\n\u0017wand of speed monster\n#tip\ny\u001b  di  #loot\na\n,\u001b\u0017credit card\ndman.y20ss20s#loot\na\n\u001b\u0017lock pick\ndjao.y20s  .s#loot\na\n\u001bde#loot\na\n\u001b,\u001bSy\u001b"
+  },
+  {
+   "seed": 53751026,
+   "datetime": "20010131132356",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " nn#ride\nly#loot\n#conduct\n ddZ#invoke\n\u001b<ohn#enhance\nya\na\n\u001b#levelchange\n14\n             \u0017quarterstaff\nwi20ss.\u0007y"
+  }
+ ]
+}

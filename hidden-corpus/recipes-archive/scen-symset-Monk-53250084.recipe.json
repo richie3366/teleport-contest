@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u00162\n  Fh Fk  FkFkFkFk  nFk  \u001bm, FnFbFnFnFbFjFnFbFnFnFjFbFjFbFbFnFjFbFnFbFjFnFnFjFjFbFnFnFjFjFnFbFnFbFjFbFbFbFbFbFbFbFnFjFjFnFbFnFbFbFnFjFbFnFbFnFnFnFjFbFbFbFnFnFbFjFbFbFjFbFnFbFjFjFjFbFjFjFnFbFnFnFjFbFbFnFbFbFnFbFbFbFnFjFnFnFnFbFbFbFnFbFjFjFjFnFbFnFnFjFbFjFbO>>>d\u001b\n\u0006_>>.Fy_.Fk>FyFk_>>,Fk_,Fk>FyFk_>>,Fk_,Fk>FyFkFyFyFy\u0006_>>.Fy_.Fy>FkFy_>>.Fy_,Fy>FkFy_>>.Fk_.Fy>FyFkFyFyFyai w\u001b\u0006_>.Fy_.Fk>FkFy_>,Fy_.Fy>FkFk_>.Fk_.Fk>FkFkFkFkFy  n\u0006_>>.  n  nFk  n_,  n  nFj  n>Fj  nFy  n_>>.  n  nFj  n _.  n Fk  n  n >Fj  y y\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 53250084,
+   "datetime": "20240220114611",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMGraphics_1\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nMENUCOLOR=\"a scroll\"=cyan\nBIND=v:inventory\n",
+   "moves": "\u00162\n  Fh Fk  FkFkFkFk  nFk  \u001bm, FnFbFnFnFbFjFnFbFnFnFjFbFjFbFbFnFjFbFnFbFjFnFnFjFjFbFnFnFjFjFnFbFnFbFjFbFbFbFbFbFbFbFnFjFjFnFbFnFbFbFnFjFbFnFbFnFnFnFjFbFbFbFnFnFbFjFbFbFjFbFnFbFjFjFjFbFjFjFnFbFnFnFjFbFbFnFbFbFnFbFbFbFnFjFnFnFnFbFbFbFnFbFjFjFjFnFbFnFnFjFbFjFbO>>>d\u001b\n\u0006_>>.Fy_.Fk>FyFk_>>,Fk_,Fk>FyFk_>>,Fk_,Fk>FyFkFyFyFy\u0006_>>.Fy_.Fy>FkFy_>>.Fy_,Fy>FkFy_>>.Fk_.Fy>FyFkFyFyFyai w\u001b\u0006_>.Fy_.Fk>FkFy_>,Fy_.Fy>FkFk_>.Fk_.Fk>FkFkFkFkFy  n\u0006_>>.  n  nFk  n_,  n  nFj  n>Fj  nFy  n_>>.  n  nFj  n _.  n Fk  n  n >Fj  y y\u001by   y y y\u001by  F"
+  }
+ ]
+}

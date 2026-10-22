@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#chat\nj#name\nm\n .jbulhbi\u001b:#enhance\n\u001bUYHN_>,>NK YH_>.>Fl.s\u0004l#sit\n\u001bYHUY_>.><KKLK_>.>FhFjsJHHK_>,>L\u0004yNHBU_>,>_>.>100shbh150sFnFn .uyhFnFlFlFnFnFn#pray\ny #pray\ny 100s_>.>100snjubkh100sjlu\u0018\u001b50sFh..50s100s100s#sit\n\u001b100sFn20s.i\u001b\\ khbunl150s50sbhn150sFh20s20sqllh_>,>\u000f\u001bi\u001b#conduct\n \\ Pabkk50sFb20s.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeZ#rub\ncc#invoke\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0014#pray\ny :UYNL_>,>UB NH_>.>BBJB_>,>HYUY_>.>BKUH_>.>LKKB_>.><\u000f\u001bJKJK_>,>#wipe\n#loot\nBUBN_>.>JKYU_>,>E- Elbereth\n\u0014YLJU_>.>tbjw-<KYUL_>.>NNUK_>,>LHBB_>.>y,\u000f\u001b\u0018\u001b#loot\n\\ eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeku20sknjy#name\nm\n#name\n@.dd.ss#chat\ny\u0004u<aYYUH_>.>JNBH_>.>BNKL_>.>JKLL_>.>s#turn\nJBNK_>,Fu_.> #sit\noj#sit\nHUHL_>.><HNKH_>.>NJUB_>.>qi\u001b\u000f\u001b#pray\ny #pray\ny  FuFu   Fk       nnnnn  #"
+ },
+ "segments": [
+  {
+   "seed": 53250025,
+   "datetime": "20140523144744",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\n",
+   "moves": "#chat\nj#name\nm\n .jbulhbi\u001b:#enhance\n\u001bUYHN_>,>NK YH_>.>Fl.s\u0004l#sit\n\u001bYHUY_>.><KKLK_>.>FhFjsJHHK_>,>L\u0004yNHBU_>,>_>.>100shbh150sFnFn .uyhFnFlFlFnFnFn#pray\ny #pray\ny 100s_>.>100snjubkh100sjlu\u0018\u001b50sFh..50s100s100s#sit\n\u001b100sFn20s.i\u001b\\ khbunl150s50sbhn150sFh20s20sqllh_>,>\u000f\u001bi\u001b#conduct\n \\ Pabkk50sFb20s.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeZ#rub\ncc#invoke\n\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\u0014#pray\ny :UYNL_>,>UB NH_>.>BBJB_>,>HYUY_>.>BKUH_>.>LKKB_>.><\u000f\u001bJKJK_>,>#wipe\n#loot\nBUBN_>.>JKYU_>,>E- Elbereth\n\u0014YLJU_>.>tbjw-<KYUL_>.>NNUK_>,>LHBB_>.>y,\u000f\u001b\u0018\u001b#loot\n\\ eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeku20sknjy#name\nm\n#name\n@.dd.ss#chat\ny\u0004u<aYYUH_>.>JNBH_>.>BNKL_>.>JKLL_>.>s#turn\nJBNK_>,Fu_.> #sit\noj#sit\nHUHL_>.><HNKH_>.>NJUB_>.>qi\u001b\u000f\u001b#pray\ny #pray\ny  FuFu   Fk       nnnnn  #"
+  }
+ ]
+}

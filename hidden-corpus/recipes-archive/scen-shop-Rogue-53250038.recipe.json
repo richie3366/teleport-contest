@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed amulet of reflection\nPg\u0017blessed +3 speed boots\nWh\u0016?\n>w\u0006_ \u001b:qd_ooooo.,p_oooo,,$_ooooooo.,:_ooo.,:__.Fh_.  Fb#chat\nb#pray\ny y   _ooo,Fh_,>., \u0017amulet of guarding\ndj_{, Fh    _,m.q_ooooo,Fj _.m._o._.,y \u0017amulet of strangulation\ndk_oooooooo._oo,,:_ooooooo.Fh   n_,Fb ,:_ooooooo,Fb_.   n Fb   n_ooo.Fb  _,  nFb ,p\u001610\n_oo.,p__.#chat\nk_oooooooo.,p\u00163\nk yj\u0016?\n>w\u0006_{,Fl   n_.Fj   q_ooooooooo,Fj    n_, Fb   n _ooo.   n Fl  _.  n    Fb   n  ,#chat\nl   n        n       n     n  \u00163\n_oooo,,$_{.q\u0016?\n>Bkkj\u0016?\n>w\u0006__.   nFh _,  yy\u001by  nny\u001bn  F"
+ },
+ "segments": [
+  {
+   "seed": 53250038,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed amulet of reflection\nPg\u0017blessed +3 speed boots\nWh\u0016?\n>w\u0006_ \u001b:qd_ooooo.,p_oooo,,$_ooooooo.,:_ooo.,:__.Fh_.  Fb#chat\nb#pray\ny y   _ooo,Fh_,>., \u0017amulet of guarding\ndj_{, Fh    _,m.q_ooooo,Fj _.m._o._.,y \u0017amulet of strangulation\ndk_oooooooo._oo,,:_ooooooo.Fh   n_,Fb ,:_ooooooo,Fb_.   n Fb   n_ooo.Fb  _,  nFb ,p\u001610\n_oo.,p__.#chat\nk_oooooooo.,p\u00163\nk yj\u0016?\n>w\u0006_{,Fl   n_.Fj   q_ooooooooo,Fj    n_, Fb   n _ooo.   n Fl  _.  n    Fb   n  ,#chat\nl   n        n       n     n  \u00163\n_oooo,,$_{.q\u0016?\n>Bkkj\u0016?\n>w\u0006__.   nFh _,  yy\u001by  nny\u001bn  F"
+  }
+ ]
+}

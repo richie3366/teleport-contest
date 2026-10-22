@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                      \u0017magic marker\naj\u001bs.\u0017uncursed +0 helm of brilliance\nWks.sTk\u0017blessed +3 ring of regeneration\n\u0007giant rat\nPlrsm.sm.20sFbs\u0017cursed wand of death\nzmyzml n\u0017blessed +3 ring of regeneration\n\u0007baby red dragon\nPnsb.m.20sRn sm..m."
+ },
+ "segments": [
+  {
+   "seed": 53252022,
+   "datetime": "20070905021729",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                      \u0017magic marker\naj\u001bs.\u0017uncursed +0 helm of brilliance\nWks.sTk\u0017blessed +3 ring of regeneration\n\u0007giant rat\nPlrsm.sm.20sFbs\u0017cursed wand of death\nzmyzml n\u0017blessed +3 ring of regeneration\n\u0007baby red dragon\nPnsb.m.20sRn sm..m."
+  }
+ ]
+}

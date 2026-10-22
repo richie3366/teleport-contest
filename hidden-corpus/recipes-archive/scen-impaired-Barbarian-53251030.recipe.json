@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nhf\n \u0017scroll of confuse monster\nrh \u0017scroll of gold detection\nri  \u001b@. Z20s sm. sm. "
+ },
+ "segments": [
+  {
+   "seed": 53251030,
+   "datetime": "20221206140510",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nhf\n \u0017scroll of confuse monster\nrh \u0017scroll of gold detection\nri  \u001b@. Z20s sm. sm. "
+  }
+ ]
+}

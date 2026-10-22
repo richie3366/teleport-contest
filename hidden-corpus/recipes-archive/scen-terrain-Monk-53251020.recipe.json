@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "ylh\u0017magic fountain\nqy   qy   potion of gain ability\nll\u0017grave\n: \u0017wand of digging\nzk> ssn\u0017throne\n#sit\n#sit\n#sit\nZa\nw\u001baknn"
+ },
+ "segments": [
+  {
+   "seed": 53251020,
+   "datetime": "20240725060632",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "ylh\u0017magic fountain\nqy   qy   potion of gain ability\nll\u0017grave\n: \u0017wand of digging\nzk> ssn\u0017throne\n#sit\n#sit\n#sit\nZa\nw\u001baknn"
+  }
+ ]
+}

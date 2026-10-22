@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017blessed +3 speed boots\nWi\u0016?\n>z  \u00162\n\u0006nunhhnk\u00163\n  \u0006lkj   k _ \u001b>.>\u0006_m.FlFlFlFl\u00165\n\u0006__.\u00166\n  \u0006_>.\u00162\n\u0006nubybl\u00163\n  \u0006_>,_.: \u0016?\n>>\u001b\u0016?\n>y  #chat\nk\u0016?\n>z\u00164\n\u0016?\n>z\u0006,_>,_.<.>\u0016?\n>z\u0006#chat\nu;<.\u00166\n\u0016?\n>z\u0006_>._,@.\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00162\n\u0016?\n>z\u0006_mmm,..s\u00163\n\u0016?\n>z\u0006_mmm.s.sss\u00164\n\u0016?\n>z\u0006__,_>._..>\u0016?\n>z\u0006_mmm.sss.s._>._.:>\u0016?\n>z\u0006,_>,_,<.>\u0016?\n>z\u0006_mmmm.s20ss.20ss\u00163\n\u0016?\n>z\u0006jkljhju\u00164\n\u0016?\n>z\u0006#chat\nk;>._>._..>\u0016?\n>z\u0006#chat\nb;m,\u00166\n\u0016?\n>z\u0006#chat\nj;m.\u00162\n\u0016?\n>z\u0006jlhujuhl\u00163\n\u0016?\n>z\u0006lbbu\u00164\n\u0016?\n>z\u0006#chat\nl;m,\u00165\n\u0016?\n>z\u0006_<.\u00166\n\u0016?\n>z\u0006_mmmmm.ss20s   _>._.m,>\u0016?\n>z\u0006_mmm.s.ss\u00163\n\u0016?\n>z\u0006jujhn_>._.m.>\u0016?\n>z\u0006_>._,>._>._,>\u0016?\n>z\u0006#chat\nk;_.\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_mmmmm.ssss\u0016?\n>>\u001b\u0016?\n>y#chat\nj\u0016?\n>z\u00163\n\u0016?\n>z\u0006_>,_.<.\u0016?\n>>\u001b\u0016?\n>y#chat\nb\u0016?\n>z\u00164\n\u0016?\n>z\u0006nyjull\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00165\n\u0016?\n>z\u0006_mmmmm.20ssss..\u00166\n\u0016?\n>z\u0006__._>,_.>\u0016?"
+ },
+ "segments": [
+  {
+   "seed": 53250010,
+   "datetime": "20071220075429",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017blessed +3 speed boots\nWi\u0016?\n>z  \u00162\n\u0006nunhhnk\u00163\n  \u0006lkj   k _ \u001b>.>\u0006_m.FlFlFlFl\u00165\n\u0006__.\u00166\n  \u0006_>.\u00162\n\u0006nubybl\u00163\n  \u0006_>,_.: \u0016?\n>>\u001b\u0016?\n>y  #chat\nk\u0016?\n>z\u00164\n\u0016?\n>z\u0006,_>,_.<.>\u0016?\n>z\u0006#chat\nu;<.\u00166\n\u0016?\n>z\u0006_>._,@.\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00162\n\u0016?\n>z\u0006_mmm,..s\u00163\n\u0016?\n>z\u0006_mmm.s.sss\u00164\n\u0016?\n>z\u0006__,_>._..>\u0016?\n>z\u0006_mmm.sss.s._>._.:>\u0016?\n>z\u0006,_>,_,<.>\u0016?\n>z\u0006_mmmm.s20ss.20ss\u00163\n\u0016?\n>z\u0006jkljhju\u00164\n\u0016?\n>z\u0006#chat\nk;>._>._..>\u0016?\n>z\u0006#chat\nb;m,\u00166\n\u0016?\n>z\u0006#chat\nj;m.\u00162\n\u0016?\n>z\u0006jlhujuhl\u00163\n\u0016?\n>z\u0006lbbu\u00164\n\u0016?\n>z\u0006#chat\nl;m,\u00165\n\u0016?\n>z\u0006_<.\u00166\n\u0016?\n>z\u0006_mmmmm.ss20s   _>._.m,>\u0016?\n>z\u0006_mmm.s.ss\u00163\n\u0016?\n>z\u0006jujhn_>._.m.>\u0016?\n>z\u0006_>._,>._>._,>\u0016?\n>z\u0006#chat\nk;_.\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_mmmmm.ssss\u0016?\n>>\u001b\u0016?\n>y#chat\nj\u0016?\n>z\u00163\n\u0016?\n>z\u0006_>,_.<.\u0016?\n>>\u001b\u0016?\n>y#chat\nb\u0016?\n>z\u00164\n\u0016?\n>z\u0006nyjull\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00165\n\u0016?\n>z\u0006_mmmmm.20ssss..\u00166\n\u0016?\n>z\u0006__._>,_.>\u0016?"
+  }
+ ]
+}

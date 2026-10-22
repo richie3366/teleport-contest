@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPkr\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed +3 speed boots\nWm \u0017blessed leash\n\u0017blessed 20 daggers\nQo#levelchange\n20\n                      #wizintrinsic\nh\n \u0017spellbook of slow monster\nrpsbZa\n:fltoktoktol#invoke\n\u001b\u001b;m, \u001b.E- Vlad was here\ni\u001byhl\u001613\n_<.<#wizintrinsic\nh\n\u0017potion of gain energy\nqqssm.\u0017wand of teleportation\nzrkzrnzrbzrnzrk;l,E- I am a fish\n\u0017wand of striking\nzslzslzsl  zsl#wizintrinsic\nh\n\u0007troll\n\u0007troll\nFkFk   FjFl   Fj   FlFk  \u0007newt\nFjFl    n  Fk Fk  FjFj  fk  fk  n  fk  #invoke\n\u001b\u001b#wizintrinsic\nh\n\u0017spellbook of magic missile\nrt   shZa\n:\u0017blessed spellbook of light\nru   .hZa\n:fk  tojfj  #invoke\n\u001b\u001b#wizintrinsic\nh\n\u0007kobold shaman\n\u0007troll\nFkFu   n   Fu   FlFk   Fl    Fj\u0007owlbear\n\u0007dwarf\nFn   FnFn    FkFj   n   Fl    Fj#wizintrinsic\nh\n\u0017wand of digging\nzvl   zvkzvn    zvuzvj    \u0016?\n>A\u0017blessed apple\n\u0007giant spider\newsl   nsm.  \u0017Hawaiian shirt\n\u0007baby long wo"
+ },
+ "segments": [
+  {
+   "seed": 53250041,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0017blessed ring of free action\nPkr\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed +3 speed boots\nWm \u0017blessed leash\n\u0017blessed 20 daggers\nQo#levelchange\n20\n                      #wizintrinsic\nh\n \u0017spellbook of slow monster\nrpsbZa\n:fltoktoktol#invoke\n\u001b\u001b;m, \u001b.E- Vlad was here\ni\u001byhl\u001613\n_<.<#wizintrinsic\nh\n\u0017potion of gain energy\nqqssm.\u0017wand of teleportation\nzrkzrnzrbzrnzrk;l,E- I am a fish\n\u0017wand of striking\nzslzslzsl  zsl#wizintrinsic\nh\n\u0007troll\n\u0007troll\nFkFk   FjFl   Fj   FlFk  \u0007newt\nFjFl    n  Fk Fk  FjFj  fk  fk  n  fk  #invoke\n\u001b\u001b#wizintrinsic\nh\n\u0017spellbook of magic missile\nrt   shZa\n:\u0017blessed spellbook of light\nru   .hZa\n:fk  tojfj  #invoke\n\u001b\u001b#wizintrinsic\nh\n\u0007kobold shaman\n\u0007troll\nFkFu   n   Fu   FlFk   Fl    Fj\u0007owlbear\n\u0007dwarf\nFn   FnFn    FkFj   n   Fl    Fj#wizintrinsic\nh\n\u0017wand of digging\nzvl   zvkzvn    zvuzvj    \u0016?\n>A\u0017blessed apple\n\u0007giant spider\newsl   nsm.  \u0017Hawaiian shirt\n\u0007baby long wo"
+  }
+ ]
+}

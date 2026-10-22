@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPil\u0017blessed +3 speed boots\nWj\u0017blessed amulet of life saving\nPk#levelchange\n10\n         \u0007aligned cleric\ny\u0007orc shaman\n\u0007gnomish wizard\n\u0017wand of magic missile\nsm.20s   20s 20s  20s    s20s  n s s\u0007master mind flayer\n\u0007master mind flayer\n\u0017wand of striking\nss  n zmk  zmhs  n  .    n szmk20ss  n  zmh \u00168\n \u0007vampire\n\u0007incubus\n\u0017wand of fire\nzn.   nznuznb znn znznzns 20s  n \u0018\u001b\u00167\n\u0017blessed spellbook of cause fear\nros \u0007master mind flayer\n\u0007master mind flayer\nZs sZ.        n  s  n    n  ZZZZZZ\u00168\n\u00163\n\u0007succubus\n\u0007gnomish wizard\n\u0017wand of striking\ns.zph  y      zph ..\u001610\n\u0017wand of fire\n\u0017wand of cancellation\n\u0017wand of digging\n\u0007jackal\n\u0007soldier\nzrhzs> s  n zs> y.zs> zqu.zruzquzqh   n zquzqu20szru.\u001612\n\u0017blessed spellbook of force bolt\nrt.\u0007lich\nZZZ20s .   n ZZ.sZZ\u0017blessed spellbook of cone of cold\nrus \u0007lich\n\u0007gnomish wizard\nZZ.  s ZZZs  s Z\u001617\n \u0017wand of lightning\n\u0017wand of digging\n\u0007acid blob\nzvh  nzw> 20szw> zw>  zvuzvbzw> 20s\u0017blessed spellbook of drain life\nrx.\u0017blessed spellbook of finger of death\n rys\u0007incubus\n\u0007vampire\nZZZZss ZZZZ20s    n . Z\u0018\u001b\u0017wand of striking\n\u0017wand of s"
+ },
+ "segments": [
+  {
+   "seed": 53250026,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPil\u0017blessed +3 speed boots\nWj\u0017blessed amulet of life saving\nPk#levelchange\n10\n         \u0007aligned cleric\ny\u0007orc shaman\n\u0007gnomish wizard\n\u0017wand of magic missile\nsm.20s   20s 20s  20s    s20s  n s s\u0007master mind flayer\n\u0007master mind flayer\n\u0017wand of striking\nss  n zmk  zmhs  n  .    n szmk20ss  n  zmh \u00168\n \u0007vampire\n\u0007incubus\n\u0017wand of fire\nzn.   nznuznb znn znznzns 20s  n \u0018\u001b\u00167\n\u0017blessed spellbook of cause fear\nros \u0007master mind flayer\n\u0007master mind flayer\nZs sZ.        n  s  n    n  ZZZZZZ\u00168\n\u00163\n\u0007succubus\n\u0007gnomish wizard\n\u0017wand of striking\ns.zph  y      zph ..\u001610\n\u0017wand of fire\n\u0017wand of cancellation\n\u0017wand of digging\n\u0007jackal\n\u0007soldier\nzrhzs> s  n zs> y.zs> zqu.zruzquzqh   n zquzqu20szru.\u001612\n\u0017blessed spellbook of force bolt\nrt.\u0007lich\nZZZ20s .   n ZZ.sZZ\u0017blessed spellbook of cone of cold\nrus \u0007lich\n\u0007gnomish wizard\nZZ.  s ZZZs  s Z\u001617\n \u0017wand of lightning\n\u0017wand of digging\n\u0007acid blob\nzvh  nzw> 20szw> zw>  zvuzvbzw> 20s\u0017blessed spellbook of drain life\nrx.\u0017blessed spellbook of finger of death\n rys\u0007incubus\n\u0007vampire\nZZZZss ZZZZ20s    n . Z\u0018\u001b\u0017wand of striking\n\u0017wand of s"
+  }
+ ]
+}

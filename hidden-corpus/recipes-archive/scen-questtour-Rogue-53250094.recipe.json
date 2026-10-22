@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nb;b,_mm.#chat\nb_mmmmm,Fj_.#chat\nh_mmmmm,Fj _.#chat\nj_m,#chat\nn;.#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.#chat\nb_m,#chat\nj\u0017blessed ring of free action\nPgl\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of striking\n\u0016?\n>A\u0006_mmmm,ss s20s FlFlFl,\u0016?\n>z\u0006_mmmmmmm,..sFb  Fb   zij ,\u0016?\n>A\u0006_mmmmm..ss. Fh zih,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,20sFb Fb FbFb,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fb_.#chat\nb\u0016?\n>A\u0006_mmmmmmm.Fb_.FbFb FbFb,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nb \u0016?\n>z\u0006_mmmmmm.FbFb  nFbFbFbFb  Fj,#chat\n\u0016?\n>A\u0006:_mmmmmm.FkFj s Fj FbFh20s zil,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.20s s.s,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\ny;>.\u0016?\n>A\u0006_mmmmmm..ssszil,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nk;<.\u0016?\n>z\u0006_mmm.sss.s.zib,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nb\u0016?\n>A\u0006_mmm.sss..zih \u001b,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20s  ssszil,#chat\nj\u0016?\n>A\u0006_mm..sss"
+ },
+ "segments": [
+  {
+   "seed": 53250094,
+   "datetime": "20130527014838",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm.#chat\nb;b,_mm.#chat\nb_mmmmm,Fj_.#chat\nh_mmmmm,Fj _.#chat\nj_m,#chat\nn;.#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.#chat\nb_m,#chat\nj\u0017blessed ring of free action\nPgl\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of striking\n\u0016?\n>A\u0006_mmmm,ss s20s FlFlFl,\u0016?\n>z\u0006_mmmmmmm,..sFb  Fb   zij ,\u0016?\n>A\u0006_mmmmm..ss. Fh zih,\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,20sFb Fb FbFb,#chat\nb\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fb_.#chat\nb\u0016?\n>A\u0006_mmmmmmm.Fb_.FbFb FbFb,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nb \u0016?\n>z\u0006_mmmmmm.FbFb  nFbFbFbFb  Fj,#chat\n\u0016?\n>A\u0006:_mmmmmm.FkFj s Fj FbFh20s zil,\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.20s s.s,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\ny;>.\u0016?\n>A\u0006_mmmmmm..ssszil,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nk;<.\u0016?\n>z\u0006_mmm.sss.s.zib,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nb\u0016?\n>A\u0006_mmm.sss..zih \u001b,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,20s  ssszil,#chat\nj\u0016?\n>A\u0006_mm..sss"
+  }
+ ]
+}
