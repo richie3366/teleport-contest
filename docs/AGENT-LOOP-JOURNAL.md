@@ -7,6 +7,10 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — Grow #26 @3b74ec586: fresh 53450000 ×160 160/160 (100.0 %) on arrival; calibration family `vault`
+
+**Fresh:** RNG 100.0 %, screens 100.0 %, every family 100 %; nothing folded. Gap to held-out 20.5 pts > 20: added wave-3 `vault` (public seed0012 vault escort): probe 8/20 (40 %), +80 @53456000 35/80. 57 failing folded under 6 owners (invault 35, m_move 12, newsym 4, gd_letknow 3, impossible 2, domonnoise 1); 42 to reserve. Board 716/773.
+**Next:** the cliffs head (invault).
 ## 2026-10-22 — D-4223 dothrow.c hero_breaks decides whether the hero sees a breakage from youprop.h Blind ≡ (HBlinded || EBlinded) && !BBlinded (`:2424`). js/dothrow.js gated its sight checks on a local Blind() clone that read the phantom fields u.Blind / u.ublind, so a blindfolded, levitating hero whose wished-for potion slipped to the floor read «A potion shatters!» where C prints «You hear something shatter!». Clearing the mirror family in the same file also fixes throw_obj's multishot gate (phantom u.Confusion / u.Stunned / game.Fumbling, on an RNG path) and folds three divergent Deaf copies into one C-exact Deaf
 
 **C locus:** dothrow.c hero_breaks `:2417–2436` (in_view `:2424`), breaks `:2444–2455`, breakmsg `:2612–2650`; throw_obj multishot `:158–176` (`!(Confusion || Stunned)`, `Fumbling`); youprop.h Blind `:103`, Confusion `:84`, Stunned `:81`, Fumbling `:129`, Deaf `:125`.

@@ -241,6 +241,7 @@ here). Candidates — public shapes the generator does not copy:
 | `shop` | seed0116 wizard-wear-shop | `^V minetn`, buy / sell / price-id / #chat / steal / Kops / pay | **added 2026-10-13: probe 15/20 (75 %)**, 100 sessions (20 probe + 80 @49959600); in WAVE3 |
 | `human` | seed0002/0004/0006/0007/0009/0012/0014 | minimal rc, interactive chargen, legacy + tutorial prompt, wall-clock datetimes, 300–700 normal steps | start regime **measured fine** (68/68 probe); long tail ≈ `trek` (100 %) — low prior |
 | `hallu` | seed0383 / seed0399 hallucinate / hallu-actions | whole marathon tripping (`#wizintrinsic h` + scheduled re-trips): fights, wand barrages, scrolls, quaffs, throws, looks, casts, prayers, tours under scrambled glyphs | **probed 2026-10-16: 18/20 (90 %) — NOT held-out-like** (≥ 85 %); kept in WAVE3 (2 fails folded) |
+| `vault` | seed0012 monk-vault-escort | levelport + `^F` + `^T` into a closed vault, gold, the guard's «who are you?», drop + follow / refuse / dig / teleport / fight | **added 2026-10-22 (Grow #26): probe 8/20 (40 %), 100 sessions (20 probe @53455000 + 80 @53456000, 35/80 PASS); 57 failing folded; in WAVE3** |
 | `extcmd` | seed0106 priest-extcmd-sweep, seed4500 knight-coverage (1814 keys) | systematic `#` rotation in varied contexts (altar / shop / stairs / tour / fountain × info / item / social / wiz phases: `#wizidentify`, `#wizdetect` / `#wizmap`, `#polyself` carousel, `#levelchange` ping-pong) | **added 2026-10-16**: probe 0/20 (0 %), 100 sessions (20 probe @51256000 + 80 @51257000, 1/80 PASS); 99 failing folded; in WAVE3 |
 
 Since 2026-10-13 `scenario-gen` also draws half its datetimes from any
@@ -291,6 +292,20 @@ owners `display_pickinv` (the Debug Identify menu, 14) and
 6); 20 probe + 80 @51257000 (1/80 PASS) authored, 99 failing folded
 under 7 owners (quota keeps 10 active, 89 reserve). Both kept in WAVE3;
 no candidates remain again — the next calibration grow mines another.
+
+**Fourth calibration probe (Grow #26, 2026-10-22, fresh gap 100.0 −
+79.5 = 20.5 pts).** No §5c candidate was left, so the shape was mined from
+the public set: seed0012-monk-vault-escort meets the vault guard, which
+only 5 of 6,167 corpus sessions did (`chain` already covers bones: 292 of
+420 chain sessions hit «Get/Save bones?»). `vault` (wave-3, 400–900 keys,
+debug): levelport to Dlvl 2–21, `^F`, find a closed 2×2 vault (a 4×4 wall
+box), `^T` into it (getpos from `@`), pick up the gold, wait for the guard,
+answer him (own name / Croesus / Kroisos / Creosote / other / ESC), then
+drop the gold and follow him, stay, dig out, teleport out or fight.
+Probe 8/20 (40.0 %, RNG 72.0 %, screens 62.8 %, no throws) — a held-out
+shape; +80 @53456000 35/80 (43.8 %). 57 failing folded under 6 owners
+(`invault` 35, `m_move` 12, `newsym` 4, `gd_letknow` 3, `impossible` 2,
+`domonnoise` 1; quota sends 42 to reserve). In WAVE3.
 
 **Coverage candidate (level audit 2026-10-20, F4 of
 `reviews/level-audit/2026-10-20-special-levels.md`).** The corpus never
