@@ -10206,9 +10206,13 @@ export async function select_menu_pick_one(rawItems) {
             }
             return { kind: 'cancel' };
         }
-        if (hit) return { kind: 'pick', item: hit };
+        // C wintty.c process_menu_window `:1744–1761`: the hit row is
+        // toggled (toggle_menu_curr / invert_all), so a preselected
+        // PICK_ONE row's own letter deselects it and finishes with nothing
+        // selected — tty_select_menu returns 0.
+        if (hit) return hit.selected ? { kind: 'cancel' } : { kind: 'pick', item: hit };
         if (wasFullscreen) clear_committed_status();
-        return { kind: 'pick', item: ghit };
+        return ghit.selected ? { kind: 'cancel' } : { kind: 'pick', item: ghit };
     }
     } finally {
         set_bot_disabled(_botPrev);

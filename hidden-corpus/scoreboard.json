@@ -1,6 +1,6 @@
 {
- "commit": "4498679f7",
- "at": "2026-10-22T07:42:32.433Z",
+ "commit": "4d317cccf",
+ "at": "2026-10-22T07:53:45.550Z",
  "full": false,
  "fullCommit": "1b2b2c8e3",
  "fullAt": "2026-10-21T14:05:06.214Z",
@@ -3260,16 +3260,16 @@
    "passed": false,
    "rngM": 2736,
    "rngT": 2736,
-   "scrM": 110,
+   "scrM": 111,
    "scrT": 115,
    "kind": "screen",
-   "step": 51,
+   "step": 73,
    "steps": 115,
-   "owner": "getspell",
-   "loc": "spell.c:781",
+   "owner": "doset",
+   "loc": "options.c:8903",
    "jsOwner": null,
-   "cTopline": "Choose which spell to cast",
-   "jsTopline": "Choose which spell to cast",
+   "cTopline": "Set what options?",
+   "jsTopline": "Set what options?",
    "error": null
   },
   "scen-options-Ranger-582811": {
@@ -12129,6 +12129,5 @@
    "jsTopline": "",
    "error": null
   }
- },
- "tieredAt": "2026-10-22T07:42:32.561Z"
+ }
 }

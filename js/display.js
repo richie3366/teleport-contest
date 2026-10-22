@@ -7969,10 +7969,11 @@ export function serialize_for_scoring(term) {
             // the run's SGR — even for S_air CLR_CYAN
             // (`\x1b[36m\x1b[5C`). Decode leaves those cells as default
             // blanks; emitting the spaces fails strict SGR (D-0931).
-            // Trailing inv/uline runs compress too: C pads standout menu
-            // headings with attr spaces and the capture CUFs them
-            // (` General\x1b[24C`). Mid-row inv/uline runs stay
-            // literal (D-0129 — no session shows them compressed).
+            // Inv/uline runs compress too, trailing (` General\x1b[24C`)
+            // and mid-row: the dospellmenu heading is one ATR_INVERSE
+            // string and the capture CUFs its column pads inside the
+            // SGR (`\x1b[7m    Name\x1b[17CLevel Category\x1b[5CFail
+            // Retention`, scen-options-Priest-53051011 step 51).
             if (cell.ch === ' ') {
                 const runColor = cellEmitColor(cell);
                 let end = c;
@@ -7984,7 +7985,7 @@ export function serialize_for_scoring(term) {
                     end++;
                 }
                 const runLen = end - c + 1;
-                if (runLen > 4 && (!(wantAttr & 0x5) || end === lastCol)) {
+                if (runLen > 4) {
                     const wantFg = colorToFg(runColor);
                     out += sgrTransition(curFg, curAttr, wantFg, wantAttr);
                     curFg = wantFg;
