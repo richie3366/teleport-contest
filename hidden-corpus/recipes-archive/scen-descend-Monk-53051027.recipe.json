@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b:>Fl s_>>._,>_>>,_.>\u0006_>._.>_>._.>_>._,>\u0006_>._,>_>._.>_>._,>\u0006_>,_.>_>._.>_>._.>\u0006_>._,>_>._.>_>,_.>\u0006_>._,>_>._,>_>._.>\u000f\u001b\u0006_>._.>_>._,>_>._.><\u0006_>._,>_>._.>_>,_.>\u0006_>._.>_>,_.>_>._.>z:\u0006_>._.>_>._,>_>._.>Sy\u001b ny\u0004jw\u001b#chat\nkZa\n;m,#twoweapon\n#jump\ndg<#terrain\n\u001b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53051027,
+   "datetime": "20130728232324",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0006_ \u001b:>Fl s_>>._,>_>>,_.>\u0006_>._.>_>._.>_>._,>\u0006_>._,>_>._.>_>._,>\u0006_>,_.>_>._.>_>._.>\u0006_>._,>_>._.>_>,_.>\u0006_>._,>_>._,>_>._.>\u000f\u001b\u0006_>._.>_>._,>_>._.><\u0006_>._,>_>._.>_>,_.>\u0006_>._.>_>,_.>_>._.>z:\u0006_>._.>_>._,>_>._.>Sy\u001b"
+  },
+  {
+   "seed": 53551027,
+   "datetime": "20180324051109",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": " ny\u0004jw\u001b#chat\nkZa\n;m,#twoweapon\n#jump\ndg<#terrain\n\u001b"
+  }
+ ]
+}

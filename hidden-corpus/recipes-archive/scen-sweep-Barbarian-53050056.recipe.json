@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n12\n           #wizintrinsic\nng\n .ss20s.n20s .20sss.20sss.20s 20s s.20s20s ss20s 20sss.s20sss#offer\ntbl Z#sit\nb#invoke\n\u001b20s20s.s..\u0018\u001bjkky\u0017neutral altar\nda\u0017newt corpse\n#offer\ng   #pray\ny y : hu\u0017throne\n#sit\n y#sit\n\u001bnb\u0017pool\nlh :uy\u0017iron bars\njkjk:PW#loot\n\u00164\n#levelchange\n30\n                  \u0017cursed crystal ball\nah\u0017cursed spellbook of dig\nri \u001b:                           20s sm.ZZFn  Fn \u0017spellbook of detect treasure\n\u0007imp\nrj sm. sj  ZZFnFj \u00173 spellbook of light\nrk  sm. sh ZZFnFl 20s .m.#levelchange\n6\n        \u0007energy vortex\n20s   n   .m.   Fu    Fl   s s    Fl .  s    n  Fj   Fj s   \u001612\n#levelchange\n20\n              \u0017blessed ring of polymorph control\nPll#polyself\nvampire bat\n #monster\n.   .m.   \u0007winter wolf\nFl FbFj     20ssh         20s   #polyself\ntengu\n #monster\nsm.       n sb        .m.sm.             20s   n       #polyself\nelectric eel\n #monster\nsu                        sm.      n  .m.     sj        n sm.      #polyself\nchameleon\n earth elemental\ns.   20s       n 20s     sj     \u0017wand of polymorph\nzm.soldier\n Pestilence\n winter wolf\n  z\u00162\n#levelchange\n14\n  \u00175000 gold pieces\n\u0016?\n>w  \u0006\u0017blessed potion of object detection\nqn>.__.Fk _,Fh   #chat\nh  dk_ooooooooo,Fh   n_, ,p_dddd. _.@.Fb \u0004k_ooooooo,Fj _. Fn _ooo._.,\u0014@.  _mmm,_.#"
+ },
+ "segments": [
+  {
+   "seed": 53050056,
+   "datetime": "20091111173031",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n12\n           #wizintrinsic\nng\n .ss20s.n20s .20sss.20sss.20s 20s s.20s20s ss20s 20sss.s20sss#offer\ntbl Z#sit\nb#invoke\n\u001b20s20s.s..\u0018\u001bjkky\u0017neutral altar\nda\u0017newt corpse\n#offer\ng   #pray\ny y : hu\u0017throne\n#sit\n y#sit\n\u001bnb\u0017pool\nlh :uy\u0017iron bars\njkjk:PW#loot\n\u00164\n#levelchange\n30\n                  \u0017cursed crystal ball\nah\u0017cursed spellbook of dig\nri \u001b:                           20s sm.ZZFn  Fn \u0017spellbook of detect treasure\n\u0007imp\nrj sm. sj  ZZFnFj \u00173 spellbook of light\nrk  sm. sh ZZFnFl 20s .m.#levelchange\n6\n        \u0007energy vortex\n20s   n   .m.   Fu    Fl   s s    Fl .  s    n  Fj   Fj s   \u001612\n#levelchange\n20\n              \u0017blessed ring of polymorph control\nPll#polyself\nvampire bat\n #monster\n.   .m.   \u0007winter wolf\nFl FbFj     20ssh         20s   #polyself\ntengu\n #monster\nsm.       n sb        .m.sm.             20s   n       #polyself\nelectric eel\n #monster\nsu                        sm.      n  .m.     sj        n sm.      #polyself\nchameleon\n earth elemental\ns.   20s       n 20s     sj     \u0017wand of polymorph\nzm.soldier\n Pestilence\n winter wolf\n  z\u00162\n#levelchange\n14\n  \u00175000 gold pieces\n\u0016?\n>w  \u0006\u0017blessed potion of object detection\nqn>.__.Fk _,Fh   #chat\nh  dk_ooooooooo,Fh   n_, ,p_dddd. _.@.Fb \u0004k_ooooooo,Fj _. Fn _ooo._.,\u0014@.  _mmm,_.#"
+  }
+ ]
+}

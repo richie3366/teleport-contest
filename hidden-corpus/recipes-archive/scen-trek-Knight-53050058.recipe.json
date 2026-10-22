@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "KJNH_ \u001b;><YJUU_>.>FjssUHNL_>.>FjFh.#pray\ny  #rub\n\u000f\u001b20s20sdh20sssh l dgsss20sj ab   ,<ckdb ss20s            20s     tak20sk  LNLU_>,>Fj FhFj<Y BJH_>,>HK LB_>.>Fl.sYNL J_>,>Fu.sY  HUY_>.>\u000f\u001bBYBJ_>.>KBUJ_>,>FkFkFkNUUU_>,>BBUN_>,>\u000f\u001b#twoweapon\nkjhFl FlFlFlFuFlFlFlFlFuFl .100s_>.>100s100sFyFyFy50si\u001b\\   150seeeeeeeeeeeeeeeeeeeeeeeee#invoke\n\u001b,#turn\nhlt\u001b#chat\ny10s20st\u001bhh#chat\nn#name\ni\n>BHJK_>.>BNKN_>.>KUKH_>,>__.sa\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNNNN_>.>#jump\n<.aNKJH_>,>LLUU_>.>FhFjFh\u0018\u001b#tip\n\u001bKJBH_>.>FkFkFlNYHB_>.>Fk FlFl<\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee;k.bcjeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeel  y\u001bny nn  y"
+ },
+ "segments": [
+  {
+   "seed": 53050058,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\n",
+   "moves": "KJNH_ \u001b;><YJUU_>.>FjssUHNL_>.>FjFh.#pray\ny  #rub\n\u000f\u001b20s20sdh20sssh l dgsss20sj ab   ,<ckdb ss20s            20s     tak20sk  LNLU_>,>Fj FhFj<Y BJH_>,>HK LB_>.>Fl.sYNL J_>,>Fu.sY  HUY_>.>\u000f\u001bBYBJ_>.>KBUJ_>,>FkFkFkNUUU_>,>BBUN_>,>\u000f\u001b#twoweapon\nkjhFl FlFlFlFuFlFlFlFlFuFl .100s_>.>100s100sFyFyFy50si\u001b\\   150seeeeeeeeeeeeeeeeeeeeeeeee#invoke\n\u001b,#turn\nhlt\u001b#chat\ny10s20st\u001bhh#chat\nn#name\ni\n>BHJK_>.>BNKN_>.>KUKH_>,>__.sa\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeNNNN_>.>#jump\n<.aNKJH_>,>LLUU_>.>FhFjFh\u0018\u001b#tip\n\u001bKJBH_>.>FkFkFlNYHB_>.>Fk FlFl<\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee;k.bcjeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeel  y\u001bny nn  y"
+  }
+ ]
+}

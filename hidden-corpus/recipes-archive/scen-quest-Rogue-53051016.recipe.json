@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0016?\n>y  _ \u001b>.#chat\nj_m.Fb _,#chat\nk_mmm.#chat\nj\u0016?\n>z\\ #force\n ok#levelchange\n20\n     \u0016?\n>y_mmmmm,#chat\nu_mmmm.#chat\ny;_._mm.#chat\nl_mmmmm.#chat\nj_m.#chat\nn;>.\u0006_>,  _.>_>,_.>_>._,m,>#enhance\nyg\ng\n\u001b#wipe\nJ"
+ },
+ "segments": [
+  {
+   "seed": 53051016,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0016?\n>y  _ \u001b>.#chat\nj_m.Fb _,#chat\nk_mmm.#chat\nj\u0016?\n>z\\ #force\n ok#levelchange\n20\n     \u0016?\n>y_mmmmm,#chat\nu_mmmm.#chat\ny;_._mm.#chat\nl_mmmmm.#chat\nj_m.#chat\nn;>.\u0006_>,  _.>_>,_.>_>._,m,>#enhance\nyg\ng\n\u001b#wipe\nJ"
+  }
+ ]
+}

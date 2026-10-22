@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWg\u0017blessed amulet of life saving\nPh\u0016?\n>w\u0006_ \u001bm.,#chat\ny__,Fy_.Fj#chat\nb_ooo.Fn _,,\u0014@.s._ooooo,_.,\u001bp_ooooo, Fy   _._ooo,,p_{,Fk_,;,Fkq_ooooo,Fj_..,\u001b#chat\nyjub#chat\nu_{,Fh_,Fhq_{,_.  q_oooooo._oo.Fj_,Fh,#chat\ny_ooooooooo.Fy _.,\u001b: FyFyFyFyFyFy_ooo._,,\u001b: jjl#chat\nn__.Fh_. Fb #chat\nb_oooooooo._,,\u001b: _oooooooo.Fy_.,\u001b: _ooo._.,$_ooooo._._o,_.,\u001b#chat\nb_ooooooooo._._oo._.,\u001bp_{.  Fy _.Fl q_oooo.Fh _,Fl,$_oooooooo._., $_{._,qyFn FnFnFnFnFn_oooooo,Fu_.;<.,\u001bp_{._, qy __.Fl   _.  Fj #chat\nl__.    nFl _.   Fj   n     n#chat\nj   #pray\ny y       \u0016?\nchuk\u0016?\n>w\u0006\u00166\n__,Fy   n_. #ch"
+ },
+ "segments": [
+  {
+   "seed": 53050027,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed +3 gauntlets of power\nWg\u0017blessed amulet of life saving\nPh\u0016?\n>w\u0006_ \u001bm.,#chat\ny__,Fy_.Fj#chat\nb_ooo.Fn _,,\u0014@.s._ooooo,_.,\u001bp_ooooo, Fy   _._ooo,,p_{,Fk_,;,Fkq_ooooo,Fj_..,\u001b#chat\nyjub#chat\nu_{,Fh_,Fhq_{,_.  q_oooooo._oo.Fj_,Fh,#chat\ny_ooooooooo.Fy _.,\u001b: FyFyFyFyFyFy_ooo._,,\u001b: jjl#chat\nn__.Fh_. Fb #chat\nb_oooooooo._,,\u001b: _oooooooo.Fy_.,\u001b: _ooo._.,$_ooooo._._o,_.,\u001b#chat\nb_ooooooooo._._oo._.,\u001bp_{.  Fy _.Fl q_oooo.Fh _,Fl,$_oooooooo._., $_{._,qyFn FnFnFnFnFn_oooooo,Fu_.;<.,\u001bp_{._, qy __.Fl   _.  Fj #chat\nl__.    nFl _.   Fj   n     n#chat\nj   #pray\ny y       \u0016?\nchuk\u0016?\n>w\u0006\u00166\n__,Fy   n_. #ch"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "v i\u001b#name\nm\n m.Fido\n:nkh\u0017lawful altar\ndcdg\u0017floating eye corpse\n#offer\ni uu\u0017magic fountain\nqyqy #dip\nay#terrain\nd\nP l;_.jnlk\u0017fountain\nqyqy\u0017long sword\n#dip\njy yk  \u0017lawful altar\ndh  \u0017human corpse\n #pray\ny y                h  \u0017iron bars\ntjb   n  E#twoweapon\nOc\u001b\n#levelchange\n14\n             h  b   u  \u0017melting ice\n:l    \u0017fountain\nqy    qy  y #dip\nb;u,J  #loot\nuO>>>n\u001b\u001b\n\u0007kitten\n\u0017newt corpse\ntbk \u0007grid bug\n\u0017scroll of taming\nrm  \u001b\u0006_>.    nFl _,:Fl>Fl Fl_>.Fn _.@.Fj>Fns_>._.>\u0006_>._,>_>._,>_>,_.>jk\u0017meatball\nt\u001b#name\nm\n\u0006_>._.>_>._.>_>._,>\u0006_>>,_,>_>>._,>_>>._.>\u0006_>>._.>_>>._,>_>>._.>zs\u0006_>>,_,>_>>._,Fj>_>>._,>#turn\ny\u00167\n100s100s50sFj Fj Fj  n Fj FjFjFj FjFj  n Fj Fj20s100s_>,>#sit\n\u001bbyn_>.>nkn_>,>150sF"
+ },
+ "segments": [
+  {
+   "seed": 53050095,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:plain\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "v i\u001b#name\nm\n m.Fido\n:nkh\u0017lawful altar\ndcdg\u0017floating eye corpse\n#offer\ni uu\u0017magic fountain\nqyqy #dip\nay#terrain\nd\nP l;_.jnlk\u0017fountain\nqyqy\u0017long sword\n#dip\njy yk  \u0017lawful altar\ndh  \u0017human corpse\n #pray\ny y                h  \u0017iron bars\ntjb   n  E#twoweapon\nOc\u001b\n#levelchange\n14\n             h  b   u  \u0017melting ice\n:l    \u0017fountain\nqy    qy  y #dip\nb;u,J  #loot\nuO>>>n\u001b\u001b\n\u0007kitten\n\u0017newt corpse\ntbk \u0007grid bug\n\u0017scroll of taming\nrm  \u001b\u0006_>.    nFl _,:Fl>Fl Fl_>.Fn _.@.Fj>Fns_>._.>\u0006_>._,>_>._,>_>,_.>jk\u0017meatball\nt\u001b#name\nm\n\u0006_>._.>_>._.>_>._,>\u0006_>>,_,>_>>._,>_>>._.>\u0006_>>._.>_>>._,>_>>._.>zs\u0006_>>,_,>_>>._,Fj>_>>._,>#turn\ny\u00167\n100s100s50sFj Fj Fj  n Fj FjFjFj FjFj  n Fj Fj20s100s_>,>#sit\n\u001bbyn_>.>nkn_>,>150sF"
+  }
+ ]
+}

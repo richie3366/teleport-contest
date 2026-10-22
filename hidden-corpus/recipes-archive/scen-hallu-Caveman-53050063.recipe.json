@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nWf\u0017blessed magic harp\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed 20 daggers\n Qi#levelchange\n20\n                   #wizintrinsic\nh\n \u0017blessed spellbook of cause fear\nrjslZ:\u0017wand of teleportation\nzkhzkuzkjflfnfb\u0017blessed spellbook of cone of cold\nrl 20sZ#turn\n:#wizintrinsic\nh\n \u0017potion of oil\nqms\u0007gnome lord\n\u0007bugbear\nFyFkFy FkFyFy\u0017blessed scroll of identify\nrn l\n \u001b\u0007hobbit\nFy20sssss20s#wizintrinsic\nh\n \u0017wand of light\nzozozozozo\u0017blessed scroll of fire\nrp  \u001b, ;>.E- X marks the spot\n\u0016?\n>Gll      yh     h  h  n  h:20s   sm.    n \u00168\n#wizintrinsic\nh\n\u0017wand of polymorph\nzqb        zqn     n zqj   zqj     n     zqk  zqk  n     \u00164\n_m,     n   h     n  n   k  n      \u001610\n#wizintrinsic\nh\n\u0017blessed scroll of fire\nrr :    \u0017lizard corpse\nes      n \u00167\nb  kkj   j   n  u      n        n:\u00166\n#wizintrinsic\nh\n\u0018\u001bb  l   nb   \u0007acid blob\nFk      n  Fk      n Fl     Fk    yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 53050063,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nWf\u0017blessed magic harp\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed 20 daggers\n Qi#levelchange\n20\n                   #wizintrinsic\nh\n \u0017blessed spellbook of cause fear\nrjslZ:\u0017wand of teleportation\nzkhzkuzkjflfnfb\u0017blessed spellbook of cone of cold\nrl 20sZ#turn\n:#wizintrinsic\nh\n \u0017potion of oil\nqms\u0007gnome lord\n\u0007bugbear\nFyFkFy FkFyFy\u0017blessed scroll of identify\nrn l\n \u001b\u0007hobbit\nFy20sssss20s#wizintrinsic\nh\n \u0017wand of light\nzozozozozo\u0017blessed scroll of fire\nrp  \u001b, ;>.E- X marks the spot\n\u0016?\n>Gll      yh     h  h  n  h:20s   sm.    n \u00168\n#wizintrinsic\nh\n\u0017wand of polymorph\nzqb        zqn     n zqj   zqj     n     zqk  zqk  n     \u00164\n_m,     n   h     n  n   k  n      \u001610\n#wizintrinsic\nh\n\u0017blessed scroll of fire\nrr :    \u0017lizard corpse\nes      n \u00167\nb  kkj   j   n  u      n        n:\u00166\n#wizintrinsic\nh\n\u0018\u001bb  l   nb   \u0007acid blob\nFk      n  Fk      n Fl     Fk    yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

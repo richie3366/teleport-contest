@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPhl\u00176 javelins\nQi\u0007kobold\n\u0007bugbear\nfbtil fj  fl   n   fj \u0018\u001b\u0017spellbook of light\nrj  20s  \u0017blessed spellbook of knock\nrk s\u0007master mind flayer\n\u0007lich\nZa\n  Za\n.m.     .m.  n   Za\n       ZZZ#turn\n\u0017spellbook of cause fear\nrl  n  n  .  n \u0017spellbook of slow monster\nrms   n  \u0007kobold shaman\nZa\n   n ZZZs    n s    n Zb\n    n Zs  n s   n  Z.  n 20s    n \u001612\n\u0017spellbook of fireball\nrns\u0007succubus\nZb\nZZZZs sZi\u001b\u0017blessed spellbook of light\nros\u0007kobold shaman\nZb\n  n ZZZ20s 20sZ20s  yy\u001bny y y\u001bn  2"
+ },
+ "segments": [
+  {
+   "seed": 53050015,
+   "datetime": "20230825003927",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPhl\u00176 javelins\nQi\u0007kobold\n\u0007bugbear\nfbtil fj  fl   n   fj \u0018\u001b\u0017spellbook of light\nrj  20s  \u0017blessed spellbook of knock\nrk s\u0007master mind flayer\n\u0007lich\nZa\n  Za\n.m.     .m.  n   Za\n       ZZZ#turn\n\u0017spellbook of cause fear\nrl  n  n  .  n \u0017spellbook of slow monster\nrms   n  \u0007kobold shaman\nZa\n   n ZZZs    n s    n Zb\n    n Zs  n s   n  Z.  n 20s    n \u001612\n\u0017spellbook of fireball\nrns\u0007succubus\nZb\nZZZZs sZi\u001b\u0017blessed spellbook of light\nros\u0007kobold shaman\nZb\n  n ZZZ20s 20sZ20s  yy\u001bny y y\u001bn  2"
+  }
+ ]
+}

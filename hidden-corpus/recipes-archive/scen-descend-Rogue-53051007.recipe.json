@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b,>FlFl_>.Fl_.>_>,_,>\u0006_>._.>_>,Fl_.>_>._,>\u0006_>>,_,Fl >_>>._,>_>>,_.>\u0006_>._,>_>._.>_>._.><\u0006_>._.>_>,_.>_>._,>\u0006_>,_.>_>._.>_>._,>\u0006_>._.>_>._,>_>,_,>\u0006_>._,>_>,_,>_>._,>\u0006_>,_.>_>,_.>_>,_.>s#turn\n\u0006_>._,>_>,_,>_>,_.>:#name\no\n"
+ },
+ "segments": [
+  {
+   "seed": 53051007,
+   "datetime": "20110216170456",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:crawl\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0006_ \u001b,>FlFl_>.Fl_.>_>,_,>\u0006_>._.>_>,Fl_.>_>._,>\u0006_>>,_,Fl >_>>._,>_>>,_.>\u0006_>._,>_>._.>_>._.><\u0006_>._.>_>,_.>_>._,>\u0006_>,_.>_>._.>_>._,>\u0006_>._.>_>._,>_>,_,>\u0006_>._,>_>,_,>_>._,>\u0006_>,_.>_>,_.>_>,_.>s#turn\n\u0006_>._,>_>,_,>_>,_.>:#name\no\n"
+  }
+ ]
+}

@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "FhFhFhFhFhFhFhFhjndls20s    sy  k utahFb..150s            FhFjFh\\ 50s     Fh20s   FkFu20s  FhFh20s Fj FjFbFj100sbyl150s50s100s 50sFhFh.50s150s150see50sFhFj Fj Fh Fj Fj Fj  y\u001by  y y y\u001b  . uhnk10sdaab  ns.s#name\na\nh#chat\nut\u001b\u001bFk FkFkFkFkFkFkFkuhyhbbhu50s100s100sFh20s._ \u001bm,>100s100sFhs20s150suyh#untrap\nu_<,sFyFy20slyyFjss150sFhFhs150sukjlbu\u000f\u001b100sFhFh.blyljkFbs.100s100syhbFjFnFnFnFn.100s100s100sFh.20s100s50sFhFh20s100s100s_>,>150sFhFh20s_>,>,100sFh.20s100s100sFh20s20s100sed100snynllyjkbFkssi\u001b150s100si\u001b50sFbFj.150s50s150s50s50sFyFhFh#wipe\n100s100s50sFhss50s50s#ride\nbynn100sFhFys20sbubydbdcs20ssdddc#quit\nyy\u001by  y y y\u001b #quit\nyy #wizintrinsic\nc\n sysm.20s20s s20s sm.s.m.sm..m.sh20s   n s.20s   s20s    ss.20ss20sss.s20ssssss20s20sssss.20ssss",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53050057,
+   "datetime": "20080827190335",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\n",
+   "moves": "FhFhFhFhFhFhFhFhjndls20s    sy  k utahFb..150s            FhFjFh\\ 50s     Fh20s   FkFu20s  FhFh20s Fj FjFbFj100sbyl150s50s100s 50sFhFh.50s150s150see50sFhFj Fj Fh Fj Fj Fj  y\u001by  y y y\u001b  ."
+  },
+  {
+   "seed": 53150057,
+   "datetime": "20080928235440",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=msg_window:reversed\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " uhnk10sdaab  ns.s#name\na\nh#chat\nut\u001b\u001bFk FkFkFkFkFkFkFkuhyhbbhu50s100s100sFh20s._ \u001bm,>100s100sFhs20s150suyh#untrap\nu_<,sFyFy20slyyFjss150sFhFhs150sukjlbu\u000f\u001b100sFhFh.blyljkFbs.100s100syhbFjFnFnFnFn.100s100s100sFh.20s100s50sFhFh20s100s100s_>,>150sFhFh20s_>,>,100sFh.20s100s100sFh20s20s100sed100snynllyjkbFkssi\u001b150s100si\u001b50sFbFj.150s50s150s50s50sFyFhFh#wipe\n100s100s50sFhss50s50s#ride\nbynn100sFhFys20sbubydbdcs20ssdddc#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 53250057,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#quit\nyy"
+  },
+  {
+   "seed": 53350057,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nc\n sysm.20s20s s20s sm.s.m.sm..m.sh20s   n s.20s   s20s    ss.20ss20sss.s20ssssss20s20sssss.20ssss"
+  }
+ ]
+}

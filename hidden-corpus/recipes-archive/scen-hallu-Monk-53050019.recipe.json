@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed leash\n\u0017blessed amulet of life saving\nPl\u0017blessed +3 helm of telepathy\nWm\u0017blessed +3 speed boots\nWn \u0017blessed ring of free action\nPol\u0017blessed 20 daggers\nQp#levelchange\n14\n               #wizintrinsic\nh\n \u0007grid bug\nFuFl 20s20s s20sFl\u00167\n_ \u001b;>sm..m.  \u0017potion of healing\nqq20s   fl  fnfn  \u0007hill orc\n\u0007giant rat\nFj    FbFb  FnFn   FlFj  #wizintrinsic\nh\nfhfj tpj\u0017blessed scroll of enchant weapon\nrr    \u0017candy bar\nes fjtpb   tphfb  \u0007newt\n\u0007dwarf\nFjFl FhFb Fb  #wizintrinsic\nh\n\u0017potion of hallucination\nqt sm. fhtph  fhfh  fn fbfn  tpn\u0017blessed spellbook of light\nru  .m.Za\n:#wizintrinsic\nh\n\u0007acid blob\n\u0007bugbear\nFj FjFn Fn    \u0017wand of cold\nzvb zvl zvh;_.E- I am a fish\n#pray\ny y \u001621\nnuhjl hk :#wizintrinsic\nh\n\u001613\n    \u0007rabid rat\n;b:sy.m.20s"
+ },
+ "segments": [
+  {
+   "seed": 53050019,
+   "datetime": "20221029094305",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=fruit:kumquat\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed leash\n\u0017blessed amulet of life saving\nPl\u0017blessed +3 helm of telepathy\nWm\u0017blessed +3 speed boots\nWn \u0017blessed ring of free action\nPol\u0017blessed 20 daggers\nQp#levelchange\n14\n               #wizintrinsic\nh\n \u0007grid bug\nFuFl 20s20s s20sFl\u00167\n_ \u001b;>sm..m.  \u0017potion of healing\nqq20s   fl  fnfn  \u0007hill orc\n\u0007giant rat\nFj    FbFb  FnFn   FlFj  #wizintrinsic\nh\nfhfj tpj\u0017blessed scroll of enchant weapon\nrr    \u0017candy bar\nes fjtpb   tphfb  \u0007newt\n\u0007dwarf\nFjFl FhFb Fb  #wizintrinsic\nh\n\u0017potion of hallucination\nqt sm. fhtph  fhfh  fn fbfn  tpn\u0017blessed spellbook of light\nru  .m.Za\n:#wizintrinsic\nh\n\u0007acid blob\n\u0007bugbear\nFj FjFn Fn    \u0017wand of cold\nzvb zvl zvh;_.E- I am a fish\n#pray\ny y \u001621\nnuhjl hk :#wizintrinsic\nh\n\u001613\n    \u0007rabid rat\n;b:sy.m.20s"
+  }
+ ]
+}

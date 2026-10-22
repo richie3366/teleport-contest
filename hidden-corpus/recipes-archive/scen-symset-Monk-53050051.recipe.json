@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "jlk lk \u0017fountain\nqy \u001b@.qy<.#dip\niy:n\u0017lawful altar\ndd \u0017newt corpse\n#offer\nk  jj\u0017neutral altar\ndf\u0017floating eye corpse\n#offer\nl  : ln kn \u0017ice\njkn kn jdi\\  ajv\u001bi\u001b\u0006_>,  Fl_.>_>,_.Fj>FjFj_>.Fj_.>kb t\u001b<\u0006_>.Fj_.Fj>FjFj_>,_, >_>._,>f \u001bck \u0006_>,Fj_.>_>._,>_>.Fj_,Fj>FjFjFjFjFj\\  aj<\u0006_>,_.>_>,Fj_.Fj>FjFj_>._.Fj>FjFjFjFjFj\u0006_>,_,Fj>FjFj_>.Fj_.>_>._,>Wf \u001b#jump\n\u0007tame housecat\n\u0007tame jackal\n\u0017meatball\nt\u001b\u0017carrot\nt\u001b\u0017huge chunk of meat\nt\u001b\u0017food ration\n t\u001b\u0017lichen corpse\nt\u001b\u0017fortune cookie\n t\u001b10s\u0007kobold\n\u0017scroll of taming\nrq  \u001bO>>>>l\u001b\n#levelchange\n20\n                      jyykj \u0017sink\nqyy\u0017neutral altar\ndhdm \u0017dwarf corpse\n #pray\ny y j\u0017throne\n#sit\n #sit\n#sit\n #sit\n nn\u0017melting ice\n#terrain\n\u001bw\u001bcl #invoke\n\u001b#levelchange\n20\nnlj b\u0017pool\n:b\u0017neutral altar\ndb\u0017dwarf corpse\n y\u0017unaligned altar\ndpdb\u0017gnome corpse\n#offer\nnnt   <<E\u001b\u0007tame dingo\n\u0017tin whistle\nykk uj audu.m.sm..m.#chat\nj "
+ },
+ "segments": [
+  {
+   "seed": 53050051,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:curses\nOPTIONS=!autopickup\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nOPTIONS=msg_window:reversed\nMSGTYPE=hide \"The door\"\nMENUCOLOR=\"cursed\"=green\nSYMBOLS=S_pool:~,S_fountain:{\nBIND=v:inventory\n",
+   "moves": "jlk lk \u0017fountain\nqy \u001b@.qy<.#dip\niy:n\u0017lawful altar\ndd \u0017newt corpse\n#offer\nk  jj\u0017neutral altar\ndf\u0017floating eye corpse\n#offer\nl  : ln kn \u0017ice\njkn kn jdi\\  ajv\u001bi\u001b\u0006_>,  Fl_.>_>,_.Fj>FjFj_>.Fj_.>kb t\u001b<\u0006_>.Fj_.Fj>FjFj_>,_, >_>._,>f \u001bck \u0006_>,Fj_.>_>._,>_>.Fj_,Fj>FjFjFjFjFj\\  aj<\u0006_>,_.>_>,Fj_.Fj>FjFj_>._.Fj>FjFjFjFjFj\u0006_>,_,Fj>FjFj_>.Fj_.>_>._,>Wf \u001b#jump\n\u0007tame housecat\n\u0007tame jackal\n\u0017meatball\nt\u001b\u0017carrot\nt\u001b\u0017huge chunk of meat\nt\u001b\u0017food ration\n t\u001b\u0017lichen corpse\nt\u001b\u0017fortune cookie\n t\u001b10s\u0007kobold\n\u0017scroll of taming\nrq  \u001bO>>>>l\u001b\n#levelchange\n20\n                      jyykj \u0017sink\nqyy\u0017neutral altar\ndhdm \u0017dwarf corpse\n #pray\ny y j\u0017throne\n#sit\n #sit\n#sit\n #sit\n nn\u0017melting ice\n#terrain\n\u001bw\u001bcl #invoke\n\u001b#levelchange\n20\nnlj b\u0017pool\n:b\u0017neutral altar\ndb\u0017dwarf corpse\n y\u0017unaligned altar\ndpdb\u0017gnome corpse\n#offer\nnnt   <<E\u001b\u0007tame dingo\n\u0017tin whistle\nykk uj audu.m.sm..m.#chat\nj "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nWo\u0017blessed amulet of reflection\nPp\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007jackal\n#pray\ny y    #chat\nu#jump\n#wizidentify\n\u001bFuFlW\u001b_ \u001b>.qg\u0007owlbear\n#overview\n\u001b#conduct\n #annotate\nFido\ni\u001b#dip\nch#offer\n#chat\nl#turn\n#wizidentify\n\u001bFl  nFu  nFu   n Fl    n\u00169\n _>.#vanquished\n #genocided\nfire giant\nq n\u000f\u001b#name\no\n#adjust\nm\u001b#sit\n#pray\ny y #jump\n#wizidentify\n\u001bbuls_ooooo,_.,\u0007lichen\n#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nh#chat\nh#polyself\nred dragon\n    #monster\nsm.20sFhsjjks_<,\u0007bugbear\n#version\n  #history\n                  i\u001b#wipe\n#loot\n#turn\n#sit\n#wizidentify\n\u001bFb .#chat\nj_oooo._,,\u001b#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nny#pray\ny y  #chat\nn#jump\n#wizidentify\n\u001bhhk\u0016?\n>u \u0006\u0007troll\n#vanquished\n #genocided\nlittle dog\nl  \u0018\u001b#dip\nqf  n  \u001b#offer\n#chat\nl  n #turn\n#jump\n#levelchange\n23\n                     FlFl__.#chat\nl#chronicle\n  #terrain\n\u001b\u000f\u001b#name\nm\n#adjust\n:#sit\n   "
+ },
+ "segments": [
+  {
+   "seed": 53050075,
+   "datetime": "20250318201810",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nWo\u0017blessed amulet of reflection\nPp\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007jackal\n#pray\ny y    #chat\nu#jump\n#wizidentify\n\u001bFuFlW\u001b_ \u001b>.qg\u0007owlbear\n#overview\n\u001b#conduct\n #annotate\nFido\ni\u001b#dip\nch#offer\n#chat\nl#turn\n#wizidentify\n\u001bFl  nFu  nFu   n Fl    n\u00169\n _>.#vanquished\n #genocided\nfire giant\nq n\u000f\u001b#name\no\n#adjust\nm\u001b#sit\n#pray\ny y #jump\n#wizidentify\n\u001bbuls_ooooo,_.,\u0007lichen\n#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nh#chat\nh#polyself\nred dragon\n    #monster\nsm.20sFhsjjks_<,\u0007bugbear\n#version\n  #history\n                  i\u001b#wipe\n#loot\n#turn\n#sit\n#wizidentify\n\u001bFb .#chat\nj_oooo._,,\u001b#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nny#pray\ny y  #chat\nn#jump\n#wizidentify\n\u001bhhk\u0016?\n>u \u0006\u0007troll\n#vanquished\n #genocided\nlittle dog\nl  \u0018\u001b#dip\nqf  n  \u001b#offer\n#chat\nl  n #turn\n#jump\n#levelchange\n23\n                     FlFl__.#chat\nl#chronicle\n  #terrain\n\u001b\u000f\u001b#name\nm\n#adjust\n:#sit\n   "
+  }
+ ]
+}

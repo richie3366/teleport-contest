@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       \u0007air elemental\nFlFk  Fj\u0007Oracle\nyy s s  sm.20s  yny   ny nn  s"
+ },
+ "segments": [
+  {
+   "seed": 53052021,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       \u0007air elemental\nFlFk  Fj\u0007Oracle\nyy s s  sm.20s  yny   ny nn  s"
+  }
+ ]
+}

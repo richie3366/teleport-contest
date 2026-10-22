@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                      \u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u001610\n\u0006_ \u001b.\u001629\n   #levelchange\n8\n     \u0017potion of see invisible\n\u0007cave spider\nqm \u001b#dip\na\u0017 \u0007 s . \u0017 \u0007 20s s \u0017 \u0007 , \u0017 , s s . s \u0016 b l\u0016?\n>>K      leash\n__,>\u0016?\n\u001byy \u0016?\n\u001bn    n j\u001616\n_>.<\u001642\njh   :\u0016?\n\u001bl  u\u001629\n#levelchange\n12\n    \u0017blessed wand of cold\nzpu   \u0017cursed magic lamp\naq#rub\nq      n\u0017amulet of ESP\nPr                 n        sm.        n    sh               n       .m.    n            n.m.         \u0017spellbook of create familiar\n\u0007frost giant\nrs         n          n .m.   \u001b      20s    n          n  Z\u001bZ\u001b\u0017cursed -1 bow\n\u0007jellyfish\nwt    \u001b   n       Fj       n         Fh      n       Fy       FlFh     n       \u0017uncursed wand of locking\nzuu     yy\u001by   y y\u001b  z"
+ },
+ "segments": [
+  {
+   "seed": 53050066,
+   "datetime": "20010430071519",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                      \u0017blessed +3 gauntlets of power\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u001610\n\u0006_ \u001b.\u001629\n   #levelchange\n8\n     \u0017potion of see invisible\n\u0007cave spider\nqm \u001b#dip\na\u0017 \u0007 s . \u0017 \u0007 20s s \u0017 \u0007 , \u0017 , s s . s \u0016 b l\u0016?\n>>K      leash\n__,>\u0016?\n\u001byy \u0016?\n\u001bn    n j\u001616\n_>.<\u001642\njh   :\u0016?\n\u001bl  u\u001629\n#levelchange\n12\n    \u0017blessed wand of cold\nzpu   \u0017cursed magic lamp\naq#rub\nq      n\u0017amulet of ESP\nPr                 n        sm.        n    sh               n       .m.    n            n.m.         \u0017spellbook of create familiar\n\u0007frost giant\nrs         n          n .m.   \u001b      20s    n          n  Z\u001bZ\u001b\u0017cursed -1 bow\n\u0007jellyfish\nwt    \u001b   n       Fj       n         Fh      n       Fy       FlFh     n       \u0017uncursed wand of locking\nzuu     yy\u001by   y y\u001b  z"
+  }
+ ]
+}

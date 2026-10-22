@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " ll uy j\u0017cloud\n:h\u001bj\u0017throne\n#sit\n#sit\n :b\u0017chaotic altar\ndf\u0017dwarf corpse\n #offer\ng    \u000f\u001bPP\u0006_ \u001b:>FkFk_>>,Fl_,,Fy>FyFky _>>.Fy_.Fy>FyFyFyFyFy\u0006_>>,Fk_.Fb>FyFy_>>.Fb_.Fb>FhFy_>>,Fb_.Fb>FhFbFh\u001bFyFy\u0006_>,Fb_,Fh\u001b>FyFb_>,Fy_.Fh\u001b>FhFy_>,Fy_.Fl>FyFh\u001bFbFly Fy\u001616\nmO>>>>a\u001b\n\u00166\nv i\u001bOk\u001b\n\u0006_>>.Fh_.>.Fn>FjFkFb\u0006_>.Fj_.Fj>FbFj_>.Fn_>FjFj_>,Fh_,@.Fy>FyFyFyFyFy\u0006_>.Fb_.Fj>FbFj_>.Fk_. >_>,Fb_.> FjFjFj\u0006_>.Fh_,Fb>FhFb_>,Fh\u001b_.Fy>FyFh\u001b_>,Fb_.Fb>FyFyFbFyFb\u0006_>,Fy_.Fh\u001b>FbFb_>,Fb_.Fh\u001b>FyFh\u001b_>,Fb_.Fb>FhFbFbFbFy<\u0006_>.Fy_,Fb>FbFy_>.Fy_.Fb>FyFb_>.Fh_,Fb>FyFyFhFbFy\u0006_>>.Fb_,Fb>FbFb_>>.Fy_,Fh\u001b>FbFb_>>.Fb_.Fb>FhFbFbFbFh\u001b\u000f\u001b\u001613\n    #invoke\n\u001bP#jump\n10s\u0006_>>.Fy_.Fb>FkFy_>>.Fh\u001b_.Fu>FhFu_>>.Fh_.Fy>FhFuFkFhFh\u0006_>>.Fy_.Fb>FyFy_>>.Fb_,Fkk >FuFh_>>,Fy_,Fh\u001b>FkFkFuFuFu\u0006_>>.Fh_.Fk>FuFu_>>,Fb_.Fuk >FkFh_>>.Fu_.Fh>FkFbFh\u001bFkFbtdb H\u0006_>,Fy_. Fuu >FuFb_>.Fkb _,Fu>FkFy_>.Fh\u001b_.Fh>FkFyFh\u001bFyFy__,s\u0004b \u0006_>,Fy_.Fh\u001b>FhFh_>,Fy_.Fh\u001b>FyFh\u001b_>.Fh_,Fy>FyFh\u001bFhFhFba#loot\ny\u0018\u001b#l"
+ },
+ "segments": [
+  {
+   "seed": 53050029,
+   "datetime": "20120930162341",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\nOPTIONS=number_pad\nMENUCOLOR=\"a potion\"=magenta\n",
+   "moves": " ll uy j\u0017cloud\n:h\u001bj\u0017throne\n#sit\n#sit\n :b\u0017chaotic altar\ndf\u0017dwarf corpse\n #offer\ng    \u000f\u001bPP\u0006_ \u001b:>FkFk_>>,Fl_,,Fy>FyFky _>>.Fy_.Fy>FyFyFyFyFy\u0006_>>,Fk_.Fb>FyFy_>>.Fb_.Fb>FhFy_>>,Fb_.Fb>FhFbFh\u001bFyFy\u0006_>,Fb_,Fh\u001b>FyFb_>,Fy_.Fh\u001b>FhFy_>,Fy_.Fl>FyFh\u001bFbFly Fy\u001616\nmO>>>>a\u001b\n\u00166\nv i\u001bOk\u001b\n\u0006_>>.Fh_.>.Fn>FjFkFb\u0006_>.Fj_.Fj>FbFj_>.Fn_>FjFj_>,Fh_,@.Fy>FyFyFyFyFy\u0006_>.Fb_.Fj>FbFj_>.Fk_. >_>,Fb_.> FjFjFj\u0006_>.Fh_,Fb>FhFb_>,Fh\u001b_.Fy>FyFh\u001b_>,Fb_.Fb>FyFyFbFyFb\u0006_>,Fy_.Fh\u001b>FbFb_>,Fb_.Fh\u001b>FyFh\u001b_>,Fb_.Fb>FhFbFbFbFy<\u0006_>.Fy_,Fb>FbFy_>.Fy_.Fb>FyFb_>.Fh_,Fb>FyFyFhFbFy\u0006_>>.Fb_,Fb>FbFb_>>.Fy_,Fh\u001b>FbFb_>>.Fb_.Fb>FhFbFbFbFh\u001b\u000f\u001b\u001613\n    #invoke\n\u001bP#jump\n10s\u0006_>>.Fy_.Fb>FkFy_>>.Fh\u001b_.Fu>FhFu_>>.Fh_.Fy>FhFuFkFhFh\u0006_>>.Fy_.Fb>FyFy_>>.Fb_,Fkk >FuFh_>>,Fy_,Fh\u001b>FkFkFuFuFu\u0006_>>.Fh_.Fk>FuFu_>>,Fb_.Fuk >FkFh_>>.Fu_.Fh>FkFbFh\u001bFkFbtdb H\u0006_>,Fy_. Fuu >FuFb_>.Fkb _,Fu>FkFy_>.Fh\u001b_.Fh>FkFyFh\u001bFyFy__,s\u0004b \u0006_>,Fy_.Fh\u001b>FhFh_>,Fy_.Fh\u001b>FyFh\u001b_>.Fh_,Fy>FyFh\u001bFhFhFba#loot\ny\u0018\u001b#l"
+  }
+ ]
+}

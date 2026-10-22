@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed magic harp\n\u0017blessed bell of opening\n\u0017blessed +3 speed boots\nWr\u0017blessed 20 daggers\nQs#levelchange\n20\n                    #wizintrinsic\nh\n ;h, \u001b<.E- Elbereth\n#chat\nktsk fh fk fh #invoke\nq\u0017blessed scroll of mail\nrt  \u0017lembas wafer\neu  #wizintrinsic\nh\n\u0007soldier\n\u0007sewer rat\nFh FuFu FkFu Fu Fu\u0016?\n>>N       scroll of earth\n\u0014@. sm.20s     sl\u0017potion of speed\nqx   sm.    n .k     n \u00165\n#wizintrinsic\nh\n\u0017blessed spellbook of cone of cold\n ry          n       n sl       n  Za\nu      n :\u00161\n\u0007gnome lord\nFu    Fk    n      Fu        n    Fk     n       nFl       Fk\u00166\n#wizintrinsic\nh\n\u0007kobold\n\u0007acid blob\nFu      n    Fk       n     n         n  Fy     Fl\u00164\n\u0007bugbear\nFk    n      yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 53050030,
+   "datetime": "20171014144131",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed magic harp\n\u0017blessed bell of opening\n\u0017blessed +3 speed boots\nWr\u0017blessed 20 daggers\nQs#levelchange\n20\n                    #wizintrinsic\nh\n ;h, \u001b<.E- Elbereth\n#chat\nktsk fh fk fh #invoke\nq\u0017blessed scroll of mail\nrt  \u0017lembas wafer\neu  #wizintrinsic\nh\n\u0007soldier\n\u0007sewer rat\nFh FuFu FkFu Fu Fu\u0016?\n>>N       scroll of earth\n\u0014@. sm.20s     sl\u0017potion of speed\nqx   sm.    n .k     n \u00165\n#wizintrinsic\nh\n\u0017blessed spellbook of cone of cold\n ry          n       n sl       n  Za\nu      n :\u00161\n\u0007gnome lord\nFu    Fk    n      Fu        n    Fk     n       nFl       Fk\u00166\n#wizintrinsic\nh\n\u0007kobold\n\u0007acid blob\nFu      n    Fk       n     n         n  Fy     Fl\u00164\n\u0007bugbear\nFk    n      yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

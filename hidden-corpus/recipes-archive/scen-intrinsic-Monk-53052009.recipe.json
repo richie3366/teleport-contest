@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\no\n s...20ssss.20ss.20ssss.20s20s.s.\u0017magic harp\naky aky \\  \\  #ride\nky#offer\nl10sssss.."
+ },
+ "segments": [
+  {
+   "seed": 53052009,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\no\n s...20ssss.20ss.20ssss.20s20s.s.\u0017magic harp\naky aky \\  \\  #ride\nky#offer\nl10sssss.."
+  }
+ ]
+}

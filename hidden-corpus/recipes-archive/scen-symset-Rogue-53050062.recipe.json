@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "f bnn#offer\n#dip\ndd\u0006_ \u001bm.>FkFn_>FkFl_>>. Fj_.Fj>FjFjFlFnFn\\ #untrap\nj \u0006_>.Fl_.Fb>FlFl_>,Fn_>FnFuu _>.Fu_.Fu>FuFlFhFhFu\u000f\u001b>\u0006_>,Fh_,Fu>FlFk_>.Fl_.Fn>FnFul Fn\u000fO>a\u001b\n\u0004b #terrain\n\u001bl yuy b\u0017fountain\nqy:uu \u0017melting ice\nh\u001b\u0017magic fountain\nqyqyqy #dip\ncy:un n\u0017grave\n:\u0017pick-axe\nag >  nys.#terrain\n\u001bZ#sit\ncj ku kk bb\u0017unaligned altar\ndb\u0017newt corpse\n#offer\nh  #pray\ny : l\u001b\u0017grave\n: \u0017wand of digging\nzi>20s20s:#sit\n\u001bwg#wipe\n\u0006_>>.Fl_.Fl>FlFu_>>,Fn_>FuFk_>>.Fu_.Fu>FuFnFnFnFn\u0006_>.Fu_.Fu>FlFu_>.Fl_.Fu>FhFh_>.Fl_.Fl>FhFhFnFh\u001bFh<#rub\n<\u0006_>>,Fn_>FnFn_>>.Fl_.Fh>FuFn_>FhFhFhFuFn\u0006_>>,Fu_.Fl>FlFl_>>,Fj_,Fl>FuFk_>>.Fu_.Fu>FuFlFuFuFy#twoweapon\noh \u0006_>>.Fl_.Fn>FlFuFu\u0006_>.Fj_.Fu>FhFh_>.Fn_>FnFun _>,Fn_>FlFnFl\u001bFnFl\u001bi\u001bcl \u0006_>.Fl_.Fn>FnFnFl<\u0006_>>,Fl_.Fl>FlFn_>FkFu_>>.Fn_>FuFuFlFnFl\u001b\\ r\u001b\u0006_>,Fl_,Fh>FuFn_>FnFh\u001b_>.Fn_>FuFuFyFl\u001bFn\u0006_>>.Fu_.Fk>Fu"
+ },
+ "segments": [
+  {
+   "seed": 53050062,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=hide \"The door\"\n",
+   "moves": "f bnn#offer\n#dip\ndd\u0006_ \u001bm.>FkFn_>FkFl_>>. Fj_.Fj>FjFjFlFnFn\\ #untrap\nj \u0006_>.Fl_.Fb>FlFl_>,Fn_>FnFuu _>.Fu_.Fu>FuFlFhFhFu\u000f\u001b>\u0006_>,Fh_,Fu>FlFk_>.Fl_.Fn>FnFul Fn\u000fO>a\u001b\n\u0004b #terrain\n\u001bl yuy b\u0017fountain\nqy:uu \u0017melting ice\nh\u001b\u0017magic fountain\nqyqyqy #dip\ncy:un n\u0017grave\n:\u0017pick-axe\nag >  nys.#terrain\n\u001bZ#sit\ncj ku kk bb\u0017unaligned altar\ndb\u0017newt corpse\n#offer\nh  #pray\ny : l\u001b\u0017grave\n: \u0017wand of digging\nzi>20s20s:#sit\n\u001bwg#wipe\n\u0006_>>.Fl_.Fl>FlFu_>>,Fn_>FuFk_>>.Fu_.Fu>FuFnFnFnFn\u0006_>.Fu_.Fu>FlFu_>.Fl_.Fu>FhFh_>.Fl_.Fl>FhFhFnFh\u001bFh<#rub\n<\u0006_>>,Fn_>FnFn_>>.Fl_.Fh>FuFn_>FhFhFhFuFn\u0006_>>,Fu_.Fl>FlFl_>>,Fj_,Fl>FuFk_>>.Fu_.Fu>FuFlFuFuFy#twoweapon\noh \u0006_>>.Fl_.Fn>FlFuFu\u0006_>.Fj_.Fu>FhFh_>.Fn_>FnFun _>,Fn_>FlFnFl\u001bFnFl\u001bi\u001bcl \u0006_>.Fl_.Fn>FnFnFl<\u0006_>>,Fl_.Fl>FlFn_>FkFu_>>.Fn_>FuFuFlFnFl\u001b\\ r\u001b\u0006_>,Fl_,Fh>FuFn_>FnFh\u001b_>.Fn_>FuFuFyFl\u001bFn\u0006_>>.Fu_.Fk>Fu"
+  }
+ ]
+}

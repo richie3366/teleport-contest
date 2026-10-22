@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed spellbook of detect treasure\nrp    20s  \u0017blessed spellbook of remove curse\nrq 20s+c\nZc\nZd\nZb\nZc\n\u0007sewer rat\nZd\nFl Zb\nFkZc\nFk\u0007acid blob\nZd\n#turn\n#levelchange\n6\n     \u0017blessed spellbook of drain life\nrr .m.\u0017blessed spellbook of remove curse\nrs y 20s \u0017blessed spellbook of cancellation\nrt 20s\u0017spellbook of restore a"
+ },
+ "segments": [
+  {
+   "seed": 53051029,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed spellbook of detect treasure\nrp    20s  \u0017blessed spellbook of remove curse\nrq 20s+c\nZc\nZd\nZb\nZc\n\u0007sewer rat\nZd\nFl Zb\nFkZc\nFk\u0007acid blob\nZd\n#turn\n#levelchange\n6\n     \u0017blessed spellbook of drain life\nrr .m.\u0017blessed spellbook of remove curse\nrs y 20s \u0017blessed spellbook of cancellation\nrt 20s\u0017spellbook of restore a"
+  }
+ ]
+}

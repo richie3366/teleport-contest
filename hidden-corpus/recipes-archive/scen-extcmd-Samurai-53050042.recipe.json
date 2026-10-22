@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\nwf\u0017blessed +3 gauntlets of power\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n          \u0007kobold shaman\n#overview\n\u001b#conduct\n i\u001b#dip\nhi \u001b#offer\n#pray\ny y     #chat\nb #wizdetect\n\u0006Fb Fl  s_ \u001b;#chat\ny#vanquished\n #genocided\nwraith\nci\u001b#name\n\u001b#adjust\nh\u001b#chat\nn#turn\n#wizidentify\n\u001bklu__,#chat\nb\u0007sewer rat\n#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\nf#sit\n#pray\ny y    #polyself\nred dragon\n  #monster\nbs20sFhsnhh__,20s\u001610\n\u0006#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nj#chat\nb#jump\n#wizintrinsic\nfs\n ybl__,20s_ooo.,\u0007soldier\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\njy#turn\n#sit\n#jump\n#polyself\npurple worm\n .n20sFn Fn Fn  s__,#chat\n\u0007soldier\n#vanquished\n #genocided\nElvenking\n \u000f\u001b#dip\nj#offer\n#pray\ny y    #chat\ny#wizdetect\n\u0006FyFyFyFy__,#chat\ny\u0007owlbear\n#chronicle\n  #terrain\n\u001b#annotate\nfoo\ni\u001b#name\n\u001b#adjust\nd\u001b#chat\ny#turn\n#polyself\nvampire\n#monster\n  20s  sb  Fy  FyFb  Fb    n Fb _{.q\u0007owlbear\n#version\n  #history\n   "
+ },
+ "segments": [
+  {
+   "seed": 53050042,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\nwf\u0017blessed +3 gauntlets of power\nWg\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n          \u0007kobold shaman\n#overview\n\u001b#conduct\n i\u001b#dip\nhi \u001b#offer\n#pray\ny y     #chat\nb #wizdetect\n\u0006Fb Fl  s_ \u001b;#chat\ny#vanquished\n #genocided\nwraith\nci\u001b#name\n\u001b#adjust\nh\u001b#chat\nn#turn\n#wizidentify\n\u001bklu__,#chat\nb\u0007sewer rat\n#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\nf#sit\n#pray\ny y    #polyself\nred dragon\n  #monster\nbs20sFhsnhh__,20s\u001610\n\u0006#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nj#chat\nb#jump\n#wizintrinsic\nfs\n ybl__,20s_ooo.,\u0007soldier\n#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\njy#turn\n#sit\n#jump\n#polyself\npurple worm\n .n20sFn Fn Fn  s__,#chat\n\u0007soldier\n#vanquished\n #genocided\nElvenking\n \u000f\u001b#dip\nj#offer\n#pray\ny y    #chat\ny#wizdetect\n\u0006FyFyFyFy__,#chat\ny\u0007owlbear\n#chronicle\n  #terrain\n\u001b#annotate\nfoo\ni\u001b#name\n\u001b#adjust\nd\u001b#chat\ny#turn\n#polyself\nvampire\n#monster\n  20s  sb  Fy  FyFb  Fb    n Fb _{.q\u0007owlbear\n#version\n  #history\n   "
+  }
+ ]
+}

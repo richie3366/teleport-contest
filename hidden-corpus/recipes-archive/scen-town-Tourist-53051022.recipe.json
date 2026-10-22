@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u00172000 gold pieces\n\u0016?\n>w\u0006_ \u001b;qf_ooooooooo.,\u0014:_m,Fk_.#chat\nk_{,Fh_.Fhqg_oo,,p_{.Fh_.Fhq#dip\nidc#ride\nlywany#levelchange\n10\n  \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nql._ooooooooo.Fh _.,Fh,\u0014m,  __._.#chat\ndi__._,Fk #chat\nk #pray\ny y _{.Fk_.Fkq#dip\nk__._.:#chat\nl#pray\ny"
+ },
+ "segments": [
+  {
+   "seed": 53051022,
+   "datetime": "20090909152840",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u00172000 gold pieces\n\u0016?\n>w\u0006_ \u001b;qf_ooooooooo.,\u0014:_m,Fk_.#chat\nk_{,Fh_.Fhqg_oo,,p_{.Fh_.Fhq#dip\nidc#ride\nlywany#levelchange\n10\n  \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nql._ooooooooo.Fh _.,Fh,\u0014m,  __._.#chat\ndi__._,Fk #chat\nk #pray\ny y _{.Fk_.Fkq#dip\nk__._.:#chat\nl#pray\ny"
+  }
+ ]
+}

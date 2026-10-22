@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "N BJK_ \u001b<.>FjFkFlNUHU_>.>Fb ssJKUJ_>.>fui\u001bYBKY_>,>NHLJ_>.>HNLJ_>,>\u000f\u001bhuyhdes20ssbkukkjuh#enhance\n\u001b:_<,s10snhujddss.hhdc20ss.YYLU_>.>#jump\n#name\ni\nLHUL_>.>NYUB_>.>\u0018\u001bKHKHJ_>,>BYHK_>,>UKNL_>,>JJJH_>,>#wipe\n#loot\n\u000f\u001bt\u001blbynybbu20sbu#name\ni\n#chat\njblhu10s#chat\nk10st\u001bbk#name\no\nnl20s#chat\nh#name\nm\nKLKH_>HJYN_>#wipe\n>.#rub\ng\u001bJNBL_>.>b\u0018\u001bBLBB_>.>UYNL_>,>UUJJ_>,><HKHB_>.>ol,snnubhylbu#offer\nnyy100sFuFusjly100sjjuynni\u001b150s50s100s_>,>hyj\\ >kjujlhhubujk50seeeeeeeeeeeeeeeefj,Weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#twoweapon\n,#wipe\n10syn10snubuulhb#chat\nh#sit\n\u001b20s#loot\n#chat\nb#name\no\nt\u001bdg..sybub20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeewa20s:#pray\ny #pray\ny   e#pray\ny  e#pray\ny   ee#pra"
+ },
+ "segments": [
+  {
+   "seed": 53050003,
+   "datetime": "20051212073320",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\n",
+   "moves": "N BJK_ \u001b<.>FjFkFlNUHU_>.>Fb ssJKUJ_>.>fui\u001bYBKY_>,>NHLJ_>.>HNLJ_>,>\u000f\u001bhuyhdes20ssbkukkjuh#enhance\n\u001b:_<,s10snhujddss.hhdc20ss.YYLU_>.>#jump\n#name\ni\nLHUL_>.>NYUB_>.>\u0018\u001bKHKHJ_>,>BYHK_>,>UKNL_>,>JJJH_>,>#wipe\n#loot\n\u000f\u001bt\u001blbynybbu20sbu#name\ni\n#chat\njblhu10s#chat\nk10st\u001bbk#name\no\nnl20s#chat\nh#name\nm\nKLKH_>HJYN_>#wipe\n>.#rub\ng\u001bJNBL_>.>b\u0018\u001bBLBB_>.>UYNL_>,>UUJJ_>,><HKHB_>.>ol,snnubhylbu#offer\nnyy100sFuFusjly100sjjuynni\u001b150s50s100s_>,>hyj\\ >kjujlhhubujk50seeeeeeeeeeeeeeeefj,Weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee#twoweapon\n,#wipe\n10syn10snubuulhb#chat\nh#sit\n\u001b20s#loot\n#chat\nb#name\no\nt\u001bdg..sybub20seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeewa20s:#pray\ny #pray\ny   e#pray\ny  e#pray\ny   ee#pra"
+  }
+ ]
+}

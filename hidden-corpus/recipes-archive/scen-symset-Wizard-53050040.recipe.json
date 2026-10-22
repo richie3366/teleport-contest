@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b@.>FnFj_>>.Fh_.Fj>FkFh_>>.Fl_,m.Fl>Fl.cj;_.<\u0006_>.Fy_,> FjFnFb#loot\nck\u0006_>._,> \u0006_>>.Fl_.@.Fk>FlFk_>>.Fy_.m.Fl>FkFu_>>.Fl_.<.Fy>FlFnFlFnFk\u00164\nqghhl100shlkFuFkFhFyFkFyFkFhFkFuFkFuFkFuFyFyFyFkFuFkFkFuFuFyFkFkFkFuFuFkFkFuFkFkFuFkFuFyFyFuFyFkFyFyFkFuFuFkFkFyFuFkFyFkFyFyFuFyFuFuFuFyFuFyFkFkFuFyFyFuFkFkFkFkFkFyFuFuFuFyFuFuFuFuFkFuFyFkFyFuFuFuFyFyFkFuFkFkFkFuFyFkFyFkFyFuFyFu#dip\nlh#dip\namO>>p\u001b\nch#loot\n#offer\nohjklb\u0017ice\nu\u0017fountain\nqyqy yh\u0017tree\nu\u0017altar\ndbdd\u0017gnome corpse\n #offer\no   #terrain\nf\nE- Pel>v i\u001b\u001612\n    \u00164\nFyFyFbFhFhFyFhFhFhFbFbFbFbFbFbFbFbFyFhFyFbFyFhFbFhFyFyFhFbFyFbFyFyFbFhFbFyFyFyFyFyFyFhFbFhFhFyFyFhFbFbFhFbFbFyFbFhFbFhFyFyFhFbFyFhFbFhFbFhFbFbFbFhFyFyFhFhFhFhFhFhFyFbFyFhFbFhFbFyFhFbFyFhFyFbFyFhFbFbFhFb"
+ },
+ "segments": [
+  {
+   "seed": 53050040,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nMENUCOLOR=\"cursed\"=green\n",
+   "moves": " \u0006_ \u001b@.>FnFj_>>.Fh_.Fj>FkFh_>>.Fl_,m.Fl>Fl.cj;_.<\u0006_>.Fy_,> FjFnFb#loot\nck\u0006_>._,> \u0006_>>.Fl_.@.Fk>FlFk_>>.Fy_.m.Fl>FkFu_>>.Fl_.<.Fy>FlFnFlFnFk\u00164\nqghhl100shlkFuFkFhFyFkFyFkFhFkFuFkFuFkFuFyFyFyFkFuFkFkFuFuFyFkFkFkFuFuFkFkFuFkFkFuFkFuFyFyFuFyFkFyFyFkFuFuFkFkFyFuFkFyFkFyFyFuFyFuFuFuFyFuFyFkFkFuFyFyFuFkFkFkFkFkFyFuFuFuFyFuFuFuFuFkFuFyFkFyFuFuFuFyFyFkFuFkFkFkFuFyFkFyFkFyFuFyFu#dip\nlh#dip\namO>>p\u001b\nch#loot\n#offer\nohjklb\u0017ice\nu\u0017fountain\nqyqy yh\u0017tree\nu\u0017altar\ndbdd\u0017gnome corpse\n #offer\no   #terrain\nf\nE- Pel>v i\u001b\u001612\n    \u00164\nFyFyFbFhFhFyFhFhFhFbFbFbFbFbFbFbFbFyFhFyFbFyFhFbFhFyFyFhFbFyFbFyFyFbFhFbFyFyFyFyFyFyFhFbFhFhFyFyFhFbFbFhFbFbFyFbFhFbFhFyFyFhFbFyFhFbFhFbFhFbFbFbFhFyFyFhFhFhFhFhFhFyFbFyFhFbFhFbFyFhFbFyFhFyFbFyFhFbFbFhFb"
+  }
+ ]
+}

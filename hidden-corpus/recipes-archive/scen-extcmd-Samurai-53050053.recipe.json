@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nWh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007troll\nFnFhFn\u0016?\n>H \u0006\u0007jackal\n#overview\n\u001b#conduct\n i\u001b#dip\nij \u001b#offer\n#pray\ny y #chat\nh#polyself\nvampire\n.ssshlu_ \u001b,#chat\nn#vanquished\n#genocided\nsandestin\nf#annotate\nfoo\n\u0018\u001b#name\no\n#adjust\ni\u001b#chat\nj#turn\n#jump\n#polyself\nair elemental\n  #monster\n20ss..uku_>,_.#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #levelchange\n17\nlhl_oooo,,\u001b#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\ny#chat\ny#wizintrinsic\nag\n kyn20s  \u001625\n \u0006#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nny#turn\n#sit\n\u001b#wizintrinsic\nrf\n nuk_ooooo.,\u0007troll\n#vanquished\n#genocided\nwraith\nb #annotate\nfoo\ni\u001b#dip\nk#offer\n#pray\ny y    #chat\nl#wizidentify\n\u001bFl FlFl _{.q\u0007sewer rat\n#chronicle\n  #terrain\n\u001b\u000f\u001b#name\n\u001b#adjust\ng\u001b#chat\ny#turn\n#wizidentify\n\u001bFy FlFl Fl_{.q\u0007troll\n#version\n  #history\n                  i\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y       #wizmap\n\u0006Fy   n  Fy FyFl _{.q#overview\n\u001b#conduct\n #annotate\n\u001bi\u001b#wipe\n   n #loot\n  #chat\ny#chat\n"
+ },
+ "segments": [
+  {
+   "seed": 53050053,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:loot\nOPTIONS=runmode:teleport\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nWh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007troll\nFnFhFn\u0016?\n>H \u0006\u0007jackal\n#overview\n\u001b#conduct\n i\u001b#dip\nij \u001b#offer\n#pray\ny y #chat\nh#polyself\nvampire\n.ssshlu_ \u001b,#chat\nn#vanquished\n#genocided\nsandestin\nf#annotate\nfoo\n\u0018\u001b#name\no\n#adjust\ni\u001b#chat\nj#turn\n#jump\n#polyself\nair elemental\n  #monster\n20ss..uku_>,_.#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y  #levelchange\n17\nlhl_oooo,,\u001b#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\ny#chat\ny#wizintrinsic\nag\n kyn20s  \u001625\n \u0006#overview\n\u001b#conduct\n \u0018\u001b#tip\n\u001b#ride\nny#turn\n#sit\n\u001b#wizintrinsic\nrf\n nuk_ooooo.,\u0007troll\n#vanquished\n#genocided\nwraith\nb #annotate\nfoo\ni\u001b#dip\nk#offer\n#pray\ny y    #chat\nl#wizidentify\n\u001bFl FlFl _{.q\u0007sewer rat\n#chronicle\n  #terrain\n\u001b\u000f\u001b#name\n\u001b#adjust\ng\u001b#chat\ny#turn\n#wizidentify\n\u001bFy FlFl Fl_{.q\u0007troll\n#version\n  #history\n                  i\u001b#twoweapon\n#invoke\n\u001b#sit\n #pray\ny y       #wizmap\n\u0006Fy   n  Fy FyFl _{.q#overview\n\u001b#conduct\n #annotate\n\u001bi\u001b#wipe\n   n #loot\n  #chat\ny#chat\n"
+  }
+ ]
+}

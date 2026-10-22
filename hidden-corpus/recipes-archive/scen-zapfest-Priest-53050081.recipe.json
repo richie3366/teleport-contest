@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPi\u0017blessed shield of reflection\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of polymorph\n\u0017wand of slow monster\n\u0007bugbear\n\u0007gnome\n\u0007gnome\nzlk .m.       \u001b   zmy   n   zlksm.zmy szmkzmuzm.zm.zmszlh\u001611\n\u0007baby red dragon\n\u0007silver dragon\nsm.20s  n   nsl  n  20s  n \u0017wand of fire\nany        nFkFk\u00163\n\u0007incubus\n\u0007lich\n\u0007kobold shaman\n\u0017wand of striking\nzou.m. sm. \u0018\u001b\u0017wand of teleportation\n\u0017wand of death\n\u0007soldier\n\u0007yellow mold\nzql       .m.     nzpj    zpu 20s  zpk  nzplzpnzpnzq.  ns\u00163\n\u0017blessed spellbook of sleep\nrr sm.\u0007vampire\nZb\n  sm. .m.  n Zb\n20s20sZb\n Zb\nZb\nZb\nZb\nsm.20s    n Za\n\u001bm,  Zb\n\u00169\n\u0017wand of digging\n\u0017wand of cancellation\n\u0017wand of polymorph\n"
+ },
+ "segments": [
+  {
+   "seed": 53050081,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPi\u0017blessed shield of reflection\nW\u001b\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017wand of polymorph\n\u0017wand of slow monster\n\u0007bugbear\n\u0007gnome\n\u0007gnome\nzlk .m.       \u001b   zmy   n   zlksm.zmy szmkzmuzm.zm.zmszlh\u001611\n\u0007baby red dragon\n\u0007silver dragon\nsm.20s  n   nsl  n  20s  n \u0017wand of fire\nany        nFkFk\u00163\n\u0007incubus\n\u0007lich\n\u0007kobold shaman\n\u0017wand of striking\nzou.m. sm. \u0018\u001b\u0017wand of teleportation\n\u0017wand of death\n\u0007soldier\n\u0007yellow mold\nzql       .m.     nzpj    zpu 20s  zpk  nzplzpnzpnzq.  ns\u00163\n\u0017blessed spellbook of sleep\nrr sm.\u0007vampire\nZb\n  sm. .m.  n Zb\n20s20sZb\n Zb\nZb\nZb\nZb\nsm.20s    n Za\n\u001bm,  Zb\n\u00169\n\u0017wand of digging\n\u0017wand of cancellation\n\u0017wand of polymorph\n"
+  }
+ ]
+}

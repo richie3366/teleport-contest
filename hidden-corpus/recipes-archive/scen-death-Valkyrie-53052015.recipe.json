@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nb\n 20ssm.s.m..sm..m.sm..m.20ssk.m..m.20s20ssm..hsjsss20s  sm.  yny  ny y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 53052015,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n 20ssm.s.m..sm..m.sm..m.20ssk.m..m.20s20ssm..hsjsss20s  sm.  yny  ny y\u001by  s"
+  }
+ ]
+}

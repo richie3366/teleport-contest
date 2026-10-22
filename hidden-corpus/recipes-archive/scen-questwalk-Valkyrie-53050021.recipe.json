@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed ring of free action\nPel\u0017blessed amulet of life saving\nPf\u0016?\n>z  \u00162\n\u0006#chat\nl;u. \u001b<.\u00163\n \u0006bnhuj_>, Fj_,>.Fb   >\u0006_mmmmm.Fn _,   Fj     Fb   Fb  Fj   n   Fj  Fl  Fn    n   \u00164\n\u00165\n\u0006_mm,Fk    _.Fhs.Fl  Fl   \u001b \u00166\n  \u0006jb    n   h     y     j      k  n     j       n    \u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z\u00168\n_>.>\u0016?\n>z\u0006_mmmmm.20sFh Fh.20s  Fu  n  \u00163\n\u0016?\n>z\u0006_mmmm,Fu       n   Fn  Fk FlFk  n   Fk\u00161\n\u00164\n\u0016?\n>z\u0006_<.\u00165\n\u0016?\n>z\u0006,   n \u00166\n\u0016?\n>z\u0006kkbu  n  bykb_>.Fu _.Fy>\u0016?\n>z\u0006k  n  blj nh   n  \u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00163\n\u00163\n\u0016?\n>z\u0006_m.Fk Fh    Fy  n  Fy Fk \u00164\n\u0016?\n>z\u0006b l   n h   \u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00165\n\u0016?\n>z\u0006__.\u00166\n\u0016?\n>z\u0006j  n  j  u    yy\u001by   y ny\u001b  l"
+ },
+ "segments": [
+  {
+   "seed": 53050021,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed ring of free action\nPel\u0017blessed amulet of life saving\nPf\u0016?\n>z  \u00162\n\u0006#chat\nl;u. \u001b<.\u00163\n \u0006bnhuj_>, Fj_,>.Fb   >\u0006_mmmmm.Fn _,   Fj     Fb   Fb  Fj   n   Fj  Fl  Fn    n   \u00164\n\u00165\n\u0006_mm,Fk    _.Fhs.Fl  Fl   \u001b \u00166\n  \u0006jb    n   h     y     j      k  n     j       n    \u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z\u00168\n_>.>\u0016?\n>z\u0006_mmmmm.20sFh Fh.20s  Fu  n  \u00163\n\u0016?\n>z\u0006_mmmm,Fu       n   Fn  Fk FlFk  n   Fk\u00161\n\u00164\n\u0016?\n>z\u0006_<.\u00165\n\u0016?\n>z\u0006,   n \u00166\n\u0016?\n>z\u0006kkbu  n  bykb_>.Fu _.Fy>\u0016?\n>z\u0006k  n  blj nh   n  \u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00163\n\u00163\n\u0016?\n>z\u0006_m.Fk Fh    Fy  n  Fy Fk \u00164\n\u0016?\n>z\u0006b l   n h   \u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00165\n\u0016?\n>z\u0006__.\u00166\n\u0016?\n>z\u0006j  n  j  u    yy\u001by   y ny\u001b  l"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n         \u00172000 gold pieces\n\u0016?\nc\u0006_ \u001b<.#chat\nl_m.Fl _.#chat\nl_mmm.#chat\nb_{.Fb _, Fb qd :#pray\ny y      P\u0017shield of reflection\nW\u001b\u0016?\nh\u0006s.Fk   yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 53051017,
+   "datetime": "20131101192259",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n         \u00172000 gold pieces\n\u0016?\nc\u0006_ \u001b<.#chat\nl_m.Fl _.#chat\nl_mmm.#chat\nb_{.Fb _, Fb qd :#pray\ny y      P\u0017shield of reflection\nW\u001b\u0016?\nh\u0006s.Fk   yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

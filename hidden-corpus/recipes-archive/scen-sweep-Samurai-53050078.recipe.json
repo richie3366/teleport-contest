@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017cursed potion of sickness\nqf#dip\nc\u0017cursed potion of paralysis\n\u0007lurker above\nqg          #dip\ndFhFb \u0017scroll of enchant armor\n\u0007Oracle\nnnrh FjFk\u0017cursed -1 leather armor\n\u0007gelatinous cube\nW\u001bs\u001bs.\u0017uncursed the Orb of Detection\n  wc FjFjFj#invoke\nj X20s\u001bs\u001626\n\u0007baby red dragon\nFkFuFkFh FhFu\u0007frost giant\nFh FkFl   nFk \u0007doppelganger\n;l; \u001b; sm.sm.20s  #levelchange\n12\n  #wizintrinsic\nche\n  .m.sm.sm.  n  su.m.su20ssm.20s snssss\u0017fire horn\nak h  ak h    n \u0014, \\    20s\u0018\u001bch<20ssj20s  .m.20s     n sl\u001611\n    \u00168\n#levelchange\n30\n                 \u0017blessed 20 flint stones\nQafbf by bf d n \u0017blessed wand of cancellation\nzmb\u0017cursed wand of slow monster\nznn  n    n z\u0017blessed scroll of remove curse\nros20s \u0017cursed scroll of genocide\n,\u001bss20ss   \u001629\n   \u00167\n#levelchange\n12\n      \u0016?\n>A  E- Vlad was here\nss;j;\u000620s  sm.  n  \u0016?\n>u cj#conduct\n #ride\nhy20s  .m. \u0016?\n>G#untrap\nkeq;k;.bsu\u0016?\n>>\u001b\u0016?\n>>\u001b#levelchange\n12\n\u001613\nzmn q,sn  20s  n \u0016?\n>>K      potion of restore ability\n#tip\n\u001b,#chat\nh ;h;sm.  .m.  \u001616\nok#dip\nrrzmh    20s      n  sm.        \u00167\n#levelchange\n8\n \u0017morning star\nws   \u001b  n           n Fl           n Fb     n     \u001b Fn     n          n  \u0007leprechaun\nFk     yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 53050078,
+   "datetime": "20230723232630",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=runmode:run\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017cursed potion of sickness\nqf#dip\nc\u0017cursed potion of paralysis\n\u0007lurker above\nqg          #dip\ndFhFb \u0017scroll of enchant armor\n\u0007Oracle\nnnrh FjFk\u0017cursed -1 leather armor\n\u0007gelatinous cube\nW\u001bs\u001bs.\u0017uncursed the Orb of Detection\n  wc FjFjFj#invoke\nj X20s\u001bs\u001626\n\u0007baby red dragon\nFkFuFkFh FhFu\u0007frost giant\nFh FkFl   nFk \u0007doppelganger\n;l; \u001b; sm.sm.20s  #levelchange\n12\n  #wizintrinsic\nche\n  .m.sm.sm.  n  su.m.su20ssm.20s snssss\u0017fire horn\nak h  ak h    n \u0014, \\    20s\u0018\u001bch<20ssj20s  .m.20s     n sl\u001611\n    \u00168\n#levelchange\n30\n                 \u0017blessed 20 flint stones\nQafbf by bf d n \u0017blessed wand of cancellation\nzmb\u0017cursed wand of slow monster\nznn  n    n z\u0017blessed scroll of remove curse\nros20s \u0017cursed scroll of genocide\n,\u001bss20ss   \u001629\n   \u00167\n#levelchange\n12\n      \u0016?\n>A  E- Vlad was here\nss;j;\u000620s  sm.  n  \u0016?\n>u cj#conduct\n #ride\nhy20s  .m. \u0016?\n>G#untrap\nkeq;k;.bsu\u0016?\n>>\u001b\u0016?\n>>\u001b#levelchange\n12\n\u001613\nzmn q,sn  20s  n \u0016?\n>>K      potion of restore ability\n#tip\n\u001b,#chat\nh ;h;sm.  .m.  \u001616\nok#dip\nrrzmh    20s      n  sm.        \u00167\n#levelchange\n8\n \u0017morning star\nws   \u001b  n           n Fl           n Fb     n     \u001b Fn     n          n  \u0007leprechaun\nFk     yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

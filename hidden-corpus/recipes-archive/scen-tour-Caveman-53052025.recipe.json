@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n12\n           \u0016?\neeq20s;k: \u001b..s\u00169\n\u0018\u001b\u000f\u001bb20s  .m.\u0016?\n>D\u0018\u001bq#loot\ny;y;.m..\u0016?\ng #pray\ny y   \u0014m,q;_.\u000620ss"
+ },
+ "segments": [
+  {
+   "seed": 53052025,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n12\n           \u0016?\neeq20s;k: \u001b..s\u00169\n\u0018\u001b\u000f\u001bb20s  .m.\u0016?\n>D\u0018\u001bq#loot\ny;y;.m..\u0016?\ng #pray\ny y   \u0014m,q;_.\u000620ss"
+  }
+ ]
+}

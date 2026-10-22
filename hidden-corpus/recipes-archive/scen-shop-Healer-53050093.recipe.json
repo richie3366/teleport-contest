@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed Mjollnir\nwl\u0017blessed +3 silver dragon scale mail\nWm\u0016?\n>w\u0006_ \u001b@.,p_ooo,,\u0014.>..20skhk#chat\nj_oo.,\u0017amulet of magical breathing\ndnh_ooooo,,#chat\nl_ooooooo.Fh _._o., p_ooo.,pFb  Fb  FbFbFbFb__._.@.#chat\nk#pray\ny y    Fl FlFlFlFlFl_ooooooo._._oo,,\u001bp_ooo._._o,_.,\u001b$hkj#chat\ny__._..#chat\nb_ooooooo,_._ooo._.,:\u0016?\n>Byyn\u0016?\n>w\u0006yhh#chat\nhukl#chat\nbjlb#chat\nh__._..#chat\nu_ooooo,Fk _.Fk _ooo.Fk_.;:   Fk,$Fk FkFkFkFkFk_oooo,_,,\u001bp_ooooooo._.>. ,\u0017amulet of reflection\n dp_{._,@.qe_ooooooo._.,,p_oooooo._.@.,\u001b$_oo._,m,,$hhh#chat\njhll#chat\nk_{,_.;:   qf_oo._.<.,#chat\njnnk#chat\nnlhl#chat\nb_ooooooooo.Fj_.Fn,$FnFnFnFnFnFn_oo.Fh_.Fb_o.Fb_.Fb,pFhFh  FhFhFhFhFbFbFb FbFbFb_ooooooooo._.,\u001b#chat\nb_oooooooo._,:,#chat\nu\u00167\nnyl\u0016?\n>w\u0006hyn#chat\nk_{,_.<.qf_{,_.:qf__._.,#chat\nk#pray\ny y _oooooo._,@._o,_,m,,p\u0016?\n>Bjun\u0016?\n>w\u0006jyn#chat\nb_{.Fy _..qd_ooooooooo._.;@.,p_ooooo"
+ },
+ "segments": [
+  {
+   "seed": 53050093,
+   "datetime": "20230111181155",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed Mjollnir\nwl\u0017blessed +3 silver dragon scale mail\nWm\u0016?\n>w\u0006_ \u001b@.,p_ooo,,\u0014.>..20skhk#chat\nj_oo.,\u0017amulet of magical breathing\ndnh_ooooo,,#chat\nl_ooooooo.Fh _._o., p_ooo.,pFb  Fb  FbFbFbFb__._.@.#chat\nk#pray\ny y    Fl FlFlFlFlFl_ooooooo._._oo,,\u001bp_ooo._._o,_.,\u001b$hkj#chat\ny__._..#chat\nb_ooooooo,_._ooo._.,:\u0016?\n>Byyn\u0016?\n>w\u0006yhh#chat\nhukl#chat\nbjlb#chat\nh__._..#chat\nu_ooooo,Fk _.Fk _ooo.Fk_.;:   Fk,$Fk FkFkFkFkFk_oooo,_,,\u001bp_ooooooo._.>. ,\u0017amulet of reflection\n dp_{._,@.qe_ooooooo._.,,p_oooooo._.@.,\u001b$_oo._,m,,$hhh#chat\njhll#chat\nk_{,_.;:   qf_oo._.<.,#chat\njnnk#chat\nnlhl#chat\nb_ooooooooo.Fj_.Fn,$FnFnFnFnFnFn_oo.Fh_.Fb_o.Fb_.Fb,pFhFh  FhFhFhFhFbFbFb FbFbFb_ooooooooo._.,\u001b#chat\nb_oooooooo._,:,#chat\nu\u00167\nnyl\u0016?\n>w\u0006hyn#chat\nk_{,_.<.qf_{,_.:qf__._.,#chat\nk#pray\ny y _oooooo._,@._o,_,m,,p\u0016?\n>Bjun\u0016?\n>w\u0006jyn#chat\nb_{.Fy _..qd_ooooooooo._.;@.,p_ooooo"
+  }
+ ]
+}

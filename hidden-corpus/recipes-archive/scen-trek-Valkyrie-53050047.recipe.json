@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "U  HNH_ \u001b<.>KKKK_>.>KUHB_>,>YNB H_>,>YJYK_>.>BKKY_>,>r\u001b#turn\nJYH B_>,>#pray\ny #offer\n#enhance\n\u001bFu s.150sFuFu20sukjjkblhlkkuhjjjhl150sFkFkFkFk20ss#name\ni\n_>.>150sFk20ss100s100sFkss\\   \u0018\u001b50sFk20s.100sFkFkFkFkFkFk100s100s100sFkFkshkhFbFbs100s#terrain\nb\n100s 50sedlhl_>.>100sFu.shlh150s150sFl..100sFlss100s100sFbFbs_>,>_>.>100sE- X marks the spot\n50s100sFbFlFl_>.>50s150seeeeeeeeeeeeeeeeeeeetbjh   b20s20s#name\na\n#chat\nkdc.m..m.sm.hhbk10sl20s#name\ni\nt\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeok#chat\nl:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee_<,.hk\u000f\u001bLJJB_>,Fu_.>aw-KBNU_>._,>L UUJ_>.>BYHK_>,>\u000f\u001bLYNJ_>.>BHLJ_>.>LBHK_>.>10s20sYJKJ_>.>\u0014#twoweapon\n#turn\n#pray\ny  eee#pray\ny  #pray\ny  e#pray\ny  #pray\ny   \u001b     i"
+ },
+ "segments": [
+  {
+   "seed": 53050047,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "U  HNH_ \u001b<.>KKKK_>.>KUHB_>,>YNB H_>,>YJYK_>.>BKKY_>,>r\u001b#turn\nJYH B_>,>#pray\ny #offer\n#enhance\n\u001bFu s.150sFuFu20sukjjkblhlkkuhjjjhl150sFkFkFkFk20ss#name\ni\n_>.>150sFk20ss100s100sFkss\\   \u0018\u001b50sFk20s.100sFkFkFkFkFkFk100s100s100sFkFkshkhFbFbs100s#terrain\nb\n100s 50sedlhl_>.>100sFu.shlh150s150sFl..100sFlss100s100sFbFbs_>,>_>.>100sE- X marks the spot\n50s100sFbFlFl_>.>50s150seeeeeeeeeeeeeeeeeeeetbjh   b20s20s#name\na\n#chat\nkdc.m..m.sm.hhbk10sl20s#name\ni\nt\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeok#chat\nl:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee_<,.hk\u000f\u001bLJJB_>,Fu_.>aw-KBNU_>._,>L UUJ_>.>BYHK_>,>\u000f\u001bLYNJ_>.>BHLJ_>.>LBHK_>.>10s20sYJKJ_>.>\u0014#twoweapon\n#turn\n#pray\ny  eee#pray\ny  #pray\ny  e#pray\ny  #pray\ny   \u001b     i"
+  }
+ ]
+}

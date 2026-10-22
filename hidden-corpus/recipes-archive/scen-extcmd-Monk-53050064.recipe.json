@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPkl\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n12\n             \u0007acid blob\n#levelchange\n10\nFb 20sFk ._ \u001b;qn#overview\n\u001b#conduct\n \u000f\u001b#dip\nhd#offer\n#pray\ny y #chat\nb#polyself\nmind flayer\nss20ssbbl__.#chat\nl#vanquished\n #genocided\ndjinni\n#annotate\nshiny\n\u0018\u001b#name\nm\n#adjust\n,#chat\nu#turn\n#wizidentify\n\u001bbjk10s__,#chat\nk#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y     #polyself\nfog cloud\n 20s syFjFjFjs.._oo._.,#version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\nk#chat\nk#wizdetect\n\u0006ybhf m u_{.qd#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b\u001b#ride\nky#turn\n#sit\n\u001b#wizintrinsic\ns\n FkFkFkFk_{.qo#vanquished\n#genocided\nelf-lord\n\u001b\u001b#annotate\n\u001bi\u001b#dip\nhd#offer\n#pray\ny y #chat\nk#jump\n#levelchange\n21\n           FkFkFkFk_{.qd#chronicle\n  #terrain\n\u001b\u0018\u001b#name\nm\n#adjust\n\u001b#chat\nk#turn\n#wizidentify\n\u001bFkFkFk__,#chat\nk\u0007soldier\n#version\n  #history\n                  i\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y   #jump\n#polyself\nred dragon\n#monster\nh.m.sh FhFkFkFkFkFk_{.qd  #overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#wipe\n#loot\n#chat\nk#"
+ },
+ "segments": [
+  {
+   "seed": 53050064,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPkl\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n12\n             \u0007acid blob\n#levelchange\n10\nFb 20sFk ._ \u001b;qn#overview\n\u001b#conduct\n \u000f\u001b#dip\nhd#offer\n#pray\ny y #chat\nb#polyself\nmind flayer\nss20ssbbl__.#chat\nl#vanquished\n #genocided\ndjinni\n#annotate\nshiny\n\u0018\u001b#name\nm\n#adjust\n,#chat\nu#turn\n#wizidentify\n\u001bbjk10s__,#chat\nk#chronicle\n  #terrain\n\u001b#annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y     #polyself\nfog cloud\n 20s syFjFjFjs.._oo._.,#version\n  #history\n                  i\u001b#wipe\n#loot\n#chat\nk#chat\nk#wizdetect\n\u0006ybhf m u_{.qd#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b\u001b#ride\nky#turn\n#sit\n\u001b#wizintrinsic\ns\n FkFkFkFk_{.qo#vanquished\n#genocided\nelf-lord\n\u001b\u001b#annotate\n\u001bi\u001b#dip\nhd#offer\n#pray\ny y #chat\nk#jump\n#levelchange\n21\n           FkFkFkFk_{.qd#chronicle\n  #terrain\n\u001b\u0018\u001b#name\nm\n#adjust\n\u001b#chat\nk#turn\n#wizidentify\n\u001bFkFkFk__,#chat\nk\u0007soldier\n#version\n  #history\n                  i\u001b#twoweapon\n#invoke\n\u001b\u001b#sit\n\u001b#pray\ny y   #jump\n#polyself\nred dragon\n#monster\nh.m.sh FhFkFkFkFkFk_{.qd  #overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#wipe\n#loot\n#chat\nk#"
+  }
+ ]
+}

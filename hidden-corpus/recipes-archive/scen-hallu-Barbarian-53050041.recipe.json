@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed leash\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPgl\u0017blessed 20 daggers\nQh#wizintrinsic\nh\n \u0017blessed spellbook of cone of cold\nrism.  Z:\u001614\n#levelchange\n14\n             jlkn\u0017web\nl hsl.m.y\u0017spiked pit\nj^kk.20sby\u0017rust trap\nhl20s.m.k\u0017sleeping gas trap\nlhs.\u0017land mine\najhj#terrain\ne\nqaal#pray\ny y s#wizintrinsic\nh\n \u0017wand of digging\nzkyzkyzkkzkuzkk\u0016?\ng nn:\u0007gnome\n\u0007bugbear\nFyFbFyss\u0007sewer rat\n\u0007dwarf\nFbFjFj20s#wizintrinsic\nh\n\u0007jackal\n\u0007giant rat\nFkFjs20s\u0007lichen\nFb..s20s\u0017potion of oil\nql20si\u001bjly\u0017potion of polymorph\nqm20s#wizintrinsic\nh\n \u001611\n#chat\nb;>. \u001b@.\u0007kobold shaman\nFbFbFbFb FbFb20s\u0017scroll of magic mapping\nrn\u0017wand of probing\nzonzohzoyzokzo#wizintrinsic\nh\n \u0007yellow mold\nFbFb.s\u0017potion of confusion\nqps20s;.E- Elbereth\n#chat\nbi\u001blbn\u0017scroll of light\nrq#wizintrinsic\nh\n\u0017blessed spellbook of knock\nrrsZ\u001b:i\u001byyn\u001620\n\u0014.20s\u0017wand of magic missile\nzsuzsnzsbzsuzsy\u0007gnome lord\nFjFjFjFjFjFjFj #"
+ },
+ "segments": [
+  {
+   "seed": 53050041,
+   "datetime": "20240829080119",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed leash\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPgl\u0017blessed 20 daggers\nQh#wizintrinsic\nh\n \u0017blessed spellbook of cone of cold\nrism.  Z:\u001614\n#levelchange\n14\n             jlkn\u0017web\nl hsl.m.y\u0017spiked pit\nj^kk.20sby\u0017rust trap\nhl20s.m.k\u0017sleeping gas trap\nlhs.\u0017land mine\najhj#terrain\ne\nqaal#pray\ny y s#wizintrinsic\nh\n \u0017wand of digging\nzkyzkyzkkzkuzkk\u0016?\ng nn:\u0007gnome\n\u0007bugbear\nFyFbFyss\u0007sewer rat\n\u0007dwarf\nFbFjFj20s#wizintrinsic\nh\n\u0007jackal\n\u0007giant rat\nFkFjs20s\u0007lichen\nFb..s20s\u0017potion of oil\nql20si\u001bjly\u0017potion of polymorph\nqm20s#wizintrinsic\nh\n \u001611\n#chat\nb;>. \u001b@.\u0007kobold shaman\nFbFbFbFb FbFb20s\u0017scroll of magic mapping\nrn\u0017wand of probing\nzonzohzoyzokzo#wizintrinsic\nh\n \u0007yellow mold\nFbFb.s\u0017potion of confusion\nqps20s;.E- Elbereth\n#chat\nbi\u001blbn\u0017scroll of light\nrq#wizintrinsic\nh\n\u0017blessed spellbook of knock\nrrsZ\u001b:i\u001byyn\u001620\n\u0014.20s\u0017wand of magic missile\nzsuzsnzsbzsuzsy\u0007gnome lord\nFjFjFjFjFjFjFj #"
+  }
+ ]
+}

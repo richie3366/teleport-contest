@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             nbkj\u0017fountain\nqy#dip\ncy yyk\u0017moat\nhl 10s#dip\nb<ulnk\u0017unaligned altar\ndb\u0017jackal corpse\n #offer\nf   #pray\ny y   l\u0017sink\nqy b\u0004u\u0004u\u0004u\u0004unu\u0017cloud\nk jjj#terrain\nc\n\u001b:#dip\ne#sit\n\u001b#name\nm\n"
+ },
+ "segments": [
+  {
+   "seed": 53051020,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             nbkj\u0017fountain\nqy#dip\ncy yyk\u0017moat\nhl 10s#dip\nb<ulnk\u0017unaligned altar\ndb\u0017jackal corpse\n #offer\nf   #pray\ny y   l\u0017sink\nqy b\u0004u\u0004u\u0004u\u0004unu\u0017cloud\nk jjj#terrain\nc\n\u001b:#dip\ne#sit\n\u001b#name\nm\n"
+  }
+ ]
+}

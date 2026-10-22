@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\n>>M      iron chain\n#chat\nl;l; \u001b@.\u001639\n\u0004l    \u0016?\nb#levelchange\n20\n\u0017cursed potion of enlightenment\nqh \u001b  #dip\nfFlFy     \u0017uncursed spellbook of invisibility\nri   n       20s    n .h     Z\u0017blessed the Orb of Detection\n  waFk  n      Fk    Fh    n              n    #invoke\nj       n   .m.               n                 20s      n              \u00168\n\u001639\ny ykl   n         l     n                n :\u00166\n\u001632\nnn:sm.        n                n     20s         n  .m.         \u00169\n\u001626\nnuknlu:\u001639\n\u0004j \u001631\n__.\u0016?\n\u001bj    h    \u001628\n__,<\u001632\n#levelchange\n14\n  \u001710 daggers\n Qk\u0007troll\nkfu    n         y\u001b      f"
+ },
+ "segments": [
+  {
+   "seed": 53050055,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0016?\n>>M      iron chain\n#chat\nl;l; \u001b@.\u001639\n\u0004l    \u0016?\nb#levelchange\n20\n\u0017cursed potion of enlightenment\nqh \u001b  #dip\nfFlFy     \u0017uncursed spellbook of invisibility\nri   n       20s    n .h     Z\u0017blessed the Orb of Detection\n  waFk  n      Fk    Fh    n              n    #invoke\nj       n   .m.               n                 20s      n              \u00168\n\u001639\ny ykl   n         l     n                n :\u00166\n\u001632\nnn:sm.        n                n     20s         n  .m.         \u00169\n\u001626\nnuknlu:\u001639\n\u0004j \u001631\n__.\u0016?\n\u001bj    h    \u001628\n__,<\u001632\n#levelchange\n14\n  \u001710 daggers\n Qk\u0007troll\nkfu    n         y\u001b      f"
+  }
+ ]
+}

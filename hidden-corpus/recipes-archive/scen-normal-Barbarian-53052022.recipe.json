@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #loot\nwa>q;_. \u001b>.#enhance\n\u001b\u0014;m.#rub\nZz_>,20s#sit\n#twoweapon\n#force\n#chat\ny\u0004j\\  10sz\u0004lq\\  ;m,l"
+ },
+ "segments": [
+  {
+   "seed": 53052022,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": " #loot\nwa>q;_. \u001b>.#enhance\n\u001b\u0014;m.#rub\nZz_>,20s#sit\n#twoweapon\n#force\n#chat\ny\u0004j\\  10sz\u0004lq\\  ;m,l"
+  }
+ ]
+}

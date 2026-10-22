@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u00167\nFhFyFyFuFkFlFuFlFbFnFbFll FnFub FyFkj FhFnFh\u001bFkFlFhFbFkj FkFnFjFjFyFnFyFll FyFln FlFhFbFlk FjFyFun FkFyFh\u001bFbFyFyFh\u001bFuFhFyFun FuFyFuy FhFnFh\u001bFyFjFnFnFkFkFyFkk FlFuFlFbFyFlFkFbFun FnFjFjFhFjFyFbFkFkFnFuj FhFkFyFkl FjFyFbFkFnFh\u001bFyFjFhFuFhFjFlFjFuFnFkh FbFln FjFbFbFbFuu FhFlFhFnFh\u001bFhmO>>>>f\u001b\nnnb\u0017sink\nqy\u0017ring of polymorph\ndo  \u001b b\u0017cloud\n:lu j\u0017throne\n#sit\n  #sit\n n  n  :#terrain\ne\n#loot\nu #enhance\nyj\np\n\u001b#chat\ny \u0006_ \u001b:>FyFj_>.Fu_.Fb>FlFu_>. Fl_. Fb>FbFh\u001bFnFjFuwa#offer\n\u0006_>.Fu_.Fu>FjFj_>,Fy_.Fuu >FyFn_>.Fu_."
+ },
+ "segments": [
+  {
+   "seed": 53050007,
+   "datetime": "20240822121450",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMENUCOLOR=\"a potion\"=brown\nBIND=v:inventory\n",
+   "moves": "\u00167\nFhFyFyFuFkFlFuFlFbFnFbFll FnFub FyFkj FhFnFh\u001bFkFlFhFbFkj FkFnFjFjFyFnFyFll FyFln FlFhFbFlk FjFyFun FkFyFh\u001bFbFyFyFh\u001bFuFhFyFun FuFyFuy FhFnFh\u001bFyFjFnFnFkFkFyFkk FlFuFlFbFyFlFkFbFun FnFjFjFhFjFyFbFkFkFnFuj FhFkFyFkl FjFyFbFkFnFh\u001bFyFjFhFuFhFjFlFjFuFnFkh FbFln FjFbFbFbFuu FhFlFhFnFh\u001bFhmO>>>>f\u001b\nnnb\u0017sink\nqy\u0017ring of polymorph\ndo  \u001b b\u0017cloud\n:lu j\u0017throne\n#sit\n  #sit\n n  n  :#terrain\ne\n#loot\nu #enhance\nyj\np\n\u001b#chat\ny \u0006_ \u001b:>FyFj_>.Fu_.Fb>FlFu_>. Fl_. Fb>FbFh\u001bFnFjFuwa#offer\n\u0006_>.Fu_.Fu>FjFj_>,Fy_.Fuu >FyFn_>.Fu_."
+  }
+ ]
+}

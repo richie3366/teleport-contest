@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            \u0017blessed +3 helm of telepathy\nWl\u0017blessed ring of free action\nPml\u0017blessed +3 gauntlets of power\nW\u001b\u0016?\n>z  \u00162\n\u0006bun\u0016?\n>>\u001b\u0016?\n>y  #chat\nu\u0016?\n>z\u00163\n\u0016?\n>z\u0006_ \u001b:.Fl  Fl Fl Fl Fl   \u00164\n\u0016?\n>z\u0006_mm.   Fj _, Fj Fl   s.20s\u00165\n\u0016?\n>z\u0006bbljb_>. _,>\u0016?\n>z\u0006#chat\nk;>.\u00162\n\u0016?\n>z\u0006__,Fl    _.Fl     n   \u00163\n\u0016?\n>z\u0006,\u00164\n\u0016?\n>z\u0006ynh k          j         n    h    l  _>.Fy    _.  n   Fl    >\u0016?\n>z\u0006#chat\nk ;k;\u00166\n\u0016?\n>z\u0006h     k   k   n          j  n  u    h     y   n  u      \u00165\n\u00162\n\u0016?\n>z\u0006_mmmmm.       Fu   n    _.Fh    Fy         n Fl     Fl        \u001612\n\u00163\n\u0016?\n>z\u0006,\u00164\n\u0016?\n>z\u0006_mmmm.   n         Fk    n  _.Fl       Fh   Fu  n     \u00169\n_>,    Fk    n        _.       n      Fk        >\u0016?\n>z\u0006,\u00161\n_>.   n    Fu     _,     Fy  n     >\u0016?\n>z\u0006_m.    Fy  n   _.Fu     Fl   Fl  n                 n          \u0016?\n>>\u001b\u0016?\n>y#chat\nk       yny  y nn  \u0016"
+ },
+ "segments": [
+  {
+   "seed": 53050065,
+   "datetime": "20000804095509",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n14\n            \u0017blessed +3 helm of telepathy\nWl\u0017blessed ring of free action\nPml\u0017blessed +3 gauntlets of power\nW\u001b\u0016?\n>z  \u00162\n\u0006bun\u0016?\n>>\u001b\u0016?\n>y  #chat\nu\u0016?\n>z\u00163\n\u0016?\n>z\u0006_ \u001b:.Fl  Fl Fl Fl Fl   \u00164\n\u0016?\n>z\u0006_mm.   Fj _, Fj Fl   s.20s\u00165\n\u0016?\n>z\u0006bbljb_>. _,>\u0016?\n>z\u0006#chat\nk;>.\u00162\n\u0016?\n>z\u0006__,Fl    _.Fl     n   \u00163\n\u0016?\n>z\u0006,\u00164\n\u0016?\n>z\u0006ynh k          j         n    h    l  _>.Fy    _.  n   Fl    >\u0016?\n>z\u0006#chat\nk ;k;\u00166\n\u0016?\n>z\u0006h     k   k   n          j  n  u    h     y   n  u      \u00165\n\u00162\n\u0016?\n>z\u0006_mmmmm.       Fu   n    _.Fh    Fy         n Fl     Fl        \u001612\n\u00163\n\u0016?\n>z\u0006,\u00164\n\u0016?\n>z\u0006_mmmm.   n         Fk    n  _.Fl       Fh   Fu  n     \u00169\n_>,    Fk    n        _.       n      Fk        >\u0016?\n>z\u0006,\u00161\n_>.   n    Fu     _,     Fy  n     >\u0016?\n>z\u0006_m.    Fy  n   _.Fu     Fl   Fl  n                 n          \u0016?\n>>\u001b\u0016?\n>y#chat\nk       yny  y nn  \u0016"
+  }
+ ]
+}

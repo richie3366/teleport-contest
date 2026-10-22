@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nj\n \u0017towel\nai\u0017blessed wand of death\nzjjzjj\u0017wand of cancellation\nzkh\u0017scroll of enchant weapon\nrl Za\n\u001b>..s.#wizintrinsic\ngf\n \u0017towel\nam\u0017cursed scroll of genocide\nrn  xorn\n    n  \u0017scroll of destroy armor\nro   \u001b  yy\u001by   ny y\u001by  l"
+ },
+ "segments": [
+  {
+   "seed": 53051010,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nj\n \u0017towel\nai\u0017blessed wand of death\nzjjzjj\u0017wand of cancellation\nzkh\u0017scroll of enchant weapon\nrl Za\n\u001b>..s.#wizintrinsic\ngf\n \u0017towel\nam\u0017cursed scroll of genocide\nrn  xorn\n    n  \u0017scroll of destroy armor\nro   \u001b  yy\u001by   ny y\u001by  l"
+  }
+ ]
+}

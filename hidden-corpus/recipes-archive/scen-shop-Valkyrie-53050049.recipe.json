@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u00178000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWe\u0017blessed +3 helm of telepathy\nWf\u0016?\n>w\u0006_ \u001b@.q\u0016?\ncyll\u0016?\n>w\u0006_ooooooo.,#chat\nh_oooooo,,\u0017amulet of restful sleep\ndg_ooo,,:_ooooo.,:_{. Fj _.Fnq_oooo,,#chat\nk__,Fl_.<.Fn#chat\nu#pray\ny y __.  _,Fu #chat\nu \u0016?\n>Bhuh\u0016?\n>w\u0006_{._.qy_{.   _.qy_{.Fj _,Fnqy y__.    Fb_.Fn     n#chat\nh  Fn   n FnFn   FnFn   n  Fn     n \u001610\n_oooooooo,_oo.,$\u00163\nl j    nl\u0016?\n>w\u0006_ooooo.Fl     n_..Fl_o,Fl    n_.>.Fl  ,$\u00165\n_ooooo._ooo.,p_ooooo.,:_ooooooooo.,p_oooooo,_oo.,$_ooooooo,,#chat\nb    n_{.q_oooooo.,p_ooooo,,$_oo,,pFb FbFbFbFbFb__,#chat\nk#pray\ny y jkj#chat\nk__,#chat\nn_ooooooo._.,d\nplyy#chat\nl_{.q_ooooooo._.,p_ooo._.,c\n\u0014,  s.yln#chat\nyklb#chat\nb_ooo._,_oo.,c\n: __,#chat\ny#pray\ny y _ooooooooo._oo.,a\n#chat\nj_{.q_{.qknk#chat\nb_ooo,_,_o.,a\np\u00163\n  lkb\u0016?\n>w\u0006bbh#chat\nu__. _.>.Fj #chat\nl#pray\ny y    __,Fj _,Fl #chat\nj   n#pray\ny y     _oooo. Fj  _. Fj _oo. Fl   n  _. Fl   n,#chat\nl \u00167\n_{. Fl _.  n Fh  q_{. Fl _.Fj q"
+ },
+ "segments": [
+  {
+   "seed": 53050049,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u00178000 gold pieces\n\u0017blessed +3 cloak of magic resistance\nWe\u0017blessed +3 helm of telepathy\nWf\u0016?\n>w\u0006_ \u001b@.q\u0016?\ncyll\u0016?\n>w\u0006_ooooooo.,#chat\nh_oooooo,,\u0017amulet of restful sleep\ndg_ooo,,:_ooooo.,:_{. Fj _.Fnq_oooo,,#chat\nk__,Fl_.<.Fn#chat\nu#pray\ny y __.  _,Fu #chat\nu \u0016?\n>Bhuh\u0016?\n>w\u0006_{._.qy_{.   _.qy_{.Fj _,Fnqy y__.    Fb_.Fn     n#chat\nh  Fn   n FnFn   FnFn   n  Fn     n \u001610\n_oooooooo,_oo.,$\u00163\nl j    nl\u0016?\n>w\u0006_ooooo.Fl     n_..Fl_o,Fl    n_.>.Fl  ,$\u00165\n_ooooo._ooo.,p_ooooo.,:_ooooooooo.,p_oooooo,_oo.,$_ooooooo,,#chat\nb    n_{.q_oooooo.,p_ooooo,,$_oo,,pFb FbFbFbFbFb__,#chat\nk#pray\ny y jkj#chat\nk__,#chat\nn_ooooooo._.,d\nplyy#chat\nl_{.q_ooooooo._.,p_ooo._.,c\n\u0014,  s.yln#chat\nyklb#chat\nb_ooo._,_oo.,c\n: __,#chat\ny#pray\ny y _ooooooooo._oo.,a\n#chat\nj_{.q_{.qknk#chat\nb_ooo,_,_o.,a\np\u00163\n  lkb\u0016?\n>w\u0006bbh#chat\nu__. _.>.Fj #chat\nl#pray\ny y    __,Fj _,Fl #chat\nj   n#pray\ny y     _oooo. Fj  _. Fj _oo. Fl   n  _. Fl   n,#chat\nl \u00167\n_{. Fl _.  n Fh  q_{. Fl _.Fj q"
+  }
+ ]
+}

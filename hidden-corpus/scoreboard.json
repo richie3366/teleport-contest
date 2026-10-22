@@ -1,10 +1,10 @@
 {
- "commit": "4a4da3074",
- "at": "2026-10-21T16:09:50.158Z",
+ "commit": "4498679f7",
+ "at": "2026-10-22T07:42:32.433Z",
  "full": false,
  "fullCommit": "1b2b2c8e3",
  "fullAt": "2026-10-21T14:05:06.214Z",
- "entries": 710,
+ "entries": 713,
  "reserve": 0,
  "unrecorded": 0,
  "sessions": {
@@ -3253,6 +3253,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-options-Priest-53051011": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 2736,
+   "rngT": 2736,
+   "scrM": 110,
+   "scrT": 115,
+   "kind": "screen",
+   "step": 51,
+   "steps": 115,
+   "owner": "getspell",
+   "loc": "spell.c:781",
+   "jsOwner": null,
+   "cTopline": "Choose which spell to cast",
+   "jsTopline": "Choose which spell to cast",
    "error": null
   },
   "scen-options-Ranger-582811": {
@@ -8576,6 +8593,23 @@
    "jsTopline": "",
    "error": null
   },
+  "scen-symset-Ranger-53050029": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 24550,
+   "rngT": 24550,
+   "scrM": 907,
+   "scrT": 908,
+   "kind": "screen",
+   "step": 261,
+   "steps": 908,
+   "owner": "show_gamelog",
+   "loc": "insight.c:2570",
+   "jsOwner": null,
+   "cTopline": "Logged events:",
+   "jsTopline": "Logged events:",
+   "error": null
+  },
   "scen-symset-Rogue-50059025": {
    "src": "corpus",
    "passed": true,
@@ -8880,6 +8914,23 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
+   "error": null
+  },
+  "scen-symset-Wizard-53050007": {
+   "src": "corpus",
+   "passed": false,
+   "rngM": 8466,
+   "rngT": 8466,
+   "scrM": 505,
+   "scrT": 506,
+   "kind": "screen",
+   "step": 325,
+   "steps": 506,
+   "owner": "polymorph_sink",
+   "loc": "do.c:451",
+   "jsOwner": null,
+   "cTopline": "The sink transforms into an opulent throne!--More--",
+   "jsTopline": "The sink transforms into a throne!--More--",
    "error": null
   },
   "scen-terrain-Archeologist-50551000": {
@@ -12078,5 +12129,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-22T07:42:32.561Z"
 }

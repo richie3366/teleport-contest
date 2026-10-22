@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 speed boots\nWj\u0017blessed shield of reflection\nWk#levelchange\n14\n             \u0017wand of polymorph\n\u0017wand of cold\n\u0007giant rat\n\u0007gnome lord\nzlb .m.    zlb zlb zmb  sm.zlj  zmb sh zlj  n  sm. \u0018\u001b\u0017wand of slow monster\n\u0017wand of sleep\n\u0017wand of digging\n\u0007hobbit\nznn     sm.   zoj .znjznjznjsznzn\u0017blessed spellbook of slow monster\nrq s\u0017spellbook of cause fear\nrr  .\u0007vampire\nZa\n  Zb\nZa\n  sm. suZa\n.m.  syZa\n Zb\n Zb\n sm.    .y\u0017wand of digging\n\u0017wand of magic missile\n\u0007gnome\nztn   ztj    ztb  ztl     n   zt zs> zs> zs> zs> zs> zs> si\u001b\u0017spellbook of finger of death\n ru s\u0017blessed spellbook of drain life\nrv 20s\u0007incubus\n\u0007mind flayer\nZb\n        Za\nZc\nZb\nZd\n\u00168\n\u0017blessed spellbook of knock\nrw sm.\u0017blessed spellbook of finger of death\n\u0007aligned cleric\nnZb\n.m.20sZb\nZb\nZb\nZa\n\u0007silver dragon\nsy 20s   sm.   n #polyself\ngold dragon\n      #monster\nb        .k sm.#monster\nh #monster\nb    \u0017wand of fire\naFb   Fh  \u0007red dragon\n\u0007baby red dragon\nsm.20s    #polyself\nblack dragon\n #monster\n.m.        .y     #monster\n#monster\n#monster\n\u0017wand of lightning\naFu     Fu       n  \u00165\n\u0018\u001b\u00178 spears\n"
+ },
+ "segments": [
+  {
+   "seed": 53050070,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 speed boots\nWj\u0017blessed shield of reflection\nWk#levelchange\n14\n             \u0017wand of polymorph\n\u0017wand of cold\n\u0007giant rat\n\u0007gnome lord\nzlb .m.    zlb zlb zmb  sm.zlj  zmb sh zlj  n  sm. \u0018\u001b\u0017wand of slow monster\n\u0017wand of sleep\n\u0017wand of digging\n\u0007hobbit\nznn     sm.   zoj .znjznjznjsznzn\u0017blessed spellbook of slow monster\nrq s\u0017spellbook of cause fear\nrr  .\u0007vampire\nZa\n  Zb\nZa\n  sm. suZa\n.m.  syZa\n Zb\n Zb\n sm.    .y\u0017wand of digging\n\u0017wand of magic missile\n\u0007gnome\nztn   ztj    ztb  ztl     n   zt zs> zs> zs> zs> zs> zs> si\u001b\u0017spellbook of finger of death\n ru s\u0017blessed spellbook of drain life\nrv 20s\u0007incubus\n\u0007mind flayer\nZb\n        Za\nZc\nZb\nZd\n\u00168\n\u0017blessed spellbook of knock\nrw sm.\u0017blessed spellbook of finger of death\n\u0007aligned cleric\nnZb\n.m.20sZb\nZb\nZb\nZa\n\u0007silver dragon\nsy 20s   sm.   n #polyself\ngold dragon\n      #monster\nb        .k sm.#monster\nh #monster\nb    \u0017wand of fire\naFb   Fh  \u0007red dragon\n\u0007baby red dragon\nsm.20s    #polyself\nblack dragon\n #monster\n.m.        .y     #monster\n#monster\n#monster\n\u0017wand of lightning\naFu     Fu       n  \u00165\n\u0018\u001b\u00178 spears\n"
+  }
+ ]
+}

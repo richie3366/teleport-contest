@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001bm.#chat\ny_mmmmm,#chat\nk_mmmmm.#chat\nl#levelchange\n16\n                  \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm,Fh_..Fk#chat\nj _mm. Fu   n _.#chat\nu_mmmm.Fj   _.m.Fk #chat\nk\u0017blessed +3 gauntlets of power\nW\u001b\u001b\u0017blessed Mjollnir\nwk\u0017wand of striking\n\u0016?\n>A\u0006_mmm.  nFj  _.FuFj FkFu  FhFlFh ,#chat\nh\u0016?\n>A\u0006_mmm,  n Fu  _. Fk   n FkFl Fn  Fu  zlk,\u00167\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.   n Fl_,FuFl Fu Fk Fh,#chat\nh\u0016?\n>z\u0006_mm.FhFhFhFh Fh ,\u0016?\n>A\u0006_mmmmmmm,Fh _,Fl Fl  n Fh Fh zlh,\u0016?\n>A\u0006_mmmm. Fl_,FlFl   nFh FlFh Fh Fh zlh,\u0016?\n>>\u001b\u0016?\n>y_mm,  n Fh _,m,Fh#chat\nl\u001610\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.Fh _.FuFl   n Fu  Fl FhFuFhzlu,#chat\nh\u0016?\n>z\u0006_mmmmmmm.Fu _,FhFhFhFhFhFhFhzlh,\u0016?\n>A\u0006_mmm.FhFhFhFhFh,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nh\u0016?\n>A\u0006_mmmmm,FhFhFhFhFhFh,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fl_.;<.FuFuFuFuFu   Fl  20sFl,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmm,Fj_.    n Fl#chat\nl;l.\u0016?\n>z\u0006_mm.Fn   n _,Fn Fl  Fl FlFl   n Fu zll,\u00169\n\u0016?\n>A\u0006_mmmmm.Fl  Fl    n  Fu  Fl Fk   zlu   n,#chat\nu  \u00167\n\u0016?\n>A\u0006_mmmmmmm,Fk _..Fk Fy s20sFkFkFk zlb,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.20sssszl,#chat\nh\u0016?\n>z\u0006_mmm...20s20sFhFh zl ,\u0016?\n>A\u0006_mmmmmm.FhFh FlFlzl,\u0016?\n>>\u001b\u0016?\n>y_mmm.Fl_.#chat\nl\u0016?\n>A\u0006_mm.Fl .20s20s.,#chat\nu\u0016?\n>>\u001b\u0016?\n>y"
+ },
+ "segments": [
+  {
+   "seed": 53050061,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y \u0006_ \u001bm.#chat\ny_mmmmm,#chat\nk_mmmmm.#chat\nl#levelchange\n16\n                  \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmmm,Fh_..Fk#chat\nj _mm. Fu   n _.#chat\nu_mmmm.Fj   _.m.Fk #chat\nk\u0017blessed +3 gauntlets of power\nW\u001b\u001b\u0017blessed Mjollnir\nwk\u0017wand of striking\n\u0016?\n>A\u0006_mmm.  nFj  _.FuFj FkFu  FhFlFh ,#chat\nh\u0016?\n>A\u0006_mmm,  n Fu  _. Fk   n FkFl Fn  Fu  zlk,\u00167\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.   n Fl_,FuFl Fu Fk Fh,#chat\nh\u0016?\n>z\u0006_mm.FhFhFhFh Fh ,\u0016?\n>A\u0006_mmmmmmm,Fh _,Fl Fl  n Fh Fh zlh,\u0016?\n>A\u0006_mmmm. Fl_,FlFl   nFh FlFh Fh Fh zlh,\u0016?\n>>\u001b\u0016?\n>y_mm,  n Fh _,m,Fh#chat\nl\u001610\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.Fh _.FuFl   n Fu  Fl FhFuFhzlu,#chat\nh\u0016?\n>z\u0006_mmmmmmm.Fu _,FhFhFhFhFhFhFhzlh,\u0016?\n>A\u0006_mmm.FhFhFhFhFh,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nh\u0016?\n>A\u0006_mmmmm,FhFhFhFhFhFh,#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm.Fl_.;<.FuFuFuFuFu   Fl  20sFl,#chat\nl\u0016?\n>>\u001b\u0016?\n>y_mmm,Fj_.    n Fl#chat\nl;l.\u0016?\n>z\u0006_mm.Fn   n _,Fn Fl  Fl FlFl   n Fu zll,\u00169\n\u0016?\n>A\u0006_mmmmm.Fl  Fl    n  Fu  Fl Fk   zlu   n,#chat\nu  \u00167\n\u0016?\n>A\u0006_mmmmmmm,Fk _..Fk Fy s20sFkFkFk zlb,#chat\nj\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.20sssszl,#chat\nh\u0016?\n>z\u0006_mmm...20s20sFhFh zl ,\u0016?\n>A\u0006_mmmmmm.FhFh FlFlzl,\u0016?\n>>\u001b\u0016?\n>y_mmm.Fl_.#chat\nl\u0016?\n>A\u0006_mm.Fl .20s20s.,#chat\nu\u0016?\n>>\u001b\u0016?\n>y"
+  }
+ ]
+}

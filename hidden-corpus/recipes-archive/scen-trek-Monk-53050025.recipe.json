@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "H LNB_ \u001b<.>Fj s20sHHHY_>,>JYYK_>.>KE- Elbereth Elbereth\nYNKY_>,>>#untrap\nbBKKU_>,>\\  50sjjjkjj50s150sFbss100sblh150sFh.sZa\n150sFh20s20s100sFhFhs50s100sFhs20s#dip\nhdbju_>,>hlbqd50s 50sFhFh20sFu.s50s150sFh20ss#twoweapon\n_>,>_>.>50sFh20sFhFhs20s50sFhs.100s#twoweapon\nt\u001b\u001b#untrap\nbkuukjjt\u001b\u001b#name\ni\nshiny\nllykkk10see eg_>,>_>.>50s50s ek efkjk150segjkj100s100seg150sekjjk100s\u000f\u001b#sit\n\u001b100sFjs.kjk50see100s150s  150s100s 100sFj20sFj100sFjss150sFjss\\  100s100sFjs.,100s Fj.s100s150sFjss20si\u001b#tip\n\u001b\u001b50seg100s ef#offer\n_>.>150see\\  50si\u001b150s100sFj20s20sP100sjjk100sFj.s_>,>150sFjs20s150s100s50s_>,>100s50skjk\u000f\u001b\\  #invoke\n\u001b\u001b#invoke\n\u001b\u001beei\u001b\\  \\  100s100sFjs.100sFjs.W50sFjs.\u0018\u001b100skjk150sjkj\\  kjk100sFj Fj.jkj100s100sFjsskjkjkj100sFjFjFjkjk\\  50s150sFj.20s150s Fj20ss100sFjss\u0018\u001bjkj100skjkjt\u001b\u001bkj20sKKNU_>,>#loot\n#pray\ny    UUYL_>.>Fjs20s#conduct\n \u0014YUBH_>.>JBNY_>.>YHJY_>,>FjFj FhJJYB_>.>FjFjFk>#twoweapon\nYHLB_>.>NJ JN_>.>KYNK_>.>YUHY_>,>HBUU_>.>KHUN_>.>LJYB_>.>JKJH_>.>UBBH_>.>HJLnyJ_>.>\u000f\u001beh  eh  50s_>,"
+ },
+ "segments": [
+  {
+   "seed": 53050025,
+   "datetime": "20260803031530",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": "H LNB_ \u001b<.>Fj s20sHHHY_>,>JYYK_>.>KE- Elbereth Elbereth\nYNKY_>,>>#untrap\nbBKKU_>,>\\  50sjjjkjj50s150sFbss100sblh150sFh.sZa\n150sFh20s20s100sFhFhs50s100sFhs20s#dip\nhdbju_>,>hlbqd50s 50sFhFh20sFu.s50s150sFh20ss#twoweapon\n_>,>_>.>50sFh20sFhFhs20s50sFhs.100s#twoweapon\nt\u001b\u001b#untrap\nbkuukjjt\u001b\u001b#name\ni\nshiny\nllykkk10see eg_>,>_>.>50s50s ek efkjk150segjkj100s100seg150sekjjk100s\u000f\u001b#sit\n\u001b100sFjs.kjk50see100s150s  150s100s 100sFj20sFj100sFjss150sFjss\\  100s100sFjs.,100s Fj.s100s150sFjss20si\u001b#tip\n\u001b\u001b50seg100s ef#offer\n_>.>150see\\  50si\u001b150s100sFj20s20sP100sjjk100sFj.s_>,>150sFjs20s150s100s50s_>,>100s50skjk\u000f\u001b\\  #invoke\n\u001b\u001b#invoke\n\u001b\u001beei\u001b\\  \\  100s100sFjs.100sFjs.W50sFjs.\u0018\u001b100skjk150sjkj\\  kjk100sFj Fj.jkj100s100sFjsskjkjkj100sFjFjFjkjk\\  50s150sFj.20s150s Fj20ss100sFjss\u0018\u001bjkj100skjkjt\u001b\u001bkj20sKKNU_>,>#loot\n#pray\ny    UUYL_>.>Fjs20s#conduct\n \u0014YUBH_>.>JBNY_>.>YHJY_>,>FjFj FhJJYB_>.>FjFjFk>#twoweapon\nYHLB_>.>NJ JN_>.>KYNK_>.>YUHY_>,>HBUU_>.>KHUN_>.>LJYB_>.>JKJH_>.>UBBH_>.>HJLnyJ_>.>\u000f\u001beh  eh  50s_>,"
+  }
+ ]
+}

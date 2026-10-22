@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017dwarvish mattock\n_ \u001b<.aeaeaelaekk b\u0017dwarvish mattock\n\u0006_oo,afafhaf"
+ },
+ "segments": [
+  {
+   "seed": 53051015,
+   "datetime": "20130310234158",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017dwarvish mattock\n_ \u001b<.aeaeaelaekk b\u0017dwarvish mattock\n\u0006_oo,afafhaf"
+  }
+ ]
+}

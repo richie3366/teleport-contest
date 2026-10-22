@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017cursed scroll of blank paper\n\u0007rust monster\nrjFy   Fy   \u0017uncursed spellbook of create monster\nrk   .m.       .uZ\u0017spellbook of dig\nrl   snsZZ\u0017cursed potion of sleeping\nqm                    #dip\nkFh   Fh   \u00173 scroll of fire\n \u0007couatl\nrn    \u0017wand of teleportation\n\u0007black pudding\nzo. \u001bm, zob20ss\u00165\ni\u001bag\u001brl  20s20sZa\nZa\nrk .m..m.Za\nZa\nae  k ae<ed20s.m.wa Fksst$u20s;h:  u20s;h.K rl y\u0017pick-axe\naq >.m.aq> aq<aq>20s_<,Fb  _.Fbaq>   n#wizintrinsic\nkl\n sm. .m. 20s 20s   nsm. .m. sm.sh 20s    n.hsm.sss20s.m. sm.sb.k sm.sm.sh  n\u0017scroll of remove curse\n rr  ckZa\n<\u0018\u001bb;l:  20s  20s sysm.20ssj    n \u00165\n \u0007Juiblex\nyFkFk  Fj  FlFl Fl\u0007raven\nFhFh Fh\u0007tengu\n;h,sbsj20si\u001b\u0006_>,Fk_. Fk>FjFk  n Fl\u0006_>,Fl_.Fj>FnFj_>.Fj_.Fn>FlFl_>,Fl_,Fl>Fl  nFjFuFuFj\u0006_>.Fu_.Fj>FnFn_>.Fn_,Fj >FkFkFj\u0006>._>.Fj   n_.Fj>FnFj_>,Fj_.Fj>FjFj_>.Fl_,Fk>Fj  n FjFkFkFj  \u0006_>.Fj_, Fl>Fk  n Fl_>.Fn_.Fj>Fn  nFu_>.Fn_.Fj>FnFjFnFn Fk\u0006<._>,Fj_.Fj>FjFjFj#turn\ned  \u0006_>.Fj  n_.Fj>FjFj_>,Fj_,Fj>Fjsn_>,_.>\u000f\u001b\u001611\n\u0007pony\n\u0017fortune cookie\ntaj\u0007horse\n\u0017carrot\nt\u001b\u0007giant rat\n\u0017scroll of taming\nrv\u0017fortune cookie\nt\u001b\u0017magic whistle\nyn y   naw  #name\nm\n#chat\n>.\u0017magic whistle\nyn lax\u0017leash\nayl jk  n j bayb \u00164\n#levelchange\n8\n   \u0017quarterstaff\nwz  n FyFyFy\u0007lich\n.  yy\u001by  nny\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 53050089,
+   "datetime": "20260601121502",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=runmode:run\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017cursed scroll of blank paper\n\u0007rust monster\nrjFy   Fy   \u0017uncursed spellbook of create monster\nrk   .m.       .uZ\u0017spellbook of dig\nrl   snsZZ\u0017cursed potion of sleeping\nqm                    #dip\nkFh   Fh   \u00173 scroll of fire\n \u0007couatl\nrn    \u0017wand of teleportation\n\u0007black pudding\nzo. \u001bm, zob20ss\u00165\ni\u001bag\u001brl  20s20sZa\nZa\nrk .m..m.Za\nZa\nae  k ae<ed20s.m.wa Fksst$u20s;h:  u20s;h.K rl y\u0017pick-axe\naq >.m.aq> aq<aq>20s_<,Fb  _.Fbaq>   n#wizintrinsic\nkl\n sm. .m. 20s 20s   nsm. .m. sm.sh 20s    n.hsm.sss20s.m. sm.sb.k sm.sm.sh  n\u0017scroll of remove curse\n rr  ckZa\n<\u0018\u001bb;l:  20s  20s sysm.20ssj    n \u00165\n \u0007Juiblex\nyFkFk  Fj  FlFl Fl\u0007raven\nFhFh Fh\u0007tengu\n;h,sbsj20si\u001b\u0006_>,Fk_. Fk>FjFk  n Fl\u0006_>,Fl_.Fj>FnFj_>.Fj_.Fn>FlFl_>,Fl_,Fl>Fl  nFjFuFuFj\u0006_>.Fu_.Fj>FnFn_>.Fn_,Fj >FkFkFj\u0006>._>.Fj   n_.Fj>FnFj_>,Fj_.Fj>FjFj_>.Fl_,Fk>Fj  n FjFkFkFj  \u0006_>.Fj_, Fl>Fk  n Fl_>.Fn_.Fj>Fn  nFu_>.Fn_.Fj>FnFjFnFn Fk\u0006<._>,Fj_.Fj>FjFjFj#turn\ned  \u0006_>.Fj  n_.Fj>FjFj_>,Fj_,Fj>Fjsn_>,_.>\u000f\u001b\u001611\n\u0007pony\n\u0017fortune cookie\ntaj\u0007horse\n\u0017carrot\nt\u001b\u0007giant rat\n\u0017scroll of taming\nrv\u0017fortune cookie\nt\u001b\u0017magic whistle\nyn y   naw  #name\nm\n#chat\n>.\u0017magic whistle\nyn lax\u0017leash\nayl jk  n j bayb \u00164\n#levelchange\n8\n   \u0017quarterstaff\nwz  n FyFyFy\u0007lich\n.  yy\u001by  nny\u001b  s"
+  }
+ ]
+}

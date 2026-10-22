@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0016?\n>EFlFluuuuhFl kkkuuujbbbh\u0017scroll of earth\nrl ulllnuubul10su\u0017wand of digging\nzmlj \u0017wand of digging\nznjbynbnbllnj10sbhlbbbbn\u0017wand of digging\nzobbjj\u0017wand of digging\nzpjkSy\u001b nu#monster\nolW:#turn\n\\ \u001710 daggers\nQl\u0007sewer rat\nnflfyfk.s\u0017potion of full healing\ntlh\u0007hill orc\nyflfh\u0017potion of",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53051023,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0016?\n>EFlFluuuuhFl kkkuuujbbbh\u0017scroll of earth\nrl ulllnuubul10su\u0017wand of digging\nzmlj \u0017wand of digging\nznjbynbnbllnj10sbhlbbbbn\u0017wand of digging\nzobbjj\u0017wand of digging\nzpjkSy\u001b"
+  },
+  {
+   "seed": 53551023,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": " nu#monster\nolW:#turn\n\\ \u001710 daggers\nQl\u0007sewer rat\nnflfyfk.s\u0017potion of full healing\ntlh\u0007hill orc\nyflfh\u0017potion of"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed +3 gauntlets of power\nWp\u0017blessed Mjollnir\n wq \u0017blessed +3 speed boots\nWr\u001627\n\u0006_ \u001bm.\u001620\n\u0004n.\u0016?\nn __.ss\u0016?\n>v\u0004l20s  .\u0016?\n>z_>.\u0016?\n>Djy:\u0016?\n>C\u0004l\u001620\n#levelchange\n6\n  \u0007gelatinous cube\nFj  Fj   Fj Fjsm..m.#pray\ny y   \u0007chameleon\nFlFlFl  n  Fj    nFl Fl 20s  n  .m.    n \u00168\n\u0016?\n>>K      lenses\n\u0014;\u0016?\n\u001bb   k\u0016?\n\u001bn b\u0016?\n\u001bnb\u0016?\n\u001by   n  k  \u001610\n#levelchange\n14\n       bl  h\u0017grave\n:\u0017pick-axe\nau      sh.m.          n l      \u0017cloud\nl       n   u     \u0017chaotic altar\nda\u0017human corpse\n#offer\nW\u001b<10s     n   \u00169\n\u0016?\n\u001bk     n             nh\u00165\n\u001616\n#chat\nk     ;k.\u0016?\n\u001bjl  n    \u0016?\n\u001byy\u0016?\n\u001bhl             n  \u001627\n\u0006m._>.\u0016?\n\u001bn      u  \u0016?\n\u001bk    n       y    n        \u00164\n\u001629\n\u0017uncursed boulder\n,Fk   n             yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 53050011,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed +3 gauntlets of power\nWp\u0017blessed Mjollnir\n wq \u0017blessed +3 speed boots\nWr\u001627\n\u0006_ \u001bm.\u001620\n\u0004n.\u0016?\nn __.ss\u0016?\n>v\u0004l20s  .\u0016?\n>z_>.\u0016?\n>Djy:\u0016?\n>C\u0004l\u001620\n#levelchange\n6\n  \u0007gelatinous cube\nFj  Fj   Fj Fjsm..m.#pray\ny y   \u0007chameleon\nFlFlFl  n  Fj    nFl Fl 20s  n  .m.    n \u00168\n\u0016?\n>>K      lenses\n\u0014;\u0016?\n\u001bb   k\u0016?\n\u001bn b\u0016?\n\u001bnb\u0016?\n\u001by   n  k  \u001610\n#levelchange\n14\n       bl  h\u0017grave\n:\u0017pick-axe\nau      sh.m.          n l      \u0017cloud\nl       n   u     \u0017chaotic altar\nda\u0017human corpse\n#offer\nW\u001b<10s     n   \u00169\n\u0016?\n\u001bk     n             nh\u00165\n\u001616\n#chat\nk     ;k.\u0016?\n\u001bjl  n    \u0016?\n\u001byy\u0016?\n\u001bhl             n  \u001627\n\u0006m._>.\u0016?\n\u001bn      u  \u0016?\n\u001bk    n       y    n        \u00164\n\u001629\n\u0017uncursed boulder\n,Fk   n             yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

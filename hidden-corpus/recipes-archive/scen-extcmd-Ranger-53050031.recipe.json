@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of reflection\nPg\u0017blessed Mjollnir\nwh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007lichen\n#pray\ny y  #chat\nl#jump\n#polyself\nair elemental\n #monster\nssFlsFk ._ \u001b>.#chat\n#overview\n\u001b#conduct\n #annotate\nblessed\ni\u001b#dip\ndj \u001b#offer\n#chat\n#turn\n#polyself\nred dragon\n  .s20s.lkj__.#chat\nb\u0007lichen\n#vanquished\n #genocided\nowlbear\n\u0018\u001b#name\no\n#adjust\ng\u001b#sit\n#pray\ny y  #wizidentify\n\u001bFyFy.#invoke\n\u001b\u0016?\nj\u0006#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#chat\nh#chat\nh   #polyself\nvampire\nsm.        sm.   n   Fn    n Fn      n\u00165\nyjb,_{.q#version\n  #history\n                  #annotate\nblessed\n\u0018\u001b#wipe\n#loot\n#turn\n#sit\n\u001b#polyself\nmind flayer\n #monster\n20s20ss.lyy__.#chat\nl\u0007jackal\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nny#pray\ny y   #chat\nn#jump\n#wizidentify\n\u001bFn .._{.q#vanquished\n #genocided\ndjinni\nci\u001b#dip\nf#offer\n#chat\nk#turn\n#levelchange\n24\n   lbh#offer\n_oo.Fl      _.Fl     ,\u0007dwarf\n#"
+ },
+ "segments": [
+  {
+   "seed": 53050031,
+   "datetime": "20020426221412",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of reflection\nPg\u0017blessed Mjollnir\nwh\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007lichen\n#pray\ny y  #chat\nl#jump\n#polyself\nair elemental\n #monster\nssFlsFk ._ \u001b>.#chat\n#overview\n\u001b#conduct\n #annotate\nblessed\ni\u001b#dip\ndj \u001b#offer\n#chat\n#turn\n#polyself\nred dragon\n  .s20s.lkj__.#chat\nb\u0007lichen\n#vanquished\n #genocided\nowlbear\n\u0018\u001b#name\no\n#adjust\ng\u001b#sit\n#pray\ny y  #wizidentify\n\u001bFyFy.#invoke\n\u001b\u0016?\nj\u0006#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#chat\nh#chat\nh   #polyself\nvampire\nsm.        sm.   n   Fn    n Fn      n\u00165\nyjb,_{.q#version\n  #history\n                  #annotate\nblessed\n\u0018\u001b#wipe\n#loot\n#turn\n#sit\n\u001b#polyself\nmind flayer\n #monster\n20s20ss.lyy__.#chat\nl\u0007jackal\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nny#pray\ny y   #chat\nn#jump\n#wizidentify\n\u001bFn .._{.q#vanquished\n #genocided\ndjinni\nci\u001b#dip\nf#offer\n#chat\nk#turn\n#levelchange\n24\n   lbh#offer\n_oo.Fl      _.Fl     ,\u0007dwarf\n#"
+  }
+ ]
+}

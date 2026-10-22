@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0017elven leather helm\nW\u001b20s20s.\u0007black light\nsFh  20sFkss\u0007vampire\nFyFy \u0007djinni\n;y. \u001b@..m.20s sm.  n\u0007piranha\nFh FyFh  "
+ },
+ "segments": [
+  {
+   "seed": 53052028,
+   "datetime": "20000123015010",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0017elven leather helm\nW\u001b20s20s.\u0007black light\nsFh  20sFkss\u0007vampire\nFyFy \u0007djinni\n;y. \u001b@..m.20s sm.  n\u0007piranha\nFh FyFh  "
+  }
+ ]
+}

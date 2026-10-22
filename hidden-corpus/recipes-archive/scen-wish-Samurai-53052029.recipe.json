@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u00173 potion of water\nqfs20s\u0017uncursed +0 cloak of invisibility\nWg 20s20s20s\u0017uncursed wand of probing\nzh. \u00173 wand of death\nzin.sss"
+ },
+ "segments": [
+  {
+   "seed": 53052029,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "\u00173 potion of water\nqfs20s\u0017uncursed +0 cloak of invisibility\nWg 20s20s20s\u0017uncursed wand of probing\nzh. \u00173 wand of death\nzin.sss"
+  }
+ ]
+}

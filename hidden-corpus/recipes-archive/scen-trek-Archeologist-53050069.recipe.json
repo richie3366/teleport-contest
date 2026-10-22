@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "U KNU_ \u001bm,>Fk.FkUNBB_>,>LKYB_>.>FkFkFki\u001b#sit\n\u001bYBUY_>.>UYUN_>,>Fj ..\u000f\u001b\u0014i\u001b#chat\nbNKJB_>.>YULY_>.>s#jump\nUHJK_>.>,_<.s<nnBLKY_>,>t\u001b#chat\nj20s10s#chat\nb#chat\nn100sFyFy.ylh50s_>.>100s_>,>i\u001b_>,>\u000f\u001b100sFnFnFnnnl100s50sdilbls\u0018\u001bkbu_>.>_>,>100sFhFh20s 100sFhFh.50s_>.>150s50s50s100sFhs20s150sed 100sFj.s100s50s50s#jump\n__.s,jhlkbl150s50sFhFhFhFh.s100s50sedFj20s.100s100s Fh.s50sFhss100s100sFhFhs\\ 100s100s150s em#twoweapon\nkjj100szj bugle\n50sbhy150s50sFhFhFhFhFhFh FhFhFhFhFhFhFh20s.100s50s#pray\ny   tlyjllFyFh Fh Fh20s.#untrap\n.L>100s_>.>\\ 100sFhFhFh#rub\ng\u001b#force\n100szj speed boots\nFhFhFhFh..FyFh Fh Fhs20sFhFhFhFhFhFhFh.s100s100sFhF"
+ },
+ "segments": [
+  {
+   "seed": 53050069,
+   "datetime": "20110909082445",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:explore\n",
+   "moves": "U KNU_ \u001bm,>Fk.FkUNBB_>,>LKYB_>.>FkFkFki\u001b#sit\n\u001bYBUY_>.>UYUN_>,>Fj ..\u000f\u001b\u0014i\u001b#chat\nbNKJB_>.>YULY_>.>s#jump\nUHJK_>.>,_<.s<nnBLKY_>,>t\u001b#chat\nj20s10s#chat\nb#chat\nn100sFyFy.ylh50s_>.>100s_>,>i\u001b_>,>\u000f\u001b100sFnFnFnnnl100s50sdilbls\u0018\u001bkbu_>.>_>,>100sFhFh20s 100sFhFh.50s_>.>150s50s50s100sFhs20s150sed 100sFj.s100s50s50s#jump\n__.s,jhlkbl150s50sFhFhFhFh.s100s50sedFj20s.100s100s Fh.s50sFhss100s100sFhFhs\\ 100s100s150s em#twoweapon\nkjj100szj bugle\n50sbhy150s50sFhFhFhFhFhFh FhFhFhFhFhFhFh20s.100s50s#pray\ny   tlyjllFyFh Fh Fh20s.#untrap\n.L>100s_>.>\\ 100sFhFhFh#rub\ng\u001b#force\n100szj speed boots\nFhFhFhFh..FyFh Fh Fhs20sFhFhFhFhFhFhFh.s100s100sFhF"
+  }
+ ]
+}

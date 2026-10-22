@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017katana\nwiFjFnFl X\u0007mumak\n#chat\nnFnFn\u0007gray ooze\nFlFlFn"
+ },
+ "segments": [
+  {
+   "seed": 53052011,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017katana\nwiFjFnFl X\u0007mumak\n#chat\nnFnFn\u0007gray ooze\nFlFlFn"
+  }
+ ]
+}

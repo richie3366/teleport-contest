@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPjr\u0017blessed amulet of life saving\nPk\u0017blessed leash\n\u0017blessed +3 helm of telepathy\nWm\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed 20 daggers\n Qo#levelchange\n26\n                          #wizintrinsic\nh\n \u0016?\na#levelchange\n14\n    \u0007black pudding\nFh  Fn  Fjsm. .m.#pray\ny y      \u0007green slime\nFl   Fl Fy   Fj Fj    Fu  sm.     nsm. #wizintrinsic\nh\n\u0007kobold\nFj   Fu   n  Fl  Fn    Fy    n  Fk   \u00168\n\u0007acid blob\nFy   sb.m.sh     n s20s .;m. \u001b.E#wizintrinsic\nh\n\u0017blessed scroll of enchant weapon\nr\u0017cockatrice corpse\neq\u0017spellbook of slow monster\nrsZ:  \u001625\nukbybk: #wizintrinsic\nh\n\u0017blessed scroll of mail\nr\u0017food ration\net\u0017ble"
+ },
+ "segments": [
+  {
+   "seed": 53050052,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPjr\u0017blessed amulet of life saving\nPk\u0017blessed leash\n\u0017blessed +3 helm of telepathy\nWm\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed 20 daggers\n Qo#levelchange\n26\n                          #wizintrinsic\nh\n \u0016?\na#levelchange\n14\n    \u0007black pudding\nFh  Fn  Fjsm. .m.#pray\ny y      \u0007green slime\nFl   Fl Fy   Fj Fj    Fu  sm.     nsm. #wizintrinsic\nh\n\u0007kobold\nFj   Fu   n  Fl  Fn    Fy    n  Fk   \u00168\n\u0007acid blob\nFy   sb.m.sh     n s20s .;m. \u001b.E#wizintrinsic\nh\n\u0017blessed scroll of enchant weapon\nr\u0017cockatrice corpse\neq\u0017spellbook of slow monster\nrsZ:  \u001625\nukbybk: #wizintrinsic\nh\n\u0017blessed scroll of mail\nr\u0017food ration\net\u0017ble"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPfr\u0017blessed amulet of life saving\nPg\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed 20 daggers\nQi#levelchange\n20\n                   #wizintrinsic\nh\n \u0007kobold shaman\n\u0007gnome lord\nFl FlFyFkFj Fk\u0017potion of sleeping\nqj.\u0017blessed scroll of teleportation\nrk  \u001b<.\u0017lump of royal jelly\nel#wizintrinsic\nh\n\u0016?\n>z #chat\ny;y.fy fytiy\u0017wand of probing\nzmy  zmy  zmh   \u001b zmy \u0017blessed spellbook of knock\nrn .m.Z#turn\n:#wizintrinsic\nh\n\u0017wand of fire\nzobzohzoy  zoh\u0007yellow mold\nFk.sss\u0017wand of teleportation\nzpkzplzp.;m.\u0017potion of sleeping\nqqsm.#wizintrinsic\nh\n\u0007gnome lord\n\u0007soldier\nFlFkFhFk  Fh \u0007owlbear\nFhFl  Fb    Fh  Fb \u0016?\n>v#levelchange\n20\n\u00173 the Eye of the Aethiopica\n \u0007wood nymph\n,  n  \u0017cursed the Platinum Yendorian Express Card\n \u0007marilith\n,a\n  Fh   Fh \u0017scroll of taming\nrr   Fh  Fl20ssm.#wizintrinsic\nh\n\u0016?\n>Gkjkj:.m.\u0007soldier\n\u0007newt\nFjFkFkFk\u0017scroll of earth\nrs \u0017wand of probing\nztk \u001bztk \u001bztk \u001b  nztk \u001b#wizintrinsic\nh\n\u0017wand of cold\nzuk zukzuyzul  \u0018\u001byhh\u0007"
+ },
+ "segments": [
+  {
+   "seed": 53050074,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=runmode:run\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPfr\u0017blessed amulet of life saving\nPg\u0017blessed +3 gray dragon scale mail\nW\u001b\u001b\u0017blessed 20 daggers\nQi#levelchange\n20\n                   #wizintrinsic\nh\n \u0007kobold shaman\n\u0007gnome lord\nFl FlFyFkFj Fk\u0017potion of sleeping\nqj.\u0017blessed scroll of teleportation\nrk  \u001b<.\u0017lump of royal jelly\nel#wizintrinsic\nh\n\u0016?\n>z #chat\ny;y.fy fytiy\u0017wand of probing\nzmy  zmy  zmh   \u001b zmy \u0017blessed spellbook of knock\nrn .m.Z#turn\n:#wizintrinsic\nh\n\u0017wand of fire\nzobzohzoy  zoh\u0007yellow mold\nFk.sss\u0017wand of teleportation\nzpkzplzp.;m.\u0017potion of sleeping\nqqsm.#wizintrinsic\nh\n\u0007gnome lord\n\u0007soldier\nFlFkFhFk  Fh \u0007owlbear\nFhFl  Fb    Fh  Fb \u0016?\n>v#levelchange\n20\n\u00173 the Eye of the Aethiopica\n \u0007wood nymph\n,  n  \u0017cursed the Platinum Yendorian Express Card\n \u0007marilith\n,a\n  Fh   Fh \u0017scroll of taming\nrr   Fh  Fl20ssm.#wizintrinsic\nh\n\u0016?\n>Gkjkj:.m.\u0007soldier\n\u0007newt\nFjFkFkFk\u0017scroll of earth\nrs \u0017wand of probing\nztk \u001bztk \u001bztk \u001b  nztk \u001b#wizintrinsic\nh\n\u0017wand of cold\nzuk zukzuyzul  \u0018\u001byhh\u0007"
+  }
+ ]
+}

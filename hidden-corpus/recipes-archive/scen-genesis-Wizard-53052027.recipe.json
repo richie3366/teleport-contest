@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "genesis",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n      \u0007guard\ny;u. \u001bm,s20ss\u0007killer bee\n;h:  sn.jsm."
+ },
+ "segments": [
+  {
+   "seed": 53052027,
+   "datetime": "20260403104124",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n      \u0007guard\ny;u. \u001bm,s20ss\u0007killer bee\n;h:  sn.jsm."
+  }
+ ]
+}

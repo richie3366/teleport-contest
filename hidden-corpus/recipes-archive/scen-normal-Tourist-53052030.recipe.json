@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "dm#loot\nK10s20sJ _<. \u001b@.s#name\nd\n>#chat\nj;<.#monster\n#jump\n#dip\nhh#invoke\n\u001bJs#enhance\n\u001bE- Elbereth\nWZ#jump\n, Zec  yfy\u0004n#dip\njhH#name\na\n"
+ },
+ "segments": [
+  {
+   "seed": 53052030,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\n",
+   "moves": "dm#loot\nK10s20sJ _<. \u001b@.s#name\nd\n>#chat\nj;<.#monster\n#jump\n#dip\nhh#invoke\n\u001bJs#enhance\n\u001bE- Elbereth\nWZ#jump\n, Zec  yfy\u0004n#dip\njhH#name\na\n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                    \u0017blessed +3 gauntlets of power\nWk\u001642\n  yllhby:\u001642\n\u0014 \u001b:m.\u001642\n\u0004l \u0016?\n>>L    the Eyes of the Overworld\n #levelchange\n12\n   \u0017potion of invisibility\nqm#dip\nad      Fu       Fn   n     \u0017blessed potion of confusion\nqn          n  Fj       n   Fy           n \u001720 elven arrows\nQ\u001b\u001bf \u001b\u001bf \u001b\u001bf \u001b\u001bsm.        .j   n           n  \u00164\n\u0016?\ne \u0007jellyfish\n;n;20s          .h   n      sm.     \u0007little dog\nFn  n         n Fn       n    Fu      n    nFl      n   Fu  n      n Fn       yy\u001by   y y\u001b  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 53050022,
+   "datetime": "20230313003804",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=runmode:crawl\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                    \u0017blessed +3 gauntlets of power\nWk\u001642\n  yllhby:\u001642\n\u0014 \u001b:m.\u001642\n\u0004l \u0016?\n>>L    the Eyes of the Overworld\n #levelchange\n12\n   \u0017potion of invisibility\nqm#dip\nad      Fu       Fn   n     \u0017blessed potion of confusion\nqn          n  Fj       n   Fy           n \u001720 elven arrows\nQ\u001b\u001bf \u001b\u001bf \u001b\u001bf \u001b\u001bsm.        .j   n           n  \u00164\n\u0016?\ne \u0007jellyfish\n;n;20s          .h   n      sm.     \u0007little dog\nFn  n         n Fn       n    Fu      n    nFl      n   Fu  n      n Fn       yy\u001by   y y\u001b  \u0007"
+  }
+ ]
+}

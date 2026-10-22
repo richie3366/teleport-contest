@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\np hh b k\u0017fountain\nqy y \u0017long sword\n#dip\npf kj\u0017melting ice\n#terrain\n\u001b10s  _m, \u001bm, sk20s  .nsksm. \u001620\n  __.>\u0016?\n>Bljunykj:\u0016?\n>>N       spellbook of turn undead\n_>.sm.20s    \u0016?\ne\u0017uncursed potion of extra healing\nqs      n   #dip\nfg           n \u0017wand of secret door detection\nzt          n  \u0017cursed stethoscope\nauhFn       Fh      n   20s       n   .m.           n 20s          n\u00166\n\u001620\n\u0017beartrap\n\u0007barrow wight\nav     \u0017cursed potion of fruit juice\n\u0007quantum mechanic\nqw \u001b        n     Fn \u001b \u001b  m.          Fl  \u001b        n          \u001b     n      n \u0017cursed Cleaver\nwx       Fb   n      n   Fy              n Fk        #invoke\nx        n   20s    yy\u001by   ny\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 53050088,
+   "datetime": "20240721070459",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0017blessed +3 cloak of magic resistance\nW\u001b\u0016?\np hh b k\u0017fountain\nqy y \u0017long sword\n#dip\npf kj\u0017melting ice\n#terrain\n\u001b10s  _m, \u001bm, sk20s  .nsksm. \u001620\n  __.>\u0016?\n>Bljunykj:\u0016?\n>>N       spellbook of turn undead\n_>.sm.20s    \u0016?\ne\u0017uncursed potion of extra healing\nqs      n   #dip\nfg           n \u0017wand of secret door detection\nzt          n  \u0017cursed stethoscope\nauhFn       Fh      n   20s       n   .m.           n 20s          n\u00166\n\u001620\n\u0017beartrap\n\u0007barrow wight\nav     \u0017cursed potion of fruit juice\n\u0007quantum mechanic\nqw \u001b        n     Fn \u001b \u001b  m.          Fl  \u001b        n          \u001b     n      n \u0017cursed Cleaver\nwx       Fb   n      n   Fy              n Fk        #invoke\nx        n   20s    yy\u001by   ny\u001b  2"
+  }
+ ]
+}

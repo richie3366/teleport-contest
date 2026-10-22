@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0016?\nk   20s     E- Elbereth\n    Z\u0006sy.l             n  \u0016?\nq ,#tip\nf\u001b<\u000620s 20s       n\u0016?\nf     aeh\u0004k cj20s 20s  yy\u001by  y nn  "
+ },
+ "segments": [
+  {
+   "seed": 53052013,
+   "datetime": "20201009093702",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0016?\nk   20s     E- Elbereth\n    Z\u0006sy.l             n  \u0016?\nq ,#tip\nf\u001b<\u000620s 20s       n\u0016?\nf     aeh\u0004k cj20s 20s  yy\u001by  y nn  "
+  }
+ ]
+}

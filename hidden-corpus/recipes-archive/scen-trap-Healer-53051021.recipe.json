@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  njb\u0017sleeping gas trap\nh^ll      .m.  yy  ."
+ },
+ "segments": [
+  {
+   "seed": 53051021,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  njb\u0017sleeping gas trap\nh^ll      .m.  yy  ."
+  }
+ ]
+}

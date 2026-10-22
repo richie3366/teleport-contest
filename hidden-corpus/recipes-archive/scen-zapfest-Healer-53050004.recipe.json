@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nWl    \u0017blessed +3 speed boots\nWm   \u0017blessed shield of reflection\nWn#levelchange\n14\n            \u0017bow\nwo\u001720 arrows\nQp\u0007jackal\n\u0007giant rat\nfkfh  t$k tpu\u0017potion of blindness\ntah \u0017spellbook of sleep\nrr \u001bm, s\u0017spellbook of drain life\n rs s\u0007succubus\n\u0007gnomish wizard\nZd\nZd\n.m.   n  ynsm. Zb\nZd\nZa\n Zb\nZd\n \u00165\n\u0018\u001b\u0007silver dragon\n\u0007baby red dragon\n.m.sm. 20s  #polyself\nred dragon\n   #monster\ny     .m.sb#monster\ny     #monster\ny          #monster\n\u0017wand of lightning\natFy  Fy\u0017blessed spellbook of drain life\nru y sm.\u0007master mind flayer\nZb\nZc\n            n  Zb\nZb\nZc\nZa\nZb\nsm.  sm.   n  Za\nZa\nsnsZc\nZd\n    n #turn\n\u00169\n\u0017blessed spellbook of finger of death\nrv                                     sm.\u0017blessed spellbook of light\nrw sm.  n\u0007master lich\n\u0007vampire\nZc\nZa\nZa\nZd\n  ZZZZ\u0007incubus\n\u0007lich\n\u0017wand of magic missile\nzxb        zxj   zxj      \u0007incubus\n\u0007gnomi"
+ },
+ "segments": [
+  {
+   "seed": 53050004,
+   "datetime": "20021109154455",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=fruit:lychee\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nWl    \u0017blessed +3 speed boots\nWm   \u0017blessed shield of reflection\nWn#levelchange\n14\n            \u0017bow\nwo\u001720 arrows\nQp\u0007jackal\n\u0007giant rat\nfkfh  t$k tpu\u0017potion of blindness\ntah \u0017spellbook of sleep\nrr \u001bm, s\u0017spellbook of drain life\n rs s\u0007succubus\n\u0007gnomish wizard\nZd\nZd\n.m.   n  ynsm. Zb\nZd\nZa\n Zb\nZd\n \u00165\n\u0018\u001b\u0007silver dragon\n\u0007baby red dragon\n.m.sm. 20s  #polyself\nred dragon\n   #monster\ny     .m.sb#monster\ny     #monster\ny          #monster\n\u0017wand of lightning\natFy  Fy\u0017blessed spellbook of drain life\nru y sm.\u0007master mind flayer\nZb\nZc\n            n  Zb\nZb\nZc\nZa\nZb\nsm.  sm.   n  Za\nZa\nsnsZc\nZd\n    n #turn\n\u00169\n\u0017blessed spellbook of finger of death\nrv                                     sm.\u0017blessed spellbook of light\nrw sm.  n\u0007master lich\n\u0007vampire\nZc\nZa\nZa\nZd\n  ZZZZ\u0007incubus\n\u0007lich\n\u0017wand of magic missile\nzxb        zxj   zxj      \u0007incubus\n\u0007gnomi"
+  }
+ ]
+}

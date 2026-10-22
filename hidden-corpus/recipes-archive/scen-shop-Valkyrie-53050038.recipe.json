@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u00175000 gold pieces\n\u0017blessed ring of free action\nPel\u0017blessed +3 speed boots\nWf\u0016?\n>w\u0006_ \u001b>.#chat\ny_oooooo,,p_oooo.,:\u0016?\nckkk\u0016?\n>w\u0006__._.,#chat\nb#pray\ny y __._,:#chat\ny_oooo,,\u0014<.ss_ooooooooo.,#chat\nh_ooooo,_o.,#chat\nj_{.Fh_.Fhq__.Fh_,Fh#chat\nj Fj  FjFjFjFjFj__._,#chat\nu_oooooooo._oo,,$\u00163\nlub\u0016?\n>w\u0006__,_.:#chat\nb\u00163\nkyl\u0016?\n>w\u0006_{._.@.q_oo,,\u0017amulet of reflection\ndh_oooo.,\u0017amulet of unchanging\ndijbb#chat\nh_{._.;:   qbjk#chat\nk_ooooo._.>.,$__._.>.#chat\nh_oo,,:_{._,.q_oooo._ooo,_,>.,p_ooooooo._.@.,:_ooo,_.m.,\u0017amulet of reflection\ndj_oooooooo._o,_.m.,p\u0016?\n>Bhly\u0016?\n>w\u0006__._,m.#chat\nhybk#chat\nk_ooooo. \u001bFk  _. Fk_oo._,.,\u0017flint stone\ndk_oooooooo._.m,,#chat\nh_{,_,q_oo._.,\u001b: _ooooooooo.,\u001bp_ooooooo._,,\u0017ruby\ndlhhl#chat\nyhlh#chat\nbhhh#chat\nn\u00167\nhll\u0016?\n>w\u0006__,_.#chat\nk_ooo._._o._.:,p_{,_,,q_{,_.m,qhhl#chat\ny_{._,<.q_ooooo,_.<._oo._.;@.,pllh#chat\nu_ooo.,p__._.,#chat\ny_oooo._..,\u001bp_ooooo._,m.,p__._,m,#chat\nh_ooooo,_.>._o._,;<.,p_oooooooo._.,\u001b\u0017amulet of restful sleep\ndm_ooooooooo._.;m,,:_oooooo"
+ },
+ "segments": [
+  {
+   "seed": 53050038,
+   "datetime": "20110829140043",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u00175000 gold pieces\n\u0017blessed ring of free action\nPel\u0017blessed +3 speed boots\nWf\u0016?\n>w\u0006_ \u001b>.#chat\ny_oooooo,,p_oooo.,:\u0016?\nckkk\u0016?\n>w\u0006__._.,#chat\nb#pray\ny y __._,:#chat\ny_oooo,,\u0014<.ss_ooooooooo.,#chat\nh_ooooo,_o.,#chat\nj_{.Fh_.Fhq__.Fh_,Fh#chat\nj Fj  FjFjFjFjFj__._,#chat\nu_oooooooo._oo,,$\u00163\nlub\u0016?\n>w\u0006__,_.:#chat\nb\u00163\nkyl\u0016?\n>w\u0006_{._.@.q_oo,,\u0017amulet of reflection\ndh_oooo.,\u0017amulet of unchanging\ndijbb#chat\nh_{._.;:   qbjk#chat\nk_ooooo._.>.,$__._.>.#chat\nh_oo,,:_{._,.q_oooo._ooo,_,>.,p_ooooooo._.@.,:_ooo,_.m.,\u0017amulet of reflection\ndj_oooooooo._o,_.m.,p\u0016?\n>Bhly\u0016?\n>w\u0006__._,m.#chat\nhybk#chat\nk_ooooo. \u001bFk  _. Fk_oo._,.,\u0017flint stone\ndk_oooooooo._.m,,#chat\nh_{,_,q_oo._.,\u001b: _ooooooooo.,\u001bp_ooooooo._,,\u0017ruby\ndlhhl#chat\nyhlh#chat\nbhhh#chat\nn\u00167\nhll\u0016?\n>w\u0006__,_.#chat\nk_ooo._._o._.:,p_{,_,,q_{,_.m,qhhl#chat\ny_{._,<.q_ooooo,_.<._oo._.;@.,pllh#chat\nu_ooo.,p__._.,#chat\ny_oooo._..,\u001bp_ooooo._,m.,p__._,m,#chat\nh_ooooo,_.>._o._,;<.,p_oooooooo._.,\u001b\u0017amulet of restful sleep\ndm_ooooooooo._.;m,,:_oooooo"
+  }
+ ]
+}

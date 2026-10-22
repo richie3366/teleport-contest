@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001bm.>Fb 20s_>>,Fj_,m.Fj>FjFj_>>._.>\\ ,\u0006_>>,_,>_>>,_.>_>>._.>\u0006_>,_.>_>._.>_>,_.>\u0006_>._,>_>._.>_>._.>\u0006_>._,>_>,_.>_>._,>s#name\nf\n\u0006_>._.>_>,_.>_>,_.>v i\u001bmOa\u001b\n\u001613\nv i\u001bmO>w\u001b\n\u00162\nybbFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu\u0007housecat\n\u0017huge chunk of meat\ntbu#name\nf\n\u0007sb20s20s20s20s  n sm.#name\nf\n\u0007.m.  n.m.sm.  n20ssm.sm.\u0017magic whistle\nnnbaj\u0017apple\ntbk \u0007lichen\n20ssm.  nsm.sm.20s.l  ndb sm.sm.  nsm.\u00166\n#levelchange\n14\n             uhky\u0017tree\n:uj\u0017grave\n: \u0017wand of digging\nzl> 20ssm.l\u0017"
+ },
+ "segments": [
+  {
+   "seed": 53050018,
+   "datetime": "20151003151951",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced1\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nMENUCOLOR=\"a potion\"=red\n",
+   "moves": "\u0006_ \u001bm.>Fb 20s_>>,Fj_,m.Fj>FjFj_>>._.>\\ ,\u0006_>>,_,>_>>,_.>_>>._.>\u0006_>,_.>_>._.>_>,_.>\u0006_>._,>_>._.>_>._.>\u0006_>._,>_>,_.>_>._,>s#name\nf\n\u0006_>._.>_>,_.>_>,_.>v i\u001bmOa\u001b\n\u001613\nv i\u001bmO>w\u001b\n\u00162\nybbFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFuFu\u0007housecat\n\u0017huge chunk of meat\ntbu#name\nf\n\u0007sb20s20s20s20s  n sm.#name\nf\n\u0007.m.  n.m.sm.  n20ssm.sm.\u0017magic whistle\nnnbaj\u0017apple\ntbk \u0007lichen\n20ssm.  nsm.sm.20s.l  ndb sm.sm.  nsm.\u00166\n#levelchange\n14\n             uhky\u0017tree\n:uj\u0017grave\n: \u0017wand of digging\nzl> 20ssm.l\u0017"
+  }
+ ]
+}

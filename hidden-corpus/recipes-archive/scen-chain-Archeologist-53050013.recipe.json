@@ -1,0 +1,63 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " lynyFlFlFlFlFlFlFlFlHLLK_ \u001bm, >Fls20sJNLL_>,>Fl .sclqNUKH_>.>HKHK_>.>HJHY_>.>JYJY_>,>\u000f\u001b#quit\nyy\u001by  y y y\u001b Fl FlFlFlFlFlFlFlunjj100s150sFjs20s100sknu#invoke\n\u001b50si\u001b100sFhs20s100sjuk50sFjs20s\\  \u0018\u001b#invoke\n\u001b50s\\  huh150sFhs20sFjs.50s100s100sFl20ssjkjnujjyji\u001b150s100sFh20s.100s,#en#quit\nB KHU_ \u001b,>zr\u001bLJHJ_>.>ULHU_>.>LKLN_>.>#untrap\nh<KLHH_>,>\u000f\u001b100s  lhj,jnhFl s20s100s100s100s#ride\n.50s100s_>.>150s edkkj150s150sFlFl.jnu100s150s50#quit\nyy\u001by  y y y\u001b \u0007master mind flayer\nFuFl  Fu Fu   nFu Fu   yy\u001by  y y y\u001by  Fuljb hyny100skjj100s Fl ss100s_ \u001b,>kuy\\   #jump\n\\   nhkFnssedjkj100si\u001b50s#quit\nyy\u001by  y y y\u001b yy   \u0017wand of lightning\nze.  y y\u001by   y y\u001by  s  FkFl    y\u001by  y y y\u001b  .",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53050013,
+   "datetime": "20210311174408",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\n",
+   "moves": " lynyFlFlFlFlFlFlFlFlHLLK_ \u001bm, >Fls20sJNLL_>,>Fl .sclqNUKH_>.>HKHK_>.>HJHY_>.>JYJY_>,>\u000f\u001b#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 53150013,
+   "datetime": "20231209203649",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=runmode:run\nOPTIONS=pettype:dog\n",
+   "moves": "Fl FlFlFlFlFlFlFlunjj100s150sFjs20s100sknu#invoke\n\u001b50si\u001b100sFhs20s100sjuk50sFjs20s\\  \u0018\u001b#invoke\n\u001b50s\\  huh150sFhs20sFjs.50s100s100sFl20ssjkjnujjyji\u001b150s100sFh20s.100s,#en#quit\n"
+  },
+  {
+   "seed": 53250013,
+   "datetime": "20171218111036",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "B KHU_ \u001b,>zr\u001bLJHJ_>.>ULHU_>.>LKLN_>.>#untrap\nh<KLHH_>,>\u000f\u001b100s  lhj,jnhFl s20s100s100s100s#ride\n.50s100s_>.>150s edkkj150s150sFlFl.jnu100s150s50#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 53350013,
+   "datetime": "20160302140024",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007master mind flayer\nFuFl  Fu Fu   nFu Fu   yy\u001by  y y y\u001by  F"
+  },
+  {
+   "seed": 53450013,
+   "datetime": "20190408032531",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\n",
+   "moves": "uljb hyny100skjj100s Fl ss100s_ \u001b,>kuy\\   #jump\n\\   nhkFnssedjkj100si\u001b50s#quit\nyy\u001by  y y y\u001b "
+  },
+  {
+   "seed": 53550013,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\n",
+   "moves": "yy   \u0017wand of lightning\nze.  y y\u001by   y y\u001by  s"
+  },
+  {
+   "seed": 53650013,
+   "datetime": "20170509020512",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": "  FkFl    y\u001by  y y y\u001b  ."
+  }
+ ]
+}
