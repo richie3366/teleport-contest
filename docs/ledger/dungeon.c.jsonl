@@ -109,4 +109,4 @@
 {"fn":"endgamelevelname","c":"3410-3437","status":"ported","js":["js/display.js:endgamelevelname"],"at":"2026-10-15@746adfbb3","note":"audit 2822: body C-exact (all 6 arms incl default unknown-plane; outbuf->return idiom); THIN tag is the line-density heuristic"}
 {"fn":"shop_string","c":"3441-3455","status":"ported","js":["js/dungeon.js:shop_string"],"d":["D-3408","D-3401"],"at":"2026-10-04@c075fb861","note":"audited D-3408: whole vs C"}
 {"fn":"tunesuffix","c":"3460-3476","status":"ported","js":["js/dungeon.js:tunesuffix"],"at":"2026-09-30@1b5d1374c","note":"stale: js/dungeon.js:2873; print_mapseen named-place helper:2911"}
-{"fn":"print_mapseen","c":"3516-3728","status":"ported","js":["js/dungeon.js:print_mapseen"],"d":["D-4199","D-1693","D-1658"],"at":"2026-10-21@2fd4bd664","note":"stale 2026-09-25"}
+{"fn":"print_mapseen","c":"3516-3728","status":"ported","js":["js/dungeon.js:print_mapseen"],"d":["D-4218","D-4199","D-1693","D-1658"],"at":"2026-10-22@857fe4c5d","note":"stale 2026-09-25"}

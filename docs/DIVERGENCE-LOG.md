@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4218 — dungeon.c print_mapseen adds each level row with add_menu (`:3583`) and each feature, place, branch and cemetery line with add_menu_str (`:3635–3723`); windows.c add_menu applies menucolors to all of them (`:1803–1807`), and only the dungeon name goes through add_menu_heading. JS pushed those rows plain, so after a menucolor «e» → white, the end-of-game overview («Level 1: <- You were here.», «Final resting place for», «you, killed by a potion of holy water.») stayed gray where C paints it white
+
+- **Status:** shipped (cliffs head after D-4217).
+- **Symptom:** scen-options-Priest-53051011 step 111 (final disclosure, overview `y`): rows 1–3 C `\e[97m`, JS uncoloured. The queue owner save_dungeon was only the region label.
+- **C locus:** dungeon.c print_mapseen `:3516–3728` (add_menu_heading `:3553`, level add_menu `:3583`, add_menu_str `:3635`, `:3672`, `:3677`, `:3692`, `:3705`, `:3717`, `:3723`); show_overview `:3305–3341`; windows.c add_menu `:1803–1807`.
+- **JS was:** js/dungeon.js add_overview_str and the level row pushed `{ text, attr: 0, selectable: false }`; select_menu_pick_none paints non-selectable rows in the caller's style.
+- **Fix:** add_overview_str and the non-selectable level row (why != -1) spread ctx.menu_row_coloring (options.js, reached through show_overview's existing dynamic import and ctx). The why == -1 selectable level row is coloured by select_menu_pick_one, as before.
+- **JS:** js/dungeon.js add_overview_str `:2930–2935`, print_mapseen level row `:3111–3120`, cemetery/feature calls `:3122–3129`, show_overview ctx `:3279–3282`.
+- **Callers:** print_mapseen ← traverse_mapseenchn `:3150` ← show_overview (dooverview, final disclosure). Unchanged.
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-options-Priest-53051011.session.json` → PASS (RNG 2736/2736, Screen 115/115).
+  - `node scripts/verify.mjs --fn save_dungeon,print_mapseen --full` → `verify save_dungeon: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach REACH-OK ×2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 710 baseline-PASS re-run in 138.1s, 0 regressed → REACH-OK.
+  - verify save_dungeon: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** none in print_mapseen. The nhl_text ledger note left stale by D-4217 is corrected in this commit.
+- **Ledger:** print_mapseen ported
+- **Next:** the cliffs head (show_gamelog / polymorph_sink).
+
 ## D-4217 — nhlua.c nhl_text, behind nhcore.lua's show_getpos_tip, adds each line of the tip with add_menu_str (`:836`), so windows.c add_menu applies menucolors to every line (`:1803–1807`). JS painted the tip's lines as bare strings, so after a menucolor «e» → white, the first-getpos tip («Tip: Farlooking or selecting a map location» and its body) stayed gray where C paints it white
 
 - **Status:** shipped (cliffs head after D-4216).
