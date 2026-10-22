@@ -140,7 +140,6 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `vault.c` invault — blocks 1/773 corpus sessions (first at step 387; RNG lost 0, screens lost 1): C «You stop searching. Suddenly one of the Vault's guards enter» vs JS «Suddenly one of the Vault's guards enters! You stop searchin». Probe: `node scripts/hidden-proxy.mjs verify invault` (scen-vault-Tourist-53456001). @22e31f276 **[history: archived D-3269 — read that D-entry once; the arm this divergence names is still open]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)

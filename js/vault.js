@@ -18,7 +18,7 @@
 import { game } from './gstate.js';
 import { panic } from './end.js';
 import { rn2 } from './rng.js';
-import { makemon, set_malign, newegd } from './makemon.js';
+import { makemon, makemon_appear_msg, set_malign, newegd } from './makemon.js';
 import { mon_track_clear } from './monmove.js';
 import {
     pline, You, You_see, flush_topl_more, newsym, canspotmon, map_invisible, verbalize,
@@ -692,6 +692,11 @@ export async function invault() {
 
     guard = makemon(mons(PM_GUARD), x, y, MM_EGD | MM_NOMSG);
     if (!guard) return;
+    // C makemon.c `:1502–1504` runs inside makemon, before isgd/mpeaceful
+    // are set below: an occupied hero gets dochugw's threat check against
+    // the still-hostile guard, so «You stop searching.» precedes «Suddenly
+    // one of the Vault's guards enters!» (D-4229).
+    await makemon_appear_msg(guard, guard.mx | 0, guard.my | 0, MM_EGD | MM_NOMSG);
 
     guard.isgd = 1;
     guard.mpeaceful = 1;

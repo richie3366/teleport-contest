@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — D-4229 vault.c invault summons the guard with `makemon(&mons[PM_GUARD], x, y, MM_EGD | MM_NOMSG)` (`:500`) and only then sets isgd / mpeaceful. makemon's tail (makemon.c `:1502–1504`, outside the MM_NOMSG gate) runs `if (go.occupation) dochugw(mtmp, FALSE)`. Against the still-hostile guard that threat check stops a counted search, so C prints «You stop searching.» before «Suddenly one of the Vault's guards enters!», and invault's own stop_occupation (`:494`) finds no occupation. js/vault.js called the sync makemon without its async tail (makemon_appear_msg), so the search was stopped only at `:494`, after the entry line
+
+**C locus:** vault.c invault `:380–620` (makemon `:500`, isgd/mpeaceful `:502–503`, entry pline `:534`, stop_occupation `:494`… in C order the guard-arrival block); makemon.c makemon tail `:1476–1504`; monmove.c dochugw.
+**JS:** js/vault.js invault `:693–699`; import makemon_appear_msg (vault.js already imports makemon.js).
+**Change:** `await makemon_appear_msg(guard, guard.mx, guard.my, MM_EGD | MM_NOMSG)` right after the makemon null check, before isgd/mpeaceful, which is where C's makemon tail runs. MM_NOMSG skips the appear Norep; the occupation check still runs, as in C.
+**Verify:** - `node scripts/verify.mjs --fn invault --full` → `verify invault: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach smoke 24/24 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. Board 773/773 (active tier).
+**Named:** none in invault's guard-arrival arm.
+**Next:** the cliffs block is empty (active board 773/773). The next slot is a grow (§10.19). The reserve tier (42 rows) is unscored since Grow #26; `score --ids <failing reserve ids>` first.
 ## 2026-10-22 — D-4228 insight.c enlightenment shows ^X through `select_menu(en_win, PICK_NONE)` (`:451–460`, en_via_menu = !final). windows.c select_menu sets `gb.bot_disabled = TRUE` around win_select_menu (`:1856–1863`), and tty_select_menu dismisses the window inside that span (wintty.c `:2851`): erase_menu_or_text → docrt. With a vault guard parked at <0,0>, docrt's see_monsters raises the `<0,0>` newsym impossible(). Its pline's flush_screen calls bot(), which returns at once under bot_disabled, so the status rows that cls blanked stay blank through the --More--. js/invent.js doattributes painted, waited and dismissed with bot enabled, so the impossible's flush repainted both status rows
 
 **C locus:** insight.c doattributes `:2009–2019`, enlightenment `:385–462` (select_menu arm `:451–460`); windows.c select_menu `:1856–1864`; wintty.c tty_select_menu `:2832–2858` (dismiss `:2851`), erase_menu_or_text `:991–1008`; botl.c bot `:253–271`.
