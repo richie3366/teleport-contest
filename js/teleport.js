@@ -1525,8 +1525,10 @@ export async function teleds(nux, nuy, teleds_flags) {
      * direct destination newsym here: it burns a newsym_rn2 display draw
      * C never makes, shifting every later Hallucination glyph (D-4035). */
     newsym(ox, oy);
-    // C: see_monsters() before vision — refresh warns at new distu
-    see_monsters();
+    // C: see_monsters() before vision — refresh warns at new distu.
+    // Awaited: a parked guard's <0,0> impossible() must flush before
+    // vision_recalc paints the destination hero (D-4227).
+    await see_monsters();
     // C: vision_recalc(0) before materialize so --More-- shows new map
     game.vision_full_recalc = 1;
     nomul(0);

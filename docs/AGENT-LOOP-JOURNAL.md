@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — D-4227 teleport.c teleds calls see_monsters (`:537`) before `vision_recalc(0)` (`:541`). With a vault guard parked at <0,0>, see_monsters' newsym raises display.c's `<0,0>` impossible(), and its pline flushes the map while the hero's destination square still shows the remembered glyph (nothing newsyms it until vision_recalc). js/teleport.js called the async see_monsters without `await`, so its body ran only up to the impossible, vision_recalc painted the hero at the destination, and the impossible's flush then showed «@» where C shows «$»
+
+**C locus:** teleport.c teleds `:448–626` (newsym origin `:536`, see_monsters `:537`, vision_recalc `:541`); display.c see_monsters `:1487`, newsym `<0,0>` impossible `:934`.
+**JS:** js/teleport.js teleds `:1528–1531`.
+**Change:** `await see_monsters();`. The impossible's --More-- now shows the pre-vision map, as in C.
+**Verify:** - `node scripts/verify.mjs --fn newsym,impossible,teleds --full` → `verify newsym: 6 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` · `verify impossible: 3 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach smoke 24/24 ×3 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. Board 769/773.
+**Named:** none in teleds. 27 other un-awaited `see_monsters()` calls remain in other C files' ports (attrib, artifact, detect, do_wear, do, eat, polyself, pray, sit, potion, uhitm, timeout). Each can reorder the same way only with a guard parked at <0,0>, and no corpus row reaches one.
+**Next:** process_menu_window ×3 (the ^X window dismissed with ESC: C's redraw hits the `<0,0>` impossible with blank status rows, while JS has repainted them; docrt order) and invault ×1.
 ## 2026-10-22 — D-4226 vault.c parkguard places the guard at <0,0> only when `m_at(0, 0) != grd` (`:165–166`), and C `m_at` is the raw grid cell (rm.h:516). findgd's migrating arm (`:216–230`) relinks a guard that a level teleporter had sent off its own level back onto fmon with mx = my = 0 and calls parkguard, whose place_monster (steed.c `:931`) sets `mstate = MON_FLOOR`. JS read mon.js m_at, whose fmon coordinate scan found the relinked guard itself at <0,0>, so place_monster was skipped and MON_MIGRATING stayed set. movemon_singlemon's parked-guard arm (mon.c `:1233`, `!(mstate & MON_MIGRATING)`) then never ran gd_move, the guard was never mongone'd, and mdrop_special_objs's five `obj_resists(0,0)` rn2(100) draws were missing
 
 **C locus:** vault.c parkguard `:155–172`, findgd `:204–232`; steed.c place_monster `:898–932`; rm.h m_at `:516`; mon.c movemon_singlemon parked arm `:1233–1239`, mongone `:3267–3283`; steal.c mdrop_special_objs `:852–872`.

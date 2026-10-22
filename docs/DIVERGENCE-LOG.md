@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4227 — teleport.c teleds calls see_monsters (`:537`) before `vision_recalc(0)` (`:541`). With a vault guard parked at <0,0>, see_monsters' newsym raises display.c's `<0,0>` impossible(), and its pline flushes the map while the hero's destination square still shows the remembered glyph (nothing newsyms it until vision_recalc). js/teleport.js called the async see_monsters without `await`, so its body ran only up to the impossible, vision_recalc painted the hero at the destination, and the impossible's flush then showed «@» where C shows «$»
+
+- **Status:** shipped (cliffs head after D-4226).
+- **Symptom:** 7 newsym rows and 3 impossible rows (scen-vault-*, e.g. Monk-53456007 step 365, ^T into a vault onto a gold pile): toplines identical («newsym: attempting screen update for <0,0>--More--»), row 18 C `│$$│` vs JS `│@$│`. RNG full; 26 + 18 screens lost.
+- **Measured / named:** a setCell hook armed at step 364 caught the «@» write at (row 18, col 45) in flush_screen ← pline ← impossible ← see_monsters. A temporary show_glyph_cell log for map (46,17) named the gbuf writer before that flush: display_self ← vision_recalc ← teleds (teleport.js:1537), i.e. vision ran inside the un-awaited see_monsters' pending impossible.
+- **C locus:** teleport.c teleds `:448–626` (newsym origin `:536`, see_monsters `:537`, vision_recalc `:541`); display.c see_monsters `:1487`, newsym `<0,0>` impossible `:934`.
+- **JS was:** js/teleport.js teleds `see_monsters();` (not awaited).
+- **Fix:** `await see_monsters();`. The impossible's --More-- now shows the pre-vision map, as in C.
+- **JS:** js/teleport.js teleds `:1528–1531`.
+- **Callers:** unchanged.
+- **Verify:**
+  - `node scripts/verify.mjs --fn newsym,impossible,teleds --full` → `verify newsym: 6 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` · `verify impossible: 3 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach smoke 24/24 ×3 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS. Board 769/773.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 760 baseline-PASS re-run in 148.6s, 0 regressed → REACH-OK.
+  - verify newsym: 6 PASS, 1 moved, 0 no-movement.
+- **Named omissions:** none in teleds. 27 other un-awaited `see_monsters()` calls remain in other C files' ports (attrib, artifact, detect, do_wear, do, eat, polyself, pray, sit, potion, uhitm, timeout). Each can reorder the same way only with a guard parked at <0,0>, and no corpus row reaches one.
+- **Ledger:** teleds ported
+- **Next:** process_menu_window ×3 (the ^X window dismissed with ESC: C's redraw hits the `<0,0>` impossible with blank status rows, while JS has repainted them; docrt order) and invault ×1.
+
 ## D-4226 — vault.c parkguard places the guard at <0,0> only when `m_at(0, 0) != grd` (`:165–166`), and C `m_at` is the raw grid cell (rm.h:516). findgd's migrating arm (`:216–230`) relinks a guard that a level teleporter had sent off its own level back onto fmon with mx = my = 0 and calls parkguard, whose place_monster (steed.c `:931`) sets `mstate = MON_FLOOR`. JS read mon.js m_at, whose fmon coordinate scan found the relinked guard itself at <0,0>, so place_monster was skipped and MON_MIGRATING stayed set. movemon_singlemon's parked-guard arm (mon.c `:1233`, `!(mstate & MON_MIGRATING)`) then never ran gd_move, the guard was never mongone'd, and mdrop_special_objs's five `obj_resists(0,0)` rn2(100) draws were missing
 
 - **Status:** shipped (cliffs head after a rescore of the 19 failing board rows: 5 were stale after D-4224/D-4225 and now PASS, including the old head gd_letknow).
