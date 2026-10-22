@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — Grow #25 @fbbb271b4: fresh 53250000 ×160 157/160 (98.1 %) on arrival
+
+**Fresh:** RNG 99.4 %, screens 99.7 %; extcmd 7/8, sweep 8/9, worldtour 8/9, every other family 100 %. Gap to held-out 18.6 pts: no calibration family.
+**Folded:** scen-worldtour-Wizard-53250033 (JS throw `EYE is not defined` zap.js buzzmonst → Must-fix), scen-sweep-Rogue-53250089 (hornoplenty «You hear something shatter!» s900), scen-extcmd-Healer-53250042 (do_mgivenname «handsome» vs «beautiful» s1103). Board 713/716.
+**Next:** the Must-fix (buzzmonst EYE import).
 ## 2026-10-22 — D-4220 do.c polymorph_sink tracks a `sym` per outcome and names it with `an(defsyms[sym].explanation)` (`:449–450`). For S_throne that explanation is the PCHAR2 desc «opulent throne» (defsym.h `:132`). JS hard-coded «throne», so a ring of polymorph dropped down a sink printed «The sink transforms into a throne!» where C prints «…into an opulent throne!»
 
 **C locus:** do.c polymorph_sink `:402–455` (sym `:406`, arms `:418–446`, message `:449–452`); defsym.h PCHAR2 `:75` (desc → explanation), S_throne `:132`.
