@@ -1,7 +1,7 @@
 {"fn":"dodrop","c":"29-43","status":"ported","js":["js/do.js:dodrop"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
 {"fn":"boulder_hits_pool","c":"50-155","status":"ported","js":["js/do.js:boulder_hits_pool"],"d":["D-4148","D-3265","D-3261"],"at":"2026-10-20@521fd733a"}
 {"fn":"flooreffects","c":"162-359","status":"ported","js":["js/do.js:flooreffects"],"d":["D-4202","D-4142","D-4092","D-3727","D-3240"],"at":"2026-10-21@9a0385eed"}
-{"fn":"doaltarobj","c":"363-390","status":"ported","js":["js/do.js:doaltarobj"],"d":["D-3429"],"at":"2026-10-04@77a859fd3"}
+{"fn":"doaltarobj","c":"363-390","status":"ported","js":["js/do.js:doaltarobj"],"d":["D-4219","D-3429"],"at":"2026-10-22@41014a186"}
 {"fn":"trycall","c":"395-399","status":"ported","js":["js/do_name.js:trycall"],"at":"2026-10-03@bbe63333a"}
 {"fn":"polymorph_sink","c":"404-455","status":"ported","js":["js/fountain.js:polymorph_sink"],"at":"2026-10-03@bbe63333a"}
 {"fn":"teleport_sink","c":"460-494","status":"ported","js":["js/do.js:teleport_sink"],"at":"2026-10-03@bbe63333a"}

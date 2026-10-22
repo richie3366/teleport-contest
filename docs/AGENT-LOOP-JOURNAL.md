@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-22 — D-4219 u_init.c u_init_misc zeroes the whole `struct you` (`:954` memset), so u.uconduct exists with every counter at 0 from the first turn (you.h `:147–167`). JS created u.uconduct lazily at about 20 sites, and do.c doaltarobj's `!gnostic++` arm (`:370–373`) was guarded by `if (uc)`. With no conduct broken yet, the object did not exist, so dropping 4 cram rations on a wished-for altar at turn 3 never livelogged «eschewed atheism, by dropping … on an altar», and #chronicle lacked C's «3: eschewed atheism…» row
+
+**C locus:** u_init.c u_init_misc `:944–1036` (memset `:954`); you.h struct u_conduct `:147–167`; do.c doaltarobj `:363–390` (conduct `:368–373`).
+**JS:** js/u_init.js u_init_misc `:1968–1979`; js/do.js doaltarobj `:724–745`.
+**Change:** u_init_misc creates u.uconduct with all 18 struct u_conduct fields at 0, as C's memset leaves them. doaltarobj is back in C's shape: `!mon_moving && !(uconduct.gnostic++)` (the increment short-circuits with mon_moving, as in C), then the livelog.
+**Verify:** - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-symset-Ranger-53050029.session.json` → PASS (RNG 24550/24550, Screen 908/908).
+**Named:** u_init_misc still does not reset the rest of `u`. JS relies on unset fields reading as 0 (`| 0`) on a fresh game object.
+**Next:** the cliffs head (polymorph_sink).
 ## 2026-10-22 — D-4218 dungeon.c print_mapseen adds each level row with add_menu (`:3583`) and each feature, place, branch and cemetery line with add_menu_str (`:3635–3723`); windows.c add_menu applies menucolors to all of them (`:1803–1807`), and only the dungeon name goes through add_menu_heading. JS pushed those rows plain, so after a menucolor «e» → white, the end-of-game overview («Level 1: <- You were here.», «Final resting place for», «you, killed by a potion of holy water.») stayed gray where C paints it white
 
 **C locus:** dungeon.c print_mapseen `:3516–3728` (add_menu_heading `:3553`, level add_menu `:3583`, add_menu_str `:3635`, `:3672`, `:3677`, `:3692`, `:3705`, `:3717`, `:3723`); show_overview `:3305–3341`; windows.c add_menu `:1803–1807`.

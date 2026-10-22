@@ -1,5 +1,24 @@
 # Divergence log
 
+## D-4219 — u_init.c u_init_misc zeroes the whole `struct you` (`:954` memset), so u.uconduct exists with every counter at 0 from the first turn (you.h `:147–167`). JS created u.uconduct lazily at about 20 sites, and do.c doaltarobj's `!gnostic++` arm (`:370–373`) was guarded by `if (uc)`. With no conduct broken yet, the object did not exist, so dropping 4 cram rations on a wished-for altar at turn 3 never livelogged «eschewed atheism, by dropping … on an altar», and #chronicle lacked C's «3: eschewed atheism…» row
+
+- **Status:** shipped (cliffs head after D-4218).
+- **Symptom:** scen-symset-Ranger-53050029 step 261 (`#chronicle`): row 3 C «3: eschewed atheism, by dropping 4 uncursed cram rations on an altar», JS «4: made her first wish…» (one row missing). The queue owner show_gamelog was only the painter.
+- **Measured / named:** a temporary log in JS doaltarobj at step 57 showed `game.u.uconduct === undefined` (Blind false, mon_moving false), so the conduct arm was skipped silently.
+- **C locus:** u_init.c u_init_misc `:944–1036` (memset `:954`); you.h struct u_conduct `:147–167`; do.c doaltarobj `:363–390` (conduct `:368–373`).
+- **JS was:** js/u_init.js u_init_misc did not create u.uconduct. js/do.js doaltarobj read `game.u?.uconduct` and skipped the conduct when it was absent.
+- **Fix:** u_init_misc creates u.uconduct with all 18 struct u_conduct fields at 0, as C's memset leaves them. doaltarobj is back in C's shape: `!mon_moving && !(uconduct.gnostic++)` (the increment short-circuits with mon_moving, as in C), then the livelog.
+- **JS:** js/u_init.js u_init_misc `:1968–1979`; js/do.js doaltarobj `:724–745`.
+- **Callers:** u_init_misc ← allmain newgame (unchanged). doaltarobj ← dropz / flooreffects altar arms (unchanged).
+- **Verify:**
+  - `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-symset-Ranger-53050029.session.json` → PASS (RNG 24550/24550, Screen 908/908).
+  - `node scripts/verify.mjs --fn show_gamelog,doaltarobj,u_init_misc --full` → `verify show_gamelog: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` · reach REACH-OK ×3 (u_init_misc 80/711 spread) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 711 baseline-PASS re-run in 138.4s, 0 regressed → REACH-OK.
+  - verify show_gamelog: 1 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** u_init_misc still does not reset the rest of `u`. JS relies on unset fields reading as 0 (`| 0`) on a fresh game object. The roughly 20 lazy `if (!u.uconduct) u.uconduct = {}` guards in other files are now dead but harmless, and were left in place. apply.js `:1617`'s leash-choke `uconduct.killer` restore now always runs, as in C.
+- **Ledger:** u_init_misc ported; doaltarobj ported
+- **Next:** the cliffs head (polymorph_sink).
+
 ## D-4218 — dungeon.c print_mapseen adds each level row with add_menu (`:3583`) and each feature, place, branch and cemetery line with add_menu_str (`:3635–3723`); windows.c add_menu applies menucolors to all of them (`:1803–1807`), and only the dungeon name goes through add_menu_heading. JS pushed those rows plain, so after a menucolor «e» → white, the end-of-game overview («Level 1: <- You were here.», «Final resting place for», «you, killed by a potion of holy water.») stayed gray where C paints it white
 
 - **Status:** shipped (cliffs head after D-4217).

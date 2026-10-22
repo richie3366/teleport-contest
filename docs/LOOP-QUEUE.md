@@ -140,8 +140,7 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `insight.c` show_gamelog — blocks 1/713 corpus sessions (first at step 261; RNG lost 0, screens lost 1): toplines identical; first differing screen row 3: C «3: eschewed atheism, by dropping 4 uncursed cram rations on an altar» vs JS «4: made her first wish - "dwarf corpse", got "a dwarf corpse"» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify show_gamelog` (scen-symset-Ranger-53050029). @857fe4c5d **[history: archived D-1878 — read that D-entry once; the arm this divergence names is still open]**
-- [ ] `do.c` polymorph_sink — blocks 1/713 corpus sessions (first at step 325; RNG lost 0, screens lost 1): C «The sink transforms into an opulent throne!--More--» vs JS «The sink transforms into a throne!--More--». Probe: `node scripts/hidden-proxy.mjs verify polymorph_sink` (scen-symset-Wizard-53050007). @857fe4c5d **[history: ledger: ported — read that D-entry once; the arm this divergence names is still open]**
+- [ ] `do.c` polymorph_sink — blocks 1/713 corpus sessions (first at step 325; RNG lost 0, screens lost 1): C «The sink transforms into an opulent throne!--More--» vs JS «The sink transforms into a throne!--More--». Probe: `node scripts/hidden-proxy.mjs verify polymorph_sink` (scen-symset-Wizard-53050007). @41014a186 **[history: ledger: ported — read that D-entry once; the arm this divergence names is still open]**
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)

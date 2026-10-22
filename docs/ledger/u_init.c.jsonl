@@ -4,7 +4,7 @@
 {"fn":"u_init_race","c":"792-864","status":"ported","js":["js/u_init.js:u_init_race"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all race arms incl eager ROLL_FROM instrument + full elf/dwarf/orc knows lists"}
 {"fn":"pauper_reinit","c":"870-925","status":"ported","js":["js/u_init.js:pauper_reinit"],"d":["D-2699"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: skill wipe, weapon_slots=2, full preknown switch + override discover"}
 {"fn":"u_init_carry_attr_boost","c":"929-940","status":"ported","js":["js/u_init.js:u_init_carry_attr_boost"],"d":["D-3426"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
-{"fn":"u_init_misc","c":"944-1036","status":"ported","js":["js/u_init.js:u_init_misc"],"d":["D-3397"],"at":"2026-10-03@7636db97b","note":"audit 2026-10-03: uz/hp/pw/align/hunger/spl_book/nv/xray/handedness match"}
+{"fn":"u_init_misc","c":"944-1036","status":"ported","js":["js/u_init.js:u_init_misc"],"d":["D-4219","D-3397"],"at":"2026-10-22@41014a186","note":"audit 2026-10-03: uz/hp/pw/align/hunger/spl_book/nv/xray/handedness match"}
 {"fn":"skills_for_role","c":"1040-1090","status":"ported","js":["js/u_init.js:skills_for_role"],"d":["D-2707"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: all 13 roles + panic->throw"}
 {"fn":"restricted_spell_discipline","c":"1094-1105","status":"ported","js":["js/u_init.js:restricted_spell_discipline"],"at":"2026-10-03@bbe63333a","note":"audit 2026-10-03: skill scan; JS arrays unterminated so for-loop == C while loop"}
 {"fn":"trquan","c":"1109-1114","status":"ported","js":["js/u_init.js:trquan"],"d":["D-3426"],"at":"2026-10-04@0d801c73f","note":"audited D-3426: whole vs C"}
