@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed ring of polymorph control\nPil#polyself\nwater elemental\n 20s        .\u0007plains centaur\n.20s   Fn   sm. 20s  sm.   #polyself\nbaby crocodile\n #monster\nsl        sm.\u0007silver dragon\nFn  Fn  Fn  yy\u001by  y y y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 53652001,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed ring of polymorph control\nPil#polyself\nwater elemental\n 20s        .\u0007plains centaur\n.20s   Fn   sm. 20s  sm.   #polyself\nbaby crocodile\n #monster\nsl        sm.\u0007silver dragon\nFn  Fn  Fn  yy\u001by  y y y\u001by  2"
+  }
+ ]
+}

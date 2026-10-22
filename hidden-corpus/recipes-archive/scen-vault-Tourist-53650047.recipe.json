@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u001617\n\u0006\u0014 \u001b@LLLLlkkk. ,10ss10s20s  Touristo\n  d$s\u00163\n\u0006k#wipe\n\u00162\n\u0006\u001612\n\u0006\\ way\u001620\n\u0006<P\u00168\n\u0006\u001619\n  \u0006\u0014@LLLLLKlllkkkk. ,10s10s20s Touristo\n  ..s20s  sm.  n sk #twoweapon\n#conduct\n \u00162\n\u0006#ride\nhy#rub\n\u00166\n\u0006\u00163\n\u0006\u00164\n\u0006#jump\n#offer\n\u001616\n\u0006\u001620\n\u0006\u00163\n\u0006\u00166\n\u0006qjeh  \u001611\n    \u0006\u0014@HHHHHJhhhhjjjjj. ,20ss20s Creosote\n20s  s20s.s20s\u001810s<_.\u0016\u0006\u0016\u0006r,\u0016\u0006j;>.\u0016\u0006c;.\u0016\u0006aq\u0016\u0006\u0016\u0006\u0016\u0006#invoke\n  di\u00169\n\u0006\u001611\n \u0006\u00169\n\u0006\u00164\n\u0006\u00163\n\u0006\u001620\n\u0006\u001619\n\u0006\u0014@LLLLLLKllllkkkk. ,s10s  s10s20s20ss10sn #sit\n 20s  n _>..m.  n\u00168\n\u00169\n\u0006\u00162\n\u0006\u001620\n\u0006\u001616\n\u0006\u00168\n\u0006\u001616\n\u0006\u00165\n\u0006\u001612\n\u0006\u00162\n\u0006\u001613\n\u0006;_.#name\no\n\u001611\n \u0006#untrap\nban. \u001612\n\u0006\u00164\n\u0006\u001619\n  \u0006\u0014@LLLLLKlllllllkkkkk.  ,  n20ss  sss10s10s20sn\u00167\n\u0006\u001620\n\u0006: : \u001620\n\u0006\u00163\n   \u0006#dip"
+ },
+ "segments": [
+  {
+   "seed": 53650047,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=runmode:walk\nOPTIONS=fruit:mango\nOPTIONS=playmode:debug\n",
+   "moves": " \u001617\n\u0006\u0014 \u001b@LLLLlkkk. ,10ss10s20s  Touristo\n  d$s\u00163\n\u0006k#wipe\n\u00162\n\u0006\u001612\n\u0006\\ way\u001620\n\u0006<P\u00168\n\u0006\u001619\n  \u0006\u0014@LLLLLKlllkkkk. ,10s10s20s Touristo\n  ..s20s  sm.  n sk #twoweapon\n#conduct\n \u00162\n\u0006#ride\nhy#rub\n\u00166\n\u0006\u00163\n\u0006\u00164\n\u0006#jump\n#offer\n\u001616\n\u0006\u001620\n\u0006\u00163\n\u0006\u00166\n\u0006qjeh  \u001611\n    \u0006\u0014@HHHHHJhhhhjjjjj. ,20ss20s Creosote\n20s  s20s.s20s\u001810s<_.\u0016\u0006\u0016\u0006r,\u0016\u0006j;>.\u0016\u0006c;.\u0016\u0006aq\u0016\u0006\u0016\u0006\u0016\u0006#invoke\n  di\u00169\n\u0006\u001611\n \u0006\u00169\n\u0006\u00164\n\u0006\u00163\n\u0006\u001620\n\u0006\u001619\n\u0006\u0014@LLLLLLKllllkkkk. ,s10s  s10s20s20ss10sn #sit\n 20s  n _>..m.  n\u00168\n\u00169\n\u0006\u00162\n\u0006\u001620\n\u0006\u001616\n\u0006\u00168\n\u0006\u001616\n\u0006\u00165\n\u0006\u001612\n\u0006\u00162\n\u0006\u001613\n\u0006;_.#name\no\n\u001611\n \u0006#untrap\nban. \u001612\n\u0006\u00164\n\u0006\u001619\n  \u0006\u0014@LLLLLKlllllllkkkkk.  ,  n20ss  sss10s10s20sn\u00167\n\u0006\u001620\n\u0006: : \u001620\n\u0006\u00163\n   \u0006#dip"
+  }
+ ]
+}

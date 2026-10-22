@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n       \u0016?\n>Bk10s  Fj\u0017wand of digging\nziy\u0017wand of digging\nzjkklyyb10skj\u0017wand of digging\nzkk\u0017wand of striking\nzlk u\u0017wand of digging\nzml\u0017wand of striking\nznhb\u0017wand of digging\nzoh\u0017wand of striking\nzph\u0017wand of striking\nzqk\u0017wand of striking\nzrh\u0017wand of striking\nzsl\u0017wand of striking\nzt>Fu \u0017scroll of earth\nru \u0017scroll of earth\nrv uukkby\u0017scroll of earth\nrw h \u0017scroll of earth\nrx hylunllk uhbbnyljljbbnhk#levelchange\n6\n\u0016?\n>E\u0017blessed ring of levitation\nPzr kyuhnnj\u0017wand of digging\nzA>hnn\u0017scroll of earth\nrB \u0017wand of striking\nzCj\u0017scroll of earth\nry  nnnnnuju10s\u0017scroll of earth\nry hhl10shyjnlnjnljljjjunnjyukjnnlkjhjjluulnbl\u0006_ \u001b,>wb ry \u0006_>._,>\u0006_>>._.>\u0006_>,_.>\u000f\u001b\u00162\n\u0018\u001byu\u0017wand of magic missile\nED  ad aerarium\nh\u0017athame\nEE:\u0017wand of probing\nEF \u0017magic marker\nEG:u\u0016?\nj\u0006\u0017magic flute\naHnnsBFCsBBnEoBGBsGeGBsAsEEAoCoAACnCCAotCECDFB\nhn aHnABFCDBFoBAtFGsGGFnDBGDeDstenBBtsnBGBBAADFEC\nyl#enhance\nyh\na\n\u001b#conduct\n 10s #levelchange\n12\n      \u0017cursed potion of hallucination\nqI #dip\nEFu Fu\u0017blessed ring of aggravate monster\n\u0007little dog\nPJsm.  n  sm. .m.  \u0017spellbook of force bolt\nrK @.    n  sm. .m.ZZ\u0017uncursed Cleaver\n\u0007Archon\nwLFb FyFb     n  #invoke\nL        n  X\u0017Werebane\n\u0007Famine\nyy  n  wM   n    n   n  Fu  n  n  n   n   n  n  n Fh  yy\u001by   y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 53650001,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n       \u0016?\n>Bk10s  Fj\u0017wand of digging\nziy\u0017wand of digging\nzjkklyyb10skj\u0017wand of digging\nzkk\u0017wand of striking\nzlk u\u0017wand of digging\nzml\u0017wand of striking\nznhb\u0017wand of digging\nzoh\u0017wand of striking\nzph\u0017wand of striking\nzqk\u0017wand of striking\nzrh\u0017wand of striking\nzsl\u0017wand of striking\nzt>Fu \u0017scroll of earth\nru \u0017scroll of earth\nrv uukkby\u0017scroll of earth\nrw h \u0017scroll of earth\nrx hylunllk uhbbnyljljbbnhk#levelchange\n6\n\u0016?\n>E\u0017blessed ring of levitation\nPzr kyuhnnj\u0017wand of digging\nzA>hnn\u0017scroll of earth\nrB \u0017wand of striking\nzCj\u0017scroll of earth\nry  nnnnnuju10s\u0017scroll of earth\nry hhl10shyjnlnjnljljjjunnjyukjnnlkjhjjluulnbl\u0006_ \u001b,>wb ry \u0006_>._,>\u0006_>>._.>\u0006_>,_.>\u000f\u001b\u00162\n\u0018\u001byu\u0017wand of magic missile\nED  ad aerarium\nh\u0017athame\nEE:\u0017wand of probing\nEF \u0017magic marker\nEG:u\u0016?\nj\u0006\u0017magic flute\naHnnsBFCsBBnEoBGBsGeGBsAsEEAoCoAACnCCAotCECDFB\nhn aHnABFCDBFoBAtFGsGGFnDBGDeDstenBBtsnBGBBAADFEC\nyl#enhance\nyh\na\n\u001b#conduct\n 10s #levelchange\n12\n      \u0017cursed potion of hallucination\nqI #dip\nEFu Fu\u0017blessed ring of aggravate monster\n\u0007little dog\nPJsm.  n  sm. .m.  \u0017spellbook of force bolt\nrK @.    n  sm. .m.ZZ\u0017uncursed Cleaver\n\u0007Archon\nwLFb FyFb     n  #invoke\nL        n  X\u0017Werebane\n\u0007Famine\nyy  n  wM   n    n   n  Fu  n  n  n   n   n  n  n Fh  yy\u001by   y y y\u001b  F"
+  }
+ ]
+}

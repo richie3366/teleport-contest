@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>EnFhljjbjjhnFkbFynFkhbFlbybbbb10snFy  FyhFjhnkbbbbbbb10sFjFnFjFnbjnyjjb10sb10sFljjbbSy\u001b nn#sit\n\u001bh#conduct\n \\   #ride\nbys#offer\n#untrap\nk,",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53651023,
+   "datetime": "20120503020444",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>EnFhljjbjjhnFkbFynFkhbFlbybbbb10snFy  FyhFjhnkbbbbbbb10sFjFnFjFnbjnyjjb10sb10sFljjbbSy\u001b"
+  },
+  {
+   "seed": 54151023,
+   "datetime": "20060522091704",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " nn#sit\n\u001bh#conduct\n \\   #ride\nbys#offer\n#untrap\nk,"
+  }
+ ]
+}

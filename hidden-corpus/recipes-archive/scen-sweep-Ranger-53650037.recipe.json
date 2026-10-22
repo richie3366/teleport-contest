@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n8\n       #wizintrinsic\ni\n uhn\u0017scroll of enchant weapon\nrg\u0017blessed wand of undead turning\nzhkzhb20s    ss\u00164\n\u0006#levelchange\n10\n \u00178 rocks\nQ-\u00074 jackal\njf d   fb flfn \u0017halberd\nwj\u0007grid bug\nhaj \u001bm,x  #twoweapon\nFnFlbyn,#enhance\nyj\nq\n\u001b#wizintrinsic\nhm\n  \u0017towel\nakE- Elbereth Elbereth\nE-y I am a fish\n;k;\u0017meatball\nel\u0017wand of enlightenment\nzm \u001b zm \u001bsm.sm.sy\u001624\n#levelchange\n14\n   \u0016?\n>y  _mmm.Fb  _.#chat\ny _mmmm.#chat\nb_mmm.   nFy _,#chat\nb;y.#monster\nZ#rub\n#levelchange\n12\n\u0017blessed ring of polymorph control\nPnl #polyself\ncobra\n    #monster\nbsm. .m.  \u0007Death\nnFy  Fy    n   Fb    n    n 20s     n   n sm.     n   n sm.   n  #polyself\nsoldier ant\n #monster\nsm.       n 20s    n \u0007imp\nFu   n    n Fu   n   n Fh    n   n.m.   yy\u001by   ny n  2"
+ },
+ "segments": [
+  {
+   "seed": 53650037,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n8\n       #wizintrinsic\ni\n uhn\u0017scroll of enchant weapon\nrg\u0017blessed wand of undead turning\nzhkzhb20s    ss\u00164\n\u0006#levelchange\n10\n \u00178 rocks\nQ-\u00074 jackal\njf d   fb flfn \u0017halberd\nwj\u0007grid bug\nhaj \u001bm,x  #twoweapon\nFnFlbyn,#enhance\nyj\nq\n\u001b#wizintrinsic\nhm\n  \u0017towel\nakE- Elbereth Elbereth\nE-y I am a fish\n;k;\u0017meatball\nel\u0017wand of enlightenment\nzm \u001b zm \u001bsm.sm.sy\u001624\n#levelchange\n14\n   \u0016?\n>y  _mmm.Fb  _.#chat\ny _mmmm.#chat\nb_mmm.   nFy _,#chat\nb;y.#monster\nZ#rub\n#levelchange\n12\n\u0017blessed ring of polymorph control\nPnl #polyself\ncobra\n    #monster\nbsm. .m.  \u0007Death\nnFy  Fy    n   Fb    n    n 20s     n   n sm.     n   n sm.   n  #polyself\nsoldier ant\n #monster\nsm.       n 20s    n \u0007imp\nFu   n    n Fu   n   n Fh    n   n.m.   yy\u001by   ny n  2"
+  }
+ ]
+}

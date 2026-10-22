@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0006_ \u001b;>_>,Fn_,Fh>Fhs_>.Fk_.Fh >Fhs\u0006_>,Fb_,.Fy>Fhs_>._.>_>,_.>\u0006_>>._.>_>>._.>_>>._.>\u0006_>._.>_>._,>_>,_.>Z#offer\n\u0006_>._.>_>._,>_>._,>tblwa\u0006_>._.>_>._.>_>,_,>\u0006_>>._.>_>>,_,>_>>,_,>\u0006#levelchange\n12\n           \u0017Demonbane\nwf s..#invoke\nffn\u0007pit viper\n.m...20ssm.sm.\u0007hell hound\nFk Fk  Fk \u0007captain\n;y;sl   sm..l    n  \u0007kraken\n#chat\nh   Fh    n   Fy   \u000f\u001b\u00167\nbkn \u0017rolling boulder trap\nl^h\u0007yellow mold\nsm.   n.usm. 20s  n\u0017anti-magic field\nub.k20s   r\u001bojZ\u001622\n\u0016?\n>y  _mmmm.#chat\nb   n _mmmmm. Fb  _,#chat\nb  ;b,_mm,#chat\nb    n;b:  _m, sn#name\ni\n#conduct\n \u00162\nj y \u0017wand of lightning\nEg  I am a fish\n:     n\u0017wand of cancellation\nEh I am a fish\n: \u0017wand of enlightenment\nEi \u001b Elbereth\n: \u0017wand of nothing\nEj X marks the spot\n  n: bE- Elbereth\n\u0007gnome lord\n.ss  n \u00169\n\u0017pick-axe\n\u0016?\n>waku jk   n akn nyny  n\u0017grave\nak> ssl  n n_>.ak> \u00162\n\u0007tame pony\n\u0017saddle\nalk  n \u0017lance\nwm#ride\njy\u0007tame saddled warhorse\n#ride\njy\u0007tame saddled horse\n#ride\njy\u0004ls .\u0007newt\nFj   nFjFj,lh\u0004b\u0004n  n     \u001624\n\u00165\n #levelchange\n8\n \u0007Croesus\nnsm. sm.  n  sm.     yy\u001bnny y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 53650049,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0006_ \u001b;>_>,Fn_,Fh>Fhs_>.Fk_.Fh >Fhs\u0006_>,Fb_,.Fy>Fhs_>._.>_>,_.>\u0006_>>._.>_>>._.>_>>._.>\u0006_>._.>_>._,>_>,_.>Z#offer\n\u0006_>._.>_>._,>_>._,>tblwa\u0006_>._.>_>._.>_>,_,>\u0006_>>._.>_>>,_,>_>>,_,>\u0006#levelchange\n12\n           \u0017Demonbane\nwf s..#invoke\nffn\u0007pit viper\n.m...20ssm.sm.\u0007hell hound\nFk Fk  Fk \u0007captain\n;y;sl   sm..l    n  \u0007kraken\n#chat\nh   Fh    n   Fy   \u000f\u001b\u00167\nbkn \u0017rolling boulder trap\nl^h\u0007yellow mold\nsm.   n.usm. 20s  n\u0017anti-magic field\nub.k20s   r\u001bojZ\u001622\n\u0016?\n>y  _mmmm.#chat\nb   n _mmmmm. Fb  _,#chat\nb  ;b,_mm,#chat\nb    n;b:  _m, sn#name\ni\n#conduct\n \u00162\nj y \u0017wand of lightning\nEg  I am a fish\n:     n\u0017wand of cancellation\nEh I am a fish\n: \u0017wand of enlightenment\nEi \u001b Elbereth\n: \u0017wand of nothing\nEj X marks the spot\n  n: bE- Elbereth\n\u0007gnome lord\n.ss  n \u00169\n\u0017pick-axe\n\u0016?\n>waku jk   n akn nyny  n\u0017grave\nak> ssl  n n_>.ak> \u00162\n\u0007tame pony\n\u0017saddle\nalk  n \u0017lance\nwm#ride\njy\u0007tame saddled warhorse\n#ride\njy\u0007tame saddled horse\n#ride\njy\u0004ls .\u0007newt\nFj   nFjFj,lh\u0004b\u0004n  n     \u001624\n\u00165\n #levelchange\n8\n \u0007Croesus\nnsm. sm.  n  sm.     yy\u001bnny y\u001by  ."
+  }
+ ]
+}

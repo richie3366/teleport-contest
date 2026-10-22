@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed amulet of reflection\nPe\u0017blessed +3 cloak of magic resistance\nWf\u0016?\n>w\u0006_ \u001b@.q\u0016?\n>Byju\u0016?\n>w\u0006_oo,,p_{.Fy_. Fy q_ooo.,p_ooooooo,_ooo,,$__.Fh _.   n Fh#chat\ny#pray\ny y _ooooo._ooo,,$_ooo.,p_oooo.,\u0014;ss_ooo.,#chat\ny_ooooooooo.,\u0017ruby\ndg_ooooooo.,:FyFyFyFyFyFy_oo.,:_{._,m.q_oooooo.,:nhj#chat\nhubk#chat\nl_{,_.:Fl q_oooooo.,$_ooooooooo._.,\u001bp_{,_.m.q_ooo._,,\u001b: _oooo._o.,\u001bp_oooooooo.,\u001bp_ooooooooo.,\u001b: _oo,,\u001b: _{,_.;m,q_oooooooo,,$jju#chat\nnyjn#chat\nb\u0016?\ncylj\u0016?\n>w\u0006_oooooo,_oo.,#chat\nk_ooooo,_.m,,:_oo,,\u0017amulet of strangulation\ndh_oooooo,_oo,,p\u0016?\nclny\u0016?\n>w\u0006_{.Fy  _,qy  __,  nFu  _. Fj   n #chat\nu    n  #pray\ny y           \u00166\n__,#chat\nu   n   n  \u00163\n_ooo.,p\u00163\nk   n    n nj  n    n\u0016?\n>w\u0006\u00167\nFu Fu   n  Fu ,  Fu   n     nFu    n Fu     n _ooooooooo,,\u0017amulet of unchanging\ndi    yy\u001by  "
+ },
+ "segments": [
+  {
+   "seed": 53650077,
+   "datetime": "20220226001813",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=sortloot:loot\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed amulet of reflection\nPe\u0017blessed +3 cloak of magic resistance\nWf\u0016?\n>w\u0006_ \u001b@.q\u0016?\n>Byju\u0016?\n>w\u0006_oo,,p_{.Fy_. Fy q_ooo.,p_ooooooo,_ooo,,$__.Fh _.   n Fh#chat\ny#pray\ny y _ooooo._ooo,,$_ooo.,p_oooo.,\u0014;ss_ooo.,#chat\ny_ooooooooo.,\u0017ruby\ndg_ooooooo.,:FyFyFyFyFyFy_oo.,:_{._,m.q_oooooo.,:nhj#chat\nhubk#chat\nl_{,_.:Fl q_oooooo.,$_ooooooooo._.,\u001bp_{,_.m.q_ooo._,,\u001b: _oooo._o.,\u001bp_oooooooo.,\u001bp_ooooooooo.,\u001b: _oo,,\u001b: _{,_.;m,q_oooooooo,,$jju#chat\nnyjn#chat\nb\u0016?\ncylj\u0016?\n>w\u0006_oooooo,_oo.,#chat\nk_ooooo,_.m,,:_oo,,\u0017amulet of strangulation\ndh_oooooo,_oo,,p\u0016?\nclny\u0016?\n>w\u0006_{.Fy  _,qy  __,  nFu  _. Fj   n #chat\nu    n  #pray\ny y           \u00166\n__,#chat\nu   n   n  \u00163\n_ooo.,p\u00163\nk   n    n nj  n    n\u0016?\n>w\u0006\u00167\nFu Fu   n  Fu ,  Fu   n     nFu    n Fu     n _ooooooooo,,\u0017amulet of unchanging\ndi    yy\u001by  "
+  }
+ ]
+}

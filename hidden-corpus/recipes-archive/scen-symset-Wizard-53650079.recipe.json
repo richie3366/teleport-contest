@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "O>j\u001b\nO>>>>j\u001b\n\u0006_ \u001bm.>FbFb_>.Fb_.> FbFbFn\u0006_>>.>FjFj_>>,>FbFn_>>,>FbFbFnFbFb\u0006_>.Fj_,>.Fj>FjFj_>.Fj_.:Fj>FjFj_>.Fj_.Fj>FjFjFjFjFj\u000f\u001b#sit\n#invoke\n\u001b\u00162\nf \u001b,#monster\nmO>e\u001b\ni\u001b,#ride\nj \u001616\nmO>d\u001b\nv\u001bi\u001b;j:  #turn\n\u0004u ,\u0006_>,Fl_.Fb>FbFj_>.Fn_>FlFj_>.Fn_>FlFlFnFnFl\u0006_>.   n   n  Fk_.Fk>FkFk_>.  nFu_.Fl>FlFl_>,Fl_.Fu>FuFuFuFuFu<#terrain\nb\n \u0006_>>.Fu_,Fu>FbFun _>>.Fk_,Fy>FuFy_>>,   nFkk _.>FkFuFuFkFy\u0006_>.Fk_.> \u00169\n\u00163\nFnFnFbFbFbFbFbFnFbFbFnFbFnFnFbFbFbFbFnFbFbFbFbFbFbFbFnFbFnFbFnFnFbFbFbFbFbFbFnFbFnFbFbFbFnFnFbFbFbFbFnFnFnFbFbFbFbFnFbFbFnFnFnFnFbFbFbFbFbFbFnFbFnFnFnFnFnFbFbFnFnFbFbFnFnFbFnFbFnFbFbFbFnFbFnFnFnFbFbFbFbFbFbFbFnFnFnFbFnFnFbFbFbFnFnFnFbFbFbFnv\u001bi\u001b\u0006_>.Fy_.Fkk >FyFky _>.Fk_.Fk>FkFk_>.Fy_,Fky >FhFyFh\u001bFhFk#monster\n#terrain\n\u001b\u0006_>.Fy_.Fh\u001b>FyFh\u001b_>.Fk_.Fk>FkFy_>,Fh\u001b_.Fy>FhFhFhFhFy\u0006_>,Fk_.Fk>FyFh\u001b_>,Fy_.Fy>FyFky _>,  nFh_,Fk>FhFyFyFhFh\u0006_>,Fy_.Fh\u001b>FhFh_>.Fk_.Fk>F"
+ },
+ "segments": [
+  {
+   "seed": 53650079,
+   "datetime": "20091002052125",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:IBMGraphics_2\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nMENUCOLOR=\"cursed\"=red\nBIND=v:inventory\n",
+   "moves": "O>j\u001b\nO>>>>j\u001b\n\u0006_ \u001bm.>FbFb_>.Fb_.> FbFbFn\u0006_>>.>FjFj_>>,>FbFn_>>,>FbFbFnFbFb\u0006_>.Fj_,>.Fj>FjFj_>.Fj_.:Fj>FjFj_>.Fj_.Fj>FjFjFjFjFj\u000f\u001b#sit\n#invoke\n\u001b\u00162\nf \u001b,#monster\nmO>e\u001b\ni\u001b,#ride\nj \u001616\nmO>d\u001b\nv\u001bi\u001b;j:  #turn\n\u0004u ,\u0006_>,Fl_.Fb>FbFj_>.Fn_>FlFj_>.Fn_>FlFlFnFnFl\u0006_>.   n   n  Fk_.Fk>FkFk_>.  nFu_.Fl>FlFl_>,Fl_.Fu>FuFuFuFuFu<#terrain\nb\n \u0006_>>.Fu_,Fu>FbFun _>>.Fk_,Fy>FuFy_>>,   nFkk _.>FkFuFuFkFy\u0006_>.Fk_.> \u00169\n\u00163\nFnFnFbFbFbFbFbFnFbFbFnFbFnFnFbFbFbFbFnFbFbFbFbFbFbFbFnFbFnFbFnFnFbFbFbFbFbFbFnFbFnFbFbFbFnFnFbFbFbFbFnFnFnFbFbFbFbFnFbFbFnFnFnFnFbFbFbFbFbFbFnFbFnFnFnFnFnFbFbFnFnFbFbFnFnFbFnFbFnFbFbFbFnFbFnFnFnFbFbFbFbFbFbFbFnFnFnFbFnFnFbFbFbFnFnFnFbFbFbFnv\u001bi\u001b\u0006_>.Fy_.Fkk >FyFky _>.Fk_.Fk>FkFk_>.Fy_,Fky >FhFyFh\u001bFhFk#monster\n#terrain\n\u001b\u0006_>.Fy_.Fh\u001b>FyFh\u001b_>.Fk_.Fk>FkFy_>,Fh\u001b_.Fy>FhFhFhFhFy\u0006_>,Fk_.Fk>FyFh\u001b_>,Fy_.Fy>FyFky _>,  nFh_,Fk>FhFyFyFhFh\u0006_>,Fy_.Fh\u001b>FhFh_>.Fk_.Fk>F"
+  }
+ ]
+}

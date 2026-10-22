@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                      \u0017T-shirt\nW\u001bsss\u0007chickatrice\nFk FlFl Fl 20ssm. \u0007wererat\nFlFuFu.sss20s\u0007incubus\nFuFuFusm.20sSy\u001b nn#ride\nuy:_<, \u001b@.syst\u001b#terrain\n\u001bdg#wipe\n z#jump\n\u0014m,#levelchange\n20\n\u00176 javelins\nQg\u0007acid blob\nlfbfnyjn,#enhanc",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53651013,
+   "datetime": "20150828150815",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                      \u0017T-shirt\nW\u001bsss\u0007chickatrice\nFk FlFl Fl 20ssm. \u0007wererat\nFlFuFu.sss20s\u0007incubus\nFuFuFusm.20sSy\u001b"
+  },
+  {
+   "seed": 54151013,
+   "datetime": "20021103162448",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " nn#ride\nuy:_<, \u001b@.syst\u001b#terrain\n\u001bdg#wipe\n z#jump\n\u0014m,#levelchange\n20\n\u00176 javelins\nQg\u0007acid blob\nlfbfnyjn,#enhanc"
+  }
+ ]
+}

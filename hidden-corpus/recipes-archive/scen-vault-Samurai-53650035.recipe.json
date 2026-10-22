@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00165\n\u0006\u001611\n\u0006\u001614\n\u0006\u00163\n\u0006\u0014 \u001b@HHhjjjj. ,10ss20s20s nobody\n  yhsussussssj   nlnssusy  nsusysshysssssssssusssZ#jump\n10s  n #dip\nc#jump\n\u00165\n\u001619\n\u0006\u0014@HHhhhhjjjjjj. ,ss10s Musashi\n  #untrap\nn\u0014,\u001619\n\u0006\u001615\n\u0006\u0014@LLLLlllllljjj. ,20s Musashi\n  \u0014.#turn\nKet$y\u001614\n\u0006\u001619\n \u0006\u001614\n\u0006\u001614\n\u0006\u001612\n\u0006<wc\u001611\n\u0006,r\u001b\u00167\n\u0006\u0014@Klllllllkk. ,20s20s Croesus\n\u00167\n\u0006\u0014@.,10s10s Musashi\n  d$h\u00169\n\u0006\u00166\n\u0006ze\u001617\n\u0006\u0014@HHHHHHHHhjjj.  , \u001b  d$s\\    k,\u0014m, \u001611\n\u0006fj E- I am a fish\n\u00169\n \u0006\u00165\n\u0006#sit\n #pray\ny y    \u00165\n\u0006\u001618\n \u0006\u001610\n\u0006\u0014@HHHHHHhkkkk. ,20s20s Musashi\n  \u0014;\\    Kk\u00169\n\u0006\u00167\n\u0006\u001617\n\u0006\u00169\n\u0006\u00162\n\u0006\u00169\n\u0006\u00168\n\u0006\u0014@HHHhhhhhj. ,20s Fred\n  Fh  FhFh  nFh  n\u00167\n\u001611\n\u0006,#enhance\nyc\np\n\u001b\u00165\n  \u0006uE- ad aerarium\n\u00167\n\u0006\u001617\n\u0006\u00168\n\u0006\u00165\n\u0006tdb#tip\n\u001b\u00163\n\u0006"
+ },
+ "segments": [
+  {
+   "seed": 53650035,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u00165\n\u0006\u001611\n\u0006\u001614\n\u0006\u00163\n\u0006\u0014 \u001b@HHhjjjj. ,10ss20s20s nobody\n  yhsussussssj   nlnssusy  nsusysshysssssssssusssZ#jump\n10s  n #dip\nc#jump\n\u00165\n\u001619\n\u0006\u0014@HHhhhhjjjjjj. ,ss10s Musashi\n  #untrap\nn\u0014,\u001619\n\u0006\u001615\n\u0006\u0014@LLLLlllllljjj. ,20s Musashi\n  \u0014.#turn\nKet$y\u001614\n\u0006\u001619\n \u0006\u001614\n\u0006\u001614\n\u0006\u001612\n\u0006<wc\u001611\n\u0006,r\u001b\u00167\n\u0006\u0014@Klllllllkk. ,20s20s Croesus\n\u00167\n\u0006\u0014@.,10s10s Musashi\n  d$h\u00169\n\u0006\u00166\n\u0006ze\u001617\n\u0006\u0014@HHHHHHHHhjjj.  , \u001b  d$s\\    k,\u0014m, \u001611\n\u0006fj E- I am a fish\n\u00169\n \u0006\u00165\n\u0006#sit\n #pray\ny y    \u00165\n\u0006\u001618\n \u0006\u001610\n\u0006\u0014@HHHHHHhkkkk. ,20s20s Musashi\n  \u0014;\\    Kk\u00169\n\u0006\u00167\n\u0006\u001617\n\u0006\u00169\n\u0006\u00162\n\u0006\u00169\n\u0006\u00168\n\u0006\u0014@HHHhhhhhj. ,20s Fred\n  Fh  FhFh  nFh  n\u00167\n\u001611\n\u0006,#enhance\nyc\np\n\u001b\u00165\n  \u0006uE- ad aerarium\n\u00167\n\u0006\u001617\n\u0006\u00168\n\u0006\u00165\n\u0006tdb#tip\n\u001b\u00163\n\u0006"
+  }
+ ]
+}

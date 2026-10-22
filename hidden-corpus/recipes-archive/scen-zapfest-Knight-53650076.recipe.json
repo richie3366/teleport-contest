@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWj\u0017blessed amulet of life saving\nPk#levelchange\n20\n                   \u0017crossbow\n wl\u001715 crossbow bolts\nQm\u0007yellow mold\nfl   takfktmkfk\u001611\n\u0007red dragon\n.m.  sh \u0017wand of cold\nany    ss\u00165\n\u0017elven bow\nwo\u001720 elven arrows\nQp\u0007newt\ntljfjfjtpbfj\u0017potion of see invisible\ntmy\u0017wand of cold\n\u0017wand of digging\n\u0017wand of cancellation\n\u0007gnome lord\n\u0007acid blob\nzryztksm.zs> szs> zry    zryztnsztn\u0007silver dragon\n\u0007black dragon\n.l sb.#polyself\nsilver dragon\n     s  20s #monster\nj #monster\ny#monster\nl #monster\nl ..\u0007aligned cleric\ny\u0007aligned cleric\ny\u0007succubus\n\u0017wand of sleep\nzzzzzzzzzi\u001b\u0007mind flayer\n\u0007orc shaman\n\u0007vampire\n\u0017wand of striking\n20szzzsm.           zzs   20s     n    i\u001b\u0007aligned cler"
+ },
+ "segments": [
+  {
+   "seed": 53650076,
+   "datetime": "20231208000633",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWj\u0017blessed amulet of life saving\nPk#levelchange\n20\n                   \u0017crossbow\n wl\u001715 crossbow bolts\nQm\u0007yellow mold\nfl   takfktmkfk\u001611\n\u0007red dragon\n.m.  sh \u0017wand of cold\nany    ss\u00165\n\u0017elven bow\nwo\u001720 elven arrows\nQp\u0007newt\ntljfjfjtpbfj\u0017potion of see invisible\ntmy\u0017wand of cold\n\u0017wand of digging\n\u0017wand of cancellation\n\u0007gnome lord\n\u0007acid blob\nzryztksm.zs> szs> zry    zryztnsztn\u0007silver dragon\n\u0007black dragon\n.l sb.#polyself\nsilver dragon\n     s  20s #monster\nj #monster\ny#monster\nl #monster\nl ..\u0007aligned cleric\ny\u0007aligned cleric\ny\u0007succubus\n\u0017wand of sleep\nzzzzzzzzzi\u001b\u0007mind flayer\n\u0007orc shaman\n\u0007vampire\n\u0017wand of striking\n20szzzsm.           zzs   20s     n    i\u001b\u0007aligned cler"
+  }
+ ]
+}

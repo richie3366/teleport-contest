@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed ring of free action\nPil\u0017blessed amulet of life saving\nPj\u0017blessed shield of reflection\nWk#levelchange\n10\n         \u0007vampire\n\u0007incubus\n\u0017wand of magic missile\n.m.sm.  y     20s   zljzlk zlh zll  zll  zll  \u0017crossbow\nwm \u001715 crossbow bolts\nQn\u0007yellow mold\nfl    fl fh fh fl tah  fl   nfl  \u0017blessed spellbook of fireball\nro sm.\u0007lich\n\u0007orc shaman\nZZZsm.  n20s ZZ20s   sky  nZZ#turn\n\u00168\n\u0017wand of polymorph\n\u0017wand of fire\n\u0017wand of magic missile\n\u0007giant rat\n\u0007giant rat\nzpk zry    n zrk  zpy   n sm.  zrl    n  zrk   zry     nzpyzpy  zqy  i\u001b\u00163\n\u0017wand of death\n\u0017wand of magic missile\n\u0017wand of slow monster\n\u0007gnome\n\u0007bugbear\nztu .m. ztu   n 20sztn20sztl   n ztu 20sztkztui\u001b\u00169\n\u0007master mind flayer\n\u0007gnomish wizard\n\u0017wand of cold\nzvh zvl         sh           20s   n   zvl      n   n zvh    n zvj      n zvh      n 20s     yy\u001by "
+ },
+ "segments": [
+  {
+   "seed": 53650088,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed ring of free action\nPil\u0017blessed amulet of life saving\nPj\u0017blessed shield of reflection\nWk#levelchange\n10\n         \u0007vampire\n\u0007incubus\n\u0017wand of magic missile\n.m.sm.  y     20s   zljzlk zlh zll  zll  zll  \u0017crossbow\nwm \u001715 crossbow bolts\nQn\u0007yellow mold\nfl    fl fh fh fl tah  fl   nfl  \u0017blessed spellbook of fireball\nro sm.\u0007lich\n\u0007orc shaman\nZZZsm.  n20s ZZ20s   sky  nZZ#turn\n\u00168\n\u0017wand of polymorph\n\u0017wand of fire\n\u0017wand of magic missile\n\u0007giant rat\n\u0007giant rat\nzpk zry    n zrk  zpy   n sm.  zrl    n  zrk   zry     nzpyzpy  zqy  i\u001b\u00163\n\u0017wand of death\n\u0017wand of magic missile\n\u0017wand of slow monster\n\u0007gnome\n\u0007bugbear\nztu .m. ztu   n 20sztn20sztl   n ztu 20sztkztui\u001b\u00169\n\u0007master mind flayer\n\u0007gnomish wizard\n\u0017wand of cold\nzvh zvl         sh           20s   n   zvl      n   n zvh    n zvj      n zvh      n 20s     yy\u001by "
+  }
+ ]
+}

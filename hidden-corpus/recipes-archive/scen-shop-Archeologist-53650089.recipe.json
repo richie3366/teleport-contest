@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b<.,\u0014<.ssFl FlFlFlFlFlhnh#chat\nl_ooooo.Fl_.,p_{,Fl_,Fl  nq\u00163\nklk\u0016?\n>w\u0006hhy#chat\ny_ooooooo,,#chat\nb\u00163\nhhj\u0016?\n>w\u0006__. _..Fj#chat\nj_oooooooo,,p_{.Fb  n  _.Fj  nq\u001612\njhj#chat\ny__.#chat\nb_oooooooo.,$_ooooooooo,Fl_,,p_{.qFlFlFlFlFl  nFl_oo.,pFlFlFlFlFlFl FlFl  nFlFlFlFl_oooooo,_ooo.,$FlFlFlFlFl  nFlFlFlFlFlFlFlFl   nFlFlFlFlFl_ooooooo,,#chat\nl_oooooo.,p_ooooo.,:_ooooooo,,\u0017dilithium crystal\ndl_{.q_oo,,\u0017amulet of ESP\ndm_{,qFlFlFlFl  nFlFl_oooo._ooo,,p__.#chat\nl#pray\ny y _{.q_o"
+ },
+ "segments": [
+  {
+   "seed": 53650089,
+   "datetime": "20090713091723",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b<.,\u0014<.ssFl FlFlFlFlFlhnh#chat\nl_ooooo.Fl_.,p_{,Fl_,Fl  nq\u00163\nklk\u0016?\n>w\u0006hhy#chat\ny_ooooooo,,#chat\nb\u00163\nhhj\u0016?\n>w\u0006__. _..Fj#chat\nj_oooooooo,,p_{.Fb  n  _.Fj  nq\u001612\njhj#chat\ny__.#chat\nb_oooooooo.,$_ooooooooo,Fl_,,p_{.qFlFlFlFlFl  nFl_oo.,pFlFlFlFlFlFl FlFl  nFlFlFlFl_oooooo,_ooo.,$FlFlFlFlFl  nFlFlFlFlFlFlFlFl   nFlFlFlFlFl_ooooooo,,#chat\nl_oooooo.,p_ooooo.,:_ooooooo,,\u0017dilithium crystal\ndl_{.q_oo,,\u0017amulet of ESP\ndm_{,qFlFlFlFl  nFlFl_oooo._ooo,,p__.#chat\nl#pray\ny y _{.q_o"
+  }
+ ]
+}

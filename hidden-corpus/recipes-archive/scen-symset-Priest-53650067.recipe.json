@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #twoweapon\n#jump\nw-v i\u001b\u00165\nFn FnFnFnFlFlFnFnFlFnFlFnFlFlFlFnFnFlFnFn  nFlFnFl  n Fj FnFnFn  n FjFnFlFl  n FnFl#pray\ny y        FnFj Fl  nFnFjFjFnFn  n FlFnFj  n FnFl  n FnFj  nFjFn Fl  nFlFj FlFlFl  nFj  Fl Fj Fl   n Fn  Fn Fj    nFj  Fj FlFjFj Fj   FjFnFlFn FlFj Fj  Fj FnFjFj Fn  nFjFl FnFjFlFj  n FjFlFlFn Fl  yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 53650067,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:Enhanced2\nOPTIONS=playmode:debug\nOPTIONS=number_pad:0\n",
+   "moves": " #twoweapon\n#jump\nw-v i\u001b\u00165\nFn FnFnFnFlFlFnFnFlFnFlFnFlFlFlFnFnFlFnFn  nFlFnFl  n Fj FnFnFn  n FjFnFlFl  n FnFl#pray\ny y        FnFj Fl  nFnFjFjFnFn  n FlFnFj  n FnFl  n FnFj  nFjFn Fl  nFlFj FlFlFl  nFj  Fl Fj Fl   n Fn  Fn Fj    nFj  Fj FlFjFj Fj   FjFnFlFn FlFj Fj  Fj FnFjFj Fn  nFjFl FnFjFlFj  n FjFlFlFn Fl  yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

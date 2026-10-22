@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             uny\u0017melting ice\nyn\u0017grave\n:\u0017wand of digging\nzj> ssdgr\u001b\u0018\u001b\u001618\n\u0006_ \u001b@.>FyFu_>,Fn_,Fn>FnFb_>.Fn_,Fb>FnFnFbFnFb#wipe\n\u000f\u001b\u0006_>>,Fn_.Fn>FbFb_>>.Fb_,Fn>FbFn_>>,Fn_.Fb>FbFbFbFnFb\u0006_>.Fn_.Fb>FnFn_>.Fb_.Fn>FnFn_>.Fn_,Fb>FbFnFnFnFn<\u0006_>>,Fb_.Fn >FnFn_>>,Fb _.Fn>Fn Fk_>>.Fb _.Fb >Fb Fn FkFn Fb J#terrain\n\u001b\u0006_>.  nFb _.Fk>FkFk_>.Fb _,Fk>Fn Fk_>.Fk_.Fn >Fk  nFn Fn Fn Fk<\u0006_>>.Fn _.Fk>Fb Fn_>>.Fn _,Fk>FnFb_>>.Fn_.Fb>FbFnFbFnFn\u001611\n\u0006_>.Fj_.Fb>FbFn_>.Fh_.Fb >FhFb _>.Fb_.Fb  n>FbFb#ride\nuy#force\n\u0006_>,Fh_.Fb>Fh Fh_>.Fk _,Fy >FkFk _>.Fh_,> Fh   Fb   Fb   n   \u0006_>>,Fn_.  Fy   >Fl Fh_>>. Fy         n   _.              n Fh  >Fj       Fj _>>, Fn  _.  n Fk    >Fl   .\u000f\u001b\u001610\nmOa\u001b\n#dip\nbfj#enhance\nyh\nc\n\u001b#untrap\nj\u00165\nFhFnFjFnFnFb#pray\ny y #pray\ny y #pray\ny y FkFhFkFhFyFuFlFnFb#pray\ny y  #pray\ny y     #pray\ny y     Fb FhFlFnFuFbFbFuFyFkFlFuFjFjFuFbFlFnFnFuFnFyFlFbFyFuFbFjFkFjFlFhFkFhFkFyFyFyFyFkFjFhFyFjFjFkFlFkFyFhFyFuFjFkFuFkFhFlFhFhFhFhFkFyFhFlF"
+ },
+ "segments": [
+  {
+   "seed": 53650043,
+   "datetime": "20130716040123",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:IBMgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             uny\u0017melting ice\nyn\u0017grave\n:\u0017wand of digging\nzj> ssdgr\u001b\u0018\u001b\u001618\n\u0006_ \u001b@.>FyFu_>,Fn_,Fn>FnFb_>.Fn_,Fb>FnFnFbFnFb#wipe\n\u000f\u001b\u0006_>>,Fn_.Fn>FbFb_>>.Fb_,Fn>FbFn_>>,Fn_.Fb>FbFbFbFnFb\u0006_>.Fn_.Fb>FnFn_>.Fb_.Fn>FnFn_>.Fn_,Fb>FbFnFnFnFn<\u0006_>>,Fb_.Fn >FnFn_>>,Fb _.Fn>Fn Fk_>>.Fb _.Fb >Fb Fn FkFn Fb J#terrain\n\u001b\u0006_>.  nFb _.Fk>FkFk_>.Fb _,Fk>Fn Fk_>.Fk_.Fn >Fk  nFn Fn Fn Fk<\u0006_>>.Fn _.Fk>Fb Fn_>>.Fn _,Fk>FnFb_>>.Fn_.Fb>FbFnFbFnFn\u001611\n\u0006_>.Fj_.Fb>FbFn_>.Fh_.Fb >FhFb _>.Fb_.Fb  n>FbFb#ride\nuy#force\n\u0006_>,Fh_.Fb>Fh Fh_>.Fk _,Fy >FkFk _>.Fh_,> Fh   Fb   Fb   n   \u0006_>>,Fn_.  Fy   >Fl Fh_>>. Fy         n   _.              n Fh  >Fj       Fj _>>, Fn  _.  n Fk    >Fl   .\u000f\u001b\u001610\nmOa\u001b\n#dip\nbfj#enhance\nyh\nc\n\u001b#untrap\nj\u00165\nFhFnFjFnFnFb#pray\ny y #pray\ny y #pray\ny y FkFhFkFhFyFuFlFnFb#pray\ny y  #pray\ny y     #pray\ny y     Fb FhFlFnFuFbFbFuFyFkFlFuFjFjFuFbFlFnFnFuFnFyFlFbFyFuFbFjFkFjFlFhFkFhFkFyFyFyFyFkFjFhFyFjFjFkFlFkFyFhFyFuFjFkFuFkFhFlFhFhFhFhFkFyFhFlF"
+  }
+ ]
+}

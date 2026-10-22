@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    \u0016?\n>BFk yyyyyjk10skyyyykkykbyuuuuklllulllju\u0017wand of digging\nziun\u0017scroll of earth\nrj luuhuk\u0017scroll of earth\nrk  yjuukyhlkylllyhb\u0016?\n>Ebbbbbbb10s\u0017wand of striking\nzlbl\u0017scroll of earth\nrm \u0017wand of striking\nznl\u0017wand potion of gain e"
+ },
+ "segments": [
+  {
+   "seed": 53651003,
+   "datetime": "20110603144156",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n    \u0016?\n>BFk yyyyyjk10skyyyykkykbyuuuuklllulllju\u0017wand of digging\nziun\u0017scroll of earth\nrj luuhuk\u0017scroll of earth\nrk  yjuukyhlkylllyhb\u0016?\n>Ebbbbbbb10s\u0017wand of striking\nzlbl\u0017scroll of earth\nrm \u0017wand of striking\nznl\u0017wand potion of gain e"
+  }
+ ]
+}

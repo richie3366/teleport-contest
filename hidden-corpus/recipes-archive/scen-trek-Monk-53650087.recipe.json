@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "10s #chat\nlda20s.sdf.s20s#chat\nlk  j  >ey>KUYJ_ \u001b>.>UJUB_>.>JBYB_>.>YKYJ _>.>Fls.<UUYU_>.>B BKU_>,>#chat\nj10slh#chat\nh10s   10s\u0018\u001b50s_>,>nhl150s          Fb Fb .buhnuk150s            Fn s20s150slnyFh20ssnlb_>,>\\  #sit\n\u001b_>.>huk100sFhss100s#dip\nddi\u001b100sFhFhsjubuhn150si\u001b_>.>50s150s100sFhs.h100s100see150sLJBY_>.><HYHK_>,>UHHN_>.>B HNU_>,>w\u001b__,.\u000f\u001b20suy10slnknhlylhnBKUB_>.>Fb.20s#sit\n\u001b#twoweapon\n<B NLY _>.>NH YK_>,>ri y #tip\n\u001bLULB_>.>ri y \u0014<HYJY_>.><HNLH_>.>qd#name\nd\n\u000f\u001b_>.>kjnFkFus_>,>\u000f\u001b_>,>100s100s150s100sFk.20s100s100sFks20s\u000f\u001bhlyFuFlFu_>,>100s100s50sFu20s.150s_>.>jlhFkss100s50s100seekjl100s50sulbhhlhly150ssFu20ssjlhJKUJ_>,"
+ },
+ "segments": [
+  {
+   "seed": 53650087,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\n",
+   "moves": "10s #chat\nlda20s.sdf.s20s#chat\nlk  j  >ey>KUYJ_ \u001b>.>UJUB_>.>JBYB_>.>YKYJ _>.>Fls.<UUYU_>.>B BKU_>,>#chat\nj10slh#chat\nh10s   10s\u0018\u001b50s_>,>nhl150s          Fb Fb .buhnuk150s            Fn s20s150slnyFh20ssnlb_>,>\\  #sit\n\u001b_>.>huk100sFhss100s#dip\nddi\u001b100sFhFhsjubuhn150si\u001b_>.>50s150s100sFhs.h100s100see150sLJBY_>.><HYHK_>,>UHHN_>.>B HNU_>,>w\u001b__,.\u000f\u001b20suy10slnknhlylhnBKUB_>.>Fb.20s#sit\n\u001b#twoweapon\n<B NLY _>.>NH YK_>,>ri y #tip\n\u001bLULB_>.>ri y \u0014<HYJY_>.><HNLH_>.>qd#name\nd\n\u000f\u001b_>.>kjnFkFus_>,>\u000f\u001b_>,>100s100s150s100sFk.20s100s100sFks20s\u000f\u001bhlyFuFlFu_>,>100s100s50sFu20s.150s_>.>jlhFkss100s50s100seekjl100s50sulbhhlhly150ssFu20ssjlhJKUJ_>,"
+  }
+ ]
+}

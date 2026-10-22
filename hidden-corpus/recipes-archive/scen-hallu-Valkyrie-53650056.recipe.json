@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPel\u0017blessed +3 speed boots\nWf\u0017blessed leash\n\u0017blessed magic lamp\n\u0017blessed magic harp\n\u0017blessed 20 daggers\nQj#levelchange\n20\n                   #wizintrinsic\nh\n \u0017wand of lightning\nzkj  zknzkjzkhzk\u0017wand of slow monster\nzlkzluzlnzlyzln\u0018\u001bnljy;. \u001b,E- I am a fish\n#wizintrinsic\nh\n\u0017potion of healing\nqms\u0017scroll of mail\nrn \u0017egg\neo;>.E-n  I am a fish\n\u0007bugbear\nFbFbFbss\u0016?\n>>L     amulet of ESP\njj    u y       k jb  n    :#wizintrinsic\nh\n\u0016?\n\u001b#levelchange\n12\n \u0017cursed tinning kit\n\u0007soldier ant\nar        \u0017cursed luckstone\nass\u00173 scroll of light\nrt  Fj Fk      n   \u0017potion of enlightenment\nqu \u001b       n          .y     n      sk   n         \u00163\n#wizintrinsic\nh\n\u0017blessed spellbook of sleep\nrv s Z: \u0016?\n"
+ },
+ "segments": [
+  {
+   "seed": 53650056,
+   "datetime": "20080717095609",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPel\u0017blessed +3 speed boots\nWf\u0017blessed leash\n\u0017blessed magic lamp\n\u0017blessed magic harp\n\u0017blessed 20 daggers\nQj#levelchange\n20\n                   #wizintrinsic\nh\n \u0017wand of lightning\nzkj  zknzkjzkhzk\u0017wand of slow monster\nzlkzluzlnzlyzln\u0018\u001bnljy;. \u001b,E- I am a fish\n#wizintrinsic\nh\n\u0017potion of healing\nqms\u0017scroll of mail\nrn \u0017egg\neo;>.E-n  I am a fish\n\u0007bugbear\nFbFbFbss\u0016?\n>>L     amulet of ESP\njj    u y       k jb  n    :#wizintrinsic\nh\n\u0016?\n\u001b#levelchange\n12\n \u0017cursed tinning kit\n\u0007soldier ant\nar        \u0017cursed luckstone\nass\u00173 scroll of light\nrt  Fj Fk      n   \u0017potion of enlightenment\nqu \u001b       n          .y     n      sk   n         \u00163\n#wizintrinsic\nh\n\u0017blessed spellbook of sleep\nrv s Z: \u0016?\n"
+  }
+ ]
+}

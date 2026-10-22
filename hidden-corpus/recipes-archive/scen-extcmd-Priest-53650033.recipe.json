@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 helm of telepathy\nWk\u0017blessed amulet of reflection\nPl \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007hill orc\n#dip\nl#offer\n#pray\n#chat\n#jump\n#wizidentify\nhnh ck\u001618\n\u0006\u0007hobbit\n#overview\n\u001b#conduct\n #annotate\nFido\n\u000f\u001b#name\n\u001b#adjust\ng\u001b#chat\nk #turn\n#jump\n#wizdetect\n\u0006FhFhFh Fh_ \u001b.#chat\nk#vanquished\n #genocided\nsewer rat\ne\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #levelchange\n17\nFk s..#twoweapon\n__,#chat\nj#chronicle\n  #terrain\n\u001b\u000f\u001b#wipe\n#loot\n#chat\nu#chat\nn#wizidentify\n\u001bhyn__.#chat\nj\u0007grid bug\n#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#tip\n\u001b#ride\nhy#turn\n  #sit\n#wizintrinsic\nq\n Fh.__,#chat\ny\u0007owlbear\n#overview\n\u001b#conduct\n i\u001b#dip\na\u001b#offer\n#pray\ny y   #chat\nh #polyself\npurple worm\n  sk  20s Fh  shuy__.#chat\n\u0007owlbear\n#vanquished\n #genocided\njellyfish\n \u000f\u001b#name\n\u001b#adjust\nf\u001b#chat\ny #turn\n    n #jump\n#levelchange\n7\n   Fy Fy _{,Fk _.qd  n #chronicle\n  #terrain\n\u001b#annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y    #jump\n#levelchange\n10\n  Fk  Fk Fk _ooooo.  n  Fk _,Fh ,#version\n  #history\n                "
+ },
+ "segments": [
+  {
+   "seed": 53650033,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 helm of telepathy\nWk\u0017blessed amulet of reflection\nPl \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n16\n               \u0007hill orc\n#dip\nl#offer\n#pray\n#chat\n#jump\n#wizidentify\nhnh ck\u001618\n\u0006\u0007hobbit\n#overview\n\u001b#conduct\n #annotate\nFido\n\u000f\u001b#name\n\u001b#adjust\ng\u001b#chat\nk #turn\n#jump\n#wizdetect\n\u0006FhFhFh Fh_ \u001b.#chat\nk#vanquished\n #genocided\nsewer rat\ne\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #levelchange\n17\nFk s..#twoweapon\n__,#chat\nj#chronicle\n  #terrain\n\u001b\u000f\u001b#wipe\n#loot\n#chat\nu#chat\nn#wizidentify\n\u001bhyn__.#chat\nj\u0007grid bug\n#version\n  #history\n                  #annotate\n\u001b\u000f\u001b#tip\n\u001b#ride\nhy#turn\n  #sit\n#wizintrinsic\nq\n Fh.__,#chat\ny\u0007owlbear\n#overview\n\u001b#conduct\n i\u001b#dip\na\u001b#offer\n#pray\ny y   #chat\nh #polyself\npurple worm\n  sk  20s Fh  shuy__.#chat\n\u0007owlbear\n#vanquished\n #genocided\njellyfish\n \u000f\u001b#name\n\u001b#adjust\nf\u001b#chat\ny #turn\n    n #jump\n#levelchange\n7\n   Fy Fy _{,Fk _.qd  n #chronicle\n  #terrain\n\u001b#annotate\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y    #jump\n#levelchange\n10\n  Fk  Fk Fk _ooooo.  n  Fk _,Fh ,#version\n  #history\n                "
+  }
+ ]
+}

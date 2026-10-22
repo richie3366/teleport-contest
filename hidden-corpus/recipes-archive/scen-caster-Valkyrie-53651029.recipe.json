@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed spellbook of dig\nre20s\u0017spellbook of remove curse\nrf.m.\u0017blessed spellbook of magic mapping\nrgsm.\u0017spellbook of cure blindness\nrh.y+\u0007gnome lord\nZZ\u0007zombie\nZ\u0007ghoul\nZ#pray\ny y      Sy\u001b ny>#turn\n#ride\nhy,#name\na\ned #force\n #offer\n#twoweapon\n#twoweapon\ni\u001b\u0007housecat\n\u0017apple\ntbhdism. sm.20s \u0017magic w",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53651029,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed spellbook of dig\nre20s\u0017spellbook of remove curse\nrf.m.\u0017blessed spellbook of magic mapping\nrgsm.\u0017spellbook of cure blindness\nrh.y+\u0007gnome lord\nZZ\u0007zombie\nZ\u0007ghoul\nZ#pray\ny y      Sy\u001b"
+  },
+  {
+   "seed": 54151029,
+   "datetime": "20181229005121",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " ny>#turn\n#ride\nhy,#name\na\ned #force\n #offer\n#twoweapon\n#twoweapon\ni\u001b\u0007housecat\n\u0017apple\ntbhdism. sm.20s \u0017magic w"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  \u0017locked chest\n\u0017cursed bag of holding\n\u0017wand of fire\n\u0017wand of enlightenment\ndil \u0004hdj #loot\no\n,ajb\na\n\u001baek\u0017credit card\ndfam.sss#loot\nr\n#tip\nyj\n\u0017chest\n\u0017locked chest\n\u0017potion of booze\n\u0017ring of hunger\n\u0017wand of speed monster\ndnj\u0004k ary  y\u001b     y  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 53651006,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017locked chest\n\u0017cursed bag of holding\n\u0017wand of fire\n\u0017wand of enlightenment\ndil \u0004hdj #loot\no\n,ajb\na\n\u001baek\u0017credit card\ndfam.sss#loot\nr\n#tip\nyj\n\u0017chest\n\u0017locked chest\n\u0017potion of booze\n\u0017ring of hunger\n\u0017wand of speed monster\ndnj\u0004k ary  y\u001b     y  \u0017"
+  }
+ ]
+}

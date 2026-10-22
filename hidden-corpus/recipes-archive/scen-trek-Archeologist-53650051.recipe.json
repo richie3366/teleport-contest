@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  #name\nf\n ;t\u001bdh20s20s.#name\nf\n#chat\n,dis.20slyublhk julnybFh20sFjFj 20s.FlssunynbuFlFls100syhj100s50s_>,>\u0018\u001bhly100sFlss\u0018\u001b_>,>150sjlynubFl   FlFl100s  FlFlFlFlFuFu50s100sFl20sFlFls.kbujyn\u0018\u001bnub100sFu.._>.>100s150sFu20ssFussK HJ U_>.>NKLU_>._,> UJNJ_>.>\u000f\u001bUYNJ_>,>UNLY_>.>BHUL_>.>KUNU_>,><50sbubklki\u001b\u0018\u001b\\ i\u001b_>.>50s_>,>jbk100sed_>,>jjk100sFu20s.FuFuFu150sol150sFuFus150s50sFbFbFbr\u001b150s50s\u0004uz_>,>150s100s150s  Fb Fb Fb_>.>50sFu.s100s100s20s t\u001b#name\no\n#chat\nujbhhyl#name\nd\nt\u001b#name\no\n#name\ni\nt\u001b10sdd sm.20s sm.20s LHUK_>,>LHJ L_>.>W\u0014LNHL_>,>i\u001bhhyFu.20si\u001b\u000f\u001b100s100s r\u001b_>.>nlli\u001b100s  Fh Fhs#pray\ny   #ride\nn100s100sFk20sFkFks20s#enhance\n\u001bybh100si\u001b50s50s100sFkss\\ 150ss100s FuFuFu50s FlFls_>,>150s  FkFk Fk\\ 100sFhss\u0014#sit\n\u001br\u001bYLH   L_>.>#monster\nn<LLKH_>.>NBHH_>.><HKBH_>.>FhFhFh<NKUU_>,>#twoweapon\nW\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehlnlhujh#name\nd\nju#name\nf\n:dcss20seeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 53650051,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:explore\n",
+   "moves": "  #name\nf\n ;t\u001bdh20s20s.#name\nf\n#chat\n,dis.20slyublhk julnybFh20sFjFj 20s.FlssunynbuFlFls100syhj100s50s_>,>\u0018\u001bhly100sFlss\u0018\u001b_>,>150sjlynubFl   FlFl100s  FlFlFlFlFuFu50s100sFl20sFlFls.kbujyn\u0018\u001bnub100sFu.._>.>100s150sFu20ssFussK HJ U_>.>NKLU_>._,> UJNJ_>.>\u000f\u001bUYNJ_>,>UNLY_>.>BHUL_>.>KUNU_>,><50sbubklki\u001b\u0018\u001b\\ i\u001b_>.>50s_>,>jbk100sed_>,>jjk100sFu20s.FuFuFu150sol150sFuFus150s50sFbFbFbr\u001b150s50s\u0004uz_>,>150s100s150s  Fb Fb Fb_>.>50sFu.s100s100s20s t\u001b#name\no\n#chat\nujbhhyl#name\nd\nt\u001b#name\no\n#name\ni\nt\u001b10sdd sm.20s sm.20s LHUK_>,>LHJ L_>.>W\u0014LNHL_>,>i\u001bhhyFu.20si\u001b\u000f\u001b100s100s r\u001b_>.>nlli\u001b100s  Fh Fhs#pray\ny   #ride\nn100s100sFk20sFkFks20s#enhance\n\u001bybh100si\u001b50s50s100sFkss\\ 150ss100s FuFuFu50s FlFls_>,>150s  FkFk Fk\\ 100sFhss\u0014#sit\n\u001br\u001bYLH   L_>.>#monster\nn<LLKH_>.>NBHH_>.><HKBH_>.>FhFhFh<NKUU_>,>#twoweapon\nW\u000f\u001beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeehlnlhujh#name\nd\nju#name\nf\n:dcss20seeeeeeee"
+  }
+ ]
+}

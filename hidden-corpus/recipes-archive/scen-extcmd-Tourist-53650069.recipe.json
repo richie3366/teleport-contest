@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 silver dragon scale mail\nWo \u0017blessed amulet of life saving\nPp\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007jackal\nFl FuFu_ \u001bm.qj#overview\n\u001b#conduct\n #annotate\nfoo\n\u000f\u001b#dip\nnj#offer\n#pray\ny y  #chat\nl#jump\n#wizmap\n\u0006FlFl_{._.Fj qj#vanquished\n #genocided\nKeystone Kop\nfi\u001b#name\n\u001b#adjust\nm\u001b#chat\nk#turn\n#jump\n#wizidentify\n\u001byyl_<,_.#chronicle\n  #terrain\n\u001b#annotate\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #levelchange\n10\n  bkj#dip\nnr \u001b__.#chat\nk\u0007bugbear\n#version\n  #history\n                  \u0018\u001b#wipe\n#loot\nl#chat\nl#chat\nl#polyself\nfog cloud\n #monster\n20s  sm.FlFuFlFu_oo.Fl _.Fl,\u001b#overview\n\u001b#conduct\n #annotate\n\u001b\u0018\u001b#tip\n\u001b#ride\nly#turn\n#sit\n#polyself\nred dragon\n  20s 20s Fl Fk Fusss,\u001b_<,_.#vanquished\n #genocided\nshrieker\ni  \u0018\u001b#dip\nc#offer\n#pray\ny y     #chat\nj#jump\n#wizmap\n\u0006FjFjs\u0016?\ne\u0006"
+ },
+ "segments": [
+  {
+   "seed": 53650069,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 silver dragon scale mail\nWo \u0017blessed amulet of life saving\nPp\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n20\n                   \u0007jackal\nFl FuFu_ \u001bm.qj#overview\n\u001b#conduct\n #annotate\nfoo\n\u000f\u001b#dip\nnj#offer\n#pray\ny y  #chat\nl#jump\n#wizmap\n\u0006FlFl_{._.Fj qj#vanquished\n #genocided\nKeystone Kop\nfi\u001b#name\n\u001b#adjust\nm\u001b#chat\nk#turn\n#jump\n#wizidentify\n\u001byyl_<,_.#chronicle\n  #terrain\n\u001b#annotate\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #levelchange\n10\n  bkj#dip\nnr \u001b__.#chat\nk\u0007bugbear\n#version\n  #history\n                  \u0018\u001b#wipe\n#loot\nl#chat\nl#chat\nl#polyself\nfog cloud\n #monster\n20s  sm.FlFuFlFu_oo.Fl _.Fl,\u001b#overview\n\u001b#conduct\n #annotate\n\u001b\u0018\u001b#tip\n\u001b#ride\nly#turn\n#sit\n#polyself\nred dragon\n  20s 20s Fl Fk Fusss,\u001b_<,_.#vanquished\n #genocided\nshrieker\ni  \u0018\u001b#dip\nc#offer\n#pray\ny y     #chat\nj#jump\n#wizmap\n\u0006FjFjs\u0016?\ne\u0006"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n           #levelchange\n30\n                 \u0007wood nymph\nFjFj        Fl20sssss20s\u0007floating eye\nFyFn                     Fn                  nFn          nFysm.20s \u0007mind flayer\nFn                                     n Fn                                    nFk       Fl       Fk       Fy       Fu20s       sm.#pray\ny y               \u001612\n\u0006_ \u001bm,>_>,Fh_,<.Fk>FkFk_>.  nFu_,,Fl>FlFyFlFlFl<\u0006_>.Fl_.;@.Fl>FlFl_>.Fl_.m.> \u0006_>._.@.>_>._,.>_>._,@.>#twoweapon\nZ\u0006_>,_.<.>_>._.,>_>,_,m.>\u0006_>._,,>_>._..>_>._,:>\u0004h;m,<\u001627\n   \u0017Sting\nwi s.s\u0007scorpion\nFbFb Fb Fb  Fb \u0007homunculus\nFnFb Fb Fn Fn   n  #wizintrinsic\nfm\n Z\u0017tin of lizard meat\nej       \u0017scroll of light\nrk  Zsm..m.  20s #levelchange\n12\n        \u0007ice devil\n.m.sl  nsm.      sm.   sm. \u0007yellow light\n20s   n   sm. .    20s  s    n 20s s.    .    n \u0007Pestilence\nyy   ;j;.   n    sj    n sm.  \u0007large mimic\nFj   n   Fu     n    Fj    n  Fk    n   Fh    n \u001622\n\u0007tame housecat\n\u0007tame jackal\n#name\no\n10s    n \u0017leash\nalj   nbbj     yy\u001by   y y y\u001b  j"
+ },
+ "segments": [
+  {
+   "seed": 53650013,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n           #levelchange\n30\n                 \u0007wood nymph\nFjFj        Fl20sssss20s\u0007floating eye\nFyFn                     Fn                  nFn          nFysm.20s \u0007mind flayer\nFn                                     n Fn                                    nFk       Fl       Fk       Fy       Fu20s       sm.#pray\ny y               \u001612\n\u0006_ \u001bm,>_>,Fh_,<.Fk>FkFk_>.  nFu_,,Fl>FlFyFlFlFl<\u0006_>.Fl_.;@.Fl>FlFl_>.Fl_.m.> \u0006_>._.@.>_>._,.>_>._,@.>#twoweapon\nZ\u0006_>,_.<.>_>._.,>_>,_,m.>\u0006_>._,,>_>._..>_>._,:>\u0004h;m,<\u001627\n   \u0017Sting\nwi s.s\u0007scorpion\nFbFb Fb Fb  Fb \u0007homunculus\nFnFb Fb Fn Fn   n  #wizintrinsic\nfm\n Z\u0017tin of lizard meat\nej       \u0017scroll of light\nrk  Zsm..m.  20s #levelchange\n12\n        \u0007ice devil\n.m.sl  nsm.      sm.   sm. \u0007yellow light\n20s   n   sm. .    20s  s    n 20s s.    .    n \u0007Pestilence\nyy   ;j;.   n    sj    n sm.  \u0007large mimic\nFj   n   Fu     n    Fj    n  Fk    n   Fh    n \u001622\n\u0007tame housecat\n\u0007tame jackal\n#name\no\n10s    n \u0017leash\nalj   nbbj     yy\u001by   y y y\u001b  j"
+  }
+ ]
+}

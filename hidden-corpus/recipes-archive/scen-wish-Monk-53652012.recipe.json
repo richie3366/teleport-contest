@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                      \u0017blessed stethoscope\najk \u0017dilithium crystal\n\u0007lich\nt\u001b\u00173 potion of blindness\nql\u0017eucalyptus leaf\nem.sFhFh\u0017wand of digging\n\u0007baluchitherium\nznlznk \u00173 amulet of magical breathing\nPo20s   s  n 20s   s s  yny   y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 53652012,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                      \u0017blessed stethoscope\najk \u0017dilithium crystal\n\u0007lich\nt\u001b\u00173 potion of blindness\nql\u0017eucalyptus leaf\nem.sFhFh\u0017wand of digging\n\u0007baluchitherium\nznlznk \u00173 amulet of magical breathing\nPo20s   s  n 20s   s s  yny   y y\u001by  s"
+  }
+ ]
+}

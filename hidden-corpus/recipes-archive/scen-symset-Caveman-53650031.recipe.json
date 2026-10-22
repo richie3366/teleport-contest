@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u00164\nFjFjFbFjFnFun FbFuj FnFbFjFjFnFnFjFbFbFjFbFjFnFub FbFjFjFjFnFjFnFjFjFuFuFbFuj FjFjFbFjFjFnFjFbFjFbFbFuFnFbFjFbFjFnFnFnFbFjFjFuFbFjFuFnFjFuFjFuFuFnFbFbFnFjFjFjFuFnFbFbFjFbFnFjFbFnFuFjFnFjFuFbFub FnFbFuFbFjFbFnFjFbFnFnFnFjFuFnFbFjFnFbFnFjFnFnFnFnFbFbFbe#enhance\nyn\nn\n\u001bv i\u001bv i\u001bv i\u001b\\ #ride\nb <\u001613\n\u0006_ \u001b,>FyFh\u001b_>>,Fl_,Fl>FnFun _>>,Fu_,Fb>FbFbFnFun Fb\u0006_>>,Fn_>FlFn_>FnFun _>>.Fn_>FnFnFnFnFn#dip\nb#dip\ne\u0006_>.Fn_>FlFn_>FuFu_>,Fu_,Fl>FlFnFnFnFnP#force\n\u0006_>>,Fu_.Fl>FlFj_>>.Fj_,Fu>FlFj_>>,Fl_.Fl>FlFnFun FnFn\u0006_>.Fl_.Fn>FnFlFu\u00162\n  i\u001b150sFbFjFjFnFnFbFbFbFbFnFjFnFjFbFbFbFnFjFbFnFnFjFjFnFbFjFbFbFjFbFbFnFbFnFbFbFjFjFjFjFnFbFnFnFjFbFjFbFbFjFnFjFbFjFbFjFjFnFjFbFjFjFnFnFbFbFjFnFnFjFjFnFjFbFjFnFjFbFbFnFbFjFjFbFbFjFjFnFbF"
+ },
+ "segments": [
+  {
+   "seed": 53650031,
+   "datetime": "20041016230534",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\nOPTIONS=number_pad\nMSGTYPE=hide \"You feel\"\nMENUCOLOR=\"uncursed\"=cyan\n",
+   "moves": "\u00164\nFjFjFbFjFnFun FbFuj FnFbFjFjFnFnFjFbFbFjFbFjFnFub FbFjFjFjFnFjFnFjFjFuFuFbFuj FjFjFbFjFjFnFjFbFjFbFbFuFnFbFjFbFjFnFnFnFbFjFjFuFbFjFuFnFjFuFjFuFuFnFbFbFnFjFjFjFuFnFbFbFjFbFnFjFbFnFuFjFnFjFuFbFub FnFbFuFbFjFbFnFjFbFnFnFnFjFuFnFbFjFnFbFnFjFnFnFnFnFbFbFbe#enhance\nyn\nn\n\u001bv i\u001bv i\u001bv i\u001b\\ #ride\nb <\u001613\n\u0006_ \u001b,>FyFh\u001b_>>,Fl_,Fl>FnFun _>>,Fu_,Fb>FbFbFnFun Fb\u0006_>>,Fn_>FlFn_>FnFun _>>.Fn_>FnFnFnFnFn#dip\nb#dip\ne\u0006_>.Fn_>FlFn_>FuFu_>,Fu_,Fl>FlFnFnFnFnP#force\n\u0006_>>,Fu_.Fl>FlFj_>>.Fj_,Fu>FlFj_>>,Fl_.Fl>FlFnFun FnFn\u0006_>.Fl_.Fn>FnFlFu\u00162\n  i\u001b150sFbFjFjFnFnFbFbFbFbFnFjFnFjFbFbFbFnFjFbFnFnFjFjFnFbFjFbFbFjFbFbFnFbFnFbFbFjFjFjFjFnFbFnFnFjFbFjFbFbFjFnFjFbFjFbFjFjFnFjFbFjFjFnFnFbFbFjFnFnFjFjFnFjFbFjFnFjFbFbFnFbFjFjFbFbFjFjFnFbF"
+  }
+ ]
+}

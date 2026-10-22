@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " nkbj#name\no\nnubuhu20sdiss20s20sj10sk df..20s20sFh s20s100s50si\u001b150slnhllh100s50sFhs.bhl100s\u0018\u001bbuu\u000f\u001bbkj100s FyFy._ \u001b;>150s\u0018\u001b50s_>.>100sFhFhFhFhFhFhFhFyFyFhFy  yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 53650063,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": " nkbj#name\no\nnubuhu20sdiss20s20sj10sk df..20s20sFh s20s100s50si\u001b150slnhllh100s50sFhs.bhl100s\u0018\u001bbuu\u000f\u001bbkj100s FyFy._ \u001b;>150s\u0018\u001b50s_>.>100sFhFhFhFhFhFhFhFyFyFhFy  yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

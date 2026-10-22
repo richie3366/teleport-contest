@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " mOa\u001b\nFjFjFjFuFjFjFuFjFjFuFjFuFuFjFuFuFjFjFuFjFuFuFuFuFuFuFjFuFuFuFjFuFjFjFjFuFjFjFjFuFuFjFuFjFjFuFjFjFjFuFuFjFuFjFjFuFuFjFuFjFjFjFuFuFjFjFjFjFuFjFjFjFuFuFuFuFjFuFuFjFuFjFjFjFjFjFuFuFuFuFuFuFjFjFjFuFjFjFuFuFjFjFjFjFjFjFuFjFjFjFjFjFjFjFuFuFuFjFuFuO>>>>g\u001b\nO>>>>d\u001b\n\u001615\n   v i\u001b\u001612\nFnFkk FuFuFyFyFkFhFhFnFuu FkFhFhFkFhFkFuFyFh\u001bFyFnFyFh\u001bFyFh\u001bFuFnFuh FkFuFnFyFkFuFkFhFuFuFhFhFhFkFkFyFnFkFuFkFyFkn FnFuk FyFun FuFuFkFuFuFkFyFuu FkFhFnFnFkFuFkFuFyFku FuFyFyFhFnFyFhFkFuFyFkh FhFhFuFhFnFnFyFyFyFnFyFnFuFyFkn FyFyFyFnFhFuFhFnFnFhFuFyFh\u001bFhFnFnFnFkh FhFnFnFkFyFh\u001bFkFkFnFkh FnFyFuFuFnFkh FyFnFhFhFuFhFnFuh FnFyFhFyFyFnFnFhFhFkFkFnFyFnFh\u001bFkFuFuFkFhFyFuu FhFyFh\u001bFyFun FnFnFuFnFkn FhFhFuFkFkFhFnFkk FyFuk FnFh\u001bFyFyFyFky FyFuk FhFnFyFhFyFku FhFhFnFkh FnFh\u001bFkFkFyFky FnFnFyFuk FnFh\u001bFuFkFuFnFkh FuFhFyFky FyFyFyFuy FyFyFuFyFuk FyFkk FkFyFnFhFyFun Fkv i\u001b\u0007tame kitten\n\u0007yellow mold\ns20s  ..ss#chat\nu \u0007lichen\n.m...sss#chat\nn 20s\u0017carrot\ntbu \u0006_ \u001bm,>FkFl_>>,Fj_.>FlFlFn\u0006_>,>FkFl_>.>FjFk_>,>FbFkb FkFbFj#offer\n#rub\n\u0006_>. Fu_.   "
+ },
+ "segments": [
+  {
+   "seed": 53650091,
+   "datetime": "20250628223442",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nOPTIONS=msg_window:reversed\n",
+   "moves": " mOa\u001b\nFjFjFjFuFjFjFuFjFjFuFjFuFuFjFuFuFjFjFuFjFuFuFuFuFuFuFjFuFuFuFjFuFjFjFjFuFjFjFjFuFuFjFuFjFjFuFjFjFjFuFuFjFuFjFjFuFuFjFuFjFjFjFuFuFjFjFjFjFuFjFjFjFuFuFuFuFjFuFuFjFuFjFjFjFjFjFuFuFuFuFuFuFjFjFjFuFjFjFuFuFjFjFjFjFjFjFuFjFjFjFjFjFjFjFuFuFuFjFuFuO>>>>g\u001b\nO>>>>d\u001b\n\u001615\n   v i\u001b\u001612\nFnFkk FuFuFyFyFkFhFhFnFuu FkFhFhFkFhFkFuFyFh\u001bFyFnFyFh\u001bFyFh\u001bFuFnFuh FkFuFnFyFkFuFkFhFuFuFhFhFhFkFkFyFnFkFuFkFyFkn FnFuk FyFun FuFuFkFuFuFkFyFuu FkFhFnFnFkFuFkFuFyFku FuFyFyFhFnFyFhFkFuFyFkh FhFhFuFhFnFnFyFyFyFnFyFnFuFyFkn FyFyFyFnFhFuFhFnFnFhFuFyFh\u001bFhFnFnFnFkh FhFnFnFkFyFh\u001bFkFkFnFkh FnFyFuFuFnFkh FyFnFhFhFuFhFnFuh FnFyFhFyFyFnFnFhFhFkFkFnFyFnFh\u001bFkFuFuFkFhFyFuu FhFyFh\u001bFyFun FnFnFuFnFkn FhFhFuFkFkFhFnFkk FyFuk FnFh\u001bFyFyFyFky FyFuk FhFnFyFhFyFku FhFhFnFkh FnFh\u001bFkFkFyFky FnFnFyFuk FnFh\u001bFuFkFuFnFkh FuFhFyFky FyFyFyFuy FyFyFuFyFuk FyFkk FkFyFnFhFyFun Fkv i\u001b\u0007tame kitten\n\u0007yellow mold\ns20s  ..ss#chat\nu \u0007lichen\n.m...sss#chat\nn 20s\u0017carrot\ntbu \u0006_ \u001bm,>FkFl_>>,Fj_.>FlFlFn\u0006_>,>FkFl_>.>FjFk_>,>FbFkb FkFbFj#offer\n#rub\n\u0006_>. Fu_.   "
+  }
+ ]
+}

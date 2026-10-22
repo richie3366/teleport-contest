@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed spellbook of fireball\nris\u0017spellbook of cure sickness\nrj s+\u001bZa\nsZb\nZb\nZa\n\u0007kobold\nZb\n\u0007sewer rat\nZb\nZb\n#turn\n  #enhance\nyp\nf\n\u001b\u001720 darts\n Qk\u0007newt\nunfy  fk    \u0017halberd\n wl\u0007kobold\nualn    k y,\\   \u0007tame dingo\n\u0006_ \u001bm,  >FbFn_>. _.>_>. _. Fl >FlFl 20s\u0017tripe ration\ntbk\u0006_>,_,Fj >_>,_,>_>._.>10s20s\u0017tin whistle\nnujanny#levelchange\n20\n\u0017blessed ring of polymorph control\nPol#polyself\nwarhorse\n  #monster\n20s.m.\u0007sergeant\nFj FjFj.k.m.sm. #polyself\nwerewolf\n sandestin\n homunculus\n #monster\nsm.s\u0007shopkeeper\nyFj  Fl  Fl .m.sn.m.  #polyself\nwarhorse\n20s .m.\u0007master lich\nFk   FlFh    nsn    20s   .m.  \u0017wand of polymorph\nzpk  n  \u00161\n\u001611\ni\u001begsm.20s wlFh  Fh20swkyFj   <.ss#terrain\nb\ns #conduct\n fjtll#twoweapon\n#terrain\nb\n#ride\n>.\u001610\n\u0016?\n>Eulluyjj\u0017wand of striking\nzsj\u0017wand of striking\nzthh\u0017wand of striking\nzuj\u0017scroll of earth\nrv ujlkhyjyjbbbbjjhuhl\u0017wand of striking\nzwl\u0017wand of digging\nzx>\u0017wand of digging\nzyhb\u0017wand of digging\nzz>\u0017scroll of earth\nrA  knn10snnnbnnnlhlbuuhnnhh10s\u0017chest\n\u0017wand of striking\n#tip\nB\u001bdBl\u0004hds#loot\n,aCy  i\u001b\u0007water nymph\nFn Fn FnsFnsn20s\u0007disenchanter\nFhFhFhFhFhFhFnsm..m.  n\u0007ape\nFl  FlFn   Fh Fn20s   sm. #pray\ny y          \u0017uncursed worthless piece of red glass\ntkn   n   \u0017unicorn horn\n\u0007ettin\naE    aE    Fh   n  Fl \u0017uncursed bag of holding\n\u0007couatl\naFb\ne\n\u001baFb\ne\n\u001b#tip\nF\u001b Fh Fn  sm.   n  .m. \u001611\n#lev"
+ },
+ "segments": [
+  {
+   "seed": 53650025,
+   "datetime": "20190827133941",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed spellbook of fireball\nris\u0017spellbook of cure sickness\nrj s+\u001bZa\nsZb\nZb\nZa\n\u0007kobold\nZb\n\u0007sewer rat\nZb\nZb\n#turn\n  #enhance\nyp\nf\n\u001b\u001720 darts\n Qk\u0007newt\nunfy  fk    \u0017halberd\n wl\u0007kobold\nualn    k y,\\   \u0007tame dingo\n\u0006_ \u001bm,  >FbFn_>. _.>_>. _. Fl >FlFl 20s\u0017tripe ration\ntbk\u0006_>,_,Fj >_>,_,>_>._.>10s20s\u0017tin whistle\nnujanny#levelchange\n20\n\u0017blessed ring of polymorph control\nPol#polyself\nwarhorse\n  #monster\n20s.m.\u0007sergeant\nFj FjFj.k.m.sm. #polyself\nwerewolf\n sandestin\n homunculus\n #monster\nsm.s\u0007shopkeeper\nyFj  Fl  Fl .m.sn.m.  #polyself\nwarhorse\n20s .m.\u0007master lich\nFk   FlFh    nsn    20s   .m.  \u0017wand of polymorph\nzpk  n  \u00161\n\u001611\ni\u001begsm.20s wlFh  Fh20swkyFj   <.ss#terrain\nb\ns #conduct\n fjtll#twoweapon\n#terrain\nb\n#ride\n>.\u001610\n\u0016?\n>Eulluyjj\u0017wand of striking\nzsj\u0017wand of striking\nzthh\u0017wand of striking\nzuj\u0017scroll of earth\nrv ujlkhyjyjbbbbjjhuhl\u0017wand of striking\nzwl\u0017wand of digging\nzx>\u0017wand of digging\nzyhb\u0017wand of digging\nzz>\u0017scroll of earth\nrA  knn10snnnbnnnlhlbuuhnnhh10s\u0017chest\n\u0017wand of striking\n#tip\nB\u001bdBl\u0004hds#loot\n,aCy  i\u001b\u0007water nymph\nFn Fn FnsFnsn20s\u0007disenchanter\nFhFhFhFhFhFhFnsm..m.  n\u0007ape\nFl  FlFn   Fh Fn20s   sm. #pray\ny y          \u0017uncursed worthless piece of red glass\ntkn   n   \u0017unicorn horn\n\u0007ettin\naE    aE    Fh   n  Fl \u0017uncursed bag of holding\n\u0007couatl\naFb\ne\n\u001baFb\ne\n\u001b#tip\nF\u001b Fh Fn  sm.   n  .m. \u001611\n#lev"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "10s tby#name\na\nyt\u001b#chat\nlt\u001bt\u001bhubut\u001bbukjnbyuk10s   "
+ },
+ "segments": [
+  {
+   "seed": 53651025,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:explore\n",
+   "moves": "10s tby#name\na\nyt\u001b#chat\nlt\u001bt\u001bhubut\u001bbukjnbyuk10s   "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " mO>wt\n#ride\nnmO>vp\n e\u001bOj\n\u0018\u001bmO>>>>jak\nu\n f\n\u001b20sae\nnOeg\nk\nz\u001b20s .20s  O>ne\nh\nf\ni\n\u001b\u001b#untrap\ny#untrap\nymO>>>>>vu\ng\n m\n#invoke\nc\nmO>>>>>w\nv\n20s #turn\nOchp\n\\   Ws."
+ },
+ "segments": [
+  {
+   "seed": 53651011,
+   "datetime": "20140509170241",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=sortloot:none\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:explore\n",
+   "moves": " mO>wt\n#ride\nnmO>vp\n e\u001bOj\n\u0018\u001bmO>>>>jak\nu\n f\n\u001b20sae\nnOeg\nk\nz\u001b20s .20s  O>ne\nh\nf\ni\n\u001b\u001b#untrap\ny#untrap\nymO>>>>>vu\ng\n m\n#invoke\nc\nmO>>>>>w\nv\n20s #turn\nOchp\n\\   Ws."
+  }
+ ]
+}

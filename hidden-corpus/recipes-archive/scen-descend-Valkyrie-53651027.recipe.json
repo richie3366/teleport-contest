@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "B YKU_ \u001b>.>FnFnFjBNUK_>.>LJHK_>.>ULLU_>.>Fh20ssLNUB_>.>Fh ..#sit\n\u001b>BKNY_>,>\\   ed KJBU_>.>#conduct\n s\u000f\u001bSy\u001bHZ#conduct\n \u000f\u001bE- I am a fish\n#invoke\n\u001b\u000f\u001b#name\nd\n#conduct\n ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53651027,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=runmode:crawl\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "B YKU_ \u001b>.>FnFnFjBNUK_>.>LJHK_>.>ULLU_>.>Fh20ssLNUB_>.>Fh ..#sit\n\u001b>BKNY_>,>\\   ed KJBU_>.>#conduct\n s\u000f\u001bSy\u001b"
+  },
+  {
+   "seed": 54151027,
+   "datetime": "20210307070617",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=runmode:crawl\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "HZ#conduct\n \u000f\u001bE- I am a fish\n#invoke\n\u001b\u000f\u001b#name\nd\n#conduct\n "
+  }
+ ]
+}

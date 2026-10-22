@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nWe\u0017blessed amulet of reflection\nPf\u0016?\n>z  \u00162\n\u0006#chat\nu;m. \u001b>.\u0016?\n>>\u001b\u0016?\n>y  #chat\nb\u0016?\n>z\u00163\n\u0016?\n>z\u0006jk   \u001blhl  h  \u00164\n\u0016?\n>z\u0006_mm, Fj   _.FlFl   Fh    Fj     _>.     Fy     n   _.    Fy>\u0016?\n>z\u0006#chat\nu;h:  \u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z_>,    Fu _,      Fk      n   >\u0016?\n>z\u0006l  j n  j\u00162\n\u0016?\n>z\u0006_m, Fy  _.Fk  Fu  FyFk   Fk  Fk_>.Fk     _. Fk    n   >\u0016?\n>z\u0006_>. Fu    _.Fk   _>.   Fn     _.       Fl         n   >\u0016?\n>z\u0006#chat\nh;y:  \u0016?\n>>\u001b\u0016?\n>y#chat\nk\u0016?\n>z\u00165\n\u0016?\n>z\u0006_m"
+ },
+ "segments": [
+  {
+   "seed": 53650010,
+   "datetime": "20160109205011",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed +3 gray dragon scale mail\nWe\u0017blessed amulet of reflection\nPf\u0016?\n>z  \u00162\n\u0006#chat\nu;m. \u001b>.\u0016?\n>>\u001b\u0016?\n>y  #chat\nb\u0016?\n>z\u00163\n\u0016?\n>z\u0006jk   \u001blhl  h  \u00164\n\u0016?\n>z\u0006_mm, Fj   _.FlFl   Fh    Fj     _>.     Fy     n   _.    Fy>\u0016?\n>z\u0006#chat\nu;h:  \u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z_>,    Fu _,      Fk      n   >\u0016?\n>z\u0006l  j n  j\u00162\n\u0016?\n>z\u0006_m, Fy  _.Fk  Fu  FyFk   Fk  Fk_>.Fk     _. Fk    n   >\u0016?\n>z\u0006_>. Fu    _.Fk   _>.   Fn     _.       Fl         n   >\u0016?\n>z\u0006#chat\nh;y:  \u0016?\n>>\u001b\u0016?\n>y#chat\nk\u0016?\n>z\u00165\n\u0016?\n>z\u0006_m"
+  }
+ ]
+}

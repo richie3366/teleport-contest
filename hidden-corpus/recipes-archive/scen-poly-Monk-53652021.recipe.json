@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of polymorph control\nPkr\u0017chain mail\nW\u001bsss#polyself\nquasit\n ss\u0007hill orc\nFlFlFl.m.sm.s#polyself\nsoldier ant\n.m.20s\u0007purple worm\nFlFl  Fk20s\u001bs20s #polyself\nbrown mold\n#monster\n.  .s   n   .m.  yy\u001by   y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 53652021,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of polymorph control\nPkr\u0017chain mail\nW\u001bsss#polyself\nquasit\n ss\u0007hill orc\nFlFlFl.m.sm.s#polyself\nsoldier ant\n.m.20s\u0007purple worm\nFlFl  Fk20s\u001bs20s #polyself\nbrown mold\n#monster\n.  .s   n   .m.  yy\u001by   y y\u001by  s"
+  }
+ ]
+}

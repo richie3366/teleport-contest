@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed amulet of reflection\nPi\u0017blessed amulet of life saving\nPj\u001620\n\u0006\u00162\n\u0006\u00168\n\u0006\u0014 \u001b@Hhhhkk. ,10s20s Indiana\n  ..sss.\u00167\n\u0006\u00162\n\u0006\u001621\n\u0006\u0014@LLLLJlllljjj. ,10s Indiana\n  d$hhusysyulysysysyknyyny   \u0014<.   \u0018\u001b< \u001612\n\u0006\u00165\n\u0006#sit\n\u001b#conduct\n \u00164\n\u0006\u0014@HHJhhhhhjj. ,20s10s Indiana\n  \u0017wand of digging\nzkhbjby\u001621\n\u0006\u0014@LLLLJllljjj. ,10s Indiana\n  \u0017wand of digging\nzlyynyni\u001b#conduct\n af;h:  ed \u001612\n\u0006\u001614\n\u0006\u001613\n\u0006\u0014@HHHHHHHKhhhkkk. ,sss20s Fred\n  \u0017wand of digging\nznlkju bol#dip\nd#untrap\nk#conduct\n \u001612\n\u0006qfu\u001619\n\u0006\u001611\n\u0006\u0014@Jhhhhh. ,20s20s Kroisos\nd$Pj:i\u001b\u00165\n\u0006\u00163\n\u0006\u0014@HHHHHKhkkk. ,10ss Indiana\n  FlFl Fl  nFl \u001612\n\u0006\u001611\n\u0006\u0014@LLLlllllkkk. ,ss20s  Indiana\n  \u00165\n\u0006\u001617\n\u0006,wa\u001620\n\u0006\u00168\n\u0006\u00162\n\u0006\u001615\n \u0006\u001610\n\u0006\u001612\n\u0006\u001612\n\u0006\u001619\n\u0006#offer\n,\u001620\n\u0006\u001621\n\u0006\u00163\n\u0006\u001621\n\u0006\u00164\n\u0006\u00162\n\u0006i\u001b#invoke\n\u001b\u00165\n\u0006\u00165\n\u0006s#ride\n.y\u001610\n\u0006\u00163\n\u0006\u001617\n\u0006\u00162\n\u0006\u001613\n\u000610s #monster\n\u001613\n\u0006\u0014@HHHHKhhhhhhhkkk.,s10s"
+ },
+ "segments": [
+  {
+   "seed": 53650083,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed amulet of reflection\nPi\u0017blessed amulet of life saving\nPj\u001620\n\u0006\u00162\n\u0006\u00168\n\u0006\u0014 \u001b@Hhhhkk. ,10s20s Indiana\n  ..sss.\u00167\n\u0006\u00162\n\u0006\u001621\n\u0006\u0014@LLLLJlllljjj. ,10s Indiana\n  d$hhusysyulysysysyknyyny   \u0014<.   \u0018\u001b< \u001612\n\u0006\u00165\n\u0006#sit\n\u001b#conduct\n \u00164\n\u0006\u0014@HHJhhhhhjj. ,20s10s Indiana\n  \u0017wand of digging\nzkhbjby\u001621\n\u0006\u0014@LLLLJllljjj. ,10s Indiana\n  \u0017wand of digging\nzlyynyni\u001b#conduct\n af;h:  ed \u001612\n\u0006\u001614\n\u0006\u001613\n\u0006\u0014@HHHHHHHKhhhkkk. ,sss20s Fred\n  \u0017wand of digging\nznlkju bol#dip\nd#untrap\nk#conduct\n \u001612\n\u0006qfu\u001619\n\u0006\u001611\n\u0006\u0014@Jhhhhh. ,20s20s Kroisos\nd$Pj:i\u001b\u00165\n\u0006\u00163\n\u0006\u0014@HHHHHKhkkk. ,10ss Indiana\n  FlFl Fl  nFl \u001612\n\u0006\u001611\n\u0006\u0014@LLLlllllkkk. ,ss20s  Indiana\n  \u00165\n\u0006\u001617\n\u0006,wa\u001620\n\u0006\u00168\n\u0006\u00162\n\u0006\u001615\n \u0006\u001610\n\u0006\u001612\n\u0006\u001612\n\u0006\u001619\n\u0006#offer\n,\u001620\n\u0006\u001621\n\u0006\u00163\n\u0006\u001621\n\u0006\u00164\n\u0006\u00162\n\u0006i\u001b#invoke\n\u001b\u00165\n\u0006\u00165\n\u0006s#ride\n.y\u001610\n\u0006\u00163\n\u0006\u001617\n\u0006\u00162\n\u0006\u001613\n\u000610s #monster\n\u001613\n\u0006\u0014@HHHHKhhhhhhhkkk.,s10s"
+  }
+ ]
+}

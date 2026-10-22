@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 cloak of magic resistance\nWe\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007gnome lord\n#pray\ny y #chat\nu#wizdetect\n\u0006Fl Fk._ \u001b:qh \u001b#overview\n\u001b#conduct\n \u0018\u001b#dip\ni#offer\n#chat\ny#turn\n#polyself\nfire giant\n#monster\n..s20snhl_oooooo._,,\u001b#vanquished\n #genocided\nchameleon\nd i\u001b#name\nf\n#adjust\nm.#sit\n#pray\ny y #wizdetect\n\u0006hhh_{.q#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nk#chat\nk#jump\n#wizidentify\n\u001blhloj\u0016?\n>u \u0006#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#turn\n#sit\n\u001b#levelchange\n2\n   ynb>_oooo.,#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nyy#pray\ny y #chat\nj#polyself\nvampire\n#monster\n    .20s.slbu_>,_,#vanquished\n #genocided\nlarge mimic\n#annotate\nFido\n\u0018\u001b#dip\nf#offer\n#chat\nh#turn\n#levelchange\n5\n   lbh#wipe\n_ooo.,\u001b#chronicle\n  #terrain\n\u001b\u0018\u001b#name\nm\nm.#adjust\nb\u001b#sit\n#pray\ny y #wizmap\n\u0006llb_ooooo.,\u001b\u0007newt\n#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nh#chat\nh#levelchange\n5\nFhFhFhFh_{,q#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#wipe\n#loot\n#turn\n#sit\n #jump\n#wizmap"
+ },
+ "segments": [
+  {
+   "seed": 53650057,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 cloak of magic resistance\nWe\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n12\n           \u0007gnome lord\n#pray\ny y #chat\nu#wizdetect\n\u0006Fl Fk._ \u001b:qh \u001b#overview\n\u001b#conduct\n \u0018\u001b#dip\ni#offer\n#chat\ny#turn\n#polyself\nfire giant\n#monster\n..s20snhl_oooooo._,,\u001b#vanquished\n #genocided\nchameleon\nd i\u001b#name\nf\n#adjust\nm.#sit\n#pray\ny y #wizdetect\n\u0006hhh_{.q#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nk#chat\nk#jump\n#wizidentify\n\u001blhloj\u0016?\n>u \u0006#version\n  #history\n                  \u0018\u001b#wipe\n#loot\n#turn\n#sit\n\u001b#levelchange\n2\n   ynb>_oooo.,#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nyy#pray\ny y #chat\nj#polyself\nvampire\n#monster\n    .20s.slbu_>,_,#vanquished\n #genocided\nlarge mimic\n#annotate\nFido\n\u0018\u001b#dip\nf#offer\n#chat\nh#turn\n#levelchange\n5\n   lbh#wipe\n_ooo.,\u001b#chronicle\n  #terrain\n\u001b\u0018\u001b#name\nm\nm.#adjust\nb\u001b#sit\n#pray\ny y #wizmap\n\u0006llb_ooooo.,\u001b\u0007newt\n#version\n  #history\n                  \u0018\u001b#twoweapon\n#invoke\n\u001b#chat\nh#chat\nh#levelchange\n5\nFhFhFhFh_{,q#overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#wipe\n#loot\n#turn\n#sit\n #jump\n#wizmap"
+  }
+ ]
+}

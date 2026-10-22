@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u001615\n\u0006\u0014 \u001b@LLLLLLLKllkk.,ss10s10ss10ss10s\u00167\n\u0006__,s:\u001614\n\u0006\u0014@LLLLLKlllllkkk. ,s20s10s10s20s Kira\n  usssnsnsjsjssssbsusssssk  nh   nsbsssl   nssnsnsusj\u00163\n\u00165\n\u0006\u001612\n\u0006\u001621\n\u0006\u001621\n\u0006#dip\nid#pray\ny y \u001617\n \u0006\u001619\n\u0006\u0014@HHHHHKhhhkkkkk. ,10s20ss10s nobody\n  sssss.#terrain\nf\n#offer\nb10s \u00166\n\u0006\u0014@HHHHHjjjjj. ,10s Kira\n  d$nsns\u001620\n\u0006\u0014@LLLLLllk. ,ss20s Kira\n  d$l#untrap\nbojaj dhrj ny\u00167\n\u0006\u001620\n\u0006,y\u001614\n\u0006\u0014@LLlk.  ,  n20s  20sss20s10ss10sn #conduct\n z#enhance\nya\na\n\u001b\u001612\n\u00163\n\u0006\u0014@HHHHHHHKkk. ,10s Creosote\n\u0017wand of digging\nzkjjjkj\u001617\n\u0006ol#ride\n.y\u001610\n\u0006#offer\n#rub\n\u00162\n\u0006\u0014@HJhhhhjj. ,20s10ss20s Kira\n  d$s\u001620\n\u0006\u0014@LLLKlllllkk. ,"
+ },
+ "segments": [
+  {
+   "seed": 53650059,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " \u001615\n\u0006\u0014 \u001b@LLLLLLLKllkk.,ss10s10ss10ss10s\u00167\n\u0006__,s:\u001614\n\u0006\u0014@LLLLLKlllllkkk. ,s20s10s10s20s Kira\n  usssnsnsjsjssssbsusssssk  nh   nsbsssl   nssnsnsusj\u00163\n\u00165\n\u0006\u001612\n\u0006\u001621\n\u0006\u001621\n\u0006#dip\nid#pray\ny y \u001617\n \u0006\u001619\n\u0006\u0014@HHHHHKhhhkkkkk. ,10s20ss10s nobody\n  sssss.#terrain\nf\n#offer\nb10s \u00166\n\u0006\u0014@HHHHHjjjjj. ,10s Kira\n  d$nsns\u001620\n\u0006\u0014@LLLLLllk. ,ss20s Kira\n  d$l#untrap\nbojaj dhrj ny\u00167\n\u0006\u001620\n\u0006,y\u001614\n\u0006\u0014@LLlk.  ,  n20s  20sss20s10ss10sn #conduct\n z#enhance\nya\na\n\u001b\u001612\n\u00163\n\u0006\u0014@HHHHHHHKkk. ,10s Creosote\n\u0017wand of digging\nzkjjjkj\u001617\n\u0006ol#ride\n.y\u001610\n\u0006#offer\n#rub\n\u00162\n\u0006\u0014@HJhhhhjj. ,20s10ss20s Kira\n  d$s\u001620\n\u0006\u0014@LLLKlllllkk. ,"
+  }
+ ]
+}

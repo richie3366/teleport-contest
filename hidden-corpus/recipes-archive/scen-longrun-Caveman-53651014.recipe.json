@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  ok#chat\nj50s _ \u001b<.>_>,>100s50sFlFl.,100s150sbkh100sFlFl.150s50sFls.50s100s100sFl20s20s100s100s100s50s100s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 53651014,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\nOPTIONS=pettype:none\nOPTIONS=playmode:explore\n",
+   "moves": "  ok#chat\nj50s _ \u001b<.>_>,>100s50sFlFl.,100s150sbkh100sFlFl.150s50sFls.50s100s100sFl20s20s100s100s100s50s100s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

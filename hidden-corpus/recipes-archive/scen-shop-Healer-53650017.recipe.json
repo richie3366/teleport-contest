@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed amulet of life saving\nPm\u0017blessed amulet of reflection\nPn\u0016?\n>w\u0006_ \u001b:#chat\nk\u00167\nhnl\u0016?\n>w\u0006_ooo.,p_oooo.,\u0014,s20sFj FjFjFj   FjFj_ooooo,,\u0017ruby\ndp_oooooo.,#chat\nj__.Fl_,m,Fl#chat\nl   #pray\ny y   _ooo,,#chat\nl_{.Fl _. qehlh#chat\nh_oooooooo._o, Fl _., :Fl Fl Fl Fl Fl Fl  Fl Fl  Fl Fl Fl Fl Fl Fl Fl Fl Fl  Fl _oo,_ooo.,#chat\nl   n  _{. Fh _.Fhqd_ooo.Fh  _._o., :__. Fl _, Fl  #chat\nl #pray\ny y       _ooo, Fh _,Fh  _o,Fl _, Fh,#chat\nl \u0016?\ncynk\u0016?\n>w\u0006_ooooooo.Fh_.Fj  \u001b,:_ooooo.Fj  n _,Fy  n,p\u00166\n_oo,_ooo.Fj_.Fy   n,p_oooooooo._oo.,pFjFj  n FjFjFj  n Fj\u00162\n_ooooooooo.,:kjy#chat\nn__.#chat\nj_ooo.,\u0017amulet of restful sleep\nds_oooooo.,\u0017amulet of reflection\ndt_ooooo.,$_oo,,$hnn#chat\nlkhn#chat\nujhu#chat\nlhky#chat\nhhnb#chat\nj_oo,,pyjh#chat\nj_{.qfuhj#chat\nhjlh#chat\nhkuh#chat\nn_{.qf_oo,_oo.,:_ooooooo"
+ },
+ "segments": [
+  {
+   "seed": 53650017,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed amulet of life saving\nPm\u0017blessed amulet of reflection\nPn\u0016?\n>w\u0006_ \u001b:#chat\nk\u00167\nhnl\u0016?\n>w\u0006_ooo.,p_oooo.,\u0014,s20sFj FjFjFj   FjFj_ooooo,,\u0017ruby\ndp_oooooo.,#chat\nj__.Fl_,m,Fl#chat\nl   #pray\ny y   _ooo,,#chat\nl_{.Fl _. qehlh#chat\nh_oooooooo._o, Fl _., :Fl Fl Fl Fl Fl Fl  Fl Fl  Fl Fl Fl Fl Fl Fl Fl Fl Fl  Fl _oo,_ooo.,#chat\nl   n  _{. Fh _.Fhqd_ooo.Fh  _._o., :__. Fl _, Fl  #chat\nl #pray\ny y       _ooo, Fh _,Fh  _o,Fl _, Fh,#chat\nl \u0016?\ncynk\u0016?\n>w\u0006_ooooooo.Fh_.Fj  \u001b,:_ooooo.Fj  n _,Fy  n,p\u00166\n_oo,_ooo.Fj_.Fy   n,p_oooooooo._oo.,pFjFj  n FjFjFj  n Fj\u00162\n_ooooooooo.,:kjy#chat\nn__.#chat\nj_ooo.,\u0017amulet of restful sleep\nds_oooooo.,\u0017amulet of reflection\ndt_ooooo.,$_oo,,$hnn#chat\nlkhn#chat\nujhu#chat\nlhky#chat\nhhnb#chat\nj_oo,,pyjh#chat\nj_{.qfuhj#chat\nhjlh#chat\nhkuh#chat\nn_{.qf_oo,_oo.,:_ooooooo"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "L JJN_ \u001b>.>BNYK_>.>KLKN_>.>LBYN_>.>FkFk  y  F"
+ },
+ "segments": [
+  {
+   "seed": 53650075,
+   "datetime": "20010728201934",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:explore\n",
+   "moves": "L JJN_ \u001b>.>BNYK_>.>KLKN_>.>LBYN_>.>FkFk  y  F"
+  }
+ ]
+}

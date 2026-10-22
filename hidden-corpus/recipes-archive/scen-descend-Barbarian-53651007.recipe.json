@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "YNJK_ \u001b>.>FlFj 20sBKKK_>,>#rub\n<UYBJ_>,>JNJN_>.>BYLB_>.>BLHU_>.>:eyNBUY_>,>BKUH_>,>HHJY_>.>"
+ },
+ "segments": [
+  {
+   "seed": 53651007,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\n",
+   "moves": "YNJK_ \u001b>.>FlFj 20sBKKK_>,>#rub\n<UYBJ_>,>JNJN_>.>BYLB_>.>BLHU_>.>:eyNBUY_>,>BKUH_>,>HHJY_>.>"
+  }
+ ]
+}

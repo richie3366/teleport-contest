@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed ring of free action\nPer\u0017blessed +3 gauntlets of power\nWf\u0016?\n>w\u0006_ \u001b>._ooo,,p_oooooooo,_oo.,p_oooo._oo.,p_oooooooo.,\u0014>.20s ._{._.qy _ooooooo._oo.,$_{.Fn _.qy nbk#chat\nu_ooooooo,_.,p_oo.,p_oo.,\u0017luckstone\ndh_oooooooo.,pknb#chat\nn_{.  _, q__,_, Fn    #chat\nn  _{,  n  Fb   n _. Fk  n  q\u00165\n__.#chat\nn   n#pray\ny y     __,#chat\nn#pray\ny y    _ooooooooo.,$_oooo.,$__.#chat\nnFnFn  n Fn  nFnFnFn \u001612\n_oooo.,p_ooooo.,p_ooooo,,#chat\nulhl#chat\nbFbFbFbFbFbFb__,#chat\nj#pray\ny y FuFuFuFuFuFu_oo._,_oo,,p_{.q_ooooooo.Fy_.,y :_oooooo._ooo.,\u0017amulet of reflection\ndkcj_ooooo._oo,,p_oooo.,\u0017loadstone\ndlnhk#chat\nkkkk#chat\nb_ooooooooo.,p_ooooo.,$jjk#chat\nnubh#chat\nblhb#chat\nh_{,q_oooo,_o,_.,pklj#chat\ny_oooooo.,:_{.q_oooooo.,#chat\nh_{,qjkk#chat\nb_ooo,_oo,,:_ooooooooo,,#chat\nj\u0016?\n>Bljl\u0016?\n>w\u0006_"
+ },
+ "segments": [
+  {
+   "seed": 53650005,
+   "datetime": "20161110213313",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed ring of free action\nPer\u0017blessed +3 gauntlets of power\nWf\u0016?\n>w\u0006_ \u001b>._ooo,,p_oooooooo,_oo.,p_oooo._oo.,p_oooooooo.,\u0014>.20s ._{._.qy _ooooooo._oo.,$_{.Fn _.qy nbk#chat\nu_ooooooo,_.,p_oo.,p_oo.,\u0017luckstone\ndh_oooooooo.,pknb#chat\nn_{.  _, q__,_, Fn    #chat\nn  _{,  n  Fb   n _. Fk  n  q\u00165\n__.#chat\nn   n#pray\ny y     __,#chat\nn#pray\ny y    _ooooooooo.,$_oooo.,$__.#chat\nnFnFn  n Fn  nFnFnFn \u001612\n_oooo.,p_ooooo.,p_ooooo,,#chat\nulhl#chat\nbFbFbFbFbFbFb__,#chat\nj#pray\ny y FuFuFuFuFuFu_oo._,_oo,,p_{.q_ooooooo.Fy_.,y :_oooooo._ooo.,\u0017amulet of reflection\ndkcj_ooooo._oo,,p_oooo.,\u0017loadstone\ndlnhk#chat\nkkkk#chat\nb_ooooooooo.,p_ooooo.,$jjk#chat\nnubh#chat\nblhb#chat\nh_{,q_oooo,_o,_.,pklj#chat\ny_oooooo.,:_{.q_oooooo.,#chat\nh_{,qjkk#chat\nb_ooo,_oo,,:_ooooooooo,,#chat\nj\u0016?\n>Bljl\u0016?\n>w\u0006_"
+  }
+ ]
+}

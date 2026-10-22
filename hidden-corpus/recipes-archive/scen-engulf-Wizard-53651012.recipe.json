@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0007hostile trapper\nFkFk Fk FkFk Fksm.Fh#pray\ny y   Fy sm.Fh#levelchange\n30\n                             #polyself\ndust vortex\n #monster\n.s\u0007sewer rat\nsFyFyFy\u0007newt\nFyFyFkFlSy\u001b n#rub\n#turn\nf#ride\nky#offer\n#ride\nyy#terrain\nf\nha#dip\nhhrj owlbear\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53651012,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007hostile trapper\nFkFk Fk FkFk Fksm.Fh#pray\ny y   Fy sm.Fh#levelchange\n30\n                             #polyself\ndust vortex\n #monster\n.s\u0007sewer rat\nsFyFyFy\u0007newt\nFyFyFkFlSy\u001b"
+  },
+  {
+   "seed": 54151012,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " n#rub\n#turn\nf#ride\nky#offer\n#ride\nyy#terrain\nf\nha#dip\nhhrj owlbear\n"
+  }
+ ]
+}

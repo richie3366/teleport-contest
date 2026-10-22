@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nh  _mmm.#chat\nh _mmmmm.Fb  _.#chat\nb   n _mm.   n Fb   n_,#chat\nb    n ;b.#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.   Fh   _.#chat\nb    n  _mm,  Fb   _.#chat\nb    n  \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nWh   \u0017blessed ring of free action\nPil   \u0017wand of fire\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.  n  Fh  _.Fh   Fh   Fh   n Fb  Fh zjb  ,\u00164\n\u0016?\n>A\u0006_mm. Fb  _.Fb  n   Fb FbFh Fb Fb zjb  ,#chat\nb\u0016?\n>A\u0006_mmmmmm.s.20s Fj ,\u0016?\n>>\u001b\u0016?\n>y_mmm. Fj _,#chat\nj  ;j,\u0016?\n>z\u0006_mmm.  n Fj _,Fj  Fj Fj Fj zjj     n,#chat\nl\u00168\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.s20sss.s,\u0016?\n>A\u0006_mmmmmm,sss20s  Fj   Fbzjb,\u0016?\n>A\u0006_mmmmm.sss20s20s20s ,\u0016?\n>z\u0006_mmm.20ss.ss,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nk;m.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm..ss20s.s20szju ,\u0016?\n>A\u0006_mmmmmm,.s.szj,\u0016?\n>A\u0006_mm,s.ss20s,\u0016?\n>z\u0006_mmmmm,s..s20s,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,.20s.20s zj,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nj\u0016?\n>A\u0006_mm,.20s  20s20s.zj,#chat\nl\u0016?\n>A\u0006_mmm.sssszj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nn\u0016?\n>z\u0006_mmmmm.sss20s20ssszj,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nb;.\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.s20s20s.zj,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nb\u0016?\n>A\u0006_mmmmmm.ss20s..zj,\u0016?\n>>\u001b"
+ },
+ "segments": [
+  {
+   "seed": 53650030,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nh  _mmm.#chat\nh _mmmmm.Fb  _.#chat\nb   n _mm.   n Fb   n_,#chat\nb    n ;b.#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_m.   Fh   _.#chat\nb    n  _mm,  Fb   _.#chat\nb    n  \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 cloak of magic resistance\nWh   \u0017blessed ring of free action\nPil   \u0017wand of fire\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.  n  Fh  _.Fh   Fh   Fh   n Fb  Fh zjb  ,\u00164\n\u0016?\n>A\u0006_mm. Fb  _.Fb  n   Fb FbFh Fb Fb zjb  ,#chat\nb\u0016?\n>A\u0006_mmmmmm.s.20s Fj ,\u0016?\n>>\u001b\u0016?\n>y_mmm. Fj _,#chat\nj  ;j,\u0016?\n>z\u0006_mmm.  n Fj _,Fj  Fj Fj Fj zjj     n,#chat\nl\u00168\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.s20sss.s,\u0016?\n>A\u0006_mmmmmm,sss20s  Fj   Fbzjb,\u0016?\n>A\u0006_mmmmm.sss20s20s20s ,\u0016?\n>z\u0006_mmm.20ss.ss,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmmmm.#chat\nk;m.\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm..ss20s.s20szju ,\u0016?\n>A\u0006_mmmmmm,.s.szj,\u0016?\n>A\u0006_mm,s.ss20s,\u0016?\n>z\u0006_mmmmm,s..s20s,\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\nh\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmm,.20s.20s zj,\u0016?\n>>\u001b\u0016?\n>y_mm,#chat\nj\u0016?\n>A\u0006_mm,.20s  20s20s.zj,#chat\nl\u0016?\n>A\u0006_mmm.sssszj,#chat\nj\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nn\u0016?\n>z\u0006_mmmmm.sss20s20ssszj,\u0016?\n>>\u001b\u0016?\n>y_m.#chat\nb;.\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.s20s20s.zj,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nb\u0016?\n>A\u0006_mmmmmm.ss20s..zj,\u0016?\n>>\u001b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "jyh\u0017neutral altar\ndh\u0017elf corpse\n#offer\ni   #pray\ny y : b\u0017melting ice\nyyny:n\u0017unaligned altar\ndgdf\u0017floating eye corpse\n#offer\nj  : h\u0017tree\nj\u0004k\u0004k#terrain\n\u001bol#pray\ny y aak"
+ },
+ "segments": [
+  {
+   "seed": 53651000,
+   "datetime": "20070308152406",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "jyh\u0017neutral altar\ndh\u0017elf corpse\n#offer\ni   #pray\ny y : b\u0017melting ice\nyyny:n\u0017unaligned altar\ndgdf\u0017floating eye corpse\n#offer\nj  : h\u0017tree\nj\u0004k\u0004k#terrain\n\u001bol#pray\ny y aak"
+  }
+ ]
+}

@@ -5,7 +5,7 @@
  "fullCommit": "1b2b2c8e3",
  "fullAt": "2026-10-21T14:05:06.214Z",
  "entries": 773,
- "reserve": 42,
+ "reserve": 0,
  "unrecorded": 0,
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
@@ -12246,8 +12246,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Archeologist-53455018": {
    "src": "corpus",
@@ -12264,8 +12263,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Archeologist-53456013": {
    "src": "corpus",
@@ -12282,8 +12280,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Barbarian-53455017": {
    "src": "corpus",
@@ -12300,8 +12297,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Barbarian-53456010": {
    "src": "corpus",
@@ -12318,8 +12314,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Caveman-53456053": {
    "src": "corpus",
@@ -12336,8 +12331,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Caveman-53456079": {
    "src": "corpus",
@@ -12354,8 +12348,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Healer-53455002": {
    "src": "corpus",
@@ -12372,8 +12365,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Healer-53456011": {
    "src": "corpus",
@@ -12390,8 +12382,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Healer-53456045": {
    "src": "corpus",
@@ -12408,8 +12399,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Healer-53456066": {
    "src": "corpus",
@@ -12426,8 +12416,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Knight-53455015": {
    "src": "corpus",
@@ -12444,8 +12433,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Monk-53455005": {
    "src": "corpus",
@@ -12462,8 +12450,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Monk-53456018": {
    "src": "corpus",
@@ -12480,8 +12467,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Monk-53456028": {
    "src": "corpus",
@@ -12498,8 +12484,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Monk-53456061": {
    "src": "corpus",
@@ -12516,8 +12501,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Monk-53456072": {
    "src": "corpus",
@@ -12534,8 +12518,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Priest-53455000": {
    "src": "corpus",
@@ -12552,8 +12535,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Priest-53456031": {
    "src": "corpus",
@@ -12570,8 +12552,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Priest-53456050": {
    "src": "corpus",
@@ -12588,8 +12569,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Priest-53456076": {
    "src": "corpus",
@@ -12606,8 +12586,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Ranger-53455009": {
    "src": "corpus",
@@ -12624,8 +12603,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Ranger-53455014": {
    "src": "corpus",
@@ -12642,8 +12620,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Ranger-53456000": {
    "src": "corpus",
@@ -12660,8 +12637,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Ranger-53456004": {
    "src": "corpus",
@@ -12678,8 +12654,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Ranger-53456036": {
    "src": "corpus",
@@ -12696,8 +12671,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Ranger-53456074": {
    "src": "corpus",
@@ -12714,8 +12688,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Rogue-53456077": {
    "src": "corpus",
@@ -12732,8 +12705,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Samurai-53456003": {
    "src": "corpus",
@@ -12750,8 +12722,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Samurai-53456048": {
    "src": "corpus",
@@ -12768,8 +12739,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Samurai-53456057": {
    "src": "corpus",
@@ -12786,8 +12756,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Samurai-53456059": {
    "src": "corpus",
@@ -12804,8 +12773,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Samurai-53456065": {
    "src": "corpus",
@@ -12822,8 +12790,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Samurai-53456070": {
    "src": "corpus",
@@ -12840,8 +12807,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Tourist-53456001": {
    "src": "corpus",
@@ -12858,8 +12824,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Tourist-53456042": {
    "src": "corpus",
@@ -12876,8 +12841,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Tourist-53456063": {
    "src": "corpus",
@@ -12894,8 +12858,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Valkyrie-53455001": {
    "src": "corpus",
@@ -12912,8 +12875,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Valkyrie-53455016": {
    "src": "corpus",
@@ -12930,8 +12892,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Valkyrie-53456037": {
    "src": "corpus",
@@ -12948,8 +12909,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Wizard-53456040": {
    "src": "corpus",
@@ -12966,8 +12926,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "scen-vault-Wizard-53456067": {
    "src": "corpus",
@@ -12984,8 +12943,7 @@
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": null,
-   "tier": "reserve"
+   "error": null
   },
   "catchup-after-restore-seed0015-valk": {
    "src": "private",
@@ -13191,5 +13149,6 @@
    "jsTopline": "",
    "error": null
   }
- }
+ },
+ "tieredAt": "2026-10-22T10:48:41.268Z"
 }

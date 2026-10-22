@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nWm\u00165\n_ \u001b>.\u0016?\nd#chat\nl;_.\u001619\n _{,.\u0016?\n>E\u0014;\u001643\n_>,_.m,\u001643\nnhynlh:20s20s.\u001637\n_<,_,,\u0016?\ns #chat\ny;.\u0016?\n>C_{.<\u001638\n#chat\nl;>.\u0016?\n>Hyl:s20s\u0016?\n>>L      tin whistle\nly   l       b     h           n yb :sm.        n 20s      \u001611\n\u0016?\n\u001bb   n         b      \u0016?\n\u001bbn    n\u001638\nu   n   :20s    n       \u001637\n\u0006_<,\u0016?\n\u001bn u     n \u001637\nl      j     u      n  h    n     b:\u00167\n\u0016?\n\u001by    n          j\u001622\n\u0004l    n      \u0016?\n\u001bnk       n \u0016?\n\u001bk        n       n     \u0016?\n\u001bj   n     j    n      \u00168\n\u001637\nk           n l      y  :"
+ },
+ "segments": [
+  {
+   "seed": 53650036,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n30\n                             \u0017blessed +3 helm of telepathy\nWm\u00165\n_ \u001b>.\u0016?\nd#chat\nl;_.\u001619\n _{,.\u0016?\n>E\u0014;\u001643\n_>,_.m,\u001643\nnhynlh:20s20s.\u001637\n_<,_,,\u0016?\ns #chat\ny;.\u0016?\n>C_{.<\u001638\n#chat\nl;>.\u0016?\n>Hyl:s20s\u0016?\n>>L      tin whistle\nly   l       b     h           n yb :sm.        n 20s      \u001611\n\u0016?\n\u001bb   n         b      \u0016?\n\u001bbn    n\u001638\nu   n   :20s    n       \u001637\n\u0006_<,\u0016?\n\u001bn u     n \u001637\nl      j     u      n  h    n     b:\u00167\n\u0016?\n\u001by    n          j\u001622\n\u0004l    n      \u0016?\n\u001bnk       n \u0016?\n\u001bk        n       n     \u0016?\n\u001bj   n     j    n      \u00168\n\u001637\nk           n l      y  :"
+  }
+ ]
+}

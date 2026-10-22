@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nb;b._mmmm.Fb  n _, Fj  n    n#chat\nk;n:  _mm.  n    n Fu  n    n _.#chat\nn_mmm.  n    n    n Fj  n    n    n _,#chat\nl;l:  #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm,      Fl         _.#chat\nl_mmmmm.    n    Fu      _,#chat\nl\u0017blessed +3 gauntlets of power\nWe    n       \u0017blessed +3 helm of telepathy\nWf      \u0017blessed +3 speed boots\nWg    n      \u0017wand of cold\n\u0016?\n>z\u0006_mmmm.    Fu  _.Fn    Fu Fj   FnFk     ,#chat\nh\u0016?\n>A\u0006_mmm.       yny   y nn  F"
+ },
+ "segments": [
+  {
+   "seed": 53650090,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b<.#chat\nb;b._mmmm.Fb  n _, Fj  n    n#chat\nk;n:  _mm.  n    n Fu  n    n _.#chat\nn_mmm.  n    n    n Fj  n    n    n _,#chat\nl;l:  #levelchange\n20\n                   \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm,      Fl         _.#chat\nl_mmmmm.    n    Fu      _,#chat\nl\u0017blessed +3 gauntlets of power\nWe    n       \u0017blessed +3 helm of telepathy\nWf      \u0017blessed +3 speed boots\nWg    n      \u0017wand of cold\n\u0016?\n>z\u0006_mmmm.    Fu  _.Fn    Fu Fj   FnFk     ,#chat\nh\u0016?\n>A\u0006_mmm.       yny   y nn  F"
+  }
+ ]
+}

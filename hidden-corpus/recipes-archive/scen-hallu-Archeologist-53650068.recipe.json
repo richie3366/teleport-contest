@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed magic harp\n\u0017blessed bell of opening\n\u0017blessed amulet of life saving\nPk\u0017blessed ring of free action\nPll\u0017blessed 20 daggers\nQm#levelchange\n26\n                         #wizintrinsic\nh\n \u0007hill orc\nFh FjFjFj Fj\u0017wand of teleportation\nznjznnznlznnzny\u0017potion of confusion\nqos.tmnfnfy#wizintrinsic\nh\n\u0017scroll of mail\nrp \u0017wand of lightning\nzqbzquzq.zqn zq\u0007gnome lord\nsFlFlFlFl\u0017wand of slow monster\nzrlzrlzrlzrl#wizintrinsic\nh\n;l. \u001bm.E- Elbereth\n#pray\ny y ;l,E- I am a fish\n#chat\nl#pray\ny y ;l:E- Vlad was here\n\u0017blessed scroll of enchant armor\nrs\u0017egg\net#wizintrinsic\nh\n;l:E- Elbereth Elbereth\n\u0017blessed scroll of magic mapping\nru\u0017apple\nev\u0017blessed spellbook of light\nrwsZ#turn\n:  #wizintrinsic\nh\n;l.E- I am a fish\n#pray\ny yflfl\u0017scroll of fire\nrx\u0017candy bar\neyflfl\u0017blessed spellbook of knock\nrz20sZ:  #wizintrinsic\nh\n\u0017blessed spellbook of cone of cold\nrA20sZ:  \u0017blessed spellbook of sleep\n rB20sZ:  ;l,E- Elbereth Elbereth\n#wizintrinsic\nh\n\u0018\u001bjy h\u0017blessed spellbook of cause fear\nrCsZ#turn\n: tmlflfl\u001623\nubububj: ;m.E- Vlad was here\n#c"
+ },
+ "segments": [
+  {
+   "seed": 53650068,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=sortloot:loot\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed magic harp\n\u0017blessed bell of opening\n\u0017blessed amulet of life saving\nPk\u0017blessed ring of free action\nPll\u0017blessed 20 daggers\nQm#levelchange\n26\n                         #wizintrinsic\nh\n \u0007hill orc\nFh FjFjFj Fj\u0017wand of teleportation\nznjznnznlznnzny\u0017potion of confusion\nqos.tmnfnfy#wizintrinsic\nh\n\u0017scroll of mail\nrp \u0017wand of lightning\nzqbzquzq.zqn zq\u0007gnome lord\nsFlFlFlFl\u0017wand of slow monster\nzrlzrlzrlzrl#wizintrinsic\nh\n;l. \u001bm.E- Elbereth\n#pray\ny y ;l,E- I am a fish\n#chat\nl#pray\ny y ;l:E- Vlad was here\n\u0017blessed scroll of enchant armor\nrs\u0017egg\net#wizintrinsic\nh\n;l:E- Elbereth Elbereth\n\u0017blessed scroll of magic mapping\nru\u0017apple\nev\u0017blessed spellbook of light\nrwsZ#turn\n:  #wizintrinsic\nh\n;l.E- I am a fish\n#pray\ny yflfl\u0017scroll of fire\nrx\u0017candy bar\neyflfl\u0017blessed spellbook of knock\nrz20sZ:  #wizintrinsic\nh\n\u0017blessed spellbook of cone of cold\nrA20sZ:  \u0017blessed spellbook of sleep\n rB20sZ:  ;l,E- Elbereth Elbereth\n#wizintrinsic\nh\n\u0018\u001bjy h\u0017blessed spellbook of cause fear\nrCsZ#turn\n: tmlflfl\u001623\nubububj: ;m.E- Vlad was here\n#c"
+  }
+ ]
+}

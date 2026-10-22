@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " kbdbsssyhbul#name\nm\n ;#name\no\n#name\nd\nPoh#conduct\n UHUB_>.>Fn20s Fl<JUYN_>,>\u0004l20s<BLNB_>,>FjFhFhKNJB_>.>KBHK _>.>BJHL_>,>FlsFl<\u000f\u001bldd20ss20sunny#name\nf\n10slBH  HK_>.>#offer\nri y HYUK_>,>UUHN_>,>NLKL _>.>Fl.s<LLYL_>.>FlFh FlLLYB_>.>FkFyFk <10s10skhlhh#name\nd\nBN UY_>.>FhFhFh10sqeUJUJ_>.>FhFhFhLNNN_>.>Fy  y\u001by  y y y\u001b  s"
+ },
+ "segments": [
+  {
+   "seed": 53650015,
+   "datetime": "20070119215444",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\n",
+   "moves": " kbdbsssyhbul#name\nm\n ;#name\no\n#name\nd\nPoh#conduct\n UHUB_>.>Fn20s Fl<JUYN_>,>\u0004l20s<BLNB_>,>FjFhFhKNJB_>.>KBHK _>.>BJHL_>,>FlsFl<\u000f\u001bldd20ss20sunny#name\nf\n10slBH  HK_>.>#offer\nri y HYUK_>,>UUHN_>,>NLKL _>.>Fl.s<LLYL_>.>FlFh FlLLYB_>.>FkFyFk <10s10skhlhh#name\nd\nBN UY_>.>FhFhFh10sqeUJUJ_>.>FhFhFhLNNN_>.>Fy  y\u001by  y y y\u001b  s"
+  }
+ ]
+}

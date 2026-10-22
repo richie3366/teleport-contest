@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed spellbook of magic missile\nrf 20s \u0017blessed spellbook of restore ability\nrg 20s+\u001bZa\nZa\nFu Za\nZa\n#pray\ny y "
+ },
+ "segments": [
+  {
+   "seed": 53651009,
+   "datetime": "20261121235834",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed spellbook of magic missile\nrf 20s \u0017blessed spellbook of restore ability\nrg 20s+\u001bZa\nZa\nFu Za\nZa\n#pray\ny y "
+  }
+ ]
+}

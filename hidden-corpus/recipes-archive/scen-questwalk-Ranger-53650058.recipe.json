@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed +3 helm of telepathy\nWi\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwk \u0016?\n>z  \u00162\n\u0006lyy\u00163\n  \u0006#chat\nh;h; \u001b@._>.Fk   _,   Fh   n     >\u0006l   l    n   b     l k  j        \u00165\n\u00165\n\u0006_m.s.ss\u00166\n  \u0006,\u00162\n\u0006_mmmm.FuFkFyFhFlFy\u00163\n  \u0006,\u00164\n\u0006_mm.s20sFb FbFb\u00165\n\u0006#chat\nh;>.\u00166\n \u0006_mmm.   Fl    n   _.   Fl       n Fl   s Fh 20s Fh  \u00163\n\u00162\n\u0006_<.Fb  _. Fh\u0016?\n>>\u001b\u0016?\n>y  #chat\nu\u0016?\n>z\u00163\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006#chat\nu;u.\u00166\n\u0016?\n>z\u0006hbn\u00162\n\u0016?\n>z\u0006#chat\nj;.\u00163\n\u0016?\n>z\u0006,_>.Fl_.m.Fk>\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006yblhyjhl\u00166\n\u0016?\n>z\u0006_>,Fh   n  _,.Fh \u00162\n\u0016?\n>z\u0006#chat\nu;u,\u00163\n\u0016?\n>z\u0006l hlyynny\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006ny   nyy_>.Fu_.>.   Fl>\u0016?\n>z\u0006hy byujb\u00163\n\u0016?\n>z\u0006_m,   Fy    _,Fy   n Fy   Fy    Fy s \u00164\n\u0016?\n>z\u0006, \u00165\n"
+ },
+ "segments": [
+  {
+   "seed": 53650058,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed +3 helm of telepathy\nWi\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed Mjollnir\nwk \u0016?\n>z  \u00162\n\u0006lyy\u00163\n  \u0006#chat\nh;h; \u001b@._>.Fk   _,   Fh   n     >\u0006l   l    n   b     l k  j        \u00165\n\u00165\n\u0006_m.s.ss\u00166\n  \u0006,\u00162\n\u0006_mmmm.FuFkFyFhFlFy\u00163\n  \u0006,\u00164\n\u0006_mm.s20sFb FbFb\u00165\n\u0006#chat\nh;>.\u00166\n \u0006_mmm.   Fl    n   _.   Fl       n Fl   s Fh 20s Fh  \u00163\n\u00162\n\u0006_<.Fb  _. Fh\u0016?\n>>\u001b\u0016?\n>y  #chat\nu\u0016?\n>z\u00163\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006#chat\nu;u.\u00166\n\u0016?\n>z\u0006hbn\u00162\n\u0016?\n>z\u0006#chat\nj;.\u00163\n\u0016?\n>z\u0006,_>.Fl_.m.Fk>\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006yblhyjhl\u00166\n\u0016?\n>z\u0006_>,Fh   n  _,.Fh \u00162\n\u0016?\n>z\u0006#chat\nu;u,\u00163\n\u0016?\n>z\u0006l hlyynny\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006ny   nyy_>.Fu_.>.   Fl>\u0016?\n>z\u0006hy byujb\u00163\n\u0016?\n>z\u0006_m,   Fy    _,Fy   n Fy   Fy    Fy s \u00164\n\u0016?\n>z\u0006, \u00165\n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nk_m.Fk_,#chat\nk_mm,Fn_.   n Fn   n#chat\nu   n  #levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm. Fl  _,#chat\nb_mm.  n   Fl _.#chat\nu   ;u.\u0017blessed amulet of life saving\nPe\u0017blessed ring of free action\nPfr     \u0017blessed +3 cloak of magic resistance\nWg   \u0017wand of magic missile\n\u0016?\n>A\u0006_mm,Fk    n _,Fu   FjFn   Fk   n Fn    ,#chat\nu  \u00163\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.   nFj   _.  Fk  n   Fn   Fk    n Fn  FuFu   Fn   n ,\u00167\n\u0016?\n>z\u0006_mmmmm. Fb _.  FlFl   n  Fj  Fj   Fl    nFb Fhzhj,\u001b#chat\nh\u001612\n\u0016?\n>A\u0006_mmm.Fl_.,FjFjssszhy,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nl\u0016?\n>A\u0006_mmmm,s20s.sss.zhy,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fn_.Fjss20s20s20ss,\u0016?\n>z\u0006_mmmmmm.s20s.szhh ,\u0016?\n>A\u0006_mm.sss.20s..,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nu\u0016?\n>A\u0006_mmmmmmm..20s20ss.20szhk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm..s.s.s.,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\ny;.\u0016?\n>z\u0006_mmmm..s20s.s.szhk,#chat\nn\u0016?\n>A\u0006_mmm,.s.szh,\u0016?\n>A\u0006_mmmm.20s20ssss..,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fb   _,#chat\nb  \u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,Fb _,FbFj  Fj  FjFj     zh  ,\u0016?\n>z\u0006_mmm.Fb   n    _.Fj    n    nFh  Fh   n    n Fh  Fl   yy\u001by   y y y\u001b  z"
+ },
+ "segments": [
+  {
+   "seed": 53650018,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nk_m.Fk_,#chat\nk_mm,Fn_.   n Fn   n#chat\nu   n  #levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm. Fl  _,#chat\nb_mm.  n   Fl _.#chat\nu   ;u.\u0017blessed amulet of life saving\nPe\u0017blessed ring of free action\nPfr     \u0017blessed +3 cloak of magic resistance\nWg   \u0017wand of magic missile\n\u0016?\n>A\u0006_mm,Fk    n _,Fu   FjFn   Fk   n Fn    ,#chat\nu  \u00163\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.   nFj   _.  Fk  n   Fn   Fk    n Fn  FuFu   Fn   n ,\u00167\n\u0016?\n>z\u0006_mmmmm. Fb _.  FlFl   n  Fj  Fj   Fl    nFb Fhzhj,\u001b#chat\nh\u001612\n\u0016?\n>A\u0006_mmm.Fl_.,FjFjssszhy,#chat\ny\u0016?\n>>\u001b\u0016?\n>y_mmmm,#chat\nl\u0016?\n>A\u0006_mmmm,s20s.sss.zhy,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.Fn_.Fjss20s20s20ss,\u0016?\n>z\u0006_mmmmmm.s20s.szhh ,\u0016?\n>A\u0006_mm.sss.20s..,\u0016?\n>>\u001b\u0016?\n>y_mmmm.#chat\nu\u0016?\n>A\u0006_mmmmmmm..20s20ss.20szhk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm..s.s.s.,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mm.#chat\ny;.\u0016?\n>z\u0006_mmmm..s20s.s.szhk,#chat\nn\u0016?\n>A\u0006_mmm,.s.szh,\u0016?\n>A\u0006_mmmm.20s20ssss..,#chat\nk\u0016?\n>>\u001b\u0016?\n>y_mmmmm.Fb   _,#chat\nb  \u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,Fb _,FbFj  Fj  FjFj     zh  ,\u0016?\n>z\u0006_mmm.Fb   n    _.Fj    n    nFh  Fh   n    n Fh  Fl   yy\u001by   y y y\u001b  z"
+  }
+ ]
+}

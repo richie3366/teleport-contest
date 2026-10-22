@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n     \u0016?\ne\u0006s.Fu Fu FlFb h h k k  yy\u001by  y y nn  #"
+ },
+ "segments": [
+  {
+   "seed": 53651017,
+   "datetime": "20200826114950",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n     \u0016?\ne\u0006s.Fu Fu FlFb h h k k  yy\u001by  y y nn  #"
+  }
+ ]
+}

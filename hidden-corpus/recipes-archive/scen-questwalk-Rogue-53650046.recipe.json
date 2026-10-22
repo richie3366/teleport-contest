@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed ring of free action\nPgr\u0016?\n>z  \u00162\n\u0006,\u00163\n  \u0006#chat\nl;n, \u001b;\u00164\n\u0006ll h j  n  n _>. Fl _. Fl > \u0006,\u0016?\n>>\u001b\u0016?\n>y  #chat\nn\u0016?\n>z\u00166\n\u0016?\n>z\u0006_>,Fl    _.:Fl \u0016?\n>>\u001b\u0016?\n>y#chat\ny\u0016?\n>z\u00162\n\u0016?\n>z\u0006lubnkny_>,         Fh_. Fh>\u0016?\n>z\u0006_mmm.ssFhFh\u00164\n\u0016?\n>z\u0006_m.Fh_.FhFh20sFb \u00165\n\u0016?\n>z\u0006_mmmmm.  n   Fb_.Fb Fb FbFbFbFb\u00166\n\u0016?\n>z\u0006_mm.FbFbFb FbFbFb_>.Fb_.Fb>\u0016?\n>z\u0006llhlhubu\u00163\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\nl\u0016?\n>z\u00164\n\u0016?\n>z\u0006__.  Fn_. Fn \u00165\n\u0016?\n>z\u0006_mmmmm,_.sss\u00166\n\u0016?\n>z\u0006_>, Fb    _.  n Fk\u00162\n\u0016?\n>z\u0006_m,   Fk_,FkFb Fb\u00163\n\u0016?\n>z\u0006_<._>.Fn  _.Fb >\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006_mmm.  nFb _.FbFjFj\u00166\n\u0016?\n>z\u0006#chat\nb;j.\u0016?\n>>\u001b\u0016?\n>y#chat\nh   \u0016?\n>z\u00162\n\u0016?\n>z\u0006_mm.  "
+ },
+ "segments": [
+  {
+   "seed": 53650046,
+   "datetime": "20250903112344",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed ring of free action\nPgr\u0016?\n>z  \u00162\n\u0006,\u00163\n  \u0006#chat\nl;n, \u001b;\u00164\n\u0006ll h j  n  n _>. Fl _. Fl > \u0006,\u0016?\n>>\u001b\u0016?\n>y  #chat\nn\u0016?\n>z\u00166\n\u0016?\n>z\u0006_>,Fl    _.:Fl \u0016?\n>>\u001b\u0016?\n>y#chat\ny\u0016?\n>z\u00162\n\u0016?\n>z\u0006lubnkny_>,         Fh_. Fh>\u0016?\n>z\u0006_mmm.ssFhFh\u00164\n\u0016?\n>z\u0006_m.Fh_.FhFh20sFb \u00165\n\u0016?\n>z\u0006_mmmmm.  n   Fb_.Fb Fb FbFbFbFb\u00166\n\u0016?\n>z\u0006_mm.FbFbFb FbFbFb_>.Fb_.Fb>\u0016?\n>z\u0006llhlhubu\u00163\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\nl\u0016?\n>z\u00164\n\u0016?\n>z\u0006__.  Fn_. Fn \u00165\n\u0016?\n>z\u0006_mmmmm,_.sss\u00166\n\u0016?\n>z\u0006_>, Fb    _.  n Fk\u00162\n\u0016?\n>z\u0006_m,   Fk_,FkFb Fb\u00163\n\u0016?\n>z\u0006_<._>.Fn  _.Fb >\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006_mmm.  nFb _.FbFjFj\u00166\n\u0016?\n>z\u0006#chat\nb;j.\u0016?\n>>\u001b\u0016?\n>y#chat\nh   \u0016?\n>z\u00162\n\u0016?\n>z\u0006_mm.  "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u00162\n\u0006\u0014 \u001b@LLLLLLLJlllllljjjj. ,ss10s20s Indiana\n  d$sysyhsysybyysyyyhsy   k#enhance\nya\n   \u001b  #force\nclP\u00165\n\u0006\u00165\n\u0006\u00167\n\u0006\u0014@HHHHJhhhhhhhjj. ,s20s10s Indiana\n  \u0017wand of digging\nzjbbubu#monster\nchn\u001613\n     \u0006\u0014@Hhhhhkk. ,10s Fred\n  FlFl  nFl  nFl  n#turn\n#conduct\n qs\u00164\n\u001613\n \u0006\u001616\n\u0006\u0014@LLlk. ,10s Indiana\n  FyFy  nFy  nFy  n\u00163\n\u00169\n\u0006\u0018\u001bq\u001612\n\u0006\u00165\n\u0006\u001618\n \u0006>#monster\n\u00164\n\u0006\u0014@HHHhhhhhjj. ,20s Indiana\n  d$kkkkhsyhsysy   \u00169\n\u0006__,s\\ \u00162\n   \u0006\u0014@Jllllljjjjjjj.    ,10ssss10ss20s Indiana\n  d$yhyyuusysyjnyysyyynyys   \u001612\n\u0006,,\u00164\n   \u0006\u0014@HHHHHHHhjjjj.    ,20s20s nobody\n  r\u001b,zjj\u001616\n\u0006\u00165\n\u0006"
+ },
+ "segments": [
+  {
+   "seed": 53650011,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u00162\n\u0006\u0014 \u001b@LLLLLLLJlllllljjjj. ,ss10s20s Indiana\n  d$sysyhsysybyysyyyhsy   k#enhance\nya\n   \u001b  #force\nclP\u00165\n\u0006\u00165\n\u0006\u00167\n\u0006\u0014@HHHHJhhhhhhhjj. ,s20s10s Indiana\n  \u0017wand of digging\nzjbbubu#monster\nchn\u001613\n     \u0006\u0014@Hhhhhkk. ,10s Fred\n  FlFl  nFl  nFl  n#turn\n#conduct\n qs\u00164\n\u001613\n \u0006\u001616\n\u0006\u0014@LLlk. ,10s Indiana\n  FyFy  nFy  nFy  n\u00163\n\u00169\n\u0006\u0018\u001bq\u001612\n\u0006\u00165\n\u0006\u001618\n \u0006>#monster\n\u00164\n\u0006\u0014@HHHhhhhhjj. ,20s Indiana\n  d$kkkkhsyhsysy   \u00169\n\u0006__,s\\ \u00162\n   \u0006\u0014@Jllllljjjjjjj.    ,10ssss10ss20s Indiana\n  d$yhyyuusysyjnyysyyynyys   \u001612\n\u0006,,\u00164\n   \u0006\u0014@HHHHHHHhjjjj.    ,20s20s nobody\n  r\u001b,zjj\u001616\n\u0006\u00165\n\u0006"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017blessed amulet of life saving\nPf\u0016?\n>z  \u00162\n\u0006hjybbju\u00163\n  \u0006_ \u001bm,s20sFj\u00164\n\u0006,_>,Fl_,Fl>\u0006_m.Fl_.Fls20sFlFlFl\u00166\n  \u0006,\u00162\n\u0006#chat\nk;<.\u00163\n  \u0006#chat\nu;.\u00164\n\u0006_mmmmm.20sFbFbFb\u00165\n\u0006#chat\nu;<._>.Fy_,<.Fl>\u0006__,\u00162\n\u0006_>,_.;<.Fh_>.Fh_,   Fk  >\u0006_mmm,Fy_,Fl FhFyFl FlFl _>,Fy  n _.Fl >\u0006_mmm.Fl _.FlFyFyFhFhFh\u00165\n\u0006_mmm,sssFh  nFhFh\u00166\n  \u0006,\u00162\n\u0006#chat\nk;.\u00163\n  \u0006_<.Fn_. \u00164\n\u0006_mmmmm.ssFh\u00165\n\u0006,\u00166\n  \u0006llnyby_>,>\u0006ybly\u00163\n\u0006,_>.  _,      >\u0006_m.  _,  Fb  Fh      FbFh  Fb\u00165\n\u0006#chat\nl;m.\u00166\n  \u0006_<.Fy_,Fy\u00162\n\u0006_mm.Fl_.Fu  n FlFnFl\u00163\n  \u0006_mmmm.Fh_.,Fn     Fn FnFl Fl\u00164\n\u0006_mmm,.FlFlFl  nFl\u00165\n\u0006,\u00166\n  \u0006ynnubl\u00162\n\u0006#chat\nj;.\u00163\n  \u0006#chat\nj;>.\u0016?\n>>\u001b\u0016?\n>y  #chat\nb\u0016?\n>z_>,>\u0016?\n>z\u0006_mmmm.20sFlFlFl._>,Fk_,Fk>\u0016?\n>z\u0006_mm.Fy_,  s"
+ },
+ "segments": [
+  {
+   "seed": 53650034,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=fruit:kumquat\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017blessed amulet of life saving\nPf\u0016?\n>z  \u00162\n\u0006hjybbju\u00163\n  \u0006_ \u001bm,s20sFj\u00164\n\u0006,_>,Fl_,Fl>\u0006_m.Fl_.Fls20sFlFlFl\u00166\n  \u0006,\u00162\n\u0006#chat\nk;<.\u00163\n  \u0006#chat\nu;.\u00164\n\u0006_mmmmm.20sFbFbFb\u00165\n\u0006#chat\nu;<._>.Fy_,<.Fl>\u0006__,\u00162\n\u0006_>,_.;<.Fh_>.Fh_,   Fk  >\u0006_mmm,Fy_,Fl FhFyFl FlFl _>,Fy  n _.Fl >\u0006_mmm.Fl _.FlFyFyFhFhFh\u00165\n\u0006_mmm,sssFh  nFhFh\u00166\n  \u0006,\u00162\n\u0006#chat\nk;.\u00163\n  \u0006_<.Fn_. \u00164\n\u0006_mmmmm.ssFh\u00165\n\u0006,\u00166\n  \u0006llnyby_>,>\u0006ybly\u00163\n\u0006,_>.  _,      >\u0006_m.  _,  Fb  Fh      FbFh  Fb\u00165\n\u0006#chat\nl;m.\u00166\n  \u0006_<.Fy_,Fy\u00162\n\u0006_mm.Fl_.Fu  n FlFnFl\u00163\n  \u0006_mmmm.Fh_.,Fn     Fn FnFl Fl\u00164\n\u0006_mmm,.FlFlFl  nFl\u00165\n\u0006,\u00166\n  \u0006ynnubl\u00162\n\u0006#chat\nj;.\u00163\n  \u0006#chat\nj;>.\u0016?\n>>\u001b\u0016?\n>y  #chat\nb\u0016?\n>z_>,>\u0016?\n>z\u0006_mmmm.20sFlFlFl._>,Fk_,Fk>\u0016?\n>z\u0006_mm.Fy_,  s"
+  }
+ ]
+}

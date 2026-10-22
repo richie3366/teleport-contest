@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed magic lamp\n\u0017blessed magic harp\n\u0017blessed ring of free action\nPgr\u0017blessed +3 helm of telepathy\nWh\u0017blessed +3 speed boots\nWi\u0017blessed 20 daggers\nQj#levelchange\n14\n             #wizintrinsic\nh\n fl fbflfn;m, \u001b@.E- ad aerarium\ntbufhfbfj\u0017blessed scroll of identify\nrk f\n \u001b\u0017potion of oil\nql20ss#wizintrinsic\nh\n\u0007dwarf\n\u0007sewer rat\nFlFl FlFh20s20s\u00162\nhjnl:\u0017wand of probing\nzmy zmy  zmy zmy zmy \u0017scroll of remove curse\nrn \u0017newt corpse\neo #wizintrinsic\nh\n\u0017spellbook of sleep\nrp.m.Z#turn\n:\u0016?\ni\u0006_<,Fy_. 20s sm.\u0007yellow mold\nFhFhFh20s \u0007jackal\n\u0007bugbear\nFhFhFhs#wizintrinsic\nh\n\u0007bugbear\n\u0007newt\nFhFhFh20sssi\u001bulk\u0017wand of fire\nzqn  zqhzqj     n  zqu \u0017wand of probing\nzrnzruzrhzr.zrn#wizintrinsic\nh\n\u0017blessed scroll of remove curse\nrs \u0017lembas wafer\net  \u0007dwarf\nFhFh20s20ss20s\u0017blessed spellbook of slow monster\nru20sZ\u001b:#wizintrinsic\nh\n\u0017scroll of enchant armor\nrv \u0017blessed scroll of magic mapping\nrw\u0017wand of fire\nzxj  zxu zxh  zxj  n zxj    #wizint"
+ },
+ "segments": [
+  {
+   "seed": 53650044,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed magic lamp\n\u0017blessed magic harp\n\u0017blessed ring of free action\nPgr\u0017blessed +3 helm of telepathy\nWh\u0017blessed +3 speed boots\nWi\u0017blessed 20 daggers\nQj#levelchange\n14\n             #wizintrinsic\nh\n fl fbflfn;m, \u001b@.E- ad aerarium\ntbufhfbfj\u0017blessed scroll of identify\nrk f\n \u001b\u0017potion of oil\nql20ss#wizintrinsic\nh\n\u0007dwarf\n\u0007sewer rat\nFlFl FlFh20s20s\u00162\nhjnl:\u0017wand of probing\nzmy zmy  zmy zmy zmy \u0017scroll of remove curse\nrn \u0017newt corpse\neo #wizintrinsic\nh\n\u0017spellbook of sleep\nrp.m.Z#turn\n:\u0016?\ni\u0006_<,Fy_. 20s sm.\u0007yellow mold\nFhFhFh20s \u0007jackal\n\u0007bugbear\nFhFhFhs#wizintrinsic\nh\n\u0007bugbear\n\u0007newt\nFhFhFh20sssi\u001bulk\u0017wand of fire\nzqn  zqhzqj     n  zqu \u0017wand of probing\nzrnzruzrhzr.zrn#wizintrinsic\nh\n\u0017blessed scroll of remove curse\nrs \u0017lembas wafer\net  \u0007dwarf\nFhFh20s20ss20s\u0017blessed spellbook of slow monster\nru20sZ\u001b:#wizintrinsic\nh\n\u0017scroll of enchant armor\nrv \u0017blessed scroll of magic mapping\nrw\u0017wand of fire\nzxj  zxu zxh  zxj  n zxj    #wizint"
+  }
+ ]
+}

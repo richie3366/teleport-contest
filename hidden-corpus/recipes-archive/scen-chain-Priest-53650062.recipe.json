@@ -1,0 +1,42 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  \u0017wand of digging\nzk> 20szk> szk> szk> szk> .zk> sFn s.ss20s20s     FjFjFj\u0007werewolf\nFuFu Fu Fk  yy\u001by   y y\u001by  Fn#wizintrinsic\ne\n .m.sj20s sm.ss20s 20s...ssss.20s20ss...ss20ssbs.m.sm.sj.m.su20s s.s20s20ss20s..sss   y   nny n  b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 53650062,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017wand of digging\nzk> 20szk> szk> szk> szk> .zk> sFn s.ss20s20s     FjFjFj"
+  },
+  {
+   "seed": 53750062,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007werewolf\nFuFu Fu Fk  yy\u001by   y y\u001by  F"
+  },
+  {
+   "seed": 53850062,
+   "datetime": "20180503233350",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "n#wizintrinsic\ne\n .m.sj20s sm.ss20s 20s...ssss.20s20ss...ss20ssbs.m.sm.sj.m.su20s s.s20s20ss20s..sss"
+  },
+  {
+   "seed": 53950062,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=pettype:none\n",
+   "moves": "   y   nny n  b"
+  }
+ ]
+}

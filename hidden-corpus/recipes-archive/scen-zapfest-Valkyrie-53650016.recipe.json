@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed shield of reflection\nW\u001b\u0017blessed ring of free action\nPfr\u0017blessed +3 gray dragon scale mail\nWg #levelchange\n20\n                   \u0007master mind flayer\n\u0007lich\n\u0017wand of fire\nzhj  zhh           zhn zhh     sbzhk         n .m.   n \u00169\n\u0007vampire\n\u0007kobold shaman\n\u0007succubus\n\u0017wand of magic missile\nzikzik    20s   zib    sh.m.   zij    sm.  shsjsm.  sbi\u001b\u0007red dragon\n\u0007black dragon\n.m. 20s    sm..m.    Fy Fl       \u00169\n\u0018\u001b\u0007red dragon\nsjs.m.    sm.  n            #polyself\ngold dragon\n    #monster\ny     .m.      sm.      #monster\n#monster\n#monster\n#monster\nFl      n   Fl     \u001610\n\u00178 spears\nQj\u0007acid blob\nfb fh tabfb tbbfh\u00162\n  \u0017blessed spellbook of magic missile\nrk .m.\u0017blessed spellbook of cause fear\nrl sl\u0007vampire\n\u0007master lich\nZ.n20sZsm.sm. ZZZZ#turn\n\u0007silver dragon\n\u0007red dragon\n20s     sm.  n            sm.     #polyself\nblack dragon\n  #monster\nh      sm.     sm.     #monster\n#monster\n\u0017wand of fire\namy     n      Fl   Fy\u0018\u001b\u00162\n\u0007baby red dragon\n\u0007red dragon\n20s     sm.    n    .u     sb#polyself\ngold dragon\n #monster\nk            20s          .j   "
+ },
+ "segments": [
+  {
+   "seed": 53650016,
+   "datetime": "20040403220645",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed shield of reflection\nW\u001b\u0017blessed ring of free action\nPfr\u0017blessed +3 gray dragon scale mail\nWg #levelchange\n20\n                   \u0007master mind flayer\n\u0007lich\n\u0017wand of fire\nzhj  zhh           zhn zhh     sbzhk         n .m.   n \u00169\n\u0007vampire\n\u0007kobold shaman\n\u0007succubus\n\u0017wand of magic missile\nzikzik    20s   zib    sh.m.   zij    sm.  shsjsm.  sbi\u001b\u0007red dragon\n\u0007black dragon\n.m. 20s    sm..m.    Fy Fl       \u00169\n\u0018\u001b\u0007red dragon\nsjs.m.    sm.  n            #polyself\ngold dragon\n    #monster\ny     .m.      sm.      #monster\n#monster\n#monster\n#monster\nFl      n   Fl     \u001610\n\u00178 spears\nQj\u0007acid blob\nfb fh tabfb tbbfh\u00162\n  \u0017blessed spellbook of magic missile\nrk .m.\u0017blessed spellbook of cause fear\nrl sl\u0007vampire\n\u0007master lich\nZ.n20sZsm.sm. ZZZZ#turn\n\u0007silver dragon\n\u0007red dragon\n20s     sm.  n            sm.     #polyself\nblack dragon\n  #monster\nh      sm.     sm.     #monster\n#monster\n\u0017wand of fire\namy     n      Fl   Fy\u0018\u001b\u00162\n\u0007baby red dragon\n\u0007red dragon\n20s     sm.    n    .u     sb#polyself\ngold dragon\n #monster\nk            20s          .j   "
+  }
+ ]
+}

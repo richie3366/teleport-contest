@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 speed boots\nWf\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPhl\u0017elven bow\nwi\u001720 elven arrows\nQj\u0007jackal\nfktbkfk fh fk \u0017potion of booze\ntjk\u0017wand of fire\n\u0017wand of magic missile\n\u0017wand of digging\n\u0007troll\n\u0007hobbit\n\u0007dwarf\nzmlzmu     nzn>     n .m.  n zlk   n 20s   n zlh    n zmb    n \u00163\n\u0017wand of fire\n\u0017wand of teleportation\n\u0017wand of death\n\u0007acid blob\nzpjzpnzqbzok   nzpu.zqj nzoy\u001610\n\u0007silver dragon\n.m...Fu Fu \u0018\u001b\u0017spellbook of fireball\nrr  n     sh\u0017blessed spellbook of drain life\nrs 20s  n \u0007kobold shaman\n\u0007lich\nZZZZZsm.  .m.Z\u00167\n\u0017wand of polymorph\n\u0017wand of teleportation\n\u0007lichen\nzuuzul.lztlztlsm.zulszt.\u0017blessed spellbook of light\nrvs\u0007succubus\nZa\n.m.20s   nZa\nsm..jZa\n.m.sm.Za\nZa\nsm..m.Za\n#turn\n\u0017blessed spellbook of drain life\nrw .y\u0017spellbook of cause fear\nrx \u001b     nsm. \u0007vampire\n\u0007aligned cleric\nyZa\nZa\nsm.20s   Za\n   n Za\nZa\n#turn\n\u00169\n\u0007black dragon\n\u0007silver dragon\n20s20s   n sk     n   yny   y y n  s"
+ },
+ "segments": [
+  {
+   "seed": 53650004,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 speed boots\nWf\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed ring of free action\nPhl\u0017elven bow\nwi\u001720 elven arrows\nQj\u0007jackal\nfktbkfk fh fk \u0017potion of booze\ntjk\u0017wand of fire\n\u0017wand of magic missile\n\u0017wand of digging\n\u0007troll\n\u0007hobbit\n\u0007dwarf\nzmlzmu     nzn>     n .m.  n zlk   n 20s   n zlh    n zmb    n \u00163\n\u0017wand of fire\n\u0017wand of teleportation\n\u0017wand of death\n\u0007acid blob\nzpjzpnzqbzok   nzpu.zqj nzoy\u001610\n\u0007silver dragon\n.m...Fu Fu \u0018\u001b\u0017spellbook of fireball\nrr  n     sh\u0017blessed spellbook of drain life\nrs 20s  n \u0007kobold shaman\n\u0007lich\nZZZZZsm.  .m.Z\u00167\n\u0017wand of polymorph\n\u0017wand of teleportation\n\u0007lichen\nzuuzul.lztlztlsm.zulszt.\u0017blessed spellbook of light\nrvs\u0007succubus\nZa\n.m.20s   nZa\nsm..jZa\n.m.sm.Za\nZa\nsm..m.Za\n#turn\n\u0017blessed spellbook of drain life\nrw .y\u0017spellbook of cause fear\nrx \u001b     nsm. \u0007vampire\n\u0007aligned cleric\nyZa\nZa\nsm.20s   Za\n   n Za\nZa\n#turn\n\u00169\n\u0007black dragon\n\u0007silver dragon\n20s20s   n sk     n   yny   y y n  s"
+  }
+ ]
+}
