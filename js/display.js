@@ -7941,19 +7941,6 @@ export function serialize_for_scoring(term) {
             if (cell.ch !== ' ' || (cell.attr & 0x7)) { lastCol = c; break; }
         }
         if (lastCol < 0) { if (r < lastRow) out += '\n'; continue; }
-        // Start at first non-space OR space with attr (inv/bold/uline).
-        // Bold is invisible on blanks but contest tty still records it
-        // (topten_print_bold `\x1b[1m  1…`; D-0932). Inv/uline: D-0129.
-        let firstCol = 0;
-        for (let c = 0; c <= lastCol; c++) {
-            const cell = term.grid[r][c];
-            if (cell.ch !== ' ' || (cell.attr & 0x7)) {
-                firstCol = c;
-                break;
-            }
-        }
-        if (firstCol > 4) out += `\x1b[${firstCol}C`;
-        else if (firstCol > 0) out += ' '.repeat(firstCol);
         // Scoring color for a cell: glyphless CLR_GRAY blanks → NO_COLOR
         // (D-0930). Inv/uline spaces keep their color (D-0129).
         const cellEmitColor = (cell) => {
@@ -7962,6 +7949,21 @@ export function serialize_for_scoring(term) {
                 return NO_COLOR;
             return cell.color;
         };
+        // Start at first non-space OR space with attr (inv/bold/uline)
+        // OR a colored space. Bold is invisible on blanks but contest tty
+        // still records it (topten_print_bold `\x1b[1m  1…`; D-0932).
+        // Inv/uline: D-0129. Color: a menu-colored identifier-less row's
+        // "    " indent (` \x1b[97m    For a brief…`, D-4216).
+        let firstCol = 0;
+        for (let c = 0; c <= lastCol; c++) {
+            const cell = term.grid[r][c];
+            if (cell.ch !== ' ' || (cell.attr & 0x7) || cellEmitColor(cell) !== NO_COLOR) {
+                firstCol = c;
+                break;
+            }
+        }
+        if (firstCol > 4) out += `\x1b[${firstCol}C`;
+        else if (firstCol > 0) out += ' '.repeat(firstCol);
         for (let c = firstCol; c <= lastCol; ) {
             const cell = term.grid[r][c];
             const wantAttr = cell.attr | 0;

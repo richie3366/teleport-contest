@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-4216 — options.c doset adds its help text with add_menu_str (`:8798–8802`), its non-settable booleans with a zero-identifier add_menu (`:8851–8860`), and its gameview compounds through doset_add_menu with indexoffset 0 (`:9060–9065`). windows.c add_menu applies menucolors to all of these (`:1803–1807`); only add_menu_heading skips them. JS painted those identifier-less rows plain, so after a menucolor «e» → white, «    blind  [false]» and the help lines stayed gray in the full `O` menu where C paints them white
+
+- **Status:** shipped (cliffs head after D-4215).
+- **Symptom:** scen-options-Priest-53051011 step 73 (`O`): rows 2–21 C ` \e[97m    For a brief explanation…`, JS uncoloured; step 77 the same for the gameview compounds («    windowtype [tty]» …). Rows without an «e» (msghistory [20]) are plain in both.
+- **C locus:** options.c doset `:8758–8960` (helptext loop `:8790–8810`, pass-0 bools `:8851–8860`, compounds `:8871–8880`); doset_add_menu `:9026–9065`; windows.c add_menu `:1803–1807`, add_menu_str `:1832–1838`, add_menu_heading `:1816–1828` (SKIPMENUCOLORS).
+- **JS was:** js/options.js doset pushed those rows as `{ text, selectable: false }`; the generic menus colour only selectable rows and paint the rest in the caller's style. The helptext's trailing "" row was an empty row, where C prints "%4s" (four spaces). js/display.js serialize_for_scoring started a row at the first non-space or attr space, so a coloured leading indent was CUF'd and lost its colour.
+- **Fix:** a menu_row_coloring helper (windows.c add_menu's menucolor step for an identifier-less row) is spread onto doset's help rows (now C's helptext loop, "%4s%.75s"), the pass-0 boolean rows and doset_add_menu's indexoffset-0 rows. serialize_for_scoring treats a coloured space as row content when it finds the first column, as the capture does (` \e[97m    For…`).
+- **JS:** js/options.js menu_row_coloring `:6281–6294`, doset_add_menu `:10863–10875`, doset helptext loop `:11571–11593`, pass-0 rows `:11613`; js/display.js serialize_for_scoring `:7944–7962`.
+- **Callers:** doset ← `O` (cmd.c), doset_simple 'm'. doset_add_menu ← doset `:8875`, `:8892`. Unchanged.
+- **Verify:**
+  - `node scripts/verify.mjs --fn doset,doset_add_menu,serialize_for_scoring --full` → `verify doset: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-options-Priest-53051011 → furniture_detect at step 87, was 73) · reach REACH-OK ×3 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 710 baseline-PASS re-run in 135.6s, 0 regressed → REACH-OK.
+  - verify doset: 0 PASS, 1 moved, 0 no-movement.
+- **Named omissions:** none in doset. In other files, not touched: other JS menus that push identifier-less add_menu rows as plain non-selectable rows (pickup.js `:4736` already colours its row). The trailing-space colour of handler_autounlock's padded rows (step 64) is not scored by the runner.
+- **Ledger:** doset ported; doset_add_menu ported
+- **Next:** this session's step 87 tip window («Tip: Farlooking…», C white) is the next writer; then show_gamelog / polymorph_sink.
+
 ## D-4215 — spell.c dospellmenu builds its menu with add_menu_heading, add_menu and end_menu, then calls select_menu (`:2075–2168`). windows.c add_menu replaces a row's colour and attr with the first matching menucolor (`:1803–1807`). JS dospellmenu painted its own fixed rows, so after `O` added a menucolor, «Choose which spell to cast» showed «a - healing …» in gray where C paints it bright white. The JS swap menu also broke out of #showspells on ESC, or when the player typed the preselected letter. In C, both return n <= 0, the `splaction >= 0` arm returns TRUE with spell_no = splaction, and the list is shown again
 
 - **Status:** shipped (cliffs head after Grow #24).
