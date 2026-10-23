@@ -140,7 +140,6 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `files.c` reveal_paths — blocks 1/926 corpus sessions (first at step 0; RNG lost 7366, screens lost 190): toplines identical; first differing screen row 4: C «NetHack, Copyright 1985-2026» vs JS «» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify reveal_paths` (scen-chargen-Samurai-54055027). @7d611c7fb
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)

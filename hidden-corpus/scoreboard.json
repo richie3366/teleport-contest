@@ -1,6 +1,6 @@
 {
- "commit": "7d611c7fb",
- "at": "2026-10-23T06:46:37.925Z",
+ "commit": "4f2c7e80c",
+ "at": "2026-10-23T06:57:18.999Z",
  "full": false,
  "fullCommit": "be3c60cd0",
  "fullAt": "2026-10-22T11:30:17.629Z",
@@ -1829,20 +1829,20 @@
   },
   "scen-chargen-Samurai-54055027": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 0,
+   "passed": true,
+   "rngM": 7366,
    "rngT": 7366,
-   "scrM": 0,
+   "scrM": 190,
    "scrT": 190,
-   "kind": "screen",
-   "step": 0,
+   "kind": null,
+   "step": null,
    "steps": 190,
-   "owner": "reveal_paths",
-   "loc": "files.c:3186",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
-   "error": "Error: player_selection: quit |     at player_selection (file:///Users/raphaelhervier/dev/teleport-contest-revisited/js/player_selection.js:1766:15) |     at as"
+   "error": null
   },
   "scen-chargen-Samurai-54055038": {
    "src": "corpus",
