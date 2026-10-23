@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-23 — D-4238 role.c genl_player_setup's five chargen menus are PICK_ONE select_menu calls (`:2325`, `:2419`, `:2507`, `:2593`, `:2675`), and tty process_menu_window matches a key case-sensitively: first a group accelerator in gacc (one that differs from its item's selector and labels exactly one item, `:1352–1379`), then the exact selector on the page (`:1742–1762`). The role menu gives Rogue `r` and Ranger `R` (setup_rolemenu's highc, `:2885–2887`), so «R» picks Ranger. js/player_selection.js menu_pick also accepted `ch.toLowerCase()` and found Rogue's `r` first, and the «Is this ok?» loop lowercased every key
+
+**C locus:** role.c genl_player_setup `:2206–2725` (select_menu `:2325`, `:2419`, `:2507`, `:2593`; confirm menu `:2655–2676`); setup_rolemenu `:2854–2902`; win/tty/wintty.c process_menu_window gacc `:1352–1379`, key arm `:1735–1762`.
+**JS:** js/player_selection.js menu_pick `:1206–1235`, genl_player_setup confirm loop `:1713–1722`.
+**Change:** menu_pick takes the one item whose group accelerator (altkey, when it differs from the key) equals the key, else the item whose selector equals it, with no case folding. The confirm loop matches exact selectors and keeps ESC as quit.
+**Verify:** - `node scripts/verify.mjs --fn genl_player_setup` → verify genl_player_setup: 5 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach: no RNG-tagged reach, smoke 24/24, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+**Named:** menu_pick is still a corner-menu clone of select_menu, not process_menu_window: the MENU_* command keys (select all, search, page keys) and the bell on an unacceptable key are not modelled; a bad key re-reads silently, as before.
+**Next:** files.c reveal_paths (1 session, scen-chargen-Samurai-54055027 step 0: the copyright banner is missing in JS).
 ## 2026-10-23 — Grow #29 @67ad0e29d: fresh 54050000 ×160 159/160 (99.4 %) on arrival
 
 **Fresh:** RNG 99.7 %, screens 99.5 %; worst chargen 5/6 (RNG 76.5 %); every other family 100 %. 1 folded (chargen genl_player_setup s8: role menu key `R` gives Rogue in JS where C picks Ranger), 159 archived, 0 reserved. The cliffs block was empty, so step 4 authored 80 chargen @54055000: 75/80 PASS, 4 more genl_player_setup and 1 reveal_paths (s0, the copyright banner); tier sent 2 to reserve. Board 920/926. Gap to held-out 19.9 pts, inside the band; no calibration.

@@ -140,8 +140,7 @@ wired, `node scripts/verify.mjs --fn <fn>` showing **movement** on the
 probe sessions and **REACH-OK**.
 
 <!-- cliffs:begin -->
-- [ ] `role.c` genl_player_setup — blocks 5/926 corpus sessions (first at step 7; RNG lost 33698, screens lost 1197): toplines identical; first differing screen row 2: C «Ranger <race> <gender> <alignment>» vs JS «Rogue <race> <gender> chaotic» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify genl_player_setup` (scen-chargen-Archeologist-54055039, scen-chargen-Caveman-54055023, scen-chargen-Samurai-54055038). @67ad0e29d **[history: archived D-2833 — read that D-entry once; the arm this divergence names is still open]**
-- [ ] `files.c` reveal_paths — blocks 1/926 corpus sessions (first at step 0; RNG lost 7366, screens lost 190): toplines identical; first differing screen row 4: C «NetHack, Copyright 1985-2026» vs JS «» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify reveal_paths` (scen-chargen-Samurai-54055027). @67ad0e29d
+- [ ] `files.c` reveal_paths — blocks 1/926 corpus sessions (first at step 0; RNG lost 7366, screens lost 190): toplines identical; first differing screen row 4: C «NetHack, Copyright 1985-2026» vs JS «» — the owner is the region heuristic; port the writer of the differing value, not the painter. Probe: `node scripts/hidden-proxy.mjs verify reveal_paths` (scen-chargen-Samurai-54055027). @7d611c7fb
 <!-- cliffs:end -->
 
 ## Open — coverage (ledger gap — pop when the cliffs block is empty, or as a same-file companion)

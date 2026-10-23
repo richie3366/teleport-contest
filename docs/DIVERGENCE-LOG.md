@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4238 — role.c genl_player_setup's five chargen menus are PICK_ONE select_menu calls (`:2325`, `:2419`, `:2507`, `:2593`, `:2675`), and tty process_menu_window matches a key case-sensitively: first a group accelerator in gacc (one that differs from its item's selector and labels exactly one item, `:1352–1379`), then the exact selector on the page (`:1742–1762`). The role menu gives Rogue `r` and Ranger `R` (setup_rolemenu's highc, `:2885–2887`), so «R» picks Ranger. js/player_selection.js menu_pick also accepted `ch.toLowerCase()` and found Rogue's `r` first, and the «Is this ok?» loop lowercased every key
+
+- **Status:** shipped (cliffs head; 5 sessions from Grow #29).
+- **Symptom:** scen-chargen-Monk-54050041 step 8 (and -Archeologist-54055039, -Caveman-54055023, -Samurai-54055038, -Healer-54055078): «n» at «Shall I pick…», then «R» on the role menu. C header row «Ranger <race> <gender> <alignment>», JS «Rogue <race> <gender> chaotic»; the rest of each session ran as the wrong role.
+- **C locus:** role.c genl_player_setup `:2206–2725` (select_menu `:2325`, `:2419`, `:2507`, `:2593`; confirm menu `:2655–2676`); setup_rolemenu `:2854–2902`; win/tty/wintty.c process_menu_window gacc `:1352–1379`, key arm `:1735–1762`.
+- **JS was:** menu_pick matched `key === ch || key === ch.toLowerCase()` (and the same for altkey); the confirm loop matched `String.fromCharCode(key).toLowerCase()`, so «Y», «N», «Q» were accepted where C bells.
+- **Fix:** menu_pick takes the one item whose group accelerator (altkey, when it differs from the key) equals the key, else the item whose selector equals it, with no case folding. The confirm loop matches exact selectors and keeps ESC as quit.
+- **JS:** js/player_selection.js menu_pick `:1206–1235`, genl_player_setup confirm loop `:1713–1722`.
+- **Callers:** unchanged (chargen_aspect_menu ← genl_player_setup role / race / gender / alignment menus; the confirm loop is inline).
+- **Verify:**
+  - `node scripts/verify.mjs --fn genl_player_setup` → verify genl_player_setup: 5 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS · reach: no RNG-tagged reach, smoke 24/24, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 920 baseline-PASS re-run in 176.4s, 0 regressed → REACH-OK; board 925/926.
+  - `node frozen/ps_test_runner.mjs sessions` → 44/44.
+  - verify genl_player_setup: 5 PASS, 0 moved, 0 no-movement.
+- **Named omissions:** menu_pick is still a corner-menu clone of select_menu, not process_menu_window: the MENU_* command keys (select all, search, page keys) and the bell on an unacceptable key are not modelled; a bad key re-reads silently, as before.
+- **Ledger:** genl_player_setup ported
+- **Next:** files.c reveal_paths (1 session, scen-chargen-Samurai-54055027 step 0: the copyright banner is missing in JS).
+
 ## D-4237 — tty show_topl (topl.c `:145–166`) paints an ATR_NOHISTORY message through addtopl → putsyms → topl_putsym, and topl_putsym breaks the line by itself: a character that would land at `curx == CO - 1` first emits `topl_putsym('\n')` (`:305–343`). An 84-character autodescribe line therefore shows 79 columns on row 0 and « ball» from row 1 column 0. js/display.js show_topl ran the same loop to set cw.curx / cury but handed the unbroken string to the painter, which breaks only on '\n' and clips at the right margin, so everything past column 79 was lost
 
 - **Status:** shipped (cliffs head, last row; 1 session from Grow #28).
