@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-4240 — mklev.c mktrap refuses a given location only when dbridge.c is_pool_or_lava says so (`:2063–2064`): is_pool is POOL / MOAT / WATER or is_moat, is_lava is LAVAPOOL / LAVAWALL or a raised drawbridge over DB_LAVA, and both check isok. js/mklev.js mktrap tested `IS_POOL(typ) || IS_LAVA(typ)`, and rm.h IS_POOL spans POOL..DRAWBRIDGE_UP, so a des.trap on a raised drawbridge over ice or floor made no trap where C makes one. mktrap now calls the live is_pool / is_lava, and its Gehennom bias reads the imported Inhell()
+
+- **Status:** shipped (coverage head; cliffs block empty, board 926/926).
+- **Symptom:** no corpus session blocked (coverage PARTIAL, status unknown). Reached only through sp_lev.c create_trap (the one caller that passes `tm`) on a DRAWBRIDGE_UP cell whose DB_UNDER is not moat or lava; no corpus level has one.
+- **C locus:** mklev.c mktrap `:2036–2154`; dbridge.c is_pool `:45–59`, is_lava `:61–74`, is_pool_or_lava; rm.h IS_POOL `:129`; dungeon.h Inhell.
+- **JS was:** `game.level.at(tm).typ` through IS_POOL / IS_LAVA; Inhell as an inline `game.dungeons[dnum].flags.hellish` read.
+- **Fix:** `if (tm && (is_pool(tm.x, tm.y) || is_lava(tm.x, tm.y))) return;` with hack.js's is_pool / is_lava (already imported), and `Inhell() && !rn2(5)` with teleport.js's Inhell (already imported). The rest of the body was already C's, in C order: the invalid-args return, num / rogue / Gehennom / traptype_rnd pick, the hole → ROCKTRAP downgrade, the 200-try placement loop, maketrap, and the WEB / SEEN / MAGIC_PORTAL / victim tail in mktrap_seen_victim.
+- **JS:** js/mklev.js mktrap `:34749` (pool test `:34762`, Inhell `:34770`).
+- **Callers:** mklev.c:985 fill_ordinary_room → js/mklev.js `:34943`; mkmaze.c:1123 populate_maze → `:21825`; sp_lev.c:1845 create_trap → `:1527`. All pass C's arguments (unchanged).
+- **Verify:**
+  - `node scripts/verify.mjs --fn mktrap --full` → no corpus session blocked at baseline · reach: 798 baseline-PASS reach it, 80 run, 80 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 926 baseline-PASS re-run in 163.6s, 0 regressed → REACH-OK.
+  - verify mktrap: 0 PASS, 0 moved, 0 no-movement (no session blocked).
+- **Named omissions:** paniclog on invalid args (files.c, filesystem — by-design; the return is kept). `lvl = level_difficulty()` is read in the shared tail after maketrap instead of at entry; it draws no RNG and nothing between changes it. The hand special-level loaders still call mktrap_seen_victim directly (~75 sites) rather than create_trap → mktrap; this commit does not touch them.
+- **Ledger:** mktrap ported
+- **Next:** the cliffs block is empty; the coverage head is rumors.c others_check.
+
 ## D-4239 — do_name.c docallcmd builds its "What do you want to name?" menu with add_menu (selector `abc ? 0 : a_char`, group accelerators C / y / n / , / \ / l, `:520–550`) and reads it with select_menu PICK_ONE (`:551–556`): ESC, Return and the last-page Space finish with nothing picked, so ch = 'q'; with lootabc, tty_end_menu gives each row its a, b, c… selector (wintty.c `:2723–2727`). js/do_name.js docallcmd_menu was a hand-rolled key loop that re-prompted on Return / Space and painted the group accelerator as the row letter under lootabc. It now hands C's six rows to select_menu_pick_one, and that helper tries gacc before the page selectors, as process_menu_window's default arm does
 
 - **Status:** shipped (coverage head; cliffs block empty, board 926/926).

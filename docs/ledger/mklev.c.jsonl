@@ -41,7 +41,7 @@
 {"fn":"mktrap_victim","c":"1815-1934","status":"ported","js":["js/mklev.js:mktrap_victim"],"d":["D-3407","D-3228","D-1519"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"traptype_rnd","c":"1938-1998","status":"ported","js":["js/mklev.js:traptype_rnd"],"d":["D-3407","D-2716"],"at":"2026-10-04@e3dc5ab18","note":"audited D-3407: whole vs C"}
 {"fn":"traptype_roguelvl","c":"2002-2030","status":"ported","js":["js/mklev.js:traptype_roguelvl"],"at":"2026-10-03@bbe63333a"}
-{"fn":"mktrap","c":"2036-2154","status":"unknown"}
+{"fn":"mktrap","c":"2036-2154","status":"ported","js":["js/mklev.js:mktrap"],"d":["D-4240"],"at":"2026-10-23@ca63125f7"}
 {"fn":"mkstairs","c":"2159-2197","status":"ported","js":["js/mklev.js:mkstairs"],"d":["D-2931"],"at":"seed@a30a7de84"}
 {"fn":"generate_stairs_room_good","c":"2201-2215","status":"ported","js":["js/mklev.js:generate_stairs_room_good"],"at":"2026-10-03@bbe63333a"}
 {"fn":"generate_stairs_find_room","c":"2219-2245","status":"ported","js":["js/mklev.js:generate_stairs_find_room"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
