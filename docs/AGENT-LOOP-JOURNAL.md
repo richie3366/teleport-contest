@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-23 — Port slot @2737468aa: both Open blocks empty after three stale checks; no js/ change
+
+**Stale checks (ledger only):** rumors.c others_check `ported` (the embeds are the recorder dat files minus the `#` line, byte-exact, max line 101 < BUFSZ, so the comment-line / empty-entry / open-fail arms cannot be reached); insight.c enlght_combatinc `ported` (whole C body; all four C callers wired in both builders); options.c collect_menu_keys `by-design` (called only by curses cursinvt.c:158 and X11 winmenu.c:712/725, never by tty). `ledger.mjs rows --partial` also returns 0. Board 926/926, cliffs block empty.
+**Next:** the queue is dry; the next slot grows (§10.19).
+
 ## 2026-10-23 — D-4240 mklev.c mktrap refuses a given location only when dbridge.c is_pool_or_lava says so (`:2063–2064`): is_pool is POOL / MOAT / WATER or is_moat, is_lava is LAVAPOOL / LAVAWALL or a raised drawbridge over DB_LAVA, and both check isok. js/mklev.js mktrap tested `IS_POOL(typ) || IS_LAVA(typ)`, and rm.h IS_POOL spans POOL..DRAWBRIDGE_UP, so a des.trap on a raised drawbridge over ice or floor made no trap where C makes one. mktrap now calls the live is_pool / is_lava, and its Gehennom bias reads the imported Inhell()
 
 **C locus:** mklev.c mktrap `:2036–2154`; dbridge.c is_pool `:45–59`, is_lava `:61–74`, is_pool_or_lava; rm.h IS_POOL `:129`; dungeon.h Inhell.

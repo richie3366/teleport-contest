@@ -152,9 +152,6 @@ wired, `node scripts/verify.mjs --fn <fn>` REACH-OK. A row whose
 remaining omissions cannot ship is declared `audited` once and leaves.
 
 <!-- coverage:begin -->
-- [ ] `rumors.c` others_check — coverage THIN (C 63 code L `rumors.c:308–408` / JS 24 code L in js/rumors.js; hops —, callers 1, RNG 0, msg 15) @c9787eb98
-- [ ] `insight.c` enlght_combatinc — coverage PARTIAL (C 22 code L `insight.c:160–197` / JS 14 code L in js/invent.js; hops 6, callers 2, RNG 0, msg 0) @c9787eb98
-- [ ] `options.c` collect_menu_keys — coverage MISSING (C 20 code L `options.c:8126–8161` / JS no symbol; hops —, callers 0, RNG 0, msg 1) @c9787eb98
 <!-- coverage:end -->
 
 ## Open — missing-arm (hand-verified; cliff-phase companions only)
