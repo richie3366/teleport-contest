@@ -152,7 +152,6 @@ wired, `node scripts/verify.mjs --fn <fn>` REACH-OK. A row whose
 remaining omissions cannot ship is declared `audited` once and leaves.
 
 <!-- coverage:begin -->
-- [ ] `do_name.c` docallcmd — coverage PARTIAL (C 82 code L `do_name.c:499–601` / JS 41 code L in js/do_name.js; hops —, callers 0, RNG 0, msg 1; declared partial: docallcmd_menu select_menu clone: Enter/Space with no pick re-prompts where C returns 'q' (wintty.c:1617-1630); lootabc rows keep group acce) @2cf72c412
 - [ ] `mklev.c` mktrap — coverage PARTIAL (C 62 code L `mklev.c:2036–2154` / JS 35 code L in js/mklev.js; hops 2, callers 3, RNG 2, msg 0) @c9787eb98
 - [ ] `rumors.c` others_check — coverage THIN (C 63 code L `rumors.c:308–408` / JS 24 code L in js/rumors.js; hops —, callers 1, RNG 0, msg 15) @c9787eb98
 - [ ] `insight.c` enlght_combatinc — coverage PARTIAL (C 22 code L `insight.c:160–197` / JS 14 code L in js/invent.js; hops 6, callers 2, RNG 0, msg 0) @c9787eb98

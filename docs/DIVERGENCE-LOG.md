@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-4239 — do_name.c docallcmd builds its "What do you want to name?" menu with add_menu (selector `abc ? 0 : a_char`, group accelerators C / y / n / , / \ / l, `:520–550`) and reads it with select_menu PICK_ONE (`:551–556`): ESC, Return and the last-page Space finish with nothing picked, so ch = 'q'; with lootabc, tty_end_menu gives each row its a, b, c… selector (wintty.c `:2723–2727`). js/do_name.js docallcmd_menu was a hand-rolled key loop that re-prompted on Return / Space and painted the group accelerator as the row letter under lootabc. It now hands C's six rows to select_menu_pick_one, and that helper tries gacc before the page selectors, as process_menu_window's default arm does
+
+- **Status:** shipped (coverage head; cliffs block empty, board 926/926).
+- **Symptom:** no corpus session blocked (coverage PARTIAL: review 2978's two omissions). «#name» then Return left the menu up in JS where C ends the command; under `lootabc` the JS rows read «C - a monster», «y - …» where C reads «a - a monster», «b - …» and takes a / b / c.
+- **C locus:** do_name.c docallcmd `:498–601` (menu `:520–556`); win/tty/wintty.c tty_add_menu (`"%c - "` with '?' for a 0 selector), tty_end_menu selector assignment `:2718–2727`, process_menu_window gacc `:1352–1379`, explicit-choice remap `:1555–1561`, finish keys `:1604–1631`, default arm gacc-then-selector `:1735–1762`.
+- **JS was:** docallcmd_menu painted its own corner menu and looped on nhgetch: 'q' quit (C has no 'q' item; it bells), Return / Space re-prompted, and under lootabc the row letter was the gselector. select_menu_pick_one matched the page selector before the group accelerator and accepted any gselector, even one not in gacc.
+- **Fix:** docallcmd_menu adds C's rows in C order (i / o only with invent) with selector '' under lootabc, calls select_menu_pick_one, and returns the picked a_char or 'q'. select_menu_pick_one computes gacc once, resolves a key in gacc to its group item first, then the page selector.
+- **JS:** js/do_name.js docallcmd_menu `:1549–1580`; js/options.js select_menu_pick_one `:10153–10172`. Dropped do_name.js imports nhgetch, paint_corner_nhw_menu, dismiss_nhw_menu (only the old loop used them; `grep -anw` listed no other hit); added select_menu_pick_one from options.js (`imports.mjs --can`: SAFE).
+- **Callers:** docallcmd ← cmd.c extcmdlist 'C' / #name / #call (unchanged). select_menu_pick_one's other 20 callers keep their behaviour unless a key is both a gacc and another item's selector, where they now follow C.
+- **Verify:**
+  - `node scripts/verify.mjs --fn docallcmd --full` → no corpus session blocked at baseline · reach: no RNG-tagged reach, smoke 24/24, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 → VERIFY: PASS.
+  - `node scripts/hidden-proxy.mjs sweep moveloop_core` → 926 baseline-PASS re-run in 160.9s, 0 regressed → REACH-OK.
+  - Frozen runner on every cached session whose C screens show «What do you want to name?» (1,533, archive included): 1,532 PASS; scen-tour-Priest-1012026 fails identically on HEAD (RNG 20691/21187, screens 153/168).
+  - verify docallcmd: 0 PASS, 0 moved, 0 no-movement (no session blocked).
+- **Named omissions:** the end_menu prompt row paints ATR_INVERSE like every select_menu_pick_one caller, not tty_menu_promptstyle (review 3006's shared debt).
+- **Ledger:** docallcmd ported; select_menu by-design
+- **Next:** the cliffs block is empty; the coverage head is mklev.c mktrap.
+
 ## D-4238 — role.c genl_player_setup's five chargen menus are PICK_ONE select_menu calls (`:2325`, `:2419`, `:2507`, `:2593`, `:2675`), and tty process_menu_window matches a key case-sensitively: first a group accelerator in gacc (one that differs from its item's selector and labels exactly one item, `:1352–1379`), then the exact selector on the page (`:1742–1762`). The role menu gives Rogue `r` and Ranger `R` (setup_rolemenu's highc, `:2885–2887`), so «R» picks Ranger. js/player_selection.js menu_pick also accepted `ch.toLowerCase()` and found Rogue's `r` first, and the «Is this ok?» loop lowercased every key
 
 - **Status:** shipped (cliffs head; 5 sessions from Grow #29).
